@@ -9,8 +9,8 @@ dashboard:
   title: Gösterge Paneli
   settings: Ayarlar_
   no_more_updates_event: Başka randevu yok
-  activity_filter_info: Burada, ana sayfanızda hangi güncellemelerin görüntüleneceğini
-    ayarlayabilirsiniz.
+  activity_filter_info: Burada, ana sayfanızda hangi güncellemelerin 
+    görüntüleneceğini ayarlayabilirsiniz.
   no_more_updates_store: İşletme ile ilgili daha fazla mesaj yok
   no_more_updates_forum: Daha fazla Forum gönderisi yok
   empty_section: Henüz bir {type} sahibi değilsiniz
@@ -81,8 +81,8 @@ dashboard:
   release:
     for_support: Aksi takdirde bizimle şu adresten iletişime geçebilirsiniz
     for_release_notes: En önemli değişiklikleri şu adreste bulabilirsiniz
-    for_news_from_it: Herhangi bir sorunuz veya herhangi bir zorluk varsa öncelikle
-      aşağıya bakın
+    for_news_from_it: Herhangi bir sorunuz veya herhangi bir zorluk varsa 
+      öncelikle aşağıya bakın
 geb_datum: Doğum tarihi (YYYY-AA-GG)
 add: ekle
 lat: Enlem
@@ -90,8 +90,8 @@ lon: Boylam
 regionPin:
   lat: Enlem
   lon: Boylam
-  text_desc: Lütfen yerel grubun açıklamasını ve iletişim bilgilerini buraya girin.
-    Bu, haritadaki Popup penceresinde görüntülenir …
+  text_desc: Lütfen yerel grubun açıklamasını ve iletişim bilgilerini buraya 
+    girin. Bu, haritadaki Popup penceresinde görüntülenir …
   pin_visible: Pin haritada görünür
   header_page: '{bezirk} için genel yerel grup açıklaması'
   desc: Açıklama
@@ -117,7 +117,8 @@ pass2: Şifre tekrarı
 compose_body: Mesaj
 newsletter: E-Bülteni
 newmail: Yeni e-posta adresinizi giriniz
-sleep_msg: Buraya şu anda neden vaktiniz olmadığını kısa bir mesaj bırakabilirsiniz.
+sleep_msg: Buraya şu anda neden vaktiniz olmadığını kısa bir mesaj 
+  bırakabilirsiniz.
 verantwortlicher: Yetkili Üyeler
 edit_websites: Genel Web Sitelerini düzenle
 botschafter: Elçi
@@ -130,7 +131,7 @@ title: Ana Başlık
 body: Mesaj
 active: Aktif Durumda
 photo: Fotoğraf
-info: Bilgi
+info: Bilgiler_
 ort: Şehir/Belde
 about_me_public: Herkese Açık Kısa Tanımlama
 about_me_intern: Özet
@@ -175,8 +176,8 @@ public_info: Şirket hakkında açık görünen bilgiler
 fax: Faks
 lebensmittel: Hangi yiyecekler alınabilir?
 abholmenge: Kurtarma başına yaklaşık kaç kilogram alınabilir?
-ueberzeugungsarbeit: Yetkiliyi foodsharing ile işbirliği yapmaya ikna etmek kolay
-  mıydı?
+ueberzeugungsarbeit: Yetkiliyi foodsharing ile işbirliği yapmaya ikna etmek 
+  kolay mıydı?
 presse: Şirket/Mağaza/Dernek basında ve foodsharing ismini vermeye hazır mı?
 member: Üyeler
 explanation: Açıklama
@@ -195,7 +196,8 @@ quiz:
   choice:
     wrongb: bu doğru değil!
     percentb: '% doğru cevapladınız.'
-    koquestion: Ne yazık ki, bu soru özellikle önemliydi ve doğru yanıtlamadınız.
+    koquestion: Ne yazık ki, bu soru özellikle önemliydi ve doğru 
+      yanıtlamadınız.
     correcta: doğru!
     correctb: Bu yalnış. Doğru bildiniz!
     cresponses: Doğru Cevaplar
@@ -204,81 +206,88 @@ quiz:
     writecomment: Bu soruya yorum yazın
     send: Gönder
     joke: sadece bir şakaydı ve elbette değerlendirilmeyecek
-    whatisko: Bu tür soruların değeri özellikle yüksektir ve yanlış yanıtlama ne yazık
-      ki başarısızlığa yol açar.
+    whatisko: Bu tür soruların değeri özellikle yüksektir ve yanlış yanıtlama ne
+      yazık ki başarısızlığa yol açar.
     responses: Cevaplayınız
     wronga: bu da doğru olurdu.
     answer: Cevap
     fpsum: biriken hata puanları
     sadlywrong: maalesef yanlış cevaplandı.
-    alsowrong: hiçbir şey seçmediğinizden veya süre dolduğundan maalesef yanlış olarak
-      derecelendirildi.
+    alsowrong: hiçbir şey seçmediğinizden veya süre dolduğundan maalesef yanlış 
+      olarak derecelendirildi.
     percenta: ne yazık ki sadece
     neut: nötrdür ve bu nedenle değerlendirilmez.
   goodluck: Bol şanslar!
   timedstart: Süre sınırı ve {count} soruyla testi başlatın
-  congrats_details: Tebrikler! Maksimum {max_points} ceza puanından {points} ile geçtiniz!
+  congrats_details: Tebrikler! Maksimum {max_points} ceza puanından {points} ile
+    geçtiniz!
   finished: Tebrikler, başardınız!
   regstart: Süre sınırı ve {count} soru olmadan testi başlatın
   heavysigh: Başardınız!
   notfinishedyet: Testi bitirmediniz.
   threestrikes: Testde 3 kez başarısız oldunuz.
   waitxdays: '… Süre zarfından sonra tekrar deneyebilirsiniz'
-  safeandsound: Hiç sorun değil. Oturumunuz kaydedildi. İstediğiniz zaman yanıtlamaya
-    devam edebilirsiniz.
+  safeandsound: Hiç sorun değil. Oturumunuz kaydedildi. İstediğiniz zaman 
+    yanıtlamaya devam edebilirsiniz.
   continuenow: Testi yanıtlamaya şimdi devam edin!
   trynumber: Bu deneme numara
   failedbeforebut: ' kadar sınavı geçemediniz. Ama hala şu kadar deneme hakkınız kaldı:'
   continuetype: -Teste devam edin
   days: Günler
-  session_deleted: Test iki haftadan uzun bir süre önce tamamlandığından, bu testin
-    sonuçları silindi.
+  session_deleted: Test iki haftadan uzun bir süre önce tamamlandığından, bu 
+    testin sonuçları silindi.
   quizleft: ' - Şimdi sadece bu testi başarmak kaldı !'
   nownownow: Testi şimdi başlat
-  not_passed_details: Maalesef başaramadınız. Maksimum {max_points} hata puanından
-    {points} aldınız!
+  not_passed_details: Maalesef başaramadınız. Maksimum {max_points} hata 
+    puanından {points} aldınız!
   type: -Test
   learnbreak: Ders arası
   comments: Yorumlar
   startmodal:
     infos:
-      alone: Testi kendiniz ve dışarıdan yardım almadan tamamlamanız gerekir. Eğer
-        dil sorunu yaşıyorsanız ya da yardıma ihtiyacınız varsa, başka bir kişi elbette
-        soruları anlamanıza yardımcı olabilir; Ancak bunlara kendi başınıza cevap
-        verebilmeniz gerekir. Bu nedenle sınavı rahatsız edilmeden çözebileceğiniz
-        sessiz bir yer bulun.
-      wiki: Lütfen testi rastgele başlatmayın. Listelenen bilgi sayfalarını önceden
-        dikkatlice okuyun. Wiki'deki bilgiler olmadan sınavı geçemezsiniz.
-      real_life_examples: Soruların çoğu foodsharing hayatında ki gerçek vakalara
-        dayanıyor.
-      limited_tries: Testi istediğiniz kadar tekrarlayamazsınız. Üç denemeden sonra
-        30 günlük bir ara vermeniz gerekir; bunun ardından yalnızca iki deneme hakkınız
-        daha vardır. Her denemede size sorulacak sorular farklıdır.
+      alone: Testi kendiniz ve dışarıdan yardım almadan tamamlamanız gerekir. 
+        Eğer dil sorunu yaşıyorsanız ya da yardıma ihtiyacınız varsa, başka bir 
+        kişi elbette soruları anlamanıza yardımcı olabilir; Ancak bunlara kendi 
+        başınıza cevap verebilmeniz gerekir. Bu nedenle sınavı rahatsız 
+        edilmeden çözebileceğiniz sessiz bir yer bulun.
+      wiki: Lütfen testi rastgele başlatmayın. Listelenen bilgi sayfalarını 
+        önceden dikkatlice okuyun. Wiki'deki bilgiler olmadan sınavı 
+        geçemezsiniz.
+      real_life_examples: Soruların çoğu foodsharing hayatında ki gerçek 
+        vakalara dayanıyor.
+      limited_tries: Testi istediğiniz kadar tekrarlayamazsınız. Üç denemeden 
+        sonra 30 günlük bir ara vermeniz gerekir; bunun ardından yalnızca iki 
+        deneme hakkınız daha vardır. Her denemede size sorulacak sorular 
+        farklıdır.
       read_carefully: Tüm soru ve cevapları dikkatlice okuyunuz.
-      pause: Her sorudan sonra testi duraklatabilir ve daha sonra devam ettirebilirsiniz.
-      feedback: Testin sonunda geçip geçmediğinize, hangi hataları ve nerede yaptığınıza
-        ilişkin anında bir değerlendirme alacaksınız. Burada boş zamanınızda nedenlerini
-        tekrar okuyabilirsiniz.
-      multiple_choice: Soru başına birkaç doğru cevap olabilir veya hiç olmayabilir.
-        Bu nedenle her cevabın doğru mu yanlış mı olduğuna, ayrı - ayrı karar verin.
-      comment: Her soruyu yanıtladıktan sonra, her yanıt seçeneği için açıklamalar
-        içeren bir ara değerlendirme göreceksiniz. Bu, hangi cevabın doğru veya yanlış
-        olduğunu ve nedenini anlamanıza yardımcı olur. Her hata için açıklamaları
-        dikkatlice okumalısınız. Bir şey mantıksız, anlaşılmaz ve hatta yanlış görünüyorsa,
-        lütfen yorum bırakın. Size bireysel geri bildirim sağlamak için yorumlarınız
-        size atanabilir.
-      unlimited_tries: Bu Testi istediğiniz sıklıkta tekrarlayabilirsiniz, ve başarısız
-        olmanız durumunda asla diskalifiye edilmeyeceksiniz. Ancak bazen denemeler
-        arasında öğrenmeye ara vermeniz gerekir.
-      timed: Soruların cevaplanma süresi sınırlıdır. Bunun sizi strese sokmasına izin
-        vermeyin. Soruyu huzur içinde cevaplamak için yeterli zamanınız olması için
-        süre her soru için ayrı, ayrı belirlenir. Kendinizi bir zaman sıkıntısı içinde
-        bulursanız, test yöneticilerine bir yorum yazarak bunu bildirin.
+      pause: Her sorudan sonra testi duraklatabilir ve daha sonra devam 
+        ettirebilirsiniz.
+      feedback: Testin sonunda geçip geçmediğinize, hangi hataları ve nerede 
+        yaptığınıza ilişkin anında bir değerlendirme alacaksınız. Burada boş 
+        zamanınızda nedenlerini tekrar okuyabilirsiniz.
+      multiple_choice: Soru başına birkaç doğru cevap olabilir veya hiç 
+        olmayabilir. Bu nedenle her cevabın doğru mu yanlış mı olduğuna, ayrı - 
+        ayrı karar verin.
+      comment: Her soruyu yanıtladıktan sonra, her yanıt seçeneği için 
+        açıklamalar içeren bir ara değerlendirme göreceksiniz. Bu, hangi cevabın
+        doğru veya yanlış olduğunu ve nedenini anlamanıza yardımcı olur. Her 
+        hata için açıklamaları dikkatlice okumalısınız. Bir şey mantıksız, 
+        anlaşılmaz ve hatta yanlış görünüyorsa, lütfen yorum bırakın. Size 
+        bireysel geri bildirim sağlamak için yorumlarınız size atanabilir.
+      unlimited_tries: Bu Testi istediğiniz sıklıkta tekrarlayabilirsiniz, ve 
+        başarısız olmanız durumunda asla diskalifiye edilmeyeceksiniz. Ancak 
+        bazen denemeler arasında öğrenmeye ara vermeniz gerekir.
+      timed: Soruların cevaplanma süresi sınırlıdır. Bunun sizi strese sokmasına
+        izin vermeyin. Soruyu huzur içinde cevaplamak için yeterli zamanınız 
+        olması için süre her soru için ayrı, ayrı belirlenir. Kendinizi bir 
+        zaman sıkıntısı içinde bulursanız, test yöneticilerine bir yorum yazarak
+        bunu bildirin.
     title: Test notları
     privacyNotice:
-      hygiene: Bu testi geçerseniz başarılı olduğunuzda kaydedilecek ve size Hijyen
-        Etiketi verilecektir. Hijyen yöneticileri ve operasyon ekiplerinizin üyeleri
-        geçerli bir Hijyen Etiketinizin olup olmadığını görebilir.
+      hygiene: Bu testi geçerseniz başarılı olduğunuzda kaydedilecek ve size 
+        Hijyen Etiketi verilecektir. Hijyen yöneticileri ve operasyon 
+        ekiplerinizin üyeleri geçerli bir Hijyen Etiketinizin olup olmadığını 
+        görebilir.
     acceptPrivacyNotice: _Kabul ediyorum.
   plural: Testler
   button:
@@ -304,8 +313,9 @@ quiz:
     placeholder: Yorum girin…
     send: Yorum gönder
     sent: Yorum gönderildi.
-    info: Bu soruyla ilgili bize geri bildirimde bulunun. Çok mu kolaydı, çok mu zordu,
-      yoksa anlaşılmaz mıydı? Veya bireysel cevaplar veya açıklamalar yanlış mı?
+    info: Bu soruyla ilgili bize geri bildirimde bulunun. Çok mu kolaydı, çok mu
+      zordu, yoksa anlaşılmaz mıydı? Veya bireysel cevaplar veya açıklamalar 
+      yanlış mı?
     wallTitle: '#{id} numaralı soruyla ilgili yorumlar'
     label: Soruya yorum yaz
   answers:
@@ -325,41 +335,43 @@ quiz:
       2: Nötr
     neutral: Nötr cevap - değerlendirilmeyecektir.
   state_based_info:
-    NEVER_TRIED: Bu teste daha önce hiç girmedin. Sorulara hazırlanmak için listelenen
-      tüm Wiki makalelerini dikkatle okumaya zaman ayırın.
-    RUNNING: Testi zaten başlattınız ve şu ana kadar {questionCount} sorudan {questionsAnswered}
-      tanesini yanıtladınız.
+    NEVER_TRIED: Bu teste daha önce hiç girmedin. Sorulara hazırlanmak için 
+      listelenen tüm Wiki makalelerini dikkatle okumaya zaman ayırın.
+    RUNNING: Testi zaten başlattınız ve şu ana kadar {questionCount} sorudan 
+      {questionsAnswered} tanesini yanıtladınız.
     PASSED: Testi başardınız.
     FAILED:
-      1: Maalesef bu testi ilk denemenizde geçemediniz. Bu olabilir. İlgili wiki makalelerine
-        göz atın ve tekrar deneyin.
-      2: Ne yazık ki bu testi ilk iki denemenizde başarısız oldunuz. Ders çalışmaya
-        bir ay ara vermek zorunda kalmadan önce hala üçüncü bir denemeniz var. Testi
-        geçebilmeniz için ilgili wiki makalelerine göz atmayı unutmayın.
-    DISQUALIFIED: Ne yazık ki, beş kez başarısız olduğunuz için bu sınavdan diskalifiye
-      edildiniz.
-    PAUSE: Bu testde üç kez başarısız oldunuz. Güvenilirlik, kuralların sıkı bir şekilde
-      kavranması ve profesyonel görünüm, foodsharing'in olmazsa olmazıdır. Ne yazık
-      ki, bu noktada cevaplarınızla bunu aktarmıyorsunuz. Bu nedenle, sınavı geçmek
-      için iki deneme daha yapmadan önce çalışmaya bir ay ara vereceksiniz. Çalışma
-      aranız {wait} gün içinde bitiyor.
+      1: Maalesef bu testi ilk denemenizde geçemediniz. Bu olabilir. İlgili wiki
+        makalelerine göz atın ve tekrar deneyin.
+      2: Ne yazık ki bu testi ilk iki denemenizde başarısız oldunuz. Ders 
+        çalışmaya bir ay ara vermek zorunda kalmadan önce hala üçüncü bir 
+        denemeniz var. Testi geçebilmeniz için ilgili wiki makalelerine göz 
+        atmayı unutmayın.
+    DISQUALIFIED: Ne yazık ki, beş kez başarısız olduğunuz için bu sınavdan 
+      diskalifiye edildiniz.
+    PAUSE: Bu testde üç kez başarısız oldunuz. Güvenilirlik, kuralların sıkı bir
+      şekilde kavranması ve profesyonel görünüm, foodsharing'in olmazsa 
+      olmazıdır. Ne yazık ki, bu noktada cevaplarınızla bunu aktarmıyorsunuz. Bu
+      nedenle, sınavı geçmek için iki deneme daha yapmadan önce çalışmaya bir ay
+      ara vereceksiniz. Çalışma aranız {wait} gün içinde bitiyor.
     PAUSE_ELAPSED:
-      3: Teste çalışma zamanın bitti. Artık teste iki kez daha katılabilirsiniz. Umarız
-        bu zamanı içeriğe daha aşina olmak için kullanmışsınızdır.
-      4: Bu testi geçmek için yalnızca son bir deneme hakkınız var! Şimdi başarısız
-        olursanız, bu sınavdan kalıcı olarak diskalifiye edileceksiniz. Lütfen yalnızca
-        wiki içeriğini ayrıntılı olarak incelediyseniz katılın.
+      3: Teste çalışma zamanın bitti. Artık teste iki kez daha katılabilirsiniz.
+        Umarız bu zamanı içeriğe daha aşina olmak için kullanmışsınızdır.
+      4: Bu testi geçmek için yalnızca son bir deneme hakkınız var! Şimdi 
+        başarısız olursanız, bu sınavdan kalıcı olarak diskalifiye 
+        edileceksiniz. Lütfen yalnızca wiki içeriğini ayrıntılı olarak 
+        incelediyseniz katılın.
   results:
     title:
       2: Maalesef testi geçemediniz.
       1: Tebrikler!
     points:
-      1: Maksimum {maxFailurePointsToSucceed} başarısızlık puanı üzerinden {failurePoints}
-        ile geçtiniz!
+      1: Maksimum {maxFailurePointsToSucceed} başarısızlık puanı üzerinden 
+        {failurePoints} ile geçtiniz!
       2: '{failurePoints} başarısızlık puanı aldınız ve en fazla {maxFailurePointsToSucceed}
         puanla geçebilirdiniz.'
-    deleted: Kesin değerlendirme testinden sonraki 2 hafta boyunca kaydedilir ve artık
-      kullanılamaz.
+    deleted: Kesin değerlendirme testinden sonraki 2 hafta boyunca kaydedilir ve
+      artık kullanılamaz.
   fp_badge:
     right: Doğru cevapladınız
     wrong: '{userFailurePoints} hatası'
@@ -398,8 +410,8 @@ quiz:
     ko: '{failurePoints} Hata puanları (k.o.)'
   sessionStatus:
     1: Maksimum {maxFailurePointsToSucceed} hata puanı {failurePoints} ile geçti
-    2: Maksimum {maxFailurePointsToSucceed} hata puanı {failurePoints} ile başarısız
-      oldu
+    2: Maksimum {maxFailurePointsToSucceed} hata puanı {failurePoints} ile 
+      başarısız oldu
     0: Şu anda çalışıyor
   confirmDelete:
     session: Bu test oturumunu silmek istediğinizden emin misiniz?
@@ -447,38 +459,40 @@ quiz:
           label: 'Açıklama:'
           placeholder: Açıklama…
         answerRating: 'Değerlendirme:'
-  confirmDashboardText: Bir testi başardınız, ancak daha onaylamadınız. İşlemi tamamlamak
-    için [burayı tıklayın]({url})!
+  confirmDashboardText: Bir testi başardınız, ancak daha onaylamadınız. İşlemi 
+    tamamlamak için [burayı tıklayın]({url})!
   confirmComment: Bu testin adminlerine notunuz gönderilsin mi?
   test_results: Test deneyinin sonuçları
   test: Testi test et
   stateBasedInfo:
-    neverTried: Bu Testi daha önce hiç yapmadın. Sorulara hazırlanmak için listelenen
-      tüm Bilgi makalelerini dikkatle okumaya zaman ayırın.
+    neverTried: Bu Testi daha önce hiç yapmadın. Sorulara hazırlanmak için 
+      listelenen tüm Bilgi makalelerini dikkatle okumaya zaman ayırın.
     noWaitAfter: İlgili Bilgi makalelerine göz atın ve tekrar deneyin.
-    waitAfter: Bir sonraki denemenizde başarısız olursanız, çalışmaya {waitTimeAfterFailure}
-      gün ara vermek zorunda kalacaksınız. Testi geçebilmeniz için ilgili Bilgi makalelerine
-      göz atmayı unutmayın.
-    pauseElapsed: Çalışma molanız bitti. Bu nedenle artık teste tekrar katılabilirsiniz.
-      Umarız bu zamanı içeriğe daha aşina olmak için kullanmışsınızdır.
-    disqualifiedAfter: Bu testi geçmek için yalnızca son bir deneme hakkınız var!
-      Şimdi başarısız olursanız, bu sınavdan kalıcı olarak diskalifiye edileceksiniz.
-      Lütfen yalnızca wiki içeriğini ayrıntılı olarak incelediyseniz katılın.
-    running: Testi zaten başlattınız ve şu ana kadar {questionCount} sorudan {questionsAnswered}
-      tanesini yanıtladınız.
+    waitAfter: Bir sonraki denemenizde başarısız olursanız, çalışmaya 
+      {waitTimeAfterFailure} gün ara vermek zorunda kalacaksınız. Testi 
+      geçebilmeniz için ilgili Bilgi makalelerine göz atmayı unutmayın.
+    pauseElapsed: Çalışma molanız bitti. Bu nedenle artık teste tekrar 
+      katılabilirsiniz. Umarız bu zamanı içeriğe daha aşina olmak için 
+      kullanmışsınızdır.
+    disqualifiedAfter: Bu testi geçmek için yalnızca son bir deneme hakkınız 
+      var! Şimdi başarısız olursanız, bu sınavdan kalıcı olarak diskalifiye 
+      edileceksiniz. Lütfen yalnızca wiki içeriğini ayrıntılı olarak 
+      incelediyseniz katılın.
+    running: Testi zaten başlattınız ve şu ana kadar {questionCount} sorudan 
+      {questionsAnswered} tanesini yanıtladınız.
     passed: Bu Testi geçtiniz.
     failed: Ne yazık ki, en son denediğinizde bu Testi geçemediniz.
-    pause: Bu testte birden çok kez başarısız oldunuz. Güvenilirlik, kuralların sıkı
-      bir şekilde kavranması ve profesyonel görünüm, foodsharing olmazsa olmazıdır.
-      Ne yazık ki, bu noktada cevaplarınızla bunu aktarmıyorsunuz. Bu nedenle, testi
-      tekrar geçmeyi denemeden önce çalışmanıza ara verilecektir. Çalışma molanız
-      {currentWaitTime} gün içinde bitiyor..
-    disqualified: Ne yazık ki, çok fazla başarısız olduğunuz için bu testten diskalifiye
-      edildiniz.
+    pause: Bu testte birden çok kez başarısız oldunuz. Güvenilirlik, kuralların 
+      sıkı bir şekilde kavranması ve profesyonel görünüm, foodsharing olmazsa 
+      olmazıdır. Ne yazık ki, bu noktada cevaplarınızla bunu aktarmıyorsunuz. Bu
+      nedenle, testi tekrar geçmeyi denemeden önce çalışmanıza ara verilecektir.
+      Çalışma molanız {currentWaitTime} gün içinde bitiyor..
+    disqualified: Ne yazık ki, çok fazla başarısız olduğunuz için bu testten 
+      diskalifiye edildiniz.
     passedBefore: Bu Testi zaten geçtiniz.
-    willExpire: Ancak başarılı olduğunuz test girişiminin geçerliliği {expirationTime}
-      gün içinde sona erer. Bu nedenle bu konu alanındaki bilgilerinizi tazeleyebilir
-      ve bu teste tekrar katılabilirsiniz.
+    willExpire: Ancak başarılı olduğunuz test girişiminin geçerliliği 
+      {expirationTime} gün içinde sona erer. Bu nedenle bu konu alanındaki 
+      bilgilerinizi tazeleyebilir ve bu teste tekrar katılabilirsiniz.
     expired: Ancak son test denemeniz artık geçerli değil.
   mandatory_question: Bu soru zorunludur ve her test denemesinde yer alır.
 answers: Hangi cevaplar doğru?
@@ -524,7 +538,8 @@ upload:
   crop_dialog_title: Fotoğrafı kes
   preview_image: Ön izleme
   images: Resimleri yükle
-  image-problem: Dosyanızda bir sorun görünüyor. En doğrusu normal bir jpg resmi kullanman
+  image-problem: Dosyanızda bir sorun görünüyor. En doğrusu normal bir jpg resmi
+    kullanman
   invalid_image_files: 'Seçilen {count} dosya geçerli resimler değil: {fileNames}'
 picture_upload_widget:
   picture_upload: Fotoğraf yükleme
@@ -548,8 +563,8 @@ pass:
     confirm: Emin misiniz?
     text: "Kişisel veriler kontrol edildi mi? <br>\nKimlik teslim edilsin mi?\n"
     failed: Bir sorun oluştu
-    checkPickups: Doğrulamayı iptal etmeden önce, girilen kurtarma tarihlerini kontrol
-      etmelisiniz.
+    checkPickups: Doğrulamayı iptal etmeden önce, girilen kurtarma tarihlerini 
+      kontrol etmelisiniz.
   button:
     unverify: Doğrulamayı iptal et
     verify: Doğrula
@@ -594,7 +609,8 @@ group:
     ability: Bu alanda sahip olduğunuz beceriler nelerdir?
     experience: "Grupta başka yerlerde edindiğiniz deneyimlerden faydalanabilir misiniz?\n\
       \ Eğer öyleyse, nerede veya hangileri?\n"
-    how_much_time: Haftada kaç saatinizi buna ayırmaya zamanınız ve isteğiniz var?
+    how_much_time: Haftada kaç saatinizi buna ayırmaya zamanınız ve isteğiniz 
+      var?
     error_missing_time: 'Hata: Zaman seçilmedi.'
   application_requirements:
     everybody: Herkes başvurabilir.
@@ -624,62 +640,64 @@ group:
     board: Yönetim Kurulu
     moderation: Moderatör
     invalid: Bir İlçeye çalışma grubu rolü verilemez.
-    duplicate_welcome_team: Karşılama ekibi oluşturuldu! Bölge başına yalnızca bir
-      karşılama ekibi olabilir.
+    duplicate_welcome_team: Karşılama ekibi oluşturuldu! Bölge başına yalnızca 
+      bir karşılama ekibi olabilir.
     arbitration: Tahkim Kurulu
     fsmanagement: Yönetim
     pr: Halkla İlişkiler
-    duplicate_stores_team: İşletme koordinasyon ekibi zaten kuruldu! Bölge başına
-      yalnızca bir işletme koordinasyon ekibi olabilir.
-    duplicate_fsp_team: Dağıtım ekibi zaten oluşturuldu! Bölge başına yalnızca bir
-      dağıtım ekibi olabilir.
-    duplicate_voting_team: Oylama ekibi oluşturuldu! Her bölge için yalnızca bir oylama
-      ekibi olabilir.
-    tooltip_function_6: Bu çalışma grubunun e-posta adresi "Arabuluculuk iste" düğmesinde
-      görüntülenir. Yöneticilerin özel izinleri yoktur.
-    tooltip_function_7: Bu çalışma grubunun yöneticilerine, raporlama ekibini içeren
-      raporlar gösterilir. Yöneticileri içeren hiçbir mesaj görüntülenmez! Bu tür
-      mesajları Raporlama ekibi alır
-    tooltip_function_9: Bu çalışma grubunun yöneticileri, harita için yerel grup açıklamasını
-      düzenleyebilir.
-    tooltip_function_10: Bu çalışma grubunun yöneticileri, denetlenen forumlardaki
-      katkıları etkinleştirebilir. Seçenek bölge için etkinleştirilirse forumdaki
-      gönderileri de gizleyebilirler.
-    tooltip_function_3: Bu çalışma grubunun yöneticileri, bölgede ki dağıtım noktalarını
-      açabilir, düzenleyebilir veya bununla ilgili paylaşımları kaldırabilirler
-    tooltip_function_11: Bu çalışma grubunun yöneticileri, bölge genel görünümünde
-      görüntülenir.
-    tooltip_function_4: Bu çalışma grubunun yöneticileri, bölgedeki işletmeleri görüntüleyebilir
-      ve düzenleyebilirler
-    tooltip_function_5: Bu çalışma grubunun yöneticileri, bölgedeki Foodsaverlarla
-      ilgili raporları görebilirler. Yöneticileri içeren hiçbir mesaj görüntülenmez!
-      Bunu ancak Tahkim kurulu görebilir.
-    duplicate_report_team: Raporlama ekibi zaten oluşturuldu! Bölge başına yalnızca
-      bir raporlama ekibi olabilir.
-    duplicate_mediation_team: Arabuluculuk ekibi zaten oluşturuldu! Bölge başına yalnızca
-      bir arabuluculuk ekibi olabilir.
-    duplicate_arbitration_team: Tahkim kurulu zaten oluşturuldu! Her ilçede yalnızca
-      bir tahkim kurulu olabilir.
+    duplicate_stores_team: İşletme koordinasyon ekibi zaten kuruldu! Bölge 
+      başına yalnızca bir işletme koordinasyon ekibi olabilir.
+    duplicate_fsp_team: Dağıtım ekibi zaten oluşturuldu! Bölge başına yalnızca 
+      bir dağıtım ekibi olabilir.
+    duplicate_voting_team: Oylama ekibi oluşturuldu! Her bölge için yalnızca bir
+      oylama ekibi olabilir.
+    tooltip_function_6: Bu çalışma grubunun e-posta adresi "Arabuluculuk iste" 
+      düğmesinde görüntülenir. Yöneticilerin özel izinleri yoktur.
+    tooltip_function_7: Bu çalışma grubunun yöneticilerine, raporlama ekibini 
+      içeren raporlar gösterilir. Yöneticileri içeren hiçbir mesaj 
+      görüntülenmez! Bu tür mesajları Raporlama ekibi alır
+    tooltip_function_9: Bu çalışma grubunun yöneticileri, harita için yerel grup
+      açıklamasını düzenleyebilir.
+    tooltip_function_10: Bu çalışma grubunun yöneticileri, denetlenen 
+      forumlardaki katkıları etkinleştirebilir. Seçenek bölge için 
+      etkinleştirilirse forumdaki gönderileri de gizleyebilirler.
+    tooltip_function_3: Bu çalışma grubunun yöneticileri, bölgede ki dağıtım 
+      noktalarını açabilir, düzenleyebilir veya bununla ilgili paylaşımları 
+      kaldırabilirler
+    tooltip_function_11: Bu çalışma grubunun yöneticileri, bölge genel 
+      görünümünde görüntülenir.
+    tooltip_function_4: Bu çalışma grubunun yöneticileri, bölgedeki işletmeleri 
+      görüntüleyebilir ve düzenleyebilirler
+    tooltip_function_5: Bu çalışma grubunun yöneticileri, bölgedeki 
+      Foodsaverlarla ilgili raporları görebilirler. Yöneticileri içeren hiçbir 
+      mesaj görüntülenmez! Bunu ancak Tahkim kurulu görebilir.
+    duplicate_report_team: Raporlama ekibi zaten oluşturuldu! Bölge başına 
+      yalnızca bir raporlama ekibi olabilir.
+    duplicate_mediation_team: Arabuluculuk ekibi zaten oluşturuldu! Bölge başına
+      yalnızca bir arabuluculuk ekibi olabilir.
+    duplicate_arbitration_team: Tahkim kurulu zaten oluşturuldu! Her ilçede 
+      yalnızca bir tahkim kurulu olabilir.
     title: Çalışma grubunun işlevi
-    duplicate_moderation_team: Moderasyon ekibi zaten oluşturuldu! Bölge başına yalnızca
-      bir moderasyon ekibi olabilir.
-    duplicate_board_team: Yönetim kurulu zaten oluşturuldu! Her ilçede sadece bir
-      yönetim kurulu olabilir.
-    tooltip_function_1: Bu çalışma grubunun yöneticileri, ilçedeki yeni üyeler hakkında
-      bilgilendirilecektir
+    duplicate_moderation_team: Moderasyon ekibi zaten oluşturuldu! Bölge başına 
+      yalnızca bir moderasyon ekibi olabilir.
+    duplicate_board_team: Yönetim kurulu zaten oluşturuldu! Her ilçede sadece 
+      bir yönetim kurulu olabilir.
+    tooltip_function_1: Bu çalışma grubunun yöneticileri, ilçedeki yeni üyeler 
+      hakkında bilgilendirilecektir
     welcome: Selamlama
-    duplicate_pr_team: Halkla ilişkiler ekibi zaten oluşturuldu! Bölge başına yalnızca
-      bir halkla ilişkiler ekibi olabilir.
-    restricted_workgroup_function: Bu çalışma grubu fonksiyonu, yalnızca bölgeler
-      üstü çalışma grubu "AG anlegen" üzerinden düzenlenebilir
-    tooltip_function_2: Bu çalışma grubunun yöneticileri, bölge için oylama oluşturabilir
-    duplicate_fsmanagement_team: Yönetim ekibi zaten oluşturuldu! Bölge başına yalnızca
-      bir yönetim ekibi olabilir.
+    duplicate_pr_team: Halkla ilişkiler ekibi zaten oluşturuldu! Bölge başına 
+      yalnızca bir halkla ilişkiler ekibi olabilir.
+    restricted_workgroup_function: Bu çalışma grubu fonksiyonu, yalnızca 
+      bölgeler üstü çalışma grubu "AG anlegen" üzerinden düzenlenebilir
+    tooltip_function_2: Bu çalışma grubunun yöneticileri, bölge için oylama 
+      oluşturabilir
+    duplicate_fsmanagement_team: Yönetim ekibi zaten oluşturuldu! Bölge başına 
+      yalnızca bir yönetim ekibi olabilir.
     election: Seçimler
-    tooltip_function_12: Bu çalışma grubunun yöneticileri bölge genel görünümünde
-      görüntülenir.
-    duplicate_election_team: Seçimler çoktan planlandı! Her bölgede yalnızca bir seçim
-      grubu bulunabilir.
+    tooltip_function_12: Bu çalışma grubunun yöneticileri bölge genel 
+      görünümünde görüntülenir.
+    duplicate_election_team: Seçimler çoktan planlandı! Her bölgede yalnızca bir
+      seçim grubu bulunabilir.
     stores_coordination: İşletmeler
     none: GOALS-AG yok
   entermotivation: 'Motivasyon:'
@@ -725,9 +743,9 @@ group:
   quit_name_workgroup: '{name} Ekipten ayrıl'
   role_name: Rolü
   really_quit_district: '{name} bölgesinden ayrılmak istediğinizden emin misiniz?'
-  quitting_home_district_warning: Bağlı olduğunuz {name} bölgesinden gerçekten ayrılmak
-    istiyor musunuz? Onaylamanızı kaybedeceksiniz ve daha sonra yeni bölgenizin elçi
-    ekibine rapor vermek zorunda kalacaksınız.
+  quitting_home_district_warning: Bağlı olduğunuz {name} bölgesinden gerçekten 
+    ayrılmak istiyor musunuz? Onaylamanızı kaybedeceksiniz ve daha sonra yeni 
+    bölgenizin elçi ekibine rapor vermek zorunda kalacaksınız.
   last_activity: Son Aktivite
   application_region: '{group} için başvuru'
   application_from: -den
@@ -737,21 +755,22 @@ group:
     zero: Admin yok
     one: Bir Admin var
   unique_function:
-    tooltip_function_region332: Bu çalışma grubunun üyeleri İşletme zinciri listesine
-      erişebilir
-    tooltip_function_region341: Bu çalışma grubunun yöneticileri sınav sorularını
-      yönetebilir
-    tooltip_function_region1811: Bu çalışma grubunun yöneticileri "Partner", "İletişim"
-      ve "Ekip" sayfalarını düzenleyebilir
-    tooltip_function_region2287: Bu çalışma grubunun yöneticileri, başlangıç sayfasının
-      içeriğini düzenleyebilir
-    tooltip_function_region432: Bu çalışma grubunun yöneticileri raporları görüntüleyebilir
-    tooltip_function_region327: Bu çalışma grubunun yöneticileri blog girişlerini
-      düzenleyebilir
-    tooltip_function_region331: Bu çalışma grubunun yöneticileri haber bültenleri
-      gönderebilir
-    tooltip_function_region387: Bu çalışma grubunun yöneticileri, e-posta geri dönen
-      listesinden girişleri kaldırabilir
+    tooltip_function_region332: Bu çalışma grubunun üyeleri İşletme zinciri 
+      listesine erişebilir
+    tooltip_function_region341: Bu çalışma grubunun yöneticileri sınav 
+      sorularını yönetebilir
+    tooltip_function_region1811: Bu çalışma grubunun yöneticileri "Partner", 
+      "İletişim" ve "Ekip" sayfalarını düzenleyebilir
+    tooltip_function_region2287: Bu çalışma grubunun yöneticileri, başlangıç 
+      sayfasının içeriğini düzenleyebilir
+    tooltip_function_region432: Bu çalışma grubunun yöneticileri raporları 
+      görüntüleyebilir
+    tooltip_function_region327: Bu çalışma grubunun yöneticileri blog 
+      girişlerini düzenleyebilir
+    tooltip_function_region331: Bu çalışma grubunun yöneticileri haber 
+      bültenleri gönderebilir
+    tooltip_function_region387: Bu çalışma grubunun yöneticileri, e-posta geri 
+      dönen listesinden girişleri kaldırabilir
   member_list:
     remove_admin_title: Yönetici olarak oturumu kapat
     is_verified: Onaylandı
@@ -793,8 +812,8 @@ group:
         do: 'Gerçekten {name} ({id}) (veri senkronize edildi / kimlik kontrol edildi,
           vb.) doğrulamak istiyor musunuz?'
         undo: '{name} ({id}) onaylamasını iptal edin'
-        do_selected: Seçilenlerin tümünü gerçekten doğrulamak istiyor musunuz (veri
-          karşılaştırması yapıldı/kimlik kontrol edildi vb.)?
+        do_selected: Seçilenlerin tümünü gerçekten doğrulamak istiyor musunuz 
+          (veri karşılaştırması yapıldı/kimlik kontrol edildi vb.)?
       filter_selection: Yalnızca seçili üyeleri göster
       verify_selected: işaretli olanları doğrula
       automatic_paper_size: A4 kağıt kullanın
@@ -982,8 +1001,10 @@ error:
     not_found: Sayfa bulunamadı.
     back_home: Ana sayfaya dön
 activitypost:
-  quickreply_info: <code class="key">Shift + Enter</code> yeni bir satır eklemek için.
-  quickreply_button: Şimdi gönder<br>veya <code class="key">Enter tuşuna</code>bas.
+  quickreply_info: <code class="key">Shift + Enter</code> yeni bir satır eklemek
+    için.
+  quickreply_button: Şimdi gönder<br>veya <code class="key">Enter 
+    tuşuna</code>bas.
   write: Cevap yaz …
   Response: 'Cevaplayınız'
   response: 'cevaplayınız'
@@ -1012,8 +1033,8 @@ pickuplist:
   month_tab: Ay
   year_tab: Yıl
   NumberOfSlots_table_header: Slot sayısı
-  tooslow: Maalesef, kayıt işlemi gerçekleşemedi. Bunun nedeni muhtemelen başka birinin
-    daha hızlı olmasıydı.
+  tooslow: Maalesef, kayıt işlemi gerçekleşemedi. Bunun nedeni muhtemelen başka 
+    birinin daha hızlı olmasıydı.
   error_kick: 'Kaldırılamadı '
   header_for_district: '{bezirk} içinde alımların dağılımı '
   time_table_header: Süre
@@ -1196,19 +1217,21 @@ bcard:
   card: Foodsharing kartvizitiniz
   error:
     verified: Kartvizitinizi oluşturmak için onaylanmanız gerekir.
-    length: Adresiniz çok uzun. Adres, Posta kodu ve şehir, birlikte en fazla 49 karakter
-      olabilir.
-    phone: Kartvizitinizi oluşturmak için geçerli bir telefon numarası vermiş olmalısınız.
+    length: Adresiniz çok uzun. Adres, Posta kodu ve şehir, birlikte en fazla 49
+      karakter olabilir.
+    phone: Kartvizitinizi oluşturmak için geçerli bir telefon numarası vermiş 
+      olmalısınız.
   choose: Bir seçenek seçmelisiniz
   generate: Kartvizitler oluşturun
   info:
-    address_shortened: Adresiniz ve/veya posta kodunuz + şehir, kartvizitte kısaltılacaktır.
+    address_shortened: Adresiniz ve/veya posta kodunuz + şehir, kartvizitte 
+      kısaltılacaktır.
   title: Kartvizit otomatik programlama
   claim: Burada kolayca oluşturun, yazdırın ve kesin …
   for: '{role} için {region}'
   actions: Opsiyonlar
-  desc: Kartvizitinizi hangi bölge için veya hangi sıfat için oluşturmak istediğinizi
-    buradan seçin.
+  desc: Kartvizitinizi hangi bölge için veya hangi sıfat için oluşturmak 
+    istediğinizi buradan seçin.
   role: Rolü
   region: Bölge_
 month:
@@ -1253,7 +1276,8 @@ storeedit:
     leave_myself: Kendinizi
     need-sm: Bu İşletme için en az bir kişi sorumlu olmalıdır.
     note: 'Uyarı:'
-    cannot-leave: Bu işletmeden hala siz sorumlusunuz ve bu nedenle ayrılamazsınız.
+    cannot-leave: Bu işletmeden hala siz sorumlusunuz ve bu nedenle 
+      ayrılamazsınız.
     max-sm: Lütfen işletmeden sorumlu, en fazla üç yönetici seç
     bread: Ekibi düzenle
     foodsaver: Foodsaver
@@ -1272,7 +1296,8 @@ storeedit:
     teamStatus1: Yardımcı aranıyor
     teamStatus2: Acilen yardımcı aranıyor
     hygieneRequirement: Hijyen gereksinimleri
-    hygieneRequired: Gıda alım işlemine yalnızca geçerli hijyen eğitimi ile izin verin
+    hygieneRequired: Gıda alım işlemine yalnızca geçerli hijyen eğitimi ile izin
+      verin
   add_success: İşbirliği yapan işletme kaydedildi
   unsuccess: Değişiklikler kaydedilemedi. {error}
   store:
@@ -1319,18 +1344,20 @@ ageBandList:
   NumberOfAgeband: Sayısı
 regionOptions:
   header_page: '{bezirk} için seçenekler'
-  enableMediationButton: Bölgenin düzenli foodsaverlarının profil sayfalarındaki arabuluculuk
-    formunu etkinleştirin
+  enableMediationButton: Bölgenin düzenli foodsaverlarının profil sayfalarındaki
+    arabuluculuk formunu etkinleştirin
   success: Seçenekler başarıyla kaydedildi
   save: Seçenekleri kaydet
-  enableReportButton: Bölgenin düzenli foodsaverlarının profil sayfalarındaki şikayet
-    formunu etkinleştirin
-  regionPickupLimitNumber: Lütfen bu dönem için mümkün olan maksimum alım sayısını
+  enableReportButton: Bölgenin düzenli foodsaverlarının profil sayfalarındaki 
+    şikayet formunu etkinleştirin
+  regionPickupLimitNumber: Lütfen bu dönem için mümkün olan maksimum alım 
+    sayısını girin
+  regionPickupTimespan: Lütfen düzenlemenin geçerli olduğu süreyi gün olarak 
+    belirtiniz
+  regionPickupLimitDayNumber: Lütfen BİR GÜN için toplam maksimum alım sayısını 
     girin
-  regionPickupTimespan: Lütfen düzenlemenin geçerli olduğu süreyi gün olarak belirtiniz
-  regionPickupLimitDayNumber: Lütfen BİR GÜN için toplam maksimum alım sayısını girin
-  regionPickupInactiveHours: Lütfen düzenlemenin artık geçerli olmayacağı bir alımdan
-    önceki saat sayısını girin?
+  regionPickupInactiveHours: Lütfen düzenlemenin artık geçerli olmayacağı bir 
+    alımdan önceki saat sayısını girin?
   regionPickupRuleActive: 'Bölge çapında adalet kuralına sahip (nadir, genellikle
     efsanevi, özellikle sıra dışı, son derece popüler, yararlı) işletmelerdeki alımlar
     için aşağıdaki bölge kuralını etkinleştirin:'
@@ -1338,8 +1365,8 @@ regionOptions:
     ilçedeki işletmelerin listesi. Listelenen firmalara ait tüm tahsilatlar birbirine
     eklenir ve kurala göre dikkate alınır.'
   regionReportReasonSimple: Basitleştirilmiş şikayet nedenleri
-  noPickupRuleActiveStores: İlçedeki hiçbir işletmede bölge adalet kuralı şu anda
-    aktif değil.
+  noPickupRuleActiveStores: İlçedeki hiçbir işletmede bölge adalet kuralı şu 
+    anda aktif değil.
   regionReportReasonCategoryB: 'Genişletilmiş raporlama nedenleri: Davranış kuralları
     - B) Gıda kurtarma sırasındaki davranışlar'
   regionReportReasonOther: Raporlama nedeni olarak “Diğer”e izin ver
@@ -1348,8 +1375,8 @@ validate:
 select: Lütfen seçiniz
 reports:
   about: Hakkında
-  reportmessage: Herhangi bir soru olması durumunda size nasıl ulaşılabileceğini kısaca
-    belirtiniz.
+  reportmessage: Herhangi bir soru olması durumunda size nasıl ulaşılabileceğini
+    kısaca belirtiniz.
   about_first_name: İsim hakkında
   all_reports: Tüm raporlar
   city: Şehir
@@ -1413,8 +1440,8 @@ store:
     managementActions: İşletme Sorumluları için faaliyetler
     filterActive: aktif
     filterAll: Üyeler
-    promoteToManagerNotPossible: Zaten üç işletme sorumlusu olması veya kişinin henüz
-      sınavı geçememiş olması nedeniyle kişi sorumlu olamaz.
+    promoteToManagerNotPossible: Zaten üç işletme sorumlusu olması veya kişinin 
+      henüz sınavı geçememiş olması nedeniyle kişi sorumlu olamaz.
     buttonManagementToggle: İşletme Sorumlusu Modu
     toogleIsReducedStateOpen: Listeyi aç
     toogleIsReducedStateClosed: Listeyi kapat
@@ -1428,8 +1455,8 @@ store:
     filterHygiene: Hijyen eğitimi almış kişiler
     filterNoHygiene: 'Hijyen eğitimi olmadan'
     inviteMember: Ekibe davet et
-    demoteAsManagerConfirm: Gerçekten işletme yetkilisi olarak sorumluluğunuzu bırakmak
-      istiyor musunuz?
+    demoteAsManagerConfirm: Gerçekten işletme yetkilisi olarak sorumluluğunuzu 
+      bırakmak istiyor musunuz?
   prefetchthree: 3 Hafta
   prefetchfour: 4 Hafta
   request:
@@ -1439,8 +1466,8 @@ store:
     verified: Kullanıcı onaylandı
     withdrawn: Başvuru talebi başarıyla geri çekildi.
     to-jumper: Yedek Listesi
-    got-it: Sorumlular talebiniz hakkında bilgilendirilmiştir ve sizinle iletişime
-      geçecektir.
+    got-it: Sorumlular talebiniz hakkında bilgilendirilmiştir ve sizinle 
+      iletişime geçecektir.
     withdraw: Başvuruyu geri çekin
     to-team: Kabul et
     to-nowhere: Reddet
@@ -1450,18 +1477,18 @@ store:
     distance_unknown: ikamet yeri sağlanmadı
     air_line: Gösterilen mesafe kuş uçuşu uzaklığına denk gelir.
     confirm-no-location-ok: Yine de başvur
-    confirm-no-location: Profilinize geçerli bir adres girmediniz. İşletmeden sorumlu
-      kişilerin başvurunuza karar vermesini kolaylaştırmak için lütfen bir ev adresi
-      girin.
-    confirm-far: Kayıtlı adresinize göre bu işletmeden çok uzakta oturuyorsunuz ({distance}).
-      Buradaki ekibe düzenli ve güvenilir bir şekilde destek verebileceğinizden emin
-      misiniz?
+    confirm-no-location: Profilinize geçerli bir adres girmediniz. İşletmeden 
+      sorumlu kişilerin başvurunuza karar vermesini kolaylaştırmak için lütfen 
+      bir ev adresi girin.
+    confirm-far: Kayıtlı adresinize göre bu işletmeden çok uzakta oturuyorsunuz 
+      ({distance}). Buradaki ekibe düzenli ve güvenilir bir şekilde destek 
+      verebileceğinizden emin misiniz?
     application-placeholder: Bu ekibe yardımcı olmak istiyorum çünkü …
     application-message: Başvuru mesajı
     hygieneMissing: 'Şu anda eksik olan şudur: Bu ekipte yer almak istiyorsan hemen
       hijyen testini yapın.'
-    hygieneRequired: Bu işletmede alım yapmak için geçerli bir Hijyen Sertifikası
-      gerekmektedir.
+    hygieneRequired: Bu işletmede alım yapmak için geçerli bir Hijyen 
+      Sertifikası gerekmektedir.
   filter: …göre filtrele…
   enterdate: Alım tarihini girin
   important: 'Önemli:'
@@ -1473,11 +1500,11 @@ store:
     some: İkna ettikten sonra katılmayı kabul etti.
   complete: eksiksiz veritabanı
   nodetails: Burada kesin teslim alma saatlerini paylaşmayın.
-  willgetcontacted: Şu anda yedek listesindesiniz. Yardıma ihtiyaç duyulduğunda sizinle
-    iletişime geçilecektir.
-  nochains: Lütfen yalnızca sahibi tarafından yönetilen ve en fazla 3 şubeye sahip
-    işletmelere hitap edin, asla daha büyük bir zincirin şubelerine hitap etmeyin!
-    İşletme zinciri kurallarına uyun!
+  willgetcontacted: Şu anda yedek listesindesiniz. Yardıma ihtiyaç duyulduğunda 
+    sizinle iletişime geçilecektir.
+  nochains: Lütfen yalnızca sahibi tarafından yönetilen ve en fazla 3 şubeye 
+    sahip işletmelere hitap edin, asla daha büyük bir zincirin şubelerine hitap 
+    etmeyin! İşletme zinciri kurallarına uyun!
   maxchar: (maks. 180 İşaret)
   team:
     isfull: Grup dolu
@@ -1487,14 +1514,15 @@ store:
     is_closed: Ekip kapatıldı
   enternumber: Alacak insan sayısını belirlemeniz gerekiyor.
   prefetchone: 1 Hafta
-  leaveinfo: Burada ekibe başvurmak isteyen Foodsaverlar için bazı bilgiler verebilirsiniz.
+  leaveinfo: Burada ekibe başvurmak isteyen Foodsaverlar için bazı bilgiler 
+    verebilirsiniz.
   smneeded: Bir işletme kurmak için işletme yöneticisi olmanız gerekir.
   locked: Bu işletmeyi düzenleyemezsiniz.
   bread: Tüm işletmeler
   actions: Opsiyonlar
   not-in-team: Henüz bu işletme ekibinin bir parçası değilsiniz.
-  pickup_slot_unavailable: Bu Slot, işletme yöneticisinin planladığından daha ileride.
-    Bu yüzden lütfen daha sonra tekrar deneyin.
+  pickup_slot_unavailable: Bu Slot, işletme yöneticisinin planladığından daha 
+    ileride. Bu yüzden lütfen daha sonra tekrar deneyin.
   fetchCount: '{count}× buradan aldı.'
   mayManage: İşletme yöneticisi sınavını geçti.
   particularities: Özellikler
@@ -1516,11 +1544,12 @@ store:
   tooltip_jumping: Bu işletmenin yedek listesindesiniz
   jumperSince: 'Şu tarihten beri yedek listesinde {date}'
   go: Ekibe
-  regionPickupRuleLong: İstenilen teslim alma tarihinden sonraki ±{regionPickupRuleTimespan}
-    gün içinde, ülke çapında ki adalet kuralı işletmelerinde, {regionPickupRuleLimit}
-    defadan fazla alım yapılamaz. Bu işletmelerde, günde en fazla {regionPickupRuleLimitDay}
-    kez alım yapılabilir. {regionPickupRuleInactive} Teslim alıma saatler kala, bu
-    kural dikkate alınmaz.
+  regionPickupRuleLong: İstenilen teslim alma tarihinden sonraki 
+    ±{regionPickupRuleTimespan} gün içinde, ülke çapında ki adalet kuralı 
+    işletmelerinde, {regionPickupRuleLimit} defadan fazla alım yapılamaz. Bu 
+    işletmelerde, günde en fazla {regionPickupRuleLimitDay} kez alım 
+    yapılabilir. {regionPickupRuleInactive} Teslim alıma saatler kala, bu kural 
+    dikkate alınmaz.
   unknownDate: bilinmeyen
   days_before: önce
   peoplecame: İnsanların mağazaya sık sık çağrılmadan gittiği oldu.
@@ -1559,25 +1588,27 @@ store:
   one_active: aktif
   of_that: bundan
   unverified_member: daha doğrulanmamış
-  particularities_chain_tooltip: Bu kuruluş bir zincirin parçası. Zincirdeki tüm kuruluşlar
-    için geçerli olan bu ek bilgilerin görüntülenmesinin nedeni budur.
+  particularities_chain_tooltip: Bu kuruluş bir zincirin parçası. Zincirdeki tüm
+    kuruluşlar için geçerli olan bu ek bilgilerin görüntülenmesinin nedeni 
+    budur.
   unverified_members: daha doğrulanmamış
   particularities_chain: Zincirin özellikleri
   info_container: Bilgiler
   requests: Açık istekler ({count})
-  not_verified: Doğrulanmadınız. Bu nedenle ekip üyelerinin slotlarını ve telefon
-    numaralarını göremezsiniz.
-  enter_date_description: Alınacak tarih, saat ve kişi sayısını seçtikten sonra bu
-    randevu için bir defaya mahsus slot ayarlayabilirsiniz. Düzenli (haftalık olarak
-    otomatik olarak yinelenen) slotlar oluşturmak istiyorsanız lütfen 'Şirket bilgilerini
-    görüntüle' menüsünü kullanın.
+  not_verified: Doğrulanmadınız. Bu nedenle ekip üyelerinin slotlarını ve 
+    telefon numaralarını göremezsiniz.
+  enter_date_description: Alınacak tarih, saat ve kişi sayısını seçtikten sonra 
+    bu randevu için bir defaya mahsus slot ayarlayabilirsiniz. Düzenli (haftalık
+    olarak otomatik olarak yinelenen) slotlar oluşturmak istiyorsanız lütfen 
+    'Şirket bilgilerini görüntüle' menüsünü kullanın.
   enter_date: Bireysel teslim alma tarihlerini girin
   delete_date: Bireysel alım randevusunu sil
-  delete_date_description: Şirketinizde düzenli (haftalık olarak otomatik olarak yinelenen)
-    slotlar kullanıyorsanız ve belirli bir tarihin (örneğin resmi tatil) oluşturulmasını
-    engellemek istiyorsanız, tarih ve saati belirterek bunu sağlamak için bu işlevi
-    kullanabilirsiniz. Halihazırda görünen slotları silmek isterseniz, foodsaver yazılı
-    olmadığı sürece doğrudan slota tıklayarak da bu işlemi gerçekleştirebilirsiniz.
+  delete_date_description: Şirketinizde düzenli (haftalık olarak otomatik olarak
+    yinelenen) slotlar kullanıyorsanız ve belirli bir tarihin (örneğin resmi 
+    tatil) oluşturulmasını engellemek istiyorsanız, tarih ve saati belirterek 
+    bunu sağlamak için bu işlevi kullanabilirsiniz. Halihazırda görünen slotları
+    silmek isterseniz, foodsaver yazılı olmadığı sürece doğrudan slota 
+    tıklayarak da bu işlemi gerçekleştirebilirsiniz.
   log:
     message:
       6: "{actor}, {target}'ı aktif ekibe ekledi."
@@ -1623,8 +1654,8 @@ store:
       17: Bireysel kurtarma randevusu oluşturuldu veya değiştirildi
       20: Ekip davetlerini reddet
       19: Ekip davetlerini kabul et
-    max_entries_message: Maksimum 100 giriş görüntülenebilir.. Lütfen arama alanını
-      sınırlandırın.
+    max_entries_message: Maksimum 100 giriş görüntülenebilir.. Lütfen arama 
+      alanını sınırlandırın.
     log_types_placeholder: Görüntülenecek eylem türlerini seçin
     search: Seçili eylemleri göster
     selected_log_types: '{amount} işlem türü seçildi'
@@ -1635,7 +1666,8 @@ store:
   slot_state: Slot durumu
   lastPickupTitle: Son alım tarihi
   slotsCurrentlyOccupied: Şu anda dolu slotlar
-  deactivatedRegion: İşletme listesi şu anda ülkeler ve kıtalar için görüntülenemiyor.
+  deactivatedRegion: İşletme listesi şu anda ülkeler ve kıtalar için 
+    görüntülenemiyor.
   chain_search_picker:
     modal_title: İşletme zinciri seç
     search_input: İşletme zincir adına göre ara
@@ -1649,14 +1681,14 @@ store:
     title: '{storeTitle} için davetiyeler'
     withdraw: Davetiyeyi geri çek
     accept: Daveti kabul et
-    info: Foodsaverları ekibe katılmaya davet ettiğinizde, kişisel verilerinin korunması
-      amacıyla doğrudan işletme ekibine eklenmezler. Ekibe katılmaları için kendilerine
-      bir istek gönderilecek ve bu isteği kabul etmeleri gerekecek. Bu davetleri dilediğiniz
-      zaman geri çekebilirsiniz.
+    info: Foodsaverları ekibe katılmaya davet ettiğinizde, kişisel verilerinin 
+      korunması amacıyla doğrudan işletme ekibine eklenmezler. Ekibe katılmaları
+      için kendilerine bir istek gönderilecek ve bu isteği kabul etmeleri 
+      gerekecek. Bu davetleri dilediğiniz zaman geri çekebilirsiniz.
     decline: Reddet
     invited_by: Davet edildi_
-    invited_info: Bu işletmeye davet edildiniz. Daveti kabul ederek işletme ekibine
-      katılabilirsiniz.
+    invited_info: Bu işletmeye davet edildiniz. Daveti kabul ederek işletme 
+      ekibine katılabilirsiniz.
 polls:
   title: Başlık
   new_poll: Yeni Anket oluştur
@@ -1664,7 +1696,8 @@ polls:
   start_date: -den
   end_date: kadar
   ended: Geçmiş Anketler
-  hint: Oylama modülü, "Oylamalar - Test" ulusal çalışma grubunda test edilebilir.
+  hint: Oylama modülü, "Oylamalar - Test" ulusal çalışma grubunda test 
+    edilebilir.
   future: Gelecekte ki Anketler
   ongoing: Devam eden anketler
   hint_2: Oylamayı kullanma talimatlarını Wiki'de bulabilirsiniz
@@ -1685,14 +1718,14 @@ poll:
     end_date: Oylama sonu
     options: Aralarından seçim yapabileceğiniz seçenekler.
     submit_success: Oylama oluşturuldu
-    submit_question: Anket başlayana kadar değiştirilebilir. Bunu gerçekten şimdi
-      oluşturmak istiyor musun?
+    submit_question: Anket başlayana kadar değiştirilebilir. Bunu gerçekten 
+      şimdi oluşturmak istiyor musun?
     name_required: Lütfen bir isim giriniz.
     type: Oylama Modu
     description_placeholder: Bu neyin Oylaması?
     submit: Oyu kaydet
-    start_date_required: Lütfen oylama başlangıç saatini seçin. En az bir saat ileri
-      olmalı.
+    start_date_required: Lütfen oylama başlangıç saatini seçin. En az bir saat 
+      ileri olmalı.
     end_date_required: Lütfen başlangıçtan sonraki oylama bitişini seçin.
     start_date: Oylama başlangıcı
     description_required: Lütfen bir açıklama girin.
@@ -1727,39 +1760,42 @@ poll:
   in_future: henüz başlamadı
   begins_at: Başlangıç
   allowed_voters: Oy kullanma hakkına sahip
-  scope_description_0: Bölgeden / gruptan, onaylı ve onaylanmamış tüm foodsaverlar
-  submit_vote_question: Şimdi gerçekten oy veriyor musunuz? Seçiminiz daha sonra değiştirilemez.
+  scope_description_0: Bölgeden / gruptan, onaylı ve onaylanmamış tüm 
+    foodsaverlar
+  submit_vote_question: Şimdi gerçekten oy veriyor musunuz? Seçiminiz daha sonra
+    değiştirilemez.
   already_voted: Bu oylamaya zaten katıldınız
   edit:
     submit: Oyu kaydet
     title: Oylamayı düzenle
-    submit_question: Oylama değişikliklerini kaydetmek istediğinizden emin misiniz?
+    submit_question: Oylama değişikliklerini kaydetmek istediğinizden emin 
+      misiniz?
   in_past: tamamlanmış
-  may_not_vote: Bu ankette oy kullanamazsınız. Bu anket oluşturulduğunda oylama grubunun
-    bir parçası değildiniz. Oy verme süresi içerisinde oy kullanabileceğiniz kriterleri
-    karşılıyor olsanız dahi geriye dönük olarak oy kullanma hakkını almanız mümkün
-    değildir.
+  may_not_vote: Bu ankette oy kullanamazsınız. Bu anket oluşturulduğunda oylama 
+    grubunun bir parçası değildiniz. Oy verme süresi içerisinde oy 
+    kullanabileceğiniz kriterleri karşılıyor olsanız dahi geriye dönük olarak oy
+    kullanma hakkını almanız mümkün değildir.
   may_not_yet_vote: Bu oylama henüz başlamadı.
   eligible_votes_count: Seçmen sayısı
   ended_at: kadar sürdü
   type_description_2: Her durumda seçenekler onay / çekimser / ret
   time_period: Süre
   not_available: Bu anket mevcut değil veya ankete erişemiyorsunuz.
-  scope_description_2: Bölgedeki, şu anda herhangi bir işletmeden sorumlu, işletme
-    sorumluları
+  scope_description_2: Bölgedeki, şu anda herhangi bir işletmeden sorumlu, 
+    işletme sorumluları
   type_description_0: Seçin (yalnızca bir seçenek seçilebilir)
-  type_description_3: -3 (red) ile +3 (onay) arasında ki değerlere sahip derecelendirme
-    seçeneği
-  untraceable: Hangi seçeneğe nasıl oy verdiğinize ilişkin bilgiler, geriye doğru
-    izlenemez ve bu nedenle artık burada görüntülenemez.
+  type_description_3: -3 (red) ile +3 (onay) arasında ki değerlere sahip 
+    derecelendirme seçeneği
+  untraceable: Hangi seçeneğe nasıl oy verdiğinize ilişkin bilgiler, geriye 
+    doğru izlenemez ve bu nedenle artık burada görüntülenemez.
   error_cannot_vote: Bu ankette oy kullanamazsınız
   submit_vote: Oyla
   vote_success: Başarılı bir şekilde oy kullandınız.
   cancel:
     question: 'Oylamayı iptal etmek istediğinizden emin misiniz? Bu durum geri döndürülemez.'
     title: 'Oylamayı iptal et'
-  hint_sorted_order: Aralarından seçim yapılabilecek aşağıdaki seçeneklerin sırası
-    sabittir ve tüm seçmenler için aynıdır.
+  hint_sorted_order: Aralarından seçim yapılabilecek aşağıdaki seçeneklerin 
+    sırası sabittir ve tüm seçmenler için aynıdır.
   title: 'Oy: {name}'
 region:
   change: İlçe değiştir
@@ -1782,14 +1818,14 @@ region:
     confirm: Ana güncelleme gerçekten başlatılsın mı?
     start: Ana güncellemeyi başlat
     parent: Ana Bölge
-    parent-info: Tüm Foodsaverlar, eğer belirtilmişse, otomatikmen bir ana bölgeye
-      dahil edilir
+    parent-info: Tüm Foodsaverlar, eğer belirtilmişse, otomatikmen bir ana 
+      bölgeye dahil edilir
     title: Ana güncelleme
     closure: Tüm alt bölgeler için ana bölge olarak {region} girin
   mail:
     sender: Gönderen Adı
-    name-info: Dikkat, keyfi olarak değiştirmeyin! Ayrıca, bu adresin Posta Kutularını
-      Yönet altında henüz bulunmadığından emin olun.
+    name-info: Dikkat, keyfi olarak değiştirmeyin! Ayrıca, bu adresin Posta 
+      Kutularını Yönet altında henüz bulunmadığından emin olun.
   cancel: Hayır, aslında değil
   confirm:
     edit: Değişiklikleri {name} bölgesine kaydetmek istediğinizden emin misiniz?
@@ -1800,11 +1836,11 @@ region:
   delete: Bölgeyi/İlçeyi sil
   none: Henüz bir Bölge seçilmedi
   edit_success: Bölge/Semt kaydedildi.
-  store_managers_cannot_leave: Bölgeden ayrılamazsınız çünkü oradaki en az bir şirketten
-    hala sorumlusunuz.
+  store_managers_cannot_leave: Bölgeden ayrılamazsınız çünkü oradaki en az bir 
+    şirketten hala sorumlusunuz.
   created: '{region} oluşturuldu'
-  still_contains_elements: Hala alt bölgeler, alt bölgeler/semtler, işletmeler veya
-    gıda dağıtım noktaları içerdiğinden bölge silinemez.
+  still_contains_elements: Hala alt bölgeler, alt bölgeler/semtler, işletmeler 
+    veya gıda dağıtım noktaları içerdiğinden bölge silinemez.
   new: Yeni Bölge
   noParent: Ana Bölge olmadan
   save: Evet kaydet
@@ -1818,7 +1854,8 @@ region:
   mailbox: Posta kutusu adı
   parent: Baş Bölge
   master: Yüksek Bölge
-  allow_hiding_in_forum: Moderatörlerin tüm forum gönderilerini silmesine izin ver
+  allow_hiding_in_forum: Moderatörlerin tüm forum gönderilerini silmesine izin 
+    ver
   not-existant: Bu bölge veya çalışma grubu artık mevcut değil.
   public:
     confirm_leaving: '{name} bölgesine katılmak ister misiniz? Bu durum, elçilerin
@@ -1826,12 +1863,13 @@ region:
     discard_changes: Değişiklikleri at
     desc:
       edit: İlçe açıklamasını düzenle
-      confirm_discard_changes: İlçe tanımındaki değişikliklerinizi gerçekten silmek
-        istiyor musunuz?
-      confirm_save_changes: İlçe açıklamasında yaptığınız değişiklikleri kaydetmek
-        ister misiniz? Yeni açıklama daha sonra ilçe web sitesinde kamuoyuyla paylaşılacak.
-      missing: Bu blkgenin şu anda açıklama metni bulunmamaktadır. Artık açıklama
-        metni yazma yetkisine sahipsiniz.
+      confirm_discard_changes: İlçe tanımındaki değişikliklerinizi gerçekten 
+        silmek istiyor musunuz?
+      confirm_save_changes: İlçe açıklamasında yaptığınız değişiklikleri 
+        kaydetmek ister misiniz? Yeni açıklama daha sonra ilçe web sitesinde 
+        kamuoyuyla paylaşılacak.
+      missing: Bu blkgenin şu anda açıklama metni bulunmamaktadır. Artık 
+        açıklama metni yazma yetkisine sahipsiniz.
     confirm_entering: '{name} bölgesine katılmak ister misiniz? Bu durum, elçilerin
       profilinize erişimini sağlar.'
     continue_editing: Düzenlemeye devam et
@@ -1842,12 +1880,14 @@ region:
     join_name: "{name}'e katılın"
     join_text: "{name}'e dahil olmak ister misiniz? O zaman sen de bu bölgeye katılabilirsin!"
     leave_name: '{name} terk et'
-    no_more_info: Bu bölge hakkında kamuoyuna açık başka bir bilgi bulunmamaktadır.
+    no_more_info: Bu bölge hakkında kamuoyuna açık başka bir bilgi 
+      bulunmamaktadır.
     wall: Bölgeden güncellemeler
-    leave_text: Artık {name}'de aktif değil misiniz? O zaman bu bölgeyi terk etmelisin.
+    leave_text: Artık {name}'de aktif değil misiniz? O zaman bu bölgeyi terk 
+      etmelisin.
     description: Bölge hakkında
-    leave_text_region: Artık {name}'de aktif değil misiniz? Değilseniz bu bölgeyi
-      terk etmek ister misiniz?
+    leave_text_region: Artık {name}'de aktif değil misiniz? Değilseniz bu 
+      bölgeyi terk etmek ister misiniz?
     events:
       load_past: Geçmiş etkinlikleri görüntüle
       no_future_events: 'Bu bölgede şu anda listelenen herkese açık etkinlik bulunmamaktadır.
@@ -1855,23 +1895,24 @@ region:
       title: Kamu etkinlikleri
     map:
       set_pin: Haritada bölge pinini girin
-      confirm_save_changes: Bölge pininde yaptığınız değişiklikleri kaydetmek ister
-        misiniz? Yeni pin daha sonra ilçe sayfasında ve haritada herkesin görebileceği
-        şekilde yayınlanacak.
-      confirm_discard_changes: Bölge pin değişikliklerinizi gerçekten silmek istiyor
-        musunuz?
+      confirm_save_changes: Bölge pininde yaptığınız değişiklikleri kaydetmek 
+        ister misiniz? Yeni pin daha sonra ilçe sayfasında ve haritada herkesin 
+        görebileceği şekilde yayınlanacak.
+      confirm_discard_changes: Bölge pin değişikliklerinizi gerçekten silmek 
+        istiyor musunuz?
       edit_pin: Bölge pinini düzenle
-      missing: Bu bölge şu anda haritada gösterilmiyor ve burada gösterilebilecek
-        Fairteiler yok. Artık bölge pini belirleme yetkisine sahipsiniz.
+      missing: Bu bölge şu anda haritada gösterilmiyor ve burada 
+        gösterilebilecek Fairteiler yok. Artık bölge pini belirleme yetkisine 
+        sahipsiniz.
       hide_pin: Bölge pinini kaldır
-      confirm_remove: Bölge pinini gerçekten kaldırmak istiyor musunuz? Bu bölge artık
-        haritada görüntülenmeyecektir.
-    leave_text_group: Artık {name} grubunda aktif değil misiniz ve bu gruptan ayrılmak
-      mı istiyorsunuz?
+      confirm_remove: Bölge pinini gerçekten kaldırmak istiyor musunuz? Bu bölge
+        artık haritada görüntülenmeyecektir.
+    leave_text_group: Artık {name} grubunda aktif değil misiniz ve bu gruptan 
+      ayrılmak mı istiyorsunuz?
   denied:
     group_in_this_region: “{name}” bu bölgenin bir grubudur.
-    this_region: Bu bölgede ki içeriklere erişmeye çalıştınız. Ancak buraya sadece
-      bölge halkı erişebiliyor.
+    this_region: Bu bölgede ki içeriklere erişmeye çalıştınız. Ancak buraya 
+      sadece bölge halkı erişebiliyor.
     subgroup_in: “{name}”, “{parent}” grubunun bir alt grubudur.
     group_in_this_group: “{name}” bu grubun bir alt grubudur.
     some_group: '"{name}" çalışma grubundan içeriğe erişmeye çalıştınız. Ancak buna
@@ -1945,8 +1986,8 @@ events:
     present: Bu etkinlik çevrimiçi olarak gerçekleşir. Şimdi katılabilirsiniz.
     not_started: Bu Randevu henüz başlamadı
     past: Bu etkinlik çevrimiçi olarak gerçekleşti.
-    future: Bu etkinlik çevrimiçi olarak gerçekleşir.Başladıktan sonra aşağıdaki düğmeyi
-      kullanarak katılabilirsiniz.
+    future: Bu etkinlik çevrimiçi olarak gerçekleşir.Başladıktan sonra aşağıdaki
+      düğmeyi kullanarak katılabilirsiniz.
   noneAccepted: Şu ana kadar hiç kimse bu etkinliğe katılımını onaylamadı.
   attendees: Katılımcılar
   online_info: "foodsharing kaynaklanan telefon ve çevrimiçi konferanslar en iyi şekilde
@@ -1956,8 +1997,8 @@ events:
     yalnızca oldukça modern bir İnternet tarayıcısı yeterlidir. Telefonla da katılmak
     mümkündür.\n\nTelefon veya çevrimiçi konferans için yine de başka bir platform
     kullanmak istiyorsanız lütfen *“Diğer”* seçeneğini seçin.\n"
-  public_info: Bu etkinlik herkese açıktır ve herkes erişebilir. Yorumlar ve katılımcı
-    listesi sadece kayıtlı kullanıcılar tarafından görülebilmektedir.
+  public_info: Bu etkinlik herkese açıktır ve herkes erişebilir. Yorumlar ve 
+    katılımcı listesi sadece kayıtlı kullanıcılar tarafından görülebilmektedir.
 recipients:
   orga_team: Ülke çapındaki organizasyon ekibi
   all_no_botschafter: Elçileri olmayan tüm Foodsaverlar
@@ -1981,8 +2022,8 @@ recipients:
   send: E-posta gönder
   testmail: Test E-Postası gönder
   test_email_invalid: E-posta adresinde bir sorun var.
-  doublecheck: Her şey kontrol edildi mi? E-posta seçilen hedef gruba gönderilsin
-    mi?
+  doublecheck: Her şey kontrol edildi mi? E-posta seçilen hedef gruba 
+    gönderilsin mi?
   sent: E-posta başarıyla {count} e-posta adresine gönderildi
   abort: Gönderimi iptal et
   unknown: bilinmeyen
@@ -1993,8 +2034,8 @@ recipients:
   choose: İlçeleri tek tek seçin
   storemanagers_and_ambs: Tüm işletme yöneticileri ve elçiler
   empty-region: Seçilen semtlerde henüz Foodsaver yok
-  newsletter_only_foodsharer: YALNIZCA tüm haber bülteni aboneleri arasında Foodsharer
-    olanlar
+  newsletter_only_foodsharer: YALNIZCA tüm haber bülteni aboneleri arasında 
+    Foodsharer olanlar
   variables: Kişisel hitap
   variable-info: "E-postayı daha kişisel hale getirmek için adın yerine <strong>{NAME}</strong>
     ekleyebilirsiniz\nve selamlama için <strong>{ANREDE}</strong> kullanın.\n<p>{ANREDE}
@@ -2023,9 +2064,9 @@ foodsaver:
     needs_fs: Önce Foodsaver olmalısın
     needs_sm: Önce İşletme sorumlusu olmalısın
     sm_success: Teşekkürler, artık işletme sorumlususunuz!
-    amb_success: Daha fazla sorumluluk almak için artan motivasyonunuz için teşekkür
-      ederiz.Talep, küresel organizasyon ekibi tarafından mümkün olan en kısa sürede
-      işlenecektir.
+    amb_success: Daha fazla sorumluluk almak için artan motivasyonunuz için 
+      teşekkür ederiz.Talep, küresel organizasyon ekibi tarafından mümkün olan 
+      en kısa sürede işlenecektir.
     learning: Açıklama videosunu şimdi izleyin
     FOODSAVER: Foodsaver ol
     STORE_MANAGER: İşletme sorumlusu ol
@@ -2054,8 +2095,8 @@ foodsaver:
   title: Foodsaver
   delete_account_sure_reason: 'Hesabınızı gerçekten silmek istiyor musunuz? Sebep:
     {name}'
-  mailchange_error: Yeni e-posta adresinizin etkinleştirilmesi başarısız oldu. Lütfen
-    tekrar deneyin.
+  mailchange_error: Yeni e-posta adresinizin etkinleştirilmesi başarısız oldu. 
+    Lütfen tekrar deneyin.
   about_me_public: "[Ekip ve eski Ekip Sayfası](/team)'nda listelenen herkese gösterilecek
     ve web sitesindeki herkes tarafından görüntülenebilecek.\n"
   kicked: Foodsaver kaldırıldı
@@ -2081,14 +2122,16 @@ content:
   delete_tooltip: Sayfayı sil
   communities:
     title: Yerel gruplar
-    text: foodsharing her geçen gün büyüyor. Burada her zaman tüm foodsharing toplulukları
-      ve bölgelerinin güncel listesini bulacaksınız. Her ilçe hakkında daha detaylı
-      bilgiyi bağlantılı genel ilçe sayfasından edinebilir veya iconsları tıklayarak
-      doğrudan ilgili ilçeye e-posta gönderebilirsiniz.
-    searchInfo: Liste, Strgl+F kullanılarak birçok tarayıcıda ülkeye, şehre, federal
-      eyalete veya bölgeye göre aranabilir.
-    noAmbassador: Bu bölgede şu anda elçi bulunmamaktadır ve bu nedenle şu anda e-postayla
-      ulaşılamamaktadır. Lütfen komşu bölgeye veya bir üst bölgeyle iletişime geçin.
+    text: foodsharing her geçen gün büyüyor. Burada her zaman tüm foodsharing 
+      toplulukları ve bölgelerinin güncel listesini bulacaksınız. Her ilçe 
+      hakkında daha detaylı bilgiyi bağlantılı genel ilçe sayfasından edinebilir
+      veya iconsları tıklayarak doğrudan ilgili ilçeye e-posta 
+      gönderebilirsiniz.
+    searchInfo: Liste, Strgl+F kullanılarak birçok tarayıcıda ülkeye, şehre, 
+      federal eyalete veya bölgeye göre aranabilir.
+    noAmbassador: Bu bölgede şu anda elçi bulunmamaktadır ve bu nedenle şu anda 
+      e-postayla ulaşılamamaktadır. Lütfen komşu bölgeye veya bir üst bölgeyle 
+      iletişime geçin.
   edit_raw: Ham verileri düzenle
   error: Sayfa kaydedilemedi
   error_loading: İçerik yüklenemedi
@@ -2101,8 +2144,8 @@ mailbox:
   mark_as_unread: Okunmadı olarak işaretleyin
   create: Yeni bir posta kutusu oluştur
   saved: Değişiklikler kaydedildi
-  ratelimit: Her 15 saniyede yalnızca bir e-posta gönderebilirsiniz, lütfen biraz
-    bekleyin …
+  ratelimit: Her 15 saniyede yalnızca bir e-posta gönderebilirsiniz, lütfen 
+    biraz bekleyin …
   manage: Posta kutusu yöneticisi
   inbox: Gelen Kutusu
   sent: Gönderildi
@@ -2170,8 +2213,8 @@ mailbox:
   show_html_body: HTML olarak görüntüle
   mark_none: Hiçbirini işaretleme
   forward: Devam ilet
-  forward_attachment_warning: Ekler şu anda iletilemiyor. E-postayı eklerle iletmek
-    istiyorsanız ekleri indirip yeni e-postaya ekleyebilirsiniz.
+  forward_attachment_warning: Ekler şu anda iletilemiyor. E-postayı eklerle 
+    iletmek istiyorsanız ekleri indirip yeni e-postaya ekleyebilirsiniz.
 basket:
   sent_request: Başvuru gönderildi
   n_requests: 'Şimdiye kadar ki başvurular:'
@@ -2205,7 +2248,8 @@ basket:
   contact:
     write: Mesaj yoluyla
     call: Telefon görüşmesi ile_
-  public-info: Açıklama, resim, teslim yeri ve zaman periyodu herkes tarafından görülebilir.
+  public-info: Açıklama, resim, teslim yeri ve zaman periyodu herkes tarafından 
+    görülebilir.
   published: Teşekkürler, yemek sepeti yayınlandı.
   error: Yemek sepeti yüklenemedi.
   not_withdrawn: 'Yemek sepeti talebi geri alınamadı: '
@@ -2282,7 +2326,8 @@ basket:
     '
   use_home_address: Konut adresini kullan
   modal_error:
-    no_contact: Lütfen yiyecek sepetinin talep edilmesini istediğiniz yolu seçin.
+    no_contact: Lütfen yiyecek sepetinin talep edilmesini istediğiniz yolu 
+      seçin.
     no_phone: Lütfen bir telefon numarası verin.
   contact_types: İletişim seçenekleri
   delete_confirmation:
@@ -2396,8 +2441,8 @@ footer:
   about_us: Hakkımızda
   partner_names:
     denns: Denn’s Biomarkt
-    lebensministerium: Avusturya Federal Tarım, Ormancılık, İklim ve Çevre Koruma,
-      Bölgeler ve Su Yönetimi Bakanlığı
+    lebensministerium: Avusturya Federal Tarım, Ormancılık, İklim ve Çevre 
+      Koruma, Bölgeler ve Su Yönetimi Bakanlığı
     tafel_oesterreich: 'Tafel Viyana'
   contact: İletişim
   press: Basın
@@ -2490,8 +2535,8 @@ blog:
   teaser: Metni önizle
 conference:
   join_title: Konferansa katıl
-  description_text: Burada seçtiğin grubun video konferansına katılabilirsiniz. BigBlueButton
-    video konferansını, yeni bir pencerede açar.
+  description_text: Burada seçtiğin grubun video konferansına katılabilirsiniz. 
+    BigBlueButton video konferansını, yeni bir pencerede açar.
   join: Konferansa katıl
   privacy_notice: "Not: Video konferansları, living utopia Kollektivs konferans sunucusu
     aracılığıyla gerçekleştirilir.Foodsharing'e girdiğiniz adınız, kimliğiniz ve avatarınızla
@@ -2511,8 +2556,8 @@ email_template:
   in: içinde
   slot_empty: "%BETRIEB%'deki bir sonraki kurtarma için kimse teslim almaya kaydolmadı"
   help_needed:
-    main: Bu özelliği revize etmek için bölgenizdeki diğer programcıların, testçilerin
-      ve yardımcıların desteğine ihtiyacımız var.
+    main: Bu özelliği revize etmek için bölgenizdeki diğer programcıların, 
+      testçilerin ve yardımcıların desteğine ihtiyacımız var.
     or: veya
     link: https://devdocs.foodsharing.network/
     support_mail: support@foodsharing.network
@@ -2530,10 +2575,10 @@ email_template:
     general_information_requirements: § 5 Telemedya Yasasına göre bilgiler
     title: Künye
   information: Bilgi
-  find_someone: Lütfen en kısa sürede İşletme ekibinizden birini bulun, böylece tahsilat
-    gerçekleşebilir. Kimseyi seferber edemiyorsanız, kurtarımı sizin yapmanız iyi
-    olur. Bu sizin için mümkün değilse, lütfen işletmede ki randevuyu zamanında iptal
-    edin.
+  find_someone: Lütfen en kısa sürede İşletme ekibinizden birini bulun, böylece 
+    tahsilat gerçekleşebilir. Kimseyi seferber edemiyorsanız, kurtarımı sizin 
+    yapmanız iyi olur. Bu sizin için mümkün değilse, lütfen işletmede ki 
+    randevuyu zamanında iptal edin.
   from: '-- den '
   you_responsible:
     part1: -için sen sorumlusun
@@ -2541,8 +2586,8 @@ email_template:
   dont_respond:
     notification: Bildirimler
     no_notification_link: Artık bu tür bildirimler almak istemiyor musunuz?
-    noreply: Lütfen bu e-postaya cevap vermeyiniz. Bu mesaj, posta kutusu olmayan
-      bir adresten gönderilmiştir.
+    noreply: Lütfen bu e-postaya cevap vermeyiniz. Bu mesaj, posta kutusu 
+      olmayan bir adresten gönderilmiştir.
     you_can: -- altında yapabilirsiniz
     nomail: 'hangi e-postaları alacağınızı ayarlayın.'
   foodsharepoint: '---Dağıtım noktası'
@@ -2556,23 +2601,30 @@ email_template:
   foodbasket_request: Yemek sepetiniz %SENDER% tarafından istek gönderildi
   yourFSteam: foodsharing ekibiniz
   confirm_link: konuyu istiyor
-  confirm_BOT: gönder. %BEZIRK% elçisi / moderatörü olduğunuz için, yayınlanmadan
-    önce onaylamanız gerekir.
-  manual_slots_get_ignored: Bu bildirim şu anda yalnızca hiç kimse normal teslim alma
-    saatleri için kaydolmamışsa gönderilir. Bireysel olarak eklenmiş ek randevular
-    ve üzerine yazılan veya silinen kontenjanlar henüz dikkate alınmamıştır.
-  confirm_for_unverified: Konunun doğrulanması gerekiyor çünkü doğrulanmamış bir kişi
-    tarafından oluşturuldu.
-  confirm_for_moderated_forum: Konunun onaylanması gerekiyor çünkü burası moderatörlü
-    bir forum.
+  confirm_BOT: gönder. %BEZIRK% elçisi / moderatörü olduğunuz için, 
+    yayınlanmadan önce onaylamanız gerekir.
+  manual_slots_get_ignored: Bu bildirim şu anda yalnızca hiç kimse normal teslim
+    alma saatleri için kaydolmamışsa gönderilir. Bireysel olarak eklenmiş ek 
+    randevular ve üzerine yazılan veya silinen kontenjanlar henüz dikkate 
+    alınmamıştır.
+  confirm_for_unverified: Konunun doğrulanması gerekiyor çünkü doğrulanmamış bir
+    kişi tarafından oluşturuldu.
+  confirm_for_moderated_forum: Konunun onaylanması gerekiyor çünkü burası 
+    moderatörlü bir forum.
   fetch_warning:
     part1: 'İşletme yöneticisinin sorumluluğu, alımların planlandığı gibi gerçekleştirilmesini
       sağlamaktır. Maalesef önümüzdeki iki gün içerisinde tüm işletmelerinizde kurtarma
       işlemi için yeterli sayıda foodsaver kayıt yaptırmadı:'
-    part2: Lütfen tüm alımların yapılabilmesi için en kısa sürede foodsaver bulun.
-      Eğer kimseyi harekete geçiremiyorsanız, açıktaki Slotları devralmanız iyi olur.
-      Eğer bu sizin için mümkün değilse lütfen işletme ile olan ilgili randevularınızı
-      zamanında iptal edin.
+    part2: Lütfen tüm alımların yapılabilmesi için en kısa sürede foodsaver 
+      bulun. Eğer kimseyi harekete geçiremiyorsanız, açıktaki Slotları 
+      devralmanız iyi olur. Eğer bu sizin için mümkün değilse lütfen işletme ile
+      olan ilgili randevularınızı zamanında iptal edin.
+    empty_slots: '%COUNT% boş Slot'
+    disable_warning: Bu uyarıyı kapatmak ister misiniz?
+    subject:
+      multiple: '%COUNT% işletmede açık kurtarma tarihleri!'
+      single: '%COMPANY% işletmesinden kurtarma tarihleri açık!'
+    settings_link: Bildirim ayarlarına
 wall:
   delete: Kaydı sil
   message_placeholder: Mesaj yaz…
@@ -2581,11 +2633,11 @@ wall:
   error-create: Pano girişiniz kaydedilemedi.
   confirm-deletion: "{name}'nin pano yazısını kaldırmak istediğinizden emin misiniz?"
   error-delete: Bu kaydı kaldıramazsınız.
-  info-somebody-else: Bu işletmeyi yönetme izniniz olduğundan, gerekirse bu girişi
-    kaldırabilirsiniz.
+  info-somebody-else: Bu işletmeyi yönetme izniniz olduğundan, gerekirse bu 
+    girişi kaldırabilirsiniz.
   see-more: Tüm gönderileri göster
-  info-logging: Anlaşmazlıkları önlemek için, içeriğin ve onu gerçekleştiren kişinin
-    günlüğe kaydedildiğini lütfen unutmayın.
+  info-logging: Anlaşmazlıkları önlemek için, içeriğin ve onu gerçekleştiren 
+    kişinin günlüğe kaydedildiğini lütfen unutmayın.
   placeholder: Yeni bir pano yazısı yazın …
   delete_confirmation:
     title: Pano kayıdı silinsin mi?
@@ -2594,17 +2646,17 @@ settings:
   changemail:
     done: E-posta adresiniz değiştirildi.
     question: 'E-posta adresinizi şu şekilde değiştirmemizi gerçekten istiyor musunuz:'
-    domain: Parolanızı istediğiniz zaman kurtarabilmeniz için lütfen farklı bir e-posta
-      adresi kullanın.
+    domain: Parolanızı istediğiniz zaman kurtarabilmeniz için lütfen farklı bir 
+      e-posta adresi kullanın.
     passcheck: Lütfen değişikliği şifrenizle onaylayın
     invalid: Girdiğiniz e-posta adresinde bir sorun var
     occupied: E-posta adresi kullanıldığı için değiştirilemedi.
     passfail: Parola doğru değil, yalnış mı girdiniz?
-    sent: Şimdi adresi doğrulamak için <strong>yeni</strong> e-posta gelen kutunuza
-      gidin.
-    explanation: Kayıt olurken kullandığınız e-posta adresini buradan değiştirebilirsiniz.
-      Gönderdikten sonra, yeni adresinizi onaylamanız için bir bağlantı içeren bir
-      e-posta yeni adresinize gönderilecektir.
+    sent: Şimdi adresi doğrulamak için <strong>yeni</strong> e-posta gelen 
+      kutunuza gidin.
+    explanation: Kayıt olurken kullandığınız e-posta adresini buradan 
+      değiştirebilirsiniz. Gönderdikten sonra, yeni adresinizi onaylamanız için 
+      bir bağlantı içeren bir e-posta yeni adresinize gönderilecektir.
     input_label_password: Onaylamak için lütfen şifrenizi girin
     wrong_password: Şifre doğru değil.
     confirm_email_required: E-posta adresleri eşleşmiyor
@@ -2614,13 +2666,16 @@ settings:
     not_changed: E-posta adresiniz değiştirilmedi.
     dashboard_link: Kontrol paneline devam et
     question_other_user: 'E-posta adresi gerçekten şu şekilde değiştirilmeli mi:'
-    insufficient_permission: Bu profilin e-posta adresini değiştirme izniniz yok.
+    insufficient_permission: Bu profilin e-posta adresini değiştirme izniniz 
+      yok.
     sent_other_user: Adresi onaylamak için yeni adrese bir e-posta gönderildi.
-    explanation_other_user: Burada bu profilin kayıtlı olduğu e-posta adresini değiştirebilirsiniz.
-      Gönderdikten sonra kullanıcı, yeni adresi onaylamak için kullanılması gereken
-      bir bağlantıyı içeren yeni adrese bir e-posta alacaktır.
+    explanation_other_user: Burada bu profilin kayıtlı olduğu e-posta adresini 
+      değiştirebilirsiniz. Gönderdikten sonra kullanıcı, yeni adresi onaylamak 
+      için kullanılması gereken bir bağlantıyı içeren yeni adrese bir e-posta 
+      alacaktır.
     password_label: Mevcut Şifre
-    password_required: E-posta adresinizi değiştirmek için şifrenizi girmeniz gerekmektedir.
+    password_required: E-posta adresinizi değiştirmek için şifrenizi girmeniz 
+      gerekmektedir.
   notifications: Bildirimler
   sleep:
     range: 'Lütfen müsait olmayacağınız yaklaşık süreyi belirtiniz:'
@@ -2639,8 +2694,8 @@ settings:
     show: "Bu işlevi kullanarak, durumunuzun, devamsızlık sürenizin ve mesajınız\n\
       \ profil sayfanızda görünmesini, profil resminizin üzerine bir “uyku beresi”\n\
       \ yerleştirilmiş olmasını kabul ediyor olacaksınız.\n"
-    message: Doğrulanmadınız. Bu nedenle ekip üyelerinin slotlarını veya telefon numaralarını
-      göremezsiniz.
+    message: Doğrulanmadınız. Bu nedenle ekip üyelerinin slotlarını veya telefon
+      numaralarını göremezsiniz.
     from: den
     until: kadar
     status: Şu anki durumunuz
@@ -2662,19 +2717,21 @@ settings:
       \ Ancak o zaman yeni teslim alma tarihleri görünür ve iptal edilen tarihler
       artık görünmez.\n"
     delete_token:
-      message: Bu, şu ana kadar oluşturulan tüm takvim bağlantılarını geçersiz kılacaktır.
-        Belirteci silmek istediğinizden emin misiniz?
+      message: Bu, şu ana kadar oluşturulan tüm takvim bağlantılarını geçersiz 
+        kılacaktır. Belirteci silmek istediğinizden emin misiniz?
       title: Jetonu sil
       button: Jetonu sil
     create_token:
       button: Yeni bir jeton oluştur
-      message: Bir seferde yalnızca bir jeton oluşturabilirsiniz. Yeni bir jeton ile,
-        önceki bağlantının üzeri yazılır ve öncekini geçersiz kılar. Bunu gerçekten
-        yeniden oluşturmak istiyor musun?
+      message: Bir seferde yalnızca bir jeton oluşturabilirsiniz. Yeni bir jeton
+        ile, önceki bağlantının üzeri yazılır ve öncekini geçersiz kılar. Bunu 
+        gerçekten yeniden oluşturmak istiyor musun?
       title: Yeni bir jeton oluştur
-    export_tooltip: Seçtiğiniz bir takvim programı ile tahsilat tarihlerinizi görüntüleyebilirsiniz.
+    export_tooltip: Seçtiğiniz bir takvim programı ile tahsilat tarihlerinizi 
+      görüntüleyebilirsiniz.
     export: Takvimi dışa aktar
-    include_invitations: Takvimde henüz yanıtlamadığım randevu davetleri de bulunmalıdır.
+    include_invitations: Takvimde henüz yanıtlamadığım randevu davetleri de 
+      bulunmalıdır.
     download: Takvimi indir
     generate_url:
       button: Takvim URL'si oluştur
@@ -2696,7 +2753,8 @@ settings:
       "true": Evet,gıda kurtarma tarihlerini takvimde göster
       "false": Hayır, gıda kurtarımlarını takvimde gösterme
     event:
-      label: Bölgelerinizden ve çalışma gruplarınızdan hangi tarihler dahil edilmeli?
+      label: Bölgelerinizden ve çalışma gruplarınızdan hangi tarihler dahil 
+        edilmeli?
       invitations: İptal etmediğim randevular
       maybe: (Belki) Orada olacağımı belirttiğim tarihler
       accepted: Orada olacağımı belirttiğim tarihler
@@ -2719,12 +2777,12 @@ settings:
   title: Ayarlar_
   passport:
     menu: Kimlik Kartı
-    verified_text: Bu kimlik kartı akıllı telefonlarda kullanılmak üzere tasarlanmıştır.
-      Oraya kaydedebilir ve istendiğinde gösterebilirsiniz. Akıllı telefonunuz yoksa
-      veya başka bir nedenden dolayı klasik . . bir kimliğe ihtiyacınız varsa yerel
-      Elçinizle iletişime geçin.
-    non_verified_text: Henüz doğrulanmadınız. Kimliği yalnızca doğrulanmış Foodsaverlar
-      indirilebilir.
+    verified_text: Bu kimlik kartı akıllı telefonlarda kullanılmak üzere 
+      tasarlanmıştır. Oraya kaydedebilir ve istendiğinde gösterebilirsiniz. 
+      Akıllı telefonunuz yoksa veya başka bir nedenden dolayı klasik . . bir 
+      kimliğe ihtiyacınız varsa yerel Elçinizle iletişime geçin.
+    non_verified_text: Henüz doğrulanmadınız. Kimliği yalnızca doğrulanmış 
+      Foodsaverlar indirilebilir.
     button: Kimliği indir
     add_to_wallet:
       google: Google Wallet'a ekle
@@ -2734,11 +2792,11 @@ settings:
       name: İsim
       role: Rolü
       valid_end: Şu tarihe kadar geçerlidir
-      generate_error: Kimlik kartı oluşturulurken bir hata oluştu. Lütfen daha sonra
-        tekrar deneyin.
+      generate_error: Kimlik kartı oluşturulurken bir hata oluştu. Lütfen daha 
+        sonra tekrar deneyin.
     passport_not_activated: Kimliğiniz henüz etkinleştirilmedi.
-    passport_is_valid_until: Kimliğiniz **{days}** gün süreyle veya **{date}** tarihine
-      kadar geçerlidir.
+    passport_is_valid_until: Kimliğiniz **{days}** gün süreyle veya **{date}** 
+      tarihine kadar geçerlidir.
     passport_is_invalid: Kimliğiniz artık geçerli değil.
     ask_your_ambassadors: Lütfen yetkili elçilerinizle iletişime geçin.
   account: Hesap seçenekleri
@@ -2765,16 +2823,16 @@ settings:
       doğrudan cihazınıza teslim edilmez.\nGiriş yapmadıysanız, cihazınız artık bildirim
       göstermeyecek\nve artık bir ton veya titreşimle yanıt vermeyecektir.\n"
   name_change:
-    foodsharer_info: Adınızı değiştirmek için <a href="{link}">Destek Formunda</a>
-      bize bir başvuruda bulunmalısınız.
+    foodsharer_info: Adınızı değiştirmek için <a href="{link}">Destek 
+      Formunda</a> bize bir başvuruda bulunmalısınız.
     title: Ad (ad ve soyadı)
-    desc: Kendi adınızı kendiniz değiştiremezsiniz. Ancak [ad değişikliği talebinde
-      bulunabilirsiniz]({link}).
+    desc: Kendi adınızı kendiniz değiştiremezsiniz. Ancak [ad değişikliği 
+      talebinde bulunabilirsiniz]({link}).
     request: İsim değişikliği talep edin
-    foodsaver_info: Adınızı değiştirmek için kendi bölgenizdeki yetkili bir elçiyle
-      iletişime geçmelisiniz. Bu kişi daha sonra sizin için isim değişikliğini gerçekleştirebilir.
-      Sol kenar çubuğundaki [bölgenizin forumunda]({link}) kendi bölgenizdeki elçinin
-      kim olduğunu görebilirsiniz.
+    foodsaver_info: Adınızı değiştirmek için kendi bölgenizdeki yetkili bir 
+      elçiyle iletişime geçmelisiniz. Bu kişi daha sonra sizin için isim 
+      değişikliğini gerçekleştirebilir. Sol kenar çubuğundaki [bölgenizin 
+      forumunda]({link}) kendi bölgenizdeki elçinin kim olduğunu görebilirsiniz.
   chatmail: "Foodsharing ana sayfasında dahili bir mesaj alırsanız,\nve o anda giriş
     yapmadıysanız, e-posta ile bilgilendirilebilirsiniz.\nBunu istiyor musunuz?\n"
   newsletter: "Yaklaşık ayda 1x yiyecek kurtarımı hakkında \ngünceli bilgileri bir
@@ -2809,12 +2867,12 @@ settings:
     new_password_confirmation_invalid: Şifreler eşleşmiyor
     submit: Şifre değiştir
     success: Şifreniz başarıyla değiştirildi
-    new_password_must_be_complex: Yeni şifre en az bir büyük harf, bir küçük harf
-      ve rakam içermelidir
+    new_password_must_be_complex: Yeni şifre en az bir büyük harf, bir küçük 
+      harf ve rakam içermelidir
   change_data_info:
     general: Burada profil verilerinizi ayarlayabilirsiniz.
-    verified: Adınızı ve doğum tarihinizi düzenleyemezsiniz. Ancak bir Elçiden bu
-      bilgileri sizin adınıza değiştirmesini isteyebilirsiniz.
+    verified: Adınızı ve doğum tarihinizi düzenleyemezsiniz. Ancak bir Elçiden 
+      bu bilgileri sizin adınıza değiştirmesini isteyebilirsiniz.
 forum:
   thread:
     navigate_to_oldest_post: ilk gönderiye git
@@ -2827,8 +2885,8 @@ forum:
     delivery_mail: E-posta dağıtımını etkinleştir
     with_mail: Konu açıldı ve herkes bu konuda e-posta ile bilgilendirildi
     activate: Konuyu etkinleştir
-    too_big_to_mail: Bu konu için, bir ülke veya eyalet olduğundan, dolayı e-posta
-      gönderilmedi.
+    too_big_to_mail: Bu konu için, bir ülke veya eyalet olduğundan, dolayı 
+      e-posta gönderilmedi.
     no_mail: E-posta gönderilmeden konu açıldı
     delete: Konuyu sil
     inactive: "Bu konu henüz aktif değil.\nBurdan kilidini açabilir ve tüm Foodsaverların
@@ -2839,15 +2897,16 @@ forum:
       subscribe: Abone ol
     bottom: azaltılmış görünürlük
     all_hidden: Bu başlıktaki tüm mesajlar gizlendi.
-  hold_back_for_moderation: Konu kaydedildi ve bir elçi/moderatör onaylar onaylamaz
-    yayınlanacak.
+  hold_back_for_moderation: Konu kaydedildi ve bir elçi/moderatör onaylar 
+    onaylamaz yayınlanacak.
   sending_error: Gönderilirken bir hata oluştu
   quickreply:
     error: Gönderi kaydedilemedi.
     success: Harika, cevabınız kaydedildi.
   no_posts: Henüz yazı yok
-  inform_per_email: Bu yeni konunun oluşturulması hakkında son 6 ayda aktif olan tüm
-    forum üyelerine e-posta gönderin. Bu sadece denetlenmeyen forumlarda mümkündür
+  inform_per_email: Bu yeni konunun oluşturulması hakkında son 6 ayda aktif olan
+    tüm forum üyelerine e-posta gönderin. Bu sadece denetlenmeyen forumlarda 
+    mümkündür
   no_threads: Henüz konu açılmadı
   from: '{name} den'
   threads: Konular
@@ -2858,25 +2917,26 @@ forum:
   post:
     delete: Gönderiyi sil
     body: Mesaj
-    moderator_info: Bu konu kapalı. Bu forumun moderatörü olarak yine de mesaj yazabilirsiniz.
-      Diğer kullanıcılar cevap veremez!
+    moderator_info: Bu konu kapalı. Bu forumun moderatörü olarak yine de mesaj 
+      yazabilirsiniz. Diğer kullanıcılar cevap veremez!
     hide: Gönderiyi gizle
     giveHideReason: Lütfen bu gönderiyi neden gizlemek istediğinizi belirtin.
     hideReasonPlaceholder: Nedenini buraya yazın …
     sureHide: Bu gönderiyi gerçekten gizlemek istiyor musunuz?
-    hideInfo: Gizli gönderiler artık görüntülenmeyecek. Kalıcı olarak silinmeden önce
-      üç ay içinde moderatörler tarafından geri yüklenebilirler. Bu süre zarfında
-      forum kullanıcıları paylaşımın neden gizlendiğini, katillerin kimler tarafından
-      gizlendiğini görebilir.
+    hideInfo: Gizli gönderiler artık görüntülenmeyecek. Kalıcı olarak silinmeden
+      önce üç ay içinde moderatörler tarafından geri yüklenebilirler. Bu süre 
+      zarfında forum kullanıcıları paylaşımın neden gizlendiğini, katillerin 
+      kimler tarafından gizlendiğini görebilir.
     hiddenPost: Gönderi [{moderatorName}]({moderatorUrl}) tarafından gizlendi
     hiddenReason: 'Sebep: {reason}'
   new_thread: Yeni bir konu oluştur
   deleted_user: Silinmiş üye
   not_found: Bu konu mevcut değil.
   mail_confirmation:
-    text: Bu yeni gönderinin bu grubun veya bölgenin tüm üyelerine e-posta olarak
-      gönderilmesini gerçekten istiyor musunuz? Bunu yalnızca Konu herkesi ilgilendiriyorsa
-      ve herkesin bunun farkında olmasını gerektirecek kadar önemliyse yapmalısınız.
+    text: Bu yeni gönderinin bu grubun veya bölgenin tüm üyelerine e-posta 
+      olarak gönderilmesini gerçekten istiyor musunuz? Bunu yalnızca Konu 
+      herkesi ilgilendiriyorsa ve herkesin bunun farkında olmasını gerektirecek 
+      kadar önemliyse yapmalısınız.
     title: Gerçekten e-posta bildirimleri göndermek istiyor musunuz?
   go: Foruma
   restore:
@@ -2923,26 +2983,27 @@ password:
   reset: Parolanızı mı unuttunuz?
   insertmail: Parolanızı sıfırlamak için e-posta adresinizi girin.
 base:
-  keywords: foodsharing, yiyecek, gıda, son kullanma tarihi, yiyecek israfı, yiyecek
-    atmak, bağış yapmak, yiyecek takası
+  keywords: foodsharing, yiyecek, gıda, son kullanma tarihi, yiyecek israfı, 
+    yiyecek atmak, bağış yapmak, yiyecek takası
   slogan: Yiyecekleri atmak yerine paylaşmak - foodsharing
-  whatfor: Foodsharing.network'de yiyeceklerinizi son kullanma tarihi geçmeden önce
-    sosyal kuruluşlara veya diğer kişilere verebilirsiniz
+  whatfor: Foodsharing.network'de yiyeceklerinizi son kullanma tarihi geçmeden 
+    önce sosyal kuruluşlara veya diğer kişilere verebilirsiniz
   jsrequired: Ne yazık ki, JavaScript olmadan burada hiçbir şey çalışmıyor.
 addresspicker:
   placeholder: Arama adresi …
-  infobox: Lütfen adresi bu mesaj ile kart arasındaki metin alanına girin ve gerekirse
-    kartın içine taşıyarak düzeltin.
+  infobox: Lütfen adresi bu mesaj ile kart arasındaki metin alanına girin ve 
+    gerekirse kartın içine taşıyarak düzeltin.
   label: Adres/Yer arama
   infobox_profile: "[Foodsharerların](https://wiki.foodsharing.de/Foodsharer) web
     sitesi aracılığıyla yiyecek sepetleri sunabilmeleri için adrese ihtiyaçları vardır.
     [Foodsaver](https://wiki.foodsharing.de/Foodsaver) olarak yiyecek kurtarma çalışmalarına
     katılabilmek için gereklidir."
   different_location: Adres tarifini düzelt
-  different_location_warning: Lütfen pinin yukarıdaki haritada doğru yerde olduğundan
-    emin olun. Lütfen otomatik olarak doldurulan alanları (sokak ve ev numarası, posta
-    kodu ve şehir/belediye) yalnızca otomatik olarak girilen değer doğru değilse değiştirin.
-    Örneğin bir sokak ismi değiştiğinde bu durum yaşanabilir.
+  different_location_warning: Lütfen pinin yukarıdaki haritada doğru yerde 
+    olduğundan emin olun. Lütfen otomatik olarak doldurulan alanları (sokak ve 
+    ev numarası, posta kodu ve şehir/belediye) yalnızca otomatik olarak girilen 
+    değer doğru değilse değiştirin. Örneğin bir sokak ismi değiştiğinde bu durum
+    yaşanabilir.
 profile:
   commitments_stat:
     week_2: Bu hafta
@@ -2952,8 +3013,8 @@ profile:
     week_3: Geçen hafta
     pickupCount: Sıklık
     title: Etkileşim istatistikleri
-    tooltip_visibility: Etkileşim istatistikleri, işletme yöneticisinin rolünden görülebilir.
-      Ortak ana bölgesi veya ortak işletme ile sınırlıdır.
+    tooltip_visibility: Etkileşim istatistikleri, işletme yöneticisinin rolünden
+      görülebilir. Ortak ana bölgesi veya ortak işletme ile sınırlıdır.
     basketsOfferedWeek: "Bu hafta {count} kez yemek sepeti sunduğunuz için teşekkürler.
       Toplam {weight} kg paylaşıldı."
     eventsParticipatedWeek: 'Bu haftaki etkinliklere {count} katıldığınız için teşekkür
@@ -2962,8 +3023,8 @@ profile:
     categorieName: Kategori
     pickupAmount: Miktar
     districtName: Bölge
-    securePickupWeek: Kısa sürede müdahale ettiğiniz ve {count} kez teslim almayı
-      sağladığınız için teşekkürler!
+    securePickupWeek: Kısa sürede müdahale ettiğiniz ve {count} kez teslim 
+      almayı sağladığınız için teşekkürler!
     basketsSharedWeek: 'Yemek sepetleri {count} kişiyle paylaşıldı. '
     respActStores: 'Aktif olanları {count} koordine ettiğiniz için teşekkürler '
     eventsCreatedWeek: 'Bu hafta {count} kez etkinlik oluşturduğunuz için teşekkürler.'
@@ -2992,8 +3053,8 @@ profile:
       dirty: Alım yerini temiz bırakmadı
       thief: Kendisi için belirlenmemiş şeyleri aldı
       returned: İade edilmesi gereken şişeleri/kasaları vb., iade etmedi
-      additional: Şirketten, alış saati dışında kurtarılması gereken yiyeceklerden
-        aldı veya istedi
+      additional: Şirketten, alış saati dışında kurtarılması gereken 
+        yiyeceklerden aldı veya istedi
       vsfs: Foodsaverlara karşı
       nearclients: Müşterilerden
       sells: Kurtarılan yiyecekleri satıyor
@@ -3001,8 +3062,8 @@ profile:
       residence: FS İkametgah
       picky: Alınması ön görülen tüm yiyecekleri almıyor
       ofclients: Müşterilerden
-      unreliable: Alımların sık sık kısa sürede iptal edilmesi ve yerine yeni bir
-        kişi bulamaması
+      unreliable: Alımların sık sık kısa sürede iptal edilmesi ve yerine yeni 
+        bir kişi bulamaması
       trasher: Kurtarılan yiyecekleri atıyor
       nearfs: 'Foodsaver''dan önce'
       offs: 'Foodsaverdan'
@@ -3026,15 +3087,16 @@ profile:
     readup: "Bir raporun nasıl işleneceğine ilişkin bilgileri buradan okuyabilirsiniz:
       [Bir raporun işlenmesi](https://wiki.foodsharing.de/Regulations_-_Consequences_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)"
     oldReportButton: Kural ihlalini bildir
-    oldReportButtonTextPart2: Gerekirse, bölgenizdeki yerel raporlama grubuyla iletişime
-      geçin.
-    reporterHasNoReportGroup: Bölgenizde yerel bir raporlama grubu bulunmadığından,
-      bildirim sisteminin teknik desteğini kullanamazsınız.
+    oldReportButtonTextPart2: Gerekirse, bölgenizdeki yerel raporlama grubuyla 
+      iletişime geçin.
+    reporterHasNoReportGroup: Bölgenizde yerel bir raporlama grubu 
+      bulunmadığından, bildirim sisteminin teknik desteğini kullanamazsınız.
     send: Raporu gönder
     oldReportButtonTextPart1: Kural ihlalleri şu anda burada bildirilmiyor.
     sent: Rapor gönderildi
     title: '{name} hakkında rapor'
-    oldReportButtonTextPart3: Raporlama sistemi hakkında daha fazla bilgi bulabilirsiniz
+    oldReportButtonTextPart3: Raporlama sistemi hakkında daha fazla bilgi 
+      bulabilirsiniz
     mail:
       reportGroup: 'Bu şikayet yerel mesaj grubuna iletilir. Bu gruba aşağıdaki e-posta
         adresinden de ulaşabilirsiniz:'
@@ -3074,27 +3136,28 @@ profile:
     report_b1_2: Hayvanları izinsiz işletmeye getirdi (B01-3)
     report_b1_3: Çocukları izinsiz olarak işletmete getirdi (B01-4)
     report_b1_4: Foodsharing kimliğini yanında getirmemiş (B01-5)
-    report_b12: Yiyeceği toplayanların, yiyeceğin kime verileceği konusunda bağımsız
-      karar vermesine izin verilmiyordu (B12)
-    report_b2: İşletme sorumlusuna danışmadan belirtilen tarihler dışında alım yapmış
-      (B02)
+    report_b12: Yiyeceği toplayanların, yiyeceğin kime verileceği konusunda 
+      bağımsız karar vermesine izin verilmiyordu (B12)
+    report_b2: İşletme sorumlusuna danışmadan belirtilen tarihler dışında alım 
+      yapmış (B02)
     report_b3_0: Herkesle birlikte işletmeye girip çıkmadı (B03-1)
     report_b6_0: İşletmenin müşterileri ve çalışanları dikkate alınmadı (B06-1)
     report_b4_1: Yiyecekler adil dağıtılmadı (B04-2)
     report_b5: Yetkisiz kişiler işletmeye girdi (B05)
     report_b7: İşletmenin bekleme süresine uyulmadı (B07)
     report_b8: İşletmenin çalışanlarına kaba davrandı (B08)
-    report_b9: Kurtarılan gıdanın miktarı, türü ve kullanımına ilişkin yorumlar yapıldı
-      (B09)
+    report_b9: Kurtarılan gıdanın miktarı, türü ve kullanımına ilişkin yorumlar 
+      yapıldı (B09)
     report_other: Vesaire
     report_b6_1: Gıda kurtarılan yeri düzgün bırakılmamış (B06-2)
     report_b10: Kurtarılan yiyecekleri satıyor (B10)
-    report_b11: Gıda kurtarımı sırasında ekolojik olmayan yöntemler kullanıldı (B11)
-    report_b3_1: Gıda kurtarma işlemini tartışma veya tartışma olmadan gerçekleştirmedi
-      (B03-2)
+    report_b11: Gıda kurtarımı sırasında ekolojik olmayan yöntemler kullanıldı 
+      (B11)
+    report_b3_1: Gıda kurtarma işlemini tartışma veya tartışma olmadan 
+      gerçekleştirmedi (B03-2)
     report_b4_0: Yenilebilir yiyeceklerin tümü götürülmedi (B04-1)
-    report_b13: Kurtarılan gıdanın tüketilmesi/dağıtılması için hiçbir çaba gösterilmedi
-      (B13)
+    report_b13: Kurtarılan gıdanın tüketilmesi/dağıtılması için hiçbir çaba 
+      gösterilmedi (B13)
     notes: Notlar ve kararlar
     confirmDelete: Bu mesajın gerçekten silinmesi gerekiyor mu?
   choosestore: Lütfen ilgili işletmeyi seçiniz
@@ -3106,11 +3169,12 @@ profile:
     warning_3: 'bu kilit kaldırılacaktır. Daha fazla bilgiyi şu adreste bulabilirsiniz: '
     warning_4: bu destek makalesi.
     warning_2: E-posta adresini değiştirme
-    warning_1: Kişisel e-posta adresiniz {email}, yfoodsharing postaları ve iletişiminden
-      engellendi. tarafından
+    warning_1: Kişisel e-posta adresiniz {email}, yfoodsharing postaları ve 
+      iletişiminden engellendi. tarafından
     remove_button: Hemen çıkma listesinden kaldır
-    warning_others: Bu kullanıcının e-posta adresi {email}, foodsharing e-postaları
-      ve iletişiminden engellendi. Bu engeli, buton ile kaldırabilirsiniz.
+    warning_others: Bu kullanıcının e-posta adresi {email}, foodsharing 
+      e-postaları ve iletişiminden engellendi. Bu engeli, buton ile 
+      kaldırabilirsiniz.
   title: Profil_
   go: Profile git
   warning: Uyarı
@@ -3133,9 +3197,9 @@ profile:
     actionBy: dolayı
   notes:
     title: '{name} hakkında notlar'
-    info: Lütfen bu işlevi dikkatli kullanın. Bu, süreçleri görünür kılmak ve işleri
-      azaltmaya yardımcı olması içindir. Bir kişi hakkında kişisel veya yargılayıcı
-      hiçbir şeyin burada yeri yoktur. Gerçekçi kalın.
+    info: Lütfen bu işlevi dikkatli kullanın. Bu, süreçleri görünür kılmak ve 
+      işleri azaltmaya yardımcı olması içindir. Bir kişi hakkında kişisel veya 
+      yargılayıcı hiçbir şeyin burada yeri yoktur. Gerçekçi kalın.
     bread: Notlar
   infos:
     buddies: Tanıdık
@@ -3160,13 +3224,13 @@ profile:
     join: Katılın & Kaydolun
     may: aktif
     login: Oturum açmak için
-    textMayNot: ve bu nedenle şu anda foodsharing adına yiyecek kabul etme yetkisi
-      yoktur.
+    textMayNot: ve bu nedenle şu anda foodsharing adına yiyecek kabul etme 
+      yetkisi yoktur.
   mediation:
     title: '{name} için arabuluculuk isteği'
-    no_group: Ne yazık ki, Foodsaver'ın ana bölgesinde henüz yerel bir arabuluculuk
-      grubu yok. Yerel bir arabuluculuk ekibinin seçilmesi için konuyu bir grup toplantısında
-      veya forumda gündeme getirebilirsiniz.
+    no_group: Ne yazık ki, Foodsaver'ın ana bölgesinde henüz yerel bir 
+      arabuluculuk grubu yok. Yerel bir arabuluculuk ekibinin seçilmesi için 
+      konuyu bir grup toplantısında veya forumda gündeme getirebilirsiniz.
     info: 'Foodsaver ile bir konuyu ele almak için destek aramanızın harika olduğunu
       düşünüyoruz. Arabuluculuk ekibi bir aracı olarak hareket edebilir ve görüşmelerinizin
       aynı seviyede ve karşılıklı saygı içinde yürütülmesini sağlamaya yardımcı olabilir.
@@ -3222,13 +3286,14 @@ profile:
   pinboard: '{name} tarafından durum güncellemeleri'
   reportRequest: Rapor gönder
   no_common_workgroups: '{name} ile ortak bir çalışma grubunda değilsiniz.'
-  orga_rights: Bir Orgna İnsanı olarak {name}, platformda <a target="_blank" href="{wikiurl}">kapsamlı
-    izinlere</a> sahiptir.
-  editNameInfo: Lütfen ad ve soyadı alanlarının yalnızca kişinin adı için kullanılması
-    gerektiğini unutmayın. Lütfen bu alanı, hijyen eğitiminin tamamlanması gibi profil
-    hakkında daha fazla bilgi biriktirmek için kullanmayın. Bunun yerine, profiller
-    hakkında daha fazla bilgi biriktirmek için çalışma grupları kullanılabilir. Bu
-    konuyla ilgili daha fazla bilgiyi [Botschafter:innen-Forum]({url}) da bulabilirsiniz
+  orga_rights: Bir Orgna İnsanı olarak {name}, platformda <a target="_blank" 
+    href="{wikiurl}">kapsamlı izinlere</a> sahiptir.
+  editNameInfo: Lütfen ad ve soyadı alanlarının yalnızca kişinin adı için 
+    kullanılması gerektiğini unutmayın. Lütfen bu alanı, hijyen eğitiminin 
+    tamamlanması gibi profil hakkında daha fazla bilgi biriktirmek için 
+    kullanmayın. Bunun yerine, profiller hakkında daha fazla bilgi biriktirmek 
+    için çalışma grupları kullanılabilir. Bu konuyla ilgili daha fazla bilgiyi 
+    [Botschafter:innen-Forum]({url}) da bulabilirsiniz
   sections:
     orga_rights: 'Bir Orga insanı olarak #####, platformda [kapsamlı izinlere]({wikiurl})
       sahiptir.'
@@ -3264,21 +3329,23 @@ profile:
     previous: öncesinde
 stats:
   total:
-    foodsaver: Foodsaverlar gıda israfının olmadığı bir dünya için gönüllü oluyor.
+    foodsaver: Foodsaverlar gıda israfının olmadığı bir dünya için gönüllü 
+      oluyor.
     weight: gıdayı çöpten kurtardık.
     cooperations: Firmalar sürekli işbirliği yapıyor ve bizden memnunlar.
     baskets: Yiyecek sepetlerinin tümü çevrimiçi olarak yayınlandı.
     pickups: Foodsavers'larımız kurtarma operasyonlarını başarıyla tamamladı.
     fsp: Gıda dağıtım noktaları yiyecek değiş tokuşu için kullanılır.
-    foodsharer: Foodsharerlar şu anda foodsharing'e kayıtlıdır ve çalışmalarımızla
-      ilgilenmektedir.
+    foodsharer: Foodsharerlar şu anda foodsharing'e kayıtlıdır ve 
+      çalışmalarımızla ilgilenmektedir.
   leader:
     regions: En Aktif Bölgeler
     users: En aktif Foodsaverlar
   title: Genel istatistikler
   avg:
     pickups: Şu anda günde ortalama kurtarma operasyonları var.
-    baskets: Yiyecek sepetleri şu anda çevrimiçi olarak haftada ortalama olarak yerleştiriliyor.
+    baskets: Yiyecek sepetleri şu anda çevrimiçi olarak haftada ortalama olarak 
+      yerleştiriliyor.
 map:
   title: Harita
   donates: İşletme bağışlıyor
@@ -3332,13 +3399,13 @@ buddy:
   request_accepted: Artık birbirinizi tanıyorsunuz.
   is_buddy: Birbirinizi tanıyorsunuz
   send:
-    confirm_text: Birbirinizi tanıdık olarak işaretlerseniz, diğer kişinin profil
-      duvarındaki gönderiler ana sayfanızda görünecektir. Ayrıca aramayı kullanarak
-      birbirinizi daha kolay bulabilirsiniz.
+    confirm_text: Birbirinizi tanıdık olarak işaretlerseniz, diğer kişinin 
+      profil duvarındaki gönderiler ana sayfanızda görünecektir. Ayrıca aramayı 
+      kullanarak birbirinizi daha kolay bulabilirsiniz.
     confirm_title: "{name}'i tanıyor musun?"
   remove:
-    confirm_text: Tanışıklığınızı bitirmek mi istiyorsunuz? Profil panolarınızda yapılan
-      güncellemeler artık ana sayfada görüntülenmeyecektir.
+    confirm_text: Tanışıklığınızı bitirmek mi istiyorsunuz? Profil panolarınızda
+      yapılan güncellemeler artık ana sayfada görüntülenmeyecektir.
     confirm_title: '{name} ile tanışıklığınız sona mı erecek?'
 personal_data:
   label: İletişim
@@ -3357,18 +3424,20 @@ login:
   pwreset:
     error: Üzgünüz, verilerinizle ilgili bir sorun var.
     tooShort: Üzgünüz, seçtiğiniz şifre çok kısa.
-    success: Harika, şifreniz başarıyla değiştirildi. Şimdi giriş yapabilirsiniz.
+    success: Harika, şifreniz başarıyla değiştirildi. Şimdi giriş 
+      yapabilirsiniz.
     bread: Şifreyi yenile
     wrongMail: Maalesef bu e-posta adresini bulamıyoruz, lütfen tekrar deneyin.
-    mailSent: Anlaşıldı, e-postayla şifreni değiştirmen için bir bağlantı gönderildi.
+    mailSent: Anlaşıldı, e-postayla şifreni değiştirmen için bir bağlantı 
+      gönderildi.
     expired: Üzgünüz biraz fazla bekledin. Lütfen tekrar yeni bir şifre isteyin.
     mismatch: Üzgünüz, şifreler eşleşmiyor.
   forgotten_password_label: Şifrenizi mi unuttunuz?
   login_button_label: Giriş yap
   success: <b>İyi günler {user_name}!</b>
   logout: Çıkış yap
-  error_no_auth: Üzgünüz, o e-posta adresini veya şifreyi bulamıyoruz, lütfen tekrar
-    deneyin.
+  error_no_auth: Üzgünüz, o e-posta adresini veya şifreyi bulamıyoruz, lütfen 
+    tekrar deneyin.
   topbar: Giriş yap
   form_title: Tekrar hoşgeldiniz
   email_address: E-Posta Adresi_
@@ -3488,18 +3557,19 @@ legal:
     this_doesnt_get_deleted_name: Adınız
     this_doesnt_get_deleted_address: Adresiniz
     this_gets_deleted_trustbananas: 'Verdiğiniz fidanlar, kaldırılacaktır.'
-  agree_privacy_notice: Kişisel verilerin gizliliğini koruma yükümlülüğü ve bunun
-    sonucunda ortaya çıkan davranışlar konusunda bilgilendirildim. Kayıtlarım için
-    verdiğim adrese e-posta ile bunun teyidini alacağım.
-  not_acknowledge_privacy_notice_description: Talimatı kabul etmezseniz, bir Foodsaver
-    seviyesine düşürüleceksiniz. Bu, artık bir Bölge Elçisi olmayacağınız, operasyonel
-    sorumluluklarınızı kaybedeceğiniz ve Operasyon Müdürü/Elçi testini tekrar yapmanız
-    gerekeceği anlamına gelir.
+  agree_privacy_notice: Kişisel verilerin gizliliğini koruma yükümlülüğü ve 
+    bunun sonucunda ortaya çıkan davranışlar konusunda bilgilendirildim. 
+    Kayıtlarım için verdiğim adrese e-posta ile bunun teyidini alacağım.
+  not_acknowledge_privacy_notice_description: Talimatı kabul etmezseniz, bir 
+    Foodsaver seviyesine düşürüleceksiniz. Bu, artık bir Bölge Elçisi 
+    olmayacağınız, operasyonel sorumluluklarınızı kaybedeceğiniz ve Operasyon 
+    Müdürü/Elçi testini tekrar yapmanız gerekeceği anlamına gelir.
   dont_agree: Verilerimin işlenmesine izin vermiyorum ve
   privacy_notice_agree:
     acknowledge: Kabul ediyorum.
     select: Lütfen seçin
-    not_acknowledge: Kabul etmiyorum ve Foodsaver seviyesine indirilmek istiyorum.
+    not_acknowledge: Kabul etmiyorum ve Foodsaver seviyesine indirilmek 
+      istiyorum.
   legal_agreement: Yasal anlaşma
   are_you_sure_to_downgrade: 'Dikkat: Foodsaver seviyesine indirilmeyi seçtiniz. Emin
     misiniz?'
@@ -3507,23 +3577,25 @@ legal:
   privacy_notice: İşletme Sorumluları ve Elçiler için Gizlilik Politikası
   acknowledge:
     qustion_policy: Gizlilik politikamızı kabul ediyor musunuz?
-    qustion_notice: Veri koruma beyanımızı ve veri koruma talimatlarımızı kabul ediyor
-      musunuz?
+    qustion_notice: Veri koruma beyanımızı ve veri koruma talimatlarımızı kabul 
+      ediyor musunuz?
     select: Lütfen seçin
     agree: Evet, gizlilik politikasını kabul ediyorum.
-    agree_only_policy: Yalnızca veri koruma beyanını kabul ediyorum ve Foodsaver statüsüne
-      indirilmek istiyorum.
-    not_agree: Hayır, gizlilik politikasını kabul etmiyorum. Hesabımı silmek istiyorum.
-    agree_policy_and_notice: Evet, veri koruma beyanını ve veri koruma talimatlarını
-      kabul ediyorum.
-  not_acknowledge_privacy_policy_description: Foodsharing platformunu kullanabilmek
-    için açıklanan veri koruma beyanını dikkate almanız gerekmektedir.
+    agree_only_policy: Yalnızca veri koruma beyanını kabul ediyorum ve Foodsaver
+      statüsüne indirilmek istiyorum.
+    not_agree: Hayır, gizlilik politikasını kabul etmiyorum. Hesabımı silmek 
+      istiyorum.
+    agree_policy_and_notice: Evet, veri koruma beyanını ve veri koruma 
+      talimatlarını kabul ediyorum.
+  not_acknowledge_privacy_policy_description: Foodsharing platformunu 
+    kullanabilmek için açıklanan veri koruma beyanını dikkate almanız 
+    gerekmektedir.
   actions:
     safe: Ayarları kaydet
   privacy_policy: Veri Koruma Beyannamesi
   agree_privacy_policy: Veri koruma beyannamesini okudum.
-  must_accept_privacy_policy: Foodsharing'e katılmak için veri koruma koşullarını
-    kabul etmelisiniz.
+  must_accept_privacy_policy: Foodsharing'e katılmak için veri koruma 
+    koşullarını kabul etmelisiniz.
   button:
     agree: Kabul ediyorum
     partially_agree: Foodsaver'a düşürüldü
@@ -3541,28 +3613,31 @@ salutation:
   "1": Sevgili
 register:
   login_passwd1: Şifre (en az 8 karakter)
-  confirmPassword_sameAsPassword: Girilen her iki şifrenin de aynı olması gerekir
+  confirmPassword_sameAsPassword: Girilen her iki şifrenin de aynı olması 
+    gerekir
   geb_datum: Doğum tarihiniz
   firstname_required: Lütfen isminizi giriniz
   firstname_minLength: Adınız en az iki karakterden oluşmalıdır
   lastname_required: Lütfen soyadınızı giriniz
   join_error: Kaydınız başarısız oldu.
-  login_phone_info: Telefon numaranızı diğer Foodsharer'larla paylaşmak yararlı olabilir
+  login_phone_info: Telefon numaranızı diğer Foodsharer'larla paylaşmak yararlı 
+    olabilir
   lastname_minLength: Soyadı en az iki karakterden oluşmalıdır
   phone_not_valid: Girilen telefon numarası geçerli değil
   email_invalid: E-posta adresi geçersiz veya zaten kullanılıyor
   finish: Kaydı gönder
   next: devam et
   requiredFields: Zorunlu giriş
-  check_mail: Kayıt işlemini tamamlamak için şimdi e-posta kutunuzu kontrol edin!
+  check_mail: Kayıt işlemini tamamlamak için şimdi e-posta kutunuzu kontrol 
+    edin!
   change-password: Şimdi şifrenizi değiştirebilirsiniz.
   join_success: Kaydınız başarılı oldu.
-  activation_failed: <strong>Etkinleştirme başarısız oldu.</strong> Girdiğiniz bağlantı
-    doğru mu?
-  activation_success: <strong>Etkinleştirme başarılı.</strong> E-posta adresiniz ve
-    seçtiğiniz şifreyle şimdi oturum açın.
-  birthdate_hint: Foodsharer veya Foodsaver olarak kaydolurken [Gizlilik Politikası]({url})'nın
-    2d.
+  activation_failed: <strong>Etkinleştirme başarısız oldu.</strong> Girdiğiniz 
+    bağlantı doğru mu?
+  activation_success: <strong>Etkinleştirme başarılı.</strong> E-posta adresiniz
+    ve seçtiğiniz şifreyle şimdi oturum açın.
+  birthdate_hint: Foodsharer veya Foodsaver olarak kaydolurken [Gizlilik 
+    Politikası]({url})'nın 2d.
   topbar: Sen de katıl
   title: Kayıt
   register_button_label: Kayıt ol
@@ -3572,8 +3647,8 @@ register:
   woman: kadın
   login_surname: Soyadınız
   pass1: İstediğiniz yeni şifreniz
-  join_success_message: Foodsharing'e kaydınızı başarıyla tamamladınız. Artık e-postanız
-    ve şifrenizle giriş yapabilirsiniz.
+  join_success_message: Foodsharing'e kaydınızı başarıyla tamamladınız. Artık 
+    e-postanız ve şifrenizle giriş yapabilirsiniz.
   login_passwd2: Şifre tekrarı
   password_required: Şifre gerekli
   password_minLength: Parola en az sekiz karakterden oluşmalıdır
@@ -3585,10 +3660,10 @@ register:
   login_location: Adresiniz
   man: erkek
   other: diğer
-  error_birthdate: Örnek 03/25/2001 (GG.AA.YYYY). Veri koruma ve sorumluluk nedenleriyle,
-    foodsharing'e katılmak için en az 18 yaşında olmalısınız.
-  account-exists: Zaten kayıtlısınız. Tekrar kaydolmak istiyorsanız lütfen oturumu
-    kapatın.
+  error_birthdate: Örnek 03/25/2001 (GG.AA.YYYY). Veri koruma ve sorumluluk 
+    nedenleriyle, foodsharing'e katılmak için en az 18 yaşında olmalısınız.
+  account-exists: Zaten kayıtlısınız. Tekrar kaydolmak istiyorsanız lütfen 
+    oturumu kapatın.
   pass2: Şifre tekrarı
   signup_newsletter: Ayda yaklaşık bir kez foodsharing bültenini almak istiyorum
   email_required: Bir e-posta adresi gerekli
@@ -3601,7 +3676,8 @@ register:
   have_read_the_legal_stuff1: Ben
   firstname_maxLength: Ön isim en fazla 30 karakterden oluşabilir
   lastname_maxLength: Soyisim en fazla 30 karakterden oluşabilir
-  password_must_be_complex: Şifre en az bir büyük harf, bir küçük harf ve rakam içermelidir
+  password_must_be_complex: Şifre en az bir büyük harf, bir küçük harf ve rakam 
+    içermelidir
   password_must_be_trimmed: Şifrenin başında veya sonunda boşluk olmamalı
 gender:
   f: Kadın
@@ -3642,12 +3718,12 @@ storeview:
   invalid_field: Geçersiz alan içeriği. Değişiklik kaydedilemiyor.
   management: Yönetim
   select_related_region: Sorumlu bölgenin seçimi
-  teamInfo: Ekipde ki <strong>{active}</strong> aktif olanlar ve <strong>{jumper}</strong>
-    yedekte olanlar.
+  teamInfo: Ekipde ki <strong>{active}</strong> aktif olanlar ve 
+    <strong>{jumper}</strong> yedekte olanlar.
   pickupWeight: 'kg kurtarıldı'
   cooperation_start: beri işbirliği
-  public_time: Yaklaşık {freq}'da alınıyor.Lütfen önceden anlaşma yapmadan asla işletmeye
-    gitmeyin!
+  public_time: Yaklaşık {freq}'da alınıyor.Lütfen önceden anlaşma yapmadan asla 
+    işletmeye gitmeyin!
   public_time_in_the_evening: akşamları
   public_time_at_night: gece
   want_to_fetch: Bu ekibe yardım etmek isterim.
@@ -3669,16 +3745,17 @@ fsp:
   suggest: Gıda dağıtım noktası önerin
   accept: Gıda dağıtım noktasının kilidini aç
   editName: '"{name}" Gıda dağıtım noktasını düzenle'
-  publicwall: Gıda dağıtım noktası panosundaki gönderilerinizin herkese açık olduğunu
-    unutmayın.
+  publicwall: Gıda dağıtım noktası panosundaki gönderilerinizin herkese açık 
+    olduğunu unutmayın.
   delete: Gıda dağıtım noktasını silin
   info:
     none: daha fazla değil
     descSettings: '"{name}" gıda dağıtım noktasının tüm bilgilerini takip ediyorsunuz.
       Bu bildirimleri nasıl almak istersiniz?'
-    manager: Bu gıda dağıtım noktasından siz sorumlusunuz ve bu nedenle güncellemeleri
-      almakla yükümlüsünüz.
-    descModal: Güncellemelerden nasıl haberdar olmak istersiniz (örneğin yemek teslimatları)?
+    manager: Bu gıda dağıtım noktasından siz sorumlusunuz ve bu nedenle 
+      güncellemeleri almakla yükümlüsünüz.
+    descModal: Güncellemelerden nasıl haberdar olmak istersiniz (örneğin yemek 
+      teslimatları)?
     from: Bu gıda dağıtım noktası “{name}” tarafından yapılan güncellemeler
     mail: Zil ve e-posta bildirimi
     bell: sadece dahili bilgi mesajları (zil)
@@ -3689,19 +3766,19 @@ fsp:
   location: Posta kodu / Şehir
   pic: Fotoğraf
   addedOn: de eklendi
-  descLabel: Özellikle erişilebilir/açık olduğunda,gıda dağıtım noktası hakkında bazı
-    temel bilgileri buraya yazın.
+  descLabel: Özellikle erişilebilir/açık olduğunda,gıda dağıtım noktası hakkında
+    bazı temel bilgileri buraya yazın.
   street: Adres
   addedBy: den eklendi
   summary: Aktif olduğunuz tüm bölgelerde {count} gıda dağıtım noktaları var
-  addError: Gıda dağıtım noktası girilemedi. Her şeyi doğru bir şekilde doldurdunuz
-    mu?
-  suggestSuccess: Gıda dağıtım noktası önerildi ve şimdi bir elçi / Gıda dağıtım noktası
-    sorumlusu tarafından onaylanması gerekiyor.
+  addError: Gıda dağıtım noktası girilemedi. Her şeyi doğru bir şekilde 
+    doldurdunuz mu?
+  suggestSuccess: Gıda dağıtım noktası önerildi ve şimdi bir elçi / Gıda dağıtım
+    noktası sorumlusu tarafından onaylanması gerekiyor.
   editSuccess: Gıda dağıtım noktası başarıyla işlendi
   acceptName: '{name} üyelğini aktif hale getir'
-  rejectConfirm: Dikkat, gıda dağıtım noktasını silerseniz, artık bunu geri alamazsınız.
-    Devam etmek ister misiniz?
+  rejectConfirm: Dikkat, gıda dağıtım noktasını silerseniz, artık bunu geri 
+    alamazsınız. Devam etmek ister misiniz?
   noManager: Gıda dağıtım noktasından sorumlu, en az bir kişi olmalıdır.
   reject: Gıda dağıtım noktasını reddet
   unfollow: Bu gıda dağıtım noktasını takipten çıkarın
@@ -3727,8 +3804,8 @@ fsp:
     min_length: '{name} en az {length} karakter uzunluğunda olmalıdır.'
   createdAt: 'Açıldı:'
   followerCount: İlgilenen Kullanıcılar:{followerCount}
-  onlySuggested: Bu Gıda dağıtım Noktası önerildi ancak henüz yayınlanmadı. Bu durumda
-    diğer kullanıcılara gösterilmeyecektir.
+  onlySuggested: Bu Gıda dağıtım Noktası önerildi ancak henüz yayınlanmadı. Bu 
+    durumda diğer kullanıcılara gösterilmeyecektir.
 statistics:
   kg_food_saved: '{count} kg gıda kurtarıldı'
   num_fetches: '{count} Kurtarma görevinde'
@@ -3745,15 +3822,17 @@ statistics:
 are_you_sure: Emin misin?
 day: Gün
 formatting:
-  md: Format atmak için <a href="https://markdown.de/">Markdown</a> kullanabilirsiniz.
+  md: Format atmak için <a href="https://markdown.de/">Markdown</a> 
+    kullanabilirsiniz.
 time: Saat
 fetchercount: Alanların sayısı
 kette_id: İşletme Zinciri
 betrieb_status_id: Statü
 public_time: Ortalama alım saati
-sticker: İşletme/Mağaza/Dernek vs. girişe veya görülebilecek başka bir yere çıkartma
-  yapıştırmak istiyor mu?
-prefetchtime: Foodsaverlar, otomatik slotu kullanarak kaç hafta önceden kayıt yaptırabilir?
+sticker: İşletme/Mağaza/Dernek vs. girişe veya görülebilecek başka bir yere 
+  çıkartma yapıştırmak istiyor mu?
+prefetchtime: Foodsaverlar, otomatik slotu kullanarak kaç hafta önceden kayıt 
+  yaptırabilir?
 fetch_count: Bir başvuru sahibi kaç tane kurtarma yapmış olmalıdır?
 duration: Cevaplamak için zaman
 fpko: Hata puanları (nakavt)
@@ -3829,14 +3908,15 @@ pickup:
         title: Slotdan çıkarılsın mı?
         message: Kullanıcıyı gerçekten bu Slotdan çıkarmak istiyor musunuz?
       signOffAll:
-        message: Kullanıcıyı gerçekten tüm kayıtlı Slotlardan çıkarmak istiyor musunuz?
+        message: Kullanıcıyı gerçekten tüm kayıtlı Slotlardan çıkarmak istiyor 
+          musunuz?
         title: Tüm yazıldığın slotların iptal edilsin mi?
     allLoaded: Tüm girişler zaten görüntüleniyor.
     freeSlots: boş {slots}
   leave_pickup_message_team: Ekibe haber ver
   leave_team_message_title: Ekibe Mesaj gönder
-  to_be_confirmed: Bu teslim alma tarihinin işletmeden sorumlu bir kişi tarafından
-    onaylanması gerekmektedir.
+  to_be_confirmed: Bu teslim alma tarihinin işletmeden sorumlu bir kişi 
+    tarafından onaylanması gerekmektedir.
   slot_add: Slot ekle
   history:
     title: Alım Geçmişi
@@ -3876,8 +3956,8 @@ pickup:
   edit_recurring_pickups: Düzenli teslim alma saatlerini düzenleyin
   really_delete_date: '{date} tarihinde alım tarihini gerçekten silmek istediğinizden
     emin misiniz?'
-  delete_not_empty: Şu anda kayıtlı olan Foodsaverlar var. Herkes kayıttan çıktıktan
-    sonra alım tarihini silebilirsiniz.
+  delete_not_empty: Şu anda kayıtlı olan Foodsaverlar var. Herkes kayıttan 
+    çıktıktan sonra alım tarihini silebilirsiniz.
   kick_message: seni {date} tarihindeki {storeName} teslimatından çıkardık.
   kick_message_footer: Sevgiler. İşletme yöneticileriniz
   same_day_entry: '[{when} Saat] {name}'
@@ -3886,21 +3966,24 @@ pickup:
   add_onetime_pickup: Ek tarih girin
   no_slots_available: Açık Slot yok
   leave: Çıkış yap
-  really_leave_date: Bu alımdan siz sorumlusunuz. Lütfen yerinize birilerini ayarlayın.
+  really_leave_date: Bu alımdan siz sorumlusunuz. Lütfen yerinize birilerini 
+    ayarlayın.
   leave_pickup_ok: Yedek birini buldum bile
   description_optional: Açıklama (isteğe bağlı)
   description: Açıklama
   edit_description: Açıklamayı düzenle
-  description_max_length_info: Maksimum açıklama uzunluğuna ulaşıldı (100 karakter)
+  description_max_length_info: Maksimum açıklama uzunluğuna ulaşıldı (100 
+    karakter)
   description_modal_text: 'Yeni bir teslim alma açıklaması girin:'
   hygieneCertificateMissing:
     link: Hijyen eğitimi için
-    none: Şu anda geçerli bir Hijyen Sertifikanız yok. Gıda kurtarmaayı gerçekleştirnek
-      için Hijyen testini şimdi tamamlayın.
-    timeout: Hijyen notunuzun süresi, onu teslim aldığınız tarihte dolacaktır. Şimdi
-      Gıda kurtarımına kaydolabilmek için Hijyen testini tekrar yapın.
-  membershipMissing: Bu ekibin üyesi değilsiniz. Bu nedenle, kurtarma işlemlerine
-    kayıt yaptırmamalısınız. Şüpheniz varsa, öncelikle ekip üyesi olarak kaydolun.
+    none: Şu anda geçerli bir Hijyen Sertifikanız yok. Gıda kurtarmaayı 
+      gerçekleştirnek için Hijyen testini şimdi tamamlayın.
+    timeout: Hijyen notunuzun süresi, onu teslim aldığınız tarihte dolacaktır. 
+      Şimdi Gıda kurtarımına kaydolabilmek için Hijyen testini tekrar yapın.
+  membershipMissing: Bu ekibin üyesi değilsiniz. Bu nedenle, kurtarma 
+    işlemlerine kayıt yaptırmamalısınız. Şüpheniz varsa, öncelikle ekip üyesi 
+    olarak kaydolun.
   may_enter: Bu alım tarihinde boş bir Slot mevcut.
   confirmed: Alım tarihi onaylandı.
 calendar:
@@ -3914,8 +3997,8 @@ calendar:
       foodsavers: 'Kayıtlı foodsaver: '
     event:
       linkTitle: Foodsharing etkinliği
-      statusUnspecified: Bu randevuya katılıp katılmayacağınızı henüz belirtmediniz.
-        Bunu bağlantılı sayfada yapabilirsiniz.
+      statusUnspecified: Bu randevuya katılıp katılmayacağınızı henüz 
+        belirtmediniz. Bunu bağlantılı sayfada yapabilirsiniz.
       description: Açıklama
     updated: '(Son güncelleme: {date})'
   labelCurrentMonth: Bu ay
@@ -3946,10 +4029,10 @@ genderlist:
   gender_female: kadın
   header_for_district: '{bezirk} Bölgesinde ki Foodsaverların Cinsiyete göre dağılımı'
   home_district_tab: Ana Bölge
-  gender_district_table_caption: Bölgeye katılan tüm Foodsaverlara karakteristik 'cinsiyet'
-    tahsisi
-  gender_home_district_table_caption: Karakteristik 'cinsiyet'in ana bölge Foodsaverlarına
-    tahsisi
+  gender_district_table_caption: Bölgeye katılan tüm Foodsaverlara karakteristik
+    'cinsiyet' tahsisi
+  gender_home_district_table_caption: Karakteristik 'cinsiyet'in ana bölge 
+    Foodsaverlarına tahsisi
   gender_divers: diğer
 store_status_impact_explanation: 'Lütfen her irtibat sonrası işletmenin durumunu (<a
   href="https://wiki.foodsharing.de/Kooperationsaufbau_-_Checkliste" target="_blank">
@@ -4074,13 +4157,16 @@ chain:
     EMPTY_ZIP: Posta Kodu alanı boş
     INVALID_STORECHAIN_ID: İşletme zinciri Id'si geçersiz
     KEY_ACCOUNT_MANAGER_ID_NOT_EXISTS: Kilit Müşteri Yöneticisi mevcut değil
-    KEY_ACCOUNT_MANAGER_ID_NOT_IN_GROUP: Kilit Müşteri Yöneticisi, çalışma grubu (AG)
-      işletme zincirine ait değil
+    KEY_ACCOUNT_MANAGER_ID_NOT_IN_GROUP: Kilit Müşteri Yöneticisi, çalışma grubu
+      (AG) işletme zincirine ait değil
     THREAD_ID_NOT_EXISTS: Forum başlığı mevcut değil
-    WRONG_FORUM: Forum Konusu, İş Zincirleri Çalışma Grubunun (AG) bir parçası değildir
+    WRONG_FORUM: Forum Konusu, İş Zincirleri Çalışma Grubunun (AG) bir parçası 
+      değildir
     EMPTY_NAME: İsim alanı boş
     EMPTY_CITY: Şehir alanı boş
     INVALID_STATUS: Durum alanı geçersiz
+    KEY_ACCOUNT_MANAGER_MISSING_ACHIEVEMENT: Kilit müşteri yöneticisi, KAM'lar 
+      için verilen eğitimi tamamlamadı.
 globals:
   account:
     signin: 'Kayıt ol'
@@ -4121,6 +4207,7 @@ globals:
   telephone_number: Telefon numarası
   save_changes: Değişiklikleri kaydet
   saved: Değişiklikler kaydedildi
+  updated: 'Güncellendi:'
 search:
   placeholder: 'Şimdi aramaya başlayın …'
   informations: 'Kişileri, grupları, işletmeleri, semtleri, sohbetleri, forum gönderilerini
@@ -4182,8 +4269,8 @@ search:
       not_eligible: Oy verme hakkınız yok
       can_vote: Hala oy verebilirsiniz
       has_voted: Burada oy verdiniz
-  maxresults: Kategori başına en fazla 30 sonuç görüntülenir. Belki daha spesifik
-    bir arama terimi kullanabilirsiniz.
+  maxresults: Kategori başına en fazla 30 sonuç görüntülenir. Belki daha 
+    spesifik bir arama terimi kullanabilirsiniz.
   too_short: Lütfen daha uzun bir arama terimi girin.
   scope:
     global: Küresel arama
@@ -4272,13 +4359,13 @@ usersearch:
   no_tag_preset: Kullanıcı bulunamadı
 notifications:
   chat:
-    description: Oturum açmamış olsanız bile yeni chat mesajları hakkında bildirim
-      alın.
+    description: Oturum açmamış olsanız bile yeni chat mesajları hakkında 
+      bildirim alın.
     title: Chat mesajları
   checkbox_bell: Çan
   foodSharePoints:
-    description: Takip ettiğiniz gıda dağıtım noktası panolarındaki yeni gönderilerin
-      bildirimlerini alın.
+    description: Takip ettiğiniz gıda dağıtım noktası panolarındaki yeni 
+      gönderilerin bildirimlerini alın.
     title: Gıda Dağıtım Noktası
   threads:
     title: Forum konuları
@@ -4289,16 +4376,16 @@ notifications:
   config_button: tek tek yapılandır
   newsletter:
     title: E-Bülten
-    description: Yaklaşık ayda bir kez e-postayla gıda paylaşımına ilişkin güncel
-      bilgiler alın.
+    description: Yaklaşık ayda bir kez e-postayla gıda paylaşımına ilişkin 
+      güncel bilgiler alın.
   checkbox_email: E-Posta Adresi
   checkbox_push: Push
   groups:
     title: Çalışma grupları
   pickupReminder:
     title: Boş slotlar için hatırlatmalar
-    description: Yönettiğiniz işletmelerdeki slotlar ertesi gün henüz dolmamışsa sizi
-      uyaran e-postalar alın.
+    description: Yönettiğiniz işletmelerdeki slotlar ertesi gün henüz dolmamışsa
+      sizi uyaran e-postalar alın.
   mention:
     title: Etiketleme bildirimleri
     description: Birisi size forumda etiketlediğinde bildirim alın.
@@ -4311,6 +4398,9 @@ notifications:
     cancel: Etkinleştirme
     dontAskAgain: Bir daha sorma
   success: Başarı
+  info: Bilgi_
+  error: Hata
+  warning: Uyarı
 markdown_input:
   tooltip:
     orderedList: numaralı liste
@@ -4352,6 +4442,9 @@ thread:
     copy_source_success: Kaynak kodu kopyalandı!
     copy_direct_link_success: Doğrudan bağlantı kopyalandı!
     linked_post: Bağlantılı yayın
+    quote_button: Tıklandığında, gönderinin metnini (gerekirse kısaltarak) 
+      yanıta ekler. Aynı anda [Shift] tuşuna basarsanız metnin tamamı eklenir.
+    quote_post_wrote: tarihinde yazdı
   priorityModal:
     title: Görüntüleme önceliğini ayarlayın
     lower: en altta
@@ -4360,12 +4453,12 @@ thread:
     text: 'Bu gönderinin görüntülenme önceliği:'
   hiddenPostsInfo:
     includesHidden: Bu konudaki gönderiler moderatörler tarafından gizlendi.
-    cannotSee: Gizli gönderilerin içeriğini göremeseniz de gönderilerin neden ve kim
-      tarafından gizlendiğini görebilirsiniz.
+    cannotSee: Gizli gönderilerin içeriğini göremeseniz de gönderilerin neden ve
+      kim tarafından gizlendiğini görebilirsiniz.
     toggle: Gizli gönderileri göster_
 save_state: Filtre ve sıralama olduğu gibi kalsın
-save_state_description: Uygulanan filtreleri ve sıralamayı kaydedin ve gelecekteki
-  aramalar için kayıtlı bırakın
+save_state_description: Uygulanan filtreleri ve sıralamayı kaydedin ve 
+  gelecekteki aramalar için kayıtlı bırakın
 configure_columns: Sütunları yapılandır
 expand_all: Tümünü kapat
 collapse_all: Tümünü aç
@@ -4401,8 +4494,8 @@ help:
       title: Forumlarda görüntüleme önceliği
     profileCommitmentsStat:
       title: Etkileşim istatistikleri
-      md: İşletme Sorumlusu rolünden görülebilir. Ortak ana bölgeler veya ortak işletmelerle
-        sınırlıdır.
+      md: İşletme Sorumlusu rolünden görülebilir. Ortak ana bölgeler veya ortak 
+        işletmelerle sınırlıdır.
     masterRegion:
       md: "Bölgelerin bir ana bölgesi olduğunda, bölgenin tüm üyeleri de otomatik
         olarak ana bölgeye dahil edilir. Çoğu durumda ana bölgeyi ana bölge olarak
@@ -4498,6 +4591,39 @@ help:
         kendi hijyen çıkartmalarına dayanmaktadır. Ne profile yüklenen harici sağlayıcılardan
         alınan hijyen sertifikaları (Metro gibi) ne de başka bir yerde alınan hijyen
         eğitimleri teknik olarak dikkate alınmaz.\n"
+    pickupOptions:
+      md: "*Alım Seçenekleri* bölümü, hala yiyecek tasarrufu arayan işletmelerinizdeki
+        tüm yaklaşan alım işlemlerinin genel bir görünümünü gösterir. Seçenekler menüsünü
+        kullanarak görünümü ihtiyaçlarınıza göre özelleştirebilirsiniz:\n\n**Kayıtlı
+        alımlar:** Alımlarınızı daha iyi planlamanıza yardımcı olmak için, halihazırda
+        kayıtlı olduğunuz alımları da görüntüleyebilirsiniz. Bu alımlar, tek bakışta
+        görebilmeniz için biraz daha soluk renkte sergileniyor.\n\n**BV görüşü:**
+        İşletme yöneticileri (BV), işletmelerindeki tüm alımların güvenilir bir şekilde
+        gerçekleştirilmesini sağlar. Eğer BV iseniz, görünümü sorumlu olduğunuz işletmelerle
+        sınırlayabilirsiniz. Bu sayede takip etmeniz daha kolay olur.\n\n**Günlere
+        göre gruplandırılmış:** Bu görünümde, teslim alma seçenekleriniz günlere göre
+        gruplandırılmış ve daha kompakt bir biçimde sunulmuştur. Özellikle her gün
+        çok sayıda kurtarma seçeneğiniz varsa, genel bir bakış elde etmeniz daha kolay
+        olur.\n"
+      title: Alım seçenekleri
+    publicEvent:
+      title: Açık etkinlikler
+      md: "Etkinlikler, bir çalışma grubunun yöneticileri veya GOALS Halkla İlişkiler
+        Çalışma Grubu yöneticileri veya elçiler tarafından kamuya açık olarak kaydedilebilir.
+        Kamuya açık etkinlikler herkese açıktır. Mekanı ve bilgileri görüntülemek
+        için platforma giriş yapmanıza gerek yok. Ancak duyuru panosu ve katılımcı
+        listesi sadece kayıtlı kullanıcılara açıktır.\nfoodsharing topluluğunun dışındaki
+        kişileri davet etmek istiyorsanız etkinliği herkese açık olarak girin, herkes
+        katılabilir.\n"
+    change_verified_data:
+      title: Doğrulanmış verilerde değişiklik talebinde bulunun
+      md: "Foodsaver olarak çalışmak için profilinizdeki bilgilerin doğru olması önemlidir.
+        Yiyeceklerinizi saklamanıza izin verilmeden önce, elçiler bunları kimliğinizle
+        karşılaştıracaktır. Dolayısıyla adınızı ve doğum tarihinizi öylece değiştiremezsiniz.\n\
+        ---\nBu alanlardan herhangi birini değiştirmeniz gerekirse, ikamet ettiğiniz
+        bölgedeki bir elçiye başvurabilirsiniz. Sizin için uygun değişiklikleri yapabilirler.
+        [İlçe forumunda]({link}) sol taraftaki kenar çubuğundan, kendi bölgenizdeki
+        büyükelçinin kim olduğunu görebilirsiniz.\n"
   helpTitle: 'Yardım: {title}'
   tooltip: Yardımı göster
 team_page:
@@ -4525,14 +4651,15 @@ no_automatic_delete: 'Son kaydın 5 yıl önce olması durumunda:'
 automatic_delete: '- bu Profil silinmelidir.'
 automatic_not_delete: '- bu profil kalmalıdır.'
 validation:
-  phone_number_invalid: Telefon numarası geçersiz (örneğin +90 eksik, çok kısa, çok
-    uzun veya geçersiz karakterler içeriyor)
+  phone_number_invalid: Telefon numarası geçersiz (örneğin +90 eksik, çok kısa, 
+    çok uzun veya geçersiz karakterler içeriyor)
 achievements:
   inThis:
     region: 'Bu bölgede aşağıdaki Rozetler verilebilir:'
     group: 'Bu çalışma grubunda aşağıdaki Rozetler verilebilir:'
   validity:
-    days: Görevlendirmeden sonraki {validityInDaysAfterAssignment} gün boyunca geçerlidir.
+    days: Görevlendirmeden sonraki {validityInDaysAfterAssignment} gün boyunca 
+      geçerlidir.
     indefinite: Verildikten sonra süresiz olarak geçerlidir.
     indefiniteShort: sınırsız
   revokeConfirmation: '{name}''in Rozetini iptal etmek istediğinizden emin misiniz?'
@@ -4580,13 +4707,14 @@ store_categories:
   edit: Kategorinin adını değiştir
   delete: Kategoriyi kaldır
   confirm_delete: '{name} kategorisi gerçekten silinsin mi?'
-  confirm_delete_hint: Hala bu kategoriye atanmış {count} şirket var. Bu işletmenin
-    artık bir kategorisi olmayacak.
+  confirm_delete_hint: Hala bu kategoriye atanmış {count} şirket var. Bu 
+    işletmenin artık bir kategorisi olmayacak.
   new: Yeni kategori girin
 error_base64_image: Drag & Drop yöntemiyle resim eklenmesine izin verilmez.
 support_page:
   title: Destek formu
-  notification_name: Giriş yaptığınız için adınız ve foodsharing ID'niz aktarılacaktır.
+  notification_name: Giriş yaptığınız için adınız ve foodsharing ID'niz 
+    aktarılacaktır.
   firstName: Ön İsim
   validation_firstName: Ön İsim boş
   validation_email: Geçersiz e-posta adresi
@@ -4597,11 +4725,12 @@ support_page:
   success: Mesajınız başarıyla iletildi.
   email: E-posta adresiniz
   validation_body: Mesaj boş
-  info_teaser: Platformun kullanımıyla ilgili sorularınız, teknik sorunlar veya hata
-    mesajları için destek formumuza ulaşabilirsiniz. Biletinizi gönderdikten sonra
-    sistemimizde otomatik olarak bir bilet oluşturulacaktır. Gönüllü destek ekibi
-    sorularınızla ilgilenecektir. Teknik sorunların daha iyi ele alınabilmesi için
-    talebinizde hangi tarayıcıyı ve işletim sistemini kullandığınız da yer alacaktır.
+  info_teaser: Platformun kullanımıyla ilgili sorularınız, teknik sorunlar veya 
+    hata mesajları için destek formumuza ulaşabilirsiniz. Biletinizi 
+    gönderdikten sonra sistemimizde otomatik olarak bir bilet oluşturulacaktır. 
+    Gönüllü destek ekibi sorularınızla ilgilenecektir. Teknik sorunların daha 
+    iyi ele alınabilmesi için talebinizde hangi tarayıcıyı ve işletim sistemini 
+    kullandığınız da yer alacaktır.
   attachments: Ekler (dosya başına maksimum 5MB)
   attachment:
     max_size: Ekler (her biri 5 MB olmak üzere en fazla 10 adet)
@@ -4610,14 +4739,17 @@ support_page:
     browse: Ara
 petition:
   progressText:
-    8000: İyi bir başlangıç yapıyoruz! Bunu daha da ileriye taşımamıza yardım edin!
+    8000: İyi bir başlangıç yapıyoruz! Bunu daha da ileriye taşımamıza yardım 
+      edin!
     15000: Yarıya yaklaştık! Desteğinle ilerleme kaydetmeye devam edeceğiz!
-    20000: İhtiyacımız olan imzaların yarısına zaten sahibiz! Birlikte bunu başarabiliriz!
-    30000: Hedefe yaklaştık - çok az kaldı! Haydi sende bu kampanyanın bir parçası
-      ol!
-    Infinity: Hedefe ulaşıldı! Dilekçemiz Federal Meclis'te görüşülecek. Artık davamızı
-      daha da güçlendirmenin zamanı geldi!
-    25000: İhtiyacımız olan imzaların üçte ikisini zaten aldık! Birlikte bunu yapabiliriz!
+    20000: İhtiyacımız olan imzaların yarısına zaten sahibiz! Birlikte bunu 
+      başarabiliriz!
+    30000: Hedefe yaklaştık - çok az kaldı! Haydi sende bu kampanyanın bir 
+      parçası ol!
+    Infinity: Hedefe ulaşıldı! Dilekçemiz Federal Meclis'te görüşülecek. Artık 
+      davamızı daha da güçlendirmenin zamanı geldi!
+    25000: İhtiyacımız olan imzaların üçte ikisini zaten aldık! Birlikte bunu 
+      yapabiliriz!
     2000: Dilekçe hız kazanıyor! Desteğin sayesinde hızla kazanacağız!
     500: Hadi gel! Bu kampanyayı imzalayan ilk kişilerden biri ol!
   link: Kampanyaya git
@@ -4637,19 +4769,22 @@ navi:
 net_errors:
   message: 'Hata mesajı: '
   NOT_MODIFIED: Bu eylemi gerçekleştirmeye yetkiniz yok.
-  ERR_NETWORK_CHANGED: İnternet bağlantınız stabil değil. Lütfen bağlantınızı kontrol
-    edip tekrar deneyin.
+  ERR_NETWORK_CHANGED: İnternet bağlantınız stabil değil. Lütfen bağlantınızı 
+    kontrol edip tekrar deneyin.
   code: 'Hata kodu: '
-  BAD_REQUEST: İstek geçersiz. Lütfen girdilerinizin eksiksiz ve makul olup olmadığını
-    kontrol edin.
-  ECONNABORTED: İstek tarayıcınız tarafından iptal edildi. Lütfen tekrar deneyin.
-  SERVER_ERROR: Dahili sunucu hatası oluştu. Maalesef talebiniz şu anda işleme alınamıyor.
-  TOO_MANY_REQUESTS: Çok fazla istek var. Lütfen bir süre bekleyip tekrar deneyin.
+  BAD_REQUEST: İstek geçersiz. Lütfen girdilerinizin eksiksiz ve makul olup 
+    olmadığını kontrol edin.
+  ECONNABORTED: İstek tarayıcınız tarafından iptal edildi. Lütfen tekrar 
+    deneyin.
+  SERVER_ERROR: Dahili sunucu hatası oluştu. Maalesef talebiniz şu anda işleme 
+    alınamıyor.
+  TOO_MANY_REQUESTS: Çok fazla istek var. Lütfen bir süre bekleyip tekrar 
+    deneyin.
   NOT_FOUND: Aranılan sayfa bulunamadı.
-  ETIMEDOUT: İstek çok uzun sürdü. Lütfen internet bağlantınızı kontrol edip tekrar
-    deneyin.
-  ERR_NETWORK: Ağda bir sorun oluştu. Lütfen internet bağlantınızı kontrol edip tekrar
-    deneyin.
+  ETIMEDOUT: İstek çok uzun sürdü. Lütfen internet bağlantınızı kontrol edip 
+    tekrar deneyin.
+  ERR_NETWORK: Ağda bir sorun oluştu. Lütfen internet bağlantınızı kontrol edip 
+    tekrar deneyin.
   ERR_CANCELED: İstek iptal edildi. Gerekirse tekrar deneyiniz.
   ERR_BAD_RESPONSE: Sunucu geçersiz bir yanıt verdi. Lütfen tekrar deneyin.
   title:
@@ -4668,4 +4803,12 @@ required_messages:
     footer: Saygılarımla
   decline_store_application:
     footer: Saygılarımla
-  name_placeholder: <İsim>
+  name_placeholder: <Name>
+contact_page:
+  bread: İletişim ve Destek
+  title: İletişim ve Destek
+  description: 'Lütfen aşağıdaki iletişim seçeneklerinden birini kullanarak bizimle
+    iletişime geçin:'
+  common:
+    title: Organizasyonel sorularınız için
+    link: E-posta yazın
