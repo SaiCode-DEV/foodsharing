@@ -252,7 +252,7 @@ quiz:
           placeholder: Testo klausimas…
         wikilink:
           label: 'Nuoroda į atitinkamą straipsnį:'
-          placeholder: https://wiki.foodsharing.de/...
+          placeholder: https://wiki.foodsharing.de/…
       title: Redaguoti klausimą
       confirmDelete:
         title: Ar tikrai nori ištrinti šį klausimą?
@@ -390,3 +390,5 @@ group:
     description_placeholder: Darbo grupės aprašymas
   mail_link_title:
     workgroup: Darbo grupės pašto dėžutė
+calendar:
+  locale: lt
