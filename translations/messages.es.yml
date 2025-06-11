@@ -1020,9 +1020,9 @@ error:
   mail_activation:
     link_1: 'Solicite un nuevo correo electrónico de activación'
     title: '¡Dirección de correo electrónico no confirmada!'
-    description: 'A partir de la próxima versión, sólo será posible utilizar el sitio
-      web con una dirección de correo electrónico confirmada. Confirme su dirección
-      de correo electrónico haciendo clic en el enlace del mensaje de activación.'
+    description: 'El uso del sitio web solo es posible con una dirección de correo
+      electrónico confirmada. Confirme su dirección de correo electrónico haciendo
+      clic en el enlace del correo electrónico de activación.'
     link_2: 'Cambiar dirección de correo electrónico'
   old_user_avatar:
     link: 'Actualizar foto de perfil ahora'
@@ -1600,6 +1600,8 @@ store:
     filterHygiene: Formados en higiene
     filterNoHygiene: 'sin formación en higiene'
     inviteMember: Invitar al equipo
+    demoteAsManagerConfirm: ¿Realmente quieres renunciar a tu responsabilidad como
+      líder de equipo?
   lastPickupShort: 'último el {date}'
   request:
     got-it: 'Los responsables han sido informados de su solicitud y se pondrán en
@@ -1652,7 +1654,7 @@ store:
   regionPickupRulesInactive: 'Las reglas adicionales del distrito para recogidas no
     están activas'
   nodeclaration: 'No especificado'
-  average_collection_quantity: 'Cantidad media de recogida'
+  average_collection_quantity: 'Cantidad por persona'
   chat:
     team: 'Mensaje al equipo'
     jumper: 'Mensaje a l@s suplentes'
@@ -1938,7 +1940,8 @@ pickup:
   same_day_hint: 'Estás registrado para las siguientes recogidas el {day}:'
   really_join_date: '¿Le gustaría registrarse de forma vinculante para su recogida
     el {date}?'
-  leave_team_message_template: 'Tuve que cancelar mi recogida el {date} horas. …'
+  leave_team_message_template: 'Queridos amigos, tuve que cancelar la siguiente recogida:
+    {date} horas. …'
   signout_sure: '¿De verdad quieres dejar este equipo?'
   team_message_success: 'El mensaje al equipo fue enviado exitosamente'
   join_agree: 'Sí, por favor'
@@ -2911,7 +2914,7 @@ forum:
   options:
     disable_bells_for_new_posts: No se recibieron campanas para los nuevos temas del
       foro
-    enable_bells_for_new_posts: Recibe campanas para todos los nuevos temas del foro
+    enable_bells_for_new_posts: Recibe campanas por nuevos temas del foro
 buddy:
   request_sent: 'Solicitud enviada.'
   request_accepted: 'Ahora son amig@s.'
@@ -3151,7 +3154,7 @@ events:
     este acto.
   online_info: "Las conferencias telefónicas y en línea de foodsharing funcionan mejor
     a través de nuestro propio servidor [BigBlueButton](https://bigbluebutton.org).
-    Desde 10 minutos antes del inicio de la cita, los usuarios pueden unirse fácilmente
+    Desde 10 minutos antes del inicio de la cita, los usuarios pueden unirse fácilmente
     a la conferencia con un solo clic desde la página de la cita. No se necesitan
     programas adicionales, sólo un navegador de Internet razonablemente moderno. También
     es posible participar por teléfono.\n\nSi aún así desea utilizar otra plataforma
@@ -3601,7 +3604,7 @@ settings:
     submit: Cambiar la contraseña
     success: Tu contraseña ha sido cambiada correctamente
     old_password_required: Debes ingresar tu contraseña anterior
-    new_password_required: La contraseña debe contener al menos 8 caracteres
+    new_password_required: La contraseña debe contener al menos ocho caracteres
     new_password_must_be_complex: La nueva contraseña debe contener letras mayúsculas,
       minúsculas y números
   change_data_info:
