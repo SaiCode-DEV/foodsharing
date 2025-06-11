@@ -201,6 +201,7 @@
 
 import * as api from '@/api/forum'
 import { GET } from '@/browser'
+import { HTTP_RESPONSE } from '@/consts'
 import OverflowMenu from '@/components/OverflowMenu.vue'
 import { pulseError } from '@/script'
 import { useUserStore } from '@/stores/user'
@@ -436,6 +437,12 @@ export default {
         await api.followThreadByBell(this.id)
         await this.reload()
       } catch (err) {
+        if (err?.code === HTTP_RESPONSE.CONFLICT) {
+          // Post already exists, refresh to show it
+          window.location = this.$url('forum', this.regionId, this.regionSubId, this.id)
+          return
+        }
+
         const index = this.posts.indexOf(dummyPost)
         this.posts.splice(index, 1)
 

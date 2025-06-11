@@ -8,6 +8,7 @@ use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DBConstants\Region\ThreadStatus;
 use Foodsharing\Modules\Region\DTO\ForumPost;
 use Foodsharing\Modules\Region\Exceptions\NoVisiblePostException;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ForumGateway extends BaseGateway
@@ -200,6 +201,22 @@ class ForumGateway extends BaseGateway
 
     public function addPost($fs_id, $thread_id, $body)
     {
+        // First, check if the exact same post already exists AND is the last post in the thread.
+        $lastPostId = $this->db->fetchAllValues('
+            SELECT id FROM fs_theme_post
+            WHERE theme_id = :thread_id
+            AND body = :body
+            ORDER BY time DESC
+            LIMIT 1', [
+            'thread_id' => $thread_id,
+            'body' => $body,
+        ]);
+
+        // If so, raise an exception to prevent duplicate posts.
+        if ($lastPostId) {
+            throw new ConflictHttpException('Duplicate post detected');
+        }
+        // If not, insert the new post.
         $post_id = $this->db->insert(
             'fs_theme_post',
             [
