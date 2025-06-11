@@ -465,12 +465,12 @@ settings:
     old_password_label: Current password
     old_password_required: You must enter your current password
     new_password_label: New password
-    new_password_required: The password must contain at least 8 characters
+    new_password_required: The password must contain at least eight characters
     new_password_must_be_trimmed: The password must not begin or end with spaces
     new_password_confirmation_label: Confirm new password
     success: Your password has been successfully changed
-    new_password_must_be_complex: The new password must contain letters (upper and
-      lower case) and numbers
+    new_password_must_be_complex: The new password must contain upper and lower case
+      letters and numbers
   change_data_info:
     general: Here you can adjust your profile data.
     verified: You can’t edit your name and date of birth. However, you can ask an
@@ -1042,7 +1042,7 @@ events:
   attendees: Attendees
   location: Location
   online_info: "Telephone and online conferences from foodsharing run best via our
-    own [BigBlueButton](https://bigbluebutton.org) server. From 10 minutes before
+    own [BigBlueButton](https://bigbluebutton.org) server. From 10 minutes before
     the start of the appointment, users can easily join the conference with one click
     from the appointment page. No additional programs are required, just a reasonably
     modern internet browser. It is also possible to join by phone.\n\nIf you still
@@ -1121,7 +1121,7 @@ forum:
     title: Restore post
   options:
     disable_bells_for_new_posts: Don’t receive bells for new topics
-    enable_bells_for_new_posts: Receive bells for all new topics
+    enable_bells_for_new_posts: Receive bells for new topics
 timepicker:
   labelNowButton: Now
   labelCloseButton: Close
@@ -1168,7 +1168,7 @@ calendar:
   labelResetButton: Deselect
 pickup:
   signout_confirm: Are you sure?
-  copyNumber: Copy phone number
+  copyNumber: copy phone number
   open_profile: Profile of
   confirm: Confirm
   call: Call
@@ -1217,8 +1217,8 @@ pickup:
   add_onetime_pickup: Add single date
   edit_recurring_pickups: Edit regular pick-up dates
   really_delete_date: Do you really want to delete the pick-up on {date}?
-  leave_team_message_template: Unfortunately I had to cancel my pickup on {date} o’clock.
-    …
+  leave_team_message_template: 'Dear all, I had to sign out for the following pick-up:
+    {date} o’clock. …'
   really_leave_date: You are responsible for this pick-up. Please arrange a replacement
     independently.
   kick_message_footer: Best wishes, your Store Coordinators
@@ -1583,7 +1583,7 @@ bell:
   foodsaver_verified: Get your member card at …
   forum_post_title: '{title}'
   forum_post:
-    one: New post by {user} in forum {forum}
+    one: New post by {user} in the forum {forum}
     many: '{count} new posts in the forum {forum}'
   forum_new_thread: by {user} in the forum {forum}
   forum_announcement: by {user} in the forum {forum}
@@ -1614,7 +1614,7 @@ bell:
   passport_created_or_renewed: has been activated or extended!
   passport_created_or_renewed_title: Your membership card …
   post_hidden_title: Post hidden by {user}
-  post_hidden: Your post on {title} in forum {forum} was hidden
+  post_hidden: Your post on {title} in the forum {forum} was hidden
   mark_as:
     read: Mark as read
     unread: Mark as unread
@@ -2085,10 +2085,10 @@ region:
       load_past: View past events
       no_future_events: 'Currently, no public events are listed in this district.
         The following events have taken place in the past:'
-    leave_text_group: Are you no longer active in {name}? Then you should leave this
-      group.
-    leave_text_region: Are you no longer active in {name}? Then you should leave this
-      district.
+    leave_text_group: Are you no longer active in {name} and would like to leave this
+      group?
+    leave_text_region: Are you no longer active in {name} and would like to leave
+      this district?
   denied:
     this_region: You tried to access content from this district, but only members
       of the district have access to it.
@@ -2513,6 +2513,8 @@ store:
     filterHygiene: Hygiene trained
     filterNoHygiene: 'without hygiene training'
     inviteMember: Invite to the team
+    demoteAsManagerConfirm: Do you really want to give up your responsibility as cooperation
+      manager?
   address: Address
   may_referred_to_in_public: This store may be referred to in public.
   isNotVerified: Is not yet verified.
@@ -2546,7 +2548,7 @@ store:
   short_tooltip_red: Open slots today or tomorrow
   springer_conversation_name: Standby {name}
   my_last_pickup: My last pick-up
-  average_collection_quantity: Pick-up quantity on average
+  average_collection_quantity: Pick-up quantity per person
   mayManage: Passed the quiz for Store Coordinators.
   mayAmb: Passed the ambassador quiz.
   fetchCount: Picked up {count}× here.
@@ -2758,7 +2760,7 @@ search:
       chat_with_others: others
     user:
       no_home_region: No home district
-      copy_id: Copy ID
+      copy_id: copy ID
       copied_id: Foodsaver ID from {name} was copied ({text})
     store:
       manager_tooltip: You are responsible for this store
@@ -4243,9 +4245,9 @@ error:
     link_2: "I need help"
   mail_activation:
     title: "Email address not confirmed!"
-    description: "From the next release, the website will only be available with a
-      confirmed email address. Please confirm your email address by clicking on the
-      link in the activation email."
+    description: "The website will only be available with a confirmed email address.
+      Please confirm your email address by clicking on the link in the activation
+      email."
     link_1: "Request a new activation email"
     link_2: "Change email address"
   adress:
@@ -4498,7 +4500,7 @@ thread:
     edit_description: Edit description
   post:
     options:
-      copy_source: Copy source code
+      copy_source: copy source code
       copy_direct_link: copy direct link
       restore: Recover …
     copy_source_success: Source code copied!
