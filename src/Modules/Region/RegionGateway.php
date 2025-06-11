@@ -265,7 +265,7 @@ class RegionGateway extends BaseGateway
 					WHERE     fs.deleted_at IS NULL
 					AND 	c.bezirk_id = b.id
 					AND 	c.active = 1
-					AND 	fs.sleep_status > 0
+					AND 	fs.is_sleeping = 1
 				) AS sleeper_count
 
 			FROM 	`fs_bezirk` AS b
