@@ -693,8 +693,8 @@ settings:
     old_password_label: Mot de passe actuel
     old_password_required: Tu dois saisir ton mot de passe actuel
     title: Ici, tu peux modifier ton mot de passe actuel
-    new_password_must_be_complex: Le mot de passe doit contenir des lettres majuscules
-      et minuscules ainsi que des chiffres
+    new_password_must_be_complex: Le nouveau mot de passe doit contenir des lettres
+      majuscules et minuscules ainsi que des chiffres
   address:
     title: Choisir l’adresse
     choose: Reprends l’adresse
@@ -1045,8 +1045,7 @@ forum:
     hidden_by: Masqué par
     title: Rétablir la contribution
   options:
-    enable_bells_for_new_posts: Obtenir des cloches pour tous les nouveaux sujets
-      de forum
+    enable_bells_for_new_posts: Obtenir des cloches pour les nouveaux sujets de forum
     disable_bells_for_new_posts: Ne pas recevoir de cloches pour les nouveaux sujets
       de forum
 fsp:
@@ -1485,6 +1484,7 @@ store:
     filterHygiene: Hygiène formée
     filterNoHygiene: 'sans formation à l’hygiène'
     inviteMember: Inviter dans l’équipe
+    demoteAsManagerConfirm: Tu veux vraiment abandonner ton rôle de responsable d’équipe ?
   springer_conversation_name: Replaçant·e {name}
   team_conversation_name: Équipe {name}
   days_before: avant
@@ -1495,7 +1495,7 @@ store:
     (que ce soit dans les paniers solidaires, sur Facebook ou dans la presse).
   may_referred_to_in_public: Cette coopération peut être mentionnée publiquement.
   attribution: Mention de nom auprès du public
-  average_collection_quantity: Poids collecté en moyenne
+  average_collection_quantity: Quantité à emporter par personne
   particularities: Particularités
   mayManage: A réussi le test Responsable coopération.
   mayAmb: A réussi le test Ambassadeur·rice.
@@ -2335,7 +2335,8 @@ pickup:
   join_title_date: Sûr ?
   team_message_success: Le message a été envoyé à l’équipe avec succès
   team_message_send_and_leave: Envoyer et se retirer de la collecte
-  leave_team_message_template: J’ai dû annuler mon enlèvement le {date}. …
+  leave_team_message_template: 'Chers amis, j’ai dû annuler mon enlèvement suivant :
+    {date}. …'
   leave_team_message_title: Envoyer un message à l’équipe
   leave_pickup_message_team: Notifier l’équipe
   leave_pickup_ok: J’ai déjà trouvé un·e remplaçant·e
@@ -4276,9 +4277,9 @@ error:
   mail_activation:
     title: Adresse électronique non confirmée !
     link_1: Demander un nouveau courriel d’activation
-    description: A partir de la prochaine version, l’utilisation du site web ne sera
-      possible qu’avec une adresse e-mail confirmée. Merci de confirmer ton adresse
-      électronique en cliquant sur le lien contenu dans le mail d’activation.
+    description: L’utilisation du site web n’est désormais possible qu’avec une adresse
+      e-mail confirmée. Merci de confirmer ton adresse e-mail en cliquant sur le lien
+      figurant dans l’e-mail d’activation.
     link_2: Modifier le courriel
   missing_geolocation:
     title: Aucune adresse valide n’a été saisie
