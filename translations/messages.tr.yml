@@ -933,9 +933,8 @@ sig:
 error:
   mail_activation:
     link_2: E-Posta adresini değiştirin
-    description: 'Bir sonraki Release''den itibaren web sitesi yalnızca doğrulanmış
-      bir e-posta adresiyle kullanılabilecek. Lütfen aktivasyon e-postasındaki bağlantıya
-      tıklayarak e-posta adresinizi doğrulayın.'
+    description: 'Web sitesi yalnızca doğrulanmış bir e-posta adresiyle kullanılabilir.
+      Lütfen aktivasyon e-postasındaki bağlantıya tıklayarak e-posta adresinizi doğrulayın.'
     link_1: 'Yeni bir etkinleştirme e-postası isteyin'
     title: 'E-posta adresi doğrulanmadı!'
   missing_home_region:
@@ -1831,6 +1830,8 @@ region:
         istiyor musunuz?
       confirm_save_changes: İlçe açıklamasında yaptığınız değişiklikleri kaydetmek
         ister misiniz? Yeni açıklama daha sonra ilçe web sitesinde kamuoyuyla paylaşılacak.
+      missing: Bu blkgenin şu anda açıklama metni bulunmamaktadır. Artık açıklama
+        metni yazma yetkisine sahipsiniz.
     confirm_entering: '{name} bölgesine katılmak ister misiniz? Bu durum, elçilerin
       profilinize erişimini sağlar.'
     continue_editing: Düzenlemeye devam et
@@ -1845,8 +1846,36 @@ region:
     wall: Bölgeden güncellemeler
     leave_text: Artık {name}'de aktif değil misiniz? O zaman bu bölgeyi terk etmelisin.
     description: Bölge hakkında
-    leave_text_region: Artık {name}'de aktif değil misiniz? O zaman bu bölgeyi terk
-      etmelisin.
+    leave_text_region: Artık {name}'de aktif değil misiniz? Değilseniz bu bölgeyi
+      terk etmek ister misiniz?
+    events:
+      load_past: Geçmiş etkinlikleri görüntüle
+      no_future_events: 'Bu bölgede şu anda listelenen herkese açık etkinlik bulunmamaktadır.
+        Geçmişte şu etkinlikler gerçekleşti:'
+      title: Kamu etkinlikleri
+    map:
+      set_pin: Haritada bölge pinini girin
+      confirm_save_changes: Bölge pininde yaptığınız değişiklikleri kaydetmek ister
+        misiniz? Yeni pin daha sonra ilçe sayfasında ve haritada herkesin görebileceği
+        şekilde yayınlanacak.
+      confirm_discard_changes: Bölge pin değişikliklerinizi gerçekten silmek istiyor
+        musunuz?
+      edit_pin: Bölge pinini düzenle
+      missing: Bu bölge şu anda haritada gösterilmiyor ve burada gösterilebilecek
+        Fairteiler yok. Artık bölge pini belirleme yetkisine sahipsiniz.
+      hide_pin: Bölge pinini kaldır
+      confirm_remove: Bölge pinini gerçekten kaldırmak istiyor musunuz? Bu bölge artık
+        haritada görüntülenmeyecektir.
+    leave_text_group: Artık {name} grubunda aktif değil misiniz ve bu gruptan ayrılmak
+      mı istiyorsunuz?
+  denied:
+    group_in_this_region: “{name}” bu bölgenin bir grubudur.
+    this_region: Bu bölgede ki içeriklere erişmeye çalıştınız. Ancak buraya sadece
+      bölge halkı erişebiliyor.
+    subgroup_in: “{name}”, “{parent}” grubunun bir alt grubudur.
+    group_in_this_group: “{name}” bu grubun bir alt grubudur.
+    some_group: '"{name}" çalışma grubundan içeriğe erişmeye çalıştınız. Ancak buna
+      yalnızca grup üyeleri erişebiliyor.'
 events:
   duration: 'Süre: {duration}'
   create:
@@ -2532,6 +2561,18 @@ email_template:
   manual_slots_get_ignored: Bu bildirim şu anda yalnızca hiç kimse normal teslim alma
     saatleri için kaydolmamışsa gönderilir. Bireysel olarak eklenmiş ek randevular
     ve üzerine yazılan veya silinen kontenjanlar henüz dikkate alınmamıştır.
+  confirm_for_unverified: Konunun doğrulanması gerekiyor çünkü doğrulanmamış bir kişi
+    tarafından oluşturuldu.
+  confirm_for_moderated_forum: Konunun onaylanması gerekiyor çünkü burası moderatörlü
+    bir forum.
+  fetch_warning:
+    part1: 'İşletme yöneticisinin sorumluluğu, alımların planlandığı gibi gerçekleştirilmesini
+      sağlamaktır. Maalesef önümüzdeki iki gün içerisinde tüm işletmelerinizde kurtarma
+      işlemi için yeterli sayıda foodsaver kayıt yaptırmadı:'
+    part2: Lütfen tüm alımların yapılabilmesi için en kısa sürede foodsaver bulun.
+      Eğer kimseyi harekete geçiremiyorsanız, açıktaki Slotları devralmanız iyi olur.
+      Eğer bu sizin için mümkün değilse lütfen işletme ile olan ilgili randevularınızı
+      zamanında iptal edin.
 wall:
   delete: Kaydı sil
   message_placeholder: Mesaj yaz…
@@ -2762,13 +2803,13 @@ settings:
     old_password_label: Önceki şifre
     old_password_required: Önceki şifrenizi girmelisiniz
     new_password_label: Yeni şifre
-    new_password_required: Şifre en az 8 karakter içermelidir
+    new_password_required: Şifre en az 8 karakter içermelidir_
     new_password_confirmation_label: Yeni şifreyi onayla
     title: Mevcut şifrenizi buradan değiştirebilirsiniz
     new_password_confirmation_invalid: Şifreler eşleşmiyor
     submit: Şifre değiştir
     success: Şifreniz başarıyla değiştirildi
-    new_password_must_be_complex: Yeni şifre en az bir harf (büyük ve küçük harf)
+    new_password_must_be_complex: Yeni şifre en az bir büyük harf, bir küçük harf
       ve rakam içermelidir
   change_data_info:
     general: Burada profil verilerinizi ayarlayabilirsiniz.
@@ -3828,8 +3869,8 @@ pickup:
   signout_info: Alım randevularınızın tümü silinecektir.
   really_kick_user_info: "{name}'ı {date} tarihindeki alma işleminden çıkarmak istediğinizden
     emin misiniz?\n{name} bununla ilgili şu mesajı alacak:\n"
-  leave_team_message_template: 'Sevgili arkadaşlar,tekrar bir alım için kaydoldum:
-    {tarih} saati.…'
+  leave_team_message_template: 'Sevgili arkadaşlar,tekrar bir alımdan ayrıldım: {tarih}
+    saati.…'
   slot_remove: Slotu kaldır
   kick_message_placeholder: 'Opsiyonel : buraya bilgi ekleyin …'
   edit_recurring_pickups: Düzenli teslim alma saatlerini düzenleyin
