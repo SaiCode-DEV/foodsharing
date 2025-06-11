@@ -341,7 +341,7 @@ pickup:
       pending: ''
       option: ''
       confirmed: ''
-    allLoaded: ''
+    allLoaded: 'Všechny položky jsou již zobrazeny.'
   join_title_date: ''
   join_agree: ''
   slot_remove: ''
@@ -365,7 +365,7 @@ pickup:
   team_message_send_and_leave: ''
   really_delete_date: ''
   signout_sure: ''
-  signout_confirm: ''
+  signout_confirm: 'Jsi si jistý?'
   add_onetime_pickup: ''
   delete_title: ''
   slot_add: ''
@@ -396,7 +396,7 @@ pickup:
   confirm: ''
   kick_message_placeholder: ''
   same_day_entry: ''
-  copyNumber: ''
+  copyNumber: 'Zkopírujte telefonní číslo'
   join_cancel: ''
   region_pickup_rule_failed: ''
   leave_pickup_message_team: ''
@@ -543,7 +543,7 @@ chain:
 legal:
   if_delete:
     this_doesnt_get_deleted: ''
-    this_doesnt_get_deleted_name: ''
+    this_doesnt_get_deleted_name: 'Vaše jméno'
     legal_2: ''
     legal_1: ''
     this_gets_deleted_stores: ''
@@ -551,27 +551,31 @@ legal:
     this_gets_deleted_quiz: ''
     this_gets_deleted_friendlist: ''
     this_gets_deleted_main: ''
-    this_doesnt_get_deleted_address: ''
+    this_doesnt_get_deleted_address: 'Vaše adresa'
     this_doesnt_get_deleted_history: ''
     this_gets_deleted_trustbananas: ''
   privacy_notice: ''
   privacy_notice_agree:
     not_acknowledge: ''
-    select: ''
+    select: 'Vyberte prosím'
     acknowledge: ''
   are_you_sure_to_downgrade: ''
   dont_agree: ''
-  agree_privacy_policy: ''
+  agree_privacy_policy: 'Souhlasím se zásadami ochrany osobních údajů.'
   delete_account: ''
   actions:
     safe: ''
   must_accept_privacy_policy: ''
-  privacy_policy: ''
+  privacy_policy: 'Zásady ochrany osobních údajů'
   not_acknowledge_privacy_notice_description: ''
-  legal_agreement: ''
+  legal_agreement: 'Právní dohoda'
   agree_privacy_notice: ''
   not_acknowledge_privacy_policy_description: ''
-  acknowledge: ''
+  acknowledge:
+    agree: Ano, souhlasím se zásadami ochrany osobních údajů.
+    qustion_policy: Souhlasíte s našimi zásadami ochrany osobních údajů?
+    select: Vyberte prosím
+  success: Vaše nastavení bylo úspěšně uloženo.
 pronoun:
   "1": ''
   "0": ''
@@ -582,46 +586,46 @@ login:
   pwreset:
     tooShort: ''
     expired: ''
-    success: ''
-    bread: ''
-    mailSent: ''
+    success: 'Skvělé, vaše heslo bylo úspěšně změněno. Nyní se můžete přihlásit.'
+    bread: 'Obnovit heslo'
+    mailSent: 'Dobře, e-mailem vám byl zaslán odkaz pro změnu hesla.'
     error: ''
     mismatch: ''
     wrongMail: ''
   success: ''
-  logout: ''
-  password: ''
-  save_password: ''
+  logout: 'Odhlášení'
+  password: 'Heslo'
+  save_password: 'Uložit heslo'
   steady_login: ''
   login_button_label: ''
   topbar: ''
   submit_btn: ''
-  error_no_email: ''
-  form_title: ''
-  error_no_password: ''
-  forgotten_password_label: ''
-  email_address: ''
+  error_no_email: 'Zadejte prosím svou e-mailovou adresu.'
+  form_title: 'Vítejte zpět'
+  error_no_password: 'Zadejte prosím své heslo.'
+  forgotten_password_label: 'Zapomněli jste heslo?'
+  email_address: 'E-mailová adresa'
 register:
-  login_email: ''
+  login_email: 'E-mailová adresa'
   login_passwd2: ''
   lastname_minLength: ''
   select_your_gender: ''
-  other: ''
-  woman: ''
-  man: ''
+  other: 'různý'
+  woman: 'ženský'
+  man: 'mužský'
   confirmPassword_sameAsPassword: ''
-  geb_datum: ''
-  firstname_required: ''
+  geb_datum: 'Vaše datum narození'
+  firstname_required: 'Zadejte své křestní jméno'
   account-exists: ''
-  change-password: ''
-  login_location: ''
-  login_surname: ''
+  change-password: 'Nyní můžete změnit heslo.'
+  login_location: 'Vaše adresa'
+  login_surname: 'Vaše příjmení'
   title: ''
   register_button_label: ''
-  password_minLength: ''
+  password_minLength: 'Heslo musí obsahovat alespoň osm znaků'
   login_mobile_phone: ''
   firstname_minLength: ''
-  lastname_required: ''
+  lastname_required: 'Zadejte své příjmení'
   login_phone_info: ''
   error_birthdate: ''
   activation_failed: ''
@@ -632,20 +636,20 @@ register:
   error_email_invalid: ''
   set-password: ''
   topbar: ''
-  forgotten_password: ''
+  forgotten_password: 'Zapomněli jste heslo?'
   pass1: ''
-  phone_not_valid: ''
+  phone_not_valid: 'Zadané telefonní číslo není platné'
   next: ''
   error: ''
   check_mail: ''
   birthdate_hint: ''
   prev: ''
-  login_passwd1: ''
+  login_passwd1: 'Heslo (alespoň osm znaků)'
   have_read_the_legal_stuff2: ''
   email_invalid: ''
   password_required: ''
-  phone_example: ''
-  landline_example: ''
+  phone_example: 'Příklad +420 612345678'
+  landline_example: 'Příklad +420 212345678'
   join_error: ''
   have_read_the_legal_stuff1: ''
   activation_success: ''
@@ -654,7 +658,9 @@ register:
   pass2: ''
   join_success: ''
   finish: ''
-  login_name: ''
+  login_name: 'Vaše křestní jméno'
+  password_must_be_complex: Heslo musí obsahovat velká a malá písmena a číslice
+  password_must_be_trimmed: Heslo nesmí obsahovat žádné mezery na začátku ani na konci
 terminology:
   events: 'Termíny'
   role:
@@ -710,7 +716,7 @@ terminology:
   storesAdmins: ''
   pickup: ''
   mailboxes: ''
-  statistic: ''
+  statistic: 'Statistiky'
   settings: ''
   boardAdmins: ''
   message: ''
@@ -721,7 +727,7 @@ terminology:
   wall: ''
   homeRegion: ''
   n_stores: ''
-  profile_picture: ''
+  profile_picture: 'Profilová fotka'
   ambassador_forum: ''
   reportAdmins: ''
   mediationAdmins: ''
@@ -736,6 +742,10 @@ terminology:
   n_home_regions: ''
   yes: Ano
   no: Ne
+  phone: Telefonní číslo
+  landline: Číslo pevné linky
+  hygiene_training: Hygienické školení
+  mobile_phone: Číslo mobilního telefonu
 store:
   bread: ''
   error: ''
@@ -817,16 +827,16 @@ store:
   willgetcontacted: ''
   team:
     isfull: ''
-    no_record: ''
+    no_record: 'Nebyl nalezen žádný záznam.'
     search_reset: ''
     search_input: ''
     is_closed: ''
   filter: ''
   enterdate: ''
-  maxchar: ''
+  maxchar: '(max. 180 znaků)'
   locked: ''
   go: ''
-  prefetchfour: ''
+  prefetchfour: '4 týdny'
   nodeclaration: ''
   unknownDate: ''
   ownStores: ''
@@ -836,13 +846,13 @@ store:
     none: ''
     much: ''
   smneeded: ''
-  prefetchtwo: ''
+  prefetchtwo: '2 týdny'
   leaveinfo: ''
-  prefetchthree: ''
+  prefetchthree: '3 týdny'
   short_tooltip_orange: ''
   addNewStoresButton: ''
   peoplecame: ''
-  prefetchone: ''
+  prefetchone: '1 týden'
   complete: ''
   short_tooltip_yellow: ''
   noPickup: ''
@@ -910,7 +920,7 @@ store:
     no_description: žádný
   signInDateTime: ''
   jumping: ''
-  of_that: ''
+  of_that: 'z toho'
   requests: ''
   isAppliedForTeam: ''
   team_container: ''
@@ -929,6 +939,7 @@ store:
   unverified_member: ''
   particularities_chain_tooltip: ''
   delete_date: ''
+  to_map: Zobrazit na mapě
 storeedit:
   team:
     bread: ''
@@ -1954,8 +1965,8 @@ group:
     invalid: ''
     duplicate_welcome_team: ''
     duplicate_fsmanagement_team: ''
-    moderation: ''
-    mediation: ''
+    moderation: 'Moderování'
+    mediation: 'Zprostředkování'
     welcome: ''
     report: ''
     tooltip_function_1: ''
@@ -1964,21 +1975,21 @@ group:
     duplicate_board_team: ''
     tooltip_function_11: ''
     fsp: ''
-    arbitration: ''
-    pr: ''
-    board: ''
+    arbitration: 'Rozhodčí rada'
+    pr: 'Vztahy s veřejností'
+    board: 'Správní rada'
   edit:
     title: ''
-    description_required: ''
-    description_placeholder: ''
-    name_required: ''
+    description_required: 'Zadejte popis.'
+    description_placeholder: 'Popis pracovní skupiny'
+    name_required: 'Zadejte název skupiny.'
   contact:
     title: ''
-    send: ''
+    send: 'Odeslat zprávu'
     admins: ''
     disclaimer: ''
-    empty: ''
-    sent: ''
+    empty: 'Nejdřív něco napiš ;)'
+    sent: 'Zpráva úspěšně odeslána.'
   unique_function:
     tooltip_function_region331: ''
     tooltip_function_region341: ''
@@ -2005,27 +2016,38 @@ group:
     admin_mode_off: ''
     old_edit_hint: ''
     set_admin_text: ''
-    old_edit_hint_link: ''
+    old_edit_hint_link: 'Členové'
     remove_text_region: ''
     not_verified: ''
+    passports:
+      create_pdf: Vytvořte PDF
+      never_before: nikdy
+      filter_options:
+        with_passport: s členskou kartou
+        no_filter: žádný filtr
+        no_passport: žádná členská karta
+        invalid_passport: neplatná členská karta
+      automatic_paper_size: Použijte papír A4
+    default:
+      lastname: Příjmení
   apply:
     faehigkeit: ''
     zeit: ''
     time:
-      "1": ''
-      "5": ''
-      "3": ''
-      "2": ''
+      "1": '1–2 hodiny'
+      "5": '5 a více hodin'
+      "3": '3–4 hodiny'
+      "2": '2–3 hodiny'
     declined: ''
     motivation: ''
     title: ''
     accepted: ''
-    send: ''
+    send: 'Odeslat žádost'
     erfahrung: ''
     summary: ''
     accept: ''
-    sent: ''
-  members: ''
+    sent: 'Přihláška byla podána.'
+  members: 'Členové'
   image: ''
   application_requirements:
     banana_count: ''
@@ -2056,19 +2078,19 @@ group:
   delete_group_sure: ''
   really_quit_district: ''
   entermotivation: ''
-  enterskills: ''
+  enterskills: 'Dovednosti:'
   enterxp: ''
   administrators: ''
   title: ''
   subtitle: ''
   actions:
     join: ''
-    contact: ''
-    save: ''
+    contact: 'Kontaktní skupina'
+    save: 'Uložit změny'
     apply: ''
-    edit: ''
+    edit: 'Upravit skupinu'
     go: ''
-  application_from: ''
+  application_from: 'od'
   show-all: ''
   already_applied: ''
   applications: ''
@@ -2076,11 +2098,11 @@ group:
   userId: ''
   quitting_home_district_warning: ''
   member_count: ''
-  description: ''
+  description: 'Popis'
   quit_name_workgroup: ''
-  name: ''
+  name: 'Název'
   filter_by_last_activity: ''
-  photo: ''
+  photo: 'Fotku'
 fsp:
   delete: ''
   editName: ''
@@ -2103,20 +2125,20 @@ fsp:
   twig:
     n_in_region: ''
   editSuccess: ''
-  address: ''
+  address: 'Adresa'
   suggest: ''
   followName: ''
   follow: ''
   addedBy: ''
   addError: ''
   rejectConfirm: ''
-  location: ''
+  location: 'PSČ / město'
   accept: ''
   deleteSuccess: ''
   edit: ''
   addedOn: ''
   acceptSuccess: ''
-  street: ''
+  street: 'Ulice'
   followers: ''
   noManager: ''
   suggestSuccess: ''
@@ -2124,11 +2146,12 @@ fsp:
   none: ''
   acceptName: ''
   reject: ''
-  pic: ''
+  pic: 'Fotka'
   publicwall: ''
   deleteConfirm: ''
   summaryRegion: ''
   add: ''
+  show_on_large_map: Zobrazit na mapě
 system_administration:
   email: ''
   quiz: ''
@@ -2172,14 +2195,14 @@ activitypost:
   quickreply_info: ''
   Response: ''
   response: ''
-are_you_sure: ''
+are_you_sure: 'Jste si jistý?'
 storeview:
   want_to_fetch: ''
   store: ''
   cooperation: ''
   public_time: ''
-  public_time_in_the_morning: ''
-  public_time_at_noon_or_afternoon: ''
+  public_time_in_the_morning: 'ráno'
+  public_time_at_noon_or_afternoon: 'poledne/odpoledne'
   teamInfo: ''
   pickupWeight: ''
   status: ''
@@ -2190,7 +2213,7 @@ storeview:
   invalid_field: ''
   team: ''
   visible_for_team: ''
-  public_time_at_night: ''
+  public_time_at_night: 'v noci'
   groceries:
     no_match: ''
     no_tag_preset: ''
@@ -2201,23 +2224,26 @@ storeview:
   cooperation_status: ''
   managers: ''
   calendar_interval:
-    single: ''
-    multiply: ''
+    single: '1 týden'
+    multiply: '{weeks} týdny'
     not_set: ''
   contact:
-    name: ''
+    name: 'Příjmení/jméno'
   source_data: ''
   cooperation_start: ''
   show_information: ''
-  public_time_in_the_evening: ''
+  public_time_in_the_evening: 'večer'
   management: ''
   status_notes: ''
   specials: ''
   no_permission_to_view: ''
   select_related_region: ''
   info: ''
+  publicity_and_sticker_options:
+    yes: Ano
+    no: Ne
 calendar:
-  labelPrevYear: ''
+  labelPrevYear: 'Předchozí rok'
   export:
     pickup:
       unconfirmed: ''
@@ -2227,14 +2253,14 @@ calendar:
       statusUnspecified: ''
       description: ''
       linkTitle: ''
-  labelPrevMonth: ''
-  labelCurrentMonth: ''
-  labelToday: ''
+  labelPrevMonth: 'Předchozí měsíc'
+  labelCurrentMonth: 'Aktuální měsíc'
+  labelToday: 'Dnes'
   labelNoDateSelected: ''
-  labelCalendar: ''
+  labelCalendar: 'Kalendář'
   labelSelected: ''
-  labelNextMonth: ''
-  labelNextYear: ''
+  labelNextMonth: 'Příští měsíc'
+  labelNextYear: 'Příští rok'
   labelNav: ''
   locale: 'cs'
   labelHelp: ''
@@ -2326,9 +2352,9 @@ push_notifications:
   test_notification_body: ''
   test_notification_title: ''
 gender:
-  f: ''
-  m: ''
-  d: ''
+  f: 'Žena'
+  m: 'Muž'
+  d: 'Jiné'
 mail:
   noreply_addresses_not_allowed: ''
 team:
@@ -2397,13 +2423,13 @@ sidenav:
 statistics:
   kg_food_saved: ''
   num_fetches: ''
-really_delete: ''
+really_delete: 'Opravdu smazat?'
 yes: 'Ano'
 no: 'Žádný'
 back: ''
 success: ''
 error_permissions: ''
-error_unexpected: ''
+error_unexpected: 'Došlo k chybě'
 notice: ''
 formatting:
   md: ''
@@ -2576,17 +2602,54 @@ quiz:
   nownownow: ''
   not_passed_details: ''
   donecorrectly: ''
-  question: ''
+  question: 'Otázka'
   heavysigh: ''
   failedbeforebut: ''
   results:
     title:
       1: Gratulujeme!
+      2: Bohužel jsi neprošel.
   editModal:
     question:
       input:
         wikilink:
           placeholder: https://wiki.foodsharing.de/…
+        text:
+          label: 'Otázka:'
+        mandatory:
+          label: Povinná otázka?
+    answer:
+      input:
+        text:
+          label: 'Odpověď:'
+          placeholder: Odpověď …
+        explanation:
+          label: 'Vysvětlení:'
+          placeholder: Vysvětlení …
+      title: Upravit odpověď
+    quiz:
+      input:
+        name:
+          placeholder: Název kvízu
+          label: 'Název:'
+  comment:
+    toggle: Napište komentář
+  general:
+    title: Obecné informace
+  startmodal:
+    acceptPrivacyNotice: Souhlasím.
+  answers:
+    short:
+      1: správně
+      2: neutrálně
+      0: špatně
+    name: Odpovědi
+  plural: Kvízy
+  infomodal:
+    title: Otázka {index} z {questions}
+  timelimit: Časový limit
+  fp_badge:
+    wrong: '{userFailurePoints} chyb'
 search:
   title: ''
   informations: ''
@@ -2627,16 +2690,17 @@ photo: 'Fotka'
 ort: 'město/obec'
 daterange: 'období'
 upload:
-  new_image: ''
-  file: ''
-  choose_file: ''
-  image: ''
+  new_image: 'Nahrajte nový obrázek'
+  file: 'Nahrajte soubor'
+  choose_file: 'Nahrajte soubor'
+  image: 'Nahrajte obrázek'
   no_image: ''
   no_image_yet: ''
   no_image_chosen: ''
-  new_file: ''
+  new_file: 'Nahrajte nový soubor'
   preview_image: ''
-  crop_dialog_title: ''
+  crop_dialog_title: 'Vystřihněte obrázek'
+  images: Nahrajte obrázky
 pass:
   button:
     verify: ''
@@ -2682,23 +2746,29 @@ fp: 'Body za chyby'
 fpsingular: 'Bod chyby'
 fpcapital: 'FP'
 button:
-  save: ''
+  save: 'Uložit'
   change_picture: ''
-  edit: ''
+  edit: 'Upravit'
   delete: ''
-  permadelete: ''
+  permadelete: 'Nenávratně smazat'
   clear_filter: ''
   create: ''
-  next: ''
+  next: 'dopředu'
   answer: ''
   send: ''
-  rotate_right: ''
-  new: ''
-  attach_image: ''
-  upload: ''
+  rotate_right: 'otočte po směru hodinových ručiček'
+  new: 'Nový'
+  attach_image: 'Nahrajte obrázek (formát png nebo jpg)'
+  upload: 'Nahrát'
   apply: ''
-  cancel: ''
-  yes_i_am_sure: ''
+  cancel: 'Zrušit'
+  yes_i_am_sure: 'Ano, jsem si jistý'
+  start: Jdeme!
+  reset_default: Obnovit výchozí
+  confirm: Potvrdit
+  prev: dozadu
+  ok: OK
+  browse: Prohlížet
 buddy:
   request_sent: ''
   request_accepted: ''
@@ -2715,7 +2785,7 @@ bread:
   backToOverview: ''
   backToStore: ''
 bcard:
-  card: ''
+  card: 'Vaše vizitka foodsharing'
   claim: ''
   desc: ''
   choose: ''
@@ -2725,10 +2795,10 @@ bcard:
     verified: ''
   info:
     address_shortened: ''
-  title: ''
+  title: 'Generátor vizitek'
   role: ''
   for: ''
-  generate: ''
+  generate: 'Vytvářejte vizitky'
   actions: ''
 leader: 'Správce skupiny'
 begin: 'začátek spolupráce'
@@ -2752,7 +2822,7 @@ about_me_public: 'krátký veřejný popis'
 pass2: 'znovu heslo'
 savewithus: ''
 deletelow: ''
-select: ''
+select: 'Vyberte prosím'
 fetchercount: 'Počet vyzvedávajících'
 apply_type: 'Kdo se může do této skupiny přihlásit?'
 fetchstate: 'Proběhlo vše v pořádku?'
@@ -2773,9 +2843,9 @@ infotype: 'oznámení'
 sleep_status: ''
 explanation: ''
 quizusercomment: ''
-image: ''
+image: 'Obrázek'
 picture_upload_widget:
-  picture_upload: ''
+  picture_upload: 'Nahrání obrázku'
   choose_picture: ''
 salutation:
   "0": ''
@@ -2807,16 +2877,16 @@ fpko: 'Chybové body (k. o.)'
 pass1: 'Vaše požadované nové heslo'
 first_post: 'první příspěvek na zdi'
 fetch_count: 'Kolik odběrů jste již měli provést?'
-day: ''
+day: 'Den'
 list:
   filter_for: ''
 nofp: ''
 request_time: 'Čas poptávky:'
 message_text_to_group_admin_workgroup: 'pracovní skupina'
 team_status: 'Stav týmu'
-wikilink: ''
+wikilink: 'Odkaz s dalšími informacemi'
 duration: ''
-time: ''
+time: 'Čas'
 sticker: 'Je firma/obchod/klub atd. ochotna umístit nálepku u vchodu nebo jinde?'
 public_info: 'veřejné informace o podniku'
 status: 'aktuální stav'
@@ -2900,3 +2970,10 @@ automatic_not_delete: '- profil by měl být zachován.'
 navi:
   google_maps: Mapy Google
   apple_maps: Apple Mapy
+net_errors:
+  title:
+    general: Chyba sítě
+    500: Chyba serveru
+  code: 'Kód chyby: '
+  message: 'Chybová zpráva: '
+  action_response: 'Požadavek a odpověď serveru:'
