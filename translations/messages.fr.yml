@@ -1540,8 +1540,8 @@ store:
   my_last_pickup: Ma dernière collecte
   address: Adresse
   may_not_referred_to_in_public: Ne pas mentionner cette coopération 
-    publiquement (que ce soit dans les paniers solidaires, sur Facebook ou dans 
-    la presse).
+    publiquement (que ce soit dans les paniers solidaires, sur les réseaux 
+    sociaux ou dans la presse).
   may_referred_to_in_public: Cette coopération peut être mentionnée 
     publiquement.
   attribution: Mention de nom auprès du public
@@ -2186,11 +2186,11 @@ profile:
   ambRegions: '{name} est {role} pour'
   regions: '{name} est collecteur·ice à'
   stats:
-    posts: Contributions
-    baskets: Paniers solidaires
+    posts: posts
+    baskets: paniers repas
     count: collecté(s)
-    weight: collecté(s)
-    fetch_count: collecté
+    weight: sauvés
+    fetch_count: collectes
     bananas: Bananes
     weight_unit: kg
   infos:
@@ -2199,7 +2199,7 @@ profile:
     fetchrate: Quotat de collectes
     buddycount: '{name} est connu.e par {count} collecteur.ice.s'
     buddycount1: '{name} est connu.e par {count} collecteur.ice'
-    buddies: Connaissance
+    buddies: amis
     fsMail: Boîte de réception interne
     privateMail: Adresse courriel privée
     never: Jamais
@@ -2225,8 +2225,8 @@ profile:
     storelist: Coopérations ({count})
     violations: Plaintes
     notes: Notes
-    verificationHistory: Historique de vérification du membre
-    history: Historique de la carte de membre
+    verificationHistory: Historique de vérification
+    history: Cartes de membre
     buddy: Je connais {name}
     edit: Modifier le profil
     remove_buddy: Je ne connais plus {name}
@@ -4745,8 +4745,29 @@ help:
         enregistrés peuvent demander un panier alimentaire à récupérer.\n"
     report:
       title: Gestion des plaintes
+      md: "Tu trouveras ici les plaintes qui ont été déposées contre des personnes
+        appartenant à ce district. Tu ne peux pas voir toutes les plaintes :\n- En
+        principe, tu ne verras pas les plaintes auxquelles toi ou tes co-admin du
+        service local des plaintes ou du service local d’arbitrage participent.\n\
+        - En tant qu’administrateur·rice de la commission locale d’arbitrage, tu n’as
+        accès qu’aux plaintes dans lesquelles les administrateurs·trices de la commission
+        locale des plaintes sont impliqués.\n---\nTu peux trouver ici des informations
+        sur le traitement d’une plainte : [Traitement d’un message (en allemand)](https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)\n"
     reportReasons:
       title: Formulaire de plainte
+      md: "Le formulaire de plainte permet aux Foodsavers de signaler directement
+        les infractions aux règles. En l’activant, les personnes responsables des
+        plaintes recevront rapidement et facilement des notifications pour les signalements
+        effectués de cette manière.\n---\nLe groupe de plaintes local du district
+        peut définir quels motifs de plainte possibles sont affichés dans le formulaire
+        de plainte.\nIl peut choisir entre les motifs simplifiés et les motifs détaillés.
+        Pour les motifs détaillés, toutes les règles listées [ici dans le wiki sous
+        B](https://wiki.foodsharing.de/Verhaltensregeln#B.29_Verhalten_bei_Abholungen)
+        sont incluses.\nEn outre, il est possible de choisir si l’option « Autre »
+        doit être listée comme option supplémentaire.\n---\nDes recommandations concernant
+        l’embauche peuvent être faites au groupe de plainte local. La décision et
+        la responsabilité de ce réglage incombent toutefois uniquement aux administrateurs
+        du groupe local de réclamation, qui ne sont pas *obligés* de suivre ces recommandations.\n"
     achievementIcon:
       title: Icônes pour les vignettes
       md: "Chaque autocollant a une icône, c’est-à-dire un petit graphique qui permet
@@ -4790,6 +4811,24 @@ help:
         hygiène acquises d’une autre manière ne sont techniquement pris en compte.\n"
     moderatorForumHide:
       title: Masquage par les modérateurs dans les forums
+      md: "###### Qui est modérateur·trice ?\nLes modérateurs d’un groupe ou d’un
+        district sont généralement les administrateurs·trices ou les ambassadeurs·trices.
+        S’il existe un GOALS-AG *modération* dans un district, le rôle de modérateur
+        revient aux administrateurs·trices de ce groupe.\n---\n###### Masquer dans
+        les forums\nSi cette option est activée, les modérateurs peuvent masquer tous
+        les messages du forum, et pas seulement les leurs. Pour ce faire, ils doivent
+        indiquer les raisons pour lesquelles ils souhaitent masquer un message ou
+        un fil de discussion entier. Un message reste ensuite accessible aux modérateurs
+        pendant trois mois supplémentaires et peut être restauré pendant cette période.
+        Les autres utilisateurs (sans droit d’organisation) n’y ont plus accès. Après
+        ces trois mois, un message masqué ne peut plus être restauré et est définitivement
+        supprimé de la base de données.\n---\n###### Où cette option peut-elle être
+        utilisée ?\nDans les groupes de signalement locaux et les centres d’arbitrage
+        (GOALS AG), cette fonction est nécessaire pour des raisons de protection des
+        données.\nD’autres groupes de travail peuvent se prononcer par un vote interne
+        pour l’autorisation des admins de pouvoir masquer des posts et envoyer un
+        lien vers le vote réussi à ags.bezirke@foodsharing.network. Cette option n’est
+        pas prévue pour les districts locaux.\n"
     polls:
       title: Votes
       md: "Le module de vote permet d’organiser des élections, des sondages et autres
@@ -4809,6 +4848,14 @@ help:
       title: Demander la modification des données vérifiées
     publicEvent:
       title: Événements publics
+      md: "Les événements peuvent être enregistrés comme publics par les administrateur·trice·s
+        d’un groupe de travail, les administrateur·trice·s du groupe de travail GOALS
+        Relations publiques ou les ambassadeur·trice·s. Les événements publics sont
+        accessibles à tous. Il n’est pas nécessaire d’être connecté à la plateforme
+        pour voir le lieu de l’événement et les informations. Toutefois, le tableau
+        d’affichage et la liste des participants ne sont accessibles qu’aux utilisateurs
+        inscrits.\nInscris un événement comme public si tu veux inviter des personnes
+        extérieures à ta communauté foodsharing locale et que tout le monde peut venir.\n"
     pickupOptions:
       title: Possibilités d’enlèvement
 automatic_delete: '- le profil doit être supprimé.'
