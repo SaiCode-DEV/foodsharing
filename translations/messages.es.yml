@@ -1693,7 +1693,7 @@ store:
   pickup_slot_unavailable: 'Este ranura está más lejano en el futuro de lo que pretendían
     los responsables de esta empresa. Así que inténtelo de nuevo más tarde.'
   may_not_referred_to_in_public: 'Por favor, nunca mencione esta empresa públicamente
-    (por ejemplo, en cestas de alimentos, Facebook o consultas de prensa).'
+    (por ejemplo, en cestas de alimentos, en las redes sociales o en la prensa).'
   team:
     isfull: ''
     no_record: Ningún record fue encontrado.
@@ -2237,7 +2237,7 @@ profile:
     storelist: 'Empresas ({count})'
     verificationHistory: 'Historial de verificación'
     violations: 'Quejas'
-    history: 'Historial de la tarjeta'
+    history: 'Tarjetas de membresía'
     notes: 'Notas'
     edit: 'Editar perfil'
     remove_buddy: Ya no conozco a {name}
@@ -2457,14 +2457,14 @@ profile:
     registrationDate: 'Fecha de registro'
     lastActivity: 'Última actividad'
     fsMail: 'Buzón interno'
-    buddies: 'Amig@s'
+    buddies: 'amig@s'
     buddycount_known: '{name} conoce a {count} rescatistas'
   stats:
-    baskets: 'Cestas de alimentos'
-    posts: 'Publicaciones'
-    weight: 'salvado'
+    baskets: 'cestas de comida'
+    posts: 'posts'
+    weight: 'recogidos'
     count: 'recogido'
-    fetch_count: recogido
+    fetch_count: recogidas
     bananas: Plátanos
     weight_unit: kg
   regions: '{name} guarda comida en'
