@@ -1404,12 +1404,12 @@ profile:
     privateMail: ''
     fetchrate: ''
     fsMail: ''
-    foodsaverId: ''
+    foodsaverId: 'ID'
     lastActivity: ''
     buddycount_known: ''
     buddycount_followed: ''
     never: ''
-    buddies: ''
+    buddies: 'přátel'
   report:
     control:
       notes: ''
