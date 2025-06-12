@@ -634,7 +634,7 @@ profile:
     bananas: Bananas
     weight_unit: kg
   infos:
-    buddies: Buddies
+    buddies: buddies
     never: Never
     lastActivity: Last activity
     fetchrate: Fetch rate
@@ -789,7 +789,7 @@ profile:
     storelist: Stores ({count})
     notes: Notes
     verificationHistory: Verification history
-    history: Pass history
+    history: Membership card history
     buddy: I know {name}
     edit: Edit profile
     violations: Reports
