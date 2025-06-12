@@ -518,7 +518,8 @@ calendar:
   labelToday: ''
   labelPrevYear: ''
 poll:
-  type_description_3: Seleção de avaliações com valores entre -3 (rejeição) e +3 (aprovação)
+  type_description_3: Seleção de avaliações com valores entre -3 (rejeição) e +3
+    (aprovação)
   submit_vote: ''
   allowed_voters: ''
   edit:
@@ -1155,10 +1156,10 @@ group:
     stores_coordination: Empresas
     election: Eleições
     none: Não é um grupo de trabalho GOALS
-    tooltip_function_12: Os administradores deste grupo de trabalho são apresentados
-      na visão geral do distrito.
-    duplicate_election_team: O grupo de trabalho eleitoral já foi criada! Por distrito
-      só pode ter um o grupo de trabalho eleitoral.
+    tooltip_function_12: Os administradores deste grupo de trabalho são 
+      apresentados na visão geral do distrito.
+    duplicate_election_team: O grupo de trabalho eleitoral já foi criada! Por 
+      distrito só pode ter um o grupo de trabalho eleitoral.
   application_from: 'de'
   apply:
     accept: 'Aceitar candidatura'
@@ -1182,8 +1183,8 @@ group:
     error_missing_time: 'Erro: Não foi selecionada nenhuma hora.'
     link_description: 'Este link leva-o diretamente para a aplicação:'
     ability: Quais são as tuas competências neste área?
-    how_much_time: Quantas horas por semana tens tempo e motivação para dedicar a
-      este grupo?
+    how_much_time: Quantas horas por semana tens tempo e motivação para dedicar 
+      a este grupo?
   member_list:
     set_admin_title: 'Atribuir como administrador'
     remove_ambassador_text: 'Tem a certeza de que pretende remover {name} ({id}) como
@@ -1210,14 +1211,15 @@ group:
       title: Standard
     passports:
       created_at: Cartão de identificação criado em
-      generate_button: Criar cartão(ões) de membro para a(s) pessoa(s) selecionada(s)
+      generate_button: Criar cartão(ões) de membro para a(s) pessoa(s) 
+        selecionada(s)
       never_before: nunca
       verify:
-        do: Queres mesmo verificar {name} ({id}) (comparação de dados efectuada /
-          ID verificada, etc.)?
+        do: Queres mesmo verificar {name} ({id}) (comparação de dados efectuada 
+          / ID verificada, etc.)?
         undo: Cancelar a ativação de {name} ({id})
-        do_selected: Queres mesmo verificar todos os dados selecionados (comparação
-          de dados efectuada/identificação verificada, etc.)?
+        do_selected: Queres mesmo verificar todos os dados selecionados 
+          (comparação de dados efectuada/identificação verificada, etc.)?
       title: Cartões de identificação e verificação
       filter_options:
         invalid_passport: Cartão inválido
@@ -1592,8 +1594,8 @@ fsp:
   editName: 'Editar o cantinho solidário „{name}“'
   deleteConfirm: 'Queres mesmo apagar este cantinho solidário?'
   deleteSuccess: 'O cantinho solidário foi apagado'
-  onlySuggested: Este cantinho solidário foi sugerido mas ainda não foi lançado. Neste
-    estado, não é apresentado assim aos outros utilizadores.
+  onlySuggested: Este cantinho solidário foi sugerido mas ainda não foi lançado.
+    Neste estado, não é apresentado assim aos outros utilizadores.
 search:
   thread-title-only: ''
   results:
@@ -1719,12 +1721,12 @@ quiz:
       1: Parabéns!
       2: Infelizmente, não passou.
     points:
-      2: Teve {failurePoints} pontos de erro e teria sido aprovado com um máximo de
-        {maxFailurePointsToSucceed}.
-      1: Foi aprovado com {failurePoints} de um máximo de {maxFailurePointsToSucceed}
-        pontos de erro!
-    deleted: A pontuação exatamente feita só é guardada durante duas semanas após
-      o concurso questionário, pelo que já não está mais disponível.
+      2: Teve {failurePoints} pontos de erro e teria sido aprovado com um máximo
+        de {maxFailurePointsToSucceed}.
+      1: Foi aprovado com {failurePoints} de um máximo de 
+        {maxFailurePointsToSucceed} pontos de erro!
+    deleted: A pontuação exatamente feita só é guardada durante duas semanas 
+      após o concurso questionário, pelo que já não está mais disponível.
   editModal:
     question:
       input:
@@ -1737,8 +1739,8 @@ quiz:
           label: 'Pergunta:'
         mandatory:
           label: Pergunta obrigatória?
-          text: Esta pergunta tem de ser incluída em todas as tentativas de realização
-            do questinário
+          text: Esta pergunta tem de ser incluída em todas as tentativas de 
+            realização do questinário
         fp: 'Pontos da falha:'
       title: Editar pergunta
       confirmDelete:
@@ -1769,43 +1771,50 @@ quiz:
       title: editar questinário
   startmodal:
     infos:
-      unlimited_tries: Pode repetir este teste as vezes que quiser e nunca será desclassificado
-        se falhar. No entanto, poderá ter de fazer uma pausa para estudar entre tentativas.
-      alone: O concurso questinario deve ser feito pelo próprio e sem ajuda externa.
-        Se tiver dificuldades linguísticas ou estiver dependente de um assistente,
-        é claro que outra pessoa o pode ajudar a compreender as perguntas; no entanto,
-        deve ser capaz de responder sozinho. Por conseguinte, procure um local sossegado
-        onde possa fazer o teste sem ser incomodado.
-      multiple_choice: Podem ser dadas várias respostas corretas por pergunta - ou
-        nenhuma. Por conseguinte, decida, para cada resposta, se está correta ou incorrecta.
-      timed: O tempo para responder às perguntas é limitado. Não se preocupe com isso.
-        O tempo é definido individualmente para cada pergunta, para que tenha tempo
-        suficiente para responder à pergunta em paz. Se o tempo se esgotar, avise
-        os administradores do quiz através de um comentário.
-      real_life_examples: A maioria das perguntas é baseada em casos reais da vida
-        em Foodsharing.
-      limited_tries: Não pode repetir o teste as vezes que quiser. Após três tentativas,
-        tem de fazer uma pausa de 30 dias para estudar, após o que só tem mais duas
-        tentativas. As perguntas que lhe são colocadas em cada tentativa são diferentes.
-      comment: Depois de responder a cada pergunta, verá uma avaliação intermédia
-        com explicações para cada uma das respostas possíveis. Isto ajuda-o a compreender
-        qual é a resposta correta ou incorrecta e porquê. Se cometeres um erro, deves
-        ler as explicações com atenção. Se algo lhe parecer ilógico, incompreensível
-        ou mesmo errado, deixe um comentário. Os seus comentários podem ser atribuídos
-        a si para lhe dar um feedback personalizado.
-      pause: Pode fazer uma pausa no concurso questionário após cada pergunta e continuar
-        mais tarde.
-      feedback: No final do teste, receberá uma avaliação direta sobre se passou e
-        quais os erros que cometeu. Aqui pode voltar a ler os motivos à vontade.
-      wiki: Por favor não comece o teste ao acaso. Lê as páginas de informação listadas
-        cuidadosamente antes de começares. Sem os conhecimentos da wiki, não passará
-        no teste.
+      unlimited_tries: Pode repetir este teste as vezes que quiser e nunca será 
+        desclassificado se falhar. No entanto, poderá ter de fazer uma pausa 
+        para estudar entre tentativas.
+      alone: O concurso questinario deve ser feito pelo próprio e sem ajuda 
+        externa. Se tiver dificuldades linguísticas ou estiver dependente de um 
+        assistente, é claro que outra pessoa o pode ajudar a compreender as 
+        perguntas; no entanto, deve ser capaz de responder sozinho. Por 
+        conseguinte, procure um local sossegado onde possa fazer o teste sem ser
+        incomodado.
+      multiple_choice: Podem ser dadas várias respostas corretas por pergunta - 
+        ou nenhuma. Por conseguinte, decida, para cada resposta, se está correta
+        ou incorrecta.
+      timed: O tempo para responder às perguntas é limitado. Não se preocupe com
+        isso. O tempo é definido individualmente para cada pergunta, para que 
+        tenha tempo suficiente para responder à pergunta em paz. Se o tempo se 
+        esgotar, avise os administradores do quiz através de um comentário.
+      real_life_examples: A maioria das perguntas é baseada em casos reais da 
+        vida em Foodsharing.
+      limited_tries: Não pode repetir o teste as vezes que quiser. Após três 
+        tentativas, tem de fazer uma pausa de 30 dias para estudar, após o que 
+        só tem mais duas tentativas. As perguntas que lhe são colocadas em cada 
+        tentativa são diferentes.
+      comment: Depois de responder a cada pergunta, verá uma avaliação 
+        intermédia com explicações para cada uma das respostas possíveis. Isto 
+        ajuda-o a compreender qual é a resposta correta ou incorrecta e porquê. 
+        Se cometeres um erro, deves ler as explicações com atenção. Se algo lhe 
+        parecer ilógico, incompreensível ou mesmo errado, deixe um comentário. 
+        Os seus comentários podem ser atribuídos a si para lhe dar um feedback 
+        personalizado.
+      pause: Pode fazer uma pausa no concurso questionário após cada pergunta e 
+        continuar mais tarde.
+      feedback: No final do teste, receberá uma avaliação direta sobre se passou
+        e quais os erros que cometeu. Aqui pode voltar a ler os motivos à 
+        vontade.
+      wiki: Por favor não comece o teste ao acaso. Lê as páginas de informação 
+        listadas cuidadosamente antes de começares. Sem os conhecimentos da 
+        wiki, não passará no teste.
       read_carefully: Ler atentamente todas as perguntas e respostas.
     acceptPrivacyNotice: Concordo com isso.
     privacyNotice:
-      hygiene: Se passar neste concurso questinario, ficará registado que o fez e
-        ser-lhe-á atribuído um autocolante de higiene. Os responsáveis pela higiene
-        e pelas operações podem verificar se tem um autocolante de higiene válido.
+      hygiene: Se passar neste concurso questinario, ficará registado que o fez 
+        e ser-lhe-á atribuído um autocolante de higiene. Os responsáveis pela 
+        higiene e pelas operações podem verificar se tem um autocolante de 
+        higiene válido.
     title: Notas ao questionário
   comment:
     sent: Comentário enviado.
@@ -1813,38 +1822,43 @@ quiz:
     toggle: Escrever um comentário
     wallTitle: 'Comentários à pergunta #{id}'
     placeholder: Entrar o comentário …
-    info: Diga-nos a tua opinião sobre esta pergunta. Foi demasiado fácil, demasiado
-      difícil, incompreensível? Ou algumas respostas ou explicações estão incorrectas?
+    info: Diga-nos a tua opinião sobre esta pergunta. Foi demasiado fácil, 
+      demasiado difícil, incompreensível? Ou algumas respostas ou explicações 
+      estão incorrectas?
     send: Mandar o comentário
   stateBasedInfo:
-    pause: Já falhou este concurso questinario várias vezes. A fiabilidade, o conhecimento
-      firme das regras e um comportamento profissional são essenciais na partilha
-      de alimentos. Infelizmente, as tuas respostas não transmitem isso de momento.
-      Por isso, terás de fazer uma pausa para estudar antes de tentares passar novamente
-      o teste. O seu intervalo de estudo terminará dentro de {currentWaitTime} dias.
-    pauseElapsed: A tua pausa de estudo terminou. Agora pode voltar a fazer o questionário.
-      Esperemos que tenha aproveitado o tempo para se familiarizar melhor com o conteúdo.
-    willExpire: Mas a validade da tua tentativa de concurso questinario termina dentro
-      de {expirationTime} dias. Por isso, podes atualizar agora os seus conhecimentos
-      nesta área e fazer novamente este teste.
-    disqualifiedAfter: Tens apenas uma última tentativa para passar este questionário!
-      Se falhares agora, serás permanentemente desqualificado deste teste. Por favor,
-      participa apenas se já te tiveres familiarizado com o conteúdo da Wiki.
-    neverTried: Nunca antes há realizado este questionario. Tome o tempo para ler
-      atentamente todos os artículos de informação enumerados para estar preparado
-      para as preguntas.
+    pause: Já falhou este concurso questinario várias vezes. A fiabilidade, o 
+      conhecimento firme das regras e um comportamento profissional são 
+      essenciais na partilha de alimentos. Infelizmente, as tuas respostas não 
+      transmitem isso de momento. Por isso, terás de fazer uma pausa para 
+      estudar antes de tentares passar novamente o teste. O seu intervalo de 
+      estudo terminará dentro de {currentWaitTime} dias.
+    pauseElapsed: A tua pausa de estudo terminou. Agora pode voltar a fazer o 
+      questionário. Esperemos que tenha aproveitado o tempo para se familiarizar
+      melhor com o conteúdo.
+    willExpire: Mas a validade da tua tentativa de concurso questinario termina 
+      dentro de {expirationTime} dias. Por isso, podes atualizar agora os seus 
+      conhecimentos nesta área e fazer novamente este teste.
+    disqualifiedAfter: Tens apenas uma última tentativa para passar este 
+      questionário! Se falhares agora, serás permanentemente desqualificado 
+      deste teste. Por favor, participa apenas se já te tiveres familiarizado 
+      com o conteúdo da Wiki.
+    neverTried: Nunca antes há realizado este questionario. Tome o tempo para 
+      ler atentamente todos os artículos de informação enumerados para estar 
+      preparado para as preguntas.
     passed: Passou neste concurso questinario.
-    noWaitAfter: Consulte novamente os artigos de informação relevantes e tente de
-      novo.
-    waitAfter: Caso não passe na tua próxima tentativa, deve fazer uma pausa nos estudos
-      durante {waitTimeAfterFailure} dias. Certifique-se de que lê todos os artigos
-      de informação relevantes para poder passar no questinario.
-    disqualified: Infelizmente, está desqualificado para este questionário porque
-      já falhou demasiadas vezes.
+    noWaitAfter: Consulte novamente os artigos de informação relevantes e tente 
+      de novo.
+    waitAfter: Caso não passe na tua próxima tentativa, deve fazer uma pausa nos
+      estudos durante {waitTimeAfterFailure} dias. Certifique-se de que lê todos
+      os artigos de informação relevantes para poder passar no questinario.
+    disqualified: Infelizmente, está desqualificado para este questionário 
+      porque já falhou demasiadas vezes.
     expired: Mas a última tentativa de fazer um teste já não é válida.
-    failed: Infelizmente, não passou neste concurso questinario na tua última tentativa.
-    running: Já iniciou o questinario e respondeu a {questionsAnswered} de {questionCount}
-      perguntas até agora.
+    failed: Infelizmente, não passou neste concurso questinario na tua última 
+      tentativa.
+    running: Já iniciou o questinario e respondeu a {questionsAnswered} de 
+      {questionCount} perguntas até agora.
     passedBefore: Já passou por este concurso questinario antes.
   button:
     pause: Continuar mais tarde
@@ -1879,11 +1893,12 @@ quiz:
   test_results: Resultados do ensaio de teste
   show_results: Ver os resultados da última tentativa
   key_facts:
-    untimed: Máximo de {maxFailurePointsToSucceed} pontos de falha em {questionCountTimed}
-      perguntas com, ou {questionCountUntimed} perguntas sem limite de tempo
+    untimed: Máximo de {maxFailurePointsToSucceed} pontos de falha em 
+      {questionCountTimed} perguntas com, ou {questionCountUntimed} perguntas 
+      sem limite de tempo
     to_pass: 'Para passar:'
-    timed: Máximo {maxFailurePointsToSucceed} pontos de falha em {questionCountTimed}
-      perguntas com limite do tempo
+    timed: Máximo {maxFailurePointsToSucceed} pontos de falha em 
+      {questionCountTimed} perguntas com limite do tempo
   fp_badge:
     right: Respondido corretamente
     wrong: '{userFailurePoints} Erro(s)'
@@ -1899,19 +1914,20 @@ quiz:
     edit: editar esta pregunta
   sessionStatus:
     0: Atualmente em execução
-    1: Aprovado com {failurePoints} de um máximo de {maxFailurePointsToSucceed} pontos
-      da falha
-    2: Não aprovado com {failurePoints} de um máximo de {maxFailurePointsToSucceed}
+    1: Aprovado com {failurePoints} de um máximo de {maxFailurePointsToSucceed} 
       pontos da falha
+    2: Não aprovado com {failurePoints} de um máximo de 
+      {maxFailurePointsToSucceed} pontos da falha
   fp_options:
     default: '{failurePoints} pontos da falha'
     joke: '{failurePoints} puntos da falha (sem avaliação)'
     ko: '{failurePoints} pontos da falha (nocauteado)'
-  confirmComment: O teu comentário deve ser mandado para os administradores deste
-    questionário?
-  mandatory_question: Esta pergunta é obrigatória e está incluída em cada questinário
-    do inquérito.
-  fp_description: Total {PointsFailure}, ou seja, {perMistake} por resposta incorrecta
+  confirmComment: O teu comentário deve ser mandado para os administradores 
+    deste questionário?
+  mandatory_question: Esta pergunta é obrigatória e está incluída em cada 
+    questinário do inquérito.
+  fp_description: Total {PointsFailure}, ou seja, {perMistake} por resposta 
+    incorrecta
   answer_options:
     edit: editar resposta
     delete: apagar resposta
@@ -1924,8 +1940,8 @@ quiz:
   editable_tooltip: Podes editar este questinário.
   timelimit: Limite do tempo
   confirm: Confirmar o questionário e concluir o processo
-  confirmDashboardText: Passaste num questinário que ainda não foi confirmado. [Clique
-    aqui]({url}) para finalizar o processo!
+  confirmDashboardText: Passaste num questinário que ainda não foi confirmado. 
+    [Clique aqui]({url}) para finalizar o processo!
   test: Teste do questionário
   max_fp: Pontos de erro possíveis
 chat:
@@ -2468,15 +2484,15 @@ legal:
     acknowledge: ''
   acknowledge:
     select: Por favor selecionar
-    agree_policy_and_notice: Sim, aceito a política de privacidade e as informações
-      sobre proteção de dados.
-    not_agree: Não, não aceito a política de privacidade. Gostaria de eliminar a minha
-      conta.
-    agree_only_policy: Aceito apenas a política de privacidade e gostaria de ser despromovido
-      para o Foodsaver.
+    agree_policy_and_notice: Sim, aceito a política de privacidade e as 
+      informações sobre proteção de dados.
+    not_agree: Não, não aceito a política de privacidade. Gostaria de eliminar a
+      minha conta.
+    agree_only_policy: Aceito apenas a política de privacidade e gostaria de ser
+      despromovido para o Foodsaver.
     qustion_policy: Aceita a nossa política de privacidade?
-    qustion_notice: Aceita a nossa política de privacidade e o aviso de proteção de
-      dados?
+    qustion_notice: Aceita a nossa política de privacidade e o aviso de proteção
+      de dados?
     agree: Sim, aceito a política de privacidade.
   agree_privacy_notice: ''
   are_you_sure_to_downgrade: ''
@@ -2608,9 +2624,9 @@ region:
   delete: ''
   public:
     map:
-      missing: Este distrito não é atualmente exibido no mapa e não tem cantinhos
-        solidário que podem ser exibidos aqui. Tem autorização para colocar um pin
-        de distrito agora.
+      missing: Este distrito não é atualmente exibido no mapa e não tem 
+        cantinhos solidário que podem ser exibidos aqui. Tem autorização para 
+        colocar um pin de distrito agora.
 pronoun:
   "2": ''
   "1": ''
@@ -2631,8 +2647,8 @@ upload:
   images: Carregar imagems
   invalid_image_files: '{count} os ficheiros selecionados não são imagens válidas:
     {fileNames}'
-  image-problem: O teu ficheiro não está em ordem, é melhor utilizar uma imagem jpg
-    normal
+  image-problem: O teu ficheiro não está em ordem, é melhor utilizar uma imagem 
+    jpg normal
 content:
   new_success: ''
   public: ''
@@ -3232,8 +3248,9 @@ homepage: ''
 passcheck: ''
 apply_type: ''
 validation:
-  phone_number_invalid: O número de telefone é inválido (por exemplo, falta o indicativo
-    do país, é demasiado curto, demasiado longo ou contém caracteres inválidos)
+  phone_number_invalid: O número de telefone é inválido (por exemplo, falta o 
+    indicativo do país, é demasiado curto, demasiado longo ou contém caracteres 
+    inválidos)
 navi:
   google_maps: Google Maps
   apple_maps: Apple Maps
@@ -3243,7 +3260,8 @@ automatic_not_delete: '- o perfil quer ser mantido.'
 copied_to_clipboard: „{text}“ foi copiado para a área de transferência.
 save_state: Manter os filtros e o ordenação
 partner_foodsharing: Parceiro de Foodsharing
-save_state_description: Guardar os filtros aplicados e a ordenação para futuras chamadas
+save_state_description: Guardar os filtros aplicados e a ordenação para futuras 
+  chamadas
 collapse_all: Fechar tudo
 configure_columns: Configurar mais tarde
 expand_all: Expandir tudo
