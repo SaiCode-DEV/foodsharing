@@ -1138,7 +1138,7 @@ store:
   springer_conversation_name: Intervenista {name}
   team_conversation_name: Team {name}
   may_not_referred_to_in_public: Non nominare mai pubblicamente questa azienda 
-    (ad esempio nel caso di cestini di cibo, Facebook o richieste della stampa).
+    (ad esempio nel caso di cestini di cibo, sui social media o sulla stampa).
   may_referred_to_in_public: Questa agenzia può essere nominata pubblicamente.
   attribution: Nominazione
   mayManage: Superato il quiz per i responsabili per agenzie.
@@ -2802,19 +2802,20 @@ profile:
   ambRegions: '{name} é {role} per'
   regions: '{name} é Foodsaver in'
   stats:
-    posts: Contributi
-    baskets: Cestini alimentare
+    posts: post
+    baskets: cesti di cibo
     count: ritirato
-    weight: salvato
+    weight: salvati
     bananas: Banane
     weight_unit: kg
+    fetch_count: raccolti
   infos:
     foodsharerId: ID-Foodsaver
     foodsaverId: ID
     fetchrate: Quoto di ritiri
     buddycount1: '{name} conosce {count} Foodsaver'
     buddycount: '{nome} conoscono {count} Foodsaver'
-    buddies: Collegamenti
+    buddies: amici
     fsMail: Cassetta postale interna
     privateMail: Indirizzo e-mail privato
     never: Mai prima
@@ -2841,7 +2842,7 @@ profile:
     violations: Messaggi
     notes: Notizie
     verificationHistory: Cronologia delle verifiche
-    history: Cronologia del passaporto
+    history: Tessere associative
     buddy: Conosco {name}
     edit: Modifica profilo
     remove_buddy: Non conosco più {name}
