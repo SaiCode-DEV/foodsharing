@@ -3202,7 +3202,7 @@ profile:
       yargılayıcı hiçbir şeyin burada yeri yoktur. Gerçekçi kalın.
     bread: Notlar
   infos:
-    buddies: Tanıdık
+    buddies: tanıdık
     buddycount_followed: '{name}, {count} Foodsaverı (er./kd.) tanır'
     title: Bilgiler
     registrationDate: Kayıt Tarihi
@@ -3270,8 +3270,8 @@ profile:
       other: '{name} henüz güven fidanı vermedi.'
       you: Henüz bir güven fidanı vermedin.
   stats:
-    baskets: Yemek Sepetleri
-    posts: Gönderiler
+    baskets: yemek sepeti
+    posts: gönderi
     count: alındı
     weight: kurtarıldı
     fetch_count: alındı
