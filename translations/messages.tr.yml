@@ -3667,7 +3667,7 @@ register:
   pass2: Şifre tekrarı
   signup_newsletter: Ayda yaklaşık bir kez foodsharing bültenini almak istiyorum
   email_required: Bir e-posta adresi gerekli
-  login_name: Adınız
+  login_name: Ön Adınız
   phone_example: Örnek +49 179 12345678
   error: Bir hata oluştu
   set-password: Yeni şifre ayarla
@@ -4737,6 +4737,7 @@ support_page:
     placeholder: Dosya seç
     drop_placeholder: Dosyayı buraya bırakın
     browse: Ara
+  your_name: Adınız
 petition:
   progressText:
     8000: İyi bir başlangıç yapıyoruz! Bunu daha da ileriye taşımamıza yardım 
@@ -4812,3 +4813,25 @@ contact_page:
   common:
     title: Organizasyonel sorularınız için
     link: E-posta yazın
+    modal:
+      title: E-posta yazın
+      text: Bize [{common_mail}](mailto:{common_mail}) (veya İsviçre için 
+        [{common_mail_ch}](mailto:{common_mail_ch})) adresine e-posta gönderin.
+    text: foodsharing bölgelerindekiler de dahil olmak üzere, sizi ilgili 
+      irtibat kişilerine yönlendirmekten mutluluk duyarız.
+  support:
+    link: Destek Portalı
+    text: Sıkça sorulan veya güncel konularla ilgili bilgi veri tabanımızı 
+      burada bulabilirsiniz. Aradığınızı orada bulamazsanız, bir talep 
+      oluşturmaktan çekinmeyin (sağ üstteki bağlantı).
+    title: Web sitesi veya hesabınızla ilgili yardım
+  regions:
+    title: Yerel gruplar
+    link: Genel bakışa dön
+    text: Bir bölgeyle ilgili sorularınız varsa lütfen doğrudan bölge irtibat 
+      kişisiyle iletişime geçin.
+feedback:
+  capture_screenshot: Ekran görüntüsü al
+  title: Geri bildirim formu
+  button: Geri bildirim gönder
+  name_sent: Adınız ve kimliğiniz tarafınıza gönderilecektir.
