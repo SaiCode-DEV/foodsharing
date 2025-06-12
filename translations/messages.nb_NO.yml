@@ -891,17 +891,17 @@ profile:
     textMay: og kan derfor ta imot mat på vegne av foodsharing.
   ambRegions: '{name} er {role} for'
   stats:
-    posts: Foruminnlegg
-    baskets: Matkurver
-    weight: lagret
+    posts: innlegg
+    baskets: matkurver
+    weight: spart
     count: plukket opp
     bananas: Bananer
-    fetch_count: plukket opp
+    fetch_count: innsamlet
     weight_unit: kg
   infos:
     buddycount1: '{name} kjenner {count} Foodsaver'
     buddycount: '{name} kjenner {count} Foodsaver'
-    buddies: Venner
+    buddies: bekjente
     fsMail: Intern postkasse
     privateMail: Privat e-postadresse
     never: aldri
@@ -3101,7 +3101,8 @@ store:
   may_referred_to_in_public: Dette samarbeidet kan nevnes offentlig.
   mayAmb: Bestod ambassadørquizen.
   average_collection_quantity: Hentingsmengde per person
-  may_not_referred_to_in_public: Ikke navngi dette samarbeidet offentlig.
+  may_not_referred_to_in_public: Ikke navngi dette samarbeidet offentlig (for 
+    eksempel i matkurver, i sosiale medier eller i pressen).
   tooltip_managing: Du er ansvarlig for samarbeidet med dette selskapet
   error: Selskapet kunne ikke lastes.
   noStores: Ingen selskaper er lagt inn ennå
