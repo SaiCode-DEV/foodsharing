@@ -57,8 +57,8 @@ settings:
     teaser: ''
     event_link_desc: ''
     token-warning: ''
-    include_invitations: Kalendář by měl obsahovat i pozvánky na schůzky, na které
-      jsem dosud nereagoval.
+    include_invitations: Kalendář by měl obsahovat i pozvánky na schůzky, na 
+      které jsem dosud nereagoval.
     export: ''
     export_tooltip: ''
   changemail:
@@ -660,7 +660,8 @@ register:
   finish: ''
   login_name: 'Vaše křestní jméno'
   password_must_be_complex: Heslo musí obsahovat velká a malá písmena a číslice
-  password_must_be_trimmed: Heslo nesmí obsahovat žádné mezery na začátku ani na konci
+  password_must_be_trimmed: Heslo nesmí obsahovat žádné mezery na začátku ani na
+    konci
 terminology:
   events: 'Termíny'
   role:
@@ -788,6 +789,9 @@ store:
     toogleIsReducedStateClosed: ''
     filterHygiene: Hygienické školení
     filterNoHygiene: ''
+    sorting:
+      default: Standardní třídění
+      pickup: Seřazeno podle poslední akce
   request:
     verified: ''
     to-nowhere: ''
@@ -821,7 +825,7 @@ store:
   tooltip_managing: ''
   allStoresOfRegion: ''
   isJumper: ''
-  address: ''
+  address: 'Adresa'
   my_last_pickup: ''
   regionPickupRuleLong: ''
   willgetcontacted: ''
@@ -863,13 +867,13 @@ store:
   isManager: ''
   mayAmb: ''
   mayManage: ''
-  particularities: ''
-  average_collection_quantity: ''
+  particularities: 'Postup a návod'
+  average_collection_quantity: 'Částka na osobu'
   attribution: ''
   may_not_referred_to_in_public: ''
-  days: ''
-  days_before: ''
-  team_conversation_name: ''
+  days: 'dny'
+  days_before: 'před'
+  team_conversation_name: 'Tým {name}'
   tooltip_red: ''
   regionPickupRulesInactive: ''
   nodetails: ''
@@ -2961,8 +2965,8 @@ usersearch:
   no_tag_preset: ''
   select_tag: ''
 validation:
-  phone_number_invalid: Telefonní číslo je neplatné (např. chybí kód země, je příliš
-    krátké, příliš dlouhé nebo obsahuje neplatné znaky)
+  phone_number_invalid: Telefonní číslo je neplatné (např. chybí kód země, je 
+    příliš krátké, příliš dlouhé nebo obsahuje neplatné znaky)
 copied_to_clipboard: „{text}“ byl zkopírován do schránky.
 no_automatic_delete: 'V případě, že poslední žádost byla podána před pěti lety:'
 automatic_delete: '- profil by měl být odstraněn.'
