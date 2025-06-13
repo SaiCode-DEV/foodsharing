@@ -1013,7 +1013,7 @@ startpage:
     text1:
       part5: ''
       part3: ''
-      part4: ''
+      part4: 'станция фудшеринга'
       part1: ''
       part2: ''
     text2:
@@ -1231,6 +1231,7 @@ globals:
     my_groups: ''
     threads: ''
     chats: ''
+    foodSharePoints: станция фудшеринга
   reset: ''
   account:
     signup: ''
@@ -1297,9 +1298,9 @@ terminology:
   n_foodsaver: ''
   region: ''
   regions: ''
-  fsps: ''
+  fsps: 'станция фудшеринга'
   threads: ''
-  fsp: ''
+  fsp: 'станция фудшеринга'
   buddies: ''
   mailboxes: ''
   arbitrationAdmins: ''
@@ -1969,7 +1970,7 @@ group:
   quitting_home_district_warning: ''
   delete_group_sure: ''
   function:
-    fsp: ''
+    fsp: 'станция фудшеринга'
     report: ''
     arbitration: ''
     moderation: ''
@@ -2788,7 +2789,7 @@ ort: 'город / село'
 position: 'Позиция на фудшеринге (публичная)'
 fpcapital: 'МП'
 besonderheiten: 'Особенности'
-fsp_bezirk_id: 'В каком районе находится фертайлер?'
+fsp_bezirk_id: 'В каком районе находится станция фудшеринга?'
 use_region_pickup_rule: 'Для этого предприятия действует районное правило "Сбор вишни"
   касательно сборов продуктов?'
 fetch_count: 'Сколько продуктовых сборов должен совершить кандидат?'
@@ -2823,7 +2824,7 @@ kette_id: 'бизнес-цепочка'
 questcount: 'Сколько вопросов должен содержать тест?'
 lifetime: 'Каков срок действия твоей продуктовой корзины?'
 picture: 'изображение'
-fspmanagers: 'Фудсейверы, являющиеся контактными лицами фертайлера'
+fspmanagers: 'Фудсейверы, являющиеся контактными лицами станция фудшеринга?'
 groups:
   empty: 'ты ещё не состоишь ни в одной рабочей группе'
 location_name: 'Место проведения / конференц-зал'
@@ -2870,7 +2871,7 @@ notifications:
     description: ''
   checkbox_email: емейл
   foodSharePoints:
-    title: ''
+    title: 'станция фудшеринга'
     description: ''
   groups:
     title: ''
@@ -2907,8 +2908,9 @@ usersearch:
   no_tag_preset: ''
   select_tag: ''
 validation:
-  phone_number_invalid: Телефонный номер недействителен (например, отсутствует код
-    страны, он слишком короткий, слишком длинный или содержит недопустимые символы)
+  phone_number_invalid: Телефонный номер недействителен (например, отсутствует 
+    код страны, он слишком короткий, слишком длинный или содержит недопустимые 
+    символы)
 navi:
   google_maps: Google Карты
   apple_maps: Карты Apple
