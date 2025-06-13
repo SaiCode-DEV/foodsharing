@@ -735,7 +735,7 @@ basket:
   login: ''
   by: ''
   description: ''
-  use_home_address: Benotzt Är Heemadress
+  use_home_address: Benotzt Heemadress
 menu:
   entry:
     contact: ''
