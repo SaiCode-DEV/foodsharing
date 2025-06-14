@@ -4746,15 +4746,16 @@ help:
       md: "Foodsavers puede informar infracciones de las reglas directamente utilizando
         el formulario de informe. Al activarlo, los responsables de los reportes recibirán
         rápida y fácilmente notificaciones de los reportes realizados de esta manera.\n\
-        \ ---\nLa LMG del distrito puede establecer qué motivos de notificación se
-        muestran en el formulario de notificación.\nPuede elegir entre motivos de
-        informes simplificados y detallados. Los motivos detallados para informar
-        incluyen todas las reglas enumeradas [aquí en la wiki en el punto B](https://wiki.foodsharing.de/Verhaltensregelen#B.29_Verhalten_bei_Abholungen).\n\
-        \ También puede elegir si la opción \"Otro\" debe aparecer como motivo adicional
-        del mensaje.\n---\nSe pueden hacer recomendaciones sobre la configuración
-        a la LMG. Sin embargo, la decisión y la responsabilidad de estas configuraciones
-        recae únicamente en los administradores del grupo de informes local, quienes
-        no *tienen* que seguir estas recomendaciones.\n"
+        \ ---\nEl grupo local de quejas del distrito puede establecer qué motivos
+        de notificación se muestran en el formulario de notificación.\nPuede elegir
+        entre motivos de informes simplificados y detallados. Los motivos detallados
+        para informar incluyen todas las reglas enumeradas [aquí en la wiki en el
+        punto B](https://wiki.foodsharing.de/Verhaltensregelen#B.29_Verhalten_bei_Abholungen).\n\
+        También puede elegir si la opción “Otro” debe aparecer como motivo adicional
+        del mensaje.\n---\nEl grupo local de reclamaciones puede recibir recomendaciones
+        sobre contratación. Sin embargo, la decisión y la responsabilidad de estas
+        configuraciones recae únicamente en los administradores del grupo de informes
+        local, quienes no *tienen* que seguir estas recomendaciones.\n"
     basket:
       title: Cestas de comida
       md: "Las cestas de alimentos son ofrecidas por usuarios que desean entregar
