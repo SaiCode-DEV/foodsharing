@@ -15,7 +15,7 @@
       :placeholder="$i18n(props.placeholder)"
       tabindex="1"
       debounce="150"
-      @update="newValue => $emit('update:query', newValue.trim())"
+      @update="newValue => $emit('update:query', newValue)"
     />
     <i
       v-if="props.query.length > 0"
