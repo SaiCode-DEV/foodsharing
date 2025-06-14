@@ -79,8 +79,7 @@
       </h5>
       <div class="d-inline d-flex flex-wrap flex-row" style="gap: 5px">
         <span v-for="(item, index) in kamPositions" :key="item.id">
-          {{ item.name }}
-          <span v-if="index !== kamPositions.length - 1">,</span>
+          {{ item.name }}<span v-if="index !== kamPositions.length - 1">,</span>
         </span>
       </div>
     </div>
