@@ -2851,8 +2851,8 @@ pickup:
   really_delete_date: Vil du virkelig slette hentingen på {date}?
   kick_message_footer: Mange hilsener, samarbeidsoffiserer
   kick_message_placeholder: Om nødvendig, legg til informasjon her …
-  leave_team_message_template: Hei, jeg måtte kansellere registreringen min for 
-    henting i {date}. …
+  leave_team_message_template: '{date} kan jeg ikke hente og har derfor meldt meg
+    av igjen. …'
   signout_info: Alle dine hentedatoer vil bli slettet.
   really_join_date: Ønsker du å gjøre en bindende påmelding til henting {date}?
   dates: Hentingsdatoere
@@ -2882,7 +2882,7 @@ pickup:
           av lagene dine.
         tooltip:
           own: Fremtidige innsamlingsdatoer som du fortsatt kan melde deg på
-        name: Alternativer for henting
+        name: Hentingsmuligheter
       history:
         name: Samlingshistorie
         tooltip:
@@ -3082,7 +3082,7 @@ store:
   not-in-team: Du er ennå ikke i teamet til dette selskapet.
   noPickup: Har aldri tatt opp her.
   fetchCount: Hentet her {count} ganger.
-  particularities: Instruksjoner og prosedyre
+  particularities: Prosedyre og instruksjoner
   mayManage: Har bestått quizen for samarbeidsoffiserer.
   joinDate: 'I laget siden: {date}'
   jumperSince: 'Hopper siden {date}'
@@ -3528,7 +3528,7 @@ bread:
 apply_type: Hvem kan melde seg inn i denne gruppen?
 public_time: Omtrentlig tid på dagen for henting
 public_info: Offentlig info for butikken
-besonderheiten: Instruksjoner og prosedyre
+besonderheiten: Prosedyre og instruksjoner
 fetchercount: Antall innsamlere
 team_status: Lagstatus
 verantwortlicher: Ansvarlige medlemmer
@@ -4619,13 +4619,13 @@ help:
         kun tilgjengelig for registrerte brukere.\nGjør et arrangement offentlig hvis
         du vil invitere folk utenfor ditt lokale matdelingssamfunn og la alle komme.\n"
     pickupOptions:
-      md: "*Hentealternativer*-delen viser deg en oversikt over alle kommende hentinger
+      md: "*Hentingsmuligheter*-delen viser deg en oversikt over alle kommende hentinger
         hos bedriftene dine som fortsatt leter etter matsparere. Du kan tilpasse visningen
         til dine behov ved å bruke alternativmenyen:\n\n**Registrerte hentinger:**
         For å hjelpe deg med å planlegge hentingene dine bedre, kan du også se hentingene
         du allerede er registrert for. Disse pickupene vises litt blekere slik at
-        du kan se dem med et øyeblikk.\n\n**BV-visning:** Driftsledere (BV) sørger
-        for at alle henting i deres operasjoner foregår pålitelig. Hvis du er en BV,
+        du kan se dem med et øyeblikk.\n\n**Teamledersyn:** Teamledere sørger for
+        at alle henting i deres operasjoner foregår pålitelig. Hvis du er en teamleder,
         kan du begrense visningen til selskapene du er ansvarlig for. Dette gjør det
         lettere for deg å holde oversikt.\n\n**Gruppert etter dager:** I denne visningen
         er hentealternativene dine gruppert etter dager og presentert i et mer kompakt
