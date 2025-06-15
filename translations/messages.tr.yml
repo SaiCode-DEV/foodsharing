@@ -1558,7 +1558,7 @@ store:
   isManager: Bu işletmeden sorumlu.
   mayAmb: Elçi sınavını geçti.
   may_not_referred_to_in_public: "Bu şirketi asla açıkdan dile getirmeyin (misal:
-    yemek sepetlerinde, Facebook'da veya basın başvurularında)."
+    yemek sepetlerinde, sosyal medyada veya basın başvurularında)."
   tooltip_yellow: Önümüzdeki beş gün içinde ki açık alımlar
   tooltip_orange: Önümüzdeki üç gün içinde ki açık alımlar
   tooltip_red: Bugün veya yarın ki açık alımlar
@@ -1650,8 +1650,8 @@ store:
       13: Kurtarım için çıkış yapılabilir
       11: Kurtarmak için kaydolun
       15: Pano kayıdını sil
-      18: Otomatik alma randevusu oluşturuldu veya değiştirildi
-      17: Bireysel kurtarma randevusu oluşturuldu veya değiştirildi
+      18: ''
+      17: ''
       20: Ekip davetlerini reddet
       19: Ekip davetlerini kabul et
     max_entries_message: Maksimum 100 giriş görüntülenebilir.. Lütfen arama 
@@ -4592,7 +4592,7 @@ help:
         alınan hijyen sertifikaları (Metro gibi) ne de başka bir yerde alınan hijyen
         eğitimleri teknik olarak dikkate alınmaz.\n"
     pickupOptions:
-      md: "*Alım Seçenekleri* bölümü, hala yiyecek tasarrufu arayan işletmelerinizdeki
+      md: "*Alım seçenekleri* bölümü, hala yiyecek tasarrufu arayan işletmelerinizdeki
         tüm yaklaşan alım işlemlerinin genel bir görünümünü gösterir. Seçenekler menüsünü
         kullanarak görünümü ihtiyaçlarınıza göre özelleştirebilirsiniz:\n\n**Kayıtlı
         alımlar:** Alımlarınızı daha iyi planlamanıza yardımcı olmak için, halihazırda
