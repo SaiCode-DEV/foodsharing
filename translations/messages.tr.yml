@@ -4805,6 +4805,7 @@ required_messages:
   decline_store_application:
     footer: Saygılarımla
   name_placeholder: <Name>
+  sure_title: Emin misiniz?
 contact_page:
   bread: İletişim ve Destek
   title: İletişim ve Destek
