@@ -28,7 +28,7 @@ body: "Nachricht"
 status: "Aktueller Status"
 info: "Informationen"
 photo: "Foto"
-no_automatic_delete: "In dem Fall, dass die letzte Anmeldung 5 Jahre zurückliegt:"
+no_automatic_delete: "Wenn die letzte Anmeldung mehr als 5 Jahre zurückliegt:"
 automatic_delete : "- soll das Profil gelöscht werden."
 automatic_not_delete : "- soll das Profil erhalten bleiben."
 ort: "Stadt/Gemeinde"
@@ -87,7 +87,7 @@ ansprechpartner: "Ansprechpersonen im Betrieb (Filialleiter:innen etc.)"
 fax: "Fax"
 lebensmittel: "Welche Lebensmittel werden abgeholt?"
 begin: "Beginn der Kooperation"
-besonderheiten: "Besonderheiten"
+besonderheiten: "Ablauf & Hinweise"
 public_time: "Ungefähre Tageszeit der Abholung"
 first_post: "Erster Pinnwandeintrag"
 ueberzeugungsarbeit: "War es einfach, die Verantwortlichen zu überzeugen, mit foodsharing zu kooperieren?"
@@ -926,7 +926,7 @@ storeview:
   public_time_at_night: "nachts"
   status: "Aktueller Status"
   status_notes: "Statusnotizen"
-  managers: "Verantwortliche Foodsaver"
+  managers: "Verantwortliche Foodsaver:innen"
   specials: "Besonderheiten"
   team: "Abholteam"
   want_to_fetch: "In diesem Team würde ich gerne helfen."
@@ -1003,14 +1003,14 @@ store:
   fetchCount: "Hat {count}× hier abgeholt."
   mayAmb: "Hat das Botschafter:innen-Quiz bestanden."
   mayManage: "Hat das Quiz für Betriebsverantwortliche bestanden."
-  particularities: "Besonderheiten"
+  particularities: "Ablauf & Hinweise"
   particularities_chain: "Besonderheiten der Kette"
   particularities_chain_tooltip: "Dieser Betrieb ist Teil einer Kette. Deshalb werden diese zusätzlichen Informationen angezeigt, die für alle Betriebe der Kette gelten."
   average_collection_quantity: "Abholmenge pro Person"
   attribution: "Namensnennung"
   may_referred_to_in_public_unclear: "Noch nicht geklärt"
   may_referred_to_in_public: "Dieser Betrieb darf öffentlich genannt werden."
-  may_not_referred_to_in_public: "Bitte diesen Betrieb niemals öffentlich (beispielsweise bei Essenskörben, Facebook oder Presseanfragen) nennen."
+  may_not_referred_to_in_public: "Bitte diesen Betrieb niemals öffentlich (bspw. bei Essenskörben, in sozialen Medien oder bei Presseanfragen) nennen."
   address: "Adresse"
   my_last_pickup: "Meine letzte Abholung"
   days: "Tagen"
@@ -1248,7 +1248,7 @@ pickup:
   leave_pickup_ok: "Ich habe bereits Ersatz"
   leave_pickup_message_team: "Team benachrichtigen"
   leave_team_message_title: "Nachricht ans Team"
-  leave_team_message_template: "Ihr Lieben, ich habe mich für eine Abholung wieder ausgetragen: {date} Uhr. …"
+  leave_team_message_template: "{date} Uhr kann ich leider doch nicht abholen und habe mich daher wieder ausgetragen. …"
   team_message_send_and_leave: "Senden und austragen"
   team_message_success: "Nachricht ans Team wurde erfolgreich versendet"
   join_title_date: "Sicher?"
@@ -1321,7 +1321,7 @@ pickup:
           other: Eingetragene zukünftige Abholtermine
         empty: Momentan sind keine Abholungen eingetragen.
       options:
-        name: Abholoptionen
+        name: Abholmöglichkeiten
         tooltip:
           own: Zukünftige Abholtermine, für die du dich noch eintragen könntest
         empty: Momentan sind in deinen Betrieben keine Slots frei.
@@ -1715,7 +1715,7 @@ bell:
   forum_announcement_title: "Wichtige Mitteilung: {title}"
   forum_announcement: "von {user} im Forum {forum}"
   forum_mention_title: "{user} hat dich erwähnt ({forum})"
-  forum_mention: 'im Thema "{title}" des Forums {forum}'
+  forum_mention: 'im Thema „{title}“ des Forums {forum}'
   forum_new_thread_title: "Neuer Beitrag: {title}"
   forum_new_thread: "von {user} im Forum {forum}"
   blog_new_check_title: "Neuer Blogartikel"
@@ -2154,7 +2154,7 @@ settings:
     sent: "Gehe jetzt zu deinem <strong>neuen</strong> E-Mail-Postfach, um die Adresse zu bestätigen."
     sent_other_user: "Es wurde eine E-Mail an die neue Adresse gesendet, mit der die Adresse bestätigt werden kann."
     done: "Deine E-Mail-Adresse wurde geändert."
-    not_changed: "Deine E-Mail-Addresse wurde nicht geändert."
+    not_changed: "Deine E-Mail-Adresse wurde nicht geändert."
     dashboard_link: "Weiter zum Dashboard"
   change_password:
     title: "Hier kannst du dein aktuelles Passwort ändern"
@@ -2538,7 +2538,7 @@ dashboard:
     buddies: "Menschen, die du kennst"
     polls: Abstimmungen
     pickups: "Abholtermine"
-    pickupOptions: "Abholoptionen"
+    pickupOptions: "Abholmöglichkeiten"
   options:
     hide:
       text: "Anzeige verwalten"
@@ -3852,15 +3852,15 @@ help:
         ---
         Sollte es doch mal vorkommen, dass eines dieser Felder geändert werden muss, kannst du dich hierzu an eine:n Botschafter:in aus deinem Stammbezirk wenden. Sie können die entsprechende Änderung für dich durchführen. Wer Botschafter:in in deinem Stammbezirk ist, siehst du im [Forum des Bezirks]({link}) in der linken Seitenleiste.
     pickupOptions:
-      title: "Abholoptionen"
+      title: "Abholmöglichkeiten"
       md: |
-        Der Bereich *Abholoptionen* zeigt dir eine Übersicht über alle kommenden Abholungen in deinen Betrieben, bei denen noch Foodsaver:innen gesucht werden. Über das Optionsmenü kannst du die Ansicht an deine Bedürfnisse anpassen:
+        Der Bereich *Abholmöglichkeiten* zeigt dir eine Übersicht über alle kommenden Abholungen in deinen Betrieben, bei denen noch Foodsaver:innen gesucht werden. Über das Optionsmenü kannst du die Ansicht an deine Bedürfnisse anpassen:
 
         **Eingetragene Abholungen:** Damit du deine Abholungen besser planen kannst, kannst du dir auch die Abholungen anzeigen lassen, bei denen du selbst bereits eingetragen bist. Diese Abholungen werden etwas blasser dargestellt, damit du sie auf einen Blick erkennen kannst.
 
         **BV-Ansicht:** Betriebsverantwortliche (BV) kümmern sich darum, dass in ihren Betrieben alle Abholungen zuverlässig stattfinden. Wenn du BV bist, kannst du die Ansicht auf die Betriebe einschränken, für die du zuständig bist. So behältst du leichter den Überblick.
 
-        **Gruppiert nach Tagen:** In dieser Darstellung werden deine Abholoptionen nach Tagen zusammengefasst und etwas kompakter dargestellt. Gerade, wenn dir pro Tag viele Abholoptionen zur Verfügung stehen, macht es das leichter, einen Überblick zu bekommen.
+        **Gruppiert nach Tagen:** In dieser Darstellung werden deine Abholmöglichkeiten nach Tagen zusammengefasst und etwas kompakter dargestellt. Gerade, wenn dir pro Tag viele Abholmöglichkeiten zur Verfügung stehen, macht es das leichter, einen Überblick zu bekommen.
 
 team_page:
   board_member:
