@@ -1552,7 +1552,7 @@ storeview:
   no_permission_to_view: 'Sólo visible para l@s responsabl@s de la empresa.'
   pickupCount: 'Recogidas'
   specials: 'Instrucciones y proceso'
-  managers: 'rescatistas responsables'
+  managers: 'Rescatistas responsables'
   visible_for_public: 'Este texto es visible para todos l@s rescatistas.'
   show_information: 'Ver información de la empresa'
   cooperation_start: 'Cooperación desde'
@@ -1689,7 +1689,7 @@ store:
   error: 'No se pudo cargar la empresa.'
   ownStores: 'Mis tiendas'
   actions: ''
-  particularities: 'Instrucciones y proceso'
+  particularities: 'Procedimiento e instrucciones'
   pickup_slot_unavailable: 'Este ranura está más lejano en el futuro de lo que pretendían
     los responsables de esta empresa. Así que inténtelo de nuevo más tarde.'
   may_not_referred_to_in_public: 'Por favor, nunca mencione esta empresa públicamente
@@ -1963,8 +1963,8 @@ pickup:
   same_day_hint: 'Estás registrado para las siguientes recogidas el {day}:'
   really_join_date: '¿Le gustaría registrarse de forma vinculante para su recogida
     el {date}?'
-  leave_team_message_template: 'Queridos amigos, tuve que cancelar la siguiente recogida:
-    {date} horas. …'
+  leave_team_message_template: '{date}, no puedo recogerlo después de todo y por lo
+    tanto me he dado de baja de nuevo. …'
   signout_sure: '¿De verdad quieres dejar este equipo?'
   team_message_success: 'El mensaje al equipo fue enviado exitosamente'
   join_agree: 'Sí, por favor'
@@ -4547,7 +4547,7 @@ savewithus: '¡Rescata comida!'
 fpko: 'puntos de error (k. o.)'
 image: 'Imagen'
 lebensmittel: '¿Qué alimentos se pueden recoger?'
-besonderheiten: 'Instrucciones y proceso'
+besonderheiten: 'Procedimiento e instrucciones'
 fpsingular: 'punto de error'
 fetch_count: '¿Cuántas recogidas debería haber hecho un solicitante?'
 store_status_impact_explanation: 'Actualice el estado de la empresa después de cada
@@ -4837,19 +4837,19 @@ help:
         son bienvenidos.\n"
     pickupOptions:
       title: Opciones de recogida
-      md: "La sección *Opciones de Recogida* te muestra un resumen de todas las recogidas
+      md: "La sección *Opciones de recogida* te muestra un resumen de todas las recogidas
         próximas en tus negocios que aún buscan rescatadores de alimentos. Puedes
         personalizar la vista según tus necesidades usando el menú de opciones:\n\n\
-        **Recogidas Registradas:** Para ayudarte a planificar mejor tus recogidas,
+        **Recogidas registradas:** Para ayudarte a planificar mejor tus recogidas,
         también puedes ver las recogidas en las que ya estás registrado. Estas recogidas
         se muestran un poco más claras para que puedas reconocerlas a simple vista.\n\
-        \n**Vista del Gestor de Instalaciones:** Los Gestores de Instalaciones (GFI)
-        se aseguran de que todas las recogidas en sus negocios funcionen correctamente.
-        Si eres un GFI, puedes limitar la vista a los negocios de los que eres responsable.
-        Esto facilita el seguimiento.\n\n**Agrupado por Día:** En esta vista, tus
-        opciones de recogida se resumen por día y se presentan de forma más compacta.
-        Esto facilita obtener una visión general, especialmente si tienes muchas opciones
-        de recogida disponibles al día.\n"
+        \n**Vista para jefes de equipo:** Los jefes de equipo se aseguran de que todas
+        las recogidas en sus negocios funcionen correctamente. Si es jefe de equipo,
+        puedes limitar la vista a los negocios de los que eres responsable. Esto facilita
+        el seguimiento.\n\n**Agrupado por día:** En esta vista, tus opciones de recogida
+        se resumen por día y se presentan de forma más compacta. Esto facilita obtener
+        una visión general, especialmente si tienes muchas opciones de recogida disponibles
+        al día.\n"
 team_page:
   board_member:
     text: "La junta directiva de foodsharing e.V. mantiene unidos los hilos, conecta
@@ -4872,7 +4872,7 @@ team_page:
       Estas son algunas de las personas que coordinan grupos de trabajo nacionales,
       desarrollan el sitio web o asumen otras tareas importantes para el foodsharing
       en su conjunto:\n"
-no_automatic_delete: 'En el caso de que la última inscripción haya sido hace 5 años:'
+no_automatic_delete: 'Si el último inicio de sesión fue hace más de cinco años:'
 automatic_delete: '- el perfil debe ser eliminado.'
 automatic_not_delete: '- el perfil debe conservarse.'
 validation:
