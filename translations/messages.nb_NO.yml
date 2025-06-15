@@ -3202,8 +3202,8 @@ store:
       13: utsendelser av pickuper
       11: oppføringer for pickuper
       15: slettede oppslagstavleinnlegg
-      18: Automatisk hentingsavtale opprettet eller endret
-      17: Individuell hentingsavtale opprettet eller endret
+      18: Trekke tilbake laginvitasjoner
+      17: Inviter innsamlere til teamet
       20: Avslått teaminvitasjoner
       19: Godtatt teaminvitasjoner
     max_entries_message: Maksimalt 100 oppføringer vises. Vennligst begrens 
