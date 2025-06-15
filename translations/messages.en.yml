@@ -1254,8 +1254,8 @@ pickup:
   add_onetime_pickup: Add single date
   edit_recurring_pickups: Edit regular pick-up dates
   really_delete_date: Do you really want to delete the pick-up on {date}?
-  leave_team_message_template: 'Dear all, I had to sign out for the following pick-up:
-    {date} o’clock. …'
+  leave_team_message_template: '{date} I can’t pick up after all and have therefore
+    signed out again. …'
   really_leave_date: You are responsible for this pick-up. Please arrange a 
     replacement independently.
   kick_message_footer: Best wishes, your Store Coordinators
@@ -1286,7 +1286,7 @@ pickup:
           other: Future pick-ups the user signed up for
         empty: Currently, no pick-ups are registered.
       options:
-        name: Pick-up options
+        name: Pickup options
         tooltip:
           own: Future pick-ups, for which you can sign up
         empty: Currently there are no available pick-up slots in any of your 
@@ -2591,7 +2591,7 @@ store:
   days_before: before
   days: days
   attribution: Attribution
-  particularities: Instructions & procedure
+  particularities: Procedure & instructions
   teamName: '{storeTitle} team'
   actions: Options
   chat:
@@ -2600,7 +2600,7 @@ store:
   error: Store could not be loaded.
   noStores: There are no stores yet
   may_not_referred_to_in_public: Please do not refer to this store in public 
-    (for example in food baskets, in social media, or in the press).
+    (e. g. in food baskets, on social media or to the press).
   joinDate: 'In team since: {date}'
   lastPickupShort: last {date}
   lastPickup: 'Last pick-up {date}'
@@ -2742,10 +2742,10 @@ store:
       13: removed from pick-ups
       11: signed up for pick-ups
       15: wall posts deleted
-      18: Automated pick-up slot created or changed
-      17: Single pick-up slot created or changed
-      19: Accepted team invitations
-      20: Declined team invitations
+      18: withdrawn team invitations
+      17: invitations to the team
+      19: accepted team invitations
+      20: declined team invitations
     max_entries_message: A maximum of 100 entries will be displayed. Please 
       limit the search range.
     log_types_placeholder: Select action types to display
@@ -3424,7 +3424,7 @@ explanation: Explanation
 fp: Failure points
 text: text
 public_info: Public information of the store
-besonderheiten: Instructions & procedure
+besonderheiten: Procedure & instructions
 begin: Start of cooperation
 fetchercount: Number of collectors
 team_status: Team status
@@ -4794,16 +4794,16 @@ help:
         as public if you want to invite people outside of your local food sharing
         community, and everyone is welcome to attend.\n"
     pickupOptions:
-      title: Pick-up options
-      md: "The *Pickup Options* section shows you an overview of all upcoming pickups
+      title: Pickup options
+      md: "The *Pickup options* section shows you an overview of all upcoming pickups
         at your stores that are still looking for foodsavers. You can customize the
-        view to your needs using the options menu:\n\n**Registered Pickups:** To help
+        view to your needs using the options menu:\n\n**Registered pickups:** To help
         you plan your pickups better, you can also view pickups for which you are
         already registered. These pickups are displayed slightly paler so you can
-        recognize them at a glance.\n\n**Team Manager View:** Team Managers ensure
-        that all pickups at their businesses run reliably. If you are a Team Manager,
+        recognize them at a glance.\n\n**Team manager view:** Team managers ensure
+        that all pickups at their businesses run reliably. If you are a Team manager,
         you can limit the view to the stores for which you are responsible. This makes
-        it easier to keep track.\n\n**Grouped by Day:** In this view, your pickup
+        it easier to keep track.\n\n**Grouped by day:** In this view, your pickup
         options are summarized by day and presented in a more compact format. This
         makes it easier to get an overview, especially if you have many pickup options
         available each day.\n"
@@ -4830,7 +4830,7 @@ team_page:
       community and external parties. In addition, the Executive Board deals extensively
       with organizational development and the political dimension of food waste.\n"
 automatic_delete: '- the profile should be deleted.'
-no_automatic_delete: 'In case the last login was more than five years ago:'
+no_automatic_delete: 'If the last login was more than five years ago:'
 automatic_not_delete: '- the profile should be kept.'
 validation:
   phone_number_invalid: The telephone number is invalid (e. g. country code is 
