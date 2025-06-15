@@ -1108,7 +1108,7 @@ store:
   my_last_pickup: Il mio ultimo ritiro
   address: Indirizzo
   average_collection_quantity: Quantità di ritiro per persona
-  particularities: Istruzioni e procedura
+  particularities: Procedura e istruzioni
   isNotVerified: Non è stato ancora verificato.
   unknownDate: sconosciuto
   tooltip_managing: Sei responsabile di questa agenzia
