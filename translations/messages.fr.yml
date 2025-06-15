@@ -1679,8 +1679,8 @@ store:
       13: Être retiré de la collecte
       11: Inscription pour les collectes
       15: Supprimer entrée du mur
-      18: Rendez-vous de retrait automatique créé ou modifié
-      17: Inviter des personnes dans l'équipe
+      18: Retirer les invitations d’équipe
+      17: Inviter des collecteur·rice·s dans l’équipe
       19: Invitations d’équipe acceptées
       20: Invitations d’équipe rejetées
     max_entries_message: Un maximum de 100 entrées est affiché. Limite le champ 
@@ -2411,8 +2411,8 @@ pickup:
   join_title_date: Sûr ?
   team_message_success: Le message a été envoyé à l’équipe avec succès
   team_message_send_and_leave: Envoyer et se retirer de la collecte
-  leave_team_message_template: 'Chers amis, j’ai dû annuler mon enlèvement suivant :
-    {date}. …'
+  leave_team_message_template: '{date}, je ne peux pas venir et je me suis donc désinscrit.
+    …'
   leave_team_message_title: Envoyer un message à l’équipe
   leave_pickup_message_team: Notifier l’équipe
   leave_pickup_ok: J’ai déjà trouvé un·e remplaçant·e
