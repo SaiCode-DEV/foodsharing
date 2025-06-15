@@ -58,7 +58,7 @@
             {{ $i18n('chat.open_chat') }}
           </a>
         </div>
-        <div class="body m-2 mr-md-5 text-break">
+        <div class="body m-2 mr-md-5 text-break flex-shrink-fix">
           <Markdown :source="post.body" />
         </div>
       </div>

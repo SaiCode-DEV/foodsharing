@@ -5,7 +5,7 @@
     style="gap: 1em"
   >
     <Avatar :user="post.author" :size="50" />
-    <div class="flex-grow-1 position-relative">
+    <div class="flex-grow-1 position-relative flex-shrink-fix">
       <div class="d-flex" style="gap: 0.5em">
         <a :href="$url('profile', post.author.id)" v-text="post.author.name" />
         <span class="flex-grow-1" />

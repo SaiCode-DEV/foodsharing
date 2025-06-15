@@ -1043,3 +1043,8 @@ blockquote > p:last-child {
 .modal {
   --navbar-height: 0px;
 }
+
+/* Allows flex items to shrink by preventing child content from enforcing a minimum width */
+.flex-shrink-fix {
+  min-width: 0;
+}

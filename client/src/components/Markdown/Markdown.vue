@@ -98,7 +98,7 @@ export default {
     display: block;
     overflow-wrap: normal;
     word-break: normal;
-    white-space: pre-wrap;
+    white-space: pre;
     max-width: 100%;
     box-sizing: border-box;
   }

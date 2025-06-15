@@ -47,7 +47,7 @@
               :region-id="regionId"
             />
           </div>
-          <div class="col">
+          <div class="col flex-shrink-fix">
             <div
               v-if="permissions.isJumper && !permissions.mayEditStore"
               class="alert alert-info"
@@ -79,7 +79,7 @@
               :target-id="storeId"
             />
           </div>
-          <div class="col-lg-3">
+          <div class="col-lg-3 flex-shrink-fix">
             <StoreInfos
               :key="'storeInfo' + componentKey"
               :particularities-description="storeInformation.description"
