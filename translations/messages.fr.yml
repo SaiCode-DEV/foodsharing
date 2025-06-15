@@ -1680,7 +1680,7 @@ store:
       11: Inscription pour les collectes
       15: Supprimer entrée du mur
       18: Rendez-vous de retrait automatique créé ou modifié
-      17: Rendez-vous de ramassage individuel créé ou modifié
+      17: Inviter des personnes dans l'équipe
       19: Invitations d’équipe acceptées
       20: Invitations d’équipe rejetées
     max_entries_message: Un maximum de 100 entrées est affiché. Limite le champ 
@@ -1949,7 +1949,7 @@ dashboard:
     events: Événements
     polls: Votations
     pickups: Dates de ramassage
-    pickupOptions: Possibilités de ramassage
+    pickupOptions: Possibilités de collecte
   foodsaver_amount: "Tu as fait <b>{pickups} x</b> collectes et a sauvé <b>{weight} kg</b>
     de denrées."
   foodsharer_amount: Tu as déjà collecté {weight} kg !
@@ -2477,7 +2477,7 @@ pickup:
       options:
         empty: Actuellement, il n’y a pas de slots disponibles dans tes 
           coopérations.
-        name: Options de collecte
+        name: Possibilités de collecte
         tooltip:
           own: Futures dates de collecte auxquelles tu pourrais encore 
             t’inscrire
@@ -4865,8 +4865,8 @@ help:
         inscrits.\nInscris un événement comme public si tu veux inviter des personnes
         extérieures à ta communauté foodsharing locale et que tout le monde peut venir.\n"
     pickupOptions:
-      title: Possibilités d’enlèvement
-      md: "Le domaine *Possibilités de ramassage* te donne un aperçu de tous les ramassages
+      title: Possibilités de collecte
+      md: "Le domaine *Possibilités de collecte* te donne un aperçu de tous les collectes
         à venir dans tes établissements, pour lesquels des ramasseur·euse·s sont encore
         recherchés. Tu peux adapter l’affichage à tes besoins via le menu d’options :\n\
         \n**Collectes inscrites:** Pour que tu puisses mieux planifier tes collectes,
@@ -4881,7 +4881,7 @@ help:
         de ramassage par jour, il est plus facile d’avoir une vue d’ensemble.\n"
 automatic_delete: '- le profil doit être supprimé.'
 automatic_not_delete: '- le profil doit être conservé.'
-no_automatic_delete: 'Si la dernière connexion remonte à cinq ans :'
+no_automatic_delete: 'Si la dernière connexion remonte à plus de cinq ans :'
 team_page:
   alumni_member:
     title: Anciennes
