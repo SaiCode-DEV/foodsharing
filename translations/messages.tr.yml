@@ -171,7 +171,7 @@ team_status: Ekip Statüsü
 betrieb_kategorie_id: Kategori
 first_post: İlk Pano Kayıtı
 begin: İşbirliğinin başlangıcı
-besonderheiten: Tanım
+besonderheiten: Prosedür ve Notlar
 public_info: Şirket hakkında açık görünen bilgiler
 fax: Faks
 lebensmittel: Hangi yiyecekler alınabilir?
@@ -1525,7 +1525,7 @@ store:
     ileride. Bu yüzden lütfen daha sonra tekrar deneyin.
   fetchCount: '{count}× buradan aldı.'
   mayManage: İşletme yöneticisi sınavını geçti.
-  particularities: Özellikler
+  particularities: Prosedür ve Notlar
   average_collection_quantity: Kişi başı alım miktarı
   address: Adres
   may_referred_to_in_public: Bu işletmenin adı açık olarak dile getirilebilir.
@@ -1650,8 +1650,8 @@ store:
       13: Kurtarım için çıkış yapılabilir
       11: Kurtarmak için kaydolun
       15: Pano kayıdını sil
-      18: ''
-      17: ''
+      18: 'Ekip davetlerini geri çek'
+      17: 'Foodsaverı ekibe davet edin'
       20: Ekip davetlerini reddet
       19: Ekip davetlerini kabul et
     max_entries_message: Maksimum 100 giriş görüntülenebilir.. Lütfen arama 
@@ -3949,8 +3949,8 @@ pickup:
   signout_info: Alım randevularınızın tümü silinecektir.
   really_kick_user_info: "{name}'ı {date} tarihindeki alma işleminden çıkarmak istediğinizden
     emin misiniz?\n{name} bununla ilgili şu mesajı alacak:\n"
-  leave_team_message_template: 'Sevgili arkadaşlar,tekrar bir alımdan ayrıldım: {tarih}
-    saati.…'
+  leave_team_message_template: 'Maalesef {tarih} saatinde randevu alamıyorum ve bu
+    nedenle Slot''dan çıkıyorum. …'
   slot_remove: Slotu kaldır
   kick_message_placeholder: 'Opsiyonel : buraya bilgi ekleyin …'
   edit_recurring_pickups: Düzenli teslim alma saatlerini düzenleyin
@@ -4802,10 +4802,28 @@ required_messages:
     footer: Saygılarımla
   kick_from_store_team:
     footer: Saygılarımla
+    main: '[{store}](/store/{storeId}) işletmenin ekibinden çıkarıldınız. Artık bu
+      işletmede teslim alma işlemleri için kayıt yaptıramazsınız.'
+    really: '{name} adlı kişiyi gerçekten bu işletmenin ekibinden çıkarmak istiyor
+      musunuz?'
   decline_store_application:
     footer: Saygılarımla
   name_placeholder: <Name>
   sure_title: Emin misiniz?
+  verify:
+    main: Sizi Foodsaver olarak onayladık!
+    footer: Saygılarımla, yetkili Elçiniz
+    really: '{name} adlı kişiyi gerçekten doğrulamak istiyor musunuz? Lütfen {name}
+      adlı kullanıcının tüm [doğrulanmış foodsaverlar için gereklilikleri](https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver)
+      karşıladığından emin olun.'
+    really_multiple: Gerçekten {count} kullanıcıyı onaylamak istiyor musunuz? 
+      Lütfen tüm {count} kişinin tüm [doğrulanmış Foodsaver'lar için 
+      gereklilikleri](https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver)
+      karşıladığından emin olun.
+  message_info: '{name} bu mesajı alacaktır:'
+  message_info_multiple: 'Herkese bu mesaj gönderilecek:'
+  placeholder: İsteğe bağlı olarak buraya bilgi ekleyebilirsiniz…
+  save_message: Mesajımı bir dahaki sefere kaydet
 contact_page:
   bread: İletişim ve Destek
   title: İletişim ve Destek
@@ -4836,3 +4854,18 @@ feedback:
   title: Geri bildirim formu
   button: Geri bildirim gönder
   name_sent: Adınız ve kimliğiniz tarafınıza gönderilecektir.
+  error:
+    no_sentry: Sentry'de bir hata oluştu. Lütfen daha sonra tekrar deneyin.
+    screenshot: Otomatik ekran görüntüsü alma başarısız oldu. Ancak geri 
+      bildiriminize manuel olarak bir resim ekleyebilirsiniz.
+    invalid_file: Geçersiz dosya. Lütfen sadece resim yükleyin.
+    message_short: Mesajınız çok kısa. Lütfen daha fazla bilgi verin.
+  no_support: Bu form yalnızca **geri bildirim** amaçlıdır. Yardıma ihtiyacınız 
+    varsa veya herhangi bir sorunuz varsa lütfen [destek formunu](/support) 
+    kullanın.
+  privacy: Mesajınız foodsharing platformunun gönüllü geliştiricilerine 
+    iletilecektir. Formdaki tüm girdiler ve ekli görseller artık sizin 
+    tarafınızdan görülebilecektir. Lütfen ekran görüntülerinin, paylaşma 
+    yetkiniz olmayan diğer kullanıcılara ait kişisel bilgileri içermediğinden 
+    emin olun.
+  success: Geri bildiriminiz başarıyla iletildi.
