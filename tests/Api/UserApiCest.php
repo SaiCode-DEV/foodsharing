@@ -431,10 +431,18 @@ class UserApiCest
         ]);
     }
 
-    public function canFetchUserNamesWhenLoggedIn(ApiTester $I): void
+    public function canOnlyFetchAbbreviatedUserNamesWhenLoggedOut(ApiTester $I): void
     {
         $I->sendGet(self::API_USER . '/names/' . $this->userOrga['id'] . '-' . $this->user['id']);
-        $I->seeResponseCodeIs(Http::UNAUTHORIZED);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson([
+            ['id' => $this->userOrga['id'], 'name' => substr($this->userOrga['name'], 0, 1) . '.'],
+            ['id' => $this->user['id'], 'name' => substr($this->user['name'], 0, 1) . '.']
+        ]);
+    }
+
+    public function canFetchUserNamesWhenLoggedIn(ApiTester $I): void
+    {
         $I->login($this->user[self::EMAIL]);
         $I->sendGet(self::API_USER . '/names/' . $this->userOrga['id'] . '-' . $this->user['id']);
         $I->seeResponseIsJson();

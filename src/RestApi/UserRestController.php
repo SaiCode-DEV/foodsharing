@@ -496,8 +496,13 @@ class UserRestController extends AbstractFoodsharingRestController
     #[OA2\Response(response: Response::HTTP_OK, description: 'Success.')]
     public function getUserNames(string $userIds)
     {
-        $this->assertLoggedIn();
         $userNames = $this->foodsaverGateway->getUserNames(explode('-', $userIds));
+        if (!$this->session->id()) {
+            // Abbreviate names when not logged in
+            foreach ($userNames as &$user) {
+                $user['name'] = mb_substr($user['name'], 0, 1) . '.';
+            }
+        }
 
         return $this->handleView($this->view($userNames, Response::HTTP_OK));
     }

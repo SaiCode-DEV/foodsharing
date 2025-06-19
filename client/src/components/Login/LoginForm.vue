@@ -133,6 +133,7 @@ export default {
       this.isLoading = true
       try {
         await login(this.email, this.password, this.rememberMe)
+        sessionStorage.clear()
         channel.postMessage({ type: BROADCAST_TYPE.LOGIN })
         let ref = new URL(location.href).searchParams.get('ref')
         if (!ref?.startsWith('/')) ref = null
