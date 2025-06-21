@@ -91,7 +91,7 @@ const shownSlotCounts = computed(() => {
 
   shownFreeSlotsCount = Math.max(
     shownFreeSlotsCount,
-    Math.min(freeSlotsCount.value, freeCircles),
+    Math.min(freeSlotsCount.value, freeCircles + 1),
   )
 
   return {
@@ -116,7 +116,7 @@ const contentColor = computed(() =>
 
 const slotBackgroundColor = computed(() =>
   props.variant === 'default'
-    ? 'var(--fs-color-light)'
+    ? 'var(--fs-color-primary-200)'
     : `var(--fs-color-${props.variant}-300)`,
 )
 
@@ -164,6 +164,7 @@ const backgroundColor = computed(() =>
   width: var(--component-height);
   font-size: calc(var(--component-height) * 0.5);
   align-content: center;
+  text-align: center;
   &:not(:last-child) {
     padding-left: 4px;
   }
