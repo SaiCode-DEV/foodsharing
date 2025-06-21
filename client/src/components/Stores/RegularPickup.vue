@@ -173,8 +173,11 @@ export default {
       },
       immediate: true,
     },
-    editPickups () {
-      this.$emit('update:editPickups', this.editPickups)
+    editPickups: {
+      handler () {
+        this.$emit('update:editPickups', this.editPickups)
+      },
+      deep: true,
     },
   },
   methods: {
