@@ -44,7 +44,7 @@ store:
     request: ''
     to-jumper: ''
     withdraw: ''
-  jumperSince: ''
+  jumperSince: 'Reserva desde {date}'
   days: ''
   team:
     no_record: ''
@@ -92,7 +92,7 @@ store:
     search: ''
     selected_log_types: ''
     title: ''
-  signInDateTime: ''
+  signInDateTime: 'Data de inscrição'
   sm:
     reloadPage: ''
     demoteAsManager: ''
@@ -132,7 +132,7 @@ store:
   may_not_referred_to_in_public: ''
   fetchCount: ''
   of_that: ''
-  requests: ''
+  requests: 'Consultas abertas ({count})'
   error: ''
   leaveinfo: ''
   prefetchfour: ''
@@ -144,12 +144,12 @@ store:
   my_last_pickup: ''
   mayAmb: ''
   chat:
-    jumper: ''
-    team: ''
+    jumper: 'Mensagem para Springer'
+    team: 'Mensagem para a equipe'
   isAppliedForTeam: ''
   locked: ''
   lastPickup: ''
-  team_container: ''
+  team_container: 'Equipe'
   managing: ''
   prefetchthree: ''
   springer_conversation_name: ''
@@ -158,11 +158,11 @@ store:
   particularities: ''
   noPickup: ''
   tooltip_red: ''
-  active: ''
-  one_active: ''
-  not-in-team: ''
+  active: 'Activo'
+  one_active: 'Activo'
+  not-in-team: 'Ainda não estás na equipa desta empresa.'
   unverified_members: ''
-  allStoresOfRegion: ''
+  allStoresOfRegion: 'Todas as empresas do distrito'
   willgetcontacted: ''
   slot_state: ''
   delete_date_description: ''
@@ -178,17 +178,17 @@ store:
   short_tooltip_orange: ''
   regionPickupRules: ''
   tooltip_jumping: ''
-  member: ''
+  member: 'Membro'
   tooltip_managing: ''
   addNewStoresButton: ''
   enternumber: ''
   nodetails: ''
-  teamName: ''
+  teamName: '(storeTitle) equipe'
   enter_date: ''
   ownStores: ''
   mayManage: ''
-  go: ''
-  bread: ''
+  go: 'Para a equipa'
+  bread: 'Todas as empresas'
   particularities_chain: ''
   appliedFor: ''
   filter: ''
@@ -199,7 +199,7 @@ store:
   nochains: ''
   enter_date_description: ''
   tooltip_yellow: ''
-  joinDate: ''
+  joinDate: 'Na equipa desde {data}'
   peoplecame: ''
   may_referred_to_in_public: ''
   noStores: ''
@@ -208,14 +208,18 @@ store:
   not_verified: ''
   unverified_member: ''
   particularities_chain_tooltip: ''
-  all_of_my_stores: ''
+  all_of_my_stores: 'Todas as minhas empresas'
   delete_date: ''
   unknownDate: ''
   average_collection_quantity: ''
   team_conversation_name: ''
-  lastPickupShort: ''
+  lastPickupShort: 'última vez {date}'
   pickup_slot_unavailable: ''
   smneeded: ''
+  invitations: Convites abertos ({count})
+  deactivatedRegion: A lista de empresas ainda não pode ser apresentada para 
+    países e continentes.
+  storeFrom: Empresa de {name}
 navigation:
   profil: 👋 Olá {name}!
   conversations: ''
@@ -455,46 +459,53 @@ dashboard:
 storeview:
   counter: <strong>{count} {suffix}</strong>
   groceries:
-    select_tag: ''
-    no_tag_preset: ''
-    search_tag: ''
-    no_match: ''
-    label: ''
-  public_time_at_noon_or_afternoon: ''
+    select_tag: 'Selecione a categoria de alimentos'
+    no_tag_preset: 'Nenhuma categoria de alimentos disponível'
+    search_tag: 'Pesquisar por categorias de alimentos'
+    no_match: 'Nenhuma categoria de alimento correspondente encontrada'
+    label: 'Que alimentos podem ser recolhidos?'
+  public_time_at_noon_or_afternoon: 'dia/noite'
   calendar_interval:
-    single: ''
-    not_set: ''
-    multiply: ''
+    single: '1 semana'
+    not_set: 'Nenhum período fixo'
+    multiply: '{weeks} semanas'
   public_time: ''
-  specials: ''
-  want_to_fetch: ''
+  specials: 'Características especiais'
+  want_to_fetch: 'Gostaria de ajudar esta equipa.'
   source_data: ''
-  public_and_statistics: ''
+  public_and_statistics: 'Estatísticas & relações públicas'
   team: ''
-  cooperation_status: ''
+  cooperation_status: 'Situação de cooperação'
   invalid_field: ''
-  public_time_in_the_morning: ''
-  cooperation: ''
+  public_time_in_the_morning: 'de manhã'
+  cooperation: 'Cooperação desde {startTime}.'
   store: ''
-  public_time_in_the_evening: ''
-  info: ''
+  public_time_in_the_evening: 'à noite'
+  info: 'Informações'
   teamInfo: ''
   visible_for_public: ''
-  management: ''
-  cooperation_start: ''
+  management: 'Administração'
+  cooperation_start: 'Cooperação desde'
   contact:
     name: ''
   status_notes: ''
-  select_related_region: ''
+  select_related_region: 'Seleção do distrito competente'
   visible_for_team: ''
-  public_time_at_night: ''
-  no_permission_to_view: ''
-  status: ''
+  public_time_at_night: 'à noite'
+  no_permission_to_view: 'Visível apenas pelos responsáveis pela coordenação da empresa'
+  status: 'Situação actual'
   pickupWeight: ''
   show_information: ''
-  managers: ''
+  managers: 'Foodsavers responsáveis'
   common: ''
   pickupCount: ''
+  team_info_distance: 'Distância aérea para a empresa:'
+  publicity_and_sticker_options:
+    no: Não
+    yes: Sim
+  choose_chain: Escolha uma cadeia
+  public_info:
+    error_message: Texto é demasiado longo (max. {count} caracteres)
 calendar:
   locale: pt
   labelNextYear: ''
@@ -795,26 +806,27 @@ login:
   pwreset:
     error: ''
     expired: ''
-    wrongMail: ''
-    tooShort: ''
-    success: ''
+    wrongMail: 'Infelizmente não encontramos este endereço de e-mail. Tenta novamente.'
+    tooShort: 'A palavra-passe escolhida é demasiado curta.'
+    success: 'A tua palavra-passe foi alterada com sucesso. Já podes entrar.'
     bread: ''
     mismatch: ''
     mailSent: ''
   form_title: ''
-  steady_login: ''
-  forgotten_password_label: ''
-  error_no_auth: ''
+  steady_login: 'Ficar conectado'
+  forgotten_password_label: 'Esqueceu a password?'
+  error_no_auth: 'Infelizmente não encontramos este endereço de e-mail ou palavra-passe.
+    Tenta novamente.'
   submit_btn: ''
-  login_button_label: ''
-  password: ''
-  email_address: ''
-  logout: ''
+  login_button_label: 'Entrar'
+  password: 'palavra-passe'
+  email_address: 'Endereço de email'
+  logout: 'Sair'
   success: ''
-  save_password: ''
-  error_no_email: ''
+  save_password: 'Guardar a palavra-passe'
+  error_no_email: 'Digite o seu endereço de e-mail.'
   topbar: ''
-  error_no_password: ''
+  error_no_password: 'Digite a sua palavra-passe.'
 profile:
   alldatesdeleted: ''
   infos:
@@ -1553,7 +1565,7 @@ fsp:
     from: 'Atualização para o cantinho solidário „{name}“'
   pic: ''
   description: ''
-  addedOn: ''
+  addedOn: 'Adicionado em'
   suggest: 'Sugerir um cantinho solidário'
   location: ''
   followers: ''
@@ -1581,7 +1593,7 @@ fsp:
   edit: 'Editar o cantinho solidário'
   inRegion: 'Tudos cantinhos solidário no (region)'
   delete: 'Apagar o cantinho solidário'
-  addedBy: ''
+  addedBy: 'Adicionado por'
   summaryRegion: 'Há {count} cantinho/s solidário em (region) e todos subdistritos'
   twig:
     n_in_region: '{count} cantinho/s solidário em {name}'
@@ -1596,6 +1608,8 @@ fsp:
   deleteSuccess: 'O cantinho solidário foi apagado'
   onlySuggested: Este cantinho solidário foi sugerido mas ainda não foi lançado.
     Neste estado, não é apresentado assim aos outros utilizadores.
+  form_validation:
+    invalid: A entrada é inválida. Por favor, verifica as tuas entradas.
 search:
   thread-title-only: ''
   results:
@@ -1967,7 +1981,7 @@ chat:
   start_of_conversation: ''
   unknown_username: ''
   search: ''
-error_permissions: ''
+error_permissions: 'Infelizmente, nao tens as permissões necessárias para este processo.'
 storeedit:
   team:
     leave_myself: ''
@@ -2224,18 +2238,18 @@ terminology:
     m: ''
     d: ''
     f: ''
-  ambassadors: ''
-  mediationAdmins: ''
-  ambassador_forum: ''
+  ambassadors: 'Embaixadores/as'
+  mediationAdmins: 'Equipe de mediação'
+  ambassador_forum: 'Forum de embaixadores/as'
   role:
     "4": ''
     "2": ''
     "1": ''
     "0": ''
-    "3": ''
-  statistic: ''
+    "3": 'Embaixador/a'
+  statistic: 'Estatísticas'
   n_foodsaver: ''
-  admins: ''
+  admins: 'Administradores/as'
   baskets: ''
   foodsharer:
     f: ''
@@ -2243,33 +2257,33 @@ terminology:
     d: ''
   arbitration: ''
   no_pickups: ''
-  homeRegion: ''
-  prAdmins: ''
+  homeRegion: 'Distrito de origem'
+  prAdmins: 'Equipe de relações públicas'
   mailboxes: ''
-  polls: ''
-  profile_picture: ''
+  polls: 'Votações'
+  profile_picture: 'Foto do perfil'
   n_sleeping: ''
-  votingAdmins: ''
+  votingAdmins: 'Equipe de votação'
   foodsaver:
     d: ''
     f: ''
     m: ''
-  regions: ''
+  regions: 'Distritos'
   previous_pickups: ''
   orga:
     d: ''
     f: ''
     m: ''
-  n_cooperating_stores: ''
-  options: ''
+  n_cooperating_stores: '{count} cooperações em curso'
+  options: 'Opções'
   stores: ''
-  buddies: ''
+  buddies: 'Conhecidos:as'
   wall: ''
   fsps: 'Cantinho solidário'
   fsp: 'Cantinho solidário'
-  fsManagementAdmins: ''
+  fsManagementAdmins: 'Administração'
   forum: 'Fórum'
-  message: ''
+  message: 'Mensagem'
   boardAdmins: ''
   fspAdmins: 'Equipa de cantinho solidário'
   events: 'Datas'
@@ -2277,23 +2291,26 @@ terminology:
   welcomeAdmins: ''
   reports: ''
   groups: ''
-  moderationAdmins: ''
+  moderationAdmins: 'Equipe de moderação'
   settings: ''
   community: ''
   pin: ''
   n_home_regions: ''
   homepage: 'Página inicial'
-  arbitrationAdmins: ''
-  storesAdmins: ''
+  arbitrationAdmins: 'Comissão de arbitragem'
+  storesAdmins: 'Equipe de coordenação de empresas'
   n_ambassadors: ''
-  n_stores: ''
+  n_stores: '{count} empresas'
   subgroups: ''
-  threads: ''
+  threads: 'Assuntos'
   store: ''
   basket: ''
-  region: ''
+  region: 'Distrito'
   no: Não
   yes: Sim
+  electionAdmins: Eleições
+  phone: Número
+  hygiene_training: Formação de higiene
 timepicker:
   labelCloseButton: ''
   labelMinutes: ''
@@ -2340,12 +2357,14 @@ register:
   confirmPassword_required: ''
   phone_not_valid: ''
   account-exists: ''
-  error_email_invalid: ''
+  error_email_invalid: 'Este endereço de e-mail não pode ser usado'
   landline_example: ''
-  error_birthdate: ''
+  error_birthdate: 'Exemplo 25.03.2001 (DD.MM.JJJJJ). Por razões de proteção de dados
+    e responsabilidade, tens que ter pelo menos 18 anos de idade para juntar-te a
+    foodsharing.'
   login_name: ''
   activation_failed: ''
-  lastname_minLength: ''
+  lastname_minLength: 'O apelido deve consistir em pelo menos dois caracteres'
   finish: ''
   topbar: ''
   join_success_message: ''
@@ -2358,7 +2377,7 @@ register:
   login_passwd1: ''
   join_error: ''
   woman: ''
-  check_mail: ''
+  check_mail: 'Olha para a tua caixa de correio de e-mail agora para completar o registro!'
   register_button_label: ''
   firstname_required: ''
   join_success: ''
@@ -2377,6 +2396,7 @@ register:
   set-password: ''
   login_email: ''
   activation_success: ''
+  lastname_maxLength: O teu apelido pode consistir em um máximo de 30 caracteres
 thread:
   options:
     rename: ''
@@ -2463,21 +2483,25 @@ globals:
   you: ''
   select: ''
 legal:
-  not_acknowledge_privacy_policy_description: ''
+  not_acknowledge_privacy_policy_description: 'Para usar a nossa plataforma, deve
+    aceitar nossa política de privacidade.'
   if_delete:
-    legal_2: ''
-    this_doesnt_get_deleted: ''
-    this_gets_deleted_verify: ''
-    this_doesnt_get_deleted_name: ''
-    this_gets_deleted_friendlist: ''
+    legal_2: 'Mais informações sobre os períodos de depósito (página em alemão)'
+    this_doesnt_get_deleted: 'As seguintes informações já não estão disponíveis no
+      sistema activo, mas são arquivadas com base no artigo 17.o, n.o 3, pp. 1, lit.
+      b) DSGVO:'
+    this_gets_deleted_verify: 'A sua verificação será removida.'
+    this_doesnt_get_deleted_name: 'O teu nome'
+    this_gets_deleted_friendlist: 'A sua lista de amigos é removida.'
     legal_1: ''
-    this_doesnt_get_deleted_address: ''
+    this_doesnt_get_deleted_address: 'A sua morada'
     this_gets_deleted_stores: ''
-    this_gets_deleted_main: ''
+    this_gets_deleted_main: 'As seguintes informações serão eliminadas de você e não
+      podem ser restauradas:'
     this_gets_deleted_trustbananas: ''
-    this_gets_deleted_quiz: ''
-    this_doesnt_get_deleted_history: ''
-  agree_privacy_policy: ''
+    this_gets_deleted_quiz: 'Todos os seus testes são removidos.'
+    this_doesnt_get_deleted_history: 'História da sua verificação'
+  agree_privacy_policy: 'Sim, aceito a política de privacidade.'
   privacy_notice_agree:
     select: ''
     not_acknowledge: ''
@@ -2500,12 +2524,15 @@ legal:
   privacy_notice: 'Instruções sobre proteção de dados para os responsávels de empresas
     e embaixadores'
   not_acknowledge_privacy_notice_description: ''
-  must_accept_privacy_policy: ''
+  must_accept_privacy_policy: 'Para participar em foodsharing, deve concordar com
+    a política de privacidade.'
   privacy_policy: 'Política de privacidade'
   actions:
     safe: ''
   dont_agree: ''
   delete_account: ''
+  button:
+    agree: Aceitar
 request_time: 'Hora de início:'
 startpage:
   join_welcome: ''
@@ -2885,7 +2912,7 @@ notifications:
   success: ''
   checkbox_email: ''
   checkbox_bell: ''
-are_you_sure: ''
+are_you_sure: 'Tens a certeza?'
 button:
   save: 'Salvar'
   permadelete: 'Apagar irrevogavelmente'
@@ -3054,7 +3081,7 @@ bread:
   backToOverview: ''
   backToStore: ''
 fpko: ''
-no: ''
+no: 'Não'
 mail:
   noreply_addresses_not_allowed: ''
 info: 'Informações'
@@ -3089,7 +3116,7 @@ date_short:
   Sunday: ''
   Saturday: ''
 betrieb_kategorie_id: 'Categoria'
-success: ''
+success: 'Completado com sucesso'
 buddy:
   request_accepted: ''
   request_sent: ''
@@ -3124,7 +3151,7 @@ ageBandList:
   district_tab: ''
 fax: 'Fax'
 questcount: 'Quantas perguntas devem ser dada no teste?'
-yes: ''
+yes: 'Sim'
 home:
   home: ''
   title: ''
@@ -3136,7 +3163,7 @@ lifetime: 'Por quanto tempo debecer de validade do cabaz dos alimentos?'
 sticker: 'A empresa/loja/clube, etc. está disponível para afixar um autocolante na
   entrada ou noutro local?'
 error_unexpected: ''
-back: ''
+back: 'Para trás'
 message_text_to_group_admin_workgroup: ''
 regionPin:
   pin_visible: ''
@@ -3152,7 +3179,7 @@ delete: ''
 betrieb_status_id: 'Status'
 lebensmittel: 'Quais os alimentos o que levado?'
 timefrom: ''
-notice: ''
+notice: 'Nota!'
 usersearch:
   search_tag: ''
   no_tag_preset: ''
@@ -3163,6 +3190,8 @@ statistics:
   kg_food_saved: ''
   region_public:
     activeFoodSharePoints: Cantinho solidário ativo
+    foodBasketsLastMonth: cestas de comida distribuídas
+  lastMonth: Estatísticas dos últimos 30 dias
 mailbox_id: ''
 body: 'Mensagem'
 public_info: ''
@@ -3170,7 +3199,7 @@ banana_count: ''
 messages:
   bread: ''
 photo: 'Fotografia'
-really_delete: ''
+really_delete: 'A sério?'
 map:
   filters:
     my_stores: ''
@@ -3202,7 +3231,7 @@ dateend: ''
 fetch_count: ''
 compose_body: ''
 verantwortlicher: ''
-select: ''
+select: 'Por favor selecionar'
 password:
   reset: ''
   insertmail: ''
@@ -3242,7 +3271,7 @@ infotype: ''
 daterange: ''
 time: ''
 duration: 'Tempo para responder'
-day: ''
+day: 'Data'
 ansprechpartner: 'Pessoa de contacto na empresa (Gerente de filial, etc.)'
 homepage: ''
 passcheck: ''
@@ -3265,3 +3294,18 @@ save_state_description: Guardar os filtros aplicados e a ordenação para futura
 collapse_all: Fechar tudo
 configure_columns: Configurar mais tarde
 expand_all: Expandir tudo
+net_errors:
+  code: 'Código de erro: '
+  NOT_FOUND: A página solicitada não foi encontrada.
+  SERVER_ERROR: Um erro de servidor interno ocorreu. Infelizmente, o seu pedido 
+    nao pode ser processado.
+  ETIMEDOUT: O pedido demorou demasiado tempo. Por favor, verifica a tua conexão
+    de internet e tenta novamente.
+  FORBIDDEN: Não tens o direito de executar esta ação.
+  title:
+    general: Erro de rede
+    500: Erro de servidor
+  message: 'Mensagem de erro: '
+  action_response: 'Pedido e resposta do servidor:'
+  BAD_REQUEST: O pedido foi inválido. Por favor, verifica as tuas entradas para 
+    a integridade e plausibilidade.
