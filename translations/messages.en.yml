@@ -4454,10 +4454,10 @@ globals:
     users: Persons
     workingGroups: Groups
     groups_menu: Groups menu
-    regions_menu: Regions menu
+    regions_menu: DIstricts menu
     events: Events
     polls: Polls
-    mails: E-Mails
+    mails: E-mails
   save: Save
   close: Close
   select: Please select …
