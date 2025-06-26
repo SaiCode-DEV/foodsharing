@@ -2937,7 +2937,7 @@ button:
   reset_default: Restaurar o standard
   start: Vamos!
   prev: Para trás
-  confirm: confirmar
+  confirm: Confirmar
   browse: Procurar
   filter_options: Opções do filtro
 week_num: ''
@@ -3251,7 +3251,7 @@ abholmenge: 'Quantos quilogramas, aproximadamente, são levados por pessoa por r
 groups:
   empty: 'Ainda não faz parte dos grupos de trabalho'
 online_type: ''
-besonderheiten: 'Especialidades'
+besonderheiten: 'Procedimento e Notas'
 rolle: 'Função do utilizador'
 member: ''
 deletelow: ''
@@ -3283,7 +3283,7 @@ validation:
 navi:
   google_maps: Google Maps
   apple_maps: Apple Maps
-no_automatic_delete: 'Por caso de o último aviso ter sido apresentado há 5 anos:'
+no_automatic_delete: 'Se o último registo tiver sido há mais de 5 anos:'
 automatic_delete: '- o perfil quer ser eliminado.'
 automatic_not_delete: '- o perfil quer ser mantido.'
 copied_to_clipboard: „{text}“ foi copiado para a área de transferência.
