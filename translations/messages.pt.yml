@@ -492,7 +492,7 @@ storeview:
   select_related_region: 'Seleção do distrito competente'
   visible_for_team: ''
   public_time_at_night: 'à noite'
-  no_permission_to_view: 'Visível apenas pelos responsáveis pela coordenação da empresa'
+  no_permission_to_view: 'Visível apenas pelos responsáveis pela coordenação da empresa.'
   status: 'Situação actual'
   pickupWeight: ''
   show_information: ''
