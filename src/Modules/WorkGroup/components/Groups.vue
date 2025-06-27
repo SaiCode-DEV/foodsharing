@@ -44,6 +44,7 @@
                 <img
                   v-if="group.image"
                   :src="group.image"
+                  class="group-image"
                 >
               </b-col>
             </b-row>
@@ -292,3 +293,9 @@ export default {
   },
 }
 </script>
+<style scoped>
+.group-image {
+  min-width: 15em;
+  max-width: 100%;
+}
+</style>
