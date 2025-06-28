@@ -2974,6 +2974,9 @@ stats:
     pickups: "Rettungseinsätze haben unsere Foodsaver:innen gemeistert."
     baskets: "Essenskörbe wurden insgesamt online gestellt."
     fsp: "Fairteiler werden zum Tausch von Lebensmitteln genutzt."
+  sort:
+    by_weight: "Nach Gewicht"
+    by_count: "Nach Anzahl"
   avg:
     pickups: "Rettungseinsätze gibt es derzeit durchschnittlich pro Tag."
     baskets: "Essenskörbe werden derzeit durchschnittlich pro Woche online gestellt."

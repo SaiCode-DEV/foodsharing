@@ -46,13 +46,13 @@
                 :variant="sortBy === 'weight' ? 'primary' : 'outline-primary'"
                 @click="sortBy = 'weight'"
               >
-                {{ $i18n('profile.stats.weight') }}
+                {{ $i18n('stats.sort.by_weight') }}
               </b-button>
               <b-button
                 :variant="sortBy === 'count' ? 'primary' : 'outline-primary'"
                 @click="sortBy = 'count'"
               >
-                {{ $i18n('profile.stats.fetch_count') }}
+                {{ $i18n('stats.sort.by_count') }}
               </b-button>
             </b-button-group>
           </div>
@@ -69,7 +69,7 @@
                   {{ sortedRegions[1].name }}
                 </h4>
                 <p class="mb-0">
-                  {{ formatNumber(sortedRegions[1].fetchWeight) }}<span class="text-nowrap">&thinsp;</span>{{ $i18n('profile.stats.weight') }}
+                  {{ formatNumber(sortedRegions[1].fetchWeight) }}<span class="text-nowrap">&thinsp;</span>kg&nbsp;{{ $i18n('profile.stats.weight') }}
                 </p>
                 <p class="mb-0">
                   {{ formatNumber(sortedRegions[1].fetchCount) }}<span class="text-nowrap">&thinsp;</span>x {{ $i18n('profile.stats.fetch_count') }}
@@ -85,7 +85,7 @@
                   {{ sortedRegions[0].name }}
                 </h4>
                 <p class="mb-0">
-                  {{ formatNumber(sortedRegions[0].fetchWeight) }}<span class="text-nowrap">&thinsp;</span>{{ $i18n('profile.stats.weight') }}
+                  {{ formatNumber(sortedRegions[0].fetchWeight) }}<span class="text-nowrap">&thinsp;</span>kg&nbsp;{{ $i18n('profile.stats.weight') }}
                 </p>
                 <p class="mb-0">
                   {{ formatNumber(sortedRegions[0].fetchCount) }}<span class="text-nowrap">&thinsp;</span>x {{ $i18n('profile.stats.fetch_count') }}
@@ -101,7 +101,7 @@
                   {{ sortedRegions[2].name }}
                 </h4>
                 <p class="mb-0">
-                  {{ formatNumber(sortedRegions[2].fetchWeight) }}<span class="text-nowrap">&thinsp;</span>{{ $i18n('profile.stats.weight') }}
+                  {{ formatNumber(sortedRegions[2].fetchWeight) }}<span class="text-nowrap">&thinsp;</span>kg&nbsp;{{ $i18n('profile.stats.weight') }}
                 </p>
                 <p class="mb-0">
                   {{ formatNumber(sortedRegions[2].fetchCount) }}<span class="text-nowrap">&thinsp;</span>x {{ $i18n('profile.stats.fetch_count') }}
@@ -127,7 +127,7 @@
                   {{ item.name }}
                 </h4>
                 <p class="mb-0 text-secondary">
-                  {{ formatNumber(item.fetchWeight) }}<span class="text-nowrap">&thinsp;</span>{{ $i18n('profile.stats.weight') }}
+                  {{ formatNumber(item.fetchWeight) }}<span class="text-nowrap">&thinsp;</span>kg&nbsp;{{ $i18n('profile.stats.weight') }}
                 </p>
                 <p class="mb-0">
                   {{ formatNumber(item.fetchCount) }}<span class="text-nowrap">&thinsp;</span>x {{ $i18n('profile.stats.fetch_count') }}
