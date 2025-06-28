@@ -550,6 +550,7 @@ class RegionRestController extends AbstractFoodsharingRestController
         if (!$this->regionPermissions->mayAdministrateRegions()) {
             throw new AccessDeniedHttpException('');
         }
+        $region->name = trim($region->name);
 
         $errors = $validator->validate($region);
         if ($errors->count() > 0) {
@@ -587,6 +588,7 @@ class RegionRestController extends AbstractFoodsharingRestController
         if (!$this->regionPermissions->mayAdministrateRegions()) {
             throw new AccessDeniedHttpException('');
         }
+        $region->name = trim($region->name);
 
         $this->assertThereAreNoValidationErrors($validator, $region);
 

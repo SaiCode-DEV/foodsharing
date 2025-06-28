@@ -197,7 +197,7 @@ class ForumRestController extends AbstractFoodsharingRestController
             throw new AccessDeniedHttpException();
         }
 
-        $body = $paramFetcher->get('body');
+        $body = trim($paramFetcher->get('body'));
         $this->forumTransactions->addPostToThread($this->session->id(), $threadId, $body);
 
         return $this->handleView($this->view([], Response::HTTP_OK));
@@ -222,8 +222,8 @@ class ForumRestController extends AbstractFoodsharingRestController
             throw new AccessDeniedHttpException();
         }
 
-        $body = $paramFetcher->get('body');
-        $title = $paramFetcher->get('title');
+        $body = trim($paramFetcher->get('body'));
+        $title = trim($paramFetcher->get('title'));
         $sendMail = $paramFetcher->get('sendMail') ?? false;
         $regionDetails = $this->regionTransactions->getRegionDetails($forumId);
         $postActiveWithoutModeration = ($this->session->isVerified() && !$regionDetails['moderated']) || $this->currentUserUnits->isAmbassadorForRegion([$forumId]);
@@ -284,7 +284,7 @@ class ForumRestController extends AbstractFoodsharingRestController
             if (!$this->forumPermissions->mayRename($threadId)) {
                 throw new AccessDeniedHttpException();
             }
-            $this->forumGateway->setThreadTitle($threadId, $title);
+            $this->forumGateway->setThreadTitle($threadId, trim($title));
         }
 
         return $this->getThread($threadId);
