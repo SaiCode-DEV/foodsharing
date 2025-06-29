@@ -54,11 +54,11 @@ const showNetworkError = (key, error) => {
   let title = ''
   let icon = 'fas fa-wifi'
   switch (true) {
-    case error.response?.status > 500:
+    case error.response?.status >= 500:
       title = i18n('net_errors.title.500')
-      icon = 'fas fa-exclamation-triangle'
+      icon = 'fas fa-server'
       break
-    case error.response?.status > 400:
+    case error.response?.status >= 400:
       title = i18n('net_errors.title.400')
       icon = 'fas fa-exclamation-triangle'
       break

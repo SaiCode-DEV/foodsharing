@@ -26,7 +26,7 @@ function definePulse (type, defaultTimeout = 5000, title, defaultIcon = 'fas fa-
 
     Vue.notify({
       id: notificationId,
-      title: options.title || title,
+      title: options.title || i18n(title),
       text: html,
       type: type, // 'info', 'success', or 'error'
       duration,
@@ -44,10 +44,10 @@ function definePulse (type, defaultTimeout = 5000, title, defaultIcon = 'fas fa-
   }
 }
 
-export const pulseInfo = definePulse('info', 7000, i18n('notifications.info'), 'fas fa-info-circle')
-export const pulseSuccess = definePulse('success', 5000, i18n('notifications.success'), 'fas fa-check-circle')
-export const pulseWarning = definePulse('warn', 10000, i18n('notifications.warning'), 'fas fa-exclamation-triangle')
-export const pulseError = definePulse('error', 20000, i18n('notifications.error'), 'fas fa-exclamation-circle')
+export const pulseInfo = definePulse('info', 7000, 'notifications.info', 'fas fa-info-circle')
+export const pulseSuccess = definePulse('success', 5000, 'notifications.success', 'fas fa-check-circle')
+export const pulseWarning = definePulse('warn', 10000, 'notifications.warning', 'fas fa-exclamation-triangle')
+export const pulseError = definePulse('error', 20000, 'notifications.error', 'fas fa-exclamation-circle')
 
 export function closeNotification (id) {
   Vue.notify.close(id)
