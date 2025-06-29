@@ -2990,6 +2990,9 @@ stats:
     baskets: ''
     pickups: ''
   title: ''
+  sort:
+    by_weight: por peso
+    by_count: por número
 numbers:
   decimal_separator: ''
   million_abbreviation: ''
