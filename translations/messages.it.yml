@@ -3436,6 +3436,9 @@ stats:
       soddisfazione.
     weight: di cibo salvato con successo dal bidone.
   title: Statistiche totali
+  sort:
+    by_weight: per peso
+    by_count: per numero
 blog:
   permissions:
     delete: Non puoi cancellare questo articolo
