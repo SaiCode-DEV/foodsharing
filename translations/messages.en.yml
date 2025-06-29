@@ -3598,6 +3598,9 @@ stats:
       us.
     weight: food successfully saved from the bin.
   title: Total statistics
+  sort:
+    by_weight: by weight
+    by_count: by count
 gender:
   f: Woman
   m: Man
