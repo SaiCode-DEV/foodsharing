@@ -3692,6 +3692,9 @@ stats:
       foodsharing.
     weight: de nourriture ont été sauvées des poubelles.
   title: Statistique générale
+  sort:
+    by_weight: par poids
+    by_count: par nombre
 region:
   still_contains_elements: Le district ne peut pas être supprimé car il contient
     encore des régions affiliées, des coopérations et/ou des frigos solidaires.
