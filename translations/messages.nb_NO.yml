@@ -348,6 +348,9 @@ stats:
   avg:
     pickups: oppdrag – så mange er det i snitt per dag for øyeblikket.
     baskets: matkurver legges for tiden på nett i gjennomsnitt per uke.
+  sort:
+    by_weight: etter vekt
+    by_count: etter antall
 blog:
   bread: Blogg
   status:
