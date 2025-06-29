@@ -2774,6 +2774,9 @@ stats:
   avg:
     pickups: 'misiones por día tenemos actualmente.'
     baskets: 'canastas de alimentos se colocan en línea por semana de media.'
+  sort:
+    by_weight: por peso
+    by_count: por número
 chain:
   columns:
     name: 'Nombre'
