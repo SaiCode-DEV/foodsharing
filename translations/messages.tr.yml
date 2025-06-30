@@ -3346,6 +3346,9 @@ stats:
     pickups: Şu anda günde ortalama kurtarma operasyonları var.
     baskets: Yiyecek sepetleri şu anda çevrimiçi olarak haftada ortalama olarak 
       yerleştiriliyor.
+  sort:
+    by_weight: Ağırlığına göre
+    by_count: Adetine göre
 map:
   title: Harita
   donates: İşletme bağışlıyor
@@ -4798,8 +4801,17 @@ net_errors:
 required_messages:
   demote_store_manager:
     footer: Saygılarımla
+    really: '{isim} isimli kişiyi İşletme yetkilisi olarak sorumluluğunu gerçekten
+      almak istiyor musunuz?'
+    main: '[{store}](/store/{storeId}) işletmenin ekip sorumlusu olarak yetkilerinizi
+      kaldırdım.'
   move_to_standby_team:
     footer: Saygılarımla
+    really: '{name} isimli foodsaveri gerçekten aktif ekipten yedek listesine düşürmek
+      istiyor musunuz?'
+    main: '[{store}](/store/{storeId}) işletmemizin yedek listesine eklendiniz. Bu,
+      şu anda bu konumda gıda kurtarım işlemlerine kayıt olamayacağınız veya genel
+      grup sohbetini okuyamayacağınız anlamına gelir.'
   kick_from_store_team:
     footer: Saygılarımla
     main: '[{store}](/store/{storeId}) işletmenin ekibinden çıkarıldınız. Artık bu
@@ -4808,6 +4820,8 @@ required_messages:
       musunuz?'
   decline_store_application:
     footer: Saygılarımla
+    really: '{name} adlı kişinin Ekip başvurusunu gerçekten reddetmek istiyor musunuz?'
+    main: '[{store}](/store/{storeId}) işletmesine katılma isteğiniz reddedildi.'
   name_placeholder: <Name>
   sure_title: Emin misiniz?
   verify:
