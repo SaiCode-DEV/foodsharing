@@ -2,13 +2,19 @@
 
 namespace Foodsharing\Modules\Region\DTO;
 
+use DateTime;
+
 /**
  * Some basic statistics of a region. All values include events from the sub-regions.
  */
 class BasicRegionStatistics
 {
     /**
-     * Number of verified foodsavers with home region within the region that logged in within the last two months.
+     * The last time that these statistics were calculated for the correponding region.
+     */
+    public DateTime $lastUpdated;
+    /**
+     * Number of verified foodsavers with home region within the region that logged in within the last month.
      */
     public int $activeHomeRegionFoodsavers;
 

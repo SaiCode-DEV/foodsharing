@@ -27,16 +27,14 @@ use Foodsharing\Permissions\VotingPermissions;
 use Foodsharing\Permissions\WorkGroupPermissions;
 use Foodsharing\RestApi\Models\Notifications\Region;
 use Foodsharing\RestApi\Models\Region\RegionForAdministration;
+use InvalidArgumentException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Contracts\Cache\CacheInterface;
-use Symfony\Contracts\Cache\ItemInterface;
 
 class RegionTransactions
 {
     final public const string NEW_FOODSAVER_VERIFIED = 'new_foodsaver_verified';
     final public const string NEW_FOODSAVER_NEEDS_VERIFICATION = 'new_foodsaver_needs_verification';
     final public const string NEW_FOODSAVER_NEEDS_INTRODUCTION = 'new_foodsaver_needs_introduction';
-    private const int PUBLIC_REGION_STATS_CACHE_DURATION_IN_SECONDS = 21600; // 6 hours
 
     public function __construct(
         private readonly FoodsaverGateway $foodsaverGateway,
@@ -55,7 +53,6 @@ class RegionTransactions
         private readonly VotingPermissions $votingPermissions,
         private readonly AchievementPermissions $achievementPermissions,
         private readonly ForumFollowerGateway $forumFollowerGateway,
-        private readonly CacheInterface $cache,
     ) {
     }
 
@@ -245,13 +242,13 @@ class RegionTransactions
         $data->children = $this->regionGateway->getRegionChildren($regionId);
         $data->foodSharePoints = $this->foodSharePointGateway->getFoodSharePointsForRegion($regionId);
         $data->events = array_reverse($this->eventGateway->listForRegion($regionId, true));
-
-        // Region statistics can be expensive to calculate but don't need to be recalculated often.
-        $data->statistics = $this->cache->get('publicRegionStats-' . $regionId, function (ItemInterface $cacheItem) use ($regionId) {
-            $cacheItem->expiresAfter(self::PUBLIC_REGION_STATS_CACHE_DURATION_IN_SECONDS);
-
-            return $this->regionGateway->getBasicRegionStatistics($regionId);
-        });
+        try {
+            $data->statistics = $this->regionGateway->getBasicRegionStatistics($regionId);
+        } catch (InvalidArgumentException $e) {
+            /* Precomputed statistics do not exist, which means that either the region does not exist, it is a working
+               group, or it is new and stats have not yet been calculated. */
+            $data->statistics = null;
+        }
 
         return $data;
     }

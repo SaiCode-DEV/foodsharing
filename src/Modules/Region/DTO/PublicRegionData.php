@@ -16,7 +16,10 @@ class PublicRegionData
     public ?string $email;
     public bool $hasAmbassador;
     public ?GeoLocation $location;
-    public BasicRegionStatistics $statistics;
+    /**
+     * Null if statistics for this region do not exist, e.g. if the region is a working group.
+     */
+    public ?BasicRegionStatistics $statistics;
 
     /**
      * @var MinimalRegionIdentifier[]

@@ -247,6 +247,86 @@ class StatsGateway extends BaseGateway
             'type_working_group' => UnitType::WORKING_GROUP,
             'coop_established' => CooperationStatus::COOPERATION_ESTABLISHED->value,
         ]);
+
+        // Make sure that all regions (except working groups) have an entry in fs_region_statistics
+        $this->db->execute('INSERT IGNORE INTO fs_region_statistics (region_id)
+            SELECT id FROM fs_bezirk b
+            WHERE b.type != :type_working_group
+        ', [
+            'type_working_group' => UnitType::WORKING_GROUP,
+        ]);
+
+        /* Update the fs_region_statistics table for all regions. This does not need to exclude working groups because
+        they do not have an entry in the fs_region_statistics table. */
+        $this->db->execute('UPDATE fs_region_statistics stats
+            LEFT OUTER JOIN (
+                SELECT
+					c.ancestor_id AS region_id,
+					COUNT(*) AS foodsavers
+                FROM fs_bezirk_closure c
+                JOIN fs_foodsaver fs ON fs.bezirk_id = c.bezirk_id
+                WHERE c.ancestor_id > 0
+                AND fs.deleted_at IS NULL
+                AND fs.last_login > NOW() - INTERVAL 30 DAY
+                AND fs.verified = 1
+                GROUP BY region_id
+            ) as active_foodsavers ON active_foodsavers.region_id = stats.region_id
+            LEFT OUTER JOIN (
+                SELECT
+					c.ancestor_id AS region_id,
+					COUNT(*) AS cooperations
+                FROM fs_bezirk_closure c
+                JOIN fs_betrieb s ON s.bezirk_id = c.bezirk_id
+                WHERE c.ancestor_id > 0
+                AND s.betrieb_status_id = :cooperating_status
+                GROUP BY region_id
+            ) as active_coorporations ON active_coorporations.region_id = stats.region_id
+            LEFT OUTER JOIN (
+                SELECT
+                    c.ancestor_id AS region_id,
+					COUNT(*) AS count,
+					SUM(w.weight) AS weight
+                FROM fs_bezirk_closure c
+                JOIN fs_bezirk r ON r.id = c.bezirk_id
+                JOIN fs_betrieb s ON s.bezirk_id = r.id
+                JOIN fs_abholer a ON a.betrieb_id = s.id
+                JOIN fs_fetchweight w ON w.id = s.abholmenge
+                WHERE c.ancestor_id > 0
+                AND a.date >= (NOW() - INTERVAL 30 DAY) AND a.date < NOW()
+                GROUP BY region_id
+            ) as pickups ON pickups.region_id = stats.region_id
+            LEFT OUTER JOIN (
+                SELECT
+                    c.ancestor_id AS region_id,
+					COUNT(*) AS food_share_points
+                FROM fs_bezirk_closure c
+                JOIN fs_fairteiler fsp ON fsp.bezirk_id = c.bezirk_id
+                WHERE c.ancestor_id > 0
+                AND fsp.status = 1
+                GROUP BY region_id
+            ) as active_food_share_points ON active_food_share_points.region_id = stats.region_id
+            LEFT OUTER JOIN (
+				SELECT
+					c.ancestor_id AS region_id,
+					COUNT(*) AS baskets
+				FROM fs_bezirk_closure c
+				INNER JOIN fs_basket bas ON bas.bezirk_id = c.bezirk_id
+				INNER JOIN fs_bezirk b ON b.id = c.bezirk_id
+				WHERE c.ancestor_id > 0
+				AND bas.time >= (NOW() - INTERVAL 30 DAY) AND bas.time < NOW()
+				GROUP BY region_id
+			) as baskets ON baskets.region_id = stats.region_id
+			SET
+				stats.last_modified = NOW(),
+				stats.active_home_region_foodsavers = IFNULL(active_foodsavers.foodsavers, 0),
+				stats.active_coorporations = IFNULL(active_coorporations.cooperations, 0),
+				stats.pickups_last_month = IFNULL(pickups.count, 0),
+                stats.saved_food_weight_last_month = IFNULL(pickups.weight, 0),
+                stats.active_food_share_points = IFNULL(active_food_share_points.food_share_points, 0),
+				stats.food_baskets_last_month = IFNULL(baskets.baskets, 0)
+		', [
+            'cooperating_status' => CooperationStatus::COOPERATION_ESTABLISHED->value
+        ]);
     }
 
     /**

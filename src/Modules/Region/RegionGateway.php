@@ -2,6 +2,7 @@
 
 namespace Foodsharing\Modules\Region;
 
+use Carbon\Carbon;
 use Exception;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
@@ -9,7 +10,6 @@ use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Region\ApplyType;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
-use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Region\DTO\BasicRegionStatistics;
@@ -19,6 +19,7 @@ use Foodsharing\Modules\Region\DTO\PublicRegionData;
 use Foodsharing\Modules\Region\DTO\RegionPickupsPerDate;
 use Foodsharing\Modules\Region\DTO\RegionPin;
 use Foodsharing\RestApi\Models\Region\RegionForAdministration;
+use InvalidArgumentException;
 
 class RegionGateway extends BaseGateway
 {
@@ -772,59 +773,41 @@ class RegionGateway extends BaseGateway
         return array_map(fn ($region) => MinimalRegionIdentifier::create($region['id'], $region['name']), $children);
     }
 
+    /**
+     * Fetches the precalculated region statistics from the fs_region_statistics table. These statistics are calculated
+     * in the nightly stats run (see StatsGateway).
+     *
+     * @throws InvalidArgumentException if no statistics for the region exists
+     */
     public function getBasicRegionStatistics(int $regionId): BasicRegionStatistics
     {
+        try {
+            $data = $this->db->fetchByCriteria('fs_region_statistics', [
+                'last_modified',
+                'active_home_region_foodsavers',
+                'active_coorporations',
+                'pickups_last_month',
+                'saved_food_weight_last_month',
+                'active_food_share_points',
+                'food_baskets_last_month'
+            ], [
+                'region_id' => $regionId,
+            ]);
+        } catch (Exception) {
+            throw new InvalidArgumentException();
+        }
+        if (empty($data)) {
+            throw new InvalidArgumentException();
+        }
+
         $stats = new BasicRegionStatistics();
-
-        $pickupData = $this->db->fetch('SELECT
-                COUNT(*) as count, SUM(w.weight) AS weight
-            FROM fs_bezirk_closure c
-            JOIN fs_bezirk r ON r.id = c.bezirk_id
-            JOIN fs_betrieb s ON s.bezirk_id = r.id
-            JOIN fs_abholer a ON a.betrieb_id = s.id
-            JOIN fs_fetchweight w ON w.id = s.abholmenge
-            WHERE c.ancestor_id = :id
-            AND a.date >= (NOW() - INTERVAL 30 DAY) AND a.date < NOW()
-        ', ['id' => $regionId]);
-        $stats->pickupsLastMonth = $pickupData['count'];
-        $stats->savedFoodKgLastMonth = intval(round($pickupData['weight']));
-
-        $stats->activeHomeRegionFoodsavers = $this->db->fetchValue('SELECT
-                COUNT(*)
-            FROM fs_bezirk_closure c
-            JOIN fs_foodsaver fs ON fs.bezirk_id = c.bezirk_id
-            WHERE c.ancestor_id = :id
-            AND fs.deleted_at IS NULL
-            AND fs.last_login > NOW() - INTERVAL 30 DAY
-            AND fs.verified = 1
-        ', ['id' => $regionId]);
-
-        $stats->activeCoorporations = $this->db->fetchValue('SELECT
-                COUNT(*)
-            FROM fs_bezirk_closure c
-            JOIN fs_betrieb s ON s.bezirk_id = c.bezirk_id
-            WHERE c.ancestor_id = :id
-            AND s.betrieb_status_id = :cooperating_status
-        ', [
-            'id' => $regionId,
-            'cooperating_status' => CooperationStatus::COOPERATION_ESTABLISHED->value
-        ]);
-
-        $stats->activeFoodSharePoints = $this->db->fetchValue('SELECT
-                COUNT(*)
-            FROM fs_bezirk_closure c
-            JOIN fs_fairteiler fsp ON fsp.bezirk_id = c.bezirk_id
-            WHERE c.ancestor_id = :id
-            AND fsp.status = 1
-        ', ['id' => $regionId]);
-
-        $stats->foodBasketsLastMonth = $this->db->fetchValue('SELECT
-				COUNT(*)
-            FROM fs_bezirk_closure c
-            JOIN fs_basket b ON b.bezirk_id = c.bezirk_id
-            WHERE c.ancestor_id = :id
-            AND b.time >= (NOW() - INTERVAL 30 DAY) AND b.time < NOW()
-        ', ['id' => $regionId]);
+        $stats->lastUpdated = Carbon::parse($data['last_modified']);
+        $stats->pickupsLastMonth = $data['pickups_last_month'];
+        $stats->savedFoodKgLastMonth = intval(round($data['saved_food_weight_last_month']));
+        $stats->activeHomeRegionFoodsavers = $data['active_home_region_foodsavers'];
+        $stats->activeCoorporations = $data['active_coorporations'];
+        $stats->activeFoodSharePoints = $data['active_food_share_points'];
+        $stats->foodBasketsLastMonth = $data['food_baskets_last_month'];
 
         return $stats;
     }

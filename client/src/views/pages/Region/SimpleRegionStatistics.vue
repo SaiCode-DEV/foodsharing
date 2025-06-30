@@ -4,7 +4,7 @@
     tag="publicRegionStatistics"
   >
     <div
-      v-for="(value, key) of statistics"
+      v-for="(value, key) of displayableFields"
       :key="key"
       class="list-group-item py-2 px-2 d-flex"
     >
@@ -37,6 +37,13 @@ export default {
       foodBasketsLastMonth: 'shopping-basket',
     },
   }),
+  computed: {
+    displayableFields () {
+      // Filter out the lastUpdated field from the statistics
+      const { lastUpdated: _, ...rest } = this.statistics
+      return rest
+    },
+  },
   methods: {
     formatNumber (number, unit = '') {
       if (unit === 'kg' && number >= 1000) {
