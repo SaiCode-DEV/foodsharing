@@ -244,6 +244,14 @@ class BellGateway extends BaseGateway
         );
     }
 
+    public function doesFoodsaverHaveBells(array $bellIds, int $foodsaverId): bool
+    {
+        return $this->db->count('fs_foodsaver_has_bell', [
+            'bell_id' => array_map('intval', $bellIds),
+            'foodsaver_id' => $foodsaverId
+        ]) === count($bellIds);
+    }
+
     private function updateFoodsaverClient(int $foodsaverId): void
     {
         $this->webSocketConnection->sendSock($foodsaverId, 'bell', 'update', []);

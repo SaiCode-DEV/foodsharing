@@ -11,7 +11,6 @@ use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 #[OA\Tag(name: 'bells')]
@@ -42,9 +41,9 @@ class BellRestController extends AbstractFoodsharingRestController
 
     #[OA\Patch(summary: 'Marks one or more bells as unread/read.')]
     #[OA\Response(response: Response::HTTP_OK, description: 'At least one of the bells was successfully marked.')]
-    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'The list of IDs is empty or none of the bells could be marked.')]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to change the bells')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'The user does not have a bell with that ID')]
     #[Rest\Patch('bells/readStatus')]
     #[Rest\QueryParam(name: 'read', requirements: '0|1', description: 'Whether the bell is read')]
     public function setBellReadStatus(#[MapRequestPayload] IDList $bellIds, ParamFetcher $paramFetcher): Response
@@ -53,12 +52,12 @@ class BellRestController extends AbstractFoodsharingRestController
 
         $isRead = (bool)$paramFetcher->get('read');
         $value = $isRead ? 1 : 0;
-        $changed = $this->bellGateway->setReadStatus($bellIds->ids, $this->session->id(), $value);
-        if (!$changed) {
-            throw new BadRequestHttpException();
+        if (!$this->bellGateway->doesFoodsaverHaveBells($bellIds->ids, $this->session->id())) {
+            throw new NotFoundHttpException();
         }
+        $changed = $this->bellGateway->setReadStatus($bellIds->ids, $this->session->id(), $value);
 
-        return $this->respondOK(['seen' => $value]);
+        return $this->respondOK($changed);
     }
 
     #[OA\Delete(summary: 'Deletes a bell.')]

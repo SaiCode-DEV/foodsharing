@@ -274,7 +274,7 @@ class ForumGateway extends BaseGateway
 
     public function addReaction($postId, $fsId, $key): bool
     {
-        $this->db->insert(
+        $this->db->insertOrUpdate(
             'fs_post_reaction',
             [
                 'post_id' => $postId,
