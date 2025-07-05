@@ -472,7 +472,7 @@ export default {
           roomId: String(conv.id),
           roomName: this.getRoomName(conv),
           avatar: null,
-          unreadCount: Number(conv.unreadMessages),
+          unreadCount: Number(conv.unreadMessages) > 0 ? Number(conv.unreadMessages) : 0,
           index: Number.MAX_SAFE_INTEGER - 1, // order at top of room list, but after new conversation entry
         }
 
