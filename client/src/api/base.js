@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { HTTP_RESPONSE } from '@/consts'
 import { url } from '@/helper/urls'
-import { captureRequestError, handleNetworkError } from '@/sentry'
+import { captureRequestError } from '@/sentry'
 import { pulseError } from '@/script'
 import i18n from '@/helper/i18n'
 
@@ -180,20 +180,12 @@ export class HTTPError extends Error {
   }
 }
 
-const handleError = error => {
-  handleNetworkError(error, {
-    path: error?.config?.url,
-    options: error?.config,
-  })
-  throw new HTTPError(error)
-}
-
 export const request = async (path, options = {}) => {
   try {
     const { data } = await api(path, options)
     return data
   } catch (error) {
-    handleError(error)
+    throw new HTTPError(error)
   }
 }
 
