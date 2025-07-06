@@ -49,6 +49,7 @@
 - Put subscribed events before event options on the dashboard for better visibility !4150 @DL6ER
 - Improve message template suggested for slots returned to the team !4151 @DL6ER
 - Passwords need a minimum "complexity" of 8 characters, at least one uppercase letter, one lowercase letter, and one number #2329 !4152 @DL6ER
+- change bluesky link #2438 !4268 @McGoldi
 
 ## Bugfixes
 - Resolve "region filter bug on profile page: Blank screen when navigating store list" #2295 !3940 @chriswalg

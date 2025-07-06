@@ -211,8 +211,8 @@ const urls = {
   git_revision: (revision) => `https://gitlab.com/foodsharing-dev/foodsharing/tree/${revision}`,
 
   // Social Media
-  bluesky_de: () => 'https://bsky.app/profile/foodsharing.bsky.social',
-  bluesky_at: () => 'https://bsky.app/profile/foodsharing.bsky.social', // GERMAN VERSION
+  bluesky_de: () => 'https://bsky.app/profile/foodsharing.de',
+  bluesky_at: () => 'https://bsky.app/profile/foodsharing.de', // GERMAN VERSION
   linkedin_de: () => 'https://www.linkedin.com/company/foodsharingde',
   linkedin_at: () => 'https://www.linkedin.com/company/foodsharingde', // GERMAN VERSION
   youtube_de: () => 'https://www.youtube.com/user/foodsharingtv',
