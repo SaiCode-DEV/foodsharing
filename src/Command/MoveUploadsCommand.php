@@ -109,8 +109,7 @@ class MoveUploadsCommand extends Command
         $bodyHash = hash_file('sha256', $filePath);
         $fileSize = filesize($filePath);
         $mimeType = mime_content_type($filePath);
-        $fileInfoFromDatabase = $this->uploadsGateway->addFile($userId, $bodyHash, $fileSize, $mimeType);
-        $uuid = $fileInfoFromDatabase['uuid'];
+        $uuid = $this->uploadsGateway->addFile($userId, $bodyHash, $fileSize, $mimeType);
 
         // copy the file
         $destination = $this->uploadsTransactions->generateFilePath($uuid);

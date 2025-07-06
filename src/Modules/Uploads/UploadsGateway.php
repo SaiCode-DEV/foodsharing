@@ -20,25 +20,10 @@ class UploadsGateway extends BaseGateway
     }
 
     /**
-     * Makes sure a file is listed in the database. If it does not yet exist, it will be created. If it does exist, the
-     * uploaded and access timestamps will be updated. Returns the UUID and a 'isReuploaded' flag.
+     * Adds a file's metadata to the database. Generates and returns a UUID.
      */
-    public function addFile(?int $userId, string $hash, int $size, string $mimeType): array
+    public function addFile(?int $userId, string $hash, int $size, string $mimeType): string
     {
-        // same file already uploaded?
-        if ($res = $this->db->fetchByCriteria('uploads', ['uuid'], ['sha256hash' => $hash])) {
-            // update uploaded date
-            $this->db->update('uploads', [
-                'uploaded_at' => $this->db->now(),
-                'lastaccess_at' => $this->db->now()
-            ], ['uuid' => $res['uuid']]);
-
-            return [
-                'uuid' => $res['uuid'],
-                'isReuploaded' => true
-            ];
-        }
-
         $uuid = $this->uuid_v4();
 
         $this->db->insert('uploads', [
@@ -53,10 +38,7 @@ class UploadsGateway extends BaseGateway
             'usage_id' => null,
         ]);
 
-        return [
-            'uuid' => $uuid,
-            'isReuploaded' => false
-        ];
+        return $uuid;
     }
 
     /**

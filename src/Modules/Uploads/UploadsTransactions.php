@@ -245,15 +245,13 @@ class UploadsTransactions
         $this->uploadsGateway->deleteUpload($uuid);
     }
 
-    public function uploadFile(UploadedFile $file): array
+    public function uploadFile(UploadedFile $file): string
     {
-        $fileInfoFromDatabase = $this->uploadsGateway->addFile($file->uploaderId, $file->hashedBody, $file->fileSize, $file->mimeType);
+        $uuid = $this->uploadsGateway->addFile($file->uploaderId, $file->hashedBody, $file->fileSize, $file->mimeType);
 
-        if (!$fileInfoFromDatabase['isReuploaded']) {
-            $pathForPersistentFile = $this->generateFilePath($fileInfoFromDatabase['uuid']);
-            $this->moveTemporaryFileToPermanentLocation($file->filePath, $pathForPersistentFile, $file->mimeType);
-        }
+        $pathForPersistentFile = $this->generateFilePath($uuid);
+        $this->moveTemporaryFileToPermanentLocation($file->filePath, $pathForPersistentFile, $file->mimeType);
 
-        return $fileInfoFromDatabase;
+        return $uuid;
     }
 }

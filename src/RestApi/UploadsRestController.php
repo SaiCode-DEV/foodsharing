@@ -142,11 +142,11 @@ class UploadsRestController extends AbstractFoodsharingRestController
             throw new BadRequestHttpException($error->getMessage());
         }
 
-        $fileInfoFromDatabase = $this->uploadsTransactions->uploadFile($temporaryFile);
+        $uuid = $this->uploadsTransactions->uploadFile($temporaryFile);
 
         return $this->respondOK([
-            'url' => '/api/uploads/' . $fileInfoFromDatabase['uuid'],
-            'uuid' => $fileInfoFromDatabase['uuid'],
+            'url' => '/api/uploads/' . $uuid,
+            'uuid' => $uuid,
             'filename' => $file->filename,
             'mimeType' => $temporaryFile->mimeType,
             'filesize' => $temporaryFile->fileSize,

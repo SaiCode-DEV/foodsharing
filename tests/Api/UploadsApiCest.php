@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Api;
 
+use Codeception\Example;
 use Codeception\Util\HttpCode;
 use Faker\Factory;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
@@ -65,6 +66,42 @@ class UploadsApiCest
         $I->login($this->user['email']);
         $I->sendGet('api/uploads/' . $uuid);
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
+    }
+
+    /**
+     * If a file with the same content is uploaded a second time, it should still be assigned a new UUID. The old file
+     * should not be overwritten. This must be independent of filename and user.
+     *
+     * @example {"user1": 0, "user2": 1, "filename1": "text.txt", "filename2": "other.txt"}
+     * @example {"user1": 0, "user2": 1, "filename1": "text.txt", "filename2": "text.txt"}
+     * @example {"user1": 0, "user2": 0, "filename1": "text.txt", "filename2": "other.txt"}
+     * @example {"user1": 0, "user2": 0, "filename1": "text.txt", "filename2": "text.txt"}
+     */
+    public function canUploadTheSameFileMultipleTImes(ApiTester $I, Example $example): void
+    {
+        $loginUsers = [$this->user, $this->ambassador];
+        $file = base64_encode((string)$this->faker->paragraph());
+
+        // Log in with the first user and upload the file
+        $user1 = $loginUsers[$example['user1']];
+        $I->login($user1['email']);
+        $I->sendPost('api/uploads', ['filename' => $example['filename1'], 'body' => $file]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $uuid1 = $I->grabDataFromResponseByJsonPath('uuid')[0];
+
+        // Log in with the second user (if it is not the same) and upload the file again
+        $user2 = $loginUsers[$example['user2']];
+        if ($user2['id'] != $user1['id']) {
+            $I->login($user2['email']);
+        }
+        $I->sendPost('api/uploads', ['filename' => $example['filename2'], 'body' => $file]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $uuid2 = $I->grabDataFromResponseByJsonPath('uuid')[0];
+
+        // Check that both files were stored independently
+        $I->assertNotEquals($uuid1, $uuid2);
+        $I->seeInDatabase('uploads', ['uuid' => $uuid1, 'user_id' => $user1['id']]);
+        $I->seeInDatabase('uploads', ['uuid' => $uuid2, 'user_id' => $user2['id']]);
     }
 
     /**
