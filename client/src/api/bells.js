@@ -15,10 +15,10 @@ export async function deleteBells (ids) {
  *
  * @param {number[]} ids
  * @param {boolean} isRead
- * @returns {Promise<number>} 1 (read) or 0 (unread)
+ * @returns {Promise<void>}
  */
 export async function setReadStatus (ids, isRead) {
   return (await patch(`/bells/readStatus?read=${isRead ? 1 : 0}`, {
     ids: ids,
-  })).seen
+  }))
 }

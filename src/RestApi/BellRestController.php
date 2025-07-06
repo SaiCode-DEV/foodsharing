@@ -39,8 +39,8 @@ class BellRestController extends AbstractFoodsharingRestController
         return $this->respondOK($bells);
     }
 
-    #[OA\Patch(summary: 'Marks one or more bells as unread/read.')]
-    #[OA\Response(response: Response::HTTP_OK, description: 'At least one of the bells was successfully marked.')]
+    #[OA\Patch(summary: 'Makes sure that one or more bells are marked as unread/read. Bells that were already marked with that status will not be altered.')]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Bells were successfully marked or already had that status.')]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to change the bells')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'The user does not have a bell with that ID')]
@@ -55,9 +55,9 @@ class BellRestController extends AbstractFoodsharingRestController
         if (!$this->bellGateway->doesFoodsaverHaveBells($bellIds->ids, $this->session->id())) {
             throw new NotFoundHttpException();
         }
-        $changed = $this->bellGateway->setReadStatus($bellIds->ids, $this->session->id(), $value);
+        $this->bellGateway->setReadStatus($bellIds->ids, $this->session->id(), $value);
 
-        return $this->respondOK($changed);
+        return $this->respondOK();
     }
 
     #[OA\Delete(summary: 'Deletes a bell.')]
