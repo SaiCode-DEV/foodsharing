@@ -84,6 +84,7 @@
 - Fix incorrect common working group links on user profiles !4171 @DL6ER
 - Fix no "load more messages" button in mailboxes on mobile view (`xs` screens) !4719 @DL6ER
 - Fix closing of food basket requests #2361 !4178 @DL6ER
+- Fix error when user does not have a mailbox #2390 @KoeMai
 
 ## Refactoring
 - Get rid of xhr completely !3826 !3933 @chriswalg

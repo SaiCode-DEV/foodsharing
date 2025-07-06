@@ -88,6 +88,13 @@ class MailboxGateway extends BaseGateway
 
     public function getMailboxesWithUnreadCount(array $mailboxIds): array
     {
+        $countMailboxes = count($mailboxIds);
+        if ($countMailboxes == 0) {
+            return [];
+        }
+
+        $placeholders = $this->db->generatePlaceholders(count($mailboxIds));
+
         return $this->db->fetchAll('
 			SELECT	mb.id,
 					mb.name,
@@ -99,8 +106,8 @@ class MailboxGateway extends BaseGateway
 
 			FROM	fs_mailbox mb
 
-			WHERE	mb.id IN(' . implode(',', $mailboxIds) . ');
-		');
+			WHERE mb.id IN(' . $placeholders . ');
+		', $mailboxIds);
     }
 
     public function getUnreadMailCount(Session $session): int
