@@ -220,7 +220,7 @@ export default {
       return this.pickupStore.getRegularPickup
     },
     maySeeWall () {
-      return this.isVerified && !this.permissions.isJumper
+      return this.isVerified && this.permissions.isJumper === false
     },
   },
   async mounted () {
