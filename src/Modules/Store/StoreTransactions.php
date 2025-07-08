@@ -850,6 +850,12 @@ class StoreTransactions
         $this->storeGateway->addUserToTeam($storeId, $userId);
         $this->storeGateway->addStoreLog($storeId, $this->session->id(), $userId, null, StoreLogAction::INVITATION_ACCEPTED);
 
+        // add the user to the store's team conversation
+        $teamChatId = $this->storeGateway->getBetriebConversation($storeId);
+        if ($teamChatId) {
+            $this->messageGateway->addUserToConversation($teamChatId, $userId);
+        }
+
         $bellRecipients = $this->storeGateway->getBiebsForStore($storeId);
         $baseBell = Bell::create(
             'store_invitation_accepted_title',
