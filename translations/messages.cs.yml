@@ -2906,7 +2906,7 @@ verantwortlicher: 'odpovědní členové'
 betrieb_kategorie_id: 'kategorie'
 messages:
   bread: ''
-besonderheiten: 'specifika / zvláštnosti'
+besonderheiten: 'Postup a zvláštnosti'
 deletefromregion: ''
 markdown_input:
   tooltip:
@@ -2968,7 +2968,7 @@ validation:
   phone_number_invalid: Telefonní číslo je neplatné (např. chybí kód země, je 
     příliš krátké, příliš dlouhé nebo obsahuje neplatné znaky)
 copied_to_clipboard: „{text}“ byl zkopírován do schránky.
-no_automatic_delete: 'V případě, že poslední žádost byla podána před pěti lety:'
+no_automatic_delete: 'Pokud k poslední činnosti došlo před více než pěti lety:'
 automatic_delete: '- profil by měl být odstraněn.'
 automatic_not_delete: '- profil by měl být zachován.'
 navi:
