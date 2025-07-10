@@ -239,10 +239,10 @@ export default {
         this.getLastFetchDate()
       }),
       Promise.all([storeInformationPromise, userDetailsPromise, permissionsPromise]).then(async () => {
-        if (this.isVerified && !this.permissions.isJumper) {
+        if (this.isVerified && this.permissions.isJumper === false) {
           await this.pickupStore.fetchRegularPickup(this.storeId)
         }
-        if (!this.permissions.isJumper) {
+        if (this.permissions.isJumper === false) {
           await StoreData.mutations.loadStoreLog(this.storeId, this.storeInformation.calendarInterval)
         }
         StoreData.mutations.loadGetRegionOptions(this.regionId)
@@ -254,7 +254,7 @@ export default {
   },
   methods: {
     loadRightsInfo () {
-      if (this.permissions.mayEditStore && !this.permissions.isManager) {
+      if (this.permissions.mayEditStore && this.permissions.isManager === false) {
         if (this.permissions.isOrgUser) {
           pulseInfo(this.$i18n('storeedit.team.orga'))
         } else if (this.permissions.isCoordinator) {
