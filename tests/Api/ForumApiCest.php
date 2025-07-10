@@ -13,6 +13,9 @@ use Tests\Support\ApiTester;
 class ForumApiCest
 {
     private $user;
+    private $user1;
+    private $user2;
+    private $user3;
     private $region;
     private $thread;
     private $ambassador;
@@ -22,9 +25,16 @@ class ForumApiCest
     {
         $this->user = $I->createFoodsaver();
         $this->ambassador = $I->createAmbassador();
+        $this->user1 = $I->createFoodsaver();
+        $this->user2 = $I->createFoodsaver();
+        $this->user3 = $I->createFoodsaver();
 
         $this->region = $I->createRegion(fillMailbox: false);
         $I->addRegionMember($this->region['id'], $this->user['id']);
+        $I->addRegionMember($this->region['id'], $this->user1['id']);
+        $I->addRegionMember($this->region['id'], $this->user2['id']);
+        $I->addRegionMember($this->region['id'], $this->user3['id']);
+
         $this->thread = $I->addForumThread($this->region['id'], $this->user['id']);
 
         $this->faker = Factory::create('de_DE');
@@ -53,6 +63,29 @@ class ForumApiCest
         $I->sendDELETE('api/forum/post/' . $this->thread['post']['id']);
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
         $I->seeResponseIsJson();
+    }
+
+    final public function MentionedSameUserMultiplyTimes(ApiTester $I): void
+    {
+        $I->login($this->user['email']);
+        $threadPath = 'api/forum/thread/' . $this->thread['id'];
+
+        $body = 'Besprechung, @' . $this->user1['id'] .
+            ' übernimmt du verifizieren @' . $this->user2['id'] . ' und @' . $this->user3['id'] . ' für @' . $this->user2['id'] .
+            ' eine Einführungsabholung durchführen. ';
+
+        $I->sendPOST($threadPath . '/posts', [
+            'body' => $body
+        ]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $posts = $I->grabEntriesFromDatabase('fs_theme_post', ['body' => $body]);
+        $I->assertCount(1, $posts);
+
+        $bells = $I->grabEntriesFromDatabase('fs_bell', ['identifier' => 'forum-mention-' . $posts[0]['id']]);
+        $I->assertCount(1, $bells);
+        $I->seeNumRecords(1, 'fs_foodsaver_has_bell', ['foodsaver_id' => $this->user1['id'], 'bell_id' => $bells[0]['id']]);
+        $I->seeNumRecords(1, 'fs_foodsaver_has_bell', ['foodsaver_id' => $this->user2['id'], 'bell_id' => $bells[0]['id']]);
+        $I->seeNumRecords(1, 'fs_foodsaver_has_bell', ['foodsaver_id' => $this->user3['id'], 'bell_id' => $bells[0]['id']]);
     }
 
     /**

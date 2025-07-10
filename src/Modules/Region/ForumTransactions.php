@@ -348,12 +348,13 @@ class ForumTransactions
         return $deleted;
     }
 
-    public function sendNotificationsToMentionedUsers(int $threadId, ?int $postId, string $postBody): void
+    private function sendNotificationsToMentionedUsers(int $threadId, ?int $postId, string $postBody): void
     {
         // Get mentioned users using regex to find occurrences of @ followed by digits, but not preceded or followed by letters or digits
         preg_match_all('/(?<![a-zA-Z0-9])@(\d+)(?![a-zA-Z0-9])/', $postBody, $matches);
         $mentionedUsers = array_map('intval', $matches[1]);
         $mentionedUsers = array_diff($mentionedUsers, [$this->session->id()]);
+        $mentionedUsers = array_unique($mentionedUsers);
 
         if (empty($mentionedUsers)) {
             return;
@@ -366,8 +367,7 @@ class ForumTransactions
         $regionId = $info['region_id'];
         $regionName = $this->regionGateway->getRegionName($regionId);
 
-        $notifiedUsers = array_filter($usersWithNotificationsTurnedOn, fn ($userId) => $this->regionGateway->hasMember($userId, $regionId)
-        );
+        $notifiedUsers = array_filter($usersWithNotificationsTurnedOn, fn ($userId) => $this->regionGateway->hasMember($userId, $regionId));
 
         if (empty($notifiedUsers)) {
             return;
@@ -386,7 +386,7 @@ class ForumTransactions
             BellType::createIdentifier(BellType::FORUM_MENTION, $postId)
         );
 
-        $this->bellGateway->addBell($notifiedUsers, $bell);
+        $this->bellGateway->addBellForUsers($notifiedUsers, $bell);
     }
 
     /**

@@ -20,13 +20,15 @@ class BellGateway extends BaseGateway
         $this->webSocketConnection = $webSocketConnection;
     }
 
-    public function addBell($foodsavers, Bell $bellData): void
+    /**
+     * Creates a new bell in the database.
+     *
+     * @param Bell $bellData Bell notification data
+     * @return int Identifer of the created bell
+     */
+    private function insertBell(Bell $bellData): int
     {
-        if (!is_array($foodsavers)) {
-            $foodsavers = [$foodsavers];
-        }
-
-        $bellId = $this->db->insert(
+        return $this->db->insert(
             'fs_bell',
             [
                 'name' => $bellData->title,
@@ -40,20 +42,54 @@ class BellGateway extends BaseGateway
                 'expiration' => $bellData->expiration ? $bellData->expiration->format('Y-m-d H:i:s') : null
             ]
         );
+    }
 
+    /**
+     * Stores the bell to the related users bell read list.
+     *
+     * @param int[] $userIds List of user ids to inform
+     * @param int $bellId Identifier of bell which the user be informed about
+     */
+    private function distributeBellToUsers(array $userIds, int $bellId): void
+    {
         // add the bell for all foodsavers (100 per query)
-        $parts = array_chunk($foodsavers, 100);
+        $parts = array_chunk($userIds, 100);
         foreach ($parts as $part) {
-            $data = array_map(fn ($fs) => [
-                'foodsaver_id' => is_array($fs) ? $fs['id'] : $fs,
+            $data = array_map(fn ($userId) => [
+                'foodsaver_id' => $userId,
                 'bell_id' => $bellId,
                 'seen' => 0,
             ], $part);
 
             $this->db->insertMultiple('fs_foodsaver_has_bell', $data);
         }
+    }
 
-        $this->updateMultipleFoodsaverClients(array_column($foodsavers, 'id'));
+    /**
+     * Inserts a bell and distributes it to related users as non-read new bell.
+     * The insert will also inform the clients via WebSocket.
+     *
+     * @param int[] $userIds List of user ids to inform
+     * @param Bell $bellData Bell notification data
+     */
+    public function addBellForUsers(array $userIds, Bell $bellData): void
+    {
+        $userIds = array_unique($userIds, SORT_NUMERIC);
+        $bellId = $this->insertBell($bellData);
+        $this->distributeBellToUsers($userIds, $bellId);
+        $this->updateMultipleFoodsaverClients($userIds);
+    }
+
+    /**
+     * @deprecated please use typed method `addBellForUsers()` instead
+     */
+    public function addBell($foodsavers, Bell $bellData): void
+    {
+        if (!is_array($foodsavers)) {
+            $foodsavers = [$foodsavers];
+        }
+        $userIds = array_map(fn ($fs) => is_array($fs) ? $fs['id'] : $fs, $foodsavers);
+        $this->addBellForUsers($userIds, $bellData);
     }
 
     /**
