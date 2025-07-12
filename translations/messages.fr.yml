@@ -1086,6 +1086,7 @@ forum:
       forum
     disable_bells_for_new_posts: Ne pas recevoir de cloches pour les nouveaux 
       sujets de forum
+    bells_for_new_posts: Recevoir une cloche pour les nouveaux sujets
 fsp:
   info:
     mail: Cloche et notification par courriel
