@@ -1462,8 +1462,7 @@ forum:
     reason: "Begründung: „{reason}“"
     title: "Beitrag wiederherstellen"
   options:
-    enable_bells_for_new_posts: "Glocken für neue Forenthemen erhalten"
-    disable_bells_for_new_posts: "Keine Glocken für neue Forenthemen erhalten"
+    bells_for_new_posts: "Glocke bei neuen Themen erhalten"
 chat:
   open_chat: "Nachricht schreiben"
   new_message: "Neue Nachricht" #also Mailbox.js

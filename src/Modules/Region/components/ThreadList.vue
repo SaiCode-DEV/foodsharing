@@ -4,7 +4,15 @@
     :collapsible="false"
   >
     <template #options>
-      <OverflowMenu :options="options" />
+      <b-form-checkbox
+        v-model="isActiveFollower"
+        switch
+        class="m-2"
+        @change="setActiveFollowership(isActiveFollower)"
+      >
+        <i class="fas fa-fw" :class="isActiveFollower ? 'fa-bell' : 'fa-bell-slash'" />
+        {{ $i18n('forum.options.bells_for_new_posts') }}
+      </b-form-checkbox>
     </template>
     <b-container>
       <b-row class="mt-2">
@@ -69,10 +77,9 @@ import Container from '@/components/Container/Container.vue'
 
 import { getForumFollowing, listThreads, setForumFollowing } from '@/api/forum'
 import { pulseError } from '@/script'
-import OverflowMenu from '@/components/OverflowMenu.vue'
 
 export default {
-  components: { ForumSearchField, ThreadListEntry, Container, OverflowMenu },
+  components: { ForumSearchField, ThreadListEntry, Container },
   props: {
     groupId: { type: Number, required: true },
     subforumId: { type: Number, required: true },
@@ -88,12 +95,6 @@ export default {
   computed: {
     subforumName () {
       return this.subforumId === 1 ? 'botforum' : 'forum'
-    },
-    options () {
-      return [
-        { hide: this.isActiveFollower, icon: 'bell', textKey: 'forum.options.enable_bells_for_new_posts', callback: () => this.setActiveFollowership(true) },
-        { hide: !this.isActiveFollower, icon: 'bell-slash', textKey: 'forum.options.disable_bells_for_new_posts', callback: () => this.setActiveFollowership(false) },
-      ]
     },
   },
   async mounted () {
