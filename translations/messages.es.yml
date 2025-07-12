@@ -2950,6 +2950,7 @@ forum:
     disable_bells_for_new_posts: No se recibieron campanas para los nuevos temas
       del foro
     enable_bells_for_new_posts: Recibe campanas por nuevos temas del foro
+    bells_for_new_posts: Recibir un aviso de nuevos temas
 buddy:
   request_sent: 'Solicitud enviada.'
   request_accepted: 'Ahora son amig@s.'
