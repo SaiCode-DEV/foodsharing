@@ -1159,6 +1159,7 @@ forum:
   options:
     disable_bells_for_new_posts: Don’t receive bells for new topics
     enable_bells_for_new_posts: Receive bells for new topics
+    bells_for_new_posts: Receive a bell for new topics
 timepicker:
   labelNowButton: Now
   labelCloseButton: Close
