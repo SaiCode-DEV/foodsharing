@@ -2766,7 +2766,7 @@ forum:
   options:
     enable_bells_for_new_posts: Motta bjeller for nye forumemner
     disable_bells_for_new_posts: Ingen bjeller mottatt for nye forumemner
-    bells_for_new_posts: Motta bjelle for nye tråder
+    bells_for_new_posts: Få bjelle for nye tråder
 timepicker:
   labelNowButton: nå
   labelCloseButton: Lukk
