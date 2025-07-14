@@ -1774,7 +1774,7 @@ about_me_public: 'Openbare korte beschrijving'
 about_me_intern: 'Korte beschrijving'
 weight: 'Geschatte gewicht:'
 begin: ''
-besonderheiten: 'Speciale kenmerken'
+besonderheiten: 'Afloop & aanwijzingen'
 public_info: ''
 banana_count: ''
 fetch_count: ''
@@ -2508,16 +2508,20 @@ content:
   last_modified: ''
   delete_tooltip: ''
 releases:
-  "2021-09": ''
-  "2020-12": ''
-  "2021-03": ''
-  "2022-01": ''
-  "2022-12": ''
-  "2022-05": ''
-  "2020-10": ''
-  "2020-08": ''
-  "2020-05": ''
-  "2023-09": ''
+  "2021-09": 'Release „vijg“ 🥧 (september 2021)'
+  "2020-12": 'Release „drakenvrucht“ (december 2020)'
+  "2021-03": 'Release „aardbei“ 🍓 (maart 2021)'
+  "2022-01": 'Release „grapefruit“ 🍋 (januari 2022)'
+  "2022-12": 'Release „ijsco“ 🍨 (december 2022)'
+  "2022-05": 'Release „Blauwe bosbes“ 🍇 (mei 2022)'
+  "2020-10": 'Release „cranberry“ (oktober 2020)'
+  "2020-08": 'Release „peer“ (augustus 2020)'
+  "2020-05": 'Release „oranje“ (mei 2020)'
+  "2023-09": 'Release „jackfruit“ 🍈 (september 2023)'
+  "2024-12": Release „nectarine“ 🍑 (december 2024)
+  "2024-08": Release „mandarijn“ 🍊 (augustus 2024)
+  "2024-04": Release „pretzel“ 🥨 (april 2024)
+  "2024-01": Release „kiwi“ 🥝 (januari 2024)
 information:
   calendar_sync:
     description: ''
@@ -2817,7 +2821,7 @@ subject: 'Vertaling'
 message_text_to_group_admin_workgroup: ''
 sticker: ''
 handy: 'Mobile telefoonnummer (incl. landcode, begint met +)'
-lebensmittel: 'Welk eten wordt opgehaald?'
+lebensmittel: 'Welk levensmiddel  wordt opgehaald?'
 plz: 'Postcode'
 addreaction: ''
 timefrom: ''
@@ -2881,4 +2885,4 @@ navi:
   apple_maps: Apple Kaarten
   google_maps: Google Maps
 copied_to_clipboard: „{text}“ werd gekopieerd aan het clipboard.
-no_automatic_delete: 'In het geval dat de laatste aanvraag 5 jaar achter is:'
+no_automatic_delete: 'Indien de laatste aanmelding meer dan 5 jaar achter is:'
