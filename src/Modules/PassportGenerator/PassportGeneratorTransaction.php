@@ -146,7 +146,6 @@ class PassportGeneratorTransaction
 
     private function generatePdf(array $userIds, bool $ambassadorGeneration, bool $usePaperSizeDinA4, DateTime $validFrom, DateTime $validUntil): stdClass
     {
-        $protectPDF = !$ambassadorGeneration;
         $cutMarkers = $ambassadorGeneration;
 
         $fontFamily = 'Ubuntu-L';
@@ -157,10 +156,6 @@ class PassportGeneratorTransaction
         $card = 0;
 
         $pdf = new Fpdi();
-
-        if ($protectPDF) {
-            $pdf->SetProtection(['print', 'copy', 'modify', 'assemble'], '', null, 0, null);
-        }
 
         $margins = $this->setupPdfMargins($pdf, $userIds, $usePaperSizeDinA4);
 
