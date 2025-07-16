@@ -74,7 +74,7 @@
     >
       <div class="grid-item grid-item--left">
         <PickupContainer v-if="isFoodsaver && visible.pickups && (visible.stores && (state || !viewIsXL) || !visible.stores && hasPickups)" />
-        <PickupOptionsContainer v-if="isFoodsaver && visible.pickupOptions && (visible.stores && (state || !viewIsXL) || !visible.stores && hasPickups)" />
+        <PickupOptionsContainer v-if="isFoodsaver && visible.pickupOptions && (state || !viewIsXL)" />
         <BasketContainer v-if="visible.baskets" />
         <StoreContainer v-if="isFoodsaver && (state && visible.stores || !viewIsXL && visible.stores)" />
         <ManagingStoreContainer v-if="isFoodsaver && (state && visible.managing_stores || !viewIsXL && visible.managing_stores)" />
