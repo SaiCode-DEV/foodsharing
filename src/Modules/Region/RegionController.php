@@ -250,7 +250,7 @@ final class RegionController extends FoodsharingController
         if (empty($redirects)) {
             // in case there is no ancestor the user has access to, redirect to start page
             // (can only happen for groups that don't have a region parent until root)
-            $this->redirectToRoute('dashboard');
+            return $this->redirectToRoute('dashboard');
         }
         if (end($redirects)['type'] === UnitType::WORKING_GROUP) {
             $extra = '';
