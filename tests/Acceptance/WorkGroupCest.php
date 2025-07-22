@@ -7,6 +7,7 @@ namespace Tests\Acceptance;
 use Codeception\Example;
 use Codeception\Util\Locator;
 use Foodsharing\Modules\Core\DBConstants\Region\ApplyType;
+use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Tests\Support\AcceptanceTester;
 
 class WorkGroupCest
@@ -30,6 +31,7 @@ class WorkGroupCest
         $this->testGroup = $I->createWorkingGroup('a group for testing to see groups', ['apply_type' => ApplyType::OPEN]);
         $this->testGroupApply = $I->createWorkingGroup('a group to apply for', ['apply_type' => ApplyType::EVERYBODY]);
         $this->regionMember = $I->createFoodsaver();
+        $I->addRegionMember(RegionIDs::GLOBAL_WORKING_GROUPS, $this->regionMember['id']);
         $I->addRegionMember($this->testGroup['id'], $this->regionMember['id']);
         $this->unconnectedFoodsaver = $I->createFoodsaver();
         $this->foodsharer = $I->createFoodsharer();
@@ -37,6 +39,7 @@ class WorkGroupCest
         $I->addRegionMember($this->testGroup['id'], $this->groupAdmin['id']);
         $I->addRegionAdmin($this->testGroup['id'], $this->groupAdmin['id']);
         $this->groupApplyAdmin = $I->createFoodsaver();
+        $I->addRegionMember(RegionIDs::GLOBAL_WORKING_GROUPS, $this->groupApplyAdmin['id']);
         $I->addRegionMember($this->testGroupApply['id'], $this->groupApplyAdmin['id']);
         $I->addRegionAdmin($this->testGroupApply['id'], $this->groupApplyAdmin['id']);
     }
@@ -116,17 +119,17 @@ class WorkGroupCest
         $admin->does(function (AcceptanceTester $I) {
             $I->login($this->groupApplyAdmin['email']);
             $I->amOnPage($I->forumUrl($this->testGroupApply['id']));
-            $I->see('Bewerbungen (1)');
+            $I->waitForText('Bewerbungen (1)');
             $I->click('Bewerbungen');
-            $I->see($this->regionMember['name']);
+            $I->waitForText($this->regionMember['name']);
             $I->click($this->regionMember['name']);
-            $I->see('Bewerbung annehmen');
+            $I->waitForText('Bewerbung annehmen');
             $I->click('Ja');
         });
         $I->logMeOut();
         $I->login($this->regionMember['email']);
         $I->amOnPage($I->forumUrl($this->testGroupApply['id']));
-        $I->see($this->testGroupApply['name']);
-        $I->see('Noch keine Themen gepostet');
+        $I->waitForText($this->testGroupApply['name']);
+        $I->waitForText('Noch keine Themen gepostet');
     }
 }

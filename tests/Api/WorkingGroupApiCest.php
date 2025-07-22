@@ -9,6 +9,7 @@ use Codeception\Util\HttpCode;
 use Faker\Factory;
 use Faker\Generator;
 use Foodsharing\Modules\Core\DBConstants\Region\ApplyType;
+use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Tests\Support\ApiTester;
 
 class WorkingGroupApiCest
@@ -27,7 +28,9 @@ class WorkingGroupApiCest
         $this->workingGroup = $I->createWorkingGroup('test', ['apply_type' => ApplyType::EVERYBODY]);
         $this->foodsharer = $I->createFoodsharer();
         $this->user = $I->createFoodsaver();
+        $I->addRegionMember(RegionIDs::GLOBAL_WORKING_GROUPS, $this->user['id']);
         $this->userAdmin = $I->createFoodsaver();
+        $I->addRegionMember(RegionIDs::GLOBAL_WORKING_GROUPS, $this->userAdmin['id']);
         $I->addRegionMember($this->workingGroup['id'], $this->userAdmin['id']);
         $I->addRegionAdmin($this->workingGroup['id'], $this->userAdmin['id']);
         $this->userOrga = $I->createOrga();

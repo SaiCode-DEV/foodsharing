@@ -6,6 +6,7 @@ use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
+use Foodsharing\Modules\Region\RegionController;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Permissions\WorkGroupPermissions;
 use Foodsharing\Utility\ImageHelper;
@@ -21,6 +22,7 @@ class WorkGroupController extends FoodsharingController
         private readonly WorkGroupPermissions $workGroupPermissions,
         private readonly ImageHelper $imageService,
         private readonly RegionGateway $regionGateway,
+        private readonly RegionController $regionController,
     ) {
         parent::__construct();
     }
@@ -36,6 +38,12 @@ class WorkGroupController extends FoodsharingController
         if ($region_id) {
             $parent = $this->regionGateway->getRegionName($region_id);
             $this->pageHelper->addBread($parent, '/region?bid=' . $region_id);
+
+            // Check if the user has access to the groups page (if they are a member
+            // of the parent region). If not, redirect.
+            if (!$this->currentUserUnits->mayBezirk($region_id)) {
+                return $this->regionController->missingMembershipRedirect($region_id);
+            }
         }
         $this->pageHelper->addBread($this->translator->trans('terminology.groups'), '/?page=groups');
 
