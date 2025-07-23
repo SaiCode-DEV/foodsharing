@@ -127,7 +127,16 @@ export default {
     userDetails: { type: Object, default: () => {} },
     sleepingData: { type: Object, default: () => {} },
     businessCardData: { type: Object, default: () => {} },
-    permissions: { type: Object, default: () => {} },
+    permissions: {
+      type: Object,
+      default: () => {
+        return {
+          mayChangeEmailImmediately: false,
+          mayChangeVerifiedData: false,
+          isOnTeamPage: false,
+        }
+      },
+    },
     targetRole: { type: Number, default: null },
     subPage: { type: String, default: null },
   },

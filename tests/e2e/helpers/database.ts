@@ -1,5 +1,6 @@
 import mysql from 'mysql2/promise';
 
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class Database {
   private static connection: mysql.Connection;
 
@@ -18,26 +19,26 @@ export class Database {
 
   static async seeInDatabase(table: string, criteria: Record<string, any>): Promise<boolean> {
     const conn = await this.connect();
-    
+
     const whereClauses = Object.entries(criteria)
       .map(([key, value]) => `${key} = ?`)
       .join(' AND ');
-    
+
     const query = `SELECT COUNT(*) as count FROM ${table} WHERE ${whereClauses}`;
     const values = Object.values(criteria);
 
     const [rows] = await conn.execute(query, values);
     const count = (rows as any)[0].count;
-    
+
     return count > 0;
   }
 
   static async grabFromDatabase(table: string, column: string, criteria?: Record<string, any>): Promise<string> {
     const conn = await this.connect();
-    
+
     let whereClauses = '1=1';
     let values: any[] = [];
-    
+
     if (criteria) {
       whereClauses = Object.entries(criteria)
         .map(([key, value]) => {
@@ -49,10 +50,10 @@ export class Database {
         .join(' AND ');
       values = Object.values(criteria);
     }
-    
+
     const query = `SELECT ${column} FROM ${table} WHERE ${whereClauses} LIMIT 1`;
     const [rows] = await conn.execute(query, values);
-    
+
     if (Array.isArray(rows) && rows.length > 0) {
       return rows[0][column];
     }
@@ -60,16 +61,20 @@ export class Database {
   }
 
   static async addToDatabase(table: string, data: Record<string, any>): Promise<number> {
-    const conn = await this.connect();
-    
-    const columns = Object.keys(data).join(', ');
-    const placeholders = Object.keys(data).map(() => '?').join(', ');
-    const values = Object.values(data);
-    
-    const query = `INSERT INTO ${table} (${columns}) VALUES (${placeholders})`;
-    const [result] = await conn.execute(query, values);
-    
-    return (result as any).insertId;
+    try {
+      const conn = await this.connect();
+
+      const columns = Object.keys(data).join(', ');
+      const placeholders = Object.keys(data).map(() => '?').join(', ');
+      const values = Object.values(data);
+
+      const query = `INSERT INTO ${table} (${columns}) VALUES (${placeholders})`;
+      const [result] = await conn.execute(query, values);
+
+      return (result as any).insertId;
+    } catch (error) {
+      console.error(`Error addToDatabase ${table}: `,error.message);
+    }
   }
 
   static async cleanup() {
@@ -78,15 +83,3 @@ export class Database {
     }
   }
 }
-
-// Create test helper
-export const expect_database = {
-  toHaveEntry: async (table: string, criteria: Record<string, any>) => {
-    const exists = await Database.seeInDatabase(table, criteria);
-    if (!exists) {
-      throw new Error(`Expected to find entry in ${table} with criteria: ${JSON.stringify(criteria)}`);
-    }
-  },
-  grabFromDatabase: Database.grabFromDatabase.bind(Database),
-  addToDatabase: Database.addToDatabase.bind(Database)
-};

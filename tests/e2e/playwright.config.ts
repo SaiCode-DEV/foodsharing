@@ -5,54 +5,44 @@ import { defineConfig, devices } from "@playwright/test";
  */
 export default defineConfig({
   testDir: "./specs/",
-
-  /* Change output directory to be relative to project root */
-  outputDir: "../_output",
-
+  outputDir: "../_output/test-results",
   fullyParallel: true,
-
+  retries: 1,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
-
   /* Limit the number of failures on CI to save resources */
   maxFailures: process.env.CI ? 10 : undefined,
-  
-  retries: 1,
-
-  /* Limit the number of workers on CI, use default locally. (use --workers 4)*/
+  /* Limit the number of workers on CI, use default locally. */
   workers: process.env.CI ? "80%" : undefined,
-
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['list'],
-    ['html', { outputDir: '../_output/html-report' }],
-    ['junit', { outputFile: '../_output/report.xml' }]
+    ['html', { outputFolder: '../_output/html-report' }],
+    ['junit', { outputFile: '../_output/report-playwright.xml' }]
   ],
-
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: process.env.CI_ENVIRONMENT_URL || "http://nginx:8080",
 
+    /* Viewport used for all pages in the context. */
+    viewport: { width: 1920, height: 1080 },
+
     /* Capture screenshot after each test failure. */
     screenshot: "only-on-failure",
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: "on-first-retry",
-
-    /* Viewport used for all pages in the context. */
-    viewport: { width: 1920, height: 1080 },
+    trace: "retain-on-failure",
 
     /* Record video only when retrying a test for the first time. */
     video: "on-first-retry",
 
-    /* Add database helper to test context */
-    extraGlobals: ['expect_database'],
+    /* Global timeout settings */
+    navigationTimeout: 30000,
+    actionTimeout: 15000,
   },
-
   /* Path to global teardown module */
   globalTeardown: './global-teardown.ts',
-
   /* Configure projects for major browsers */
   projects: [
     /* Test against desktop viewports. */

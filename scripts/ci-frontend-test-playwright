@@ -40,4 +40,4 @@ log-header "Running tests"
 cd tests/e2e || exit 1
 npm ci
 npx playwright install
-PLAYWRIGHT_JUNIT_OUTPUT_NAME=tests/_output/report-playwright.xml npx playwright test --reporter=junit
+npx playwright test
