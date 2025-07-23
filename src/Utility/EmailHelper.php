@@ -107,11 +107,7 @@ final class EmailHelper
 
     public function validEmail(string $email): bool
     {
-        if (filter_var($email, FILTER_VALIDATE_EMAIL, FILTER_FLAG_EMAIL_UNICODE)) {
-            return true;
-        }
-
-        return false;
+        return (bool)filter_var($email, FILTER_VALIDATE_EMAIL, FILTER_FLAG_EMAIL_UNICODE);
     }
 
     public function isFoodsharingEmailAddress(string $email): bool

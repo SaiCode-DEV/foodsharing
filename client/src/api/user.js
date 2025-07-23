@@ -46,7 +46,14 @@ export function patchUserProfile (userId, data) {
 }
 
 export function testRegisterEmail (email) {
-  return post('/user/isvalidemail', { email: email })
+  return post('/user/isvalidemail', { email: email }, { skipErrorNotificationFor: [400] })
+    .then(response => response)
+    .catch(error => {
+      if (error && error.response && error.response.status === 400) {
+        return { valid: false, error: error.response.data }
+      }
+      throw error
+    })
 }
 
 export function setSleepStatus (mode, from, to, message) {

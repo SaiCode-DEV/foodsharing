@@ -104,6 +104,12 @@ api.interceptors.response.use(null, async error => {
     return Promise.reject(error)
   }
 
+  // Otherwise, check for error codes we do want to report here
+  const skipErrors = error.config?.skipErrorNotificationFor || []
+  if (skipErrors.includes(error.response?.status)) {
+    return Promise.reject(error)
+  }
+
   if (error.response?.status === HTTP_RESPONSE.UNAUTHORIZED) {
     // Unauthorized -> redirect to login unless disabled (e.g. on failed logins
     // as this would otherwise reload the page without need)
@@ -181,19 +187,29 @@ export class HTTPError extends Error {
 }
 
 export const request = async (path, options = {}) => {
+  // Accept skipErrorNotificationFor in options and pass to axios config
+  const axiosOptions = { ...options }
+  if (options.skipErrorNotificationFor) {
+    axiosOptions.skipErrorNotificationFor = options.skipErrorNotificationFor
+  }
   try {
-    const { data } = await api(path, options)
+    const { data } = await api(path, axiosOptions)
     return data
   } catch (error) {
+    // Attach skipErrorNotificationFor to error for interceptor
+    if (options.skipErrorNotificationFor) {
+      error.config = error.config || {}
+      error.config.skipErrorNotificationFor = options.skipErrorNotificationFor
+    }
     throw new HTTPError(error)
   }
 }
 
 export const get = (path, config) => request(path, { method: 'GET', ...config })
 export const post = (path, data, config = {}) => request(path, { method: 'POST', data, ...config })
-export const put = (path, data) => request(path, { method: 'PUT', data })
-export const patch = (path, data) => request(path, { method: 'PATCH', data })
-export const remove = (path, data) => request(path, { method: 'DELETE', data })
+export const put = (path, data, config = {}) => request(path, { method: 'PUT', data, ...config })
+export const patch = (path, data, config = {}) => request(path, { method: 'PATCH', data, ...config })
+export const remove = (path, data, config = {}) => request(path, { method: 'DELETE', data, ...config })
 
 // Export method to check for active requests
 export const hasActiveRequests = () => activeRequests > 0
