@@ -69,6 +69,9 @@ services:
     container_name: foodsharing_dev_maildev
     ports:
       - "18084:1080"
+    environment:
+      MAILDEV_INCOMING_USER: "user"
+      MAILDEV_INCOMING_PASS: "pass"
 
   # docs
   # A plattform for the developer documentations

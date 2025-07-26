@@ -11,6 +11,7 @@ then
   phpmyadmin_port=18081
   devdocs_port=13000
   zammad_port=18087
+  keila_port=18088
 elif [ "$FS_ENV" == "test" ]
 then
   page_port=28080 #nginx
@@ -30,6 +31,7 @@ then
     devdocs_url=$(gp url $devdocs_port)
     phpmyadmin_url=$(gp url $phpmyadmin_port)
     zammad_url=$(gp url $zammad_port)
+    keila_url=$(gp url $keila_port)
     gitpod_config="$page_url:8080"
     echo "$gitpod_config" > config/gitpod
 else
@@ -38,6 +40,7 @@ else
     devdocs_url="http://localhost:$devdocs_port"
     phpmyadmin_url="http://localhost:$phpmyadmin_port"
     zammad_url="http://localhost:$zammad_port"
+    keila_url="http://localhost:$keila_port"
 fi
 
 echo
@@ -47,6 +50,9 @@ echo "  * Webpage:      $page_url"
 echo "  * PHPMyAdmin:   $phpmyadmin_url"
 if [ "${ZAMMAD:-false}" = "true" ]; then
     echo "  * Zammad:       $zammad_url"
+fi
+if [ "${KEILA:-false}" = "true" ]; then
+    echo "  * Keila:        $keila_url"
 fi
 echo
 echo "Documentations:"

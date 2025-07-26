@@ -160,6 +160,12 @@ At the stats command the pickup stats are renewed.
 Then foodsharing accounts not used for 5 years are deleted. 
 Further files older than 2 days are deleted from the tmp folder.
 
+### Zammad
+See [the Zammad subpage](../zammad.md).
+
+### Keila
+See [the Keila subpage](../keila.md).
+
 ## Deployment
 The Application is deployed with [deployer](https://deployer.org/) from the GitLab CI.
 The process is described in the [deploy.php](https://gitlab.com/foodsharing-dev/foodsharing/-/blob/master/deploy.php).

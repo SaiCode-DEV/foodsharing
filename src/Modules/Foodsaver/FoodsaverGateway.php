@@ -12,6 +12,7 @@ use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Foodsaver\DTO\EditableProfileDTO;
+use Foodsharing\Modules\Foodsaver\DTO\NewsletterSubscriber;
 use Foodsharing\Modules\Map\DTO\MapMarker;
 use Foodsharing\Modules\Map\DTO\UserMarkerActivityType;
 use Foodsharing\Modules\Map\DTO\UserMarkerMemberType;
@@ -374,30 +375,31 @@ class FoodsaverGateway extends BaseGateway
         return $this->db->fetchValueByCriteria('fs_foodsaver', 'email', ['id' => $fsId]);
     }
 
-    public function getNewsletterSubscribersEmailAddresses(Role $minRole = Role::FOODSHARER, Role $maxRole = Role::ORGA, array $criteria = []): array
+    /**
+     * Returns id and email address of all active accounts that have subscribed to the newsletter. Active means that
+     * the account is not deleted and the email address was verified.
+     *
+     * @return NewsletterSubscriber[]
+     */
+    public function getNewsletterSubscribers(): array
     {
-        return $this->getEmailAddresses($minRole, $maxRole, [
-            'newsletter' => 1
-        ]);
-    }
-
-    public function getEmailAddresses(Role $minRole = Role::FOODSHARER, Role $maxRole = Role::ORGA, array $criteria = []): array
-    {
-        $foodsavers = $this->db->fetchAllByCriteria(
+        $subscribers = $this->db->fetchAllByCriteria(
             'fs_foodsaver',
             [
                 'id',
+                'name',
                 'email'
             ],
-            array_merge([
+            [
+                'newsletter' => 1,
                 'active' => 1,
                 'deleted_at' => null,
-                'rolle >=' => $minRole->value,
-                'rolle <=' => $maxRole->value
-            ], $criteria)
+            ]
         );
 
-        return $this->dataHelper->useIdAsKey($foodsavers);
+        return array_map(function ($s) {
+            return new NewsletterSubscriber($s['id'], $s['name'], $s['email']);
+        }, $subscribers);
     }
 
     public function getEmailAddressesFromRegions(array $regionIds): array

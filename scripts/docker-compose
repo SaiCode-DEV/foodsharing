@@ -39,9 +39,15 @@ if [ "${ZAMMAD:-false}" = "true" ]; then
     zammad_files="--file $dir/../docker/zammad/docker-compose.yml --env-file $dir/../docker/zammad/.env"
 fi
 
+keila_files=""
+if [ "${KEILA:-false}" = "true" ]; then
+    keila_files="--file $dir/../docker/keila/docker-compose.yml"
+fi
+
 _docker-compose \
     --file "$dir"/../docker/docker-compose.yml \
     --file "$dir"/../docker/docker-compose."$FS_ENV".yml \
     $zammad_files \
+    $keila_files \
     --project-name foodsharing_"$FS_ENV" \
     "$@"

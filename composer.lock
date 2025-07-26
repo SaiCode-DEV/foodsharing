@@ -4,7 +4,7 @@
     "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
     "This file is @generated automatically"
   ],
-  "content-hash": "4bcbc751e988c04e79230e942470e93f",
+  "content-hash": "8b5feeb048d4c84a547bc2b998e8ca88",
   "packages": [
     {
       "name": "brick/math",
@@ -1118,6 +1118,58 @@
         "source": "https://github.com/doctrine/sql-formatter/tree/1.5.2"
       },
       "time": "2025-01-24T11:45:48+00:00"
+    },
+    {
+      "name": "dompie/keila-php-api",
+      "version": "0.10.2",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/dompie/keila-php-api.git",
+        "reference": "0018580fb66872241d6d4b80cbd5a67cf1e6614b"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/dompie/keila-php-api/zipball/0018580fb66872241d6d4b80cbd5a67cf1e6614b",
+        "reference": "0018580fb66872241d6d4b80cbd5a67cf1e6614b",
+        "shasum": ""
+      },
+      "require": {
+        "guzzlehttp/guzzle": "7.*",
+        "php": "^8.1"
+      },
+      "require-dev": {
+        "phpunit/phpunit": "^10.5"
+      },
+      "type": "library",
+      "autoload": {
+        "psr-4": {
+          "Dompie\\KeilaApiClient\\": "src/"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "BSD-3-Clause-Clear"
+      ],
+      "authors": [
+        {
+          "name": "Dominik Piekarski",
+          "email": "code@dompie.de",
+          "homepage": "https://dompie.de",
+          "role": "Developer"
+        }
+      ],
+      "description": "Keila newsletter API HTTP client",
+      "homepage": "https://github.com/dompie/keila-php-api",
+      "keywords": [
+        "API-Client",
+        "keila",
+        "newsletter"
+      ],
+      "support": {
+        "issues": "https://github.com/dompie/keila-php-api/issues",
+        "source": "https://github.com/dompie/keila-php-api/tree/0.10.2"
+      },
+      "time": "2024-07-04T07:40:09+00:00"
     },
     {
       "name": "egulias/email-validator",

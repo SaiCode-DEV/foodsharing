@@ -52,6 +52,7 @@
     "ddeboer/imap": "1.21.*",
     "doctrine/cache": "2.2.*",
     "doctrine/doctrine-bundle": "^2.11",
+    "dompie/keila-php-api": "^0.10.2",
     "erusev/parsedown": "1.7.*",
     "exercise/htmlpurifier-bundle": "5.0.*",
     "friendsofsymfony/rest-bundle": "3.7.*",
