@@ -54,6 +54,11 @@ class GroupRestController extends AbstractFOSRestController
             throw new AccessDeniedHttpException();
         }
 
+        // Editing groups where you are ambassador is not allowed
+        if ($this->currentUserUnits->isAmbassadorForRegion([$groupId], false, true)) {
+            throw new AccessDeniedHttpException('You are not allowed to edit groups where you are also an active ambassador. This also applies to all dependent childrens of groups you are ambassador for.');
+        }
+
         // check if the group still contains elements
         if ($this->groupTransactions->hasSubElements($groupId)) {
             throw new ConflictHttpException('This region contains subelements preventing the deletion.');

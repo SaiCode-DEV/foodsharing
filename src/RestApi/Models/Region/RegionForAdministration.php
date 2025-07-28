@@ -44,6 +44,10 @@ class RegionForAdministration
     #[OA\Property(example: false, description: 'Whether moderators of the region are allowed to delete forum posts')]
     public bool $allowHidingInForum = false;
 
+    #[OA\Property(example: false, description: 'Whether the region can be edited by the current user')]
+    #[Type('bool')]
+    public bool $canEdit = false;
+
     public static function createFromArray(array $data)
     {
         $region = new RegionForAdministration();
@@ -54,6 +58,7 @@ class RegionForAdministration
         $region->masterId = $data['master'];
         $region->emailName = $data['email_name'];
         $region->adminIds = $data['adminIds'];
+        $region->canEdit = $data['canEdit'] ?? false;
 
         return $region;
     }

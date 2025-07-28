@@ -34,6 +34,18 @@ class GroupApiCest
         $I->dontSeeInDatabase('fs_bezirk', ['id' => $this->region['id']]);
     }
 
+    public function deleteGroupFailsForOrgaAmbassador(ApiTester $I): void
+    {
+        $orga = $I->createOrga();
+        $I->addRegionMember($this->region['id'], $orga['id']);
+        $I->addRegionAdmin($this->region['id'], $orga['id']);
+        $I->login($orga['email']);
+        $I->sendDELETE("api/groups/{$this->region['id']}");
+        $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
+        // The groups should still exist in the database
+        $I->seeInDatabase('fs_bezirk', ['id' => $this->region['id']]);
+    }
+
     public function listOwnGroups(ApiTester $I): void
     {
         $user = $I->createFoodsaver();

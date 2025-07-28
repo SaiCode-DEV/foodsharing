@@ -25,18 +25,19 @@ class WorkGroupPermissions
 
     public function mayEdit(array $group): bool
     {
-        // Global orga team
-        if ($this->session->mayRole(Role::ORGA)) {
+        // Global orga team but not when the user is also an ambassador for the
+        // region
+        $regionId = $group['id'];
+        if ($this->session->mayRole(Role::ORGA) && !$this->currentUserUnits->isAmbassadorForRegion([$regionId], false, true)) {
             return true;
         }
 
-        $groupFunction = $this->groupFunctionGateway->getRegionGroupFunctionId($group['id'], $group['parent_id']);
+        $groupFunction = $this->groupFunctionGateway->getRegionGroupFunctionId($regionId, $group['parent_id']);
         if (!is_null($groupFunction) && WorkgroupFunction::isRestrictedWorkgroupFunction($groupFunction)) {
             return false;
         }
 
         // Workgroup admins
-        $regionId = $group['id'];
         if ($this->currentUserUnits->isAdminFor($regionId)) {
             return true;
         }

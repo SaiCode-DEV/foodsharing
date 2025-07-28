@@ -56,8 +56,13 @@ class ForumPermissions
 
     public function mayPostToRegion(int $regionId, $ambassadorForum): bool
     {
+        // Orga-role users can access all threads but not necessarily in their
+        // own region if they are also an ambassador
         if ($this->session->mayRole(Role::ORGA)) {
-            return true;
+            // Check if Orga-role user is an admin for the selected forum
+            if (!$this->currentUserUnits->isAmbassadorForRegion([$regionId], false, true)) {
+                return true;
+            }
         }
 
         if ($ambassadorForum && !$this->currentUserUnits->isAdminFor($regionId)) {
@@ -94,8 +99,14 @@ class ForumPermissions
 
     public function mayModerate(int $threadId): bool
     {
+        // Orga-role users can moderate all threads but not necessarily in their
+        // own region if they are also an ambassador
         if ($this->session->mayRole(Role::ORGA)) {
-            return true;
+            $forumId = $this->forumGateway->getForumsForThread($threadId)[0]['forumId'];
+            // Check if Orga-role user is not an admin for the selected forum
+            if (!$this->currentUserUnits->isAmbassadorForRegion([$forumId], false, true)) {
+                return true;
+            }
         }
         $forums = $this->forumGateway->getForumsForThread($threadId);
 
@@ -148,8 +159,14 @@ class ForumPermissions
 
     public function mayAccessThread(int $threadId): bool
     {
+        // Orga-role users can access all threads but not necessarily in their
+        // own region if they are also an ambassador
         if ($this->session->mayRole(Role::ORGA)) {
-            return true;
+            $forumId = $this->forumGateway->getForumsForThread($threadId)[0]['forumId'];
+            // Check if Orga-role user is an admin for the selected forum
+            if (!$this->currentUserUnits->isAmbassadorForRegion([$forumId], false, true)) {
+                return true;
+            }
         }
 
         $forums = $this->forumGateway->getForumsForThread($threadId);

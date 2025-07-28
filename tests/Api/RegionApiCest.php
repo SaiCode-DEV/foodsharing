@@ -254,4 +254,64 @@ class RegionApiCest
         $I->assertTrue($responseItems[0]);
         $I->assertFalse($responseItems[1]);
     }
+
+    public function canEditRegionAsOrga(ApiTester $I): void
+    {
+        // Create orga user
+        $orga = $I->createOrga();
+        $I->login($orga['email']);
+
+        // Fetch the region
+        $I->sendGET('api/region/' . $this->region['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+
+        // Extract and verify the region's data
+        $region = $I->grabDataFromResponseByJsonPath('$');
+        $I->assertNotEmpty($region);
+        $region = $region[0];
+        $I->assertEquals($this->region['id'], $region['id']);
+
+        // Try to modify the region's name
+        $region['name'] = 'New Region Name';
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPATCH('api/region/' . $this->region['id'], $region);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $I->seeInDatabase('fs_bezirk', [
+            'id' => $this->region['id'],
+            'name' => 'New Region Name'
+        ]);
+    }
+
+    public function canNotEditRegionAsOrgaAmbassador(ApiTester $I): void
+    {
+        // Create orga ambassador
+        $orga = $I->createOrga();
+        $I->login($orga['email']);
+        $I->addRegionMember($this->region['id'], $orga['id']);
+        $I->addRegionAdmin($this->region['id'], $orga['id']);
+
+        // Fetch the region
+        $I->sendGET('api/region/' . $this->region['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+
+        // Extract and verify the region's data
+        $region = $I->grabDataFromResponseByJsonPath('$');
+        $I->assertNotEmpty($region);
+        $region = $region[0];
+        $I->assertEquals($this->region['id'], $region['id']);
+        $oldname = $region['name'];
+
+        // Try to modify the region's name
+        $region['name'] = 'New Region Name';
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPATCH('api/region/' . $this->region['id'], $region);
+        $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
+        $I->seeInDatabase('fs_bezirk', [
+            'id' => $this->region['id'],
+            'name' => $oldname
+        ]);
+    }
 }
