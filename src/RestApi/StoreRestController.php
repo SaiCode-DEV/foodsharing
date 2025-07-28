@@ -56,7 +56,6 @@ class StoreRestController extends AbstractFoodsharingRestController
 {
     // literal constants
     private const string NOT_LOGGED_IN = 'not logged in';
-    private const string ID = 'id';
 
     public function __construct(
         protected Session $session,
@@ -373,17 +372,16 @@ class StoreRestController extends AbstractFoodsharingRestController
         if (!$this->storePermissions->mayListStores()) {
             throw new AccessDeniedHttpException('invalid permissions');
         }
-        $maySeeDetails = $this->storePermissions->mayAccessStore($storeId);
+        try {
+            $maySeeDetails = $this->storePermissions->mayAccessStore($storeId);
+            $store = $this->storeGateway->getBetrieb($storeId);
 
-        $store = $this->storeGateway->getBetrieb($storeId);
+            $store = RestNormalization::normalizeStore($store, $maySeeDetails);
 
-        if (!$store || !isset($store[self::ID])) {
-            throw new NotFoundHttpException('Store does not exist.');
+            return $this->handleView($this->view(['store' => $store], Response::HTTP_OK));
+        } catch (DatabaseNoValueFoundException) {
+            throw new NotFoundHttpException('Store not found.');
         }
-
-        $store = RestNormalization::normalizeStore($store, $maySeeDetails);
-
-        return $this->handleView($this->view(['store' => $store], Response::HTTP_OK));
     }
 
     /**
