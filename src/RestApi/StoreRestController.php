@@ -16,6 +16,7 @@ use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
+use Foodsharing\Modules\Message\MessageGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\DTO\CommonStoreMetadata;
 use Foodsharing\Modules\Store\DTO\PatchStore;
@@ -68,6 +69,7 @@ class StoreRestController extends AbstractFoodsharingRestController
         private readonly ProfilePermissions $profilePermissions,
         private readonly CurrentUserUnitsInterface $currentUserUnits,
         private readonly RateLimiterFactory $locationChangeLimiterFactory,
+        private readonly MessageGateway $messageGateway,
         private readonly Mem $mem,
     ) {
     }
@@ -262,12 +264,14 @@ class StoreRestController extends AbstractFoodsharingRestController
             $store = $this->storeGateway->getMyStore($this->session->id(), $storeId);
 
             $teamConversationId = null;
-            if ($this->storePermissions->mayChatWithRegularTeam($store)) {
+            if ($this->storePermissions->mayChatWithRegularTeam($store) &&
+                $this->messageGateway->mayConversation($this->session->id(), $store['team_conversation_id'])) {
                 $teamConversationId = $store['team_conversation_id'];
             }
 
             $jumperConversationId = null;
-            if ($this->storePermissions->mayChatWithJumperWaitingTeam($store)) {
+            if ($this->storePermissions->mayChatWithJumperWaitingTeam($store) &&
+                $this->messageGateway->mayConversation($this->session->id(), $store['springer_conversation_id'])) {
                 $jumperConversationId = $store['springer_conversation_id'];
             }
 

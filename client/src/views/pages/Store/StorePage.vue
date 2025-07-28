@@ -29,8 +29,7 @@
               :is-verified="isVerified"
             />
             <Wall
-              v-if="viewIsMobile && maySeeWall"
-              :loaded="finishedLoading"
+              v-if="viewIsMobile"
               target="store"
               :target-id="storeId"
             />
@@ -73,8 +72,7 @@
               :cooperation-start="storeInformation.cooperationStart"
             />
             <Wall
-              v-if="!viewIsMobile && maySeeWall"
-              :loaded="finishedLoading"
+              v-if="!viewIsMobile"
               target="store"
               :target-id="storeId"
             />
@@ -219,9 +217,6 @@ export default {
     loadedPickups () {
       return this.pickupStore.getRegularPickup
     },
-    maySeeWall () {
-      return this.isVerified && this.permissions.isJumper === false
-    },
   },
   async mounted () {
     // fetch all the required data in parallel
@@ -241,8 +236,6 @@ export default {
       Promise.all([storeInformationPromise, userDetailsPromise, permissionsPromise]).then(async () => {
         if (this.isVerified && this.permissions.isJumper === false) {
           await this.pickupStore.fetchRegularPickup(this.storeId)
-        }
-        if (this.permissions.isJumper === false) {
           await StoreData.mutations.loadStoreLog(this.storeId, this.storeInformation.calendarInterval)
         }
         StoreData.mutations.loadGetRegionOptions(this.regionId)

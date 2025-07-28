@@ -1,13 +1,13 @@
 <template>
   <Container :title="storeName" :tag="`store-options-${storeId}`">
     <ContainerButton
-      v-if="teamConversationId != null && isUserInStore"
+      v-if="teamConversationId != null"
       text-key="store.chat.team"
       icon="fas fa-comment"
       @click="openChat(teamConversationId)"
     />
     <ContainerButton
-      v-if="jumperConversationId != null && isUserInStore || isJumper"
+      v-if="jumperConversationId != null"
       text-key="store.chat.jumper"
       icon="fas fa-running"
       @click="openChat(jumperConversationId)"

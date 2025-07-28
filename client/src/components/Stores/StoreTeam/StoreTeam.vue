@@ -41,7 +41,7 @@
             /><br>
           </div>
           <PhoneButton
-            v-if="isMobile"
+            v-if="isMobile && user.validPhoneNumber"
             class="d-inline m-auto text-nowrap optional-action-button"
             :phone-number="user.phoneNumber"
             variant="outline-secondary"
@@ -298,8 +298,8 @@ export default {
     overflowMenuOptions (user) {
       return [
         { icon: 'comment', textKey: 'chat.open_chat', callback: () => chat(user.id) },
-        { icon: 'phone', textKey: 'pickup.call', href: this.$url('phone_number', user.phoneNumber, true) },
-        { icon: 'clone', textKey: 'pickup.copyNumber', callback: () => this.copyToClipboard(user.phoneNumber) },
+        { hide: !user.validPhoneNumber, icon: 'phone', textKey: 'pickup.call', href: this.$url('phone_number', user.phoneNumber, true) },
+        { hide: !user.validPhoneNumber, icon: 'clone', textKey: 'pickup.copyNumber', callback: () => this.copyToClipboard(user.phoneNumber) },
         { icon: 'user', textKey: 'profile.go', href: this.$url('profile', user.id) },
         { hide: !this.mayEditStore || user.isActive, icon: 'clipboard-check', textKey: 'store.sm.makeRegularTeamMember', callback: () => this.toggleStandbyState(user) },
         { hide: !this.mayEditStore || !user.isActive || user.isManager, icon: 'running', textKey: 'store.sm.makeJumper', callback: () => this.toggleStandbyState(user) },
