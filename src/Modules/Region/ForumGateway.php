@@ -202,18 +202,16 @@ class ForumGateway extends BaseGateway
     public function addPost($fs_id, $thread_id, $body)
     {
         // First, check if the exact same post already exists AND is the last post in the thread.
-        $lastPostId = $this->db->fetchAllValues('
-            SELECT id FROM fs_theme_post
+        $lastPostBody = $this->db->fetchAllValues('
+            SELECT body FROM fs_theme_post
             WHERE theme_id = :thread_id
-            AND body = :body
             ORDER BY time DESC
             LIMIT 1', [
             'thread_id' => $thread_id,
-            'body' => $body,
         ]);
 
         // If so, raise an exception to prevent duplicate posts.
-        if ($lastPostId) {
+        if (count($lastPostBody) > 0 && $lastPostBody[0] === $body) {
             throw new ConflictHttpException('Duplicate post detected');
         }
         // If not, insert the new post.
