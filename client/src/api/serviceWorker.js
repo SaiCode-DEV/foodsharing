@@ -13,6 +13,15 @@ const api = axios.create({
   },
 })
 
+// Request interceptor for CSRF token
+api.interceptors.request.use(config => {
+  const match = document.cookie?.match(/CSRF_TOKEN=([0-9a-f]+)/)
+  if (match) {
+    config.headers['X-CSRF-Token'] = match[1]
+  }
+  return config
+})
+
 export class HTTPError extends Error {
   constructor (error) {
     super(error.message)
