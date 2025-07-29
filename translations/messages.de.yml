@@ -3629,6 +3629,7 @@ notifications:
   checkbox_disabled: 'Deaktiviert'
   save_success: "Erfolgreich gespeichert"
   config_button: 'einzeln konfigurieren'
+  safari_add_to_home_screen: "Um Push-Benachrichtigungen in iOS zu erhalten, füge foodsharing zuerst zum Home-Bildschirm hinzu."
   pushModal:
     title: "Push-Benachrichtigungen erhalten?"
     ok: "Push-Benachrichtigungen erhalten"

@@ -20,8 +20,29 @@ registerRoute(
   }),
 )
 
+registerRoute(
+  ({ request }) => request.destination === 'script' || request.destination === 'style',
+  new CacheFirst({
+    cacheName: 'js-css',
+    plugins: [
+      {
+        cacheWillUpdate: async ({ response }) => {
+          // Do not cache responses with status 404
+          if (!response || response.status === 404) {
+            return null
+          }
+          return response
+        },
+      },
+    ],
+  }),
+)
+
 self.addEventListener('push', async function (event) {
   const roundCorners = (() => {
+    if (typeof OffscreenCanvas === 'undefined') {
+      return imageUrl => Promise.resolve(imageUrl)
+    }
     const size = 32
     const radius = 6
     const canvas = new OffscreenCanvas(size, size)

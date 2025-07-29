@@ -1,4 +1,4 @@
-import * as ajax from '@/api/base'
+import * as ajax from '@/api/serviceWorker'
 
 /**
  * @param {PushSubscriptionOptions} [options] – You can save a request if you provide the application server key.

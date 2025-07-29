@@ -6,7 +6,7 @@ function registerServiceWorker () {
       console.warn('Service workers are not supported by this browser')
       return
     }
-    const workbox = new Workbox('/assets/sw.js')
+    const workbox = new Workbox('/sw.js')
 
     workbox.addEventListener('installed', event => {
       if (event.isUpdate) {

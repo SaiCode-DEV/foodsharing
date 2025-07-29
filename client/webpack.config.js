@@ -71,7 +71,7 @@ if (!dev) {
   plugins.push(
     new InjectManifest({
       swSrc: './src/serviceWorker.js',
-      swDest: path.join(assetsPath, 'sw.js'),
+      swDest: 'sw.js',
       maximumFileSizeToCacheInBytes: 25 * 1024 * 1024, // 25 MB
     }),
   )

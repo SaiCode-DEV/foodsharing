@@ -4584,6 +4584,7 @@ notifications:
   mention:
     description: Get notified when someone addresses you in the forum.
     title: Notifications when mentions are made
+  safari_add_to_home_screen: "To receive push notifications on iOS, please add foodsharing to your home screen first."
   pushModal:
     cancel: do not activate
     title: Receive push notifications?

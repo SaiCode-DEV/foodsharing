@@ -38,6 +38,14 @@
               {{ $i18n('notifications.checkbox_push') }}
             </b-form-checkbox>
           </b-col>
+          <b-alert
+            v-if="isSafari"
+            show
+            variant="info"
+            class="mx-3 mt-2"
+          >
+            {{ $i18n('notifications.safari_add_to_home_screen') }}
+          </b-alert>
         </b-row>
       </div>
     </div>
@@ -358,13 +366,16 @@ import { pulseError, pulseSuccess } from '@/script'
 import PushNotificationMixin from '@/mixins/PushNotificationMixin.js'
 import { subscribeForPushNotifications, unsubscribeFromPushNotifications } from '@/pushNotifications'
 import { useUserStore } from '@/stores/user'
+import { useEnvironmentCheck } from '@/composables/useEnvironmentCheck'
 
 const userStore = useUserStore()
 
 export default {
   mixins: [PushNotificationMixin],
   setup () {
+    const { isSafari } = useEnvironmentCheck()
     return {
+      isSafari,
       userStore,
     }
   },

@@ -16,7 +16,9 @@ import serverData from '@/helper/server-data'
 
 import socket from '@/socket'
 
-registerServiceWorker()
+if (!serverData.isDev) {
+  registerServiceWorker()
+}
 
 if (serverData.user.may) {
   socket.connect()
