@@ -1,6 +1,6 @@
 # How to Contribute
 
-If you have any questions please reach out to us via slack: <https://slackin.yunity.org/> and join the `#foodsharing-dev` channel.
+If you have any questions please reach out to us via slack: <https://yunity.slack.com/> and join the `#foodsharing-dev` channel.
 
 ## Submitting an issue
 
@@ -22,7 +22,7 @@ As a “member” on our versioning system GitLab you can
 
 - assign yourself to issues (to tell others that they do not need to start on them).
 
-After creating a GitLab account and applying for membership, write a few introducing lines about yourself on the Slack channel <https://slackin.yunity.org/> `#foodsharing-dev`.
+After creating a GitLab account and applying for membership, write a few introducing lines about yourself on the Slack channel <https://yunity.slack.com/> `#foodsharing-dev`.
 You can apply for membership by clicking the *Request Access* button in the GitLab UI <https://gitlab.com/foodsharing-dev/foodsharing> after you created your account.
 
 ### Working on an issue

@@ -17,7 +17,7 @@ This is the developer documentation for the code that powers
 - **gitlab organisation** [gitlab.com/foodsharing-dev](https://gitlab.com/foodsharing-dev)
 - **main repo** [gitlab.com/foodsharing-dev/foodsharing](https://gitlab.com/foodsharing-dev/foodsharing)
 - **issue tracker** [gitlab.com/foodsharing-dev/foodsharing/issues](https://gitlab.com/foodsharing-dev/foodsharing/issues)
-- **developer chat** [slackin.yunity.org](https://slackin.yunity.org) (channel: \#foodsharing-dev)
+- **developer chat** [yunity.slack.com](https://yunity.slack.com) (channel: \#foodsharing-dev)
 
 ## Other Projects
 
