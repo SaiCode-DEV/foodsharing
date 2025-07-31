@@ -12,7 +12,7 @@ Did you know that we currently have more than **400.000** registered accounts an
 **However, there are only about 5 programmers.** That's why we want to launch a new call with this refreshed post.
 
 ## Have we gotten you interested?
-Feel free to contact us on [Slack](https://yunity.slack.com) in the channel / group chat **#foodsharing-dev or send us an email to [support@foodsharing.network](mailto:support@foodsharing.network)** so that we can find together some possible tasks and fields of activity around the topics listed below for you. Should these two ways of contact keep you away, you can also write a message to [Jonathan](https://foodsharing.de/profile/132347 "Jonathan's profile") via the website. We are a great team and so far we have found a task for everyone who wanted to help.
+Feel free to contact us on [Slack](https://yunity.slack.com) in the channel / group chat **#foodsharing-dev or send us an email to [support@foodsharing.network](mailto:support@foodsharing.network)** so that we can find together some possible tasks and fields of activity around the topics listed below for you. We are a great team and so far we have found a task for everyone who wanted to help.
 
 ## Where are all the volunteers with IT skills?
 
@@ -60,7 +60,7 @@ As already said, you can do some good advertising for our IT and send the link t
 1. Have a look around on our [blog](https://devblog.foodsharing.de "foodsharing developer's blog") or in our [Contribution Guide](contributing/contributing.md "foodsharing contributer's guide").
 2. Have a look at the long list of our [To-dos](https://gitlab.com/foodsharing-dev/foodsharing/issues "foodsharing issues on GitLab"). Some of them are specially marked for beginners.
 3. We are especially happy if you drop by in our [Slack Chat](https://yunity.slack.com "programmer's chat") and we find together with you possible tasks and fields of activity in IT for you in the channel *#foodsharing-dev*.
-4. If you are unsure or don't understand the English programmer pages, you are welcome to send us an email or approach [Jonathan](https://foodsharing.de/profile/132347 "Jonathan's profile"). We'll try to help you. 
+4. If you are unsure or don't understand the English programmer pages, you are welcome to send us an email to [support@foodsharing.network](mailto:support@foodsharing.network). We'll try to help you. 
 
 We would also be happy to receive an email to [support@foodsharing.network](mailto:support@foodsharing.network) and to talk about how you can get involved.
 
