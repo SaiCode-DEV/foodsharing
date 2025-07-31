@@ -41,7 +41,7 @@
             /><br>
           </div>
           <PhoneButton
-            v-if="isMobile && user.validPhoneNumber"
+            v-if="isMobile && user.phoneNumberIsValid"
             class="d-inline m-auto text-nowrap optional-action-button"
             :phone-number="user.phoneNumber"
             variant="outline-secondary"
