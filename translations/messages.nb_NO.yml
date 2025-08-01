@@ -3700,7 +3700,7 @@ releases:
   "2024-04": Versjon «Kringle» 🥨 (april 2024)
   "2024-08": Versjon «Mandarin» 🍊 (august 2024)
   "2024-12": Versjon «Nektarin» 🍑 (desember 2024)
-  "2025-04": Versjon «Oliven» 🫒 (april/mai 2025)
+  "2025-08": Versjon «Oliven» 🫒 (august 2025)
 push_notifications:
   test_notification_title: Push-varsler er aktivert
   test_notification_body: Flott, det ser ut til å ha fungert :)

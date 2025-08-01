@@ -134,7 +134,7 @@
         >
           <a
             :href="$url('release_notes')"
-            v-text="$i18n('releases.2025-04')"
+            v-text="$i18n('releases.2025-08')"
           />
           <span> {{ $i18n('footer.meta.made_with') }}
             <i class="made-with-love-icon fas fa-heart" />
