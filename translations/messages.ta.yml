@@ -616,6 +616,7 @@ forum:
   options:
     enable_bells_for_new_posts: புதிய வன பிரச்சினைகளுக்கு மணிகள் கிடைக்கும்
     disable_bells_for_new_posts: புதிய வன பிரச்சினைகளுக்கு மணிகள் பெற வேண்டாம்
+    bells_for_new_posts: புதிய தலைப்புகளில் மணியைப் பெறுங்கள்
 chat:
   open_chat: ஒரு செய்தியை எழுதுங்கள்
   new_message: புதிய செய்தி
@@ -2887,6 +2888,8 @@ notifications:
   warning: முன்னறிவிப்பு
   error: தவறு
   info: தகவல்
+  safari_add_to_home_screen: ஐஇமு இல் புச் அறிவிப்புகளைப் பெற, முகப்புத் 
+    திரையில் உணவு பகிர்வைச் சேர்க்கவும்.
 thread:
   rename:
     placeholder: தலைப்பு
