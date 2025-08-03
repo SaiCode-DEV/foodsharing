@@ -7,6 +7,7 @@ namespace Tests\Api;
 use Codeception\Util\HttpCode;
 use Exception;
 use Faker\Factory;
+use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Tests\Support\ApiTester;
 
@@ -38,6 +39,730 @@ class ForumApiCest
         $this->thread = $I->addForumThread($this->region['id'], $this->user['id']);
 
         $this->faker = Factory::create('de_DE');
+    }
+
+    public function testSetForumNotificationForNewPostDefaultBehaviorF1(ApiTester $I)
+    {
+        $I->login($this->user['email']);
+
+        // Expect no registrated notifications
+        $I->sendGet('api/notifications/forum');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseEquals('[]');
+
+        $thread = $I->sendGet('/api/forum/thread/' . $this->thread['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $j = json_decode($thread, true);
+        $I->assertFalse($j['data']['isFollowingBell']);
+        $I->assertFalse($j['data']['isFollowingEmail']);
+
+        // Send post
+        $I->login($this->user1['email']);
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test bell']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Expect E-Mail receive
+        $I->expectNumMails(0, 20);
+
+        // Expect receive of bell
+        $I->login($this->user['email']);
+        $I->sendGET('api/bells');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $bells = json_decode($I->grabResponse(), true);
+        $I->assertCount(0, $bells);
+    }
+
+    public function testSetForumNotificationForNewPostOnlyForSetBellF7(ApiTester $I)
+    {
+        $I->login($this->user['email']);
+
+        // Expect no registrated notifications
+        $I->sendGet('api/notifications/forum');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseEquals('[]');
+
+        // Register user with bell
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/bell');
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        $I->sendGet('api/notifications/forum');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseEquals('[]');
+
+        $thread = $I->sendGet('/api/forum/thread/' . $this->thread['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $j = json_decode($thread, true);
+        $I->assertTrue($j['data']['isFollowingBell']);
+        $I->assertFalse($j['data']['isFollowingEmail']);
+
+        $I->login($this->user1['email']);
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test bell']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Expect E-Mail receive
+        $I->expectNumMails(0, 20);
+
+        // Expect receive of bell
+        $I->login($this->user['email']);
+        $I->sendGET('api/bells');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $bells = json_decode($I->grabResponse(), true);
+        $I->assertCount(1, $bells);
+        $I->assertEquals('forum_post.one', $bells[0]['key']);
+        $I->assertEquals($this->thread['name'], $bells[0]['payload']['title']);
+    }
+
+    public function testSetForumNotificationForNewPostBothButOnyActivateForBellF8(ApiTester $I)
+    {
+        $I->login($this->user['email']);
+        // Expect no registrated notifications
+        $I->sendGet('api/notifications/forum');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseContainsJson([]);
+
+        // Register user with bell
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/bell');
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        $I->sendDelete('api/forum/thread/' . $this->thread['id'] . '/follow/email');
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        $I->sendGet('api/notifications/forum');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseEquals('[]');
+
+        $thread = $I->sendGet('/api/forum/thread/' . $this->thread['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $j = json_decode($thread, true);
+        $I->assertTrue($j['data']['isFollowingBell']);
+        $I->assertFalse($j['data']['isFollowingEmail']);
+
+        $I->login($this->user1['email']);
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test bell']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Expect E-Mail receive
+        $I->expectNumMails(0, 20);
+
+        // Expect receive of bell
+        $I->login($this->user['email']);
+        $I->sendGET('api/bells');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $bells = json_decode($I->grabResponse(), true);
+        $I->assertCount(1, $bells);
+        $I->assertEquals('forum_post.one', $bells[0]['key']);
+        $I->assertEquals($this->thread['name'], $bells[0]['payload']['title']);
+    }
+
+    public function testSetForumNotificationForNewPostUnfollowBellF2(ApiTester $I)
+    {
+        $I->login($this->user['email']);
+
+        // Register user with bell
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/bell');
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Unfollow thread by bell
+        $I->sendDelete('api/forum/thread/' . $this->thread['id'] . '/follow/bell');
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Expect no registrated notifications
+        $I->sendGet('api/notifications/forum');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseEquals('[]');
+
+        $thread = $I->sendGet('/api/forum/thread/' . $this->thread['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $j = json_decode($thread, true);
+        $I->assertFalse($j['data']['isFollowingBell']);
+        $I->assertFalse($j['data']['isFollowingEmail']);
+
+        // Send test mail
+        $I->login($this->user1['email']);
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Expect no E-Mail receive
+        $I->expectNumMails(0, 20);
+
+        // Expect receive of bell
+        $I->login($this->user['email']);
+        $I->sendGET('api/bells');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $bells = json_decode($I->grabResponse(), true);
+        $I->assertCount(0, $bells);
+    }
+
+    public function testSetForumNotificationForNewPostViaEmailF6(ApiTester $I)
+    {
+        $I->login($this->user['email']);
+        // Expect no registrated notifications
+        $I->sendGet('api/notifications/forum');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseContainsJson([]);
+
+        // Register user with only email
+        $I->sendDelete('api/forum/thread/' . $this->thread['id'] . '/follow/bell');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/email');
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        $I->sendGet('api/notifications/forum');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseContainsJson([[
+            'id' => $this->thread['id'],
+            'theme_name' => $this->thread['name'],
+            'infotype' => InfoType::EMAIL,
+            'region_or_group_name' => $this->region['name']]]);
+
+        $thread = $I->sendGet('/api/forum/thread/' . $this->thread['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $j = json_decode($thread, true);
+        $I->assertFalse($j['data']['isFollowingBell']); // Expect that it is true (user can not disable it via notification)
+        $I->assertTrue($j['data']['isFollowingEmail']);
+
+        $I->login($this->user1['email']);
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Expect E-Mail receive
+        $I->expectNumMails(1, 20);
+        $mail = $I->getMails()[0];
+        $I->assertStringContainsString($this->thread['name'], $mail->subject);
+
+        // Expect receive of bell
+        $I->login($this->user['email']);
+        $I->sendGET('api/bells');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $bells = json_decode($I->grabResponse(), true);
+        $I->assertCount(0, $bells);
+    }
+
+    // The system behavior is different when no entry in DB table exists then when one exists
+    // This tests the tbale entry exists but no notification is active
+    public function testSetForumNotificationForNewPostViaPreviouslyEmailF5(ApiTester $I)
+    {
+        $I->login($this->user['email']);
+
+        // Expect no registrated notifications
+        $I->sendGet('api/notifications/forum');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseContainsJson([]);
+
+        // Register user with E-Mail
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/email');
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        $I->sendGet('api/notifications/forum');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseContainsJson([[
+            'id' => $this->thread['id'],
+            'theme_name' => $this->thread['name'],
+            'infotype' => InfoType::EMAIL,
+            'region_or_group_name' => $this->region['name']]]);
+
+        $thread = $I->sendGet('/api/forum/thread/' . $this->thread['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $j = json_decode($thread, true);
+        $I->assertTrue($j['data']['isFollowingBell']);
+        $I->assertTrue($j['data']['isFollowingEmail']);
+
+        $I->login($this->user1['email']);
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Expect E-Mail receive
+        $I->expectNumMails(1, 20);
+        $mail = $I->getMails()[0];
+        $I->assertStringContainsString($this->thread['name'], $mail->subject);
+
+        // Expect receive of bell
+        $I->login($this->user['email']);
+        $I->sendGET('api/bells');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $bells = json_decode($I->grabResponse(), true);
+        $I->assertCount(1, $bells);
+        $I->assertEquals('forum_post.one', $bells[0]['key']);
+        $I->assertEquals($this->thread['name'], $bells[0]['payload']['title']);
+    }
+
+    public function testSetForumNotificationForNewPostUnfollowEMailF3(ApiTester $I)
+    {
+        $I->login($this->user['email']);
+        // Expect no bell present
+        $I->sendGET('api/bells');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $bells = json_decode($I->grabResponse(), true);
+        $I->assertCount(0, $bells); // -> Broken still reported
+
+        // Register user with E-Mail
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/email');
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Unfollow thread by e-mail
+        $I->sendDelete('api/forum/thread/' . $this->thread['id'] . '/follow/email');
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Expect no registrated notifications
+        $I->sendGet('api/notifications/forum');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $I->seeResponseEquals('[]');
+
+        $thread = $I->sendGet('/api/forum/thread/' . $this->thread['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $j = json_decode($thread, true);
+        $I->assertTrue($j['data']['isFollowingBell']); // Notification-Setting-UI does not support it
+        $I->assertFalse($j['data']['isFollowingEmail']);
+
+        // Send test mail
+        $I->login($this->user1['email']);
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Expect no E-Mail receive
+        $I->expectNumMails(0, 20);
+
+        // Expect receive of bell
+        $I->login($this->user['email']);
+        $I->sendGET('api/bells');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $bells = json_decode($I->grabResponse(), true);
+        $I->assertCount(1, $bells);
+        $I->assertEquals('forum_post.one', $bells[0]['key']);
+        $I->assertEquals($this->thread['name'], $bells[0]['payload']['title']);
+    }
+
+    public function testSetForumNotificationForNewPostF9(ApiTester $I)
+    {
+        $I->login($this->user['email']);
+        // Expect no registrated notifications
+        $I->sendGet('api/notifications/forum');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseContainsJson([]);
+
+        $thread = $I->sendGet('/api/forum/thread/' . $this->thread['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $j = json_decode($thread, true);
+        $I->assertFalse($j['data']['isFollowingBell']);
+        $I->assertFalse($j['data']['isFollowingEmail']);
+
+        // Register user with bell
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/bell'); // not working (Supports only E-Mail)
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/email');
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Expect registrated notification for E-Mail and Bell
+        $I->sendGet('api/notifications/forum');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseContainsJson([[
+            'id' => $this->thread['id'],
+            'theme_name' => $this->thread['name'],
+            'infotype' => InfoType::EMAIL,
+            'region_or_group_name' => $this->region['name']]]);
+
+        $thread = $I->sendGet('/api/forum/thread/' . $this->thread['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $j = json_decode($thread, true);
+        $I->assertTrue($j['data']['isFollowingBell']);
+        $I->assertTrue($j['data']['isFollowingEmail']);
+
+        // Expect Bell notification information
+        $I->login($this->user1['email']);
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Expect E-Mail receive
+        $I->expectNumMails(1, 20);
+        $mail = $I->getMails()[0];
+        $I->assertStringContainsString($this->thread['name'], $mail->subject);
+
+        // Expect receive of bell
+        $I->login($this->user['email']);
+        $I->sendGET('api/bells');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $bells = json_decode($I->grabResponse(), true);
+        $I->assertCount(1, $bells);
+        $I->assertEquals('forum_post.one', $bells[0]['key']);
+        $I->assertEquals($this->thread['name'], $bells[0]['payload']['title']);
+    }
+
+    public function testSetForumNotificationForNewPostUnfollowF4(ApiTester $I)
+    {
+        $I->login($this->user['email']);
+
+        // Register user with bell and email
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/bell');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/email');
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Unfollow thread by e-mail
+        $I->sendDelete('api/forum/thread/' . $this->thread['id'] . '/follow/email');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->sendDelete('api/forum/thread/' . $this->thread['id'] . '/follow/bell');
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Expect no registrated notifications
+        $I->sendGet('api/notifications/forum');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $I->seeResponseEquals('[]');
+
+        $thread = $I->sendGet('/api/forum/thread/' . $this->thread['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $j = json_decode($thread, true);
+        $I->assertFalse($j['data']['isFollowingBell']);
+        $I->assertFalse($j['data']['isFollowingEmail']);
+
+        // Send test mail
+        $I->login($this->user1['email']);
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Expect no E-Mail receive
+        $I->expectNumMails(0, 20);
+
+        // Expect receive of bell
+        $I->login($this->user['email']);
+        $I->sendGET('api/bells');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $bells = json_decode($I->grabResponse(), true);
+        $I->assertCount(0, $bells);
+    }
+
+    public function testSetForumNotificationForNewPostViaEMailByNotificationControllerN5(ApiTester $I)
+    {
+        $I->login($this->user['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        // Expect no registrated notifications
+        $I->sendGet('api/notifications/forum');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseEquals('[]');
+
+        // Register user with bell
+        $I->sendPatch('api/notifications/forum', [['id' => $this->thread['id'], 'infotype' => InfoType::EMAIL]]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Expect registrated notification for E-Mail and Bell
+        $I->sendGet('api/notifications/forum');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $I->seeResponseEquals('[]');
+
+        $thread = $I->sendGet('/api/forum/thread/' . $this->thread['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $j = json_decode($thread, true);
+        $I->assertFalse($j['data']['isFollowingBell']);
+        $I->assertFalse($j['data']['isFollowingEmail']);
+
+        // Send post
+        $I->login($this->user1['email']);
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Expect E-Mail receive
+        $I->expectNumMails(0, 20);
+
+        // Expect receive of bell
+        $I->login($this->user['email']);
+        $I->sendGET('api/bells');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $bells = json_decode($I->grabResponse(), true);
+        $I->assertCount(0, $bells);
+    }
+
+    public function testSetForumNotificationForNewPostViaEMailByNotificationControllerN4(ApiTester $I)
+    {
+        $I->login($this->user['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        // Expect no registrated notifications
+        $I->sendGet('api/notifications/forum');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseEquals('[]');
+
+        // Register user with bell and email
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/bell');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/email');
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Register user with bell
+        $I->sendPatch('api/notifications/forum', [['id' => $this->thread['id'], 'infotype' => InfoType::EMAIL]]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Expect registrated notification for E-Mail and Bell
+        $I->sendGet('api/notifications/forum');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson([[
+           'id' => $this->thread['id'],
+           'theme_name' => $this->thread['name'],
+           'infotype' => InfoType::EMAIL,
+           'region_or_group_name' => $this->region['name']]]);
+
+        $thread = $I->sendGet('/api/forum/thread/' . $this->thread['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $j = json_decode($thread, true);
+        $I->assertTrue($j['data']['isFollowingBell']);
+        $I->assertTrue($j['data']['isFollowingEmail']);
+
+        // Send post
+        $I->login($this->user1['email']);
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Expect E-Mail receive
+        $I->expectNumMails(1, 20);
+        $mail = $I->getMails()[0];
+        $I->assertStringContainsString($this->thread['name'], $mail->subject);
+
+        // Expect receive of bell
+        $I->login($this->user['email']);
+        $I->sendGET('api/bells');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $bells = json_decode($I->grabResponse(), true);
+        $I->assertCount(1, $bells);
+        $I->assertEquals('forum_post.one', $bells[0]['key']);
+        $I->assertEquals($this->thread['name'], $bells[0]['payload']['title']);
+    }
+
+    public function testSetForumNotificationForNewPostViaBellByNotificationControllerN3(ApiTester $I)
+    {
+        $I->login($this->user['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        // Expect no registrated notifications
+        $I->sendGet('api/notifications/forum');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseContainsJson([]);
+
+        // Register user with bell
+        $I->sendPatch('api/notifications/forum', [['id' => $this->thread['id'], 'infotype' => InfoType::BELL]]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Expect registrated notification for E-Mail and Bell
+        $rsp = $I->sendGet('api/notifications/forum');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $I->seeResponseEquals('[]');
+
+        $thread = $I->sendGet('/api/forum/thread/' . $this->thread['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $j = json_decode($thread, true);
+        $I->assertFalse($j['data']['isFollowingBell']);
+        $I->assertFalse($j['data']['isFollowingEmail']);
+
+        // Send post
+        $I->login($this->user1['email']);
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Expect E-Mail receive
+        $I->expectNumMails(0, 20);
+
+        // Expect receive of bell
+        $I->login($this->user['email']);
+        $I->sendGET('api/bells');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $bells = json_decode($I->grabResponse(), true);
+        $I->assertCount(0, $bells);
+    }
+
+    public function testSetForumNotificationForNewPostViaBellByNotificationControllerN2(ApiTester $I)
+    {
+        $I->login($this->user['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        // Expect no registrated notifications
+        $I->sendGet('api/notifications/forum');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseContainsJson([]);
+
+        // Register user with bell and email
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/bell');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/email');
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Register user with bell
+        $I->sendPatch('api/notifications/forum', [['id' => $this->thread['id'], 'infotype' => InfoType::BELL]]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Expect registrated notification for E-Mail and Bell
+        $rsp = $I->sendGet('api/notifications/forum');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $I->seeResponseEquals('[]');
+
+        $thread = $I->sendGet('/api/forum/thread/' . $this->thread['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $j = json_decode($thread, true);
+        $I->assertTrue($j['data']['isFollowingBell']);
+        $I->assertFalse($j['data']['isFollowingEmail']);
+
+        // Send post
+        $I->login($this->user1['email']);
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Expect E-Mail receive
+        $I->expectNumMails(0, 20);
+
+        // Expect receive of bell
+        $I->login($this->user['email']);
+        $I->sendGET('api/bells');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $bells = json_decode($I->grabResponse(), true);
+        $I->assertCount(1, $bells);
+        $I->assertEquals('forum_post.one', $bells[0]['key']);
+        $I->assertEquals($this->thread['name'], $bells[0]['payload']['title']);
+    }
+
+    public function testSetForumNotificationForNewPostUnfollowByNotificationControllerN1(ApiTester $I)
+    {
+        $I->login($this->user['email']);
+
+        // Register user with bell and email
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/bell');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/email');
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Unfollow thread by e-mail
+        // Register user with bell
+        $I->sendPatch('api/notifications/forum', [['id' => $this->thread['id'], 'infotype' => InfoType::NONE]]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Expect no registrated notifications
+        $I->sendGet('api/notifications/forum');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $I->seeResponseEquals('[]');
+
+        $thread = $I->sendGet('/api/forum/thread/' . $this->thread['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $j = json_decode($thread, true);
+        $I->assertTrue($j['data']['isFollowingBell']);
+        $I->assertFalse($j['data']['isFollowingEmail']);
+
+        // Send test mail
+        $I->login($this->user1['email']);
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Expect no E-Mail receive
+        $I->expectNumMails(0, 20);
+
+        // Expect receive of bell
+        $I->login($this->user['email']);
+        $I->sendGET('api/bells');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $bells = json_decode($I->grabResponse(), true);
+        $I->assertCount(1, $bells);
+        $I->assertEquals('forum_post.one', $bells[0]['key']);
+        $I->assertEquals($this->thread['name'], $bells[0]['payload']['title']);
+    }
+
+    public function testSetForumNotificationForMention(ApiTester $I)
+    {
+        $I->haveHttpHeader('Content-Type', 'application/json');
+
+        $I->login($this->user1['email']);
+
+        // Unfollow thread by e-mail
+        $I->sendDelete('api/forum/thread/' . $this->thread['id'] . '/follow/email');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->sendDelete('api/forum/thread/' . $this->thread['id'] . '/follow/bell'); // not working (Supports only E-Mail)
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // default behavior of mention
+        // Send test mail
+        $I->login($this->user['email']);
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => '1 Test email @' . $this->user1['id']]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Expect no E-Mail receive
+        $I->expectNumMails(0, 20);
+
+        // Expect receive of bell
+        $I->login($this->user1['email']);
+        $I->sendGET('api/bells');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $bells = json_decode($I->grabResponse(), true);
+        $I->assertCount(1, $bells); // -> Broken still reported
+
+        // Test mention enabled
+        $I->clearTable('fs_bell');
+        $I->clearTable('fs_foodsaver_has_bell');
+        $I->login($this->user1['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/notifications/mention', ['mention' => true]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeInDatabase('fs_foodsaver_has_options', [
+            'foodsaver_id' => $this->user1['id'],
+            'option_type' => 4,
+            'option_value' => false]);
+
+        // Send test mail
+        $I->login($this->user['email']);
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => '2 Test email @' . $this->user1['id']]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Expect no E-Mail receive
+        $I->expectNumMails(0, 20);
+
+        // Expect receive of bell
+        $I->login($this->user1['email']);
+        $I->sendGET('api/bells');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $bells = json_decode($I->grabResponse(), true);
+        $I->assertCount(1, $bells); // -> Broken still reported
+
+        // Test mention disabled
+        $I->clearTable('fs_bell');
+        $I->clearTable('fs_foodsaver_has_bell');
+        $I->login($this->user1['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/notifications/mention', ['mention' => false]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeInDatabase('fs_foodsaver_has_options', [
+            'foodsaver_id' => $this->user1['id'],
+            'option_type' => 4,
+            'option_value' => true]);
+
+        // Send test mail
+        $I->login($this->user['email']);
+        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => '3 Test email @' . $this->user1['id']]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Expect no E-Mail receive
+        $I->expectNumMails(0, 20);
+
+        // Expect receive of bell
+        $I->login($this->user1['email']);
+        $I->sendGET('api/bells');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $bells = json_decode($I->grabResponse(), true);
+        $I->assertCount(0, $bells);
     }
 
     final public function deleteNonExistingForumPostIs404(ApiTester $I): void
