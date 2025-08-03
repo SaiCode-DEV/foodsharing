@@ -4418,6 +4418,8 @@ notifications:
   warning: Advarsel
   error: Feil
   info: Info
+  safari_add_to_home_screen: For å motta push-varsler i iOS, må du først legge 
+    til matdeling på startskjermen.
 markdown_input:
   tooltip:
     orderedList: nummerert liste
