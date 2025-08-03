@@ -1,3 +1,7 @@
+# Deprecation notice
+
+This file is deprecated and will be removed in a future release. Please use the [milestone overview](https://gitlab.com/foodsharing-dev/foodsharing/-/milestones?sort=due_date_desc&state=all) directly on Gitlab to find the latest release notes.
+
 # Release "Olive", 2025-??-??
 
 ## Features

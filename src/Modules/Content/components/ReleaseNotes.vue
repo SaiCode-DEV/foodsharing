@@ -9,6 +9,7 @@
         <b-button
           size="sm"
           variant="secondary"
+          target="_blank"
           :href="$url('changelog')"
         >
           <i class="fas fa-fw fa-file-alt" />

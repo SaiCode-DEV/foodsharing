@@ -19,7 +19,7 @@ Every Sunday a schedules pipeline "send outdated dependency report to slack" is 
 * ~ instead of ^ to have similar systems between server and dev computer and to avoid big unwanted changes during yarn update
 * only run yarn update if there are only outdated packages with explicit version information
 * If you don't know what belongs together, then update only one package per commit.
-* Major updates are best done in your own MR with changelog entry.
+* Major updates are best done in your own MR.
 
 ### Manually check the version
 

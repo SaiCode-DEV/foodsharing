@@ -35,7 +35,6 @@ Closes #____ (e.g. #230)
 - [ ] set a "for:" label to indicate who will be affected by this change
 - [ ] set the "API change" label if changes in the API are not backward compatible
 - [ ] added to the next milestone (see https://gitlab.com/foodsharing-dev/foodsharing/-/milestones, unless it has a "for:Dev" label)
-- [ ] added an entry to `CHANGELOG.md`
 - [ ] added a short text in the release notes to /release-notes/YYYY-MM.md
 - [ ] Once your MR has been merged, you are responsible to create a testing issue in the Beta Testing forum: <https://foodsharing.de/region?bid=2296&sub=forum>. Please change the MRs label to "state:Beta testing".
   - Consider writing a detailed description **in German**.
