@@ -1,6 +1,6 @@
 <template>
   <Container
-    :title="$i18n('events.create.title')"
+    :title="edit ? $i18n('events.edit') : $i18n('events.create.title')"
     wrap-content
     :collapsible="false"
   >
