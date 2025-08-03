@@ -4638,6 +4638,8 @@ notifications:
   error: Erreur
   info: Info
   warning: Avertissement
+  safari_add_to_home_screen: Pour recevoir des notifications push sur iOS, 
+    ajoutez d’abord foodsharing à votre écran d’accueil.
 markdown_input:
   tooltip:
     orderedList: liste numérotée
