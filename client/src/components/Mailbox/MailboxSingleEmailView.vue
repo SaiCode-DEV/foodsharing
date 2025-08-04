@@ -32,7 +32,7 @@
               v-if="!viewIsMobile"
               class="col col-4 text-right"
             >
-              {{ $i18n('mailbox.date') }} : {{ displayedMailDate }} Uhr
+              {{ $i18n('mailbox.date') }}: {{ displayedMailDate }} Uhr
             </div>
           </div>
           <div class="row mt-1">
@@ -57,6 +57,11 @@
               >
                 <i :class="{'fas fa-caret-up': isExpanded, 'fas fa-caret-down': !isExpanded}" />
               </b-button>
+            </div>
+          </div>
+          <div v-if="viewIsMobile" class="row mt-1">
+            <div class="col col-auto">
+              {{ $i18n('mailbox.date') }}: {{ displayedMailDate }} Uhr
             </div>
           </div>
           <div class="row mt-1">
