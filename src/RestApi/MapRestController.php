@@ -2,6 +2,7 @@
 
 namespace Foodsharing\RestApi;
 
+use Exception;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionPinStatus;
 use Foodsharing\Modules\Event\EventGateway;
@@ -83,7 +84,7 @@ class MapRestController extends AbstractFoodsharingRestController
                     $help = StoreMarkerHelpType::from($queryParams['help'] ?? 'all');
                     $scope = StoreMarkerScopeType::from($queryParams['scope'] ?? 'all');
                 } catch (ValueError) {
-                    throw new BadRequestHttpException();
+                    throw new BadRequestHttpException('Invalid store marker query parameters');
                 }
 
                 return $this->respondOK($this->storeGateway->getStoreMarkers($this->session->id(), $status, $help, $scope));
@@ -95,19 +96,19 @@ class MapRestController extends AbstractFoodsharingRestController
                     $role = UserMarkerRoleType::from($queryParams['role'] ?? 'all');
                     $activity = UserMarkerActivityType::from($queryParams['activity'] ?? 'all');
                     $member = UserMarkerMemberType::from($queryParams['member'] ?? 'all');
-                } catch (ValueError) {
-                    throw new BadRequestHttpException();
+                } catch (Exception) {
+                    throw new BadRequestHttpException('Invalid user marker query parameters');
                 }
 
                 if (!$this->regionPermissions->mayAccessUserMapMarkersForRegion($regionId)) {
-                    throw new AccessDeniedHttpException();
+                    throw new AccessDeniedHttpException('You do not have permission to access user markers for this region.');
                 }
 
                 return $this->respondOK($this->foodsaverGateway->getUserMarkers($regionId, $role, $activity, $member));
             case MapMarkerType::EVENTS:
                 return $this->respondOK($this->mapGateway->getEventMarkers());
             default:
-                throw new NotFoundHttpException();
+                throw new NotFoundHttpException('Marker type not found');
         }
     }
 
