@@ -1,1 +1,32 @@
-{}
+add: dodać
+nachname: Nazwiski
+message: Wiadomość
+address: Adres
+edit: edytować
+desc: Opis
+description: Opis
+plz: Kod pocztowy
+email: adres email
+anschrift: Ulica i numer domu
+geschlecht: Płeć
+options: Opcje
+picture: Zdjęcie
+fs_id: foodsharing-ID
+lat: szerokość geograficzna
+lon: długość geograficzna
+bezirk: Region
+active: aktywowany
+body: Wiadomość
+status: aktualny status
+info: Informacje
+photo: Zdjęcie
+no_automatic_delete: 'Jeśli minęło 5 lat od ostatniego zalogowania:'
+automatic_delete: '- profil powinien zostać usunięty.'
+ort: Miasto/gmina
+regions: Regiony
+name: Imię
+about_me_intern: Krótki opis
+weight: 'Szacunkowa masa:'
+bezirk_id: Dla którego regionu jest ten artykuł ważny?
+opt: Opcje
+fsp_bezirk_id: W którym regionie znajduje się jadłodzielnia?
