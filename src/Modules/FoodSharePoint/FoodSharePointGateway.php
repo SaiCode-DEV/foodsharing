@@ -2,23 +2,27 @@
 
 namespace Foodsharing\Modules\FoodSharePoint;
 
+use DateTime;
 use Exception;
 use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
+use Foodsharing\Modules\Core\DBConstants\FoodSharePoint\ActivationStatus;
 use Foodsharing\Modules\Core\DBConstants\FoodSharePoint\FollowerType;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
+use Foodsharing\Modules\Core\DTO\Address;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
+use Foodsharing\Modules\Foodsaver\Profile;
+use Foodsharing\Modules\FoodSharePoint\DTO\FoodSharePoint;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Map\DTO\MapMarker;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointData;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointEditData;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointForCreation;
-use Foodsharing\RestApi\Models\Notifications\FoodSharePoint;
 
 class FoodSharePointGateway extends BaseGateway
 {
@@ -434,7 +438,7 @@ class FoodSharePointGateway extends BaseGateway
         return $foodSharePoint;
     }
 
-    public function getFoodSharePoint(int $foodSharePointId): array
+    public function getFoodSharePoint(int $foodSharePointId): ?FoodSharePoint
     {
         if ($foodSharePoint = $this->db->fetch(
             '
@@ -444,17 +448,17 @@ class FoodSharePointGateway extends BaseGateway
 					ft.`picture`,
 					ft.`status`,
 					ft.`desc`,
-					ft.`anschrift`,
-					ft.`plz`,
-					ft.`ort`,
+					ft.`anschrift` as street,
+					ft.`plz` as postalCode,
+					ft.`ort` as city,
 					ft.`lat`,
 					ft.`lon`,
 					ft.`add_date`,
-					UNIX_TIMESTAMP(ft.`add_date`) AS time_ts,
 					ft.`add_foodsaver`,
 					fs.name AS fs_name,
-					fs.nachname AS fs_nachname,
-					fs.id AS fs_id
+					fs.id AS fs_id,
+					fs.is_sleeping AS fs_is_sleeping,
+					fs.photo AS fs_avatar
 
 			FROM 	fs_fairteiler ft
 			LEFT JOIN
@@ -467,15 +471,21 @@ class FoodSharePointGateway extends BaseGateway
             [':foodSharePointId' => $foodSharePointId]
         )
         ) {
-            $foodSharePoint['pic'] = false;
-            if (!empty($foodSharePoint['picture'])) {
-                $foodSharePoint['pic'] = $this->getPicturePaths($foodSharePoint['picture']);
-            }
-
-            return $foodSharePoint;
+            return FoodSharePoint::create(
+                $foodSharePoint['id'],
+                $foodSharePoint['name'],
+                $foodSharePoint['bezirk_id'],
+                $foodSharePoint['picture'],
+                ActivationStatus::tryFrom($foodSharePoint['status']),
+                $foodSharePoint['desc'],
+                Address::createFromArray($foodSharePoint),
+                GeoLocation::createFromArray($foodSharePoint),
+                DateTime::createFromFormat('Y-m-d', $foodSharePoint['add_date']),
+                new Profile($foodSharePoint, 'fs_')
+            );
         }
 
-        return [];
+        return null;
     }
 
     public function addFoodSharePoint(int $foodsaverId, FoodSharePointForCreation $data, bool $isProposal): int
@@ -510,11 +520,11 @@ class FoodSharePointGateway extends BaseGateway
     {
         $foodSharePoint = $this->getFoodSharePoint($foodSharePointId);
 
-        if ($foodSharePoint['status'] === 1) {
+        if ($foodSharePoint->status === ActivationStatus::ACTIVE) {
             return; //FoodSharePoint has been created by orga member or the ambassador himself
         }
 
-        $region = $this->regionGateway->getRegion($foodSharePoint['bezirk_id']);
+        $region = $this->regionGateway->getRegion($foodSharePoint->regionId);
 
         $fspWGId = $this->groupFunctionGateway->getRegionFunctionGroupId($region['id'], WorkgroupFunction::FSP);
         if (empty($fspWGId)) {
@@ -528,7 +538,7 @@ class FoodSharePointGateway extends BaseGateway
             'sharepoint_activate',
             'fas fa-recycle',
             ['href' => '/fairteiler/' . $foodSharePointId],
-            ['bezirk' => $region['name'], 'name' => $foodSharePoint['name']],
+            ['bezirk' => $region['name'], 'name' => $foodSharePoint->name],
             BellType::createIdentifier(BellType::NEW_FOOD_SHARE_POINT, $foodSharePointId),
             false
         );

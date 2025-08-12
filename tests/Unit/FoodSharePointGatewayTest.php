@@ -6,6 +6,7 @@ namespace Tests\Unit;
 
 use Codeception\Test\Unit;
 use Exception;
+use Faker\Factory;
 use Foodsharing\Modules\Core\DBConstants\FoodSharePoint\FollowerType;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
@@ -25,6 +26,7 @@ class FoodSharePointGatewayTest extends Unit
 
     final public function _before(): void
     {
+        $faker = Factory::create('de_DE');
         $this->gateway = $this->tester->get(FoodSharePointGateway::class);
         $this->foodsaver = $this->tester->createFoodsaver();
         $this->otherFoodsaver = $this->tester->createFoodsaver();
@@ -33,7 +35,7 @@ class FoodSharePointGatewayTest extends Unit
         $this->foodSharePoint = $this->tester->createFoodSharePoint(
             $this->foodsaver['id'],
             $this->region['id'],
-            ['picture' => 'picture/cat.jpg']
+            ['picture' => '/api/uploads/' . $faker->uuid()]
         );
     }
 
@@ -183,13 +185,8 @@ class FoodSharePointGatewayTest extends Unit
     final public function testGetFoodSharePoint(): void
     {
         $foodSharePoint = $this->gateway->getFoodSharePoint($this->foodSharePoint['id']);
-        $this->assertEquals($foodSharePoint['id'], $this->foodSharePoint['id']);
-        $this->assertEquals($foodSharePoint['picture'], 'picture/cat.jpg');
-        $this->assertEquals($foodSharePoint['pic'], [
-            'thumb' => 'images/picture/crop_1_60_cat.jpg',
-            'head' => 'images/picture/crop_0_528_cat.jpg',
-            'orig' => 'images/picture/cat.jpg'
-        ]);
+        $this->assertEquals($foodSharePoint->id, $this->foodSharePoint['id']);
+        $this->assertEquals($foodSharePoint->picture, $this->foodSharePoint['picture']);
     }
 
     final public function testAddFoodSharePoint(): void

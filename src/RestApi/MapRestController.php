@@ -150,7 +150,7 @@ class MapRestController extends AbstractFoodsharingRestController
     {
         $foodSharePoint = $this->foodSharePointGateway->getFoodSharePoint($foodSharePointId);
 
-        if (count($foodSharePoint) === 0) {
+        if (is_null($foodSharePoint)) {
             throw new NotFoundHttpException('The Foodsharepoint does not exist');
         }
 

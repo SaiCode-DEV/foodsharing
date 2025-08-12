@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\FoodSharePoint;
 
 use Foodsharing\Lib\FoodsharingController;
+use Foodsharing\Modules\Core\DBConstants\FoodSharePoint\ActivationStatus;
 use Foodsharing\Permissions\FoodSharePointPermissions;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,8 +26,8 @@ class FoodSharePointController extends FoodsharingController
         $foodSharePoint = $this->foodSharePointGateway->getFoodSharePoint($id);
 
         if (empty($foodSharePoint) || (
-            $foodSharePoint['status'] === 0 &&
-            !$this->foodSharePointPermissions->mayApproveFoodSharePointCreation($foodSharePoint['bezirk_id'])
+            $foodSharePoint->status === ActivationStatus::NOT_ACTIVE &&
+            !$this->foodSharePointPermissions->mayApproveFoodSharePointCreation($foodSharePoint->regionId)
         )) {
             return $this->redirect('/');
         }

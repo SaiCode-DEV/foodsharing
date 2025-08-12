@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Foodsharing\RestApi\Models\Map;
 
+use Foodsharing\Modules\FoodSharePoint\DTO\FoodSharePoint;
 use OpenApi\Attributes as OA;
 
 #[OA\Schema]
@@ -51,13 +52,13 @@ class FoodSharePointBubbleData
     )]
     public readonly ?string $picture;
 
-    public function __construct(array $foodSharePoint)
+    public function __construct(FoodSharePoint $foodSharePoint)
     {
-        $this->name = $foodSharePoint['name'];
-        $this->description = $foodSharePoint['desc'];
-        $this->street = $foodSharePoint['anschrift'];
-        $this->zipCode = $foodSharePoint['plz'];
-        $this->city = $foodSharePoint['ort'];
-        $this->picture = $foodSharePoint['picture'];
+        $this->name = $foodSharePoint->name;
+        $this->description = $foodSharePoint->description;
+        $this->street = $foodSharePoint->address->street;
+        $this->zipCode = $foodSharePoint->address->postalCode;
+        $this->city = $foodSharePoint->address->city;
+        $this->picture = $foodSharePoint->picture;
     }
 }

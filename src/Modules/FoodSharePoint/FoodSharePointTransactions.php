@@ -53,7 +53,7 @@ class FoodSharePointTransactions
                         'link' => BASE_URL . '/fairteiler/' . (int)$foodSharePointId,
                         'name' => $f['name'],
                         'anrede' => $this->translator->trans('salutation.' . $f['geschlecht']),
-                        'fairteiler' => $foodSharePoint['name'],
+                        'fairteiler' => $foodSharePoint->name,
                         'post' => $body
                     ]);
                 }
@@ -103,16 +103,16 @@ class FoodSharePointTransactions
         return new AddFoodSharePointResponse($id, !$isProposal);
     }
 
-    public function editFoodSharePoint(int $foodSharePointId, array $currentData, FoodSharePointEditData $newData): void
+    public function editFoodSharePoint(int $foodSharePointId, DTO\FoodSharePoint $currentData, FoodSharePointEditData $newData): void
     {
         $this->foodSharePointGateway->updateFoodSharePoint($foodSharePointId, $newData);
 
         /* If the picture of this food share point was changed, the usage type of the new one (if any) needs to be set
          and the old picture needs to be deleted. */
         $newPicture = $newData->picture ?? '';
-        if ($newPicture !== $currentData['picture']) {
-            if (!empty($currentData['picture'])) {
-                $oldUUID = substr((string)$currentData['picture'], 13);
+        if ($newPicture !== $currentData->picture) {
+            if (!empty($currentData->picture)) {
+                $oldUUID = substr($currentData->picture, 13);
                 $this->uploadsTransactions->deleteUploadedFile($oldUUID);
             }
 
@@ -122,7 +122,7 @@ class FoodSharePointTransactions
             }
         }
 
-        $this->foodSharePointGateway->updateFSPManagers($currentData['id'], $newData->managerIds);
+        $this->foodSharePointGateway->updateFSPManagers($currentData->id, $newData->managerIds);
     }
 
     public function deleteFoodSharePoint(int $foodSharePointId): void

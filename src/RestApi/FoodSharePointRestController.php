@@ -199,7 +199,7 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
         if (empty($foodSharePoint)) {
             throw new NotFoundHttpException('Food share point does not exist');
         }
-        if (!$this->foodSharePointPermissions->mayEdit($foodSharePoint['bezirk_id'], $foodSharePointId)) {
+        if (!$this->foodSharePointPermissions->mayEdit($foodSharePoint->regionId, $foodSharePointId)) {
             throw new AccessDeniedHttpException('Insufficient permissions to edit this foodSharePoint');
         }
         $regionType = $this->regionGateway->getType($foodSharePointData->regionId);
@@ -224,7 +224,7 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
             throw new NotFoundHttpException('Food share point does not exist');
         }
 
-        if (!$this->foodSharePointPermissions->mayDeleteFoodSharePointOfRegion($foodSharePoint['bezirk_id'])) {
+        if (!$this->foodSharePointPermissions->mayDeleteFoodSharePointOfRegion($foodSharePoint->regionId)) {
             throw new AccessDeniedHttpException('Insufficient permissions to remove this foodSharePoint.');
         }
 
@@ -238,7 +238,7 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
     public function foodSharePointPermissions(int $foodSharePointId): Response
     {
         $this->assertFoodSharePointExists($foodSharePointId);
-        $regionId = $this->foodSharePointGateway->getFoodSharePoint($foodSharePointId)['bezirk_id'];
+        $regionId = $this->foodSharePointGateway->getFoodSharePoint($foodSharePointId)->regionId;
         $permission = new FoodSharePointPermission();
         if ($this->session->id()) {
             $followerType = $this->foodSharePointGateway->getFollowerStatus($foodSharePointId, $this->session->id());
@@ -279,7 +279,7 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
     {
         $this->assertLoggedIn();
         $this->assertFoodSharePointExists($foodSharePointId);
-        $regionId = $this->foodSharePointGateway->getFoodSharePoint($foodSharePointId)['bezirk_id'];
+        $regionId = $this->foodSharePointGateway->getFoodSharePoint($foodSharePointId)->regionId;
         if (!$this->foodSharePointPermissions->mayApproveFoodSharePointCreation($regionId)) {
             throw new AccessDeniedHttpException();
         }

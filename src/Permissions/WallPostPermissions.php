@@ -104,12 +104,12 @@ class WallPostPermissions
                 return $this->mayReadWall($target, $targetId);
             case WallType::FOOD_SHARE_POINT:
                 $fsp = $this->fspGateway->getFoodSharePoint($targetId);
-                if (empty($fsp) || empty($fsp['bezirk_id'])) {
+                if (empty($fsp) || empty($fsp->regionId)) {
                     return false;
                 }
 
                 return $this->fspPermission->mayAdministrateFoodSharePoint($targetId)
-                    || $this->fspPermission->mayDeleteFoodSharePointWallPostOfRegion($fsp['bezirk_id']);
+                    || $this->fspPermission->mayDeleteFoodSharePointWallPostOfRegion($fsp->regionId);
             case WallType::STORE:
                 return $this->storePermissions->mayEditStore($targetId);
             default:

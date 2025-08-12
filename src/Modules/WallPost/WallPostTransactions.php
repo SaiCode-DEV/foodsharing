@@ -171,7 +171,7 @@ class WallPostTransactions
                     'fas fa-recycle',
                     ['href' => '/fairteiler/' . $targetId],
                     [
-                        'name' => $this->foodSharePointGateway->getFoodSharePoint($targetId)['name'],
+                        'name' => $this->foodSharePointGateway->getFoodSharePoint($targetId)->name,
                         'teaser' => substr($wallPost->body ?? '', 0, 100)
                     ],
                     BellType::createIdentifier(BellType::FOOD_SHARE_POINT_POST, $targetId)
