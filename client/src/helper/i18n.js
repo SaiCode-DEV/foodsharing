@@ -1,21 +1,31 @@
 import serverData from '@/helper/server-data'
-import de from '@translations/messages.de.yml'
-import en from '@translations/messages.en.yml'
-import es from '@translations/messages.es.yml'
-import fr from '@translations/messages.fr.yml'
-import it from '@translations/messages.it.yml'
-import nbNo from '@translations/messages.nb_NO.yml'
-import ta from '@translations/messages.ta.yml'
-import tr from '@translations/messages.tr.yml'
 import { captureError } from '@/sentry'
 
 export const { locale } = serverData
 
+const DEFAULT_LOCALE = 'de'
+const ALL_LOCALES = ['en', 'es', 'fr', 'it', 'nb_NO', 'ta', 'tr']
+const cachedLanguages = {}
+
+/**
+ * Makes sure that the language is in the cached languages. Fetches it from the server if necessary.
+ */
+function requireLanguage (lang) {
+  if (!(lang in cachedLanguages)) {
+    cachedLanguages[lang] = require(`@translations/messages.${lang}.yml`)
+  }
+  return cachedLanguages[lang]
+}
+
 export default function (path, variables = {}) {
-  // find the selected language, use German as fallback
-  const language = { en: en, es: es, fr: fr, it: it, nb_NO: nbNo, ta: ta, tr: tr }
-  const selected = Object.keys(language).find(l => l.localeCompare(locale || l) === 0)
-  const src = selected ? language[selected] : de
+  // fetch German as fallback
+  if (!(DEFAULT_LOCALE in cachedLanguages)) {
+    requireLanguage(DEFAULT_LOCALE)
+  }
+
+  // find the selected language
+  const selected = ALL_LOCALES.find(l => l.localeCompare(locale || l) === 0)
+  const src = requireLanguage(selected || DEFAULT_LOCALE)
   if (!path) {
     captureError(`Invalid path using ${locale}: ${path}`)
     return path
@@ -25,7 +35,7 @@ export default function (path, variables = {}) {
   let result = pathArray.reduce((prevObj, key) => prevObj && prevObj[key], src)
 
   if (!result) {
-    result = pathArray.reduce((prevObj, key) => prevObj && prevObj[key], de)
+    result = pathArray.reduce((prevObj, key) => prevObj && prevObj[key], cachedLanguages[DEFAULT_LOCALE])
   }
   if (!result) {
     captureError(`Missing translation for ${locale}: [${path}]`)
