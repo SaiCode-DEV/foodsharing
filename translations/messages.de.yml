@@ -1443,6 +1443,7 @@ forum:
       subscribe: Abonnieren
       subscribed: Abonniert
     all_hidden: "Alle Beiträge in diesem Thread wurden ausgeblendet."
+    post_not_found: "Der verlinkte Beitrag wurde nicht gefunden, möglicherweise wurde er gelöscht. Der auf die verlinkte Nachricht nächstfolgende Beitrag wurde stattdessen ausgewählt."
   hold_back_for_moderation: "Das Thema wurde gespeichert und wird veröffentlicht, sobald ein:e Moderator:in oder Botschafter:in es bestätigt."
   no_posts: "Bisher keine Beiträge vorhanden"
   no_threads: "Noch keine Themen gepostet"

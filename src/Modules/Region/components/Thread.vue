@@ -203,7 +203,7 @@ import * as api from '@/api/forum'
 import { GET } from '@/browser'
 import { HTTP_RESPONSE } from '@/consts'
 import OverflowMenu from '@/components/OverflowMenu.vue'
-import { pulseError } from '@/script'
+import { pulseError, pulseWarning } from '@/script'
 import { useUserStore } from '@/stores/user'
 import JumpScrollButton from './JumpScrollButton'
 import SubscribeButton from './SubscribeButton.vue'
@@ -294,13 +294,13 @@ export default {
     await this.reload()
     await new Promise(resolve => window.setTimeout(resolve, 200))
     this.linkedPost = GET('pid')
-    this.scrollToPost(this.posts.find(post => post.id >= this.linkedPost))
+    this.scrollToPost(this.posts.find(post => post.id >= this.linkedPost), this.linkedPost)
   },
   methods: {
     getPostLink (postId) {
       return this.$url('forum', this.regionId, this.regionSubId, this.id, postId)
     },
-    async scrollToPost (post) {
+    async scrollToPost (post, linkedPostId) {
       if (!post) return
       if (post.hidden) {
         this.showHiddenPosts = true
@@ -319,6 +319,9 @@ export default {
           duration: 4000,
           iterations: 1,
         })
+      }
+      if (linkedPostId && post.id !== linkedPostId) {
+        pulseWarning(this.$i18n('forum.thread.post_not_found'))
       }
     },
     reply (post, truncate) {
