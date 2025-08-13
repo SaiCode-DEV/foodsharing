@@ -164,6 +164,56 @@ class SettingsApiCest
         ]);
     }
 
+    // Test if sleeping status includes the until date
+    public function isSleepingIncludesUntilDate(ApiTester $I): void
+    {
+        $today = Carbon::today();
+        $yesterday = $today->copy()->subDay();
+        $tomorrow = $today->copy()->addDay();
+        $user = $I->createFoodsaver();
+        $I->login($user['email']);
+
+        // Check on the day before sleep_until
+        $I->sendPATCH('api/user/sleepmode', [
+            'mode' => SleepStatus::TEMP,
+            'from' => $today->format('Y-m-d'),
+            'to' => $tomorrow->format('Y-m-d'),
+        ]);
+        $I->sendGET('/api/user/' . $user['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseContainsJson(['isSleeping' => true]);
+
+        // Check on the same day as sleep_until
+        $I->sendPATCH('api/user/sleepmode', [
+            'mode' => SleepStatus::TEMP,
+            'from' => $yesterday->format('Y-m-d'),
+            'to' => $today->format('Y-m-d'),
+        ]);
+        $I->sendGET('/api/user/' . $user['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseContainsJson(['isSleeping' => true]);
+
+        // Check on one-day sleeping
+        $I->sendPATCH('api/user/sleepmode', [
+            'mode' => SleepStatus::TEMP,
+            'from' => $today->format('Y-m-d'),
+            'to' => $today->format('Y-m-d'),
+        ]);
+        $I->sendGET('/api/user/' . $user['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseContainsJson(['isSleeping' => true]);
+
+        // Check on the day after sleep_until
+        $I->sendPATCH('api/user/sleepmode', [
+            'mode' => SleepStatus::TEMP,
+            'from' => $yesterday->format('Y-m-d'),
+            'to' => $yesterday->format('Y-m-d'),
+        ]);
+        $I->sendGET('/api/user/' . $user['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseContainsJson(['isSleeping' => false]);
+    }
+
     /**
      * @example{ "loginUser": 0, "testUser": 0, "isOnTeamPage": false, "allowChange": false }
      * @example{ "loginUser": 0, "testUser": 0, "isOnTeamPage": true, "allowChange": true }

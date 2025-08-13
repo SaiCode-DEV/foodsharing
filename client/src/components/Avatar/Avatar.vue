@@ -99,7 +99,7 @@ export default {
     },
     isSleeping () {
       if (!this.user) return false
-      return this.user.isSleeping ?? this.user.sleepStatus ?? this.user.sleep_status
+      return this.user.isSleeping ?? this.user.sleep_status
     },
     sleepImageSrc () {
       if (!this.isSleeping) return ''

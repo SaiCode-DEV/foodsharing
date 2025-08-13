@@ -65,12 +65,14 @@ A computed column is used to fetch whether a user is currently sleeping, automat
 ALTER TABLE fs_foodsaver
 ADD is_sleeping TINYINT(1) GENERATED ALWAYS AS (
   IF(sleep_status = 1,
-    sleep_from < NOW() AND NOW() < sleep_until,
+    sleep_from < NOW() AND NOW() < DATE_ADD(sleep_until, INTERVAL 1 DAY),
     sleep_status = 2
   )
 ) VIRTUAL
 COMMENT \"calculated column. Indicates, whether the user is currently sleeping\"
 ```
+
+We add an interval of one day to the `sleep_until` date, because we want a date setting from, e.g., 2025-08-05 to 2025-08-08 to mean that the user is still sleeping on 2025-08-08. If we would not add the interval, the user would only be considered sleeping until the end of the day 2025-08-07.
 
 ## Conclusion
 

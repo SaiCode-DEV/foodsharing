@@ -2,9 +2,7 @@
 
 namespace Foodsharing\RestApi;
 
-use Carbon\Carbon;
 use DateTime;
-use Foodsharing\Modules\Core\DBConstants\Foodsaver\SleepStatus;
 use Foodsharing\Modules\Core\DTO\Address;
 
 /**
@@ -32,7 +30,7 @@ class RestNormalization
             'id' => (int)$data['id'],
             'name' => $data['name'],
             'avatar' => $data['photo'] ?? null,
-            'sleepStatus' => self::isSleeping($data),
+            'isSleeping' => $data['is_sleeping'] ?? false,
             'mobile' => $data['handy'] ?? '',
             'landline' => $data['telefon'] ?? '',
             // 'isVerified' => boolval($data['verified']),
@@ -41,29 +39,6 @@ class RestNormalization
             'isManager' => boolval($data['verantwortlich'] ?? false),
             // 'team_active' (membership status) should be included as well
         ];
-    }
-
-    private static function isSleeping(array $data, string $prefix = ''): bool
-    {
-        $sleepFrom = null;
-        $sleepUntil = null;
-        if (isset($data[$prefix . 'sleep_status'])) {
-            $sleepState = $data[$prefix . 'sleep_status'];
-            $sleepFrom = $data[$prefix . 'sleep_from'] ?? null;
-            $sleepUntil = $data[$prefix . 'sleep_until'] ?? null;
-        } elseif (isset($data['sleep_status'])) {
-            $sleepState = $data['sleep_status'];
-        } else {
-            $sleepState = SleepStatus::NONE;
-        }
-
-        return match ($sleepState) {
-            SleepStatus::TEMP => $sleepFrom && Carbon::now()->isSameDay(Carbon::parse($sleepFrom))
-                || $sleepFrom && Carbon::now()->isAfter(Carbon::parse($sleepFrom)->startOfDay())
-                || ($sleepFrom && $sleepUntil && Carbon::now()->isBefore(Carbon::parse($sleepUntil)->addDay()) && Carbon::now()->isAfter(Carbon::parse($sleepFrom)->endOfDay())),
-            SleepStatus::FULL => true,
-            default => false,
-        };
     }
 
     /**
