@@ -5,6 +5,7 @@ import es from '@translations/messages.es.yml'
 import fr from '@translations/messages.fr.yml'
 import it from '@translations/messages.it.yml'
 import nbNo from '@translations/messages.nb_NO.yml'
+import ta from '@translations/messages.ta.yml'
 import tr from '@translations/messages.tr.yml'
 import { captureError } from '@/sentry'
 
@@ -12,7 +13,7 @@ export const { locale } = serverData
 
 export default function (path, variables = {}) {
   // find the selected language, use German as fallback
-  const language = { en: en, es: es, fr: fr, it: it, nb_NO: nbNo, tr: tr }
+  const language = { en: en, es: es, fr: fr, it: it, nb_NO: nbNo, ta: ta, tr: tr }
   const selected = Object.keys(language).find(l => l.localeCompare(locale || l) === 0)
   const src = selected ? language[selected] : de
   if (!path) {
