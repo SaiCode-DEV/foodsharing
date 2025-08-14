@@ -1,6 +1,7 @@
 <template>
   <div>
     <StoreListComponent
+      v-if="isOwnUserId || user"
       :stores="stores"
       config-store-key="OwnStores"
     >
