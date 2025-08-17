@@ -293,7 +293,10 @@ export default {
     this.isLoading = true
     await this.reload()
     await new Promise(resolve => window.setTimeout(resolve, 200))
-    this.linkedPost = GET('pid')
+    const pid = GET('pid')
+    if (Number.isInteger(pid)) {
+      this.linkedPost = parseInt(pid, 10)
+    }
     this.scrollToPost(this.posts.find(post => post.id >= this.linkedPost), this.linkedPost)
   },
   methods: {
