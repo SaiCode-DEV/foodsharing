@@ -65,7 +65,7 @@
             :key="n"
             :allow-join="!isUserParticipant && isAvailable && n == 1"
             :allow-remove="(isCoordinator || mayEditStore) && n == emptySlots && !isInPast"
-            @join="$refs.modal_join.show(); fetchSameDayPickups(); checkPickupRule()"
+            @join="$refs.modal_join.show(); fetchSameDayAgenda(); checkPickupRule()"
             @remove="$emit('remove-slot', date)"
           />
           <div class="add-pickup-slot">
@@ -88,7 +88,7 @@
       :title="$i18n('pickup.join_title_date', $dateFormatter.dateTime(date))"
       :cancel-title="$i18n('pickup.join_cancel')"
       :ok-title="$i18n('pickup.join_agree')"
-      :ok-disabled="!loadedUserPickups || !pickupRulePass || isMissingHygieneCertificate || !isTeamMember"
+      :ok-disabled="!loadedUserAgenda || !pickupRulePass || isMissingHygieneCertificate || !isTeamMember"
       :ok-variant="okVariant"
       :hide-header-close="true"
       modal-class="bootstrap"
@@ -109,29 +109,31 @@
 
       <p>{{ $i18n('pickup.really_join_date', slotInfo) }}</p>
 
-      <div v-if="loadedUserPickups && sameDayPickups && sameDayPickups.length">
+      <div v-if="loadedUserAgenda && sameDayAgenda && sameDayAgenda.length">
         <b-alert variant="warning" show>
-          {{ $i18n('pickup.same_day_hint', { day: $dateFormatter.date(date) } ) }}
+          {{ $i18n('pickup.same_day_hint' ) }}
         </b-alert>
         <b-list-group>
           <b-list-group-item
-            v-for="pickup in sameDayPickups"
-            :key="`${pickup.storeId}-${pickup.date}`"
-            :href="$url('store', pickup.storeId)"
+            v-for="item in sameDayAgenda"
+            :key="`${item.type}-${item.id}-${item.date}`"
+            :href="item.id > 0 ? $url(item.type, item.id) : undefined"
             target="_blank"
             class="font-weight-bolder"
+            :class="{ 'list-group-item-warning': item.type === 'proposal' }"
           >
-            <i class="fas fa-fw" :class="[pickup.isConfirmed ? 'fa-check-circle text-secondary' : 'fa-clock text-danger']" />
+            <i class="fas fa-fw" :class="agendaStatusIcon(item)" />
+            <i class="fas fa-fw" :class="agendaTypeIcon(item)" />
             {{
               $i18n('pickup.same_day_entry', {
-                when: $dateFormatter.time(pickup.date),
-                name: pickup.storeName,
+                when: $dateFormatter.time(item.date),
+                name: item.type !== 'proposal' ? item.name : storeTitle,
               })
             }}
           </b-list-group-item>
         </b-list-group>
       </div>
-      <div v-else-if="!loadedUserPickups">
+      <div v-else-if="!loadedUserAgenda">
         <b-alert variant="light" show>
           <i class="fas fa-fw fa-sync fa-spin" />
         </b-alert>
@@ -254,7 +256,7 @@
 
 import { BFormTextarea, BModal, VBTooltip } from 'bootstrap-vue'
 
-import { listSameDayPickupsForUser, checkPickupRuleStore } from '@/api/pickups'
+import { listSameDayAgendaForUser, checkPickupRuleStore } from '@/api/pickups'
 import StoreData from '@/stores/stores'
 import { useStoreStore } from '@/stores/store'
 
@@ -291,8 +293,8 @@ export default {
           id: null,
         },
       },
-      loadedUserPickups: false,
-      sameDayPickups: [],
+      loadedUserAgenda: false,
+      sameDayAgenda: [],
       pickupRulePass: true,
       loadedPickupRule: false,
       okVariant: 'success',
@@ -355,14 +357,37 @@ export default {
     },
   },
   methods: {
-    async fetchSameDayPickups () {
-      this.sameDayPickups = await listSameDayPickupsForUser(this.user.id, this.date)
-      this.loadedUserPickups = true
+    async fetchSameDayAgenda () {
+      this.sameDayAgenda = await listSameDayAgendaForUser(this.user.id, this.date)
+      this.loadedUserAgenda = true
     },
     async checkPickupRule () {
       this.pickupRulePass = await checkPickupRuleStore(this.user.id, this.storeId, this.date)
       this.okVariant = (!this.pickupRulePass) ? 'danger' : 'success'
       this.loadedPickupRule = true
+    },
+    agendaStatusIcon (item) {
+      if (item.type === 'store') {
+        return item.isConfirmed
+          ? 'fa-check-circle text-secondary'
+          : 'fa-clock text-danger'
+      }
+
+      if (item.type === 'proposal') {
+        return 'fa-question-circle text-danger'
+      }
+
+      // else: event
+      return item.status === 'accepted'
+        ? 'fa-check-circle text-secondary'
+        : item.status === 'invited'
+          ? 'fa-envelope text-primary'
+          : item.status === 'maybe'
+            ? 'fa-question-circle text-warning'
+            : 'fa-question-circle text-danger'
+    },
+    agendaTypeIcon (item) {
+      return item.type === 'event' ? 'fa-calendar-alt' : 'fa-shopping-cart'
     },
 
   },

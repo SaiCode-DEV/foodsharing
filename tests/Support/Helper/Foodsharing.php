@@ -1076,7 +1076,18 @@ class Foodsharing extends Db
             'event_id' => $event_id,
         ], $extra_params);
 
-        $id = $this->haveInDatabase('fs_foodsaver_has_event', $params);
+        // Update invitation if it already exists (e.g., status changes),
+        // otherwise create a new one
+        $conditions = [
+            'foodsaver_id' => $foodsaver_id,
+            'event_id' => $event_id
+        ];
+        $res = $this->countInDatabase('fs_foodsaver_has_event', $conditions);
+        if ($res > 0) {
+            $id = $this->updateInDatabase('fs_foodsaver_has_event', $params, $conditions);
+        } else {
+            $id = $this->haveInDatabase('fs_foodsaver_has_event', $params);
+        }
 
         $params['id'] = $id;
 

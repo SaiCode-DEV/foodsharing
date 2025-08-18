@@ -6,6 +6,7 @@ namespace Tests\Api;
 
 use Carbon\Carbon;
 use Codeception\Util\HttpCode;
+use Foodsharing\Modules\Event\InvitationStatus;
 use Tests\Support\ApiTester;
 
 class PickupApiCest
@@ -16,12 +17,15 @@ class PickupApiCest
     private $store3;
     private $region;
     private $waiter;
+    private $storeCoordinator;
+    private $store4;
 
     public function _before(ApiTester $I): void
     {
         $this->user = $I->createFoodsaver();
         $this->storeCoordinator = $I->createStoreCoordinator();
         $this->region = $I->createRegion(fillMailbox: false);
+        $I->addRegionMember($this->region['id'], $this->user['id']);
         $this->store = $I->createStore($this->region['id']);
         $I->addStoreTeam($this->store['id'], $this->user['id']);
         $I->addStoreTeam($this->store['id'], $this->storeCoordinator['id'], true);
@@ -88,7 +92,7 @@ class PickupApiCest
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
     }
 
-    public function signupForNotAviablableSlots(ApiTester $I): void
+    public function signupForNotAvailableSlots(ApiTester $I): void
     {
         $I->login($this->user['email']);
         $pickupBaseDate = Carbon::now()->add('2 days');
@@ -481,6 +485,34 @@ class PickupApiCest
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->canSeeResponseContainsJson([
             'result' => true
+        ]);
+    }
+
+    public function listSameDayAgenda(ApiTester $I)
+    {
+        $pickupDate = Carbon::now()->addMinutes(1);
+        $I->addPickup($this->store['id'], ['time' => $pickupDate, 'fetchercount' => 1]);
+        $I->addPicker($this->store['id'], $this->user['id'], ['date' => $pickupDate]);
+
+        // Create a future event for the current user
+        $eventDate = $pickupDate->copy()->addMinutes(1);
+        $eventParams = [
+            'name' => 'Test Event',
+            'start' => $eventDate->format('Y-m-d H:i:s'),
+            'end' => $eventDate->addHour()->format('Y-m-d H:i:s'),
+        ];
+        $event = $I->createEvents($this->region['id'], $this->user['id'], $eventParams);
+        $I->addEventInvitation($event['id'], $this->user['id'], [
+            'status' => InvitationStatus::ACCEPTED
+        ]);
+
+        $I->login($this->user['email']);
+        $I->sendGET('api/foodsaver/' . $this->user['id'] . '/agenda/' . $pickupDate->toDateString());
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $I->canSeeResponseContainsJson([
+            ['type' => 'store', 'id' => $this->store['id'], 'name' => $this->store['name'], 'isConfirmed' => true, 'date' => $pickupDate->format('Y-m-d H:i:s')],
+            ['type' => 'event', 'id' => $event['id'], 'name' => $eventParams['name'], 'status' => 'accepted', 'date' => $eventParams['start']]
         ]);
     }
 }

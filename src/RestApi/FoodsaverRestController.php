@@ -3,6 +3,8 @@
 namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Event\EventGateway;
+use Foodsharing\Modules\Event\InvitationStatus;
 use Foodsharing\Modules\Store\PickupGateway;
 use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Utility\TimeHelper;
@@ -16,16 +18,18 @@ final class FoodsaverRestController extends AbstractFoodsharingRestController
     public function __construct(
         private readonly PickupGateway $pickupGateway,
         private readonly ProfilePermissions $profilePermissions,
+        private readonly EventGateway $eventGateway,
         protected Session $session
     ) {
         parent::__construct($this->session);
     }
 
     #[OA\Tag(name: 'foodsaver')]
-    #[Rest\Get('foodsaver/{fsId}/pickups/{onDate}', requirements: ['fsId' => '\d+', 'onDate' => '[^/]+'])]
-    #[OA\Get(summary: 'Lists all pickups into which a user is signed in on a specific day, including unconfirmed ones. This only works for future pickups.')]
-    public function listSameDayPickups(int $fsId, string $onDate): Response
+    #[Rest\Get('foodsaver/{fsId}/agenda/{onDate}', requirements: ['fsId' => '\d+', 'onDate' => '[^/]+'])]
+    #[OA\Get(summary: 'Lists user agenda on a specific day, including pickups and events. The only works for future pickups and events.')]
+    public function listSameDayAgenda(int $fsId, string $onDate): Response
     {
+        $agenda = [];
         $this->assertLoggedIn();
 
         if (!$this->profilePermissions->maySeePickups($fsId)) {
@@ -36,6 +40,46 @@ final class FoodsaverRestController extends AbstractFoodsharingRestController
         $day = TimeHelper::parsePickupDate($onDate);
         $pickups = $this->pickupGateway->getSameDayPickupsForUser($fsId, $day);
 
-        return $this->respondOK($pickups);
+        foreach ($pickups as &$pickup) {
+            $formattedPickup = [
+                'name' => $pickup['storeName'],
+                'id' => $pickup['storeId'],
+                'isConfirmed' => boolval($pickup['isConfirmed']),
+                'date' => $pickup['date'],
+                'type' => 'store',
+            ];
+            // Add the pickup to the agenda
+            $agenda[] = $formattedPickup;
+        }
+
+        $events = $this->eventGateway->getEventsByStatus($fsId, [InvitationStatus::INVITED, InvitationStatus::ACCEPTED, InvitationStatus::MAYBE]);
+        // Extend the pickups array by events
+        foreach ($events as $event) {
+            $formattedEvent = [
+                'name' => $event['name'],
+                'id' => $event['id'],
+                'status' => $event['status'] === InvitationStatus::ACCEPTED ? 'accepted' : ($event['status'] === InvitationStatus::INVITED ? 'invited' : 'maybe'),
+                'date' => $event['start'],
+                'type' => 'event',
+            ];
+            $agenda[] = $formattedEvent;
+        }
+
+        // Insert the current pickup into the agenda
+        $currentPickup = [
+            'name' => null,
+            'id' => -1,
+            'isConfirmed' => false,
+            'date' => $day->format('Y-m-d H:i:s'),
+            'type' => 'proposal',
+        ];
+        $agenda[] = $currentPickup;
+
+        // Sort the agenda by date
+        usort($agenda, function ($a, $b) {
+            return strtotime($a['date']) <=> strtotime($b['date']);
+        });
+
+        return $this->respondOK($agenda);
     }
 }
