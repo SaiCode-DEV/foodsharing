@@ -8,7 +8,7 @@
     <template #icon>
       <Avatar
         :size="24"
-        :user="{ avatar: getAvatar }"
+        :user="{ avatar: getAvatar, isSleeping: userStore.isSleeping }"
         class="icon-subnav"
       />
     </template>

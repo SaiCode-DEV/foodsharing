@@ -65,13 +65,13 @@ export const useUserStore = defineStore('user', {
     },
   },
   actions: {
-    async fetchDetails () {
+    async fetchDetails (force = false) {
       if ('details' in this.fetching) return this.fetching.details
       let resolver
       this.fetching.details = new Promise(resolve => { resolver = resolve })
       const cacheRequestName = 'userDetails'
       try {
-        if (await getCacheInterval(cacheRequestName, userDetailsRateLimitInterval)) {
+        if (force || await getCacheInterval(cacheRequestName, userDetailsRateLimitInterval)) {
           this.details = await getDetails()
           await setCache(cacheRequestName, this.details)
         } else {

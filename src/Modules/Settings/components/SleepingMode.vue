@@ -88,7 +88,7 @@ import { defineProps, ref } from 'vue'
 import { setSleepStatus } from '@/api/user'
 import i18n, { locale } from '@/helper/i18n'
 import { pulseError, pulseSuccess } from '@/script'
-import { SLEEP_STATUS } from '@/stores/user'
+import { SLEEP_STATUS, useUserStore } from '@/stores/user'
 
 const props = defineProps({
   sleepStatus: { type: Number, required: true },
@@ -180,6 +180,10 @@ async function trySetSleepStatus () {
   } catch (e) {
     pulseError(i18n('error_unexpected'))
   }
+
+  // Update user store
+  const userStore = useUserStore()
+  await userStore.fetchDetails(true /* force */)
 
   isLoading.value = false
 }
