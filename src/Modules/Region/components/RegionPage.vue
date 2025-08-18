@@ -116,6 +116,10 @@
           :is-work-group="isWorkGroup"
           :may-administrate-achievements="regionMenu?.mayAdministrateAchievements ?? false"
         />
+        <WorkingGroupEditForm
+          v-if="isWorkGroup && activeSubpage === SUB_PAGE.SETTINGS"
+          :group="pageData.group"
+        />
       </div>
     </div>
   </div>
@@ -139,6 +143,7 @@ import NewThread from './NewThread.vue'
 import { getApplications } from '@/api/applications'
 import ApplicationsList from './ApplicationsList.vue'
 import Achievements from './Achievements.vue'
+import WorkingGroupEditForm from '@/components/workinggroups/WorkingGroupEditForm.vue'
 import { SUB_PAGE, useRegionStore } from '@/stores/regions'
 import { GET } from '@/browser'
 import LeaveRegionContainer from '@/views/pages/Region/LeaveRegionContainer.vue'
@@ -164,6 +169,7 @@ export default {
     ThreadList,
     EventList,
     Wall,
+    WorkingGroupEditForm,
   },
   props: {
     regionId: { type: Number, required: true },

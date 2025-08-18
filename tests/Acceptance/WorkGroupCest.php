@@ -13,7 +13,9 @@ use Tests\Support\AcceptanceTester;
 class WorkGroupCest
 {
     /* roles that refer to testGroup */
-    private $testGroup;
+    private array $parentRegion;
+    private array $testGroup;
+    private array $globalTestGroup;
 
     private $regionMember;
     private $groupAdmin;
@@ -23,13 +25,17 @@ class WorkGroupCest
     private $testGroupApply;
     /* admin of testGroupApply */
     private $groupApplyAdmin;
+    private array $foodsharer;
+    private array $userOrga;
 
     public function _before(AcceptanceTester $I): void
     {
         /* WorkGroup open to join for everybody */
-        $I->createWorkingGroup('0random-placeholder-group');
-        $this->testGroup = $I->createWorkingGroup('a group for testing to see groups', ['apply_type' => ApplyType::OPEN]);
-        $this->testGroupApply = $I->createWorkingGroup('a group to apply for', ['apply_type' => ApplyType::EVERYBODY]);
+        $I->createWorkingGroup('0random-placeholder-group', fillMailbox: false);
+        $this->globalTestGroup = $I->createWorkingGroup('a group in the global groups region', ['apply_type' => ApplyType::OPEN, 'parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS], fillMailbox: false);
+        $this->parentRegion = $I->createRegion(fillMailbox: false);
+        $this->testGroup = $I->createWorkingGroup('a group for testing to see groups', ['apply_type' => ApplyType::OPEN, 'parent_id' => $this->parentRegion['id']], fillMailbox: false);
+        $this->testGroupApply = $I->createWorkingGroup('a group to apply for', ['apply_type' => ApplyType::EVERYBODY], fillMailbox: false);
         $this->regionMember = $I->createFoodsaver();
         $I->addRegionMember(RegionIDs::GLOBAL_WORKING_GROUPS, $this->regionMember['id']);
         $I->addRegionMember($this->testGroup['id'], $this->regionMember['id']);
@@ -42,6 +48,7 @@ class WorkGroupCest
         $I->addRegionMember(RegionIDs::GLOBAL_WORKING_GROUPS, $this->groupApplyAdmin['id']);
         $I->addRegionMember($this->testGroupApply['id'], $this->groupApplyAdmin['id']);
         $I->addRegionAdmin($this->testGroupApply['id'], $this->groupApplyAdmin['id']);
+        $this->userOrga = $I->createOrga();
     }
 
     public function _after(AcceptanceTester $I): void
@@ -63,9 +70,9 @@ class WorkGroupCest
         $I->login($this->{$example[0]}['email']);
         $I->amOnPage($I->groupListUrl());
         if ($example[1]) {
-            $I->see($this->testGroup['name']);
+            $I->see($this->globalTestGroup['name']);
         } else {
-            $I->dontSee($this->testGroup['name']);
+            $I->dontSee($this->globalTestGroup['name']);
         }
     }
 
@@ -73,7 +80,7 @@ class WorkGroupCest
      * It is actually not really defined if foodsharer should be able to participate in groups or not.
      * They don't get the menu item but they can use groups.
      *
-     * @example["unconnectedFoodsaver", "testGroup"]
+     * @example["unconnectedFoodsaver", "globalTestGroup"]
      */
     public function canJoinGlobalGroup(AcceptanceTester $I, Example $example): void
     {
@@ -89,7 +96,19 @@ class WorkGroupCest
     }
 
     /**
+     * Users who are not members of the group should be redirected to the parent region's public page.
+     *
      * @example["unconnectedFoodsaver"]
+     */
+    public function canNotAccessWorkGroupAs(AcceptanceTester $I, Example $example): void
+    {
+        $I->login($this->{$example[0]}['email']);
+        $I->amOnPage($I->groupEditUrl($this->testGroup['id']));
+        $I->seeInCurrentUrl($I->regionPublicPageUrl($this->parentRegion['id'], $this->testGroup['id']));
+        $I->dontSee('Bewerbungen');
+    }
+
+    /**
      * @example["regionMember"]
      */
     public function canNotEditWorkGroupAs(AcceptanceTester $I, Example $example): void
@@ -98,6 +117,17 @@ class WorkGroupCest
         $I->amOnPage($I->groupEditUrl($this->testGroup['id']));
         $I->seeInCurrentUrl('dashboard');
         $I->dontSee('Bewerbungen');
+    }
+
+    /**
+     * @example["groupAdmin"]
+     * @example["userOrga"]
+     */
+    public function canEditWorkGroupAs(AcceptanceTester $I, Example $example): void
+    {
+        $I->login($this->{$example[0]}['email']);
+        $I->amOnPage($I->groupEditUrl($this->testGroup['id']));
+        $I->see($this->testGroup['name'] . ' bearbeiten');
     }
 
     public function canApplyForWorkGroup(AcceptanceTester $I): void

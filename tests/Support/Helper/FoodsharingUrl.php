@@ -28,7 +28,7 @@ class FoodsharingUrl extends Db
 
     public function groupEditUrl($groupId): string
     {
-        return '/groups?sub=edit&id=' . (int)$groupId;
+        return '/region?sub=edit&bid=' . (int)$groupId;
     }
 
     public function groupMemberListUrl($groupId): string
@@ -60,6 +60,13 @@ class FoodsharingUrl extends Db
     public function regionWallUrl($id): string
     {
         return '/region?bid=' . (int)$id . '&sub=wall';
+    }
+
+    public function regionPublicPageUrl(int $regionId, ?int $deniedSubregionId = null): string
+    {
+        $query = !is_null($deniedSubregionId) ? "?denied={$deniedSubregionId}" : '';
+
+        return "/region/{$regionId}{$query}";
     }
 
     public function foodSharePointRegionListUrl($region_id): string

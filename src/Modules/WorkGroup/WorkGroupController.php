@@ -48,7 +48,7 @@ class WorkGroupController extends FoodsharingController
         $this->pageHelper->addBread($this->translator->trans('terminology.groups'), '/?page=groups');
 
         return match ($request->query->get('sub')) {
-            'edit' => $this->edit($request),
+            'edit' => $this->redirectToRoute('region', ['sub' => 'edit', 'bid' => $request->query->getInt('bid')]),
             null => $this->list($request),
             default => $this->renderGlobal(),
         };
@@ -164,26 +164,6 @@ class WorkGroupController extends FoodsharingController
         };
 
         return array_map($enrichGroupData, $this->workGroupGateway->listGroups($parent));
-    }
-
-    private function edit(Request $request): Response
-    {
-        $groupId = $request->query->getInt('id');
-        $group = $this->workGroupGateway->getGroup($groupId);
-        if (!$group) {
-            return $this->redirectToRoute('groups');
-        } elseif ($group['type'] != UnitType::WORKING_GROUP || !$this->workGroupPermissions->mayEdit($group)) {
-            return $this->redirectToRoute('dashboard');
-        }
-
-        $bread = $this->translator->trans('group.edit.title', ['{group}' => $group['name']]);
-        $this->pageHelper->addBread($bread, '/groups?sub=edit&id=' . (int)$group['id']);
-
-        $group['photo'] = $this->fixPhotoPath($group['photo']);
-
-        return $this->renderGlobal('pages/WorkGroup/edit.twig',
-            ['nav' => $this->getSideMenuData(), 'group' => $group]
-        );
     }
 
     /**

@@ -13,6 +13,7 @@ use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Store\StoreGateway;
+use Foodsharing\Modules\WorkGroup\WorkGroupGateway;
 use Foodsharing\Permissions\ForumPermissions;
 use Foodsharing\Permissions\RegionPermissions;
 use Foodsharing\Permissions\WorkGroupPermissions;
@@ -38,6 +39,7 @@ final class RegionController extends FoodsharingController
         private readonly GroupFunctionGateway $groupFunctionGateway,
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly RegionTransactions $regionTransactions,
+        private readonly WorkGroupGateway $workGroupGateway,
     ) {
         parent::__construct();
     }
@@ -121,7 +123,7 @@ final class RegionController extends FoodsharingController
         ];
     }
 
-    #[Route('/region')]
+    #[Route('/region', name: 'region')]
     public function index(Request $request): Response
     {
         if (!$this->session->mayRole()) {
@@ -189,6 +191,8 @@ final class RegionController extends FoodsharingController
                 return $this->redirect('/region/' . $region_id);
             case 'achievements':
                 return $this->achievements($request, $region);
+            case 'edit':
+                return $this->editRegion($request, $region);
             default:
                 if (UnitType::isGroup($region['type'])) {
                     return $this->redirect('/region?bid=' . $region_id . '&sub=wall');
@@ -415,5 +419,44 @@ final class RegionController extends FoodsharingController
         $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
 
         return $this->renderGlobal();
+    }
+
+    private function editRegion(Request $request, array $region): Response
+    {
+        $group = $this->workGroupGateway->getGroup($region['id']);
+        if (!$group) {
+            return $this->redirectToRoute('groups');
+        } elseif ($group['type'] != UnitType::WORKING_GROUP || !$this->workGroupPermissions->mayEdit($group)) {
+            return $this->redirectToRoute('dashboard');
+        }
+
+        $translation = $this->translator->trans('group.edit.title', ['{group}' => $group['name']]);
+        $this->pageHelper->addBread($translation, '/groups?sub=edit&id=' . (int)$group['id']);
+        $this->pageHelper->addTitle($translation);
+
+        $group['photo'] = $this->fixPhotoPath($group['photo']);
+        $params = $this->convertDataToObject($region, $request->query->get('sub'), [
+            'group' => $group,
+        ]);
+
+        $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
+
+        return $this->renderGlobal();
+    }
+
+    /**
+     * Old photos that were uploaded by Xhr are named "workgroup/[uuid].jpg" or "photo/[uuid].jpg" and are in the
+     * /images/workgroup directory. New ones that were uploaded with the REST API already contain the full path when
+     * stored in the database. This function returns a valid path for all photos.
+     *
+     * @param string $photo the group's photo file from the database
+     *
+     * @return string the valid path that can be used in the frontend
+     */
+    private function fixPhotoPath(string $photo): string
+    {
+        return (!empty($photo) && (str_starts_with($photo, 'workgroup') || str_starts_with($photo, 'photo')))
+            ? '/images/' . $photo
+            : $photo;
     }
 }

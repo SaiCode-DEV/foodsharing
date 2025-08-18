@@ -60,6 +60,7 @@ export const SUB_PAGE = Object.freeze({
   APPLICATIONS: 'applications',
   OPTIONS: 'options',
   ACHIEVEMENTS: 'achievements',
+  SETTINGS: 'edit',
 })
 
 export const useRegionStore = defineStore('region', {

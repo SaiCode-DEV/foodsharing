@@ -516,8 +516,6 @@ group:
     add_member: "In das Team aufnehmen"
     admin_mode_on: "Admin-Ansicht aktivieren"
     admin_mode_off: "Zurück zur Standard-Ansicht"
-    old_edit_hint: "Die Mitgliederverwaltung findest du jetzt auf dem Reiter"
-    old_edit_hint_link: "Mitglieder"
     is_verified: "Verifiziert"
     not_verified: "Nicht verifiziert"
     is_home_region: "Stammbezirk"

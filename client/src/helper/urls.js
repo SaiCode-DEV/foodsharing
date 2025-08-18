@@ -108,7 +108,7 @@ const urls = {
   transparency: () => '/content?sub=transparency',
   upload: (uuid) => `/api/uploads/${uuid}`,
 
-  workingGroupEdit: (groupId) => `/groups?sub=edit&id=${groupId}`,
+  workingGroupEdit: (groupId) => `/region?sub=edit&bid=${groupId}`,
   workingGroup: (groupId) => `/region?bid=${groupId}`,
   workshops: () => '/content?sub=workshops',
   urlencode: (url) => encodeURIComponent(`${url}`),
