@@ -38,64 +38,73 @@ registerRoute(
   }),
 )
 
-self.addEventListener('push', async function (event) {
-  const roundCorners = (() => {
-    if (typeof OffscreenCanvas === 'undefined') {
-      return imageUrl => Promise.resolve(imageUrl)
+self.addEventListener('push', (event) => {
+  // Ensure waitUntil is called synchronously – wrap all async work inside
+  event.waitUntil((async () => {
+    if (!self.Notification || self.Notification.permission !== 'granted') return
+    if (!event.data) return
+
+    // Lazy create roundCorners helper once per event
+    const roundCorners = (() => {
+      if (typeof OffscreenCanvas === 'undefined') {
+        return imageUrl => Promise.resolve(imageUrl)
+      }
+      const size = 32
+      const radius = 6
+      const canvas = new OffscreenCanvas(size, size)
+      const ctx = canvas.getContext('2d')
+      ctx.beginPath()
+      ctx.moveTo(radius, 0)
+      ctx.lineTo(size - radius, 0)
+      ctx.quadraticCurveTo(size, 0, size, radius)
+      ctx.lineTo(size, size - radius)
+      ctx.quadraticCurveTo(size, size, size - radius, size)
+      ctx.lineTo(radius, size)
+      ctx.quadraticCurveTo(0, size, 0, size - radius)
+      ctx.lineTo(0, radius)
+      ctx.quadraticCurveTo(0, 0, radius, 0)
+      ctx.closePath()
+      ctx.clip()
+      ctx.save()
+
+      async function fetchImageBitmap (imageUrl) {
+        const response = await fetch(imageUrl)
+        const blob = await response.blob()
+        return await createImageBitmap(blob)
+      }
+
+      return async function (imageUrl) {
+        ctx.restore()
+        const image = await fetchImageBitmap(imageUrl)
+        ctx.drawImage(image, 0, 0, size, size)
+        let blob
+        if (typeof canvas.convertToBlob === 'function') {
+          blob = await canvas.convertToBlob()
+        } else if (typeof canvas.toBlob === 'function') {
+          blob = await new Promise(resolve => canvas.toBlob(resolve))
+          if (!blob) return imageUrl
+        } else {
+          return imageUrl
+        }
+        const fileReader = new FileReader()
+        const loaded = new Promise(resolve => fileReader.addEventListener('load', resolve))
+        fileReader.readAsDataURL(blob)
+        await loaded
+        return fileReader.result
+      }
+    })()
+
+    const data = event.data.json()
+    if (data.options && data.options.icon) {
+      try {
+        data.options.icon = await roundCorners(data.options.icon)
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.warn('Failed to round notification icon', e)
+      }
     }
-    const size = 32
-    const radius = 6
-    const canvas = new OffscreenCanvas(size, size)
-    const ctx = canvas.getContext('2d')
-
-    // Prepare clip path for rounded corners:
-    ctx.beginPath()
-    ctx.moveTo(radius, 0)
-    ctx.lineTo(size - radius, 0)
-    ctx.quadraticCurveTo(size, 0, size, radius)
-    ctx.lineTo(size, size - radius)
-    ctx.quadraticCurveTo(size, size, size - radius, size)
-    ctx.lineTo(radius, size)
-    ctx.quadraticCurveTo(0, size, 0, size - radius)
-    ctx.lineTo(0, radius)
-    ctx.quadraticCurveTo(0, 0, radius, 0)
-    ctx.closePath()
-    ctx.clip()
-    ctx.save()
-
-    async function fetchImageBitmap (imageUrl) {
-      const response = await fetch(imageUrl)
-      const blob = await response.blob()
-      const imageBitmap = await createImageBitmap(blob)
-      return imageBitmap
-    }
-
-    return async function (imageUrl) {
-      ctx.restore()
-      const image = await fetchImageBitmap(imageUrl)
-      ctx.drawImage(image, 0, 0, size, size)
-      const blob = await canvas.toBlob()
-      const fileReader = new FileReader()
-      const loaded = new Promise(resolve => fileReader.addEventListener('load', resolve))
-      fileReader.readAsDataURL(blob)
-      await loaded
-      return fileReader.result
-    }
-  })()
-
-  if (!self.Notification || self.Notification.permission !== 'granted') {
-    return
-  }
-
-  if (!event.data) {
-    return
-  }
-
-  const data = event.data.json()
-  if (data.options.icon) {
-    data.options.icon = await roundCorners(data.options.icon)
-  }
-  event.waitUntil(self.registration.showNotification(data.title, data.options))
+    await self.registration.showNotification(data.title, data.options)
+  })())
 })
 
 self.addEventListener('notificationclick', function (event) {

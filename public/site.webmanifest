@@ -1,6 +1,7 @@
 {
-    "name": "",
-    "short_name": "",
+    "name": "foodsharing",
+    "short_name": "foodsharing",
+    "description": "foodsharing",
     "icons": [
         {
             "src": "/img/favicon/android-chrome-192x192.png",
