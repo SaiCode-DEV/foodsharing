@@ -17,6 +17,7 @@
             @click="badgeItem.link"
           >
             <span
+              v-if="badgeItem.id === 'bananas'"
               class="item mb-4 mr-3"
               :class="{
                 'bananaCount': badgeItem.id === 'bananas',
@@ -24,6 +25,10 @@
               }"
             >
               <span class="value mb-4">{{ badgeItem.value }}</span>
+            </span>
+            <span v-else class="item mb-4 mr-3">
+              <span class="value">{{ badgeItem.value }}</span>
+              <span class="text">{{ badgeItem.text }}</span>
             </span>
           </a>
           <span v-else class="item mb-4 mr-3">
@@ -120,12 +125,16 @@
       :metadata="bananaData"
       @bananas-updated="updateBananas"
     />
+    <BuddiesModal
+      :buddies="buddiesList"
+    />
   </div>
 </template>
 
 <script>
 import { useUserStore, SLEEP_STATUS } from '@/stores/user'
 import BananaModal from '@/components/Modals/Profile/BananaModal.vue'
+import BuddiesModal from './BuddiesModal.vue'
 import { ROLE } from '@/consts'
 import Markdown from '@/components/Markdown/Markdown.vue'
 import { getBananaMetadata } from '@/api/banana'
@@ -153,7 +162,7 @@ const formatNumber = (number, unit) => {
 }
 
 export default {
-  components: { Markdown, BananaModal },
+  components: { Markdown, BananaModal, BuddiesModal },
   props: {
     userId: { type: Number, required: true },
     name: { type: String, required: true },
@@ -198,7 +207,7 @@ export default {
         { id: 'baskets', text: this.$i18n('profile.stats.baskets'), value: this.statistics.basketCount >= 0 ? formatNumber(this.statistics.basketCount) : null },
         { id: 'fetched', text: this.$i18n('profile.stats.fetch_count'), value: this.statistics.fetchCount >= 0 ? formatNumber(this.statistics.fetchCount) + ' x' : null },
         { id: 'saved', text: this.$i18n('profile.stats.weight'), value: this.formatFetchWeight >= 0.00 ? formatNumber(this.formatFetchWeight) + ' ' + this.$i18n('profile.stats.weight_unit') : null },
-        { id: 'buddies', text: this.$i18n('profile.infos.buddies'), value: this.statistics.buddyCount >= 0 ? formatNumber(this.statistics.buddyCount) : null },
+        { id: 'buddies', text: this.$i18n('profile.infos.buddies'), value: this.statistics.buddyCount >= 0 ? formatNumber(this.statistics.buddyCount) : null, link: this.isMe ? this.openBuddiesModal : null },
       ]
     },
     filteredBadges () {
@@ -224,6 +233,10 @@ export default {
       const value = parseFloat(this.statistics.fetchWeight)
       return value.toFixed(0)
     },
+    buddiesList () {
+      // Assuming statistics.buddies is an array of {id, name}
+      return this.statistics.buddies || []
+    },
   },
   async mounted () {
     this.bananaData = await getBananaMetadata(this.userId)
@@ -231,6 +244,9 @@ export default {
   methods: {
     openBananaModal () {
       this.$bvModal.show('BananaModal')
+    },
+    openBuddiesModal () {
+      this.$bvModal.show('BuddiesModal')
     },
     updateBananas (bananaCount, mayGiveBanana) {
       if (this.bananaData) {
@@ -280,6 +296,7 @@ div.customBadge .item .text {
   font-size: 1em;
   display: block;
   margin: 0 0 14px 0;
+  font-weight: normal;
 }
 
 div.customBadge .item a {

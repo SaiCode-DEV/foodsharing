@@ -3054,6 +3054,12 @@ buddy:
   request_sent: "Anfrage versendet."
   request_accepted: "Jetzt kennt ihr euch."
   is_buddy: "Ihr seid Bekannte"
+  my: "Meine Bekannten und Anfragen"
+  confirmed: "Bestätigte Bekanntschaften"
+  none: "Noch keine Bekannten"
+  requests:
+    mine: "Meine Anfragen"
+    other: "Anfragen von anderen"
 
 polls:
   hint: "Das Abstimmungsmodul kann in der überregionalen Arbeitsgruppe „Abstimmungen – Test“ getestet werden."

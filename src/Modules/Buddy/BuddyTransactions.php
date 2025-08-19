@@ -6,6 +6,7 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
+use Foodsharing\Modules\Core\DBConstants\Buddy\BuddyId;
 
 class BuddyTransactions
 {
@@ -80,6 +81,46 @@ class BuddyTransactions
         }
 
         return $buddies ?: [];
+    }
+
+    /**
+     * Returns an object with buddies and buddy requests.
+     *
+     * @return array{
+     *     buddies: array<array{fsId: int, buddyId: int, name: string, photo: string|null, confirmed: int}>,
+     *     requests: array{
+     *         mine: array<array{fsId: int, name: string, photo: string|null, confirmed: int}>,
+     *         other: array<array{fsId: int, buddyId: int, name: string, photo: string|null, confirmed: int}>
+     *     }
+     * }
+     */
+    public function listBuddies(): array
+    {
+        $fsId = $this->session->id();
+        $buddies = $this->buddyGateway->listBuddies($fsId);
+
+        // Get confirmed buddies
+        $myBuddies = array_values(array_filter($buddies, function ($buddy) use ($fsId) {
+            return $buddy['fsId'] === $fsId && $buddy['confirmed'] === BuddyId::BUDDY;
+        }));
+
+        // Get requests where the current user is the one who sent the request
+        $myRequests = array_values(array_filter($buddies, function ($buddy) use ($fsId) {
+            return $buddy['fsId'] === $fsId && $buddy['confirmed'] === BuddyId::REQUESTED;
+        }));
+
+        // Get requests where the current user is the one who received the request
+        $otherRequests = array_values(array_filter($buddies, function ($buddy) use ($fsId) {
+            return $buddy['buddyId'] === $fsId && $buddy['confirmed'] === BuddyId::REQUESTED;
+        }));
+
+        return [
+            'buddies' => $myBuddies,
+            'requests' => [
+                'mine' => $myRequests,
+                'other' => $otherRequests,
+            ],
+        ];
     }
 
     private function reloadMyBuddyListSessionCache()

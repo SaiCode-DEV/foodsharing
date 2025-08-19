@@ -40,6 +40,7 @@
         v-if="profileMenu.fsId !== profileMenu.fsIdSession && buddyType === buddyTypes.NO_BUDDY"
         type="button"
         class="list-group-item list-group-item-action"
+        :data-testid="'buddy-request-' + profileMenu.fsId"
         :disabled="loading"
         @click="sendBuddyRequest(profileMenu.fsId)"
       >

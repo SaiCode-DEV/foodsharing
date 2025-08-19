@@ -64,4 +64,20 @@ class BuddyRestController extends AbstractFoodsharingRestController
 
         return $this->respondOK();
     }
+
+    #[OA\Get(summary: 'Returns a list of all buddies with id, name, and photo.')]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new OA\JsonContent(type: 'array', items: new OA\Items(properties: [
+        new OA\Property(property: 'id', type: 'integer'),
+        new OA\Property(property: 'name', type: 'string'),
+        new OA\Property(property: 'photo', type: 'string', nullable: true),
+        new OA\Property(property: 'confirmed', type: 'boolean', description: 'Whether the buddy is confirmed or not'),
+    ])))]
+    #[Rest\Get('buddy/list')]
+    public function listBuddies(): Response
+    {
+        $this->assertLoggedIn();
+        $buddies = $this->buddyTransactions->listBuddies();
+
+        return $this->respondOK($buddies);
+    }
 }
