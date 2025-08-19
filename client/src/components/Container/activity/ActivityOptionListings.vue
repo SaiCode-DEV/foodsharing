@@ -32,6 +32,12 @@
             >
             {{ item.name }}
           </label>
+          <a
+            :href="getActivityLink(listing.index, item.id)"
+            target="_blank"
+          >
+            <i class="fas fa-external-link-alt" />
+          </a>
         </div>
         <label
           v-if="listing.items.length === 0"
@@ -73,6 +79,18 @@ export default {
       return this.updates.filter(
         a => this.displayedTypes.indexOf(a.type) !== -1,
       )
+    },
+    getActivityLink () {
+      return (index, itemId) => {
+        if (index === 'bezirk') {
+          return this.$url('publicRegion', itemId)
+        } else if (index === 'mailbox') {
+          return this.$url('mailbox', itemId)
+        } else if (index === 'buddywall') {
+          return this.$url('profile', itemId)
+        }
+        return '#'
+      }
     },
   },
   async created () {
