@@ -1086,6 +1086,8 @@ store:
 # --
   willgetcontacted: "Du bist momentan auf der Springerliste. Sobald Hilfe benötigt wird, wirst du kontaktiert."
   not_verified: "Du bist unverifiziert. Daher kannst du noch keine Slots und keine Telefonnummern von Teammitgliedern sehen."
+  passport_expired: "Dein Ausweis ist abgelaufen. Wende dich an deine Botschafter:innen, um ihn erneuern zu lassen. Du kannst dich daher nicht mehr hier eintragen."
+  passport_expires_soon: "Dein Ausweis ist noch {days} Tage gültig! Wende dich an deine Botschafter:innen, um ihn erneuern zu lassen. Nach Ablauf kannst du dich nicht mehr hier eintragen."
   team:
     is_closed: "Team ist geschlossen"
     search_input: "Suche nach Name / Telefonnummer"
@@ -2168,6 +2170,7 @@ settings:
     success: "Dein Passwort wurde erfolgreich geändert"
   passport:
     menu: "Ausweis"
+    renew: "Ausweis verlängern"
     verified_text: "Dieser Ausweis ist für den Einsatz auf dem Smartphone gedacht. Dort kannst du ihn dir abspeichern und dann bei Verlangen vorzeigen. Solltest du kein Smartphone besitzen oder aus einem anderen Grund noch einen herkömmlichen Ausweis benötigen, wende dich an deine Botschafter:innen vor Ort."
     non_verified_text: "Du bist noch nicht verifiziert. Nur verifizierten Foodsaver:innen steht das Herunterladen des Ausweises zur Verfügung."
     passport_not_activated: "Dein Ausweis wurde noch nicht aktiviert."

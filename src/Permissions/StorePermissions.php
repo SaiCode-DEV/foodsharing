@@ -11,6 +11,7 @@ use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
+use Foodsharing\Modules\PassportGenerator\PassportGeneratorTransaction;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Modules\Store\StoreManagerAmount;
@@ -39,6 +40,7 @@ class StorePermissions
         private readonly RegionGateway $regionGateway,
         private readonly CurrentUserUnitsInterface $currentUserUnits,
         private readonly AchievementGateway $achievementGateway,
+        private readonly PassportGeneratorTransaction $passportGeneratorTransaction
     ) {
     }
 
@@ -322,6 +324,11 @@ class StorePermissions
             $this->storeGateway->getStoreRequiresHygiene($storeId) &&
             !$this->achievementGateway->hasAchievement($this->session->id(), AchievementIDs::HYGIENE_CERTIFICATE, $time)
         ) {
+            return false;
+        }
+
+        // Check if passValidityDate is set and if the date is in the future
+        if (!$this->passportGeneratorTransaction->isPassportValidForUser($this->session->id())) {
             return false;
         }
 

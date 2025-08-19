@@ -328,6 +328,7 @@ class Foodsharing extends Db
             'verified' => 1,
             'rolle' => 1,
             'quiz_rolle' => 1,
+            'last_pass' => Carbon::now()->subYears(1)->toDateTimeString()
         ], $extra_params);
         $params = $this->createFoodsharer($pass, $params);
         $this->createQuizTry($params['id'], 1, 1);

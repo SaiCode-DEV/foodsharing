@@ -5,6 +5,38 @@
       :tag="`store-pickup-list-${storeId}`"
       wrap-content="p-0"
     >
+      <div
+        v-if="userStore.isPassportInvalid"
+        class="alert alert-danger m-1"
+        role="alert"
+      >
+        <i class="fas fa-triangle-exclamation" />
+        <i class="fas fa-id-card mr-2" />
+        {{ $i18n('store.passport_expired') }}
+        <br>
+        <a
+          :href="$url('settingsPassport')"
+          class="alert-link mt-1"
+        >
+          {{ $i18n('error.passport_is_invalid.link') }}
+        </a>
+      </div>
+      <div
+        v-else-if="userStore.isPassportInvalidSoon"
+        class="alert alert-warning m-1"
+        role="alert"
+      >
+        <i class="fas fa-triangle-exclamation" />
+        <i class="fas fa-id-card mr-2" />
+        {{ $i18n('store.passport_expires_soon', { days: userStore.details.lastPassUntilValidInDays }) }}
+        <br>
+        <a
+          :href="$url('settingsPassport')"
+          class="alert-link mt-1"
+        >
+          {{ $i18n('error.passport_is_invalid_soon.link') }}
+        </a>
+      </div>
       <div class="text-right mt-2 pr-2">
         <button
           v-if="(isCoordinator || mayEditStore)"
@@ -43,6 +75,7 @@
             :is-coordinator="isCoordinator"
             :user="user"
             :description="pickup.description"
+            :disabled="userStore.isPassportInvalid"
             class="pickup-block"
             @leave="leave"
             @kick="kick"

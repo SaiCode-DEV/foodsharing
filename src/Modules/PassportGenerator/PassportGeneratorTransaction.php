@@ -396,4 +396,24 @@ class PassportGeneratorTransaction
 
         return $result;
     }
+
+    /**
+     * Checks if the user's passport is still valid.
+     *
+     * Retrieves the last passport date for the given user ID and determines
+     * if the passport is still valid based on that date.
+     *
+     * @param int $userId the ID of the user whose passport validity is being checked
+     * @return bool true if the passport is still valid, false otherwise
+     */
+    public function isPassportValidForUser(int $userId): bool
+    {
+        $lastPassDate = $this->passportGeneratorGateway->getFoodsaverLastPassDate($userId);
+
+        if (empty($lastPassDate)) {
+            return false;
+        }
+
+        return $this->isPassportValid($lastPassDate);
+    }
 }

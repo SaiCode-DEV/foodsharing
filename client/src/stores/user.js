@@ -58,7 +58,7 @@ export const useUserStore = defineStore('user', {
     // TODO: this can be removed as soon as login without activation is not possible anymore
     hasActiveEmail: (state) => state.details?.hasActiveEmail ?? true,
     isPassportInvalid: (state) => {
-      return state.details?.lastPassUntilValid ? (state.details.lastPassUntilValidInDays <= PASSPORT_STATUS.INVALID) : false
+      return state.details?.lastPassUntilValid ? (state.details.lastPassUntilValidInDays <= PASSPORT_STATUS.INVALID) : true
     },
     isPassportInvalidSoon: (state) => {
       return state.details?.lastPassUntilValid ? (state.details.lastPassUntilValidInDays <= PASSPORT_STATUS.INVALID_SOON_WARNING_TIME) : false

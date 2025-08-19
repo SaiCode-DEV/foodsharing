@@ -690,7 +690,7 @@ export default {
       return validUntil
     },
     isPassportValid (creationDate) {
-      if (creationDate === null) { return true }
+      if (creationDate === null) { return false }
       const today = new Date()
       const validUntil = this.passportValidUntilDate(creationDate)
       return today <= validUntil

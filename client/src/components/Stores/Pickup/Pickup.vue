@@ -63,14 +63,14 @@
           <EmptySlot
             v-for="n in emptySlots"
             :key="n"
-            :allow-join="!isUserParticipant && isAvailable && n == 1"
+            :allow-join="!isUserParticipant && isAvailable && n == 1 && !disabled"
             :allow-remove="(isCoordinator || mayEditStore) && n == emptySlots && !isInPast"
             @join="$refs.modal_join.show(); fetchSameDayAgenda(); checkPickupRule()"
             @remove="$emit('remove-slot', date)"
           />
           <div class="add-pickup-slot">
             <button
-              v-if="(isCoordinator || mayEditStore) && totalSlots < maxCountPickupSlot && !isInPast"
+              v-if="(isCoordinator || mayEditStore) && totalSlots < maxCountPickupSlot && !isInPast && !disabled"
               v-b-tooltip.hover="$i18n('pickup.slot_add')"
               class="btn secondary"
               @click="$emit('add-slot', date)"
@@ -278,6 +278,7 @@ export default {
     isCoordinator: { type: Boolean, default: false },
     user: { type: Object, default: () => { return { id: null } } },
     description: { type: String, default: () => { return null } },
+    disabled: { type: Boolean, default: true },
   },
   setup () {
     return {

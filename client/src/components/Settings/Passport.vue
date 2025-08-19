@@ -29,7 +29,7 @@
     <!-- Alert for activated passport (either valid or invalid) -->
     <b-alert
       v-else
-      :variant="userStore.isPassportInvalidSoon ? 'danger' : 'info'"
+      :variant="userStore.isPassportInvalid ? 'danger' : userStore.isPassportInvalidSoon ? 'warning' : 'info'"
       show
     >
       <Markdown

@@ -95,6 +95,7 @@ const urls = {
   settingsCalendar: () => '/user/current/settings?sub=calendar',
   settingsHygiene: () => '/user/current/settings?sub=hygiene',
   settingsChangeEmail: () => '/user/current/settings?sub=changeEmail',
+  settingsPassport: () => '/user/current/settings?sub=passport',
   settingsDeleteAccount: () => '/user/current/deleteaccount',
   statistics: () => '/statistik',
   store: (storeId) => `/store/${storeId}`,

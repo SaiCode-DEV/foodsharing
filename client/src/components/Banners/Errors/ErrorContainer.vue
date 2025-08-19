@@ -124,7 +124,7 @@ export default {
           field: 'passport_is_invalid',
           links: [{
             text: 'error.passport_is_invalid.link',
-            urlShorthand: 'settings',
+            urlShorthand: 'settingsPassport',
           },
           ],
         })
@@ -133,7 +133,7 @@ export default {
           field: 'passport_is_invalid_soon',
           links: [{
             text: 'error.passport_is_invalid_soon.link',
-            urlShorthand: 'settings',
+            urlShorthand: 'settingsPassport',
           },
           ],
         })

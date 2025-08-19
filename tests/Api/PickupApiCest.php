@@ -12,13 +12,13 @@ use Tests\Support\ApiTester;
 class PickupApiCest
 {
     private $user;
+    private $storeCoordinator;
     private $store;
     private $store2;
     private $store3;
+    private $store4;
     private $region;
     private $waiter;
-    private $storeCoordinator;
-    private $store4;
 
     public function _before(ApiTester $I): void
     {
@@ -486,6 +486,25 @@ class PickupApiCest
         $I->canSeeResponseContainsJson([
             'result' => true
         ]);
+    }
+
+    public function cannotJoinPickupExpiredPassport(ApiTester $I): void
+    {
+        $pickupBaseDate = Carbon::now()->add('2 days');
+        $pickupBaseDate->hours(14)->minutes(45)->seconds(0);
+        $I->addPickup($this->store['id'], ['time' => $pickupBaseDate, 'fetchercount' => 2]);
+
+        // Set expired passport
+        $I->updateInDatabase('fs_foodsaver', [
+            'last_pass' => Carbon::now()->subYears(5)->toDateTimeString()
+        ], [
+            'id' => $this->user['id']
+        ]);
+
+        $I->login($this->user['email']);
+        $I->sendPost('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toIso8601String() . '/' . $this->user['id']);
+        $I->seeResponseIsJson();
+        $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
     }
 
     public function listSameDayAgenda(ApiTester $I)
