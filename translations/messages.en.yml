@@ -468,6 +468,7 @@ settings:
     passport_is_invalid: Your membership card is no longer valid.
     passport_is_valid_until: Your membership card is valid for another 
       **{days}** days or until **{date}**.
+    renew: Renew membership card
   delete_profile: Delete profile
   quiz:
     2: Quiz for store managers
@@ -1114,6 +1115,9 @@ forum:
       subscribe: Subscribe
     bottom: reduced visibility
     all_hidden: All posts in this thread have been hidden.
+    post_not_found: The linked post could not be found; it may have been 
+      deleted. The post immediately following the linked message was selected 
+      instead.
   post:
     delete: Delete post
     body: Message
@@ -1276,7 +1280,7 @@ pickup:
   really_kick_user_info: "Do you really want to unsubscribe {name} from the pick-up
     on {date}?\n{name} will receive the following message about this:\n"
   same_day_entry: '[{when}] {name}'
-  same_day_hint: 'On the {day} you have signed into the following pick-ups:'
+  same_day_hint: 'The following will take place on the same day:'
   overview:
     header: Pick-ups
     tab:
@@ -1852,6 +1856,12 @@ buddy:
       pinboards will then no longer be displayed on the other person’s 
       dashboard.
     confirm_title: End your acquaintance with {name}?
+  my: My buddies and requests
+  confirmed: Confirmed buddies
+  none: No acquaintances yet
+  requests:
+    mine: My requests
+    other: Requests from others
 email_template:
   help_needed:
     support_mail: support@foodsharing.network
@@ -2783,6 +2793,12 @@ store:
       team. You can withdraw these invitations at any time.
   invited: Invited
   invitations: Open invitations ({count})
+  passport_expired: Your membership card has expired. Therefore, you cannot 
+    register here at the moment. Please contact your ambassadors to renew your 
+    card.
+  passport_expires_soon: Your membership card is only valid for another {days} 
+    days! Contact your ambassadors to renew it. After it expires, you will no 
+    longer be able to register here.
 navi:
   google_maps: "Google Maps"
   waze: "Waze"
