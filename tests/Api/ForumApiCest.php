@@ -847,6 +847,8 @@ class ForumApiCest
         $I->login($this->ambassador['email']);
         $I->sendDELETE('api/forum/thread/' . $inactiveThread['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
+
+        $I->dontSeeInDatabase('fs_theme', ['id' => $inactiveThread['id']]);
     }
 
     /**
@@ -907,5 +909,107 @@ class ForumApiCest
             'body' => $this->faker->text(100)
         ]);
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
+    }
+
+    final public function checkNotificationForThreadCreatedButNotActivated(ApiTester $I): void
+    {
+        $moderatedRegion = $I->createRegion('ModeratedRegion', ['moderated' => true]);
+        $I->addRegionMember($moderatedRegion['id'], $this->user['id']);
+        $I->addRegionAdmin($moderatedRegion['id'], $this->ambassador['id']);
+        $I->login($this->user['email']);
+        $title = $this->faker->text(16);
+        $I->sendPost('api/forum/' . $moderatedRegion['id'] . '/0', [
+            'title' => $title,
+            'body' => $this->faker->text(100),
+            'sendMail' => false
+        ]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        $I->seeInDatabase('fs_theme', ['foodsaver_id' => $this->user['id'], 'name' => $title, 'active' => 0]);
+
+        $I->expectNumMails(1, 20);
+        $mail = $I->getMails();
+        $I->assertStringContainsString($this->ambassador['email'], $mail[0]->headers->to);
+        $I->assertStringContainsString($title, $mail[0]->subject);
+
+        $I->login($this->ambassador['email']);
+        $I->sendGET('api/bells');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $bells = json_decode($I->grabResponse(), true);
+        $I->assertCount(1, $bells);
+        $I->assertEquals('forum_not_activated_thread', $bells[0]['key']);
+    }
+
+    final public function checkNotificationForThreadCreatedButActivated(ApiTester $I): void
+    {
+        $moderatedRegion = $I->createRegion('ModeratedRegion', ['moderated' => true]);
+        $I->addRegionMember($moderatedRegion['id'], $this->user['id']);
+        $I->addRegionAdmin($moderatedRegion['id'], $this->ambassador['id']);
+        $I->login($this->user['email']);
+        $title = $this->faker->text(16);
+        $I->sendPost('api/forum/' . $moderatedRegion['id'] . '/0', [
+            'title' => $title,
+            'body' => $this->faker->text(100),
+            'sendMail' => false
+        ]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $respo = json_decode($I->grabResponse(), true);
+        $threadId = $respo['data']['id'];
+
+        $I->login($this->ambassador['email']);
+        $I->sendGET('api/bells');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $bells = json_decode($I->grabResponse(), true);
+        $I->assertCount(1, $bells);
+        $I->assertEquals('forum_not_activated_thread', $bells[0]['key']);
+
+        $I->login($this->ambassador['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/forum/thread/' . $threadId, ['isActive' => true]);
+
+        $I->seeInDatabase('fs_theme', ['foodsaver_id' => $this->user['id'], 'name' => $title, 'active' => 1]);
+
+        $I->login($this->ambassador['email']);
+        $I->sendGET('api/bells');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $bells = json_decode($I->grabResponse(), true);
+        $I->assertCount(0, $bells);
+
+        // Actual no E-Mail or Bell notification is generated for the activated
+    }
+
+    final public function checkNotificationForThreadCreatedButIsActiveValueBehavior(ApiTester $I): void
+    {
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $moderatedRegion = $I->createRegion('ModeratedRegion', ['moderated' => true]);
+        $I->addRegionMember($moderatedRegion['id'], $this->user['id']);
+        $I->addRegionAdmin($moderatedRegion['id'], $this->ambassador['id']);
+        $I->login($this->user['email']);
+        $title = $this->faker->text(16);
+        $I->sendPost('api/forum/' . $moderatedRegion['id'] . '/0', [
+            'title' => $title,
+            'body' => $this->faker->text(100),
+            'sendMail' => false
+        ]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $respo = json_decode($I->grabResponse(), true);
+        $threadId = $respo['data']['id'];
+
+        $I->login($this->ambassador['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/forum/thread/' . $threadId, ['isActive' => false]);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/forum/thread/' . $threadId, ['isActive' => 'aaa']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/forum/thread/' . $threadId, ['isActive' => 1]);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/forum/thread/' . $threadId, []);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/forum/thread/' . $threadId, ['isActive' => null]);
+        $I->seeInDatabase('fs_theme', ['foodsaver_id' => $this->user['id'], 'name' => $title, 'active' => 0]);
+
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/forum/thread/' . $threadId, ['isActive' => true]);
+        $I->seeInDatabase('fs_theme', ['foodsaver_id' => $this->user['id'], 'name' => $title, 'active' => 1]);
     }
 }
