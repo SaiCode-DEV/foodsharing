@@ -64,6 +64,12 @@ quiz:
   results:
     title:
       1: Gefeliciteerd!
+  answers:
+    short:
+      0: onjuist
+      1: juist
+      2: neutrale
+  timelimit: tijdslimiet
 group:
   photo: Foto
   description: Beschrijving
@@ -212,7 +218,7 @@ group:
   image: ''
   application_from: ''
   subtitle: ''
-  userId: ''
+  userId: 'ID'
   admin_count: ''
   motivation: ''
   application_region: ''
@@ -1825,6 +1831,7 @@ bcard:
   desc: ''
   card: ''
   title: ''
+  region: regio
 legal:
   acknowledge: ''
   dont_agree: ''
@@ -2633,7 +2640,7 @@ wall:
   placeholder: 'Schrijf nieuwe pinmuur binnen …'
 contentmanagement: ''
 filter_by: ''
-image: ''
+image: 'beeld'
 picture_upload_widget:
   picture_upload: ''
   choose_picture: ''
@@ -2688,10 +2695,10 @@ upload:
   new_file: ''
   crop_dialog_title: ''
 button:
-  save: ''
+  save: 'Opslaan'
   answer: ''
   upload: ''
-  new: ''
+  new: 'Nieuw'
   clear_filter: ''
   next: ''
   rotate_right: ''
@@ -2705,6 +2712,7 @@ button:
   yes_i_am_sure: ''
   permadelete: ''
   send: ''
+  ok: OK
 language_chooser:
   choose_button: ''
   title: ''
@@ -2782,11 +2790,11 @@ store_status_impact_explanation: ''
 first_post: 'Eerste pinmuur binnen'
 apply_type: 'Wie kan zich registreren voor deze groep?'
 week_num: ''
-text: ''
+text: 'Tekst'
 fp: ''
 fpsingular: ''
 nofp: ''
-explanation: ''
+explanation: 'Uitleg'
 answers: ''
 maxfp: ''
 questcount: ''
