@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generating Assets</title>
+    <link rel="stylesheet" type="text/css" href="/css/pure/pure-min.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <style>
+        :root {
+            color-scheme: light dark;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #fff;
+            color: #000;
+        }
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #1c1c1c;
+                color: #f1f1f1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" style="text-align: center; padding-top: 50px;">
+        <h1>Generating assets ...</h1>
+        <p>Please wait a moment, this page will reload automatically.</p>
+        <p><img src="/img/loading/spinning-banana.gif" alt="loading"></p>
+    </div>
+    <script>
+        setTimeout(function() {
+            window.location.reload();
+        }, 3000);
+    </script>
+</body>
+</html>

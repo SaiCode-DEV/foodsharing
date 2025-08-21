@@ -16,6 +16,11 @@ class WebpackHelper
     public function prepareWebpackAssets(string $moduleName): void
     {
         $webpackModules = $this->projectDir . '/assets/modules.json';
+        if (!is_file($webpackModules)) {
+            $this->pageHelper->render('pages/webpack_generating.twig');
+
+            return;
+        }
         $manifest = json_decode(file_get_contents($webpackModules), true);
         $entry = 'Modules/' . $moduleName;
         if (isset($manifest[$entry])) {

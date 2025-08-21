@@ -69,6 +69,12 @@ final class PageHelper
     ) {
     }
 
+    public function render(string $template, array $context = []): void
+    {
+        echo $this->twig->render($template, $context);
+        exit;
+    }
+
     public function generateAndGetGlobalViewData(): array
     {
         $this->addMessages();
