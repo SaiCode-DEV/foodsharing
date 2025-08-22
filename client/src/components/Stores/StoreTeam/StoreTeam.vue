@@ -38,6 +38,7 @@
               :time="user.lastPickup ?? user.joinDate"
               :muted="false"
               :date-only="true"
+              :icon="user.lastPickup ? 'fa-solid fa-fw fa-shopping-cart' : 'fa-solid fa-fw fa-user-plus'"
             /><br>
           </div>
           <PhoneButton

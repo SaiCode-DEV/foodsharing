@@ -471,6 +471,7 @@ class Foodsharing extends Db
                 'foodsaver_id' => $fs_id,
                 'active' => $is_confirmed ? ($is_waiting ? STATUS::JUMPER : STATUS::MEMBER) : STATUS::APPLIED_FOR_TEAM,
                 'verantwortlich' => $is_coordinator ? 1 : 0,
+                'stat_add_date' => $this->faker->dateTimeThisCentury()->format('Y-m-d H:i:s'),
             ];
 
             $conditions = [

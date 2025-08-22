@@ -5,7 +5,10 @@
     class="time"
     :class="{ 'text-muted': muted, small: !normalSize }"
   >
-    <i v-if="showIcon" class="far fa-fw fa-clock" />
+    <i
+      v-if="showIcon"
+      :class="icon"
+    />
     <span v-if="time" v-text="pickupTimeFormatter" />
     <span v-else v-text="fallback" />
   </span>
@@ -20,6 +23,7 @@ const props = defineProps({
   plain: { type: Boolean, default: false },
   time: { type: [Date, String, Number], default: null },
   showIcon: { type: Boolean, default: function () { return !this.plain } },
+  icon: { type: String, default: 'fa-clock' },
   normalSize: { type: Boolean, default: function () { return this.plain } },
   muted: { type: Boolean, default: function () { return !this.plain } },
   dateOnly: { type: Boolean, default: false },
