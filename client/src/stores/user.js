@@ -19,6 +19,7 @@ export const useUserStore = defineStore('user', {
     fetching: {},
   }),
   getters: {
+    isLoadingFinished: (state) => Object.keys(state.details).length > 0,
     isSleeping: (state) => state.details?.isSleeping,
     isVerified: (state) => state.details?.isVerified,
     isFoodsaver: (state) => state.user?.isFoodsaver,
@@ -58,6 +59,7 @@ export const useUserStore = defineStore('user', {
     // TODO: this can be removed as soon as login without activation is not possible anymore
     hasActiveEmail: (state) => state.details?.hasActiveEmail ?? true,
     isPassportInvalid: (state) => {
+      if (!state.isLoadingFinished) return null
       return state.details?.lastPassUntilValid ? (state.details.lastPassUntilValidInDays <= PASSPORT_STATUS.INVALID) : true
     },
     isPassportInvalidSoon: (state) => {
