@@ -804,20 +804,20 @@ date:
   -- Yesterday: ''
 login:
   pwreset:
-    error: ''
-    expired: ''
+    error: 'Desculpe, há um problema com os teus dados.'
+    expired: 'Desculpe, esperou um pouco demais. Por favor, requeira uma nova palavra-passe.'
     wrongMail: 'Infelizmente não encontramos este endereço de e-mail. Tenta novamente.'
     tooShort: 'A palavra-passe escolhida é demasiado curta.'
     success: 'A tua palavra-passe foi alterada com sucesso. Já podes entrar.'
-    bread: ''
-    mismatch: ''
-    mailSent: ''
-  form_title: ''
+    bread: 'Redefinir palavra-passe'
+    mismatch: 'Desculpe, as palavras-passe não correspondem.'
+    mailSent: 'Tudo bem, foi-te mandado um link por e-mail para alterar a palavra-passe.'
+  form_title: 'Bem-vindo de volta'
   steady_login: 'Ficar conectado'
   forgotten_password_label: 'Esqueceu a password?'
   error_no_auth: 'Infelizmente não encontramos este endereço de e-mail ou palavra-passe.
     Tenta novamente.'
-  submit_btn: ''
+  submit_btn: 'Entrar'
   login_button_label: 'Entrar'
   password: 'palavra-passe'
   email_address: 'Endereço de email'
@@ -825,7 +825,7 @@ login:
   success: ''
   save_password: 'Guardar a palavra-passe'
   error_no_email: 'Digite o seu endereço de e-mail.'
-  topbar: ''
+  topbar: 'Fazer login'
   error_no_password: 'Digite a sua palavra-passe.'
 profile:
   alldatesdeleted: ''
@@ -2229,88 +2229,99 @@ settings:
   header: ''
   account: ''
 terminology:
-  reportAdmins: ''
+  reportAdmins: 'Equipa de processamento de notificações'
   storemanager:
-    m: ''
-    d: ''
-    f: ''
+    m: 'Responsável pela empresa'
+    d: 'Responsável pela empresa'
+    f: 'Responsável pela empresa'
   ambassador:
-    m: ''
-    d: ''
-    f: ''
+    m: 'Embasador'
+    d: 'Embasador/a'
+    f: 'Embasadora'
   ambassadors: 'Embaixadores/as'
   mediationAdmins: 'Equipe de mediação'
   ambassador_forum: 'Forum de embaixadores/as'
   role:
-    "4": ''
-    "2": ''
-    "1": ''
-    "0": ''
+    "4": 'Administrador(a) global'
+    "2": 'Responsavel de empresa'
+    "1": 'Salvador/a dos alimentos'
+    "0": 'partilhador(a) dos alimentos'
     "3": 'Embaixador/a'
   statistic: 'Estatísticas'
-  n_foodsaver: ''
+  n_foodsaver: '{count} salvadores dos alimentos'
   admins: 'Administradores/as'
-  baskets: ''
+  baskets: 'Cestos de comida'
   foodsharer:
-    f: ''
-    m: ''
-    d: ''
+    f: 'Compartilhadora dos alimentos'
+    m: 'Compartilhador dos alimentos'
+    d: 'Compartilhador/a dos alimentos'
   arbitration: ''
-  no_pickups: ''
+  no_pickups: 'nenhum'
   homeRegion: 'Distrito de origem'
   prAdmins: 'Equipe de relações públicas'
-  mailboxes: ''
+  mailboxes: 'Caixas de correio eletrónico'
   polls: 'Votações'
   profile_picture: 'Foto do perfil'
-  n_sleeping: ''
+  n_sleeping: '{count} gorros de dormir'
   votingAdmins: 'Equipe de votação'
   foodsaver:
-    d: ''
-    f: ''
-    m: ''
+    d: 'Salvador/a dos alimentos'
+    f: 'Salvadora dos alimentos'
+    m: 'Salvador dos alimentos'
   regions: 'Distritos'
-  previous_pickups: ''
+  previous_pickups: 'Recolha aqui'
   orga:
-    d: ''
-    f: ''
-    m: ''
+    d: 'Administrador(a) global'
+    f: 'Administradora global'
+    m: 'Administrador global'
   n_cooperating_stores: '{count} cooperações em curso'
   options: 'Opções'
-  stores: ''
+  stores: 'Empresas'
   buddies: 'Conhecidos:as'
-  wall: ''
+  wall: 'painel de avisos'
   fsps: 'Cantinho solidário'
   fsp: 'Cantinho solidário'
   fsManagementAdmins: 'Administração'
   forum: 'Fórum'
   message: 'Mensagem'
-  boardAdmins: ''
+  boardAdmins: 'conselho administrativo'
   fspAdmins: 'Equipa de cantinho solidário'
   events: 'Datas'
-  group: ''
-  welcomeAdmins: ''
-  reports: ''
-  groups: ''
+  group: 'Grupo de trabalho'
+  welcomeAdmins: 'Equipa de boas-vindas'
+  reports:
+    report: Vista da notificação (LMG)
+    arbitration: Vista da notificação (LS)
+    orga: Vista da notificação (administrador global)
+  groups: 'Grupos de trabalho'
   moderationAdmins: 'Equipe de moderação'
-  settings: ''
-  community: ''
+  settings: 'Configurações'
+  community: 'Grupo local de {name}'
   pin: ''
-  n_home_regions: ''
+  n_home_regions: '{count} com distrito principal'
   homepage: 'Página inicial'
   arbitrationAdmins: 'Comissão de arbitragem'
   storesAdmins: 'Equipe de coordenação de empresas'
-  n_ambassadors: ''
+  n_ambassadors: '{count} embassadors'
   n_stores: '{count} empresas'
-  subgroups: ''
+  subgroups: 'Subgrupos'
   threads: 'Assuntos'
-  store: ''
-  basket: ''
+  store: 'Empresa'
+  basket: 'Cesto de comida'
   region: 'Distrito'
   no: Não
   yes: Sim
   electionAdmins: Eleições
   phone: Número
   hygiene_training: Formação de higiene
+  pickup: Recolha
+  users: utilizadores
+  achievement: Etiquetas
+  achievements: Etiquetas
+  landline: Número de telefone fixo
+  mobile_phone: Número de telemóvel
+  received: recebido
+  sent: Enviado
 timepicker:
   labelCloseButton: ''
   labelMinutes: ''
@@ -2341,62 +2352,73 @@ polls:
   future: ''
   title: ''
 register:
-  confirmPassword_sameAsPassword: ''
-  phone_example: ''
-  signup_newsletter: ''
-  email_invalid: ''
-  geb_datum: ''
-  login_passwd2: ''
-  mail_hint: ''
-  login_phone_info: ''
-  forgotten_password: ''
-  change-password: ''
-  title: ''
-  next: ''
-  have_read_the_legal_stuff1: ''
-  confirmPassword_required: ''
-  phone_not_valid: ''
-  account-exists: ''
+  confirmPassword_sameAsPassword: 'Ambas as palavras-passe tenho concordar'
+  phone_example: 'Exemplo: +351 612 34 56 78'
+  signup_newsletter: 'Gostaria de receber a newsletter do foodsharing aproximadamente
+    uma vez por mês'
+  email_invalid: 'O endereço de e-mail é inválido ou já está a ser utilizado'
+  geb_datum: 'A tua dato dos anos'
+  login_passwd2: 'Repetição da palavra-passe'
+  mail_hint: 'Importante: Preste atenção à grafia correta!'
+  login_phone_info: 'É Pode ser útil partilhar o teu número de telefone com outros
+    Foodsharers'
+  forgotten_password: 'Esqueceu a tua palavra-passe?'
+  change-password: 'Agora podes alterar o teu palavra-passe.'
+  title: 'Registo'
+  next: 'adiante'
+  have_read_the_legal_stuff1: 'Li e aceito a'
+  confirmPassword_required: 'Por favor repetir a palavra-passe para confirmar'
+  phone_not_valid: 'O número de telefone introduzido não é válido'
+  account-exists: 'Já estás registado. Por favor, sai da tua conta se quiseres registar-te
+    novamente.'
   error_email_invalid: 'Este endereço de e-mail não pode ser usado'
-  landline_example: ''
+  landline_example: 'Exemplo: +351 812 34 56 78'
   error_birthdate: 'Exemplo 25.03.2001 (DD.MM.JJJJJ). Por razões de proteção de dados
     e responsabilidade, tens que ter pelo menos 18 anos de idade para juntar-te a
     foodsharing.'
-  login_name: ''
-  activation_failed: ''
+  login_name: 'O teu primeiro nome'
+  activation_failed: '<strong>A ativação falha</strong> O link introduzido está correto?'
   lastname_minLength: 'O apelido deve consistir em pelo menos dois caracteres'
-  finish: ''
-  topbar: ''
-  join_success_message: ''
-  email_required: ''
-  other: ''
-  have_read_the_legal_stuff2: ''
-  error: ''
-  password_required: ''
-  password_minLength: ''
-  login_passwd1: ''
-  join_error: ''
-  woman: ''
+  finish: 'Enviar inscrição'
+  topbar: 'Participar'
+  join_success_message: 'O processo de registo no foodsharing foi completado com sucesso.
+    Agora pode fazer o login com o teu e-mail e palavra-passe.'
+  email_required: 'É precissário um endereço de e-mail'
+  other: 'diverso'
+  have_read_the_legal_stuff2: 'aqui'
+  error: 'É ocorreu um erro'
+  password_required: 'É precisária uma palavra-passe'
+  password_minLength: 'A palavra-passe deve ter no mínimo oito caracteres'
+  login_passwd1: 'Palavra-passe ( mínimo de 8 caracteres)'
+  join_error: 'O teu registo foi realizado com sucesso.'
+  woman: 'feminino'
   check_mail: 'Olha para a tua caixa de correio de e-mail agora para completar o registro!'
-  register_button_label: ''
-  firstname_required: ''
-  join_success: ''
-  login_location: ''
-  firstname_minLength: ''
-  prev: ''
-  select_your_gender: ''
-  requiredFields: ''
-  man: ''
-  lastname_required: ''
-  login_surname: ''
+  register_button_label: 'Registrar'
+  firstname_required: 'Por favor, insira o teu primeiro nome'
+  join_success: 'O teu registo foi bem-sucedido.'
+  login_location: 'O teu endereço'
+  firstname_minLength: 'O primeiro nome deve ter no mínimo dois caracteres'
+  prev: 'para trás'
+  select_your_gender: 'Para o saluto …'
+  requiredFields: 'Entrada obrigatória'
+  man: 'masculino'
+  lastname_required: 'Por favor, insira o teu sobrenome'
+  login_surname: 'O teu sobrenome'
   login_mobile_phone: ''
-  pass1: ''
-  pass2: ''
-  birthdate_hint: ''
-  set-password: ''
-  login_email: ''
-  activation_success: ''
+  pass1: 'A tua nova palavra-passe desejada'
+  pass2: 'Repetição da palavra-passe'
+  birthdate_hint: 'Para mais informações, consulte a [Política de Privacidade]({url})
+    no ponto 2d, «Registo como Foodsharer ou Foodsaver».'
+  set-password: 'Criar uma nova palavra-passe'
+  login_email: 'Endereço de e-mail'
+  activation_success: '<strong>Ativação bem-sucedida.</strong> Faça login agora com
+    o teu endereço de e-mail e a palavra-passe que escolheste.'
   lastname_maxLength: O teu apelido pode consistir em um máximo de 30 caracteres
+  password_must_be_complex: A palavra-passe deve conter no mínimo uma letra 
+    maiúscula, uma letra minúscula e números
+  password_must_be_trimmed: A palavra-passe não pode conter espaços no início ou
+    no final
+  firstname_maxLength: O primeiro nome pode ter no máximo 30 caracteres
 thread:
   options:
     rename: ''
@@ -2493,19 +2515,20 @@ legal:
     this_gets_deleted_verify: 'A sua verificação será removida.'
     this_doesnt_get_deleted_name: 'O teu nome'
     this_gets_deleted_friendlist: 'A sua lista de amigos é removida.'
-    legal_1: ''
+    legal_1: 'Nosso atual contrato de proteção de dados'
     this_doesnt_get_deleted_address: 'A sua morada'
-    this_gets_deleted_stores: ''
+    this_gets_deleted_stores: 'As empresas das quais fizeste parte.'
     this_gets_deleted_main: 'As seguintes informações serão eliminadas de você e não
       podem ser restauradas:'
-    this_gets_deleted_trustbananas: ''
+    this_gets_deleted_trustbananas: 'As bananas que recebeste serão removidas.'
     this_gets_deleted_quiz: 'Todos os seus testes são removidos.'
     this_doesnt_get_deleted_history: 'História da sua verificação'
   agree_privacy_policy: 'Sim, aceito a política de privacidade.'
   privacy_notice_agree:
-    select: ''
-    not_acknowledge: ''
-    acknowledge: ''
+    select: 'Por favor selectionar'
+    not_acknowledge: 'NÃO aceito os princípios acima mencionados relativos ao tratamento
+      de dados pessoais e desejo ser rebaixado para o salvador dos alimentos.'
+    acknowledge: 'Tomei conhecimento da instrução.'
   acknowledge:
     select: Por favor selecionar
     agree_policy_and_notice: Sim, aceito a política de privacidade e as 
@@ -2518,12 +2541,18 @@ legal:
     qustion_notice: Aceita a nossa política de privacidade e o aviso de proteção
       de dados?
     agree: Sim, aceito a política de privacidade.
-  agree_privacy_notice: ''
-  are_you_sure_to_downgrade: ''
-  legal_agreement: ''
+  agree_privacy_notice: 'Estou informado sobre a obrigação de confidencialidade dos
+    dados pessoais e os comportamentos daí decorrentes. Receberei uma confirmação
+    por e-mail para os meus arquivos, no e-mail que indiquei.'
+  are_you_sure_to_downgrade: 'Atenção: Selecionou que deseja ser rebaixado para o
+    salvador dos alimentos. Tem a certeza?'
+  legal_agreement: 'acordo legal'
   privacy_notice: 'Instruções sobre proteção de dados para os responsávels de empresas
     e embaixadores'
-  not_acknowledge_privacy_notice_description: ''
+  not_acknowledge_privacy_notice_description: 'Caso não concorde com as instruções
+    ou deixe de concordar com elas, não poderá assumir tarefas adicionais, como, por
+    exemplo, tornar-se responsável operacional ou embaixador, ou perderá essas autorizações,
+    caso já as tivesse.'
   must_accept_privacy_policy: 'Para participar em foodsharing, deve concordar com
     a política de privacidade.'
   privacy_policy: 'Política de privacidade'
@@ -2533,6 +2562,9 @@ legal:
   delete_account: ''
   button:
     agree: Aceitar
+    partially_agree: Rebaixar para Foodsaver
+    disagree: Apagar a minha conta de utilizador
+  success: As suas configurações foram guardadas com sucesso.
 request_time: 'Hora de início:'
 startpage:
   join_welcome: ''
@@ -2968,10 +3000,10 @@ markdown_input:
     heading: ''
   empty_preview_placeholder: ''
 salutation:
-  "3": ''
-  "1": ''
-  "0": ''
-  "2": ''
+  "3": 'Querido/a'
+  "1": 'Caro'
+  "0": 'Querido/a'
+  "2": 'Querida'
 leader: ''
 orgateam: ''
 stats:
@@ -3076,9 +3108,9 @@ ui:
     off: ''
     on: ''
 gender:
-  d: ''
-  m: ''
-  f: ''
+  d: 'Ambos ou outro'
+  m: 'Homem'
+  f: 'Mulher'
 kette_id: 'Cadeia de empresa'
 bread:
   backToOverview: ''
@@ -3189,11 +3221,13 @@ usersearch:
   select_tag: ''
 contentmanagement: ''
 statistics:
-  num_fetches: ''
-  kg_food_saved: ''
+  num_fetches: 'em {count} operações de resgate'
+  kg_food_saved: '{count} kg alimentos salvos'
   region_public:
     activeFoodSharePoints: Cantinho solidário ativo
     foodBasketsLastMonth: cestas de comida distribuídas
+    pickupsLastMonth: Salvamentos dos alimentos
+    savedFoodKgLastMonth: Alimentos salvos
   lastMonth: Estatísticas dos últimos 30 dias
 mailbox_id: ''
 body: 'Mensagem'
@@ -3254,7 +3288,7 @@ abholmenge: 'Quantos quilogramas, aproximadamente, são levados por pessoa por r
 groups:
   empty: 'Ainda não faz parte dos grupos de trabalho'
 online_type: ''
-besonderheiten: 'Procedimento e Notas'
+besonderheiten: 'Indicações'
 rolle: 'Função do utilizador'
 member: ''
 deletelow: ''
