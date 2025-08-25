@@ -1395,6 +1395,7 @@ settings:
     passport_is_valid_until: Medlemskortet ditt er gyldig i ytterligere 
       **{days}** dager eller til **{date}**.
     ask_your_ambassadors: Ta kontakt med ambassadørene dine.
+    renew: Forny medlemskort
   no_rights: Du er ikke autorisert til å endre profilinnstillingene.
   general:
     current_address: Nåværende adresse
@@ -2712,6 +2713,9 @@ forum:
       subscribe: Abonnere
     bottom: redusert sikt
     all_hidden: Alle innlegg i denne tråden er skjult.
+    post_not_found: Det lenkede innlegget ble ikke funnet; det kan ha blitt 
+      slettet. Innlegget som følger etter det lenkede innlegget ble valgt i 
+      stedet.
   post:
     body: Melding
     delete: Slett innlegget
@@ -2850,7 +2854,7 @@ pickup:
   leave_pickup_ok: Jeg har allerede en erstatning
   leave_team_message_title: Melding til laget
   team_message_success: Meldingen til teamet ble sendt
-  same_day_hint: 'Du er påmeldt til følgende samlinger på {day}:'
+  same_day_hint: 'Følgende ting skjer samme dag:'
   delete_title: Slett innsamlingsdato
   really_delete_date: Vil du virkelig slette hentingen på {date}?
   kick_message_footer: Mange hilsener, samarbeidsoffiserer
@@ -3269,6 +3273,12 @@ store:
       helst.
   invited: Invitert
   invitations: Åpne invitasjoner ({count})
+  passport_expired: Medlemskortet ditt er utløpt. Ta kontakt med ambassadørene 
+    dine for å fornye det. Du kan derfor ikke lenger registrere deg her for 
+    øyeblikket.
+  passport_expires_soon: Medlemskortet ditt er gyldig i ytterligere {days} 
+    dager! Kontakt ambassadørene dine for å fornye det. Etter at det utløper, 
+    kan du ikke registrere deg her igjen.
 storeview:
   status: Nåværende status
   public_time_at_night: om natten
@@ -3730,6 +3740,12 @@ buddy:
     confirm_text: Vil du avslutte bekjentskapet? Oppdateringer til profilens 
       oppslagstavler vil da ikke lenger vises på hjemmesiden.
     confirm_title: Avslutte bekjentskapet med {name}?
+  my: Mine bekjente og venneforespørsler
+  confirmed: Bekreftede bekjentskaper
+  none: Ingen bekjente ennå
+  requests:
+    mine: Mine venneforespørsler
+    other: Venneforespørsler fra andre
 storestatus:
   "0": Status uklar
   "2": Forhandlinger pågår
