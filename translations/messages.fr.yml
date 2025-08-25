@@ -682,7 +682,7 @@ settings:
       smartphones. Tu peux l’enregistrer ici, puis l’afficher lorsque cela tu es
       demandé. Si tu n’as pas de smartphone ou si tu as besoin d’une pièce 
       d’identité traditionnelle pour une autre raison, adresse-toi à tes 
-      ambassadeurs.
+      ambassadeur·rice·s.
     non_verified_text: Vous n’êtes pas encore vérifié. Seuls les Foodsavers 
       vérifiés peuvent être téléchargés à partir du badge.
     add_to_wallet:
@@ -696,7 +696,7 @@ settings:
       generate_error: Une erreur s’est produite lors de la génération de la 
         carte de membre. Veuillez réessayer plus tard.
     passport_not_activated: Ta carte de membre n’a pas encore été activée.
-    ask_your_ambassadors: Adresse-toi à tes ambassadeurs/ambassadrices.
+    ask_your_ambassadors: Adresse-toi à tes ambassadeur·rice·s.
     passport_is_valid_until: Ta carte de membre est encore valable **{days}** 
       jours ou jusqu’au **{date}**.
     passport_is_invalid: Ta carte de membre n’est plus valable.
@@ -730,7 +730,7 @@ settings:
     1: Quiz pour les collecteur·rice·s
   change_data_info:
     verified: Tu ne peux pas modifier ton nom et ta date de naissance. Tu peux 
-      toutefois demander à un·e ambassadeur·trice de modifier ces données pour 
+      toutefois demander à un·e ambassadeur·rice de modifier ces données pour 
       toi.
     general: Ici, tu peux adapter les données de ton profil.
 email_template:
@@ -786,8 +786,8 @@ email_template:
     part1: Tu es responsable de
   slot_empty: Personne ne s’est inscrit pour la prochaine collecte à %BETRIEB%
   foodsharepoint: -- frigo solidaire
-  confirm_BOT: cette discussion. Comme tu es Ambassadeur·ice / Modo de %BEZIRK%,
-    tu dois la confirmer avant de sa publication.
+  confirm_BOT: cette discussion. Comme tu es Ambassadeur·rice / Modo de 
+    %BEZIRK%, tu dois la confirmer avant de sa publication.
   confirm_link: voudrait poster
   in: à
   request_from: Demande de
@@ -929,7 +929,7 @@ foodsaver:
     learning: Regarder maintenant la vidéo explicative
     STORE_MANAGER: Deviens responsable de la coopération
     FOODSAVER: Deviens collecteur·rice
-    AMBASSADOR: Deviens ambassadeur
+    AMBASSADOR: Deviens ambassadeur·rice
     pn: Oui, j’ai lu la politique de confidentialité et je l’accepte.
   edit: Modifier le profil du collecteur / de la collectrice
   about_me_intern: "sera affichée sur ta page de profil et sera visible par toute
@@ -995,7 +995,7 @@ recipients:
   storemanagers_and_ambs: Tous les responsables coopération et 
     ambassadeur·rice·s
   storemanagers: Tous les responsables coopération (international)
-  all_no_botschafter: Tous les Foodsavers sans ambassadeurs
+  all_no_botschafter: Tous les Foodsavers sans ambassadeur·rice·s
   newsletter_only_foodsharer: SEULEMENT les Foodsharer abonnés à la lettre 
     d’information
   newsletter_all: Tous les abonnés à la lettre d’information (Foodsharer, 
@@ -1182,7 +1182,7 @@ terminology:
   welcomeAdmins: Équipe de bienvenue
   admins: Administateur·rice·s
   ambassador_forum: Forum des ambassadeur·rice·s
-  ambassadors: Ambassadeur·ice·s
+  ambassadors: Ambassadeur·rice·s
   orga:
     d: membre du groupe organisation
     f: Membre du groupe organisation
@@ -1744,6 +1744,11 @@ store:
       peux retirer ces invitations à tout moment.
   invitations: Invitations ouvertes ({count})
   invited: Invités
+  passport_expired: Ta carte de membre a expiré. Contacte tes ambassadeur·rice·s
+    pour la renouveler. Tu ne peux donc plus t’inscrire ici.
+  passport_expires_soon: Ta carte de membre est encore valable pendant {days} 
+    jours ! Contacte tes ambassad·rice·s pour la faire renouveler. Après 
+    expiration, tu ne pourras plus t’inscrire ici.
 storeview:
   want_to_fetch: J’aimerais m’engager dans cette équipe.
   specials: Procédure & instructions
@@ -1862,7 +1867,7 @@ menu:
     workingGroupEdit: Gérer le groupe
     members: Membres
     wall: Mur
-    BOTforum: Forum Ambassadeur·ice·s
+    BOTforum: Forum Ambassadeur·rice·s
     forum: Forum
     international: International
     Swiss: Suisse
@@ -1972,7 +1977,7 @@ dashboard:
   source_store: Coopérations {0}
   source_mailbox: '{0}'
   source_event: Évènement {0}
-  source_forum_bot: Forum des Ambassadeur·ice·s {0}
+  source_forum_bot: Forum des Ambassadeur·rice·s {0}
   source_forum: Forum {0}
   source_friendWall_own: Ton mur
   source_friendWall: Mur de {0}
@@ -2918,7 +2923,7 @@ search:
     solidaires.
   results:
     region:
-      ambassador_tooltip: Tu es l’ambassadeur de cette région
+      ambassador_tooltip: Tu es ambassadeur·rice de cette région
       home_region_tooltip: C’est ton quartier d’origine
       member_tooltip: Tu es membre de ce district
     working_group:
@@ -2928,7 +2933,7 @@ search:
       closed_tooltip: Le fil de discussion est fermé
       forum: Forum
       sticky_tooltip: Le fil de discussion est épinglé
-      ambassador_forum: Forum des ambassadeurs
+      ambassador_forum: Forum des ambassadeur·rice·s
       last_post: dernière contribution
       bottom_tooltip: La visibilité du fil est réduite
     in: en
@@ -3056,7 +3061,7 @@ content:
       Tu peux obtenir plus d’informations sur chaque district en cliquant sur le
       lien de la page du district public ou en envoyant directement un mail au 
       district en question en cliquant sur l’icône.
-    noAmbassador: Ce district n’a actuellement pas d’ambassadeur·trice et n’est 
+    noAmbassador: Ce district n’a actuellement pas d’ambassadeur·rice et n’est 
       donc pas joignable par e-mail. Veuillez contacter un district voisin ou le
       district immédiatement supérieur.
   error: La page n’a pas pu être sauvegardée
@@ -3639,7 +3644,7 @@ poll:
   type: Type de vote
   scope_description_4: Tou(te) les collecteur·ice·s vérifiées dont le secteur 
     géographique favori correspond à celui du vote
-  scope_description_3: Tous les Ambassadeur·ice·s de ce secteur géographique
+  scope_description_3: Tous les Ambassadeur·rice·s de ce secteur géographique
   scope_description_2: Tou· te·s les responsables coopération d’au min. 1 
     coopération dans ce secteur géographique
   scope_description_1: Tou(te)s les collecteur·ice·s vérifié(e)s de ce secteur 
@@ -3778,7 +3783,7 @@ region:
     leave_text: Tu n’est plus actif/ve à {name} ? Alors tu devrais quitter le 
       district.
     confirm_leaving: Tu souhaites rejoindre le district {name} ? Les 
-      ambassadeurs·rices auront ainsi accès à ton profil.
+      ambassadeur·rice·s auront ainsi accès à ton profil.
     show_on_large_map: Voir sur la grande carte
     continue_editing: continuer à editer
     discard_changes: rejeter les changements
@@ -4449,12 +4454,10 @@ error:
   passport_is_invalid:
     title: Ta carte de membre n’est plus valable !
     link: Paramètres du profil
-    description: Adresse-toi à tes ambassadeurs/ambassadrices pour la faire 
-      renouveler.
+    description: Adresse-toi à tes ambassadeur·rice·s pour la faire renouveler.
   passport_is_invalid_soon:
     title: Ta carte de membre ne sera bientôt plus valable !
-    description: Adresse-toi à tes ambassadeurs/ambassadrices pour la faire 
-      renouveler.
+    description: Adresse-toi à tes ambassadeur·rice·s pour la faire renouveler.
     link: Paramètres du profil
   page:
     not_found: La page est introuvable.
@@ -5039,7 +5042,7 @@ required_messages:
   message_info_multiple: 'Chaque personne recevrait le message suivant :'
   verify:
     main: tu as été vérifié comme collecteur·rice !
-    footer: Salutations, tes ambassadeur·rices
+    footer: Salutations, tes ambassadeur·rice·s
     really_multiple: Est-ce que tu veux vraiment vérifier {count} 
       utilisateur·rice·s ? Assure-toi que tous les {count} remplissent toutes 
       les [conditions pour les collecteurs 
