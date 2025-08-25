@@ -700,6 +700,7 @@ settings:
     passport_is_valid_until: Ta carte de membre est encore valable **{days}** 
       jours ou jusqu’au **{date}**.
     passport_is_invalid: Ta carte de membre n’est plus valable.
+    renew: Renouveler la carte de membre
   no_rights: Tu n’as pas le droit de modifier les paramètres du profil.
   delete_profile: Supprimer ce profil
   general:
@@ -1034,6 +1035,8 @@ forum:
       subscribe: s’abonner
     bottom: visibilité réduite
     all_hidden: Tous les messages de ce fil de discussion ont été masqués.
+    post_not_found: Le message lié n’a pas été trouvé, il a peut-être été 
+      supprimé. Le message suivant le message lié a été sélectionné à la place.
   follow:
     email: comme courriel
     bell: par la cloche
@@ -2445,7 +2448,7 @@ pickup:
   to_be_confirmed: Cette collecte doit encore être validée par un·e responsable 
     coopération.
   same_day_entry: '[{when} h] {name}'
-  same_day_hint: 'Tu es inscrit·e le {day} pour les collectes suivantes :'
+  same_day_hint: 'Les événements suivants auront lieu le même jour :'
   overview:
     menu:
       signOffAll: Retirer partout
@@ -3864,6 +3867,12 @@ buddy:
       vos tableaux d’affichage de profil ne seront alors plus affichées sur la 
       page d’accueil.
     confirm_title: Mettre fin à la connaissance avec {name} ?
+  my: Mes ami·e·s et demandes d’amitié
+  confirmed: Amitiés confirmées
+  none: Pas encore d’ami·e·s
+  requests:
+    mine: Mes demandes
+    other: Demandes d’autres personnes
 base:
   jsrequired: Le site ne fonctionne pas sans JavaScript.
   slogan: Nos denrées alimentaires sont précieuses, partageons-les ! – 
