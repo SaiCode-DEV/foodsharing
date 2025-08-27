@@ -2,6 +2,7 @@
 
 namespace Foodsharing\Modules\Event;
 
+use Carbon\Carbon;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Event\DTO\Event;
 use Foodsharing\Modules\Event\DTO\EventForListView;
@@ -89,13 +90,22 @@ class EventGateway extends BaseGateway
      *
      * @param int $userId The id of the user
      * @param array $statuses Array of InvitationStatus. Statuses to be included in the result
+     * @param int $pastEventsBufferInDays Number of days in the past to include events
+     * @param Carbon|null $date_only If set, only events on this date will be included
      *
      * @return array all events matching the invitation status
      */
-    public function getEventsByStatus(int $userId, array $statuses, int $pastEventsBufferInDays = 0): array
+    public function getEventsByStatus(int $userId, array $statuses, int $pastEventsBufferInDays = 0, ?Carbon $date_only = null): array
     {
         if (count($statuses) === 0) {
             return [];
+        }
+
+        $dateFilter = '';
+        $params = ['fs_id' => $userId, 'buffer' => $pastEventsBufferInDays];
+        if ($date_only !== null) {
+            $dateFilter = 'AND DATE(e.start) = :date_only';
+            $params['date_only'] = $date_only->format('Y-m-d');
         }
 
         return $this->db->fetchAll('SELECT
@@ -121,8 +131,9 @@ class EventGateway extends BaseGateway
 			fhb.foodsaver_id = :fs_id
 			AND e.end > DATE_SUB(NOW(), INTERVAL :buffer DAY)
 			AND IFNULL(fhe.status, ' . InvitationStatus::INVITED . ') IN (' . implode(',', $statuses) . ')
+			' . $dateFilter . '
 		ORDER BY e.start
-		', ['fs_id' => $userId, 'buffer' => $pastEventsBufferInDays]);
+		', $params);
     }
 
     public function addLocation(Event $event): int

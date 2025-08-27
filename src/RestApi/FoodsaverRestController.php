@@ -52,8 +52,8 @@ final class FoodsaverRestController extends AbstractFoodsharingRestController
             $agenda[] = $formattedPickup;
         }
 
-        $events = $this->eventGateway->getEventsByStatus($fsId, [InvitationStatus::INVITED, InvitationStatus::ACCEPTED, InvitationStatus::MAYBE]);
-        // Extend the pickups array by events
+        $events = $this->eventGateway->getEventsByStatus($fsId, [InvitationStatus::INVITED, InvitationStatus::ACCEPTED, InvitationStatus::MAYBE], 0, $day);
+        // Extend the pickups array by same-day events
         foreach ($events as $event) {
             $formattedEvent = [
                 'name' => $event['name'],

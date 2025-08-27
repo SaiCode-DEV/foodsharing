@@ -525,6 +525,30 @@ class PickupApiCest
             'status' => InvitationStatus::ACCEPTED
         ]);
 
+        // Create a past event for the current user
+        $past_eventDate = $pickupDate->copy()->subDays(1);
+        $past_eventParams = [
+            'name' => 'Past Event',
+            'start' => $past_eventDate->format('Y-m-d H:i:s'),
+            'end' => $past_eventDate->addHour()->format('Y-m-d H:i:s'),
+        ];
+        $past_event = $I->createEvents($this->region['id'], $this->user['id'], $past_eventParams);
+        $I->addEventInvitation($past_event['id'], $this->user['id'], [
+            'status' => InvitationStatus::MAYBE
+        ]);
+
+        // Create a future event on another day != pickup day
+        $future_eventDate = $pickupDate->copy()->addDays(1);
+        $future_eventParams = [
+            'name' => 'Future Event',
+            'start' => $future_eventDate->format('Y-m-d H:i:s'),
+            'end' => $future_eventDate->addHour()->format('Y-m-d H:i:s'),
+        ];
+        $future_event = $I->createEvents($this->region['id'], $this->user['id'], $future_eventParams);
+        $I->addEventInvitation($future_event['id'], $this->user['id'], [
+            'status' => InvitationStatus::ACCEPTED
+        ]);
+
         $I->login($this->user['email']);
         $I->sendGET('api/foodsaver/' . $this->user['id'] . '/agenda/' . $pickupDate->toDateString());
         $I->seeResponseCodeIs(HttpCode::OK);
@@ -533,5 +557,8 @@ class PickupApiCest
             ['type' => 'store', 'id' => $this->store['id'], 'name' => $this->store['name'], 'isConfirmed' => true, 'date' => $pickupDate->format('Y-m-d H:i:s')],
             ['type' => 'event', 'id' => $event['id'], 'name' => $eventParams['name'], 'status' => 'accepted', 'date' => $eventParams['start']]
         ]);
+
+        $I->dontSeeResponseContainsJson(['type' => 'event', 'id' => $past_event['id'], 'name' => $past_eventParams['name'], 'status' => 'maybe', 'date' => $past_eventParams['start']]);
+        $I->dontSeeResponseContainsJson(['type' => 'event', 'id' => $future_event['id'], 'name' => $future_eventParams['name'], 'status' => 'accepted', 'date' => $future_eventParams['start']]);
     }
 }
