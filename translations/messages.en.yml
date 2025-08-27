@@ -1269,11 +1269,11 @@ pickup:
   signout_info: All your pick-up dates will be deleted.
   take_empty_slot: sign up here
   delete_not_empty: At the moment there are still foodsavers enrolled. You can 
-    only delete this pick-up date when all slots have been emptied before.
-  to_be_confirmed: This pick-up date still has to be confirmed by a Store 
-    Coordinator.
+    only delete this pick-up date once all slots are empty.
+  to_be_confirmed: This pick-up date still has to be confirmed by a store 
+    coordinator.
   delete_title: Delete pick-up slot
-  join_agree: yes, absolutely
+  join_agree: yes, sign up
   join_cancel: rather not
   really_join_date: Would you like to sign up for the pick-up on {date}?
   kick_message: we have removed you from the {storeName} pick-up on {date}.
@@ -1330,18 +1330,17 @@ pickup:
     allLoaded: All entries are shown.
     freeSlots: "{slots} free"
 
-  region_pickup_rule_failed: This entry does not comply with district 
-    regulations
+  region_pickup_rule_failed: This entry does not comply with district rules
   description_optional: Description (optional)
   description_modal_text: 'Enter a new description for the pickup:'
   edit_description: Edit description
   description: Description
-  description_max_length_info: Maximal length of the description reached (100 
+  description_max_length_info: Maximum length of the description reached (100 
     letters)
   hygieneCertificateMissing:
     link: Take the hygiene exam here
     none: You do not have a valid hygiene qualification at the moment. Take the 
-      hygiene quiz now to be able to register for pick-ups here.
+      hygiene quiz now to be able to register for pick-ups.
     timeout: Your current hygiene certificate will already have expired at the 
       time of the desired pick-up. Take the hygiene quiz again now to be able to
       register for the desired pick-up.
