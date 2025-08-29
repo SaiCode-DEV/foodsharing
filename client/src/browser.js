@@ -30,3 +30,17 @@ export function URL_PART (index) {
   if (!URL_PARTS[index]) { return undefined }
   return URL_PARTS[index]
 }
+
+export function setUrlParam (key, value) {
+  const url = new URL(window.location.href)
+  const params = url.searchParams
+
+  if (value === undefined || value === null) {
+    params.delete(key)
+  } else {
+    params.set(key, value)
+  }
+
+  // Update URL without reloading
+  history.replaceState(null, '', `${url.pathname}?${params.toString()}${url.hash}`)
+}

@@ -465,19 +465,8 @@ group:
     moderation: "Moderation"
     board: "Vorstand"
     election: "Wahlen"
+    resources: "Ressourcen-Mosaik"
     invalid: "Ein Bezirk kann nicht mit einer Arbeitsgruppenfunktion versehen werden."
-    duplicate_welcome_team: "Begrüßungsteam schon angelegt! Pro Bezirk kann es nur ein Begrüßungsteam geben."
-    duplicate_voting_team: "Abstimmungsteam schon angelegt! Pro Bezirk kann es nur ein Abstimmungsteam geben."
-    duplicate_fsp_team: "Fairteilerteam schon angelegt! Pro Bezirk kann es nur ein Fairteilerteam geben."
-    duplicate_stores_team: 'Betriebskoordinationsteam schon angelegt! Pro Bezirk kann es nur ein Betriebskoordinationsteam geben.'
-    duplicate_report_team: 'Meldungsteam schon angelegt! Pro Bezirk kann es nur ein Meldungsteam geben.'
-    duplicate_mediation_team: 'Mediationsteam schon angelegt! Pro Bezirk kann es nur ein Mediationsteam geben.'
-    duplicate_arbitration_team: 'Schiedsstelle schon angelegt! Pro Bezirk kann es nur eine Schiedsstelle geben.'
-    duplicate_fsmanagement_team: 'Verwaltungsteam schon angelegt! Pro Bezirk kann es nur ein Verwaltungsteam geben.'
-    duplicate_pr_team: 'Öffentlichkeitsarbeitsteam schon angelegt! Pro Bezirk kann es nur ein Öffentlichkeitsarbeitsteam geben.'
-    duplicate_moderation_team: 'Moderationsteam schon angelegt! Pro Bezirk kann es nur ein Moderationsteam geben.'
-    duplicate_board_team: 'Vorstand schon angelegt! Pro Bezirk kann es nur einen Vorstand geben.'
-    duplicate_election_team: 'Wahlen schon angelegt! Pro Bezirk kann es nur eine Wahlen-AG geben.'
     restricted_workgroup_function: 'Diese Arbeitsgruppenfunktion kann nur von der überregionalen Arbeitsgruppe „AG anlegen“ bearbeitet werden'
     tooltip_function_1: "Administrator:innen dieser Arbeitsgruppe werden bei neuen Mitgliedern im Bezirk benachrichtigt"
     tooltip_function_2: "Administrator:innen dieser Arbeitsgruppe können Abstimmungen für den Bezirk anlegen"
@@ -490,6 +479,7 @@ group:
     tooltip_function_10: "Administrator:innen dieser Arbeitsgruppe können in moderierten Foren Beiträge freischalten. Wenn die Option für den Bezirk aktiviert ist, können sie auch Beiträge im Forum ausblenden."
     tooltip_function_11: "Administrator:innen dieser Arbeitsgruppe werden in der Bezirksübersicht angezeigt."
     tooltip_function_12: "Administrator:innen dieser Arbeitsgruppe werden in der Bezirksübersicht angezeigt."
+    tooltip_function_13: "Administrator:innen dieser Arbeitsgruppe werden per Glocke über neue Ressourcen informiert."
     none: "Keine GOALS-AG"
   unique_function:
     tooltip_function_region331: "Administrator:innen dieser Arbeitsgruppe können Newsletter versenden"
@@ -737,6 +727,7 @@ terminology:
   moderationAdmins: "Moderationsteam"
   boardAdmins : "Vorstand"
   electionAdmins : "Wahlen"
+  resourcesAdmins : "Ressourcen-Mosaik-Team"
   wall: "Pinnwand"
   statistic: "Statistik"
   reports:
@@ -1819,6 +1810,11 @@ bell:
 
   new_forum_thread_title: "Neues Thema in {forum}"
   new_forum_thread: "{author}: {title}"
+
+  new_resource_title: "{region}: Neue Ressourcen"
+  new_resource:
+    one: "Von {user}: „{title}“"
+    many: "{count} neue Ressourcen"
 
   mark_as:
     read: "Als gelesen markieren"
@@ -3444,6 +3440,7 @@ system_administration:
   email: "Newsletter versenden"
   content: "Inhalte bearbeiten"
   store_categories: "Betriebskategorien bearbeiten"
+  resource_categories: "Ressourcenkategorien bearbeiten"
 
 navigation:
   map: Karte
@@ -3872,6 +3869,42 @@ help:
         **BV-Ansicht:** Betriebsverantwortliche (BV) kümmern sich darum, dass in ihren Betrieben alle Abholungen zuverlässig stattfinden. Wenn du BV bist, kannst du die Ansicht auf die Betriebe einschränken, für die du zuständig bist. So behältst du leichter den Überblick.
 
         **Gruppiert nach Tagen:** In dieser Darstellung werden deine Abholmöglichkeiten nach Tagen zusammengefasst und etwas kompakter dargestellt. Gerade, wenn dir pro Tag viele Abholmöglichkeiten zur Verfügung stehen, macht es das leichter, einen Überblick zu bekommen.
+    resource_mosaic:
+      title: "Ressourcen-Mosaik"
+      md: |
+        ##### Die Idee
+        Beim Retten von Lebensmitteln teilen wir alle sehr effektiv unsere Zeit, Transportkapazitäten und Erfahrung. Doch um neue Impulse für ein nachhaltiges Ernährungssystem zu setzen und die foodsharing-Bewegung langfristig zu stärken, braucht es mehr als nur das Retten. Jede:r von uns bringt unterschiedliche Ressourcen, also *Fähigkeiten*, *Gegenstände* oder *Kontakte* mit, die allein oft verborgen und ungenutzt bleiben. Gemeinsam aber können diese Ressourcen sichtbar und nutzbar werden – wie einzelne Teile eines Mosaiks, die zusammen ein großes Bild ergeben. Das Ressourcen-Mosaik kann diese Vielfalt sichtbar machen. Damit schafft es Raum für neue Projektideen, Zusammenarbeit und gegenseitige Unterstützung über das Retten hinaus.
+
+        ##### Die Ressourcenübersicht
+        Das Herzstück des Ressourcen-Mosaiks ist die Übersicht über alle Ressourcen des Bezirks bzw. der Arbeitsgruppe. Du kannst dich entweder einfach von der Vielfalt deiner Gruppe inspirieren lassen, oder nach bestimmten Ressourcen suchen. Du kannst jede Ressource anklicken, um weitere Infos darüber zu erhalten. Du kannst Ressourcen auch als Favorit zu speichern, um sie später leicher wiederzufinden.
+        
+        An der Farbe einer Ressource kannst du erkennen, wie gerne die Person sie teilt: Ressourcen, die mit viel Freude angeboten werden, erscheinen in kräftigen, leuchtenden Farben, während weniger gern geteilte Ressourcen eher grau dargestellt sind.
+
+        ##### Suchen, Filtern & Sortieren
+        Um schnell passende Ressourcen zu finden, stehen dir verschiedene Filtermöglichkeiten zur Verfügung.
+        - Du kannst gezielt nach **Kategorien** filtern oder direkt nach bestimmten **Begriffen suchen**.
+        - **Nur aktive Nutzer:innen** blendet Ressourcen von Nutzer:innen aus, die sich in den letzten 30 Tagen nicht eingeloggt haben oder aktuell eine Schlafmütze aufhaben.
+        - Im Ressourcen-Mosaik werden die Ressourcen aller Foodsaver:innen der Gruppe angezeigt. In Bezirken kannst du die Ansicht aber auch auf Nutzer:innen einschränken, deren **Stammbezirk** der jeweilige Bezirk ist.
+        - Wenn du Ressourcen als **Favorit** markiert hast, kannst du dir gezielt nur diese anzeigen lassen.
+        
+        Zusätzlich kannst du die Ergebnisse **sortieren**, etwa nach „Freude über Anfragen“, Aktualität der Einträge oder einfach zufällig.
+
+    my_resources:
+      title: "Eigene Ressourcen"
+      md: |
+        In diesem Abschnitt kannst du deine eigenen Ressourcen verwalten; Neue Ressourcen anlegen, bearbeiten, löschen oder einfach nur einsehen, was du aktuell teilst.
+
+        ##### Was ist eine Ressource? 
+        Eine Ressource kann alles sein, was du in der foodsharing-Community beitragen möchtest. Das können **Fähigkeiten** sein, zum Beispiel Kochen oder Programmieren, **Gegenstände** die du bereit wärst zu verleihen, wie ein Lastenrad oder eine mobile Kochstation, oder auch **Kontakte** zu anderen Initiativen, Behörden, Medien usw.
+
+        ##### Alles kann, nichts muss
+        Niemand muss Ressourcen eintragen, und nur weil du eine bestimmte Ressource eingetragen hast, heißt das nicht, dass du diese für bestimmte Aktionen zur Verfügung stellen *musst*. Viel mehr geht es darum, das zu teilen, womit du *gerne beitragen möchtest*. 
+
+        ##### Wer sieht meine Ressourcen?
+        Ressourcen werden innerhalb deiner Bezirke und Arbeitsgruppen sichtbar. Ausgenommen sind davon aber die sehr großen Bezirke vom Typ Land oder Bundesland, in denen kein Ressourcen-Mosaik verfügbar ist. Du kannst die Sichtbarkeit jeder einzelnen Ressource aber auch auf die Foodsaver:innen beschränken, die du kennst.
+    similar_resources:
+      title: "Ähnliche Ressourcen"
+      md: "Als ähnliche Ressourcen werden dir bis zu 10 weitere Ressourcen angezeigt, für welche die **gleichen Kategorien** eingetragen sind."
 
 team_page:
   board_member:
@@ -3890,18 +3923,26 @@ team_page:
 validation:
   phone_number_invalid: "Die Telefonnummer ist ungültig (z. B. +49 fehlt, ist zu kurz, zu lang oder enthält ungültige Zeichen)"
 
-store_categories:
+categories:
   columns:
     id: 'ID'
     name: 'Name'
-    number_of_stores: 'Betriebe in der Kategorie'
-  title: 'Betriebskategorien'
+    usage_count: 'Anzahl der Verwendungen'
+  title:
+    store: 'Betriebskategorien'
+    resource: 'Ressourcenkategorien'
   empty: 'Bisher wurde keine Kategorie eingetragen'
   edit: 'Kategorie umbenennen'
   delete: 'Kategorie löschen'
+  merge: "Mit anderer zusammenführen"
+  merge_title: 'Kategorien zusammenführen'
+  merge_hint: 'Wähle eine andere Kategorie aus, mit der "{name}" zusammengeführt werden soll. Alle Einträge, die der Kategorie "{name}" zugeordnet sind, werden danach dieser Kategorie zugeordnet.'
   confirm_delete: 'Kategorie {name} wirklich löschen?'
-  confirm_delete_hint: 'Es sind noch {count} Betriebe dieser Kategorie zugeordnet. Diese Betriebe werden danach keine Kategorie mehr haben.'
+  confirm_delete_hint:
+    store: 'Es sind noch {count} Betriebe dieser Kategorie zugeordnet. Diese Betriebe werden danach keine Kategorie mehr haben.'
+    resource: 'Es sind noch {count} Ressourcen dieser Kategorie zugeordnet. Diese Ressourcen werden diese Kategorie verlieren.'
   new: 'Neue Kategorie eintragen'
+  
 
 contact_page:
   bread: "Kontakt & Support"
@@ -3999,3 +4040,69 @@ petition:
     Infinity: Ziel erreicht! Unsere Petition wird im Bundestag besprochen. Jetzt geht’s darum, unser Anliegen noch weiter zu stärken!
   daysLeft: "{daysLeft} Tage verbleiben" #using non-bereaking spaces
   link: "Zur Petition"
+
+resource_mosaic:
+  title: "Ressourcen-Mosaik"
+  my_resources: "Meine Ressourcen"
+  add: "Neue Ressource eintragen"
+  edit: "Ressource bearbeiten"
+  categories_filter_placeholder: "Nach Kategorien filtern..."
+  filter:
+    active: "Nur aktive Nutzer:innen"
+    home_region: "Nur Stamm­bezirk"
+    favorites: "Nur Favoriten"
+  search_placeholder: "Suche nach Ressourcen, Foodsharer:innen oder IDs"
+  other_resources:
+    other: "Weitere Ressourcen von {user}"
+    own: "Deine anderen Ressourcen"
+    similar: "Ähnliche Ressourcen"
+    new: "Alle neuen Ressourcen dieses Bezirks"
+  editModal:
+    name:
+      label: "Name"
+      placeholder: "Deine Ressource..."
+      max_length: "Maximale Länge erreicht. In der Beschreibung kannst du alle weiteren Details angeben."
+    is_private: "Diese Ressource nur Bekannten anzeigen"
+    description:
+      label: "Beschreibung"
+      placeholder: "Weitere Informationen, damit sich andere genau vorstellen können, wobei du gerne unterstützen könntest. Du kannst auch Bilder anhängen."
+    categories:
+      label: "Kategorien"
+      placeholder: "Kategorien auswählen..."
+    openness: "Wie gerne darf deine Ressource angefragt werden?"
+  is_private_hint: "Diese Resource wird nur Bekannten angezeigt."
+  confirm_delete: "Möchtest du diese Resource wirklich löschen?"
+  no_own_resources: "Du hast noch keine Ressourcen angegeben. Du kannst jetzt bestimmte Fähigkeiten, Gegenstände oder Beziehungen eintragen, um sie in der Community sichtbar zu machen."
+  max_resources: "Um das Ressourcen-Mosaik übersichtlich zu halten, kann jede:r maximal {max} Ressourcen eintragen."
+  message: "Nachricht schreiben"
+  request_header: "Anfrage zu deiner Ressource"
+  message_modal:
+    title: "Ressource \"{name}\" anfragen"
+    intro: "Sende {owner} eine Nachricht zu dieser Ressource:"
+    request_for: "Anfrage zu deiner Ressource"
+    request_sent: "Deine Anfrage wurde versendet."
+    polite_info: "Denk daran: Niemand ist verpflichtet, eine Ressource mit dir zu teilen. Bitte formuliere deine Anfragen so, dass die andere Person immer auch Nein sagen kann, ohne ein schlechtes Gewissen haben zu müssen."
+    placeholder: "Ich bin interessiert an deiner Ressource, weil ..."
+  list_status:
+    none_in_region: "Hier sind noch keine Ressourcen eingetragen. Trage eigene Ressourcen ein, oder land andere dazu ein!"
+    total: "In {region} sind insgesamt {count} Ressourcen eingetragen:"
+    filter: "Zu deiner Suche passen {count} Ressourcen:"
+    none_in_filter: "Zu deiner Suche passt leider keine Ressource."
+  order:
+    shuffle: "Reihenfolge: Zufällig"
+    sort_age: "Reihenfolge: Neuste zuerst"
+    sort_openness: "Reihenfolge: Nach Freude über Anfragen"
+  favorite: "Favorit"
+  favorite_tooltip: "Du hast diese Ressource favorisiert"
+  openness:
+    title: "Freude über Anfragen"
+    level_1: "Nur wenn wichtig"
+    level_2: "Eher zurückhaltend"
+    level_3: "Für gute Zwecke"
+    level_4: "Eher offen"
+    level_5: "Immer gerne"
+  resource_not_found_warning: "Die verlinkte Ressource wurde nicht gefunden. Sie wurde entweder gelöscht, ihr Besitzer ist nicht mehr teil diesers Bezirks bzw. der Gruppe oder dein Link war inkorrekt."
+  privacy_notice:
+    title: "Datenschutz-Hinweis"
+    text: "Wenn du Resourcen einträgst, werden diese auf dem Server gespeichert und für andere Nutzer:innen in deinen Arbeitsgruppen und Bezirken (ausgenommen Bundesländer, Länder und Europa) sichtbar. Du kannst deine Ressourcen jederzeit bearbeiten und löschen. Außerdem kannst du die Sichtbarkeit deiner Resourcen einschränken, wodurch nur deine Bekannten darauf Zugriff haben."
+    ok: "Ich bin einverstanden"

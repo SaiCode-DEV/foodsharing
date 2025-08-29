@@ -47,6 +47,12 @@ export default {
         },
       ]
 
+      if (this.entry.hasResources) {
+        menu.push({
+          href: 'resources', icon: 'fa-shapes', text: this.$i18n('resource_mosaic.title'),
+        })
+      }
+
       if (this.entry.hasSubgroups) {
         menu.push({
           href: 'workingGroups', icon: 'fa-user-friends', text: this.$i18n('terminology.subgroups'),

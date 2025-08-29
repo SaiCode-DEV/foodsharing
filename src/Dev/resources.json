@@ -1,0 +1,752 @@
+[
+  {
+    "name": "Akkuschrauber-Set",
+    "description": "Gut ausgestatteter Akkuschrauber mit verschiedenen Bits und Bohrern, ideal für handwerkliche Arbeiten.",
+    "categories": [0]
+  },
+  {
+    "name": "Holzwerkstatt im Keller",
+    "description": "Kleine Werkstatt mit Werkzeug und Platz zum Basteln.",
+    "categories": [0, 11]
+  },
+  {
+    "name": "Erfahrung im Möbelbau",
+    "description": "Baue gerne Möbel aus Holz für verschiedene Projekte.",
+    "categories": [0, 2]
+  },
+  {
+    "name": "Upcycling-Projekte",
+    "description": "Kreative Wiederverwertung von Materialien, z. B. Palettenmöbel.",
+    "categories": [0, 3, 8]
+  },
+  {
+    "name": "Fahrrad-Reparatur-Knowhow",
+    "description": "Kenntnisse zum Reparieren von Fahrrädern.",
+    "categories": [5, 0]
+  },
+  {
+    "name": "Nähmaschine",
+    "description": "Haushaltsnähmaschine zum Reparieren oder Nähen von Textilien.",
+    "categories": [0, 14]
+  },
+  {
+    "name": "Kontakte zu Handwerker:innen",
+    "description": "Netzwerk aus verschiedenen Handwerksbereichen.",
+    "categories": [0, 6]
+  },
+  {
+    "name": "Elektro-Grundwissen",
+    "description": "Grundkenntnisse in Elektroinstallation und Reparatur.",
+    "categories": [0, 1]
+  },
+  {
+    "name": "Werkzeug zum Ausleihen",
+    "description": "Hammer, Zangen, Sägen und mehr.",
+    "categories": [0, 14]
+  },
+  {
+    "name": "Offene Werkstatt",
+    "description": "Zugang zu größeren Maschinen und Werkbänken.",
+    "categories": [0, 11]
+  },
+  {
+    "name": "Website-Erstellung",
+    "description": "Erstellung einfacher Webseiten.",
+    "categories": [1, 2]
+  },
+  {
+    "name": "Mailverteiler-Setup",
+    "description": "Einrichtung von E-Mail-Verteilern für Gruppenkommunikation.",
+    "categories": [1, 6]
+  },
+  {
+    "name": "Linux-Server-Wartung",
+    "description": "Verwaltung von Linux-Servern und Hosting.",
+    "categories": [1]
+  },
+  {
+    "name": "foodsharing-API-Kenntnisse",
+    "description": "Kenntnisse zur Programmierung mit der foodsharing-API.",
+    "categories": [1]
+  },
+  {
+    "name": "IT-Support bei Veranstaltungen",
+    "description": "Technische Unterstützung vor Ort.",
+    "categories": [1, 11]
+  },
+  {
+    "name": "Nextcloud-Instanz",
+    "description": "Private Cloud-Speicher-Lösung für Teams.",
+    "categories": [1, 11]
+  },
+  {
+    "name": "Kontakt zu IT-Genossenschaft",
+    "description": "Netzwerk zu IT-Dienstleistern für Non-Profits.",
+    "categories": [1, 6]
+  },
+  {
+    "name": "Einführung in Online-Tools",
+    "description": "Hilfestellung bei Etherpad, Cryptpad und Umfragen.",
+    "categories": [1, 6]
+  },
+  {
+    "name": "Digitale Barrierefreiheit",
+    "description": "Beratung zur Gestaltung barrierefreier digitaler Inhalte.",
+    "categories": [1, 2]
+  },
+  {
+    "name": "Hackspace-Mitgliedschaft",
+    "description": "Zugang zu Gemeinschaftswerkstätten für Technikprojekte.",
+    "categories": [1, 11]
+  },
+  {
+    "name": "Layout von Flyern",
+    "description": "Gestaltung von Printmaterialien mit **InDesign** oder **Canva**.",
+    "categories": [2, 7]
+  },
+  {
+    "name": "Typografie-Verständnis",
+    "description": "Verbesserung von Lesbarkeit und Schriftwahl.",
+    "categories": [2, 7]
+  },
+  {
+    "name": "Canva-Pro-Account",
+    "description": "Pro-Account für das Erstellen von Designs.",
+    "categories": [2, 1]
+  },
+  {
+    "name": "Illustrationen erstellen",
+    "description": "Digital oder analog gezeichnete Bilder.",
+    "categories": [2, 3]
+  },
+  {
+    "name": "Instagram-Design",
+    "description": "Erstellung einheitlicher Instagram-Layouts.",
+    "categories": [2, 7]
+  },
+  {
+    "name": "CI-Entwicklung",
+    "description": "Corporate-Design-Beratung für Projekte.",
+    "categories": [2, 7]
+  },
+  {
+    "name": "Kontakt zu Grafikdesigner:in",
+    "description": "Netzwerk zu professionellen Designern.",
+    "categories": [2, 6]
+  },
+  {
+    "name": "Posterdruck-Verbindung",
+    "description": "Günstiger Copyshop für größere Druckaufträge.",
+    "categories": [2, 14]
+  },
+  {
+    "name": "Infografiken gestalten",
+    "description": "Visuelle Aufbereitung komplexer Inhalte.",
+    "categories": [2, 8]
+  },
+  {
+    "name": "Moodboards & Inspiration",
+    "description": "Sammlung kreativer Ideen und Stile.",
+    "categories": [2, 3]
+  },
+  {
+    "name": "Freie Malerei",
+    "description": "Künstlerische Malerei und Workshop-Angebote.",
+    "categories": [3]
+  },
+  {
+    "name": "Skulpturen aus Recycling",
+    "description": "Herstellung von Objekten aus Altmaterial.",
+    "categories": [3, 0, 8]
+  },
+  {
+    "name": "Siebdruck-Set",
+    "description": "Material und Wissen für Siebdruck-Projekte.",
+    "categories": [3, 2, 14]
+  },
+  {
+    "name": "Improtheater-Erfahrung",
+    "description": "Eisbrecher und kreative Gruppenübungen.",
+    "categories": [3, 6]
+  },
+  {
+    "name": "Ausstellungserfahrung",
+    "description": "Organisation und Aufbau von Kunstausstellungen.",
+    "categories": [3, 11]
+  },
+  {
+    "name": "Streetart-Affinität",
+    "description": "Kunst im öffentlichen Raum.",
+    "categories": [3, 11]
+  },
+  {
+    "name": "Offenes Atelier",
+    "description": "Zugang zu künstlerischen Arbeitsräumen.",
+    "categories": [3, 11]
+  },
+  {
+    "name": "Künstlernetzwerk",
+    "description": "Kontakte zu anderen Kreativen.",
+    "categories": [3, 6]
+  },
+  {
+    "name": "Performancekunst",
+    "description": "Performances und Aktionen für Events.",
+    "categories": [3, 4, 6]
+  },
+  {
+    "name": "Musenkollektiv-Mitgliedschaft",
+    "description": "Kreativer Austausch in künstlerischen Gruppen.",
+    "categories": [3, 4, 6]
+  },
+  {
+    "name": "Gitarre zum Verleih",
+    "description": "Akustische Gitarre für Veranstaltungen.",
+    "categories": [4, 14]
+  },
+  {
+    "name": "Straßenmusik-Erfahrung",
+    "description": "Musikalische Aktionen im öffentlichen Raum.",
+    "categories": [4, 6]
+  },
+  {
+    "name": "Kleine PA-Anlage",
+    "description": "Mobile Beschallung für bis zu 100 Personen.",
+    "categories": [4, 14, 11]
+  },
+  {
+    "name": "Mikrofon & Aufnahmegerät",
+    "description": "Technik für Podcasts und Aufnahmen.",
+    "categories": [4, 12, 14]
+  },
+  {
+    "name": "Musikworkshops für Kinder",
+    "description": "Workshops mit Instrumenten für Kinder.",
+    "categories": [4, 9, 8]
+  },
+  {
+    "name": "Jammen & Sessions",
+    "description": "Organisation von gemeinsamen Musiksessions.",
+    "categories": [4, 6]
+  },
+  {
+    "name": "Chorleitung",
+    "description": "Erfahrung in gemeinsamer Gruppenmusik.",
+    "categories": [4, 6]
+  },
+  {
+    "name": "Kontakt zu Bandproberäumen",
+    "description": "Netzwerk zu Übungsräumen.",
+    "categories": [4, 11, 6]
+  },
+  {
+    "name": "DJ-Set",
+    "description": "Einsteiger-DJ-Equipment für Events.",
+    "categories": [4, 14]
+  },
+  {
+    "name": "Liedtexte schreiben & vertonen",
+    "description": "Songwriting für Projekte.",
+    "categories": [4, 3]
+  },
+  {
+    "name": "Lastenrad",
+    "description": "Privates Lastenrad für Transport und Abholungen.",
+    "categories": [5, 14]
+  },
+  {
+    "name": "Auto mit Hänger",
+    "description": "Auto mit Anhängerkupplung für größere Transporte.",
+    "categories": [5, 14]
+  },
+  {
+    "name": "Fahrradanhänger",
+    "description": "Anhänger für Fahrräder zum Transport.",
+    "categories": [5, 14]
+  },
+  {
+    "name": "Umzugshelfer:innen",
+    "description": "Netzwerk von Helfenden für Transporte.",
+    "categories": [5, 6]
+  },
+  {
+    "name": "Logistikplanung",
+    "description": "Organisation von Transport- und Logistikabläufen.",
+    "categories": [5, 6]
+  },
+  {
+    "name": "Kontakt ADFC",
+    "description": "Beziehung zum lokalen Fahrradclub.",
+    "categories": [5, 6]
+  },
+  {
+    "name": "Carsharing-Transporter",
+    "description": "Zugang zu Transportern über Carsharing.",
+    "categories": [5, 14]
+  },
+  {
+    "name": "Führerschein für große Fahrzeuge",
+    "description": "Erfahrung mit Lieferwagen und Transportern.",
+    "categories": [5]
+  },
+  {
+    "name": "Verpackungen & Kisten",
+    "description": "Material zum sicheren Transport von Lebensmitteln.",
+    "categories": [5, 8]
+  },
+  {
+    "name": "Tragestarke Schultern",
+    "description": "Persönliche Hilfe beim Tragen und Transport.",
+    "categories": [5, 6]
+  },
+  {
+    "name": "Workshopmoderation",
+    "description": "Moderation von Workshops und Beteiligungsformaten.",
+    "categories": [6]
+  },
+  {
+    "name": "Gruppenprozesse begleiten",
+    "description": "Unterstützung bei guten Gesprächsabläufen.",
+    "categories": [6]
+  },
+  {
+    "name": "Visualisieren am Flipchart",
+    "description": "Graphische Unterstützung von Meetings.",
+    "categories": [6, 2]
+  },
+  {
+    "name": "Empathisches Zuhören",
+    "description": "Konfliktprävention durch aktives Zuhören.",
+    "categories": [6]
+  },
+  {
+    "name": "Mediationserfahrung",
+    "description": "Begleitung bei Konfliktlösung.",
+    "categories": [6]
+  },
+  {
+    "name": "Meetingstrukturierung",
+    "description": "Effiziente Gestaltung von Treffen.",
+    "categories": [6]
+  },
+  {
+    "name": "Moderator:innennetzwerk",
+    "description": "Kontakte zu professionellen Moderator:innen.",
+    "categories": [6]
+  },
+  {
+    "name": "Digitale Meetingtools",
+    "description": "Organisation von Videokonferenzen.",
+    "categories": [6, 1]
+  },
+  {
+    "name": "Plenum begleiten & dokumentieren",
+    "description": "Protokollierung und Führung von Versammlungen.",
+    "categories": [6]
+  },
+  {
+    "name": "Onboarding gestalten",
+    "description": "Willkommensformate für neue Mitglieder.",
+    "categories": [6, 8]
+  },
+  {
+    "name": "Pressemitteilungen schreiben",
+    "description": "Verfassen von Pressemitteilungen.",
+    "categories": [7, 2]
+  },
+  {
+    "name": "Presseverteiler lokal",
+    "description": "Kontakte zu regionalen Medien.",
+    "categories": [7, 6]
+  },
+  {
+    "name": "Kontakt Lokalzeitung",
+    "description": "Beziehung zu Journalist:innen.",
+    "categories": [7, 6]
+  },
+  {
+    "name": "Interviews führen",
+    "description": "Erstellung und Aufbereitung von Interviews.",
+    "categories": [7, 12]
+  },
+  {
+    "name": "Texte für Website",
+    "description": "Verfassen von Webseiten- oder Broschürentexten.",
+    "categories": [7, 2]
+  },
+  {
+    "name": "Newslettergestaltung",
+    "description": "Erstellung und Versand von Newslettern.",
+    "categories": [7, 1]
+  },
+  {
+    "name": "Fotoarchiv",
+    "description": "Sammlung nutzbarer Fotos für Öffentlichkeitsarbeit.",
+    "categories": [7, 12]
+  },
+  {
+    "name": "Social Media Content",
+    "description": "Erstellung von Social Media Beiträgen.",
+    "categories": [7, 2, 1]
+  },
+  {
+    "name": "Kampagnenplanung",
+    "description": "Planung wirksamer PR-Kampagnen.",
+    "categories": [7, 6]
+  },
+  {
+    "name": "Radioerfahrung",
+    "description": "Arbeit bei freien Radiosendern.",
+    "categories": [7, 4, 12]
+  },
+  {
+    "name": "Rettungstour mit Auto",
+    "description": "Regelmäßige Lebensmittelrettung mit großem Fahrzeug.",
+    "categories": [8, 5]
+  },
+  {
+    "name": "Haltbarmachen von Lebensmitteln",
+    "description": "Einkochen, Fermentieren & Lagern.",
+    "categories": [8, 0]
+  },
+  {
+    "name": "Koch-Workshops",
+    "description": "Workshops für kreative Resteküche.",
+    "categories": [8, 9]
+  },
+  {
+    "name": "Zugang Großküche",
+    "description": "Zugang zu Schulküche für große Kochaktionen.",
+    "categories": [8, 11]
+  },
+  {
+    "name": "Kontakte zu Bauernhöfen",
+    "description": "Netzwerk für Ernteaktionen und Direktabholung.",
+    "categories": [8, 6]
+  },
+  {
+    "name": "Lebensmittel sortieren",
+    "description": "Hilfe beim Lagern und Sortieren in Fairteilern.",
+    "categories": [8, 6]
+  },
+  {
+    "name": "Großer Kühlschrank",
+    "description": "Verfügbarer Kühlraum für Lebensmittel.",
+    "categories": [8, 11]
+  },
+  {
+    "name": "Resterezepte entwickeln",
+    "description": "Kreative Rezepte gegen Lebensmittelverschwendung.",
+    "categories": [8, 9]
+  },
+  {
+    "name": "Kochen für viele",
+    "description": "Erfahrung im Kochen für größere Gruppen.",
+    "categories": [8, 9]
+  },
+  {
+    "name": "Foodsharing-Workshops an Schulen",
+    "description": "Workshops für Schüler:innen.",
+    "categories": [8, 9, 6]
+  },
+  {
+    "name": "Kinderbetreuung bei Events",
+    "description": "Betreuung von Kindern während Veranstaltungen.",
+    "categories": [9, 6]
+  },
+  {
+    "name": "Spiele & Bewegungsideen",
+    "description": "Kreative Spielangebote für Kinder.",
+    "categories": [9, 10]
+  },
+  {
+    "name": "Bastelmaterial für Kinder",
+    "description": "Bastelsets und Anleitungen.",
+    "categories": [9, 3]
+  },
+  {
+    "name": "Vorleseerfahrung",
+    "description": "Geschichten erzählen und vorlesen.",
+    "categories": [9, 6]
+  },
+  {
+    "name": "Offene Kinderarbeit",
+    "description": "Erfahrung in offenen Kinderangeboten.",
+    "categories": [9, 6]
+  },
+  {
+    "name": "Kontakt Kita-Leitung",
+    "description": "Kooperation mit lokalen Kitas.",
+    "categories": [9, 6]
+  },
+  {
+    "name": "Puppentheater-Ausrüstung",
+    "description": "Figuren und Material für Puppentheater.",
+    "categories": [9, 3]
+  },
+  {
+    "name": "Eltern-Kind-Café",
+    "description": "Ort für Familiennetzwerke.",
+    "categories": [9, 11, 6]
+  },
+  {
+    "name": "Kinderfeste organisieren",
+    "description": "Planung und Durchführung von Festen.",
+    "categories": [9, 6]
+  },
+  {
+    "name": "Verleih Outdoorspiele",
+    "description": "Spiele wie Slackline oder Pedalos.",
+    "categories": [9, 14, 10]
+  },
+  {
+    "name": "Wildkräuter-Wissen",
+    "description": "Kenntnisse über essbare Pflanzen in der Natur.",
+    "categories": [10, 8]
+  },
+  {
+    "name": "Naturpädagogik-Erfahrung",
+    "description": "Bildung und Vermittlung in der Natur.",
+    "categories": [10, 9]
+  },
+  {
+    "name": "Feuerstelle auf Grundstück",
+    "description": "Freizeit- und Veranstaltungsort im Freien.",
+    "categories": [10, 11]
+  },
+  {
+    "name": "Zelt & Isomatten",
+    "description": "Verleih für Outdoor-Aktivitäten.",
+    "categories": [10, 14]
+  },
+  {
+    "name": "Kontakt Forstamt",
+    "description": "Kooperationen für Pflanzaktionen.",
+    "categories": [10, 6]
+  },
+  {
+    "name": "Ernteaktionen organisieren",
+    "description": "Gemeinsames Pflücken von Obst und Gemüse.",
+    "categories": [10, 8, 6]
+  },
+  {
+    "name": "Gemeinschaftsgarten-Mitglied",
+    "description": "Nutzung und Pflege von Gemeinschaftsgärten.",
+    "categories": [10, 11]
+  },
+  {
+    "name": "Wanderungen anleiten",
+    "description": "Organisation und Führung von Naturwanderungen.",
+    "categories": [10, 9]
+  },
+  {
+    "name": "Kompostberatung",
+    "description": "Beratung zu Kompostierung und nachhaltiger Abfallverwertung.",
+    "categories": [10, 8, 0]
+  },
+  {
+    "name": "Outdoor-Kocher & Ausrüstung",
+    "description": "Kochmöglichkeiten im Freien.",
+    "categories": [10, 8, 14]
+  },
+  {
+    "name": "Vereinsraum zur Nutzung",
+    "description": "Zugang zu regelmäßig nutzbaren Räumen.",
+    "categories": [11]
+  },
+  {
+    "name": "Büroräume am Wochenende",
+    "description": "Zugang zu Büroflächen außerhalb der Woche.",
+    "categories": [11]
+  },
+  {
+    "name": "Veranstaltungskeller mit Küche",
+    "description": "Räumlichkeiten für Events mit Küchennutzung.",
+    "categories": [11, 8]
+  },
+  {
+    "name": "Materiallager",
+    "description": "Lagerflächen für Equipment und Lebensmittel.",
+    "categories": [11]
+  },
+  {
+    "name": "Möbel & Technik",
+    "description": "Stühle, Tische, Beamer für Veranstaltungen.",
+    "categories": [11, 14]
+  },
+  {
+    "name": "Kontakt Stadtteilzentrum",
+    "description": "Kooperation mit lokalen Zentren.",
+    "categories": [11, 6]
+  },
+  {
+    "name": "Mobiler Tresen",
+    "description": "Verleihbarer Tresen für Veranstaltungen.",
+    "categories": [11, 14]
+  },
+  {
+    "name": "WLAN & Technik",
+    "description": "Technische Ausstattung für Veranstaltungen.",
+    "categories": [11, 1]
+  },
+  {
+    "name": "Kirchengemeinde mit Saal",
+    "description": "Beziehung zur Kirche mit vermietbarem Saal.",
+    "categories": [11, 6]
+  },
+  {
+    "name": "Spiegelreflexkamera",
+    "description": "Professionelle Kameraausrüstung zur Ausleihe.",
+    "categories": [12, 14]
+  },
+  {
+    "name": "Fotoworkshops",
+    "description": "Workshops zur Fotografie für Einsteiger:innen.",
+    "categories": [12, 9]
+  },
+  {
+    "name": "Kurzfilme schneiden",
+    "description": "Video-Schnitt und Postproduktion.",
+    "categories": [12, 1]
+  },
+  {
+    "name": "Social-Media-Videos",
+    "description": "Produktion von kurzen Videos für Online-Kanäle.",
+    "categories": [12, 7, 1]
+  },
+  {
+    "name": "Mobile Greenscreen-Ausrüstung",
+    "description": "Greenscreen-Set für kreative Videos.",
+    "categories": [12, 14]
+  },
+  {
+    "name": "Kontakt freie Fotografin",
+    "description": "Netzwerk zu professionellen Fotograf:innen.",
+    "categories": [12, 6]
+  },
+  {
+    "name": "Lichttechnik & Reflektoren",
+    "description": "Beleuchtung für Foto- und Videoaufnahmen.",
+    "categories": [12, 14]
+  },
+  {
+    "name": "Interviews filmen",
+    "description": "Dokumentation von Interviews.",
+    "categories": [12, 7]
+  },
+  {
+    "name": "Eventfotografie",
+    "description": "Foto-Dokumentation bei Veranstaltungen.",
+    "categories": [12, 7]
+  },
+  {
+    "name": "Leichte Sprache-Korrektorat",
+    "description": "Korrektur von Texten für bessere Verständlichkeit.",
+    "categories": [13, 7]
+  },
+  {
+    "name": "Deutsch-Englisch Übersetzungen",
+    "description": "Übersetzungen zwischen Deutsch und Englisch.",
+    "categories": [13, 7]
+  },
+  {
+    "name": "Französisch sprechen",
+    "description": null,
+    "categories": [13]
+  },
+  {
+    "name": "Mehrsprachige Flyer",
+    "description": "Gestaltung von Flyern in mehreren Sprachen.",
+    "categories": [13, 2]
+  },
+  {
+    "name": "Dolmetscher-Kontakte",
+    "description": "Netzwerk zu Dolmetscher:innen.",
+    "categories": [13, 6]
+  },
+  {
+    "name": "Mehrsprachige Begrüßungen",
+    "description": "Begrüßung in verschiedenen Sprachen bei Veranstaltungen.",
+    "categories": [13, 9]
+  },
+  {
+    "name": "Türkisch & Arabisch Grundkenntnisse",
+    "description": null,
+    "categories": [13]
+  },
+  {
+    "name": "Sprachmittlung in Gruppen",
+    "description": "Hilfe bei Verständigung in heterogenen Gruppen.",
+    "categories": [13, 6]
+  },
+  {
+    "name": "Lastenrad zum Verleih",
+    "description": "Lastenrad für Transporte.",
+    "categories": [14, 5]
+  },
+  {
+    "name": "Beamer & Leinwand",
+    "description": "Verleih von Präsentationstechnik.",
+    "categories": [14, 11]
+  },
+  {
+    "name": "Biertischgarnitur",
+    "description": "Verleih von Tischen und Bänken.",
+    "categories": [14, 11]
+  },
+  {
+    "name": "Mobile Musikanlage",
+    "description": "Verleih von Beschallungsausrüstung.",
+    "categories": [14, 4, 11]
+  },
+  {
+    "name": "Pavillon & Zelt",
+    "description": "Verleih von wettergeschütztem Raum.",
+    "categories": [14, 11]
+  },
+  {
+    "name": "Fahrradanhänger",
+    "description": "Verleih von Transportanhängern für Fahrräder.",
+    "categories": [14, 5]
+  },
+  {
+    "name": "Lichterkette & Deko-Kiste",
+    "description": "Verleih von Beleuchtung und Dekoration.",
+    "categories": [14, 11]
+  },
+  {
+    "name": "Thermoboxen für Essen",
+    "description": "Verleih von Transportboxen für warme Speisen.",
+    "categories": [14, 8]
+  },
+  {
+    "name": "Flipchart & Moderationsmaterial",
+    "description": "Verleih von Moderationsutensilien.",
+    "categories": [14, 6]
+  },
+  {
+    "name": "Kamera- & Stativset",
+    "description": "Verleih von Foto- und Videoausrüstung.",
+    "categories": [14, 12]
+  },
+  {
+    "name": "Solarkochkiste",
+    "description": "Verleih von solarbetriebenen Kochgeräten.",
+    "categories": [14, 8, 10]
+  },
+  {
+    "name": "Ideen für Nachhaltigkeitsprojekte",
+    "description": "Bringe gerne kreative Konzepte und neue Ideen ein.",
+    "categories": []
+  },
+  {
+    "name": "Humorvolle Moderation",
+    "description": "Bringe Stimmung und Leichtigkeit in Gruppen, auch wenn das schwer zu kategorisieren ist.",
+    "categories": []
+  },
+  {
+    "name": "Offene Ohren für alle",
+    "description": "Bin immer bereit zuzuhören und mit Empathie zu unterstützen.",
+    "categories": []
+  }
+]

@@ -1446,4 +1446,25 @@ class Foodsharing extends Db
             mt_rand(0, 0xFFFF), mt_rand(0, 0xFFFF), mt_rand(0, 0xFFFF)
         );
     }
+
+    public function addResourceCategory(string $name): int
+    {
+        return $this->haveInDatabase('fs_resource_category', ['name' => $name]);
+    }
+
+    public function addResource(int $foodsaverId, string $name, ?string $description, array $categories, bool $isPrivate, int $openness): int
+    {
+        $id = $this->haveInDatabase('fs_resource', [
+            'foodsaver_id' => $foodsaverId,
+            'name' => $name,
+            'description' => $description,
+            'is_private' => $isPrivate,
+            'openness' => $openness,
+        ]);
+        foreach ($categories as $category) {
+            $this->haveInDatabase('fs_resource_has_category', ['resource_id' => $id, 'category_id' => $category]);
+        }
+
+        return $id;
+    }
 }

@@ -20,6 +20,7 @@ class RegionIDs
     final public const int CREATING_WORK_GROUPS_WORK_GROUP = 1701;
     final public const int IT_SUPPORT_GROUP = 387;
     final public const int IT_AND_SOFTWARE_DEVELOPMENT_GROUP = 329;
+    final public const int PRODUCT_TEAM = 2296;
 
     final public const int EDITORIAL_GROUP = 327;
     final public const int BOT_WELCOME_TEAM = 328;
@@ -68,7 +69,8 @@ class RegionIDs
         return in_array($regionId, [
             self::NEWSLETTER_WORK_GROUP, self::QUIZ_AND_REGISTRATION_WORK_GROUP,
             self::PR_PARTNER_AND_TEAM_WORK_GROUP, self::PR_START_PAGE,
-            self::IT_SUPPORT_GROUP, self::EDITORIAL_GROUP, self::STORE_CHAIN_GROUP
+            self::IT_SUPPORT_GROUP, self::EDITORIAL_GROUP, self::STORE_CHAIN_GROUP,
+            self::PRODUCT_TEAM
         ]);
     }
 

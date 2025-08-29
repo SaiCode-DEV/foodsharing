@@ -99,7 +99,7 @@ const urls = {
   settingsDeleteAccount: () => '/user/current/deleteaccount',
   statistics: () => '/statistik',
   store: (storeId) => `/store/${storeId}`,
-  storeCategories: () => '/storecategories',
+  editCategories: (type) => `/categories/${type}`,
   storeList: () => '/?page=fsbetrieb',
   storeUserList: (userId) => `/user/${userId}/stores`,
   editNameInfoUrl: () => '/region?bid=881&sub=forum&tid=58225',
@@ -193,6 +193,10 @@ const urls = {
   quiz_foodsaver: () => urls.rise_role(1),
   quiz_store_manager: () => urls.rise_role(2),
   quiz_ambassador: () => urls.rise_role(3),
+
+  // resource mosaic
+  resources: (regionId) => `/region?bid=${regionId}&sub=resources`,
+  resource: (regionId, resourceId) => `/region?bid=${regionId}&sub=resources&resourceId=${resourceId}`,
 
   // Footer Links
   hosting: () => 'https://www.manitu.de/webhosting/',

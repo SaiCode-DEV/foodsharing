@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Tests\Unit;
 
 use Codeception\Test\Unit;
+use Foodsharing\Modules\Categories\StoreCategoriesGateway;
+use Foodsharing\Modules\Core\DBConstants\CategoryType;
 use Foodsharing\Modules\Store\DTO\CommonLabel;
-use Foodsharing\Modules\StoreCategories\StoreCategoriesGateway;
 use Tests\Support\UnitTester;
 
 class StoreCategoriesGatewayTest extends Unit
@@ -31,20 +32,13 @@ class StoreCategoriesGatewayTest extends Unit
 
     public function testExistCategory(): void
     {
-        $this->assertTrue($this->gateway->existStoreCategory(self::EXISTING_CATEGORIES[0]));
-        $this->assertFalse($this->gateway->existStoreCategory(9999));
-    }
-
-    public function testGetCategory(): void
-    {
-        $id = self::EXISTING_CATEGORIES[0];
-        $this->assertEquals(new CommonLabel($id, 'Category ' . $id), $this->gateway->getStoreCategory($id));
-        $this->assertNull($this->gateway->getStoreCategory(9999));
+        $this->assertTrue($this->gateway->categoryExists(self::EXISTING_CATEGORIES[0]));
+        $this->assertFalse($this->gateway->categoryExists(9999));
     }
 
     public function testGetCategories(): void
     {
-        $categories = $this->gateway->getStoreCategories();
+        $categories = $this->gateway->getCategoriesWithUsageCounts();
         $this->assertIsArray($categories);
         $this->assertEquals(sizeof(self::EXISTING_CATEGORIES), sizeof($categories));
         foreach (self::EXISTING_CATEGORIES as $id) {
@@ -54,9 +48,9 @@ class StoreCategoriesGatewayTest extends Unit
         }
     }
 
-    public function testGetCategoriesWithNumbers(): void
+    public function testGetCategoriesWithUsageCounts(): void
     {
-        $categories = $this->gateway->getStoreCategoriesWithStoreNumbers();
+        $categories = $this->gateway->getCategoriesWithUsageCounts(CategoryType::STORE);
         $this->assertIsArray($categories);
         $this->assertEquals(sizeof(self::EXISTING_CATEGORIES), sizeof($categories));
         foreach (self::EXISTING_CATEGORIES as $id) {
@@ -70,7 +64,7 @@ class StoreCategoriesGatewayTest extends Unit
     {
         // adding a new category should create a new id
         $newCategory = new CommonLabel(self::EXISTING_CATEGORIES[0], 'Test');
-        $newId = $this->gateway->addStoreCategory($newCategory);
+        $newId = $this->gateway->addCategory($newCategory);
         $this->assertNotEquals($newId, $newCategory->id);
         $this->tester->seeInDatabase('fs_betrieb_kategorie', ['id' => $newId, 'name' => $newCategory->name]);
     }
@@ -82,7 +76,7 @@ class StoreCategoriesGatewayTest extends Unit
         $this->tester->seeInDatabase('fs_betrieb_kategorie', ['id' => $id, 'name' => 'Category ' . $id]);
 
         $updatedCategory = new CommonLabel($id, 'Test');
-        $this->gateway->updateStoreCategory($updatedCategory);
+        $this->gateway->updateCategory($updatedCategory);
         $this->tester->dontSeeInDatabase('fs_betrieb_kategorie', ['id' => $id, 'name' => 'Category ' . $id]);
         $this->tester->seeInDatabase('fs_betrieb_kategorie', ['id' => $id, 'name' => $updatedCategory->name]);
 
@@ -90,7 +84,7 @@ class StoreCategoriesGatewayTest extends Unit
         $id = 9999;
         $this->tester->dontSeeInDatabase('fs_betrieb_kategorie', ['id' => $id]);
         $updatedCategory = new CommonLabel($id, 'Test');
-        $this->gateway->updateStoreCategory($updatedCategory);
+        $this->gateway->updateCategory($updatedCategory);
         $this->tester->dontSeeInDatabase('fs_betrieb_kategorie', ['id' => $id]);
     }
 
@@ -100,15 +94,15 @@ class StoreCategoriesGatewayTest extends Unit
         $id = self::EXISTING_CATEGORIES[random_int(0, sizeof(self::EXISTING_CATEGORIES) - 1)];
         $this->tester->seeInDatabase('fs_betrieb_kategorie', ['id' => $id]);
 
-        $this->gateway->deleteStoreCategory($id);
+        $this->gateway->deleteCategory($id);
         $this->tester->dontSeeInDatabase('fs_betrieb_kategorie', ['id' => $id]);
-        $this->assertNull($this->gateway->getStoreCategory($id));
-        $this->assertNotContains(new CommonLabel($id, 'Category ' . $id), $this->gateway->getStoreCategories());
+        $this->assertFalse($this->gateway->categoryExists($id));
+        $this->assertNotContains(new CommonLabel($id, 'Category ' . $id), $this->gateway->getCategoriesWithUsageCounts(CategoryType::STORE));
 
         // deleting a non-existent category should not do anything
         $id = 9999;
         $this->tester->dontSeeInDatabase('fs_betrieb_kategorie', ['id' => $id]);
-        $this->gateway->deleteStoreCategory($id);
+        $this->gateway->deleteCategory($id);
         $this->tester->dontSeeInDatabase('fs_betrieb_kategorie', ['id' => $id]);
     }
 }

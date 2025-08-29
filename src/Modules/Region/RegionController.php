@@ -76,6 +76,7 @@ final class RegionController extends FoodsharingController
                 WorkgroupFunction::MODERATION => 'moderationAdmins',
                 WorkgroupFunction::BOARD => 'boardAdmins',
                 WorkgroupFunction::ELECTION => 'electionAdmins',
+                WorkgroupFunction::RESOURCES => 'resourcesAdmins',
             ];
 
             foreach ($functionMappings as $function => $adminKey) {
@@ -191,6 +192,8 @@ final class RegionController extends FoodsharingController
                 return $this->redirect('/region/' . $region_id);
             case 'achievements':
                 return $this->achievements($request, $region);
+            case 'resources':
+                return $this->resources($request, $region);
             case 'edit':
                 return $this->editRegion($request, $region);
             default:
@@ -413,6 +416,18 @@ final class RegionController extends FoodsharingController
     {
         $this->pageHelper->addBread($this->translator->trans('terminology.achievements'), '/region?bid=' . $region['id'] . '&sub=achievements');
         $this->pageHelper->addTitle($this->translator->trans('terminology.achievements'));
+
+        $params = $this->convertDataToObject($region, $request->query->get('sub'), []);
+
+        $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
+
+        return $this->renderGlobal();
+    }
+
+    private function resources(Request $request, array $region): Response
+    {
+        $this->pageHelper->addBread($this->translator->trans('resource_mosaic.title'), '/region?bid=' . $region['id'] . '&sub=resources');
+        $this->pageHelper->addTitle($this->translator->trans('resource_mosaic.title'));
 
         $params = $this->convertDataToObject($region, $request->query->get('sub'), []);
 

@@ -10,6 +10,7 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\Modules\Bell\BellTransactions;
 use Foodsharing\Modules\Bell\DTO\Bell;
+use Foodsharing\Modules\Categories\StoreCategoriesGateway;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
@@ -44,7 +45,6 @@ use Foodsharing\Modules\Store\DTO\StoreChainInformation;
 use Foodsharing\Modules\Store\DTO\StoreInvitation;
 use Foodsharing\Modules\Store\DTO\StoreListInformation;
 use Foodsharing\Modules\Store\DTO\StoreStatusForMember;
-use Foodsharing\Modules\StoreCategories\StoreCategoriesGateway;
 use Foodsharing\Modules\StoreChain\StoreChainGateway;
 use Foodsharing\Modules\WallPost\DTO\WallPost;
 use Foodsharing\Modules\WallPost\WallPostGateway;
@@ -129,7 +129,7 @@ class StoreTransactions
 
         $store->groceries = array_map(fn ($row) => CommonLabel::createFromArray($row), $this->storeGateway->getBasics_groceries());
 
-        $store->categories = $this->storeCategoriesGateway->getStoreCategories();
+        $store->categories = $this->storeCategoriesGateway->getCategories();
         $store->categories[] = new CommonLabel(0, $this->translator->trans('store.nodeclaration'));
 
         $store->status = array_map(fn ($row) => CommonLabel::createFromArray($row), [
@@ -413,7 +413,7 @@ class StoreTransactions
         if (!is_null($storeChange->categoryId)) {
             $changeInformation->informationChanged = true;
             if ($storeChange->categoryId !== 0) {
-                $storeCategoryExists = $this->storeCategoriesGateway->existStoreCategory($storeChange->categoryId);
+                $storeCategoryExists = $this->storeCategoriesGateway->categoryExists($storeChange->categoryId);
                 if (!$storeCategoryExists) {
                     throw new StoreTransactionException(StoreTransactionException::STORE_CATEGORY_NOT_EXISTS);
                 }

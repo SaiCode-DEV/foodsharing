@@ -23,6 +23,7 @@ use Foodsharing\Permissions\AchievementPermissions;
 use Foodsharing\Permissions\FoodSharePointPermissions;
 use Foodsharing\Permissions\RegionPermissions;
 use Foodsharing\Permissions\ReportPermissions;
+use Foodsharing\Permissions\ResourcePermissions;
 use Foodsharing\Permissions\VotingPermissions;
 use Foodsharing\Permissions\WorkGroupPermissions;
 use Foodsharing\RestApi\Models\Notifications\Region;
@@ -53,6 +54,7 @@ class RegionTransactions
         private readonly VotingPermissions $votingPermissions,
         private readonly AchievementPermissions $achievementPermissions,
         private readonly ForumFollowerGateway $forumFollowerGateway,
+        private readonly ResourcePermissions $resourcePermissions,
     ) {
     }
 
@@ -272,6 +274,7 @@ class RegionTransactions
         $menu['hasAchievements'] = $this->achievementGateway->regionHasAchievements($region['id']);
         $menu['mayAdministrateAchievements'] = $this->achievementPermissions->mayAdministrateAchievementsFromRegion($region['id']);
         $menu['mayCreatePoll'] = $this->votingPermissions->mayCreatePoll($region['id'], $region['type']);
+        $menu['hasResources'] = $this->resourcePermissions->maySeeResources($region['id'], $region['type']);
 
         if ($this->currentUserUnits->isAdminFor($regionId)) {
             $menu['mailboxId'] = $region['mailbox_id'];
@@ -319,5 +322,17 @@ class RegionTransactions
             $this->forumFollowerGateway->deleteForumSubscription($regionId, $removedAdminId, 1);
         }
         $this->regionGateway->setRegionAdmins($regionId, $adminIds);
+    }
+
+    public function getResponsibleUsersForFunction(int $regionId, int $workgroupFunction): array
+    {
+        $functionGroupId = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, $workgroupFunction);
+        if ($functionGroupId) {
+            $responsibleUsers = $this->foodsaverGateway->getAdminsOrAmbassadors($functionGroupId);
+        } else {
+            $responsibleUsers = $this->foodsaverGateway->getAdminsOrAmbassadors($regionId);
+        }
+
+        return $responsibleUsers;
     }
 }

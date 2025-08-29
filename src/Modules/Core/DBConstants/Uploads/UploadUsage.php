@@ -41,4 +41,8 @@ enum UploadUsage: int
      * The file is attached to an email (column fs_mailbox_message.attach). The usage_id links to fs_mailbox_message.id.
      */
     case EMAIL_ATTACHMENT = 6;
+    /*
+     * The file is attached to a resource (column fs_resource.images). The usage_id links to fs_resource.id.
+     */
+    case RESOURCE = 7;
 }

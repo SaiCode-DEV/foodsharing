@@ -16,6 +16,7 @@
           v-b-tooltip.hover="$i18n(`markdown_input.tooltip.${button.tooltip}`)"
           :variant="variant"
           :disabled="isPreview"
+          :class="button.class"
           @click="button.action"
         >
           <i :class="`fas fa-${button.icon}`" />
@@ -44,6 +45,7 @@
           v-b-tooltip.hover="$i18n(`markdown_input.tooltip.preview`)"
           :variant="variant"
           :pressed.sync="isPreview"
+          class="order-2"
         >
           <i class="fas fa-eye" />
         </b-button>
@@ -127,9 +129,8 @@ export default {
         { tooltip: 'unorderedList', icon: 'list', action: this.unorderedList },
         { tooltip: 'orderedList', icon: 'list-ol', action: this.orderedList },
         { tooltip: 'hrule', icon: 'minus', action: this.hrule },
-        ...(this.allowImageAttachments ? [{ tooltip: 'image', icon: 'images', action: this.selectImages }] : []),
+        ...(this.allowImageAttachments ? [{ tooltip: 'image', icon: 'images', action: this.selectImages, class: 'order-1' }] : []),
         // Additional buttons that could be added in the future:
-        // { icon: 'at'}, // supposed to be a way to insert links to user profiles easily
         // { icon: 'table'}, // for adding md tables
       ],
     }
@@ -277,6 +278,9 @@ export default {
     },
     clearImages () {
       this.$refs['image-upload'].clearImages()
+    },
+    setImages (images) {
+      this.$refs['image-upload'].setImages(images)
     },
     async uploadImages () {
       return await this.$refs['image-upload'].uploadImages()

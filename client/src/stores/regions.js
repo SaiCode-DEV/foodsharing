@@ -46,6 +46,7 @@ export const WORKGROUP_FUNCTION = Object.freeze({
   MODERATION: 10,
   BOARD: 11,
   ELECTION: 12,
+  RESOURCES: 13,
 })
 
 export const SUB_PAGE = Object.freeze({
@@ -60,6 +61,7 @@ export const SUB_PAGE = Object.freeze({
   APPLICATIONS: 'applications',
   OPTIONS: 'options',
   ACHIEVEMENTS: 'achievements',
+  RESOURCES: 'resources',
   SETTINGS: 'edit',
 })
 

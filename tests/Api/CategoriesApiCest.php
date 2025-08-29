@@ -9,7 +9,7 @@ use Faker\Factory;
 use Foodsharing\Modules\Store\DTO\CommonLabel;
 use Tests\Support\ApiTester;
 
-class StoreCategoriesApiCest
+class CategoriesApiCest
 {
     private $user;
     private $userOrga;
@@ -25,11 +25,11 @@ class StoreCategoriesApiCest
 
     public function canFetchStoreCategoriesWhenLoggedIn(ApiTester $I): void
     {
-        $I->sendGet('api/storecategories');
+        $I->sendGet('api/categories/store');
         $I->seeResponseCodeIs(Http::UNAUTHORIZED);
 
         $I->login($this->user['email']);
-        $I->sendGet('api/storecategories');
+        $I->sendGet('api/categories/store');
         $I->seeResponseCodeIs(Http::OK);
 
         $category = $this->getRandomCategoryFromDatabase($I);
@@ -41,13 +41,13 @@ class StoreCategoriesApiCest
         $newCategory = $this->createRandomCategory();
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/storecategories', $newCategory);
+        $I->sendPost('api/categories/store', $newCategory);
         $I->seeResponseCodeIs(Http::UNAUTHORIZED);
         $I->dontSeeInDatabase('fs_betrieb_kategorie', ['name' => $newCategory['name']]);
 
         $I->login($this->userOrga['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/storecategories', $newCategory);
+        $I->sendPost('api/categories/store', $newCategory);
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseContainsJson($newCategory);
         $id = $I->grabDataFromResponseByJsonPath('id')[0];
@@ -61,7 +61,7 @@ class StoreCategoriesApiCest
 
         $I->login($this->user['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/storecategories', $newCategory);
+        $I->sendPost('api/categories/store', $newCategory);
         $I->seeResponseCodeIs(Http::FORBIDDEN);
         $I->dontSeeInDatabase('fs_betrieb_kategorie', ['name' => $newCategory['name']]);
     }
@@ -72,13 +72,13 @@ class StoreCategoriesApiCest
         $newProperties = $this->createRandomCategory();
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/storecategories/' . $category->id, $newProperties);
+        $I->sendPatch('api/categories/store/' . $category->id, $newProperties);
         $I->seeResponseCodeIs(Http::UNAUTHORIZED);
         $I->seeInDatabase('fs_betrieb_kategorie', ['id' => $category->id, 'name' => $category->name]);
 
         $I->login($this->userOrga['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/storecategories/' . $category->id, $newProperties);
+        $I->sendPatch('api/categories/store/' . $category->id, $newProperties);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb_kategorie', ['id' => $category->id, 'name' => $newProperties['name']]);
@@ -91,7 +91,7 @@ class StoreCategoriesApiCest
 
         $I->login($this->user['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/storecategories/' . $category->id, $newProperties);
+        $I->sendPatch('api/categories/store/' . $category->id, $newProperties);
         $I->seeResponseCodeIs(Http::FORBIDDEN);
         $I->seeInDatabase('fs_betrieb_kategorie', ['id' => $category->id, 'name' => $category->name]);
     }
@@ -103,9 +103,38 @@ class StoreCategoriesApiCest
 
         $I->login($this->userOrga['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/storecategories/' . $categoryId, $newProperties);
+        $I->sendPatch('api/categories/store/' . $categoryId, $newProperties);
         $I->seeResponseCodeIs(Http::NOT_FOUND);
         $I->dontSeeInDatabase('fs_betrieb_kategorie', ['id' => $categoryId]);
+    }
+
+    public function canDeleteStoreCategoryAsOrga(ApiTester $I): void
+    {
+        $category = $this->getRandomCategoryFromDatabase($I);
+
+        $I->sendDelete('api/categories/store/' . $category->id);
+        $I->seeResponseCodeIs(Http::UNAUTHORIZED);
+        $I->seeInDatabase('fs_betrieb_kategorie', ['id' => $category->id]);
+
+        $I->login($this->userOrga['email']);
+        $I->sendDelete('api/categories/store/' . $category->id);
+        $I->seeResponseCodeIs(Http::OK);
+        $I->dontSeeInDatabase('fs_betrieb_kategorie', ['id' => $category->id]);
+    }
+
+    public function canMergeStoreCategories(ApiTester $I): void
+    {
+        $category1 = $this->getRandomCategoryFromDatabase($I);
+        $category2 = $this->getRandomCategoryFromDatabase($I);
+
+        $I->login($this->userOrga['email']);
+        $I->sendPost('api/categories/store/merge/' . $category1->id . '/' . $category2->id);
+        $I->seeResponseCodeIs(Http::OK);
+        $I->seeResponseContainsJson(['duplicates' => 0]);
+
+        // Check that the second category was merged into the first
+        $I->dontSeeInDatabase('fs_betrieb_kategorie', ['id' => $category2->id]);
+        $I->seeInDatabase('fs_betrieb_kategorie', ['id' => $category1->id]);
     }
 
     private function createRandomCategory(): array

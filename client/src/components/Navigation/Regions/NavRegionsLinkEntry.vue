@@ -71,6 +71,12 @@ export default {
         })
       }
 
+      if (this.entry.hasResources) {
+        menu.push({
+          href: 'resources', icon: 'fa-shapes', text: 'resource_mosaic.title',
+        })
+      }
+
       menu.push({
         href: 'options', icon: 'fa-tools', text: 'menu.entry.options',
       })

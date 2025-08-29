@@ -3,6 +3,7 @@
 namespace Foodsharing\Utility;
 
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Core\DBConstants\CategoryType;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
@@ -11,6 +12,7 @@ use Foodsharing\Modules\Settings\SettingsTransactions;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\AchievementPermissions;
 use Foodsharing\Permissions\BlogPermissions;
+use Foodsharing\Permissions\CategoriesPermissions;
 use Foodsharing\Permissions\ContentPermissions;
 use Foodsharing\Permissions\MailboxPermissions;
 use Foodsharing\Permissions\NewsletterEmailPermissions;
@@ -18,7 +20,7 @@ use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\QuizPermissions;
 use Foodsharing\Permissions\RegionPermissions;
 use Foodsharing\Permissions\ReportPermissions;
-use Foodsharing\Permissions\StoreCategoriesPermissions;
+use Foodsharing\Permissions\ResourcePermissions;
 use Foodsharing\Permissions\StorePermissions;
 use Foodsharing\Permissions\WorkGroupPermissions;
 use Twig\Environment;
@@ -61,10 +63,11 @@ final class PageHelper
         private readonly NewsletterEmailPermissions $newsletterEmailPermissions,
         private readonly WorkGroupPermissions $workGroupPermissions,
         private readonly ProfilePermissions $profilePermissions,
-        private readonly StoreCategoriesPermissions $storeCategoriesPermissions,
+        private readonly CategoriesPermissions $categoriesPermissions,
         private readonly AchievementPermissions $achievementPermissions,
         private readonly RegionGateway $regionGateway,
         private readonly SettingsTransactions $settingsTransactions,
+        private readonly ResourcePermissions $resourcePermissions,
         private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
     }
@@ -205,7 +208,8 @@ final class PageHelper
             'editContent' => $this->contentPermissions->mayEditContent(),
             'administrateNewsletterEmail' => $this->newsletterEmailPermissions->mayAdministrateNewsletterEmail(),
             'administrateRegions' => $this->regionPermissions->mayAdministrateRegions(),
-            'editStoreCategories' => $this->storeCategoriesPermissions->mayEditStoreCategories(),
+            'editStoreCategories' => $this->categoriesPermissions->mayEditCategories(CategoryType::STORE),
+            'editResourceCategories' => $this->categoriesPermissions->mayEditCategories(CategoryType::RESOURCE),
             'editAchievements' => $this->achievementPermissions->mayEditAchievements(),
         ];
     }
@@ -223,6 +227,7 @@ final class PageHelper
             $group = array_merge($group, [
                 'mayHandleFoodsaverRegionMenu' => $this->regionPermissions->mayHandleFoodsaverRegionMenu($groupId),
                 'hasConference' => $this->regionPermissions->hasConference($groupType),
+                'hasResources' => $this->resourcePermissions->maySeeResources($group['id'], $group['type']),
             ]);
             if (UnitType::isRegion($groupType)) {
                 $group['isAdmin'] = $this->currentUserUnits->isAdminFor($groupId);

@@ -31,17 +31,8 @@ class SeedCommand extends Command implements CustomCommandInterface
     protected OutputInterface $output;
 
     protected $foodsavers = [];
-    protected $welcomeAdmins = [];
-    protected $votingAdmins = [];
-    protected $fspAdmins = [];
     protected $reportAdmins = [];
     protected $arbitrationAdmins = [];
-    protected $mediationAdmins = [];
-    protected $fsManagementAdmins = [];
-    protected $prAdmins = [];
-    protected $moderationAdmins = [];
-    protected $boardAdmins = [];
-    protected $electionAdmins = [];
     protected $stores = [];
     protected $chain_ids = [];
     protected $prGroup = [];
@@ -191,143 +182,60 @@ class SeedCommand extends Command implements CustomCommandInterface
         }
     }
 
-    protected function createFunctionWorkgroups(int $region1)
+    protected function createFunctionWorkgroups(int $region1, array $adminOfAll)
     {
         $I = $this->helper;
         $password = 'user';
-        // Create a welcome Group
-        $welcomeGroup = $I->createWorkingGroup('Begrüßung Göttingen', ['parent_id' => $region1, 'email' => 'begruessung.goettingen', 'teaser' => 'Hier sind die Begrüßer für unseren Bezirk']);
-        $I->haveInDatabase('fs_region_function', ['region_id' => $welcomeGroup['id'], 'function_id' => WorkgroupFunction::WELCOME, 'target_id' => $region1]);
-        foreach (range(1, 4) as $i) {
-            $user = $I->createStoreCoordinator($password, ['email' => 'userwelcome' . $i . '@example.com', 'bezirk_id' => $region1, 'image' => true]);
-            $I->addRegionMember($welcomeGroup['id'], $user['id']);
-            $I->addRegionAdmin($welcomeGroup['id'], $user['id']);
-            $this->welcomeAdmins[] = $user['id'];
-        }
-        $this->progressBar(1, 12);
 
-        // Create voting Group
-        $votingGroup = $I->createWorkingGroup('Abstimmungen Göttingen', ['parent_id' => $region1, 'email' => 'abstimmung.goettingen', 'teaser' => 'Hier sind die Abstimmungen für unseren Bezirk']);
-        $I->haveInDatabase('fs_region_function', ['region_id' => $votingGroup['id'], 'function_id' => WorkgroupFunction::VOTING, 'target_id' => $region1]);
-        foreach (range(1, 4) as $i) {
-            $user = $I->createStoreCoordinator($password, ['email' => 'uservoting' . $i . '@example.com', 'bezirk_id' => $region1, 'image' => true]);
-            $I->addRegionMember($votingGroup['id'], $user['id']);
-            $I->addRegionAdmin($votingGroup['id'], $user['id']);
-            $I->addRegionMember(RegionIDs::VOTING_ADMIN_GROUP, $user['id']);
-            $this->votingAdmins[] = $user['id'];
-        }
-        $this->progressBar(2, 12);
+        $workgroups = [
+            ['name' => 'Begrüßung', 'function' => WorkgroupFunction::WELCOME, 'key' => 'welcome'],
+            ['name' => 'Abstimmungen', 'function' => WorkgroupFunction::VOTING, 'key' => 'voting', 'addAdminsToRegion' => RegionIDs::VOTING_ADMIN_GROUP],
+            ['name' => 'Fairteiler', 'function' => WorkgroupFunction::FSP, 'key' => 'fsp'],
+            ['name' => 'Betriebskoordination', 'function' => WorkgroupFunction::STORES_COORDINATION, 'key' => 'stores'],
+            ['name' => 'Meldungsbearbeitung', 'function' => WorkgroupFunction::REPORT, 'key' => 'report'],
+            ['name' => 'Mediation', 'function' => WorkgroupFunction::MEDIATION, 'key' => 'mediation'],
+            ['name' => 'Schiedsstelle', 'function' => WorkgroupFunction::ARBITRATION, 'key' => 'arbitration'],
+            ['name' => 'Verwaltung', 'function' => WorkgroupFunction::FSMANAGEMENT, 'key' => 'fsManagement'],
+            ['name' => 'Öffentlichkeitsarbeit', 'function' => WorkgroupFunction::PR, 'key' => 'pr'],
+            ['name' => 'Moderation', 'function' => WorkgroupFunction::MODERATION, 'key' => 'moderation'],
+            ['name' => 'Vorstand', 'function' => WorkgroupFunction::BOARD, 'key' => 'board'],
+            ['name' => 'Wahlen', 'function' => WorkgroupFunction::ELECTION, 'key' => 'election', 'addAdminsToRegion' => RegionIDs::ELECTION_ADMIN_GROUP],
+            ['name' => 'Ressourcen', 'function' => WorkgroupFunction::RESOURCES, 'key' => 'resources'],
+        ];
 
-        // Create fsp Group
-        $fspGroup = $I->createWorkingGroup('Fairteiler Göttingen', ['parent_id' => $region1, 'email' => 'fairteiler.goettingen', 'teaser' => 'Hier sind die Fairteileransprechpartner für unseren Bezirk']);
-        $I->haveInDatabase('fs_region_function', ['region_id' => $fspGroup['id'], 'function_id' => WorkgroupFunction::FSP, 'target_id' => $region1]);
-        foreach (range(1, 2) as $i) {
-            $user = $I->createStoreCoordinator($password, ['email' => 'userfsp' . $i . '@example.com', 'bezirk_id' => $region1, 'image' => true]);
-            $I->addRegionMember($fspGroup['id'], $user['id']);
-            $I->addRegionAdmin($fspGroup['id'], $user['id']);
-            $this->fspAdmins[] = $user['id'];
-        }
-        $this->progressBar(3, 12);
+        foreach ($workgroups as $idx => $wg) {
+            $group = $I->createWorkingGroup($wg['name'] . ' Göttingen', [
+                'parent_id' => $region1,
+                'email' => preg_replace(['/ä/', '/ö/', '/ü/', '/ß/'], ['ae', 'oe', 'ue', 'ss'], strtolower($wg['name'])) . '.goettingen',
+                'teaser' => 'Hier ist die AG ' . $wg['name'] . ' für unseren Bezirk',
+            ]);
+            $I->haveInDatabase('fs_region_function', [
+                'region_id' => $group['id'],
+                'function_id' => $wg['function'],
+                'target_id' => $region1,
+            ]);
+            for ($i = 1; $i <= 3; ++$i) {
+                $user = $I->createStoreCoordinator(
+                    $password,
+                    [
+                        'email' => "user{$wg['key']}{$i}@example.com",
+                        'bezirk_id' => $region1,
+                        'image' => true,
+                    ]
+                );
+                $I->addRegionMember($group['id'], $user['id']);
+                $I->addRegionAdmin($group['id'], $user['id']);
 
-        // Create STORESAdmins Group
-        $storesGroup = $I->createWorkingGroup('Betriebskoordination Göttingen', ['parent_id' => $region1, 'email' => 'betriebskoordination.goettingen', 'teaser' => 'Hier sind die Betriebskoordinationsansprechpartner für unseren Bezirk']);
-        $I->haveInDatabase('fs_region_function', ['region_id' => $storesGroup['id'], 'function_id' => WorkgroupFunction::STORES_COORDINATION, 'target_id' => $region1]);
-        foreach (range(1, 3) as $i) {
-            $user = $I->createStoreCoordinator($password, ['email' => 'userstorecoordination' . $i . '@example.com', 'bezirk_id' => $region1, 'image' => true]);
-            $I->addRegionMember($storesGroup['id'], $user['id']);
-            $I->addRegionAdmin($storesGroup['id'], $user['id']);
-            $this->storesGroupAdmin[] = $user['id'];
+                if (!empty($wg['addAdminsToRegion'])) {
+                    $I->addRegionMember($wg['addAdminsToRegion'], $user['id']);
+                }
+                if (isset($this->{$wg['key'] . 'Admins'})) {
+                    $this->{$wg['key'] . 'Admins'}[] = $user['id'];
+                }
+            }
+            $I->addRegionAdmin($group['id'], $adminOfAll['id']);
+            $this->progressBar($idx + 1, count($workgroups));
         }
-        $this->progressBar(4, 12);
-
-        // Create REPORTAdmins Group
-        $reportGroup = $I->createWorkingGroup('Meldungsbearbeitung Göttingen', ['parent_id' => $region1, 'email' => 'meldungsbearbeitung.goettingen', 'teaser' => 'Hier sind die Meldungsbearbeiter für unseren Bezirk']);
-        $I->haveInDatabase('fs_region_function', ['region_id' => $reportGroup['id'], 'function_id' => WorkgroupFunction::REPORT, 'target_id' => $region1]);
-        foreach (range(1, 4) as $i) {
-            $user = $I->createStoreCoordinator($password, ['email' => 'userreport' . $i . '@example.com', 'bezirk_id' => $region1, 'image' => true]);
-            $I->addRegionMember($reportGroup['id'], $user['id']);
-            $I->addRegionAdmin($reportGroup['id'], $user['id']);
-            $this->reportAdmins[] = $user['id'];
-        }
-        $this->progressBar(5, 12);
-
-        // Create MediationAdmins Group
-        $mediationGroup = $I->createWorkingGroup('Mediation Göttingen', ['parent_id' => $region1, 'email' => 'mediation.goettingen', 'teaser' => 'Hier sind die Meldungsbearbeiter für unseren Bezirk']);
-        $I->haveInDatabase('fs_region_function', ['region_id' => $mediationGroup['id'], 'function_id' => WorkgroupFunction::MEDIATION, 'target_id' => $region1]);
-        foreach (range(1, 3) as $i) {
-            $user = $I->createStoreCoordinator($password, ['email' => 'usermediation' . $i . '@example.com', 'bezirk_id' => $region1, 'image' => true]);
-            $I->addRegionMember($mediationGroup['id'], $user['id']);
-            $I->addRegionAdmin($mediationGroup['id'], $user['id']);
-            $this->mediationAdmins[] = $user['id'];
-        }
-        $this->progressBar(6, 12);
-
-        // Create ArbitrationAdmins Group
-        $arbitrationGroup = $I->createWorkingGroup('Schiedsstelle Göttingen', ['parent_id' => $region1, 'email' => 'schiedstelle.goettingen', 'teaser' => 'Hier ist das Schiedsstellenteam für unseren Bezirk']);
-        $I->haveInDatabase('fs_region_function', ['region_id' => $arbitrationGroup['id'], 'function_id' => WorkgroupFunction::ARBITRATION, 'target_id' => $region1]);
-        foreach (range(1, 4) as $i) {
-            $user = $I->createStoreCoordinator($password, ['email' => 'userarbitration' . $i . '@example.com', 'bezirk_id' => $region1, 'image' => true]);
-            $I->addRegionMember($arbitrationGroup['id'], $user['id']);
-            $I->addRegionAdmin($arbitrationGroup['id'], $user['id']);
-            $this->arbitrationAdmins[] = $user['id'];
-        }
-        $this->progressBar(7, 12);
-
-        // Create FSMANAGEMENT Group
-        $fsmanagementGroup = $I->createWorkingGroup('Verwaltung Göttingen', ['parent_id' => $region1, 'email' => 'verwaltung.goettingen', 'teaser' => 'Hier ist das Verwaltungsteam für unseren Bezirk']);
-        $I->haveInDatabase('fs_region_function', ['region_id' => $fsmanagementGroup['id'], 'function_id' => WorkgroupFunction::FSMANAGEMENT, 'target_id' => $region1]);
-        foreach (range(1, 3) as $i) {
-            $user = $I->createStoreCoordinator($password, ['email' => 'userfsmanagement' . $i . '@example.com', 'bezirk_id' => $region1, 'image' => true]);
-            $I->addRegionMember($fsmanagementGroup['id'], $user['id']);
-            $I->addRegionAdmin($fsmanagementGroup['id'], $user['id']);
-            $this->fsManagementAdmins[] = $user['id'];
-        }
-        $this->progressBar(8, 12);
-
-        // Create PR Group
-        $prGroup = $I->createWorkingGroup('Öffentlichkeitsarbeit Göttingen', ['parent_id' => $region1, 'email' => 'oeffentlichkeitsarbeit.goettingen', 'teaser' => 'Hier ist das Öffentlichkeitsarbeitsteam für unseren Bezirk']);
-        $I->haveInDatabase('fs_region_function', ['region_id' => $prGroup['id'], 'function_id' => WorkgroupFunction::PR, 'target_id' => $region1]);
-        foreach (range(1, 5) as $i) {
-            $user = $I->createStoreCoordinator($password, ['email' => 'userpr' . $i . '@example.com', 'bezirk_id' => $region1, 'image' => true]);
-            $I->addRegionMember($prGroup['id'], $user['id']);
-            $I->addRegionAdmin($prGroup['id'], $user['id']);
-            $this->prGroup[] = $user['id'];
-        }
-        $this->progressBar(9, 12);
-
-        // Create MODERATION Group
-        $moderationGroup = $I->createWorkingGroup('Moderation Göttingen', ['parent_id' => $region1, 'email' => 'moderation.goettingen', 'teaser' => 'Hier ist das Moderationsteam für unseren Bezirk']);
-        $I->haveInDatabase('fs_region_function', ['region_id' => $moderationGroup['id'], 'function_id' => WorkgroupFunction::MODERATION, 'target_id' => $region1]);
-        foreach (range(1, 4) as $i) {
-            $user = $I->createStoreCoordinator($password, ['email' => 'usermoderation' . $i . '@example.com', 'bezirk_id' => $region1, 'image' => true]);
-            $I->addRegionMember($moderationGroup['id'], $user['id']);
-            $I->addRegionAdmin($moderationGroup['id'], $user['id']);
-            $this->moderationAdmins[] = $user['id'];
-        }
-        $this->progressBar(10, 12);
-
-        // Create BOARD Group
-        $boardGroup = $I->createWorkingGroup('Vorstand Göttingen', ['parent_id' => $region1, 'email' => 'vorstand.goettingen', 'teaser' => 'Hier ist der Vorstand für unseren Bezirk']);
-        $I->haveInDatabase('fs_region_function', ['region_id' => $boardGroup['id'], 'function_id' => WorkgroupFunction::BOARD, 'target_id' => $region1]);
-        foreach (range(1, 4) as $i) {
-            $user = $I->createStoreCoordinator($password, ['email' => 'userboard' . $i . '@example.com', 'bezirk_id' => $region1, 'image' => true]);
-            $I->addRegionMember($boardGroup['id'], $user['id']);
-            $I->addRegionAdmin($boardGroup['id'], $user['id']);
-            $this->boardAdmins[] = $user['id'];
-        }
-        $this->progressBar(11, 12);
-
-        // Create ELECTION Group
-        $electionGroup = $I->createWorkingGroup('Wahlen Göttingen', ['parent_id' => $region1, 'email' => 'wahlen.goettingen', 'teaser' => 'Hier ist die Wahlen AG für unseren Bezirk']);
-        $I->haveInDatabase('fs_region_function', ['region_id' => $electionGroup['id'], 'function_id' => WorkgroupFunction::ELECTION, 'target_id' => $region1]);
-        foreach (range(1, 4) as $i) {
-            $user = $I->createStoreCoordinator($password, ['email' => 'userelection' . $i . '@example.com', 'bezirk_id' => $region1, 'image' => true]);
-            $I->addRegionMember($electionGroup['id'], $user['id']);
-            $I->addRegionAdmin($electionGroup['id'], $user['id']);
-            $I->addRegionMember(RegionIDs::ELECTION_ADMIN_GROUP, $user['id']);
-            $this->electionAdmins[] = $user['id'];
-        }
-        $this->progressBar(12, 12);
     }
 
     protected function CreateMorePickups()
@@ -435,6 +343,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         $I->createWorkingGroup('Verwaltung-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::FSMANAGEMENT_TEAM_ADMIN_GROUP]);
         $I->createWorkingGroup('Öffentlichkeitsarbeit-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::PR_TEAM_ADMIN_GROUP]);
         $I->createWorkingGroup('Moderation-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::MODERATION_TEAM_ADMIN_GROUP]);
+        $I->createWorkingGroup('Produktteam', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::PRODUCT_TEAM]);
 
         $region1Subregion = $I->createRegion('Stadtteil von Göttingen', ['type' => UnitType::PART_OF_TOWN, 'parent_id' => $region1]);
 
@@ -601,6 +510,8 @@ class SeedCommand extends Command implements CustomCommandInterface
         $I->addRegionAdmin(RegionIDs::STORE_CHAIN_GROUP, $userbot['id']);
         $I->addRegionAdmin(RegionIDs::HYGIENE_GROUP, $userbot['id']);
         $I->addRegionAdmin(RegionIDs::POLITICAL_CAMPAIGNS, $userbot['id']);
+        $I->addRegionAdmin(RegionIDs::PRODUCT_TEAM, $userbot['id']);
+        $I->addRegionAdmin(RegionIDs::PRODUCT_TEAM, $userorga['id']);
 
         // Make ambassador responsible for all work groups in the region
         $this->output->writeln('- make ambassador responsible for all work groups');
@@ -745,6 +656,10 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
         }
         $this->output->writeln('');
 
+        $this->output->writeln('Creating resources');
+        $this->createResources();
+        $this->output->writeln('done');
+
         // give some trust bananas
         $this->output->writeln('Give some trust bananas');
         foreach ($this->foodsavers as $i => $recipient) {
@@ -798,7 +713,7 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
         $this->output->writeln('');
 
         $this->output->writeln('- creating special working groups');
-        $this->createFunctionWorkgroups($region1);
+        $this->createFunctionWorkgroups($region1, $userbot2);
         $this->output->writeln('');
 
         // create more stores and collect their ids in a list
@@ -1098,6 +1013,40 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
             $write = sprintf("\033[0G\033[2K[%'={$percentage}s>%-{$left}s] {$steps} / {$total} ($percentage%%)", '', '');
             $this->output->write($write);
             $lastUpdate = $currentTime;
+        }
+    }
+
+    private function createResources(): void
+    {
+        $resourcesFile = 'src/Dev/resources.json';
+        $resourceCategoriesFile = 'src/Dev/resourceCategories.json';
+        $resourcesData = json_decode(file_get_contents($resourcesFile), true);
+        $resourceCategoriesData = json_decode(file_get_contents($resourceCategoriesFile), true);
+
+        foreach ($resourceCategoriesData as $id => $name) {
+            $categoryId = $this->helper->addResourceCategory($name);
+            if ($id === 0) {
+                $offset = $categoryId;
+            }
+        }
+
+        $this->output->writeln('Offset: ' . $offset);
+
+        shuffle($resourcesData);
+        while (count($resourcesData) > 0) {
+            $userId = $this->getRandomIDOfArray($this->foodsavers);
+            $numToAssign = min(rand(1, 3), count($resourcesData));
+            $resourcesToAssign = array_splice($resourcesData, 0, $numToAssign);
+            foreach ($resourcesToAssign as $resource) {
+                $this->helper->addResource(
+                    $userId,
+                    $resource['name'],
+                    $resource['description'],
+                    array_map(fn ($x) => $x + $offset, $resource['categories']),
+                    rand(0, 9) === 0,
+                    rand(1, 5),
+                );
+            }
         }
     }
 }

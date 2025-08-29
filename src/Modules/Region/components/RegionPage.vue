@@ -116,6 +116,11 @@
           :is-work-group="isWorkGroup"
           :may-administrate-achievements="regionMenu?.mayAdministrateAchievements ?? false"
         />
+        <Resources
+          v-if="activeSubpage === SUB_PAGE.RESOURCES"
+          :group-name="name"
+          :group-id="regionId"
+        />
         <WorkingGroupEditForm
           v-if="isWorkGroup && activeSubpage === SUB_PAGE.SETTINGS"
           :group="pageData.group"
@@ -143,6 +148,7 @@ import NewThread from './NewThread.vue'
 import { getApplications } from '@/api/applications'
 import ApplicationsList from './ApplicationsList.vue'
 import Achievements from './Achievements.vue'
+import Resources from '@/views/pages/Resources/Resources.vue'
 import WorkingGroupEditForm from '@/components/workinggroups/WorkingGroupEditForm.vue'
 import { SUB_PAGE, useRegionStore } from '@/stores/regions'
 import { GET } from '@/browser'
@@ -169,6 +175,7 @@ export default {
     ThreadList,
     EventList,
     Wall,
+    Resources,
     WorkingGroupEditForm,
   },
   props: {
@@ -208,6 +215,7 @@ export default {
             { value: this.allAdmins.boardAdmins ?? [], label: 'terminology.boardAdmins' },
             { value: this.allAdmins.electionAdmins ?? [], label: 'terminology.electionAdmins' },
             { value: this.allAdmins.arbitrationAdmins ?? [], label: 'terminology.arbitrationAdmins' },
+            { value: this.allAdmins.resourcesAdmins ?? [], label: 'terminology.resourcesAdmins' },
           ],
       loading: true,
       applications: [],

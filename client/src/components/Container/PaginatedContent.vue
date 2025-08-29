@@ -43,6 +43,12 @@ const currentPageItems = computed(() => {
 
 watch(currentPageItems, items => emit('update:current-page-items', items), { immediate: true })
 
+watch(totalPages, (totalPages) => {
+  if (totalPages < currentPage.value && totalPages > 0) {
+    currentPage.value = totalPages
+  }
+})
+
 // Wheel and touch support to change pages:
 const horizontalWheelDistance = ref(0)
 const lastPageChangeTime = ref(0)

@@ -21,6 +21,7 @@ use Foodsharing\Permissions\AchievementPermissions;
 use Foodsharing\Permissions\FoodSharePointPermissions;
 use Foodsharing\Permissions\RegionPermissions;
 use Foodsharing\Permissions\ReportPermissions;
+use Foodsharing\Permissions\ResourcePermissions;
 use Foodsharing\Permissions\VotingPermissions;
 use Foodsharing\Permissions\WorkGroupPermissions;
 use PHPUnit\Framework\TestCase;
@@ -47,6 +48,7 @@ class RegionTransactionsTest extends TestCase
     private AchievementPermissions $achievementPermissions;
     private ForumFollowerGateway $forumFollowerGateway;
     private CacheInterface $cache;
+    private ResourcePermissions $resourcePermissions;
 
     protected function setUp(): void
     {
@@ -67,6 +69,7 @@ class RegionTransactionsTest extends TestCase
         $this->achievementPermissions = $this->createMock(AchievementPermissions::class);
         $this->forumFollowerGateway = $this->createMock(ForumFollowerGateway::class);
         $this->cache = $this->createMock(CacheInterface::class);
+        $this->resourcePermissions = $this->createMock(ResourcePermissions::class);
 
         $this->regionTransactions = new RegionTransactions(
             $this->foodsaverGateway,
@@ -85,7 +88,8 @@ class RegionTransactionsTest extends TestCase
             $this->votingPermissions,
             $this->achievementPermissions,
             $this->forumFollowerGateway,
-            $this->cache
+            $this->resourcePermissions,
+            $this->cache,
         );
     }
 

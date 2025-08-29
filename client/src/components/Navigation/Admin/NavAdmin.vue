@@ -51,11 +51,19 @@
       </a>
       <a
         v-if="permissions.editStoreCategories"
-        :href="$url('storeCategories')"
+        :href="$url('editCategories', 'store')"
         role="menuitem"
         class="dropdown-item dropdown-action"
       >
         <i class="icon-subnav fas fa-store" /> {{ $i18n('system_administration.store_categories') }}
+      </a>
+      <a
+        v-if="permissions.editResourceCategories"
+        :href="$url('editCategories', 'resource')"
+        role="menuitem"
+        class="dropdown-item dropdown-action"
+      >
+        <i class="icon-subnav fas fa-shapes" /> {{ $i18n('system_administration.resource_categories') }}
       </a>
       <a
         v-if="permissions.editAchievements"

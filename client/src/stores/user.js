@@ -53,7 +53,7 @@ export const useUserStore = defineStore('user', {
     getPermissions: (state) => state.permissions || {},
     hasAdminPermissions: (state) => {
       const permissions = Object.entries(state.permissions)
-      return permissions.some(([key, value]) => !['mayAdministrateUserProfile', 'mayEditUserProfile', 'addStore'].includes(key) && value)
+      return permissions.some(([key, value]) => !['mayAdministrateUserProfile', 'mayEditUserProfile', 'addStore', 'editStoreCategories', 'editResourceCategories'].includes(key) && value)
     },
     hasBouncingEmail: () => false,
     // TODO: this can be removed as soon as login without activation is not possible anymore

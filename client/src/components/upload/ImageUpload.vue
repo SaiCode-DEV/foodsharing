@@ -158,6 +158,15 @@ export default {
       ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, width, height)
       return await new Promise(resolve => canvas.toBlob(resolve, type, quality))
     },
+    setImages (images) {
+      this.clearImages()
+      this.images = images.map(url => ({
+        objectUrl: url,
+        file: {},
+        key: url,
+        uploaded: true,
+      }))
+    },
   },
 }
 </script>

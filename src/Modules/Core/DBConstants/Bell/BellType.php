@@ -150,6 +150,11 @@ class BellType
     final public const string NEW_FORUM_THREAD = 'new-thread-%d';
 
     /**
+     * A new resource was added to the user's region. Argument: ID of the region.
+     */
+    final public const string NEW_RESOURCE = 'new-resource-%d';
+
+    /**
      * Creates a bell identifier from a template and an optional list of parameters.
      */
     public static function createIdentifier(string $typeString, ...$params)

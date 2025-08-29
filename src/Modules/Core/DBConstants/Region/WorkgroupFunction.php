@@ -16,10 +16,11 @@ class WorkgroupFunction
     final public const int MODERATION = 10; // Moderationsteam
     final public const int BOARD = 11; // Vorstand
     final public const int ELECTION = 12; // Wahlen
+    final public const int RESOURCES = 13; // Ressourcen
 
     public static function isValidFunction(int $value): bool
     {
-        return in_array($value, range(self::WELCOME, self::ELECTION));
+        return in_array($value, range(self::WELCOME, self::RESOURCES));
     }
 
     /**
