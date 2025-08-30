@@ -170,6 +170,7 @@ group:
     election: Élections
     stores_coordination: Établissements
     none: Aucun groupe de travail GOALS
+    resources: Mosaïque de ressources
   delete_group_sure: Le groupe de travail/le district {groupName} doit-il 
     réellement être supprimé ?
   quitting_home_district_warning: Souhaites-tu vraiment quitter ton district 
