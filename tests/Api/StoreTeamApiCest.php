@@ -14,6 +14,7 @@ class StoreTeamApiCest
     private $store;
     private $user;
     private $manager;
+    private array $manager2;
     private $region;
 
     private const string API_STORES = 'api/stores/';
@@ -21,7 +22,7 @@ class StoreTeamApiCest
     public function _before(ApiTester $I): void
     {
         $this->region = $I->createRegion(fillMailbox: false);
-        $this->region2 = $I->createRegion(fillMailbox: false);
+        $I->createRegion(fillMailbox: false);
         $this->store = $I->createStore($this->region['id']);
         $this->user = $I->createFoodsaver(null, ['bezirk_id' => $this->region['id']]);
         $this->manager = $I->createStoreCoordinator(null, ['bezirk_id' => $this->region['id']]);
@@ -248,5 +249,30 @@ class StoreTeamApiCest
             'verantwortlich' => 0,
             'active' => STATUS::MEMBER,
         ]);
+    }
+
+    public function canOnlySeeStoreMembersAsMember(ApiTester $I): void
+    {
+        // Not logged in should return 401
+        $I->sendGET(self::API_STORES . $this->store['id'] . '/member');
+        $I->seeResponseCodeIs(Http::UNAUTHORIZED);
+
+        // Logged in but not a member of the store should return 403
+        $I->login($this->user['email']);
+        $I->sendGET(self::API_STORES . $this->store['id'] . '/member');
+        $I->seeResponseCodeIs(Http::FORBIDDEN);
+
+        // Logged in and member of the store should return a valid response
+        $I->addStoreTeam($this->store['id'], $this->user['id'], false, true);
+        $I->sendGET(self::API_STORES . $this->store['id'] . '/member');
+        $I->seeResponseCodeIs(Http::OK);
+        $I->seeResponseIsJson();
+
+        // Make sure that the response contains all the team members as listed in the database
+        $response = $I->grabDataFromResponseByJsonPath('$[*].id');
+        $actualMembers = $I->grabColumnFromDatabase('fs_betrieb_team', 'foodsaver_id', [
+            'betrieb_id' => $this->store['id'],
+        ]);
+        $I->assertEquals(array_diff($response, $actualMembers), []);
     }
 }

@@ -226,18 +226,25 @@ class StoreRestController extends AbstractFoodsharingRestController
      * @OA\Response(response="404", description="Store not found")
      */
     #[Rest\Get('/stores/{storeId}/member', requirements: ['storeId' => '\d+'])]
-    public function getStoreMembers(int $storeId)
+    public function getStoreMembers(int $storeId): Response
     {
-        $userId = $this->session->id();
-        if (!$userId) {
-            throw new UnauthorizedHttpException('');
+        $this->assertLoggedIn();
+
+        if (!$this->storeGateway->storeExists($storeId)) {
+            throw new NotFoundHttpException('Store not found.');
+        }
+
+        // Member-only (org/coord flows are enforced elsewhere; default to deny if not a member)
+        if ($this->storeGateway->getUserTeamStatus($this->session->id(), $storeId) === TeamMembershipStatus::NoMember) {
+            throw new AccessDeniedHttpException('Not allowed to see store members.');
         }
 
         try {
+            // controls sensitive details (e.g., phone numbers) even for members
             $maySeeDetails = $this->storePermissions->maySeePhoneNumbers($storeId);
             $result = $this->storeTransactions->getMyStoreTeam($storeId, $maySeeDetails);
 
-            return $this->handleView($this->view($result, 200));
+            return $this->respondOK($result);
         } catch (DatabaseNoValueFoundException) {
             throw new NotFoundHttpException('Store not found.');
         }
@@ -253,25 +260,33 @@ class StoreRestController extends AbstractFoodsharingRestController
      * @OA\Response(response="404", description="Store not found")
      */
     #[Rest\Get('/stores/{storeId}/permissions', requirements: ['storeId' => '\d+'])]
-    public function getStorePermissions(int $storeId)
+    public function getStorePermissions(int $storeId): Response
     {
-        $userId = $this->session->id();
-        if (!$userId) {
-            throw new UnauthorizedHttpException('');
+        // 401 if not logged in
+        $this->assertLoggedIn();
+
+        // 404 if the store does not exist
+        if (!$this->storeGateway->storeExists($storeId)) {
+            throw new NotFoundHttpException('Store not found.');
+        }
+
+        // 403 if logged in but not a member (aligns with /stores/{storeId}/member)
+        if ($this->storeGateway->getUserTeamStatus($this->session->id(), $storeId) === TeamMembershipStatus::NoMember) {
+            throw new AccessDeniedHttpException();
         }
 
         try {
             $store = $this->storeGateway->getMyStore($this->session->id(), $storeId);
 
             $teamConversationId = null;
-            if ($this->storePermissions->mayChatWithRegularTeam($store) &&
-                $this->messageGateway->mayConversation($this->session->id(), $store['team_conversation_id'])) {
+            if ($this->storePermissions->mayChatWithRegularTeam($store)
+                && $this->messageGateway->mayConversation($this->session->id(), $store['team_conversation_id'])) {
                 $teamConversationId = $store['team_conversation_id'];
             }
 
             $jumperConversationId = null;
-            if ($this->storePermissions->mayChatWithJumperWaitingTeam($store) &&
-                $this->messageGateway->mayConversation($this->session->id(), $store['springer_conversation_id'])) {
+            if ($this->storePermissions->mayChatWithJumperWaitingTeam($store)
+                && $this->messageGateway->mayConversation($this->session->id(), $store['springer_conversation_id'])) {
                 $jumperConversationId = $store['springer_conversation_id'];
             }
 
@@ -307,7 +322,7 @@ class StoreRestController extends AbstractFoodsharingRestController
                 'maySeePickups' => $this->storePermissions->maySeePickups($storeId) || $store['betrieb_status_id'] === CooperationStatus::COOPERATION_ESTABLISHED,
             ];
 
-            return $this->handleView($this->view($params, 200));
+            return $this->respondOK($params);
         } catch (DatabaseNoValueFoundException) {
             throw new NotFoundHttpException('Store not found.');
         }
