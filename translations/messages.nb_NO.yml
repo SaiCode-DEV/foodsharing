@@ -2106,6 +2106,7 @@ group:
     election: Valg
     none: Ikke en GOALS-arbeidsgruppe
     stores_coordination: Bedrifter
+    resources: Ressursmosaikk
   quit: Forlate
   quit_name_district: Forlate distriktet {name}
   quit_name_workgroup: Forlate team {name}
