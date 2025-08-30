@@ -124,6 +124,9 @@ group:
     election: Election
     stores_coordination: Stores
     none: Not a GOALS working group
+    resources: Resource Mosaic
+    tooltip_function_13: Administrators of this working group will be notified 
+      of new resources via a bell.
   apply:
     sent: The application was sent.
     send: Send application
@@ -1511,6 +1514,7 @@ terminology:
 
   received: received
   users: Users
+  resourcesAdmins: Resource Mosaic Team
 login:
   pwreset:
     bread: Reset password
@@ -1680,6 +1684,10 @@ bell:
     many: '{count} users do not want to join {store}'
   store_invite: '{user} has invited you to the team.'
   store_invitation_declined_title: Invitation declined ({store})
+  new_resource_title: '{region}: New resources'
+  new_resource:
+    one: 'From {user}: “{title}”'
+    many: '{count} new resources'
 reports:
   time: Time
   region: Home district
@@ -4513,6 +4521,7 @@ system_administration:
   content: Edit content
   reports: Show reports
   store_categories: Edit store categories
+  resource_categories: Edit resource categories
 join_region:
   error:
     is_country_1: This is a country.
@@ -4828,6 +4837,14 @@ help:
         options are summarized by day and presented in a more compact format. This
         makes it easier to get an overview, especially if you have many pickup options
         available each day.\n"
+    resource_mosaic:
+      title: Resource Mosaic
+    my_resources:
+      title: Own resources
+    similar_resources:
+      title: Similar resources
+      md: You will be shown up to 10 other resources as similar resources, for 
+        which the **same categories** are entered.
   tooltip: Show help
   helpTitle: 'Help: {title}'
 team_page:
@@ -5057,3 +5074,103 @@ net_errors:
     connection and try again.
   FORBIDDEN: You are not authorized to perform this action.
   action_response: 'Request and server response:'
+categories:
+  columns:
+    id: ID
+    name: Name
+    usage_count: Usage count
+  title:
+    store: Store categories
+    resource: Resource categories
+  empty: No category has been entered yet
+  edit: Rename category
+  delete: Delete category
+  merge: Merge with another category
+  merge_title: Merge categories
+  merge_hint: Select a different category to merge “{name}” with. All entries 
+    assigned to the “{name}” category will then be assigned to this category.
+  confirm_delete: Really delete category {name}?
+  confirm_delete_hint:
+    store: '{count} stores are still assigned to this category. These stores will
+      no longer have a category afterward.'
+    resource: There are still {count} resources assigned to this category. These
+      resources will lose this category.
+  new: Add new category
+resource_mosaic:
+  title: Resource Mosaic
+  my_resources: My resources
+  add: Add new resource
+  edit: Edit resource
+  categories_filter_placeholder: Filter by categories …
+  filter:
+    active: Just active users
+    home_region: Just home region
+    favorites: Favorites only
+  search_placeholder: Search for resources, foodsharers or IDs
+  other_resources:
+    other: More resources from {user}
+    own: Your other resources
+    similar: Similar resources
+    new: All new resources of this district
+  editModal:
+    name:
+      label: Name
+      placeholder: Your resource …
+      max_length: Maximum length reached. You can specify any further details in
+        the description.
+    is_private: Show this resource only to friends
+    description:
+      label: Description
+      placeholder: Provide additional information so others can imagine exactly 
+        what you’d like to help with. You can also attach pictures.
+    categories:
+      label: Categories
+      placeholder: Select categories …
+  is_private_hint: This resource will only be shown to friends.
+  confirm_delete: Do you really want to delete this resource?
+  no_own_resources: You haven’t specified any resources yet. You can now enter 
+    specific skills, items, or relationships to make them visible to the 
+    community.
+  max_resources: To keep the resource mosaic organized, everyone can enter a 
+    maximum of {max} resources.
+  message: Write a message
+  request_header: Request regarding your resource
+  message_modal:
+    title: Request resource “{name}”
+    intro: 'Send {owner} a message about this resource:'
+    request_for: Request regarding your resource
+    request_sent: Your request has been sent.
+    polite_info: 'Remember: No one is obligated to share a resource with you. Please
+      phrase your requests in a way that allows the other person to always say no
+      without feeling guilty.'
+    placeholder: I’m interested in your resource because …
+  list_status:
+    none_in_region: No resources have been added here yet. Enter your own or 
+      invite others to do so!
+    total: '{count} resources are available in {region}:'
+    filter: '{count} resources match your search:'
+    none_in_filter: Unfortunately, there are no resources matching your search.
+  order:
+    shuffle: 'Order: Random'
+    sort_age: 'Order: Newest first'
+    sort_openness: 'Order: By joy about inquiries'
+  favorite: Favorite
+  favorite_tooltip: You have favorited this resource
+  openness:
+    title: Pleased to receive inquiries
+    level_1: Only if important
+    level_2: Rather reserved
+    level_3: For good causes
+    level_4: Rather open
+    level_5: Always happy to help
+  resource_not_found_warning: The linked resource could not be found. It has 
+    either been deleted, its owner is no longer part of this district or group, 
+    or your link was incorrect.
+  privacy_notice:
+    title: Privacy notice
+    text: When you add resources, they are saved on the server and visible to 
+      other users in your workgroups and districts (except for federal states, 
+      countries, and Europe). You can edit and delete your resources at any 
+      time. You can also restrict the visibility of your resources, ensuring 
+      only your friends have access to them.
+    ok: I agree
