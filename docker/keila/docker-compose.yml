@@ -19,7 +19,10 @@ services:
       MAILER_SMTP_HOST: "maildev"
       MAILER_SMTP_PORT: 1025
       MAILER_SMTP_FROM_EMAIL: "noreply@foodsharing.network"
-      MAILER_SMTP_PASSWORD: ""
+      MAILER_SMTP_USER: "user"
+      MAILER_SMTP_PASSWORD: "pass"
+      MAILER_ENABLE_SSL: "false"
+      MAILER_ENABLE_STARTTLS: "false"
 
   # PostgreSQL database for Keila
   keila-postgres:
