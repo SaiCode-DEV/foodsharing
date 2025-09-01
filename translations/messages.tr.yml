@@ -700,6 +700,9 @@ group:
       seçim grubu bulunabilir.
     stores_coordination: İşletmeler
     none: GOALS-AG yok
+    resources: Kaynak Mozaiği
+    tooltip_function_13: Bu çalışma grubunun yöneticilerine yeni kaynaklar 
+      hakkında zil sesi aracılığıyla bildirimde bulunulacaktır.
   entermotivation: 'Motivasyon:'
   mail_link_title:
     region: Bölge Posta Kutusu
@@ -1571,6 +1574,7 @@ store:
   chat:
     jumper: Yedek listesinde olanlara mesaj
     team: Ekibe mesaj
+    managers: İşletme yöneticilerine mesaj
   lastPickupShort: en son {date}
   noPickup: Buradan hiç almadı.
   isJumper: Yedek listesinde.
@@ -1689,6 +1693,12 @@ store:
     invited_by: Davet edildi_
     invited_info: Bu işletmeye davet edildiniz. Daveti kabul ederek işletme 
       ekibine katılabilirsiniz.
+  passport_expired: Kimlik kartınızın süresi doldu. Lütfen yenilemek için 
+    bölgenizin elçi ekibi ile iletişime geçin. Bu nedenle, artık burada kayıt 
+    yaptıramazsınız.
+  passport_expires_soon: Kimlik kartınız {days} gün daha geçerli! Yenilemek için
+    bölge elçiliklerinizle iletişime geçin. Süresi dolduktan sonra burada kayıt 
+    yaptıramayacaksınız.
 polls:
   title: Başlık
   new_poll: Yeni Anket oluştur
@@ -2897,6 +2907,8 @@ forum:
       subscribe: Abone ol
     bottom: azaltılmış görünürlük
     all_hidden: Bu başlıktaki tüm mesajlar gizlendi.
+    post_not_found: Bağlantılı gönderi bulunamadı; silinmiş olabilir. Bağlantılı
+      mesajın hemen ardından gelen gönderi seçildi.
   hold_back_for_moderation: Konu kaydedildi ve bir elçi/moderatör onaylar 
     onaylamaz yayınlanacak.
   sending_error: Gönderilirken bir hata oluştu
@@ -3544,6 +3556,7 @@ terminology:
   sent: Gönderilmiş
   received: Kalmış
   users: Kullanıcılar
+  resourcesAdmins: Kaynak Mozaik Ekibi
 legal:
   if_delete:
     this_doesnt_get_deleted: 'Aşağıdaki bilgiler artık aktif sistemde mevcut değildir,
@@ -3939,7 +3952,7 @@ pickup:
   signout_sure: Bu ekipden ayrılmak istiyor musunuz?
   team_message_success: Ekibe mesaj başarıyla gönderildi
   join_title_date: Emin misin?
-  same_day_hint: '{day} tarihinde, aşağıdaki alımlar için kaydoldunuz:'
+  same_day_hint: 'Aynı gün şunlar gerçekleşecektir:'
   join_agree: Evet, kesin yazılmak istiyorum
   kick: Çıkış yap
   call: Telefon et
