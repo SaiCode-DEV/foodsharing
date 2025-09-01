@@ -157,6 +157,11 @@ export default new Vue({
       const conversationId = response.conversation.id
       return conversationId
     },
+    async openMultiChat (participantIds) {
+      const uniqueParticipantIds = Array.from(new Set(participantIds)) // remove duplicates
+      const conversationId = await this.createConversation(uniqueParticipantIds)
+      this.openChat(conversationId)
+    },
     async resendFailedMessage (conversationId, failureMessageId) {
       const message = this.conversations[conversationId].messages[failureMessageId]
       const response = await api.sendMessage(conversationId, message.body)

@@ -48,7 +48,7 @@
             variant="outline-secondary"
           />
           <b-button
-            v-else
+            v-else-if="user.id !== fsId"
             variant="outline-secondary"
             class="d-inline m-auto optional-action-button"
             @click="chat(user.id)"
@@ -298,7 +298,8 @@ export default {
     },
     overflowMenuOptions (user) {
       return [
-        { icon: 'comment', textKey: 'chat.open_chat', callback: () => chat(user.id) },
+        { hide: user.id === this.fsId, icon: 'comment', textKey: 'chat.open_chat', callback: () => chat(user.id) },
+        { hide: !this.mayEditStore || user.id === this.fsId, icon: 'comments', textKey: 'chat.open_multi_chat', callback: () => this.$emit('multi-chat', user.id) },
         { hide: !user.validPhoneNumber, icon: 'phone', textKey: 'pickup.call', href: this.$url('phone_number', user.phoneNumber, true) },
         { hide: !user.validPhoneNumber, icon: 'clone', textKey: 'pickup.copyNumber', callback: () => this.copyToClipboard(user.phoneNumber) },
         { icon: 'user', textKey: 'profile.go', href: this.$url('profile', user.id) },

@@ -27,6 +27,7 @@
               :store-id="storeId"
               :is-coordinator="permissions.isCoordinator"
               :is-verified="isVerified"
+              @multi-chat="multiChat"
             />
             <Wall
               v-if="viewIsMobile"
@@ -44,6 +45,7 @@
               :store-id="storeId"
               :store-title="storeInformation.name"
               :region-id="regionId"
+              @multi-chat="multiChat"
             />
           </div>
           <div class="col flex-shrink-fix">
@@ -141,6 +143,7 @@
 </template>
 
 <script>
+import conversationStore from '@/stores/conversations'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import StoreTeam from '@/components/Stores/StoreTeam/StoreTeam.vue'
 import StoreInfos from '@/components/Stores/StoreInfos.vue'
@@ -171,7 +174,6 @@ export default {
   props: {
     storeId: { type: Number, required: true },
     collectionQuantity: { type: String, default: '' },
-    storeManagers: { type: Array, default: () => [] },
   },
   setup () {
     return {
@@ -268,6 +270,11 @@ export default {
         // JavaScript expects Unix timestamps in milliseconds, while it comes from databases in seconds.
         this.lastFetchDate = userItem?.last_fetch ? new Date(userItem.last_fetch * MILLISECONDS_PER_SECOND) : null
       }
+    },
+    multiChat (userId) {
+      if (!userId) return
+      const storeManagers = this.storeMember.filter(item => item.verantwortlich === 1).map(item => item.id)
+      conversationStore.openMultiChat(storeManagers.concat(userId))
     },
   },
 }

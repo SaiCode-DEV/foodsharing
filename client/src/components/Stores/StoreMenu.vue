@@ -13,6 +13,12 @@
       @click="openChat(jumperConversationId)"
     />
     <ContainerButton
+      text-key="store.chat.managers"
+      data-test="store-chat-managers"
+      icon="fas fa-user-cog"
+      @click="$emit('multi-chat', fsId)"
+    />
+    <ContainerButton
       v-if="mayLeaveStoreTeam && isUserInStore || isJumper"
       variant="danger"
       text-key="storeedit.team.leave"

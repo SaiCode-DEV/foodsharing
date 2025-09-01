@@ -944,6 +944,7 @@ store:
   chat:
     team: "Nachricht ans Team"
     jumper: "Nachricht an Springer"
+    managers: "Nachricht an Betriebsverantwortliche"
   not-in-team: "Du bist noch nicht im Team dieses Betriebs."
   pickup_slot_unavailable: "Dieser Slot liegt weiter in der Zukunft als von deinen Betriebsverantwortlichen vorgesehen ist. Versuche es also bitte zu einem späteren Zeitpunkt erneut."
   all_of_my_stores: "Alle meine Betriebe"
@@ -1457,6 +1458,7 @@ forum:
     bells_for_new_posts: "Glocke bei neuen Themen erhalten"
 chat:
   open_chat: "Nachricht schreiben"
+  open_multi_chat: "BV-Gruppennachricht schreiben"
   new_message: "Neue Nachricht" #also Mailbox.js
   new_messages: "Neue Nachrichten"
   receivermissing: "Du musst eine:n Empfänger:in angeben" #Mailbox.js

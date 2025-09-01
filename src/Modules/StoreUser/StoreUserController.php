@@ -40,7 +40,6 @@ class StoreUserController extends FoodsharingController
         }
 
         $params['storeId'] = $storeId;
-        $params['storeManagers'] = $storeGateway->getStoreManagers($storeId);
 
         $this->pageHelper->addTitle($storeGateway->getStoreName($storeId));
         $vue = $this->prepareVueComponent('vue-store-page', 'StorePage', $params);
