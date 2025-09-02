@@ -8,7 +8,7 @@
       <div class="list-group-item" v-text="$i18n(leaveText, { name })" />
       <ContainerButton
         variant="danger"
-        text-key="region.public.leave"
+        :text-key="isWorkGroup ? 'region.public.leave_group' : 'region.public.leave'"
         icon="fas fa-user-slash"
         :disabled="loading"
         @click="removeMeFromRegion"

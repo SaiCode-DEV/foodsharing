@@ -2889,6 +2889,7 @@ region:
     join_name: "{name} beitreten"
     join_text: "Möchtest du in {name} aktiv werden? Dann kannst du diesem Bezirk beitreten!"
     leave: "Bezirk verlassen"
+    leave_group: "Gruppe verlassen"
     leave_name: "{name} verlassen"
     leave_text_region: "Bist du nicht mehr in {name} aktiv und möchtest diesen Bezirk verlassen?"
     leave_text_group: "Bist du nicht mehr in {name} aktiv und möchtest diese Gruppe verlassen?"
