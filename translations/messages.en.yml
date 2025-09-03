@@ -2169,6 +2169,7 @@ region:
       this group?
     leave_text_region: Are you no longer active in {name} and would like to 
       leave this district?
+    leave_group: Leave group
   denied:
     this_region: You tried to access content from this district, but only 
       members of the district have access to it.
@@ -2615,6 +2616,7 @@ store:
   chat:
     team: Message to the team
     jumper: Message to standby foodsavers
+    managers: Message the team leaders
   error: Store could not be loaded.
   noStores: There are no stores yet
   may_not_referred_to_in_public: Please do not refer to this store in public 
@@ -3366,6 +3368,7 @@ chat:
     read: Mark as read
     unread: Mark as unread
   reply: "Reply"
+  open_multi_chat: Message the team leaders
 delete: Delete
 error_unexpected: An error has occurred
 error_base64_image: Inserting images via drag & drop is not permitted.
@@ -5126,6 +5129,7 @@ resource_mosaic:
     categories:
       label: Categories
       placeholder: Select categories …
+    openness: How welcome are requests for this resource?
   is_private_hint: This resource will only be shown to friends.
   confirm_delete: Do you really want to delete this resource?
   no_own_resources: You haven’t specified any resources yet. You can now enter 
