@@ -175,13 +175,8 @@ class CurrentUserUnitsSessionTransactions implements CurrentUserUnitsInterface
             return false;
         }
 
-        // Orga-role users can access all regions but not necessarily in their
-        // own region if they are also an ambassador
-        if ($this->session->mayRole(Role::ORGA)) {
-            // Check if Orga-role user is an admin for the selected forum
-            if (!$this->isAmbassadorForRegion([$regionId], false, true)) {
-                return true;
-            }
+        if ($this->session->role()->isAtLeast(Role::ORGA)) {
+            return true;
         }
         // use database check if the session includes the region to unsure previleges are lost after removal from a region
         $isMember = $this->isMemberFor($regionId);

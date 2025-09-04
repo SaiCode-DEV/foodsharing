@@ -32,9 +32,7 @@ class ReportPermissions
      */
     public function mayAccessReportsForRegion(int $regionId): bool
     {
-        // Orga-role users can access all reports but not necessarily in their
-        // own region if they are also an ambassador
-        if ($this->session->mayRole(Role::ORGA) && !$this->currentUserUnits->isAmbassadorForRegion([$regionId], false, true)) {
+        if ($this->session->mayRole(Role::ORGA)) {
             return true;
         }
         if ($this->isReportAdmin($regionId)) {

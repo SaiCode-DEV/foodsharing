@@ -20,8 +20,6 @@ class ReportApiCest
     private $foodsaver;
     private $subRegionFoodsaver;
     private $foodsharer;
-    private $userOrga;
-    private $userOrgaAmbassador;
 
     public function _before(ApiTester $I): void
     {
@@ -38,14 +36,6 @@ class ReportApiCest
         $this->reportGroupAdmin = $I->createStoreCoordinator(null, ['bezirk_id' => $this->region['id']]);
         $I->addRegionMember($this->reportGroup['id'], $this->reportGroupAdmin['id']);
         $I->addRegionAdmin($this->reportGroup['id'], $this->reportGroupAdmin['id']);
-
-        // create orga person, not necessarily in the region
-        $this->userOrga = $I->createOrga();
-
-        // create orga person, who is also an ambassador of the region
-        $this->userOrgaAmbassador = $I->createOrga();
-        $I->addRegionMember($this->region['id'], $this->userOrgaAmbassador['id']);
-        $I->addRegionAdmin($this->region['id'], $this->userOrgaAmbassador['id']);
 
         // same for arbitration workgroup
         $this->arbitrationGroup = $I->createWorkingGroup('Schiedsstelle', ['parent_id' => $this->region['id']]);
@@ -116,46 +106,6 @@ class ReportApiCest
     public function foodsharerCannotAccessReports(ApiTester $I): void
     {
         $I->login($this->foodsharer['email']);
-        $I->sendGET($I->apiReportListForRegion($this->region['id']));
-        $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
-    }
-
-    public function orgaSeeReportAboutReportAdmin(ApiTester $I): void
-    {
-        // In general, orga users can see reports about report admins
-        $I->login($this->userOrga['email']);
-        $I->addReport($this->foodsharer['id'], $this->reportGroupAdmin['id']);
-        $I->sendGET($I->apiReportListForRegion($this->region['id']));
-        $I->seeResponseCodeIs(HttpCode::OK);
-        $I->seeResponseContainsJson(['fs_id' => $this->reportGroupAdmin['id'], 'rp_id' => $this->foodsharer['id']]);
-    }
-
-    public function orgaAmbassadorDoesNotSeeReportAboutReportAdmin(ApiTester $I): void
-    {
-        // Orga ambassadors should not see reports about report admins as they
-        // don't have special permissions in their own region
-        $I->login($this->userOrgaAmbassador['email']);
-        $I->addReport($this->foodsharer['id'], $this->reportGroupAdmin['id']);
-        $I->sendGET($I->apiReportListForRegion($this->region['id']));
-        $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
-    }
-
-    public function orgaDoesNotSeeReportAboutThemselves(ApiTester $I): void
-    {
-        // Nobody should see reports about themselves, also not orga users
-        $I->login($this->userOrga['email']);
-        $I->addReport($this->foodsharer['id'], $this->userOrga['id']);
-        $I->sendGET($I->apiReportListForRegion($this->region['id']));
-        $I->seeResponseCodeIs(HttpCode::OK);
-        $I->seeResponseEquals('[]');
-    }
-
-    public function orgaAmbassadorDoesNotSeeAnyReportAboutThemselves(ApiTester $I): void
-    {
-        // Nobody should see reports about themselves, also not orga users which
-        // ambassador role (basically but not 100% the same test as above)
-        $I->login($this->userOrgaAmbassador['email']);
-        $I->addReport($this->foodsharer['id'], $this->userOrgaAmbassador['id']);
         $I->sendGET($I->apiReportListForRegion($this->region['id']));
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
     }

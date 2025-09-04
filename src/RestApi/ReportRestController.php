@@ -12,7 +12,6 @@ use Foodsharing\Modules\Core\DBConstants\Report\ReportType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Report\ReportGateway;
-use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\ReportPermissions;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
@@ -33,8 +32,7 @@ class ReportRestController extends AbstractFoodsharingRestController
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly ReportGateway $reportGateway,
         private readonly ReportPermissions $reportPermissions,
-        private readonly GroupFunctionGateway $groupFunctionGateway,
-        private readonly CurrentUserUnitsInterface $currentUserUnits
+        private readonly GroupFunctionGateway $groupFunctionGateway
     ) {
         parent::__construct($this->session);
     }
@@ -63,10 +61,7 @@ class ReportRestController extends AbstractFoodsharingRestController
         if (in_array($userId, $arbitrationAdmins)) {
             array_push($excludedIds, ...$arbitrationAdmins);
         }
-        // If the user has the Orga role, they can see all reports in the
-        // region. Reduce the list when they are also an ambassador in this
-        // region
-        if (!($isReportAdmin || ($this->session->mayRole(Role::ORGA) && !$this->currentUserUnits->isAmbassadorForRegion([$regionId], false, true)))) {
+        if (!($isReportAdmin || $this->session->mayRole(Role::ORGA))) {
             $includedIds = $reportAdmins;
         }
 

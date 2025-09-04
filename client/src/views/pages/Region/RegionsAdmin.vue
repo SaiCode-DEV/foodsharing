@@ -29,7 +29,6 @@
           <b-form-input
             v-model="region.name"
             :state="region.name ? null : false"
-            :disabled="!region.canEdit"
             @change="autofill"
           />
         </b-form-group>
@@ -38,7 +37,6 @@
           <b-form-select
             v-model="region.parentId"
             :options="regionOptions"
-            :disabled="!region.canEdit"
           />
         </b-form-group>
         <b-form-group>
@@ -49,7 +47,6 @@
           <b-form-select
             v-model="region.masterId"
             :options="regionOptions"
-            :disabled="!region.canEdit"
           />
         </b-form-group>
 
@@ -58,19 +55,17 @@
             v-model="region.mailbox"
             :state="mailboxState"
             :formatter="mailboxFormatter"
-            :disabled="!region.canEdit"
           />
         </b-form-group>
 
         <b-form-group :label="$i18n('region.mail.sender')">
-          <b-form-input v-model="region.emailName" :disabled="!region.canEdit" />
+          <b-form-input v-model="region.emailName" />
         </b-form-group>
 
         <b-form-group :label="$i18n('region.type.title')">
           <b-form-select
             v-model="region.type"
             :options="regionTypeOptions"
-            :disabled="!region.canEdit"
             @change="updateMasterRegion"
           />
         </b-form-group>
@@ -82,7 +77,6 @@
           <b-form-select
             v-model="region.workgroupFunction"
             :options="workgroupFunctionOptions"
-            :disabled="!region.canEdit"
             @change="updateModetatorForumDeletion"
           />
         </b-form-group>
@@ -91,7 +85,6 @@
           <b-form-checkbox
             ref="allowHidingInForum"
             v-model="region.allowHidingInForum"
-            :disabled="!region.canEdit"
           >
             {{ $i18n('region.allow_hiding_in_forum') }}
             <Info info-key="moderatorForumHide" />
@@ -104,7 +97,6 @@
             v-model="region.adminIds"
             button-icon="fa-user-plus"
             :region-id="0"
-            :disabled="!region.canEdit"
           />
         </b-form-group>
 
@@ -119,12 +111,11 @@
           <b-button
             v-if="!isNewRegion"
             variant="danger"
-            :disabled="!region.canEdit"
             @click="deleteRegion"
             v-text="$i18n('button.delete')"
           />
           <b-button
-            :disabled="!(region.name && mailboxState !== false && region.canEdit)"
+            :disabled="!(region.name && mailboxState !== false)"
             variant="success"
             @click="saveRegion"
             v-text="$i18n('button.save')"
@@ -240,7 +231,6 @@ export default {
         workgroupFunction: 0,
         id: null,
         allowHidingInForum: false,
-        canEdit: true,
       }
       this.$refs.tree.unselect()
     },

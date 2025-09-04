@@ -22,12 +22,14 @@ final readonly class EventPermissions
 
     public function mayEditEvent(Event $event): bool
     {
-        // Orga-role users and ambassadors of their region can edit all events
-        if ($this->session->mayRole(Role::ORGA) || $this->currentUserUnits->isAdminFor($event->regionId)) {
+        if ($this->session->mayRole(Role::ORGA)) {
             return true;
         }
 
-        // Otherwise, only the author of the event can edit it
+        if ($this->currentUserUnits->isAdminFor($event->regionId)) {
+            return true;
+        }
+
         return $this->eventGateway->getEventAuthor($event->id) == $this->session->id();
     }
 

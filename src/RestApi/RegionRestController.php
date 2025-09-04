@@ -368,7 +368,7 @@ class RegionRestController extends AbstractFoodsharingRestController
         return $this->handleView($this->view($response, 200));
     }
 
-    #[OA2\Delete(
+    #[OA2\Get(
         summary: 'Removes a member from a region or working group.',
         description: 'If the user was not a member of the region/group, nothing happens.'
     )]
@@ -407,7 +407,7 @@ class RegionRestController extends AbstractFoodsharingRestController
     }
 
     /**
-     * Add an user as Admin / Ambassador of a region / workgroup.
+     * Sets an user as Admin / Ambassador of a region / workgroup.
      *
      * @OA\Response(response="200", description="Success")
      * @OA\Response(response="401", description="Not logged in")
@@ -447,7 +447,7 @@ class RegionRestController extends AbstractFoodsharingRestController
     }
 
     /**
-     * Remove a user as Admin / Ambassador of a region / workgroup.
+     * Sets an user as Admin / Ambassador of a region / workgroup.
      *
      * @OA\Response(response="200", description="Success")
      * @OA\Response(response="401", description="Not logged in")
@@ -534,12 +534,11 @@ class RegionRestController extends AbstractFoodsharingRestController
         }
 
         $region = $this->regionTransactions->getRegionForEditing($regionId);
-        $region->canEdit = !$this->currentUserUnits->isAmbassadorForRegion([$regionId], false, true);
 
         return $this->handleView($this->view($region, 200));
     }
 
-    #[OA2\Patch(summary: 'Edits the region using the given data.')]
+    #[OA2\Get(summary: 'Edits the region using the given data.')]
     #[OA2\Parameter(name: 'regionId', in: 'path', schema: new OA2\Schema(type: 'integer'), description: 'ID of the region')]
     #[OA2\Response(response: Response::HTTP_OK, description: 'success')]
     #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
@@ -550,10 +549,6 @@ class RegionRestController extends AbstractFoodsharingRestController
     {
         if (!$this->regionPermissions->mayAdministrateRegions()) {
             throw new AccessDeniedHttpException('');
-        }
-        // Editing regions where you are ambassador is not allowed
-        if ($this->currentUserUnits->isAmbassadorForRegion([$regionId], false, true)) {
-            throw new AccessDeniedHttpException('You are not allowed to edit regions where you are also an active ambassador. This also applies to all dependent children of regions you are ambassador for.');
         }
         $region->name = trim($region->name);
 
