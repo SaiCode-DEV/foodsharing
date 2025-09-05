@@ -2,16 +2,13 @@
 
 namespace Foodsharing\Permissions;
 
-use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\CategoryType;
-use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
 class CategoriesPermissions
 {
     public function __construct(
-        private readonly Session $session,
         private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
     }
@@ -20,7 +17,7 @@ class CategoriesPermissions
     {
         switch ($type) {
             case CategoryType::STORE:
-                return $this->session->mayRole(Role::ORGA);
+                return $this->currentUserUnits->isAdminFor(RegionIDs::PRODUCT_TEAM);
             case CategoryType::RESOURCE:
                 return $this->currentUserUnits->isAdminFor(RegionIDs::PRODUCT_TEAM);
             default:

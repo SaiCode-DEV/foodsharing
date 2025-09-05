@@ -6,19 +6,23 @@ namespace Api;
 
 use Codeception\Util\HttpCode as Http;
 use Faker\Factory;
+use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Store\DTO\CommonLabel;
 use Tests\Support\ApiTester;
 
 class CategoriesApiCest
 {
     private $user;
-    private $userOrga;
+    private $userAdmin;
     private $faker;
 
     public function _before(ApiTester $I): void
     {
         $this->user = $I->createFoodsaver();
-        $this->userOrga = $I->createOrga();
+        $this->userAdmin = $I->createStoreCoordinator();
+        $I->createWorkingGroup('Produktteam', ['id' => RegionIDs::PRODUCT_TEAM]);
+        $I->addRegionMember(RegionIDs::PRODUCT_TEAM, $this->userAdmin['id']);
+        $I->addRegionAdmin(RegionIDs::PRODUCT_TEAM, $this->userAdmin['id']);
         $this->faker = Factory::create('de_DE');
         $I->createStoreCategories();
     }
@@ -36,7 +40,7 @@ class CategoriesApiCest
         $I->seeResponseContainsJson([['id' => $category->id, 'name' => $category->name]]);
     }
 
-    public function canAddStoreCategoryAsOrga(ApiTester $I): void
+    public function canAddStoreCategoryAsAdmin(ApiTester $I): void
     {
         $newCategory = $this->createRandomCategory();
 
@@ -45,7 +49,7 @@ class CategoriesApiCest
         $I->seeResponseCodeIs(Http::UNAUTHORIZED);
         $I->dontSeeInDatabase('fs_betrieb_kategorie', ['name' => $newCategory['name']]);
 
-        $I->login($this->userOrga['email']);
+        $I->login($this->userAdmin['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPost('api/categories/store', $newCategory);
         $I->seeResponseCodeIs(Http::OK);
@@ -66,7 +70,7 @@ class CategoriesApiCest
         $I->dontSeeInDatabase('fs_betrieb_kategorie', ['name' => $newCategory['name']]);
     }
 
-    public function canEditStoreCategoryAsOrga(ApiTester $I): void
+    public function canEditStoreCategoryAsAdmin(ApiTester $I): void
     {
         $category = $this->getRandomCategoryFromDatabase($I);
         $newProperties = $this->createRandomCategory();
@@ -76,7 +80,7 @@ class CategoriesApiCest
         $I->seeResponseCodeIs(Http::UNAUTHORIZED);
         $I->seeInDatabase('fs_betrieb_kategorie', ['id' => $category->id, 'name' => $category->name]);
 
-        $I->login($this->userOrga['email']);
+        $I->login($this->userAdmin['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPatch('api/categories/store/' . $category->id, $newProperties);
         $I->seeResponseCodeIs(Http::OK);
@@ -101,14 +105,14 @@ class CategoriesApiCest
         $categoryId = 999999;
         $newProperties = $this->createRandomCategory();
 
-        $I->login($this->userOrga['email']);
+        $I->login($this->userAdmin['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPatch('api/categories/store/' . $categoryId, $newProperties);
         $I->seeResponseCodeIs(Http::NOT_FOUND);
         $I->dontSeeInDatabase('fs_betrieb_kategorie', ['id' => $categoryId]);
     }
 
-    public function canDeleteStoreCategoryAsOrga(ApiTester $I): void
+    public function canDeleteStoreCategoryAsAdmin(ApiTester $I): void
     {
         $category = $this->getRandomCategoryFromDatabase($I);
 
@@ -116,7 +120,7 @@ class CategoriesApiCest
         $I->seeResponseCodeIs(Http::UNAUTHORIZED);
         $I->seeInDatabase('fs_betrieb_kategorie', ['id' => $category->id]);
 
-        $I->login($this->userOrga['email']);
+        $I->login($this->userAdmin['email']);
         $I->sendDelete('api/categories/store/' . $category->id);
         $I->seeResponseCodeIs(Http::OK);
         $I->dontSeeInDatabase('fs_betrieb_kategorie', ['id' => $category->id]);
@@ -125,9 +129,11 @@ class CategoriesApiCest
     public function canMergeStoreCategories(ApiTester $I): void
     {
         $category1 = $this->getRandomCategoryFromDatabase($I);
-        $category2 = $this->getRandomCategoryFromDatabase($I);
+        do {
+            $category2 = $this->getRandomCategoryFromDatabase($I);
+        } while ($category1->id === $category2->id);
 
-        $I->login($this->userOrga['email']);
+        $I->login($this->userAdmin['email']);
         $I->sendPost('api/categories/store/merge/' . $category1->id . '/' . $category2->id);
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseContainsJson(['duplicates' => 0]);
