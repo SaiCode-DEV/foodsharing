@@ -1101,7 +1101,7 @@ bcard:
   choose: ''
   region: Região
 formatting:
-  md: ''
+  md: 'Pode utilizar <a href="https://markdown.de/">Markdown</a> para formatação.'
 group:
   function:
     voting: 'Votação'
@@ -1172,6 +1172,9 @@ group:
       apresentados na visão geral do distrito.
     duplicate_election_team: O grupo de trabalho eleitoral já foi criada! Por 
       distrito só pode ter um o grupo de trabalho eleitoral.
+    resources: Mosaico dos recursos
+    tooltip_function_13: Os administradores deste grupo de trabalho serão 
+      informados sobre recursos novos através de campana.
   application_from: 'de'
   apply:
     accept: 'Aceitar candidatura'
@@ -1561,29 +1564,29 @@ fsp:
     descSettings: 'Segues os todos informações do cantinho solidário “{nome}”. Como
       gostaria de receber estas notificações?'
     descModal: ''
-    bell: ''
+    bell: 'apenas mensagens informativas internas (campana)'
     from: 'Atualização para o cantinho solidário „{name}“'
-  pic: ''
-  description: ''
+  pic: 'Foto'
+  description: 'Descrição'
   addedOn: 'Adicionado em'
   suggest: 'Sugerir um cantinho solidário'
-  location: ''
-  followers: ''
+  location: 'código postal / local'
+  followers: 'Foodsaver interessados'
   addError: 'Não foi possível registrar o cantinho solidário. Preencheu tudo corretamente?'
   rejectConfirm: 'Atenção, se eliminar o cantinho solidário, já não pode anular esta
     ação. Queres mesmo continuar?'
   reject: 'Recusar o cantinho solidário'
   add: 'Registrar o cantinho solidário'
-  managers: ''
+  managers: 'Pessoas de contacto'
   accept: 'Liberar o cantinho solidário'
   descLabel: 'Escreva aqui algumas informações básicas sobre o cantinho solidário,
     especialmente quando está acessível/aberto.'
-  address: ''
+  address: 'Endereço'
   noManager: 'Deve haver pelo menos uma pessoa responsável por este cantinho solidário.'
-  street: ''
+  street: 'Rua'
   editSuccess: 'Cantinho solidário foi editado com sucesso'
   summary: 'Há {count} cantinho/s solidário em todos os distritos onde está ativo'
-  acceptName: ''
+  acceptName: 'desbloquear {name}'
   follow: 'Siga este cantinho solidário'
   none: 'Ainda não registados cantinhos solidário'
   yours: 'Cantinhos solidário nos vossos distritos'
@@ -1610,6 +1613,9 @@ fsp:
     Neste estado, não é apresentado assim aos outros utilizadores.
   form_validation:
     invalid: A entrada é inválida. Por favor, verifica as tuas entradas.
+    required: '{name} é necesário.'
+    min_length: '{name} tem de ter, pelo menos, {length} caracteres.'
+  show_on_large_map: Mostrar no mapa
 search:
   thread-title-only: ''
   results:
@@ -2322,6 +2328,7 @@ terminology:
   mobile_phone: Número de telemóvel
   received: recebido
   sent: Enviado
+  resourcesAdmins: Equipa do mosaico dos recursos
 timepicker:
   labelCloseButton: ''
   labelMinutes: ''
@@ -3084,7 +3091,8 @@ releases:
   "2022-05": ''
   "2022-01": ''
   "2020-05": ''
-error_ajax: ''
+error_ajax: "Infelizmente, isso não funcionou. \nTalvez a tua conexão com internet
+  não funcione neste momento. \nRecarrega a pagina e tenta novamente.\n"
 information:
   push:
     link: ''
@@ -3192,12 +3200,12 @@ home:
   title: ''
 image: 'Imagem'
 validate:
-  required: ''
+  required: '{it} não pode estar vazio'
 storemanagers: ''
 lifetime: 'Por quanto tempo debecer de validade do cabaz dos alimentos?'
 sticker: 'A empresa/loja/clube, etc. está disponível para afixar um autocolante na
   entrada ou noutro local?'
-error_unexpected: ''
+error_unexpected: 'Houve um erro'
 back: 'Para trás'
 message_text_to_group_admin_workgroup: ''
 regionPin:
@@ -3210,7 +3218,7 @@ regionPin:
 first_post: 'Primeira entrada no pinboard'
 fsp_bezirk_id: 'Em qual distrito está localizado o cantinho solidário?'
 about_me_public: 'Descrição rápida publica'
-delete: ''
+delete: 'apagar'
 betrieb_status_id: 'Status'
 lebensmittel: 'Quais os alimentos o que levado?'
 timefrom: ''
@@ -3228,7 +3236,10 @@ statistics:
     foodBasketsLastMonth: cestas de comida distribuídas
     pickupsLastMonth: Salvamentos dos alimentos
     savedFoodKgLastMonth: Alimentos salvos
+    activeHomeRegionFoodsavers: Foodsavers ativos
+    activeCoorporations: Cooperações ativas com empresas
   lastMonth: Estatísticas dos últimos 30 dias
+  food_saved: Alimentos recuperados
 mailbox_id: ''
 body: 'Mensagem'
 public_info: ''
@@ -3306,7 +3317,7 @@ answers: 'Quais respostas é certamento?'
 fpcapital: ''
 infotype: ''
 daterange: ''
-time: ''
+time: 'horas'
 duration: 'Tempo para responder'
 day: 'Data'
 ansprechpartner: 'Pessoa de contacto na empresa (Gerente de filial, etc.)'
@@ -3342,7 +3353,21 @@ net_errors:
   title:
     general: Erro de rede
     500: Erro de servidor
+    400: Solicitaçaõ incorreta
   message: 'Mensagem de erro: '
   action_response: 'Pedido e resposta do servidor:'
   BAD_REQUEST: O pedido foi inválido. Por favor, verifica as tuas entradas para 
     a integridade e plausibilidade.
+  TOO_MANY_REQUESTS: Demasiadas solicitações. Por favor, aguarde um momento e 
+    tente novamente.
+  ECONNABORTED: A solicitação foi cancelada pelo teu browser. Por favor, tente 
+    novamente.
+  ERR_NETWORK: Houve um problema de Internet. Por favor, verifique a sua conexão
+    e tente novamente.
+  ERR_NETWORK_CHANGED: A tua conexão com a Internet está instável. Verifica a 
+    tua conexão e tenta novamente.
+  ERR_BAD_RESPONSE: O servidor devolveu uma resposta inválida. Por favor, tente 
+    novamente.
+  ERR_CANCELED: A solicitação foi cancelada. Tente novamente, se necessário.
+  unknown: Houve um erro desconhecido. Por favor, tente novamente mais tarde.
+error_base64_image: Não é permitido inserir imagens através de drag & drop.
