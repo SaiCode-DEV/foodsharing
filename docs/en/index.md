@@ -3,9 +3,9 @@
 layout: home
 
 hero:
-  name: "Foodsharing Devdocs"
+  name: "foodsharing Devdocs"
   text: "Code. Save Food."
-  tagline: "Empowering Foodsharing with Every Line"
+  tagline: "Empowering foodsharing with Every Line"
   actions:
     - theme: brand
       text: Getting Started

@@ -1,4 +1,4 @@
-# Foodsharing
+# foodsharing
 
 See also the [glossary in the wiki](https://wiki.foodsharing.de/Glossar)
 

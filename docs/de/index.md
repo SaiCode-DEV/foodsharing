@@ -3,7 +3,7 @@
 layout: home
 
 hero:
-  name: "Foodsharing Devdocs"
+  name: "foodsharing Devdocs"
   text: "Schreibe Code, Rette Lebensmittel"
   tagline: "Lebensmittelrettung mit jeder Zeile Code"
   actions:
@@ -16,7 +16,7 @@ hero:
   image:
     light: /img/FS_Gabel_gb.svg
     dark: /img/FS_Gabel_gw.svg
-    alt: Foodsharing Logo
+    alt: foodsharing Logo
 
 features:
   - title: Vue Frontend

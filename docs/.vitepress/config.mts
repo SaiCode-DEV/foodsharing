@@ -78,17 +78,17 @@ sidebar['/api/'] = [
 
 // https://vitepress.dev/reference/site-config
 export default withPwa(defineConfig({
-  title: "Foodsharing Devdocs",
+  title: "foodsharing Devdocs",
   description: "Developer documentation for foodsharing",
   cleanUrls: true,
   metaChunk: true,
   ignoreDeadLinks: true,
   head: [
     ['link', { rel: 'icon', href: '/img/favicon.ico' }],
-    ['meta', { name: 'keywords', content: 'Foodsharing, Devdocs, Docs, API, Contribute, Dev, Development' }],
+    ['meta', { name: 'keywords', content: 'foodsharing, Devdocs, Docs, API, Contribute, Dev, Development' }],
     ['meta', { property: 'og:image', content: 'https://devdocs.foodsharing.network/img/FS_Schriftzug_gw.svg' }],
-    ['meta', { property: 'og:title', content: 'Foodsharing Devdocs' }],
-    ['meta', { property: 'og:description', content: 'Write Code. Save Food. Empowering Foodsharing with Every Line' }],
+    ['meta', { property: 'og:title', content: 'foodsharing Devdocs' }],
+    ['meta', { property: 'og:description', content: 'Write Code. Save Food. Empowering foodsharing with Every Line' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:url', content: 'https://devdocs.foodsharing.de' }],
   ],
@@ -203,7 +203,7 @@ export default withPwa(defineConfig({
     registerType: 'autoUpdate',
     includeAssets: ['favicon.ico'],
     manifest: {
-      name: "Foodsharing Devdocs",
+      name: "foodsharing Devdocs",
       short_name: "FS Devdocs",
       theme_color: "#64AE24",
       background_color: "#1B1B1F",
