@@ -42,9 +42,9 @@ store:
     verified: ''
     no-duplicate: ''
     request: ''
-    to-jumper: ''
+    to-jumper: 'Lista da reserva'
     withdraw: ''
-  jumperSince: 'Reserva desde {date}'
+  jumperSince: 'Substituto desde {date}'
   days: ''
   team:
     no_record: ''
@@ -115,20 +115,20 @@ store:
     managementEffect: ''
     searchPlaceholder: ''
     filterSleeping: ''
-    filterJumper: ''
+    filterJumper: 'Substitutos'
     buttonManagementToggle: ''
     filterQuizSM: ''
     toogleIsReducedStateOpen: ''
     toogleIsReducedStateClosed: ''
     reallyRemove: ''
-    makeJumper: ''
+    makeJumper: 'Na lista da reserva'
     reloadRequired: ''
     makeRegularTeamMember: ''
     filterHygiene: Formação em higiene
     filterNoHygiene: ''
   prefetchone: ''
   isNotVerified: ''
-  jumping: ''
+  jumping: 'Substituto'
   may_not_referred_to_in_public: ''
   fetchCount: ''
   of_that: ''
@@ -144,20 +144,21 @@ store:
   my_last_pickup: ''
   mayAmb: ''
   chat:
-    jumper: 'Mensagem para Springer'
+    jumper: 'Mensagem para substituto'
     team: 'Mensagem para a equipe'
+    managers: Mensagem para os responsávels pela a empresa
   isAppliedForTeam: ''
   locked: ''
   lastPickup: ''
   team_container: 'Equipe'
   managing: ''
   prefetchthree: ''
-  springer_conversation_name: ''
+  springer_conversation_name: 'Substituto [name]'
   isManager: ''
   prefetchtwo: ''
   particularities: ''
   noPickup: ''
-  tooltip_red: ''
+  tooltip_red: 'Recolhas disponíveis hoje e amanha'
   active: 'Activo'
   one_active: 'Activo'
   not-in-team: 'Ainda não estás na equipa desta empresa.'
@@ -169,17 +170,17 @@ store:
   complete: ''
   address: ''
   days_before: ''
-  tooltip_orange: ''
+  tooltip_orange: 'Recolhas disponíveis nos próximos tres dias'
   attribution: ''
   useRegionPickupRules: ''
-  short_tooltip_red: ''
+  short_tooltip_red: 'Recolhas disponíveis hoje e amanha'
   regionPickupRulesInactive: ''
   maxchar: ''
-  short_tooltip_orange: ''
+  short_tooltip_orange: 'Recolhas disponíveis em 3 dias'
   regionPickupRules: ''
-  tooltip_jumping: ''
+  tooltip_jumping: 'Tu é o substituto por está empresa'
   member: 'Membro'
-  tooltip_managing: ''
+  tooltip_managing: 'Tu és responsável por esta cooperação'
   addNewStoresButton: ''
   enternumber: ''
   nodetails: ''
@@ -193,17 +194,17 @@ store:
   appliedFor: ''
   filter: ''
   regionPickupRuleLong: ''
-  isJumper: ''
+  isJumper: 'Está en la lista dos substitutos.'
   nodeclaration: ''
   important: ''
   nochains: ''
   enter_date_description: ''
-  tooltip_yellow: ''
+  tooltip_yellow: 'Recolhas disponíveis nos próximos cinco dias'
   joinDate: 'Na equipa desde {data}'
   peoplecame: ''
   may_referred_to_in_public: ''
   noStores: ''
-  short_tooltip_yellow: ''
+  short_tooltip_yellow: 'Recolhas disponíveis em cinco dias'
   info_container: ''
   not_verified: ''
   unverified_member: ''
@@ -214,7 +215,8 @@ store:
   average_collection_quantity: ''
   team_conversation_name: ''
   lastPickupShort: 'última vez {date}'
-  pickup_slot_unavailable: ''
+  pickup_slot_unavailable: 'Este slot está mais distante no futuro do que os responsáveis
+    desta empresa pretendiam. Por isso, tente novamente mais tarde.'
   smneeded: ''
   invitations: Convites abertos ({count})
   deactivatedRegion: A lista de empresas ainda não pode ser apresentada para 
@@ -469,43 +471,49 @@ storeview:
     single: '1 semana'
     not_set: 'Nenhum período fixo'
     multiply: '{weeks} semanas'
-  public_time: ''
+  public_time: 'Será recolhido {freq}. Nunca passar na loja sem acordo prévio!'
   specials: 'Características especiais'
   want_to_fetch: 'Gostaria de ajudar esta equipa.'
-  source_data: ''
+  source_data: 'Datos de base'
   public_and_statistics: 'Estatísticas & relações públicas'
-  team: ''
+  team: 'Equipa de recolha'
   cooperation_status: 'Situação de cooperação'
-  invalid_field: ''
+  invalid_field: 'Teor inválido no campo do formulário. Não é possível guardar a alteração.'
   public_time_in_the_morning: 'de manhã'
   cooperation: 'Cooperação desde {startTime}.'
-  store: ''
+  store: 'Empresa'
   public_time_in_the_evening: 'à noite'
   info: 'Informações'
   teamInfo: ''
-  visible_for_public: ''
+  visible_for_public: 'Este texto é visível para todos os foodsavers.'
   management: 'Administração'
   cooperation_start: 'Cooperação desde'
   contact:
-    name: ''
-  status_notes: ''
+    name: 'Nome e apelido'
+  status_notes: 'Notas de estado'
   select_related_region: 'Seleção do distrito competente'
-  visible_for_team: ''
+  visible_for_team: 'Este texto é visível para a equipa de empresa.'
   public_time_at_night: 'à noite'
   no_permission_to_view: 'Visível apenas pelos responsáveis pela coordenação da empresa.'
   status: 'Situação actual'
-  pickupWeight: ''
+  pickupWeight: 'kg salvado'
   show_information: ''
   managers: 'Foodsavers responsáveis'
-  common: ''
-  pickupCount: ''
+  common: 'Geral'
+  pickupCount: 'Recolhas'
   team_info_distance: 'Distância aérea para a empresa:'
   publicity_and_sticker_options:
     no: Não
     yes: Sim
+    not_yet_clarified: Ainda não esclarecido
   choose_chain: Escolha uma cadeia
   public_info:
     error_message: Texto é demasiado longo (max. {count} caracteres)
+    label: Informações públicos sobre a empresa
+    available_count: Número de caracteres disponíveis
+  show_settings: Configurações de empresa
+  team_info_active: 'Membros ativos da equipa:'
+  team_info_jumper: 'Reserva:'
 calendar:
   locale: pt
   labelNextYear: ''
@@ -1174,7 +1182,7 @@ group:
       distrito só pode ter um o grupo de trabalho eleitoral.
     resources: Mosaico dos recursos
     tooltip_function_13: Os administradores deste grupo de trabalho serão 
-      informados sobre recursos novos através de campana.
+      informados sobre recursos novos através de campainha.
   application_from: 'de'
   apply:
     accept: 'Aceitar candidatura'
@@ -1557,14 +1565,15 @@ error:
     link_2: ''
 fsp:
   info:
-    mail: ''
+    mail: 'Notificação por campainha e e-mail'
     manager: 'É responsavel para este cantinho solidário e portanto obrigado conseguinte,
       a receber as actualizações.'
-    none: ''
+    none: 'não mais'
     descSettings: 'Segues os todos informações do cantinho solidário “{nome}”. Como
       gostaria de receber estas notificações?'
-    descModal: ''
-    bell: 'apenas mensagens informativas internas (campana)'
+    descModal: 'Como gostaria de ser informado sobre atualizações (por exemplo, entregas
+      de alimentos)?'
+    bell: 'apenas mensagens informativas internas (campainha)'
     from: 'Atualização para o cantinho solidário „{name}“'
   pic: 'Foto'
   description: 'Descrição'
@@ -1616,6 +1625,8 @@ fsp:
     required: '{name} é necesário.'
     min_length: '{name} tem de ter, pelo menos, {length} caracteres.'
   show_on_large_map: Mostrar no mapa
+  createdAt: Inaugurado
+  followerCount: 'Utilizadores interessados: {followerCount}'
 search:
   thread-title-only: ''
   results:
