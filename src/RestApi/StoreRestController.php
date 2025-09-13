@@ -235,7 +235,10 @@ class StoreRestController extends AbstractFoodsharingRestController
         }
 
         // Member-only (org/coord flows are enforced elsewhere; default to deny if not a member)
-        if ($this->storeGateway->getUserTeamStatus($this->session->id(), $storeId) === TeamMembershipStatus::NoMember) {
+        if (
+            $this->storeGateway->getUserTeamStatus($this->session->id(), $storeId) === TeamMembershipStatus::NoMember
+            && !$this->storePermissions->mayCoordianteRegionStores($storeId)
+        ) {
             throw new AccessDeniedHttpException('Not allowed to see store members.');
         }
 
@@ -265,9 +268,12 @@ class StoreRestController extends AbstractFoodsharingRestController
         // 401 if not logged in
         $this->assertLoggedIn();
 
-        // 404 if the store does not exist
-        if (!$this->storeGateway->storeExists($storeId)) {
-            throw new NotFoundHttpException('Store not found.');
+        // 404 if the store does not exist, Align with /member but keep exceptions for coordination / ambassadors / ORGA
+        if (
+            $this->storeGateway->getUserTeamStatus($this->session->id(), $storeId) === TeamMembershipStatus::NoMember
+            && !$this->storePermissions->mayCoordianteRegionStores($storeId)
+        ) {
+            throw new AccessDeniedHttpException('Not allowed to see store members.');
         }
 
         // 403 if logged in but not a member (aligns with /stores/{storeId}/member)

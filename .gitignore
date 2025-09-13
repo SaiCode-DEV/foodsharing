@@ -99,4 +99,11 @@ dump.sql
 
 # Local composer files
 .config/
-.local/
+.local/jar.txt
+login.html
+
+# Local debug artifacts
+jar.txt
+login.html
+tests/Api.suite.local.yml
+tests/_override_rest_only.yml
