@@ -6,7 +6,7 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\Profile;
-use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
+use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\WorkGroup\WorkGroupGateway;
 use Foodsharing\Modules\WorkGroup\WorkGroupTransactions;
 use Foodsharing\Permissions\WorkGroupPermissions;
@@ -26,10 +26,10 @@ class WorkingGroupRestController extends AbstractFoodsharingRestController
 {
     public function __construct(
         private readonly WorkGroupGateway $workGroupGateway,
+        private readonly RegionGateway $regionGateway,
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly WorkGroupPermissions $workGroupPermissions,
         private readonly WorkGroupTransactions $groupTransactions,
-        private readonly CurrentUserUnitsInterface $currentUserUnits,
         protected Session $session
     ) {
         parent::__construct($session);
@@ -68,6 +68,16 @@ class WorkingGroupRestController extends AbstractFoodsharingRestController
         $this->workGroupGateway->addToGroup($groupId, $memberId);
         $user = $this->foodsaverGateway->getProfile($memberId);
 
+        // Add user to parent region if not already a member and if parent
+        // region is not a working group itself (this is not wanted)
+        $parentId = $group['parent_id'];
+        $parentIsWorkingGroup = $this->workGroupGateway->regionIsWorkingGroup($parentId);
+        if (!$parentIsWorkingGroup && !$this->regionGateway->hasMember($memberId, $parentId)) {
+            // the parent region is a real region (not a working group) -> make
+            // user a member of the parent region
+            $this->regionGateway->addMember($memberId, $parentId);
+        }
+
         return $this->respondOK($user);
     }
 
@@ -96,9 +106,8 @@ class WorkingGroupRestController extends AbstractFoodsharingRestController
 
     #[OA\Post(summary: 'Sends a message to a group via email, including a custom message from the contact form.')]
     #[Route('/groups/{groupId}/mail', methods: ['POST'])]
-    #[OA\Response(response: Response::HTTP_ACCEPTED, description: 'Success, send will happen asynchron')]
-    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not permitted to access these achievements')]
-    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Not permitted to access these achievements')]
+    #[OA\Response(response: Response::HTTP_ACCEPTED, description: 'Success, send will happen asynchroneously')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Group not found or group has no email address')]
     #[OA\Response(response: Response::HTTP_UNPROCESSABLE_ENTITY, description: 'Validation errors')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Malformed data')]
     #[OA\Response(response: Response::HTTP_UNSUPPORTED_MEDIA_TYPE, description: 'Unsupported deserialization formats')]
@@ -109,13 +118,6 @@ class WorkingGroupRestController extends AbstractFoodsharingRestController
         $group = $this->workGroupGateway->getGroup($groupId);
         if (!$group || empty($group['email'])) {
             throw new NotFoundHttpException();
-        }
-
-        // Check if the user has access to the groups page (if they are a member
-        // of the parent region). If not, decline contact.
-        $region_id = $group['parent_id'];
-        if (!$this->currentUserUnits->mayBezirk($region_id)) {
-            throw new AccessDeniedHttpException('You do not have permission to contact this group.');
         }
 
         $userMail = $this->foodsaverGateway->getEmailAddress($this->session->id());
@@ -142,13 +144,6 @@ class WorkingGroupRestController extends AbstractFoodsharingRestController
         $group = $this->workGroupGateway->getGroup($groupId);
         if (!$group) {
             throw new NotFoundHttpException();
-        }
-
-        // Check if the user has access to the groups page (if they are a member
-        // of the parent region). If not, decline contact.
-        $region_id = $group['parent_id'];
-        if (!$this->currentUserUnits->mayBezirk($region_id)) {
-            throw new AccessDeniedHttpException('You do not have permission to request membership in this group.');
         }
 
         $this->groupTransactions->requestToGroup(

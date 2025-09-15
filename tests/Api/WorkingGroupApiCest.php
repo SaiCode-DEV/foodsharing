@@ -16,10 +16,13 @@ class WorkingGroupApiCest
 {
     private Generator $faker;
     private $workingGroup;
+    private $workingGroup2;
+    private $workingGroup3;
     private $foodsharer;
     private $user;
     private $userAdmin;
     private $userOrga;
+    private $testRegion;
 
     public function _before(ApiTester $I): void
     {
@@ -34,6 +37,12 @@ class WorkingGroupApiCest
         $I->addRegionMember($this->workingGroup['id'], $this->userAdmin['id']);
         $I->addRegionAdmin($this->workingGroup['id'], $this->userAdmin['id']);
         $this->userOrga = $I->createOrga();
+
+        $this->testRegion = $I->createRegion('test region');
+        $this->workingGroup2 = $I->createWorkingGroup('test AG in test region', ['parent_id' => $this->testRegion['id'], 'apply_type' => ApplyType::EVERYBODY]);
+        $I->addRegionAdmin($this->workingGroup2['id'], $this->userAdmin['id']);
+        $this->workingGroup3 = $I->createWorkingGroup('test AG in test AG', ['parent_id' => $this->workingGroup['id'], 'apply_type' => ApplyType::EVERYBODY]);
+        $I->addRegionAdmin($this->workingGroup3['id'], $this->userAdmin['id']);
     }
 
     public function canNotAddMembersToWorkingGroupsWithoutLogin(ApiTester $I): void
@@ -219,6 +228,81 @@ class WorkingGroupApiCest
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPost('api/groups/' . $this->workingGroup['id'] . '/request', $validRequest);
         $I->seeResponseCodeIs(HttpCode::OK);
+    }
+
+    public function canApplyForWorkingGroupInRegion(ApiTester $I): void
+    {
+        // We want users to be added to the parenting regions if this is NOT a
+        // working groups. Otherwise, they'd later be added over night
+        // automatically but won't have access until then
+        $I->login($this->user['email']);
+
+        // Verify user is not yet member of the test region
+        $I->sendGET('api/user/current/regions');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->dontSeeResponseContainsJson(['id' => $this->testRegion['id']]);
+
+        // Apply for working group that has the test region as parent
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $validRequest = ['motivation' => 'ThisIsATestMessage', 'ability' => '', 'experience' => '', 'selectedTime' => 1];
+        $I->sendPost('api/groups/' . $this->workingGroup2['id'] . '/request', $validRequest);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Verify user is still NOT member of the test region
+        $I->sendGET('api/user/current/regions');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->dontSeeResponseContainsJson(['id' => $this->testRegion['id']]);
+
+        // Accept user into working group
+        $I->login($this->userAdmin['email']);
+        $I->sendPOST('api/groups/' . $this->workingGroup2['id'] . '/members/' . $this->user['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+
+        // Verify user is now member of the test region
+        $I->login($this->user['email']);
+        $I->sendGET('api/user/current/regions');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseContainsJson(['id' => $this->testRegion['id']]);
+    }
+
+    public function canApplyForWorkingGroupInWorkingGroup(ApiTester $I): void
+    {
+        // We don't want users to be added to the parenting regions if this IS a
+        // working group. Users will still need to apply separately for the
+        // underlying working group if they want to become member here (real
+        // life example: AG Betriebsketten and its children)
+        $I->login($this->user['email']);
+
+        // Verify user is NOT member of the test working group
+        $I->sendGET('api/user/current/regions');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->dontSeeResponseContainsJson(['id' => $this->workingGroup['id']]);
+
+        // Apply for working group that has the test working group as parent
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $validRequest = ['motivation' => 'ThisIsATestMessage', 'ability' => '', 'experience' => '', 'selectedTime' => 1];
+        $I->sendPost('api/groups/' . $this->workingGroup3['id'] . '/request', $validRequest);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Verify user is still NOT member of the test working group
+        $I->sendGET('api/user/current/regions');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->dontSeeResponseContainsJson(['id' => $this->workingGroup['id']]);
+
+        // Accept user into working group
+        $I->login($this->userAdmin['email']);
+        $I->sendPOST('api/groups/' . $this->workingGroup['id'] . '/members/' . $this->user['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        // Print response for debugging
+        $I->comment($I->grabResponse());
+
+        // Verify user is still NOT member of the test region
+        $I->login($this->user['email']);
+        $I->sendGET('api/user/current/regions');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->dontSeeResponseContainsJson(['id' => $this->testRegion['id']]);
     }
 
     /**

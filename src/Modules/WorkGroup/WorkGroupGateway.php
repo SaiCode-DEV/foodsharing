@@ -282,4 +282,18 @@ class WorkGroupGateway extends BaseGateway
             ['bezirk_id' => $groupId]
         );
     }
+
+    /**
+     * Checks if the specified region is a working group.
+     *
+     * @param int $regionId the ID of the region to check
+     * @return bool true if the region is a working group, false otherwise
+     */
+    public function regionIsWorkingGroup(int $regionId): bool
+    {
+        return $this->db->fetchValue('SELECT COUNT(*) FROM fs_bezirk WHERE id = :id AND type = :type', [
+            'id' => $regionId,
+            'type' => UnitType::WORKING_GROUP
+        ]) > 0;
+    }
 }
