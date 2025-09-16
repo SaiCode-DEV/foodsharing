@@ -31,26 +31,40 @@ store:
   request:
     distance: Mora a cerca de {distance} km de distância
     distance_close: Mora a menos de 1 km de distância
-    title: ''
-    to-team: ''
-    withdrawn: ''
-    to-nowhere: ''
-    distance_unknown: ''
-    got-it: ''
-    unverified: ''
-    air_line: ''
-    verified: ''
-    no-duplicate: ''
-    request: ''
+    title: 'Solicitações para {storeTitle}'
+    to-team: 'adicionar à equipa'
+    withdrawn: 'A solicitação foi retirada com sucesso.'
+    to-nowhere: 'recusar'
+    distance_unknown: 'não é especificado o local de residência'
+    got-it: 'Os responsáveis foram informados do teu solicitação e entrarão em contacto
+      consigo.'
+    unverified: 'O utilizador não está verificado'
+    air_line: 'A distância indicada é em linha reta.'
+    verified: 'O Utilisador está verificado'
+    no-duplicate: 'Já existe uma solicitação.'
+    request: 'Aplicar para esta equipa'
     to-jumper: 'Lista da reserva'
-    withdraw: ''
+    withdraw: 'Cancelar minha solicitação'
+    confirm-far: De acordo com o endereço guardado, moras muito longe deste 
+      sítio ({distance}). Tens a certeza de que podes apoiar a equipa de forma 
+      regular e fiável?
+    confirm-no-location: Não inscreveu um endereço válido no seu perfil. Por 
+      favor, insira um endereço para facilitar aos responsáveis da empresa a 
+      decisão sobre a sua candidatura.
+    confirm-no-location-ok: Candidatar mesmo assim
+    application-message: Mensagem de candidatura
+    application-placeholder: Gostaria de ajudar na esta equipa porque …
+    hygieneRequired: É necessária uma formação válida em higiene para as 
+      recolhas desta empresa.
+    hygieneMissing: Esse está a faltar actualmente. Responda ao questionário de 
+      higiene agora para poderia candidatar a esta equipa.
   jumperSince: 'Substituto desde {date}'
-  days: ''
+  days: 'dias'
   team:
-    no_record: ''
-    search_reset: ''
-    search_input: ''
-    is_closed: ''
+    no_record: 'Não foi encontrada nenhuma entrada.'
+    search_reset: 'Anular busca'
+    search_input: 'Buscar por nome / número de telefone'
+    is_closed: 'O equipa está fechado'
   log:
     message:
       6: ''
@@ -94,126 +108,155 @@ store:
     title: ''
   signInDateTime: 'Data de inscrição'
   sm:
-    reloadPage: ''
-    demoteAsManager: ''
-    filterAll: ''
-    removeFromTeam: ''
+    reloadPage: 'Recargar'
+    demoteAsManager: 'Retirar a responsabilidade'
+    filterAll: 'Membros'
+    removeFromTeam: 'Remover da equipa'
     reallyDemote: ''
-    filterUnverified: ''
+    filterUnverified: 'Não verificados'
     filter: ''
     pickupAsc: ''
     pickupDesc: ''
     pickupReset: ''
     managementToggleOff: ''
     managementActions: ''
-    filterManage: ''
-    promoteToManager: ''
+    filterManage: 'com questinário dos responsáveis pela cooperação'
+    promoteToManager: 'Assumir a responsabilidade por esta empresa'
     managementToggleOn: ''
-    promoteToManagerNotPossible: ''
+    promoteToManagerNotPossible: 'A pessoa não pode ser registada como responsável
+      porque já existem três pessoas responsáveis por esta empresa ou porque a pessoa
+      ainda não passou no questinário correspondente.'
     byLastPickup: ''
-    filterActive: ''
+    filterActive: 'Ativos'
     managementEffect: ''
-    searchPlaceholder: ''
-    filterSleeping: ''
+    searchPlaceholder: 'Nome ou ID'
+    filterSleeping: 'Dormilhões'
     filterJumper: 'Substitutos'
     buttonManagementToggle: ''
-    filterQuizSM: ''
+    filterQuizSM: 'Questinário aprovado para responsáveis pela cooperação'
     toogleIsReducedStateOpen: ''
     toogleIsReducedStateClosed: ''
-    reallyRemove: ''
+    reallyRemove: 'Quer mesmo remover {name} da equipa da loja?'
     makeJumper: 'Na lista da reserva'
-    reloadRequired: ''
-    makeRegularTeamMember: ''
+    reloadRequired: 'Para atualizar as informações do equipamento:'
+    makeRegularTeamMember: 'Adicionar na equipa'
     filterHygiene: Formação em higiene
-    filterNoHygiene: ''
+    filterNoHygiene: 'sem formação em higiene'
+    sorting:
+      default: Classificação standard
+      pickup: ordenada pela última recolha
+    userHasPickupsWarning: '{name} ainda está registado para recolher {occupiedSlots}
+      nesta empresa. Estes horários ficarão livres. Deseja continuar?'
+    inviteMember: Convidar na equipa
+    demoteAsManagerConfirm: Quer mesmo abdicar da tua responsabilidade pela este
+      cooperação?
   prefetchone: ''
-  isNotVerified: ''
+  isNotVerified: 'Ainda não foi verificado.'
   jumping: 'Substituto'
-  may_not_referred_to_in_public: ''
-  fetchCount: ''
-  of_that: ''
+  may_not_referred_to_in_public: 'Por favor, nunca mencione esta cooperação publicamente
+    (por exemplo, em cestas de alimentos, nas redes sociais ou na imprensa).'
+  fetchCount: 'Recolhido aqui {count} vezes.'
+  of_that: 'deles'
   requests: 'Consultas abertas ({count})'
-  error: ''
-  leaveinfo: ''
+  error: 'Não foi possível aceder à empresa.'
+  leaveinfo: 'Aqui pode fornecer informações aos recolheros que desejam candidatar-se
+    à equipa.'
   prefetchfour: ''
   convince:
     much: ''
     some: ''
     none: ''
     final: ''
-  my_last_pickup: ''
-  mayAmb: ''
+  my_last_pickup: 'A minha última recolha'
+  mayAmb: 'Aprovou o questionário dos embaixadores.'
   chat:
     jumper: 'Mensagem para substituto'
     team: 'Mensagem para a equipe'
     managers: Mensagem para os responsávels pela a empresa
-  isAppliedForTeam: ''
+  isAppliedForTeam: 'Solicitação'
   locked: ''
-  lastPickup: ''
+  lastPickup: 'Última recolha {date}'
   team_container: 'Equipe'
-  managing: ''
+  managing: 'Responsabilidade de cooperação'
   prefetchthree: ''
   springer_conversation_name: 'Substituto [name]'
-  isManager: ''
+  isManager: 'Responsável de esta empresa.'
   prefetchtwo: ''
-  particularities: ''
-  noPickup: ''
+  particularities: 'Procedimento e instruções'
+  noPickup: 'Nunca recolheu nada aqui.'
   tooltip_red: 'Recolhas disponíveis hoje e amanha'
   active: 'Activo'
   one_active: 'Activo'
   not-in-team: 'Ainda não estás na equipa desta empresa.'
-  unverified_members: ''
+  unverified_members: 'não verificados'
   allStoresOfRegion: 'Todas as empresas do distrito'
-  willgetcontacted: ''
-  slot_state: ''
-  delete_date_description: ''
+  willgetcontacted: 'Atualmente, está na lista dos substitutos. Entraremos em contacto
+    consigo assim que precisarmos de ajuda.'
+  slot_state: 'Estado de Slot'
+  delete_date_description: 'Caso utilize intervalos regulares (recorrentes semanalmente
+    de forma automática) na tua empresa e deseje evitar que uma data específica seja
+    criada (por exemplo, um feriado), pode fazê-lo especificando a data e a hora com
+    esta função. Caso deseje eliminar intervalos que já estão visíveis, pode fazê-lo
+    diretamente com um clique no intervalo, desde que ninguém tenha sido inserido.'
   complete: ''
-  address: ''
-  days_before: ''
+  address: 'Endereço'
+  days_before: 'há'
   tooltip_orange: 'Recolhas disponíveis nos próximos tres dias'
-  attribution: ''
-  useRegionPickupRules: ''
+  attribution: 'Atribuição'
+  useRegionPickupRules: 'Esta é uma empresa muito popular. Além das regras internas
+    da empresa, aplicam-se as seguintes restrições às inscrições:'
   short_tooltip_red: 'Recolhas disponíveis hoje e amanha'
-  regionPickupRulesInactive: ''
-  maxchar: ''
+  regionPickupRulesInactive: 'As regras adicionais do distrito para recolhas não estão
+    ativas'
+  maxchar: '(máx. 180 caracteres)'
   short_tooltip_orange: 'Recolhas disponíveis em 3 dias'
-  regionPickupRules: ''
+  regionPickupRules: 'Regra adicional para empresas populares'
   tooltip_jumping: 'Tu é o substituto por está empresa'
   member: 'Membro'
   tooltip_managing: 'Tu és responsável por esta cooperação'
-  addNewStoresButton: ''
-  enternumber: ''
+  addNewStoresButton: 'Adicionar nova empresa'
+  enternumber: 'Ainda tens de selectionar o número dos recolheiros.'
   nodetails: ''
   teamName: '(storeTitle) equipe'
-  enter_date: ''
-  ownStores: ''
-  mayManage: ''
+  enter_date: 'Inscrever data de recolha individual'
+  ownStores: 'Empresas próprias'
+  mayManage: 'Aprovou o exame de responsáveis das empresas.'
   go: 'Para a equipa'
   bread: 'Todas as empresas'
-  particularities_chain: ''
-  appliedFor: ''
-  filter: ''
-  regionPickupRuleLong: ''
+  particularities_chain: 'Particularidades da cadeia'
+  appliedFor: 'Solicitação realizada'
+  filter: 'Filtrar por …'
+  regionPickupRuleLong: 'No prazo de {regionPickupRuleTimespan} dias antes e depois
+    da data de recolha desejada, não podem ter sido registadas mais de {regionPickupRuleLimit}
+    recolhas em empresas populares. Podem ser realizadas no máximo {regionPickupRuleLimitDay}
+    recolhas por dia nessas empresas. {regionPickupRuleInactive} horas antes da recolha,
+    esta regra deixa de ser aplicável.'
   isJumper: 'Está en la lista dos substitutos.'
   nodeclaration: ''
-  important: ''
+  important: 'Importante:'
   nochains: ''
-  enter_date_description: ''
+  enter_date_description: 'Depois de selecionar a data, a hora e o número de pessoas
+    que serão recolhidas, pode definir horários únicos para este compromisso. Se desejar
+    criar horários regulares (recorrentes automaticamente todas as semanas), utilize
+    o menu "configurações da empresa".'
   tooltip_yellow: 'Recolhas disponíveis nos próximos cinco dias'
   joinDate: 'Na equipa desde {data}'
   peoplecame: ''
-  may_referred_to_in_public: ''
-  noStores: ''
+  may_referred_to_in_public: 'Esta cooperação pode ser mencionada publicamente.'
+  noStores: 'Ainda não há empresas inscritas'
   short_tooltip_yellow: 'Recolhas disponíveis em cinco dias'
-  info_container: ''
-  not_verified: ''
-  unverified_member: ''
-  particularities_chain_tooltip: ''
+  info_container: 'Informações'
+  not_verified: 'Não está verificado. Portanto, ainda não pode ver as datas de recolha
+    nem os números de telefone dos membros da equipa.'
+  unverified_member: 'não verificado'
+  particularities_chain_tooltip: 'Esta empresa é o parte de uma cadeia. Por isso,
+    são apresentadas estas informações adicionais, que se aplicam a todos os estabelecimentos
+    desta cadeia.'
   all_of_my_stores: 'Todas as minhas empresas'
-  delete_date: ''
-  unknownDate: ''
-  average_collection_quantity: ''
-  team_conversation_name: ''
+  delete_date: 'Eliminar evento de recolha individual'
+  unknownDate: 'desconhecido'
+  average_collection_quantity: 'Quantidade da recolha por pessoa'
+  team_conversation_name: 'Equipa {name}'
   lastPickupShort: 'última vez {date}'
   pickup_slot_unavailable: 'Este slot está mais distante no futuro do que os responsáveis
     desta empresa pretendiam. Por isso, tente novamente mais tarde.'
@@ -222,6 +265,31 @@ store:
   deactivatedRegion: A lista de empresas ainda não pode ser apresentada para 
     países e continentes.
   storeFrom: Empresa de {name}
+  lastPickupTitle: Última recolha aqui
+  slotsCurrentlyOccupied: Slots atualmente ocupados
+  invited: Convidado
+  may_referred_to_in_public_unclear: Ainda não esclarecido
+  invitation:
+    title: Convites para {storeTitle}
+    withdraw: Retirar convite
+    info: Quando convidas Foodsavers para a equipa, estes não são adicionados 
+      diretamente à equipa operacional, para proteger os dados pessoais. Recebem
+      um convite para aderir à equipa, que têm de aceitar antes de se tornarem 
+      membros. Podes retirar esses convites a qualquer momento.
+    accept: Aceptar convite
+    invited_info: Foi convidado para esta empresa. Pode juntar-se à equipa 
+      simplesmente aceitando o convite.
+    decline: Recusar
+    invited_by: Convidado por
+  no_chain_choosen: Nenhuma cadeia foi selecionada
+  chain_search_picker:
+    modal_title: Selecione a cadeia da empresa
+    search_input: Procurar pelo nome da cadeia
+  passport_expired: O teu cartão de foodsharing expirou. Contacta os teus 
+    embaixadores para o renovar. Por isso, já não podes registar-te aqui.
+  passport_expires_soon: O teu cartão de foodsharing é válido por mais {days} 
+    dias! Contacta os teus embaixadores para renová-lo. Após o prazo de 
+    validade, não poderás mais te registar aqui.
 navigation:
   profil: 👋 Olá {name}!
   conversations: ''
@@ -477,7 +545,7 @@ storeview:
   source_data: 'Datos de base'
   public_and_statistics: 'Estatísticas & relações públicas'
   team: 'Equipa de recolha'
-  cooperation_status: 'Situação de cooperação'
+  cooperation_status: 'Estado de cooperação'
   invalid_field: 'Teor inválido no campo do formulário. Não é possível guardar a alteração.'
   public_time_in_the_morning: 'de manhã'
   cooperation: 'Cooperação desde {startTime}.'
@@ -828,7 +896,7 @@ login:
   submit_btn: 'Entrar'
   login_button_label: 'Entrar'
   password: 'palavra-passe'
-  email_address: 'Endereço de email'
+  email_address: 'Endereço electrónico'
   logout: 'Sair'
   success: ''
   save_password: 'Guardar a palavra-passe'
@@ -1259,7 +1327,7 @@ group:
       execute: Executar ação
       already_verified: Todos os utilizadores selecionados já foram verificados
       automatic_paper_size: Utilizar papel A4
-      active_or_renew_passport: Ativar / prolongar o cartão de Foodsharing
+      active_or_renew_passport: Ativar / prolongar o cartão de foodsharing
       inform_user: com notificação
     all_roles: Todas as funções
   quit_name_district: 'Deixar o distrito {name}'
@@ -2256,14 +2324,14 @@ terminology:
     d: 'Embasador/a'
     f: 'Embasadora'
   ambassadors: 'Embaixadores/as'
-  mediationAdmins: 'Equipe de mediação'
+  mediationAdmins: 'Equipa de mediação'
   ambassador_forum: 'Forum de embaixadores/as'
   role:
     "4": 'Administrador(a) global'
     "2": 'Responsavel de empresa'
     "1": 'Salvador/a dos alimentos'
     "0": 'partilhador(a) dos alimentos'
-    "3": 'Embaixador/a'
+    "3": 'Embaixador'
   statistic: 'Estatísticas'
   n_foodsaver: '{count} salvadores dos alimentos'
   admins: 'Administradores/as'
@@ -2278,9 +2346,9 @@ terminology:
   prAdmins: 'Equipe de relações públicas'
   mailboxes: 'Caixas de correio eletrónico'
   polls: 'Votações'
-  profile_picture: 'Foto do perfil'
+  profile_picture: 'Foto de perfil'
   n_sleeping: '{count} gorros de dormir'
-  votingAdmins: 'Equipe de votação'
+  votingAdmins: 'Equipa de votação'
   foodsaver:
     d: 'Salvador/a dos alimentos'
     f: 'Salvadora dos alimentos'
@@ -2298,7 +2366,7 @@ terminology:
   wall: 'painel de avisos'
   fsps: 'Cantinho solidário'
   fsp: 'Cantinho solidário'
-  fsManagementAdmins: 'Administração'
+  fsManagementAdmins: 'Equipa de administração'
   forum: 'Fórum'
   message: 'Mensagem'
   boardAdmins: 'conselho administrativo'
@@ -2311,7 +2379,7 @@ terminology:
     arbitration: Vista da notificação (LS)
     orga: Vista da notificação (administrador global)
   groups: 'Grupos de trabalho'
-  moderationAdmins: 'Equipe de moderação'
+  moderationAdmins: 'Equipa de moderação'
   settings: 'Configurações'
   community: 'Grupo local de {name}'
   pin: ''
@@ -2329,7 +2397,7 @@ terminology:
   no: Não
   yes: Sim
   electionAdmins: Eleições
-  phone: Número
+  phone: Número de telefóno
   hygiene_training: Formação de higiene
   pickup: Recolha
   users: utilizadores
@@ -2389,7 +2457,7 @@ register:
   phone_not_valid: 'O número de telefone introduzido não é válido'
   account-exists: 'Já estás registado. Por favor, sai da tua conta se quiseres registar-te
     novamente.'
-  error_email_invalid: 'Este endereço de e-mail não pode ser usado'
+  error_email_invalid: 'Este endereço electrónico não pode ser usado'
   landline_example: 'Exemplo: +351 812 34 56 78'
   error_birthdate: 'Exemplo 25.03.2001 (DD.MM.JJJJJ). Por razões de proteção de dados
     e responsabilidade, tens que ter pelo menos 18 anos de idade para juntar-te a
@@ -2532,15 +2600,15 @@ legal:
       b) DSGVO:'
     this_gets_deleted_verify: 'A sua verificação será removida.'
     this_doesnt_get_deleted_name: 'O teu nome'
-    this_gets_deleted_friendlist: 'A sua lista de amigos é removida.'
+    this_gets_deleted_friendlist: 'A tua lista de amigos é removida.'
     legal_1: 'Nosso atual contrato de proteção de dados'
-    this_doesnt_get_deleted_address: 'A sua morada'
+    this_doesnt_get_deleted_address: 'A tua endereço'
     this_gets_deleted_stores: 'As empresas das quais fizeste parte.'
     this_gets_deleted_main: 'As seguintes informações serão eliminadas de você e não
       podem ser restauradas:'
     this_gets_deleted_trustbananas: 'As bananas que recebeste serão removidas.'
-    this_gets_deleted_quiz: 'Todos os seus testes são removidos.'
-    this_doesnt_get_deleted_history: 'História da sua verificação'
+    this_gets_deleted_quiz: 'Todos os teus questinários são removidos.'
+    this_doesnt_get_deleted_history: 'História da tua verificação'
   agree_privacy_policy: 'Sim, aceito a política de privacidade.'
   privacy_notice_agree:
     select: 'Por favor selectionar'
@@ -2559,9 +2627,9 @@ legal:
     qustion_notice: Aceita a nossa política de privacidade e o aviso de proteção
       de dados?
     agree: Sim, aceito a política de privacidade.
-  agree_privacy_notice: 'Estou informado sobre a obrigação de confidencialidade dos
-    dados pessoais e os comportamentos daí decorrentes. Receberei uma confirmação
-    por e-mail para os meus arquivos, no e-mail que indiquei.'
+  agree_privacy_notice: 'Fui informado sobre a obrigação de manter a confidencialidade
+    dos dados pessoais e a conduta resultante. Receberei confirmação disso por e-mail
+    no endereço que forneci para os meus registos.'
   are_you_sure_to_downgrade: 'Atenção: Selecionou que deseja ser rebaixado para o
     salvador dos alimentos. Tem a certeza?'
   legal_agreement: 'acordo legal'
@@ -2962,7 +3030,7 @@ notifications:
   success: ''
   checkbox_email: ''
   checkbox_bell: ''
-are_you_sure: 'Tens a certeza?'
+are_you_sure: 'Estás a certeza?'
 button:
   save: 'Salvar'
   permadelete: 'Apagar irrevogavelmente'
@@ -3244,7 +3312,7 @@ statistics:
   kg_food_saved: '{count} kg alimentos salvos'
   region_public:
     activeFoodSharePoints: Cantinho solidário ativo
-    foodBasketsLastMonth: cestas de comida distribuídas
+    foodBasketsLastMonth: cestas de alimentos distribuídas
     pickupsLastMonth: Salvamentos dos alimentos
     savedFoodKgLastMonth: Alimentos salvos
     activeHomeRegionFoodsavers: Foodsavers ativos
@@ -3258,7 +3326,7 @@ banana_count: ''
 messages:
   bread: ''
 photo: 'Fotografia'
-really_delete: 'A sério?'
+really_delete: 'Apagar a sério?'
 map:
   filters:
     my_stores: ''
@@ -3330,7 +3398,7 @@ infotype: ''
 daterange: ''
 time: 'horas'
 duration: 'Tempo para responder'
-day: 'Data'
+day: 'dia'
 ansprechpartner: 'Pessoa de contacto na empresa (Gerente de filial, etc.)'
 homepage: ''
 passcheck: ''
@@ -3362,7 +3430,7 @@ net_errors:
     de internet e tenta novamente.
   FORBIDDEN: Não tens o direito de executar esta ação.
   title:
-    general: Erro de rede
+    general: erro de conexão
     500: Erro de servidor
     400: Solicitaçaõ incorreta
   message: 'Mensagem de erro: '
