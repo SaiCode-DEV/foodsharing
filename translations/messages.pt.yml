@@ -105,7 +105,7 @@ store:
     log_types_placeholder: ''
     search: ''
     selected_log_types: ''
-    title: ''
+    title: 'Protocolo da loja'
   signInDateTime: 'Data de inscrição'
   sm:
     reloadPage: 'Recargar'
@@ -150,7 +150,7 @@ store:
     inviteMember: Convidar na equipa
     demoteAsManagerConfirm: Quer mesmo abdicar da tua responsabilidade pela este
       cooperação?
-  prefetchone: ''
+  prefetchone: '1 semana'
   isNotVerified: 'Ainda não foi verificado.'
   jumping: 'Substituto'
   may_not_referred_to_in_public: 'Por favor, nunca mencione esta cooperação publicamente
@@ -161,12 +161,12 @@ store:
   error: 'Não foi possível aceder à empresa.'
   leaveinfo: 'Aqui pode fornecer informações aos recolheros que desejam candidatar-se
     à equipa.'
-  prefetchfour: ''
+  prefetchfour: '4 semanas'
   convince:
-    much: ''
-    some: ''
-    none: ''
-    final: ''
+    much: 'Muito difícil, mas no final concordaram.'
+    some: 'Depois de um pouco de persuasão, eles concordaram em participar.'
+    none: 'Não houve nenhum problema, eles ficaram entusiasmados imediatamente!'
+    final: 'No início não parecia promissor, mas depois entraram em contacto.'
   my_last_pickup: 'A minha última recolha'
   mayAmb: 'Aprovou o questionário dos embaixadores.'
   chat:
@@ -174,14 +174,14 @@ store:
     team: 'Mensagem para a equipe'
     managers: Mensagem para os responsávels pela a empresa
   isAppliedForTeam: 'Solicitação'
-  locked: ''
+  locked: 'Não pode editar esta loja.'
   lastPickup: 'Última recolha {date}'
   team_container: 'Equipe'
   managing: 'Responsabilidade de cooperação'
-  prefetchthree: ''
+  prefetchthree: '3 semanas'
   springer_conversation_name: 'Substituto [name]'
   isManager: 'Responsável de esta empresa.'
-  prefetchtwo: ''
+  prefetchtwo: '2 semanas'
   particularities: 'Procedimento e instruções'
   noPickup: 'Nunca recolheu nada aqui.'
   tooltip_red: 'Recolhas disponíveis hoje e amanha'
@@ -198,7 +198,7 @@ store:
     criada (por exemplo, um feriado), pode fazê-lo especificando a data e a hora com
     esta função. Caso deseje eliminar intervalos que já estão visíveis, pode fazê-lo
     diretamente com um clique no intervalo, desde que ninguém tenha sido inserido.'
-  complete: ''
+  complete: 'base de dados completa'
   address: 'Endereço'
   days_before: 'há'
   tooltip_orange: 'Recolhas disponíveis nos próximos tres dias'
@@ -216,7 +216,7 @@ store:
   tooltip_managing: 'Tu és responsável por esta cooperação'
   addNewStoresButton: 'Adicionar nova empresa'
   enternumber: 'Ainda tens de selectionar o número dos recolheiros.'
-  nodetails: ''
+  nodetails: 'Não indique aqui horários exatos para a recolha.'
   teamName: '(storeTitle) equipe'
   enter_date: 'Inscrever data de recolha individual'
   ownStores: 'Empresas próprias'
@@ -232,16 +232,18 @@ store:
     recolhas por dia nessas empresas. {regionPickupRuleInactive} horas antes da recolha,
     esta regra deixa de ser aplicável.'
   isJumper: 'Está en la lista dos substitutos.'
-  nodeclaration: ''
+  nodeclaration: 'Não especificado'
   important: 'Importante:'
-  nochains: ''
+  nochains: 'Por favor, contacte apenas empresas geridas pelos proprietários com,
+    no máximo, três filiais, nunca contacte filiais de uma cadeia maior! Respeite
+    as regras da cadeia de empresas!'
   enter_date_description: 'Depois de selecionar a data, a hora e o número de pessoas
     que serão recolhidas, pode definir horários únicos para este compromisso. Se desejar
     criar horários regulares (recorrentes automaticamente todas as semanas), utilize
     o menu "configurações da empresa".'
   tooltip_yellow: 'Recolhas disponíveis nos próximos cinco dias'
   joinDate: 'Na equipa desde {data}'
-  peoplecame: ''
+  peoplecame: 'Muitas vezes já aconteceu de pessoas irem à loja sem aviso prévio.'
   may_referred_to_in_public: 'Esta cooperação pode ser mencionada publicamente.'
   noStores: 'Ainda não há empresas inscritas'
   short_tooltip_yellow: 'Recolhas disponíveis em cinco dias'
@@ -260,7 +262,7 @@ store:
   lastPickupShort: 'última vez {date}'
   pickup_slot_unavailable: 'Este slot está mais distante no futuro do que os responsáveis
     desta empresa pretendiam. Por isso, tente novamente mais tarde.'
-  smneeded: ''
+  smneeded: 'Para criar uma empresa, tens de ser responsabilizar pelas cooperações.'
   invitations: Convites abertos ({count})
   deactivatedRegion: A lista de empresas ainda não pode ser apresentada para 
     países e continentes.
