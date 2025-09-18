@@ -65,3 +65,30 @@ quiz:
   question: Pytanie
   plural: Quizy
   continuenow: Kontynuuj quiz teraz!
+  answers:
+    false_true: Ta odpowiedź byłaby prawidłowa.
+    true_false: Źle! Ta odpowiedź nie jest poprawna.
+    true_true: Dobrze! Ta odpowiedź jest poprawna.
+    timedOut:
+      0: Ta odpowiedź nie powinna być poprawna.
+      1: Ta odpowiedź powinna być poprawna.
+      2: Ta odpowiedź byłaby neutralna.
+    short:
+      0: źle
+      1: dobrze
+      2: neutralnie
+  stateBasedInfo:
+    neverTried: Dotychczas jeszcze nie ukończyłeś/aś tego quizu. Najpierw 
+      poświęć trochę czasu, aby zapoznać się z wszystkimi wymienionymi 
+      informacjami i przygotować się na pytania.
+    running: Już rozpocząłeś/rozpoczęłaś quiz i odpowiedziałeś/aś na 
+      {questionsAnswered} z {questionCount} pytań.
+    passed: Już zdałeś/aś ten quiz.
+    failed: Niestety, przy ostatniej próbie nie zdałeś/aś tego quizu.
+    noWaitAfter: Jeszcze raz przejrzyj artykuły informacyjne i spróbuj ponownie.
+    disqualified: Niestety, zostałeś/aś zdyskwalifikowany/a z tego quizu, 
+      ponieważ zbyt często go nie zdałeś/aś.
+    passedBefore: Już zdałeś/aś ten quiz wcześniej.
+    willExpire: Ważność twojego quizu kończy się po {expirationTime} dniach. 
+      Dlatego możesz już teraz odświeżyć swoją wiedzę w tym zakresie i ponownie 
+      wziąć udział w tym quizie.
