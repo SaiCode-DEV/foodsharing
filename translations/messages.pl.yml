@@ -30,3 +30,38 @@ weight: 'Szacunkowa masa:'
 bezirk_id: Dla którego regionu jest ten artykuł ważny?
 opt: Opcje
 fsp_bezirk_id: W którym regionie znajduje się jadłodzielnia?
+rolle: Rola użytkownika/użytkowniczki
+title: Tytuł
+automatic_not_delete: Profil powinien zostać zachowany.
+copied_to_clipboard: '"{tekst}" został skopiowany do schowka.'
+fetchstate: Czy wszystko poszło dobrze?
+lifetime: Jak długo ma być ważny twój koszyk żywności?
+position: Pozycja w foodsharingu (publiczne)
+pass2: Powtórz hasło
+betrieb_kategorie_id: Kategoria
+betrieb_status_id: Status
+fax: Fax
+lebensmittel: Jaki rodzaj żywności można odebrać?
+begin: Początek współpracy
+besonderheiten: Przebieg & Wskazówki
+first_post: Pierwszy post na tablicy
+abholmenge: Ile mniej więcej kg zabiera jedna osoba przy odbiorze?
+text: tekst
+fp: Punkty karne
+nofp: bez punktów karnych (żart)
+explanation: Objaśnienie
+duration: Czas na odpowiedź
+answers: Które odpowiedzi są poprawne?
+maxfp: Maksymalna liczba punktów karnych, aby zdać
+questcount: Ile pytań ma zawierać egzamin?
+wikilink: Link z dodatkowymi informacjami
+filter_by: filtruj według
+save_state: Zachowaj filtry i sortowanie
+save_state_description: Zachowaj użyte filtry i sortowanie na przyszłe 
+  odwiedziny
+configure_columns: Konfiguracja kolumn
+partner_foodsharing: Partnerzy foodsharingu
+quiz:
+  question: Pytanie
+  plural: Quizy
+  continuenow: Kontynuuj quiz teraz!
