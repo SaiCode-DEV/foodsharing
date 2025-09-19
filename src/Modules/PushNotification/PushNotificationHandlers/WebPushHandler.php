@@ -21,7 +21,8 @@ class WebPushHandler implements PushNotificationHandlerInterface
     {
         $auth = [
             'VAPID' => [
-                'subject' => $_SERVER['SERVER_NAME'] ?? '',
+                // subject should be a valid URL or mailto link
+                'subject' => isset($_SERVER['SERVER_NAME']) ? 'https://' . $_SERVER['SERVER_NAME'] : 'mailto:developer@foodsharing.network',
                 'publicKey' => WEBPUSH_PUBLIC_KEY,
                 'privateKey' => WEBPUSH_PRIVATE_KEY
             ],
@@ -52,7 +53,7 @@ class WebPushHandler implements PushNotificationHandlerInterface
             $subscriptionArray = json_decode($subscriptionAsJson, true);
 
             // Fix inconsistent definition of encoding by some clients
-            $subscriptionArray['contentEncoding'] ??= 'aesgcm';
+            $subscriptionArray['contentEncoding'] ??= 'aes128gcm';
 
             $subscription = Subscription::create($subscriptionArray);
 

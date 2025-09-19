@@ -32,7 +32,7 @@ export async function unsubscribeFromPushNotifications () {
 function sendPushSubscriptionToServer (subscription) {
   const key = subscription.getKey('p256dh')
   const token = subscription.getKey('auth')
-  const contentEncoding = (PushManager.supportedContentEncodings || ['aesgcm'])[0]
+  const contentEncoding = (PushManager.supportedContentEncodings || ['aes128gcm'])[0]
 
   return ajax.post('/pushnotification/webpush/subscription', {
     endpoint: subscription.endpoint,
