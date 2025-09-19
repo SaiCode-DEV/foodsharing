@@ -69,7 +69,7 @@ store:
     message:
       6: '{actor} adicionou {target} à equipa.'
       1: '{actor} fez um pedido de adesão.'
-      14: ''
+      14: '{actor} confirmou o horário de recolha de {target} no dia {date}.'
       3: '{actor} aceitou o pedido de afiliação de {target}.'
       4: '{actor} adicionou {target} á equipa sem solicitar.'
       11: '{actor} registou-se para ser recolhido no dia {date}.'
@@ -78,13 +78,17 @@ store:
       13_with_reason: '{actor} cancelau {target} para recolha em {date} com a seguinte
         mensagem'
       8: '{actor} deixou a equipa.'
-      16: ''
+      16: '{actor} retirou o pedido de filiação.'
       10: '{actor} demitiu {target} do eliminar de responsável de empresa.'
       12: '{actor} cancelou a recolha em {date}.'
       2: '{actor} rejeitou o pedido de afiliação de {target}.'
       5: '{actor} colocou {target} na lista de substitutos.'
       9: '{actor} designou {target} como responsável pela cooperação.'
-      15: ''
+      15: '{actor} eliminou a publicação do mural de {target} em {date}.'
+      17: '{actor} convidou {target} para a equipa.'
+      18: '{actor} retirou o convite à equipa para {target}.'
+      19: '{ator} aceitou o convite da equipa.'
+      20: '{ator} recusou o convite da equipa.'
     type:
       3: 'Aceitar solicitações de adesão'
       2: 'Recursar solicitações de adesão'
