@@ -115,6 +115,7 @@ store:
     search: 'Mostrar ações selecionadas'
     selected_log_types: '{amount} tipos de ação selecionados'
     title: 'Protocolo da loja'
+    message_saved_info: A tua mensagem será guardada no registo de empresa.
   signInDateTime: 'Data de inscrição'
   sm:
     reloadPage: 'Recargar'
@@ -301,6 +302,7 @@ store:
   passport_expires_soon: O teu cartão de foodsharing é válido por mais {days} 
     dias! Contacta os teus embaixadores para renová-lo. Após o prazo de 
     validade, não poderás mais te registar aqui.
+  to_map: Mostrar no mapa
 navigation:
   profil: 👋 Olá {name}!
   conversations: ''
@@ -2107,11 +2109,13 @@ storeedit:
     dropped: ''
     statuschanged: ''
     created: ''
-  bread: ''
-  add-new: ''
+  bread: 'Editar cooperação'
+  add-new: 'Organizar cooperação nova'
   not-in-region: ''
   add_success: ''
   actions: ''
+  store_name_placeholder: Nome de empresa
+  name_error: O nome deve ter pelo menos três caracteres.
 chain:
   new: ''
   error:
@@ -3421,6 +3425,14 @@ validation:
 navi:
   google_maps: Google Maps
   apple_maps: Apple Maps
+  waze: Waze
+  osmand: OsmAnd
+  komoot: Komoot
+  here: HERE WeGo
+  native: Aplicação nativa
+  gdpr_warning: Quando navega com {provider}, o endereço é transmitido ao seu 
+    serviço e é redirecionado para o seu site. Concorda com isso?
+  no_native_app: Este dispositivo não suporta geo-links.
 no_automatic_delete: 'Se o último registo tiver sido há mais de 5 anos:'
 automatic_delete: '- o perfil quer ser eliminado.'
 automatic_not_delete: '- o perfil quer ser mantido.'
