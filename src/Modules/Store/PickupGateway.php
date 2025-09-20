@@ -97,13 +97,11 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
 
 			WHERE    p.foodsaver_id = :fsId
 			AND      DATE(p.`date`) = DATE(:pickupDay)
-			AND      p.`date` >= :now
 
 			ORDER BY p.`date`
 		', [
             ':fsId' => $fsId,
             ':pickupDay' => $this->db->date($day, false),
-            ':now' => $this->db->now(),
         ]);
     }
 

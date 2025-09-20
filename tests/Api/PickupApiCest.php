@@ -509,7 +509,13 @@ class PickupApiCest
 
     public function listSameDayAgenda(ApiTester $I)
     {
-        $pickupDate = Carbon::now()->addMinutes(1);
+        // Add past pickup
+        $past_pickupDate = Carbon::now()->subMinutes(10);
+        $I->addPickup($this->store['id'], ['time' => $past_pickupDate, 'fetchercount' => 3]);
+        $I->addPicker($this->store['id'], $this->user['id'], ['date' => $past_pickupDate]);
+
+        // Add future pickup
+        $pickupDate = $past_pickupDate->copy()->addMinutes(3);
         $I->addPickup($this->store['id'], ['time' => $pickupDate, 'fetchercount' => 1]);
         $I->addPicker($this->store['id'], $this->user['id'], ['date' => $pickupDate]);
 
@@ -554,6 +560,7 @@ class PickupApiCest
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson([
+            ['type' => 'store', 'id' => $this->store['id'], 'name' => $this->store['name'], 'isConfirmed' => true, 'date' => $past_pickupDate->format('Y-m-d H:i:s')],
             ['type' => 'store', 'id' => $this->store['id'], 'name' => $this->store['name'], 'isConfirmed' => true, 'date' => $pickupDate->format('Y-m-d H:i:s')],
             ['type' => 'event', 'id' => $event['id'], 'name' => $eventParams['name'], 'status' => 'accepted', 'date' => $eventParams['start']]
         ]);
