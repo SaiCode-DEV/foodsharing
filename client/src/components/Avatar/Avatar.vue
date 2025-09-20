@@ -6,7 +6,7 @@
     :href="computedHref"
     :variant="computedVariant"
     :badge-variant="badgeVariant"
-    badge-top
+    badge-bottom
     :class="`unobtrusive-link avatar-${variant} ${isSleeping ? 'sleep' : ''} ${transparent ? 'avatar-transparent' : ''}`"
     :[shape]="true"
     v-bind="options"
@@ -147,7 +147,7 @@ export default {
     &.badge-primary { // slightly brighter border for primary badges to improve contrast
       border: 1px solid var(--fs-color-primary-400);
       padding: calc(0.25em - 2px); // reduce size to compensate for added border
-      & > span { // reposotion the text centered
+      & > span { // reposition the text centered
         position: relative;
         top: 1px;
       }
@@ -166,6 +166,10 @@ export default {
   position: absolute;
   top: -14%;
   left: -37%;
+}
+
+.sleep.avatar-transparent::after {
+  opacity: 0.5;
 }
 
 .avatar-light:has(.avatar-icon) { // Styling light icon avatars
