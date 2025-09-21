@@ -77,6 +77,8 @@ quiz:
       0: źle
       1: dobrze
       2: neutralnie
+    name: Odpowiedzi
+    none_correct: Żadna odpowiedź nie jest prawidłowa.
   stateBasedInfo:
     neverTried: Dotychczas jeszcze nie ukończyłeś/aś tego quizu. Najpierw 
       poświęć trochę czasu, aby zapoznać się z wszystkimi wymienionymi 
@@ -92,3 +94,70 @@ quiz:
     willExpire: Ważność twojego quizu kończy się po {expirationTime} dniach. 
       Dlatego możesz już teraz odświeżyć swoją wiedzę w tym zakresie i ponownie 
       wziąć udział w tym quizie.
+  regstart: Rozpocznij quiz bez limitu czasu i {count} pytań
+  button:
+    pause: Kontynuuj później
+    finish: Zakończ quiz
+  title:
+    start: '{name} - Przystąp teraz do quizu!'
+    continue: '{name} - Kontynuuj quiz!'
+    disqualified: '{name} - Niestety, zdyskwalifikowany.'
+    finished: '{name} - zdałeś/aś!'
+  startmodal:
+    title: Wskazówki do quizu
+    infos:
+      wiki: Nie zaczynaj quizu na próbę. Najpierw przeczytaj dokładnie 
+        wymienione strony informacyjne. Bez wiedzy z Wiki nie uda ci się zdać 
+        quizu.
+      real_life_examples: Większość pytań opiera się na rzeczywistych sytuacjach
+        z życia foodsharingu.
+      limited_tries: Nie możesz powtarzać quizu tak często, jak chcesz. Po 
+        trzech próbach musisz poświęcić 30 dni na naukę, następnie masz jeszcze 
+        tylko dwie próby. Pytania zadawane przy każdej próbie są inne.
+      read_carefully: Przeczytaj uważnie wszystkie pytania i odpowiedzi.
+      multiple_choice: Może być kilka poprawnych odpowiedzi na dane pytanie - 
+        albo też żadna. Zdecyduj niezależnie dla każdej odpowiedzi, czy jest 
+        poprawna czy fałszywa.
+      timed: Czas odpowiadania na pytania jest ograniczony. Nie stresuj się tym.
+        Czas jest tak dostosowany do poszczególnych pytań, aby był wystarczający
+        do odpowiedzenia w spokoju na dane pytanie. Jeśli mimo to kiedyś 
+        zabraknie ci czasu, poinformuj administratorów/ki quizu  poprzez 
+        komentarz.
+      pause: Możesz zastopować quiz po każdym pytaniu i kontynuować później.
+      feedback: Na koniec quizu otrzymasz bezpośrednio ocenę, czy zdałeś/aś i 
+        jakie popełniłeś/aś błędy. Możesz wtedy w spokoju przeczytać 
+        uzasadnienia.
+    acceptPrivacyNotice: Zgadzam się.
+  infomodal:
+    title: Pytanie {index} z {questions}
+  comment:
+    toggle: Napisz komentarz
+    placeholder: Wpisz komentarz…
+    send: Wyślij komentarz
+    sent: Komentarz wysłany.
+    wallTitle: 'Komentarze do pytania #{id}'
+    label: Skomentuj pytanie
+  question_options:
+    add: Dodaj pytanie
+    edit: Edytuj pytanie
+    add_answer: Dodaj odpowiedź
+    show_comments: Pokaż komentarze
+    delete: Usuń pytanie
+  answer_options:
+    edit: Edytuj odpowiedź
+    delete: Usuń odpowiedź
+  fp_options:
+    default: '{failurePoints} punkty ujemne'
+  confirmDelete:
+    session: Czy na pewno chcesz usunąć tę sesję quizu?
+    question: Czy na pewno chcesz usunąć to pytanie?
+    answer: Czy na pewno chcesz usunąć tę odpowiedź?
+  confirm: Potwierdź quiz i zakończ proces
+  confirmComment: Czy wysłać twój komentarz do administratorów/administratorek 
+    quizu?
+  confirmDashboardText: Zaliczyłeś/aś quiz, którego jeszcze nie 
+    potwierdziłeś/aś. [Kliknij tutaj]({url}), aby zakończyć proces!
+request_time: 'Czas zapytania:'
+pass1: Twoje żądane nowe hasło
+public_time: Szacunkowy czas odbioru
+right: Wartość
