@@ -386,16 +386,20 @@ class StorePermissions
         return $userRole->isAtLeast(Role::STORE_MANAGER);
     }
 
-    public function mayLoseStoreManagement(int $storeId, int $userId): bool
+    public function mayLoseStoreManagement(int $storeId, int $userId, string &$errorMessage): bool
     {
         $currentManagers = $this->storeGateway->getStoreManagers($storeId);
         $isManager = in_array($userId, $currentManagers, true);
         if (!$isManager) {
+            $errorMessage = 'You are not a manager of this store.';
+
             return false;
         }
 
         // at least one other manager needs to remain after leaving
         if (!$this->mayIgnoreStoremanagerCountRestrictions($storeId) && count($currentManagers) <= StoreManagerAmount::MINIMUM->value) {
+            $errorMessage = 'You cannot remove the last manager of the store.';
+
             return false;
         }
 

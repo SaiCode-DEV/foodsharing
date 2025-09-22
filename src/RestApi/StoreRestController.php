@@ -268,17 +268,17 @@ class StoreRestController extends AbstractFoodsharingRestController
         // 401 if not logged in
         $this->assertLoggedIn();
 
-        // 404 if the store does not exist, Align with /member but keep exceptions for coordination / ambassadors / ORGA
+        // 404 if the store does not exist
+        if (!$this->storeGateway->storeExists($storeId)) {
+            throw new NotFoundHttpException('Store not found.');
+        }
+
+        // 403 if logged in but not a member (aligns with /stores/{storeId}/member)
         if (
             $this->storeGateway->getUserTeamStatus($this->session->id(), $storeId) === TeamMembershipStatus::NoMember
             && !$this->storePermissions->mayCoordianteRegionStores($storeId)
         ) {
-            throw new AccessDeniedHttpException('Not allowed to see store members.');
-        }
-
-        // 403 if logged in but not a member (aligns with /stores/{storeId}/member)
-        if ($this->storeGateway->getUserTeamStatus($this->session->id(), $storeId) === TeamMembershipStatus::NoMember) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Not allowed to see store permissions.');
         }
 
         try {
@@ -792,8 +792,10 @@ class StoreRestController extends AbstractFoodsharingRestController
     public function removeStoreManager(int $storeId, int $userId, ParamFetcher $paramFetcher): Response
     {
         $this->handleEditTeamExceptions($storeId, $userId);
-        if (!$this->storePermissions->mayLoseStoreManagement($storeId, $userId)) {
-            throw new UnprocessableEntityHttpException();
+        $errorMessage = '';
+        $cannotLeave = $this->storePermissions->mayLoseStoreManagement($storeId, $userId, $errorMessage);
+        if (!$cannotLeave) {
+            throw new UnprocessableEntityHttpException($errorMessage);
         }
 
         // Message is mandatory for this action

@@ -335,7 +335,7 @@ final class PickupRestController extends AbstractFoodsharingRestController
     {
         $this->assertLoggedIn();
         if (!$this->storePermissions->maySeePickups($storeId)) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('You are not allowed to see pickups in this store.');
         }
         if (Carbon::today()->diffInHours(Carbon::now(), true) >= 6) {
             $fromTime = Carbon::today();
