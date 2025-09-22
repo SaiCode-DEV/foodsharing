@@ -109,7 +109,7 @@
 
       <p>{{ $i18n('pickup.really_join_date', slotInfo) }}</p>
 
-      <div v-if="loadedUserAgenda && sameDayAgenda && sameDayAgenda.length">
+      <div v-if="loadedUserAgenda && sameDayAgenda && sameDayAgenda.length > 1">
         <b-alert variant="warning" show>
           {{ $i18n('pickup.same_day_hint' ) }}
         </b-alert>
@@ -126,7 +126,7 @@
             <i class="fas fa-fw" :class="agendaTypeIcon(item)" />
             {{
               $i18n('pickup.same_day_entry', {
-                when: $dateFormatter.time(item.date),
+                when: format_agenda_date(item),
                 name: item.type !== 'proposal' ? item.name : storeTitle,
               })
             }}
@@ -390,7 +390,22 @@ export default {
     agendaTypeIcon (item) {
       return item.type === 'event' ? 'fa-calendar-alt' : 'fa-shopping-cart'
     },
+    format_agenda_date (item) {
+      if (!item?.end) {
+        // No end time, return just the time
+        return this.$dateFormatter.time(item.date)
+      }
 
+      // else: this is an event, we have start and end dates
+      const isOnSameDay = this.$dateFormatter.date(item.date) === this.$dateFormatter.date(item.end)
+      if (isOnSameDay) {
+        // same-day event
+        return this.$dateFormatter.time(item.date) + ' - ' + this.$dateFormatter.time(item.end)
+      }
+
+      // multi-day event
+      return this.$dateFormatter.dateTime(item.date) + ' - ' + this.$dateFormatter.dateTime(item.end)
+    },
   },
 }
 </script>

@@ -555,6 +555,18 @@ class PickupApiCest
             'status' => InvitationStatus::ACCEPTED
         ]);
 
+        // Create a future event for the current user
+        $multi_eventDate = $pickupDate->copy()->subDays(3);
+        $multi_eventParams = [
+            'name' => 'Test multi_Event',
+            'start' => $multi_eventDate->format('Y-m-d H:i:s'),
+            'end' => $multi_eventDate->addDays(5)->format('Y-m-d H:i:s'),
+        ];
+        $multi_event = $I->createEvents($this->region['id'], $this->user['id'], $multi_eventParams);
+        $I->addEventInvitation($multi_event['id'], $this->user['id'], [
+            'status' => InvitationStatus::INVITED
+        ]);
+
         $I->login($this->user['email']);
         $I->sendGET('api/foodsaver/' . $this->user['id'] . '/agenda/' . $pickupDate->toDateString());
         $I->seeResponseCodeIs(HttpCode::OK);
@@ -562,7 +574,8 @@ class PickupApiCest
         $I->canSeeResponseContainsJson([
             ['type' => 'store', 'id' => $this->store['id'], 'name' => $this->store['name'], 'isConfirmed' => true, 'date' => $past_pickupDate->format('Y-m-d H:i:s')],
             ['type' => 'store', 'id' => $this->store['id'], 'name' => $this->store['name'], 'isConfirmed' => true, 'date' => $pickupDate->format('Y-m-d H:i:s')],
-            ['type' => 'event', 'id' => $event['id'], 'name' => $eventParams['name'], 'status' => 'accepted', 'date' => $eventParams['start']]
+            ['type' => 'event', 'id' => $event['id'], 'name' => $eventParams['name'], 'status' => 'accepted', 'date' => $eventParams['start'], 'end' => $eventParams['end']],
+            ['type' => 'event', 'id' => $multi_event['id'], 'name' => $multi_eventParams['name'], 'status' => 'invited', 'date' => $multi_eventParams['start'], 'end' => $multi_eventParams['end']],
         ]);
 
         $I->dontSeeResponseContainsJson(['type' => 'event', 'id' => $past_event['id'], 'name' => $past_eventParams['name'], 'status' => 'maybe', 'date' => $past_eventParams['start']]);

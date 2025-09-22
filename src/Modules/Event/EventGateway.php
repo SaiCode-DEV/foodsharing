@@ -104,7 +104,8 @@ class EventGateway extends BaseGateway
         $dateFilter = '';
         $params = ['fs_id' => $userId, 'buffer' => $pastEventsBufferInDays];
         if ($date_only !== null) {
-            $dateFilter = 'AND DATE(e.start) = :date_only';
+            // Include events that start, end, or span the $date_only day
+            $dateFilter = 'AND DATE(e.start) <= :date_only AND DATE(e.end) >= :date_only';
             $params['date_only'] = $date_only->format('Y-m-d');
         }
 
