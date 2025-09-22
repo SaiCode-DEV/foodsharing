@@ -2086,12 +2086,12 @@ storeedit:
     cannot-leave: ''
     orga: ''
     unmanaged: ''
-    bread: ''
+    bread: 'Editar equipa'
     leave: ''
     need-sm: ''
     note: ''
     empty: ''
-    foodsaver: ''
+    foodsaver: 'Foodsaver'
     max-sm: ''
     amb: ''
     coordinator: ''
@@ -2111,9 +2111,9 @@ storeedit:
     created: ''
   bread: 'Editar cooperação'
   add-new: 'Organizar cooperação nova'
-  not-in-region: ''
+  not-in-region: 'Só podes criar empresas em distritos onde estás membro.'
   add_success: ''
-  actions: ''
+  actions: 'Opções'
   store_name_placeholder: Nome de empresa
   name_error: O nome deve ter pelo menos três caracteres.
 chain:
