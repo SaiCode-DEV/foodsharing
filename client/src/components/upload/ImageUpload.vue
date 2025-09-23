@@ -124,7 +124,7 @@ export default {
         return image.objectUrl
       } else {
         const upload = await this.uploadImage(image)
-        return upload.url
+        return (upload && typeof upload.url === 'string') ? upload.url : null
       }
     },
     async uploadImage (image) {

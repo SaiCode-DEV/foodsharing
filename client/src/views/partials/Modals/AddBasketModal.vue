@@ -209,33 +209,48 @@ export default {
     },
     async initUsingUserDetails () {
       await this.userStore.fetchDetails()
-      this.phoneNumber = this.user.mobile || this.user.landline || ''
-      if (this.hasValidHomeAddress) {
+
+      const u = (this.userStore && this.userStore.user) ? this.userStore.user : this.user
+      if (!u) {
+        this.phoneNumber = ''
+        this.useHomeAddress = false
+        return
+      }
+
+      this.phoneNumber = u.mobile || u.landline || ''
+
+      if (u.coordinates && (u.address || u.postcode)) {
         this.useHomeAddress = true
-        this.location = Object.assign({}, this.user.coordinates)
+        this.location = Object.assign({}, u.coordinates || {})
         this.address = {
-          street: this.user.address,
-          zipCode: this.user.postcode,
-          city: this.address.city,
+          street: u.address || '',
+          zipCode: u.postcode || '',
+          city: u.city || this.address.city || '',
         }
       }
     },
+
     async testHomeRegion () {
       await this.userStore.fetchDetails()
-      this.phoneNumber ||= this.user.mobile
+      const u = (this.userStore && this.userStore.user) ? this.userStore.user : this.user
+      if (!u || !u.coordinates) return
+
+      if (!this.phoneNumber) this.phoneNumber = u.mobile || u.landline || ''
+
       this.useHomeAddress = this.hasValidHomeAddress &&
-        Math.abs(this.basket.location.lat - this.user.coordinates.lat) < 1e-5 &&
-        Math.abs(this.basket.location.lon - this.user.coordinates.lon) < 1e-5
+    Math.abs(this.basket.location.lat - u.coordinates.lat) < 1e-5 &&
+    Math.abs(this.basket.location.lon - u.coordinates.lon) < 1e-5
+
       if (this.useHomeAddress) {
         this.address = {
-          street: this.user.address,
-          zipCode: this.user.postcode,
-          city: this.address.city,
+          street: u.address || '',
+          zipCode: u.postcode || '',
+          city: u.city || this.address.city || '',
         }
       }
     },
     async getBasketData () {
-      const pictures = await this.$refs['image-upload'].uploadImages()
+      const pictures = (await this.$refs['image-upload'].uploadImages() || []).filter(Boolean)
       const location = Object.assign({}, this.useHomeAddress ? this.user.coordinates : this.location)
 
       return {
