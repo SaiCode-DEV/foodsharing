@@ -4842,8 +4842,47 @@ help:
         available each day.\n"
     resource_mosaic:
       title: Resource Mosaic
+      md: "##### The idea\nWhile saving food we all try to efficiently use our time,
+        experience, and transport capabilities. However, in order to find ways towards
+        a more sustainable food system and to strengthen the foodsharing community,
+        we need more than picking up food. Each and every one of us has certain resources,
+        including *abilities*, *tools* or *contacts*, which are often hidden to others
+        and thus remain unused. Together we can make these resources visible and use
+        them – just like the individual parts of a mosaic, which yield a big picture.
+        The resource mosaic can make this diversity visible. It provides a space for
+        new ideas, collaboration, and mutual support beyond saving food.\n\n#####
+        The overview panel\nThe core of the resource mosaic is the panel that lists
+        all resources of the region or working group. You can either browse the list
+        and draw inspiration from the group or you can search for specific resources.
+        Each resource can be clicked on to see more information about it. You can
+        also mark resources as favourites in order to find them easier later on.\n\
+        \nThe colour of a resource tells you how gladly the user is willing to share
+        it: bright colours indicate resources that the owner is happy to share while
+        resources which the user is less eager to share are greyed out.\n\n##### Searching,
+        filtering and sorting\nTo quickly find a fitting resource you have several
+        options for filtering.\n- You can filter for **categories** or search **for
+        specific terms**.\n- The option **Just active users** hides resources of all
+        users who have not logged in within the last 30 days or who are currently
+        wearing their nightcap.\n- The resource mosaic shows the resources of all
+        foodsavers in that group. In regions you can also restrict that list to users
+        who have that region set as their **home region**.\n- You can show a list
+        of your **favourite** resources if you have marked any as favourites.\n\n\
+        In addition, you can **sort** the results, for example by colour or actuality.\n"
     my_resources:
       title: Own resources
+      md: "In this section you can manage your own resources; create, edit, and delete
+        resource, and see which ones you currently share.\n\n\n##### What is a resource?\
+        \ \n\nA resource can be anything that you want to contribute to the foodsharing
+        community. This can include **abilities** like cooking or computer programming,
+        **tools** which you would be able to lend like a cargo bike or a mobile cooking
+        station, and even **contacts** with other NGOs, authorities, the media etc.\n\
+        \n##### Nothing is a must\n\nNoone has to enter any resources. Also, entering
+        a resource does not mean that you *have* to supply that resource for anything.
+        This is mostly about things that you *would like to share*.\n\n##### Who can
+        see my resources?\n\nResources are visible in your regions and working groups.
+        This does not, however, include large regions which are countries or states,
+        in which the resource mosaic is not available. You can even restrict the visibility
+        of each of your resources individually to your buddies.\n"
     similar_resources:
       title: Similar resources
       md: You will be shown up to 10 other resources as similar resources, for 
