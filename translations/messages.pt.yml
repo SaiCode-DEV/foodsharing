@@ -1292,7 +1292,7 @@ group:
   member_list:
     set_admin_title: 'Atribuir como administrador'
     remove_ambassador_text: 'Tem a certeza de que pretende remover {name} ({id}) como
-      embaixador?'
+      embaixador(-a)?'
     is_verified: 'Verificado'
     add_member: 'incluir na equipa'
     old_edit_hint_link: 'Miembros'
@@ -1303,11 +1303,11 @@ group:
     admin_mode_off: 'Voltar à vista normal'
     old_edit_hint: 'A gestão dos membros pode agora ser encontrada no separador'
     set_admin_text: 'Quer mesmo adicionar {name} ({id}) como administrador?'
-    set_ambassador_title: 'Atribuir como embaixador'
+    set_ambassador_title: 'Atribuir como embaixador(-a)'
     admin_mode_on: 'Ativar a vista do administrador'
     is_home_region: 'Distrito de origem'
-    remove_ambassador_title: 'Eliminar como embaixador'
-    set_ambassador_text: 'Quer mesmo adicionar {name} ({id}) como embaixador?'
+    remove_ambassador_title: 'Eliminar como embaixador(-a)'
+    set_ambassador_text: 'Quer mesmo adicionar {name} ({id}) como embaixador(-a)?'
     not_verified: 'Não verificado'
     remove_text_region: 'Queres mesmo eliminar {name} ({id}) do distrito?'
     default:
@@ -1428,7 +1428,7 @@ group:
     one: Um membro em total
     other: '{count} membros em total'
   enterxp: 'Experiência:'
-  quit: 'Deixar'
+  quit: 'Sair'
   no_groups: 'Aqui é ainda não grupos de trabalho'
   members: 'Miembros'
   subtitle: 'Aqui encontrará ajuda e muito para fazer …'
@@ -1552,13 +1552,18 @@ pickup:
   really_delete_date: ''
   add_onetime_pickup: ''
   description_modal_text: ''
-  edit_description: ''
-  description: ''
+  edit_description: 'Editar Descrição'
+  description: 'Descrição'
   edit_recurring_pickups: ''
-  kick: ''
-  kick_message_footer: ''
-  really_kick_user_info: ''
-  open_profile: ''
+  kick: 'Eliminar'
+  kick_message_footer: 'Cumprimentos cordiais, os responsáveis pela empresa'
+  really_kick_user_info: 'Tem a certeza de que deseja cancelar a inscrição de {name}
+    na recolha de {date}?
+
+    {name} receberá a seguinte mensagem sobre isso:
+
+    '
+  open_profile: 'Perfil de'
   edit:
     disable_auto_slot: ''
     bread: ''
@@ -1571,21 +1576,22 @@ pickup:
     add: ''
     description_titel: ''
     slotscount: ''
-  leave: ''
-  kick_message: ''
-  team_message_success: ''
-  join_title_date: ''
-  really_leave_date_title: ''
-  dates: ''
+  leave: 'Deixar'
+  kick_message: 'Cancelámos a tua inscrição na recolha da {storeName} em {date}.'
+  team_message_success: 'A mensagem foi enviada com sucesso para a equipa'
+  join_title_date: 'Tem a certeza?'
+  really_leave_date_title: 'Cancelar a inscrição para {date}?'
+  dates: 'Prazos da recolha'
   slot_add: ''
-  kick_message_placeholder: ''
-  description_optional: ''
+  kick_message_placeholder: 'Opcionalmente, adicione informações aqui…'
+  description_optional: 'Descrição (opcional)'
   delete_not_empty: ''
-  same_day_hint: ''
-  team_message_send_and_leave: ''
+  same_day_hint: 'O evento a seguir ocorrerá no mesmo dia:'
+  team_message_send_and_leave: 'Enviar e cancelar a inscrição'
   slot_remove: ''
   description_max_length_info: ''
-  really_join_date: ''
+  really_join_date: 'Gostaria de se inscrever de forma definitiva para a sua recolha
+    no dia {date}?'
   signout_history:
     signout_via_responsible_person:
       via: ''
@@ -1595,24 +1601,35 @@ pickup:
     no_signouts_found: ''
     title: ''
   copiedNumber: ''
-  region_pickup_rule_failed: ''
-  leave_pickup_ok: ''
-  join_cancel: ''
-  copyNumber: ''
-  confirm: ''
-  call: ''
-  same_day_entry: ''
-  really_leave_date: ''
+  region_pickup_rule_failed: 'A tua inscrição não cumpre as regras do distrito'
+  leave_pickup_ok: 'Já tenho um substituto'
+  join_cancel: 'Ah, pela não'
+  copyNumber: 'Copiar número'
+  confirm: 'Confirmar'
+  call: 'Ligar'
+  same_day_entry: '[{when}] h {name}'
+  really_leave_date: 'És responsável por essa recolha. Por favor, providencie mesmo
+    um substituto.'
   to_be_confirmed: ''
-  delete_title: ''
-  signout_info: ''
-  leave_team_message_template: ''
-  leave_pickup_message_team: ''
-  leave_team_message_title: ''
-  signout_confirm: ''
-  take_empty_slot: ''
-  join_agree: ''
-  signout_sure: ''
+  delete_title: 'Apagar a data de recolha'
+  signout_info: 'As tuas recolhas pendentes serão eliminadas.'
+  leave_team_message_template: '{data}, não posso recolhê-lo afinal e, por isso, cancelei
+    a minha inscrição novamente. …'
+  leave_pickup_message_team: 'Notificar a equipa'
+  leave_team_message_title: 'Mensagem para a equipa'
+  signout_confirm: 'Tem a certeza?'
+  take_empty_slot: 'Inscrever-se aqui'
+  join_agree: 'Sim, inscrever vinculativo'
+  signout_sure: 'Queres mesmo deixar esta equipa?'
+  hygieneCertificateMissing:
+    none: Atualmente, não tem um certificado de higiene válido. Preencha agora o
+      questionário de higiene para se poder registar para a recolha.
+    timeout: O seu certificado de higiene expirará no momento em que o recolher.
+      Agora, preencha novamente o questionário de higiene para se registar para 
+      a recolha.
+    link: Para formação em higiene
+  membershipMissing: Não faz parte desta equipa. Por isso, não deve inscrever-se
+    para as recolhas. Se necessário, inscreva-se primeiro como membro da equipa.
 error:
   mail_bounce:
     title: ''
@@ -2082,37 +2099,56 @@ chat:
 error_permissions: 'Infelizmente, nao tens as permissões necessárias para este processo.'
 storeedit:
   team:
-    leave_myself: ''
-    cannot-leave: ''
-    orga: ''
-    unmanaged: ''
+    leave_myself: 'tu mesmo'
+    cannot-leave: 'És responsável por esta empresa, por isso não podes deixá-la.'
+    orga: 'És não responsável por esta empresa.
+
+      Mas tens amplos direitos como o parte da equipa de organizadora global.
+
+      '
+    unmanaged: 'Atualmente, não há nenhum responsável nesta empresa.
+
+      Por favor, adicione até três pessoas responsáveis por esta empresa no futuro.
+
+      '
     bread: 'Editar equipa'
-    leave: ''
-    need-sm: ''
-    note: ''
-    empty: ''
+    leave: 'Deixar esta empresa'
+    need-sm: 'Deve haver pelo menos uma pessoa responsável por esta empresa.'
+    note: 'Nota:'
+    empty: 'O equipa não deve estar vazio'
     foodsaver: 'Foodsaver'
-    max-sm: ''
-    amb: ''
-    coordinator: ''
+    max-sm: 'Por favor selecionar no máximo três pessoas responsáveis pela empresa'
+    amb: 'És não responsável por esta empresa.
+
+      Mas tens amplos direitos como o embaixador(-a).
+
+      '
+    coordinator: 'És não responsável por esta empresa.
+
+      Mas tens amplos direitos como parte da equipa de coordenação da cooperação.
+
+      '
   store:
-    status: ''
+    status: 'Estado'
   fetch:
-    teamStatus1: ''
-    teamStatus0: ''
-    teamStatus2: ''
-    teamStatus: ''
-  unsuccess: ''
+    teamStatus1: 'Precisa-se de ajudantes'
+    teamStatus0: 'Esta equipa está fechado e atualmente não procura mais ajudantes'
+    teamStatus2: 'Precisa-se de ajudantes urgente'
+    teamStatus: 'Estado da equipa'
+    hygieneRequirement: Requisitos de higiene
+    hygieneRequired: Permitir apenas a recolha com formação válida em matéria de
+      higiene
+  unsuccess: 'As alterações não puderam ser aplicadas. {error}'
   edit_success: ''
   milestone:
-    accepted: ''
-    dropped: ''
-    statuschanged: ''
-    created: ''
+    accepted: '{user} agora faz parte da equipa'
+    dropped: '{user} não mais faz parte da equipa'
+    statuschanged: 'Estado alterado em {date}'
+    created: '{user} registou a empresa em {date}'
   bread: 'Editar cooperação'
   add-new: 'Organizar cooperação nova'
   not-in-region: 'Só podes criar empresas em distritos onde estás membro.'
-  add_success: ''
+  add_success: 'A empresa colaboradora foi registada'
   actions: 'Opções'
   store_name_placeholder: Nome de empresa
   name_error: O nome deve ter pelo menos três caracteres.
@@ -2338,15 +2374,15 @@ terminology:
     m: 'Embasador'
     d: 'Embasador/a'
     f: 'Embasadora'
-  ambassadors: 'Embaixadores/as'
+  ambassadors: 'Embaixadores'
   mediationAdmins: 'Equipa de mediação'
-  ambassador_forum: 'Forum de embaixadores/as'
+  ambassador_forum: 'Forum dos embaixadores'
   role:
     "4": 'Administrador(a) global'
     "2": 'Responsavel de empresa'
     "1": 'Salvador/a dos alimentos'
     "0": 'partilhador(a) dos alimentos'
-    "3": 'Embaixador'
+    "3": 'Embaixador(-a)'
   statistic: 'Estatísticas'
   n_foodsaver: '{count} salvadores dos alimentos'
   admins: 'Administradores/as'
@@ -2652,8 +2688,8 @@ legal:
     e embaixadores'
   not_acknowledge_privacy_notice_description: 'Caso não concorde com as instruções
     ou deixe de concordar com elas, não poderá assumir tarefas adicionais, como, por
-    exemplo, tornar-se responsável operacional ou embaixador, ou perderá essas autorizações,
-    caso já as tivesse.'
+    exemplo, tornar-se responsável operacional ou embaixador(-a), ou perderá essas
+    autorizações, caso já as tivesse.'
   must_accept_privacy_policy: 'Para participar em foodsharing, deve concordar com
     a política de privacidade.'
   privacy_policy: 'Política de privacidade'
