@@ -597,26 +597,33 @@ storeview:
   team_info_jumper: 'Reserva:'
 calendar:
   locale: pt
-  labelNextYear: ''
-  labelNav: ''
-  labelNextMonth: ''
-  labelSelected: ''
+  labelNextYear: 'O próximo ano'
+  labelNav: 'Navegação de calendário'
+  labelNextMonth: 'O próximo mes'
+  labelSelected: 'Data selecionada'
   export:
     pickup:
-      description: ''
-      name: ''
-      unconfirmed: ''
+      description: 'Recolha foodsharing em <a href="{url}">{store}</a>'
+      name: 'Recolha {store}'
+      unconfirmed: 'não confirmado'
+      foodsavers: 'Salvadores dos alimentos registrados: '
+      freeSlots: '{count} vagas ainda disponíveis'
     event:
-      description: ''
-      statusUnspecified: ''
-      linkTitle: ''
-  labelCurrentMonth: ''
-  labelHelp: ''
-  labelPrevMonth: ''
-  labelCalendar: ''
-  labelNoDateSelected: ''
-  labelToday: ''
-  labelPrevYear: ''
+      description: 'Descrição'
+      statusUnspecified: 'Ainda não indicou se irá participar neste evento. Pode fazer
+        essa indicação na página indicada.'
+      linkTitle: 'Evento foodsharing'
+    updated: '(Última atualização: {date})'
+  labelCurrentMonth: 'Mes atual'
+  labelHelp: 'A navegação também é possível com as teclas de seta'
+  labelPrevMonth: 'Mes pasado'
+  labelCalendar: 'Calendário'
+  labelNoDateSelected: 'Selecionar data'
+  labelToday: 'Hoje'
+  labelPrevYear: 'O ano pasado'
+  labelResetButton: Eliminar seleção
+  placeholder: Selectionar uma data
+  copiedUrl: URL de calendário copiáda!
 poll:
   type_description_3: Seleção de avaliações com valores entre -3 (rejeição) e +3
     (aprovação)
@@ -1502,59 +1509,61 @@ foodsaver:
   about_me_public: ''
   bread: ''
 pickup:
-  no_slots_available: ''
+  no_slots_available: 'Não há vagas disponíveis'
   history:
-    search: ''
-    title: ''
+    search: 'Mostrar recolhas'
+    title: 'Histórico de recolhas'
   overview:
     tab:
       options:
-        empty: ''
-        name: ''
+        empty: 'Atualmente, não há horários disponíveis para recolha nas tuas empresas.'
+        name: 'Opções de recolha'
         tooltip:
-          own: ''
+          own: 'Datas futuras de recolha para as quais ainda te podes inscrever'
       registered:
         tooltip:
-          other: ''
-          own: ''
-        name: ''
-        empty: ''
+          other: 'Datas futuras de recolha inscritas'
+          own: 'Datas futuras de recolha para as quais se inscreveu'
+        name: 'Datas de recolha inscritas'
+        empty: 'Atualmente, não há recolhas inscritas.'
       history:
         tooltip:
-          own: ''
-          other: ''
-        name: ''
-        empty: ''
+          own: 'Datas de recolha anteriores em que participaste'
+          other: 'Datas de recolha do mês passado em que participou'
+        name: 'Histórico de recolhas'
+        empty: 'Ainda não participou em nenhuma recolha.'
     modals:
       signOffAll:
-        title: ''
-        message: ''
+        title: 'Remover em todas as recolhas?'
+        message: 'Quer mesmo remover o utilizador de todos os slots registados?'
       signOff:
-        title: ''
-        message: ''
+        title: 'Remover no slot?'
+        message: 'Deseja realmente cancelar a pessoa para esta data de recolha?'
     cols:
-      time: ''
-      slots: ''
-      store: ''
-    allLoaded: ''
+      time: 'Tempo'
+      slots: 'Vagas'
+      store: 'Empresa'
+    allLoaded: 'Já estão apresentadas todas as entradas.'
     menu:
-      signOffAll: ''
-      refresh: ''
-      registeredSwitch: ''
-      loadMore: ''
-      signOff: ''
-    header: ''
+      signOffAll: 'Remover de todos'
+      refresh: 'Atualizar'
+      registeredSwitch: 'Recolhas registradas'
+      loadMore: 'Ver mais'
+      signOff: 'Remover'
+      managedOnlySwitch: Vista de responsável(e)
+      useCondensedDesign: Agrupados por dias
+    header: 'Horário de recolha'
     status:
-      option: ''
-      confirmed: ''
-      pending: ''
-    freeSlots: ''
-  really_delete_date: ''
-  add_onetime_pickup: ''
-  description_modal_text: ''
+      option: 'Vaga vacante'
+      confirmed: 'Confirmada'
+      pending: 'Não confirmada'
+    freeSlots: '{slots} disponíveis'
+  really_delete_date: 'Deseja mesmo apagar a recolha de {date}?'
+  add_onetime_pickup: 'Insira hora única'
+  description_modal_text: 'Introduza uma descrição nova para a recolha:'
   edit_description: 'Editar Descrição'
   description: 'Descrição'
-  edit_recurring_pickups: ''
+  edit_recurring_pickups: 'Editar série de datas'
   kick: 'Eliminar'
   kick_message_footer: 'Cumprimentos cordiais, os responsáveis pela empresa'
   really_kick_user_info: 'Tem a certeza de que deseja cancelar a inscrição de {name}
@@ -1565,41 +1574,61 @@ pickup:
     '
   open_profile: 'Perfil de'
   edit:
-    disable_auto_slot: ''
-    bread: ''
-    disable_auto_slot_titel: ''
-    many-people: ''
-    slot_titel: ''
-    slotcount: ''
-    added: ''
-    more: ''
-    add: ''
-    description_titel: ''
-    slotscount: ''
+    disable_auto_slot: 'A slot automática no futuro deverá ser desativada.'
+    bread: 'Editar horarios de recolha'
+    disable_auto_slot_titel: 'Desativação'
+    many-people: 'Indicaste mais de duas pessoas para recolher a encomenda.
+
+      <br>
+
+      Por favor, envia <strong>apenas o número necessário de pessoas para recolher
+      a encomenda</strong> à empresa.
+
+      Um número excessivo de pessoas para recolher a encomenda já levou, em muitas
+      ocasiões, ao fim de cooperação.
+
+      <br>
+
+      Verifica com a empresa o número máximo de pessoas que podem recolher a encomenda.
+
+      Os ajudantes adicionais necessários podem esperar com reboques de bicicleta
+      ou similares
+
+      fora do alcance auditivo e visual da empresa.
+
+      '
+    slot_titel: 'Vagas'
+    slotcount: '1 pessoa a recolher'
+    added: 'Die Abholzeit wurde registriert.'
+    more: 'Adicionar a hora'
+    add: 'Inscrever horarios de recolha'
+    description_titel: 'Descrição'
+    slotscount: '{count} pessoas a recolher'
   leave: 'Deixar'
   kick_message: 'Cancelámos a tua inscrição na recolha da {storeName} em {date}.'
   team_message_success: 'A mensagem foi enviada com sucesso para a equipa'
   join_title_date: 'Tem a certeza?'
   really_leave_date_title: 'Cancelar a inscrição para {date}?'
   dates: 'Prazos da recolha'
-  slot_add: ''
+  slot_add: 'Adicionar slot'
   kick_message_placeholder: 'Opcionalmente, adicione informações aqui…'
   description_optional: 'Descrição (opcional)'
-  delete_not_empty: ''
+  delete_not_empty: 'Atualmente, ainda há pessoas inscritas para recolha. Só poderá
+    eliminar esta data de recolha quando todas as inscrições forem canceladas.'
   same_day_hint: 'O evento a seguir ocorrerá no mesmo dia:'
   team_message_send_and_leave: 'Enviar e cancelar a inscrição'
-  slot_remove: ''
-  description_max_length_info: ''
+  slot_remove: 'Remover slot'
+  description_max_length_info: 'Comprimento máximo da descrição alcançado (100 caracteres)'
   really_join_date: 'Gostaria de se inscrever de forma definitiva para a sua recolha
     no dia {date}?'
   signout_history:
     signout_via_responsible_person:
-      via: ''
-      remove_reason: ''
-    reload: ''
-    slot: ''
-    no_signouts_found: ''
-    title: ''
+      via: 'por'
+      remove_reason: 'Motivo'
+    reload: 'Recargar'
+    slot: 'Recolha'
+    no_signouts_found: 'Não foram encontradas cancelamentos.'
+    title: 'Histórico de cancelamentos dos últimos 7 dias'
   copiedNumber: ''
   region_pickup_rule_failed: 'A tua inscrição não cumpre as regras do distrito'
   leave_pickup_ok: 'Já tenho um substituto'
@@ -1610,7 +1639,8 @@ pickup:
   same_day_entry: '[{when}] h {name}'
   really_leave_date: 'És responsável por essa recolha. Por favor, providencie mesmo
     um substituto.'
-  to_be_confirmed: ''
+  to_be_confirmed: 'Esta data de recolha ainda tem de ser confirmada por um responsável
+    desta empresa.'
   delete_title: 'Apagar a data de recolha'
   signout_info: 'As tuas recolhas pendentes serão eliminadas.'
   leave_team_message_template: '{data}, não posso recolhê-lo afinal e, por isso, cancelei
@@ -1630,6 +1660,8 @@ pickup:
     link: Para formação em higiene
   membershipMissing: Não faz parte desta equipa. Por isso, não deve inscrever-se
     para as recolhas. Se necessário, inscreva-se primeiro como membro da equipa.
+  confirmed: A data da recolha está confirmada.
+  may_enter: Ainda há uma vaga disponível por ti na esta data de recolha.
 error:
   mail_bounce:
     title: ''
@@ -2460,15 +2492,18 @@ terminology:
   sent: Enviado
   resourcesAdmins: Equipa do mosaico dos recursos
 timepicker:
-  labelCloseButton: ''
-  labelMinutes: ''
-  labelDecrement: ''
-  labelSelected: ''
-  labelNoTimeSelected: ''
-  labelSeconds: ''
-  labelIncrement: ''
-  labelHours: ''
-  labelNowButton: ''
+  labelCloseButton: 'fechar'
+  labelMinutes: 'minutos'
+  labelDecrement: 'Diminuir'
+  labelSelected: 'Hora seleccionada'
+  labelNoTimeSelected: 'Não há hora selecionada'
+  labelSeconds: 'segundos'
+  labelIncrement: 'Aumentar'
+  labelHours: 'horas'
+  labelNowButton: 'Agora'
+  placeholder: Introduza a hora
+  from: de
+  to: até
 join_region:
   headline: ''
   error:
@@ -2998,24 +3033,35 @@ forum:
     title: ''
   post:
     body: ''
-    delete: ''
-  threads: ''
+    delete: 'Apagar publicação'
+    hide: Ocultar publicação
+    giveHideReason: Por favor, indique por que motivo pretende ocultar esta 
+      publicação.
+    hideReasonPlaceholder: Escreva aqui o teu motivo…
+    hideInfo: As publicações ocultadas não são mais exibidas. Elas podem ser 
+      restauradas pelos moderadores dentro de três meses, antes de serem 
+      definitivamente excluídas. Durante esse período, os utilizadores do fórum 
+      podem ver por que a publicação foi ocultada e os moderadores também podem 
+      ver por quem.
+    sureHide: Queres mesmo ocultar esta publicação?
+    hiddenPost: Publicação ocultada por [{moderatorName}]({moderatorUrl})
+  threads: 'Temas'
   sending_error: ''
   follow:
-    header: ''
-    email: ''
-    bell: ''
-  from: ''
+    header: 'Notificação em casa de respostas novas:'
+    email: 'por e-Mail'
+    bell: 'por campana'
+  from: 'de {name}'
   quickreply:
     error: ''
     success: ''
-  new_thread: ''
+  new_thread: 'Redigir uma tema nova'
   mail_confirmation:
     text: ''
     title: ''
   no_posts: ''
   hold_back_for_moderation: ''
-  deleted_user: ''
+  deleted_user: 'usuário eliminado'
   no_threads: ''
   inform_per_email: ''
 title: 'Titulo'
