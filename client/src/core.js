@@ -3,7 +3,7 @@ import '@/sentry'
 
 import '@/style'
 
-import registerServiceWorker from '@/registerServiceWorker'
+import { scheduleSWRegistration } from '@/registerServiceWorker'
 
 /*
   Loads a lot of CSS stylings
@@ -17,7 +17,7 @@ import serverData from '@/helper/server-data'
 import socket from '@/socket'
 
 if (!serverData.isDev) {
-  registerServiceWorker()
+  scheduleSWRegistration()
 }
 
 if (serverData.user.may) {

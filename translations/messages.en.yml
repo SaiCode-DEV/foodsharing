@@ -5218,3 +5218,8 @@ resource_mosaic:
       time. You can also restrict the visibility of your resources, ensuring 
       only your friends have access to them.
     ok: I agree
+
+debug:
+  title: Debug Page
+  info: This is a debug page for debugging purposes. When you dont know what a button
+    does, just don’`t click it 😉

@@ -4114,3 +4114,7 @@ resource_mosaic:
     title: "Datenschutz-Hinweis"
     text: "Wenn du Resourcen einträgst, werden diese auf dem Server gespeichert und für andere Nutzer:innen in deinen Arbeitsgruppen und Bezirken (ausgenommen Bundesländer, Länder und Europa) sichtbar. Du kannst deine Ressourcen jederzeit bearbeiten und löschen. Außerdem kannst du die Sichtbarkeit deiner Resourcen einschränken, wodurch nur deine Bekannten darauf Zugriff haben."
     ok: "Ich bin einverstanden"
+
+debug:
+  title: Debug Seite
+  info: Dies ist eine Debug-Seite für Debugging-Zwecke. Wenn du nicht weißt, was ein Button tut, klicke einfach nicht darauf 😉
