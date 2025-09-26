@@ -1114,7 +1114,7 @@ profile:
   sleepinfo: ''
   regions: ''
 mailbox:
-  search: ''
+  search: 'Revisar'
   claim: ''
   delete_selected: ''
   already_exists: ''
@@ -2106,28 +2106,37 @@ quiz:
   test: Teste do questionário
   max_fp: Pontos de erro possíveis
 chat:
-  incorrect_address: ''
-  receivermissing: ''
-  error_loading_messages: ''
-  notification_unnamed_conversation: ''
-  no_messages: ''
-  empty: ''
-  error_sending_message: ''
-  conversations: ''
-  open_chat: ''
-  no_conversation: ''
-  confirm_draft_discard: ''
-  notification_named_conversation: ''
-  new_messages: ''
-  placeholder: ''
+  incorrect_address: 'Este endereço de e-mail está incorreto'
+  receivermissing: 'Deve especificar um destinatário'
+  error_loading_messages: 'Erro ao recarregar mensagens.'
+  notification_unnamed_conversation: '{foodsaver} escreveu para ti.'
+  no_messages: 'Não há mensagems'
+  empty: 'Ainda não há conversas'
+  error_sending_message: 'Erro ao enviar a mensagem.'
+  conversations: 'Conversas'
+  open_chat: 'Escrever um mensagem'
+  no_conversation: 'Nenhuma conversa selecionada'
+  confirm_draft_discard: 'Mudas para uma conversa nova. O texto no campo de resposta
+    será descartado.
+
+
+    Te cancelar esta caixa de diálogo, o seu rascunho será transferido para a nova
+    conversa.
+
+    '
+  notification_named_conversation: '{foodsaver} escreveu em {conversation}.'
+  new_messages: 'Mensagems novos'
+  placeholder: 'Escreva algo.'
   display_all_messages: ''
-  select_recipients: ''
-  empty_message: ''
-  empty_recipients: ''
-  new_message: ''
+  select_recipients: 'Seleccionar destinatarios'
+  empty_message: 'Primeiro tens de inserir uma mensagem.'
+  empty_recipients: 'Tem de selecionar primeiro um ou mais destinatário.'
+  new_message: 'Mensagem novo'
   start_of_conversation: ''
   unknown_username: ''
-  search: ''
+  search: 'Procurar'
+  open_multi_chat: Escrever mensagem em grupo para todos os responsáveis de 
+    empresa
 error_permissions: 'Infelizmente, nao tens as permissões necessárias para este processo.'
 storeedit:
   team:
@@ -3008,31 +3017,34 @@ month:
   "12": ''
   "5": ''
 forum:
-  not_found: ''
+  not_found: 'Este tópico não está disponível.'
   thread:
-    no_mail: ''
-    inactive: ''
-    navigate_to_newest_post: ''
-    delivery_mail:
-      disable: ''
-      title: ''
-      activate: ''
-    sticky: ''
-    activate: ''
-    stick: ''
-    too_big_to_mail: ''
+    no_mail: 'O tópico foi aberto sem enviar e-mails'
+    inactive: "Este tópico ainda não está ativo. \nAqui podes ativar e informar os
+      Foodsavers sobre ele.\n"
+    navigate_to_newest_post: 'Ir para a publicação mais atual'
+    delivery_mail: Ativar envio de e-mail
+    sticky: 'Tópico fixado'
+    activate: 'Ativar tópico'
+    stick: 'Fixar o tópico'
+    too_big_to_mail: 'Não foram enviados e-mails sobre o assunto, uma vez que se trata
+      de um país ou de um estado federal.'
     subscriptions:
-      subscribed: ''
-      subscribe: ''
-    navigate_to_oldest_post: ''
-    with_mail: ''
-    open: ''
-    closed: ''
-    delete: ''
-    close: ''
-    title: ''
+      subscribed: 'Subscrito'
+      subscribe: 'Subscrever'
+    navigate_to_oldest_post: 'Ir para a publicação primeiro'
+    with_mail: 'Tópico aberto e todos informados por e-mail'
+    open: 'Reabrir o tópico'
+    closed: 'Tópico fechado'
+    delete: 'Apagar tópico'
+    close: 'Fechar o tópico'
+    title: 'Titulo'
+    bottom: Visibilidade reduzida
+    all_hidden: Todas as publicações neste tópico foram ocultadas.
+    post_not_found: A publicação ligada não foi encontrada, possivelmente foi 
+      eliminada. Em vez disso, foi selecionada o próximo publicação.
   post:
-    body: ''
+    body: 'Mensagem'
     delete: 'Apagar publicação'
     hide: Ocultar publicação
     giveHideReason: Por favor, indique por que motivo pretende ocultar esta 
@@ -3045,25 +3057,42 @@ forum:
       ver por quem.
     sureHide: Queres mesmo ocultar esta publicação?
     hiddenPost: Publicação ocultada por [{moderatorName}]({moderatorUrl})
+    hiddenReason: 'Motivo: {reason}'
+    moderator_info: Este tópico está fechado. Como moderador deste fórum, pode 
+      mesmo assim escrever uma mensagem. Outros utilizadores não podem 
+      responder!
   threads: 'Temas'
-  sending_error: ''
+  sending_error: 'Ocorreu um erro ao envio'
   follow:
     header: 'Notificação em casa de respostas novas:'
     email: 'por e-Mail'
     bell: 'por campana'
   from: 'de {name}'
   quickreply:
-    error: ''
-    success: ''
+    error: 'A tua contribuição não pode ser guardada.'
+    success: 'Ótimo, a tua resposta foi guardada.'
   new_thread: 'Redigir uma tema nova'
   mail_confirmation:
-    text: ''
-    title: ''
-  no_posts: ''
-  hold_back_for_moderation: ''
+    text: 'Queres mesmo que esta nova publicação seja enviada por e-mail a todos os
+      membros deste grupo de trabalho ou deste distrito? Só deves fazer isso se o
+      teu pedido for relevante para todos e tão importante que todos devam ser informados.'
+    title: 'Quer mesmo enviar a notificação por e-mail?'
+  no_posts: 'Ainda não há publicações disponíveis'
+  hold_back_for_moderation: 'O tópico foi guardado e será publicado assim que um moderador
+    ou embaixador o confirmar.'
   deleted_user: 'usuário eliminado'
-  no_threads: ''
-  inform_per_email: ''
+  no_threads: 'Ainda não há tópicos'
+  inform_per_email: 'Informar todos os membros do fórum ativos nos últimos seis meses
+    sobre a criação deste novo tópico por e-mail. Está possível apenas em fóruns não
+    moderados'
+  go: Para o fórum
+  restore:
+    really: Quer mesmo restaurar esta publicação?
+    hidden_by: Ocultado por
+    reason: 'Motivo: «{reason}»'
+    title: Restaurar o contribuição
+  options:
+    bells_for_new_posts: Receber campainha para novos tópicos
 title: 'Titulo'
 genderlist:
   gender_female: ''
@@ -3153,7 +3182,7 @@ button:
   start: Vamos!
   prev: Para trás
   confirm: Confirmar
-  browse: Procurar
+  browse: Revistar
   filter_options: Opções do filtro
 week_num: ''
 about_me_intern: 'Descrição rápida'
@@ -3555,3 +3584,6 @@ net_errors:
   ERR_CANCELED: A solicitação foi cancelada. Tente novamente, se necessário.
   unknown: Houve um erro desconhecido. Por favor, tente novamente mais tarde.
 error_base64_image: Não é permitido inserir imagens através de drag & drop.
+support_page:
+  attachment:
+    browse: Revisar
