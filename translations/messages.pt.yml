@@ -84,7 +84,7 @@ store:
       2: '{actor} rejeitou o pedido de afiliação de {target}.'
       5: '{actor} colocou {target} na lista de substitutos.'
       9: '{actor} designou {target} como responsável pela cooperação.'
-      15: '{actor} eliminou a publicação do mural de {target} em {date}.'
+      15: '{actor} eliminou a publicação do pinboard de {target} em {date}.'
       17: '{actor} convidou {target} para a equipa.'
       18: '{actor} retirou o convite à equipa para {target}.'
       19: '{ator} aceitou o convite da equipa.'
@@ -105,7 +105,7 @@ store:
       5: 'Passar Foodsaver para a lista de suplentes'
       13: 'Ser cancelado da recolha'
       11: 'Inscrever pela a recolha'
-      15: 'Apagar a entrada de quadro de avisos'
+      15: 'Apagar a entrada de pinboard'
       17: Convidar Foodsaver para a equipa
       18: Retirar convites de equipa
       19: Aceptar convites de equipa
@@ -356,7 +356,7 @@ bell:
   store_new: ''
   new_foodsaver_verified_title: ''
   betrieb_fetch: ''
-  store_wallpost: ''
+  store_wallpost: 'Publicação nova no pinboard.'
   new_foodsaver: ''
   forum_answer: ''
   forum_announcement: ''
@@ -389,6 +389,9 @@ bell:
   store_request_deny: ''
   new_quiz_comment_title: ''
   workinggroup_new_request_title: '{name}'
+  store_wall_post:
+    one: Entrada do pinboard de {user}
+    many: '{count} entradas novas no pinboard'
 email_template:
   help_needed:
     link: https://devdocs.foodsharing.network/
@@ -512,7 +515,7 @@ dashboard:
   no_more_updates_forum: ''
   chooseHomeRegion: ''
   deleted_user: ''
-  source_friendWall: ''
+  source_friendWall: 'Pinboard de {0}'
   source_forum_bot: ''
   foodsaver_amount: ''
   invitation: ''
@@ -528,7 +531,7 @@ dashboard:
   display_all: ''
   no_more_updates_friendWall: ''
   event: ''
-  source_friendWall_own: ''
+  source_friendWall_own: 'O teu pinboard'
   updates_title_some: ''
   activation_mail_failure: ''
   settings: ''
@@ -819,7 +822,7 @@ menu:
     mark_as_read: ''
     refresh: ''
     Germany: ''
-    wall: ''
+    wall: 'Pinboard'
     chainList: ''
     helpwanted: ''
     contact: ''
@@ -2127,16 +2130,20 @@ chat:
   notification_named_conversation: '{foodsaver} escreveu em {conversation}.'
   new_messages: 'Mensagems novos'
   placeholder: 'Escreva algo.'
-  display_all_messages: ''
+  display_all_messages: 'Mostrar todos os mensagems'
   select_recipients: 'Seleccionar destinatarios'
   empty_message: 'Primeiro tens de inserir uma mensagem.'
   empty_recipients: 'Tem de selecionar primeiro um ou mais destinatário.'
   new_message: 'Mensagem novo'
-  start_of_conversation: ''
-  unknown_username: ''
+  start_of_conversation: 'A conversa começou em:'
+  unknown_username: 'Nome desconecido'
   search: 'Procurar'
   open_multi_chat: Escrever mensagem em grupo para todos os responsáveis de 
     empresa
+  mark_as:
+    read: Marcar como lido
+    unread: Marcar como não lido
+  reply: Responder
 error_permissions: 'Infelizmente, nao tens as permissões necessárias para este processo.'
 storeedit:
   team:
@@ -2455,7 +2462,7 @@ terminology:
   options: 'Opções'
   stores: 'Empresas'
   buddies: 'Conhecidos:as'
-  wall: 'painel de avisos'
+  wall: 'Pinboard'
   fsps: 'Cantinho solidário'
   fsp: 'Cantinho solidário'
   fsManagementAdmins: 'Equipa de administração'
@@ -2825,7 +2832,7 @@ startpage:
 region:
   bread: ''
   noParent: ''
-  forum-redirect: ''
+  forum-redirect: 'Não existe o pinboard para regiões. Foi redirecionado para o fórum.'
   hull:
     closure: ''
     parent-info: ''
@@ -2980,7 +2987,7 @@ events:
   acceptedCount: ''
   edit: ''
   edited: ''
-  past: ''
+  past: 'Datas pasadas'
   invitedCount: ''
   duration: ''
   morePeople: ''
@@ -2988,7 +2995,7 @@ events:
     yes: ''
     no: ''
     maybe: ''
-  bread: ''
+  bread: 'Datas'
   add_new_event: ''
 month:
   "3": ''
@@ -3343,16 +3350,21 @@ filterlist:
   filter_for_name_id: ''
   some_in_all: ''
 wall:
-  name: ''
-  placeholder: 'Escrever nova entrada no mural …'
-  error-create: ''
-  see-more: ''
-  info-logging: ''
-  created: ''
-  error-delete: ''
-  info-somebody-else: ''
-  confirm-deletion: ''
-  delete: ''
+  name: 'Pinboard'
+  placeholder: 'Escrever nova entrada no pinboard …'
+  error-create: 'A tua publicação no pinboard não pôde ser guardada.'
+  see-more: 'Ver todas as publicações'
+  info-logging: 'Tenha em atenção que, para evitar conflitos, o conteúdo e a pessoa
+    responsável pela execução são registados.'
+  created: 'Ótimo, a tua publicação no pinboard foi guardada.'
+  error-delete: 'Não podes remover esta entrada.'
+  info-somebody-else: 'Como tem autorização para administrar esta equipa, pode remover
+    esta entrada, se necessário.'
+  confirm-deletion: 'A seguinte publicação do {name} deve mesmo ser removida do pinboard?'
+  delete: 'Apagar a contribuição'
+  delete_confirmation:
+    text: Quer mesmo eliminar esta entrada de {author}?
+    title: Apagar uma publicação no pinboard?
 sig:
   buddies: ''
 date_short:
@@ -3368,6 +3380,10 @@ success: 'Completado com sucesso'
 buddy:
   request_accepted: ''
   request_sent: ''
+  send:
+    confirm_text: Caso se marquem mutuamente como conhecidos, as publicações do 
+      mural do perfil da outra pessoa serão exibidas na vossa página inicial. 
+      Além disso, será mais fácil encontrarem-se através da procura.
 right: 'Avaliação'
 begin: 'Início da cooperação'
 picture_upload_widget:
@@ -3587,3 +3603,13 @@ error_base64_image: Não é permitido inserir imagens através de drag & drop.
 support_page:
   attachment:
     browse: Revisar
+help:
+  key:
+    publicEvent:
+      md: "Os eventos podem ser registrados como públicos pelos administradores de
+        um grupo de trabalho ou pelos administradores do GOALS-AG Relações Públicas
+        ou pelos embaixadores. Os eventos públicos são acessíveis a todos. Não é necessário
+        estar registado na plataforma para ver o local do evento e as informações.
+        No entanto, o mural e a lista de participantes só estão acessíveis aos utilizadores
+        registados.\nRegiste um evento como público se quiser convidar pessoas de
+        fora da sua comunidade local de foodsharing e se todos puderem participar.\n"
