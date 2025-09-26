@@ -28,15 +28,17 @@
             lg="3"
             class="pt-1"
           >
-            <b-form-checkbox
-              v-if="mayUsePushNotifications"
-              :checked="usePushNotifications"
-              :disabled="pushNotificationsLoading"
-              size="sm"
-              @change="updatePushNotifications"
-            >
-              {{ $i18n('notifications.checkbox_push') }}
-            </b-form-checkbox>
+            <LoadingOverlay :active="pushNotificationsLoading" rounded="sm">
+              <b-form-checkbox
+                v-if="mayUsePushNotifications || pushNotificationsLoading"
+                :checked="usePushNotifications"
+                :disabled="pushNotificationsLoading"
+                size="sm"
+                @change="updatePushNotifications"
+              >
+                {{ $i18n('notifications.checkbox_push') }}
+              </b-form-checkbox>
+            </LoadingOverlay>
           </b-col>
           <b-alert
             v-if="isSafari"
@@ -44,7 +46,8 @@
             variant="info"
             class="mx-3 mt-2"
           >
-            {{ $i18n('notifications.safari_add_to_home_screen') }}
+            <!-- eslint-disable-next-line vue/no-v-html -->
+            <Markdown :source="$i18n('notifications.safari_add_to_home_screen', {icon: safariShareIcon})" />
           </b-alert>
         </b-row>
       </div>
@@ -362,6 +365,8 @@ import {
   setMentionNotification,
   getMentionNotification,
 } from '@/api/notifications'
+import Markdown from '@/components/Markdown/Markdown.vue'
+import LoadingOverlay from '@/components/LoadingOverlay.vue'
 import { pulseError, pulseSuccess } from '@/script'
 import PushNotificationMixin from '@/mixins/PushNotificationMixin.js'
 import { subscribeForPushNotifications, unsubscribeFromPushNotifications } from '@/pushNotifications'
@@ -371,12 +376,14 @@ import { useEnvironmentCheck } from '@/composables/useEnvironmentCheck'
 const userStore = useUserStore()
 
 export default {
+  components: { Markdown, LoadingOverlay },
   mixins: [PushNotificationMixin],
   setup () {
     const { isSafari } = useEnvironmentCheck()
     return {
       isSafari,
       userStore,
+      safariShareIcon: '![Safari Share Icon](/img/icon/safari-share-icon.svg)',
     }
   },
   data () {
@@ -521,3 +528,15 @@ export default {
 }
 
 </script>
+
+<style lang="scss">
+img[alt="Safari Share Icon"] {
+  height: 24px;
+  width: 24px;
+  border: none;
+
+  .dark-mode & {
+    filter: invert(1);
+  }
+}
+</style>

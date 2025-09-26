@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   style="height:24px"
+   viewBox="0 0 50 50"
+   version="1.1"
+   id="svg3"
+   sodipodi:docname="Untitled-1.svg"
+   inkscape:export-filename="Untitled-1.png"
+   inkscape:export-xdpi="192"
+   inkscape:export-ydpi="192"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs3" />
+  <sodipodi:namedview
+     id="namedview3"
+     pagecolor="#505050"
+     bordercolor="#000"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:zoom="21.9"
+     inkscape:cx="24.977169"
+     inkscape:cy="25"
+     inkscape:window-width="3440"
+     inkscape:window-height="1334"
+     inkscape:window-x="2149"
+     inkscape:window-y="1150"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3" />
+  <g
+     id="g3"
+     transform="matrix(1.0811886,0,0,1.0811886,-2.029715,0.34889969)">
+    <path
+       fill="currentColor"
+       d="M 31.932155,10.897621 25,3.9654667 18.067845,10.897621 16.23671,9.0664861 25,0.30319635 33.76329,9.0664861 Z"
+       id="path1"
+       style="fill:#000;stroke-width:1.30795" />
+    <path
+       fill="currentColor"
+       d="m 23.692046,2.1343315 h 2.615908 V 29.601359 h -2.615908 z"
+       id="path2"
+       style="fill:#000;stroke-width:1.30795" />
+    <path
+       fill="currentColor"
+       d="M 38.079537,45.296804 H 11.920463 c -2.2235213,0 -3.9238611,-1.70034 -3.9238611,-3.923861 V 17.829776 c 0,-2.223521 1.7003398,-3.923861 3.9238611,-3.923861 h 9.155676 v 2.615907 h -9.155676 c -0.784772,0 -1.307954,0.523182 -1.307954,1.307954 v 23.543167 c 0,0.784772 0.523182,1.307953 1.307954,1.307953 h 26.159074 c 0.784772,0 1.307954,-0.523181 1.307954,-1.307953 V 17.829776 c 0,-0.784772 -0.523182,-1.307954 -1.307954,-1.307954 h -9.155676 v -2.615907 h 9.155676 c 2.223521,0 3.923861,1.70034 3.923861,3.923861 v 23.543167 c 0,2.223521 -1.70034,3.923861 -3.923861,3.923861 z"
+       id="path3"
+       style="fill:#000;stroke-width:1.30795" />
+  </g>
+</svg>

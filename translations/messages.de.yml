@@ -3637,7 +3637,12 @@ notifications:
   checkbox_disabled: 'Deaktiviert'
   save_success: "Erfolgreich gespeichert"
   config_button: 'einzeln konfigurieren'
-  safari_add_to_home_screen: "Um Push-Benachrichtigungen in iOS zu erhalten, füge foodsharing zuerst zum Home-Bildschirm hinzu."
+  safari_add_to_home_screen: 'Um Push-Benachrichtigungen am iPhone oder iPad zu erhalten, drücke {icon} und dann "Zum Home-Bildschirm".  
+
+    In der App kannst du dann Push-Benachrichtigungen aktivieren. (mindestens iOS 16.4 erforderlich) 
+
+
+    *Weitere Infos dazu findest du hier* https://support.foodsharing.network/kb/de-de/3/10' 
   pushModal:
     title: "Push-Benachrichtigungen erhalten?"
     ok: "Push-Benachrichtigungen erhalten"
