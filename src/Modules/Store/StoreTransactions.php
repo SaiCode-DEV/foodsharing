@@ -99,11 +99,16 @@ class StoreTransactions
      * @param int $storeId the store
      * @param bool $includeUserDetails whether to include phone numbers and last fetch dates for the team members
      */
-    public function getMyStoreTeam(int $storeId, bool $includeUserDetails): array
+    public function getMyStoreTeam(int $storeId, bool $includeUserDetails, bool $includeDistance): array
     {
-        $members = $this->storeGateway->getStoreTeam($storeId, [MembershipStatus::MEMBER, MembershipStatus::JUMPER]);
+        $location = null;
+        if ($includeDistance) {
+            $store = $this->storeGateway->getStore($storeId, true);
+            $location = $store->location;
+        }
+        $members = $this->storeGateway->getStoreTeam($storeId, [MembershipStatus::MEMBER, MembershipStatus::JUMPER], $includeDistance, $location);
 
-        return $this->getDisplayedStoreTeam($members, $includeUserDetails);
+        return $this->getDisplayedStoreTeam($members, $includeUserDetails, $includeDistance);
     }
 
     /**
@@ -1140,8 +1145,9 @@ class StoreTransactions
      *
      * @param array $members the list of team members from the database
      * @param bool $includeUserDetails whether to include or omit phone numbers and last fetch date
+     * @param bool $includeDistance whether to include or omit the distance information
      */
-    private function getDisplayedStoreTeam(array $members, bool $includeUserDetails): array
+    private function getDisplayedStoreTeam(array $members, bool $includeUserDetails, bool $includeDistance): array
     {
         $allowedFields = [
             // personal info
@@ -1151,6 +1157,9 @@ class StoreTransactions
         ];
         if ($includeUserDetails) {
             array_push($allowedFields, 'handy', 'telefon', 'last_fetch');
+        }
+        if ($includeDistance) {
+            array_push($allowedFields, 'distance');
         }
 
         return array_map(

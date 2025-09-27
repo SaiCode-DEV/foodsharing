@@ -11,6 +11,12 @@ class StoreApplication
     public Profile $user;
     public string $firstName;
     public bool $verified;
+
+    /**
+     * @var int|null The distance in kilometers to the store.
+     * null if the fetching user is not allowed to access distance data.
+     * -1 if the applicant has no valid address.
+     */
     public ?int $distanceInKm = null;
     public ?DateTime $date = null;
     public ?string $message = null;

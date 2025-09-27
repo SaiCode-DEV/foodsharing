@@ -1015,6 +1015,7 @@ store:
     sorting:
       default: "Standard-Sortierung"
       pickup: "Sortiert nach letzter Abholung"
+      distance: "Sortiert nach Entfernung"
     filterAll: "Mitglieder"
     filterActive: "Aktive"
     filterUnverified: "Unverifizierte"
@@ -1049,9 +1050,14 @@ store:
     to-team: "Aufnehmen"
     to-jumper: "Springerliste"
     to-nowhere: "Ablehnen"
-    distance: "Wohnt ca. {distance} km entfernt"
-    distance_unknown: "Kein Wohnort eingetragen"
-    distance_close: "Wohnt weniger als 1 km entfernt"
+    distance:
+      unknown: "Kein gültiger Wohnort eingetragen"
+      close: "Wohnt weniger als 500 m entfernt"
+      normal: "Wohnt ca. {distance} km entfernt"
+    distance_short:
+      unknown: "Keine gültige Adresse"
+      close: "Weniger als 500 m"
+      normal: "Etwa {distance} km"
     air_line: Die angezeigte Entfernung entspricht der Luftlinie.
     confirm-far: "Laut deiner gespeicherten Adresse wohnst du sehr weit von diesem Betrieb entfernt ({distance}). Bist du dir sicher, dass du hier regelmäßig und zuverlässig das Team unterstützen kannst?"
     confirm-no-location: "Du hast keine gültige Adresse in deinen Profil hinterlegt. Bitte trag eine Heimatadresse ein, um es den Betriebsverantwortlichen leichter zu machen, über deine Bewerbung zu entscheiden."

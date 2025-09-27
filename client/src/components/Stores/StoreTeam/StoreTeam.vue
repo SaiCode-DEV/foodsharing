@@ -33,13 +33,17 @@
             <b>{{ user.name }}</b><br>
             <span>{{ user.phoneNumber }}</span><br>
             <Time
-              v-if="user.lastPickup ?? user.joinDate"
+              v-if="(user.lastPickup ?? user.joinDate) && sortingFunction.displayInfo === 'times'"
               :tooltip="timeTooltip(user)"
               :time="user.lastPickup ?? user.joinDate"
               :muted="false"
               :date-only="true"
               :icon="user.lastPickup ? 'fa-solid fa-fw fa-shopping-cart' : 'fa-solid fa-fw fa-user-plus'"
-            /><br>
+            />
+            <small v-if="hasMemberDistances && sortingFunction.displayInfo === 'distance'" class="d-block">
+              <i class="fas" :class="user.distance < 0 ? 'fa-exclamation-triangle' : 'fa-diamond-turn-right'" />
+              {{ formatDistance(user.distance) }}
+            </small>
           </div>
           <PhoneButton
             v-if="isMobile && user.phoneNumberIsValid"
@@ -135,14 +139,9 @@ export default {
     }
   },
   data () {
-    const sortingFunctions = [
-      { func: this.defaultSortingFunction, name: 'default' },
-      { func: this.pickupSortingFunction, name: 'pickup' },
-    ]
     return {
       foodsaver: this.team?.map(foodsaver => this.foodsaverData(foodsaver)),
-      sortingFunctions,
-      sortingFunction: sortingFunctions[0],
+      sortingFunctionIndex: 0,
       filterFunction: { func: () => true },
       defaultAmountForDesktop: 20,
       defaultAmountForMobile: 10,
@@ -154,6 +153,25 @@ export default {
       if (!this.loaded || !this.filterFunction.name) return this.$i18n('store.team_container')
       const filterName = this.$i18n(`store.sm.${this.filterFunction.name}`)
       return `${this.$i18n('store.team_container')} (${this.filterFunction.count} ${filterName})`
+    },
+    hasMemberDistances () {
+      if (!this.loaded) return false
+      return Number.isInteger(this.team?.[0]?.distance)
+    },
+    sortingFunctions () {
+      const sortingFunctions = [
+        { func: this.defaultSortingFunction, name: 'default', displayInfo: 'times' },
+        { func: this.pickupSortingFunction, name: 'pickup', displayInfo: 'times' },
+      ]
+      if (this.hasMemberDistances) {
+        sortingFunctions.push(
+          { func: this.distanceSortingFunction, name: 'distance', displayInfo: 'distance' },
+        )
+      }
+      return sortingFunctions
+    },
+    sortingFunction () {
+      return this.sortingFunctions[this.sortingFunctionIndex]
     },
   },
   watch: {
@@ -255,6 +273,12 @@ export default {
       if (a.joinDate && b.joinDate) return b.joinDate - a.joinDate
       return a.name.localeCompare(b.name)
     },
+    distanceSortingFunction (a, b) {
+      if (a.isManager !== b.isManager) return b.isManager - a.isManager
+      // invalid addresses are sent as distance: -1, but should be sorted to the bottom.
+      // 1 Mio km are always sufficient for that.
+      return ((a.distance < 0 ? 1e6 : a.distance) - (b.distance < 0 ? 1e6 : b.distance))
+    },
     foodsaverData (fs) {
       const validPhoneNumber = phoneNumber.callableNumber(fs.handy || fs.telefon, true)
       return {
@@ -274,6 +298,7 @@ export default {
         lastPickup: fs.last_fetch ? new Date(fs.last_fetch * 1000) : null, // unix time
         fetchCount: fs.stat_fetchcount,
         hasHygieneCertificateUntil: fs.hygiene_certificate_until ? new Date(fs.hygiene_certificate_until) : null,
+        distance: fs.distance ?? null,
       }
     },
     async removeFromTeam (user) {
@@ -311,7 +336,7 @@ export default {
       ]
     },
     toggleSortingFunction () {
-      this.sortingFunction = this.sortingFunctions.at(this.sortingFunctions.indexOf(this.sortingFunction) - 1)
+      this.sortingFunctionIndex = (this.sortingFunctionIndex + 1) % this.sortingFunctions.length
       this.updateList()
     },
     timeTooltip (user) {
@@ -320,6 +345,11 @@ export default {
         .map(key => this.$i18n(`store.${key}`, { date: this.$dateFormatter.dateBasic(user[key]) }))
         .join('<br>')
       return { title, html: true, customClass: 'small', placement: 'bottom' }
+    },
+    formatDistance (distance) {
+      if (distance === -1) return this.$i18n('store.request.distance_short.unknown')
+      if (distance === 0) return this.$i18n('store.request.distance_short.close')
+      return this.$i18n('store.request.distance_short.normal', { distance })
     },
   },
 }

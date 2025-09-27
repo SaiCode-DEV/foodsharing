@@ -352,6 +352,11 @@ class StorePermissions
         return $this->maySeePickups($storeId);
     }
 
+    public function maySeeMemberDistance(int $storeId): bool
+    {
+        return $this->mayEditStore($storeId);
+    }
+
     public function mayChatWithRegularTeam(array $store): bool
     {
         if ($store['jumper']) {

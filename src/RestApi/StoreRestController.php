@@ -245,7 +245,8 @@ class StoreRestController extends AbstractFoodsharingRestController
         try {
             // controls sensitive details (e.g., phone numbers) even for members
             $maySeeDetails = $this->storePermissions->maySeePhoneNumbers($storeId);
-            $result = $this->storeTransactions->getMyStoreTeam($storeId, $maySeeDetails);
+            $maySeeDistance = $this->storePermissions->maySeeMemberDistance($storeId);
+            $result = $this->storeTransactions->getMyStoreTeam($storeId, $maySeeDetails, $maySeeDistance);
 
             return $this->respondOK($result);
         } catch (DatabaseNoValueFoundException) {

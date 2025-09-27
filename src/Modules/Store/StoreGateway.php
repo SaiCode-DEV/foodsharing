@@ -483,10 +483,10 @@ class StoreGateway extends BaseGateway
                 foodsaver.nachname,
                 foodsaver.is_sleeping,
                 foodsaver.verified,
-                FLOOR(ST_DISTANCE_SPHERE(
+                IFNULL(ROUND(ST_DISTANCE_SPHERE(
                     Point(NULLIF(foodsaver.lon, ""), NULLIF(foodsaver.lat, "")),
                     Point(:storeLon, :storeLat)
-                ) / 1000) AS distance,
+                ) / 1000), -1) AS distance,
                 log.date_activity,
                 log.content
             FROM fs_betrieb_team betrieb_team
@@ -599,9 +599,18 @@ class StoreGateway extends BaseGateway
         return $this->db->exists('fs_chain', ['id' => $id]);
     }
 
-    public function getStoreTeam($storeId, array $membershipStatuses = [MembershipStatus::MEMBER]): array
+    public function getStoreTeam($storeId, array $membershipStatuses = [MembershipStatus::MEMBER], bool $includeDistance = false, GeoLocation $storePosition = null): array
     {
-        return $this->db->fetchAll("SELECT
+        $params = [
+            AchievementIDs::HYGIENE_CERTIFICATE,
+            $storeId,
+            ...$membershipStatuses,
+        ];
+        if ($includeDistance) {
+            array_unshift($params, $storePosition->lon, $storePosition->lat);
+        }
+
+        return $this->db->fetchAll('SELECT
                 fs.`id`,
                 fs.`verified`,
                 fs.`active`,
@@ -610,7 +619,7 @@ class StoreGateway extends BaseGateway
                 fs.`photo`,
                 fs.`rolle`,
                 fs.`name` AS firstName,
-                CONCAT(fs.name,\" \",fs.nachname) AS name,
+                CONCAT(fs.name," ",fs.nachname) AS name,
                 t.`active` AS team_active,
                 t.`verantwortlich`,
                 t.`stat_last_update`,
@@ -620,6 +629,10 @@ class StoreGateway extends BaseGateway
                 UNIX_TIMESTAMP(t.`stat_last_fetch`) AS last_fetch,
                 UNIX_TIMESTAMP(t.`stat_add_date`) AS add_date,
                 fs.`is_sleeping`,
+                ' . ($includeDistance ? 'IFNULL(ROUND(ST_DISTANCE_SPHERE(
+                    Point(NULLIF(fs.lon, ""), NULLIF(fs.lat, "")),
+                    Point(?, ?)
+                ) / 1000), -1) AS distance,' : '') . "
                 IF(a.achievement_id IS NULL, NULL, IFNULL(a.`valid_until`, 'infinite')) AS hygiene_certificate_until
             FROM `fs_betrieb_team` t
             INNER JOIN `fs_foodsaver` fs
@@ -632,11 +645,7 @@ class StoreGateway extends BaseGateway
                 AND t.active IN ({$this->db->generatePlaceholders(count($membershipStatuses))})
                 AND fs.deleted_at IS NULL
             ORDER BY fs.id
-        ", [
-            AchievementIDs::HYGIENE_CERTIFICATE,
-            $storeId,
-            ...$membershipStatuses,
-        ]);
+        ", $params);
     }
 
     public function isStoreTeamMemberOfStoreChainStore(int $fsId): bool

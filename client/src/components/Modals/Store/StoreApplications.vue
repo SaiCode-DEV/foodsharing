@@ -146,13 +146,13 @@ export default {
       }
     },
     formatDistance (distance) {
-      if (distance === null) {
-        return this.$i18n('store.request.distance_unknown')
+      if (distance === -1) {
+        return this.$i18n('store.request.distance.unknown')
       }
       if (distance === 0) {
-        return this.$i18n('store.request.distance_close')
+        return this.$i18n('store.request.distance.close')
       }
-      return this.$i18n('store.request.distance', { distance })
+      return this.$i18n('store.request.distance.normal', { distance })
     },
     openChat (userId) {
       conversationStore.openChatWithUser(userId)
