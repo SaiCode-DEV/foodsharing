@@ -4,7 +4,7 @@
       <h2>{{ i18n("partner_foodsharing") }}</h2>
     </div>
     <div v-for="(partnersList, category) in partners" :key="category">
-      <div class="h5 category-head mb-2 mt-4">
+      <div :id="getCategoryId(category)" class="h5 category-head mb-2 mt-4">
         {{ category }}
       </div>
       <div class="partners-grid">
@@ -59,10 +59,34 @@ onMounted(async () => {
   showLoader()
   partners.value = await getPartners(props.contentId)
   hideLoader()
+
+  await new Promise(resolve => {
+    if (document.readyState === 'complete') resolve()
+    else window.addEventListener('load', () => resolve(), { once: true })
+  })
+
+  const hash = window.location.hash
+  if (hash) {
+    const targetId = hash.substring(1)
+    const element = document.getElementById(targetId)
+    if (element) {
+      // Calculate element position
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
+      window.scrollTo({
+        top: elementPosition - 150, // Offset for navbar
+        behavior: 'smooth',
+      })
+    }
+  }
 })
 
 const getLogoSrc = (partner) => {
   return (themeStore.isDark && partner.logoDark) ? partner.logoDark : partner.logo
+}
+
+const getCategoryId = (category) => {
+  // Remove colons and replace the rest with _
+  return category.replace(/[:]/g, '').replace(/[^\w]/g, '_')
 }
 </script>
 
