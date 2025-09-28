@@ -1253,6 +1253,7 @@ terminology:
   achievement: Vignette
   achievements: Vignettes
   users: Utilisateurs
+  resourcesAdmins: Équipe de la mosaïque de ressources
 register:
   activation_success: <strong>Activation réussie.</strong> Connecte-toi 
     maintenant avec ton adresse courriel et le mot de passe que tu as choisi.
@@ -1474,7 +1475,10 @@ store:
     request: Postuler pour cette équipe
     no-duplicate: Il existe déjà une demande.
     unverified: L’utilisateur·rice n’est pas vérifié·e
-    distance: Habite à environ {distance} km
+    distance:
+      unknown: Aucun domicile valide saisi
+      close: Habite à moins de 500 m
+      normal: Habite à environ {distance} km
     distance_close: Habite à moins d’un kilomètre
     distance_unknown: Aucun lieu de résidence précisé
     air_line: La distance affichée est à vol d’oiseau.
@@ -1491,6 +1495,10 @@ store:
       collectes dans cette entreprise.
     hygieneMissing: Il te manque actuellement. Réponds maintenant au quiz sur 
       l’hygiène afin de pouvoir postuler pour cette équipe.
+    distance_short:
+      unknown: adresse non valide
+      close: moins de 500 m
+      normal: environ {distance} km
   sm:
     makeRegularTeamMember: Intégrer dans l’équipe
     makeJumper: Nommer remplaçant·e
@@ -1530,6 +1538,7 @@ store:
     sorting:
       default: Tri standard
       pickup: Trié par dernière collecte
+      distance: Trié par distance
     userHasPickupsWarning: '{name} est encore inscrite pour {occupiedSlots} collectes
       dans cette magasin. Ces créneaux seront ensuite libérés. Tu veux quand même
       continuer ?'
@@ -3236,6 +3245,10 @@ bell:
   store_invitation_declined_title: Invitation refusée ({store})
   store_invite: '{user} t’a invité dans l’équipe.'
   store_invitation_accepted_title: Invitation acceptée ({store})
+  new_resource_title: '{region} : Nouvelles ressources'
+  new_resource:
+    one: 'De {user} : « {title} »'
+    many: '{count} nouvelles ressources'
 personal_data:
   landline: Numéro de fixe
   mobile: Numéro de portable
@@ -3823,6 +3836,7 @@ region:
       circonscription ?
     leave_text_group: Tu n’es plus actif à {name} et tu souhaites quitter ce 
       groupe ?
+    leave_group: Quitter le groupe
   denied:
     group_in_this_region: « {name} » est un groupe de cette district.
     this_region: Tu as essayé d’accéder au contenu de ce district. Cependant, 
@@ -4342,6 +4356,7 @@ system_administration:
   blog: Modifier les articles du blog
   email: Envoyer la newsletter
   store_categories: Modifier les catégories d’établissements
+  resource_categories: Modifier les catégories de ressources
 globals:
   type:
     persons: Personnes
@@ -4651,8 +4666,10 @@ notifications:
   error: Erreur
   info: Info
   warning: Avertissement
-  safari_add_to_home_screen: Pour recevoir des notifications push sur iOS, 
-    ajoutez d’abord foodsharing à votre écran d’accueil.
+  safari_add_to_home_screen: "Pour recevoir des notifications push sur ton iPhone
+    ou ton iPad, appuie sur {icon}, puis sur « Ajouter à l’écran d’accueil ».\nTu
+    peux ensuite activer les notifications push dans l’application (iOS 16.4 minimum
+    requis).\n\nTu trouveras *plus d’informations à ce sujet ici* https://support.foodsharing.network/kb/de-de/3/10"
 markdown_input:
   tooltip:
     orderedList: liste numérotée
@@ -5158,3 +5175,9 @@ net_errors:
     malheureusement pas être traitée pour le moment.
   ERR_NETWORK_CHANGED: Ta connexion Internet est instable. Veuillez vérifier ta 
     connexion et réessayer.
+debug:
+  title: Page de débogage
+resource_mosaic:
+  privacy_notice:
+    ok: Je suis d’accord
+    title: Avis de confidentialité
