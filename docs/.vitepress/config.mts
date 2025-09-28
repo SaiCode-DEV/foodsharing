@@ -6,7 +6,7 @@ import { generateI18nLocale, generateI18nSearch } from 'vitepress-i18n';
 
 import MarkdownItImplicitFigures from "markdown-it-implicit-figures";
 import MarkdownItPlantuml from "markdown-it-plantuml";
-import { useSidebar } from 'vitepress-theme-openapi'
+import { useSidebar } from 'vitepress-openapi'
 
 import spec from '../data/api_dump.json' assert { type: 'json' }
 
@@ -28,7 +28,7 @@ const commonSidebarConfig: VitePressSidebarOptions = {
   collapsed: true,
   capitalizeFirst: true,
   hyphenToSpace: true,
-  excludePattern: ['vitepress'],
+  excludeByGlobPattern: ['vitepress'],
   useTitleFromFrontmatter: true,
   sortMenusByFrontmatterOrder: true,
   manualSortFileNameByPriority: [
@@ -69,10 +69,12 @@ sidebar['/api/'] = [
   ...apiSidebar.generateSidebarGroups().map(group => ({
     ...group,
     collapsed: true,
-    items: group.items.map(item => ({
-      ...item,
-      link: `/api${item.link}`,
-    })),
+    items: Array.isArray(group.items)
+      ? group.items.map(item => ({
+          ...item,
+          link: `/api${item.link}`,
+        }))
+      : [],
   })),
 ];
 

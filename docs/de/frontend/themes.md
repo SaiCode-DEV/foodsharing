@@ -64,7 +64,6 @@ export const themes = {
     value: 'pink', // the class name (without the -mode)
     text: i18n('theme_switcher.theme.pink'), // the display name
     icon: 'fa-moon',
-    isDark: true,
   },
 }
 ```

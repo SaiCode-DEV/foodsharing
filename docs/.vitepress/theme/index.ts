@@ -5,11 +5,11 @@ import DefaultTheme from 'vitepress/theme'
 
 import RegisterSW from './components/RegisterSW.vue'
 
-import { theme, useOpenapi } from 'vitepress-theme-openapi'
-import spec from '../../data/api_dump.json' assert { type: 'json' }
+import { theme } from 'vitepress-openapi/client'
+import spec from '../../data/api_dump.json'
 
 import './style.css'
-import 'vitepress-theme-openapi/dist/style.css'
+import 'vitepress-openapi/dist/style.css'
 
 export default {
   extends: DefaultTheme,
@@ -19,10 +19,7 @@ export default {
       'layout-bottom': () => h(RegisterSW)
     })
   },
-  enhanceApp({ app, router, siteData }) {
-    const openapi = useOpenapi()
-    openapi.setSpec(spec)
-
-    theme.enhanceApp({ app, router, siteData })
+  async enhanceApp({ app }) {
+    theme.enhanceApp({ app })
   }
 } satisfies Theme

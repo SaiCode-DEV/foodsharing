@@ -1,32 +1,21 @@
 ---
 aside: false
 outline: false
-title: vitepress-theme-openapi
+title: vitepress-openapi
 ---
 
 <script setup lang="ts">
 import { useRoute, useData } from 'vitepress'
-import { useOpenapi, useTheme } from 'vitepress-theme-openapi'
+import spec from '../../data/api_dump.json'
 
 const route = useRoute()
 
-const { isDark } = useData()
-
-const openapi = useOpenapi()
-
-const themeConfig = useTheme()
-
 const operationId = route.data.params.operationId
 
-const operation = openapi.getOperation(operationId)
-
-themeConfig.setResponseCodeSelector(
-    Object.keys(operation.responses).length > 3 ? 'select' : 'tabs'
-)
 </script>
 
 <OAOperation 
+:spec="spec"
 :operationId="operationId" 
-:isDark="isDark"
-:hideDefaultFooter="true"
- />
+:hideBranding="true"
+/>
