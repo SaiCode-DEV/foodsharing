@@ -2540,7 +2540,10 @@ store:
     unverified: User is not verified
     distance_close: Lives less than 1 km away
     distance_unknown: no place of residence provided
-    distance: Lives about {distance} km away
+    distance:
+      unknown: No valid residence entered
+      close: Lives less than 500 m away
+      normal: Lives about {distance} km away
     air_line: The distance shown is as the crow flies.
     confirm-far: According to your saved address, you live very far away from 
       this store ({distance}). Are you sure that you will be able to support 
@@ -2555,6 +2558,10 @@ store:
       this facility.
     hygieneMissing: However, you do not meet this requirement at the moment. 
       Take the hygiene quiz now to apply for this team.
+    distance_short:
+      unknown: no valid residence
+      close: less than 500 m
+      normal: about {distance} km
   sm:
     reallyRemove: Do you really want to remove {name} from the store team?
     removeFromTeam: Remove from the team
@@ -2593,6 +2600,7 @@ store:
     sorting:
       default: Default sorting
       pickup: Sorted by last pick-up
+      distance: Sorted by distance
     userHasPickupsWarning: '{name} is still registered for {occupiedSlots} pick-ups
       at this company. These slots will then become free. Would you still like to
       continue?'
@@ -4611,9 +4619,13 @@ notifications:
   mention:
     description: Get notified when someone addresses you in the forum.
     title: Notifications when mentions are made
-  safari_add_to_home_screen: 'To receive push notifications on your iPhone or iPad, simply tap {icon} and select "Add to Home Screen".
+  safari_add_to_home_screen: 'To receive push notifications on your iPhone or iPad,
+    tap {icon} and then “Add to Home Screen”.
 
-    Then open foodsharing from your home screen. (at least iOS 16.4 required)'
+    You can then enable push notifications in the app (iOS 16.4 or later required).
+
+
+    You can find *more information here* https://support.foodsharing.network/kb/de-de/3/10'
   pushModal:
     cancel: do not activate
     title: Receive push notifications?
@@ -5221,5 +5233,5 @@ resource_mosaic:
 
 debug:
   title: Debug Page
-  info: This is a debug page for debugging purposes. When you dont know what a button
-    does, just don’`t click it 😉
+  info: This is a debug page for debugging purposes. If you don’t know what a 
+    button does, just don’t click on it 😉
