@@ -157,7 +157,26 @@ quiz:
     quizu?
   confirmDashboardText: Zaliczyłeś/aś quiz, którego jeszcze nie 
     potwierdziłeś/aś. [Kliknij tutaj]({url}), aby zakończyć proces!
+  timedstart: Rozpocznij quiz z limitem czasu i {count} pytaniami
 request_time: 'Czas zapytania:'
 pass1: Twoje żądane nowe hasło
 public_time: Szacunkowy czas odbioru
 right: Wartość
+groups:
+  empty: Nie jesteś jeszcze w żadnej grupie roboczej
+about_me_public: Krótki opis publiczny
+teaser: Kłopotliwe pytanie
+fspmanagers: Foodsavers, którzy są osobami kontaktowymi dla sprawiedliwego 
+  dzielenia się
+kette_id: Łańcuch operacji
+ansprechpartner: Osoby kontaktowe w firmie (kierownicy oddziałów itp.)
+ueberzeugungsarbeit: Czy łatwo było przekonać osoby odpowiedzialne do współpracy
+  w ramach foodsharingu?
+presse: Czy firma/sklep/stowarzyszenie wyraża zgodę na publikację w prasie i na 
+  stronie foodsharing.de?
+sticker: Czy firma/sklep/klub itp. jest skłonna umieścić naklejkę przy wejściu 
+  lub w innym miejscu?
+use_region_pickup_rule: Czy przepisy okręgowe dotyczące odbioru zamówień powinny
+  mieć zastosowanie także do tej firmy?
+expand_all: rozłóż wszystko
+collapse_all: wszystko zwinąć
