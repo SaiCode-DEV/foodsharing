@@ -950,6 +950,10 @@ bell:
   store_invitation_declined:
     one: "{user} {store}'a katılmak istemiyor"
     many: '{count} kullanıcı {store} işletmesine katılmak istemiyor'
+  new_resource_title: '{bölge}: Yeni kaynaklar'
+  new_resource:
+    one: "{user}'dan: \"{title}\""
+    many: '{count} yeni kaynak'
 sig:
   buddies: Tanıdığın insanlar
 error:
@@ -1453,6 +1457,7 @@ store:
     sorting:
       default: Standart sıralama
       pickup: Son alıma göre sıralandı
+      distance: Mesafeye göre sıralanmış
     userHasPickupsWarning: '{name} hâlâ bu işletmedeki {occupiedSlots} alım için kayıtlı.
       Bu slotlar daha sonra boşalacaktır. Buna rağmen etmek istiyor musun?'
     filterHygiene: Hijyen eğitimi almış kişiler
@@ -1475,7 +1480,10 @@ store:
     to-team: Kabul et
     to-nowhere: Reddet
     unverified: Kullanıcı doğrulanmadı
-    distance: Yaklaşık {distance} km uzakta yaşıyor
+    distance:
+      unknown: Geçerli bir ikamet yeri girilmedi
+      close: 500 metreden daha az uzaklıkta yaşıyor
+      normal: Yaklaşık {distance}km uzakta yaşıyor
     distance_close: 1 km'den daha yakın bir mesafede yaşıyor
     distance_unknown: ikamet yeri sağlanmadı
     air_line: Gösterilen mesafe kuş uçuşu uzaklığına denk gelir.
@@ -1492,6 +1500,10 @@ store:
       hijyen testini yapın.'
     hygieneRequired: Bu işletmede alım yapmak için geçerli bir Hijyen 
       Sertifikası gerekmektedir.
+    distance_short:
+      unknown: Geçerli adres yok
+      close: 500 metreden az
+      normal: Yaklaşık {distance}km
   filter: …göre filtrele…
   enterdate: Alım tarihini girin
   important: 'Önemli:'
@@ -1919,6 +1931,7 @@ region:
         artık haritada görüntülenmeyecektir.
     leave_text_group: Artık {name} grubunda aktif değil misiniz ve bu gruptan 
       ayrılmak mı istiyorsunuz?
+    leave_group: Gruptan ayrıl
   denied:
     group_in_this_region: “{name}” bu bölgenin bir grubudur.
     this_region: Bu bölgede ki içeriklere erişmeye çalıştınız. Ancak buraya 
@@ -2809,6 +2822,7 @@ settings:
       tarihine kadar geçerlidir.
     passport_is_invalid: Kimliğiniz artık geçerli değil.
     ask_your_ambassadors: Lütfen yetkili elçilerinizle iletişime geçin.
+    renew: Kimlik kartınızı uzatın
   account: Hesap seçenekleri
   header: Profil Ayarları
   businesscard: Kişisel kartvizit
@@ -2959,6 +2973,7 @@ forum:
   options:
     enable_bells_for_new_posts: Tüm yeni konular için bildirim alın
     disable_bells_for_new_posts: Tüm yeni konular için bildirim almayın
+    bells_for_new_posts: Yeni konular için bir zil alın
 chat:
   open_chat: Bir mesaj yaz
   new_messages: Yeni Mesajlar
@@ -2988,6 +3003,7 @@ chat:
     read: Okundu olarak işaretle
     unread: Okunmadı olarak işaretle
   reply: Cevaplar
+  open_multi_chat: Bir BV (İşletme Ekip Yöneticileri) grup mesajı yazın
 push_notifications:
   test_notification_title: Push bildirimleri etkinleştirildi
   test_notification_body: Harika, bu işe yaramış gibi görünüyor :)
@@ -3422,6 +3438,12 @@ buddy:
     confirm_text: Tanışıklığınızı bitirmek mi istiyorsunuz? Profil panolarınızda
       yapılan güncellemeler artık ana sayfada görüntülenmeyecektir.
     confirm_title: '{name} ile tanışıklığınız sona mı erecek?'
+  confirmed: Doğrulanmış tanıdıklar
+  none: Henüz tanıdık yok
+  requests:
+    mine: Benim istek gönderdiklerim
+    other: Başkalarından gelen istekler
+  my: Tanıdıklarım ve isteklerim
 personal_data:
   label: İletişim
   mobile: Cep telefonu numarası
@@ -4341,6 +4363,7 @@ system_administration:
   regions: 'Bölgeleri yönet'
   content: 'İçeriği düzenle'
   store_categories: İşletme kategorilerini düzenleyin
+  resource_categories: Kaynak kategorilerini düzenle
 teamjs:
   wrongmail: 'E-posta adresinizle ilgili bir sorun var.'
   entermail: 'Size cevap verebilmemiz için lütfen geçerli bir e-posta adresi girin!'
@@ -4417,6 +4440,10 @@ notifications:
   info: Bilgi_
   error: Hata
   warning: Uyarı
+  safari_add_to_home_screen: "iPhone veya iPad'inizde anlık bildirimler almak için
+    {icon} ve ardından \"Ana Ekrana Ekle\"ye dokunun.\nDaha sonra uygulamada anlık
+    bildirimleri etkinleştirebilirsiniz. (iOS 16.4 veya üzeri gereklidir)\n\n*Daha
+    fazla bilgi için buraya tıklayın* https://support.foodsharing.network/kb/de-de/3/10"
 markdown_input:
   tooltip:
     orderedList: numaralı liste
@@ -4640,6 +4667,55 @@ help:
         bölgedeki bir elçiye başvurabilirsiniz. Sizin için uygun değişiklikleri yapabilirler.
         [İlçe forumunda]({link}) sol taraftaki kenar çubuğundan, kendi bölgenizdeki
         büyükelçinin kim olduğunu görebilirsiniz.\n"
+    resource_mosaic:
+      title: Kaynak mozaiği
+      md: "##### Fikir\nYiyecek kurtarırken hepimiz zamanımızı, ulaşım kapasitemizi
+        ve deneyimimizi etkili bir şekilde paylaşırız. Ancak sürdürülebilir bir gıda
+        sistemi için yeni bir ivme yaratmak ve uzun vadede gıda paylaşım hareketini
+        güçlendirmek için, sadece kurtarmaktan daha fazlasına ihtiyaç vardır. Her
+        birimiz, genellikle kendi başımıza gizli ve kullanılmamış farklı kaynaklar
+        (beceriler, nesneler veya bağlantılar) getiririz. Ancak bu kaynaklar bir araya
+        geldiğinde, bir mozaiğin tek tek parçaları gibi görünür ve kullanılabilir
+        hale gelebilir ve birlikte daha büyük bir resim oluştururlar. Kaynak Mozaiği
+        bu çeşitliliği görünür kılabilir. Böylece kurtarmanın ötesinde yeni proje
+        fikirleri, iş birliği ve karşılıklı destek için alan yaratır.\n\n##### Kaynaklara
+        Genel Bakış\nKaynak Mozaiği'nin özü, bölgedeki veya çalışma grubundaki tüm
+        kaynakların genel görünümüdür. Grubunuzun çeşitliliğinden ilham alabilir veya
+        belirli kaynakları arayabilirsiniz. Herhangi bir kaynak hakkında daha fazla
+        bilgi edinmek için üzerine tıklayabilirsiniz. Ayrıca, daha sonra daha kolay
+        bulabilmek için kaynakları favori olarak kaydedebilirsiniz.\n\nBir kaynağın
+        rengi, kişinin onu paylaşmaktan ne kadar keyif aldığını gösterir: Coşkuyla
+        sunulan kaynaklar koyu ve parlak renklerde, daha az paylaşılabilen kaynaklar
+        ise gri renkte görünür.\n\n##### Ara, Filtrele ve Sırala\nUygun kaynakları
+        hızlıca bulmak için çeşitli filtreleme seçenekleri mevcuttur.\n- **Kategorilere**
+        göre filtreleyebilir veya belirli **terimlere** göre doğrudan arama yapabilirsiniz.\n\
+        - **Yalnızca Aktif Kullanıcılar**, kaynakları son 30 gün içinde oturum açmamış
+        veya şu anda uykulu olan kullanıcılardan gizler.\n- Kaynak mozaiği, gruptaki
+        tüm yiyecek biriktiricilerinin kaynaklarını görüntüler. Bölgelerde, görünümü
+        **ana bölgesi** ilgili bölge olan kullanıcılarla da sınırlayabilirsiniz.\n\
+        - Kaynakları **favoriler** olarak işaretlediyseniz, yalnızca bunları görüntüleyebilirsiniz.\n\
+        \nAyrıca, sonuçları örneğin \"keyifli istekler\", girişlerin güncelliği veya
+        rastgele olarak **sıralayabilirsiniz**.\n"
+    my_resources:
+      title: Kendi kaynakların
+      md: "Bu bölümde kendi kaynaklarınızı yönetebilir, yeni kaynaklar oluşturabilir,
+        düzenleyebilir ve silebilir veya halihazırda paylaştıklarınızı görüntüleyebilirsiniz.\n\
+        \n##### Kaynak nedir?\nKaynak, yemek paylaşım topluluğuna katkıda bulunmak
+        istediğiniz herhangi bir şey olabilir. Bu, yemek pişirme veya programlama
+        gibi **beceriler**, kargo bisikleti veya mobil pişirme istasyonu gibi ödünç
+        vermeye istekli olduğunuz **öğeler** veya hatta diğer girişimlere, yetkililere,
+        medyaya vb. **iletişim bilgileri** olabilir.\n\n##### Her şey mümkün, hiçbir
+        şey zorunlu değil\nKimsenin kaynak eklemesi gerekmiyor ve belirli bir kaynak
+        eklemiş olmanız, onu belirli etkinlikler için kullanılabilir hale getirmeniz
+        *zorunlu* olduğu anlamına gelmez. Daha çok *katkıda bulunmak istediğiniz*
+        şeyleri paylaşmakla ilgilidir.\n\n##### Kaynaklarımı kimler görebilir?\nKaynaklar,
+        bölgelerinizde ve çalışma gruplarınızda görünür. Bu, kaynak mozaiğinin bulunmadığı
+        ülke veya federal eyalet türündeki çok büyük bölgeler için geçerli değildir.
+        Ayrıca her kaynağın görünürlüğünü tanıdığınız gıda tasarrufçularıyla sınırlayabilirsiniz.\n"
+    similar_resources:
+      title: Benzer kaynaklar
+      md: Benzer kaynaklar olarak, **aynı kategorilere** girilmiş en fazla 10 
+        başka kaynak gösterilecektir.
   helpTitle: 'Yardım: {title}'
   tooltip: Yardımı göster
 team_page:
@@ -4896,3 +4972,21 @@ feedback:
     yetkiniz olmayan diğer kullanıcılara ait kişisel bilgileri içermediğinden 
     emin olun.
   success: Geri bildiriminiz başarıyla iletildi.
+categories:
+  columns:
+    id: ID
+    name: İsim
+    usage_count: Kullanım sayısı
+  title:
+    store: İşletme kategorileri
+    resource: Kaynak kategorileri
+  empty: Henüz kategori girilmedi
+  edit: Kategorinin adını değiştir
+  delete: Kategoriyi sil
+  merge_title: Kategorileri birleştir
+  merge_hint: '"{name}" ile birleştirilecek farklı bir kategori seçin. "{name}" kategorisine
+    atanan tüm girişler bu kategoriye atanacaktır.'
+  confirm_delete: '{name} kategorisi gerçekten silinsin mi?'
+  confirm_delete_hint:
+    store: Bu kategoriye hâlâ {count} işletme atanmış durumda. Bu işletmelerin 
+      artık bir kategorisi olmayacak.
