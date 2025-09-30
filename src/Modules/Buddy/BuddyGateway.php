@@ -9,22 +9,23 @@ class BuddyGateway extends BaseGateway
 {
     public function listBuddies($fsId): array
     {
-        $stm = '
-			SELECT 	b.foodsaver_id AS fsId,
-					b.buddy_id AS buddyId,
-					fs.name,
-					fs.photo,
-					b.confirmed
-			
-			FROM 	fs_foodsaver fs,
-					fs_buddy b
-		
-			WHERE 	IF(b.foodsaver_id = :foodsaver_id, b.buddy_id = fs.id, b.foodsaver_id = fs.id)
-			AND 	(b.foodsaver_id = :foodsaver_id
-			OR		 b.buddy_id = :foodsaver_id)
-		';
+        $stm = '(
+            SELECT
+                b.foodsaver_id AS fsId, b.buddy_id AS buddyId,
+                fs.name, fs.photo, b.confirmed
+            FROM fs_buddy b
+            JOIN fs_foodsaver fs ON b.buddy_id = fs.id
+            WHERE b.foodsaver_id = :foodsaver_id1
+        ) UNION (
+            SELECT
+                b.foodsaver_id AS fsId, b.buddy_id AS buddyId,
+                fs.name, fs.photo, b.confirmed
+            FROM fs_buddy b
+            JOIN fs_foodsaver fs ON b.foodsaver_id = fs.id
+            WHERE b.buddy_id = :foodsaver_id2
+        );';
 
-        return $this->db->fetchAll($stm, [':foodsaver_id' => $fsId]);
+        return $this->db->fetchAll($stm, [':foodsaver_id1' => $fsId, ':foodsaver_id2' => $fsId]);
     }
 
     public function listBuddyIds($fsId): array
