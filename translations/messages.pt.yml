@@ -29,7 +29,10 @@ betrieb: Cooperação comercial
 active: Activado
 store:
   request:
-    distance: Mora a cerca de {distance} km de distância
+    distance:
+      unknown: Não foi introduzido nenhum local de residência válido
+      close: O local de residência fica a menos de 500 m de distância
+      normal: Mora a cerca de {distance} km de distância
     distance_close: Mora a menos de 1 km de distância
     title: 'Solicitações para {storeTitle}'
     to-team: 'adicionar à equipa'
@@ -58,6 +61,10 @@ store:
       recolhas desta empresa.
     hygieneMissing: Esse está a faltar actualmente. Responda ao questionário de 
       higiene agora para poderia candidatar a esta equipa.
+    distance_short:
+      unknown: Endereço inválido
+      close: Menos de 500 m
+      normal: Cerca de {distance} km
   jumperSince: 'Substituto desde {date}'
   days: 'dias'
   team:
@@ -155,6 +162,7 @@ store:
     sorting:
       default: Classificação standard
       pickup: ordenada pela última recolha
+      distance: Ordenado por distância
     userHasPickupsWarning: '{name} ainda está registado para recolher {occupiedSlots}
       nesta empresa. Estes horários ficarão livres. Deseja continuar?'
     inviteMember: Convidar na equipa
@@ -2290,41 +2298,56 @@ chain:
   filterplaceholder: ''
   listheader: ''
 recipients:
-  newsletter: ''
-  permission: ''
-  testmail: ''
-  pending: ''
-  manual: ''
-  history: ''
-  empty-region: ''
-  done: ''
-  confirm: ''
-  unknown: ''
-  region-hint: ''
-  variables: ''
-  newsletter_all: ''
-  sent: ''
-  test_email_sent: ''
-  orga_team: ''
-  newsletter_only_foodsharer: ''
-  bread: ''
-  abort: ''
-  continue: ''
-  choose: ''
-  status: ''
-  test_email_invalid: ''
-  variable-info: ''
-  all_no_botschafter: ''
-  recipients: ''
-  all: ''
-  prepare: ''
+  newsletter: 'Todos os assinantes do boletim informativo (pelo menos Foodsaver)'
+  permission: 'Não está autorizado a enviar e-mails em massa'
+  testmail: 'Enviar o e-mail de teste'
+  pending: 'Ainda faltam enviar {count} e-mails'
+  manual: 'Entrada manual'
+  history: 'E-mails enviados por ti'
+  empty-region: 'Ainda não há Foodsaver nos distritos selecionados'
+  done: 'Todos os e-mails são enviados'
+  confirm: 'Enviar o e-Mail?'
+  unknown: 'desconocido'
+  region-hint: '<strong>Observação:</strong>
+
+    Para marcar distritos subordinados, primeiro tem de abrir a pasta.
+
+    Não serão enviados e-mails para nenhum distrito não visível.
+
+    '
+  variables: 'Tratamento pessoal'
+  newsletter_all: 'Todos os assinantes do boletim informativo (pelo menos soccorista
+    dos alimentos)'
+  sent: 'O e-mail foi enviado com sucesso para {count} endereços de e-mail'
+  test_email_sent: 'O e-mail foi enviado.'
+  orga_team: 'Equipa organizadora global (administradores do site)'
+  newsletter_only_foodsharer: 'SÓ aqueles que Foodsharer entre todos os assinantes
+    da newsletter'
+  bread: 'Distribuição da newsletter'
+  abort: 'Cancelar o envio'
+  continue: 'Continuar enviando'
+  choose: 'Selecionar distritos manualmente'
+  status: 'Enviar e-mails … (e-mail atual: {current})'
+  test_email_invalid: 'Há uma problema com o endereço de e-mail.'
+  variable-info: 'Para personalizar o e-mail, pode inserir <strong>{NAME}</strong>
+    em vez do nome
+
+    e usar <strong>{ANREDE}</strong> para a saudação.
+
+    <p>{ANREDE} {NAME} resulta, por exemplo, em: «Caro Pedro»
+
+    '
+  all_no_botschafter: 'Todos Foodsavers menos os embaixadóres'
+  recipients: 'Destinatários'
+  all: 'Todos os Foodsavers em todo o mundo'
+  prepare: 'Preparação para envio'
   test: ''
-  storemanagers: ''
-  body: ''
-  send: ''
-  active_ambassadors: ''
-  doublecheck: ''
-  storemanagers_and_ambs: ''
+  storemanagers: 'Todos os responsáveis pelas cooperações a nível mundial'
+  body: 'Mensagem'
+  send: 'Enviar o e-mail'
+  active_ambassadors: 'Todos os embaixadores do país'
+  doublecheck: 'Tudo verificado? O e-mail deve ser enviado ao público-alvo selecionado?'
+  storemanagers_and_ambs: 'Todos os responsáveis pelas cooperações e embaixadores'
 settings:
   sleep:
     tooltip: ''
@@ -2945,58 +2968,85 @@ bootstrap-datepicker:
   labelPrevDecade: ''
 events:
   create:
-    multiday: ''
-    online: ''
+    multiday: 'O evento dura vários dias'
+    online: 'por teleconferência ou online'
     mumble: ''
     info: ''
-    date: ''
+    date: 'Data'
     delinvites: ''
-    regions: ''
-    title: ''
-    who: ''
-    isPublic: ''
+    regions: 'Os teus distritos'
+    title: 'Registar evento novo'
+    who: 'Para que distrito ou grupo de trabalho o evento deve ser criado?'
+    isPublic: 'O evento é publico'
     endtime: ''
     starttime: ''
-    groups: ''
+    groups: 'Os teus grupos de trabalho'
     cascading: ''
-    offline: ''
+    offline: 'Totalmente normal na vida real'
     inviteAll: ''
-    public: ''
-    desc: ''
-  notFound: ''
-  maybeCount: ''
-  description: ''
+    public: 'O evento é publico?'
+    desc: 'Onde é o evento?'
+    name: Nome de evento
+    time: Hora
+    type: Como é que o evento se realiza?
+    other: Outros
+    locationDetails: Detalhes da localização (número do quarto, etc.)
+    locationOther: Onde é que o evento estar?
+    fillCompletely: Preencher completamente o formulário.
+  notFound: 'Este evento não existe ou não está acessível.'
+  maybeCount: '{count} talvez venham'
+  description: 'Descrição'
   mumble:
-    guide: ''
-    location: ''
-    text: ''
-    title: ''
+    guide: 'Instruções: <strong><a href="https://wiki.foodsharing.de/Mumble">wiki.foodsharing.de/Mumble</a></strong>'
+    location: 'O nosso servidor Mumble: <br><strong>mumble.foodsharing.de</strong>'
+    text: 'Realizamos conferências de voz online com o <em>Mumble</em>.'
+    title: 'Evento online (Mumble)'
   button:
-    change: ''
-    no: ''
-    maybe: ''
-    yes: ''
-  goto: ''
-  add_event: ''
+    change: 'Alterar resposta'
+    no: 'Não posso participar'
+    maybe: 'Talvez'
+    yes: 'Vou participar'
+  goto: 'Para a data marcada'
+  add_event: 'Evento novo'
   menu:
-    yes: ''
-    no: ''
-    maybe: ''
-  span: ''
-  created: ''
-  acceptedCount: ''
-  edit: ''
-  edited: ''
+    yes: 'Aceite o convite'
+    no: 'Não posso'
+    maybe: 'Talvez posso'
+  span: '{from} até {until}'
+  created: 'O evento foi registado com sucesso.'
+  acceptedCount: '{count} participam'
+  edit: 'Editar evento'
+  edited: 'O evento foi alterado com sucesso.'
   past: 'Datas pasadas'
-  invitedCount: ''
-  duration: ''
-  morePeople: ''
+  invitedCount: '{count} convites'
+  duration: 'Duração: {duration}'
+  morePeople: '… e {count} outros'
   rsvp:
-    yes: ''
-    no: ''
-    maybe: ''
+    yes: 'Muito obrigado por teres aceitado o convite.'
+    no: 'Status do convite alterado: agora não participas.'
+    maybe: 'Que bom que talvez esteja participar!'
   bread: 'Datas'
-  add_new_event: ''
+  add_new_event: 'Adicionar um evento novo'
+  noneAccepted: Até agora, ninguém confirmou a participação neste evento.
+  location: Localização
+  meeting:
+    past: Este evento foi realizado online.
+    present: Este evento tem lugar online. Podes participar agora.
+    future: Este evento tem lugar online. Quando começar, pode participar 
+      através do botão abaixo.
+    not_started: Este evento ainda não começou
+  attendees: Participantes
+  online_info: "As conferências telefónicas e online do foodsharing funcionam melhor
+    através do nosso próprio servidor [BigBlueButton](https://bigbluebutton.org).
+    A partir de 10 minutos antes do início da reunião, os utilizadores podem facilmente
+    juntar-se à conferência com um único clique a partir da página da reunião. Não
+    são necessários programas adicionais, apenas um navegador de Internet razoavelmente
+    moderno. Também é possível participar por telefone.\n\nSe, mesmo assim, desejar
+    utilizar outra plataforma para uma conferência telefónica ou online, selecione
+    a opção *«Outros»*.\n"
+  public_info: Este evento é público, todos podem aceder ao mesmo. Os 
+    comentários e a lista de participantes só são visíveis para utilizadores 
+    registados.
 month:
   "3": ''
   "1": ''
@@ -3341,10 +3391,14 @@ mail:
   noreply_addresses_not_allowed: ''
 info: 'Informações'
 addresspicker:
-  infobox: ''
-  label: ''
-  placeholder: ''
-  infobox_profile: ''
+  infobox: 'Introduza o endereço na barra de pesquisa ou mova o marcador para a posição
+    correta no mapa.'
+  label: 'Busca do localização/endereço'
+  placeholder: 'Buscar o endereço …'
+  infobox_profile: 'Para a partilha de alimentos (https://wiki.foodsharing.de/Foodsharer),
+    o endereço é necessário para poder oferecer cestas de alimentos através do site.
+    Para poder participar na recolha de alimentos como [Foodsaver](https://wiki.foodsharing.de/Foodsaver),
+    é legalmente necessário.'
   different_location: ''
 filterlist:
   filter_for_name_id: ''
