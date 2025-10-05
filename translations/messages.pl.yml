@@ -79,6 +79,8 @@ quiz:
       2: neutralnie
     name: Odpowiedzi
     none_correct: Żadna odpowiedź nie jest prawidłowa.
+    neutral: Odpowiedź neutralna - nie jest oceniana.
+    false_false: Ta odpowiedź była błędna. Poprawnie to rozpoznałeś/aś.
   stateBasedInfo:
     neverTried: Dotychczas jeszcze nie ukończyłeś/aś tego quizu. Najpierw 
       poświęć trochę czasu, aby zapoznać się z wszystkimi wymienionymi 
@@ -94,6 +96,11 @@ quiz:
     willExpire: Ważność twojego quizu kończy się po {expirationTime} dniach. 
       Dlatego możesz już teraz odświeżyć swoją wiedzę w tym zakresie i ponownie 
       wziąć udział w tym quizie.
+    disqualifiedAfter: Masz już tylko jedną ostatnią szansę, żeby zdać ten quiz!
+      Jeśli teraz nie zdasz, będziesz trwale zdyskwalifikowany/a z tego quizu. 
+      Bierz udział tylko pod warunkiem, że dokładnie przestudiowałeś/aś treści 
+      zawarte w wiki.
+    expired: Jednakże twoja ostatnia próba tego quizu już jest nieważna.
   regstart: Rozpocznij quiz bez limitu czasu i {count} pytań
   button:
     pause: Kontynuuj później
@@ -148,6 +155,7 @@ quiz:
     delete: Usuń odpowiedź
   fp_options:
     default: '{failurePoints} punkty ujemne'
+    joke: '{failurePoints} punkty ujemne (bez oceny)'
   confirmDelete:
     session: Czy na pewno chcesz usunąć tę sesję quizu?
     question: Czy na pewno chcesz usunąć to pytanie?
@@ -158,6 +166,82 @@ quiz:
   confirmDashboardText: Zaliczyłeś/aś quiz, którego jeszcze nie 
     potwierdziłeś/aś. [Kliknij tutaj]({url}), aby zakończyć proces!
   timedstart: Rozpocznij quiz z limitem czasu i {count} pytaniami
+  results:
+    title:
+      1: Gratulacje!
+      2: Niestety, nie zdałeś/aś.
+    points:
+      1: Zdałeś/aś z {failurePoints} z maksmalnie {maxFailurePointsToSucceed} 
+        punktami ujemnymi.
+      2: Miałeś/aś {failurePoints} punktów ujemnych, a mógłbyś/mogłabyś zdać z 
+        maksymalnie {maxFailurePointsToSucceed} punktami ujemnymi.
+  fp_badge:
+    right: Odpowiedź poprawna
+    wrong: '{userFailurePoints} błędy'
+  timed_out: Nie odpowiedziałeś/aś na pytanie w wyznaczonym czasie.
+  timed_out_last: Niestety, nie odpowiedziałeś/aś na ostatnie pytanie w 
+    wyznaczonym czasie.
+  timed_out_error: Czas na odpowiedź na to pytanie już upłynął.
+  show_results: Zobacz wyniki ostatniej próby
+  test_results: Wyniki testu
+  wikilink: Więcej informacji
+  key_facts:
+    to_pass: 'Aby zdać:'
+    untimed: Maksymalnie {maxFailurePointsToSucceed} punkty ujemne przy 
+      {questionCountTimed} pytaniach z limitem czasu lub {questionCountUntimed} 
+      pytań bez limitu czasu
+    timed: Maksymalnie {maxFailurePointsToSucceed} punkty ujemne przy 
+      {questionCountTimed} pytaniach z limitem czasu
+  general:
+    title: Ogólne informacje
+    edit: Edytuj quiz
+  questions_section:
+    title: Pytania w quizie ({count})
+  editable_tooltip: Możesz edytować ten quiz.
+  timelimit: Limit czasu
+  max_fp: Maksymalna liczba punktów ujemnych
+  mandatory_question: To pytanie jest obowiązkowe i zawarte w każdej próbie 
+    quizu.
+  fp_description: Łącznie {failurePoints}, czyli {perMistake} za błędną 
+    odpowiedź.
+  editModal:
+    quiz:
+      title: Edytuj quiz
+      input:
+        name:
+          label: 'Imię:'
+          placeholder: Nazwa quizu
+        maxFp: 'Maksymalna liczba punktów ujemnych, aby zdać:'
+        questionCountTimed: 'Liczba pytań:'
+        allowUntimed: Pozwól na edycję bez limitu czasu
+        questionCountUntimed: 'Liczba pytań bez limitu czasu:'
+    question:
+      title: Edytuj pytanie
+      input:
+        text:
+          label: 'Pytanie:'
+          placeholder: Pytanie quizu …
+        duration: 'Czas na odpowiedź:'
+        fp: 'Punkty ujemne:'
+        wikilink:
+          label: 'Link do właściwego artykułu:'
+          placeholder: https://wiki.foodsharing.de/…
+        mandatory:
+          label: Pytanie obowiązkowe?
+          text: To pytanie musi być zawarte w każdej próbie quizu
+      confirmDelete:
+        title: Czy na pewno chcesz usunąć to pytanie?
+    answer:
+      title: Edytuj odpowiedź
+      input:
+        text:
+          label: 'Odpowiedź:'
+          placeholder: Odpowiedź …
+        explanation:
+          label: 'Wyjaśnienie:'
+          placeholder: Wyjaśnienie …
+        answerRating: 'Ocena:'
+  test: Testuj quiz
 request_time: 'Czas zapytania:'
 pass1: Twoje żądane nowe hasło
 public_time: Szacunkowy czas odbioru
@@ -180,3 +264,33 @@ use_region_pickup_rule: Czy przepisy okręgowe dotyczące odbioru zamówień pow
   mieć zastosowanie także do tej firmy?
 expand_all: rozłóż wszystko
 collapse_all: wszystko zwinąć
+image: Obraz
+picture_upload_widget:
+  picture_upload: Zamieść zdjęcie
+  choose_picture: Wybierz obraz z twojego komputera.
+upload:
+  no_image: Wysłany plik nie jest zdjęciem. Wybierz inny plik.
+  no_image_yet: Jeszcze nie wysłano żadnego obrazu
+  no_image_chosen: Jeszcze nie wybrano żadnego pliku
+  preview_image: Podgląd
+  image: Wyślij obraz
+  images: Wyślij obrazy
+  new_image: Wyślij nowy obraz
+  file: Wyślij plik
+  choose_file: Wyślij plik
+  new_file: Wyślij nowy plik
+  crop_dialog_title: Przytnij obraz
+button:
+  save: Zapisz
+  next: następny
+  change_picture: Zmień obraz
+  attach_image: Dodaj obraz (format png lub jpg)
+  rotate_right: obróć zgodnie z ruchem wskazówek zegara
+  upload: wyślij
+  new: nowy
+  edit: edytuj
+  delete: usuń
+  ok: ok
+  permadelete: usuń trwale
+  yes_i_am_sure: tak, jestem pewny/a
+  apply: zastosuj
