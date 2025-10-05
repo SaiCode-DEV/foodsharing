@@ -110,7 +110,16 @@ const resourceCategories = computed(() => resourceStore.categories)
 
 const emit = defineEmits(['add', 'edit'])
 
-async function okHandler () {
+async function okHandler (event) {
+  event.preventDefault()
+  if (description.value.length < 50 && !currentResourceId.value) {
+    if (!await confirmationDialogue(`resource_mosaic.editModal.description_warning.${description.value ? 'short' : 'none'}`, {
+      title: i18n('resource_mosaic.editModal.description_warning.title'),
+      okTitle: i18n('button.yes_save'),
+      okVariant: 'primary',
+      cancelTitle: i18n('button.prev'),
+    })) return
+  }
   const images = await mdInput.value.uploadImages()
   const resource = {
     name: name.value,
@@ -120,7 +129,9 @@ async function okHandler () {
     openness: openness.value,
     images,
   }
+
   emit(currentResourceId.value ? 'edit' : 'add', resource)
+  modal.value.hide()
 }
 
 defineExpose({

@@ -246,9 +246,12 @@ const filtered = computed(() => {
   }
   if (searchString.value) {
     const words = searchString.value.toLowerCase().split(/\s+/)
-    selected = selected.filter(resource => words.every(
-      word => +word === resource.user.id || resource.name.toLowerCase().includes(word) || resource.user.name.toLowerCase().includes(word),
-    ))
+    selected = selected.filter(resource => {
+      const description = resource.description?.toLowerCase() || ''
+      return words.every(
+        word => +word === resource.user.id || resource.name.toLowerCase().includes(word) || resource.user.name.toLowerCase().includes(word) || description.includes(word),
+      )
+    })
   }
   return selected
 })

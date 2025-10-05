@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use DateTime;
 use Exception;
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Core\DBConstants\CategoryType;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Gender;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Foodsaver\DTO\EditableProfileDTO;
@@ -26,6 +27,7 @@ use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Modules\Settings\SettingsTransactions;
 use Foodsharing\Modules\Unit\DTO\UserUnit;
 use Foodsharing\Permissions\BlogPermissions;
+use Foodsharing\Permissions\CategoriesPermissions;
 use Foodsharing\Permissions\ContentPermissions;
 use Foodsharing\Permissions\NewsletterEmailPermissions;
 use Foodsharing\Permissions\ProfilePermissions;
@@ -86,6 +88,7 @@ class UserRestController extends AbstractFoodsharingRestController
         private readonly GroupTransactions $groupTransactions,
         private readonly SettingsTransactions $settingsTransactions,
         private readonly LogoutTransactions $logoutTransactions,
+        private readonly CategoriesPermissions $categoriesPermissions,
         private readonly TimeHelper $timeHelper,
     ) {
     }
@@ -187,6 +190,8 @@ class UserRestController extends AbstractFoodsharingRestController
                 'administrateNewsletterEmail' => $this->newsletterEmailPermissions->mayAdministrateNewsletterEmail(),
                 'administrateRegions' => $this->regionPermissions->mayAdministrateRegions(),
                 'maySearchGlobal' => $this->searchPermissions->maySearchGlobal(),
+                'editStoreCategories' => $this->categoriesPermissions->mayEditCategories(CategoryType::STORE),
+                'editResourceCategories' => $this->categoriesPermissions->mayEditCategories(CategoryType::RESOURCE),
             ];
 
             //TODO: this can be removed as soon as the login is not possible without email activation

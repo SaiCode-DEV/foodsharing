@@ -34,17 +34,17 @@ class ResourceGateway extends BaseGateway
             JOIN `fs_foodsaver` fs ON fs.id = r.foodsaver_id  
             JOIN `fs_foodsaver_has_bezirk` fhr ON fhr.foodsaver_id = r.foodsaver_id
             LEFT OUTER JOIN `fs_resource_has_category` rhc ON rhc.resource_id = r.id
-            LEFT OUTER JOIN `fs_foodsaver_has_favorite_resource` fr ON fr.resource_id = r.id
+            LEFT OUTER JOIN `fs_foodsaver_has_favorite_resource` fr ON fr.resource_id = r.id AND fr.foodsaver_id = :foodsaverId1
             WHERE fhr.bezirk_id = :regionId
             AND (
-                r.foodsaver_id = :foodsaverId1 OR
+                r.foodsaver_id = :foodsaverId2 OR
                 r.is_private = 0
                 OR EXISTS (
                 SELECT 1
                 FROM fs_buddy b
                 WHERE
                     b.confirmed = 1 AND
-                    b.foodsaver_id = :foodsaverId2 AND
+                    b.foodsaver_id = :foodsaverId3 AND
                     b.buddy_id = r.foodsaver_id
                 )
             )
@@ -52,6 +52,7 @@ class ResourceGateway extends BaseGateway
                 'regionId' => $regionId,
                 'foodsaverId1' => $foodsaverId,
                 'foodsaverId2' => $foodsaverId,
+                'foodsaverId3' => $foodsaverId,
             ]);
 
         return array_map(function ($row) use ($regionId) {

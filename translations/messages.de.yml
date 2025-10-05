@@ -333,6 +333,7 @@ button:
   confirm: Bestätigen
   close: "Schließen"
   browse: "Durchsuchen"
+  yes_save: "Ja, speichern"
 
 bcard:
   title: "Visitenkarten-Generator"
@@ -4084,6 +4085,10 @@ resource_mosaic:
       label: "Kategorien"
       placeholder: "Kategorien auswählen..."
     openness: "Wie gerne darf deine Ressource angefragt werden?"
+    description_warning:
+      title: "Beschreibung prüfen"
+      short: "Die Beschreibung dieser Ressource ist recht kurz. Bist du sicher, dass andere Nutzer:innen verstehen können, worum es bei deiner Ressource geht, damit sie dich gezielt danach fragen können?"
+      none: "Du hast keine Beschreibung für deine Ressource angegeben. Bist du sicher, dass andere Nutzer:innen verstehen können, worum es bei deiner Ressource geht, damit sie dich gezielt danach fragen können?"
   is_private_hint: "Diese Resource wird nur Bekannten angezeigt."
   confirm_delete: "Möchtest du diese Resource wirklich löschen?"
   no_own_resources: "Du hast noch keine Ressourcen angegeben. Du kannst jetzt bestimmte Fähigkeiten, Gegenstände oder Beziehungen eintragen, um sie in der Community sichtbar zu machen."
@@ -4098,7 +4103,7 @@ resource_mosaic:
     polite_info: "Denk daran: Niemand ist verpflichtet, eine Ressource mit dir zu teilen. Bitte formuliere deine Anfragen so, dass die andere Person immer auch Nein sagen kann, ohne ein schlechtes Gewissen haben zu müssen."
     placeholder: "Ich bin interessiert an deiner Ressource, weil ..."
   list_status:
-    none_in_region: "Hier sind noch keine Ressourcen eingetragen. Trage eigene Ressourcen ein, oder land andere dazu ein!"
+    none_in_region: "Hier sind noch keine Ressourcen eingetragen. Trage eigene Ressourcen ein, oder lad andere dazu ein!"
     total: "In {region} sind insgesamt {count} Ressourcen eingetragen:"
     filter: "Zu deiner Suche passen {count} Ressourcen:"
     none_in_filter: "Zu deiner Suche passt leider keine Ressource."
