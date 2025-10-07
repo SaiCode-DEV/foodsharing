@@ -73,6 +73,11 @@
         <meta name="msapplication-TileColor" content="#563a1e">
         <meta name="theme-color" content="#563a1e">
 
+        {# Preload LCP image to reduce resource load delay #}
+        {% if route == 'index' %}
+        <link rel="preload" as="image" href="/img/startpage/header.png" fetchpriority="high">
+        {% endif %}
+
         <style type="text/css">{{ head.css | raw }}</style>
     </head>
     <body class="{{ bodyClasses|join(' ') }}">
