@@ -7,6 +7,7 @@ use Flourish\fSession;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
+use Foodsharing\Modules\Login\LoginGateway;
 use Symfony\Component\HttpFoundation\Request;
 
 use function array_key_exists;
@@ -25,8 +26,11 @@ class Session
 
     private const int SESSION_EXPIRATION_TIME_IN_SECONDS = 86400;
 
+    public const string LAST_ACTIVITY = 'LAST_USER_ACTIVITY';
+
     public function __construct(
         private readonly FoodsaverGateway $foodsaverGateway,
+        private readonly LoginGateway $loginGateway,
         private bool $initialized = false
     ) {
     }
@@ -51,6 +55,8 @@ class Session
                 }
             }
         }
+
+        $this->updateUserActivity($this->id());
     }
 
     private function checkInitialized()
@@ -348,5 +354,43 @@ class Session
         }
 
         return $this->isValidCsrfToken($csrfToken);
+    }
+
+    /**
+     * Updates the last activity state of the user in database and session.
+     *
+     * The update in database and session is only executed on date change, the
+     * time information is unused.
+     */
+    public function updateUserActivity(?int $userId)
+    {
+        if ($userId === null) {
+            // no userId, probably API testing
+            return;
+        }
+        $refreshSession = false;
+        // load existing data
+        if (!$this->has(self::LAST_ACTIVITY)) {
+            $last_activity = $this->loginGateway->getLastLogin($userId);
+            $refreshSession = true;
+        } else {
+            $last_activity = $this->get(self::LAST_ACTIVITY);
+        }
+
+        // sanitize data
+        $lastActivityDataTime = strtotime((string)$last_activity);
+        $isInvalidDateInformation = $lastActivityDataTime === false || $last_activity == '0000-00-00 00:00:00';
+        $lastActivityDate = date('Y-m-d', $lastActivityDataTime);
+
+        $today = date('Y-m-d');
+
+        // Refresh data
+        if ($isInvalidDateInformation || $today != $lastActivityDate) {
+            $this->loginGateway->updateLastActivityInDatabase($userId);
+            $refreshSession = true;
+        }
+        if ($refreshSession) {
+            $this->set(self::LAST_ACTIVITY, $today);
+        }
     }
 }

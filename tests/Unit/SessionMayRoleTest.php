@@ -8,20 +8,23 @@ use Codeception\Test\Unit;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
+use Foodsharing\Modules\Login\LoginGateway;
 use Tests\Support\UnitTester;
 
 class SessionTestAdapter extends Session
 {
     public function __construct(
         private readonly FoodsaverGateway $foodsaverGateway,
+        private readonly LoginGateway $loginGateway,
         protected bool $initialized = false
     ) {
-        parent::__construct($foodsaverGateway, $initialized);
+        parent::__construct($foodsaverGateway, $loginGateway, $initialized);
     }
 
     public function setTestUser(Role $role)
     {
         $this->setId(1);
+        $this->set(Session::LAST_ACTIVITY, false);
         $this->setAuthLevel($role);
     }
 }
@@ -35,6 +38,7 @@ class SessionMayRoleTest extends Unit
     {
         $this->session = new SessionTestAdapter(
             $this->tester->get(FoodsaverGateway::class),
+            $this->tester->get(LoginGateway::class),
             true
         );
     }

@@ -10,7 +10,6 @@ use Foodsharing\Modules\Core\DBConstants\Quiz\QuizID;
 use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\Event\InvitationStatus;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
-use Foodsharing\Modules\Login\UserStatusTransactions;
 use Foodsharing\Modules\Quiz\QuizTransactions;
 use Foodsharing\Permissions\QuizPermissions;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +23,6 @@ class DashboardController extends FoodsharingController
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly EventGateway $eventGateway,
         private readonly QuizPermissions $quizPermissions,
-        private readonly UserStatusTransactions $userStatusTransactions,
         private readonly QuizTransactions $quizTransactions,
     ) {
         parent::__construct();
@@ -36,8 +34,6 @@ class DashboardController extends FoodsharingController
         if (!$this->session->mayRole()) {
             return $this->redirect('/');
         }
-
-        $this->userStatusTransactions->updateLastUserStatus($this->session->id());
 
         $params = [
             'quiz' => $this->getQuiz(),
