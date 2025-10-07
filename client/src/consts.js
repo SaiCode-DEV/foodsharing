@@ -77,6 +77,10 @@ export const BLOG_POST_OPTIONS = Object.freeze({
   IMAGE: { WIDTH: 500, HEIGHT: 161 },
 })
 
+/**
+ * Whitelist of allowed mime types. The same list exists in the backend in UploadsRestController. If you change
+ * something, please also adjust that list.
+ */
 export const ACCEPTED_FILE_TYPES =
     // Image files
     'image/*,' +
@@ -94,6 +98,9 @@ export const ACCEPTED_FILE_TYPES =
     'application/zip,' +
     'application/gzip,' +
     'application/x-7z-compressed,' +
+    'application/x-tar,' +
+    'application/x-bzip2,' +
+    'application/x-xz,' +
 
     // Data formats
     'text/csv,' +

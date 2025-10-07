@@ -178,7 +178,7 @@ class UploadsTransactions
 
         $bodyHashOfTemporaryFile = hash_file('sha256', $temporaryFile);
         $sizeOfTemporaryFile = filesize($temporaryFile);
-        $mimeTypeOfTemporaryFile = mime_content_type($temporaryFile);
+        $mimeTypeOfTemporaryFile = mime_content_type($temporaryFile) ?: '';
 
         // image? check if its valid
         if (str_contains($mimeTypeOfTemporaryFile, 'image') && !$this->isValidImage($temporaryFile)) {

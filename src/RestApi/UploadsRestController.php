@@ -129,8 +129,9 @@ class UploadsRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid data provided')]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'MIME type not allowed')]
     #[Route('/uploads', methods: ['POST'])]
-    public function uploadImage(#[MapRequestPayload] FileUpload $file, Request $request, RateLimiterFactory $loginLimiter): Response
+    public function uploadFile(#[MapRequestPayload] FileUpload $file, Request $request, RateLimiterFactory $loginLimiter): Response
     {
         $this->checkRateLimit($request, $loginLimiter);
 
@@ -140,6 +141,10 @@ class UploadsRestController extends AbstractFoodsharingRestController
             $temporaryFile = $this->uploadsTransactions->storeTemporaryValidatedFile($file->body);
         } catch (Base64DecodingException|FileSizeTooBigException|InvalidFileException $error) {
             throw new BadRequestHttpException($error->getMessage());
+        }
+
+        if (empty($temporaryFile->mimeType) || !$this->isMimeTypeAllowed($temporaryFile->mimeType)) {
+            throw new AccessDeniedHttpException('MIME type could not be determined or is not allowed');
         }
 
         $uuid = $this->uploadsTransactions->uploadFile($temporaryFile);
@@ -181,5 +186,48 @@ class UploadsRestController extends AbstractFoodsharingRestController
         if (!is_null($quality) && ($quality < UploadAttributes::MIN_QUALITY || $quality > UploadAttributes::MAX_QUALITY)) {
             throw new BadRequestHttpException('quality needs to be between ' . UploadAttributes::MIN_QUALITY . ' and ' . UploadAttributes::MAX_QUALITY);
         }
+    }
+
+    /**
+     * Whitelist of allowed mime types. The same list exists in the frontend in consts.js. If you change something,
+     * please also adjust that list.
+     */
+    private function isMimeTypeAllowed(string $mimeType): bool
+    {
+        $acceptedFileTypes = [
+            // Image files
+            'image/*',
+
+            // Documents
+            'application/pdf', 'text/plain', 'application/rtf',
+
+            // Audio and Video files
+            'audio/*', 'video/*',
+
+            // Compressed archives
+            'application/zip', 'application/gzip', 'application/x-7z-compressed', 'application/x-tar',
+            'application/x-bzip2', 'application/x-xz',
+
+            // Data formats
+            'text/csv', 'application/json', 'application/xml', 'text/xml', 'application/x-yaml',
+
+            // Microsoft Office files
+            'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'application/vnd.ms-powerpoint',
+            'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+
+            // OpenDocument files
+            'application/vnd.oasis.opendocument.text', 'application/vnd.oasis.opendocument.spreadsheet',
+            'application/vnd.oasis.opendocument.presentation'
+        ];
+        foreach ($acceptedFileTypes as $pattern) {
+            $p = str_replace('/', '\\/', $pattern);
+            if (preg_match("/$p/", $mimeType)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
