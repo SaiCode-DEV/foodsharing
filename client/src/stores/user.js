@@ -117,6 +117,12 @@ export const PASSPORT_FILTER_OPTIONS = Object.freeze({
   INVALID_PASSPORT: 3,
 })
 
+export const VERIFIED_FILTER_OPTIONS = Object.freeze({
+  ALL: null,
+  VERIFIED: 1,
+  UNVERIFIED: 2,
+})
+
 export const PASSPORT_STATUS = Object.freeze({
   INVALID: 0,
   INVALID_SOON_WARNING_TIME: 30,

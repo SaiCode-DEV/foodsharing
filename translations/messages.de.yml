@@ -525,6 +525,7 @@ group:
       active_or_renew_passport: "Ausweis aktivieren / verlängern"
       execute: "Aktion ausführen"
       show_only_member_after: "Zeige nur Mitglieder nach"
+      filter_status: "Zeige nur Status"
       filter_selection: "Zeige nur ausgewählte Mitglieder"
       never_before: "noch nie"
       button:
@@ -535,10 +536,13 @@ group:
         do_selected: "Möchtest du alle ausgewählten wirklich freischalten (Datenabgleich erfolgt / Ausweis kontrolliert etc.)?"
         undo: "Freischaltung von {name} ({id}) aufheben"
       filter_options:
+        all: "alle"
         no_filter: "kein Filter"
         no_passport: "kein Ausweis"
         with_passport: "mit Ausweis"
         invalid_passport: "ungültiger Ausweis"
+        verified: "verifiziert"
+        unverified: "nicht verifiziert"
     all_roles: "Alle Rollen"
 
 legal:

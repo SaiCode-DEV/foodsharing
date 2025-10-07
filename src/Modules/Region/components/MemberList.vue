@@ -187,6 +187,14 @@
                   size="sm"
                   class="mb-2"
                 />
+
+                <label class="mb-1">{{ $i18n('group.member_list.passports.filter_status') }}</label>
+                <b-form-select
+                  v-model="filterStatus"
+                  :options="statusFilterOptions"
+                  size="sm"
+                  class="mb-2"
+                />
               </b-dropdown-form>
             </b-dropdown>
             <button
@@ -368,7 +376,7 @@ import Avatar from '@/components/Avatar/Avatar.vue'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import { REGION_IDS } from '@/consts'
 import RequiredMessageModal from '@/components/Modals/RequiredMessageModal.vue'
-import { PASSPORT_FILTER_OPTIONS, useUserStore } from '@/stores/user'
+import { PASSPORT_FILTER_OPTIONS, VERIFIED_FILTER_OPTIONS, useUserStore } from '@/stores/user'
 import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 
 const regionStore = useRegionStore()
@@ -417,6 +425,7 @@ export default {
       passportMember: [],
       filterPassportMember: false,
       filterPassportUntilValid: null,
+      filterStatus: null,
       usePaperSizeDinA4: false,
       activeTab: null,
       sortBy: '',
@@ -431,6 +440,11 @@ export default {
         { text: i18n('group.member_list.passports.filter_options.no_passport'), value: PASSPORT_FILTER_OPTIONS.NO_PASSPORT },
         { text: i18n('group.member_list.passports.filter_options.with_passport'), value: PASSPORT_FILTER_OPTIONS.WITH_PASSPORT },
         { text: i18n('group.member_list.passports.filter_options.invalid_passport'), value: PASSPORT_FILTER_OPTIONS.INVALID_PASSPORT },
+      ],
+      statusFilterOptions: [
+        { text: i18n('group.member_list.passports.filter_options.all'), value: VERIFIED_FILTER_OPTIONS.ALL },
+        { text: i18n('group.member_list.passports.filter_options.verified'), value: VERIFIED_FILTER_OPTIONS.VERIFIED },
+        { text: i18n('group.member_list.passports.filter_options.unverified'), value: VERIFIED_FILTER_OPTIONS.UNVERIFIED },
       ],
       selectAllTable: false,
     }
@@ -512,6 +526,14 @@ export default {
         }
 
         if (this.activeTab === this.ACTIVE_TAB_PASSPORT && this.filterPassportUntilValid === PASSPORT_FILTER_OPTIONS.NO_PASSPORT && member.lastPassDate !== null) {
+          return false
+        }
+
+        if (this.activeTab === this.ACTIVE_TAB_PASSPORT && this.filterStatus === VERIFIED_FILTER_OPTIONS.VERIFIED && !member.isVerified) {
+          return false
+        }
+
+        if (this.activeTab === this.ACTIVE_TAB_PASSPORT && this.filterStatus === VERIFIED_FILTER_OPTIONS.UNVERIFIED && member.isVerified) {
           return false
         }
 
