@@ -54,6 +54,7 @@ This file is deprecated and will be removed in a future release. Please use the 
 - Improve message template suggested for slots returned to the team !4151 @DL6ER
 - Passwords need a minimum "complexity" of 8 characters, at least one uppercase letter, one lowercase letter, and one number #2329 !4152 @DL6ER
 - change bluesky link #2438 !4268 @McGoldi
+- Allow entering both time and date using a touchscreen- and keyboard-friendly method, each, when creating or removing pickup slots !4167 @DL6ER
 
 ## Bugfixes
 - Resolve "region filter bug on profile page: Blank screen when navigating store list" #2295 !3940 @chriswalg

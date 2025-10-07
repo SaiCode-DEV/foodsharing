@@ -10,22 +10,44 @@
     >
       <p>{{ description }}</p>
       {{ $i18n('day') }}
-      <b-form-datepicker
-        v-model="selectedSlotDate"
-        v-bind="labelsCalendar || {}"
-        :min="minSlotDate"
-        :locale="$i18n('calendar.locale')"
-        menu-class="w-100"
-        calendar-width="100%"
-        class="mb-2"
-        start-weekday="1"
-      />
+      <b-input-group class="mb-3">
+        <b-form-input
+          id="date-input"
+          v-model="selectedSlotDate"
+          type="date"
+        />
+        <b-input-group-append>
+          <b-form-datepicker
+            v-model="selectedSlotDate"
+            v-bind="labelsCalendar || {}"
+            button-only
+            right
+            :min="minSlotDate"
+            :locale="$i18n('calendar.locale')"
+            start-weekday="1"
+            aria-controls="date-input"
+          />
+        </b-input-group-append>
+      </b-input-group>
       {{ $i18n('time') }}
-      <b-form-input
-        v-model="selectedSlotTime"
-        type="time"
-        placeholder="HH:mm"
-      />
+      <b-input-group class="mb-3">
+        <b-form-input
+          id="time-input"
+          v-model="selectedSlotTime"
+          type="time"
+        />
+        <b-input-group-append>
+          <b-form-timepicker
+            v-model="selectedSlotTime"
+            :locale="locale"
+            v-bind="labelsTimepicker || {}"
+            button-only
+            right
+            minutes-step="5"
+            aria-controls="time-input"
+          />
+        </b-input-group-append>
+      </b-input-group>
       <div
         v-if="!deletePickupMode"
         class="pt-2"
