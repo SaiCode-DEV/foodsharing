@@ -15,7 +15,7 @@
     <ContainerButton
       text-key="store.chat.managers"
       data-test="store-chat-managers"
-      icon="fas fa-user-cog"
+      icon="fas fa-comments"
       @click="$emit('multi-chat', fsId)"
     />
     <ContainerButton

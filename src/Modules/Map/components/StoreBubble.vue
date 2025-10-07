@@ -48,9 +48,20 @@
 
       <div v-if="store.managers.length > 0" class="card mt-3">
         <div class="card-header">
-          <h5 class="card-title">
-            {{ $i18n('storeview.managers') }}
-          </h5>
+          <div class="d-flex align-items-center justify-content-between">
+            <h5 class="card-title mb-0">
+              {{ $i18n('storeview.managers') }}
+            </h5>
+            <b-button
+              v-b-tooltip="$i18n('store.chat.managers')"
+              variant="primary"
+              size="sm"
+              class="ml-1"
+              @click="openManagerChat"
+            >
+              <i class="fas fa-comments" />
+            </b-button>
+          </div>
         </div>
         <div class="card-body">
           <div class="d-flex flex-wrap">
@@ -147,6 +158,7 @@
 </template>
 
 <script>
+import conversationStore from '@/stores/conversations'
 import { getStoreBubbleContent } from '@/api/map'
 import { pulseError, pulseSuccess } from '@/script'
 import StoreStatusIcon from '../../Store/components/StoreStatusIcon'
@@ -305,6 +317,10 @@ export default {
     async declineInvitation () {
       await declineInvitation(this.storeId)
       this.store.isInvited = false
+    },
+    openManagerChat () {
+      const storeManagers = this.store.managers.map(item => item.id)
+      conversationStore.openMultiChat(storeManagers.concat(this.userId))
     },
   },
 }

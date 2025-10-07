@@ -920,7 +920,7 @@ storeview:
   public_time_at_night: "nachts"
   status: "Aktueller Status"
   status_notes: "Statusnotizen"
-  managers: "Verantwortliche Foodsaver:innen"
+  managers: "Betriebsverantwortliche"
   specials: "Besonderheiten"
   team: "Abholteam"
   want_to_fetch: "In diesem Team würde ich gerne helfen."
