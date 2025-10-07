@@ -290,6 +290,29 @@ class PassportGeneratorTransaction
         return Carbon::instance($creationDate)->addYears(self::PASSPORT_VALIDITY_YEARS)->toDateTime();
     }
 
+    /**
+     * Determines if the passport is still valid at the specified date.
+     *
+     * Retrieves the last passport date for the current session's foodsaver and checks
+     * if the passport validity period extends through the provided date.
+     *
+     * @param int $userId the ID of the user to check passport validity for
+     * @param DateTime $date the date to check passport validity against
+     * @return bool true if the passport is still valid at the given date, false otherwise
+     */
+    public function isPassportStillValidAt(int $userId, DateTime $date): bool
+    {
+        $lastPassDate = $this->passportGeneratorGateway->getFoodsaverLastPassDate($userId);
+        if (empty($lastPassDate)) {
+            return false;
+        }
+
+        // Check if the passport is still valid at $date
+        $validUntil = $this->getPassportValidityEnd($lastPassDate);
+
+        return $validUntil >= $date;
+    }
+
     public function generatePassportAsAmbassador(CreateRegionPassportModel $regionPassportModel): mixed
     {
         $result = new stdClass();
@@ -395,25 +418,5 @@ class PassportGeneratorTransaction
         }
 
         return $result;
-    }
-
-    /**
-     * Checks if the user's passport is still valid.
-     *
-     * Retrieves the last passport date for the given user ID and determines
-     * if the passport is still valid based on that date.
-     *
-     * @param int $userId the ID of the user whose passport validity is being checked
-     * @return bool true if the passport is still valid, false otherwise
-     */
-    public function isPassportValidForUser(int $userId): bool
-    {
-        $lastPassDate = $this->passportGeneratorGateway->getFoodsaverLastPassDate($userId);
-
-        if (empty($lastPassDate)) {
-            return false;
-        }
-
-        return $this->isPassportValid($lastPassDate);
     }
 }

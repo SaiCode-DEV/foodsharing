@@ -75,7 +75,7 @@
             :is-coordinator="isCoordinator"
             :user="user"
             :description="pickup.description"
-            :disabled="userStore.isPassportInvalid"
+            :passport-still-valid="isPassportValidOn(pickup.date)"
             class="pickup-block"
             @leave="leave"
             @kick="kick"
@@ -255,6 +255,11 @@ export default {
         pulseError(this.$i18n('pickuplist.error_changeSlotCount') + e)
       }
       await this.tryLoadPickups()
+    },
+    isPassportValidOn (date) {
+      if (!this.userStore.isLoadingFinished) return null
+      const DaysUntilPickup = Math.ceil((date - new Date()) / (1000 * 60 * 60 * 24))
+      return this.userStore.details?.lastPassUntilValid ? (this.userStore.details.lastPassUntilValidInDays > DaysUntilPickup) : false
     },
   },
 }

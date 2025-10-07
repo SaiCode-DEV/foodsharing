@@ -1267,6 +1267,9 @@ pickup:
   join_cancel: "Doch nicht"
   join_agree: "Ja, verbindlich eintragen"
   take_empty_slot: "Hier eintragen"
+  passport_expired:
+    short: "Ausweis abgelaufen"
+    long: "Dein Ausweis ist zu diesem Zeitpunkt nicht mehr gültig"
   delete_title: "Abholtermin löschen"
   edit_description: "Beschreibung bearbeiten"
   description: "Beschreibung"

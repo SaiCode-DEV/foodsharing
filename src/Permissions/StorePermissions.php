@@ -314,9 +314,20 @@ class StorePermissions
         return $this->maySeePickups($storeId);
     }
 
-    public function mayDoPickup(int $storeId, ?DateTime $time = null): bool
+    /**
+     * Determines if the current user is allowed to perform a pickup at the specified store and time.
+     *
+     * @param int $storeId the ID of the store to check permissions for
+     * @param DateTime $time the date and time of the pickup
+     * @param string $error a reference to a string that will be set with an
+     * error message if the user is not allowed to do the pickup
+     * @return bool returns if the user is not allowed to do the pickup
+     */
+    public function mayDoPickup(int $storeId, DateTime $time, string &$error): bool
     {
         if (!$this->maySeePickups($storeId)) {
+            $error = 'You do not have permission to see pickups for this store.';
+
             return false;
         }
 
@@ -324,11 +335,15 @@ class StorePermissions
             $this->storeGateway->getStoreRequiresHygiene($storeId) &&
             !$this->achievementGateway->hasAchievement($this->session->id(), AchievementIDs::HYGIENE_CERTIFICATE, $time)
         ) {
+            $error = 'You do not have the required hygiene certificate to do pickups or it expires before the pickup.';
+
             return false;
         }
 
         // Check if passValidityDate is set and if the date is in the future
-        if (!$this->passportGeneratorTransaction->isPassportValidForUser($this->session->id())) {
+        if (!$this->passportGeneratorTransaction->isPassportStillValidAt($this->session->id(), $time)) {
+            $error = 'Your passport is not valid for the selected date.';
+
             return false;
         }
 

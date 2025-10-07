@@ -507,6 +507,25 @@ class PickupApiCest
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
     }
 
+    public function cannotJoinPickupAfterPassportExpiry(ApiTester $I): void
+    {
+        $pickupBaseDate = Carbon::now()->addYears(4);
+        $pickupBaseDate->hours(14)->minutes(45)->seconds(0);
+        $I->addPickup($this->store['id'], ['time' => $pickupBaseDate, 'fetchercount' => 2]);
+
+        // Set expired passport
+        $I->updateInDatabase('fs_foodsaver', [
+            'last_pass' => Carbon::now()->subYears(1)->toDateTimeString()
+        ], [
+            'id' => $this->user['id']
+        ]);
+
+        $I->login($this->user['email']);
+        $I->sendPost('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toIso8601String() . '/' . $this->user['id']);
+        $I->seeResponseIsJson();
+        $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
+    }
+
     public function listSameDayAgenda(ApiTester $I)
     {
         // Add past pickup

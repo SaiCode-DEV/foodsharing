@@ -59,8 +59,9 @@ final class PickupRestController extends AbstractFoodsharingRestController
 
         $date = TimeHelper::parsePickupDate($pickupDate);
 
-        if (!$this->storePermissions->mayDoPickup($storeId, $date)) {
-            throw new AccessDeniedHttpException();
+        $reason = '';
+        if (!$this->storePermissions->mayDoPickup($storeId, $date, $reason)) {
+            throw new AccessDeniedHttpException($reason);
         }
 
         try {

@@ -43,6 +43,14 @@
             {{ description }}
           </i>
         </div>
+        <div
+          v-if="!passportStillValid"
+          v-b-tooltip="$i18n('pickup.passport_expired.long')"
+          class="text-danger"
+        >
+          <i class="fas fa-id-card" />
+          {{ $i18n('pickup.passport_expired.short') }}
+        </div>
       </div>
       <p class="pickup-text">
         <ul class="slots">
@@ -63,7 +71,8 @@
           <EmptySlot
             v-for="n in emptySlots"
             :key="n"
-            :allow-join="!isUserParticipant && isAvailable && n == 1 && !disabled"
+            :allow-join="!isUserParticipant && isAvailable && n == 1 && passportStillValid"
+            :passport-still-valid="passportStillValid"
             :allow-remove="(isCoordinator || mayEditStore) && n == emptySlots && !isInPast"
             @join="$refs.modal_join.show(); fetchSameDayAgenda(); checkPickupRule()"
             @remove="$emit('remove-slot', date)"
@@ -278,7 +287,7 @@ export default {
     isCoordinator: { type: Boolean, default: false },
     user: { type: Object, default: () => { return { id: null } } },
     description: { type: String, default: () => { return null } },
-    disabled: { type: Boolean, default: true },
+    passportStillValid: { type: Boolean, default: false },
   },
   setup () {
     return {
