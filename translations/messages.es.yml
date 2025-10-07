@@ -3470,11 +3470,12 @@ settings:
       "true": Sí, mostrar mis últimas citas en el calendario
     program:
       google: El calendario de Google
-      outlook: Outlook
-      thunderbird: Thunderbird
+      outlook: Microsoft Outlook
+      thunderbird: Mozilla Thunderbird
       other: Otra
       label: ¿Qué programa de calendario utilizas?
       apple_etar: Calendario de Apple / Etar
+      apple: Apple Calendario
     formatting:
       label: ¿Qué formato deben tener las descripciones de los nombramientos?
       html: HTML
