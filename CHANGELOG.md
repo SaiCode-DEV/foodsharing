@@ -51,6 +51,7 @@ This file is deprecated and will be removed in a future release. Please use the 
 - Disallow foodsavers to change their birthday #2183 !4075 @AntonBallmaier
 - New replying function in the chat component !4090 @alex.simm
 - Inverted action of the hygiene filter on the store team page !4127 @DL6ER
+- Improve strings of calendar export form !4120 @iron9
 - Put subscribed events before event options on the dashboard for better visibility !4150 @DL6ER
 - Improve message template suggested for slots returned to the team !4151 @DL6ER
 - Passwords need a minimum "complexity" of 8 characters, at least one uppercase letter, one lowercase letter, and one number #2329 !4152 @DL6ER

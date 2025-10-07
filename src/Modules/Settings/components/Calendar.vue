@@ -78,12 +78,20 @@ export default {
       eventOptions: this.optionsArray(['all', 'invitations', 'maybe', 'accepted', 'none'], 'event'),
       historyOptions: this.optionsArray([true, false], 'history'),
       programOptions: [
-        { value: { protocol: 'https', formatting: 'html' }, text: this.$i18n('settings.calendar.program.google') },
-        { value: { protocol: 'webcal', formatting: 'alt' }, text: this.$i18n('settings.calendar.program.outlook') },
-        { value: { protocol: 'https', formatting: 'alt' }, text: this.$i18n('settings.calendar.program.thunderbird') },
-        { value: { protocol: 'webcal', formatting: 'text' }, text: this.$i18n('settings.calendar.program.apple_etar') },
+        { value: 'google', text: this.$i18n('settings.calendar.program.google') },
+        { value: 'outlook', text: this.$i18n('settings.calendar.program.outlook') },
+        { value: 'thunderbird', text: this.$i18n('settings.calendar.program.thunderbird') },
+        { value: 'apple', text: this.$i18n('settings.calendar.program.apple') },
+        { value: 'etar', text: this.$i18n('settings.calendar.program.etar') },
         { value: 'other', text: this.$i18n('settings.calendar.program.other') },
       ],
+      programSettings: {
+        google: { protocol: 'https', formatting: 'html' },
+        outlook: { protocol: 'webcal', formatting: 'alt' },
+        thunderbird: { protocol: 'https', formatting: 'alt' },
+        apple: { protocol: 'webcal', formatting: 'text' },
+        etar: { protocol: 'webcal', formatting: 'text' },
+      },
       protocolOptions: ['https', 'webcal'].map(value => ({ value, text: `${value}://...` })),
       formattingOptions: this.optionsArray(['html', 'alt', 'text'], 'formatting'),
       reminderOptions: [
@@ -99,7 +107,7 @@ export default {
   },
   computed: {
     url () {
-      const programSettings = this.selectedProgram === 'other' ? this : this.selectedProgram
+      const programSettings = this.selectedProgram === 'other' ? this : this.programSettings[this.selectedProgram]
       if (!programSettings || !this.token) return false
       const remindersList = this.reminders.join(',')
       return `${programSettings.protocol}://${location.host}/api/calendar/${this.token}?formatting=${programSettings.formatting}&events=${this.includeEvents}&pickups=${this.includePickups}&history=${this.includeHistory}&reminders=${remindersList}`
