@@ -2598,10 +2598,7 @@ basket:
   where: "Wo?"
   provider: "Anbieter:in"
   requests: "Anfragen ({count})"
-  login: |
-    Für detaillierte Infos musst du eingeloggt sein.
-    Bist du noch nicht als Foodsharer:in registriert?
-    Dann klick oben auf <b>Mitmachen</b> und leg direkt los.
+  login: "Für detaillierte Infos musst du eingeloggt sein. Bist du noch nicht als Foodsharer:in registriert? Dann klick oben auf **Mitmachen** und leg direkt los."
   taken: |
     <b>Dieser Essenskorb ist leider nicht mehr verfügbar.</b>
     <br><br>

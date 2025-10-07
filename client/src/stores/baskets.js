@@ -28,6 +28,11 @@ export const BASKET_REQUEST_STATUS = Object.freeze({
   REQUESTED: 10,
 })
 
+export const BASKET_CONTACT_TYPE = Object.freeze({
+  BY_MESSAGE: 1,
+  BY_PHONE: 2,
+})
+
 export const useBasketStore = defineStore('basket', {
   state: () => ({
     own: [],

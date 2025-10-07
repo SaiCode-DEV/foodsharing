@@ -6,6 +6,7 @@ use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Core\DBConstants\Basket\Status;
 use Foodsharing\Modules\Core\DBConstants\Map\MapConstants;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
+use Foodsharing\Permissions\BasketPermissions;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -14,6 +15,7 @@ class BasketController extends FoodsharingController
     public function __construct(
         private readonly BasketView $view,
         private readonly BasketGateway $basketGateway,
+        private readonly BasketPermissions $basketPermissions,
     ) {
         parent::__construct();
     }
@@ -51,19 +53,25 @@ class BasketController extends FoodsharingController
             return $this->redirect('/essenskoerbe/find');
         }
 
-        $this->pageHelper->addBread($this->translator->trans('terminology.baskets'));
-
-        $requests = false;
+        $requests = null;
+        $ownRequest = null;
 
         if ($this->session->mayRole()) {
             if ($basket->creator->id == $this->session->id()) {
                 $requests = $this->basketGateway->listRequests($basket->id);
             } else {
-                $requests = $this->basketGateway->getRequest($basket->id, $this->session->id(), $basket->creator->id);
+                $ownRequest = $this->basketGateway->getRequest($basket->id, $this->session->id(), $basket->creator->id);
             }
         }
         if ($basket->status === Status::REQUESTED_MESSAGE_READ && $basket->until >= time()) {
-            $this->view->basket($basket, $requests);
+            $this->pageHelper->addContent($this->prepareVueComponent('vue-basket-page', 'basket-page', [
+                'basket' => $basket,
+                'requests' => $requests,
+                'hasRequested' => !empty($ownRequest),
+                'mayEdit' => $this->basketPermissions->mayEdit($basket->creator->id),
+                'mayDelete' => $this->basketPermissions->mayDelete($basket),
+                'mayRequest' => $this->basketPermissions->mayRequest($basket->creator->id)
+            ]));
         } elseif ($basket->status === Status::DELETED_OTHER_REASON || $basket->status === Status::DENIED || $basket->until <= time()) {
             $this->view->basketTaken($basket);
         }
