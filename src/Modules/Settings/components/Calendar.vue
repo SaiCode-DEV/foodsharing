@@ -24,6 +24,9 @@
           <b-form-select v-model="formatting" :options="formattingOptions" />
         </b-form-group>
       </div>
+      <b-form-group :label="$i18n('settings.calendar.reminders.label')">
+        <b-form-checkbox-group v-model="reminders" :options="reminderOptions" />
+      </b-form-group>
     </b-form>
     <b-button-toolbar>
       <b-dropdown
@@ -70,6 +73,7 @@ export default {
       selectedProgram: null,
       protocol: 'https',
       formatting: 'alt',
+      reminders: [60],
       pickupOptions: this.optionsArray([true, false], 'pickup'),
       eventOptions: this.optionsArray(['all', 'invitations', 'maybe', 'accepted', 'none'], 'event'),
       historyOptions: this.optionsArray([true, false], 'history'),
@@ -82,13 +86,23 @@ export default {
       ],
       protocolOptions: ['https', 'webcal'].map(value => ({ value, text: `${value}://...` })),
       formattingOptions: this.optionsArray(['html', 'alt', 'text'], 'formatting'),
+      reminderOptions: [
+        { value: 15, text: this.$i18n('settings.calendar.reminders.15_minutes') },
+        { value: 30, text: this.$i18n('settings.calendar.reminders.30_minutes') },
+        { value: 60, text: this.$i18n('settings.calendar.reminders.1_hour') },
+        { value: 180, text: this.$i18n('settings.calendar.reminders.3_hours') },
+        { value: 360, text: this.$i18n('settings.calendar.reminders.6_hours') },
+        { value: 720, text: this.$i18n('settings.calendar.reminders.12_hours') },
+        { value: 1440, text: this.$i18n('settings.calendar.reminders.1_day') },
+      ],
     }
   },
   computed: {
     url () {
       const programSettings = this.selectedProgram === 'other' ? this : this.selectedProgram
       if (!programSettings || !this.token) return false
-      return `${programSettings.protocol}://${location.host}/api/calendar/${this.token}?formatting=${programSettings.formatting}&events=${this.includeEvents}&pickups=${this.includePickups}&history=${this.includeHistory}`
+      const remindersList = this.reminders.join(',')
+      return `${programSettings.protocol}://${location.host}/api/calendar/${this.token}?formatting=${programSettings.formatting}&events=${this.includeEvents}&pickups=${this.includePickups}&history=${this.includeHistory}&reminders=${remindersList}`
     },
     disableGenerating () {
       if (!this.selectedProgram) return true

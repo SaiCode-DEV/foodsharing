@@ -2245,6 +2245,15 @@ settings:
       html: "HTML"
       alt: "Text mit HTML als Alternativrepräsentation"
       text: "Nur Text"
+    reminders:
+      label: "Sollen Erinnerungen für deine Termine gesetzt werden?"
+      15_minutes: 15 Minuten vorher
+      30_minutes: 30 Minuten vorher
+      1_hour: 1 Stunde vorher
+      3_hours: 3 Stunden vorher
+      6_hours: 6 Stunden vorher
+      12_hours: 12 Stunden vorher
+      1_day: 1 Tag vorher
 
   photo:
     title: "Dein Foto"

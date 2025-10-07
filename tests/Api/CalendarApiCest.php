@@ -132,6 +132,24 @@ class CalendarApiCest
         $I->seeResponseContains('BEGIN:VCALENDAR');
         $I->seeResponseContains(substr((string)$this->invitedEvent['name'], 0, 10));
         $I->seeResponseContains(substr((string)$this->acceptedEvent['name'], 0, 10));
+
+        // Calendars without explicitly set reminders should not contain
+        // reminders
+        $I->cantSeeResponseContains('BEGIN:VALARM');
+    }
+
+    public function canSetReminders(ApiTester $I): void
+    {
+        $I->login($this->user['email']);
+        $I->haveInDatabase('fs_apitoken', [
+            'foodsaver_id' => $this->user['id'],
+            'token' => self::TEST_TOKEN
+        ]);
+        $I->sendGet('api/calendar/' . self::TEST_TOKEN . '?reminders=600');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseContains('BEGIN:VALARM');
+        $I->seeResponseContains('TRIGGER:-PT600S');
+        $I->seeResponseContains('ACTION:DISPLAY');
     }
 
     public function canFilterOutInvitations(ApiTester $I)

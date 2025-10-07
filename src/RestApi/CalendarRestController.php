@@ -17,6 +17,7 @@ use Jsvrcek\ICS\CalendarExport;
 use Jsvrcek\ICS\CalendarStream;
 use Jsvrcek\ICS\Exception\CalendarEventException;
 use Jsvrcek\ICS\Model\Calendar;
+use Jsvrcek\ICS\Model\CalendarAlarm;
 use Jsvrcek\ICS\Model\CalendarEvent;
 use Jsvrcek\ICS\Model\Description\Location;
 use Jsvrcek\ICS\Utility\Formatter;
@@ -158,6 +159,7 @@ class CalendarRestController extends AbstractFOSRestController
     #[Rest\QueryParam(name: 'events', default: 'invitations', description: 'Include all or only answered invitations to events')]
     #[Rest\QueryParam(name: 'pickups', default: true, description: 'Whether to include pickups')]
     #[Rest\QueryParam(name: 'history', default: true, description: 'Whether to include some past events')]
+    #[Rest\QueryParam(name: 'reminders', default: '', description: 'List of reminders to include in the calendar')]
     public function listAppointments(string $token, ParamFetcher $paramFetcher): Response
     {
         // check access token
@@ -172,8 +174,19 @@ class CalendarRestController extends AbstractFOSRestController
         $includeHistory = $includeHistory ? $includeHistory !== 'false' : false;
         $includePickups = $paramFetcher->get('pickups');
         $includePickups = $includePickups ? $includePickups !== 'false' : false;
-        if (!$formatting || !$includedEvents) {
-            throw new BadRequestHttpException();
+        $reminders = $paramFetcher->get('reminders') ?? '';
+        $reminders = strlen($reminders) > 0 ? explode(',', $reminders) : [];
+        $remindersEitherEmptyOrAllPositive = array_reduce($reminders, function ($carry, $item) {
+            return $carry && (is_numeric($item) && $item > 0);
+        }, true);
+        if (!$formatting) {
+            throw new BadRequestHttpException('Invalid formatting type');
+        }
+        if (!$includedEvents) {
+            throw new BadRequestHttpException('Invalid events type');
+        }
+        if (!$remindersEitherEmptyOrAllPositive) {
+            throw new BadRequestHttpException('Invalid reminder value');
         }
         $bufferDays = $includeHistory ? 14 : 0;
         $bufferMinutes = $bufferDays * 24 * 60;
@@ -182,7 +195,7 @@ class CalendarRestController extends AbstractFOSRestController
         $dates = $this->pickupGateway->getNextPickups($userId, null, $bufferMinutes);
         $pickups = [];
         if ($includePickups) {
-            $pickups = array_map(fn ($date) => $this->createPickupEvent($date, $userId, $formatting), $dates);
+            $pickups = array_map(fn ($date) => $this->createPickupEvent($date, $userId, $formatting, $reminders), $dates);
         }
 
         // add all future meetings
@@ -194,7 +207,7 @@ class CalendarRestController extends AbstractFOSRestController
             IncludeEventsType::NONE => [],
         };
         $meetings = $this->eventGateway->getEventsByStatus($userId, $statuses, $bufferDays);
-        $events = array_map(fn ($meeting) => $this->createMeetingEvent($meeting, $userId, $formatting), $meetings);
+        $events = array_map(fn ($meeting) => $this->createMeetingEvent($meeting, $userId, $formatting, $reminders), $meetings);
 
         return new Response($this->formatCalendarResponse(array_merge($pickups, $events)), Response::HTTP_OK, [
             'content-type' => 'text/calendar',
@@ -202,7 +215,7 @@ class CalendarRestController extends AbstractFOSRestController
         ]);
     }
 
-    private function createPickupEvent(array $pickup, int $userId, FormattingType $formatting): CalendarEvent
+    private function createPickupEvent(array $pickup, int $userId, FormattingType $formatting, array $reminders): CalendarEvent
     {
         $start = Carbon::createFromTimestamp($pickup['timestamp'], new DateTimeZone('Europe/Berlin'));
 
@@ -247,11 +260,12 @@ class CalendarRestController extends AbstractFOSRestController
         $event->setUrl($store_url);
         $event->setStatus($status);
         $event->addLocation($location);
+        $this->addReminders($event, $reminders);
 
         return $event;
     }
 
-    private function createMeetingEvent(array $meeting, int $userId, FormattingType $formatting): CalendarEvent
+    private function createMeetingEvent(array $meeting, int $userId, FormattingType $formatting, array $reminders): CalendarEvent
     {
         $url = BASE_URL . '/?page=event&id=' . $meeting['id'];
 
@@ -293,6 +307,7 @@ class CalendarRestController extends AbstractFOSRestController
             $location = (new Location())->setName($full_address);
             $event->addLocation($location);
         }
+        $this->addReminders($event, $reminders);
 
         return $event;
     }
@@ -316,6 +331,17 @@ class CalendarRestController extends AbstractFOSRestController
         $updated = $this->translator->trans('calendar.export.updated', ['{date}' => date('d.m.Y H:i')]);
 
         return "<br><br><i>{$updated}</i>";
+    }
+
+    private function addReminders(CalendarEvent &$event, array $reminders): void
+    {
+        foreach ($reminders as $reminder) {
+            $alarm = new CalendarAlarm();
+            $alarm->setAction('DISPLAY');
+            $alarm->setDescription($event->getSummary());
+            $alarm->setTrigger(new \DateInterval('PT' . $reminder . 'S'));
+            $event->addAlarm($alarm);
+        }
     }
 
     /**

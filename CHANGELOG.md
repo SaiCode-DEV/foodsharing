@@ -25,6 +25,7 @@ This file is deprecated and will be removed in a future release. Please use the 
 - Extend reply feature in forum to include a small header with a link to the referenced post !4146 @DL6ER
 - Disable selecting questions and answers in quizzes #2393 !4182 @AntonBallmaier
 - Improve Notifications with new design !4191 @SaiCode
+- Allow reminders to automatically be generated in exported calendars !4176 @DL6ER
 
 ## Changes
 - Include user agent in support ticket creation #2212 !3838 @AntonBallmaier
