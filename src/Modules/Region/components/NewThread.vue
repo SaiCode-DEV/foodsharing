@@ -13,6 +13,7 @@
       <label class="font-weight-bold mt-3" for="thread-content">{{ $i18n('forum.post.body') }}*</label>
       <MarkdownInput
         input-name="thread-content"
+        :draft-storage-id="'forum-create-thread-form-' + groupId"
         :rows="6"
         :value="body"
         :region-id="groupId"
@@ -84,6 +85,7 @@ export default {
       this.isLoading = true
       try {
         await createThread(this.groupId, this.subforumId, this.title, this.body, this.sendMail)
+        this.body = ''
         // redirect to forum overview
         window.location = this.$url('forum', this.groupId, this.subforumId)
       } catch (err) {

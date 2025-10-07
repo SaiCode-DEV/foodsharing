@@ -13,6 +13,7 @@
         />
         <MarkdownInput
           ref="input"
+          :draft-storage-id="'forum-thread-' + threadId"
           :rows="3"
           :value="text"
           :conceal-toolbar="true"
@@ -46,6 +47,7 @@ export default {
   props: {
     isOpen: { type: Boolean, default: false },
     regionId: { type: Number, default: null },
+    threadId: { type: Number, default: null },
   },
   data () {
     return {

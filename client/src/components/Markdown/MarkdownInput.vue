@@ -112,6 +112,7 @@ export default {
     allowImageAttachments: { type: Boolean, default: false },
     regionId: { type: Number, default: null },
     sharpEdged: { type: Boolean, default: false },
+    draftStorageId: { type: String, default: null },
   },
   data () {
     return {
@@ -158,12 +159,19 @@ export default {
   watch: {
     value (modelValue) {
       if (!modelValue) this.isPreview = false
+      this.saveInputToLocalStorage(modelValue) // Save input to localStorage
     },
     hasImages () {
       this.$emit('image-change', this.hasImages)
     },
+    uniqueId () {
+      // Load input from localStorage if uniqueId changes
+      // This is necessary on, e.g., forum threads
+      this.loadInputFromLocalStorage()
+    },
   },
   async mounted () {
+    this.loadInputFromLocalStorage() // Load input from localStorage
     // v-bootstrap doesn't handle initial values with row and max-row correctly.
     // This code updates the input height.
     if (this.modelValue === '') return
@@ -173,6 +181,26 @@ export default {
     this.modelValue = modelValue
   },
   methods: {
+    saveInputToLocalStorage (value) {
+      if (!this.uniqueId) return
+      const storageKey = 'markdown-input-' + this.uniqueId
+      localStorage.setItem(storageKey, value)
+      console.log('Saved to localStorage:', storageKey, value)
+    },
+    loadInputFromLocalStorage () {
+      if (!this.uniqueId) return
+      const storageKey = 'markdown-input-' + this.uniqueId
+      const savedValue = localStorage.getItem(storageKey)
+      if (savedValue !== null) {
+        this.modelValue = savedValue
+      }
+    },
+    clearInputFromLocalStorage () {
+      if (!this.uniqueId) return
+      const storageKey = 'markdown-input-' + this.uniqueId
+      localStorage.removeItem(storageKey)
+      console.log('Cleared from localStorage:', storageKey)
+    },
     getBaseTextArea () {
       return this.$refs.input?.$refs?.input ?? this.$refs.input?.querySelector('textarea')
     },

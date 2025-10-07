@@ -128,6 +128,7 @@
     <ThreadForm
       v-if="isOpen || mayModerate"
       ref="form"
+      :thread-id="id"
       :is-open="isOpen"
       :region-id="regionId"
       @submit="createPost"
