@@ -1234,10 +1234,11 @@ settings:
     program:
       apple_etar: Apple Kalender / Etar
       label: Hvilket kalenderprogram bruker du?
-      outlook: Outlook
-      thunderbird: Thunderbird
+      outlook: Microsoft Outlook
+      thunderbird: Mozilla Thunderbird
       google: Google calendar
       other: En annen
+      apple: Apple Kalender
     generate_url:
       button: Generer en kalender-URL
     download: Last ned kalenderen
