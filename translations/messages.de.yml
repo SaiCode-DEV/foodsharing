@@ -1880,6 +1880,9 @@ pickuplist:
   error_confirm: "Bestätigung fehlgeschlagen: "
   error_whileSending: "Fehler beim Senden der Nachricht"
   unclear: "Status unklar"
+  really_delete_last_slot:
+    title: "Letzten Slot löschen?"
+    body: "Willst du wirklich den letzten Slot löschen? Der Termin wird dadurch komplett entfernt."
 
 ageBandList:
   header_for_district: "Altersgruppen in {bezirk} "

@@ -14,7 +14,7 @@
       class="btn"
       @mouseover="hover = true"
       @mouseout="hover = false"
-      @click="$emit('remove')"
+      @click="$emit('remove-direct')"
     >
       <i :class="`fas ${hover ? 'fa-times' : 'fa-question'}`" />
     </button>
@@ -30,7 +30,7 @@
       <b-dropdown-item @click="$emit('join')">
         <i class="fas fa-check-circle" /> {{ $i18n('pickup.take_empty_slot') }}
       </b-dropdown-item>
-      <b-dropdown-item @click="$emit('remove')">
+      <b-dropdown-item @click="$emit('remove-menu')">
         <i class="fas fa-times-circle" /> {{ $i18n('pickup.slot_remove') }}
       </b-dropdown-item>
     </b-dropdown>

@@ -83,7 +83,7 @@
             @confirm="confirm"
             @delete="setSlots(pickup.date, 0, pickup.description)"
             @add-slot="setSlots(pickup.date, pickup.totalSlots + 1, pickup.description)"
-            @remove-slot="setSlots(pickup.date, pickup.totalSlots - 1, pickup.description)"
+            @remove-slot="deleteSlot(pickup.date, pickup.totalSlots, pickup.description, $event)"
             @team-message="sendTeamMessage"
             @edit-description="editDescription"
           />
@@ -92,6 +92,19 @@
     </Container>
     <AddPickupModal :store-id="storeId" />
     <DeletePickupModal :store-id="storeId" />
+    <b-modal
+      id="DeleteLastSlotModal"
+      ref="deleteLastSlotModal"
+      :title="$i18n('pickuplist.really_delete_last_slot.title')"
+      :cancel-title="$i18n('button.cancel')"
+      :ok-title="$i18n('button.yes_i_am_sure')"
+      ok-variant="outline-danger"
+      centered
+      @ok="confirmDeleteLastSlot"
+      @hide="lastSlotDeleteData = null"
+    >
+      <div>{{ $i18n('pickuplist.really_delete_last_slot.body') }}</div>
+    </b-modal>
   </div>
 </template>
 
@@ -148,6 +161,7 @@ export default {
       isModalOpen: false,
       user: this.userStore.getUser,
       interval: null,
+      lastSlotDeleteData: null,
     }
   },
   computed: {
@@ -236,6 +250,26 @@ export default {
         pulseError(this.$i18n('pickuplist.error_changeSlotCount') + e)
       }
       await this.tryLoadPickups()
+    },
+    async deleteSlot (date, totalSlots, description, confirm) {
+      // Ask for confirmation when deleting the last slot via direct click (not
+      // via menu)
+      if (confirm && totalSlots === 1) {
+        this.lastSlotDeleteData = { date, totalSlots, description }
+        this.$bvModal.show('DeleteLastSlotModal')
+        return
+      }
+      this.setSlots(date, totalSlots - 1, description)
+    },
+    confirmDeleteLastSlot () {
+      if (this.lastSlotDeleteData) {
+        this.setSlots(
+          this.lastSlotDeleteData.date,
+          this.lastSlotDeleteData.totalSlots - 1,
+          this.lastSlotDeleteData.description,
+        )
+        this.lastSlotDeleteData = null
+      }
     },
     async sendTeamMessage (msg) {
       try {

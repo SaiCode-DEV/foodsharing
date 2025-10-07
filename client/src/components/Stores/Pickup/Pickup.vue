@@ -75,7 +75,8 @@
             :passport-still-valid="passportStillValid"
             :allow-remove="(isCoordinator || mayEditStore) && n == emptySlots && !isInPast"
             @join="$refs.modal_join.show(); fetchSameDayAgenda(); checkPickupRule()"
-            @remove="$emit('remove-slot', date)"
+            @remove-direct="$emit('remove-slot', true)"
+            @remove-menu="$emit('remove-slot', false)"
           />
           <div class="add-pickup-slot">
             <button
