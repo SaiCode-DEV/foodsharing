@@ -533,9 +533,10 @@ settings:
       apple_etar: Calendrier Apple / Etar
       other: un autre programme
       google: Calendrier Google
-      outlook: Outlook
-      thunderbird: Thunderbird
+      outlook: Microsoft Outlook
+      thunderbird: Mozilla Thunderbird
       label: Quel programme de calendrier utilises-tu ?
+      apple: Apple Calendrier
     formatting:
       label: Comment formater les descriptions ?
       html: HTML
