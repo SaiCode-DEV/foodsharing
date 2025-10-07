@@ -162,20 +162,20 @@ export default {
       default: false,
     },
     regionPickupRuleTimespan: {
-      type: String,
-      default: '',
+      type: Number,
+      default: 0,
     },
     regionPickupRuleLimit: {
-      type: String,
-      default: '',
+      type: Number,
+      default: 0,
     },
     regionPickupRuleLimitDay: {
-      type: String,
-      default: '',
+      type: Number,
+      default: 0,
     },
     regionPickupRuleInactive: {
-      type: String,
-      default: '',
+      type: Number,
+      default: 0,
     },
     weightType: {
       type: Number,

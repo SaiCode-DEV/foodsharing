@@ -24,6 +24,27 @@ class RegionOptionApiCest
         $this->region = $I->createRegion(fillMailbox: false);
         $this->userBot = $I->createAmbassador();
         $I->addRegionAdmin($this->region['id'], $this->userBot['id']);
+
+        // Initialise the regions options with random values
+        $values = [
+            RegionOptionType::ENABLE_REPORT_BUTTON => (rand(0, 1) == 1),
+            RegionOptionType::ENABLE_MEDIATION_BUTTON => (rand(0, 1) == 1),
+            RegionOptionType::REGION_PICKUP_RULE_ACTIVE => (rand(0, 1) == 1),
+            RegionOptionType::REGION_PICKUP_RULE_TIMESPAN_DAYS => random_int(1, 31),
+            RegionOptionType::REGION_PICKUP_RULE_LIMIT_NUMBER => random_int(1, 14),
+            RegionOptionType::REGION_PICKUP_RULE_LIMIT_DAY_NUMBER => random_int(1, 100),
+            RegionOptionType::REGION_PICKUP_RULE_INACTIVE_HOURS => array_rand([4, 8, 12, 16, 24, 36, 48, 60, 72]),
+            RegionOptionType::ALLOW_HIDING_IN_FORUM => (rand(0, 1) == 1),
+            RegionOptionType::REPORT_REASON_OPTIONS => (rand(0, 1) == 1),
+            RegionOptionType::REPORT_REASON_OTHER => (rand(0, 1) == 1)
+        ];
+        foreach ($values as $type => $value) {
+            $I->haveInDatabase('fs_region_options', [
+                'region_id' => $this->region['id'],
+                'option_type' => $type,
+                'option_value' => $value
+            ]);
+        }
     }
 
     public function addRegionOption(ApiTester $I): void
@@ -77,5 +98,47 @@ class RegionOptionApiCest
             'option_type' => RegionOptionType::REGION_PICKUP_RULE_INACTIVE_HOURS,
             'option_value' => '12'
         ]);
+    }
+
+    public function canFetchRegionOptions(ApiTester $I): void
+    {
+        $I->login($this->userBot[self::EMAIL]);
+        $I->sendGET('api/region/' . $this->region['id'] . '/options');
+        $I->seeResponseCodeIs(Http::OK);
+        $I->seeResponseIsJson();
+
+        $comparisonBool = [
+            'isReportButtonEnabled' => RegionOptionType::ENABLE_REPORT_BUTTON,
+            'isMediationButtonEnabled' => RegionOptionType::ENABLE_MEDIATION_BUTTON,
+            'isRegionPickupRuleActive' => RegionOptionType::REGION_PICKUP_RULE_ACTIVE,
+            'allowHidingInForum' => RegionOptionType::ALLOW_HIDING_IN_FORUM,
+            'selectedReportReasonOptions' => RegionOptionType::REPORT_REASON_OPTIONS,
+            'isReportReasonOtherEnabled' => RegionOptionType::REPORT_REASON_OTHER,
+        ];
+        $comparisonInt = [
+            'regionPickupRuleTimespanDays' => RegionOptionType::REGION_PICKUP_RULE_TIMESPAN_DAYS,
+            'regionPickupRuleLimitNumber' => RegionOptionType::REGION_PICKUP_RULE_LIMIT_NUMBER,
+            'regionPickupRuleLimitDayNumber' => RegionOptionType::REGION_PICKUP_RULE_LIMIT_DAY_NUMBER,
+            'regionPickupRuleInactiveHours' => RegionOptionType::REGION_PICKUP_RULE_INACTIVE_HOURS,
+        ];
+
+        foreach ($comparisonBool as $name => $type) {
+            $I->assertEquals(
+                $I->grabDataFromResponseByJsonPath($name)[0],
+                boolval($I->grabFromDatabase('fs_region_options', 'option_value', [
+                    'region_id' => $this->region['id'],
+                    'option_type' => $type
+                ]))
+            );
+        }
+        foreach ($comparisonInt as $name => $type) {
+            $I->assertEquals(
+                $I->grabDataFromResponseByJsonPath($name)[0],
+                intval($I->grabFromDatabase('fs_region_options', 'option_value', [
+                    'region_id' => $this->region['id'],
+                    'option_type' => $type
+                ]))
+            );
+        }
     }
 }

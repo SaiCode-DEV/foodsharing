@@ -9,7 +9,6 @@ use Foodsharing\Lib\WebSocketConnection;
 use Foodsharing\Modules\Achievement\AchievementGateway;
 use Foodsharing\Modules\Basket\BasketGateway;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
-use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Group\GroupGateway;
@@ -219,15 +218,13 @@ final class ProfileController extends FoodsharingController
         // what is the viewer allowed to do in this profile?
         if (!empty($regionId) && $userArray['rolle'] > Role::FOODSHARER->value) {
             // MediationRequest
-            $regionOptions = $this->regionGateway->getAllRegionOptions($regionId);
-            if ($regionOptions[RegionOptionType::ENABLE_MEDIATION_BUTTON] ?? false) {
+            $regionOptions = $this->regionGateway->getRegionOptions($regionId);
+            if ($regionOptions->isMediationButtonEnabled) {
                 $mediationGroupEmail = $this->renderMediationRequest($userArray);
             }
 
             // ReportRequest
-            $isReportButtonEnabled = boolval($regionOptions[RegionOptionType::ENABLE_REPORT_BUTTON] ?? false);
-
-            if ($isReportButtonEnabled) {
+            if ($regionOptions->isReportButtonEnabled) {
                 // if the current user is not allowed to see all stores of the profile, the report dialog will only show stores in which both users are
                 if ($maySeeStores) {
                     $reportStores = $userStores;
@@ -294,8 +291,8 @@ final class ProfileController extends FoodsharingController
 
                 $buttonNameReportRequest = $this->translator->trans('profile.reportRequest');
 
-                $reasonOptionOther = boolval($regionOptions[RegionOptionType::REPORT_REASON_OTHER] ?? 1);
-                $reasonOptionSettings = intval($regionOptions[RegionOptionType::REPORT_REASON_OPTIONS] ?? 1);
+                $reasonOptionOther = $regionOptions->isReportReasonOtherEnabled;
+                $reasonOptionSettings = $regionOptions->selectedReportReasonOptions;
             }
         }
 
@@ -321,7 +318,7 @@ final class ProfileController extends FoodsharingController
             'isReporterIdReportAdmin' => $isReporterIdReportAdmin ?? false,
             'isReporterIdArbitrationAdmin' => $isReporterIdArbitrationAdmin ?? false,
             'isReportedIdArbitrationAdmin' => $isReportedIdArbitrationAdmin ?? false,
-            'isReportButtonEnabled' => $isReportButtonEnabled ?? false,
+            'isReportButtonEnabled' => $regionOptions->isReportButtonEnabled ?? false,
             'reasonOptionOther' => $reasonOptionOther ?? false,
             'reasonOptionSettings' => $reasonOptionSettings ?? 1,
             'reporterHasReportGroup' => $reporterHasReportGroup ?? false,

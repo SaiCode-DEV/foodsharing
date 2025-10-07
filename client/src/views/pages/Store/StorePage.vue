@@ -95,11 +95,11 @@
               :press="storeInformation.publicity"
               :store-id="storeId"
               :region-pickup-rules="storeInformation.options.useRegionPickupRule"
-              :region-pickup-rule-active="regionPickupRule.regionPickupRuleActive"
-              :region-pickup-rule-timespan="regionPickupRule.regionPickupRuleTimespan"
-              :region-pickup-rule-limit="regionPickupRule.regionPickupRuleLimit"
-              :region-pickup-rule-limit-day="regionPickupRule.regionPickupRuleLimitDay"
-              :region-pickup-rule-inactive="regionPickupRule.regionPickupRuleInactive"
+              :region-pickup-rule-active="regionOptions.isRegionPickupRuleActive"
+              :region-pickup-rule-timespan="regionOptions.regionPickupRuleTimespan"
+              :region-pickup-rule-limit="regionOptions.regionPickupRuleLimit"
+              :region-pickup-rule-limit-day="regionOptions.regionPickupRuleLimitDay"
+              :region-pickup-rule-inactive="regionOptions.regionPickupRuleInactiveHours"
             />
             <PickupList
               v-if="permissions.maySeePickup"
@@ -213,7 +213,7 @@ export default {
     permissions () {
       return StoreData.getters.getStorePermissions()
     },
-    regionPickupRule () {
+    regionOptions () {
       return StoreData.getters.getStoreRegionOptions()
     },
     loadedPickups () {

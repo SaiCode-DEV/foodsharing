@@ -2,7 +2,7 @@
   <Container :title="$i18n('regionOptions.header_page', { bezirk: regionName })">
     <div class="list-group-item">
       <b-form-checkbox
-        v-model="reportButtonEnabled"
+        v-model="isReportButtonEnabled"
         :disabled="!maySetReport"
       >
         {{ $i18n('regionOptions.enableReportButton') }}
@@ -15,18 +15,18 @@
             :options="reportReasonOptionsRadio"
             name="radio-options-slots"
             stacked
-            :disabled="!reportButtonEnabled || !maySetReport"
+            :disabled="!isReportButtonEnabled || !maySetReport"
           />
         </b-form-group>
         <b-form-checkbox
-          v-model="reportReasonOtherEnabled"
-          :disabled="!reportButtonEnabled || !maySetReport"
+          v-model="isReportReasonOtherEnabled"
+          :disabled="!isReportButtonEnabled || !maySetReport"
         >
           {{ $i18n('regionOptions.regionReportReasonOther') }}
         </b-form-checkbox>
       </div>
       <b-form-checkbox
-        v-model="mediationButtonEnabled"
+        v-model="isMediationButtonEnabled"
         :disabled="!maySetReport"
       >
         {{ $i18n('regionOptions.enableMediationButton') }}
@@ -43,9 +43,9 @@
       </b-form-checkbox>
       <b-row class="my-1">
         <b-col>
-          <label>{{ $i18n('regionOptions.regionPickupTimespan') }}: {{ pickupRuleTimespan }}</label>
+          <label>{{ $i18n('regionOptions.regionPickupTimespan') }}: {{ regionPickupRuleTimespanDays }}</label>
           <b-form-input
-            v-model="pickupRuleTimespan"
+            v-model="regionPickupRuleTimespanDays"
             type="range"
             min="1"
             max="31"
@@ -55,9 +55,9 @@
       </b-row>
       <b-row class="my-1">
         <b-col>
-          <label>{{ $i18n('regionOptions.regionPickupLimitNumber') }}: {{ pickupRuleLimit }} </label>
+          <label>{{ $i18n('regionOptions.regionPickupLimitNumber') }}: {{ regionPickupRuleLimitNumber }} </label>
           <b-form-input
-            v-model="pickupRuleLimit"
+            v-model="regionPickupRuleLimitNumber"
             type="range"
             min="1"
             max="14"
@@ -68,9 +68,9 @@
       </b-row>
       <b-row class="my-1">
         <b-col>
-          <label>{{ $i18n('regionOptions.regionPickupLimitDayNumber') }}: {{ pickupRuleLimitDay }}</label>
+          <label>{{ $i18n('regionOptions.regionPickupLimitDayNumber') }}: {{ regionPickupRuleLimitDayNumber }}</label>
           <b-form-input
-            v-model="pickupRuleLimitDay"
+            v-model="regionPickupRuleLimitDayNumber"
             type="range"
             min="1"
             :max="rangeDayLimit"
@@ -84,7 +84,7 @@
         </b-col>
         <b-col>
           <b-form-select
-            v-model="pickupRuleInactive"
+            v-model="regionPickupRuleInactiveHours"
             :options="optionsIgnoreRuleHours"
             :disabled="!maySetRule || !regionPickupRuleActive"
           />
@@ -120,7 +120,7 @@
   </Container>
 </template>
 <script>
-import { setRegionOptions } from '@/api/regions'
+import { getRegionOptions, setRegionOptions } from '@/api/regions'
 import { hideLoader, pulseError, pulseInfo, showLoader } from '@/script'
 import Container from '@/components/Container/Container.vue'
 import ContainerButton from '@/components/Container/ContainerButton.vue'
@@ -141,16 +141,16 @@ export default {
     return {
       maySetReport: this.pageData.maySetRegionOptionsReportButtons,
       maySetRule: this.pageData.maySetRegionOptionsRegionPickupRule,
-      reportButtonEnabled: this.pageData.isReportButtonEnabled,
-      mediationButtonEnabled: this.pageData.isMediationButtonEnabled,
-      regionPickupRuleActive: this.pageData.isRegionPickupRuleActive,
-      pickupRuleTimespan: this.pageData.regionPickupRuleTimespanDays,
-      pickupRuleLimit: this.pageData.regionPickupRuleLimitNumber,
-      pickupRuleLimitDay: this.pageData.regionPickupRuleLimitDayNumber,
-      pickupRuleInactive: this.pageData.regionPickupRuleInactiveHours,
-      rangeDayLimit: this.pageData.rangeDayLimitNum,
-      selectedReportReasonOptions: this.pageData.selectedReportReasonOptions,
-      reportReasonOtherEnabled: !!this.pageData.reportReasonOtherEnabled,
+      isReportButtonEnabled: false,
+      isMediationButtonEnabled: false,
+      regionPickupRuleActive: false,
+      regionPickupRuleTimespanDays: 0,
+      regionPickupRuleLimitNumber: 0,
+      regionPickupRuleLimitDayNumber: 0,
+      regionPickupRuleInactiveHours: 0,
+      rangeDayLimit: 100,
+      selectedReportReasonOptions: 1,
+      isReportReasonOtherEnabled: false,
       sortBy: 'storeName',
       fields: [{
         key: 'storeName',
@@ -175,17 +175,27 @@ export default {
       ],
     }
   },
+  async mounted () {
+    showLoader()
+    try {
+      const response = await getRegionOptions(this.regionId)
+      Object.assign(this, response)
+    } catch (err) {
+      pulseError(this.$i18n('error_unexpected'))
+    }
+    hideLoader()
+  },
   methods: {
     onChangeMax () {
-      if (this.pickupRuleLimitDay > this.pickupRuleLimit) {
-        this.pickupRuleLimitDay = this.pickupRuleLimit
+      if (this.regionPickupRuleLimitDayNumber > this.regionPickupRuleLimitNumber) {
+        this.regionPickupRuleLimitDayNumber = this.regionPickupRuleLimitNumber
       }
-      this.rangeDayLimit = this.pickupRuleLimit
+      this.rangeDayLimit = this.regionPickupRuleLimitNumber
     },
     async trySendOptions () {
       showLoader()
       try {
-        await setRegionOptions(this.regionId, this.reportButtonEnabled, this.mediationButtonEnabled, this.regionPickupRuleActive, this.pickupRuleTimespan, this.pickupRuleLimit, this.pickupRuleLimitDay, this.pickupRuleInactive, this.selectedReportReasonOptions, this.reportReasonOtherEnabled)
+        await setRegionOptions(this.regionId, this.isReportButtonEnabled, this.isMediationButtonEnabled, this.regionPickupRuleActive, this.regionPickupRuleTimespanDays, this.regionPickupRuleLimitNumber, this.regionPickupRuleLimitDayNumber, this.regionPickupRuleInactiveHours, this.selectedReportReasonOptions, this.isReportReasonOtherEnabled)
         pulseInfo(this.$i18n('regionOptions.success'))
       } catch (err) {
         console.error(err)

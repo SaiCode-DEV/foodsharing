@@ -57,7 +57,7 @@ export const store = Vue.observable({
   storeMember: null,
   storeInformation: null,
   permissions: {},
-  regionPickupRule: {},
+  regionOptions: {},
   applications: [],
   invitations: [],
   log: [],
@@ -108,7 +108,7 @@ export const getters = {
     return store.permissions
   },
   getStoreRegionOptions () {
-    return store.regionPickupRule
+    return store.regionOptions
   },
   getStoreApplications () {
     return store.applications
@@ -150,7 +150,7 @@ export const mutations = {
     store.permissions = await getStorePermissions(storeId)
   },
   async loadGetRegionOptions (regionId) {
-    store.regionPickupRule = await getRegionOptions(regionId)
+    store.regionOptions = await getRegionOptions(regionId)
   },
   async loadStoreApplications (storeId) {
     store.applications = await listStoreTeamMembershipRequests(storeId)

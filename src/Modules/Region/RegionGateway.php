@@ -16,6 +16,7 @@ use Foodsharing\Modules\Region\DTO\BasicRegionStatistics;
 use Foodsharing\Modules\Region\DTO\HierachicalRegion;
 use Foodsharing\Modules\Region\DTO\MinimalRegionIdentifier;
 use Foodsharing\Modules\Region\DTO\PublicRegionData;
+use Foodsharing\Modules\Region\DTO\RegionOptions;
 use Foodsharing\Modules\Region\DTO\RegionPickupsPerDate;
 use Foodsharing\Modules\Region\DTO\RegionPin;
 use Foodsharing\RestApi\Models\Region\RegionForAdministration;
@@ -459,41 +460,44 @@ class RegionGateway extends BaseGateway
     }
 
     /**
-     * Returns all options for the region as an array, or an empty array if no options are set for the region.
+     * Returns all options for the region. If the region exists, the returned object will always contain all values
+     * independent of which options were actually set for the region. All options that were not yet set will contain
+     * the default value.
      *
      * @param int $regionId ID of region
      *
-     * @return array associative array of options or empty array if not found
-     *
-     * @deprecated This does not actually return all options, but only five specific types. It should be replaced by getAllRegionOptions.
+     * @return RegionOptions|null an object containing all options or null if the region was not found
      */
-    public function getRegionOptions(int $regionId): array
+    public function getRegionOptions(int $regionId): ?RegionOptions
     {
         try {
-            $optionTypes = [
-                RegionOptionType::REGION_PICKUP_RULE_ACTIVE => 'regionPickupRuleActive',
-                RegionOptionType::REGION_PICKUP_RULE_TIMESPAN_DAYS => 'regionPickupRuleTimespan',
-                RegionOptionType::REGION_PICKUP_RULE_LIMIT_NUMBER => 'regionPickupRuleLimit',
-                RegionOptionType::REGION_PICKUP_RULE_LIMIT_DAY_NUMBER => 'regionPickupRuleLimitDay',
-                RegionOptionType::REGION_PICKUP_RULE_INACTIVE_HOURS => 'regionPickupRuleInactive'
-            ];
-
             $options = $this->db->fetchAllByCriteria('fs_region_options', ['option_type', 'option_value'], [
                 'region_id' => $regionId,
-                'option_type' => array_keys($optionTypes)
             ]);
 
-            $mappedOptions = [];
+            $mapping = [
+                RegionOptionType::ENABLE_REPORT_BUTTON => 'isReportButtonEnabled',
+                RegionOptionType::ENABLE_MEDIATION_BUTTON => 'isMediationButtonEnabled',
+                RegionOptionType::REGION_PICKUP_RULE_ACTIVE => 'isRegionPickupRuleActive',
+                RegionOptionType::REGION_PICKUP_RULE_TIMESPAN_DAYS => 'regionPickupRuleTimespanDays',
+                RegionOptionType::REGION_PICKUP_RULE_LIMIT_NUMBER => 'regionPickupRuleLimitNumber',
+                RegionOptionType::REGION_PICKUP_RULE_LIMIT_DAY_NUMBER => 'regionPickupRuleLimitDayNumber',
+                RegionOptionType::REGION_PICKUP_RULE_INACTIVE_HOURS => 'regionPickupRuleInactiveHours',
+                RegionOptionType::ALLOW_HIDING_IN_FORUM => 'allowHidingInForum',
+                RegionOptionType::REPORT_REASON_OPTIONS => 'selectedReportReasonOptions',
+                RegionOptionType::REPORT_REASON_OTHER => 'isReportReasonOtherEnabled',
+            ];
+
+            $mappedOptions = new RegionOptions();
             foreach ($options as $option) {
                 $optionType = $option['option_type'];
-                $optionName = $optionTypes[$optionType];
-                $optionValue = $optionType === RegionOptionType::REGION_PICKUP_RULE_ACTIVE ? (bool)$option['option_value'] : $option['option_value'];
-                $mappedOptions[$optionName] = $optionValue;
+                $optionName = $mapping[$optionType];
+                $mappedOptions->$optionName = $option['option_value'];
             }
 
             return $mappedOptions;
         } catch (Exception) {
-            return [];
+            return null;
         }
     }
 
@@ -508,37 +512,6 @@ class RegionGateway extends BaseGateway
             'option_type' => $optionType,
             'option_value' => $value,
         ]);
-    }
-
-    /**
-     * Returns all option for the region
-     * See {@see RegionOptionType}.
-     *
-     * @param int $regionId ID of region
-     *
-     * @return array|null value of option or null if not found
-     */
-    public function getAllRegionOptions(int $regionId): ?array
-    {
-        try {
-            $result = $this->db->fetchAll('
-			SELECT 	region_id as regionId,
-			        option_type,
-			        option_value
-			FROM            `fs_region_options` ro
-			WHERE    region_id = :regionId
-		', [
-                ':regionId' => $regionId,
-            ]);
-        } catch (Exception) {
-            return null;
-        }
-        $optionTypeMap = [];
-        foreach ($result as $key => $value) {
-            $optionTypeMap[$value['option_type']] = $value['option_value'];
-        }
-
-        return $optionTypeMap;
     }
 
     public function getRegionPin(int $regionId): ?RegionPin

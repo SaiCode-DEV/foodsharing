@@ -6,7 +6,6 @@ use Exception;
 use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Content\ContentView;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
-use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
@@ -391,19 +390,9 @@ final class RegionController extends FoodsharingController
     {
         $this->pageHelper->addBread($this->translator->trans('terminology.options'), '/region?bid=' . $region['id'] . '&sub=options');
         $this->pageHelper->addTitle($this->translator->trans('terminology.options'));
-        $regionOptions = $this->regionGateway->getAllRegionOptions($region['id']);
-        $pageData['maySetRegionOptionsReportButtons'] = boolval($this->regionPermissions->maySetRegionOptionsReportButtons($region['id']));
-        $pageData['maySetRegionOptionsRegionPickupRule'] = boolval($this->regionPermissions->maySetRegionOptionsRegionPickupRule($region['id']));
-        $pageData['isReportButtonEnabled'] = boolval(array_key_exists(RegionOptionType::ENABLE_REPORT_BUTTON, $regionOptions) ? $regionOptions[RegionOptionType::ENABLE_REPORT_BUTTON] : 0);
-        $pageData['isMediationButtonEnabled'] = boolval(array_key_exists(RegionOptionType::ENABLE_MEDIATION_BUTTON, $regionOptions) ? $regionOptions[RegionOptionType::ENABLE_MEDIATION_BUTTON] : 0);
-        $pageData['isRegionPickupRuleActive'] = boolval(array_key_exists(RegionOptionType::REGION_PICKUP_RULE_ACTIVE, $regionOptions) ? $regionOptions[RegionOptionType::REGION_PICKUP_RULE_ACTIVE] : 0);
-        $pageData['regionPickupRuleTimespanDays'] = intval(array_key_exists(RegionOptionType::REGION_PICKUP_RULE_TIMESPAN_DAYS, $regionOptions) ? $regionOptions[RegionOptionType::REGION_PICKUP_RULE_TIMESPAN_DAYS] : 0);
-        $pageData['regionPickupRuleLimitNumber'] = intval(array_key_exists(RegionOptionType::REGION_PICKUP_RULE_LIMIT_NUMBER, $regionOptions) ? $regionOptions[RegionOptionType::REGION_PICKUP_RULE_LIMIT_NUMBER] : 0);
-        $pageData['regionPickupRuleLimitDayNumber'] = intval(array_key_exists(RegionOptionType::REGION_PICKUP_RULE_LIMIT_DAY_NUMBER, $regionOptions) ? $regionOptions[RegionOptionType::REGION_PICKUP_RULE_LIMIT_DAY_NUMBER] : 0);
-        $pageData['regionPickupRuleInactiveHours'] = intval(array_key_exists(RegionOptionType::REGION_PICKUP_RULE_INACTIVE_HOURS, $regionOptions) ? $regionOptions[RegionOptionType::REGION_PICKUP_RULE_INACTIVE_HOURS] : 0);
+        $pageData['maySetRegionOptionsReportButtons'] = $this->regionPermissions->maySetRegionOptionsReportButtons($region['id']);
+        $pageData['maySetRegionOptionsRegionPickupRule'] = $this->regionPermissions->maySetRegionOptionsRegionPickupRule($region['id']);
         $pageData['regionPickupRuleActiveStoreList'] = $this->storeGateway->listRegionStoresActivePickupRule($region['id']);
-        $pageData['selectedReportReasonOptions'] = intval($regionOptions[RegionOptionType::REPORT_REASON_OPTIONS] ?? 1);
-        $pageData['reportReasonOtherEnabled'] = boolval($regionOptions[RegionOptionType::REPORT_REASON_OTHER] ?? 1);
 
         $params = $this->convertDataToObject($region, $request->query->get('sub'), $pageData);
 
