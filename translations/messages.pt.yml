@@ -2398,6 +2398,8 @@ settings:
     event_link_desc: ''
     menu: ''
     export_tooltip: ''
+    program:
+      apple: Apple Calendário
   email: ''
   push:
     info-off: ''
