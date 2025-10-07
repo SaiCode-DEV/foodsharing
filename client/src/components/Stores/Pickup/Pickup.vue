@@ -70,7 +70,7 @@
           />
           <div class="add-pickup-slot">
             <button
-              v-if="(isCoordinator || mayEditStore) && totalSlots < maxCountPickupSlot && !isInPast && !disabled"
+              v-if="(isCoordinator || mayEditStore) && totalSlots < maxCountPickupSlot && !isInPast"
               v-b-tooltip.hover="$i18n('pickup.slot_add')"
               class="btn secondary"
               @click="$emit('add-slot', date)"
