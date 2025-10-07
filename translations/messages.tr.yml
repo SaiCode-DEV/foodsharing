@@ -526,6 +526,7 @@ button:
   ok: OK
   filter_options: Filtreleme Opsiyonları
   browse: Arama_
+  yes_save: Evet, kaydet
 upload:
   new_image: Yeni fotoğraf yükle
   file: Dosya yükle
@@ -831,6 +832,7 @@ group:
       execute: Uygulamak
       already_verified: Seçilen tüm kullanıcılar zaten doğrulandı
       inform_user: Bildirimle
+      filter_status: Yalnızca durumu göster
     all_roles: Tüm Roller
   show-all: Hepsini göster
   delete_group_sure: '{groupName} çalışma grubunu/bölgesini silmek istediğinizden
@@ -2340,13 +2342,8 @@ basket:
 
     '
   title: 'Yemek Sepetleri'
-  login: 'Ayrıntılı bilgi için üye girişi yapmalısınız.
-
-    Henüz bir foodsharer olarak kayıtlı değil misiniz?
-
-    Ardından yukarıdaki <b>Katıl</b>''ı tıklayın ve hemen başlayın.
-
-    '
+  login: 'Detaylı bilgi için giriş yapmanız gerekmektedir. Henüzfoodsharer olarak
+    kayıtlı değilseniz, yukarıdaki **Katıl** butonuna tıklayarak hemen başlayabilirsiniz.'
   use_home_address: Konut adresini kullan
   modal_error:
     no_contact: Lütfen yiyecek sepetinin talep edilmesini istediğiniz yolu 
@@ -2759,9 +2756,9 @@ settings:
     generate_url:
       button: Takvim URL'si oluştur
     program:
-      outlook: Outlook-
+      outlook: Microsoft Outlook_
       google: Google Takvimi
-      thunderbird: Thunderbird-
+      thunderbird: Mozilla Thunderbird
       other: Başka bir şey
       apple_etar: Apple-Kalender / Etar-
       label: Hangi takvim programını kullanıyorsunuz?
@@ -2779,13 +2776,13 @@ settings:
       label: Bölgelerinizden ve çalışma gruplarınızdan hangi tarihler dahil 
         edilmeli?
       invitations: İptal etmediğim randevular
-      maybe: (Belki) Orada olacağımı belirttiğim tarihler
-      accepted: Orada olacağımı belirttiğim tarihler
+      maybe: (Belki), Orada olacağımı belirttiğim tarihler
+      accepted: Orada olacağımı, belirttiğim tarihler
       none: Hiçbiri
       all: Tüm tarihler
     history:
       label: Son iki haftanın geçmiş randevuları dahil edilmeli mi?
-      "true": Evet, takvimde en son randevularımı göster
+      "true": Evet, benim takvimde en son randevularımı göster
       "false": Hayır, takvimde geçmiş etkinlikleri gösterme
     info: "Burada foodsharing randevularınızı seçtiğiniz bir takvim programına bağlayabilirsiniz.
       Bu, tüm alımlarınızın ve/veya randevularınızın takviminize otomatik olarak girilmesine
@@ -4954,8 +4951,8 @@ contact_page:
       kişisiyle iletişime geçin.
 feedback:
   capture_screenshot: Ekran görüntüsü al
-  title: Geri bildirim formu
-  button: Geri bildirim gönder
+  title: Beta Geri bildirim formu
+  button: Beta Geri bildirim
   name_sent: Adınız ve kimliğiniz tarafınıza gönderilecektir.
   error:
     no_sentry: Sentry'de bir hata oluştu. Lütfen daha sonra tekrar deneyin.
