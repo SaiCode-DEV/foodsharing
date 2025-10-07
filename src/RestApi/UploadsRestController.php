@@ -64,9 +64,6 @@ class UploadsRestController extends AbstractFoodsharingRestController
             throw new AccessDeniedHttpException('not allowed to download this file');
         }
 
-        // update lastAccess timestamp
-        $this->uploadsGateway->touchFile($uuid);
-
         $filename = $this->uploadsTransactions->generateFilePath($uuid);
 
         // resizing of images

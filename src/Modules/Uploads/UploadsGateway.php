@@ -32,21 +32,12 @@ class UploadsGateway extends BaseGateway
             'sha256hash' => $hash,
             'mimetype' => $mimeType,
             'uploaded_at' => $this->db->now(),
-            'lastaccess_at' => $this->db->now(),
             'filesize' => $size,
             'used_in' => null,
             'usage_id' => null,
         ]);
 
         return $uuid;
-    }
-
-    /**
-     * Updates the last access timestamp of the file with the specified UUID.
-     */
-    public function touchFile(string $uuid): void
-    {
-        $this->db->update('uploads', ['lastaccess_at' => $this->db->now()], ['uuid' => $uuid]);
     }
 
     /**

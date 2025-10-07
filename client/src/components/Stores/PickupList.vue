@@ -175,6 +175,11 @@ export default {
     },
     async tryLoadPickups (silent = false) {
       if (!silent) this.isLoading = true
+      // skip loading when tab is not visible
+      if (document.hidden) {
+        if (!silent) this.isLoading = false
+        return
+      }
       try {
         await this.pickupStore.loadPickups(this.storeId)
       } catch (e) {

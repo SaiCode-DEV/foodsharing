@@ -1267,7 +1267,6 @@ class Foodsharing {
       sha256hash: file.hashedBody,
       mimetype: file.mimeType,
       uploaded_at: this.toDateTime(new Date()),
-      lastaccess_at: this.toDateTime(new Date()),
       filesize: file.fileSize,
     });
 

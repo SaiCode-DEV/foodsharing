@@ -108,7 +108,6 @@ class Foodsharing extends Db
             'sha256hash' => $file->hashedBody,
             'mimetype' => $file->mimeType,
             'uploaded_at' => new Carbon(),
-            'lastaccess_at' => new Carbon(),
             'filesize' => $file->fileSize,
         ]);
 
@@ -1321,7 +1320,6 @@ class Foodsharing extends Db
             'sha256hash' => $this->faker->sha256(),
             'mimetype' => $this->faker->mimeType(),
             'uploaded_at' => $this->faker->dateTimeBetween('-5 years', '-1 week')->format('Y-m-d H:i:s'),
-            'lastaccess_at' => $this->faker->dateTimeBetween('-6 days', 'now')->format('Y-m-d H:i:s'),
             'filesize' => $this->faker->numberBetween(0, 1_500_000),
             'used_in' => $usageId,
             'usage_id' => $usageType,
