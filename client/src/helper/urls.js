@@ -25,6 +25,7 @@ const urls = {
   dashboard: () => '/dashboard',
   dataprivacy: () => '/legal',
   donate: () => '/unterstuetzung',
+  education: () => '/content?sub=education',
   email: () => '/?page=email',
   event: (eventId) => `/event/${eventId}`,
   eventAdd: (regionId) => '/event/add' + (regionId ? `?bid=${regionId}` : ''),

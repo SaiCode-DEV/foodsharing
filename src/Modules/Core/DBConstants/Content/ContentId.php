@@ -61,8 +61,6 @@ class ContentId
     final public const int COMMUNITIES_AUSTRIA = 61;
     final public const int COMMUNITIES_SWITZERLAND = 62;
     final public const int DEMANDS = 60;
-    final public const int ACADEMY = 69;
-    final public const int FESTIVAL = 72;
     final public const int INTERNATIONAL = 74;
     final public const int TRANSPARENCY = 68;
     final public const int PAST_CAMPAIGNS = 46;
@@ -71,8 +69,8 @@ class ContentId
     final public const int ABOUT = 9;
     final public const int FOODSHARING_CITIES = 66;
     final public const int FOR_COMPANIES = 4;
-    final public const int WORKSHOPS = 71;
     final public const int STATISTICS_PAGE = 11;
     final public const int SECURITY_PAGE = 59;
     final public const int PETITION_BANNER = 92;
+    final public const int EDUCATION = 95;
 }

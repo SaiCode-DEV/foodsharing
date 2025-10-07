@@ -1,21 +1,8 @@
 {
     "education":{
        "title":"menu.entry.education",
-       "icon":"fa-graduation-cap",
-       "items":[
-          {
-             "url":"academy",
-             "title":"menu.entry.academy"
-          },
-          {
-             "url":"workshops",
-             "title":"menu.entry.talksandworkshops"
-          },
-          {
-             "url":"festival",
-             "title":"menu.entry.fsfestival"
-          }
-       ]
+       "url":"education",
+       "icon":"fa-graduation-cap"
     },
     "fundraising":{
         "title":"menu.entry.fundraising",

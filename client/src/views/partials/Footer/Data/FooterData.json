@@ -84,16 +84,8 @@
     "title": "menu.entry.education",
     "items": [
       {
-        "url": "academy",
+        "url": "education",
         "title": "menu.entry.academy"
-      },
-      {
-        "url": "workshops",
-        "title": "menu.entry.talksandworkshops"
-      },
-      {
-        "url": "festival",
-        "title": "menu.entry.fsfestival"
       }
     ]
   },

@@ -21,8 +21,6 @@ class ContentController extends FoodsharingController
     private const array SUB_TO_ID = [
         'presse' => ContentId::PRESS,
         'forderungen' => ContentId::DEMANDS,
-        'academy' => ContentId::ACADEMY,
-        'festival' => ContentId::FESTIVAL,
         'transparency' => ContentId::TRANSPARENCY,
         'leeretonne' => ContentId::PAST_CAMPAIGNS,
         'foodSharePointRescue' => ContentId::RESCUE_FOOD_SHARE_POINT,
@@ -30,8 +28,8 @@ class ContentController extends FoodsharingController
         'about' => ContentId::ABOUT,
         'fuer_unternehmen' => ContentId::FOR_COMPANIES,
         'fsstaedte' => ContentId::FOODSHARING_CITIES,
-        'workshops' => ContentId::WORKSHOPS,
         'security' => ContentId::SECURITY_PAGE,
+        'education' => ContentId::EDUCATION,
     ];
 
     private const array REDIRECT = [
