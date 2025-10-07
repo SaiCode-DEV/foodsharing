@@ -294,3 +294,7 @@ button:
   permadelete: usuń trwale
   yes_i_am_sure: tak, jestem pewny/a
   apply: zastosuj
+settings:
+  calendar:
+    program:
+      apple: Apple Kalendarz
