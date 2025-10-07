@@ -15,8 +15,7 @@ export async function getStoreInformation (storeId) {
 }
 
 export async function updateStore (store) {
-  const result = await patch(`/stores/${store.id}/information`, store)
-  return result
+  await patch(`/stores/${store.id}/information`, store)
 }
 
 function normalizeStoreWallPost (post) {
@@ -38,10 +37,6 @@ export async function writeStorePost (storeId, text) {
 
 export async function setStoreTeamStatus (storeId, status) {
   return patch(`/stores/${storeId}/information`, { teamStatus: status })
-}
-
-export async function getStoreDetails (storeId) {
-  return get(`/stores/${storeId}`)
 }
 
 export async function deleteStorePost (storeId, postId) {

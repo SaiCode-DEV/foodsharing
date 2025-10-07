@@ -57,47 +57,6 @@ class StoreGateway extends BaseGateway
         return $this->db->exists('fs_betrieb', ['id' => $storeId]);
     }
 
-    public function getBetrieb($storeId): array
-    {
-        $result = $this->db->fetch('
-            SELECT  `id`,
-					plz,
-					`fs_betrieb`.bezirk_id,
-					`fs_betrieb`.kette_id,
-					`fs_betrieb`.betrieb_kategorie_id,
-					`fs_betrieb`.name,
-					`fs_betrieb`.str,
-					`fs_betrieb`.stadt,
-					`fs_betrieb`.lat,
-					`fs_betrieb`.lon,
-					`fs_betrieb`.str AS anschrift,
-					`fs_betrieb`.`betrieb_status_id`,
-					`fs_betrieb`.status_date,
-					`fs_betrieb`.ansprechpartner,
-					`fs_betrieb`.telefon,
-					`fs_betrieb`.email,
-					`fs_betrieb`.fax,
-					`fs_betrieb`.team_status,
-					`kette_id`
-
-            FROM    `fs_betrieb`
-
-            WHERE   `fs_betrieb`.`id` = :id', [':id' => $storeId]);
-
-        $result['verantwortlicher'] = '';
-        if ($bezirk = $this->regionGateway->getRegionName($result['bezirk_id'])) {
-            $result['bezirk'] = $bezirk;
-        }
-        if ($verantwortlich = $this->getBiebsForStore($storeId)) {
-            $result['verantwortlicher'] = $verantwortlich;
-        }
-        if ($kette = $this->getOne_kette($result['kette_id'])) {
-            $result['kette'] = $kette;
-        }
-
-        return $result;
-    }
-
     /**
      * Return all identifiers for stores of a store chain.
      *
@@ -858,18 +817,6 @@ class StoreGateway extends BaseGateway
     public function listStoreIdsWhereResponsible($fsId)
     {
         return $this->db->fetchAllByCriteria('fs_betrieb_team', ['betrieb_id'], ['foodsaver_id' => $fsId, 'verantwortlich' => 1]);
-    }
-
-    private function getOne_kette($id): array
-    {
-        return $this->db->fetch('
-			SELECT   `id`,
-			         `name`
-			FROM     `fs_chain`
-			WHERE    `id` = :id
-        ', [
-            ':id' => $id
-        ]);
     }
 
     public function updateStoreRegion(int $storeId, int $regionId): int

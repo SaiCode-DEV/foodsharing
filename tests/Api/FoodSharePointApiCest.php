@@ -46,24 +46,6 @@ class FoodSharePointApiCest
         $I->seeResponseIsJson();
     }
 
-    public function listNearbyFoodSharePoints(ApiTester $I): void
-    {
-        $I->createFoodSharePoint($this->user[self::ID]);
-
-        $I->login($this->user[self::EMAIL]);
-        $I->sendGET(self::API_FSPS . '/nearby?distance=30');
-        $I->seeResponseCodeIs(Http::OK);
-        $I->seeResponseIsJson();
-
-        $I->sendGET(self::API_FSPS . '/nearby?lat=50&lon=9&distance=30');
-        $I->seeResponseCodeIs(Http::OK);
-        $I->seeResponseIsJson();
-
-        $I->sendGET(self::API_FSPS . '/nearby?lat=50&lon=9&distance=51');
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
-        $I->seeResponseIsJson();
-    }
-
     public function canListFoodSharePointsInRegion(ApiTester $I)
     {
         $I->login($this->user[self::EMAIL]);

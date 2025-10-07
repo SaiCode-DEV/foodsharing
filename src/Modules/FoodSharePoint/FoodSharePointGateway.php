@@ -238,60 +238,6 @@ class FoodSharePointGateway extends BaseGateway
         return [];
     }
 
-    public function listNearbyFoodSharePoints(GeoLocation $location, int $distanceInKm = 30): array
-    {
-        /* ST_BUFFER expects the distance to be in the same unit as the points. The factor of 1.5 makes sure that the
-         bounding box is not too small due to Earth's curvature. */
-        $maxDistanceInDegrees = 1.5 * $distanceInKm / (pi() * 6371) * 180;
-
-        return $this->db->fetchAll(
-            '
-			SELECT
-				ft.`id`,
-				ft.`bezirk_id`,
-				ft.`name`,
-				ft.`picture`,
-				ft.`status`,
-				ft.`desc`,
-				ft.`anschrift`,
-				ft.`plz`,
-				ft.`ort`,
-				ft.`lat`,
-				ft.`lon`,
-				ft.`add_date`,
-				UNIX_TIMESTAMP(ft.`add_date`) AS time_ts,
-				ft.`add_foodsaver`,
-				ST_Distance_Sphere(Point(:lon, :lat), Point(ft.lon, ft.lat)) / 1000 AS distance
-			FROM
-				`fs_fairteiler` ft
-			WHERE
-				ft.`status` = 1
-			AND
-                -- Reduce load for distance calculation by using a bounding box
-                -- Only for all points inside the bounding box is the calculation running
-                ST_INTERSECTS(Point(ft.lon, ft.lat),
-                    ST_Envelope(
-                        ST_BUFFER(
-                            Point(:lon, :lat),
-                            :max_distance_in_degrees
-                        )
-                    )
-                )
-			HAVING
-				distance <= :distance
-			ORDER BY
-				distance
-			LIMIT 6
-		',
-            [
-                ':lat' => $location->lat,
-                ':lon' => $location->lon,
-                ':distance' => $distanceInKm,
-                ':max_distance_in_degrees' => $maxDistanceInDegrees,
-            ]
-        );
-    }
-
     public function follow(int $foodsaverId, int $foodSharePointId, int $infoType): void
     {
         $this->db->insertIgnore(

@@ -2,13 +2,10 @@
 
 namespace Foodsharing\RestApi;
 
-use Carbon\Carbon;
-use DateTimeZone;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\FoodSharePoint\FollowerType;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
-use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\FoodSharePoint\FoodSharePointGateway;
 use Foodsharing\Modules\FoodSharePoint\FoodSharePointTransactions;
 use Foodsharing\Modules\Region\RegionGateway;
@@ -19,7 +16,6 @@ use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointEditData;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointForCreation;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointPermission;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -37,8 +33,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Food share point not found')]
 final class FoodSharePointRestController extends AbstractFoodsharingRestController
 {
-    private const int MAX_FSP_DISTANCE = 50;
-
     public function __construct(
         private readonly FoodSharePointGateway $foodSharePointGateway,
         private readonly FoodSharePointTransactions $foodSharePointTransactions,
@@ -51,29 +45,6 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
         parent::__construct($session);
     }
 
-    #[OA\Get(summary: 'Returns a list of food share points close to a given location', description: 'If the location is not valid, the user\'s home location is used. The distance is measured in kilometers.')]
-    #[Rest\Get('foodSharePoints/nearby')]
-    #[Rest\QueryParam(name: 'lat', nullable: true)]
-    #[Rest\QueryParam(name: 'lon', nullable: true)]
-    #[Rest\QueryParam(name: 'distance', nullable: false, requirements: '\d+')]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
-    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Distance out of range')]
-    public function listNearbyFoodSharePoints(ParamFetcher $paramFetcher): Response
-    {
-        $this->assertLoggedIn();
-
-        $location = $this->fetchLocationOrUserHome($paramFetcher);
-        $distance = $paramFetcher->get('distance');
-        if ($distance < 1 || $distance > self::MAX_FSP_DISTANCE) {
-            throw new BadRequestHttpException('distance must be positive and <= ' . self::MAX_FSP_DISTANCE);
-        }
-
-        $fsps = $this->foodSharePointGateway->listNearbyFoodSharePoints($location, $distance);
-        $fsps = array_map(fn ($fsp) => $this->normalizeFoodSharePoint($fsp), $fsps);
-
-        return $this->respondOK($fsps);
-    }
-
     #[OA\Get(summary: 'Returns details of the food share point with the given ID.')]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[Rest\Get('foodSharePoints/{foodSharePointId}', requirements: ['foodSharePointId' => Requirement::POSITIVE_INT])]
@@ -83,65 +54,6 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
         $foodSharePoint = $this->foodSharePointGateway->getFoodSharePointWithManagers($foodSharePointId);
 
         return $this->respondOK($foodSharePoint);
-    }
-
-    private function fetchLocationOrUserHome(ParamFetcher $paramFetcher): GeoLocation
-    {
-        $lat = $paramFetcher->get('lat');
-        $lon = $paramFetcher->get('lon');
-        if (!$this->isValidNumber($lat, -90.0, 90.0) || !$this->isValidNumber($lon, -180.0, 180.0)) {
-            // find user's location
-            $loc = $this->session->user('location') ?? new GeoLocation();
-            if (!$loc || ($loc->lat === 0 && $loc->lon === 0)) {
-                throw new BadRequestHttpException('The user profile has no address.');
-            }
-        } else {
-            $loc = new GeoLocation();
-            $loc->lat = $lat;
-            $loc->lon = $lon;
-        }
-
-        return $loc;
-    }
-
-    /**
-     * Checks if the number is a valid value in the given range.
-     * TODO Duplicated in BasketRestController.php.
-     */
-    private function isValidNumber($value, float $lowerBound, float $upperBound): bool
-    {
-        return !is_null($value) && !is_nan($value)
-            && ($lowerBound <= $value) && ($upperBound >= $value);
-    }
-
-    /**
-     * Normalizes the details of a food share point for the Rest response.
-     *
-     * @param array $data the food share point data
-     * @deprecated should use a DTO instead
-     */
-    private function normalizeFoodSharePoint(array $data): array
-    {
-        // set main properties
-        $fsp = [
-            'id' => (int)$data['id'],
-            'regionId' => (int)$data['bezirk_id'],
-            'name' => $data['name'],
-            'description' => $data['desc'],
-            'address' => $data['anschrift'],
-            'city' => $data['ort'],
-            'postcode' => $data['plz'],
-            'lat' => (float)$data['lat'],
-            'lon' => (float)$data['lon'],
-            'createdAt' => Carbon::createFromTimestamp($data['time_ts'], new DateTimeZone('Europe/Berlin'))->toDateTime(),
-            'picture' => $data['picture']
-        ];
-
-        if ($fsp['picture'] == '' || !$fsp['picture']) {
-            $fsp['picture'] = null;
-        }
-
-        return $fsp;
     }
 
     #[OA\Get(summary: 'Returns a list of all food share points in a region and all its subregions.')]

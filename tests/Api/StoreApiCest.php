@@ -739,43 +739,12 @@ class StoreApiCest
         ]);
     }
 
-    public function getStore(ApiTester $I): void
-    {
-        $I->login($this->teamMember[self::EMAIL]);
-        $I->sendGET(self::API_STORES . '/' . $this->store[self::ID]);
-        $I->seeResponseCodeIs(Http::OK);
-        $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(['id' => $this->store[self::ID]]);
-        $I->seeResponseContainsJson(['phone' => $this->store['telefon']]);
-    }
-
-    public function canOnlyAccessStoreAsFoodsaver(ApiTester $I): void
-    {
-        $I->sendGET(self::API_STORES . '/' . $this->store[self::ID]);
-        $I->seeResponseCodeIs(Http::UNAUTHORIZED);
-
-        $I->login($this->foodsharer[self::EMAIL]);
-        $I->sendGET(self::API_STORES . '/' . $this->store[self::ID]);
-        $I->seeResponseCodeIs(Http::FORBIDDEN);
-    }
-
-    public function canOnlySeeStoreDetailsAsMember(ApiTester $I): void
-    {
-        $I->login($this->user[self::EMAIL]);
-        $I->sendGET(self::API_STORES . '/' . $this->store[self::ID]);
-        $I->seeResponseCodeIs(Http::OK);
-        $I->seeResponseContainsJson(['id' => $this->store[self::ID]]);
-        $I->dontSeeResponseContainsJson(['phone' => $this->store['telefon']]);
-    }
-
     public function patchStoreNameAsStoreManager(ApiTester $I): void
     {
         $I->login($this->manager[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['name' => 'This is a nice store']);
         $I->seeResponseCodeIs(Http::OK);
-        $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(['store' => ['id' => $this->store[self::ID], 'name' => 'This is a nice store']]);
 
         $I->seeInDatabase('fs_betrieb', [
             'id' => $this->store[self::ID],
@@ -907,8 +876,6 @@ class StoreApiCest
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['regionId' => $this->nextRegion['id']]);
         $I->seeResponseCodeIs(Http::OK);
-        $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(['store' => ['id' => $this->store[self::ID], 'group' => ['id' => $this->nextRegion['id']]]]);
 
         $I->seeInDatabase('fs_betrieb', [
             'id' => $this->store[self::ID],
@@ -921,8 +888,6 @@ class StoreApiCest
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['address' => ['zipCode' => 'A2345']]);
         $I->seeResponseCodeIs(Http::OK);
-        $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(['store' => ['id' => $this->store[self::ID], 'address' => ['postalCode' => 'A2345']]]);
 
         $I->seeInDatabase('fs_betrieb', [
             'id' => $this->store[self::ID],
@@ -948,8 +913,6 @@ class StoreApiCest
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['address' => ['street' => 'Store street 123']]);
         $I->seeResponseCodeIs(Http::OK);
-        $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(['store' => ['id' => $this->store[self::ID], 'address' => ['street' => 'Store street 123']]]);
 
         $I->seeInDatabase('fs_betrieb', [
             'id' => $this->store[self::ID],
@@ -962,8 +925,6 @@ class StoreApiCest
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['location' => ['lat' => 49.9]]);
         $I->seeResponseCodeIs(Http::OK);
-        $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(['store' => ['id' => $this->store[self::ID], 'lat' => 49.9]]);
 
         $I->seeInDatabase('fs_betrieb', [
             'id' => $this->store[self::ID],
@@ -989,8 +950,6 @@ class StoreApiCest
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['location' => ['lon' => 49.9]]);
         $I->seeResponseCodeIs(Http::OK);
-        $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(['store' => ['id' => $this->store[self::ID], 'lon' => 49.9]]);
 
         $I->seeInDatabase('fs_betrieb', [
             'id' => $this->store[self::ID],
@@ -1482,20 +1441,17 @@ class StoreApiCest
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['teamStatus' => 2]);
         $I->seeResponseCodeIs(Http::OK);
-        $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(['store' => ['id' => $this->store[self::ID], 'teamStatus' => 2]]);
+        $I->seeInDatabase('fs_betrieb', ['id' => $this->store[self::ID], 'team_status' => 2]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['teamStatus' => 1]);
         $I->seeResponseCodeIs(Http::OK);
-        $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(['store' => ['id' => $this->store[self::ID], 'teamStatus' => 1]]);
+        $I->seeInDatabase('fs_betrieb', ['id' => $this->store[self::ID], 'team_status' => 1]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['teamStatus' => 0]);
         $I->seeResponseCodeIs(Http::OK);
-        $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(['store' => ['id' => $this->store[self::ID], 'teamStatus' => 0]]);
+        $I->seeInDatabase('fs_betrieb', ['id' => $this->store[self::ID], 'team_status' => 0]);
     }
 
     public function patchStoreEffortAsStoreManager(ApiTester $I): void
@@ -1669,8 +1625,6 @@ class StoreApiCest
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['address' => ['city' => 'Store town 123']]);
         $I->seeResponseCodeIs(Http::OK);
-        $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(['store' => ['id' => $this->store[self::ID], 'address' => ['city' => 'Store town 123']]]);
 
         $I->seeInDatabase('fs_betrieb', [
             'id' => $this->store[self::ID],
@@ -1711,7 +1665,6 @@ class StoreApiCest
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['groceries' => [1, 2, 3]]);
         $I->seeResponseCodeIs(Http::OK);
-        $I->seeResponseIsJson();
 
         $I->assertEquals(3, $I->grabNumRecords('fs_betrieb_has_lebensmittel', ['betrieb_id' => $this->store[self::ID]]));
         $I->seeInDatabase('fs_betrieb_has_lebensmittel', ['betrieb_id' => $this->store[self::ID], 'lebensmittel_id' => 1]);

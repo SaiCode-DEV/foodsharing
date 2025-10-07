@@ -380,37 +380,6 @@ class StoreRestController extends AbstractFoodsharingRestController
     }
 
     /**
-     * Returns details of the store with the given ID. Returns 200 and the
-     * store, 404 if the store does not exist, or 401 if not logged in.
-     *
-     * @OA\Tag(name="stores")
-     * @OA\Response(response=Response::HTTP_OK, description="Store information")
-     * @OA\Response(response=Response::HTTP_UNAUTHORIZED, description="Not logged in")
-     * @OA\Response(response=Response::HTTP_FORBIDDEN, description="No permission to update store")
-     * @OA\Response(response=Response::HTTP_NOT_FOUND, description="Store not found")
-     */
-    #[Rest\Get('stores/{storeId}', requirements: ['storeId' => '\d+'])]
-    public function getStore(int $storeId): Response
-    {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
-        }
-        if (!$this->storePermissions->mayListStores()) {
-            throw new AccessDeniedHttpException('invalid permissions');
-        }
-        try {
-            $maySeeDetails = $this->storePermissions->mayAccessStore($storeId);
-            $store = $this->storeGateway->getBetrieb($storeId);
-
-            $store = RestNormalization::normalizeStore($store, $maySeeDetails);
-
-            return $this->handleView($this->view(['store' => $store], Response::HTTP_OK));
-        } catch (DatabaseNoValueFoundException) {
-            throw new NotFoundHttpException('Store not found.');
-        }
-    }
-
-    /**
      * Allows to patch the store with information like the store team status.
      *
      * @OA\Tag(name="stores")
@@ -419,7 +388,7 @@ class StoreRestController extends AbstractFoodsharingRestController
      * @OA\Response(response=Response::HTTP_UNAUTHORIZED, description="Not logged in")
      * @OA\Response(response=Response::HTTP_FORBIDDEN, description="No permission to update store")
      * @OA\Response(response=Response::HTTP_NOT_FOUND, description="Store not found")
-     * @OA\Response(response=Response::HTTP_OK, description="Store information")
+     * @OA\Response(response=Response::HTTP_OK, description="Empty response on success")
      */
     #[Rest\Patch('stores/{storeId}/information', requirements: ['storeId' => '\d+'])]
     #[ParamConverter('storeModel', converter: 'fos_rest.request_body')]
@@ -467,7 +436,7 @@ class StoreRestController extends AbstractFoodsharingRestController
             }
         }
 
-        return $this->getStore($storeId);
+        return $this->respondOK();
     }
 
     #[OA2\Tag(name: 'stores')]
