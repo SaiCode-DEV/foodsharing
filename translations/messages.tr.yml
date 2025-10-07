@@ -2756,12 +2756,13 @@ settings:
     generate_url:
       button: Takvim URL'si oluştur
     program:
-      outlook: Microsoft Outlook_
+      outlook: Microsoft Outlook
       google: Google Takvimi
       thunderbird: Mozilla Thunderbird
       other: Başka bir şey
       apple_etar: Apple-Kalender / Etar-
       label: Hangi takvim programını kullanıyorsunuz?
+      apple: Apple Takvim
     formatting:
       alt: Alternatif bir temsil olarak HTML içeren metin
       label: Randevu açıklamaları nasıl biçimlendirilmelidir?
