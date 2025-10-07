@@ -2953,12 +2953,13 @@ settings:
     include_invitations: Il calendario dovrebbe contenere anche gli inviti ad 
       appuntamenti a cui non ho ancora risposto.
     program:
-      outlook: Outlook
+      outlook: Microsoft Outlook
       apple_etar: Calendario Apple / Etar
       google: Calendario di Google
       other: Un altro
-      thunderbird: Thunderbird
+      thunderbird: Mozilla Thunderbird
       label: Quale programma di calendario usi?
+      apple: Apple Calendario
     formatting:
       html: HTML
       text: Solo testo
