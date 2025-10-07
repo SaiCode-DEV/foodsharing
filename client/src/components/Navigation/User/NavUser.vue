@@ -60,6 +60,16 @@
     </template>
     <template #actions>
       <button
+        v-if="(isBeta || isDev) && serverData.ravenConfig"
+        variant="primary"
+        class="dropdown-item dropdown-action"
+        @click="$refs.sentryFeedback.show()"
+      >
+        <i class="icon-subnav fas fa-comment" />
+        <span>{{ $i18n('feedback.button') }}</span>
+      </button>
+      <SentryFeedback ref="sentryFeedback" />
+      <button
         role="menuitem"
         class="dropdown-item dropdown-action"
         @click="deleteCaches()"
@@ -76,16 +86,19 @@ import { useThemeStore } from '@/stores/theme'
 // Components
 import Avatar from '@/components/Avatar/Avatar.vue'
 import Dropdown from '../_NavItems/NavDropdown'
+import SentryFeedback from '@/components/UI/SentryFeedback.vue'
 // Mixins
 import RouteCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
 import { clearCaches } from '@/helper/cache'
 import { BROADCAST_TYPE, channel } from '@/broadcastChannel'
+import serverData from '@/helper/server-data'
 import conv from '@/conv'
 
 export default {
   components: {
     Avatar,
     Dropdown,
+    SentryFeedback,
   },
   mixins: [RouteCheckMixin],
   setup () {
@@ -94,6 +107,7 @@ export default {
     return {
       userStore,
       themeStore,
+      serverData,
     }
   },
   computed: {

@@ -4012,8 +4012,8 @@ support_page:
   new_request: "Neue Anfrage"
 
 feedback:
-  title: "Feedback-Formular"
-  button: "Feedback senden"
+  title: "Beta Feedback-Formular"
+  button: "Beta Feedback"
   capture_screenshot: "Screenshot aufnehmen"
   name_sent: "Dein Name und deine ID werden mitgesendet."
   success: "Dein Feedback wurde erfolgreich übermittelt."

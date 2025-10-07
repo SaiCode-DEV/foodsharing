@@ -47,7 +47,7 @@
     </div>
     <ModalLoader v-if="isLoggedIn && !useRestrictedNavigation" />
     <ThemeSwitcherModal />
-    <SentryFeedback />
+
     <ConfirmationDialogue ref="confirmDialog" />
     <Notifications />
   </b-navbar>
@@ -78,7 +78,6 @@ import PetitionBanner from '@/views/partials/TopBanner/Petition/PetitionBanner.v
 import { clearCaches } from '@/helper/cache'
 import { BROADCAST_TYPE, channel } from '@/broadcastChannel'
 import ThemeSwitcher from '@/components/ThemeSwitcher.vue'
-import SentryFeedback from '@/components/UI/SentryFeedback.vue'
 import ConfirmationDialogue from '@/components/UI/ConfirmationDialogue.vue'
 import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 import Notifications from '@/components/UI/Notifications.vue'
