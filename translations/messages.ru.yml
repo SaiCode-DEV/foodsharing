@@ -588,6 +588,8 @@ settings:
     include_invitations: ''
     export: ''
     export_tooltip: ''
+    program:
+      apple: Apple Календарь
   email: ''
   photo:
     info: ''
