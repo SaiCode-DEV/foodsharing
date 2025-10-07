@@ -129,8 +129,8 @@ class FoodSharePointTransactions
     {
         // Delete the food share point's title picture
         $foodSharePoint = $this->foodSharePointGateway->getFoodSharePoint($foodSharePointId);
-        if (!empty($foodSharePoint['picture'])) {
-            $uuid = substr($foodSharePoint['picture'], 13);
+        if (!empty($foodSharePoint->picture)) {
+            $uuid = substr($foodSharePoint->picture, 13);
             $this->uploadsTransactions->deleteUploadedFile($uuid);
         }
 
