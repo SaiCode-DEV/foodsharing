@@ -2147,6 +2147,8 @@ settings:
     include_invitations: ''
     export: ''
     export_tooltip: ''
+    program:
+      apple: Apple Agenda
   push:
     disabled: ''
     success: ''
