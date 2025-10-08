@@ -246,10 +246,14 @@ group:
         no_passport: no membership card
         with_passport: with membership card
         invalid_passport: invalid membership card
+        all: all
+        verified: verified
+        unverified: unverified
       execute: Perform action
       show_only_member_after: Show only members after
       already_verified: All selected users were already verified
       inform_user: with notification
+      filter_status: Filter status
     all_roles: all roles
   application_from: by
   entermotivation: 'Motivation:'
@@ -372,13 +376,15 @@ settings:
     program:
       apple_etar: Apple calendar / Etar
       label: Which calendar app do you use?
-      outlook: Outlook
-      thunderbird: Thunderbird
+      outlook: Microsoft Outlook
+      thunderbird: Mozilla Thunderbird
       other: Another one
       google: Google calendar
+      apple: Apple Calendar
+      etar: Etar
     event:
       maybe: Events that I indicated I will / may attend
-      accepted: Events that I indicated I will attend
+      accepted: Events that I have indicated I will attend
       none: None
       label: Which appointments of your districts and working groups should be 
         included?
@@ -391,7 +397,7 @@ settings:
     history:
       "false": No, do not show past events in the calendar
       label: Should past appointments from the last two weeks be included?
-      "true": Yes, include recent appointments
+      "true": Yes, include past appointments
     protocol: Which protocol is your calendar software using?
     info: "Here, you can connect your foodsharing appointments with the calendar software
       of your choice. That way, your pickup times and events will be entered into
@@ -403,6 +409,15 @@ settings:
       the calendar file instead, you will only see your current appointments and will
       not receive automatic updates.\n\nYou can find more information about this [in
       the Wiki]({calendarUrl}).\n"
+    reminders:
+      label: Should reminders be set for your appointments?
+      15_minutes: 15 minutes before
+      30_minutes: 30 minutes before
+      1_hour: 1 hour before
+      3_hours: 3 hours before
+      6_hours: 6 hours before
+      12_hours: 12 hours before
+      1_day: 1 day before
   saved: The changes were saved.
   changemail:
     done: Your e-mail address was changed.
@@ -1351,6 +1366,9 @@ pickup:
     not register for pick-ups. If necessary, register as a team member first.
   may_enter: There is a slot available for you on this pickup date.
   confirmed: Pickup is confirmed.
+  passport_expired:
+    short: Membership card expired
+    long: Your membership card will no longer be valid at this time
 storeview:
   show_information: Show store information
   cooperation: Cooperation since {startTime}.
@@ -1389,7 +1407,7 @@ storeview:
   public_time_in_the_morning: in the morning
   info: Information
   specials: Instructions & procedure
-  managers: Responsible Foodsavers
+  managers: Store managers
   status: Current status
   public_time: 'It will be picked up roughly {freq}. Please never go to the store
     without prior consultation!'
@@ -1576,6 +1594,7 @@ button:
   confirm: confirm
   filter_options: Filter options
   browse: Browse
+  yes_save: Yes, save
 bell:
   ft_update_title: '{name}'
   blog_new_check: '{title}'
@@ -2306,8 +2325,8 @@ basket:
     \ You are not yet registered as a foodsharer?\nThen click on <b>Join us</b> to
     get started or set up a food basket yourself.\n<br><br>\nYou may find other food
     baskets in your area on our map.\n"
-  login: "You have to be logged in for detailed information.\nYou are not yet registered
-    as a foodsharer?\nThen click on <b>Join us</b> and get started right away.\n"
+  login: "You must be logged in to see detailed information. Not yet registered? Then
+    click on **Join** above and get started right away."
   howto: "<b>Information on the use of food baskets</b>\n<br>\nPlease use the green
     button <b>“Request food basket”</b> to express your interest in this basket,\n\
     \ or <b>“Edit food basket”</b> to edit your own basket afterwards.\n"
@@ -3325,6 +3344,10 @@ pickuplist:
   tooslow: Unfortunately, the registration did not work. This is probably 
     because someone else was faster.
   header_for_district: 'Allocation of pick-ups in {bezirk} '
+  really_delete_last_slot:
+    title: Remove last slot?
+    body: Do you really want to delete the last slot? This will completely 
+      remove the scheduled pickup.
 genderlist:
   gender_female: female
   gender_male: male
@@ -5005,8 +5028,8 @@ support_page:
     browse: Browse
     drop_placeholder: Drop file here
 feedback:
-  title: "Feedback"
-  button: "Send feedback"
+  title: "Beta Feedback Form"
+  button: "Beta feedback"
   capture_screenshot: "Capture screenshot"
   name_sent: "Your Name and ID will be sent with the feedback."
   success: "Your feedback has been successfully submitted."
@@ -5182,6 +5205,14 @@ resource_mosaic:
       label: Categories
       placeholder: Select categories …
     openness: How welcome are requests for this resource?
+    description_warning:
+      title: Check description
+      short: The description of this resource is quite short. Are you sure other
+        users can understand what your resource is about so they can ask you 
+        specifically about it?
+      none: You haven’t provided a description for your resource. Are you sure 
+        other users will understand what your resource is about so they can ask 
+        you specific questions about it?
   is_private_hint: This resource will only be shown to friends.
   confirm_delete: Do you really want to delete this resource?
   no_own_resources: You haven’t specified any resources yet. You can now enter 
