@@ -400,7 +400,7 @@ class StoreTransactions
             $store->region = MinimalRegionIdentifier::create($storeChange->regionId);
         }
 
-        if (!empty($storeChange->publicInfo)) {
+        if ($storeChange->publicInfo != $store->publicInfo) {
             $changeInformation->informationChanged = true;
             $store->publicInfo = $storeChange->publicInfo;
         }
