@@ -22,6 +22,23 @@
             <link rel="stylesheet" type="text/css" href="{{ stylesheet }}" />
         {% endfor %}
 
+            {# Prevent white flash on dark theme: set background early if dark
+            is selected. This can later be overwitten by the correct styling #}
+            <script>
+                (function() {
+                    try {
+                        var theme = localStorage.getItem('theme');
+                        if (theme) {
+                            var userTheme = JSON.parse(theme).userTheme;
+                            if (userTheme === 'dark' || (userTheme === 'system' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                                document.documentElement.style.background = '#111';
+                                document.body.style.background = '#111';
+                            }
+                        }
+                    } catch (e) {}
+                })();
+            </script>
+
         {% if dev %}
             {# to avoid a flash of unstyled content we hide the body initially, then reveal it at the end #}
             <style type="text/css">body { display: none; }</style>
