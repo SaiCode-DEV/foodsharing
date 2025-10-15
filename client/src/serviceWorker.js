@@ -103,6 +103,7 @@ self.addEventListener('push', (event) => {
         console.warn('Failed to round notification icon', e)
       }
     }
+    data.options.badge = '/img/badge.png'
     await self.registration.showNotification(data.title, data.options)
   })())
 })
