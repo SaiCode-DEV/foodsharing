@@ -2,11 +2,8 @@
   <div>
     <Container
       :title="title"
-      :toggle-visiblity="list.length > defaultAmount"
       :tag="`store-team-${storeId}`"
       class="store-team"
-      @show-full-list="showFullList"
-      @reduce-list="reduceList"
     >
       <template v-if="loaded">
         <StoreTeamManagementPanel
@@ -21,49 +18,30 @@
           :filter-function.sync="filterFunction"
         />
 
-        <div
-          v-for="user of filteredList"
-          :id="`user-${user.id}`"
-          :key="user.id"
-          class="list-group-item p-2 d-flex store-member"
-          :class="{ manager: user.isManager }"
+        <PaginatedContent
+          :items="teamList"
+          :page-size="paginateAmount"
+          :threshold="5"
         >
-          <StoreTeamAvatar :user="user" />
-          <div class="flex-grow-1 px-1 small">
-            <b>{{ user.name }}</b><br>
-            <span>{{ user.phoneNumber }}</span><br>
-            <Time
-              v-if="(user.lastPickup ?? user.joinDate) && sortingFunction.displayInfo === 'times'"
-              :tooltip="timeTooltip(user)"
-              :time="user.lastPickup ?? user.joinDate"
-              :muted="false"
-              :date-only="true"
-              :icon="user.lastPickup ? 'fa-solid fa-fw fa-shopping-cart' : 'fa-solid fa-fw fa-user-plus'"
+          <template #default="{ currentPageItems }">
+            <StoreTeamUserItem
+              v-for="user of currentPageItems"
+              :key="user.id"
+              :user="user"
+              :fs-id="fsId"
+              :may-edit-store="mayEditStore"
+              :sorting-function="sortingFunction"
+              :has-member-distances="hasMemberDistances"
+              @multi-chat="$emit('multi-chat', $event)"
+              @copy-phone="copyToClipboard"
+              @toggle-standby="toggleStandbyState"
+              @promote="promoteToManager"
+              @demote="demoteAsManager"
+              @remove="removeFromTeam"
+              @chat="chat"
             />
-            <small v-if="hasMemberDistances && sortingFunction.displayInfo === 'distance'" class="d-block">
-              <i class="fas" :class="user.distance < 0 ? 'fa-exclamation-triangle' : 'fa-diamond-turn-right'" />
-              {{ formatDistance(user.distance) }}
-            </small>
-          </div>
-          <PhoneButton
-            v-if="isMobile && user.phoneNumberIsValid"
-            class="d-inline m-auto text-nowrap optional-action-button"
-            :phone-number="user.phoneNumber"
-            variant="outline-secondary"
-          />
-          <b-button
-            v-else-if="user.id !== fsId"
-            variant="outline-secondary"
-            class="d-inline m-auto optional-action-button"
-            @click="chat(user.id)"
-          >
-            <i class="fas fa-comment" />
-          </b-button>
-          <OverflowMenu
-            class="d-inline m-auto text-nowrap"
-            :options="overflowMenuOptions(user)"
-          />
-        </div>
+          </template>
+        </PaginatedContent>
       </template>
 
       <div
@@ -102,16 +80,13 @@ import {
   removeStoreMember,
 } from '@/api/stores'
 import phoneNumber from '@/helper/phone-numbers'
-import { chat, pulseError } from '@/script'
+import { pulseError, chat } from '@/script'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
-import StoreTeamAvatar from '@/components/Stores/StoreTeam/StoreTeamAvatar.vue'
 import StoreData from '@/stores/stores'
 import Container from '@/components/Container/Container.vue'
-import ListToggleMixin from '@/mixins/ContainerToggleMixin'
+import PaginatedContent from '@/components/Container/PaginatedContent.vue'
 import { HTTP_RESPONSE } from '@/consts'
-import PhoneButton from '@/components/PhoneButton.vue'
-import Time from '@/components/Time.vue'
-import OverflowMenu from '@/components/OverflowMenu.vue'
+import StoreTeamUserItem from './StoreTeamUserItem.vue'
 import StoreTeamManagementPanel from './StoreTeamManagementPanel.vue'
 import StoreTeamFilterPanel from './StoreTeamFilterPanel.vue'
 import { usePickupStore } from '@/stores/pickups'
@@ -119,8 +94,8 @@ import CopyToClipboardMixin from '@/mixins/CopyToClipboardMixin'
 import RequiredMessageModal from '@/components/Modals/RequiredMessageModal.vue'
 
 export default {
-  components: { StoreTeamAvatar, Container, PhoneButton, Time, OverflowMenu, StoreTeamManagementPanel, StoreTeamFilterPanel, RequiredMessageModal },
-  mixins: [MediaQueryMixin, ListToggleMixin, CopyToClipboardMixin],
+  components: { Container, PaginatedContent, StoreTeamUserItem, StoreTeamManagementPanel, StoreTeamFilterPanel, RequiredMessageModal },
+  mixins: [MediaQueryMixin, CopyToClipboardMixin],
   props: {
     fsId: { type: Number, required: true },
     mayEditStore: { type: Boolean, default: false },
@@ -136,6 +111,7 @@ export default {
     return {
       confirmationDialogue,
       pickupStore: usePickupStore(),
+      chat,
     }
   },
   data () {
@@ -146,6 +122,7 @@ export default {
       defaultAmountForDesktop: 20,
       defaultAmountForMobile: 10,
       messageModalKey: '',
+      teamList: [],
     }
   },
   computed: {
@@ -153,6 +130,9 @@ export default {
       if (!this.loaded || !this.filterFunction.name) return this.$i18n('store.team_container')
       const filterName = this.$i18n(`store.sm.${this.filterFunction.name}`)
       return `${this.$i18n('store.team_container')} (${this.filterFunction.count} ${filterName})`
+    },
+    paginateAmount () {
+      return this.viewIsMobile ? this.defaultAmountForMobile : this.defaultAmountForDesktop
     },
     hasMemberDistances () {
       if (!this.loaded) return false
@@ -183,12 +163,7 @@ export default {
       this.updateList()
     },
   },
-  async mounted () {
-    this.setDefaultAmountForDesktop(this.defaultAmountForDesktop)
-    this.setDefaultAmountForMobile(this.defaultAmountForMobile)
-  },
   methods: {
-    chat,
     /**
      * Calculates and sorts the list of users, filtered by buttons and search string, and sets it in the mixin where
      * it can be collapsed or expanded by the "show more" button.
@@ -196,17 +171,7 @@ export default {
     updateList () {
       const newList = this.foodsaver.filter(this.filterFunction.func)
       newList.sort(this.sortingFunction.func)
-      this.setList(newList)
-    },
-    mayRemoveFromStore (user) {
-      if (user.isManager) return false
-      if (user.id === this.fsId) return false
-      return this.mayEditStore
-    },
-    mayBecomeManager (user) {
-      if (!user.mayManage) return false
-      if (user.isJumper) return false
-      return !user.isManager
+      this.teamList = newList
     },
     async toggleStandbyState (user) {
       try {
@@ -321,20 +286,7 @@ export default {
         pulseError(this.$i18n('error_unexpected'))
       }
     },
-    overflowMenuOptions (user) {
-      return [
-        { hide: user.id === this.fsId, icon: 'comment', textKey: 'chat.open_chat', callback: () => chat(user.id) },
-        { hide: !this.mayEditStore || user.id === this.fsId, icon: 'comments', textKey: 'chat.open_multi_chat', callback: () => this.$emit('multi-chat', user.id) },
-        { hide: !user.validPhoneNumber, icon: 'phone', textKey: 'pickup.call', href: this.$url('phone_number', user.phoneNumber, true) },
-        { hide: !user.validPhoneNumber, icon: 'clone', textKey: 'pickup.copyNumber', callback: () => this.copyToClipboard(user.phoneNumber) },
-        { icon: 'user', textKey: 'profile.go', href: this.$url('profile', user.id) },
-        { hide: !this.mayEditStore || user.isActive, icon: 'clipboard-check', textKey: 'store.sm.makeRegularTeamMember', callback: () => this.toggleStandbyState(user) },
-        { hide: !this.mayEditStore || !user.isActive || user.isManager, icon: 'running', textKey: 'store.sm.makeJumper', callback: () => this.toggleStandbyState(user) },
-        { hide: !this.mayEditStore || !this.mayBecomeManager(user), icon: 'cog', textKey: 'store.sm.promoteToManager', callback: () => this.promoteToManager(user) },
-        { hide: !this.mayEditStore || !user.isManager, icon: 'cog', textKey: 'store.sm.demoteAsManager', callback: () => this.demoteAsManager(user) },
-        { hide: !this.mayRemoveFromStore(user), icon: 'user-times', textKey: 'store.sm.removeFromTeam', callback: () => this.removeFromTeam(user) },
-      ]
-    },
+
     toggleSortingFunction () {
       this.sortingFunctionIndex = (this.sortingFunctionIndex + 1) % this.sortingFunctions.length
       this.updateList()
@@ -346,23 +298,11 @@ export default {
         .join('<br>')
       return { title, html: true, customClass: 'small', placement: 'bottom' }
     },
-    formatDistance (distance) {
-      if (distance === -1) return this.$i18n('store.request.distance_short.unknown')
-      if (distance === 0) return this.$i18n('store.request.distance_short.close')
-      return this.$i18n('store.request.distance_short.normal', { distance })
-    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.manager {
-  background-color: var(--fs-color-warning-200) !important;
-}
-.manager + div, .manager.store-member {
-  border-top-color: var(--fs-color-warning-500);
-  border-top-width: 2px !important;
-}
 .filter-section + .store-member {
   box-shadow: 0px 10px 5px -9px inset #0008;
 }

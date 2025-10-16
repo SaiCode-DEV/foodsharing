@@ -7,7 +7,7 @@
   >
     <slot :currentPageItems="currentPageItems" />
     <b-pagination
-      v-if="props.items.length > pageSize"
+      v-if="shouldPaginate"
       v-model="currentPage"
       :total-rows="props.items.length"
       :per-page="props.pageSize"
@@ -26,6 +26,7 @@ const SCROLL_DISTANCE_THRESHOLD = 100_000 // picked by feel
 const props = defineProps({
   items: { type: Array, default: () => [] },
   pageSize: { type: Number, default: 5 },
+  threshold: { type: Number, default: 0 },
 })
 
 const emit = defineEmits(['update:current-page-items'])
@@ -36,7 +37,14 @@ const totalPages = computed(() => {
   return Math.ceil(props.items.length / props.pageSize)
 })
 
+const shouldPaginate = computed(() => {
+  return props.items.length > props.pageSize + props.threshold
+})
+
 const currentPageItems = computed(() => {
+  if (!shouldPaginate.value) {
+    return props.items
+  }
   const start = (currentPage.value - 1) * props.pageSize
   return props.items.slice(start, start + props.pageSize)
 })
