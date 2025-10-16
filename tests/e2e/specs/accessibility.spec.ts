@@ -1,15 +1,22 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
-test.describe("homepage", () => {
-  test.fixme(
-    "should not have any automatically detectable accessibility issues",
+test.describe("Accessibility check", () => {
+  test.describe.configure({ retries: 0 });
+
+  test(
+    "index",
     async ({ page }) => {
       await page.goto("/");
 
-      const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+      const accessibilityScanResults = await new AxeBuilder({ page })
+      .exclude('.foodsharing.part') // Ignore Logo Color Contrast
+      .exclude('.navigation.navbar') // Navbar Tint
+      .analyze();
 
       expect(accessibilityScanResults.violations).toEqual([]);
     },
   );
+
+  
 });

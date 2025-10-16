@@ -406,7 +406,10 @@ button.close {
 
 body.light-mode {
   .text-success {
-    color: var(--fs-color-success-600) !important;
+    color: var(--fs-color-success-700) !important;
+  }
+  .alert-secondary {
+    color: var(--fs-color-secondary-800) !important;
   }
 }
 

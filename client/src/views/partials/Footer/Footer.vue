@@ -84,20 +84,21 @@
             <a
               :href="$url('imprint')"
               :aria-label="$i18n('footer.imprint')"
-              class="mr-3"
+              class="mr-3 footer-link"
             >
-              {{ $i18n('footer.imprint') }}</a>
+              {{ $i18n('footer.imprint') }}
+            </a>
             <a
               :href="$url('dataprivacy')"
               :aria-label="$i18n('footer.dataprivacy')"
-              class="mr-3"
+              class="mr-3 footer-link"
             >
               {{ $i18n('footer.dataprivacy') }}
             </a>
             <a
               :href="$url('contact')"
               :aria-label="$i18n('menu.entry.contact')"
-              class="mr-3"
+              class="mr-3 footer-link"
             >
               {{ $i18n('menu.entry.contact') }}
             </a>
@@ -109,10 +110,11 @@
             <a
               v-for="(social, index) in socialData"
               :key="index"
-              v-b-tooltip="social.name"
+              v-b-tooltip="social.title"
               :href="$url(social.url + '_'+ (isDotAt ? 'at' : 'de'))"
               class="social_icons hide-external"
               :rel="externalLink"
+              :aria-label="social.title"
             >
               <!-- This is a workaround for the bluesky icon and can be removed it is added to fontawesome -->
               <img
@@ -121,9 +123,10 @@
                 width="19px"
                 height="19px"
                 style="vertical-align: middle"
+                :alt="social.title"
               >
               <i v-else :class="social.icon" />
-              <span class="sr-only" v-text="social.name" />
+              <span class="sr-only" v-text="social.title" />
             </a>
           </b-row>
         </b-col>
@@ -190,7 +193,7 @@ export default {
 .social_icons {
   color: var(--fs-color-secondary-900);
   font-size: 1.2rem;
-  padding: .25rem;
+  padding: .4rem;
   transition: color .2s ease-in-out;
 
   :not(:last-child) {
@@ -200,6 +203,10 @@ export default {
   &:hover {
     color: var(--fs-color-secondary-600);
   }
+}
+.footer-link {
+  display: inline-block;
+  padding: .5rem 0;
 }
 .partner {
   margin: .5rem;

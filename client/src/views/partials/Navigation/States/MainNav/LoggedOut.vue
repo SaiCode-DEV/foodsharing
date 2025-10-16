@@ -33,7 +33,10 @@
       </Dropdown>
     </span>
 
-    <b-navbar-toggle target="nav-collapse">
+    <b-navbar-toggle
+      target="nav-collapse"
+      :title="$i18n('navigation.toggle')"
+    >
       <template #default="{ expanded }">
         <i
           class="fas"

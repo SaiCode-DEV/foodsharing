@@ -25,25 +25,25 @@
                 </h1>
               </b-card-title>
               <b-card-text class="mt-4">
-                <h3 class="text-dark">
+                <h2 class="h3 text-dark">
                   {{ $i18n('startpage.slogan_1') }}
-                </h3>
+                </h2>
               </b-card-text>
               <b-card-text class="mt-5 mb-5 text-center">
                 <b-button
                   variant="primary"
-                  class="pl-5 pr-5"
+                  class="pl-5 pr-5 join-button font-weight-bolder"
                   :href="$url('joininfo')"
                 >
                   {{ $i18n('startpage.call_to_action_button') }}
                 </b-button>
               </b-card-text>
-              <h6
-                class="text-dark d-none d-sm-block mb-sm-5"
+              <p
+                class="h6 text-dark d-none d-sm-block mb-sm-5"
               >
                 <b>{{ $i18n('startpage.slogan_2') }}</b><br>
                 {{ $i18n('startpage.slogan_3') }}
-              </h6>
+              </p>
             </b-col>
           </b-row>
         </b-container>
@@ -170,7 +170,9 @@
             class="p-4"
           >
             <b-card-text>
-              <h5>{{ $i18n('startpage.member.title') }}</h5>
+              <h3 class="h5">
+                {{ $i18n('startpage.member.title') }}
+              </h3>
             </b-card-text>
             <b-card-text>
               {{ $i18n('startpage.member.text') }}
@@ -188,7 +190,9 @@
             class="p-4"
           >
             <b-card-text>
-              <h5>{{ $i18n('startpage.private.title') }}</h5>
+              <h3 class="h5">
+                {{ $i18n('startpage.private.title') }}
+              </h3>
             </b-card-text>
             <b-card-text>
               {{ $i18n('startpage.private.text') }}
@@ -200,7 +204,9 @@
             class="p-4"
           >
             <b-card-text>
-              <h5>{{ $i18n('startpage.store.title') }}</h5>
+              <h3 class="h5">
+                {{ $i18n('startpage.store.title') }}
+              </h3>
             </b-card-text>
             <b-card-text>
               {{ $i18n('startpage.store.text') }}
@@ -259,7 +265,9 @@
                 class="p-4"
               >
                 <b-card-text>
-                  <h5>{{ $i18n('startpage.near_you.title') }}</h5>
+                  <h3 class="h5">
+                    {{ $i18n('startpage.near_you.title') }}
+                  </h3>
                 </b-card-text>
                 <b-row>
                   <b-col
@@ -343,6 +351,7 @@
         <b-img-lazy
           fluid
           src="/img/startpage/picture-forderungen.png"
+          :alt="$i18n('startpage.demands.image_alt')"
         />
       </b-col>
     </b-row>
@@ -403,7 +412,9 @@
                     md="11"
                     class="pl-0"
                   >
-                    <h5>{{ $i18n('startpage.donate.title') }}</h5>
+                    <h3 class="h5">
+                      {{ $i18n('startpage.donate.title') }}
+                    </h3>
                   </b-col>
                 </b-row>
                 <b-card-text>
@@ -447,18 +458,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.join-button {
+  background-color: #45801a;
+}
+
 .row {
   margin-left: 0px;
   margin-right: 0px;
 }
 
 @media screen and (max-width: 767px) {
-      h3 {
+      .h3 {
         font-size: 1rem;
       }
   }
 
-h5 {
+h3, .h3 {
   font-family: var(--fs-font-family-headline);
 }
 

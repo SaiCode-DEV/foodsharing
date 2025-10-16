@@ -2,7 +2,9 @@
   <div class="navbar-navside">
     <MetaNavLoggedOut v-if="viewIsMobile" />
     <ul class="sidenav">
-      <ThemeSwitcher />
+      <li class="nav-item">
+        <ThemeSwitcher />
+      </li>
       <Link
         :href="$url('joininfo')"
         :title="$i18n('register.topbar')"

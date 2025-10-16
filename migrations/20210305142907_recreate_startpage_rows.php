@@ -37,7 +37,7 @@ final class RecreateStartpageRows extends AbstractMigration
                 'id' => 82,
                 'name' => 'startpage-block3-de',
                 'title' => '-- ignored --',
-                'body' => '<img class="img-fluid" src="/img/startpage/hackweekend-img.png">'
+                'body' => '<img class="img-fluid" src="/img/startpage/hackweekend-img.png" alt="Hackwekend Image">'
             ],
             [
             'id' => 83,
@@ -56,7 +56,7 @@ final class RecreateStartpageRows extends AbstractMigration
                 'id' => 85,
                 'name' => 'startpage-block3-beta',
                 'title' => '-- ignored --',
-                'body' => '<img class="img-fluid" src="/img/startpage/hackweekend-img.png">'
+                'body' => '<img class="img-fluid" src="/img/startpage/hackweekend-img.png" alt="Hackwekend Image">'
             ],
             [
                 'id' => 86,
@@ -77,7 +77,7 @@ final class RecreateStartpageRows extends AbstractMigration
                 'id' => 88,
                 'name' => 'startpage-block3-at',
                 'title' => '-- ignored --',
-                'body' => '<img class="img-fluid" src="/img/startpage/hackweekend-img.png">'
+                'body' => '<img class="img-fluid" src="/img/startpage/hackweekend-img.png" alt="Hackwekend Image">'
             ],
             [
                 'id' => 89,
@@ -98,7 +98,7 @@ final class RecreateStartpageRows extends AbstractMigration
                 'id' => 91,
                 'name' => 'startpage-block3-ch',
                 'title' => '-- ignored --',
-                'body' => '<img class="img-fluid" src="/img/startpage/hackweekend-img.png">'
+                'body' => '<img class="img-fluid" src="/img/startpage/hackweekend-img.png" alt="Hackwekend Image">'
             ]
         ];
 

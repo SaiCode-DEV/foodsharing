@@ -17,9 +17,9 @@ html a[href]:not(:where(
     .author a,
     .leaflet-control-zoom a
 )) {
-    text-decoration: none;
-    font-weight: 600;
-    color: var(--fs-color-secondary-800);
+    text-decoration: none !important;
+    font-weight: 600 !important;
+    color: var(--fs-color-secondary-800) !important;
 
     &:hover {
         text-decoration: underline;
