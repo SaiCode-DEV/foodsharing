@@ -4463,6 +4463,8 @@ map:
   events:
     go: al evento
     title: Eventos
+  users:
+    go: Ver perfil
 addreaction: 'Añadir una reacción'
 mail:
   noreply_addresses_not_allowed: 'Los correos electrónicos a direcciones noreply@…
