@@ -1558,6 +1558,8 @@ map:
   events:
     title: Arrangementer
     go: til arrangementet
+  users:
+    go: Se profil
 content:
   content: innhold
   bread: alle sider
