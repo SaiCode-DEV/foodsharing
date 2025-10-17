@@ -3242,6 +3242,8 @@ map:
         label: Affiliazione
   events:
     title: Eventi
+  users:
+    go: Vedi profilo
 push_notifications:
   test_notification_body: Ottimo, sembra che abbia funzionato :)
   test_notification_title: Notifiche push abilitate
