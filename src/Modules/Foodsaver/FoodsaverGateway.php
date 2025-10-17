@@ -144,6 +144,7 @@ class FoodsaverGateway extends BaseGateway
 			fs.verified,
 			fs.name,
 			fs.nachname,
+            fs.is_sleeping,
 			fs.lat,
 			fs.lon,
 			fs.email,

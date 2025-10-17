@@ -27,6 +27,7 @@
     <store-bubble ref="storeBubble" />
     <food-share-point-bubble ref="foodSharePointBubble" />
     <event-bubble ref="eventBubble" />
+    <user-bubble ref="userBubble" />
   </div>
 </template>
 
@@ -46,6 +47,8 @@ import CommunityBubble from '@php/Modules/Map/components/CommunityBubble.vue'
 import StoreBubble from '@php/Modules/Map/components/StoreBubble.vue'
 import FoodSharePointBubble from '@php/Modules/Map/components/FoodSharePointBubble.vue'
 import EventBubble from '@php/Modules/Map/components/EventBubble.vue'
+import UserBubble from '@php/Modules/Map/components/UserBubble.vue'
+
 import Storage from '@/storage'
 import { useUserStore } from '@/stores/user.js'
 import AddressSearchField from '@/components/map/AddressSearchField.vue'
@@ -64,6 +67,7 @@ export default {
     StoreBubble,
     FoodSharePointBubble,
     EventBubble,
+    UserBubble,
     Vue2LeafletLocatecontrol,
     AddressSearchField,
   },
@@ -215,7 +219,7 @@ export default {
           this.$refs.communityBubble.show(id)
           break
         case MARKER_TYPES.users.name:
-          location.href = this.$url('profile', id)
+          this.$refs.userBubble.show(id)
           break
         case MARKER_TYPES.events.name:
           this.$refs.eventBubble.show(id)

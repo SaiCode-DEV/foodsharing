@@ -7,6 +7,7 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionPinStatus;
 use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
+use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\FoodSharePoint\FoodSharePointGateway;
 use Foodsharing\Modules\Map\DTO\BasketBubbleData;
 use Foodsharing\Modules\Map\DTO\EventMapBubbleData;
@@ -15,6 +16,7 @@ use Foodsharing\Modules\Map\DTO\StoreMapBubbleData;
 use Foodsharing\Modules\Map\DTO\StoreMarkerHelpType;
 use Foodsharing\Modules\Map\DTO\StoreMarkerScopeType;
 use Foodsharing\Modules\Map\DTO\StoreMarkerStatusType;
+use Foodsharing\Modules\Map\DTO\UserMapBubbleData;
 use Foodsharing\Modules\Map\DTO\UserMarkerActivityType;
 use Foodsharing\Modules\Map\DTO\UserMarkerMemberType;
 use Foodsharing\Modules\Map\DTO\UserMarkerRoleType;
@@ -221,5 +223,28 @@ class MapRestController extends AbstractFoodsharingRestController
         $event = EventMapBubbleData::fromEvent($event);
 
         return $this->respondOK($event);
+    }
+
+    #[OA\Get(summary: 'Returns the data for the bubble of a user marker on the map.')]
+    #[OA\Tag('map')]
+    #[Rest\Get(path: 'map/user/{userId}')]
+    #[OA\Response(
+        response: Response::HTTP_OK,
+        description: 'Successful',
+        content: new Model(type: UserMapBubbleData::class)
+    )]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'The user does not exist')]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
+    #[Rest\QueryParam(name: 'userId', requirements: Requirement::POSITIVE_INT, description: 'User for which to return data', nullable: false)]
+    public function getUserBubble(int $userId): Response
+    {
+        $this->assertLoggedIn();
+        $user = $this->foodsaverGateway->getFoodsaverDetails($userId);
+        if (empty($user)) {
+            throw new NotFoundHttpException('The user does not exist');
+        }
+        $user = UserMapBubbleData::create(new Profile($user), $user['about_me_intern'] ?? null);
+
+        return $this->respondOK($user);
     }
 }

@@ -2024,7 +2024,8 @@ map:
   events:
     title: "Veranstaltungen"
     go: "Zur Veranstaltung"
-
+  users:
+    go: "Zum Profil"
 
 mailbox:
   mails: "E-Mails"
