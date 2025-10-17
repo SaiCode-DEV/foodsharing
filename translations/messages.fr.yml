@@ -3048,6 +3048,8 @@ map:
   events:
     go: à l’événement
     title: Événements
+  users:
+    go: Voir le profil
 content:
   changelog: Changelog actuel
   empty: Aucune page existante.
