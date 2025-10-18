@@ -1095,6 +1095,58 @@ class Foodsharing extends Db
         return $params;
     }
 
+    /**
+     * Calculate the destination point reached by travelling a given distance
+     * from an initial geographic point along a specified bearing (great-circle
+     * / spherical Earth solution).
+     *
+     * Uses the spherical Earth formula:
+     *   φ2 = asin( sin φ1 * cos(d/R) + cos φ1 * sin(d/R) * cos θ )
+     *   λ2 = λ1 + atan2( sin θ * sin(d/R) * cos φ1, cos(d/R) - sin φ1 * sin φ2 )
+     *
+     * Notes:
+     * - The function assumes a spherical Earth with mean radius R = 6371 km.
+     * - Inputs are in degrees (latitude, longitude, bearing) except distance
+     *   which is in kilometres.
+     * - Output is an array [latitude, longitude] in degrees.
+     * - Longitude is not explicitly normalized to the [-180, 180] range;
+     *   callers may normalize if required.
+     * - Behavior near the poles or for very large distances (antipodal points)
+     *   can be numerically sensitive.
+     *
+     * @param float $lat           initial latitude in degrees
+     * @param float $lon           initial longitude in degrees
+     * @param float $distanceKm    Distance to travel from the initial point, in
+     * kilometres. If negative, a random distance between 0 and 20 km is used.
+     * @param float $bearingDegrees Bearing (true heading) in degrees, clockwise
+     * from north. If negative, a random bearing between 0 and 360 degrees is used.
+     * @return float[]             array with two floats:
+     * [destinationLatitudeInDegrees, destinationLongitudeInDegrees]
+     */
+    public function getPointAtDistance($lat, $lon, $distanceKm, $bearingDegrees): array
+    {
+        $earthRadiusKm = 6371;
+
+        if ($distanceKm < 0) {
+            $distanceKm = $this->faker->numberBetween(0, 20);
+        }
+        if ($bearingDegrees < 0) {
+            $bearingDegrees = $this->faker->numberBetween(0, 360);
+        }
+
+        // Convert from degrees to radians
+        $bearingRad = deg2rad($bearingDegrees);
+        $latRad = deg2rad($lat);
+        $lonRad = deg2rad($lon);
+
+        $newLatRad = asin(sin($latRad) * cos($distanceKm / $earthRadiusKm) +
+            cos($latRad) * sin($distanceKm / $earthRadiusKm) * cos($bearingRad));
+        $newLonRad = $lonRad + atan2(sin($bearingRad) * sin($distanceKm / $earthRadiusKm) * cos($latRad),
+            cos($distanceKm / $earthRadiusKm) - sin($latRad) * sin($newLatRad));
+
+        return [rad2deg($newLatRad), rad2deg($newLonRad)];
+    }
+
     public function createFoodbasket($user, $extra_params = []): array
     {
         $params = array_merge([

@@ -30,6 +30,7 @@ class SeedCommand extends Command implements CustomCommandInterface
 
     protected OutputInterface $output;
 
+    protected $foodsaversFull = [];
     protected $foodsavers = [];
     protected $reportAdmins = [];
     protected $arbitrationAdmins = [];
@@ -822,7 +823,18 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
         foreach (range(1, $count) as $_) {
             $user = $this->getRandomIDOfArray($this->foodsavers);
             $I->createFoodbasket($user);
-            $this->progressBar($_, $count);
+            $this->progressBar($_, 2 * $count);
+        }
+
+        // Create food baskets around userbot
+        foreach (range(1, $count) as $_) {
+            // Calculate a random location with exact distance but random
+            // direction from userbot
+            [$lat, $lon] = $I->getPointAtDistance($userbot['lat'], $userbot['lon'], $_ + 1, -1);
+
+            $user = $this->getRandomIDOfArray($this->foodsavers);
+            $I->createFoodbasket($user, ['lat' => $lat, 'lon' => $lon]);
+            $this->progressBar($count + $_, 2 * $count);
         }
         $this->output->writeln('');
 

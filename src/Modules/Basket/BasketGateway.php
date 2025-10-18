@@ -332,49 +332,73 @@ class BasketGateway extends BaseGateway
      */
     public function listNearbyBasketsByDistance(?int $userId, GeoLocation $gpsCoordinate, int $distanceKm = 30): array
     {
-        /* ST_BUFFER expects the distance to be in the same unit as the points. The factor of 1.5 makes sure that the
-         bounding box is not too small due to Earth's curvature. */
-        $maxDistanceInDegrees = 1.5 * $distanceKm / (pi() * 6371) * 180;
+        // Compute cheap approximate numeric bounding box deltas in degrees
+        // $radiusEarth = 6371.0; // km
+        // approx km per degree latitude
+        // $kmPerDegLat = $radiusEarth * (pi() / 180); // ≈ 111.19492664455873 km/deg
+        // $radiusEquator = 6378.137; // km
+        // $kmPerDegLon = $radiusEquator * (pi() / 180.0); // ≈ 111.31949079327357 km/deg
 
-        $baskets = $this->db->fetchAll('SELECT
-				b.id,
-			    UNIX_TIMESTAMP(b.`until`) AS until_ts,
-				b.picture,
-				b.description,
-                ST_Distance_Sphere(Point(:lon, :lat), Point(b.lon, b.lat)) / 1000 AS distance_in_km,
-				fs.id AS fs_id,
-				fs.name AS fs_name,
-				fs.photo AS fs_photo,
-				fs.is_sleeping AS fs_is_sleeping
-			FROM fs_basket b
-            JOIN fs_foodsaver fs ON b.foodsaver_id = fs.id
-            WHERE
-                -- Reduce load for distance calculation by using a bounding box
-                -- Only for all points inside the bounding box is the calculation running
-                ST_INTERSECTS(Point(b.lon, b.lat),
-                    ST_Envelope(
-                        ST_BUFFER(
-                            Point(:lon, :lat),
-                            :max_distance_in_degrees
-                        )
-                    )
-                )
-			AND b.status = :status
-			AND foodsaver_id != :fs_id
-			AND b.until > NOW()
-			HAVING distance_in_km <= :max_distance_in_km
-			ORDER BY distance_in_km
-			LIMIT 10
-		',
-            [
-                ':lon' => $gpsCoordinate->lon,
-                ':lat' => $gpsCoordinate->lat,
-                ':status' => BasketStatus::REQUESTED_MESSAGE_READ,
-                ':fs_id' => $userId ?? 0,
-                ':max_distance_in_km' => $distanceKm,
-                ':max_distance_in_degrees' => $maxDistanceInDegrees
-            ]
-        );
+        // Get delta degrees for latitude and longitude
+        $deltaLat = $distanceKm / 111.19492664455873; // deg
+        // We need to use cos() to adjust for the latitude (deviation from
+        // equator) as we move north or south of the equator
+        $deltaLon = $distanceKm / (111.31949079327357 * cos(deg2rad($gpsCoordinate->lat))); // deg
+
+        /**
+         * Retrieve nearby baskets (up to 10) matching a requested status, ordered by distance.
+         *
+         * Executes a single prepared SQL statement that:
+         *  - selects baskets (fs_basket) joined with the foodsaver
+         *    (fs_foodsaver),
+         *  - filters by basket status, excluding baskets created by the current
+         *    user, only returns baskets which are still open (b.until > NOW()),
+         *  - pre-filters using a rectangular bounding-box filter on
+         *    latitude/longitude to reduce rows,
+         *  - computes the great-circle distance using
+         *    ST_Distance_Sphere(Point(:lon, :lat), b.point) and converts it to
+         *    kilometers,
+         *  - filters results by a maximum distance (distance_in_km <=
+         *    :max_distance_in_km),
+         *  - orders by ascending distance and limits the result set to 10 rows.
+         *
+         * Performance notes:
+         *  - The bounding-box pre-filter (lat/lon BETWEEN ...) is used for performance to avoid
+         *    running ST_Distance_Sphere on every row in the table
+         */
+        $baskets = $this->db->fetchAll('
+            SELECT *
+            FROM (
+                SELECT
+                    b.id,
+                    UNIX_TIMESTAMP(b.`until`) AS until_ts,
+                    b.picture,
+                    b.description,
+                    ST_Distance_Sphere(Point(:lon, :lat), b.point) / 1000 AS distance_in_km,
+                    fs.id AS fs_id,
+                    fs.name AS fs_name,
+                    fs.photo AS fs_photo,
+                    fs.is_sleeping AS fs_is_sleeping
+                FROM fs_basket b
+                JOIN fs_foodsaver fs ON b.foodsaver_id = fs.id
+                WHERE b.status = :status
+                  AND b.foodsaver_id != :fs_id
+                  AND b.until > NOW()
+                  AND b.lat BETWEEN (:lat - :delta_lat) AND (:lat + :delta_lat)
+                  AND b.lon BETWEEN (:lon - :delta_lon) AND (:lon + :delta_lon)
+            ) t
+            WHERE distance_in_km <= :max_distance_in_km
+            ORDER BY distance_in_km
+            LIMIT 10
+        ', [
+            ':lon' => $gpsCoordinate->lon,
+            ':lat' => $gpsCoordinate->lat,
+            ':status' => BasketStatus::REQUESTED_MESSAGE_READ,
+            ':fs_id' => $userId ?? 0,
+            ':max_distance_in_km' => $distanceKm,
+            ':delta_lat' => $deltaLat,
+            ':delta_lon' => $deltaLon,
+        ]);
 
         return array_map(BasketForListView::createFromArray(...), $baskets);
     }
