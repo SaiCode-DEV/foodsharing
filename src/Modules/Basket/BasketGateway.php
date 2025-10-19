@@ -356,8 +356,8 @@ class BasketGateway extends BaseGateway
          *  - pre-filters using a rectangular bounding-box filter on
          *    latitude/longitude to reduce rows,
          *  - computes the great-circle distance using
-         *    ST_Distance_Sphere(Point(:lon, :lat), b.point) and converts it to
-         *    kilometers,
+         *    ST_Distance_Sphere(Point(:lon, :lat), Point(b.lon, b.lat)) and
+         *    converts it to kilometers,
          *  - filters results by a maximum distance (distance_in_km <=
          *    :max_distance_in_km),
          *  - orders by ascending distance and limits the result set to 10 rows.
@@ -374,7 +374,7 @@ class BasketGateway extends BaseGateway
                     UNIX_TIMESTAMP(b.`until`) AS until_ts,
                     b.picture,
                     b.description,
-                    ST_Distance_Sphere(Point(:lon, :lat), b.point) / 1000 AS distance_in_km,
+                    ST_Distance_Sphere(Point(:lon, :lat), Point(b.lon, b.lat)) / 1000 AS distance_in_km,
                     fs.id AS fs_id,
                     fs.name AS fs_name,
                     fs.photo AS fs_photo,
