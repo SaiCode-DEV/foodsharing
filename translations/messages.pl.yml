@@ -110,6 +110,7 @@ quiz:
     continue: '{name} - Kontynuuj quiz!'
     disqualified: '{name} - Niestety, zdyskwalifikowany.'
     finished: '{name} - zdałeś/aś!'
+    pause: Przerwa na naukę ({name})
   startmodal:
     title: Wskazówki do quizu
     infos:
@@ -172,7 +173,7 @@ quiz:
       2: Niestety, nie zdałeś/aś.
     points:
       1: Zdałeś/aś z {failurePoints} z maksmalnie {maxFailurePointsToSucceed} 
-        punktami ujemnymi.
+        punktami ujemnymi!
       2: Miałeś/aś {failurePoints} punktów ujemnych, a mógłbyś/mogłabyś zdać z 
         maksymalnie {maxFailurePointsToSucceed} punktami ujemnymi.
   fp_badge:
@@ -280,6 +281,8 @@ upload:
   choose_file: Wyślij plik
   new_file: Wyślij nowy plik
   crop_dialog_title: Przytnij obraz
+  image-problem: Twój plik wydaje się nie być w porządku, najlepiej wybierz 
+    zwykły obraz jpg
 button:
   save: Zapisz
   next: następny
@@ -294,6 +297,7 @@ button:
   permadelete: usuń trwale
   yes_i_am_sure: tak, jestem pewny/a
   apply: zastosuj
+  cancel: Anuluj
 settings:
   calendar:
     program:
