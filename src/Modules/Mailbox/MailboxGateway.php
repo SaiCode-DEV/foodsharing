@@ -112,26 +112,20 @@ class MailboxGateway extends BaseGateway
 
     public function getUnreadMailCount(Session $session): int
     {
-        return $this->db->fetchValue(
-            'SELECT COUNT(*) FROM `fs_mailbox_message` m WHERE m.`read` = 0 AND m.`mailbox_id` IN (
-				SELECT r.`mailbox_id`
-				FROM fs_bezirk r
-				JOIN fs_botschafter a
-				ON a.`foodsaver_id` = :fs_id1 AND r.`id` = a.`bezirk_id` AND r.`mailbox_id` IS NOT NULL
-			UNION
-				SELECT f.`mailbox_id`
-				FROM fs_foodsaver f
-				WHERE f.`id` = :fs_id2 AND f.`mailbox_id` IS NOT NULL
-			UNION
-				SELECT m.`mailbox_id`
-				FROM `fs_mailbox_member` m
-				WHERE m.`foodsaver_id` = :fs_id3
-			)',
-            [
-                ':fs_id1' => $session->id(),
-                ':fs_id2' => $session->id(),
-                ':fs_id3' => $session->id()
-            ]
+        return (int)$this->db->fetchValue(
+            'SELECT COUNT(*) AS cnt
+             FROM fs_mailbox_message m
+             JOIN (
+               SELECT mailbox_id FROM fs_bezirk r
+                 JOIN fs_botschafter a ON r.id = a.bezirk_id
+                 WHERE a.foodsaver_id = :fs AND r.mailbox_id IS NOT NULL
+               UNION
+               SELECT mailbox_id FROM fs_foodsaver WHERE id = :fs AND mailbox_id IS NOT NULL
+               UNION
+               SELECT mailbox_id FROM fs_mailbox_member WHERE foodsaver_id = :fs
+             ) mb ON m.mailbox_id = mb.mailbox_id
+             WHERE m.`read` = 0',
+            [':fs' => $session->id()]
         );
     }
 
