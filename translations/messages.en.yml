@@ -1607,6 +1607,10 @@ bell:
   store_wallpost_title: '{name}'
   poll_new: '{title}'
   poll_new_title: New poll
+  poll_started: 'The poll "{title}" has started and is now open for voting.'
+  poll_started_title: Poll started
+  poll_ending_soon: 'The poll "{title}" is ending soon. You have not voted yet!'
+  poll_ending_soon_title: Poll ending soon
   store_request_deny_title: '{name}'
   store_request_accept_wait_title: '{name}'
   store_request_accept_title: '{name}'

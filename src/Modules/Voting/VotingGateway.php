@@ -5,6 +5,7 @@ namespace Foodsharing\Modules\Voting;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
+use Foodsharing\Modules\Core\DBConstants\Voting\VotingNotificationType;
 use Foodsharing\Modules\Core\DBConstants\Voting\VotingType;
 use Foodsharing\Modules\Voting\DTO\Poll;
 use Foodsharing\Modules\Voting\DTO\PollForListView;
@@ -112,7 +113,7 @@ class VotingGateway extends BaseGateway
      *
      * @param int $fsId a valid ID of a foodsaver
      *
-     * @return array multiple {@link PollForPreview} objects
+     * @return Poll[] multiple {@link PollForPreview} objects
      */
     public function listCurrentPolls(int $fsId): array
     {
@@ -243,7 +244,8 @@ class VotingGateway extends BaseGateway
             'votes' => 0,
             'eligible_votes_count' => count($voterIds),
             'creation_timestamp' => $this->db->now(),
-            'shuffle_options' => $poll->shuffleOptions
+            'shuffle_options' => $poll->shuffleOptions,
+            'notifications_sent' => VotingNotificationType::NONE
         ]);
 
         // insert all options
@@ -302,7 +304,7 @@ class VotingGateway extends BaseGateway
      * @param bool $restrict_homeDistrict only users whose home region is the specified region or any subregion (if included)
      * @param bool $includeSubregions whether users from subregions should be included
      *
-     * @return array user IDs
+     * @return int[] user IDs
      *
      * @throws \Exception
      */
@@ -409,5 +411,149 @@ class VotingGateway extends BaseGateway
                 ]);
             }
         }
+    }
+
+    /**
+     * Returns polls that have started but haven't had a start notification sent yet.
+     *
+     * @return Poll[] Array of Poll objects that have recently started and need notifications
+     */
+    public function getStartedPolls(): array
+    {
+        $data = $this->db->fetchAll('
+            SELECT id, name, description, region_id, scope, type, start, end, author, votes, eligible_votes_count, creation_timestamp, shuffle_options
+            FROM fs_poll 
+            WHERE start <= NOW()
+            AND end > NOW()
+            AND notifications_sent = :notificationStatus
+        ', [
+            ':notificationStatus' => VotingNotificationType::NONE
+        ]);
+
+        $polls = [];
+        foreach ($data as $d) {
+            $options = $this->getOptions($d['id'], false);
+            $polls[] = Poll::create(
+                $d['id'],
+                $d['name'],
+                $d['description'],
+                new \DateTime($d['start']),
+                new \DateTime($d['end']),
+                $d['region_id'],
+                $d['scope'],
+                $d['type'],
+                $d['author'],
+                new \DateTime($d['creation_timestamp']),
+                VotingType::getNumberOfValues($d['type']),
+                null,
+                $d['eligible_votes_count'],
+                $options,
+                $d['shuffle_options']
+            );
+        }
+
+        return $polls;
+    }
+
+    /**
+     * Returns polls that are ending soon (in the next 24 hours) and haven't had an end notification sent yet.
+     *
+     * @return Poll[] Array of Poll objects that are ending soon and need notifications
+     */
+    public function getEndingSoonPolls(): array
+    {
+        $endTime = (new \DateTime())->add(new \DateInterval('PT24H'));
+
+        $data = $this->db->fetchAll('
+            SELECT id, name, description, region_id, scope, type, start, end, author, votes, eligible_votes_count, creation_timestamp, shuffle_options
+            FROM fs_poll 
+            WHERE end <= :until
+            AND end > NOW()
+            AND notifications_sent = :notificationStatus
+        ', [
+            ':until' => $endTime->format('Y-m-d H:i:s'),
+            ':notificationStatus' => VotingNotificationType::START_SENT
+        ]);
+
+        $polls = [];
+        foreach ($data as $d) {
+            $options = $this->getOptions($d['id'], false);
+            $polls[] = Poll::create(
+                $d['id'],
+                $d['name'],
+                $d['description'],
+                new \DateTime($d['start']),
+                new \DateTime($d['end']),
+                $d['region_id'],
+                $d['scope'],
+                $d['type'],
+                $d['author'],
+                new \DateTime($d['creation_timestamp']),
+                VotingType::getNumberOfValues($d['type']),
+                null,
+                $d['eligible_votes_count'],
+                $options,
+                $d['shuffle_options']
+            );
+        }
+
+        return $polls;
+    }
+
+    /**
+     * Returns the IDs of all users eligible to vote in a specific poll.
+     *
+     * @param int $pollId The ID of the poll
+     *
+     * @return int[] Array of user IDs
+     */
+    public function getEligibleVotersForPoll(int $pollId): array
+    {
+        $users = $this->db->fetchAllValues('
+            SELECT foodsaver_id
+            FROM fs_foodsaver_has_poll
+            WHERE poll_id = :pollId
+        ', [':pollId' => $pollId]);
+
+        return $users;
+    }
+
+    /**
+     * Returns the IDs of all users who haven't voted yet in a specific poll.
+     *
+     * @param int $pollId The ID of the poll
+     *
+     * @return int[] Array of user IDs
+     */
+    public function getNonVotersForPoll(int $pollId): array
+    {
+        $users = $this->db->fetchAllValues('
+            SELECT foodsaver_id
+            FROM fs_foodsaver_has_poll
+            WHERE poll_id = :pollId
+            AND time IS NULL
+        ', [':pollId' => $pollId]);
+
+        return $users;
+    }
+
+    /**
+     * Marks a poll as having sent the start notification.
+     *
+     * @param int $pollId The ID of the poll
+     */
+    public function markStartNotificationSent(int $pollId): void
+    {
+        $this->db->update('fs_poll', ['notifications_sent' => VotingNotificationType::START_SENT], ['id' => $pollId]);
+    }
+
+    /**
+     * Marks a poll as having sent the end notification.
+     *
+     * @param int $pollId The ID of the poll
+     */
+    public function markEndNotificationSent(int $pollId): void
+    {
+        $this->db->update('fs_poll', ['notifications_sent' => VotingNotificationType::BOTH_SENT], ['id' => $pollId]);
     }
 }

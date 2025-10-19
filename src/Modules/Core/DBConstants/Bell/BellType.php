@@ -155,6 +155,16 @@ class BellType
     final public const string NEW_RESOURCE = 'new-resource-%d';
 
     /**
+     * A poll is ending soon and the user has not voted yet. Argument: ID of the poll.
+     */
+    final public const string POLL_ENDING_SOON = 'poll-ending-soon-%d';
+
+    /**
+     * A poll has started and the user can now vote. Argument: ID of the poll.
+     */
+    final public const string POLL_STARTED = 'poll-started-%d';
+
+    /**
      * Creates a bell identifier from a template and an optional list of parameters.
      */
     public static function createIdentifier(string $typeString, ...$params)

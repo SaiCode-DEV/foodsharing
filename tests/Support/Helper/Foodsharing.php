@@ -24,6 +24,7 @@ use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus as STATUS;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
+use Foodsharing\Modules\Core\DBConstants\Voting\VotingNotificationType;
 use Foodsharing\Modules\Core\DBConstants\Voting\VotingScope;
 use Foodsharing\Modules\Core\DBConstants\Voting\VotingType;
 use Foodsharing\Modules\Uploads\DTO\UploadedFile;
@@ -1279,6 +1280,7 @@ class Foodsharing extends Db
             'votes' => $this->faker->numberBetween(0, 1000),
             'eligible_votes_count' => 0,
             'creation_timestamp' => $this->faker->dateTimeBetween('-7 days', 'now')->format('Y-m-d H:i:s'),
+            'notifications_sent' => VotingNotificationType::NONE,
         ], $extraParams);
         $params['author'] = $authorId;
         $params['region_id'] = $regionId;

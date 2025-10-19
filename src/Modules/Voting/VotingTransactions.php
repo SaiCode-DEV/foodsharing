@@ -147,7 +147,13 @@ class VotingTransactions
             ['title' => $poll->name, 'region' => $region['name']],
             BellType::createIdentifier(BellType::NEW_POLL, $poll->id)
         );
-        $this->bellGateway->addBell($usersWithoutPostAuthor, $bellData);
+        $this->bellGateway->addBellForUsers($usersWithoutPostAuthor, $bellData);
+
+        // If the poll has already started, mark it as having start notification sent
+        $now = new \DateTime();
+        if ($poll->startDate <= $now) {
+            $this->votingGateway->markStartNotificationSent($poll->id);
+        }
     }
 
     /**

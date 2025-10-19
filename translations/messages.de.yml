@@ -1750,6 +1750,10 @@ bell:
   store_request_imposed: "Du wurdest zum Team hinzugefügt."
   poll_new_title: "Neue Abstimmung"
   poll_new: "{title}"
+  poll_started_title: "Abstimmung begonnen"
+  poll_started: "Die Abstimmung \"{title}\" hat begonnen."
+  poll_ending_soon_title: "Abstimmung endet bald"
+  poll_ending_soon: "Die Abstimmung \"{title}\" endet bald und du hast noch nicht abgestimmt."
 
   store_wallpost_title: "{name}"
   store_wallpost: "Neuer Eintrag auf der Pinnwand."
