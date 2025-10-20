@@ -44,14 +44,15 @@ const commonSidebarConfig: VitePressSidebarOptions = {
   ]
 }
 
+// German dev docs dropped in !4286 due to lack of maintenance.
 const defineSupportLocales = [
-  { label: 'en', translateLocale: 'en' },
-  { label: 'de', translateLocale: 'de' }
+  { label: 'en', translateLocale: 'en' }/* ,
+  { label: 'de', translateLocale: 'de' } */
 ]
 const editLinkPattern = 'https://gitlab.com/foodsharing-dev/foodsharing/-/tree/devdocs-rewrite/docs/:path';
 
 const sidebar = generateSidebar([
-  ...['en', 'de'].map((lang) => {
+  ...['en'/*,  'de' */].map((lang) => {
     return {
       ...commonSidebarConfig,
       documentRootPath: `/${lang}`,
