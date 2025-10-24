@@ -829,6 +829,9 @@ group:
         no_passport: Kimliksiz
         with_passport: Kimlikli
         invalid_passport: geçersiz kimlik
+        all: hepsi
+        verified: onaylandı
+        unverified: doğrulanmadı
       execute: Uygulamak
       already_verified: Seçilen tüm kullanıcılar zaten doğrulandı
       inform_user: Bildirimle
@@ -2756,7 +2759,7 @@ settings:
     generate_url:
       button: Takvim URL'si oluştur
     program:
-      outlook: Microsoft Outlook
+      outlook: _Microsoft Outlook
       google: Google Takvimi
       thunderbird: Mozilla Thunderbird
       other: Başka bir şey
@@ -3498,7 +3501,7 @@ terminology:
   role:
     "0": Foodsharer
     "1": Foodsaver
-    "2": İşletme Sorumlusu
+    "2": İşletme sorumlusu-
     "3": Elçi
     "4": Orga İnsanı
   forum: Forum
@@ -3510,9 +3513,9 @@ terminology:
   ambassador_forum: Elçi Forumu
   groups: Çalışma grupları
   storemanager:
-    m: İşletme Sorumlusu
+    m: İşletme Sorumlusu_
     f: İşletme Sorumlusu
-    d: İşletme Sorumlusu
+    d: _İşletme Sorumlusu
   admins: Yöneticiler
   fspAdmins: Gıda Dağıtım Noktası Ekibi
   prAdmins: Halkla İlişkiler Ekibi
@@ -3732,7 +3735,7 @@ storeview:
   pickupCount: Alımlar
   cooperation_status: İşbirliği durumu
   public_time_at_noon_or_afternoon: öğlen/öğleden sonra
-  managers: Sorumlu Foodsaver
+  managers: İşletme Sorumlusu
   team: Kurtarma Ekibi
   public_and_statistics: İstatistik ve Halkla İlişkiler
   no_permission_to_view: Sadece işletme sorumluları tarafından görülebilir.
