@@ -14,7 +14,7 @@ Closes #____ (e.g. #230)
 ## How confident are you it won't break things if deployed?
 <!-- Be honest! -->
 
-## Links to related issues
+## Relevant links
 <!-- Any relevant links (issues, documentation, slack discussions). -->
 
 ## How to test
@@ -28,16 +28,11 @@ Closes #____ (e.g. #230)
 <!-- Any relevant screenshots if this is a design / frontend change -->
 
 ## Checklist
-<!-- add [X] to tick checkbox -->
-- [ ] added a test, or explain why one is not needed/possible...
+<!-- Please fill out the following check boxes, unless they don't apply. Add [X] to tick checkbox -->
+- [ ] In case of a new feature or change request: this was discussed in the Produktteam (please provide a link)
+- [ ] All changes are covered by unit / API tests (backend) or playwright tests (frontend)
 - [ ] no unrelated changes
-- [ ] asked someone for a code review
 - [ ] set a "for:" label to indicate who will be affected by this change
-- [ ] set the "API change" label if changes in the API are not backward compatible
-- [ ] added to the next milestone (see https://gitlab.com/foodsharing-dev/foodsharing/-/milestones, unless it has a "for:Dev" label)
+- [ ] added to the next milestone (see https://gitlab.com/foodsharing-dev/foodsharing/-/milestones)
 - [ ] added a short text in the release notes to /release-notes/YYYY-MM.md
-- [ ] Once your MR has been merged, you are responsible to create a testing issue in the Beta Testing forum: <https://foodsharing.de/region?bid=2296&sub=forum>. Please change the MRs label to "state:Beta testing".
-  - Consider writing a detailed description **in German**.
-  - Describe in a few sentences, what should be tested from a **user perspective**.
-  - Also mention different settings (e.g. **different browsers**, roles, ...) how this change can be tested.
-  - Be aware, that also **non technical** people should understand.
+- [ ] After merging: the topic was reported back to the Produktteam for testing
