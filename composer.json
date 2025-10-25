@@ -31,6 +31,7 @@
     "rector/rector": "^2.0.11",
     "roave/security-advisories": "dev-latest",
     "robmorgan/phinx": "0.16.*",
+    "symfony/debug-bundle": "^7.2",
     "symfony/stopwatch": "6.4.*",
     "symfony/web-profiler-bundle": "6.4.*"
   },
