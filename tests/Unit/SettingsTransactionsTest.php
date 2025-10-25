@@ -6,6 +6,7 @@ namespace Tests\Unit;
 
 use Codeception\Test\Unit;
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\UserOptionType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\FoodsaverTransactions;
@@ -23,6 +24,7 @@ use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Tests\Support\UnitTester;
 use ValueError;
@@ -51,6 +53,8 @@ class SettingsTransactionsTest extends Unit
             $this->tester->get(FoodsaverTransactions::class),
             $this->tester->get(UnitGateway::class),
             $this->tester->get(RegionGateway::class),
+            $this->tester->get(BellGateway::class),
+            $this->tester->get(UrlGeneratorInterface::class),
         );
     }
 

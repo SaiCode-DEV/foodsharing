@@ -22,4 +22,5 @@ class RegionOptions
     public bool $allowHidingInForum = false;
     public int $selectedReportReasonOptions = 1;
     public bool $isReportReasonOtherEnabled = true;
+    public bool $isAddressChangeNotificationEnabled = false;
 }

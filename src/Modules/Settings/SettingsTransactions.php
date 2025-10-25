@@ -4,10 +4,14 @@ namespace Foodsharing\Modules\Settings;
 
 use Exception;
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Bell\BellGateway;
+use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
+use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\ChangeHistoryKey;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\UserOptionType;
+use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DTO\Address;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
@@ -25,6 +29,7 @@ use Foodsharing\Utility\EmailHelper;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SettingsTransactions
@@ -45,6 +50,8 @@ class SettingsTransactions
         private readonly FoodsaverTransactions $foodsaverTransactions,
         private readonly UnitGateway $unitGateway,
         private readonly RegionGateway $regionGateway,
+        private readonly BellGateway $bellGateway,
+        private readonly UrlGeneratorInterface $urlGenerator
     ) {
     }
 
@@ -246,6 +253,8 @@ class SettingsTransactions
 
         $editableProfileDTO = $this->filterProfile($userId, $currentUserProfile, $editableProfileDTO);
 
+        $addressChanged = $this->isAddressChanged($currentUserProfile, $editableProfileDTO);
+
         // If the home region was changed, it needs to be an existing region with a type that is allowed for home regions
         if (!is_null($editableProfileDTO->regionId) && $editableProfileDTO->regionId != $currentUserProfile['bezirk_id']) {
             try {
@@ -264,6 +273,10 @@ class SettingsTransactions
         $isUpdated = (bool)$this->foodsaverGateway->updateFoodsaver($userId, $editableProfileDTO);
         if ($isUpdated) {
             $this->logProfileSettings($userId, $oldData, $editableProfileDTO);
+
+            if ($addressChanged) {
+                $this->notifyAmbassadorsAboutAddressChange($userId, $currentUserProfile, $editableProfileDTO);
+            }
         }
 
         return $isUpdated;
@@ -403,5 +416,87 @@ class SettingsTransactions
         }
 
         $this->loginGateway->setPassword($this->session->id(), $request->newPassword);
+    }
+
+    /**
+     * Checks if the user's address (location or coordinates) has changed.
+     *
+     * @param array $currentUserProfile the current user profile data
+     * @param EditableProfileDTO $editableProfileDTO the new profile data
+     * @return bool true if the address has changed
+     */
+    private function isAddressChanged(array $currentUserProfile, EditableProfileDTO $editableProfileDTO): bool
+    {
+        $coordsChanged = false;
+        if (!is_null($editableProfileDTO->coordinate)) {
+            $oldLat = (float)$currentUserProfile['lat'];
+            $oldLon = (float)$currentUserProfile['lon'];
+            $newLat = (float)$editableProfileDTO->coordinate->lat;
+            $newLon = (float)$editableProfileDTO->coordinate->lon;
+
+            $threshold = 0.001; // Approximately 100 meters
+            $coordsChanged = (abs($oldLat - $newLat) > $threshold || abs($oldLon - $newLon) > $threshold);
+        }
+
+        $locationChanged = false;
+        if (!is_null($editableProfileDTO->location)) {
+            $oldStreet = $currentUserProfile['anschrift'] ?? '';
+            $oldCity = $currentUserProfile['stadt'] ?? '';
+            $oldZip = $currentUserProfile['plz'] ?? '';
+
+            $newStreet = $editableProfileDTO->location->street ?? '';
+            $newCity = $editableProfileDTO->location->city ?? '';
+            $newZip = $editableProfileDTO->location->postalCode ?? '';
+
+            $locationChanged = ($oldStreet !== $newStreet || $oldCity !== $newCity || $oldZip !== $newZip);
+        }
+
+        return $coordsChanged || $locationChanged;
+    }
+
+    /**
+     * Notifies ambassadors about a user's address change.
+     *
+     * @param int $userId ID of the user whose address changed
+     * @param array $currentUserProfile the old user profile data
+     * @param EditableProfileDTO $editableProfileDTO the new user profile data
+     */
+    private function notifyAmbassadorsAboutAddressChange(int $userId, array $currentUserProfile, EditableProfileDTO $editableProfileDTO): void
+    {
+        $regionId = $editableProfileDTO->regionId ?? $currentUserProfile['bezirk_id'];
+        if (empty($regionId)) {
+            return;
+        }
+
+        // Check if address change notifications are enabled for this region
+        if (!boolval($this->regionGateway->getRegionOption($regionId, RegionOptionType::NOTIFY_ADDRESS_CHANGE))) {
+            return;
+        }
+
+        $ambassadorIds = $this->foodsaverGateway->getAdminsOrAmbassadors($regionId);
+        if (empty($ambassadorIds)) {
+            return;
+        }
+
+        $userData = $this->foodsaverGateway->getFoodsaver($userId);
+
+        $url = $this->urlGenerator->generate(
+            'user_settings',
+            ['userId' => $userId],
+            UrlGeneratorInterface::ABSOLUTE_PATH
+        );
+
+        $bellData = Bell::create(
+            'foodsaver_adress_changed_title',
+            'foodsaver_adress_changed',
+            'fas fa-map-marker-alt',
+            ['href' => $url],
+            [
+                'name' => $userData['name'] . ' ' . $userData['nachname']
+            ],
+            BellType::createIdentifier(BellType::ADDRESS_CHANGE, $userId)
+        );
+
+        $this->bellGateway->addBell($ambassadorIds, $bellData);
     }
 }

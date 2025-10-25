@@ -6,6 +6,7 @@ use Exception;
 use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Content\ContentView;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
+use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
@@ -393,6 +394,7 @@ final class RegionController extends FoodsharingController
         $pageData['maySetRegionOptionsReportButtons'] = $this->regionPermissions->maySetRegionOptionsReportButtons($region['id']);
         $pageData['maySetRegionOptionsRegionPickupRule'] = $this->regionPermissions->maySetRegionOptionsRegionPickupRule($region['id']);
         $pageData['regionPickupRuleActiveStoreList'] = $this->storeGateway->listRegionStoresActivePickupRule($region['id']);
+        $pageData['isAddressChangeNotificationEnabled'] = $this->regionGateway->getRegionOption($region['id'], RegionOptionType::NOTIFY_ADDRESS_CHANGE) === '1';
 
         $params = $this->convertDataToObject($region, $request->query->get('sub'), $pageData);
 

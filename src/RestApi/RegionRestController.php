@@ -201,6 +201,7 @@ class RegionRestController extends AbstractFoodsharingRestController
     #[Rest\RequestParam(name: 'regionPickupRuleInactive')]
     #[Rest\RequestParam(name: 'selectedReportReasonOptions')]
     #[Rest\RequestParam(name: 'enableReportReasonOther')]
+    #[Rest\RequestParam(name: 'enableAddressChangeNotification', nullable: true)]
     public function setRegionOptions(ParamFetcher $paramFetcher, int $regionId): Response
     {
         if (!$this->session->mayRole()) {
@@ -217,6 +218,9 @@ class RegionRestController extends AbstractFoodsharingRestController
             }
             if (isset($params['enableMediationButton'])) {
                 $this->regionGateway->setRegionOption($regionId, RegionOptionType::ENABLE_MEDIATION_BUTTON, strval(intval($params['enableMediationButton'])));
+            }
+            if (isset($params['enableAddressChangeNotification'])) {
+                $this->regionGateway->setRegionOption($regionId, RegionOptionType::NOTIFY_ADDRESS_CHANGE, strval(intval($params['enableAddressChangeNotification'])));
             }
             if (isset($params['selectedReportReasonOptions'])) {
                 $this->regionGateway->setRegionOption($regionId, RegionOptionType::REPORT_REASON_OPTIONS, strval(intval($params['selectedReportReasonOptions'])));

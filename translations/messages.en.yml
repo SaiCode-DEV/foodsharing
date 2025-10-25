@@ -1658,6 +1658,8 @@ bell:
   store_request_imposed_title: '{name}'
   foodsaver_verified_title: You are now verified!
   foodsaver_verified: Get your member card at …
+  foodsaver_adress_changed_title: "{name} changed address"
+  foodsaver_adress_changed: When changed frequently, please check.
   forum_post_title: '{title}'
   forum_post:
     one: New post by {user} in the forum {forum}
@@ -3818,6 +3820,8 @@ regionOptions:
     B) Behavior during pickups'
   noPickupRuleActiveStores: Currently, the CHERRY rule is not activated for any 
     company in the district.
+  enableAddressChangeNotification: Notify ambassadors when foodsavers change their
+    address to a location within this district
 list:
   filter_for: filter for …
 startpage:

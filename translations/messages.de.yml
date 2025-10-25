@@ -1783,6 +1783,8 @@ bell:
   new_foodsaver_verified: "Schon verifiziert – kann loslegen"
   foodsaver_verified_title: "Du bist jetzt verifiziert!"
   foodsaver_verified: "Rufe deinen Ausweis unter …"
+  foodsaver_adress_changed_title: "{name} änderte die Adresse"
+  foodsaver_adress_changed: "Bei häufigen Änderungen bitte überprüfen."
   passport_created_or_renewed_title: "Dein Ausweis …"
   passport_created_or_renewed: "ist aktiviert oder verlängert worden!"
   betrieb_fetch_title: "{betrieb}"
@@ -1911,6 +1913,7 @@ regionOptions:
   regionPickupInactiveHours: "Wie viele Stunden vorher soll eine Eintragung auch möglich sein, wenn die maximale Anzahl im entsprechenden Zeitraum bereits erreicht oder überschritten ist?"
   regionPickupRuleActiveStoreList: "Liste der Betriebe im Bezirk, die für die Rosinen-Regel berücksichtigt werden. Alle Abholungen der aufgelisteten Betriebe werden zusammengezählt und für die Regel berücksichtigt."
   noPickupRuleActiveStores: "Aktuell ist die Rosinen-Regel für keinen Betrieb im Bezirk aktiviert."
+  enableAddressChangeNotification: "Benachrichtigung an Botschafter:innen und Admins bei Adressänderung eines:r Stammfoodsaver:in des Bezirks"
 
 foodsaver:
   bread: "Alle Foodsaver"

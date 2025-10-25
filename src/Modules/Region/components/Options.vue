@@ -31,6 +31,12 @@
       >
         {{ $i18n('regionOptions.enableMediationButton') }}
       </b-form-checkbox>
+      <b-form-checkbox
+        v-model="isAddressChangeNotificationEnabled"
+        :disabled="!maySetReport"
+      >
+        {{ $i18n('regionOptions.enableAddressChangeNotification') }}
+      </b-form-checkbox>
     </div>
     <div class="list-group-item">
       <b-form-checkbox
@@ -143,6 +149,7 @@ export default {
       maySetRule: this.pageData.maySetRegionOptionsRegionPickupRule,
       isReportButtonEnabled: false,
       isMediationButtonEnabled: false,
+      isAddressChangeNotificationEnabled: this.pageData.isAddressChangeNotificationEnabled,
       regionPickupRuleActive: false,
       regionPickupRuleTimespanDays: 0,
       regionPickupRuleLimitNumber: 0,
@@ -195,7 +202,19 @@ export default {
     async trySendOptions () {
       showLoader()
       try {
-        await setRegionOptions(this.regionId, this.isReportButtonEnabled, this.isMediationButtonEnabled, this.regionPickupRuleActive, this.regionPickupRuleTimespanDays, this.regionPickupRuleLimitNumber, this.regionPickupRuleLimitDayNumber, this.regionPickupRuleInactiveHours, this.selectedReportReasonOptions, this.isReportReasonOtherEnabled)
+        await setRegionOptions(
+          this.regionId,
+          this.isReportButtonEnabled,
+          this.isMediationButtonEnabled,
+          this.regionPickupRuleActive,
+          this.regionPickupRuleTimespanDays,
+          this.regionPickupRuleLimitNumber,
+          this.regionPickupRuleLimitDayNumber,
+          this.regionPickupRuleInactiveHours,
+          this.selectedReportReasonOptions,
+          this.isReportReasonOtherEnabled,
+          this.isAddressChangeNotificationEnabled,
+        )
         pulseInfo(this.$i18n('regionOptions.success'))
       } catch (err) {
         console.error(err)

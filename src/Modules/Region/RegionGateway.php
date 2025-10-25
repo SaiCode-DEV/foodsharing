@@ -486,6 +486,7 @@ class RegionGateway extends BaseGateway
                 RegionOptionType::ALLOW_HIDING_IN_FORUM => 'allowHidingInForum',
                 RegionOptionType::REPORT_REASON_OPTIONS => 'selectedReportReasonOptions',
                 RegionOptionType::REPORT_REASON_OTHER => 'isReportReasonOtherEnabled',
+                RegionOptionType::NOTIFY_ADDRESS_CHANGE => 'isAddressChangeNotificationEnabled',
             ];
 
             $mappedOptions = new RegionOptions();

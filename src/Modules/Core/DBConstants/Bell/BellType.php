@@ -100,6 +100,10 @@ class BellType
      */
     final public const string NEW_POLL = 'new-poll-%d';
     /**
+     * Notification for ambassadors when a user changes their address. Argument: ID of the user.
+     */
+    final public const string ADDRESS_CHANGE = 'address-change-%d';
+    /**
      * Sent to the admins of a working group to notify them about a new application.
      * Parameters:
      *   the group's id and

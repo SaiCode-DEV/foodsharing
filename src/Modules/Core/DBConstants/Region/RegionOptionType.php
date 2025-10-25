@@ -18,4 +18,5 @@ class RegionOptionType
     final public const int ALLOW_HIDING_IN_FORUM = 10; // Whether moderators are allowed to delete forum posts
     final public const int REPORT_REASON_OPTIONS = 8; // What report Reasons should be shown ? 1 view reasons, 2, Reasons category B)
     final public const int REPORT_REASON_OTHER = 9; // Add reason "other" to report reasons
+    final public const int NOTIFY_ADDRESS_CHANGE = 11; // Whether to notify ambassadors about address changes
 }
