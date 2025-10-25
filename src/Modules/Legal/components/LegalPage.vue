@@ -1,6 +1,7 @@
 <template>
   <div>
     <Container
+      id="legal-wrapper"
       :title="$i18n('legal.privacy_policy')"
       :wrap-content="true"
       :collapsible="false"
@@ -9,13 +10,11 @@
         :hide-header="true"
         :wrap-content="true"
         :collapsible="false"
-        :max-height="400"
         :enable-scroll="true"
       >
-        <!-- eslint-disable vue/no-v-html -->
         <!-- Sanitized in Modules/Content/ContentGateway.php get() -->
+        <!-- eslint-disable-next-line vue/no-v-html -->
         <div v-html="privacyPolicyContent" />
-        <!-- eslint-enable -->
       </Container>
       <Container
         v-if="showPrivacyNotice"
@@ -23,10 +22,9 @@
         :collapsible="false"
         :wrap-content="true"
       >
-        <!-- eslint-disable vue/no-v-html -->
         <!-- Sanitized in Modules/Content/ContentGateway.php get() -->
+        <!-- eslint-disable-next-line vue/no-v-html -->
         <div v-html="privacyNoticeContent" />
-      <!-- eslint-enable -->
       </Container>
 
       <div
@@ -78,6 +76,9 @@
         </h2>
       </b-alert>
     </b-modal>
+    <JumpScrollButton
+      element-id="legal-wrapper"
+    />
   </div>
 </template>
 
@@ -90,6 +91,7 @@ import { goTo, hideLoader, pulseError, pulseSuccess, showLoader } from '@/script
 import { updateLegalAcknowledge, getLegalPageData } from '@/api/legal'
 import { CONTENT_IDS, getContent } from '@/api/content'
 import { url } from '@/helper/urls'
+import JumpScrollButton from '@/components/JumpScrollButton.vue'
 
 const userStore = useUserStore()
 
