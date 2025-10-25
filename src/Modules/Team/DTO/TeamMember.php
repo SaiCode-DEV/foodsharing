@@ -17,14 +17,14 @@ class TeamMember
 
     public string $position;
 
-    public static function createFromArray(array $data): TeamMember
+    public static function create(int $id, string $name, ?string $photo, string $aboutMePublic, string $position): TeamMember
     {
         $member = new TeamMember();
-        $member->id = $data['id'];
-        $member->name = $data['name'];
-        $member->photo = $data['photo'] ?? null;
-        $member->aboutMePublic = $data['about_me_public'];
-        $member->position = $data['position'];
+        $member->id = $id;
+        $member->name = $name;
+        $member->photo = $photo;
+        $member->aboutMePublic = $aboutMePublic;
+        $member->position = $position;
 
         return $member;
     }

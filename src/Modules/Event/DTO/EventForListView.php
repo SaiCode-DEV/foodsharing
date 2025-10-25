@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Foodsharing\Modules\Event\DTO;
 
-use Carbon\Carbon;
 use DateTime;
 
 class EventForListView
@@ -14,13 +13,13 @@ class EventForListView
     public DateTime $startDate;
     public DateTime $endDate;
 
-    public static function createFromArray(array $data): EventForListView
+    public static function create(int $id, string $name, DateTime $startDate, DateTime $endDate)
     {
         $result = new self();
-        $result->id = $data['id'];
-        $result->name = $data['name'];
-        $result->startDate = new Carbon($data['start']);
-        $result->endDate = new Carbon($data['end']);
+        $result->id = $id;
+        $result->name = $name;
+        $result->startDate = $startDate;
+        $result->endDate = $endDate;
 
         return $result;
     }

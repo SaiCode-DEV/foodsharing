@@ -21,12 +21,12 @@ class Banana
      */
     public DateTime $time;
 
-    public static function createFromArray(array $data): Banana
+    public static function create(string $message, Profile $user, DateTime $time): Banana
     {
         $banana = new self();
-        $banana->message = $data['msg'];
-        $banana->user = new Profile($data);
-        $banana->time = new DateTime($data['time']);
+        $banana->message = $message;
+        $banana->user = $user;
+        $banana->time = $time;
 
         return $banana;
     }

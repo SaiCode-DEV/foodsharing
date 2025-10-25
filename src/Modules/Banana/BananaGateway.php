@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Foodsharing\Modules\Banana;
 
+use DateTime;
 use Foodsharing\Modules\Banana\DTO\Banana;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
+use Foodsharing\Modules\Foodsaver\Profile;
 
 class BananaGateway extends BaseGateway
 {
@@ -36,7 +38,7 @@ class BananaGateway extends BaseGateway
             [':recipientId' => $recipientId, ':senderId' => $senderId]
         );
 
-        return empty($data) ? null : Banana::createFromArray($data);
+        return empty($data) ? null : Banana::create($data['msg'], new Profile($data), new DateTime($data['time']));
     }
 
     public function hasGivenBanana(int $recipientId, int $senderId): bool
@@ -69,7 +71,7 @@ class BananaGateway extends BaseGateway
             [':recipientId' => $recipientId]
         );
 
-        return array_map(Banana::createFromArray(...), $data);
+        return array_map(fn ($d) => Banana::create($d['msg'], new Profile($d), new DateTime($d['time'])), $data);
     }
 
     /**
@@ -87,6 +89,6 @@ class BananaGateway extends BaseGateway
             [':senderId' => $senderId]
         );
 
-        return array_map(Banana::createFromArray(...), $data);
+        return array_map(fn ($d) => Banana::create($d['msg'], new Profile($d), new DateTime($d['time'])), $data);
     }
 }

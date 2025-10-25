@@ -5,6 +5,7 @@ namespace Foodsharing\Modules\Store;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use DateTime;
+use DateTimeZone;
 use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\Modules\Bell\BellUpdaterInterface;
 use Foodsharing\Modules\Bell\BellUpdateTrigger;
@@ -252,7 +253,11 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
             $condition
         );
 
-        return array_map(fn ($e) => PickupSignUp::createFromArray($e), $result);
+        return array_map(fn ($e) => PickupSignUp::create(
+            DateTime::createFromFormat('Y-m-d H:i:s', $e['date'], new DateTimeZone('Europe/Berlin')),
+            $e['foodsaver_id'],
+            boolval($e['confirmed']),
+        ), $result);
     }
 
     public function getPickupHistory(int $storeId, DateTime $from, DateTime $to): array
@@ -313,7 +318,11 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
         }
         $result = $this->db->fetchAllByCriteria('fs_fetchdate', ['time', 'fetchercount', 'description'], $condition);
 
-        return array_map(fn (array $dbItem): OneTimePickup => OneTimePickup::createFromArray($dbItem), $result);
+        return array_map(fn (array $dbItem): OneTimePickup => OneTimePickup::create(
+            DateTime::createFromFormat('Y-m-d H:i:s', $dbItem['time'], new DateTimeZone('Europe/Berlin')),
+            $dbItem['fetchercount'],
+            $dbItem['description']
+        ), $result);
     }
 
     public function addOnetimePickup(int $storeId, OneTimePickup $pickup)
@@ -561,7 +570,7 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
                 fetcher.`betrieb_id`, fetcher.`date`, fetcher.`confirmed`, foodsaver.`id`, foodsaver.`name`, foodsaver.`photo`
             FROM fs_betrieb_team team
             JOIN fs_abholer fetcher ON fetcher.`betrieb_id` = team.`betrieb_id`
-            JOIN fs_foodsaver foodsaver ON fetcher.`foodsaver_id` = foodsaver.`id` 
+            JOIN fs_foodsaver foodsaver ON fetcher.`foodsaver_id` = foodsaver.`id`
             WHERE team.`foodsaver_id` =  :userId
             AND team.`active` = :activeStatus
             AND fetcher.`date` > NOW()',

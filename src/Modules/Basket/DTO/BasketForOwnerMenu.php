@@ -12,14 +12,13 @@ class BasketForOwnerMenu
     public int $createdAt;
     public array $requests = [];
 
-    public static function createFromArray(array $data): BasketForOwnerMenu
+    public static function create(int $id, string $description, ?string $picture, int $createdAt): BasketForOwnerMenu
     {
         $basket = new BasketForOwnerMenu();
-        $basket->id = $data['id'];
-        $basket->description = $data['description'];
-        $picture = json_decode($data['picture'] ?? '', true);
-        $basket->picture = is_array($picture) ? ($picture[0] ?? null) : $data['picture'];
-        $basket->createdAt = $data['time_ts'];
+        $basket->id = $id;
+        $basket->description = $description;
+        $basket->picture = $picture;
+        $basket->createdAt = $createdAt;
 
         return $basket;
     }

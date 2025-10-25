@@ -272,7 +272,14 @@ class BasketGateway extends BaseGateway
             ':status' => BasketStatus::REQUESTED_MESSAGE_READ
         ]);
 
-        return array_map(BasketForOwnerMenu::createFromArray(...), $baskets);
+        $picture = json_decode($baskets['picture'] ?? '', true);
+
+        return array_map(fn ($data) => BasketForOwnerMenu::create(
+            $data['id'],
+            $data['description'],
+            is_array($picture) ? ($picture[0] ?? null) : $data['picture'],
+            $data['time_ts'],
+        ), $baskets);
     }
 
     /**

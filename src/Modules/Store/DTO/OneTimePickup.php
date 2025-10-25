@@ -3,7 +3,6 @@
 namespace Foodsharing\Modules\Store\DTO;
 
 use DateTime;
-use DateTimeZone;
 
 /**
  * Describes a one time pickup at store.
@@ -25,12 +24,12 @@ class OneTimePickup
      */
     public ?string $description = null;
 
-    public static function createFromArray($queryResult)
+    public static function create(DateTime $date, int $slots, ?string $description): OneTimePickup
     {
         $obj = new OneTimePickup();
-        $obj->date = DateTime::createFromFormat('Y-m-d H:i:s', $queryResult['time'], new DateTimeZone('Europe/Berlin'));
-        $obj->slots = $queryResult['fetchercount'];
-        $obj->description = $queryResult['description'];
+        $obj->date = $date;
+        $obj->slots = $slots;
+        $obj->description = $description;
 
         return $obj;
     }

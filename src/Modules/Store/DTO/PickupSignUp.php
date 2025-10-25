@@ -3,7 +3,6 @@
 namespace Foodsharing\Modules\Store\DTO;
 
 use DateTime;
-use DateTimeZone;
 
 /**
  * Describes the registration to a pickup by a foodsaver.
@@ -27,12 +26,12 @@ class PickupSignUp
      */
     public bool $isConfirmed;
 
-    public static function createFromArray($query_result)
+    public static function create(DateTime $date, int $foodsaverId, bool $isConfirmed)
     {
         $obj = new PickupSignUp();
-        $obj->date = DateTime::createFromFormat('Y-m-d H:i:s', $query_result['date'], new DateTimeZone('Europe/Berlin'));
-        $obj->foodsaverId = $query_result['foodsaver_id'];
-        $obj->isConfirmed = boolval($query_result['confirmed']);
+        $obj->date = $date;
+        $obj->foodsaverId = $foodsaverId;
+        $obj->isConfirmed = $isConfirmed;
 
         return $obj;
     }

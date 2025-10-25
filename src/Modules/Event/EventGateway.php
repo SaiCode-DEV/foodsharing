@@ -27,7 +27,12 @@ class EventGateway extends BaseGateway
 			ORDER BY e.start
 		', [':regionId' => $regionId]);
 
-        return array_map([EventForListView::class, 'createFromArray'], $events);
+        return array_map(fn ($e) => EventForListView::create(
+            $e['id'],
+            $e['name'],
+            new Carbon($e['start']),
+            new Carbon($e['end']),
+        ), $events);
     }
 
     public function getEvent(int $eventId): ?Event

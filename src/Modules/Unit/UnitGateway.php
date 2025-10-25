@@ -7,6 +7,7 @@ use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
+use Foodsharing\Modules\Unit\DTO\Unit;
 use Foodsharing\Modules\Unit\DTO\UserUnit;
 
 /**
@@ -51,12 +52,10 @@ class UnitGateway extends BaseGateway
             ]
         );
 
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = UserUnit::createFromArray($row);
-        }
-
-        return $results;
+        return array_map(fn ($row) => UserUnit::create(
+            Unit::createFromArray($row, ''),
+            $row['isResponsible']
+        ), $rows);
     }
 
     /**
