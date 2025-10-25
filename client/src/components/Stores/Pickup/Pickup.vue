@@ -167,6 +167,7 @@
       :ok-title="$i18n('pickup.leave_pickup_ok')"
       :hide-header-close="true"
       modal-class="bootstrap"
+      ok-variant="secondary"
       header-class="d-flex"
       @ok="$emit('leave', date)"
       @cancel="$refs.modal_team_message.show()"
