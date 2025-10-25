@@ -4220,7 +4220,7 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
             ])
             ->addColumn('team_status', 'integer', [
                 'null' => false,
-                'default' => '1',
+                'default' => '0',
                 'limit' => MysqlAdapter::INT_TINY,
                 'comment' => '0 = Team Voll; 1 = Es werden noch Helfer gesucht; 2 = Es werden dringend Helfer gesucht',
                 'after' => 'abholmenge',
