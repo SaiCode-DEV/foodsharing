@@ -24,4 +24,5 @@ https://slackin.yunity.org/ #foodsharing-dev channel
 
 ### Links / references
 
-/label ~new-feature
+/label ~"type::New feature"
+/label ~state::Unclear

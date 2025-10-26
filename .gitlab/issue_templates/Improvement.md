@@ -28,4 +28,5 @@ https://slackin.yunity.org/ #foodsharing-dev channel
 ### Links / references
 <!-- Here you can add references to related issues, best-practice examples, and links to anything you feel is relevant -->
 
-/label ~change-request
+/label ~"type::Change request"
+/label ~state::Unclear
