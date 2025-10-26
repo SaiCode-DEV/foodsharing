@@ -298,7 +298,86 @@ button:
   yes_i_am_sure: tak, jestem pewny/a
   apply: zastosuj
   cancel: Anuluj
+  prev: Powrót
+  send: Wyślij
+  answer: Odpowiedz
+  create: Stwórz
+  clear_filter: Wyczyść filtry
+  filter_options: Opcje filtrowania
+  start: Zaczynamy!
+  confirm: Potwierdź
+  close: Zamknij
+  browse: Przeglądaj
+  yes_save: Tak, zapisz
 settings:
   calendar:
     program:
       apple: Apple Kalendarz
+bcard:
+  title: Generator wizytówek
+  card: Twoja foodsharing-wizytówka
+  for: '{rola} w/dla {region}'
+  desc: Wybierz, dla którego okręgu i której roli chcesz wygenerować wizytówkę.
+  error:
+    length: Twój adres jest za długi! Adres, kod pocztowy i miasto mogą mieć 
+      łącznie maksymalnie 49 znaków.
+    phone: Musisz podać ważny numer telefonu, aby wygenerować wizytówkę.
+    verified: Musisz być zweryfikowany, aby móc wygenerować wizytówkę.
+  generate: Stwórz wizytówkę
+  role: Rola
+  region: Region
+group:
+  name: Imię
+  userId: ID
+  description: Opis
+  photo: Zdjęcie
+  last_activity: Ostatnia aktywność
+  valid_until: Ważny do
+  filter_by_last_activity: Nieaktywny/a w miesiącach
+  role_name: Rola
+  applications: Zgłoszenia
+  applications_for: Zgłoszenia do {name}
+  application_region: Zgłoszenia do {group}
+  motivation: Tekst motywacyjny
+  entermotivation: 'Motywacja:'
+  enterskills: 'Umiejętności:'
+  enterxp: 'Doświadczenie:'
+  entertime: 'Czas:'
+  edit:
+    title: Edytuj {group}
+    name_required: Podaj nazwę.
+    description_required: Podaj opis.
+  mail_link_title:
+    workgroup: Skrzynka pocztowa
+    region: Skrzynka pocztowa okręgu
+  contact:
+    title: Skontaktuj się z {group}
+    empty: Najpierw coś napisz ;)
+    send: Wyślij wiadomość
+    sent: Wiadomość wysłana pomyślnie.
+  apply:
+    title: Zgłoszenie do {group}
+    ability: Jakie masz umiejętności w tym zakresie?
+    error_missing_time: 'Błąd: nie wybrano czasu.'
+    time:
+      "1": 1-2 godziny
+      "2": 2-3 godziny
+      "3": 3-4 godziny
+      "5": 5 lub więcej godzin
+    send: Wyślij zgłoszenie
+  actions:
+    edit: Edytuj grupę
+    join: Dołącz do tej grupy
+    save: Zapisz zmiany
+  no_groups: Jeszcze nie ma żadnych grup
+  quit_name_district: Opuść region {name}
+  quit: Opuść
+  really_quit_district: Czy na pewno chcesz opuścić okręg {name}?
+  function:
+    welcome: Powitanie
+    voting: Ankiety
+    fsp: Jadłodzielnia
+    mediation: Mediacja
+    moderation: Moderacja
+    election: Wybory
+    resources: Mozaika zasobów
