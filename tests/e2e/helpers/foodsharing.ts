@@ -110,6 +110,16 @@ class Foodsharing {
       pictureUrl = `/api/uploads/${uuid}`;
     }
 
+    // Ensure the quizes actually exist. This avoids spurious 404 errors
+    // during e2e tests
+    if (!extraParams.skip_quiz_creation) {
+      await this.createQuizes();
+    }
+    // remove the param so it doesn't interfere with addToDatabase (if set)
+    if (extraParams.skip_quiz_creation !== undefined) {
+      delete extraParams.skip_quiz_creation;
+    }
+
     const params = {
       email: faker.internet.email(),
       bezirk_id: 0,
