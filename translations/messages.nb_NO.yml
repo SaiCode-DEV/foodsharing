@@ -14,6 +14,8 @@ startpage:
       for avfall langs hele verdikjeden. I tillegg må gjeldende handelsstandarder
       revurderes og lempes, og organisasjoner som sparer mat eller tilbyr undervisning
       om ernæringsfaget må styrkes.\n"
+    image_alt: Reddet mat som brød, frukt og grønnsaker ligger på en presenning 
+      utenfor. Folk og sykler kan sees i bakgrunnen.
   near_you:
     text2:
       part2: Matkurver
@@ -497,6 +499,7 @@ region:
       gruppen?
     leave_text_region: Er du ikke lenger aktiv i {name} og ønsker å forlate 
       dette distriktet?
+    leave_group: Forlat gruppen
   denied:
     group_in_this_region: «{name}» er en gruppe i dette distriktet.
     group_in_this_group: «{name}» er en undergruppe av denne gruppen.
@@ -634,8 +637,8 @@ basket:
     \ Er du ennå ikke registrert som matdeler?\nKlikk deretter på <b>Delta</b> ovenfor
     for å komme i gang eller sett opp en matkurv selv.\n<br><br>\nDu kan finne andre
     matkurver i ditt område på kartet vårt.\n"
-  login: "Du må være logget inn for detaljert informasjon.\nEr du ennå ikke registrert
-    som matdeler?\nKlikk deretter på <b>Delta</b> ovenfor og kom i gang med en gang.\n"
+  login: "Du må være logget inn for detaljert informasjon. Er du ennå ikke registrert
+    som matdeler? Klikk deretter på **Delta** ovenfor og kom i gang med en gang."
   go: til matkurven
   my_list_empty: Du har ikke lagt inn noen matkurver
   nearby-short: nærme deg
@@ -1239,6 +1242,7 @@ settings:
       google: Google calendar
       other: En annen
       apple: Apple Kalender
+      etar: Etar
     generate_url:
       button: Generer en kalender-URL
     download: Last ned kalenderen
@@ -1254,7 +1258,7 @@ settings:
       label: Hvilke datoer fra dine distrikter og arbeidsgrupper bør inkluderes?
       none: ingen
     history:
-      "true": Ja, ta med nylige avtaler
+      "true": Ja, ta med tidligere avtaler
       "false": Nei, ikke vis tidligere hendelser i kalenderen
       label: Bør tidligere avtaler fra de siste to ukene inkluderes?
     protocol: Hvilken protokoll bruker kalenderprogrammet ditt?
@@ -1272,6 +1276,15 @@ settings:
       regelmessig. Først da vises nye hentedatoer og kansellerte datoer vil ikke lenger
       vises. Hvis du laster ned gjeldende kalender i stedet, vil den kun inneholde
       dine nåværende hendelser og vil ikke bli oppdatert automatisk.\n"
+    reminders:
+      label: Bør det settes påminnelser for avtalene dine?
+      15_minutes: 15 minutter før
+      30_minutes: 30 minutter før
+      1_hour: 1 time før
+      3_hours: 3 timer før
+      6_hours: 6 timer før
+      12_hours: 12 timer før
+      1_day: 1 dag før
   notifications: Varsler
   title: Innstillinger
   account: Kontoalternativer
@@ -1680,6 +1693,10 @@ pickuplist:
   error_kick: 'Kunne ikke fjerne: '
   NumberOfSlots_table_header: Antall plasser
   error_leave: 'Kunne ikke avslutte: '
+  really_delete_last_slot:
+    title: Slette siste plass?
+    body: Vil du virkelig slette det siste sporet? Dette vil fjerne den 
+      planlagte hentingen fullstendig.
 genderlist:
   number_table_header: Nummer
   gender_female: kvinne
@@ -1807,6 +1824,17 @@ bell:
     many: '{count} brukere har blitt med i {store}-teamet'
   store_invitation_declined_title: Invitasjon avslått ({store})
   store_invitation_accepted_title: Invitasjon godtatt ({store})
+  poll_started_title: Avstemningen startet
+  poll_started: Avstemningen «{title}» har begynt.
+  poll_ending_soon_title: Avstemningen avsluttes snart
+  poll_ending_soon: Avstemningen «{title}» er snart over, og du har ikke stemt 
+    ennå.
+  foodsaver_adress_changed_title: '{name} endret adressen'
+  foodsaver_adress_changed: Sjekk om det skjer ofte endringer.
+  new_resource_title: '{region}: Nye ressurser'
+  new_resource:
+    one: 'Fra {user}: «{title}»'
+    many: '{count} nye ressurser'
 reports:
   when: Tid
   time: Tidspunkt
@@ -2110,6 +2138,8 @@ group:
     none: Ikke en GOALS-arbeidsgruppe
     stores_coordination: Bedrifter
     resources: Ressursmosaikk
+    tooltip_function_13: Administratorer av denne arbeidsgruppen vil bli varslet
+      om nye ressurser via en bjelle.
   quit: Forlate
   quit_name_district: Forlate distriktet {name}
   quit_name_workgroup: Forlate team {name}
@@ -2249,8 +2279,12 @@ group:
         no_passport: ingen medlemskort
         with_passport: med medlemskort
         invalid_passport: ugyldig medlemskort
+        all: alle
+        verified: bekreftet
+        unverified: ubekreftet
       already_verified: Alle valgte brukere er allerede verifisert
       inform_user: med varsel
+      filter_status: Vis bare status
     all_roles: alle roller
   saved: Endringene har blitt lagret
   subtitle: her kan du finne hjelp og mye å gjøre …
@@ -2380,6 +2414,7 @@ button:
   ok: OK
   filter_options: Filteralternativer
   browse: Bla gjennom
+  yes_save: Ja, lagre
 upload:
   preview_image: Forhåndsvisning
   crop_dialog_title: Beskjær bilde
@@ -2693,6 +2728,7 @@ chat:
     read: Merk som lest
     unread: Merk som ulest
   reply: Svar
+  open_multi_chat: Send melding til teamlederne
 forum:
   thread:
     title: Tittel
@@ -2953,6 +2989,9 @@ pickup:
     registrere deg for henting. Registrer deg om nødvendig som teammedlem først.
   may_enter: Det er en plass tilgjengelig for deg på denne hentedatoen.
   confirmed: Hentingsdato er bekreftet.
+  passport_expired:
+    short: Medlemskortet er utløpt
+    long: Medlemskortet ditt er ikke lenger gyldig for øyeblikket
 storeedit:
   fetch:
     teamStatus: lagstatus
@@ -3037,6 +3076,7 @@ store:
     sorting:
       default: Standard sortering
       pickup: Sortert etter siste henting
+      distance: Sortert etter avstand
     userHasPickupsWarning: '{name} er fortsatt registrert for {occupiedSlots} hentinger
       hos dette selskapet. Disse plassene vil da bli ledige. Ønsker du fortsatt å
       fortsette?'
@@ -3065,7 +3105,10 @@ store:
     verified: Brukeren er bekreftet
     unverified: Brukeren er ikke verifisert
     distance_unknown: ikke oppgitt bosted
-    distance: Bor ca {distance} km unna
+    distance:
+      unknown: Ingen gyldig bosted oppgitt
+      close: bor mindre enn 500 meter unna
+      normal: bor omtrent {distance} km unna
     distance_close: Bor mindre enn 1 km unna
     air_line: Avstanden som vises er i luftlinje.
     confirm-no-location-ok: Søk uansett
@@ -3081,6 +3124,10 @@ store:
       selskapet.
     hygieneMissing: Du mangler dette for øyeblikket. Fyll ut hygienequizen nå 
       for å søke om dette teamet.
+    distance_short:
+      unknown: ingen gyldig adresse
+      close: mindre enn 500 m
+      normal: omtrent {distance} km
   team_conversation_name: '{name}-laget'
   appliedFor: Forespørsel fremsatt
   bread: Alle virksomheter
@@ -3091,6 +3138,7 @@ store:
   chat:
     team: Melding til laget
     jumper: Melding til hopperne
+    managers: Melding til teamledere
   not-in-team: Du er ennå ikke i teamet til dette selskapet.
   noPickup: Har aldri tatt opp her.
   fetchCount: Hentet her {count} ganger.
@@ -3301,7 +3349,7 @@ storeview:
   teamInfo: <strong>{active}</strong> aktive og <strong>{jumper}</strong> 
     hoppere i laget.
   pickupCount: pickuper
-  managers: Ansvarlige matreddere
+  managers: Teamledere
   status_notes: Statusnotater
   show_information: Vis bedriftsinformasjon
   common: Som regel
@@ -3526,6 +3574,7 @@ terminology:
   received: mottatt
   sent: Sendt
   users: Brukere
+  resourcesAdmins: Ressursmosaikkteamet
 gender:
   d: mangfoldig
   f: Fru
@@ -3650,6 +3699,8 @@ regionOptions:
   regionReportReasonSimple: Forenklet klagegrunnlag
   noPickupRuleActiveStores: Det er foreløpig ingen distriktsomfattende regel 
     aktivert for populære virksomheter i distriktet.
+  enableAddressChangeNotification: Varsel til ambassadører og administratorer 
+    ved adresseendring for en fast matsparer i distriktet
 messages:
   bread: Meldinger
 list:
@@ -4142,6 +4193,7 @@ system_administration:
   blog: Rediger blogginnlegg
   regions: Administrere distrikter
   store_categories: Rediger bedriftskategorier
+  resource_categories: Rediger ressurskategorier
 navigation:
   search: Søk
   basket: Matkurver
@@ -4658,6 +4710,14 @@ help:
         format. Spesielt hvis du har mange hentemuligheter tilgjengelig hver dag,
         gjør dette det lettere å få oversikt.\n"
       title: Hentingsmuligheter
+    resource_mosaic:
+      title: Ressursmosaikk
+    my_resources:
+      title: Egne ressurser
+    similar_resources:
+      title: Lignende ressurser
+      md: Du vil bli vist opptil 10 andre ressurser som lignende ressurser, der 
+        de **samme kategoriene** er angitt.
   helpTitle: 'Hjelp: {title}'
   tooltip: Vis hjelp
 team_page:
@@ -4864,7 +4924,7 @@ required_messages:
     really: Vil du virkelig fjerne {name} fra hans eller hennes ansvar som 
       teamleder?
 feedback:
-  button: Send tilbakemelding
+  button: Betatilbakemelding
   name_sent: Ditt navn og ID vil bli sendt med.
   error:
     no_sentry: Det oppsto en feil med Sentry. Vennligst prøv igjen senere.
@@ -4876,7 +4936,7 @@ feedback:
     hjelp eller har spørsmål, vennligst bruk [støtteskjemaet](/support).
   capture_screenshot: Ta skjermbilde
   success: Tilbakemeldingen din er sendt inn.
-  title: Tilbakemeldingsskjema
+  title: Beta-tilbakemeldingsskjema
   privacy: Meldingen din vil bli sendt til de frivillige utviklerne av 
     foodsharing-plattformen. Alle påmeldinger fra skjemaet, samt vedlagte 
     bilder, vil da være synlige for deg. Sørg for at skjermbilder ikke 
@@ -4908,3 +4968,116 @@ net_errors:
   ERR_NETWORK_CHANGED: Internett-tilkoblingen din er ustabil. Kontroller 
     tilkoblingen og prøv igjen.
   action_response: 'Forespørsel og serversvar:'
+categories:
+  columns:
+    id: ID
+    name: Navn
+    usage_count: Brukstall
+  title:
+    store: Driftskategorier
+    resource: Ressurskategorier
+  empty: Ingen kategori er lagt inn ennå
+  edit: Gi nytt navn til kategorien
+  delete: Slett kategori
+  merge: Slå sammen med en annen kategori
+  merge_title: Slå sammen kategorier
+  merge_hint: Velg en annen kategori å slå «{name}» sammen med. Alle oppføringer
+    som er tilordnet kategorien «{name}» vil da bli tilordnet denne kategorien.
+  confirm_delete: Vil du virkelig slette kategori {name}?
+  confirm_delete_hint:
+    store: Det er fortsatt {count} bedrifter tildelt denne kategorien. Disse 
+      bedriftene vil ikke lenger ha en kategori etter dette.
+    resource: Det er fortsatt {count} ressurser tilordnet denne kategorien. 
+      Disse ressursene vil miste denne kategorien.
+  new: Legg til ny kategori
+resource_mosaic:
+  title: Ressursmosaikk
+  my_resources: Mine ressurser
+  add: Legg til ny ressurs
+  edit: Rediger ressurs
+  categories_filter_placeholder: Filtrer etter kategori…
+  filter:
+    active: Kun aktive brukere
+    home_region: Kun hjemdistrikt
+    favorites: Kun favoritter
+  search_placeholder: Søk etter ressurser, matdelere eller ID-er
+  other_resources:
+    other: Flere ressurser fra {user}
+    own: Dine andre ressurser
+    similar: Lignende ressurser
+    new: Alle nye ressurser i dette distriktet
+  editModal:
+    name:
+      label: Navn
+      placeholder: Din ressurs…
+      max_length: Maksimal lengde nådd. Du kan oppgi ytterligere detaljer i 
+        beskrivelsen.
+    is_private: Vis denne ressursen bare til venner
+    description:
+      label: Beskrivelse
+      placeholder: Gi ytterligere informasjon slik at andre kan få en klar idé 
+        om hva du ønsker å støtte. Du kan også legge ved bilder.
+    categories:
+      label: Kategorier
+      placeholder: Velg kategorier…
+    openness: Hvor velkommen er du til å be om ressursen din?
+    description_warning:
+      title: Sjekk beskrivelsen
+      short: Beskrivelsen av denne ressursen er ganske kort. Er du sikker på at 
+        andre brukere kan forstå hva ressursen din handler om, slik at de kan 
+        spørre deg spesifikt om den?
+      none: Du har ikke oppgitt en beskrivelse av ressursen din. Er du sikker på
+        at andre brukere kan forstå hva ressursen din handler om, slik at de kan
+        spørre deg spesifikt om den?
+  is_private_hint: Denne ressursen vil kun vises til venner.
+  confirm_delete: Vil du virkelig slette denne ressursen?
+  no_own_resources: Du har ikke spesifisert noen ressurser ennå. Du kan nå legge
+    inn spesifikke ferdigheter, elementer eller relasjoner for å gjøre dem 
+    synlige for fellesskapet.
+  max_resources: For å holde ressursmosaikken oversiktlig, kan hver bruker legge
+    inn maksimalt {max} ressurser.
+  message: Skriv en melding
+  request_header: Forespørsel om ressursen din
+  message_modal:
+    title: Be om ressursen «{name}»
+    intro: 'Send {owner} en melding om denne ressursen:'
+    request_for: Forespørsel om ressursen din
+    request_sent: Forespørselen din er sendt.
+    polite_info: 'Husk: Ingen er forpliktet til å dele en ressurs med deg. Vennligst
+      formuler forespørslene dine på en måte som gjør at den andre personen alltid
+      kan si nei uten å føle seg skyldig.'
+    placeholder: Jeg er interessert i ressursen din fordi …
+  list_status:
+    none_in_region: Ingen ressurser er lagt til her ennå. Legg til dine egne 
+      eller inviter andre til å gjøre det samme!
+    total: 'Totalt {count} ressurser er registrert i {region}:'
+    filter: '{count} ressurser samsvarer med søket ditt:'
+    none_in_filter: Dessverre samsvarer ingen ressurser med søket ditt.
+  order:
+    shuffle: 'Rekkefølge: tilfeldig'
+    sort_age: 'Rekkefølge: nyeste først'
+    sort_openness: 'Rekkefølge: etter tilfredshet med forespørsler'
+  favorite: Favoritt
+  favorite_tooltip: Du har merket denne ressursen som favoritt
+  openness:
+    title: Glede over henvendelsene
+    level_1: bare hvis det er viktig
+    level_2: ganske reservert
+    level_3: for gode formål
+    level_4: ganske åpen
+    level_5: det er en glede
+  resource_not_found_warning: Den lenkede ressursen ble ikke funnet. Den er 
+    enten slettet, eieren er ikke lenger en del av dette distriktet eller denne 
+    gruppen, eller lenken din var feil.
+  privacy_notice:
+    title: Personvernerklæring
+    text: Når du legger til ressurser, lagres de på serveren og er synlige for 
+      andre brukere i arbeidsgruppene og distriktene dine (med unntak av 
+      delstater, land og kontinenter). Du kan redigere og slette ressursene dine
+      når som helst. Du kan også begrense synligheten til ressursene dine, slik 
+      at bare vennene dine har tilgang til dem.
+    ok: Jeg er enig
+debug:
+  title: Feilsøkingsside
+  info: Dette er en feilsøkingsside for feilsøkingsformål. Hvis du ikke vet hva 
+    en knapp gjør, bare ikke klikk på den 😉
