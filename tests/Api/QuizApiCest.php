@@ -20,8 +20,8 @@ class QuizApiCest
 
     public function _before(ApiTester $I): void
     {
-        $this->foodsharer = $I->createFoodsharer();
-        $this->foodsaver = $I->createFoodsaver();
+        $this->foodsharer = $I->createFoodsharer(null, ['skip_quiz_creation' => true]);
+        $this->foodsaver = $I->createFoodsaver(null, ['skip_quiz_creation' => true]);
         $this->foodsaverQuiz = $I->createQuiz(1, 3);
         $I->createQuiz(2, 3);
         $I->createQuiz(3, 3);

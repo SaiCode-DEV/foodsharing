@@ -60,6 +60,34 @@ export class Database {
     throw new Error(`No matching entry found in ${table}`);
   }
 
+
+  static async grabColumnFromDatabase(table: string, column: string, criteria?: Record<string, any>): Promise<any[]> {
+    const conn = await this.connect();
+
+    let whereClauses = '1=1';
+    let values: any[] = [];
+
+    if (criteria) {
+      whereClauses = Object.entries(criteria)
+        .map(([key, value]) => {
+          if (typeof value === 'string' && value.includes('%')) {
+            return `${key} LIKE ?`;
+          }
+          return `${key} = ?`;
+        })
+        .join(' AND ');
+      values = Object.values(criteria);
+    }
+
+    const query = `SELECT ${column} FROM ${table} WHERE ${whereClauses}`;
+    const [rows] = await conn.execute(query, values);
+
+    if (Array.isArray(rows)) {
+      return rows.map(row => row[column]);
+    }
+    return [];
+  }
+
   static async addToDatabase(table: string, data: Record<string, any>): Promise<number> {
     try {
       const conn = await this.connect();

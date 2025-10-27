@@ -161,6 +161,16 @@ class Foodsharing extends Db
             $pictureUrl = '/api/uploads/' . $uuid;
         }
 
+        // Ensure the quizes actually exist. This avoids spurious 404 errors
+        // during API tests
+        if (!isset($extra_params['skip_quiz_creation']) || !$extra_params['skip_quiz_creation']) {
+            $this->createQuizes();
+        }
+        // remove the param so it doesn't interfere with haveInDatabase (if set)
+        if (isset($extra_params['skip_quiz_creation'])) {
+            unset($extra_params['skip_quiz_creation']);
+        }
+
         $params = array_merge([
             'email' => $this->faker->unique()->email(),
             'bezirk_id' => 0,
@@ -269,6 +279,25 @@ class Foodsharing extends Db
         }
 
         return $params;
+    }
+
+    /**
+     * Ensure a set of predefined quizzes exist in the test database.
+     *
+     * This method verifies that the quizzes identified by the QuizID enum
+     * values are present in the "fs_quiz" table and creates any that are
+     * missing. It is safe to call multiple times (idempotent) and is intended
+     * to be used as test setup.
+     */
+    private function createQuizes(): void
+    {
+        $want_quizes = QuizID::cases();
+        $have_quizes = $this->grabColumnFromDatabase('fs_quiz', 'id');
+        foreach ($want_quizes as $quizId) {
+            if (!in_array($quizId->value, $have_quizes, true)) {
+                $this->createQuiz($quizId->value);
+            }
+        }
     }
 
     private function createQuestion(int $quizId): array

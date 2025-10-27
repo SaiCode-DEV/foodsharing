@@ -13,6 +13,7 @@ import VotingScope from './constants/Voting/VotingScope';
 import VotingType from './constants/Voting/VotingType';
 import RegionIDs from './constants/Region/RegionIDs';
 import UnitType from './constants/Region/UnitType';
+import QuizID from './constants/Quiz/QuizID';
 
 class UploadedFile {
   constructor(
@@ -761,6 +762,26 @@ class Foodsharing {
       questcount_untimed: questionCountUntimed,
       questions
     };
+  }
+
+
+  /**
+   * Ensure a set of predefined quizzes exist in the test database.
+   *
+   * This method verifies that the quizzes identified by the QuizID enum
+   * values are present in the "fs_quiz" table and creates any that are
+   * missing. It is safe to call multiple times (idempotent) and is intended
+   * to be used as test setup.
+   */
+  private async createQuizes(): Promise<void> {
+    const wantQuizes = Object.values(QuizID).filter(value => typeof value === 'number') as number[];
+    const haveQuizes = await Database.grabColumnFromDatabase('fs_quiz', 'id');
+    
+    for (const quizId of wantQuizes) {
+      if (!haveQuizes.includes(quizId)) {
+        await this.createQuiz(quizId);
+      }
+    }
   }
 
   private async createQuestion(quizId: number): Promise<any> {

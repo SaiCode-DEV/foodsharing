@@ -18,8 +18,8 @@ class QuizCest
 
     public function _before(AcceptanceTester $I): void
     {
-        $this->foodsharer = $I->createFoodsharer();
-        $this->foodsaver = $I->createFoodsaver();
+        $this->foodsharer = $I->createFoodsharer(null, ['skip_quiz_creation' => true]);
+        $this->foodsaver = $I->createFoodsaver(null, ['skip_quiz_creation' => true]);
 
         $this->quizzes = [];
         foreach ([Role::FOODSAVER->value, Role::STORE_MANAGER->value] as $role) {
