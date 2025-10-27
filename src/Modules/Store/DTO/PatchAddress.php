@@ -26,7 +26,7 @@ class PatchAddress
      * String with zip code of store.
      */
     #[Assert\Length(max: 5)]
-    public ?string $zipCode = null;
+    public ?string $postalCode = null;
 
     public static function apply(PatchAddress &$addressChange, Address &$storeAddress): bool
     {
@@ -39,9 +39,9 @@ class PatchAddress
             $patchNeeded = true;
             $storeAddress->city = $addressChange->city;
         }
-        if (!empty($addressChange->zipCode)) {
+        if (!empty($addressChange->postalCode)) {
             $patchNeeded = true;
-            $storeAddress->postalCode = $addressChange->zipCode;
+            $storeAddress->postalCode = $addressChange->postalCode;
         }
 
         return $patchNeeded;

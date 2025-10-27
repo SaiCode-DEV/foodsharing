@@ -886,7 +886,7 @@ class StoreApiCest
     {
         $I->login($this->manager[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['address' => ['zipCode' => 'A2345']]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['address' => ['postalCode' => 'A2345']]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -899,7 +899,7 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['address' => ['zipCode' => '123456']]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['address' => ['postalCode' => '123456']]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->seeInDatabase('fs_betrieb', [
