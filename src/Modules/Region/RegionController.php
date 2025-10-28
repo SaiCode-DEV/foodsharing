@@ -6,13 +6,11 @@ use Exception;
 use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Content\ContentView;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
-use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
-use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Modules\WorkGroup\WorkGroupGateway;
 use Foodsharing\Permissions\ForumPermissions;
 use Foodsharing\Permissions\RegionPermissions;
@@ -34,7 +32,6 @@ final class RegionController extends FoodsharingController
         private readonly RegionPermissions $regionPermissions,
         private readonly ForumTransactions $forumTransactions,
         private readonly WorkGroupPermissions $workGroupPermissions,
-        private readonly StoreGateway $storeGateway,
         private readonly ForumGateway $forumGateway,
         private readonly GroupFunctionGateway $groupFunctionGateway,
         private readonly FoodsaverGateway $foodsaverGateway,
@@ -391,12 +388,8 @@ final class RegionController extends FoodsharingController
     {
         $this->pageHelper->addBread($this->translator->trans('terminology.options'), '/region?bid=' . $region['id'] . '&sub=options');
         $this->pageHelper->addTitle($this->translator->trans('terminology.options'));
-        $pageData['maySetRegionOptionsReportButtons'] = $this->regionPermissions->maySetRegionOptionsReportButtons($region['id']);
-        $pageData['maySetRegionOptionsRegionPickupRule'] = $this->regionPermissions->maySetRegionOptionsRegionPickupRule($region['id']);
-        $pageData['regionPickupRuleActiveStoreList'] = $this->storeGateway->listRegionStoresActivePickupRule($region['id']);
-        $pageData['isAddressChangeNotificationEnabled'] = $this->regionGateway->getRegionOption($region['id'], RegionOptionType::NOTIFY_ADDRESS_CHANGE) === '1';
 
-        $params = $this->convertDataToObject($region, $request->query->get('sub'), $pageData);
+        $params = $this->convertDataToObject($region, $request->query->get('sub'), []);
 
         $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
 

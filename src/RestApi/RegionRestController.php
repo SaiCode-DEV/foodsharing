@@ -278,6 +278,25 @@ class RegionRestController extends AbstractFoodsharingRestController
         return $this->handleView($this->view($options, 200));
     }
 
+    #[OA2\Get(summary: "Returns the user's permissions for setting the region options.")]
+    #[Route('region/{regionId}/options/permissions', requirements: ['regionId' => '\d+'], methods: ['GET'])]
+    #[OA2\Response(response: Response::HTTP_OK, description: 'success')]
+    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    public function getRegionOptionPermissions(int $regionId): Response
+    {
+        if (!$this->session->mayRole()) {
+            throw new UnauthorizedHttpException('');
+        }
+
+        $permissions = [
+            'maySetRegionOptionsReportButtons' => $this->regionPermissions->maySetRegionOptionsReportButtons($regionId),
+            'maySetRegionOptionsRegionPickupRule' => $this->regionPermissions->maySetRegionOptionsRegionPickupRule($regionId),
+            'regionPickupRuleActiveStoreList' => $this->storeGateway->listRegionStoresActivePickupRule($regionId),
+        ];
+
+        return $this->respondOK($permissions);
+    }
+
     private function isValidNumber($value, float $lowerBound, float $upperBound): bool
     {
         return !is_null($value) && !is_nan($value)

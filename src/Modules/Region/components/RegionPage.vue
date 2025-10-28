@@ -90,7 +90,6 @@
         <Options
           v-if="activeSubpage === SUB_PAGE.OPTIONS"
           :region-id="regionId"
-          :page-data="pageData"
           :region-name="name"
         />
         <Statistics

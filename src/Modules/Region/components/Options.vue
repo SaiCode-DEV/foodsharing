@@ -97,9 +97,9 @@
         </b-col>
       </b-row>
       <b-table
-        v-if="pageData.regionPickupRuleActiveStoreList.length"
+        v-if="regionPickupRuleActiveStoreList && regionPickupRuleActiveStoreList.length > 0"
         :fields="fields"
-        :items="pageData.regionPickupRuleActiveStoreList"
+        :items="regionPickupRuleActiveStoreList"
         :sort-by="sortBy"
         striped
         hover
@@ -126,7 +126,7 @@
   </Container>
 </template>
 <script>
-import { getRegionOptions, setRegionOptions } from '@/api/regions'
+import { getRegionOptionPermissions, getRegionOptions, setRegionOptions } from '@/api/regions'
 import { hideLoader, pulseError, pulseInfo, showLoader } from '@/script'
 import Container from '@/components/Container/Container.vue'
 import ContainerButton from '@/components/Container/ContainerButton.vue'
@@ -137,19 +137,15 @@ export default {
   props: {
     regionId: { type: Number, required: true },
     regionName: { type: String, default: '' },
-    pageData: { type: Object, default: () => {} },
-    regionPickupRuleActiveStoreList: {
-      type: Array,
-      default: () => [],
-    },
   },
   data () {
     return {
-      maySetReport: this.pageData.maySetRegionOptionsReportButtons,
-      maySetRule: this.pageData.maySetRegionOptionsRegionPickupRule,
+      maySetReport: false,
+      maySetRule: false,
+      regionPickupRuleActiveStoreList: null,
       isReportButtonEnabled: false,
       isMediationButtonEnabled: false,
-      isAddressChangeNotificationEnabled: this.pageData.isAddressChangeNotificationEnabled,
+      isAddressChangeNotificationEnabled: false,
       regionPickupRuleActive: false,
       regionPickupRuleTimespanDays: 0,
       regionPickupRuleLimitNumber: 0,
@@ -185,8 +181,15 @@ export default {
   async mounted () {
     showLoader()
     try {
-      const response = await getRegionOptions(this.regionId)
-      Object.assign(this, response)
+      const response = getRegionOptions(this.regionId).then(response => {
+        Object.assign(this, response)
+      })
+      const permissions = getRegionOptionPermissions(this.regionId).then(permissions => {
+        this.maySetReport = permissions.maySetRegionOptionsReportButtons
+        this.maySetRule = permissions.maySetRegionOptionsRegionPickupRule
+        this.regionPickupRuleActiveStoreList = permissions.regionPickupRuleActiveStoreList
+      })
+      await Promise.all([response, permissions])
     } catch (err) {
       pulseError(this.$i18n('error_unexpected'))
     }

@@ -27,6 +27,10 @@ export function getRegionOptions (regionId) {
   return get(`/region/${regionId}/options`)
 }
 
+export function getRegionOptionPermissions (regionId) {
+  return get(`/region/${regionId}/options/permissions`)
+}
+
 export function setRegionPin (regionId, { lat, lon, desc, status }) {
   return post(`/region/${regionId}/pin`, { lat, lon, desc, status })
 }
