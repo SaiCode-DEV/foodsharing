@@ -1708,6 +1708,11 @@ reports:
 
 bell:
   no_bells: "Du hast derzeit keine Benachrichtigungen."
+  translation_failed:
+    title: "Unbekannte Glocke"
+    key: "Glocken der Beta können nicht angezeigt werden"
+    md: "Die Glocke enthält einen unbekannten Text. Vermutich liegt das daran, dass die Glocke aus der Beta-Version der Website kommt.\n\n Titel: `{bellTitle}`\n\n Schlüssel: `{bellKey}`"
+    md_support: "Wenn du denkst es handelt sich hierbei um einen fehler, melde dies gerne im [Support](/support)"
   forum_answer_title: "{forum}" # this old key is kept for compatibility with bells generated before #869
   forum_reply_title: "{forum}: {title}" # this old key is kept for compatibility with bells generated before !TODO
   forum_answer: "{user} hat dir geantwortet" # this old key is kept for compatibility with bells generated before !TODO

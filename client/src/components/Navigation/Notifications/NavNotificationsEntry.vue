@@ -1,50 +1,59 @@
 <template>
-  <a
-    class="dropdown-header dropdown-item d-flex justify-content-between align-items-center gap"
-    :class="classes"
-    :href="bell.href"
-    @click="handleClick"
-    @auxclick="handleAuxClick"
-  >
-    <Avatar
-      class="mr-2"
-      :image="bell.image"
-      :icon="bell.image ? undefined : bell.icon"
-      variant="light"
-      href="#"
-      @click.stop="closeBell"
-    />
-    <span class="flex-grow-1 d-flex flex-column text-truncate">
-      <span class="d-flex justify-content-between align-items-center text-truncate">
-        <span
-          class="mb-1 text-truncate"
-          v-text="$i18n(`bell.${bell.title}`, bell.payload)"
-        />
-        <Time
-          class="font-weight-normal"
-          :time="bell.createdAt"
-        />
-      </span>
-      <small
-        class="position-relative"
-      >
-        <span class="text-truncate d-inline-block w-100 text-preview">
-          {{ $i18n(`bell.${bell.key}`, bell.payload) }}
-        </span>
-      </small>
-    </span>
-    <b-button
-      v-b-tooltip.noninteractive="$i18n(`bell.mark_as.${!bell.isRead ? 'read' : 'unread'}`)"
-      size="sm"
-      variant="outline-secondary"
-      class="mark-read-button"
-      @click.stop.prevent="toggleReadStatus()"
+  <div>
+    <a
+      class="dropdown-header dropdown-item d-flex justify-content-between align-items-center gap"
+      :class="classes"
+      :href="isTranslationFailed ? '#' : bell.href"
+      @click="handleClick"
+      @auxclick="handleAuxClick"
     >
-      <i
-        :class="`fas fa-eye${!bell.isRead ? '' : '-slash'}`"
+      <Avatar
+        class="mr-2"
+        :image="bell.image"
+        :icon="getIcon"
+        variant="light"
+        href="#"
+        @click.stop="closeBell"
       />
-    </b-button>
-  </a>
+      <span class="flex-grow-1 d-flex flex-column text-truncate">
+        <span class="d-flex justify-content-between align-items-center text-truncate">
+          <span
+            class="mb-1 text-truncate"
+            v-text="isTranslationFailed ? $i18n('bell.translation_failed.title') : $i18n(`bell.${bell.title}`, bell.payload)"
+          />
+          <Time
+            class="font-weight-normal"
+            :time="bell.createdAt"
+          />
+        </span>
+        <small
+          class="position-relative"
+        >
+          <span class="text-truncate d-inline-block w-100 text-preview">
+            {{ isTranslationFailed ? $i18n('bell.translation_failed.key') : $i18n(`bell.${bell.key}`, bell.payload) }}
+          </span>
+        </small>
+      </span>
+      <b-button
+        v-b-tooltip.noninteractive="$i18n(`bell.mark_as.${!bell.isRead ? 'read' : 'unread'}`)"
+        size="sm"
+        variant="outline-secondary"
+        class="mark-read-button"
+        @click.stop.prevent="toggleReadStatus()"
+      >
+        <i
+          :class="`fas fa-eye${!bell.isRead ? '' : '-slash'}`"
+        />
+      </b-button>
+    </a>
+    <TranslationFailedModal
+      v-if="isTranslationFailed"
+      :id="translationFailedModalId"
+      :href="bell.href"
+      :bell-title="`bell.${bell.title}`"
+      :bell-key="`bell.${bell.key}`"
+    />
+  </div>
 </template>
 
 <script>
@@ -53,12 +62,18 @@ import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import Time from '@/components/Time.vue'
 import DataBell from '@/stores/bells'
 import { pulseError } from '@/script'
+import TranslationFailedModal from './TranslationFailedModal.vue'
 
 export default {
-  components: { Avatar, Time },
+  components: { Avatar, Time, TranslationFailedModal },
   mixins: [MediaQueryMixin],
   props: {
     bell: { type: Object, default: () => ({}) },
+  },
+  data () {
+    return {
+      translationFailedModalId: `translation-failed-modal-${this._uid}`,
+    }
   },
   computed: {
     classes () {
@@ -66,6 +81,26 @@ export default {
         !this.bell.isRead ? 'list-group-item-warning' : null,
         this.bell.isDeleting ? 'disabledLoading' : null,
       ]
+    },
+    isTranslationFailed () {
+      // Check if the title translation failed
+      const titleTranslation = this.$i18n(`bell.${this.bell.title}`, this.bell.payload)
+      const rawTitle = `bell.${this.bell.title}`
+
+      // Check if the key translation failed
+      const keyTranslation = this.$i18n(`bell.${this.bell.key}`, this.bell.payload)
+      const rawKey = `bell.${this.bell.key}`
+
+      return titleTranslation === rawTitle || keyTranslation === rawKey
+    },
+    getIcon () {
+      if (this.isTranslationFailed) {
+        return 'fas fa-flask-vial'
+      } else if (this.bell.image) {
+        return undefined
+      } else {
+        return this.bell.icon
+      }
     },
   },
   methods: {
@@ -86,9 +121,16 @@ export default {
       if (evt.metaKey || evt.ctrlKey || evt.shiftKey || evt.altKey) {
         return this.$emit('read', this.bell) // Emit and let browser handle
       }
+
       evt.preventDefault() // prevent the browser from navigating immediately
       this.$emit('read', this.bell)
-      location.href = this.bell.href
+
+      if (this.isTranslationFailed) {
+        // eslint-disable-next-line vue/custom-event-name-casing
+        this.$root.$emit('bv::show::modal', this.translationFailedModalId)
+      } else {
+        location.href = this.bell.href
+      }
     },
     handleAuxClick (evt) {
       if (evt.button === 1) {

@@ -1636,6 +1636,11 @@ bell:
   store_new_request_title: New team request
   blog_new_check_title: New blog article
   no_bells: You have no notifications.
+  translation_failed:
+    title: Error translating bell
+    key: Bells from the Beta can not be displayed
+    md: The bell probably comes from the Beta and cannot be displayed here. Please try to open the link on the Beta.
+    md_beta: "Translation of the bell failed. If you think this is an error, please report it in the [Support](/support)\n\n Title: {bellTitle}\n\n Key: {bellKey}"
   passgen_failed_title: Your ID could not be created
   passgen_failed: Please upload a photo! Then it will work.
   sharepoint_activate: '{name} has been listed'
