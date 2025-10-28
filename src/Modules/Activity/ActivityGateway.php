@@ -160,21 +160,23 @@ class ActivityGateway extends BaseGateway
 					bt.bezirk_id,
 					b.name AS bezirk_name,
 					bt.bot_theme
-
-			FROM fs_theme t
-			JOIN fs_theme_post p ON p.id = t.last_post_id
-			JOIN fs_bezirk_has_theme bt ON bt.theme_id = t.id
-			JOIN fs_foodsaver fs ON fs.id = p.foodsaver_id
-			JOIN fs_bezirk b ON b.id = bt.bezirk_id
-
-			WHERE	t.active = 1
-			AND 	bt.bezirk_id IN ( ' . implode(',', $regionIds) . ' )
-			AND 	bt.bot_theme = :isAmbassadorThread
-			AND 	fs.deleted_at IS NULL
-			AND 	p.hidden_time IS NULL
-
-			ORDER BY t.last_post_id DESC
-			LIMIT :start_item_index, :items_per_page
+				FROM (
+					SELECT t.id
+					FROM fs_theme t
+					JOIN fs_bezirk_has_theme bt
+						ON bt.theme_id = t.id
+						AND bt.bezirk_id IN (' . implode(',', $regionIds) . ')
+						AND bt.bot_theme = :isAmbassadorThread
+					WHERE t.active = 1
+					ORDER BY t.last_post_id DESC
+					LIMIT :start_item_index, :items_per_page
+				) AS tt
+				JOIN fs_theme t ON t.id = tt.id
+				JOIN fs_theme_post p ON p.id = t.last_post_id AND p.hidden_time IS NULL
+				JOIN fs_bezirk_has_theme bt ON bt.theme_id = t.id
+				JOIN fs_bezirk b ON b.id = bt.bezirk_id
+				JOIN fs_foodsaver fs ON fs.id = p.foodsaver_id AND fs.deleted_at IS NULL
+				ORDER BY t.last_post_id DESC;
 		';
 
         return $this->db->fetchAll(
