@@ -10,6 +10,7 @@ use Exception;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
+use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Mailbox\DTO\Region;
 use Foodsharing\RestApi\Models\Region\RegionForAdministration;
 use Foodsharing\Utility\Sanitizer;
@@ -449,14 +450,22 @@ class MailboxGateway extends BaseGateway
      */
     public function createMailbox(string $name): int
     {
-        $amountOfMailboxesStartingWithName = $this->db->fetchValue(
-            'SELECT COUNT(name) FROM fs_mailbox WHERE name LIKE :name',
-            [
+        try {
+            /* Find the mailbox with the highest number. Order by length(name) is necessary to sort the rows by the
+            actual numerical value i.e 1,2,3,10 instead of 1,10,2,3. */
+            $lastMailboxStartingWithName = $this->db->fetchValue(
+                'SELECT name FROM fs_mailbox
+             WHERE name LIKE :name
+             ORDER BY length(name) DESC, name DESC
+             LIMIT 1', [
                 'name' => $name . '%'
-            ]
-        );
-
-        $mailboxName = $amountOfMailboxesStartingWithName > 0 ? $name . $amountOfMailboxesStartingWithName : $name;
+            ]);
+            $number = intval(substr($lastMailboxStartingWithName, strlen($name)));
+            $mailboxName = $name . ($number + 1);
+        } catch (DatabaseNoValueFoundException) {
+            // No mailbox with that name exists yet
+            $mailboxName = $name;
+        }
 
         return $this->db->insert('fs_mailbox', ['name' => strip_tags($mailboxName)]);
     }
