@@ -7,7 +7,6 @@ use Codeception\Command\Shared\ConfigTrait;
 use Codeception\CustomCommandInterface;
 use Codeception\Lib\Di;
 use Codeception\Lib\ModuleContainer;
-use Foodsharing\Modules\Core\DBConstants\Quiz\QuizID;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
@@ -876,13 +875,6 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
         $this->progressBar(6, 7);
         $I->addReport($this->getRandomIDOfArray($this->foodsavers), $this->getRandomIDOfArray($this->foodsavers), 0, 0);
         $this->progressBar(7, 7);
-        $this->output->writeln('');
-
-        $this->output->writeln('Create quizzes');
-        foreach (QuizID::cases() as $i => $quizId) {
-            $I->createQuiz($quizId->value);
-            $this->progressBar($i + 1, count(QuizID::cases()));
-        }
         $this->output->writeln('');
 
         $this->output->writeln('Create polls');
