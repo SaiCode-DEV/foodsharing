@@ -11,6 +11,7 @@
         v-if="mayAccessRegion && regionMenu"
         :region-menu="regionMenu"
         :is-work-group="false"
+        :is-linking-subpages="true"
       />
       <RegionChildrenContainer :children="regionData.children" :name="regionData.name" />
       <SimpleRegionStatistics v-if="regionData.statistics" :statistics="regionData.statistics" />

@@ -23,11 +23,14 @@
           v-if="!isWorkGroup"
           :is-work-group="isWorkGroup"
           :region-menu="menu"
+          :is-linking-subpages="false"
+          @change-page="changeSubPage"
         />
         <GroupSideNav
           v-else
           :applications="applications"
           :group-menu="menu"
+          @change-page="changeSubPage"
         />
         <div
           v-for="(allAdminData, index) in allAdminsData"
@@ -191,7 +194,7 @@ export default {
     storesCooperationCount: { type: Number, required: true },
     storesPickupsCount: { type: Number, required: true },
     storesFetchedWeight: { type: Number, required: true },
-    activeSubpage: { type: String, required: true },
+    initialActiveSubpage: { type: String, required: true },
     allAdmins: { type: Object, required: true },
     pageData: { type: [Array, Object], default: () => {} },
     menu: { type: Object, required: true },
@@ -219,6 +222,7 @@ export default {
       loading: true,
       applications: [],
       regionMenu: null,
+      activeSubpage: this.initialActiveSubpage,
     }
   },
   computed: {
@@ -240,6 +244,18 @@ export default {
       this.applications = await getApplications(this.regionId)
     }
     this.regionMenu = await regionStore.fetchRegionMenu(this.regionId)
+  },
+  methods: {
+    changeSubPage (subPage) {
+      if (subPage) {
+        this.activeSubpage = subPage
+
+        // Adjust the page's URL
+        const url = new URL(location)
+        url.searchParams.set('sub', subPage)
+        history.pushState({}, '', url)
+      }
+    },
   },
 }
 </script>

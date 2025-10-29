@@ -6,7 +6,7 @@
       :href="formatLink(menu)"
       role="menuitem"
       class="dropdown-item dropdown-action"
-      @click="menu.func ? menu.func() : null"
+      @click="onClick(menu)"
     >
       <i class="icon-subnav fas" :class="menu.icon" />
       {{ $i18n(menu.text) }}
@@ -17,7 +17,7 @@
 <script>
 import ConferenceOpener from '@/mixins/ConferenceOpenerMixin'
 import { useUserStore } from '@/stores/user'
-import { REGION_UNIT_TYPE } from '@/stores/regions'
+import { REGION_UNIT_TYPE, SUB_PAGE } from '@/stores/regions'
 
 export default {
   name: 'NavRegionsLinkEntry',
@@ -27,6 +27,11 @@ export default {
       type: Object,
       default: () => {},
     },
+    /**
+     * If true, links to sub-pages will be actual links that reload the page. If false, links will make this component
+     * emit a 'change-page' event.
+     */
+    isLinkingSubpages: { type: Boolean, required: true },
   },
   setup () {
     const userStore = useUserStore()
@@ -41,12 +46,14 @@ export default {
       return this.entry.type !== REGION_UNIT_TYPE.COUNTRY
     },
     menuEntries () {
+      /* An entry that has a subPage property emits a "change-page" event if this is a dropdown menu. This makes the
+      region page change the Vue component without a reload. Otherwise the entry is a link to the href property. */
       const menu = [
         {
           href: 'publicRegion', icon: 'fa-door-open', text: 'menu.entry.public',
         },
         {
-          href: 'forum', icon: 'fa-comments', text: 'menu.entry.forum',
+          href: 'forum', icon: 'fa-comments', text: 'menu.entry.forum', subPage: SUB_PAGE.FORUM,
         },
         {
           href: 'stores', icon: 'fa-cart-plus', text: 'menu.entry.stores',
@@ -55,35 +62,35 @@ export default {
           href: 'workingGroups', icon: 'fa-users', text: 'terminology.groups',
         },
         {
-          href: 'events', icon: 'fa-calendar-alt', text: 'menu.entry.events',
+          href: 'events', icon: 'fa-calendar-alt', text: 'menu.entry.events', subPage: SUB_PAGE.EVENTS,
         },
         {
-          href: 'foodsharepoints', icon: 'fa-recycle', text: 'terminology.fsp',
+          href: 'foodsharepoints', icon: 'fa-recycle', text: 'terminology.fsp', subPage: SUB_PAGE.FOODSHARINGPOINT,
         },
         {
-          href: 'polls', icon: 'fa-poll-h', text: 'terminology.polls',
+          href: 'polls', icon: 'fa-poll-h', text: 'terminology.polls', subPage: SUB_PAGE.POLLS,
         },
       ]
 
       if (this.showStatisticsAndMembers) {
         menu.push({
-          href: 'members', icon: 'fa-user', text: 'menu.entry.members',
+          href: 'members', icon: 'fa-user', text: 'menu.entry.members', subPage: SUB_PAGE.MEMBERS,
         })
       }
 
       if (this.entry.hasResources) {
         menu.push({
-          href: 'resources', icon: 'fa-shapes', text: 'resource_mosaic.title',
+          href: 'resources', icon: 'fa-shapes', text: 'resource_mosaic.title', subPage: SUB_PAGE.RESOURCES,
         })
       }
 
       menu.push({
-        href: 'options', icon: 'fa-tools', text: 'menu.entry.options',
+        href: 'options', icon: 'fa-tools', text: 'menu.entry.options', subPage: SUB_PAGE.OPTIONS,
       })
 
       if (this.showStatisticsAndMembers) {
         menu.push({
-          href: 'statistic', icon: 'fa-chart-bar', text: 'terminology.statistic',
+          href: 'statistic', icon: 'fa-chart-bar', text: 'terminology.statistic', subPage: SUB_PAGE.STATISTIC,
         })
       }
 
@@ -108,7 +115,7 @@ export default {
 
       if (this.entry.isAdmin || this.userStore.isOrga) {
         menu.push({
-          href: 'forum', special: 1, icon: 'fa-comment-dots', text: 'menu.entry.BOTforum',
+          href: 'forum', special: 1, icon: 'fa-comment-dots', text: 'menu.entry.BOTforum', subPage: SUB_PAGE.AMBASSADOR_FORUM,
         })
       }
 
@@ -117,8 +124,20 @@ export default {
   },
   methods: {
     formatLink (menu) {
+      if (!this.isLinkingSubpages && menu.subPage) {
+        /* Changing the sub page in Vue is only possible in the side menu, not in the dropdown or on the public region
+         page */
+        return '#'
+      }
       const id = menu.linkId ?? this.entry.id
       return menu.href ? this.$url(menu.href, id, menu.special) : '#'
+    },
+    onClick (menu) {
+      if (menu.func) {
+        menu.func()
+      } else if (menu.subPage) {
+        this.$emit('change-page', menu.subPage)
+      }
     },
   },
 }

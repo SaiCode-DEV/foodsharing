@@ -97,11 +97,22 @@ export default {
       return this.subforumId === 1 ? 'botforum' : 'forum'
     },
   },
-  async mounted () {
-    await this.loadThreads(this.currentPage)
-    this.isActiveFollower = (await getForumFollowing(this.groupId)).isFollowing
+  watch: {
+    groupId () {
+      this.update()
+    },
+    subforumId () {
+      this.update()
+    },
+  },
+  mounted () {
+    this.update()
   },
   methods: {
+    async update () {
+      await this.loadThreads(this.currentPage)
+      this.isActiveFollower = (await getForumFollowing(this.groupId)).isFollowing
+    },
     async loadThreads (currentPage) {
       const offset = (currentPage - 1) * this.perPage
       try {

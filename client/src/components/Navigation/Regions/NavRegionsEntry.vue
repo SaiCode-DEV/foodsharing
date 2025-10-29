@@ -27,7 +27,7 @@
       accordion="region"
       :visible="isHomeRegion"
     >
-      <NavRegionsLinkEntry :entry="entry" />
+      <NavRegionsLinkEntry :entry="entry" :is-linking-subpages="true" />
     </b-collapse>
   </div>
 </template>

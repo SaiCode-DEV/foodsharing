@@ -6,7 +6,7 @@
       :href="formatLink(menu)"
       role="menuitem"
       class="dropdown-item dropdown-action"
-      @click="menu.func ? menu.func() : null"
+      @click="onClick(menu)"
     >
       <i class="icon-subnav fas" :class="menu.icon" />
       {{ menu.text }}
@@ -16,6 +16,7 @@
 
 <script>
 import ConferenceOpener from '@/mixins/ConferenceOpenerMixin'
+import { SUB_PAGE } from '@/stores/regions'
 
 export default {
   name: 'NavGroupsLinkEntry',
@@ -26,30 +27,37 @@ export default {
       default: () => {},
     },
     applicationCount: { type: Number, default: 0 },
+    /**
+     * If true, links to sub-pages will be actual links that reload the page. If false, links will make this component
+     * emit a 'change-page' event.
+     */
+    isLinkingSubpages: { type: Boolean, required: true },
   },
   computed: {
     menuEntries () {
+      /* An entry that has a subPage property emits a "change-page" event if this is a dropdown menu. This makes the
+      region page change the Vue component without a reload. Otherwise the entry is a link to the href property. */
       const menu = [
         {
-          href: 'wall', icon: 'fa-bullhorn', text: this.$i18n('menu.entry.wall'),
+          href: 'wall', icon: 'fa-bullhorn', text: this.$i18n('menu.entry.wall'), subPage: SUB_PAGE.WALL,
         },
         {
-          href: 'forum', icon: 'fa-comment-alt', text: this.$i18n('menu.entry.forum'),
+          href: 'forum', icon: 'fa-comment-alt', text: this.$i18n('menu.entry.forum'), subPage: SUB_PAGE.FORUM,
         },
         {
-          href: 'events', icon: 'fa-calendar-alt', text: this.$i18n('menu.entry.events'),
+          href: 'events', icon: 'fa-calendar-alt', text: this.$i18n('menu.entry.events'), subPage: SUB_PAGE.EVENTS,
         },
         {
-          href: 'polls', icon: 'fa-poll-h', text: this.$i18n('terminology.polls'),
+          href: 'polls', icon: 'fa-poll-h', text: this.$i18n('terminology.polls'), subPage: SUB_PAGE.POLLS,
         },
         {
-          href: 'members', icon: 'fa-user', text: this.$i18n('menu.entry.members'),
+          href: 'members', icon: 'fa-user', text: this.$i18n('menu.entry.members'), subPage: SUB_PAGE.MEMBERS,
         },
       ]
 
       if (this.entry.hasResources) {
         menu.push({
-          href: 'resources', icon: 'fa-shapes', text: this.$i18n('resource_mosaic.title'),
+          href: 'resources', icon: 'fa-shapes', text: this.$i18n('resource_mosaic.title'), subPage: SUB_PAGE.RESOURCES,
         })
       }
 
@@ -67,19 +75,19 @@ export default {
 
       if (this.entry.isAdmin) {
         menu.push({
-          href: 'workingGroupEdit', icon: 'fa-cog', text: this.$i18n('menu.entry.workingGroupEdit'),
+          href: 'workingGroupEdit', icon: 'fa-cog', text: this.$i18n('menu.entry.workingGroupEdit'), subPage: SUB_PAGE.SETTINGS,
         })
       }
 
       if (this.entry.hasAchievements) {
         menu.push({
-          href: 'achievements', icon: 'fa-tags', text: this.$i18n('terminology.achievements'),
+          href: 'achievements', icon: 'fa-tags', text: this.$i18n('terminology.achievements'), subPage: SUB_PAGE.ACHIEVEMENTS,
         })
       }
 
       if (this.applicationCount > 0) {
         menu.push({
-          href: 'applications', icon: 'fa-cog', text: this.$i18n('menu.entry.applications', { count: this.applicationCount }),
+          href: 'applications', icon: 'fa-cog', text: this.$i18n('menu.entry.applications', { count: this.applicationCount }), subPage: SUB_PAGE.APPLICATIONS,
         })
       }
 
@@ -100,8 +108,20 @@ export default {
   },
   methods: {
     formatLink (menu) {
+      if (!this.isLinkingSubpages && menu.subPage) {
+        /* Changing the sub page in Vue is only possible in the side menu, not in the dropdown or on the public region
+         page */
+        return '#'
+      }
       const id = menu.linkId ?? this.entry.id
       return menu.href ? this.$url(menu.href, id, menu.special) : '#'
+    },
+    onClick (menu) {
+      if (menu.func) {
+        menu.func()
+      } else if (menu.subPage) {
+        this.$emit('change-page', menu.subPage)
+      }
     },
   },
 }

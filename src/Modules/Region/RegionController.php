@@ -114,8 +114,8 @@ final class RegionController extends FoodsharingController
             'storesFetchedWeight' => round($this->region['stat_fetchweight']),
             'parent_id' => $this->region['parent_id'],
             'allAdmins' => $this->mergeAdmins($region['id'], UnitType::isGroup($region['type'])),
-            'activeSubpage' => $activeSubpage,
-            'pageData' => $pageData,
+            'initialActiveSubpage' => $activeSubpage,
+            'pageData' => $pageData ?? [],
             'menu' => $menu,
             'mayAccessApplications' => $this->mayAccessApplications($region)
         ];
