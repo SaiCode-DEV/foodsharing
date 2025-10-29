@@ -4544,3 +4544,7 @@ debug:
   title: Debug Page
   info: This is a debug page for debugging purposes. If you don’t know what a 
     button does, just don’t click on it 😉
+
+test:
+  plain: This is a nice translation
+  vars: 'My name is {NAME} and I am {AGE} years old'

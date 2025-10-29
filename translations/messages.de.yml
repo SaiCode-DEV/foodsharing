@@ -4160,3 +4160,8 @@ resource_mosaic:
 debug:
   title: Debug Seite
   info: Dies ist eine Debug-Seite für Debugging-Zwecke. Wenn du nicht weißt, was ein Button tut, klicke einfach nicht darauf 😉
+
+# Required by frontend tests
+test:
+  plain: Dies ist eine Übersetzung
+  vars: 'Mein Name ist {NAME} und ich bin {AGE} Jahre alt'
