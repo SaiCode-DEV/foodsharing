@@ -1,31 +1,22 @@
-geb_datum: Data de nascimento (AAAA-MM-DD)
 name: Nome
 add: Adicionar
 nachname: Sobrenome
-subject: Tópico
 message: Mensagem
 address: Morada
 edit: Editar
-edit_websites: Editar sites públicos
 desc: Descrição
 description: Descrição
 plz: Código postal
 email: E-mail
-attachement: Anexo
-handy: Número de celular (com código do país, começa com +)
 anschrift: Rua e número da casa
 geschlecht: Sexo
-botschafter: Embaixador/a
 options: Opções
 picture: Foto
 parent_id: Distrito dos pais
 fs_id: ID-Foodsharing
 lat: Latitude
 lon: Longitude
-telefon: Número de telefone fixo (com código do país, começa com +)
-stadt: Sua cidade ou município
 bezirk: Distrito
-betrieb: Cooperação comercial
 active: Activado
 store:
   request:
@@ -33,12 +24,10 @@ store:
       unknown: Não foi introduzido nenhum local de residência válido
       close: O local de residência fica a menos de 500 m de distância
       normal: Mora a cerca de {distance} km de distância
-    distance_close: Mora a menos de 1 km de distância
     title: 'Solicitações para {storeTitle}'
     to-team: 'adicionar à equipa'
     withdrawn: 'A solicitação foi retirada com sucesso.'
     to-nowhere: 'recusar'
-    distance_unknown: 'não é especificado o local de residência'
     got-it: 'Os responsáveis foram informados do teu solicitação e entrarão em contacto
       consigo.'
     unverified: 'O utilizador não está verificado'
@@ -117,7 +106,6 @@ store:
       18: Retirar convites de equipa
       19: Aceptar convites de equipa
       20: Recusar convites de equipa
-    max_entries_message: ''
     log_types_placeholder: 'Selecione as ações que serão mostradas'
     search: 'Mostrar ações selecionadas'
     selected_log_types: '{amount} tipos de ação selecionados'
@@ -129,35 +117,21 @@ store:
     demoteAsManager: 'Retirar a responsabilidade'
     filterAll: 'Membros'
     removeFromTeam: 'Remover da equipa'
-    reallyDemote: ''
     filterUnverified: 'Não verificados'
-    filter: ''
-    pickupAsc: ''
-    pickupDesc: ''
-    pickupReset: ''
-    managementToggleOff: ''
-    managementActions: ''
     filterManage: 'com questinário dos responsáveis pela cooperação'
     promoteToManager: 'Assumir a responsabilidade por esta empresa'
-    managementToggleOn: ''
     promoteToManagerNotPossible: 'A pessoa não pode ser registada como responsável
       porque já existem três pessoas responsáveis por esta empresa ou porque a pessoa
       ainda não passou no questinário correspondente.'
-    byLastPickup: ''
     filterActive: 'Ativos'
-    managementEffect: ''
     searchPlaceholder: 'Nome ou ID'
     filterSleeping: 'Dormilhões'
     filterJumper: 'Substitutos'
-    buttonManagementToggle: ''
     filterQuizSM: 'Questinário aprovado para responsáveis pela cooperação'
-    toogleIsReducedStateOpen: ''
-    toogleIsReducedStateClosed: ''
     reallyRemove: 'Quer mesmo remover {name} da equipa da loja?'
     makeJumper: 'Na lista da reserva'
     reloadRequired: 'Para atualizar as informações do equipamento:'
     makeRegularTeamMember: 'Adicionar na equipa'
-    filterHygiene: Formação em higiene
     filterNoHygiene: 'sem formação em higiene'
     sorting:
       default: Classificação standard
@@ -337,7 +311,6 @@ bell:
   workgroup_request_accept_title: '{name}'
   blog_new_check: '{title}'
   ft_update_title: '{name}'
-  new_quiz_comment: '{user}: {comment}'
   betrieb_fetch_title: '{betrieb}'
   store_cr_times_title: '{name}'
   store_request_accept_title: '{name}'
@@ -345,7 +318,6 @@ bell:
   forum_post_title: '{title}'
   report_reason: '{reason}'
   store_request_deny_title: '{name}'
-  ft_update: '{teaser}'
   store_request_imposed_title: '{name}'
   store_wallpost_title: '{name}'
   store_request_accept_wait_title: '{name}'
@@ -401,21 +373,13 @@ bell:
     one: Entrada do pinboard de {user}
     many: '{count} entradas novas no pinboard'
 email_template:
-  help_needed:
-    link: https://devdocs.foodsharing.network/
-    support_mail: ''
-    or: ''
-    main: ''
   login: ''
   reply: ''
   foodbasket_request: ''
   in: ''
-  yourFSteam: ''
   newsletter:
     unsubscribe: ''
     linktext: ''
-  find_someone: ''
-  manual_slots_get_ignored: ''
   request_from: ''
   foodsharepoint: '-- cantinho solidário'
   to: ''
@@ -427,10 +391,6 @@ email_template:
     no_notification_link: ''
   from: ''
   unknown_email: ''
-  slot_empty: ''
-  you_responsible:
-    part2: ''
-    part1: ''
   impress:
     title: ''
     address: ''
@@ -444,7 +404,6 @@ email_template:
 footer:
   meta:
     version: 'Versão: {version}'
-    beta_testing_issues: ''
     it_devdocs: ''
   partner_names:
     denns: Denn’s Biomarkt
@@ -489,11 +448,6 @@ dashboard:
     ack: ''
   empty_section: ''
   homeRegion: ''
-  mail_activation_error_body:
-    part_4: ''
-    part_1: ''
-    part_3: ''
-    part_2: ''
   source_foodsharepoint: 'Cantinho solidário {0}'
   foodsharer: ''
   my:
@@ -546,12 +500,10 @@ dashboard:
   no_more_updates_mailbox: ''
   invitationCount: ''
   title: ''
-  mail_activation_error_title: ''
   polls: ''
   source_event: ''
   pickupdates: ''
 storeview:
-  counter: <strong>{count} {suffix}</strong>
   groceries:
     select_tag: 'Selecione a categoria de alimentos'
     no_tag_preset: 'Nenhuma categoria de alimentos disponível'
@@ -576,7 +528,6 @@ storeview:
   store: 'Empresa'
   public_time_in_the_evening: 'à noite'
   info: 'Informações'
-  teamInfo: ''
   visible_for_public: 'Este texto é visível para todos os foodsavers.'
   management: 'Administração'
   cooperation_start: 'Cooperação desde'
@@ -589,7 +540,6 @@ storeview:
   no_permission_to_view: 'Visível apenas pelos responsáveis pela coordenação da empresa.'
   status: 'Situação actual'
   pickupWeight: 'kg salvado'
-  show_information: ''
   managers: 'Foodsavers responsáveis'
   common: 'Geral'
   pickupCount: 'Recolhas'
@@ -797,8 +747,6 @@ basket:
   requested_by: ''
   provider: ''
   published: ''
-  howto: ''
-  no-address: ''
   public-info: ''
   edit: ''
   no-desc: ''
@@ -807,11 +755,9 @@ basket:
   image: ''
   n_requests: ''
   description: ''
-  no-login: ''
   withdrawn_request: ''
   all: ''
   on: ''
-  expires: ''
   go: ''
   use_home_address: Utilizar o meu endereço residencial
 menu:
@@ -829,7 +775,6 @@ menu:
     blog: ''
     mark_as_read: ''
     refresh: ''
-    Germany: ''
     wall: 'Pinboard'
     chainList: ''
     helpwanted: ''
@@ -852,20 +797,16 @@ menu:
     mailbox: ''
     fs: ''
     talksandworkshops: ''
-    Austria: ''
     politics: ''
-    international: ''
     pastcampaigns: ''
     press: ''
     fundraising: ''
-    pin: ''
     donations: ''
     all_messages: ''
     activities: ''
     events: ''
     support: ''
     BOTforum: ''
-    Swiss: ''
     fundamentals: ''
     selfservice: ''
     forum: ''
@@ -929,7 +870,6 @@ login:
   password: 'palavra-passe'
   email_address: 'Endereço electrónico'
   logout: 'Sair'
-  success: ''
   save_password: 'Guardar a palavra-passe'
   error_no_email: 'Digite o seu endereço de e-mail.'
   topbar: 'Fazer login'
@@ -947,7 +887,6 @@ profile:
     buddycount_known: ''
     foodsaverId: ''
     buddycount_followed: ''
-    foodsharerId: ''
     privateMail: ''
   mediation:
     title: ''
@@ -956,72 +895,18 @@ profile:
   notFound: ''
   choosestore: ''
   report:
-    xhr:
-      reporting: ''
-      confirmed: ''
-      deleted: ''
-      reportID: ''
-      reportee: ''
-      delivered: ''
-      allofthem: ''
-      plsconfirm: ''
-    view:
-      respect: ''
-      what:
-        other: ''
-        brutal: ''
-        sexist: ''
-        homophobe: ''
-        racist: ''
-        hurtful: ''
-      vsstore: ''
-      social: ''
-      dirty: ''
-      picky: ''
-      tardy: ''
-      complaints: ''
-      delivered: ''
-      noshow: ''
-      vsclients: ''
-      ofclients: ''
-      offs: ''
-      newreport: ''
-      residence: ''
-      returned: ''
-      vsfs: ''
-      additional: ''
-      nearstore: ''
-      thief: ''
-      trasher: ''
-      ofstore: ''
-      why: ''
-      sells: ''
-      unreliable: ''
-      bossy: ''
-      nearfs: ''
-      nearclients: ''
-      other: ''
     oldReportButtonTextPart2: ''
     noshow: ''
     doesNotAffectStore: ''
     arbAdminAgainstRepAdmin: ''
     oldReportButton: ''
     send: ''
-    control:
-      total: ''
-      tot: ''
-      notes: ''
-      delivered: ''
-      from: ''
-      newreports: ''
     late: ''
     repAdminAgainstArbAdmin: ''
     sent: ''
-    readup: ''
     inthisblog: ''
     oldReportButtonTextPart3: ''
     info: ''
-    mail: ''
     title: ''
     kindofreport: ''
     noReportGroup: ''
@@ -1043,7 +928,6 @@ profile:
     remove:
       confirm_title: ''
       confirm_message: ''
-    none: ''
     title: ''
     sent: ''
     undo: ''
@@ -1056,7 +940,6 @@ profile:
   stats:
     baskets: ''
     weight: ''
-    count: ''
     posts: ''
     weight_unit: kg
   commitments_stat:
@@ -1067,7 +950,6 @@ profile:
     week_4: ''
     categorieName: ''
     title: ''
-    tooltip_visibility: ''
     respActStores: ''
     week_2: ''
     pickupAmount: ''
@@ -1099,35 +981,26 @@ profile:
   cantdeleteall: ''
   online: ''
   nav:
-    edit: ''
     verificationHistory: ''
     buddy: ''
     notes: ''
     history: ''
     violations: ''
     storelist: ''
-  no_common_workgroups: ''
   notes:
     info: ''
     bread: ''
     title: ''
   title: ''
   mediationRequest: ''
-  homeRegion: ''
   go: ''
   about_me_intern: ''
   sleeping: ''
-  workgroups_admin: ''
   reportRequest: ''
-  ambRegions: ''
   cantdeletethis: ''
-  workgroups_member: ''
-  sleepinfo: ''
-  regions: ''
 mailbox:
   search: 'Revisar'
   claim: ''
-  delete_selected: ''
   already_exists: ''
   ratelimit: ''
   empty: ''
@@ -1138,9 +1011,6 @@ mailbox:
     message: ''
   mark_as_unread: ''
   fromto: ''
-  for_quoting:
-    has_from: ''
-    written_text: ''
   mark_all: ''
   name: ''
   member: ''
@@ -1160,7 +1030,6 @@ mailbox:
   okay: ''
   manage: ''
   trash: ''
-  attach: ''
   failed: ''
   mailsend_unsuccess: ''
   new: ''
@@ -1181,7 +1050,6 @@ mailbox:
   create: ''
   subject: ''
   close_edit_mode: ''
-  saved: ''
   signature: ''
   add: ''
   mails: ''
@@ -1197,15 +1065,11 @@ bcard:
   generate: 'Criar um cartão de visita'
   for: '{role} para {region}'
   claim: 'Simplesmente gerar, imprimir e cortar aqui …'
-  actions: ''
   card: 'O teu cartão de visita de foodsharing'
-  info:
-    address_shortened: ''
   desc: 'Selecione aqui para qual distrito ou função pretende criar o teu cartão de
     visita.'
   title: 'Gerador de cartão de visita'
   role: 'Função'
-  choose: ''
   region: Região
 formatting:
   md: 'Pode utilizar <a href="https://markdown.de/">Markdown</a> para formatação.'
@@ -1229,16 +1093,10 @@ group:
       mensagens em fóruns moderados. Caso esta opção esteja activada para o distrito,
       podem também ocultar mensagens no fórum.'
     fsp: 'Cantinho solidário'
-    duplicate_report_team: 'A equipa da queixa já foi criada! Por distrito só pode
-      ter uma equipa da queixa.'
     tooltip_function_1: 'Os administradores deste grupo de trabalho são notificados
       dos membros novos do distrito'
     report: 'Reclamações'
     invalid: 'Um distrito não pode ser afetado a uma função de grupo de trabalho.'
-    duplicate_welcome_team: 'A equipa de boas-vindas já foi criada! Por distrito só
-      pode ter uma equipa de boas-vindas.'
-    duplicate_fsp_team: 'Equipa de cantinho solidário já criada? Só pode haver uma
-      equipa de cantinho solidário por distrito.'
     tooltip_function_2: 'Os administradores deste grupo de trabalho podem criar votações
       para o distrito'
     tooltip_function_11: 'Os administradores deste grupo de trabalho são apresentados
@@ -1248,37 +1106,18 @@ group:
     tooltip_function_7: 'Os administradores deste grupo de trabalho são mostradas
       as notificações que envolvem a equipa de notificação. Não são apresentadas mensagens
       em que os administradores estejam envolvidos! A equipa da queixa recebe estas'
-    duplicate_stores_team: 'A equipa de coordenação da cooperação já foi criada! Por
-      distrito só pode ter uma equipa de coordenação da cooperação.'
-    duplicate_mediation_team: 'A equipa de mediação já foi criada! Por distrito só
-      pode ter uma equipa de mediação.'
-    duplicate_board_team: 'O conselho de administração já foi criada! Por distrito
-      só pode ter um O conselho de administração.'
-    duplicate_fsmanagement_team: 'A equipa de administração já foi criada! Por distrito
-      só pode ter uma equipa de administração.'
     welcome: 'Saudação'
-    duplicate_pr_team: 'A equipa dos relações públicas já foi criada! Por distrito
-      só pode ter uma equipa dos relações públicas.'
-    stores: ''
     board: 'Direção'
     tooltip_function_3: 'Os administradores deste grupo de trabalho podem ativar e
       editar os cantinhos solidário do distrito e remover contribuições de cantinho
       solidário justos'
     mediation: 'Mediação'
     arbitration: 'Comissão de arbitragem'
-    duplicate_moderation_team: 'A equipa de moderação já foi criada! Por distrito
-      só pode ter uma equipa de moderação.'
-    duplicate_voting_team: 'A equipa de votação já foi criada! Por distrito só pode
-      ter uma equipa de votação.'
-    duplicate_arbitration_team: 'O comissão de arbitragem já foi criada! Por distrito
-      só pode ter um comissão de arbitragem.'
     stores_coordination: Empresas
     election: Eleições
     none: Não é um grupo de trabalho GOALS
     tooltip_function_12: Os administradores deste grupo de trabalho são 
       apresentados na visão geral do distrito.
-    duplicate_election_team: O grupo de trabalho eleitoral já foi criada! Por 
-      distrito só pode ter um o grupo de trabalho eleitoral.
     resources: Mosaico dos recursos
     tooltip_function_13: Os administradores deste grupo de trabalho serão 
       informados sobre recursos novos através de campainha.
@@ -1288,7 +1127,6 @@ group:
     title: 'Candidatura para {group}'
     motivation: 'Qual é a tua motivação para participar no {group}?'
     send: 'Enviar candidatura'
-    erfahrung: ''
     summary: '{name} gostaria de se juntar ao grupo de trabalho {group}.'
     time:
       "1": '1–2 horas'
@@ -1297,8 +1135,6 @@ group:
       "3": '3–4 horas'
     sent: 'A candidatura foi enviada.'
     declined: 'Candidatura recheitado'
-    faehigkeit: ''
-    zeit: ''
     accepted: 'Candidatura aceite'
     experience: "Podes recorrer à experiências que tiveste noutras partes do grupo?\n\
       \ Caso afirmativo, onde e qual?\n"
@@ -1313,13 +1149,11 @@ group:
       embaixador(-a)?'
     is_verified: 'Verificado'
     add_member: 'incluir na equipa'
-    old_edit_hint_link: 'Miembros'
     remove_admin_text: 'Tem a certeza de que pretende remover {name} ({id}) como administrador?'
     remove_admin_title: 'Eliminar como administrador'
     remove_title: 'Eliminar miembro'
     remove_text_group: 'Queres mesmo eliminar {name} ({id}) do grupo de trabalho?'
     admin_mode_off: 'Voltar à vista normal'
-    old_edit_hint: 'A gestão dos membros pode agora ser encontrada no separador'
     set_admin_text: 'Quer mesmo adicionar {name} ({id}) como administrador?'
     set_ambassador_title: 'Atribuir como embaixador(-a)'
     admin_mode_on: 'Ativar a vista do administrador'
@@ -1434,7 +1268,6 @@ group:
     region: 'Caixa postal do distrito'
     workgroup: 'Caixa postal do grupo de trabalho'
   delete_group_sure: 'Queres realmente eliminar o grupo/distrito {groupName}?'
-  saved: ''
   filter_by_last_activity: 'Não ativo há meses'
   image: 'Imagem de capa para %name%'
   show-all: 'Mostrar todo'
@@ -1487,24 +1320,9 @@ foodsaver:
     name: ''
     last-activity: ''
   upgrade:
-    needs_fs_quiz: ''
     learning: ''
-    fs_success: ''
-    quiz_error: ''
-    amb_requested: ''
-    amb_success: ''
-    needs_publicinfo: ''
-    needs_rv: ''
-    needs_region: ''
-    amb_region: ''
-    to_amb: ''
-    to_fs: ''
-    needs_sm: ''
     ad_fs: ''
     rv: ''
-    sm_success: ''
-    to_sm: ''
-    needs_fs: ''
   editName: ''
   mailchange_error: ''
   delete_account_now: ''
@@ -1515,7 +1333,6 @@ foodsaver:
   about_me_intern: ''
   delete_own_account: ''
   actions: ''
-  edit_success: ''
   title: ''
   edit: ''
   delete_account_sure_reason: ''
@@ -1644,7 +1461,6 @@ pickup:
     slot: 'Recolha'
     no_signouts_found: 'Não foram encontradas cancelamentos.'
     title: 'Histórico de cancelamentos dos últimos 7 dias'
-  copiedNumber: ''
   region_pickup_rule_failed: 'A tua inscrição não cumpre as regras do distrito'
   leave_pickup_ok: 'Já tenho um substituto'
   join_cancel: 'Ah, pela não'
@@ -1694,10 +1510,6 @@ error:
     title: ''
     link: ''
     description: ''
-  missing_home_region:
-    description: ''
-    link: ''
-    title: ''
   invalid_mobile_phonenumber:
     title: ''
     description: ''
@@ -1812,89 +1624,12 @@ search:
     mensagens do fórum e cantinhos solidário.'
   noresults: ''
   forum: ''
-pass:
-  nav:
-    title: ''
-    options: ''
-    deselect: ''
-    generate: ''
-    select: ''
-  verify:
-    failed: ''
-    confirm: ''
-    hasPickup: ''
-    text: ''
-    checkPickups: ''
-    undo: ''
-    do: ''
-  noPhoto: ''
-  hint: ''
-  button:
-    verify: ''
-    check: ''
-    unverify: ''
-  bread: ''
-  photo: ''
-  name: ''
-  none: ''
-  hintVerify: ''
-  verified: ''
-  notGenerated: ''
-  claim: ''
-  date: ''
-  hintSelect: ''
 quiz:
-  learnbreak: ''
-  not_passed_details: ''
-  finishnow:
-    bv: ''
-    bot: ''
-    fs: ''
-  threestrikes: ''
-  choice:
-    correcta: ''
-    fpsum: ''
-    percentb: ''
-    percenta: ''
-    answer: ''
-    responses: ''
-    koquestion: ''
-    correctb: ''
-    wronga: ''
-    neut: ''
-    joke: ''
-    nresponses: ''
-    whatisko: ''
-    writecomment: ''
-    cresponses: ''
-    wresponses: ''
-    sadlywrong: ''
-    alsowrong: ''
-    send: ''
-    wrongb: ''
-  heavysigh: ''
-  finished: ''
-  quizleft: ''
-  failedbeforebut: ''
-  trynumber: ''
   question: 'Pergunta'
-  waitxdays: ''
   timedstart: 'Iniciar um questionário com limite de tempo e {count} perguntas'
   wikilink: 'Mais informações'
-  donecorrectly: ''
   continuenow: 'Continua a responder ao concurso questinario agora!'
-  type: ''
-  days: ''
-  safeandsound: ''
-  questions: ''
-  nownownow: ''
-  session_deleted: ''
-  goodluck: ''
-  congrats_details: ''
-  notfinishedyet: ''
-  continuetype: ''
   regstart: 'Iniciar um questionário sem limite de tempo e {count} perguntas'
-  resultsbelow: ''
   results:
     title:
       1: Parabéns!
@@ -2202,7 +1937,6 @@ storeedit:
     hygieneRequired: Permitir apenas a recolha com formação válida em matéria de
       higiene
   unsuccess: 'As alterações não puderam ser aplicadas. {error}'
-  edit_success: ''
   milestone:
     accepted: '{user} agora faz parte da equipa'
     dropped: '{user} não mais faz parte da equipa'
@@ -2348,7 +2082,6 @@ recipients:
   recipients: 'Destinatários'
   all: 'Todos os Foodsavers em todo o mundo'
   prepare: 'Preparação para envio'
-  test: ''
   storemanagers: 'Todos os responsáveis pelas cooperações a nível mundial'
   body: 'Mensagem'
   send: 'Enviar o e-mail'
@@ -2389,20 +2122,8 @@ settings:
   calendar:
     delete_token:
       button: ''
-      title: ''
       message: ''
-    create_token:
-      button: ''
-      title: ''
-      message: ''
-    teaser: ''
-    link_title: ''
-    sync: ''
-    title: ''
-    include_invitations: ''
     export: ''
-    token-warning: ''
-    event_link_desc: ''
     menu: ''
     export_tooltip: ''
     program:
@@ -2418,12 +2139,6 @@ settings:
     not-supported: ''
     disable: ''
     info-on: ''
-  name_change:
-    desc: ''
-    foodsharer_info: ''
-    request: ''
-    title: ''
-    foodsaver_info: ''
   passport:
     menu: ''
     button: ''
@@ -2441,7 +2156,6 @@ settings:
   notifications: ''
   businesscard: ''
   newsletter: ''
-  saved: ''
   header: ''
   account: ''
 terminology:
@@ -2471,7 +2185,6 @@ terminology:
     f: 'Compartilhadora dos alimentos'
     m: 'Compartilhador dos alimentos'
     d: 'Compartilhador/a dos alimentos'
-  arbitration: ''
   no_pickups: 'nenhum'
   homeRegion: 'Distrito de origem'
   prAdmins: 'Equipe de relações públicas'
@@ -2513,7 +2226,6 @@ terminology:
   moderationAdmins: 'Equipa de moderação'
   settings: 'Configurações'
   community: 'Grupo local de {name}'
-  pin: ''
   n_home_regions: '{count} com distrito principal'
   homepage: 'Página inicial'
   arbitrationAdmins: 'Comissão de arbitragem'
@@ -2555,9 +2267,6 @@ timepicker:
 join_region:
   headline: ''
   error:
-    is_big_city: ''
-    is_country: ''
-    is_state: ''
     not_allowed: ''
   description: ''
 polls:
@@ -2624,7 +2333,6 @@ register:
   man: 'masculino'
   lastname_required: 'Por favor, insira o teu sobrenome'
   login_surname: 'O teu sobrenome'
-  login_mobile_phone: ''
   pass1: 'A tua nova palavra-passe desejada'
   pass2: 'Repetição da palavra-passe'
   birthdate_hint: 'Para mais informações, consulte a [Política de Privacidade]({url})
@@ -2703,22 +2411,14 @@ globals:
     my_mailboxes: ''
     my_buddies: ''
     my_stores: ''
-    persons: ''
     my_regions: ''
     chats: ''
     mailboxes: ''
     my_foodshare_points: 'Os meus cantinhos solidário'
     my_persons: ''
     my_groups: ''
-    groups: ''
-    foodshare_points: ''
     foodSharePoints: Cantinho solidário
   save: ''
-  account:
-    signin: ''
-    signup: ''
-    signout: ''
-  reset: ''
   show_more: ''
   close: ''
   show_less: ''
@@ -2776,10 +2476,6 @@ legal:
   must_accept_privacy_policy: 'Para participar em foodsharing, deve concordar com
     a política de privacidade.'
   privacy_policy: 'Política de privacidade'
-  actions:
-    safe: ''
-  dont_agree: ''
-  delete_account: ''
   button:
     agree: Aceitar
     partially_agree: Rebaixar para Foodsaver
@@ -2803,7 +2499,6 @@ startpage:
       part5: ''
       part4: 'Cantinho solidário'
     title: ''
-  followrules_b: ''
   call_to_action:
     title: ''
     text: ''
@@ -2829,10 +2524,8 @@ startpage:
     title: ''
     link: ''
     text: ''
-  followrules_a: ''
   slogan_1: ''
   registernow: ''
-  followrules_c: ''
   this_is_how_it_works: ''
   beresponsible: ''
   telltruth: ''
@@ -2876,21 +2569,15 @@ region:
     title: ''
     city: ''
     region: ''
-    bigcity: ''
     district: ''
-    state: ''
-    workgroup: ''
     country: ''
-    townpart: ''
   edit: ''
   cancel: ''
   still_contains_elements: 'O distrito não pode ser apagado porque ainda contém sub-regiões,
     empresas ou cantinhos solidário.'
   edit_success: ''
-  confirm: ''
   restricted: ''
   store_managers_cannot_leave: ''
-  not-member: ''
   save: ''
   mail:
     name-info: ''
@@ -2906,11 +2593,6 @@ region:
       missing: Este distrito não é atualmente exibido no mapa e não tem 
         cantinhos solidário que podem ser exibidos aqui. Tem autorização para 
         colocar um pin de distrito agora.
-pronoun:
-  "2": ''
-  "1": ''
-  "0": ''
-  "3": ''
 upload:
   new_image: 'Carregar imagem novo'
   no_image: 'O ficheiro carregado não é uma fotografia. Por favor, selecione outro
@@ -2948,19 +2630,15 @@ content:
   bread: ''
 conference:
   join_title: ''
-  description_text: ''
   join: ''
-  privacy_notice: ''
 system_administration:
   regions: ''
   email: ''
   quiz: ''
   blog: ''
-  mailboxes: ''
   reports: ''
   content: ''
 maxfp: 'Número máximo de pontos de erro para passar o testo'
-food_art: ''
 bootstrap-datepicker:
   labelCalendar: ''
   labelCurrentMonth: ''
@@ -2979,20 +2657,13 @@ events:
   create:
     multiday: 'O evento dura vários dias'
     online: 'por teleconferência ou online'
-    mumble: ''
-    info: ''
     date: 'Data'
-    delinvites: ''
     regions: 'Os teus distritos'
     title: 'Registar evento novo'
     who: 'Para que distrito ou grupo de trabalho o evento deve ser criado?'
     isPublic: 'O evento é publico'
-    endtime: ''
-    starttime: ''
     groups: 'Os teus grupos de trabalho'
-    cascading: ''
     offline: 'Totalmente normal na vida real'
-    inviteAll: ''
     public: 'O evento é publico?'
     desc: 'Onde é o evento?'
     name: Nome de evento
@@ -3179,25 +2850,12 @@ logincontrol:
   nomorenewsletter: ''
   title: ''
 reports:
-  in-store: ''
-  from_last_name: ''
-  about_email: ''
-  from_first_name: ''
-  about: ''
-  from: ''
-  city: ''
   no_reports_fallback: ''
-  about_last_name: ''
   time: ''
   store: ''
-  when: ''
   report_id: ''
-  about_first_name: ''
-  region: ''
-  info: ''
   reportmessage: ''
   reason: ''
-  all_reports: ''
   message: ''
 notifications:
   newsletter:
@@ -3251,7 +2909,6 @@ button:
   browse: Revistar
   filter_options: Opções do filtro
   yes_save: sim, guardar
-week_num: ''
 about_me_intern: 'Descrição rápida'
 storestatus:
   "3a": ''
@@ -3283,8 +2940,6 @@ salutation:
   "1": 'Caro'
   "0": 'Querido/a'
   "2": 'Querida'
-leader: ''
-orgateam: ''
 stats:
   total:
     pickups: ''
@@ -3375,30 +3030,16 @@ information:
     link: ''
     description: ''
 wikilink: 'Link com mais informações'
-store_status_impact_explanation: ''
-teamjs:
-  wrongmail: ''
-  entermail: ''
 memberlist:
   header_for_district: ''
   header_for_workgroup: ''
-deletefromregion: ''
-ui:
-  switch:
-    off: ''
-    on: ''
+ui: {}
 gender:
   d: 'Ambos ou outro'
   m: 'Homem'
   f: 'Mulher'
 kette_id: 'Cadeia de empresa'
-bread:
-  backToOverview: ''
-  backToStore: ''
-fpko: ''
 no: 'Não'
-mail:
-  noreply_addresses_not_allowed: ''
 info: 'Informações'
 addresspicker:
   infobox: 'Introduza o endereço na barra de pesquisa ou mova o marcador para a posição
@@ -3434,16 +3075,6 @@ wall:
   delete_confirmation:
     text: Quer mesmo eliminar esta entrada de {author}?
     title: Apagar uma publicação no pinboard?
-sig:
-  buddies: ''
-date_short:
-  Thursday: ''
-  Friday: ''
-  Wednesday: ''
-  Monday: ''
-  Tuesday: ''
-  Sunday: ''
-  Saturday: ''
 betrieb_kategorie_id: 'Categoria'
 success: 'Completado com sucesso'
 buddy:
@@ -3460,13 +3091,6 @@ picture_upload_widget:
   picture_upload: 'Carregar fotografia'
 team:
   current: ''
-  not-found: ''
-  contact: ''
-  email: ''
-  former: ''
-  ratelimit: ''
-  name: ''
-  contacted: ''
 language_chooser:
   translation_help: ''
   title: ''
@@ -3487,31 +3111,20 @@ questcount: 'Quantas perguntas devem ser dada no teste?'
 yes: 'Sim'
 home:
   home: ''
-  title: ''
 image: 'Imagem'
 validate:
   required: '{it} não pode estar vazio'
-storemanagers: ''
 lifetime: 'Por quanto tempo debecer de validade do cabaz dos alimentos?'
 sticker: 'A empresa/loja/clube, etc. está disponível para afixar um autocolante na
   entrada ou noutro local?'
 error_unexpected: 'Houve um erro'
 back: 'Para trás'
-message_text_to_group_admin_workgroup: ''
-regionPin:
-  pin_visible: ''
-  header_page: ''
-  desc: ''
-  save: ''
-  text_desc: ''
-  success: ''
 first_post: 'Primeira entrada no pinboard'
 fsp_bezirk_id: 'Em qual distrito está localizado o cantinho solidário?'
 about_me_public: 'Descrição rápida publica'
 delete: 'apagar'
 betrieb_status_id: 'Status'
 lebensmittel: 'Quais os alimentos o que levado?'
-timefrom: ''
 notice: 'Nota!'
 usersearch:
   search_tag: ''
@@ -3530,17 +3143,10 @@ statistics:
     activeCoorporations: Cooperações ativas com empresas
   lastMonth: Estatísticas dos últimos 30 dias
   food_saved: Alimentos recuperados
-mailbox_id: ''
 body: 'Mensagem'
-public_info: ''
-banana_count: ''
-messages:
-  bread: ''
 photo: 'Fotografia'
 really_delete: 'Apagar a sério?'
 map:
-  filters:
-    my_stores: ''
   title: ''
   donates: ''
   foodsharepoint:
@@ -3553,7 +3159,6 @@ filter_by: 'Filtrar por'
 push_notifications:
   test_notification_body: ''
   test_notification_title: ''
-quizusercomment: ''
 savewithus: ''
 bezirk_id: 'Para qual região o artigo é relevante?'
 sidenav:
@@ -3561,38 +3166,24 @@ sidenav:
   localgroups: ''
   countryspecific: ''
   superregional: ''
-food_type: ''
 explanation: 'Explicação'
 status: 'Estado atual'
 nofp: 'Nemhum pontos de erro (pergunta de brincadeira)'
-dateend: ''
-fetch_count: ''
-compose_body: ''
-verantwortlicher: ''
 select: 'Por favor selecionar'
 password:
   reset: ''
   insertmail: ''
-team_status: ''
 pass2: 'Repetição da palavra-passe'
-fetchercount: ''
 personal_data:
   label: ''
   mobile: ''
   landline: ''
 fetchstate: 'Foi tudo bem?'
-testemail: ''
-location_name: ''
-fpsingular: ''
-contact_type: ''
 abholmenge: 'Quantos quilogramas, aproximadamente, são levados por pessoa por recolha?'
 groups:
   empty: 'Ainda não faz parte dos grupos de trabalho'
-online_type: ''
 besonderheiten: 'Indicações'
 rolle: 'Função do utilizador'
-member: ''
-deletelow: ''
 regions: 'Distritos'
 text: 'texto'
 use_region_pickup_rule: 'A regra das SULTANAS do distrito deve ser de aplicada para
@@ -3602,18 +3193,11 @@ presse: 'A empresa/loja/clube está disponível para ser mencionada na imprensa 
   foodsharing.de?'
 pass1: 'O tua desejada palavra-passe nova'
 weight: 'Peso estimado:'
-mailbox_name: ''
 answers: 'Quais respostas é certamento?'
-fpcapital: ''
-infotype: ''
-daterange: ''
 time: 'horas'
 duration: 'Tempo para responder'
 day: 'dia'
 ansprechpartner: 'Pessoa de contacto na empresa (Gerente de filial, etc.)'
-homepage: ''
-passcheck: ''
-apply_type: ''
 validation:
   phone_number_invalid: O número de telefone é inválido (por exemplo, falta o 
     indicativo do país, é demasiado curto, demasiado longo ou contém caracteres 

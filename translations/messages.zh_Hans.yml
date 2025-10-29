@@ -6,42 +6,21 @@ description: 描述
 desc: 描述
 edit: 改写
 nachname: 姓名
-geb_datum: 出生日期 (YYYY-MM-DD)
-handy: 手机号码
-telefon: 电话号码
-attachement: 附件
 options: 选项
 picture: 照片
 bezirk: 地区
 fax: 传真
 ansprechpartner: 店铺联系人（店铺经理等）
-team_status: ''
-storemanagers: 店长
 kette_id: 连锁店
-newmail: 在这里输入您的新电子邮件地址
-sleep_status: 您的实际状态
-homepage: 您的网站
-newsletter: 新闻邮件
 pass2: 密码重复
 pass1: 您请求的新密码
-infotype: 通告
-orgateam: ''
-dateend: 结束日期
-online_type: 这次活动是线上还是线下？
-location_name: 活动地点/会议室
-mailbox_id: 邮件发送地址
-testemail: 测试邮箱地址
 opt: 选项
 bezirk_id: 这篇文章是关于哪个地区的？
-food_type: 包括哪种食物？
-food_art: 是什么样的食物？
 fetchstate: 一切都好吗？
-contact_type: 您想怎么联系？
 lifetime: 这个篮子的有效期是多久？
 weight: 估计重量
 about_me_intern: 简短说明
 regions: 地区
-daterange: 时期
 ort: 城市/直辖市
 photo: 照片
 info: 资料
@@ -49,29 +28,18 @@ status: 当前状态
 body: 信息
 title: 职位
 rolle: 用户角色
-mailbox_name: 邮箱名
 active: 已激活
-betrieb: 合作公司/会议记录
-stadt: 所在城市或镇
 lon: 经度
 lat: 纬度
 fs_id: 分食号
 parent_id: 关于地区
-botschafter: 大使
 geschlecht: 性别
 anschrift: 街道号及房号（在上面地图自动生成，然后手动矫正）
 message: 信息
-subject: 标题
 add: 加入
 dashboard:
   greeting: 你好 {name}! 很高兴你能来这里。
   event: ''
-  mail_activation_error_body:
-    part_3: ''
-    part_1: ''
-    part_4: ''
-    part_2: ''
-  mail_activation_error_title: ''
   chooseHomeRegion: ''
   source_forum_bot: ''
   greeting_short: ''
@@ -144,14 +112,10 @@ dashboard:
 bcard:
   generate: ''
   title: ''
-  actions: ''
   error:
     phone: ''
     length: ''
     verified: ''
-  info:
-    address_shortened: ''
-  choose: ''
   for: ''
   card: ''
   desc: ''
@@ -172,19 +136,14 @@ legal:
     legal_1: ''
     this_doesnt_get_deleted_address: ''
     this_gets_deleted_verify: ''
-  delete_account: ''
   agree_privacy_policy: ''
   privacy_notice_agree:
     not_acknowledge: ''
     acknowledge: ''
     select: ''
   not_acknowledge_privacy_notice_description: ''
-  actions:
-    safe: ''
   privacy_policy: ''
-  dont_agree: ''
   privacy_notice: ''
-  acknowledge: ''
   legal_agreement: ''
   must_accept_privacy_policy: ''
   are_you_sure_to_downgrade: ''
@@ -198,7 +157,6 @@ register:
   geb_datum: ''
   login_surname: ''
   next: ''
-  login_mobile_phone: ''
   password_required: ''
   check_mail: ''
   other: ''
@@ -318,7 +276,6 @@ pickup:
   leave_team_message_template: ''
   copyNumber: ''
   team_message_success: ''
-  copiedNumber: ''
   edit_recurring_pickups: ''
   history:
     search: ''
@@ -394,7 +351,6 @@ menu:
     infos: ''
     contact: ''
     your_baskets: ''
-    international: ''
     blog: ''
     forcompanies: ''
     your_stores: ''
@@ -403,17 +359,14 @@ menu:
     fs: ''
     helpneeded: ''
     academy: ''
-    Austria: ''
     joinregion: ''
     your_account: ''
     conference: ''
     selfservice: ''
     friendcircle: ''
     options: ''
-    pin: ''
     press: ''
     fscities: ''
-    Germany: ''
     mark_as_read: ''
     all_messages: ''
     fundamentals: ''
@@ -433,7 +386,6 @@ menu:
     team: ''
     wiki: ''
     guide: ''
-    Swiss: ''
     administration: ''
     your_groups: ''
     other_stores: ''
@@ -472,7 +424,6 @@ storelist:
   nocontact: ''
   address: ''
   others: ''
-  isManaging: ''
   memberState: ''
 globals:
   type:
@@ -481,122 +432,35 @@ globals:
     my_stores: ''
     my_persons: ''
     my_buddies: ''
-    foodshare_points: ''
     my_foodshare_points: ''
-    groups: ''
     my_groups: ''
-    persons: ''
     mailboxes: ''
     my_mailboxes: ''
     buddies: ''
     stores: ''
     threads: ''
     chats: ''
-  reset: ''
   select: ''
   you: ''
-  account:
-    signup: ''
-    signin: ''
-    signout: ''
   save: ''
   show_more: ''
   show_less: ''
   close: ''
-verantwortlicher: ''
-fetchercount: ''
 betrieb_kategorie_id: ''
 betrieb_status_id: ''
 lebensmittel: ''
 quiz:
-  finished: ''
-  choice:
-    joke: ''
-    writecomment: ''
-    wrongb: ''
-    percenta: ''
-    percentb: ''
-    responses: ''
-    koquestion: ''
-    wresponses: ''
-    fpsum: ''
-    nresponses: ''
-    answer: ''
-    whatisko: ''
-    wronga: ''
-    neut: ''
-    correcta: ''
-    alsowrong: ''
-    correctb: ''
-    cresponses: ''
-    send: ''
-    sadlywrong: ''
-  days: ''
-  notfinishedyet: ''
-  safeandsound: ''
-  not_passed_details: ''
-  threestrikes: ''
-  session_deleted: ''
-  waitxdays: ''
-  goodluck: ''
-  finishnow:
-    bv: ''
-    bot: ''
-    fs: ''
   timedstart: ''
-  questions: ''
-  failedbeforebut: ''
   wikilink: ''
-  quizleft: ''
   regstart: ''
-  continuetype: ''
-  heavysigh: ''
-  resultsbelow: ''
-  congrats_details: ''
-  type: ''
-  nownownow: ''
-  trynumber: ''
-  donecorrectly: ''
   continuenow: ''
   question: ''
-  learnbreak: ''
   results:
     title:
       1: 祝贺你
 picture_upload_widget:
   choose_picture: ''
   picture_upload: ''
-pass:
-  verified: ''
-  nav:
-    options: ''
-    generate: ''
-    select: ''
-    deselect: ''
-    title: ''
-  button:
-    verify: ''
-    unverify: ''
-    check: ''
-  none: ''
-  verify:
-    text: ''
-    confirm: ''
-    undo: ''
-    do: ''
-    checkPickups: ''
-    hasPickup: ''
-    failed: ''
-  hintVerify: ''
-  photo: ''
-  bread: ''
-  hintSelect: ''
-  notGenerated: ''
-  claim: ''
-  date: ''
-  hint: ''
-  noPhoto: ''
-  name: ''
 group:
   actions:
     edit: ''
@@ -607,7 +471,6 @@ group:
     go: ''
   apply:
     motivation: ''
-    zeit: ''
     sent: ''
     time:
       "1": ''
@@ -616,8 +479,6 @@ group:
       "2": ''
     accepted: ''
     declined: ''
-    faehigkeit: ''
-    erfahrung: ''
     title: ''
     summary: ''
     send: ''
@@ -641,36 +502,24 @@ group:
     fsmanagement: ''
     moderation: ''
     board: ''
-    duplicate_fsp_team: ''
-    duplicate_pr_team: ''
     restricted_workgroup_function: ''
     mediation: ''
     arbitration: ''
-    duplicate_welcome_team: ''
-    duplicate_voting_team: ''
     tooltip_function_10: ''
     tooltip_function_9: ''
-    duplicate_stores_team: ''
     tooltip_function_7: ''
     tooltip_function_11: ''
     tooltip_function_4: ''
     tooltip_function_3: ''
-    duplicate_moderation_team: ''
-    duplicate_fsmanagement_team: ''
     tooltip_function_6: ''
     invalid: ''
     voting: ''
     tooltip_function_5: ''
-    duplicate_mediation_team: ''
     pr: ''
     report: ''
     fsp: ''
-    duplicate_board_team: ''
     tooltip_function_2: ''
-    stores: ''
     tooltip_function_1: ''
-    duplicate_arbitration_team: ''
-    duplicate_report_team: ''
   administrators: ''
   quit_name_workgroup: ''
   member_list:
@@ -678,12 +527,10 @@ group:
     add_member: ''
     remove_admin_title: ''
     set_ambassador_text: ''
-    old_edit_hint: ''
     remove_title: ''
     admin_mode_off: ''
     admin_mode_on: ''
     set_ambassador_title: ''
-    old_edit_hint_link: ''
     remove_ambassador_text: ''
     remove_text_region: ''
     remove_admin_text: ''
@@ -738,17 +585,14 @@ group:
   no_groups: ''
   last_activity: ''
   description: ''
-  saved: ''
   already_applied: ''
   quitting_home_district_warning: ''
   application_region: ''
-  admin_count: ''
   filter_by_last_activity: ''
   applications: ''
   show-all: ''
   userId: ''
   role_name: ''
-  member_count: ''
 recipients:
   body: ''
   testmail: ''
@@ -779,7 +623,6 @@ recipients:
   manual: ''
   empty-region: ''
   permission: ''
-  test: ''
   storemanagers_and_ambs: ''
   test_email_invalid: ''
   orga_team: ''
@@ -788,22 +631,9 @@ recipients:
 reports:
   store: ''
   report_id: ''
-  city: ''
-  about_email: ''
   message: ''
-  all_reports: ''
-  from: ''
-  about: ''
   time: ''
-  when: ''
-  info: ''
-  about_first_name: ''
-  from_last_name: ''
-  from_first_name: ''
   reportmessage: ''
-  in-store: ''
-  about_last_name: ''
-  region: ''
   no_reports_fallback: ''
   reason: ''
 language_chooser:
@@ -837,7 +667,6 @@ terminology:
   prAdmins: ''
   fsps: ''
   settings: ''
-  pin: ''
   fsp: ''
   wall: ''
   ambassador:
@@ -869,7 +698,6 @@ terminology:
     m: ''
     f: ''
   store: ''
-  reports: ''
   basket: ''
   polls: ''
   ambassador_forum: ''
@@ -881,7 +709,6 @@ terminology:
   moderationAdmins: ''
   message: ''
   pickup: ''
-  arbitration: ''
   n_cooperating_stores: ''
   regions: ''
   homeRegion: ''
@@ -957,10 +784,8 @@ storeview:
   public_time: ''
   pickupWeight: ''
   info: ''
-  teamInfo: ''
   want_to_fetch: ''
   public_time_in_the_evening: ''
-  counter: ''
   cooperation: ''
   calendar_interval:
     not_set: ''
@@ -972,7 +797,6 @@ storeview:
     name: ''
   public_time_at_noon_or_afternoon: ''
   status: ''
-  show_information: ''
   visible_for_public: ''
   public_time_at_night: ''
   source_data: ''
@@ -989,19 +813,12 @@ storeview:
   managers: ''
 events:
   create:
-    starttime: ''
-    endtime: ''
     public: ''
     regions: ''
     desc: ''
     multiday: ''
-    info: ''
     isPublic: ''
-    mumble: ''
-    inviteAll: ''
     groups: ''
-    cascading: ''
-    delinvites: ''
     offline: ''
     online: ''
     who: ''
@@ -1041,14 +858,6 @@ events:
   maybeCount: ''
   edit: ''
   add_event: ''
-date_short:
-  Monday: ''
-  Wednesday: ''
-  Friday: ''
-  Saturday: ''
-  Thursday: ''
-  Tuesday: ''
-  Sunday: ''
 month:
   "5": ''
   "7": ''
@@ -1089,24 +898,9 @@ genderlist:
   gender_male: ''
 foodsaver:
   upgrade:
-    to_sm: ''
-    needs_publicinfo: ''
-    quiz_error: ''
-    fs_success: ''
-    amb_region: ''
-    needs_rv: ''
-    amb_success: ''
-    needs_fs: ''
-    needs_fs_quiz: ''
-    amb_requested: ''
     ad_fs: ''
-    needs_sm: ''
-    sm_success: ''
     learning: ''
     rv: ''
-    to_fs: ''
-    needs_region: ''
-    to_amb: ''
   delete_own_account: ''
   about_me_public: ''
   list:
@@ -1136,7 +930,6 @@ foodsaver:
   title: ''
   edit_failure: ''
   restricted: ''
-  edit_success: ''
 mailbox:
   sent: ''
   refresh: ''
@@ -1146,7 +939,6 @@ mailbox:
   okay: ''
   filetype: ''
   subject: ''
-  saved: ''
   empty: ''
   filesize: ''
   to: ''
@@ -1160,7 +952,6 @@ mailbox:
   mail: ''
   date: ''
   write: ''
-  attach: ''
   already_exists: ''
   manage: ''
   member: ''
@@ -1181,13 +972,9 @@ mailbox:
   not-allowed: ''
   fromto: ''
   search: ''
-  delete_selected: ''
   conformation_modal:
     title: ''
     message: ''
-  for_quoting:
-    has_from: ''
-    written_text: ''
   mark_all: ''
   tag_recipient_hint: ''
   mark_as_read: ''
@@ -1203,21 +990,9 @@ mailbox:
 settings:
   calendar:
     menu: ''
-    teaser: ''
-    token-warning: ''
-    create_token:
-      title: ''
-      button: ''
-      message: ''
     delete_token:
-      title: ''
       button: ''
       message: ''
-    link_title: ''
-    event_link_desc: ''
-    sync: ''
-    title: ''
-    include_invitations: ''
     export: ''
     export_tooltip: ''
   push:
@@ -1230,12 +1005,6 @@ settings:
     title: ''
     info-off: ''
     disabled: ''
-  name_change:
-    title: ''
-    foodsharer_info: ''
-    request: ''
-    foodsaver_info: ''
-    desc: ''
   account: ''
   sleep:
     range: ''
@@ -1261,12 +1030,10 @@ settings:
   email: ''
   changemail:
     sent: ''
-    passcheck: ''
     invalid: ''
     done: ''
     domain: ''
     occupied: ''
-    passfail: ''
     question: ''
     input_label_email_confirm: ''
     explanation_password: ''
@@ -1287,7 +1054,6 @@ settings:
   title: ''
   notifications: ''
   header: ''
-  saved: ''
   newsletter: ''
 profile:
   nav:
@@ -1295,7 +1061,6 @@ profile:
     violations: ''
     storelist: ''
     history: ''
-    edit: ''
     notes: ''
     verificationHistory: ''
   title: ''
@@ -1306,7 +1071,6 @@ profile:
     pickupCount: ''
     week_0: ''
     title: ''
-    tooltip_visibility: ''
     eventsParticipatedWeek: ''
     week_3: ''
     week_4: ''
@@ -1322,58 +1086,6 @@ profile:
     basketsSharedWeek: ''
   report:
     sent: ''
-    view:
-      what:
-        racist: ''
-        hurtful: ''
-        brutal: ''
-        homophobe: ''
-        other: ''
-        sexist: ''
-      delivered: ''
-      vsfs: ''
-      social: ''
-      complaints: ''
-      thief: ''
-      picky: ''
-      additional: ''
-      offs: ''
-      nearstore: ''
-      ofclients: ''
-      vsstore: ''
-      residence: ''
-      nearclients: ''
-      why: ''
-      tardy: ''
-      noshow: ''
-      respect: ''
-      bossy: ''
-      nearfs: ''
-      other: ''
-      newreport: ''
-      unreliable: ''
-      vsclients: ''
-      returned: ''
-      ofstore: ''
-      dirty: ''
-      sells: ''
-      trasher: ''
-    xhr:
-      delivered: ''
-      allofthem: ''
-      confirmed: ''
-      deleted: ''
-      reporting: ''
-      reportID: ''
-      reportee: ''
-      plsconfirm: ''
-    control:
-      from: ''
-      delivered: ''
-      notes: ''
-      newreports: ''
-      total: ''
-      tot: ''
     reportedAdminNoArbitration: ''
     noshow: ''
     oldReportButtonTextPart2: ''
@@ -1386,11 +1098,9 @@ profile:
     oldReportButtonTextPart1: ''
     reporterAdminNoArbitration: ''
     info: ''
-    mail: ''
     repAdminAgainstArbAdmin: ''
     reporterHasNoReportGroup: ''
     oldReportButtonTextPart3: ''
-    readup: ''
     sells: ''
     title: ''
     arbAdminAgainstRepAdmin: ''
@@ -1399,7 +1109,6 @@ profile:
   infos:
     never: ''
     foodsaverId: ''
-    foodsharerId: ''
     registrationDate: ''
     fetchrate: ''
     buddycount_known: ''
@@ -1411,11 +1120,9 @@ profile:
     privateMail: ''
   stats:
     weight: ''
-    count: ''
     baskets: ''
     posts: ''
   about_me_intern: ''
-  no_common_workgroups: ''
   public:
     who: ''
     login: ''
@@ -1439,7 +1146,6 @@ profile:
     sent: ''
     vouch: ''
     title: ''
-    none: ''
     placeholder: ''
     alreadyGiven: ''
     remove:
@@ -1470,16 +1176,9 @@ profile:
     noData: ''
   reportRequest: ''
   mediationRequest: ''
-  regions: ''
-  homeRegion: ''
-  ambRegions: ''
-  workgroups_admin: ''
-  workgroups_member: ''
-  sleepinfo: ''
   pinboard: ''
   sleeping: ''
 home:
-  title: ''
   home: ''
 personal_data:
   label: ''
@@ -1674,43 +1373,27 @@ store:
     title: ''
     withdraw: ''
     got-it: ''
-    distance_unknown: ''
-    distance: ''
     unverified: ''
     air_line: ''
-    distance_close: ''
   tooltip_orange: ''
   sm:
     makeJumper: ''
     demoteAsManager: ''
     searchPlaceholder: ''
-    pickupReset: ''
     reloadRequired: ''
-    managementActions: ''
-    byLastPickup: ''
     filterJumper: ''
     filterQuizSM: ''
     reallyRemove: ''
-    managementToggleOn: ''
     makeRegularTeamMember: ''
-    managementEffect: ''
-    filter: ''
-    reallyDemote: ''
     promoteToManager: ''
     filterUnverified: ''
-    pickupAsc: ''
     removeFromTeam: ''
-    pickupDesc: ''
-    managementToggleOff: ''
     reloadPage: ''
     filterAll: ''
     filterManage: ''
     promoteToManagerNotPossible: ''
     filterActive: ''
     filterSleeping: ''
-    buttonManagementToggle: ''
-    toogleIsReducedStateOpen: ''
-    toogleIsReducedStateClosed: ''
   bread: ''
   chat:
     jumper: ''
@@ -1738,7 +1421,6 @@ store:
   regionPickupRules: ''
   useRegionPickupRules: ''
   regionPickupRulesInactive: ''
-  enterdate: ''
   convince:
     some: ''
     much: ''
@@ -1749,13 +1431,11 @@ store:
   teamName: ''
   joinDate: ''
   attribution: ''
-  actions: ''
   prefetchone: ''
   jumperSince: ''
   lastPickup: ''
   lastPickupShort: ''
   team:
-    isfull: ''
     no_record: ''
     search_reset: ''
     search_input: ''
@@ -1822,7 +1502,6 @@ store:
       13: ''
       11: ''
       15: ''
-    max_entries_message: ''
     log_types_placeholder: ''
     search: ''
     selected_log_types: ''
@@ -1876,7 +1555,6 @@ storeedit:
     teamStatus: ''
     teamStatus2: ''
   add_success: ''
-  edit_success: ''
   bread: ''
   add-new: ''
   unsuccess: ''
@@ -1906,12 +1584,6 @@ calendar:
   labelSelected: ''
 forum:
   thread:
-    delivery_mail:
-      active: ''
-      non_active: ''
-      title: ''
-      disable: ''
-      activate: ''
     close: ''
     title: ''
     inactive: ''
@@ -1991,7 +1663,6 @@ bell:
   workgroup_request_accept_title: '{name}'
   new_foodsaver_verified_title: ''
   blog_new_check: '{title}'
-  ft_update: '{teaser}'
   store_request_accept_wait: ''
   new_foodsaver_verified: ''
   betrieb_fetch_title: '{betrieb}'
@@ -2026,7 +1697,6 @@ bell:
   no_bells: ''
   workgroup_request_decline: ''
   fs_sleepmode_title: ''
-  new_quiz_comment: '{user}: {comment}'
   store_cr_times_title: '{name}'
   passgen_failed: ''
   blog_new_check_title: ''
@@ -2043,7 +1713,6 @@ bell:
   forum_mention: ''
   workinggroup_new_request_title: '{name}'
 basket:
-  howto: ''
   is:
     vegan: ''
     gf: ''
@@ -2083,7 +1752,6 @@ basket:
     dairy: ''
     pet: ''
     prepared: ''
-  no-address: ''
   requested_by: ''
   go-to-settings: ''
   not-allowed: ''
@@ -2097,7 +1765,6 @@ basket:
   contact:
     call: ''
     write: ''
-  no-login: ''
   nearby: ''
   nearby-short: ''
   edit: ''
@@ -2121,7 +1788,6 @@ basket:
   new: ''
   public-info: ''
   request_empty: ''
-  expires: ''
   no_nearby: ''
   go: ''
   all: ''
@@ -2130,15 +1796,10 @@ region:
   type:
     district: ''
     region: ''
-    workgroup: ''
     country: ''
-    state: ''
     title: ''
-    bigcity: ''
-    townpart: ''
     city: ''
   change: ''
-  not-member: ''
   restricted: ''
   hull:
     confirm: ''
@@ -2150,7 +1811,6 @@ region:
   mail:
     sender: ''
     name-info: ''
-  confirm: ''
   cancel: ''
   edit_success: ''
   store_managers_cannot_leave: ''
@@ -2259,7 +1919,6 @@ startpage:
     title: ''
     text: ''
   etiquette: ''
-  followrules_a: ''
   private:
     text: ''
     title: ''
@@ -2267,10 +1926,8 @@ startpage:
   together: ''
   dependability: ''
   slogan_2: ''
-  followrules_b: ''
   register: ''
   notallowed: ''
-  followrules_c: ''
   honest: ''
   responsibility: ''
   slogan_3: ''
@@ -2350,22 +2007,13 @@ content:
 map:
   donates: ''
   title: ''
-  filters:
-    my_stores: ''
 gender:
   f: ''
   d: ''
   m: ''
 no: ''
 team:
-  not-found: ''
   current: ''
-  ratelimit: ''
-  contact: ''
-  email: ''
-  contacted: ''
-  name: ''
-  former: ''
 salutation:
   "1": ''
   "2": ''
@@ -2392,7 +2040,6 @@ login:
   steady_login: ''
   error_no_auth: ''
   forgotten_password_label: ''
-  success: ''
   error_no_password: ''
   save_password: ''
 email_template:
@@ -2412,13 +2059,6 @@ email_template:
     general_information_requirements: ''
     address: ''
   unknown_email2: ''
-  yourFSteam: ''
-  find_someone: ''
-  help_needed:
-    main: ''
-    link: ''
-    or: ''
-    support_mail: ''
   foodbasket_request: ''
   information: ''
   confirm_link: ''
@@ -2429,19 +2069,11 @@ email_template:
   request_from: ''
   from: ''
   confirm_BOT: ''
-  slot_empty: ''
-  you_responsible:
-    part2: ''
-    part1: ''
-  manual_slots_get_ignored: ''
   unknown_email: ''
   in: ''
 join_region:
   error:
     not_allowed: ''
-    is_country: ''
-    is_state: ''
-    is_big_city: ''
   description: ''
   headline: ''
 really_delete: ''
@@ -2504,14 +2136,12 @@ information:
     title: ''
     link: ''
     description: ''
-public_info: ''
 wall:
   delete: ''
   info-somebody-else: ''
   name: ''
   info-logging: ''
   error-create: ''
-  message_placeholder: ''
   created: ''
   error-delete: ''
   confirm-deletion: ''
@@ -2549,7 +2179,6 @@ footer:
   blog: ''
   meta:
     version: '版本：{version}'
-    beta_testing_issues: ''
     it_devdocs: ''
   call_to_action: ''
   donate:
@@ -2562,9 +2191,7 @@ footer:
   guide: ''
 conference:
   join_title: ''
-  description_text: ''
   join: ''
-  privacy_notice: ''
 error:
   mail_activation:
     link_1: ''
@@ -2588,19 +2215,10 @@ error:
     title: ''
     description: ''
     link: ''
-  missing_home_region:
-    description: ''
-    link: ''
-    title: ''
   missing_user_avatar:
     link: ''
     description: ''
     title: ''
-pronoun:
-  "2": ''
-  "3": ''
-  "1": ''
-  "0": ''
 error_permissions: ''
 time: ''
 day: ''
@@ -2620,13 +2238,6 @@ ageBandList:
   district_tab: ''
   header_for_district: ''
   NumberOfAgeband: ''
-regionPin:
-  text_desc: ''
-  desc: ''
-  header_page: ''
-  pin_visible: ''
-  save: ''
-  success: ''
 releases:
   "2020-08": ''
   "2021-09": ''
@@ -2664,7 +2275,6 @@ base:
   jsrequired: ''
 system_administration:
   email: ''
-  mailboxes: ''
   content: ''
   regions: ''
   reports: ''
@@ -2673,16 +2283,12 @@ system_administration:
 memberlist:
   header_for_district: ''
   header_for_workgroup: ''
-mail:
-  noreply_addresses_not_allowed: ''
 savewithus: ''
 logincontrol:
   bread: ''
   nomorenewsletter: ''
   title: ''
   success: ''
-deletefromregion: ''
-timefrom: ''
 activitypost:
   quickreply_button: ''
   quickreply_info: ''
@@ -2692,9 +2298,6 @@ activitypost:
 statistics:
   kg_food_saved: ''
   num_fetches: ''
-teamjs:
-  entermail: ''
-  wrongmail: ''
 numbers:
   decimal_separator: ''
   thousands_separator: ''
@@ -2702,12 +2305,7 @@ numbers:
   billion_abbreviation: ''
 fsp_bezirk_id: ''
 fspmanagers: ''
-compose_body: ''
 explanation: ''
-sig:
-  buddies: ''
-messages:
-  bread: ''
 button:
   change_picture: ''
   attach_image: ''
@@ -2728,10 +2326,7 @@ button:
   edit: ''
 text: ''
 are_you_sure: ''
-ui:
-  switch:
-    off: ''
-    on: ''
+ui: {}
 upload:
   new_file: ''
   no_image: ''
@@ -2748,29 +2343,16 @@ validate:
   required: ''
 error_unexpected: ''
 teaser: ''
-infomail_message: ''
 addreaction: ''
 begin: ''
-store_status_impact_explanation: ''
 filter_by: ''
-member: ''
-leader: ''
-apply_type: ''
-bread:
-  backToOverview: ''
-  backToStore: ''
 image: ''
-fpko: ''
-sleep_msg: ''
-fpsingular: ''
 list:
   filter_for: ''
 public_time: ''
 position: ''
-message_text_to_group_admin_workgroup: ''
 answers: ''
 wikilink: ''
-quizusercomment: ''
 about_me_public: ''
 first_post: ''
 sticker: ''
@@ -2787,25 +2369,18 @@ groups:
   empty: ''
 duration: ''
 maxfp: ''
-banana_count: ''
 success: ''
-week_num: ''
-deletelow: ''
 presse: ''
 request_time: ''
 back: ''
 formatting:
   md: ''
 use_region_pickup_rule: ''
-edit_websites: ''
 right: ''
 fp: ''
-fetch_count: ''
-fpcapital: ''
 besonderheiten: ''
 nofp: ''
 ueberzeugungsarbeit: ''
-passcheck: ''
 questcount: ''
 thread:
   options:
