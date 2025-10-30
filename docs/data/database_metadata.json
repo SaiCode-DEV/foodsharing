@@ -775,17 +775,6 @@
             "description": "See fs_basket_has_art"
         },
         {
-            "identifier": "fs_basket_has_wallpost",
-            "description": "Link table between baskets and the wallposts (public)",
-            "todos": [
-                "Remove entries for non-existing wallposts",
-                "add `ON DELETE CASCADE` to *fs_wallpost*",
-                "Remove entries for non-existing baskets",
-                "add `ON DELETE CASCADE` to *fs_basket*",
-                "Reasoning: It is just a link table, remove entries where data is missing."
-            ]
-        },
-        {
             "identifier": "fs_bell",
             "description": "Stores arbitrary notifications"
         },

@@ -1150,42 +1150,6 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
                 'unique' => false,
             ])
             ->create();
-        $this->table('fs_basket_has_wallpost', [
-            'id' => false,
-            'primary_key' => ['basket_id', 'wallpost_id'],
-            'engine' => 'InnoDB',
-            'encoding' => 'utf8mb4',
-            'collation' => 'utf8mb4_unicode_ci',
-            'comment' => '',
-        ])
-            ->addColumn('basket_id', 'integer', [
-                'null' => false,
-                'limit' => 10,
-                'signed' => false,
-            ])
-            ->addColumn('wallpost_id', 'integer', [
-                'null' => false,
-                'limit' => 10,
-                'signed' => false,
-                'after' => 'basket_id',
-            ])
-            ->addIndex(['basket_id'], [
-                'name' => 'basket_has_wallpost_FKIndex1',
-                'unique' => false,
-            ])
-            ->addIndex(['wallpost_id'], [
-                'name' => 'basket_has_wallpost_FKIndex2',
-                'unique' => false,
-            ])
-            ->addIndex(['basket_id'], [
-                'name' => 'basket_id',
-                'unique' => false,
-            ])
-            ->addIndex(['wallpost_id'], [
-                'name' => 'wallpost_id',
-                'unique' => false,
-            ])
-            ->create();
         $this->table('fs_bezirk_has_theme', [
             'id' => false,
             'primary_key' => ['theme_id', 'bezirk_id'],
@@ -4540,10 +4504,6 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         $this->table('fs_basket_anfrage')
                 ->addForeignKey('foodsaver_id', 'fs_foodsaver', 'id', ['delete' => 'CASCADE'])
                 ->addForeignKey('basket_id', 'fs_basket', 'id', ['delete' => 'CASCADE'])
-                ->update();
-        $this->table('fs_basket_has_wallpost')
-                ->addForeignKey('basket_id', 'fs_basket', 'id', ['delete' => 'CASCADE'])
-                ->addForeignKey('wallpost_id', 'fs_wallpost', 'id', ['delete' => 'CASCADE'])
                 ->update();
         $this->table('fs_bezirk')
                 ->addForeignKey('parent_id', 'fs_bezirk', 'id', ['update' => 'CASCADE'])
