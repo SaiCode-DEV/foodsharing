@@ -2179,7 +2179,7 @@ settings:
     password_required: "Du musst dein Passwort eingeben, um die E-Mail-Adresse zu ändern."
     wrong_password: "Das Passwort stimmt nicht."
     insufficient_permission: "Du hast keine Berechtigung, um die E-Mail-Adresse dieses Profils zu ändern."
-    sent: "Gehe jetzt zu deinem <strong>neuen</strong> E-Mail-Postfach, um die Adresse zu bestätigen."
+    sent: "Gehe jetzt zu deinem neuen E-Mail-Postfach, um die Adresse zu bestätigen."
     sent_other_user: "Es wurde eine E-Mail an die neue Adresse gesendet, mit der die Adresse bestätigt werden kann."
     done: "Deine E-Mail-Adresse wurde geändert."
     not_changed: "Deine E-Mail-Adresse wurde nicht geändert."
@@ -3675,12 +3675,12 @@ notifications:
   checkbox_disabled: 'Deaktiviert'
   save_success: "Erfolgreich gespeichert"
   config_button: 'einzeln konfigurieren'
-  safari_add_to_home_screen: 'Um Push-Benachrichtigungen am iPhone oder iPad zu erhalten, drücke {icon} und dann "Zum Home-Bildschirm".  
+  safari_add_to_home_screen: 'Um Push-Benachrichtigungen am iPhone oder iPad zu erhalten, drücke {icon} und dann "Zum Home-Bildschirm".
 
-    In der App kannst du dann Push-Benachrichtigungen aktivieren. (mindestens iOS 16.4 erforderlich) 
+    In der App kannst du dann Push-Benachrichtigungen aktivieren. (mindestens iOS 16.4 erforderlich)
 
 
-    *Weitere Infos dazu findest du hier* https://support.foodsharing.network/kb/de-de/3/10' 
+    *Weitere Infos dazu findest du hier* https://support.foodsharing.network/kb/de-de/3/10'
   pushModal:
     title: "Push-Benachrichtigungen erhalten?"
     ok: "Push-Benachrichtigungen erhalten"
@@ -3923,7 +3923,7 @@ help:
 
         ##### Die Ressourcenübersicht
         Das Herzstück des Ressourcen-Mosaiks ist die Übersicht über alle Ressourcen des Bezirks bzw. der Arbeitsgruppe. Du kannst dich entweder einfach von der Vielfalt deiner Gruppe inspirieren lassen, oder nach bestimmten Ressourcen suchen. Du kannst jede Ressource anklicken, um weitere Infos darüber zu erhalten. Du kannst Ressourcen auch als Favorit zu speichern, um sie später leicher wiederzufinden.
-        
+
         An der Farbe einer Ressource kannst du erkennen, wie gerne die Person sie teilt: Ressourcen, die mit viel Freude angeboten werden, erscheinen in kräftigen, leuchtenden Farben, während weniger gern geteilte Ressourcen eher grau dargestellt sind.
 
         ##### Suchen, Filtern & Sortieren
@@ -3932,7 +3932,7 @@ help:
         - **Nur aktive Nutzer:innen** blendet Ressourcen von Nutzer:innen aus, die sich in den letzten 30 Tagen nicht eingeloggt haben oder aktuell eine Schlafmütze aufhaben.
         - Im Ressourcen-Mosaik werden die Ressourcen aller Foodsaver:innen der Gruppe angezeigt. In Bezirken kannst du die Ansicht aber auch auf Nutzer:innen einschränken, deren **Stammbezirk** der jeweilige Bezirk ist.
         - Wenn du Ressourcen als **Favorit** markiert hast, kannst du dir gezielt nur diese anzeigen lassen.
-        
+
         Zusätzlich kannst du die Ergebnisse **sortieren**, etwa nach „Freude über Anfragen“, Aktualität der Einträge oder einfach zufällig.
 
     my_resources:
@@ -3940,11 +3940,11 @@ help:
       md: |
         In diesem Abschnitt kannst du deine eigenen Ressourcen verwalten; Neue Ressourcen anlegen, bearbeiten, löschen oder einfach nur einsehen, was du aktuell teilst.
 
-        ##### Was ist eine Ressource? 
+        ##### Was ist eine Ressource?
         Eine Ressource kann alles sein, was du in der foodsharing-Community beitragen möchtest. Das können **Fähigkeiten** sein, zum Beispiel Kochen oder Programmieren, **Gegenstände** die du bereit wärst zu verleihen, wie ein Lastenrad oder eine mobile Kochstation, oder auch **Kontakte** zu anderen Initiativen, Behörden, Medien usw.
 
         ##### Alles kann, nichts muss
-        Niemand muss Ressourcen eintragen, und nur weil du eine bestimmte Ressource eingetragen hast, heißt das nicht, dass du diese für bestimmte Aktionen zur Verfügung stellen *musst*. Viel mehr geht es darum, das zu teilen, womit du *gerne beitragen möchtest*. 
+        Niemand muss Ressourcen eintragen, und nur weil du eine bestimmte Ressource eingetragen hast, heißt das nicht, dass du diese für bestimmte Aktionen zur Verfügung stellen *musst*. Viel mehr geht es darum, das zu teilen, womit du *gerne beitragen möchtest*.
 
         ##### Wer sieht meine Ressourcen?
         Ressourcen werden innerhalb deiner Bezirke und Arbeitsgruppen sichtbar. Ausgenommen sind davon aber die sehr großen Bezirke vom Typ Land oder Bundesland, in denen kein Ressourcen-Mosaik verfügbar ist. Du kannst die Sichtbarkeit jeder einzelnen Ressource aber auch auf die Foodsaver:innen beschränken, die du kennst.
@@ -3988,7 +3988,7 @@ categories:
     store: 'Es sind noch {count} Betriebe dieser Kategorie zugeordnet. Diese Betriebe werden danach keine Kategorie mehr haben.'
     resource: 'Es sind noch {count} Ressourcen dieser Kategorie zugeordnet. Diese Ressourcen werden diese Kategorie verlieren.'
   new: 'Neue Kategorie eintragen'
-  
+
 
 contact_page:
   bread: "Kontakt & Support"
