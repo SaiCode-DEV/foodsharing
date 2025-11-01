@@ -95,9 +95,9 @@ class FoodSharePointCest
         $I->fillField('#description-md', 'The BEST fairshare point!');
         $I->addInTagSelect($user['name'], '#fspmanagers-input');
         $I->click('Speichern');
-        $I->waitForText('erfolgreich bearbeitet');
-        $I->reloadPage();
-        $I->waitForText($user['name']);
+        $I->waitForActiveAPICalls();
+        $I->seeCurrentUrlEquals('/fairteiler/' . $this->foodSharePoint['id']);
+        $I->waitForText('The BEST fairshare point');
     }
 
     /**
