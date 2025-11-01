@@ -491,6 +491,7 @@ group:
     tooltip_function_region387: "Administrator:innen dieser Arbeitsgruppe können Einträge von der E-Mail-Bounceliste entfernen"
     tooltip_function_region327: "Administrator:innen dieser Arbeitsgruppe können Blogeinträge bearbeiten"
     tooltip_function_region332: "Mitglieder dieser Arbeitsgruppe haben Zugriff auf die Kettenliste"
+    tooltip_function_region2296: "Administrator:innen dieser Arbeitsgruppe können Ressourcen- und Betriebskategorien bearbeiten"
   show-all: "Alle anzeigen"
   member_list:
     remove_admin_title: "Als Admin austragen"
