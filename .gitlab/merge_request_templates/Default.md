@@ -33,6 +33,7 @@ Closes #____ (e.g. #230)
 - [ ] All changes are covered by unit / API tests (backend) or playwright tests (frontend)
 - [ ] no unrelated changes
 - [ ] set a "for:" label to indicate who will be affected by this change
+- [ ] If a change in the database is necessary: set on of the "for MR: sql migration" labels
 - [ ] added to the next milestone (see https://gitlab.com/foodsharing-dev/foodsharing/-/milestones)
 - [ ] added a short text in the release notes to /release-notes/YYYY-MM.md
 - [ ] After merging: the topic was reported back to the Produktteam for testing
