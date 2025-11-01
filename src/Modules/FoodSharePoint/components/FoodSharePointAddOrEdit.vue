@@ -91,7 +91,11 @@
             >
               {{ i18n('fsp.delete') }}
             </b-button>
-            <b-button variant="primary" @click="saveFoodSharePoint">
+            <b-button
+              :disabled="isLoading"
+              variant="primary"
+              @click="saveFoodSharePoint"
+            >
               {{ i18n('button.save') }}
             </b-button>
           </div>
@@ -169,19 +173,28 @@ async function saveFoodSharePoint () {
   }
 
   showLoader()
+  isLoading.value = true
   try {
     if (isEditMode) {
       await updateFoodSharePoint(props.foodSharePointId, formData.value)
-      pulseSuccess(i18n('fsp.editSuccess'))
+      location.href = url('foodsharepoint', props.foodSharePointId)
     } else {
-      await addFoodSharePoint(formData.value)
-      pulseSuccess(i18n('fsp.addSuccess'))
+      const { id: newFspId, isAdded } = await addFoodSharePoint(formData.value)
+      if (isAdded) {
+        location.href = url('foodsharepoint', newFspId)
+      } else {
+        hideLoader()
+        pulseSuccess(i18n('fsp.addSuccess'))
+        await new Promise(resolve => window.setTimeout(resolve, 3000))
+        location.href = url('foodsharepoints', formData.value.regionId)
+      }
     }
   } catch (error) {
     console.error('saveFoodSharePoint', error)
     pulseError(i18n(props.foodSharePointId ? 'error_unexpected' : 'fsp.addError'))
   } finally {
     hideLoader()
+    isLoading.value = false
   }
 }
 
