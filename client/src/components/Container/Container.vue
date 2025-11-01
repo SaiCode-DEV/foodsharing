@@ -63,7 +63,7 @@ export default {
   name: 'ToggleContainer',
   components: { Info },
   props: {
-    tag: { type: String, default: 'tag' },
+    tag: { type: String, default: null },
     title: { type: String, default: 'title' },
     toggleVisiblity: { type: Boolean, default: false },
     containerIsExpanded: { type: Boolean, default: true },
@@ -108,6 +108,7 @@ export default {
     },
     getExpanded () {
       if (this.tag === null) return null
+      if (!this.collapsible) return null
       return JSON.parse(localStorage.getItem(`expanded_${this.tag}`))
     },
     setExpanded (state) {
@@ -122,12 +123,14 @@ export default {
       this.setListState(false)
     },
     getListState () {
+      if (this.tag === null) return
       return JSON.parse(localStorage.getItem(`list_state_${this.tag}`))
     },
     setListState (state) {
       this.isToggled = state
-      localStorage.setItem(`list_state_${this.tag}`, JSON.stringify(state))
       this.$emit(state ? 'show-full-list' : 'reduce-list')
+      if (this.tag === null) return
+      localStorage.setItem(`list_state_${this.tag}`, JSON.stringify(state))
     },
   },
 }
