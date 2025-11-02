@@ -2445,3 +2445,6 @@ usersearch:
 navi:
   google_maps: Χάρτες Google
   apple_maps: Apple Maps
+test:
+  vars: Ονομάζομαι {NAME} και είμαι {AGE} ετών
+  plain: Αυτή είναι μια μετάφραση
