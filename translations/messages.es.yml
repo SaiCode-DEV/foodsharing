@@ -3007,8 +3007,7 @@ settings:
       en la wiki]({calendarUrl})\n"
     protocol: ¿Qué protocolo utiliza tu programa de calendario?
   changemail:
-    sent: 'Ahora va a tu <strong>nuevo</strong> buzón para confirmar la nueva dirección
-      de correo electrónico.'
+    sent: 'Ahora va a tu nuevo buzón para confirmar la nueva dirección de correo electrónico.'
     done: 'Su dirección de correo electrónico ha sido cambiada.'
     invalid: 'Hay algún problema con la dirección de correo electrónico que ingresó'
     domain: 'Elija una dirección de correo electrónico diferente para que siempre
@@ -4491,3 +4490,14 @@ net_errors:
   ERR_CANCELED: La solicitud fue cancelada. Inténtalo de nuevo si es necesario.
   unknown: Se ha producido un error desconocido. Inténtalo de nuevo más tarde.
   code: 'Código de error: '
+test:
+  plain: Esto es una traducción
+  vars: Mi nombre es {NAME} y tengo {AGE} años
+debug:
+  info: Esta es una página de depuración. Si no sabes qué hace un botón, 
+    simplemente no lo pulses 😉
+  title: Página de depuración
+resource_mosaic:
+  privacy_notice:
+    ok: Estoy de acuerdo
+    title: Aviso de privacidad
