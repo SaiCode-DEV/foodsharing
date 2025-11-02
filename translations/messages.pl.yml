@@ -381,3 +381,6 @@ group:
     moderation: Moderacja
     election: Wybory
     resources: Mozaika zasobów
+test:
+  vars: Mam na imię {NAME} i mam {AGE} lat(a)
+  plain: To jest tłumaczenie
