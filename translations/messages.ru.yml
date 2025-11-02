@@ -2486,3 +2486,6 @@ configure_columns: Настроить колонки
 expand_all: Развернуть все
 collapse_all: Свернуть все
 partner_foodsharing: Партнер фудшеринга
+test:
+  plain: Это перевод
+  vars: Меня зовут {NAME}, мне {AGE} год(а)/лет
