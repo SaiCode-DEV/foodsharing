@@ -1133,8 +1133,7 @@ settings:
   email: E-postadresse og passord
   changemail:
     invalid: Noe er galt med e-postadressen du skrev inn
-    sent: Gå nå til din <strong>nye</strong> e-postinnboks for å bekrefte 
-      adressen.
+    sent: Gå nå til din nye e-postinnboks for å bekrefte adressen.
     done: Din e-postadresse ble endret.
     occupied: E-postadressen kunne ikke endres fordi den allerede er i bruk.
     domain: Vennligst velg en annen e-postadresse, slik at du alltid vil kunne 
@@ -1607,6 +1606,14 @@ bell:
   new_resource:
     one: 'Fra {user}: «{title}»'
     many: '{count} nye ressurser'
+  translation_failed:
+    title: Ukjent bjelle
+    key: Klokker i betaversjonen kan ikke vises
+    md: "Klokkeikonet inneholder en ukjent tekst. Dette er sannsynligvis fordi klokkeikonet
+      stammer fra betaversjonen av nettstedet.\n\n Tittel: `{bellTitle}`\n\n Nøkkel:
+      `{bellKey}`"
+    md_support: Hvis du mener dette er en feil, kan du rapportere det til 
+      [support](/support)
 reports:
   time: Tidspunkt
   message: Beskrivelse
@@ -2021,6 +2028,8 @@ group:
       redigere blogginnlegg
     tooltip_function_region332: Medlemmer av denne arbeidsgruppen har tilgang 
       til kjedelisten
+    tooltip_function_region2296: Administratorer av denne arbeidsgruppen kan 
+      redigere ressurs- og driftskategorier
   entertime: 'Tilgjengelig tid:'
   application_region: 'Søknad for {group}'
   motivation: Motivasjonstekst
@@ -3875,8 +3884,10 @@ notifications:
   warning: Advarsel
   error: Feil
   info: Info
-  safari_add_to_home_screen: For å motta push-varsler i iOS, må du først legge 
-    til matdeling på startskjermen.
+  safari_add_to_home_screen: "For å motta push-varsler på iPhone eller iPad, trykk
+    på {icon} og deretter på «Legg til på startskjermen».\nDu kan deretter aktivere
+    push-varsler i appen. (Krever minst iOS 16.4)\n\n*Mer informasjon finner du her:*
+    https://support.foodsharing.network/kb/de-de/3/10"
 markdown_input:
   tooltip:
     orderedList: nummerert liste
@@ -4452,3 +4463,6 @@ debug:
   title: Feilsøkingsside
   info: Dette er en feilsøkingsside for feilsøkingsformål. Hvis du ikke vet hva 
     en knapp gjør, bare ikke klikk på den 😉
+test:
+  plain: Dette er en oversettelse
+  vars: Jeg heter {NAME}, og jeg er {AGE} år gammel
