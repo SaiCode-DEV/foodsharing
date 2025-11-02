@@ -7,6 +7,7 @@ services:
   nginx:
     container_name: foodsharing_nginx
     image: registry.gitlab.com/foodsharing-dev/images/nginx:latest
+    restart: unless-stopped
     depends_on:
       - app
       - websocket
@@ -24,6 +25,7 @@ services:
     container_name: foodsharing_app
     image: registry.gitlab.com/foodsharing-dev/images/php:latest
     working_dir: /app
+    restart: on-failure:5
     depends_on:
       - db
       - redis
@@ -48,6 +50,7 @@ services:
     # command: sh -c "yarn && yarn dev"
     command: sh -c "yarn && yarn build"
     working_dir: /app/client
+    restart: on-failure:5
     volumes:
       - ../:/app:delegated
     environment:
@@ -84,6 +87,7 @@ services:
     container_name: foodsharing_websocket
     image: registry.gitlab.com/foodsharing-dev/images/node:latest
     working_dir: /app/websocket
+    restart: on-failure:5
     command: sh -c "yarn && yarn nodemon src/index.ts"
     depends_on:
       - redis
@@ -132,7 +136,9 @@ services:
       - PMA_HOST=db
       - PMA_USER=root
       - PMA_PASSWORD=root
-    restart: unless-stopped
+    restart: on-failure:5
+    depends_on:
+      - db
     expose:
       - 80
     # ports:
