@@ -159,6 +159,8 @@ group:
       entries
     tooltip_function_region332: Members of this group can access the store chain
       list
+    tooltip_function_region2296: Administrators of this working group can edit 
+      resource and store categories
   member_list:
     remove_title: Remove member
     add_member: add to team
@@ -352,8 +354,7 @@ settings:
     domain: Please choose a different e-mail address, so that you will always be
       able to restore your password.
     invalid: Something is wrong with the e-mail address you entered
-    sent: Now go to your <strong>new</strong> email inbox to confirm the 
-      address.
+    sent: Now go to your new email inbox to confirm the address.
     question: 'Do you really want us to change your email address to this:'
     input_label_email_confirm: Please confirm the new e-mail address here
     wrong_password: The password is wrong.
@@ -1434,8 +1435,10 @@ bell:
   translation_failed:
     title: Error translating bell
     key: Bells from the Beta can not be displayed
-    md: The bell probably comes from the Beta and cannot be displayed here. 
-      Please try to open the link on the Beta.
+    md: "The bell probably comes from the Beta and cannot be displayed here. Please
+      try to open the link on the Beta.\n\n Title: `{bellTitle}`\n\n Key: `{bellKey}`"
+    md_support: If you think this is an error, please report it to 
+      [support](/support)
   passgen_failed_title: Your ID could not be created
   passgen_failed: Please upload a photo! Then it will work.
   sharepoint_activate: '{name} has been listed'
@@ -4205,15 +4208,15 @@ help:
     my_resources:
       title: Own resources
       md: "In this section you can manage your own resources; create, edit, and delete
-        resource, and see which ones you currently share.\n\n\n##### What is a resource?\
-        \ \n\nA resource can be anything that you want to contribute to the foodsharing
+        resource, and see which ones you currently share.\n\n##### What is a resource?\n\
+        A resource can be anything that you want to contribute to the foodsharing
         community. This can include **abilities** like cooking or computer programming,
         **tools** which you would be able to lend like a cargo bike or a mobile cooking
         station, and even **contacts** with other NGOs, authorities, the media etc.\n\
-        \n##### Nothing is a must\n\nNoone has to enter any resources. Also, entering
+        \n##### Nothing is a must\nNoone has to enter any resources. Also, entering
         a resource does not mean that you *have* to supply that resource for anything.
         This is mostly about things that you *would like to share*.\n\n##### Who can
-        see my resources?\n\nResources are visible in your regions and working groups.
+        see my resources?\nResources are visible in your regions and working groups.
         This does not, however, include large regions which are countries or states,
         in which the resource mosaic is not available. You can even restrict the visibility
         of each of your resources individually to your buddies.\n"
