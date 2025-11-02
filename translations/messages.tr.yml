@@ -2289,8 +2289,7 @@ settings:
       e-posta adresi kullanın.
     invalid: Girdiğiniz e-posta adresinde bir sorun var
     occupied: E-posta adresi kullanıldığı için değiştirilemedi.
-    sent: Şimdi adresi doğrulamak için <strong>yeni</strong> e-posta gelen 
-      kutunuza gidin.
+    sent: Şimdi adresi doğrulamak için yeni e-posta gelen kutunuza gidin.
     explanation: Kayıt olurken kullandığınız e-posta adresini buradan 
       değiştirebilirsiniz. Gönderdikten sonra, yeni adresinizi onaylamanız için 
       bir bağlantı içeren bir e-posta yeni adresinize gönderilecektir.
