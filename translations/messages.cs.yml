@@ -2556,3 +2556,6 @@ net_errors:
   code: 'Kód chyby: '
   message: 'Chybová zpráva: '
   action_response: 'Požadavek a odpověď serveru:'
+test:
+  vars: Jmenuji se {NAME} a je mi {AGE} let
+  plain: Toto je překlad
