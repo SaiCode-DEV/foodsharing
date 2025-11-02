@@ -2445,3 +2445,6 @@ navi:
   apple_maps: خرائط أبل
   google_maps: خرائط جوجل
 copied_to_clipboard: تم نسخ النص الى المحفوظات.
+test:
+  vars: اسمي {NAME}، عمري {AGE} عامًا
+  plain: هذه ترجمة
