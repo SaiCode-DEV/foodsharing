@@ -448,8 +448,8 @@ settings:
       demandé lors de tes collectes.\n"
   changemail:
     done: Ton adresse courriel a été modifiée.
-    sent: Rends-toi sur ta <strong>nouvelle</strong> boîte de réception afin de 
-      confirmer ton adresse courriel.
+    sent: Rends-toi sur ta nouvelle boîte de réception afin de confirmer ton 
+      adresse courriel.
     occupied: L’adresse courriel n’a pas pu être modifiée car elle est déjà 
       utilisée.
     domain: Utilise une adresse courriel de secours afin de pouvoir envoyer le 
@@ -4503,7 +4503,12 @@ net_errors:
     connexion et réessayer.
 debug:
   title: Page de débogage
+  info: Ceci est une page de débogage. Si tu ne sais pas à quoi sert un bouton, 
+    ne clique pas dessus 😉
 resource_mosaic:
   privacy_notice:
     ok: Je suis d’accord
     title: Avis de confidentialité
+test:
+  vars: Je m’appelle {NAME} et j’ai {AGE} ans
+  plain: Ceci est une traduction
