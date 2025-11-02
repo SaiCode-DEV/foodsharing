@@ -2564,8 +2564,8 @@ settings:
     title: La tua foto
   changemail:
     done: Il tuo indirizzo e-mail è stato cambiato.
-    sent: Vai alla tua <strong>nuova</strong> casella di posta elettronica ora 
-      per confermare l'indirizzo.
+    sent: Vai alla tua nuova casella di posta elettronica ora per confermare 
+      l'indirizzo.
     occupied: Non è stato possibile modificare l'indirizzo e-mail perché è già 
       in uso.
     domain: Si prega di utilizzare un indirizzo e-mail diverso in modo da poter 
@@ -3740,3 +3740,6 @@ achievements:
   awardedNoReviewer: automaticamente
 contact_page:
   bread: Contatti e supporto
+test:
+  vars: Mi chiamo {NAME} e ho {AGE} anni
+  plain: Questa è una traduzione
