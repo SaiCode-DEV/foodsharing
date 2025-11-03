@@ -356,7 +356,7 @@ bell:
   new_foodsaver_title: ''
   workgroup_request_decline: ''
   no_bells: ''
-  new_report_title: ''
+  new_report_title: 'Denúncia nova sobre {name}'
   forum_announcement_title: ''
   store_request_accept: ''
   banana_given_title: ''
@@ -491,7 +491,7 @@ dashboard:
   no_more_updates_all: ''
   greeting: ''
   display_all: ''
-  no_more_updates_friendWall: ''
+  no_more_updates_friendWall: 'Não há mais relatórios de estado'
   event: ''
   source_friendWall_own: 'O teu pinboard'
   updates_title_some: ''
@@ -895,27 +895,62 @@ profile:
   notFound: ''
   choosestore: ''
   report:
-    oldReportButtonTextPart2: ''
+    oldReportButtonTextPart2: 'Se necessário, contacte o grupo da denúncias local
+      do teu distrito.'
     noshow: ''
     doesNotAffectStore: ''
-    arbAdminAgainstRepAdmin: ''
+    arbAdminAgainstRepAdmin: 'É administrador do órgão de arbitragem e pretende comunicar
+      um administrador para o processamento de notificações. De momento, isso não
+      é tecnicamente possível. Pode, a qualquer momento, enviar uma notificação por
+      e-mail para os responsáveis locais por este caso.'
     oldReportButton: ''
-    send: ''
+    send: 'Mandar denúncia'
     late: ''
-    repAdminAgainstArbAdmin: ''
-    sent: ''
+    repAdminAgainstArbAdmin: 'É administrador da equipa de processamento de notificações
+      e pretende notificar um/a administrador/a do órgão de arbitragem. No momento,
+      isso não é tecnicamente possível. Pode enviar uma notificação por e-mail a qualquer
+      momento para os responsáveis locais por este caso.'
+    sent: 'A denúncia foi enviada'
     inthisblog: ''
-    oldReportButtonTextPart3: ''
-    info: ''
-    title: ''
-    kindofreport: ''
-    noReportGroup: ''
+    oldReportButtonTextPart3: 'Mais informações sobre o sistema da denúncia podem
+      ser encontradas em'
+    info: 'Para que a tua denúncia possa ser processada da melhor forma possível,
+      ela deve conter as seguintes informações.
+
+      - Data, hora e local do incidente,
+
+      - O que já fizeste, por exemplo, se já falaste diretamente com a pessoa e esclareceste
+      a situação,
+
+      - A melhor forma de entrar em contacto contigo para esclarecimentos adicionais.
+
+
+      Aqui encontra as [regras de conduta na Wiki](https://wiki.foodsharing.de/Verhaltensregeln).
+
+      (Até agora, infelizmente, só em alemão)
+
+      '
+    title: 'Denúncia sobre {name}'
+    kindofreport: 'Por favor selecione o tipo de denúncia'
+    noReportGroup: 'Não é possível utilizar o suporte técnico do sistema de denúncias,
+      pois este não está ativado para o distrito do salvador dos alimentos.'
     oldReportButtonTextPart1: ''
-    reportedAdminNoArbitration: ''
+    reportedAdminNoArbitration: 'Não pode denunciar {name}, pois ele/ela é administrador/a
+      do grupo de denúncias local do distrito e não existe um órgão de arbitragem
+      nesse grupo.'
     sells: ''
-    reporterHasNoReportGroup: ''
-    reporterAdminNoArbitration: ''
+    reporterHasNoReportGroup: 'Não pode utilizar o suporte técnico do sistema de denúncias,
+      pois não existe um grupo de denúncias local no seu distrito.'
+    reporterAdminNoArbitration: 'És administrador do grupo local de denúncias e, como
+      não existe um órgão arbitral local, não podes apresentar nenhuma denúncia.'
     cancellation: ''
+    mail:
+      reportGroup: 'Esta denúncia será enviada ao grupo de denúncias local. Também
+        pode contactar este grupo através do seguinte endereço de e-mail:'
+      arbitrationGroup: 'Esta denúncia será enviada ao órgão de arbitragem, uma vez
+        que uma das pessoas envolvidas é membro do grupo local de denúncias. Também
+        pode contactar o órgão de arbitragem através do seguinte endereço de e-mail:'
+    confirmDelete: Deseja mesmo eliminar esta denúncia?
   mail_bounce:
     remove_button: ''
     warning_1: ''
@@ -971,7 +1006,7 @@ profile:
   public:
     join: ''
     mayNot: ''
-    cta: ''
+    cta: 'O perfil completo de {name} está disponível após o registo:'
     who: ''
     login: ''
     textMay: ''
@@ -985,7 +1020,7 @@ profile:
     buddy: ''
     notes: ''
     history: ''
-    violations: ''
+    violations: 'Denúncias'
     storelist: ''
   notes:
     info: ''
@@ -996,7 +1031,7 @@ profile:
   go: ''
   about_me_intern: ''
   sleeping: ''
-  reportRequest: ''
+  reportRequest: 'Enviar denúncia'
   cantdeletethis: ''
 mailbox:
   search: 'Revisar'
@@ -1086,8 +1121,8 @@ group:
     pr: 'Relações públicas'
     fsmanagement: 'Administração'
     title: 'Missão do grupo de trabalho'
-    tooltip_function_5: 'Os administradores deste grupo de trabalho podem ver mensagens
-      sobre os salvadores alimentar no distrito. Não são apresentados relatórios em
+    tooltip_function_5: 'Os administradores deste grupo de trabalho podem ver denúncias
+      sobre os salvadores alimentar no distrito. Não são apresentados denúncias em
       que os administradores estejam envolvidos! O conselho de arbitragem recebe-os.'
     tooltip_function_10: 'Os administradores deste grupo de trabalho podem desbloquear
       mensagens em fóruns moderados. Caso esta opção esteja activada para o distrito,
@@ -1095,7 +1130,7 @@ group:
     fsp: 'Cantinho solidário'
     tooltip_function_1: 'Os administradores deste grupo de trabalho são notificados
       dos membros novos do distrito'
-    report: 'Reclamações'
+    report: 'Denúncias'
     invalid: 'Um distrito não pode ser afetado a uma função de grupo de trabalho.'
     tooltip_function_2: 'Os administradores deste grupo de trabalho podem criar votações
       para o distrito'
@@ -1104,8 +1139,8 @@ group:
     tooltip_function_6: 'O e-mail deste grupo de trabalho é apresentado no botão “Pedir
       mediação”. Os administradores não têm autorizações especiais.'
     tooltip_function_7: 'Os administradores deste grupo de trabalho são mostradas
-      as notificações que envolvem a equipa de notificação. Não são apresentadas mensagens
-      em que os administradores estejam envolvidos! A equipa da queixa recebe estas'
+      as denúncias que envolvem a equipa de denúncia. Não são apresentadas denúncias
+      que os administradores estejam envolvidos! A equipa da queixa recebe estas'
     welcome: 'Saudação'
     board: 'Direção'
     tooltip_function_3: 'Os administradores deste grupo de trabalho podem ativar e
@@ -1217,7 +1252,9 @@ group:
     tooltip_function_region331: 'Os administradores deste grupo de trabalho podem
       enviar boletins informativos'
     tooltip_function_region432: 'Os administradores deste grupo de trabalho podem
-      ver os queixas'
+      ver as denúncias'
+    tooltip_function_region2296: Os administradores deste grupo de trabalho 
+      podem editar categorias de recursos e operações
   last_activity: 'Última atividade'
   edit:
     title: 'Editar {group}'
@@ -2159,7 +2196,7 @@ settings:
   header: ''
   account: ''
 terminology:
-  reportAdmins: 'Equipa de processamento de notificações'
+  reportAdmins: 'Equipa de processamento de denúncias'
   storemanager:
     m: 'Responsável pela empresa'
     d: 'Responsável pela empresa'
@@ -2219,9 +2256,9 @@ terminology:
   group: 'Grupo de trabalho'
   welcomeAdmins: 'Equipa de boas-vindas'
   reports:
-    report: Vista da notificação (LMG)
-    arbitration: Vista da notificação (LS)
-    orga: Vista da notificação (administrador global)
+    report: Vista da denúncia (LMG)
+    arbitration: Vista da denúncia (LS)
+    orga: Vista da denúncia (administrador global)
   groups: 'Grupos de trabalho'
   moderationAdmins: 'Equipa de moderação'
   settings: 'Configurações'
@@ -2636,7 +2673,7 @@ system_administration:
   email: ''
   quiz: ''
   blog: ''
-  reports: ''
+  reports: 'Mostrar denúncias'
   content: ''
 maxfp: 'Número máximo de pontos de erro para passar o testo'
 bootstrap-datepicker:
@@ -2845,18 +2882,23 @@ genderlist:
   gender_divers: ''
 position: 'Posição em foodsharing (público)'
 logincontrol:
-  bread: ''
+  bread: 'Cancelar a inscrição no boletim informativo'
   success: ''
   nomorenewsletter: ''
-  title: ''
+  title: 'Cancelar a inscrição no boletim informativo'
 reports:
-  no_reports_fallback: ''
-  time: ''
+  no_reports_fallback: 'Ainda não há denúncias disponíveis'
+  time: 'Tempo'
   store: ''
-  report_id: ''
+  report_id: 'ID de dunúncia'
   reportmessage: ''
-  reason: ''
-  message: ''
+  reason: 'motivo'
+  message: 'descrição'
+  reports_region: Denúncias de {regionName}
+  reports_user: Todas as denúncias sobre {userName} ({userId})
+  id: ID
+  reporter: Informante
+  reported: Pessoa denúnciada
 notifications:
   newsletter:
     description: ''
@@ -3001,11 +3043,16 @@ regionOptions:
   regionPickupLimitNumber: ''
   regionPickupRuleActiveStoreList: ''
   enableMediationButton: ''
-  enableReportButton: ''
+  enableReportButton: 'Ativar formulário de denúncia nas páginas de perfil dos salvadores
+    dos alimentos habitual do distrito'
   regionPickupTimespan: ''
   regionPickupRuleActive: ''
   save: ''
   regionPickupLimitDayNumber: ''
+  regionReportReasonSimple: motivos da denúncia simplificados
+  regionReportReasonCategoryB: motivos da denúncia adicionais - B) comportamento
+    durante as recolhas
+  regionReportReasonOther: Permitir «Outros» como motivo da denúncia
 ort: 'Cidade/Comunidade'
 releases:
   "2023-09": ''
@@ -3256,6 +3303,12 @@ error_base64_image: Não é permitido inserir imagens através de drag & drop.
 support_page:
   attachment:
     browse: Revisar
+  info_teaser: O nosso formulário de suporte está à tua disposição para questões
+    relacionadas com o funcionamento da plataforma, questões técnicas ou 
+    mensagens de erro. Após o envio, é criado automaticamente um ticket no nosso
+    sistema. A equipa de suporte voluntária tratará das suas questões. Para 
+    melhor responder a problemas técnicos, inclua na sua questão o navegador e o
+    sistema operativo que utiliza.
 help:
   key:
     publicEvent:
@@ -3266,3 +3319,31 @@ help:
         No entanto, o mural e a lista de participantes só estão acessíveis aos utilizadores
         registados.\nRegiste um evento como público se quiser convidar pessoas de
         fora da sua comunidade local de foodsharing e se todos puderem participar.\n"
+    reportReasons:
+      title: Formulário de denúncias
+      md: "Através do formulário de denúncias, os salvadores dos alimentos podem denunciar
+        diretamente as violações das regras. Ao ativá-lo, as pessoas responsáveis
+        pelas denúncias recebem notificações rápidas e fáceis sobre as notificações
+        enviadas dessa forma.\n---\nO grupo de denúncias local do distrito pode definir
+        quais motivos de notificação são exibidos no formulário de notificação.\n\
+        É possível escolher entre motivos de denúncia simplificados e detalhados.
+        Os motivos de denúncia detalhados incluem todas as regras listadas [aqui no
+        Wiki em B](https://wiki.foodsharing.de/Verhaltensregeln#B.29_Verhalten_bei_Abholungen)
+        (Infelizmente, até agora só em alemão)\nAlém disso, é possível selecionar
+        se a opção «Outros» deve ser listada como outro motivo de notificação.\n---\n\
+        Recomendações sobre a configuração podem ser enviadas ao grupo de denúncias
+        local. No entanto, a decisão e a responsabilidade sobre essa configuração
+        são exclusivamente dos administradores do grupo de notificação local, que
+        não são obrigados a seguir essas recomendações.\n"
+    report:
+      title: Processamento de denúncias
+      md: "pessoas com este distrito de origem. No entanto, nem todas as mensagens
+        são exibidas:\n- Basicamente, não são exibidas mensagens nas quais você ou
+        os seus coadministradores da grupo de denúncias local ou comissão de arbitragem
+        estejam envolvidos.\n- Como administrador do comissão de arbitragem, só tem
+        acesso às mensagens nas quais os administradores do grupo de denúncias local
+        estão envolvidos.\n---\nPode ler aqui as instruções para editar uma mensagem:
+        [Editar uma mensagem](https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)\n\
+        (Infelizmente, até agora só em alemão)\n"
+test:
+  vars: O meu nome é [NAME] e tenho [AGE] anos
