@@ -2,7 +2,6 @@
 
 namespace Foodsharing\Utility;
 
-use Flourish\fFile;
 use Foodsharing\Lib\Db\Mem;
 use Foodsharing\Lib\Mail\AsyncMail;
 use Twig\Environment;
@@ -159,7 +158,7 @@ final class EmailHelper
 
         if ($attach !== false) {
             foreach ($attach as $a) {
-                $mail->addAttachment(new fFile($a['path']), $a['name']);
+                $mail->addAttachment($a['path'], $a['name']);
             }
         }
 

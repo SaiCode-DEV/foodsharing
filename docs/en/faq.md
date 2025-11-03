@@ -16,7 +16,6 @@ A few current architecture goals would be:
 * use [vue.js](frontend/javascript#vuejs) for all dynamic kind of templates
 * remove global eval stuff  ... goes with the only [REST API](backend/api/introduction) endpoints ...
 * modernize a lot more of the frontend code
-* replace years long outdated flourish lib
 
 So the preferred approach would be [*Model* to *Gateway*](backend/php/php-modules#newer-module-structure) classes, see here: [Issue 9](https://gitlab.com/foodsharing-dev/foodsharing/issues/9)
 

@@ -37,6 +37,7 @@ define('EMAIL_PUBLIC_NAME', 'Foodsharing');
 define('PLATFORM_MAILBOX_HOST', 'foodsharing.network');
 
 define('MAILBOX_OWN_DOMAINS', ['foodsharing.network', 'lebensmittelretten.de', 'foodsharing.de']);
+define('SESSION_COOKIE_DOMAINS', ['lmr.local']);
 
 define('MAILER_HOST', 'smtp://maildev:1025');
 

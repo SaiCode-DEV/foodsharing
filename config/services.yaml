@@ -24,7 +24,7 @@ services:
         exclude:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
-            - '../src/Lib/{Flourish,Caching.php,View/v*}'
+            - '../src/Lib/{Caching.php,View/v*}'
             - '../src/Dev'
             - '../src/Kernel.php'
             - '../src/Modules/{PushNotification/Notification,Foodsaver/Profile.php,Message/Message.php}'

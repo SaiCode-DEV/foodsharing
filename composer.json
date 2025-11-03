@@ -100,8 +100,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Foodsharing\\": "src/",
-      "Flourish\\": "src/Lib/Flourish"
+      "Foodsharing\\": "src/"
     }
   },
   "autoload-dev": {

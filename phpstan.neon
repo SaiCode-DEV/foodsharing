@@ -3,7 +3,6 @@ parameters:
   paths:
     - src
   excludePaths:
-    - %currentWorkingDirectory%/src/Lib/Flourish
     - %currentWorkingDirectory%/src/Dev
   bootstrapFiles:
     - config.inc.php
@@ -23,8 +22,3 @@ parameters:
       message: '#Unreachable statement - code above always terminates#'
       paths:
         - src/Lib/Db/Mem.php
-    # LEVEL 5+ some legacy code calling legacy library code:
-    -
-      message: '#Parameter \#[0-9]+ \$[a-zA-Z_]+ of method Flourish\\fImage::[a-zA-Z]+\(\) expects int, string given#'
-      paths:
-        - src/

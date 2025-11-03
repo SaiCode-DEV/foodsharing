@@ -3,14 +3,16 @@
 namespace Foodsharing\Lib;
 
 use Exception;
-use Flourish\fSession;
+use Foodsharing\Lib\Db\Mem;
+use Foodsharing\Lib\Session\FoodsharingRedisSessionHandler;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Login\LoginGateway;
 use Symfony\Component\HttpFoundation\Request;
-
-use function array_key_exists;
+use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
+use Symfony\Component\HttpFoundation\Session\Session as SymfonySession;
+use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 
 class Session
 {
@@ -22,15 +24,20 @@ class Session
 
     private const string DEFAULT_NORMAL_SESSION_TIMESPAN = '24 hours';
 
-    private const string DEFAULT_PERSISTENT_SESSION_TIMESPAN = '14 days';
+    private const string DEFAULT_PERSISTENT_SESSION_TIMESPAN = '30 days';
 
     private const int SESSION_EXPIRATION_TIME_IN_SECONDS = 86400;
 
     public const string LAST_ACTIVITY = 'LAST_USER_ACTIVITY';
 
+    public const string CSRF_COOKIE_NAME = 'CSRF_TOKEN';
+
+    protected ?SymfonySession $symfonySession = null;
+
     public function __construct(
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly LoginGateway $loginGateway,
+        private readonly Mem $mem,
         private bool $initialized = false
     ) {
     }
@@ -74,24 +81,78 @@ class Session
 
         $this->initialized = true;
 
-        ini_set('session.save_handler', 'redis');
-        ini_set('session.save_path', 'tcp://' . REDIS_HOST . ':' . REDIS_PORT);
+        // Create our custom Redis session handler that reuses the existing Redis connection
+        $ttl = $rememberMe
+            ? strtotime(self::DEFAULT_PERSISTENT_SESSION_TIMESPAN) - time()
+            : strtotime(self::DEFAULT_NORMAL_SESSION_TIMESPAN) - time();
+        $redisSessionHandler = new FoodsharingRedisSessionHandler($this->mem, $ttl);
 
-        fSession::setLength(
-            self::DEFAULT_NORMAL_SESSION_TIMESPAN,
-            self::DEFAULT_PERSISTENT_SESSION_TIMESPAN
-        );
+        // Determine the common parent domain for sharing sessions
+        $currentHost = $_SERVER['HTTP_HOST'] ?? 'foodsharing.de';
+        $domain = $this->getSessionDomain($currentHost);
 
-        if ($rememberMe) {
-            // This regenerates the session id even if it's already persistent, we want to only set it when logging in
-            fSession::enablePersistence();
+        // Set session cookie parameters
+        $cookieLifetime = $rememberMe ? strtotime(self::DEFAULT_PERSISTENT_SESSION_TIMESPAN) - time() : 0;
+        $sessionOptions = [
+            'cookie_lifetime' => $cookieLifetime,
+            'cookie_path' => '/',
+            'cookie_secure' => isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on',
+            'cookie_httponly' => true,
+            'cookie_samesite' => 'Lax',
+            'gc_maxlifetime' => strtotime(self::DEFAULT_NORMAL_SESSION_TIMESPAN) - time(),
+        ];
+
+        // Only set domain if we have a specific one to use
+        if ($domain !== null) {
+            $sessionOptions['cookie_domain'] = $domain;
         }
 
-        fSession::open();
+        // Create session storage and session
+        $sessionStorage = new NativeSessionStorage($sessionOptions, $redisSessionHandler);
+        $this->symfonySession = new SymfonySession($sessionStorage, new AttributeBag());
+        $this->symfonySession->start();
 
+        // Set session type (persistent or normal)
+        if ($rememberMe) {
+            $this->set('session_type', 'persistent');
+            $this->set('session_expires', time() + (strtotime(self::DEFAULT_PERSISTENT_SESSION_TIMESPAN) - time()));
+            $this->symfonySession->migrate(true, strtotime(self::DEFAULT_PERSISTENT_SESSION_TIMESPAN) - time());
+        } else {
+            $this->set('session_type', 'normal');
+            $this->set('session_expires', time() + (strtotime(self::DEFAULT_NORMAL_SESSION_TIMESPAN) - time()));
+        }
+
+        // Clean up any old format keys if they exist
+        // DEPRECATED: can be deleted 30 days after !4360 is merged
+        if ($this->has('fSession::type')) {
+            $this->symfonySession->remove('fSession::type');
+        }
+        if ($this->has('fSession::expires')) {
+            $this->symfonySession->remove('fSession::expires');
+        }
+
+        // Handle CSRF token
+        // The CSRF cookie must be readable by JS so the client can send it in X-CSRF-TOKEN header
         $cookieExpires = $this->isPersistent() ? strtotime(self::DEFAULT_PERSISTENT_SESSION_TIMESPAN) : 0;
-        if (!isset($_COOKIE['CSRF_TOKEN']) || !$_COOKIE['CSRF_TOKEN'] || !$this->isValidCsrfToken($_COOKIE['CSRF_TOKEN'])) {
-            setcookie('CSRF_TOKEN', $this->generateCrsfToken(), ['expires' => $cookieExpires, 'path' => '/']);
+        $cookieOptions = [
+            'expires' => $cookieExpires,
+            'path' => '/',
+            'secure' => isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on',
+            'httponly' => false,
+            'samesite' => 'Lax'
+        ];
+
+        // Only set domain if we have a specific one to use
+        if ($domain !== null) {
+            $cookieOptions['domain'] = $domain;
+        }
+
+        // generate a new token if missing/invalid, otherwise reuse existing
+        if (!isset($_COOKIE[self::CSRF_COOKIE_NAME]) || !$_COOKIE[self::CSRF_COOKIE_NAME] || !$this->isValidCsrfToken($_COOKIE[self::CSRF_COOKIE_NAME])) {
+            setcookie(self::CSRF_COOKIE_NAME, $this->generateCrsfToken(), $cookieOptions);
+        } else {
+            // refresh cookie to ensure new attributes (like httponly=false) are applied
+            setcookie(self::CSRF_COOKIE_NAME, $_COOKIE[self::CSRF_COOKIE_NAME], $cookieOptions);
         }
 
         if ($this->id()) {
@@ -116,16 +177,97 @@ class Session
 
     private function isPersistent(): bool
     {
-        return $_SESSION['fSession::type'] === 'persistent';
+        // Check new key first
+        if ($this->has('session_type')) {
+            return $this->get('session_type') === 'persistent';
+        }
+
+        // Fallback to old key for backward compatibility
+        // DEPRECATED: can be deleted 30 days after !4360 is merged
+        if ($this->has('fSession::type')) {
+            $isPersistent = $this->get('fSession::type') === 'persistent';
+
+            // Migrate to new key format and delete old key
+            $this->set('session_type', $isPersistent ? 'persistent' : 'normal');
+            if ($this->has('fSession::expires')) {
+                $this->set('session_expires', $this->get('fSession::expires'));
+                $this->symfonySession->remove('fSession::expires');
+            }
+            $this->symfonySession->remove('fSession::type');
+
+            return $isPersistent;
+        }
+
+        return false;
+    }
+
+    /**
+     * Determines the common parent domain to use for sharing sessions.
+     *
+     * @param string $host The current hostname
+     * @return string|null The domain to use for cookies, or null to use default behavior
+     */
+    private function getSessionDomain(string $host): ?string
+    {
+        // Strip port from host if it exists
+        $hostWithoutPort = (string)preg_replace('/:\d+$/', '', $host);
+
+        // Check if it's an IP address - return null to use default behavior
+        if (filter_var($hostWithoutPort, FILTER_VALIDATE_IP)) {
+            return null;
+        }
+
+        // Format: ['foodsharing.de', 'foodsharing.at', 'foodsharing.co.uk']
+        // If SESSION_COOKIE_DOMAINS is defined we cast it to an array and only
+        // proceed when it contains elements. This avoids using empty() directly
+        // on the constant (which triggers static analysis warnings) while
+        // preserving runtime behavior when SESSION_COOKIE_DOMAINS is not defined
+        // in other environments (like production)
+        if (defined('SESSION_COOKIE_DOMAINS')) {
+            $domains = (array)SESSION_COOKIE_DOMAINS;
+
+            if (count($domains) > 0) {
+                // Check if current host matches or is a subdomain of any allowed domain
+                foreach ($domains as $domain) {
+                    $domain = trim($domain);
+                    if ($hostWithoutPort === $domain ||
+                        str_ends_with($hostWithoutPort, '.' . $domain)) {
+                        return $domain;
+                    }
+                }
+            }
+        }
+
+        // Fallback: Extract the base domain from the hostname without port
+        // only works for 2 level domains (e.g. example.com)
+        $parts = explode('.', $hostWithoutPort);
+
+        if (count($parts) > 2) {
+            // Return the parent domain (e.g. "example.com" for "sub.example.com")
+            return implode('.', array_slice($parts, -2));
+        }
+
+        // For top-level domains without subdomains, return nothing. Otherwise,
+        // Safari/webkit tests will fail for TLD host "nginx". See
+        // https://gitlab.com/foodsharing-dev/foodsharing/-/merge_requests/4360#note_2862380078
+        // for further details.
+        return null;
     }
 
     public function logout()
     {
-        $_SESSION['client'] = [];
-        unset($_SESSION['client']);
+        // Store user ID before clearing session for cleanup purposes
+        $userId = $this->id();
+        $sessionId = session_id();
 
         if ($this->initialized) {
+            // Clear session data
             $this->set('user', false);
+
+            if ($userId && $sessionId) {
+                $this->mem->userRemoveSession($userId, $sessionId);
+            }
+
             $this->destroy();
         }
     }
@@ -142,24 +284,41 @@ class Session
         $this->set('userId', $id);
     }
 
-    // temporary workaround to aid in migration off of fAuthorization
-    private function fAuthorizationFallbackGet(string $key, string $flourishName = null): mixed
-    {
-        $flourishName ??= $key;
-        if ($this->has($key)) {
-            return $this->get($key);
-        } elseif ($this->has('Flourish\fAuthorization::' . $flourishName)) {
-            return $this->get('Flourish\fAuthorization::' . $flourishName);
-        } elseif ($this->has('fAuthorization::' . $flourishName)) {
-            return $this->get('fAuthorization::' . $flourishName);
-        } else {
-            return null;
-        }
-    }
-
     public function id(): ?int
     {
-        return $this->fAuthorizationFallbackGet('userId', 'user_token');
+        if (!$this->initialized) {
+            return null;
+        }
+
+        // Try the new key first
+        if ($this->has('userId')) {
+            return $this->get('userId');
+        }
+
+        // For backward compatibility during the transition period
+        // DEPRECATED: can be deleted 30 days after !4360 is merged
+        // Try the old Flourish keys
+        if ($this->has('Flourish\fAuthorization::user_token')) {
+            $id = $this->get('Flourish\fAuthorization::user_token');
+            // Migrate to new key format
+            $this->set('userId', $id);
+            // Delete the old key
+            $this->symfonySession->remove('Flourish\fAuthorization::user_token');
+
+            return $id;
+        }
+
+        if ($this->has('fAuthorization::user_token')) {
+            $id = $this->get('fAuthorization::user_token');
+            // Migrate to new key format
+            $this->set('userId', $id);
+            // Delete the old key
+            $this->symfonySession->remove('fAuthorization::user_token');
+
+            return $id;
+        }
+
+        return null;
     }
 
     protected function setAuthLevel(Role $role): void
@@ -169,11 +328,34 @@ class Session
 
     public function role(): ?Role
     {
-        $role = $this->fAuthorizationFallbackGet('role', 'user_auth_level');
+        if (!$this->initialized) {
+            return null;
+        }
 
-        if (is_string($role)) { // came from user_auth_level, so we need to convert it
+        // Try the new key first
+        if ($this->has('role')) {
+            return $this->get('role');
+        }
+
+        // For backward compatibility during the transition period
+        // DEPRECATED: can be deleted 30 days after !4360 is merged
+        // Try the old Flourish keys
+        $role = null;
+
+        if ($this->has('Flourish\fAuthorization::user_auth_level')) {
+            $role = $this->get('Flourish\fAuthorization::user_auth_level');
+            // Delete the old key after migrating
+            $this->symfonySession->remove('Flourish\fAuthorization::user_auth_level');
+        } elseif ($this->has('fAuthorization::user_auth_level')) {
+            $role = $this->get('fAuthorization::user_auth_level');
+            // Delete the old key after migrating
+            $this->symfonySession->remove('fAuthorization::user_auth_level');
+        }
+
+        if (is_string($role)) {
             $role = Role::fromOldLevelName($role);
-            $this->setAuthLevel($role); // store it again under the new key, so we stop needing the old key in the future
+            // Migrate to new key format
+            $this->setAuthLevel($role);
         }
 
         return $role;
@@ -194,7 +376,8 @@ class Session
     private function destroy()
     {
         $this->checkInitialized();
-        fSession::destroy();
+        $this->symfonySession->clear();
+        $this->symfonySession->invalidate();
     }
 
     public function has($key): bool
@@ -203,7 +386,7 @@ class Session
             return false;
         }
 
-        return array_key_exists($key, $_SESSION);
+        return $this->symfonySession->has($key);
     }
 
     public function set($key, $value): void
@@ -211,17 +394,17 @@ class Session
         /* fail silently when session does not exist. This allows us at some point to also support sessions for not logged in users.
         It doesn't do any harm in other cases as we previously generated 500 responses */
         if ($this->initialized) {
-            fSession::set($key, $value);
+            $this->symfonySession->set($key, $value);
         }
     }
 
-    public function get($key)
+    public function get($key, $default = false)
     {
         if (!$this->initialized) {
             return false;
         }
 
-        return fSession::get($key, false);
+        return $this->symfonySession->get($key, $default);
     }
 
     public function login($fs_id = null, $rememberMe = false)
@@ -250,19 +433,30 @@ class Session
         }
 
         // Clean up session so that all content from other models are removed
-        $bType = $_SESSION['fSession::type'];
-        $bExpired = $_SESSION['fSession::expires'];
-        $bCsrf = $_SESSION['csrf'];
-        session_unset();
-        $_SESSION['fSession::type'] = $bType;
-        $_SESSION['fSession::expires'] = $bExpired;
-        $_SESSION['csrf'] = $bCsrf;
+        // Store session type and expiration info before clearing
+        // DEPRECATED: can be deleted 30 days after !4360 is merged
+        $sessionType = $this->has('session_type') ? $this->get('session_type') : $this->get('fSession::type');
+        $sessionExpires = $this->has('session_expires') ? $this->get('session_expires') : $this->get('fSession::expires');
+        $csrfTokens = $this->get('csrf');
+
+        $this->symfonySession->clear();
+
+        // Restore session type and expiration info
+        $this->set('session_type', $sessionType);
+        $this->set('session_expires', $sessionExpires);
+        $this->set('csrf', $csrfTokens);
 
         // used by Session::initIfCookieExists to determine if it should call this method to update session data
         $this->set(self::SESSION_TIMESTAMP_FIELD_NAME, time());
 
         $this->setId($fs['id']);
         $this->setAuthLevel(Role::tryFrom($fs['rolle']));
+
+        // Register this session ID with the user in Redis for session tracking
+        $sessionId = session_id();
+        if ($sessionId) {
+            $this->mem->userAddSession($fs['id'], $sessionId);
+        }
 
         $this->set('user', [
             'name' => $fs['name'],
@@ -275,14 +469,14 @@ class Session
             'privacy_notice_accepted_date' => $fs['privacy_notice_accepted_date'],
         ]);
 
-        $_SESSION['login'] = true;
-        $_SESSION['client'] = [
+        $this->set('login', true);
+        $this->set('client', [
             'id' => $fs['id'],
             'bezirk_id' => $fs['bezirk_id'],
             'rolle' => (int)$fs['rolle'],
             'verified' => (int)$fs['verified'],
             'last_activity' => $fs['last_activity'],
-        ];
+        ]);
     }
 
     public function isVerified(): bool
@@ -291,7 +485,8 @@ class Session
             return true;
         }
 
-        if (isset($_SESSION['client']['verified']) && $_SESSION['client']['verified'] == 1) {
+        $client = $this->get('client');
+        if (isset($client['verified']) && $client['verified'] == 1) {
             return true;
         }
 
@@ -302,15 +497,7 @@ class Session
     {
         $token = bin2hex(random_bytes(16));
 
-        // old key, uses fSession array logic so:
-        // csrf => [ 'cookie' => [ '<$token>' => true ] ]
-        // commented out but not removed for posterity
-        //$this->set("csrf[$key][$token]", true);
-
-        // the new format gets rid of the 'cookie' key, but keeps the "set" structure
-        // e.g. tokens are keys, and them being set indicates their validity.
-        // this is faster than iterating over a list of tokens to check for presence
-
+        // Store token in the flat structure
         $csrf = $this->get('csrf');
         if (!$csrf) {
             $csrf = [];
@@ -330,11 +517,21 @@ class Session
 
         $csrf = $this->get('csrf');
         if ($csrf !== false) {
-            if (isset($csrf['cookie'])) { // old token storage
-                return isset($csrf['cookie'][$token]) && $csrf['cookie'][$token] === true;
+            // Check for token in old format and migrate if found
+            // DEPRECATED: can be deleted 30 days after !4360 is merged
+            if (isset($csrf['cookie'])) {
+                // Migrate old tokens to new format
+                foreach ($csrf['cookie'] as $oldToken => $valid) {
+                    if ($valid === true) {
+                        $csrf[$oldToken] = true;
+                    }
+                }
+                // Remove old format container
+                unset($csrf['cookie']);
+                $this->set('csrf', $csrf);
             }
 
-            // new token, just check if it's in there
+            // Check if token is valid in new format
             return isset($csrf[$token]) && $csrf[$token] === true;
         }
 
