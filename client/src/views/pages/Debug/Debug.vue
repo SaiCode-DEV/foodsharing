@@ -195,6 +195,51 @@
         </b-card-text>
       </b-collapse>
     </b-card>
+    <b-card class="mb-3">
+      <b-card-header
+        header-tag="header"
+        class="p-2 d-flex align-items-center justify-content-between"
+        role="tab"
+      >
+        <h4>Client/Server Info</h4>
+        <div
+          @click="isExpandedServer = !isExpandedServer"
+        >
+          <i
+            :alt="isExpandedServer ? i18n('globals.show_more') : i18n('globals.show_less')"
+            class="fas fa-angle-down ml-2 animate-rotate"
+            :class="{ 'fa-rotate-180': isExpandedServer }"
+          />
+        </div>
+      </b-card-header>
+      <b-collapse
+        id="accordion-info"
+        v-model="isExpandedServer"
+        visible
+        accordion="debug-server-accordion"
+        role="tabpanel"
+      >
+        <b-card-text>
+          <table class="table table-striped table-sm">
+            <tbody>
+              <tr>
+                <td>System Time (client)</td>
+                <td>{{ serverInfo.clientTime }}</td>
+              </tr>
+              <tr>
+                <td>System Time (server)</td>
+                <td>{{ serverInfo.time }}</td>
+              </tr>
+              <tr>
+                <td>Secure context</td>
+                <td>server: {{ serverInfo.https }} / client: {{ https }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </b-card-text>
+      </b-collapse>
+    </b-card>
+
     <b-card class="mb-3" title="Service Workers">
       <b-card-text>
         <span>browser support: {{ 'serviceWorker' in navigator ? '✅ yes' : '❌ no' }}</span>
@@ -297,12 +342,33 @@ import { computed, ref, onMounted, onBeforeUnmount } from 'vue'
 import { registerServiceWorker, resetServiceWorker } from '@/registerServiceWorker'
 
 const isExpanded = ref(false)
+const isExpandedServer = ref(false)
 const navigator = window.navigator
+const https = window.location.protocol === 'https:' ? '✅' : '❌'
 
 // Cache Storage
 const cacheSupported = ref('caches' in window)
 const cacheStats = ref([])
 const isLoadingCache = ref(false)
+
+// Server debug info fetched from backend
+const serverInfo = ref({ server_time: null, https: false, https_raw: null })
+
+const fetchServerDebug = async () => {
+  try {
+    const res = await fetch('/api/debug/server')
+    const clientTime = new Date().toISOString()
+    if (!res.ok) {
+      console.warn('Server debug API returned', res.status)
+      return
+    }
+    const data = await res.json()
+    data.clientTime = clientTime
+    serverInfo.value = data
+  } catch (e) {
+    console.error('Failed to fetch server debug info', e)
+  }
+}
 
 // Reactive references for window dimensions
 const windowWidth = ref(typeof window !== 'undefined' ? window.innerWidth : 0)
@@ -498,6 +564,8 @@ onMounted(() => {
   if (cacheSupported.value) {
     refreshCacheStats()
   }
+  // fetch server debug info on mount
+  fetchServerDebug()
 })
 
 onBeforeUnmount(() => {
