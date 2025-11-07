@@ -31,7 +31,7 @@ class LoginCest
         $I->waitForPageBody();
         $I->waitForElement('.testing-intro-field');
         $I->see('Hallo ' . $this->foodsaver['name'], '.testing-intro-field');
-        $I->seeCookieHasSessionExpiry('PHPSESSID');
+        $I->seeCookieHasSessionExpiry('FS_SESSID');
 
         $I = $this;
     }
@@ -53,7 +53,7 @@ class LoginCest
         $I->waitForPageBody();
         $I->waitForElement('.testing-intro-field');
         $I->see('Hallo ' . $this->foodsaver['name'], '.testing-intro-field');
-        $I->seeCookieHasNoSessionExpiry('PHPSESSID');
+        $I->seeCookieHasNoSessionExpiry('FS_SESSID');
 
         $I->amOnPage('/logout');
 

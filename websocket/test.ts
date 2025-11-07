@@ -402,7 +402,7 @@ test('online status is true if user has two windows in different browsers and on
     });
 });
 
-function connect (t: Test, sessionId: string, cookieName = 'PHPSESSID'): Socket {
+function connect (t: Test, sessionId: string, cookieName = 'FS_SESSID'): Socket {
     const socket = io(WS_URL, {
         transports: ['websocket'],
         extraHeaders: {

@@ -23,14 +23,13 @@ class Session
     private const string SESSION_TIMESTAMP_FIELD_NAME = 'last_updated_ts';
 
     private const string DEFAULT_NORMAL_SESSION_TIMESPAN = '24 hours';
-
     private const string DEFAULT_PERSISTENT_SESSION_TIMESPAN = '30 days';
-
-    private const int SESSION_EXPIRATION_TIME_IN_SECONDS = 86400;
+    private const string USER_DATA_REFRESH_INTERVAL = '6 hours';
 
     public const string LAST_ACTIVITY = 'LAST_USER_ACTIVITY';
 
-    public const string CSRF_COOKIE_NAME = 'CSRF_TOKEN';
+    public const string SESSION_COOKIE_NAME = 'FS_SESSID';
+    public const string CSRF_COOKIE_NAME = 'FS_CSRF_TOKEN';
 
     protected ?SymfonySession $symfonySession = null;
 
@@ -44,7 +43,7 @@ class Session
 
     public function initIfCookieExists()
     {
-        if (isset($_COOKIE[session_name()]) && !$this->initialized) {
+        if (isset($_COOKIE[self::SESSION_COOKIE_NAME]) && !$this->initialized) {
             $this->init();
 
             // to handle cases where (mainly, but this could help with other cases too)
@@ -86,20 +85,19 @@ class Session
             ? strtotime(self::DEFAULT_PERSISTENT_SESSION_TIMESPAN) - time()
             : strtotime(self::DEFAULT_NORMAL_SESSION_TIMESPAN) - time();
         $redisSessionHandler = new FoodsharingRedisSessionHandler($this->mem, $ttl);
-
         // Determine the common parent domain for sharing sessions
         $currentHost = $_SERVER['HTTP_HOST'] ?? 'foodsharing.de';
         $domain = $this->getSessionDomain($currentHost);
 
         // Set session cookie parameters
-        $cookieLifetime = $rememberMe ? strtotime(self::DEFAULT_PERSISTENT_SESSION_TIMESPAN) - time() : 0;
         $sessionOptions = [
-            'cookie_lifetime' => $cookieLifetime,
+            'name' => self::SESSION_COOKIE_NAME,
+            'cookie_lifetime' => $ttl,
             'cookie_path' => '/',
             'cookie_secure' => isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on',
             'cookie_httponly' => true,
             'cookie_samesite' => 'Lax',
-            'gc_maxlifetime' => strtotime(self::DEFAULT_NORMAL_SESSION_TIMESPAN) - time(),
+            'gc_maxlifetime' => $ttl,
         ];
 
         // Only set domain if we have a specific one to use
@@ -115,27 +113,17 @@ class Session
         // Set session type (persistent or normal)
         if ($rememberMe) {
             $this->set('session_type', 'persistent');
-            $this->set('session_expires', time() + (strtotime(self::DEFAULT_PERSISTENT_SESSION_TIMESPAN) - time()));
-            $this->symfonySession->migrate(true, strtotime(self::DEFAULT_PERSISTENT_SESSION_TIMESPAN) - time());
+            $this->set('session_expires', time() + $ttl);
+            $this->symfonySession->migrate(true, $ttl);
         } else {
             $this->set('session_type', 'normal');
-            $this->set('session_expires', time() + (strtotime(self::DEFAULT_NORMAL_SESSION_TIMESPAN) - time()));
-        }
-
-        // Clean up any old format keys if they exist
-        // DEPRECATED: can be deleted 30 days after !4360 is merged
-        if ($this->has('fSession::type')) {
-            $this->symfonySession->remove('fSession::type');
-        }
-        if ($this->has('fSession::expires')) {
-            $this->symfonySession->remove('fSession::expires');
+            $this->set('session_expires', time() + $ttl);
         }
 
         // Handle CSRF token
         // The CSRF cookie must be readable by JS so the client can send it in X-CSRF-TOKEN header
-        $cookieExpires = $this->isPersistent() ? strtotime(self::DEFAULT_PERSISTENT_SESSION_TIMESPAN) : 0;
         $cookieOptions = [
-            'expires' => $cookieExpires,
+            'expires' => time() + $ttl,
             'path' => '/',
             'secure' => isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on',
             'httponly' => false,
@@ -166,39 +154,13 @@ class Session
             }
         }
 
-        // Refresh content of session if it is older than configured expiration time
+        // Refresh user data from database if it's older than the refresh interval
         if ($this->id() !== null && $this->has(self::SESSION_TIMESTAMP_FIELD_NAME)) {
             $last_update = $this->get(self::SESSION_TIMESTAMP_FIELD_NAME);
-            if ($last_update < time() - self::SESSION_EXPIRATION_TIME_IN_SECONDS) {
+            if ($last_update < time() - strtotime(self::USER_DATA_REFRESH_INTERVAL)) {
                 $this->refreshFromDatabase();
             }
         }
-    }
-
-    private function isPersistent(): bool
-    {
-        // Check new key first
-        if ($this->has('session_type')) {
-            return $this->get('session_type') === 'persistent';
-        }
-
-        // Fallback to old key for backward compatibility
-        // DEPRECATED: can be deleted 30 days after !4360 is merged
-        if ($this->has('fSession::type')) {
-            $isPersistent = $this->get('fSession::type') === 'persistent';
-
-            // Migrate to new key format and delete old key
-            $this->set('session_type', $isPersistent ? 'persistent' : 'normal');
-            if ($this->has('fSession::expires')) {
-                $this->set('session_expires', $this->get('fSession::expires'));
-                $this->symfonySession->remove('fSession::expires');
-            }
-            $this->symfonySession->remove('fSession::type');
-
-            return $isPersistent;
-        }
-
-        return false;
     }
 
     /**
@@ -290,32 +252,8 @@ class Session
             return null;
         }
 
-        // Try the new key first
         if ($this->has('userId')) {
             return $this->get('userId');
-        }
-
-        // For backward compatibility during the transition period
-        // DEPRECATED: can be deleted 30 days after !4360 is merged
-        // Try the old Flourish keys
-        if ($this->has('Flourish\fAuthorization::user_token')) {
-            $id = $this->get('Flourish\fAuthorization::user_token');
-            // Migrate to new key format
-            $this->set('userId', $id);
-            // Delete the old key
-            $this->symfonySession->remove('Flourish\fAuthorization::user_token');
-
-            return $id;
-        }
-
-        if ($this->has('fAuthorization::user_token')) {
-            $id = $this->get('fAuthorization::user_token');
-            // Migrate to new key format
-            $this->set('userId', $id);
-            // Delete the old key
-            $this->symfonySession->remove('fAuthorization::user_token');
-
-            return $id;
         }
 
         return null;
@@ -332,33 +270,11 @@ class Session
             return null;
         }
 
-        // Try the new key first
         if ($this->has('role')) {
             return $this->get('role');
         }
 
-        // For backward compatibility during the transition period
-        // DEPRECATED: can be deleted 30 days after !4360 is merged
-        // Try the old Flourish keys
-        $role = null;
-
-        if ($this->has('Flourish\fAuthorization::user_auth_level')) {
-            $role = $this->get('Flourish\fAuthorization::user_auth_level');
-            // Delete the old key after migrating
-            $this->symfonySession->remove('Flourish\fAuthorization::user_auth_level');
-        } elseif ($this->has('fAuthorization::user_auth_level')) {
-            $role = $this->get('fAuthorization::user_auth_level');
-            // Delete the old key after migrating
-            $this->symfonySession->remove('fAuthorization::user_auth_level');
-        }
-
-        if (is_string($role)) {
-            $role = Role::fromOldLevelName($role);
-            // Migrate to new key format
-            $this->setAuthLevel($role);
-        }
-
-        return $role;
+        return null;
     }
 
     /**
@@ -434,9 +350,8 @@ class Session
 
         // Clean up session so that all content from other models are removed
         // Store session type and expiration info before clearing
-        // DEPRECATED: can be deleted 30 days after !4360 is merged
-        $sessionType = $this->has('session_type') ? $this->get('session_type') : $this->get('fSession::type');
-        $sessionExpires = $this->has('session_expires') ? $this->get('session_expires') : $this->get('fSession::expires');
+        $sessionType = $this->get('session_type');
+        $sessionExpires = $this->get('session_expires');
         $csrfTokens = $this->get('csrf');
 
         $this->symfonySession->clear();
@@ -517,21 +432,6 @@ class Session
 
         $csrf = $this->get('csrf');
         if ($csrf !== false) {
-            // Check for token in old format and migrate if found
-            // DEPRECATED: can be deleted 30 days after !4360 is merged
-            if (isset($csrf['cookie'])) {
-                // Migrate old tokens to new format
-                foreach ($csrf['cookie'] as $oldToken => $valid) {
-                    if ($valid === true) {
-                        $csrf[$oldToken] = true;
-                    }
-                }
-                // Remove old format container
-                unset($csrf['cookie']);
-                $this->set('csrf', $csrf);
-            }
-
-            // Check if token is valid in new format
             return isset($csrf[$token]) && $csrf[$token] === true;
         }
 

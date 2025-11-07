@@ -15,7 +15,7 @@ const api = axios.create({
 
 // Request interceptor for CSRF token
 api.interceptors.request.use(config => {
-  const match = document.cookie?.match(/CSRF_TOKEN=([0-9a-f]+)/)
+  const match = document.cookie?.match(/FS_CSRF_TOKEN=([0-9a-f]+)/)
   if (match) {
     config.headers['X-CSRF-Token'] = match[1]
   }

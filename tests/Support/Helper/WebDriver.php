@@ -78,13 +78,35 @@ class WebDriver extends \Codeception\Module\WebDriver
     {
         $cookie = $this->webDriver->manage()->getCookieNamed($cookieName);
         codecept_debug($cookie);
-        $this->assertNull($cookie['expiry']);
+        $this->assertNotNull($cookie['expiry'], 'Cookie should have an expiry set');
+
+        // Check that expiry is 24h ± 1h safety margin
+        $now = time();
+        $expiryTime = $cookie['expiry'];
+        $minExpiry = $now + (23 * 3600); // 23 hours from now
+        $maxExpiry = $now + (25 * 3600); // 25 hours from now
+
+        $this->assertGreaterThanOrEqual($minExpiry, $expiryTime,
+            'Cookie expiry should be at least 23 hours from now (expires in: ' . round(($expiryTime - $now) / 3600, 2) . ' hours)');
+        $this->assertLessThanOrEqual($maxExpiry, $expiryTime,
+            'Cookie expiry should be at most 25 hours from now (expires in: ' . round(($expiryTime - $now) / 3600, 2) . ' hours)');
     }
 
     public function seeCookieHasNoSessionExpiry($cookieName): void
     {
         $cookie = $this->webDriver->manage()->getCookieNamed($cookieName);
         codecept_debug($cookie);
-        $this->assertNotNull($cookie['expiry']);
+        $this->assertNotNull($cookie['expiry'], 'Cookie should have an expiry set');
+
+        // Check that expiry is 30 days ± 1 day safety margin
+        $now = time();
+        $expiryTime = $cookie['expiry'];
+        $minExpiry = $now + (29 * 24 * 3600); // 29 days from now
+        $maxExpiry = $now + (31 * 24 * 3600); // 31 days from now
+
+        $this->assertGreaterThanOrEqual($minExpiry, $expiryTime,
+            'Cookie expiry should be at least 29 days from now (expires in: ' . round(($expiryTime - $now) / (24 * 3600), 2) . ' days)');
+        $this->assertLessThanOrEqual($maxExpiry, $expiryTime,
+            'Cookie expiry should be at most 31 days from now (expires in: ' . round(($expiryTime - $now) / (24 * 3600), 2) . ' days)');
     }
 }

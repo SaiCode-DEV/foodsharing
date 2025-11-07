@@ -46,6 +46,6 @@ export class SocketController {
         }
         const cookie = parseCookie(cookieVal);
 
-        return cookie.PHPSESSID || cookie.sessionid;
+        return cookie.FS_SESSID || cookie.sessionid;
     }
 }

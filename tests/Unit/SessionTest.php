@@ -123,33 +123,10 @@ class SessionTest extends Unit
         // Invalid token should be rejected
         $this->assertFalse($this->session->isValidCsrfToken('not-a-token'));
 
-        // Simulate old cookie-format tokens and ensure migration works
-        $oldToken = bin2hex(random_bytes(8));
-        $this->session->set('csrf', ['cookie' => [$oldToken => true]]);
-        $this->assertTrue($this->session->isValidCsrfToken($oldToken));
-        // After validation the token should exist in new flat format
-        $csrf = $this->session->get('csrf');
-        $this->assertArrayHasKey($oldToken, $csrf);
-        $this->assertTrue($csrf[$oldToken]);
-    }
-
-    public function testOldFlourishKeysAreMigrated(): void
-    {
-        // Test migration of old Flourish user token -> userId key
-        $this->session->set('Flourish\\fAuthorization::user_token', 12345);
-        $this->assertEquals(12345, $this->session->id());
-        // New key should be present and old removed
-        $this->assertTrue($this->session->has('userId'));
-        $this->assertFalse($this->session->has('Flourish\\fAuthorization::user_token'));
-
-        // Test migration of old fSession::type -> session_type
-        $this->session->set('fSession::type', 'persistent');
-        // isPersistent is private, invoke via reflection to trigger migration
-        $ref = new \ReflectionMethod(get_class($this->session), 'isPersistent');
-        $ref->setAccessible(true);
-        $this->assertTrue($ref->invoke($this->session));
-        $this->assertEquals('persistent', $this->session->get('session_type'));
-        $this->assertFalse($this->session->has('fSession::type'));
+        // Generate multiple tokens and ensure they are all valid
+        $token2 = $this->session->generateCrsfToken();
+        $this->assertTrue($this->session->isValidCsrfToken($token));
+        $this->assertTrue($this->session->isValidCsrfToken($token2));
     }
 
     public function testLoginRegistersSessionAndLogoutRemovesSession(): void

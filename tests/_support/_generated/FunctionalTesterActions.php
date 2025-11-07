@@ -1604,7 +1604,7 @@ trait FunctionalTesterActions
      *
      * ``` php
      * <?php
-     * $I->setCookie('PHPSESSID', 'el4ukv0kqbvoirg7nkp4dncpk3');
+     * $I->setCookie('FS_SESSID', 'el4ukv0kqbvoirg7nkp4dncpk3');
      * ?>
      * ```
      *
@@ -1654,7 +1654,7 @@ trait FunctionalTesterActions
      *
      * ``` php
      * <?php
-     * $I->seeCookie('PHPSESSID');
+     * $I->seeCookie('FS_SESSID');
      * ?>
      * ```
      *
@@ -1675,7 +1675,7 @@ trait FunctionalTesterActions
      *
      * ``` php
      * <?php
-     * $I->seeCookie('PHPSESSID');
+     * $I->seeCookie('FS_SESSID');
      * ?>
      * ```
      *
