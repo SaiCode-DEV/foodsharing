@@ -176,6 +176,8 @@ quiz:
         punktami ujemnymi!
       2: Miałeś/aś {failurePoints} punktów ujemnych, a mógłbyś/mogłabyś zdać z 
         maksymalnie {maxFailurePointsToSucceed} punktami ujemnymi.
+    deleted: Dokładna ocena będzie zachowana przez dwa tygodnie po quizie i 
+      później nie będzie dostępna.
   fp_badge:
     right: Odpowiedź poprawna
     wrong: '{userFailurePoints} błędy'
@@ -309,6 +311,7 @@ button:
   close: Zamknij
   browse: Przeglądaj
   yes_save: Tak, zapisz
+  reset_default: Zresetuj standard
 settings:
   calendar:
     program:
@@ -365,10 +368,18 @@ group:
       "3": 3-4 godziny
       "5": 5 lub więcej godzin
     send: Wyślij zgłoszenie
+    link_description: 'Ten link poprowadzi cię prosto do zgłoszenia:'
+    sent: Zgłoszenie zostało wysłane.
+    accept: Akceptuj zgłoszenie
+    accepted: Zgłoszenie zaakceptowane
+    declined: Zgłoszenie odrzucone
   actions:
     edit: Edytuj grupę
     join: Dołącz do tej grupy
     save: Zapisz zmiany
+    contact: Skontaktuj się z grupą
+    go: Do strony grupy
+    apply: Zgłoś się do tej grupy
   no_groups: Jeszcze nie ma żadnych grup
   quit_name_district: Opuść region {name}
   quit: Opuść
@@ -381,6 +392,107 @@ group:
     moderation: Moderacja
     election: Wybory
     resources: Mozaika zasobów
+  application_requirements:
+    requirements: Kto może dołączyć do tej grupy?
+    nobody: Nikt (zamknięta grupa).
+    requires_properties: Każdy, kto spełnia podane kryteria.
+    everybody: Każdy może się zgłosić.
+  members: Członkowie
+  administrators: Administratorzy/ki grupy
+  member_count:
+    zero: Brak członków
+    other: Łącznie {count} członków
+  admin_count:
+    zero: Brak administratorów/rek
+    one: jeden/na administrator/ka
+    other: '{count} Administratorów/ek'
+  already_applied: Już się zgłosiłeś/aś do tej grupy.
+  filter_placeholder: Filtruj grupy według nazwy
+  quit_name_workgroup: Opuść team {name}
+  member_list:
+    is_verified: zweryfikowany
+    default:
+      title: Domyślne
+      lastname: Nazwisko
+    passports:
+      button:
+        verify: weryfikować
 test:
   vars: Mam na imię {NAME} i mam {AGE} lat(a)
   plain: To jest tłumaczenie
+legal:
+  button:
+    agree: Akceptuj
+salutation:
+  "0": Drogi/a
+  "1": Drogi
+  "2": Droga
+  "3": Drogi:a
+login:
+  submit_btn: zaloguj
+  topbar: zaloguj
+  email_address: adres email
+  password: hasło
+  login_button_label: zaloguj
+  logout: wyloguj
+register:
+  topbar: dołącz
+  title: rejestracja
+  register_button_label: rejestracja
+  login_email: Adres email
+  login_passwd2: Powtórz hasło
+  prev: powrót
+  next: następny
+  woman: kobieta
+  man: mężczyzna
+  other: inne
+  pass2: powtórz hasło
+gender:
+  m: mężczyzna
+  f: kobieta
+terminology:
+  no: nie
+  yes: tak
+  homepage: strona główna
+  forum: forum
+  events: Eventy
+  no_pickups: żadne
+  users: Użytkownicy/czki
+  foodsharer:
+    m: Foodsharer
+    f: Foodsharerka
+    d: Foodsharer:ka
+  foodsaver:
+    m: Foodsaver
+    f: Foodsaverka
+    d: Foodsaver:ka
+resource_mosaic:
+  privacy_notice:
+    ok: Zgadzam się
+  title: Mozaika zasobów
+  my_resources: Moje zasoby
+  add: Dodaj nowe zasoby
+  edit: Edytuj zasoby
+  categories_filter_placeholder: Filtruj według kategorii...
+  filter:
+    active: Tylko aktywni/e użytkownicy/czki
+    favorites: Tylko ulubione
+  other_resources:
+    other: Dalsze zasoby {user}
+    own: Twoje inne zasoby
+    similar: Podobne zasoby
+required_messages:
+  kick_from_store_team:
+    footer: Pozdrawiam
+  move_to_standby_team:
+    footer: Pozdrawiam
+  decline_store_application:
+    really: Czy na pewno chcesz odrzucić zgłoszenie {name}?
+    main: Twoje zgłoszenie do Teamu [{store}](/store/{storeId}) zostało 
+      odrzucone.
+    footer: Pozdrawiam
+  demote_store_manager:
+    footer: Pozdrawiam
+petition:
+  daysLeft: Zostało {daysLeft} dni
+  link: Do petycji
