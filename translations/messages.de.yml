@@ -613,9 +613,10 @@ login:
     mailSent: "Alles klar, dir wurde ein Link zum Ändern des Passworts per E-Mail zugeschickt."
     success: "Prima, dein Passwort wurde erfolgreich geändert. Du kannst dich jetzt einloggen."
     tooShort: "Sorry, dein gewähltes Passwort ist zu kurz."
-    expired: "Sorry, du hast ein bisschen zu lange gewartet. Bitte beantrage erneut ein neues Passwort."
+    expired: "Der Link ist nicht gültig. Du hast vermutlich ein bisschen zu lange gewartet. Bitte beantrage erneut ein neues Passwort."
     error: "Sorry, es gibt ein Problem mit deinen Daten."
     mismatch: "Sorry, die Passwörter stimmen nicht überein."
+    request_new: "Neues Passwort anfordern"
 
 register:
   topbar: "Mitmachen"

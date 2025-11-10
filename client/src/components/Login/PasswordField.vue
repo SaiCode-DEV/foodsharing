@@ -8,6 +8,7 @@
       :aria-label="$i18n(placeholder)"
       autocomplete="current-password"
       @input="$emit('input', $event.target.value)"
+      @blur="$emit('blur')"
     >
     <div class="input-group-append">
       <button

@@ -64,3 +64,24 @@ export function setSleepStatus (mode, from, to, message) {
     message: message,
   })
 }
+
+export function requestPasswordReset (email) {
+  return post('/user/password-reset', { email }, {
+    disableLoginRedirect: true,
+  })
+}
+
+export function resetPassword (resetToken, password) {
+  return post('/user/password-reset/confirm', {
+    'reset-token': resetToken,
+    password,
+  }, {
+    disableLoginRedirect: true,
+  })
+}
+
+export function validateResetToken (resetToken) {
+  return get(`/user/password-reset/validate?reset-token=${encodeURIComponent(resetToken)}`, {
+    disableLoginRedirect: true,
+  })
+}

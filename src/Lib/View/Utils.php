@@ -219,16 +219,4 @@ class Utils
 			</div>
 		</div>';
     }
-
-    public function v_form_passwd(string $id, array $option = []): string
-    {
-        $id = $this->identificationHelper->id($id);
-
-        $pl = '';
-        if (isset($option['placeholder'])) {
-            $pl = ' placeholder="' . $option['placeholder'] . '"';
-        }
-
-        return $this->v_input_wrapper($this->translator->trans($id), '<input' . $pl . ' class="input text" type="password" name="' . $id . '" id="' . $id . '" />', $id, $option);
-    }
 }

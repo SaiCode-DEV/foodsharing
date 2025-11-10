@@ -55,6 +55,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\RateLimiter\RateLimiterFactory;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserRestController extends AbstractFoodsharingRestController
@@ -537,5 +538,73 @@ class UserRestController extends AbstractFoodsharingRestController
         }
 
         return $this->respondOK();
+    }
+
+    #[OA2\Post(summary: 'Request a password reset by email')]
+    #[OA2\Tag(name: 'user')]
+    #[Route('/user/password-reset', methods: ['POST'])]
+    #[Rest\RequestParam(name: 'email', nullable: false)]
+    public function requestPasswordReset(ParamFetcher $paramFetcher, Request $request, RateLimiterFactory $requestPasswordResetLimiter): Response
+    {
+        $this->checkRateLimit($request, $requestPasswordResetLimiter);
+
+        $email = trim((string)$paramFetcher->get('email'));
+
+        if (!$this->emailHelper->validEmail($email)) {
+            throw new BadRequestHttpException('Invalid email address');
+        }
+
+        // Always return success to prevent email enumeration attacks
+        $this->loginGateway->addPassRequest($email);
+
+        return $this->respondOK(['message' => 'Password reset email sent']);
+    }
+
+    #[OA2\Post(summary: 'Reset password using a reset token.')]
+    #[OA2\Tag(name: 'user')]
+    #[Route('/user/password-reset/confirm', methods: ['POST'])]
+    #[Rest\RequestParam(name: 'reset-token', nullable: false)]
+    #[Rest\RequestParam(name: 'password', nullable: false)]
+    public function resetPassword(ParamFetcher $paramFetcher): Response
+    {
+        $resetToken = trim((string)$paramFetcher->get('reset-token'));
+        $password = (string)$paramFetcher->get('password');
+
+        if (!$this->loginGateway->checkResetKey($resetToken)) {
+            throw new BadRequestHttpException('Invalid or expired reset token');
+        }
+
+        // Validate password
+        $passwordValidationError = $this->loginGateway->checkPassword($password);
+        if ($passwordValidationError) {
+            throw new BadRequestHttpException($passwordValidationError);
+        }
+
+        $data = [
+            'reset-token' => $resetToken,
+            'pass1' => $password,
+            'pass2' => $password
+        ];
+
+        if (!$this->loginGateway->newPassword($data)) {
+            throw new BadRequestHttpException('Password reset failed');
+        }
+
+        return $this->respondOK(['message' => 'Password reset successfully']);
+    }
+
+    #[OA2\Get(summary: 'Validate a password reset token.')]
+    #[OA2\Tag(name: 'user')]
+    #[Route('/user/password-reset/validate', methods: ['GET'])]
+    #[Rest\QueryParam(name: 'reset-token', nullable: false)]
+    public function validateResetToken(ParamFetcher $paramFetcher): Response
+    {
+        $resetToken = trim((string)$paramFetcher->get('reset-token'));
+
+        if (!$this->loginGateway->checkResetKey($resetToken)) {
+            throw new BadRequestHttpException('Invalid or expired reset token');
+        }
+
+        return $this->respondOK(['valid' => true]);
     }
 }

@@ -83,7 +83,7 @@ const urls = {
   newsFromIT: () => 'https://support.foodsharing.network/kb/de-de/1-aktuelle-informationen-und-storungen',
   vision: () => '/ueber-uns',
   partner: () => '/partner',
-  passwordReset: () => '/login?sub=passwordReset',
+  passwordReset: () => '/password-reset',
   poll: (pollId) => `/poll?id=${pollId}`,
   pollEdit: (pollId) => `/poll?id=${pollId}&sub=edit`,
   press: () => '/content?sub=presse',

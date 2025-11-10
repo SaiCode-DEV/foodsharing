@@ -11,7 +11,6 @@ use Symfony\Component\Routing\Attribute\Route;
 class LoginController extends FoodsharingController
 {
     public function __construct(
-        private readonly LoginView $view,
         private readonly LoginGateway $loginGateway,
         private readonly SettingsGateway $settingsGateway,
         private readonly LoginService $loginService
@@ -36,24 +35,41 @@ class LoginController extends FoodsharingController
             'unsubscribe' => $this->unsubscribe($request),
             'resendActivationMail' => $this->resendActivationMail(),
             'activate' => $this->activate($request),
-            'passwordReset' => $this->passwordReset($request),
             default => $this->loginPage(),
         };
     }
 
-    #[Route('/recovery', name: 'recovery')]
-    public function recovery(Request $request): Response
+    #[Route('/password-reset/{token}', name: 'password_reset_with_token', requirements: ['token' => '[a-f0-9]+'])]
+    #[Route('/password-reset', name: 'password_reset_direct')]
+    public function passwordReset(string $token = ''): Response
     {
+        $this->session->set('isLoggedIn', false);
+
         if ($this->session->mayRole()) {
             return $this->redirectToRoute('dashboard');
         }
 
-        return $this->passwordReset($request);
+        if (!empty($token)) {
+            // Reset password with token
+            $this->pageHelper->addTitle($this->translator->trans('register.set-password'));
+            $this->pageHelper->addBread($this->translator->trans('register.set-password'));
+            $vue = $this->prepareVueComponent('reset-password-with-token-page', 'ResetPasswordWithTokenPage', ['token' => $token]);
+        } else {
+            // Request password reset
+            $this->pageHelper->addTitle($this->translator->trans('password.reset'));
+            $this->pageHelper->addBread($this->translator->trans('password.reset'));
+            $vue = $this->prepareVueComponent('forgot-password-page', 'ForgotPasswordPage');
+        }
+
+        $this->pageHelper->addContent($vue);
+
+        return $this->renderGlobal();
     }
 
     private function loginPage(): Response
     {
-        $this->pageHelper->addContent($this->view->loginPage());
+        $vue = $this->prepareVueComponent('login-page', 'LoginPage');
+        $this->pageHelper->addContent($vue);
 
         return $this->renderGlobal();
     }
@@ -104,77 +120,5 @@ class LoginController extends FoodsharingController
         }
 
         return $this->redirectToRoute('login');
-    }
-
-    private function passwordReset(Request $request): Response
-    {
-        $k = false;
-
-        if ($request->query->has('k')) {
-            $k = strip_tags((string)$request->query->get('k'));
-        }
-
-        $this->pageHelper->addTitle($this->translator->trans('login.pwreset.bread'));
-        $this->pageHelper->addBread($this->translator->trans('login.pwreset.bread'));
-
-        if ($request->request->has('email') || $request->query->has('m')) {
-            $mail = '';
-            if ($request->query->has('m')) {
-                $mail = $request->query->get('m');
-            } else {
-                $mail = $request->request->get('email');
-            }
-            if (!$this->emailHelper->validEmail($mail)) {
-                $this->flashMessageHelper->error($this->translator->trans('login.pwreset.wrongMail'));
-            } else {
-                if ($this->loginGateway->addPassRequest($mail)) {
-                    $this->flashMessageHelper->info($this->translator->trans('login.pwreset.mailSent'));
-                } else {
-                    $this->flashMessageHelper->error($this->translator->trans('login.pwreset.wrongMail'));
-                }
-            }
-        }
-
-        if ($k === false) {
-            $this->pageHelper->addContent($this->view->passwordRequest($request->getRequestUri()));
-
-            return $this->renderGlobal();
-        }
-
-        if (!$this->loginGateway->checkResetKey($k)) {
-            $this->flashMessageHelper->error($this->translator->trans('login.pwreset.expired'));
-            $this->pageHelper->addContent($this->view->passwordRequest($request->getRequestUri()), CNT_LEFT);
-
-            return $this->renderGlobal();
-        }
-
-        if ($request->request->has('pass1') && $request->request->has('pass2')) {
-            $pass1 = $request->request->get('pass1');
-            $pass2 = $request->request->get('pass2');
-            if ($pass1 === $pass2) {
-                $check = true;
-                if ($this->loginGateway->newPassword($request->request->all())) {
-                    $this->flashMessageHelper->success(
-                        $this->translator->trans('login.pwreset.success')
-                    );
-                } elseif (strlen((string)$pass1) < 5) {
-                    $check = false;
-                    $this->flashMessageHelper->error($this->translator->trans('login.pwreset.tooShort'));
-                } else {
-                    $check = false;
-                    $this->flashMessageHelper->error($this->translator->trans('login.pwreset.error'));
-                }
-
-                if ($check) {
-                    return $this->redirectToRoute('login');
-                }
-            } else {
-                $this->flashMessageHelper->error($this->translator->trans('login.pwreset.mismatch'));
-            }
-        }
-        $this->pageHelper->addJs('$("#pass1").val("");');
-        $this->pageHelper->addContent($this->view->newPasswordForm($k));
-
-        return $this->renderGlobal();
     }
 }

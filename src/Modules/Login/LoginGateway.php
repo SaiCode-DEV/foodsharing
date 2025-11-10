@@ -151,7 +151,7 @@ class LoginGateway extends BaseGateway
         $fsid = $this->db->fetchValueByCriteria(
             'fs_pass_request',
             'foodsaver_id',
-            ['name' => strip_tags((string)$data['k'])]
+            ['name' => strip_tags((string)$data['reset-token'])]
         );
         if (!$fsid) {
             return false;
@@ -188,17 +188,17 @@ class LoginGateway extends BaseGateway
             return false;
         }
 
-        $key = bin2hex(random_bytes(16));
+        $resetToken = bin2hex(random_bytes(16));
 
         $this->db->insertOrUpdate('fs_pass_request', [
             'foodsaver_id' => $fs['id'],
-            'name' => $key,
+            'name' => $resetToken,
             'time' => $this->db->now()
         ]);
 
         if ($mail) {
             $vars = [
-                'link' => BASE_URL . '/login?sub=passwordReset&k=' . $key,
+                'link' => BASE_URL . '/password-reset/' . $resetToken,
                 'name' => $fs['name'],
                 'anrede' => $this->translator->trans('salutation.' . $fs['geschlecht']),
             ];
@@ -208,7 +208,7 @@ class LoginGateway extends BaseGateway
             return true;
         }
 
-        return $key;
+        return $resetToken;
     }
 
     public function setPassword(int $userId, string $password): void
