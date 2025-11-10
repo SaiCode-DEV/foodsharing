@@ -10,6 +10,7 @@ use Foodsharing\Modules\Core\DBConstants\Achievement\AchievementIDs;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
+use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\PassportGenerator\PassportGeneratorTransaction;
 use Foodsharing\Modules\Region\RegionGateway;
@@ -40,6 +41,7 @@ class StorePermissions
         private readonly RegionGateway $regionGateway,
         private readonly CurrentUserUnitsInterface $currentUserUnits,
         private readonly AchievementGateway $achievementGateway,
+        private readonly FoodsaverGateway $foodsaverGateway,
         private readonly PassportGeneratorTransaction $passportGeneratorTransaction
     ) {
     }
@@ -87,8 +89,28 @@ class StorePermissions
             return false;
         }
 
-        // already in team?
         if ($this->getCachedUserTeamStatus($storeId) !== UserTeamStatus::NoMember) {
+            return false;
+        }
+
+        if (!$this->foodsaverGateway->isProfileComplete($this->session->id())) {
+            return false;
+        }
+
+        if (!$this->foodsaverGateway->hasHomeRegion($this->session->id())) {
+            return false;
+        }
+
+        $storeRegionId = $this->getCachedStoreRegionId($storeId);
+        if (!$this->regionGateway->hasMember($this->session->id(), $storeRegionId)) {
+            return false;
+        }
+
+        if ($this->storeGateway->getStoreRequiresVerification($storeId) && !$this->session->isVerified()) {
+            return false;
+        }
+
+        if ($this->storeGateway->getStoreRequiresPhone($storeId) && !$this->foodsaverGateway->hasPhone($this->session->id())) {
             return false;
         }
 

@@ -174,6 +174,21 @@ class Store
     public bool $isHygieneRequired = false;
 
     /**
+     * Whether users are required to be verified to apply to the store.
+     */
+    public bool $isVerifiedRequired = false;
+
+    /**
+     * Whether users are required to have a valid phone number to apply to the store.
+     */
+    public bool $isPhoneRequired = false;
+
+    /**
+     * Whether users are required to have a valid apply text to apply to the store.
+     */
+    public bool $isApplyTextRequired = false;
+
+    /**
      * Configuration option to influence behavior of store.
      *
      * Only visible to store team members
@@ -252,6 +267,10 @@ class Store
         $obj->options = StoreOptionModel::createFromArray($queryResult);
 
         $obj->isHygieneRequired = boolval($queryResult['hygiene_requirement']);
+
+        $obj->isVerifiedRequired = boolval($queryResult['verified_requirement']);
+        $obj->isPhoneRequired = boolval($queryResult['phone_requirement']);
+        $obj->isApplyTextRequired = boolval($queryResult['apply_text_requirement']);
 
         $createdAt = DateTime::createFromFormat('Y-m-d', $queryResult['createdAt']);
         if ($createdAt) {

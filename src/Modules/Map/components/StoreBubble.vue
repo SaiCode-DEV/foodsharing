@@ -91,13 +91,36 @@
         {{ $i18n(`storeedit.fetch.teamStatus${store.teamSearchStatus}`) }}
       </b-alert>
 
-      <b-alert :show="store.isHygieneRequired" :variant="isMissingHygieneCertificate ? 'danger' : 'success'">
+      <div class="store-alerts">
+        <div v-for="alert in filteredStoreAlerts" :key="alert.id">
+          <b-alert show variant="danger">
+            <i :class="alert.icon" />
+            {{ $i18n(alert.textKey, alert.textParams || {}) }}<br>
+            <a
+              v-if="alert.linkUrl"
+              :href="alert.linkUrl"
+              v-text="$i18n(alert.linkTextKey)"
+            />
+          </b-alert>
+        </div>
+      </div>
+
+      <div v-if="allStoreAlerts.length > 1" class="mt-1">
+        <a
+          href="#"
+          class="more-alerts-link"
+          @click.prevent="alertsExpanded = !alertsExpanded"
+        >
+          <span v-if="!alertsExpanded && hiddenAlertsCount === 1">{{ $i18n('store.request.alerts.one_more') }}</span>
+          <span v-else-if="!alertsExpanded && hiddenAlertsCount > 1">{{ $i18n('store.request.alerts.many_more', {count: hiddenAlertsCount}) }}</span>
+          <span v-else-if="hiddenAlertsCount === 1">{{ $i18n('store.request.alerts.one_less') }}</span>
+          <span v-else>{{ $i18n('store.request.alerts.many_less', {count: hiddenAlertsCount}) }}</span>
+        </a>
+      </div>
+
+      <b-alert :show="store.isHygieneRequired && !isMissingHygieneCertificate" variant="success">
         <i class="fas fa-hands-wash mr-2" />
         {{ $i18n('store.request.hygieneRequired') }}
-        <span v-if="isMissingHygieneCertificate">
-          {{ $i18n('store.request.hygieneMissing') }}
-          <a :href="$url('settingsHygiene')" v-text="$i18n('pickup.hygieneCertificateMissing.link')" />
-        </span>
       </b-alert>
       <b-alert :show="store.isInvited" variant="success">
         <i class="fas fa-user-check mr-2" />
@@ -117,8 +140,44 @@
         class="w-100"
       >
         <b-form-group :label="$i18n('store.request.application-message')">
-          <b-form-textarea v-model="applicationMessage" :placeholder="$i18n('store.request.application-placeholder')" />
+          <b-form-textarea
+            v-model="applicationMessage"
+            :placeholder="$i18n('store.request.application-placeholder')"
+            :state="!store.requireApplyText || applicationMessage.length >= minApplicationMessageLength"
+          />
+          <b-form-invalid-feedback v-if="store.requireApplyText && applicationMessage.length < minApplicationMessageLength">
+            {{ $i18n('store.request.applicationMessageTooShort') }}
+          </b-form-invalid-feedback>
         </b-form-group>
+        <div class="card mt-3">
+          <div>
+            {{ $i18n('store.request.applicationSummary.intro') }}
+            <ul>
+              <li>
+                {{ $i18n('store.request.applicationSummary.time') }}
+              </li>
+              <li>
+                {{ $i18n('store.request.applicationSummary.fullName', { first_name: userStore.getUserFirstName, last_name: userStore.getUserLastName }) }}
+              </li>
+              <li>
+                {{ $i18n('store.request.applicationSummary.verified', { status: userStore.isVerified ? $i18n('group.member_list.is_verified') : $i18n('group.member_list.not_verified') }) }}
+              </li>
+              <li>
+                {{ $i18n('store.request.applicationSummary.distance', { distance: distanceDisplay }) }}
+              </li>
+              <li>
+                <a
+                  :href="$url('storeUserList', userStore.getUserId)"
+                  target="_blank"
+                  v-text="$i18n('store.request.applicationSummary.storeList')"
+                />
+              </li>
+              <li>
+                {{ $i18n('store.request.applicationSummary.text') }}
+              </li>
+            </ul>
+          </div>
+        </div>
       </b-collapse>
       <div v-if="store">
         <b-button
@@ -137,6 +196,7 @@
         <b-button
           v-if="store.maySendRequest"
           :variant="isMessageInputVisible ? 'success' : 'outline-secondary'"
+          :disabled="isMessageInputVisible && !canSubmit"
           @click="applyToStore"
           v-text="$i18n('store.request.request')"
         />
@@ -172,6 +232,7 @@ import Markdown from '@/components/Markdown/Markdown.vue'
 
 const maxGoodDistanceInKm = 2
 const minBadDistanceInKm = 10
+const minApplicationMessageLength = 25
 
 const userStore = useUserStore()
 
@@ -193,9 +254,84 @@ export default {
       storeId: null,
       isMessageInputVisible: false,
       applicationMessage: '',
+      alertsExpanded: false,
     }
   },
   computed: {
+    // Build an ordered list of alert objects with all rendering data
+    allStoreAlerts () {
+      if (!this.store) return []
+      const alerts = []
+
+      // Complete profile
+      alerts.push({
+        id: 'completeProfile',
+        show: !this.store.hasCompleteProfile,
+        icon: 'fas fa-id-card mr-2',
+        textKey: 'store.request.completeProfileRequired.text',
+        linkUrl: this.$url('settings'),
+        linkTextKey: 'store.request.completeProfileRequired.link',
+      })
+
+      // Home region
+      alerts.push({
+        id: 'homeRegion',
+        show: !this.store.hasHomeRegion,
+        icon: 'fas fa-location-dot mr-2',
+        textKey: 'store.request.needsHomeRegion.text',
+        linkUrl: this.$url('dashboard'),
+        linkTextKey: 'store.request.needsHomeRegion.link',
+      })
+
+      // Member of store region
+      alerts.push({
+        id: 'memberOfRegion',
+        show: !this.store.isMemberOfRegion,
+        icon: 'fas fa-location-pin mr-2',
+        textKey: 'store.request.needsStoreRegion.text',
+        textParams: { region: this.store.regionName },
+        linkUrl: this.$url('publicRegion', this.store.regionId),
+        linkTextKey: 'store.request.needsStoreRegion.link',
+      })
+
+      // Verification required
+      alerts.push({
+        id: 'requireVerification',
+        show: this.store.requireVerification,
+        icon: 'fas fa-user-xmark mr-2',
+        textKey: 'store.request.requireVerification.text',
+        linkUrl: this.$url('region_forum', userStore.getHomeRegion),
+        linkTextKey: 'store.request.requireVerification.link',
+      })
+
+      // Phone required
+      alerts.push({
+        id: 'requirePhone',
+        show: this.store.requirePhone,
+        icon: 'fas fa-phone-slash mr-2',
+        textKey: 'store.request.requirePhone.text',
+        linkUrl: this.$url('settings'),
+        linkTextKey: 'store.request.requirePhone.link',
+      })
+
+      // Hygiene
+      alerts.push({
+        id: 'hygieneRequired',
+        show: this.store.isHygieneRequired && this.isMissingHygieneCertificate,
+        icon: 'fas fa-hands-wash mr-2',
+        textKey: 'store.request.hygieneRequired',
+        linkUrl: this.$url('settingsHygiene'),
+        linkTextKey: 'pickup.hygieneCertificateMissing.link',
+      })
+
+      return alerts.filter(a => a.show)
+    },
+    filteredStoreAlerts () {
+      return this.alertsExpanded ? this.allStoreAlerts : this.allStoreAlerts.slice(0, 1)
+    },
+    hiddenAlertsCount () {
+      return Math.max(0, this.allStoreAlerts.length - 1)
+    },
     cooperationStartDate () {
       return this.store !== null && this.store.cooperationStart
         ? this.$dateFormatter.format(this.store.cooperationStart, {
@@ -257,6 +393,9 @@ export default {
     },
     isMissingHygieneCertificate () {
       return this.store.isHygieneRequired && !this.store.hasHygieneCertificate
+    },
+    canSubmit () {
+      return !this.store.requireApplyText || this.applicationMessage.length >= minApplicationMessageLength
     },
   },
   methods: {
@@ -331,5 +470,10 @@ export default {
 }
 .bad-distance {
   color: var(--fs-color-danger-500)
+}
+.more-alerts-link {
+  cursor: pointer;
+  color: var(--fs-color-link, #0d6efd);
+  text-decoration: underline;
 }
 </style>

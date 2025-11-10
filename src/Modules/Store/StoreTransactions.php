@@ -513,6 +513,21 @@ class StoreTransactions
             $store->isHygieneRequired = $storeChange->isHygieneRequired;
         }
 
+        if (!is_null($storeChange->isVerifiedRequired)) {
+            $changeInformation->informationChanged = true;
+            $store->isVerifiedRequired = $storeChange->isVerifiedRequired;
+        }
+
+        if (!is_null($storeChange->isPhoneRequired)) {
+            $changeInformation->informationChanged = true;
+            $store->isPhoneRequired = $storeChange->isPhoneRequired;
+        }
+
+        if (!is_null($storeChange->isApplyTextRequired)) {
+            $changeInformation->informationChanged = true;
+            $store->isApplyTextRequired = $storeChange->isApplyTextRequired;
+        }
+
         if (!is_null($storeChange->groceries)) {
             $changeInformation->informationChanged = true;
             $changeInformation->groceriesChanged = true;

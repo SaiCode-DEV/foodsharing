@@ -1073,6 +1073,36 @@ store:
     application-placeholder: "Ich möchte gerne in diesem Team helfen, weil …"
     hygieneRequired: "Für die Abholungen in diesem Betrieb ist eine gültige Hygieneschulung nötig."
     hygieneMissing: "Die fehlt dir aktuell. Führe jetzt das Hygienequiz durch, um dich für dieses Team bewerben zu können."
+    completeProfileRequired:
+      text: "Du kannst dich aktuell nicht bewerben, da du noch nicht alle notwendigen Daten in deinem Profil hinterlegt hast. Du musst mindestens in den folgenden Feldern gültige Angaben eingegeben haben: Vorname, Nachname, Geburtsdatum, Aktuelle Adresse, Profilfoto. Bitte trage diese Daten nach. Danach kannst du erneut versuchen dich zu bewerben."
+      link: "Profil bearbeiten"
+    needsHomeRegion:
+      text: "Du kannst dich aktuell nicht bewerben, da du noch keinen Stammbezirk ausgewählt hast. Wenn du einen Stammbezirk ausgewählt hast, kannst du erneut versuchen, dich zu bewerben."
+      link: "Stammbezirk auswählen"
+    needsStoreRegion:
+      text: "Du kannst dich aktuell nicht bewerben, da du noch nicht dem Betriebsbezirk {region} angehörst. Wenn du dem Bezirk {region} beigetreten bist, kannst du erneut versuchen, dich zu bewerben."
+      link: "Bezirk beitreten"
+    requireVerification:
+      text: "Du kannst dich aktuell nicht bewerben, da du noch nicht verifiziert bist. Dieser Betrieb akzeptiert derzeit nur Bewerbungen von verifizierten Foodsaver:innen. Absolviere zunächst deine Probeabholungen bzw. kontaktiere deine Botschafter:innen oder das Begrüßungsteam, um dich verifizieren zu lassen. Du findest diese Ansprechpartner im Forum deines Bezirks in der linken Seitenleiste."
+      link: "Stammbezirk Forum öffnen"
+    requirePhone:
+      text: "Du kannst dich aktuell nicht bewerben, da du noch keine Telefonnummer in deinem Profil hinterlegt hast. Dieser Betrieb akzeptiert derzeit nur Bewerbungen von Foodsaver:innen mit mindestens einer hinterlegten Telefonnummer. Bitte trage eine Telefonnummer in deinem Profil ein, um dich bewerben zu können."
+      link: "Profil bearbeiten"
+    applicationSummary:
+      intro: "Wenn du deine Bewerbung abschickst, sehen die Betriebsverantwortlichen folgende Angaben:"
+      time: "Zeitpunkt der Bewerbung"
+      fullName: "Deinen vollständigen Namen ({first_name} {last_name})"
+      verified: "Verifizierungsstatus ({status})"
+      distance: "Die Entfernung deines Wohnorts zum Betrieb ({distance})"
+      storeList: "Die Liste deiner Betriebe"
+      text: "Deine Bewerbungsnachricht"
+    applicationMessageTooShort: "Deine Bewerbungsnachricht ist zu kurz."
+    alerts:
+      one_more: "Zeige einen weiteren Hinweis"
+      many_more: "Zeige {count} weitere Hinweise"
+      one_less: "Verberge einen Hinweis"
+      many_less: "Verberge {count} Hinweise"
+
   invitation:
     title: "Einladungen für {storeTitle}"
     withdraw: "Einladung zurückziehen"
@@ -1223,6 +1253,10 @@ storeedit:
     teamStatus2: "Es werden dringend noch Helfer:innen gesucht"
     hygieneRequirement: "Hygieneanforderungen"
     hygieneRequired: "Abholung nur mit gültiger Hygieneschulung erlauben"
+    applicationRequirements: "Bewerbungsanforderungen"
+    verifiedRequired: "Nur verifizierte Foodsaver:innen zulassen"
+    phoneRequirement: "Nur Foodsaver:innen mit hinterlegter Telefonnummer zulassen"
+    applyTextRequired: "Eingabe eines Textes für Bewerbungen erforderlich"
   add_success: "Kooperationsbetrieb wurde eingetragen"
   unsuccess: "Änderungen konnten nicht übernommen werden. {error}"
   milestone:

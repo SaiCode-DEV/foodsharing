@@ -22,6 +22,11 @@ class StoreMapBubbleData
     public string $name = '';
 
     /**
+     * Name of the region the store belongs to.
+     */
+    public string $regionName = '';
+
+    /**
      * The number of foodsavers in the store's team without the standby list.
      */
     public int $teamMemberCount = 0;
@@ -104,6 +109,36 @@ class StoreMapBubbleData
     public ?bool $hasHygieneCertificate = null;
 
     /**
+     * Whether user has a complete profile.
+     */
+    public bool $hasCompleteProfile = false;
+
+    /**
+     * Whether user has a home region.
+     */
+    public bool $hasHomeRegion = false;
+
+    /**
+     * Whether user is member of the store's region.
+     */
+    public bool $isMemberOfRegion = false;
+
+    /**
+     * Whether users are required to be verified to apply to the store.
+     */
+    public bool $requireVerification = false;
+
+    /**
+     * Whether users are required to have a valid phone number to apply to the store.
+     */
+    public bool $requirePhone = false;
+
+    /**
+     * Whether users are required to have a text in their application to apply to the store.
+     */
+    public bool $requireApplyText = false;
+
+    /**
      * Whether the user is invited to the store.
      */
     public bool $isInvited = false;
@@ -112,9 +147,4 @@ class StoreMapBubbleData
      * The ID of the region this store belongs to.
      */
     public int $regionId = 0;
-
-    /**
-     * The name of the region this store belongs to.
-     */
-    public string $regionName = '';
 }

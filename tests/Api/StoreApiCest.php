@@ -26,6 +26,7 @@ class StoreApiCest
     private array $teamConversation;
     private array $springerConversation;
 
+    private const string API_MAP_STORES = 'api/map/stores';
     private const string API_STORES = 'api/stores';
     private const string API_REGIONS = 'api/region';
     private const string EMAIL = 'email';
@@ -1698,5 +1699,229 @@ class StoreApiCest
         $I->seeResponseCodeIs(Http::UNAUTHORIZED);
 
         $I->assertEquals(0, $I->grabNumRecords('fs_betrieb_has_lebensmittel', ['betrieb_id' => $this->store[self::ID]]));
+    }
+
+    public function cannotApplyWithEmptyProfile(ApiTester $I): void
+    {
+        // Create an unverified user with empty profile
+        $foodsaver = $I->createFoodsaver(
+            null,
+            []
+        );
+        $I->login($foodsaver['email']);
+        $I->sendGET(self::API_MAP_STORES . '/' . $this->store['id']);
+        $I->seeResponseCodeIs(Http::OK);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['maySendRequest' => false]);
+        $I->seeResponseContainsJson(['hasCompleteProfile' => false]);
+        $I->seeResponseContainsJson(['hasHomeRegion' => false]);
+        $I->seeResponseContainsJson(['isMemberOfRegion' => false]);
+        $I->seeResponseContainsJson(['requireVerification' => false]);
+        $I->seeResponseContainsJson(['requirePhone' => false]);
+    }
+
+    public function cannotApplyWithoutHomeRegion(ApiTester $I): void
+    {
+        // Create new user with complete profile
+        $foodsaver = $I->createFoodsaver(
+            null,
+            [
+                'name' => 'fs1',
+                'nachname' => 'saver1',
+                'geb_datum' => '1990-01-01',
+                'photo' => 'does-not-exist.jpg'
+            ]
+        );
+        $I->login($foodsaver['email']);
+
+        // Can still not apply because region is missing
+        $I->sendGET(self::API_MAP_STORES . '/' . $this->store['id']);
+        $I->seeResponseCodeIs(Http::OK);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['maySendRequest' => false]);
+        $I->seeResponseContainsJson(['hasCompleteProfile' => true]);
+        $I->seeResponseContainsJson(['hasHomeRegion' => false]);
+        $I->seeResponseContainsJson(['isMemberOfRegion' => false]);
+        $I->seeResponseContainsJson(['requireVerification' => false]);
+        $I->seeResponseContainsJson(['requirePhone' => false]);
+    }
+
+    public function cannotApplyWithoutBeingMemberOfStoreRegion(ApiTester $I): void
+    {
+        // Create new user with complete profile having home region which is not
+        // the store's region
+        $foodsaver = $I->createFoodsaver(
+            null,
+            [
+                'name' => 'fs1',
+                'nachname' => 'saver1',
+                'geb_datum' => '1990-01-01',
+                'photo' => 'does-not-exist.jpg',
+                'bezirk_id' => $this->otherRegion['id']
+            ]
+        );
+        $I->login($foodsaver['email']);
+
+        // Can still not apply because not in region of store
+        $I->sendGET(self::API_MAP_STORES . '/' . $this->store['id']);
+        $I->seeResponseCodeIs(Http::OK);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['maySendRequest' => false]);
+        $I->seeResponseContainsJson(['hasCompleteProfile' => true]);
+        $I->seeResponseContainsJson(['hasHomeRegion' => true]);
+        $I->seeResponseContainsJson(['isMemberOfRegion' => false]);
+        $I->seeResponseContainsJson(['requireVerification' => false]);
+        $I->seeResponseContainsJson(['requirePhone' => false]);
+    }
+
+    public function canApplyWithProfileAndRegion(ApiTester $I): void
+    {
+        // Create new user with complete profile and in region of store
+        $foodsaver = $I->createFoodsaver(
+            null,
+            [
+                'name' => 'fs1',
+                'nachname' => 'saver1',
+                'geb_datum' => '1990-01-01',
+                'photo' => 'does-not-exist.jpg',
+                'bezirk_id' => $this->region['id']
+            ]
+        );
+        $I->login($foodsaver['email']);
+
+        // Can apply with default settings for store (no verification and no
+        // phone enforced)
+        $I->sendGET(self::API_MAP_STORES . '/' . $this->store['id']);
+        $I->seeResponseCodeIs(Http::OK);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['maySendRequest' => true]);
+        $I->seeResponseContainsJson(['hasCompleteProfile' => true]);
+        $I->seeResponseContainsJson(['hasHomeRegion' => true]);
+        $I->seeResponseContainsJson(['isMemberOfRegion' => true]);
+        $I->seeResponseContainsJson(['requireVerification' => false]);
+        $I->seeResponseContainsJson(['requirePhone' => false]);
+    }
+
+    public function cannotApplyWithoutVerificationIfEnforced(ApiTester $I): void
+    {
+        // Enforce verification for store application (temporarily log in as store manager)
+        $I->login($this->manager[self::EMAIL]);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPATCH(self::API_STORES . '/' . $this->store['id'] . '/information', ['isVerifiedRequired' => true]);
+        $I->seeResponseCodeIs(Http::OK);
+
+        $I->seeInDatabase('fs_betrieb', [
+            'id' => $this->store[self::ID],
+            'verified_requirement' => true
+        ]);
+
+        // Create new user with complete profile and in region of store but not verified and no phone
+        $foodsaver = $I->createFoodsaver(
+            null,
+            [
+                'name' => 'fs1',
+                'nachname' => 'saver1',
+                'geb_datum' => '1990-01-01',
+                'photo' => 'does-not-exist.jpg',
+                'bezirk_id' => $this->region['id'],
+                'verified' => 0
+            ]
+        );
+        $I->login($foodsaver['email']);
+        // Can not apply for store when foodsaver is not verified but this is a
+        // requirement
+        $I->sendGET(self::API_MAP_STORES . '/' . $this->store['id']);
+        $I->seeResponseCodeIs(Http::OK);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['maySendRequest' => false]);
+        $I->seeResponseContainsJson(['hasCompleteProfile' => true]);
+        $I->seeResponseContainsJson(['hasHomeRegion' => true]);
+        $I->seeResponseContainsJson(['isMemberOfRegion' => true]);
+        $I->seeResponseContainsJson(['requireVerification' => true]);
+        $I->seeResponseContainsJson(['requirePhone' => false]);
+    }
+
+    public function cannotApplyWithoutPhoneIfEnforced(ApiTester $I): void
+    {
+        // Enforce phone for store application (temporarily log in as store manager)
+        $I->login($this->manager[self::EMAIL]);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPATCH(self::API_STORES . '/' . $this->store['id'] . '/information', ['isPhoneRequired' => true]);
+        $I->seeResponseCodeIs(Http::OK);
+
+        $I->seeInDatabase('fs_betrieb', [
+            'id' => $this->store[self::ID],
+            'phone_requirement' => true
+        ]);
+
+        // Create new user with complete profile and in region of store without phone
+        $foodsaver = $I->createFoodsaver(
+            null,
+            [
+                'name' => 'fs1',
+                'nachname' => 'saver1',
+                'geb_datum' => '1990-01-01',
+                'photo' => 'does-not-exist.jpg',
+                'telefon' => '',
+                'handy' => '',
+                'bezirk_id' => $this->region['id'],
+                'verified' => 1
+            ]
+        );
+        $I->login($foodsaver['email']);
+        // Can not apply for store when foodsaver has no phone but this is a
+        // requirement
+        $I->sendGET(self::API_MAP_STORES . '/' . $this->store['id']);
+        $I->seeResponseCodeIs(Http::OK);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['maySendRequest' => false]);
+        $I->seeResponseContainsJson(['hasCompleteProfile' => true]);
+        $I->seeResponseContainsJson(['hasHomeRegion' => true]);
+        $I->seeResponseContainsJson(['isMemberOfRegion' => true]);
+        $I->seeResponseContainsJson(['requireVerification' => false]);
+        $I->seeResponseContainsJson(['requirePhone' => true]);
+    }
+
+    public function canApplyWithEnforcing(ApiTester $I): void
+    {
+        // Enforce verification and phone for store application (temporarily log
+        // in as store manager)
+        $I->login($this->manager[self::EMAIL]);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPATCH(self::API_STORES . '/' . $this->store['id'] . '/information', [
+            'isPhoneRequired' => true,
+            'isVerifiedRequired' => true
+        ]);
+        $I->seeResponseCodeIs(Http::OK);
+
+        $I->seeInDatabase('fs_betrieb', [
+            'id' => $this->store[self::ID],
+            'phone_requirement' => true
+        ]);
+
+        // Create new user with all requirements met
+        $foodsaver = $I->createFoodsaver(
+            null,
+            [
+                'name' => 'fs1',
+                'nachname' => 'saver1',
+                'geb_datum' => '1990-01-01',
+                'photo' => 'does-not-exist.jpg',
+                'handy' => '+4966669999',
+                'bezirk_id' => $this->region['id'],
+                'verified' => 1
+            ]
+        );
+        $I->login($foodsaver['email']);
+        // Can apply for store
+        $I->sendGET(self::API_MAP_STORES . '/' . $this->store['id']);
+        $I->seeResponseCodeIs(Http::OK);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['maySendRequest' => true]);
+        $I->seeResponseContainsJson(['hasCompleteProfile' => true]);
+        $I->seeResponseContainsJson(['hasHomeRegion' => true]);
+        $I->seeResponseContainsJson(['isMemberOfRegion' => true]);
+        $I->seeResponseContainsJson(['requireVerification' => false]);
+        $I->seeResponseContainsJson(['requirePhone' => false]);
     }
 }

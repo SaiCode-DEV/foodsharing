@@ -10,6 +10,7 @@ use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\PublicTimes;
 use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
+use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Map\DTO\StoreMapBubbleData;
 use Foodsharing\Modules\Region\RegionGateway;
@@ -27,6 +28,7 @@ class MapTransactions
         private readonly Session $session,
         private readonly WeightHelper $weightHelper,
         private readonly AchievementGateway $achievementGateway,
+        private readonly FoodsaverGateway $foodsaverGateway,
         private readonly RegionGateway $regionGateway
     ) {
     }
@@ -51,6 +53,13 @@ class MapTransactions
         $mapData->location = GeoLocation::createFromArray($store, false);
         $mapData->isHygieneRequired = boolval($store['hygiene_requirement']);
         $mapData->hasHygieneCertificate = $this->achievementGateway->hasAchievement($this->session->id(), AchievementIDs::HYGIENE_CERTIFICATE);
+
+        $mapData->hasCompleteProfile = $this->foodsaverGateway->isProfileComplete($this->session->id());
+        $mapData->hasHomeRegion = $this->foodsaverGateway->hasHomeRegion($this->session->id());
+        $mapData->isMemberOfRegion = $this->regionGateway->hasMember($this->session->id(), $store['bezirk_id']);
+        $mapData->requireVerification = boolval($store['verified_requirement']) && !$this->session->isVerified();
+        $mapData->requirePhone = boolval($store['phone_requirement']) && !$this->foodsaverGateway->hasPhone($this->session->id());
+        $mapData->requireApplyText = boolval($store['apply_text_requirement']);
 
         $pickupCount = intval($store['pickup_count']);
         if ($pickupCount > 0) {

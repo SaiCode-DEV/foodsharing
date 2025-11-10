@@ -275,6 +275,22 @@
               {{ $i18n('storeedit.fetch.hygieneRequired') }}
             </b-form-checkbox>
           </b-form-group>
+          <hr>
+          <b-form-group>
+            <template #label>
+              {{ $i18n('storeedit.fetch.applicationRequirements') }}
+            </template>
+            <b-form-checkbox v-model="store.isVerifiedRequired" :disabled="!editMode">
+              {{ $i18n('storeedit.fetch.verifiedRequired') }}
+            </b-form-checkbox>
+            <b-form-checkbox v-model="store.isPhoneRequired" :disabled="!editMode">
+              {{ $i18n('storeedit.fetch.phoneRequirement') }}
+            </b-form-checkbox>
+            <b-form-checkbox v-model="store.isApplyTextRequired" :disabled="!editMode">
+              {{ $i18n('storeedit.fetch.applyTextRequired') }}
+            </b-form-checkbox>
+          </b-form-group>
+          <hr>
           <b-form-group
             id="fieldset-2"
             :description="$i18n('storeview.visible_for_team')"

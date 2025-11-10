@@ -225,6 +225,75 @@ class FoodsaverGateway extends BaseGateway
         return $fs ?: [];
     }
 
+    /**
+     * Checks if the profile of a Foodsaver is complete.
+     *
+     * This method verifies that the profile of a Foodsaver identified by the given
+     * Foodsaver ID ($fsId) has all the required fields set to non-empty values.
+     * The required fields are:
+     * - firstName (name)
+     * - lastName (nachname)
+     * - date of birth (geb_datum)
+     * - address (anschrift)
+     * - city (stadt)
+     * - postal code (plz)
+     * - latitude and longitude (lat, lon)
+     * - avatar (photo)
+     *
+     * @param int $fsId the ID of the foodsaver
+     * @return bool returns true if the profile is complete, false otherwise
+     */
+    public function isProfileComplete(int $fsId): bool
+    {
+        // note: getFoodsaverDetailsBasic is not sufficient as it does not
+        // include photo and geb_datum
+        $fs = $this->getFoodsaver($fsId);
+
+        return !empty($fs['name']) &&
+            !empty($fs['nachname']) &&
+            !empty($fs['geb_datum']) &&
+            !empty($fs['anschrift']) &&
+            !empty($fs['stadt']) &&
+            !empty($fs['plz']) &&
+            !empty($fs['lat']) &&
+            !empty($fs['lon']) &&
+            !empty($fs['photo']);
+    }
+
+    /**
+     * Checks if the foodsaver has a home region.
+     *
+     * @param int $fsId the ID of the foodsaver
+     * @return bool true if the foodsaver has a home region, false otherwise
+     */
+    public function hasHomeRegion(int $fsId): bool
+    {
+        return $this->getHomeRegionOfFoodsaver($fsId) > 0;
+    }
+
+    /**
+     * Checks if the foodsaver has a phone number.
+     *
+     * This method verifies if the foodsaver identified by the given ID has either a mobile phone number (handy)
+     * or a landline phone number (telefon) that is not null and not an empty string.
+     *
+     * @param int $fsId the ID of the foodsaver
+     * @return bool true if the foodsaver has a phone number, false otherwise
+     */
+    public function hasPhone(int $fsId): bool
+    {
+        return $this->db->fetch('
+                SELECT COUNT(*) as count
+                FROM `fs_foodsaver`
+                WHERE
+                    id = :fsId
+                    AND ((handy IS NOT NULL AND handy != \'\')
+                        OR (telefon IS NOT NULL AND telefon != \'\'))
+        ', [
+            ':fsId' => $fsId,
+        ])['count'] > 0;
+    }
+
     public function getFoodsaversWithoutAmbassadors(): array
     {
         $foodsavers = $this->getActiveFoodsavers();

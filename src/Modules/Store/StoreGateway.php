@@ -112,7 +112,10 @@ class StoreGateway extends BaseGateway
 					`sticker`,
 					`team_status` as teamStatus,
 					`use_region_pickup_rule` as useRegionPickupRule,
-                    `hygiene_requirement`,
+					`hygiene_requirement`,
+					`verified_requirement`,
+					`phone_requirement`,
+					`apply_text_requirement`,
 					`status_date` as updatedAt,
 					`added` as createdAt
 			FROM 	`fs_betrieb`
@@ -168,6 +171,9 @@ class StoreGateway extends BaseGateway
             'presse' => $store->publicity->value,
             'sticker' => $store->showsSticker->value,
             'hygiene_requirement' => intval($store->isHygieneRequired),
+            'verified_requirement' => intval($store->isVerifiedRequired),
+            'phone_requirement' => intval($store->isPhoneRequired),
+            'apply_text_requirement' => intval($store->isApplyTextRequired),
             'status_date' => $this->db->date($store->updatedAt)
         ], [
             'id' => $store->id,
@@ -353,6 +359,9 @@ class StoreGateway extends BaseGateway
                     b.lat,
                     b.lon,
                     b.hygiene_requirement,
+                    b.verified_requirement,
+                    b.phone_requirement,
+                    b.apply_text_requirement,
         			count(DISTINCT(a.date)) AS pickup_count
 
 			FROM 	`fs_betrieb` b
@@ -1142,6 +1151,28 @@ class StoreGateway extends BaseGateway
             ]);
     }
 
+    /**
+     * Checks if the store requires verification.
+     *
+     * @param int $storeId the ID of the store to check
+     * @return bool true if the store requires verification, false otherwise
+     */
+    public function getStoreRequiresVerification(int $storeId): bool
+    {
+        return boolval($this->db->fetchValueById('fs_betrieb', 'verified_requirement', $storeId));
+    }
+
+    /**
+     * Retrieves the phone requirement status for a specific store.
+     *
+     * @param int $storeId the ID of the store
+     * @return bool true if the store requires a phone, false otherwise
+     */
+    public function getStoreRequiresPhone(int $storeId): bool
+    {
+        return boolval($this->db->fetchValueById('fs_betrieb', 'phone_requirement', $storeId));
+    }
+
     private function sqlSelectStoreColumns()
     {
         return 'SELECT
@@ -1172,6 +1203,9 @@ class StoreGateway extends BaseGateway
                     fs_betrieb.team_status as teamStatus,
                     fs_betrieb.use_region_pickup_rule as useRegionPickupRule,
                     fs_betrieb.hygiene_requirement,
+                    fs_betrieb.verified_requirement,
+                    fs_betrieb.phone_requirement,
+                    fs_betrieb.apply_text_requirement,
                     fs_betrieb.status_date as updatedAt,
                     fs_betrieb.added as createdAt';
     }

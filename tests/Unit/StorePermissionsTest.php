@@ -11,6 +11,7 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Achievement\AchievementGateway;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
+use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\PassportGenerator\PassportGeneratorTransaction;
 use Foodsharing\Modules\Region\RegionGateway;
@@ -42,7 +43,8 @@ final class StorePermissionsTest extends Unit
             $this->regionGatewayMock,
             $this->currentUserUnitsMock,
             $this->tester->get(AchievementGateway::class),
-            $this->tester->get(PassportGeneratorTransaction::class)
+            $this->tester->get(FoodsaverGateway::class),
+            $this->tester->get(PassportGeneratorTransaction::class),
         );
     }
 

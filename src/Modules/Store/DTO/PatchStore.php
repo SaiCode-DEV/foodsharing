@@ -189,4 +189,19 @@ class PatchStore
      * Whether a valid hygiene certificate is required for the store.
      */
     public ?bool $isHygieneRequired = null;
+
+    /**
+     * Whether users are required to be verified to apply to the store.
+     */
+    public ?bool $isVerifiedRequired = null;
+
+    /**
+     * Whether users are required to have a valid phone number to apply to the store.
+     */
+    public ?bool $isPhoneRequired = null;
+
+    /**
+     * Whether users are required to have a non-empty apply text to apply to the store.
+     */
+    public ?bool $isApplyTextRequired = null;
 }
