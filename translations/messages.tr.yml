@@ -571,6 +571,8 @@ group:
       bültenleri gönderebilir
     tooltip_function_region387: Bu çalışma grubunun yöneticileri, e-posta geri 
       dönen listesinden girişleri kaldırabilir
+    tooltip_function_region2296: Bu çalışma grubunun yöneticileri kaynak ve 
+      operasyonel kategorileri düzenleyebilir.
   member_list:
     remove_admin_title: Yönetici olarak oturumu kapat
     is_verified: Onaylandı
@@ -2966,7 +2968,8 @@ login:
     wrongMail: Maalesef bu e-posta adresini bulamıyoruz, lütfen tekrar deneyin.
     mailSent: Anlaşıldı, e-postayla şifreni değiştirmen için bir bağlantı 
       gönderildi.
-    expired: Üzgünüz biraz fazla bekledin. Lütfen tekrar yeni bir şifre isteyin.
+    expired: Bağlantı geçersiz. Muhtemelen çok uzun süre beklediniz. Lütfen yeni
+      bir şifre isteyin.
     mismatch: Üzgünüz, şifreler eşleşmiyor.
   forgotten_password_label: Şifrenizi mi unuttunuz?
   login_button_label: Giriş yap
@@ -4136,20 +4139,20 @@ help:
         rastgele olarak **sıralayabilirsiniz**.\n"
     my_resources:
       title: Kendi kaynakların
-      md: "Bu bölümde kendi kaynaklarınızı yönetebilir, yeni kaynaklar oluşturabilir,
-        düzenleyebilir ve silebilir veya halihazırda paylaştıklarınızı görüntüleyebilirsiniz.\n\
+      md: "Bu bölümde kendi kaynaklarınızı yönetebilirsiniz: yeni kaynaklar oluşturabilir,
+        düzenleyebilir, silebilir veya halihazırda paylaştıklarınızı görüntüleyebilirsiniz.\n\
         \n##### Kaynak nedir?\nKaynak, yemek paylaşım topluluğuna katkıda bulunmak
         istediğiniz herhangi bir şey olabilir. Bu, yemek pişirme veya programlama
         gibi **beceriler**, kargo bisikleti veya mobil pişirme istasyonu gibi ödünç
-        vermeye istekli olduğunuz **öğeler** veya hatta diğer girişimlere, yetkililere,
-        medyaya vb. **iletişim bilgileri** olabilir.\n\n##### Her şey mümkün, hiçbir
-        şey zorunlu değil\nKimsenin kaynak eklemesi gerekmiyor ve belirli bir kaynak
-        eklemiş olmanız, onu belirli etkinlikler için kullanılabilir hale getirmeniz
-        *zorunlu* olduğu anlamına gelmez. Daha çok *katkıda bulunmak istediğiniz*
+        vermeye istekli olduğunuz **eşyalar** veya diğer girişimler, yetkililer, medya
+        kuruluşları vb. ile **iletişimleriniz** olabilir.\n\n##### Her şey mümkün,
+        hiçbir şey zorunlu değil\nKimsenin kaynak eklemesi gerekmiyor ve belirli bir
+        kaynağı eklemiş olmanız, onu belirli etkinlikler için kullanılabilir hale
+        getirmeniz *zorunlu* olduğu anlamına gelmez. Daha çok, katkıda bulunmak *istediğiniz*
         şeyleri paylaşmakla ilgilidir.\n\n##### Kaynaklarımı kimler görebilir?\nKaynaklar,
-        bölgelerinizde ve çalışma gruplarınızda görünür. Bu, kaynak mozaiğinin bulunmadığı
-        ülke veya federal eyalet türündeki çok büyük bölgeler için geçerli değildir.
-        Ayrıca her kaynağın görünürlüğünü tanıdığınız gıda tasarrufçularıyla sınırlayabilirsiniz.\n"
+        bölgeleriniz ve çalışma gruplarınız içinde görünür. Ancak bu, kaynak mozaiğinin
+        bulunmadığı ülke veya eyalet türündeki çok büyük bölgeleri kapsamaz. Ayrıca
+        her bir kaynağın görünürlüğünü tanıdığınız gıda tasarrufçularıyla sınırlayabilirsiniz.\n"
     similar_resources:
       title: Benzer kaynaklar
       md: Benzer kaynaklar olarak, **aynı kategorilere** girilmiş en fazla 10 
