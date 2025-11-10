@@ -11,7 +11,8 @@ export async function deleteBells (ids) {
 }
 
 /**
- * Marks one or more bells as unread/read.
+ * Marks one or more bells as unread/read. Ignores IDs that do not exist (bells
+ * that are either deleted or already in the desired state).
  *
  * @param {number[]} ids
  * @param {boolean} isRead
@@ -20,5 +21,5 @@ export async function deleteBells (ids) {
 export async function setReadStatus (ids, isRead) {
   return (await patch(`/bells/readStatus?read=${isRead ? 1 : 0}`, {
     ids: ids,
-  }))
+  }, { skipErrorNotificationFor: [404] }))
 }
