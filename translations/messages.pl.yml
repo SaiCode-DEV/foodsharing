@@ -101,6 +101,9 @@ quiz:
       Bierz udział tylko pod warunkiem, że dokładnie przestudiowałeś/aś treści 
       zawarte w wiki.
     expired: Jednakże twoja ostatnia próba tego quizu już jest nieważna.
+    pauseElapsed: Twoja przerwa na naukę się skończyła. Dlatego możesz ponownie 
+      przystąpić do quizu. Miejmy nadzieję, że wykorzystałeś/aś czas to lepiej 
+      zaznajomić się z treściami.
   regstart: Rozpocznij quiz bez limitu czasu i {count} pytań
   button:
     pause: Kontynuuj później
@@ -135,6 +138,21 @@ quiz:
       feedback: Na koniec quizu otrzymasz bezpośrednio ocenę, czy zdałeś/aś i 
         jakie popełniłeś/aś błędy. Możesz wtedy w spokoju przeczytać 
         uzasadnienia.
+      unlimited_tries: Możesz powtarzać ten quiz dowolną liczbę razy i nie 
+        zostaniesz zdyskwalifikowany/a przez błędne próby. Jednakże, być może 
+        będziesz musiał/a zrobić przerwę na naukę między podejściami.
+      alone: Musisz zdać quiz samodzielnie i bez pomocy z zewnątrz. Jeśli masz 
+        problemy językowe albo potrzebujesz asystencji osobistej, oczywiście 
+        inna osoba może ci pomóc zrozumieć pytania; jednak musisz być w stanie 
+        samodzielnie na nie odpowiedzieć. Dlatego poszukaj spokojnego miejsca, 
+        gdzie możesz przeprowadzić quiz bez zakłóceń.
+      comment: Po odpowiedzeniu na każde pytanie zobaczysz pośrednią ewaluację z
+        wyjaśnieniami do każdej możliwej odpowiedzi. To pomoże ci zrozumieć, 
+        która odpowiedź jest poprawna lub błędna, i dlaczego. Jeśli popełnisz 
+        błąd, powinieneś/powinnaś przeczytać dokładnie wyjaśnienia. Jeśli coś 
+        wydaje ci się nielogiczne, niezrozumiałe lub nawet błędne, zostaw 
+        komentarz. Twoje komentarze są przyporządkowane do ciebie, aby umożliwić
+        indywidualną informację zwrotną.
     acceptPrivacyNotice: Zgadzam się.
   infomodal:
     title: Pytanie {index} z {questions}
@@ -358,6 +376,7 @@ group:
     empty: Najpierw coś napisz ;)
     send: Wyślij wiadomość
     sent: Wiadomość wysłana pomyślnie.
+    admins: '{count} Osoby do kontaktu:'
   apply:
     title: Zgłoszenie do {group}
     ability: Jakie masz umiejętności w tym zakresie?
@@ -373,6 +392,10 @@ group:
     accept: Akceptuj zgłoszenie
     accepted: Zgłoszenie zaakceptowane
     declined: Zgłoszenie odrzucone
+    motivation: Jaka jest twoja motywacja, aby udzielać się w grupie {group}?
+    experience: "Czy możesz w tej grupie wykorzystać doświadczenia, które gdzieś indziej
+      zdobyłeś/aś? \nJeśli tak, gdzie lub jakie?\n"
+    how_much_time: Ile godzin tygodniowo masz czas i chęć poświęcić się temu?
   actions:
     edit: Edytuj grupę
     join: Dołącz do tej grupy
@@ -392,16 +415,27 @@ group:
     moderation: Moderacja
     election: Wybory
     resources: Mozaika zasobów
+    board: Zarząd
   application_requirements:
     requirements: Kto może dołączyć do tej grupy?
     nobody: Nikt (zamknięta grupa).
     requires_properties: Każdy, kto spełnia podane kryteria.
     everybody: Każdy może się zgłosić.
+    open: Każdy/a może dołączyć bezpośrednio.
+    banana_count: Ile bananów zaufania musi mieć kandydat/ka?
+    banana_count_errors:
+      min: Nikt nie powinien mieć mniej niż {{ limit }} bananów zaufania.
+      max: Nie oczekuj więcej niż {{ limit }} bananów zaufania.
+      not_in_range: '{{ limit }} Nikt nie powinien mieć mniej niż {{ min }} albo więcej
+        niż {{ max }} bananów zaufania.'
+    member_since_weeks: Od ilu tygodni kandydat/ka powinien/na być aktywny/a w 
+      foodsharingu?
   members: Członkowie
   administrators: Administratorzy/ki grupy
   member_count:
     zero: Brak członków
     other: Łącznie {count} członków
+    one: Łącznie jeden członek
   admin_count:
     zero: Brak administratorów/rek
     one: jeden/na administrator/ka
@@ -417,6 +451,34 @@ group:
     passports:
       button:
         verify: weryfikować
+      title: Legitymacje i weryfikacja
+      created_at: Legitymacja utworzona
+      generate_button: Stwórz legitymację/e dla wybranej/ych osoby/osób
+      verify_selected: Weryfikuj zaznaczone
+      already_verified: Wszyscy wybrani użytkownicy byli już zweryfikowani
+      automatic_paper_size: użyj papieru A4
+      inform_user: z powiadomieniem
+      create_pdf: stwórz PDF
+      active_or_renew_passport: aktywuj/przedłuż legitymację
+    remove_admin_title: usuń jako administratora/kę
+    remove_ambassador_title: usuń jako ambasadora/kę
+    remove_admin_text: Czy na pewno chcesz usunąć {name} ({id}) jako 
+      administratora/kę?
+    remove_ambassador_text: Czy na pewno chcesz usunąć {name} ({id}) jako 
+      ambasadora/kę?
+    set_admin_title: Mianuj administratorem/ką
+    set_ambassador_title: Mianuj ambasadorem/ką
+    set_admin_text: Czy na pewno chcesz mianować {name} ({id}) 
+      administratorem/ką?
+    set_ambassador_text: Czy na pewno chcesz mianować {name} ({id}) 
+      ambasadorem/ką?
+    remove_title: Usuń członka
+    add_member: Dodaj do teamu
+    admin_mode_on: Włącz widok administratora/ki
+    admin_mode_off: Powrót do widoku standardowego
+    not_verified: niezweryfikowany
+  image: Obraz dla %name%
+  show-all: Pokaż wszystko
 test:
   vars: Mam na imię {NAME} i mam {AGE} lat(a)
   plain: To jest tłumaczenie
