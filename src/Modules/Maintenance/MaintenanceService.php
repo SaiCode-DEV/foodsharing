@@ -29,7 +29,6 @@ class MaintenanceService
         private readonly StoreMaintenanceTransactions $storeMaintenanceTransactions,
         private readonly UploadsTransactions $uploadsTransactions,
         private readonly IMAPFolderCleanupHelper $imapFolderCleanupHelper,
-        private readonly NewsletterSubscriberSynchronisation $newsletterSubscriberSynchronisation,
     ) {
     }
 
@@ -101,12 +100,6 @@ class MaintenanceService
          */
         if (getenv('FS_ENV') !== 'dev') {
             $this->deleteImapFolderMails();
-        }
-
-        // @phpstan-ignore-next-line
-        if (!empty(KEILA_TOKEN) && !empty(KEILA_URL)) {
-            ConsoleHelper::info('starting synchronisation of newsletter subscribers...');
-            $this->newsletterSubscriberSynchronisation->start(KEILA_URL, KEILA_TOKEN);
         }
     }
 

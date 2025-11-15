@@ -1,0 +1,64 @@
+x-db-credentials: &db-credentials
+  POSTGRES_USER: &db-user listmonk
+  POSTGRES_PASSWORD: &db-password listmonk
+  POSTGRES_DB: &db-name listmonk
+
+services:
+  # Listmonk, platform for sending newsletters
+  listmonk:
+    container_name: foodsharing_dev_listmonk
+    image: listmonk/listmonk:latest
+    restart: unless-stopped
+    expose:
+      - 9000
+    ports:
+      - "18088:9000"
+    depends_on:
+      - listmonk-db
+    command: [sh, -c, "./listmonk --install --idempotent --yes --config '' && ./listmonk --upgrade --yes --config '' && ./listmonk --config ''"]
+    # --config (file) param is set to empty so that listmonk only uses the env vars (below) for config.
+    # --install --idempotent ensures that DB installation happens only once on an empty DB, on the first ever start.
+    # --upgrade automatically runs any DB migrations when a new image is pulled.
+
+    environment:
+      LISTMONK_app__address: 0.0.0.0:9000
+      LISTMONK_db__user: *db-user
+      LISTMONK_db__password: *db-password
+      LISTMONK_db__database: *db-name
+      LISTMONK_db__host: foodsharing_dev_listmonk_db
+      LISTMONK_db__port: 5432
+      LISTMONK_db__ssl_mode: disable
+      LISTMONK_db__max_open: 25
+      LISTMONK_db__max_idle: 25
+      LISTMONK_db__max_lifetime: 300s
+      TZ: Europe/Berlin
+      LISTMONK_ADMIN_USER: listmonk
+      LISTMONK_ADMIN_PASSWORD: listmonk
+    volumes:
+      # Mount an uploads directory on the host to /listmonk/uploads inside the container.
+      # To use this, change directory path in Admin -> Settings -> Media to /listmonk/uploads
+      - ./uploads:/listmonk/uploads:rw
+
+  # Postgres database
+  listmonk-db:
+    image: postgres:17-alpine
+    container_name: foodsharing_dev_listmonk_db
+    restart: unless-stopped
+    expose:
+      - 5432
+    ports:
+      - "5432:5432"
+    environment:
+      <<: *db-credentials
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U listmonk"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+    volumes:
+      - type: volume
+        source: listmonk-data
+        target: /var/lib/postgresql/data
+
+volumes:
+  listmonk-data:

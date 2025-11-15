@@ -72,8 +72,10 @@ define('MAX_DELETE_OLD_ACCOUNTS_PER_DAY', 100);
 
 define('ZAMMAD_URL', 'http://zammad-nginx:8080');
 define('ZAMMAD_TICKET_TOKEN', 'bDH0R-1hbTHL3c4Rd8JECX--YLMIFufIJ3BOEd8W7lW8zlPz_IMya2Te22pxbkvF');
-define('KEILA_URL', 'http://keila:4000');
-define('KEILA_TOKEN', '');
+define('LISTMONK_URL', 'http://listmonk:9000');
+define('LISTMONK_USER', 'subscriber-sync');
+define('LISTMONK_LIST_ID', 1);
+define('LISTMONK_TOKEN', '');
 
 define('BUNDESTAG_PETITION_PAGE_URL', 'http://nginx:8080/mock/petition');
 
