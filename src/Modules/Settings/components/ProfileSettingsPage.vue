@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="userDetails === undefined || userDetails.length <= 0">
+    <div v-if="userProfileSettings === undefined || userProfileSettings.length <= 0">
       <b-alert show variant="warning">
         <h4>{{ $i18n('settings.no_rights') }}</h4>
       </b-alert>
@@ -12,7 +12,7 @@
         :vertical="!viewIsMobile"
       >
         <b-tab :title="$i18n('settings.title')" :active="subPage === SUB_PAGE.GENERAL">
-          <ProfileSettings :user-details="userDetails" :permissions="permissions" />
+          <ProfileSettings />
         </b-tab>
         <b-tab
           v-if="isMe"
@@ -23,11 +23,11 @@
           <Notifications />
         </b-tab>
         <b-tab
-          v-if="isMe && isFoodsaver"
+          v-if="isMe && isFoodsaver && userStore.settings.businessCardData !== undefined"
           :title="$i18n('settings.businesscard')"
           :active="subPage === SUB_PAGE.BUSINESS_CARD"
         >
-          <BusinessCard :business-card-data="businessCardData" />
+          <BusinessCard :business-card-data="userStore.settings.businessCardData" />
         </b-tab>
         <b-tab
           v-if="isMe"
@@ -44,23 +44,23 @@
           <Passport />
         </b-tab>
         <b-tab
-          v-if="isMe"
+          v-if="isMe && userStore.settings.sleepingData !== undefined"
           :title="$i18n('settings.sleep.title')"
           :active="subPage === SUB_PAGE.SLEEPING"
         >
           <SleepingMode
-            :sleep-status="sleepingData.sleep_status"
-            :sleep-from="sleepingData.sleep_from"
-            :sleep-until="sleepingData.sleep_until"
-            :sleep-message="sleepingData.sleep_msg"
+            :sleep-status="userStore.settings.sleepingData.sleep_status"
+            :sleep-from="userStore.settings.sleepingData.sleep_from"
+            :sleep-until="userStore.settings.sleepingData.sleep_until"
+            :sleep-message="userStore.settings.sleepingData.sleep_msg"
           />
         </b-tab>
         <b-tab
-          v-if="isMe || permissions.mayChangeEmailImmediately"
+          v-if="isMe || userStore.settings.mayChangeEmailImmediately"
           :title="$i18n('settings.email')"
           :active="subPage === SUB_PAGE.CHANGE_EMAIL"
         >
-          <ChangeEmailForm :is-me="isMe" :user-id="userDetails.id" />
+          <ChangeEmailForm :is-me="isMe" :user-id="userId" />
           <hr class="my-3">
           <ChangePasswordForm v-if="isMe" />
         </b-tab>
@@ -69,7 +69,7 @@
           :title="getQuizTranslation"
           :active="subPage === SUB_PAGE.QUIZ"
         >
-          <Quiz :quiz-id="targetRole" />
+          <Quiz :quiz-id="userStore.settings.targetRole" />
         </b-tab>
         <b-tab
           v-if="isMe"
@@ -84,14 +84,15 @@
           :title="$i18n('foodsaver.delete_account')"
           :active="subPage === SUB_PAGE.DELETE_ACCOUNT"
         >
-          <DeleteAccount :user-id="userDetails.id" />
+          <DeleteAccount :user-id="userId" />
         </b-tab>
       </b-tabs>
     </b-card>
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, onMounted, nextTick, defineProps } from 'vue'
 import Notifications from './Notifications.vue'
 import Calendar from './Calendar.vue'
 import Passport from '@/components/Settings/Passport.vue'
@@ -105,79 +106,46 @@ import ProfileSettings from './ProfileSettings.vue'
 import Quiz from '@/views/pages/Quiz/Quiz.vue'
 import { useUserStore } from '@/stores/user'
 import { SUB_PAGE } from '@/stores/settings'
+import i18n from '@/helper/i18n'
+
+const props = defineProps({
+  subPage: { type: String, default: null },
+})
 
 const userStore = useUserStore()
+const userId = ref(null)
+const viewIsMobile = MediaQueryMixin.computed?.viewIsMobile?.call({}) ?? false // fallback, falls Mixin nicht als Funktion nutzbar
 
-export default {
-  name: 'ProfileSettingsPage',
-  components: {
-    ProfileSettings,
-    Notifications,
-    Calendar,
-    Passport,
-    SleepingMode,
-    ChangeEmailForm,
-    ChangePasswordForm,
-    DeleteAccount,
-    BusinessCard,
-    Quiz,
-  },
-  mixins: [MediaQueryMixin],
-  props: {
-    userDetails: { type: Object, default: () => {} },
-    sleepingData: { type: Object, default: () => {} },
-    businessCardData: { type: Object, default: () => {} },
-    permissions: {
-      type: Object,
-      default: () => {
-        return {
-          mayChangeEmailImmediately: false,
-          mayChangeVerifiedData: false,
-          isOnTeamPage: false,
-        }
-      },
-    },
-    targetRole: { type: Number, default: null },
-    subPage: { type: String, default: null },
-  },
-  setup () {
-    return {
-      userStore,
+const getQuizTranslation = computed(() => {
+  if (userStore.settings.targetRole !== null) {
+    return i18n?.('settings.quiz.' + userStore.settings.targetRole) ?? ''
+  }
+  return null
+})
+
+const sessionUserId = computed(() => userStore.getUserId)
+const userProfileSettings = computed(() => userStore.getUserSettings)
+const isMe = computed(() => sessionUserId.value === userId.value)
+const isFoodsaver = computed(() => userStore.isFoodsaver)
+const isOrgaUser = computed(() => userStore.isOrga)
+const showQuiz = computed(() => {
+  // userStore.settings.targetRole can be undefined before the data was loaded
+  if (userStore.settings.targetRole == null) return false
+  if (userStore.settings.targetRole === 3) return /show-bot-quiz/.test(location.search)
+  return true
+})
+
+onMounted(async () => {
+  const match = window.location.pathname.match(/\/user\/(\d+)\/settings/)
+  userId.value = match ? Number(match[1]) : undefined
+  if (props.subPage === SUB_PAGE.HYGIENE) {
+    await nextTick()
+    // HygieneTab aktivieren
+    if (globalThis.$refs?.hygieneTab?.activate) {
+      globalThis.$refs.hygieneTab.activate()
     }
-  },
-  computed: {
-    getQuizTranslation () {
-      if (this.targetRole !== null) {
-        return this.$i18n('settings.quiz.' + this.targetRole)
-      }
-      return null
-    },
-    isMe () {
-      return userStore.getUserId === this.userDetails.id
-    },
-    isFoodsaver () {
-      return userStore.isFoodsaver
-    },
-    isOrgaUser () {
-      return userStore.isOrga
-    },
-    SUB_PAGE () {
-      return SUB_PAGE
-    },
-    showQuiz () {
-      if (this.targetRole === null) return false
-      if (this.targetRole === 3) return /show-bot-quiz/.test(location.search) // Hide ambassador quiz
-      return true
-    },
-  },
-  async mounted () {
-    if (!this.isMe) return
-    if (this.subPage === SUB_PAGE.HYGIENE) {
-      await this.$nextTick()
-      this.$refs.hygieneTab.activate()
-    }
-  },
-}
+  }
+})
 </script>
 
 <style lang="scss" scoped>

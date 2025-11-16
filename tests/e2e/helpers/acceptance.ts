@@ -24,7 +24,7 @@ export class AcceptanceHelper {
     await this.waitForActiveAPICalls();
     await this.page.waitForSelector('#pulse-success', { state: 'hidden' });
     await this.waitForPageBody();
-    await this.page.waitForSelector('.testing-intro-field');
+    await this.page.waitForSelector('.testing-intro-field', { timeout: 5000 });
     await expect(this.page.locator('.testing-intro-field')).toContainText('Hallo');
   }
 

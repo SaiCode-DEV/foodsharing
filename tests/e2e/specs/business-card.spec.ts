@@ -13,9 +13,7 @@ test.describe('Business card', () => {
 
   test('can create business card as foodsaver', async ({ page, acceptanceHelper }) => {
     const password = 'password';
-    const user = await foodsharing.createFoodsaver(password, {
-      handy: '+4915100000'
-    });
+    const user = await foodsharing.createFoodsaver(password);
 
     await acceptanceHelper.login(user.email, password);
     await page.goto('/user/current/settings?sub=bcard');
@@ -23,7 +21,7 @@ test.describe('Business card', () => {
     await expect(page.getByText('Hier einfach generieren, ausdrucken und ausschneiden')).toBeVisible();
   });
 
-  test.fixme('cannot access business card as foodsharer', async ({ page, acceptanceHelper }) => {
+  test('cannot access business card as foodsharer', async ({ page, acceptanceHelper }) => {
     const password = 'password';
     const user = await foodsharing.createFoodsharer(password);
 

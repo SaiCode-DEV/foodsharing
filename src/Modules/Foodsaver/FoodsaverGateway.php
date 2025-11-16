@@ -132,6 +132,9 @@ class FoodsaverGateway extends BaseGateway
         ]);
     }
 
+    /**
+     * @deprecated This returns a mixed array. Use getFoodsaverSettings instead, which returns an object.
+     */
     public function getFoodsaverDetails(int $fsId): array
     {
         return $this->db->fetch('

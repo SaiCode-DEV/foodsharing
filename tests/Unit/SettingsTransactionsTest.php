@@ -7,6 +7,7 @@ namespace Tests\Unit;
 use Codeception\Test\Unit;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Bell\BellGateway;
+use Foodsharing\Modules\BusinessCard\BusinessCardGateway;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\UserOptionType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\FoodsaverTransactions;
@@ -55,6 +56,7 @@ class SettingsTransactionsTest extends Unit
             $this->tester->get(RegionGateway::class),
             $this->tester->get(BellGateway::class),
             $this->tester->get(UrlGeneratorInterface::class),
+            $this->tester->get(BusinessCardGateway::class),
         );
     }
 

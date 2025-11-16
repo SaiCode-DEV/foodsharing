@@ -139,7 +139,6 @@ class Foodsharing extends Db
      *
      * @param string pass to set as foodsharer password
      * @param array extra_params override params
-     *
      * @return array with all the foodsaver fields
      */
     public function createFoodsharer($pass = null, $extra_params = []): array

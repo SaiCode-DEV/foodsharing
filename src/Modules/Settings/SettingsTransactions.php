@@ -6,6 +6,7 @@ use Exception;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\Modules\Bell\DTO\Bell;
+use Foodsharing\Modules\BusinessCard\BusinessCardGateway;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\ChangeHistoryKey;
@@ -16,6 +17,7 @@ use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DTO\Address;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Foodsaver\DTO\EditableProfileDTO;
+use Foodsharing\Modules\Foodsaver\DTO\ReadableProfileSettings;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\FoodsaverTransactions;
 use Foodsharing\Modules\Login\LoginGateway;
@@ -51,7 +53,8 @@ class SettingsTransactions
         private readonly UnitGateway $unitGateway,
         private readonly RegionGateway $regionGateway,
         private readonly BellGateway $bellGateway,
-        private readonly UrlGeneratorInterface $urlGenerator
+        private readonly UrlGeneratorInterface $urlGenerator,
+        private readonly BusinessCardGateway $businessCardGateway,
     ) {
     }
 
@@ -234,6 +237,40 @@ class SettingsTransactions
             ['email' => $newEmail],
             ['email']
         );
+    }
+
+    public function readProfile(int $userId): ReadableProfileSettings
+    {
+        $data = $this->settingsGateway->getFoodsaverSettings($userId);
+        if (empty($data)) {
+            throw new NotFoundHttpException('User does not exist.');
+        }
+
+        $data->sleepingData = null;
+        $data->businessCardData = null;
+        $data->isOnTeamPage = false;
+        $data->mayChangeVerifiedData = false;
+        $data->mayChangeEmailImmediately = false;
+
+        $targetRole = $this->getNextTargetRole();
+
+        if ($this->session->role()->value < $targetRole->value) {
+            $data->targetRole = $targetRole->value;
+        }
+
+        if ($this->settingsPermissions->mayEditProfileSettings($userId)) {
+            $data->isOnTeamPage = $this->unitGateway->isUserOnTeamPage($userId);
+            $data->mayChangeVerifiedData = $this->settingsPermissions->mayChangeVerifiedData($userId);
+            $data->mayChangeEmailImmediately = $this->settingsPermissions->mayChangeLoginEmail($userId);
+        }
+
+        $isMe = $userId === $this->session->id();
+        if ($isMe) {
+            $data->sleepingData = $this->settingsGateway->getSleepData($userId);
+            $data->businessCardData = $this->businessCardGateway->getMyData($userId, $this->session->mayRole(Role::STORE_MANAGER));
+        }
+
+        return $data;
     }
 
     /**
@@ -498,5 +535,19 @@ class SettingsTransactions
         );
 
         $this->bellGateway->addBell($ambassadorIds, $bellData);
+    }
+
+    private function getNextTargetRole(): Role
+    {
+        $currentRole = $this->session->role();
+        $targetRole = Role::AMBASSADOR;
+        if ($currentRole->value < $targetRole->value - 1) {
+            $targetRole = Role::from($currentRole->value + 1);
+        }
+        if (!$this->session->isVerified()) {
+            $targetRole = Role::FOODSAVER;
+        }
+
+        return $targetRole;
     }
 }

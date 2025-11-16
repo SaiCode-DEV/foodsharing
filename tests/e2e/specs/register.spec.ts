@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { faker } from '@faker-js/faker';
+import { fakerDE as faker } from '@faker-js/faker';
 import { foodsharing } from '../helpers/foodsharing';
 import { Database } from '../helpers/database';
 

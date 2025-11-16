@@ -2,10 +2,16 @@
 
 namespace Foodsharing\Modules\Settings;
 
+use Carbon\Carbon;
 use DateTime;
+use DateTimeZone;
 use Exception;
 use Foodsharing\Modules\Core\BaseGateway;
+use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\UserOptionType;
+use Foodsharing\Modules\Core\DTO\Address;
+use Foodsharing\Modules\Core\DTO\GeoLocation;
+use Foodsharing\Modules\Foodsaver\DTO\ReadableProfileSettings;
 use Foodsharing\RestApi\Models\Notifications\NewsletterChat;
 use Foodsharing\RestApi\Models\Settings\SleepStatusRequest;
 
@@ -245,5 +251,74 @@ class SettingsGateway extends BaseGateway
         } catch (Exception) {
             return null;
         }
+    }
+
+    public function getFoodsaverSettings(int $fsId): ?ReadableProfileSettings
+    {
+        $data = $this->db->fetch('
+        SELECT
+            fs.id,
+            fs.position,
+            fs.bezirk_id,
+            fs.rolle,
+            fs.verified,
+            fs.name,
+            fs.nachname,
+            fs.photo,
+            fs.lat,
+            fs.lon,
+            fs.geschlecht,
+            fs.geb_datum,
+            fs.handy,
+            fs.telefon,
+            fs.anschrift,
+            fs.plz,
+            fs.stadt,
+            fs.about_me_public,
+            fs.about_me_intern,
+            fs.no_automatic_delete,
+            reg.name AS regionName
+        FROM fs_foodsaver fs
+        LEFT JOIN fs_bezirk reg ON fs.bezirk_id = reg.id
+        WHERE fs.id = :id AND fs.deleted_at IS NULL
+    ', [':id' => $fsId]);
+        if (empty($data)) {
+            return null;
+        }
+
+        $address = null;
+        if (!empty($data['lat']) && !empty($data['lon'])) {
+            $address = new Address();
+            $address->postalCode = $data['plz'];
+            $address->street = $data['anschrift'];
+            $address->city = $data['stadt'];
+        }
+
+        $coordinate = null;
+        if (!empty($data['lat']) && !empty($data['lon'])) {
+            $coordinate = new GeoLocation();
+            $coordinate->lat = $data['lat'];
+            $coordinate->lon = $data['lon'];
+        }
+
+        return new ReadableProfileSettings(
+            $fsId,
+            $data['name'],
+            $data['nachname'],
+            $data['photo'],
+            Role::from($data['rolle']),
+            $data['position'],
+            $data['bezirk_id'],
+            $data['geschlecht'],
+            Carbon::createFromFormat('Y-m-d', $data['geb_datum'], new DateTimeZone('Europe/Berlin')),
+            $data['telefon'],
+            $data['handy'],
+            $address,
+            $coordinate,
+            $data['about_me_public'],
+            $data['about_me_intern'],
+            boolval($data['no_automatic_delete']),
+            $data['regionName']
+        );
     }
 }

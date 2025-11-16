@@ -1,6 +1,6 @@
 <template>
-  <b-form @submit.prevent="handleSubmit">
-    <b-alert :show="!permissions.mayChangeVerifiedData">
+  <b-form v-if="isLoaded" @submit.prevent="handleSubmit">
+    <b-alert :show="!userStore.settings.mayChangeVerifiedData">
       <p>
         <i class="fas fa-user-pen mr-1" />
         <span v-text="$i18n('settings.change_data_info.general')" />
@@ -19,7 +19,7 @@
             v-model.lazy="v$.firstName.$model"
             :class="{ 'is-invalid': v$.firstName.$error }"
             type="text"
-            :disabled="!permissions.mayChangeVerifiedData"
+            :disabled="!userStore.settings.mayChangeVerifiedData"
           />
           <div
             v-if="v$.firstName.$error"
@@ -38,7 +38,7 @@
             v-model.lazy="v$.lastName.$model"
             :class="{ 'is-invalid': v$.lastName.$error }"
             type="text"
-            :disabled="!permissions.mayChangeVerifiedData"
+            :disabled="!userStore.settings.mayChangeVerifiedData"
           />
           <div v-if="v$.lastName.$error" class="invalid-feedback">
             <span v-if="!v$.lastName.required">{{ $i18n('register.lastname_required') }}</span>
@@ -57,10 +57,10 @@
         <b-form-group :label="$i18n('register.geb_datum')">
           <b-form-input
             id="settings-birthdate-input"
-            v-model="birthday"
+            v-model="birthdayFormatted"
             type="date"
             autocomplete="off"
-            :disabled="!permissions.mayChangeVerifiedData"
+            :disabled="!userStore.settings.mayChangeVerifiedData"
           />
           <div v-if="!isValidBirthdate" class="invalid-feedback">
             {{ $i18n('register.error_birthdate') }}
@@ -109,7 +109,7 @@
             </b-input-group-append>
           </b-input-group>
         </b-form-group>
-        <b-form-group v-if="permissions.isOnTeamPage && (isMe || isOrgUser)" :label="$i18n('position')">
+        <b-form-group v-if="userStore.settings.isOnTeamPage && (isMe || isOrgUser)" :label="$i18n('position')">
           <b-input v-model="position" />
         </b-form-group>
       </div>
@@ -140,7 +140,7 @@
 
     <div class="row">
       <div class="col-md-6">
-        <div v-if="permissions.isOnTeamPage && (isMe || isOrgUser)">
+        <div v-if="userStore.settings.isOnTeamPage && (isMe || isOrgUser)">
           <b-form-group :label="$i18n('about_me_public')">
             <Markdown :source="$i18n('foodsaver.about_me_public')" />
             <MarkdownInput
@@ -238,9 +238,13 @@
       @input="updateHomeRegion"
     />
   </b-form>
+  <div v-else>
+    <b-spinner label="Loading..." />
+  </div>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, onMounted, watch } from 'vue'
 import ProfilePicture from './ProfilePicture.vue'
 import { patchUserProfile } from '@/api/user'
 import PhoneNumberInput from '@/components/PhoneNumberInput.vue'
@@ -254,146 +258,184 @@ import { useVuelidate } from '@vuelidate/core'
 import { required, minLength, maxLength } from '@vuelidate/validators'
 import { pulseError, pulseSuccess } from '@/script'
 import Info from '@/components/Help/Info.vue'
+import i18n from '@/helper/i18n'
 
 const userStore = useUserStore()
 
-export default {
-  name: 'ProfileSettings',
-  components: {
-    MarkdownInput,
-    ProfileAddressModal,
-    ProfilePicture,
-    PhoneNumberInput,
-    Markdown,
-    RegionTreeModal,
-    Info,
+const randomSuffix = Date.now()
+const userId = ref(null)
+const region = ref({ id: userStore.settings.regionId, name: userStore.settings.regionName })
+const position = ref(userStore.settings.position)
+const zoom = 17
+const firstName = ref(userStore.settings.firstName)
+const aboutMePublic = ref(userStore.settings.aboutMePublic)
+const lastName = ref(userStore.settings.lastName)
+const photo = ref(userStore.settings.photo)
+const gender = ref(userStore.settings.gender)
+const birthday = ref(userStore.settings.birthday)
+const role = ref(userStore.settings.rolle)
+
+const birthdayFormatted = computed({
+  get () {
+    if (!birthday.value) return ''
+    // Convert  ISO 8601 Datetime to YYYY-MM-DD
+    return birthday.value.split('T')[0]
   },
-  props: {
-    userDetails: { type: Object, default: () => {} },
-    permissions: { type: Object, default: () => {} },
+  set (value) {
+    birthday.value = value
   },
-  validations: {
-    firstName: { required, minLength: minLength(2), maxLength: maxLength(40) },
-    lastName: { required, minLength: minLength(2), maxLength: maxLength(40) },
-  },
-  setup () {
-    return {
-      userStore,
-      v$: useVuelidate(),
-    }
-  },
-  data () {
-    return {
-      randomSuffix: Date.now(), // to prevent autofill
-      region: { id: this.userDetails.bezirk_id, name: this.userDetails.homeRegionName },
-      position: this.userDetails.position,
-      zoom: 17,
-      userId: this.userDetails.id,
-      firstName: this.userDetails.name,
-      aboutMePublic: this.userDetails.about_me_public,
-      lastName: this.userDetails.nachname,
-      photo: this.userDetails.photo,
-      gender: this.userDetails.geschlecht,
-      birthday: this.userDetails.geb_datum,
-      role: this.userDetails.rolle,
-      mobile: { value: this.userDetails.mobile, valid: true },
-      phone: { value: this.userDetails.phone, valid: true },
-      location: { street: this.userDetails.street, postalCode: this.userDetails.postalCode, city: this.userDetails.city },
-      coordinate: { lat: this.userDetails.lat, lon: this.userDetails.lon },
-      aboutMeInternal: this.userDetails.about_me_intern ?? '',
-      noAutoDelete: this.userDetails.no_automatic_delete,
-      genderOptions: [
-        { value: 1, text: this.$i18n('register.man') },
-        { value: 2, text: this.$i18n('register.woman') },
-        { value: 3, text: this.$i18n('register.other') },
-      ],
-      roleOptions: [
-        { value: 0, text: this.$i18n('terminology.role.0') },
-        { value: 1, text: this.$i18n('terminology.role.1') },
-        { value: 2, text: this.$i18n('terminology.role.2') },
-        { value: 3, text: this.$i18n('terminology.role.3') },
-        { value: 4, text: this.$i18n('terminology.role.4') },
-      ],
-      noAutoDeleteOptions: [
-        { value: 0, text: this.$i18n('automatic_delete') },
-        { value: 1, text: this.$i18n('automatic_not_delete') },
-      ],
-    }
-  },
-  computed: {
-    isFoodSaver () {
-      return userStore.isFoodsaver
-    },
-    selectableRegionTypes () {
-      return SELECTABLE_REGION_TYPES
-    },
-    isOrgUser () {
-      return userStore.isOrga
-    },
-    isMe () {
-      return userStore.getUserId === this.userDetails.id
-    },
-    isAmbassador () {
-      return userStore.isAmbassador
-    },
-    isFieldsValid () {
-      return this.phone.valid && this.mobile.valid && !this.v$.$invalid && this.isValidBirthdate
-    },
-    isValidBirthdate () {
-      const date = new Date(this.birthday)
-      const age = this.$dateFormatter.getDifferenceToNowInYears(date)
-      return age >= 18 && age <= 125 && !!this.birthday
-    },
-    locationString () {
-      return (!this.location.street && !this.location.postalCode && !this.location.city)
-        ? this.$i18n('settings.general.no_address')
-        : `${this.location.street} ${this.location.postalCode ? this.location.postalCode + ' ' : ''}${this.location.city}`
-    },
-  },
-  methods: {
-    updateHomeRegion (region) {
-      this.region.id = region.states.id
-      this.region.name = region.data.text
-    },
-    handleUpdateLocation (data) {
-      this.location = data.location
-      this.coordinate = data.coordinate
-    },
-    handleValidValue (data) {
-      this[`${data.id}`] = { value: data.value, valid: data.valid }
-    },
-    handleSubmit () {
-      const nullableLocation = (!this.location?.street && !this.location?.postalCode && !this.location?.city) ? null : this.location
-      const nullableCoordinates = (!this.coordinate?.lat && !this.coordinate?.lon) ? null : this.coordinate
-      const formData = {
-        id: this.userId,
-        firstName: this.firstName,
-        aboutMePublic: this.aboutMePublic,
-        lastName: this.lastName,
-        photo: this.photo,
-        gender: this.gender,
-        birthday: this.birthday,
-        mobile: this.mobile.value,
-        phone: this.phone.value,
-        location: nullableLocation,
-        coordinate: nullableCoordinates,
-        aboutMeInternal: this.aboutMeInternal,
-        role: this.role,
-        position: this.position,
-        regionId: this.region.id,
-        noAutoDelete: this.noAutoDelete,
-      }
-      if (!this.isFieldsValid) {
-        return
-      }
-      patchUserProfile(this.userId, formData).then(() => {
-        pulseSuccess(this.$i18n('success'))
-      }).catch((error) => {
-        pulseError(this.$i18n('error_unexpected') + ': ' + error)
-        console.error(error)
-      })
-    },
-  },
+})
+
+const mobile = ref({ value: userStore.settings.mobile, valid: true })
+const phone = ref({ value: userStore.settings.phone, valid: true })
+const location = ref({
+  street: userStore.settings.address?.street,
+  postalCode: userStore.settings.address?.postalCode,
+  city: userStore.settings.address?.city,
+})
+const coordinate = ref({ lat: userStore.lat, lon: userStore.lon })
+const aboutMeInternal = ref(userStore.settings.aboutMeInternal ?? '')
+const noAutoDelete = ref(userStore.settings.noAutoDelete)
+const isLoaded = ref(false)
+
+const genderOptions = [
+  { value: 1, text: i18n('register.man') ?? '' },
+  { value: 2, text: i18n('register.woman') ?? '' },
+  { value: 3, text: i18n('register.other') ?? '' },
+]
+const roleOptions = [
+  { value: 0, text: i18n('terminology.role.0') ?? '' },
+  { value: 1, text: i18n('terminology.role.1') ?? '' },
+  { value: 2, text: i18n('terminology.role.2') ?? '' },
+  { value: 3, text: i18n('terminology.role.3') ?? '' },
+  { value: 4, text: i18n('terminology.role.4') ?? '' },
+]
+const noAutoDeleteOptions = [
+  { value: false, text: i18n('automatic_delete') ?? '' },
+  { value: true, text: i18n('automatic_not_delete') ?? '' },
+]
+
+const selectableRegionTypes = SELECTABLE_REGION_TYPES
+const isOrgUser = computed(() => userStore.isOrga)
+const isMe = computed(() => userStore.getUserId === userId.value)
+const isAmbassador = computed(() => userStore.isAmbassador)
+const isFieldsValid = computed(() =>
+  phone.value.valid && mobile.value.valid && !v$.value.$invalid && isValidBirthdate.value,
+)
+const isValidBirthdate = computed(() => {
+  if (!birthday.value) return false
+  let year, month, day
+  if (typeof birthday.value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(birthday.value)) {
+    [year, month, day] = birthday.value.split('-').map(Number)
+  } else {
+    const d = new Date(birthday.value)
+    if (isNaN(d)) return false
+    year = d.getFullYear()
+    month = d.getMonth() + 1
+    day = d.getDate()
+  }
+  const today = new Date()
+  let age = today.getFullYear() - year
+  if (
+    today.getMonth() + 1 < month ||
+    (today.getMonth() + 1 === month && today.getDate() < day)
+  ) {
+    age--
+  }
+  return age >= 18 && age <= 125
+})
+const locationString = computed(() =>
+  (!location.value.street && !location.value.postalCode && !location.value.city)
+    ? i18n('settings.general.no_address') ?? ''
+    : `${location.value.street} ${location.value.postalCode ? location.value.postalCode + ' ' : ''}${location.value.city}`,
+)
+
+const rules = {
+  firstName: { required, minLength: minLength(2), maxLength: maxLength(40) },
+  lastName: { required, minLength: minLength(2), maxLength: maxLength(40) },
+}
+const v$ = useVuelidate(rules, { firstName, lastName })
+
+function updateLocalFields (settings) {
+  firstName.value = settings.firstName
+  lastName.value = settings.lastName
+  aboutMePublic.value = settings.aboutMePublic
+  photo.value = settings.photo
+  gender.value = settings.gender
+  birthday.value = settings.birthday
+  role.value = settings.rolle
+  mobile.value = { value: settings.mobile, valid: true }
+  phone.value = { value: settings.phone, valid: true }
+  location.value = {
+    street: settings.address?.street,
+    postalCode: settings.address?.postalCode,
+    city: settings.address?.city,
+  }
+  coordinate.value = { lat: userStore.lat, lon: userStore.lon }
+  aboutMeInternal.value = settings.aboutMeInternal ?? ''
+  position.value = settings.position
+  region.value = { id: settings.regionId, name: settings.regionName }
+  noAutoDelete.value = settings.noAutoDelete
+  isLoaded.value = true
+}
+
+onMounted(() => {
+  const match = window.location.pathname.match(/\/user\/(\d+)\/settings/)
+  const userIdFromUrl = match ? Number(match[1]) : undefined
+  userId.value = userIdFromUrl
+  if (userIdFromUrl !== undefined) {
+    userStore.fetchProfileSettings(userIdFromUrl)
+  }
+})
+
+watch(() => userStore.settings, (settings) => {
+  if (settings && settings.firstName) {
+    updateLocalFields(settings)
+  }
+}, { immediate: true })
+
+function updateHomeRegion (regionData) {
+  region.value.id = regionData.states.id
+  region.value.name = regionData.data.text
+}
+function handleUpdateLocation (data) {
+  location.value = data.location
+  coordinate.value = data.coordinate
+}
+function handleValidValue (data) {
+  if (data.id === 'mobile') mobile.value = { value: data.value, valid: data.valid }
+  if (data.id === 'phone') phone.value = { value: data.value, valid: data.valid }
+}
+function handleSubmit () {
+  const nullableLocation = (!location.value?.street && !location.value?.postalCode && !location.value?.city) ? null : location.value
+  const nullableCoordinates = (!coordinate.value?.lat && !coordinate.value?.lon) ? null : coordinate.value
+  const formData = {
+    id: userId.value,
+    firstName: firstName.value,
+    aboutMePublic: aboutMePublic.value,
+    lastName: lastName.value,
+    photo: photo.value,
+    gender: gender.value,
+    birthday: birthday.value,
+    mobile: mobile.value.value,
+    phone: phone.value.value,
+    location: nullableLocation,
+    coordinate: nullableCoordinates,
+    aboutMeInternal: aboutMeInternal.value,
+    role: role.value,
+    position: position.value,
+    regionId: region.value.id,
+    noAutoDelete: noAutoDelete.value,
+  }
+  if (!isFieldsValid.value) {
+    return
+  }
+  patchUserProfile(userId.value, formData).then(() => {
+    pulseSuccess(i18n('success') ?? '')
+  }).catch((error) => {
+    pulseError(i18n('error_unexpected') + ': ' + error)
+    console.error(error)
+  })
 }
 </script>
 

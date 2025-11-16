@@ -1,17 +1,19 @@
 import { defineStore } from 'pinia'
 import { getCache, getCacheInterval, setCache } from '@/helper/cache'
 import { getMailUnreadCount } from '@/api/mailbox'
-import { getDetails } from '@/api/user'
+import { getDetails, getUserProfileSettings } from '@/api/user'
 import serverData from '@/helper/server-data'
 import { ROLE } from '@/consts'
 
 const mailUnreadCountRateLimitInterval = 300000 // 5 minutes in milliseconds
 const userDetailsRateLimitInterval = 60000 // 1 minute in milliseconds
+const userprofileSettingsRateLimitInterval = 60000 // 1 minutes in milliseconds
 
 export const useUserStore = defineStore('user', {
   state: () => ({
     mailUnreadCount: 0,
     details: {},
+    settings: {},
     locations: serverData.locations, // null if the user is not logged in or does not have a home address
     user: serverData.user,
     permissions: serverData.permissions,
@@ -30,6 +32,7 @@ export const useUserStore = defineStore('user', {
     getUser: (state) => state.user,
     getUserId: (state) => state.user?.id,
     getUserDetails: (state) => state.details,
+    getUserSettings: (state) => state.settings,
     getMobilePhoneNumber: (state) => state.details?.mobile,
     getPhoneNumber: (state) => state.details?.landline,
     getAvatar: (state) => state.user?.avatar,
@@ -83,6 +86,24 @@ export const useUserStore = defineStore('user', {
         console.error('Error fetching user details:', e)
       }
       delete this.fetching.details
+      resolver()
+    },
+    async fetchProfileSettings (userId, force = false) {
+      if ('profileSettings' in this.fetching) return this.fetching.settings
+      let resolver
+      this.fetching.settings = new Promise(resolve => { resolver = resolve })
+      const cacheRequestName = 'profileSettings'
+      try {
+        if (force || await getCacheInterval(cacheRequestName, userprofileSettingsRateLimitInterval)) {
+          this.settings = await getUserProfileSettings(userId)
+          await setCache(cacheRequestName, this.settings)
+        } else {
+          this.settings = await getCache(cacheRequestName)
+        }
+      } catch (e) {
+        console.error('Error fetching profile settings:', e)
+      }
+      delete this.fetching.settings
       resolver()
     },
     async fetchMailUnreadCount () {

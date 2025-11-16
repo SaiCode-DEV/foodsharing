@@ -4,11 +4,14 @@ namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\SleepStatus;
+use Foodsharing\Modules\Foodsaver\DTO\ReadableProfileSettings;
 use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Modules\Settings\SettingsTransactions;
 use Foodsharing\RestApi\Models\Settings\EmailChangeRequest;
 use Foodsharing\RestApi\Models\Settings\PasswordChangeRequest;
 use Foodsharing\RestApi\Models\Settings\SleepStatusRequest;
+use FOS\RestBundle\Controller\Annotations as Rest;
+use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
@@ -92,5 +95,21 @@ class SettingsRestController extends AbstractFoodsharingRestController
         $this->settingsTransactions->requestPasswordChange($request);
 
         return $this->respondOK();
+    }
+
+    #[OA\Get(summary: 'Load the user profile information.')]
+    #[OA\Tag(name: 'user')]
+    #[Rest\Get('user/{userId}/profile')]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: [new Model(type: ReadableProfileSettings::class)])]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Unauthorized.')]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Bad Request.')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'User not found.')]
+    public function getUserSettings(int $userId): Response
+    {
+        $this->assertLoggedIn();
+
+        $data = $this->settingsTransactions->readProfile($userId);
+
+        return $this->respondOK($data);
     }
 }

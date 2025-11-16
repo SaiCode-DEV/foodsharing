@@ -38,7 +38,7 @@ class EditableProfileDTO
     public ?GeoLocation $coordinate = null;
     public ?string $aboutMePublic = null;
     public ?string $aboutMeInternal = null;
-    public ?int $noAutoDelete = null;
+    public ?bool $noAutoDelete = null;
 
     public function __construct()
     {

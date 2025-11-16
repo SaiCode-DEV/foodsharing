@@ -1,11 +1,11 @@
-import { faker } from '@faker-js/faker';
+import { fakerDE as faker  } from '@faker-js/faker';
 import argon2 from 'argon2';
 import { DateTime } from 'luxon';
 import path from 'path';
 import { Database } from './database';
 import fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
-import mkdirp from 'mkdirp';
+import { mkdirp } from 'mkdirp';
 
 // Import enums from separate files
 import Role from './constants/Foodsaver/Role';
@@ -110,6 +110,9 @@ class Foodsharing {
       pictureUrl = `/api/uploads/${uuid}`;
     }
 
+    const firstName = faker.person.firstName();
+    const lastName = faker.person.lastName();
+
     // Ensure the quizes actually exist. This avoids spurious 404 errors
     // during e2e tests
     if (!extraParams.skip_quiz_creation) {
@@ -121,10 +124,10 @@ class Foodsharing {
     }
 
     const params = {
-      email: faker.internet.email(),
+      email: faker.internet.email({ firstName, lastName }),
       bezirk_id: 0,
-      name: faker.person.firstName(),
-      nachname: faker.person.lastName(),
+      name: firstName,
+      nachname: lastName,
       deleted_at: null,
       verified: 0,
       rolle: 0,
@@ -136,7 +139,7 @@ class Foodsharing {
       geb_datum: faker.date.birthdate({ min: 18, max: 80, mode: 'age' }),
       last_login: faker.date.recent({ days: 365 }),
       anschrift: faker.location.street(),
-      handy: faker.phone.number(),
+      handy: faker.phone.number({style: 'international'}),
       active: 1,
       token: faker.string.uuid(),
       photo: pictureUrl,

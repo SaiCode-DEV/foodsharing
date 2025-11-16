@@ -21,6 +21,7 @@ $I->addRegionMember($region['id'], $member['id']);
 $I->login($ambassador['email']);
 
 $I->amOnPage('/user/' . $member['id'] . '/settings');
+$I->waitForActiveAPICalls();
 
 $I->seeInField('#input-lastname', $member['nachname']);
 

@@ -60,7 +60,6 @@ export class Database {
     throw new Error(`No matching entry found in ${table}`);
   }
 
-
   static async grabColumnFromDatabase(table: string, column: string, criteria?: Record<string, any>): Promise<any[]> {
     const conn = await this.connect();
 

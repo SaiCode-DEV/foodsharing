@@ -45,6 +45,10 @@ export function patchUserProfile (userId, data) {
   return patch(`/user/${userId}/profile`, data)
 }
 
+export function getUserProfileSettings (userId) {
+  return get(`/user/${userId}/profile`)
+}
+
 export function testRegisterEmail (email) {
   return post('/user/isvalidemail', { email: email }, { skipErrorNotificationFor: [400] })
     .then(response => response)
