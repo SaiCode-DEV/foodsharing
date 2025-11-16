@@ -9,7 +9,6 @@ use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Region\RegionTransactions;
 use Foodsharing\Permissions\ContentPermissions;
 use Foodsharing\Utility\IdentificationHelper;
-use Parsedown;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,7 +39,6 @@ class ContentController extends FoodsharingController
     ];
 
     public function __construct(
-        private readonly ContentView $view,
         private readonly ContentGateway $contentGateway,
         private readonly IdentificationHelper $identificationHelper,
         private readonly ContentPermissions $contentPermissions,
@@ -177,16 +175,7 @@ class ContentController extends FoodsharingController
 
     public function changelog(): Response
     {
-        $this->pageHelper->addBread($this->translator->trans('content.changelog'));
-        $this->pageHelper->addTitle($this->translator->trans('content.changelog'));
-
-        $markdown = $this->parseGitlabLinks(file_get_contents($this->projectDir . '/CHANGELOG.md') ?: '');
-        $Parsedown = new Parsedown();
-        $cl['title'] = $this->translator->trans('content.changelog');
-        $cl['body'] = $Parsedown->parse($markdown);
-        $this->pageHelper->addContent($this->view->simple($cl));
-
-        return $this->renderGlobal();
+        return $this->redirect('https://gitlab.com/foodsharing-dev/foodsharing/-/blob/master/CHANGELOG.md');
     }
 
     public function communities(): Response

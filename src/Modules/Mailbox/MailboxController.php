@@ -14,7 +14,6 @@ use Symfony\Component\Routing\Attribute\Route;
 class MailboxController extends FoodsharingController
 {
     public function __construct(
-        private readonly MailboxView $view,
         private readonly MailboxGateway $mailboxGateway,
         private readonly MailboxPermissions $mailboxPermissions
     ) {
@@ -46,7 +45,7 @@ class MailboxController extends FoodsharingController
             $mailboxId = $this->mailboxGateway->getMailboxId($emailId);
         }
 
-        $this->pageHelper->addContent($this->view->vueComponent('vue-mailbox', 'Mailbox', [
+        $this->pageHelper->addContent($this->prepareVueComponent('vue-mailbox', 'Mailbox', [
             'hostname' => PLATFORM_MAILBOX_HOST,
             'mailboxes' => $this->mailboxGateway->getMailboxesWithUnreadCount($mailboxIds),
             'emailId' => $emailId,

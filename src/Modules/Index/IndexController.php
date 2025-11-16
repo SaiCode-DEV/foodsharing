@@ -16,7 +16,6 @@ use Symfony\Component\Routing\Attribute\Route;
 class IndexController extends FoodsharingController
 {
     public function __construct(
-        private readonly IndexView $view,
         private readonly ContentGateway $contentGateway,
         private readonly UrlHelper $urlHelper,
     ) {
@@ -53,11 +52,11 @@ class IndexController extends FoodsharingController
         }
 
         $page_content_blocks = $this->contentGateway->getMultiple($contentIds);
-        $this->pageHelper->addContent($this->view->index(
-            $page_content_blocks[0]['body'],
-            $page_content_blocks[1]['body'],
-            $page_content_blocks[2]['body']
-        ));
+        $this->pageHelper->addContent($this->prepareVueComponent('index', 'Index', [
+            'contentBlock1' => $page_content_blocks[0]['body'],
+            'contentBlock2' => $page_content_blocks[1]['body'],
+            'contentBlock3' => $page_content_blocks[2]['body']
+        ]));
 
         return $this->renderGlobal();
     }

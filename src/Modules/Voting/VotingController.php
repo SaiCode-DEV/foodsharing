@@ -15,7 +15,6 @@ use Symfony\Component\Routing\Attribute\Route;
 class VotingController extends FoodsharingController
 {
     public function __construct(
-        private readonly VotingView $view,
         private readonly VotingGateway $votingGateway,
         private readonly VotingPermissions $votingPermissions,
         private readonly VotingTransactions $votingTransactions,
@@ -45,7 +44,9 @@ class VotingController extends FoodsharingController
 
                 if (isset($sub) && $sub === 'edit') {
                     if ($this->votingPermissions->mayEditPoll($poll)) {
-                        $this->pageHelper->addContent($this->view->editPollForm($poll));
+                        $this->pageHelper->addContent($this->prepareVueComponent('edit-poll-form', 'editPollForm', [
+                            'poll' => $poll,
+                        ]));
                     } else {
                         $this->flashMessageHelper->error($this->translator->trans('poll.may_not_edit'));
 
@@ -59,9 +60,15 @@ class VotingController extends FoodsharingController
                         $voteDateTime = null;
                     }
                     $mayEdit = $this->votingPermissions->mayEditPoll($poll);
-                    $this->pageHelper->addContent($this->view->pollOverview($poll, $region, $mayVote,
-                        $mayVote ? null : $voteDateTime, $mayEdit)
-                    );
+                    $this->pageHelper->addContent($this->prepareVueComponent('poll-overview', 'pollOverview', [
+                        'poll' => $poll,
+                        'regionId' => $region['id'],
+                        'regionName' => $region['name'],
+                        'isWorkGroup' => UnitType::isGroup($region['type']),
+                        'mayVote' => $mayVote,
+                        'userVoteDate' => $mayVote ? null : $voteDateTime,
+                        'mayEdit' => $mayEdit
+                    ]));
                 }
             } elseif (isset($sub) && $sub === 'new' && isset($bid) && ($region = $this->regionGateway->getRegion($bid))
                 && $this->votingPermissions->mayCreatePoll($region['id'], $region['type'])) {
@@ -72,7 +79,11 @@ class VotingController extends FoodsharingController
 
                 $usersPerScope = $this->votingTransactions->getScopeCounts($region['id'], UnitType::isGroup($region['type']));
 
-                $this->pageHelper->addContent($this->view->newPollForm($region, $usersPerScope));
+                $this->pageHelper->addContent($this->prepareVueComponent('new-poll-form', 'newPollForm', [
+                    'region' => $region,
+                    'isWorkGroup' => UnitType::isGroup($region['type']),
+                    'usersPerScope' => $usersPerScope,
+                ]));
             } else {
                 $this->flashMessageHelper->info($this->translator->trans('poll.not_available'));
 

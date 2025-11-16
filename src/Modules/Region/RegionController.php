@@ -4,7 +4,6 @@ namespace Foodsharing\Modules\Region;
 
 use Exception;
 use Foodsharing\Lib\FoodsharingController;
-use Foodsharing\Modules\Content\ContentView;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
@@ -26,7 +25,6 @@ final class RegionController extends FoodsharingController
     private const int DisplayAvatarListEntries = 30;
 
     public function __construct(
-        private readonly ContentView $view,
         private readonly RegionGateway $regionGateway,
         private readonly ForumPermissions $forumPermissions,
         private readonly RegionPermissions $regionPermissions,
@@ -275,7 +273,7 @@ final class RegionController extends FoodsharingController
         $this->pageHelper->addBread($this->translator->trans('terminology.wall'), '/region?bid=' . $region['id'] . '&sub=wall');
         $sub = $request->query->get('sub');
         $params = $this->convertDataToObject($region, $sub, null);
-        $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
+        $this->pageHelper->addContent($this->prepareVueComponent('region-page', 'RegionPage', $params));
 
         return $this->renderGlobal();
     }
@@ -286,7 +284,7 @@ final class RegionController extends FoodsharingController
         $this->pageHelper->addTitle($this->translator->trans('terminology.fsp'));
         $sub = $request->query->get('sub');
         $params = $this->convertDataToObject($region, $sub, []);
-        $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
+        $this->pageHelper->addContent($this->prepareVueComponent('region-page', 'RegionPage', $params));
 
         return $this->renderGlobal();
     }
@@ -312,7 +310,7 @@ final class RegionController extends FoodsharingController
 
         $params = $this->convertDataToObject($region, $sub, []);
 
-        $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
+        $this->pageHelper->addContent($this->prepareVueComponent('region-page', 'RegionPage', $params));
 
         return $this->renderGlobal();
     }
@@ -323,7 +321,7 @@ final class RegionController extends FoodsharingController
         $this->pageHelper->addTitle($this->translator->trans('events.bread'));
         $sub = $request->query->get('sub');
         $params = $this->convertDataToObject($region, $sub, null);
-        $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
+        $this->pageHelper->addContent($this->prepareVueComponent('region-page', 'RegionPage', $params));
 
         return $this->renderGlobal();
     }
@@ -336,7 +334,7 @@ final class RegionController extends FoodsharingController
 
         $params = $this->convertDataToObject($region, $sub, null);
 
-        $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
+        $this->pageHelper->addContent($this->prepareVueComponent('region-page', 'RegionPage', $params));
 
         return $this->renderGlobal();
     }
@@ -349,7 +347,7 @@ final class RegionController extends FoodsharingController
 
         $params = $this->convertDataToObject($region, $sub, []);
 
-        $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
+        $this->pageHelper->addContent($this->prepareVueComponent('region-page', 'RegionPage', $params));
 
         return $this->renderGlobal();
     }
@@ -365,7 +363,7 @@ final class RegionController extends FoodsharingController
 
         $params = $this->convertDataToObject($region, $sub, []);
 
-        $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
+        $this->pageHelper->addContent($this->prepareVueComponent('region-page', 'RegionPage', $params));
 
         return $this->renderGlobal();
     }
@@ -376,7 +374,7 @@ final class RegionController extends FoodsharingController
         $this->pageHelper->addTitle($this->translator->trans('terminology.polls'));
 
         $params = $this->convertDataToObject($region, $request->query->get('sub'), []);
-        $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
+        $this->pageHelper->addContent($this->prepareVueComponent('region-page', 'RegionPage', $params));
 
         return $this->renderGlobal();
     }
@@ -391,7 +389,7 @@ final class RegionController extends FoodsharingController
 
         $params = $this->convertDataToObject($region, $request->query->get('sub'), []);
 
-        $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
+        $this->pageHelper->addContent($this->prepareVueComponent('region-page', 'RegionPage', $params));
 
         return $this->renderGlobal();
     }
@@ -403,7 +401,7 @@ final class RegionController extends FoodsharingController
 
         $params = $this->convertDataToObject($region, $request->query->get('sub'), []);
 
-        $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
+        $this->pageHelper->addContent($this->prepareVueComponent('region-page', 'RegionPage', $params));
 
         return $this->renderGlobal();
     }
@@ -415,7 +413,7 @@ final class RegionController extends FoodsharingController
 
         $params = $this->convertDataToObject($region, $request->query->get('sub'), []);
 
-        $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
+        $this->pageHelper->addContent($this->prepareVueComponent('region-page', 'RegionPage', $params));
 
         return $this->renderGlobal();
     }
@@ -438,7 +436,7 @@ final class RegionController extends FoodsharingController
             'group' => $group,
         ]);
 
-        $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
+        $this->pageHelper->addContent($this->prepareVueComponent('region-page', 'RegionPage', $params));
 
         return $this->renderGlobal();
     }

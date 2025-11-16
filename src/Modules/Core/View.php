@@ -66,25 +66,6 @@ class View
         $this->translator = $translator;
     }
 
-    public function topbar(string $title, string $subtitle = '', string $icon = ''): string
-    {
-        if ($icon != '') {
-            $icon = '<div class="img">' . $icon . '</div>';
-        }
-
-        if ($subtitle != '') {
-            $subtitle = '<p>' . $subtitle . '</p>';
-        }
-
-        return '
-		<div class="content-top corner-all">
-			' . $icon . '
-			<h3>' . $title . '</h3>
-			' . $subtitle . '
-			<div class="clear"></div>
-		</div>';
-    }
-
     public function menu(array $items, array $option = []): string
     {
         $title = false;

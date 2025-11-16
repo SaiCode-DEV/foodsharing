@@ -17,7 +17,6 @@ use Symfony\Component\Routing\Attribute\Route;
 class WorkGroupController extends FoodsharingController
 {
     public function __construct(
-        private readonly WorkGroupView $view,
         private readonly WorkGroupGateway $workGroupGateway,
         private readonly WorkGroupPermissions $workGroupPermissions,
         private readonly ImageHelper $imageService,
@@ -109,7 +108,7 @@ class WorkGroupController extends FoodsharingController
             $group['function_tooltip_key'] = $this->getTooltipKey($group);
         }
 
-        $this->pageHelper->addContent($this->view->vueComponent('vue-groups', 'Groups', [
+        $this->pageHelper->addContent($this->prepareVueComponent('vue-groups', 'Groups', [
                 'groups' => $groups,
                 'nav' => $this->getSideMenuData('=' . $parent),
                 'isGlobalWorkingGroup' => $parent === RegionIDs::GLOBAL_WORKING_GROUPS

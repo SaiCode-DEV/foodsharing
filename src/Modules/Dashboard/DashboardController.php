@@ -18,7 +18,6 @@ use Symfony\Component\Routing\Attribute\Route;
 class DashboardController extends FoodsharingController
 {
     public function __construct(
-        private readonly DashboardView $view,
         private readonly ContentGateway $contentGateway,
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly EventGateway $eventGateway,
@@ -44,7 +43,7 @@ class DashboardController extends FoodsharingController
             $params['events'] = $this->getEvents();
         }
 
-        $this->pageHelper->addContent($this->view->index($params));
+        $this->pageHelper->addContent($this->prepareVueComponent('dashboard', 'Dashboard', $params));
 
         return $this->renderGlobal();
     }

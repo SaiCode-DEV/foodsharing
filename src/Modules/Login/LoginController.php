@@ -68,8 +68,7 @@ class LoginController extends FoodsharingController
 
     private function loginPage(): Response
     {
-        $vue = $this->prepareVueComponent('login-page', 'LoginPage');
-        $this->pageHelper->addContent($vue);
+        $this->pageHelper->addContent($this->prepareVueComponent('login-page', 'LoginPage'));
 
         return $this->renderGlobal();
     }

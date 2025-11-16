@@ -4,7 +4,6 @@ namespace Foodsharing\Modules\Store;
 
 use Exception;
 use Foodsharing\Lib\FoodsharingController;
-use Foodsharing\Modules\Content\ContentView;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Permissions\StorePermissions;
@@ -16,7 +15,6 @@ use Symfony\Component\Routing\Attribute\Route;
 class StoreController extends FoodsharingController
 {
     public function __construct(
-        private readonly ContentView $view,
         private readonly RegionGateway $regionGateway,
         private readonly StorePermissions $storePermissions,
     ) {
@@ -63,7 +61,7 @@ class StoreController extends FoodsharingController
         } else {
             $this->pageHelper->addBread($region['name'], '/region?bid=' . $regionId);
             $this->pageHelper->addBread($this->translator->trans('store.bread'), '/?page=fsbetrieb');
-            $this->pageHelper->addContent($this->view->vueComponent('vue-store-region-list', 'store-region-list', [
+            $this->pageHelper->addContent($this->prepareVueComponent('vue-store-region-list', 'store-region-list', [
                 'regionName' => $region['name'],
                 'regionId' => $regionId,
                 'showCreateStore' => $this->storePermissions->mayCreateStore()
@@ -77,7 +75,7 @@ class StoreController extends FoodsharingController
     public function ownStores(int $userId): Response
     {
         $this->pageHelper->addBread($this->translator->trans('store.ownStores'));
-        $this->pageHelper->addContent($this->view->vueComponent('vue-store-user-list', 'StoreUserList', [
+        $this->pageHelper->addContent($this->prepareVueComponent('vue-store-user-list', 'StoreUserList', [
             'userId' => $userId
         ]));
 
@@ -101,7 +99,7 @@ class StoreController extends FoodsharingController
 
             $chosenRegion = ($regionId > 0 && UnitType::isAccessibleRegion($this->regionGateway->getType($regionId))) ? $region : null;
 
-            $this->pageHelper->addContent($this->view->vueComponent('vue-store-new', 'StoreNew', [
+            $this->pageHelper->addContent($this->prepareVueComponent('vue-store-new', 'StoreNew', [
                 'chosenRegion' => $chosenRegion,
             ]));
 
