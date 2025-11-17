@@ -385,6 +385,7 @@ class StoreGatewayTest extends Unit
         $store5 = $this->tester->createStore(
             $this->region['id'], null, null, ['betrieb_status_id' => CooperationStatus::DOES_NOT_WANT_TO_WORK_WITH_US->value]
         );
+        $otherUser = $this->tester->createFoodsaver();
 
         $this->tester->addStoreTeam($store1['id'], $this->foodsaver['id'], true, false, true); // Test coordinator
         $this->tester->addStoreTeam(
@@ -400,7 +401,7 @@ class StoreGatewayTest extends Unit
             $store5['id'], $this->foodsaver['id'], false, false, false
         ); // Test open request confirmed (Pending request) - Not shown
         $this->tester->addStoreTeam(
-            $store2['id'], $this->foodsaver['id'] + 1, false, false, true
+            $store2['id'], $otherUser['id'], false, false, true
         ); // Test open request confirmed (Pending request)
 
         $expectation = [
@@ -482,15 +483,16 @@ class StoreGatewayTest extends Unit
         $store5 = $this->tester->createStore(
             $this->region['id'], null, null, ['betrieb_status_id' => CooperationStatus::DOES_NOT_WANT_TO_WORK_WITH_US->value]
         );
+        $otherUser = $this->tester->createFoodsaver();
 
         $this->tester->addStoreTeam(
             $store5['id'], $this->foodsaver['id'], false, false, false
         ); // Test open request confirmed (Pending request) - Not shown
         $this->tester->addStoreTeam(
-            $store2['id'], $this->foodsaver['id'] + 1, false, false, true
+            $store2['id'], $otherUser['id'], false, false, true
         ); // Test open request confirmed (Pending request)
         $this->tester->addStoreTeam(
-            $store5['id'], $this->foodsaver['id'] + 1, false, false, true
+            $store5['id'], $otherUser['id'], false, false, true
         ); // Test open request confirmed (Pending request)
 
         $result = $this->gateway->listAllStoreTeamMembershipsForFoodsaver(

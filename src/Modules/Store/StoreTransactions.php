@@ -1151,6 +1151,36 @@ class StoreTransactions
         return true;
     }
 
+    public function deleteStore(int $storeId): void
+    {
+        //Add store log entry to add documentation at least in the database.
+        $storeName = $this->storeGateway->getStoreName($storeId);
+        $this->storeGateway->addStoreLog($storeId, $this->session->id(), null, null, StoreLogAction::DELETE_STORE, $storeName);
+        $this->wallPostGateway->deletePostsForTarget(WallType::STORE, $storeId);
+
+        //Send bell
+        $team = $this->storeGateway->getStoreTeam($storeId, [
+            MembershipStatus::JUMPER, MembershipStatus::MEMBER, MembershipStatus::APPLIED_FOR_TEAM
+        ]);
+        $teamIds = array_column($team, 'id');
+        $storeName = $this->storeGateway->getStoreName($storeId);
+        $bellData = Bell::create(
+            'delete_store_title',
+            'delete_store',
+            'fas fa-shop-slash',
+            ['href' => '/dashboard'],
+            ['name' => $storeName],
+            BellType::createIdentifier(BellType::DELETE_STORE, $storeId),
+        );
+        $this->bellGateway->addBell($teamIds, $bellData);
+
+        //Clean store chats
+        $this->messageGateway->deleteConversation($this->storeGateway->getBetriebConversation($storeId, false));
+        $this->messageGateway->deleteConversation($this->storeGateway->getBetriebConversation($storeId, true));
+
+        $this->storeGateway->deleteStore($storeId);
+    }
+
     /**
      * Returns all team member of the store (active and waiting list) and makes sure that details like the phone
      * number are only included if allowed.

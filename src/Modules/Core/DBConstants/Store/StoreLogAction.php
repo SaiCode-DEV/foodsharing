@@ -26,4 +26,5 @@ class StoreLogAction
     final public const int INVITATION_WITHDRAWN = 18;
     final public const int INVITATION_ACCEPTED = 19;
     final public const int INVITATION_DECLINED = 20;
+    final public const int DELETE_STORE = 21;
 }

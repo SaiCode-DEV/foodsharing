@@ -147,4 +147,14 @@ class WallPostGateway extends BaseGateway
             [$this->getLinkTableForeignIdColumnName($target) => $targetId]
         );
     }
+
+    public function deletePostsForTarget(WallType $target, int $targetId): void
+    {
+        $this->db->execute("DELETE post
+            FROM fs_wallpost post
+            JOIN {$this->getLinkTableName($target)} link
+                ON link.wallpost_id = post.id
+            WHERE link.`{$this->getLinkTableForeignIdColumnName($target)}` = :targetId
+        ", ['targetId' => $targetId]);
+    }
 }

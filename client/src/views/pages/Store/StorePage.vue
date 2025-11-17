@@ -27,6 +27,7 @@
               :store-id="storeId"
               :is-coordinator="permissions.isCoordinator"
               :is-verified="isVerified"
+              :may-delete-store="permissions.mayDeleteStore"
               @multi-chat="multiChat"
             />
             <Wall

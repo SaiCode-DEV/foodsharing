@@ -25,6 +25,13 @@
       icon="fas fa-user-times"
       @click="removeFromTeam(fsId, $i18n('storeedit.team.leave_myself'))"
     />
+    <ContainerButton
+      v-if="mayDeleteStore"
+      variant="danger"
+      text-key="store.delete.button"
+      icon="fas fa-trash"
+      @click="deleteStore()"
+    />
   </Container>
 </template>
 
@@ -32,9 +39,10 @@
 import conversationStore from '@/stores/conversations'
 import { pulseError } from '@/script'
 import { useUserStore } from '@/stores/user'
-import { removeStoreMember } from '@/api/stores'
+import { deleteStore, removeStoreMember } from '@/api/stores'
 import Container from '@/components/Container/Container.vue'
 import ContainerButton from '@/components/Container/ContainerButton.vue'
+import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 
 export default {
   components: { Container, ContainerButton },
@@ -65,11 +73,14 @@ export default {
     isUserInStore: { type: Boolean, default: false },
     isJumper: { type: Boolean, default: false },
     isVerified: { type: Boolean, default: false },
+    mayDeleteStore: { type: Boolean, default: false },
   },
   setup () {
     const userStore = useUserStore()
+    const { confirmationDialogue } = useConfirmationDialogue()
     return {
       userStore,
+      confirmationDialogue,
     }
   },
   methods: {
@@ -93,6 +104,16 @@ export default {
         return
       }
       this.isBusy = false
+    },
+    async deleteStore () {
+      if (!await this.confirmationDialogue('store.delete.sure', { countdown: 10 })) return
+
+      try {
+        await deleteStore(this.storeId)
+        window.location.href = this.$url('dashboard')
+      } catch (e) {
+        pulseError(this.$i18n('error_unexpected'))
+      }
     },
   },
 }

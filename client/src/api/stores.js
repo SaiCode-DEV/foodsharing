@@ -104,6 +104,10 @@ export async function getStorePermissions (storeId) {
   return get(`/stores/${storeId}/permissions`)
 }
 
+export async function deleteStore (storeId) {
+  return remove(`/stores/${storeId}`)
+}
+
 export async function listStoreTeamInvitations (storeId) {
   return get(`/stores/${storeId}/invitations`)
 }

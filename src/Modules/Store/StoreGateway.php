@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Foodsharing\Modules\Store;
 
 use Carbon\Carbon;
+use DateTime;
+use DateTimeZone;
 use Exception;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
@@ -1133,6 +1135,36 @@ class StoreGateway extends BaseGateway
         $markers = $this->db->fetchAll($query, $params);
 
         return array_map(MapMarker::createFromArray(...), $markers);
+    }
+
+    public function hasHadPickups(int $storeId): bool
+    {
+        return $this->db->exists('fs_abholer', ['betrieb_id' => $storeId]);
+    }
+
+    public function latestChatMessageDate(int $storeId): ?DateTime
+    {
+        try {
+            $latestMessageDate = $this->db->fetchValue('SELECT
+                    COALESCE(GREATEST(x.last, y.last), x.last, y.last)
+                FROM fs_betrieb store
+                JOIN fs_conversation x ON x.id = store.team_conversation_id
+                JOIN fs_conversation y ON y.id = store.springer_conversation_id
+                WHERE store.id = ?',
+                [$storeId]);
+            if (is_null($latestMessageDate)) {
+                return null;
+            }
+        } catch (DatabaseNoValueFoundException $e) {
+            return null;
+        }
+
+        return DateTime::createFromFormat('Y-m-d H:i:s', $latestMessageDate, new DateTimeZone('Europe/Berlin'));
+    }
+
+    public function deleteStore(int $storeId): bool
+    {
+        return $this->db->delete('fs_betrieb', ['id' => $storeId]) > 0;
     }
 
     public function getStoresForUser(int $userId, array $columns): array

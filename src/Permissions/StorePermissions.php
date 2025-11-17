@@ -473,4 +473,21 @@ class StorePermissions
 
         return $this->session->mayRole(Role::FOODSAVER);
     }
+
+    public function mayStoreBeDeleted(int $storeId): bool
+    {
+        if ($this->storeGateway->hasHadPickups($storeId)) {
+            return false;
+        }
+
+        $latestMessageDate = $this->storeGateway->latestChatMessageDate($storeId);
+        $threeMonthsAgo = new DateTime('-3 months');
+
+        return $latestMessageDate < $threeMonthsAgo;
+    }
+
+    public function mayDeleteStore($storeId): bool
+    {
+        return $this->mayEditStore($storeId) && $this->mayStoreBeDeleted($storeId);
+    }
 }

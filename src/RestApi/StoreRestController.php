@@ -327,6 +327,7 @@ class StoreRestController extends AbstractFoodsharingRestController
                 'maySeePickupHistory' => $this->storePermissions->maySeePickupHistory($storeId),
                 'maySeeStoreLog' => $this->storePermissions->maySeeStoreLog($storeId),
                 'maySeePickups' => $this->storePermissions->maySeePickups($storeId) || $store['betrieb_status_id'] === CooperationStatus::COOPERATION_ESTABLISHED,
+                'mayDeleteStore' => $this->storePermissions->mayDeleteStore($storeId),
             ];
 
             return $this->respondOK($params);
@@ -891,6 +892,30 @@ class StoreRestController extends AbstractFoodsharingRestController
         $extendedLogEntries = $this->extendStoreLogWithFoodsaverProfilData($storeId, $storeLogEntries);
 
         return $this->respondOK($extendedLogEntries);
+    }
+
+    /**
+     * Deletes a store.
+     * Only allowed for stores that never had any pickup.
+     *
+     * @OA\Parameter(name="storeId", in="path", @OA\Schema(type="integer"), description="the store to delete")
+     * @OA\Response(response="200", description="Success")
+     * @OA\Response(response="401", description="Not logged in")
+     * @OA\Response(response="403", description="Insufficient permissions to delete this store team")
+     * @OA\Response(response="404", description="User is not a member of this store")
+     * @OA\Tag(name="stores")
+     */
+    #[Rest\Delete('stores/{storeId}')]
+    public function deleteStore(int $storeId): Response
+    {
+        $this->assertLoggedIn();
+        if (!$this->storePermissions->mayDeleteStore($storeId)) {
+            throw new AccessDeniedHttpException();
+        }
+
+        $this->storeTransactions->deleteStore($storeId);
+
+        return $this->respondOK();
     }
 
     private function extendStoreLogWithFoodsaverProfilData(int $storeId, array $storeLogEntries): array

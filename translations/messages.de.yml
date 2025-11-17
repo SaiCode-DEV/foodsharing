@@ -1116,6 +1116,10 @@ store:
   chain_search_picker:
     modal_title: "Betriebskette wählen"
     search_input: "Suche nach Namen der Kette"
+  delete:
+    button: "Betrieb löschen"
+    sure: "Möchtest du diesen Betrieb wirklich löschen? Dieser Vorgang kann nicht rückgängig gemacht werden! Alle Mitglieder werden aus dem Betrieb entfernt und alle betriebsspezifischen Informationen außer dem Betriebsprotokoll werden gelöscht. Bitte lösche nur Betriebe, die tatsächlich nicht mehr existieren oder doppelt eingetragen wurden. Betriebe, die einer Kooperation abgesagt haben, sollten eingetragen bleiben. Es können nur Betriebe gelöscht werden, in denen noch nie eine Abholung stattgefunden hat, und deren Team-Chats für mindestens 3 Monate ungenutzt waren."
+
 #
 # Store and StoreUser
 # --
@@ -1860,6 +1864,9 @@ bell:
 
   post_hidden_title: "Post ausgeblendet durch {user}"
   post_hidden: "Dein Post zu {title} im Forum {forum} wurde ausgeblendet"
+
+  delete_store_title: "Betrieb gelöscht"
+  delete_store: "{name} wurde gelöscht"
 
   store_invitation_accepted_title: "Einladung angenommen ({store})"
   store_invitation_accepted:

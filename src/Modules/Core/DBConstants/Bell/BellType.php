@@ -149,6 +149,11 @@ class BellType
     final public const string FORUM_POST_HIDDEN = 'forum-post-hidden-%d';
 
     /**
+     * A store was deleted. Argument: ID of the store.
+     */
+    final public const string DELETE_STORE = 'store-deleted-%d';
+
+    /**
      * A new thread was opened in a forum the user is actively following. Argument: ID of the thread.
      */
     final public const string NEW_FORUM_THREAD = 'new-thread-%d';
