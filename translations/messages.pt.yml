@@ -1973,6 +1973,7 @@ storeedit:
     hygieneRequirement: Requisitos de higiene
     hygieneRequired: Permitir apenas a recolha com formação válida em matéria de
       higiene
+    applyTextRequired: É necessário introduzir um texto para candidaturas
   unsuccess: 'As alterações não puderam ser aplicadas. {error}'
   milestone:
     accepted: '{user} agora faz parte da equipa'
