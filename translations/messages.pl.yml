@@ -460,6 +460,17 @@ group:
       inform_user: z powiadomieniem
       create_pdf: stwórz PDF
       active_or_renew_passport: aktywuj/przedłuż legitymację
+      never_before: jeszcze nigdy
+      verify:
+        do: Czy na pewno chcesz aktywować {name} ({id}) (porównanie danych 
+          osobistych/ kontrola dowodu tożsamości itd.)?
+        do_selected: Czy na pewno chcesz aktywować wszystkich/e zaznaczonych/e 
+          użytkowników/czki (porównanie danych osobistych/ kontrola dowodu 
+          tożsamości itd.)?
+      filter_options:
+        invalid_passport: legitymacja nieważna
+        verified: zweryfikowany/a
+        unverified: niezweryfikowany/a
     remove_admin_title: usuń jako administratora/kę
     remove_ambassador_title: usuń jako ambasadora/kę
     remove_admin_text: Czy na pewno chcesz usunąć {name} ({id}) jako 
@@ -477,6 +488,7 @@ group:
     admin_mode_on: Włącz widok administratora/ki
     admin_mode_off: Powrót do widoku standardowego
     not_verified: niezweryfikowany
+    all_roles: wszystkie role
   image: Obraz dla %name%
   show-all: Pokaż wszystko
 test:
@@ -485,6 +497,22 @@ test:
 legal:
   button:
     agree: Akceptuj
+    disagree: Usuń moje konto
+  privacy_policy: polityka prywatności
+  acknowledge:
+    qustion_policy: Akceptujesz naszą politykę prywatności?
+    select: Wybierz
+    agree: Tak, akceptuję politykę prywatności.
+    not_agree: Nie, nie akceptuję polityki prywatności. Chcę usunąć moje konto.
+  not_acknowledge_privacy_policy_description: Aby móc używać platformy 
+    foodsharingu, musisz zaakceptować politykę prywatności.
+  agree_privacy_policy: Akceptuję politykę prywatności.
+  if_delete:
+    legal_1: Nasza obecna polityka prywatności
+    this_gets_deleted_quiz: Wszystkie twoje quizy zostaną usunięte.
+    this_gets_deleted_friendlist: Twoja lista przyjaciół zostanie usunięta.
+    this_doesnt_get_deleted_name: Twoje imię
+    this_doesnt_get_deleted_address: Twój adres
 salutation:
   "0": Drogi/a
   "1": Drogi
