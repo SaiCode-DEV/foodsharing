@@ -8,7 +8,7 @@ log-header "Check for new images ..."
 "$dir"/docker-compose build --pull
 
 log-header "Bringing up containers ..."
-"$dir"/docker-compose up -d
+"$dir"/docker-compose up -d --remove-orphans
 
 log-header "Running composer install ..."
 exec-in-container app 'composer install'
