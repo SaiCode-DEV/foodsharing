@@ -14,11 +14,11 @@
         >
         <Container
           v-for="group in filteredGroups"
+          :id="'group-' + group.id"
           :key="group.id"
-          :tag="'groups.overview.' + group.id"
+          :container-is-expanded="isContainerExpanded"
           :title="group.name"
           :tooltip-key="group.function_tooltip_key ? $i18n(group.function_tooltip_key) : null"
-          :container-is-expanded="isContainerExpanded"
         >
           <div class="list-group-item">
             <b-row>
@@ -173,7 +173,16 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import {
+  ref,
+  computed,
+  getCurrentInstance,
+  defineProps,
+  nextTick,
+  onMounted,
+  watch,
+} from 'vue'
 import Container from '@/components/Container/Container.vue'
 import Avatar from '@/components/Avatar/Avatar.vue'
 import { addMember, sendMail, sendRequest } from '@/api/groups'
@@ -183,115 +192,123 @@ import { useUserStore } from '@/stores/user'
 import Markdown from '@/components/Markdown/Markdown.vue'
 import InaccessibleRegionRedirectWarning from '@/components/InaccessibleRegionRedirectWarning.vue'
 
+const props = defineProps({
+  groups: { type: Array, required: true },
+  nav: { type: Object, required: true },
+  isGlobalWorkingGroup: { type: Boolean, required: true },
+})
+
+const { proxy } = getCurrentInstance()
+
 const userStore = useUserStore()
 
-export default {
-  name: 'Groups',
-  components: { Markdown, Avatar, Container, InaccessibleRegionRedirectWarning },
-  props: {
-    groups: { type: Array, required: true },
-    nav: { type: Object, required: true },
-    isGlobalWorkingGroup: { type: Boolean, required: true },
-  },
-  setup () {
-    return {
-      userStore,
-    }
-  },
-  data () {
-    return {
-      isContainerExpanded: false,
-      filterText: '',
-      filteredGroups: [],
-      contactMessage: '',
-      selectedGroupId: null,
-      selectedGroupName: '',
-      motivation: '',
-      ability: '',
-      experience: '',
-      selectedTime: null,
-      timeOptions: [1, 2, 3, 5].map(i => ({ value: i, text: this.$i18n(`group.apply.time.${i}`) })),
-    }
-  },
-  computed: {
-    navItems () {
-      return [
-        { title: this.$i18n('sidenav.yourregions'), items: this.nav.local },
-        { title: this.$i18n('sidenav.yourgroups'), items: this.nav.groups },
-      ]
-    },
-    userId () {
-      return userStore.getUserId
-    },
-  },
-  watch: {
-    filterText (newVal) {
-      this.filterGroups(newVal)
-    },
-  },
-  mounted () {
-    this.filteredGroups = this.groups
-  },
-  methods: {
-    openContactModal (group) {
-      this.selectedGroupId = group.id
-      this.selectedGroupName = group.name
-      this.$refs.groupContactForm.show()
-    },
-    openRequestModal (group) {
-      this.selectedGroupId = group.id
-      this.selectedGroupName = group.name
-      this.$refs.groupRequestForm.show()
-    },
-    translateCounted (key, count) {
-      const translationKey = key + '.' + this.getPluralKey(count)
-      return this.$i18n(translationKey, { count: count })
-    },
-    getPluralKey (count) {
-      if (count === 0) {
-        return 'zero'
-      } else if (count === 1) {
-        return 'one'
-      } else {
-        return 'other'
-      }
-    },
-    filterGroups (filterText) {
-      this.filteredGroups = this.groups.filter(group =>
-        group.name.toLowerCase().includes(filterText.toLowerCase()),
-      )
-    },
-    async trySendMail (groupId) {
-      try {
-        await sendMail(groupId, this.contactMessage)
-        pulseSuccess(i18n('success'))
-      } catch (err) {
-        pulseError(`${i18n('error_unexpected')}<br><br> ${err.message}`)
-      }
-    },
-    async trySendRequest (groupId) {
-      try {
-        if (this.selectedTime === null) {
-          pulseError(this.$i18n('group.apply.error_missing_time'))
-          return
-        }
-        await sendRequest(groupId, this.motivation, this.ability, this.experience, this.selectedTime)
-        pulseSuccess(i18n('success'))
-        this.$refs.groupRequestForm.hide()
-      } catch (err) {
-        pulseError(`${i18n('error_unexpected')}<br><br> ${err.message}`)
-      }
-    },
-    async joinGroup (groupId) {
-      try {
-        await addMember(groupId, this.userId)
-        window.location.href = this.$url('relogin_and_redirect_to_url', this.$url('workingGroup', groupId))
-      } catch (e) {
-        pulseError(`${i18n('error_unexpected')}<br><br> ${e.message}`)
-      }
-    },
-  },
+// UI state
+const isContainerExpanded = ref(false)
+const filterText = ref('')
+const contactMessage = ref('')
+const selectedGroupId = ref(null)
+const selectedGroupName = ref('')
+const motivation = ref('')
+const ability = ref('')
+const experience = ref('')
+const selectedTime = ref(null)
+
+const groupContactForm = ref(null)
+const groupRequestForm = ref(null)
+
+// Derived data
+const timeOptions = computed(() => [1, 2, 3, 5].map(i => ({ value: i, text: i18n(`group.apply.time.${i}`) })))
+
+const navItems = computed(() => ([
+  { title: i18n('sidenav.yourregions'), items: props.nav.local },
+  { title: i18n('sidenav.yourgroups'), items: props.nav.groups },
+]))
+
+const userId = computed(() => userStore.getUserId)
+
+const filteredGroups = computed(() =>
+  props.groups.filter(group =>
+    group.name.toLowerCase().includes((filterText.value || '').toLowerCase()) ||
+    group.id.toString().includes((filterText.value || '').toLowerCase()),
+  ),
+)
+
+// helpers
+function getPluralKey (count) {
+  if (count === 0) return 'zero'
+  if (count === 1) return 'one'
+  return 'other'
 }
+
+function translateCounted (key, count) {
+  const translationKey = key + '.' + getPluralKey(count)
+  return i18n(translationKey, { count })
+}
+
+// actions
+function openContactModal (group) {
+  selectedGroupId.value = group.id
+  selectedGroupName.value = group.name
+  groupContactForm.value?.show()
+}
+
+function openRequestModal (group) {
+  selectedGroupId.value = group.id
+  selectedGroupName.value = group.name
+  groupRequestForm.value?.show()
+}
+
+async function trySendMail (groupId) {
+  try {
+    await sendMail(groupId, contactMessage.value)
+    pulseSuccess(i18n('success'))
+  } catch (err) {
+    pulseError(`${i18n('error_unexpected')}<br><br> ${err.message}`)
+  }
+}
+
+async function trySendRequest (groupId) {
+  try {
+    if (selectedTime.value === null) {
+      pulseError(i18n('group.apply.error_missing_time'))
+      return
+    }
+    await sendRequest(groupId, motivation.value, ability.value, experience.value, selectedTime.value)
+    pulseSuccess(i18n('success'))
+    groupRequestForm.value?.hide()
+  } catch (err) {
+    pulseError(`${i18n('error_unexpected')}<br><br> ${err.message}`)
+  }
+}
+
+async function joinGroup (groupId) {
+  try {
+    await addMember(groupId, userId.value)
+    window.location.href = proxy.$url('relogin_and_redirect_to_url', proxy.$url('workingGroup', groupId))
+  } catch (e) {
+    pulseError(`${i18n('error_unexpected')}<br><br> ${e.message}`)
+  }
+}
+
+// Deep-link: if ?id=123 in URL, prefill filter with that id and scroll to the group
+onMounted(async () => {
+  const params = new URLSearchParams(window.location.search)
+  const searchParam = params.get('search')
+  if (searchParam) {
+    filterText.value = searchParam
+    await nextTick()
+    const el = document.getElementById(`group-${searchParam}`)
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.pageYOffset
+      window.scrollTo({ top: Math.max(0, top - 150), behavior: 'smooth' })
+    }
+  }
+})
+
+// Auto-expand when exactly one group is visible
+watch(filteredGroups, (list) => {
+  isContainerExpanded.value = list.length === 1
+}, { immediate: true })
 </script>
 <style scoped>
 .group-image {

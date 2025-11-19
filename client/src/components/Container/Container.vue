@@ -91,14 +91,25 @@ export default {
       return 'list-group-item ' + (typeof this.wrapContent === 'string' ? this.wrapContent : '')
     },
   },
+  watch: {
+    containerIsExpanded (val) {
+      if (this.tag === null) {
+        this.isExpanded = val
+      }
+    },
+  },
   created () {
-    const state = this.getExpanded()
-    if (state !== null) {
-      this.setExpanded(state)
-    }
-    const listState = this.getListState()
-    if (listState !== null) {
-      this.setListState(listState)
+    if (this.tag === null) {
+      this.isExpanded = this.containerIsExpanded
+    } else {
+      const state = this.getExpanded()
+      if (state !== null) {
+        this.setExpanded(state)
+      }
+      const listState = this.getListState()
+      if (listState !== null) {
+        this.setListState(listState)
+      }
     }
   },
   methods: {
