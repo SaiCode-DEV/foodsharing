@@ -69,7 +69,7 @@
           <a
             v-for="(item, index) in section.value"
             :key="item.id"
-            :href="$url('publicRegion', item.id)"
+            :href="$url(section.isWorkingGroups ? 'wall' : 'publicRegion', item.id)"
             class="sectionClass"
           >
             {{ item.name }}<span v-if="index !== section.value.length - 1">,</span>
@@ -188,10 +188,10 @@ export default {
   data () {
     return {
       sections: [
-        { id: 'AMBASSADOR_FOR', title: `${this.$i18n('terminology.ambassador.d')} ${this.$i18n('profile.sections.ambassador_for')}`, value: this.ambassadorRegions },
-        { id: 'FOOD_SAVER_IN_REGION', title: this.$i18n('profile.sections.foodSaver_in_region'), value: this.foodSaverRegions },
-        { id: 'JOINT_WORK_GROUPS', title: this.$i18n('profile.sections.workgroups_member'), value: this.workingGroups },
-        { id: 'WORKGROUPS_ADMIN', title: this.$i18n('profile.sections.workgroups_admin'), value: this.workingGroupsAdmins },
+        { id: 'AMBASSADOR_FOR', title: `${this.$i18n('terminology.ambassador.d')} ${this.$i18n('profile.sections.ambassador_for')}`, value: this.ambassadorRegions, isWorkingGroups: false },
+        { id: 'FOOD_SAVER_IN_REGION', title: this.$i18n('profile.sections.foodSaver_in_region'), value: this.foodSaverRegions, isWorkingGroups: false },
+        { id: 'JOINT_WORK_GROUPS', title: this.$i18n('profile.sections.workgroups_member'), value: this.workingGroups, isWorkingGroups: true },
+        { id: 'WORKGROUPS_ADMIN', title: this.$i18n('profile.sections.workgroups_admin'), value: this.workingGroupsAdmins, isWorkingGroups: true },
       ],
       bananaData: null,
     }
