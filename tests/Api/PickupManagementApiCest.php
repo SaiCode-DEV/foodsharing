@@ -9,6 +9,9 @@ use Codeception\Util\HttpCode;
 use Foodsharing\Modules\Store\StoreTransactions;
 use Tests\Support\ApiTester;
 
+/**
+ * @group api-group-2
+ */
 class PickupManagementApiCest
 {
     private $user1;

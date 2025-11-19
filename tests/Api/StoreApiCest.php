@@ -12,6 +12,9 @@ use Tests\Support\ApiTester;
 /**
  * Tests for the store api.
  */
+/**
+ * @group api-group-3
+ */
 class StoreApiCest
 {
     private $store;

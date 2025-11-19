@@ -11,6 +11,9 @@ use Tests\Support\ApiTester;
 /**
  * Tests for the basket api.
  */
+/**
+ * @group api-group-1
+ */
 class BasketApiCest
 {
     private $user;

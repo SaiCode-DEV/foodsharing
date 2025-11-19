@@ -8,6 +8,9 @@ use Codeception\Util\HttpCode as Http;
 use Faker\Factory;
 use Tests\Support\ApiTester;
 
+/**
+ * @group api-group-2
+ */
 class BlogApiCest
 {
     private $user;

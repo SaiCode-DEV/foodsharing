@@ -12,6 +12,9 @@ use Tests\Support\ApiTester;
 /**
  * Makes sure that all but some required API endpoints do not work if the privacy policy was not accepted.
  */
+/**
+ * @group api-group-2
+ */
 class LegalCest
 {
     private $user;

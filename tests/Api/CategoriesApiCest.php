@@ -10,6 +10,9 @@ use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Store\DTO\CommonLabel;
 use Tests\Support\ApiTester;
 
+/**
+ * @group api-group-1
+ */
 class CategoriesApiCest
 {
     private $user;

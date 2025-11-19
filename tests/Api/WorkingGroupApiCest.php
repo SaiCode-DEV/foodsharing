@@ -12,6 +12,9 @@ use Foodsharing\Modules\Core\DBConstants\Region\ApplyType;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Tests\Support\ApiTester;
 
+/**
+ * @group api-group-1
+ */
 class WorkingGroupApiCest
 {
     private Generator $faker;

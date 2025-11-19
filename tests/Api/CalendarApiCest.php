@@ -8,6 +8,9 @@ use Codeception\Util\HttpCode;
 use Foodsharing\Modules\Event\InvitationStatus;
 use Tests\Support\ApiTester;
 
+/**
+ * @group api-group-2
+ */
 class CalendarApiCest
 {
     private const string TEST_TOKEN = '1234567890';

@@ -17,6 +17,9 @@ use Tests\Support\ApiTester;
 /**
  * Tests for the voting api.
  */
+/**
+ * @group api-group-2
+ */
 class VotingApiCest
 {
     private Generator $faker;

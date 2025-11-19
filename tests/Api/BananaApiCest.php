@@ -11,6 +11,9 @@ use Tests\Support\ApiTester;
 /**
  * Tests for the user api.
  */
+/**
+ * @group api-group-1
+ */
 class BananaApiCest
 {
     private $user;

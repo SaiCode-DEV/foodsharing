@@ -9,6 +9,9 @@ use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Tests\Support\ApiTester;
 
+/**
+ * @group api-group-2
+ */
 class RegionApiCest
 {
     private $user;

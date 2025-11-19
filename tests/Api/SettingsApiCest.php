@@ -14,6 +14,9 @@ use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Tests\Support\ApiTester;
 
+/**
+ * @group api-group-1
+ */
 class SettingsApiCest
 {
     private Generator $faker;

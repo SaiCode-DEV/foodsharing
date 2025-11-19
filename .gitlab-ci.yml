@@ -370,9 +370,12 @@ build:docs:
 test:backend-api:
   extends:
     - .test-backend
+  parallel:
+    matrix:
+      - GROUP: [api-group-1, api-group-2, api-group-3]
   script:
     - touch $CI_PROJECT_DIR/code_updated # Create file to notify websocket container that code is up to date
-    - ./scripts/ci-backend-test Api
+    - ./scripts/ci-backend-test Api 1 $GROUP
 
 test:backend-unit:
   extends:

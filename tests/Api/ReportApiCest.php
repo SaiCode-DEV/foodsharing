@@ -8,6 +8,9 @@ use Codeception\Util\HttpCode;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Tests\Support\ApiTester;
 
+/**
+ * @group api-group-2
+ */
 class ReportApiCest
 {
     private $parentRegion;

@@ -8,6 +8,9 @@ use Carbon\Carbon;
 use Codeception\Util\HttpCode;
 use Tests\Support\ApiTester;
 
+/**
+ * @group api-group-2
+ */
 class RemoveUserFromBounceListCest
 {
     private $region;

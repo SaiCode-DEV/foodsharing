@@ -12,6 +12,9 @@ use Tests\Support\ApiTester;
  * Tests for the RegionOption api.
  * {"enableReportButton":false,"enableMediationButton":false,"regionPickupRuleActive":true,"regionPickupRuleTimespan":7,"regionPickupRuleLimit":4,"regionPickupRuleLimitDay":2,"regionPickupRuleInactive":12}.
  */
+/**
+ * @group api-group-2
+ */
 class RegionOptionApiCest
 {
     private $userBot;

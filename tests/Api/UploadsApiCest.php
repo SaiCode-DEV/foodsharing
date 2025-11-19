@@ -10,6 +10,9 @@ use Faker\Factory;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Tests\Support\ApiTester;
 
+/**
+ * @group api-group-2
+ */
 class UploadsApiCest
 {
     private $faker;

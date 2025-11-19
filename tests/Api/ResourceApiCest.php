@@ -8,6 +8,9 @@ use Codeception\Util\HttpCode as Http;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Tests\Support\ApiTester;
 
+/**
+ * @group api-group-2
+ */
 class ResourceApiCest
 {
     public function canGetListOfResourceCategories(ApiTester $I): void

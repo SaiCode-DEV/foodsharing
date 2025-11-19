@@ -10,6 +10,9 @@ use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
 use Tests\Support\ApiTester;
 
+/**
+ * @group api-group-2
+ */
 class MapApiCest
 {
     private $region;

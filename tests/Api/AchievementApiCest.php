@@ -10,6 +10,9 @@ use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Support\ApiTester;
 
+/**
+ * @group api-group-1
+ */
 class AchievementApiCest
 {
     protected ApiTester $tester;

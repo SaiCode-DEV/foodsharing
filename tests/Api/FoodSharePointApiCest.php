@@ -12,6 +12,9 @@ use Tests\Support\ApiTester;
 /**
  * Tests for the food share point api.
  */
+/**
+ * @group api-group-2
+ */
 class FoodSharePointApiCest
 {
     private Generator $faker;

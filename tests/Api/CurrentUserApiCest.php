@@ -14,6 +14,9 @@ use Tests\Support\ApiTester;
 /**
  * Tests for the endpoints for the current user api.
  */
+/**
+ * @group api-group-1
+ */
 class CurrentUserApiCest
 {
     private $user;

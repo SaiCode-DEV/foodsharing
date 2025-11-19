@@ -12,6 +12,9 @@ use Foodsharing\Modules\Core\DBConstants\Quiz\QuizID;
 use Foodsharing\Modules\Core\DBConstants\Quiz\SessionStatus;
 use Tests\Support\ApiTester;
 
+/**
+ * @group api-group-3
+ */
 class QuizApiCest
 {
     private $foodsharer;

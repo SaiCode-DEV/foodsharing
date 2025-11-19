@@ -9,6 +9,9 @@ use Codeception\Util\HttpCode;
 use Foodsharing\Modules\Event\InvitationStatus;
 use Tests\Support\ApiTester;
 
+/**
+ * @group api-group-2
+ */
 class PickupApiCest
 {
     private $user;

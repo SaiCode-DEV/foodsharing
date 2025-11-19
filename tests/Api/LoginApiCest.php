@@ -8,6 +8,9 @@ use Codeception\Example;
 use Codeception\Util\HttpCode;
 use Tests\Support\ApiTester;
 
+/**
+ * @group api-group-1
+ */
 class LoginApiCest
 {
     /**

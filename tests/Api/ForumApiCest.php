@@ -11,6 +11,9 @@ use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Tests\Support\ApiTester;
 
+/**
+ * @group api-group-1
+ */
 class ForumApiCest
 {
     private $user;

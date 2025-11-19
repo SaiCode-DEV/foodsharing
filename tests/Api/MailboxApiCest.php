@@ -11,6 +11,9 @@ use Faker\Generator;
 use Foodsharing\Modules\Core\DBConstants\Mailbox\MailboxFolder;
 use Tests\Support\ApiTester;
 
+/**
+ * @group api-group-1
+ */
 class MailboxApiCest
 {
     private const array MAILBOX_FOLDERS = [

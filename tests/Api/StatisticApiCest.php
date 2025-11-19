@@ -11,6 +11,9 @@ use Tests\Support\ApiTester;
 
 use function json_decode;
 
+/**
+ * @group api-group-2
+ */
 class StatisticApiCest
 {
     private $region;

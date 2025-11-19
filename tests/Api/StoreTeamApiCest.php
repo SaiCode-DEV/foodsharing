@@ -10,6 +10,9 @@ use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Tests\Support\ApiTester;
 
+/**
+ * @group api-group-2
+ */
 class StoreTeamApiCest
 {
     private array $store;

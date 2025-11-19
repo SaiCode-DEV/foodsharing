@@ -7,6 +7,9 @@ namespace Tests\Api;
 use Codeception\Util\HttpCode;
 use Tests\Support\ApiTester;
 
+/**
+ * @group api-group-3
+ */
 class WallApiCest
 {
     private $foodsaver;

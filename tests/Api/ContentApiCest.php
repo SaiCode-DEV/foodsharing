@@ -9,6 +9,9 @@ use Codeception\Util\HttpCode;
 use Faker\Factory;
 use Tests\Support\ApiTester;
 
+/**
+ * @group api-group-1
+ */
 class ContentApiCest
 {
     private $faker;

@@ -8,6 +8,9 @@ use Codeception\Util\HttpCode;
 use Foodsharing\Modules\Core\DBConstants\Buddy\BuddyId;
 use Tests\Support\ApiTester;
 
+/**
+ * @group api-group-2
+ */
 class BuddyApiCest
 {
     private $user1;

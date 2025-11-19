@@ -7,6 +7,9 @@ namespace Tests\Api;
 use Codeception\Util\HttpCode as Http;
 use Tests\Support\ApiTester;
 
+/**
+ * @group api-group-1
+ */
 class StoreRequestApiCest
 {
     private $store;
