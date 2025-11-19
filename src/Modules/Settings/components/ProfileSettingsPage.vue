@@ -65,6 +65,16 @@
           <ChangePasswordForm v-if="isMe" />
         </b-tab>
         <b-tab
+          v-if="isMe"
+          :title="$i18n('settings.2fa.title')"
+          :active="subPage === SUB_PAGE.CHANGE_2FA"
+        >
+          <Change2FAForm
+            :totp-active="userStore.settings.twoFactorEnabled"
+            :num-backup-codes="userStore.settings.numBackupCodes"
+          />
+        </b-tab>
+        <b-tab
           v-if="showQuiz"
           :title="getQuizTranslation"
           :active="subPage === SUB_PAGE.QUIZ"
@@ -98,6 +108,7 @@ import Calendar from './Calendar.vue'
 import Passport from '@/components/Settings/Passport.vue'
 import SleepingMode from './SleepingMode.vue'
 import ChangeEmailForm from './ChangeEmailForm.vue'
+import Change2FAForm from './Change2FAForm.vue'
 import ChangePasswordForm from './ChangePasswordForm.vue'
 import DeleteAccount from './DeleteAccount.vue'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'

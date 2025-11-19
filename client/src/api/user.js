@@ -1,8 +1,9 @@
 import { get, patch, post, remove } from './base'
 
-export function login (email, password, rememberMe) {
-  return post('/user/login', { email, password, remember_me: rememberMe }, {
+export function login (email, password, code, rememberMe) {
+  return post('/user/login', { email, password, code, remember_me: rememberMe }, {
     disableLoginRedirect: true,
+    skipErrorNotificationFor: [403], // 403 = TOTP required
   })
 }
 
@@ -75,12 +76,14 @@ export function requestPasswordReset (email) {
   })
 }
 
-export function resetPassword (resetToken, password) {
+export function resetPassword (resetToken, password, totpCode = null) {
   return post('/user/password-reset/confirm', {
     'reset-token': resetToken,
     password,
+    'totp-code': totpCode,
   }, {
     disableLoginRedirect: true,
+    skipErrorNotificationFor: [400, 403],
   })
 }
 

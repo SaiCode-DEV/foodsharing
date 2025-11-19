@@ -4,9 +4,13 @@ namespace Foodsharing\Modules\Login;
 
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
+use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Legal\LegalGateway;
 use Foodsharing\Modules\Register\DTO\RegisterData;
 use Foodsharing\Utility\EmailHelper;
+use RobThree\Auth\Providers\Qr\BaconQrCodeProvider;
+use RobThree\Auth\TwoFactorAuth;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LoginGateway extends BaseGateway
@@ -28,13 +32,13 @@ class LoginGateway extends BaseGateway
         parent::__construct($db);
     }
 
-    public function login(string $email, string $pass)
+    public function login(string $email, string $pass, string $code)
     {
         $email = trim($email);
         if ($this->db->exists('fs_email_blacklist', ['email' => $email])) {
             return null;
         }
-        if ($fsid = $this->checkClient($email, $pass)) {
+        if ($fsid = $this->checkClient($email, $pass, $code)) {
             $this->db->update(
                 'fs_foodsaver',
                 ['last_login' => $this->db->now()],
@@ -74,7 +78,7 @@ class LoginGateway extends BaseGateway
      * Check given email and password combination,
      * update password if old-style one is detected.
      */
-    public function checkClient(string $email, $pass = false)
+    public function checkClient(string $email, $pass = false, $code = false)
     {
         $email = trim($email);
         if (strlen($email) < 2 || strlen((string)$pass) < 1) {
@@ -95,7 +99,17 @@ class LoginGateway extends BaseGateway
         // modern hashing algorithm
         if ($user['password']) {
             if (password_verify((string)$pass, (string)$user['password'])) {
-                return $user['id'];
+                // Password correct, return user ID if TOTP is NOT enabled
+                if (!$this->hasTOTP($user['id'], '')) {
+                    return $user['id'];
+                }
+
+                // Password correct, but TOTP is enabled -> check TOTP
+                if ($this->checkTOTP($user['id'], $code)) {
+                    return $user['id'];
+                }
+
+                return false;
             }
         }
 
@@ -142,7 +156,7 @@ class LoginGateway extends BaseGateway
         return $this->db->exists('fs_pass_request', ['name' => strip_tags($key)]);
     }
 
-    public function newPassword(array $data)
+    public function newPassword(array $data): bool
     {
         if (strlen((string)$data['pass1']) <= 4) {
             return false;
@@ -155,6 +169,12 @@ class LoginGateway extends BaseGateway
         );
         if (!$fsid) {
             return false;
+        }
+
+        // Check if user has 2FA enabled. If so, we accept the password change
+        // request only if the TOTP code is correct
+        if ($this->hasTOTP($fsid, '') && (!isset($data['totp-code']) || !$this->checkTOTP($fsid, $data['totp-code']))) {
+            throw new AccessDeniedHttpException('Invalid TOTP code');
         }
 
         $this->db->delete('fs_pass_request', ['foodsaver_id' => (int)$fsid]);
@@ -203,6 +223,11 @@ class LoginGateway extends BaseGateway
                 'anrede' => $this->translator->trans('salutation.' . $fs['geschlecht']),
             ];
 
+            // Add TOTP request if user has TOTP enabled
+            if ($this->hasTOTP($fs['id'], '')) {
+                $vars['link'] .= '?totp=true';
+            }
+
             $this->emailHelper->tplMail('user/reset_password', $fs['email'], $vars, false, true);
 
             return true;
@@ -216,6 +241,108 @@ class LoginGateway extends BaseGateway
         $this->db->update('fs_foodsaver', [
             'password' => strip_tags((string)$this->password_hash($password))
         ], ['id' => $userId]);
+    }
+
+    public function setTOTPSecret(int $userId, ?string $secret): void
+    {
+        $this->db->update('fs_foodsaver', [
+            'totp_secret' => $secret ? strip_tags((string)$secret) : null
+        ], ['id' => $userId]);
+    }
+
+    public function getTOTPSecret(int $userId): ?string
+    {
+        return $this->db->fetchValueByCriteria(
+            'fs_foodsaver',
+            'totp_secret',
+            ['id' => $userId]
+        );
+    }
+
+    public function hasTOTP(int $userId, string $email): bool
+    {
+        // When checking if TOTP is needed, we may not know the user ID yet
+        if ($email !== '' || $userId < 0) {
+            try {
+                $userId = $this->db->fetchValueByCriteria(
+                    'fs_foodsaver',
+                    'id',
+                    [
+                        'email' => strip_tags($email),
+                        'deleted_at' => null
+                    ]
+                );
+            } catch (DatabaseNoValueFoundException) {
+                // User does not exist
+                return false;
+            }
+        }
+
+        // Return whether TOTP secret is set
+        return $this->getTOTPSecret($userId) !== null;
+    }
+
+    public function setBackupCodes(int $userId, array $codes): void
+    {
+        // Store backup codes
+        $this->db->update('fs_foodsaver',
+            ['backup_codes' => empty($codes) ? null : json_encode($codes)],
+            ['id' => $userId]);
+    }
+
+    public function checkAndRemoveBackupCode(int $userId, string $code): bool
+    {
+        // Read backup codes
+        $data = $this->db->fetchByCriteria(
+            'fs_foodsaver',
+            ['backup_codes'],
+            ['id' => $userId]
+        );
+
+        // No backup codes stored
+        if (!$data || !isset($data['backup_codes'])) {
+            return false;
+        }
+
+        // Check if backup codes are a JSON string
+        $codes = json_decode($data['backup_codes'], true);
+        if (!is_array($codes)) {
+            return false;
+        }
+
+        // Check if code is valid
+        $key = array_search($code, $codes);
+        if ($key === false) {
+            return false;
+        }
+
+        // If we reach this point, the code exists
+        // Remove it and store the remaining codes
+        unset($codes[$key]);
+        $this->setBackupCodes($userId, $codes);
+
+        return true;
+    }
+
+    public function checkTOTP(int $userId, string $code): bool
+    {
+        // Get TOTP secret (at this point we already know it is set)
+        $totp_secret = $this->getTOTPSecret($userId);
+
+        // Verify TOTP code
+        $qrCodeProvider = new BaconQrCodeProvider();
+        $twoFactorAuth = new TwoFactorAuth($qrCodeProvider);
+        if ($twoFactorAuth->verifyCode($totp_secret, $code)) {
+            return true;
+        }
+
+        // On mismatch of TOTP code, check backup codes
+        if ($this->checkAndRemoveBackupCode($userId, $code)) {
+            return true;
+        }
+
+        // If we reach this point, the code is incorrect
+        return false;
     }
 
     /**

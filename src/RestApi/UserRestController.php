@@ -280,7 +280,9 @@ class UserRestController extends AbstractFoodsharingRestController
     #[Rest\Post('user/login')]
     #[Rest\RequestParam(name: 'email')]
     #[Rest\RequestParam(name: 'password')]
+    #[Rest\RequestParam(name: 'code', default: '')]
     #[Rest\RequestParam(name: 'remember_me', default: false)]
+    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: '2FA code required')]
     public function login(ParamFetcher $paramFetcher, Request $request, RateLimiterFactory $loginLimiter): Response
     {
         $this->checkRateLimit($request, $loginLimiter);
@@ -288,7 +290,14 @@ class UserRestController extends AbstractFoodsharingRestController
         $email = $paramFetcher->get('email');
         $password = $paramFetcher->get('password');
         $rememberMe = (bool)$paramFetcher->get('remember_me');
-        $fs_id = $this->loginGateway->login($email, $password);
+        $code = $paramFetcher->get('code');
+
+        // Check if 2FA is enabled for this user
+        if (empty($code) && $this->loginGateway->hasTOTP(-1, $email)) {
+            throw new AccessDeniedHttpException('2FA required');
+        }
+
+        $fs_id = $this->loginGateway->login($email, $password, $code);
         if ($fs_id) {
             $this->session->login($fs_id, $rememberMe);
 
@@ -301,7 +310,7 @@ class UserRestController extends AbstractFoodsharingRestController
             return $this->handleView($this->view($user, 200));
         }
 
-        throw new UnauthorizedHttpException('', 'email or password are invalid');
+        throw new UnauthorizedHttpException('', 'email, password or code are invalid');
     }
 
     /**
@@ -565,10 +574,12 @@ class UserRestController extends AbstractFoodsharingRestController
     #[Route('/user/password-reset/confirm', methods: ['POST'])]
     #[Rest\RequestParam(name: 'reset-token', nullable: false)]
     #[Rest\RequestParam(name: 'password', nullable: false)]
+    #[Rest\RequestParam(name: 'totp-code', nullable: true)]
     public function resetPassword(ParamFetcher $paramFetcher): Response
     {
         $resetToken = trim((string)$paramFetcher->get('reset-token'));
         $password = (string)$paramFetcher->get('password');
+        $totpCode = (string)$paramFetcher->get('totp-code');
 
         if (!$this->loginGateway->checkResetKey($resetToken)) {
             throw new BadRequestHttpException('Invalid or expired reset token');
@@ -583,7 +594,8 @@ class UserRestController extends AbstractFoodsharingRestController
         $data = [
             'reset-token' => $resetToken,
             'pass1' => $password,
-            'pass2' => $password
+            'pass2' => $password,
+            'totp-code' => $totpCode,
         ];
 
         if (!$this->loginGateway->newPassword($data)) {

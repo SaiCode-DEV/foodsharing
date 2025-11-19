@@ -28,6 +28,8 @@ use Foodsharing\Permissions\SettingsPermissions;
 use Foodsharing\RestApi\Models\Settings\EmailChangeRequest;
 use Foodsharing\RestApi\Models\Settings\PasswordChangeRequest;
 use Foodsharing\Utility\EmailHelper;
+use RobThree\Auth\Providers\Qr\BaconQrCodeProvider;
+use RobThree\Auth\TwoFactorAuth;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -453,6 +455,127 @@ class SettingsTransactions
         }
 
         $this->loginGateway->setPassword($this->session->id(), $request->newPassword);
+    }
+
+    /**
+     * Generate 2FA secret, QR code and backup codes.
+     *
+     * @return array<string, mixed> The generated 2FA data
+     */
+    public function generateTwoFA(): array
+    {
+        // First check if there is already an ongoing TOTP activation
+        $totpProposal = $this->session->get('totp_proposal');
+        if ($totpProposal && is_array($totpProposal)) {
+            ++$totpProposal['reused'];
+
+            return $totpProposal;
+        }
+
+        // Generate a new TOTP secret
+        $qrCodeProvider = new BaconQrCodeProvider();
+        $tfa = new TwoFactorAuth($qrCodeProvider, issuer: 'Foodsharing');
+        // Generate a new secret
+        // RFC 4226, section 4 suggests a 160-bit key for HMAC-SHA1
+        $secret = $tfa->createSecret(bits: 160);
+        $currentEmail = $this->foodsaverGateway->getEmailAddress($this->session->id());
+        $qrCode = $tfa->getQRCodeImageAsDataUri($currentEmail, $secret, size: 400);
+
+        // Generate backup codes. They use 3*2*8 = 48 bits of secure randomness
+        // and are represented in uppercase hexadecimals with dashes
+        $backupCodes = [];
+        for ($i = 0; $i < 12; ++$i) {
+            $code = '';
+            for ($j = 0; $j < 3; ++$j) {
+                $code .= strtoupper(bin2hex(random_bytes(2))) . '-';
+            }
+
+            // Strip trailing dash and add to array
+            $backupCodes[] = rtrim($code, '-');
+        }
+
+        $totpProposal = [
+            'reused' => 0,
+            'secret' => $secret,
+            'qrCode' => $qrCode,
+            'backupCodes' => $backupCodes,
+        ];
+
+        // Store totp_proposal in SESSION
+        $this->session->set('totp_proposal', $totpProposal);
+
+        // Return data array
+        return $totpProposal;
+    }
+
+    /**
+     * Configure Two-Factor Authentication (2FA) for the user.
+     *
+     * This function configures 2FA by verifying the submitted password and 2FA
+     * code, and then setting the TOTP secret and backup codes for the user.
+     * When we are disabling 2FA, we set the secret to null.
+     *
+     * @param string $code The 2FA code
+     * @param string $password The user's password
+     *
+     * @throws BadRequestHttpException If TOTP activation is not running
+     * @throws AccessDeniedHttpException If the password or 2FA code is incorrect
+     */
+    public function enableTwoFA(string $code, string $password): void
+    {
+        // Retrieve totp_proposal from SESSION
+        $totpProposal = $this->session->get('totp_proposal');
+        if (!$totpProposal || !is_array($totpProposal)) {
+            throw new BadRequestHttpException('No TOTP activation in progress');
+        }
+        // Ensure TOTP secret is not set at this point
+        $this->loginGateway->setTOTPSecret($this->session->id(), null);
+
+        // Check that the submitted password is correct
+        $currentEmail = $this->foodsaverGateway->getEmailAddress($this->session->id());
+        if (!$this->loginGateway->checkClient($currentEmail, $password)) {
+            throw new AccessDeniedHttpException('Password is incorrect');
+        }
+
+        // Check that the submitted code is correct
+        $qrCodeProvider = new BaconQrCodeProvider();
+        $tfa = new TwoFactorAuth($qrCodeProvider);
+        $totpProposal = $this->session->get('totp_proposal');
+        if (!$tfa->verifyCode($totpProposal['secret'], $code)) {
+            throw new AccessDeniedHttpException('2FA code is incorrect');
+        }
+
+        // Enable 2FA for this user by setting the secret and backup codes
+        $this->loginGateway->setTOTPSecret($this->session->id(), $totpProposal['secret']);
+        $this->loginGateway->setBackupCodes($this->session->id(), $totpProposal['backupCodes']);
+
+        // Clear the TOTP proposal from the session
+        $this->session->set('totp_proposal', null);
+    }
+
+    /**
+     * Disable Two-Factor Authentication (2FA) for the user.
+     *
+     * This function disables 2FA by verifying the submitted password and 2FA
+     * code, and then setting the TOTP secret and backup codes to null.
+     *
+     * @param string $code The 2FA code
+     * @param string $password The user's password
+     *
+     * @throws BadRequestHttpException If TOTP activation is not running
+     * @throws AccessDeniedHttpException If the password or 2FA code is incorrect
+     */
+    public function disableTwoFA(string $code, string $password): void
+    {
+        // Check that the submitted password and 2FA are correct
+        $currentEmail = $this->foodsaverGateway->getEmailAddress($this->session->id());
+        if (!$this->loginGateway->checkClient($currentEmail, $password, $code)) {
+            throw new AccessDeniedHttpException('Password or Code incorrect');
+        }
+
+        // Disable 2FA for this user by setting the secret and backup codes
+        $this->loginGateway->setTOTPSecret($this->session->id(), null);
+        $this->loginGateway->setBackupCodes($this->session->id(), []);
     }
 
     /**

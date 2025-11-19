@@ -18,7 +18,7 @@ class Session
 {
     // update this whenever adding new fields to the session!!!
     // this should be a unix timestamp, together with a human readable date in a comment.
-    private const int LAST_SESSION_SCHEMA_CHANGE = 1_716_804_439; // 2024-05-28 19:07 UTC
+    private const int LAST_SESSION_SCHEMA_CHANGE = 1_741_984_322; // 2025-03-14 20:32 UTC
 
     private const string SESSION_TIMESTAMP_FIELD_NAME = 'last_updated_ts';
 

@@ -6,6 +6,7 @@ export const SUB_PAGE = Object.freeze({
   PASSPORT: 'passport',
   SLEEPING: 'sleeping',
   CHANGE_EMAIL: 'changeEmail',
+  CHANGE_2FA: 'change2FA',
   DELETE_ACCOUNT: 'deleteaccount',
   QUIZ: 'rise_role',
   HYGIENE: 'hygiene',

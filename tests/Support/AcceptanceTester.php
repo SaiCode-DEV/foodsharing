@@ -37,7 +37,7 @@ class AcceptanceTester extends Actor
         return $this->waitForElement(['css' => 'body']);
     }
 
-    public function login($email, $password = 'password'): void
+    public function login($email, $password = 'password', $totp_code = null, $expected_to_fail = false): void
     {
         $I = $this;
         $I->amOnPage('/');
@@ -46,10 +46,21 @@ class AcceptanceTester extends Actor
         $I->click('.testing-login-dropdown');
         $I->fillField('.testing-login-input-email', $email);
         $I->fillField('#testing-login-input-password > input', $password);
+        if ($totp_code !== null) {
+            // Make field visible
+            $I->executeJS('document.getElementById("testing-login-input-totp").hidden = false;');
+            $I->waitForElementVisible('#testing-login-input-totp > input');
+            $I->fillField('#testing-login-input-totp > input', $totp_code);
+        }
         $I->click('.testing-login-click-submit');
         $I->waitForActiveAPICalls();
         $I->waitForElementNotVisible('#pulse-success');
         $I->waitForPageBody();
+        if ($expected_to_fail) {
+            $I->waitForElement('.testing-login-dropdown');
+
+            return;
+        }
         $I->waitForElement('.testing-intro-field');
         $I->see('Hallo', '.testing-intro-field');
     }

@@ -84,6 +84,7 @@ import { useVuelidate } from '@vuelidate/core'
 import { minLength, required, sameAs } from '@vuelidate/validators'
 import { requestPasswordChange } from '@/api/settings'
 import PasswordField from '@/components/Login/PasswordField.vue'
+import { HTTP_RESPONSE } from '@/consts'
 
 export default {
   components: { PasswordField },
@@ -120,7 +121,7 @@ export default {
         this.v$.$reset()
       } catch (e) {
         let message = e.message
-        if (e.code === 403) {
+        if (e.code === HTTP_RESPONSE.FORBIDDEN) {
           message = this.$i18n('settings.changemail.wrong_password')
         }
         pulseError(message)

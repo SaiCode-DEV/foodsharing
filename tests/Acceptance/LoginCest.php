@@ -8,6 +8,7 @@ use Tests\Support\AcceptanceTester;
 
 class LoginCest
 {
+    private $pass;
     private $foodsaver;
 
     public function _before(AcceptanceTester $I): void

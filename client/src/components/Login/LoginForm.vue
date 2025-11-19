@@ -37,6 +37,23 @@
           v-model="password"
         />
       </label>
+      <label class="d-block">
+        <div
+          ref="totp1"
+          class="mb-1"
+          hidden
+        >
+          <i class="fas fa-shield-alt mr-1" />
+          {{ $i18n('login.2fa') }}
+        </div>
+        <totp-field
+          id="testing-login-input-totp"
+          ref="totp2"
+          v-model="totp"
+          :disabled="isLoading"
+          hidden
+        />
+      </label>
       <label class="d-flex align-items-center mt-3 mb-3">
         <input
           v-model="rememberMe"
@@ -78,11 +95,12 @@ import { required, email } from '@vuelidate/validators'
 import { pulseError } from '@/script'
 import { HTTP_RESPONSE } from '@/consts'
 import PasswordField from '@/components/Login/PasswordField.vue'
+import totpField from '@/components/Login/TOTPField.vue'
 import { BROADCAST_TYPE, channel } from '@/broadcastChannel'
 
 export default {
   name: 'MenuLogin',
-  components: { PasswordField },
+  components: { PasswordField, totpField },
   setup () {
     return {
       v$: useVuelidate(),
@@ -92,6 +110,7 @@ export default {
     return {
       email: isDev ? 'userbot@example.com' : '',
       password: isDev ? 'user' : '',
+      totp: '',
       rememberMe: false,
       isLoading: false,
       error: null,
@@ -132,7 +151,7 @@ export default {
       }
       this.isLoading = true
       try {
-        await login(this.email, this.password, this.rememberMe)
+        await login(this.email, this.password, this.totp, this.rememberMe)
         sessionStorage.clear()
         channel.postMessage({ type: BROADCAST_TYPE.LOGIN })
         let ref = new URL(location.href).searchParams.get('ref')
@@ -142,6 +161,13 @@ export default {
         this.isLoading = false
         if (err.code && err.code === HTTP_RESPONSE.UNAUTHORIZED) {
           pulseError(this.$i18n('login.error_no_auth'))
+        } else if (err.code && err.code === HTTP_RESPONSE.FORBIDDEN) {
+          // Un-hide and focus TOTP field
+          console.log('TOTP required')
+          this.$refs.totp1.hidden = false
+          this.$refs.totp2.$el.hidden = false
+          this.$refs.totp2.focus()
+          // This is not an error, do not try again
         } else {
           pulseError(this.$i18n('error_unexpected'))
           throw err

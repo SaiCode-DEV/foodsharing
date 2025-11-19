@@ -12,9 +12,9 @@
           {{ $i18n('register.login_passwd1') }}
         </div>
         <password-field
-          id="testing-login-input-password"
+          id="testing-reset-input-password"
           v-model="password"
-          :placeholder="$i18n('register.login_passwd1')"
+          placeholder="register.login_passwd1"
           :class="{ 'is-invalid': shouldShowPasswordErrors }"
           @blur="onPasswordBlur"
         />
@@ -45,9 +45,9 @@
           {{ $i18n('register.login_passwd2') }}
         </div>
         <password-field
-          id="testing-login-input-confirm-password"
+          id="testing-reset-input-confirm-password"
           v-model="confirmPassword"
-          :placeholder="$i18n('register.login_passwd2')"
+          placeholder="register.login_passwd2"
           :class="{ 'is-invalid': shouldShowConfirmPasswordErrors }"
           @blur="onConfirmPasswordBlur"
         />
@@ -61,6 +61,30 @@
             </span>
             <span v-if="v$.confirmPassword.sameAsPassword.$invalid && confirmPassword && password">
               {{ $i18n('register.confirmPassword_sameAsPassword') }}
+            </span>
+          </div>
+        </div>
+      </label>
+
+      <label v-if="showTOTP" class="d-block mb-3">
+        <div class="mb-1">
+          <i class="fas fa-mobile-alt mr-1" />
+          {{ $i18n('login.2fa') }}
+        </div>
+        <TOTPField
+          id="testing-reset-input-totp"
+          v-model="totpCode"
+          placeholder="settings.2fa.totp_token"
+          :class="{ 'is-invalid': shouldShowTOTPErrors }"
+          @blur="v$.totp.$touch"
+        />
+        <div
+          v-if="shouldShowTOTPErrors"
+          class="invalid-feedback"
+        >
+          <div>
+            <span v-if="v$.totp && v$.totp.required.$invalid && !totpCode">
+              {{ $i18n('settings.2fa.totp_required') }}
             </span>
           </div>
         </div>
@@ -97,11 +121,13 @@
 import { ref, computed, defineProps } from 'vue'
 import { resetPassword } from '@/api/user'
 import { useVuelidate } from '@vuelidate/core'
-import { required, minLength, sameAs } from '@vuelidate/validators'
+import { required, minLength, maxLength, sameAs } from '@vuelidate/validators'
 import { pulseError } from '@/script'
 import PasswordField from '@/components/Login/PasswordField.vue'
+import TOTPField from '@/components/Login/TOTPField.vue'
 import i18n from '@/helper/i18n'
 import { url } from '@/helper/urls'
+import { HTTP_RESPONSE } from '@/consts'
 
 const props = defineProps({
   resetToken: {
@@ -112,25 +138,50 @@ const props = defineProps({
 
 const password = ref('')
 const confirmPassword = ref('')
+const totpCode = ref('')
 const isLoading = ref(false)
 const resetSuccess = ref(false)
 const passwordBlurred = ref(false)
 const confirmPasswordBlurred = ref(false)
+const totpBlurred = ref(false)
 
-const validations = computed(() => ({
-  password: {
-    required,
-    minLength: minLength(8),
-    isTrimmed: (value) => value.length === value.trim().length,
-    complexity: (value) => /[a-z]/.test(value) && /[A-Z]/.test(value) && /[0-9]/.test(value),
-  },
-  confirmPassword: {
-    required,
-    sameAsPassword: sameAs(password.value),
-  },
-}))
+const showTOTP = computed(() => {
+  try {
+    const params = new URLSearchParams(window.location.search)
+    const q = params.get('totp')
+    return q === 'true' || q === '1' || q === 'yes'
+  } catch (e) {
+    return false
+  }
+})
 
-const v$ = useVuelidate(validations, { password, confirmPassword })
+const validations = computed(() => {
+  const v = {
+    password: {
+      required,
+      minLength: minLength(8),
+      isTrimmed: (value) => value.length === value.trim().length,
+      complexity: (value) => /[a-z]/.test(value) && /[A-Z]/.test(value) && /[0-9]/.test(value),
+    },
+    confirmPassword: {
+      required,
+      sameAsPassword: sameAs(password.value),
+    },
+  }
+
+  if (showTOTP.value) {
+    v.totp = {
+      minLength: minLength(6),
+      maxLength: maxLength(6),
+      isNumeric: (value) => /^\d+$/.test(value),
+      required,
+    }
+  }
+
+  return v
+})
+
+const v$ = useVuelidate(validations, { password, confirmPassword, totp: totpCode })
 
 const shouldShowPasswordErrors = computed(() => {
   return passwordBlurred.value && password.value && v$.value.password.$invalid
@@ -139,6 +190,10 @@ const shouldShowPasswordErrors = computed(() => {
 const shouldShowConfirmPasswordErrors = computed(() => {
   // Show error if the field has lost focus OR if both fields are filled in
   return (confirmPasswordBlurred.value || (password.value && confirmPassword.value)) && v$.value.confirmPassword.$invalid
+})
+
+const shouldShowTOTPErrors = computed(() => {
+  return (totpBlurred.value || (password.value && totpCode.value)) && v$.value.totp && v$.value.totp.$invalid
 })
 
 function onPasswordBlur () {
@@ -159,7 +214,7 @@ async function submit () {
 
   isLoading.value = true
   try {
-    await resetPassword(props.resetToken, password.value)
+    await resetPassword(props.resetToken, password.value, totpCode.value || null)
     resetSuccess.value = true
 
     // Redirect to login after a short delay
@@ -168,8 +223,10 @@ async function submit () {
     }, 2000)
   } catch (error) {
     console.error('Password reset failed:', error)
-    if (error.response?.status === 400) {
-      pulseError(error.response.data.message || i18n('login.pwreset.failed'))
+    if (error?.code === HTTP_RESPONSE.BAD_REQUEST) {
+      pulseError(error.message || i18n('login.pwreset.failed'))
+    } else if (error?.code === HTTP_RESPONSE.FORBIDDEN) {
+      pulseError(i18n('login.pwreset.token_invalid'))
     } else {
       pulseError(i18n('error_unexpected'))
     }

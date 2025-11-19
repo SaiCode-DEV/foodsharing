@@ -165,7 +165,9 @@ class FoodsaverGateway extends BaseGateway
 			fs.stadt as city,
 			fs.about_me_public,
 			fs.about_me_intern,
-			fs.no_automatic_delete
+			fs.no_automatic_delete,
+			fs.totp_secret,
+			fs.backup_codes
 
 		FROM	fs_foodsaver fs
 
@@ -638,7 +640,12 @@ class FoodsaverGateway extends BaseGateway
      */
     public function deleteFoodsaver(int $fsId, ?int $deletingUser, ?string $reason): void
     {
-        $this->db->update('fs_foodsaver', ['password' => null, 'deleted_at' => $this->db->now()], ['id' => $fsId]);
+        $this->db->update('fs_foodsaver', [
+            'password' => null,
+            'deleted_at' => $this->db->now(),
+            'totp_secret' => null,
+            'backup_codes' => null,
+        ], ['id' => $fsId]);
 
         $this->archiveFoodsaver($fsId);
 
@@ -676,6 +683,8 @@ class FoodsaverGateway extends BaseGateway
                 'photo' => null,
                 'email' => null,
                 'password' => null,
+                'totp_secret' => null,
+                'backup_codes' => null,
                 'name' => null,
                 'nachname' => null,
                 'anschrift' => null,

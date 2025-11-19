@@ -50,6 +50,8 @@ class ReadableProfileSettings
     public bool $mayChangeEmailImmediately;
     public ?array $sleepingData;
     public ?array $businessCardData;
+    public bool $twoFactorEnabled;
+    public int $numBackupCodes;
 
     public function __construct(
         int $id = 0,
@@ -74,7 +76,9 @@ class ReadableProfileSettings
         bool $mayChangeVerifiedData = false,
         bool $mayChangeEmailImmediately = false,
         ?array $sleepingData = null,
-        ?array $businessCardData = null
+        ?array $businessCardData = null,
+        ?string $totpSecret = null,
+        ?string $backupCodes = null
     ) {
         $this->id = $id;
         $this->firstName = $firstName;
@@ -99,5 +103,7 @@ class ReadableProfileSettings
         $this->mayChangeEmailImmediately = $mayChangeEmailImmediately;
         $this->sleepingData = $sleepingData;
         $this->businessCardData = $businessCardData;
+        $this->twoFactorEnabled = !is_null($totpSecret) && !empty($totpSecret);
+        $this->numBackupCodes = !is_null($backupCodes) ? count(json_decode($backupCodes, true)) : 0;
     }
 }

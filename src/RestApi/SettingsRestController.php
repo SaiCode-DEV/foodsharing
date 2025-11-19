@@ -5,11 +5,13 @@ namespace Foodsharing\RestApi;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\SleepStatus;
 use Foodsharing\Modules\Foodsaver\DTO\ReadableProfileSettings;
+use Foodsharing\Modules\Logout\LogoutTransactions;
 use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Modules\Settings\SettingsTransactions;
 use Foodsharing\RestApi\Models\Settings\EmailChangeRequest;
 use Foodsharing\RestApi\Models\Settings\PasswordChangeRequest;
 use Foodsharing\RestApi\Models\Settings\SleepStatusRequest;
+use Foodsharing\RestApi\Models\Settings\TwoFARequest;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
@@ -25,6 +27,7 @@ class SettingsRestController extends AbstractFoodsharingRestController
     public function __construct(
         private readonly SettingsGateway $settingsGateway,
         private readonly SettingsTransactions $settingsTransactions,
+        private readonly LogoutTransactions $logoutTransactions,
         protected Session $session
     ) {
         parent::__construct($this->session);
@@ -93,6 +96,42 @@ class SettingsRestController extends AbstractFoodsharingRestController
     ): Response {
         $this->assertLoggedIn();
         $this->settingsTransactions->requestPasswordChange($request);
+
+        return $this->respondOK();
+    }
+
+    #[OA\Get(summary: 'Request 2FA secret, backup codes and QR code.')]
+    #[Route('/user/2fa', methods: ['GET'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA\Response(response: Response::HTTP_INTERNAL_SERVER_ERROR, description: 'An error occurred while processing')]
+    public function generateTwoFA(): Response
+    {
+        $this->assertLoggedIn();
+        $data = $this->settingsTransactions->generateTwoFA();
+
+        return $this->respondOK($data);
+    }
+
+    #[OA\Patch(summary: 'Enable or disable 2FA.')]
+    #[Route('/user/2fa', methods: ['PATCH'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid parameters')]
+    #[OA\Response(response: Response::HTTP_INTERNAL_SERVER_ERROR, description: 'An error occurred while processing')]
+    public function toggleTwoFA(#[MapRequestPayload] TwoFARequest $request): Response
+    {
+        $this->assertLoggedIn();
+        if ($request->enable) {
+            // Enable 2FA
+            $this->settingsTransactions->enableTwoFA($request->code, $request->password);
+        } else {
+            // Disable 2FA
+            $this->settingsTransactions->disableTwoFA($request->code, $request->password);
+        }
+
+        // Log out the user after enabling/disabling 2FA
+        $this->logoutTransactions->logout();
 
         return $this->respondOK();
     }

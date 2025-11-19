@@ -55,6 +55,6 @@ class LoginApiCest
         ]);
 
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
-        $I->seeResponseContains('email or password are invalid');
+        $I->seeResponseContains('email, password or code are invalid');
     }
 }

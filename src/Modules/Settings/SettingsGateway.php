@@ -277,7 +277,9 @@ class SettingsGateway extends BaseGateway
             fs.about_me_public,
             fs.about_me_intern,
             fs.no_automatic_delete,
-            reg.name AS regionName
+            reg.name AS regionName,
+            fs.totp_secret,
+            fs.backup_codes
         FROM fs_foodsaver fs
         LEFT JOIN fs_bezirk reg ON fs.bezirk_id = reg.id
         WHERE fs.id = :id AND fs.deleted_at IS NULL
@@ -318,7 +320,9 @@ class SettingsGateway extends BaseGateway
             $data['about_me_public'],
             $data['about_me_intern'],
             boolval($data['no_automatic_delete']),
-            $data['regionName']
+            $data['regionName'],
+            totpSecret: $data['totp_secret'],
+            backupCodes: $data['backup_codes']
         );
     }
 }
