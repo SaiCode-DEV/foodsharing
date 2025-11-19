@@ -52,10 +52,10 @@ export default {
       return this.$dateFormatter.isTomorrow(this.dateObject)
     },
     today () {
-      return this.$i18n('date.Today')
+      return this.$t('date.Today')
     },
     tomorrow () {
-      return this.$i18n('date.-- Tomorrow')
+      return this.$t('date.-- Tomorrow')
     },
   },
 }

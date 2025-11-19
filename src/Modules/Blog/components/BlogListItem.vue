@@ -6,7 +6,7 @@
         @click="togglePublished"
       >
         <i
-          v-b-tooltip.hover="$i18n(isPublished ? 'blog.status.1' : 'blog.status.0')"
+          v-b-tooltip.hover="$t(isPublished ? 'blog.status.1' : 'blog.status.0')"
           class="fas fa-fw"
           :class="[isPublished ? 'fa-check-square text-secondary' : 'fa-eye-slash text-primary']"
         />
@@ -21,7 +21,7 @@
     <Time :time="when" class="mr-2" />
     <b-link
       v-if="mayEdit"
-      v-b-tooltip="$i18n('blog.edit')"
+      v-b-tooltip="$t('blog.edit')"
       class="ml-auto mx-1"
       :href="$url('blogEdit', blogId)"
     >
@@ -29,7 +29,7 @@
     </b-link>
     <b-button
       v-if="mayDelete"
-      v-b-tooltip="$i18n('blog.delete')"
+      v-b-tooltip="$t('blog.delete')"
       href="#"
       size="sm"
       class="mx-1"

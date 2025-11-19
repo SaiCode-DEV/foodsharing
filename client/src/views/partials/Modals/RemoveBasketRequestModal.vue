@@ -2,9 +2,9 @@
   <b-modal
     id="RemoveBasketRequestModal"
     ref="RemoveBasketRequestModal"
-    :title="$i18n('basket.change-state', { name: request.user.name })"
-    :cancel-title="$i18n('globals.close')"
-    :ok-title="$i18n('globals.save')"
+    :title="$t('basket.change-state', { name: request.user.name })"
+    :cancel-title="$t('globals.close')"
+    :ok-title="$t('globals.save')"
     :ok-disabled="!selectedStatus"
     @ok="save"
   >
@@ -15,11 +15,11 @@
         class="mt-1 pr-2 pt-1"
       />
       <p class="mb-0 ml-auto">
-        {{ $i18n('request_time') }} {{ $dateFormatter.dateTime(request.time) }}
+        {{ $t('request_time') }} {{ $dateFormatter.dateTime(request.time) }}
       </p>
     </div>
 
-    <p><strong>{{ $i18n('fetchstate') }}</strong></p>
+    <p><strong>{{ $t('fetchstate') }}</strong></p>
 
     <b-form-radio-group
       id="basket-request-status"
@@ -52,19 +52,19 @@ export default {
       radioOptions: [
         {
           value: BASKET_REQUEST_STATUS.DELETED_PICKED_UP,
-          text: this.$i18n('basket.state.okay'),
+          text: this.$t('basket.state.okay'),
         },
         {
           value: BASKET_REQUEST_STATUS.NOT_PICKED_UP,
-          text: this.$i18n('basket.state.nope'),
+          text: this.$t('basket.state.nope'),
         },
         {
           value: BASKET_REQUEST_STATUS.DELETED_OTHER_REASON,
-          text: this.$i18n('basket.state.gone'),
+          text: this.$t('basket.state.gone'),
         },
         {
           value: BASKET_REQUEST_STATUS.DENIED,
-          text: this.$i18n('basket.state.deny'),
+          text: this.$t('basket.state.deny'),
         },
       ],
     }
@@ -77,9 +77,9 @@ export default {
           this.request.user.id,
           this.selectedStatus,
         )
-        pulseSuccess(this.$i18n('success'))
+        pulseSuccess(this.$t('success'))
       } catch (e) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
     },
   },

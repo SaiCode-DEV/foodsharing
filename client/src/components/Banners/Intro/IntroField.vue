@@ -9,27 +9,27 @@
     <div class="introfield__content">
       <h3
         class="introfield__title testing-intro-field"
-        v-text="viewIsMD ? $i18n('dashboard.greeting', {name: user.firstname}) : $i18n('dashboard.greeting_short', {name: user.firstname})"
+        v-text="viewIsMD ? $t('dashboard.greeting', {name: user.firstname}) : $t('dashboard.greeting_short', {name: user.firstname})"
       />
       <p
         v-if="!isFoodsaver && !getHomeRegionName"
         class="introfield__description"
-        v-text="$i18n('dashboard.foodsharer')"
+        v-text="$t('dashboard.foodsharer')"
       />
       <p
         v-if="!getHomeRegionName && stats.count > 0 && stats.weight > 0"
         class="introfield__description"
-        v-text="$i18n('dashboard.foodsaver_amount', {pickups: stats.count, weight: stats.weight})"
+        v-text="$t('dashboard.foodsaver_amount', {pickups: stats.count, weight: stats.weight})"
       />
       <Markdown
         v-if="getHomeRegionName && stats.count > 0 && stats.weight > 0"
         classes="introfield__description"
-        :source="$i18n('dashboard.full_subline', {pickups: stats.count, weight: stats.weight, region: getHomeRegionName})"
+        :source="$t('dashboard.full_subline', {pickups: stats.count, weight: stats.weight, region: getHomeRegionName})"
       />
       <p
         v-else-if="isFoodsaver && getHomeRegionName"
         class="introfield__description"
-        v-text="$i18n('dashboard.homeRegion', {region: getHomeRegionName})"
+        v-text="$t('dashboard.homeRegion', {region: getHomeRegionName})"
       />
     </div>
   </div>

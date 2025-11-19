@@ -1,6 +1,6 @@
 <template>
   <Container
-    :title="$i18n(`quiz.title.${statusName}`, quiz)"
+    :title="$t(`quiz.title.${statusName}`, quiz)"
     :collapsible="false"
     :container-is-expanded="true"
   >
@@ -19,19 +19,19 @@
       v-if="!isQuizModalShown && canStart"
       class="list-group-item list-group-item-action list-group-item-secondary small font-weight-bold text-center"
       @click="$emit('start-quiz', true)"
-      v-text="$i18n('quiz.timedstart', {count: quiz.questionCountTimed})"
+      v-text="$t('quiz.timedstart', {count: quiz.questionCountTimed})"
     />
     <button
       v-if="!isQuizModalShown && canStart && quiz.questionCountUntimed"
       class="list-group-item list-group-item-action list-group-item-secondary small font-weight-bold text-center"
       @click="$emit('start-quiz', false)"
-      v-text="$i18n('quiz.regstart', {count: quiz.questionCountUntimed})"
+      v-text="$t('quiz.regstart', {count: quiz.questionCountUntimed})"
     />
     <button
       v-if="!isQuizModalShown && isRunning"
       class="list-group-item list-group-item-action list-group-item-secondary small font-weight-bold text-center"
       @click="$emit('start-quiz')"
-      v-text="$i18n('quiz.continuenow')"
+      v-text="$t('quiz.continuenow')"
     />
   </Container>
 </template>
@@ -72,7 +72,7 @@ export default {
       if (!this.status) return ''
 
       // shorthands
-      const i18n = (key, props) => this.$i18n('quiz.stateBasedInfo.' + key, props)
+      const i18n = (key, props) => this.$t('quiz.stateBasedInfo.' + key, props)
       const s = this.status
 
       if (s.currentWaitTime === -1) return i18n('disqualified')

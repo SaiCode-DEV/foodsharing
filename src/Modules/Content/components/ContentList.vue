@@ -5,20 +5,20 @@
         class="card-header bg-primary text-white d-flex justify-content-between align-items-center mb-1"
       >
         <div class="font-weight-bolder">
-          {{ $i18n('content.public') }}
+          {{ $t('content.public') }}
         </div>
       </div>
       <div class="card-body bg-whientryte mb-2">
         <b-button
           v-if="mayCreateContent"
-          v-b-tooltip.hover="$i18n('content.new')"
+          v-b-tooltip.hover="$t('content.new')"
           class="write-new mb-2"
           variant="primary"
           size="sm"
           :href="$url('contentNew')"
           :disabled="isLoading"
         >
-          <i class="fas faw fa-plus" /> {{ $i18n('content.new') }}
+          <i class="fas faw fa-plus" /> {{ $t('content.new') }}
         </b-button>
 
         <b-table
@@ -33,7 +33,7 @@
           <template #cell(name)="entry">
             <a
               v-if="mayEditContent"
-              v-b-tooltip="$i18n('content.edit')"
+              v-b-tooltip="$t('content.edit')"
               :href="$url('contentEditEntry', entry.item.id)"
             >
               {{ entry.item.name }}
@@ -45,7 +45,7 @@
           <template #cell(buttons)="entry">
             <b-button
               v-if="mayEditContent"
-              v-b-tooltip="$i18n('content.delete_tooltip')"
+              v-b-tooltip="$t('content.delete_tooltip')"
               href="#"
               size="sm"
               class="mx-1"
@@ -57,7 +57,7 @@
           </template>
           <template #empty>
             <div class="empty-message">
-              {{ $i18n('content.empty') }}
+              {{ $t('content.empty') }}
             </div>
           </template>
         </b-table>

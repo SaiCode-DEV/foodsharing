@@ -3,14 +3,14 @@
     <InaccessibleRegionRedirectWarning />
     <b-tabs content-class="mt-3">
       <b-tab
-        :title="isGlobalWorkingGroup ? $i18n('sidenav.superregional') : $i18n('sidenav.localgroups')"
+        :title="isGlobalWorkingGroup ? $t('sidenav.superregional') : $t('sidenav.localgroups')"
         active
       >
         <input
           v-model="filterText"
           class="mb-3"
           type="text"
-          :placeholder="$i18n('group.filter_placeholder')"
+          :placeholder="$t('group.filter_placeholder')"
         >
         <Container
           v-for="group in filteredGroups"
@@ -18,7 +18,7 @@
           :key="group.id"
           :container-is-expanded="isContainerExpanded"
           :title="group.name"
-          :tooltip-key="group.function_tooltip_key ? $i18n(group.function_tooltip_key) : null"
+          :tooltip-key="group.function_tooltip_key ? $t(group.function_tooltip_key) : null"
         >
           <div class="list-group-item">
             <b-row>
@@ -53,35 +53,35 @@
                 variant="primary"
                 @click="openContactModal(group)"
               >
-                {{ $i18n('group.actions.contact') }}
+                {{ $t('group.actions.contact') }}
               </b-button>
               <b-button
                 v-if="group.mayEdit"
                 variant="primary"
                 :href="$url('workingGroupEdit', group.id)"
               >
-                {{ $i18n('group.actions.edit') }}
+                {{ $t('group.actions.edit') }}
               </b-button>
               <b-button
                 v-if="group.mayAccess"
                 variant="primary"
                 :href="$url('workingGroup', group.id)"
               >
-                {{ $i18n('group.actions.go') }}
+                {{ $t('group.actions.go') }}
               </b-button>
               <b-button
                 v-if="group.mayJoin"
                 variant="primary"
                 @click="joinGroup(group.id)"
               >
-                {{ $i18n('group.actions.join') }}
+                {{ $t('group.actions.join') }}
               </b-button>
               <b-button
                 v-else-if="group.mayApply"
                 variant="primary"
                 @click="openRequestModal(group)"
               >
-                {{ $i18n('group.actions.apply') }}
+                {{ $t('group.actions.apply') }}
               </b-button>
             </div>
           </div>
@@ -104,18 +104,18 @@
     </b-tabs>
     <b-modal
       ref="groupContactForm"
-      :title="$i18n('group.contact.title', {group: selectedGroupName})"
-      :cancel-title="$i18n('button.cancel')"
-      :ok-title="$i18n('button.send')"
+      :title="$t('group.contact.title', {group: selectedGroupName})"
+      :cancel-title="$t('button.cancel')"
+      :ok-title="$t('button.send')"
       modal-class="bootstrap"
       header-class="d-flex"
       content-class="pr-3 pt-3"
       @ok="trySendMail(selectedGroupId)"
     >
       <p>
-        {{ $i18n('group.contact.disclaimer') }}
+        {{ $t('group.contact.disclaimer') }}
       </p>
-      <label>{{ $i18n('terminology.message') }}:</label>
+      <label>{{ $t('terminology.message') }}:</label>
       <b-form-textarea
         id="contactmessage"
         v-model="contactMessage"
@@ -124,16 +124,16 @@
     </b-modal>
     <b-modal
       ref="groupRequestForm"
-      :title="$i18n('group.application_region', {group: selectedGroupName})"
-      :cancel-title="$i18n('button.cancel')"
-      :ok-title="$i18n('button.send')"
+      :title="$t('group.application_region', {group: selectedGroupName})"
+      :cancel-title="$t('button.cancel')"
+      :ok-title="$t('button.send')"
       modal-class="bootstrap"
       header-class="d-flex"
       content-class="pr-3 pt-3"
       @ok.prevent="trySendRequest(selectedGroupId)"
     >
       <p>
-        <label>{{ $i18n('group.apply.motivation', { group: selectedGroupName }) }}</label>
+        <label>{{ $t('group.apply.motivation', { group: selectedGroupName }) }}</label>
         <b-form-textarea
           id="input-motivation"
           v-model="motivation"
@@ -142,7 +142,7 @@
         />
       </p>
       <p>
-        <label>{{ $i18n('group.apply.ability') }}</label>
+        <label>{{ $t('group.apply.ability') }}</label>
         <b-form-textarea
           id="input-ability"
           v-model="ability"
@@ -151,7 +151,7 @@
         />
       </p>
       <p>
-        <label>{{ $i18n('group.apply.experience') }}</label>
+        <label>{{ $t('group.apply.experience') }}</label>
         <b-form-textarea
           id="input-experience"
           v-model="experience"
@@ -160,7 +160,7 @@
         />
       </p>
       <p>
-        <label>{{ $i18n('group.apply.how_much_time') }}</label>
+        <label>{{ $t('group.apply.how_much_time') }}</label>
         <b-form-select
           id="input-time"
           v-model="selectedTime"

@@ -2,7 +2,7 @@
   <div>
     <div class="field">
       <div class="rounded head ui-widget-header">
-        {{ $i18n('group.applications_for', { name: groupName }) }}
+        {{ $t('group.applications_for', { name: groupName }) }}
       </div>
 
       <div class="rounded applicants-list ui-widget ui-widget-content">

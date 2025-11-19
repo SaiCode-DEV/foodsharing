@@ -6,10 +6,10 @@
         type="search"
         size="sm"
         class="mr-2"
-        :placeholder="$i18n('store.team.search_input')"
+        :placeholder="$t('store.team.search_input')"
       />
       <b-button
-        v-b-tooltip.hover="$i18n('store.team.search_reset')"
+        v-b-tooltip.hover="$t('store.team.search_reset')"
         variant="outline-secondary"
         size="sm"
         @click="userSearchString = ''"
@@ -22,7 +22,7 @@
       <b-button
         v-for="button of filterButtonsWithCount"
         :key="button.state"
-        v-b-tooltip.hover="$i18n(`store.sm.${button.tooltip}`)"
+        v-b-tooltip.hover="$t(`store.sm.${button.tooltip}`)"
         size="sm"
         variant="outline-primary"
         :pressed="button.state === activeFilter.state"

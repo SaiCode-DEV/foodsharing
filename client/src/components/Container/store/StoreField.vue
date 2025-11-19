@@ -11,13 +11,13 @@
       />
       <i
         v-if="entry.isManaging"
-        v-b-tooltip="$i18n('store.tooltip_managing')"
+        v-b-tooltip="$t('store.tooltip_managing')"
         class="fas fa-users-cog text-muted"
         style="cursor: help;"
       />
       <i
         v-if="entry.membershipStatus === 2"
-        v-b-tooltip="$i18n('store.tooltip_jumping')"
+        v-b-tooltip="$t('store.tooltip_jumping')"
         class="fas fa-people-carry text-muted"
         style="cursor: help;"
       />
@@ -36,7 +36,7 @@
       />
       <small
         class="field-subline"
-        v-text="$i18n('store.short_tooltip_'+['yellow', 'orange', 'red'][entry.pickupStatus - 1])"
+        v-text="$t('store.short_tooltip_'+['yellow', 'orange', 'red'][entry.pickupStatus - 1])"
       />
     </div>
   </a>

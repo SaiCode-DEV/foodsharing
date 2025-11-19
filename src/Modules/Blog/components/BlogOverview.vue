@@ -5,12 +5,12 @@
         class="card-header bg-primary text-white d-flex justify-content-between align-items-center mb-1"
       >
         <div class="font-weight-bolder">
-          {{ $i18n('blog.title') }}
+          {{ $t('blog.title') }}
         </div>
 
         <b-button-group class="header-buttons ml-1">
           <b-button
-            v-b-tooltip.hover="$i18n('blog.go')"
+            v-b-tooltip.hover="$t('blog.go')"
             variant="secondary"
             size="sm"
             :href="$url('blog')"
@@ -20,7 +20,7 @@
           </b-button>
           <b-button
             v-if="mayAdministrateBlog"
-            v-b-tooltip.hover="$i18n('blog.new')"
+            v-b-tooltip.hover="$t('blog.new')"
             class="write-new"
             variant="secondary"
             size="sm"

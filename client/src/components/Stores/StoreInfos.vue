@@ -1,6 +1,6 @@
 <template>
   <Container
-    :title="$i18n('store.info_container')"
+    :title="$t('store.info_container')"
     :tag="`store-infos-${storeId}`"
     wrap-content="p-2"
   >
@@ -13,7 +13,7 @@
         class="desc-block mb-1 py-1"
       >
         <div class="desc-block-title mb-2 py-1">
-          {{ $i18n('store.address') }}
+          {{ $t('store.address') }}
         </div>
         <div class="d-flex justify-content-between align-items-center">
           <div>
@@ -21,7 +21,7 @@
             {{ postcode }} {{ city }} <br>
             <a :href="$url('map', { storeId: storeId })">
               <i class="fas fa-map-marker-alt" />
-              {{ $i18n('store.to_map') }}
+              {{ $t('store.to_map') }}
             </a>
           </div>
           <NavigateWithSelector
@@ -37,7 +37,7 @@
         class="desc-block mb-1 py-1"
       >
         <div class="desc-block-title mb-2 py-1">
-          {{ $i18n('store.particularities') }}
+          {{ $t('store.particularities') }}
         </div>
         <Markdown :source="particularitiesDescription" />
       </div>
@@ -47,10 +47,10 @@
         class="desc-block mb-1 py-1"
       >
         <div class="desc-block-title mb-2 py-1">
-          {{ $i18n('store.particularities_chain') }}
+          {{ $t('store.particularities_chain') }}
           <i
             class="fas fa-info-circle fa-fw"
-            :title="$i18n('store.particularities_chain_tooltip')"
+            :title="$t('store.particularities_chain_tooltip')"
           />
         </div>
         <Markdown :source="particularitiesChain" />
@@ -60,7 +60,7 @@
         class="desc-block mb-1 py-1"
       >
         <div class="desc-block-title mb-2 py-1">
-          {{ $i18n('store.average_collection_quantity') }}
+          {{ $t('store.average_collection_quantity') }}
         </div>
         <div>
           {{ collectionQuantity }}
@@ -71,7 +71,7 @@
         class="desc-block mb-1 py-1"
       >
         <div class="desc-block-title mb-2 py-1">
-          {{ $i18n('store.attribution') }}
+          {{ $t('store.attribution') }}
         </div>
         {{ pressInfo }}
       </div>
@@ -81,10 +81,10 @@
         class="desc-block mb-1 py-1"
       >
         <div class="desc-block-title mb-2 py-1">
-          {{ $i18n('store.regionPickupRules') }}
+          {{ $t('store.regionPickupRules') }}
         </div>
-        <span>{{ $i18n('store.useRegionPickupRules') }}</span><br>
-        <span>{{ $i18n('store.regionPickupRuleLong', {regionPickupRuleTimespan, regionPickupRuleLimit, regionPickupRuleLimitDay, regionPickupRuleInactive}) }}</span>
+        <span>{{ $t('store.useRegionPickupRules') }}</span><br>
+        <span>{{ $t('store.regionPickupRuleLong', {regionPickupRuleTimespan, regionPickupRuleLimit, regionPickupRuleLimitDay, regionPickupRuleInactive}) }}</span>
       </div>
       <div
         v-if="isDateValid(lastFetchDate)"
@@ -92,7 +92,7 @@
         class="desc-block mb-1 py-1"
       >
         <div class="desc-block-title mb-2 py-1">
-          {{ $i18n('store.my_last_pickup') }}
+          {{ $t('store.my_last_pickup') }}
         </div>
         <span>
           {{ $dateFormatter.date(lastFetchDate) }}
@@ -200,11 +200,11 @@ export default {
     pressInfo () {
       switch (this.press) {
         case STORE_PUBLICITY_AND_STICKER_OPTIONS.YES:
-          return this.$i18n('store.may_referred_to_in_public')
+          return this.$t('store.may_referred_to_in_public')
         case STORE_PUBLICITY_AND_STICKER_OPTIONS.NO:
-          return this.$i18n('store.may_not_referred_to_in_public')
+          return this.$t('store.may_not_referred_to_in_public')
         default:
-          return this.$i18n('store.may_referred_to_in_public_unclear')
+          return this.$t('store.may_referred_to_in_public_unclear')
       }
     },
     collectionQuantity () {

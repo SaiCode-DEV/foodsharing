@@ -1,8 +1,8 @@
 <template>
   <b-modal
     id="quizSessionHistoryModal"
-    :title="$i18n('profile.nav.quizSessionHistory')"
-    :ok-title="$i18n('globals.close')"
+    :title="$t('profile.nav.quizSessionHistory')"
+    :ok-title="$t('globals.close')"
     size="lg"
     ok-only
     @show="fetchQuizSessions"
@@ -24,7 +24,7 @@
             v-for="session in sessions"
             :key="session.id"
           >
-            {{ $i18n(`quiz.sessionStatus.${session.status}`, session) }}
+            {{ $t(`quiz.sessionStatus.${session.status}`, session) }}
             <i
               class="fas fa-trash-alt float-right ml-2 delete-icon"
               @click="deleteSession(session.id)"
@@ -38,7 +38,7 @@
       </div>
     </div>
     <p v-else>
-      {{ $i18n('profile.history.noData') }}
+      {{ $t('profile.history.noData') }}
     </p>
   </b-modal>
 </template>
@@ -65,7 +65,7 @@ export default {
       try {
         this.entries = await getQuizSessionHistory(this.foodsaverId)
       } catch (e) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
       this.isLoading = false
     },

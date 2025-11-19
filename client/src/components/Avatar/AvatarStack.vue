@@ -18,7 +18,7 @@
           <a :href="$url('profile', user.id)" class="tooltip-link">{{ user.name }}</a>
         </span>
         <br v-if="hiddenUsers.length && freeSlotsCount > shownSlotCounts.free">
-        <span v-if="freeSlotsCount > shownSlotCounts.free" v-text="$i18n('pickup.overview.freeSlots', { slots: freeSlotsCount - shownSlotCounts.free })" />
+        <span v-if="freeSlotsCount > shownSlotCounts.free" v-text="$t('pickup.overview.freeSlots', { slots: freeSlotsCount - shownSlotCounts.free })" />
       </b-tooltip>
     </div>
 

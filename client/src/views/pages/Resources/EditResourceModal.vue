@@ -1,41 +1,41 @@
 <template>
   <b-modal
     ref="modal"
-    :title="$i18n(`resource_mosaic.${currentResourceId ? 'edit' : 'add'}`)"
+    :title="$t(`resource_mosaic.${currentResourceId ? 'edit' : 'add'}`)"
     centered
     size="lg"
     no-close-on-esc
     no-close-on-backdrop
-    :ok-title="$i18n('button.save')"
-    :cancel-title="$i18n('button.cancel')"
+    :ok-title="$t('button.save')"
+    :cancel-title="$t('button.cancel')"
     :ok-disabled="!name.length"
     @ok="okHandler"
   >
     <b-form>
-      <b-form-group :label="$i18n('resource_mosaic.editModal.name.label')">
+      <b-form-group :label="$t('resource_mosaic.editModal.name.label')">
         <b-form-input
           v-model="name"
-          :placeholder="$i18n('resource_mosaic.editModal.name.placeholder')"
+          :placeholder="$t('resource_mosaic.editModal.name.placeholder')"
           required
           trim
           maxlength="35"
         />
-        <small v-if="name.length === 35" v-text="$i18n('resource_mosaic.editModal.name.max_length')" />
+        <small v-if="name.length === 35" v-text="$t('resource_mosaic.editModal.name.max_length')" />
       </b-form-group>
 
-      <b-form-group :label="$i18n('resource_mosaic.editModal.description.label')">
+      <b-form-group :label="$t('resource_mosaic.editModal.description.label')">
         <MarkdownInput
           ref="mdInput"
           conceal-toolbar
           variant="outline-primary"
-          :placeholder="$i18n('resource_mosaic.editModal.description.placeholder')"
+          :placeholder="$t('resource_mosaic.editModal.description.placeholder')"
           :rows="2"
           allow-image-attachments
           :value.sync="description"
         />
       </b-form-group>
 
-      <b-form-group :label="$i18n('resource_mosaic.editModal.categories.label')">
+      <b-form-group :label="$t('resource_mosaic.editModal.categories.label')">
         <Multiselect
           v-model="categories"
           class="category-select"
@@ -45,12 +45,12 @@
           :close-on-select="false"
           track-by="id"
           label="name"
-          :placeholder="$i18n('resource_mosaic.editModal.categories.placeholder')"
+          :placeholder="$t('resource_mosaic.editModal.categories.placeholder')"
           :show-labels="false"
         />
       </b-form-group>
 
-      <b-form-group :label="$i18n('resource_mosaic.editModal.openness')">
+      <b-form-group :label="$t('resource_mosaic.editModal.openness')">
         <VueSlider
           v-model="openness"
           class="openness-slider"
@@ -64,20 +64,20 @@
         />
         <b-row class="slider-marks">
           <b-col cols="4">
-            <small v-text="$i18n('resource_mosaic.openness.level_1')" />
+            <small v-text="$t('resource_mosaic.openness.level_1')" />
           </b-col>
           <b-col cols="4" class="text-center">
-            <small v-text="$i18n('resource_mosaic.openness.level_3')" />
+            <small v-text="$t('resource_mosaic.openness.level_3')" />
           </b-col>
           <b-col cols="4" class="text-right">
-            <small v-text="$i18n('resource_mosaic.openness.level_5')" />
+            <small v-text="$t('resource_mosaic.openness.level_5')" />
           </b-col>
         </b-row>
       </b-form-group>
 
       <b-form-group>
         <b-form-checkbox v-model="isPrivate" switch>
-          {{ $i18n('resource_mosaic.editModal.is_private') }}
+          {{ $t('resource_mosaic.editModal.is_private') }}
         </b-form-checkbox>
       </b-form-group>
     </b-form>

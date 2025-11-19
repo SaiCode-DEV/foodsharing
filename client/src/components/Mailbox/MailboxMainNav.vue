@@ -6,7 +6,7 @@
           <b-button
             v-if="page === MAILBOX_PAGE.READ_EMAIL || page === MAILBOX_PAGE.EMAIL_LIST"
             v-b-tooltip.hover
-            :title="$i18n('mailbox.delete')"
+            :title="$t('mailbox.delete')"
             size="sm"
             variant="outline-primary"
             :disabled="areMailsNotSelected && page === MAILBOX_PAGE.EMAIL_LIST"
@@ -17,7 +17,7 @@
           <b-dropdown
             v-if="page === MAILBOX_PAGE.READ_EMAIL"
             id="dropdown-reply"
-            :text="$i18n('mailbox.reply.short')"
+            :text="$t('mailbox.reply.short')"
             class="m-md-2"
             size="sm"
             variant="outline-primary"
@@ -28,12 +28,12 @@
             <b-dropdown-item
               @click="showMailPage(MAIL_COMPOSITION_MODE.ANSWER)"
             >
-              {{ $i18n('mailbox.reply.short') }}
+              {{ $t('mailbox.reply.short') }}
             </b-dropdown-item>
             <b-dropdown-item
               @click="showMailPage(MAIL_COMPOSITION_MODE.ANSWER_ALL)"
             >
-              {{ $i18n('mailbox.reply_all') }}
+              {{ $t('mailbox.reply_all') }}
             </b-dropdown-item>
           </b-dropdown>
           <b-button
@@ -44,7 +44,7 @@
             variant="outline-primary"
             @click="showMailPage(MAIL_COMPOSITION_MODE.FORWARD)"
           >
-            <i class="fas fa-share" /> {{ $i18n('mailbox.forward') }}
+            <i class="fas fa-share" /> {{ $t('mailbox.forward') }}
           </b-button>
           <b-button
             v-if="page === MAILBOX_PAGE.EMAIL_LIST"
@@ -73,7 +73,7 @@
             variant="outline-primary"
             @click="mailboxViewSelectAllRows"
           >
-            {{ $i18n('mailbox.mark_all') }}
+            {{ $t('mailbox.mark_all') }}
           </b-button>
           <b-button
             v-else-if="page === MAILBOX_PAGE.EMAIL_LIST"
@@ -81,12 +81,12 @@
             variant="outline-primary"
             @click="mailboxViewClearSelected"
           >
-            {{ $i18n('mailbox.mark_none') }}
+            {{ $t('mailbox.mark_none') }}
           </b-button>
           <b-dropdown
             v-if="page === MAILBOX_PAGE.READ_EMAIL || page === MAILBOX_PAGE.EMAIL_LIST"
             id="dropdown-move-to"
-            :text="$i18n('mailbox.move_to')"
+            :text="$t('mailbox.move_to')"
             class="m-md-2 pt-2 pt-md-0"
             size="sm"
             variant="outline-primary"
@@ -108,19 +108,19 @@
             variant="primary"
             @click="showMailPage(MAIL_COMPOSITION_MODE.NEW)"
           >
-            {{ $i18n('mailbox.write') }}
+            {{ $t('mailbox.write') }}
           </b-button>
         </b-col>
       </b-row>
     </div>
     <b-modal
       v-model="showEmailDeletionConfirmationModal"
-      :title="$i18n('mailbox.conformation_modal.title')"
-      :cancel-title="$i18n('globals.close')"
+      :title="$t('mailbox.conformation_modal.title')"
+      :cancel-title="$t('globals.close')"
       @ok="mailboxEmailSingleViewDeleteEmail"
       @cancel="cancelEmailDeletion"
     >
-      {{ $i18n('mailbox.conformation_modal.message') }}
+      {{ $t('mailbox.conformation_modal.message') }}
     </b-modal>
   </div>
 </template>
@@ -148,7 +148,7 @@ export default {
       return this.selectedEmail < 1
     },
     getTranslationForReadOrUnReadState () {
-      return this.isMarkedAsReadState ? this.$i18n('mailbox.mark_as_read') : this.$i18n('mailbox.mark_as_unread')
+      return this.isMarkedAsReadState ? this.$t('mailbox.mark_as_read') : this.$t('mailbox.mark_as_unread')
     },
     readOrUnreadIconClass () {
       return this.isMarkedAsReadState ? 'fas fa-eye' : 'fas fa-eye-slash'
@@ -174,9 +174,9 @@ export default {
   methods: {
     getMovedToFolderTranslation () {
       const translations = {
-        [MAILBOX_FOLDER.INBOX]: this.$i18n('mailbox.trash'),
-        [MAILBOX_FOLDER.SENT]: this.$i18n('mailbox.trash'),
-        [MAILBOX_FOLDER.TRASH]: this.$i18n('mailbox.inbox'),
+        [MAILBOX_FOLDER.INBOX]: this.$t('mailbox.trash'),
+        [MAILBOX_FOLDER.SENT]: this.$t('mailbox.trash'),
+        [MAILBOX_FOLDER.TRASH]: this.$t('mailbox.inbox'),
       }
       return translations[this.folderType]
     },

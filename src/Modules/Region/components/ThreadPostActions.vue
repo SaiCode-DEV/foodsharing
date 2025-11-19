@@ -13,14 +13,14 @@
     <a
       v-if="mayReply"
       class="btn btn-sm btn-primary"
-      :title="$i18n('thread.post.quote_button')"
+      :title="$t('thread.post.quote_button')"
       @click="event => event.shiftKey ? $emit('reply-full') : $emit('reply')"
     >
-      {{ $i18n('button.answer') }}
+      {{ $t('button.answer') }}
     </a>
     <a
       v-if="mayHide"
-      v-b-tooltip="$i18n('forum.post.hide')"
+      v-b-tooltip="$t('forum.post.hide')"
       class="btn btn-sm btn-danger"
       @click="$refs.hideModal.show()"
     >
@@ -29,7 +29,7 @@
     <a
       v-if="mayDelete"
       v-b-tooltip.hover
-      :title="$i18n('forum.post.delete')"
+      :title="$t('forum.post.delete')"
       class="btn btn-sm btn-danger"
       @click="$refs.confirmDelete.show()"
     >
@@ -39,39 +39,39 @@
     <b-modal
       v-if="mayDelete"
       ref="confirmDelete"
-      :title="$i18n('forum.post.delete')"
-      :cancel-title="$i18n('button.cancel')"
-      :ok-title="$i18n('button.yes_i_am_sure')"
+      :title="$t('forum.post.delete')"
+      :cancel-title="$t('button.cancel')"
+      :ok-title="$t('button.yes_i_am_sure')"
       ok-variant="outline-danger"
       centered
       @ok="$emit('delete')"
     >
-      <p>{{ $i18n('really_delete') }}</p>
+      <p>{{ $t('really_delete') }}</p>
     </b-modal>
 
     <b-modal
       v-if="mayHide"
       ref="hideModal"
-      :title="$i18n('forum.post.sureHide')"
-      :cancel-title="$i18n('button.cancel')"
-      :ok-title="$i18n('button.yes_i_am_sure')"
+      :title="$t('forum.post.sureHide')"
+      :cancel-title="$t('button.cancel')"
+      :ok-title="$t('button.yes_i_am_sure')"
       ok-variant="outline-danger"
       centered
       :ok-disabled="!hideReason"
       @ok="$emit('hide', hideReason)"
     >
-      <b-form-group :label="$i18n('forum.post.giveHideReason')">
+      <b-form-group :label="$t('forum.post.giveHideReason')">
         <b-form-textarea
           v-model="hideReason"
           :state="hideReason ? null : false"
-          :placeholder="$i18n('forum.post.hideReasonPlaceholder')"
+          :placeholder="$t('forum.post.hideReasonPlaceholder')"
           :maxlength="255"
         />
       </b-form-group>
 
       <b-alert show>
         <i class="fas fa-info-circle" />
-        {{ $i18n('forum.post.hideInfo') }}
+        {{ $t('forum.post.hideInfo') }}
       </b-alert>
     </b-modal>
   </div>

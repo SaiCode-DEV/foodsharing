@@ -8,7 +8,7 @@
       <b-row class="justify-content-center mb-5">
         <b-col md="8">
           <p class="text-center lead">
-            {{ $i18n('contact_page.description') }}
+            {{ $t('contact_page.description') }}
           </p>
         </b-col>
       </b-row>
@@ -18,24 +18,24 @@
           v-for="(card, index) in contactCards"
           :key="index"
           :icon="card.icon"
-          :title="$i18n(card.titleKey)"
-          :button-text="$i18n(card.buttonTextKey)"
+          :title="$t(card.titleKey)"
+          :button-text="$t(card.buttonTextKey)"
           :button-href="card.href"
           :button-target="card.target"
           @click="card.isModal ? $bvModal.show('contact-modal') : null"
         >
-          {{ $i18n(card.textKey) }}
+          {{ $t(card.textKey) }}
         </ContactCard>
       </b-row>
     </b-container>
 
     <b-modal
       id="contact-modal"
-      :title="$i18n('contact_page.common.modal.title')"
+      :title="$t('contact_page.common.modal.title')"
       hide-footer
     >
       <Markdown
-        :source="$i18n('contact_page.common.modal.text', {
+        :source="$t('contact_page.common.modal.text', {
           common_mail: urls.contact_email_common(),
           common_mail_ch: urls.contact_email_common_ch(),
         })"

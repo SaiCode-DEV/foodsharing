@@ -12,7 +12,7 @@
       role="alert"
     >
       <i class="fas fa-circle text-secondary" />
-      {{ $i18n('profile.online', { name: profileMenu.foodSaverName }) }}
+      {{ $t('profile.online', { name: profileMenu.foodSaverName }) }}
     </div>
     <b-list-group>
       <b-list-group-item
@@ -26,7 +26,7 @@
         class="list-group-item list-group-item-action"
         :href="$url('settings', profileMenu.fsId)"
       >
-        <i class="fas fa-pencil-alt fa-fw" /> {{ $i18n('settings.header') }}
+        <i class="fas fa-pencil-alt fa-fw" /> {{ $t('settings.header') }}
       </b-list-group-item>
       <b-list-group-item
         v-if="profileMenu.fsId !== profileMenu.fsIdSession"
@@ -34,7 +34,7 @@
         class="list-group-item list-group-item-action"
         @click="openChat(profileMenu.fsId)"
       >
-        <i class="fas fa-comment fa-fw" /> {{ $i18n('chat.open_chat') }}
+        <i class="fas fa-comment fa-fw" /> {{ $t('chat.open_chat') }}
       </b-list-group-item>
       <b-list-group-item
         v-if="profileMenu.fsId !== profileMenu.fsIdSession && buddyType === buddyTypes.NO_BUDDY"
@@ -44,7 +44,7 @@
         :disabled="loading"
         @click="sendBuddyRequest(profileMenu.fsId)"
       >
-        <i class="fas fa-user-friends fa-fw" /> {{ $i18n('profile.nav.buddy', { name: profileMenu.foodSaverName }) }}
+        <i class="fas fa-user-friends fa-fw" /> {{ $t('profile.nav.buddy', { name: profileMenu.foodSaverName }) }}
       </b-list-group-item>
       <b-list-group-item
         v-if="profileMenu.fsId !== profileMenu.fsIdSession && buddyType !== buddyTypes.NO_BUDDY"
@@ -53,7 +53,7 @@
         :disabled="loading"
         @click="removeBuddy(profileMenu.fsId)"
       >
-        <i class="fas fa-user-slash fa-fw" /> {{ $i18n('profile.nav.remove_buddy', { name: profileMenu.foodSaverName }) }}
+        <i class="fas fa-user-slash fa-fw" /> {{ $t('profile.nav.remove_buddy', { name: profileMenu.foodSaverName }) }}
       </b-list-group-item>
       <b-list-group-item
         v-if="profileMenu.mayHistory"
@@ -61,7 +61,7 @@
         class="list-group-item list-group-item-action"
         @click="openHistory(1)"
       >
-        <i class="fas fa-file-alt fa-fw" /> {{ $i18n('profile.nav.history') }}
+        <i class="fas fa-file-alt fa-fw" /> {{ $t('profile.nav.history') }}
       </b-list-group-item>
       <b-list-group-item
         v-if="profileMenu.mayHistory"
@@ -69,7 +69,7 @@
         class="list-group-item list-group-item-action"
         @click="openHistory(0)"
       >
-        <i class="fas fa-file-alt fa-fw" /> {{ $i18n('profile.nav.verificationHistory') }}
+        <i class="fas fa-file-alt fa-fw" /> {{ $t('profile.nav.verificationHistory') }}
       </b-list-group-item>
       <b-list-group-item
         v-if="profileMenu.maySeeQuizSessions"
@@ -77,7 +77,7 @@
         class="list-group-item list-group-item-action"
         @click="$bvModal.show('quizSessionHistoryModal')"
       >
-        <i class="fas fa-file-alt fa-fw" /> {{ $i18n('profile.nav.quizSessionHistory') }}
+        <i class="fas fa-file-alt fa-fw" /> {{ $t('profile.nav.quizSessionHistory') }}
       </b-list-group-item>
       <b-list-group-item
         v-if="profileMenu.mayNotes"
@@ -87,7 +87,7 @@
       >
         <i class="far fa-file-alt fa-fw" />
         <span>
-          {{ $i18n('profile.nav.notes') }} <strong>({{ profileMenu.noteCount }})</strong>
+          {{ $t('profile.nav.notes') }} <strong>({{ profileMenu.noteCount }})</strong>
         </span>
       </b-list-group-item>
       <b-list-group-item
@@ -98,7 +98,7 @@
       >
         <i class="far fa-meh fa-fw" />
         <span>
-          {{ $i18n('profile.nav.violations') }} <strong>({{ profileMenu.violationCount }})</strong>
+          {{ $t('profile.nav.violations') }} <strong>({{ profileMenu.violationCount }})</strong>
         </span>
       </b-list-group-item>
       <b-list-group-item
@@ -117,7 +117,7 @@
         href="#"
         @click="$refs.modal_mediation.show()"
       >
-        <i class="far fa-handshake fa-fw" /> {{ $i18n('profile.mediationRequest') }}
+        <i class="far fa-handshake fa-fw" /> {{ $t('profile.mediationRequest') }}
       </b-list-group-item>
     </b-list-group>
     <b-list-group>
@@ -128,14 +128,14 @@
         :href="$url('settingsHygiene')"
       >
         <i class="fas fa-hand-sparkles fa-fw" />
-        {{ $i18n('terminology.hygiene_training') }}
+        {{ $t('terminology.hygiene_training') }}
       </b-list-group-item>
     </b-list-group>
     <b-modal
       v-if="showModerationButton"
       ref="modal_mediation"
-      :title="$i18n('profile.mediation.title', { name: profileMenu.foodSaverName })"
-      :cancel-title="$i18n('button.cancel')"
+      :title="$t('profile.mediation.title', { name: profileMenu.foodSaverName })"
+      :cancel-title="$t('button.cancel')"
       header-class="d-flex"
       content-class="pr-3 pt-3"
     >
@@ -218,8 +218,8 @@ export default {
     },
     async sendBuddyRequest (userId) {
       const dialogueOptions = {
-        title: this.$i18n('buddy.send.confirm_title', { name: this.profileMenu.foodSaverName }),
-        okTitle: this.$i18n('yes'),
+        title: this.$t('buddy.send.confirm_title', { name: this.profileMenu.foodSaverName }),
+        okTitle: this.$t('yes'),
         okVariant: undefined,
       }
       if (!await this.confirmationDialogue('buddy.send.confirm_text', dialogueOptions)) return
@@ -241,8 +241,8 @@ export default {
     },
     async removeBuddy (userId) {
       const dialogueOptions = {
-        title: this.$i18n('buddy.remove.confirm_title', { name: this.profileMenu.foodSaverName }),
-        okTitle: this.$i18n('yes'),
+        title: this.$t('buddy.remove.confirm_title', { name: this.profileMenu.foodSaverName }),
+        okTitle: this.$t('yes'),
       }
       if (!await this.confirmationDialogue('buddy.remove.confirm_text', dialogueOptions)) return
       this.loading = true

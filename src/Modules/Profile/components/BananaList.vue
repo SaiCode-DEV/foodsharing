@@ -7,19 +7,19 @@
     <div v-if="canGiveBanana && !hasGivenBanana" class="mb-2">
       <div v-if="showTextarea">
         <b-alert variant="success" show>
-          {{ $i18n('profile.banana.details', { name: recipient.name }) }}
+          {{ $t('profile.banana.details', { name: recipient.name }) }}
           <br>
           <strong>
-            {{ $i18n('profile.banana.undo') }}
+            {{ $t('profile.banana.undo') }}
           </strong>
         </b-alert>
         <b-alert variant="info" show>
-          {{ $i18n('profile.banana.vouch') }}
+          {{ $t('profile.banana.vouch') }}
         </b-alert>
 
         <b-form-textarea
           v-model="bananaText"
-          :placeholder="$i18n('profile.banana.placeholder')"
+          :placeholder="$t('profile.banana.placeholder')"
           class="mb-2"
           max-rows="8"
           size="sm"
@@ -32,7 +32,7 @@
             size="sm"
             @click="toggleTextarea"
           >
-            {{ $i18n('button.cancel') }}
+            {{ $t('button.cancel') }}
           </b-button>
           <b-button
             class="text-right"
@@ -41,7 +41,7 @@
             :disabled="!canSendBanana"
             @click="trySendBanana"
           >
-            {{ $i18n('profile.banana.give', { name: recipient.name }) }}
+            {{ $t('profile.banana.give', { name: recipient.name }) }}
           </b-button>
         </div>
       </div>
@@ -51,7 +51,7 @@
           size="sm"
           @click="toggleTextarea"
         >
-          {{ $i18n('profile.banana.give', { name: recipient.name }) }}
+          {{ $t('profile.banana.give', { name: recipient.name }) }}
         </b-button>
       </div>
     </div>

@@ -1,6 +1,6 @@
 <template>
   <Dropdown
-    :title="$i18n('navigation.stores')"
+    :title="$t('navigation.stores')"
     icon="fa-shopping-cart"
     is-fixed-size
     is-scrollable
@@ -21,13 +21,13 @@
         >
           <i
             v-if="store.icon"
-            v-b-tooltip="store.tooltip ? $i18n(store.tooltip) : null"
+            v-b-tooltip="store.tooltip ? $t(store.tooltip) : null"
             class="icon-subnav icon--small-container fas"
             :class="[store.icon, {'icon--help': store.tooltip}]"
           />
           <span
             class="text-truncate"
-            v-text="$i18n(store.name)"
+            v-text="$t(store.name)"
           />
         </button>
         <b-collapse
@@ -48,7 +48,7 @@
       <small
         role="menuitem"
         class="disabled dropdown-item"
-        v-text="$i18n('store.noStores')"
+        v-text="$t('store.noStores')"
       />
     </template>
     <template #actions>
@@ -59,7 +59,7 @@
         class="dropdown-item dropdown-action"
       >
         <i class="icon-subnav fas fa-plus" />
-        {{ $i18n('storeedit.add-new') }}
+        {{ $t('storeedit.add-new') }}
       </a>
       <a
         :href="$url('storeUserList', userId)"
@@ -67,7 +67,7 @@
         class="dropdown-item dropdown-action"
       >
         <i class="icon-subnav fas fa-list" />
-        {{ $i18n('store.all_of_my_stores') }}
+        {{ $t('store.all_of_my_stores') }}
       </a>
     </template>
   </Dropdown>

@@ -4,7 +4,7 @@
       ref="explanation"
       class="explanation"
     >
-      <b>{{ $i18n('explanation') }}:</b>
+      <b>{{ $t('explanation') }}:</b>
       {{ text }}
 
     </span>
@@ -12,7 +12,7 @@
       href="#expand"
       @click="expand"
     >
-      {{ $i18n('globals.show_more') }}
+      {{ $t('globals.show_more') }}
     </a>
   </div>
 </template>

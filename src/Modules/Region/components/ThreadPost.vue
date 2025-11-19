@@ -14,7 +14,7 @@
         <span class="flex-grow-1">
           <i
             v-if="isLinked"
-            v-b-tooltip="$i18n('thread.post.linked_post')"
+            v-b-tooltip="$t('thread.post.linked_post')"
             class="fas fa-link mr-1"
           />
           <a :href="$url('profile', post.author.id)">
@@ -23,12 +23,12 @@
        --><template v-if="post.hidden">:
             <Markdown
               class="d-inline-block"
-              :source="$i18n('forum.post.hiddenPost', {
+              :source="$t('forum.post.hiddenPost', {
                 moderatorName: post.hidden.moderator.name,
                 moderatorUrl: $url('profile', post.hidden.moderator.id),
               })"
             />
-            ({{ $i18n('forum.post.hiddenReason', post.hidden) }}
+            ({{ $t('forum.post.hiddenReason', post.hidden) }}
             <Time :time="post.hidden.time" />)
           </template>
         </span>
@@ -55,7 +55,7 @@
             @click="openChat"
           >
             <i class="fas fa-fw fa-comments" />
-            {{ $i18n('chat.open_chat') }}
+            {{ $t('chat.open_chat') }}
           </a>
         </div>
         <div class="body m-2 mr-md-5 text-break flex-shrink-fix">
@@ -80,22 +80,22 @@
     <b-modal
       v-if="mayModerate && post.hidden"
       ref="restoreModal"
-      :title="$i18n('forum.restore.title')"
+      :title="$t('forum.restore.title')"
       centered
-      :cancel-title="$i18n('button.cancel')"
-      :ok-title="$i18n('button.yes_i_am_sure')"
+      :cancel-title="$t('button.cancel')"
+      :ok-title="$t('button.yes_i_am_sure')"
       @ok="restore"
     >
-      {{ $i18n('forum.restore.really') }}
+      {{ $t('forum.restore.really') }}
       <blockquote>
         <Markdown :source="post.body" />
       </blockquote>
       <ul>
         <li>
-          {{ $i18n('forum.restore.hidden_by') }}
+          {{ $t('forum.restore.hidden_by') }}
           <a :href="$url('profile', post.hidden.moderator.id)" v-text="post.hidden.moderator.name" />
         </li>
-        <li v-text="$i18n('forum.restore.reason', { reason: post.hidden.reason })" />
+        <li v-text="$t('forum.restore.reason', { reason: post.hidden.reason })" />
         <li>
           <Time
             :time="post.hidden.time"
@@ -154,7 +154,7 @@ export default {
     },
     async copySourceCodeToClipboard () {
       await navigator.clipboard.writeText(this.post.body)
-      pulseSuccess(this.$i18n('thread.post.copy_source_success'))
+      pulseSuccess(this.$t('thread.post.copy_source_success'))
     },
     async copyDirectLink () {
       this.copyToClipboard(location.protocol + '//' + location.host + this.deepLink, 'thread.post.copy_direct_link_success')

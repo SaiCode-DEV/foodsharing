@@ -1,6 +1,6 @@
 <template>
   <Container
-    :title="$i18n('forum.threads')"
+    :title="$t('forum.threads')"
     :collapsible="false"
   >
     <template #options>
@@ -11,7 +11,7 @@
         @change="setActiveFollowership(isActiveFollower)"
       >
         <i class="fas fa-fw" :class="isActiveFollower ? 'fa-bell' : 'fa-bell-slash'" />
-        {{ $i18n('forum.options.bells_for_new_posts') }}
+        {{ $t('forum.options.bells_for_new_posts') }}
       </b-form-checkbox>
     </template>
     <b-container>
@@ -34,7 +34,7 @@
             variant="primary"
             :href="$url('forum', groupId, subforumId, null, null, true)"
           >
-            {{ $i18n('forum.new_thread') }}
+            {{ $t('forum.new_thread') }}
           </b-button>
         </b-col>
       </b-row>
@@ -54,7 +54,7 @@
           class="pl-2 thread-item"
         >
           <span v-if="!threads.totalRows">
-            {{ $i18n('forum.no_threads') }}
+            {{ $t('forum.no_threads') }}
           </span>
         </li>
         <b-pagination
@@ -118,7 +118,7 @@ export default {
       try {
         this.threads = (await listThreads(this.groupId, this.subforumId, offset)).object
       } catch {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
     },
     setActiveFollowership (isActiveFollower) {

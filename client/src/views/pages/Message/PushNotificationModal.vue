@@ -2,17 +2,17 @@
   <b-modal
     ref="modal"
     centered
-    :title="$i18n('notifications.pushModal.title')"
-    :ok-title="$i18n('notifications.pushModal.ok')"
-    :cancel-title="$i18n('notifications.pushModal.cancel')"
+    :title="$t('notifications.pushModal.title')"
+    :ok-title="$t('notifications.pushModal.ok')"
+    :cancel-title="$t('notifications.pushModal.cancel')"
     :cancel-variant="dontAskAgain ? 'outline-danger' : ''"
     @ok="enablePushNotifications"
     @cancel="cancel"
   >
-    <Markdown :source="$i18n('notifications.pushModal.content')" />
+    <Markdown :source="$t('notifications.pushModal.content')" />
     <hr>
     <b-form-checkbox v-model="dontAskAgain">
-      {{ $i18n('notifications.pushModal.dontAskAgain') }}
+      {{ $t('notifications.pushModal.dontAskAgain') }}
     </b-form-checkbox>
   </b-modal>
 </template>

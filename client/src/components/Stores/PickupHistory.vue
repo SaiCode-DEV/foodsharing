@@ -1,6 +1,6 @@
 <template>
   <Container
-    :title="$i18n('pickup.history.title')"
+    :title="$t('pickup.history.title')"
     :container-is-expanded="isContainerExpanded"
     :tag="`store-pickup-history-${storeId}`"
     wrap-content
@@ -23,7 +23,7 @@
           @click.prevent="searchHistory"
         >
           <i class="fas fa-fw fa-search" />
-          {{ $i18n('pickup.history.search') }}
+          {{ $t('pickup.history.search') }}
         </b-button>
       </div>
 
@@ -82,7 +82,7 @@ export default {
         endOfToDate.setDate(this.toDate.getDate() + 1)
         this.pickupList = await listPickupHistory(this.storeId, this.fromDate, endOfToDate)
       } catch (e) {
-        pulseError(this.$i18n('error_unexpected') + e)
+        pulseError(this.$t('error_unexpected') + e)
       }
       this.isLoading = false
     },

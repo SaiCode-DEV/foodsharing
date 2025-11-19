@@ -6,30 +6,30 @@
         <h4
           v-if="ReleaseData.version"
           class="releasefield__title"
-          v-text="$i18n(`releases.${ReleaseData.version}`)"
+          v-text="$t(`releases.${ReleaseData.version}`)"
         />
       </div>
       <div class="releasefield__links">
         {{ ReleaseData.teaser }}
-        {{ $i18n('dashboard.release.for_release_notes') }}
+        {{ $t('dashboard.release.for_release_notes') }}
         <a
           class="releasefield__link"
           :href="$url('release_notes')"
-          v-text="$i18n('menu.entry.release-notes')"
+          v-text="$t('menu.entry.release-notes')"
         /><br>
-        {{ $i18n('dashboard.release.for_news_from_it') }}
+        {{ $t('dashboard.release.for_news_from_it') }}
         <a
           class="releasefield__link"
           :href="$url('newsFromIT')"
           target="_blank"
-          v-text="$i18n('navigation.news_from_it')"
+          v-text="$t('navigation.news_from_it')"
         />
         <br>
-        {{ $i18n('dashboard.release.for_support') }}
+        {{ $t('dashboard.release.for_support') }}
         <a
           class="releasefield__link"
           :href="$url('contact')"
-          v-text="$i18n('navigation.contact')"
+          v-text="$t('navigation.contact')"
         />
       </div>
     </div>

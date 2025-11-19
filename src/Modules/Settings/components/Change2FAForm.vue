@@ -1,25 +1,25 @@
 <template>
   <div>
     <p class="col-sm-auto">
-      {{ $i18n('settings.2fa.intro') }}
+      {{ $t('settings.2fa.intro') }}
     </p>
     <p class="col-sm-auto">
-      {{ $i18n('settings.2fa.explanation') }}
+      {{ $t('settings.2fa.explanation') }}
     </p>
     <p class="col-sm-auto">
-      {{ $i18n('settings.2fa.further_info.intro') }}
-      <a :href="$i18n('settings.2fa.further_info.link')" target="_blank">{{ $i18n('settings.2fa.further_info.text') }}</a>.
+      {{ $t('settings.2fa.further_info.intro') }}
+      <a :href="$t('settings.2fa.further_info.link')" target="_blank">{{ $t('settings.2fa.further_info.text') }}</a>.
     </p>
 
     <p class="col-sm-auto">
-      {{ $i18n('settings.2fa.status_is') }}:
-      <span v-if="totpActive" style="color: green; font-weight: bold;">{{ $i18n('settings.2fa.active') }}.</span>
-      <span v-else style="color: red; font-weight: bold;">{{ $i18n('settings.2fa.inactive') }}.</span>
-      {{ $i18n('settings.2fa.password_required') }}
+      {{ $t('settings.2fa.status_is') }}:
+      <span v-if="totpActive" style="color: green; font-weight: bold;">{{ $t('settings.2fa.active') }}.</span>
+      <span v-else style="color: red; font-weight: bold;">{{ $t('settings.2fa.inactive') }}.</span>
+      {{ $t('settings.2fa.password_required') }}
     </p>
 
     <p v-if="totpActive" class="col-sm-auto">
-      {{ $i18n('settings.2fa.num_backup_codes') }}:
+      {{ $t('settings.2fa.num_backup_codes') }}:
       <span id="testing-num-backup-codes">
         {{ numBackupCodes }}
       </span>
@@ -32,7 +32,7 @@
         :disabled="isLoading"
         class="testing-totp-disable"
         @click="$refs.TwoFADisableModal.show()"
-        v-text="$i18n('settings.2fa.action_label_remove')"
+        v-text="$t('settings.2fa.action_label_remove')"
       />
       <b-button
         v-else
@@ -40,7 +40,7 @@
         :disabled="isLoading"
         class="testing-totp-enable"
         @click="get2FAsecret"
-        v-text="$i18n('settings.2fa.action_label_setup')"
+        v-text="$t('settings.2fa.action_label_setup')"
       />
     </p>
     <TwoFAEnable

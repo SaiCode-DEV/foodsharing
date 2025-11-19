@@ -5,13 +5,13 @@
       <a :href="$url('blogPost', blogPost.id)">{{ blogPost.title }}</a>
     </h2>
     <p class="small">
-      <span>{{ $i18n('blog.author') }} {{ blogPost.authorName }}</span>,
+      <span>{{ $t('blog.author') }} {{ blogPost.authorName }}</span>,
       <span>{{ $dateFormatter.format(blogPost.publishedAt) }}</span>
     </p>
     <img v-if="pictureUrl" :src="pictureUrl">
     <div v-text="blogPost.teaser" />
     <p>
-      <a class="button" :href="$url('blogPost', blogPost.id)">{{ $i18n('blog.read') }}</a>
+      <a class="button" :href="$url('blogPost', blogPost.id)">{{ $t('blog.read') }}</a>
     </p>
     <div class="clear" />
   </div>

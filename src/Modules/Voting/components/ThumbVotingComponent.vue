@@ -12,7 +12,7 @@
           <b-form-radio
             v-model="selected[i]"
             v-b-tooltip.hover
-            :title="$i18n('poll.type_2.tooltip_positive')"
+            :title="$t('poll.type_2.tooltip_positive')"
             value="1"
             button
             button-variant="outline-secondary"
@@ -23,7 +23,7 @@
           <b-form-radio
             v-model="selected[i]"
             v-b-tooltip.hover
-            :title="$i18n('poll.type_2.tooltip_neutral')"
+            :title="$t('poll.type_2.tooltip_neutral')"
             value="0"
             button
             button-variant="outline-secondary"
@@ -34,7 +34,7 @@
           <b-form-radio
             v-model="selected[i]"
             v-b-tooltip.hover
-            :title="$i18n('poll.type_2.tooltip_negative')"
+            :title="$t('poll.type_2.tooltip_negative')"
             value="-1"
             button
             button-variant="outline-secondary"

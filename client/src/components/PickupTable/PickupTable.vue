@@ -50,18 +50,18 @@
         size="sm"
         variant="danger"
       >
-        {{ $i18n('pickup.overview.menu.signOff') }}
+        {{ $t('pickup.overview.menu.signOff') }}
       </b-button>
       <b-modal
         :id="'cancelSlotModal-'+entry.index+tableId"
-        :title="$i18n('pickup.overview.modals.signOff.title')"
+        :title="$t('pickup.overview.modals.signOff.title')"
         header-class="d-flex"
         content-class="pr-3 pt-3"
         centered
         @ok="$emit('cancel-slot', entry.item)"
       >
         <p class="my-4">
-          {{ $i18n('pickup.overview.modals.signOff.message') }}
+          {{ $t('pickup.overview.modals.signOff.message') }}
         </p>
       </b-modal>
     </template>
@@ -70,7 +70,7 @@
       <tr>
         <td colspan="100%" class="table-footer-container">
           <small v-if="noMorePages">
-            {{ $i18n('pickup.overview.allLoaded') }}
+            {{ $t('pickup.overview.allLoaded') }}
           </small>
           <LoadingOverlay
             v-else
@@ -81,7 +81,7 @@
               :disabled="loading"
               @click="$emit('load-more')"
             >
-              {{ $i18n('pickup.overview.menu.loadMore') }}
+              {{ $t('pickup.overview.menu.loadMore') }}
             </b-button>
           </LoadingOverlay>
         </td>

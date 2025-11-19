@@ -2,7 +2,7 @@
   <div class="empty-slot">
     <button
       v-if="allowJoin && !allowRemove"
-      v-b-tooltip="$i18n('pickup.take_empty_slot')"
+      v-b-tooltip="$t('pickup.take_empty_slot')"
       class="btn"
       @click="$emit('join')"
     >
@@ -10,7 +10,7 @@
     </button>
     <button
       v-else-if="allowRemove && !allowJoin"
-      v-b-tooltip="$i18n('pickup.slot_remove')"
+      v-b-tooltip="$t('pickup.slot_remove')"
       class="btn"
       @mouseover="hover = true"
       @mouseout="hover = false"
@@ -28,10 +28,10 @@
         <i class="fas fa-question" />
       </template>
       <b-dropdown-item @click="$emit('join')">
-        <i class="fas fa-check-circle" /> {{ $i18n('pickup.take_empty_slot') }}
+        <i class="fas fa-check-circle" /> {{ $t('pickup.take_empty_slot') }}
       </b-dropdown-item>
       <b-dropdown-item @click="$emit('remove-menu')">
-        <i class="fas fa-times-circle" /> {{ $i18n('pickup.slot_remove') }}
+        <i class="fas fa-times-circle" /> {{ $t('pickup.slot_remove') }}
       </b-dropdown-item>
     </b-dropdown>
 

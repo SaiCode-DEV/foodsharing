@@ -1,9 +1,9 @@
 <template>
   <b-modal
     id="editQuizModal"
-    :title="$i18n('quiz.editModal.quiz.title')"
-    :ok-title="$i18n('button.save')"
-    :cancel-title="$i18n('button.cancel')"
+    :title="$t('quiz.editModal.quiz.title')"
+    :ok-title="$t('button.save')"
+    :cancel-title="$t('button.cancel')"
     :ok-disabled="!hasValidValues"
     scrollable
     centered
@@ -12,17 +12,17 @@
     @show="initializeFormData(quiz, { allowUntimed: !!quiz.questionCountUntimed})"
   >
     <b-form>
-      <b-form-group :label="$i18n('quiz.editModal.quiz.input.name.label')">
+      <b-form-group :label="$t('quiz.editModal.quiz.input.name.label')">
         <b-form-input
           v-model="form.name"
-          :placeholder="$i18n('quiz.editModal.quiz.input.name.placeholder')"
+          :placeholder="$t('quiz.editModal.quiz.input.name.placeholder')"
           required
           :state="validities.name"
           trim
         />
       </b-form-group>
 
-      <b-form-group :label="$i18n('quiz.editModal.quiz.input.maxFp')">
+      <b-form-group :label="$t('quiz.editModal.quiz.input.maxFp')">
         <b-form-input
           v-model.number="form.maxFailurePointsToSucceed"
           type="number"
@@ -33,7 +33,7 @@
         />
       </b-form-group>
 
-      <b-form-group :label="$i18n('quiz.editModal.quiz.input.questionCountTimed')">
+      <b-form-group :label="$t('quiz.editModal.quiz.input.questionCountTimed')">
         <b-form-input
           v-model.number="form.questionCountTimed"
           type="number"
@@ -46,13 +46,13 @@
 
       <b-form-group>
         <b-form-checkbox v-model="form.allowUntimed">
-          {{ $i18n('quiz.editModal.quiz.input.allowUntimed') }}
+          {{ $t('quiz.editModal.quiz.input.allowUntimed') }}
         </b-form-checkbox>
       </b-form-group>
 
       <b-form-group
         v-if="form.allowUntimed"
-        :label="$i18n('quiz.editModal.quiz.input.questionCountUntimed')"
+        :label="$t('quiz.editModal.quiz.input.questionCountUntimed')"
       >
         <b-form-input
           v-model.number="form.questionCountUntimed"
@@ -68,7 +68,7 @@
         variant="danger"
         show
       >
-        <Markdown :source="$i18n('quiz.editModal.quiz.htmlWarning')" />
+        <Markdown :source="$t('quiz.editModal.quiz.htmlWarning')" />
       </b-alert>
       <MarkdownInput
         :value.sync="form.description"

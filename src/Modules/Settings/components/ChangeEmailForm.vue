@@ -1,7 +1,7 @@
 <template>
   <div>
     <p class="m-1">
-      {{ $i18n(isMe ? 'settings.changemail.explanation' : 'settings.changemail.explanation_other_user') }}
+      {{ $t(isMe ? 'settings.changemail.explanation' : 'settings.changemail.explanation_other_user') }}
     </p>
 
     <div class="col-sm-auto">
@@ -11,16 +11,16 @@
         class="form-control mt-3"
         :class="{ 'is-invalid': v$.email.$invalid && v$.email.$dirty }"
         type="email"
-        :placeholder="$i18n('settings.changemail.input_label_email')"
+        :placeholder="$t('settings.changemail.input_label_email')"
         :disabled="isLoading"
         @input="v$.email.$touch()"
       >
       <div v-if="v$.email.$invalid && v$.email.$dirty" class="invalid-feedback">
         <span v-if="v$.email.email">
-          {{ $i18n('settings.changemail.invalid') }}
+          {{ $t('settings.changemail.invalid') }}
         </span>
         <span v-else-if="v$.email.notFoodsharingAddress">
-          {{ $i18n('settings.changemail.domain') }}
+          {{ $t('settings.changemail.domain') }}
         </span>
       </div>
     </div>
@@ -32,7 +32,7 @@
         class="form-control mt-3"
         :class="{ 'is-invalid': v$.confirmEmail.$invalid && v$.confirmEmail.$dirty }"
         type="email"
-        :placeholder="$i18n('settings.changemail.input_label_email_confirm')"
+        :placeholder="$t('settings.changemail.input_label_email_confirm')"
         :disabled="isLoading"
         @input="v$.confirmEmail.$touch()"
       >
@@ -41,13 +41,13 @@
         class="invalid-feedback"
       >
         <span v-if="v$.confirmEmail.required || v$.confirmEmail.sameAsEmail">
-          {{ $i18n('settings.changemail.confirm_email_required') }}
+          {{ $t('settings.changemail.confirm_email_required') }}
         </span>
       </div>
     </div>
 
     <p v-if="isMe" class="m-1 mt-3">
-      {{ $i18n('settings.changemail.explanation_password') }}
+      {{ $t('settings.changemail.explanation_password') }}
     </p>
 
     <div class="col-sm-auto">
@@ -64,7 +64,7 @@
         v-if="v$.password.$invalid && v$.password.$dirty"
         class="invalid-feedback"
       >
-        {{ $i18n('settings.changemail.password_required') }}
+        {{ $t('settings.changemail.password_required') }}
       </div>
     </div>
 
@@ -73,7 +73,7 @@
       :class="(isLoading || v$.$invalid) ? 'btn-secondary' : 'btn-primary'"
       :disabled="v$.$invalid"
       @click="submitEmail"
-      v-text="$i18n('settings.email')"
+      v-text="$t('settings.email')"
     />
   </div>
 </template>
@@ -132,11 +132,11 @@ export default {
   methods: {
     async submitEmail () {
       let confirmationMessage = this.isMe ? 'settings.changemail.question' : 'settings.changemail.question_other_user'
-      confirmationMessage = this.$i18n(confirmationMessage) + ' ' + this.email.trim()
+      confirmationMessage = this.$t(confirmationMessage) + ' ' + this.email.trim()
       if (!await this.$bvModal.msgBoxConfirm(confirmationMessage, {
-        title: this.$i18n('are_you_sure'),
-        okTitle: this.$i18n('button.apply'),
-        cancelTitle: this.$i18n('button.cancel'),
+        title: this.$t('are_you_sure'),
+        okTitle: this.$t('button.apply'),
+        cancelTitle: this.$t('button.cancel'),
         centered: true,
       })) return
 
@@ -145,13 +145,13 @@ export default {
       try {
         const id = this.isMe ? this.userStore.getUserId : this.userId
         await requestEmailChange(id, this.email.trim(), this.password)
-        pulseInfo(this.$i18n(this.isMe ? 'settings.changemail.sent' : 'settings.changemail.sent_other_user'), { sticky: true })
+        pulseInfo(this.$t(this.isMe ? 'settings.changemail.sent' : 'settings.changemail.sent_other_user'), { sticky: true })
       } catch (e) {
         let message = e.message
         if (e.code === HTTP_RESPONSE.FORBIDDEN) {
-          message = this.$i18n(this.isMe ? 'settings.changemail.wrong_password' : 'settings.changemail.insufficient_permission')
+          message = this.$t(this.isMe ? 'settings.changemail.wrong_password' : 'settings.changemail.insufficient_permission')
         } else if (e.code === HTTP_RESPONSE.BAD_REQUEST) {
-          message = this.$i18n('settings.changemail.occupied')
+          message = this.$t('settings.changemail.occupied')
         }
         pulseError(message)
       }

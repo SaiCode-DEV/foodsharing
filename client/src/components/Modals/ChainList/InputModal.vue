@@ -1,7 +1,7 @@
 <template>
   <b-modal
     ref="input-modal"
-    :title="$i18n('chain.inputmodal.title.' + mode)"
+    :title="$t('chain.inputmodal.title.' + mode)"
     modal-class="bootstrap"
     centered
     size="lg"
@@ -12,16 +12,16 @@
   >
     <form>
       <b-form-group
-        :label="$i18n('chain.inputmodal.inputs.name.label')"
+        :label="$t('chain.inputmodal.inputs.name.label')"
         label-for="name-input"
         label-cols-sm="2"
         label-align-sm="right"
-        :invalid-feedback="$i18n('chain.inputmodal.inputs.name.invalidfeedback')"
+        :invalid-feedback="$t('chain.inputmodal.inputs.name.invalidfeedback')"
       >
         <b-form-input
           id="name-input"
           v-model="input.name"
-          :placeholder="$i18n('chain.inputmodal.inputs.name.placeholder')"
+          :placeholder="$t('chain.inputmodal.inputs.name.placeholder')"
           :formatter="singleSpacing"
           lazy-formatter
           :state="!!input.name"
@@ -32,7 +32,7 @@
 
       <b-form-group
         id="headquarters-input"
-        :label="$i18n('chain.inputmodal.inputs.headquarters.label')"
+        :label="$t('chain.inputmodal.inputs.headquarters.label')"
         label-for="zip-input"
         label-cols-sm="2"
         label-align-sm="right"
@@ -40,7 +40,7 @@
         <b-form-input
           id="zip-input"
           v-model="input.headquartersZip"
-          :placeholder="$i18n('chain.inputmodal.inputs.headquarters.placeholder.zip')"
+          :placeholder="$t('chain.inputmodal.inputs.headquarters.placeholder.zip')"
           :state="input.headquartersZip ? /^\d{4,5}$/.test(input.headquartersZip) : false"
           maxlength="5"
           trim
@@ -48,7 +48,7 @@
         <b-form-input
           id="city-input"
           v-model="input.headquartersCity"
-          :placeholder="$i18n('chain.inputmodal.inputs.headquarters.placeholder.city')"
+          :placeholder="$t('chain.inputmodal.inputs.headquarters.placeholder.city')"
           :formatter="singleSpacing"
           :state="!!input.headquartersCity"
           maxlength="50"
@@ -57,7 +57,7 @@
         <b-form-input
           id="country-input"
           v-model="input.headquartersCountry"
-          :placeholder="$i18n('chain.inputmodal.inputs.headquarters.placeholder.country')"
+          :placeholder="$t('chain.inputmodal.inputs.headquarters.placeholder.country')"
           :formatter="singleSpacing"
           :state="!!input.headquartersCountry"
           maxlength="50"
@@ -66,12 +66,12 @@
       </b-form-group>
 
       <b-form-group
-        :label="$i18n('chain.inputmodal.inputs.estimatedStoreCount.label')"
+        :label="$t('chain.inputmodal.inputs.estimatedStoreCount.label')"
         label-for="estimatedStoreCount-input"
         label-cols-sm="2"
         label-align-sm="right"
-        :invalid-feedback="$i18n('chain.inputmodal.inputs.estimatedStoreCount.invalidfeedback')"
-        :description="$i18n('chain.inputmodal.inputs.estimatedStoreCount.description')"
+        :invalid-feedback="$t('chain.inputmodal.inputs.estimatedStoreCount.invalidfeedback')"
+        :description="$t('chain.inputmodal.inputs.estimatedStoreCount.description')"
       >
         <b-form-input
           id="estimatedStoreCount-input"
@@ -82,7 +82,7 @@
       </b-form-group>
 
       <b-form-group
-        :label="$i18n('chain.inputmodal.inputs.status.label')"
+        :label="$t('chain.inputmodal.inputs.status.label')"
         label-for="status-input"
         label-cols-sm="2"
         label-align-sm="right"
@@ -95,44 +95,44 @@
       </b-form-group>
 
       <b-form-group
-        :label="$i18n('chain.inputmodal.inputs.thread.label')"
+        :label="$t('chain.inputmodal.inputs.thread.label')"
         label-for="thread-input"
         label-cols-sm="2"
         label-align-sm="right"
-        :invalid-feedback="$i18n('chain.inputmodal.inputs.thread.invalidfeedback')"
-        :description="$i18n('chain.inputmodal.inputs.thread.description')"
+        :invalid-feedback="$t('chain.inputmodal.inputs.thread.invalidfeedback')"
+        :description="$t('chain.inputmodal.inputs.thread.description')"
       >
         <forum-search-input
           id="new-foodsaver-search"
           v-model="input.forumThread"
           class="m-1"
-          :placeholder="$i18n('chain.inputmodal.inputs.thread.placeholder')"
+          :placeholder="$t('chain.inputmodal.inputs.thread.placeholder')"
           :region-ids="storeChainGroups"
         />
       </b-form-group>
 
       <b-form-group
-        :label="$i18n('chain.inputmodal.inputs.kam.label')"
+        :label="$t('chain.inputmodal.inputs.kam.label')"
         label-for="kams-input"
         label-cols-sm="2"
         label-align-sm="right"
-        :invalid-feedback="$i18n('chain.inputmodal.inputs.kam.invalidfeedback')"
-        :description="$i18n('chain.inputmodal.inputs.kam.description')"
+        :invalid-feedback="$t('chain.inputmodal.inputs.kam.invalidfeedback')"
+        :description="$t('chain.inputmodal.inputs.kam.description')"
       >
         <multi-user-search-input
           id="kams-input"
           v-model="input.kamIds"
           class="m-1"
-          :placeholder="$i18n('store.sm.searchPlaceholder')"
+          :placeholder="$t('store.sm.searchPlaceholder')"
           button-icon="fa-user-plus"
-          :button-tooltip="$i18n('store.sm.makeRegularTeamMember')"
+          :button-tooltip="$t('store.sm.makeRegularTeamMember')"
           :region-id="332"
           :disabled="!adminPermissions"
         />
       </b-form-group>
 
       <b-form-group
-        :label="$i18n('chain.inputmodal.inputs.press.label')"
+        :label="$t('chain.inputmodal.inputs.press.label')"
         label-for="press-input"
         label-cols-sm="2"
         label-align-sm="right"
@@ -142,17 +142,17 @@
           v-model="input.allowPress"
           size="lg"
         >
-          {{ $i18n('chain.inputmodal.inputs.press.description') }}
+          {{ $t('chain.inputmodal.inputs.press.description') }}
         </b-form-checkbox>
       </b-form-group>
 
       <b-form-group
-        :label="$i18n('chain.inputmodal.inputs.notes.label')"
+        :label="$t('chain.inputmodal.inputs.notes.label')"
         label-for="notes-input"
         label-cols-sm="2"
         label-align-sm="right"
-        :invalid-feedback="$i18n('chain.inputmodal.inputs.notes.invalidfeedback')"
-        :description="$i18n('chain.inputmodal.inputs.notes.description')"
+        :invalid-feedback="$t('chain.inputmodal.inputs.notes.invalidfeedback')"
+        :description="$t('chain.inputmodal.inputs.notes.description')"
       >
         <b-form-textarea
           id="notes-input"
@@ -166,11 +166,11 @@
       </b-form-group>
 
       <b-form-group
-        :label="$i18n('chain.inputmodal.inputs.details.label')"
+        :label="$t('chain.inputmodal.inputs.details.label')"
         label-for="details-input"
         label-cols-sm="2"
         label-align-sm="right"
-        :description="$i18n('chain.inputmodal.inputs.details.description')"
+        :description="$t('chain.inputmodal.inputs.details.description')"
       >
         <MarkdownInput
           id="details-input"
@@ -186,13 +186,13 @@
         variant="outline-danger"
         @click="cancel()"
       >
-        {{ $i18n('chain.inputmodal.cancel') }}
+        {{ $t('chain.inputmodal.cancel') }}
       </b-button>
       <b-button
         variant="primary"
         @click="ok()"
       >
-        {{ $i18n('chain.inputmodal.ok') }}
+        {{ $t('chain.inputmodal.ok') }}
       </b-button>
     </template>
   </b-modal>

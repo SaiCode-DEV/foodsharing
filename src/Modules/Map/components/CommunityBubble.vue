@@ -14,7 +14,7 @@
         class="btn btn-primary"
         type="button"
         :href="$url('publicRegion', id)"
-        v-text="$i18n('map.community.go')"
+        v-text="$t('map.community.go')"
       />
     </template>
   </map-popup>

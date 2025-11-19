@@ -31,12 +31,12 @@
         <small
           v-if="!basket.requests.length"
           class="mb-1 text-truncate"
-          v-text="$i18n('basket.no_requests')"
+          v-text="$t('basket.no_requests')"
         />
         <small
           v-if="basket.requests.length > 0"
           class="testing-basket-requested-by mb-1 text-truncate"
-          v-text="$i18n('basket.requested_by', { name: basket.requests.map(r => r.user.name).join(', ') })"
+          v-text="$t('basket.requested_by', { name: basket.requests.map(r => r.user.name).join(', ') })"
         />
       </span>
     </span>
@@ -58,8 +58,8 @@
         </small>
       </div>
       <button
-        v-b-tooltip.left="$i18n('basket.request_close')"
-        :title="$i18n('basket.request_close')"
+        v-b-tooltip.left="$t('basket.request_close')"
+        :title="$t('basket.request_close')"
         class="testing-basket-requests-close btn btn-sm btn-outline-secondary"
         @click.prevent.stop="openRemoveDialog(basket.id, entry)"
       >

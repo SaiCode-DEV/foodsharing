@@ -1,7 +1,7 @@
 <template>
   <Container
     :tag="userStore.hasLocations ? 'basket.nearby' : 'basket.recent'"
-    :title="$i18n(userStore.hasLocations ? 'basket.nearby' : 'basket.recent')"
+    :title="$t(userStore.hasLocations ? 'basket.nearby' : 'basket.recent')"
     :toggle-visiblity="baskets?.length > defaultAmount"
     @show-full-list="showFullList"
     @reduce-list="reduceList"
@@ -21,7 +21,7 @@
     <small
       v-else-if="filteredList.length === 0"
       class="list-group-item text-muted"
-      v-text="$i18n('basket.no_nearby', {radius})"
+      v-text="$t('basket.no_nearby', {radius})"
     />
   </Container>
 </template>

@@ -8,12 +8,12 @@
       <h6 class="m-0 text-truncate d-inline">
         <i
           v-if="workingGroup.is_admin"
-          v-b-tooltip.noninteractive="$i18n('search.results.working_group.admin_tooltip')"
+          v-b-tooltip.noninteractive="$t('search.results.working_group.admin_tooltip')"
           class="fas fa-user-cog"
         />
         <i
           v-else-if="workingGroup.is_member"
-          v-b-tooltip.noninteractive="$i18n('search.results.working_group.member_tooltip')"
+          v-b-tooltip.noninteractive="$t('search.results.working_group.member_tooltip')"
           class="fas fa-user-check"
         />
         {{ workingGroup.name }}
@@ -21,7 +21,7 @@
       <br>
       <small class="separate">
         <span v-if="workingGroup.parent_id">
-          {{ $i18n('search.results.in') }}
+          {{ $t('search.results.in') }}
           <a :href="$url('workingGroups', workingGroup.parent_id)">
             {{ workingGroup.parent_name }}
           </a>

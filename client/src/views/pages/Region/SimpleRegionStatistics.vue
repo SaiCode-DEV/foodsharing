@@ -1,6 +1,6 @@
 <template>
   <Container
-    :title="$i18n('statistics.lastMonth')"
+    :title="$t('statistics.lastMonth')"
     tag="publicRegionStatistics"
   >
     <div
@@ -14,7 +14,7 @@
       </span>
       <span class="stat-desc">
         <h4 class="my-0" v-text="formatNumber(value, key === 'savedFoodKgLastMonth' ? 'kg' : '')" />
-        <span v-text="$i18n(`statistics.region_public.${key}`)" />
+        <span v-text="$t(`statistics.region_public.${key}`)" />
       </span>
     </div>
   </Container>

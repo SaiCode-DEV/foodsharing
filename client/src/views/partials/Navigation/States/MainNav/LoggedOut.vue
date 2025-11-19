@@ -13,11 +13,11 @@
           class="icon-nav fas"
           :class="category.icon"
         />
-        <span class="nav-text" v-text="$i18n(category.title)" />
+        <span class="nav-text" v-text="$t(category.title)" />
       </b-nav-item>
       <Dropdown
         v-else
-        :title="$i18n(category.title)"
+        :title="$t(category.title)"
         :icon="category.icon"
       >
         <template #content>
@@ -27,7 +27,7 @@
             :href="$url(entry.url)"
             role="menuitem"
             class="dropdown-item dropdown-action"
-            v-text="$i18n(entry.title)"
+            v-text="$t(entry.title)"
           />
         </template>
       </Dropdown>
@@ -35,7 +35,7 @@
 
     <b-navbar-toggle
       target="nav-collapse"
-      :title="$i18n('navigation.toggle')"
+      :title="$t('navigation.toggle')"
     >
       <template #default="{ expanded }">
         <i

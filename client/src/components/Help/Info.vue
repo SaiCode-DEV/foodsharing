@@ -4,18 +4,18 @@
     This should only be used for small tips or include a link to the wiki article.
   -->
   <i
-    v-b-tooltip="$i18n('help.tooltip')"
+    v-b-tooltip="$t('help.tooltip')"
     class="fas fa-question-circle p-2 cursor-help"
     @click.stop.prevent="$refs.modal.show"
   >
     <b-modal
       ref="modal"
-      :title="$i18n('help.helpTitle', { title: $i18n(`help.key.${infoKey}.title`, props) })"
+      :title="$t('help.helpTitle', { title: $t(`help.key.${infoKey}.title`, props) })"
       centered
-      :ok-title="$i18n('button.close')"
+      :ok-title="$t('button.close')"
       ok-only
     >
-      <Markdown :source="$i18n(`help.key.${infoKey}.md`, props)" />
+      <Markdown :source="$t(`help.key.${infoKey}.md`, props)" />
     </b-modal>
   </i>
 </template>

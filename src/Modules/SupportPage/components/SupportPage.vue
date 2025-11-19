@@ -1,21 +1,21 @@
 <template>
   <Container
-    :title="$i18n('support_page.title')"
+    :title="$t('support_page.title')"
     :wrap-content="true"
     :collapsible="false"
   >
     <b-alert show variant="info">
-      {{ $i18n('support_page.info_teaser') }}
+      {{ $t('support_page.info_teaser') }}
     </b-alert>
     <b-alert
       v-if="isLoggedIn"
       type="info"
       show
     >
-      {{ $i18n('support_page.notification_name') }}
+      {{ $t('support_page.notification_name') }}
     </b-alert>
     <b-form @submit.prevent="submitTicket">
-      <b-form-group v-if="!isLoggedIn" :label="$i18n('support_page.firstName')">
+      <b-form-group v-if="!isLoggedIn" :label="$t('support_page.firstName')">
         <b-form-input
           v-model="v$.firstNameData.$model"
           required
@@ -26,10 +26,10 @@
           v-if="v$.firstNameData.$error"
           class="invalid-feedback"
         >
-          <span>{{ $i18n('support_page.validation_firstName') }}</span>
+          <span>{{ $t('support_page.validation_firstName') }}</span>
         </div>
       </b-form-group>
-      <b-form-group :label="$i18n('support_page.subject')">
+      <b-form-group :label="$t('support_page.subject')">
         <b-form-input
           v-model="v$.subject.$model"
           required
@@ -40,11 +40,11 @@
           v-if="v$.subject.$error"
           class="invalid-feedback"
         >
-          <span>{{ $i18n('support_page.validation_subject') }}</span>
+          <span>{{ $t('support_page.validation_subject') }}</span>
         </div>
       </b-form-group>
 
-      <b-form-group :label="$i18n('support_page.email')">
+      <b-form-group :label="$t('support_page.email')">
         <b-form-input
           v-model="v$.email.$model"
           required
@@ -55,11 +55,11 @@
           v-if="v$.email.$error"
           class="invalid-feedback"
         >
-          <span>{{ $i18n('support_page.validation_email') }}</span>
+          <span>{{ $t('support_page.validation_email') }}</span>
         </div>
       </b-form-group>
 
-      <b-form-group :label="$i18n('support_page.body')">
+      <b-form-group :label="$t('support_page.body')">
         <b-form-textarea
           v-model="v$.body.$model"
           rows="5"
@@ -71,11 +71,11 @@
           v-if="v$.body.$error"
           class="invalid-feedback"
         >
-          <span>{{ $i18n('support_page.validation_body') }}</span>
+          <span>{{ $t('support_page.validation_body') }}</span>
         </div>
       </b-form-group>
 
-      <b-form-group :label="$i18n('support_page.attachment.max_size')">
+      <b-form-group :label="$t('support_page.attachment.max_size')">
         <div class="d-flex align-items-start">
           <FileInput
             :value="attachmentFileObjects"
@@ -92,7 +92,7 @@
         show
         variant="warning"
       >
-        {{ $i18n('support_page.success') }}
+        {{ $t('support_page.success') }}
       </b-alert>
       <div class="d-flex justify-content-end">
         <b-button
@@ -103,14 +103,14 @@
           @click="clearForm"
         >
           <i class="fas fa-redo" />
-          {{ $i18n('support_page.new_request') }}
+          {{ $t('support_page.new_request') }}
         </b-button>
         <b-button
           type="submit"
           variant="primary"
           :disabled="isLoading || v$.$invalid || isSuccessfullySubmitted"
         >
-          {{ $i18n('button.send') }}
+          {{ $t('button.send') }}
         </b-button>
       </div>
     </b-form>
@@ -206,7 +206,7 @@ export default {
         await createTicket(this.email, this.subject, this.body, this.firstName, attachments)
         // this.clearForm()
         this.isSuccessfullySubmitted = true
-        pulseSuccess(this.$i18n('support_page.success'))
+        pulseSuccess(this.$t('support_page.success'))
       } catch (e) {
         pulseError(i18n('error_unexpected') + ': ' + e.message)
       } finally {

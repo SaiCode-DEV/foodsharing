@@ -19,7 +19,7 @@
         <span class="d-flex justify-content-between align-items-center text-truncate">
           <span
             class="mb-1 text-truncate"
-            v-text="isTranslationFailed ? $i18n('bell.translation_failed.title') : $i18n(`bell.${bell.title}`, bell.payload)"
+            v-text="isTranslationFailed ? $t('bell.translation_failed.title') : $t(`bell.${bell.title}`, bell.payload)"
           />
           <Time
             class="font-weight-normal"
@@ -30,12 +30,12 @@
           class="position-relative"
         >
           <span class="text-truncate d-inline-block w-100 text-preview">
-            {{ isTranslationFailed ? $i18n('bell.translation_failed.key') : $i18n(`bell.${bell.key}`, bell.payload) }}
+            {{ isTranslationFailed ? $t('bell.translation_failed.key') : $t(`bell.${bell.key}`, bell.payload) }}
           </span>
         </small>
       </span>
       <b-button
-        v-b-tooltip.noninteractive="$i18n(`bell.mark_as.${!bell.isRead ? 'read' : 'unread'}`)"
+        v-b-tooltip.noninteractive="$t(`bell.mark_as.${!bell.isRead ? 'read' : 'unread'}`)"
         size="sm"
         variant="outline-secondary"
         class="mark-read-button"
@@ -84,11 +84,11 @@ export default {
     },
     isTranslationFailed () {
       // Check if the title translation failed
-      const titleTranslation = this.$i18n(`bell.${this.bell.title}`, this.bell.payload)
+      const titleTranslation = this.$t(`bell.${this.bell.title}`, this.bell.payload)
       const rawTitle = `bell.${this.bell.title}`
 
       // Check if the key translation failed
-      const keyTranslation = this.$i18n(`bell.${this.bell.key}`, this.bell.payload)
+      const keyTranslation = this.$t(`bell.${this.bell.key}`, this.bell.payload)
       const rawKey = `bell.${this.bell.key}`
 
       return titleTranslation === rawTitle || keyTranslation === rawKey
@@ -113,7 +113,7 @@ export default {
       try {
         await DataBell.mutations.setReadStatus(this.bell, !this.bell.isRead)
       } catch (err) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
       document.activeElement.blur() // without this the entry is focused after clicking
     },

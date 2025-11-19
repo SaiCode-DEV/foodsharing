@@ -1,9 +1,9 @@
 <template>
   <Container
-    :title="$i18n('region.public.join_name', regionData)"
+    :title="$t('region.public.join_name', regionData)"
     tag="publicRegionJoin"
   >
-    <div class="list-group-item" v-text="$i18n('region.public.join_text', regionData)" />
+    <div class="list-group-item" v-text="$t('region.public.join_text', regionData)" />
     <ContainerButton
       variant="success"
       text-key="region.public.join"
@@ -34,7 +34,7 @@ export default {
   methods: {
     async join () {
       if (!await this.confirmationDialogue('region.public.confirm_entering', {
-        okTitle: this.$i18n('region.public.join'),
+        okTitle: this.$t('region.public.join'),
         okVariant: undefined,
         params: { name: this.regionData.name },
       })) return

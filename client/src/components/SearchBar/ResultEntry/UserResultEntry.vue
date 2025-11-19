@@ -12,18 +12,18 @@
       <h6 class="m-0 text-truncate d-inline">
         <i
           v-if="user.is_buddy"
-          v-b-tooltip.noninteractive="$i18n('buddy.is_buddy')"
+          v-b-tooltip.noninteractive="$t('buddy.is_buddy')"
           class="fas fa-user-friends"
         />
         {{ user.name }} {{ user.last_name }}
       </h6>
       <i
         v-if="!user.is_verified"
-        v-b-tooltip.noninteractive="$i18n('store.request.unverified')"
+        v-b-tooltip.noninteractive="$t('store.request.unverified')"
         class="fas fa-user-slash"
       />
       <small
-        v-b-tooltip.noninteractive="$i18n('search.results.user.copy_id')"
+        v-b-tooltip.noninteractive="$t('search.results.user.copy_id')"
         class="user-id"
         @click.prevent="copyToClipboard(user.id, 'search.results.user.copied_id', user)"
       >
@@ -33,10 +33,10 @@
       <br>
       <small class="separate">
         <span v-if="user.region_id">
-          {{ $i18n('search.results.from') }}
+          {{ $t('search.results.from') }}
           {{ user.region_name }}
         </span>
-        <i v-else>{{ $i18n('search.results.user.no_home_region') }}</i>
+        <i v-else>{{ $t('search.results.user.no_home_region') }}</i>
         <span v-if="user.email">
           <a :href="`mailto:${user.email}`">
             {{ user.email }}
@@ -49,7 +49,7 @@
       :phone-number="user.mobile"
     />
     <b-button
-      v-b-tooltip.noninteractive="$i18n('chat.open_chat')"
+      v-b-tooltip.noninteractive="$t('chat.open_chat')"
       variant="primary"
       class="ml-2"
       @click.prevent="openChat"

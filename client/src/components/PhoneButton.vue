@@ -13,13 +13,13 @@
       :href="$url('phone_number', phoneNumber, true)"
     >
       <i class="fas fa-phone" />
-      {{ $i18n('pickup.call') }}
+      {{ $t('pickup.call') }}
     </b-dropdown-item>
     <b-dropdown-item
       @click.prevent="copyToClipboard(phoneNumber)"
     >
       <i class="fas fa-clone" />
-      {{ $i18n('pickup.copyNumber') }}
+      {{ $t('pickup.copyNumber') }}
     </b-dropdown-item>
   </b-dropdown>
 </template>

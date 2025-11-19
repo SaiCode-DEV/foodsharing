@@ -1,18 +1,18 @@
 <template>
   <Container
-    :title="$i18n('events.attendees')"
+    :title="$t('events.attendees')"
   >
     <div
       v-if="!displayedGroups.length"
       class="list-group-item"
-      v-text="$i18n('events.noneAccepted')"
+      v-text="$t('events.noneAccepted')"
     />
     <div
       v-for="group of displayedGroups"
       :key="group"
       class="list-group-item"
     >
-      <b v-text="$i18n(`events.${group}Count`, { count: attendees[group].length })" />
+      <b v-text="$t(`events.${group}Count`, { count: attendees[group].length })" />
       <div class="avatar-grid pt-2">
         <Avatar
           v-for="user of attendees[group].slice(0, 40)"
@@ -22,7 +22,7 @@
         <span
           v-if="attendees[group].length > 40"
           class="more-people"
-          v-text="$i18n('events.morePeople', { count: attendees[group].length - 40})"
+          v-text="$t('events.morePeople', { count: attendees[group].length - 40})"
         />
       </div>
     </div>

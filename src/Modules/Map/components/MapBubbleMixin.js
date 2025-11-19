@@ -21,7 +21,7 @@ export default {
           dataHandler(await fetchPromise)
         }
       } catch (e) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
       this.loading = false
     },

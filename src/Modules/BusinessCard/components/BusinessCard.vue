@@ -1,11 +1,11 @@
 <template>
   <div>
-    <p>{{ $i18n('bcard.claim') }}</p>
-    <p>{{ $i18n('bcard.desc') }}</p>
+    <p>{{ $t('bcard.claim') }}</p>
+    <p>{{ $t('bcard.desc') }}</p>
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label>{{ $i18n('bcard.role') }}:</label>
+          <label>{{ $t('bcard.role') }}:</label>
           <select
             v-model="selectedRole"
             required
@@ -23,7 +23,7 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label>{{ $i18n('bcard.region') }}:</label>
+          <label>{{ $t('bcard.region') }}:</label>
           <select
             v-model="selectedRegion"
             :disabled="selectedRole.length === 0"
@@ -44,7 +44,7 @@
       :disabled="selectedRegion.length === 0"
       variant="primary"
     >
-      {{ $i18n('bcard.generate') }}
+      {{ $t('bcard.generate') }}
     </b-button>
   </div>
 </template>
@@ -62,9 +62,9 @@ export default {
       filteredRegions: [],
       selectedRegion: [],
       translation: {
-        bot: this.$i18n('terminology.ambassador.d'),
-        fs: this.$i18n('terminology.foodsaver.d'),
-        sm: this.$i18n('terminology.storemanager.d'),
+        bot: this.$t('terminology.ambassador.d'),
+        fs: this.$t('terminology.foodsaver.d'),
+        sm: this.$t('terminology.storemanager.d'),
       },
     }
   },

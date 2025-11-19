@@ -26,7 +26,7 @@
       </small>
     </span>
     <b-button
-      v-b-tooltip.noninteractive="$i18n(`chat.mark_as.${conversation.unreadMessages ? 'read' : 'unread'}`)"
+      v-b-tooltip.noninteractive="$t(`chat.mark_as.${conversation.unreadMessages ? 'read' : 'unread'}`)"
       size="sm"
       variant="outline-secondary"
       class="mark-read-button"
@@ -65,7 +65,7 @@ export default {
           if (profileStore.profiles[m]) {
             return profileStore.profiles[m].name
           } else {
-            return this.$i18n('chat.unknown_username')
+            return this.$t('chat.unknown_username')
           }
         })
         .join(', ')
@@ -74,8 +74,8 @@ export default {
       return this.userStore.getUser
     },
     lastAuthorName () {
-      if (this.conversation.lastMessage.authorId === this.userStore.getUserId) return this.$i18n('globals.you')
-      return profileStore.profiles[this.conversation.lastMessage.authorId]?.name || this.$i18n('chat.unknown_username')
+      if (this.conversation.lastMessage.authorId === this.userStore.getUserId) return this.$t('globals.you')
+      return profileStore.profiles[this.conversation.lastMessage.authorId]?.name || this.$t('chat.unknown_username')
     },
   },
   methods: {

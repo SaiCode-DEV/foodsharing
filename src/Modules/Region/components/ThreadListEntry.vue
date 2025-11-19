@@ -16,7 +16,7 @@
             <i
               v-if="isClosed"
               class="fas fa-lock"
-              :title="$i18n('forum.thread.closed')"
+              :title="$t('forum.thread.closed')"
             />
             {{ thread.title }}
           </span>
@@ -26,7 +26,7 @@
           class="last-post p-1 ui-corner-all align-self-center"
         >
           <span class="info d-inline d-sm-block">
-            {{ $i18n('forum.from', { name: thread.lastPost.author.name || '' }) }}
+            {{ $t('forum.from', { name: thread.lastPost.author.name || '' }) }}
           </span>
           <span class="time d-inline d-sm-block">
             {{ $dateFormatter.relativeTime(lastPostDate) }}

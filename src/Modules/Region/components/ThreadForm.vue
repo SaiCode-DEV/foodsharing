@@ -2,14 +2,14 @@
   <div class="bootstrap">
     <div class="card">
       <div class="card-header">
-        {{ $i18n('button.answer') }}
+        {{ $t('button.answer') }}
       </div>
       <div class="card-body">
         <div
           v-if="!isOpen"
           class="alert alert-warning mb-2"
           role="alert"
-          v-text="$i18n('forum.post.moderator_info')"
+          v-text="$t('forum.post.moderator_info')"
         />
         <MarkdownInput
           ref="input"
@@ -30,7 +30,7 @@
               class="btn btn-primary float-right"
               @click="submit"
             >
-              {{ $i18n('button.send') }}
+              {{ $t('button.send') }}
             </button>
           </div>
         </div>

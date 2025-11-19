@@ -1,9 +1,9 @@
 <template>
   <b-modal
     ref="regionTreeModal"
-    :title="$i18n(modalTitle)"
-    :cancel-title="$i18n('button.cancel')"
-    :ok-title="$i18n('button.apply')"
+    :title="$t(modalTitle)"
+    :cancel-title="$t('button.cancel')"
+    :ok-title="$t('button.apply')"
     :ok-disabled="tmpSelectedRegion === null"
     scrollable
     modal-class="bootstrap"

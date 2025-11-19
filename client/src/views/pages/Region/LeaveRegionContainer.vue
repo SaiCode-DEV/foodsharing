@@ -1,11 +1,11 @@
 <template>
   <div>
     <Container
-      :title="$i18n('region.public.leave_name', { name })"
+      :title="$t('region.public.leave_name', { name })"
       tag="publicRegionLeave"
       :container-is-expanded="false"
     >
-      <div class="list-group-item" v-text="$i18n(leaveText, { name })" />
+      <div class="list-group-item" v-text="$t(leaveText, { name })" />
       <ContainerButton
         variant="danger"
         :text-key="isWorkGroup ? 'region.public.leave_group' : 'region.public.leave'"
@@ -67,8 +67,8 @@ export default {
   methods: {
     async removeMeFromRegion () {
       const confirmed = await this.confirmationDialogue(this.translationKey, {
-        title: this.$i18n('are_you_sure'),
-        okTitle: this.$i18n('button.yes_i_am_sure'),
+        title: this.$t('are_you_sure'),
+        okTitle: this.$t('button.yes_i_am_sure'),
         okVariant: 'danger',
         params: { name: this.name },
         countdown: this.isHomeRegion ? 30 : 5,
@@ -83,9 +83,9 @@ export default {
         location.href = this.$url('relogin_and_redirect_to_url', redirectLocation)
       } catch (err) {
         if (err.code && err.code === HTTP_RESPONSE.CONFLICT) {
-          pulseError(this.$i18n('region.store_managers_cannot_leave'))
+          pulseError(this.$t('region.store_managers_cannot_leave'))
         } else {
-          pulseError(this.$i18n('error_unexpected'))
+          pulseError(this.$t('error_unexpected'))
           throw err
         }
       }

@@ -1,7 +1,7 @@
 <template>
   <Container
     tag="pickup-options"
-    :title="$i18n('pickup.overview.tab.options.name')"
+    :title="$t('pickup.overview.tab.options.name')"
     class="pickup-options"
   >
     <PickupFieldSkeleton v-if="loading" />
@@ -27,10 +27,10 @@
         />
       </template>
       <div v-if="!filteredOptions.length" class="list-group-item">
-        <span v-text="$i18n('pickup.overview.tab.options.empty')" />
+        <span v-text="$t('pickup.overview.tab.options.empty')" />
       </div>
       <div v-if="fetchedTime" class="list-group-item py-1">
-        <small v-text="$i18n('globals.updated')" />
+        <small v-text="$t('globals.updated')" />
         <Time :time="fetchedTime" class="float-right" />
       </div>
     </PaginatedContent>
@@ -40,17 +40,17 @@
         <template #added-content>
           <b-dropdown-form>
             <b-form-checkbox v-model="showRegistered" switch>
-              {{ $i18n('pickup.overview.menu.registeredSwitch') }}
+              {{ $t('pickup.overview.menu.registeredSwitch') }}
             </b-form-checkbox>
             <b-form-checkbox
               v-if="isActiveStoreManager"
               v-model="showManagedStoresOnly"
               switch
             >
-              {{ $i18n('pickup.overview.menu.managedOnlySwitch') }}
+              {{ $t('pickup.overview.menu.managedOnlySwitch') }}
             </b-form-checkbox>
             <b-form-checkbox v-model="useCondensedDesign" switch>
-              {{ $i18n('pickup.overview.menu.useCondensedDesign') }}
+              {{ $t('pickup.overview.menu.useCondensedDesign') }}
             </b-form-checkbox>
           </b-dropdown-form>
         </template>

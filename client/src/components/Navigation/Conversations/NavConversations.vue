@@ -1,6 +1,6 @@
 <template>
   <Dropdown
-    :title="$i18n('navigation.conversations')"
+    :title="$t('navigation.conversations')"
     icon="fa-comments"
     :badge="unread"
     direction="right"
@@ -21,7 +21,7 @@
       <small
         role="menuitem"
         class="disabled dropdown-item"
-        v-text="$i18n('chat.empty')"
+        v-text="$t('chat.empty')"
       />
     </template>
     <template #actions>
@@ -32,7 +32,7 @@
         @click="markUnreadMessagesAsRead"
       >
         <i class="icon-subnav fas fa-check-double" />
-        {{ $i18n('menu.entry.mark_as_read') }}
+        {{ $t('menu.entry.mark_as_read') }}
       </button>
       <a
         :href="$url('conversations')"
@@ -40,7 +40,7 @@
         class="dropdown-item dropdown-action"
       >
         <i class="icon-subnav fas fa-comments" />
-        {{ $i18n('menu.entry.all_messages') }}
+        {{ $t('menu.entry.all_messages') }}
       </a>
       <div class="dropdown-item">
         <b-form-checkbox
@@ -51,7 +51,7 @@
           switch
           @change="updatePushNotifications"
         >
-          <span class="small" v-text="$i18n('settings.push.title')" />
+          <span class="small" v-text="$t('settings.push.title')" />
         </b-form-checkbox>
       </div>
     </template>

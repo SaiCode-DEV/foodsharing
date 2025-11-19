@@ -15,7 +15,7 @@
               {{ event.name }}
               <b-button
                 v-if="mayEdit"
-                v-b-tooltip="$i18n('events.edit')"
+                v-b-tooltip="$t('events.edit')"
                 :href="$url('eventEdit', event.id)"
                 size="sm"
                 variant="outline-secondary ml-2"
@@ -27,14 +27,14 @@
           <div v-if="event.regionName" class="flex-md-shrink-0">
             <a :href="$url('events', event.regionId)">{{ event.regionName }}</a>
             <span v-if="inviteCount">
-              ({{ $i18n('events.invitedCount', { count: inviteCount }) }})
+              ({{ $t('events.invitedCount', { count: inviteCount }) }})
             </span>
           </div>
           <div
             class="my-1 d-inline-block event-date"
           >
             <i class="far fa-fw fa-clock" />
-            {{ $i18n('events.span', { from: displayedStart, until: displayedEnd }) }}
+            {{ $t('events.span', { from: displayedStart, until: displayedEnd }) }}
           </div>
           <br>
 
@@ -44,7 +44,7 @@
               @click="sendInvitationUpdate(EventInvitationStatus.EVENT_INVITATION_RESPONSE_YES)"
             >
               <i class="fas fa-fw fa-calendar-check" />
-              {{ $i18n('events.button.yes') }}
+              {{ $t('events.button.yes') }}
             </b-button>
             <b-button
               :variant="statusVariant(EventInvitationStatus.EVENT_INVITATION_RESPONSE_MAYBE)"
@@ -52,7 +52,7 @@
             >
               <i class="fas fa-fw fa-question-circle" />
               <span class="d-none d-sm-inline">
-                {{ $i18n('events.button.maybe') }}
+                {{ $t('events.button.maybe') }}
               </span>
             </b-button>
             <b-button
@@ -62,7 +62,7 @@
               <!-- TODO faded UI after clicking (don't remove, to allow correcting mis-clicks) -->
               <i class="fas fa-fw fa-calendar-times" />
               <span class="d-none d-sm-inline">
-                {{ $i18n('events.button.no') }}
+                {{ $t('events.button.no') }}
               </span>
             </b-button>
           </b-button-group>
@@ -137,11 +137,11 @@ export default {
       try {
         await mutations.setInvitationResponse(this.event.id, newStatus)
         const texts = ['events.rsvp.yes', 'events.rsvp.maybe', 'events.rsvp.no']
-        pulseSuccess(this.$i18n(texts[newStatus - 1]))
+        pulseSuccess(this.$t(texts[newStatus - 1]))
         this.currentStatus = newStatus
         this.$emit('update:status', newStatus)
       } catch (e) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
       hideLoader()
     },

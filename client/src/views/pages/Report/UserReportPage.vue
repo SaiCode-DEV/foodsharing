@@ -1,7 +1,7 @@
 <template>
   <BasePage>
     <ReportContainer
-      :title="$i18n('reports.reports_user', { userName, userId })"
+      :title="$t('reports.reports_user', { userName, userId })"
       :report-fetcher="reportFetcher"
     />
     <template #right>
@@ -9,7 +9,7 @@
       <Wall
         target="fsreports"
         :target-id="userId"
-        :title="$i18n('profile.report.notes')"
+        :title="$t('profile.report.notes')"
       />
     </template>
   </BasePage>

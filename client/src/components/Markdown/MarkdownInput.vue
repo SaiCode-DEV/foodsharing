@@ -13,7 +13,7 @@
         <b-button
           v-for="(button, i) in buttons"
           :key="i"
-          v-b-tooltip.hover="$i18n(`markdown_input.tooltip.${button.tooltip}`)"
+          v-b-tooltip.hover="$t(`markdown_input.tooltip.${button.tooltip}`)"
           :variant="variant"
           :disabled="isPreview"
           :class="button.class"
@@ -23,7 +23,7 @@
         </b-button>
         <b-dropdown
           ref="atDropdown"
-          v-b-tooltip.hover="$i18n(`markdown_input.tooltip.mention`)"
+          v-b-tooltip.hover="$t(`markdown_input.tooltip.mention`)"
           :variant="variant"
           :disabled="isPreview"
           no-caret
@@ -42,7 +42,7 @@
           />
         </b-dropdown>
         <b-button
-          v-b-tooltip.hover="$i18n(`markdown_input.tooltip.preview`)"
+          v-b-tooltip.hover="$t(`markdown_input.tooltip.preview`)"
           :variant="variant"
           :pressed.sync="isPreview"
           class="order-2"
@@ -71,7 +71,7 @@
       />
       <Markdown
         v-if="isPreview"
-        :source="modelValue || $i18n('markdown_input.empty_preview_placeholder')"
+        :source="modelValue || $t('markdown_input.empty_preview_placeholder')"
       />
     </div>
     <ImageUpload

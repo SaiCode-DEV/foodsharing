@@ -17,7 +17,16 @@ pulseInfo(i18n('basket.not_active'))
 ```
 
 ###  As part of Vue templates
-In `client/src/vue.js` we define the `$i18n` prototype and attach it to all Vue templates. This is the preferred way of frontend translation. If you're translating component parameters, make sure to :bind them accordingly: `:title="$i18n('button.clear_filter')"`
+We use [Vue I18n](https://vue-i18n.intlify.dev) for translations in Vue components. You can use the `$t` method to translate keys directly in your templates. Examples:
+
+```html
+<b-button variant="primary">
+  {{ $t('button.ok') }}
+</b-button>
+```
+
+If you're translating component parameters, make sure to :bind them accordingly: `:title="$t('button.clear_filter')"`
+
 - As part of Twig templates (Legacy)
 The [`trans` filter](https://symfony.com/doc/current/translation/templates.html#using-twig-filters) allows passing translation keys to the translation engine from Twig files. Examples:
 

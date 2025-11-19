@@ -7,7 +7,7 @@
       </li>
       <Link
         :href="$url('joininfo')"
-        :title="$i18n('register.topbar')"
+        :title="$t('register.topbar')"
         class="testing-register-link"
       />
       <NavLogin />

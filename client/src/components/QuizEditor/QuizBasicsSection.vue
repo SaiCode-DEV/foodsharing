@@ -1,6 +1,6 @@
 <template>
   <Container
-    :title="$i18n('quiz.general.title')"
+    :title="$t('quiz.general.title')"
   >
     <div v-if="!quiz" class="list-group-item">
       <b-skeleton width="85%" />
@@ -11,12 +11,12 @@
       <div class="list-group-item">
         <h4 v-text="quiz.name" />
         <p>
-          <b v-text="$i18n('quiz.key_facts.to_pass')" />
+          <b v-text="$t('quiz.key_facts.to_pass')" />
           <span v-text="quizKeyFacts" />
         </p>
 
         <p>
-          <b v-text="$i18n('desc')+':'" />
+          <b v-text="$t('desc')+':'" />
           <QuizDescription :quiz="quiz" />
         </p>
       </div>
@@ -47,7 +47,7 @@
         @finished-quiz="onFinishedQuiz"
       />
       <b-modal
-        :title="$i18n('quiz.test_results')"
+        :title="$t('quiz.test_results')"
         :visible="!!results"
         ok-only
         size="lg"
@@ -82,7 +82,7 @@ export default {
   }),
   computed: {
     quizKeyFacts () {
-      return this.$i18n(`quiz.key_facts.${this.quiz.questionCountUntimed ? 'untimed' : 'timed'}`, this.quiz)
+      return this.$t(`quiz.key_facts.${this.quiz.questionCountUntimed ? 'untimed' : 'timed'}`, this.quiz)
     },
   },
   mounted: function () {

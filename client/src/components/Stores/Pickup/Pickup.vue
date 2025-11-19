@@ -27,13 +27,13 @@
               @click="$refs.modal_edit_description.show()"
             >
               <i class="fas fa-pen" />
-              {{ $i18n('pickup.edit_description') }}
+              {{ $t('pickup.edit_description') }}
             </b-dropdown-item>
             <b-dropdown-item
               @click="occupiedSlots.length > 0 ? $refs.modal_delete_error.show() : $refs.modal_delete.show()"
             >
               <i class="fas fa-trash" />
-              {{ $i18n('pickup.delete_title') }}
+              {{ $t('pickup.delete_title') }}
             </b-dropdown-item>
           </b-dropdown>
         </div>
@@ -45,11 +45,11 @@
         </div>
         <div
           v-if="!passportStillValid && !isInPast"
-          v-b-tooltip="$i18n('pickup.passport_expired.long')"
+          v-b-tooltip="$t('pickup.passport_expired.long')"
           class="text-danger"
         >
           <i class="fas fa-id-card" />
-          {{ $i18n('pickup.passport_expired.short') }}
+          {{ $t('pickup.passport_expired.short') }}
         </div>
       </div>
       <p class="pickup-text">
@@ -81,7 +81,7 @@
           <div class="add-pickup-slot">
             <button
               v-if="(isCoordinator || mayEditStore) && totalSlots < maxCountPickupSlot && !isInPast"
-              v-b-tooltip.hover="$i18n('pickup.slot_add')"
+              v-b-tooltip.hover="$t('pickup.slot_add')"
               class="btn secondary"
               @click="$emit('add-slot', date)"
             >
@@ -95,9 +95,9 @@
     <b-modal
       ref="modal_join"
       v-model="showJoinModal"
-      :title="$i18n('pickup.join_title_date', $dateFormatter.dateTime(date))"
-      :cancel-title="$i18n('pickup.join_cancel')"
-      :ok-title="$i18n('pickup.join_agree')"
+      :title="$t('pickup.join_title_date', $dateFormatter.dateTime(date))"
+      :cancel-title="$t('pickup.join_cancel')"
+      :ok-title="$t('pickup.join_agree')"
       :ok-disabled="!loadedUserAgenda || !pickupRulePass || isMissingHygieneCertificate || !isTeamMember"
       :ok-variant="okVariant"
       :hide-header-close="true"
@@ -108,20 +108,20 @@
     >
       <b-alert :show="!isTeamMember" variant="danger">
         <i class="fas fa-user-slash" />
-        <span v-text="$i18n('pickup.membershipMissing')" />
+        <span v-text="$t('pickup.membershipMissing')" />
       </b-alert>
       <b-alert :show="isMissingHygieneCertificate && isTeamMember" variant="danger">
         <i class="fas fa-hands-wash" />
-        <span v-if="hygieneCertificateUntil" v-text="$i18n('pickup.hygieneCertificateMissing.timeout')" />
-        <span v-else v-text="$i18n('pickup.hygieneCertificateMissing.none')" />
-        <a :href="$url('settingsHygiene')" v-text="$i18n('pickup.hygieneCertificateMissing.link')" />
+        <span v-if="hygieneCertificateUntil" v-text="$t('pickup.hygieneCertificateMissing.timeout')" />
+        <span v-else v-text="$t('pickup.hygieneCertificateMissing.none')" />
+        <a :href="$url('settingsHygiene')" v-text="$t('pickup.hygieneCertificateMissing.link')" />
       </b-alert>
 
-      <p>{{ $i18n('pickup.really_join_date', slotInfo) }}</p>
+      <p>{{ $t('pickup.really_join_date', slotInfo) }}</p>
 
       <div v-if="loadedUserAgenda && sameDayAgenda && sameDayAgenda.length > 1">
         <b-alert variant="warning" show>
-          {{ $i18n('pickup.same_day_hint' ) }}
+          {{ $t('pickup.same_day_hint' ) }}
         </b-alert>
         <b-list-group>
           <b-list-group-item
@@ -135,7 +135,7 @@
             <i class="fas fa-fw" :class="agendaStatusIcon(item)" />
             <i class="fas fa-fw" :class="agendaTypeIcon(item)" />
             {{
-              $i18n('pickup.same_day_entry', {
+              $t('pickup.same_day_entry', {
                 when: format_agenda_date(item),
                 name: item.type !== 'proposal' ? item.name : storeTitle,
               })
@@ -150,7 +150,7 @@
       </div>
       <div v-if="!pickupRulePass">
         <b-alert variant="warning" show>
-          {{ $i18n('pickup.region_pickup_rule_failed') }}
+          {{ $t('pickup.region_pickup_rule_failed') }}
         </b-alert>
       </div>
       <div v-if="!loadedPickupRule">
@@ -162,9 +162,9 @@
 
     <b-modal
       ref="modal_leave"
-      :title="$i18n('pickup.really_leave_date_title', { date: $dateFormatter.dateTime(date) })"
-      :cancel-title="$i18n('pickup.leave_pickup_message_team')"
-      :ok-title="$i18n('pickup.leave_pickup_ok')"
+      :title="$t('pickup.really_leave_date_title', { date: $dateFormatter.dateTime(date) })"
+      :cancel-title="$t('pickup.leave_pickup_message_team')"
+      :ok-title="$t('pickup.leave_pickup_ok')"
       :hide-header-close="true"
       modal-class="bootstrap"
       ok-variant="secondary"
@@ -172,40 +172,40 @@
       @ok="$emit('leave', date)"
       @cancel="$refs.modal_team_message.show()"
     >
-      <p>{{ $i18n('pickup.really_leave_date', { date: $dateFormatter.dateTime(date) }) }}</p>
+      <p>{{ $t('pickup.really_leave_date', { date: $dateFormatter.dateTime(date) }) }}</p>
     </b-modal>
 
     <b-modal
       ref="modal_kick"
-      :title="$i18n('pickup.signout_confirm')"
-      :cancel-title="$i18n('button.cancel')"
-      :ok-title="$i18n('button.yes_i_am_sure')"
+      :title="$t('pickup.signout_confirm')"
+      :cancel-title="$t('button.cancel')"
+      :ok-title="$t('button.yes_i_am_sure')"
       :hide-header-close="true"
       modal-class="bootstrap"
       header-class="d-flex"
       @ok="$emit('kick', { 'date': date, 'fsId': activeSlot.profile.id, 'message': kickMessage })"
     >
       <p>
-        {{ $i18n('pickup.really_kick_user_info', slotInfo ) }}
+        {{ $t('pickup.really_kick_user_info', slotInfo ) }}
       </p>
       <blockquote>
-        <div>{{ $i18n('salutation.3') }} {{ slotInfo['name'] }},</div>
-        <div>{{ $i18n('pickup.kick_message', slotInfo) }}</div>
+        <div>{{ $t('salutation.3') }} {{ slotInfo['name'] }},</div>
+        <div>{{ $t('pickup.kick_message', slotInfo) }}</div>
         <b-form-textarea
           v-model="kickMessage"
-          :placeholder="$i18n('pickup.kick_message_placeholder')"
+          :placeholder="$t('pickup.kick_message_placeholder')"
           max-rows="4"
           maxlength="3000"
         />
-        <div>{{ $i18n('pickup.kick_message_footer') }}</div>
+        <div>{{ $t('pickup.kick_message_footer') }}</div>
       </blockquote>
     </b-modal>
 
     <b-modal
       ref="modal_team_message"
-      :title="$i18n('pickup.leave_team_message_title')"
-      :cancel-title="$i18n('button.cancel')"
-      :ok-title="$i18n('pickup.team_message_send_and_leave')"
+      :title="$t('pickup.leave_team_message_title')"
+      :cancel-title="$t('button.cancel')"
+      :ok-title="$t('pickup.team_message_send_and_leave')"
       modal-class="bootstrap"
       header-class="d-flex"
       @ok="$emit('team-message', teamMessage); $emit('leave', date)"
@@ -218,47 +218,47 @@
 
     <b-modal
       ref="modal_edit_description"
-      :title="$i18n('pickup.edit_description')"
-      :cancel-title="$i18n('button.cancel')"
-      :ok-title="$i18n('button.save')"
+      :title="$t('pickup.edit_description')"
+      :cancel-title="$t('button.cancel')"
+      :ok-title="$t('button.save')"
       modal-class="bootstrap"
       header-class="d-flex"
       @ok="$emit('edit-description', date, totalSlots, newDescription)"
       @shown="$refs.modal_edit_description_input.focus()"
     >
       <p>
-        {{ $i18n('pickup.description_modal_text') }}
+        {{ $t('pickup.description_modal_text') }}
       </p>
       <b-form-input
         ref="modal_edit_description_input"
         v-model="newDescription"
-        :placeholder="$i18n('pickup.description')"
+        :placeholder="$t('pickup.description')"
         :maxlength="100"
       />
       <small v-if="newDescription?.length === 100">
         <i class="fas fa-info-circle" />
-        {{ $i18n('pickup.description_max_length_info') }}
+        {{ $t('pickup.description_max_length_info') }}
       </small>
     </b-modal>
 
     <b-modal
       ref="modal_delete_error"
-      :title="$i18n('pickup.delete_title')"
+      :title="$t('pickup.delete_title')"
       ok-only
       modal-class="bootstrap"
     >
-      <p>{{ $i18n('pickup.delete_not_empty', slotDate) }}</p>
+      <p>{{ $t('pickup.delete_not_empty', slotDate) }}</p>
     </b-modal>
 
     <b-modal
       ref="modal_delete"
-      :title="$i18n('pickup.delete_title')"
-      :cancel-title="$i18n('button.cancel')"
-      :ok-title="$i18n('delete')"
+      :title="$t('pickup.delete_title')"
+      :cancel-title="$t('button.cancel')"
+      :ok-title="$t('delete')"
       modal-class="bootstrap"
       @ok="$emit('delete', date)"
     >
-      <p>{{ $i18n('pickup.really_delete_date', slotDate) }}</p>
+      <p>{{ $t('pickup.really_delete_date', slotDate) }}</p>
     </b-modal>
   </div>
 </template>
@@ -311,7 +311,7 @@ export default {
       loadedPickupRule: false,
       okVariant: 'success',
       // cannot use slotDate here since it's computed and needs to avoid circular data references:
-      teamMessage: this.$i18n('pickup.leave_team_message_template', { date: this.$dateFormatter.dateTime(this.date) }),
+      teamMessage: this.$t('pickup.leave_team_message_template', { date: this.$dateFormatter.dateTime(this.date) }),
       kickMessage: '',
       newDescription: this.description,
     }

@@ -1,13 +1,13 @@
 <template>
   <Container
-    :title="$i18n('settings.email')"
+    :title="$t('settings.email')"
     :collapsible="false"
   >
     <div class="m-3">
-      {{ cancel ? $i18n('settings.changemail.not_changed') : (verified ? $i18n('settings.changemail.done') : $i18n('settings.changemail.invalid')) }}
+      {{ cancel ? $t('settings.changemail.not_changed') : (verified ? $t('settings.changemail.done') : $t('settings.changemail.invalid')) }}
     </div>
 
-    <a class="mx-3 mb-3" :href="$url('dashboard')">{{ $i18n('settings.changemail.dashboard_link') }}</a>
+    <a class="mx-3 mb-3" :href="$url('dashboard')">{{ $t('settings.changemail.dashboard_link') }}</a>
   </Container>
 </template>
 

@@ -12,7 +12,7 @@
           {{ selectedResource.name }}
           <i
             v-if="props.selectedResource.isFavorite"
-            v-b-tooltip="$i18n('resource_mosaic.favorite_tooltip')"
+            v-b-tooltip="$t('resource_mosaic.favorite_tooltip')"
             class="fas fa-star"
             style="color: var(--fs-color-warning-500)"
           />
@@ -61,20 +61,20 @@
           </div>
           <p>
             <i class="fas fa-hand-holding-heart" />
-            <b v-text="$i18n('resource_mosaic.openness.title') + ':'" />
+            <b v-text="$t('resource_mosaic.openness.title') + ':'" />
             {{ props.selectedResource.openness }}/5
-            (<i v-text="$i18n(`resource_mosaic.openness.level_${props.selectedResource.openness}`)" />)
+            (<i v-text="$t(`resource_mosaic.openness.level_${props.selectedResource.openness}`)" />)
           </p>
           <p v-if="props.selectedResource.isPrivate">
             <i class="fas fa-user-friends" />
-            <i v-text="$i18n('resource_mosaic.is_private_hint')" />
+            <i v-text="$t('resource_mosaic.is_private_hint')" />
           </p>
           <Gallery :images="props.selectedResource.images" :height-in-px="100" />
         </div>
       </div>
       <div v-if="newResources.length > 1">
         <hr>
-        <h6 v-text="$i18n(`resource_mosaic.other_resources.new`)" />
+        <h6 v-text="$t(`resource_mosaic.other_resources.new`)" />
         <ResourceTag
           v-for="resource in newResources"
           :key="resource.id"
@@ -84,7 +84,7 @@
       </div>
       <div v-if="otherResourcesOfSameUser.length">
         <hr>
-        <h6 v-text="$i18n(`resource_mosaic.other_resources.${isOwnSelected ? 'own' : 'other'}`, { user: props.selectedResource.user.name })" />
+        <h6 v-text="$t(`resource_mosaic.other_resources.${isOwnSelected ? 'own' : 'other'}`, { user: props.selectedResource.user.name })" />
         <ResourceTag
           v-for="resource in otherResourcesOfSameUser"
           :key="resource.id"
@@ -95,7 +95,7 @@
       <div v-if="similarResources.length">
         <hr>
         <h6>
-          {{ $i18n(`resource_mosaic.other_resources.similar`) }}
+          {{ $t(`resource_mosaic.other_resources.similar`) }}
           <Info info-key="similar_resources" />
         </h6>
         <ResourceTag
@@ -111,57 +111,57 @@
           variant="danger"
           @click="$emit('delete')"
         >
-          <i class="fas fa-trash" /> {{ $i18n('button.delete') }}
+          <i class="fas fa-trash" /> {{ $t('button.delete') }}
         </b-button>
         <b-button
           v-if="isOwnSelected"
           variant="primary"
           @click="$emit('edit')"
         >
-          <i class="fas fa-edit" /> {{ $i18n('button.edit') }}
+          <i class="fas fa-edit" /> {{ $t('button.edit') }}
         </b-button>
         <b-button
           @click="modal.hide()"
-          v-text="$i18n('button.close')"
+          v-text="$t('button.close')"
         />
         <b-button
           v-if="!isOwnSelected"
           :variant="props.selectedResource.isFavorite ? 'warning' : 'outline-warning'"
           @click="$emit('favorite', !props.selectedResource.isFavorite)"
         >
-          <i class="fas fa-star" /> {{ $i18n('resource_mosaic.favorite') }}
+          <i class="fas fa-star" /> {{ $t('resource_mosaic.favorite') }}
         </b-button>
         <b-button
           v-if="!isOwnSelected"
           variant="primary"
           @click="$refs.messageModal.show()"
         >
-          <i class="fas fa-comment" /> {{ $i18n('resource_mosaic.message') }}
+          <i class="fas fa-comment" /> {{ $t('resource_mosaic.message') }}
         </b-button>
       </template>
     </b-modal>
     <b-modal
       ref="messageModal"
-      :title="$i18n('resource_mosaic.message_modal.title', { name: props.selectedResource.name })"
+      :title="$t('resource_mosaic.message_modal.title', { name: props.selectedResource.name })"
       centered
       :ok-disabled="!message.length"
-      :ok-title="$i18n('button.send')"
-      :cancel-title="$i18n('button.cancel')"
+      :ok-title="$t('button.send')"
+      :cancel-title="$t('button.cancel')"
       @ok="$emit('request', message)"
     >
-      {{ $i18n('resource_mosaic.message_modal.intro', { owner: props.selectedResource.user.name }) }}
+      {{ $t('resource_mosaic.message_modal.intro', { owner: props.selectedResource.user.name }) }}
       <blockquote class="mb-3">
-        {{ $i18n('resource_mosaic.message_modal.request_for') }} "<a href="#" v-text="props.selectedResource.name" />":
+        {{ $t('resource_mosaic.message_modal.request_for') }} "<a href="#" v-text="props.selectedResource.name" />":
         <b-form-textarea
           v-model="message"
-          :placeholder="$i18n('resource_mosaic.message_modal.placeholder')"
+          :placeholder="$t('resource_mosaic.message_modal.placeholder')"
           max-rows="10"
           class="mt-2"
         />
       </blockquote>
       <b-alert show variant="success">
         <i class="fas fa-info-circle" />
-        {{ $i18n('resource_mosaic.message_modal.polite_info') }}
+        {{ $t('resource_mosaic.message_modal.polite_info') }}
       </b-alert>
     </b-modal>
   </div>

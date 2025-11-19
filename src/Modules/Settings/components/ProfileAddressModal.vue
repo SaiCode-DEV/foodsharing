@@ -1,9 +1,9 @@
 <template>
   <b-modal
     ref="profileAddressModal"
-    :title="$i18n('settings.address.title')"
-    :cancel-title="$i18n('button.cancel')"
-    :ok-title="$i18n('settings.address.choose')"
+    :title="$t('settings.address.title')"
+    :cancel-title="$t('button.cancel')"
+    :ok-title="$t('settings.address.choose')"
     centered
     modal-class="bootstrap"
     content-class="pr-3 pt-3"

@@ -1,8 +1,8 @@
 <template>
   <div v-if="selectedMailbox">
     <Container
-      :tag="$i18n('mailbox.mails')"
-      :title="$i18n('mailbox.mails')"
+      :tag="$t('mailbox.mails')"
+      :title="$t('mailbox.mails')"
       :toggle-visibility="selected"
     >
       <div class="card bg-white">
@@ -87,7 +87,7 @@
           </b-table>
           <div class="text-center mt-3">
             <small v-if="noMorePages">
-              {{ $i18n('pickup.overview.allLoaded') }}
+              {{ $t('pickup.overview.allLoaded') }}
             </small>
             <b-button
               v-else
@@ -97,12 +97,12 @@
               @click="loadNextPage"
             >
               <i v-if="isBusy" class="fas fa-spinner fa-spin" />
-              <span v-else>{{ $i18n('pickup.overview.menu.loadMore') }}</span>
+              <span v-else>{{ $t('pickup.overview.menu.loadMore') }}</span>
             </b-button>
           </div>
         </div>
         <div v-else>
-          {{ $i18n('mailbox.empty') }}
+          {{ $t('mailbox.empty') }}
         </div>
         <div v-if="emailId" class="border p-2" />
       </div>
@@ -140,15 +140,15 @@ export default {
     columns () {
       const baseColumns = [
         { key: 'selected', label: '', sortable: false, class: 'align-middle leftcolumn' },
-        { key: 'subject', sortable: false, label: this.$i18n('mailbox.subject'), class: 'align-middle' },
-        { key: 'date', label: this.$i18n('mailbox.date'), sortable: false, class: 'align-middle' },
+        { key: 'subject', sortable: false, label: this.$t('mailbox.subject'), class: 'align-middle' },
+        { key: 'date', label: this.$t('mailbox.date'), sortable: false, class: 'align-middle' },
         { key: 'attachments', label: '', sortable: true, class: 'align-middle' },
       ]
 
       const useSender = this.selectedMailbox[2] === MAILBOX_FOLDER.INBOX
       const senderOrRecipientColumn = {
         key: useSender ? 'sender' : 'recipient',
-        label: useSender ? this.$i18n('mailbox.from') : this.$i18n('mailbox.to'),
+        label: useSender ? this.$t('mailbox.from') : this.$t('mailbox.to'),
         sortable: false,
         class: 'align-middle',
       }
@@ -228,7 +228,7 @@ export default {
     },
     formatEmailAddress (address) {
       const result = (address.name !== undefined && address.name !== null) ? address.name : address.address
-      return result ?? `(${this.$i18n('mailbox.unknown_sender')})`
+      return result ?? `(${this.$t('mailbox.unknown_sender')})`
     },
     formatRecipientAddresses (addresses) {
       return addresses.map(address => this.formatEmailAddress(address)).join(', ')

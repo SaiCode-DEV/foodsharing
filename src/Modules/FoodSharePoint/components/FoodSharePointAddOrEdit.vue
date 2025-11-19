@@ -3,7 +3,7 @@
     <Container :collapsible="false" :title="title">
       <div class="list-group-item">
         <b-form-group
-          :label="$i18n('fsp_bezirk_id')"
+          :label="$t('fsp_bezirk_id')"
           label-for="district-select"
           required
         >
@@ -17,7 +17,7 @@
         </b-form-group>
 
         <b-form-group
-          :label="$i18n('name')"
+          :label="$t('name')"
           label-for="name-input"
         >
           <b-form-input
@@ -30,8 +30,8 @@
           <span v-if="errors.name" class="error-message">{{ errors.name }}</span>
         </b-form-group>
 
-        <b-form-group :label="$i18n('desc')" label-for="description-md">
-          {{ $i18n('fsp.descLabel') }}
+        <b-form-group :label="$t('desc')" label-for="description-md">
+          {{ $t('fsp.descLabel') }}
           <MarkdownInput
             input-name="description-md"
             :value.sync="formData.description"
@@ -42,7 +42,7 @@
           <span v-if="errors.description" class="error-message">{{ errors.description }}</span>
         </b-form-group>
 
-        <b-form-group :label="$i18n('picture')">
+        <b-form-group :label="$t('picture')">
           <file-upload
             :is-image="true"
             :img-height="169"
@@ -53,7 +53,7 @@
           <span v-if="errors.picture" class="error-message">{{ errors.picture }}</span>
         </b-form-group>
 
-        <b-form-group :label="$i18n('addresspicker.label')">
+        <b-form-group :label="$t('addresspicker.label')">
           <LeafletLocationSearch
             v-if="!isLoading"
             :coordinates="formData.location"
@@ -69,7 +69,7 @@
         </b-form-group>
 
         <div v-if="foodSharePointId !== null">
-          <label for="fspmanagers-input">{{ $i18n('fspmanagers') }}</label>
+          <label for="fspmanagers-input">{{ $t('fspmanagers') }}</label>
           <multi-user-search-input
             id="fspmanagers-input"
             v-model="formData.managerIds"
@@ -106,14 +106,14 @@
     <b-modal
       v-if="foodSharePointId !== null"
       id="deleteFoodSharePointModal"
-      :title="$i18n('fsp.delete')"
-      :cancel-title="$i18n('button.cancel')"
-      :ok-title="$i18n('button.yes_i_am_sure')"
+      :title="$t('fsp.delete')"
+      :cancel-title="$t('button.cancel')"
+      :ok-title="$t('button.yes_i_am_sure')"
       cancel-variant="primary"
       ok-variant="outline-danger"
       @ok="removeFoodSharePoint"
     >
-      {{ $i18n('fsp.deleteConfirm') }}
+      {{ $t('fsp.deleteConfirm') }}
     </b-modal>
   </div>
 </template>

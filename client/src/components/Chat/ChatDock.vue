@@ -59,26 +59,26 @@
               :dropup="box.minimized"
               right
               variant="link"
-              :title="$i18n('terminology.settings')"
+              :title="$t('terminology.settings')"
             >
               <template #button-content>
                 <i class="fas fa-fw fa-cog" />
               </template>
               <b-dropdown-item :href="$url('conversations', box.id)">
-                {{ $i18n('menu.entry.all_messages') }}
+                {{ $t('menu.entry.all_messages') }}
               </b-dropdown-item>
               <b-dropdown-item
                 v-if="box.participants.length > 4"
                 @click.stop.prevent="box.showMembersDialog = true"
               >
-                {{ $i18n('chat.show_participants') }}
+                {{ $t('chat.show_participants') }}
               </b-dropdown-item>
               <b-dropdown-item href="#" @click.stop="closeAll">
-                {{ $i18n('menu.entry.close_all_chats') }}
+                {{ $t('menu.entry.close_all_chats') }}
               </b-dropdown-item>
             </b-dropdown>
             <b-button
-              :title="$i18n('button.close')"
+              :title="$t('button.close')"
               href="#"
               variant="link"
               size="sm"
@@ -94,7 +94,7 @@
         <!-- Participants overlay for >4 members -->
         <b-modal
           v-model="box.showMembersDialog"
-          :title="$i18n('chat.participants')"
+          :title="$t('chat.participants')"
           scrollable
         >
           <ul class="list-unstyled m-0">

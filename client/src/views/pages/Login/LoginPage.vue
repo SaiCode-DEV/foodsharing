@@ -1,13 +1,13 @@
 <template>
   <div class="card rounded">
     <div class="card-header text-white bg-primary">
-      {{ $i18n('login.form_title') }}
+      {{ $t('login.form_title') }}
     </div>
     <LoginForm />
     <a
       :href="$url('passwordReset')"
       class="pl-2 m-2 pb-2"
-      v-text="$i18n('login.forgotten_password_label')"
+      v-text="$t('login.forgotten_password_label')"
     />
   </div>
 </template>

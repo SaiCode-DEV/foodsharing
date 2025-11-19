@@ -3,10 +3,10 @@
     <b-form-input
       v-model.lazy="v$.name.$model"
       :class="{ 'is-invalid': v$.name.$error}"
-      :placeholder="$i18n('storeedit.store_name_placeholder')"
+      :placeholder="$t('storeedit.store_name_placeholder')"
       @input="$emit('update:name', $event)"
     />
-    <span v-if="v$.name.$error">{{ $i18n('storeedit.name_error') }}</span>
+    <span v-if="v$.name.$error">{{ $t('storeedit.name_error') }}</span>
     <b-input-group class="pt-2 pb-2">
       <b-form-input
         :value="region.name"
@@ -29,7 +29,7 @@
       :disabled="v$.$invalid"
       @click="redirect()"
     >
-      {{ $i18n('button.next') }}
+      {{ $t('button.next') }}
     </b-button>
     <region-tree-modal
       ref="storeRegionTree"

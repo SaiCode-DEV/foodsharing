@@ -33,11 +33,11 @@
       >
         <template #button-content>
           <i class="fas fa-fw" :class="buttonIcon" />
-          {{ $i18n('usersearch.select_tag') }}
+          {{ $t('usersearch.select_tag') }}
         </template>
         <b-dropdown-form @submit.stop.prevent="() => {}">
           <b-form-group
-            :label="$i18n('usersearch.search_tag')"
+            :label="$t('usersearch.search_tag')"
             label-for="tag-search-input"
             label-cols-md="auto"
             class="mb-0"
@@ -64,7 +64,7 @@
           {{ option }}
         </b-dropdown-item-button>
         <b-dropdown-text v-if="possibleUsers.length === 0">
-          {{ $i18n('usersearch.no_tag_preset') }}
+          {{ $t('usersearch.no_tag_preset') }}
         </b-dropdown-text>
       </b-dropdown>
     </template>
@@ -130,7 +130,7 @@ export default {
           const selectedIDs = this.userObjects.map(x => JSON.parse(x).id)
           users = users.filter(user => !selectedIDs.some(id => id === user.id))
         } catch (e) {
-          pulseError(this.$i18n('error_unexpected'))
+          pulseError(this.$t('error_unexpected'))
         }
       } else {
         this.user = null

@@ -3,8 +3,8 @@
     id="BananaModal"
     size="xl"
     :ok-only="true"
-    :ok-title="$i18n('button.ok')"
-    :title="$i18n('profile.banana.title', { count: titleCount })"
+    :ok-title="$t('button.ok')"
+    :title="$t('profile.banana.title', { count: titleCount })"
     @show="loadBananas"
   >
     <div v-if="!isRecipient">
@@ -14,7 +14,7 @@
         :can-give-banana="metadata.mayGiveBanana"
         :can-remove-banana="metadata.mayDeleteBananas"
         :bananas="receivedBananas"
-        :none-placeholder="$i18n(`profile.banana.recieved_none.${isYou}`, { name: recipient.name })"
+        :none-placeholder="$t(`profile.banana.recieved_none.${isYou}`, { name: recipient.name })"
         @bananas-updated="bananasUpdated"
       />
     </div>
@@ -24,7 +24,7 @@
     >
       <b-tab
         v-if="receivedBananas"
-        :title="`${$i18n('terminology.received')} (${receivedBananas.length})`"
+        :title="`${$t('terminology.received')} (${receivedBananas.length})`"
         active
       >
         <BananaList
@@ -32,19 +32,19 @@
           :can-give-banana="metadata.mayGiveBanana"
           can-remove-banana
           :bananas="receivedBananas"
-          :none-placeholder="$i18n(`profile.banana.recieved_none.${isYou}`, { name: recipient.name })"
+          :none-placeholder="$t(`profile.banana.recieved_none.${isYou}`, { name: recipient.name })"
         />
       </b-tab>
       <b-tab
         v-if="isRecipient && sentBananas"
-        :title="`${$i18n('terminology.sent')} (${sentBananas.length})`"
+        :title="`${$t('terminology.sent')} (${sentBananas.length})`"
       >
         <BananaList
           :recipient="recipient"
           :can-give-banana="false"
           :can-remove-banana="isRecipient"
           :bananas="sentBananas"
-          :none-placeholder="$i18n(`profile.banana.sent_none.${isYou}`, { name: recipient.name })"
+          :none-placeholder="$t(`profile.banana.sent_none.${isYou}`, { name: recipient.name })"
           is-sent
           @bananas-updated="bananasUpdated"
         />

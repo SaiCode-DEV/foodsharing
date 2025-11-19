@@ -2,19 +2,19 @@
   <div class="mt-3 results">
     <div v-if="query" class="alert alert-info">
       <i class="fas fa-info-circle" />
-      <span> {{ $i18n('search.thread-title-only') }} </span>
+      <span> {{ $t('search.thread-title-only') }} </span>
     </div>
 
     <div
       v-if="isEmpty && !isLoading && query.trim().length >= 3"
       class="dropdown-header alert alert-warning"
     >
-      {{ $i18n('search.noresults') }}
+      {{ $t('search.noresults') }}
     </div>
 
     <div v-if="!isEmpty" class="found-threads">
       <h3 class="dropdown-header">
-        <i class="fas fa-comments" /> {{ $i18n('terminology.threads') }}
+        <i class="fas fa-comments" /> {{ $t('terminology.threads') }}
       </h3>
 
       <ThreadResultEntry

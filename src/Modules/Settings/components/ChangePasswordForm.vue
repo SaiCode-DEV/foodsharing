@@ -1,7 +1,7 @@
 <template>
   <div>
     <p class="m1">
-      {{ $i18n('settings.change_password.title') }}
+      {{ $t('settings.change_password.title') }}
     </p>
 
     <div class="col-sm-auto">
@@ -18,7 +18,7 @@
         v-if="v$.oldPassword.$invalid && v$.oldPassword.$dirty"
         class="invalid-feedback"
       >
-        {{ $i18n('settings.change_password.old_password_required') }}
+        {{ $t('settings.change_password.old_password_required') }}
       </div>
     </div>
 
@@ -38,13 +38,13 @@
       >
         <ul>
           <li v-if="v$.newPassword.required.$invalid || v$.newPassword.minLength.$invalid">
-            {{ $i18n('settings.change_password.new_password_required') }}
+            {{ $t('settings.change_password.new_password_required') }}
           </li>
           <li v-if="v$.newPassword.complexity.$invalid">
-            {{ $i18n('settings.change_password.new_password_must_be_complex') }}
+            {{ $t('settings.change_password.new_password_must_be_complex') }}
           </li>
           <li v-if="v$.newPassword.isTrimmed.$invalid">
-            {{ $i18n('settings.change_password.new_password_must_be_trimmed') }}
+            {{ $t('settings.change_password.new_password_must_be_trimmed') }}
           </li>
         </ul>
       </div>
@@ -64,7 +64,7 @@
         v-if="v$.confirmNewPassword.$invalid && v$.confirmNewPassword.$dirty"
         class="invalid-feedback"
       >
-        {{ $i18n('settings.change_password.new_password_confirmation_invalid') }}
+        {{ $t('settings.change_password.new_password_confirmation_invalid') }}
       </div>
     </div>
 
@@ -73,7 +73,7 @@
       :class="(isLoading || v$.$invalid) ? 'btn-secondary' : 'btn-primary'"
       :disabled="isLoading || v$.$invalid"
       @click="submitPassword"
-      v-text="$i18n('settings.change_password.submit')"
+      v-text="$t('settings.change_password.submit')"
     />
   </div>
 </template>
@@ -114,7 +114,7 @@ export default {
 
       try {
         await requestPasswordChange(this.oldPassword, this.newPassword)
-        pulseInfo(this.$i18n('settings.change_password.success'), { sticky: true })
+        pulseInfo(this.$t('settings.change_password.success'), { sticky: true })
         this.oldPassword = ''
         this.newPassword = ''
         this.confirmNewPassword = ''
@@ -122,7 +122,7 @@ export default {
       } catch (e) {
         let message = e.message
         if (e.code === HTTP_RESPONSE.FORBIDDEN) {
-          message = this.$i18n('settings.changemail.wrong_password')
+          message = this.$t('settings.changemail.wrong_password')
         }
         pulseError(message)
       }

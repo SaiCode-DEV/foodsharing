@@ -1,6 +1,6 @@
 <template>
   <Dropdown
-    :title="$i18n('navigation.help_needed')"
+    :title="$t('navigation.help_needed')"
     icon="fas fa-question-circle"
     is-fixed-size
     is-scrollable
@@ -15,7 +15,7 @@
         @click="item.modal && $emit('show-modal', item.modal)"
       >
         <i v-if="item.icon" :class="['icon-subnav', item.icon]" />
-        {{ $i18n(item.title) }}
+        {{ $t(item.title) }}
       </a>
     </template>
   </Dropdown>

@@ -1,7 +1,7 @@
 <!-- Special case of the ProfileSettingsPage that only shows the component for deleting one's account -->
 <template>
   <div>
-    <Container :title="$i18n('foodsaver.delete_account')" wrap-content>
+    <Container :title="$t('foodsaver.delete_account')" wrap-content>
       <DeleteAccount :user-id="userId" />
     </Container>
   </div>

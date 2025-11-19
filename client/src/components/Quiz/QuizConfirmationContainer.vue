@@ -1,7 +1,7 @@
 <template>
   <Container
     :tag="null"
-    :title="$i18n('quiz.confirm')"
+    :title="$t('quiz.confirm')"
   >
     <div
       v-for="(content, i) in contents"
@@ -16,7 +16,7 @@
         v-if="content.confirm"
         v-model="accepted[content.id]"
       >
-        {{ $i18n(content.confirm) }}
+        {{ $t(content.confirm) }}
       </b-form-checkbox>
     </div>
 
@@ -24,7 +24,7 @@
       :disabled.attr="Object.values(accepted).some(x=>!x)"
       class="list-group-item list-group-item-action list-group-item-secondary small font-weight-bold text-center"
       @click="confirm"
-      v-text="$i18n('button.confirm')"
+      v-text="$t('button.confirm')"
     />
   </Container>
 </template>

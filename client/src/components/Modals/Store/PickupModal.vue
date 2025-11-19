@@ -3,13 +3,13 @@
     <b-modal
       :id="modalId"
       :title="title"
-      :cancel-title="$i18n('button.cancel')"
-      :ok-title="$i18n('button.send')"
+      :cancel-title="$t('button.cancel')"
+      :ok-title="$t('button.send')"
       :ok-disabled="isDateTimeNotSelected"
       @ok="trySetPickupSlots"
     >
       <p>{{ description }}</p>
-      {{ $i18n('day') }}
+      {{ $t('day') }}
       <b-input-group class="mb-3">
         <b-form-input
           id="date-input"
@@ -23,13 +23,13 @@
             button-only
             right
             :min="minSlotDate"
-            :locale="$i18n('calendar.locale')"
+            :locale="$t('calendar.locale')"
             start-weekday="1"
             aria-controls="date-input"
           />
         </b-input-group-append>
       </b-input-group>
-      {{ $i18n('time') }}
+      {{ $t('time') }}
       <b-input-group class="mb-3">
         <b-form-input
           id="time-input"
@@ -52,23 +52,23 @@
         v-if="!deletePickupMode"
         class="pt-2"
       >
-        {{ $i18n('pickup.edit.description_titel') }}
+        {{ $t('pickup.edit.description_titel') }}
 
         <b-form-input
           v-model="slotDescription"
-          :placeholder="$i18n('pickup.description_optional')"
+          :placeholder="$t('pickup.description_optional')"
           :maxlength="100"
         />
         <small v-if="slotDescription?.length === 100">
           <i class="fas fa-info-circle" />
-          {{ $i18n('pickup.description_max_length_info') }}
+          {{ $t('pickup.description_max_length_info') }}
         </small>
       </div>
       <div
         v-if="!deletePickupMode"
         class="pt-2"
       >
-        {{ $i18n('pickup.edit.slot_titel') }}
+        {{ $t('pickup.edit.slot_titel') }}
         <b-form-spinbutton
           v-model="selectedSlotCount"
           :min="minSlotCount"
@@ -173,7 +173,7 @@ export default {
       } catch (err) {
         const errorDescription = err.jsonContent ?? { message: '' }
         const errorMessage = `(${errorDescription.message ?? 'Unknown'})`
-        pulseError(this.$i18n('storeedit.unsuccess', { error: errorMessage }))
+        pulseError(this.$t('storeedit.unsuccess', { error: errorMessage }))
       }
     },
   },

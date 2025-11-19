@@ -36,7 +36,7 @@
       :may-edit="mayEditData"
     />
     <Wall
-      :title="$i18n('region.public.wall')"
+      :title="$t('region.public.wall')"
       target="bezirk"
       :target-id="id"
       :allow-image-attachments="true"
@@ -49,7 +49,7 @@
       class="only-if-first"
     >
       <i class="fas fa-eye-slash mr-2" />
-      {{ $i18n('region.public.no_more_info') }}
+      {{ $t('region.public.no_more_info') }}
     </b-alert>
   </BasePage>
   <div v-else class="px-2">
@@ -114,7 +114,7 @@ export default {
       if (!this.regionData) return []
       const breadcrumbs = this.regionData.ancestors.map(region => ({ href: this.$url('publicRegion', region.id), text: region.name }))
       breadcrumbs.push({ text: this.regionData.name })
-      breadcrumbs.unshift({ href: this.$url('communities'), text: this.$i18n('content.communities.title') })
+      breadcrumbs.unshift({ href: this.$url('communities'), text: this.$t('content.communities.title') })
       return breadcrumbs
     },
     isLoggedIn () {

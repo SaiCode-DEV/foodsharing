@@ -8,17 +8,17 @@
       <h6 class="m-0 text-truncate d-inline">
         <i
           v-if="thread.stickiness > 0"
-          v-b-tooltip.noninteractive="$i18n('search.results.thread.sticky_tooltip')"
+          v-b-tooltip.noninteractive="$t('search.results.thread.sticky_tooltip')"
           class="fas fa-thumbtack"
         />
         <i
           v-else-if="thread.stickiness < 0"
-          v-b-tooltip.noninteractive="$i18n('search.results.thread.bottom_tooltip')"
+          v-b-tooltip.noninteractive="$t('search.results.thread.bottom_tooltip')"
           class="fas fa-sign-in-alt fa-rotate-90"
         />
         <i
           v-if="thread.is_closed"
-          v-b-tooltip.noninteractive="$i18n('search.results.thread.closed_tooltip')"
+          v-b-tooltip.noninteractive="$t('search.results.thread.closed_tooltip')"
           :class="{'ml-1': thread.stickiness}"
           class="fas fa-lock"
         />
@@ -27,14 +27,14 @@
       <br>
       <small class="separate">
         <span v-if="thread.region_id && !hideRegion">
-          {{ $i18n('search.results.in') }}
+          {{ $t('search.results.in') }}
           <a :href="$url('forum', thread.region_id)">
-            {{ $i18n(`search.results.thread.${thread.is_inside_ambassador_forum ? 'ambassador_' : ''}forum`) }}
+            {{ $t(`search.results.thread.${thread.is_inside_ambassador_forum ? 'ambassador_' : ''}forum`) }}
             {{ thread.region_name }}
           </a>
         </span>
         <span>
-          {{ $i18n('search.results.thread.last_post') }}
+          {{ $t('search.results.thread.last_post') }}
           {{ $dateFormatter.relativeTime(new Date(thread.time)) }}
         </span>
       </small>

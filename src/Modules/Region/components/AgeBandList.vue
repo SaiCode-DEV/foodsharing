@@ -3,7 +3,7 @@
     <div
       class="card-header text-white bg-primary"
     >
-      {{ $i18n('ageBandList.header_for_district', {bezirk: regionName}) }}
+      {{ $t('ageBandList.header_for_district', {bezirk: regionName}) }}
     </div>
     <div>
       <b-tabs
@@ -11,7 +11,7 @@
         card
       >
         <b-tab
-          :title="$i18n('ageBandList.district_tab')"
+          :title="$t('ageBandList.district_tab')"
           active
           @click="reloadAgeBandDataTab"
         >
@@ -27,7 +27,7 @@
           />
         </b-tab>
         <b-tab
-          :title="$i18n('ageBandList.home_district_tab')"
+          :title="$t('ageBandList.home_district_tab')"
           @click="reloadAgeBandHomeDistrictDataTab"
         >
           <b-table
@@ -69,12 +69,12 @@ export default {
       sortBy: 'ageBand',
       fields: [{
         key: 'ageBand',
-        label: this.$i18n('ageBandList.ageBand'),
+        label: this.$t('ageBandList.ageBand'),
         sortable: true,
       },
       {
         key: 'numberOfAgeBand',
-        label: this.$i18n('ageBandList.NumberOfAgeband'),
+        label: this.$t('ageBandList.NumberOfAgeband'),
         sortable: true,
       },
       ],

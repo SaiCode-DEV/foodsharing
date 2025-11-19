@@ -1,7 +1,7 @@
 <template>
   <div>
     <Container
-      :title="$i18n('resource_mosaic.my_resources')"
+      :title="$t('resource_mosaic.my_resources')"
       info-key="my_resources"
     >
       <div v-if="!resources" class="list-group-item text-center">
@@ -27,12 +27,12 @@
             @open="selectedResource = resource"
           />
         </div>
-        <p v-if="!myResources?.length" v-text="$i18n('resource_mosaic.no_own_resources')" />
+        <p v-if="!myResources?.length" v-text="$t('resource_mosaic.no_own_resources')" />
       </div>
       <div
         v-if="hasMaxResources"
         class="list-group-item text-center"
-        v-text="$i18n('resource_mosaic.max_resources', { max: MAX_OWN_RESOURCES })"
+        v-text="$t('resource_mosaic.max_resources', { max: MAX_OWN_RESOURCES })"
       />
       <ContainerButton
         v-if="resources && !hasMaxResources"
@@ -43,7 +43,7 @@
       />
     </Container>
     <Container
-      :title="$i18n('resource_mosaic.title')"
+      :title="$t('resource_mosaic.title')"
       info-key="resource_mosaic"
     >
       <div v-if="resources" class="list-group-item">
@@ -59,24 +59,24 @@
                 :close-on-select="true"
                 track-by="id"
                 label="name"
-                :placeholder="$i18n('resource_mosaic.categories_filter_placeholder')"
+                :placeholder="$t('resource_mosaic.categories_filter_placeholder')"
                 :show-labels="false"
               />
             </div>
             <div class="col-md-8 order-md-3 mb-2">
               <b-input
                 v-model="searchString"
-                :placeholder="$i18n('resource_mosaic.search_placeholder')"
+                :placeholder="$t('resource_mosaic.search_placeholder')"
               />
             </div>
             <div class="col-md-4 align-content-center order-md-2">
               <b-form-checkbox v-model="includeActiveUsersOnly" switch>
-                {{ $i18n('resource_mosaic.filter.active') }}
+                {{ $t('resource_mosaic.filter.active') }}
               </b-form-checkbox>
             </div>
             <div class="col-md-4 align-content-center order-md-4">
               <b-form-checkbox v-model="includeFavoritesOnly" switch>
-                {{ $i18n('resource_mosaic.filter.favorites') }}
+                {{ $t('resource_mosaic.filter.favorites') }}
               </b-form-checkbox>
             </div>
             <div
@@ -84,7 +84,7 @@
               class="col-md-4 align-content-center order-md-6"
             >
               <b-form-checkbox v-model="includeHomeRegionUsersOnly" switch>
-                {{ $i18n('resource_mosaic.filter.home_region') }}
+                {{ $t('resource_mosaic.filter.home_region') }}
               </b-form-checkbox>
             </div>
             <div class="col-md-8 order-md-5 mb-md-0 mb-2 mt-2 mt-md-0">
@@ -95,7 +95,7 @@
                 @click="nextSorting"
               >
                 <i :class="`mr-1 fas fa-${sortings[sorting].icon}`" />
-                {{ $i18n(`resource_mosaic.order.${sortings[sorting].translationKey}`) }}
+                {{ $t(`resource_mosaic.order.${sortings[sorting].translationKey}`) }}
               </b-button>
             </div>
           </div>
@@ -117,7 +117,7 @@
       </div>
       <div v-else class="list-group-item">
         <div class="text-center">
-          <p class="font-weight-bold" v-text="$i18n('resource_mosaic.list_status.' + listStatus, { region: props.groupName, count: filtered.length })" />
+          <p class="font-weight-bold" v-text="$t('resource_mosaic.list_status.' + listStatus, { region: props.groupName, count: filtered.length })" />
           <PaginatedContent :items="filtered" :page-size="50">
             <template #default="{ currentPageItems }">
               <ResourceTag

@@ -10,7 +10,7 @@
       v-if="!loading && !end && showActivePosts !== 0"
       class="list-group-item small activity-item list-group-item-secondary list-group-item-action font-weight-bold text-center"
       @click="fetchUpdates"
-      v-text="$i18n('globals.show_more')"
+      v-text="$t('globals.show_more')"
     />
     <li
       v-if="loading"
@@ -23,12 +23,12 @@
       v-if="showActivePosts.length === 0"
       slot="no-results"
       class="list-group-item activity-item list-group-item-warning text-center"
-      v-text="$i18n('dashboard.no_updates')"
+      v-text="$t('dashboard.no_updates')"
     />
     <li
       v-if="end && showActivePosts.length !== 0"
       class="list-group-item activity-item list-group-item-info text-center"
-      v-text="$i18n('dashboard.no_more_updates_' + activeType)"
+      v-text="$t('dashboard.no_more_updates_' + activeType)"
     />
   </div>
 </template>

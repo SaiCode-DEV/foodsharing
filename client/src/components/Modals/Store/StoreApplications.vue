@@ -1,7 +1,7 @@
 <template>
   <b-modal
     id="requests"
-    :title="$i18n('store.request.title', { storeTitle })"
+    :title="$t('store.request.title', { storeTitle })"
     header-class="d-flex"
     hide-footer
     static
@@ -11,7 +11,7 @@
   >
     <b-alert show variant="info">
       <i class="fas fa-info-circle" />
-      {{ $i18n('store.request.air_line') }}
+      {{ $t('store.request.air_line') }}
     </b-alert>
     <div
       v-for="(request, index) in requests"
@@ -26,7 +26,7 @@
         <div class="d-flex flex-grow-1 flex-wrap justify-content-end">
           <div class="flex-grow-1">
             <i
-              v-b-tooltip.hover="request.verified ? $i18n('store.request.verified') : $i18n('store.request.unverified')"
+              v-b-tooltip.hover="request.verified ? $t('store.request.verified') : $t('store.request.unverified')"
               class="fas fa-fw mr-1"
               :class="{'fa-user-check': request.verified, 'fa-user-slash': !request.verified}"
             />
@@ -39,17 +39,17 @@
               variant="primary"
               @click="acceptRequest(storeId, request.user.id, false, index)"
             >
-              <i class="fas fa-user-check" /> {{ $i18n('store.request.to-team') }}
+              <i class="fas fa-user-check" /> {{ $t('store.request.to-team') }}
             </b-button>
             <b-button
-              v-b-tooltip="$i18n('store.request.to-jumper')"
+              v-b-tooltip="$t('store.request.to-jumper')"
               variant="outline-primary"
               @click="acceptRequest(storeId, request.user.id, true, index)"
             >
               <i class="fas fa-running" />
             </b-button>
             <b-button
-              v-b-tooltip.hover="$i18n('store.request.to-nowhere')"
+              v-b-tooltip.hover="$t('store.request.to-nowhere')"
               variant="outline-danger"
               @click="denyRequest(storeId, request.user.id, request.firstName, index)"
             >
@@ -58,7 +58,7 @@
           </b-button-group>
 
           <b-button
-            v-b-tooltip.hover="$i18n('chat.open_chat')"
+            v-b-tooltip.hover="$t('chat.open_chat')"
             variant="outline-success"
             size="sm"
             class="ml-2 my-1"
@@ -82,7 +82,7 @@
     >
       <b-alert show class="my-3">
         <i class="fas fa-save mr-2" />
-        {{ $i18n('store.log.message_saved_info') }}
+        {{ $t('store.log.message_saved_info') }}
       </b-alert>
     </RequiredMessageModal>
   </b-modal>
@@ -127,7 +127,7 @@ export default {
         this.$delete(this.requests, index)
         await StoreData.mutations.loadStoreMember(this.storeId)
       } catch (e) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       } finally {
         hideLoader()
       }
@@ -140,19 +140,19 @@ export default {
         await declineStoreRequest(storeId, userId, message)
         this.$delete(this.requests, index)
       } catch (e) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       } finally {
         hideLoader()
       }
     },
     formatDistance (distance) {
       if (distance === -1) {
-        return this.$i18n('store.request.distance.unknown')
+        return this.$t('store.request.distance.unknown')
       }
       if (distance === 0) {
-        return this.$i18n('store.request.distance.close')
+        return this.$t('store.request.distance.close')
       }
-      return this.$i18n('store.request.distance.normal', { distance })
+      return this.$t('store.request.distance.normal', { distance })
     },
     openChat (userId) {
       conversationStore.openChatWithUser(userId)

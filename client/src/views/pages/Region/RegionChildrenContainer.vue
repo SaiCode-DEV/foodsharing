@@ -1,7 +1,7 @@
 <template>
   <Container
     v-if="children.length"
-    :title="$i18n('region.public.children', { name, count: children.length })"
+    :title="$t('region.public.children', { name, count: children.length })"
     tag="publicRegionChildren"
     :toggle-visiblity="children.length > defaultAmount"
     @show-full-list="showFullList"

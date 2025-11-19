@@ -1,6 +1,6 @@
 <template>
   <div id="header">
-    <span v-if="conversationId===null">{{ $i18n('chat.new_message') }}</span>
+    <span v-if="conversationId===null">{{ $t('chat.new_message') }}</span>
     <component
       :is="storeId ? 'a' : 'span'"
       class="mr-2"

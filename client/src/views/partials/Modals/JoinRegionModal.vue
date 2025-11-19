@@ -3,16 +3,16 @@
     id="joinRegionModal"
     ref="joinRegionModal"
     modal-class="testing-region-join"
-    :title="$i18n('join_region.headline')"
-    :cancel-title="$i18n('globals.close')"
-    :ok-title="$i18n('globals.save')"
+    :title="$t('join_region.headline')"
+    :cancel-title="$t('globals.close')"
+    :ok-title="$t('globals.save')"
     :ok-disabled="regionIsInValid"
     @show="showModal"
     @hidden="resetModal"
     @ok="joinRegion"
   >
     <div class="description">
-      <Markdown :source="$i18n('join_region.description', {href: $url('wiki_create_region'), mail: $url('mailto_mail_foodsharing_network', 'welcome')})" />
+      <Markdown :source="$t('join_region.description', {href: $url('wiki_create_region'), mail: $url('mailto_mail_foodsharing_network', 'welcome')})" />
     </div>
     <hr>
     <div class="selector">
@@ -23,7 +23,7 @@
       >
         <option
           :value="0"
-          v-text="$i18n('globals.select')"
+          v-text="$t('globals.select')"
         />
         <option
           v-for="(entry, key) in base"
@@ -41,7 +41,7 @@
       >
         <option
           :value="null"
-          v-text="$i18n('globals.select')"
+          v-text="$t('globals.select')"
         />
         <option
           v-for="(entry, key) in region.list"
@@ -57,16 +57,16 @@
     >
       <i class="icon icon--big fas fa-exclamation-triangle" />
       <span v-if="selectedRegionType === 5">
-        <strong>{{ $i18n('join_region.error.is_state_1') }}</strong><br>
-        {{ $i18n('join_region.error.is_state_2') }}
+        <strong>{{ $t('join_region.error.is_state_1') }}</strong><br>
+        {{ $t('join_region.error.is_state_2') }}
       </span>
       <span v-if="selectedRegionType === 6">
-        <strong>{{ $i18n('join_region.error.is_country_1') }}</strong><br>
-        {{ $i18n('join_region.error.is_country_2') }}
+        <strong>{{ $t('join_region.error.is_country_1') }}</strong><br>
+        {{ $t('join_region.error.is_country_2') }}
       </span>
       <span v-if="selectedRegionType === 8">
-        <strong>{{ $i18n('join_region.error.is_big_city_1') }}</strong><br>
-        {{ $i18n('join_region.error.is_big_city_2') }}
+        <strong>{{ $t('join_region.error.is_big_city_1') }}</strong><br>
+        {{ $t('join_region.error.is_big_city_2') }}
       </span>
     </div>
   </b-modal>

@@ -3,7 +3,7 @@
     <b-form-group
       label-cols="4"
       class="map-legend-font-size"
-      :label="$i18n(`map.filters.users.region.label`) + ':'"
+      :label="$t(`map.filters.users.region.label`) + ':'"
       label-for="region-select"
     >
       <b-select
@@ -20,7 +20,7 @@
       :key="selectType"
       class="map-legend-font-size"
       label-cols="4"
-      :label="$i18n(`map.filters.users.${selectType}.label`) + ':'"
+      :label="$t(`map.filters.users.${selectType}.label`) + ':'"
       :label-for="`${selectType}-select`"
     >
       <b-select
@@ -28,7 +28,7 @@
         :value="props.selectedSpecifiers[selectType]"
         class="w-100 map-legend-font-size"
         size="sm"
-        :options="options.map(x => ({ text: $i18n(`map.filters.users.${selectType}.${x}`), value: x }))"
+        :options="options.map(x => ({ text: $t(`map.filters.users.${selectType}.${x}`), value: x }))"
         @change="newValue => $emit('update-specifier', selectType, newValue)"
       />
     </b-form-group>

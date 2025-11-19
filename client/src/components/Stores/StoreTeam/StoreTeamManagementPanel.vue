@@ -1,11 +1,11 @@
 <template>
   <div class="list-group-item manager p-2">
-    <span class="text-muted">{{ $i18n('store.sm.inviteMember') }}</span>
+    <span class="text-muted">{{ $t('store.sm.inviteMember') }}</span>
     <UserSearchInput
       id="new-member-search"
-      :placeholder="$i18n('store.sm.searchPlaceholder')"
+      :placeholder="$t('store.sm.searchPlaceholder')"
       button-icon="fa-user-plus"
-      :button-tooltip="$i18n('store.sm.inviteMember')"
+      :button-tooltip="$t('store.sm.inviteMember')"
       :filter="invitationFilter"
       class="mb-2"
       @user-selected="inviteTeamMember"
@@ -19,7 +19,7 @@
       @click="$bvModal.show('requests')"
     >
       <i class="fas fa-question-circle" />
-      {{ $i18n('store.requests', { count: applications.length}) }}
+      {{ $t('store.requests', { count: applications.length}) }}
     </b-button>
 
     <b-button
@@ -30,7 +30,7 @@
       @click="$bvModal.show('invitations')"
     >
       <i class="fas fa-clipboard-question" />
-      {{ $i18n('store.invitations', { count: invitations.length}) }}
+      {{ $t('store.invitations', { count: invitations.length}) }}
     </b-button>
 
     <b-button
@@ -40,7 +40,7 @@
       @click="$emit('toggle-sorting')"
     >
       <i class="fas fa-sort-amount-down" />
-      {{ $i18n(`store.sm.sorting.${sortingFunctionName}`) }}
+      {{ $t(`store.sm.sorting.${sortingFunctionName}`) }}
     </b-button>
 
     <StoreApplications
@@ -95,7 +95,7 @@ export default {
         const invitation = await inviteStoreMember(this.storeId, userId)
         this.invitations.unshift(invitation)
       } catch (e) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
     },
     invitationFilter (userId) {

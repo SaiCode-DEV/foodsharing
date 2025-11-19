@@ -3,7 +3,7 @@
     <Logo v-if="viewIsMobile" />
     <Link
       v-if="!isFoodsaver"
-      :title="$i18n('foodsaver.upgrade.FOODSAVER')"
+      :title="$t('foodsaver.upgrade.FOODSAVER')"
       icon="fa-hands-helping"
       :href="$url('quiz_foodsaver')"
     />

@@ -1,11 +1,11 @@
 <template>
   <Container
-    :title="edit ? $i18n('events.edit') : $i18n('events.create.title')"
+    :title="edit ? $t('events.edit') : $t('events.create.title')"
     wrap-content
     :collapsible="false"
   >
     <b-form>
-      <b-form-group :label="$i18n('events.create.who')">
+      <b-form-group :label="$t('events.create.who')">
         <b-form-select
           v-model="event.regionId"
           :options="regionSelectOptions"
@@ -13,19 +13,19 @@
         />
       </b-form-group>
 
-      <b-form-group :label="$i18n('events.create.name')">
+      <b-form-group :label="$t('events.create.name')">
         <b-form-input
           v-model.trim="event.name"
         />
       </b-form-group>
 
-      <b-form-group :label="$i18n('events.create.date')">
+      <b-form-group :label="$t('events.create.date')">
         <b-form-checkbox
           v-model="multipleDays"
           class="pb-2"
           @change="initEndDay"
         >
-          {{ $i18n('events.create.multiday') }}
+          {{ $t('events.create.multiday') }}
         </b-form-checkbox>
         <DatePicker
           v-if="!multipleDays"
@@ -41,7 +41,7 @@
         />
       </b-form-group>
 
-      <b-form-group :label="$i18n('events.create.time')">
+      <b-form-group :label="$t('events.create.time')">
         <TimeRangePicker
           :independent="multipleDays && event.startDay < event.endDay"
           :from-time.sync="event.startTime"
@@ -49,7 +49,7 @@
         />
       </b-form-group>
 
-      <b-form-group :label="$i18n('events.create.desc')">
+      <b-form-group :label="$t('events.create.desc')">
         <MarkdownInput
           :value.sync="event.description"
           :conceal-toolbar="true"
@@ -60,7 +60,7 @@
 
       <b-form-group>
         <template #label>
-          {{ $i18n('events.create.public') }}
+          {{ $t('events.create.public') }}
           <Info info-key="publicEvent" />
         </template>
         <b-form-checkbox
@@ -68,18 +68,18 @@
           class="pb-2"
           :disabled="!mayChangeEventPublicState"
         >
-          {{ $i18n('events.create.isPublic') }}
+          {{ $t('events.create.isPublic') }}
         </b-form-checkbox>
       </b-form-group>
 
-      <b-form-group :label="$i18n('events.create.type')">
+      <b-form-group :label="$t('events.create.type')">
         <b-form-select
           v-model="event.type"
           :options="typeSelectOptions"
         />
       </b-form-group>
 
-      <b-form-group v-if="event.type === EVENT_TYPE.OFFLINE" :label="$i18n('addresspicker.label')">
+      <b-form-group v-if="event.type === EVENT_TYPE.OFFLINE" :label="$t('addresspicker.label')">
         <LeafletLocationSearch
           :zoom="16"
           :coordinates="location"
@@ -94,24 +94,24 @@
 
       <b-form-group
         v-if="event.type !== EVENT_TYPE.ONLINE"
-        :label="$i18n(`events.create.${event.type ? 'locationOther' : 'locationDetails'}`)"
+        :label="$t(`events.create.${event.type ? 'locationOther' : 'locationDetails'}`)"
       >
         <b-form-input v-model="event.locationDetails" />
       </b-form-group>
 
       <b-alert v-else show>
         <i class="fas fa-info-circle" />
-        <Markdown :source="$i18n('events.online_info')" />
+        <Markdown :source="$t('events.online_info')" />
       </b-alert>
 
-      <span v-b-tooltip="isDataValid ? '' : $i18n('events.create.fillCompletely')" class="float-right">
+      <span v-b-tooltip="isDataValid ? '' : $t('events.create.fillCompletely')" class="float-right">
         <b-button
           variant="success"
           :disabled="!isDataValid || submitting"
           @click="submit"
         >
           <i class="fas fa-calendar-alt pr-2" />
-          {{ $i18n(edit ? 'events.edit' : 'events.add_new_event') }}
+          {{ $t(edit ? 'events.edit' : 'events.add_new_event') }}
         </b-button>
       </span>
     </b-form>
@@ -202,14 +202,14 @@ export default {
     regionSelectOptions () {
       return [
         {
-          label: this.$i18n('events.create.groups'),
+          label: this.$t('events.create.groups'),
           options: this.groups.map(group => ({
             value: group.id,
             text: group.name,
           })),
         },
         {
-          label: this.$i18n('events.create.regions'),
+          label: this.$t('events.create.regions'),
           options: this.regions.map(region => ({
             value: region.id,
             text: region.name,
@@ -220,7 +220,7 @@ export default {
     typeSelectOptions () {
       return ['offline', 'online', 'other'].map((key, i) => ({
         value: i,
-        text: this.$i18n(`events.create.${key}`),
+        text: this.$t(`events.create.${key}`),
       }))
     },
     startDate () {

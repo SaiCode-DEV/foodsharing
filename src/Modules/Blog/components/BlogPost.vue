@@ -3,7 +3,7 @@
     <div v-if="blogPost">
       <h2>{{ blogPost.title }}</h2>
       <p class="subtitle">
-        <span v-if="blogPost.authorName">{{ $i18n('blog.author') }} {{ blogPost.authorName }}, </span>
+        <span v-if="blogPost.authorName">{{ $t('blog.author') }} {{ blogPost.authorName }}, </span>
         <span>{{ formattedDate }}</span>
       </p>
       <img v-if="pictureUrl" :src="pictureUrl">
@@ -62,7 +62,7 @@ export default {
       // await new Promise(resolve => setTimeout(resolve, 5000))
       this.blogPost = await getBlogpost(this.id)
     } catch (e) {
-      pulseError(this.$i18n('error_unexpected'))
+      pulseError(this.$t('error_unexpected'))
     }
   },
 }

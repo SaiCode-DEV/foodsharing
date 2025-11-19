@@ -3,7 +3,7 @@
     <label
       class="sr-only"
       for="searchField"
-      v-text="$i18n(props.placeholder)"
+      v-text="$t(props.placeholder)"
     />
     <i class="icon fas" :class="props.isLoading ? 'fa-spinner fa-spin' : 'fa-search'" />
     <b-form-input
@@ -12,7 +12,7 @@
       :value="props.query"
       type="text"
       class="form-control"
-      :placeholder="$i18n(props.placeholder)"
+      :placeholder="$t(props.placeholder)"
       tabindex="1"
       debounce="150"
       @update="newValue => $emit('update:query', newValue)"

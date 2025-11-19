@@ -12,7 +12,7 @@
       <Quiz
         v-if="quiz"
         tag="foodsaver.upgrade.ad_fs"
-        :title="$i18n('foodsaver.upgrade.ad_fs')"
+        :title="$t('foodsaver.upgrade.ad_fs')"
         :description="quiz.body"
         :is-closeable="quiz.closeable"
         :links="quiz.links"
@@ -21,11 +21,11 @@
       <div v-if="isFoodsaver" class="filter mt-3">
         <b-dropdown
           id="dropdown-header"
-          v-b-tooltip="$i18n('dashboard.options.hide.tooltip')"
+          v-b-tooltip="$t('dashboard.options.hide.tooltip')"
           variant="link"
           size="sm"
           class="m-2"
-          :text="$i18n('dashboard.options.hide.text')"
+          :text="$t('dashboard.options.hide.text')"
           right
         >
           <label
@@ -38,18 +38,18 @@
               class="mr-2"
               type="checkbox"
             >
-            <span style="margin-top:1px">{{ $i18n('dashboard.my.' + key) }}</span>
+            <span style="margin-top:1px">{{ $t('dashboard.my.' + key) }}</span>
           </label>
           <div class="dropdown-divider" />
           <button
             class="dropdown-item small d-flex align-items-center"
             @click="resetHiding"
-            v-text="$i18n('dashboard.options.reset')"
+            v-text="$t('dashboard.options.reset')"
           />
         </b-dropdown>
         <button
           v-if="viewIsXL"
-          v-b-tooltip="$i18n(`dashboard.options.grid_toggle.${state ? 3 : 2}_columns`)"
+          v-b-tooltip="$t(`dashboard.options.grid_toggle.${state ? 3 : 2}_columns`)"
           class="btn btn-link btn-icon"
           :disabled="!hasRightColumn"
           @click="toggleState()"
@@ -63,7 +63,7 @@
           />
           <span
             class="sr-only"
-            v-text="$i18n(`dashboard.options.grid_toggle.${state ? 3 : 2}_columns`)"
+            v-text="$t(`dashboard.options.grid_toggle.${state ? 3 : 2}_columns`)"
           />
         </button>
       </div>

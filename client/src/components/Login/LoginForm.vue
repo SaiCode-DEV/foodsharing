@@ -4,13 +4,13 @@
       <label class="d-block">
         <div class="mb-1">
           <i class="fas fa-user mr-1" />
-          {{ $i18n('login.email_address') }}
+          {{ $t('login.email_address') }}
         </div>
         <input
           ref="email"
           v-model="email"
-          :placeholder="$i18n('login.email_address')"
-          :aria-label="$i18n('login.email_address')"
+          :placeholder="$t('login.email_address')"
+          :aria-label="$t('login.email_address')"
           type="email"
           name="login-email"
           class="testing-login-input-email form-control"
@@ -23,14 +23,14 @@
           v-if="v$.email.$invalid"
           class="invalid-feedback"
         >
-          <span v-if="!v$.email.required">{{ $i18n('register.email_required') }}</span>
-          <span v-else-if="!v$.email.email">{{ $i18n('register.email_invalid') }}</span>
+          <span v-if="!v$.email.required">{{ $t('register.email_required') }}</span>
+          <span v-else-if="!v$.email.email">{{ $t('register.email_invalid') }}</span>
         </div>
       </label>
       <label class="d-block">
         <div class="mb-1">
           <i class="fas fa-key mr-1" />
-          {{ $i18n('login.password') }}
+          {{ $t('login.password') }}
         </div>
         <password-field
           id="testing-login-input-password"
@@ -44,7 +44,7 @@
           hidden
         >
           <i class="fas fa-shield-alt mr-1" />
-          {{ $i18n('login.2fa') }}
+          {{ $t('login.2fa') }}
         </div>
         <totp-field
           id="testing-login-input-totp"
@@ -61,14 +61,14 @@
           type="checkbox"
           name="login-remember"
         >
-        {{ $i18n('login.steady_login') }}
+        {{ $t('login.steady_login') }}
       </label>
       <b-overlay :show="isLoading">
         <template #overlay>
           <i class="fas fa-spinner fa-spin" />
         </template>
         <b-button
-          :aria-label="$i18n('login.login_button_label')"
+          :aria-label="$t('login.login_button_label')"
           type="submit"
           variant="primary"
           class="testing-login-click-submit btn btn-block"
@@ -77,7 +77,7 @@
           @keydown.enter="submit"
         >
           <span>
-            {{ $i18n('login.submit_btn') }}
+            {{ $t('login.submit_btn') }}
           </span>
           <i class="fas fa-arrow-right mr-auto" />
         </b-button>
@@ -142,11 +142,11 @@ export default {
         localStorage.removeItem('login-rememberme')
       }
       if (!this.email) {
-        pulseError(this.$i18n('login.error_no_email'))
+        pulseError(this.$t('login.error_no_email'))
         return
       }
       if (!this.password) {
-        pulseError(this.$i18n('login.error_no_password'))
+        pulseError(this.$t('login.error_no_password'))
         return
       }
       this.isLoading = true
@@ -160,7 +160,7 @@ export default {
       } catch (err) {
         this.isLoading = false
         if (err.code && err.code === HTTP_RESPONSE.UNAUTHORIZED) {
-          pulseError(this.$i18n('login.error_no_auth'))
+          pulseError(this.$t('login.error_no_auth'))
         } else if (err.code && err.code === HTTP_RESPONSE.FORBIDDEN) {
           // Un-hide and focus TOTP field
           console.log('TOTP required')
@@ -169,7 +169,7 @@ export default {
           this.$refs.totp2.focus()
           // This is not an error, do not try again
         } else {
-          pulseError(this.$i18n('error_unexpected'))
+          pulseError(this.$t('error_unexpected'))
           throw err
         }
       }

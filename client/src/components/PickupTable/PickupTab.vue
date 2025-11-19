@@ -7,9 +7,9 @@
   >
     <template #title>
       <div
-        v-b-tooltip:hover.window="$i18n(`pickup.overview.tab.${tabName}.tooltip.${isOwnProfile ? 'own' : 'other'}`)"
+        v-b-tooltip:hover.window="$t(`pickup.overview.tab.${tabName}.tooltip.${isOwnProfile ? 'own' : 'other'}`)"
       >
-        {{ $i18n(`pickup.overview.tab.${tabName}.name`) }}
+        {{ $t(`pickup.overview.tab.${tabName}.name`) }}
       </div>
     </template>
 
@@ -19,7 +19,7 @@
       src="/img/469.gif"
     />
     <p v-else-if="tableData.length === 0">
-      {{ $i18n(`pickup.overview.tab.${tabName}.empty`) }}
+      {{ $t(`pickup.overview.tab.${tabName}.empty`) }}
     </p>
     <div v-else class="table-visible-wrapper">
       <PickupTable
@@ -44,7 +44,7 @@
           </template>
 
           <b-dropdown-item-button @click="refresh">
-            {{ $i18n('pickup.overview.menu.refresh') }}
+            {{ $t('pickup.overview.menu.refresh') }}
           </b-dropdown-item-button>
 
           <b-dropdown-item-button
@@ -52,10 +52,10 @@
             v-b-modal.cancelAllSlotsModal
             variant="danger"
           >
-            {{ $i18n('pickup.overview.menu.signOffAll') }}
+            {{ $t('pickup.overview.menu.signOffAll') }}
             <b-modal
               id="cancelAllSlotsModal"
-              :title="$i18n('pickup.overview.modals.signOffAll.title')"
+              :title="$t('pickup.overview.modals.signOffAll.title')"
               modal-class="bootstrap"
               header-class="d-flex"
               content-class="pr-3 pt-3"
@@ -63,7 +63,7 @@
               @ok="cancelAllSlots"
             >
               <p class="my-4">
-                {{ $i18n('pickup.overview.modals.signOffAll.message') }}
+                {{ $t('pickup.overview.modals.signOffAll.message') }}
               </p>
             </b-modal>
           </b-dropdown-item-button>
@@ -74,7 +74,7 @@
               v-model="showRegistered"
               switch
             >
-              {{ $i18n('pickup.overview.menu.registeredSwitch') }}
+              {{ $t('pickup.overview.menu.registeredSwitch') }}
             </b-form-checkbox>
           </b-dropdown-form>
         </b-dropdown>

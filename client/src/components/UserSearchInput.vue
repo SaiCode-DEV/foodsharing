@@ -45,7 +45,7 @@ import { pulseError } from '@/script'
 export default {
   components: { VueSimpleSuggest },
   props: {
-    placeholder: { type: String, default: function () { return this.$i18n('search.user_search.placeholder') } },
+    placeholder: { type: String, default: function () { return this.$t('search.user_search.placeholder') } },
     buttonIcon: { type: String, default: '' },
     buttonTooltip: { type: String, default: '' },
     filter: { type: Function, default: null },
@@ -92,7 +92,7 @@ export default {
             users = users.filter(x => filteredIds.includes(x.id))
           }
         } catch (e) {
-          pulseError(this.$i18n('error_unexpected'))
+          pulseError(this.$t('error_unexpected'))
           console.debug(e)
         }
       } else {

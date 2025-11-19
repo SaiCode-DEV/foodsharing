@@ -1,7 +1,7 @@
 <template>
   <Container
     v-if="description || mayEdit"
-    :title="$i18n('region.public.description')"
+    :title="$t('region.public.description')"
     tag="publicRegionDescription"
   >
     <template v-if="!editMode" #options>
@@ -15,7 +15,7 @@
         class="m-0"
       >
         <i class="fas fa-edit mr-2" />
-        {{ $i18n('region.public.desc.missing') }}
+        {{ $t('region.public.desc.missing') }}
       </b-alert>
     </div>
     <div v-else>
@@ -91,8 +91,8 @@ export default {
     async cancel () {
       if (this.isDescriptionChanged) {
         if (!await this.confirmationDialogue('region.public.desc.confirm_discard_changes', {
-          okTitle: this.$i18n('region.public.discard_changes'),
-          cancelTitle: this.$i18n('region.public.continue_editing'),
+          okTitle: this.$t('region.public.discard_changes'),
+          cancelTitle: this.$t('region.public.continue_editing'),
         })) return
       }
       this.editMode = false
@@ -100,7 +100,7 @@ export default {
     async save () {
       if (this.isDescriptionChanged) {
         if (!await this.confirmationDialogue('region.public.desc.confirm_save_changes', {
-          okTitle: this.$i18n('button.save'),
+          okTitle: this.$t('button.save'),
           okVariant: 'success',
         })) return
         this.loading = true
@@ -109,7 +109,7 @@ export default {
           await regionStore.fetchPublicRegionData(this.regionId, true)
           this.$emit('update:description', this.editDescription)
         } catch (e) {
-          pulseError(this.$i18n('error_unexpected'))
+          pulseError(this.$t('error_unexpected'))
         }
       }
       this.editMode = false

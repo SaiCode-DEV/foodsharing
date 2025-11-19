@@ -1,6 +1,6 @@
 <template>
   <Container
-    :title="$i18n('quiz.plural')"
+    :title="$t('quiz.plural')"
   >
     <a
       v-for="quiz in readableQuizzes"
@@ -10,7 +10,7 @@
       :href="$url('quiz_admin_edit', quiz.id)"
     >
       <i
-        v-b-tooltip="$i18n('quiz.editable_tooltip')"
+        v-b-tooltip="$t('quiz.editable_tooltip')"
         class="fas fa-fw fa-cog"
         :class="quiz.edit ? '' : 'invisible'"
       />

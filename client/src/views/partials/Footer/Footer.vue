@@ -1,7 +1,7 @@
 <template>
   <footer class="bg-white">
     <div class="container py-5">
-      <h2>{{ $i18n(partnerData.title) }}</h2>
+      <h2>{{ $t(partnerData.title) }}</h2>
       <b-row>
         <b-col
           sm="6"
@@ -12,23 +12,23 @@
             <a
               v-for="(item) in partnerData.items"
               :key="item.infosCompany"
-              v-b-tooltip="$i18n(item.title)"
+              v-b-tooltip="$t(item.title)"
               class="partner hide-external"
               :class="{
                 'alone': partnerData.items.length === 1,
               }"
               :href="$url(item.url)"
-              :aria-label="$i18n(item.title)"
+              :aria-label="$t(item.title)"
             >
               <img
-                :alt="$i18n(item.title)"
+                :alt="$t(item.title)"
                 :src="themeStore.isDark && item.imgDark ? item.imgDark : item.img"
                 loading="lazy"
               >
               <p
                 v-if="item.info"
                 class="text-muted mb-0"
-                v-text="$i18n(item.info)"
+                v-text="$t(item.info)"
               />
             </a>
           </div>
@@ -37,13 +37,13 @@
           sm="6"
           cols="12"
         >
-          <h2>{{ $i18n('footer.donate.call_to') }}</h2>
+          <h2>{{ $t('footer.donate.call_to') }}</h2>
           <a
             class="alert alert-secondary d-flex align-items-center"
             :href="$url('donations')"
           >
             <i class="icon icon--big fas fa-hands-helping mr-3" />
-            {{ $i18n('footer.donate.cta') }}
+            {{ $t('footer.donate.cta') }}
           </a>
         </b-col>
       </b-row>
@@ -56,7 +56,7 @@
           cols="6"
           class="links"
         >
-          <h2>{{ $i18n(data.title) }}</h2>
+          <h2>{{ $t(data.title) }}</h2>
           <ul>
             <li
               v-for="(item) in data.items"
@@ -65,8 +65,8 @@
             >
               <a
                 :href="$url(item.url)"
-                :aria-label="$i18n(item.title)"
-                v-text="$i18n(item.title)"
+                :aria-label="$t(item.title)"
+                v-text="$t(item.title)"
               />
             </li>
           </ul>
@@ -83,23 +83,23 @@
           >
             <a
               :href="$url('imprint')"
-              :aria-label="$i18n('footer.imprint')"
+              :aria-label="$t('footer.imprint')"
               class="mr-3"
             >
-              {{ $i18n('footer.imprint') }}</a>
+              {{ $t('footer.imprint') }}</a>
             <a
               :href="$url('dataprivacy')"
-              :aria-label="$i18n('footer.dataprivacy')"
+              :aria-label="$t('footer.dataprivacy')"
               class="mr-3"
             >
-              {{ $i18n('footer.dataprivacy') }}
+              {{ $t('footer.dataprivacy') }}
             </a>
             <a
               :href="$url('contact')"
-              :aria-label="$i18n('menu.entry.contact')"
+              :aria-label="$t('menu.entry.contact')"
               class="mr-3"
             >
-              {{ $i18n('menu.entry.contact') }}
+              {{ $t('menu.entry.contact') }}
             </a>
           </b-row>
           <b-row
@@ -134,18 +134,18 @@
         >
           <a
             :href="$url('release_notes')"
-            v-text="$i18n('releases.2025-08')"
+            v-text="$t('releases.2025-08')"
           />
-          <span> {{ $i18n('footer.meta.made_with') }}
+          <span> {{ $t('footer.meta.made_with') }}
             <i class="made-with-love-icon fas fa-heart" />
-            <a :href="$url('devdocs')" v-text="$i18n('footer.meta.it_devdocs')" />
+            <a :href="$url('devdocs')" v-text="$t('footer.meta.it_devdocs')" />
           </span>
 
           <a
             v-if="version && isBeta"
             class="text-truncate"
             :href="$url('git_revision', version)"
-            v-text="$i18n('footer.meta.version', { version })"
+            v-text="$t('footer.meta.version', { version })"
           />
         </b-col>
       </b-row>

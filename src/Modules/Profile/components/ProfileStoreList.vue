@@ -4,7 +4,7 @@
       <b-button
         v-for="button of filterButtons"
         :key="button.state"
-        v-b-tooltip.hover="$i18n(`profile.stores.memberState.${button.tooltip}`)"
+        v-b-tooltip.hover="$t(`profile.stores.memberState.${button.tooltip}`)"
         size="sm"
         variant="outline-primary"
         :pressed="button.state === filterMemberState"
@@ -18,7 +18,7 @@
     <div class="d-flex mb-2">
       <b-form-input
         v-model="filterName"
-        :placeholder="$i18n('profile.stores.search_placeholder')"
+        :placeholder="$t('profile.stores.search_placeholder')"
       />
       <b-button
         variant="outline-primary"
@@ -62,7 +62,7 @@
     </div>
     <div class="pt-4">
       <b-button variant="outline-secondary" :href="$url('storeUserList', userId)">
-        {{ $i18n('profile.stores.store_table') }}
+        {{ $t('profile.stores.store_table') }}
       </b-button>
     </div>
   </div>
@@ -180,20 +180,20 @@ export default {
     },
     getIconAndTooltip (store) {
       let iconClass = 'fas fa-fw fa-question-circle'
-      let tooltipText = this.$i18n('store.appliedFor')
+      let tooltipText = this.$t('store.appliedFor')
 
       if (store.active === PROFILE_STORE_TEAM_STATE.MANAGE_ROLE) {
         iconClass = 'fas fa-user-cog'
-        tooltipText = this.$i18n('store.isManager')
+        tooltipText = this.$t('store.isManager')
       } else if (store.active === PROFILE_STORE_TEAM_STATE.JUMPER) {
         iconClass = 'fas fa-running'
-        tooltipText = this.$i18n('store.isJumper')
+        tooltipText = this.$t('store.isJumper')
       } else if (store.active === PROFILE_STORE_TEAM_STATE.ACTIVE) {
         iconClass = 'fas fa-user'
-        tooltipText = this.$i18n('store.member')
+        tooltipText = this.$t('store.member')
       } else if (store.active === PROFILE_STORE_TEAM_STATE.INVITED) {
         iconClass = 'fas fa-clipboard-question'
-        tooltipText = this.$i18n('store.invited')
+        tooltipText = this.$t('store.invited')
       }
 
       return { iconClass, tooltipText }

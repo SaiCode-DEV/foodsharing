@@ -13,12 +13,12 @@
         <div class="event-item-date-container d-flex flex-column bg-white justify-content-center text-dark">
           <span
             v-if="isEventToday"
-            v-text="$i18n('date.Today')"
+            v-text="$t('date.Today')"
           />
           <span
             v-else-if="isEventTomorrow"
             class="small"
-            v-text="$i18n('date.-- Tomorrow')"
+            v-text="$t('date.-- Tomorrow')"
           />
           <span
             v-else-if="$dateFormatter.getDifferenceToNowInDays(startDate) < 3"
@@ -47,7 +47,7 @@
           <div class="text-muted mt-auto">
             <i class="fas fa-clock" />
             <span
-              v-text="$i18n('events.span', { from: displayedStart, until: displayedEnd })"
+              v-text="$t('events.span', { from: displayedStart, until: displayedEnd })"
             />
           </div>
           <a
@@ -56,7 +56,7 @@
             :href="$url('event', entry.id)"
           >
             <span>
-              {{ $i18n('events.button.change') }} ({{ $i18n('events.button.' + ['yes', 'maybe', 'no'][status - 1]) }})
+              {{ $t('events.button.change') }} ({{ $t('events.button.' + ['yes', 'maybe', 'no'][status - 1]) }})
             </span>
           </a>
         </div>
@@ -72,7 +72,7 @@
         @click.prevent="sendInvitationUpdate(EventInvitationResponse.EVENT_INVITATION_RESPONSE_YES)"
       >
         <i class="fas fa-calendar-check d-none d-sm-inline" />
-        {{ $i18n('events.button.yes') }}
+        {{ $t('events.button.yes') }}
       </button>
       <button
         class="list-group-item list-row-item list-group-item-action"
@@ -80,7 +80,7 @@
         @click.prevent="sendInvitationUpdate(EventInvitationResponse.EVENT_INVITATION_RESPONSE_MAYBE)"
       >
         <i class="fas fa-question-circle d-none d-sm-inline" />
-        {{ $i18n('events.button.maybe') }}
+        {{ $t('events.button.maybe') }}
       </button>
       <button
         class="list-group-item list-row-item list-group-item-action"
@@ -88,7 +88,7 @@
         @click.prevent="sendInvitationUpdate(EventInvitationResponse.EVENT_INVITATION_RESPONSE_NO)"
       >
         <i class="fas fa-fw fa-calendar-times d-none d-sm-inline" />
-        {{ $i18n('events.button.no') }}
+        {{ $t('events.button.no') }}
       </button>
     </div>
   </a>
@@ -165,10 +165,10 @@ export default {
       try {
         await mutations.setInvitationResponse(this.entry.id, newStatus)
         const texts = ['events.rsvp.yes', 'events.rsvp.maybe', 'events.rsvp.no']
-        pulseSuccess(this.$i18n(texts[newStatus - 1]))
+        pulseSuccess(this.$t(texts[newStatus - 1]))
         this.status = newStatus
       } catch (e) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
       hideLoader()
     },

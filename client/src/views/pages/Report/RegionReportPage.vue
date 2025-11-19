@@ -1,7 +1,7 @@
 <template>
   <BasePage>
     <ReportContainer
-      :title="$i18n('reports.reports_region', { regionName })"
+      :title="$t('reports.reports_region', { regionName })"
       :report-fetcher="reportFetcher"
     />
   </BasePage>

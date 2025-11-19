@@ -1,7 +1,7 @@
 <template>
   <div class="card rounded">
     <div class="card-header text-white bg-primary">
-      {{ $i18n('register.set-password') }}
+      {{ $t('register.set-password') }}
     </div>
 
     <!-- Password reset form with valid token -->
@@ -13,16 +13,16 @@
     <div v-else-if="!isLoading" class="py-3 px-4">
       <div class="alert alert-danger">
         <i class="fas fa-exclamation-triangle" />
-        {{ $i18n('login.pwreset.expired') }}
+        {{ $t('login.pwreset.expired') }}
       </div>
       <p class="mb-3">
-        {{ $i18n('login.pwreset.request_new') }}
+        {{ $t('login.pwreset.request_new') }}
       </p>
       <b-button
         variant="primary"
         @click="goToForgotPassword"
       >
-        {{ $i18n('password.reset') }}
+        {{ $t('password.reset') }}
       </b-button>
     </div>
 
@@ -30,7 +30,7 @@
     <div v-else class="py-3 px-4 text-center">
       <i class="fas fa-spinner fa-spin fa-2x" />
       <p class="mt-3">
-        {{ $i18n('loading') }}
+        {{ $t('loading') }}
       </p>
     </div>
   </div>

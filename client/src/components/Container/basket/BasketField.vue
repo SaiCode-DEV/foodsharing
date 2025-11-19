@@ -5,7 +5,7 @@
   >
     <div class="img-thumbnail mr-2">
       <img
-        :alt="$i18n('basket.by', { name: entry.creator.name })"
+        :alt="$t('basket.by', { name: entry.creator.name })"
         :src="getImageUrl(entry.picture)"
         class="rounded"
         width="35"
@@ -26,10 +26,10 @@
       <!-- eslint-enable -->
       <div class="field-container">
         <small
-          v-b-tooltip="$i18n('basket.by', { name: entry.creator.name })"
+          v-b-tooltip="$t('basket.by', { name: entry.creator.name })"
           class="field-subline field-subline--muted"
         >
-          {{ $i18n('basket.until') }} {{ $dateFormatter.dateTime(new Date(entry.until * 1000)) }}
+          {{ $t('basket.until') }} {{ $dateFormatter.dateTime(new Date(entry.until * 1000)) }}
         </small>
         <span class="ml-2 badge list-group-item-dark badge-pill">
           <i v-if="entry.distanceInKm > 0" class="fas fa-directions" />

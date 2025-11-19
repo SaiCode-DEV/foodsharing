@@ -3,7 +3,7 @@
     <div
       class="card-header text-white bg-primary"
     >
-      {{ $i18n('genderlist.header_for_district', {bezirk: regionName}) }}
+      {{ $t('genderlist.header_for_district', {bezirk: regionName}) }}
     </div>
     <div>
       <b-card no-body>
@@ -12,7 +12,7 @@
           card
         >
           <b-tab
-            :title="$i18n('genderlist.district_tab')"
+            :title="$t('genderlist.district_tab')"
             active
             @click="reloadGenderDataTab"
           >
@@ -28,12 +28,12 @@
               :busy="isGenderDataLoading"
             >
               <template slot="table-caption">
-                {{ $i18n('genderlist.gender_district_table_caption') }}
+                {{ $t('genderlist.gender_district_table_caption') }}
               </template>
             </b-table>
           </b-tab>
           <b-tab
-            :title="$i18n('genderlist.home_district_tab')"
+            :title="$t('genderlist.home_district_tab')"
             @click="reloadGenderHomeDistrictDataTab"
           >
             <b-table
@@ -48,7 +48,7 @@
               :busy="isGenderHomeDistrictDataLoading"
             >
               <template slot="table-caption">
-                {{ $i18n('genderlist.gender_home_district_table_caption') }}
+                {{ $t('genderlist.gender_home_district_table_caption') }}
               </template>
             </b-table>
           </b-tab>
@@ -82,26 +82,26 @@ export default {
       fields: [
         {
           key: 'gender',
-          label: this.$i18n('genderlist.gender_table_header'),
+          label: this.$t('genderlist.gender_table_header'),
           formatter: item => {
             switch (item) {
               case 0:
-                return this.$i18n('genderlist.gender_not_selected')
+                return this.$t('genderlist.gender_not_selected')
               case 1:
-                return this.$i18n('genderlist.gender_male')
+                return this.$t('genderlist.gender_male')
               case 2:
-                return this.$i18n('genderlist.gender_female')
+                return this.$t('genderlist.gender_female')
               case 3 :
-                return this.$i18n('genderlist.gender_divers')
+                return this.$t('genderlist.gender_divers')
               default :
-                return this.$i18n('genderlist.gender_not_selected')
+                return this.$t('genderlist.gender_not_selected')
             }
           },
           sortable: true,
         },
         {
           key: 'numberOfGender',
-          label: this.$i18n('genderlist.number_table_header'),
+          label: this.$t('genderlist.number_table_header'),
           sortable: true,
         },
       ],

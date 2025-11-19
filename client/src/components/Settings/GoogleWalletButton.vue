@@ -7,7 +7,7 @@
       class="clickable"
       :src="`/img/wallet/google/${locale.toUpperCase()}.svg`"
       :height="50"
-      :alt="$i18n('settings.passport.add_to_wallet.google')"
+      :alt="$t('settings.passport.add_to_wallet.google')"
       @click="onClick"
     >
   </loading-overlay>

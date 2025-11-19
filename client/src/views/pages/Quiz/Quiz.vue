@@ -23,7 +23,7 @@
       v-if="canViewResults"
       ref="resultsContainer"
       :tag="null"
-      :title="$i18n('quiz.show_results')"
+      :title="$t('quiz.show_results')"
       :container-is-expanded="false"
       :wrap-content="true"
       @expand="displayResults"
@@ -38,9 +38,9 @@
 
     <b-modal
       ref="start-info-modal"
-      :title="$i18n('quiz.startmodal.title')"
-      :cancel-title="$i18n('button.cancel')"
-      :ok-title="$i18n('button.start')"
+      :title="$t('quiz.startmodal.title')"
+      :cancel-title="$t('button.cancel')"
+      :ok-title="$t('button.start')"
       :ok-disabled="requiredDataPrivacyNotice && ! isDataPrivacyNoticeAccepted"
       centered
       size="lg"
@@ -53,14 +53,14 @@
           :key="info.key"
         >
           <i :class="`fas fa-${info.icon}`" />
-          {{ $i18n(`quiz.startmodal.infos.${info.key}`) }}
+          {{ $t(`quiz.startmodal.infos.${info.key}`) }}
         </li>
       </ul>
 
       <b-alert v-if="requiredDataPrivacyNotice" show>
-        {{ $i18n(`quiz.startmodal.privacyNotice.${requiredDataPrivacyNotice}`) }}
+        {{ $t(`quiz.startmodal.privacyNotice.${requiredDataPrivacyNotice}`) }}
         <b-form-checkbox v-model="isDataPrivacyNoticeAccepted" class="mt-2">
-          {{ $i18n('quiz.startmodal.acceptPrivacyNotice') }}
+          {{ $t('quiz.startmodal.acceptPrivacyNotice') }}
         </b-form-checkbox>
       </b-alert>
     </b-modal>

@@ -2,9 +2,9 @@
 <template>
   <b-modal
     :id="id"
-    :title="$i18n('required_messages.sure_title')"
-    :cancel-title="$i18n('button.cancel')"
-    :ok-title="$i18n('button.yes_i_am_sure')"
+    :title="$t('required_messages.sure_title')"
+    :cancel-title="$t('button.cancel')"
+    :ok-title="$t('button.yes_i_am_sure')"
     centered
     @ok="resolveCallback?.(optionalMessage)"
     @cancel="rejectCallback?.()"
@@ -12,22 +12,22 @@
   >
     <template v-if="messageKey">
       <p>
-        <Markdown :source="$i18n(`required_messages.${messageKey}.really${multipleAppendix}`, params)" />
-        <span v-text="$i18n(`required_messages.message_info${multipleAppendix}`, params)" />
+        <Markdown :source="$t(`required_messages.${messageKey}.really${multipleAppendix}`, params)" />
+        <span v-text="$t(`required_messages.message_info${multipleAppendix}`, params)" />
       </p>
       <blockquote>
-        <div>{{ $i18n('salutation.3') }} {{ params.name }},</div>
-        <Markdown :source="$i18n(`required_messages.${messageKey}.main`, params)" />
+        <div>{{ $t('salutation.3') }} {{ params.name }},</div>
+        <Markdown :source="$t(`required_messages.${messageKey}.main`, params)" />
         <br>
         <b-form-textarea
           v-model="optionalMessage"
-          :placeholder="$i18n('required_messages.placeholder')"
+          :placeholder="$t('required_messages.placeholder')"
           max-rows="4"
           maxlength="3000"
           @blur="saveMessageToStorage"
         />
         <br>
-        <div>{{ $i18n(`required_messages.${messageKey}.footer`) }}</div>
+        <div>{{ $t(`required_messages.${messageKey}.footer`) }}</div>
       </blockquote>
       <b-form-checkbox
         v-if="maySave && optionalMessage"
@@ -35,7 +35,7 @@
         class="mt-4"
         @change="saveMessageToStorage"
       >
-        {{ $i18n('required_messages.save_message') }}
+        {{ $t('required_messages.save_message') }}
       </b-form-checkbox>
       <slot />
     </template>
@@ -86,7 +86,7 @@ export default {
     },
     async tryGetMessage (params = {}, count = 1) {
       this.multiple = count > 1
-      const optionalParams = this.multiple ? { count, name: this.$i18n('required_messages.name_placeholder') } : {}
+      const optionalParams = this.multiple ? { count, name: this.$t('required_messages.name_placeholder') } : {}
       this.params = Object.assign({}, this.initialParams, optionalParams, params)
       this.$bvModal.show(this.id)
       try {

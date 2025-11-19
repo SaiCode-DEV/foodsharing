@@ -20,7 +20,7 @@
         <template #cell(fs_name)="row">
           <Avatar :user="{ avatar: row.item.fs_photo, name: row.item.fs_name, id: row.item.fs_id}" />
           <a v-if="row.item.fs_name" :href="$url('profile', row.item.fs_id)">{{ row.item.fs_name }} {{ row.item.fs_nachname }}</a>
-          <span v-else v-text="$i18n('forum.deleted_user')" />
+          <span v-else v-text="$t('forum.deleted_user')" />
           <i
             v-if="row.item.fs_name"
             v-b-tooltip="row.item.fs_email"
@@ -44,19 +44,19 @@
 
         <template #row-details="row">
           <div class="report">
-            <p><strong>{{ $i18n('reports.report_id') }}</strong>: {{ row.item.id }}</p>
-            <p><strong>{{ $i18n('reports.time') }}</strong>: {{ row.item.time }}</p>
+            <p><strong>{{ $t('reports.report_id') }}</strong>: {{ row.item.id }}</p>
+            <p><strong>{{ $t('reports.time') }}</strong>: {{ row.item.time }}</p>
             <p v-if="row.item.betrieb_id !== 0">
-              <strong>{{ $i18n('reports.store') }}</strong>: <a :href="`/?page=fsbetrieb&id=${row.item.betrieb_id}`">
+              <strong>{{ $t('reports.store') }}</strong>: <a :href="`/?page=fsbetrieb&id=${row.item.betrieb_id}`">
                 {{ row.item.betrieb_name }}</a> ({{ row.item.betrieb_id }})
             </p>
             <p v-else>
-              <strong>{{ $i18n('reports.store') }}</strong>: -
+              <strong>{{ $t('reports.store') }}</strong>: -
             </p>
-            <p><strong>{{ $i18n('reports.reported') }}</strong>: {{ row.item.fs_name }} {{ row.item.fs_nachname }} ({{ row.item.fs_id }}), {{ row.item.fs_email }}</p>
-            <p><strong>{{ $i18n('reports.reporter') }}</strong>: {{ row.item.rp_name }} {{ row.item.rp_nachname }} ({{ row.item.rp_id }}), {{ row.item.rp_email }}</p>
-            <p><strong>{{ $i18n('reports.reason') }}</strong>: {{ row.item.tvalue }}</p>
-            <p><strong>{{ $i18n('reports.message') }}</strong>: {{ row.item.msg }}</p>
+            <p><strong>{{ $t('reports.reported') }}</strong>: {{ row.item.fs_name }} {{ row.item.fs_nachname }} ({{ row.item.fs_id }}), {{ row.item.fs_email }}</p>
+            <p><strong>{{ $t('reports.reporter') }}</strong>: {{ row.item.rp_name }} {{ row.item.rp_nachname }} ({{ row.item.rp_id }}), {{ row.item.rp_email }}</p>
+            <p><strong>{{ $t('reports.reason') }}</strong>: {{ row.item.tvalue }}</p>
+            <p><strong>{{ $t('reports.message') }}</strong>: {{ row.item.msg }}</p>
           </div>
         </template>
       </b-table>
@@ -72,7 +72,7 @@
     <b-alert
       v-else
       show
-      v-text="$i18n('reports.no_reports_fallback')"
+      v-text="$t('reports.no_reports_fallback')"
     />
   </div>
 </template>
@@ -101,11 +101,11 @@ export default {
       currentPage: 1,
       perPage: 20,
       fields: [
-        { key: 'id', label: this.$i18n('reports.id') },
-        { key: 'time', label: this.$i18n('reports.time'), sortable: true },
-        { key: 'fs_name', label: this.$i18n('reports.reported'), sortable: true },
-        { key: 'rp_name', label: this.$i18n('reports.reporter'), sortable: true },
-        { key: 'tvalue', label: this.$i18n('reports.reason') },
+        { key: 'id', label: this.$t('reports.id') },
+        { key: 'time', label: this.$t('reports.time'), sortable: true },
+        { key: 'fs_name', label: this.$t('reports.reported'), sortable: true },
+        { key: 'rp_name', label: this.$t('reports.reporter'), sortable: true },
+        { key: 'tvalue', label: this.$t('reports.reason') },
         { key: 'actions', label: '' },
       ],
     }

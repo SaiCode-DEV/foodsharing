@@ -1,7 +1,7 @@
 <template>
   <form class="my-1">
     <div class="col-sm-auto">
-      <label>{{ $i18n('terminology.mobile_phone') }}</label>
+      <label>{{ $t('terminology.mobile_phone') }}</label>
     </div>
     <div class="col-sm-auto">
       <PhoneNumberInput
@@ -14,11 +14,11 @@
       v-if="!isValid && mobile.length > 0"
       class="col-sm-auto invalid-feedback"
     >
-      <span>{{ $i18n('register.phone_not_valid') }}</span>
+      <span>{{ $t('register.phone_not_valid') }}</span>
     </div>
     <div class="mt-3 col-sm-auto">
       <div class="alert alert-info">
-        <i class="fas fa-info-circle" /> {{ $i18n('register.login_phone_info') }}
+        <i class="fas fa-info-circle" /> {{ $t('register.login_phone_info') }}
       </div>
     </div>
     <div class="col-sm-auto">
@@ -27,7 +27,7 @@
         type="button"
         @click="$emit('prev')"
       >
-        {{ $i18n('register.prev') }}
+        {{ $t('register.prev') }}
       </button>
       <button
         class="btn btn-primary mt-3"
@@ -35,7 +35,7 @@
         :disabled="!isValid"
         @click.prevent="redirect()"
       >
-        {{ $i18n('register.next') }}
+        {{ $t('register.next') }}
       </button>
     </div>
   </form>

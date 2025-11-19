@@ -3,12 +3,12 @@
     <div class="text-right pb-2">
       <b-button
         v-if="pickupsSection.isOwnProfile"
-        v-b-tooltip="$i18n('settings.calendar.export_tooltip')"
+        v-b-tooltip="$t('settings.calendar.export_tooltip')"
         variant="primary"
         size="sm"
         :href="$url('settingsCalendar')"
       >
-        {{ $i18n('settings.calendar.export') }}
+        {{ $t('settings.calendar.export') }}
       </b-button>
     </div>
     <b-tabs

@@ -12,7 +12,7 @@
         <Time :time="post.time" />
         <i
           v-if="canDelete"
-          v-b-tooltip="$i18n('wall.delete')"
+          v-b-tooltip="$t('wall.delete')"
           class="fas fa-trash-alt text-muted delete-post"
           @click="$emit('delete', post.id)"
         />

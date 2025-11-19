@@ -3,17 +3,17 @@
     <b-alert :show="!userStore.settings.mayChangeVerifiedData">
       <p>
         <i class="fas fa-user-pen mr-1" />
-        <span v-text="$i18n('settings.change_data_info.general')" />
+        <span v-text="$t('settings.change_data_info.general')" />
       </p>
-      <span v-text="$i18n('settings.change_data_info.verified')" />
+      <span v-text="$t('settings.change_data_info.verified')" />
       <Info info-key="change_verified_data" :props="{ link: $url('region_forum', region.id )}" />
     </b-alert>
     <b-alert :show="isAmbassador || isOrgUser">
-      <Markdown :source="$i18n('profile.editNameInfo', {url: $url('editNameInfoUrl')})" />
+      <Markdown :source="$t('profile.editNameInfo', {url: $url('editNameInfoUrl')})" />
     </b-alert>
     <div class="row">
       <div class="col-md-6">
-        <b-form-group :label="$i18n('register.login_name')">
+        <b-form-group :label="$t('register.login_name')">
           <b-form-input
             id="input-firstname"
             v-model.lazy="v$.firstName.$model"
@@ -25,14 +25,14 @@
             v-if="v$.firstName.$error"
             class="invalid-feedback"
           >
-            <span v-if="!v$.firstName.required">{{ $i18n('register.firstname_required') }}</span>
-            <span v-if="!v$.firstName.minLength">{{ $i18n('register.firstname_minLength') }}</span>
-            <span v-if="!v$.firstName.maxLength">{{ $i18n('register.firstname_maxLength') }}</span>
+            <span v-if="!v$.firstName.required">{{ $t('register.firstname_required') }}</span>
+            <span v-if="!v$.firstName.minLength">{{ $t('register.firstname_minLength') }}</span>
+            <span v-if="!v$.firstName.maxLength">{{ $t('register.firstname_maxLength') }}</span>
           </div>
         </b-form-group>
       </div>
       <div class="col-md-6">
-        <b-form-group :label="$i18n('register.login_surname')">
+        <b-form-group :label="$t('register.login_surname')">
           <b-form-input
             id="input-lastname"
             v-model.lazy="v$.lastName.$model"
@@ -41,20 +41,20 @@
             :disabled="!userStore.settings.mayChangeVerifiedData"
           />
           <div v-if="v$.lastName.$error" class="invalid-feedback">
-            <span v-if="!v$.lastName.required">{{ $i18n('register.lastname_required') }}</span>
-            <span v-if="!v$.lastName.minLength">{{ $i18n('register.lastname_minLength') }}</span>
-            <span v-if="!v$.lastName.maxLength">{{ $i18n('register.lastname_maxLength') }}</span>
+            <span v-if="!v$.lastName.required">{{ $t('register.lastname_required') }}</span>
+            <span v-if="!v$.lastName.minLength">{{ $t('register.lastname_minLength') }}</span>
+            <span v-if="!v$.lastName.maxLength">{{ $t('register.lastname_maxLength') }}</span>
           </div>
         </b-form-group>
       </div>
 
       <div class="col-md-6">
-        <b-form-group :label="$i18n('register.select_your_gender')">
+        <b-form-group :label="$t('register.select_your_gender')">
           <b-form-select v-model="gender" :options="genderOptions" />
         </b-form-group>
       </div>
       <div class="col-md-6">
-        <b-form-group :label="$i18n('register.geb_datum')">
+        <b-form-group :label="$t('register.geb_datum')">
           <b-form-input
             id="settings-birthdate-input"
             v-model="birthdayFormatted"
@@ -63,13 +63,13 @@
             :disabled="!userStore.settings.mayChangeVerifiedData"
           />
           <div v-if="!isValidBirthdate" class="invalid-feedback">
-            {{ $i18n('register.error_birthdate') }}
+            {{ $t('register.error_birthdate') }}
           </div>
         </b-form-group>
       </div>
 
       <div class="col-md-6">
-        <b-form-group :label="$i18n('terminology.mobile_phone')">
+        <b-form-group :label="$t('terminology.mobile_phone')">
           <PhoneNumberInput
             :input-value="mobile"
             input-name="mobile"
@@ -78,7 +78,7 @@
         </b-form-group>
       </div>
       <div class="col-md-6">
-        <b-form-group :label="$i18n('terminology.landline')">
+        <b-form-group :label="$t('terminology.landline')">
           <PhoneNumberInput
             :input-value="phone"
             input-name="phone"
@@ -90,7 +90,7 @@
 
     <div class="row">
       <div class="col-md-6">
-        <b-form-group :label="$i18n('settings.general.current_address')">
+        <b-form-group :label="$t('settings.general.current_address')">
           <b-input-group>
             <b-form-input
               :value="locationString"
@@ -109,25 +109,25 @@
             </b-input-group-append>
           </b-input-group>
         </b-form-group>
-        <b-form-group v-if="userStore.settings.isOnTeamPage && (isMe || isOrgUser)" :label="$i18n('position')">
+        <b-form-group v-if="userStore.settings.isOnTeamPage && (isMe || isOrgUser)" :label="$t('position')">
           <b-input v-model="position" />
         </b-form-group>
       </div>
 
       <div class="col-md-6">
         <div v-if="isMe">
-          <b-form-group :label="$i18n('terminology.profile_picture')">
+          <b-form-group :label="$t('terminology.profile_picture')">
             <b-button
               variant="outline-secondary"
               block
               @click="$refs.profilePictureModal.show()"
             >
-              {{ $i18n('terminology.profile_picture') }}
+              {{ $t('terminology.profile_picture') }}
             </b-button>
           </b-form-group>
         </div>
         <div v-if="isOrgUser">
-          <b-form-group :label="$i18n('foodsaver.manage.role')">
+          <b-form-group :label="$t('foodsaver.manage.role')">
             <b-form-select
               id="input-role"
               v-model="role"
@@ -141,8 +141,8 @@
     <div class="row">
       <div class="col-md-6">
         <div v-if="userStore.settings.isOnTeamPage && (isMe || isOrgUser)">
-          <b-form-group :label="$i18n('about_me_public')">
-            <Markdown :source="$i18n('foodsaver.about_me_public')" />
+          <b-form-group :label="$t('about_me_public')">
+            <Markdown :source="$t('foodsaver.about_me_public')" />
             <MarkdownInput
               ref="md-input"
               class="mt-2"
@@ -157,10 +157,10 @@
           </b-form-group>
         </div>
         <div>
-          <b-form-group :label="$i18n('terminology.homeRegion')">
+          <b-form-group :label="$t('terminology.homeRegion')">
             <b-input-group>
               <b-form-input
-                :value="region.name || $i18n('search.results.user.no_home_region')"
+                :value="region.name || $t('search.results.user.no_home_region')"
                 type="text"
                 :disabled="true"
               />
@@ -178,8 +178,8 @@
       </div>
       <div class="col-md-6">
         <div v-if="isMe">
-          <b-form-group :label="$i18n('about_me_intern')">
-            <Markdown :source="$i18n('foodsaver.about_me_intern')" />
+          <b-form-group :label="$t('about_me_intern')">
+            <Markdown :source="$t('foodsaver.about_me_intern')" />
             <MarkdownInput
               ref="md-input"
               class="mt-2"
@@ -198,7 +198,7 @@
 
     <div class="row">
       <div class="col-md-6">
-        <b-form-group :label="$i18n('no_automatic_delete')">
+        <b-form-group :label="$t('no_automatic_delete')">
           <b-form-select v-model="noAutoDelete" :options="noAutoDeleteOptions" />
         </b-form-group>
       </div>
@@ -211,7 +211,7 @@
         class="ml-3 mr-3"
         :disabled="!isFieldsValid"
       >
-        {{ $i18n('button.save') }}
+        {{ $t('button.save') }}
       </b-button>
       <ProfilePicture
         ref="profilePictureModal"

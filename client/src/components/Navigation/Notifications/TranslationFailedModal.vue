@@ -1,12 +1,12 @@
 <template>
   <b-modal
     :id="id"
-    :title="$i18n('bell.translation_failed.title')"
+    :title="$t('bell.translation_failed.title')"
     :ok-only="true"
-    :ok-title="$i18n('button.ok')"
+    :ok-title="$t('button.ok')"
     centered
   >
-    <Markdown :source="$i18n('bell.translation_failed.md', { bellTitle, bellKey })" />
+    <Markdown :source="$t('bell.translation_failed.md', { bellTitle, bellKey })" />
     <div class="dropdown-divider my-4" />
     <p>
       <a
@@ -17,7 +17,7 @@
         {{ betaUrl }}
       </a>
     </p>
-    <Markdown :source="$i18n('bell.translation_failed.md_support')" />
+    <Markdown :source="$t('bell.translation_failed.md_support')" />
   </b-modal>
 </template>
 

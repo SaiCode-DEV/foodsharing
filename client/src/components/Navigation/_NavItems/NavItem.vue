@@ -1,7 +1,7 @@
 <template>
   <Link
     v-if="!isDropdown"
-    :title="$i18n(entry.title)"
+    :title="$t(entry.title)"
     :icon="entry.icon"
     :href="$url(entry.url)"
     :class="{
@@ -10,7 +10,7 @@
   />
   <Dropdown
     v-else
-    :title="$i18n(entry.title)"
+    :title="$t(entry.title)"
     :icon="entry.icon"
     :badge="entry.badge"
     :direction="entry.direction"
@@ -39,7 +39,7 @@
             class="icon-subnav fas"
             :class="item.icon"
           />
-          {{ $i18n(item.title) }}
+          {{ $t(item.title) }}
         </b-dropdown-item>
       </span>
     </template>

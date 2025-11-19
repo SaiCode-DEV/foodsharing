@@ -1,5 +1,5 @@
 <template>
-  <Container :title="$i18n('fsp.twig.n_in_region', { count: foodSharePoints.length, name: regionName })">
+  <Container :title="$t('fsp.twig.n_in_region', { count: foodSharePoints.length, name: regionName })">
     <i v-if="isLoading" class="fas fa-spinner fa-spin" />
     <div v-else class="p-2">
       <b-button
@@ -7,7 +7,7 @@
         class="float-right"
         :href="$url('foodsharepointAdd', regionId)"
       >
-        {{ foodSharePointPermission ? $i18n('fsp.add') : $i18n('fsp.suggest') }}
+        {{ foodSharePointPermission ? $t('fsp.add') : $t('fsp.suggest') }}
       </b-button>
       <div class="pt-5">
         <ul class="linklist food-share-point-list">
@@ -20,7 +20,7 @@
             >
               <img
                 :src="pictureUrl(foodSharePoint)"
-                :alt="$i18n('picture')"
+                :alt="$t('picture')"
               >
               <span class="d-inline fsp-name">{{ foodSharePoint.name }}</span>
             </a>
@@ -55,7 +55,7 @@ export default {
     try {
       this.foodSharePoints = await listFoodSharePoints(this.regionId)
     } catch (e) {
-      pulseError(this.$i18n('error_unexpected'))
+      pulseError(this.$t('error_unexpected'))
     }
 
     this.isLoading = false

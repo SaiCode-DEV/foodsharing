@@ -1,7 +1,7 @@
 <template>
   <form class="my-1">
     <div class="col-sm-auto">
-      <label>{{ $i18n('register.geb_datum') }}<sup><i class="fas fa-asterisk" /></sup></label>
+      <label>{{ $t('register.geb_datum') }}<sup><i class="fas fa-asterisk" /></sup></label>
     </div>
     <div class="mt-2 col-sm-auto">
       <b-form-input
@@ -13,13 +13,13 @@
       <div
         v-if="!isValid"
         class="alert alert-danger mt-2"
-        v-text="$i18n('register.error_birthdate')"
+        v-text="$t('register.error_birthdate')"
       />
     </div>
     <div class="mt-3 col-sm-auto">
       <div class="alert alert-info">
         <i class="fas fa-info-circle" />
-        <Markdown :source="$i18n('register.birthdate_hint', { url: $url('dataprivacy') })" />
+        <Markdown :source="$t('register.birthdate_hint', { url: $url('dataprivacy') })" />
       </div>
     </div>
     <button
@@ -27,7 +27,7 @@
       type="button"
       @click="$emit('prev')"
     >
-      {{ $i18n('register.prev') }}
+      {{ $t('register.prev') }}
     </button>
     <button
       class="btn btn-primary mt-3"
@@ -35,9 +35,9 @@
       :disabled="!isValid"
       @click.prevent="redirect()"
     >
-      {{ $i18n('register.next') }}
+      {{ $t('register.next') }}
     </button>
-    <span class="mr-3 d-flex flex-row-reverse">{{ $i18n('register.requiredFields') }}<sup><i class="fas fa-asterisk" /></sup></span>
+    <span class="mr-3 d-flex flex-row-reverse">{{ $t('register.requiredFields') }}<sup><i class="fas fa-asterisk" /></sup></span>
   </form>
 </template>
 

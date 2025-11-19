@@ -16,7 +16,7 @@ const CACHES = {
 
 function showError (callback) {
   return callback().catch(error => {
-    pulseError(this.$i18n('error_unexpected'))
+    pulseError(this.$t('error_unexpected'))
     throw error
   })
 }

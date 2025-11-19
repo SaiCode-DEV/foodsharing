@@ -1,9 +1,9 @@
 <template>
   <b-alert show>
-    {{ $i18n('thread.hiddenPostsInfo.includesHidden') }}
-    <span v-if="props.isModerator" v-text="$i18n('thread.hiddenPostsInfo.cannotSee')" />
+    {{ $t('thread.hiddenPostsInfo.includesHidden') }}
+    <span v-if="props.isModerator" v-text="$t('thread.hiddenPostsInfo.cannotSee')" />
     <b-form-checkbox v-model="localShowHiddenPosts" switch>
-      {{ $i18n('thread.hiddenPostsInfo.toggle') }}
+      {{ $t('thread.hiddenPostsInfo.toggle') }}
     </b-form-checkbox>
   </b-alert>
 </template>

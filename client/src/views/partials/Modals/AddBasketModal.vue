@@ -2,10 +2,10 @@
   <b-modal
     id="addBasketModal"
     ref="addBasketModal"
-    :title="$i18n(edit ? 'basket.edit' : 'basket.add')"
+    :title="$t(edit ? 'basket.edit' : 'basket.add')"
     size="lg"
-    :cancel-title="$i18n('globals.close')"
-    :ok-title="$i18n('globals.save')"
+    :cancel-title="$t('globals.close')"
+    :ok-title="$t('globals.save')"
     no-close-on-esc
     no-close-on-backdrop
     :ok-disabled="!isDataValid"
@@ -13,7 +13,7 @@
   >
     <b-alert type="info" show>
       <i class="fas fa-info-circle" />
-      {{ $i18n('basket.public-info') }}
+      {{ $t('basket.public-info') }}
     </b-alert>
     <ImageUpload
       ref="image-upload"
@@ -22,7 +22,7 @@
       :previous-images="previousImages"
     />
 
-    <label for="basket-description-input">{{ $i18n('basket.description') }}:</label>
+    <label for="basket-description-input">{{ $t('basket.description') }}:</label>
     <b-form-textarea
       id="basket-description-input"
       v-model="description"
@@ -31,9 +31,9 @@
       max-rows="3"
     />
 
-    <label>{{ $i18n('basket.contact_types') }}:</label>
+    <label>{{ $t('basket.contact_types') }}:</label>
     <b-form-group
-      :invalid-feedback="$i18n('basket.modal_error.no_contact')"
+      :invalid-feedback="$t('basket.modal_error.no_contact')"
       :state="contact.chat || contact.phone"
     >
       <b-form-checkbox
@@ -41,22 +41,22 @@
         v-model="contact.chat"
         inline
       >
-        {{ $i18n('basket.contact.write') }}
+        {{ $t('basket.contact.write') }}
       </b-form-checkbox>
       <b-form-checkbox
         id="phone-checkbox"
         v-model="contact.phone"
         inline
       >
-        {{ $i18n('basket.contact.call') }}
+        {{ $t('basket.contact.call') }}
       </b-form-checkbox>
     </b-form-group>
     <b-form-group
       v-if="contact.phone"
-      :invalid-feedback="$i18n('basket.modal_error.no_phone')"
+      :invalid-feedback="$t('basket.modal_error.no_phone')"
       :state="!!phoneNumber"
     >
-      <label for="phone-number-input">{{ $i18n('globals.telephone_number') }}</label>
+      <label for="phone-number-input">{{ $t('globals.telephone_number') }}</label>
       <b-form-input
         id="phone-number-input"
         v-model="phoneNumber"
@@ -68,7 +68,7 @@
     </b-form-group>
 
     <div v-if="!edit" class="mb-3">
-      <label for="duration-select">{{ $i18n('lifetime') }}</label>
+      <label for="duration-select">{{ $t('lifetime') }}</label>
       <b-form-select
         id="duration-select"
         v-model="durationInDays"
@@ -78,7 +78,7 @@
     </div>
 
     <b-form-group
-      :label="$i18n('weight') + ' ' + weights[weightInput].name"
+      :label="$t('weight') + ' ' + weights[weightInput].name"
       label-for="weight-range"
     >
       <b-form-input
@@ -91,7 +91,7 @@
     </b-form-group>
 
     <b-form-group
-      :label="$i18n('address') + ':'"
+      :label="$t('address') + ':'"
       label-for="location-input"
     >
       <b-form-checkbox
@@ -100,7 +100,7 @@
         switch
         :disabled="!hasValidHomeAddress"
       >
-        {{ $i18n('basket.use_home_address') }}
+        {{ $t('basket.use_home_address') }}
         <span v-if="hasValidHomeAddress">
           ({{ user.address }}, {{ user.postcode }} {{ user.city }})
         </span>
@@ -161,7 +161,7 @@ export default {
     }
   },
   data () {
-    const durationOptions = [1, 2, 3, 5, 7, 14, 21].map(days => ({ value: days, text: this.$i18n(`basket.valid.${days}`) }))
+    const durationOptions = [1, 2, 3, 5, 7, 14, 21].map(days => ({ value: days, text: this.$t(`basket.valid.${days}`) }))
     const weights = [
       ...[250, 500].map(weightInGrams => ({ name: `${weightInGrams} g`, weightInGrams })),
       ...[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 30, 40, 50, 75, 100].map(weightInKg => ({ name: `${weightInKg} kg`, weightInGrams: weightInKg * 1000 })),
@@ -266,7 +266,7 @@ export default {
     },
     async addBasket () {
       await addBasket(await this.getBasketData())
-      pulseInfo(this.$i18n('basket.published'))
+      pulseInfo(this.$t('basket.published'))
       this.resetModal()
       await this.basketStore.fetchOwn(true)
     },

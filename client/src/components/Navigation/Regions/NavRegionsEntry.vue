@@ -10,7 +10,7 @@
     >
       <i
         v-if="isHomeRegion"
-        v-b-tooltip="$i18n('dashboard.homeRegion', {region: entry.name})"
+        v-b-tooltip="$t('dashboard.homeRegion', {region: entry.name})"
         class="icon-subnav fas fa-home"
       />
       <span v-text="entry.name" />

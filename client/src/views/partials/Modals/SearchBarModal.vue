@@ -15,7 +15,7 @@
       />
       <b-button
         v-if="maySearchGlobal"
-        v-b-tooltip.bottom.ds1000.hover="$i18n(`search.scope.${globalSearch ? 'global' : 'local'}`)"
+        v-b-tooltip.bottom.ds1000.hover="$t(`search.scope.${globalSearch ? 'global' : 'local'}`)"
         :variant="globalSearch ? 'danger' : 'outline-primary'"
         class="ml-2 p-0 global-search-btn"
         @click="globalSearch = !globalSearch"
@@ -33,10 +33,10 @@
         @close="$refs.searchBarModal.hide"
       />
       <div v-else class="alert alert-info">
-        <span v-text="$i18n('search.informations')" />
+        <span v-text="$t('search.informations')" />
         <span
           v-if="idle && query.length"
-          v-text="$i18n('search.too_short')"
+          v-text="$t('search.too_short')"
         />
       </div>
     </template>
@@ -46,7 +46,7 @@
         variant="secondary"
         @click="hide('forget')"
       >
-        {{ $i18n('globals.close') }}
+        {{ $t('globals.close') }}
       </b-button>
     </template>
   </b-modal>

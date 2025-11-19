@@ -1,11 +1,11 @@
 <template>
-  <Container :title="$i18n('regionOptions.header_page', { bezirk: regionName })">
+  <Container :title="$t('regionOptions.header_page', { bezirk: regionName })">
     <div class="list-group-item">
       <b-form-checkbox
         v-model="isReportButtonEnabled"
         :disabled="!maySetReport"
       >
-        {{ $i18n('regionOptions.enableReportButton') }}
+        {{ $t('regionOptions.enableReportButton') }}
         <Info info-key="reportReasons" />
       </b-form-checkbox>
       <div class="mb-2 mx-4">
@@ -22,20 +22,20 @@
           v-model="isReportReasonOtherEnabled"
           :disabled="!isReportButtonEnabled || !maySetReport"
         >
-          {{ $i18n('regionOptions.regionReportReasonOther') }}
+          {{ $t('regionOptions.regionReportReasonOther') }}
         </b-form-checkbox>
       </div>
       <b-form-checkbox
         v-model="isMediationButtonEnabled"
         :disabled="!maySetReport"
       >
-        {{ $i18n('regionOptions.enableMediationButton') }}
+        {{ $t('regionOptions.enableMediationButton') }}
       </b-form-checkbox>
       <b-form-checkbox
         v-model="isAddressChangeNotificationEnabled"
         :disabled="!maySetReport"
       >
-        {{ $i18n('regionOptions.enableAddressChangeNotification') }}
+        {{ $t('regionOptions.enableAddressChangeNotification') }}
       </b-form-checkbox>
     </div>
     <div class="list-group-item">
@@ -45,11 +45,11 @@
         class="mt-1"
         :disabled="!maySetRule"
       >
-        {{ $i18n('regionOptions.regionPickupRuleActive') }}
+        {{ $t('regionOptions.regionPickupRuleActive') }}
       </b-form-checkbox>
       <b-row class="my-1">
         <b-col>
-          <label>{{ $i18n('regionOptions.regionPickupTimespan') }}: {{ regionPickupRuleTimespanDays }}</label>
+          <label>{{ $t('regionOptions.regionPickupTimespan') }}: {{ regionPickupRuleTimespanDays }}</label>
           <b-form-input
             v-model="regionPickupRuleTimespanDays"
             type="range"
@@ -61,7 +61,7 @@
       </b-row>
       <b-row class="my-1">
         <b-col>
-          <label>{{ $i18n('regionOptions.regionPickupLimitNumber') }}: {{ regionPickupRuleLimitNumber }} </label>
+          <label>{{ $t('regionOptions.regionPickupLimitNumber') }}: {{ regionPickupRuleLimitNumber }} </label>
           <b-form-input
             v-model="regionPickupRuleLimitNumber"
             type="range"
@@ -74,7 +74,7 @@
       </b-row>
       <b-row class="my-1">
         <b-col>
-          <label>{{ $i18n('regionOptions.regionPickupLimitDayNumber') }}: {{ regionPickupRuleLimitDayNumber }}</label>
+          <label>{{ $t('regionOptions.regionPickupLimitDayNumber') }}: {{ regionPickupRuleLimitDayNumber }}</label>
           <b-form-input
             v-model="regionPickupRuleLimitDayNumber"
             type="range"
@@ -86,7 +86,7 @@
       </b-row>
       <b-row class="my-1">
         <b-col>
-          <label>{{ $i18n('regionOptions.regionPickupInactiveHours') }}:</label>
+          <label>{{ $t('regionOptions.regionPickupInactiveHours') }}:</label>
         </b-col>
         <b-col>
           <b-form-select
@@ -115,7 +115,7 @@
           </a>
         </template>
       </b-table>
-      <span v-else v-text="$i18n('regionOptions.noPickupRuleActiveStores')" />
+      <span v-else v-text="$t('regionOptions.noPickupRuleActiveStores')" />
     </div>
     <ContainerButton
       v-if="maySetReport || maySetRule"
@@ -157,7 +157,7 @@ export default {
       sortBy: 'storeName',
       fields: [{
         key: 'storeName',
-        label: this.$i18n('regionOptions.regionPickupRuleActiveStoreList'),
+        label: this.$t('regionOptions.regionPickupRuleActiveStoreList'),
         sortable: true,
       },
       ],
@@ -173,8 +173,8 @@ export default {
         { text: '72', value: 72 },
       ],
       reportReasonOptionsRadio: [
-        { text: this.$i18n('regionOptions.regionReportReasonSimple'), value: 1 },
-        { text: this.$i18n('regionOptions.regionReportReasonCategoryB'), value: 2 },
+        { text: this.$t('regionOptions.regionReportReasonSimple'), value: 1 },
+        { text: this.$t('regionOptions.regionReportReasonCategoryB'), value: 2 },
       ],
     }
   },
@@ -191,7 +191,7 @@ export default {
       })
       await Promise.all([response, permissions])
     } catch (err) {
-      pulseError(this.$i18n('error_unexpected'))
+      pulseError(this.$t('error_unexpected'))
     }
     hideLoader()
   },
@@ -218,10 +218,10 @@ export default {
           this.isReportReasonOtherEnabled,
           this.isAddressChangeNotificationEnabled,
         )
-        pulseInfo(this.$i18n('regionOptions.success'))
+        pulseInfo(this.$t('regionOptions.success'))
       } catch (err) {
         console.error(err)
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
       hideLoader()
     },

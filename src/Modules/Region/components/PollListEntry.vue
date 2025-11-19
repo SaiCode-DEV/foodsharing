@@ -12,9 +12,9 @@
         pill
         :variant="variant"
       >
-        <span v-if="!poll.isEligible" v-text="$i18n('polls.badge.not_eligible')" />
-        <span v-else-if="poll.hasVoted" v-text="$i18n('polls.badge.already_voted')" />
-        <span v-else v-text="$i18n('polls.badge.vote_now')" />
+        <span v-if="!poll.isEligible" v-text="$t('polls.badge.not_eligible')" />
+        <span v-else-if="poll.hasVoted" v-text="$t('polls.badge.already_voted')" />
+        <span v-else v-text="$t('polls.badge.vote_now')" />
       </b-badge>
       <div class="mt-2">
         {{ $dateFormatter.dateTime(new Date(poll.startDate)) }} - {{ $dateFormatter.dateTime(new Date(poll.endDate)) }}

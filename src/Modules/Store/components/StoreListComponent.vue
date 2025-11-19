@@ -3,7 +3,7 @@
     <div class="card-header text-white bg-primary">
       <slot name="head-title" />
       <span>
-        {{ $i18n('filterlist.some_in_all', {some: storesFiltered.length, all: stores.length}) }}
+        {{ $t('filterlist.some_in_all', {some: storesFiltered.length, all: stores.length}) }}
       </span>
     </div>
     <div v-if="stores.length" class="card-body p-0">
@@ -18,7 +18,7 @@
           <div class="form-row p-1 ">
             <div class="d-flex align-items-center col-2">
               <label class=" col-form-label col-form-label-sm">
-                {{ $i18n('store.filter') }}
+                {{ $t('store.filter') }}
               </label>
             </div>
             <div class="d-flex align-items-center col-4">
@@ -43,7 +43,7 @@
                 v-b-tooltip.hover
                 type="button"
                 class="btn btn-sm"
-                :title="$i18n('storelist.emptyfilters')"
+                :title="$t('storelist.emptyfilters')"
                 @click="clearFilter"
               >
                 <i class="fas fa-times" />
@@ -96,7 +96,7 @@
                 <b-btn
                   :href="mapLink(row.item)"
                   class="mr-2"
-                  :title="$i18n('storelist.map')"
+                  :title="$t('storelist.map')"
                   size="sm"
                 >
                   <i class="fas fa-map-marker-alt" />
@@ -125,7 +125,7 @@
       v-else
       class="card-body d-flex justify-content-center"
     >
-      {{ $i18n('store.noStores') }}
+      {{ $t('store.noStores') }}
       <slot name="no-stores-footer-actions" />
     </div>
   </div>
@@ -167,55 +167,55 @@ export default {
       },
       statusOptions: [
         { value: null, text: 'Status' },
-        { value: 1, text: this.$i18n('storestatus.1') }, // CooperationStatus::NO_CONTACT
-        { value: 2, text: this.$i18n('storestatus.2') }, // CooperationStatus::IN_NEGOTIATION
-        { value: 4, text: this.$i18n('storestatus.4') }, // CooperationStatus::DOES_NOT_WANT_TO_WORK_WITH_US
-        { value: 5, text: this.$i18n('storestatus.5') }, // CooperationStatus::COOPERATION_ESTABLISHED
-        { value: 6, text: this.$i18n('storestatus.6') }, // CooperationStatus::GIVES_TO_OTHER_CHARITY
-        { value: 7, text: this.$i18n('storestatus.7') }, // CooperationStatus::PERMANENTLY_CLOSED
+        { value: 1, text: this.$t('storestatus.1') }, // CooperationStatus::NO_CONTACT
+        { value: 2, text: this.$t('storestatus.2') }, // CooperationStatus::IN_NEGOTIATION
+        { value: 4, text: this.$t('storestatus.4') }, // CooperationStatus::DOES_NOT_WANT_TO_WORK_WITH_US
+        { value: 5, text: this.$t('storestatus.5') }, // CooperationStatus::COOPERATION_ESTABLISHED
+        { value: 6, text: this.$t('storestatus.6') }, // CooperationStatus::GIVES_TO_OTHER_CHARITY
+        { value: 7, text: this.$t('storestatus.7') }, // CooperationStatus::PERMANENTLY_CLOSED
       ],
       fieldsDefinition: [
         {
           key: 'cooperationStatus',
-          label: this.$i18n('storelist.status'),
+          label: this.$t('storelist.status'),
           tdClass: 'status',
           sortable: true,
         },
         {
           key: 'name',
-          label: this.$i18n('storelist.name'),
+          label: this.$t('storelist.name'),
           sortable: true,
         },
         {
           key: 'street',
-          label: this.$i18n('storelist.address'),
+          label: this.$t('storelist.address'),
           sortable: true,
         },
         {
           key: 'zipCode',
-          label: this.$i18n('storelist.zipcode'),
+          label: this.$t('storelist.zipcode'),
           sortable: true,
         },
         {
           key: 'city',
-          label: this.$i18n('storelist.city'),
+          label: this.$t('storelist.city'),
           sortable: true,
         },
 
         {
           key: 'createdAt',
-          label: this.$i18n('storelist.added'),
+          label: this.$t('storelist.added'),
           tdClass: 'status',
           sortable: true,
         },
         {
           key: 'region',
-          label: this.$i18n('storelist.region'),
+          label: this.$t('storelist.region'),
           sortable: true,
         },
         {
           key: 'memberState',
-          label: this.$i18n('storelist.memberState'),
+          label: this.$t('storelist.memberState'),
           tdClass: 'status',
           sortable: true,
           formatter: (value, key, item) => this.getUserRole(item.id),
@@ -224,7 +224,7 @@ export default {
         },
         {
           key: 'actions',
-          label: this.$i18n('storelist.actions'),
+          label: this.$t('storelist.actions'),
           sortable: false,
         },
       ],
@@ -291,13 +291,13 @@ export default {
         const relation = storeStore.userRelations.find(relation => relation.id === storeId)
         if (relation) {
           if (relation.isManaging) {
-            return this.$i18n('store.managing')
+            return this.$t('store.managing')
           }
           switch (relation.membershipStatus) {
-            case PROFILE_STORE_TEAM_STATE.REQUESTED: return this.$i18n('store.isAppliedForTeam')
-            case PROFILE_STORE_TEAM_STATE.ACTIVE: return this.$i18n('store.member')
-            case PROFILE_STORE_TEAM_STATE.JUMPER: return this.$i18n('store.jumping')
-            case PROFILE_STORE_TEAM_STATE.INVITED: return this.$i18n('store.invited')
+            case PROFILE_STORE_TEAM_STATE.REQUESTED: return this.$t('store.isAppliedForTeam')
+            case PROFILE_STORE_TEAM_STATE.ACTIVE: return this.$t('store.member')
+            case PROFILE_STORE_TEAM_STATE.JUMPER: return this.$t('store.jumping')
+            case PROFILE_STORE_TEAM_STATE.INVITED: return this.$t('store.invited')
           }
         }
       }

@@ -1,11 +1,11 @@
 <template>
-  <Container :title="$i18n('events.bread')">
+  <Container :title="$t('events.bread')">
     <b-container class="p-2">
       <b-button
         variant="primary"
         :href="$url('eventAdd', regionId)"
       >
-        {{ $i18n('events.add_new_event') }}
+        {{ $t('events.add_new_event') }}
       </b-button>
     </b-container>
     <b-container>
@@ -20,7 +20,7 @@
       </div>
       <div class="card mb-3">
         <div class="card-header text-white bg-primary">
-          {{ $i18n('events.past') }}
+          {{ $t('events.past') }}
         </div>
         <div class="card-body">
           <div class="form-row p-1 mb-2">
@@ -28,14 +28,14 @@
               for="filter-input"
               class="col-form-label col-form-label-sm"
             >
-              {{ $i18n('filter_by') }}
+              {{ $t('filter_by') }}
             </label>
             <b-form-input
               id="filter-input"
               v-model="filterText"
               type="text"
               class="form-control form-control-sm col-8"
-              :placeholder="$i18n('name')"
+              :placeholder="$t('name')"
             />
           </div>
           <div

@@ -39,67 +39,67 @@ export default {
       region page change the Vue component without a reload. Otherwise the entry is a link to the href property. */
       const menu = [
         {
-          href: 'wall', icon: 'fa-bullhorn', text: this.$i18n('menu.entry.wall'), subPage: SUB_PAGE.WALL,
+          href: 'wall', icon: 'fa-bullhorn', text: this.$t('menu.entry.wall'), subPage: SUB_PAGE.WALL,
         },
         {
-          href: 'forum', icon: 'fa-comment-alt', text: this.$i18n('menu.entry.forum'), subPage: SUB_PAGE.FORUM,
+          href: 'forum', icon: 'fa-comment-alt', text: this.$t('menu.entry.forum'), subPage: SUB_PAGE.FORUM,
         },
         {
-          href: 'events', icon: 'fa-calendar-alt', text: this.$i18n('menu.entry.events'), subPage: SUB_PAGE.EVENTS,
+          href: 'events', icon: 'fa-calendar-alt', text: this.$t('menu.entry.events'), subPage: SUB_PAGE.EVENTS,
         },
         {
-          href: 'polls', icon: 'fa-poll-h', text: this.$i18n('terminology.polls'), subPage: SUB_PAGE.POLLS,
+          href: 'polls', icon: 'fa-poll-h', text: this.$t('terminology.polls'), subPage: SUB_PAGE.POLLS,
         },
         {
-          href: 'members', icon: 'fa-user', text: this.$i18n('menu.entry.members'), subPage: SUB_PAGE.MEMBERS,
+          href: 'members', icon: 'fa-user', text: this.$t('menu.entry.members'), subPage: SUB_PAGE.MEMBERS,
         },
       ]
 
       if (this.entry.hasResources) {
         menu.push({
-          href: 'resources', icon: 'fa-shapes', text: this.$i18n('resource_mosaic.title'), subPage: SUB_PAGE.RESOURCES,
+          href: 'resources', icon: 'fa-shapes', text: this.$t('resource_mosaic.title'), subPage: SUB_PAGE.RESOURCES,
         })
       }
 
       if (this.entry.hasSubgroups) {
         menu.push({
-          href: 'workingGroups', icon: 'fa-user-friends', text: this.$i18n('terminology.subgroups'),
+          href: 'workingGroups', icon: 'fa-user-friends', text: this.$t('terminology.subgroups'),
         })
       }
 
       if (this.entry.hasConference) {
         menu.push({
-          icon: 'fa-users', text: this.$i18n('menu.entry.conference'), func: () => this.showConferencePopup(this.entry.id),
+          icon: 'fa-users', text: this.$t('menu.entry.conference'), func: () => this.showConferencePopup(this.entry.id),
         })
       }
 
       if (this.entry.isAdmin) {
         menu.push({
-          href: 'workingGroupEdit', icon: 'fa-cog', text: this.$i18n('menu.entry.workingGroupEdit'), subPage: SUB_PAGE.SETTINGS,
+          href: 'workingGroupEdit', icon: 'fa-cog', text: this.$t('menu.entry.workingGroupEdit'), subPage: SUB_PAGE.SETTINGS,
         })
       }
 
       if (this.entry.hasAchievements) {
         menu.push({
-          href: 'achievements', icon: 'fa-tags', text: this.$i18n('terminology.achievements'), subPage: SUB_PAGE.ACHIEVEMENTS,
+          href: 'achievements', icon: 'fa-tags', text: this.$t('terminology.achievements'), subPage: SUB_PAGE.ACHIEVEMENTS,
         })
       }
 
       if (this.applicationCount > 0) {
         menu.push({
-          href: 'applications', icon: 'fa-cog', text: this.$i18n('menu.entry.applications', { count: this.applicationCount }), subPage: SUB_PAGE.APPLICATIONS,
+          href: 'applications', icon: 'fa-cog', text: this.$t('menu.entry.applications', { count: this.applicationCount }), subPage: SUB_PAGE.APPLICATIONS,
         })
       }
 
       if (this.entry.mailboxId > 0) {
         menu.push({
-          href: 'mailbox', icon: 'fa-fas fa-envelope', text: this.$i18n('menu.entry.mailbox'), linkId: this.entry.mailboxId,
+          href: 'mailbox', icon: 'fa-fas fa-envelope', text: this.$t('menu.entry.mailbox'), linkId: this.entry.mailboxId,
         })
       }
 
       if (this.entry.isChainGroup) {
         menu.push({
-          href: 'chains', icon: 'fa-link', text: this.$i18n('menu.entry.chainList'),
+          href: 'chains', icon: 'fa-link', text: this.$t('menu.entry.chainList'),
         })
       }
 

@@ -14,10 +14,10 @@
         <span v-else v-text="user.fetchCount" />
       </span>
       <b-tooltip :target="() => $refs?.badgeContent?.parentElement" noninteractive>
-        <div v-text="$i18n('store.fetchCount', {'count': user.fetchCount})" />
-        <div v-if="user.mayManage" v-text="$i18n('store.mayManage')" />
-        <div v-if="user.isJumper" v-text="$i18n('store.isJumper')" />
-        <div v-if="!user.isVerified" v-text="$i18n('store.isNotVerified')" />
+        <div v-text="$t('store.fetchCount', {'count': user.fetchCount})" />
+        <div v-if="user.mayManage" v-text="$t('store.mayManage')" />
+        <div v-if="user.isJumper" v-text="$t('store.isJumper')" />
+        <div v-if="!user.isVerified" v-text="$t('store.isNotVerified')" />
       </b-tooltip>
     </template>
   </Avatar>

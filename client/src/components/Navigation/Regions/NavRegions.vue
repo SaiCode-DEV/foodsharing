@@ -1,6 +1,6 @@
 <template>
   <Dropdown
-    :title="$i18n('navigation.regions')"
+    :title="$t('navigation.regions')"
     icon="fa-globe"
     is-fixed-size
     is-scrollable
@@ -16,7 +16,7 @@
       <small
         role="menuitem"
         class="disabled dropdown-item"
-        v-text="$i18n('region.none')"
+        v-text="$t('region.none')"
       />
     </template>
     <template #actions>
@@ -26,7 +26,7 @@
         @click="$bvModal.show('joinRegionModal')"
       >
         <i class="icon-subnav fas fa-plus" />
-        {{ $i18n('menu.entry.joinregion') }}
+        {{ $t('menu.entry.joinregion') }}
       </button>
     </template>
   </Dropdown>

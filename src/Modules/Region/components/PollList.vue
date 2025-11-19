@@ -2,10 +2,10 @@
   <div>
     <b-alert show variant="info">
       <i class="fas fa-info-circle" />
-      {{ $i18n('polls.hint') }}<br>
-      {{ $i18n('polls.hint_2') }}: <a :href="$url('wiki_voting')">{{ $url('wiki_voting') }}</a>
+      {{ $t('polls.hint') }}<br>
+      {{ $t('polls.hint_2') }}: <a :href="$url('wiki_voting')">{{ $url('wiki_voting') }}</a>
     </b-alert>
-    <Container v-if="ongoingPolls.length || mayCreatePoll" :title="$i18n('polls.ongoing')">
+    <Container v-if="ongoingPolls.length || mayCreatePoll" :title="$t('polls.ongoing')">
       <PollListEntry
         v-for="poll in ongoingPolls"
         :key="poll.id"
@@ -20,21 +20,21 @@
         />
       </template>
     </Container>
-    <Container v-if="futurePolls.length > 0" :title="$i18n('polls.future')">
+    <Container v-if="futurePolls.length > 0" :title="$t('polls.future')">
       <PollListEntry
         v-for="poll in futurePolls"
         :key="poll.id"
         :poll="poll"
       />
     </Container>
-    <Container :title="$i18n('polls.ended')">
+    <Container :title="$t('polls.ended')">
       <b-list-group-item>
-        <b-form-group :label="$i18n('filter_by')">
+        <b-form-group :label="$t('filter_by')">
           <b-form-input
             v-model="filterText"
             type="text"
             class="form-control form-control-sm col-8"
-            :placeholder="$i18n('name')"
+            :placeholder="$t('name')"
           />
         </b-form-group>
       </b-list-group-item>

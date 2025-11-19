@@ -1,20 +1,20 @@
 <template>
-  <Container :title="$i18n('startpage.join_rules')" :collapsible="false">
+  <Container :title="$t('startpage.join_rules')" :collapsible="false">
     <div class="list-group-item">
       <h3 class="mb-3">
-        {{ $i18n('startpage.join_welcome') }}
+        {{ $t('startpage.join_welcome') }}
       </h3>
-      <Markdown :source="$i18n('startpage.respect')" class="lead" />
-      <p><strong>{{ $i18n('startpage.register') }}</strong></p>
+      <Markdown :source="$t('startpage.respect')" class="lead" />
+      <p><strong>{{ $t('startpage.register') }}</strong></p>
       <h3 class="mb-3">
-        {{ $i18n('startpage.forstores') }}
+        {{ $t('startpage.forstores') }}
       </h3>
-      <Markdown :source="$i18n('startpage.together')" />
+      <Markdown :source="$t('startpage.together')" />
 
       <div class="card border my-4">
         <div class="card-body">
           <h2 class="card-title mb-4">
-            {{ $i18n('startpage.etiquette') }}
+            {{ $t('startpage.etiquette') }}
           </h2>
           <div
             v-for="(item, index) in etiquetteItems"
@@ -28,11 +28,11 @@
               {{ index + 1 }}
             </b-badge>
             <div>
-              <h3>{{ $i18n(item.title) }}</h3>
-              <Markdown v-if="item.description" :source="$i18n(item.description)" />
+              <h3>{{ $t(item.title) }}</h3>
+              <Markdown v-if="item.description" :source="$t(item.description)" />
               <Markdown
                 v-if="item.additionalInfo"
-                :source="$i18n(item.additionalInfo)"
+                :source="$t(item.additionalInfo)"
                 class="pt-2"
               />
             </div>
@@ -44,7 +44,7 @@
           :href="$url('register')"
           variant="primary"
         >
-          {{ $i18n('startpage.registernow') }}
+          {{ $t('startpage.registernow') }}
         </b-button>
       </div>
     </div>

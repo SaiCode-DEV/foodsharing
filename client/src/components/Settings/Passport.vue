@@ -5,7 +5,7 @@
       variant="info"
       show
     >
-      {{ $i18n('settings.passport.verified_text') }}
+      {{ $t('settings.passport.verified_text') }}
     </b-alert>
 
     <b-alert
@@ -13,7 +13,7 @@
       variant="danger"
       show
     >
-      {{ $i18n('settings.passport.non_verified_text') }}
+      {{ $t('settings.passport.non_verified_text') }}
     </b-alert>
 
     <!-- Alert for never activated passport -->
@@ -22,8 +22,8 @@
       variant="info"
       show
     >
-      {{ $i18n('settings.passport.passport_not_activated') }}
-      {{ $i18n('settings.passport.ask_your_ambassadors') }}
+      {{ $t('settings.passport.passport_not_activated') }}
+      {{ $t('settings.passport.ask_your_ambassadors') }}
     </b-alert>
 
     <!-- Alert for activated passport (either valid or invalid) -->
@@ -36,8 +36,8 @@
         v-if="!userStore.isPassportInvalid"
         :source="passportValidMessage"
       />
-      <span v-if="userStore.isPassportInvalid">{{ $i18n('settings.passport.passport_is_invalid') }}</span>
-      <span v-if="userStore.isPassportInvalid || userStore.isPassportInvalidSoon">{{ $i18n('settings.passport.ask_your_ambassadors') }}</span>
+      <span v-if="userStore.isPassportInvalid">{{ $t('settings.passport.passport_is_invalid') }}</span>
+      <span v-if="userStore.isPassportInvalid || userStore.isPassportInvalidSoon">{{ $t('settings.passport.ask_your_ambassadors') }}</span>
     </b-alert>
 
     <div v-if="!isNotSetLastPassDate && !userStore.isPassportInvalid && userStore.isVerified" class="d-flex flex-wrap justify-content-center">

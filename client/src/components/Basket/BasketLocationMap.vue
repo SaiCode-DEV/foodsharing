@@ -1,7 +1,7 @@
 <template>
   <div class="page-container page render">
     <div class="d-flex justify-content-between mb-2">
-      <h3>{{ $i18n('basket.where') }}</h3>
+      <h3>{{ $t('basket.where') }}</h3>
       <NavigateWithSelector
         :latitude="coordinates.lat"
         :longitude="coordinates.lon"

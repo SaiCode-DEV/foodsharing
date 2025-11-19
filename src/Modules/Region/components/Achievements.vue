@@ -1,11 +1,11 @@
 <template>
   <div>
     <Container
-      :title="$i18n('terminology.achievements')"
+      :title="$t('terminology.achievements')"
       info-key="achievements"
       wrap-content
     >
-      <p v-text="$i18n('achievements.inThis.' + (isWorkGroup ? 'group' : 'region'))" />
+      <p v-text="$t('achievements.inThis.' + (isWorkGroup ? 'group' : 'region'))" />
       <Achievements
         :achievements="achievements"
         :no-modal="mayAdministrateAchievements"
@@ -21,24 +21,24 @@
       </template>
       <div class="list-group-item">
         <Markdown :source="selected.description" /><br>
-        <i v-if="selected.validityInDaysAfterAssignment" v-text="$i18n('achievements.validity.days', selected)" />
-        <i v-else v-text="$i18n('achievements.validity.indefinite')" />
+        <i v-if="selected.validityInDaysAfterAssignment" v-text="$t('achievements.validity.days', selected)" />
+        <i v-else v-text="$t('achievements.validity.indefinite')" />
       </div>
       <div class="list-group-item">
-        <h6 v-text="$i18n('achievements.award')" />
-        <b-form-group :label="$i18n('achievements.findUser')">
+        <h6 v-text="$t('achievements.award')" />
+        <b-form-group :label="$t('achievements.findUser')">
           <b-row class="m-0">
             <UserSearchInput
-              :placeholder="$i18n('store.sm.searchPlaceholder')"
+              :placeholder="$t('store.sm.searchPlaceholder')"
               button-icon="fa-user-tag"
-              :button-tooltip="$i18n('achievements.award')"
+              :button-tooltip="$t('achievements.award')"
               :filter="searchFilter"
               :region-id="groupId"
               class="flex-grow-1 mr-2"
               @user-selected="awardAchievement"
             />
             <b-button
-              v-b-tooltip="$i18n('achievements.editDetails')"
+              v-b-tooltip="$t('achievements.editDetails')"
               v-b-toggle.formDetailsCollapse
               :pressed.sync="showFormDetails"
               variant="outline-secondary"
@@ -48,15 +48,15 @@
           </b-row>
         </b-form-group>
         <b-collapse id="formDetailsCollapse">
-          <b-form-group :label="$i18n('achievements.notice')">
+          <b-form-group :label="$t('achievements.notice')">
             <b-form-input v-model="awardFormData.notice" />
           </b-form-group>
-          <b-form-group :label="$i18n('achievements.validUntil')">
+          <b-form-group :label="$t('achievements.validUntil')">
             <DatePicker
               v-model="awardFormData.validUntil"
               :reset-button="Boolean(awardFormData.validUntil)"
-              :placeholder="$i18n('achievements.validity.indefiniteShort')"
-              :label-reset-button="$i18n('achievements.validity.indefiniteShort')"
+              :placeholder="$t('achievements.validity.indefiniteShort')"
+              :label-reset-button="$t('achievements.validity.indefiniteShort')"
               :min="new Date()"
             />
           </b-form-group>
@@ -89,13 +89,13 @@
               <Avatar :user="row.item.reviewer" />
               <a :href="$url('profile', row.item.reviewer.id)">{{ row.item.reviewer.name }}</a>
             </div>
-            <span v-else v-text="$i18n('achievements.awardedNoReviewer')" />
+            <span v-else v-text="$t('achievements.awardedNoReviewer')" />
           </template>
           <template #cell(validUntil)="row">
             <Time
               :time="row.item.validUntil"
               :show-icon="false"
-              :fallback="$i18n('achievements.validity.indefiniteShort')"
+              :fallback="$t('achievements.validity.indefiniteShort')"
             />
           </template>
           <template #cell(actions)="row">
@@ -109,7 +109,7 @@
           </template>
         </b-table>
         <b-alert v-else show>
-          {{ $i18n('achievements.notAwarded') }}
+          {{ $t('achievements.notAwarded') }}
         </b-alert>
         <b-pagination
           v-if="(selected.awardedUsers?.length ?? 0) > perPage"
@@ -121,21 +121,21 @@
       </div>
       <b-modal
         ref="editModal"
-        :title="$i18n('achievements.editAwarded', { achievement: selected.name, user: editFormData.user?.name })"
+        :title="$t('achievements.editAwarded', { achievement: selected.name, user: editFormData.user?.name })"
         centered
-        :ok-title="$i18n('button.save')"
-        :cancel-title="$i18n('button.cancel')"
+        :ok-title="$t('button.save')"
+        :cancel-title="$t('button.cancel')"
         @ok="editAchievement"
       >
-        <b-form-group :label="$i18n('achievements.notice')">
+        <b-form-group :label="$t('achievements.notice')">
           <b-form-input v-model="editFormData.notice" />
         </b-form-group>
-        <b-form-group :label="$i18n('achievements.validUntil')">
+        <b-form-group :label="$t('achievements.validUntil')">
           <DatePicker
             v-model="editFormData.validUntil"
             :reset-button="Boolean(editFormData.validUntil)"
-            :placeholder="$i18n('achievements.validity.indefiniteShort')"
-            :label-reset-button="$i18n('achievements.validity.indefiniteShort')"
+            :placeholder="$t('achievements.validity.indefiniteShort')"
+            :label-reset-button="$t('achievements.validity.indefiniteShort')"
             :min="new Date()"
           />
         </b-form-group>
@@ -184,15 +184,15 @@ export default {
     tableFields () {
       if (!this.selected.awardedUsers) return []
       const fields = [
-        { key: 'createdAt', sortable: true, label: this.$i18n('achievements.awarded') },
-        { key: 'user', sortable: true, sortByFormatted: true, label: this.$i18n('achievements.awardedTo'), formatter: (x) => x.name },
-        { key: 'reviewer', sortable: true, sortByFormatted: true, label: this.$i18n('achievements.reviewer'), formatter: (x) => x?.name },
+        { key: 'createdAt', sortable: true, label: this.$t('achievements.awarded') },
+        { key: 'user', sortable: true, sortByFormatted: true, label: this.$t('achievements.awardedTo'), formatter: (x) => x.name },
+        { key: 'reviewer', sortable: true, sortByFormatted: true, label: this.$t('achievements.reviewer'), formatter: (x) => x?.name },
       ]
       if (this.selected.awardedUsers.find(awarded => awarded.notice)) {
-        fields.push({ key: 'notice', label: this.$i18n('achievements.notice') })
+        fields.push({ key: 'notice', label: this.$t('achievements.notice') })
       }
       if (this.selected.awardedUsers.find(awarded => awarded.validUntil)) {
-        fields.push({ key: 'validUntil', sortable: true, label: this.$i18n('achievements.validUntil') })
+        fields.push({ key: 'validUntil', sortable: true, label: this.$t('achievements.validUntil') })
       }
       fields.push({ key: 'actions', label: '' })
       return fields

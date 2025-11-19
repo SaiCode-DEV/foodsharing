@@ -1,6 +1,6 @@
 <template>
   <Dropdown
-    :title="$i18n('navigation.notifications')"
+    :title="$t('navigation.notifications')"
     icon="fa-bell"
     :badge="unread"
     direction="right"
@@ -20,7 +20,7 @@
       <small
         role="menuitem"
         class="disabled dropdown-item"
-        v-text="$i18n('bell.no_bells')"
+        v-text="$t('bell.no_bells')"
       />
     </template>
     <template #actions>
@@ -30,7 +30,7 @@
         @click="reloadUncached()"
       >
         <i class="icon-subnav fas fa-sync" />
-        {{ $i18n('menu.entry.refresh') }}
+        {{ $t('menu.entry.refresh') }}
       </button>
       <button
         role="menuitem"
@@ -39,7 +39,7 @@
         @click="loadMoreBells()"
       >
         <i class="icon-subnav fas fa-angle-double-down" />
-        {{ $i18n('menu.entry.load_more') }}
+        {{ $t('menu.entry.load_more') }}
       </button>
       <button
         role="menuitem"
@@ -48,7 +48,7 @@
         @click="markNewBellsAsRead()"
       >
         <i class="icon-subnav fas fa-check-double" />
-        {{ $i18n('menu.entry.mark_as_read') }}
+        {{ $t('menu.entry.mark_as_read') }}
       </button>
       <button
         role="menuitem"
@@ -57,7 +57,7 @@
         @click="deleteAllReadBells()"
       >
         <i class="icon-subnav fas fa-trash" />
-        {{ $i18n('menu.entry.delete_read') }}
+        {{ $t('menu.entry.delete_read') }}
       </button>
     </template>
   </Dropdown>
@@ -108,7 +108,7 @@ export default {
       try {
         await DataBell.mutations.delete([id])
       } catch (err) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
     },
     async onBellRead (bell) {
@@ -116,7 +116,7 @@ export default {
         try {
           await DataBell.mutations.markAsRead(bell)
         } catch (err) {
-          pulseError(this.$i18n('error_unexpected'))
+          pulseError(this.$t('error_unexpected'))
         }
       }
     },
@@ -124,21 +124,21 @@ export default {
       try {
         await DataBell.mutations.markNewBellsAsRead()
       } catch {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
     },
     async loadMoreBells () {
       try {
         await DataBell.mutations.loadMore()
       } catch {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
     },
     async reloadUncached () {
       try {
         await DataBell.mutations.fetch(true)
       } catch {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
     },
     async deleteAllReadBells () {
@@ -148,7 +148,7 @@ export default {
       try {
         await DataBell.mutations.delete(ids)
       } catch {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
     },
   },

@@ -2,7 +2,7 @@
   <Container
     v-if="pickups.length"
     tag="registered-pickups"
-    :title="$i18n('dashboard.pickupdates')"
+    :title="$t('dashboard.pickupdates')"
   >
     <PaginatedContent :items="pickups">
       <template #default="{ currentPageItems }">

@@ -1,7 +1,7 @@
 <template>
   <b-modal
     ref="modal_report_request"
-    :title="$i18n('profile.report.title', { name: foodSaverName })"
+    :title="$t('profile.report.title', { name: foodSaverName })"
     centered
   >
     <div id="report_request" class="popbox m-2">
@@ -9,15 +9,15 @@
         v-if="!isReportButtonEnabled"
       >
         <div>
-          <h3>{{ $i18n('profile.report.oldReportButton') }}</h3>
+          <h3>{{ $t('profile.report.oldReportButton') }}</h3>
           <hr>
           <p>
-            {{ $i18n('profile.report.oldReportButtonTextPart1') }} <br>
-            {{ $i18n('profile.report.oldReportButtonTextPart2') }} <br>
+            {{ $t('profile.report.oldReportButtonTextPart1') }} <br>
+            {{ $t('profile.report.oldReportButtonTextPart2') }} <br>
           </p>
           <p>
-            {{ $i18n('profile.report.oldReportButtonTextPart3') }}
-            <a href="https://foodsharing.de/blog?sub=read&amp;id=255">{{ $i18n('profile.report.inthisblog') }}</a>
+            {{ $t('profile.report.oldReportButtonTextPart3') }}
+            <a href="https://foodsharing.de/blog?sub=read&amp;id=255">{{ $t('profile.report.inthisblog') }}</a>
           </p>
         </div>
       </div>
@@ -27,7 +27,7 @@
         show
       >
         <div>
-          {{ $i18n('profile.report.reporterHasNoReportGroup') }}
+          {{ $t('profile.report.reporterHasNoReportGroup') }}
         </div>
       </b-alert>
       <b-alert
@@ -36,7 +36,7 @@
         show
       >
         <div>
-          {{ $i18n('profile.report.reportedAdminNoArbitration', { name: foodSaverName }) }}
+          {{ $t('profile.report.reportedAdminNoArbitration', { name: foodSaverName }) }}
         </div>
       </b-alert>
       <b-alert
@@ -45,7 +45,7 @@
         show
       >
         <div>
-          {{ $i18n('profile.report.reporterAdminNoArbitration') }}
+          {{ $t('profile.report.reporterAdminNoArbitration') }}
         </div>
       </b-alert>
       <b-alert
@@ -54,7 +54,7 @@
         show
       >
         <div>
-          {{ $i18n('profile.report.repAdminAgainstArbAdmin') }}
+          {{ $t('profile.report.repAdminAgainstArbAdmin') }}
         </div>
       </b-alert>
       <b-alert
@@ -63,7 +63,7 @@
         show
       >
         <div>
-          {{ $i18n('profile.report.arbAdminAgainstRepAdmin') }}
+          {{ $t('profile.report.arbAdminAgainstRepAdmin') }}
         </div>
       </b-alert>
       <b-alert
@@ -72,12 +72,12 @@
         show
       >
         <div>
-          {{ $i18n('profile.report.noReportGroup') }}
+          {{ $t('profile.report.noReportGroup') }}
         </div>
       </b-alert>
       <template v-else>
         <b-alert variant="info" show>
-          <Markdown :source="$i18n('profile.report.info')" />
+          <Markdown :source="$t('profile.report.info')" />
         </b-alert>
         <b-form-select
           v-model="reportReason"
@@ -96,7 +96,7 @@
           v-model="doesNotAffectStore"
           :disabled="storeListOptions.length <= 1"
         >
-          {{ $i18n('profile.report.doesNotAffectStore') }}
+          {{ $t('profile.report.doesNotAffectStore') }}
         </b-form-checkbox>
         <b-form-textarea
           v-model="reportText"
@@ -105,7 +105,7 @@
           size="sm"
         />
         <b-alert variant="info" show>
-          <div>{{ $i18n(`profile.report.mail.${isReportForArbitration ? 'arbitrationGroup' : 'reportGroup'}`) }}</div>
+          <div>{{ $t(`profile.report.mail.${isReportForArbitration ? 'arbitrationGroup' : 'reportGroup'}`) }}</div>
           <a :href="$url('mailto_mail_foodsharing_network', responsibleGroupMail)">
             {{ $url('mail_foodsharing_network', responsibleGroupMail) }}
           </a>
@@ -116,14 +116,14 @@
       <button
         class="btn btn-secondary cancel"
         @click="$refs.modal_report_request.hide()"
-        v-text="$i18n('button.cancel')"
+        v-text="$t('button.cancel')"
       />
       <button
         type="button"
         class="btn btn-primary"
         :disabled="sendButtonDisabled"
         @click="trySendReport"
-        v-text="$i18n('profile.report.send')"
+        v-text="$t('profile.report.send')"
       />
     </template>
   </b-modal>
@@ -158,43 +158,43 @@ export default {
   },
   data () {
     const reportReasonOptionsValues = [
-      { value: null, text: this.$i18n('profile.report.kindofreport') },
+      { value: null, text: this.$t('profile.report.kindofreport') },
     ]
 
     if (this.reasonOptionSettings === REPORT_REASON_OPTIONS.EXTENDED) {
       reportReasonOptionsValues.push(
-        { value: 2010, text: this.$i18n('profile.report.report_b1_0') },
-        { value: 2011, text: this.$i18n('profile.report.report_b1_1') },
-        { value: 2012, text: this.$i18n('profile.report.report_b1_2') },
-        { value: 2013, text: this.$i18n('profile.report.report_b1_3') },
-        { value: 2014, text: this.$i18n('profile.report.report_b1_4') },
-        { value: 2020, text: this.$i18n('profile.report.report_b2') },
-        { value: 2030, text: this.$i18n('profile.report.report_b3_0') },
-        { value: 2031, text: this.$i18n('profile.report.report_b3_1') },
-        { value: 2040, text: this.$i18n('profile.report.report_b4_0') },
-        { value: 2041, text: this.$i18n('profile.report.report_b4_1') },
-        { value: 2050, text: this.$i18n('profile.report.report_b5') },
-        { value: 2060, text: this.$i18n('profile.report.report_b6_0') },
-        { value: 2061, text: this.$i18n('profile.report.report_b6_1') },
-        { value: 2070, text: this.$i18n('profile.report.report_b7') },
-        { value: 2080, text: this.$i18n('profile.report.report_b8') },
-        { value: 2090, text: this.$i18n('profile.report.report_b9') },
-        { value: 2110, text: this.$i18n('profile.report.report_b11') },
-        { value: 2100, text: this.$i18n('profile.report.report_b10') },
-        { value: 2120, text: this.$i18n('profile.report.report_b12') },
-        { value: 2130, text: this.$i18n('profile.report.report_b13') },
+        { value: 2010, text: this.$t('profile.report.report_b1_0') },
+        { value: 2011, text: this.$t('profile.report.report_b1_1') },
+        { value: 2012, text: this.$t('profile.report.report_b1_2') },
+        { value: 2013, text: this.$t('profile.report.report_b1_3') },
+        { value: 2014, text: this.$t('profile.report.report_b1_4') },
+        { value: 2020, text: this.$t('profile.report.report_b2') },
+        { value: 2030, text: this.$t('profile.report.report_b3_0') },
+        { value: 2031, text: this.$t('profile.report.report_b3_1') },
+        { value: 2040, text: this.$t('profile.report.report_b4_0') },
+        { value: 2041, text: this.$t('profile.report.report_b4_1') },
+        { value: 2050, text: this.$t('profile.report.report_b5') },
+        { value: 2060, text: this.$t('profile.report.report_b6_0') },
+        { value: 2061, text: this.$t('profile.report.report_b6_1') },
+        { value: 2070, text: this.$t('profile.report.report_b7') },
+        { value: 2080, text: this.$t('profile.report.report_b8') },
+        { value: 2090, text: this.$t('profile.report.report_b9') },
+        { value: 2110, text: this.$t('profile.report.report_b11') },
+        { value: 2100, text: this.$t('profile.report.report_b10') },
+        { value: 2120, text: this.$t('profile.report.report_b12') },
+        { value: 2130, text: this.$t('profile.report.report_b13') },
       )
     } else {
       reportReasonOptionsValues.push(
-        { value: 1, text: this.$i18n('profile.report.late') },
-        { value: 2, text: this.$i18n('profile.report.noshow') },
-        { value: 10, text: this.$i18n('profile.report.cancellation') },
-        { value: 15, text: this.$i18n('profile.report.sells') },
+        { value: 1, text: this.$t('profile.report.late') },
+        { value: 2, text: this.$t('profile.report.noshow') },
+        { value: 10, text: this.$t('profile.report.cancellation') },
+        { value: 15, text: this.$t('profile.report.sells') },
       )
     }
     if (this.reasonOptionOther) {
       reportReasonOptionsValues.push(
-        { value: 9999, text: this.$i18n('profile.report.report_other') },
+        { value: 9999, text: this.$t('profile.report.report_other') },
       )
     }
     return {

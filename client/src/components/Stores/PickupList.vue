@@ -1,7 +1,7 @@
 <template>
   <div>
     <Container
-      :title="$i18n('pickup.dates')"
+      :title="$t('pickup.dates')"
       :tag="`store-pickup-list-${storeId}`"
       wrap-content="p-0"
     >
@@ -12,13 +12,13 @@
       >
         <i class="fas fa-triangle-exclamation" />
         <i class="fas fa-id-card mr-2" />
-        {{ $i18n('store.passport_expired') }}
+        {{ $t('store.passport_expired') }}
         <br>
         <a
           :href="$url('settingsPassport')"
           class="alert-link mt-1"
         >
-          {{ $i18n('error.passport_is_invalid.link') }}
+          {{ $t('error.passport_is_invalid.link') }}
         </a>
       </div>
       <div
@@ -28,20 +28,20 @@
       >
         <i class="fas fa-triangle-exclamation" />
         <i class="fas fa-id-card mr-2" />
-        {{ $i18n('store.passport_expires_soon', { days: userStore.details.lastPassUntilValidInDays }) }}
+        {{ $t('store.passport_expires_soon', { days: userStore.details.lastPassUntilValidInDays }) }}
         <br>
         <a
           :href="$url('settingsPassport')"
           class="alert-link mt-1"
         >
-          {{ $i18n('error.passport_is_invalid_soon.link') }}
+          {{ $t('error.passport_is_invalid_soon.link') }}
         </a>
       </div>
       <div class="text-right mt-2 pr-2">
         <button
           v-if="(isCoordinator || mayEditStore)"
           v-b-tooltip
-          :title="$i18n('pickup.add_onetime_pickup')"
+          :title="$t('pickup.add_onetime_pickup')"
           class="btn btn-primary btn-sm"
           @click="$bvModal.show('AddPickupModal')"
         >
@@ -50,7 +50,7 @@
         <button
           v-if="(isCoordinator || mayEditStore)"
           v-b-tooltip
-          :title="$i18n('store.delete_date')"
+          :title="$t('store.delete_date')"
           class="btn btn-primary btn-sm"
           @click="$bvModal.show('DeletePickupModal')"
         >
@@ -62,7 +62,7 @@
         class="pickup-list card-body"
       >
         <div v-if="pickups.length <= 0">
-          {{ $i18n('pickup.no_slots_available') }}
+          {{ $t('pickup.no_slots_available') }}
         </div>
         <div v-if="pickups.length">
           <Pickup
@@ -95,15 +95,15 @@
     <b-modal
       id="DeleteLastSlotModal"
       ref="deleteLastSlotModal"
-      :title="$i18n('pickuplist.really_delete_last_slot.title')"
-      :cancel-title="$i18n('button.cancel')"
-      :ok-title="$i18n('button.yes_i_am_sure')"
+      :title="$t('pickuplist.really_delete_last_slot.title')"
+      :cancel-title="$t('button.cancel')"
+      :ok-title="$t('button.yes_i_am_sure')"
       ok-variant="outline-danger"
       centered
       @ok="confirmDeleteLastSlot"
       @hide="lastSlotDeleteData = null"
     >
-      <div>{{ $i18n('pickuplist.really_delete_last_slot.body') }}</div>
+      <div>{{ $t('pickuplist.really_delete_last_slot.body') }}</div>
     </b-modal>
   </div>
 </template>
@@ -197,7 +197,7 @@ export default {
       try {
         await this.pickupStore.loadPickups(this.storeId)
       } catch (e) {
-        pulseError(this.$i18n('pickuplist.error_loadingPickup') + e)
+        pulseError(this.$t('pickuplist.error_loadingPickup') + e)
       }
 
       if (!silent) this.isLoading = false
@@ -209,7 +209,7 @@ export default {
         this.pickupStore.invalidateOptionsCache()
       } catch (e) {
         console.error(e)
-        pulseError(this.$i18n('pickuplist.tooslow') + '<br /><br />' + this.$i18n('pickuplist.tryagain'))
+        pulseError(this.$t('pickuplist.tooslow') + '<br /><br />' + this.$t('pickuplist.tryagain'))
       }
       await this.tryLoadPickups()
     },
@@ -219,7 +219,7 @@ export default {
         await leavePickup(this.storeId, date, this.userStore.getUserId)
         this.pickupStore.invalidateOptionsCache()
       } catch (e) {
-        pulseError(this.$i18n('pickuplist.error_leave') + e)
+        pulseError(this.$t('pickuplist.error_leave') + e)
       }
       await this.tryLoadPickups()
     },
@@ -228,7 +228,7 @@ export default {
       try {
         await leavePickup(this.storeId, data.date, data.fsId, data.message)
       } catch (e) {
-        pulseError(this.$i18n('pickuplist.error_kick') + e)
+        pulseError(this.$t('pickuplist.error_kick') + e)
       }
       await this.tryLoadPickups()
     },
@@ -237,7 +237,7 @@ export default {
       try {
         await confirmPickup(this.storeId, data.date, data.fsId)
       } catch (e) {
-        pulseError(this.$i18n('pickuplist.error_confirm') + e)
+        pulseError(this.$t('pickuplist.error_confirm') + e)
       }
       await this.tryLoadPickups()
     },
@@ -247,7 +247,7 @@ export default {
         await setPickupSlots(this.storeId, date, totalSlots, description)
         this.pickupStore.invalidateOptionsCache()
       } catch (e) {
-        pulseError(this.$i18n('pickuplist.error_changeSlotCount') + e)
+        pulseError(this.$t('pickuplist.error_changeSlotCount') + e)
       }
       await this.tryLoadPickups()
     },
@@ -274,10 +274,10 @@ export default {
     async sendTeamMessage (msg) {
       try {
         await sendMessage(this.teamConversationId, msg)
-        pulseSuccess(this.$i18n('pickup.team_message_success'))
+        pulseSuccess(this.$t('pickup.team_message_success'))
       } catch (e) {
         console.error(e)
-        pulseError(this.$i18n('pickuplist.error_whileSending'))
+        pulseError(this.$t('pickuplist.error_whileSending'))
       }
     },
     async editDescription (date, totalSlots, description) {
@@ -286,7 +286,7 @@ export default {
         await setPickupSlots(this.storeId, date, totalSlots, description)
         this.pickupStore.invalidateOptionsCache()
       } catch (e) {
-        pulseError(this.$i18n('pickuplist.error_changeSlotCount') + e)
+        pulseError(this.$t('pickuplist.error_changeSlotCount') + e)
       }
       await this.tryLoadPickups()
     },

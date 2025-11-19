@@ -6,9 +6,9 @@
           <user-search-input
             v-if="mayEditMembers"
             id="new-foodsaver-search"
-            :placeholder="$i18n('search.user_search.placeholder')"
+            :placeholder="$t('search.user_search.placeholder')"
             button-icon="fa-user-plus"
-            :button-tooltip="$i18n('group.member_list.add_member')"
+            :button-tooltip="$t('group.member_list.add_member')"
             :filter="!containsMember"
             @user-selected="addNewTeamMember"
           />
@@ -22,7 +22,7 @@
       class="p-2"
     >
       <b-tab
-        :title="$i18n('group.member_list.default.title')"
+        :title="$t('group.member_list.default.title')"
         active
       >
         <slot />
@@ -42,7 +42,7 @@
                   switch
                   size="sm"
                 >
-                  {{ $i18n('group.filter_by_last_activity') }}
+                  {{ $t('group.filter_by_last_activity') }}
                 </b-form-checkbox>
               </div>
               <div class="col col-md-6">
@@ -58,7 +58,7 @@
           </div>
         </div>
       </b-tab>
-      <b-tab v-if="!isWorkGroup && mayEditMembers" :title="$i18n('group.member_list.passports.title')">
+      <b-tab v-if="!isWorkGroup && mayEditMembers" :title="$t('group.member_list.passports.title')">
         <b-row class="row p-2">
           <b-col>
             <b-button
@@ -67,7 +67,7 @@
               size="sm"
               @click="verifySelectedMembers"
             >
-              {{ $i18n('group.member_list.passports.verify_selected') }} ({{ passportMember.length }})
+              {{ $t('group.member_list.passports.verify_selected') }} ({{ passportMember.length }})
             </b-button>
           </b-col>
         </b-row>
@@ -79,7 +79,7 @@
               size="sm"
               @click="createPassports"
             >
-              {{ $i18n('group.member_list.passports.execute') }} ({{ passportMember.length }})
+              {{ $t('group.member_list.passports.execute') }} ({{ passportMember.length }})
             </b-button>
           </b-col>
           <b-col cols="8">
@@ -91,7 +91,7 @@
                   size="sm"
                   @change="setPassportSettingsToLocalStorage"
                 >
-                  {{ $i18n('group.member_list.passports.create_pdf') }}
+                  {{ $t('group.member_list.passports.create_pdf') }}
                 </b-form-checkbox>
               </b-col>
               <b-col>
@@ -101,7 +101,7 @@
                   class="ml-2"
                   size="sm"
                 >
-                  {{ $i18n('group.member_list.passports.automatic_paper_size') }}
+                  {{ $t('group.member_list.passports.automatic_paper_size') }}
                 </b-form-checkbox>
               </b-col>
             </b-row>
@@ -113,7 +113,7 @@
                   size="sm"
                   @change="setPassportSettingsToLocalStorage"
                 >
-                  {{ $i18n('group.member_list.passports.active_or_renew_passport') }}
+                  {{ $t('group.member_list.passports.active_or_renew_passport') }}
                 </b-form-checkbox>
               </b-col>
               <b-col>
@@ -124,7 +124,7 @@
                   size="sm"
                   @change="setPassportSettingsToLocalStorage"
                 >
-                  {{ $i18n('group.member_list.passports.inform_user') }}
+                  {{ $t('group.member_list.passports.inform_user') }}
                 </b-form-checkbox>
               </b-col>
             </b-row>
@@ -138,7 +138,7 @@
         <div class="form-row">
           <div class="filter-for-label">
             <label class=" col-form-label col-form-label-sm foo">
-              {{ $i18n('list.filter_for') }}
+              {{ $t('list.filter_for') }}
             </label>
           </div>
           <div class="filter-for-form">
@@ -147,7 +147,7 @@
               v-model="filterText"
               type="text"
               class="form-control form-control-sm"
-              :placeholder="$i18n('filterlist.filter_for_name_id')"
+              :placeholder="$t('filterlist.filter_for_name_id')"
             >
           </div>
           <b-button-group class="filter-for-search">
@@ -162,7 +162,7 @@
               <template #button-content>
                 <button
                   v-b-tooltip.hover
-                  :title="$i18n('button.filter_options')"
+                  :title="$t('button.filter_options')"
                   type="button"
                   class="btn btn-sm"
                 >
@@ -177,10 +177,10 @@
                   size="sm"
                   class="mb-2"
                 >
-                  {{ $i18n('group.member_list.passports.filter_selection') }}
+                  {{ $t('group.member_list.passports.filter_selection') }}
                 </b-form-checkbox>
 
-                <label class="mb-1">{{ $i18n('group.member_list.passports.show_only_member_after') }}</label>
+                <label class="mb-1">{{ $t('group.member_list.passports.show_only_member_after') }}</label>
                 <b-form-select
                   v-model="filterPassportUntilValid"
                   :options="passportFilterOptions"
@@ -188,7 +188,7 @@
                   class="mb-2"
                 />
 
-                <label class="mb-1">{{ $i18n('group.member_list.passports.filter_status') }}</label>
+                <label class="mb-1">{{ $t('group.member_list.passports.filter_status') }}</label>
                 <b-form-select
                   v-model="filterStatus"
                   :options="statusFilterOptions"
@@ -199,7 +199,7 @@
             </b-dropdown>
             <button
               v-b-tooltip.hover
-              :title="$i18n('button.clear_filter')"
+              :title="$t('button.clear_filter')"
               type="button"
               class="btn btn-sm"
               @click="clearFilter"
@@ -270,7 +270,7 @@
           </a>
         </template>
         <template #cell(lastPassDate)="row">
-          {{ row.item.lastPassDate === null ? $i18n('group.member_list.passports.never_before') : $dateFormatter.format(row.item.lastPassDate, {
+          {{ row.item.lastPassDate === null ? $t('group.member_list.passports.never_before') : $dateFormatter.format(row.item.lastPassDate, {
             day: 'numeric',
             month: 'numeric',
             year: 'numeric',
@@ -293,13 +293,13 @@
           }) }}
         </template>
         <template #cell(role)="row">
-          {{ $i18n('terminology.role.' + row.item.role) }}
+          {{ $t('terminology.role.' + row.item.role) }}
         </template>
         <template #cell(isVerified)="row">
           <button
             v-if="row.item.isVerified"
             class="btn btn-sm btn-primary"
-            :title="$i18n('group.member_list.is_verified')"
+            :title="$t('group.member_list.is_verified')"
             @click="changeVerification(false, row.item.id,row.item.name)"
           >
             <i class="fas fa-user-check" />
@@ -307,7 +307,7 @@
           <button
             v-else
             class="btn btn-sm btn-secondary"
-            :title="$i18n('group.member_list.not_verified')"
+            :title="$t('group.member_list.not_verified')"
             @click="changeVerification(true, row.item.id,row.item.name)"
           >
             <i class="fas fa-user-check" />
@@ -317,7 +317,7 @@
           <i
             v-if="row.item.isHomeRegion"
             class="fas fa-house-user"
-            :title="$i18n('group.member_list.is_home_region')"
+            :title="$t('group.member_list.is_home_region')"
           />
         </template>
         <template #cell(adminButton)="row">
@@ -335,7 +335,7 @@
         <template v-if="mayEditMembers" #cell(removeButton)="row">
           <b-button
             v-if="canRemoveMember(row.item)"
-            v-b-tooltip.viewport="$i18n('group.member_list.remove_title')"
+            v-b-tooltip.viewport="$t('group.member_list.remove_title')"
             size="sm"
             variant="danger"
             :disabled="isBusy"
@@ -457,14 +457,14 @@ export default {
       return (item) => {
         if (this.mayRemoveAdminOrAmbassador && this.rowItemIsAdminOrAmbassadorOfRegion(item)) {
           return {
-            title: this.$i18n(this.isWorkGroup ? 'group.member_list.remove_admin_title' : 'group.member_list.remove_ambassador_title'),
+            title: this.$t(this.isWorkGroup ? 'group.member_list.remove_admin_title' : 'group.member_list.remove_ambassador_title'),
             variant: 'danger',
             icon: 'fa-user-slash',
             action: this.degradeAdmin,
           }
         } else if (this.maySetAdminOrAmbassador && this.rowItemNotEqualUserId(this.userId, item.id) && this.roleCheckForRegionAndWorkGroup(this.isWorkGroup, item.role)) {
           return {
-            title: this.$i18n(this.isWorkGroup ? 'group.member_list.set_admin_title' : 'group.member_list.set_ambassador_title'),
+            title: this.$t(this.isWorkGroup ? 'group.member_list.set_admin_title' : 'group.member_list.set_ambassador_title'),
             variant: 'warning',
             icon: 'fa-user-graduate',
             action: this.makeAdmin,
@@ -477,10 +477,10 @@ export default {
       return this.selected.length > 0
     },
     title () {
-      return `${this.isWorkGroup ? this.$i18n('memberlist.header_for_workgroup', { bezirk: this.regionName }) : this.$i18n('memberlist.header_for_district', { bezirk: this.regionName })} ${this.memberCount}`
+      return `${this.isWorkGroup ? this.$t('memberlist.header_for_workgroup', { bezirk: this.regionName }) : this.$t('memberlist.header_for_district', { bezirk: this.regionName })} ${this.memberCount}`
     },
     memberCount () {
-      return this.$i18n('filterlist.some_in_all', { some: this.membersFiltered.length, all: regionStore.memberList.length })
+      return this.$t('filterlist.some_in_all', { some: this.membersFiltered.length, all: regionStore.memberList.length })
     },
     dateBeforeMonths () {
       const dateInPast = new Date()
@@ -561,7 +561,7 @@ export default {
         },
         {
           key: 'name',
-          label: this.$i18n('group.name'),
+          label: this.$t('group.name'),
           sortable: true,
           class: 'align-middle',
         },
@@ -570,7 +570,7 @@ export default {
       if (this.activeTab === this.ACTIVE_TAB_PASSPORT) {
         columns.push({
           key: 'lastName',
-          label: this.$i18n('group.member_list.default.lastname'),
+          label: this.$t('group.member_list.default.lastname'),
           sortable: true,
           class: 'align-middle',
         })
@@ -578,7 +578,7 @@ export default {
 
       columns.push({
         key: 'id',
-        label: this.$i18n('group.userId'),
+        label: this.$t('group.userId'),
         sortable: true,
         class: 'align-middle',
       })
@@ -586,13 +586,13 @@ export default {
       if (!this.isWorkGroup && this.activeTab === this.ACTIVE_TAB_PASSPORT) {
         columns.push({
           key: 'lastPassDate',
-          label: this.$i18n('group.member_list.passports.created_at'),
+          label: this.$t('group.member_list.passports.created_at'),
           sortable: true,
           class: 'align-middle',
         },
         {
           key: 'passUntilValid',
-          label: this.$i18n('group.valid_until'),
+          label: this.$t('group.valid_until'),
           sortable: true,
           formatter: (value, key, item) => {
             return item.lastPassDate
@@ -606,7 +606,7 @@ export default {
         columns.push(
           {
             key: 'lastActivity',
-            label: this.$i18n('group.last_activity'),
+            label: this.$t('group.last_activity'),
             sortable: true,
             class: 'align-middle',
           },
@@ -617,7 +617,7 @@ export default {
         columns.push(
           {
             key: 'role',
-            label: this.$i18n('group.role_name'),
+            label: this.$t('group.role_name'),
             sortable: true,
             class: 'align-middle',
           },
@@ -628,7 +628,7 @@ export default {
         columns.push(
           {
             key: 'isVerified',
-            label: this.$i18n('group.member_list.is_verified'),
+            label: this.$t('group.member_list.is_verified'),
             sortable: true,
             class: 'align-middle',
           },
@@ -639,7 +639,7 @@ export default {
         columns.push(
           {
             key: 'isHomeRegion',
-            label: this.$i18n('group.member_list.is_home_region'),
+            label: this.$t('group.member_list.is_home_region'),
             sortable: true,
             class: 'align-middle',
           },

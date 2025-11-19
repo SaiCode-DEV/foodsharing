@@ -1,7 +1,7 @@
 <template>
   <form class="my-1">
     <div class="col-sm-auto">
-      <label>{{ $i18n('register.select_your_gender') }}<sup><i class="fas fa-asterisk" /></sup></label>
+      <label>{{ $t('register.select_your_gender') }}<sup><i class="fas fa-asterisk" /></sup></label>
     </div>
     <div class="col-sm-auto">
       <b-form-group id="genderFormGroup">
@@ -16,26 +16,26 @@
             id="genderWoman"
             :value="2"
           >
-            {{ $i18n('register.woman') }}
+            {{ $t('register.woman') }}
           </b-form-radio>
           <b-form-radio
             id="genderMan"
             :value="1"
           >
-            {{ $i18n('register.man') }}
+            {{ $t('register.man') }}
           </b-form-radio>
           <b-form-radio
             id="genderOther"
             :value="3"
           >
-            {{ $i18n('register.other') }}
+            {{ $t('register.other') }}
           </b-form-radio>
         </b-form-radio-group>
       </b-form-group>
     </div>
     <div class="my-1">
       <div class="col-sm-auto">
-        <label for="firstname">{{ $i18n('register.login_name') }}<sup><i class="fas fa-asterisk" /></sup></label>
+        <label for="firstname">{{ $t('register.login_name') }}<sup><i class="fas fa-asterisk" /></sup></label>
       </div> <div class="col-sm-auto">
         <input
           id="firstname"
@@ -50,13 +50,13 @@
           v-if="v$.firstname.$error"
           class="invalid-feedback"
         >
-          <span v-if="!v$.firstname.required">{{ $i18n('register.firstname_required') }}</span>
-          <span v-if="!v$.firstname.minLength">{{ $i18n('register.firstname_minLength') }}</span>
+          <span v-if="!v$.firstname.required">{{ $t('register.firstname_required') }}</span>
+          <span v-if="!v$.firstname.minLength">{{ $t('register.firstname_minLength') }}</span>
         </div>
       </div>
       <div class="my-1">
         <div class="col-sm-auto">
-          <label for="lastname">{{ $i18n('register.login_surname') }}<sup><i class="fas fa-asterisk" /></sup></label>
+          <label for="lastname">{{ $t('register.login_surname') }}<sup><i class="fas fa-asterisk" /></sup></label>
         </div> <div class="col-sm-auto">
           <input
             id="lastname"
@@ -68,8 +68,8 @@
             @input="emit('update:lastname', $event.target.value)"
           >
           <div v-if="v$.lastname.$error" class="invalid-feedback">
-            <span v-if="!v$.lastname.required">{{ $i18n('register.lastname_required') }}</span>
-            <span v-if="!v$.lastname.minLength">{{ $i18n('register.lastname_minLength') }}</span>
+            <span v-if="!v$.lastname.required">{{ $t('register.lastname_required') }}</span>
+            <span v-if="!v$.lastname.minLength">{{ $t('register.lastname_minLength') }}</span>
           </div>
         </div>
       </div>
@@ -78,16 +78,16 @@
         type="button"
         @click.prevent="emit('prev')"
       >
-        {{ $i18n('register.prev') }}
+        {{ $t('register.prev') }}
       </button>
       <button
         class="btn btn-primary mt-3"
         type="submit"
         @click.prevent="redirect()"
       >
-        {{ $i18n('register.next') }}
+        {{ $t('register.next') }}
       </button>
-      <span class="mr-3 d-flex flex-row-reverse">{{ $i18n('register.requiredFields') }}<sup><i class="fas fa-asterisk" /></sup></span>
+      <span class="mr-3 d-flex flex-row-reverse">{{ $t('register.requiredFields') }}<sup><i class="fas fa-asterisk" /></sup></span>
     </div>
   </form>
 </template>

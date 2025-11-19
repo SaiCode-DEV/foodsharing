@@ -11,7 +11,7 @@
       <span
         v-if="textKey"
         class="small font-weight-bold"
-        v-text="$i18n(textKey)"
+        v-text="$t(textKey)"
       />
     </slot>
   </b-list-group-item>

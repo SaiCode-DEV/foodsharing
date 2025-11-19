@@ -9,17 +9,17 @@
         <i
           v-if="stickiness < 0"
           class="fas fa-sign-in-alt fa-rotate-90 mr-1"
-          :title="$i18n('forum.thread.bottom')"
+          :title="$t('forum.thread.bottom')"
         />
         <i
           v-if="!isOpen"
           class="fas fa-lock mr-1"
-          :title="$i18n('forum.thread.closed')"
+          :title="$t('forum.thread.closed')"
         />
         <i
           v-if="stickiness > 0"
           class="fas fa-thumbtack mr-1"
-          :title="$i18n('forum.thread.sticky')"
+          :title="$t('forum.thread.sticky')"
         />
         {{ title }}
 
@@ -55,7 +55,7 @@
         role="alert"
       >
         <span>
-          {{ $i18n('forum.thread.inactive') }}
+          {{ $t('forum.thread.inactive') }}
         </span>
       </div>
       <div>
@@ -63,19 +63,19 @@
           class="btn btn-primary btn-sm"
           @click="activateThread"
         >
-          <i class="fas fa-check" /> {{ $i18n('forum.thread.activate') }}
+          <i class="fas fa-check" /> {{ $t('forum.thread.activate') }}
         </button>
         <button
           class="btn btn-danger btn-sm float-right"
           @click="$refs.deleteModal.show()"
         >
-          <i class="fas fa-trash-alt" /> {{ $i18n('forum.thread.delete') }}
+          <i class="fas fa-trash-alt" /> {{ $t('forum.thread.delete') }}
         </button>
       </div>
     </div>
     <b-alert :show="!shownPosts.length && !isLoading" variant="info">
       <i class="fas fa-info-circle" />
-      {{ $i18n('forum.thread.all_hidden') }}
+      {{ $t('forum.thread.all_hidden') }}
     </b-alert>
     <div id="posts-wrapper">
       <div v-for="post in shownPosts" :key="post.id">
@@ -105,14 +105,14 @@
       class="alert alert-warning"
       role="alert"
     >
-      {{ $i18n('forum.no_posts') }}
+      {{ $t('forum.no_posts') }}
     </div>
     <div
       v-if="errorMessage"
       class="alert alert-danger"
       role="alert"
     >
-      <strong>{{ $i18n('error_unexpected') }}:</strong> {{ errorMessage }}
+      <strong>{{ $t('error_unexpected') }}:</strong> {{ errorMessage }}
     </div>
 
     <HiddenPostsAlert v-if="hasHiddenPosts" :show-hidden-posts.sync="showHiddenPosts" />
@@ -136,51 +136,51 @@
 
     <b-modal
       ref="deleteModal"
-      :title="$i18n('forum.thread.delete')"
-      :cancel-title="$i18n('button.cancel')"
-      :ok-title="$i18n('button.yes_i_am_sure')"
+      :title="$t('forum.thread.delete')"
+      :cancel-title="$t('button.cancel')"
+      :ok-title="$t('button.yes_i_am_sure')"
       cancel-variant="primary"
       ok-variant="outline-danger"
       @ok="deleteThread"
     >
-      {{ $i18n('really_delete') }}
+      {{ $t('really_delete') }}
     </b-modal>
 
     <b-modal
       ref="title_edit_modal"
       centered
-      :title="$i18n('thread.rename.edit_description')"
-      :cancel-title="$i18n('button.cancel')"
-      :ok-title="$i18n('button.save')"
+      :title="$t('thread.rename.edit_description')"
+      :cancel-title="$t('button.cancel')"
+      :ok-title="$t('button.save')"
       @ok="updateTitle"
     >
       <p>
-        {{ $i18n('thread.rename.description_modal_text') }}
+        {{ $t('thread.rename.description_modal_text') }}
       </p>
       <b-form-input
         v-model="newTitle"
-        :placeholder="$i18n('thread.rename.placeholder')"
+        :placeholder="$t('thread.rename.placeholder')"
         :maxlength="260"
       />
       <small v-if="newTitle?.length === 260">
         <i class="fas fa-info-circle" />
-        {{ $i18n('thread.rename.max_length_info') }}
+        {{ $t('thread.rename.max_length_info') }}
       </small>
     </b-modal>
 
     <b-modal
       ref="priorityEditModal"
       centered
-      :cancel-title="$i18n('button.cancel')"
-      :ok-title="$i18n('button.save')"
+      :cancel-title="$t('button.cancel')"
+      :ok-title="$t('button.save')"
       @ok="updateStickiness(newPriority)"
     >
       <template #modal-title>
-        {{ $i18n('thread.priorityModal.title') }}
+        {{ $t('thread.priorityModal.title') }}
         <Info info-key="threadPriority" />
       </template>
       <p>
-        {{ $i18n('thread.priorityModal.text') }}
+        {{ $t('thread.priorityModal.text') }}
         {{ newPriority }}
         ({{ newPriorityText }})
       </p>
@@ -284,7 +284,7 @@ export default {
       return this.posts.some(post => post.hidden)
     },
     newPriorityText () {
-      return this.$i18n('thread.priorityModal.' + ['lower', 'normal', 'higher'][Math.sign(this.newPriority) + 1])
+      return this.$t('thread.priorityModal.' + ['lower', 'normal', 'higher'][Math.sign(this.newPriority) + 1])
     },
     shownPosts () {
       return this.showHiddenPosts ? this.posts : this.posts.filter(post => !post.hidden)
@@ -325,7 +325,7 @@ export default {
         })
       }
       if (linkedPostId && post.id !== linkedPostId) {
-        pulseWarning(this.$i18n('forum.thread.post_not_found'))
+        pulseWarning(this.$t('forum.thread.post_not_found'))
       }
     },
     reply (post, truncate) {
@@ -336,7 +336,7 @@ export default {
         quoteLines[maxQuotedLines - 1] += ' [...]'
       }
       quoteLines.unshift('>')
-      const intro = `> **@${post.author.id} ` + this.$i18n('thread.post.quote_post_wrote') + ' [' + new Date(post.createdAt).toLocaleString() + '](' + this.getPostLink(post.id) + '):**'
+      const intro = `> **@${post.author.id} ` + this.$t('thread.post.quote_post_wrote') + ' [' + new Date(post.createdAt).toLocaleString() + '](' + this.getPostLink(post.id) + '):**'
       quoteLines.unshift(intro)
       this.$refs.form.prepend(quoteLines.join('\n') + '\n\n')
       this.$refs.form.focus()
@@ -375,7 +375,7 @@ export default {
         await api.setStickinessThread(this.id, targetState)
         this.stickiness = targetState
       } catch (err) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
     },
     async deletePost (post) {
@@ -385,7 +385,7 @@ export default {
         await api.deletePost(post.id)
         await this.reload(true)
       } catch (err) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       } finally {
         this.loadingPosts.splice(this.loadingPosts.indexOf(post.id), 1)
       }
@@ -405,14 +405,14 @@ export default {
           }
         }
       } catch (err) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
     },
     async addReaction (postId, key) {
       try {
         await api.addReaction(postId, key)
       } catch (error) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
         console.error(error)
       }
     },
@@ -420,7 +420,7 @@ export default {
       try {
         await api.removeReaction(postId, key)
       } catch (error) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
         console.error(error)
       }
     },
@@ -464,7 +464,7 @@ export default {
         await api.activateThread(this.id)
       } catch (err) {
         this.isActive = false
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
     },
     async deleteThread () {
@@ -476,7 +476,7 @@ export default {
         window.location = this.$url('forum', this.regionId, this.regionSubId)
       } catch (err) {
         this.isLoading = false
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
     },
     async updateClosed () {
@@ -486,7 +486,7 @@ export default {
         await api.setThreadStatus(this.id, targetStatus)
         this.status = targetStatus
       } catch (err) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
       this.isLoading = false
     },
@@ -500,7 +500,7 @@ export default {
         await api.setTitle(this.id, this.newTitle)
         this.title = this.newTitle
       } catch (err) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
       this.isLoading = false
     },
@@ -514,7 +514,7 @@ export default {
         const post = this.posts.find(post => post.id === postId)
         if (post) post.hidden = false
       } catch (err) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
     },
   },

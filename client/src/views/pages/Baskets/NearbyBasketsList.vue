@@ -14,7 +14,7 @@
             width="35px"
             :src="picturePath(basket)"
             class="basket-picture mr-2"
-            :alt="$i18n('terminology.basket')"
+            :alt="$t('terminology.basket')"
           >
           <span class="basket-label">
             <strong class="distance-label">({{ formattedDistance(basket) }})</strong>
@@ -25,7 +25,7 @@
       </li>
     </ul>
     <div id="go-to-map-button">
-      <a class="button" :href="$url('map', { markers: 'baskets' })">{{ $i18n('basket.all_map') }}</a>
+      <a class="button" :href="$url('map', { markers: 'baskets' })">{{ $t('basket.all_map') }}</a>
     </div>
     <basket-bubble ref="basketBubble" />
   </div>

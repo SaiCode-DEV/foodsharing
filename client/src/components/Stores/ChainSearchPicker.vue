@@ -2,7 +2,7 @@
   <b-modal
     id="modal_open_chain_search_picker"
     ref="modal_open_chain_search_picker"
-    :title="$i18n('store.chain_search_picker.modal_title')"
+    :title="$t('store.chain_search_picker.modal_title')"
     hide-footer
     header-class="d-flex"
     content-class="pr-3 pt-3"
@@ -11,7 +11,7 @@
   >
     <b-form-input
       v-model="filterName"
-      :placeholder="$i18n('store.chain_search_picker.search_input')"
+      :placeholder="$t('store.chain_search_picker.search_input')"
       class="mb-2"
     />
     <b-list-group>

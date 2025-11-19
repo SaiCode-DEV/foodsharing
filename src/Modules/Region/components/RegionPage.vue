@@ -39,7 +39,7 @@
           <ResponsibleUsers
             v-if="allAdminData.value.length > 0"
             :responsible-users="allAdminData.value"
-            :title="$i18n(allAdminData.label)"
+            :title="$t(allAdminData.label)"
           />
         </div>
         <LeaveRegionContainer

@@ -48,7 +48,7 @@
                   target="_blank"
                   block
                 >
-                  {{ $i18n('donation_banner.info_button') }}
+                  {{ $t('donation_banner.info_button') }}
                 </b-button>
               </b-col>
             </b-row>
@@ -64,7 +64,7 @@
                   block
                   @click="openDonationPopup($url('donation_form'))"
                 >
-                  {{ $i18n('donation_banner.action_button') }}
+                  {{ $t('donation_banner.action_button') }}
                 </b-button>
               </b-col>
               <b-col
@@ -77,7 +77,7 @@
                   block
                   disabled
                 >
-                  {{ $i18n('donation_banner.amount') }}: <span class="donationAmountClass">
+                  {{ $t('donation_banner.amount') }}: <span class="donationAmountClass">
                     {{ formatCurrency(receivedDonationsInEuros) }}
                   </span>
                 </b-button>

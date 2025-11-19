@@ -1,7 +1,7 @@
 <template>
   <Container
     tag="dashboard.activity_overview"
-    :title="selectedFilter ? $i18n('dashboard.updates_title_some', [$i18n(selectedFilter.text)]) : $i18n('dashboard.updates_title_all')"
+    :title="selectedFilter ? $t('dashboard.updates_title_some', [$t(selectedFilter.text)]) : $t('dashboard.updates_title_all')"
     :toggle-visiblity="false"
   >
     <div
@@ -12,7 +12,7 @@
         <button
           v-for="(filter, key) in activeFilters"
           :key="key"
-          v-b-tooltip="$i18n(filter.text)"
+          v-b-tooltip="$t(filter.text)"
           :class="{'btn-primary': isActiveFilter(filter.type)}"
           class="btn btn-sm btn-icon"
           @click="setFilter(filter.type)"
@@ -25,24 +25,24 @@
           />
           <span
             v-else
-            v-text="$i18n(filter.text)"
+            v-text="$t(filter.text)"
           />
           <span
             class="sr-only"
-            v-text="$i18n(filter.text)"
+            v-text="$t(filter.text)"
           />
         </button>
       </div>
       <button
         id="activity-option"
-        v-b-tooltip="$i18n('dashboard.settings_tooltip')"
+        v-b-tooltip="$t('dashboard.settings_tooltip')"
         :class="{'btn-primary': showListings}"
         class="btn btn-sm btn-icon"
         @click="toggleOptionListings"
       >
         <span
           class="sr-only"
-          v-text="$i18n('dashboard.settings')"
+          v-text="$t('dashboard.settings')"
         />
         <i
           class="fas"

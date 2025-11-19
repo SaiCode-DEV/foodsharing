@@ -1,7 +1,7 @@
 <template>
   <Dropdown
     v-if="hasAdminPermissions"
-    :title="$i18n('navigation.system_administration')"
+    :title="$t('navigation.system_administration')"
     icon="fa-gear"
     is-fixed-size
     is-scrollable
@@ -13,7 +13,7 @@
         role="menuitem"
         class="dropdown-item dropdown-action"
       >
-        <i class="icon-subnav fas fa-newspaper" /> {{ $i18n('system_administration.blog') }}
+        <i class="icon-subnav fas fa-newspaper" /> {{ $t('system_administration.blog') }}
       </a>
       <a
         v-if="permissions.editQuiz"
@@ -21,7 +21,7 @@
         role="menuitem"
         class="dropdown-item dropdown-action"
       >
-        <i class="icon-subnav fas fa-question-circle" /> {{ $i18n('system_administration.quiz') }}
+        <i class="icon-subnav fas fa-question-circle" /> {{ $t('system_administration.quiz') }}
       </a>
       <a
         v-if="permissions.administrateRegions"
@@ -29,7 +29,7 @@
         role="menuitem"
         class="dropdown-item dropdown-action"
       >
-        <i class="icon-subnav fas fa-map" /> {{ $i18n('system_administration.regions') }}
+        <i class="icon-subnav fas fa-map" /> {{ $t('system_administration.regions') }}
       </a>
       <!--
       <a
@@ -38,7 +38,7 @@
         role="menuitem"
         class="dropdown-item dropdown-action"
       >
-        <i class="icon-subnav fas fa-envelope" /> {{ $i18n('system_administration.email') }}
+        <i class="icon-subnav fas fa-envelope" /> {{ $t('system_administration.email') }}
       </a>
       -->
       <a
@@ -47,7 +47,7 @@
         role="menuitem"
         class="dropdown-item dropdown-action"
       >
-        <i class="icon-subnav fas fa-file-alt" /> {{ $i18n('system_administration.content') }}
+        <i class="icon-subnav fas fa-file-alt" /> {{ $t('system_administration.content') }}
       </a>
       <a
         v-if="permissions.editStoreCategories"
@@ -55,7 +55,7 @@
         role="menuitem"
         class="dropdown-item dropdown-action"
       >
-        <i class="icon-subnav fas fa-store" /> {{ $i18n('system_administration.store_categories') }}
+        <i class="icon-subnav fas fa-store" /> {{ $t('system_administration.store_categories') }}
       </a>
       <a
         v-if="permissions.editResourceCategories"
@@ -63,7 +63,7 @@
         role="menuitem"
         class="dropdown-item dropdown-action"
       >
-        <i class="icon-subnav fas fa-shapes" /> {{ $i18n('system_administration.resource_categories') }}
+        <i class="icon-subnav fas fa-shapes" /> {{ $t('system_administration.resource_categories') }}
       </a>
       <a
         v-if="permissions.editAchievements"
@@ -71,7 +71,7 @@
         role="menuitem"
         class="dropdown-item dropdown-action"
       >
-        <i class="icon-subnav fas fa-tags" /> {{ $i18n('achievements.editTitle') }}
+        <i class="icon-subnav fas fa-tags" /> {{ $t('achievements.editTitle') }}
       </a>
     </template>
   </Dropdown>

@@ -1,7 +1,7 @@
 <template>
   <b-modal
     :visible="visible"
-    :title="$i18n('quiz.infomodal.title', { index: status?.questionsAnswered+1, questions: status?.questionCount })"
+    :title="$t('quiz.infomodal.title', { index: status?.questionsAnswered+1, questions: status?.questionCount })"
     hide-header-close
     no-close-on-backdrop
     no-close-on-esc
@@ -22,7 +22,7 @@
       >
         <p v-if="!isQuestionActive && !answeredInTime">
           <i class="fas fa-exclamation-triangle mr-1" />
-          <b>{{ $i18n('quiz.timed_out') }}</b>
+          <b>{{ $t('quiz.timed_out') }}</b>
         </p>
         <div
           v-for="answer in question?.answers"
@@ -40,7 +40,7 @@
 
           <div v-if="!isQuestionActive">
             <p class="my-3">
-              <b>{{ $i18n(answerText(solutionById[answer.id]?.answerRating, selectedAnswers[answer.id])) }}</b>
+              <b>{{ $t(answerText(solutionById[answer.id]?.answerRating, selectedAnswers[answer.id])) }}</b>
             </p>
             <ExpandableExplanation
               :text="solutionById[answer.id].explanation"
@@ -56,7 +56,7 @@
             v-model="selectedAnswers['none']"
             @change="noneSelectedHandler"
           >
-            {{ $i18n('quiz.answers.none_correct') }}
+            {{ $t('quiz.answers.none_correct') }}
           </b-form-checkbox>
         </div>
       </b-form-group>
@@ -95,7 +95,7 @@
         variant="outline-primary"
         @click="closeQuiz"
       >
-        {{ $i18n(isTest ? 'button.cancel' : 'quiz.button.pause') }}
+        {{ $t(isTest ? 'button.cancel' : 'quiz.button.pause') }}
       </b-button>
       <b-button
         v-if="!isQuizFinished"
@@ -103,14 +103,14 @@
         :disabled="isQuestionActive && (nothingSelected || !allOptionsSeen)"
         @click="continueQuizHandler"
       >
-        {{ $i18n('button.next') }}
+        {{ $t('button.next') }}
       </b-button>
       <b-button
         v-if="isQuizFinished"
         variant="primary"
         @click="finishQuiz"
       >
-        {{ $i18n('quiz.button.finish') }}
+        {{ $t('quiz.button.finish') }}
       </b-button>
     </template>
   </b-modal>
@@ -179,7 +179,7 @@ export default {
         this.fetchQuestion(),
       ])
       if (this.question?.timedOut) {
-        pulseError(this.$i18n('quiz.timed_out_last'))
+        pulseError(this.$t('quiz.timed_out_last'))
         this.$emit('update:questions-answered', this.status.questionsAnswered + 1)
       }
       this.animateTimer()
@@ -197,9 +197,9 @@ export default {
       } catch (error) {
         this.finishQuiz()
         if (error.code === HTTP_RESPONSE.FORBIDDEN) {
-          pulseError(this.$i18n('quiz.timed_out_error'))
+          pulseError(this.$t('quiz.timed_out_error'))
         } else {
-          pulseError(this.$i18n('error_unexpected'))
+          pulseError(this.$t('error_unexpected'))
         }
       }
       this.isFetching = false

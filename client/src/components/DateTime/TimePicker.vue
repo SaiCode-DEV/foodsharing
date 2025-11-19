@@ -36,7 +36,7 @@ export default {
     return {
       locale,
       labelsTimepicker: Object.fromEntries(translations.map(key => [key, i18n(`timepicker.${key}`)])),
-      placeholder: JSON.stringify(this.$i18n('timepicker.placeholder')),
+      placeholder: JSON.stringify(this.$t('timepicker.placeholder')),
     }
   },
 }

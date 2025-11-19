@@ -3,7 +3,7 @@
   <div>
     <div class="alert alert-info">
       <i class="fas fa-info-circle" />
-      {{ $i18n('addresspicker.infobox') }}
+      {{ $t('addresspicker.infobox') }}
     </div>
     <AddressSearchField
       ref="addressSearch"
@@ -25,10 +25,10 @@
         :show="differentLocation"
       >
         <i class="fas fa-exclamation-triangle mr-2" />
-        {{ $i18n('addresspicker.different_location_warning') }}
+        {{ $t('addresspicker.different_location_warning') }}
       </b-alert>
       <b-form-group
-        :label="$i18n('anschrift')"
+        :label="$t('anschrift')"
         label-for="input-street"
         class="my-2"
       >
@@ -42,7 +42,7 @@
       <b-row>
         <b-col class="col-3 pr-0">
           <b-form-group
-            :label="$i18n('plz')"
+            :label="$t('plz')"
             label-for="input-postal"
             class="my-2"
           >
@@ -57,7 +57,7 @@
         </b-col>
         <b-col>
           <b-form-group
-            :label="$i18n('ort')"
+            :label="$t('ort')"
             label-for="input-city"
             class="my-2"
           >
@@ -81,7 +81,7 @@
           :disabled="disabled"
           switch
         >
-          {{ $i18n('addresspicker.different_location') }}
+          {{ $t('addresspicker.different_location') }}
         </b-form-checkbox>
       </b-form-group>
     </div>

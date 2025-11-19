@@ -2,7 +2,7 @@
   <!-- TODO create a way to restrict access to image sending to certain group -->
   <Container
     v-if="(posts.length || mayPost) && loaded"
-    :title="title ?? $i18n('wall.name')"
+    :title="title ?? $t('wall.name')"
     :tag="`wall-${target}`"
     :hide-header="hideHeader"
   >
@@ -10,7 +10,7 @@
       <MarkdownInput
         ref="md-input"
         variant="outline-primary"
-        :placeholder="$i18n('wall.placeholder')"
+        :placeholder="$t('wall.placeholder')"
         :rows="2"
         :conceal-toolbar="true"
         :value="newPostText"
@@ -28,7 +28,7 @@
           :disabled="!newPostExists"
           @click.prevent.stop="writePost"
         >
-          {{ $i18n('button.send') }}
+          {{ $t('button.send') }}
         </b-button>
       </div>
     </div>
@@ -154,7 +154,7 @@ export default {
         this.posts.unshift(newPost)
       } catch (e) {
         console.error(e)
-        pulseError(this.$i18n('wall.error-create'))
+        pulseError(this.$t('wall.error-create'))
         this.newPostText = text
       } finally {
         this.loading.sendPost = false
@@ -169,9 +169,9 @@ export default {
         await deletePost(this.target, this.targetId, postId)
         if (index >= 0) this.posts.splice(index, 1)
       } catch (error) {
-        if (error.code === HTTP_RESPONSE.FORBIDDEN) pulseError(this.$i18n('wall.error-delete'))
+        if (error.code === HTTP_RESPONSE.FORBIDDEN) pulseError(this.$t('wall.error-delete'))
         else {
-          pulseError(this.$i18n('error_unexpected'))
+          pulseError(this.$t('error_unexpected'))
           console.error(error)
         }
       } finally {
@@ -182,7 +182,7 @@ export default {
       try {
         await addReaction(this.target, this.targetId, postId, key)
       } catch (error) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
         console.error(error)
       }
     },
@@ -190,7 +190,7 @@ export default {
       try {
         await removeReaction(this.target, this.targetId, postId, key)
       } catch (error) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
         console.error(error)
       }
     },

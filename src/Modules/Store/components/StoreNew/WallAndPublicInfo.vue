@@ -3,7 +3,7 @@
     <MarkdownInput
       ref="md-input"
       variant="outline-primary"
-      :placeholder="$i18n('wall.placeholder')"
+      :placeholder="$t('wall.placeholder')"
       :rows="2"
       :conceal-toolbar="true"
       :value="firstPost"
@@ -16,7 +16,7 @@
         type="button"
         @click="$emit('prev')"
       >
-        {{ $i18n('button.prev') }}
+        {{ $t('button.prev') }}
       </button>
       <button
         class="btn btn-primary ml-3 mt-3"
@@ -24,7 +24,7 @@
         :disabled="!publicInfoState"
         @click.prevent="redirect()"
       >
-        {{ $i18n('button.next') }}
+        {{ $t('button.next') }}
       </button>
     </div>
   </div>

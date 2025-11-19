@@ -11,7 +11,7 @@
       <br>
       <small class="separate">
         <span v-if="poll.region_id">
-          {{ $i18n('search.results.in') }}
+          {{ $t('search.results.in') }}
           <a :href="$url('polls', poll.region_id)">
             {{ poll.region_name }}
           </a>
@@ -44,11 +44,11 @@ export default {
       const relativeTime = this.$dateFormatter.relativeTime((start > now) ? start : end)
       let relation = ''
       if (start > now) {
-        relation = this.$i18n('search.results.time_relation.future')
+        relation = this.$t('search.results.time_relation.future')
       } else if (end < now) {
-        relation = this.$i18n('search.results.time_relation.past')
+        relation = this.$t('search.results.time_relation.past')
       } else {
-        relation = this.$i18n('search.results.time_relation.present_until')
+        relation = this.$t('search.results.time_relation.present_until')
       }
       return `${range} (${relation} ${relativeTime})`
     },
@@ -60,7 +60,7 @@ export default {
         return ''
       }
       const hasVotedCase = { null: 'not_eligible', false: 'can_vote', true: 'has_voted' }[this.poll.has_voted]
-      return this.$i18n('search.results.poll.' + hasVotedCase)
+      return this.$t('search.results.poll.' + hasVotedCase)
     },
   },
 }

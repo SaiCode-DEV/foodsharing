@@ -65,14 +65,14 @@ export default {
     timeTooltip (user) {
       const title = ['joinDate', 'lastPickup']
         .filter(key => user[key])
-        .map(key => this.$i18n(`store.${key}`, { date: this.$dateFormatter.dateBasic(user[key]) }))
+        .map(key => this.$t(`store.${key}`, { date: this.$dateFormatter.dateBasic(user[key]) }))
         .join('<br>')
       return { title, html: true, customClass: 'small', placement: 'bottom' }
     },
     formatDistance (distance) {
-      if (distance === -1) return this.$i18n('store.request.distance_short.unknown')
-      if (distance === 0) return this.$i18n('store.request.distance_short.close')
-      return this.$i18n('store.request.distance_short.normal', { distance })
+      if (distance === -1) return this.$t('store.request.distance_short.unknown')
+      if (distance === 0) return this.$t('store.request.distance_short.close')
+      return this.$t('store.request.distance_short.normal', { distance })
     },
     overflowMenuOptions (user) {
       return [

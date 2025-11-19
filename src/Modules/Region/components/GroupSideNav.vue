@@ -1,6 +1,6 @@
 <template>
   <container
-    :title="$i18n('globals.type.groups_menu')"
+    :title="$t('globals.type.groups_menu')"
     class="bg-white"
   >
     <NavGroupsLinkEntry

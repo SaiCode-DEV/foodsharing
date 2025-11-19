@@ -1,7 +1,7 @@
 <template>
   <div class="error-page">
     <div class="h1 header">
-      {{ codes[props.code] || $i18n('error.page.other') }}
+      {{ codes[props.code] || $t('error.page.other') }}
     </div>
     <svg
       id="svg404"
@@ -254,13 +254,13 @@
         variant="primary"
         size="lg"
         @click="goTo(urls.home())"
-        v-text="$i18n('error.page.back_home')"
+        v-text="$t('error.page.back_home')"
       />
       <b-button
         variant="primary"
         size="lg"
         @click="goTo(urls.contact())"
-        v-text="$i18n('navigation.support')"
+        v-text="$t('navigation.support')"
       />
     </div>
   </div>

@@ -4,7 +4,7 @@
       v-if="isEmpty && !isLoading"
       class="alert alert-warning"
     >
-      {{ $i18n('search.noresults') }}
+      {{ $t('search.noresults') }}
     </div>
 
     <div
@@ -13,7 +13,7 @@
       class="entry"
     >
       <h3 class="dropdown-header">
-        <i :class="`icon-subnav fas fa-${section.icon}`" /> {{ $i18n(`globals.type.${section.key}`) }}
+        <i :class="`icon-subnav fas fa-${section.icon}`" /> {{ $t(`globals.type.${section.key}`) }}
       </h3>
       <component
         :is="section.component"
@@ -27,7 +27,7 @@
         v-if="hasMaxSearchResultCount[section.key] && expanded[section.key]"
         class="alert alert-warning my-1"
       >
-        {{ $i18n('search.maxresults') }}
+        {{ $t('search.maxresults') }}
       </div>
       <div v-if="toggleButtonVisibility[section.key]">
         <button
@@ -37,7 +37,7 @@
           :class="{'list-group-item-secondary': !expanded[section.key]}"
           @click="toggleExpanded(section.key)"
           @keyup.enter="setFocusAfterButtonPress(section.key)"
-          v-text="$i18n(expanded[section.key] ? 'globals.show_less' : 'globals.show_more')"
+          v-text="$t(expanded[section.key] ? 'globals.show_less' : 'globals.show_more')"
         />
       </div>
     </div>

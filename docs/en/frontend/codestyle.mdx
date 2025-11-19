@@ -45,17 +45,13 @@ Try to keep and write, [**clean code**](https://gist.github.com/wojteklu/73c6914
 When importing other Vue components, always specify `.vue` extension. This adds support for opening Vue files in VS Code.
 
 * We try to avoid `/*.gif` as loading animation, use instead a generic `fas fa-spinner fa-spin` as alternative.
-* `$i18n`, `$dateFormatter` and `$url` are global functions which are defined in [`vue.js`](https://gitlab.com/foodsharing-dev/foodsharing/-/blob/master/client/src/vue.js)
+* `$dateFormatter` and `$url` are global functions which are defined in [`vue.js`](https://gitlab.com/foodsharing-dev/foodsharing/-/blob/master/client/src/vue.js)
 * Avoid long complex code, which could be archived by separating individual components and nest them in one partial.
 
 
 :::tip **Good**
 ```js
 import Avatar from '@/components/Avatar/Avatar.vue'
-
-console.log($i18n(...))
-// or
-console.log(this.$i18n(...))
 ```
 :::
 
@@ -63,8 +59,5 @@ console.log(this.$i18n(...))
 
  ```js
  import Avatar from '@/components/Avatar'
- import i18n from '@/helper/i18n.js'
-
- console.log(i18n(...))
  ```
 :::

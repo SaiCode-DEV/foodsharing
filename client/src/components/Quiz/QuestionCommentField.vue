@@ -6,7 +6,7 @@
       href="#comment-collapse"
       @click.prevent
     >
-      {{ $i18n('quiz.comment.toggle') }}
+      {{ $t('quiz.comment.toggle') }}
     </a>
     <b-collapse
       id="comment-collapse"
@@ -15,8 +15,8 @@
     >
       <b-form-textarea
         v-model="comment"
-        :label="$i18n('quiz.comment.label')"
-        :placeholder="$i18n('quiz.comment.placeholder')"
+        :label="$t('quiz.comment.label')"
+        :placeholder="$t('quiz.comment.placeholder')"
         rows="3"
       />
       <div class="send-button-wrapper">
@@ -25,7 +25,7 @@
           :disabled="!comment"
           @click="sendCommentHandler"
         >
-          {{ $i18n('quiz.comment.send') }}
+          {{ $t('quiz.comment.send') }}
         </b-button>
       </div>
     </b-collapse>
@@ -52,7 +52,7 @@ export default {
   methods: {
     async sendCommentHandler () {
       if (!await this.confirmationDialogue('quiz.confirmComment', {
-        okTitle: this.$i18n('yes'),
+        okTitle: this.$t('yes'),
         okVariant: undefined,
       })) return
       try {
@@ -60,9 +60,9 @@ export default {
         this.commentSectionVisible = false
         this.comment = ''
 
-        pulseInfo(this.$i18n('quiz.comment.sent'))
+        pulseInfo(this.$t('quiz.comment.sent'))
       } catch (error) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
     },
   },

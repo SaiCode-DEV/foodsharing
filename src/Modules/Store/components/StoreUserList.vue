@@ -7,7 +7,7 @@
     >
       <template #head-title>
         <span>
-          {{ isOwnUserId ? $i18n('store.ownStores') : $i18n('store.storeFrom', { name: user.name }) }}
+          {{ isOwnUserId ? $t('store.ownStores') : $t('store.storeFrom', { name: user.name }) }}
         </span>
       </template>
     </StoreListComponent>

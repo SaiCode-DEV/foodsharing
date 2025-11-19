@@ -26,7 +26,7 @@
           {{ currentOptions.okTitle }}
         </b-button>
         <div v-if="countdown > 0" class="confirm-countdown">
-          {{ $i18n('button.countdown_clickable', { countdown }) }}
+          {{ $t('button.countdown_clickable', { countdown }) }}
         </div>
       </div>
     </template>

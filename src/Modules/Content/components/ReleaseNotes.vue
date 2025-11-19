@@ -4,7 +4,7 @@
       <div class="d-flex justify-content-between align-items-center py-2">
         <h3>
           <i class="fas fa-fw fa-magic" />
-          {{ $i18n('menu.entry.release-notes') }}
+          {{ $t('menu.entry.release-notes') }}
         </h3>
         <b-button
           size="sm"
@@ -13,7 +13,7 @@
           :href="$url('changelog')"
         >
           <i class="fas fa-fw fa-file-alt" />
-          {{ $i18n('content.changelog') }}
+          {{ $t('content.changelog') }}
         </b-button>
       </div>
 

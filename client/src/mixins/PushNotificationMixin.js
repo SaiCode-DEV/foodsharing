@@ -40,13 +40,13 @@ export default {
       try {
         if (!this.usePushNotifications) {
           await subscribeForPushNotifications()
-          pulseSuccess(this.$i18n('settings.push.success'))
+          pulseSuccess(this.$t('settings.push.success'))
         } else {
           await unsubscribeFromPushNotifications()
-          pulseSuccess(this.$i18n('settings.push.disabled'))
+          pulseSuccess(this.$t('settings.push.disabled'))
         }
       } catch (error) {
-        pulseError(this.$i18n('error_ajax'))
+        pulseError(this.$t('error_ajax'))
         throw error
       } finally {
         await this.updateNotificationStatus()

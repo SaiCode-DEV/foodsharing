@@ -9,38 +9,38 @@
         <div class="card-header">
           <div class="mb-2">
             <store-status-icon :cooperation-status="store.cooperationStatus" />
-            <span>{{ $i18n('storestatus.' + store.cooperationStatus) }}</span><span v-if="cooperationStartDate">
+            <span>{{ $t('storestatus.' + store.cooperationStatus) }}</span><span v-if="cooperationStartDate">
               ({{ cooperationStartDate }})
             </span>
           </div>
 
           <div v-if="userAndStoreHaveLocation">
-            {{ $i18n('storeview.team_info_distance') }}
+            {{ $t('storeview.team_info_distance') }}
             <strong :class="distanceClass">{{ distanceDisplay }}</strong>
           </div>
           <div>
-            {{ $i18n('terminology.region') }}:
+            {{ $t('terminology.region') }}:
             <a :href="$url('publicRegion', store.regionId)" target="_blank">
               <strong>
                 {{ store.regionName }}
               </strong>
             </a>
           </div>
-          <div>{{ $i18n('storeview.team_info_active') }} <strong>{{ store.teamMemberCount }}</strong></div>
-          <div>{{ $i18n('storeview.team_info_jumper') }} <strong>{{ store.standbyCount }}</strong></div>
+          <div>{{ $t('storeview.team_info_active') }} <strong>{{ store.teamMemberCount }}</strong></div>
+          <div>{{ $t('storeview.team_info_jumper') }} <strong>{{ store.standbyCount }}</strong></div>
 
           <div class="mt-2">
             <span v-if="store.pickupCount > 0">
-              <strong>{{ store.pickupCount }}</strong> {{ $i18n('storeview.pickupCount') }}
+              <strong>{{ store.pickupCount }}</strong> {{ $t('storeview.pickupCount') }}
             </span>
             <br>
             <span v-if="store.pickupWeightInKg > 0">
-              <strong>{{ store.pickupWeightInKg }}</strong> {{ $i18n('storeview.pickupWeight') }}
+              <strong>{{ store.pickupWeightInKg }}</strong> {{ $t('storeview.pickupWeight') }}
             </span>
           </div>
 
           <div v-if="pickupTimeExplanation" class="mt-2">
-            {{ $i18n('storeview.public_time', { freq: pickupTimeExplanation }) }}
+            {{ $t('storeview.public_time', { freq: pickupTimeExplanation }) }}
           </div>
         </div>
         <div class="card-footer text-muted" />
@@ -50,10 +50,10 @@
         <div class="card-header">
           <div class="d-flex align-items-center justify-content-between">
             <h5 class="card-title mb-0">
-              {{ $i18n('storeview.managers') }}
+              {{ $t('storeview.managers') }}
             </h5>
             <b-button
-              v-b-tooltip="$i18n('store.chat.managers')"
+              v-b-tooltip="$t('store.chat.managers')"
               variant="primary"
               size="sm"
               class="ml-1"
@@ -79,7 +79,7 @@
       <div v-if="store.publicInformation" class="card mt-3">
         <div class="card-header">
           <h5 class="card-title">
-            {{ $i18n('storeview.info') }}
+            {{ $t('storeview.info') }}
           </h5>
         </div>
         <div class="card-body">
@@ -88,18 +88,18 @@
       </div>
 
       <b-alert show variant="info">
-        {{ $i18n(`storeedit.fetch.teamStatus${store.teamSearchStatus}`) }}
+        {{ $t(`storeedit.fetch.teamStatus${store.teamSearchStatus}`) }}
       </b-alert>
 
       <div class="store-alerts">
         <div v-for="alert in filteredStoreAlerts" :key="alert.id">
           <b-alert show variant="danger">
             <i :class="alert.icon" />
-            {{ $i18n(alert.textKey, alert.textParams || {}) }}<br>
+            {{ $t(alert.textKey, alert.textParams || {}) }}<br>
             <a
               v-if="alert.linkUrl"
               :href="alert.linkUrl"
-              v-text="$i18n(alert.linkTextKey)"
+              v-text="$t(alert.linkTextKey)"
             />
           </b-alert>
         </div>
@@ -111,20 +111,20 @@
           class="more-alerts-link"
           @click.prevent="alertsExpanded = !alertsExpanded"
         >
-          <span v-if="!alertsExpanded && hiddenAlertsCount === 1">{{ $i18n('store.request.alerts.one_more') }}</span>
-          <span v-else-if="!alertsExpanded && hiddenAlertsCount > 1">{{ $i18n('store.request.alerts.many_more', {count: hiddenAlertsCount}) }}</span>
-          <span v-else-if="hiddenAlertsCount === 1">{{ $i18n('store.request.alerts.one_less') }}</span>
-          <span v-else>{{ $i18n('store.request.alerts.many_less', {count: hiddenAlertsCount}) }}</span>
+          <span v-if="!alertsExpanded && hiddenAlertsCount === 1">{{ $t('store.request.alerts.one_more') }}</span>
+          <span v-else-if="!alertsExpanded && hiddenAlertsCount > 1">{{ $t('store.request.alerts.many_more', {count: hiddenAlertsCount}) }}</span>
+          <span v-else-if="hiddenAlertsCount === 1">{{ $t('store.request.alerts.one_less') }}</span>
+          <span v-else>{{ $t('store.request.alerts.many_less', {count: hiddenAlertsCount}) }}</span>
         </a>
       </div>
 
       <b-alert :show="store.isHygieneRequired && !isMissingHygieneCertificate" variant="success">
         <i class="fas fa-hands-wash mr-2" />
-        {{ $i18n('store.request.hygieneRequired') }}
+        {{ $t('store.request.hygieneRequired') }}
       </b-alert>
       <b-alert :show="store.isInvited" variant="success">
         <i class="fas fa-user-check mr-2" />
-        {{ $i18n('store.invitation.invited_info') }}
+        {{ $t('store.invitation.invited_info') }}
       </b-alert>
     </div>
 
@@ -139,41 +139,41 @@
         :visible="isMessageInputVisible"
         class="w-100"
       >
-        <b-form-group :label="$i18n('store.request.application-message')">
+        <b-form-group :label="$t('store.request.application-message')">
           <b-form-textarea
             v-model="applicationMessage"
-            :placeholder="$i18n('store.request.application-placeholder')"
+            :placeholder="$t('store.request.application-placeholder')"
             :state="!store.requireApplyText || applicationMessage.length >= minApplicationMessageLength"
           />
           <b-form-invalid-feedback v-if="store.requireApplyText && applicationMessage.length < minApplicationMessageLength">
-            {{ $i18n('store.request.applicationMessageTooShort') }}
+            {{ $t('store.request.applicationMessageTooShort') }}
           </b-form-invalid-feedback>
         </b-form-group>
         <div class="card mt-3">
           <div>
-            {{ $i18n('store.request.applicationSummary.intro') }}
+            {{ $t('store.request.applicationSummary.intro') }}
             <ul>
               <li>
-                {{ $i18n('store.request.applicationSummary.time') }}
+                {{ $t('store.request.applicationSummary.time') }}
               </li>
               <li>
-                {{ $i18n('store.request.applicationSummary.fullName', { first_name: userStore.getUserFirstName, last_name: userStore.getUserLastName }) }}
+                {{ $t('store.request.applicationSummary.fullName', { first_name: userStore.getUserFirstName, last_name: userStore.getUserLastName }) }}
               </li>
               <li>
-                {{ $i18n('store.request.applicationSummary.verified', { status: userStore.isVerified ? $i18n('group.member_list.is_verified') : $i18n('group.member_list.not_verified') }) }}
+                {{ $t('store.request.applicationSummary.verified', { status: userStore.isVerified ? $t('group.member_list.is_verified') : $t('group.member_list.not_verified') }) }}
               </li>
               <li>
-                {{ $i18n('store.request.applicationSummary.distance', { distance: distanceDisplay }) }}
+                {{ $t('store.request.applicationSummary.distance', { distance: distanceDisplay }) }}
               </li>
               <li>
                 <a
                   :href="$url('storeUserList', userStore.getUserId)"
                   target="_blank"
-                  v-text="$i18n('store.request.applicationSummary.storeList')"
+                  v-text="$t('store.request.applicationSummary.storeList')"
                 />
               </li>
               <li>
-                {{ $i18n('store.request.applicationSummary.text') }}
+                {{ $t('store.request.applicationSummary.text') }}
               </li>
             </ul>
           </div>
@@ -185,32 +185,32 @@
           :href="$url('store', store.id)"
           variant="success"
         >
-          {{ $i18n('store.go') }}
+          {{ $t('store.go') }}
         </b-button>
         <b-button
           v-if="store.mayWithdrawRequest"
           variant="success"
           @click="withdrawRequest"
-          v-text="$i18n('store.request.withdraw')"
+          v-text="$t('store.request.withdraw')"
         />
         <b-button
           v-if="store.maySendRequest"
           :variant="isMessageInputVisible ? 'success' : 'outline-secondary'"
           :disabled="isMessageInputVisible && !canSubmit"
           @click="applyToStore"
-          v-text="$i18n('store.request.request')"
+          v-text="$t('store.request.request')"
         />
         <b-button
           v-if="store.isInvited"
           variant="danger"
           @click="declineInvitation"
-          v-text="$i18n('store.invitation.decline')"
+          v-text="$t('store.invitation.decline')"
         />
         <b-button
           v-if="store.isInvited"
           variant="success"
           @click="acceptInvitation"
-          v-text="$i18n('store.invitation.accept')"
+          v-text="$t('store.invitation.accept')"
         />
       </div>
     </template>
@@ -352,7 +352,7 @@ export default {
       }
 
       return this.store.publicPickupTime !== null && this.store.publicPickupTime in translations
-        ? this.$i18n(translations[this.store.publicPickupTime])
+        ? this.$t(translations[this.store.publicPickupTime])
         : null
     },
     userId () {
@@ -412,8 +412,8 @@ export default {
     async sendRequest () {
       try {
         let dialogueOptions = {
-          title: this.$i18n('error.missing_geolocation.title'),
-          okTitle: this.$i18n('store.request.confirm-no-location-ok'),
+          title: this.$t('error.missing_geolocation.title'),
+          okTitle: this.$t('store.request.confirm-no-location-ok'),
           okVariant: 'outline-danger',
         }
         if (!userStore.hasLocations) {
@@ -421,16 +421,16 @@ export default {
         }
         dialogueOptions = {
           params: { distance: this.distanceDisplay },
-          okTitle: this.$i18n('store.request.request'),
+          okTitle: this.$t('store.request.request'),
           okVariant: 'outline-danger',
         }
         if (this.distanceInKm > minBadDistanceInKm && !await this.confirmationDialogue('store.request.confirm-far', dialogueOptions)) return
         await requestStoreTeamMembership(this.store.id, this.applicationMessage || null)
         this.store.maySendRequest = false
         this.store.mayWithdrawRequest = true
-        pulseSuccess(this.$i18n('store.request.got-it'))
+        pulseSuccess(this.$t('store.request.got-it'))
       } catch (e) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
     },
     async withdrawRequest () {
@@ -438,9 +438,9 @@ export default {
         await declineStoreRequest(this.store.id, this.userId)
         this.store.maySendRequest = true
         this.store.mayWithdrawRequest = false
-        pulseSuccess(this.$i18n('store.request.withdrawn'))
+        pulseSuccess(this.$t('store.request.withdrawn'))
       } catch (e) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
     },
     async applyToStore () {

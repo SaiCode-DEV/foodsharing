@@ -2,9 +2,9 @@
   <div>
     <div class="card mb-3 rounded">
       <div class="card-header text-white bg-primary">
-        {{ $i18n('chain.listheader') }}
+        {{ $t('chain.listheader') }}
         <span v-if="chains !== null && chains.length !== chainsFiltered.length">
-          {{ $i18n('filterlist.some_in_all', { some: chainsFiltered.length, all: chains.length }) }}
+          {{ $t('filterlist.some_in_all', { some: chainsFiltered.length, all: chains.length }) }}
         </span>
       </div>
       <div v-if="chains !== null" class="card-body p-0">
@@ -18,7 +18,7 @@
             <div class="form-row p-1 ">
               <div class="col-2 text-center">
                 <label class=" col-form-label col-form-label-sm">
-                  {{ $i18n('store.filter') }}
+                  {{ $t('store.filter') }}
                 </label>
               </div>
               <div class="col-4">
@@ -27,7 +27,7 @@
                     v-model.trim="state.filterText"
                     type="text"
                     class="form-control form-control-sm"
-                    :placeholder="$i18n('chain.filterplaceholder')"
+                    :placeholder="$t('chain.filterplaceholder')"
                   >
                 </label>
               </div>
@@ -42,7 +42,7 @@
                   v-b-tooltip.hover
                   type="button"
                   class="btn"
-                  :title="$i18n('storelist.emptyfilters')"
+                  :title="$t('storelist.emptyfilters')"
                   @click="clearFilter"
                 >
                   <i class="fas fa-times" />
@@ -54,7 +54,7 @@
                   variant="primary"
                   @click="createChainModal"
                 >
-                  {{ $i18n('chain.new') }}
+                  {{ $t('chain.new') }}
                 </b-button>
               </div>
               <button
@@ -114,11 +114,11 @@
             <template #cell(notes)="row">
               <span class="clamped-3">
                 <span v-if="row.item.allowPress">
-                  {{ $i18n('chain.allowpress') }}
+                  {{ $t('chain.allowpress') }}
                 </span>
                 {{ row.value }}
                 <small
-                  v-b-tooltip.hover.window="$i18n('chain.tooltips.modificationDate')"
+                  v-b-tooltip.hover.window="$t('chain.tooltips.modificationDate')"
                   class="text-muted change-date"
                 >
                   {{ $dateFormatter.date(new Date(row.item.chain.modificationDate), { short: true }) }}
@@ -129,7 +129,7 @@
             <template #cell(actions)="row">
               <b-dropdown
                 v-if="adminPermissions || row.item.chain.kams.some(kam => kam.id === ownId)"
-                v-b-tooltip.hover.noninteractive.window="$i18n('chain.tooltips.options')"
+                v-b-tooltip.hover.noninteractive.window="$t('chain.tooltips.options')"
                 size="sm"
                 no-caret
                 variant="primary"
@@ -141,13 +141,13 @@
                   href="#"
                   @click="detailsChainModal(row)"
                 >
-                  {{ $i18n('chain.options.showstores') }}
+                  {{ $t('chain.options.showstores') }}
                 </b-dropdown-item>
                 <b-dropdown-item
                   href="#"
                   @click="editChainModal(row)"
                 >
-                  {{ $i18n('chain.options.edit') }}
+                  {{ $t('chain.options.edit') }}
                 </b-dropdown-item>
               </b-dropdown>
             </template>
@@ -214,7 +214,7 @@ export default {
       fieldsDefinition: [
         {
           key: 'status',
-          label: this.$i18n('chain.columns.status'),
+          label: this.$t('chain.columns.status'),
           tdClass: 'status',
           sortable: true,
           sortByFormatted: true,
@@ -222,14 +222,14 @@ export default {
         },
         {
           key: 'name',
-          label: this.$i18n('chain.columns.name'),
+          label: this.$t('chain.columns.name'),
           sortable: true,
           sortByFormatted: (value, key, item) => item.chain.name,
           formatter: (value, key, item) => item,
         },
         {
           key: 'estimatedStoreCount',
-          label: this.$i18n('chain.columns.estimatedStoreCount'),
+          label: this.$t('chain.columns.estimatedStoreCount'),
           sortable: true,
           tdClass: 'text-center',
           sortByFormatted: true,
@@ -237,44 +237,44 @@ export default {
         },
         {
           key: 'storeCount',
-          label: this.$i18n('chain.columns.stores'),
+          label: this.$t('chain.columns.stores'),
           sortable: true,
           sortByFormatted: true,
           tdClass: 'text-center',
         },
         {
           key: 'headquartersCity',
-          label: this.$i18n('chain.columns.headquarters'),
+          label: this.$t('chain.columns.headquarters'),
           sortable: true,
           sortByFormatted: true,
           formatter: (value, key, item) => item.chain.headquartersCountry + ', ' + item.chain.headquartersZip + ' ' + item.chain.headquartersCity,
         },
         {
           key: 'kams',
-          label: this.$i18n('chain.columns.kams'),
+          label: this.$t('chain.columns.kams'),
           formatter: (value, key, item) => item.chain.kams,
         },
         {
           key: 'notes',
-          label: this.$i18n('chain.columns.notes'),
+          label: this.$t('chain.columns.notes'),
           formatter: (value, key, item) => item.chain.notes,
         },
         {
           key: 'actions',
-          label: this.$i18n('chain.columns.actions'),
+          label: this.$t('chain.columns.actions'),
         },
       ],
       statusOptions: [
         {
-          description: this.$i18n('chain.status.cooperating'),
+          description: this.$t('chain.status.cooperating'),
           color: 'var(--fs-color-chain-cooperating)',
         },
         {
-          description: this.$i18n('chain.status.negotiating'),
+          description: this.$t('chain.status.negotiating'),
           color: 'var(--fs-color-chain-negotiating)',
         },
         {
-          description: this.$i18n('chain.status.notcooperating'),
+          description: this.$t('chain.status.notcooperating'),
           color: 'var(--fs-color-chain-not-cooperating)',
         },
       ],
@@ -324,7 +324,7 @@ export default {
       return chains.map(chainWithStoreCount => ({ ...chainWithStoreCount, id: chainWithStoreCount.chain.id }))
     },
     statusFilterOptions: function () {
-      return [{ value: null, text: this.$i18n('chain.status.filterplaceholder') }].concat(
+      return [{ value: null, text: this.$t('chain.status.filterplaceholder') }].concat(
         this.statusOptions.map((status, index) => ({
           value: index,
           text: status.description,
@@ -386,7 +386,7 @@ export default {
         } catch (err) {
           const errorDescription = err.jsonContent ?? { message: '' }
           const errorMessagePattern = `chain.errorCodes.${errorDescription.message ?? 'UNKNOWN'}`
-          pulseError(this.$i18n('chain.error.create', { error: this.$i18n(errorMessagePattern) }))
+          pulseError(this.$t('chain.error.create', { error: this.$t(errorMessagePattern) }))
           return false
         }
       } else {
@@ -395,7 +395,7 @@ export default {
         } catch (err) {
           const errorDescription = err.jsonContent ?? { message: '' }
           const errorMessagePattern = `chain.errorCodes.${errorDescription.message ?? 'UNKNOWN'}`
-          pulseError(this.$i18n('chain.error.edit', { error: this.$i18n(errorMessagePattern) }))
+          pulseError(this.$t('chain.error.edit', { error: this.$t(errorMessagePattern) }))
           return false
         }
       }

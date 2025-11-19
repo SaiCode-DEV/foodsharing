@@ -1,7 +1,7 @@
 <template>
   <div>
     <address-search-field
-      :placeholder="$i18n('basket.mapsearch')"
+      :placeholder="$t('basket.mapsearch')"
       @change="updateMapCenter"
     />
     <leaflet-map

@@ -1,6 +1,6 @@
 <template>
   <Dropdown
-    :title="$i18n('login.topbar')"
+    :title="$t('login.topbar')"
     direction="right"
     is-fixed-size
     class="testing-login-dropdown is-open-on-mobile"
@@ -13,13 +13,13 @@
         :href="$url('passwordReset')"
         role="menuitem"
         class="testing-login-click-password-reset dropdown-item dropdown-action"
-        v-text="$i18n('login.forgotten_password_label')"
+        v-text="$t('login.forgotten_password_label')"
       />
       <a
         :href="$url('joininfo')"
         role="menuitem"
         class="dropdown-item dropdown-action"
-        v-text="$i18n('register.topbar')"
+        v-text="$t('register.topbar')"
       />
     </template>
   </Dropdown>

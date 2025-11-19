@@ -1,7 +1,7 @@
 <template>
   <b-form-group
-    :description="$i18n('storeview.visible_for_public')"
-    :label="$i18n('storeview.public_info.label')"
+    :description="$t('storeview.visible_for_public')"
+    :label="$t('storeview.public_info.label')"
     label-for="publicInfo"
     class="my-3"
   >
@@ -15,8 +15,8 @@
       :disabled="disabled"
       @update:value="newValue => updatePublicInfo(newValue)"
     />
-    <span>{{ $i18n('storeview.public_info.available_count') }}: {{ MAX_LEN_FOR_PUBLIC_INFO() - publicInfoData.length }}</span>
-    <span v-if="!publicInfoState" class="text-danger float-right">{{ $i18n('storeview.public_info.error_message', {count: MAX_LEN_FOR_PUBLIC_INFO()}) }}</span>
+    <span>{{ $t('storeview.public_info.available_count') }}: {{ MAX_LEN_FOR_PUBLIC_INFO() - publicInfoData.length }}</span>
+    <span v-if="!publicInfoState" class="text-danger float-right">{{ $t('storeview.public_info.error_message', {count: MAX_LEN_FOR_PUBLIC_INFO()}) }}</span>
   </b-form-group>
 </template>
 

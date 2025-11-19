@@ -1,7 +1,8 @@
-import { mount } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
 import NavNotificationsEntry from './NavNotificationsEntry.vue'
 import Avatar from '@/components/Avatar/Avatar.vue'
 import Time from '@/components/Time.vue'
+import i18n from '@/helper/i18n'
 import { BButton } from 'bootstrap-vue'
 import assert from 'assert'
 import sinon from 'sinon'
@@ -11,6 +12,12 @@ const createContainer = (tag = 'div') => {
   document.body.appendChild(container)
 
   return container
+}
+
+const localVue = createLocalVue()
+
+localVue.prototype.$t = (key, variables = {}) => {
+  return i18n(key, variables)
 }
 
 const bell = {
@@ -40,6 +47,7 @@ Object.defineProperty(window, 'innerWidth', {
 describe('NavNotificationsEntry', () => {
   it('should render', () => {
     const wrapper = mount(NavNotificationsEntry, {
+      localVue,
       attachTo: createContainer(),
       propsData: {
         bell,
@@ -50,6 +58,7 @@ describe('NavNotificationsEntry', () => {
 
   it('should render Avatar', () => {
     const wrapper = mount(NavNotificationsEntry, {
+      localVue,
       attachTo: createContainer(),
       propsData: {
         bell,
@@ -61,6 +70,7 @@ describe('NavNotificationsEntry', () => {
 
   it('should trigger remove event on Avatar click', async () => {
     const wrapper = mount(NavNotificationsEntry, {
+      localVue,
       attachTo: createContainer(),
       propsData: {
         bell,
@@ -77,6 +87,7 @@ describe('NavNotificationsEntry', () => {
 
   it('should render Time', () => {
     const wrapper = mount(NavNotificationsEntry, {
+      localVue,
       attachTo: createContainer(),
       propsData: {
         bell,
@@ -88,6 +99,7 @@ describe('NavNotificationsEntry', () => {
 
   it('should render Button', () => {
     const wrapper = mount(NavNotificationsEntry, {
+      localVue,
       attachTo: createContainer(),
       propsData: {
         bell,
@@ -99,6 +111,7 @@ describe('NavNotificationsEntry', () => {
 
   it('should trigger read event <a> click', async () => {
     const wrapper = mount(NavNotificationsEntry, {
+      localVue,
       attachTo: createContainer(),
       propsData: {
         bell,

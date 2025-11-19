@@ -24,7 +24,7 @@
       <i
         v-if="collapsible"
         :id="`expand-${title}`"
-        :alt="isExpanded ? $i18n('globals.show_more') : $i18n('globals.show_less')"
+        :alt="isExpanded ? $t('globals.show_more') : $t('globals.show_less')"
         class="fas fa-angle-down ml-2"
         :class="{ 'fa-rotate-180': isExpanded }"
       />
@@ -43,13 +43,13 @@
         v-if="!isToggled"
         class="list-group-item small list-group-item-secondary list-group-item-action list-group-item-action-toggle font-weight-bold text-center"
         @click="showFullList"
-        v-text="$i18n('globals.show_more')"
+        v-text="$t('globals.show_more')"
       />
       <button
         v-else
         class="list-group-item small list-group-item-action list-group-item-action-toggle font-weight-bold text-center"
         @click="reduceList"
-        v-text="$i18n('globals.show_less')"
+        v-text="$t('globals.show_less')"
       />
     </template>
     <slot v-if="isExpanded" name="buttons" />

@@ -1,7 +1,7 @@
 <template>
   <b-modal
     id="BuddiesModal"
-    :title="$i18n('buddy.my') + ' (' + numbuddies + ')'"
+    :title="$t('buddy.my') + ' (' + numbuddies + ')'"
     hide-footer
     @show="fetchBuddies"
   >
@@ -38,7 +38,7 @@
       v-if="!loading && numbuddies === 0"
       class="text-center my-5"
     >
-      <p>{{ $i18n('buddy.none') }}</p>
+      <p>{{ $t('buddy.none') }}</p>
     </div>
   </b-modal>
 </template>
@@ -61,19 +61,19 @@ export default {
       if (!this.buddies) return []
       return [
         {
-          title: this.$i18n('buddy.confirmed'),
+          title: this.$t('buddy.confirmed'),
           list: this.buddies.buddies || [],
           iconClass: 'fas fa-check-circle buddy-status-icon buddy-status-check',
           profileId: buddy => buddy.buddyId,
         },
         {
-          title: this.$i18n('buddy.requests.mine'),
+          title: this.$t('buddy.requests.mine'),
           list: this.buddies.requests?.mine || [],
           iconClass: 'fas fa-clock buddy-status-icon buddy-status-warn',
           profileId: buddy => buddy.buddyId,
         },
         {
-          title: this.$i18n('buddy.requests.other'),
+          title: this.$t('buddy.requests.other'),
           list: this.buddies.requests?.other || [],
           iconClass: 'fas fa-question-circle buddy-status-icon buddy-status-warn',
           profileId: buddy => buddy.fsId,

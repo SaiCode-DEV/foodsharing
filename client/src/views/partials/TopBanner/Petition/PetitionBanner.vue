@@ -23,8 +23,8 @@
     </b-progress>
 
     <p class="text-center mt-2">
-      <b v-text="$i18n(`petition.progressText.${currentProgressStep}`)" />
-      (<span v-text="$i18n('petition.daysLeft', { daysLeft })" />)
+      <b v-text="$t(`petition.progressText.${currentProgressStep}`)" />
+      (<span v-text="$t('petition.daysLeft', { daysLeft })" />)
     </p>
 
     <div>
@@ -35,7 +35,7 @@
         variant="success"
         class="float-right"
       >
-        {{ $i18n('petition.link') }}
+        {{ $t('petition.link') }}
       </b-button>
     </div>
   </TopBanner>

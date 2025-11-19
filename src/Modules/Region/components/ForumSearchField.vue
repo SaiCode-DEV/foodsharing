@@ -7,7 +7,7 @@
       <span class="input-group-prepend">
         <label
           id="forum-searchfield-label"
-          :aria-label="$i18n('search.title')"
+          :aria-label="$t('search.title')"
           class="input-group-text text-primary"
           for="forum-searchfield"
         >
@@ -22,7 +22,7 @@
       <input
         id="forum-searchfield"
         v-model="query"
-        :placeholder="$i18n('search.forum')"
+        :placeholder="$t('search.forum')"
         type="text"
         class="form-control text-primary"
         aria-labelledby="forum-searchfield-label"

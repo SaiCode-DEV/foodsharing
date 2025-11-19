@@ -38,7 +38,7 @@
               class="pb-4"
             >
               <b-tab
-                :title="$i18n('profile.tab_navigation.profile')"
+                :title="$t('profile.tab_navigation.profile')"
                 active
               >
                 <ProfileRegionAndGroupInfos
@@ -62,19 +62,19 @@
               </b-tab>
               <b-tab
                 v-if="showPickupsTab"
-                :title="$i18n('profile.tab_navigation.pickups')"
+                :title="$t('profile.tab_navigation.pickups')"
               >
                 <PickupsSection :pickups-section="pickupsSection" />
               </b-tab>
               <b-tab
                 v-if="showProfileCommitmentsStat"
-                :title="$i18n('profile.tab_navigation.commitment_statistics')"
+                :title="$t('profile.tab_navigation.commitment_statistics')"
               >
                 <ProfileCommitmentsStat :commitments-stats="profileCommitmentsStat.data" />
               </b-tab>
               <b-tab
                 v-if="menu.maySeeStores"
-                :title="$i18n('profile.tab_navigation.stores', { count: stores.length })"
+                :title="$t('profile.tab_navigation.stores', { count: stores.length })"
               >
                 <ProfileStoreList
                   :user-id="menu.fsId"
@@ -83,20 +83,20 @@
               </b-tab>
               <b-tab
                 v-if="maySeeUserNotes"
-                :title="$i18n('profile.tab_navigation.notes', { count: noteCount })"
+                :title="$t('profile.tab_navigation.notes', { count: noteCount })"
               >
                 <b-alert
                   show
                   class="mt-2"
                 >
-                  {{ $i18n('profile.notes.info') }}
+                  {{ $t('profile.notes.info') }}
                 </b-alert>
                 <Wall
                   target="usernotes"
                   :target-id="profileInfos.fsId"
                 />
               </b-tab>
-              <b-tab v-if="awardedAchievements?.length" :title="$i18n('terminology.achievements') + ` (${awardedAchievements.length})`">
+              <b-tab v-if="awardedAchievements?.length" :title="$t('terminology.achievements') + ` (${awardedAchievements.length})`">
                 <Achievements :achievements="awardedAchievements" />
               </b-tab>
             </b-tabs>

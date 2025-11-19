@@ -2,14 +2,14 @@
   <div class="bootstrap">
     <div class="card rounded">
       <div class="card-header text-white bg-primary">
-        {{ $i18n('poll.new_poll.title') }}
+        {{ $t('poll.new_poll.title') }}
       </div>
       <b-form
         :class="{disabledLoading: isLoading, 'card-body': true}"
         @submit="showConfirmDialog"
       >
         <b-form-group
-          :label="$i18n('poll.new_poll.name')"
+          :label="$t('poll.new_poll.name')"
           label-for="input-name"
           class="mb-4"
         >
@@ -20,31 +20,31 @@
             :state="v$.name.$error ? false : null"
           />
           <div v-if="v$.name.$error" class="invalid-feedback">
-            {{ $i18n('poll.new_poll.name_required') }}
+            {{ $t('poll.new_poll.name_required') }}
           </div>
         </b-form-group>
 
         <b-form-group
-          :label="$i18n('poll.new_poll.description')"
+          :label="$t('poll.new_poll.description')"
           class="mb-4"
         >
           <MarkdownInput
             :rows="5"
             :value="v$.description.$model"
             :state="v$.description.$error ? false : null"
-            :placeholder="$i18n('poll.new_poll.description_placeholder')"
+            :placeholder="$t('poll.new_poll.description_placeholder')"
             @update:value="newValue => v$.description.$model = newValue"
           />
           <div
             v-if="v$.description.$error"
             class="invalid-feedback"
           >
-            {{ $i18n('poll.new_poll.description_required') }}
+            {{ $t('poll.new_poll.description_required') }}
           </div>
         </b-form-group>
 
         <b-form-group
-          :label="$i18n('poll.new_poll.options')"
+          :label="$t('poll.new_poll.options')"
           label-for="input-name"
           class="mb-4"
         >
@@ -67,7 +67,7 @@
               cols="3"
               align-v="stretch"
             >
-              {{ $i18n('poll.new_poll.option') }} {{ index }}:
+              {{ $t('poll.new_poll.option') }} {{ index }}:
             </b-col>
             <b-col>
               <b-form-input
@@ -81,7 +81,7 @@
             </b-col>
           </b-form-row>
           <div v-if="v$.options.$error" class="invalid-feedback">
-            {{ $i18n('poll.new_poll.option_texts_required') }}
+            {{ $t('poll.new_poll.option_texts_required') }}
           </div>
         </b-form-group>
 
@@ -90,10 +90,10 @@
           variant="primary"
           :disabled="v$.$invalid"
         >
-          {{ $i18n('poll.new_poll.submit') }}
+          {{ $t('poll.new_poll.submit') }}
         </b-button>
         <div v-if="v$.$invalid" class="invalid-feedback">
-          {{ $i18n('poll.new_poll.missing_fields') }}
+          {{ $t('poll.new_poll.missing_fields') }}
         </div>
       </b-form>
     </div>
@@ -101,15 +101,15 @@
     <b-modal
       v-if="!isLoading"
       ref="editPollConfirmModal"
-      :title="$i18n('poll.new_poll.submit')"
-      :cancel-title="$i18n('button.cancel')"
-      :ok-title="$i18n('button.send')"
+      :title="$t('poll.new_poll.submit')"
+      :cancel-title="$t('button.cancel')"
+      :ok-title="$t('button.send')"
       modal-class="bootstrap"
       header-class="d-flex"
       content-class="pr-3 pt-3"
       @ok="submitPoll"
     >
-      {{ $i18n('poll.edit.submit_question') }}
+      {{ $t('poll.edit.submit_question') }}
     </b-modal>
   </div>
 </template>

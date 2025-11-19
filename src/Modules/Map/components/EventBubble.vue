@@ -6,7 +6,7 @@
 
     <div class="d-flex time-container mb-3">
       <CalendarDate v-if="!hasMultipleDays" :date-object="new Date(startDate)" />
-      <b v-text="$i18n('events.span', { from: displayDate(startDate), until: displayDate(endDate) })" />
+      <b v-text="$t('events.span', { from: displayDate(startDate), until: displayDate(endDate) })" />
     </div>
 
     <Markdown :source="description" />
@@ -17,7 +17,7 @@
         class="btn btn-primary"
         type="button"
         :href="$url('event', id)"
-        v-text="$i18n('map.events.go')"
+        v-text="$t('map.events.go')"
       />
     </template>
   </map-popup>
@@ -59,7 +59,7 @@ export default {
         Object.assign(params, { day: 'numeric', month: 'short' })
       }
       const time = this.$dateFormatter.format(date, params)
-      return this.$i18n('date.time', { time })
+      return this.$t('date.time', { time })
     },
   },
 }

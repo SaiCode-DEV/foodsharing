@@ -1,8 +1,8 @@
 <template>
   <div v-if="email">
     <Container
-      :tag="$i18n('mailbox.mail')"
-      :title="$i18n('mailbox.mail')"
+      :tag="$t('mailbox.mail')"
+      :title="$t('mailbox.mail')"
     >
       <div class="card bg-white">
         <MailboxMainNav
@@ -19,11 +19,11 @@
             class="text-right"
             switch
           >
-            {{ $i18n('mailbox.show_html_body') }}
+            {{ $t('mailbox.show_html_body') }}
           </b-form-checkbox>
           <div class="row">
             <div class="col col-auto">
-              {{ $i18n('mailbox.from') }}:
+              {{ $t('mailbox.from') }}:
             </div>
             <div class="col col-7 pl-0">
               <span>{{ fromHeaderName }}{{ fromHeaderAddress }}</span>
@@ -32,12 +32,12 @@
               v-if="!viewIsMobile"
               class="col col-4 text-right"
             >
-              {{ $i18n('mailbox.date') }}: {{ displayedMailDate }} Uhr
+              {{ $t('mailbox.date') }}: {{ displayedMailDate }} Uhr
             </div>
           </div>
           <div class="row mt-1">
             <div class="col col-auto">
-              {{ $i18n('mailbox.to') }}:
+              {{ $t('mailbox.to') }}:
             </div>
             <div class="col col-8 col-md-10 pl-0">
               <span
@@ -61,7 +61,7 @@
           </div>
           <div v-if="viewIsMobile" class="row mt-1">
             <div class="col col-auto">
-              {{ $i18n('mailbox.date') }}: {{ displayedMailDate }} Uhr
+              {{ $t('mailbox.date') }}: {{ displayedMailDate }} Uhr
             </div>
           </div>
           <div class="row mt-1">
@@ -89,9 +89,9 @@
                   </b-link>
                   <div
                     v-else
-                    v-b-tooltip.hover="$i18n('mailbox.attachment.not_found_explanation')"
+                    v-b-tooltip.hover="$t('mailbox.attachment.not_found_explanation')"
                   >
-                    {{ attachment.fileName }} ({{ $i18n('mailbox.attachment.not_found') }})
+                    {{ attachment.fileName }} ({{ $t('mailbox.attachment.not_found') }})
                   </div>
                 </b-list-group-item>
               </b-list-group>
@@ -161,7 +161,7 @@ export default {
       const name = this.email.from.name ? this.email.from.name : ''
       const address = this.email.from.address
       const result = name ? ` <${address}>` : address
-      return result || `(${this.$i18n('mailbox.unknown_sender')})`
+      return result || `(${this.$t('mailbox.unknown_sender')})`
     },
     hasHtmlBody () {
       return this.email.bodyHtml && this.email.bodyHtml.length >= 0

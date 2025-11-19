@@ -1,15 +1,15 @@
 <template>
   <Container
     v-if="editedAchievement"
-    :title="$i18n('achievements.edit', { name: achievement.name || $i18n('achievements.new')})"
+    :title="$t('achievements.edit', { name: achievement.name || $t('achievements.new')})"
     :collapsible="false"
   >
     <div class="list-group-item">
-      <b-form-group :label="$i18n('achievements.editor.name')">
+      <b-form-group :label="$t('achievements.editor.name')">
         <b-input v-model="editedAchievement.name" :state="editedAchievement.name.length ? null : false" />
       </b-form-group>
 
-      <b-form-group :label="$i18n('achievements.editor.description')">
+      <b-form-group :label="$t('achievements.editor.description')">
         <MarkdownInput
           :value.sync="editedAchievement.description"
           conceal-toolbar
@@ -21,7 +21,7 @@
 
       <b-form-group>
         <template #label>
-          {{ $i18n('achievements.editor.icon') }}
+          {{ $t('achievements.editor.icon') }}
           <Info info-key="achievementIcon" class="py-0" />
         </template>
         <b-input
@@ -32,15 +32,15 @@
         />
       </b-form-group>
 
-      <b-form-group :label="$i18n('achievements.editor.validityInDaysAfterAssignment')">
+      <b-form-group :label="$t('achievements.editor.validityInDaysAfterAssignment')">
         <b-input
           v-model="editedAchievement.validityInDaysAfterAssignment"
           :formatter="(value) => +value.replaceAll(/[^\d]/g, '') || NaN"
           type="number"
-          :placeholder="$i18n('achievements.validity.indefinite')"
+          :placeholder="$t('achievements.validity.indefinite')"
         />
       </b-form-group>
-      {{ $i18n('achievements.editor.preview') }}
+      {{ $t('achievements.editor.preview') }}
       <Achievement
         ref="preview"
         class="pl-3"

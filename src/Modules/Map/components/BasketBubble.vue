@@ -22,7 +22,7 @@
       <div
         class="mb-1 section-label"
       >
-        {{ $i18n('basket.date') }}
+        {{ $t('basket.date') }}
       </div>
       <div>{{ displayDate }}</div>
     </div>
@@ -30,7 +30,7 @@
     <div
       class="mb-1 section-label"
     >
-      {{ $i18n('basket.description') }}
+      {{ $t('basket.description') }}
     </div>
     <div class="mb-3">
       {{ bubbleData.description }}
@@ -38,10 +38,10 @@
 
     <template #popup-header>
       <h3 v-if="userStore.isLoggedIn && bubbleData?.creator?.name">
-        {{ $i18n('basket.by', { name: bubbleData.creator.name }) }}
+        {{ $t('basket.by', { name: bubbleData.creator.name }) }}
       </h3>
       <h3 v-else>
-        {{ $i18n('terminology.basket') }}
+        {{ $t('terminology.basket') }}
       </h3>
     </template>
     <template #popup-footer>
@@ -49,7 +49,7 @@
         class="btn btn-primary mx-5"
         type="button"
         :href="$url('basket', basketId)"
-        v-text="$i18n('basket.go')"
+        v-text="$t('basket.go')"
       />
     </template>
   </map-popup>

@@ -6,12 +6,12 @@
       name="acceptGdpr"
       @change="emit('update:acceptGdpr', $event)"
     >
-      {{ $i18n('register.have_read_the_legal_stuff1') }}
+      {{ $t('register.have_read_the_legal_stuff1') }}
       <a
         :href="$url('dataprivacy')"
         target="_blank"
         rel="noopener noreferrer nofollow"
-      >{{ $i18n('legal.privacy_policy') }}</a> {{ $i18n('register.have_read_the_legal_stuff2') }}
+      >{{ $t('legal.privacy_policy') }}</a> {{ $t('register.have_read_the_legal_stuff2') }}
     </b-form-checkbox>
     <b-form-checkbox
       id="acceptLegal"
@@ -19,12 +19,12 @@
       name="acceptLegal"
       @input="emit('update:acceptLegal', $event)"
     >
-      {{ $i18n('register.have_read_the_legal_stuff1') }}
+      {{ $t('register.have_read_the_legal_stuff1') }}
       <a
         :href="$url('wiki_legal_agreement')"
         target="_blank"
         rel="noopener noreferrer nofollow"
-      >{{ $i18n('legal.legal_agreement') }}</a> {{ $i18n('register.have_read_the_legal_stuff2') }}
+      >{{ $t('legal.legal_agreement') }}</a> {{ $t('register.have_read_the_legal_stuff2') }}
     </b-form-checkbox>
     <b-form-checkbox
       id="subscribeNewsletter"
@@ -32,14 +32,14 @@
       name="subscribeNewsletter"
       @input="emit('update:subscribeNewsletter', $event)"
     >
-      {{ $i18n('register.signup_newsletter') }}
+      {{ $t('register.signup_newsletter') }}
     </b-form-checkbox>
     <button
       class="btn btn-primary ml-3 mt-3"
       type="button"
       @click="emit('prev')"
     >
-      {{ $i18n('register.prev') }}
+      {{ $t('register.prev') }}
     </button>
     <button
       :disabled="!accepted"
@@ -47,7 +47,7 @@
       class="btn btn-primary mt-3"
       @click.prevent="emit('submit')"
     >
-      {{ $i18n('register.finish') }}
+      {{ $t('register.finish') }}
     </button>
   </form>
 </template>

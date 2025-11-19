@@ -1,6 +1,6 @@
 <template>
   <Container
-    :title="$i18n('menu.entry.contact')"
+    :title="$t('menu.entry.contact')"
     tag="publicRegionContacts"
     wrap-content
   >
@@ -8,7 +8,7 @@
       <i class="fas fa-envelope mr-2" />
       <a :href="$url('mailto_mail_foodsharing_network', props.regionData.email)" v-text="mailText(props.regionData.email)" />
     </span>
-    <span v-else v-text="$i18n('content.communities.noAmbassador')" />
+    <span v-else v-text="$t('content.communities.noAmbassador')" />
     <!-- TODO show ambassadors to logged in users -->
   </Container>
 </template>

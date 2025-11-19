@@ -1,12 +1,12 @@
 <template>
   <div :class="{disabledLoading: isLoading}">
     <div class="ui-padding-bottom">
-      <h3>{{ $i18n('personal_data.label') }}:</h3>
+      <h3>{{ $t('personal_data.label') }}:</h3>
       <span v-if="mobileNumber">
-        {{ $i18n('personal_data.mobile') }}: <a :href="'tel:' + mobileNumber">{{ mobileNumber }}</a>
+        {{ $t('personal_data.mobile') }}: <a :href="'tel:' + mobileNumber">{{ mobileNumber }}</a>
       </span>
       <span v-if="landlineNumber">
-        {{ $i18n('personal_data.landline') }}: {{ landlineNumber }}
+        {{ $t('personal_data.landline') }}: {{ landlineNumber }}
       </span>
     </div>
     <div
@@ -18,7 +18,7 @@
           href="#"
           @click="openChat"
         >
-          {{ $i18n('chat.open_chat') }}
+          {{ $t('chat.open_chat') }}
         </a>
       </div>
       <div v-if="hasRequested" class="ui-padding-bottom">
@@ -27,7 +27,7 @@
           href="#"
           @click="withdraw"
         >
-          {{ $i18n('basket.withdraw_request') }}
+          {{ $t('basket.withdraw_request') }}
         </a>
       </div>
       <div v-if="!hasRequested" class="ui-padding-bottom">
@@ -36,23 +36,23 @@
           href="#"
           @click="$refs.modal_request.show()"
         >
-          {{ $i18n('basket.request') }}
+          {{ $t('basket.request') }}
         </a>
       </div>
       <div>
         <span v-if="requestCount === 0">
-          {{ $i18n('basket.no_requests') }}
+          {{ $t('basket.no_requests') }}
         </span>
         <span v-if="requestCount > 0">
-          {{ $i18n('basket.n_requests') }} <strong>{{ requestCount }}</strong>
+          {{ $t('basket.n_requests') }} <strong>{{ requestCount }}</strong>
         </span>
       </div>
     </div>
     <b-modal
       ref="modal_request"
-      :title="$i18n('basket.request')"
-      :cancel-title="$i18n('button.cancel')"
-      :ok-title="$i18n('basket.send_request')"
+      :title="$t('basket.request')"
+      :cancel-title="$t('button.cancel')"
+      :ok-title="$t('basket.send_request')"
       modal-class="bootstrap"
       header-class="d-flex"
       content-class="pr-3 pt-3"

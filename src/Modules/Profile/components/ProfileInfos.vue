@@ -2,17 +2,17 @@
   <div class="container bg-white">
     <ul>
       <li v-if="profileInfos.maySeeLastActivity" class="mb-2">
-        <b>{{ $i18n('profile.infos.lastActivity') }}:</b> {{ lastActivityText }}
+        <b>{{ $t('profile.infos.lastActivity') }}:</b> {{ lastActivityText }}
       </li>
       <li v-if="profileInfos.registrationDate" class="mb-2">
-        <b>{{ $i18n('profile.infos.registrationDate') }}:</b> {{ profileInfos.registrationDate }}
+        <b>{{ $t('profile.infos.registrationDate') }}:</b> {{ profileInfos.registrationDate }}
       </li>
       <li v-if="profileInfos.privateMail" class="mb-2">
-        <b>{{ $i18n('profile.infos.privateMail') }}:</b>
+        <b>{{ $t('profile.infos.privateMail') }}:</b>
         <p><a :href="getMailboxUrl(profileInfos.privateMail)">{{ splitMail(profileInfos.privateMail)[0] }}@<wbr>{{ splitMail(profileInfos.privateMail)[1] }}</a></p>
       </li>
       <li v-if="profileInfos.fsMail" class="mb-2">
-        <b>{{ $i18n('profile.infos.fsMail') }}:</b>
+        <b>{{ $t('profile.infos.fsMail') }}:</b>
         <p><a :href="getMailboxUrl(profileInfos.fsMail)">{{ splitMail(profileInfos.fsMail)[0] }}@<wbr>{{ splitMail(profileInfos.fsMail)[1] }}</a></p>
       </li>
       <li>
@@ -33,14 +33,14 @@ export default {
       return this.profileInfos.role > ROLE.FOODSHARER
     },
     lastActivityText () {
-      return this.profileInfos.lastActivity ? this.profileInfos.lastActivity : this.$i18n('profile.infos.never')
+      return this.profileInfos.lastActivity ? this.profileInfos.lastActivity : this.$t('profile.infos.never')
     },
     getFsIdTranslation () {
-      return this.$i18n('profile.infos.foodsaverId')
+      return this.$t('profile.infos.foodsaverId')
     },
     buddycountTranslation () {
-      const knownBuddycount = this.$i18n('profile.infos.buddycount_known', { name: this.profileInfos.name, count: this.profileInfos.buddyCount })
-      const followedBuddycount = this.$i18n('profile.infos.buddycount_followed', { name: this.profileInfos.name, count: this.profileInfos.buddyCount })
+      const knownBuddycount = this.$t('profile.infos.buddycount_known', { name: this.profileInfos.name, count: this.profileInfos.buddyCount })
+      const followedBuddycount = this.$t('profile.infos.buddycount_followed', { name: this.profileInfos.name, count: this.profileInfos.buddyCount })
       return this.profileInfos.buddyCount > 1 ? knownBuddycount : followedBuddycount
     },
   },

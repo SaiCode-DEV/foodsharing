@@ -1,7 +1,7 @@
 <template>
   <b-modal
     id="invitations"
-    :title="$i18n('store.invitation.title', { storeTitle })"
+    :title="$t('store.invitation.title', { storeTitle })"
     header-class="d-flex"
     hide-footer
     static
@@ -11,7 +11,7 @@
   >
     <b-alert show variant="info">
       <i class="fas fa-info-circle" />
-      {{ $i18n('store.invitation.info') }}
+      {{ $t('store.invitation.info') }}
     </b-alert>
     <div
       v-for="(invitation, index) in invitations"
@@ -23,7 +23,7 @@
         <div class="d-flex flex-grow-1 flex-wrap justify-content-end">
           <div class="flex-grow-1">
             <i
-              v-b-tooltip.hover="invitation.verified ? $i18n('store.request.verified') : $i18n('store.request.unverified')"
+              v-b-tooltip.hover="invitation.verified ? $t('store.request.verified') : $t('store.request.unverified')"
               class="fas fa-fw mr-1"
               :class="{'fa-user-check': invitation.verified, 'fa-user-slash': !invitation.verified}"
             />
@@ -34,7 +34,7 @@
             />
             <Time :time="invitation.date" class="ml-2" />
             <br>
-            {{ $i18n('store.invitation.invited_by') }}
+            {{ $t('store.invitation.invited_by') }}
             <a :href="$url('profile', invitation.inviter.id)" v-text="invitation.inviter.name" />
           </div>
           <b-button
@@ -43,7 +43,7 @@
             @click="withdrawInvitation(invitation.user.id, index)"
           >
             <i class="fas fa-user-times" />
-            {{ $i18n('store.invitation.withdraw') }}
+            {{ $t('store.invitation.withdraw') }}
           </b-button>
         </div>
       </div>

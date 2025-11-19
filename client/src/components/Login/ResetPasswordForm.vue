@@ -2,14 +2,14 @@
   <div class="py-3 px-4">
     <div class="alert alert-info mb-3">
       <i class="fas fa-info-circle" />
-      {{ $i18n('register.change-password') }}
+      {{ $t('register.change-password') }}
     </div>
 
     <form @submit.prevent="submit">
       <label class="d-block mb-3">
         <div class="mb-1">
           <i class="fas fa-key mr-1" />
-          {{ $i18n('register.login_passwd1') }}
+          {{ $t('register.login_passwd1') }}
         </div>
         <password-field
           id="testing-reset-input-password"
@@ -24,16 +24,16 @@
         >
           <div>
             <span v-if="v$.password.required.$invalid">
-              {{ $i18n('register.password_required') }}
+              {{ $t('register.password_required') }}
             </span>
             <span v-if="v$.password.minLength.$invalid && password">
-              {{ $i18n('register.password_minLength') }}
+              {{ $t('register.password_minLength') }}
             </span>
             <span v-if="v$.password.complexity.$invalid && password">
-              {{ $i18n('register.password_must_be_complex') }}
+              {{ $t('register.password_must_be_complex') }}
             </span>
             <span v-if="v$.password.isTrimmed.$invalid && password">
-              {{ $i18n('register.password_must_be_trimmed') }}
+              {{ $t('register.password_must_be_trimmed') }}
             </span>
           </div>
         </div>
@@ -42,7 +42,7 @@
       <label class="d-block mb-3">
         <div class="mb-1">
           <i class="fas fa-key mr-1" />
-          {{ $i18n('register.login_passwd2') }}
+          {{ $t('register.login_passwd2') }}
         </div>
         <password-field
           id="testing-reset-input-confirm-password"
@@ -57,10 +57,10 @@
         >
           <div>
             <span v-if="v$.confirmPassword.required.$invalid && !confirmPassword">
-              {{ $i18n('register.confirmPassword_required') }}
+              {{ $t('register.confirmPassword_required') }}
             </span>
             <span v-if="v$.confirmPassword.sameAsPassword.$invalid && confirmPassword && password">
-              {{ $i18n('register.confirmPassword_sameAsPassword') }}
+              {{ $t('register.confirmPassword_sameAsPassword') }}
             </span>
           </div>
         </div>
@@ -69,7 +69,7 @@
       <label v-if="showTOTP" class="d-block mb-3">
         <div class="mb-1">
           <i class="fas fa-mobile-alt mr-1" />
-          {{ $i18n('login.2fa') }}
+          {{ $t('login.2fa') }}
         </div>
         <TOTPField
           id="testing-reset-input-totp"
@@ -84,7 +84,7 @@
         >
           <div>
             <span v-if="v$.totp && v$.totp.required.$invalid && !totpCode">
-              {{ $i18n('settings.2fa.totp_required') }}
+              {{ $t('settings.2fa.totp_required') }}
             </span>
           </div>
         </div>
@@ -101,7 +101,7 @@
           class="btn btn-block"
           :disabled="v$.$invalid || isLoading"
         >
-          {{ $i18n('button.save') }}
+          {{ $t('button.save') }}
           <i class="fas fa-check ml-2" />
         </b-button>
       </b-overlay>
@@ -112,7 +112,7 @@
       class="alert alert-success mt-3"
     >
       <i class="fas fa-check-circle" />
-      {{ $i18n('login.pwreset.success') }}
+      {{ $t('login.pwreset.success') }}
     </div>
   </div>
 </template>

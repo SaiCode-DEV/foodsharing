@@ -1,7 +1,7 @@
 <template>
   <Container
     v-if="center || mayEdit"
-    :title="$i18n('map.title')"
+    :title="$t('map.title')"
     tag="publicRegionMap"
   >
     <template v-if="!editMode" #options>
@@ -41,7 +41,7 @@
           class="m-0"
         >
           <i class="fas fa-edit mr-2" />
-          {{ $i18n('region.public.map.missing') }}
+          {{ $t('region.public.map.missing') }}
         </b-alert>
       </div>
       <ContainerButton
@@ -166,8 +166,8 @@ export default {
     async cancel () {
       if (this.isLocationChanged) {
         if (!await this.confirmationDialogue('region.public.map.confirm_discard_changes', {
-          okTitle: this.$i18n('region.public.discard_changes'),
-          cancelTitle: this.$i18n('region.public.continue_editing'),
+          okTitle: this.$t('region.public.discard_changes'),
+          cancelTitle: this.$t('region.public.continue_editing'),
         })) return
       }
       this.editMode = false
@@ -175,7 +175,7 @@ export default {
     async save () {
       if (this.isLocationChanged) {
         if (!await this.confirmationDialogue('region.public.map.confirm_save_changes', {
-          okTitle: this.$i18n('button.save'),
+          okTitle: this.$t('button.save'),
           okVariant: 'success',
         })) return
         this.loading = true
@@ -185,7 +185,7 @@ export default {
           this.$emit('update:location', this.editLocation)
           this.center = Object.assign({}, this.editLocation)
         } catch (e) {
-          pulseError(this.$i18n('error_unexpected'))
+          pulseError(this.$t('error_unexpected'))
         }
       }
       this.editMode = false
@@ -193,7 +193,7 @@ export default {
     },
     async remove () {
       if (!await this.confirmationDialogue('region.public.map.confirm_remove', {
-        okTitle: this.$i18n('button.delete'),
+        okTitle: this.$t('button.delete'),
       })) return
       this.loading = true
       try {
@@ -201,7 +201,7 @@ export default {
         await regionStore.fetchPublicRegionData(this.regionId, true)
         this.$emit('update:location', null)
       } catch (e) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
       this.editMode = false
       this.loading = false

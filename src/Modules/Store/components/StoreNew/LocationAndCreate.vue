@@ -16,14 +16,14 @@
         variant="primary"
         @click="$emit('prev')"
       >
-        {{ $i18n('button.prev') }}
+        {{ $t('button.prev') }}
       </b-button>
       <b-button
         variant="primary"
         :disabled="!addressValid"
         @click.prevent="submit"
       >
-        {{ $i18n('button.create') }}
+        {{ $t('button.create') }}
       </b-button>
     </div>
   </div>

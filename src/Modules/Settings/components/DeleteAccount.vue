@@ -1,38 +1,38 @@
 <template>
   <div>
     <ul>
-      <li><a href="/?page=legal">{{ $i18n('legal.if_delete.legal_1') }}</a></li>
-      <li><a href="https://www.dsgvo.tools/aufbewahrungsfristen">{{ $i18n('legal.if_delete.legal_2') }}</a></li>
+      <li><a href="/?page=legal">{{ $t('legal.if_delete.legal_1') }}</a></li>
+      <li><a href="https://www.dsgvo.tools/aufbewahrungsfristen">{{ $t('legal.if_delete.legal_2') }}</a></li>
     </ul>
 
     <div
       class="alert alert-secondary"
       role="alert"
     >
-      {{ $i18n('legal.if_delete.this_gets_deleted_main') }}
+      {{ $t('legal.if_delete.this_gets_deleted_main') }}
       <ul>
-        <li>{{ $i18n('legal.if_delete.this_gets_deleted_stores') }}</li>
-        <li>{{ $i18n('legal.if_delete.this_gets_deleted_quiz') }}</li>
-        <li>{{ $i18n('legal.if_delete.this_gets_deleted_verify') }}</li>
-        <li>{{ $i18n('legal.if_delete.this_gets_deleted_friendlist') }}</li>
-        <li>{{ $i18n('legal.if_delete.this_gets_deleted_trustbananas') }}</li>
+        <li>{{ $t('legal.if_delete.this_gets_deleted_stores') }}</li>
+        <li>{{ $t('legal.if_delete.this_gets_deleted_quiz') }}</li>
+        <li>{{ $t('legal.if_delete.this_gets_deleted_verify') }}</li>
+        <li>{{ $t('legal.if_delete.this_gets_deleted_friendlist') }}</li>
+        <li>{{ $t('legal.if_delete.this_gets_deleted_trustbananas') }}</li>
       </ul>
     </div>
     <div
       class="alert alert-warning"
       role="alert"
     >
-      {{ $i18n('legal.if_delete.this_doesnt_get_deleted') }}
+      {{ $t('legal.if_delete.this_doesnt_get_deleted') }}
       <ul>
-        <li>{{ $i18n('legal.if_delete.this_doesnt_get_deleted_name') }}</li>
-        <li>{{ $i18n('legal.if_delete.this_doesnt_get_deleted_address') }}</li>
-        <li>{{ $i18n('legal.if_delete.this_doesnt_get_deleted_history') }}</li>
+        <li>{{ $t('legal.if_delete.this_doesnt_get_deleted_name') }}</li>
+        <li>{{ $t('legal.if_delete.this_doesnt_get_deleted_address') }}</li>
+        <li>{{ $t('legal.if_delete.this_doesnt_get_deleted_history') }}</li>
       </ul>
     </div>
     <b-form-group
       v-if="!isMe"
       label-for="reason"
-      :label="$i18n('foodsaver.delete_account_reason')"
+      :label="$t('foodsaver.delete_account_reason')"
     >
       <b-form-textarea
         id="reason"
@@ -46,7 +46,7 @@
       :disabled="(!isMe && reason === null) || reason?.length < 5"
       @click="tryDeleteAccount"
     >
-      {{ $i18n('foodsaver.delete_account_now') }}
+      {{ $t('foodsaver.delete_account_now') }}
     </b-button>
   </div>
 </template>
@@ -99,8 +99,8 @@ export default {
       const confirmed = await this.confirmationDialogue(
         this.isMe ? 'foodsaver.delete_account_sure' : 'foodsaver.delete_account_sure_reason',
         {
-          title: this.$i18n('foodsaver.delete_account'),
-          okTitle: this.$i18n('foodsaver.delete_account'),
+          title: this.$t('foodsaver.delete_account'),
+          okTitle: this.$t('foodsaver.delete_account'),
           okVariant: 'danger',
           countdown: this.isMe ? 30 : 5,
           ...options,

@@ -2,9 +2,9 @@
   <b-modal
     id="themeSwitcherModal"
     ref="themeSwitcherModal"
-    :title="$i18n('theme_switcher.title')"
+    :title="$t('theme_switcher.title')"
   >
-    {{ $i18n('theme_switcher.content') }}
+    {{ $t('theme_switcher.content') }}
     <b-form-select
       v-model="themeStore.userTheme"
       :options="themes"
@@ -18,7 +18,7 @@
         variant="primary"
         @click="ok"
       >
-        {{ $i18n('theme_switcher.choose_button') }}
+        {{ $t('theme_switcher.choose_button') }}
       </b-button>
     </template>
   </b-modal>

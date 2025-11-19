@@ -4,10 +4,10 @@
       class="alert alert-secondary"
       role="alert"
     >
-      {{ $i18n('settings.sleep.info') }}
+      {{ $t('settings.sleep.info') }}
     </div>
 
-    <label>{{ $i18n('settings.sleep.status') }}</label>
+    <label>{{ $t('settings.sleep.status') }}</label>
     <b-form-select
       v-model="currentSleepStatus"
       :options="sleepingOptions"
@@ -17,13 +17,13 @@
       v-if="currentSleepStatus === SLEEP_STATUS.TEMP"
       class="pt-4"
     >
-      <label>{{ $i18n('settings.sleep.range') }}</label>
+      <label>{{ $t('settings.sleep.range') }}</label>
       <b-row>
         <b-col
           cols="12"
           lg="6"
         >
-          <label>{{ $i18n('settings.sleep.from') }}</label>
+          <label>{{ $t('settings.sleep.from') }}</label>
           <b-form-datepicker
             v-model="currentSleepFrom"
             :min="new Date()"
@@ -37,7 +37,7 @@
           cols="12"
           lg="6"
         >
-          <label>{{ $i18n('settings.sleep.until') }}</label>
+          <label>{{ $t('settings.sleep.until') }}</label>
           <b-form-datepicker
             v-model="currentSleepUntil"
             v-bind="labelsCalendar || {}"
@@ -54,7 +54,7 @@
       v-if="currentSleepStatus > SLEEP_STATUS.NONE"
       class="pt-4"
     >
-      <label>{{ $i18n('settings.sleep.message') }}</label>
+      <label>{{ $t('settings.sleep.message') }}</label>
       <b-form-textarea
         id="textarea"
         v-model="currentSleepMessage"
@@ -69,7 +69,7 @@
         class="alert alert-warning"
         role="alert"
       >
-        {{ $i18n('settings.sleep.show') }}
+        {{ $t('settings.sleep.show') }}
       </div>
     </div>
 
@@ -78,7 +78,7 @@
       variant="primary"
       @click="trySetSleepStatus"
     >
-      {{ $i18n('globals.save') }}
+      {{ $t('globals.save') }}
     </b-button>
   </div>
 </template>

@@ -3,9 +3,9 @@
     <div class="col-sm-auto">
       <div class="alert alert-info">
         <i class="fas fa-info-circle" />
-        {{ $i18n('register.mail_hint') }}
+        {{ $t('register.mail_hint') }}
       </div>
-      <label for="email">{{ $i18n('register.login_email') }}</label>
+      <label for="email">{{ $t('register.login_email') }}</label>
       <sup>
         <i class="fas fa-asterisk" />
       </sup>
@@ -17,7 +17,7 @@
         type="email"
         name="email"
         class="form-control"
-        :placeholder="$i18n('login.email_address')"
+        :placeholder="$t('login.email_address')"
         @blur="update"
         @input="v$.email.$touch()"
       >
@@ -25,15 +25,15 @@
         v-if="(v$.email.$error && v$.email.$dirty) || !isMailValidForRegistration || isMailInvalid"
         class="invalid-feedback"
       >
-        <span v-if="v$.email.required.$invalid && v$.email.$dirty">{{ $i18n('register.email_required') }}</span>
-        <span v-else-if="v$.email.emailValidator.$invalid || !v$.email.foodsharing.$invalid || isMailInvalid">{{ $i18n('register.email_invalid') }}</span>
-        <span v-else-if="!isMailValidForRegistration">{{ $i18n('register.error_email_invalid') }}</span>
+        <span v-if="v$.email.required.$invalid && v$.email.$dirty">{{ $t('register.email_required') }}</span>
+        <span v-else-if="v$.email.emailValidator.$invalid || !v$.email.foodsharing.$invalid || isMailInvalid">{{ $t('register.email_invalid') }}</span>
+        <span v-else-if="!isMailValidForRegistration">{{ $t('register.error_email_invalid') }}</span>
       </div>
     </div>
     <div class="my-2">
       <div class="col-sm-auto">
         <label for="password">
-          {{ $i18n('register.login_passwd1') }}
+          {{ $t('register.login_passwd1') }}
           <sup>
             <i class="fas fa-asterisk" />
           </sup>
@@ -48,13 +48,13 @@
           @input="v$.password.$touch()"
         />
         <div v-if="v$.password.$error && v$.password.$dirty" class="invalid-feedback">
-          <span v-if="!v$.password.required">{{ $i18n('register.password_required') }}</span>
-          <span v-if="!v$.password.minLength">{{ $i18n('register.password_minLength') }}</span>
+          <span v-if="!v$.password.required">{{ $t('register.password_required') }}</span>
+          <span v-if="!v$.password.minLength">{{ $t('register.password_minLength') }}</span>
         </div>
       </div>
       <div class="col-sm-auto">
         <label for="confirmPassword">
-          {{ $i18n('register.login_passwd2') }}
+          {{ $t('register.login_passwd2') }}
           <sup>
             <i class="fas fa-asterisk" />
           </sup>
@@ -74,19 +74,19 @@
         >
           <ul>
             <li v-if="v$.password.minLength.$invalid && v$.password.$dirty">
-              {{ $i18n('register.password_minLength') }}
+              {{ $t('register.password_minLength') }}
             </li>
             <li v-if="v$.password.complexity.$invalid && v$.password.$dirty">
-              {{ $i18n('register.password_must_be_complex') }}
+              {{ $t('register.password_must_be_complex') }}
             </li>
             <li v-if="v$.password.isTrimmed.$invalid && v$.password.$dirty">
-              {{ $i18n('register.password_must_be_trimmed') }}
+              {{ $t('register.password_must_be_trimmed') }}
             </li>
             <li v-if="v$.confirmPassword.required.$invalid && v$.confirmPassword.$dirty">
-              {{ $i18n('register.confirmPassword_required') }}
+              {{ $t('register.confirmPassword_required') }}
             </li>
             <li v-if="v$.confirmPassword.sameAsPassword.$invalid && v$.confirmPassword.$dirty">
-              {{ $i18n('register.confirmPassword_sameAsPassword') }}
+              {{ $t('register.confirmPassword_sameAsPassword') }}
             </li>
           </ul>
         </div>
@@ -96,10 +96,10 @@
           :disabled="v$.$invalid || isMailInvalid || !isMailValidForRegistration"
           @click.prevent="submit"
         >
-          {{ $i18n('register.next') }}
+          {{ $t('register.next') }}
         </button>
         <span class="mr-3 d-flex flex-row-reverse">
-          {{ $i18n('register.requiredFields') }}
+          {{ $t('register.requiredFields') }}
           <sup>
             <i class="fas fa-asterisk" />
           </sup>

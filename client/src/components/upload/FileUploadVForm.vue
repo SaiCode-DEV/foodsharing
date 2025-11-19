@@ -1,6 +1,6 @@
 <template>
   <div id="input-wrapper" class="input-wrapper">
-    <label class="wrapper-label ui-widget">{{ $i18n('image') }}</label>
+    <label class="wrapper-label ui-widget">{{ $t('image') }}</label>
 
     <div class="element-wrapper">
       <file-upload

@@ -9,11 +9,11 @@
       <div class="informationfield__content-wrapper">
         <h4
           class="informationfield__title"
-          v-text="$i18n(`information.${entry.field}.title`)"
+          v-text="$t(`information.${entry.field}.title`)"
         />
         <p
           class="informationfield__description"
-          v-text="$i18n(`information.${entry.field}.description`)"
+          v-text="$t(`information.${entry.field}.description`)"
         />
       </div>
       <div
@@ -25,7 +25,7 @@
           :key="key"
           class="informationfield__link"
           :href="link.urlShortHand ? $url(link.urlShortHand) : link.href"
-          v-text="$i18n(link.text)"
+          v-text="$t(link.text)"
         />
       </div>
     </div>

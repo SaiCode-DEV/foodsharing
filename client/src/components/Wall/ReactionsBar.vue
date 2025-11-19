@@ -110,8 +110,8 @@ export default {
       return user.id === this.userStore.getUserId
     },
     tooltipName (user) {
-      if (user.id === this.userStore.getUserId) return this.$i18n('globals.you')
-      return user.name ?? this.$i18n('forum.deleted_user')
+      if (user.id === this.userStore.getUserId) return this.$t('globals.you')
+      return user.name ?? this.$t('forum.deleted_user')
     },
   },
 }

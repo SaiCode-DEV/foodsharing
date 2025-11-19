@@ -2,7 +2,7 @@
   <div class="bootstrap">
     <div class="card rounded">
       <div class="card-header text-white bg-primary">
-        {{ $i18n('poll.new_poll.title') }} in {{ region.name }}
+        {{ $t('poll.new_poll.title') }} in {{ region.name }}
       </div>
       <b-form
         :class="{disabledLoading: isLoading, 'card-body': true}"
@@ -12,10 +12,10 @@
           show
           variant="dark"
         >
-          {{ $i18n('polls.hint_2') }}: <a :href="$url('wiki_voting')">{{ $url('wiki_voting') }}</a>
+          {{ $t('polls.hint_2') }}: <a :href="$url('wiki_voting')">{{ $url('wiki_voting') }}</a>
         </b-alert>
         <b-form-group
-          :label="$i18n('poll.new_poll.name')"
+          :label="$t('poll.new_poll.name')"
           label-for="input-name"
           class="mb-4"
         >
@@ -26,13 +26,13 @@
             :state="v$.name.$error ? false : null"
           />
           <div v-if="v$.name.$error" class="invalid-feedback">
-            {{ $i18n('poll.new_poll.name_required') }}
+            {{ $t('poll.new_poll.name_required') }}
           </div>
         </b-form-group>
 
         <b-form-group class="mb-3">
           <template #label>
-            {{ $i18n('poll.new_poll.scope') }}
+            {{ $t('poll.new_poll.scope') }}
             <Info info-key="pollScopes" />
           </template>
           <b-form-radio
@@ -41,13 +41,13 @@
             v-model="scope"
             :value="index"
           >
-            {{ $i18n(`poll.scope_description_${index}`) }}
+            {{ $t(`poll.scope_description_${index}`) }}
             ({{ usersPerScope[index] }})
           </b-form-radio>
         </b-form-group>
 
         <b-form-group
-          :label="$i18n('poll.new_poll.type')"
+          :label="$t('poll.new_poll.type')"
           class="mb-4"
         >
           <b-form-radio
@@ -57,17 +57,17 @@
             :value="index - 1"
             @input="forceUpdateNumberOfOptions"
           >
-            {{ $i18n('poll.type_description_' + (index - 1)) }}
+            {{ $t('poll.type_description_' + (index - 1)) }}
           </b-form-radio>
         </b-form-group>
 
         <b-form-group class="mb-3 datepicker">
           <b-form-row>
             <b-col>
-              <label for="input-startdate">{{ $i18n('poll.new_poll.start_date') }}</label>
+              <label for="input-startdate">{{ $t('poll.new_poll.start_date') }}</label>
             </b-col>
             <b-col class="text-center">
-              <label for="input-startdatetime">{{ $i18n('poll.new_poll.time') }}</label>
+              <label for="input-startdatetime">{{ $t('poll.new_poll.time') }}</label>
             </b-col>
           </b-form-row>
           <b-form-row class="ml-1">
@@ -99,11 +99,11 @@
             v-if="v$.startDateTime.$error"
             class="invalid-feedback"
           >
-            {{ $i18n('poll.new_poll.start_date_required') }}
+            {{ $t('poll.new_poll.start_date_required') }}
           </div>
         </b-form-group>
         <b-form-group
-          :label="$i18n('poll.new_poll.end_date')"
+          :label="$t('poll.new_poll.end_date')"
           class="mb-3 datepicker"
         >
           <b-form-row class="ml-2">
@@ -134,19 +134,19 @@
             v-if="v$.endDateTime.$error"
             class="invalid-feedback"
           >
-            {{ $i18n('poll.new_poll.end_date_required') }}
+            {{ $t('poll.new_poll.end_date_required') }}
           </div>
         </b-form-group>
 
         <b-form-group
-          :label="$i18n('poll.new_poll.description')"
+          :label="$t('poll.new_poll.description')"
           class="mb-4"
         >
           <MarkdownInput
             :rows="5"
             :value="v$.description.$model"
             :state="v$.description.$error ? false : null"
-            :placeholder="$i18n('poll.new_poll.description_placeholder')"
+            :placeholder="$t('poll.new_poll.description_placeholder')"
             :region-id="region.id"
             @update:value="newValue => v$.description.$model = newValue"
           />
@@ -154,12 +154,12 @@
             v-if="v$.description.$error"
             class="invalid-feedback"
           >
-            {{ $i18n('poll.new_poll.description_required') }}
+            {{ $t('poll.new_poll.description_required') }}
           </div>
         </b-form-group>
 
         <b-form-group
-          :label="$i18n('poll.new_poll.options')"
+          :label="$t('poll.new_poll.options')"
           label-for="input-name"
           class="mb-4"
         >
@@ -178,7 +178,7 @@
               v-model="shuffleOptions"
               class="mt-2 mb-3 ml-2"
             >
-              {{ $i18n('poll.new_poll.shuffle_options') }}
+              {{ $t('poll.new_poll.shuffle_options') }}
             </b-form-checkbox>
           </b-form-row>
 
@@ -191,7 +191,7 @@
               cols="3"
               align-v="stretch"
             >
-              {{ $i18n('poll.new_poll.option') }} {{ index }}:
+              {{ $t('poll.new_poll.option') }} {{ index }}:
             </b-col>
             <b-col>
               <b-form-input
@@ -204,7 +204,7 @@
             </b-col>
           </b-form-row>
           <div v-if="v$.options.$error" class="invalid-feedback">
-            {{ $i18n('poll.new_poll.option_texts_required') }}
+            {{ $t('poll.new_poll.option_texts_required') }}
           </div>
         </b-form-group>
 
@@ -213,10 +213,10 @@
           variant="primary"
           :disabled="v$.$invalid"
         >
-          {{ $i18n('poll.new_poll.submit') }}
+          {{ $t('poll.new_poll.submit') }}
         </b-button>
         <div v-if="v$.$invalid" class="invalid-feedback">
-          {{ $i18n('poll.new_poll.missing_fields') }}
+          {{ $t('poll.new_poll.missing_fields') }}
         </div>
       </b-form>
     </div>
@@ -224,15 +224,15 @@
     <b-modal
       v-if="!isLoading"
       ref="newPollConfirmModal"
-      :title="$i18n('poll.new_poll.submit')"
-      :cancel-title="$i18n('button.cancel')"
-      :ok-title="$i18n('button.send')"
+      :title="$t('poll.new_poll.submit')"
+      :cancel-title="$t('button.cancel')"
+      :ok-title="$t('button.send')"
       modal-class="bootstrap"
       header-class="d-flex"
       content-class="pr-3 pt-3"
       @ok="submitPoll"
     >
-      {{ $i18n('poll.new_poll.submit_question') }}
+      {{ $t('poll.new_poll.submit_question') }}
     </b-modal>
   </div>
 </template>

@@ -20,11 +20,11 @@ export default {
         date: this.$dateFormatter.format(action.date_reference),
       }
       const reason = (action.reason && ACTION_TYPES_WITH_OPTIONAL_REASON.includes(action.action_id)) ? '_with_reason' : ''
-      return this.$i18n(`store.log.message.${action.action_id}${reason}`, params)
+      return this.$t(`store.log.message.${action.action_id}${reason}`, params)
     },
     userLinkHtml (user) {
       if (!user?.id) return ''
-      if (!user.name) return this.$i18n('forum.deleted_user')
+      if (!user.name) return this.$t('forum.deleted_user')
       return `<a href="${this.$url('profile', user.id)}">${user.name}</a>`
     },
   },

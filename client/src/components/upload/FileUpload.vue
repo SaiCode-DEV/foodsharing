@@ -23,15 +23,15 @@
       </div>
       <div class="mr-auto">
         <div v-if="!filename" class="text-muted">
-          {{ $i18n('upload.no_image_yet') }}
+          {{ $t('upload.no_image_yet') }}
         </div>
         <button
           class="btn btn-sm btn-primary mt-2"
           :class="{'disabledLoading': isLoading}"
           @click.prevent="openUploadDialog"
         >
-          <span v-if="filename">{{ $i18n('upload.new_image') }}</span>
-          <span v-else>{{ $i18n('upload.image') }}</span>
+          <span v-if="filename">{{ $t('upload.new_image') }}</span>
+          <span v-else>{{ $t('upload.image') }}</span>
         </button>
       </div>
     </div>
@@ -40,15 +40,15 @@
         {{ filenameWithoutPath }}
       </div>
       <div v-else class="text-muted">
-        {{ $i18n('upload.no_image_chosen') }}
+        {{ $t('upload.no_image_chosen') }}
       </div>
       <button
         class="btn btn-sm btn-primary"
         :class="{'disabledLoading': isLoading}"
         @click.prevent="openUploadDialog"
       >
-        <span v-if="filename">{{ $i18n('upload.new_file') }}</span>
-        <span v-else>{{ $i18n('upload.file') }}</span>
+        <span v-if="filename">{{ $t('upload.new_file') }}</span>
+        <span v-else>{{ $t('upload.file') }}</span>
       </button>
     </div>
 
@@ -56,9 +56,9 @@
       ref="upload-modal"
       :static="true"
       size="lg"
-      :title="$i18n('upload.crop_dialog_title')"
-      :cancel-title="$i18n('button.cancel')"
-      :ok-title="$i18n('button.send')"
+      :title="$t('upload.crop_dialog_title')"
+      :cancel-title="$t('button.cancel')"
+      :ok-title="$t('button.send')"
       modal-class="bootstrap"
       dialog-class="full-resize"
       hide-header-close
@@ -129,7 +129,7 @@ export default {
       else return ''
     },
     previewAlt () {
-      return this.$i18n('upload.preview_image')
+      return this.$t('upload.preview_image')
     },
   },
   methods: {

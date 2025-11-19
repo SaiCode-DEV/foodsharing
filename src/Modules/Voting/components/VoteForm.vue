@@ -8,8 +8,8 @@
         variant="info"
       >
         <i v-if="poll.shuffleOptions" class="fas fa-random mr-2" />
-        <span v-if="poll.shuffleOptions" v-text="$i18n('poll.hint_random_order')" />
-        <span v-else v-text="$i18n('poll.hint_sorted_order')" />
+        <span v-if="poll.shuffleOptions" v-text="$t('poll.hint_random_order')" />
+        <span v-else v-text="$t('poll.hint_sorted_order')" />
       </b-alert>
       <SingleSelectionVotingComponent
         v-if="poll.type===0"
@@ -45,7 +45,7 @@
         show
         variant="warning"
       >
-        {{ $i18n('poll.submit_vote_warning') }}
+        {{ $t('poll.submit_vote_warning') }}
       </b-alert>
       <b-button
         v-if="mayVote"
@@ -53,21 +53,21 @@
         variant="primary"
         :disabled="!isValidSelection"
       >
-        {{ $i18n('poll.submit_vote') }}
+        {{ $t('poll.submit_vote') }}
       </b-button>
     </b-form>
 
     <b-modal
       ref="confirmModal"
-      :title="$i18n('poll.submit_vote')"
-      :cancel-title="$i18n('button.cancel')"
-      :ok-title="$i18n('button.send')"
+      :title="$t('poll.submit_vote')"
+      :cancel-title="$t('button.cancel')"
+      :ok-title="$t('button.send')"
       modal-class="bootstrap"
       header-class="d-flex"
       content-class="pr-3 pt-3"
       @ok="submitVote"
     >
-      {{ $i18n('poll.submit_vote_question') }}
+      {{ $t('poll.submit_vote_question') }}
     </b-modal>
   </div>
 </template>

@@ -8,11 +8,11 @@
         class="text-center"
       >
         <i class="fas fa-eye-slash mr-2" />
-        {{ $i18n('fsp.onlySuggested') }}
+        {{ $t('fsp.onlySuggested') }}
       </b-alert>
     </template>
     <template #left>
-      <Container v-if="permissions.isLoggedIn" :title="$i18n('options')">
+      <Container v-if="permissions.isLoggedIn" :title="$t('options')">
         <ContainerButton
           v-if="!permissions.isFollower && isOpen"
           variant="success"
@@ -55,19 +55,19 @@
       </Container>
       <Container
         v-if="fsp.managers?.length"
-        :title="$i18n('fsp.managers')"
+        :title="$t('fsp.managers')"
         wrap-content="p-0"
       >
         <AvatarList :profiles="fsp.managers" :max-visible-avatars="10" />
       </Container>
-      <Container :title="$i18n('fsp.address')">
+      <Container :title="$t('fsp.address')">
         <div class="list-group-item d-flex justify-content-between">
           <div>
             {{ fsp.address }} <br>
             {{ fsp.postalCode }} {{ fsp.city }} <br>
             <a :href="$url('map', { foodSharePointId: id })">
               <i class="fas fa-map-marker-alt" />
-              {{ $i18n('fsp.show_on_large_map') }}
+              {{ $t('fsp.show_on_large_map') }}
             </a>
           </div>
           <NavigateWithSelector
@@ -92,20 +92,20 @@
       </div>
       <div class="list-group-item fsp-meta-data">
         <span>
-          <span v-text="$i18n('fsp.createdAt')" />
+          <span v-text="$t('fsp.createdAt')" />
           <Time
             :time="fsp.createdAt"
             :muted="false"
             normal-size
           />
         </span>
-        <span v-text="$i18n('fsp.followerCount', fsp)" />
+        <span v-text="$t('fsp.followerCount', fsp)" />
       </div>
     </Container>
 
     <b-alert :show="permissions.isLoggedIn" variant="info">
       <i class="fas fa-info-circle mr-2" />
-      {{ $i18n('fsp.publicwall') }}
+      {{ $t('fsp.publicwall') }}
     </b-alert>
 
     <Wall
@@ -115,14 +115,14 @@
     />
     <b-modal
       ref="followModal"
-      :title="$i18n('fsp.follow')"
+      :title="$t('fsp.follow')"
       centered
       :ok-disabled="sendMail === null"
-      :ok-title="$i18n('button.save')"
-      :cancel-title="$i18n('button.cancel')"
+      :ok-title="$t('button.save')"
+      :cancel-title="$t('button.cancel')"
       @ok="follow"
     >
-      <p v-text="$i18n('fsp.info.descModal')" />
+      <p v-text="$t('fsp.info.descModal')" />
       <b-form-radio-group v-model="sendMail" :options="notificationOptions" />
     </b-modal>
   </BasePage>
@@ -166,8 +166,8 @@ export default {
       icon: L.AwesomeMarkers.icon({ icon: 'recycle', markerColor: 'beige' }),
       sendMail: null,
       notificationOptions: [
-        { text: this.$i18n('fsp.info.bell'), value: false },
-        { text: this.$i18n('fsp.info.mail'), value: true },
+        { text: this.$t('fsp.info.bell'), value: false },
+        { text: this.$t('fsp.info.mail'), value: true },
       ],
     }
   },

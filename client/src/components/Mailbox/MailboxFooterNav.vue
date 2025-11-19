@@ -4,7 +4,7 @@
       href="#"
       class="d-flex justify-content-center align-items-center"
       @click="showEmailList"
-    >{{ $i18n('back') }}</a>
+    >{{ $t('back') }}</a>
   </div>
 </template>
 

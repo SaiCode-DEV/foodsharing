@@ -6,7 +6,7 @@
       class="btn btn-sm btn-secondary btn-block"
       @click="toggleRowExpansionAll"
     >
-      {{ allRowsExpanded ? $i18n('collapse_all') : $i18n('expand_all') }}
+      {{ allRowsExpanded ? $t('collapse_all') : $t('expand_all') }}
     </button>
     <b-table
       v-bind="$attrs"

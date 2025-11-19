@@ -105,7 +105,7 @@ export default {
             this.forum = null
           }
         } catch (e) {
-          pulseError(this.$i18n('error_unexpected'))
+          pulseError(this.$t('error_unexpected'))
         }
       }
       return matchingForums.map(this.formatItem)

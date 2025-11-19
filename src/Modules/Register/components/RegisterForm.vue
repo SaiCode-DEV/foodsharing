@@ -1,7 +1,7 @@
 <template>
   <div class="card rounded">
     <div class="card-header text-white bg-primary">
-      {{ $i18n('register.title') }} ({{ page }} / 6)
+      {{ $t('register.title') }} ({{ page }} / 6)
     </div>
     <div :class="{disabledLoading: isLoading, 'card-body': true}">
       <RegisterMailAndPassword

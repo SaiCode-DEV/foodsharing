@@ -24,21 +24,21 @@
         :class="folderClassInbox"
         @click.prevent="setMailboxIdAndFolder(MAILBOX_FOLDER.INBOX)"
       >
-        {{ $i18n('mailbox.inbox') }}
+        {{ $t('mailbox.inbox') }}
       </b-link>
       ·
       <b-link
         :class="folderClassSent"
         @click.prevent.stop="setMailboxIdAndFolder(MAILBOX_FOLDER.SENT)"
       >
-        {{ $i18n('mailbox.sent') }}
+        {{ $t('mailbox.sent') }}
       </b-link>
       ·
       <b-link
         :class="folderClassTrash"
         @click.prevent.stop="setMailboxIdAndFolder(MAILBOX_FOLDER.TRASH)"
       >
-        {{ $i18n('mailbox.trash') }}
+        {{ $t('mailbox.trash') }}
       </b-link>
     </div>
   </div>

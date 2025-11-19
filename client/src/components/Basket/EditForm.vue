@@ -7,7 +7,7 @@
       variant="primary"
     >
       <i class="fas fa-pen" />
-      {{ $i18n('basket.edit') }}
+      {{ $t('basket.edit') }}
     </b-button>
     <b-button
       block
@@ -15,7 +15,7 @@
       @click="deleteBasket"
     >
       <i class="fas fa-trash" />
-      {{ $i18n('basket.delete') }}
+      {{ $t('basket.delete') }}
     </b-button>
     <AddBasketModal :edit="true" :basket="basket" />
   </div>

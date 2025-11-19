@@ -35,7 +35,7 @@
         variant="primary"
         @click="hide('forget')"
       >
-        {{ $i18n('globals.close') }}
+        {{ $t('globals.close') }}
       </b-button>
       <slot v-if="!isLoading" name="popup-footer" />
     </template>

@@ -2,7 +2,7 @@
   <div>
     <div class="alert alert-warning d-flex align-items-center">
       <i class="fas fa-info-circle mr-2" />
-      <span> {{ $i18n('dashboard.activity_filter_info') }} </span>
+      <span> {{ $t('dashboard.activity_filter_info') }} </span>
     </div>
     <form id="activity-option-form">
       <fieldset
@@ -42,7 +42,7 @@
         <label
           v-if="listing.items.length === 0"
           class="info-italic"
-          v-text="$i18n('dashboard.empty_section', {type: listing.shortName})"
+          v-text="$t('dashboard.empty_section', {type: listing.shortName})"
         />
       </fieldset>
       <hr>
@@ -50,12 +50,12 @@
         <button
           class="btn btn-primary"
           @click.prevent="saveOptionListings"
-          v-text="$i18n('dashboard.save_selection')"
+          v-text="$t('dashboard.save_selection')"
         />
         <button
           class="btn btn-outline-danger"
           @click.prevent="$emit('close')"
-          v-text="$i18n('button.cancel')"
+          v-text="$t('button.cancel')"
         />
       </div>
     </form>

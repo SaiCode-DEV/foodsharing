@@ -44,12 +44,12 @@ export default {
     },
     title () {
       if (this.chat.name) return this.chat.name
-      const formatter = new Intl.ListFormat(this.$i18n('calendar.locale'), { type: 'conjunction' })
+      const formatter = new Intl.ListFormat(this.$t('calendar.locale'), { type: 'conjunction' })
       const allNamesAvailable = this.chat.members.length === this.chat.member_count
       const names = this.chat.members.map(member => member.name)
-      if (!allNamesAvailable) names.push(this.$i18n('search.results.chat.chat_with_others'))
+      if (!allNamesAvailable) names.push(this.$t('search.results.chat.chat_with_others'))
       const jointNames = formatter.format(names)
-      return this.$i18n('search.results.chat.chat_with', { names: jointNames })
+      return this.$t('search.results.chat.chat_with', { names: jointNames })
     },
   },
   methods: {

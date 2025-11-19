@@ -4,7 +4,7 @@
     inline
   >
     <TimePicker
-      v-b-tooltip.noninteractive="$i18n('timepicker.from')"
+      v-b-tooltip.noninteractive="$t('timepicker.from')"
       :value="fromTime"
       class="time-picker-from"
       :state="state"
@@ -12,7 +12,7 @@
     />
     <hr class="time-separator" :class="{ invisible: independent, error: state === false }">
     <TimePicker
-      v-b-tooltip.noninteractive="$i18n('timepicker.to')"
+      v-b-tooltip.noninteractive="$t('timepicker.to')"
       :value="toTime"
       class="time-picker-to"
       :state="state"

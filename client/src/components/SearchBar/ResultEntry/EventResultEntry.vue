@@ -7,7 +7,7 @@
     <div class="text-truncate flex-grow-1">
       <h6 class="m-0 text-truncate d-inline">
         <i
-          v-b-tooltip.noninteractive="$i18n(`search.results.event.invitation_tooltip.${+event.status}`)"
+          v-b-tooltip.noninteractive="$t(`search.results.event.invitation_tooltip.${+event.status}`)"
           :class="invitationIcon"
         />
         {{ event.name }}
@@ -15,7 +15,7 @@
       <br>
       <small class="separate">
         <span v-if="event.region_id">
-          {{ $i18n('search.results.in') }}
+          {{ $t('search.results.in') }}
           <a :href="$url('events', event.region_id)">
             {{ event.region_name }}
           </a>
@@ -40,7 +40,7 @@ export default {
     },
     locationText () {
       if (this.event.location_type === 1) { // TODO use const after MR !3387
-        return this.$i18n('search.results.event.location_online')
+        return this.$t('search.results.event.location_online')
       }
       return [
         this.event.location_name,
@@ -61,11 +61,11 @@ export default {
       const relativeTime = this.$dateFormatter.relativeTime((end < now) ? end : start)
       let relation = ''
       if (start > now) {
-        relation = this.$i18n('search.results.time_relation.future')
+        relation = this.$t('search.results.time_relation.future')
       } else if (end < now) {
-        relation = this.$i18n('search.results.time_relation.past')
+        relation = this.$t('search.results.time_relation.past')
       } else {
-        relation = this.$i18n('search.results.time_relation.present_since')
+        relation = this.$t('search.results.time_relation.present_since')
       }
       return `${range} (${relation} ${relativeTime})`
     },

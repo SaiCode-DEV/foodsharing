@@ -17,7 +17,7 @@
       @click="tryCreateAsUser()"
     >
       <i class="fas fa-file-pdf fa-xl mr-1" />
-      {{ $i18n('settings.passport.button') }}
+      {{ $t('settings.passport.button') }}
     </b-button>
   </b-overlay>
 </template>

@@ -11,9 +11,9 @@
         </b-col>
         <b-col class="min-width-250">
           <div class="d-flex small range-explanation">
-            <span v-text="$i18n('polls.score.disapproval')" />
-            <span class="text-center" v-text="$i18n('polls.score.neutral')" />
-            <span class="text-right" v-text="$i18n('polls.score.approval')" />
+            <span v-text="$t('polls.score.disapproval')" />
+            <span class="text-center" v-text="$t('polls.score.neutral')" />
+            <span class="text-right" v-text="$t('polls.score.approval')" />
           </div>
           <vue-slider
             v-model="selected[i-1]"

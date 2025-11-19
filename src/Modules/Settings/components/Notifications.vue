@@ -2,13 +2,13 @@
   <div>
     <div class="pt-2">
       <div>
-        <h4>{{ $i18n('notifications.chat.title') }}</h4>
+        <h4>{{ $t('notifications.chat.title') }}</h4>
         <b-row>
           <b-col
             cols="12"
             lg="5"
           >
-            {{ $i18n('notifications.chat.description') }}
+            {{ $t('notifications.chat.description') }}
           </b-col>
           <b-col
             cols="4"
@@ -20,7 +20,7 @@
               v-model="infoMailState"
               size="sm"
             >
-              {{ $i18n('notifications.checkbox_email') }}
+              {{ $t('notifications.checkbox_email') }}
             </b-form-checkbox>
           </b-col>
           <b-col
@@ -36,7 +36,7 @@
                 size="sm"
                 @change="updatePushNotifications"
               >
-                {{ $i18n('notifications.checkbox_push') }}
+                {{ $t('notifications.checkbox_push') }}
               </b-form-checkbox>
             </LoadingOverlay>
           </b-col>
@@ -47,20 +47,20 @@
             class="mx-3 mt-2"
           >
             <!-- eslint-disable-next-line vue/no-v-html -->
-            <Markdown :source="$i18n('notifications.safari_add_to_home_screen', {icon: safariShareIcon})" />
+            <Markdown :source="$t('notifications.safari_add_to_home_screen', {icon: safariShareIcon})" />
           </b-alert>
         </b-row>
       </div>
     </div>
 
     <div class="pt-2">
-      <h4>{{ $i18n('notifications.foodSharePoints.title') }}</h4>
+      <h4>{{ $t('notifications.foodSharePoints.title') }}</h4>
       <b-row>
         <b-col
           cols="12"
           lg="5"
         >
-          {{ $i18n('notifications.foodSharePoints.description') }}
+          {{ $t('notifications.foodSharePoints.description') }}
           <div>
             <b-button
               class="mt-2"
@@ -69,7 +69,7 @@
               :disabled="currentFoodSharePoints.length <= 0"
               @click="toogleFoodSharePointDetails"
             >
-              {{ $i18n('notifications.config_button') }}
+              {{ $t('notifications.config_button') }}
             </b-button>
           </div>
         </b-col>
@@ -83,7 +83,7 @@
             size="sm"
             @change="toggleGlobalNotification('currentFoodSharePoints', 'infotype', Number(isFoodSharePointGlobalEmailNotificationActive))"
           >
-            {{ $i18n('notifications.checkbox_email') }}
+            {{ $t('notifications.checkbox_email') }}
           </b-form-checkbox>
         </b-col>
         <b-col
@@ -96,7 +96,7 @@
             size="sm"
             @change="toggleGlobalNotification('currentFoodSharePoints', 'infotype', toggleFoodSharePointBell(isFoodSharePointGlobalBellNotificationActive))"
           >
-            {{ $i18n('notifications.checkbox_bell') }}
+            {{ $t('notifications.checkbox_bell') }}
           </b-form-checkbox>
         </b-col>
       </b-row>
@@ -125,7 +125,7 @@
     </div>
 
     <div class="pt-2">
-      <h4>{{ $i18n('notifications.threads.title') }}</h4>
+      <h4>{{ $t('notifications.threads.title') }}</h4>
       <b-row>
         <b-col
           cols="6"
@@ -139,7 +139,7 @@
               :disabled="currentThreads.length <= 0"
               @click="toogleThreadsDetails"
             >
-              {{ $i18n('notifications.config_button') }}
+              {{ $t('notifications.config_button') }}
             </b-button>
           </div>
         </b-col>
@@ -149,7 +149,7 @@
             size="sm"
             @change="toggleGlobalNotification('currentThreads', 'infotype', Number(isThreadsPointGlobalEmailNotificationActive))"
           >
-            {{ $i18n('notifications.checkbox_email') }}
+            {{ $t('notifications.checkbox_email') }}
           </b-form-checkbox>
         </b-col>
       </b-row>
@@ -178,7 +178,7 @@
     </div>
 
     <div class="pt-2">
-      <h4>{{ $i18n('notifications.regions.title') }}</h4>
+      <h4>{{ $t('notifications.regions.title') }}</h4>
       <b-row>
         <b-col
           cols="6"
@@ -192,7 +192,7 @@
               :disabled="currentRegions.length <= 0"
               @click="toogleRegionsDetails"
             >
-              {{ $i18n('notifications.config_button') }}
+              {{ $t('notifications.config_button') }}
             </b-button>
           </div>
         </b-col>
@@ -202,7 +202,7 @@
             size="sm"
             @change="toggleGlobalNotification('currentRegions', 'notifyByEmailAboutNewThreads', Number(isRegionsPointGlobalEmailNotificationActive))"
           >
-            {{ $i18n('notifications.checkbox_email') }}
+            {{ $t('notifications.checkbox_email') }}
           </b-form-checkbox>
         </b-col>
       </b-row>
@@ -231,7 +231,7 @@
     </div>
 
     <div class="pt-2">
-      <h4>{{ $i18n('notifications.groups.title') }}</h4>
+      <h4>{{ $t('notifications.groups.title') }}</h4>
       <b-row>
         <b-col
           cols="6"
@@ -245,7 +245,7 @@
               :disabled="currentGroups.length <= 0"
               @click="toogleGroupsDetails"
             >
-              {{ $i18n('notifications.config_button') }}
+              {{ $t('notifications.config_button') }}
             </b-button>
           </div>
         </b-col>
@@ -255,7 +255,7 @@
             size="sm"
             @change="toggleGlobalNotification('currentGroups', 'notifyByEmailAboutNewThreads', Number(isGroupsGlobalEmailNotificationActive))"
           >
-            {{ $i18n('notifications.checkbox_email') }}
+            {{ $t('notifications.checkbox_email') }}
           </b-form-checkbox>
         </b-col>
       </b-row>
@@ -284,13 +284,13 @@
     </div>
 
     <div class="pt-2 pb-2">
-      <h4>{{ $i18n('notifications.newsletter.title') }}</h4>
+      <h4>{{ $t('notifications.newsletter.title') }}</h4>
       <b-row>
         <b-col
           cols="8"
           lg="5"
         >
-          {{ $i18n('notifications.newsletter.description') }}
+          {{ $t('notifications.newsletter.description') }}
         </b-col>
         <b-col cols="4" lg="6">
           <b-form-checkbox
@@ -298,20 +298,20 @@
             name="newsletter"
             size="sm"
           >
-            {{ $i18n('notifications.checkbox_email') }}
+            {{ $t('notifications.checkbox_email') }}
           </b-form-checkbox>
         </b-col>
       </b-row>
     </div>
 
     <div v-if="userStore.isStoreManager" class="pt-2 pb-2">
-      <h4>{{ $i18n('notifications.pickupReminder.title') }}</h4>
+      <h4>{{ $t('notifications.pickupReminder.title') }}</h4>
       <b-row>
         <b-col
           cols="8"
           lg="5"
         >
-          {{ $i18n('notifications.pickupReminder.description') }}
+          {{ $t('notifications.pickupReminder.description') }}
         </b-col>
         <b-col cols="4" lg="6">
           <b-form-checkbox
@@ -319,21 +319,21 @@
             name="pickupReminder"
             size="sm"
           >
-            {{ $i18n('notifications.checkbox_email') }}
+            {{ $t('notifications.checkbox_email') }}
           </b-form-checkbox>
         </b-col>
       </b-row>
     </div>
 
     <div class="pt-2 pb-2">
-      <h4>{{ $i18n('notifications.mention.title') }}</h4>
+      <h4>{{ $t('notifications.mention.title') }}</h4>
       <b-row>
         <b-col cols="8" lg="5">
-          {{ $i18n('notifications.mention.description') }}
+          {{ $t('notifications.mention.description') }}
         </b-col>
         <b-col cols="4" lg="6">
           <b-form-checkbox v-model="mentionState" size="sm">
-            {{ $i18n('notifications.checkbox_bell') }}
+            {{ $t('notifications.checkbox_bell') }}
           </b-form-checkbox>
         </b-col>
       </b-row>
@@ -344,7 +344,7 @@
       variant="primary"
       @click="updateNotificationSettings"
     >
-      {{ $i18n('globals.save') }}
+      {{ $t('globals.save') }}
     </b-button>
   </div>
 </template>
@@ -389,13 +389,13 @@ export default {
   data () {
     return {
       foodSharePointNotificationOptions: [
-        { value: 0, text: this.$i18n('notifications.checkbox_disabled') },
-        { value: 1, text: this.$i18n('notifications.checkbox_email') },
-        { value: 2, text: this.$i18n('notifications.checkbox_bell') },
+        { value: 0, text: this.$t('notifications.checkbox_disabled') },
+        { value: 1, text: this.$t('notifications.checkbox_email') },
+        { value: 2, text: this.$t('notifications.checkbox_bell') },
       ],
       emailNotificationOptions: [
-        { value: 0, text: this.$i18n('notifications.checkbox_disabled') },
-        { value: 1, text: this.$i18n('notifications.checkbox_email') },
+        { value: 0, text: this.$t('notifications.checkbox_disabled') },
+        { value: 1, text: this.$t('notifications.checkbox_email') },
       ],
       subscription: {},
       infoMailState: null,
@@ -485,14 +485,14 @@ export default {
       try {
         if (!this.pushNotificationState) {
           await subscribeForPushNotifications()
-          pulseSuccess(this.$i18n('settings.push.success'))
+          pulseSuccess(this.$t('settings.push.success'))
         } else {
           await unsubscribeFromPushNotifications()
-          pulseSuccess(this.$i18n('settings.push.disabled'))
+          pulseSuccess(this.$t('settings.push.disabled'))
         }
         await this.isSubscriptionValid()
       } catch (error) {
-        pulseError(this.$i18n('error_ajax'))
+        pulseError(this.$t('error_ajax'))
         throw error
       }
     },
@@ -513,9 +513,9 @@ export default {
           await setPickupReminderNotification(this.pickupReminderState)
         }
         await setMentionNotification(this.mentionState)
-        pulseSuccess(this.$i18n('notifications.save_success'))
+        pulseSuccess(this.$t('notifications.save_success'))
       } catch {
-        pulseError(this.$i18n('error_ajax'))
+        pulseError(this.$t('error_ajax'))
       }
     },
     convertBooleanToNumber (value) {

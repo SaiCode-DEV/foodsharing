@@ -405,7 +405,7 @@ export default {
           if (ProfileStore.profiles[m]) {
             return ProfileStore.profiles[m].name
           } else {
-            return this.$i18n('chat.unknown_username')
+            return this.$t('chat.unknown_username')
           }
         })
         .join(', ')
@@ -417,7 +417,7 @@ export default {
     convertMessages (conversation) {
       const chatMessages = []
       for (const message of Object.values(conversation.messages)) {
-        let username = this.$i18n('chat.unknown_username')
+        let username = this.$t('chat.unknown_username')
         if (ProfileStore.profiles[message.authorId]) {
           username = ProfileStore.profiles[message.authorId].name
         }
@@ -477,8 +477,8 @@ export default {
         }
 
         if (conv.lastMessage) {
-          let username = this.$i18n('chat.unknown_username')
-          let senderId = this.$i18n('chat.unknown_username')
+          let username = this.$t('chat.unknown_username')
+          let senderId = this.$t('chat.unknown_username')
           if (conv.lastMessage.authorId && ProfileStore.profiles[conv.lastMessage.authorId]) {
             username = ProfileStore.profiles[conv.lastMessage.authorId].name
             senderId = String(conv.lastMessage.authorId)
@@ -506,7 +506,7 @@ export default {
           const profile = ProfileStore.profiles[userId]
           const user = {
             _id: userId,
-            username: profile && profile.name ? profile.name : this.$i18n('chat.unknown_username'),
+            username: profile && profile.name ? profile.name : this.$t('chat.unknown_username'),
             avatar: profile && profile.avatar ? profile.avatar : this.defaultAvatar,
             status: {
               // The following properties could also be used in the vue-advanced-chat component when these are implemented in the backend.

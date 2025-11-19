@@ -19,14 +19,14 @@
         class="btn btn-primary"
         type="button"
         @click="openChat"
-        v-text="$i18n('chat.open_chat')"
+        v-text="$t('chat.open_chat')"
       />
       <a
         v-if="!loading"
         class="btn btn-primary"
         type="button"
         :href="$url('profile', id)"
-        v-text="$i18n('map.users.go')"
+        v-text="$t('map.users.go')"
       />
     </template>
   </map-popup>

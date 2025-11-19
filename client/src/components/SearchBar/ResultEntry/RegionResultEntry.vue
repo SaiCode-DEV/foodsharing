@@ -8,17 +8,17 @@
       <h6 class="m-0 text-truncate d-inline">
         <i
           v-if="isAmbassador"
-          v-b-tooltip.noninteractive="$i18n('search.results.region.ambassador_tooltip')"
+          v-b-tooltip.noninteractive="$t('search.results.region.ambassador_tooltip')"
           class="fas fa-user-cog"
         />
         <i
           v-else-if="isHome"
-          v-b-tooltip.noninteractive="$i18n('search.results.region.home_region_tooltip')"
+          v-b-tooltip.noninteractive="$t('search.results.region.home_region_tooltip')"
           class="fas fa-home"
         />
         <i
           v-else-if="region.is_member"
-          v-b-tooltip.noninteractive="$i18n('search.results.region.member_tooltip')"
+          v-b-tooltip.noninteractive="$t('search.results.region.member_tooltip')"
           class="fas fa-user-check"
         />
         {{ region.name }}
@@ -26,7 +26,7 @@
       <br>
       <small class="separate">
         <span v-if="region.parent_id">
-          {{ $i18n('search.results.in') }}
+          {{ $t('search.results.in') }}
           <a :href="$url('publicRegion', region.parent_id)">
             {{ region.parent_name }}
           </a>

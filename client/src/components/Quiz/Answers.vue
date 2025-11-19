@@ -1,6 +1,6 @@
 <template>
   <p>
-    <b>{{ $i18n(`quiz.answers.name`) }}:</b>
+    <b>{{ $t(`quiz.answers.name`) }}:</b>
     <span
       v-for="answer in sortedAnswers"
       :key="answer.id"
@@ -11,7 +11,7 @@
           :options="menuOptions"
           :callback-args="[answer.id]"
         />
-        <b>{{ $i18n(answerText(answer)) }}</b><br>
+        <b>{{ $t(answerText(answer)) }}</b><br>
         {{ answer.text }}
         <ExpandableExplanation :text="answer.explanation" />
       </span>

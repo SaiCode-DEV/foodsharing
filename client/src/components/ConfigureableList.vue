@@ -24,7 +24,7 @@
       @hide="handleCloseOnEscOrBackdrop"
     >
       <template #modal-header="{ close }">
-        <h4>{{ $i18n('configure_columns') }}</h4>
+        <h4>{{ $t('configure_columns') }}</h4>
         <button
           type="button"
           class="btn btn-sm no-shadow"
@@ -72,10 +72,10 @@
               class="form-check-input"
             >
             <label
-              v-b-tooltip.hover="$i18n('save_state_description')"
+              v-b-tooltip.hover="$t('save_state_description')"
               class="form-check-label"
               for="save-filter-checkbox"
-            >{{ $i18n('save_state') }}</label>
+            >{{ $t('save_state') }}</label>
           </div>
         </div>
       </template>
@@ -84,13 +84,13 @@
           class="col"
           @click="resetDefaults"
         >
-          {{ $i18n('button.reset_default') }}
+          {{ $t('button.reset_default') }}
         </b-button>
         <b-button
           variant="primary"
           @click="ok"
         >
-          {{ $i18n('button.save') }}
+          {{ $t('button.save') }}
         </b-button>
       </template>
     </b-modal>

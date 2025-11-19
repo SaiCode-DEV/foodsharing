@@ -2,7 +2,7 @@
   <div>
     <div v-if="userProfileSettings === undefined || userProfileSettings.length <= 0">
       <b-alert show variant="warning">
-        <h4>{{ $i18n('settings.no_rights') }}</h4>
+        <h4>{{ $t('settings.no_rights') }}</h4>
       </b-alert>
     </div>
 
@@ -11,41 +11,41 @@
         card
         :vertical="!viewIsMobile"
       >
-        <b-tab :title="$i18n('settings.title')" :active="subPage === SUB_PAGE.GENERAL">
+        <b-tab :title="$t('settings.title')" :active="subPage === SUB_PAGE.GENERAL">
           <ProfileSettings />
         </b-tab>
         <b-tab
           v-if="isMe"
           lazy
-          :title="$i18n('settings.notifications')"
+          :title="$t('settings.notifications')"
           :active="subPage === SUB_PAGE.NOTIFICATION"
         >
           <Notifications />
         </b-tab>
         <b-tab
           v-if="isMe && isFoodsaver && userStore.settings.businessCardData !== undefined"
-          :title="$i18n('settings.businesscard')"
+          :title="$t('settings.businesscard')"
           :active="subPage === SUB_PAGE.BUSINESS_CARD"
         >
           <BusinessCard :business-card-data="userStore.settings.businessCardData" />
         </b-tab>
         <b-tab
           v-if="isMe"
-          :title="$i18n('settings.calendar.menu')"
+          :title="$t('settings.calendar.menu')"
           :active="subPage === SUB_PAGE.CALENDAR"
         >
           <Calendar />
         </b-tab>
         <b-tab
           v-if="isFoodsaver && isMe"
-          :title="$i18n('settings.passport.menu')"
+          :title="$t('settings.passport.menu')"
           :active="subPage === SUB_PAGE.PASSPORT"
         >
           <Passport />
         </b-tab>
         <b-tab
           v-if="isMe && userStore.settings.sleepingData !== undefined"
-          :title="$i18n('settings.sleep.title')"
+          :title="$t('settings.sleep.title')"
           :active="subPage === SUB_PAGE.SLEEPING"
         >
           <SleepingMode
@@ -57,7 +57,7 @@
         </b-tab>
         <b-tab
           v-if="isMe || userStore.settings.mayChangeEmailImmediately"
-          :title="$i18n('settings.email')"
+          :title="$t('settings.email')"
           :active="subPage === SUB_PAGE.CHANGE_EMAIL"
         >
           <ChangeEmailForm :is-me="isMe" :user-id="userId" />
@@ -66,7 +66,7 @@
         </b-tab>
         <b-tab
           v-if="isMe"
-          :title="$i18n('settings.2fa.title')"
+          :title="$t('settings.2fa.title')"
           :active="subPage === SUB_PAGE.CHANGE_2FA"
         >
           <Change2FAForm
@@ -84,14 +84,14 @@
         <b-tab
           v-if="isMe"
           ref="hygieneTab"
-          :title="$i18n('terminology.hygiene_training')"
+          :title="$t('terminology.hygiene_training')"
           :active="subPage === SUB_PAGE.HYGIENE"
         >
           <Quiz :quiz-id="4" />
         </b-tab>
         <b-tab
           v-if="isMe || isOrgaUser"
-          :title="$i18n('foodsaver.delete_account')"
+          :title="$t('foodsaver.delete_account')"
           :active="subPage === SUB_PAGE.DELETE_ACCOUNT"
         >
           <DeleteAccount :user-id="userId" />

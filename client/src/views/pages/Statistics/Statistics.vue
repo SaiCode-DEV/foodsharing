@@ -5,7 +5,7 @@
       :number="stats[0].value || 0"
     />
     <Container
-      :title="$i18n('stats.title')"
+      :title="$t('stats.title')"
       :collapsible="false"
       :wrap-contents="true"
     >
@@ -40,19 +40,19 @@
       >
         <template #title>
           <div class="d-flex justify-content-between align-items-center w-100">
-            <h5>{{ $i18n('stats.leader.regions') }}</h5>
+            <h5>{{ $t('stats.leader.regions') }}</h5>
             <b-button-group size="sm">
               <b-button
                 :variant="sortBy === 'weight' ? 'primary' : 'outline-primary'"
                 @click="sortBy = 'weight'"
               >
-                {{ $i18n('stats.sort.by_weight') }}
+                {{ $t('stats.sort.by_weight') }}
               </b-button>
               <b-button
                 :variant="sortBy === 'count' ? 'primary' : 'outline-primary'"
                 @click="sortBy = 'count'"
               >
-                {{ $i18n('stats.sort.by_count') }}
+                {{ $t('stats.sort.by_count') }}
               </b-button>
             </b-button-group>
           </div>
@@ -69,10 +69,10 @@
                   {{ sortedRegions[1].name }}
                 </h4>
                 <p class="mb-0">
-                  {{ formatNumber(sortedRegions[1].fetchWeight) }}<span class="text-nowrap">&thinsp;</span>kg&nbsp;{{ $i18n('profile.stats.weight') }}
+                  {{ formatNumber(sortedRegions[1].fetchWeight) }}<span class="text-nowrap">&thinsp;</span>kg&nbsp;{{ $t('profile.stats.weight') }}
                 </p>
                 <p class="mb-0">
-                  {{ formatNumber(sortedRegions[1].fetchCount) }}<span class="text-nowrap">&thinsp;</span>x {{ $i18n('profile.stats.fetch_count') }}
+                  {{ formatNumber(sortedRegions[1].fetchCount) }}<span class="text-nowrap">&thinsp;</span>x {{ $t('profile.stats.fetch_count') }}
                 </p>
               </div>
             </div>
@@ -85,10 +85,10 @@
                   {{ sortedRegions[0].name }}
                 </h4>
                 <p class="mb-0">
-                  {{ formatNumber(sortedRegions[0].fetchWeight) }}<span class="text-nowrap">&thinsp;</span>kg&nbsp;{{ $i18n('profile.stats.weight') }}
+                  {{ formatNumber(sortedRegions[0].fetchWeight) }}<span class="text-nowrap">&thinsp;</span>kg&nbsp;{{ $t('profile.stats.weight') }}
                 </p>
                 <p class="mb-0">
-                  {{ formatNumber(sortedRegions[0].fetchCount) }}<span class="text-nowrap">&thinsp;</span>x {{ $i18n('profile.stats.fetch_count') }}
+                  {{ formatNumber(sortedRegions[0].fetchCount) }}<span class="text-nowrap">&thinsp;</span>x {{ $t('profile.stats.fetch_count') }}
                 </p>
               </div>
             </div>
@@ -101,10 +101,10 @@
                   {{ sortedRegions[2].name }}
                 </h4>
                 <p class="mb-0">
-                  {{ formatNumber(sortedRegions[2].fetchWeight) }}<span class="text-nowrap">&thinsp;</span>kg&nbsp;{{ $i18n('profile.stats.weight') }}
+                  {{ formatNumber(sortedRegions[2].fetchWeight) }}<span class="text-nowrap">&thinsp;</span>kg&nbsp;{{ $t('profile.stats.weight') }}
                 </p>
                 <p class="mb-0">
-                  {{ formatNumber(sortedRegions[2].fetchCount) }}<span class="text-nowrap">&thinsp;</span>x {{ $i18n('profile.stats.fetch_count') }}
+                  {{ formatNumber(sortedRegions[2].fetchCount) }}<span class="text-nowrap">&thinsp;</span>x {{ $t('profile.stats.fetch_count') }}
                 </p>
               </div>
             </div>
@@ -127,10 +127,10 @@
                   {{ item.name }}
                 </h4>
                 <p class="mb-0 text-secondary">
-                  {{ formatNumber(item.fetchWeight) }}<span class="text-nowrap">&thinsp;</span>kg&nbsp;{{ $i18n('profile.stats.weight') }}
+                  {{ formatNumber(item.fetchWeight) }}<span class="text-nowrap">&thinsp;</span>kg&nbsp;{{ $t('profile.stats.weight') }}
                 </p>
                 <p class="mb-0">
-                  {{ formatNumber(item.fetchCount) }}<span class="text-nowrap">&thinsp;</span>x {{ $i18n('profile.stats.fetch_count') }}
+                  {{ formatNumber(item.fetchCount) }}<span class="text-nowrap">&thinsp;</span>x {{ $t('profile.stats.fetch_count') }}
                 </p>
               </div>
             </b-card-body>

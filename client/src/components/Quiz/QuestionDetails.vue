@@ -1,18 +1,18 @@
 <template>
   <div>
     <p v-if="question.isMandatory">
-      <b v-text="$i18n('quiz.mandatory_question')" />
+      <b v-text="$t('quiz.mandatory_question')" />
     </p>
     <p>
-      <b>{{ $i18n(`quiz.question`) }}:</b>
+      <b>{{ $t(`quiz.question`) }}:</b>
       {{ question.text }}
     </p>
     <p v-if="showTime">
-      <b>{{ $i18n(`quiz.timelimit`) }}:</b>
+      <b>{{ $t(`quiz.timelimit`) }}:</b>
       {{ question.durationInSeconds + 's' }}
     </p>
     <p>
-      <b>{{ $i18n('quiz.max_fp') }}:</b>
+      <b>{{ $t('quiz.max_fp') }}:</b>
       {{ failurePointsDescription }}
     </p>
   </div>
@@ -32,7 +32,7 @@ export default {
         failurePoints: this.question.failurePoints,
         perMistake: Math.round(1e2 * this.question.failurePoints / (valuedAnswers || 1)) / 1e2,
       }
-      return this.$i18n('quiz.fp_description', params)
+      return this.$t('quiz.fp_description', params)
     },
   },
 }

@@ -3,8 +3,8 @@
     <PickupModal
       modal-id="AddPickupModal"
       :store-id="storeId"
-      :title="$i18n('store.enter_date')"
-      :description="$i18n('store.enter_date_description')"
+      :title="$t('store.enter_date')"
+      :description="$t('store.enter_date_description')"
     />
   </div>
 </template>

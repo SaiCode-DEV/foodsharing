@@ -15,14 +15,14 @@
       ok-only
     >
       <template #modal-title>
-        {{ $i18n('terminology.achievement') }}:
+        {{ $t('terminology.achievement') }}:
         <i :class="iconClass" />
         <span v-text="achievement.name" />
       </template>
       <Markdown :source="achievement.description" /><br>
       <div v-if="isAwarded">
         <p>
-          {{ $i18n('achievements.awarded') }}
+          {{ $t('achievements.awarded') }}
           <Time
             :time="achievement.createdAt.date"
             plain
@@ -30,7 +30,7 @@
           />
         </p>
         <p v-if="achievement.validUntil?.date">
-          {{ $i18n('achievements.validUntil') }}:
+          {{ $t('achievements.validUntil') }}:
           <Time
             :time="achievement.validUntil.date"
             plain
@@ -38,13 +38,13 @@
           />
         </p>
         <p v-if="achievement.notice">
-          {{ $i18n('achievements.notice') }}:
+          {{ $t('achievements.notice') }}:
           {{ achievement.notice }}
         </p>
       </div>
       <div v-else>
-        <i v-if="achievement.validityInDaysAfterAssignment > 0" v-text="$i18n('achievements.validity.days', achievement)" />
-        <i v-else v-text="$i18n('achievements.validity.indefinite')" />
+        <i v-if="achievement.validityInDaysAfterAssignment > 0" v-text="$t('achievements.validity.days', achievement)" />
+        <i v-else v-text="$t('achievements.validity.indefinite')" />
       </div>
     </b-modal>
   </span>

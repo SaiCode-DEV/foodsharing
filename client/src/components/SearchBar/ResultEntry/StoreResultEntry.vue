@@ -8,17 +8,17 @@
       <h6 class="m-0 text-truncate d-inline">
         <i
           v-if="store.is_manager"
-          v-b-tooltip.noninteractive="$i18n('search.results.store.manager_tooltip')"
+          v-b-tooltip.noninteractive="$t('search.results.store.manager_tooltip')"
           class="fas fa-user-cog"
         />
         <i
           v-else-if="isMember"
-          v-b-tooltip.noninteractive="$i18n('search.results.store.member_tooltip')"
+          v-b-tooltip.noninteractive="$t('search.results.store.member_tooltip')"
           class="fas fa-user-check"
         />
         <i
           v-else-if="isJumper"
-          v-b-tooltip.noninteractive="$i18n('search.results.store.jumper_tooltip')"
+          v-b-tooltip.noninteractive="$t('search.results.store.jumper_tooltip')"
           class="fas fa-running"
         />
         {{ store.name }}
@@ -26,13 +26,13 @@
       <br>
       <small class="separate">
         <span v-if="store.region_id">
-          {{ $i18n('search.results.in') }}
+          {{ $t('search.results.in') }}
           <a :href="$url('stores', store.region_id)">
             {{ store.region_name }}
           </a>
         </span>
         <span>
-          {{ $i18n(`storestatus.${store.cooperation_status}`) }}
+          {{ $t(`storestatus.${store.cooperation_status}`) }}
         </span>
         <span v-if="store.city">
           <span v-if="store.street">{{ store.street }},</span>

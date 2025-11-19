@@ -21,12 +21,12 @@
             >
               <b-card-title class="mt-4">
                 <h1 class="text-dark">
-                  {{ $i18n('startpage.welcome_text') }}
+                  {{ $t('startpage.welcome_text') }}
                 </h1>
               </b-card-title>
               <b-card-text class="mt-4">
                 <h3 class="text-dark">
-                  {{ $i18n('startpage.slogan_1') }}
+                  {{ $t('startpage.slogan_1') }}
                 </h3>
               </b-card-text>
               <b-card-text class="mt-5 mb-5 text-center">
@@ -35,14 +35,14 @@
                   class="pl-5 pr-5"
                   :href="$url('joininfo')"
                 >
-                  {{ $i18n('startpage.call_to_action_button') }}
+                  {{ $t('startpage.call_to_action_button') }}
                 </b-button>
               </b-card-text>
               <h6
                 class="text-dark d-none d-sm-block mb-sm-5"
               >
-                <b>{{ $i18n('startpage.slogan_2') }}</b><br>
-                {{ $i18n('startpage.slogan_3') }}
+                <b>{{ $t('startpage.slogan_2') }}</b><br>
+                {{ $t('startpage.slogan_3') }}
               </h6>
             </b-col>
           </b-row>
@@ -95,21 +95,21 @@
         xl="3"
         class="text-xl-right"
       >
-        <h2>{{ $i18n('startpage.vision.title') }}</h2>
+        <h2>{{ $t('startpage.vision.title') }}</h2>
       </b-col>
       <b-col
         cols="12"
         xl="6"
       >
         <p>
-          {{ $i18n('startpage.vision.text') }}
+          {{ $t('startpage.vision.text') }}
         </p>
         <p>
           <b-link
             class="link"
             href="ueber-uns"
           >
-            {{ $i18n('startpage.more_infos') }}
+            {{ $t('startpage.more_infos') }}
           </b-link>
         </p>
       </b-col>
@@ -119,7 +119,7 @@
         xl="4"
         class="text-xl-right"
       >
-        <h2>{{ $i18n('startpage.this_is_how_it_works') }}</h2>
+        <h2>{{ $t('startpage.this_is_how_it_works') }}</h2>
       </b-col>
       <b-col
         cols="12"
@@ -149,7 +149,7 @@
         xl="4"
         class="text-xl-right"
       >
-        <h2>{{ $i18n('startpage.call_to_action.title') }}</h2>
+        <h2>{{ $t('startpage.call_to_action.title') }}</h2>
       </b-col>
       <b-col
         cols="12"
@@ -157,7 +157,7 @@
         class="ml-xl-5"
       >
         <p>
-          {{ $i18n('startpage.call_to_action.text') }}
+          {{ $t('startpage.call_to_action.text') }}
         </p>
       </b-col>
     </b-row>
@@ -170,15 +170,15 @@
             class="p-4"
           >
             <b-card-text>
-              <h5>{{ $i18n('startpage.member.title') }}</h5>
+              <h5>{{ $t('startpage.member.title') }}</h5>
             </b-card-text>
             <b-card-text>
-              {{ $i18n('startpage.member.text') }}
+              {{ $t('startpage.member.text') }}
               <b-link
                 class="link"
                 href="/content?sub=joininfo"
               >
-                {{ $i18n('startpage.more_infos') }}
+                {{ $t('startpage.more_infos') }}
               </b-link>
             </b-card-text>
           </b-card>
@@ -188,10 +188,10 @@
             class="p-4"
           >
             <b-card-text>
-              <h5>{{ $i18n('startpage.private.title') }}</h5>
+              <h5>{{ $t('startpage.private.title') }}</h5>
             </b-card-text>
             <b-card-text>
-              {{ $i18n('startpage.private.text') }}
+              {{ $t('startpage.private.text') }}
             </b-card-text>
           </b-card>
           <b-card
@@ -200,15 +200,15 @@
             class="p-4"
           >
             <b-card-text>
-              <h5>{{ $i18n('startpage.store.title') }}</h5>
+              <h5>{{ $t('startpage.store.title') }}</h5>
             </b-card-text>
             <b-card-text>
-              {{ $i18n('startpage.store.text') }}
+              {{ $t('startpage.store.text') }}
               <b-link
                 class="link"
                 href="fuer-unternehmen"
               >
-                {{ $i18n('startpage.more_infos') }}
+                {{ $t('startpage.more_infos') }}
               </b-link>
             </b-card-text>
           </b-card>
@@ -221,21 +221,21 @@
         xl="3"
         class="text-xl-right"
       >
-        <h2>{{ $i18n('startpage.how_we_work.title') }}</h2>
+        <h2>{{ $t('startpage.how_we_work.title') }}</h2>
       </b-col>
       <b-col
         cols="12"
         xl="6"
       >
         <p>
-          {{ $i18n('startpage.how_we_work.text') }}
+          {{ $t('startpage.how_we_work.text') }}
         </p>
         <p>
           <b-link
             class="link"
             :href="$url('devdocs')"
           >
-            {{ $i18n('startpage.more_infos') }}
+            {{ $t('startpage.more_infos') }}
           </b-link>
         </p>
       </b-col>
@@ -259,7 +259,7 @@
                 class="p-4"
               >
                 <b-card-text>
-                  <h5>{{ $i18n('startpage.near_you.title') }}</h5>
+                  <h5>{{ $t('startpage.near_you.title') }}</h5>
                 </b-card-text>
                 <b-row>
                   <b-col
@@ -268,14 +268,14 @@
                     class="pl-0 mb-3"
                   >
                     <b-card-text>
-                      {{ $i18n('startpage.near_you.text1.part1') }} <b-link
+                      {{ $t('startpage.near_you.text1.part1') }} <b-link
                         class="link"
                         :href="$url('map')"
                       >
-                        {{ $i18n('startpage.near_you.text1.part2') }}
+                        {{ $t('startpage.near_you.text1.part2') }}
                       </b-link>
-                      {{ $i18n('startpage.near_you.text1.part3') }}
-                      <b>{{ $i18n('startpage.near_you.text1.part4') }}</b>{{ $i18n('startpage.near_you.text1.part5') }}
+                      {{ $t('startpage.near_you.text1.part3') }}
+                      <b>{{ $t('startpage.near_you.text1.part4') }}</b>{{ $t('startpage.near_you.text1.part5') }}
                     </b-card-text>
                   </b-col>
                   <b-col
@@ -284,17 +284,17 @@
                     class="pl-0"
                   >
                     <b-card-text>
-                      {{ $i18n('startpage.near_you.text2.part1') }} <b>{{ $i18n('startpage.near_you.text2.part2') }}</b>
-                      {{ $i18n('startpage.near_you.text2.part3') }}
+                      {{ $t('startpage.near_you.text2.part1') }} <b>{{ $t('startpage.near_you.text2.part2') }}</b>
+                      {{ $t('startpage.near_you.text2.part3') }}
                     </b-card-text>
                   </b-col>
                 </b-row>
                 <b-card-text class="pt-4">
-                  {{ $i18n('startpage.near_you.text3.part1') }} <b-link
+                  {{ $t('startpage.near_you.text3.part1') }} <b-link
                     class="link"
                     :href="$url('communities')"
                   >
-                    {{ $i18n('startpage.near_you.text3.part2') }}
+                    {{ $t('startpage.near_you.text3.part2') }}
                   </b-link>
                 </b-card-text>
               </b-card>
@@ -321,16 +321,16 @@
         md="4"
       >
         <b-row class="mt-2 mt-md-0">
-          <b-col><h2>{{ $i18n('startpage.demands.title') }}</h2></b-col>
+          <b-col><h2>{{ $t('startpage.demands.title') }}</h2></b-col>
         </b-row>
         <b-row class="mt-2">
           <b-col>
-            {{ $i18n('startpage.demands.text') }}
+            {{ $t('startpage.demands.text') }}
             <b-link
               class="link"
               href="/content?sub=forderungen"
             >
-              {{ $i18n('startpage.more_infos') }}
+              {{ $t('startpage.more_infos') }}
             </b-link>
           </b-col>
         </b-row>
@@ -367,15 +367,15 @@
         cols="12"
         md="6"
       >
-        <h2>{{ $i18n('startpage.towns.title') }}</h2>
+        <h2>{{ $t('startpage.towns.title') }}</h2>
         <br>
         <p>
-          {{ $i18n('startpage.towns.text') }}
+          {{ $t('startpage.towns.text') }}
           <b-link
             class="link"
             href="https://foodsharing-staedte.org"
           >
-            {{ $i18n('startpage.more_infos') }}
+            {{ $t('startpage.more_infos') }}
           </b-link>
         </p>
       </b-col>
@@ -403,13 +403,13 @@
                     md="11"
                     class="pl-0"
                   >
-                    <h5>{{ $i18n('startpage.donate.title') }}</h5>
+                    <h5>{{ $t('startpage.donate.title') }}</h5>
                   </b-col>
                 </b-row>
                 <b-card-text>
-                  {{ $i18n('startpage.donate.text') }}
+                  {{ $t('startpage.donate.text') }}
                   <a class="link" href="unterstuetzung">
-                    {{ $i18n('startpage.donate.link') }}
+                    {{ $t('startpage.donate.link') }}
                   </a>
                 </b-card-text>
               </b-card>

@@ -28,7 +28,7 @@
               @click="$emit('toggle-marker-type', markerType)"
             >
               <i :class="`fas fa-${markerTypes[markerType].icon}`" />
-              {{ $i18n(markerTypes[markerType].label) }}
+              {{ $t(markerTypes[markerType].label) }}
             </b-button>
 
             <StoreSpecifierSelection

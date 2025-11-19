@@ -1,15 +1,15 @@
 <template>
   <div class="bootstrap">
     <b-alert variant="danger" show>
-      <h3>{{ $i18n('profile.warning') }}</h3>
+      <h3>{{ $t('profile.warning') }}</h3>
       <div v-if="bounceWarning.mayRemove">
-        {{ $i18n('profile.mail_bounce.warning_others', { email: bounceWarning.emailAddress }) }}
+        {{ $t('profile.mail_bounce.warning_others', { email: bounceWarning.emailAddress }) }}
       </div>
       <div v-else>
-        {{ $i18n('profile.mail_bounce.warning_1', { email: bounceWarning.emailAddress }) }}
-        <a :href="$url('settings')"> {{ $i18n('profile.mail_bounce.warning_2') }} </a>
-        {{ $i18n('profile.mail_bounce.warning_3') }}
-        <a :href="$url('helpdesk_locked_email')"> {{ $i18n('profile.mail_bounce.warning_4') }}</a>
+        {{ $t('profile.mail_bounce.warning_1', { email: bounceWarning.emailAddress }) }}
+        <a :href="$url('settings')"> {{ $t('profile.mail_bounce.warning_2') }} </a>
+        {{ $t('profile.mail_bounce.warning_3') }}
+        <a :href="$url('helpdesk_locked_email')"> {{ $t('profile.mail_bounce.warning_4') }}</a>
       </div>
     </b-alert>
 
@@ -23,7 +23,7 @@
         </li>
       </ul>
       <b-button @click.prevent="removeBounces()">
-        {{ $i18n('profile.mail_bounce.remove_button') }}
+        {{ $t('profile.mail_bounce.remove_button') }}
       </b-button>
     </div>
   </div>

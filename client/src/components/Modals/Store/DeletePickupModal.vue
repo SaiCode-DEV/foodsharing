@@ -3,9 +3,9 @@
     <PickupModal
       modal-id="DeletePickupModal"
       :store-id="storeId"
-      :title="$i18n('store.delete_date')"
+      :title="$t('store.delete_date')"
       :delete-pickup-mode="true"
-      :description="$i18n('store.delete_date_description')"
+      :description="$t('store.delete_date_description')"
     />
   </div>
 </template>

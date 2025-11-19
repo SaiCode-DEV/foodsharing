@@ -11,7 +11,7 @@
         class="btn btn-primary mx-5"
         type="button"
         :href="$url('foodsharepoint', id)"
-        v-text="$i18n('map.foodsharepoint.go')"
+        v-text="$t('map.foodsharepoint.go')"
       />
     </template>
 

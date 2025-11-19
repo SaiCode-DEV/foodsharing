@@ -1,7 +1,7 @@
 <template>
   <div class="bootstrap">
     <div class="my-1 mb-2">
-      <b>{{ $i18n('poll.results.number_of_votes') }}</b>: {{ numVotes }}
+      <b>{{ $t('poll.results.number_of_votes') }}</b>: {{ numVotes }}
     </div>
 
     <b-table
@@ -16,7 +16,7 @@
       :sort-desc="false"
     >
       <template v-if="numValues !== 7" #head(value1)>
-        <span v-if="numValues === 1" v-text="$i18n('poll.results.votes')" />
+        <span v-if="numValues === 1" v-text="$t('poll.results.votes')" />
         <span v-else-if="numValues === 3">
           <i class="fas fa-thumbs-up" /> (+1)
         </span>
@@ -30,20 +30,20 @@
 
       <template v-if="numValues > 1" #head(sum)>
         <span
-          v-b-tooltip="viewIsLG ? '' : $i18n('poll.results.sum')"
-          v-text="$i18n(`poll.results.${viewIsLG ? 'sum' : 'sumShort'}`)"
+          v-b-tooltip="viewIsLG ? '' : $t('poll.results.sum')"
+          v-text="$t(`poll.results.${viewIsLG ? 'sum' : 'sumShort'}`)"
         />
       </template>
       <template v-if="numValues > 1" #head(average)>
         <span
-          v-b-tooltip="viewIsLG ? '' : $i18n('poll.results.average')"
-          v-text="$i18n(`poll.results.${viewIsLG ? 'average' : 'averageShort'}`)"
+          v-b-tooltip="viewIsLG ? '' : $t('poll.results.average')"
+          v-text="$t(`poll.results.${viewIsLG ? 'average' : 'averageShort'}`)"
         />
       </template>
       <template v-if="numValues > 1" #head(standardDeviation)>
         <span
-          v-b-tooltip="viewIsXL ? '' : $i18n('poll.results.standardDeviation')"
-          v-text="$i18n(`poll.results.${viewIsXL ? 'standardDeviation' : 'standardDeviationShort'}`)"
+          v-b-tooltip="viewIsXL ? '' : $t('poll.results.standardDeviation')"
+          v-text="$t(`poll.results.${viewIsXL ? 'standardDeviation' : 'standardDeviationShort'}`)"
         />
       </template>
 
@@ -82,7 +82,7 @@ export default {
           key: 'text',
           sortable: true,
           sortByFormatted: 'true',
-          label: this.$i18n('poll.results.option_text'),
+          label: this.$t('poll.results.option_text'),
           class: 'align-left',
         },
       ]

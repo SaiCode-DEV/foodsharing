@@ -23,7 +23,7 @@
       variant="danger"
       text-key="storeedit.team.leave"
       icon="fas fa-user-times"
-      @click="removeFromTeam(fsId, $i18n('storeedit.team.leave_myself'))"
+      @click="removeFromTeam(fsId, $t('storeedit.team.leave_myself'))"
     />
     <ContainerButton
       v-if="mayDeleteStore"
@@ -91,7 +91,7 @@ export default {
       if (!fsId) {
         return
       }
-      if (!confirm(this.$i18n('store.sm.reallyRemove', { name: fsName }))) {
+      if (!confirm(this.$t('store.sm.reallyRemove', { name: fsName }))) {
         return
       }
       this.isBusy = true
@@ -99,7 +99,7 @@ export default {
         await removeStoreMember(this.storeId, this.userStore.getUserId)
         window.location.href = this.$url('dashboard')
       } catch (e) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
         this.isBusy = false
         return
       }
@@ -112,7 +112,7 @@ export default {
         await deleteStore(this.storeId)
         window.location.href = this.$url('dashboard')
       } catch (e) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
     },
   },

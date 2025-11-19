@@ -29,7 +29,7 @@
           :key="key"
           class="btn btn-sm btn-info font-weight-bold align-self-start mr-2"
           :href="link.urlShortHand ? $url(link.urlShortHand) : link.href"
-          v-text="$i18n(link.text)"
+          v-text="$t(link.text)"
         />
       </div>
     </div>

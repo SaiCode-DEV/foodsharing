@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Container :title="$i18n(`categories.title.${categoryType}`)">
+    <Container :title="$t(`categories.title.${categoryType}`)">
       <div class="list-group-item">
         <b-table
           class="category-table mb-0"
@@ -21,7 +21,7 @@
           </template>
           <template #empty>
             <div class="empty-message">
-              {{ $i18n('categories.empty') }}
+              {{ $t('categories.empty') }}
             </div>
           </template>
         </b-table>
@@ -42,9 +42,9 @@
 
     <b-modal
       ref="edit_category_modal"
-      :title="$i18n(editingCategoryId ? 'categories.edit' : 'categories.new')"
-      :cancel-title="$i18n('button.cancel')"
-      :ok-title="$i18n('button.save')"
+      :title="$t(editingCategoryId ? 'categories.edit' : 'categories.new')"
+      :cancel-title="$t('button.cancel')"
+      :ok-title="$t('button.save')"
       centered
       @ok="editingCategoryId ? editCategory() : addCategory()"
       @shown="$refs.edit_modal_input.focus()"
@@ -54,15 +54,15 @@
 
     <b-modal
       ref="merge_category_modal"
-      :title="$i18n('categories.merge_title')"
-      :cancel-title="$i18n('button.cancel')"
-      :ok-title="$i18n('button.save')"
+      :title="$t('categories.merge_title')"
+      :cancel-title="$t('button.cancel')"
+      :ok-title="$t('button.save')"
       :ok-disabled="!sourceCategory"
       ok-variant="danger"
       centered
       @ok="mergeCategories()"
     >
-      <p>{{ $i18n('categories.merge_hint', { name: targetCategory?.name }) }}</p>
+      <p>{{ $t('categories.merge_hint', { name: targetCategory?.name }) }}</p>
       <b-form-select
         v-model="sourceCategory"
         :options="categories.map(c => ({ value: c, text: c.name , disabled: c.id === targetCategory?.id }))"
@@ -87,9 +87,9 @@ export default {
     return {
       isLoading: false,
       fields: [
-        { key: 'id', label: this.$i18n('categories.columns.id'), sortable: true },
-        { key: 'name', label: this.$i18n('categories.columns.name'), sortable: true },
-        { key: 'usageCount', label: this.$i18n('categories.columns.usage_count'), sortable: true },
+        { key: 'id', label: this.$t('categories.columns.id'), sortable: true },
+        { key: 'name', label: this.$t('categories.columns.name'), sortable: true },
+        { key: 'usageCount', label: this.$t('categories.columns.usage_count'), sortable: true },
         { key: 'buttons', label: '' },
       ],
       editingCategoryId: null,
@@ -109,7 +109,7 @@ export default {
     try {
       await StoreCategoriesData.mutations.fetchCategories(this.categoryType)
     } catch (e) {
-      pulseError(this.$i18n('error_unexpected'))
+      pulseError(this.$t('error_unexpected'))
     }
 
     this.isLoading = false
@@ -139,7 +139,7 @@ export default {
         try {
           await StoreCategoriesData.mutations.addCategory(this.categoryType, this.editingCategoryName)
         } catch (e) {
-          pulseError(this.$i18n('error_unexpected'))
+          pulseError(this.$t('error_unexpected'))
         }
         this.editingCategoryName = null
         this.isLoading = false
@@ -151,29 +151,29 @@ export default {
         try {
           await StoreCategoriesData.mutations.editCategory(this.categoryType, this.editingCategoryId, this.editingCategoryName)
         } catch (e) {
-          pulseError(this.$i18n('error_unexpected'))
+          pulseError(this.$t('error_unexpected'))
         }
         this.editingCategoryId = null
         this.isLoading = false
       }
     },
     async deleteCategory (category) {
-      let message = this.$i18n('categories.confirm_delete', { name: category.name })
+      let message = this.$t('categories.confirm_delete', { name: category.name })
       if (category.numberOfStores > 0) {
-        message += ' ' + this.$i18n(`categories.confirm_delete_hint.${this.categoryType}`, { count: category.usageCount })
+        message += ' ' + this.$t(`categories.confirm_delete_hint.${this.categoryType}`, { count: category.usageCount })
       }
       const confirmed = await this.$bvModal.msgBoxConfirm(message, {
-        title: this.$i18n('are_you_sure'),
+        title: this.$t('are_you_sure'),
         okVariant: 'danger',
-        okTitle: this.$i18n('button.delete'),
-        cancelTitle: this.$i18n('button.cancel'),
+        okTitle: this.$t('button.delete'),
+        cancelTitle: this.$t('button.cancel'),
         centered: true,
       })
       if (confirmed) {
         try {
           await StoreCategoriesData.mutations.removeCategory(this.categoryType, category.id)
         } catch (e) {
-          pulseError(this.$i18n('error_unexpected'))
+          pulseError(this.$t('error_unexpected'))
         }
       }
     },
@@ -189,7 +189,7 @@ export default {
           this.sourceCategory = null
           this.targetCategory = null
         } catch (e) {
-          pulseError(this.$i18n('error_unexpected'))
+          pulseError(this.$t('error_unexpected'))
         }
       }
     },

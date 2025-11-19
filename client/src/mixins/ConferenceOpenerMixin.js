@@ -11,8 +11,8 @@ export default {
   methods: {
     async showConferencePopup (id) {
       const dialogueOptions = {
-        title: this.$i18n('conference.join_title'),
-        okTitle: this.$i18n('conference.join'),
+        title: this.$t('conference.join_title'),
+        okTitle: this.$t('conference.join'),
         okVariant: undefined,
       }
       if (!await confirmationDialogue('conference.confirm_info', dialogueOptions)) return

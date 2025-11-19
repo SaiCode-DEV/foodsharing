@@ -1,9 +1,9 @@
 <template>
   <b-modal
     :id="modalId"
-    :title="$i18n('quiz.editModal.answer.title')"
-    :ok-title="$i18n('button.save')"
-    :cancel-title="$i18n('button.cancel')"
+    :title="$t('quiz.editModal.answer.title')"
+    :ok-title="$t('button.save')"
+    :cancel-title="$t('button.cancel')"
     :ok-disabled="!hasValidValues"
     scrollable
     centered
@@ -12,25 +12,25 @@
     @show="initializeFormData(answer)"
   >
     <b-form>
-      <b-form-group :label="$i18n('quiz.editModal.answer.input.text.label')">
+      <b-form-group :label="$t('quiz.editModal.answer.input.text.label')">
         <b-form-textarea
           v-model="form.text"
-          :placeholder="$i18n('quiz.editModal.answer.input.text.placeholder')"
+          :placeholder="$t('quiz.editModal.answer.input.text.placeholder')"
           :state="validities.text"
           trim.lazy
           rows="3"
         />
       </b-form-group>
-      <b-form-group :label="$i18n('quiz.editModal.answer.input.explanation.label')">
+      <b-form-group :label="$t('quiz.editModal.answer.input.explanation.label')">
         <b-form-textarea
           v-model="form.explanation"
-          :placeholder="$i18n('quiz.editModal.answer.input.explanation.placeholder')"
+          :placeholder="$t('quiz.editModal.answer.input.explanation.placeholder')"
           :state="validities.explanation"
           trim.lazy
           rows="3"
         />
       </b-form-group>
-      <b-form-group :label="$i18n('quiz.editModal.answer.input.answerRating')">
+      <b-form-group :label="$t('quiz.editModal.answer.input.answerRating')">
         <b-form-select
           v-model.number="form.answerRating"
           :options="correctnessTypeOptions"
@@ -60,7 +60,7 @@ export default {
       }
     },
     correctnessTypeOptions () {
-      return [0, 1, 2].map(x => ({ text: this.$i18n('quiz.answers.short.' + x), value: x }))
+      return [0, 1, 2].map(x => ({ text: this.$t('quiz.answers.short.' + x), value: x }))
     },
   },
   methods: {

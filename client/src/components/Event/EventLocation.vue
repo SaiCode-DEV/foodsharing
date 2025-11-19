@@ -1,6 +1,6 @@
 <template>
   <Container
-    :title="$i18n('events.location')"
+    :title="$t('events.location')"
   >
     <div class="list-group-item">
       <p v-if="event.locationDetails" v-text="event.locationDetails" />
@@ -34,7 +34,7 @@
 
     <div
       v-if="!isOver && event.type === EVENT_TYPE.ONLINE"
-      v-b-tooltip.bottom.ds500.noninteractive="mayEnter ? '' : $i18n('events.meeting.not_started')"
+      v-b-tooltip.bottom.ds500.noninteractive="mayEnter ? '' : $t('events.meeting.not_started')"
       class="list-group-item p-0 border-0"
     >
       <button
@@ -84,12 +84,12 @@ export default {
     },
     enterOnlineText () {
       if (this.isOver) {
-        return this.$i18n('events.meeting.past')
+        return this.$t('events.meeting.past')
       }
       if (this.mayEnter) {
-        return this.$i18n('events.meeting.present')
+        return this.$t('events.meeting.present')
       }
-      return this.$i18n('events.meeting.future')
+      return this.$t('events.meeting.future')
     },
   },
   async mounted () {

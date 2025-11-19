@@ -41,18 +41,18 @@
 
     <div v-if="homeRegionName">
       <h5 class="mb-2 mt-4">
-        {{ $i18n('profile.sections.home_region_from') }}:
+        {{ $t('profile.sections.home_region_from') }}:
       </h5>
       <div class="d-inline d-flex flex-wrap flex-row">
         <div class="sectionClass">
           <a :href="$url('publicRegion', homeRegionId)" v-text="homeRegionName" />
           <span v-if="homeDistrictHistory.changerFullName">
-            ({{ $i18n('profile.homeDistrictHistory.changed') }}
+            ({{ $t('profile.homeDistrictHistory.changed') }}
             {{ $dateFormatter.date(homeDistrictHistory.date, {type: 'full'}) }}
-            {{ $i18n('profile.homeDistrictHistory.by') }}
+            {{ $t('profile.homeDistrictHistory.by') }}
             <a :href="$url('profile', homeDistrictHistory.changerId)" v-text="homeDistrictHistory.changerFullName" /><!--
          --><span v-if="homeDistrictHistory.previousRegionId">,
-              {{ $i18n('profile.homeDistrictHistory.previous') }}
+              {{ $t('profile.homeDistrictHistory.previous') }}
               <a :href="$url('publicRegion', homeDistrictHistory.previousRegionId)" v-text="homeDistrictHistory.previousRegionName" />
             </span>)
           </span>
@@ -80,7 +80,7 @@
 
     <div v-if="kamPositions?.length > 0">
       <h5 class="mb-2 mt-4">
-        {{ $i18n('profile.sections.kam_for') }}
+        {{ $t('profile.sections.kam_for') }}
       </h5>
       <div class="d-inline d-flex flex-wrap flex-row" style="gap: 5px">
         <span v-for="(item, index) in kamPositions" :key="item.id">
@@ -93,14 +93,14 @@
       <h5 class="mb-2 mt-4">
         <span v-if="sleepingInformation.sleepStatus === SLEEP_STATUS.TEMP">
           {{
-            $i18n('profile.sleeping_info_from_until', {
+            $t('profile.sleeping_info_from_until', {
               from: $dateFormatter.format(new Date(sleepingInformation.sleepFrom * 1000), { day: '2-digit', month: '2-digit', year: 'numeric' }),
               until: $dateFormatter.format(new Date(sleepingInformation.sleepUntil * 1000), { day: '2-digit', month: '2-digit', year: 'numeric' })
             })
           }}
         </span>
         <span v-if="sleepingInformation.sleepStatus === SLEEP_STATUS.FULL">
-          {{ $i18n('profile.sleeping') }}
+          {{ $t('profile.sleeping') }}
         </span>
       </h5>
       <div v-if="sleepingInformation.sleepMessage" class="d-inline d-flex flex-wrap flex-row">
@@ -111,12 +111,12 @@
     </div>
 
     <div v-if="isOrgUser" class="mt-4">
-      <Markdown :source="$i18n('profile.sections.orga_rights', { wikiurl: 'https://wiki.foodsharing.de/Benutzerrolle_:_Orga' })" />
+      <Markdown :source="$t('profile.sections.orga_rights', { wikiurl: 'https://wiki.foodsharing.de/Benutzerrolle_:_Orga' })" />
     </div>
 
     <div v-if="aboutMeIntern">
       <h4 class="mb-2 mt-4">
-        {{ $i18n('profile.about_me_intern') }}:
+        {{ $t('profile.about_me_intern') }}:
       </h4>
       <Markdown :source="aboutMeIntern" />
     </div>
@@ -188,10 +188,10 @@ export default {
   data () {
     return {
       sections: [
-        { id: 'AMBASSADOR_FOR', title: `${this.$i18n('terminology.ambassador.d')} ${this.$i18n('profile.sections.ambassador_for')}`, value: this.ambassadorRegions, isWorkingGroups: false },
-        { id: 'FOOD_SAVER_IN_REGION', title: this.$i18n('profile.sections.foodSaver_in_region'), value: this.foodSaverRegions, isWorkingGroups: false },
-        { id: 'JOINT_WORK_GROUPS', title: this.$i18n('profile.sections.workgroups_member'), value: this.workingGroups, isWorkingGroups: true },
-        { id: 'WORKGROUPS_ADMIN', title: this.$i18n('profile.sections.workgroups_admin'), value: this.workingGroupsAdmins, isWorkingGroups: true },
+        { id: 'AMBASSADOR_FOR', title: `${this.$t('terminology.ambassador.d')} ${this.$t('profile.sections.ambassador_for')}`, value: this.ambassadorRegions, isWorkingGroups: false },
+        { id: 'FOOD_SAVER_IN_REGION', title: this.$t('profile.sections.foodSaver_in_region'), value: this.foodSaverRegions, isWorkingGroups: false },
+        { id: 'JOINT_WORK_GROUPS', title: this.$t('profile.sections.workgroups_member'), value: this.workingGroups, isWorkingGroups: true },
+        { id: 'WORKGROUPS_ADMIN', title: this.$t('profile.sections.workgroups_admin'), value: this.workingGroupsAdmins, isWorkingGroups: true },
       ],
       bananaData: null,
     }
@@ -202,12 +202,12 @@ export default {
     },
     badges () {
       return [
-        { id: 'bananas', text: this.$i18n('profile.stats.bananas'), value: this.bananaData?.receivedCount, link: this.openBananaModal },
-        { id: 'posts', text: this.$i18n('profile.stats.posts'), value: this.statistics.postCount >= 0 ? formatNumber(this.statistics.postCount) : null },
-        { id: 'baskets', text: this.$i18n('profile.stats.baskets'), value: this.statistics.basketCount >= 0 ? formatNumber(this.statistics.basketCount) : null },
-        { id: 'fetched', text: this.$i18n('profile.stats.fetch_count'), value: this.statistics.fetchCount >= 0 ? formatNumber(this.statistics.fetchCount) + ' x' : null },
-        { id: 'saved', text: this.$i18n('profile.stats.weight'), value: this.formatFetchWeight >= 0.00 ? formatNumber(this.formatFetchWeight) + ' ' + this.$i18n('profile.stats.weight_unit') : null },
-        { id: 'buddies', text: this.$i18n('profile.infos.buddies'), value: this.statistics.buddyCount >= 0 ? formatNumber(this.statistics.buddyCount) : null, link: this.isMe ? this.openBuddiesModal : null },
+        { id: 'bananas', text: this.$t('profile.stats.bananas'), value: this.bananaData?.receivedCount, link: this.openBananaModal },
+        { id: 'posts', text: this.$t('profile.stats.posts'), value: this.statistics.postCount >= 0 ? formatNumber(this.statistics.postCount) : null },
+        { id: 'baskets', text: this.$t('profile.stats.baskets'), value: this.statistics.basketCount >= 0 ? formatNumber(this.statistics.basketCount) : null },
+        { id: 'fetched', text: this.$t('profile.stats.fetch_count'), value: this.statistics.fetchCount >= 0 ? formatNumber(this.statistics.fetchCount) + ' x' : null },
+        { id: 'saved', text: this.$t('profile.stats.weight'), value: this.formatFetchWeight >= 0.00 ? formatNumber(this.formatFetchWeight) + ' ' + this.$t('profile.stats.weight_unit') : null },
+        { id: 'buddies', text: this.$t('profile.infos.buddies'), value: this.statistics.buddyCount >= 0 ? formatNumber(this.statistics.buddyCount) : null, link: this.isMe ? this.openBuddiesModal : null },
       ]
     },
     filteredBadges () {

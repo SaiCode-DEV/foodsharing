@@ -1,7 +1,7 @@
 <template>
   <div>
     <Dropdown
-      :title="$i18n('menu.entry.baskets')"
+      :title="$t('menu.entry.baskets')"
       icon="fa-shopping-basket"
       :badge="basketsRequestCount"
       is-fixed-size
@@ -23,7 +23,7 @@
         <small
           role="menuitem"
           class="disabled dropdown-item"
-          v-text="$i18n('basket.my_list_empty')"
+          v-text="$t('basket.my_list_empty')"
         />
       </template>
       <template #actions>
@@ -33,7 +33,7 @@
           class="testing-basket-create dropdown-item dropdown-action"
         >
           <i class="icon-subnav fas fa-plus" />
-          {{ $i18n('basket.add') }}
+          {{ $t('basket.add') }}
         </button>
         <a
           :href="$url('baskets')"
@@ -41,7 +41,7 @@
           class="dropdown-item dropdown-action"
         >
           <i class="icon-subnav fas fa-list" />
-          {{ $i18n('basket.all') }}
+          {{ $t('basket.all') }}
         </a>
         <button
           class="dropdown-item dropdown-action"
@@ -49,7 +49,7 @@
           @click="refresh"
         >
           <i class="icon-subnav fas fa-refresh" />
-          {{ $i18n('menu.entry.refresh') }}
+          {{ $t('menu.entry.refresh') }}
           <Time :time="fetchedTime" class="float-right" />
         </button>
       </template>

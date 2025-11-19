@@ -1,16 +1,16 @@
 <template>
   <div v-if="results">
     <h5>
-      {{ $i18n(`quiz.results.title.${results.status}`) }}
+      {{ $t(`quiz.results.title.${results.status}`) }}
 
       <Time
         :time="results.endTime"
         class="float-right"
       />
     </h5>
-    <p v-text="$i18n(`quiz.results.points.${results.status}`, results)" />
+    <p v-text="$t(`quiz.results.points.${results.status}`, results)" />
     <p v-if="!results.results">
-      <i>{{ $i18n(`quiz.results.deleted`) }}</i>
+      <i>{{ $t(`quiz.results.deleted`) }}</i>
     </p>
     <div
       v-for="(result, i) in results.results"
@@ -25,14 +25,14 @@
           class="result-detail-toggle"
         >
           <span>
-            {{ $i18n(`quiz.question`) }} {{ i+1 }}
+            {{ $t(`quiz.question`) }} {{ i+1 }}
           </span>
           <b-badge
             pill
             :variant="result.userFailurePoints ? 'danger' : 'success'"
             class="failure-points-counter"
           >
-            {{ $i18n(`quiz.fp_badge.${result.userFailurePoints ? 'wrong' : 'right'}`, result) }}
+            {{ $t(`quiz.fp_badge.${result.userFailurePoints ? 'wrong' : 'right'}`, result) }}
           </b-badge>
         </b-button>
       </b-card-header>
@@ -47,7 +47,7 @@
           />
           <p v-if="result.timedOut">
             <i class="fas fa-exclamation-triangle mr-1" />
-            <b>{{ $i18n(`quiz.timed_out`) }}</b>
+            <b>{{ $t(`quiz.timed_out`) }}</b>
           </p>
           <Answers :answers="result.answers" />
           <Wikilink :link="result.wikilink" />

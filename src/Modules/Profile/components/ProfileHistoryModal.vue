@@ -1,8 +1,8 @@
 <template>
   <b-modal
     id="profileHistoryModal"
-    :title="$i18n(title)"
-    :ok-title="$i18n('globals.close')"
+    :title="$t(title)"
+    :ok-title="$t('globals.close')"
 
     @show="fetchHistory"
   >
@@ -19,7 +19,7 @@
         v-for="entry in historyEntries"
         :key="entry.date"
       >
-        {{ $dateFormatter.dateTime(entry.date) }} {{ $i18n('profile.history.actionBy') }}
+        {{ $dateFormatter.dateTime(entry.date) }} {{ $t('profile.history.actionBy') }}
         <a
           v-if="entry.actor !== null"
           :href="$url('profile', entry.actor.id)"
@@ -27,19 +27,19 @@
           {{ entry.actor.name }}
         </a>
         <span v-else>
-          {{ $i18n('profile.history.noActor') }}
+          {{ $t('profile.history.noActor') }}
         </span>
         <b-badge
           v-if="isVerificationHistory"
           :variant="entry.wasVerified ? 'success' : 'danger'"
           class="ml-3"
         >
-          {{ $i18n(entry.wasVerified ? 'profile.history.wasVerified' : 'profile.history.lostVerification') }}
+          {{ $t(entry.wasVerified ? 'profile.history.wasVerified' : 'profile.history.lostVerification') }}
         </b-badge>
       </li>
     </ul>
     <p v-else>
-      {{ $i18n('profile.history.noData') }}
+      {{ $t('profile.history.noData') }}
     </p>
   </b-modal>
 </template>
@@ -75,7 +75,7 @@ export default {
       try {
         this.historyEntries = await (this.isVerificationHistory ? getVerificationHistory(this.userId) : getPassHistory(this.userId))
       } catch (e) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
 
       this.isLoading = false

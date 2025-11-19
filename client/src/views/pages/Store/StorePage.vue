@@ -9,7 +9,7 @@
       fill
     >
       <b-tab
-        :title="$i18n('storeview.common')"
+        :title="$t('storeview.common')"
         active
       >
         <div class="row">
@@ -55,14 +55,14 @@
               class="alert alert-info"
               role="alert"
             >
-              {{ $i18n('store.willgetcontacted') }}
+              {{ $t('store.willgetcontacted') }}
             </div>
             <div
               v-if="finishedLoading && !isVerified"
               class="alert alert-info"
               role="alert"
             >
-              {{ $i18n('store.not_verified') }}
+              {{ $t('store.not_verified') }}
             </div>
             <PickupHistory
               v-if="permissions.maySeePickupHistory"
@@ -127,7 +127,7 @@
           </div>
         </div>
       </b-tab>
-      <b-tab :title="$i18n('storeview.show_settings')">
+      <b-tab :title="$t('storeview.show_settings')">
         <StoreInformation
           v-if="finishedLoading"
           :key="'storeInfo' + componentKey"
@@ -252,11 +252,11 @@ export default {
     loadRightsInfo () {
       if (this.permissions.mayEditStore && this.permissions.isManager === false) {
         if (this.permissions.isOrgUser) {
-          pulseInfo(this.$i18n('storeedit.team.orga'))
+          pulseInfo(this.$t('storeedit.team.orga'))
         } else if (this.permissions.isCoordinator) {
-          pulseInfo(this.$i18n('storeedit.team.coordinator'))
+          pulseInfo(this.$t('storeedit.team.coordinator'))
         } else if (this.permissions.isAmbassador) {
-          pulseInfo(this.$i18n('storeedit.team.amb'))
+          pulseInfo(this.$t('storeedit.team.amb'))
         }
       }
     },

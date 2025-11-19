@@ -7,11 +7,11 @@
       <div class="errorfield__content-wrapper">
         <h4
           class="errorfield__title"
-          v-text="$i18n(`error.${entry.field}.title`)"
+          v-text="$t(`error.${entry.field}.title`)"
         />
         <p
           class="errorfield__description"
-          v-text="$i18n(`error.${entry.field}.description`, { link: entry.link, days: entry.days })"
+          v-text="$t(`error.${entry.field}.description`, { link: entry.link, days: entry.days })"
         />
       </div>
       <div
@@ -24,7 +24,7 @@
           class="errorfield__link"
           :href="link.urlShorthand ? $url(link.urlShorthand) : link.href"
           @click="link.modal ? $bvModal.show(link.modal) : null"
-          v-text="$i18n(link.text)"
+          v-text="$t(link.text)"
         />
       </div>
     </div>

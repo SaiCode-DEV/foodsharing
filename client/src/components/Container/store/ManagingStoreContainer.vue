@@ -1,7 +1,7 @@
 <template>
   <Container
     :tag="title"
-    :title="$i18n(title)"
+    :title="$t(title)"
     :toggle-visiblity="data.length > defaultAmount"
     @show-full-list="showFullList"
     @reduce-list="reduceList"
@@ -14,7 +14,7 @@
     <small
       v-if="filteredList.length === 0"
       class="list-group-item text-muted"
-      v-text="$i18n('store.noStores')"
+      v-text="$t('store.noStores')"
     />
   </Container>
 </template>

@@ -6,12 +6,12 @@
       fill
     >
       <b-tab
-        :title="$i18n('storeview.common')"
+        :title="$t('storeview.common')"
         active
       >
         <b-card-text>
           <b-form-group
-            :label="$i18n('name')"
+            :label="$t('name')"
             label-for="storeName"
             class="bootstrap input-wrapper"
           >
@@ -29,26 +29,26 @@
         </b-card-text>
       </b-tab>
       <b-tab
-        :title="$i18n('storeview.source_data')"
+        :title="$t('storeview.source_data')"
         @click="dispatchResize"
       >
         <b-card-text>
           <b-form-group
             v-if="!store.contact"
-            :label="$i18n('ansprechpartner')"
+            :label="$t('ansprechpartner')"
             class="bootstrap input-wrapper"
           >
             <small>
-              {{ $i18n('storeview.no_permission_to_view') }}
+              {{ $t('storeview.no_permission_to_view') }}
             </small>
           </b-form-group>
           <b-form-group
             v-if="store.contact"
-            :label="$i18n('ansprechpartner')"
+            :label="$t('ansprechpartner')"
             class="bootstrap input-wrapper"
           >
             <b-form-group
-              :label="$i18n('storeview.contact.name')"
+              :label="$t('storeview.contact.name')"
               label-for="contactName"
             >
               <b-form-input
@@ -58,7 +58,7 @@
               />
             </b-form-group>
             <b-form-group
-              :label="$i18n('terminology.phone')"
+              :label="$t('terminology.phone')"
               label-for="phone"
             >
               <b-form-input
@@ -68,7 +68,7 @@
               />
             </b-form-group>
             <b-form-group
-              :label="$i18n('fax')"
+              :label="$t('fax')"
               label-for="fax"
             >
               <b-form-input
@@ -78,7 +78,7 @@
               />
             </b-form-group>
             <b-form-group
-              :label="$i18n('email')"
+              :label="$t('email')"
               label-for="email"
             >
               <b-form-input
@@ -95,7 +95,7 @@
             @store-chain-selected="selectStoreChainFromSearchPicker"
           />
           <b-form-group
-            :label="$i18n('kette_id')"
+            :label="$t('kette_id')"
             label-for="chainId"
             class="bootstrap input-wrapper"
           >
@@ -106,11 +106,11 @@
               :disabled="!editMode"
               @click="openChainSearchPicker"
             >
-              {{ $i18n('storeview.choose_chain') }}
+              {{ $t('storeview.choose_chain') }}
             </b-button>
           </b-form-group>
           <b-form-group
-            :label="$i18n('address')"
+            :label="$t('address')"
             label-for="location"
           >
             <LeafletLocationSearch
@@ -129,11 +129,11 @@
         </b-card-text>
       </b-tab>
       <b-tab
-        :title="$i18n('storeview.management')"
+        :title="$t('storeview.management')"
       >
         <b-card-text>
           <b-form-group
-            :label="$i18n('bezirk')"
+            :label="$t('bezirk')"
             label-for="region"
           >
             <b-input-group>
@@ -153,7 +153,7 @@
             </b-input-group>
           </b-form-group>
           <b-form-group
-            :label="$i18n('betrieb_kategorie_id')"
+            :label="$t('betrieb_kategorie_id')"
             label-for="categoryId"
             class="bootstrap input-wrapper"
           >
@@ -165,7 +165,7 @@
             />
           </b-form-group>
           <b-form-group
-            :label="$i18n('storeview.cooperation_start')"
+            :label="$t('storeview.cooperation_start')"
             label-for="cooperationStart"
             class="bootstrap input-wrapper"
           >
@@ -176,7 +176,7 @@
             />
           </b-form-group>
           <b-form-group
-            :label="$i18n('storeview.cooperation_status')"
+            :label="$t('storeview.cooperation_status')"
             label-for="cooperationStatus"
           >
             <b-form-select
@@ -189,11 +189,11 @@
         </b-card-text>
       </b-tab>
       <b-tab
-        :title="$i18n('terminology.pickup')"
+        :title="$t('terminology.pickup')"
       >
         <b-card-text>
           <b-form-group
-            :label="$i18n('store.average_collection_quantity')"
+            :label="$t('store.average_collection_quantity')"
             label-for="weight"
             class="bootstrap input-wrapper"
           >
@@ -205,7 +205,7 @@
             />
           </b-form-group>
           <b-form-group
-            :label="$i18n('public_time')"
+            :label="$t('public_time')"
             label-for="publicTime"
             class="bootstrap input-wrapper"
           >
@@ -217,7 +217,7 @@
             />
           </b-form-group>
           <b-form-group
-            :label="$i18n('prefetchtime')"
+            :label="$t('prefetchtime')"
             label-for="calendarInterval"
             class="bootstrap input-wrapper"
           >
@@ -233,7 +233,7 @@
             />
           </b-form-group>
           <b-form-group
-            :label="$i18n('use_region_pickup_rule')"
+            :label="$t('use_region_pickup_rule')"
             label-for="useRegionPickupRule"
             class="input-wrapper"
           >
@@ -254,10 +254,10 @@
         </b-card-text>
       </b-tab>
       <b-tab
-        :title="$i18n('storeview.team')"
+        :title="$t('storeview.team')"
       >
         <b-card-text>
-          <b-form-group :label="$i18n('storeedit.fetch.teamStatus')">
+          <b-form-group :label="$t('storeedit.fetch.teamStatus')">
             <b-form-select
               id="teamStatus"
               v-model="store.teamStatus"
@@ -268,33 +268,33 @@
 
           <b-form-group>
             <template #label>
-              {{ $i18n('storeedit.fetch.hygieneRequirement') }}
+              {{ $t('storeedit.fetch.hygieneRequirement') }}
               <Info info-key="hygieneRequirement" />
             </template>
             <b-form-checkbox v-model="store.isHygieneRequired" :disabled="!editMode">
-              {{ $i18n('storeedit.fetch.hygieneRequired') }}
+              {{ $t('storeedit.fetch.hygieneRequired') }}
             </b-form-checkbox>
           </b-form-group>
           <hr>
           <b-form-group>
             <template #label>
-              {{ $i18n('storeedit.fetch.applicationRequirements') }}
+              {{ $t('storeedit.fetch.applicationRequirements') }}
             </template>
             <b-form-checkbox v-model="store.isVerifiedRequired" :disabled="!editMode">
-              {{ $i18n('storeedit.fetch.verifiedRequired') }}
+              {{ $t('storeedit.fetch.verifiedRequired') }}
             </b-form-checkbox>
             <b-form-checkbox v-model="store.isPhoneRequired" :disabled="!editMode">
-              {{ $i18n('storeedit.fetch.phoneRequirement') }}
+              {{ $t('storeedit.fetch.phoneRequirement') }}
             </b-form-checkbox>
             <b-form-checkbox v-model="store.isApplyTextRequired" :disabled="!editMode">
-              {{ $i18n('storeedit.fetch.applyTextRequired') }}
+              {{ $t('storeedit.fetch.applyTextRequired') }}
             </b-form-checkbox>
           </b-form-group>
           <hr>
           <b-form-group
             id="fieldset-2"
-            :description="$i18n('storeview.visible_for_team')"
-            :label="$i18n('storeview.specials')"
+            :description="$t('storeview.visible_for_team')"
+            :label="$t('storeview.specials')"
             label-for="description"
           >
             <MarkdownInput
@@ -309,11 +309,11 @@
         </b-card-text>
       </b-tab>
       <b-tab
-        :title="$i18n('storeview.public_and_statistics')"
+        :title="$t('storeview.public_and_statistics')"
       >
         <b-card-text>
           <b-form-group
-            :label="$i18n('ueberzeugungsarbeit')"
+            :label="$t('ueberzeugungsarbeit')"
             label-for="effort"
             class="bootstrap input-wrapper"
           >
@@ -327,12 +327,12 @@
             <small
               v-if="store.effort === null"
             >
-              {{ $i18n('storeview.no_permission_to_view') }}
+              {{ $t('storeview.no_permission_to_view') }}
             </small>
           </b-form-group>
 
           <b-form-group
-            :label="$i18n('sticker')"
+            :label="$t('sticker')"
             label-for="showsSticker"
             class="bootstrap input-wrapper"
           >
@@ -344,7 +344,7 @@
             />
           </b-form-group>
           <b-form-group
-            :label="$i18n('presse')"
+            :label="$t('presse')"
             label-for="publicity"
             class="bootstrap input-wrapper"
           >
@@ -357,13 +357,13 @@
           </b-form-group>
 
           <b-form-group
-            :label="$i18n('storeview.groceries.label')"
+            :label="$t('storeview.groceries.label')"
             label-for="tags-with-dropdown"
           >
             <small
               v-if="store.groceries === null"
             >
-              {{ $i18n('storeview.no_permission_to_view') }}
+              {{ $t('storeview.no_permission_to_view') }}
             </small>
             <b-form-tags
               v-if="store.groceries !== null"
@@ -402,11 +402,11 @@
                   menu-class="w-100"
                 >
                   <template #button-content>
-                    <i class="fas fa-cutlery" /> {{ $i18n('storeview.groceries.select_tag') }}
+                    <i class="fas fa-cutlery" /> {{ $t('storeview.groceries.select_tag') }}
                   </template>
                   <b-dropdown-form @submit.stop.prevent="() => {}">
                     <b-form-group
-                      :label="$i18n('storeview.groceries.search_tag')"
+                      :label="$t('storeview.groceries.search_tag')"
                       label-for="tag-search-input"
                       label-cols-md="auto"
                       class="mb-0"
@@ -432,7 +432,7 @@
                     {{ option }}
                   </b-dropdown-item-button>
                   <b-dropdown-text v-if="availableFoodOptions.length === 0">
-                    {{ $i18n('storeview.groceries.no_tag_preset') }}
+                    {{ $t('storeview.groceries.no_tag_preset') }}
                   </b-dropdown-text>
                 </b-dropdown>
               </template>
@@ -447,7 +447,7 @@
       :disabled="!publicInfoState"
       @click="submit"
     >
-      {{ $i18n('button.save') }}
+      {{ $t('button.save') }}
     </b-button>
     <region-tree-modal
       v-if="store.region"
@@ -520,14 +520,14 @@ export default {
       foodSearchCriteriaField: '',
       storeFoodNames: [],
       teamStatusOptions: [
-        { value: 0, text: this.$i18n('store.team.is_closed') },
-        { value: 1, text: this.$i18n('menu.entry.helpwanted') },
-        { value: 2, text: this.$i18n('menu.entry.helpneeded') },
+        { value: 0, text: this.$t('store.team.is_closed') },
+        { value: 1, text: this.$t('menu.entry.helpwanted') },
+        { value: 2, text: this.$t('menu.entry.helpneeded') },
       ],
       publicityAndStickerOptions: [
-        { value: STORE_PUBLICITY_AND_STICKER_OPTIONS.NO, text: this.$i18n('storeview.publicity_and_sticker_options.no') },
-        { value: STORE_PUBLICITY_AND_STICKER_OPTIONS.YES, text: this.$i18n('storeview.publicity_and_sticker_options.yes') },
-        { value: STORE_PUBLICITY_AND_STICKER_OPTIONS.NOT_CHOSEN, text: this.$i18n('storeview.publicity_and_sticker_options.not_yet_clarified') },
+        { value: STORE_PUBLICITY_AND_STICKER_OPTIONS.NO, text: this.$t('storeview.publicity_and_sticker_options.no') },
+        { value: STORE_PUBLICITY_AND_STICKER_OPTIONS.YES, text: this.$t('storeview.publicity_and_sticker_options.yes') },
+        { value: STORE_PUBLICITY_AND_STICKER_OPTIONS.NOT_CHOSEN, text: this.$t('storeview.publicity_and_sticker_options.not_yet_clarified') },
       ],
       store: {},
       chainSearchCriteriaField: '',
@@ -541,7 +541,7 @@ export default {
         const chain = this.storeChains.find(chain => chain.value === this.store.chainId)
         return chain ? chain.text : ''
       }
-      return this.$i18n('store.no_chain_choosen')
+      return this.$t('store.no_chain_choosen')
     },
     REGION_UNIT_TYPE () {
       return REGION_UNIT_TYPE
@@ -598,7 +598,7 @@ export default {
     },
     foodSearchCriteriaFieldDesc () {
       if (this.foodSearchCriteria && this.availableFoodOptions.length === 0) {
-        return this.$i18n('storeview.groceries.no_match')
+        return this.$t('storeview.groceries.no_match')
       }
       return ''
     },
@@ -640,7 +640,7 @@ export default {
     },
     async submit () {
       if (!this.publicInfoState) {
-        pulseError(this.$i18n('storeview.invalid_field'))
+        pulseError(this.$t('storeview.invalid_field'))
         return
       }
 
@@ -656,12 +656,12 @@ export default {
           this.pickupStore.invalidateOptionsCache()
           await this.pickupStore.fetchRegularPickup(this.storeId)
         }
-        pulseSuccess(this.$i18n('globals.saved'))
+        pulseSuccess(this.$t('globals.saved'))
         this.$bvModal.hide('storeInformationModal')
       } catch (err) {
         const errorDescription = err.jsonContent ?? { message: '' }
         const errorMessage = `(${errorDescription.message ?? 'Unknown'})`
-        pulseError(this.$i18n('storeedit.unsuccess', { error: errorMessage }))
+        pulseError(this.$t('storeedit.unsuccess', { error: errorMessage }))
       } finally {
         hideLoader()
       }
@@ -677,11 +677,11 @@ export default {
     },
     calendarIntervalFormatter (value) {
       if (value === 0) {
-        return this.$i18n('storeview.calendar_interval.not_set')
+        return this.$t('storeview.calendar_interval.not_set')
       } else if (value === 1) {
-        return this.$i18n('storeview.calendar_interval.single')
+        return this.$t('storeview.calendar_interval.single')
       } else {
-        return this.$i18n('storeview.calendar_interval.multiply', { weeks: value })
+        return this.$t('storeview.calendar_interval.multiply', { weeks: value })
       }
     },
     onSelectFoodClick ({ option, addTag }) {

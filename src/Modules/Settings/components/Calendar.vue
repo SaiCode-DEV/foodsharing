@@ -1,30 +1,30 @@
 <template>
   <div class="settings-calendar">
     <b-alert variant="info" show>
-      <Markdown :source="$i18n('settings.calendar.info', { calendarUrl: $url('wiki_calendar') })" />
+      <Markdown :source="$t('settings.calendar.info', { calendarUrl: $url('wiki_calendar') })" />
     </b-alert>
     <b-form>
-      <b-form-group :label="$i18n('settings.calendar.pickup.label')">
+      <b-form-group :label="$t('settings.calendar.pickup.label')">
         <b-form-select v-model="includePickups" :options="pickupOptions" />
       </b-form-group>
-      <b-form-group :label="$i18n('settings.calendar.event.label')">
+      <b-form-group :label="$t('settings.calendar.event.label')">
         <b-form-select v-model="includeEvents" :options="eventOptions" />
       </b-form-group>
-      <b-form-group :label="$i18n('settings.calendar.history.label')">
+      <b-form-group :label="$t('settings.calendar.history.label')">
         <b-form-select v-model="includeHistory" :options="historyOptions" />
       </b-form-group>
-      <b-form-group :label="$i18n('settings.calendar.program.label')">
+      <b-form-group :label="$t('settings.calendar.program.label')">
         <b-form-select v-model="selectedProgram" :options="programOptions" />
       </b-form-group>
       <div v-if="selectedProgram === 'other'" class="ml-4">
-        <b-form-group :label="$i18n('settings.calendar.protocol')">
+        <b-form-group :label="$t('settings.calendar.protocol')">
           <b-form-select v-model="protocol" :options="protocolOptions" />
         </b-form-group>
-        <b-form-group :label="$i18n('settings.calendar.formatting.label')">
+        <b-form-group :label="$t('settings.calendar.formatting.label')">
           <b-form-select v-model="formatting" :options="formattingOptions" />
         </b-form-group>
       </div>
-      <b-form-group :label="$i18n('settings.calendar.reminders.label')">
+      <b-form-group :label="$t('settings.calendar.reminders.label')">
         <b-form-checkbox-group v-model="reminders" :options="reminderOptions" />
       </b-form-group>
     </b-form>
@@ -33,12 +33,12 @@
         split
         variant="success"
         right
-        :text="$i18n('settings.calendar.generate_url.button')"
+        :text="$t('settings.calendar.generate_url.button')"
         :disabled="disableGenerating"
         @click="copyUrl"
       >
         <b-dropdown-item @click="download">
-          {{ $i18n('settings.calendar.download') }}
+          {{ $t('settings.calendar.download') }}
         </b-dropdown-item>
       </b-dropdown>
       <b-button
@@ -46,7 +46,7 @@
         variant="outline-danger"
         @click="removeToken"
       >
-        {{ $i18n('settings.calendar.delete_token.button') }}
+        {{ $t('settings.calendar.delete_token.button') }}
       </b-button>
     </b-button-toolbar>
   </div>
@@ -78,12 +78,12 @@ export default {
       eventOptions: this.optionsArray(['all', 'invitations', 'maybe', 'accepted', 'none'], 'event'),
       historyOptions: this.optionsArray([true, false], 'history'),
       programOptions: [
-        { value: 'google', text: this.$i18n('settings.calendar.program.google') },
-        { value: 'outlook', text: this.$i18n('settings.calendar.program.outlook') },
-        { value: 'thunderbird', text: this.$i18n('settings.calendar.program.thunderbird') },
-        { value: 'apple', text: this.$i18n('settings.calendar.program.apple') },
-        { value: 'etar', text: this.$i18n('settings.calendar.program.etar') },
-        { value: 'other', text: this.$i18n('settings.calendar.program.other') },
+        { value: 'google', text: this.$t('settings.calendar.program.google') },
+        { value: 'outlook', text: this.$t('settings.calendar.program.outlook') },
+        { value: 'thunderbird', text: this.$t('settings.calendar.program.thunderbird') },
+        { value: 'apple', text: this.$t('settings.calendar.program.apple') },
+        { value: 'etar', text: this.$t('settings.calendar.program.etar') },
+        { value: 'other', text: this.$t('settings.calendar.program.other') },
       ],
       programSettings: {
         google: { protocol: 'https', formatting: 'html' },
@@ -95,13 +95,13 @@ export default {
       protocolOptions: ['https', 'webcal'].map(value => ({ value, text: `${value}://...` })),
       formattingOptions: this.optionsArray(['html', 'alt', 'text'], 'formatting'),
       reminderOptions: [
-        { value: 15, text: this.$i18n('settings.calendar.reminders.15_minutes') },
-        { value: 30, text: this.$i18n('settings.calendar.reminders.30_minutes') },
-        { value: 60, text: this.$i18n('settings.calendar.reminders.1_hour') },
-        { value: 180, text: this.$i18n('settings.calendar.reminders.3_hours') },
-        { value: 360, text: this.$i18n('settings.calendar.reminders.6_hours') },
-        { value: 720, text: this.$i18n('settings.calendar.reminders.12_hours') },
-        { value: 1440, text: this.$i18n('settings.calendar.reminders.1_day') },
+        { value: 15, text: this.$t('settings.calendar.reminders.15_minutes') },
+        { value: 30, text: this.$t('settings.calendar.reminders.30_minutes') },
+        { value: 60, text: this.$t('settings.calendar.reminders.1_hour') },
+        { value: 180, text: this.$t('settings.calendar.reminders.3_hours') },
+        { value: 360, text: this.$t('settings.calendar.reminders.6_hours') },
+        { value: 720, text: this.$t('settings.calendar.reminders.12_hours') },
+        { value: 1440, text: this.$t('settings.calendar.reminders.1_day') },
       ],
     }
   },
@@ -129,7 +129,7 @@ export default {
   },
   methods: {
     optionsArray (keys, type) {
-      return keys.map(key => ({ value: key, text: this.$i18n(`settings.calendar.${type}.${key}`) }))
+      return keys.map(key => ({ value: key, text: this.$t(`settings.calendar.${type}.${key}`) }))
     },
     async haveToken () {
       if (!this.token) {
@@ -137,7 +137,7 @@ export default {
         try {
           this.token = await createApiToken()
         } catch (e) {
-          pulseError(this.$i18n('error_unexpected'))
+          pulseError(this.$t('error_unexpected'))
           return
         }
         hideLoader()
@@ -146,7 +146,7 @@ export default {
     async copyUrl () {
       await this.haveToken()
       navigator.clipboard.writeText(this.url)
-      pulseSuccess(this.$i18n('calendar.copiedUrl'))
+      pulseSuccess(this.$t('calendar.copiedUrl'))
     },
     async download () {
       await this.haveToken()
@@ -161,7 +161,7 @@ export default {
         await removeApiToken()
         this.token = null
       } catch (e) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
       hideLoader()
     },

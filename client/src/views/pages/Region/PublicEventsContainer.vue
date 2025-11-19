@@ -1,13 +1,13 @@
 <template>
   <Container
     v-if="props.events.length"
-    :title="$i18n('region.public.events.title')"
+    :title="$t('region.public.events.title')"
     tag="publicRegionEvents"
   >
     <div
       v-if="!currentEvents.length"
       class="list-group-item"
-      v-text="$i18n('region.public.events.no_future_events')"
+      v-text="$t('region.public.events.no_future_events')"
     />
     <EventPanel
       v-for="event in currentEvents"

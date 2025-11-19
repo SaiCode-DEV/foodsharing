@@ -26,7 +26,7 @@
       @click.prevent="openUploadDialog"
     >
       <i class="fas fa-images" />
-      {{ $i18n('upload.images') }}
+      {{ $t('upload.images') }}
     </button>
   </div>
 </template>
@@ -92,7 +92,7 @@ export default {
         }
       }
       if (invalidFiles.length) {
-        pulseError(this.$i18n('upload.invalid_image_files', {
+        pulseError(this.$t('upload.invalid_image_files', {
           count: invalidFiles.length,
           fileNames: invalidFiles.map(file => file.name).join(', '),
         }))

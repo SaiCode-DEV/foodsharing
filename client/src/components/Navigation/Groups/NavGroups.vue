@@ -1,7 +1,7 @@
 <template>
   <Dropdown
     id="dropdown-groups"
-    :title="$i18n('menu.entry.groups')"
+    :title="$t('menu.entry.groups')"
     icon="fa-users"
     is-fixed-size
     is-scrollable
@@ -18,7 +18,7 @@
       <small
         role="menuitem"
         class="disabled dropdown-item"
-        v-text="$i18n('groups.empty')"
+        v-text="$t('groups.empty')"
       />
     </template>
     <template #actions>
@@ -28,7 +28,7 @@
         class="dropdown-item dropdown-action"
       >
         <i class="icon-subnav fas fa-users" />
-        {{ $i18n('menu.entry.group_overview') }}
+        {{ $t('menu.entry.group_overview') }}
       </a>
     </template>
   </Dropdown>

@@ -2,7 +2,7 @@
   <b-modal
     id="modal_open_addressbook"
     ref="modal_open_addressbook"
-    :title="$i18n('mailbox.global_addressbook')"
+    :title="$t('mailbox.global_addressbook')"
     hide-footer
     header-class="d-flex"
     content-class="pr-3 pt-3"
@@ -14,19 +14,19 @@
         :variant="getButtonVariant(MAILBOX_ADDRESSBOOK_FILTER_TYPES.GROUPS)"
         @click="updateFilter(MAILBOX_ADDRESSBOOK_FILTER_TYPES.GROUPS)"
       >
-        {{ $i18n('terminology.groups') }}
+        {{ $t('terminology.groups') }}
       </b-button>
       <b-button
         :variant="getButtonVariant(MAILBOX_ADDRESSBOOK_FILTER_TYPES.REGIONS)"
         @click="updateFilter(MAILBOX_ADDRESSBOOK_FILTER_TYPES.REGIONS)"
       >
-        {{ $i18n('terminology.regions') }}
+        {{ $t('terminology.regions') }}
       </b-button>
     </b-button-group>
     <div class="d-flex mb-2">
       <b-form-input
         v-model="filterName"
-        :placeholder="$i18n('mailbox.search_name_email')"
+        :placeholder="$t('mailbox.search_name_email')"
       />
       <b-button
         variant="outline-primary"

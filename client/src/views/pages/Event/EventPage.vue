@@ -12,7 +12,7 @@
       />
       <b-alert :show="event.isPublic" variant="info">
         <i class="fas fa-door-open mr-2" />
-        {{ $i18n('events.public_info') }}
+        {{ $t('events.public_info') }}
       </b-alert>
     </template>
 
@@ -67,7 +67,7 @@ export default {
     breadcrumbs () {
       return [
         { href: this.$url('publicRegion', this.event.regionId), text: this.event.regionName },
-        { href: this.$url('events', this.event.regionId), text: this.$i18n('events.bread') },
+        { href: this.$url('events', this.event.regionId), text: this.$t('events.bread') },
         { text: this.event.name },
       ]
     },

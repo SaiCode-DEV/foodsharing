@@ -14,13 +14,13 @@
           v-if="isFollowingEmail"
           class="fas fa-envelope mr-1"
         />
-        {{ $i18n('forum.thread.subscriptions.subscribed') }}
+        {{ $t('forum.thread.subscriptions.subscribed') }}
       </span>
       <span v-else>
-        <i class="far fa-bell mr-1" /> {{ $i18n('forum.thread.subscriptions.subscribe') }}
+        <i class="far fa-bell mr-1" /> {{ $t('forum.thread.subscriptions.subscribe') }}
       </span>
     </template>
-    <b-dropdown-text>{{ $i18n('forum.follow.header') }}</b-dropdown-text>
+    <b-dropdown-text>{{ $t('forum.follow.header') }}</b-dropdown-text>
     <b-dropdown-divider />
     <b-dropdown-form>
       <b-form-checkbox
@@ -29,7 +29,7 @@
         :checked="isFollowingBell"
         @change="updateFollowBell"
       >
-        <a :class="{ 'text-strike': !isFollowingBell }">{{ $i18n('forum.follow.bell') }}</a>
+        <a :class="{ 'text-strike': !isFollowingBell }">{{ $t('forum.follow.bell') }}</a>
       </b-form-checkbox>
       <b-form-checkbox
         switch
@@ -37,7 +37,7 @@
         :checked="isFollowingEmail"
         @change="updateFollowEmail"
       >
-        <a :class="{ 'text-strike': !isFollowingEmail }">{{ $i18n('forum.follow.email') }}</a>
+        <a :class="{ 'text-strike': !isFollowingEmail }">{{ $t('forum.follow.email') }}</a>
       </b-form-checkbox>
     </b-dropdown-form>
   </b-dropdown>
@@ -78,7 +78,7 @@ export default {
         }
         this.$emit('update:bell', targetState)
       } catch (err) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
     },
     async updateFollowEmail () {
@@ -91,7 +91,7 @@ export default {
         }
         this.$emit('update:email', targetState)
       } catch (err) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
     },
     updateFollowing () {

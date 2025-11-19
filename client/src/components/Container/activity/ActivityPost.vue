@@ -14,7 +14,7 @@
         <span>{{ fs_name }}</span>
       </a>
       <span v-else-if="fs_id">
-        {{ $i18n('dashboard.deleted_user') }}
+        {{ $t('dashboard.deleted_user') }}
       </span>
       <a
         v-else-if="sender_email"
@@ -59,7 +59,7 @@
         >
           <span
             v-if="isTruncatable"
-            v-text="!state ? $i18n('globals.show_more') : $i18n('globals.show_less')"
+            v-text="!state ? $t('globals.show_more') : $t('globals.show_less')"
           />
           <span
             v-if="isTruncatable && canQuickreply"
@@ -67,11 +67,11 @@
           />
           <span
             v-if="canQuickreply && isTruncatable"
-            v-text="!state ? $i18n('activitypost.response') : ''"
+            v-text="!state ? $t('activitypost.response') : ''"
           />
           <span
             v-if="canQuickreply && !isTruncatable"
-            v-text="!state ? $i18n('activitypost.Response') : $i18n('globals.show_less')"
+            v-text="!state ? $t('activitypost.Response') : $t('globals.show_less')"
           />
           <i
             :class="{ 'fa-rotate-180': state }"
@@ -91,7 +91,7 @@
             v-model="quickreplyValue"
             name="quickreply"
             class="form-control"
-            :placeholder="$i18n('activitypost.write')"
+            :placeholder="$t('activitypost.write')"
             rows="1"
             @click.stop="$refs.quickreply.focus()"
             @keyup="resizeTextarea"
@@ -99,7 +99,7 @@
           />
           <!-- Only translation content in tooltip.html -->
           <button
-            v-b-tooltip.html="$i18n('activitypost.quickreply_button')"
+            v-b-tooltip.html="$t('activitypost.quickreply_button')"
             class="btn mt-2 btn-primary"
             :class="{
               'position-absolute btn-sm': !viewIsMobile,
@@ -113,7 +113,7 @@
             <i class="fas fa-paper-plane" />
             <span
               v-if="viewIsMobile"
-              v-text="$i18n('activitypost.Response')"
+              v-text="$t('activitypost.Response')"
             />
           </button>
         </div>
@@ -124,7 +124,7 @@
           <i class="fas fa-info-circle mr-1" />
           <!-- eslint-disable vue/no-v-html -->
           <!-- Only translation content -->
-          <span v-html="$i18n('activitypost.quickreply_info')" />
+          <span v-html="$t('activitypost.quickreply_info')" />
           <!-- eslint-enable -->
         </small>
       </div>
@@ -142,7 +142,7 @@
         v-if="source"
         v-b-tooltip="source.length > 40 ? source : null"
         class="text-truncate order-1 order-sm-2 mb-0"
-        v-text="$i18n(translationKey, [source])"
+        v-text="$t(translationKey, [source])"
       />
     </div>
   </div>
@@ -257,7 +257,7 @@ export default {
       })
       return this.quickreplyValue +
         '\n\n\n\n--------- ' +
-        this.$i18n('mailbox.signature', { date: date }) +
+        this.$t('mailbox.signature', { date: date }) +
         ' ---------\n\n>\t' +
         this.desc.replace('\n', '\n>\t')
     },
@@ -268,21 +268,21 @@ export default {
           // forum posts and wall posts already use the REST API for quickreplies
           if (this.type === 'forum') {
             await createPost(this.entity_id, this.quickreplyValue)
-            pulseInfo(this.$i18n('forum.quickreply.success'))
+            pulseInfo(this.$t('forum.quickreply.success'))
           } else if (this.type === 'event') {
             await addPost('event', this.entity_id, this.quickreplyValue)
-            pulseInfo(this.$i18n('forum.quickreply.success'))
+            pulseInfo(this.$t('forum.quickreply.success'))
           } else if (this.type === 'mailbox') {
             const subject = 'Re: ' + this.title
             const to = [this.sender_email]
             const body = this.formatReplyBody()
             await sendEmail(this.mailboxId, to, null, null, subject, body, null, this.entity_id)
-            pulseInfo(this.$i18n('mailbox.okay'))
+            pulseInfo(this.$t('mailbox.okay'))
           }
           this.quickreplyValue = ''
         } catch (e) {
           console.error(e)
-          pulseInfo(this.$i18n('forum.quickreply.error'))
+          pulseInfo(this.$t('forum.quickreply.error'))
         } finally {
           this.qrLoading = false
         }

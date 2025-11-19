@@ -66,7 +66,7 @@
     >
       <b-alert show class="my-3">
         <i class="fas fa-save mr-2" />
-        {{ $i18n('store.log.message_saved_info') }}
+        {{ $t('store.log.message_saved_info') }}
       </b-alert>
     </RequiredMessageModal>
   </div>
@@ -127,9 +127,9 @@ export default {
   },
   computed: {
     title () {
-      if (!this.loaded || !this.filterFunction.name) return this.$i18n('store.team_container')
-      const filterName = this.$i18n(`store.sm.${this.filterFunction.name}`)
-      return `${this.$i18n('store.team_container')} (${this.filterFunction.count} ${filterName})`
+      if (!this.loaded || !this.filterFunction.name) return this.$t('store.team_container')
+      const filterName = this.$t(`store.sm.${this.filterFunction.name}`)
+      return `${this.$t('store.team_container')} (${this.filterFunction.count} ${filterName})`
     },
     paginateAmount () {
       return this.viewIsMobile ? this.defaultAmountForMobile : this.defaultAmountForDesktop
@@ -186,7 +186,7 @@ export default {
         }
         await StoreData.mutations.loadStoreMember(this.storeId)
       } catch (e) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
         console.error(e)
       }
     },
@@ -196,9 +196,9 @@ export default {
         await StoreData.mutations.loadStoreMember(this.storeId)
       } catch (e) {
         if (e.code === HTTP_RESPONSE.UNPROCESSABLE_ENTITY) {
-          pulseError(this.$i18n('store.sm.promoteToManagerNotPossible'))
+          pulseError(this.$t('store.sm.promoteToManagerNotPossible'))
         } else {
-          pulseError(this.$i18n('error_unexpected'))
+          pulseError(this.$t('error_unexpected'))
         }
       }
     },
@@ -206,7 +206,7 @@ export default {
       let message = ''
       if (user.id === this.fsId) {
         if (!await this.confirmationDialogue('store.sm.demoteAsManagerConfirm', {
-          okTitle: this.$i18n('yes'),
+          okTitle: this.$t('yes'),
         })) return
       } else {
         this.messageModalKey = 'demote_store_manager'
@@ -219,7 +219,7 @@ export default {
         await demoteAsStoreManager(this.storeId, user.id, message)
         await StoreData.mutations.loadStoreMember(this.storeId)
       } catch (e) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
     },
     pickupSortingFunction (a, b) {
@@ -271,7 +271,7 @@ export default {
       const occupiedSlots = pickups.filter(pickup => pickup.occupiedSlots.find(slot => slot.profile.id === user.id))
       const dialogueOptions = {
         params: Object.assign({ occupiedSlots: occupiedSlots.length }, user),
-        okTitle: this.$i18n('button.yes_i_am_sure'),
+        okTitle: this.$t('button.yes_i_am_sure'),
       }
       if (occupiedSlots.length && !await this.confirmationDialogue('store.sm.userHasPickupsWarning', dialogueOptions)) return
       this.messageModalKey = 'kick_from_store_team'
@@ -283,7 +283,7 @@ export default {
         await removeStoreMember(this.storeId, user.id, message)
         await StoreData.mutations.loadStoreMember(this.storeId)
       } catch (e) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
     },
 
@@ -294,7 +294,7 @@ export default {
     timeTooltip (user) {
       const title = ['joinDate', 'lastPickup']
         .filter(key => user[key])
-        .map(key => this.$i18n(`store.${key}`, { date: this.$dateFormatter.dateBasic(user[key]) }))
+        .map(key => this.$t(`store.${key}`, { date: this.$dateFormatter.dateBasic(user[key]) }))
         .join('<br>')
       return { title, html: true, customClass: 'small', placement: 'bottom' }
     },

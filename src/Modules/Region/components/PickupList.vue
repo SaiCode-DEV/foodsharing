@@ -3,7 +3,7 @@
     <div
       class="card-header text-white bg-primary"
     >
-      {{ $i18n('pickuplist.header_for_district', {bezirk: regionName}) }}
+      {{ $t('pickuplist.header_for_district', {bezirk: regionName}) }}
     </div>
     <div>
       <b-tabs
@@ -11,7 +11,7 @@
         card
       >
         <b-tab
-          :title="$i18n('pickuplist.day_tab')"
+          :title="$t('pickuplist.day_tab')"
         >
           <b-pagination
             v-model="currentPageDaily"
@@ -35,7 +35,7 @@
           />
         </b-tab>
         <b-tab
-          :title="$i18n('pickuplist.week_tab')"
+          :title="$t('pickuplist.week_tab')"
         >
           <b-pagination
             v-model="currentPageWeekly"
@@ -59,7 +59,7 @@
           />
         </b-tab>
         <b-tab
-          :title="$i18n('pickuplist.month_tab')"
+          :title="$t('pickuplist.month_tab')"
         >
           <b-pagination
             v-model="currentPageMonthly"
@@ -82,7 +82,7 @@
           />
         </b-tab>
         <b-tab
-          :title="$i18n('pickuplist.year_tab')"
+          :title="$t('pickuplist.year_tab')"
         >
           <b-pagination
             v-model="currentPageYearly"
@@ -139,27 +139,27 @@ export default {
       fields: [
         {
           key: 'date',
-          label: this.$i18n('pickuplist.time_table_header'),
+          label: this.$t('pickuplist.time_table_header'),
           sortable: true,
         },
         {
           key: 'numberOfStores',
-          label: this.$i18n('pickuplist.NumberOfStores_table_header'),
+          label: this.$t('pickuplist.NumberOfStores_table_header'),
           sortable: true,
         },
         {
           key: 'numberOfPickups',
-          label: this.$i18n('pickuplist.NumberOfAppointments_table_header'),
+          label: this.$t('pickuplist.NumberOfAppointments_table_header'),
           sortable: true,
         },
         {
           key: 'numberOfSlots',
-          label: this.$i18n('pickuplist.NumberOfSlots_table_header'),
+          label: this.$t('pickuplist.NumberOfSlots_table_header'),
           sortable: true,
         },
         {
           key: 'numberOfFoodsavers',
-          label: this.$i18n('pickuplist.NumberOfFoodSavers_table_header'),
+          label: this.$t('pickuplist.NumberOfFoodSavers_table_header'),
           sortable: true,
         },
       ],

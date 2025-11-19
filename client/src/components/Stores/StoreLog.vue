@@ -1,7 +1,7 @@
 <template>
   <Container
     id="store-log"
-    :title="$i18n('store.log.title')"
+    :title="$t('store.log.title')"
     :container-is-expanded="isContainerExpanded"
     :tag="`store-log-${storeId}`"
     info-key="storeLog"
@@ -25,7 +25,7 @@
         :close-on-select="false"
         track-by="id"
         label="name"
-        :placeholder="$i18n('store.log.log_types_placeholder')"
+        :placeholder="$t('store.log.log_types_placeholder')"
         :show-labels="false"
       >
         <template slot="selection" slot-scope="{ values }">
@@ -33,7 +33,7 @@
             {{ values[0].name }}
           </span>
           <span v-else-if="values.length">
-            {{ $i18n('store.log.selected_log_types', {amount: values.length}) }}
+            {{ $t('store.log.selected_log_types', {amount: values.length}) }}
           </span>
         </template>
       </Multiselect>
@@ -47,7 +47,7 @@
           @click="loadStoreLog"
         >
           <i class="fas fa-fw fa-search" />
-          {{ $i18n('store.log.search') }}
+          {{ $t('store.log.search') }}
         </b-button>
       </div>
       <div>
@@ -78,7 +78,7 @@
           @click="loadMore"
         >
           <i class="fas fa-plus-circle" />
-          {{ $i18n('menu.entry.load_more') }}
+          {{ $t('menu.entry.load_more') }}
         </b-button>
       </div>
     </div>
@@ -106,7 +106,7 @@ export default {
   },
   data () {
     const actionTypeIds = [...Array(NUMBER_OF_ACTION_TYPES).keys()].map((id) => id + 1) // action type IDs start at 1
-    const actionTypeOptions = actionTypeIds.map((id) => ({ id, name: this.$i18n(`store.log.type.${id}`) }))
+    const actionTypeOptions = actionTypeIds.map((id) => ({ id, name: this.$t(`store.log.type.${id}`) }))
 
     const now = new Date()
     const lastWeek = new Date(now)
@@ -152,7 +152,7 @@ export default {
         )
         this.pagesLoaded = 1
       } catch (e) {
-        pulseError(this.$i18n('error_unexpected') + e)
+        pulseError(this.$t('error_unexpected') + e)
       }
       this.isLoading = false
     },
@@ -166,7 +166,7 @@ export default {
           this.pagesLoaded++ * this.pageSize,
         ))
       } catch (e) {
-        pulseError(this.$i18n('error_unexpected') + e)
+        pulseError(this.$t('error_unexpected') + e)
       }
       this.isLoading = false
     },

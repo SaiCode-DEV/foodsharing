@@ -39,8 +39,8 @@
             <i class="icon-nav fas fa-power-off" />
           </slot>
           <slot name="text">
-            <span class="nav-text" v-text="$i18n('login.logout')" />
-            <span class="sr-only" v-text="$i18n('login.logout')" />
+            <span class="nav-text" v-text="$t('login.logout')" />
+            <span class="sr-only" v-text="$t('login.logout')" />
           </slot>
         </b-nav-item>
       </ul>

@@ -2,14 +2,14 @@
   <!-- eslint-disable vue/no-template-shadow -->
   <div>
     <Container
-      :title="$i18n('content.communities.title')"
+      :title="$t('content.communities.title')"
       :collapsible="false"
     >
       <div class="list-group-item">
-        {{ $i18n('content.communities.text') }}
+        {{ $t('content.communities.text') }}
         <div class="alert alert-info mt-3">
           <i class="fas fa-info-circle mr-1" />
-          {{ $i18n('content.communities.searchInfo') }}
+          {{ $t('content.communities.searchInfo') }}
         </div>
       </div>
     </Container>

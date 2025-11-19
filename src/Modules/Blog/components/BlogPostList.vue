@@ -1,6 +1,6 @@
 <!-- Show a list of posts on the blog page and handles pagination -->
 <template>
-  <Container :title="$i18n('blog.header')" :collapsible="false">
+  <Container :title="$t('blog.header')" :collapsible="false">
     <div
       v-if="isLoading"
       class="loader-container mx-auto"
@@ -65,7 +65,7 @@ export default {
         this.totalPosts = response.totalPosts
         this.blogPosts[this.currentPage] = response.blogPosts
       } catch (e) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
 
       this.isLoading = false

@@ -10,22 +10,22 @@
       <template v-if="canPickUp" #header>
         <span class="text-secondary">
           <i class="fas fa-fw fa-check-circle" />
-          {{ $i18n('profile.public.may') }}
+          {{ $t('profile.public.may') }}
         </span>
       </template>
       <template v-else #header>
         <span class="text-danger">
           <i class="fas fa-fw fa-times-circle" />
-          {{ $i18n('profile.public.mayNot') }}
+          {{ $t('profile.public.mayNot') }}
         </span>
       </template>
 
       <template #lead>
-        {{ $i18n(canPickUp ? 'profile.public.textMay' : 'profile.public.textMayNot') }}
+        {{ $t(canPickUp ? 'profile.public.textMay' : 'profile.public.textMayNot') }}
       </template>
 
       <span class="fs-name text-muted">
-        {{ $i18n('profile.public.who', { name: initials, from: fromRegion }) }}
+        {{ $t('profile.public.who', { name: initials, from: fromRegion }) }}
       </span>
       <span class="fs-id text-muted text-monospace bg-light">
         #{{ fsId }}
@@ -34,17 +34,17 @@
       <hr class="my-3">
 
       <p>
-        {{ $i18n('profile.public.cta', { name: initials }) }}
+        {{ $t('profile.public.cta', { name: initials }) }}
       </p>
 
       <b-button-group vertical size="lg">
         <b-button variant="primary" :href="$url('login', `/profile/${fsId}`)">
           <i class="fas fa-fw fa-sign-in-alt" />
-          {{ $i18n('profile.public.login') }}
+          {{ $t('profile.public.login') }}
         </b-button>
         <b-button variant="secondary" :href="$url('joininfo')">
           <i class="fas fa-fw fa-hands-helping" />
-          {{ $i18n('profile.public.join') }}
+          {{ $t('profile.public.join') }}
         </b-button>
       </b-button-group>
     </b-jumbotron>

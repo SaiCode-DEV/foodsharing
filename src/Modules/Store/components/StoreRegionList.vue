@@ -7,7 +7,7 @@
     >
       <template #head-title>
         <span>
-          {{ $i18n('store.allStoresOfRegion') }} {{ regionName }}
+          {{ $t('store.allStoresOfRegion') }} {{ regionName }}
         </span>
       </template>
       <template #header-actions>
@@ -19,7 +19,7 @@
             :href="$url('storeAdd', regionId)"
             class="btn btn-mb btn-primary btn-block"
           >
-            {{ $i18n('store.addNewStoresButton') }}
+            {{ $t('store.addNewStoresButton') }}
           </a>
         </div>
       </template>
@@ -29,7 +29,7 @@
             :href="$url('storeAdd', regionId)"
             class="btn btn-sm btn-primary btn-block"
           >
-            {{ $i18n('store.addNewStoresButton') }}
+            {{ $t('store.addNewStoresButton') }}
           </a>
         </div>
       </template>
@@ -39,7 +39,7 @@
       variant="info"
       show
     >
-      {{ $i18n('store.deactivatedRegion') }}
+      {{ $t('store.deactivatedRegion') }}
     </b-alert>
   </div>
 </template>

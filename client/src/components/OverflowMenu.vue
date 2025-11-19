@@ -17,7 +17,7 @@
       @click.stop="() => option.callback?.(...callbackArgs) ?? null"
     >
       <i :class="`fas fa-${option.icon} dropdown-icon mr-1`" />
-      {{ $i18n(option.textKey) }}
+      {{ $t(option.textKey) }}
     </b-dropdown-item>
     <slot name="added-content" />
   </b-dropdown>

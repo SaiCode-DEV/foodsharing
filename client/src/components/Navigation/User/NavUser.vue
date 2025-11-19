@@ -1,7 +1,7 @@
 <template>
   <Dropdown
     class="nav-user is-open-on-mobile"
-    :title="$i18n('navigation.profil', {name: getUserFirstName})"
+    :title="$t('navigation.profil', {name: getUserFirstName})"
     direction="right"
     :badge="userStore.getMailUnreadCount"
   >
@@ -15,13 +15,13 @@
     <template #content>
       <a
         v-if="hasMailBox"
-        :title="$i18n('menu.entry.mailbox')"
+        :title="$t('menu.entry.mailbox')"
         :href="$url('mailbox')"
         role="menuitem"
         class="dropdown-item dropdown-action position-relative"
       >
         <i class="icon-subnav fas fa-envelope" />
-        {{ $i18n('menu.entry.mailbox') }}
+        {{ $t('menu.entry.mailbox') }}
         <div class="badge badge-danger badge-inline">{{ userStore.getMailUnreadCount }}</div>
       </a>
       <div v-if="hasMailBox" class="dropdown-divider" />
@@ -30,14 +30,14 @@
         role="menuitem"
         class="dropdown-item dropdown-action"
       >
-        <i class="icon-subnav fas fa-address-card" /> {{ $i18n('profile.title') }}
+        <i class="icon-subnav fas fa-address-card" /> {{ $t('profile.title') }}
       </a>
       <a
         :href="$url('settings')"
         role="menuitem"
         class="dropdown-item dropdown-action"
       >
-        <i class="icon-subnav fas fa-cog" /> {{ $i18n('settings.header') }}
+        <i class="icon-subnav fas fa-cog" /> {{ $t('settings.header') }}
       </a>
       <div class="dropdown-divider" />
       <button
@@ -45,7 +45,7 @@
         class="dropdown-item dropdown-action"
         @click.prevent="$bvModal.show('languageChooserModal')"
       >
-        <i class="icon-subnav fas fa-language" /> {{ $i18n('menu.entry.language') }}
+        <i class="icon-subnav fas fa-language" /> {{ $t('menu.entry.language') }}
       </button>
       <button
         role="menuitem"
@@ -55,7 +55,7 @@
         <i
           class="icon-subnav fas fa-language"
           :class="themeStore.getCurrentIcon"
-        /> {{ $i18n('theme_switcher.title') }}
+        /> {{ $t('theme_switcher.title') }}
       </button>
     </template>
     <template #actions>
@@ -66,7 +66,7 @@
         @click="$refs.sentryFeedback.show()"
       >
         <i class="icon-subnav fas fa-comment" />
-        <span>{{ $i18n('feedback.button') }}</span>
+        <span>{{ $t('feedback.button') }}</span>
       </button>
       <SentryFeedback ref="sentryFeedback" />
       <button
@@ -74,7 +74,7 @@
         class="dropdown-item dropdown-action"
         @click="deleteCaches()"
       >
-        <i class="icon-subnav fas fa-power-off" /> {{ $i18n('login.logout') }}
+        <i class="icon-subnav fas fa-power-off" /> {{ $t('login.logout') }}
       </button>
     </template>
   </Dropdown>

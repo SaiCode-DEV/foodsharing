@@ -9,7 +9,7 @@
       @click="onClick(menu)"
     >
       <i class="icon-subnav fas" :class="menu.icon" />
-      {{ $i18n(menu.text) }}
+      {{ $t(menu.text) }}
     </a>
   </div>
 </template>

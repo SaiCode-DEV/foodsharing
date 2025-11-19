@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import i18n from '@/helper/i18n'
+import { i18nInstance } from '@/helper/i18n'
 import dateFormatter from '@/helper/date-formatter'
 import { url } from '@/helper/urls'
 import { isFeatureToggleActive } from '@/helper/featuretoggles'
@@ -14,22 +14,20 @@ const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 Vue.use(pinia)
 Vue.use(Notifications)
+Vue.use(i18nInstance)
 
-Vue.prototype.$i18n = (key, variables = {}) => {
-  return i18n(key, variables)
-}
 Vue.prototype.$url = url
 Vue.prototype.$dateFormatter = dateFormatter
 Vue.prototype.$isFeatureToggleActive = isFeatureToggleActive
 Vue.prototype.$confirmationDialogue = function (messageKey, options = {}) {
   options = Object.assign({
-    title: this.$i18n('are_you_sure'),
+    title: this.$t('are_you_sure'),
     okVariant: 'danger',
-    okTitle: this.$i18n('button.delete'),
-    cancelTitle: this.$i18n('button.cancel'),
+    okTitle: this.$t('button.delete'),
+    cancelTitle: this.$t('button.cancel'),
     centered: true,
   }, options)
-  return this.$bvModal.msgBoxConfirm(this.$i18n(messageKey), options)
+  return this.$bvModal.msgBoxConfirm(this.$t(messageKey), options)
 }
 
 export function vueRegister (components) {
@@ -67,6 +65,7 @@ export function vueApply (selector, disableElNotFoundException = false) {
       render (h) {
         return h(componentName, { props })
       },
+      i18n: i18nInstance,
       pinia,
     })
     if (initialData && typeof initialData === 'object') {

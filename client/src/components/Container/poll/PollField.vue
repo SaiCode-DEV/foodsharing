@@ -16,12 +16,12 @@
         <div class="event-item-date-container d-flex flex-column bg-white justify-content-center text-dark">
           <span
             v-if="isEventToday"
-            v-text="$i18n('date.Today')"
+            v-text="$t('date.Today')"
           />
           <span
             v-else-if="isEventTomorrow"
             class="small"
-            v-text="$i18n('date.-- Tomorrow')"
+            v-text="$t('date.-- Tomorrow')"
           />
           <span
             v-else-if="$dateFormatter.getDifferenceToNowInDays(endDate) < 3"
@@ -46,7 +46,7 @@
               pill
               variant="warning"
             >
-              {{ $i18n('poll.in_future') }}
+              {{ $t('poll.in_future') }}
             </b-badge>
           </h6>
           <span
@@ -58,7 +58,7 @@
           <div class="text-muted mt-auto">
             <i class="fas fa-clock" />
             <span
-              v-text="$i18n('polls.until', { until: displayedEnd })"
+              v-text="$t('polls.until', { until: displayedEnd })"
             />
           </div>
         </div>

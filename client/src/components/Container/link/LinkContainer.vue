@@ -1,7 +1,7 @@
 <template>
   <Container
     :tag="title"
-    :title="$i18n(title)"
+    :title="$t(title)"
     :toggle-visiblity="data.length > defaultAmount"
     @show-full-list="showFullList"
     @reduce-list="reduceList"

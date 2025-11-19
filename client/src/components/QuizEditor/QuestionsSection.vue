@@ -1,7 +1,7 @@
 <template>
   <Container
     v-if="questions"
-    :title="$i18n('quiz.questions_section.title', {count: questions.length})"
+    :title="$t('quiz.questions_section.title', {count: questions.length})"
   >
     <div class="list-group-item">
       <div
@@ -17,7 +17,7 @@
             variant="outline-primary"
           >
             <span class="question-title">
-              <span :class="{'font-weight-bold': question.isMandatory}">{{ $i18n(`quiz.question`) }} #{{ question.id }}</span>
+              <span :class="{'font-weight-bold': question.isMandatory}">{{ $t(`quiz.question`) }} #{{ question.id }}</span>
               -
               {{ question.text }}
             </span>
@@ -81,14 +81,14 @@
               @update="fetchQuestions()"
             />
             <p>
-              <b>{{ $i18n('wikilink') }}:</b>
+              <b>{{ $t('wikilink') }}:</b>
               <a :href="question.wikilink">{{ question.wikilink }}</a>
             </p>
           </b-card-body>
         </b-collapse>
         <b-modal
           :id="`wall-${i}`"
-          :title="$i18n('quiz.comment.wallTitle', question)"
+          :title="$t('quiz.comment.wallTitle', question)"
           size="lg"
           scrollable
           centered
@@ -110,7 +110,7 @@
       class="list-group-item list-group-item-action list-group-item-secondary small font-weight-bold text-center"
       @click="$bvModal.show('addQuestionModal')"
     >
-      {{ $i18n('quiz.question_options.add') }}
+      {{ $t('quiz.question_options.add') }}
       <EditQuestionModal
         modal-id="addQuestionModal"
         :question="newQuestion"
@@ -147,7 +147,7 @@ export default {
         text: '',
         failurePoints: 1,
         durationInSeconds: 120,
-        wikilink: this.$i18n('quiz.editModal.question.input.wikilink.placeholder'),
+        wikilink: this.$t('quiz.editModal.question.input.wikilink.placeholder'),
         isMandatory: false,
       },
     }
@@ -173,7 +173,7 @@ export default {
           await deleteQuestion(this.quizId, questionId)
           await this.fetchQuestions()
         } catch (error) {
-          pulseError(this.$i18n('error_unexpected'))
+          pulseError(this.$t('error_unexpected'))
         }
       }
     },
@@ -183,7 +183,7 @@ export default {
           await deleteAnswer(this.quizId, questionId, answerId)
           await this.fetchQuestions()
         } catch (error) {
-          pulseError(this.$i18n('error_unexpected'))
+          pulseError(this.$t('error_unexpected'))
         }
       }
     },

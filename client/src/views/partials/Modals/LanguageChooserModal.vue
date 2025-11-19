@@ -2,14 +2,14 @@
   <b-modal
     id="languageChooserModal"
     ref="languageChooserModal"
-    :title="$i18n('language_chooser.title')"
-    :cancel-title="$i18n('button.cancel')"
-    :ok-title="$i18n('language_chooser.choose_button')"
+    :title="$t('language_chooser.title')"
+    :cancel-title="$t('button.cancel')"
+    :ok-title="$t('language_chooser.choose_button')"
 
     @show="fetchLanguages"
     @ok="changeLanguage"
   >
-    {{ $i18n('language_chooser.content') }}
+    {{ $t('language_chooser.content') }}
     <div
       v-if="loading"
       class="loader-container mx-auto"
@@ -28,10 +28,10 @@
         href="https://hosted.weblate.org/projects/foodsharing/#languages"
         target="_blank"
         rel="noopener noreferrer"
-      >{{ $i18n('language_chooser.translation_help') }}
+      >{{ $t('language_chooser.translation_help') }}
       </a>.
       <br>
-      <small><i class="fas fa-info-circle" /> {{ $i18n('language_chooser.translation_help_info_text') }}</small>
+      <small><i class="fas fa-info-circle" /> {{ $t('language_chooser.translation_help_info_text') }}</small>
     </p>
   </b-modal>
 </template>
@@ -64,7 +64,7 @@ export default {
       try {
         this.language = await getLocale()
       } catch (e) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
 
       this.loading = false
@@ -76,7 +76,7 @@ export default {
           window.location.reload()
         }, 25)
       } catch (e) {
-        pulseError(this.$i18n('error_unexpected'))
+        pulseError(this.$t('error_unexpected'))
       }
     },
   },

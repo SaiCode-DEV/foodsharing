@@ -3,8 +3,8 @@
     <div class="row p-3">
       <div class="col col-12 col-sm-3">
         <Container
-          :tag="$i18n('mailbox.title')"
-          :title="$i18n('mailbox.title')"
+          :tag="$t('mailbox.title')"
+          :title="$t('mailbox.title')"
           :toggle-visibility="mailboxes.length > defaultAmount"
           @show-full-list="showFullList"
           @reduce-list="reduceList"

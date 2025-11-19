@@ -1,56 +1,56 @@
 <template>
   <Container
-    :title="$i18n('poll.title', poll)"
+    :title="$t('poll.title', poll)"
     :collapsible="false"
     info-key="polls"
   >
     <div class="list-group-item">
       <b-alert :show="userAlreadyVoted" variant="info">
         <i class="fas fa-check-circle mr-2" />
-        {{ $i18n('poll.already_voted') }}: {{ $dateFormatter.date(displayedVoteDate) }}
+        {{ $t('poll.already_voted') }}: {{ $dateFormatter.date(displayedVoteDate) }}
       </b-alert>
       <b-alert :show="isPollInFuture" variant="info">
         <i class="fas fa-clock mr-2" />
-        {{ $i18n('poll.may_not_yet_vote') }}
+        {{ $t('poll.may_not_yet_vote') }}
       </b-alert>
       <b-alert :show="!userAlreadyVoted && !userMayVote && !isPollInPast && !isPollInFuture" variant="danger">
         <i class="fas fa-times-circle mr-2" />
-        {{ $i18n('poll.may_not_vote') }}
+        {{ $t('poll.may_not_vote') }}
       </b-alert>
 
       <ul class="poll-properties">
         <li class="poll-date">
-          <b>{{ $i18n('poll.time_period') }}:</b>
+          <b>{{ $t('poll.time_period') }}:</b>
           {{ $dateFormatter.dateTime(startDate) }} - {{ $dateFormatter.dateTime(endDate) }}
           <b-badge
             v-if="isPollInPast"
             pill
             variant="info"
           >
-            {{ $i18n('poll.in_past') }}
+            {{ $t('poll.in_past') }}
           </b-badge>
           <b-badge
             v-else-if="isPollInFuture"
             pill
             variant="secondary"
           >
-            {{ $i18n('poll.in_future') }}
+            {{ $t('poll.in_future') }}
           </b-badge>
         </li>
         <li class="poll-region">
-          <b>{{ $i18n(isWorkGroup ? 'terminology.group' : 'terminology.region') }}:</b> <a :href="$url('polls', regionId)">{{ regionName }}</a>
+          <b>{{ $t(isWorkGroup ? 'terminology.group' : 'terminology.region') }}:</b> <a :href="$url('polls', regionId)">{{ regionName }}</a>
         </li>
         <li class="poll-scope">
-          <b>{{ $i18n('poll.allowed_voters') }}:</b> {{ $i18n('poll.scope_description_'+poll.scope) }}
+          <b>{{ $t('poll.allowed_voters') }}:</b> {{ $t('poll.scope_description_'+poll.scope) }}
         </li>
         <li class="poll-scope">
-          <b>{{ $i18n('poll.eligible_votes_count') }}:</b> {{ poll.eligibleVotesCount }}
+          <b>{{ $t('poll.eligible_votes_count') }}:</b> {{ poll.eligibleVotesCount }}
         </li>
         <li class="poll-type">
-          <b>{{ $i18n('poll.type') }}:</b> {{ $i18n('poll.type_description_'+poll.type) }}
+          <b>{{ $t('poll.type') }}:</b> {{ $t('poll.type_description_'+poll.type) }}
         </li>
         <li v-if="isPollInPast">
-          <b>{{ $i18n('poll.results.percentage_of_votes') }}:</b> {{ percentageTurnout }} %
+          <b>{{ $t('poll.results.percentage_of_votes') }}:</b> {{ percentageTurnout }} %
         </li>
       </ul>
       <div v-if="mayEdit">
@@ -58,13 +58,13 @@
           :href="$url('pollEdit', poll.id)"
           class="btn btn-sm btn-primary mb-3"
         >
-          {{ $i18n('poll.edit.title') }}
+          {{ $t('poll.edit.title') }}
         </b-link>
         <b-link
           class="btn btn-sm btn-primary mb-3"
           @click="showCancelConfirmDialog"
         >
-          {{ $i18n('poll.cancel.title') }}
+          {{ $t('poll.cancel.title') }}
         </b-link>
       </div>
     </div>
@@ -81,7 +81,7 @@
 
       <b-alert :show="Boolean(userVoteDate)" variant="info">
         <i class="fas fa-eye-slash mr-2" />
-        {{ $i18n('poll.untraceable') }}
+        {{ $t('poll.untraceable') }}
       </b-alert>
 
       <ResultsTable

@@ -2,7 +2,7 @@
   <BasePage>
     <template #left>
       <Container
-        :title="$i18n('bezirk')"
+        :title="$t('bezirk')"
         wrap-content="p-0"
       >
         <RegionTree
@@ -13,7 +13,7 @@
     </template>
     <Container
       v-if="region"
-      :title="$i18n('achievements.inRegion', {region: region.name, count: achievements?.length ?? '...'})"
+      :title="$t('achievements.inRegion', {region: region.name, count: achievements?.length ?? '...'})"
     >
       <div class="list-group-item">
         <Achievements
@@ -96,7 +96,7 @@ export default {
         this.achievements.push(achievement)
       }
       this.selectedAchievement = achievement
-      pulseSuccess(this.$i18n('globals.saved'))
+      pulseSuccess(this.$t('globals.saved'))
     },
     async deleteAchievement (achievementId) {
       await deleteAchievement(achievementId)

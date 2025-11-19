@@ -8,7 +8,7 @@ import { BFormGroup } from 'bootstrap-vue'
 
 const localVue = createLocalVue()
 
-localVue.$i18n = (key, variables = {}) => {
+localVue.prototype.$t = (key, variables = {}) => {
   return i18n(key, variables)
 }
 

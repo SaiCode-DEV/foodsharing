@@ -24,7 +24,7 @@
       </b-button>
     </div>
     <div v-if="!phoneNumberValid || disabled" class="invalid-feedback">
-      <span>{{ $i18n('validation.phone_number_invalid') }}</span>
+      <span>{{ $t('validation.phone_number_invalid') }}</span>
     </div>
   </div>
 </template>

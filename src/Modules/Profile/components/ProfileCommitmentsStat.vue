@@ -6,7 +6,7 @@
       />
     </div>
     <div v-if="commitmentsStats[0].respActStores > 0">
-      {{ $i18n('profile.commitments_stat.respActStores', { count: commitmentsStats[0].respActStores }) }} <i class="fas fa-shopping-cart" />
+      {{ $t('profile.commitments_stat.respActStores', { count: commitmentsStats[0].respActStores }) }} <i class="fas fa-shopping-cart" />
       <p />
     </div>
     <b-tabs>
@@ -16,10 +16,10 @@
         <b-tab
           v-if="DisplayTab(item)"
           :key="index"
-          :title="$i18n('profile.commitments_stat.week_' + index)"
+          :title="$t('profile.commitments_stat.week_' + index)"
         >
           <div>
-            <p /> {{ $i18n('profile.commitments_stat.weekDesc', { week: item.week, weekStart:item.beginWeek, weekEnd:item.endWeek }) }}
+            <p /> {{ $t('profile.commitments_stat.weekDesc', { week: item.week, weekStart:item.beginWeek, weekEnd:item.endWeek }) }}
             <p />
           </div>
           <template
@@ -41,23 +41,23 @@
           </template>
           <div v-if="item.securePickupWeek > 0 ">
             <i class="fas fa-leaf" />
-            {{ $i18n('profile.commitments_stat.securePickupWeek', { count: item.securePickupWeek }) }}
+            {{ $t('profile.commitments_stat.securePickupWeek', { count: item.securePickupWeek }) }}
           </div>
           <div v-if="item.eventsCreated > 0 ">
             <i class="fas fa-calendar-day" />
-            {{ $i18n('profile.commitments_stat.eventsCreatedWeek', { count: item.eventsCreated }) }}
+            {{ $t('profile.commitments_stat.eventsCreatedWeek', { count: item.eventsCreated }) }}
           </div>
           <div v-if="item.eventsParticipated[0].count > 0 ">
             <i class="fas fa-calendar-check" />
-            {{ $i18n('profile.commitments_stat.eventsParticipatedWeek', { count: item.eventsParticipated[0].count, hour: item.eventsParticipated[0].duration_hours, minute: item.eventsParticipated[0].duration_minutes }) }}
+            {{ $t('profile.commitments_stat.eventsParticipatedWeek', { count: item.eventsParticipated[0].count, hour: item.eventsParticipated[0].duration_hours, minute: item.eventsParticipated[0].duration_minutes }) }}
           </div>
           <div v-if="item.baskets.offered[0].count > 0 ">
             <i class="fas fa-shopping-basket" />
-            {{ $i18n('profile.commitments_stat.basketsOfferedWeek', { count: item.baskets.offered[0].count, weight: item.baskets.offered[0].weight} ) }}
+            {{ $t('profile.commitments_stat.basketsOfferedWeek', { count: item.baskets.offered[0].count, weight: item.baskets.offered[0].weight} ) }}
           </div>
           <div v-if="item.baskets.shared > 0 ">
             <i class="fas fa-handshake" />
-            {{ $i18n('profile.commitments_stat.basketsSharedWeek', { count: item.baskets.shared } ) }}
+            {{ $t('profile.commitments_stat.basketsSharedWeek', { count: item.baskets.shared } ) }}
           </div>
         </b-tab>
       </template>
@@ -87,22 +87,22 @@ export default {
       fields: [
         {
           key: 'districtName',
-          label: this.$i18n('profile.commitments_stat.districtName'),
+          label: this.$t('profile.commitments_stat.districtName'),
           sortable: true,
         },
         {
           key: 'categorieName',
-          label: this.$i18n('profile.commitments_stat.categorieName'),
+          label: this.$t('profile.commitments_stat.categorieName'),
           sortable: true,
         },
         {
           key: 'pickupAmount',
-          label: this.$i18n('profile.commitments_stat.pickupAmount'),
+          label: this.$t('profile.commitments_stat.pickupAmount'),
           sortable: true,
         },
         {
           key: 'pickupCount',
-          label: this.$i18n('profile.commitments_stat.pickupCount'),
+          label: this.$t('profile.commitments_stat.pickupCount'),
           sortable: true,
         },
       ],

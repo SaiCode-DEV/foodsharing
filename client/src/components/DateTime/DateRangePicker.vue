@@ -4,7 +4,7 @@
     inline
   >
     <DatePicker
-      v-b-tooltip.noninteractive="$i18n('date.from')"
+      v-b-tooltip.noninteractive="$t('date.from')"
       :value="fromDate"
       class="date-picker-from"
       :min="minFromDate"
@@ -14,7 +14,7 @@
     />
     <hr class="date-separator">
     <DatePicker
-      v-b-tooltip.noninteractive="$i18n('date.to')"
+      v-b-tooltip.noninteractive="$t('date.to')"
       :value="toDate"
       class="date-picker-to"
       :min="fromDate || minFromDate"

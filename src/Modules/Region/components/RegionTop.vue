@@ -2,15 +2,15 @@
   <b-alert show>
     <a :href="$url('publicRegion', regionId)"><h4>{{ name }}</h4></a>
     <div class="regionTopClass">
-      {{ $i18n('terminology.n_foodsaver', {count: foodSaverCount}) }},
-      <span v-if="!isWorkGroup">{{ $i18n('terminology.n_home_regions', {count: foodSaverHomeDistrictCount}) }},</span>
-      {{ $i18n('terminology.n_sleeping', {count: foodSaverHasSleepingHatCount}) }}
+      {{ $t('terminology.n_foodsaver', {count: foodSaverCount}) }},
+      <span v-if="!isWorkGroup">{{ $t('terminology.n_home_regions', {count: foodSaverHomeDistrictCount}) }},</span>
+      {{ $t('terminology.n_sleeping', {count: foodSaverHasSleepingHatCount}) }}
 
-      <span v-if="!isWorkGroup">, {{ $i18n('terminology.n_ambassadors', {count: ambassadorCount}) }},
-        {{ $i18n('terminology.n_stores', {count: storesCount}) }},
-        {{ $i18n('terminology.n_cooperating_stores', {count: storesCooperationCount}) }},
-        {{ $i18n('statistics.kg_food_saved', {count: storesFetchedWeight}) }},
-        {{ $i18n('statistics.num_fetches', {count: storesPickupsCount}) }}</span>
+      <span v-if="!isWorkGroup">, {{ $t('terminology.n_ambassadors', {count: ambassadorCount}) }},
+        {{ $t('terminology.n_stores', {count: storesCount}) }},
+        {{ $t('terminology.n_cooperating_stores', {count: storesCooperationCount}) }},
+        {{ $t('statistics.kg_food_saved', {count: storesFetchedWeight}) }},
+        {{ $t('statistics.num_fetches', {count: storesPickupsCount}) }}</span>
     </div>
   </b-alert>
 </template>

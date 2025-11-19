@@ -6,7 +6,7 @@ export default {
       if (navigator.clipboard) {
         await navigator.clipboard.writeText(text)
         if (messageKey) {
-          pulseSuccess(this.$i18n(messageKey, { text, ...params }))
+          pulseSuccess(this.$t(messageKey, { text, ...params }))
         }
       }
     },

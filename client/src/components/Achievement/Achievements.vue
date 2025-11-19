@@ -7,7 +7,7 @@
       :no-modal="noModal"
       @click="$emit('click', achievement)"
     />
-    <span v-if="achievements?.length === 0" v-text="$i18n(emptyTextKey)" />
+    <span v-if="achievements?.length === 0" v-text="$t(emptyTextKey)" />
     <div v-if="!achievements" class="achievements-loader">
       <b-skeleton width="10em" height="1.75em" />
       <b-skeleton width="7em" height="1.75em" />

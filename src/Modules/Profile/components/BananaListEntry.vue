@@ -15,7 +15,7 @@
         <a
           v-if="canRemove"
           href="#"
-          :title="$i18n('profile.banana.remove.confirm_title')"
+          :title="$t('profile.banana.remove.confirm_title')"
           @click="removeBanana"
         ><i class="fas fa-trash" />
         </a>

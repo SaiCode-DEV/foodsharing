@@ -3,14 +3,14 @@
     <template #top>
       <Breadcrumbs :items="breadcrumbs" />
       <b-alert :show="!userStore.isLoggedIn" variant="info">
-        <markdown :source="$i18n('basket.login')" />
+        <markdown :source="$t('basket.login')" />
       </b-alert>
     </template>
 
     <template v-if="userStore.isLoggedIn" #right>
       <!-- Information about the owner of the basket; forms for requesting and editing-->
       <Container hide-header wrap-content>
-        <h3>{{ $i18n('basket.provider') }}</h3>
+        <h3>{{ $t('basket.provider') }}</h3>
         <AvatarList
           class="mb-2"
           :profiles="[basket.creator]"
@@ -39,7 +39,7 @@
         hide-header
         wrap-content
       >
-        <h3>{{ $i18n('basket.requests', { count: requests.length }) }}</h3>
+        <h3>{{ $t('basket.requests', { count: requests.length }) }}</h3>
         <ul class="linklist request-list">
           <li v-for="request in requests" :key="request.fs_id">
             <a href="#" @click="openChat(request.fs_id)">

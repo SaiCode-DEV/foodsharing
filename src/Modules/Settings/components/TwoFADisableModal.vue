@@ -1,9 +1,9 @@
 <template>
   <b-modal
     ref="two_factor_disable_modal"
-    :title="$i18n('settings.2fa.title')"
-    :ok-title="$i18n('settings.2fa.action_label_disable')"
-    :cancel-title="$i18n('button.cancel')"
+    :title="$t('settings.2fa.title')"
+    :ok-title="$t('settings.2fa.action_label_disable')"
+    :cancel-title="$t('button.cancel')"
     centered
     ok-variant="danger"
     size="lg"
@@ -19,13 +19,13 @@
             variant="danger"
             show
           >
-            {{ $i18n('settings.2fa.disable_danger') }}
+            {{ $t('settings.2fa.disable_danger') }}
           </b-alert>
         </div>
         <div class="col-6">
           <div class="mb-1">
             <i class="fas fa-shield-alt mr-1" />
-            {{ $i18n('login.2fa') }}
+            {{ $t('login.2fa') }}
           </div>
           <!-- TOTP field -->
           <totp-field
@@ -38,13 +38,13 @@
             v-if="v$.totp.$error"
             class="invalid-feedback"
           >
-            {{ $i18n('settings.2fa.totp_required') }}
+            {{ $t('settings.2fa.totp_required') }}
           </div>
         </div>
         <div class="col-6">
           <div class="mb-1">
             <i class="fas fa-key mr-1" />
-            {{ $i18n('login.password') }}
+            {{ $t('login.password') }}
           </div>
           <!-- Password -->
           <password-field
@@ -58,7 +58,7 @@
             v-if="v$.password.$error"
             class="invalid-feedback"
           >
-            {{ $i18n('settings.change_password.old_password_required') }}
+            {{ $t('settings.change_password.old_password_required') }}
           </div>
         </div>
       </div>
@@ -109,7 +109,7 @@ export default {
       } catch (e) {
         let message = e.message
         if (e.code === HTTP_RESPONSE.FORBIDDEN) {
-          message = this.$i18n('settings.2fa.deactivation_failed')
+          message = this.$t('settings.2fa.deactivation_failed')
         }
         pulseError(message)
       } finally {

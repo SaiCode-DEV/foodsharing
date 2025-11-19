@@ -3,14 +3,14 @@
   <div :class="{disabledLoading: isLoading}">
     <div>
       <div class="card-header text-white bg-primary">
-        {{ $i18n('forum.new_thread') }}
+        {{ $t('forum.new_thread') }}
       </div>
     </div>
 
     <div class="card-header text-black bg-white">
-      <label class="font-weight-bold" for="forum-create-thread-form-title">{{ $i18n('forum.thread.title') }}*</label>
+      <label class="font-weight-bold" for="forum-create-thread-form-title">{{ $t('forum.thread.title') }}*</label>
       <b-form-input id="forum-create-thread-form-title" v-model="title" />
-      <label class="font-weight-bold mt-3" for="thread-content">{{ $i18n('forum.post.body') }}*</label>
+      <label class="font-weight-bold mt-3" for="thread-content">{{ $t('forum.post.body') }}*</label>
       <MarkdownInput
         input-name="thread-content"
         :draft-storage-id="'forum-create-thread-form-' + groupId"
@@ -28,7 +28,7 @@
             class="mr-2"
             type="checkbox"
           >
-          <label for="send_mail_button">{{ $i18n('forum.thread.delivery_mail') }}</label>
+          <label for="send_mail_button">{{ $t('forum.thread.delivery_mail') }}</label>
         </div>
         <div class="col-auto">
           <button
@@ -36,7 +36,7 @@
             :disabled="!body || !title || isLoading"
             @click="createNewThread"
           >
-            {{ $i18n('button.create') }}
+            {{ $t('button.create') }}
           </button>
         </div>
       </div>
@@ -74,8 +74,8 @@ export default {
     async createNewThread () {
       if (this.sendMail) {
         const dialogueOptions = {
-          title: this.$i18n('forum.mail_confirmation.title'),
-          okTitle: this.$i18n('button.send'),
+          title: this.$t('forum.mail_confirmation.title'),
+          okTitle: this.$t('button.send'),
         }
         if (!await this.confirmationDialogue('forum.mail_confirmation.text', dialogueOptions)) {
           this.sendMail = false

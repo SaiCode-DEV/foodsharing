@@ -43,7 +43,7 @@ export default {
     try {
       this.content = await getContent(this.id)
     } catch (e) {
-      pulseError(this.$i18n('content.error_loading') + ': ' + e.statusText)
+      pulseError(this.$t('content.error_loading') + ': ' + e.statusText)
     }
 
     this.isLoading = false

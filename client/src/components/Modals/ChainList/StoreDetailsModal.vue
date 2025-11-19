@@ -1,7 +1,7 @@
 <template>
   <b-modal
     ref="details-modal"
-    :title="$i18n('chain.detailsmodal.title', { chain: selectedChain.name })"
+    :title="$t('chain.detailsmodal.title', { chain: selectedChain.name })"
     modal-class="bootstrap"
     centered
     size="lg"
@@ -10,10 +10,10 @@
     ok-variant="secondary"
   >
     <dt v-if="storeList !== null && storeList.length === 0">
-      {{ $i18n('chain.detailsmodal.nostores') }}
+      {{ $t('chain.detailsmodal.nostores') }}
     </dt>
     <div v-else>
-      <dt>{{ $i18n('chain.detailsmodal.stores') }}</dt>
+      <dt>{{ $t('chain.detailsmodal.stores') }}</dt>
       <i
         v-if="storeList === null"
         class="fas fa-spinner fa-spin"

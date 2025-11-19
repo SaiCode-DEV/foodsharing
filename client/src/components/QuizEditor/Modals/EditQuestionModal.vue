@@ -1,9 +1,9 @@
 <template>
   <b-modal
     :id="modalId"
-    :title="$i18n('quiz.editModal.question.title')"
-    :ok-title="$i18n('button.save')"
-    :cancel-title="$i18n('button.cancel')"
+    :title="$t('quiz.editModal.question.title')"
+    :ok-title="$t('button.save')"
+    :cancel-title="$t('button.cancel')"
     :ok-disabled="!hasValidValues"
     scrollable
     centered
@@ -12,45 +12,45 @@
     @show="initializeFormData(question)"
   >
     <b-form>
-      <b-form-group :label="$i18n('quiz.editModal.question.input.text.label')">
+      <b-form-group :label="$t('quiz.editModal.question.input.text.label')">
         <b-form-textarea
           v-model="form.text"
-          :placeholder="$i18n('quiz.editModal.question.input.text.placeholder')"
+          :placeholder="$t('quiz.editModal.question.input.text.placeholder')"
           :state="validities.text"
           trim.lazy
           rows="3"
         />
       </b-form-group>
 
-      <b-form-group :label="$i18n('quiz.editModal.question.input.duration')">
+      <b-form-group :label="$t('quiz.editModal.question.input.duration')">
         <b-form-select
           v-model.number="form.durationInSeconds"
           :options="durationOptions"
         />
       </b-form-group>
 
-      <b-form-group :label="$i18n('quiz.editModal.question.input.fp')">
+      <b-form-group :label="$t('quiz.editModal.question.input.fp')">
         <b-form-select
           v-model.number="form.failurePoints"
           :options="failurePointsOptions"
         />
       </b-form-group>
 
-      <b-form-group :label="$i18n('quiz.editModal.question.input.wikilink.label')">
+      <b-form-group :label="$t('quiz.editModal.question.input.wikilink.label')">
         <b-form-input
           v-model="form.wikilink"
-          :placeholder="$i18n('quiz.editModal.question.input.wikilink.placeholder')"
+          :placeholder="$t('quiz.editModal.question.input.wikilink.placeholder')"
           :state="validities.wikilink"
           trim.lazy
         />
       </b-form-group>
 
-      <b-form-group :label="$i18n('quiz.editModal.question.input.mandatory.label')">
+      <b-form-group :label="$t('quiz.editModal.question.input.mandatory.label')">
         <b-form-checkbox
           v-model="form.isMandatory"
           :state="validities.isMandatory"
         >
-          {{ $i18n('quiz.editModal.question.input.mandatory.text') }}
+          {{ $t('quiz.editModal.question.input.mandatory.text') }}
         </b-form-checkbox>
       </b-form-group>
     </b-form>
@@ -81,13 +81,13 @@ export default {
         const [min, sec] = [Math.floor(i / 60), i % 60]
         let text = ''
         if (min) {
-          text = `${min} ${this.$i18n('timepicker.labelMinutes')}`
+          text = `${min} ${this.$t('timepicker.labelMinutes')}`
           if (sec) {
             text += ', '
           }
         }
         if (sec) {
-          text += `${sec} ${this.$i18n('timepicker.labelSeconds')}`
+          text += `${sec} ${this.$t('timepicker.labelSeconds')}`
         }
         durationOptions.push({ value: i, text })
       }
@@ -96,7 +96,7 @@ export default {
     failurePointsOptions () {
       return [0, 1, 2, 3, 12].map(failurePoints => ({
         value: failurePoints,
-        text: this.$i18n('quiz.fp_options.' + ({ 0: 'joke', 12: 'ko' }[failurePoints] || 'default'), { failurePoints }),
+        text: this.$t('quiz.fp_options.' + ({ 0: 'joke', 12: 'ko' }[failurePoints] || 'default'), { failurePoints }),
       }))
     },
   },

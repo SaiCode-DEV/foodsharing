@@ -1,10 +1,10 @@
 <template>
-  <Container :title="$i18n('group.edit.title', { group: group.name })" wrap-content>
+  <Container :title="$t('group.edit.title', { group: group.name })" wrap-content>
     <b-form
       @submit="submit"
     >
       <b-form-group
-        :label="$i18n('group.name')"
+        :label="$t('group.name')"
         label-for="input-name"
         class="mb-4"
       >
@@ -15,18 +15,18 @@
           :state="v$.name.$error ? false : null"
         />
         <div v-if="v$.name.$error" class="invalid-feedback">
-          {{ $i18n('group.edit.name_required') }}
+          {{ $t('group.edit.name_required') }}
         </div>
       </b-form-group>
 
       <b-form-group
-        :label="$i18n('group.description')"
+        :label="$t('group.description')"
         class="mb-4"
       >
         <MarkdownInput
           ref="md-input"
           variant="outline-primary"
-          :placeholder="$i18n('group.edit.description_placeholder')"
+          :placeholder="$t('group.edit.description_placeholder')"
           :rows="2"
           :conceal-toolbar="true"
           :value="description"
@@ -37,12 +37,12 @@
           v-if="v$.description.$error"
           class="invalid-feedback"
         >
-          {{ $i18n('group.edit.description_required') }}
+          {{ $t('group.edit.description_required') }}
         </div>
       </b-form-group>
 
       <b-form-group
-        :label="$i18n('group.photo')"
+        :label="$t('group.photo')"
         class="mb-4"
       >
         <file-upload
@@ -55,7 +55,7 @@
       </b-form-group>
 
       <b-form-group
-        :label="$i18n('group.applications')"
+        :label="$t('group.applications')"
         class="mb-4"
       >
         <b-form-select
@@ -67,7 +67,7 @@
 
       <b-form-group
         v-if="applyDetailsVisible"
-        :label="$i18n('group.application_requirements.banana_count')"
+        :label="$t('group.application_requirements.banana_count')"
         class="mb-4"
       >
         <b-form-spinbutton
@@ -81,7 +81,7 @@
 
       <b-form-group
         v-if="applyDetailsVisible"
-        :label="$i18n('group.application_requirements.fetch_count')"
+        :label="$t('group.application_requirements.fetch_count')"
         class="mb-4"
       >
         <b-form-spinbutton
@@ -95,7 +95,7 @@
 
       <b-form-group
         v-if="applyDetailsVisible"
-        :label="$i18n('group.application_requirements.member_since_weeks')"
+        :label="$t('group.application_requirements.member_since_weeks')"
         class="mb-4"
       >
         <b-form-spinbutton
@@ -117,7 +117,7 @@
         @click="submit"
         @keydown.enter="submit"
       >
-        {{ $i18n('group.actions.save') }}
+        {{ $t('group.actions.save') }}
       </b-button>
     </div>
   </Container>

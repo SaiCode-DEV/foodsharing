@@ -15,7 +15,7 @@
           cols="12"
           md="2"
         >
-          {{ $i18n('mailbox.sender') }}
+          {{ $t('mailbox.sender') }}
         </b-col>
         <b-col
           cols="12"
@@ -41,7 +41,7 @@
           cols="12"
           md="2"
         >
-          {{ $i18n('mailbox.recipient') }}
+          {{ $t('mailbox.recipient') }}
         </b-col>
         <b-col
           cols="12"
@@ -61,7 +61,7 @@
                 <b-form-input
                   v-model="currentEmailInput"
                   v-bind="inputAttrs"
-                  :placeholder="$i18n('mailbox.tag_recipient_hint')"
+                  :placeholder="$t('mailbox.tag_recipient_hint')"
                   class="form-control"
                   v-on="inputHandlers"
                   @keydown.enter.prevent="addEmailTag(inputAttrs.value)"
@@ -73,7 +73,7 @@
                     variant="outline-primary"
                     @click="addEmailTag(inputAttrs.value)"
                   >
-                    {{ $i18n('mailbox.add') }}
+                    {{ $t('mailbox.add') }}
                   </b-button>
                   <b-button
                     v-else
@@ -89,7 +89,7 @@
                     variant="outline-primary"
                     @click="openAddressbook"
                   >
-                    {{ $i18n('mailbox.addressbook') }}
+                    {{ $t('mailbox.addressbook') }}
                   </b-button>
                   <b-button
                     v-else
@@ -125,7 +125,7 @@
           cols="12"
           md="2"
         >
-          {{ $i18n('mailbox.subject') }}
+          {{ $t('mailbox.subject') }}
         </b-col>
         <b-col
           cols="12"
@@ -139,7 +139,7 @@
 
       <b-row class="p-2">
         <b-col md="2">
-          {{ $i18n('mailbox.attachment.attach') }}
+          {{ $t('mailbox.attachment.attach') }}
         </b-col>
         <b-col md="10">
           <b-alert
@@ -147,7 +147,7 @@
             variant="danger"
             show
           >
-            {{ $i18n('mailbox.forward_attachment_warning') }}
+            {{ $t('mailbox.forward_attachment_warning') }}
           </b-alert>
           <div class="flex-container">
             <FileInput
@@ -177,7 +177,7 @@
             :disabled="isBusy"
             @click="closeAndReturnToMailbox"
           >
-            {{ $i18n('button.cancel') }}
+            {{ $t('button.cancel') }}
           </b-button>
           <b-button
             size="sm"
@@ -185,7 +185,7 @@
             :disabled="isBusy || !(areAllEmailsValid && isSubjectValid)"
             @click="trySendEmail"
           >
-            {{ $i18n('button.send') }}
+            {{ $t('button.send') }}
           </b-button>
         </b-col>
       </b-row>
@@ -228,11 +228,11 @@ export default {
       switch (store.state.compositionMode) {
         case MAIL_COMPOSITION_MODE.ANSWER:
         case MAIL_COMPOSITION_MODE.ANSWER_ALL:
-          return this.$i18n('mailbox.reply.full')
+          return this.$t('mailbox.reply.full')
         case MAIL_COMPOSITION_MODE.FORWARD:
-          return this.$i18n('mailbox.forward')
+          return this.$t('mailbox.forward')
         default:
-          return this.$i18n('mailbox.write')
+          return this.$t('mailbox.write')
       }
     },
     displayedMailDate () {
@@ -330,7 +330,7 @@ export default {
         case MAIL_COMPOSITION_MODE.FORWARD: {
           const mailFromAddress = `<${this.email.from.address}>`
           const mailFromAndAddress = this.email.from.name ? `${this.email.from.name} ${mailFromAddress}` : mailFromAddress
-          const mailFromAndDate = this.$i18n('mailbox.reply_header', {
+          const mailFromAndDate = this.$t('mailbox.reply_header', {
             name: mailFromAndAddress,
             date: this.displayedMailDate,
           })
@@ -411,11 +411,11 @@ export default {
         const emailId = ([MAIL_COMPOSITION_MODE.ANSWER, MAIL_COMPOSITION_MODE.ANSWER_ALL].includes(this.compositionMode)) ? this.email.id : null
         await sendEmail(this.selectedMailbox[0], this.emailTo, null, null, this.subject, this.mailBody, attachments, emailId)
         this.closeAndReturnToMailbox()
-        pulseSuccess(this.$i18n('mailbox.okay'))
+        pulseSuccess(this.$t('mailbox.okay'))
       } catch (err) {
         const errorDescription = err.jsonContent ?? { message: '' }
         const errorMessage = `(${errorDescription.message ?? 'Unknown'})`
-        pulseError(this.$i18n('mailbox.mailsend_unsuccess', { error: errorMessage }))
+        pulseError(this.$t('mailbox.mailsend_unsuccess', { error: errorMessage }))
       }
       this.isBusy = false
       hideLoader()

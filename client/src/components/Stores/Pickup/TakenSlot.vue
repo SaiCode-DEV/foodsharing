@@ -14,65 +14,65 @@
           </div>
 
           <b-button
-            v-b-tooltip="$i18n('profile.go')"
+            v-b-tooltip="$t('profile.go')"
             variant="outline-primary"
             :href="$url('profile', profile.id)"
             size="sm"
           >
-            <i class="fas fa-fw fa-user" :aria-label="$i18n('profile.go')" />
+            <i class="fas fa-fw fa-user" :aria-label="$t('profile.go')" />
           </b-button>
 
           <b-button
             v-if="allowChat && !isMe"
-            v-b-tooltip="$i18n('chat.open_chat')"
+            v-b-tooltip="$t('chat.open_chat')"
             variant="outline-primary"
             size="sm"
             @click="openChat"
           >
-            <i class="fas fa-fw fa-comment" :aria-label="$i18n('chat.open_chat')" />
+            <i class="fas fa-fw fa-comment" :aria-label="$t('chat.open_chat')" />
           </b-button>
 
           <b-button
             v-if="phoneNumber && !isMe"
-            v-b-tooltip="$i18n('pickup.call')"
+            v-b-tooltip="$t('pickup.call')"
             :href="$url('phone_number', phoneNumber)"
             size="sm"
             variant="outline-primary"
           >
-            <i class="fas fa-fw fa-phone" :aria-label="$i18n('pickup.call')" />
+            <i class="fas fa-fw fa-phone" :aria-label="$t('pickup.call')" />
           </b-button>
 
           <b-button
             v-if="phoneNumber && !isMe && canCopy"
-            v-b-tooltip="$i18n('pickup.copyNumber')"
+            v-b-tooltip="$t('pickup.copyNumber')"
             variant="outline-primary"
             size="sm"
             @click="copyToClipboard(phoneNumber)"
           >
-            <i class="fas fa-fw fa-clone" :aria-label="$i18n('pickup.copyNumber')" />
+            <i class="fas fa-fw fa-clone" :aria-label="$t('pickup.copyNumber')" />
           </b-button>
         </b-col>
 
         <b-col cols="7">
           <p>
-            <b>{{ $i18n('store.slot_state') }}:</b><br>
+            <b>{{ $t('store.slot_state') }}:</b><br>
             {{ isConfirmedText }}
           </p>
           <p v-if="signUpPerformedAtDateFormatted">
-            <b>{{ $i18n('store.signInDateTime') }}</b>:<br>
+            <b>{{ $t('store.signInDateTime') }}</b>:<br>
             {{ signUpPerformedAtDateFormatted }}
           </p>
           <p>
-            <b>{{ $i18n('terminology.previous_pickups') }}:</b> {{ pickupsCount }}
+            <b>{{ $t('terminology.previous_pickups') }}:</b> {{ pickupsCount }}
           </p>
           <p>
-            <b>{{ $i18n('store.lastPickupTitle') }}:</b><br>
+            <b>{{ $t('store.lastPickupTitle') }}:</b><br>
             {{ getLastFetchDate }}
           </p>
 
           <details v-if="userOccupiedSlots.length">
             <summary role="button occupied-slot-details-button">
-              <b>{{ $i18n('store.slotsCurrentlyOccupied') }}:</b> {{ userOccupiedSlots.length }}
+              <b>{{ $t('store.slotsCurrentlyOccupied') }}:</b> {{ userOccupiedSlots.length }}
             </summary>
 
             <ul class="pl-2">
@@ -88,14 +88,14 @@
 
                 &ndash;
 
-                <span v-if="slot.isConfirmed">{{ $i18n('pickup.overview.status.confirmed') }}</span>
-                <span v-else>{{ $i18n('pickup.overview.status.pending') }}</span>
+                <span v-if="slot.isConfirmed">{{ $t('pickup.overview.status.confirmed') }}</span>
+                <span v-else>{{ $t('pickup.overview.status.pending') }}</span>
               </li>
             </ul>
           </details>
 
           <p v-if="!userOccupiedSlots.length">
-            <b>{{ $i18n('store.slotsCurrentlyOccupied') }}:</b> {{ $i18n('terminology.no_pickups') }}
+            <b>{{ $t('store.slotsCurrentlyOccupied') }}:</b> {{ $t('terminology.no_pickups') }}
           </p>
         </b-col>
       </b-row>
@@ -105,7 +105,7 @@
           size="sm"
           @click="hide()"
         >
-          {{ $i18n('globals.close') }}
+          {{ $t('globals.close') }}
         </b-button>
         <b-button
           v-if="allowKick || allowLeave"
@@ -113,7 +113,7 @@
           variant="danger"
           @click="removeFromSlot"
         >
-          {{ $i18n('pickup.kick') }}
+          {{ $t('pickup.kick') }}
         </b-button>
         <b-button
           v-if="allowConfirm && !confirmed"
@@ -121,7 +121,7 @@
           variant="success"
           @click="confirmSlot()"
         >
-          {{ $i18n('pickup.confirm') }}
+          {{ $t('pickup.confirm') }}
         </b-button>
       </template>
     </b-modal>
@@ -214,7 +214,7 @@ export default {
       )
     },
     isConfirmedText () {
-      return this.confirmed ? this.$i18n('pickup.overview.status.confirmed') : this.$i18n('pickup.overview.status.pending')
+      return this.confirmed ? this.$t('pickup.overview.status.confirmed') : this.$t('pickup.overview.status.pending')
     },
     modalTitle () {
       return this.$dateFormatter.dateTime(this.date, { short: true })
@@ -224,7 +224,7 @@ export default {
       const pickupsCount = userItem?.stat_fetchcount ?? null
 
       if (pickupsCount === 0) {
-        return this.$i18n('terminology.no_pickups')
+        return this.$t('terminology.no_pickups')
       } else {
         return pickupsCount
       }
@@ -267,7 +267,7 @@ export default {
     getLastFetchDate () {
       const lastFetchDate = this.getLastFetchDateFromUser(this.profile.id)
       const dateFormatterLastFetchDate = this.$dateFormatter.date(lastFetchDate, { short: true })
-      return lastFetchDate ? dateFormatterLastFetchDate : this.$i18n('terminology.no_pickups')
+      return lastFetchDate ? dateFormatterLastFetchDate : this.$t('terminology.no_pickups')
     },
     phoneNumber () {
       return PhoneNumbers.callableNumber(this.profile.mobile || this.profile.landline)

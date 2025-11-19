@@ -8,18 +8,18 @@
       <h6 class="m-0 text-truncate d-inline">
         <i
           v-if="mail.folder === 1"
-          v-b-tooltip.noninteractive="$i18n('search.results.mail.recieved_tooltip')"
+          v-b-tooltip.noninteractive="$t('search.results.mail.recieved_tooltip')"
           class="fas fa-reply"
         />
         <i
           v-if="mail.folder === 2"
-          v-b-tooltip.noninteractive="$i18n('search.results.mail.sent_tooltip')"
+          v-b-tooltip.noninteractive="$t('search.results.mail.sent_tooltip')"
           class="fas fa-share"
         />
         {{ mail.name }}
         <i
           v-if="mail.has_attachments"
-          v-b-tooltip.noninteractive="$i18n('search.results.mail.attachment_tooltip')"
+          v-b-tooltip.noninteractive="$t('search.results.mail.attachment_tooltip')"
           class="fas fa-paperclip ml-1"
         />
       </h6>
@@ -52,9 +52,9 @@ export default {
       const to = this.mailDisplay(this.mail.recipient_name, this.mail.recipient_mail)
       const other = this.mail.recipient_count - 1
       if (other) {
-        return this.$i18n('search.results.mail.from_to_many', { from, to, other })
+        return this.$t('search.results.mail.from_to_many', { from, to, other })
       }
-      return this.$i18n('search.results.mail.from_to', { from, to })
+      return this.$t('search.results.mail.from_to', { from, to })
     },
   },
   methods: {
@@ -63,7 +63,7 @@ export default {
       if (!name || name === mail || name === 'null') {
         return mail
       }
-      return this.$i18n('search.results.mail.mail_name', { mail, name })
+      return this.$t('search.results.mail.mail_name', { mail, name })
     },
   },
 }

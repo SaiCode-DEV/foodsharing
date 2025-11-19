@@ -1,6 +1,6 @@
 <template>
   <container
-    :title="$i18n('globals.type.regions_menu')"
+    :title="$t('globals.type.regions_menu')"
     tag="regionSideNav"
     class="bg-white"
   >

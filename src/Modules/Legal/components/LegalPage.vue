@@ -2,7 +2,7 @@
   <div>
     <Container
       id="legal-wrapper"
-      :title="$i18n('legal.privacy_policy')"
+      :title="$t('legal.privacy_policy')"
       :wrap-content="true"
       :collapsible="false"
     >
@@ -18,7 +18,7 @@
       </Container>
       <Container
         v-if="showPrivacyNotice"
-        :title="$i18n('legal.privacy_notice')"
+        :title="$t('legal.privacy_notice')"
         :collapsible="false"
         :wrap-content="true"
       >
@@ -31,15 +31,15 @@
         v-if="userStore.isLoggedIn"
       >
         <b-card bg-variant="light" class="border-0 mb-4">
-          <b-form-group :label="$i18n('legal.acknowledge.qustion_policy')" label-class="font-weight-bold">
+          <b-form-group :label="$t('legal.acknowledge.qustion_policy')" label-class="font-weight-bold">
             <b-form-select v-model="acknowledgedData" :options="noticeOptions" />
           </b-form-group>
           <h4 v-if="acknowledgedData === 'agree_only_policy'" class="mb-4 text-danger">
-            {{ $i18n('legal.not_acknowledge_privacy_notice_description') }}
+            {{ $t('legal.not_acknowledge_privacy_notice_description') }}
           </h4>
 
           <h4 v-if="acknowledgedData === 'not_agree'" class="mb-4 text-danger">
-            {{ $i18n('legal.not_acknowledge_privacy_policy_description') }}
+            {{ $t('legal.not_acknowledge_privacy_policy_description') }}
           </h4>
           <b-button
             v-if="acknowledgeButtonText"
@@ -60,9 +60,9 @@
       no-close-on-backdrop
       size="lg"
       :visible="true"
-      :title="$i18n('legal.button.partially_agree')"
-      :cancel-title="$i18n('button.cancel')"
-      :ok-title="$i18n('legal.button.partially_agree')"
+      :title="$t('legal.button.partially_agree')"
+      :cancel-title="$t('button.cancel')"
+      :ok-title="$t('legal.button.partially_agree')"
       ok-variant="danger"
       cancel-variant="success"
       header-class="d-flex"
@@ -72,7 +72,7 @@
     >
       <b-alert show variant="danger">
         <h2>
-          {{ $i18n('legal.are_you_sure_to_downgrade') }}
+          {{ $t('legal.are_you_sure_to_downgrade') }}
         </h2>
       </b-alert>
     </b-modal>

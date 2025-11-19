@@ -1,27 +1,27 @@
 <template>
   <b-form-group
-    :label="$i18n('pickup.edit.bread')"
+    :label="$t('pickup.edit.bread')"
   >
     <b-row>
       <b-col
         cols="4"
         lg="2"
       >
-        {{ $i18n('day') }}
+        {{ $t('day') }}
       </b-col>
 
       <b-col
         cols="4"
         lg="2"
       >
-        {{ $i18n('time') }}
+        {{ $t('time') }}
       </b-col>
 
       <b-col
         cols="4"
         lg="2"
       >
-        {{ $i18n('pickup.edit.slot_titel') }}
+        {{ $t('pickup.edit.slot_titel') }}
       </b-col>
     </b-row>
 
@@ -88,12 +88,12 @@
             v-model="item.description"
             :disabled="!editMode"
             :size="'sm'"
-            :placeholder="$i18n('pickup.description')"
+            :placeholder="$t('pickup.description')"
             :maxlength="100"
           />
           <small v-if="item.description?.length === 100">
             <i class="fas fa-info-circle" />
-            {{ $i18n('pickup.description_max_length_info') }}
+            {{ $t('pickup.description_max_length_info') }}
           </small>
         </b-col>
         <b-col
@@ -142,13 +142,13 @@ export default {
       editPickups: [],
       minCountPickupSlot: 1,
       weekdays: [
-        { value: 1, text: this.$i18n('date.monday') },
-        { value: 2, text: this.$i18n('date.tuesday') },
-        { value: 3, text: this.$i18n('date.wednesday') },
-        { value: 4, text: this.$i18n('date.thursday') },
-        { value: 5, text: this.$i18n('date.friday') },
-        { value: 6, text: this.$i18n('date.saturday') },
-        { value: 0, text: this.$i18n('date.sunday') },
+        { value: 1, text: this.$t('date.monday') },
+        { value: 2, text: this.$t('date.tuesday') },
+        { value: 3, text: this.$t('date.wednesday') },
+        { value: 4, text: this.$t('date.thursday') },
+        { value: 5, text: this.$t('date.friday') },
+        { value: 6, text: this.$t('date.saturday') },
+        { value: 0, text: this.$t('date.sunday') },
       ],
       locale: locale,
       labelsTimepicker: {

@@ -12,7 +12,8 @@ const assert = require('assert')
 
 const localVue = createLocalVue()
 
-localVue.$i18n = (key, variables = {}) => {
+// Provide $t on the prototype so component instances can access it
+localVue.prototype.$t = (key, variables = {}) => {
   return i18n(key, variables)
 }
 localVue.prototype.$url = url

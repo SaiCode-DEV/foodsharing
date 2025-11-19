@@ -1,6 +1,6 @@
 <template>
   <Container
-    :title="$i18n('basket.by', { name: basket.creator.name } )"
+    :title="$t('basket.by', { name: basket.creator.name } )"
     :collapsible="false"
     :wrap-contents="true"
     info-key="basket"
@@ -18,7 +18,7 @@
 
     <div class="list-group-item times-section">
       <span v-for="key in timeKeys" :key="key">
-        {{ $i18n(`basket.${key}`) }}
+        {{ $t(`basket.${key}`) }}
         <Time
           :time="basket[key] * 1000"
           plain

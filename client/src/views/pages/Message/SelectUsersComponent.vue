@@ -3,7 +3,7 @@
     v-model="selectedUsers"
     label="value"
     track-by="id"
-    :placeholder="$i18n('chat.select_recipients')"
+    :placeholder="$t('chat.select_recipients')"
     open-direction="bottom"
     :options="users"
     :multiple="true"
@@ -61,7 +61,7 @@ export default {
         try {
           users = await searchUser(query)
         } catch (e) {
-          pulseError(this.$i18n('error_unexpected'))
+          pulseError(this.$t('error_unexpected'))
         }
       }
       this.users = users
