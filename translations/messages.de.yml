@@ -3588,6 +3588,7 @@ navigation:
   notifications: Benachrichtigungen
   profil: 👋 Hallo {name}!
   system_administration: Systemadministration
+  toggle: Navigation ein-/ausblenden
 
 join_region:
   headline: Wähle den Bezirk aus, in dem du aktiv werden möchtest.

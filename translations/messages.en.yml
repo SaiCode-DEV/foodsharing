@@ -3895,6 +3895,7 @@ navigation:
   conversations: 'Conversations'
   notifications: Notifications
   system_administration: System administration
+  toggle: Toggle navigation
   help_needed: Need help?
   profil: 👋 Hello {name}!
   styleguide: Style guide
