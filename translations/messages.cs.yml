@@ -941,7 +941,7 @@ chat:
   search: ''
   open_chat: ''
   new_message: ''
-  error_sending_message: ''
+  error.sending_message: ''
   empty_recipients: ''
   error_loading_messages: ''
   placeholder: ''

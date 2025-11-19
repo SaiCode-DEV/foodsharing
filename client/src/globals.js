@@ -10,7 +10,6 @@
 
 */
 
-import conv from '@/conv'
 import socket from '@/socket'
 
 import { expose } from '@/utils'
@@ -45,6 +44,5 @@ expose({
   hideLoader,
   wantToHelpStore,
   withdrawStoreRequest,
-  conv,
   sock: socket,
 })

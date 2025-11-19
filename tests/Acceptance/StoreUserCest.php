@@ -85,10 +85,11 @@ class StoreUserCest
         // Click the managers chat button (using the text-key or icon as selector)
         $I->click('[data-test="store-chat-managers"]');
 
-        // Wait for chat box and see the remaining managers
+        // Wait for chat box and verify avatars are shown for the remaining managers
         $I->waitForElementVisible('.chatboxtitle', 5);
-        $I->see($this->storeCoordinator2['name'], '.chatboxtitle');
-        $I->see($this->storeCoordinator3['name'], '.chatboxtitle');
+        // Multi-person chats without titles show avatars instead of names
+        $I->seeElement('.chatboxtitle .b-avatar[title="' . $this->storeCoordinator2['name'] . '"]');
+        $I->seeElement('.chatboxtitle .b-avatar[title="' . $this->storeCoordinator3['name'] . '"]');
     }
 
     /**
@@ -104,10 +105,11 @@ class StoreUserCest
         // Click the managers chat button (using the text-key or icon as selector)
         $I->click('[data-test="store-chat-managers"]');
 
-        // Wait for chat box and see all managers
+        // Wait for chat box and verify avatars are shown for all managers
         $I->waitForElementVisible('.chatboxtitle', 5);
-        $I->see($this->storeCoordinator['name'], '.chatboxtitle');
-        $I->see($this->storeCoordinator2['name'], '.chatboxtitle');
-        $I->see($this->storeCoordinator3['name'], '.chatboxtitle');
+        // Multi-person chats without titles show avatars instead of names
+        $I->seeElement('.chatboxtitle .b-avatar[title="' . $this->storeCoordinator['name'] . '"]');
+        $I->seeElement('.chatboxtitle .b-avatar[title="' . $this->storeCoordinator2['name'] . '"]');
+        $I->seeElement('.chatboxtitle .b-avatar[title="' . $this->storeCoordinator3['name'] . '"]');
     }
 }

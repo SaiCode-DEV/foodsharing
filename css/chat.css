@@ -15,13 +15,6 @@
   outline: 0;
 }
 
-.chatboxtitle {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  cursor: pointer;
-}
-
 .linklist.linkbubble {
   background-color: var(--fs-color-light);
   padding: 3px;
@@ -41,49 +34,6 @@
   z-index: 10;
 }
 
-.chatboxhead .linklist {
-  left: 174px;
-  position: absolute;
-  top: 30px;
-  width: 180px;
-  z-index: 100;
-}
-
-.chatboxhead .settings li .optinput {
-  padding: 0;
-  display: flex;
-}
-
-.chatboxhead .settings li .optinput input{
-  font-size: 12px;
-}
-
-.chatboxhead .settings li .optinput i {
-  color: var(--fs-color-primary-500);
-  cursor: pointer;
-  font-size: 20px;
-  position: relative;
-  top: 6px;
-}
-
-.chatboxhead .settings li .optinput i:hover {
-  color: var(--fs-color-secondary-500);
-}
-
-.chatboxhead .settings li input {
-  border: 1px solid var(--fs-color-primary-300);
-  border-radius: 4px;
-  margin-bottom: 0;
-  margin-right: 5px;
-  padding: 4px 5px;
-  width: 100%;
-}
-
-.chatboxhead .linklist li a {
-  border-radius: 4px;
-}
-
-
 .chatboxcontent {
   font-size: 13px;
   color: var(--fs-color-dark);
@@ -93,48 +43,6 @@
 .chatboxoptions {
   float: right;
   margin-right: 5px;
-}
-
-.chatboxoptions a {
-  background-color: var(--fs-color-transparent);
-  display: inline-block;
-  font-weight: bold;
-  margin: 0;
-  outline: 0 none;
-  padding-top: 7px;
-  text-align: center;
-  text-decoration: none;
-}
-
-.chatboxoptions a:hover {
-  color: var(--fs-color-secondary-900) !important;
-}
-
-.chatboxtitle {
-  padding: 7px;
-  display: block;
-  float: left;
-  width: 305px;
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: bold;
-  outline: 0;
-}
-
-.chatboxtitle a {
-  color: currentColor !important;
-}
-
-.chatboxtitle a:hover {
-  text-decoration: none;
-  color: currentColor !important;
-}
-
-.chatboxtitle i {
-  margin-right: 3px;
-  position: relative;
-  top: -1px;
-  color: currentColor !important;
 }
 
 .conversation-list .pics {

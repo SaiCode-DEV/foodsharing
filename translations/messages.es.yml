@@ -3595,7 +3595,7 @@ chat:
   search: 'Buscar'
   open_chat: 'Escribe un mensaje'
   placeholder: 'Escribe algo.'
-  error_sending_message: 'Error al enviar el mensaje.'
+  error.sending_message: 'Error al enviar el mensaje.'
   empty_recipients: 'Aún tienes que seleccionar l@s destinatari@s.'
   incorrect_address: 'Esta dirección de correo electrónico no está corregida'
   conversations: 'Conversaciones'

@@ -50,6 +50,7 @@
 
     <ConfirmationDialogue ref="confirmDialog" />
     <Notifications />
+    <ChatDock v-if="isLoggedIn && !useRestrictedNavigation" />
   </b-navbar>
 </template>
 
@@ -82,6 +83,7 @@ import ConfirmationDialogue from '@/components/UI/ConfirmationDialogue.vue'
 import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 import Notifications from '@/components/UI/Notifications.vue'
 import { useMediaQuery } from '@/composables/useMediaQuery'
+import ChatDock from '@/components/Chat/ChatDock.vue'
 
 const props = defineProps({
   regions: {

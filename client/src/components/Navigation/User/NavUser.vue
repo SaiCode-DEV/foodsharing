@@ -92,7 +92,7 @@ import RouteCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
 import { clearCaches } from '@/helper/cache'
 import { BROADCAST_TYPE, channel } from '@/broadcastChannel'
 import serverData from '@/helper/server-data'
-import conv from '@/conv'
+import Storage from '@/storage'
 
 export default {
   components: {
@@ -126,7 +126,10 @@ export default {
   },
   methods: {
     async deleteCaches () {
-      conv.closeAllChats()
+      try {
+        const storage = new Storage('conversations')
+        storage.del('msg-chats')
+      } catch {}
       await clearCaches()
       channel.postMessage({ type: BROADCAST_TYPE.LOGOUT })
       window.location.href = this.$url('logout')

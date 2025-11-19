@@ -2558,7 +2558,7 @@ forum:
 chat:
   open_chat: Bir mesaj yaz
   new_messages: Yeni Mesajlar
-  error_sending_message: Mesaj gönderilemedi.
+  error.sending_message: Mesaj gönderilemedi.
   select_recipients: Alıcıları seçin
   start_of_conversation: 'Konuşma şu tarihte başladı:'
   display_all_messages: Tüm mesajları göster

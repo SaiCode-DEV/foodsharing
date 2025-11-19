@@ -448,6 +448,7 @@ menu:
     infos: Information
     mark_as_read: Mark all as read
     all_messages: All messages
+    close_all_chats: Close all chats
     messages: Messages
     your_groups: Your groups
     your_baskets: Your food baskets
@@ -2941,7 +2942,7 @@ chat:
   empty_recipients: You still have to select recipients.
   select_recipients: Select recipients
   empty_message: You need to enter a message first.
-  error_sending_message: Sending the message failed.
+  error.sending_message: Sending the message failed.
   error_loading_messages: Reloading of messages failed.
   notification_named_conversation: '{foodsaver} wrote in {conversation}.'
   confirm_draft_discard: "You switch to a new conversation. The text in the answer
@@ -2954,8 +2955,9 @@ chat:
   no_conversation: No conversation selected
   start_of_conversation: "Conversation started on:"
   display_all_messages: "Display all messages"
-
   unknown_username: unknown name
+  show_participants: Show participants
+  participants: Participants
   mark_as:
     read: Mark as read
     unread: Mark as unread

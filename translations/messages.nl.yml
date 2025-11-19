@@ -1366,7 +1366,7 @@ chat:
   start_of_conversation: ''
   empty_message: ''
   error_loading_messages: ''
-  error_sending_message: ''
+  error.sending_message: ''
   notification_unnamed_conversation: ''
   confirm_draft_discard: ''
   search: ''

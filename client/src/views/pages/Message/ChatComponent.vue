@@ -557,7 +557,7 @@ export default {
             }, 0)
             this.newConversationSelectedUsers = [] // clear selected users
           } catch (e) {
-            pulseError(i18n('chat.error_sending_message'))
+            pulseError(i18n('chat.error.sending_message'))
             console.error(e)
             return
           }

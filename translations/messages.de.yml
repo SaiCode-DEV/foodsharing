@@ -1526,8 +1526,6 @@ chat:
   placeholder: "Schreibe etwas."
   notification_unnamed_conversation: "{foodsaver} hat dir geschrieben."
   notification_named_conversation: "{foodsaver} hat in {conversation} geschrieben."
-  error_loading_messages: "Das Nachladen von Nachrichten ist fehlgeschlagen."
-  error_sending_message: "Das Senden der Nachricht ist fehlgeschlagen."
   empty_message: "Du musst erst eine Nachricht eingeben."
   empty_recipients: "Du musst erst noch Empfänger:innen auswählen."
   select_recipients: "Empfänger:innen auswählen"
@@ -1541,10 +1539,15 @@ chat:
   start_of_conversation: "Konversation gestartet am:"
   display_all_messages: "Alle Nachrichten anzeigen"
   unknown_username: "unbekannter Name"
+  show_participants: "Teilnehmer:innen anzeigen"
+  participants: "Teilnehmer:innen"
   mark_as:
     read: "Als gelesen markieren"
     unread: "Als ungelesen markieren"
   reply: "Antworten"
+  error:
+    sending_message: "Das Senden der Nachricht ist fehlgeschlagen."
+    loading_conversation: "Das Laden der Unterhaltung ist fehlgeschlagen."
 
 wall:
   name: "Pinnwand"
@@ -2800,6 +2803,7 @@ menu:
     refresh: "Aktualisieren"
     delete_read: "Alle gelesenen löschen"
     all_messages: "Alle Nachrichten"
+    close_all_chats: "Alle Chats schließen"
     messages: "Nachrichten"
     your_groups: "Deine Gruppen"
     your_baskets: "Deine Essenskörbe"

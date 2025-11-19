@@ -2337,7 +2337,7 @@ chat:
   open_chat: Skrive en melding
   new_message: Ny melding
   placeholder: Skrive noe.
-  error_sending_message: Sending av meldingen mislyktes.
+  error.sending_message: Sending av meldingen mislyktes.
   empty_message: Du må skrive inn en melding først.
   empty_recipients: Du må fortsatt velge mottakere.
   error_loading_messages: Innlasting av meldinger mislyktes.

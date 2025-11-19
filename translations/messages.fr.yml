@@ -2247,7 +2247,7 @@ chat:
     utilisé dans la nouvelle conversation.\n"
   empty_recipients: Tu dois d’abord choisir un·e destinataire.
   empty_message: Tu dois d’abord écrire un message.
-  error_sending_message: L’envoi du message a échoué.
+  error.sending_message: L’envoi du message a échoué.
   error_loading_messages: Le chargement des messages a échoué.
   notification_named_conversation: '{foodsaver} a écrit dans {conversation}.'
   notification_unnamed_conversation: Tu as un message de {foodsaver}.

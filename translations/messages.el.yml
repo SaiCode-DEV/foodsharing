@@ -1406,7 +1406,7 @@ chat:
   search: ''
   select_recipients: ''
   no_conversation: ''
-  error_sending_message: ''
+  error.sending_message: ''
   confirm_draft_discard: ''
   start_of_conversation: ''
   placeholder: ''
