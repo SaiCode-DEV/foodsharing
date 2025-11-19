@@ -131,6 +131,8 @@ export default {
       } else if (this.userStore.isFoodsaver && this.userStore.isPassportInvalidSoon) {
         list.push({
           field: 'passport_is_invalid_soon',
+          days: this.userStore.details.lastPassUntilValidInDays,
+          severity: 'warning',
           links: [{
             text: 'error.passport_is_invalid_soon.link',
             urlShorthand: 'settingsPassport',

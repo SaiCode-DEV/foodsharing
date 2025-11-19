@@ -44,7 +44,7 @@
           </i>
         </div>
         <div
-          v-if="!passportStillValid"
+          v-if="!passportStillValid && !isInPast"
           v-b-tooltip="$i18n('pickup.passport_expired.long')"
           class="text-danger"
         >

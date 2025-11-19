@@ -292,8 +292,8 @@ export default {
     },
     isPassportValidOn (date) {
       if (!this.userStore.isLoadingFinished) return null
-      const DaysUntilPickup = Math.ceil((date - new Date()) / (1000 * 60 * 60 * 24))
-      return this.userStore.details?.lastPassUntilValid ? (this.userStore.details.lastPassUntilValidInDays > DaysUntilPickup) : false
+      if (this.userStore.details?.lastPassUntilValid === null) return false
+      return date < new Date(this.userStore.details.lastPassUntilValid)
     },
   },
 }

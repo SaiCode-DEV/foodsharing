@@ -146,5 +146,5 @@ export const VERIFIED_FILTER_OPTIONS = Object.freeze({
 
 export const PASSPORT_STATUS = Object.freeze({
   INVALID: 0,
-  INVALID_SOON_WARNING_TIME: 30,
+  INVALID_SOON_WARNING_TIME: 90,
 })

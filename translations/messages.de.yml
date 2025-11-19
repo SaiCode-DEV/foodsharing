@@ -3503,7 +3503,7 @@ error:
     link: "Profil-Einstellungen"
   passport_is_invalid_soon:
     title: "Dein Ausweis ist bald nicht mehr gültig!"
-    description: "Wende dich an deine Botschafter:innen, um ihn erneuern zu lassen."
+    description: "Dein Ausweis ist noch {days} Tage gültig. Wende dich an deine Botschafter:innen, um ihn erneuern zu lassen."
     link: "Profil-Einstellungen"
 
 information:

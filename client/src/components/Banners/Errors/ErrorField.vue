@@ -1,7 +1,7 @@
 <template>
-  <div class="errorfield">
+  <div :class="['errorfield', entry.severity === 'warning' ? 'errorfield--warning' : '']">
     <i
-      class="errorfield__icon fas fa-exclamation-circle"
+      :class="['errorfield__icon fas', entry.severity === 'warning' ? 'fa-exclamation-triangle' : 'fa-exclamation-circle']"
     />
     <div class="errorfield__content">
       <div class="errorfield__content-wrapper">
@@ -11,7 +11,7 @@
         />
         <p
           class="errorfield__description"
-          v-text="$i18n(`error.${entry.field}.description`, { link: entry.link })"
+          v-text="$i18n(`error.${entry.field}.description`, { link: entry.link, days: entry.days })"
         />
       </div>
       <div
@@ -60,6 +60,12 @@ export default {
   align-items: center;
 }
 
+.errorfield--warning {
+  color: var(--fs-color-warning-800);
+  background-color: var(--fs-color-warning-200);
+  border-color: var(--fs-color-warning-300);
+}
+
 .errorfield__icon {
   font-size: 3rem;
   margin-right: 1rem;
@@ -93,6 +99,16 @@ export default {
   &:hover {
     color: var(--fs-color-danger-100);
     background-color: var(--fs-color-danger-600);
+  }
+}
+
+.errorfield--warning .errorfield__link {
+  color: var(--fs-color-warning-800);
+  background-color: var(--fs-color-warning-500);
+
+  &:hover {
+    color: var(--fs-color-warning-800);
+    background-color: var(--fs-color-warning-600);
   }
 }
 </style>
