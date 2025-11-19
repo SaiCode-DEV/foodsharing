@@ -2085,8 +2085,6 @@ chat:
   no_conversation: ''
   start_of_conversation: ''
   notification_unnamed_conversation: ''
-  error_loading_messages: ''
-  error.sending_message: ''
   empty_message: ''
   notification_named_conversation: ''
   empty_recipients: ''

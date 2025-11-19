@@ -1544,9 +1544,7 @@ chat:
   notification_named_conversation: ''
   no_messages: ''
   no_conversation: ''
-  error.sending_message: ''
   notification_unnamed_conversation: ''
-  error_loading_messages: ''
   incorrect_address: ''
   unknown_username: ''
 wall:

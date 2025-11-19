@@ -1392,7 +1392,6 @@ storeedit:
     status: ''
 chat:
   notification_unnamed_conversation: ''
-  error_loading_messages: ''
   new_messages: ''
   empty_message: ''
   new_message: ''
@@ -1406,7 +1405,6 @@ chat:
   search: ''
   select_recipients: ''
   no_conversation: ''
-  error.sending_message: ''
   confirm_draft_discard: ''
   start_of_conversation: ''
   placeholder: ''

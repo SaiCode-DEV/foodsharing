@@ -1750,8 +1750,6 @@ chat:
     invece trasferita nella nuova conversazione.\n"
   empty_recipients: Devi ancora selezionare i destinatari.
   empty_message: Devi prima inserire un messaggio.
-  error.sending_message: Invio del messaggio non riuscito.
-  error_loading_messages: Ricaricamento dei messaggi non riuscito.
   notification_named_conversation: '{foodsaver} ha scritto in {conversation}.'
   notification_unnamed_conversation: '{foodsaver} ti ha scritto.'
   placeholder: Scrivi qualcosa.

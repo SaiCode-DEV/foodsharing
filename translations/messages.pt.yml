@@ -1898,11 +1898,9 @@ quiz:
 chat:
   incorrect_address: 'Este endereço de e-mail está incorreto'
   receivermissing: 'Deve especificar um destinatário'
-  error_loading_messages: 'Erro ao recarregar mensagens.'
   notification_unnamed_conversation: '{foodsaver} escreveu para ti.'
   no_messages: 'Não há mensagems'
   empty: 'Ainda não há conversas'
-  error.sending_message: 'Erro ao enviar a mensagem.'
   conversations: 'Conversas'
   open_chat: 'Escrever um mensagem'
   no_conversation: 'Nenhuma conversa selecionada'

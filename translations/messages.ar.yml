@@ -895,7 +895,6 @@ forum:
   deleted_user: ''
 chat:
   new_message: ''
-  error_loading_messages: ''
   open_chat: ''
   empty: ''
   placeholder: ''
@@ -914,7 +913,6 @@ chat:
   empty_message: ''
   empty_recipients: ''
   incorrect_address: ''
-  error.sending_message: ''
   unknown_username: ''
 month:
   "4": ''

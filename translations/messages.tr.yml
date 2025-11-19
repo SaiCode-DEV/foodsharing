@@ -2558,7 +2558,6 @@ forum:
 chat:
   open_chat: Bir mesaj yaz
   new_messages: Yeni Mesajlar
-  error.sending_message: Mesaj gönderilemedi.
   select_recipients: Alıcıları seçin
   start_of_conversation: 'Konuşma şu tarihte başladı:'
   display_all_messages: Tüm mesajları göster
@@ -2574,7 +2573,6 @@ chat:
   search: Ara
   empty: Henüz yazışma yok
   placeholder: Bir şeyler yaz.
-  error_loading_messages: Mesaj yeniden yüklenemedi.
   empty_recipients: Önce alıcıları seçmeniz gerekiyor.
   confirm_draft_discard: "Yeni bir sohbete geçersiniz. Cevap alanındaki metin atılır.\n\
     \ \nBu iletişim kutusunu iptal ederseniz taslağınız bunun yerine yeni görüşmeye

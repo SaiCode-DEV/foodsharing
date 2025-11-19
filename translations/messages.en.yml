@@ -2942,8 +2942,6 @@ chat:
   empty_recipients: You still have to select recipients.
   select_recipients: Select recipients
   empty_message: You need to enter a message first.
-  error.sending_message: Sending the message failed.
-  error_loading_messages: Reloading of messages failed.
   notification_named_conversation: '{foodsaver} wrote in {conversation}.'
   confirm_draft_discard: "You switch to a new conversation. The text in the answer
     field is discarded.\n\nIf you cancel this dialogue, your draft will be carried

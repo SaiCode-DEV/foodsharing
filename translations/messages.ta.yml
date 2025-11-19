@@ -612,7 +612,6 @@ forum:
 chat:
   open_chat: ஒரு செய்தியை எழுதுங்கள்
   new_message: புதிய செய்தி
-  error.sending_message: செய்தியை அனுப்புவது தோல்வியடைந்தது.
   empty_message: நீங்கள் முதலில் ஒரு செய்தியை உள்ளிட வேண்டும்.
   empty_recipients: 'நீங்கள் இன்னும் பெறுநர்: உள்ளே தேர்ந்தெடுக்கவும்.'
   select_recipients: 'பெறுநர்: உள்ளே தேர்ந்தெடுக்கவும்'
@@ -634,7 +633,6 @@ chat:
   placeholder: ஏதாவது எழுதுங்கள்.
   notification_unnamed_conversation: '{foodsaver} உங்களுக்கு எழுதினார்.'
   notification_named_conversation: '{foodsaver} {உரையாடலில் எழுதினார்.'
-  error_loading_messages: செய்திகளை மீண்டும் ஏற்றுவது தோல்வியடைந்தது.
   no_conversation: பொழுதுபோக்கு எதுவும் தேர்ந்தெடுக்கப்படவில்லை
   start_of_conversation: 'உரையாடல் தொடங்கியது:'
   reply: பதில்

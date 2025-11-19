@@ -2337,10 +2337,8 @@ chat:
   open_chat: Skrive en melding
   new_message: Ny melding
   placeholder: Skrive noe.
-  error.sending_message: Sending av meldingen mislyktes.
   empty_message: Du må skrive inn en melding først.
   empty_recipients: Du må fortsatt velge mottakere.
-  error_loading_messages: Innlasting av meldinger mislyktes.
   empty: Ingen samtaler ennå
   confirm_draft_discard: "Du bytter til en ny tråd. Teksten i svarfeltet forkastes.\n\
     \ \nHvis du avbryter denne dialogen, vil utkastet ditt bli overført til den nye
