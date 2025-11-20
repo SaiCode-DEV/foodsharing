@@ -1348,7 +1348,8 @@ login:
   topbar: Log in
   submit_btn: Login
   error_no_auth: Unfortunately we cannot find this e-mail address or password. 
-    Please try again.
+    Please try again. Your second factor might also be incorrect, if you are 
+    using one.
   error_no_password: Please enter your password.
   error_no_email: Please enter your e-mail address.
   save_password: Save password
@@ -1358,6 +1359,7 @@ login:
   password: Password
   email_address: E-mail address
   form_title: Welcome back
+  2fa: Two-factor authentication (2FA)
 salutation:
   "3": Dear
   "2": Dear
@@ -4552,3 +4554,5 @@ debug:
 test:
   plain: This is a nice translation
   vars: 'My name is {NAME} and I am {AGE} years old'
+totp_code: Please enter either the generated two-factor authentication code or 
+  one of the backup codes.
