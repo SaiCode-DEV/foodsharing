@@ -442,6 +442,77 @@ settings:
     general: Here you can adjust your profile data.
     verified: You can’t edit your name and date of birth. However, you can ask 
       an ambassador to change these details for you.
+  2fa:
+    title: Two-factor authentication
+    intro: Here you can change the two-factor authentication settings.
+    status_is: The current status is
+    active: active
+    inactive: inactive
+    qrcode:
+      label:
+        android: Android
+        ios: iOS
+        start: 'Scan this QR code with your authentication app (e. g., Google Authenticator, '
+        end: ). You can also use an authentication app you already use for other
+          services. If you don’t have one, install one on your smartphone before
+          proceeding. You can use this code to set up as many devices as you 
+          like.
+      app:
+        android: 
+          https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en
+        ios: https://apps.apple.com/de/app/google-authenticator/id388497605
+    further_info:
+      intro: Further information on two-factor authentication and a short 
+        explanatory video can be found, for example,
+      link: https://www.bsi.bund.de/dok/11693908
+      text: on the BSI website
+    secret_label: 'Alternatively, you can enter this code manually:'
+    backup_codes_label: 'In case you lose access to your second-factor device (lost/stolen/damaged),
+      you can use the following one-time-use backup codes:'
+    backup_codes_info: Please keep these codes in a safe place. Anyone who has 
+      access to these codes and knows your password can log into your account.
+    how_to_activate: 'To activate two-factor authentication, please enter the generated
+      code and your password here. Note: After changing your two-factor authentication,
+      you will need to log in again.'
+    totp_token: Generated code (e. g., 458324)
+    password_required: Changing this setting always requires your password. This
+      prevents anyone else using your computer or mobile phone from changing 
+      this security-critical setting.
+    no_danger: You can click on the “Enable two-factor authentication” button 
+      without hesitation.
+    danger: If you lose your phone or it gets stolen and you don’t have access 
+      to the backup codes, you won’t be able to log in. You’ll need to contact 
+      our support team to regain access to your account. Please note that the QR
+      code, secret code, and backup codes are only displayed once and cannot be 
+      recovered. If you later decide to change your phone, you’ll need to 
+      deactivate two-factor authentication and then set it up again.
+    action_label_setup: Set up two-factor authentication
+    action_label_remove: Disable two-factor authentication
+    action_label_enable: Enable
+    action_label_disable: Disable
+    activation_success: Two-factor authentication has been successfully 
+      activated.
+    deactivation_success: Two-factor authentication has been successfully 
+      disabled.
+    activation_failed: Two-factor authentication could not be activated; either 
+      the code or the password was entered incorrectly.
+    deactivation_failed: Two-factor authentication could not be disabled; either
+      the code or the password was entered incorrectly.
+    disable_danger: 'If you disable two-factor authentication, your account will be
+      less secure. Anyone who knows your password or can read your emails (keyword:
+      “Forgot password”) will then be able to access your account. When you disable
+      two-factor authentication, your backup codes will also become invalid. You will
+      then have to log in again.'
+    num_backup_codes: Number of remaining backup codes
+    explanation: Using two-factor authentication increases the security of your 
+      account. With two-factor authentication enabled, you will need to enter a 
+      code in addition to your password each time you log in. You can obtain 
+      this code via an app (e. g., Google Authenticator). In addition, you will 
+      be shown so-called “backup codes,” which you should keep safe so that you 
+      can still access your account in an emergency (e. g., if you lose your 
+      smartphone). Two-factor authentication is optional, but is recommended 
+      wherever possible by leading security experts and the Federal Office for 
+      Information Security (BSI).
 menu:
   entry:
     activities: Activities
@@ -1337,13 +1408,18 @@ login:
     mismatch: Sorry, the passwords do not match.
     tooShort: Sorry, your chosen password is too short.
     error: Sorry, there is a problem with your data.
-    expired: Sorry, you waited a little too long. Please request a new password 
-      again.
+    expired: The link is invalid. You probably waited a little too long. Please 
+      request a new password.
     success: Great, your password has been changed successfully. You can now log
       in.
     mailSent: Alright! A link to change your password has been emailed to you.
     wrongMail: Unfortunately we cannot find that e-mail address. Please try 
       again.
+    invalidCode: The code you entered is invalid. Please try again. You can also
+      use backup codes here.
+    request_new: Request a new password
+    token_invalid: The two-factor authentication code you entered is invalid. 
+      Please try again.
   logout: Logout
   topbar: Log in
   submit_btn: Login
@@ -1519,6 +1595,8 @@ bell:
   new_resource:
     one: 'From {user}: “{title}”'
     many: '{count} new resources'
+  delete_store_title: Store deleted
+  delete_store: '{name} was deleted'
 reports:
   time: Time
   reason: Reason
@@ -2240,6 +2318,52 @@ store:
       unknown: no valid residence
       close: less than 500 m
       normal: about {distance} km
+    completeProfileRequired:
+      text: 'You cannot currently apply because you have not yet entered all the necessary
+        information in your profile. You must have entered valid information in at
+        least the following fields: first name, last name, date of birth, current
+        address, and profile picture. Please enter this information. After that, you
+        can try applying again.'
+      link: Edit profile
+    needsHomeRegion:
+      text: You cannot currently apply because you have not yet selected a home 
+        district. Once you have selected a home district, you can try applying 
+        again.
+      link: Select home district
+    needsStoreRegion:
+      text: You cannot currently apply because you are not yet a member of the 
+        {region} district to which the store belongs. Once you have joined the 
+        {region} district, you can try applying again.
+      link: Join district
+    requireVerification:
+      text: You cannot currently apply because you are not yet verified. This 
+        team is currently only accepting applications from verified Foodsavers. 
+        Please complete your introductory pickups first, or contact your 
+        ambassadors or the welcome team of your district to get verified. You 
+        can find these contacts in your district’s forum in the left sidebar.
+      link: Open the forum of your main district
+    requirePhone:
+      text: You cannot currently apply because you haven’t yet entered a phone 
+        number in your profile. This team is currently only accepting 
+        applications from Foodsavers who have at least one phone number on file.
+        Please add a phone number to your profile to be able to apply.
+      link: Edit profile
+    applicationSummary:
+      intro: 'When you submit your application, the team managers will see the following
+        information:'
+      time: Time of application
+      fullName: Your full name ({first_name} {last_name})
+      verified: Verification status ({status})
+      distance: The distance between your place of residence and the company 
+        ({distance})
+      storeList: The list of your current teams
+      text: Your application message
+    applicationMessageTooShort: Your application message is too short.
+    alerts:
+      one_more: Show another entry
+      many_more: Show {count} more entries
+      one_less: Hide an entry
+      many_less: Hide {count} entries
   sm:
     reallyRemove: Do you really want to remove {name} from the store team?
     removeFromTeam: Remove from the team
@@ -2472,6 +2596,15 @@ store:
   passport_expires_soon: Your membership card is only valid for another {days} 
     days! Contact your ambassadors to renew it. After it expires, you will no 
     longer be able to register here.
+  delete:
+    button: Delete store
+    sure: Are you sure you want to delete this store? This action cannot be 
+      undone! All members will be removed from the team and all company-specific
+      information except the event log will be deleted. Please only delete 
+      stores that no longer exist or have been entered twice. Companies that 
+      have canceled a partnership should remain listed. Only stores where no 
+      pickups have ever taken place and whose team chats have been unused for at
+      least three months can be deleted.
 navi:
   google_maps: "Google Maps"
   waze: "Waze"
@@ -2696,6 +2829,10 @@ storeedit:
       helpers
     hygieneRequirement: Hygiene requirements
     hygieneRequired: Allow pick-ups only with valid hygiene training
+    applicationRequirements: Application requirements
+    verifiedRequired: Only allow verified foodsavers
+    phoneRequirement: Only allow foodsavers with a registered phone number
+    applyTextRequired: Applications require some text input
   store:
     status: status
   actions: Options
@@ -2963,6 +3100,9 @@ chat:
     unread: Mark as unread
   reply: "Reply"
   open_multi_chat: Message the team leaders
+  error:
+    sending_message: Sending the message failed.
+    loading_conversation: Failed to load the conversation.
 delete: Delete
 error_unexpected: An error has occurred
 error_base64_image: Inserting images via drag & drop is not permitted.
@@ -3792,7 +3932,8 @@ error:
     link: Profile settings
   passport_is_invalid_soon:
     title: Your membership card will expire soon!
-    description: Contact your ambassadors to have it renewed.
+    description: Your membership card is valid for another {days} days. Contact 
+      your ambassadors to have it renewed.
     link: Profile settings
 information:
   push:
