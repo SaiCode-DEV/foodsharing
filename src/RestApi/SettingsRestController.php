@@ -138,12 +138,12 @@ class SettingsRestController extends AbstractFoodsharingRestController
 
     #[OA\Get(summary: 'Load the user profile information.')]
     #[OA\Tag(name: 'user')]
-    #[Rest\Get('user/{userId}/profile')]
+    #[Rest\Get('user/{userId}/profileSettings', requirements: ['userId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: [new Model(type: ReadableProfileSettings::class)])]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Unauthorized.')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Bad Request.')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'User not found.')]
-    public function getUserSettings(int $userId): Response
+    public function getUserProfileSettings(int $userId): Response
     {
         $this->assertLoggedIn();
 

@@ -47,7 +47,7 @@ export function patchUserProfile (userId, data) {
 }
 
 export function getUserProfileSettings (userId) {
-  return get(`/user/${userId}/profile`)
+  return get(`/user/${userId}/profileSettings`)
 }
 
 export function testRegisterEmail (email) {

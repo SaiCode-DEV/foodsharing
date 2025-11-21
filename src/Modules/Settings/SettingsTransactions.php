@@ -243,6 +243,11 @@ class SettingsTransactions
 
     public function readProfile(int $userId): ReadableProfileSettings
     {
+        if (!$this->settingsPermissions->mayEditProfileSettings($userId)) {
+            throw new AccessDeniedHttpException('no permission to view profile settings');
+        }
+        $isMe = $userId === $this->session->id();
+
         $data = $this->settingsGateway->getFoodsaverSettings($userId);
         if (empty($data)) {
             throw new NotFoundHttpException('User does not exist.');
@@ -260,13 +265,10 @@ class SettingsTransactions
             $data->targetRole = $targetRole->value;
         }
 
-        if ($this->settingsPermissions->mayEditProfileSettings($userId)) {
-            $data->isOnTeamPage = $this->unitGateway->isUserOnTeamPage($userId);
-            $data->mayChangeVerifiedData = $this->settingsPermissions->mayChangeVerifiedData($userId);
-            $data->mayChangeEmailImmediately = $this->settingsPermissions->mayChangeLoginEmail($userId);
-        }
+        $data->isOnTeamPage = $this->unitGateway->isUserOnTeamPage($userId);
+        $data->mayChangeVerifiedData = $this->settingsPermissions->mayChangeVerifiedData($userId);
+        $data->mayChangeEmailImmediately = $this->settingsPermissions->mayChangeLoginEmail($userId);
 
-        $isMe = $userId === $this->session->id();
         if ($isMe) {
             $data->sleepingData = $this->settingsGateway->getSleepData($userId);
             $data->businessCardData = $this->businessCardGateway->getMyData($userId, $this->session->mayRole(Role::STORE_MANAGER));
