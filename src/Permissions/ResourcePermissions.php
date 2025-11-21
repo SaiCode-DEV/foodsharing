@@ -3,6 +3,7 @@
 namespace Foodsharing\Permissions;
 
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\ResourceMosaic\ResourceGateway;
@@ -18,6 +19,7 @@ class ResourcePermissions
         private readonly ResourceGateway $resourceGateway,
         private readonly RegionGateway $regionGateway,
         private readonly CurrentUserUnitsInterface $currentUserUnits,
+        private readonly RegionPermissions $regionPermissions,
         Session $session,
     ) {
         $this->session = $session;
@@ -48,5 +50,22 @@ class ResourcePermissions
     public function mayEditResource(int $ownerId): bool
     {
         return $this->session->id() === $ownerId;
+    }
+
+    public function mayRestrictResourceToRegion(?int $regionId): bool
+    {
+        if (is_null($regionId)) {
+            return true;
+        }
+        if (!$this->currentUserUnits->mayBezirk($regionId)) {
+            return false;
+        }
+
+        return in_array($this->regionGateway->getType($regionId), self::REGION_TYPES_WITH_RESOURCES);
+    }
+
+    public function mayEditCommonsResourcesInRegion(int $regionId): bool
+    {
+        return $this->regionPermissions->hasFunctionGroupPermissionForRegion(WorkgroupFunction::RESOURCES, $regionId, true);
     }
 }

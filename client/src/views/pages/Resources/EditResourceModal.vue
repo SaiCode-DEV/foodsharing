@@ -1,7 +1,7 @@
 <template>
   <b-modal
     ref="modal"
-    :title="$t(`resource_mosaic.${currentResourceId ? 'edit' : 'add'}`)"
+    :title="title"
     centered
     size="lg"
     no-close-on-esc
@@ -28,7 +28,7 @@
           ref="mdInput"
           conceal-toolbar
           variant="outline-primary"
-          :placeholder="$t('resource_mosaic.editModal.description.placeholder')"
+          :placeholder="$t('resource_mosaic.editModal.description.placeholder' + (isCommonsResource ? '_commons' : ''))"
           :rows="2"
           allow-image-attachments
           :value.sync="description"
@@ -75,10 +75,26 @@
         </b-row>
       </b-form-group>
 
-      <b-form-group>
+      <b-form-group v-if="!isCommonsResource">
         <b-form-checkbox v-model="isPrivate" switch>
           {{ $t('resource_mosaic.editModal.is_private') }}
         </b-form-checkbox>
+      </b-form-group>
+
+      <b-form-group v-if="!isCommonsResource">
+        <b-form-checkbox v-model="isRestrictedToRegion" switch>
+          {{ $t('resource_mosaic.editModal.is_restricted_to_region') }}
+        </b-form-checkbox>
+        <b-collapse
+          :visible="isRestrictedToRegion"
+          class="pb-2"
+          style="padding-left: 2.25rem"
+        >
+          <b-form-select
+            v-model="regionId"
+            :options="regionSelectOptions"
+          />
+        </b-collapse>
       </b-form-group>
     </b-form>
   </b-modal>
@@ -87,16 +103,25 @@
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 import Multiselect from 'vue-multiselect'
 import VueSlider from 'vue-slider-component'
-import { ref, defineExpose, defineEmits, computed, nextTick } from 'vue'
+import 'vue-slider-component/theme/antd.css'
+import { ref, defineExpose, defineEmits, defineProps, computed, nextTick } from 'vue'
 import { useResourceStore } from '@/stores/resources'
 import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 import i18n from '@/helper/i18n'
 import { useUserStore } from '@/stores/user'
+import { useRegionStore } from '@/stores/regions'
+import { REGION_TYPES_WITH_RESOURCES } from '../../../stores/regions'
+import DataGroups from '@/stores/groups'
+import { url } from '@/helper/urls'
 
 const resourceStore = useResourceStore()
 const userStore = useUserStore()
+const regionStore = useRegionStore()
 const { confirmationDialogue } = useConfirmationDialogue()
 
+const props = defineProps({
+  currentRegionId: { type: Number, default: 0 }, // used to preselect a regionId
+})
 const name = ref('')
 const description = ref('')
 const categories = ref([])
@@ -105,10 +130,38 @@ const openness = ref(3)
 const modal = ref(null)
 const mdInput = ref(null)
 const currentResourceId = ref(null)
+const isRestrictedToRegion = ref(false)
+const regionId = ref(null)
+const isCommonsResource = ref(null)
 
 const resourceCategories = computed(() => resourceStore.categories)
 
-const emit = defineEmits(['add', 'edit'])
+const emit = defineEmits(['update:selected-resource'])
+
+const groups = computed(() => DataGroups.getters.get() ?? [])
+const regionSelectOptions = computed(() => [
+  {
+    label: i18n('events.create.regions'),
+    options: regionStore.regions.filter(region => REGION_TYPES_WITH_RESOURCES.includes(region.type)).map(region => ({
+      value: region.id,
+      text: region.name,
+    })),
+  },
+  {
+    label: i18n('events.create.groups'),
+    options: groups.value.map(group => ({
+      value: group.id,
+      text: group.name,
+    })),
+  },
+])
+
+const title = computed(() => {
+  if (!currentResourceId.value && isCommonsResource.value) {
+    return i18n('resource_mosaic.add_commons')
+  }
+  return i18n(`resource_mosaic.${currentResourceId.value ? 'edit' : 'add'}`)
+})
 
 async function okHandler (event) {
   event.preventDefault()
@@ -128,26 +181,47 @@ async function okHandler (event) {
     isPrivate: !!isPrivate.value,
     openness: openness.value,
     images,
+    regionId: (isRestrictedToRegion.value && regionId.value) ? regionId.value : null,
   }
 
-  emit(currentResourceId.value ? 'edit' : 'add', resource)
+  if (currentResourceId.value) {
+    resourceStore.editResource(currentResourceId.value, resource).then(updatedResource => {
+      navigateToResourceLocation(updatedResource)
+      emit('update:selected-resource', updatedResource)
+    })
+  } else {
+    const newResource = resourceStore.addResource(resource, isCommonsResource.value)
+    navigateToResourceLocation(newResource)
+  }
   modal.value.hide()
 }
 
+function navigateToResourceLocation (resource) {
+  if (props.currentRegionId && resource.regionId && resource.regionId !== props.currentRegionId) {
+    // Navigate to where the resource is now restricted to
+    location.href = url('resource', resource.regionId, resource.id)
+  }
+}
+
 defineExpose({
-  async showNew () {
-    const userHasResources = resourceStore.getResourcesByUser(userStore.getUserId).length > 0
-    if (!userHasResources && !await confirmationDialogue('resource_mosaic.privacy_notice.text', {
-      title: i18n('resource_mosaic.privacy_notice.title'),
-      okTitle: i18n('resource_mosaic.privacy_notice.ok'),
-      okVariant: 'primary',
-    })) return
+  async showNew (isNewCommons) {
+    if (!isNewCommons) {
+      const userHasResources = resourceStore.getResourcesByUser(userStore.getUserId).length > 0
+      if (!userHasResources && !await confirmationDialogue('resource_mosaic.privacy_notice.text', {
+        title: i18n('resource_mosaic.privacy_notice.title'),
+        okTitle: i18n('resource_mosaic.privacy_notice.ok'),
+        okVariant: 'primary',
+      })) return
+    }
     currentResourceId.value = null
+    isCommonsResource.value = isNewCommons
     name.value = ''
     description.value = ''
     categories.value = []
     isPrivate.value = false
     openness.value = 3
+    isRestrictedToRegion.value = isNewCommons
+    regionId.value = props.currentRegionId
     modal.value.show()
     await nextTick()
     mdInput.value.setImages([])
@@ -159,6 +233,10 @@ defineExpose({
     categories.value = resource.categories.map(id => resourceCategories.value.find(category => category.id === id))
     isPrivate.value = resource.isPrivate
     openness.value = resource.openness
+    isRestrictedToRegion.value = !!resource.regionId
+    regionId.value = resource.regionId ?? props.currentRegionId
+    isCommonsResource.value = !resource.user
+
     modal.value.show()
     await nextTick()
     mdInput.value.setImages(resource.images)
@@ -176,4 +254,18 @@ defineExpose({
   margin-top: -20px;
   pointer-events: none;
 }
+</style>
+<style>
+/* Adjust multiselect design to input */
+.category-select .multiselect__tags { border-color: #ced4da; }
+.category-select .multiselect__placeholder { color: #6c757d; }
+.category-select .multiselect__input { border: none; }
+.category-select .multiselect__input:focus { box-shadow: none !important; }
+
+/* Make multiselect tags blue */
+.category-select .multiselect__tag {
+  background: var(--fs-color-info-500);
+  font-weight: bold;
+}
+.category-select .multiselect__tag-icon::after { color: white; }
 </style>

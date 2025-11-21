@@ -99,6 +99,13 @@
               <b-tab v-if="awardedAchievements?.length" :title="$t('terminology.achievements') + ` (${awardedAchievements.length})`">
                 <Achievements :achievements="awardedAchievements" />
               </b-tab>
+              <b-tab
+                v-if="profileInfos.fsId === currentUserId"
+                lazy
+                :title="$t('resource_mosaic.my_resources')"
+              >
+                <OwnResources />
+              </b-tab>
             </b-tabs>
           </div>
         </b-col>
@@ -127,12 +134,13 @@ import ProfileStoreList from './ProfileStoreList.vue'
 import Achievements from '@/components/Achievement/Achievements.vue'
 import { useUserStore } from '@/stores/user'
 import { ROLE } from '@/consts'
+import OwnResources from '@/views/pages/Resources/OwnResources.vue'
 
 const userStore = useUserStore()
 
 export default {
   name: 'Profile',
-  components: { ProfileStoreList, ProfileMenu, ProfileInfos, ProfileRegionAndGroupInfos, Wall, ProfileCommitmentsStat, EmailBounceList, PickupsSection, Achievements },
+  components: { ProfileStoreList, ProfileMenu, ProfileInfos, ProfileRegionAndGroupInfos, Wall, ProfileCommitmentsStat, EmailBounceList, PickupsSection, Achievements, OwnResources },
   props: {
     menu: { type: Object, required: true },
     statistics: { type: Object, required: true },

@@ -4038,6 +4038,16 @@ help:
 
         ##### Wer sieht meine Ressourcen?
         Ressourcen werden innerhalb deiner Bezirke und Arbeitsgruppen sichtbar. Ausgenommen sind davon aber die sehr großen Bezirke vom Typ Land oder Bundesland, in denen kein Ressourcen-Mosaik verfügbar ist. Du kannst die Sichtbarkeit jeder einzelnen Ressource aber auch auf die Foodsaver:innen beschränken, die du kennst.
+    commons_resources:
+      title: "Gemeinschaftsressourcen"
+      md: |
+        Manche Ressourcen gehören nicht einer einzelnen Person, sondern der Gemeinschaft.
+
+        ##### Was sind Beispiele für Gemeinschaftsressourcen? 
+        Bei Gemeinschaftsressourcen handelt es sich meist um **Gegenstände**, **Informationen** oder **Kontakte**. Das könnte ein foodsharing Banner des Bezirks sein, ein Foto-Archiv in der Cloud oder der Kontakt zu externen Ansprechpersonen. Da für Gemeinschaftsressourcen nicht eine einzelne Person verantwortlich ist, sollte ggf. eine Kontaktmöglichkeit in der Beschreibung der Ressource eingetragen werden.
+
+        ##### Wer verwaltet Gemeinschaftsressourcen?
+        In Arbeitsgruppen können alle Admins Gemeinschaftsressourcen anlegen, bearbeiten und löschen. In Bezirken haben erstmal die Botschafter:innen diese Berechtigung. Falls es eine Ressourcen-AG gibt, liegt die Berechtigung stattdessen bei den Admins dieser AG.
     similar_resources:
       title: "Ähnliche Ressourcen"
       md: "Als ähnliche Ressourcen werden dir bis zu 10 weitere Ressourcen angezeigt, für welche die **gleichen Kategorien** eingetragen sind."
@@ -4180,7 +4190,10 @@ petition:
 resource_mosaic:
   title: "Ressourcen-Mosaik"
   my_resources: "Meine Ressourcen"
+  my_resources_in: "Meine Ressourcen in {groupName}"
+  commons_resources_in: "Gemeinschaftsressourcen aus {groupName}"
   add: "Neue Ressource eintragen"
+  add_commons: "Neue Gemeinschaftsressource eintragen"
   edit: "Ressource bearbeiten"
   categories_filter_placeholder: "Nach Kategorien filtern..."
   filter:
@@ -4190,30 +4203,37 @@ resource_mosaic:
   search_placeholder: "Suche nach Ressourcen, Foodsharer:innen oder IDs"
   other_resources:
     other: "Weitere Ressourcen von {user}"
-    own: "Deine anderen Ressourcen"
+    own: "Meine anderen Ressourcen"
+    commons: "Weitere Gemeinschaftsressourcen"
     similar: "Ähnliche Ressourcen"
     new: "Alle neuen Ressourcen dieses Bezirks"
   editModal:
     name:
-      label: "Name"
-      placeholder: "Deine Ressource..."
+      label: "Name der Ressource"
+      placeholder: "Die Ressource..."
       max_length: "Maximale Länge erreicht. In der Beschreibung kannst du alle weiteren Details angeben."
-    is_private: "Diese Ressource nur Bekannten anzeigen"
+    is_private: "Nur Bekannten anzeigen"
+    is_restricted_to_region: "Auf Bezirk oder Gruppe einschränken"
     description:
       label: "Beschreibung"
       placeholder: "Weitere Informationen, damit sich andere genau vorstellen können, wobei du gerne unterstützen könntest. Du kannst auch Bilder anhängen."
+      placeholder_commons: "Weitere Informationen, damit andere genau wissen, wofür diese Ressource nutzbar ist. Denk daran, Informationen einzufügen, wie die Ressource angefragt werden kann."
     categories:
       label: "Kategorien"
       placeholder: "Kategorien auswählen..."
-    openness: "Wie gerne darf deine Ressource angefragt werden?"
+    openness: "Wie gerne darf die Ressource angefragt werden?"
     description_warning:
       title: "Beschreibung prüfen"
       short: "Die Beschreibung dieser Ressource ist recht kurz. Bist du sicher, dass andere Nutzer:innen verstehen können, worum es bei deiner Ressource geht, damit sie dich gezielt danach fragen können?"
       none: "Du hast keine Beschreibung für deine Ressource angegeben. Bist du sicher, dass andere Nutzer:innen verstehen können, worum es bei deiner Ressource geht, damit sie dich gezielt danach fragen können?"
   is_private_hint: "Diese Resource wird nur Bekannten angezeigt."
+  is_commons: "Diese Ressource gehört nicht einer einzelnen Person, sondern ist ein Gemeingut"
   confirm_delete: "Möchtest du diese Resource wirklich löschen?"
   no_own_resources: "Du hast noch keine Ressourcen angegeben. Du kannst jetzt bestimmte Fähigkeiten, Gegenstände oder Beziehungen eintragen, um sie in der Community sichtbar zu machen."
+
+  no_commons_resources: "In {groupName} sind noch keine Gemeinschaftsressourcen eigetragen. Du hast die nötige Berechtigung, um das zu ändern!"
   max_resources: "Um das Ressourcen-Mosaik übersichtlich zu halten, kann jede:r maximal {max} Ressourcen eintragen."
+  has_resources_elsewhere: "Von deinen Ressourcen sind {count} auf andere Bezirke oder AGs beschränkt und nicht in {groupName} sichtbar."
   message: "Nachricht schreiben"
   request_header: "Anfrage zu deiner Ressource"
   message_modal:
@@ -4246,6 +4266,7 @@ resource_mosaic:
     title: "Datenschutz-Hinweis"
     text: "Wenn du Resourcen einträgst, werden diese auf dem Server gespeichert und für andere Nutzer:innen in deinen Arbeitsgruppen und Bezirken (ausgenommen Bundesländer, Länder und Europa) sichtbar. Du kannst deine Ressourcen jederzeit bearbeiten und löschen. Außerdem kannst du die Sichtbarkeit deiner Resourcen einschränken, wodurch nur deine Bekannten darauf Zugriff haben."
     ok: "Ich bin einverstanden"
+  
 
 debug:
   title: Debug Seite

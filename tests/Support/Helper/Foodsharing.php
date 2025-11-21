@@ -1532,7 +1532,7 @@ class Foodsharing extends Db
         return $this->haveInDatabase('fs_resource_category', ['name' => $name]);
     }
 
-    public function addResource(int $foodsaverId, string $name, ?string $description, array $categories, bool $isPrivate, int $openness): int
+    public function addResource(?int $foodsaverId, string $name, ?string $description, array $categories, bool $isPrivate, int $openness, ?int $regionId = null): int
     {
         $id = $this->haveInDatabase('fs_resource', [
             'foodsaver_id' => $foodsaverId,
@@ -1540,6 +1540,7 @@ class Foodsharing extends Db
             'description' => $description,
             'is_private' => $isPrivate,
             'openness' => $openness,
+            'region_id' => $regionId,
         ]);
         foreach ($categories as $category) {
             $this->haveInDatabase('fs_resource_has_category', ['resource_id' => $id, 'category_id' => $category]);

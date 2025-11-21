@@ -12,7 +12,8 @@ class ResourceForDisplay
     public string $name;
     public ?string $description;
     public array $categories;
-    public Profile $user;
+    public ?Profile $user; // null for commons resources
+    public ?int $regionId;
     public bool $isHomeRegion;
     public bool $isUserActive;
     public bool $isPrivate;

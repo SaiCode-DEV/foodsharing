@@ -85,7 +85,7 @@ class RegionPermissions
      * 2. The user is Admin of the function group of the region
      * 3. No such function group for that region exists and the user is ambassador of that region.
      */
-    public function hasFunctionGroupPermissionForRegion(int $workgroupFunction, int $regionId)
+    public function hasFunctionGroupPermissionForRegion(int $workgroupFunction, int $regionId, bool $includeGroups = false)
     {
         if ($this->session->mayRole(Role::ORGA)) {
             return true;
@@ -95,7 +95,7 @@ class RegionPermissions
             return $this->groupFunctionGateway->isRegionFunctionGroupAdmin($regionId, $workgroupFunction, $this->session->id());
         }
 
-        return $this->currentUserUnits->isAmbassadorForRegion([$regionId], false, false);
+        return $this->currentUserUnits->isAmbassadorForRegion([$regionId], $includeGroups, false);
     }
 
     public function maySetRegionOptionsReportButtons(int $regionId): bool

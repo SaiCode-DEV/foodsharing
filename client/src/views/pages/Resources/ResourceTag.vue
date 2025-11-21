@@ -1,28 +1,37 @@
 <template>
-  <span class="resource-tag d-inline-block mx-2 mb-2 text-nowrap mw-100" @click="$emit('open', resource)">
+  <span
+    class="resource-tag d-inline-block mx-2 mb-2 text-nowrap mw-100"
+    :style="{ '--badge-color': color }"
+    @click="$emit('open', resource)"
+  >
     <Avatar
+      v-if="resource.user"
       :user="resource.user"
       :size="35"
       href=""
       shape="round"
     />
+    <Avatar
+      v-else
+      class="commons-resource"
+      icon="fas fa-shapes"
+      :size="35"
+      href=""
+      shape="round"
+    />
     <b-badge
-      :style="{ backgroundColor: color }"
       class="cutoff-badge"
       size="lg"
       pill
     >
       <span>
         <i v-if="resource.isPrivate" class="fas fa-user-friends" />
+        <i v-if="resource.regionId && resource.user" class="fas fa-location-pin-lock" />
         <span
           ref="nameSpan"
           v-text="resource.name"
         />
-        <i
-          v-if="resource.isFavorite"
-          class="fas fa-star"
-          style="color: var(--fs-color-warning-500)"
-        />
+        <i v-if="resource.isFavorite" class="fas fa-star favorite-star" />
       </span>
     </b-badge>
   </span>
@@ -71,6 +80,7 @@ const color = computed(() => {
   font-weight: 400;
   color: black;
   max-width: calc(100% - 18px); /* Make sure the resource doesn't extend past its parent. 18px resulting from avatar size, margins and paddings */
+  background-color: var(--badge-color);
 }
 .cutoff-badge span {
   transform: scaleX(var(--scaling-factor));
@@ -79,5 +89,26 @@ const color = computed(() => {
 }
 .resource-tag {
   cursor: pointer;
+}
+.commons-resource {
+  background-color: var(--badge-color) !important;
+  border: 2px solid var(--fs-color-background);
+  box-sizing: content-box;
+  margin: -2px;
+}
+.favorite-star {
+  color: var(--fs-color-warning-500);
+  text-shadow:
+    0 0 1px var(--fs-color-background),
+    0 0 1.5px var(--fs-color-background),
+    0 0 2px var(--fs-color-background);
+}
+</style>
+<style>
+.commons-resource .avatar-icon {
+  color: black;
+  opacity: 0.6;
+  position: relative;
+  top: -2px;
 }
 </style>

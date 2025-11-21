@@ -17,6 +17,7 @@ use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Requirement\Requirement;
 
@@ -62,7 +63,22 @@ class ResourceRestController extends AbstractFoodsharingRestController
         if (!$this->resourcePermissions->maySeeResources($regionId)) {
             throw new AccessDeniedHttpException();
         }
-        $resources = $this->resourceGateway->getResourcesForRegion($regionId, $this->session->id());
+        $resources = $this->resourceTransactions->getResourcesForRegion($regionId, $this->session->id());
+
+        return $this->respondOK($resources);
+    }
+
+    #[OA\Get(summary: 'Get the list of resources of the logged in user')]
+    #[Rest\Get('resources/own')]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
+        type: 'array',
+        description: 'The list of resources provided by the logged in user.',
+        items: new OA\Items(ref: new Model(type: ResourceForDisplay::class)),
+    ))]
+    public function getOwnResources(): Response
+    {
+        $this->assertLoggedIn();
+        $resources = $this->resourceGateway->getResourcesByUserId($this->session->id());
 
         return $this->respondOK($resources);
     }
@@ -76,8 +92,29 @@ class ResourceRestController extends AbstractFoodsharingRestController
         if (!$this->resourcePermissions->mayAddResource()) {
             throw new AccessDeniedHttpException();
         }
+        if (!$this->resourcePermissions->mayRestrictResourceToRegion($resource->regionId)) {
+            throw new AccessDeniedHttpException('You are not allowed to restrict the resource to the given region');
+        }
 
         $resource = $this->resourceTransactions->addResource($this->session->id(), $resource);
+
+        return $this->respondOK($resource);
+    }
+
+    #[OA\Post(summary: 'Add a new commons resource for the given region.')]
+    #[Rest\Post('resources/commons')]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: ResourceForDisplay::class))]
+    public function addCommonsResource(#[MapRequestPayload] Resource $resource): Response
+    {
+        $this->assertLoggedIn();
+        if (!$resource->regionId) {
+            throw new BadRequestHttpException('Region id must be set for commons resources');
+        }
+        if (!$this->resourcePermissions->mayEditCommonsResourcesInRegion($resource->regionId)) {
+            throw new AccessDeniedHttpException();
+        }
+
+        $resource = $this->resourceTransactions->addResource(null, $resource);
 
         return $this->respondOK($resource);
     }
@@ -89,13 +126,21 @@ class ResourceRestController extends AbstractFoodsharingRestController
     public function deleteResource(int $resourceId): Response
     {
         $this->assertLoggedIn();
+
         try {
             $ownerId = $this->resourceGateway->getResourceOwner($resourceId);
         } catch (DatabaseNoValueFoundException $e) {
             throw new NotFoundHttpException();
         }
-        if (!$this->resourcePermissions->mayDeleteResource($ownerId)) {
-            throw new AccessDeniedHttpException();
+        if (is_null($ownerId)) {
+            $resource = $this->resourceGateway->getResource($resourceId);
+            if (!$this->resourcePermissions->mayEditCommonsResourcesInRegion($resource->regionId)) {
+                throw new AccessDeniedHttpException('You are not allowed to edit this resource');
+            }
+        } else {
+            if (!$this->resourcePermissions->mayDeleteResource($ownerId)) {
+                throw new AccessDeniedHttpException('You are not allowed to edit this resource');
+            }
         }
 
         $this->resourceTransactions->deleteResource($resourceId);
@@ -115,8 +160,14 @@ class ResourceRestController extends AbstractFoodsharingRestController
         } catch (DatabaseNoValueFoundException $e) {
             throw new NotFoundHttpException();
         }
-        if (!$this->resourcePermissions->mayEditResource($ownerId)) {
-            throw new AccessDeniedHttpException();
+        if (is_null($ownerId) ?
+            !$this->resourcePermissions->mayEditCommonsResourcesInRegion($resource->regionId) :
+            !$this->resourcePermissions->mayEditResource($ownerId)
+        ) {
+            throw new AccessDeniedHttpException('You are not allowed to edit this resource');
+        }
+        if (!$this->resourcePermissions->mayRestrictResourceToRegion($resource->regionId)) {
+            throw new AccessDeniedHttpException('You are not allowed to restrict the resource to the given region');
         }
 
         $this->resourceTransactions->editResource($resourceId, $resource);
@@ -146,5 +197,22 @@ class ResourceRestController extends AbstractFoodsharingRestController
         $this->resourceGateway->unfavoriteResource($this->session->id(), $resourceId);
 
         return $this->respondOK();
+    }
+
+    #[OA\Get(summary: 'Get the current users permissions related to resources in a given region.')]
+    #[Rest\Get('region/{regionId}/resources/permissions', requirements: ['regionId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    public function getResourcePermissionsForRegion(int $regionId): Response
+    {
+        $this->assertLoggedIn();
+        if (!$this->resourcePermissions->maySeeResources($regionId)) {
+            throw new AccessDeniedHttpException();
+        }
+
+        $permissions = [
+            'mayEditCommonsResourcesInRegion' => $this->resourcePermissions->mayEditCommonsResourcesInRegion($regionId),
+        ];
+
+        return $this->respondOK($permissions);
     }
 }

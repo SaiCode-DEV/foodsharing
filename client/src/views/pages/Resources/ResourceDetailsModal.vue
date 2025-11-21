@@ -9,7 +9,7 @@
     >
       <template #modal-header="{ close }">
         <h5>
-          {{ selectedResource.name }}
+          <span ref="resourceName" v-text="selectedResource.name" />
           <i
             v-if="props.selectedResource.isFavorite"
             v-b-tooltip="$t('resource_mosaic.favorite_tooltip')"
@@ -34,18 +34,37 @@
         </button>
       </template>
       <div class="d-flex">
-        <div class="mr-2">
+        <div v-if="props.selectedResource.user" class="d-none d-md-block mr-2">
           <Avatar
             :user="props.selectedResource.user"
             tooltip=""
             :size="100"
             class="d-block"
           />
-          <b class="modal-unser-name" v-text="props.selectedResource.user.name" />
+          <b
+            ref="userNameDesktop"
+            class="modal-user-name"
+            v-text="props.selectedResource.user?.name"
+          />
         </div>
         <div class="w-100">
+          <div v-if="props.selectedResource.user" class="d-block d-md-none mb-2">
+            <Avatar
+              :user="props.selectedResource.user"
+              tooltip=""
+              :size="75"
+            />
+            <h6 class="d-inline ml-1">
+              <a
+                ref="userNameMobile"
+                :href="$url('profile', props.selectedResource.user.id)"
+                v-text="props.selectedResource.user?.name"
+              />:
+            </h6>
+          </div>
           <Markdown
             v-if="props.selectedResource.description"
+            ref="description"
             :source="props.selectedResource.description"
             class="mb-3"
           />
@@ -69,6 +88,16 @@
             <i class="fas fa-user-friends" />
             <i v-text="$t('resource_mosaic.is_private_hint')" />
           </p>
+          <p v-if="props.selectedResource.regionId && !props.selectedResource.user">
+            <i class="fas fa-people-group" />
+            <i v-text="$t('resource_mosaic.is_commons')" />
+            <!-- TODO maybe add Info element? -->
+          </p>
+          <p v-if="props.selectedResource.regionId">
+            <i class="fas fa-location-pin-lock" />
+            <b>Eingeschränkt auf: </b>
+            <a :href="url('resources', region.id)">{{ region.name }}</a>
+          </p>
           <Gallery :images="props.selectedResource.images" :height-in-px="100" />
         </div>
       </div>
@@ -84,7 +113,7 @@
       </div>
       <div v-if="otherResourcesOfSameUser.length">
         <hr>
-        <h6 v-text="$t(`resource_mosaic.other_resources.${isOwnSelected ? 'own' : 'other'}`, { user: props.selectedResource.user.name })" />
+        <h6 v-text="$t(`resource_mosaic.other_resources.${sameUserTranslationKey}`, { user: props.selectedResource.user?.name })" />
         <ResourceTag
           v-for="resource in otherResourcesOfSameUser"
           :key="resource.id"
@@ -107,14 +136,14 @@
       </div>
       <template #modal-footer>
         <b-button
-          v-if="isOwnSelected"
+          v-if="mayEditSelected"
           variant="danger"
-          @click="$emit('delete')"
+          @click="removeResource()"
         >
           <i class="fas fa-trash" /> {{ $t('button.delete') }}
         </b-button>
         <b-button
-          v-if="isOwnSelected"
+          v-if="mayEditSelected"
           variant="primary"
           @click="$emit('edit')"
         >
@@ -127,12 +156,12 @@
         <b-button
           v-if="!isOwnSelected"
           :variant="props.selectedResource.isFavorite ? 'warning' : 'outline-warning'"
-          @click="$emit('favorite', !props.selectedResource.isFavorite)"
+          @click="favorite()"
         >
           <i class="fas fa-star" /> {{ $t('resource_mosaic.favorite') }}
         </b-button>
         <b-button
-          v-if="!isOwnSelected"
+          v-if="!isOwnSelected && props.selectedResource.user"
           variant="primary"
           @click="$refs.messageModal.show()"
         >
@@ -141,15 +170,16 @@
       </template>
     </b-modal>
     <b-modal
+      v-if="props.selectedResource.user"
       ref="messageModal"
       :title="$t('resource_mosaic.message_modal.title', { name: props.selectedResource.name })"
       centered
       :ok-disabled="!message.length"
       :ok-title="$t('button.send')"
       :cancel-title="$t('button.cancel')"
-      @ok="$emit('request', message)"
+      @ok="sendRequest(message)"
     >
-      {{ $t('resource_mosaic.message_modal.intro', { owner: props.selectedResource.user.name }) }}
+      {{ $t('resource_mosaic.message_modal.intro', { owner: props.selectedResource.user?.name }) }}
       <blockquote class="mb-3">
         {{ $t('resource_mosaic.message_modal.request_for') }} "<a href="#" v-text="props.selectedResource.name" />":
         <b-form-textarea
@@ -174,21 +204,36 @@ import Avatar from '@/components/Avatar/Avatar.vue'
 import { useUserStore } from '@/stores/user.js'
 import { setUrlParam } from '@/browser'
 import { useResourceStore } from '@/stores/resources'
+import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 import Gallery from '@/components/Images/Gallery.vue'
 import Info from '@/components/Help/Info.vue'
+import { getConversationIdForConversationWithUser, sendMessage } from '@/api/conversations'
+import i18n from '@/helper/i18n'
+import { pulseSuccess } from '@/script'
+import { url } from '@/helper/urls'
+import { useRegionStore } from '@/stores/regions'
+import DataGroups from '@/stores/groups'
 
 const userStore = useUserStore()
 const resourceStore = useResourceStore()
+const regionStore = useRegionStore()
+const { confirmationDialogue } = useConfirmationDialogue()
 
 const emit = defineEmits(['update:selectedResource'])
 
 const props = defineProps({
   selectedResource: { type: Object, default: null },
   newSinceId: { type: Number, default: null },
+  searchString: { type: String, default: '' },
+  groupId: { type: Number, default: 0 }, // required for sending requests
 })
 const categoriesMap = computed(() => resourceStore.categoriesMap)
 
 const modal = ref(null)
+const description = ref(null)
+const resourceName = ref(null)
+const userNameDesktop = ref(null)
+const userNameMobile = ref(null)
 const message = ref('')
 const previousResourcesStack = ref([])
 
@@ -197,13 +242,24 @@ watch(() => props.selectedResource, async () => {
   setUrlParam('resourceId', props.selectedResource?.id)
   if (!props.selectedResource) {
     previousResourcesStack.value = []
-    return modal?.value?.hide?.()
+    return modal.value?.hide?.()
   }
   modal.value.show()
   previousResourcesStack.value.push(props.selectedResource)
+
+  setSearchResultHighlight()
 })
 
 const isOwnSelected = computed(() => props.selectedResource?.user?.id === userStore.getUserId)
+
+const mayEditSelected = computed(() =>
+  isOwnSelected.value ||
+  (
+    resourceStore.permissions.mayEditCommonsResourcesInRegion &&
+    props.selectedResource.regionId === props.groupId &&
+    !props.selectedResource?.user
+  ),
+)
 
 const similarResources = computed(() => {
   if (!props.selectedResource.categories.length) return []
@@ -213,13 +269,26 @@ const similarResources = computed(() => {
 })
 
 const otherResourcesOfSameUser = computed(() => {
-  return resourceStore.getResourcesByUser(props.selectedResource.user.id)
+  return resourceStore.getResourcesByUser(props.selectedResource.user?.id)
     .filter(resource => resource.id !== props.selectedResource.id)
 })
 
 const newResources = computed(() => {
   if (!props.newSinceId || props.selectedResource.id < props.newSinceId) return []
   return resourceStore.resources.filter(resource => resource.id >= props.newSinceId && resource.isHomeRegion)
+})
+
+const groups = computed(() => DataGroups.getters.get() ?? [])
+const region = computed(() => {
+  if (!props.selectedResource.regionId) return null
+  return regionStore.findRegion(props.selectedResource.regionId) ?? groups.value.find(group => group.id === props.selectedResource.regionId) ?? null
+})
+
+const sameUserTranslationKey = computed(() => {
+  if (!props.selectedResource?.user) {
+    return 'commons'
+  }
+  return isOwnSelected ? 'own' : 'other'
 })
 
 function toPrevious () {
@@ -229,12 +298,75 @@ function toPrevious () {
   emit('update:selectedResource', previousResourcesStack.value.pop())
 }
 
+async function setSearchResultHighlight () {
+  if (!CSS.highlights || !window.Highlight || !props.searchString) return
+  CSS.highlights.clear()
+
+  // wait for modal to be ready
+  for (let i = 0; !description.value?.$el; i++) {
+    await nextTick()
+    if (i > 5) return
+  }
+  await nextTick()
+
+  const elementsToSearch = [description.value.$el, resourceName.value, userNameDesktop.value, userNameMobile.value]
+  const allTextNodes = []
+  for (const element of elementsToSearch) {
+    if (!element) continue
+    const treeWalker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT)
+    for (let node; (node = treeWalker.nextNode());) allTextNodes.push(node)
+  }
+
+  const queryWords = props.searchString.toLowerCase().split(/\s+/)
+  if (!queryWords.length) return
+
+  const wordPattern = new RegExp(queryWords.map(w =>
+    w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'),
+  ).join('|'), 'gi')
+
+  const ranges = []
+  for (const el of allTextNodes) {
+    const text = el.textContent
+    for (const match of text.matchAll(wordPattern)) {
+      const range = new Range()
+      range.setStart(el, match.index)
+      range.setEnd(el, match.index + match[0].length)
+      ranges.push(range)
+    }
+  }
+
+  const searchResultsHighlight = new window.Highlight(...ranges.flat())
+  CSS.highlights.set('search-results', searchResultsHighlight)
+}
+
+async function removeResource () {
+  if (!await confirmationDialogue('resource_mosaic.confirm_delete')) return
+  await resourceStore.removeResource(props.selectedResource.id)
+  emit('update:selectedResource', null)
+}
+
+function favorite () {
+  resourceStore.favoriteResource(props.selectedResource.id, !props.selectedResource.isFavorite)
+}
+
+async function sendRequest (message) {
+  const conversationId = (await getConversationIdForConversationWithUser(props.selectedResource.user.id)).id
+  let header = i18n('resource_mosaic.message_modal.request_for')
+  header = `> ${header} "[${props.selectedResource.name}](${url('resource', props.groupId, props.selectedResource.id)})"\n\n`
+  await sendMessage(conversationId, header + message)
+  pulseSuccess(i18n('resource_mosaic.message_modal.request_sent'))
+}
 </script>
 <style scoped>
-.modal-unser-name {
+.modal-user-name {
   width: 0;
   min-width: 100%;
   text-align: center;
   display: inline-block;
+}
+</style>
+<style>
+::highlight(search-results) {
+  background-color: var(--fs-color-info-alpha-30);
 }
 </style>

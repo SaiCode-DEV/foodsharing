@@ -90,6 +90,7 @@ class ResourceApiCest
             'isPrivate' => false,
             'openness' => 4,
             'images' => [],
+            'regionId' => null
         ]);
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseContainsJson([
@@ -103,6 +104,7 @@ class ResourceApiCest
                 'id' => $user['id'],
                 'name' => $user['name'],
             ],
+            'regionId' => null
         ]);
         $I->seeInDatabase('fs_resource', [
             'foodsaver_id' => $user['id'],
@@ -110,6 +112,7 @@ class ResourceApiCest
             'description' => 'description',
             'is_private' => false,
             'openness' => 4,
+            'region_id' => null
         ]);
         $resourceId = $I->grabFromDatabase('fs_resource', 'id', ['foodsaver_id' => $user['id'], 'name' => 'resource1']);
         $I->seeInDatabase('fs_resource_has_category', [
@@ -134,6 +137,7 @@ class ResourceApiCest
                 'isPrivate' => false,
                 'openness' => 4,
                 'images' => [],
+                'regionId' => null
             ]);
             if ($i < 11) {
                 $I->seeResponseCodeIs(Http::OK);
@@ -166,7 +170,7 @@ class ResourceApiCest
 
     public function canEditOwnResource(ApiTester $I): void
     {
-        $user = $this->setupUser($I);
+        [$user, $region] = $this->setupUserAndRegion($I);
         $categoryIds = $this->addResourceCategories($I);
         $resourceId = $I->addResource($user['id'], 'resource1', 'description', [$categoryIds[0], $categoryIds[1]], false, 4);
         $I->haveHttpHeader('Content-Type', 'application/json');
@@ -177,6 +181,7 @@ class ResourceApiCest
             'isPrivate' => true,
             'openness' => 5,
             'images' => [],
+            'regionId' => $region['id'],
         ]);
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseContainsJson([
@@ -185,6 +190,7 @@ class ResourceApiCest
             'categories' => [$categoryIds[0], $categoryIds[2]],
             'isPrivate' => true,
             'openness' => 5,
+            'regionId' => $region['id'],
         ]);
         $I->seeInDatabase('fs_resource', [
             'id' => $resourceId,
@@ -193,6 +199,7 @@ class ResourceApiCest
             'description' => 'updated description',
             'is_private' => true,
             'openness' => 5,
+            'region_id' => $region['id'],
         ]);
         $I->seeInDatabase('fs_resource_has_category', ['resource_id' => $resourceId, 'category_id' => $categoryIds[0]]);
         $I->seeInDatabase('fs_resource_has_category', ['resource_id' => $resourceId, 'category_id' => $categoryIds[2]]);
@@ -241,6 +248,156 @@ class ResourceApiCest
             'id' => $resourceId,
             'isFavorite' => false,
         ]]);
+    }
+
+    public function canSeeRestrictedResourcesInSubregions(ApiTester $I): void
+    {
+        [$user, $region] = $this->setupUserAndRegion($I);
+        $subregion = $I->createRegion(null, ['type' => UnitType::CITY, 'parent_id' => $region['id']], false);
+        $otherRegion = $I->createRegion(null, ['type' => UnitType::CITY], false);
+        $I->addRegionMember($subregion['id'], $user['id']);
+        $I->addRegionMember($otherRegion['id'], $user['id']);
+
+        $resourceId = $I->addResource($user['id'], 'resource', null, [], false, 3, $region['id']);
+
+        $I->sendGet('api/region/' . $region['id'] . '/resources');
+        $I->seeResponseCodeIs(Http::OK);
+        $I->seeResponseContainsJson([['id' => $resourceId, 'regionId' => $region['id']]]);
+
+        $I->sendGet('api/region/' . $subregion['id'] . '/resources');
+        $I->seeResponseCodeIs(Http::OK);
+        $I->seeResponseContainsJson([['id' => $resourceId, 'regionId' => $region['id']]]);
+
+        $I->sendGet('api/region/' . $otherRegion['id'] . '/resources');
+        $I->seeResponseCodeIs(Http::OK);
+        $I->dontSeeResponseContainsJson([['id' => $resourceId]]);
+    }
+
+    public function canCreateCommonsResourceAsAdmin(ApiTester $I): void
+    {
+        [$user, $region] = $this->setupUserAndRegion($I);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPost('api/resources/commons', [
+            'name' => 'resource1',
+            'description' => 'description',
+            'categories' => [],
+            'isPrivate' => false,
+            'openness' => 4,
+            'images' => [],
+            'regionId' => $region['id'],
+        ]);
+        $I->seeResponseCodeIs(Http::FORBIDDEN);
+
+        $ambassador = $I->createAmbassador();
+        $I->addRegionMember($region['id'], $ambassador['id']);
+        $I->addRegionAdmin($region['id'], $ambassador['id']);
+        $I->login($ambassador['email']);
+
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPost('api/resources/commons', [
+            'name' => 'resource1',
+            'description' => 'description',
+            'categories' => [],
+            'isPrivate' => false,
+            'openness' => 4,
+            'images' => [],
+            'regionId' => $region['id'],
+        ]);
+        $I->seeResponseCodeIs(Http::OK);
+
+        $I->seeResponseContainsJson([
+            'name' => 'resource1',
+            'description' => 'description',
+            'categories' => [],
+            'isPrivate' => false,
+            'openness' => 4,
+            'images' => [],
+            'user' => null,
+            'regionId' => $region['id'],
+        ]);
+        $I->seeInDatabase('fs_resource', [
+            'foodsaver_id' => null,
+            'name' => 'resource1',
+            'description' => 'description',
+            'is_private' => false,
+            'openness' => 4,
+            'region_id' => $region['id'],
+        ]);
+    }
+
+    public function canEditCommonsResourceAsAdmin(ApiTester $I): void
+    {
+        [$user, $region] = $this->setupUserAndRegion($I);
+        $resourceId = $I->addResource(null, 'resource', null, [], true, 3, $region['id']);
+
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/resources/' . $resourceId, [
+            'name' => 'updated name',
+            'description' => 'updated description',
+            'categories' => [],
+            'isPrivate' => true,
+            'openness' => 5,
+            'images' => [],
+            'regionId' => $region['id'],
+        ]);
+
+        $I->seeResponseCodeIs(Http::FORBIDDEN);
+
+        $ambassador = $I->createAmbassador();
+        $I->addRegionMember($region['id'], $ambassador['id']);
+        $I->addRegionAdmin($region['id'], $ambassador['id']);
+        $I->login($ambassador['email']);
+
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/resources/' . $resourceId, [
+            'name' => 'updated name',
+            'description' => 'updated description',
+            'categories' => [],
+            'isPrivate' => false,
+            'openness' => 4,
+            'images' => [],
+            'regionId' => $region['id'],
+        ]);
+        $I->seeResponseCodeIs(Http::OK);
+
+        $I->seeResponseContainsJson([
+            'name' => 'updated name',
+            'description' => 'updated description',
+            'categories' => [],
+            'isPrivate' => false,
+            'openness' => 4,
+            'images' => [],
+            'user' => null,
+            'regionId' => $region['id'],
+        ]);
+        $I->seeInDatabase('fs_resource', [
+            'foodsaver_id' => null,
+            'name' => 'updated name',
+            'description' => 'updated description',
+            'is_private' => false,
+            'openness' => 4,
+            'region_id' => $region['id'],
+        ]);
+    }
+
+    public function canDeleteCommonsResourceAsAdmin(ApiTester $I): void
+    {
+        [$user, $region] = $this->setupUserAndRegion($I);
+        $resourceId = $I->addResource(null, 'resource', null, [], true, 3, $region['id']);
+
+        $I->sendDelete('api/resources/' . $resourceId);
+        $I->seeResponseCodeIs(Http::FORBIDDEN);
+
+        $ambassador = $I->createAmbassador();
+        $I->addRegionMember($region['id'], $ambassador['id']);
+        $I->addRegionAdmin($region['id'], $ambassador['id']);
+        $I->login($ambassador['email']);
+
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendDelete('api/resources/' . $resourceId);
+        $I->seeResponseCodeIs(Http::OK);
+
+        $I->dontSeeInDatabase('fs_resource', ['id' => $resourceId]);
     }
 
     private function setupUserAndRegion(ApiTester $I): array

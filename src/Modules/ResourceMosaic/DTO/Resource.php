@@ -40,4 +40,7 @@ class Resource
         new Assert\Regex('/^\/api\/uploads\/[0-9a-f\-]+$/'),
     ])]
     public array $images;
+
+    #[Assert\Positive()]
+    public ?int $regionId;
 }

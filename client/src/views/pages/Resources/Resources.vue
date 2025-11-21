@@ -1,7 +1,7 @@
 <template>
   <div>
     <Container
-      :title="$t('resource_mosaic.my_resources')"
+      :title="$t('resource_mosaic.my_resources_in', { groupName })"
       info-key="my_resources"
     >
       <div v-if="!resources" class="list-group-item text-center">
@@ -18,28 +18,49 @@
           />
         </span>
       </div>
-      <div v-else class="list-group-item">
-        <div class=" text-center">
-          <ResourceTag
-            v-for="resource in myResources"
-            :key="resource.id"
-            :resource="resource"
-            @open="selectedResource = resource"
-          />
-        </div>
+      <div v-else class="list-group-item text-center">
+        <ResourceTag
+          v-for="resource in myResources"
+          :key="resource.id"
+          :resource="resource"
+          @open="selectedResource = resource"
+        />
         <p v-if="!myResources?.length" v-text="$t('resource_mosaic.no_own_resources')" />
       </div>
       <div
-        v-if="hasMaxResources"
+        v-if="hasMaxResources || resourceStore.otherOwnResourceCount"
         class="list-group-item text-center"
-        v-text="$t('resource_mosaic.max_resources', { max: MAX_OWN_RESOURCES })"
-      />
+      >
+        <div v-if="hasMaxResources" v-text="$t('resource_mosaic.max_resources', { max: MAX_OWN_RESOURCES })" />
+        <div v-if="resourceStore.otherOwnResourceCount" v-text="$t('resource_mosaic.has_resources_elsewhere', { count: resourceStore.otherOwnResourceCount, groupName: props.groupName })" />
+      </div>
       <ContainerButton
         v-if="resources && !hasMaxResources"
         variant="success"
         text-key="resource_mosaic.add"
         icon="fas fa-plus"
-        @click="editResourceModal?.showNew()"
+        @click="editResourceModal?.showNew(false)"
+      />
+    </Container>
+    <Container
+      v-if="resources && resourceStore.permissions.mayEditCommonsResourcesInRegion"
+      :title="$t('resource_mosaic.commons_resources_in', { groupName })"
+      info-key="commons_resources"
+    >
+      <div class="list-group-item text-center">
+        <ResourceTag
+          v-for="resource in commonsResources"
+          :key="resource.id"
+          :resource="resource"
+          @open="selectedResource = resource"
+        />
+        <p v-if="!commonsResources?.length" v-text="$t('resource_mosaic.no_commons_resources', { groupName })" />
+      </div>
+      <ContainerButton
+        variant="success"
+        text-key="resource_mosaic.add_commons"
+        icon="fas fa-people-group"
+        @click="editResourceModal?.showNew(true)"
       />
     </Container>
     <Container
@@ -50,6 +71,12 @@
         <div class="filter-section mb-2">
           <div class="row">
             <div class="col-md-8 order-md-1 mb-2">
+              <b-input
+                v-model="searchString"
+                :placeholder="$t('resource_mosaic.search_placeholder')"
+              />
+            </div>
+            <div class="col-md-8 order-md-3 mb-2">
               <Multiselect
                 v-model="selectedCategories"
                 class="category-select"
@@ -61,12 +88,6 @@
                 label="name"
                 :placeholder="$t('resource_mosaic.categories_filter_placeholder')"
                 :show-labels="false"
-              />
-            </div>
-            <div class="col-md-8 order-md-3 mb-2">
-              <b-input
-                v-model="searchString"
-                :placeholder="$t('resource_mosaic.search_placeholder')"
               />
             </div>
             <div class="col-md-4 align-content-center order-md-2">
@@ -136,16 +157,15 @@
       ref="resourceDetailsModal"
       :selected-resource.sync="selectedResource"
       :new-since-id="newSinceId"
-      @delete="removeResource"
+      :search-string="searchString"
+      :group-id="props.groupId"
       @edit="editResourceModal.showEdit(selectedResource)"
-      @request="sendRequest"
-      @favorite="favorite"
     />
     <EditResourceModal
       v-if="resources"
       ref="editResourceModal"
-      @add="addResource"
-      @edit="editResource"
+      :current-region-id="groupId"
+      @update:selected-resource="selectedResource = $event"
     />
   </div>
 </template>
@@ -153,22 +173,18 @@
 import Container from '@/components/Container/Container.vue'
 import ResourceTag from './ResourceTag.vue'
 import { defineProps, onMounted, ref, computed, nextTick } from 'vue'
-import { pulseSuccess, pulseWarning } from '@/script'
+import { pulseWarning } from '@/script'
 import Multiselect from 'vue-multiselect'
 import { useUserStore } from '@/stores/user.js'
 import ContainerButton from '@/components/Container/ContainerButton.vue'
 import ResourceDetailsModal from './ResourceDetailsModal.vue'
 import EditResourceModal from './EditResourceModal.vue'
-import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
-import { getConversationIdForConversationWithUser, sendMessage } from '@/api/conversations'
-import { url } from '@/helper/urls'
 import i18n from '@/helper/i18n'
 import PaginatedContent from '@/components/Container/PaginatedContent.vue'
 import { GET } from '@/browser'
 import { useResourceStore } from '@/stores/resources'
 import { useRegionStore } from '@/stores/regions'
 
-const { confirmationDialogue } = useConfirmationDialogue()
 const userStore = useUserStore()
 const resourceStore = useResourceStore()
 const regionStore = useRegionStore()
@@ -182,7 +198,7 @@ const MAX_OWN_RESOURCES = ref(10)
 const selectedCategories = ref([])
 const searchString = ref('')
 const includeActiveUsersOnly = ref(false)
-const includeHomeRegionUsersOnly = ref(false)
+const includeHomeRegionUsersOnly = ref(true)
 const includeFavoritesOnly = ref(false)
 const selectedResource = ref(null)
 const resourceDetailsModal = ref(null)
@@ -213,8 +229,12 @@ function nextSorting () {
 }
 
 onMounted(async () => {
-  await resourceStore.fetchResourceCategories()
+  await Promise.all([
+    resourceStore.fetchResourceCategories(),
+    resourceStore.fetchResourcePermissions(props.groupId),
+  ])
   await resourceStore.fetchResources(props.groupId)
+  resourceStore.fetchOtherOwnResourceCount(props.groupId)
   resourceStore.shuffleResources()
 
   await nextTick()
@@ -230,7 +250,8 @@ const resources = computed(() => resourceStore.resources)
 const resourceCategories = computed(() => resourceStore.categories)
 
 const myResources = computed(() => resourceStore.getResourcesByUser(userStore.getUserId))
-const hasMaxResources = computed(() => myResources?.value?.length >= MAX_OWN_RESOURCES.value)
+const commonsResources = computed(() => resources.value.filter(resource => !resource.user && resource.regionId === props.groupId))
+const hasMaxResources = computed(() => myResources?.value?.length + resourceStore.otherOwnResourceCount >= MAX_OWN_RESOURCES.value)
 
 const filtered = computed(() => {
   if (!resources.value) return null
@@ -238,7 +259,7 @@ const filtered = computed(() => {
   if (includeFavoritesOnly.value) {
     selected = selected.filter(resource => resource.isFavorite)
   }
-  if (includeHomeRegionUsersOnly.value) {
+  if (isAccessibleRegion.value && includeHomeRegionUsersOnly.value) {
     selected = selected.filter(resource => resource.isHomeRegion)
   }
   if (includeActiveUsersOnly.value) {
@@ -249,7 +270,7 @@ const filtered = computed(() => {
     selected = selected.filter(resource => {
       const description = resource.description?.toLowerCase() || ''
       return words.every(
-        word => +word === resource.user.id || resource.name.toLowerCase().includes(word) || resource.user.name.toLowerCase().includes(word) || description.includes(word),
+        word => +word === resource.user?.id || resource.name.toLowerCase().includes(word) || resource.user?.name?.toLowerCase?.()?.includes?.(word) || description.includes(word),
       )
     })
   }
@@ -266,41 +287,4 @@ const listStatus = computed(() => {
 const isAccessibleRegion = computed(() => {
   return regionStore.accessibleRegions.find(region => region.id === props.groupId)
 })
-
-async function addResource (resource) {
-  await resourceStore.addResource(resource)
-}
-async function editResource (resource) {
-  selectedResource.value = await resourceStore.editResource(selectedResource.value.id, resource)
-}
-async function removeResource () {
-  if (!await confirmationDialogue('resource_mosaic.confirm_delete')) return
-  await resourceStore.removeResource(selectedResource.value.id)
-  selectedResource.value = null
-}
-function favorite (newIsFavorite) {
-  resourceStore.favoriteResource(selectedResource.value.id, newIsFavorite)
-}
-
-async function sendRequest (message) {
-  const conversationId = (await getConversationIdForConversationWithUser(selectedResource.value.user.id)).id
-  let header = i18n('resource_mosaic.message_modal.request_for')
-  header = `> ${header} "[${selectedResource.value.name}](${url('resource', props.groupId, selectedResource.value.id)})"\n\n`
-  await sendMessage(conversationId, header + message)
-  pulseSuccess(i18n('resource_mosaic.message_modal.request_sent'))
-}
 </script>
-<style>
-/* Adjust multiselect design to input */
-.category-select .multiselect__tags { border-color: #ced4da; }
-.category-select .multiselect__placeholder { color: #6c757d; }
-.category-select .multiselect__input { border: none; }
-.category-select .multiselect__input:focus { box-shadow: none !important; }
-
-/* Make multiselect tags blue */
-.category-select .multiselect__tag {
-  background: var(--fs-color-info-500);
-  font-weight: bold;
-}
-.category-select .multiselect__tag-icon::after { color: white; }
-</style>

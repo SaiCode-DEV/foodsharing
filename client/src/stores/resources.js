@@ -1,4 +1,4 @@
-import { deleteResource, favoriteResource, getResourceCategories, getResourcesForRegion, patchResource, postResource, unfavoriteResource } from '@/api/resources'
+import { deleteResource, favoriteResource, getOwnResources, getResourceCategories, getResourcePermissions, getResourcesForRegion, patchResource, postCommonsResource, postResource, unfavoriteResource } from '@/api/resources'
 import { shuffle } from '@/script'
 import { defineStore } from 'pinia'
 
@@ -9,6 +9,8 @@ export const useResourceStore = defineStore('resource', {
     return {
       categories: null, // array of categories as {id, name} object
       resources: null, // array of resource objects
+      otherOwnResourceCount: null, // count of own resources that isn't included in the currently loaded array of resources
+      permissions: null,
     }
   },
   getters: {
@@ -21,9 +23,29 @@ export const useResourceStore = defineStore('resource', {
     async fetchResources (regionId) {
       this.resources = await getResourcesForRegion(regionId)
     },
-    async addResource (resource) {
-      resource = await postResource(resource)
+    async fetchOwnResources () {
+      this.resources = await getOwnResources()
+    },
+    /**
+     * make sure that this.resources is loaded before calling this
+     */
+    async fetchOtherOwnResourceCount () {
+      const ownResources = await getOwnResources()
+      const ownIds = new Set(ownResources.map(resource => resource.id))
+      const resourcesIds = new Set(this.resources.map(resource => resource.id))
+      this.otherOwnResourceCount = ownIds.difference(resourcesIds).size
+    },
+    async fetchResourcePermissions (regionId) {
+      this.permissions = await getResourcePermissions(regionId)
+    },
+    async addResource (resource, isCommonsResource = false) {
+      if (isCommonsResource) {
+        resource = await postCommonsResource(resource)
+      } else {
+        resource = await postResource(resource)
+      }
       this.resources.push(resource)
+      return resource
     },
     async editResource (resourceId, resource) {
       resource = await patchResource(resourceId, resource)
@@ -52,7 +74,7 @@ export const useResourceStore = defineStore('resource', {
       this.resources.sort((a, b) => b[key] - a[key])
     },
     getResourcesByUser (userId) {
-      return this.resources?.filter(resource => resource.user.id === userId)
+      return this.resources?.filter(resource => resource.user?.id === userId)
     },
     getResourcesByCategories (categoryIds) {
       if (!categoryIds.length) return [...this.resources]

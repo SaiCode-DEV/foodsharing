@@ -31,15 +31,17 @@ class ResourceTransactions
     /**
      * Adds a resource including categories.
      */
-    public function addResource(int $userId, Resource $resource): ResourceForDisplay
+    public function addResource(?int $userId, Resource $resource): ResourceForDisplay
     {
         $resourceId = $this->resourceGateway->insertResource($userId, $resource);
         $this->resourceGateway->setResourceCategories($resourceId, $resource->categories);
         $this->tagImages($resourceId, $resource->images);
         $resource = $this->resourceGateway->getResource($resourceId);
-        $bellData = $this->getGroupedBellEventData($resource);
-        if (!is_null($bellData)) {
-            $this->bellTransactions->addGroupedBellEvent(...$bellData);
+        if (!is_null($userId)) {
+            $bellData = $this->getGroupedBellEventData($resource);
+            if (!is_null($bellData)) {
+                $this->bellTransactions->addGroupedBellEvent(...$bellData);
+            }
         }
 
         return $resource;
@@ -67,9 +69,11 @@ class ResourceTransactions
     {
         // remove bell
         $resource = $this->resourceGateway->getResource($resourceId);
-        $bellData = $this->getGroupedBellEventData($resource);
-        if (!is_null($bellData)) {
-            $this->bellTransactions->removeGroupedBellEvent(...$bellData);
+        if (!is_null($resource->user)) {
+            $bellData = $this->getGroupedBellEventData($resource);
+            if (!is_null($bellData)) {
+                $this->bellTransactions->removeGroupedBellEvent(...$bellData);
+            }
         }
 
         // remove images
@@ -112,5 +116,16 @@ class ResourceTransactions
         );
 
         return [$bellRecipients, $bell, $resource->id];
+    }
+
+    /**
+     * @return ResourceForDisplay[]
+     */
+    public function getResourcesForRegion(int $regionId, int $foodsaverId): array
+    {
+        $userResources = $this->resourceGateway->getUserResourcesForRegion($regionId, $foodsaverId);
+        $commonsResources = $this->resourceGateway->getCommonsResourcesForRegion($regionId, $foodsaverId);
+
+        return array_merge($userResources, $commonsResources);
     }
 }
