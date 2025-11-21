@@ -55,6 +55,7 @@
           :conceal-toolbar="true"
           variant="outline-primary"
           :region-id="regionId"
+          :draft-storage-id="'event-description-' + event.regionId"
         />
       </b-form-group>
 

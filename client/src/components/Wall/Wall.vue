@@ -15,6 +15,7 @@
         :conceal-toolbar="true"
         :value="newPostText"
         :allow-image-attachments="allowImageAttachments"
+        :draft-storage-id="'wall-new-post-' + target + '-' + targetId"
         @update:value="newValue => newPostText = newValue"
         @submit="writePost"
         @image-change="newValue => hasImages = newValue"

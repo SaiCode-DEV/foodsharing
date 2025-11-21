@@ -147,6 +147,7 @@
             :value="v$.description.$model"
             :state="v$.description.$error ? false : null"
             :placeholder="$t('poll.new_poll.description_placeholder')"
+            :draft-storage-id="'poll-description-' + region.id"
             :region-id="region.id"
             @update:value="newValue => v$.description.$model = newValue"
           />

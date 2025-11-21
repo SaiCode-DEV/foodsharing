@@ -164,8 +164,8 @@ export default {
     hasImages () {
       this.$emit('image-change', this.hasImages)
     },
-    uniqueId () {
-      // Load input from localStorage if uniqueId changes
+    draftStorageId () {
+      // Load input from localStorage if draftStorageId changes
       // This is necessary on, e.g., forum threads
       this.loadInputFromLocalStorage()
     },
@@ -182,22 +182,22 @@ export default {
   },
   methods: {
     saveInputToLocalStorage (value) {
-      if (!this.uniqueId) return
-      const storageKey = 'markdown-input-' + this.uniqueId
+      if (!this.draftStorageId) { console.log('No draftStorageId provided, skipping localStorage save.'); return }
+      const storageKey = 'markdown-input-' + this.draftStorageId
       localStorage.setItem(storageKey, value)
       console.log('Saved to localStorage:', storageKey, value)
     },
     loadInputFromLocalStorage () {
-      if (!this.uniqueId) return
-      const storageKey = 'markdown-input-' + this.uniqueId
+      if (!this.draftStorageId) return
+      const storageKey = 'markdown-input-' + this.draftStorageId
       const savedValue = localStorage.getItem(storageKey)
       if (savedValue !== null) {
         this.modelValue = savedValue
       }
     },
     clearInputFromLocalStorage () {
-      if (!this.uniqueId) return
-      const storageKey = 'markdown-input-' + this.uniqueId
+      if (!this.draftStorageId) return
+      const storageKey = 'markdown-input-' + this.draftStorageId
       localStorage.removeItem(storageKey)
       console.log('Cleared from localStorage:', storageKey)
     },
