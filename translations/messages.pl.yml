@@ -471,6 +471,7 @@ group:
         invalid_passport: legitymacja nieważna
         verified: zweryfikowany/a
         unverified: niezweryfikowany/a
+        with_passport: z legitymacją
     remove_admin_title: usuń jako administratora/kę
     remove_ambassador_title: usuń jako ambasadora/kę
     remove_admin_text: Czy na pewno chcesz usunąć {name} ({id}) jako 
@@ -513,6 +514,16 @@ legal:
     this_gets_deleted_friendlist: Twoja lista przyjaciół zostanie usunięta.
     this_doesnt_get_deleted_name: Twoje imię
     this_doesnt_get_deleted_address: Twój adres
+    this_gets_deleted_main: 'Poniższe informacje będą przez ciebie usunięte i nie
+      będą mogły zostać odzyskane:'
+    this_gets_deleted_verify: Twoja weryfikacja będzie usunięta.
+    this_gets_deleted_trustbananas: Banany, które dostałeś/aś od innych, będą 
+      usunięte.
+    this_doesnt_get_deleted_history: Historia twojej weryfikacji
+  privacy_notice_agree:
+    select: Proszę wybrać
+    acknowledge: Zgadzam się.
+  success: Twoje ustawienia zostały zapisane pomyślnie.
 salutation:
   "0": Drogi/a
   "1": Drogi
@@ -525,6 +536,17 @@ login:
   password: hasło
   login_button_label: zaloguj
   logout: wyloguj
+  form_title: Witamy ponownie
+  forgotten_password_label: Zapomniałeś/aś hasła?
+  save_password: Zapisz hasło
+  error_no_email: Podaj swój adres email.
+  error_no_password: Podaj swoje hasło.
+  pwreset:
+    bread: Resetuj hasło
+    wrongMail: Niestety, nie możemy odnaleźć tego adresu email. Proszę spróbować
+      ponownie.
+    success: Świetnie, twoje hasło zostało pomyślnie zmienione. Teraz możesz się
+      zalogować.
 register:
   topbar: dołącz
   title: rejestracja
