@@ -373,7 +373,15 @@ class Foodsharing {
 
   async createMailbox(name: string = null, fillMailbox: boolean = true): Promise<any> {
     if (!name) {
-      name = faker.unique().userName();
+      name = faker.internet.username();
+      let counter = 1;
+      while (await Database.seeInDatabase('fs_mailbox', { name }) && counter <= 100) {
+        name = `${faker.internet.username()}_${counter}`;
+        counter++;
+      }
+      if (counter > 100) {
+        throw new Error('Unable to generate unique mailbox name after 100 attempts');
+      }
     }
     
     const mailbox = {
@@ -489,7 +497,7 @@ class Foodsharing {
   private createRandomEmailAddress(includePersonal: boolean = true): EmailAddress {
     return {
       host: faker.internet.domainName(),
-      mailbox: faker.internet.userName(),
+      mailbox: faker.internet.username(),
       personal: includePersonal ? faker.person.fullName() : null
     };
   }
