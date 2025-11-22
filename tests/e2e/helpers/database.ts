@@ -21,10 +21,10 @@ export class Database {
     const conn = await this.connect();
 
     const whereClauses = Object.entries(criteria)
-      .map(([key, value]) => `${key} = ?`)
+      .map(([key, value]) => `\`${key}\` = ?`)
       .join(' AND ');
 
-    const query = `SELECT COUNT(*) as count FROM ${table} WHERE ${whereClauses}`;
+    const query = `SELECT COUNT(*) as count FROM \`${table}\` WHERE ${whereClauses}`;
     const values = Object.values(criteria);
 
     const [rows] = await conn.execute(query, values);
@@ -43,15 +43,15 @@ export class Database {
       whereClauses = Object.entries(criteria)
         .map(([key, value]) => {
           if (typeof value === 'string' && value.includes('%')) {
-            return `${key} LIKE ?`;
+            return `\`${key}\` LIKE ?`;
           }
-          return `${key} = ?`;
+          return `\`${key}\` = ?`;
         })
         .join(' AND ');
       values = Object.values(criteria);
     }
 
-    const query = `SELECT ${column} FROM ${table} WHERE ${whereClauses} LIMIT 1`;
+    const query = `SELECT \`${column}\` FROM \`${table}\` WHERE ${whereClauses} LIMIT 1`;
     const [rows] = await conn.execute(query, values);
 
     if (Array.isArray(rows) && rows.length > 0) {
@@ -70,15 +70,15 @@ export class Database {
       whereClauses = Object.entries(criteria)
         .map(([key, value]) => {
           if (typeof value === 'string' && value.includes('%')) {
-            return `${key} LIKE ?`;
+            return `\`${key}\` LIKE ?`;
           }
-          return `${key} = ?`;
+          return `\`${key}\` = ?`;
         })
         .join(' AND ');
       values = Object.values(criteria);
     }
 
-    const query = `SELECT ${column} FROM ${table} WHERE ${whereClauses}`;
+    const query = `SELECT \`${column}\` FROM \`${table}\` WHERE ${whereClauses}`;
     const [rows] = await conn.execute(query, values);
 
     if (Array.isArray(rows)) {
@@ -91,11 +91,11 @@ export class Database {
     try {
       const conn = await this.connect();
 
-      const columns = Object.keys(data).join(', ');
+      const columns = Object.keys(data).map(c => `\`${c}\``).join(', ');
       const placeholders = Object.keys(data).map(() => '?').join(', ');
       const values = Object.values(data);
 
-      const query = `INSERT INTO ${table} (${columns}) VALUES (${placeholders})`;
+      const query = `INSERT INTO \`${table}\` (${columns}) VALUES (${placeholders})`;
       const [result] = await conn.execute(query, values);
 
       return (result as any).insertId;
