@@ -2,7 +2,8 @@
   <div class="bootstrap">
     <div class="card rounded">
       <div class="card-header text-white bg-primary">
-        {{ $t('poll.new_poll.title') }} in {{ region.name }}
+        <span v-if="poll">{{ $t('poll.edit.title') }}</span>
+        <span v-else>{{ $t('poll.new_poll.title') }}<span v-if="region"> in {{ region.name }}</span></span>
       </div>
       <b-form
         :class="{disabledLoading: isLoading, 'card-body': true}"
@@ -30,7 +31,7 @@
           </div>
         </b-form-group>
 
-        <b-form-group class="mb-3">
+        <b-form-group v-if="!poll" class="mb-3">
           <template #label>
             {{ $t('poll.new_poll.scope') }}
             <Info info-key="pollScopes" />
@@ -47,6 +48,7 @@
         </b-form-group>
 
         <b-form-group
+          v-if="!poll"
           :label="$t('poll.new_poll.type')"
           class="mb-4"
         >
@@ -61,7 +63,7 @@
           </b-form-radio>
         </b-form-group>
 
-        <b-form-group class="mb-3 datepicker">
+        <b-form-group v-if="!poll" class="mb-3 datepicker">
           <b-form-row>
             <b-col>
               <label for="input-startdate">{{ $t('poll.new_poll.start_date') }}</label>
@@ -103,6 +105,7 @@
           </div>
         </b-form-group>
         <b-form-group
+          v-if="!poll"
           :label="$t('poll.new_poll.end_date')"
           class="mb-3 datepicker"
         >
@@ -146,9 +149,9 @@
             :rows="5"
             :value="v$.description.$model"
             :state="v$.description.$error ? false : null"
-            :placeholder="$t('poll.new_poll.description_placeholder')"
+            :placeholder="$i18n('poll.new_poll.description_placeholder')"
             :draft-storage-id="'poll-description-' + region.id"
-            :region-id="region.id"
+            :region-id="region && region.id"
             @update:value="newValue => v$.description.$model = newValue"
           />
           <div
@@ -200,6 +203,7 @@
                 v-model="v$.options.$model[index-1]"
                 trim
                 :state="v$.options.$error ? false : null"
+                :maxlength="maxOptionLength"
                 class="mr-3 mb-1"
               />
             </b-col>
@@ -214,39 +218,38 @@
           variant="primary"
           :disabled="v$.$invalid"
         >
-          {{ $t('poll.new_poll.submit') }}
+          {{ poll ? $t('poll.edit.submit') : $t('poll.new_poll.submit') }}
         </b-button>
         <div v-if="v$.$invalid" class="invalid-feedback">
           {{ $t('poll.new_poll.missing_fields') }}
         </div>
       </b-form>
     </div>
-
     <b-modal
       v-if="!isLoading"
-      ref="newPollConfirmModal"
-      :title="$t('poll.new_poll.submit')"
+      ref="pollConfirmModal"
+      :title="poll ? $t('poll.edit.title') : $t('poll.new_poll.submit')"
       :cancel-title="$t('button.cancel')"
-      :ok-title="$t('button.send')"
+      :ok-title="poll ? $t('poll.edit.submit') : $t('poll.new_poll.submit')"
       modal-class="bootstrap"
       header-class="d-flex"
       content-class="pr-3 pt-3"
       @ok="submitPoll"
     >
-      {{ $t('poll.new_poll.submit_question') }}
+      {{ poll ? $t('poll.edit.submit_question') : $t('poll.new_poll.submit_question') }}
     </b-modal>
   </div>
 </template>
 
 <script>
-import { createPoll } from '@/api/voting'
+import { createPoll, editPoll } from '@/api/voting'
 import { pulseError } from '@/script'
 import dataFormatter from '@/helper/date-formatter'
 import i18n, { locale } from '@/helper/i18n'
 import { useVuelidate } from '@vuelidate/core'
 import { required, minLength } from '@vuelidate/validators'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
-import { VOTING_TYPE } from '@/stores/polls'
+import { VOTING_TYPE, MAX_OPTION_LENGTH } from '@/stores/polls'
 import Info from '@/components/Help/Info.vue'
 
 const EDIT_TIME_HOURS = 1
@@ -257,7 +260,7 @@ function isAfterStart (dateTime) {
 }
 
 function isAfterEditTime (dateTime) {
-  return dateTime > new Date(new Date().getTime() + EDIT_TIME_HOURS * 60 * 60 * 1000)
+  return dateTime > this.editDateTime
 }
 
 // returns if the array does not contain duplicate entries
@@ -271,15 +274,23 @@ export default {
   props: {
     region: {
       type: Object,
-      required: true,
+      required: false,
+      default: null,
     },
     isWorkGroup: {
       type: Boolean,
-      required: true,
+      required: false,
+      default: false,
     },
     usersPerScope: {
       type: Array,
       default: () => [],
+    },
+    // optional: when provided, component works in edit mode
+    poll: {
+      type: Object,
+      required: false,
+      default: null,
     },
   },
   setup () {
@@ -295,12 +306,14 @@ export default {
       type: 0,
       startDate: null,
       startTime: null,
+      editDateTime: new Date(new Date().getTime() + EDIT_TIME_HOURS * 60 * 60 * 1000),
       endDate: null,
       endTime: null,
       description: '',
       numOptions: 3,
       shuffleOptions: true,
       options: Array(3).fill(''),
+      maxOptionLength: null,
       locale: locale,
       labelsTimepicker: {
         labelHours: i18n('timepicker.labelHours'),
@@ -328,19 +341,31 @@ export default {
       },
     }
   },
-  validations: {
-    name: { required, minLength: minLength(1) },
-    description: { required, minLength: minLength(1) },
-    options: {
-      required,
-      $each: {
+  // Use a function so we can return different validation rules for new vs edit mode
+  validations () {
+    const base = {
+      name: { required, minLength: minLength(1) },
+      description: { required, minLength: minLength(1) },
+      options: {
         required,
-        minLength: minLength(1),
+        $each: {
+          required,
+          minLength: minLength(1),
+        },
+        areEntriesUnique,
       },
-      areEntriesUnique,
-    },
-    startDateTime: { required, isAfterEditTime },
-    endDateTime: { required, isAfterStart },
+    }
+
+    // If we're creating a new poll, require start/end date/time
+    if (!this.poll) {
+      return Object.assign({}, base, {
+        startDateTime: { required, isAfterEditTime },
+        endDateTime: { required, isAfterStart },
+      })
+    }
+
+    // Edit mode: only validate base fields
+    return base
   },
   computed: {
     startDateTime () {
@@ -358,11 +383,12 @@ export default {
       }
     },
     formattedEditTime () {
-      const editDate = new Date(new Date().getTime() + EDIT_TIME_HOURS * 60 * 60 * 1000)
-      return dataFormatter.time(editDate)
+      return dataFormatter.time(this.editDateTime)
     },
     minNumberOfOptions () {
-      return (this.type === VOTING_TYPE.THUMB_VOTING || this.type === VOTING_TYPE.SCORE_VOTING) ? 1 : 2
+      // In edit mode, type might be undefined; fall back to stored poll.type
+      const t = (this.poll && this.poll.type !== undefined) ? this.poll.type : this.type
+      return (t === VOTING_TYPE.THUMB_VOTING || t === VOTING_TYPE.SCORE_VOTING) ? 1 : 2
     },
   },
   watch: {
@@ -380,9 +406,25 @@ export default {
     },
   },
   mounted () {
+    // Prefill for new poll
     const defaultStart = new Date(new Date().getTime() + DEFAULT_START_TIME_HOURS * 60 * 60 * 1000)
-    this.startDate = defaultStart.toISOString().split('T')[0]
-    this.startTime = dataFormatter.time(defaultStart)
+    if (!this.poll) {
+      this.startDate = defaultStart.toISOString().split('T')[0]
+      this.startTime = dataFormatter.time(defaultStart)
+    }
+
+    // Prefill from poll when editing
+    if (this.poll) {
+      this.name = this.poll.name
+      this.description = this.poll.description
+      this.numOptions = this.poll.options.length
+      this.options = this.poll.options.map(x => x.text)
+      this.maxOptionLength = MAX_OPTION_LENGTH
+      this.shuffleOptions = this.poll.shuffleOptions
+      // When editing, keep scope/type/start/end as-is (creation-only fields are hidden)
+    } else {
+      this.maxOptionLength = null
+    }
   },
   methods: {
     updateDateStartTimes () {
@@ -397,14 +439,22 @@ export default {
     },
     showConfirmDialog (e) {
       e.preventDefault()
-      this.$refs.newPollConfirmModal.show()
+      // unified modal ref name
+      this.$refs.pollConfirmModal.show()
     },
     async submitPoll (e) {
       e.preventDefault()
       this.isLoading = true
       try {
-        const poll = await createPoll(this.region.id, this.name, this.description.trim(), this.startDateTime, this.endDateTime, this.scope, this.type, this.options, this.shuffleOptions, true)
-        window.location = this.$url('poll', poll.id)
+        if (this.poll) {
+          // edit mode
+          await editPoll(this.poll.id, this.name, this.description.trim(), this.options, this.shuffleOptions)
+          window.location = this.$url('poll', this.poll.id)
+        } else {
+          // create mode
+          const poll = await createPoll(this.region.id, this.name, this.description.trim(), this.startDateTime, this.endDateTime, this.scope, this.type, this.options, this.shuffleOptions, true)
+          window.location = this.$url('poll', poll.id)
+        }
       } catch (e) {
         pulseError(i18n('error_unexpected') + ': ' + e.message)
       }

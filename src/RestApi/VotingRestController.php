@@ -205,6 +205,7 @@ class VotingRestController extends AbstractFoodsharingRestController
         }
 
         // update poll
+        $poll->shuffleOptions = $request->shuffleOptions;
         $this->votingTransactions->updatePoll($poll);
 
         return $this->respondOK($poll);

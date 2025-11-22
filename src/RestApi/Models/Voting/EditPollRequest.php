@@ -30,4 +30,11 @@ class EditPollRequest
     #[Assert\Count(min: 1)]
     #[Assert\All(new Assert\NotBlank())]
     public ?array $options = null;
+
+    #[OA\Property(
+        description: 'Whether the options should be shuffled for voters.',
+        type: 'boolean',
+        example: true
+    )]
+    public bool $shuffleOptions = false;
 }

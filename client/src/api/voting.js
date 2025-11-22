@@ -27,11 +27,12 @@ export function createPoll (regionId, name, description, startDate, endDate, sco
   })
 }
 
-export function editPoll (pollId, name, description, options) {
+export function editPoll (pollId, name, description, options, shuffleOptions) {
   return patch(`/polls/${pollId}`, {
     name: name,
     description: description,
     options: options,
+    shuffleOptions: shuffleOptions,
   })
 }
 

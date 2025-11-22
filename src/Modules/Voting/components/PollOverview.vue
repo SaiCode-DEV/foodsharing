@@ -49,6 +49,9 @@
         <li class="poll-type">
           <b>{{ $t('poll.type') }}:</b> {{ $t('poll.type_description_'+poll.type) }}
         </li>
+        <li class="poll-type">
+          <b>{{ $i18n('poll.new_poll.shuffle_options') }}:</b> {{ poll.shuffleOptions ? $i18n('terminology.yes') : $i18n('terminology.no') }}
+        </li>
         <li v-if="isPollInPast">
           <b>{{ $t('poll.results.percentage_of_votes') }}:</b> {{ percentageTurnout }} %
         </li>
