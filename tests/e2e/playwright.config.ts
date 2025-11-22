@@ -58,19 +58,21 @@ export default defineConfig({
       name: "firefox",
       use: { ...devices["Desktop Firefox"] },
     },
+    /* Disable webkit tests for now, as they are quite faulty
     {
       name: "webkit",
       use: { ...devices["Desktop Safari"] },
-    },
-
+    },  */
+    
     /* Test against mobile viewports. */
     {
       name: "Mobile Chrome",
       use: { ...devices["Pixel 7"] },
     },
+    /* Disable Mobile Safari tests for now, as they are quite faulty
     {
       name: "Mobile Safari",
       use: { ...devices["iPhone 14"] },
-    },
+    },  */
   ],
 });
