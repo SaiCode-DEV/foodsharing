@@ -1,20 +1,3 @@
-.chatbox {
-  position: fixed;
-  width: 360px;
-  display: none;
-  box-shadow: 0 0 3px var(--fs-color-gray-alpha-30);
-  z-index: 1000;
-  border: 0 none;;
-}
-
-.chatboxhead {
-  background-color: var(--fs-color-primary-300);
-  padding: 0;
-  color: var(--fs-color-primary-900);
-
-  outline: 0;
-}
-
 .linklist.linkbubble {
   background-color: var(--fs-color-light);
   padding: 3px;
@@ -32,17 +15,6 @@
   top: -6px;
   width: 0;
   z-index: 10;
-}
-
-.chatboxcontent {
-  font-size: 13px;
-  color: var(--fs-color-dark);
-  background-color: var(--fs-color-light);
-}
-
-.chatboxoptions {
-  float: right;
-  margin-right: 5px;
 }
 
 .conversation-list .pics {
