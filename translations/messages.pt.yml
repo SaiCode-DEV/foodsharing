@@ -61,6 +61,15 @@ store:
         atual, foto de perfil. Por favor, preencha esses dados. Depois, poderá tentar
         candidatar-se novamente.'
       link: Editar perfil
+    needsHomeRegion:
+      text: Não é possível candidatar-se neste momento, pois ainda não 
+        selecionou um distrito principal. Depois de selecionar um distrito 
+        principal, poderá tentar candidatar-se novamente.
+      link: Selecionar distrito principal
+    needsStoreRegion:
+      text: Não pode candidatar-se neste momento, pois ainda não pertence ao 
+        distrito operacional {região}. Quando aderir ao distrito {região}, 
+        poderá tentar candidatar-se novamente.
   jumperSince: 'Substituto desde {date}'
   days: 'dias'
   team:
