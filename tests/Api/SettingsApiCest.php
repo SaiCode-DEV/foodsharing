@@ -443,6 +443,102 @@ class SettingsApiCest
     }
 
     /**
+     * @example{ "loginUser": "foodsaver", "testUser": "foodsaver", "canRead": true }
+     * @example{ "loginUser": "foodsaver", "testUser": "ambassador", "canRead": false }
+     * @example{ "loginUser": "foodsaver", "testUser": "ambassadorWithoutRegion", "canRead": false }
+     * @example{ "loginUser": "foodsaver", "testUser": "orga", "canRead": false }
+     * @example{ "loginUser": "ambassador", "testUser": "foodsaver", "canRead": true }
+     * @example{ "loginUser": "ambassador", "testUser": "ambassador", "canRead": true }
+     * @example{ "loginUser": "ambassador", "testUser": "ambassadorWithoutRegion", "canRead": false }
+     * @example{ "loginUser": "ambassador", "testUser": "orga", "canRead": false }
+     * @example{ "loginUser": "ambassadorWithoutRegion", "testUser": "foodsaver", "canRead": false }
+     * @example{ "loginUser": "ambassadorWithoutRegion", "testUser": "ambassador", "canRead": false }
+     * @example{ "loginUser": "ambassadorWithoutRegion", "testUser": "ambassadorWithoutRegion", "canRead": true }
+     * @example{ "loginUser": "ambassadorWithoutRegion", "testUser": "orga", "canRead": false }
+     * @example{ "loginUser": "orga", "testUser": "foodsaver", "canRead": true }
+     * @example{ "loginUser": "orga", "testUser": "ambassador", "canRead": true }
+     * @example{ "loginUser": "orga", "testUser": "ambassadorWithoutRegion", "canRead": true }
+     * @example{ "loginUser": "orga", "testUser": "orga", "canRead": true }
+     */
+    public function readProfileData(ApiTester $I, Example $example): void
+    {
+        $users = (object)[
+            'foodsaver' => $this->user,
+            'ambassador' => $this->userAmbassador,
+            'ambassadorWithoutRegion' => $this->userAmbassadorWithoutRegion,
+            'orga' => $this->userOrga
+        ];
+        $loginUser = $users->{$example['loginUser']};
+        $testUser = $users->{$example['testUser']};
+
+        $I->login($loginUser['email']);
+        $I->sendGET('api/user/' . $testUser['id'] . '/profileSettings');
+
+        if ($example['canRead']) {
+            $I->seeResponseCodeIs(HttpCode::OK);
+            $I->seeResponseIsJson();
+
+            // Verify response contains correct data from database
+            $I->seeResponseContainsJson([
+                'id' => (int)$testUser['id'],
+                'firstName' => $I->grabFromDatabase('fs_foodsaver', 'name', ['id' => $testUser['id']]),
+                'lastName' => $I->grabFromDatabase('fs_foodsaver', 'nachname', ['id' => $testUser['id']]),
+                'role' => (int)$I->grabFromDatabase('fs_foodsaver', 'rolle', ['id' => $testUser['id']]),
+                'position' => $I->grabFromDatabase('fs_foodsaver', 'position', ['id' => $testUser['id']]),
+                'regionId' => (int)$I->grabFromDatabase('fs_foodsaver', 'bezirk_id', ['id' => $testUser['id']]),
+                'gender' => (int)$I->grabFromDatabase('fs_foodsaver', 'geschlecht', ['id' => $testUser['id']]),
+                'aboutMePublic' => $I->grabFromDatabase('fs_foodsaver', 'about_me_public', ['id' => $testUser['id']])
+            ]);
+
+            $photo = $I->grabFromDatabase('fs_foodsaver', 'photo', ['id' => $testUser['id']]);
+            if ($photo) {
+                $I->seeResponseContainsJson(['photo' => $photo]);
+            }
+
+            $mobile = $I->grabFromDatabase('fs_foodsaver', 'handy', ['id' => $testUser['id']]);
+            $phone = $I->grabFromDatabase('fs_foodsaver', 'telefon', ['id' => $testUser['id']]);
+
+            // At least one of mobile or phone must contain a phone number
+            $I->assertTrue($mobile !== null || $phone !== null, 'At least one phone number (mobile or phone) must be set');
+
+            if ($mobile) {
+                $I->seeResponseContainsJson(['mobile' => $mobile]);
+            }
+            if ($phone) {
+                $I->seeResponseContainsJson(['phone' => $phone]);
+            }
+
+            $birthday = $I->grabFromDatabase('fs_foodsaver', 'geb_datum', ['id' => $testUser['id']]);
+            if ($birthday) {
+                $I->seeResponseMatchesJsonType(['birthday' => 'string']);
+            }
+
+            $plz = $I->grabFromDatabase('fs_foodsaver', 'plz', ['id' => $testUser['id']]);
+            $stadt = $I->grabFromDatabase('fs_foodsaver', 'stadt', ['id' => $testUser['id']]);
+            $anschrift = $I->grabFromDatabase('fs_foodsaver', 'anschrift', ['id' => $testUser['id']]);
+            if ($plz || $stadt || $anschrift) {
+                $I->seeResponseMatchesJsonType(['address' => 'array']);
+            }
+
+            $lat = $I->grabFromDatabase('fs_foodsaver', 'lat', ['id' => $testUser['id']]);
+            $lon = $I->grabFromDatabase('fs_foodsaver', 'lon', ['id' => $testUser['id']]);
+            if ($lat && $lon) {
+                $I->seeResponseMatchesJsonType(['coordinate' => 'array']);
+            }
+
+            // aboutMeInternal is only visible for certain users
+            if ($example['loginUser'] === $example['testUser'] || $example['loginUser'] === 'orga') {
+                $aboutMeInternal = $I->grabFromDatabase('fs_foodsaver', 'about_me_intern', ['id' => $testUser['id']]);
+                if ($aboutMeInternal) {
+                    $I->seeResponseContainsJson(['aboutMeInternal' => $aboutMeInternal]);
+                }
+            }
+        } else {
+            $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
+        }
+    }
+
+    /**
      * Users are allowed to request a change of their own email. This should trigger a confirmation email. Orga users
      * that are support admins are allowed to change the email address of a profile without triggering a confirmation
      * email.

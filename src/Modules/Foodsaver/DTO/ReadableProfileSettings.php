@@ -63,8 +63,8 @@ class ReadableProfileSettings
         int $regionId = 0,
         int $gender = Gender::NOT_SELECTED,
         ?DateTime $birthday = null,
-        ?string $mobile = null,
         ?string $phone = null,
+        ?string $mobile = null,
         ?Address $location = null,
         ?GeoLocation $coordinate = null,
         string $aboutMePublic = '',
@@ -90,8 +90,8 @@ class ReadableProfileSettings
         $this->regionName = $regionName;
         $this->gender = $gender;
         $this->birthday = $birthday;
-        $this->mobile = $mobile;
         $this->phone = $phone;
+        $this->mobile = $mobile;
         $this->address = $location;
         $this->coordinate = $coordinate;
         $this->aboutMePublic = $aboutMePublic;
