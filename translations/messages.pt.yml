@@ -54,6 +54,13 @@ store:
       unknown: Endereço inválido
       close: Menos de 500 m
       normal: Cerca de {distance} km
+    completeProfileRequired:
+      text: 'Não é possível candidatar-se neste momento, pois ainda não preencheu
+        todos os dados necessários no seu perfil. Deve preencher, no mínimo, os seguintes
+        campos com informações válidas: nome, apelido, data de nascimento, endereço
+        atual, foto de perfil. Por favor, preencha esses dados. Depois, poderá tentar
+        candidatar-se novamente.'
+      link: Editar perfil
   jumperSince: 'Substituto desde {date}'
   days: 'dias'
   team:
@@ -860,6 +867,11 @@ login:
     bread: 'Redefinir palavra-passe'
     mismatch: 'Desculpe, as palavras-passe não correspondem.'
     mailSent: 'Tudo bem, foi-te mandado um link por e-mail para alterar a palavra-passe.'
+    invalidCode: O código introduzido não é válido. Por favor, tente novamente. 
+      Também pode utilizar códigos de segurança aqui.
+    request_new: Solicitar palavra-passe nova
+    token_invalid: O código de dois fatores introduzido não é válido. Por favor,
+      tente novamente.
   form_title: 'Bem-vindo de volta'
   steady_login: 'Ficar conectado'
   forgotten_password_label: 'Esqueceu a password?'
@@ -874,6 +886,7 @@ login:
   error_no_email: 'Digite o seu endereço de e-mail.'
   topbar: 'Fazer login'
   error_no_password: 'Digite a sua palavra-passe.'
+  2fa: Autenticação de dois fatores (2FA)
 profile:
   alldatesdeleted: ''
   infos:
@@ -3346,3 +3359,5 @@ help:
         (Infelizmente, até agora só em alemão)\n"
 test:
   vars: O meu nome é [NAME] e tenho [AGE] anos
+totp_code: Introduza o código de dois fatores gerado ou um dos códigos de 
+  backup.
