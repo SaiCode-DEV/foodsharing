@@ -8,6 +8,7 @@ use Foodsharing\Lib\Session;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Exception\SuspiciousOperationException;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class CsrfEventSubscriber implements EventSubscriberInterface
@@ -20,13 +21,16 @@ class CsrfEventSubscriber implements EventSubscriberInterface
 
     public function onKernelController(ControllerEvent $event): void
     {
+        if (!$event->isMainRequest()) {
+            return;
+        }
+
         if (!is_array($controllers = $event->getController())) {
             return;
         }
 
         $request = $event->getRequest();
         if (in_array($request->getMethod(), ['GET', 'OPTIONS', 'HEAD'])) {
-            // since these methods should not cause any changes, we can savely execute cross site requests
             return;
         }
 
@@ -56,10 +60,29 @@ class CsrfEventSubscriber implements EventSubscriberInterface
     }
 
     /**
+     * Check and rotate CSRF token and session cookie if needed before sending the response.
+     */
+    public function onKernelResponse(ResponseEvent $event): void
+    {
+        if (!$event->isMainRequest()) {
+            return;
+        }
+
+        if (!$this->session->id()) {
+            return;
+        }
+
+        $this->session->refreshCookiesIfNeeded();
+    }
+
+    /**
      * @return array<string, mixed>
      */
     public static function getSubscribedEvents(): array
     {
-        return [KernelEvents::CONTROLLER => 'onKernelController'];
+        return [
+            KernelEvents::CONTROLLER => 'onKernelController',
+            KernelEvents::RESPONSE => 'onKernelResponse',
+        ];
     }
 }

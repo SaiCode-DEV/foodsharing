@@ -4695,5 +4695,11 @@ debug:
 test:
   plain: This is a nice translation
   vars: 'My name is {NAME} and I am {AGE} years old'
+
+network_errors:
+  csrf_token_invalid:
+    title: "Session expired"
+    text: "Your session has expired. Please reload the page and try again."
+
 totp_code: Please enter either the generated two-factor authentication code or 
   one of the backup codes.

@@ -116,7 +116,7 @@ class SessionTest extends Unit
         $this->assertFalse($this->session->get('csrf'));
 
         // Generate a token and validate it
-        $token = $this->session->generateCrsfToken();
+        $token = $this->session->generateCSRFToken();
         $this->assertIsString($token);
         $this->assertTrue($this->session->isValidCsrfToken($token));
 
@@ -124,7 +124,7 @@ class SessionTest extends Unit
         $this->assertFalse($this->session->isValidCsrfToken('not-a-token'));
 
         // Generate multiple tokens and ensure they are all valid
-        $token2 = $this->session->generateCrsfToken();
+        $token2 = $this->session->generateCSRFToken();
         $this->assertTrue($this->session->isValidCsrfToken($token));
         $this->assertTrue($this->session->isValidCsrfToken($token2));
     }
@@ -164,12 +164,12 @@ class SessionTest extends Unit
         $this->assertFalse($this->session->isValidCsrfHeader($request));
 
         // With header but invalid token should fail
-        $request->server->set('HTTP_X_CSRF_TOKEN', 'invalid-token');
+        $request->headers->set('x-csrf-token', 'invalid-token');
         $this->assertFalse($this->session->isValidCsrfHeader($request));
 
         // With valid token should pass
-        $token = $this->session->generateCrsfToken();
-        $request->server->set('HTTP_X_CSRF_TOKEN', $token);
+        $token = $this->session->generateCSRFToken();
+        $request->headers->set('x-csrf-token', $token);
         $this->assertTrue($this->session->isValidCsrfHeader($request));
     }
 }

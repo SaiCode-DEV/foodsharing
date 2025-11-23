@@ -4276,3 +4276,8 @@ debug:
 test:
   plain: Dies ist eine Übersetzung
   vars: 'Mein Name ist {NAME} und ich bin {AGE} Jahre alt'
+
+network_errors:
+  csrf_token_invalid:
+    title: "Sitzung abgelaufen"
+    text: "Deine Sitzung ist abgelaufen. Bitte lade die Seite neu und versuche es erneut."

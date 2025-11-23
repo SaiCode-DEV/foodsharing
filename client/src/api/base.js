@@ -76,6 +76,17 @@ const showNetworkError = (key, error) => {
   })
 }
 
+function showKnownError (translationKey, icon = 'fas fa-info-circle') {
+  const title = i18n(`network_errors.${translationKey}.title`)
+  const text = i18n(`network_errors.${translationKey}.text`)
+
+  pulseError(text, {
+    title,
+    icon,
+    duration: 50000,
+  })
+}
+
 const knownNetworkCodes = [
   'ERR_NETWORK',
   'ECONNABORTED',
@@ -110,6 +121,16 @@ api.interceptors.response.use(null, async error => {
     return Promise.reject(error)
   }
 
+  // first check for known errors. if so, show network_errors.<code>.title/text
+  for (const knownError of KNOWN_ERRORS) {
+    console.log(knownError, error.response?.data, error.response?.status)
+    if (error.response?.status === knownError.code &&
+        error.response?.data?.message === knownError.message) {
+      showKnownError(knownError.translationKey, knownError.icon)
+      return Promise.reject(error)
+    }
+  }
+
   if (error.response?.status === HTTP_RESPONSE.UNAUTHORIZED) {
     // Unauthorized -> redirect to login unless disabled (e.g. on failed logins
     // as this would otherwise reload the page without need)
@@ -135,7 +156,7 @@ api.interceptors.response.use(null, async error => {
     isUnknownError = false
     reportToSentry = true
   } else if (error.response?.status >= HTTP_RESPONSE.BAD_REQUEST &&
-             error.response?.status < HTTP_RESPONSE.INTERNAL_SERVER_ERROR) {
+    error.response?.status < HTTP_RESPONSE.INTERNAL_SERVER_ERROR) {
     // Catch all other client errors (4xx)
     showNetworkError('BAD_REQUEST', error)
     isUnknownError = false
@@ -218,3 +239,7 @@ export const hasActiveRequests = () => activeRequests > 0
 if (typeof window !== 'undefined') {
   window.hasActiveRequests = hasActiveRequests
 }
+
+const KNOWN_ERRORS = Object.freeze([
+  { message: 'CSRF Failed: CSRF token missing or incorrect.', code: 400, translationKey: 'csrf_token_invalid', icon: 'fas fa-shield-alt' },
+])
