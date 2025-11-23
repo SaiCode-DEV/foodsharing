@@ -101,6 +101,7 @@ export class Database {
       return (result as any).insertId;
     } catch (error) {
       console.error(`Error addToDatabase ${table}: `,error.message);
+      throw error;
     }
   }
 

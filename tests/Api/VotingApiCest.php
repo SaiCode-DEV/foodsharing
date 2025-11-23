@@ -391,6 +391,7 @@ class VotingApiCest
         $newData = [
             'name' => $this->faker->text(30),
             'description' => $this->faker->realText(500),
+            'shuffleOptions' => true,
             'options' => [],
         ];
         $numOptions = $this->faker->numberBetween(3, 10);
@@ -413,6 +414,7 @@ class VotingApiCest
             'id' => $futurePoll['id'],
             'name' => $newData['name'],
             'description' => $newData['description'],
+            'shuffle_options' => true
         ]);
         foreach ($newData['options'] as $option) {
             $I->seeInDatabase('fs_poll_has_options', [

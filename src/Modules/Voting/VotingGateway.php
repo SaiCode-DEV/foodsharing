@@ -274,6 +274,7 @@ class VotingGateway extends BaseGateway
         $this->db->update('fs_poll', [
             'name' => $poll->name,
             'description' => $poll->description,
+            'shuffle_options' => $poll->shuffleOptions,
         ], ['id' => $poll->id]);
 
         // remove all options and create new ones

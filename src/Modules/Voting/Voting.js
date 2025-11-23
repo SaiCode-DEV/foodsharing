@@ -3,7 +3,6 @@ import '@/globals'
 import { vueRegister, vueApply } from '@/vue'
 import PollOverview from './components/PollOverview.vue'
 import NewPollForm from './components/NewPollForm'
-import EditPollForm from './components/EditPollForm'
 import { GET } from '@/browser'
 
 if (GET('sub') === 'new') {
@@ -12,10 +11,11 @@ if (GET('sub') === 'new') {
   })
   vueApply('#new-poll-form')
 } else if (GET('sub') === 'edit') {
+  // reuse NewPollForm for edit mode; the server will provide the `poll` prop
   vueRegister({
-    EditPollForm,
+    NewPollForm,
   })
-  vueApply('#edit-poll-form')
+  vueApply('#new-poll-form')
 } else {
   vueRegister({
     PollOverview,

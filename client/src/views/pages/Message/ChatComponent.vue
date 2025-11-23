@@ -237,6 +237,10 @@ export default {
         max-width: 100% !important;
       }
 
+      .vac-message-actions-wrapper .vac-menu-left {
+        right: -5px;
+      }
+
       #roomTextarea {
         max-height: 120px;
       }
