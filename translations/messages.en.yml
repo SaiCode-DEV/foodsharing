@@ -4368,6 +4368,18 @@ help:
       title: Similar resources
       md: You will be shown up to 10 other resources as similar resources, for 
         which the **same categories** are entered.
+    commons_resources:
+      title: Common resources
+      md: "Some resources do not belong to one person but to the commons.\n\n#####
+        What are examples of common resources?\nCommon resources are usually **objects**,
+        **information**, or **contacts**. It might be the region's foodsharing banner,
+        photo archives in the cloud, or an external contact. Since a common resource
+        is not the responsibility of just one person, the resource's description should
+        contain a contact information, if applicable.\n\n##### Who maintains common
+        resources?\nIn a working group, all admins can create, edit, and delete common
+        resources. In a region, only the ambassadors have those permissions. If there
+        is a resource group in the region, the permissions reside in that group's
+        admins.\n"
   tooltip: Show help
   helpTitle: 'Help: {title}'
 team_page:
@@ -4612,24 +4624,28 @@ resource_mosaic:
   search_placeholder: Search for resources, foodsharers or IDs
   other_resources:
     other: More resources from {user}
-    own: Your other resources
+    own: My other resources
     similar: Similar resources
     new: All new resources of this district
+    commons: More common resources
   editModal:
     name:
-      label: Name
-      placeholder: Your resource …
+      label: Name of the resource
+      placeholder: The resource …
       max_length: Maximum length reached. You can specify any further details in
         the description.
-    is_private: Show this resource only to friends
+    is_private: Show only to friends
     description:
       label: Description
       placeholder: Provide additional information so others can imagine exactly 
         what you’d like to help with. You can also attach pictures.
+      placeholder_commons: Additional information that helps others to 
+        understand what this resource can be used for. Remember to add 
+        information about how someone can inquire about this resource.
     categories:
       label: Categories
       placeholder: Select categories …
-    openness: How welcome are requests for this resource?
+    openness: How welcome are requests for the resource?
     description_warning:
       title: Check description
       short: The description of this resource is quite short. Are you sure other
@@ -4638,6 +4654,7 @@ resource_mosaic:
       none: You haven’t provided a description for your resource. Are you sure 
         other users will understand what your resource is about so they can ask 
         you specific questions about it?
+    is_restricted_to_region: Restrict to region or group
   is_private_hint: This resource will only be shown to friends.
   confirm_delete: Do you really want to delete this resource?
   no_own_resources: You haven’t specified any resources yet. You can now enter 
@@ -4687,6 +4704,14 @@ resource_mosaic:
       only your friends have access to them.
     ok: I agree
 
+  my_resources_in: My resources in {groupName}
+  commons_resources_in: Common resources from {groupName}
+  add_commons: Enter a new common resource
+  is_commons: This resource does not belong to one person but to the commons
+  no_commons_resources: There are common resources yet in {groupName}. You have 
+    the necessary permission to change that!
+  has_resources_elsewhere: Of your resources, {count} are restricted to other 
+    regions or groups and are not visible in {groupName}.
 debug:
   title: Debug Page
   info: This is a debug page for debugging purposes. If you don’t know what a 
