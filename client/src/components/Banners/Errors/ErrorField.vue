@@ -103,12 +103,18 @@ export default {
 }
 
 .errorfield--warning .errorfield__link {
-  color: var(--fs-color-warning-800);
   background-color: var(--fs-color-warning-500);
 
   &:hover {
-    color: var(--fs-color-warning-800);
     background-color: var(--fs-color-warning-600);
+  }
+
+  @media (prefers-color-scheme: light) {
+    color: var(--fs-color-warning-800);
+
+    &:hover {
+      color: var(--fs-color-warning-800);
+    }
   }
 }
 </style>
