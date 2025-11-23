@@ -559,9 +559,51 @@ register:
   man: mężczyzna
   other: inne
   pass2: powtórz hasło
+  login_passwd1: Hasło (minimum 8 znaków)
+  password_required: Hasło jest wymagane
+  password_minLength: Twoje hasło musi mieć minimum osiem znaków
+  password_must_be_complex: Twoje hasło musi zawierać minimum jedną wielką i 
+    małą literę oraz cyfry
+  password_must_be_trimmed: Hasło nie może zawierać spacji na początku lub na 
+    końcu
+  confirmPassword_required: Powtórz hasło dla potwierdzenia
+  confirmPassword_sameAsPassword: Oba podane hasła muszą być zgodne
+  geb_datum: Data urodzenia
+  login_location: Twój adres
+  login_name: Twoje imię
+  login_surname: Twoje nazwisko
+  firstname_required: Podaj swoje imię
+  firstname_minLength: Imię musi zawierać minimum dwa znaki
+  firstname_maxLength: Imię może zawierać maksymalnie 30 znaków
+  lastname_required: Podaj swoje nazwisko
+  lastname_minLength: Nazwisko musi zawierać minimum dwa znaki
+  lastname_maxLength: Nazwisko może zawierać maksymalnie 30 znaków
+  phone_example: Przykład +49 179 12345678
+  landline_example: Przykład +49 30 123456789
+  phone_not_valid: Podany numer telefonu jest nieważny
+  forgotten_password: Zapomniałeś/aś hasła?
+  have_read_the_legal_stuff1: Mam
+  have_read_the_legal_stuff2: przyjęte do wiadomości
+  finish: Wyślij zgłoszenie
+  join_success: Twoja rejestracja przebiegła pomyślnie.
+  join_error: Twoja rejestracja nie przebiegła pomyślnie.
+  check_mail: Sprawdź swoją skrzynkę mailową, aby ukończyć rejestrację!
+  error: Wystąpił błąd
+  error_email_invalid: Ten adres email nie może być użyty
+  account-exists: Już jesteś zarejestrowany/a. Wyloguj się, jeśli chcesz się 
+    zarejestrować ponownie.
+  activation_success: <strong> Aktywacja przebiegła pomyślnie </strong> Teraz 
+    zaloguj się przy pomocy swojego adresu email i wybranego hasła.
+  activation_failed: <strong>Aktywacja nie przebiegła pomyślnie.</strong> Czy 
+    podany link jest poprawny?
+  change-password: Teraz możesz zmienić swoje hasło.
+  pass1: Twoje żądane nowe hasło
+  set-password: Ustal nowe hasło
+  signup_newsletter: Chcę otrzymywać foodsharing-newsletter ok. 1x w miesiącu
 gender:
   m: mężczyzna
   f: kobieta
+  d: Oba lub inne
 terminology:
   no: nie
   yes: tak
@@ -578,6 +620,38 @@ terminology:
     m: Foodsaver
     f: Foodsaverka
     d: Foodsaver:ka
+  ambassador:
+    m: Ambasador
+    f: Ambasadorka
+    d: Ambasador:ka
+  role:
+    "0": Foodsharer:ka
+    "1": Foodsaver:ka
+    "3": Ambasador:ka
+  ambassadors: Ambasadorowie/ki
+  ambassador_forum: Forum ambasadorów/ek
+  admins: Administratorzy/ki
+  electionAdmins: Wybory
+  statistic: Statystyka
+  fsp: Jadłodzielnia
+  fsps: Jadłodzielnie
+  settings: Ustawienia
+  mailboxes: Skrzynki mailowe
+  n_foodsaver: '{count} Foodsaverzy/ki'
+  n_ambassadors: '{count} Ambasadorowie/ki'
+  profile_picture: Zdjęcie profilowe
+  region: Rejon
+  regions: Rejony
+  threads: Tematy
+  message: Wiadomość
+  polls: Ankiety
+  buddies: Znajomi
+  options: Opcje
+  achievement: Sticker
+  achievements: Stickery
+  phone: Numer telefonu
+  landline: Numer stacjonarny
+  mobile_phone: Numer komórkowy
 resource_mosaic:
   privacy_notice:
     ok: Zgadzam się
