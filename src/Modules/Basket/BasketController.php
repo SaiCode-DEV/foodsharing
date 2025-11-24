@@ -4,8 +4,6 @@ namespace Foodsharing\Modules\Basket;
 
 use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Core\DBConstants\Basket\Status;
-use Foodsharing\Modules\Core\DBConstants\Map\MapConstants;
-use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Permissions\BasketPermissions;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -13,7 +11,6 @@ use Symfony\Component\Routing\Attribute\Route;
 class BasketController extends FoodsharingController
 {
     public function __construct(
-        private readonly BasketView $view,
         private readonly BasketGateway $basketGateway,
         private readonly BasketPermissions $basketPermissions,
     ) {
@@ -29,17 +26,7 @@ class BasketController extends FoodsharingController
     #[Route('/essenskoerbe/find', name: 'essenskoerbe_find')]
     public function find(): Response
     {
-        $this->pageHelper->addBread($this->translator->trans('terminology.baskets'));
-
-        $loc = $this->session->user('location');
-        if (!$loc || $loc->lat === 0 && $loc->lon === 0) {
-            $loc = GeoLocation::createFromArray(['lat' => MapConstants::CENTER_GERMANY_LAT, 'lon' => MapConstants::CENTER_GERMANY_LON]);
-            $zoom = MapConstants::ZOOM_COUNTRY;
-        } else {
-            $zoom = MapConstants::ZOOM_CITY;
-        }
-        $baskets = $this->basketGateway->listNearbyBasketsByDistance($this->session->id(), $loc);
-        $this->view->find($baskets, $loc, $zoom);
+        $this->pageHelper->addContent($this->prepareVueComponent('BasketFind', 'BasketFind'));
 
         return $this->renderGlobal();
     }
@@ -73,7 +60,9 @@ class BasketController extends FoodsharingController
                 'mayRequest' => $this->basketPermissions->mayRequest($basket->creator->id)
             ]));
         } elseif ($basket->status === Status::DELETED_OTHER_REASON || $basket->status === Status::DENIED || $basket->until <= time()) {
-            $this->view->basketTaken($basket);
+            $this->pageHelper->addContent($this->prepareVueComponent('BasketErrorPage', 'BasketErrorPage', [
+                'id' => $basket->id,
+            ]));
         }
 
         return $this->renderGlobal();

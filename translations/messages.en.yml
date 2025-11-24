@@ -2094,10 +2094,16 @@ basket:
   description: Description
   where: Where?
   change-state: Conclude food basket request from {name}
-  taken: "<b>Unfortunately this food basket is no longer available.</b>\n<br><br>\n\
-    \ You are not yet registered as a foodsharer?\nThen click on <b>Join us</b> to
-    get started or set up a food basket yourself.\n<br><br>\nYou may find other food
-    baskets in your area on our map.\n"
+  error:
+    taken: |
+      **Unfortunately this food basket is no longer available.**
+
+      It may have already been picked up or removed by the provider.
+    register: |
+      You are not yet registered as a foodsharer?
+      Then click on [**Join us**](/content?sub=joininfo) to get started or set up
+      a food basket yourself.
+    map: "You may find other food baskets in your area on our map."
   login: "You must be logged in to see detailed information. Not yet registered? Then
     click on **Join** above and get started right away."
   published: Thank you! The food basket was published.
@@ -2110,7 +2116,6 @@ basket:
   not_active: The food basket is no longer active.
   request_denied: Your request was rejected by the food basket provider.
   not_found: The food basket no longer exists.
-  error: Food basket could not be loaded.
   image: Add a photo to the food basket.
   request_empty: Your request text cannot be empty.
   state:

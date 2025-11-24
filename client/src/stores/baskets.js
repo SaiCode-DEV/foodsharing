@@ -76,8 +76,10 @@ export const useBasketStore = defineStore('basket', {
         } else {
           this.nearby = await getCache(CACHES.nearby.name)
         }
+        return this.nearby?.slice?.(0, 10) ?? null
       } catch (e) {
         console.error('Error fetching nearby baskets:', e)
+        return null
       }
     },
     async fetchAllCoordinates () {

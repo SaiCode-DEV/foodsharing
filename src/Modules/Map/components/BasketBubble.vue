@@ -1,5 +1,9 @@
 <template>
-  <map-popup id="basketBubbleModal" :is-loading="loading">
+  <map-popup
+    id="basketBubbleModal"
+    ref="basketBubbleModal"
+    :is-loading="loading"
+  >
     <div v-if="bubbleData.pictures?.length" class="mb-3">
       <ResponsiveImage
         v-if="bubbleData.pictures.length === 1"
@@ -55,53 +59,39 @@
   </map-popup>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, defineExpose } from 'vue'
 import { getBasketBubbleContent } from '@/api/map'
 import { useUserStore } from '@/stores/user'
-import MapBubbleMixin from './MapBubbleMixin'
+import MapPopup from './MapPopup.vue'
 import Gallery from '@/components/Images/Gallery.vue'
 import ResponsiveImage from '@/components/Images/ResponsiveImage.vue'
+import DateFormatter from '@/helper/date-formatter.js'
 
 const userStore = useUserStore()
 
-export default {
-  components: { Gallery, ResponsiveImage },
-  mixins: [MapBubbleMixin],
-  setup () {
-    return {
-      userStore,
-    }
-  },
-  data () {
-    return {
-      bubbleData: '',
-      basketId: null,
-    }
-  },
-  computed: {
-    displayDate () {
-      return this.bubbleData.createdAt
-        ? this.$dateFormatter.format(this.bubbleData.createdAt, {
-          day: 'numeric',
-          weekday: 'long',
-          month: 'short',
-          hour: 'numeric',
-          minute: 'numeric',
-        })
-        : null
-    },
-  },
-  methods: {
-    async show (basketId) {
-      this.basketId = basketId
-      await this.timedFetchAction(
-        getBasketBubbleContent(this.basketId),
-        'basketBubbleModal',
-        (data) => { this.bubbleData = data },
-      )
-    },
-  },
+const bubbleData = ref('')
+const basketId = ref(null)
+const loading = ref(true)
+
+const basketBubbleModal = ref(null)
+
+const displayDate = computed(() => {
+  return bubbleData.value.createdAt
+    ? DateFormatter.dateTime(bubbleData.value.createdAt)
+    : null
+})
+
+async function show (id) {
+  basketId.value = id
+  bubbleData.value = await getBasketBubbleContent(basketId.value)
+  basketBubbleModal.value.show()
+  loading.value = false
 }
+
+defineExpose({
+  show,
+})
 </script>
 
 <style>

@@ -9,7 +9,7 @@ export const MAP_CONSTANTS = Object.freeze({
   CENTER_GERMANY_LAT: 50.89,
   CENTER_GERMANY_LON: 10.13,
   ZOOM_COUNTRY: 6,
-  ZOOM_CITY: 15,
+  ZOOM_CITY: 13,
   MAX_ZOOM: 20,
 })
 

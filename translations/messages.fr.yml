@@ -2363,7 +2363,6 @@ basket:
   request_denied: Ta requête a été rejetée par le créateur de ce panier 
     solidaire.
   not_found: Ce panier solidaire n’existe plus.
-  error: Le panier solidaire n’a pas pu être chargé.
   image: Ajoute une photo à ton panier solidaire.
   state:
     okay: Oui, le panier alimentaire a été récupéré.
@@ -2375,11 +2374,17 @@ basket:
   request-fs: Obtenir ce panier solidaire sur la page d’accueil de foodsharing
   request: Obtenir ce panier solidaire
   request_close: Envoyer ma demande pour ce panier solidaire
-  taken: "<b>Ce panier solidaire n’est malheureusement plus disponible.</b>\n<br><br>\n\
-    \ Tu n’es pas encore membre de foodsharing ?\nAlors clique en haut sur le bouton
-    <b>Participer</b> pour t’inscrire ou dépose ton propre panier solidaire sur la
-    plateforme !\n<br><br>\nTrouve d’autres paniers solidaires dans ton secteur géographique
-    grâce à notre carte !\n"
+  error:
+    taken: |
+      **Ce panier solidaire n’est malheureusement plus disponible.**
+
+      Il a peut-être déjà été récupéré ou supprimé par le fournisseur.
+    register: |
+      Tu n’es pas encore membre de foodsharing ?
+      Alors clique en haut sur le bouton (**Participer**)(/content?sub=joininfo) pour t’inscrire
+      ou dépose ton propre panier solidaire sur la plateforme !
+    map: "Trouve d’autres paniers solidaires dans ton secteur géographique grâce à
+      notre carte !"
   new: Nouveau panier solidaire
   delete: Supprimer le panier solidaire
   edit: Modifier le panier solidaire

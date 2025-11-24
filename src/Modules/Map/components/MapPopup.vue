@@ -49,6 +49,11 @@ export default {
     isLoading: { type: Boolean, default: false },
     showFooterCloseButton: { type: Boolean, default: true },
   },
+  methods: {
+    show () {
+      this.$refs[this.id].show()
+    },
+  },
 }
 </script>
 
