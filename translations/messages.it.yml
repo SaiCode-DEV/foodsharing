@@ -2093,7 +2093,6 @@ basket:
   request_denied: La tua richiesta per il cesto di cibo è stata rifiutata dal 
     fornitore.
   not_found: Il cesto di cibo non esiste più.
-  error: Il cesto di cibo non può essere caricato.
   has:
     dry: Merce secca
     greens: Frutta & Verdura
@@ -2132,10 +2131,6 @@ basket:
   request_close: Chiudere richiesta per cesto di cibo
   requested_by: richiesto da {name}
   no_requests: Nessuna richiesta finora
-  taken: "<b>Purtroppo, questo cesto alimentare non è più disponibile</b>.\n<br><br>\n\
-    \ Non ti sei ancora registrato come Foodsharer?\nPoi clicca <b>partecipare</b>
-    qui sopra per iniziare o pubblica tu stesso un cesto di cibo.\n<br><br>\nControlla
-    la nostra mappa per trovare altri cesti di cibo nella tua zona, se applicabile.\n"
   login: "Per informazioni dettagliate devi essere loggato.\nNon sei ancora registrato
     come Foodsharer?\nPoi clicca su <b>partecipare</b> qui sopra e inizia subito.\n"
   requests: Richieste ({count})

@@ -195,7 +195,6 @@ basket:
     "2": ''
   not_active: ''
   public-info: ''
-  taken: ''
   has:
     frozen: ''
     prepared: ''
@@ -237,7 +236,6 @@ basket:
   on: ''
   recent: ''
   nearby: ''
-  error: ''
   nearby-short: ''
   login: ''
   publish_error: ''

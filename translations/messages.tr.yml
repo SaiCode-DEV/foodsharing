@@ -1949,7 +1949,6 @@ basket:
   public-info: Açıklama, resim, teslim yeri ve zaman periyodu herkes tarafından 
     görülebilir.
   published: Teşekkürler, yemek sepeti yayınlandı.
-  error: Yemek sepeti yüklenemedi.
   not_withdrawn: 'Yemek sepeti talebi geri alınamadı: '
   not_active: Yemek sepeti artık etkin değil.
   change-state: "{name}'in yemek sepeti başvurusunu bir sonuca bağlayın"
@@ -1964,10 +1963,6 @@ basket:
     vegan: vegan
     gf: glütensiz
   not-allowed: Bu yemek sepetini düzenleme izniniz yok.
-  taken: "<b>Üzgünüz, bu yemek sepeti artık mevcut değil.</b>\n<br><br>\nHala bir
-    Foodsharer olarak kayıtlı değil misiniz?\nO zaman başlamak veya kendiniz bir yemek
-    sepeti göndermek için yukarıdaki <b>Katıl</b>'a tıklayın.\n<br><br>\nBölgenizdeki
-    diğer yiyecek sepetlerini haritamızda bulabilirsiniz.\n"
   publish_error: Bir hata oldu. Yemek sepeti yayınlanamadı.
   request_empty: İstek metniniz boş bırakılamaz.
   not_found: Yemek sepeti artık mevcut değil.

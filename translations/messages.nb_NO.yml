@@ -581,10 +581,6 @@ basket:
   title: Matkurver
   date: Opprettelsesdato
   provider: Forsørger
-  taken: "<b>Denne matkurven er dessverre ikke lenger tilgjengelig.</b>\n<br><br>\n\
-    \ Er du ennå ikke registrert som matdeler?\nKlikk deretter på <b>Delta</b> ovenfor
-    for å komme i gang eller sett opp en matkurv selv.\n<br><br>\nDu kan finne andre
-    matkurver i ditt område på kartet vårt.\n"
   login: "Du må være logget inn for detaljert informasjon. Er du ennå ikke registrert
     som matdeler? Klikk deretter på **Delta** ovenfor og kom i gang med en gang."
   go: til matkurven
@@ -630,7 +626,6 @@ basket:
   go-to-settings: til innstillingene
   sent_request: Forespørsel er sendt
   all_map: Alle matkurver på kartet
-  error: Matkurven kunne ikke lastes.
   not_found: Matkurven eksisterer ikke lenger.
   not_withdrawn: 'Forespørselen om matkurven kunne ikke trekkes tilbake: '
   no_nearby: Det er ingen matkurver innenfor en radius på {radius} km

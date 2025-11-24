@@ -1434,7 +1434,6 @@ basket:
     organic: 'Biopotraviny'
     veggie: 'vegetariánský'
     gf: 'bezlepkový'
-  error: ''
   description: ''
   has:
     prepared: ''
@@ -1493,7 +1492,6 @@ basket:
   not_found: ''
   not_active: ''
   mapsearch: ''
-  taken: ''
   recent: ''
   all: ''
   go: ''

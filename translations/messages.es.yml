@@ -2184,7 +2184,6 @@ basket:
   request_empty: 'El texto de su solicitud no puede estar vacío.'
   withdraw_request: 'Cancelar solicitud'
   not-allowed: 'No estás autorizado a editar esta canasta de alimentos.'
-  error: 'No se pudo cargar la canasta de alimentos.'
   public-info: 'La descripción, la imagen, el lugar de entrega y el período son públicamente
     visibles.'
   nearby-short: 'cerca de ti'
@@ -2238,20 +2237,6 @@ basket:
   edit: 'Editar cesta de alimentos'
   go-to-settings: 'a la configuración'
   published: 'Gracias, la canasta de alimentos ha sido publicada.'
-  taken: '<b>Desafortunadamente, esta canasta de alimentos ya no está disponible.</b>
-
-    <br><br>
-
-    ¿Aún no estás registrado como repartidor de alimentos?
-
-    Luego haga clic en <b>Unirse</b> arriba para comenzar o cree una canasta de alimentos
-    usted mismo.
-
-    <br><br>
-
-    También puede encontrar otras cestas de alimentos cerca de usted en nuestro mapa.
-
-    '
   use_home_address: Usar la dirección de residencia
   modal_error:
     no_contact: Elige cómo se debe ordenar la canasta de alimentos.

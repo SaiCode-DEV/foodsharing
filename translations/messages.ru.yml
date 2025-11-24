@@ -109,7 +109,6 @@ logincontrol:
 basket:
   on: ''
   requests: ''
-  taken: ''
   not_found: ''
   not_active: ''
   all: ''
@@ -122,7 +121,6 @@ basket:
     "14": ''
     "2": ''
     "7": ''
-  error: ''
   has:
     prepared: ''
     dairy: ''
