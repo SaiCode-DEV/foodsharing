@@ -147,7 +147,7 @@ class Session
     /**
      * Determines the common parent domain to use for sharing sessions.
      *
-     * @return string|null The domain to use for cookies, or null to use default behavior
+     * @return string|null The domain to use for cookies (with leading dot), or null to use default behavior
      */
     private function getSessionDomain(): ?string
     {
@@ -174,7 +174,8 @@ class Session
                 foreach ($domains as $domain) {
                     $domain = trim($domain);
                     if ($hostWithoutPort === $domain || str_ends_with($hostWithoutPort, '.' . $domain)) {
-                        return $domain;
+                        // Always return with leading dot for subdomain sharing
+                        return '.' . $domain;
                     }
                 }
             }
@@ -184,9 +185,9 @@ class Session
         // only works for 2 level domains (e.g. example.com)
         $parts = explode('.', $hostWithoutPort);
 
-        if (count($parts) > 2) {
-            // Return the parent domain (e.g. "example.com" for "sub.example.com")
-            return implode('.', array_slice($parts, -2));
+        if (count($parts) >= 2) {
+            // Return the parent domain with leading dot (e.g. ".example.com" for "sub.example.com")
+            return '.' . implode('.', array_slice($parts, -2));
         }
 
         // For top-level domains without subdomains, return nothing. Otherwise,
@@ -241,8 +242,29 @@ class Session
             $this->destroy();
         }
 
-        setcookie(self::SESSION_COOKIE_NAME, '', ['expires' => time() - 3600]);
-        setcookie(self::CSRF_COOKIE_NAME, '', ['expires' => time() - 3600]);
+        // Delete cookies - with and without domain
+        $cookieOptions = [
+            'expires' => time() - 3600,
+            'httponly' => true,
+            'samesite' => 'Lax'
+        ];
+
+        // Delete without domain (for exact host match)
+        setcookie(self::SESSION_COOKIE_NAME, '', $cookieOptions);
+
+        $csrfOptions = $cookieOptions;
+        $csrfOptions['httponly'] = false;
+        setcookie(self::CSRF_COOKIE_NAME, '', $csrfOptions);
+
+        // Delete with domain (for subdomain sharing)
+        $domain = $this->getSessionDomain();
+        if ($domain !== null) {
+            $cookieOptions['domain'] = $domain;
+            setcookie(self::SESSION_COOKIE_NAME, '', $cookieOptions);
+
+            $csrfOptions['domain'] = $domain;
+            setcookie(self::CSRF_COOKIE_NAME, '', $csrfOptions);
+        }
     }
 
     public function user($index)
@@ -336,6 +358,13 @@ class Session
 
     public function login($fs_id = null, $rememberMe = false)
     {
+        // if PHPSESSID cookie exists, delete ALL cookies to avoid confusion
+        if (isset($_COOKIE['PHPSESSID']) || isset($_COOKIE['CSRF_TOKEN'])) {
+            setcookie('PHPSESSID', '', ['expires' => time() - 3600]);
+            setcookie('CSRF_TOKEN', '', ['expires' => time() - 3600]);
+            $this->logout();
+        }
+
         if (!$this->initialized) {
             $this->init($rememberMe);
         }
