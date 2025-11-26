@@ -246,7 +246,7 @@
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
 import ProfilePicture from './ProfilePicture.vue'
-import { patchUserProfile } from '@/api/user'
+import { patchUserProfile, getUserProfileSettings } from '@/api/user'
 import PhoneNumberInput from '@/components/PhoneNumberInput.vue'
 import ProfileAddressModal from './ProfileAddressModal.vue'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
@@ -356,7 +356,13 @@ const rules = {
 }
 const v$ = useVuelidate(rules, { firstName, lastName })
 
+function getUserIdFromUrl () {
+  const match = window.location.pathname.match(/\/user\/(\d+)\/settings/)
+  return match ? Number(match[1]) : undefined
+}
+
 function updateLocalFields (settings) {
+  userId.value = settings.id
   firstName.value = settings.firstName
   lastName.value = settings.lastName
   aboutMePublic.value = settings.aboutMePublic
@@ -379,13 +385,18 @@ function updateLocalFields (settings) {
   isLoaded.value = true
 }
 
-onMounted(() => {
-  const match = window.location.pathname.match(/\/user\/(\d+)\/settings/)
-  const userIdFromUrl = match ? Number(match[1]) : undefined
-  userId.value = userIdFromUrl
-  if (userIdFromUrl !== undefined) {
-    userStore.fetchProfileSettings(userIdFromUrl)
+async function loadUserProfile (userId) {
+  let settings
+  if (userId === undefined || !isMe.value) {
+    settings = await getUserProfileSettings(userId)
+  } else {
+    settings = userStore.settings
   }
+  updateLocalFields(settings)
+}
+
+onMounted(() => {
+  loadUserProfile(getUserIdFromUrl())
 })
 
 watch(() => userStore.settings, (settings) => {

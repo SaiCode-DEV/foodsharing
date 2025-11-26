@@ -70,6 +70,7 @@
           :active="subPage === SUB_PAGE.CHANGE_2FA"
         >
           <Change2FAForm
+            v-if="userStore.settings.twoFactorEnabled !== undefined"
             :totp-active="userStore.settings.twoFactorEnabled"
             :num-backup-codes="userStore.settings.numBackupCodes"
           />
@@ -149,6 +150,12 @@ const showQuiz = computed(() => {
 onMounted(async () => {
   const match = window.location.pathname.match(/\/user\/(\d+)\/settings/)
   userId.value = match ? Number(match[1]) : undefined
+
+  // Load profile settings early if this is the current user
+  if (isMe.value) {
+    await userStore.fetchProfileSettings()
+  }
+
   if (props.subPage === SUB_PAGE.HYGIENE) {
     await nextTick()
     // HygieneTab aktivieren

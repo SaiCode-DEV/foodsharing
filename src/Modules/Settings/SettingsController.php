@@ -55,8 +55,6 @@ class SettingsController extends FoodsharingController
      * @param Request $request the current HTTP request
      * @return Response a Response instance for rendering the user settings page
      * @throws Exception
-     *
-     * ToDo: Fetch data via REST API and use DTOs for data transfer
      */
     #[Route('/user/{userId}/settings', name: 'user_settings')]
     public function userSettings(int $userId, Request $request): Response

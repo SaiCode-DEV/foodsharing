@@ -88,14 +88,14 @@ export const useUserStore = defineStore('user', {
       delete this.fetching.details
       resolver()
     },
-    async fetchProfileSettings (userId, force = false) {
+    async fetchProfileSettings () {
       if ('profileSettings' in this.fetching) return this.fetching.settings
       let resolver
       this.fetching.settings = new Promise(resolve => { resolver = resolve })
       const cacheRequestName = 'profileSettings'
       try {
-        if (force || await getCacheInterval(cacheRequestName, userprofileSettingsRateLimitInterval)) {
-          this.settings = await getUserProfileSettings(userId)
+        if (await getCacheInterval(cacheRequestName, userprofileSettingsRateLimitInterval)) {
+          this.settings = await getUserProfileSettings(this.getUserId)
           await setCache(cacheRequestName, this.settings)
         } else {
           this.settings = await getCache(cacheRequestName)
@@ -105,6 +105,7 @@ export const useUserStore = defineStore('user', {
       }
       delete this.fetching.settings
       resolver()
+      return this.settings
     },
     async fetchMailUnreadCount () {
       const cacheRequestName = 'mailUnreadCount'
