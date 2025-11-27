@@ -35,6 +35,7 @@ class Session
     public const string CSRF_COOKIE_NAME = 'FS_CSRF_TOKEN';
 
     protected ?SymfonySession $symfonySession = null;
+    protected ?FoodsharingRedisSessionHandler $sessionHandler = null;
 
     public function __construct(
         private readonly FoodsaverGateway $foodsaverGateway,
@@ -87,7 +88,17 @@ class Session
         $ttl = $rememberMe
             ? strtotime(self::DEFAULT_PERSISTENT_SESSION_TIMESPAN, 0)
             : strtotime(self::DEFAULT_NORMAL_SESSION_TIMESPAN, 0);
-        $redisSessionHandler = new FoodsharingRedisSessionHandler($this->mem, $ttl);
+
+        $this->sessionHandler = new FoodsharingRedisSessionHandler($this->mem, $ttl);
+
+        // Check if we have an existing session cookie that might be persistent
+        if (!$rememberMe && isset($_COOKIE[self::SESSION_COOKIE_NAME])) {
+            if ($this->sessionHandler->isPersistentSession($_COOKIE[self::SESSION_COOKIE_NAME])) {
+                $rememberMe = true;
+                $ttl = strtotime(self::DEFAULT_PERSISTENT_SESSION_TIMESPAN, 0);
+                $this->sessionHandler->setTtl($ttl);
+            }
+        }
 
         // Set session cookie parameters
         $sessionOptions = [
@@ -107,18 +118,20 @@ class Session
         }
 
         // Create session storage and session
-        $sessionStorage = new NativeSessionStorage($sessionOptions, $redisSessionHandler);
+        $sessionStorage = new NativeSessionStorage($sessionOptions, $this->sessionHandler);
         $this->symfonySession = new SymfonySession($sessionStorage, new AttributeBag());
         $this->symfonySession->start();
 
-        // Set session type (persistent or normal)
-        if ($rememberMe) {
-            $this->set('session_type', 'persistent');
-            $this->set('session_expires', time() + $ttl);
-            $this->symfonySession->migrate(true, $ttl);
-        } else {
-            $this->set('session_type', 'normal');
-            $this->set('session_expires', time() + $ttl);
+        // Only set session metadata if this is a brand new session
+        // (no existing session data found in Redis)
+        if (!isset($_COOKIE[self::SESSION_COOKIE_NAME]) || !$this->has('session_type')) {
+            if ($rememberMe) {
+                $this->set('session_type', 'persistent');
+                $this->set('session_expires', time() + $ttl);
+            } else {
+                $this->set('session_type', 'normal');
+                $this->set('session_expires', time() + $ttl);
+            }
         }
 
         // Handle CSRF token cookie
@@ -327,6 +340,7 @@ class Session
         $this->checkInitialized();
         $this->symfonySession->clear();
         $this->symfonySession->invalidate();
+        $this->symfonySession->save();
     }
 
     public function has($key): bool
@@ -388,37 +402,28 @@ class Session
             throw new Exception('Foodsaver details not found in database.');
         }
 
-        // Clean up session so that all content from other models are removed
-        // Store session type and expiration info before clearing
+        // Store CSRF tokens before clearing session
         $csrfTokens = $this->get('csrf');
 
+        // Clear all session data
         $this->symfonySession->clear();
 
-        // Restore session type and expiration info
+        // Set session metadata
         if ($rememberMe) {
-            $this->set('session_type', 'persistent');
             $ttl = strtotime(self::DEFAULT_PERSISTENT_SESSION_TIMESPAN, 0);
+            $this->set('session_type', 'persistent');
             $this->set('session_expires', time() + $ttl);
-            $this->symfonySession->migrate(true, $ttl);
+
+            // Update the session handler's TTL for persistent sessions
+            $this->sessionHandler?->setTtl($ttl);
         } else {
-            $ttl = strtotime(self::DEFAULT_NORMAL_SESSION_TIMESPAN, 0);
-            $currentExpires = $this->get('session_expires', false);
-            $newExpires = time() + $ttl;
-            if ($currentExpires === false || $newExpires > $currentExpires) {
-                $this->set('session_expires', $newExpires);
-                $this->symfonySession->migrate(true, $ttl);
-            } else {
-                $this->set('session_expires', $currentExpires);
-                $this->symfonySession->migrate(true, $currentExpires - time());
-            }
+            $this->set('session_type', 'normal');
+            $this->set('session_expires', time() + strtotime(self::DEFAULT_NORMAL_SESSION_TIMESPAN, 0));
         }
 
         $this->set('csrf', $csrfTokens);
-
-        $this->setCSRFToken();
-
-        // used by Session::initIfCookieExists to determine if it should call this method to update session data
         $this->set(self::SESSION_TIMESTAMP_FIELD_NAME, time());
+        $this->setCSRFToken();
 
         $this->setId($fs['id']);
         $this->setAuthLevel(Role::tryFrom($fs['rolle']));
@@ -448,6 +453,12 @@ class Session
             'verified' => (int)$fs['verified'],
             'last_activity' => $fs['last_activity'],
         ]);
+
+        // Force immediate write to Redis to prevent race conditions
+        $this->symfonySession->save();
+
+        // Set session cookie with correct expiration
+        $this->setSessionCookie($this->get('session_expires'));
     }
 
     public function isVerified(): bool
@@ -564,28 +575,36 @@ class Session
 
     public function refreshCookiesIfNeeded(): void
     {
-        // Refresh CSRF token if needed
+        $this->refreshCsrfTokenIfNeeded();
+        $this->refreshSessionCookieIfNeeded();
+    }
+
+    private function refreshCsrfTokenIfNeeded(): void
+    {
         $currentToken = $_COOKIE[self::CSRF_COOKIE_NAME] ?? null;
-        if ($currentToken !== null && $this->shouldRotateCsrfToken($currentToken)) {
-            $newToken = $this->generateCSRFToken();
-
-            $csrfCookieOptions = [
-                'expires' => strtotime(self::CSRF_TOKEN_LIFETIME),
-                'path' => '/',
-                'secure' => $this->isCookieSecure(),
-                'httponly' => false,
-                'samesite' => 'Lax'
-            ];
-
-            $domain = $this->getSessionDomain();
-            if ($domain !== null) {
-                $csrfCookieOptions['domain'] = $domain;
-            }
-
-            setcookie(self::CSRF_COOKIE_NAME, $newToken, $csrfCookieOptions);
+        if ($currentToken === null || !$this->shouldRotateCsrfToken($currentToken)) {
+            return;
         }
 
-        // Refresh session cookie if needed
+        $newToken = $this->generateCSRFToken();
+        $csrfCookieOptions = [
+            'expires' => strtotime(self::CSRF_TOKEN_LIFETIME),
+            'path' => '/',
+            'secure' => $this->isCookieSecure(),
+            'httponly' => false,
+            'samesite' => 'Lax'
+        ];
+
+        $domain = $this->getSessionDomain();
+        if ($domain !== null) {
+            $csrfCookieOptions['domain'] = $domain;
+        }
+
+        setcookie(self::CSRF_COOKIE_NAME, $newToken, $csrfCookieOptions);
+    }
+
+    private function refreshSessionCookieIfNeeded(): void
+    {
         if (!$this->initialized) {
             return;
         }
@@ -596,37 +615,37 @@ class Session
         }
 
         $sessionType = $this->get('session_type', 'normal');
-        $isPersistent = $sessionType === 'persistent';
-
-        // Calculate when the session was created (approximately)
-        $ttl = $isPersistent
+        $ttl = $sessionType === 'persistent'
             ? strtotime(self::DEFAULT_PERSISTENT_SESSION_TIMESPAN, 0)
             : strtotime(self::DEFAULT_NORMAL_SESSION_TIMESPAN, 0);
 
-        $sessionCreatedAt = $sessionExpires - $ttl;
-        $halfwayPoint = $sessionCreatedAt + ($ttl / 2);
-
-        // Refresh session cookie if we're past the halfway point
-        if (time() >= $halfwayPoint) {
-            $newExpires = time() + $ttl;
-            $this->set('session_expires', $newExpires);
-
-            // Update the session cookie
-            $sessionOptions = [
-                'expires' => $newExpires,
-                'path' => '/',
-                'secure' => $this->isCookieSecure(),
-                'httponly' => true,
-                'samesite' => 'Lax'
-            ];
-
-            $domain = $this->getSessionDomain();
-            if ($domain !== null) {
-                $sessionOptions['domain'] = $domain;
-            }
-
-            setcookie(self::SESSION_COOKIE_NAME, session_id(), $sessionOptions);
+        // Only refresh if past halfway point of session lifetime
+        $sessionAge = time() - ($sessionExpires - $ttl);
+        if ($sessionAge < $ttl / 2) {
+            return;
         }
+
+        $newExpires = time() + $ttl;
+        $this->set('session_expires', $newExpires);
+        $this->setSessionCookie($newExpires);
+    }
+
+    private function setSessionCookie(int $expires): void
+    {
+        $sessionOptions = [
+            'expires' => $expires,
+            'path' => '/',
+            'secure' => $this->isCookieSecure(),
+            'httponly' => true,
+            'samesite' => 'Lax'
+        ];
+
+        $domain = $this->getSessionDomain();
+        if ($domain !== null) {
+            $sessionOptions['domain'] = $domain;
+        }
+
+        setcookie(self::SESSION_COOKIE_NAME, session_id(), $sessionOptions);
     }
 
     public function isValidCsrfHeader(Request $request): bool

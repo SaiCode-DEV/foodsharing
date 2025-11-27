@@ -22,6 +22,32 @@ class FoodsharingRedisSessionHandler extends AbstractSessionHandler
         $this->ttl = $ttl;
     }
 
+    /**
+     * Updates the TTL for this session handler.
+     * Used when migrating session to persistent mode.
+     */
+    public function setTtl(int $ttl): void
+    {
+        $this->ttl = $ttl;
+    }
+
+    /**
+     * Check if a session is marked as persistent by reading its data from Redis.
+     *
+     * @param string $sessionId The session ID to check
+     * @return bool True if the session is persistent, false otherwise
+     */
+    public function isPersistentSession(string $sessionId): bool
+    {
+        $data = $this->mem->cache->get($this->prefix . $sessionId);
+
+        if ($data === false) {
+            return false;
+        }
+
+        return str_contains($data, '"session_type";s:10:"persistent"');
+    }
+
     protected function doRead(string $sessionId): string
     {
         $data = $this->mem->cache->get($this->prefix . $sessionId);

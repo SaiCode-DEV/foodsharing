@@ -151,9 +151,11 @@ export default {
       }
       this.isLoading = true
       try {
-        await login(this.email, this.password, this.totp, this.rememberMe)
         sessionStorage.clear()
+        await login(this.email, this.password, this.totp, this.rememberMe)
         channel.postMessage({ type: BROADCAST_TYPE.LOGIN })
+        // Wait a moment to ensure session is written into redis
+        await new Promise(resolve => setTimeout(resolve, 250))
         let ref = new URL(location.href).searchParams.get('ref')
         if (!ref?.startsWith('/')) ref = null
         location.replace(ref ?? this.$url('dashboard'))
