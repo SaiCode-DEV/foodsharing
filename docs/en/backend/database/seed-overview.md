@@ -29,16 +29,14 @@ Users with workgroup functionality in the region
 | `userwelcome1@example.com`             | `user`   | Welcome            |
 | `userwelcome2@example.com`             | `user`   | Welcome            |
 | `userwelcome3@example.com`             | `user`   | Welcome            |
-| `userwelcome4@example.com`             | `user`   | Welcome            |
 | `uservoting1@example.com`              | `user`   | Voting             |
 | `uservoting2@example.com`              | `user`   | Voting             |
 | `uservoting3@example.com`              | `user`   | Voting             |
-| `uservoting4@example.com`              | `user`   | Voting             |
 | `userfsp1@example.com`                 | `user`   | foodshare point    |
 | `userfsp2@example.com`                 | `user`   | foodshare point    |
-| `userstorecoordination1@example.com`   | `user`   | Store coordination |
-| `userstorecoordination2@example.com`   | `user`   | Store coordination |
-| `userstorecoordination3@example.com`   | `user`   | Store coordination |
+| `userstores1@example.com`              | `user`   | Store coordination |
+| `userstores2@example.com`              | `user`   | Store coordination |
+| `userstores3@example.com`              | `user`   | Store coordination |
 | `userreport1@example.com`              | `user`   | Report             |
 | `userreport2@example.com`              | `user`   | Report             |
 | `userreport3@example.com`              | `user`   | Report             |
@@ -48,19 +46,15 @@ Users with workgroup functionality in the region
 | `userarbitration1@example.com`         | `user`   | Arbitration        |
 | `userarbitration2@example.com`         | `user`   | Arbitration        |
 | `userarbitration3@example.com`         | `user`   | Arbitration        |
-| `userarbitration4@example.com`         | `user`   | Arbitration        |
 | `userfsmanagement1@example.com`        | `user`   | FSManagement       |
 | `userfsmanagement2@example.com`        | `user`   | FSManagement       |
 | `userfsmanagement3@example.com`        | `user`   | FSManagement       |
 | `userpr1@example.com`                  | `user`   | PR                 |
 | `userpr2@example.com`                  | `user`   | PR                 |
 | `userpr3@example.com`                  | `user`   | PR                 |
-| `userpr4@example.com`                  | `user`   | PR                 |
-| `userpr5@example.com`                  | `user`   | PR                 |
 | `usermoderation1@example.com`          | `user`   | Moderation         |
 | `usermoderation2@example.com`          | `user`   | Moderation         |
 | `usermoderation3@example.com`          | `user`   | Moderation         |
-| `usermoderation4@example.com`          | `user`   | Moderation         |
 
 Some users have additional permissions by being admins of global working groups:
 
