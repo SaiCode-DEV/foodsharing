@@ -472,6 +472,10 @@ group:
         verified: zweryfikowany/a
         unverified: niezweryfikowany/a
         with_passport: z legitymacją
+      execute: Wykonaj akcję
+      show_only_member_after: Pokaż tylko członków po/według
+      filter_status: Pokaż tylko status
+      filter_selection: Pokaż tylko wybranych członków
     remove_admin_title: usuń jako administratora/kę
     remove_ambassador_title: usuń jako ambasadora/kę
     remove_admin_text: Czy na pewno chcesz usunąć {name} ({id}) jako 
