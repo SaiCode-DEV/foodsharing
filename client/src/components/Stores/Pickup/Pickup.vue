@@ -14,22 +14,33 @@
           />
 
           <b-dropdown
-            v-if="(isCoordinator || mayEditStore) && !isInPast"
+            v-if="canEditSlot || canMultiChat"
             no-caret
             right
             variant="badge-light"
             class="pickup-options m-2"
+            data-test="pickup-options-dropdown"
           >
             <template #button-content>
               <i class="fas fa-ellipsis-v" />
             </template>
             <b-dropdown-item
+              v-if="canMultiChat"
+              data-test="slot-multi-chat"
+              @click="openMultiChat()"
+            >
+              <i class="fas fa-comments" />
+              {{ $t('pickup.chat') }}
+            </b-dropdown-item>
+            <b-dropdown-item
+              v-if="canEditSlot"
               @click="$refs.modal_edit_description.show()"
             >
               <i class="fas fa-pen" />
               {{ $t('pickup.edit_description') }}
             </b-dropdown-item>
             <b-dropdown-item
+              v-if="canEditSlot"
               @click="occupiedSlots.length > 0 ? $refs.modal_delete_error.show() : $refs.modal_delete.show()"
             >
               <i class="fas fa-trash" />
@@ -264,7 +275,7 @@
 </template>
 
 <script>
-
+import conversationStore from '@/stores/conversations'
 import { BFormTextarea, BModal, VBTooltip } from 'bootstrap-vue'
 
 import { listSameDayAgendaForUser, checkPickupRuleStore } from '@/api/pickups'
@@ -367,6 +378,14 @@ export default {
     isTeamMember () {
       return !(this.mayEditStore && !StoreData.getters.getStoreMember().find(member => member.id === this.user.id))
     },
+    canEditSlot () {
+      return (this.isCoordinator || this.mayEditStore) && !this.isInPast
+    },
+    canMultiChat () {
+      // Check if there is at least one *other* user signed up for this pickup
+      if (!this.occupiedSlots || !this.user || !this.user.id) return false
+      return this.occupiedSlots.some(slot => slot.profile && slot.profile.id !== this.user.id)
+    },
   },
   methods: {
     async fetchSameDayAgenda () {
@@ -377,6 +396,9 @@ export default {
       this.pickupRulePass = await checkPickupRuleStore(this.user.id, this.storeId, this.date)
       this.okVariant = (!this.pickupRulePass) ? 'danger' : 'success'
       this.loadedPickupRule = true
+    },
+    openMultiChat () {
+      conversationStore.openMultiChat(this.occupiedSlots.map(slot => slot.profile.id))
     },
     agendaStatusIcon (item) {
       if (item.type === 'store') {

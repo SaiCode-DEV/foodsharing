@@ -1341,6 +1341,7 @@ pickup:
     signout_via_responsible_person:
       via: "durch"
       remove_reason: "(Grund: {reason})"
+  chat: "Slot-Chat starten"
   edit:
     bread: "Abholzeiten bearbeiten"
     add: "Abholzeiten eintragen"
