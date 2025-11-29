@@ -1245,6 +1245,7 @@ pickup:
   passport_expired:
     short: Membership card expired
     long: Your membership card will no longer be valid at this time
+  chat: Start pickup chat
 storeview:
   cooperation: Cooperation since {startTime}.
   cooperation_start: "Cooperation since"
