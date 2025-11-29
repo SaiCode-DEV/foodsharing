@@ -3647,10 +3647,15 @@ search:
   placeholder: Jetzt Suche starten …
   informations: Du kannst nach Personen, Gruppen, Betrieben, Bezirken, Chats, Forenbeiträgen und Fairteilern suchen.
   too_short: Bitte gib einen längeren Suchbegriff ein.
-  forum: Nach Titel suchen …
+  forum:
+    placeholder: In diesem Forum suchen …
+    found:
+      title: "Treffer im Titel"
+      body: "Treffer im Inhalt"
   noresults: Es konnten keine Ergebnisse gefunden werden
   maxresults: Die Anzahl angezeigter Ergebnisse ist begrenzt. Nutze eventuell einen spezifischeren Suchbegriff.
   thread-title-only: Es werden nur Titel durchsucht, nicht der Text von Beiträgen.
+  thread-body-only: Es wird nur der Text von Beiträgen durchsucht, nicht die Titel.
   user_search:
     placeholder: Name oder ID
   results:
@@ -3704,14 +3709,19 @@ search:
       can_vote: "Du kannst noch abstimmen"
       has_voted: "Du hast bereits abgestimmt"
       not_eligible: "Du bist nicht wahlberechtigt"
+    relevance: Relevanz ({percent}%)
   scope:
     global: Globale Suche
     local: Nutzerspezifische Suche
 
-
-
-
-
+sort:
+  sort_by: "Sortieren nach "
+  options:
+    relevance: Relevanz
+    date: Datum
+    created_at: Erstellungsdatum
+    updated_at: Aktualisierungsdatum
+    name: Name
 
 activitypost:
   Response: Antworten

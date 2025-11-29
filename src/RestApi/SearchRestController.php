@@ -127,6 +127,7 @@ class SearchRestController extends AbstractFoodsharingRestController
     #[OA\Parameter(name: 'groupId', in: 'path', schema: new OA\Schema(type: 'integer'), description: 'Which forum to return threads for (region or group)')]
     #[OA\Parameter(name: 'subforumId', in: 'path', schema: new OA\Schema(type: 'integer'), description: 'ID of the forum in the group (normal or ambassador forum)')]
     #[Rest\QueryParam(name: 'q', description: 'Search query')]
+    #[Rest\QueryParam(name: 'searchBody', description: 'Search body instead of title', nullable: true, requirements: '^(1|0|true|false)$')]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
         type: 'array', items: new OA\Items(ref: new Model(type: ThreadSearchResult::class))
     ))]
@@ -140,9 +141,10 @@ class SearchRestController extends AbstractFoodsharingRestController
             throw new AccessDeniedHttpException();
         }
         $query = $this->getQuery($paramFetcher);
+        $searchBody = ($paramFetcher->get('searchBody')) ? (bool)$paramFetcher->get('searchBody') : false;
 
         $disableRegionCheck = $this->forumPermissions->maySearchEveryForum();
-        $results = $this->searchGateway->searchThreads($query, $this->session->id(), $groupId, $subforumId, $disableRegionCheck);
+        $results = $this->searchGateway->searchThreads($query, $this->session->id(), $groupId, $subforumId, $disableRegionCheck, $searchBody);
 
         return $this->respondOK($results);
     }

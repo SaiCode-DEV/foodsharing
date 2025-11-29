@@ -50,6 +50,20 @@ class ThreadSearchResult extends SearchResult
      */
     public string $region_name;
 
+    /**
+     * The body of the forum thread. Only included when searching by post content.
+     *
+     * @OA\Property(example="This is the body of the thread.")
+     */
+    public ?string $body;
+
+    /**
+     * The relevance score of the thread.
+     *
+     * @OA\Property(example=0.85)
+     */
+    public float $relevance;
+
     public static function createFromArray(array $data): ThreadSearchResult
     {
         $result = new ThreadSearchResult();
@@ -61,7 +75,9 @@ class ThreadSearchResult extends SearchResult
         $result->is_inside_ambassador_forum = boolval($data['is_inside_ambassador_forum']);
         $result->region_id = $data['region_id'];
         $result->region_name = $data['region_name'];
+        $result->body = $data['body'] ?? null;
         $result->setSearchString($data);
+        $result->relevance = floatval($data['relevance'] ?? -1.0);
 
         return $result;
     }

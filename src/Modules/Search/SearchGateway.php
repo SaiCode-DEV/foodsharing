@@ -479,19 +479,77 @@ class SearchGateway extends BaseGateway
     }
 
     /**
+     * Preprocess a user-provided fulltext search query for use in a boolean fulltext search.
+     *
+     * Removes the following special characters from each term: + - > < ( ) ~ *
+     * The '@' character (double quotes are intentionally NOT removed so quoted terms can be
+     * used - they then match exactly).
+     *
+     * @param string $query raw search query provided by the user
+     * @return string normalized boolean-mode fulltext query where terms are required and
+     *                non-quoted terms support prefix matching
+     */
+    private function preprocessFulltextSearchQuery(string $query): string
+    {
+        // Split by whitespace but don't split inside quotes
+        $terms = preg_split('/\s+(?=(?:[^"]*"[^"]*")*[^"]*$)/', $query);
+        $processedTerms = array_map(function ($term) {
+            // Remove special characters
+            $cleanedTerm = preg_replace('/[+\-><\(\)~*@]/', '', $term);
+            if (strlen($cleanedTerm) === 0) {
+                return '';
+            }
+
+            // Words less than 4 (MyISAM) or 3 (InnoDB) characters in length
+            // will not be stored by default in a fulltext index. This value can
+            // be adjusted by changing the ft_min_word_length system variable
+            // (or, for InnoDB, innodb_ft_min_token_size). Words longer than 84
+            // characters in length will also not be stored in the fulltext
+            // index.
+            // We will not make such term mandatory in the generated search query
+            $prefix = strlen($cleanedTerm) > 3 && strlen($cleanedTerm) < 84 ? '+' : '';
+
+            // Make term required and allow prefix matching *unless* the keyword
+            // is a phrase search (enclosed in double quotes)
+            $suffix = substr($term, 0, 1) === '"' && substr($term, -1) === '"' ? '' : '*';
+
+            return $prefix . $cleanedTerm . $suffix;
+        }, $terms);
+
+        // Join terms back together ignoring any empty ones
+        return implode(' ', array_filter($processedTerms));
+    }
+
+    /**
      * Searches the given term in the list of forum threads.
      * Use params $regionId and $subforumId to restrict the search to one forum.
      *
      * @param string $query The search query
      * @param int $foodsaverId The searching user
-     * @param int $regionId The Region whose forum should be searched. Use 0 to not restict the search to one region.
+     * @param int $regionId The Region whose forum should be searched. Use 0 to not restrict the search to one region.
      * @param int $subforumId The subforum id of the forum the search should be restricted to. Ignored if $regionId is 0.
-     * @param bool $disableRegionCheck whether to disable the region check assuring the seaching user is member in the groups of found threads
+     * @param bool $disableRegionCheck whether to disable the region check assuring the searching user is member in the groups of found threads
+     * @param bool $searchBody whether to search post bodies (true) instead of thread titles (false, default)
      * @return array<ThreadSearchResult>
      */
-    public function searchThreads(string $query, int $foodsaverId, int $regionId = 0, int $subforumId = 0, $disableRegionCheck = false): array
+    public function searchThreads(string $query, int $foodsaverId, int $regionId = 0, int $subforumId = 0, bool $disableRegionCheck = false, bool $searchBody = false): array
     {
-        [$searchClauses, $parameters] = $this->generateSearchClauses(self::SEARCH_CRITERIA['threads'], $query);
+        // Make sure each term is required and allow prefix matching
+        $preprocessedQuery = $this->preprocessFulltextSearchQuery($query);
+        // Return early when query is empty or when searching invalid characters
+        if (strlen($preprocessedQuery) === 0) {
+            return [];
+        }
+
+        // Preprocess query for fulltext search
+        $parameters = [];
+        $searchField = $searchBody ? 'post.body' : 'thread.name';
+        $includeBodyResult = $searchBody ? 'post.body,' : '';
+        $matchClause = "MATCH({$searchField}) AGAINST (? IN BOOLEAN MODE)";
+        array_push($parameters, $preprocessedQuery, $preprocessedQuery); // bind 2x -> once for relevance, once for where clause
+        $from = $searchBody ? 'fs_theme_post AS post' : 'fs_theme AS thread';
+        $join = $searchBody ? 'JOIN fs_theme AS thread ON thread.id = post.theme_id' : 'JOIN fs_theme_post AS post ON post.id = thread.last_post_id';
+
         $regionRestrictionClause = '';
         if ($regionId > 0) {
             $regionRestrictionClause = 'AND has_thread.bezirk_id = ? AND has_thread.bot_theme = ?';
@@ -505,7 +563,7 @@ class SearchGateway extends BaseGateway
                     LEFT OUTER JOIN fs_botschafter AS ambassador ON ambassador.foodsaver_id = has_region.foodsaver_id AND ambassador.bezirk_id = region.id';
             $hasRegionClause = 'AND has_region.foodsaver_id = ?
                                 AND has_region.active = 1
-                                AND(NOT ISNULL(ambassador.foodsaver_id) OR has_thread.bot_theme = 0) -- show Bot forums only to bots';
+                                AND(NOT ISNULL(ambassador.foodsaver_id) OR has_thread.bot_theme = 0)'; // show Bot forums only to bots
             array_push($parameters, $foodsaverId);
         }
 
@@ -513,26 +571,42 @@ class SearchGateway extends BaseGateway
                 thread.id,
                 thread.name,
                 post.time,
+                {$includeBodyResult}
+                {$matchClause} AS relevance,
                 thread.sticky AS stickiness,
                 thread.status AS is_closed,
                 region.id AS region_id,
                 region.name AS region_name,
                 has_thread.bot_theme AS is_inside_ambassador_forum
-            FROM fs_theme AS thread
+            FROM {$from}
+            {$join}
             JOIN fs_bezirk_has_theme AS has_thread ON has_thread.theme_id = thread.id
             JOIN fs_bezirk AS region ON region.id = has_thread.bezirk_id
-            JOIN fs_theme_post AS post ON post.id = thread.last_post_id
             {$hasRegionJoins}
             WHERE thread.active = 1
-            AND {$searchClauses}
+            AND ({$matchClause})
             {$regionRestrictionClause}
             {$hasRegionClause}
-            ORDER BY (sticky < 0), time DESC
+            AND post.hidden_time IS NULL
+            ORDER BY (sticky < 0), post.time DESC
             LIMIT " . self::MAX_SEARCH_RESULT_COUNT,
             [...$parameters]
         );
 
-        return array_map(fn ($thread) => ThreadSearchResult::createFromArray($thread), $threads);
+        // Find most relevant thread for normalization
+        $maxRelevance = 0;
+        foreach ($threads as $thread) {
+            if ($thread['relevance'] > $maxRelevance) {
+                $maxRelevance = $thread['relevance'];
+            }
+        }
+
+        return array_map(function ($thread) use ($parameters, $maxRelevance) {
+            $thread['search_string'] = $parameters[0];
+            $thread['relevance'] /= $maxRelevance;
+
+            return ThreadSearchResult::createFromArray($thread);
+        }, $threads);
     }
 
     /**
@@ -564,7 +638,7 @@ class SearchGateway extends BaseGateway
             LEFT OUTER JOIN fs_botschafter AS ambassador ON ambassador.foodsaver_id = has_region.foodsaver_id AND ambassador.bezirk_id = region.id
             WHERE thread.active = 1
             AND has_region.active = 1
-            AND (NOT ISNULL(ambassador.foodsaver_id) OR has_thread.bot_theme = 0) -- show Bot forums only to bots'
+            AND (NOT ISNULL(ambassador.foodsaver_id) OR has_thread.bot_theme = 0) -- show Bot forums only to bots
             ORDER BY (sticky < 0), time DESC
             LIMIT " . self::MAX_THREADS_IN_SEARCH_INDEX_COUNT,
             [$foodsaverId, $foodsaverId]

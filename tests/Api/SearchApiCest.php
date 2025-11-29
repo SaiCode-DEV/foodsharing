@@ -40,7 +40,7 @@ class SearchApiCest
         $this->userOrga = $I->createOrga();
 
         $this->region1ForumThread = $I->addForumThread($this->region1['id'], $this->user1['id'], false, [
-            'name' => 'Ab de abcedggdfg'
+            'name' => 'Testbeitrag im Forum der Region 1'
         ]);
         $this->region2ForumThread = $I->addForumThread($this->region2['id'], $this->user2['id']);
         $this->region1AmbassadorForumThread = $I->addForumThread($this->region1['id'], $this->user1['id'], true);
@@ -69,7 +69,7 @@ class SearchApiCest
         $query = substr((string)$this->region2ForumThread['name'], 0, 5);
 
         $I->login($this->user1['email']);
-        $I->sendGET('api/search/forum/' . $this->region2['id'] . '/0?q=' . $query);
+        $I->sendGET('api/search/forum/' . $this->region2['id'] . '/0?q=' . urlencode($query));
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
     }
 
@@ -85,7 +85,7 @@ class SearchApiCest
         $query = substr((string)$this->region1AmbassadorForumThread['name'], 0, 5);
 
         $I->login($this->user1['email']);
-        $I->sendGET('api/search/forum/' . $this->region1['id'] . '/1?q=' . $query);
+        $I->sendGET('api/search/forum/' . $this->region1['id'] . '/1?q=' . urlencode($query));
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
 
         $I->login($this->userAmbassador['email']);
@@ -106,7 +106,7 @@ class SearchApiCest
         $query = $thread['name'];
         $subforumId = $ambassadorForum ? 1 : 0;
 
-        $I->sendGET("api/search/forum/$regionId/$subforumId?q=$query");
+        $I->sendGET("api/search/forum/$regionId/$subforumId?q=" . urlencode($query));
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson([
             'id' => $thread['id'],

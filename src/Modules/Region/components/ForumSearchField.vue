@@ -8,7 +8,7 @@
         <label
           id="forum-searchfield-label"
           :aria-label="$t('search.title')"
-          class="input-group-text text-primary"
+          class="input-group-text"
           for="forum-searchfield"
         >
           <img
@@ -22,20 +22,34 @@
       <input
         id="forum-searchfield"
         v-model="query"
-        :placeholder="$t('search.forum')"
+        :placeholder="$t('search.forum.placeholder')"
         type="text"
-        class="form-control text-primary"
+        class="form-control"
         aria-labelledby="forum-searchfield-label"
         aria-placeholder=""
       >
+      <span class="input-group-append">
+        <button
+          v-if="query.trim().length > 0"
+          type="button"
+          class="btn btn-outline-secondary"
+          aria-label="Clear search"
+          @click="clearSearch"
+        >
+          <i class="fas fa-times" />
+        </button>
+      </span>
     </div>
     <div v-if="isOpen" id="forum-search-results">
       <forum-search-results
-        :threads="threads || []"
+        :title-threads="titleThreads || []"
+        :body-threads="bodyThreads || []"
         :group-id="groupId"
         :subforum-id="subforumId"
         :query="query"
-        :is-loading="isLoading"
+        :is-loading-title="isLoadingTitle"
+        :is-loading-body="isLoadingBody"
+        @close="close"
       />
     </div>
   </div>
@@ -62,7 +76,10 @@ export default {
       query: '',
       isOpen: false,
       isLoading: false,
-      threads: [],
+      isLoadingTitle: false,
+      isLoadingBody: false,
+      titleThreads: [],
+      bodyThreads: [],
     }
   },
   watch: {
@@ -70,25 +87,25 @@ export default {
       if (query.trim().length > 2) {
         this.open()
         this.delayedFetch()
-      } else if (query.trim().length) {
-        clearTimeout(this.timeout)
-        this.open()
-        this.isLoading = false
-        this.threads = []
       } else {
         clearTimeout(this.timeout)
         this.close()
         this.isLoading = false
-        this.threads = []
+        this.titleThreads = []
+        this.bodyThreads = []
       }
     },
   },
+
   methods: {
     open () {
       this.isOpen = true
+      this.$emit('search-active', true)
     },
     delayedFetch () {
       this.isLoading = true
+      this.isLoadingTitle = true
+      this.isLoadingBody = true
       if (this.timeout) {
         clearTimeout(this.timeout)
         this.timer = null
@@ -99,19 +116,47 @@ export default {
     },
     close () {
       this.isOpen = false
+      this.$emit('search-active', false)
+    },
+    clearSearch () {
+      this.query = ''
+      this.titleThreads = []
+      this.bodyThreads = []
+      this.close()
     },
     async fetch () {
       const curQuery = this.query
-      const res = await searchForum(this.groupId, this.subforumId, curQuery)
-      if (curQuery !== this.query) {
-        // query has changed, throw away this response
-        return false
-      }
-      this.threads = res
-      this.isLoading = false
+      if (this.query.trim().length === 0) return
+      this.open()
+
+      // Fetch title results
+      searchForum(this.groupId, this.subforumId, curQuery, false).then(res => {
+        if (curQuery !== this.query) {
+          // query has changed, throw away this response
+          return
+        }
+        this.titleThreads = res
+        this.isLoadingTitle = false
+        this.updateLoadingState()
+      })
+
+      // Fetch body results independently
+      searchForum(this.groupId, this.subforumId, curQuery, true).then(res => {
+        if (curQuery !== this.query) {
+          // query has changed, throw away this response
+          return
+        }
+        this.bodyThreads = res
+        this.isLoadingBody = false
+        this.updateLoadingState()
+      })
+    },
+    updateLoadingState () {
+      this.isLoading = this.isLoadingTitle || this.isLoadingBody
     },
     clickOutListener () {
       this.isOpen = false
+      this.$emit('search-active', false)
     },
   },
 }

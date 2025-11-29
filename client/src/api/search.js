@@ -16,6 +16,6 @@ export async function getSearchIndex () {
   return await get('/search/index')
 }
 
-export async function searchForum (groupId, subforumId, query) {
-  return await get(`/search/forum/${groupId}/${subforumId}?q=${encodeURIComponent(query)}`)
+export async function searchForum (groupId, subforumId, query, searchBody = false) {
+  return await get(`/search/forum/${groupId}/${subforumId}?q=${encodeURIComponent(query)}&searchBody=${searchBody ? '1' : '0'}`)
 }

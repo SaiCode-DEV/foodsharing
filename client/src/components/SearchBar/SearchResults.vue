@@ -29,11 +29,14 @@
       >
         {{ $t('search.maxresults') }}
       </div>
-      <div v-if="toggleButtonVisibility[section.key]">
+      <div
+        v-if="toggleButtonVisibility[section.key]"
+        class="mt-2"
+      >
         <button
           :id="`toggle-${section.key}`"
           tabindex="1"
-          class="list-group-item small list-group-item-action font-weight-bold text-center"
+          class="list-group-item btn-sm list-group-item-action font-weight-bold text-center p-1"
           :class="{'list-group-item-secondary': !expanded[section.key]}"
           @click="toggleExpanded(section.key)"
           @keyup.enter="setFocusAfterButtonPress(section.key)"

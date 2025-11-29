@@ -2624,8 +2624,11 @@ navi:
 
 search:
   title: Search
-  forum: Search for a title …
-  placeholder: Search now …
+  forum:
+    placeholder: Search in forums …
+    found:
+      title: Title matches
+      body: Content matches
   noresults: No results could be found
   thread-title-only: Only titles are searched, not the content of the threads.
   user_search:
@@ -2689,6 +2692,16 @@ search:
   scope:
     local: User-specific search
     global: Global search
+
+sort:
+  sort_by: "Sort by "
+  options:
+    relevance: Relevance
+    date: Date
+    created_at: Creation date
+    updated_at: Last updated
+    name: Name
+
 month:
   short:
     "12": Dec.

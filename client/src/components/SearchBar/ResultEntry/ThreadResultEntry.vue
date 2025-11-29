@@ -55,10 +55,9 @@ export default {
       default: false,
     },
   },
-  setup () {
-    const userStore = useUserStore()
+  data () {
     return {
-      userStore,
+      userStore: useUserStore(),
     }
   },
   computed: {

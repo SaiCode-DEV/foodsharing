@@ -61,7 +61,9 @@ class SearchTransactions
         $result->chats = $this->searchGateway->searchChats($query, $foodsaverId);
         $result->timings['chats'] = microtime(true) - $start;
         $start = microtime(true);
-        $result->threads = $this->searchGateway->searchThreads($query, $foodsaverId);
+        $threads_by_title = $this->searchGateway->searchThreads($query, $foodsaverId);
+        $threads_by_body = $this->searchGateway->searchThreads($query, $foodsaverId, searchBody: true);
+        $result->threads = array_values(array_unique(array_merge($threads_by_title, $threads_by_body), SORT_REGULAR));
         $result->timings['threads'] = microtime(true) - $start;
         $start = microtime(true);
         $result->users = $this->searchGateway->searchUsers($query, $foodsaverId, $searchGlobal, $this->searchPermissions->maySearchByEmailAddress());

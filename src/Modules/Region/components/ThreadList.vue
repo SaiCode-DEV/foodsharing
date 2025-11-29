@@ -21,7 +21,11 @@
           md="7"
           xl="8"
         >
-          <ForumSearchField :group-id="groupId" :subforum-id="subforumId" />
+          <ForumSearchField
+            :group-id="groupId"
+            :subforum-id="subforumId"
+            @search-active="setSearchActive"
+          />
         </b-col>
         <b-col
           cols="12"
@@ -32,6 +36,7 @@
           <b-button
             block
             variant="primary"
+            class="btn-sm"
             :href="$url('forum', groupId, subforumId, null, null, true)"
           >
             {{ $t('forum.new_thread') }}
@@ -41,7 +46,7 @@
     </b-container>
     <b-container>
       <ul class="forum_threads linklist">
-        <div v-if="threads.totalRows > 0">
+        <div v-if="!searchActive && threads.totalRows > 0">
           <ThreadListEntry
             v-for="(thread, index) in threads.data"
             :key="index"
@@ -58,6 +63,7 @@
           </span>
         </li>
         <b-pagination
+          v-if="!searchActive"
           v-model="currentPage"
           :total-rows="threads.totalRows"
           :per-page="perPage"
@@ -90,6 +96,7 @@ export default {
       currentPage: 1,
       perPage: 20,
       isActiveFollower: false,
+      searchActive: false,
     }
   },
   computed: {
@@ -124,6 +131,9 @@ export default {
     setActiveFollowership (isActiveFollower) {
       setForumFollowing(this.groupId, isActiveFollower)
       this.isActiveFollower = isActiveFollower
+    },
+    setSearchActive (active) {
+      this.searchActive = !!active
     },
   },
 }
