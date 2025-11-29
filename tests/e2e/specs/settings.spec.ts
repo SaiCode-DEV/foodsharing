@@ -24,6 +24,29 @@ test.describe('Settings', () => {
     await expect(page.locator('body')).toContainText(newSelfDesc);
   });
 
+  test('shows return to profile button and redirects correctly when editing another user', async ({ page, acceptanceHelper }) => {
+    // Setup region, member, and ambassador
+    const region = await foodsharing.createRegion();
+    const member = await foodsharing.createFoodsaver();
+    const ambassador = await foodsharing.createAmbassador(null, { bezirk_id: region.id });
+
+    await foodsharing.addRegionAdmin(region.id, ambassador.id);
+    await foodsharing.addRegionMember(region.id, member.id);
+
+    await acceptanceHelper.login(ambassador.email);
+
+    // Go to member's settings page
+    await page.goto(`/user/${member.id}/settings`);
+    await acceptanceHelper.waitForActiveAPICalls();
+
+    // Check last name field
+    await expect(page.locator('#input-lastname')).toHaveValue(member.nachname);
+
+    // Click 'Zurück zum Profil' and verify redirect
+    await page.click('text=Zurück zum Profil');
+    await expect(page).toHaveURL(`/user/${member.id}/profile`);
+  });
+
   test('can view another user settings and verify data from DB', async ({ page, acceptanceHelper }) => {
     const password = 'password';
     const region = await foodsharing.createRegion();
