@@ -3700,7 +3700,6 @@ search:
   informations: 'Kişileri, grupları, işletmeleri, semtleri, sohbetleri, forum gönderilerini
     ve gıda dağıtım noktalarını arayabilirsiniz.'
   noresults: 'Sonuç bulunamadı'
-  forum: 'Başlığa göre ara …'
   thread-title-only: 'Gönderilerin içeriği değil, yalnızca başlıklar aranır.'
   title: 'Arama'
   user_search:

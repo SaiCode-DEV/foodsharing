@@ -823,7 +823,6 @@ search:
   user_search:
     placeholder: ''
   title: ''
-  forum: ''
   placeholder: ''
   informations: ''
   results:

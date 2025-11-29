@@ -2258,7 +2258,6 @@ dashboard:
     for_release_notes: Puoi trovare le modifiche più importanti qui
 search:
   thread-title-only: Vengono ricercati solo i titoli, non il testo dei post.
-  forum: Cerca per titolo …
   placeholder: Avvia la ricerca ora …
   noresults: Non è stato trovato alcun risultato
   title: Ricerca

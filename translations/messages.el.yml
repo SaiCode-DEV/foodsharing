@@ -1887,7 +1887,6 @@ globals:
   save: ''
   you: ''
 search:
-  forum: ''
   noresults: ''
   thread-title-only: ''
   title: ''

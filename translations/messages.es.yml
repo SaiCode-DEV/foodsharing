@@ -108,7 +108,6 @@ dashboard:
 search:
   user_search:
     placeholder: 'Nombre o DNI'
-  forum: 'Buscar por título …'
   informations: 'Puedes buscar por personas, grupos, empresas, distritos, chats, temas
     y distribuidores.'
   noresults: 'No se pudieron encontrar resultados'

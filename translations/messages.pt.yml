@@ -1680,7 +1680,6 @@ search:
   informations: 'Podes procuro por pessoas, grupos, empresas, distritos, bate-papos,
     mensagens do fórum e cantinhos solidário.'
   noresults: ''
-  forum: ''
 quiz:
   question: 'Pergunta'
   timedstart: 'Iniciar um questionário com limite de tempo e {count} perguntas'

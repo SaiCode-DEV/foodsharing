@@ -720,7 +720,6 @@ dashboard:
     for_support: Ellers kan du kontakte oss på
     for_release_notes: Du finner de viktigste endringene på
 search:
-  forum: Søk etter tittel …
   placeholder: Søk nå …
   title: Søk
   user_search:
