@@ -19,7 +19,7 @@
       <small v-if="hasMemberDistances && sortingFunction && sortingFunction.displayInfo === 'distance'" class="d-block">
         <i class="fas" :class="user.distance < 0 ? 'fa-exclamation-triangle' : 'fa-diamond-turn-right'" />
         {{ formatDistance(user.distance) }}
-      </small><br>
+      </small>
     </div>
     <PhoneButton
       v-if="viewIsMobile && user.phoneNumberIsValid"
