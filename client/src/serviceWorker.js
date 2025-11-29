@@ -3,13 +3,21 @@ import { subscribeForPushNotifications } from '@/pushNotifications'
 import { precacheAndRoute } from 'workbox-precaching'
 import { registerRoute } from 'workbox-routing'
 import { CacheFirst } from 'workbox-strategies'
+import { ExpirationPlugin } from 'workbox-expiration'
 
 precacheAndRoute(self.__WB_MANIFEST)
+
+const EXPIRATION_TIME = 14 * 24 * 60 * 60 // 14 Days
 
 registerRoute(
   /\.(?:png|jpg|jpeg|svg|gif)$/,
   new CacheFirst({
     cacheName: 'images',
+    plugins: [
+      new ExpirationPlugin({
+        maxAgeSeconds: EXPIRATION_TIME,
+      }),
+    ],
   }),
 )
 
@@ -34,6 +42,9 @@ registerRoute(
           return response
         },
       },
+      new ExpirationPlugin({
+        maxAgeSeconds: EXPIRATION_TIME,
+      }),
     ],
   }),
 )
