@@ -472,6 +472,8 @@ group:
         verified: zweryfikowany/a
         unverified: niezweryfikowany/a
         with_passport: z legitymacją
+        no_filter: bez filtrów
+        no_passport: bez legitymacji
       execute: Wykonaj akcję
       show_only_member_after: Pokaż tylko członków po/według
       filter_status: Pokaż tylko status
@@ -551,6 +553,14 @@ login:
       ponownie.
     success: Świetnie, twoje hasło zostało pomyślnie zmienione. Teraz możesz się
       zalogować.
+    mailSent: Świetnie, link do zmiany hasła został do ciebie wysłany mailem.
+    tooShort: Niestety, twoje wybrane hasło jest za krótkie.
+    expired: Link jest nieważny. Prawdopodobnie czekałeś/aś trochę zbyt długo. 
+      Proszę, zażądaj nowego hasła.
+    error: Niestety, jest problem z twoimi danymi.
+    mismatch: Niestety, hasła się nie pokrywają.
+    request_new: Zażądaj nowego hasła
+  steady_login: Pozostań stale zalogowany/a
 register:
   topbar: dołącz
   title: rejestracja
@@ -604,6 +614,9 @@ register:
   pass1: Twoje żądane nowe hasło
   set-password: Ustal nowe hasło
   signup_newsletter: Chcę otrzymywać foodsharing-newsletter ok. 1x w miesiącu
+  mail_hint: 'Ważne: uważaj na poprawną pisownię!'
+  requiredFields: Pole wymagane
+  email_required: Adres email jest wymagany
 gender:
   m: mężczyzna
   f: kobieta
@@ -686,3 +699,65 @@ required_messages:
 petition:
   daysLeft: Zostało {daysLeft} dni
   link: Do petycji
+notice: Uwaga!
+validate:
+  required: '{it} nie może być puste'
+select: Proszę wybrać
+time: Czas
+day: Dzień
+net_errors:
+  title:
+    general: Błąd sieci
+    500: Błąd serwera
+  code: 'Kod błędu: '
+  message: 'Komunikat błędu: '
+  FORBIDDEN: Nie jesteś upoważniony/a do wykonania tej akcji.
+  NOT_FOUND: Żądana strona nie została odnaleziona.
+  ERR_NETWORK: Wystąpił problem z siecią. Sprawdź swoje połączenie internetowe i
+    spróbuj ponownie.
+  ERR_NETWORK_CHANGED: Twoje połączenie internetowe jest niestabilne. Proszę 
+    sprawdź swoje połączenie i spróbuj ponownie.
+  unknown: Wystąpił nieznany błąd. Spróbuj ponownie później.
+formatting:
+  md: Do formatowania możesz użyć <a href="https://markdown.de/">Markdown</a>.
+fsp:
+  yours: Jadłodzielnie w twoich okręgach
+  inRegion: Wszystkie jadłodzielnie w {region}
+  follow: Śledź tę jadłodzielnię
+  followName: Śledź jadłodzielnię {name}
+  unfollow: Przestań śledzić jadłodzielnię
+  managers: Osoby do kontaktu
+  followers: Zainteresowani/e Foodsharerzy/ki
+  description: Opis
+  new: Nowa jadłodzielnia
+  add: Dodaj jadłodzielnię
+  addError: Jadłodzielnia nie mogła zostać dodana. Czy poprawnie wszystko 
+    wypełniłeś/aś?
+  addSuccess: Jadłodzielnia została pomyślnie dodana
+  suggest: Zaproponuj jadłodzielnię
+  accept: Zaakceptuj jadłodzielnię
+  acceptSuccess: Jadłodzielnia jest teraz aktywna
+  reject: Odrzuć jadłodzielnię
+  edit: Edytuj jadłodzielnię
+  editName: Edytuj jadłodzielnię „{name}“
+  editSuccess: Jadłodzielnia została pomyślnie zmieniona
+  address: Adres
+  street: Ulica
+  location: Kod pocztowy / miejscowość
+  show_on_large_map: Pokaż na mapie
+  pic: Zdjęcie
+  addedOn: Dodany
+  addedBy: Dodany przez
+  descLabel: Wpisz tutaj podstawowe informacje o jadłodzielni, w szczególności 
+    kiedy jest dostępna/otwarta.
+  noManager: Co najmniej jedna osoba musi być odpowiedzialna za tę 
+    jadłodzielnię.
+  delete: Usuń jadłodzielnię
+  deleteConfirm: Czy na pewno chcesz usunąć tę jadłodzielnię?
+  deleteSuccess: Jadłodzielnia została usunięta
+  form_validation:
+    required: '{name} jest wymagane.'
+  twig:
+    n_in_region: '{count} jadłodzielni w {name}'
+storeview:
+  common: Ogólne informacje
