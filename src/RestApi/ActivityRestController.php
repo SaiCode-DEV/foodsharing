@@ -10,7 +10,6 @@ use Foodsharing\RestApi\Models\Activities\ActivityFilterModel;
 use Foodsharing\RestApi\Models\Activities\ActivityModel;
 use Foodsharing\RestApi\Models\Activities\ActivityUpdateModel;
 use Foodsharing\RestApi\Models\HttpCodeMessageModel;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
@@ -18,14 +17,14 @@ use OpenApi\Attributes as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
-class ActivityRestController extends AbstractFOSRestController
+class ActivityRestController extends AbstractFoodsharingRestController
 {
     public function __construct(
         private readonly ActivityTransactions $activityTransactions,
-        private readonly Session $session
+        protected Session $session
     ) {
+        parent::__construct($session);
     }
 
     #[OA\Get(summary: 'Returns the filters for all dashboard activities for the current user')]
@@ -43,13 +42,11 @@ class ActivityRestController extends AbstractFOSRestController
     )]
     public function getActivityFilters(): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
 
         $filters = $this->activityTransactions->getFilters();
 
-        return $this->handleView($this->view($filters, Response::HTTP_OK));
+        return $this->respondOK($filters);
     }
 
     #[OA\Patch(summary: 'Sets which dashboard activities should be deactivated for the current user.')]
@@ -74,9 +71,7 @@ class ActivityRestController extends AbstractFOSRestController
     )]
     public function setActivityFilters(ActivityFilterModel $activityExcluded): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
 
         if (!isset($activityExcluded->excluded)) {
             throw new BadRequestException('Incomplete or incorrect request parameters');
@@ -84,7 +79,7 @@ class ActivityRestController extends AbstractFOSRestController
 
         $this->activityTransactions->setExcludedFilters($activityExcluded->excluded);
 
-        return $this->handleView($this->view([], Response::HTTP_OK));
+        return $this->respondOK();
     }
 
     #[OA\Get(summary: 'Returns the updates object for ActivityOverview to display on the dashboard')]
@@ -103,13 +98,11 @@ class ActivityRestController extends AbstractFOSRestController
     )]
     public function getActivityUpdates(ParamFetcher $paramFetcher): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
 
         $page = intval($paramFetcher->get('page'));
         $updates = new ActivityUpdateModel($this->activityTransactions->getUpdateData($page));
 
-        return $this->handleView($this->view($updates, Response::HTTP_OK));
+        return $this->respondOK($updates);
     }
 }

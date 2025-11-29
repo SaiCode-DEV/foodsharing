@@ -12,7 +12,6 @@ use Foodsharing\Modules\Unit\DTO\UserUnit;
 use Foodsharing\Permissions\RegionPermissions;
 use Foodsharing\RestApi\Models\Group\UserGroupModel;
 use Foodsharing\Utility\ImageHelper;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
@@ -22,18 +21,18 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
-class GroupRestController extends AbstractFOSRestController
+class GroupRestController extends AbstractFoodsharingRestController
 {
     public function __construct(
         private readonly GroupGateway $groupGateway,
-        private readonly Session $session,
+        protected Session $session,
         private readonly ImageHelper $imageService,
         private readonly RegionPermissions $regionPermissions,
         private readonly GroupTransactions $groupTransactions,
         private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
+        parent::__construct($session);
     }
 
     /**
@@ -47,9 +46,7 @@ class GroupRestController extends AbstractFOSRestController
     #[Rest\Delete('groups/{groupId}', requirements: ['groupId' => '\d+'])]
     public function deleteGroup(int $groupId): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('', 'not logged in');
-        }
+        $this->assertLoggedIn();
         if (!$this->regionPermissions->mayAdministrateRegions()) {
             throw new AccessDeniedHttpException();
         }
@@ -61,7 +58,7 @@ class GroupRestController extends AbstractFOSRestController
 
         $this->groupGateway->deleteGroup($groupId);
 
-        return $this->handleView($this->view([], 200));
+        return $this->respondOK();
     }
 
     /**
@@ -73,9 +70,7 @@ class GroupRestController extends AbstractFOSRestController
     #[Rest\QueryParam(name: 'redirect', default: 'false', description: 'Should the response perform a 301 redirect to the actual conference?')]
     public function joinConference(Request $request, RegionGateway $regionGateway, RegionPermissions $regionPermissions, BigBlueButton $bbb, int $groupId, ParamFetcher $paramFetcher): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
         if (!$this->currentUserUnits->mayBezirk($groupId)) {
             throw new AccessDeniedHttpException();
         }
@@ -105,7 +100,7 @@ class GroupRestController extends AbstractFOSRestController
         }
 
         /* Without the redirect, we return information about the conference */
-        return $this->handleView($this->view($data, 200));
+        return $this->respondOK($data);
     }
 
     /**
@@ -126,15 +121,13 @@ class GroupRestController extends AbstractFOSRestController
     #[Rest\Get('user/current/groups')]
     public function listMyWorkingGroups(): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
         $fsId = $this->session->id();
 
         $groups = $this->groupTransactions->getUserGroups($fsId);
 
         $rspGroups = array_map(fn (UserUnit $group): UserGroupModel => UserGroupModel::createFrom($group), $groups);
 
-        return $this->handleView($this->view($rspGroups, 200));
+        return $this->respondOK($rspGroups);
     }
 }

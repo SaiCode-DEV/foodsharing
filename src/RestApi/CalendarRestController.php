@@ -10,7 +10,6 @@ use Foodsharing\Modules\Event\InvitationStatus;
 use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Modules\Store\PickupGateway;
 use Foodsharing\Utility\Sanitizer;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
 use Jsvrcek\ICS\CalendarExport;
@@ -25,7 +24,6 @@ use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 enum FormattingType: string
@@ -56,9 +54,8 @@ enum IncludeEventsType: string
 /**
  * Provides endpoints for exporting pickup dates and other events to iCal and managing access tokens.
  */
-class CalendarRestController extends AbstractFOSRestController
+class CalendarRestController extends AbstractFoodsharingRestController
 {
-    private readonly Session $session;
     private readonly SettingsGateway $settingsGateway;
     private readonly PickupGateway $pickupGateway;
     private readonly EventGateway $eventGateway;
@@ -74,7 +71,8 @@ class CalendarRestController extends AbstractFOSRestController
         TranslatorInterface $translator,
         private readonly Sanitizer $sanitizer,
     ) {
-        $this->session = $session;
+        parent::__construct($session);
+
         $this->settingsGateway = $settingsGateway;
         $this->pickupGateway = $pickupGateway;
         $this->eventGateway = $eventGateway;
@@ -91,14 +89,11 @@ class CalendarRestController extends AbstractFOSRestController
     #[Rest\Get('calendar/token')]
     public function getToken(): Response
     {
-        $userId = $this->session->id();
-        if (!$userId) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
 
-        $token = $this->settingsGateway->getApiToken($userId);
+        $token = $this->settingsGateway->getApiToken($this->session->id());
 
-        return $this->handleView($this->view(['token' => $token]));
+        return $this->respondOK(['token' => $token]);
     }
 
     /**
@@ -112,16 +107,14 @@ class CalendarRestController extends AbstractFOSRestController
     #[Rest\Put('calendar/token')]
     public function createToken(): Response
     {
+        $this->assertLoggedIn();
         $userId = $this->session->id();
-        if (!$userId) {
-            throw new UnauthorizedHttpException('');
-        }
 
         $token = bin2hex(openssl_random_pseudo_bytes(self::TOKEN_LENGTH_IN_BYTES));
         $this->settingsGateway->removeApiToken($userId);
         $this->settingsGateway->saveApiToken($userId, $token);
 
-        return $this->handleView($this->view(['token' => $token]));
+        return $this->respondOK(['token' => $token]);
     }
 
     /**
@@ -134,14 +127,11 @@ class CalendarRestController extends AbstractFOSRestController
     #[Rest\Delete('calendar/token')]
     public function deleteToken(): Response
     {
-        $userId = $this->session->id();
-        if (!$userId) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
 
-        $this->settingsGateway->removeApiToken($userId);
+        $this->settingsGateway->removeApiToken($this->session->id());
 
-        return $this->handleView($this->view());
+        return $this->respondOK();
     }
 
     /**

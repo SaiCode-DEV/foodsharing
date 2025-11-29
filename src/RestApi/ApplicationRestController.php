@@ -7,20 +7,17 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Application\ApplicationTransactions;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Permissions\WorkGroupPermissions;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
-class ApplicationRestController extends AbstractFOSRestController
+class ApplicationRestController extends AbstractFoodsharingRestController
 {
     private readonly RegionGateway $regionGateway;
     private readonly WorkGroupPermissions $workGroupPermissions;
     private readonly ApplicationTransactions $applicationTransactions;
-    private readonly Session $session;
 
     public function __construct(
         WorkGroupPermissions $workGroupPermissions,
@@ -28,10 +25,11 @@ class ApplicationRestController extends AbstractFOSRestController
         ApplicationTransactions $applicationTransactions,
         Session $session
     ) {
+        parent::__construct($session);
+
         $this->workGroupPermissions = $workGroupPermissions;
         $this->regionGateway = $regionGateway;
         $this->applicationTransactions = $applicationTransactions;
-        $this->session = $session;
     }
 
     /**
@@ -46,9 +44,7 @@ class ApplicationRestController extends AbstractFOSRestController
     #[Rest\Patch('applications/{groupId}/{userId}', requirements: ['groupId' => '\d+', 'userId' => '\d+'])]
     public function acceptApplication(int $groupId, int $userId): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
 
         try {
             $group = $this->regionGateway->getRegion($groupId);
@@ -62,7 +58,7 @@ class ApplicationRestController extends AbstractFOSRestController
 
         $this->applicationTransactions->acceptApplication($group, $userId);
 
-        return $this->handleView($this->view([], 200));
+        return $this->respondOK();
     }
 
     /**
@@ -77,9 +73,7 @@ class ApplicationRestController extends AbstractFOSRestController
     #[Rest\Delete('applications/{groupId}/{userId}', requirements: ['groupId' => '\d+', 'userId' => '\d+'])]
     public function declineApplication(int $groupId, int $userId): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
 
         try {
             $group = $this->regionGateway->getRegion($groupId);
@@ -93,7 +87,7 @@ class ApplicationRestController extends AbstractFOSRestController
 
         $this->applicationTransactions->declineApplication($group, $userId);
 
-        return $this->handleView($this->view([], 200));
+        return $this->respondOK();
     }
 
     /**
@@ -108,9 +102,7 @@ class ApplicationRestController extends AbstractFOSRestController
     #[Rest\Get('applications/{groupId}', requirements: ['groupId' => '\d+'])]
     public function listApplications(int $groupId): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
 
         try {
             $group = $this->regionGateway->getRegion($groupId);
@@ -124,6 +116,6 @@ class ApplicationRestController extends AbstractFOSRestController
 
         $applicants = $this->regionGateway->listApplicants($groupId);
 
-        return $this->handleView($this->view($applicants, 200));
+        return $this->respondOK($applicants);
     }
 }

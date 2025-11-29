@@ -10,7 +10,6 @@ use Foodsharing\Modules\Search\SearchGateway;
 use Foodsharing\Modules\Search\SearchTransactions;
 use Foodsharing\Permissions\ForumPermissions;
 use Foodsharing\Permissions\SearchPermissions;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
@@ -18,12 +17,10 @@ use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Throwable;
 
-class SearchRestController extends AbstractFOSRestController
+class SearchRestController extends AbstractFoodsharingRestController
 {
-    private readonly Session $session;
     private readonly SearchGateway $searchGateway;
     private readonly SearchTransactions $searchTransactions;
     private readonly ForumPermissions $forumPermissions;
@@ -36,7 +33,8 @@ class SearchRestController extends AbstractFOSRestController
         ForumPermissions $forumPermissions,
         SearchPermissions $searchPermissions,
     ) {
-        $this->session = $session;
+        parent::__construct($session);
+
         $this->searchGateway = $searchGateway;
         $this->searchTransactions = $searchTransactions;
         $this->forumPermissions = $forumPermissions;
@@ -72,7 +70,7 @@ class SearchRestController extends AbstractFOSRestController
 
         $users = array_map(fn ($user) => SimplifiedUserSearchResult::fromUserSearchResult($user), $users);
 
-        return $this->handleView($this->view($users, Response::HTTP_OK));
+        return $this->respondOK($users);
     }
 
     /**
@@ -103,7 +101,7 @@ class SearchRestController extends AbstractFOSRestController
 
         $results = $this->searchTransactions->search($query, $global);
 
-        return $this->handleView($this->view($results, 200));
+        return $this->respondOK($results);
     }
 
     /**
@@ -118,7 +116,7 @@ class SearchRestController extends AbstractFOSRestController
         $this->assertLoggedIn();
         $results = $this->searchTransactions->searchIndex();
 
-        return $this->handleView($this->view($results, 200));
+        return $this->respondOK($results);
     }
 
     /**
@@ -146,7 +144,7 @@ class SearchRestController extends AbstractFOSRestController
         $disableRegionCheck = $this->forumPermissions->maySearchEveryForum();
         $results = $this->searchGateway->searchThreads($query, $this->session->id(), $groupId, $subforumId, $disableRegionCheck);
 
-        return $this->handleView($this->view($results, 200));
+        return $this->respondOK($results);
     }
 
     private function getQuery(ParamFetcher $paramFetcher): string
@@ -157,12 +155,5 @@ class SearchRestController extends AbstractFOSRestController
         }
 
         return $query;
-    }
-
-    private function assertLoggedIn(): void
-    {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('', 'Not logged in');
-        }
     }
 }

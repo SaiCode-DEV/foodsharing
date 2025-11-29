@@ -6,7 +6,6 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Message\MessageGateway;
 use Foodsharing\Modules\Message\MessageTransactions;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
 use OpenApi\Attributes as OA;
@@ -16,12 +15,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 #[OA\Tag('conversation')]
-class MessageRestController extends AbstractFOSRestController
+class MessageRestController extends AbstractFoodsharingRestController
 {
     private readonly FoodsaverGateway $foodsaverGateway;
     private readonly MessageGateway $messageGateway;
     private readonly MessageTransactions $messageTransactions;
-    private readonly Session $session;
 
     public function __construct(
         FoodsaverGateway $foodsaverGateway,
@@ -29,19 +27,17 @@ class MessageRestController extends AbstractFOSRestController
         MessageTransactions $messageTransactions,
         Session $session,
     ) {
+        parent::__construct($session);
         $this->foodsaverGateway = $foodsaverGateway;
         $this->messageGateway = $messageGateway;
         $this->messageTransactions = $messageTransactions;
-        $this->session = $session;
     }
 
     #[Rest\Post('conversations/{conversationId}/readStatus', requirements: ['conversationId' => '\d+'])]
     #[Rest\QueryParam(name: 'read', requirements: '0|1', description: 'Whether the message is read')]
     public function markConversationRead(int $conversationId, ParamFetcher $paramFetcher): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
         if (!$this->messageGateway->mayConversation($this->session->id(), $conversationId)) {
             throw new AccessDeniedHttpException();
         }
@@ -49,7 +45,7 @@ class MessageRestController extends AbstractFOSRestController
         $isRead = (bool)$paramFetcher->get('read');
         $this->messageGateway->setReadStatus($conversationId, $this->session->id(), $isRead);
 
-        return $this->handleView($this->view([], 200));
+        return $this->respondOK();
     }
 
     // #[Rest\Post('conversations/{conversationId}/unread', requirements: ['conversationId' => '\d+'])]
@@ -71,9 +67,7 @@ class MessageRestController extends AbstractFOSRestController
     #[Rest\QueryParam(name: 'limit', requirements: '\d+', default: '20', description: 'Number of messages to return')]
     public function getConversationMessages(int $conversationId, ParamFetcher $paramFetcher): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
         if (!$this->messageGateway->mayConversation($this->session->id(), $conversationId)) {
             throw new AccessDeniedHttpException();
         }
@@ -94,16 +88,14 @@ class MessageRestController extends AbstractFOSRestController
         $profileIDs = array_unique($profileIDs);
         $profiles = $this->foodsaverGateway->getProfileForUsers($profileIDs);
 
-        return $this->handleView($this->view(['messages' => $messages, 'profiles' => array_values($profiles)], 200));
+        return $this->respondOK(['messages' => $messages, 'profiles' => array_values($profiles)]);
     }
 
     #[Rest\Get('conversations/{conversationId}', requirements: ['conversationId' => '\d+'])]
     #[Rest\QueryParam(name: 'messagesLimit', requirements: '\d+', default: '20', description: 'How many messages to return.')]
     public function getConversation(int $conversationId, ParamFetcher $paramFetcher): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
         if (!$this->messageGateway->mayConversation($this->session->id(), $conversationId)) {
             throw new AccessDeniedHttpException();
         }
@@ -112,9 +104,7 @@ class MessageRestController extends AbstractFOSRestController
 
         $conversationData = $this->getConversationData($conversationId, $messagesLimit);
 
-        $view = $this->view($conversationData, 200);
-
-        return $this->handleView($view);
+        return $this->respondOK($conversationData);
     }
 
     private function getConversationData(int $conversationId, int $messagesLimit): array
@@ -147,9 +137,7 @@ class MessageRestController extends AbstractFOSRestController
     #[Rest\RequestParam(name: 'members', map: true, requirements: '\d+', description: 'User ids of people to include in the conversation.')]
     public function createConversation(ParamFetcher $paramFetcher): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
 
         $members = $paramFetcher->get('members');
         $members[] = $this->session->id();
@@ -162,7 +150,7 @@ class MessageRestController extends AbstractFOSRestController
 
         $conversationData = $this->getConversationData($conversationId, 20);
 
-        return $this->handleView($this->view($conversationData, 200));
+        return $this->respondOK($conversationData);
     }
 
     #[Rest\Get('conversations')]
@@ -170,42 +158,39 @@ class MessageRestController extends AbstractFOSRestController
     #[Rest\QueryParam(name: 'offset', requirements: '\d+', default: '0', description: 'Offset returned conversations.')]
     public function getConversations(ParamFetcher $paramFetcher): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
 
         $limit = $paramFetcher->get('limit');
         $offset = $paramFetcher->get('offset');
 
         $data = $this->messageTransactions->listConversationsWithProfilesForUser($this->session->id(), $limit, $offset);
 
-        return $this->handleView($this->view([
+        return $this->respondOK([
             'conversations' => array_values($data['conversations']),
             'profiles' => array_values($data['profiles'])
-        ], 200));
+        ]);
     }
 
     #[Rest\Post('conversations/{conversationId}/messages', requirements: ['conversationId' => '\d+'])]
     #[Rest\RequestParam(name: 'body', nullable: false)]
     public function sendMessage(int $conversationId, ParamFetcher $paramFetcher): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
         if (!$this->messageGateway->mayConversation($this->session->id(), $conversationId)) {
             throw new AccessDeniedHttpException();
         }
         $body = $paramFetcher->get('body');
         $message = $this->messageTransactions->sendMessage($conversationId, $this->session->id(), $body);
 
-        return $this->handleView($this->view(['message' => $message], 200));
+        return $this->respondOK(['message' => $message]);
     }
 
     #[Rest\Patch('conversations/{conversationId}', requirements: ['conversationId' => '\d+'])]
     #[Rest\RequestParam(name: 'name', nullable: true, default: null)]
     public function patchConversation(int $conversationId, ParamFetcher $paramFetcher): Response
     {
-        if (!$this->session->mayRole() || !$this->messageGateway->mayConversation($this->session->id(), $conversationId)) {
+        $this->assertLoggedIn();
+        if (!$this->messageGateway->mayConversation($this->session->id(), $conversationId)) {
             throw new UnauthorizedHttpException('');
         }
         if ($this->messageGateway->isConversationLocked($conversationId)) {
@@ -217,7 +202,7 @@ class MessageRestController extends AbstractFOSRestController
             $this->messageGateway->renameConversation($conversationId, $name);
         }
 
-        return $this->handleView($this->view([], 200));
+        return $this->respondOK();
     }
 
     #[Rest\Delete('conversations/{conversationId}/members/{userId}', requirements: ['conversationId' => '\d+', 'userId' => '\d+'])]
@@ -241,9 +226,7 @@ class MessageRestController extends AbstractFOSRestController
     #[Rest\Get('user/{userId}/conversation', requirements: ['userId' => '\d+'])]
     public function getUserConversation(int $userId): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
         if ($userId == $this->session->id()) {
             throw new AccessDeniedHttpException();
         }
@@ -254,6 +237,6 @@ class MessageRestController extends AbstractFOSRestController
 
         $conversationId = $this->messageGateway->getOrCreateConversation([$this->session->id(), $userId]);
 
-        return $this->handleView($this->view(['id' => $conversationId], 200));
+        return $this->respondOK(['id' => $conversationId]);
     }
 }

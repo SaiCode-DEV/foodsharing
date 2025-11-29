@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Foodsharing\RestApi;
 
+use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Region\DTO\RegionPickupStatistics;
 use Foodsharing\Modules\Region\RegionGateway;
@@ -15,7 +16,6 @@ use Foodsharing\Permissions\RegionPermissions;
 use Foodsharing\RestApi\Models\Statistic\GeneralStatistic;
 use Foodsharing\RestApi\Models\Statistic\PickupModel;
 use Foodsharing\RestApi\Models\Statistic\StatisticModel;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
@@ -26,10 +26,10 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 
-class StatisticRestController extends AbstractFOSRestController
+class StatisticRestController extends AbstractFoodsharingRestController
 {
     private const string NOT_FOUND_MESSAGE = 'Region with that id %d not found';
-    private const OVERALL_STATISTICS_CACHE_DURATION = 12 * 60 * 60;
+    private const int OVERALL_STATISTICS_CACHE_DURATION = 12 * 60 * 60;
 
     public function __construct(
         private readonly StatisticsGateway $statisticsGateway,
@@ -37,7 +37,9 @@ class StatisticRestController extends AbstractFOSRestController
         private readonly RegionPermissions $regionPermissions,
         private readonly RegionTransactions $regionTransactions,
         private readonly CacheInterface $cache,
+        protected Session $session,
     ) {
+        parent::__construct($session);
     }
 
     #[OA\Get(
@@ -68,7 +70,7 @@ class StatisticRestController extends AbstractFOSRestController
             ? $this->statisticsGateway->genderCountHomeRegion($regionId)
             : $this->statisticsGateway->genderCountRegion($regionId);
 
-        return $this->handleView($this->view($result, Response::HTTP_OK));
+        return $this->respondOK($result);
     }
 
     #[OA\Get(
@@ -99,7 +101,7 @@ class StatisticRestController extends AbstractFOSRestController
             ? $this->statisticsGateway->ageBandHomeDistrict($regionId)
             : $this->statisticsGateway->ageBandDistrict($regionId);
 
-        return $this->handleView($this->view($result, Response::HTTP_OK));
+        return $this->respondOK($result);
     }
 
     #[OA\Get(summary: 'Returns the age band distribution from a region.')]
@@ -123,7 +125,7 @@ class StatisticRestController extends AbstractFOSRestController
 
         $result = $this->regionTransactions->getRegionPickupStatistics($regionId);
 
-        return $this->handleView($this->view($result, Response::HTTP_OK));
+        return $this->respondOK($result);
     }
 
     #[OA\Get(summary: 'Returns the age band distribution from a region.')]
@@ -145,7 +147,7 @@ class StatisticRestController extends AbstractFOSRestController
             );
         });
 
-        return $this->handleView($this->view($statistics, Response::HTTP_OK));
+        return $this->respondOK($statistics);
     }
 
     private function getGeneralStatistic(): GeneralStatistic
