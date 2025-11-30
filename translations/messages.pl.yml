@@ -761,3 +761,37 @@ fsp:
     n_in_region: '{count} jadłodzielni w {name}'
 storeview:
   common: Ogólne informacje
+store:
+  team_container: Team
+  member: Członek
+  active: aktywna
+  one_active: aktywny
+  of_that: z tego
+  unverified_member: niezweryfikowany
+  unverified_members: niezweryfikowana
+  go: Do teamu
+  teamName: team {storeTitle}
+  joinDate: W teamie od {date}
+  lastPickupShort: ostatnio {date}
+  unknownDate: nieznany
+  invited: zaproszony/a
+  isNotVerified: Jeszcze nie jest zweryfikowany/a.
+  particularities: Przebieg & wskazówki
+  may_referred_to_in_public_unclear: jeszcze nie wyjaśniony
+  address: Adres
+  days: dni
+  days_before: przed
+  team_conversation_name: Team {name}
+  sm:
+    sorting:
+      default: Sortowanie standardowe
+      distance: Sortowanie według odległości
+    filterAll: Członkowie
+    filterActive: Aktywni
+    filterUnverified: Niezweryfikowani
+    filterNoHygiene: Bez szkolenia higieny
+    removeFromTeam: Usuń z teamu
+    makeRegularTeamMember: Dodaj do teamu
+    inviteMember: Zaproś do teamu
+    reloadPage: Załaduj ponownie
+    searchPlaceholder: Imię lub ID
