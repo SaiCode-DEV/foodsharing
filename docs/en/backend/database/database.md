@@ -17,8 +17,7 @@ Each change in database schema is described by a migration file. On execution of
 1. Create a new migration changeset
 
     ```bash
-    $> ./scripts/docker-compose exec app vendor/bin/phinx create <YourMigrationChangeset>
-    $> sudo chmod 777 migrations/<timestamp>_<YourMigrationChangeset>.php
+    ./scripts/docker-compose exec app vendor/bin/phinx create <YourMigrationChangeset>
     ```
 
     - `<YourMigrationChangeset>` is short summary in filename
@@ -60,13 +59,13 @@ Each change in database schema is described by a migration file. On execution of
 3. Test migration script by a dry-run
 
     ```bash
-    $> ./scripts/docker-compose exec app vendor/bin/phinx migrate --dry-run
+    ./scripts/db-migrate --dry-run
     ```
 
 4. execute the exchange on the local database
 
     ```bash
-    $> ./scripts/docker-compose exec app vendor/bin/phinx migrate
+    ./scripts/db-migrate
     ```
 
 5. Merge request special cases
