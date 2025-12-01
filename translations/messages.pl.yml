@@ -795,3 +795,11 @@ store:
     inviteMember: Zaproś do teamu
     reloadPage: Załaduj ponownie
     searchPlaceholder: Imię lub ID
+  request:
+    applicationSummary:
+      verified: Status weryfikacji ({status})
+    alerts:
+      one_more: Pokaż kolejną wskazówkę
+      many_more: Pokaż {count} kolejne wpisy
+      one_less: Ukryj wpis
+      many_less: Ukryj {count} wpisów
