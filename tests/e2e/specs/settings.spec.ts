@@ -26,27 +26,27 @@ test.describe('Settings', () => {
   });
 
   test('shows return to profile button and redirects correctly when editing another user', async ({ page, acceptanceHelper }) => {
-      // Setup region, member, and ambassador
-      const region = await foodsharing.createRegion();
-      const member = await foodsharing.createFoodsaver();
-      const ambassador = await foodsharing.createAmbassador(null, { bezirk_id: region.id });
+    // Setup region, member, and ambassador
+    const region = await foodsharing.createRegion();
+    const member = await foodsharing.createFoodsaver();
+    const ambassador = await foodsharing.createAmbassador(null, { bezirk_id: region.id });
 
-      await foodsharing.addRegionAdmin(region.id, ambassador.id);
-      await foodsharing.addRegionMember(region.id, member.id);
+    await foodsharing.addRegionAdmin(region.id, ambassador.id);
+    await foodsharing.addRegionMember(region.id, member.id);
 
-      await acceptanceHelper.login(ambassador.email);
+    await acceptanceHelper.login(ambassador.email);
 
-      // Go to member's settings page
-      await page.goto(`/user/${member.id}/settings`);
-      await acceptanceHelper.waitForActiveAPICalls();
+    // Go to member's settings page
+    await page.goto(`/user/${member.id}/settings`);
+    await acceptanceHelper.waitForActiveAPICalls();
 
-      // Check last name field
-      await expect(page.locator('#input-lastname')).toHaveValue(member.nachname);
+    // Check last name field
+    await expect(page.locator('#input-lastname')).toHaveValue(member.nachname);
 
-      // Click 'Zurück zum Profil' and verify redirect
-      await page.click('text=Zurück zum Profil');
-      await expect(page).toHaveURL(`/user/${member.id}/profile`);
-    });
+    // Click 'Zurück zum Profil' and verify redirect
+    await page.click('text=Zurück zum Profil');
+    await expect(page).toHaveURL(`/user/${member.id}/profile`);
+  });
 
   test('can downgrade foodsharer permanently', async ({ page, acceptanceHelper }) => {
     const password = 'password';
@@ -92,30 +92,31 @@ test.describe('Settings', () => {
       rolle: Role.FOODSHARER,
       quiz_rolle: Role.FOODSHARER
     })).toBeTruthy();
-
-    test('can view another user settings and verify data from DB', async ({ page, acceptanceHelper }) => {
-      const password = 'password';
-      const region = await foodsharing.createRegion();
-      const foodSaver = await foodsharing.createFoodsaver(password, { bezirk_id: region.id });
-      const ambassador = await foodsharing.createAmbassador(password, { bezirk_id: region.id });
-      await foodsharing.addRegionAdmin(region.id, ambassador.id);
-
-      await acceptanceHelper.login(ambassador.email, password);
-
-      // Visit own settings as ambassador
-      await page.goto(`/user/current/settings`);
-      await acceptanceHelper.waitForActiveAPICalls();
-
-      // Then visit foodSaver's settings
-      await page.goto(`/user/${foodSaver.id}/settings`);
-      await acceptanceHelper.waitForActiveAPICalls();
-
-      // Grab expected data from database for foodSaver
-      const expectedName = await Database.grabFromDatabase('fs_foodsaver', 'name', { id: foodSaver.id });
-      const expectedLastName = await Database.grabFromDatabase('fs_foodsaver', 'nachname', { id: foodSaver.id });
-
-      // Assert that the settings form displays the expected data in specific fields
-      await expect(page.locator('#input-firstname')).toHaveValue(expectedName);
-      await expect(page.locator('#input-lastname')).toHaveValue(expectedLastName);
-    });
   });
+
+  test('can view another user settings and verify data from DB', async ({ page, acceptanceHelper }) => {
+    const password = 'password';
+    const region = await foodsharing.createRegion();
+    const foodSaver = await foodsharing.createFoodsaver(password, { bezirk_id: region.id });
+    const ambassador = await foodsharing.createAmbassador(password, { bezirk_id: region.id });
+    await foodsharing.addRegionAdmin(region.id, ambassador.id);
+
+    await acceptanceHelper.login(ambassador.email, password);
+
+    // Visit own settings as ambassador
+    await page.goto(`/user/current/settings`);
+    await acceptanceHelper.waitForActiveAPICalls();
+
+    // Then visit foodSaver's settings
+    await page.goto(`/user/${foodSaver.id}/settings`);
+    await acceptanceHelper.waitForActiveAPICalls();
+
+    // Grab expected data from database for foodSaver
+    const expectedName = await Database.grabFromDatabase('fs_foodsaver', 'name', { id: foodSaver.id });
+    const expectedLastName = await Database.grabFromDatabase('fs_foodsaver', 'nachname', { id: foodSaver.id });
+
+    // Assert that the settings form displays the expected data in specific fields
+    await expect(page.locator('#input-firstname')).toHaveValue(expectedName);
+    await expect(page.locator('#input-lastname')).toHaveValue(expectedLastName);
+  });
+});
