@@ -2695,19 +2695,19 @@ system_administration:
   content: ''
 maxfp: 'Número máximo de pontos de erro para passar o testo'
 bootstrap-datepicker:
-  labelCalendar: ''
-  labelCurrentMonth: ''
-  labelPrevYear: ''
-  labelHelp: ''
-  labelNav: ''
-  labelNextMonth: ''
-  labelPrevMonth: ''
-  labelNoDateSelected: ''
-  labelNextYear: ''
-  labelToday: ''
-  labelNextDecade: ''
-  labelSelected: ''
-  labelPrevDecade: ''
+  labelCalendar: 'Calendário'
+  labelCurrentMonth: 'mês atual'
+  labelPrevYear: 'ano anterior'
+  labelHelp: 'Navegar pelo calendário usando as teclas de seta'
+  labelNav: 'Navegação do calendário'
+  labelNextMonth: 'próximo mês'
+  labelPrevMonth: 'mês anterior'
+  labelNoDateSelected: 'Nenhuma data selecionada'
+  labelNextYear: 'próximo ano'
+  labelToday: 'Hoje'
+  labelNextDecade: 'próximo década'
+  labelSelected: 'Data selecionada'
+  labelPrevDecade: 'década anterior'
 events:
   create:
     multiday: 'O evento dura vários dias'
@@ -2933,13 +2933,16 @@ notifications:
     title: ''
   chat:
     description: ''
-    title: ''
+    title: 'Mensagens de chat'
   threads:
     title: ''
   config_button: ''
-  success: ''
+  success: 'Sucesso'
   checkbox_email: ''
   checkbox_bell: ''
+  warning: Aviso
+  error: Ero
+  info: Informação
 are_you_sure: 'Estás a certeza?'
 button:
   save: 'Salvar'
@@ -3048,11 +3051,13 @@ storelist:
   addressdata: ''
   fetching: ''
 activitypost:
-  quickreply_button: ''
-  write: ''
-  quickreply_info: ''
-  response: ''
-  Response: ''
+  quickreply_button: 'Envia agora<br>ou <code class="key">pressionar a <code class="key">tecla
+    enter.'
+  write: 'Escreve uma resposta …'
+  quickreply_info: '<code class="key">tecla shift + tecla enter</code> para agregar
+    uma linea nova.'
+  response: 'responder'
+  Response: 'Respostas'
 addreaction: ''
 regionOptions:
   success: ''
@@ -3367,3 +3372,6 @@ test:
   vars: O meu nome é [NAME] e tenho [AGE] anos
 totp_code: Introduza o código de dois fatores gerado ou um dos códigos de 
   backup.
+sort:
+  options:
+    name: Nome
