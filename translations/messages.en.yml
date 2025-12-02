@@ -2687,6 +2687,7 @@ search:
       present_since: Started
       present_until: Ends
       future: Begins
+    relevance: Relevance ({percent} %)
   maxresults: The number of results displayed is limited. Maybe use a more 
     specific search term.
   too_short: Please enter a longer search term.
@@ -2694,6 +2695,8 @@ search:
     local: User-specific search
     global: Global search
 
+  placeholder: Search now …
+  thread-body-only: Only the text of posts is searched, not the titles.
 sort:
   sort_by: "Sort by "
   options:
