@@ -51,6 +51,11 @@ class MaintenanceService
         $this->deleteUnusedImages();
 
         /*
+         * Delete old password reset requests
+         */
+        $this->deleteOldPassRequests();
+
+        /*
          * deactivate too old food baskets
          */
         $this->deactivateBaskets();
@@ -368,5 +373,12 @@ class MaintenanceService
         ConsoleHelper::info('deleting test quiz sessions...');
         $count = $this->maintenanceGateway->deleteTestQuizSessions();
         ConsoleHelper::success($count . ' sessions deleted');
+    }
+
+    private function deleteOldPassRequests(): void
+    {
+        ConsoleHelper::info('deleting old password reset requests...');
+        $count = $this->maintenanceGateway->deleteOldPassRequests();
+        ConsoleHelper::success($count . ' entries deleted');
     }
 }

@@ -239,4 +239,19 @@ class MaintenanceGateway extends BaseGateway
             'uploaded_at <' => $to->format('Y-m-d H:i:s')
         ]);
     }
+
+    /**
+     * Deletes password reset requests that are older than 7 days.
+     *
+     * @return int number of deleted entries
+     */
+    public function deleteOldPassRequests(): int
+    {
+        return $this->db->delete(
+            'fs_pass_request',
+            [
+                'time <' => Carbon::now()->subDays(7)->format('Y-m-d H:i:s'),
+            ]
+        );
+    }
 }

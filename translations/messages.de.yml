@@ -612,7 +612,7 @@ login:
   pwreset:
     bread: "Passwort zurücksetzen"
     wrongMail: "Leider finden wir diese E-Mail-Adresse nicht, bitte versuche es noch einmal."
-    mailSent: "Alles klar, dir wurde ein Link zum Ändern des Passworts per E-Mail zugeschickt."
+    mailSent: "Alles klar, dir wurde ein Link zum Ändern des Passworts per E-Mail zugeschickt. Der Link ist 7 Tage gültig. Danach musst du einen neuen Link anfordern."
     success: "Prima, dein Passwort wurde erfolgreich geändert. Du kannst dich jetzt einloggen."
     tooShort: "Sorry, dein gewähltes Passwort ist zu kurz."
     invalidCode: "Der eingegebene Code ist ungültig. Bitte probiere es erneut. Du kannst hier auch Backup-Codes verwenden."

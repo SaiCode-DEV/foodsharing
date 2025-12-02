@@ -1413,7 +1413,7 @@ login:
       request a new password.
     success: Great, your password has been changed successfully. You can now log
       in.
-    mailSent: Alright! A link to change your password has been emailed to you.
+    mailSent: Alright! A link to change your password has been emailed to you. The link is valid for 7 days. After that, you will need to request a new one.
     wrongMail: Unfortunately we cannot find that e-mail address. Please try 
       again.
     invalidCode: The code you entered is invalid. Please try again. You can also
