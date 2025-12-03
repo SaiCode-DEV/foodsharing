@@ -731,11 +731,8 @@ class Foodsharing {
     questionCount = questionCount ?? Math.floor(Math.random() * 4) + 3; // 3-6 questions
     const questionCountUntimed = quizId === 1 ? 2 + questionCount : null;
     
-    // First clear existing quiz data to avoid constraint issues
     const conn = await Database.connect();
-    await conn.execute('DELETE FROM fs_quiz_session WHERE quiz_id = ?', [quizId]);
-    await conn.execute('DELETE FROM fs_question_has_quiz WHERE quiz_id = ?', [quizId]);
-    await conn.execute('DELETE FROM fs_quiz WHERE id = ?', [quizId]);
+
 
     // Set name and description based on quiz type
     let name = '';
@@ -750,9 +747,13 @@ class Foodsharing {
 
     description += ' ' + faker.lorem.paragraphs(2);
 
-    // Insert quiz using direct SQL to handle reserved keyword
+    // Clear existing related data first (these don't have race condition issues)
+    await conn.execute('DELETE FROM fs_quiz_session WHERE quiz_id = ?', [quizId]);
+    await conn.execute('DELETE FROM fs_question_has_quiz WHERE quiz_id = ?', [quizId]);
+
+    // Use REPLACE INTO for atomic upsert - handles concurrent quiz creation
     const quizSQL = `
-      INSERT INTO fs_quiz 
+      REPLACE INTO fs_quiz 
       (id, name, \`desc\`, is_desc_htmlentity_encoded, maxfp, questcount, questcount_untimed)
       VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
@@ -766,6 +767,12 @@ class Foodsharing {
       questionCount,
       questionCountUntimed
     ]);
+
+    // Assertion: Quiz should exist
+    const quizExists = await Database.seeInDatabase('fs_quiz', { id: quizId });
+    if (!quizExists) {
+      throw new Error(`Quiz with ID ${quizId} was not created correctly!`);
+    }
 
     // Then create the questions
     const questions = [];
@@ -820,8 +827,12 @@ class Foodsharing {
       quiz_id: quizId, 
       fp: Math.floor(Math.random() * 3) + 1
     };
-
-    await Database.addToDatabase('fs_question_has_quiz', quizLinkParams);
+    try {
+      await Database.addToDatabase('fs_question_has_quiz', quizLinkParams);
+    } catch (err) {
+      console.error(`Error linking question ${questionId} to quiz ${quizId}:`, err.message);
+      throw err;
+    }
 
     // Create answers
     const answers = [];

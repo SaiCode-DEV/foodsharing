@@ -43,6 +43,7 @@ export class AcceptanceHelper {
       () => !(window as any).hasActiveRequests(),
       { timeout }
     );
+    await this.page.waitForTimeout(1000);
   }
 }
 
