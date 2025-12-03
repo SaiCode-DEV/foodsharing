@@ -13,7 +13,7 @@ export default defineConfig({
   /* Limit the number of failures on CI to save resources */
   maxFailures: process.env.CI ? 10 : undefined,
   /* Limit the number of workers on CI, use default locally. */
-  workers: process.env.CI ? "80%" : undefined,
+  workers: process.env.CI ? '70%' : '40%',
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['list'],
@@ -47,20 +47,20 @@ export default defineConfig({
   projects: [
     /* Test against desktop viewports. */
     {
-      name: "chromium",
+      name: "Desktop Chrome",
       use: { ...devices["Desktop Chrome"] },
     },
     {
-      name: "dark mode",
+      name: "Desktop dark mode",
       use: { ...devices["Desktop Chrome"], colorScheme: "dark" },
     },
     {
-      name: "firefox",
+      name: "Desktop Firefox",
       use: { ...devices["Desktop Firefox"] },
     },
     /* Disable webkit tests for now, as they are quite faulty
     {
-      name: "webkit",
+      name: "Desktop Safari",
       use: { ...devices["Desktop Safari"] },
     },  */
     
@@ -72,7 +72,7 @@ export default defineConfig({
     /* Disable Mobile Safari tests for now, as they are quite faulty
     {
       name: "Mobile Safari",
-      use: { ...devices["iPhone 14"] },
+      use: { ...devices["iPhone 15 Pro"] },
     },  */
   ],
 });

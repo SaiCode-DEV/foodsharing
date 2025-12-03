@@ -471,6 +471,9 @@ test:playwright:
   extends:
     - .defaults
   stage: test
+  parallel:
+    matrix:
+      - PROJECT: ["Desktop Chrome", "Desktop dark mode", "Desktop Firefox", "Mobile Chrome"]
   environment:
     name: playwright
     url: http://nginx:8080/

@@ -40,4 +40,4 @@ log-header "Running tests"
 cd tests/e2e || exit 1
 npm ci
 npx playwright install
-npx playwright test
+npx playwright test --project="${PROJECT}"
