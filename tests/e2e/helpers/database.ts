@@ -21,11 +21,16 @@ export class Database {
     const conn = await this.connect();
 
     const whereClauses = Object.entries(criteria)
-      .map(([key, value]) => `\`${key}\` = ?`)
+      .map(([key, value]) => {
+        if (value === null) {
+          return `\`${key}\` IS NULL`;
+        }
+        return `\`${key}\` = ?`;
+      })
       .join(' AND ');
 
     const query = `SELECT COUNT(*) as count FROM \`${table}\` WHERE ${whereClauses}`;
-    const values = Object.values(criteria);
+    const values = Object.values(criteria).filter(value => value !== null);
 
     const [rows] = await conn.execute(query, values);
     const count = (rows as any)[0].count;
