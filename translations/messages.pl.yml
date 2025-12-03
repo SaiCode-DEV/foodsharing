@@ -803,3 +803,15 @@ store:
       many_more: Pokaż {count} kolejne wpisy
       one_less: Ukryj wpis
       many_less: Ukryj {count} wpisów
+  invitation:
+    accept: Zaakceptuj zaproszenie
+    decline: Odrzuć
+    invited_by: Zaproszony/a przez
+  info_container: Informacje
+  chain_search_picker:
+    modal_title: Wybierz sieć
+  team:
+    is_closed: Team jest zamknięty
+    search_input: Szukaj według imienia / numeru telefonu
+  filter: Filtruj według …
+  maxchar: (max. 180 znaków)
