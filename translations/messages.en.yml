@@ -1413,7 +1413,9 @@ login:
       request a new password.
     success: Great, your password has been changed successfully. You can now log
       in.
-    mailSent: Alright! A link to change your password has been emailed to you. The link is valid for 7 days. After that, you will need to request a new one.
+    mailSent: Alright! A link to change your password has been emailed to you. 
+      The link is valid for 7 days. After that, you will need to request a new 
+      one.
     wrongMail: Unfortunately we cannot find that e-mail address. Please try 
       again.
     invalidCode: The code you entered is invalid. Please try again. You can also
@@ -2102,8 +2104,7 @@ basket:
       It may have already been picked up or removed by the provider.
     register: |
       You are not yet registered as a foodsharer?
-      Then click on [**Join us**](/content?sub=joininfo) to get started or set up
-      a food basket yourself.
+      Then click on [**Join us**](/content?sub=joininfo) to get started or set up a food basket yourself.
     map: "You may find other food baskets in your area on our map."
   login: "You must be logged in to see detailed information. Not yet registered? Then
     click on **Join** above and get started right away."
