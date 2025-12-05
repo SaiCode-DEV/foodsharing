@@ -815,3 +815,10 @@ store:
     search_input: Szukaj według imienia / numeru telefonu
   filter: Filtruj według …
   maxchar: (max. 180 znaków)
+  prefetchone: 1 tydzień
+  prefetchtwo: 2 tygodnie
+  prefetchthree: 3 tygodnie
+  prefetchfour: 4 tygodnie
+  complete: pełna baza danych
+  log:
+    search: Pokaż wybrane akcje
