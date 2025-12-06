@@ -282,7 +282,9 @@ class Foodsharing {
         conn.execute('SELECT id FROM fs_betrieb_kategorie')
       );
       const categories = (rows as any[]).map(row => row.id);
-      storeCategoryId = categories[Math.floor(Math.random() * categories.length)];
+      if (categories.length > 0) {
+        storeCategoryId = categories[Math.floor(Math.random() * categories.length)];
+      }
     }
 
     const params = {
