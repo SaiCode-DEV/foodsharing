@@ -223,6 +223,8 @@ export default {
       applications: [],
       regionMenu: null,
       activeSubpage: this.initialActiveSubpage,
+      forumThreadId: null,
+      showNewThreadForm: false,
     }
   },
   computed: {
@@ -232,18 +234,14 @@ export default {
     subForumId () {
       return this.activeSubpage === SUB_PAGE.AMBASSADOR_FORUM ? 1 : 0
     },
-    forumThreadId () {
-      return Number(GET('tid')) ?? null
-    },
-    showNewThreadForm () {
-      return Number(GET('newthread')) === 1
-    },
   },
   async mounted () {
     if (this.isWorkGroup && this.mayAccessApplications) {
       this.applications = await getApplications(this.regionId)
     }
     this.regionMenu = await regionStore.fetchRegionMenu(this.regionId)
+    this.forumThreadId = Number(GET('tid')) ?? null
+    this.showNewThreadForm = Number(GET('newthread')) === 1
   },
   methods: {
     changeSubPage (subPage) {
@@ -253,6 +251,13 @@ export default {
         // Adjust the page's URL
         const url = new URL(location)
         url.searchParams.set('sub', subPage)
+
+        // Reset parameters of the forum so that going back to the forum will show the thread list
+        url.searchParams.delete('tid')
+        this.forumThreadId = null
+        url.searchParams.delete('newthread')
+        this.showNewThreadForm = false
+
         history.pushState({}, '', url)
       }
     },

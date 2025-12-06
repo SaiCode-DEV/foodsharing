@@ -117,10 +117,13 @@ export default {
       return menu.href ? this.$url(menu.href, id, menu.special) : '#'
     },
     onClick (menu) {
-      if (menu.func) {
-        menu.func()
-      } else if (menu.subPage) {
-        this.$emit('change-page', menu.subPage)
+      // If isLinkingSubpages is true, the link has an href attribute and the page will reload
+      if (!this.isLinkingSubpages) {
+        if (menu.func) {
+          menu.func()
+        } else if (menu.subPage) {
+          this.$emit('change-page', menu.subPage)
+        }
       }
     },
   },
