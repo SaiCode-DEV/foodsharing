@@ -12,10 +12,9 @@ test.describe('Business card', () => {
   });
 
   test('can create business card as foodsaver', async ({ page, acceptanceHelper }) => {
-    const password = 'password';
-    const user = await foodsharing.createFoodsaver(password);
+    const user = await foodsharing.createFoodsaver();
 
-    await acceptanceHelper.login(user.email, password);
+    await acceptanceHelper.login(user.email);
     await page.goto('/user/current/settings?sub=bcard');
 
     await expect(page.getByText('Hier einfach generieren, ausdrucken und ausschneiden')).toBeVisible();
@@ -25,7 +24,7 @@ test.describe('Business card', () => {
     const password = 'password';
     const user = await foodsharing.createFoodsharer(password);
 
-    await acceptanceHelper.login(user.email, password);
+    await acceptanceHelper.login(user.email);
     await page.goto('/user/current/settings?sub=bcard');
 
     await expect(page.getByText('Persönliche Visitenkarte')).toBeHidden();

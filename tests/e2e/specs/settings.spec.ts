@@ -6,10 +6,9 @@ import Role from '../helpers/constants/Foodsaver/Role';
 test.describe('Settings', () => {
 
   test('can edit internal self description', async ({ page, acceptanceHelper }) => {
-    const password = 'password';
-    const user = await foodsharing.createFoodsaver(password);
+    const user = await foodsharing.createFoodsaver();
 
-    await acceptanceHelper.login(user.email, password);
+    await acceptanceHelper.login(user.email);
 
     const newSelfDesc = 'This is a new self description!';
 
@@ -52,13 +51,12 @@ test.describe('Settings', () => {
   });
 
   test('can downgrade foodsharer permanently', async ({ page, acceptanceHelper }) => {
-    const password = 'password';
     const region = await foodsharing.createRegion(null, {}, false);
-    const foodsharer = await foodsharing.createFoodsharer(password);
+    const foodsharer = await foodsharing.createFoodsharer();
     await foodsharing.addRegionMember(region.id, foodsharer.id);
-    const orga = await foodsharing.createOrga(password);
+    const orga = await foodsharing.createOrga();
 
-    await acceptanceHelper.login(orga.email, password);
+    await acceptanceHelper.login(orga.email);
     await page.goto(`/user/${foodsharer.id}/settings`);
     await page.selectOption('#input-role', 'Foodsaver:in');
     await page.click('text=Speichern');
@@ -98,13 +96,12 @@ test.describe('Settings', () => {
   });
 
   test('can view another user settings and verify data from DB', async ({ page, acceptanceHelper }) => {
-    const password = 'password';
     const region = await foodsharing.createRegion();
-    const foodSaver = await foodsharing.createFoodsaver(password, { bezirk_id: region.id });
-    const ambassador = await foodsharing.createAmbassador(password, { bezirk_id: region.id });
+    const foodSaver = await foodsharing.createFoodsaver(null, { bezirk_id: region.id });
+    const ambassador = await foodsharing.createAmbassador(null, { bezirk_id: region.id });
     await foodsharing.addRegionAdmin(region.id, ambassador.id);
 
-    await acceptanceHelper.login(ambassador.email, password);
+    await acceptanceHelper.login(ambassador.email);
 
     // Visit own settings as ambassador
     await page.goto(`/user/current/settings`);
@@ -124,10 +121,9 @@ test.describe('Settings', () => {
   });
 
     test('can edit profile fields as foodsaver', async ({ page, acceptanceHelper }) => {
-    const password = 'password';
-    const user = await foodsharing.createFoodsaver(password);
+    const user = await foodsharing.createFoodsaver();
 
-    await acceptanceHelper.login(user.email, password);
+    await acceptanceHelper.login(user.email);
 
     await page.goto('/user/current/settings');
 
@@ -156,10 +152,9 @@ test.describe('Settings', () => {
   });
 
   test('foodsharer with empty address can visit settings page', async ({ page, acceptanceHelper }) => {
-    const password = 'password';
-    const foodsharer = await foodsharing.createFoodsharer(password, { plz: '', stadt: '', anschrift: '' });
+    const foodsharer = await foodsharing.createFoodsharer(null, { plz: '', stadt: '', anschrift: '' });
 
-    await acceptanceHelper.login(foodsharer.email, password);
+    await acceptanceHelper.login(foodsharer.email);
 
     await page.goto('/user/current/settings');
     await expect(page.locator('body')).toContainText('Account löschen');

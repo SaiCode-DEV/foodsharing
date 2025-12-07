@@ -7,10 +7,9 @@ test.describe('Delete Account', () => {
   test('can delete my account (being a foodsaver)', async ({ page, acceptanceHelper }) => {
     test.setTimeout(120000); // Set timeout to 120 seconds
     
-    const password = 'password';
-    const foodsaver = await foodsharing.createFoodsaver(password);
+    const foodsaver = await foodsharing.createFoodsaver();
 
-    await acceptanceHelper.login(foodsaver.email, password);
+    await acceptanceHelper.login(foodsaver.email);
 
     await page.goto('/user/current/settings?sub=deleteaccount');
 

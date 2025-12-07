@@ -43,7 +43,7 @@ test.describe('Quiz', () => {
       const user = userType === 'foodsharer' ? foodsharer : foodsaver;
       
       // Login as the user
-      await acceptanceHelper.login(user.email, 'password');
+      await acceptanceHelper.login(user.email);
 
       // Navigate to settings page
       await page.goto('/user/current/settings');

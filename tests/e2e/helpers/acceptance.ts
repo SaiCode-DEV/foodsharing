@@ -7,19 +7,26 @@ export class AcceptanceHelper {
     return this.page.waitForSelector('body');
   }
 
-  async login(email: string, password: string = 'password') {
-    await this.page.goto('/');
-    await this.page.evaluate('window.localStorage.clear();');
+  async openMobileMenuIfNeeded() {
     const mobileMenuButton = this.page.locator('button.navbar-toggler');
     if (await mobileMenuButton.isVisible()) {
       await mobileMenuButton.click();
       // Wait for mobile menu animation
       await this.page.waitForTimeout(300);
     }
+  }
+
+  async login(email: string, rememberMe: boolean = false, password: string = 'password') {
+    await this.page.goto('/');
+    await this.page.evaluate('window.localStorage.clear();');
+    await this.openMobileMenuIfNeeded();
     await this.page.waitForSelector('.testing-login-dropdown');
     await this.page.click('.testing-login-dropdown');
     await this.page.fill('.testing-login-input-email', email);
     await this.page.fill('#testing-login-input-password > input', password);
+    if (rememberMe) {
+      await this.page.click('.testing-login-input-remember');
+    }
     await this.page.click('.testing-login-click-submit');
     await this.waitForActiveAPICalls();
     await this.page.waitForSelector('#pulse-success', { state: 'hidden' });
