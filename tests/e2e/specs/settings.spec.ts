@@ -152,4 +152,14 @@ test.describe('Settings', () => {
     await expect(page.locator('#mobile')).toHaveValue(mobilenumberNormalized);
     await expect(page.locator('#about_me_intern')).toHaveValue(aboutMeIntern);
   });
+
+  test('foodsharer with empty address can visit settings page', async ({ page, acceptanceHelper }) => {
+    const password = 'password';
+    const foodsharer = await foodsharing.createFoodsharer(password, { plz: '', stadt: '', anschrift: '' });
+
+    await acceptanceHelper.login(foodsharer.email, password);
+
+    await page.goto('/user/current/settings');
+    await expect(page.locator('body')).toContainText('Account löschen');
+  });
 });
