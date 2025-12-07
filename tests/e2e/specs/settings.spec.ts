@@ -15,8 +15,10 @@ test.describe('Settings', () => {
 
     await page.goto('/user/current/settings');
 
-    await page.locator('#about_me_intern').click();
-    await page.locator('#about_me_intern').fill(newSelfDesc);
+    const aboutMeIntern = page.locator('#about_me_intern');
+    await aboutMeIntern.waitFor({ state: 'visible' });
+    await aboutMeIntern.clear();
+    await aboutMeIntern.fill(newSelfDesc);
     await page.click('text=Speichern');
 
     await acceptanceHelper.waitForActiveAPICalls();
