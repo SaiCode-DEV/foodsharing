@@ -761,6 +761,24 @@ fsp:
     n_in_region: '{count} jadłodzielni w {name}'
 storeview:
   common: Ogólne informacje
+  public_time_at_noon_or_afternoon: w południe/po południu
+  public_time_in_the_evening: wieczorem
+  public_time_at_night: w nocy
+  status: aktualny status
+  want_to_fetch: Chciał(a)bym pomagać w tym teamie.
+  publicity_and_sticker_options:
+    not_yet_clarified: Jeszcze nie wyjaśnione
+    yes: Tak
+    no: Nie
+  groceries:
+    label: Jakie produkty żywnościowe można odbierać?
+    select_tag: Wybierz kategorię produktów żywnościowych
+    search_tag: Szukaj kategorii produktów żywnościowych
+    no_match: Nie znaleziono pasującej kategorii produktów żywnościowych
+  calendar_interval:
+    single: 1 tydzień
+    multiply: '{weeks} Tygodni(e)'
+  choose_chain: Wybierz sieć
 store:
   team_container: Team
   member: Członek
@@ -822,3 +840,20 @@ store:
   complete: pełna baza danych
   log:
     search: Pokaż wybrane akcje
+    message:
+      17: '{actor} zaprosił/a {target} do teamu.'
+  to_map: Pokaż na mapie
+navi:
+  google_maps: Google maps
+  waze: Waze
+  apple_maps: Mapy Apple
+  osmand: OsmAnd
+  komoot: Komoot
+  here: HERE WeGo
+really_delete: Na pewno usunąć?
+yes: Tak
+no: Nie
+back: Powrót
+success: Ukończone pomyślnie
+error_unexpected: Wystąpił błąd
+delete: Usuń
