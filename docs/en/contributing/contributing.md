@@ -28,7 +28,7 @@ You can apply for membership by clicking the *Request Access* button in the GitL
 ### Working on an issue
 
 You can either submit your own issue and work on it or work on existing issues.
-Issues that are suitable for newcomers are labeled as starter tasks: <https://gitlab.com/foodsharing-dev/foodsharing/issues?label_name%5B%5D=starter+task>
+Issues that are suitable for newcomers are labeled as starter tasks: <https://gitlab.com/foodsharing-dev/foodsharing/-/issues?sort=created_date&state=opened&label_name%5B%5D=Starter%20task&first_page_size=100>
 
 One-Time-Setup:
 
@@ -38,7 +38,7 @@ One-Time-Setup:
    Then, as a name, enter `foodsharing_ssh_key`, for example.
    A passphrase is optional.
 
-3. Upload the generated key to your GitLab user profile keys <https://gitlab.com/-/profile/keys> as a new entry to authenticate your computer to the foodsharing GitLab via SSH.
+3. Upload the generated key to your GitLab user profile keys <https://gitlab.com/-/user_settings/ssh_keys> as a new entry to authenticate your computer to the foodsharing GitLab via SSH.
 
 4. Install Git: <https://git-scm.com/book/en/v2/Getting-Started-Installing-Git>
 
