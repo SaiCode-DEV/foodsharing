@@ -70,6 +70,24 @@ store:
       text: Não pode candidatar-se neste momento, pois ainda não pertence ao 
         distrito operacional {região}. Quando aderir ao distrito {região}, 
         poderá tentar candidatar-se novamente.
+      link: Entrar no distrito
+    requireVerification:
+      text: Não podes candidatar-te neste momento, pois ainda não estás 
+        verificado. Esta empresa aceita atualmente apenas candidaturas de 
+        Foodsaver verificados. Primeiro, faz as tuas recolhas de teste ou 
+        contacta os teus embaixadores ou a equipa de boas-vindas para seres 
+        verificado. Podes encontrar estes contactos no fórum do teu distrito, na
+        barra lateral esquerda.
+      link: Abrir fórum do distrito de origem
+    requirePhone:
+      text: Não podes candidatar-te neste momento, pois ainda não introduziste 
+        um número de telefone no teu perfil. Esta empresa só aceita candidaturas
+        dos salvadores alimentar com pelo menos um número de telefone registado.
+        Introduz um número de telefone no teu perfil para te poderes candidatar.
+      link: Editar o perfil
+    applicationSummary:
+      intro: 'Quando enviares a tua candidatura, os responsáveis pela empresa verão
+        as seguintes informações:'
   jumperSince: 'Substituto desde {date}'
   days: 'dias'
   team:
@@ -556,7 +574,7 @@ storeview:
   no_permission_to_view: 'Visível apenas pelos responsáveis pela coordenação da empresa.'
   status: 'Situação actual'
   pickupWeight: 'kg salvado'
-  managers: 'Foodsavers responsáveis'
+  managers: 'Responsáveis da empreaa'
   common: 'Geral'
   pickupCount: 'Recolhas'
   team_info_distance: 'Distância aérea para a empresa:'
@@ -867,13 +885,15 @@ date:
 login:
   pwreset:
     error: 'Desculpe, há um problema com os teus dados.'
-    expired: 'Desculpe, esperou um pouco demais. Por favor, requeira uma nova palavra-passe.'
+    expired: 'O link não é válido. Provavelmente esperaste demasiado tempo. Por favor,
+      requeira uma nova palavra-passe.'
     wrongMail: 'Infelizmente não encontramos este endereço de e-mail. Tenta novamente.'
     tooShort: 'A palavra-passe escolhida é demasiado curta.'
     success: 'A tua palavra-passe foi alterada com sucesso. Já podes entrar.'
     bread: 'Redefinir palavra-passe'
     mismatch: 'Desculpe, as palavras-passe não correspondem.'
-    mailSent: 'Tudo bem, foi-te mandado um link por e-mail para alterar a palavra-passe.'
+    mailSent: 'Tudo bem, foi-te mandado um link por e-mail para alterar a palavra-passe.
+      O link é válido por 7 dias. Depois disso, terá de solicitar um link novo.'
     invalidCode: O código introduzido não é válido. Por favor, tente novamente. 
       Também pode utilizar códigos de segurança aqui.
     request_new: Solicitar palavra-passe nova
@@ -883,7 +903,8 @@ login:
   steady_login: 'Ficar conectado'
   forgotten_password_label: 'Esqueceu a password?'
   error_no_auth: 'Infelizmente não encontramos este endereço de e-mail ou palavra-passe.
-    Tenta novamente.'
+    Tenta novamente. Talvez o teu segundo fator também esteja errado, caso estejas
+    a usar um.'
   submit_btn: 'Entrar'
   login_button_label: 'Entrar'
   password: 'palavra-passe'

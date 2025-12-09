@@ -474,6 +474,7 @@ group:
         with_passport: z legitymacją
         no_filter: bez filtrów
         no_passport: bez legitymacji
+        all: wszystkie
       execute: Wykonaj akcję
       show_only_member_after: Pokaż tylko członków po/według
       filter_status: Pokaż tylko status
@@ -669,6 +670,8 @@ terminology:
   phone: Numer telefonu
   landline: Numer stacjonarny
   mobile_phone: Numer komórkowy
+  received: otrzymane
+  sent: wysłane
 resource_mosaic:
   privacy_notice:
     ok: Zgadzam się
@@ -857,3 +860,9 @@ back: Powrót
 success: Ukończone pomyślnie
 error_unexpected: Wystąpił błąd
 delete: Usuń
+statistics:
+  lastMonth: Statystyki z ostatnich 30 dni
+  region_public:
+    activeHomeRegionFoodsavers: aktywni/e foodsaverzy/ki
+    activeFoodSharePoints: aktywne jadłodzielnie
+are_you_sure: Jesteś pewny/a?
