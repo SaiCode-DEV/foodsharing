@@ -17,7 +17,15 @@
         <div class="chatboxhead ui-corner-top" @click="toggle(box)">
           <div class="chatboxtitle">
             <!-- If conversation has a title, show it -->
-            <span v-if="box.title">
+            <a
+              v-if="box.title && box.storeId"
+              :href="url('store', box.storeId)"
+              @click.stop
+            >
+              <i class="mdi mdi-chat mdi-flip-h" />
+              {{ box.title }}
+            </a>
+            <span v-else-if="box.title">
               <i class="mdi mdi-chat mdi-flip-h" />
               {{ box.title }}
             </span>
@@ -56,30 +64,13 @@
             <i v-else class="fas fa-fw fa-spinner fa-spin" />
           </div>
           <div class="chatboxoptions">
-            <b-dropdown
-              no-caret
-              size="sm"
-              :dropup="box.minimized"
-              right
+            <OverflowMenu
+              icon="cog"
               variant="link"
-              :title="$t('terminology.settings')"
-            >
-              <template #button-content>
-                <i class="fas fa-fw fa-cog" />
-              </template>
-              <b-dropdown-item :href="$url('conversations', box.id)">
-                {{ $t('menu.entry.all_messages') }}
-              </b-dropdown-item>
-              <b-dropdown-item
-                v-if="box.participants.length > 2"
-                @click.stop.prevent="box.showMembersDialog = true"
-              >
-                {{ $t('chat.show_participants') }}
-              </b-dropdown-item>
-              <b-dropdown-item href="#" @click.stop="closeAll">
-                {{ $t('menu.entry.close_all_chats') }}
-              </b-dropdown-item>
-            </b-dropdown>
+              :float-right="false"
+              :options="getMenuOptions(box)"
+              :callback-args="[box]"
+            />
             <b-button
               :title="$t('button.close')"
               href="#"
@@ -134,6 +125,31 @@
         </b-modal>
       </div>
     </transition-group>
+    <b-modal
+      v-model="renameDialogVisible"
+      :title="$t('chat.rename')"
+      size="md"
+      :cancel-title="$t('button.cancel')"
+      :ok-title="$t('button.save')"
+      @ok="saveRename"
+      @hidden="resetRenameDialog"
+    >
+      <b-form-group
+        :label="$t('chat.rename')"
+        label-for="rename-input"
+      >
+        <small class="text-muted">
+          {{ $t('chat.rename_empty_hint') }}
+        </small>
+        <b-form-input
+          id="rename-input"
+          v-model="newTitle"
+          :placeholder="$t('chat.rename_placeholder')"
+          maxlength="50"
+          autofocus
+        />
+      </b-form-group>
+    </b-modal>
   </div>
 </template>
 
@@ -146,11 +162,41 @@ import ProfileStore from '@/stores/profiles'
 import { useUserStore } from '@/stores/user'
 import { isMob, pulseError } from '@/script'
 import i18n from '@/helper/i18n'
+import { url } from '@/helper/urls'
+import OverflowMenu from '@/components/OverflowMenu.vue'
 
 const userStore = useUserStore()
 const storage = new Storage('conversations')
 const boxes = ref([])
 const isLoggedIn = computed(() => userStore.isLoggedIn)
+
+// Rename dialog state
+const renameDialogVisible = ref(false)
+const currentRenameBoxId = ref(null)
+const newTitle = ref('')
+
+function getMenuOptions (box) {
+  return [
+    {
+      textKey: 'menu.entry.all_messages',
+      href: url('conversations', box.id),
+    },
+    {
+      textKey: 'chat.rename',
+      hide: box.storeId,
+      callback: (box) => rename(box.id),
+    },
+    {
+      textKey: 'chat.show_participants',
+      hide: box.participants.length <= 2,
+      callback: (box) => { box.showMembersDialog = true },
+    },
+    {
+      textKey: 'menu.entry.close_all_chats',
+      callback: closeAll,
+    },
+  ]
+}
 
 function persist () {
   const info = boxes.value.map(b => ({ id: Number(b.id), min: !!b.minimized }))
@@ -175,32 +221,30 @@ function closeAll () {
 
 async function ensureTitle (id) {
   try {
+    const box = boxes.value.find(b => b.id === id)
+    if (!box) {
+      return
+    }
+
     await conversationStore.loadConversation(id)
     const conv = conversationStore.conversations[id]
-    const title = conv.title || ''
-    const box = boxes.value.find(b => b.id === id)
-    if (box) {
-      if (title) {
-        box.title = title
-        box.participants = []
-        box.showMembersDialog = false
-      } else if (Array.isArray(conv.members)) {
-        const currentId = userStore.getUserId
-        const participantIds = conv.members.filter(m => m !== currentId)
-        const participants = participantIds
-          .map(id => {
-            const profile = ProfileStore.profiles?.[id]
-            return profile ? { id, name: profile.name, avatar: profile.avatar } : null
-          })
-          .filter(Boolean)
-        box.title = ''
-        box.participants = participants
-        box.showMembersDialog = false
-      } else {
-        box.title = ''
-        box.participants = []
-        box.showMembersDialog = false
-      }
+
+    if (conv.title) {
+      box.title = conv.title
+    }
+
+    if (conv.storeId) {
+      box.storeId = conv.storeId
+    } else if (Array.isArray(conv.members)) {
+      const currentId = userStore.getUserId
+      const participantIds = conv.members.filter(m => m !== currentId)
+      const participants = participantIds
+        .map(id => {
+          const profile = ProfileStore.profiles?.[id]
+          return profile ? { id, name: profile.name, avatar: profile.avatar } : null
+        })
+        .filter(Boolean)
+      box.participants = participants
     }
   } catch (e) {
     console.error('Failed to load conversation for chat dock:', e)
@@ -217,18 +261,48 @@ function openChatWithUser (userId, conversationId = null) {
 }
 
 function openChat (id, min = false) {
-  if (!boxes.value.some(b => b.id === id)) {
-    boxes.value.push({
-      id,
-      minimized: !!min,
-      title: '',
-      participants: [],
-      showMembersDialog: false,
-      settingsOpen: false,
-    })
-    ensureTitle(id)
-    persist()
+  if (boxes.value.some(b => b.id === id)) {
+    return
   }
+
+  boxes.value.unshift({
+    id,
+    minimized: !!min,
+    title: '',
+    storeId: null,
+    participants: [],
+    showMembersDialog: false,
+  })
+  ensureTitle(id)
+  persist()
+}
+
+function rename (id) {
+  const box = boxes.value.find(b => b.id === id)
+  if (!box) return
+  if (box.storeId) return
+
+  currentRenameBoxId.value = id
+  newTitle.value = box.title || ''
+  renameDialogVisible.value = true
+}
+
+async function saveRename () {
+  try {
+    await conversationStore.renameConversation(currentRenameBoxId.value, newTitle.value.trim())
+    const box = boxes.value.find(b => b.id === currentRenameBoxId.value)
+    if (box) {
+      box.title = newTitle.value.trim() || null
+    }
+  } catch (e) {
+    console.error('Failed to rename conversation:', e)
+    pulseError(i18n('chat.error.renaming_conversation'))
+  }
+}
+
+function resetRenameDialog () {
+  currentRenameBoxId.value = null
+  newTitle.value = ''
 }
 
 onMounted(() => {
@@ -238,7 +312,8 @@ onMounted(() => {
   }
   const saved = storage.get('msg-chats')
   if (saved && Array.isArray(saved)) {
-    saved.forEach(s => openChat(s.id, s.min))
+    // Reverse the array since openChat uses unshift
+    saved.reverse().forEach(s => openChat(s.id, s.min))
   }
 })
 
@@ -320,6 +395,13 @@ watch(boxes, persist, { deep: true })
   z-index: 1;
   overflow: visible;
   background: linear-gradient(to right, #0000 0%, var(--fs-color-primary-300) 8%);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+
+  ::v-deep .overflow-menu .btn {
+    color: var(--fs-color-primary-900);
+  }
 }
 
 .chatboxtitle {

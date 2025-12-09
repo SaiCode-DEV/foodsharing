@@ -197,12 +197,10 @@ class MessageRestController extends AbstractFoodsharingRestController
             throw new AccessDeniedHttpException();
         }
 
-        if ($name = $paramFetcher->get('name')) {
-            /* a name needs to have a non-zero length */
-            $this->messageGateway->renameConversation($conversationId, $name);
-        }
+        $name = strip_tags($paramFetcher->get('name'));
+        $this->messageGateway->renameConversation($conversationId, $name);
 
-        return $this->respondOK();
+        return $this->respondOK(['name' => $name]);
     }
 
     #[Rest\Delete('conversations/{conversationId}/members/{userId}', requirements: ['conversationId' => '\d+', 'userId' => '\d+'])]

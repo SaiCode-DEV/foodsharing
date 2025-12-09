@@ -3111,6 +3111,9 @@ chat:
   incorrect_address: This email address is not valid
   receivermissing: Please enter a recipient
   search: Search
+  rename: Rename conversation
+  rename_placeholder: Name of the conversation
+  rename_empty_hint: Leave the field empty to reset the name.
   no_messages: No messages
   no_conversation: No conversation selected
   start_of_conversation: "Conversation started on:"
@@ -3126,6 +3129,7 @@ chat:
   error:
     sending_message: Sending the message failed.
     loading_conversation: Failed to load the conversation.
+    renaming_conversation: Renaming the conversation failed.
 delete: Delete
 error_unexpected: An error has occurred
 error_base64_image: Inserting images via drag & drop is not permitted.

@@ -16,7 +16,7 @@
       :href="option.href"
       @click.stop="() => option.callback?.(...callbackArgs) ?? null"
     >
-      <i :class="`fas fa-${option.icon} dropdown-icon mr-1`" />
+      <i v-if="option.icon" :class="`fas fa-${option.icon} dropdown-icon mr-1`" />
       {{ $t(option.textKey) }}
     </b-dropdown-item>
     <slot name="added-content" />

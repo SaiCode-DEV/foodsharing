@@ -181,6 +181,12 @@ export default new Vue({
       const conversation = await api.getConversationIdForConversationWithUser(userId)
       this.openChat(conversation.id)
     },
+    async renameConversation (conversationId, newName) {
+      await api.renameConversation(conversationId, newName)
+      if (this.conversations[conversationId]) {
+        Vue.set(this.conversations[conversationId], 'title', newName)
+      }
+    },
   },
 })
 

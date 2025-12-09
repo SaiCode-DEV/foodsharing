@@ -1535,6 +1535,9 @@ chat:
 
     Wenn du diesen Dialog abbrichst, wird dein Entwurf stattdessen in die neue Unterhaltung mitgenommen.
   search: "Suchen"
+  rename: "Unterhaltung umbenennen"
+  rename_placeholder: "Name der Unterhaltung..."
+  rename_empty_hint: "Lasse das Feld leer, um den Namen zurückzusetzen."
   no_messages: "Keine Nachrichten"
   no_conversation: "Keine Unterhaltung ausgewählt"
   start_of_conversation: "Konversation gestartet am:"
@@ -1549,6 +1552,7 @@ chat:
   error:
     sending_message: "Das Senden der Nachricht ist fehlgeschlagen."
     loading_conversation: "Das Laden der Unterhaltung ist fehlgeschlagen."
+    renaming_conversation: "Das Umbenennen der Unterhaltung ist fehlgeschlagen."
 
 wall:
   name: "Pinnwand"

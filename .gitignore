@@ -96,6 +96,7 @@ dump.sql
 !/**/.gitkeep
 
 !docker/zammad/.env
+docs/.vitepress/config.mts.*
 
 # Local composer files
 .config/
