@@ -454,10 +454,12 @@ class ForumPostCest
         $I->canSee($title);
         $I->click('.forum_threads a');
         $I->waitForPageBody();
+        $I->waitForActiveAPICalls();
 
         $regexForumUrl = preg_quote($I->forumUrl($this->{$example[1]}['id']));
         $regex = /* @lang PhpRegExp */ '~' . $regexForumUrl . '&tid=(\d+)~';
         $I->seeCurrentUrlMatches($regex);
+        $I->waitForElement('a[title="Beitrag löschen"]');
         $I->click('a[title="Beitrag löschen"]');
         $I->waitForText('Beitrag löschen');
         $I->click(Locator::contains('.btn', 'Ja, ich bin mir sicher'));
