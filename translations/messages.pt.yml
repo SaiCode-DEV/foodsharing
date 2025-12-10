@@ -88,6 +88,18 @@ store:
     applicationSummary:
       intro: 'Quando enviares a tua candidatura, os responsáveis pela empresa verão
         as seguintes informações:'
+      time: Data da candidatura
+      fullName: O teu nome completo ({first_name} {last_name})
+      verified: Estado da verificação ({status})
+      distance: A distância entre a tua residência e a empresa ({distance})
+      storeList: A lista das tuas empresas
+      text: A tua mensagem de candidatura
+    applicationMessageTooShort: A tua mensagem de candidatura é curta demais.
+    alerts:
+      one_more: Mostrar mais uma sugestão
+      many_more: Mostrar {count} mais sugestões
+      one_less: Ocultar uma indicação
+      many_less: Ocultar {count} indicações
   jumperSince: 'Substituto desde {date}'
   days: 'dias'
   team:
@@ -319,6 +331,16 @@ store:
     dias! Contacta os teus embaixadores para renová-lo. Após o prazo de 
     validade, não poderás mais te registar aqui.
   to_map: Mostrar no mapa
+  delete:
+    button: Apagar empresa
+    sure: Queres mesmo apagar esta empresa? Esta ação não pode ser revertida! 
+      Todos os membros serão removidos da empresa e todas as informações 
+      específicas da empresa, exceto o registo da empresa, serão eliminadas. Por
+      favor, apagine apenas empresas que realmente já não existem ou que foram 
+      registadas duas vezes. As empresas que cancelaram uma cooperação devem 
+      permanecer registadas. Só podem ser eliminadas empresas nas quais nunca 
+      tenha ocorrido uma recolha alimentar e cujos chats de equipa não tenham 
+      sido utilizados durante pelo menos 3 meses.
 navigation:
   profil: 👋 Olá {name}!
   conversations: ''
@@ -356,56 +378,120 @@ bell:
   store_wallpost_title: '{name}'
   store_request_accept_wait_title: '{name}'
   forum_answer_title: '{forum}'
-  buddy_request_title: ''
-  store_new_request_title: ''
-  forum_new_thread: ''
-  store_new_title: ''
+  buddy_request_title: 'Conheces {name}?'
+  store_new_request_title: 'Aplicação nova pra o equipamento'
+  forum_new_thread: 'de {user} no fórum {forum}'
+  store_new_title: 'Empresa nova'
   sharepoint_activate_title: 'Cantinho solidário novo em {bezirk}'
-  store_cr_times: ''
-  new_foodsaver_verified: ''
-  buddy_request: ''
-  poll_new_title: ''
-  banana_given: ''
-  foodsaver_verified: ''
-  store_new: ''
-  new_foodsaver_verified_title: ''
-  betrieb_fetch: ''
+  store_cr_times: 'Os prazos de recolha foram coregadas'
+  new_foodsaver_verified: 'yá verificado - pode dar início'
+  buddy_request: '{name} conhece-te.'
+  poll_new_title: 'Votação nova'
+  banana_given: '{name} ofereceu-te uma banana da confiança.'
+  foodsaver_verified: 'Faça o download do teu cartão de membro em …'
+  store_new: '{name} foi registrado'
+  new_foodsaver_verified_title: '{name} é novo em {bezirk}'
+  betrieb_fetch: '{count} recolhas no confirmádas'
   store_wallpost: 'Publicação nova no pinboard.'
-  new_foodsaver: ''
-  forum_answer: ''
-  forum_announcement: ''
+  new_foodsaver: 'precisa recolhas introdutórias'
+  forum_answer: '{user} te respondeu'
+  forum_announcement: 'de {user} no fórum {forum}'
   forum_post:
-    one: ''
-    many: ''
-  blog_new_check_title: ''
-  new_foodsaver_needs_introduction: ''
-  foodsaver_verified_title: ''
-  fs_sleepmode_title: ''
-  forum_mention_title: ''
-  store_new_request: ''
-  sharepoint_activate: ''
-  passgen_failed_title: ''
-  fs_sleepmode: ''
-  forum_new_thread_title: ''
-  new_foodsaver_title: ''
-  workgroup_request_decline: ''
-  no_bells: ''
+    one: 'Publicação nova de {user} no fórum {forum}'
+    many: '{count} publicações novas no fórum {forum}'
+  blog_new_check_title: 'Artigo novo no blog'
+  new_foodsaver_needs_introduction: 'precisa recolhas introdutórias'
+  foodsaver_verified_title: 'Estas verificado!'
+  fs_sleepmode_title: 'Dorminhoco novo'
+  forum_mention_title: '{user} mencionou-te ({forum})'
+  store_new_request: 'Aplicação pra {name}'
+  sharepoint_activate: '{name} foi internado'
+  passgen_failed_title: 'Não foi possível criar o teu cartão de membro'
+  fs_sleepmode: '{name} {nachname} agora está inactivo'
+  forum_new_thread_title: 'Tópico novo: {title}'
+  new_foodsaver_title: '{name} é novo em {bezirk}'
+  workgroup_request_decline: 'Não foste aceite no grupo de trabalho.'
+  no_bells: 'Não tem notificações.'
   new_report_title: 'Denúncia nova sobre {name}'
-  forum_announcement_title: ''
-  store_request_accept: ''
-  banana_given_title: ''
-  passgen_failed: ''
-  store_request_imposed: ''
-  store_request_accept_wait: ''
-  workgroup_request_accept: ''
-  forum_mention: ''
-  new_foodsaver_needs_verification: ''
-  store_request_deny: ''
-  new_quiz_comment_title: ''
+  forum_announcement_title: 'Aviso importante: {title}'
+  store_request_accept: 'Foste aceito na equipa.'
+  banana_given_title: 'Banana da confiança nova'
+  passgen_failed: 'Carregue uma foto e funcionará.'
+  store_request_imposed: 'Foste adicionado à equipa.'
+  store_request_accept_wait: 'Agora está na lista de espera/substitutos.'
+  workgroup_request_accept: 'Foi aceite no grupo de trabalho.'
+  forum_mention: 'no tópico «{title}» do fórum {forum}'
+  new_foodsaver_needs_verification: 'precisa ser verificado'
+  store_request_deny: 'A tua solicitação foi rejeitada.'
+  new_quiz_comment_title: 'Comentário sobre a pergunta #{questionId}'
   workinggroup_new_request_title: '{name}'
   store_wall_post:
     one: Entrada do pinboard de {user}
     many: '{count} entradas novas no pinboard'
+  translation_failed:
+    title: Sino desconhecido
+    key: Os sinos da versão beta não podem ser mostrados
+    md: |-
+      O sino contém um texto desconhecido. Provavelmente, isso se deve ao facto de o sino ter sido retirada da versão beta do site.
+
+       Título: `{bellTitle}`
+
+       Chave: `{bellKey}`
+    md_support: Caso considere que se trata de um erro, por favor, informe-nos 
+      através do [Suporte](/support)
+  event_post_title: Prazo {event} em {region}
+  event_post:
+    one: 'Comentário novo de {user} '
+    many: '{count} comentários novos sobre {event}'
+  ft_update:
+    one: '{teaser}'
+    many: '{teaser}'
+  new_store_request:
+    one: pra {name} por {user}
+    many: pra {name} por {count} utilizadores
+  store_invite_title: '{name}'
+  store_invite: '{user} te convidou para te juntar à equipa.'
+  poll_started_title: Votação iniciado
+  poll_started: A Votação "{title}" teve início.
+  poll_ending_soon_title: A Votação termina em breve
+  poll_ending_soon: A Votação termina em breve e ainda não votaste.
+  store_wall_post_title: Empresa {name}
+  store_change_regular_pickup_times:
+    one: Os prazos de recolha foram coregadas
+    many: Os prazos de recolha foram coregadas
+  new_quiz_comment:
+    one: '{user}: {comment}'
+    many: '{count} comentários novos'
+  foodsaver_adress_changed_title: '{name} alterou o endereço'
+  foodsaver_adress_changed: Em caso de alterações frequentes, verifique.
+  passport_created_or_renewed_title: O teu cartão do membro …
+  passport_created_or_renewed: foi ativado ou prolongado!
+  workinggroup_new_request: Candidatura nova para um grupo de trabalho
+  internal_email_changed_title: '{address}'
+  internal_email_changed: O teu endereço de e-mail pessoal foi alterado.
+  forum_not_activated_thread: '{forum}'
+  forum_not_activated_thread_title: Tema em fórum moderado
+  post_hidden_title: Publicação oculta por {user}
+  post_hidden: A tua publicação sobre {title} no fórum {forum} foi ocultada
+  delete_store_title: Empresa apagada
+  delete_store: '{name} foi apagado'
+  store_invitation_accepted_title: Convite aceite ({store})
+  store_invitation_accepted:
+    one: '{user} juntou-se da equipa de {store}'
+    many: '{count} utilizadores juntaram-se à equipa da {store}'
+  store_invitation_declined_title: Convite recusado ({store})
+  store_invitation_declined:
+    one: '{user} não quer juntar-se à {store}'
+    many: '{count} utilizadores não querem juntar-se ao {store}'
+  new_forum_thread_title: Tópico novo em {fórum}
+  new_forum_thread: '{author}: {title}'
+  new_resource_title: '{região}: Recursos novos'
+  new_resource:
+    one: 'Por {user}: „{title}“'
+    many: '{count} recursos novos'
+  mark_as:
+    read: Marcar como lido
+    unread: Marcar como no lido
 email_template:
   login: ''
   reply: ''
@@ -694,24 +780,24 @@ poll:
   scope_description_2: ''
   type: ''
 pickuplist:
-  month_tab: ''
+  month_tab: 'Mes'
   error_whileSending: ''
-  NumberOfStores_table_header: ''
+  NumberOfStores_table_header: 'Número de empresas'
   error_loadingPickup: ''
-  NumberOfSlots_table_header: ''
+  NumberOfSlots_table_header: 'Número de Slots'
   error_changeSlotCount: ''
-  header_for_district: ''
-  week_tab: ''
+  header_for_district: 'Distribuição das recolhas em  {bezirk} '
+  week_tab: 'Semana'
   unclear: ''
   tooslow: ''
-  NumberOfAppointments_table_header: ''
-  day_tab: ''
+  NumberOfAppointments_table_header: 'Número de prazos'
+  day_tab: 'Dia'
   error_leave: ''
   error_kick: ''
   tryagain: ''
-  time_table_header: ''
-  year_tab: ''
-  NumberOfFoodSavers_table_header: ''
+  time_table_header: 'Periodo'
+  year_tab: 'Ano'
+  NumberOfFoodSavers_table_header: 'Número de salvadores alimentar'
   error_confirm: ''
 basket:
   my_list_empty: ''
@@ -1574,6 +1660,7 @@ pickup:
   passport_expired:
     short: Cartão de membro expirado
     long: O teu cartão de membro já não é válido neste momento
+  chat: Iniciar slot-chat
 error:
   mail_bounce:
     title: ''
@@ -1969,6 +2056,15 @@ chat:
     read: Marcar como lido
     unread: Marcar como não lido
   reply: Responder
+  rename: Renomear conversa
+  rename_placeholder: Nome da conversa...
+  rename_empty_hint: Deixe o espaço em branco pra apagar o nome.
+  show_participants: Mostrar participantes
+  participants: Parcipiciantes
+  error:
+    sending_message: O envio da mensagem falhou.
+    loading_conversation: Falha ao acessar a mensagem.
+    renaming_conversation: A renomeação da mensagem falhou.
 error_permissions: 'Infelizmente, nao tens as permissões necessárias para este processo.'
 storeedit:
   team:
@@ -2012,6 +2108,10 @@ storeedit:
     hygieneRequired: Permitir apenas a recolha com formação válida em matéria de
       higiene
     applyTextRequired: É necessário introduzir um texto para candidaturas
+    applicationRequirements: Critérios de candidatura
+    verifiedRequired: Permitir apenas salvadores dos alimentos verificados
+    phoneRequirement: Permitir apenas salvadores dos alimentos com número de 
+      telefone registado
   unsuccess: 'As alterações não puderam ser aplicadas. {error}'
   milestone:
     accepted: '{user} agora faz parte da equipa'
@@ -2908,17 +3008,19 @@ forum:
     bells_for_new_posts: Receber campainha para novos tópicos
 title: 'Titulo'
 genderlist:
-  gender_female: ''
-  district_tab: ''
-  number_table_header: ''
-  gender_male: ''
-  gender_home_district_table_caption: ''
-  header_for_district: ''
-  gender_not_selected: ''
-  gender_district_table_caption: ''
-  home_district_tab: ''
-  gender_table_header: ''
-  gender_divers: ''
+  gender_female: 'femenino'
+  district_tab: 'Distrito'
+  number_table_header: 'Número'
+  gender_male: 'masculino'
+  gender_home_district_table_caption: 'Distribuição da característica «género» entre
+    todos os salvadores alimentar de distrito de origem'
+  header_for_district: 'Distribuição por género em {bezirk}'
+  gender_not_selected: 'não selecionado'
+  gender_district_table_caption: 'Distribuição da característica «género» entre todos
+    os salvadores alimentar no distrito'
+  home_district_tab: 'Distrito de origem'
+  gender_table_header: 'Género'
+  gender_divers: 'vários'
 position: 'Posição em foodsharing (público)'
 logincontrol:
   bread: 'Cancelar a inscrição no boletim informativo'
@@ -2928,9 +3030,10 @@ logincontrol:
 reports:
   no_reports_fallback: 'Ainda não há denúncias disponíveis'
   time: 'Tempo'
-  store: ''
+  store: 'Empresa associada'
   report_id: 'ID de dunúncia'
-  reportmessage: ''
+  reportmessage: 'Indique como podemos entrar em contacto consigo caso tenhamos mais
+    perguntas.'
   reason: 'motivo'
   message: 'descrição'
   reports_region: Denúncias de {regionName}
@@ -3074,7 +3177,7 @@ storelist:
 activitypost:
   quickreply_button: 'Envia agora<br>ou <code class="key">pressionar a <code class="key">tecla
     enter.'
-  write: 'Escreve uma resposta …'
+  write: 'Escreve uma resposta  …'
   quickreply_info: '<code class="key">tecla shift + tecla enter</code> para agregar
     uma linea nova.'
   response: 'responder'
@@ -3122,8 +3225,8 @@ information:
     description: ''
 wikilink: 'Link com mais informações'
 memberlist:
-  header_for_district: ''
-  header_for_workgroup: ''
+  header_for_district: 'Resgatadores alimentar em distrito (bezirk}'
+  header_for_workgroup: 'Salvadores alimentar no grupo de trabalho {distrito}'
 ui: {}
 gender:
   d: 'Ambos ou outro'
@@ -3148,8 +3251,8 @@ addresspicker:
     automaticamente estiver incorreto. Isso pode ocorrer, por exemplo, após uma 
     alteração no nome de uma rua.
 filterlist:
-  filter_for_name_id: ''
-  some_in_all: ''
+  filter_for_name_id: 'Nome ou ID'
+  some_in_all: '({some} de {all})'
 wall:
   name: 'Pinboard'
   placeholder: 'Escrever nova entrada no pinboard …'
@@ -3243,7 +3346,7 @@ map:
   foodsharepoint:
     go: Para o cantinho solidário
 list:
-  filter_for: ''
+  filter_for: 'Filtrar por …'
 public_time: 'Hora do dia aproximada por da recolha'
 opt: 'Opções'
 filter_by: 'Filtrar por'

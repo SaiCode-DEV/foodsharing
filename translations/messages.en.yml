@@ -3112,7 +3112,7 @@ chat:
   receivermissing: Please enter a recipient
   search: Search
   rename: Rename conversation
-  rename_placeholder: Name of the conversation
+  rename_placeholder: Name of the conversation…
   rename_empty_hint: Leave the field empty to reset the name.
   no_messages: No messages
   no_conversation: No conversation selected

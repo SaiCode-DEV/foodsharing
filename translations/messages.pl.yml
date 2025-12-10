@@ -782,6 +782,13 @@ storeview:
     single: 1 tydzień
     multiply: '{weeks} Tygodni(e)'
   choose_chain: Wybierz sieć
+  info: Informacje
+  team_info_active: 'Aktywni/e w teamie:'
+  cooperation: Współpraca od {startTime}.
+  cooperation_start: Współpraca od
+  cooperation_status: Status współpracy
+  public_info:
+    error_message: Tekst jest za długi (max. {count} znaki/ów)
 store:
   team_container: Team
   member: Członek
@@ -824,10 +831,25 @@ store:
       many_more: Pokaż {count} kolejne wpisy
       one_less: Ukryj wpis
       many_less: Ukryj {count} wpisów
+    unverified: Użytkownik/czka nie jest zweryfikowany/a
+    to-team: dodaj do teamu
+    to-nowhere: odrzuć
+    distance:
+      unknown: nie podano ważnego miejsca zamieszkania
+    distance_short:
+      unknown: brak ważnego adresu
+      close: Mniej niż 500 m
+      normal: Około {distance} km
+    application-placeholder: Chciał(a)bym pomagać w tym teamie, bo …
+    completeProfileRequired:
+      link: Edytuj profil
+    requirePhone:
+      link: Edytuj profil
   invitation:
     accept: Zaakceptuj zaproszenie
     decline: Odrzuć
     invited_by: Zaproszony/a przez
+    withdraw: Cofnij zaproszenie
   info_container: Informacje
   chain_search_picker:
     modal_title: Wybierz sieć
