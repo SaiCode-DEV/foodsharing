@@ -61,7 +61,7 @@ const sidebar = generateSidebar([
     };
   })
 ]);
-sidebar['/api/'] = [
+(sidebar as Record<string, any>)['/api/'] = [
   {
     text: 'API Reference',
     link: '/api/',
@@ -212,7 +212,7 @@ export default withPwa(defineConfig({
       background_color: "#1B1B1F",
     },
     pwaAssets: {
-      config: true,
+      disabled: true,
     },
     workbox: {
       globPatterns: ['*/.{css,js,html,svg,png,ico,txt,woff2}'],
