@@ -159,4 +159,16 @@ test.describe('Registration', () => {
 
     await expect(page.locator('text=Die E-Mail-Adresse ist entweder ungültig oder wird bereits verwendet')).toBeVisible();
   });
+
+  test('cannot register with too simple password', async ({ page }) => {
+    const testData = getTestData();
+    await openRegistrationForm(page);
+
+    await page.waitForSelector('#step1');
+    await page.fill('#email', testData.email);
+    await page.fill('#password > input:nth-child(1)', 'abcabcabc');
+    await page.fill('#confirmPassword > input:nth-child(1)', 'abcabcabc');
+
+    await expect(page.locator('text=Das Passwort muss mindestens jeweils einen Groß- und Kleinbuchstaben sowie Zahlen beinhalten')).toBeVisible();
+  });
 });
