@@ -14,4 +14,6 @@ enum QuizID: int
     case AMBASSADOR = 3;
     case HYGIENE = 4;
     case FOODSAVER_FR = 5;
+    case FOODSHARER = 6;
+    case SAVING_FOOD = 7;
 }

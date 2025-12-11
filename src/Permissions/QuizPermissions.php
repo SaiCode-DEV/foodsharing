@@ -28,12 +28,16 @@ final readonly class QuizPermissions
             QuizID::FOODSAVER, QuizID::STORE_MANAGER, QuizID::AMBASSADOR => RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP,
             QuizID::HYGIENE => RegionIDs::HYGIENE_GROUP,
             QuizID::FOODSAVER_FR => RegionIDs::QUIZ_GROUP_FR,
+            QuizID::FOODSHARER, QuizID::SAVING_FOOD => RegionIDs::NEW_QUIZZES_WORK_GROUP,
         };
     }
 
     public function maySeeEditQuizPage(): bool
     {
-        return $this->session->mayRole(Role::ORGA) || $this->currentUserUnits->isAdminFor(RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP) || $this->currentUserUnits->isAdminFor(RegionIDs::HYGIENE_GROUP);
+        return $this->session->mayRole(Role::ORGA) ||
+            $this->currentUserUnits->isAdminFor(RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP) ||
+            $this->currentUserUnits->mayBezirk(RegionIDs::HYGIENE_GROUP) ||
+            $this->currentUserUnits->mayBezirk(RegionIDs::NEW_QUIZZES_WORK_GROUP);
     }
 
     /**

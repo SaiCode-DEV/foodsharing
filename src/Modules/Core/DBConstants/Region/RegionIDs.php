@@ -15,6 +15,7 @@ class RegionIDs
     final public const int NEWSLETTER_WORK_GROUP = 331;
     final public const int QUIZ_AND_REGISTRATION_WORK_GROUP = 341;
     final public const int QUIZ_GROUP_FR = 6045;
+    final public const int NEW_QUIZZES_WORK_GROUP = 1063;
     final public const int PR_PARTNER_AND_TEAM_WORK_GROUP = 1811;
     final public const int PR_START_PAGE = 2287;
     final public const int CREATING_WORK_GROUPS_WORK_GROUP = 1701;

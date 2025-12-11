@@ -6,7 +6,9 @@ enum QuizID {
   STORE_MANAGER = 2,
   AMBASSADOR = 3,
   HYGIENE = 4,
-  FOODSAVER_FR = 5
+  FOODSAVER_FR = 5,
+  FOODSHARER = 6,
+  SAVING_FOOD = 7,
 }
 
 export default QuizID;

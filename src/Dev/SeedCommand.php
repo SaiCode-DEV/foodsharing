@@ -312,6 +312,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         $ag_testimonials = RegionIDs::TEAM_BOARD_MEMBER;
         $team_alumni = RegionIDs::TEAM_ALUMNI_MEMBER;
         $ag_quiz = RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP;
+        $ag_new_quizzes = RegionIDs::NEW_QUIZZES_WORK_GROUP;
         $ag_quiz_fr = RegionIDs::QUIZ_GROUP_FR;
         $ag_startpage = RegionIDs::PR_START_PAGE;
         $ag_partnerandteam = RegionIDs::PR_PARTNER_AND_TEAM_WORK_GROUP;
@@ -344,6 +345,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         $I->createWorkingGroup('Öffentlichkeitsarbeit-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::PR_TEAM_ADMIN_GROUP]);
         $I->createWorkingGroup('Moderation-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::MODERATION_TEAM_ADMIN_GROUP]);
         $I->createWorkingGroup('Produktteam', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::PRODUCT_TEAM]);
+        $I->createWorkingGroup('Quizfragen', ['parent_id' => RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP, 'id' => RegionIDs::NEW_QUIZZES_WORK_GROUP]);
 
         $region1Subregion = $I->createRegion('Stadtteil von Göttingen', ['type' => UnitType::PART_OF_TOWN, 'parent_id' => $region1]);
 
@@ -478,6 +480,9 @@ class SeedCommand extends Command implements CustomCommandInterface
         $I->addRegionAdmin($region1, $userbot2['id']);
         $I->addRegionMember($ag_quiz, $userbot['id']);
         $I->addRegionAdmin($ag_quiz, $userbot['id']);
+        $I->addRegionMember($ag_new_quizzes, $userbot['id']);
+        $I->addRegionMember($ag_new_quizzes, $userStoreManager['id']);
+        $I->addRegionAdmin($ag_new_quizzes, $userbot['id']);
         $I->addRegionMember($ag_quiz_fr, $userbot['id']);
         $I->addRegionAdmin($ag_quiz_fr, $userbot['id']);
         $I->addRegionMember($ag_startpage, $userStoreManager['id']);
