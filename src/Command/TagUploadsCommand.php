@@ -36,11 +36,11 @@ class TagUploadsCommand extends Command
         $entriesWithValidPictures = $this->db->fetchAll('
 			SELECT
 				`id`,
-				`picture`
+				`photo`
 			FROM
-				`fs_fairteiler`
+				`fs_foodsaver`
 			WHERE
-			    picture LIKE "/api/uploads%"'
+			    photo LIKE "/api/uploads%"'
         );
 
         $invalidPictures = [];
@@ -48,8 +48,8 @@ class TagUploadsCommand extends Command
         foreach ($entriesWithValidPictures as $entry) {
             try {
                 if (!$isDryRun) {
-                    $uuid = substr((string)$entry['picture'], 13);
-                    $this->uploadsGateway->setUsage([$uuid], UploadUsage::BLOG_POST, $entry['id']);
+                    $uuid = substr((string)$entry['photo'], 13);
+                    $this->uploadsGateway->setUsage([$uuid], UploadUsage::PROFILE_PHOTO, $entry['id']);
                 }
                 ++$taggedFiles;
             } catch (Throwable $t) {

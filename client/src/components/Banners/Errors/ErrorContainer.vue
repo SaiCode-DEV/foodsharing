@@ -66,17 +66,6 @@ export default {
         })
       }
 
-      if (this.userStore.getAvatar && !this.userStore.getAvatar.startsWith('/api/uploads/')) {
-        list.push({
-          field: 'old_user_avatar',
-          link: 'images/' + this.userStore.getAvatar,
-          links: [{
-            text: 'error.old_user_avatar.link',
-            urlShorthand: 'settings',
-          }],
-        })
-      }
-
       if (this.userStore.isFoodsaver && !this.userStore.hasHomeRegion) {
         this.$bvModal.show('joinRegionModal')
       }

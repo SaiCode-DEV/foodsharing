@@ -3541,10 +3541,6 @@ error:
     title: "Es gibt ein Problem mit deiner Festnetznummer."
     description: "Deine Festnetznummer hat leider ein Format, das nicht anrufbar ist."
     link: "Festnetznummer jetzt korrigieren"
-  old_user_avatar:
-    title: "Es gibt ein Problem mit deinem Profilbild."
-    description: "Im September 2021 haben wir eine technische Umstellung vorgenommen, die die Profilbilder betrifft. Daher bitten wir dich, dein Profilbild erneut hochzuladen oder zu erneuern. Entschuldige bitte die Umstände."
-    link: "Jetzt Profilbild erneuern"
   missing_user_avatar:
     title: "Du hast noch kein Profilbild hochgeladen."
     description: "Zeig den Mitgliedern von foodsharing, wer du bist!"

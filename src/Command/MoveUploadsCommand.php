@@ -32,42 +32,47 @@ class MoveUploadsCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $oldFormats = ['', '130_q_', '50_q_', 'med_q_', 'mini_q_', 'thumb_', 'thumb_crop_', 'q_'];
+
         $isDryRun = $input->getOption('dry');
 
         // fetch all food share points from the database
         $entriesWithPicture = $this->db->fetchAll('
 			SELECT
 				`id`,
-				`picture`
+				`photo`
 			FROM
-				`fs_fairteiler`
+				`fs_foodsaver`
 			WHERE
-			    picture <> ""',
+			    photo IS NOT NULL AND photo <> "" AND photo NOT LIKE "/api/uploads%"',
         );
 
         // sort by old or new picture path
-        $oldPictures = [];
+        // $oldPictures = [];
         $invalidPictures = [];
-        foreach ($entriesWithPicture as $entry) {
-            if (str_starts_with((string)$entry['picture'], 'picture/')) {
+        /* foreach ($entriesWithPicture as $entry) {
+            if (!str_starts_with((string)$entry['photo'], '/api/uploads')) {
                 $oldPictures[] = $entry;
-            } elseif (!str_starts_with((string)$entry['picture'], '/api/uploads')) {
+            }
+            elseif (!str_starts_with((string)$entry['picture'], '/api/uploads')) {
                 $invalidPictures[] = $entry;
             }
-        }
+        } */
 
         // move all pictures from the old directory and update the database entries
         $movedFiles = 0;
-        foreach ($oldPictures as $entry) {
+        foreach ($entriesWithPicture as $entry) {
             $uuid = null;
-            $source = 'images/' . str_replace('/', '/crop_0_528_', $entry['picture']);
+            $source = 'images/' . $entry['photo'];
 
             try {
                 $output->writeln('moving ' . $entry['id'] . ', ' . $source);
                 if (!$isDryRun) {
-                    $uuid = $this->copyFileToNewAPI($source, null);
-                    $this->db->update('fs_fairteiler', ['picture' => '/api/uploads/' . $uuid], ['id' => $entry['id']]);
-                    @unlink($source);
+                    $uuid = $this->copyFileToNewAPI($source, $entry['id']);
+                    $this->db->update('fs_foodsaver', ['photo' => '/api/uploads/' . $uuid], ['id' => $entry['id']]);
+                    foreach ($oldFormats as $format) {
+                        @unlink('./images/' . $format . $entry['photo']);
+                    }
                 }
                 ++$movedFiles;
             } catch (Throwable $t) {
@@ -76,7 +81,7 @@ class MoveUploadsCommand extends Command
                 if (!empty($uuid)) {
                     $this->uploadsGateway->deleteUpload($uuid);
                     @unlink($this->uploadsTransactions->generateFilePath($uuid));
-                    $this->db->update('fs_fairteiler', ['picture' => $source], ['id' => $entry['id']]);
+                    $this->db->update('fs_foodsaver', ['photo' => $source], ['id' => $entry['id']]);
                 }
 
                 $output->writeln($t->getMessage());
