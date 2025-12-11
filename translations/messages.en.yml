@@ -3942,12 +3942,6 @@ error:
     link: Upload your profile picture now
     title: You haven’t uploaded a profile picture yet.
     description: Show other members of foodsharing who you are!
-  old_user_avatar:
-    title: There is a problem with your profile picture.
-    link: Update profile picture now
-    description: In September 2021 we have made a technical change that affects 
-      the profile pictures. Therefore we ask you to re-upload or renew your 
-      profile picture. Sorry for the inconvenience.
   invalid_landline_phonenumber:
     title: There is a problem with your landline phone number.
     description: Your landline phone number is in an invalid format and can not 

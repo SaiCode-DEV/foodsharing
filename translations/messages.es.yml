@@ -852,12 +852,6 @@ error:
       electrónico confirmada. Confirme su dirección de correo electrónico haciendo
       clic en el enlace del correo electrónico de activación.'
     link_2: 'Cambiar dirección de correo electrónico'
-  old_user_avatar:
-    link: 'Actualizar foto de perfil ahora'
-    title: 'Hay un problema con tu foto de perfil.'
-    description: 'En septiembre de 2021 realizamos un cambio técnico que afecta a
-      las imágenes de perfil. Por lo tanto, te pedimos que vuelvas a cargar o renovar
-      tu foto de perfil. Por favor disculpe los inconvenientes.'
   missing_geolocation:
     description: 'Por favor verifique su dirección. No se pudieron determinar las
       coordenadas.'

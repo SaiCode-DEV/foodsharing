@@ -3781,13 +3781,6 @@ information:
       désactiver à tout moment dans les paramètres.
     link: Vers les préférences
 error:
-  old_user_avatar:
-    description: En septembre 2021, nous avons procédé à un changement technique
-      qui concerne les photos de profil. C’est pourquoi nous te demandons de 
-      télécharger à nouveau ta photo de profil ou de la renouveler. Excuse-nous 
-      pour le dérangement.
-    title: Il y a un problème avec ta photo de profil.
-    link: Renouveler la photo de profil maintenant
   mail_activation:
     title: Adresse électronique non confirmée !
     link_1: Demander un nouveau courriel d’activation

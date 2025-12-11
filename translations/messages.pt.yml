@@ -781,24 +781,29 @@ poll:
   type: ''
 pickuplist:
   month_tab: 'Mes'
-  error_whileSending: ''
+  error_whileSending: 'Erro ao enviar a mensagem'
   NumberOfStores_table_header: 'Número de empresas'
-  error_loadingPickup: ''
+  error_loadingPickup: 'Falha ao carregar os slots: '
   NumberOfSlots_table_header: 'Número de Slots'
-  error_changeSlotCount: ''
-  header_for_district: 'Distribuição das recolhas em  {bezirk} '
+  error_changeSlotCount: 'Falha ao alterar o número de slots: '
+  header_for_district: 'Distribuição das recolhas em {bezirk} '
   week_tab: 'Semana'
-  unclear: ''
-  tooslow: ''
+  unclear: 'Estado purco claro'
+  tooslow: 'Infelizmente, o registo não funcionou. Provavelmente porque outra pessoa
+    foi mais rápida.'
   NumberOfAppointments_table_header: 'Número de prazos'
   day_tab: 'Dia'
-  error_leave: ''
-  error_kick: ''
-  tryagain: ''
+  error_leave: 'Falha ao sair: '
+  error_kick: 'Falha ao eliminação: '
+  tryagain: 'Tente novamente após recarregar a página, se necessário.'
   time_table_header: 'Periodo'
   year_tab: 'Ano'
   NumberOfFoodSavers_table_header: 'Número de salvadores alimentar'
-  error_confirm: ''
+  error_confirm: 'Falha na confirmação: '
+  really_delete_last_slot:
+    title: Apagar o último slot?
+    body: Quer mesmo eliminar o último slot? A marcação será completamente 
+      removida.
 basket:
   my_list_empty: ''
   not_active: ''
@@ -1679,10 +1684,6 @@ error:
     title: ''
     description: ''
     link: ''
-  old_user_avatar:
-    link: ''
-    title: ''
-    description: ''
   mail_activation:
     description: ''
     title: ''
@@ -3177,25 +3178,33 @@ storelist:
 activitypost:
   quickreply_button: 'Envia agora<br>ou <code class="key">pressionar a <code class="key">tecla
     enter.'
-  write: 'Escreve uma resposta  …'
+  write: 'Escreve uma resposta …'
   quickreply_info: '<code class="key">tecla shift + tecla enter</code> para agregar
     uma linea nova.'
   response: 'responder'
   Response: 'Respostas'
 addreaction: ''
 regionOptions:
-  success: ''
-  regionPickupInactiveHours: ''
-  header_page: ''
-  regionPickupLimitNumber: ''
-  regionPickupRuleActiveStoreList: ''
-  enableMediationButton: ''
+  success: 'Opções guardadas com sucesso'
+  regionPickupInactiveHours: 'Quantas horas antes da recolha a regra deixa de ser
+    aplicada?'
+  header_page: 'Configuração para {bezirk}'
+  regionPickupLimitNumber: 'Número máximo de recolhas permitidas de empresas "sultanas"
+    populares no período selecionado'
+  regionPickupRuleActiveStoreList: 'Lista das empresas do distrito que são consideradas
+    para a regra das sultanas. Todas as recolhas das empresas listadas são somadas
+    e consideradas para a regra.'
+  enableMediationButton: 'Ativar o formulário de mediação nas páginas de perfil dos
+    comensais habituais do distrito'
   enableReportButton: 'Ativar formulário de denúncia nas páginas de perfil dos salvadores
     dos alimentos habitual do distrito'
-  regionPickupTimespan: ''
-  regionPickupRuleActive: ''
-  save: ''
-  regionPickupLimitDayNumber: ''
+  regionPickupTimespan: 'Período de tempo (dias antes e depois da data de recolha
+    desejada) ao qual a regra das sultanas se aplica'
+  regionPickupRuleActive: 'Ative a seguinte regra distrital para recolhas de empresas
+    das "sultanas" populares:'
+  save: 'Guardar opções'
+  regionPickupLimitDayNumber: 'Número máximo de recolhas permitidas de empresas das
+    "sultanas" populares num dia'
   regionReportReasonSimple: motivos da denúncia simplificados
   regionReportReasonCategoryB: motivos da denúncia adicionais - B) comportamento
     durante as recolhas
@@ -3295,11 +3304,11 @@ prefetchtime: 'Com quantas semanas de antecipação podem os foodsaver registar-
   as ranhuras automáticas?'
 ueberzeugungsarbeit: 'Foi fácil convencer os responsáveis a cooperar com o foodsharing?'
 ageBandList:
-  ageBand: ''
-  NumberOfAgeband: ''
-  header_for_district: ''
-  home_district_tab: ''
-  district_tab: ''
+  ageBand: 'Grupos etários'
+  NumberOfAgeband: 'Número'
+  header_for_district: 'Grupos etários em {bezirk} '
+  home_district_tab: 'Disxtrito de origem'
+  district_tab: 'Distrito'
 fax: 'Fax'
 questcount: 'Quantas perguntas devem ser dada no teste?'
 yes: 'Sim'

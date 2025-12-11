@@ -2138,10 +2138,6 @@ error:
     description: ''
     link_1: ''
     link_2: ''
-  old_user_avatar:
-    description: ''
-    title: ''
-    link: ''
   missing_geolocation:
     link: ''
     title: ''

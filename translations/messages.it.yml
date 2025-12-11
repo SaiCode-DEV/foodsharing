@@ -3296,12 +3296,6 @@ error:
     description: 'Per favore controlla il tuo indirizzo. Non è stato possibile determinare
       le coordinate.'
     link: 'Per inserire indirizzi'
-  old_user_avatar:
-    link: 'Rinnova ora la tua immagine del profilo'
-    title: 'C’è un problema con la tua immagine del profilo.'
-    description: 'A settembre 2021 abbiamo apportato una modifica tecnica che influisce
-      sulle immagini del profilo. Ti chiediamo pertanto di ricaricare o rinnovare
-      la tua immagine del profilo. Ci scusiamo per l''inconveniente.'
   page:
     other: Si è verificato un errore sconosciuto.
     not_found: Impossibile trovare la pagina.

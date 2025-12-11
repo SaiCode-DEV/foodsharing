@@ -440,10 +440,6 @@ error:
     link: ''
     description: ''
     title: ''
-  old_user_avatar:
-    link: ''
-    title: ''
-    description: ''
   mail_bounce:
     title: ''
     link_1: ''

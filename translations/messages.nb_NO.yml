@@ -3638,12 +3638,6 @@ error:
     title: Du har ikke lastet opp et profilbilde ennå.
     description: Vis medlemmene i Foodsharing hvem du er!
     link: Last opp profilbildet ditt nå
-  old_user_avatar:
-    link: Oppdater profilbildet ditt nå
-    title: Det er et problem med profilbildet ditt.
-    description: I september 2021 gjorde vi en teknisk endring, som påvirker 
-      profilbildene. Du må derfor laste opp profilbildet ditt på nytt. Beklager 
-      dette.
   missing_geolocation:
     title: Ingen gyldig adresse angitt
     description: Vennligst sjekk adressen din. Koordinatene kunne ikke 

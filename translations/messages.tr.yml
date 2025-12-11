@@ -760,12 +760,6 @@ error:
       Lütfen aktivasyon e-postasındaki bağlantıya tıklayarak e-posta adresinizi doğrulayın.'
     link_1: 'Yeni bir etkinleştirme e-postası isteyin'
     title: 'E-posta adresi doğrulanmadı!'
-  old_user_avatar:
-    title: 'Profil fotoğrafınızla ilgili bir sorun var.'
-    link: 'Profil resminizi şimdi güncelleyin'
-    description: 'Eylül 2021''de profil fotoğraflarını etkileyen teknik bir değişiklik
-      yaptık. Bu nedenle sizden profil fotoğrafınızı tekrar yüklemenizi veya güncellemenizi
-      rica ediyoruz. Lütfen rahatsızlığı mazur görün.'
   mail_bounce:
     link_2: 'Yardıma ihtiyacım var'
     link_1: 'E-posta adresini değiştir'

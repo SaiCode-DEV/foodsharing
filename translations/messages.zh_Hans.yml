@@ -2202,10 +2202,6 @@ error:
     title: ''
     description: ''
     link: ''
-  old_user_avatar:
-    title: ''
-    link: ''
-    description: ''
   invalid_mobile_phonenumber:
     title: ''
     description: ''

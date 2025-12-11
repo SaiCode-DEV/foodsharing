@@ -981,10 +981,6 @@ error:
     description: ''
     link_1: ''
     link_2: ''
-  old_user_avatar:
-    description: ''
-    title: ''
-    link: ''
   invalid_mobile_phonenumber:
     link: ''
     description: ''
