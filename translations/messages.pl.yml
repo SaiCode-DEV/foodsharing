@@ -867,6 +867,7 @@ store:
     search: Pokaż wybrane akcje
     message:
       17: '{actor} zaprosił/a {target} do teamu.'
+      20: '{actor} odrzucił/a zaproszenie do teamu.'
   to_map: Pokaż na mapie
 navi:
   google_maps: Google maps
@@ -875,6 +876,7 @@ navi:
   osmand: OsmAnd
   komoot: Komoot
   here: HERE WeGo
+  no_native_app: Geo linki nie są wspierane przez to urządzenie.
 really_delete: Na pewno usunąć?
 yes: Tak
 no: Nie
@@ -888,3 +890,18 @@ statistics:
     activeHomeRegionFoodsavers: aktywni/e foodsaverzy/ki
     activeFoodSharePoints: aktywne jadłodzielnie
 are_you_sure: Jesteś pewny/a?
+storeedit:
+  name_error: Nazwa musi zawierać co najmniej trzy znaki.
+  actions: Opcje
+  team:
+    bread: Edytuj team
+  store:
+    status: status
+  fetch:
+    teamStatus: status teamu
+    teamStatus0: Ten team jest zamknięty i aktualnie nie szuka więcej 
+      pomocników.
+    teamStatus1: Pomocnicy potrzebni
+    teamStatus2: Pomocnicy bardzo potrzebni
+    verifiedRequired: Dopuść tylko zweryfikowanych/e foodsaverów/ki
+    phoneRequirement: Dopuść tylko foodsaverów/ki z ważnym numerem telefonu
