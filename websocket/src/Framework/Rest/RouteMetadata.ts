@@ -1,4 +1,4 @@
-type HttpMethod = 'get' | 'post' | 'del' | 'put' | 'opts'; // although I don't like abbrev., being consistent with Restify makes our life easier here
+type HttpMethod = 'get' | 'post' | 'delete' | 'put' | 'options' | 'patch';
 
 export interface RouteMetadata {
     readonly requestMethod: HttpMethod

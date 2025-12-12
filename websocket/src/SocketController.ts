@@ -1,14 +1,14 @@
 import { OnSocketConnection, OnSocketEvent } from './Framework/WebSocket/socket-decorators';
 import { Socket } from 'socket.io';
+import { Connection } from './Connection';
 import { ConnectionRegistry } from './ConnectionRegistry';
 import { parse as parseCookie } from 'cookie';
-import { Connection } from './Connection';
 
 export class SocketController {
     private readonly connectionRegistry: ConnectionRegistry;
 
-    constructor (socketRegistry: ConnectionRegistry) {
-        this.connectionRegistry = socketRegistry;
+    constructor (connectionRegistry: ConnectionRegistry) {
+        this.connectionRegistry = connectionRegistry;
     }
 
     @OnSocketConnection()
@@ -45,7 +45,10 @@ export class SocketController {
             throw new Error('not authorized');
         }
         const cookie = parseCookie(cookieVal);
-
-        return cookie.FS_SESSID || cookie.sessionid;
+        const sessionId = cookie.FS_SESSID || cookie.sessionid;
+        if (!sessionId) {
+            throw new Error('no session ID in cookie');
+        }
+        return sessionId;
     }
 }

@@ -44,11 +44,11 @@ Change the version number in ```client/package.json```
 yarn PACKAGENAME
 ```
 
-### Update chat
+### Update websocket server
 
-Change the version number in ```chat/package.json```
+Change the version number in ```websocket/package.json```
 ```bash
-./scripts/docker-compose run --rm chat sh
+./scripts/docker-compose run --rm websocket sh
 yarn PACKAGENAME
 ```
 

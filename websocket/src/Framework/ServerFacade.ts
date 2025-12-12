@@ -5,9 +5,9 @@
 export interface ServerFacade {
     /**
      * Makes the server behind the facade listen to the specified port.
+     * Can be synchronous or asynchronous.
      */
-    listen: (port: number) => void
-
+    listen: (port: number) => void | Promise<void>
     /**
      * Loads all supported decorators/annotations from a controller class.
      */
