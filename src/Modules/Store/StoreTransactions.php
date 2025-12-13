@@ -1131,7 +1131,7 @@ class StoreTransactions
             $regionOptions = $this->regionGateway->getRegionOptions($regionId);
             if ($regionOptions->isRegionPickupRuleActive) {
                 // how many hours before a pickup can this rule be ignored ?
-                $res = (int)Carbon::now()->diffInHours($pickupDate, true);
+                $res = (int)ceil(Carbon::now()->diffInHours($pickupDate, true));
                 if ($res > $regionOptions->regionPickupRuleInactiveHours) {
                     // the allowed numbers of pickups in a timespan. Timespan is +/- from pickupdate
                     $numberAllowedPickups = $regionOptions->regionPickupRuleLimitNumber;
