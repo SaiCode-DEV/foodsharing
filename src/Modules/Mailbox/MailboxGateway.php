@@ -11,6 +11,7 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
+use Foodsharing\Modules\Mailbox\DTO\Mailbox;
 use Foodsharing\Modules\Mailbox\DTO\Region;
 use Foodsharing\RestApi\Models\Region\RegionForAdministration;
 use Foodsharing\Utility\Sanitizer;
@@ -286,86 +287,34 @@ class MailboxGateway extends BaseGateway
     }
 
     /**
-     * Get region IDs from all member-groups and regions where the user is ambassador / admin.
+     * Returns all mailboxes to which the user has access.
+     *
+     * @param bool $isAmbassador if the role of the user is at least ambassador
+     * @param int|null $fsId the user's id
+     * @return Mailbox[]
+     * @throws Exception on database error
      */
-    private function getMailboxAdminRegions(int $fsId): array
-    {
-        return $this->db->fetchAllValuesByCriteria('fs_botschafter', 'bezirk_id', ['foodsaver_id' => $fsId]);
-    }
-
     public function getBoxes(bool $isAmbassador, ?int $fsId): array
     {
         if ($fsId === null) {
             return [];
         }
-        $mBoxes = [];
+        $mailboxes = [];
         if ($isAmbassador) {
-            $selectedRegions = $this->getMailboxAdminRegions($fsId);
-
-            if ($selectedRegions) {
-                $mailboxAdminRegions = $this->db->fetchAll(
-                    '
-				SELECT 	`id`,`mailbox_id`,`name`
-				FROM 	`fs_bezirk`
-				WHERE 	`id` IN (' . implode(',', array_map('intval', $selectedRegions)) . ')
-				AND 	`mailbox_id` = 0
-			'
-                );
-                foreach ($mailboxAdminRegions as $region) {
-                    if ($region['mailbox_id'] == 0) {
-                        $mb_name = mb_strtolower((string)$region['name']);
-                        $mb_name = trim($mb_name);
-                        $mb_name = str_replace(
-                            ['ä', 'ö', 'ü', 'è', 'à', 'ß', ' ', '-', '/', '\\'],
-                            ['ae', 'oe', 'ue', 'e', 'a', 'ss', '.', '.', '.', '.'],
-                            $mb_name
-                        );
-                        $mb_name = preg_replace('/[^0-9a-z\.]/', '', $mb_name);
-
-                        if ($mb_name[0] !== '.' && strlen((string)$mb_name) <= 3) {
-                            continue;
-                        }
-
-                        $mb_id = $this->createMailbox($mb_name);
-
-                        if ($this->db->update('fs_bezirk', ['mailbox_id' => (int)$mb_id], ['id' => (int)$region['id']])) {
-                            $region['mailbox_id'] = $mb_id;
-                        }
-                    }
-                }
-
-                $mailboxAdminRegions = $this->db->fetchAll(
-                    '
-					SELECT 	m.`id`,
-							m.`name`,
-							b.email_name,
-							b.id AS bezirk_id
-					FROM 	`fs_bezirk` b,
-							`fs_mailbox` m
-					WHERE 	b.mailbox_id = m.id
-					AND 	b.`id` IN (' . implode(',', array_map('intval', $selectedRegions)) . ')
-				'
-                );
-
-                foreach ($mailboxAdminRegions as $region) {
-                    if (empty($region['email_name'])) {
-                        $region['email_name'] = 'foodsharing ' . $region['name'];
-                        $this->db->update(
-                            'fs_bezirk',
-                            ['email_name' => strip_tags($region['email_name'])],
-                            ['id' => (int)$region['bezirk_id']]
-                        );
-                    }
-                    $mBoxes[] = [
-                        'id' => $region['id'],
-                        'name' => $region['name'],
-                        'email_name' => $region['email_name'],
-                    ];
-                }
-            }
+            $mailboxes = $this->db->fetchAll('
+                SELECT 	m.id,
+		                m.name,
+		                b.email_name
+                FROM fs_bezirk b
+                JOIN fs_mailbox m ON b.mailbox_id = m.id
+                JOIN fs_botschafter bot ON bot.bezirk_id = b.id
+                WHERE bot.foodsaver_id = :fsId;
+            ', [
+                ':fsId' => $fsId
+            ]);
         }
 
-        if ($memberb = $this->db->fetchAll(
+        if ($memberMailbox = $this->db->fetchAll(
             '
 			SELECT 	mb.`name`,
 					mb.`id`,
@@ -377,24 +326,10 @@ class MailboxGateway extends BaseGateway
 		',
             [':fs_id' => $fsId]
         )) {
-            foreach ($memberb as $m) {
-                if (empty($m['email_name'])) {
-                    $m['email_name'] = $m['name'] . '@' . PLATFORM_MAILBOX_HOST;
-                    $this->db->update(
-                        'fs_mailbox_member',
-                        ['email_name' => strip_tags((string)$m['name']) . '@' . PLATFORM_MAILBOX_HOST],
-                        ['mailbox_id' => (int)$m['id'], 'foodsaver_id' => $fsId]
-                    );
-                }
-                $mBoxes[] = [
-                    'id' => $m['id'],
-                    'name' => $m['name'],
-                    'email_name' => $m['email_name'],
-                ];
-            }
+            $mailboxes = array_merge($mailboxes, $memberMailbox);
         }
 
-        if ($mebox = $this->db->fetch(
+        if ($personalMailbox = $this->db->fetch(
             '
 				SELECT 		m.`id`,
 							m.name,
@@ -406,14 +341,10 @@ class MailboxGateway extends BaseGateway
 			',
             [':fs_id' => $fsId]
         )) {
-            $mBoxes[] = [
-                'id' => $mebox['id'],
-                'name' => $mebox['name'],
-                'email_name' => $mebox['email_name'],
-            ];
+            $mailboxes[] = $personalMailbox;
         }
 
-        return $mBoxes;
+        return array_map(fn ($mailbox) => Mailbox::create($mailbox['id'], $mailbox['name'], $mailbox['email_name']), $mailboxes);
     }
 
     public function getMailboxId(int $mid)

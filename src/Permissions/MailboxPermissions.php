@@ -33,10 +33,10 @@ class MailboxPermissions
 
     public function mayMailbox(int $mailboxId): bool
     {
-        $boxes = $this->mailboxGateway->getBoxes($this->currentUserUnits->isAmbassador(), $this->session->id());
+        $mailboxes = $this->mailboxGateway->getBoxes($this->currentUserUnits->isAmbassador(), $this->session->id());
 
-        foreach ($boxes as $b) {
-            if ($b['id'] == $mailboxId) {
+        foreach ($mailboxes as $mailbox) {
+            if ($mailbox->id == $mailboxId) {
                 return true;
             }
         }

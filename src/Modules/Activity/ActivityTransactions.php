@@ -67,9 +67,9 @@ class ActivityTransactions
             $this->currentUserUnits->isAmbassador(),
             $this->session->id(),
         )) {
-            $mailboxOptions = array_map(fn ($b) => ActivityFilter::create(
-                $b['id'], $b['name'] . '@' . PLATFORM_MAILBOX_HOST,
-                !isset($excluded['mailbox-' . $b['id']])
+            $mailboxOptions = array_map(fn ($mailbox) => ActivityFilter::create(
+                $mailbox->id, $mailbox->address . '@' . PLATFORM_MAILBOX_HOST,
+                !isset($excluded['mailbox-' . $mailbox->id])
             ), $boxes);
         }
 
@@ -257,19 +257,19 @@ class ActivityTransactions
 
     private function loadMailboxUpdates(int $page, array $hidden_ids): array
     {
-        $boxes = $this->mailboxGateway->getBoxes(
+        $mailboxes = $this->mailboxGateway->getBoxes(
             $this->currentUserUnits->isAmbassador(),
             $this->session->id(),
         );
 
-        if (empty($boxes)) {
+        if (empty($mailboxes)) {
             return [];
         }
 
         $mb_ids = [];
-        foreach ($boxes as $b) {
-            if (!isset($hidden_ids[$b['id']])) {
-                $mb_ids[] = $b['id'];
+        foreach ($mailboxes as $mailbox) {
+            if (!isset($hidden_ids[$mailbox->id])) {
+                $mb_ids[] = $mailbox->id;
             }
         }
 

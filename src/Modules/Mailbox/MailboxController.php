@@ -32,12 +32,12 @@ class MailboxController extends FoodsharingController
         $this->pageHelper->setContentWidth(8, 16);
         $this->pageHelper->addBread($this->translator->trans('mailbox.title'));
 
-        $boxes = $this->mailboxGateway->getBoxes(
+        $mailboxes = $this->mailboxGateway->getBoxes(
             $this->currentUserUnits->isAmbassador(),
             $this->session->id(),
         );
 
-        $mailboxIds = array_column($boxes, 'id');
+        $mailboxIds = array_map(fn ($mailbox) => $mailbox->id, $mailboxes);
         $emailId = $request->query->has('email') ? (int)$request->query->get('email') : null;
         $mailboxId = $request->query->has('mailbox') ? (int)$request->query->get('mailbox') : null;
 

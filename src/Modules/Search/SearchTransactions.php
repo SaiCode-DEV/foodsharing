@@ -71,8 +71,8 @@ class SearchTransactions
 
         if ($this->featureToggleChecker->isFeatureToggleActive(FeatureToggleDefinitions::MAIL_SEARCH->value)) {
             $start = microtime(true);
-            $boxes = $this->mailboxGateway->getBoxes($this->currentUserUnits->isAdminFor(null), $foodsaverId);
-            $mailboxIds = array_column($boxes, 'id');
+            $mailboxes = $this->mailboxGateway->getBoxes($this->currentUserUnits->isAdminFor(null), $foodsaverId);
+            $mailboxIds = array_map(fn ($mailbox) => $mailbox->id, $mailboxes);
             $result->mails = $this->searchGateway->searchMails($query, $mailboxIds);
             $result->timings['mails'] = microtime(true) - $start;
         }
@@ -93,8 +93,8 @@ class SearchTransactions
     public function searchIndex(): MixedSearchResult
     {
         $foodsaverId = $this->session->id();
-        $boxes = $this->mailboxGateway->getBoxes($this->currentUserUnits->isAdminFor(null), $foodsaverId);
-        $mailboxIds = array_column($boxes, 'id');
+        $mailboxes = $this->mailboxGateway->getBoxes($this->currentUserUnits->isAdminFor(null), $foodsaverId);
+        $mailboxIds = array_map(fn ($mailbox) => $mailbox->id, $mailboxes);
 
         $result = new MixedSearchResult();
         $result->regions = $this->searchGateway->getRegionsForSearchIndex($foodsaverId);
