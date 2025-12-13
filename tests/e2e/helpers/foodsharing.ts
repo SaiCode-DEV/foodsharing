@@ -1,4 +1,4 @@
-import { fakerDE as faker  } from '@faker-js/faker';
+import { fakerDE as faker } from '@faker-js/faker';
 import argon2 from 'argon2';
 import { DateTime } from 'luxon';
 import path from 'path';
@@ -24,7 +24,7 @@ class UploadedFile {
     public uploaderId: number,
     public id: number | null = null,
     public uuid: string | null = null
-  ) {}
+  ) { }
 }
 
 class Foodsharing {
@@ -41,7 +41,7 @@ class Foodsharing {
 
     const tablesToSkip = [
       'fs_bezirk',
-      'fs_content', 
+      'fs_content',
       'fs_fetchweight',
       'fs_bezirk_closure',
       'phinxlog'
@@ -94,10 +94,10 @@ class Foodsharing {
       const genderDir = ['men', 'women'][gender];
       const imgNum = Math.floor(Math.random() * 100);
       const imgPath = path.join('./img/seed-data/profile/', genderDir, `${imgNum}.jpg`);
-      
+
       const stats = await fs.promises.stat(imgPath);
       const hash = await this.hashFile('sha256', imgPath);
-      
+
       const profilePicture = new UploadedFile(
         imgPath,
         stats.size,
@@ -105,7 +105,7 @@ class Foodsharing {
         'image/jpg',
         1
       );
-      
+
       const uuid = await this.uploadFile(profilePicture);
       pictureUrl = `/api/uploads/${uuid}`;
     }
@@ -139,7 +139,7 @@ class Foodsharing {
       geb_datum: faker.date.birthdate({ min: 18, max: 80, mode: 'age' }),
       last_login: faker.date.recent({ days: 365 }),
       anschrift: faker.location.street(),
-      handy: faker.phone.number({style: 'international'}),
+      handy: faker.phone.number({ style: 'international' }),
       active: 1,
       token: faker.string.uuid(),
       photo: pictureUrl,
@@ -193,6 +193,7 @@ class Foodsharing {
    * @returns The created foodsaver
    */
   async createFoodsaver(pass: string = null, extraParams: any = {}): Promise<any> {
+  
     const params = {
       verified: 1,
       rolle: 1,
@@ -221,13 +222,13 @@ class Foodsharing {
       quiz_rolle: 2,
       ...extraParams
     };
-    
+
     const coordinator = await this.createFoodsaver(pass, params);
     await this.createQuizTry(coordinator.id, 2, 1);
 
     // Create mailbox and assign to user
     const mailbox = await this.createMailbox(coordinator.name[0].toLowerCase() + '.' + coordinator.nachname);
-    await Database.connect().then(conn => 
+    await Database.connect().then(conn =>
       conn.execute('UPDATE fs_foodsaver SET mailbox_id = ? WHERE id = ?', [mailbox.id, coordinator.id])
     );
 
@@ -385,7 +386,7 @@ class Foodsharing {
         throw new Error('Unable to generate unique mailbox name after 100 attempts');
       }
     }
-    
+
     const mailbox = {
       name,
       id: await Database.addToDatabase('fs_mailbox', { name })
@@ -464,7 +465,7 @@ class Foodsharing {
     delete params.email;
 
     params.id = await Database.addToDatabase('fs_bezirk', params);
-    
+
     const mailbox = await this.createMailbox(
       email || `region-${params.id}`,
       fillMailbox
@@ -559,9 +560,9 @@ class Foodsharing {
     const lastPostId = await Database.grabFromDatabase('fs_theme', 'last_post_id', { id: threadId });
     const lastPostDate = new Date(await Database.grabFromDatabase('fs_theme_post', 'time', { id: lastPostId }));
     const thisPostDate = new Date(post.time);
-    
+
     if (lastPostDate >= thisPostDate) {
-      await Database.connect().then(conn => 
+      await Database.connect().then(conn =>
         conn.execute('UPDATE fs_theme SET last_post_id = ? WHERE id = ?', [post.id, threadId])
       );
     }
@@ -732,13 +733,13 @@ class Foodsharing {
   async createQuiz(quizId: number, questionCount: number = null): Promise<any> {
     questionCount = questionCount ?? Math.floor(Math.random() * 4) + 3; // 3-6 questions
     const questionCountUntimed = quizId === 1 ? 2 + questionCount : null;
-    
+
     const conn = await Database.connect();
 
 
     // Set name and description based on quiz type
     let name = '';
-    let description = ''; 
+    let description = '';
     switch (quizId) {
       case Role.FOODSAVER:
         name = 'Quiz für Foodsaver';
@@ -763,7 +764,7 @@ class Foodsharing {
     await conn.execute(quizSQL, [
       quizId,
       name,
-      description, 
+      description,
       1, // is_desc_htmlentity_encoded
       2, // maxfp  
       questionCount,
@@ -806,7 +807,7 @@ class Foodsharing {
   private async createQuizes(): Promise<void> {
     const wantQuizes = Object.values(QuizID).filter(value => typeof value === 'number') as number[];
     const haveQuizes = await Database.grabColumnFromDatabase('fs_quiz', 'id');
-    
+
     for (const quizId of wantQuizes) {
       if (!haveQuizes.includes(quizId)) {
         await this.createQuiz(quizId);
@@ -826,7 +827,7 @@ class Foodsharing {
 
     const quizLinkParams = {
       question_id: questionId,
-      quiz_id: quizId, 
+      quiz_id: quizId,
       fp: Math.floor(Math.random() * 3) + 1
     };
     try {
@@ -845,7 +846,7 @@ class Foodsharing {
 
     return {
       id: questionId,
-      text: dbParams.text, 
+      text: dbParams.text,
       duration: dbParams.duration,
       wikilink: dbParams.wikilink,
       answers
@@ -867,7 +868,7 @@ class Foodsharing {
         rightValue
       ]
     );
-    
+
     return {
       id: (result as any).insertId,
       question_id: questionId,
@@ -1044,7 +1045,7 @@ class Foodsharing {
    * @param email The email domain to blacklist
    * @returns The ID of the created blacklist entry
    */
-  async createBlacklistedEmailAddress(email: string ='bad.com'): Promise<number> {
+  async createBlacklistedEmailAddress(email: string = 'bad.com'): Promise<number> {
     return await Database.addToDatabase('fs_email_blacklist', {
       email: email,
       since: '2010-10-14 12:00:00',
@@ -1284,7 +1285,7 @@ class Foodsharing {
 
     const previousCount = await Database.grabFromDatabase('fs_poll', 'eligible_votes_count', { id: pollId });
     await Database.connect().then(conn =>
-      conn.execute('UPDATE fs_poll SET eligible_votes_count = ? WHERE id = ?', 
+      conn.execute('UPDATE fs_poll SET eligible_votes_count = ? WHERE id = ?',
         [parseInt(previousCount) + userIds.length, pollId])
     );
   }
