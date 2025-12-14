@@ -17,6 +17,7 @@ gemnasium-dependency_scanning:
         - docs/yarn.lock
 
 variables:
+  PHPCS_VERSION: "8.3"
   DS_EXCLUDED_ANALYZERS: "gemnasium-maven, gemnasium-python"
   # https://docs.docker.com/engine/userguide/storagedriver/selectadriver/
   # https://gitlab.com/gitlab-org/gitlab-ce/issues/19971
@@ -26,6 +27,7 @@ stages:
   - outdated
   - update-dependencies
   - build
+  - php-compatibility-check
   - test
   - deploy
 
@@ -310,6 +312,31 @@ build:docs:
       - docs/.vitepress/dist
       - docs/data/api_dump.json
 
+php-compatibility-check:
+  stage: php-compatibility-check
+  extends:
+    - .defaults
+  needs:
+    - build:backend-dev
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - !reference [ .dirs-app-rule, rules ]
+  script:
+    - vendor/bin/phpcs src --standard=PHPCompatibility --report=junit --report-file=compatibility-report.xml --runtime-set testVersion $PHPCS_VERSION || true
+    - echo "==== PHPCompatibility Summary Output ===="
+    - vendor/bin/phpcs src --standard=PHPCompatibility --report=summary --runtime-set testVersion $PHPCS_VERSION || true
+  cache:
+    key: php-compatibility-check:cache
+    paths:
+      - vendor
+  artifacts:
+    expire_in: 2 weeks
+    paths:
+      - compatibility-report.xml
+    reports:
+      junit: compatibility-report.xml
+
 .test-artifacts: &test-artifacts
   expire_in: 2 weeks
   when: always
@@ -361,6 +388,7 @@ build:docs:
   needs:
     - build:frontend
     - build:backend-dev
+    - php-compatibility-check
   cache:
     key: backend:build:cache
     paths:
@@ -433,6 +461,7 @@ test:backend-acceptance:
     - build:backend-dev
     - build:frontend
     - build:websocket
+    - php-compatibility-check
   script:
     - touch $CI_PROJECT_DIR/code_updated # Create file to notify websocket container that code is up to date
     - ./scripts/ci-backend-test Acceptance 3

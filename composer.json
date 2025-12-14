@@ -8,8 +8,8 @@
     },
     "sort-packages": true,
     "allow-plugins": {
-      "php-http/discovery": false,
-      "codeception/c3": true
+      "codeception/c3": true,
+      "php-http/discovery": false
     }
   },
   "require-dev": {
@@ -26,6 +26,7 @@
     "codeception/module-webdriver": "^4.0",
     "fakerphp/faker": "1.24.*",
     "friendsofphp/php-cs-fixer": "3.75.*",
+    "phpcompatibility/php-compatibility": "^9.3",
     "phpstan/phpstan": "2.1.*",
     "phpunit/phpunit": "^10.0",
     "rector/rector": "^2.0.11",
