@@ -621,6 +621,13 @@ login:
     mismatch: "Sorry, die Passwörter stimmen nicht überein."
     request_new: "Neues Passwort anfordern"
     token_invalid: "Der eingegebene Zwei-Faktor-Code ist ungültig. Bitte versuche es erneut."
+  resend_verification:
+    email_invalid: "Bitte gib eine E-Mail-Adresse ein"
+    title: "Bestätigung der E-Mail-Adresse"
+    hint1: "Zum Einloggen muss deine E-Mail-Adresse bestätigt sein. Falls du vom Login auf diese Seite weitergeleitet wurdest, ist deine E-Mail-Adresse bisher nicht bestätigt. Mit diesem Formular kannst du dir eine neue E-Mail zusenden lassen, welche einen Aktivierungslink enthält."
+    hint2: "Falls du keine E-Mail bekommst, wende dich bitte an den [Support](/support)."
+    submit: "Absenden"
+    success: "Falls diese E-Mail-Adresse existiert und noch nicht verifiziert ist, wird eine neue Email zugesendet."
 
 register:
   topbar: "Mitmachen"
@@ -4055,7 +4062,7 @@ help:
       md: |
         Manche Ressourcen gehören nicht einer einzelnen Person, sondern der Gemeinschaft.
 
-        ##### Was sind Beispiele für Gemeinschaftsressourcen? 
+        ##### Was sind Beispiele für Gemeinschaftsressourcen?
         Bei Gemeinschaftsressourcen handelt es sich meist um **Gegenstände**, **Informationen** oder **Kontakte**. Das könnte ein foodsharing Banner des Bezirks sein, ein Foto-Archiv in der Cloud oder der Kontakt zu externen Ansprechpersonen. Da für Gemeinschaftsressourcen nicht eine einzelne Person verantwortlich ist, sollte ggf. eine Kontaktmöglichkeit in der Beschreibung der Ressource eingetragen werden.
 
         ##### Wer verwaltet Gemeinschaftsressourcen?
@@ -4278,7 +4285,7 @@ resource_mosaic:
     title: "Datenschutz-Hinweis"
     text: "Wenn du Resourcen einträgst, werden diese auf dem Server gespeichert und für andere Nutzer:innen in deinen Arbeitsgruppen und Bezirken (ausgenommen Bundesländer, Länder und Europa) sichtbar. Du kannst deine Ressourcen jederzeit bearbeiten und löschen. Außerdem kannst du die Sichtbarkeit deiner Resourcen einschränken, wodurch nur deine Bekannten darauf Zugriff haben."
     ok: "Ich bin einverstanden"
-  
+
 
 debug:
   title: Debug Seite
