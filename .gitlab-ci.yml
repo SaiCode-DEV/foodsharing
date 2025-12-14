@@ -388,7 +388,6 @@ php-compatibility-check:
   needs:
     - build:frontend
     - build:backend-dev
-    - php-compatibility-check
   cache:
     key: backend:build:cache
     paths:
@@ -461,7 +460,6 @@ test:backend-acceptance:
     - build:backend-dev
     - build:frontend
     - build:websocket
-    - php-compatibility-check
   script:
     - touch $CI_PROJECT_DIR/code_updated # Create file to notify websocket container that code is up to date
     - ./scripts/ci-backend-test Acceptance 3
