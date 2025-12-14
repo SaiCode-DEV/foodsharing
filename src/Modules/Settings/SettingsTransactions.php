@@ -567,17 +567,23 @@ class SettingsTransactions
      * @throws BadRequestHttpException If TOTP activation is not running
      * @throws AccessDeniedHttpException If the password or 2FA code is incorrect
      */
-    public function disableTwoFA(string $code, string $password): void
+    public function disableTwoFA(string $code, string $password, int $targetUserId): void
     {
-        // Check that the submitted password and 2FA are correct
-        $currentEmail = $this->foodsaverGateway->getEmailAddress($this->session->id());
-        if (!$this->loginGateway->checkClient($currentEmail, $password, $code)) {
-            throw new AccessDeniedHttpException('Password or Code incorrect');
+        if ($targetUserId !== $this->session->id() && !$this->settingsPermissions->mayDisable2FA()) {
+            throw new AccessDeniedHttpException('No permission to disable 2FA for other users');
+        }
+
+        if ($targetUserId === $this->session->id()) {
+            // Check that the submitted password and 2FA are correct
+            $currentEmail = $this->foodsaverGateway->getEmailAddress($this->session->id());
+            if (!$this->loginGateway->checkClient($currentEmail, $password, $code)) {
+                throw new AccessDeniedHttpException('Password or Code incorrect');
+            }
         }
 
         // Disable 2FA for this user by setting the secret and backup codes
-        $this->loginGateway->setTOTPSecret($this->session->id(), null);
-        $this->loginGateway->setBackupCodes($this->session->id(), []);
+        $this->loginGateway->setTOTPSecret($targetUserId, null);
+        $this->loginGateway->setBackupCodes($targetUserId, []);
     }
 
     /**

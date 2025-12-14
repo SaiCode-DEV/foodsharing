@@ -15,7 +15,7 @@
           id="testing-reset-input-password"
           v-model="password"
           placeholder="register.login_passwd1"
-          :class="{ 'is-invalid': shouldShowPasswordErrors }"
+          :invalid="shouldShowPasswordErrors"
           @blur="onPasswordBlur"
         />
         <div
@@ -48,7 +48,7 @@
           id="testing-reset-input-confirm-password"
           v-model="confirmPassword"
           placeholder="register.login_passwd2"
-          :class="{ 'is-invalid': shouldShowConfirmPasswordErrors }"
+          :invalid="shouldShowConfirmPasswordErrors"
           @blur="onConfirmPasswordBlur"
         />
         <div
@@ -74,7 +74,6 @@
         <TOTPField
           id="testing-reset-input-totp"
           v-model="totpCode"
-          placeholder="settings.2fa.totp_token"
           :class="{ 'is-invalid': shouldShowTOTPErrors }"
           @blur="v$.totp.$touch"
         />

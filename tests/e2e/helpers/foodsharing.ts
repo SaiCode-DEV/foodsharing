@@ -736,7 +736,6 @@ class Foodsharing {
 
     const conn = await Database.connect();
 
-
     // Set name and description based on quiz type
     let name = '';
     let description = '';

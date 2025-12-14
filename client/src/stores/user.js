@@ -88,13 +88,13 @@ export const useUserStore = defineStore('user', {
       delete this.fetching.details
       resolver()
     },
-    async fetchProfileSettings () {
+    async fetchProfileSettings (force = false) {
       if ('profileSettings' in this.fetching) return this.fetching.settings
       let resolver
       this.fetching.settings = new Promise(resolve => { resolver = resolve })
       const cacheRequestName = 'profileSettings'
       try {
-        if (await getCacheInterval(cacheRequestName, userprofileSettingsRateLimitInterval)) {
+        if (force || await getCacheInterval(cacheRequestName, userprofileSettingsRateLimitInterval)) {
           this.settings = await getUserProfileSettings(this.getUserId)
           await setCache(cacheRequestName, this.settings)
         } else {

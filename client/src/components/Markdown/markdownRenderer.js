@@ -57,4 +57,34 @@ md.linkify.add('@', {
 // Add missing top level domains
 md.linkify.tlds(['network'], true)
 
+// Open external links in new tab
+const defaultRender = md.renderer.rules.link_open || function (tokens, idx, options, env, self) {
+  return self.renderToken(tokens, idx, options)
+}
+
+md.renderer.rules.link_open = function (tokens, idx, options, env, self) {
+  const token = tokens[idx]
+  const hrefIndex = token.attrIndex('href')
+
+  if (hrefIndex >= 0) {
+    const href = token.attrs[hrefIndex][1]
+    // Check if link is external (starts with http:// or https:// and not same origin)
+    if (href.startsWith('http://') || href.startsWith('https://')) {
+      try {
+        const url = new URL(href)
+        const isExternal = url.origin !== window.location.origin
+        if (isExternal) {
+          token.attrPush(['target', '_blank'])
+          token.attrPush(['rel', 'noopener noreferrer'])
+        }
+      } catch (e) {
+        // Invalid URL encountered while parsing link; log for debugging purposes
+        console.warn(`Invalid URL in markdown link: "${href}". Error:`, e)
+      }
+    }
+  }
+
+  return defaultRender(tokens, idx, options, env, self)
+}
+
 export default md

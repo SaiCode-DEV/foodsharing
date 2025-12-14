@@ -6,7 +6,7 @@
         <span v-text="$t('settings.change_data_info.general')" />
       </p>
       <span v-text="$t('settings.change_data_info.verified')" />
-      <Info info-key="change_verified_data" :props="{ link: $url('region_forum', region.id )}" />
+      <Info info-key="change_verified_data" :props="{ link: $url('region_forum', settings.region.id )}" />
     </b-alert>
     <b-alert :show="isAmbassador || isOrgUser">
       <Markdown :source="$t('profile.editNameInfo', {url: $url('editNameInfoUrl')})" />
@@ -16,7 +16,7 @@
         <b-form-group :label="$t('register.login_name')">
           <b-form-input
             id="input-firstname"
-            v-model.lazy="v$.firstName.$model"
+            v-model.lazy="settings.firstName"
             :class="{ 'is-invalid': v$.firstName.$error }"
             type="text"
             :disabled="!userStore.settings.mayChangeVerifiedData"
@@ -35,7 +35,7 @@
         <b-form-group :label="$t('register.login_surname')">
           <b-form-input
             id="input-lastname"
-            v-model.lazy="v$.lastName.$model"
+            v-model.lazy="settings.lastName"
             :class="{ 'is-invalid': v$.lastName.$error }"
             type="text"
             :disabled="!userStore.settings.mayChangeVerifiedData"
@@ -50,7 +50,7 @@
 
       <div class="col-md-6">
         <b-form-group :label="$t('register.select_your_gender')">
-          <b-form-select v-model="gender" :options="genderOptions" />
+          <b-form-select v-model="settings.gender" :options="genderOptions" />
         </b-form-group>
       </div>
       <div class="col-md-6">
@@ -71,7 +71,7 @@
       <div class="col-md-6">
         <b-form-group :label="$t('terminology.mobile_phone')">
           <PhoneNumberInput
-            :input-value="mobile"
+            :input-value="settings.mobile"
             input-name="mobile"
             @update-phone-number="handleValidValue"
           />
@@ -80,7 +80,7 @@
       <div class="col-md-6">
         <b-form-group :label="$t('terminology.landline')">
           <PhoneNumberInput
-            :input-value="phone"
+            :input-value="settings.phone"
             input-name="phone"
             @update-phone-number="handleValidValue"
           />
@@ -110,7 +110,7 @@
           </b-input-group>
         </b-form-group>
         <b-form-group v-if="userStore.settings.isOnTeamPage && (isMe || isOrgUser)" :label="$t('position')">
-          <b-input v-model="position" />
+          <b-input v-model="settings.position" />
         </b-form-group>
       </div>
 
@@ -130,7 +130,7 @@
           <b-form-group :label="$t('foodsaver.manage.role')">
             <b-form-select
               id="input-role"
-              v-model="role"
+              v-model="settings.role"
               :options="roleOptions"
             />
           </b-form-group>
@@ -151,8 +151,8 @@
               :rows="2"
               :max-rows="4"
               :conceal-toolbar="true"
-              :value="aboutMePublic"
-              @update:value="newValue => aboutMePublic = newValue"
+              :value="settings.aboutMePublic"
+              @update:value="newValue => settings.aboutMePublic = newValue"
             />
           </b-form-group>
         </div>
@@ -160,7 +160,7 @@
           <b-form-group :label="$t('terminology.homeRegion')">
             <b-input-group>
               <b-form-input
-                :value="region.name || $t('search.results.user.no_home_region')"
+                :value="settings.region.name || $t('search.results.user.no_home_region')"
                 type="text"
                 :disabled="true"
               />
@@ -188,8 +188,8 @@
               :rows="2"
               :max-rows="4"
               :conceal-toolbar="true"
-              :value="aboutMeInternal"
-              @update:value="newValue => aboutMeInternal = newValue"
+              :value="settings.aboutMeInternal"
+              @update:value="newValue => settings.aboutMeInternal = newValue"
             />
           </b-form-group>
         </div>
@@ -199,7 +199,7 @@
     <div class="row">
       <div class="col-md-6">
         <b-form-group :label="$t('no_automatic_delete')">
-          <b-form-select v-model="noAutoDelete" :options="noAutoDeleteOptions" />
+          <b-form-select v-model="settings.noAutoDelete" :options="noAutoDeleteOptions" />
         </b-form-group>
       </div>
     </div>
@@ -217,21 +217,21 @@
         ref="profilePictureModal"
         :img-height="400"
         :img-width="400"
-        :initial-value="photo"
+        :initial-value="settings.photo"
       />
     </div>
 
     <ProfileAddressModal
       ref="AddressModal"
-      :coordinate="coordinate"
-      :location="location"
+      :coordinate="settings.coordinate"
+      :location="settings.location"
       :zoom="zoom"
       @update-location="handleUpdateLocation"
     />
     <RegionTreeModal
       v-if="!isMe"
       ref="homeRegionTree"
-      :value="region"
+      :value="settings.region"
       input-name="regionId"
       modal-title="storeview.select_related_region"
       :selectable-region-types="selectableRegionTypes"
@@ -244,9 +244,9 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, watch, defineProps } from 'vue'
 import ProfilePicture from './ProfilePicture.vue'
-import { patchUserProfile, getUserProfileSettings } from '@/api/user'
+import { patchUserProfile } from '@/api/user'
 import PhoneNumberInput from '@/components/PhoneNumberInput.vue'
 import ProfileAddressModal from './ProfileAddressModal.vue'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
@@ -260,43 +260,48 @@ import { pulseError, pulseSuccess } from '@/script'
 import Info from '@/components/Help/Info.vue'
 import i18n from '@/helper/i18n'
 
+const props = defineProps({
+  profileData: { type: Object, default: null },
+})
+
 const userStore = useUserStore()
 
 const randomSuffix = Date.now()
-const userId = ref(null)
-const region = ref({ id: userStore.settings.regionId, name: userStore.settings.regionName })
-const position = ref(userStore.settings.position)
 const zoom = 17
-const firstName = ref(userStore.settings.firstName)
-const aboutMePublic = ref(userStore.settings.aboutMePublic)
-const lastName = ref(userStore.settings.lastName)
-const photo = ref(userStore.settings.photo)
-const gender = ref(userStore.settings.gender)
-const birthday = ref(userStore.settings.birthday)
-const role = ref(userStore.settings.rolle)
+
+const settings = ref({
+  id: null,
+  firstName: '',
+  lastName: '',
+  aboutMePublic: '',
+  photo: '',
+  gender: null,
+  birthday: null,
+  role: null,
+  mobile: { value: '', valid: true },
+  phone: { value: '', valid: true },
+  location: {
+    street: '',
+    postalCode: '',
+    city: '',
+  },
+  coordinate: { lat: null, lon: null },
+  aboutMeInternal: '',
+  position: '',
+  region: { id: null, name: '' },
+  noAutoDelete: false,
+})
 
 const birthdayFormatted = computed({
   get () {
-    if (!birthday.value) return ''
+    if (!settings.value.birthday) return ''
     // Convert  ISO 8601 Datetime to YYYY-MM-DD
-    return birthday.value.split('T')[0]
+    return settings.value.birthday.split('T')[0]
   },
   set (value) {
-    birthday.value = value
+    settings.value.birthday = value
   },
 })
-
-const mobile = ref({ value: userStore.settings.mobile, valid: true })
-const phone = ref({ value: userStore.settings.phone, valid: true })
-const location = ref({
-  street: userStore.settings.address?.street,
-  postalCode: userStore.settings.address?.postalCode,
-  city: userStore.settings.address?.city,
-})
-const coordinate = ref({ lat: userStore.lat, lon: userStore.lon })
-const aboutMeInternal = ref(userStore.settings.aboutMeInternal ?? '')
-const noAutoDelete = ref(userStore.settings.noAutoDelete)
-const isLoaded = ref(false)
 
 const genderOptions = [
   { value: 1, text: i18n('register.man') ?? '' },
@@ -317,18 +322,19 @@ const noAutoDeleteOptions = [
 
 const selectableRegionTypes = SELECTABLE_REGION_TYPES
 const isOrgUser = computed(() => userStore.isOrga)
-const isMe = computed(() => userStore.getUserId === userId.value)
+const isMe = computed(() => userStore.getUserId === settings.value.id)
 const isAmbassador = computed(() => userStore.isAmbassador)
+const isLoaded = computed(() => props.profileData !== null && settings.value.id !== null)
 const isFieldsValid = computed(() =>
-  phone.value.valid && mobile.value.valid && !v$.value.$invalid && isValidBirthdate.value,
+  settings.value.phone.valid && settings.value.mobile.valid && !v$.value.$invalid && isValidBirthdate.value,
 )
 const isValidBirthdate = computed(() => {
-  if (!birthday.value) return false
+  if (!settings.value.birthday) return false
   let year, month, day
-  if (typeof birthday.value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(birthday.value)) {
-    [year, month, day] = birthday.value.split('-').map(Number)
+  if (typeof settings.value.birthday === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(settings.value.birthday)) {
+    [year, month, day] = settings.value.birthday.split('-').map(Number)
   } else {
-    const d = new Date(birthday.value)
+    const d = new Date(settings.value.birthday)
     if (isNaN(d)) return false
     year = d.getFullYear()
     month = d.getMonth() + 1
@@ -345,103 +351,97 @@ const isValidBirthdate = computed(() => {
   return age >= 18 && age <= 125
 })
 const locationString = computed(() =>
-  (!location.value.street && !location.value.postalCode && !location.value.city)
+  (!settings.value.location.street && !settings.value.location.postalCode && !settings.value.location.city)
     ? i18n('settings.general.no_address') ?? ''
-    : `${location.value.street} ${location.value.postalCode ? location.value.postalCode + ' ' : ''}${location.value.city}`,
+    : `${settings.value.location.street} ${settings.value.location.postalCode ? settings.value.location.postalCode + ' ' : ''}${settings.value.location.city}`,
 )
 
 const rules = {
   firstName: { required, minLength: minLength(2), maxLength: maxLength(40) },
   lastName: { required, minLength: minLength(2), maxLength: maxLength(40) },
 }
-const v$ = useVuelidate(rules, { firstName, lastName })
-
-function getUserIdFromUrl () {
-  const match = window.location.pathname.match(/\/user\/(\d+)\/settings/)
-  return match ? Number(match[1]) : undefined
-}
-
-function updateLocalFields (settings) {
-  userId.value = settings.id
-  firstName.value = settings.firstName
-  lastName.value = settings.lastName
-  aboutMePublic.value = settings.aboutMePublic
-  photo.value = settings.photo
-  gender.value = settings.gender
-  birthday.value = settings.birthday
-  role.value = settings.rolle
-  mobile.value = { value: settings.mobile, valid: true }
-  phone.value = { value: settings.phone, valid: true }
-  location.value = {
-    street: settings.address?.street,
-    postalCode: settings.address?.postalCode,
-    city: settings.address?.city,
-  }
-  coordinate.value = { lat: userStore.lat, lon: userStore.lon }
-  aboutMeInternal.value = settings.aboutMeInternal ?? ''
-  position.value = settings.position
-  region.value = { id: settings.regionId, name: settings.regionName }
-  noAutoDelete.value = settings.noAutoDelete
-  isLoaded.value = true
-}
-
-async function loadUserProfile (userId) {
-  let settings
-  if (userId === undefined || !isMe.value) {
-    settings = await getUserProfileSettings(userId)
-  } else {
-    settings = userStore.settings
-  }
-  updateLocalFields(settings)
-}
-
-onMounted(() => {
-  loadUserProfile(getUserIdFromUrl())
+const v$ = useVuelidate(rules, {
+  firstName: computed(() => settings.value.firstName),
+  lastName: computed(() => settings.value.lastName),
 })
 
-watch(() => userStore.settings, (settings) => {
-  if (settings && settings.firstName) {
-    updateLocalFields(settings)
+function updateLocalFields (data) {
+  if (!data) return
+
+  settings.value = {
+    id: data.id,
+    firstName: data.firstName,
+    lastName: data.lastName,
+    aboutMePublic: data.aboutMePublic,
+    photo: data.photo,
+    gender: data.gender,
+    birthday: data.birthday,
+    role: data.rolle,
+    mobile: { value: data.mobile, valid: true },
+    phone: { value: data.phone, valid: true },
+    location: {
+      street: data.address?.street,
+      postalCode: data.address?.postalCode,
+      city: data.address?.city,
+    },
+    coordinate: { lat: data.coordinate?.lat ?? userStore.lat, lon: data.coordinate?.lon ?? userStore.lon },
+    aboutMeInternal: data.aboutMeInternal ?? '',
+    position: data.position,
+    region: { id: data.regionId, name: data.regionName },
+    noAutoDelete: data.noAutoDelete,
   }
+}
+
+// Watch for profile data from parent
+watch(() => props.profileData, (data) => {
+  updateLocalFields(data)
 }, { immediate: true })
 
+// Watch for userStore updates (for current user only)
+watch(() => userStore.settings, (data) => {
+  if (!isMe.value) return
+  if (data && data.firstName && props.profileData) {
+    updateLocalFields(data)
+  }
+})
+
 function updateHomeRegion (regionData) {
-  region.value.id = regionData.states.id
-  region.value.name = regionData.data.text
+  settings.value.region.id = regionData.states.id
+  settings.value.region.name = regionData.data.text
 }
 function handleUpdateLocation (data) {
-  location.value = data.location
-  coordinate.value = data.coordinate
+  settings.value.location = data.location
+  settings.value.coordinate = data.coordinate
 }
 function handleValidValue (data) {
-  if (data.id === 'mobile') mobile.value = { value: data.value, valid: data.valid }
-  if (data.id === 'phone') phone.value = { value: data.value, valid: data.valid }
+  if (data.id === 'mobile') settings.value.mobile = { value: data.value, valid: data.valid }
+  if (data.id === 'phone') settings.value.phone = { value: data.value, valid: data.valid }
 }
 function handleSubmit () {
-  const nullableLocation = (!location.value?.street && !location.value?.postalCode && !location.value?.city) ? null : location.value
-  const nullableCoordinates = (!coordinate.value?.lat && !coordinate.value?.lon) ? null : coordinate.value
+  const nullableLocation = (!settings.value.location?.street && !settings.value.location?.postalCode && !settings.value.location?.city) ? null : settings.value.location
+  const nullableCoordinates = (!settings.value.coordinate?.lat && !settings.value.coordinate?.lon) ? null : settings.value.coordinate
   const formData = {
-    id: userId.value,
-    firstName: firstName.value,
-    aboutMePublic: aboutMePublic.value,
-    lastName: lastName.value,
-    photo: photo.value,
-    gender: gender.value,
-    birthday: birthday.value,
-    mobile: mobile.value.value,
-    phone: phone.value.value,
+    id: settings.value.id,
+    firstName: settings.value.firstName,
+    aboutMePublic: settings.value.aboutMePublic,
+    lastName: settings.value.lastName,
+    photo: settings.value.photo,
+    gender: settings.value.gender,
+    birthday: settings.value.birthday,
+    mobile: settings.value.mobile.value,
+    phone: settings.value.phone.value,
     location: nullableLocation,
     coordinate: nullableCoordinates,
-    aboutMeInternal: aboutMeInternal.value,
-    role: role.value,
-    position: position.value,
-    regionId: region.value.id,
-    noAutoDelete: noAutoDelete.value,
+    aboutMeInternal: settings.value.aboutMeInternal,
+    role: settings.value.role,
+    position: settings.value.position,
+    regionId: settings.value.region.id,
+    noAutoDelete: settings.value.noAutoDelete,
   }
   if (!isFieldsValid.value) {
     return
   }
-  patchUserProfile(userId.value, formData).then(() => {
+  patchUserProfile(settings.value.id, formData).then(() => {
     pulseSuccess(i18n('success') ?? '')
   }).catch((error) => {
     pulseError(i18n('error_unexpected') + ': ' + error)

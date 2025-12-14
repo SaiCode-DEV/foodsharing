@@ -4,6 +4,10 @@ import mysql from 'mysql2/promise';
 export class Database {
   private static connection: mysql.Connection;
 
+  /**
+   * Connect to the database
+   * @returns The database connection
+   */
   static async connect() {
     if (!this.connection) {
       this.connection = await mysql.createConnection({
@@ -17,6 +21,12 @@ export class Database {
     return this.connection;
   }
 
+  /**
+   * Check if a record exists in the database
+   * @param table The table to query
+   * @param criteria The criteria to filter by
+   * @returns True if a matching record exists, false otherwise
+   */
   static async seeInDatabase(table: string, criteria: Record<string, any>): Promise<boolean> {
     const conn = await this.connect();
 
@@ -38,6 +48,13 @@ export class Database {
     return count > 0;
   }
 
+  /**
+   * Grab a single value from the database
+   * @param table The table to query
+   * @param column The column to retrieve
+   * @param criteria The criteria to filter by
+   * @returns The value of the specified column
+   */
   static async grabFromDatabase(table: string, column: string, criteria?: Record<string, any>): Promise<string> {
     const conn = await this.connect();
 
@@ -65,6 +82,13 @@ export class Database {
     throw new Error(`No matching entry found in ${table}`);
   }
 
+  /**
+   * Grab a single column from the database
+   * @param table The table to query
+   * @param column The column to retrieve
+   * @param criteria The criteria to filter by
+   * @returns An array of values from the specified column
+   */
   static async grabColumnFromDatabase(table: string, column: string, criteria?: Record<string, any>): Promise<any[]> {
     const conn = await this.connect();
 
@@ -92,6 +116,12 @@ export class Database {
     return [];
   }
 
+  /**
+   * Add a new record to the database
+   * @param table The table to insert into
+   * @param data The data to insert
+   * @returns The ID of the newly created record
+   */
   static async addToDatabase(table: string, data: Record<string, any>): Promise<number> {
     try {
       const conn = await this.connect();

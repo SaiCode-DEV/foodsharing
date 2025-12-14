@@ -4,6 +4,7 @@
       :value="value"
       :type="inputType"
       class="form-control"
+      :class="{ 'is-invalid': invalid }"
       :placeholder="$t(placeholder)"
       :aria-label="$t(placeholder)"
       autocomplete="current-password"
@@ -36,6 +37,7 @@ export default {
      * Translation key for the input's placeholder and the aria-label.
      */
     placeholder: { type: String, default: 'login.password' },
+    invalid: { type: Boolean, default: false },
   },
   data () {
     return {
@@ -52,3 +54,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.is-invalid {
+  border-color: var(--fs-color-danger-500) !important;
+}
+</style>

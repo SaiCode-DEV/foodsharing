@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import serverData from '@/helper/server-data'
+import serverData, { isDev, isTest } from '@/helper/server-data'
 import { captureError } from '@/sentry'
 import VueI18n from 'vue-i18n'
 import { createI18n } from 'vue-i18n-bridge'
@@ -63,7 +63,9 @@ export const i18nInstance = createI18n({
   escapeParameterHtml: false,
   missing (loc, key) {
     captureError(`Missing translation for ${loc}: [${key}]`)
-    // return key as a graceful fallback
+    if (isDev || isTest) {
+      throw new Error(`Missing translation for ${loc}: [${key}]`)
+    }
     return key
   },
 }, VueI18n)

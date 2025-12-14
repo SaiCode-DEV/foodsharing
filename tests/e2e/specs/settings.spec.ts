@@ -13,7 +13,7 @@ test.describe('Settings', () => {
     const newSelfDesc = 'This is a new self description!';
 
     await page.goto('/user/current/settings');
-
+    await page.getByRole('button', { name: 'Profileinstellungen' }).click();
     const aboutMeIntern = page.locator('#about_me_intern');
     await aboutMeIntern.waitFor({ state: 'visible' });
     await aboutMeIntern.clear();
@@ -42,6 +42,8 @@ test.describe('Settings', () => {
     await page.goto(`/user/${member.id}/settings`);
     await acceptanceHelper.waitForActiveAPICalls();
 
+    await page.getByRole('button', { name: 'Profileinstellungen' }).click();
+
     // Check last name field
     await expect(page.locator('#input-lastname')).toHaveValue(member.nachname);
 
@@ -58,6 +60,7 @@ test.describe('Settings', () => {
 
     await acceptanceHelper.login(orga.email);
     await page.goto(`/user/${foodsharer.id}/settings`);
+    await page.getByRole('button', { name: 'Profileinstellungen' }).click();
     await page.selectOption('#input-role', 'Foodsaver:in');
     await page.click('text=Speichern');
     await page.waitForSelector('text=Erfolgreich abgeschlossen', { timeout: 5000 });
@@ -68,6 +71,7 @@ test.describe('Settings', () => {
     })).toBeTruthy();
 
     await page.goto(`/user/${foodsharer.id}/settings`);
+    await page.getByRole('button', { name: 'Profileinstellungen' }).click();
     await page.selectOption('#input-role', 'Foodsharer:in');
     await page.click('text=Speichern');
     await page.waitForSelector('text=Erfolgreich abgeschlossen', { timeout: 5000 });
@@ -115,6 +119,8 @@ test.describe('Settings', () => {
     const expectedName = await Database.grabFromDatabase('fs_foodsaver', 'name', { id: foodSaver.id });
     const expectedLastName = await Database.grabFromDatabase('fs_foodsaver', 'nachname', { id: foodSaver.id });
 
+    await page.getByRole('button', { name: 'Profileinstellungen' }).click();
+
     // Assert that the settings form displays the expected data in specific fields
     await expect(page.locator('#input-firstname')).toHaveValue(expectedName);
     await expect(page.locator('#input-lastname')).toHaveValue(expectedLastName);
@@ -126,6 +132,8 @@ test.describe('Settings', () => {
     await acceptanceHelper.login(user.email);
 
     await page.goto('/user/current/settings');
+
+    await page.getByRole('button', { name: 'Profileinstellungen' }).click();
 
     const mobilenumber = '+49 151 8417482';
     const phonenumber = '+49 4687 0307670';

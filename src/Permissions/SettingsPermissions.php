@@ -114,4 +114,13 @@ class SettingsPermissions
         return $this->session->mayRole(Role::ORGA)
             && $this->currentUserUnitsInterface->isAmbassadorForRegion([RegionIDs::IT_SUPPORT_GROUP]);
     }
+
+    /**
+     * Determines if the current user is allowed to disable 2FA for other users.
+     */
+    public function mayDisable2FA(): bool
+    {
+        return $this->session->mayRole(Role::ORGA)
+            || $this->currentUserUnitsInterface->isAmbassadorForRegion([RegionIDs::IT_SUPPORT_GROUP]);
+    }
 }

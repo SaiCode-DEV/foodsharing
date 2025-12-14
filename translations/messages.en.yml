@@ -347,37 +347,131 @@ settings:
       6_hours: 6 hours before
       12_hours: 12 hours before
       1_day: 1 day before
-  changemail:
-    done: Your e-mail address was changed.
-    occupied: The e-mail address could not be changed because it is already in 
-      use.
-    domain: Please choose a different e-mail address, so that you will always be
-      able to restore your password.
-    invalid: Something is wrong with the e-mail address you entered
-    sent: Now go to your new email inbox to confirm the address.
-    question: 'Do you really want us to change your email address to this:'
-    input_label_email_confirm: Please confirm the new e-mail address here
-    wrong_password: The password is wrong.
+  account_security:
+    title: "Account Security"
+    
+    # Main page
+    email_password_section: "Email and Password"
+    change_password: "Change password"
+    change_email: "Change email address"
+    
+    # 2FA Section
+    mfa_section: "Multi-Factor Authentication"
+    mfa_enabled: "Multi-Factor Authentication Enabled"
+    mfa_disabled: "Multi-Factor Authentication Disabled"
+    authenticator_app: "Authenticator App"
+    authenticator_app_description: "Use an authenticator app for additional security when logging in."
+
+  # 2FA Management
+  two_fa_manage:
+    title: "Two-Factor Authentication"
+    intro: "Here you can change the settings for two-factor authentication."
+    status_is: "The current status is"
+    active: "Active"
+    inactive: "Inactive"
+    num_backup_codes: "Number of remaining backup codes"
+    enable_button: "Enable 2FA"
+    disable_button: "Disable 2FA"
+    close: "Close"
+    # Common fields for 2FA dialogs
+    totp_token_label: "Code"
+    totp_token_placeholder: "e.g. 458324"
+    totp_required: "You must enter a code"
+    password_label: "Password"
+    password_placeholder: "Your current password"
+    password_required: "You must enter your password"
+    cancel: "Cancel"
+    
+  # Enable 2FA
+  two_fa_enable:
+    title: "Enable Two-Factor Authentication"
+    tutorial: "Using two-factor authentication increases the security of your account. With two-factor authentication enabled, you will need to enter a code in addition to your password at each login. You can obtain this via an authenticator app. In addition, you will be shown so-called \"backup codes\" which you should keep in a safe place in order to still have access to your account in an emergency (e.g. if you lose your smartphone)."
+    explanation: "Two-factor authentication is optional, but is recommended by leading security experts as well as the German Federal Office for Information Security (BSI) wherever possible."
+    further_info: "You can find further information on two-factor authentication and a short explanatory video, for example [on the BSI website](https://www.bsi.bund.de/dok/509176)."
+    tabs:
+      tutorial: "Tutorial"
+      qr_code: "Scan QR Code"
+      backup_codes: "Backup Codes"
+      confirm: "Confirm Activation"
+    apps:
+      title: "Recommended Authenticator Apps"
+      description: "Choose one of the following free and open-source authenticator apps for your device:"
+      info: "You can also use an authenticator app that is already used for other services. If you don't have one yet, install an app first before proceeding."
+    qrcode:
+      title: "Scan QR Code"
+      label: "Scan this QR code with your authenticator app:"
+      scan_instruction: "Open your authenticator app and add a new account by scanning this QR code."
+      multi_device: "You can use this code to set up any number of devices."
+    secret_label: "Alternatively, you can enter this code manually:"
+    secret_toggle: "Show code (if QR scan doesn't work)"
+    backup_codes:
+      title: "Save Backup Codes"
+      label: "In case you should lose access to your second factor device (lost/stolen/damaged), you can use the following one-time backup codes:"
+      info: "Please keep these codes in a safe place. Anyone who has access to these codes and knows your password can log into your account."
+      save_instruction: "Save these codes now in a secure location (e.g. in a password manager or on paper)."
+      confirmation: "I have securely saved the backup codes"
+      must_confirm: "You must confirm that you have saved the backup codes"
+    confirm:
+      title: "Confirm Activation"
+      instruction: "To activate two-factor authentication, please enter the generated code and your password here."
+      test_instruction: "Open your authenticator app and enter the current 6-digit code to make sure everything works."
+      logout_notice: "Note: After activating two-factor authentication, you will need to log in again."
+    generated_code_label: "Generated code"
+    password_info: "Entering your password is always required to make changes. This prevents someone else who is using your computer or mobile phone from changing this security-critical setting."
+    danger: "Important: If you lose your mobile phone or it is stolen and you do not have access to the backup codes, you will not be able to log in. You will then have to contact support to regain access to your account."
+    activate: "Activate"
+    next: "Next"
+    success: "Two-factor authentication has been successfully activated."
+    failed: "Two-factor authentication could not be activated, either the code or the password was entered incorrectly."
+    
+  # Disable 2FA
+  two_fa_disable:
+    title: "Disable Two-Factor Authentication"
+    warning: "If you disable two-factor authentication, your account will be less secure. Anyone who knows your password or can read your emails (keyword \"forgot password\") will then be able to gain access to your account. In the course of deactivation, your backup codes will also become invalid. You will need to log in again afterwards."
+    confirm_text: "To confirm, please enter a current 2FA code and your password:"
+    deactivate: "Deactivate"
+    danger: "If you disable two-factor authentication, your account will be less secure."
+    success: "Two-factor authentication has been successfully deactivated."
+    failed: "Two-factor authentication could not be deactivated, either the code or the password was entered incorrectly."
+    admin_description: "Do you want to disable two-factor authentication for {user}? This is only useful in exceptional cases, e.g. if the user no longer has access to their second factor device and has also lost the backup codes."
+    
+  # Change Email Address
+  email_change:
+    title: "Change Email Address"
     explanation: Here you can change the e-mail address with which you 
       registered your account. After submitting, you will receive an e-mail to 
       the new address with a confirmation link.
-    input_label_email: Enter the new e-mail address here
-    explanation_password: Please confirm the change with you current password
-    confirm_email_required: The e-mail addresses do not match
-    input_label_password: Please enter your password for validation
-    not_changed: Your email address has not been changed.
-    dashboard_link: Continue to dashboard
-    question_other_user: 'Should the e-mail address really be changed to this one:'
-    insufficient_permission: You do not have permission to change the e-mail 
-      address of this profile.
-    sent_other_user: An e-mail with a confirmation link has been sent to the new
-      address.
     explanation_other_user: Here you can change the e-mail address with which 
       this profile was registered. After submitting, the user will receive an 
       e-mail to the new address with a confirmation link.
-    password_label: Current password
+    explanation_password: Please confirm the change with you current password
+    new_email_label: "New email address"
+    new_email_placeholder: "your.new@email.com"
+    confirm_email_label: "Confirm email address"
+    confirm_email_placeholder: "your.new@email.com"
+    password_label: "Current password"
+    password_placeholder: "Your password"
+    cancel: "Cancel"
+    submit: "Change email"
+    confirm_email_required: The e-mail addresses do not match
+    question: 'Do you really want us to change your email address to this:'
+    question_other_user: 'Should the e-mail address really be changed to this one:'
+    invalid: Something is wrong with the e-mail address you entered
+    domain: Please choose a different e-mail address, so that you will always be
+      able to restore your password.
+    occupied: The e-mail address could not be changed because it is already in 
+      use.
     password_required: You must enter your password to change the e-mail 
       address.
+    wrong_password: The password is wrong.
+    insufficient_permission: You do not have permission to change the e-mail 
+      address of this profile.
+    sent: Now go to your new email inbox to confirm the address.
+    sent_other_user: An e-mail with a confirmation link has been sent to the new
+      address.
+    done: Your e-mail address was changed.
+    not_changed: Your email address has not been changed.
+    dashboard_link: Continue to dashboard
   chatmail: "If you receive an internal message on the foodsharing homepage,\nbut
     you are not logged in at the moment, we can inform you by mail.\nDo you want that?\n"
   follow:
@@ -418,6 +512,7 @@ settings:
     1: Foodsavers quiz
     3: Ambassador quiz
   no_rights: You do not have the rights to change the profile settings.
+  edit_other: Change profile settings for {name}
   address:
     title: Select address
     choose: Accept address
@@ -425,19 +520,25 @@ settings:
     phone: Your landline number
     current_address: Current address
     no_address: No address entered yet
-  change_password:
-    new_password_confirmation_invalid: The passwords do not match
-    submit: Change password
-    title: You can change your current password here
-    old_password_label: Current password
-    old_password_required: You must enter your current password
-    new_password_label: New password
-    new_password_required: The password must contain at least eight characters
-    new_password_must_be_trimmed: The password must not begin or end with spaces
-    new_password_confirmation_label: Confirm new password
-    success: Your password has been successfully changed
-    new_password_must_be_complex: The new password must contain upper and lower 
-      case letters and numbers
+  
+  # Change Password
+  password_change:
+    title: "Change Password"
+    explanation: "You can change your current password here"
+    old_password_label: "Current password"
+    old_password_placeholder: "Your current password"
+    old_password_required: "You must enter your current password"
+    new_password_label: "New password"
+    new_password_placeholder: "At least 8 characters"
+    new_password_required: "The password must contain at least eight characters"
+    new_password_must_be_trimmed: "The password must not begin or end with spaces"
+    new_password_must_be_complex: "The new password must contain upper and lower case letters and numbers"
+    confirm_password_label: "Confirm new password"
+    confirm_password_placeholder: "Repeat password"
+    confirm_password_invalid: "The passwords do not match"
+    cancel: "Cancel"
+    submit: "Change password"
+    success: "Your password has been successfully changed"
   change_data_info:
     general: Here you can adjust your profile data.
     verified: You can’t edit your name and date of birth. However, you can ask 

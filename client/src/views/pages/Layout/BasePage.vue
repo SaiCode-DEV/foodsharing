@@ -29,10 +29,7 @@ export default {
   computed: {
     colClasses () {
       if (this.wideCols) {
-        if (this.$slots.left && this.$slots.right && this.thirdColumnBreakpoint) {
-          return { left: 'col-xl-3 col-lg-5', right: 'col-xl-3' }
-        }
-        return { left: 'col-xl-4 col-lg-5', right: 'col-xl-4 col-lg-5' }
+        return { left: 'col-xl-3 col-lg-5', right: 'col-xl-3' }
       }
       if (this.$slots.left && this.$slots.right) {
         return { left: 'col-xl-3 col-lg-4 col-md-5', right: 'col-xl-3' }

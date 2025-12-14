@@ -2175,7 +2175,9 @@ mailbox:
 
 settings:
   no_rights: "Du hast keine Berechtigung, die Profileinstellungen zu ändern."
+  edit_other: "Profileinstellungen von {name} bearbeiten"
   title: "Einstellungen"
+  profile: "Profileinstellungen"
   delete_profile: "Profil löschen"
   address:
     title: "Adresse auswählen"
@@ -2224,78 +2226,142 @@ settings:
     saved: "Die Einstellungen wurden gespeichert"
     tooltip: "{name} nimmt sich gerade eine Auszeit und ist im Schlafmützen-Modus"
   email: "E-Mail & Passwort"
-  2fa:
+  account_security:
+    title: "Kontosicherheit"
+    
+    # Hauptseite
+    email_password_section: "E-Mail und Passwort"
+    change_password: "Passwort ändern"
+    change_email: "E-Mail-Adresse ändern"
+    
+    # 2FA Sektion
+    mfa_section: "Multi-Faktor-Authentisierung"
+    mfa_enabled: "Multi-Faktor-Authentisierung aktiviert"
+    mfa_disabled: "Multi-Faktor-Authentisierung deaktiviert"
+    authenticator_app: "Authenticator-App"
+    authenticator_app_description: "Verwende eine Authenticator-App für zusätzliche Sicherheit bei der Anmeldung."
+    
+  # 2FA Management
+  two_fa_manage:
     title: "Zwei-Faktor-Authentisierung"
     intro: "Hier kannst du die Einstellungen zur Zwei-Faktor-Authentisierung ändern."
     status_is: "Der aktuelle Status ist"
     active: "Aktiv"
     inactive: "Inaktiv"
-    explanation: "Die Verwendung von Zwei-Faktor-Authentisierung erhöht die Sicherheit deines Accounts. Du wirst mit aktivierter Zwei-Faktor-Authentisierung bei jedem Login zusätzlich zur Eingabe deines Passworts einen Code eingeben müssen. Diesen kannst Du über eine App (z.B. Google Authenticator) erhalten. Zusätzlich werden Dir sogenannte \"Backup-Codes\" angezeigt, die Du sicher aufbewahren solltest, um im Notfall (z.B. bei Verlust des Smartphones) dennoch Zugriff auf deinen Account zu erhalten. Die Zwei-Faktor-Authentisierung ist optional, wird aber von führenden Sicherheitsexperten sowie dem Bundesamt für Sicherheit in der Informationstechnik (BSI) wo immer möglich empfohlen."
-    qrcode:
-      label:
-        start: "Scanne diesen QR-Code mit Deiner Authentisierungs-App (z.B. Google Authenticator, "
-        end: "). Es kann hier auch eine bereits für andere Dienste genutzte Authentisierungs-App verwendet werden. Falls Du noch keine hast, installiere zunächst eine App auf Deinem Smartphone, bevor Du fortfährst. Du kannst diesen Code verwenden um beliebig viele Geräte einzurichten."
-        android: "Android"
-        ios: "iOS"
-      app:
-        android: "https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=de"
-        ios: "https://apps.apple.com/de/app/google-authenticator/id388497605"
-    further_info:
-      intro: "Weitere Informationen zur Zwei-Faktor-Authentisierung sowie ein kurzes Erklärvideo findest Du z.B."
-      link: https://www.bsi.bund.de/dok/509176
-      text: "auf der Webseite des BSI"
-    secret_label: "Alternativ kannst Du diesen Code manuell eingeben:"
-    backup_codes_label: "Für den Fall, dass Du den Zugriff auf Dein Zweitfaktorgerät verlieren solltest (verloren/gestohlen/beschädigt), kannst Du die folgenden jeweils einmalig verwendbaren Backup-Codes benutzen:"
-    backup_codes_info: "Bitte bewahre diese Codes an einem sicheren Ort auf. Jeder, der Zugriff auf diese Codes hat und Dein Passwort kennt, kann sich in Deinen Account einloggen."
-    how_to_activate: "Zur Aktivierung der Zwei-Faktor-Authentisierung gib bitte hier den generierten Code sowie Dein Passwort ein. Hinweis: Nach Änderung Deiner Zwei-Faktor-Authentisierung wirst Du Dich erneut einloggen müssen."
-    totp_token: "Generierter Code (z.B. 458324)"
-    password_required: "Zur Änderung ist immer die Eingabe Deines Passworts erforderlich. Damit wird verhindert, dass jemand anderes, der Deinen Computer oder Dein Handy benutzt, diese sicherheitskritische Einstellung verändern kann."
-    no_danger: "Du kannst bedenkenlos auf den \"Zwei-Faktor-Authentisierung aktivieren\" Button klicken."
-    danger: "Wenn Du Dein Handy verlierst oder es gestohlen wird und Du keinen Zugriff auf die Backup-Codes hast, wirst Du Dich nicht einloggen können. Du musst dann den Support kontaktieren, um wieder Zugriff auf Deinen Account zu bekommen. Bitte beachte, dass der QR-Code, der geheime Code sowie die Backup-Codes nur einmal angezeigt werden und nicht wiederhergestellt werden können. Wenn Du später einmal Dein Handy wechseln möchtest, musst Du die Zwei-Faktor-Authentisierung deaktivieren und anschließend neu einrichten."
-    action_label_setup: "Zwei-Faktor-Authentisierung einrichten"
-    action_label_remove: "Zwei-Faktor-Authentisierung deaktivieren"
-    action_label_enable: "Aktivieren"
-    action_label_disable: "Deaktivieren"
-    activation_success: "Die Zwei-Faktor-Authentisierung wurde erfolgreich aktiviert."
-    deactivation_success: "Die Zwei-Faktor-Authentisierung wurde erfolgreich deaktiviert."
-    activation_failed: "Die Zwei-Faktor-Authentisierung konnte nicht aktiviert werden, entweder wurde der Code oder das Passwort falsch eingegeben."
-    deactivation_failed: "Die Zwei-Faktor-Authentisierung konnte nicht deaktiviert werden, entweder wurde der Code oder das Passwort falsch eingegeben."
-    disable_danger: "Wenn Du die Zwei-Faktor-Authentisierung deaktivierst, wird Dein Account weniger sicher. Jeder, der Dein Passwort kennt oder Deine Mails mitlesen kann (Stichwort \"Passwort vergessen\"), wird sich dann Zugriff auf Deinen Account verschaffen können. Im Zuge der Deaktivierung werden auch Deine Backup-Codes ungültig. Du wirst Dich im Anschluss erneut einloggen müssen."
     num_backup_codes: "Anzahl verbleibender Backup-Codes"
-  changemail:
+    enable_button: "2FA aktivieren"
+    disable_button: "2FA deaktivieren"
+    close: "Schließen"
+    # Common fields for 2FA dialogs
+    totp_token_label: "Code"
+    totp_token_placeholder: "z.B. 458324"
+    totp_required: "Du musst einen Code eingeben"
+    password_label: "Passwort"
+    password_placeholder: "Dein aktuelles Passwort"
+    password_required: "Du musst dein Passwort eingeben"
+    cancel: "Abbrechen"
+    
+  # Enable 2FA
+  two_fa_enable:
+    title: "Zwei-Faktor-Authentisierung aktivieren"
+    tutorial: "Die Verwendung von Zwei-Faktor-Authentisierung erhöht die Sicherheit deines Accounts. Du wirst mit aktivierter Zwei-Faktor-Authentisierung bei jedem Login zusätzlich zur Eingabe deines Passworts einen Code eingeben müssen. Diesen kannst du über eine Authentisierungs-App erhalten. Zusätzlich werden dir sogenannte \"Backup-Codes\" angezeigt, die du sicher aufbewahren solltest, um im Notfall (z.B. bei Verlust des Smartphones) dennoch Zugriff auf deinen Account zu erhalten."
+    explanation: "Die Zwei-Faktor-Authentisierung ist optional, wird aber von führenden Sicherheitsexperten sowie dem Bundesamt für Sicherheit in der Informationstechnik (BSI) wo immer möglich empfohlen."
+    further_info: "Weitere Informationen zur Zwei-Faktor-Authentisierung sowie ein kurzes Erklärvideo findest du z.B. [auf der Webseite des BSI](https://www.bsi.bund.de/dok/509176)."
+    tabs:
+      tutorial: "Anleitung"
+      qr_code: "QR-Code scannen"
+      backup_codes: "Backup-Codes"
+      confirm: "Aktivierung bestätigen"
+    apps:
+      title: "Empfohlene Authentisierungs-Apps"
+      description: "Wähle eine der folgenden freien und quelloffenen Authentisierungs-Apps für dein Gerät:"
+      info: "Es kann hier auch eine bereits für andere Dienste genutzte Authentisierungs-App verwendet werden. Falls du noch keine hast, installiere zunächst eine App, bevor du fortfährst."
+    qrcode:
+      title: "QR-Code scannen"
+      label: "Scanne diesen QR-Code mit deiner Authentisierungs-App:"
+      scan_instruction: "Öffne deine Authentisierungs-App und füge einen neuen Account hinzu, indem du diesen QR-Code scannst."
+      multi_device: "Du kannst diesen Code verwenden um beliebig viele Geräte einzurichten."
+    secret_label: "Alternativ kannst du diesen Code manuell eingeben:"
+    secret_toggle: "Code anzeigen (falls QR-Scan nicht funktioniert)"
+    backup_codes:
+      title: "Backup-Codes sichern"
+      label: "Für den Fall, dass du den Zugriff auf dein Zweitfaktorgerät verlieren solltest (verloren/gestohlen/beschädigt), kannst du die folgenden jeweils einmalig verwendbaren Backup-Codes benutzen:"
+      info: "Bitte bewahre diese Codes an einem sicheren Ort auf. Jeder, der Zugriff auf diese Codes hat und dein Passwort kennt, kann sich in deinen Account einloggen."
+      save_instruction: "Speichere diese Codes jetzt an einem sicheren Ort (z.B. in einem Passwort-Manager oder auf Papier)."
+      confirmation: "Ich habe die Backup-Codes sicher gespeichert"
+      must_confirm: "Du musst bestätigen, dass du die Backup-Codes gespeichert hast"
+    confirm:
+      title: "Aktivierung bestätigen"
+      instruction: "Zur Aktivierung der Zwei-Faktor-Authentisierung gib bitte hier den generierten Code sowie dein Passwort ein."
+      test_instruction: "Öffne deine Authentisierungs-App und gib den aktuellen 6-stelligen Code ein, um sicherzustellen, dass alles funktioniert."
+      logout_notice: "Hinweis: Nach Aktivierung der Zwei-Faktor-Authentisierung wirst du dich erneut einloggen müssen."
+    generated_code_label: "Generierter Code"
+    password_info: "Zur Änderung ist immer die Eingabe deines Passworts erforderlich. Damit wird verhindert, dass jemand anderes, der deinen Computer oder dein Handy benutzt, diese sicherheitskritische Einstellung verändern kann."
+    danger: "Wichtig: Wenn du dein Handy verlierst oder es gestohlen wird und du keinen Zugriff auf die Backup-Codes hast, wirst du dich nicht einloggen können. Du musst dann den Support kontaktieren, um wieder Zugriff auf deinen Account zu bekommen."
+    activate: "Aktivieren"
+    next: "Weiter"
+    success: "Die Zwei-Faktor-Authentisierung wurde erfolgreich aktiviert."
+    failed: "Die Zwei-Faktor-Authentisierung konnte nicht aktiviert werden, entweder wurde der Code oder das Passwort falsch eingegeben."
+    
+  # Disable 2FA
+  two_fa_disable:
+    title: "Zwei-Faktor-Authentisierung deaktivieren"
+    warning: "Wenn Du die Zwei-Faktor-Authentisierung deaktivierst, wird Dein Account weniger sicher. Jeder, der Dein Passwort kennt oder Deine Mails mitlesen kann (Stichwort \"Passwort vergessen\"), wird sich dann Zugriff auf Deinen Account verschaffen können. Im Zuge der Deaktivierung werden auch Deine Backup-Codes ungültig. Du wirst Dich im Anschluss erneut einloggen müssen."
+    confirm_text: "Zur Bestätigung gib bitte einen aktuellen 2FA-Code sowie Dein Passwort ein:"
+    deactivate: "Deaktivieren"
+    danger: "Wenn Du die Zwei-Faktor-Authentisierung deaktivierst, wird Dein Account weniger sicher."
+    success: "Die Zwei-Faktor-Authentisierung wurde erfolgreich deaktiviert."
+    failed: "Die Zwei-Faktor-Authentisierung konnte nicht deaktiviert werden, entweder wurde der Code oder das Passwort falsch eingegeben."
+    admin_description: "Magst du die Zwei-Faktor-Authentisierung für {user} deaktivieren? Dies ist nur in Ausnahmefällen sinnvoll, z.B. wenn der/die Nutzer:in keinen Zugriff mehr auf sein/ihr Zweitfaktorgerät hat und auch die Backup-Codes verloren sind."
+  
+  # Change Email Address
+  email_change:
+    title: "E-Mail-Adresse ändern"
     explanation: "Hier kannst du die E-Mail-Adresse ändern, mit der du dich registriert hast. Nach dem Absenden bekommst du eine E-Mail an deine neue Adresse gesendet, in der sich ein Link befindet, über den du deine neue Adresse bestätigen kannst."
     explanation_other_user: "Hier kannst du die E-Mail-Adresse ändern, mit der dieses Profil registriert wurde. Nach dem Absenden bekommt der/die Benutzer:in eine E-Mail an die neue Adresse gesendet, in der sich ein Link befindet, über den die neue Adresse bestätigt werden muss."
     explanation_password: "Bestätige den Änderungswunsch mit deinem aktuellen Passwort"
-    input_label_email: "Gib hier die neue E-Mail-Adresse ein"
-    input_label_email_confirm: "Bitte bestätige hier die neue E-Mail-Adresse"
-    input_label_password: "Bitte gib zur Bestätigung dein Passwort ein"
+    new_email_label: "Neue E-Mail-Adresse"
+    new_email_placeholder: "deine.neue@email.de"
+    confirm_email_label: "E-Mail-Adresse bestätigen"
+    confirm_email_placeholder: "deine.neue@email.de"
+    password_label: "Aktuelles Passwort"
+    password_placeholder: "Dein Passwort"
+    cancel: "Abbrechen"
+    submit: "E-Mail ändern"
     confirm_email_required: "Die E-Mail-Adressen stimmen nicht überein"
     question: "Sollen wir deine E-Mail-Adresse wirklich zu dieser ändern:"
     question_other_user: "Soll die E-Mail-Adresse wirklich zu dieser geändert werden:"
     invalid: "Mit der eingegebenen E-Mail-Adresse stimmt etwas nicht"
     domain: "Bitte verwende eine andere E-Mail-Adresse, damit du dein Passwort jederzeit wiederherstellen kannst."
     occupied: "Die E-Mail-Adresse konnte nicht geändert werden, da sie bereits verwendet wird."
-    password_label: "Aktuelles Passwort"
     password_required: "Du musst dein Passwort eingeben, um die E-Mail-Adresse zu ändern."
-    wrong_password: "Das Passwort stimmt nicht."
+    wrong_password: "Das eingegebene Passwort ist falsch."
     insufficient_permission: "Du hast keine Berechtigung, um die E-Mail-Adresse dieses Profils zu ändern."
     sent: "Gehe jetzt zu deinem neuen E-Mail-Postfach, um die Adresse zu bestätigen."
     sent_other_user: "Es wurde eine E-Mail an die neue Adresse gesendet, mit der die Adresse bestätigt werden kann."
     done: "Deine E-Mail-Adresse wurde geändert."
     not_changed: "Deine E-Mail-Adresse wurde nicht geändert."
     dashboard_link: "Weiter zum Dashboard"
-  change_password:
-    title: "Hier kannst du dein aktuelles Passwort ändern"
+  
+  # Change Password
+  password_change:
+    title: "Passwort ändern"
+    explanation: "Hier kannst du dein aktuelles Passwort ändern"
     old_password_label: "Bisheriges Passwort"
+    old_password_placeholder: "Dein aktuelles Passwort"
     old_password_required: "Du musst dein bisheriges Passwort eingeben"
     new_password_label: "Neues Passwort"
+    new_password_placeholder: "Mindestens 8 Zeichen"
     new_password_required: "Das Passwort muss mindestens acht Zeichen enthalten"
     new_password_must_be_trimmed: "Das Passwort darf nicht mit Leerzeichen beginnen oder enden"
     new_password_must_be_complex: "Das neue Passwort muss Groß- und Kleinbuchstaben sowie Zahlen beinhalten"
-    new_password_confirmation_label: "Neues Passwort bestätigen"
-    new_password_confirmation_invalid: "Die Passwörter stimmen nicht überein"
+    confirm_password_label: "Neues Passwort bestätigen"
+    confirm_password_placeholder: "Passwort wiederholen"
+    confirm_password_invalid: "Die Passwörter stimmen nicht überein"
+    cancel: "Abbrechen"
     submit: "Passwort ändern"
     success: "Dein Passwort wurde erfolgreich geändert"
+    wrong_password: "Falsches bisheriges Passwort"
   passport:
     menu: "Ausweis"
     renew: "Ausweis verlängern"

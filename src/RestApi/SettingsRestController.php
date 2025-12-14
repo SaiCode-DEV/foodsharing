@@ -5,7 +5,6 @@ namespace Foodsharing\RestApi;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\SleepStatus;
 use Foodsharing\Modules\Foodsaver\DTO\ReadableProfileSettings;
-use Foodsharing\Modules\Logout\LogoutTransactions;
 use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Modules\Settings\SettingsTransactions;
 use Foodsharing\RestApi\Models\Settings\EmailChangeRequest;
@@ -27,7 +26,6 @@ class SettingsRestController extends AbstractFoodsharingRestController
     public function __construct(
         private readonly SettingsGateway $settingsGateway,
         private readonly SettingsTransactions $settingsTransactions,
-        private readonly LogoutTransactions $logoutTransactions,
         protected Session $session
     ) {
         parent::__construct($this->session);
@@ -65,21 +63,23 @@ class SettingsRestController extends AbstractFoodsharingRestController
         out the confirmation email. Every user can change their own email address.
         Changing someone elses address requires certain permissions.'
     )]
+    #[Route('/user/current/email', methods: ['PATCH'])]
     #[Route('/user/{userId}/email', requirements: ['userId' => Requirement::POSITIVE_INT], methods: ['PATCH'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Empty or invalid parameters')]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Wrong password')]
     public function requestEmailChange(
-        int $userId,
-        #[MapRequestPayload] EmailChangeRequest $request
+        #[MapRequestPayload] EmailChangeRequest $request,
+        ?int $userId = null
     ): Response {
         $this->assertLoggedIn();
+        $targetUserId = $userId ?? $this->session->id();
 
-        if ($userId == $this->session->id()) {
+        if ($targetUserId == $this->session->id()) {
             $this->settingsTransactions->requestEmailChange($request);
         } else {
-            $this->settingsTransactions->changeLoginEmail($request, $userId);
+            $this->settingsTransactions->changeLoginEmail($request, $targetUserId);
         }
 
         return $this->respondOK();
@@ -101,7 +101,7 @@ class SettingsRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Get(summary: 'Request 2FA secret, backup codes and QR code.')]
-    #[Route('/user/2fa', methods: ['GET'])]
+    #[Route('/user/current/2fa/generate', methods: ['GET'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA\Response(response: Response::HTTP_INTERNAL_SERVER_ERROR, description: 'An error occurred while processing')]
@@ -114,24 +114,29 @@ class SettingsRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Patch(summary: 'Enable or disable 2FA.')]
-    #[Route('/user/2fa', methods: ['PATCH'])]
+    #[Route('/user/current/2fa', methods: ['PATCH'])]
+    #[Route('/user/{userId}/2fa', requirements: ['userId' => Requirement::POSITIVE_INT], methods: ['PATCH'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid parameters')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
     #[OA\Response(response: Response::HTTP_INTERNAL_SERVER_ERROR, description: 'An error occurred while processing')]
-    public function toggleTwoFA(#[MapRequestPayload] TwoFARequest $request): Response
+    public function toggleTwoFA(#[MapRequestPayload] TwoFARequest $request, ?int $userId = null): Response
     {
         $this->assertLoggedIn();
+
+        $targetUserId = $userId ?? $this->session->id();
+
         if ($request->enable) {
+            if ($targetUserId !== $this->session->id()) {
+                throw new BadRequestHttpException('insufficient permissions');
+            }
             // Enable 2FA
             $this->settingsTransactions->enableTwoFA($request->code, $request->password);
         } else {
             // Disable 2FA
-            $this->settingsTransactions->disableTwoFA($request->code, $request->password);
+            $this->settingsTransactions->disableTwoFA($request->code, $request->password, $targetUserId);
         }
-
-        // Log out the user after enabling/disabling 2FA
-        $this->logoutTransactions->logout();
 
         return $this->respondOK();
     }

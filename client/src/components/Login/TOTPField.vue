@@ -17,7 +17,7 @@
 export default {
   props: {
     value: { type: String, required: true },
-    placeholder: { type: String, default: 'settings.2fa.totp_token' },
+    placeholder: { type: String, default: 'settings.two_fa_manage.totp_token_placeholder' },
   },
   data () {
     return {

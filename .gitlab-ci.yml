@@ -544,6 +544,8 @@ test:playwright:
   script:
     - touch $CI_PROJECT_DIR/code_updated # Create file to notify websocket container that code is up to date
     - ./scripts/ci-frontend-test-playwright
+  after_script:
+    - echo "📊 View Playwright HTML Report at https://foodsharing-dev.gitlab.io/-/foodsharing/-/jobs/${CI_JOB_ID}/artifacts/tests/_output/html-report/index.html"
   needs:
     - build:backend-dev
     - build:frontend
