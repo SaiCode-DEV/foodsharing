@@ -47,10 +47,11 @@ class Api extends Module
     {
         $rest = $this->getModule('REST');
         $rest->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
-
         $rest->sendPOST('api/user/login', [
                 'email' => $email,
                 'password' => $pass
         ]);
+        // Re-apply CSRF header after login
+        $rest->haveHttpHeader('X-CSRF-Token', CSRF_TEST_TOKEN);
     }
 }

@@ -34,13 +34,13 @@ or
 or
 
 ```bash
-./scripts/test api SearchApiCest
+./scripts/test Api SearchApiCest
 ```
 
 or to run a specific test
 
 ```bash
-./scripts/test api SearchApiCest:canOnlySearchWhenLoggedIn
+./scripts/test Api SearchApiCest:canOnlySearchWhenLoggedIn
 ```
 
 To stop the Test containers run ```./scripts/stop test```.

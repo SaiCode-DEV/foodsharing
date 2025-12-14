@@ -131,26 +131,6 @@ class FoodsaverGatewayTest extends Unit
         $this->tester->assertEquals($this->foodsaver['email'], $email);
     }
 
-    final public function testGetAllEmailAddressesFromNewsletterSubscribers(): void
-    {
-        $foodsavers = [$this->foodsharer, $this->foodsaver];
-        $expectedResult = array_map(function ($fs) {
-            return [
-                'id' => $fs['id'],
-                'firstName' => $fs['name'],
-                'email' => $fs['email']
-            ];
-        }, $foodsavers);
-
-        $emails = $this->gateway->getNewsletterSubscribers();
-
-        $this->tester->assertCount(count($expectedResult), $emails);
-        $result = array_map(fn ($o) => get_object_vars($o), $emails); //$this->serializeEmails($emails);
-        codecept_debug($expectedResult);
-        codecept_debug($result);
-        $this->tester->assertEquals($expectedResult, $result);
-    }
-
     final public function testGetActiveAmbassadors(): void
     {
         $inactiveAmbassador = $this->tester->createAmbassador(null, ['active' => 0]);

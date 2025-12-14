@@ -5,8 +5,8 @@ namespace Foodsharing\RestApi\Models\FoodSharePoint;
 class AddFoodSharePointResponse
 {
     public function __construct(
-        readonly int $id,
-        readonly bool $isAdded
+        public readonly int $id,
+        public readonly bool $isAdded
     ) {
     }
 }

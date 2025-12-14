@@ -8,12 +8,12 @@ final class UploadedFile
 {
     public function __construct(
         public string $filePath,
-        readonly public int $fileSize,
-        readonly public string $hashedBody,
-        readonly public string $mimeType,
-        readonly public ?int $uploaderId,
-        readonly public ?UploadUsage $usedIn,
-        readonly public ?int $usageId,
+        public readonly int $fileSize,
+        public readonly string $hashedBody,
+        public readonly string $mimeType,
+        public readonly ?int $uploaderId,
+        public readonly ?UploadUsage $usedIn,
+        public readonly ?int $usageId,
     ) {
     }
 }

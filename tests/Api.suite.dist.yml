@@ -11,3 +11,5 @@ modules:
         - REST:
             url: http://nginx:8080/
             depends: PhpBrowser
+            headers:
+                X-CSRF-Token: '__TESTTOKEN__'

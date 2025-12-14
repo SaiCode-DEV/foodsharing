@@ -12,7 +12,6 @@ use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Foodsaver\DTO\EditableProfileDTO;
-use Foodsharing\Modules\Foodsaver\DTO\NewsletterSubscriber;
 use Foodsharing\Modules\Map\DTO\MapMarker;
 use Foodsharing\Modules\Map\DTO\UserMarkerActivityType;
 use Foodsharing\Modules\Map\DTO\UserMarkerMemberType;
@@ -448,33 +447,6 @@ class FoodsaverGateway extends BaseGateway
     public function getEmailAddress(int $fsId): string
     {
         return $this->db->fetchValueByCriteria('fs_foodsaver', 'email', ['id' => $fsId]);
-    }
-
-    /**
-     * Returns id and email address of all active accounts that have subscribed to the newsletter. Active means that
-     * the account is not deleted and the email address was verified.
-     *
-     * @return NewsletterSubscriber[]
-     */
-    public function getNewsletterSubscribers(): array
-    {
-        $subscribers = $this->db->fetchAllByCriteria(
-            'fs_foodsaver',
-            [
-                'id',
-                'name',
-                'email'
-            ],
-            [
-                'newsletter' => 1,
-                'active' => 1,
-                'deleted_at' => null,
-            ]
-        );
-
-        return array_map(function ($s) {
-            return new NewsletterSubscriber($s['id'], $s['name'], $s['email']);
-        }, $subscribers);
     }
 
     public function getEmailAddressesFromRegions(array $regionIds): array
