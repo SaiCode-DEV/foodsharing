@@ -1125,38 +1125,6 @@ settings:
   newsletter: "Ca en gang i måneden sender vi ut aktuell informasjon\nom matsparebevegelsen
     i et nyhetsbrev.\nØnsker du å motta disse e-postene?\n"
   email: E-postadresse og passord
-  changemail:
-    invalid: Noe er galt med e-postadressen du skrev inn
-    sent: Gå nå til din nye e-postinnboks for å bekrefte adressen.
-    done: Din e-postadresse ble endret.
-    occupied: E-postadressen kunne ikke endres fordi den allerede er i bruk.
-    domain: Vennligst velg en annen e-postadresse, slik at du alltid vil kunne 
-      gjenopprette passordet ditt.
-    question: 'Vil du virkelig at vi skal endre e-postadressen din til denne:'
-    explanation: Her kan du endre e-postadressen du brukte til å registrere deg.
-      Etter innsending vil en e-post bli sendt til den nye adressen din med en 
-      lenke for å bekrefte den nye adressen.
-    explanation_password: Bekreft endringsforespørselen med ditt nåværende 
-      passord
-    input_label_email: Skriv inn den nye e-postadressen her
-    input_label_email_confirm: Vennligst bekreft den nye e-postadressen her
-    input_label_password: Vennligst skriv inn passordet ditt for å bekrefte
-    confirm_email_required: De angitte e-postadressene stemmer ikke overens
-    wrong_password: Passordet er feil.
-    not_changed: E-postadressen din er ikke endret.
-    dashboard_link: Fortsett til dashbordet
-    question_other_user: 'Skulle e-postadressen virkelig endres til dette:'
-    explanation_other_user: Her kan du endre e-postadressen som ble brukt til å 
-      registrere denne profilen. Etter sending vil brukeren motta en e-post til 
-      den nye adressen som inneholder en lenke der den nye adressen må 
-      bekreftes.
-    insufficient_permission: Du har ikke tillatelse til å endre e-postadressen 
-      til denne profilen.
-    sent_other_user: En e-post er sendt til den nye adressen for å bekrefte 
-      adressen.
-    password_label: Gjeldende passord
-    password_required: Du må skrive inn passordet ditt for å endre 
-      e-postadressen din.
   push:
     disabled: Push-varsler er deaktivert
     title: Push-varsler
@@ -1216,20 +1184,6 @@ settings:
   address:
     title: Velg adresse
     choose: Godta adresse
-  change_password:
-    old_password_required: Du må skrive inn ditt nåværende passord
-    new_password_label: Nytt passord
-    new_password_required: Passordet må inneholde minst åtte tegn
-    new_password_confirmation_invalid: Passordene stemmer ikke
-    old_password_label: Gjeldende passord
-    title: Du kan endre ditt nåværende passord her
-    new_password_must_be_trimmed: Passordet kan ikke begynne eller slutte med 
-      mellomrom
-    new_password_confirmation_label: Bekreft nytt passord
-    submit: Endre passord
-    success: Passordet ditt er endret
-    new_password_must_be_complex: Det nye passordet må inneholde store og små 
-      bokstaver og tall
   change_data_info:
     general: Her kan du justere profildataene dine.
     verified: Du kan ikke redigere navn og fødselsdato. Du kan imidlertid be en 

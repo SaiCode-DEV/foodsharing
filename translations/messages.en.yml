@@ -349,18 +349,19 @@ settings:
       1_day: 1 day before
   account_security:
     title: "Account Security"
-    
+
     # Main page
     email_password_section: "Email and Password"
     change_password: "Change password"
     change_email: "Change email address"
-    
+
     # 2FA Section
     mfa_section: "Multi-Factor Authentication"
     mfa_enabled: "Multi-Factor Authentication Enabled"
     mfa_disabled: "Multi-Factor Authentication Disabled"
     authenticator_app: "Authenticator App"
-    authenticator_app_description: "Use an authenticator app for additional security when logging in."
+    authenticator_app_description: "Use an authenticator app for additional security
+      when logging in."
 
   # 2FA Management
   two_fa_manage:
@@ -381,13 +382,21 @@ settings:
     password_placeholder: "Your current password"
     password_required: "You must enter your password"
     cancel: "Cancel"
-    
+
   # Enable 2FA
   two_fa_enable:
     title: "Enable Two-Factor Authentication"
-    tutorial: "Using two-factor authentication increases the security of your account. With two-factor authentication enabled, you will need to enter a code in addition to your password at each login. You can obtain this via an authenticator app. In addition, you will be shown so-called \"backup codes\" which you should keep in a safe place in order to still have access to your account in an emergency (e.g. if you lose your smartphone)."
-    explanation: "Two-factor authentication is optional, but is recommended by leading security experts as well as the German Federal Office for Information Security (BSI) wherever possible."
-    further_info: "You can find further information on two-factor authentication and a short explanatory video, for example [on the BSI website](https://www.bsi.bund.de/dok/509176)."
+    tutorial: "Using two-factor authentication increases the security of your account.
+      With two-factor authentication enabled, you will need to enter a code in addition
+      to your password at each login. You can obtain this via an authenticator app.
+      In addition, you will be shown so-called \"backup codes\" which you should keep
+      in a safe place in order to still have access to your account in an emergency
+      (e.g. if you lose your smartphone)."
+    explanation: "Two-factor authentication is optional, but is recommended by leading
+      security experts as well as the German Federal Office for Information Security
+      (BSI) wherever possible."
+    further_info: "You can find further information on two-factor authentication and
+      a short explanatory video, for example [on the BSI website](https://www.bsi.bund.de/dok/509176)."
     tabs:
       tutorial: "Tutorial"
       qr_code: "Scan QR Code"
@@ -395,46 +404,67 @@ settings:
       confirm: "Confirm Activation"
     apps:
       title: "Recommended Authenticator Apps"
-      description: "Choose one of the following free and open-source authenticator apps for your device:"
-      info: "You can also use an authenticator app that is already used for other services. If you don't have one yet, install an app first before proceeding."
+      description: "Choose one of the following free and open-source authenticator
+        apps for your device:"
+      info: "You can also use an authenticator app that is already used for other
+        services. If you don't have one yet, install an app first before proceeding."
     qrcode:
       title: "Scan QR Code"
       label: "Scan this QR code with your authenticator app:"
-      scan_instruction: "Open your authenticator app and add a new account by scanning this QR code."
+      scan_instruction: "Open your authenticator app and add a new account by scanning
+        this QR code."
       multi_device: "You can use this code to set up any number of devices."
     secret_label: "Alternatively, you can enter this code manually:"
     secret_toggle: "Show code (if QR scan doesn't work)"
     backup_codes:
       title: "Save Backup Codes"
-      label: "In case you should lose access to your second factor device (lost/stolen/damaged), you can use the following one-time backup codes:"
-      info: "Please keep these codes in a safe place. Anyone who has access to these codes and knows your password can log into your account."
-      save_instruction: "Save these codes now in a secure location (e.g. in a password manager or on paper)."
+      label: "In case you should lose access to your second factor device (lost/stolen/damaged),
+        you can use the following one-time backup codes:"
+      info: "Please keep these codes in a safe place. Anyone who has access to these
+        codes and knows your password can log into your account."
+      save_instruction: "Save these codes now in a secure location (e.g. in a password
+        manager or on paper)."
       confirmation: "I have securely saved the backup codes"
       must_confirm: "You must confirm that you have saved the backup codes"
     confirm:
       title: "Confirm Activation"
-      instruction: "To activate two-factor authentication, please enter the generated code and your password here."
-      test_instruction: "Open your authenticator app and enter the current 6-digit code to make sure everything works."
-      logout_notice: "Note: After activating two-factor authentication, you will need to log in again."
+      instruction: "To activate two-factor authentication, please enter the generated
+        code and your password here."
+      test_instruction: "Open your authenticator app and enter the current 6-digit
+        code to make sure everything works."
+      logout_notice: "Note: After activating two-factor authentication, you will need
+        to log in again."
     generated_code_label: "Generated code"
-    password_info: "Entering your password is always required to make changes. This prevents someone else who is using your computer or mobile phone from changing this security-critical setting."
-    danger: "Important: If you lose your mobile phone or it is stolen and you do not have access to the backup codes, you will not be able to log in. You will then have to contact support to regain access to your account."
+    password_info: "Entering your password is always required to make changes. This
+      prevents someone else who is using your computer or mobile phone from changing
+      this security-critical setting."
+    danger: "Important: If you lose your mobile phone or it is stolen and you do not
+      have access to the backup codes, you will not be able to log in. You will then
+      have to contact support to regain access to your account."
     activate: "Activate"
     next: "Next"
     success: "Two-factor authentication has been successfully activated."
-    failed: "Two-factor authentication could not be activated, either the code or the password was entered incorrectly."
-    
+    failed: "Two-factor authentication could not be activated, either the code or
+      the password was entered incorrectly."
+
   # Disable 2FA
   two_fa_disable:
     title: "Disable Two-Factor Authentication"
-    warning: "If you disable two-factor authentication, your account will be less secure. Anyone who knows your password or can read your emails (keyword \"forgot password\") will then be able to gain access to your account. In the course of deactivation, your backup codes will also become invalid. You will need to log in again afterwards."
+    warning: "If you disable two-factor authentication, your account will be less
+      secure. Anyone who knows your password or can read your emails (keyword \"forgot
+      password\") will then be able to gain access to your account. In the course
+      of deactivation, your backup codes will also become invalid. You will need to
+      log in again afterwards."
     confirm_text: "To confirm, please enter a current 2FA code and your password:"
     deactivate: "Deactivate"
     danger: "If you disable two-factor authentication, your account will be less secure."
     success: "Two-factor authentication has been successfully deactivated."
-    failed: "Two-factor authentication could not be deactivated, either the code or the password was entered incorrectly."
-    admin_description: "Do you want to disable two-factor authentication for {user}? This is only useful in exceptional cases, e.g. if the user no longer has access to their second factor device and has also lost the backup codes."
-    
+    failed: "Two-factor authentication could not be deactivated, either the code or
+      the password was entered incorrectly."
+    admin_description: "Do you want to disable two-factor authentication for {user}?
+      This is only useful in exceptional cases, e.g. if the user no longer has access
+      to their second factor device and has also lost the backup codes."
+
   # Change Email Address
   email_change:
     title: "Change Email Address"
@@ -520,7 +550,7 @@ settings:
     phone: Your landline number
     current_address: Current address
     no_address: No address entered yet
-  
+
   # Change Password
   password_change:
     title: "Change Password"
@@ -532,7 +562,8 @@ settings:
     new_password_placeholder: "At least 8 characters"
     new_password_required: "The password must contain at least eight characters"
     new_password_must_be_trimmed: "The password must not begin or end with spaces"
-    new_password_must_be_complex: "The new password must contain upper and lower case letters and numbers"
+    new_password_must_be_complex: "The new password must contain upper and lower case
+      letters and numbers"
     confirm_password_label: "Confirm new password"
     confirm_password_placeholder: "Repeat password"
     confirm_password_invalid: "The passwords do not match"
@@ -544,76 +575,7 @@ settings:
     verified: You can’t edit your name and date of birth. However, you can ask 
       an ambassador to change these details for you.
   2fa:
-    title: Two-factor authentication
-    intro: Here you can change the two-factor authentication settings.
-    status_is: The current status is
-    active: active
-    inactive: inactive
-    qrcode:
-      label:
-        android: Android
-        ios: iOS
-        start: 'Scan this QR code with your authentication app (e. g., Google Authenticator, '
-        end: ). You can also use an authentication app you already use for other
-          services. If you don’t have one, install one on your smartphone before
-          proceeding. You can use this code to set up as many devices as you 
-          like.
-      app:
-        android: 
-          https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en
-        ios: https://apps.apple.com/de/app/google-authenticator/id388497605
-    further_info:
-      intro: Further information on two-factor authentication and a short 
-        explanatory video can be found, for example,
-      link: https://www.bsi.bund.de/dok/11693908
-      text: on the BSI website
-    secret_label: 'Alternatively, you can enter this code manually:'
-    backup_codes_label: 'In case you lose access to your second-factor device (lost/stolen/damaged),
-      you can use the following one-time-use backup codes:'
-    backup_codes_info: Please keep these codes in a safe place. Anyone who has 
-      access to these codes and knows your password can log into your account.
-    how_to_activate: 'To activate two-factor authentication, please enter the generated
-      code and your password here. Note: After changing your two-factor authentication,
-      you will need to log in again.'
-    totp_token: Generated code (e. g., 458324)
-    password_required: Changing this setting always requires your password. This
-      prevents anyone else using your computer or mobile phone from changing 
-      this security-critical setting.
-    no_danger: You can click on the “Enable two-factor authentication” button 
-      without hesitation.
-    danger: If you lose your phone or it gets stolen and you don’t have access 
-      to the backup codes, you won’t be able to log in. You’ll need to contact 
-      our support team to regain access to your account. Please note that the QR
-      code, secret code, and backup codes are only displayed once and cannot be 
-      recovered. If you later decide to change your phone, you’ll need to 
-      deactivate two-factor authentication and then set it up again.
-    action_label_setup: Set up two-factor authentication
-    action_label_remove: Disable two-factor authentication
-    action_label_enable: Enable
-    action_label_disable: Disable
-    activation_success: Two-factor authentication has been successfully 
-      activated.
-    deactivation_success: Two-factor authentication has been successfully 
-      disabled.
-    activation_failed: Two-factor authentication could not be activated; either 
-      the code or the password was entered incorrectly.
-    deactivation_failed: Two-factor authentication could not be disabled; either
-      the code or the password was entered incorrectly.
-    disable_danger: 'If you disable two-factor authentication, your account will be
-      less secure. Anyone who knows your password or can read your emails (keyword:
-      “Forgot password”) will then be able to access your account. When you disable
-      two-factor authentication, your backup codes will also become invalid. You will
-      then have to log in again.'
-    num_backup_codes: Number of remaining backup codes
-    explanation: Using two-factor authentication increases the security of your 
-      account. With two-factor authentication enabled, you will need to enter a 
-      code in addition to your password each time you log in. You can obtain 
-      this code via an app (e. g., Google Authenticator). In addition, you will 
-      be shown so-called “backup codes,” which you should keep safe so that you 
-      can still access your account in an emergency (e. g., if you lose your 
-      smartphone). Two-factor authentication is optional, but is recommended 
-      wherever possible by leading security experts and the Federal Office for 
-      Information Security (BSI).
+    qrcode: {}
 menu:
   entry:
     activities: Activities

@@ -2273,36 +2273,6 @@ wall:
     title: Pano kayıdı silinsin mi?
     text: Bu girişi {author}'dan silmek istediğinizden emin misiniz?
 settings:
-  changemail:
-    done: E-posta adresiniz değiştirildi.
-    question: 'E-posta adresinizi şu şekilde değiştirmemizi gerçekten istiyor musunuz:'
-    domain: Parolanızı istediğiniz zaman kurtarabilmeniz için lütfen farklı bir 
-      e-posta adresi kullanın.
-    invalid: Girdiğiniz e-posta adresinde bir sorun var
-    occupied: E-posta adresi kullanıldığı için değiştirilemedi.
-    sent: Şimdi adresi doğrulamak için yeni e-posta gelen kutunuza gidin.
-    explanation: Kayıt olurken kullandığınız e-posta adresini buradan 
-      değiştirebilirsiniz. Gönderdikten sonra, yeni adresinizi onaylamanız için 
-      bir bağlantı içeren bir e-posta yeni adresinize gönderilecektir.
-    input_label_password: Onaylamak için lütfen şifrenizi girin
-    wrong_password: Şifre doğru değil.
-    confirm_email_required: E-posta adresleri eşleşmiyor
-    input_label_email_confirm: Lütfen yeni e-posta adresini burada doğrulayın
-    input_label_email: Yeni e-posta adresini buraya girin
-    explanation_password: Değişiklik isteğini mevcut şifrenizle onaylayın
-    not_changed: E-posta adresiniz değiştirilmedi.
-    dashboard_link: Kontrol paneline devam et
-    question_other_user: 'E-posta adresi gerçekten şu şekilde değiştirilmeli mi:'
-    insufficient_permission: Bu profilin e-posta adresini değiştirme izniniz 
-      yok.
-    sent_other_user: Adresi onaylamak için yeni adrese bir e-posta gönderildi.
-    explanation_other_user: Burada bu profilin kayıtlı olduğu e-posta adresini 
-      değiştirebilirsiniz. Gönderdikten sonra kullanıcı, yeni adresi onaylamak 
-      için kullanılması gereken bir bağlantıyı içeren yeni adrese bir e-posta 
-      alacaktır.
-    password_label: Mevcut Şifre
-    password_required: E-posta adresinizi değiştirmek için şifrenizi girmeniz 
-      gerekmektedir.
   notifications: Bildirimler
   sleep:
     range: 'Lütfen müsait olmayacağınız yaklaşık süreyi belirtiniz:'
@@ -2452,19 +2422,6 @@ settings:
     1: Foodsaver Testiniz
     2: işletme yöneticisi Testi
     3: Elçilik Testiniz
-  change_password:
-    new_password_must_be_trimmed: Şifre boşluklarla başlayamaz veya bitemez
-    old_password_label: Önceki şifre
-    old_password_required: Önceki şifrenizi girmelisiniz
-    new_password_label: Yeni şifre
-    new_password_required: Şifre en az 8 karakter içermelidir_
-    new_password_confirmation_label: Yeni şifreyi onayla
-    title: Mevcut şifrenizi buradan değiştirebilirsiniz
-    new_password_confirmation_invalid: Şifreler eşleşmiyor
-    submit: Şifre değiştir
-    success: Şifreniz başarıyla değiştirildi
-    new_password_must_be_complex: Yeni şifre en az bir büyük harf, bir küçük 
-      harf ve rakam içermelidir
   change_data_info:
     general: Burada profil verilerinizi ayarlayabilirsiniz.
     verified: Adınızı ve doğum tarihinizi düzenleyemezsiniz. Ancak bir Elçiden 

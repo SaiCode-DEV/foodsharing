@@ -446,40 +446,6 @@ settings:
       ta photo de profil.\nElle sera utilisée sur ton <a href=\"{link_id}\">badge</a>
       lorsque tu deviendras <a href=\"{link_fs}\">collecteur·rice</a> \net te sera
       demandé lors de tes collectes.\n"
-  changemail:
-    done: Ton adresse courriel a été modifiée.
-    sent: Rends-toi sur ta nouvelle boîte de réception afin de confirmer ton 
-      adresse courriel.
-    occupied: L’adresse courriel n’a pas pu être modifiée car elle est déjà 
-      utilisée.
-    domain: Utilise une adresse courriel de secours afin de pouvoir envoyer le 
-      mot de passe en cas d’oubli.
-    invalid: Il y a un problème avec l’adresse e-mail saisie
-    question: 'Devons-nous vraiment remplacer ton courriel par celui-ci :'
-    input_label_password: Veuillez entrer votre mot de passe pour confirmer
-    confirm_email_required: Les adresses e-mail ne correspondent pas
-    wrong_password: Le mot de passe est erroné.
-    input_label_email_confirm: Confirme ici la nouvelle adresse e-mail
-    explanation: Ici, vous pouvez modifier l’adresse e-mail avec laquelle vous 
-      avez enregistré votre compte. Après l’envoi, vous recevrez un e-mail avec 
-      un lien de confirmation à la nouvelle adresse.
-    explanation_password: Confirmez la demande de changement avec votre mot de 
-      passe actuel
-    input_label_email: Indique ici la nouvelle adresse e-mail
-    question_other_user: 'Tu veux vraiment changer d’adresse e-mail pour celle-ci :'
-    insufficient_permission: Tu n’as pas l’autorisation de modifier l’adresse 
-      e-mail de ce profil.
-    not_changed: Ton adresse e-mail n’a pas été modifiée.
-    explanation_other_user: Ici, tu peux modifier l’adresse e-mail avec laquelle
-      ce profil a été enregistré. Après l’envoi, la personne reçoit un e-mail à 
-      la nouvelle adresse, dans lequel se trouve un lien qui doit être utilisé 
-      pour confirmer la nouvelle adresse.
-    sent_other_user: Un e-mail a été envoyé à la nouvelle adresse, permettant de
-      confirmer l’adresse.
-    dashboard_link: Continuer vers le tableau de bord
-    password_required: Tu dois saisir ton mot de passe pour changer d’adresse 
-      e-mail.
-    password_label: Mot de passe actuel
   email: Adresse électronique et mot de passe
   sleep:
     saved: Les préférences ont été enregistrés
@@ -546,21 +512,6 @@ settings:
     phone: Ton numéro de téléphone fixe
     no_address: Pas encore d’adresse saisie
     current_address: Adresse actuelle
-  change_password:
-    success: Le mot de passe a été modifié avec succès
-    new_password_confirmation_label: Confirme le nouveau mot de passe
-    new_password_confirmation_invalid: Les mots de passe ne correspondent pas
-    new_password_label: Nouveau mot de passe
-    new_password_required: Le mot de passe doit contenir au moins huit 
-      caractères
-    new_password_must_be_trimmed: Le mot de passe ne doit pas commencer ou se 
-      terminer par des espaces
-    submit: Modifier le mot de passe
-    old_password_label: Mot de passe actuel
-    old_password_required: Tu dois saisir ton mot de passe actuel
-    title: Ici, tu peux modifier ton mot de passe actuel
-    new_password_must_be_complex: Le nouveau mot de passe doit contenir des 
-      lettres majuscules et minuscules ainsi que des chiffres
   address:
     title: Choisir l’adresse
     choose: Reprends l’adresse

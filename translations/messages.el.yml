@@ -1134,20 +1134,6 @@ settings:
     until: ''
     from: ''
     message: ''
-  changemail:
-    occupied: ''
-    invalid: ''
-    done: ''
-    domain: ''
-    sent: ''
-    question: ''
-    input_label_email_confirm: ''
-    explanation_password: ''
-    wrong_password: ''
-    confirm_email_required: ''
-    input_label_password: ''
-    input_label_email: ''
-    explanation: ''
   calendar:
     delete_token:
       message: ''

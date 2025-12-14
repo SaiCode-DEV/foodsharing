@@ -631,20 +631,6 @@ timepicker:
   labelNowButton: ''
   labelDecrement: ''
 settings:
-  changemail:
-    occupied: ''
-    invalid: ''
-    done: ''
-    question: ''
-    sent: ''
-    domain: ''
-    input_label_email_confirm: ''
-    explanation_password: ''
-    wrong_password: ''
-    confirm_email_required: ''
-    input_label_password: ''
-    input_label_email: ''
-    explanation: ''
   sleep:
     missing-date: ''
     show: ''

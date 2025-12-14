@@ -1811,20 +1811,6 @@ storeedit:
   unsuccess: ''
   add_success: ''
 settings:
-  changemail:
-    done: ''
-    invalid: ''
-    occupied: ''
-    question: ''
-    domain: ''
-    sent: ''
-    input_label_email_confirm: ''
-    explanation_password: ''
-    wrong_password: ''
-    confirm_email_required: ''
-    input_label_password: ''
-    input_label_email: ''
-    explanation: ''
   calendar:
     menu: ''
     delete_token:

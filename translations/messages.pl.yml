@@ -963,3 +963,51 @@ forum:
       dlaczego post został ukryty, a moderatorzy/ki - także przez kogo.
     sureHide: Czy na pewno chcesz ukryć ten post?
     hiddenPost: Post ukryty przez [{moderatorName}]({moderatorUrl})
+chat:
+  empty: Nie ma jeszcze żadnych rozmów
+  placeholder: Napisz coś.
+  notification_unnamed_conversation: '{foodsaver} wysłał/a ci wiadomość.'
+  notification_named_conversation: '{foodsaver} napisał/a ci w {conversation}.'
+  empty_recipients: Najpierw musisz jeszcze wybrać adresata/kę.
+  select_recipients: Wybierz adresatów/ki
+  search: Szukaj
+  rename: Zmień nazwę konwersacji
+  rename_placeholder: Nazwa konwersacji...
+  rename_empty_hint: Zostaw to pole puste, aby zresetować nazwę.
+  no_messages: Brak wiadomości
+  no_conversation: Nie wybrano konwersacji
+  start_of_conversation: 'Konwersacja rozpoczęta:'
+  display_all_messages: Pokaż wszystkie wiadomości
+  unknown_username: nieznane imię
+  show_participants: Pokaż uczestników/czki
+  participants: Uczestnicy/czki
+  mark_as:
+    read: Oznacz wszystkie jako przeczytane
+    unread: Oznacz jako nieprzeczytane
+  reply: Odpowiedz
+  error:
+    sending_message: Wysłanie wiadomości nie powiodło się.
+    loading_conversation: Ładowanie konwersacji nie powiodło się.
+    renaming_conversation: Zmiana nazwy konwersacji nie powiodła się.
+wall:
+  see-more: Pokaż wszystkie posty
+  delete: Usuń post
+  info-logging: Miej na uwadze, że aby uniknąć konfliktów, zostanie 
+    zarejestrowana treść i osoba wykonująca tę akcję.
+  error-delete: Nie możesz usunąć tego postu.
+events:
+  bread: Eventy
+  past: Minione eventy
+  add_new_event: Dodaj nowy event
+  add_event: Nowy event
+  created: Event został utworzony pomyślnie.
+  edit: Edytuj event
+  edited: Event został zmieniony pomyślnie.
+  create:
+    title: Utwórz nowy event
+    name: Nazwa eventu
+    date: Data
+    time: Czas
+    desc: Co to za rodzaj eventu?
+    multiday: Event trwa kilka dni
+    type: Jak odbędzie się ten event?

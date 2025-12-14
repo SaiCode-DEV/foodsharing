@@ -2282,20 +2282,6 @@ settings:
     temp: ''
     show: ''
     message: ''
-  changemail:
-    input_label_email_confirm: ''
-    explanation_password: ''
-    wrong_password: ''
-    question: ''
-    confirm_email_required: ''
-    done: ''
-    domain: ''
-    input_label_password: ''
-    sent: ''
-    input_label_email: ''
-    explanation: ''
-    occupied: ''
-    invalid: ''
   calendar:
     delete_token:
       button: ''

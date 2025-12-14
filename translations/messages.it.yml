@@ -2554,36 +2554,6 @@ settings:
       {link_id}\">pass</a> quando\npoi diventare un <a href=\"{link_fs}\">foodsaver</a>
       e salvare il cibo dalle agenzie.\n"
     title: La tua foto
-  changemail:
-    done: Il tuo indirizzo e-mail è stato cambiato.
-    sent: Vai alla tua nuova casella di posta elettronica ora per confermare 
-      l'indirizzo.
-    occupied: Non è stato possibile modificare l'indirizzo e-mail perché è già 
-      in uso.
-    domain: Si prega di utilizzare un indirizzo e-mail diverso in modo da poter 
-      recuperare la password in qualsiasi momento.
-    invalid: C’è qualcosa di sbagliato nell’indirizzo e-mail che hai inserito
-    question: 'Dovremmo davvero cambiare il tuo indirizzo email in questo:'
-    input_label_email_confirm: Conferma il nuovo indirizzo email qui
-    explanation_password: Conferma la richiesta di modifica con la tua password 
-      attuale
-    wrong_password: La password non è corretta.
-    confirm_email_required: Gli indirizzi e-mail non corrispondono
-    input_label_password: Inserisci la tua password per confermare
-    input_label_email: Inserisci qui il nuovo indirizzo email
-    explanation: Qui puoi modificare l'indirizzo email con cui ti sei 
-      registrato. Dopo l'invio riceverai un'e-mail al nuovo indirizzo contenente
-      un link di conferma.
-    insufficient_permission: Non hai l’autorizzazione per modificare l’indirizzo
-      email di questo profilo.
-    dashboard_link: Continua alla dashboard
-    question_other_user: 'Vuoi davvero cambiare l’indirizzo email in questo:'
-    not_changed: Il tuo indirizzo e-mail non è stato inserito.
-    password_required: Devi inserire la tua password per cambiare il tuo 
-      indirizzo email.
-    password_label: Password attuale
-    sent_other_user: È stata inviata un’e-mail al nuovo indirizzo per 
-      confermarlo.
   email: E-mail e password
   sleep:
     tooltip: "{name} si sta solo prendendo un po' di tempo libero ed è in modalità
@@ -2651,20 +2621,6 @@ settings:
   address:
     title: Seleziona l’indirizzo
     choose: Accetta indirizzo
-  change_password:
-    new_password_must_be_trimmed: La password non deve iniziare o terminare con 
-      spazi
-    old_password_required: Devi inserire la tua password precedente
-    new_password_confirmation_invalid: Le password non corrispondono
-    new_password_confirmation_label: Conferma la nuova password
-    old_password_label: Password precedente
-    submit: Cambiare la password
-    success: La tua password è stata modificata con successo
-    title: Qui puoi modificare la tua password attuale
-    new_password_required: La password deve contenere almeno otto caratteri
-    new_password_label: Nuova password
-    new_password_must_be_complex: La nuova password deve contenere lettere 
-      maiuscole e minuscole e numeri
   change_data_info:
     verified: Non puoi modificare il tuo nome e la tua data di nascita. 
       Tuttavia, puoi chiedere a un ambasciatore di modificare questi dati per 
