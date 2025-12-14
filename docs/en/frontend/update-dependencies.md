@@ -1,61 +1,168 @@
 # Update dependencies
 
 ## Slack
-Every Sunday a schedules pipeline "send outdated dependency report to slack" is started and the result can be read in the channel #fs-outdated.
+Every Sunday a scheduled pipeline "send outdated dependency report to slack" runs and results appear in **#fs-outdated**.
 
-#### Structure and explanation of version numbers
+## Version Number Structure
+```
+2.3.5
+│ │ │
+│ │ └─── Patch (bug fixes, security patches)
+│ └───── Minor (new features, backward compatible)
+└─────── Major (breaking changes, API changes)
+```
 
-* 0.x.x is a beta version. Here every change can contain ``Breaking Changes''.
+**Special cases:**
+- `0.x.x` = Beta versions (any change can contain breaking changes)
+- `1.0.0-alpha.x` = Pre-release versions
 
-2.3.5  
-│ │ │  
-│ │ └───────── Patch (contains mostly bug fixes)  
-│ └─────────── Minor version (mostly functional extension)  
-└───────────── Major version (mostly significant change)  
+## Update Rules & Best Practices
 
-### Rules
+### ✅ DO
+- **Separate commits**: Dev dependencies vs runtime dependencies
+- **Use `~` instead of `^`** for predictable builds across environments
+- **Security updates first**: Always prioritize security patches
 
-* Don't mix dev dependencies with dependencies in a commit
-* ~ instead of ^ to have similar systems between server and dev computer and to avoid big unwanted changes during yarn update
-* only run yarn update if there are only outdated packages with explicit version information
-* If you don't know what belongs together, then update only one package per commit.
-* Major updates are best done in your own MR.
+### ❌ DON'T
+- **Mix dependency types** in one commit
+- **Bulk update** without testing individual packages
+- **Do not run `yarn update` unless all version use `~`
 
-### Manually check the version
+### 📋 Update Priority Order
+1. **Security patches** (any version bump with CVE fixes)
+2. **Patch versions** (`~` updates for bug fixes)
+3. **Minor versions** (new features, backward compatible)
+4. **Major versions** (separate MR)
 
+## Package Manager Standardization
+
+**All projects now use Yarn** for consistency:
+- `client/` - Frontend (Vue.js)
+- `websocket/` - WebSocket Server (Node.js)
+- `docs/` - Documentation (VitePress)
+- `tests/e2e/` - E2E Tests (Playwright)
+
+### Check outdated packages
 ```bash
+# Frontend
 ./scripts/docker-compose run --rm client sh
+yarn outdated
+
+# WebSocket Server  
+./scripts/docker-compose run --rm websocket sh
+yarn outdated
+
+# E2E Tests
+cd tests/e2e
+yarn outdated
+
+# Documentation
+cd docs
 yarn outdated
 ```
 
-### Manually check for security vulnerabilities
-
+### Security vulnerability scan
 ```bash
+# Check for known vulnerabilities
 ./scripts/docker-compose run --rm client sh
+yarn audit
+
+# WebSocket Server
+./scripts/docker-compose run --rm websocket sh
+yarn audit
+
+# E2E Tests
+cd tests/e2e
+yarn audit
+
+# Documentation
+cd docs
 yarn audit
 ```
 
-### Update client
-
-Change the version number in ```client/package.json```
-
+### Check for deprecated packages
 ```bash
+# Look for abandoned packages
+yarn outdated | grep -i "deprecated\|abandoned"
+```
+
+## Update Procedures by Project
+
+### 🎨 Frontend (`client/`)
+```bash
+# 1. Check current status
 ./scripts/docker-compose run --rm client sh
-yarn PACKAGENAME
+yarn outdated
+
+# 2. Update package.json manually
+
+# 3. Install dependencies
+yarn
+
+# 4. Test
+yarn lint && yarn test
+exit
 ```
 
-### Update websocket server
-
-Change the version number in ```websocket/package.json```
+### 💬 WebSocket Server (`websocket/`)
 ```bash
+# 1. Check status
 ./scripts/docker-compose run --rm websocket sh
-yarn PACKAGENAME
+yarn outdated
+
+# 2. Update package.json manually
+
+# 3. Install dependencies
+yarn
+
+# 4. Test
+yarn lint && yarn test
+exit
 ```
 
-### Update deployer
-Change the version number in ```deployer/package.json```
-* ```./scripts/composer update -d deployer```
+### 📚 Documentation (`docs/`)
+```bash
+cd docs
 
-### Tests after every single update
+# 1. Check status
+yarn outdated
 
-* `./scripts/lint` for javascript and php
+# 2. Update package.json manually
+
+# 3. Install dependencies
+yarn
+
+# 4. Test build
+yarn docs:build
+```
+
+### 🧪 E2E Tests (`tests/e2e/`)
+```bash
+cd tests/e2e
+
+# 1. Check status
+yarn outdated
+
+# 2. Update package.json manually
+
+# 3. Install dependencies
+yarn
+
+# 4. Test
+yarn lint && yarn prettier
+```
+
+## Testing Strategy
+
+### After Each Update
+```bash
+# Linting (all projects)
+./scripts/lint
+```
+
+### Before Merge Request
+```bash
+# Full test suite
+./scripts/test
+./scripts/lint
+```
