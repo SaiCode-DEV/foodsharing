@@ -1,4 +1,3 @@
-
 const timeformat = {
 
   nice (dbtime) {

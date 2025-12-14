@@ -105,7 +105,7 @@ export default {
   },
   data () {
     return {
-      EventInvitationResponse: EventInvitationResponse,
+      EventInvitationResponse,
       startDate: new Date(this.entry.start_ts * 1000),
       endDate: new Date(this.entry.end_ts * 1000),
       status: this.entry.status,

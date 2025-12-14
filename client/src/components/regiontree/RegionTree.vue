@@ -130,7 +130,7 @@ export default {
         regions.push({
           name: element.data.text,
           id: element.state.id,
-          depth: depth,
+          depth,
         })
       }
       return regions

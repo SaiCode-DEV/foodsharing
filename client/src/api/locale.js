@@ -6,6 +6,6 @@ export async function getLocale () {
 
 export function setLocale (locale) {
   return post('/locale', {
-    locale: locale,
+    locale,
   })
 }

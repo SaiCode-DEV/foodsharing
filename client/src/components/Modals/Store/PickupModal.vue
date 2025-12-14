@@ -102,7 +102,7 @@ export default {
   },
   data () {
     return {
-      locale: locale,
+      locale,
       labelsTimepicker: {
         labelHours: i18n('timepicker.labelHours'),
         labelMinutes: i18n('timepicker.labelMinutes'),

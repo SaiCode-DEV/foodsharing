@@ -5,7 +5,7 @@
     @touchstart="onTouchStart"
     @touchend="onTouchEnd"
   >
-    <slot :currentPageItems="currentPageItems" />
+    <slot :current-page-items="currentPageItems" />
     <b-pagination
       v-if="shouldPaginate"
       v-model="currentPage"

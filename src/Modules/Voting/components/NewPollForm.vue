@@ -314,7 +314,7 @@ export default {
       shuffleOptions: true,
       options: Array(3).fill(''),
       maxOptionLength: null,
-      locale: locale,
+      locale,
       labelsTimepicker: {
         labelHours: i18n('timepicker.labelHours'),
         labelMinutes: i18n('timepicker.labelMinutes'),

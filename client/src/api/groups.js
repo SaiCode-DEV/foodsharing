@@ -10,28 +10,28 @@ export function addMember (groupId, memberId) {
 
 export function updateGroup (groupId, name, description, photo, applyType, requiredBananas, requiredPickups, requiredWeeks) {
   return patch(`/groups/${groupId}`, {
-    name: name,
-    description: description,
-    photo: photo,
-    applyType: applyType,
-    requiredBananas: requiredBananas,
-    requiredPickups: requiredPickups,
-    requiredWeeks: requiredWeeks,
+    name,
+    description,
+    photo,
+    applyType,
+    requiredBananas,
+    requiredPickups,
+    requiredWeeks,
   })
 }
 
 export function sendMail (groupId, message) {
   return post(`/groups/${groupId}/mail`, {
-    message: message,
+    message,
   })
 }
 
 export function sendRequest (groupId, motivation, ability, experience, selectedTime) {
   return post(`/groups/${groupId}/request`, {
-    motivation: motivation,
-    ability: ability,
-    experience: experience,
-    selectedTime: selectedTime,
+    motivation,
+    ability,
+    experience,
+    selectedTime,
   })
 }
 

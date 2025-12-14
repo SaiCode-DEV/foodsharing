@@ -2,7 +2,7 @@
   <div>
     <slot
       name="head"
-      :showConfigurationDialog="showConfigurationDialog"
+      :show-configuration-dialog="showConfigurationDialog"
     >
       <h4>Use the named slot "head" to control this content.</h4>
       <button

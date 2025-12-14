@@ -2,21 +2,21 @@ import { patch, get } from './base'
 
 export async function setProfilePhoto (uuid) {
   return await patch('/user/photo', {
-    uuid: uuid,
+    uuid,
   })
 }
 
 export function requestEmailChange (userId, email, password) {
   return patch(`/user/${userId}/email`, {
-    email: email,
-    password: password,
+    email,
+    password,
   })
 }
 
 export function requestPasswordChange (oldPassword, newPassword) {
   return patch('/user/current/password', {
-    oldPassword: oldPassword,
-    newPassword: newPassword,
+    oldPassword,
+    newPassword,
   })
 }
 
@@ -26,9 +26,9 @@ export function get2FAdata () {
 
 export function set2FA (password, code, enable) {
   return patch('/user/2fa', {
-    password: password,
-    code: code,
-    enable: enable,
+    password,
+    code,
+    enable,
   }, {
     skipErrorNotificationFor: [403], // 403 = TOTP required
   })

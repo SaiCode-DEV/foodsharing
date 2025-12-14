@@ -113,7 +113,7 @@ const formData = ref({
 async function saveBlogPost () {
   showLoader()
   try {
-    if (isNewBlog) {
+    if (isNewBlog.value) {
       await addBlogpost(selectedRegionId.value, formData.value)
       pulseSuccess(i18n('blog.success.new'))
       backToOverview()

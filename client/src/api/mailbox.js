@@ -7,7 +7,7 @@ export async function getMailUnreadCount () {
 export async function setEmailProperties (emailId, isRead = null, folder = null) {
   return patch(`/mailbox/${emailId}`, {
     isRead: isRead !== null ? isRead : undefined,
-    folder: folder,
+    folder,
   })
 }
 
@@ -25,13 +25,13 @@ export async function getEmail (emailId) {
 
 export function sendEmail (mailboxId, to, cc, bcc, subject, body, attachments, replyEmailId) {
   return post(`/mailbox/${mailboxId}`, {
-    to: to,
-    cc: cc,
-    bcc: bcc,
-    subject: subject,
-    body: body,
-    attachments: attachments,
-    replyEmailId: replyEmailId,
+    to,
+    cc,
+    bcc,
+    subject,
+    body,
+    attachments,
+    replyEmailId,
   })
 }
 

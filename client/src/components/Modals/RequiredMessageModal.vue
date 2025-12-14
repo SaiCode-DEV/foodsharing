@@ -1,4 +1,3 @@
-
 <template>
   <b-modal
     :id="id"

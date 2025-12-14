@@ -76,8 +76,8 @@ export async function demoteAsStoreManager (storeId, userId, message) {
 
 export async function addStore (regionId, store, firstPost) {
   return post(`/region/${regionId}/stores`, {
-    store: store,
-    firstPost: firstPost,
+    store,
+    firstPost,
   })
 }
 

@@ -145,7 +145,7 @@ export default {
   data () {
     return {
       isLoading: true,
-      email: this.privateEmail,
+      email: '',
       subject: '',
       body: '',
       firstNameData: '',

@@ -14,11 +14,11 @@ export async function deleteReport (reportId) {
 
 export function addReport (reportedId, reporterId, reasonId, reason, message, storeId) {
   return post('/report', {
-    reportedId: reportedId,
-    reporterId: reporterId,
-    reasonId: reasonId,
-    reason: reason,
-    message: message,
-    storeId: storeId,
+    reportedId,
+    reporterId,
+    reasonId,
+    reason,
+    message,
+    storeId,
   })
 }

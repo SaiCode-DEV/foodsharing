@@ -39,19 +39,19 @@ export function activateThread (threadId) {
 
 export function setThreadStatus (threadId, status) {
   return patch(`/forum/thread/${threadId}`, {
-    status: status,
+    status,
   })
 }
 
 export function createPost (threadId, body) {
   return post(`/forum/thread/${threadId}/posts`, {
-    body: body,
+    body,
   })
 }
 
 export function updatePost (postId, body) {
   return put('/forum/post', {
-    body: body,
+    body,
   })
 }
 
@@ -77,9 +77,9 @@ export function removeReaction (postId, key) {
 
 export function createThread (forumId, forumSubId, title, body, sendMail) {
   return post(`/forum/${forumId}/${forumSubId}`, {
-    title: title,
-    body: body,
-    sendMail: sendMail,
+    title,
+    body,
+    sendMail,
   },
   )
 }

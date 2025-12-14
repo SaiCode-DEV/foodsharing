@@ -288,7 +288,7 @@ const sameUserTranslationKey = computed(() => {
   if (!props.selectedResource?.user) {
     return 'commons'
   }
-  return isOwnSelected ? 'own' : 'other'
+  return isOwnSelected.value ? 'own' : 'other'
 })
 
 function toPrevious () {

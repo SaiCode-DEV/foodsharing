@@ -14,25 +14,25 @@ export async function listCurrentPolls () {
 
 export function createPoll (regionId, name, description, startDate, endDate, scope, type, options, shuffleOptions, notifyVoters) {
   return post('/polls', {
-    regionId: regionId,
-    name: name,
-    description: description,
+    regionId,
+    name,
+    description,
     startDate: startDate.toISOString(),
     endDate: endDate.toISOString(),
-    scope: scope,
-    type: type,
-    options: options,
-    shuffleOptions: shuffleOptions,
-    notifyVoters: notifyVoters,
+    scope,
+    type,
+    options,
+    shuffleOptions,
+    notifyVoters,
   })
 }
 
 export function editPoll (pollId, name, description, options, shuffleOptions) {
   return patch(`/polls/${pollId}`, {
-    name: name,
-    description: description,
-    options: options,
-    shuffleOptions: shuffleOptions,
+    name,
+    description,
+    options,
+    shuffleOptions,
   })
 }
 
@@ -42,6 +42,6 @@ export async function deletePoll (pollId) {
 
 export async function vote (pollId, options) {
   return put(`/polls/${pollId}/vote`, {
-    options: options,
+    options,
   })
 }

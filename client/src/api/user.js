@@ -21,7 +21,7 @@ export function getDetails () {
 
 export function deleteUser (id, reason) {
   return remove(`/user/${id}`, {
-    reason: reason,
+    reason,
   })
 }
 
@@ -33,12 +33,12 @@ export function registerUser (firstName, lastName, email, password, gender, birt
   return post('/user', {
     firstname: firstName,
     lastname: lastName,
-    email: email,
-    password: password,
-    gender: gender,
-    birthdate: birthdate,
-    mobilePhone: mobilePhone,
-    subscribeNewsletter: subscribeNewsletter,
+    email,
+    password,
+    gender,
+    birthdate,
+    mobilePhone,
+    subscribeNewsletter,
   })
 }
 
@@ -51,7 +51,7 @@ export function getUserProfileSettings (userId) {
 }
 
 export function testRegisterEmail (email) {
-  return post('/user/isvalidemail', { email: email }, { skipErrorNotificationFor: [400] })
+  return post('/user/isvalidemail', { email }, { skipErrorNotificationFor: [400] })
     .then(response => response)
     .catch(error => {
       if (error && error.response && error.response.status === 400) {
@@ -63,10 +63,10 @@ export function testRegisterEmail (email) {
 
 export function setSleepStatus (mode, from, to, message) {
   return patch('/user/sleepmode', {
-    mode: mode,
-    from: from,
-    to: to,
-    message: message,
+    mode,
+    from,
+    to,
+    message,
   })
 }
 

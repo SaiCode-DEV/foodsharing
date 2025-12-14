@@ -20,6 +20,6 @@ export async function setFilters (options) {
     }
   }
   return patch('/activities/filters', {
-    excluded: excluded,
+    excluded,
   })
 }

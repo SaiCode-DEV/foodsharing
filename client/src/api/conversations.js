@@ -21,7 +21,7 @@ export function getMessages (conversationId, olderThanId, limit = '') {
 
 export function sendMessage (conversationId, body) {
   return post(`/conversations/${conversationId}/messages`, {
-    body: body,
+    body,
   })
 }
 

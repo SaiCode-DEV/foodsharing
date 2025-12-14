@@ -10,16 +10,16 @@ export function leaveRegion (regionId) {
 
 export function setRegionOptions (regionId, enableReportButton, enableMediationButton, regionPickupRuleActive, regionPickupRuleTimespan, regionPickupRuleLimit, regionPickupRuleLimitDay, regionPickupRuleInactive, selectedReportReasonOptions, enableReportReasonOther, enableAddressChangeNotification) {
   return post(`/region/${regionId}/options`, {
-    enableReportButton: enableReportButton,
-    enableMediationButton: enableMediationButton,
-    regionPickupRuleActive: regionPickupRuleActive,
-    regionPickupRuleTimespan: regionPickupRuleTimespan,
-    regionPickupRuleLimit: regionPickupRuleLimit,
-    regionPickupRuleLimitDay: regionPickupRuleLimitDay,
-    regionPickupRuleInactive: regionPickupRuleInactive,
-    selectedReportReasonOptions: selectedReportReasonOptions,
-    enableReportReasonOther: enableReportReasonOther,
-    enableAddressChangeNotification: enableAddressChangeNotification,
+    enableReportButton,
+    enableMediationButton,
+    regionPickupRuleActive,
+    regionPickupRuleTimespan,
+    regionPickupRuleLimit,
+    regionPickupRuleLimitDay,
+    regionPickupRuleInactive,
+    selectedReportReasonOptions,
+    enableReportReasonOther,
+    enableAddressChangeNotification,
   })
 }
 

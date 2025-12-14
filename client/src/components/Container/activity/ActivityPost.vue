@@ -257,7 +257,7 @@ export default {
       })
       return this.quickreplyValue +
         '\n\n\n\n--------- ' +
-        this.$t('mailbox.signature', { date: date }) +
+        this.$t('mailbox.signature', { date }) +
         ' ---------\n\n>\t' +
         this.desc.replace('\n', '\n>\t')
     },

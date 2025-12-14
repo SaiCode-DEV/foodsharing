@@ -429,7 +429,7 @@ export default {
       const dummyPost = {
         id: -1,
         createdAt: new Date(),
-        body: body,
+        body,
         reactions: {},
         author: {
           name: `${this.userFirstName} ${userStore.getUserLastName}`,

@@ -431,7 +431,7 @@ export default {
           indexId: message.id,
           content: message.body,
           senderId: String(message.authorId),
-          username: username,
+          username,
           date: this.$dateFormatter.date(message.sentAt),
           timestamp: this.$dateFormatter.time(message.sentAt),
           system: false,
@@ -494,8 +494,8 @@ export default {
             index: conv.lastMessage.sentAt.getTime(), // use unix timestamp
             lastMessage: {
               content: conv.lastMessage.body,
-              senderId: senderId,
-              username: username,
+              senderId,
+              username,
               timestamp: this.$dateFormatter.relativeTime(conv.lastMessage.sentAt, { short: true }),
               // saved: true, // can be activated when 'distributed' is also implemented in backend. Will otherwise confuse users when only 1 check is displayed.
               distributed: false,

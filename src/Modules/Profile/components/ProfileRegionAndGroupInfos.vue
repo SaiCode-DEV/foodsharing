@@ -253,7 +253,7 @@ export default {
         this.bananaData = {
           ...this.bananaData,
           receivedCount: bananaCount,
-          mayGiveBanana: mayGiveBanana,
+          mayGiveBanana,
         }
       }
     },

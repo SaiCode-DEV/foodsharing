@@ -28,7 +28,7 @@ function definePulse (type, defaultTimeout = 5000, title, defaultIcon = 'fas fa-
       id: notificationId,
       title: options.title || i18n(title),
       text: html,
-      type: type, // 'info', 'success', or 'error'
+      type, // 'info', 'success', or 'error'
       duration,
       closeOnClick: false,
       pauseOnHover: type === 'warn' || type === 'error',

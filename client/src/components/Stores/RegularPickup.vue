@@ -150,7 +150,7 @@ export default {
         { value: 6, text: this.$t('date.saturday') },
         { value: 0, text: this.$t('date.sunday') },
       ],
-      locale: locale,
+      locale,
       labelsTimepicker: {
         labelHours: i18n('timepicker.labelHours'),
         labelMinutes: i18n('timepicker.labelMinutes'),

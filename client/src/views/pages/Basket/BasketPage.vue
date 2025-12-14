@@ -102,8 +102,8 @@ const userStore = useUserStore()
 
 const allowContactByMessage = computed(() => props.basket.contactTypes.includes(BASKET_CONTACT_TYPE.BY_MESSAGE))
 const allowContactByPhone = computed(() => props.basket.contactTypes.includes(BASKET_CONTACT_TYPE.BY_PHONE))
-const mobileNumber = computed(() => allowContactByPhone && props.basket.mobile !== null ? props.basket.mobile : null)
-const landlineNumber = computed(() => allowContactByPhone && props.basket.telephone !== null ? props.basket.telephone : null)
+const mobileNumber = computed(() => allowContactByPhone.value && props.basket.mobile !== null ? props.basket.mobile : null)
+const landlineNumber = computed(() => allowContactByPhone.value && props.basket.telephone !== null ? props.basket.telephone : null)
 const breadcrumbs = computed(() => [
   { href: url('baskets'), text: i18n('terminology.baskets') },
 ])

@@ -1,7 +1,7 @@
 import { put, remove, get } from './base'
 
 export function sendBanana (recipientId, message) {
-  return put(`/user/${recipientId}/banana`, { message: message })
+  return put(`/user/${recipientId}/banana`, { message })
 }
 
 export function deleteBanana (recipientId, senderId) {
