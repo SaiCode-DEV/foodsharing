@@ -905,3 +905,61 @@ storeedit:
     teamStatus2: Pomocnicy bardzo potrzebni
     verifiedRequired: Dopuść tylko zweryfikowanych/e foodsaverów/ki
     phoneRequirement: Dopuść tylko foodsaverów/ki z ważnym numerem telefonu
+pickup:
+  overview:
+    menu:
+      refresh: Odśwież
+      signOffAll: Usuń wszędzie
+      useCondensedDesign: Zgrupowane według dni
+      loadMore: Załaduj więcej
+    freeSlots: '{slots} wolne'
+calendar:
+  locale: pl
+  labelNextYear: Przyszły rok
+  labelToday: Dzisiaj
+  labelSelected: Wybrana data
+  labelNoDateSelected: Wybierz datę
+  labelCalendar: Kalendarz
+  labelNav: Nawigacja kalendarza
+  labelHelp: Nawigacja jest możliwa także z klawiszami strzałek
+  placeholder: Wybierz datę
+  copiedUrl: URL kalendarza został skopiowany!
+  export:
+    pickup:
+      unconfirmed: niepotwierdzony
+    updated: '(ostatnia aktualizacja: {date})'
+    event:
+      linkTitle: Event foodsharingu
+      description: Opis
+timepicker:
+  labelHours: godziny
+  labelMinutes: minuty
+  labelSeconds: sekundy
+  labelIncrement: zwiększ
+  labelDecrement: zmniejsz
+  labelSelected: wybrany czas
+  labelNoTimeSelected: nie wybrano czasu
+  labelCloseButton: zamknij
+  labelNowButton: teraz
+  placeholder: podaj czas
+  from: od
+  to: do
+forum:
+  deleted_user: usunięty/a użytkownik/czka
+  from: od {name}
+  threads: tematy
+  new_thread: rozpocznij nowy temat
+  follow:
+    header: 'Powiadomienie przy nowych odpowiedziach:'
+    email: przez email
+  post:
+    delete: usuń post
+    hide: ukryj post
+    giveHideReason: Podaj, dlaczego chcesz ukryć ten post.
+    hideReasonPlaceholder: Podaj powód tutaj …
+    hideInfo: Ukryte posty nie będą więcej wyświetlane. Mogą zostać odtworzone 
+      przez moderatorów/ki w ciągu trzech miesięcy, zanim nie zostaną 
+      ostatecznie usunięte. W tym czasie użytkownicy/czki forum mogą zobaczyć, 
+      dlaczego post został ukryty, a moderatorzy/ki - także przez kogo.
+    sureHide: Czy na pewno chcesz ukryć ten post?
+    hiddenPost: Post ukryty przez [{moderatorName}]({moderatorUrl})
