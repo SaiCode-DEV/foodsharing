@@ -1006,6 +1006,18 @@ login:
   topbar: 'Fazer login'
   error_no_password: 'Digite a sua palavra-passe.'
   2fa: Autenticação de dois fatores (2FA)
+  resend_verification:
+    email_invalid: Por favor, introduza um endereço de e-mail
+    title: Confirmação do endereço de e-mail
+    hint1: Pra fazer login, o teu endereço de e-mail deve estar confirmado. Se 
+      foi redirecionado para esta página a partir do login, significa que o teu 
+      endereço de e-mail ainda não foi confirmado. Com este formulário, pode 
+      solicitar o envio de um e-mail novo com um link de ativação.
+    hint2: Caso não receba nenhum e-mail, entre em contacto com o 
+      [suporte](/support).
+    submit: Enviar
+    success: Caso esse endereço de e-mail exista e ainda não tenha sido 
+      verificado, será enviado um e-mail novo.
 profile:
   alldatesdeleted: ''
   infos:
@@ -1476,39 +1488,52 @@ group:
   valid_until: Válido áte
   filter_placeholder: Filtrar grupos por nomes
 foodsaver:
-  delete_account_sure: ''
+  delete_account_sure: 'Tem a certeza de que deseja eliminar a tua perfil?'
   list:
-    summary: ''
-    inactive: ''
+    summary: '{count} Foodsaver em {region}'
+    inactive: ', quem não esteve ativo nos últimos 6 meses:'
   manage:
-    photo: ''
-    orga: ''
-    role: ''
-    remove: ''
-    actions: ''
-    name: ''
-    last-activity: ''
+    photo: 'Fotografia'
+    orga: 'Faz parte da equipa organizadora global'
+    role: 'Função'
+    remove: 'Eliminar do distrito'
+    actions: 'Opções'
+    name: 'Nome'
+    last-activity: 'Atividade mais recente'
   upgrade:
-    learning: ''
-    ad_fs: ''
-    rv: ''
-  editName: ''
-  mailchange_error: ''
-  delete_account_now: ''
-  restricted: ''
-  edit_failure: ''
-  profileBack: ''
-  delete_account: ''
-  about_me_intern: ''
-  delete_own_account: ''
-  actions: ''
-  title: ''
-  edit: ''
-  delete_account_sure_reason: ''
-  url_error: ''
-  kicked: ''
-  about_me_public: ''
-  bread: ''
+    learning: 'Assistir ao vídeo explicativo agora'
+    ad_fs: 'Quero fazer o questionário Foodsaver agora e tornar-me Foodsaver!'
+    rv: 'Sim, li e consinto com o acordo legal.'
+    FOODSAVER: Tornar-me um(a) Foodsaver
+    STORE_MANAGER: Torne-se responsavel de cooperações
+    AMBASSADOR: Tornar-me embaixador(a)
+    pn: Sim, li e aceito a política de privacidade.
+  editName: 'Editar {name}'
+  mailchange_error: 'A ativação do teu novo endereço de correio electrónico falhou.
+    Por favor, tente novamente.'
+  delete_account_now: 'Eliminar perfil agora'
+  restricted: 'Infelizmente, não tem permissão para visualizar estes dados.'
+  edit_failure: 'Nada foi alterado ou as alterações não foram guardadas'
+  profileBack: 'Voltar ao perfil'
+  delete_account: 'Eliminar Perfil'
+  about_me_intern: 'Fica exibido na tua página de perfil e visível a todos na comunidade
+    foodsharing.
+
+    '
+  delete_own_account: 'Está prestes a eliminar o teu perfil. Tem a certeza absoluta?'
+  actions: 'Ações'
+  title: 'Foodsaver'
+  edit: 'Editar os salvadores alimentar'
+  delete_account_sure_reason: 'Tem a certeza de que deseja eliminar a tua perfil?
+    Motivo: {reason}'
+  url_error: 'Parece haver algo de errado com o URL da sua página inicial'
+  kicked: 'O/A Foodsaver foi removido/a'
+  about_me_public: 'Se exibido/a a todas as pessoas listadas em [página da equipa
+    e ex-funcionários](/team) e pode ser visto/a por todos no website.
+
+    '
+  bread: 'Todos os Foodsaver'
+  delete_account_reason: Motivo da eliminação do perfil
 pickup:
   no_slots_available: 'Não há vagas disponíveis'
   history:
@@ -2284,13 +2309,30 @@ settings:
     message: ''
   calendar:
     delete_token:
-      button: ''
-      message: ''
-    export: ''
-    menu: ''
-    export_tooltip: ''
+      button: 'Eliminar token'
+      message: 'Todos os links de calendário criados até agora serão invalidados.
+        Queres mesmo eliminar o token?'
+    export: 'Exportar calendário'
+    menu: 'Calendário'
+    export_tooltip: 'Pode subscrever as tuas datas de recolha com um programa de calendário
+      à tua escolha.'
     program:
       apple: Apple Calendário
+    generate_url:
+      button: Gerar URL de calendário
+    download: Descarregar calendário
+    info: |
+      Aqui podes associar os teus compromissos de foodsharing a um programa de calendário à tua escolha. Assim, todas as tuas recolhas e/ou compromissos podem ser automaticamente inseridos no teu calendário.
+
+      **Mantenha os links do calendário em segredo.** Eles contêm um *token* que permite aceder aos dados das suas recolhas sem necessidade de palavra-passe. Pode eliminar o seu token atual a qualquer momento, tornando inválidos os links do calendário criados anteriormente.
+
+      O teu programa de calendário deve **sincronizar** este calendário regularmente. Só assim os novos compromissos de recolha aparecerão e os compromissos cancelados deixarão de aparecer. Se, em vez disso, descarregares o teu calendário atual, este conterá apenas os teus compromissos atuais e não será atualizado automaticamente.
+
+      Encontras mais informações [aqui no Wiki]({calendarUrl})
+    pickup:
+      label: Devem ser incluídas datas de recolha?
+      "true": Sim, mostrar as minhas recolhas no calendário
+      "false": Não, não mostrar recolhas no calendário
   email: ''
   push:
     info-off: ''
@@ -2303,10 +2345,30 @@ settings:
     disable: ''
     info-on: ''
   passport:
-    menu: ''
-    button: ''
-    verified_text: ''
-    non_verified_text: ''
+    menu: 'Cartão'
+    button: 'Descarregar cartão de membro'
+    verified_text: 'Este cartão é destinado ao uso em smartphones. Pode guardar o
+      cartão no seu telemóvel e, em caso de necessidade, apresentá-lo. Caso não possua
+      um smartphone ou, por qualquer outro motivo, necessite de um cartão convencional,
+      entre em contacto com os embaixadores locais.'
+    non_verified_text: 'Ainda não estás verificado. Apenas os salvadores alimentar
+      verificados podem descarregar o cartão de membro.'
+    renew: Renovar o cartão
+    passport_not_activated: O teu cartão de membro ainda não foi ativado.
+    ask_your_ambassadors: Para isso, contacte os seus embaixadores.
+    passport_is_valid_until: O teu cartão de menbro é válido por mais **{days}**
+      dias ou até **{date}**.
+    passport_is_invalid: O teu cartão de membro já não é válido.
+    add_to_wallet:
+      google: Adicionar ao Google Wallet
+      apple: Adicionar ao Apple Wallet
+    wallet:
+      name: Nome
+      role: Função
+      valid_start: Válido a partir de
+      valid_end: Válido até
+      generate_error: Ocorreu um erro ao gerar o cartão de membro. Por favor, 
+        tente novamente mais tarde.
   photo:
     info: ''
     title: ''
@@ -2321,6 +2383,8 @@ settings:
   newsletter: ''
   header: ''
   account: ''
+  password_change:
+    wrong_password: Palavra-passe anterior incorreta
 terminology:
   reportAdmins: 'Equipa de processamento de denúncias'
   storemanager:
@@ -2774,10 +2838,10 @@ upload:
   image-problem: O teu ficheiro não está em ordem, é melhor utilizar uma imagem 
     jpg normal
 content:
-  new_success: ''
-  public: ''
-  actions: ''
-  new: ''
+  new_success: 'A página foi criada'
+  public: 'Páginas públicas'
+  actions: 'Ações'
+  new: 'Criar página nova'
   id: ''
   title: ''
   delete: ''
@@ -2785,12 +2849,12 @@ content:
   name: ''
   empty: ''
   last_modified: ''
-  edit: ''
+  edit: 'Editar página'
   delete_tooltip: ''
   delete_success: ''
   changelog: ''
   edit_success: ''
-  bread: ''
+  bread: 'Todas as páginas'
 conference:
   join_title: ''
   join: ''
@@ -3195,6 +3259,11 @@ regionOptions:
   regionReportReasonCategoryB: motivos da denúncia adicionais - B) comportamento
     durante as recolhas
   regionReportReasonOther: Permitir «Outros» como motivo da denúncia
+  noPickupRuleActiveStores: Atualmente, a regra das sultanas não está ativada 
+    para nenhuma empresa no distrito.
+  enableAddressChangeNotification: Notificação aos embaixadores e 
+    administradores em caso de mudança de endereço de um salvador de alimentos 
+    deste distrito como distrito de origem
 ort: 'Cidade/Comunidade'
 releases:
   "2023-09": ''

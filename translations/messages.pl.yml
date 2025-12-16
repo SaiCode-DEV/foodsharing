@@ -1011,3 +1011,13 @@ events:
     desc: Co to za rodzaj eventu?
     multiday: Event trwa kilka dni
     type: Jak odbędzie się ten event?
+recipients:
+  recipients: Odbiorcy
+  all: Wszyscy/tkie Foodsaverzy/ki na świecie
+  active_ambassadors: Wszyscy/tkie ambasadorzy/ki na świecie
+  newsletter: Wszyscy/tkie abonenci/tki newslettera (przynajmniej foodsaver/ka)
+  newsletter_all: Wszyscy/tkie abonenci/tki newslettera (foodsharerzy/ki, 
+    foodsaver/ki, wszyscy)
+  newsletter_only_foodsharer: TYLKO foodsharerzy/ki spośród abonentów/tek 
+    newslettera
+  all_no_botschafter: Wszyscy/tkie foodsaverzy/ki oprócz ambasadorów/ek

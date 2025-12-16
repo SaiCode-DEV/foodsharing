@@ -570,12 +570,14 @@ settings:
     cancel: "Cancel"
     submit: "Change password"
     success: "Your password has been successfully changed"
+    wrong_password: Incorrect previous password
   change_data_info:
     general: Here you can adjust your profile data.
     verified: You can’t edit your name and date of birth. However, you can ask 
       an ambassador to change these details for you.
   2fa:
     qrcode: {}
+  profile: Profile settings
 menu:
   entry:
     activities: Activities
@@ -1502,6 +1504,18 @@ login:
   email_address: E-mail address
   form_title: Welcome back
   2fa: Two-factor authentication (2FA)
+  resend_verification:
+    email_invalid: Please enter an email address
+    title: Confirmation of the email address
+    hint1: Your email address must be confirmed in order to log in. If you were 
+      redirected to this page from the login page, your email address has not 
+      yet been confirmed. You can use this form to request a new email 
+      containing an activation link.
+    hint2: If you do not receive an email, please contact our [support 
+      team](/support).
+    submit: Submit
+    success: If this email address exists and has not yet been verified, a new 
+      email will be sent.
 salutation:
   "3": Dear
   "2": Dear
