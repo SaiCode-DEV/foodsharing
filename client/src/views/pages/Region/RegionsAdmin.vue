@@ -106,20 +106,23 @@
             variant="outline-primary"
             :href="$url('forum', region.id)"
             target="_blank"
-            v-text="$t('forum.go')"
-          />
+          >
+            {{ $t('forum.go') }}
+          </b-button>
           <b-button
             v-if="!isNewRegion"
             variant="danger"
             @click="deleteRegion"
-            v-text="$t('button.delete')"
-          />
+          >
+            {{ $t('button.delete') }}
+          </b-button>
           <b-button
             :disabled="!(region.name && mailboxState !== false)"
             variant="success"
             @click="saveRegion"
-            v-text="$t('button.save')"
-          />
+          >
+            {{ $t('button.save') }}
+          </b-button>
         </div>
       </div>
     </Container>

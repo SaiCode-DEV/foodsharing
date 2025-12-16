@@ -59,7 +59,6 @@ export function vueApply (selector, disableElNotFoundException = false) {
       throw new Error('vueUse-Error: missing component name. pass it as <div data-vue-component="my-component" />')
     }
 
-    // eslint-disable-next-line no-new
     const vm = new Vue({
       el,
       render (h) {

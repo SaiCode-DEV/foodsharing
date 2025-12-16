@@ -1,3 +1,4 @@
+/* global beforeEach, afterEach, describe, it */
 import sinon from 'sinon'
 import { mount, createLocalVue } from '@vue/test-utils'
 import { resetModules } from '>/utils'

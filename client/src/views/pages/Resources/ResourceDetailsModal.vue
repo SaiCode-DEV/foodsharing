@@ -75,8 +75,9 @@
               class="mr-2 mb-2"
               style="font-size: 1em"
               variant="info"
-              v-text="categoriesMap[categoryId]"
-            />
+            >
+              {{ categoriesMap[categoryId] }}
+            </b-badge>
           </div>
           <p>
             <i class="fas fa-hand-holding-heart" />
@@ -151,8 +152,9 @@
         </b-button>
         <b-button
           @click="modal.hide()"
-          v-text="$t('button.close')"
-        />
+        >
+          {{ $t('button.close') }}
+        </b-button>
         <b-button
           v-if="!isOwnSelected"
           :variant="props.selectedResource.isFavorite ? 'warning' : 'outline-warning'"

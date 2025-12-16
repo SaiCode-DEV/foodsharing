@@ -1,5 +1,3 @@
-/* eslint-disable camelcase */
-
 /*
   Make some things from the webpack environment available globally on the window object.
 

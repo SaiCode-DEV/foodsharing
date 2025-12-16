@@ -1,5 +1,3 @@
-/* eslint-disable camelcase,eqeqeq */
-
 import '@/core'
 import '@/globals'
 

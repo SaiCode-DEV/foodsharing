@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import '@/core'
 import '@/globals'
 import { vueApply, vueRegister } from '@/vue'

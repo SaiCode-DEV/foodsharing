@@ -1,5 +1,4 @@
-/* eslint-env mocha */
-
+/* global beforeEach, afterEach */
 import sinon from 'sinon'
 
 export function jsonOK (data) {

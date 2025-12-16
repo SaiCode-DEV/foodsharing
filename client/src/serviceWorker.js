@@ -110,7 +110,6 @@ self.addEventListener('push', (event) => {
       try {
         data.options.icon = await roundCorners(data.options.icon)
       } catch (e) {
-        // eslint-disable-next-line no-console
         console.warn('Failed to round notification icon', e)
       }
     }

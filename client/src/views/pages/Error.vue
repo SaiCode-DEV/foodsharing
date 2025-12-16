@@ -254,14 +254,16 @@
         variant="primary"
         size="lg"
         @click="goTo(urls.home())"
-        v-text="$t('error.page.back_home')"
-      />
+      >
+        {{ $t('error.page.back_home') }}
+      </b-button>
       <b-button
         variant="primary"
         size="lg"
         @click="goTo(urls.contact())"
-        v-text="$t('navigation.support')"
-      />
+      >
+        {{ $t('navigation.support') }}
+      </b-button>
     </div>
   </div>
 </template>

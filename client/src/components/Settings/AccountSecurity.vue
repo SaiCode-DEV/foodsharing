@@ -95,7 +95,6 @@
 </template>
 
 <script setup>
-/* eslint-disable no-undef */
 import { ref, computed } from 'vue'
 import { useUserStore } from '@/stores/user'
 import ChangeEmailModal from './modals/ChangeEmailModal.vue'

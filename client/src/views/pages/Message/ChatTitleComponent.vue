@@ -5,8 +5,9 @@
       :is="storeId ? 'a' : 'span'"
       class="mr-2"
       :href="storeId ? $url('store', storeId) : ''"
-      v-text="title"
-    />
+    >
+      {{ title }}
+    </component>
     <div class="images">
       <Avatar
         v-for="member in members"

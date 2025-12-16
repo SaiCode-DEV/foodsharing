@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import '@/core'
 import '@/globals'
 import TeamPage from './components/TeamPage.vue'

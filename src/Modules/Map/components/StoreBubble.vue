@@ -191,27 +191,31 @@
           v-if="store.mayWithdrawRequest"
           variant="success"
           @click="withdrawRequest"
-          v-text="$t('store.request.withdraw')"
-        />
+        >
+          {{ $t('store.request.withdraw') }}
+        </b-button>
         <b-button
           v-if="store.maySendRequest"
           :variant="isMessageInputVisible ? 'success' : 'outline-secondary'"
           :disabled="isMessageInputVisible && !canSubmit"
           @click="applyToStore"
-          v-text="$t('store.request.request')"
-        />
+        >
+          {{ $t('store.request.request') }}
+        </b-button>
         <b-button
           v-if="store.isInvited"
           variant="danger"
           @click="declineInvitation"
-          v-text="$t('store.invitation.decline')"
-        />
+        >
+          {{ $t('store.invitation.decline') }}
+        </b-button>
         <b-button
           v-if="store.isInvited"
           variant="success"
           @click="acceptInvitation"
-          v-text="$t('store.invitation.accept')"
-        />
+        >
+          {{ $t('store.invitation.accept') }}
+        </b-button>
       </div>
     </template>
   </map-popup>

@@ -1,4 +1,3 @@
-/* eslint-disable eqeqeq */
 import '@/core'
 import '@/globals'
 import './Region.css'

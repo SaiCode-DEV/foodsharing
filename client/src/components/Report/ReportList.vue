@@ -72,8 +72,9 @@
     <b-alert
       v-else
       show
-      v-text="$t('reports.no_reports_fallback')"
-    />
+    >
+      {{ $t('reports.no_reports_fallback') }}
+    </b-alert>
   </div>
 </template>
 <script>

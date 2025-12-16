@@ -110,7 +110,6 @@
 </template>
 
 <script setup>
-/* eslint-disable no-undef */
 import { ref, computed } from 'vue'
 import { pulseError, pulseInfo } from '@/script'
 import { useVuelidate } from '@vuelidate/core'
