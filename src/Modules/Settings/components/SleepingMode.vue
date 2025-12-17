@@ -54,16 +54,22 @@
       v-if="currentSleepStatus > SLEEP_STATUS.NONE"
       class="pt-4"
     >
-      <label>{{ $t('settings.sleep.message') }}</label>
-      <b-form-textarea
-        id="textarea"
-        v-model="currentSleepMessage"
-        rows="3"
-        max-rows="6"
-        maxlength="255"
-      />
+      <b-form-group
+        :description="$t('settings.sleep.message')"
+        :label="$t('settings.sleep.message')"
+        label-for="textarea"
+        class="my-3"
+      >
+        <b-form-textarea
+          id="textarea"
+          v-model="currentSleepMessage"
+          rows="3"
+          max-rows="6"
+          :maxlength="maxlengthSleepingMessage"
+        />
+        <span>{{ $t('storeview.public_info.available_count') }}: {{ maxlengthSleepingMessage - (currentSleepMessage ? currentSleepMessage.length : 0) }}</span>
+      </b-form-group>
     </div>
-
     <div class="pt-4">
       <div
         class="alert alert-warning"
@@ -116,6 +122,8 @@ const sleepingOptions = [
   { value: SLEEP_STATUS.TEMP, text: i18n('settings.sleep.temp') },
   { value: SLEEP_STATUS.FULL, text: i18n('settings.sleep.full') },
 ]
+
+const maxlengthSleepingMessage = 5000
 
 const currentSleepStatus = ref(props.sleepStatus)
 const currentSleepFrom = ref(props.sleepFrom)

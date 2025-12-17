@@ -15,7 +15,7 @@ class SleepStatusRequest
 
     public ?DateTime $to = null;
 
-    #[Assert\Length(max: 255)]
+    #[Assert\Length(max: 5000)]
     public ?string $message = null;
 
     public static function create(int $mode, ?DateTime $from = null, ?DateTime $to = null, ?string $message = null): SleepStatusRequest
