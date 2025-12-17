@@ -1,5 +1,5 @@
 name: Nome
-add: Adicionar
+add: adicionar
 nachname: Sobrenome
 message: Mensagem
 address: Morada
@@ -1179,61 +1179,81 @@ profile:
   cantdeletethis: ''
 mailbox:
   search: 'Revisar'
-  claim: ''
-  already_exists: ''
-  ratelimit: ''
-  empty: ''
-  filesize: ''
-  not-allowed: ''
+  claim: 'foodsharing.de - usar sem desperdiçar'
+  already_exists: 'Já existe uma caixa de correio com esse nome'
+  ratelimit: 'Pode enviar no máximo um e-mail a cada 15 segundos. Aguarde um momento…'
+  empty: 'Ainda não há mensagens nesta caixa de correio'
+  filesize: 'Desculpe, o ficheiro é demasiado grande.'
+  not-allowed: 'Não tens a autorização necessária para fazer isso.'
   conformation_modal:
-    title: ''
-    message: ''
-  mark_as_unread: ''
-  fromto: ''
-  mark_all: ''
-  name: ''
-  member: ''
-  tag_recipient_hint: ''
-  add_success: ''
-  hostinfo: ''
+    title: 'Confirmação'
+    message: 'Tem a certeza de que deseja eliminar o e-mail?'
+  mark_as_unread: 'Marcar e-mail como não lido'
+  fromto: 'De/Para'
+  mark_all: 'Marcar todos'
+  name: 'Nome mostrado'
+  member: 'Utilizador da caixa de correio'
+  tag_recipient_hint: 'Destinatários (vários separados por ponto e vírgula)'
+  add_success: 'A caixa de correio foi criada com sucesso.'
+  hostinfo: 'Insira apenas o nome da caixa de correio, sem @{host}'
   reply:
-    full: ''
-    short: ''
-  filetype: ''
-  delete: ''
-  recipient: ''
-  mark_as_read: ''
-  actions: ''
-  to: ''
-  sm-quiz: ''
-  okay: ''
-  manage: ''
-  trash: ''
-  failed: ''
-  mailsend_unsuccess: ''
-  new: ''
-  write: ''
-  date: ''
-  refresh: ''
-  sent: ''
-  title: ''
+    full: 'Responder ao e-mail'
+    short: 'Responder'
+  filetype: 'Este tipo de ficheiro não é permitido'
+  delete: 'Para o lixo'
+  recipient: 'Recipiente'
+  mark_as_read: 'Marcar e-mail como lido'
+  actions: 'Opções'
+  to: 'Para'
+  sm-quiz: 'Concurso questinario para Responsáveis por o coordenação da empresa'
+  okay: 'O e-mail foi enviado com sucesso.'
+  manage: 'Administrador de caixa de correio'
+  trash: 'Cesto de papel'
+  failed: 'Não foi possível enviar o e-mail.'
+  mailsend_unsuccess: 'Não foi possível enviar o e-mail. {error}'
+  new: 'Caixa de correio nova'
+  write: 'E-Mail novo'
+  date: 'Data'
+  refresh: 'Atualizar'
+  sent: 'Enviado'
+  title: 'Caixas de correio eletrónico'
   attachment:
-    not_found_explanation: ''
-    not_found: ''
-  sender: ''
-  inbox: ''
-  from: ''
-  not-available: ''
-  move_to: ''
-  recipients: ''
-  create: ''
-  subject: ''
-  close_edit_mode: ''
-  signature: ''
-  add: ''
-  mails: ''
-  unknown_sender: ''
-  mail: ''
+    not_found_explanation: 'O ficheiro anexado não foi encontrado no servidor'
+    not_found: 'não encontrado'
+    too_large_to_send: Alguns dos ficheiros eram demasiado grandes e não foi 
+      possível anexá-los.
+    too_many: Foram selecionados demasiados ficheiros. É possível anexar um 
+      máximo de 10 ficheiros ao e-mail.
+    attach: Anexos (máximo de 10 ficheiros, 1,5 MB por ficheiro)
+  sender: 'Remetente'
+  inbox: 'Caixa de entrada'
+  from: 'De'
+  not-available: 'Tens de ser {role} para aceder às caixas de correio eletrónico.
+
+    Resolva o {quiz} aqui, quando estiver pronto.
+
+    '
+  move_to: 'Mover para'
+  recipients: 'Demasiados destinatários'
+  create: 'Criar a caixa de correio nova'
+  subject: 'Asunto'
+  close_edit_mode: 'Parar de editar'
+  signature: 'Mensagem de {date}'
+  add: 'Adicionar'
+  mails: 'e-mails'
+  unknown_sender: 'Remetente desconhecido'
+  mail: 'e-mail'
+  reply_all: Responder todos
+  forward: Reenviar
+  forward_attachment_warning: Até ao momento, não é possível reenviar anexos. Se
+    pretender reenviar o e-mail com anexos, pode descarregar os anexos e 
+    anexá-los ao e-mail novo.
+  mark_none: Não marcar nenhum
+  reply_header: '{name} escreveu em {date}'
+  global_addressbook: Livro de endereços global
+  addressbook: Livro de endereços
+  search_name_email: Buscar por nome ou endereço de e-mail
+  show_html_body: Ver como HTML
 bcard:
   error:
     phone: 'Deve ter introduzido um número de telefone válido para gerar o teu cartão
@@ -1776,7 +1796,7 @@ fsp:
     required: '{name} é necesário.'
     min_length: '{name} tem de ter, pelo menos, {length} caracteres.'
   show_on_large_map: Mostrar no mapa
-  createdAt: Inaugurado
+  createdAt: 'Inaugurado:'
   followerCount: 'Utilizadores interessados: {followerCount}'
 search:
   thread-title-only: ''
@@ -2297,10 +2317,10 @@ settings:
     saved: ''
     missing-date: ''
     none: ''
-    header: ''
-    status: ''
+    header: 'Modo sonolento'
+    status: 'Tu estado atual'
     range: ''
-    title: ''
+    title: 'Dorminhoco'
     until: ''
     from: ''
     full: ''
@@ -2373,18 +2393,41 @@ settings:
     info: ''
     title: ''
   follow:
-    none: ''
-    mail: ''
-    thread: ''
-  chatmail: ''
-  title: ''
-  notifications: ''
-  businesscard: ''
-  newsletter: ''
-  header: ''
-  account: ''
+    none: 'Por favor, não envie-me mais e-mails a informar sobre posts novos.'
+    mail: 'Sim, gostaria de receber informações sobre posts novos por e-mail.'
+    thread: 'Queres manter-se atualizado sobre o tema do fórum “{thread}”?'
+  chatmail: 'Caso receba uma mensagem interna na página inicial do foodsharing,
+
+    mas não esteja conectado, poderá ser informado por e-mail.
+
+    Deseja isso?
+
+    '
+  title: 'Configurações'
+  notifications: 'Notificações'
+  businesscard: 'cartão de visita pessoal'
+  newsletter: 'Aproximadamente uma vez por mês, enviamos informações atualizadas
+
+    sobre o movimento de resgate de alimentos em uma newsletter.
+
+    Gostaria de receber esses e-mails?
+
+    '
+  header: 'Configurações do perfil'
+  account: 'Opções do perfil'
   password_change:
     wrong_password: Palavra-passe anterior incorreta
+  no_rights: Não está autorizado a alterar a configuração do perfil.
+  edit_other: Editar configurações do perfil de {name}
+  profile: Configurações de perfil
+  delete_profile: Eliminar este perfil
+  address:
+    title: Selecionar endereço
+    choose: Aceitar endereço
+  quiz:
+    1: Quiz para te tornar um(a) salvador(a) alimentar
+    2: Quiz para te tornar um(a) responsável de cooperação
+    3: Quiz para te tornar um(a) embaixador(a)
 terminology:
   reportAdmins: 'Equipa de processamento de denúncias'
   storemanager:
@@ -2476,7 +2519,7 @@ terminology:
   landline: Número de telefone fixo
   mobile_phone: Número de telemóvel
   received: recebido
-  sent: Enviado
+  sent: Enviados
   resourcesAdmins: Equipa do mosaico dos recursos
 timepicker:
   labelCloseButton: 'fechar'
@@ -2842,19 +2885,34 @@ content:
   public: 'Páginas públicas'
   actions: 'Ações'
   new: 'Criar página nova'
-  id: ''
-  title: ''
-  delete: ''
-  content: ''
-  name: ''
-  empty: ''
-  last_modified: ''
+  id: 'ID'
+  title: 'Titulo'
+  delete: 'Quer mesmo eliminar {name}?'
+  content: 'Conteúdo'
+  name: 'Nome único'
+  empty: 'Até agora, nenhuma página foi inserida.'
+  last_modified: 'Últimas alterações'
   edit: 'Editar página'
-  delete_tooltip: ''
-  delete_success: ''
-  changelog: ''
-  edit_success: ''
+  delete_tooltip: 'Eliminar página'
+  delete_success: 'Página foi eliminada'
+  changelog: 'Registo de alterações atual'
+  edit_success: 'A página foi guardada.'
   bread: 'Todas as páginas'
+  edit_raw: Editar dados originais
+  error: Não foi possível gravar a página
+  communities:
+    title: Grupos locais
+    text: O foodsharing cresce a cada dia. Aqui encontrará sempre uma lista 
+      atualizada de todas as comunidades e distritos do foodsharing. Pode obter 
+      mais informações sobre cada distrito na página pública do distrito, ou 
+      enviar um e-mail diretamente para o distrito correspondente clicando no 
+      ícone.
+    searchInfo: Com Ctrl+F, é possível pesquisar a lista em muitos navegadores 
+      por países, cidades, estados federais ou bairros.
+    noAmbassador: Este distrito não tem atualmente nenhum embaixador(a) e, por 
+      isso, não está disponível por e-mail. Entre em contacto com um distrito 
+      vizinho ou com o distrito imediatamente superior.
+  error_loading: Não foi possível carregar o conteúdo
 conference:
   join_title: ''
   join: ''
@@ -3405,10 +3463,54 @@ body: 'Mensagem'
 photo: 'Fotografia'
 really_delete: 'Apagar a sério?'
 map:
-  title: ''
-  donates: ''
+  title: 'Mapa'
+  donates: 'A empresa faz doações'
   foodsharepoint:
     go: Para o cantinho solidário
+  filters:
+    stores:
+      status:
+        label: Estado
+        all: Todos
+        cooperating: Coopera
+        not-cooperating: Não coopera
+      help:
+        label: Colaboradores
+        all: Não importa
+        open: Buscado
+        searching: Buscado urgente
+      scope:
+        label: Pertença
+        all: Todos
+        region: Só os meus distritos
+        member: Só as minhas empresas
+    users:
+      role:
+        label: Função
+        all: Todos
+        foodsaver: Salvadores alimentar verificados
+        store-manager: Responsáveis por o coordenação da empresa
+      activity:
+        label: Último login
+        week: Última semana
+        month: Último mes
+        3months: Últimos 3 meses
+        6months: Últimos 6 meses
+        all: No importa
+      member:
+        label: Pertença
+        all: Todos
+        homeregion: Distrito de origem
+        other: Segundo distrito
+      region:
+        label: Distrito
+  community:
+    go: Para a página do distrito
+  events:
+    title: Eventos
+    go: Para o evento
+  users:
+    go: Para o perfil
 list:
   filter_for: 'Filtrar por …'
 public_time: 'Hora do dia aproximada por da recolha'

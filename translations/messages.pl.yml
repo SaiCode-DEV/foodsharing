@@ -1021,3 +1021,13 @@ recipients:
   newsletter_only_foodsharer: TYLKO foodsharerzy/ki spośród abonentów/tek 
     newslettera
   all_no_botschafter: Wszyscy/tkie foodsaverzy/ki oprócz ambasadorów/ek
+  send: Wyślij email
+  confirm: Wysłać email?
+  testmail: Wyślij testowy email
+  test_email_sent: Email został wysłany.
+  test_email_invalid: Coś się nie zgadza z adresem email.
+  doublecheck: Wszystko sprawdzone? Czy email ma zostać wysłany do wybranej 
+    grupy docelowej?
+  sent: Email został pomyślnie wysłany do {count} adresatów
+  history: Emaile wysłane przez ciebie
+  pending: Zostało jeszcze {count} maili do wysłania
