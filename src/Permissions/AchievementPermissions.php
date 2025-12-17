@@ -49,9 +49,4 @@ class AchievementPermissions
 
         return $this->mayAdministrateAchievement($achievementId);
     }
-
-    public function maySeeUserAchievements($userId): bool
-    {
-        return $userId === $this->session->id() || $this->session->mayRole(Role::STORE_MANAGER);
-    }
 }

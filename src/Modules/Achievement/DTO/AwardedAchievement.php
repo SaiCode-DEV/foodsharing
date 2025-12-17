@@ -39,9 +39,9 @@ class AwardedAchievement
         $awarded->achievementId = $data['achievement_id'];
         $awarded->reviewerId = $data['reviewer_id'];
         $awarded->notice = $data['notice'];
-        $awarded->validUntil = isset($data['valid_until']) ? new DateTime($data['validUntil']) : null;
+        $awarded->validUntil = isset($data['valid_until']) ? new DateTime($data['valid_until']) : null;
         $awarded->createdAt = new DateTime($data['created_at']);
-        $awarded->updatedAt = isset($data['updated_at']) ? new DateTime($data['updatedAt']) : null;
+        $awarded->updatedAt = isset($data['updated_at']) ? new DateTime($data['updated_at']) : null;
 
         return $awarded;
     }

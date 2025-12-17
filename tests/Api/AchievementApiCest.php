@@ -6,6 +6,8 @@ namespace Tests\Api;
 
 use Codeception\Util\HttpCode;
 use Foodsharing\Modules\Achievement\DTO\Achievement;
+use Foodsharing\Modules\Core\DBConstants\Achievement\DuplicateMode;
+use Foodsharing\Modules\Core\DBConstants\Achievement\VisibilityType;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Support\ApiTester;
@@ -44,7 +46,8 @@ class AchievementApiCest
         $this->achievement->description = 'Some description';
         $this->achievement->icon = 'icon';
         $this->achievement->validityInDaysAfterAssignment = 365;
-        $this->achievement->isRequestableByFoodsaver = false;
+        $this->achievement->visibilityType = VisibilityType::GLOBAL;
+        $this->achievement->duplicateMode = DuplicateMode::OVERRIDE;
 
         $this->otherAchievement = clone $this->achievement;
         $this->otherAchievement->id = 2;
@@ -63,7 +66,8 @@ class AchievementApiCest
             'description' => $achievement->description,
             'icon' => $achievement->icon,
             'validity_in_days_after_assignment' => $achievement->validityInDaysAfterAssignment,
-            'is_requestable_by_foodsaver' => $achievement->isRequestableByFoodsaver,
+            'visibility_type' => $achievement->visibilityType->value,
+            'duplicate_mode' => $achievement->duplicateMode->value,
         ];
     }
 
@@ -75,6 +79,8 @@ class AchievementApiCest
             'description' => $achievement->description,
             'icon' => $achievement->icon,
             'validityInDaysAfterAssignment' => $achievement->validityInDaysAfterAssignment,
+            'visibilityType' => $achievement->visibilityType->value,
+            'duplicateMode' => $achievement->duplicateMode->value,
         ];
     }
 
@@ -85,13 +91,13 @@ class AchievementApiCest
 
         $I->login($this->user['email']);
 
-        $I->sendGET('api/achievements/region/' . $this->region['id'] + 10);
+        $I->sendGET('api/achievements/region/' . ($this->region['id'] + 10));
         $I->seeResponseCodeIs(Response::HTTP_FORBIDDEN);
 
         $I->sendGET('api/achievements/region/' . $this->region['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
-        $expected = get_object_vars($this->achievement);
-        unset($expected['createdAt']);
+        $expected = $this->achievementToArrayForApi($this->achievement);
+
         $I->seeResponseContainsJson([$expected]);
 
         $I->dontSeeResponseContainsJson(['id' => $this->otherAchievement->id]);
@@ -138,9 +144,10 @@ class AchievementApiCest
             'achievementId' => $this->achievement->id,
             'notice' => 'notice',
         ]]);
+        $awardedId = $I->grabEntryFromDatabase('fs_foodsaver_has_achievement', ['foodsaver_id' => $this->user['id'], 'achievement_id' => $this->achievement->id])['id'];
 
         // Updating awarded achievement
-        $I->sendPATCH("api/achievements/{$this->achievement->id}/users/{$this->user['id']}", [
+        $I->sendPATCH("api/achievements/awarded/{$awardedId}", [
             'notice' => 'notice2',
             'validUntil' => 'infinite',
         ]);
@@ -151,7 +158,7 @@ class AchievementApiCest
         ]);
 
         // Revoking awarded achievement
-        $I->sendDELETE("api/achievements/{$this->achievement->id}/users/{$this->user['id']}");
+        $I->sendDELETE("api/achievements/awarded/{$awardedId}");
         $I->seeResponseCodeIs(Response::HTTP_OK);
         $I->sendGET("api/achievements/{$this->achievement->id}/users");
         $I->dontSeeResponseJsonMatchesJsonPath('$[0]');

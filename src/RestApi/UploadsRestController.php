@@ -3,8 +3,8 @@
 namespace Foodsharing\RestApi;
 
 use Carbon\Carbon;
-use Exception;
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Uploads\Exceptions\Base64DecodingException;
 use Foodsharing\Modules\Uploads\Exceptions\FileSizeTooBigException;
 use Foodsharing\Modules\Uploads\Exceptions\InvalidFileException;
@@ -106,7 +106,7 @@ class UploadsRestController extends AbstractFoodsharingRestController
     {
         try {
             $mimetype = $this->uploadsGateway->getMimeType($uuid);
-        } catch (Exception) {
+        } catch (DatabaseNoValueFoundException) {
             throw new NotFoundHttpException('file not found');
         }
         if (!str_starts_with($mimetype, 'image/')) {

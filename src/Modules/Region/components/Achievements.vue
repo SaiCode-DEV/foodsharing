@@ -20,9 +20,7 @@
         </h5>
       </template>
       <div class="list-group-item">
-        <Markdown :source="selected.description" /><br>
-        <i v-if="selected.validityInDaysAfterAssignment" v-text="$t('achievements.validity.days', selected)" />
-        <i v-else v-text="$t('achievements.validity.indefinite')" />
+        <AchievementInfo :achievement="selected" :scope-name="groupName" />
       </div>
       <div class="list-group-item">
         <h6 v-text="$t('achievements.award')" />
@@ -102,7 +100,7 @@
             <OverflowMenu
               v-if="row.item.user.id !== ownId"
               :options="[
-                {icon:'trash-alt', textKey: 'achievements.revoke', callback: () => revokeAchievement(row.item.user.id) },
+                {icon:'trash-alt', textKey: 'achievements.revoke', callback: () => revokeAchievement(row.item.id) },
                 {icon:'pen', textKey: 'button.edit', callback: () => openEditModal(row.item) },
               ]"
             />
@@ -118,6 +116,7 @@
           :per-page="perPage"
           class="float-right my-0"
         />
+        <!-- TODO use PaginatedContent Component -->
       </div>
       <b-modal
         ref="editModal"
@@ -148,7 +147,6 @@
 import Container from '@/components/Container/Container.vue'
 import Achievements from '@/components/Achievement/Achievements.vue'
 import * as api from '@/api/achievements.js'
-import Markdown from '@/components/Markdown/Markdown.vue'
 import UserSearchInput from '@/components/UserSearchInput.vue'
 import Avatar from '@/components/Avatar/Avatar.vue'
 import Time from '@/components/Time.vue'
@@ -156,11 +154,13 @@ import OverflowMenu from '@/components/OverflowMenu.vue'
 import DatePicker from '@/components/DateTime/DatePicker.vue'
 import { useUserStore } from '@/stores/user'
 import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
+import { ACHIEVEMENT_DUPLICATE_MODE } from '@/consts'
+import AchievementInfo from '@/components/Achievement/AchievementInfo.vue'
 
 const userStore = useUserStore()
 
 export default {
-  components: { Container, Achievements, Markdown, UserSearchInput, Avatar, Time, OverflowMenu, DatePicker },
+  components: { Container, Achievements, UserSearchInput, Avatar, Time, OverflowMenu, DatePicker, AchievementInfo },
   props: {
     groupName: { type: String, required: true },
     groupId: { type: Number, required: true },
@@ -231,11 +231,11 @@ export default {
       const awardedUser = await api.awardAchievement(userId, this.selected.id, options)
       this.selected.awardedUsers.unshift(awardedUser)
     },
-    async revokeAchievement (userId) {
-      const index = this.selected.awardedUsers.findIndex(awarded => awarded.user.id === userId)
+    async revokeAchievement (awardedAchievementId) {
+      const index = this.selected.awardedUsers.findIndex(awarded => awarded.id === awardedAchievementId)
       if (!await this.confirmationDialogue('achievements.revokeConfirmation', { params: this.selected.awardedUsers[index].user })) return
-      await api.revokeAchievement(userId, this.selected.id)
-      this.selected.awardedUsers.splice(this.selected.awardedUsers.findIndex(awarded => awarded.user.id === userId), 1)
+      await api.revokeAchievement(awardedAchievementId)
+      this.selected.awardedUsers.splice(this.selected.awardedUsers.findIndex(awarded => awarded.id === awardedAchievementId), 1)
     },
     openEditModal (awardedAchievement) {
       this.editFormData = Object.assign({}, awardedAchievement)
@@ -256,13 +256,14 @@ export default {
         notice: this.editFormData.notice,
         validUntil: this.prepareDate(this.editFormData.validUntil),
       }
-      const awardedUser = await api.editAchievement(this.editFormData.user.id, this.selected.id, options)
-      const index = this.selected.awardedUsers.findIndex(awarded => awarded.user.id === this.editFormData.user.id)
+      const awardedUser = await api.editAchievement(this.editFormData.id, options)
+      const index = this.selected.awardedUsers.findIndex(awarded => awarded.id === this.editFormData.id)
       this.$set(this.selected.awardedUsers, index, awardedUser)
     },
     searchFilter (userId) {
       if (!this.selected.awardedUsers) return false
       if (userId === this.ownId) return false
+      if (this.selected.duplicateMode === ACHIEVEMENT_DUPLICATE_MODE.MULTIPLE) return true
       return !this.selected.awardedUsers.some(awarded => awarded.user.id === userId)
     },
   },

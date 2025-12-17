@@ -13,6 +13,7 @@ use Foodsharing\Modules\Foodsaver\Profile;
  */
 class AwardedAchievementWithUserDetails
 {
+    public int $id;
     public Profile $user;
     public ?Profile $reviewer = null;
     public int $achievementId;
@@ -23,6 +24,7 @@ class AwardedAchievementWithUserDetails
     public static function createFromArray(array $data): AwardedAchievementWithUserDetails
     {
         $awarded = new self();
+        $awarded->id = $data['id'];
         $awarded->user = new Profile($data, 'user_');
         if ($data['reviewer_id']) {
             $awarded->reviewer = new Profile($data, 'reviewer_');

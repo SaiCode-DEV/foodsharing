@@ -88,6 +88,12 @@ export default {
         href: 'options', icon: 'fa-tools', text: 'menu.entry.options', subPage: SUB_PAGE.OPTIONS,
       })
 
+      if (this.entry.hasAchievements) {
+        menu.push({
+          href: 'achievements', icon: 'fa-tags', text: 'terminology.achievements', subPage: SUB_PAGE.ACHIEVEMENTS,
+        })
+      }
+
       if (this.showStatisticsAndMembers) {
         menu.push({
           href: 'statistic', icon: 'fa-chart-bar', text: 'terminology.statistic', subPage: SUB_PAGE.STATISTIC,

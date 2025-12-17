@@ -3,6 +3,7 @@
 namespace Foodsharing\RestApi;
 
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Achievement\AchievementGateway;
 use Foodsharing\Modules\Achievement\AchievementTransactions;
@@ -153,43 +154,48 @@ class AchievementRestController extends AbstractFoodsharingRestController
         }
 
         $awardedAchievement = $this->prepareAwardedAchievement($achievementId, $userId, $paramFetcher, false);
-        $this->achievementGateway->awardAchievement($awardedAchievement);
-        $awardedAchievement = $this->achievementGateway->getAwardedAchievementForUser($achievementId, $userId);
+        $awardedAchievementId = $this->achievementTransactions->awardAchievement($awardedAchievement);
+        $awardedAchievement = $this->achievementGateway->getAwardedAchievementWithUserDetails($achievementId, $awardedAchievementId);
 
         return $this->respondOK($awardedAchievement);
     }
 
-    #[OA\Patch(summary: 'Edit the awarded achievement of a user')]
-    #[Rest\Patch('achievements/{achievementId}/users/{userId}', requirements: ['achievementId' => Requirement::POSITIVE_INT, 'userId' => Requirement::POSITIVE_INT])]
+    #[OA\Patch(summary: 'Edit an awarded achievement of a user')]
+    #[Rest\Patch('achievements/awarded/{awardedAchievementId}', requirements: ['awardedAchievementId' => Requirement::POSITIVE_INT])]
     #[Rest\RequestParam(name: 'validUntil', nullable: false, description: 'Date until which this is valid, or \'infinite\'')]
     #[Rest\RequestParam(name: 'notice', nullable: true)]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: AwardedAchievementWithUserDetails::class))]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid data')]
-    public function editAwardedAchievement(int $achievementId, int $userId, ParamFetcher $paramFetcher): Response
+    public function editAwardedAchievement(int $awardedAchievementId, ParamFetcher $paramFetcher): Response
     {
         $this->assertLoggedIn();
-        if (!$this->achievementPermissions->mayAwardAchievement($achievementId, $userId)) {
+
+        $awardedAchievement = $this->achievementGateway->getAwardedAchievementById($awardedAchievementId);
+        if (!$this->achievementPermissions->mayAwardAchievement($awardedAchievement->achievementId, $awardedAchievement->foodsaverId)) {
             throw new AccessDeniedHttpException();
         }
 
-        $awardedAchievement = $this->prepareAwardedAchievement($achievementId, $userId, $paramFetcher, true);
+        $awardedAchievement = $this->prepareAwardedAchievement($awardedAchievement->achievementId, $awardedAchievement->foodsaverId, $paramFetcher, true);
+        $awardedAchievement->id = $awardedAchievementId;
         $this->achievementGateway->editAwardedAchievement($awardedAchievement);
-        $awardedAchievement = $this->achievementGateway->getAwardedAchievementForUser($achievementId, $userId);
+
+        $awardedAchievement = $this->achievementGateway->getAwardedAchievementWithUserDetails($awardedAchievement->achievementId, $awardedAchievementId);
 
         return $this->respondOK($awardedAchievement);
     }
 
     #[OA\Delete(summary: 'Revoke an achievement from a user')]
-    #[Rest\Delete('achievements/{achievementId}/users/{userId}', requirements: ['achievementId' => Requirement::POSITIVE_INT, 'userId' => Requirement::POSITIVE_INT])]
+    #[Rest\Delete('achievements/awarded/{awardedAchievementId}', requirements: ['awardedAchievementId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
-    public function revokeAchievement(int $achievementId, int $userId): Response
+    public function revokeAchievement(int $awardedAchievementId): Response
     {
         $this->assertLoggedIn();
-        if (!$this->achievementPermissions->mayAwardAchievement($achievementId, $userId)) {
+        $awardedAchievement = $this->achievementGateway->getAwardedAchievementById($awardedAchievementId);
+        if (!$this->achievementPermissions->mayAwardAchievement($awardedAchievement->achievementId, $awardedAchievement->foodsaverId)) {
             throw new AccessDeniedHttpException();
         }
 
-        $this->achievementGateway->revokeAchievement($userId, $achievementId);
+        $this->achievementGateway->revokeAchievement($awardedAchievementId);
 
         return $this->respondOK();
     }
@@ -215,11 +221,10 @@ class AchievementRestController extends AbstractFoodsharingRestController
         if ($validUntil === 'infinite') {
             return null;
         }
-        $validUntil = new Carbon($validUntil);
-        if (!$validUntil->isValid()) {
+        try {
+            $validUntil = new Carbon($validUntil);
+        } catch (InvalidFormatException $e) {
             throw new BadRequestHttpException('Invalid date format');
-        } elseif ($validUntil->isPast()) {
-            throw new BadRequestHttpException('Date must be in the future');
         }
 
         return $validUntil;
@@ -234,8 +239,8 @@ class AchievementRestController extends AbstractFoodsharingRestController
     private function prepareAwardedAchievement(int $achievementId, int $userId, ParamFetcher $paramFetcher, bool $strict): AwardedAchievement
     {
         $achievement = new AwardedAchievement();
-        $achievement->achievementId = $achievementId;
         $achievement->foodsaverId = $userId;
+        $achievement->achievementId = $achievementId;
         $achievement->reviewerId = $this->session->id();
         $achievement->validUntil = $this->getValidUntil($paramFetcher, $strict, $achievementId);
         $achievement->notice = $paramFetcher->get('notice') ?: null;

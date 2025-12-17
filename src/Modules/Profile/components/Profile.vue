@@ -96,7 +96,7 @@
                   :target-id="profileInfos.fsId"
                 />
               </b-tab>
-              <b-tab v-if="awardedAchievements?.length" :title="$t('terminology.achievements') + ` (${awardedAchievements.length})`">
+              <b-tab v-if="awardedAchievements?.length" :title="$t('terminology.achievements')">
                 <Achievements :achievements="awardedAchievements" />
               </b-tab>
               <b-tab

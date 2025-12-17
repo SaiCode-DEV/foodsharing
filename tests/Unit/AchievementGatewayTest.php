@@ -10,6 +10,8 @@ use Foodsharing\Modules\Achievement\AchievementGateway;
 use Foodsharing\Modules\Achievement\AchievementTransactions;
 use Foodsharing\Modules\Achievement\DTO\Achievement;
 use Foodsharing\Modules\Achievement\DTO\AwardedAchievement;
+use Foodsharing\Modules\Core\DBConstants\Achievement\DuplicateMode;
+use Foodsharing\Modules\Core\DBConstants\Achievement\VisibilityType;
 use Tests\Support\UnitTester;
 
 class AchievementGatewayTest extends Unit
@@ -34,7 +36,8 @@ class AchievementGatewayTest extends Unit
         $this->initialAchievement->description = 'Some description';
         $this->initialAchievement->icon = 'icon';
         $this->initialAchievement->validityInDaysAfterAssignment = 365;
-        $this->initialAchievement->isRequestableByFoodsaver = true;
+        $this->initialAchievement->duplicateMode = DuplicateMode::OVERRIDE;
+        $this->initialAchievement->visibilityType = VisibilityType::STORE_MANAGERS;
 
         $this->user = $this->tester->createFoodsharer();
         $this->otherUser = $this->tester->createFoodsharer();
@@ -61,7 +64,6 @@ class AchievementGatewayTest extends Unit
         $this->assertEquals($retrievedAchievement->description, $this->initialAchievement->description);
         $this->assertEquals($retrievedAchievement->icon, $this->initialAchievement->icon);
         $this->assertEquals($retrievedAchievement->validityInDaysAfterAssignment, $this->initialAchievement->validityInDaysAfterAssignment);
-        $this->assertEquals($retrievedAchievement->isRequestableByFoodsaver, $this->initialAchievement->isRequestableByFoodsaver);
         $this->assertEqualsWithDelta($retrievedAchievement->createdAt->getTimestamp(), time(), 1);
         $this->assertEquals($retrievedAchievement->updatedAt, null);
 
@@ -72,7 +74,6 @@ class AchievementGatewayTest extends Unit
         $changedAchievement->description = 'changed description';
         $changedAchievement->icon = 'changed icon';
         $changedAchievement->validityInDaysAfterAssignment = null;
-        $changedAchievement->isRequestableByFoodsaver = false;
         $this->gateway->updateAchievement($changedAchievement);
 
         $retrievedAchievementAfterUpdate = $this->gateway->getAchievement($id);
@@ -82,7 +83,6 @@ class AchievementGatewayTest extends Unit
         $this->assertEquals($retrievedAchievementAfterUpdate->description, $changedAchievement->description);
         $this->assertEquals($retrievedAchievementAfterUpdate->icon, $changedAchievement->icon);
         $this->assertEquals($retrievedAchievementAfterUpdate->validityInDaysAfterAssignment, $changedAchievement->validityInDaysAfterAssignment);
-        $this->assertEquals($retrievedAchievementAfterUpdate->isRequestableByFoodsaver, $changedAchievement->isRequestableByFoodsaver);
         $this->assertEquals($retrievedAchievementAfterUpdate->createdAt->getTimestamp(), $retrievedAchievement->createdAt->getTimestamp());
         $this->assertEqualsWithDelta($retrievedAchievementAfterUpdate->updatedAt->getTimestamp(), time(), 1);
     }
@@ -151,5 +151,171 @@ class AchievementGatewayTest extends Unit
 
         $this->gateway->addAchievement($this->initialAchievement);
         $this->assertEquals($this->gateway->regionHasAchievements($this->region['id']), true);
+    }
+
+    public function testVisibilityTypes(): void
+    {
+        $this->initRegions();
+
+        // create achievements with each visibility type in the same region
+        $visibilities = [
+            VisibilityType::HIDDEN,
+            VisibilityType::PRIVATE,
+            VisibilityType::STORE_MANAGERS,
+            VisibilityType::SCOPE,
+            VisibilityType::GLOBAL,
+        ];
+
+        $achievementIds = [];
+        $this->initialAchievement->regionId = $this->region['id'];
+        foreach ($visibilities as $vis) {
+            $ach = clone $this->initialAchievement;
+            $ach->visibilityType = $vis;
+            $achievementIds[(int)$vis->value] = $this->gateway->addAchievement($ach);
+        }
+
+        // award all achievements to the user
+        foreach ($achievementIds as $id) {
+            $this->transactions->awardAchievementFromId($id, $this->user['id']);
+        }
+
+        // Helper: extract visibility type values from returned awarded achievements
+        $extractVisValues = function (array $awarded) {
+            return array_values(array_map(fn ($a) => $a->visibilityType->value, $awarded));
+        };
+
+        // 1) ORGA sees everything (including HIDDEN)
+        $orgaSession = $this->createMock(\Foodsharing\Lib\Session::class);
+        $orgaSession->method('mayRole')->willReturnMap([
+            [\Foodsharing\Modules\Core\DBConstants\Foodsaver\Role::ORGA, true],
+            [\Foodsharing\Modules\Core\DBConstants\Foodsaver\Role::STORE_MANAGER, true],
+        ]);
+        $orgaSession->method('id')->willReturn(9999); // not the owner
+        $orgaUnits = $this->createMock(\Foodsharing\Modules\Unit\CurrentUserUnitsInterface::class);
+
+        $transactionsOrga = new AchievementTransactions($this->gateway, $orgaUnits);
+        $visibleOrga = $transactionsOrga->getVisibleAwardedAchievementsForUser($this->user['id'], $orgaSession);
+        $this->assertEqualsCanonicalizing(
+            array_map(fn ($v) => $v->value, $visibilities),
+            $extractVisValues($visibleOrga)
+        );
+
+        // 2) Owner (the awarded user) sees everything except HIDDEN
+        $ownerSession = $this->createMock(\Foodsharing\Lib\Session::class);
+        $ownerSession->method('mayRole')->willReturn(false);
+        $ownerSession->method('id')->willReturn($this->user['id']);
+        $ownerUnits = $this->createMock(\Foodsharing\Modules\Unit\CurrentUserUnitsInterface::class);
+        $ownerUnits->method('isAdminFor')->willReturn(false);
+        $ownerUnits->method('mayBezirk')->willReturn(false); // asume owner is not part of the scope
+
+        $transactionsOwner = new AchievementTransactions($this->gateway, $ownerUnits);
+        $visibleOwner = $transactionsOwner->getVisibleAwardedAchievementsForUser($this->user['id'], $ownerSession);
+        $this->assertEqualsCanonicalizing(
+            array_map(fn ($v) => $v->value, array_filter($visibilities, fn ($v) => $v !== VisibilityType::HIDDEN)),
+            $extractVisValues($visibleOwner)
+        );
+
+        // 3) Admin for region (not ORGA) sees PRIVATE, SCOPE and GLOBAL (but not STORE_MANAGERS unless also STORE_MANAGER)
+        $adminSession = $this->createMock(\Foodsharing\Lib\Session::class);
+        $adminSession->method('mayRole')->willReturnMap([
+            [\Foodsharing\Modules\Core\DBConstants\Foodsaver\Role::ORGA, false],
+            [\Foodsharing\Modules\Core\DBConstants\Foodsaver\Role::STORE_MANAGER, false],
+        ]);
+        $adminSession->method('id')->willReturn(5555);
+
+        $adminUnits = $this->createMock(\Foodsharing\Modules\Unit\CurrentUserUnitsInterface::class);
+        $adminUnits->method('isAdminFor')->willReturn(true);
+        $adminUnits->method('mayBezirk')->willReturn(true);
+
+        $txAdmin = new AchievementTransactions($this->gateway, $adminUnits);
+        $visibleAdmin = $txAdmin->getVisibleAwardedAchievementsForUser($this->user['id'], $adminSession);
+        $expectedAdmin = [
+            VisibilityType::PRIVATE->value,
+            VisibilityType::SCOPE->value,
+            VisibilityType::GLOBAL->value,
+        ];
+        $this->assertEqualsCanonicalizing($expectedAdmin, $extractVisValues($visibleAdmin));
+
+        // 4) Store manager in scope sees STORE_MANAGERS, SCOPE and GLOBAL
+        $smSession = $this->createMock(\Foodsharing\Lib\Session::class);
+        $smSession->method('mayRole')->willReturnMap([
+            [\Foodsharing\Modules\Core\DBConstants\Foodsaver\Role::ORGA, false],
+            [\Foodsharing\Modules\Core\DBConstants\Foodsaver\Role::STORE_MANAGER, true],
+        ]);
+        $smSession->method('id')->willReturn(7777);
+
+        $smUnits = $this->createMock(\Foodsharing\Modules\Unit\CurrentUserUnitsInterface::class);
+        $smUnits->method('isAdminFor')->willReturn(false);
+        $smUnits->method('mayBezirk')->willReturn(true);
+
+        $txSM = new AchievementTransactions($this->gateway, $smUnits);
+        $visibleSM = $txSM->getVisibleAwardedAchievementsForUser($this->user['id'], $smSession);
+        $expectedSM = [
+            VisibilityType::STORE_MANAGERS->value,
+            VisibilityType::SCOPE->value,
+            VisibilityType::GLOBAL->value,
+        ];
+        $this->assertEqualsCanonicalizing($expectedSM, $extractVisValues($visibleSM));
+
+        // 5) Unrelated user (no roles, not in scope) sees only GLOBAL
+        $otherSession = $this->createMock(\Foodsharing\Lib\Session::class);
+        $otherSession->method('mayRole')->willReturn(false);
+        $otherSession->method('id')->willReturn($this->otherUser['id']);
+
+        $otherUnits = $this->createMock(\Foodsharing\Modules\Unit\CurrentUserUnitsInterface::class);
+        $otherUnits->method('isAdminFor')->willReturn(false);
+        $otherUnits->method('mayBezirk')->willReturn(false);
+
+        $txOther = new AchievementTransactions($this->gateway, $otherUnits);
+        $visibleOther = $txOther->getVisibleAwardedAchievementsForUser($this->user['id'], $otherSession);
+        $this->assertEquals([VisibilityType::GLOBAL->value], $extractVisValues($visibleOther));
+    }
+
+    public function testDuplicateModes(): void
+    {
+        // OVERRIDE duplicate mode: awarding twice should update the existing award instead of creating a new one
+        $this->initialAchievement->duplicateMode = DuplicateMode::OVERRIDE;
+        $achievementOverrideId = $this->gateway->addAchievement($this->initialAchievement);
+
+        $awarded1 = new AwardedAchievement();
+        $awarded1->foodsaverId = $this->user['id'];
+        $awarded1->achievementId = $achievementOverrideId;
+        $awarded1->reviewerId = $this->otherUser['id'];
+        $awarded1->notice = 'first override notice';
+        $awarded1->validUntil = null;
+
+        $id1 = $this->transactions->awardAchievement($awarded1);
+
+        $awarded2 = clone $awarded1;
+        $awarded2->notice = 'updated override notice';
+        $id2 = $this->transactions->awardAchievement($awarded2);
+
+        $awardedListOverride = $this->gateway->getAwardedUsersForAchievement($achievementOverrideId);
+        $this->assertCount(1, $awardedListOverride);
+        $this->assertEquals($id1, $id2);
+
+        $retrieved = $this->gateway->getAwardedAchievementForUser($achievementOverrideId, $this->user['id']);
+        $this->assertEquals('updated override notice', $retrieved->notice);
+
+        // MULTIPLE duplicate mode: awarding twice creates two records
+        $this->initialAchievement->duplicateMode = DuplicateMode::MULTIPLE;
+        $achievementId = $this->gateway->addAchievement($this->initialAchievement);
+
+        $awarded1 = new AwardedAchievement();
+        $awarded1->foodsaverId = $this->user['id'];
+        $awarded1->achievementId = $achievementId;
+        $awarded1->reviewerId = $this->otherUser['id'];
+        $awarded1->notice = 'first notice';
+        $awarded1->validUntil = null;
+
+        $id1 = $this->transactions->awardAchievement($awarded1);
+
+        $awarded2 = clone $awarded1;
+        $awarded2->notice = 'second notice';
+        $id2 = $this->transactions->awardAchievement($awarded2);
+
+        $awardedList = $this->gateway->getAwardedUsersForAchievement($achievementId);
+        $this->assertCount(2, $awardedList);
+        $this->assertNotEquals($id1, $id2);
     }
 }

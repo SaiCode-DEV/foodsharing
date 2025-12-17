@@ -24,7 +24,7 @@ class AchievementGateway extends BaseGateway
     private const string AWARDED_ACHIEVEMENT_QUERY = 'SELECT
             user.id AS user_id, user.name as user_name, user.photo AS user_photo, user.is_sleeping AS user_is_sleeping,
             reviewer.id AS reviewer_id, reviewer.name AS reviewer_name, reviewer.photo AS reviewer_photo, reviewer.is_sleeping AS reviewer_is_sleeping,
-            awarded.achievement_id, awarded.notice, awarded.valid_until, awarded.created_at
+            awarded.id, awarded.achievement_id, awarded.notice, awarded.valid_until, awarded.created_at
         FROM fs_foodsaver_has_achievement awarded
         JOIN fs_foodsaver user ON user.id = awarded.foodsaver_id
         LEFT OUTER JOIN fs_foodsaver reviewer ON reviewer.id = awarded.reviewer_id
@@ -43,7 +43,8 @@ class AchievementGateway extends BaseGateway
             'description' => $achievement->description,
             'icon' => $achievement->icon,
             'validity_in_days_after_assignment' => $achievement->validityInDaysAfterAssignment,
-            'is_requestable_by_foodsaver' => $achievement->isRequestableByFoodsaver,
+            'visibility_type' => $achievement->visibilityType->value,
+            'duplicate_mode' => $achievement->duplicateMode->value,
         ]);
     }
 
@@ -59,7 +60,8 @@ class AchievementGateway extends BaseGateway
             'description' => $achievement->description,
             'icon' => $achievement->icon,
             'validity_in_days_after_assignment' => $achievement->validityInDaysAfterAssignment,
-            'is_requestable_by_foodsaver' => $achievement->isRequestableByFoodsaver,
+            'visibility_type' => $achievement->visibilityType->value,
+            'duplicate_mode' => $achievement->duplicateMode->value,
         ], [
             'id' => $achievement->id
         ]) > 0;
@@ -103,10 +105,11 @@ class AchievementGateway extends BaseGateway
 
     /**
      * Awards an achievement to a user.
+     * @return int the id of the awarded achievement entry
      */
-    public function awardAchievement(AwardedAchievement $awardedAchievement): void
+    public function awardAchievement(AwardedAchievement $awardedAchievement): int
     {
-        $this->db->insert('fs_foodsaver_has_achievement', [
+        return $this->db->insert('fs_foodsaver_has_achievement', [
             'foodsaver_id' => $awardedAchievement->foodsaverId,
             'achievement_id' => $awardedAchievement->achievementId,
             'reviewer_id' => $awardedAchievement->reviewerId,
@@ -125,26 +128,24 @@ class AchievementGateway extends BaseGateway
             'notice' => $awardedAchievement->notice,
             'valid_until' => $awardedAchievement->validUntil,
         ], [
-            'foodsaver_id' => $awardedAchievement->foodsaverId,
-            'achievement_id' => $awardedAchievement->achievementId,
+            'id' => $awardedAchievement->id,
         ]);
     }
 
     /**
-     * Revokes all instances of an achievement from a user.
+     * Revokes the given instance of an achievement from a user.
      */
-    public function revokeAchievement(int $foodsaverId, int $achievementId): void
+    public function revokeAchievement(int $awardedAchievementId): void
     {
-        $this->db->delete('fs_foodsaver_has_achievement', ['foodsaver_id' => $foodsaverId, 'achievement_id' => $achievementId]);
+        $this->db->delete('fs_foodsaver_has_achievement', ['id' => $awardedAchievementId]);
     }
 
     /**
      * Checks whether a user currently has a certain achievement.
      * @param DateTime $time The time at which the achievement should be valid, defaults to now
      */
-    public function hasAchievement(int $foodsaverId, int $achievementId, DateTime $time = null): bool
+    public function hasAchievement(int $foodsaverId, int $achievementId, ?DateTime $time = null): bool
     {
-        // TODO needs to be adjsted to exclude requests as soon as they can be represented in the database
         $time ??= new DateTime('now');
 
         try {
@@ -159,6 +160,21 @@ class AchievementGateway extends BaseGateway
         } catch (DatabaseNoValueFoundException) {
             return false;
         }
+    }
+
+    /**
+     * Retrieves the latest current awarded achievement id for a certain user and achievement.
+     */
+    public function getCurrentAwardedAchievementId(int $foodsaverId, int $achievementId): int
+    {
+        return (int)$this->db->fetchValue('SELECT id
+            FROM fs_foodsaver_has_achievement
+            WHERE foodsaver_id = ?
+            AND achievement_id = ?
+            AND (valid_until IS NULL OR valid_until > NOW())
+            ORDER BY created_at DESC
+            LIMIT 1',
+            [$foodsaverId, $achievementId]);
     }
 
     /**
@@ -190,12 +206,31 @@ class AchievementGateway extends BaseGateway
     {
         $achievements = $this->db->fetchAll('SELECT
                 achievement.*,
-                awarded.notice, awarded.valid_until, awarded.created_at AS awarded_at
+                awarded.notice, awarded.valid_until, awarded.created_at AS awarded_at,
+                region.id AS region_id, region.name AS region_name
             FROM fs_foodsaver_has_achievement awarded
             JOIN fs_achievement achievement ON achievement.id = awarded.achievement_id
+            JOIN fs_bezirk region ON region.id = achievement.region_id
             WHERE awarded.foodsaver_id = ? AND (valid_until IS NULL OR valid_until > NOW())
             ORDER BY created_at DESC', [$userId]);
 
         return array_map([AwardedAchievementWithAchievementDetails::class, 'createFromArray'], $achievements);
+    }
+
+    public function getAwardedAchievementById(int $awardedAchievementId): AwardedAchievement
+    {
+        $awardedAchievement = $this->db->fetchByCriteria('fs_foodsaver_has_achievement', '*', ['id' => $awardedAchievementId]);
+
+        return AwardedAchievement::createFromArray($awardedAchievement);
+    }
+
+    /**
+     * Retrieves a member with a certain achievement.
+     */
+    public function getAwardedAchievementWithUserDetails(int $achievementId, int $awardedAchievementId): AwardedAchievementWithUserDetails
+    {
+        $awardedAchievement = $this->db->fetch($this::AWARDED_ACHIEVEMENT_QUERY . ' AND awarded.id = ?', [$achievementId, $awardedAchievementId]);
+
+        return AwardedAchievementWithUserDetails::createFromArray($awardedAchievement);
     }
 }

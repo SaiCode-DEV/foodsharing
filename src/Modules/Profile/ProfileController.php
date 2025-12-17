@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Exception;
 use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Lib\WebSocketConnection;
-use Foodsharing\Modules\Achievement\AchievementGateway;
+use Foodsharing\Modules\Achievement\AchievementTransactions;
 use Foodsharing\Modules\Basket\BasketGateway;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
@@ -17,7 +17,6 @@ use Foodsharing\Modules\Mails\MailsGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Modules\StoreChain\StoreChainGateway;
-use Foodsharing\Permissions\AchievementPermissions;
 use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\ReportPermissions;
 use Foodsharing\Permissions\StoreChainPermissions;
@@ -40,8 +39,7 @@ final class ProfileController extends FoodsharingController
         private readonly StoreGateway $storeGateway,
         private readonly GroupGateway $groupGateway,
         private readonly StorePermissions $storePermissions,
-        private readonly AchievementPermissions $achievementPermissions,
-        private readonly AchievementGateway $achievementGateway,
+        private readonly AchievementTransactions $achievementTransactions,
         private readonly WebSocketConnection $webSocketConnection,
         private readonly StoreChainGateway $storeChainGateway,
         private readonly StoreChainPermissions $storeChainPermissions,
@@ -454,12 +452,9 @@ final class ProfileController extends FoodsharingController
         ];
     }
 
-    private function getAchievementsData(int $userId): ?array
+    private function getAchievementsData(int $userId): array
     {
-        $achievements = null;
-        if ($this->achievementPermissions->maySeeUserAchievements($userId)) {
-            $achievements = $this->achievementGateway->getAwardedAchievementsForUser($userId);
-        }
+        $achievements = $this->achievementTransactions->getVisibleAwardedAchievementsForUser($userId, $this->session);
 
         return $achievements;
     }

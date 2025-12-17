@@ -124,7 +124,7 @@ class Database
      *
      * @return mixed the first row's value for the specified column
      *
-     * @throws \Exception if there were no results
+     * @throws DatabaseNoValueFoundException if there were no results
      */
     public function fetchValueByCriteria(string $table, string $column, array $criteria = [])
     {

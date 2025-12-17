@@ -3959,10 +3959,29 @@ achievements:
     icon: "Icon"
     validityInDaysAfterAssignment: "Gültigkeit nach der Vergabe in Tagen"
     preview: "Vorschau"
+    visibility_type: "Sichtbarkeit"
+    duplicate_mode: "Umgang mit Mehrfachvergabe"
   noneInThisRegion: "In dieser Region sind keine Sticker eingetragen."
   deleteConfirmation: "Willst du wirklich diesen Sticker löschen?"
   editTitle: "Sticker bearbeiten"
-
+  visibility_type:
+    hidden: "Versteckt"
+    private: "Privat"
+    store_managers: "Nur Betriebsverantwortliche"
+    scope: "Im Bezirk"
+    global: "Global"
+  visibility_type_explanation:
+    hidden: "Wird niemandem angezeigt"
+    private: "Wird nur der Person selbst und den Admins bzw. Botschafter:innen von {scope} angezeigt"
+    store_managers: "Wird der Person selbst und allen Betriebsverantwortlichen in {scope} angezeigt"
+    scope: "Wird allen Nutzer:innen aus {scope} angezeigt."
+    global: "Wird allen Nutzer:innen angezeigt"
+  duplicate_mode:
+    override: "Überschreiben"
+    multiple: "Mehrfach vergeben"
+  duplicate_mode_explanation:
+    multiple: "Mehrfachvergabe möglich"
+  scope: "Gültigkeitsbereich"
 
 help:
   helpTitle: "Hilfe: {title}"
@@ -4045,6 +4064,27 @@ help:
         In das Eingabefeld musst du den Namen des Icons eingeben, das du nutzen möchtest, also bspw. „*walking*“ oder „*shopping-cart*“.
         Ob deine Eingabe funktioniert, kannst du anhand der Vorschau überprüfen.
         Wenn du kein Icon eingibst, wird automatisch das Standard-Icon für Sticker „*tag*“ genutzt.
+    achievementVisibility:
+      title: "Sichtbarkeit von Stickern"
+      md: |
+        Die Sichtbarkeit eines Stickers bestimmt, wer sehen kann, ob der Sticker an jemanden vergeben wurde. Folgende Optionen stehen zur Verfügung:
+
+        - **Versteckt:** Der Sticker ist nur für Nutzer:innen mit Orga-Rechten sichtbar.
+        hidden: "Wird niemandem angezeigt"
+        - **Privat:** Nur die betreffende Person selbst sowie Admins und Botschafter:innen des angegebenen Geltungsbereichs sehen den Sticker.
+        - **Nur Betriebsverantwortliche:** Der Sticker wird der Person selbst sowie allen Betriebsverantwortlichen im gewählten Bereich angezeigt.
+        - **Im Gültigkeitsbereich:** Der Sticker ist für alle Nutzer:innen sichtbar, die Mitglied des angegebenen Bezirks sind.
+        - **Global:** Der Sticker ist für alle registrierten Nutzer:innen sichtbar.
+
+        Überlege bitte immer, wie weit die Sichtbarkeit eingeschränkt werden kann, um personenbezogene Informationen nicht unnötig sichtbar zu machen. Die Sichtbarkeitsstufe kann nachträglich angepasst werden.
+    achievementDuplicateMode:
+      title: "Mehrfachvergabe von Stickern"
+      md: |
+        Sticker können als Markierung in sehr unterschiedlichen Sachverhalten dienen. Daher kann eingestellt werden, ob der Sticker mehrfach gleichzeitig an die selbe Person vergeben werden kann.
+        
+        - **Überschreiben:** Man kann den Sticker nicht mehrfach gleichzeitig erhalten. Wenn der Sticker erneut vergeben wird, ersetzt bzw. verlängert die aktuelle Vergabe die vorherige. Dies wird bspw. für die Hygieneschulung genutzt. Wer die Schlung erneuert, deren Sticker wird einfach nur verlängert. Wähle *Überschreiben*, wenn der Sticker einen aktuellen, eindeutigen Zustand markieren soll.
+        - **Mehrfach vergeben:** Mehrere Vergaben sind gleichzeitig möglich. Mehrfach vergebene Sticker werden im Profil gruppiert angezeigt, alle entsprechenden Infos sind aber zugänglich. Hiermit könnten bspw. Probeabholungen dokumentiert werden, von denen mehrere nötig sind. Wähle *Mehrfach vergeben*, wenn jede einzelne Vergabe wichtig ist und nachvollziehbar bleiben muss.
+
     polls:
       title: "Abstimmungen"
       md: |

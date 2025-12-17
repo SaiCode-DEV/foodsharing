@@ -121,3 +121,16 @@ export const ACCEPTED_FILE_TYPES =
     'application/vnd.oasis.opendocument.text,' +
     'application/vnd.oasis.opendocument.spreadsheet,' +
     'application/vnd.oasis.opendocument.presentation'
+
+export const ACHIEVEMENT_VISIBILITY_TYPE = Object.freeze({
+  HIDDEN: 0,
+  PRIVATE: 1,
+  STORE_MANAGERS: 2,
+  SCOPE: 3,
+  GLOBAL: 4,
+})
+
+export const ACHIEVEMENT_DUPLICATE_MODE = Object.freeze({
+  OVERRIDE: 0,
+  MULTIPLE: 1,
+})

@@ -35,11 +35,34 @@
       <b-form-group :label="$t('achievements.editor.validityInDaysAfterAssignment')">
         <b-input
           v-model="editedAchievement.validityInDaysAfterAssignment"
-          :formatter="(value) => +value.replaceAll(/[^\d]/g, '') || NaN"
+          :formatter="(value) => +value.replaceAll(/[^\d]/g, '') || null"
           type="number"
           :placeholder="$t('achievements.validity.indefinite')"
         />
       </b-form-group>
+
+      <b-form-group>
+        <template #label>
+          {{ $t('achievements.editor.visibility_type') }}
+          <Info info-key="achievementVisibility" class="py-0" />
+        </template>
+        <b-form-select
+          v-model="editedAchievement.visibilityType"
+          :options="visibilityOptions"
+        />
+      </b-form-group>
+
+      <b-form-group>
+        <template #label>
+          {{ $t('achievements.editor.duplicate_mode') }}
+          <Info info-key="achievementDuplicateMode" class="py-0" />
+        </template>
+        <b-form-select
+          v-model="editedAchievement.duplicateMode"
+          :options="duplicateOptions"
+        />
+      </b-form-group>
+
       {{ $t('achievements.editor.preview') }}
       <Achievement
         ref="preview"
@@ -77,6 +100,8 @@ import ContainerButton from '@/components/Container/ContainerButton.vue'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 import Info from '@/components/Help/Info.vue'
 import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
+import i18n from '@/helper/i18n'
+import { ACHIEVEMENT_DUPLICATE_MODE, ACHIEVEMENT_VISIBILITY_TYPE } from '@/consts'
 
 export default {
   components: { Container, Achievement, ContainerButton, MarkdownInput, Info },
@@ -108,6 +133,16 @@ export default {
     },
     isDataValid () {
       return this.isIconValid && this.editedAchievement.name && this.editedAchievement.description
+    },
+    visibilityOptions () {
+      return Object.entries(ACHIEVEMENT_VISIBILITY_TYPE).map(([key, value]) => ({
+        value, text: i18n(`achievements.visibility_type.${key.toLowerCase()}`),
+      }))
+    },
+    duplicateOptions () {
+      return Object.entries(ACHIEVEMENT_DUPLICATE_MODE).map(([key, value]) => ({
+        value, text: i18n(`achievements.duplicate_mode.${key.toLowerCase()}`),
+      }))
     },
   },
   watch: {

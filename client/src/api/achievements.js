@@ -12,12 +12,12 @@ export async function awardAchievement (userId, achievementId, options) {
   return await post(`/achievements/${achievementId}/users/${userId}`, options)
 }
 
-export async function editAchievement (userId, achievementId, options) {
-  return await patch(`/achievements/${achievementId}/users/${userId}`, options)
+export async function editAchievement (awardedAchievementId, options) {
+  return await patch(`/achievements/awarded/${awardedAchievementId}`, options)
 }
 
-export async function revokeAchievement (userId, achievementId) {
-  return await remove(`/achievements/${achievementId}/users/${userId}`)
+export async function revokeAchievement (awardedAchievementId) {
+  return await remove(`/achievements/awarded/${awardedAchievementId}`)
 }
 
 export async function addAchievement (achievement) {

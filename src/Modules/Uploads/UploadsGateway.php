@@ -4,6 +4,7 @@ namespace Foodsharing\Modules\Uploads;
 
 use Exception;
 use Foodsharing\Modules\Core\BaseGateway;
+use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Foodsharing\Modules\Uploads\DTO\UploadedFile;
 
@@ -12,7 +13,7 @@ class UploadsGateway extends BaseGateway
     /**
      * Returns the mimetype of the file with the specified UUID. Throws an exception if the file does not exist.
      *
-     * @throws Exception
+     * @throws DatabaseNoValueFoundException
      */
     public function getMimeType(string $uuid): string
     {
