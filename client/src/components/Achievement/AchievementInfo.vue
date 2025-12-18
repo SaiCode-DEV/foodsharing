@@ -4,24 +4,24 @@
     <b-alert variant="info" show>
       <div v-if="!('validUntil' in achievement)">
         <i class="fas fa-calendar mr-1" />
-        <span v-if="achievement.validityInDaysAfterAssignment" v-text="$i18n('achievements.validity.days', achievement)" />
-        <span v-else v-text="$i18n('achievements.validity.indefinite')" />
+        <span v-if="achievement.validityInDaysAfterAssignment" v-text="$t('achievements.validity.days', achievement)" />
+        <span v-else v-text="$t('achievements.validity.indefinite')" />
       </div>
       <div v-if="achievement.scope">
         <i class="fas fa-users mr-1" />
-        <span v-text="$i18n('achievements.scope')" />:
+        <span v-text="$t('achievements.scope')" />:
         <a :href="url('achievements', achievement.scope.id)" v-text="achievement.scope.name" />
       </div>
       <div>
         <i class="fas fa-eye mr-1" />
-        <span v-b-tooltip="$i18n(`achievements.visibility_type_explanation.${visibilityTypeName}`, { scope: achievement.scope?.name ?? scopeName })">
-          <span v-text="$i18n('achievements.editor.visibility_type')" />:
-          <span v-text="$i18n(`achievements.visibility_type.${visibilityTypeName}`)" />
+        <span v-b-tooltip="$t(`achievements.visibility_type_explanation.${visibilityTypeName}`, { scope: achievement.scope?.name ?? scopeName })">
+          <span v-text="$t('achievements.editor.visibility_type')" />:
+          <span v-text="$t(`achievements.visibility_type.${visibilityTypeName}`)" />
         </span>
       </div>
       <div v-if="isMultiple">
         <i class="fas fa-clone mr-1" />
-        <span v-text="$i18n('achievements.duplicate_mode_explanation.multiple')" />
+        <span v-text="$t('achievements.duplicate_mode_explanation.multiple')" />
       </div>
     </b-alert>
   </div>
