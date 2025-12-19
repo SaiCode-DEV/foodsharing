@@ -4478,6 +4478,26 @@ help:
         resources. In a region, only the ambassadors have those permissions. If there
         is a resource group in the region, the permissions reside in that group's
         admins.\n"
+    achievementVisibility:
+      title: Sticker visibility
+      md: |
+        The visibility setting of a sticker determines who can see if the sticker has been assigned to someone. The following options are available:
+
+        - **Hidden:** The sticker is only visible to users with organizational rights.
+        hidden: "Not displayed to anyone"
+        - **Private:** Only the individual in question, as well as admins and ambassadors within the specified area, can see the sticker.
+        - **Store managers only:** The sticker is displayed to the individual and all store managers within the selected area.
+        - **Within area:** The sticker is visible to all users who are members of the specified district.
+        - **Global:** The sticker is visible to all registered users.
+
+        Please always consider how far the visibility can be restricted to avoid unnecessarily revealing personal information. The visibility level can be adjusted later.
+    achievementDuplicateMode:
+      title: Multiple allocation of stickers
+      md: |
+        Stickers can serve as markers in a wide variety of situations. Therefore, you can set whether the sticker can be awarded to the same person multiple times at the same time.
+
+        - **Overwrite:** The sticker cannot be received multiple times at the same time. If the sticker is awarded again, the current award replaces or extends the previous one. This is used, for example, for hygiene training. Those who renew the training simply have their sticker extended. Select *Overwrite* if the sticker is to mark a current, unique status.
+        - **Multiple assignments:** Multiple assignments are possible at the same time. Stickers assigned multiple times are grouped together in the profile, but all relevant information is accessible. This could be used, for example, to document introductory pickups, of which several are necessary. Select *Multiple assignments* if each individual assignment is important and must remain traceable.
   tooltip: Show help
   helpTitle: 'Help: {title}'
 team_page:
@@ -4537,9 +4557,31 @@ achievements:
     icon: Icon
     validityInDaysAfterAssignment: Validity in days after awarding
     description: Description
+    visibility_type: Visibility
+    duplicate_mode: Handling multiple assignments
   noneInThisRegion: There are no stickers listed for this region.
   deleteConfirmation: Do you really want to delete this sticker?
   editTitle: Edit sticker
+  visibility_type:
+    hidden: Hidden
+    private: Private
+    store_managers: Only store managers
+    scope: District
+    global: Global
+  visibility_type_explanation:
+    hidden: Not displayed to anyone
+    private: Only visible to the person themselves and the administrators or 
+      ambassadors of {scope}
+    store_managers: Displayed to the person themselves and all store managers in
+      {scope}
+    scope: Visible to all users in {scope}.
+    global: Visible to all users
+  duplicate_mode:
+    override: Override
+    multiple: Awarded multiple times
+  duplicate_mode_explanation:
+    multiple: Multiple assignment possible
+  scope: Scope
 copied_to_clipboard: '“{text}” was copied to the clipboard.'
 support_page:
   firstName: First name

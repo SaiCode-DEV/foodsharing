@@ -402,7 +402,7 @@ bell:
   blog_new_check_title: 'Artigo novo no blog'
   new_foodsaver_needs_introduction: 'precisa recolhas introdutórias'
   foodsaver_verified_title: 'Estas verificado!'
-  fs_sleepmode_title: 'Dorminhoco novo'
+  fs_sleepmode_title: 'Touco de dormir novo'
   forum_mention_title: '{user} mencionou-te ({forum})'
   store_new_request: 'Aplicação pra {name}'
   sharepoint_activate: '{name} foi internado'
@@ -2312,21 +2312,39 @@ recipients:
   storemanagers_and_ambs: 'Todos os responsáveis pelas cooperações e embaixadores'
 settings:
   sleep:
-    tooltip: ''
-    info: ''
-    saved: ''
-    missing-date: ''
-    none: ''
+    tooltip: '{name} está atualmente a fazer uma pausa e está em modo de suspensão'
+    info: 'Com a função «touca de dormir», podes informar a comunidade que estás de
+      viagem
+
+      ou que, por outros motivos, não tens tempo para salvar alimentos.
+
+      É útil saber se podes responder a mensagens
+
+      ou mesmo se, por vezes, fazes recolhas.
+
+      '
+    saved: 'As configurações foram gravadas'
+    missing-date: 'Por favor, introduza uma data inicial e uma data final para o período.'
+    none: 'Sou ativo e totalmente envolvido'
     header: 'Modo sonolento'
     status: 'Tu estado atual'
-    range: ''
-    title: 'Dorminhoco'
-    until: ''
-    from: ''
-    full: ''
-    temp: ''
-    show: ''
-    message: ''
+    range: 'Indique por quanto tempo aproximadamente não estará disponível:'
+    title: 'Touco de dormir'
+    until: 'até'
+    from: 'De'
+    full: 'Vou estar fora por tempo indeterminado'
+    temp: 'Não estou disponível durante o período seguinte'
+    show: 'Durch die Nutzung dieser Funktion erklären Sie sich damit einverstanden,
+      dass Ihr Status,
+
+      die Dauer Ihrer Abwesenheit und Ihre Nachricht auf Ihrer Profilseite angezeigt
+      werden
+
+      und dass auf Ihrem Profilfoto ein Schlafmützen-Symbol erscheint.
+
+      '
+    message: 'Aqui podes deixar uma breve mensagem explicando porque não tens tempo
+      neste momento.'
   calendar:
     delete_token:
       button: 'Eliminar token'
@@ -2353,7 +2371,7 @@ settings:
       label: Devem ser incluídas datas de recolha?
       "true": Sim, mostrar as minhas recolhas no calendário
       "false": Não, não mostrar recolhas no calendário
-  email: ''
+  email: 'E-mail & palavra-passe'
   push:
     info-off: ''
     success: ''
@@ -2428,6 +2446,140 @@ settings:
     1: Quiz para te tornar um(a) salvador(a) alimentar
     2: Quiz para te tornar um(a) responsável de cooperação
     3: Quiz para te tornar um(a) embaixador(a)
+  account_security:
+    title: Segurança da conta de acesso
+    email_password_section: E-mail e palavra-passe
+    change_password: Alterar palavra-passe
+    change_email: Alterar endereço de e-mail
+    mfa_section: Autenticação multifatoral
+    mfa_enabled: Autenticação multifatorial ativada
+    mfa_disabled: Autenticação multifatorial deativada
+    authenticator_app: Aplicação autenticadora
+    authenticator_app_description: Use um aplicativo autenticador para obter 
+      segurança adicional ao iniciar a sessão.
+  two_fa_manage:
+    title: Autenticação de dois fatores
+    intro: Aqui pode alterar as configurações da autenticação de dois fatores.
+    status_is: O estado atual é
+    active: ativo
+    inactive: deativo
+    num_backup_codes: Número de códigos de backup restantes
+    enable_button: Ativar 2FA
+    disable_button: Desativar 2FA
+    close: Fechar
+    totp_token_label: Código
+    totp_token_placeholder: por exemplo 458324
+    totp_required: Tens de introduzir um código
+    password_label: Palavra-passe
+    password_placeholder: A tua palavra-passe atual
+    password_required: Tens de introduzir a tua palavra-passe
+    cancel: Cancelar
+  two_fa_enable:
+    title: Ativar autenticação de dois fatores
+    tutorial: A utilização da autenticação de dois fatores aumenta a segurança 
+      da tua conta de usuário. Com a autenticação de dois fatores ativada, terás
+      de introduzir um código adicional à tua palavra-passe sempre que iniciares
+      um sessão. Podes obter esse código através de uma aplicação de 
+      autenticação. Além disso, ser-te-ão apresentados os chamados «códigos de 
+      backup», que deves guardar em local seguro para, em caso de emergência 
+      (por exemplo, perda do smartphone), continuares a ter acesso à tua conta 
+      de usuario.
+    explanation: A autenticação de dois fatores é opcional, mas é recomendada 
+      pelos principais especialistas em segurança sempre que possível.
+    further_info: 'Mais informações sobre a autenticação de dois fatores podem encontrar-te,
+      por exemplo, aqui: https://invoicexpress.com/blog/2fa-autenticacao-dois-fatores/
+      .'
+    tabs:
+      tutorial: instruções
+      qr_code: Digitalizar o código QR
+      backup_codes: Códigos de backup
+      confirm: Confirmar ativação
+    apps:
+      title: Apps de autenticação recomendadas
+      description: 'Escolha uma das seguintes aplicações de autenticação gratuitas
+        e de código aberto para o teu equipamento:'
+      info: Também é possível utilizar aqui uma aplicação de autenticação já 
+        utilizada para outros serviços. Se ainda não tiver uma, instale primeiro
+        uma aplicação antes de continuar.
+    qrcode:
+      title: Digitalizar código QR
+      label: 'Digitalize este código QR com a tua aplicação de autenticação:'
+      scan_instruction: Abra a tua aplicação de autenticação e adicione uma nova
+        conta digitalizando este código QR.
+      multi_device: Pode utilizar este código para configurar quantos 
+        dispositivos desejar.
+    secret_label: 'Alternativamente, pode introduzir este código manualmente:'
+    secret_toggle: Mostrar código (caso a digitalização QR não funcione)
+    backup_codes:
+      title: Guardar códigos de segurança
+      label: 'Caso perca o acesso ao teu dispositivo de autenticação de dois fatores
+        (perda/roubo/danos), pode utilizar os seguintes códigos de backup, cada um
+        deles válido uma única vez:'
+      info: Guarde estes códigos num local seguro. Qualquer pessoa que tenha 
+        acesso a estes códigos e conheça a tua palavra-passe pode iniciar sessão
+        na tua conta de utilização.
+      save_instruction: Guarde esses códigos num local seguro (por exemplo, num 
+        gestor de palavras-passe ou em papel).
+      confirmation: Guardei os códigos de backup em local seguro
+      must_confirm: Tens de confirmar que guardou os códigos de backup
+    confirm:
+      title: Confirmar ativação
+      instruction: Para ativar a autenticação de dois fatores, insira aqui o 
+        código gerado e a tua palavra-passe.
+      test_instruction: Abra a tua aplicação de autenticação e introduza o 
+        código de 6 dígitos atual para garantir que tudo está a funcionar 
+        corretamente.
+      logout_notice: 'Nota: Após ativar a autenticação de dois fatores, terá de iniciar
+        o login novamente.'
+    generated_code_label: Código gerado
+    password_info: Para fazer alterações, é sempre necessário introduzir a tua 
+      palavra-passe. Isto impede que outra pessoa que utilize o teu computador 
+      ou smartphone possa alterar esta configuração crítica para a segurança.
+    danger: 'Importante: caso perca o teu telemóvel ou ele seja roubado e não tenha
+      acesso aos códigos de backup, não conseguirá iniciar sessão. Terá de contactar
+      o suporte para recuperar o acesso à tua conta usuário.'
+    activate: Ativar
+    next: Continuar
+    success: A autenticação de dois fatores foi ativada com sucesso.
+    failed: Não foi possível ativar a autenticação de dois fatores, pois o 
+      código ou a palavra-passe foram introduzidos incorretamente.
+  two_fa_disable:
+    title: Desativar a autenticação de dois fatores
+    warning: Caso desative a autenticação de dois fatores, a tua conta usuário 
+      ficará menos segura. Qualquer pessoa que conheça a tua palavra-passe ou 
+      tenha acesso aos seus e-mails (palavra-chave «Esqueci a minha 
+      palavra-passe») poderá aceder à tua conta usuário. Ao desativar a 
+      autenticação, os seus códigos de backup também serão invalidados. Terá de 
+      iniciar sessão novamente.
+    confirm_text: 'Para confirmar, introduza um código 2FA atual e a tua palavra-passe:'
+    deactivate: Desativar
+    danger: Caso desative a autenticação de dois fatores, a tua conta usuário 
+      ficará menos segura.
+    success: A autenticação de dois fatores foi desativada com sucesso.
+    failed: Não foi possível desativar a autenticação de dois fatores, pois o 
+      código ou a palavra-passe foram introduzidos incorretamente.
+    admin_description: Deseja desativar a autenticação de dois fatores para 
+      {user}? Isso só faz sentido em casos excepcionais, por exemplo, caso o 
+      usuário não tenha mais acesso ao teu dispositivo de dois fatores e também 
+      tenha perdido os códigos de backup.
+  email_change:
+    title: Alterar endereço de e-mail
+    explanation: Aqui pode alterar o endereço de e-mail com o qual se registou. 
+      Após o envio, receberá um e-mail no teu endereço novo com um link para 
+      confirmar o teu endereço novo.
+    explanation_other_user: Aqui pode alterar o endereço de e-mail com o qual 
+      este perfil foi registado. Após o envio, o utilizador receberá um e-mail 
+      no endereço novo, contendo um link para confirmar o endereço novo.
+    explanation_password: Confirme a solicitação de alteração com a tua 
+      palavra-passe atual
+    new_email_label: Endereço de e-mail novo
+    new_email_placeholder: a.tua.novo@email.pt
+    confirm_email_label: Confirmar endereço de e-mail
+    confirm_email_placeholder: a.tua.novo@email.pt
+    password_label: Palavra-passe atual
+    password_placeholder: A tua palavra-passe
+    cancel: Cancelar
+    submit: Alterar e-mail
 terminology:
   reportAdmins: 'Equipa de processamento de denúncias'
   storemanager:

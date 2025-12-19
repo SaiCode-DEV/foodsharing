@@ -1055,3 +1055,38 @@ month:
   "10": Październik
   "11": Listopad
   "12": Grudzień
+bell:
+  no_bells: Aktualnie nie masz żadnych powiadomień.
+  translation_failed:
+    md_support: Jeśli myślisz, że wystąpił błąd, zgłoś ten fakt do 
+      [Support](/support)
+  forum_answer_title: '{forum}'
+  forum_answer: '{user} odpowiedział/a na twój post'
+  forum_post_title: '{title}'
+  forum_post:
+    one: Nowy post od {user} w forum {forum}
+    many: '{count} nowy posty w {forum}'
+  event_post_title: Event {event} w {region}
+  event_post:
+    one: 'Nowy komentarz od {user} '
+    many: '{count} nowe komentarze do eventu {event}'
+  forum_announcement_title: 'Ważna wiadomość: {title}'
+  forum_announcement: od {user} w forum {forum}
+  forum_new_thread: od {user} w forum {forum}
+  blog_new_check_title: Nowy artykuł na blogu
+  blog_new_check: '{title}'
+  ft_update_title: '{name}'
+  ft_update:
+    one: '{teaser}'
+    many: '{teaser}'
+  new_store_request:
+    one: dla {name} od {user}
+  store_request_accept_title: '{name}'
+  store_request_accept_wait_title: '{name}'
+  store_request_deny_title: '{name}'
+  store_invite_title: '{name}'
+  store_invite: '{user} zaprosił/a cię to teamu.'
+  store_request_imposed_title: '{name}'
+  poll_new_title: nowe głosowanie
+  poll_new: '{title}'
+  poll_started_title: Głosowanie rozpoczęte
