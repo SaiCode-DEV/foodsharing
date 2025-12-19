@@ -403,7 +403,7 @@ settings:
       invitations: Des dates que je n’ai pas annulées
     protocol: Quel protocole utilise ton programme de calendrier ?
     history:
-      "true": Oui, afficher mes derniers événements dans le calendrier
+      "true": Oui, afficher mes événements passés dans le calendrier
       label: Les dates passées des deux dernières semaines doivent-elles être 
         incluses ?
       "false": Non, ne pas afficher les événements passés dans le calendrier
@@ -1062,13 +1062,15 @@ register:
 login:
   pwreset:
     mailSent: Très bien, un lien t’a été envoyé par courriel pour modifier ton 
-      mot de passe.
+      mot de passe. Le lien est valable 7 jours. Tu dois alors demander un 
+      nouveau lien.
     wrongMail: Malheureusement, nous ne trouvons pas cette adresse courriel, 
       veuillez réessayer.
     mismatch: Désolé, tes mots de passe sont différents.
     error: Désolé, il y a un problème avec tes informations personnelles.
-    expired: Désolé, tu as attendu un peu trop longtemps. Nous te prions de bien
-      vouloir redemander un nouveau mot de passe.
+    expired: Le lien est invalide. Tu as probablement attendu un peu trop 
+      longtemps. Nous te prions de bien vouloir redemander un nouveau mot de 
+      passe.
     tooShort: Désolé, le mot de passe choisi est trop court.
     success: Super, ton mot de passe a été changé avec succès. Tu peux 
       maintenant te reconnecter.
@@ -2381,8 +2383,8 @@ basket:
   requested_by: demandé par {name}
   no_requests: Aucune demande
   login: "Pour plus d’infos, connecte-toi.\nTu n’es pas encore enregistré en tant
-    que partageur·se ?\nClique en haut sur <b>Rejoins-nous !</b> pour partager des
-    denrées dès maintenant !\n"
+    que partageur·se ?\nClique en haut sur **Rejoins-nous !** pour partager des denrées
+    dès maintenant !"
   requests: Demandes ({count})
   provider: 'Fournisseur·euse'
   where: Où ?
@@ -4399,7 +4401,7 @@ contact_page:
     text: Si tu as des questions sur un district, n’hésite pas à t’adresser 
       directement aux personnes de contact de ce district.
 feedback:
-  button: Donner du feedback
+  button: Beta feedback
   name_sent: Ton nom et ton identifiant seront également envoyés.
   error:
     no_sentry: Une erreur est survenue avec Sentry. Réessaye plus tard.
@@ -4418,7 +4420,7 @@ feedback:
     images jointes, seront alors visibles pour eux. Assure-toi que les captures 
     d’écran ne contiennent pas de données personnelles d’autres utilisateurs que
     tu n’es pas autorisé(e) à partager.
-  title: Feedback
+  title: Beta Feedback
 net_errors:
   code: 'Code d’erreur : '
   message: 'Message d’erreur : '

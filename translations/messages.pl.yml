@@ -1090,3 +1090,11 @@ bell:
   poll_new_title: nowe głosowanie
   poll_new: '{title}'
   poll_started_title: Głosowanie rozpoczęte
+  betrieb_fetch_title: '{betrieb}'
+  buddy_request_title: Znasz {name}?
+  buddy_request: '{name} zna ciebie.'
+  sharepoint_activate_title: Nowa jadłodzielnia w {bezirk}
+  passgen_failed_title: Nie można było utworzyć twojej legitymacji
+  workgroup_request_accept_title: '{name}'
+  workgroup_request_decline_title: '{name}'
+  workinggroup_new_request_title: '{name}'
