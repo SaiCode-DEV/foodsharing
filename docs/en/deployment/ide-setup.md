@@ -76,6 +76,8 @@ You can even configure it to fix your code style after saving a file under: **Se
 
 *Note: You need PHP installed locally for this.*
 
+You can use the extention [`i18n Ally`](https://github.com/lokalise/i18n-ally/wiki) for translations. There is a config `i18nally-custom-framework.yml` and `settings.json` in `.vcode`.
+
 ## Editorconfig
 
 Depending on your editor you need to do nothing or install or configure a plugin to use the file `.editorconfig`. Please refer to the section about [Code style](codestyle).
