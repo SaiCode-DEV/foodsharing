@@ -762,6 +762,9 @@ fsp:
     required: '{name} jest wymagane.'
   twig:
     n_in_region: '{count} jadłodzielni w {name}'
+  followerCount: 'Zainteresowani/e użytkownicy/czki: {followerCount}'
+  onlySuggested: Ta jadłodzielnia została zaproponowana, ale jeszcze nie jest 
+    dopuszczona. W tym stanie nie będzie wyświetlana u innych użytkowników/czek.
 storeview:
   common: Ogólne informacje
   public_time_at_noon_or_afternoon: w południe/po południu
@@ -778,6 +781,7 @@ storeview:
     select_tag: Wybierz kategorię produktów żywnościowych
     search_tag: Szukaj kategorii produktów żywnościowych
     no_match: Nie znaleziono pasującej kategorii produktów żywnościowych
+    no_tag_preset: Brak dostępnych kategorii produktów żywnościowych
   calendar_interval:
     single: 1 tydzień
     multiply: '{weeks} Tygodni(e)'
@@ -789,6 +793,12 @@ storeview:
   cooperation_status: Status współpracy
   public_info:
     error_message: Tekst jest za długi (max. {count} znaki/ów)
+    available_count: Dostępna liczba znaków
+  visible_for_public: Ten tekst jest widoczny dla wszystkich foodsaverów/ek, np.
+    na mapie.
+  contact:
+    name: Imię/Nazwisko
+  public_time_in_the_morning: rano
 store:
   team_container: Team
   member: Członek
@@ -823,9 +833,12 @@ store:
     inviteMember: Zaproś do teamu
     reloadPage: Załaduj ponownie
     searchPlaceholder: Imię lub ID
+    reloadRequired: 'Do aktualizacji informacji o teamie:'
   request:
     applicationSummary:
       verified: Status weryfikacji ({status})
+      time: Czas zgłoszenia
+      fullName: Twoje pełne imię i nazwisko ({first_name} {last_name})
     alerts:
       one_more: Pokaż kolejną wskazówkę
       many_more: Pokaż {count} kolejne wpisy
@@ -845,6 +858,10 @@ store:
       link: Edytuj profil
     requirePhone:
       link: Edytuj profil
+    request: Zgłoś się do tego teamu
+    verified: Użytkownik/czka jest zweryfikowany/a
+    hygieneMissing: Tego warunku jeszcze nie spełniasz. Weź teraz udział w 
+      quizie higieny, aby móc się zgłosić do tego teamu.
   invitation:
     accept: Zaakceptuj zaproszenie
     decline: Odrzuć
@@ -853,6 +870,7 @@ store:
   info_container: Informacje
   chain_search_picker:
     modal_title: Wybierz sieć
+    search_input: szukaj sieci według nazwy
   team:
     is_closed: Team jest zamknięty
     search_input: Szukaj według imienia / numeru telefonu
@@ -869,6 +887,9 @@ store:
       17: '{actor} zaprosił/a {target} do teamu.'
       20: '{actor} odrzucił/a zaproszenie do teamu.'
   to_map: Pokaż na mapie
+  chat:
+    team: Wiadomość do teamu
+  no_chain_choosen: nie wybrano sieci
 navi:
   google_maps: Google maps
   waze: Waze
@@ -1098,3 +1119,33 @@ bell:
   workgroup_request_accept_title: '{name}'
   workgroup_request_decline_title: '{name}'
   workinggroup_new_request_title: '{name}'
+  store_invitation_accepted_title: Zaproszenie zaakceptowane ({store})
+  store_invitation_accepted:
+    one: '{user} dołączył/a do teamu {store}'
+    many: '{count} użytkowników/czek dołączyło do teamu {store}'
+  store_invitation_declined_title: Zaproszenie odrzucone ({store})
+  new_forum_thread_title: Nowy temat w {forum}
+  new_forum_thread: '{author}: {title}'
+  new_resource:
+    one: 'Od {user}: „{title}“'
+  mark_as:
+    read: Oznacz jako przeczytane
+    unread: Oznacz jako nieprzeczytane
+list:
+  filter_for: Filtruj według …
+filterlist:
+  some_in_all: ({some} z {all})
+  filter_for_name_id: Imię lub ID
+genderlist:
+  gender_table_header: Płeć
+  gender_not_selected: nie wybrano
+  gender_male: męska
+  gender_female: żeńska
+  number_table_header: liczba/ilość
+pickuplist:
+  day_tab: Dzień
+  week_tab: Tydzień
+  month_tab: Miesiąc
+  year_tab: Rok
+  time_table_header: Okres czasu
+  NumberOfFoodSavers_table_header: Liczba Foodsaverów/ek
