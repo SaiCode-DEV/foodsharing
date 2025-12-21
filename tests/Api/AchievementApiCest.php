@@ -108,7 +108,8 @@ class AchievementApiCest
         // Not allowed logged out
         $I->sendGET("api/achievements/{$this->achievement->id}/users");
         $I->seeResponseCodeIs(Response::HTTP_UNAUTHORIZED);
-        $I->sendPOST("api/achievements/{$this->achievement->id}/users/{$this->user['id']}");
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPOST("api/achievements/{$this->achievement->id}/users/{$this->user['id']}", []);
         $I->seeResponseCodeIs(Response::HTTP_UNAUTHORIZED);
 
         $I->login($this->user['email']);
@@ -116,7 +117,8 @@ class AchievementApiCest
         // Not allowed as normal user
         $I->sendGET("api/achievements/{$this->achievement->id}/users");
         $I->seeResponseCodeIs(Response::HTTP_FORBIDDEN);
-        $I->sendPOST("api/achievements/{$this->achievement->id}/users/{$this->user['id']}");
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPOST("api/achievements/{$this->achievement->id}/users/{$this->user['id']}", []);
         $I->seeResponseCodeIs(Response::HTTP_FORBIDDEN);
 
         // Allowed as admin
@@ -128,7 +130,8 @@ class AchievementApiCest
         $I->dontSeeResponseJsonMatchesJsonPath('$[0]');
 
         // Not allowed to award oneself
-        $I->sendPOST("api/achievements/{$this->achievement->id}/users/{$this->admin['id']}");
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPOST("api/achievements/{$this->achievement->id}/users/{$this->admin['id']}", []);
         $I->seeResponseCodeIs(Response::HTTP_FORBIDDEN);
 
         // Awarding achievement
@@ -168,9 +171,9 @@ class AchievementApiCest
     {
         // Error types:
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/achievements', []);
+        $I->sendPost('api/achievements', $this->achievementToArrayForApi($this->achievement));
         $I->seeResponseCodeIs(Response::HTTP_UNAUTHORIZED);
-        $I->sendPatch('api/achievements/1', []);
+        $I->sendPatch('api/achievements/1', $this->achievementToArrayForApi($this->achievement));
         $I->seeResponseCodeIs(Response::HTTP_UNAUTHORIZED);
         $I->sendDelete('api/achievements/1');
         $I->seeResponseCodeIs(Response::HTTP_UNAUTHORIZED);
@@ -178,9 +181,9 @@ class AchievementApiCest
         $I->login($this->user['email']);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/achievements', []);
+        $I->sendPost('api/achievements', $this->achievementToArrayForApi($this->achievement));
         $I->seeResponseCodeIs(Response::HTTP_FORBIDDEN);
-        $I->sendPatch('api/achievements/1', []);
+        $I->sendPatch('api/achievements/1', $this->achievementToArrayForApi($this->achievement));
         $I->seeResponseCodeIs(Response::HTTP_FORBIDDEN);
         $I->sendDelete('api/achievements/1');
         $I->seeResponseCodeIs(Response::HTTP_FORBIDDEN);
@@ -189,9 +192,9 @@ class AchievementApiCest
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPost('api/achievements', []);
-        $I->seeResponseCodeIs(Response::HTTP_BAD_REQUEST);
+        $I->seeResponseCodeIs(Response::HTTP_UNPROCESSABLE_ENTITY);
         $I->sendPatch('api/achievements/1', []);
-        $I->seeResponseCodeIs(Response::HTTP_BAD_REQUEST);
+        $I->seeResponseCodeIs(Response::HTTP_UNPROCESSABLE_ENTITY);
 
         $I->sendPatch('api/achievements/10', $this->achievementToArrayForApi($this->achievement));
         $I->seeResponseCodeIs(Response::HTTP_NOT_FOUND);
