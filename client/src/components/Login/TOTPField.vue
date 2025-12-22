@@ -1,6 +1,7 @@
 <template>
   <div class="mb-3">
     <input
+      ref="input"
       :value="value"
       type="text"
       class="form-control"
@@ -27,6 +28,16 @@ export default {
   methods: {
     toggleVisibility () {
       this.isVisible = !this.isVisible
+    },
+    focus () {
+      // Expose a focus() method so parent components can call $refs.totp2.focus()
+      try {
+        if (this.$refs.input && typeof this.$refs.input.focus === 'function') {
+          this.$refs.input.focus()
+        }
+      } catch (e) {
+        // noop
+      }
     },
   },
 }
