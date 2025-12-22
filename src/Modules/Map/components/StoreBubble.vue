@@ -139,20 +139,24 @@
         :visible="isMessageInputVisible"
         class="w-100"
       >
-        <b-form-group :label="$t('store.request.application-message')">
+        <b-form-group
+          v-if="store.requireApplyText"
+          class="mb-2"
+          :label="$t('store.request.application-message')"
+        >
           <b-form-textarea
             v-model="applicationMessage"
             :placeholder="$t('store.request.application-placeholder')"
-            :state="!store.requireApplyText || applicationMessage.length >= minApplicationMessageLength"
+            :state="applicationMessage.length >= minApplicationMessageLength"
           />
-          <b-form-invalid-feedback v-if="store.requireApplyText && applicationMessage.length < minApplicationMessageLength">
+          <b-form-invalid-feedback v-if="applicationMessage.length < minApplicationMessageLength">
             {{ $t('store.request.applicationMessageTooShort') }}
           </b-form-invalid-feedback>
         </b-form-group>
-        <div class="card mt-3">
+        <div class="card">
           <div>
             {{ $t('store.request.applicationSummary.intro') }}
-            <ul>
+            <ul class="mt-1">
               <li>
                 {{ $t('store.request.applicationSummary.time') }}
               </li>
@@ -172,7 +176,7 @@
                   v-text="$t('store.request.applicationSummary.storeList')"
                 />
               </li>
-              <li>
+              <li v-if="store.requireApplyText">
                 {{ $t('store.request.applicationSummary.text') }}
               </li>
             </ul>
@@ -258,6 +262,8 @@ export default {
       storeId: null,
       isMessageInputVisible: false,
       applicationMessage: '',
+      // expose the module-level constant to the template
+      minApplicationMessageLength: minApplicationMessageLength,
       alertsExpanded: false,
     }
   },

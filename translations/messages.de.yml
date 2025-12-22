@@ -1101,9 +1101,9 @@ store:
       link: "Profil bearbeiten"
     applicationSummary:
       intro: "Wenn du deine Bewerbung abschickst, sehen die Betriebsverantwortlichen folgende Angaben:"
-      time: "Zeitpunkt der Bewerbung"
+      time: "Den Zeitpunkt der Bewerbung"
       fullName: "Deinen vollständigen Namen ({first_name} {last_name})"
-      verified: "Verifizierungsstatus ({status})"
+      verified: "Deinen Verifizierungsstatus ({status})"
       distance: "Die Entfernung deines Wohnorts zum Betrieb ({distance})"
       storeList: "Die Liste deiner Betriebe"
       text: "Deine Bewerbungsnachricht"
