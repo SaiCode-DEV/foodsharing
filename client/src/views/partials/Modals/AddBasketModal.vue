@@ -23,12 +23,11 @@
     />
 
     <label for="basket-description-input">{{ $t('basket.description') }}:</label>
-    <b-form-textarea
-      id="basket-description-input"
-      v-model="description"
+    <MarkdownInput
+      :value.sync="description"
+      input-name="basket-description-input"
       class="mb-3"
-      rows="1"
-      max-rows="3"
+      rows="3"
     />
 
     <label>{{ $t('basket.contact_types') }}:</label>
@@ -130,6 +129,7 @@ import { useBasketStore } from '@/stores/baskets'
 import { pulseInfo } from '@/script'
 import ImageUpload from '@/components/upload/ImageUpload.vue'
 import { MARKER_TYPES } from '@/stores/map'
+import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 
 const defaultBasketData = {
   description: '',
@@ -147,7 +147,7 @@ const defaultBasketData = {
 }
 
 export default {
-  components: { LeafletLocationSearch, ImageUpload },
+  components: { LeafletLocationSearch, ImageUpload, MarkdownInput },
   props: {
     basket: { type: Object, default: null },
     edit: { type: Boolean, default: false },

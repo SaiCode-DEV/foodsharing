@@ -56,6 +56,11 @@ test.describe('Food Basket', () => {
     await page.click('text=Essenskorb bearbeiten');
     await page.waitForSelector('text=Beschreibung, Bild, Übergabeort und Zeitraum sind öffentlich sichtbar.');
 
+    // Wait until the modal is fully loaded (animations finished)
+    const elementHandle = await page.$('.modal-content');
+    await elementHandle.waitForElementState('stable');
+
+    // Edit basket
     await page.fill('#basket-description-input', description + ' edited');
     await page.click('#chat-checkbox + .custom-control-label');
     await page.click('text=Speichern');
