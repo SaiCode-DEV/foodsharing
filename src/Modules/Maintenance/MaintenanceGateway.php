@@ -8,6 +8,7 @@ use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\DBConstants\Basket\Status;
 use Foodsharing\Modules\Core\DBConstants\Quiz\SessionStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
+use Foodsharing\Modules\Region\ForumTransactions;
 
 class MaintenanceGateway extends BaseGateway
 {
@@ -238,6 +239,35 @@ class MaintenanceGateway extends BaseGateway
             'uploaded_at >' => $from->format('Y-m-d H:i:s'),
             'uploaded_at <' => $to->format('Y-m-d H:i:s')
         ]);
+    }
+
+    /**
+     * Deletes all forum posts that have been hidden for more than 6 months.
+     *
+     * @return int the number of deleted posts
+     */
+    public function deleteHiddenForumPosts(ForumTransactions $forumTransactions): int
+    {
+        // start transaction
+        $this->db->beginTransaction();
+
+        // Get all posts that have been hidden for more than 6 months
+        $posts = $this->db->fetchAll('
+            SELECT id, foodsaver_id
+            FROM fs_theme_post tp
+            WHERE tp.hidden_time < :cutoff
+        ', [
+            ':cutoff' => Carbon::now()->subMonths(6)->format('Y-m-d H:i:s'),
+        ]);
+
+        // Delete all hidden posts which are older than 6 months
+        foreach ($posts as $post) {
+            $forumTransactions->deletePostFromThread((int)$post['id'], (int)$post['foodsaver_id']);
+        }
+
+        $this->db->commit();
+
+        return count($posts);
     }
 
     /**

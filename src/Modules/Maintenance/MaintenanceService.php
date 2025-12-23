@@ -9,6 +9,7 @@ use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\FoodsaverTransactions;
 use Foodsharing\Modules\Group\GroupGateway;
+use Foodsharing\Modules\Region\ForumTransactions;
 use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Modules\Store\StoreMaintenanceTransactions;
 use Foodsharing\Modules\Uploads\UploadsTransactions;
@@ -29,6 +30,7 @@ class MaintenanceService
         private readonly StoreMaintenanceTransactions $storeMaintenanceTransactions,
         private readonly UploadsTransactions $uploadsTransactions,
         private readonly IMAPFolderCleanupHelper $imapFolderCleanupHelper,
+        private readonly ForumTransactions $forumTransactions,
     ) {
     }
 
@@ -106,6 +108,11 @@ class MaintenanceService
         if (getenv('FS_ENV') !== 'dev') {
             $this->deleteImapFolderMails();
         }
+
+        /*
+         * Delete hidden forum posts
+         */
+        $this->deleteHiddenForumPosts();
     }
 
     public function deleteInactiveUsers(bool $dryRun = false, int $maximum = MAX_DELETE_OLD_ACCOUNTS_PER_DAY): void
@@ -373,6 +380,13 @@ class MaintenanceService
         ConsoleHelper::info('deleting test quiz sessions...');
         $count = $this->maintenanceGateway->deleteTestQuizSessions();
         ConsoleHelper::success($count . ' sessions deleted');
+    }
+
+    private function deleteHiddenForumPosts(): void
+    {
+        ConsoleHelper::info('deleting hidden forum posts...');
+        $count = $this->maintenanceGateway->deleteHiddenForumPosts($this->forumTransactions);
+        ConsoleHelper::success($count . ' posts deleted');
     }
 
     private function deleteOldPassRequests(): void
