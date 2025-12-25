@@ -4402,6 +4402,72 @@ test:
   plain: Dies ist eine Übersetzung
   vars: 'Mein Name ist {NAME} und ich bin {AGE} Jahre alt'
 
+oauth:
+  title: "OAuth-Autorisierung"
+  authorize:
+    title: "{clientName} möchte auf dein Konto zugreifen"
+    requested_permissions: "Angeforderte Berechtigungen:"
+    redirect_notice: "Nach der Autorisierung wirst du zu {redirectUrl} weitergeleitet."
+  remember:
+    title: "Diesen Zugriff merken"
+    md: "In Zukunft nicht mehr jedes Mal den Zugriff für {clientName} bestätigen."
+  action:
+    authorize: "Zugriff erlauben"
+    deny: "Zugriff verweigern"
+  scopes:
+    openid: 
+      title: "Deine Identität bestätigen"
+    profile: 
+      title: "Auf deine Profildaten zugreifen"
+      md: "Zugriff auf deinen Namen, dein Profilbild und weitere Profildaten."
+    email: 
+      title: "Auf deine E-Mail-Adresse zugreifen"
+    regions:
+      title: "Auf deine Zugehörigkeiten zugreifen"
+      md: "Zugriff auf eine Liste der Bezirke und Arbeitsgruppen, in denen du Mitglied bist."
+  admin:
+    title: "OAuth-Client-Verwaltung"
+    create_client: "Neuen Client erstellen"
+    edit_client: "Client bearbeiten"
+    confirm_delete: "Client löschen?"
+    delete_warning: "Möchtest du den Client '{name}' wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden."
+    identifier: "Client-ID"
+    name: "Name"
+    active: "Aktiv"
+    type: "Typ"
+    confirm_save_secret: "Ich habe das Secret gespeichert"
+    confidential: "Vertraulich"
+    public: "Öffentlich"
+    confidential_client: "Vertraulicher Client (z.B. Server-Anwendung)"
+    confidential_help: "Vertrauliche Clients können ein Geheimnis sicher speichern. Öffentliche Clients (z.B. Browser- oder Mobile-Apps) können dies nicht."
+    scopes: "Bereiche"
+    redirect_uris: "Redirect-URIs"
+    redirect_uris_help: "Gültige Callback-URLs nach der Autorisierung (eine pro Zeile)"
+    grant_types: "Grant Types"
+    required_regions: "Erforderliche Bezirke"
+    required_regions_help: "Optional: Beschränke den Zugriff auf Benutzer, die Mitglied in mindestens einem dieser Bezirke sind"
+    no_region_restriction: "Keine Beschränkung"
+    restrictions: "Beschränkungen"
+    no_restrictions: "Keine"
+    regions: "Bezirke"
+    region_restriction_tooltip: "Nur Mitglieder bestimmter Bezirke können sich autorisieren"
+    actions: "Aktionen"
+    regenerate_secret: "Client-Secret neu generieren"
+    regenerate_secret_warning: "Das alte Secret wird ungültig!"
+    secret_generated: "Client-Secret generiert"
+    secret_save_warning: "Bitte speichere dieses Secret jetzt. Es wird nicht erneut angezeigt!"
+    load_error: "Fehler beim Laden der Clients"
+    save_error: "Fehler beim Speichern"
+    create_success: "Client erfolgreich erstellt"
+    update_success: "Client erfolgreich aktualisiert"
+    delete_success: "Client erfolgreich gelöscht"
+    delete_error: "Fehler beim Löschen"
+  error:
+    region_requirement_not_met: "Du erfüllst nicht die Anforderungen, um auf {clientName} zuzugreifen."
+    invalid_client: "Client Verifizierung fehlgeschlagen."
+    invalid_scope: "Ungültige Berechtigungen angefordert."
+    unknown_error: "Ein unbekannter Fehler ist aufgetreten. Bitte versuche es später erneut."
+
 network_errors:
   csrf_token_invalid:
     title: "Sitzung abgelaufen"

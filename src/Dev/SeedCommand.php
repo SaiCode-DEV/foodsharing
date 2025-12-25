@@ -345,6 +345,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         $I->createWorkingGroup('Öffentlichkeitsarbeit-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::PR_TEAM_ADMIN_GROUP]);
         $I->createWorkingGroup('Moderation-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::MODERATION_TEAM_ADMIN_GROUP]);
         $I->createWorkingGroup('Produktteam', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::PRODUCT_TEAM]);
+        $I->createWorkingGroup('Oauth Client Administration', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::OAUTH_CLIENT_ADMINISTRATION_WORK_GROUP]);
         $I->createWorkingGroup('Quizfragen', ['parent_id' => RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP, 'id' => RegionIDs::NEW_QUIZZES_WORK_GROUP]);
 
         $region1Subregion = $I->createRegion('Stadtteil von Göttingen', ['type' => UnitType::PART_OF_TOWN, 'parent_id' => $region1]);
@@ -462,6 +463,11 @@ class SeedCommand extends Command implements CustomCommandInterface
         $this->writeUser($I, $userorgaWG, $password, 'orga');
         $I->addRegionAdmin(RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP, $userorgaWG['id']);
         $I->addRegionMember(RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP, $userorgaWG['id']);
+
+        $userAuth = $I->createStoreCoordinator($password, ['email' => 'userauth@example.com', 'name' => 'OAuth', 'bezirk_id' => $region1, 'image' => true]);
+        $this->writeUser($I, $userAuth, $password, 'store coordinator - OAUTH User');
+        $I->addRegionAdmin(RegionIDs::OAUTH_CLIENT_ADMINISTRATION_WORK_GROUP, $userAuth['id']);
+        $I->addRegionMember(RegionIDs::OAUTH_CLIENT_ADMINISTRATION_WORK_GROUP, $userAuth['id']);
 
         $this->output->writeln('- done');
 

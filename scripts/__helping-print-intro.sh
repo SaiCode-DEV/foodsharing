@@ -41,6 +41,7 @@ else
     phpmyadmin_url="http://localhost:$phpmyadmin_port"
     zammad_url="http://localhost:$zammad_port"
     listmonk_url="http://localhost:$listmonk_port"
+    bluespice_url="http://localhost:18085"
 fi
 
 echo
@@ -53,6 +54,10 @@ if [ "${ZAMMAD:-false}" = "true" ]; then
 fi
 if [ "${LISTMONK:-false}" = "true" ]; then
     echo "  * listmonk:     $listmonk_url"
+fi
+if [ "${BLUESPICE:-false}" = "true" ]; then
+    echo "  * Bluespice:    $bluespice_url"
+    echo "  * Initial Bluespice Admin Password: $(cat ./tmp/bluespice/wiki/initialAdminPassword)"
 fi
 echo
 echo "Documentations:"

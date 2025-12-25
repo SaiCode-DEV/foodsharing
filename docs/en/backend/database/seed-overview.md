@@ -21,6 +21,7 @@ It will give you some users that you can log in with:
 | `userbot2@example.com`      | `user`   | Ambassador    |
 | `userbotreg2@example.com`   | `user`   | Ambassador    |
 | `userorga@example.com`      | `user`   | Orgateam      |
+| `userauth@example.com`      | `user`   | OAuth manager |
 
 Users with workgroup functionality in the region
 

@@ -30,6 +30,9 @@ services:
             - '../src/Modules/{PushNotification/Notification,Foodsaver/Profile.php,Message/Message.php}'
             - '../src/Modules/Uploads/DTO/'
             - '../src/RestApi/Models/'
+            - '../src/Modules/OAuth/Grant/'
+            - '../src/Modules/OAuth/Entity/'
+            - '../src/Modules/OAuth/OIDCBearerTokenResponse.php'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
@@ -82,3 +85,27 @@ services:
     Foodsharing\RestApi\StoreRestController:
         arguments:
             $locationChangeLimiterFactory: '@limiter.storeLocationChange'
+
+    # PSR-7 HTTP Message Bridge for OAuth
+    Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface:
+        class: Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory
+        arguments:
+            - '@Psr\Http\Message\ServerRequestFactoryInterface'
+            - '@Psr\Http\Message\StreamFactoryInterface'
+            - '@Psr\Http\Message\UploadedFileFactoryInterface'
+            - '@Psr\Http\Message\ResponseFactoryInterface'
+
+    Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface:
+        class: Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory
+
+    Psr\Http\Message\ServerRequestFactoryInterface:
+        class: Laminas\Diactoros\ServerRequestFactory
+
+    Psr\Http\Message\StreamFactoryInterface:
+        class: Laminas\Diactoros\StreamFactory
+
+    Psr\Http\Message\UploadedFileFactoryInterface:
+        class: Laminas\Diactoros\UploadedFileFactory
+
+    Psr\Http\Message\ResponseFactoryInterface:
+        class: Laminas\Diactoros\ResponseFactory

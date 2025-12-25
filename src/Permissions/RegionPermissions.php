@@ -168,7 +168,8 @@ class RegionPermissions
         if (
             $this->session->mayRole(Role::ORGA) ||
             $this->isAmbassadorOfAtLeastOneRegion() ||
-            $this->achievementPermissions->mayEditAchievements()
+            $this->achievementPermissions->mayEditAchievements() ||
+            $this->currentUserUnits->isAdminFor(RegionIDs::OAUTH_CLIENT_ADMINISTRATION_WORK_GROUP)
         ) {
             return true;
         }

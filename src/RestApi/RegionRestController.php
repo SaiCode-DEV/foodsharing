@@ -351,9 +351,8 @@ class RegionRestController extends AbstractFoodsharingRestController
     #[Rest\QueryParam(name: 'includeWorkingGroups', nullable: true)]
     public function listRegionChildren(int $regionId, ParamFetcher $paramFetcher): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
+
         $includeWorkingGroups = !is_null($paramFetcher->get('includeWorkingGroups'));
         if ($includeWorkingGroups && !$this->regionPermissions->mayAccessWorkingGroupList($regionId)) {
             throw new UnauthorizedHttpException('');

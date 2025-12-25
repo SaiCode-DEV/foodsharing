@@ -44,10 +44,47 @@ if [ "${LISTMONK:-false}" = "true" ]; then
     listmonk_files="--file $dir/../docker/listmonk/docker-compose.yml"
 fi
 
+bluespice_files=""
+if [ "${BLUESPICE:-false}" = "true" ]; then
+    bluespice_dir="$dir/../docker/bluespice"
+    source "$bluespice_dir/.env"
+    EXTENDED_TOOLS=""
+    if [[ "${EDITION}" == "pro" || "${EDITION}" == "farm" ]]; then
+    	EXTENDED_TOOLS="${EXTENDED_TOOLS} -f $bluespice_dir/docker-compose.collabpads-service.yml"
+    	WIKI_IMAGE=docker.bluespice.com/bluespice-${EDITION}/wiki:${VERSION}
+
+    	if [[ $(docker images -q ${WIKI_IMAGE}) ]]; then
+    		echo "Image ${WIKI_IMAGE} found locally."
+    	elif [[ ! $(grep 'docker.bluespice.com' $HOME/.docker/config.json) ]]; then 
+    		echo "In order to access our ${EDITION}-Image please login to docker.bluespice.com"
+    		docker login docker.bluespice.com
+    		if [[ ! $(grep 'docker.bluespice.com' $HOME/.docker/config.json) ]]; then 
+    		echo -e "\n-------------\n"
+    		echo "Please contact Tobias or Stefan for access"
+    		echo -e "\n-------------\n"
+    		exit
+    		fi
+    	fi
+    else
+    	WIKI_IMAGE=bluespice/wiki:${VERSION}
+    fi
+    export BLUESPICE_SERVICE_REPOSITORY='bluespice'
+    export BLUESPICE_WIKI_IMAGE="${WIKI_IMAGE}"
+    export UPGRADE_ACTION="/app/bin/upgrade-pipeline"
+    bluespice_files="-f $bluespice_dir/docker-compose.main.yml \
+    -f $bluespice_dir/docker-compose.proxy.yml \
+    -f $bluespice_dir/docker-compose.helper-service.yml \
+    -f $bluespice_dir/docker-compose.persistent-data-services.yml \
+    -f $bluespice_dir/docker-compose.stateless-services.yml \
+    ${EXTENDED_TOOLS} \
+    --env-file $bluespice_dir/.env"
+fi
+
 _docker-compose \
     --file "$dir"/../docker/docker-compose.yml \
     --file "$dir"/../docker/docker-compose."$FS_ENV".yml \
     $zammad_files \
     $listmonk_files \
+    $bluespice_files \
     --project-name foodsharing_"$FS_ENV" \
     "$@"

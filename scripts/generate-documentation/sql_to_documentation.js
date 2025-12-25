@@ -318,6 +318,7 @@ function preprocessSqlDump(sqlDump) {
     const removals = [
         /GENERATED [A-Z ]+\(.*?\) VIRTUAL/g,
         /DELIMITER ;;[\s\S]*DELIMITER ;/g,
+        / CHECK \([^)]+\)/g,
     ]
     for(let regex of removals) {
         sqlDump = sqlDump.replace(regex, '');

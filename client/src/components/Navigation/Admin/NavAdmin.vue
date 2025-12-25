@@ -31,6 +31,14 @@
       >
         <i class="icon-subnav fas fa-map" /> {{ $t('system_administration.regions') }}
       </a>
+      <a
+        v-if="permissions.mayAdministrateOAuthClients"
+        :href="$url('oauthClientsAdmin')"
+        role="menuitem"
+        class="dropdown-item dropdown-action"
+      >
+        <i class="icon-subnav fas fa-key" /> {{ $t('oauth.admin.title') }}
+      </a>
       <!--
       <a
         v-if="permissions.administrateNewsletterEmail"

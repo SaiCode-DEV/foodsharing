@@ -16,6 +16,7 @@ use Foodsharing\Permissions\CategoriesPermissions;
 use Foodsharing\Permissions\ContentPermissions;
 use Foodsharing\Permissions\MailboxPermissions;
 use Foodsharing\Permissions\NewsletterEmailPermissions;
+use Foodsharing\Permissions\OAuthPermissions;
 use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\QuizPermissions;
 use Foodsharing\Permissions\RegionPermissions;
@@ -68,6 +69,7 @@ final class PageHelper
         private readonly RegionGateway $regionGateway,
         private readonly SettingsTransactions $settingsTransactions,
         private readonly ResourcePermissions $resourcePermissions,
+        private readonly OAuthPermissions $oauthPermissions,
         private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
     }
@@ -201,6 +203,7 @@ final class PageHelper
         return [
             'mayEditUserProfile' => $this->profilePermissions->mayEditUserProfile($this->session->id()),
             'mayAdministrateUserProfile' => $this->profilePermissions->mayAdministrateUserProfile($this->session->id(), $this->currentUserUnits->getCurrentRegionId()),
+            'mayAdministrateOAuthClients' => $this->oauthPermissions->mayAdministrateOAuthClients(),
             'administrateBlog' => $this->blogPermissions->mayAdministrateBlog(),
             'editQuiz' => $this->quizPermissions->maySeeEditQuizPage(),
             'handleReports' => $this->reportPermissions->mayHandleReports(),

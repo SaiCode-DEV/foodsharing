@@ -1,0 +1,22 @@
+services:
+
+  search:
+    image: ${BLUESPICE_SERVICE_REPOSITORY}/search:${VERSION}
+    container_name: bluespice-search
+    restart: unless-stopped
+    volumes:
+      - ${DATADIR}/search:/usr/share/opensearch/data
+    healthcheck:
+      test: curl -f http://localhost:9200
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 10
+  wiki-web:
+    depends_on:
+        - db
+        - search
+  wiki-task:
+    depends_on:
+        - db
+        - search

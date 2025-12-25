@@ -22,6 +22,7 @@ class RegionIDs
     final public const int IT_SUPPORT_GROUP = 387;
     final public const int IT_AND_SOFTWARE_DEVELOPMENT_GROUP = 329;
     final public const int PRODUCT_TEAM = 2296;
+    final public const int OAUTH_CLIENT_ADMINISTRATION_WORK_GROUP = 6704;
 
     final public const int EDITORIAL_GROUP = 327;
     final public const int BOT_WELCOME_TEAM = 328;

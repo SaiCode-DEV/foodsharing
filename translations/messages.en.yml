@@ -3287,6 +3287,7 @@ text: text
 besonderheiten: Procedure & instructions
 begin: Start of cooperation
 pass2: Repeat password
+totp_code: Please enter either the generated two-factor authentication code or one of the backup codes.
 pass1: Your new requested password
 position: Position in foodsharing (public)
 opt: Options
@@ -4861,10 +4862,72 @@ test:
   plain: This is a nice translation
   vars: 'My name is {NAME} and I am {AGE} years old'
 
+oauth:
+  title: OAuth Authorization
+  authorize:
+    title: "{clientName} would like to access your account"
+    requested_permissions: "Requested permissions:"
+    redirect_notice: "After authorization, you will be redirected to {redirectUrl}."
+  remember:
+    title: "Remember this access"
+    md: "In the future, you won't have to confirm access for {clientName} every time."
+  action:
+    authorize: "Allow access"
+    deny: "Deny access"
+  scopes:
+    openid: 
+      title: "Confirm your identity"
+    profile: 
+      title: "Access your profile data"
+      md: "Access to your name, profile picture, and other profile data."
+    email: 
+      title: "Access your email address"
+    regions:
+      title: "Access your memberships"
+      md: "Access to a list of the districts and working groups you belong to."
+  admin:
+    title: "OAuth Client Management"
+    create_client: "Create New Client"
+    edit_client: "Edit Client"
+    confirm_delete: "Delete Client?"
+    delete_warning: "Do you really want to delete the client '{name}'? This action cannot be undone."
+    identifier: "Client ID"
+    name: "Name"
+    active: "Active"
+    type: "Type"
+    confirm_save_secret: "I saved the client secret"
+    confidential: "Confidential"
+    public: "Public"
+    confidential_client: "Confidential client (e.g., server application)"
+    confidential_help: "Confidential clients can securely store a secret. Public clients (e.g., browser or mobile apps) cannot."
+    scopes: "Scopes"
+    redirect_uris: "Redirect URIs"
+    redirect_uris_help: "Valid callback URLs after authorization (one per line)"
+    grant_types: "Grant Types"
+    required_regions: "Required Regions"
+    required_regions_help: "Optional: Restrict access to users who are members of at least one of these regions"
+    no_region_restriction: "No restriction"
+    restrictions: "Restrictions"
+    no_restrictions: "None"
+    regions: "Regions"
+    region_restriction_tooltip: "Only members of specific regions can authorize"
+    actions: "Actions"
+    regenerate_secret: "Regenerate client secret"
+    regenerate_secret_warning: "The old secret will become invalid!"
+    secret_generated: "Client secret generated"
+    secret_save_warning: "Please save this secret now. It will not be shown again!"
+    load_error: "Error loading clients"
+    save_error: "Error saving"
+    create_success: "Client created successfully"
+    update_success: "Client updated successfully"
+    delete_success: "Client deleted successfully"
+    delete_error: "Error deleting"
+  error:
+    region_requirement_not_met: "You do not meet the region membership requirements to access {clientName}."
+    invalid_client: "Client verification failed."
+    invalid_scope: "Invalid permissions requested."
+    unknown_error: "An unknown error occurred. Please try again later."
 network_errors:
   csrf_token_invalid:
     title: "Session expired"
     text: "Your session has expired. Please reload the page and try again."
-
-totp_code: Please enter either the generated two-factor authentication code or 
-  one of the backup codes.

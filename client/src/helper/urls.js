@@ -88,6 +88,7 @@ const urls = {
   pollEdit: (pollId) => `/poll?id=${pollId}&sub=edit`,
   press: () => '/content?sub=presse',
   regionAdmin: () => '/regions/edit',
+  oauthClientsAdmin: () => '/admin/oauthclients',
   publicRegion: (regionId) => `/region/${regionId}`,
   violations: (fsId) => `/report/user/${fsId}`,
   security: () => '/content?sub=security',

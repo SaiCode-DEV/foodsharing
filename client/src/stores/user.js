@@ -56,7 +56,17 @@ export const useUserStore = defineStore('user', {
     getPermissions: (state) => state.permissions || {},
     hasAdminPermissions: (state) => {
       const permissions = Object.entries(state.permissions)
-      return permissions.some(([key, value]) => !['mayAdministrateUserProfile', 'mayEditUserProfile', 'addStore', 'editStoreCategories', 'editResourceCategories'].includes(key) && value)
+      // Whitelist of permissions that show the admin menu
+      return permissions.some(([key, value]) => [
+        'mayAdministrateOAuthClients',
+        'administrateBlog',
+        'editQuiz',
+        'handleReports',
+        'editContent',
+        'administrateNewsletterEmail',
+        'administrateRegions',
+        'editAchievements',
+      ].includes(key) && value)
     },
     hasBouncingEmail: () => false,
     // TODO: this can be removed as soon as login without activation is not possible anymore
