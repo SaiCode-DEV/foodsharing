@@ -170,6 +170,8 @@ export default {
           this.$refs.totp2.$el.hidden = false
           this.$refs.totp2.focus()
           // This is not an error, do not try again
+        } else if (err.code && err.code === HTTP_RESPONSE.CONFLICT) {
+          document.location.href = this.$url('emailverification')
         } else {
           pulseError(this.$t('error_unexpected'))
           throw err

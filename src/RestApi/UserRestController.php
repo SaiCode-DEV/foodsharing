@@ -51,6 +51,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
@@ -282,7 +283,10 @@ class UserRestController extends AbstractFoodsharingRestController
     #[Rest\RequestParam(name: 'password')]
     #[Rest\RequestParam(name: 'code', default: '')]
     #[Rest\RequestParam(name: 'remember_me', default: false)]
+    #[OA2\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Invalid email or password')]
     #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: '2FA code required')]
+    #[OA2\Response(response: Response::HTTP_CONFLICT, description: 'The account was not activated yet')]
     public function login(ParamFetcher $paramFetcher, Request $request, RateLimiterFactory $loginLimiter): Response
     {
         $this->checkRateLimit($request, $loginLimiter);
@@ -297,20 +301,20 @@ class UserRestController extends AbstractFoodsharingRestController
             throw new AccessDeniedHttpException('2FA required');
         }
 
-        $fs_id = $this->loginGateway->login($email, $password, $code);
-        if ($fs_id) {
-            $this->session->login($fs_id, $rememberMe);
-
-            // retrieve user data and normalise it
-            $user = $this->foodsaverGateway->getProfile($fs_id);
-            if (empty($user)) {
-                throw new NotFoundHttpException('User does not exist.');
-            }
-
-            return $this->handleView($this->view($user, 200));
+        $fs_id = $this->loginGateway->canLogin($email, $password, $code);
+        if (!$fs_id) {
+            throw new UnauthorizedHttpException('', 'email, password or code are invalid');
         }
+        if (!$this->loginGateway->isActivated($fs_id)) {
+            throw new ConflictHttpException('Account is not activated yet');
+        }
+        $this->loginGateway->updateLastActivityInDatabase($fs_id);
+        $this->session->login($fs_id, $rememberMe);
 
-        throw new UnauthorizedHttpException('', 'email, password or code are invalid');
+        // retrieve user data and normalise it
+        $user = $this->foodsaverGateway->getProfile($fs_id);
+
+        return $this->handleView($this->view($user, 200));
     }
 
     /**

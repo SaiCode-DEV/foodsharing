@@ -608,6 +608,7 @@ login:
   error_no_email: "Bitte gib deine E-Mail-Adresse an."
   error_no_password: "Bitte gib dein Passwort an."
   error_no_auth: "Leider finden wir diese E-Mail-Adresse oder Passwort nicht, bitte versuche es noch einmal. Evtl. ist auch Dein zweiter Faktor falsch falls Du einen verwendest."
+  error_not_activated: "Leider ist deine E-Mail-Adresse noch nicht aktiviert."
   logout: "Abmelden"
   pwreset:
     bread: "Passwort zurücksetzen"
@@ -668,7 +669,7 @@ register:
   next: "weiter"
   finish: "Anmeldung absenden"
   join_success: "Deine Registrierung war erfolgreich."
-  join_success_message: "Du hast die Anmeldung bei foodsharing erfolgreich abgeschlossen. Du kannst dich nun mit deiner E-Mail und deinem Passwort einloggen."
+  join_success_message: "Du hast die Anmeldung bei foodsharing erfolgreich abgeschlossen. Bevor du dich nun mit deiner E-Mail und deinem Passwort einloggen kannst, musst du deine E-Mail-Adresse bestätigen. Wir haben dazu eine E-Mail mit dem Bestätigungslink an deine Adresse gesendet."
   join_error: "Deine Registrierung war nicht erfolgreich."
   check_mail: "Schau jetzt in dein E-Mail-Postfach, um die Anmeldung abzuschließen!"
   select_your_gender: "Für die Anrede …"
@@ -2228,19 +2229,19 @@ settings:
   email: "E-Mail & Passwort"
   account_security:
     title: "Kontosicherheit"
-    
+
     # Hauptseite
     email_password_section: "E-Mail und Passwort"
     change_password: "Passwort ändern"
     change_email: "E-Mail-Adresse ändern"
-    
+
     # 2FA Sektion
     mfa_section: "Multi-Faktor-Authentisierung"
     mfa_enabled: "Multi-Faktor-Authentisierung aktiviert"
     mfa_disabled: "Multi-Faktor-Authentisierung deaktiviert"
     authenticator_app: "Authenticator-App"
     authenticator_app_description: "Verwende eine Authenticator-App für zusätzliche Sicherheit bei der Anmeldung."
-    
+
   # 2FA Management
   two_fa_manage:
     title: "Zwei-Faktor-Authentisierung"
@@ -2260,7 +2261,7 @@ settings:
     password_placeholder: "Dein aktuelles Passwort"
     password_required: "Du musst dein Passwort eingeben"
     cancel: "Abbrechen"
-    
+
   # Enable 2FA
   two_fa_enable:
     title: "Zwei-Faktor-Authentisierung aktivieren"
@@ -2302,7 +2303,7 @@ settings:
     next: "Weiter"
     success: "Die Zwei-Faktor-Authentisierung wurde erfolgreich aktiviert."
     failed: "Die Zwei-Faktor-Authentisierung konnte nicht aktiviert werden, entweder wurde der Code oder das Passwort falsch eingegeben."
-    
+
   # Disable 2FA
   two_fa_disable:
     title: "Zwei-Faktor-Authentisierung deaktivieren"
@@ -2313,7 +2314,7 @@ settings:
     success: "Die Zwei-Faktor-Authentisierung wurde erfolgreich deaktiviert."
     failed: "Die Zwei-Faktor-Authentisierung konnte nicht deaktiviert werden, entweder wurde der Code oder das Passwort falsch eingegeben."
     admin_description: "Magst du die Zwei-Faktor-Authentisierung für {user} deaktivieren? Dies ist nur in Ausnahmefällen sinnvoll, z.B. wenn der/die Nutzer:in keinen Zugriff mehr auf sein/ihr Zweitfaktorgerät hat und auch die Backup-Codes verloren sind."
-  
+
   # Change Email Address
   email_change:
     title: "E-Mail-Adresse ändern"
@@ -2342,7 +2343,7 @@ settings:
     done: "Deine E-Mail-Adresse wurde geändert."
     not_changed: "Deine E-Mail-Adresse wurde nicht geändert."
     dashboard_link: "Weiter zum Dashboard"
-  
+
   # Change Password
   password_change:
     title: "Passwort ändern"

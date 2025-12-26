@@ -32,23 +32,18 @@ class LoginGateway extends BaseGateway
         parent::__construct($db);
     }
 
-    public function login(string $email, string $pass, string $code)
+    /**
+     * Tests if the combination of email, password, and code is allowed to log in. Returns the user's id if so, or null if the
+     * combination does not exist or if the user is blacklisted. This does not actually update anything in the database.
+     */
+    public function canLogin(string $email, string $pass, string $code): ?int
     {
         $email = trim($email);
         if ($this->db->exists('fs_email_blacklist', ['email' => $email])) {
             return null;
         }
-        if ($fsid = $this->checkClient($email, $pass, $code)) {
-            $this->db->update(
-                'fs_foodsaver',
-                ['last_login' => $this->db->now()],
-                ['id' => $fsid]
-            );
 
-            return $fsid;
-        }
-
-        return null;
+        return $this->checkClient($email, $pass, $code);
     }
 
     public function updateLastActivityInDatabase(int $fsid)
@@ -75,10 +70,9 @@ class LoginGateway extends BaseGateway
     }
 
     /**
-     * Check given email and password combination,
-     * update password if old-style one is detected.
+     * Check given email and password combination. Returns the user's id or false, if the combination does not match.
      */
-    public function checkClient(string $email, $pass = false, $code = false)
+    public function checkClient(string $email, $pass = false, $code = false): int|bool
     {
         $email = trim($email);
         if (strlen($email) < 2 || strlen((string)$pass) < 1) {

@@ -57,4 +57,22 @@ class LoginApiCest
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
         $I->seeResponseContains('email, password or code are invalid');
     }
+
+    public function canNotLoginWithoutActivation(ApiTester $I): void
+    {
+        $pass = sq('pass');
+        $user = $I->createFoodsharer($pass, ['active' => 0]);
+
+        $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
+        $I->sendPOST('api/user/login', [
+            'email' => $user['email'],
+            'password' => $pass,
+        ]);
+
+        $I->seeResponseCodeIs(HttpCode::CONFLICT);
+        $I->seeInDatabase('fs_foodsaver', [
+            'email' => $user['email'],
+            'active' => 0
+        ]);
+    }
 }
