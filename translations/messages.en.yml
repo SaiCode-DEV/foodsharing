@@ -2435,9 +2435,9 @@ store:
     applicationSummary:
       intro: 'When you submit your application, the team managers will see the following
         information:'
-      time: Time of application
+      time: The time of application
       fullName: Your full name ({first_name} {last_name})
-      verified: Verification status ({status})
+      verified: Your verification status ({status})
       distance: The distance between your place of residence and the company 
         ({distance})
       storeList: The list of your current teams

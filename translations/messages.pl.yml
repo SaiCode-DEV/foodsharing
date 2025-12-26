@@ -672,6 +672,8 @@ terminology:
   mobile_phone: Numer komórkowy
   received: otrzymane
   sent: wysłane
+  subgroups: Podgrupy
+  hygiene_training: Szkolenie higieny
 resource_mosaic:
   privacy_notice:
     ok: Zgadzam się
@@ -760,11 +762,20 @@ fsp:
   deleteSuccess: Jadłodzielnia została usunięta
   form_validation:
     required: '{name} jest wymagane.'
+    min_length: '{name} musi zawierać co najmniej {length} znaków.'
   twig:
     n_in_region: '{count} jadłodzielni w {name}'
   followerCount: 'Zainteresowani/e użytkownicy/czki: {followerCount}'
   onlySuggested: Ta jadłodzielnia została zaproponowana, ale jeszcze nie jest 
     dopuszczona. W tym stanie nie będzie wyświetlana u innych użytkowników/czek.
+  acceptName: akceptuj {name}
+  rejectConfirm: Uwaga, jeśli usuniesz tę jadłodzielnię, nie możesz tego cofnąć.
+    Czy na pewno kontynuować?
+  none: Jeszcze nie dodano żadnych jadłodzielni
+  info:
+    from: Update'y od jadłodzielni „{name}“
+    none: wcale
+  createdAt: 'Otwarte:'
 storeview:
   common: Ogólne informacje
   public_time_at_noon_or_afternoon: w południe/po południu
@@ -799,6 +810,7 @@ storeview:
   contact:
     name: Imię/Nazwisko
   public_time_in_the_morning: rano
+  management: Zarządzanie
 store:
   team_container: Team
   member: Członek
@@ -867,6 +879,7 @@ store:
     decline: Odrzuć
     invited_by: Zaproszony/a przez
     withdraw: Cofnij zaproszenie
+    title: Zaproszenia do {storeTitle}
   info_container: Informacje
   chain_search_picker:
     modal_title: Wybierz sieć
@@ -874,6 +887,8 @@ store:
   team:
     is_closed: Team jest zamknięty
     search_input: Szukaj według imienia / numeru telefonu
+    search_reset: Resetuj szukanie
+    no_record: Nie znaleziono.
   filter: Filtruj według …
   maxchar: (max. 180 znaków)
   prefetchone: 1 tydzień
@@ -886,10 +901,22 @@ store:
     message:
       17: '{actor} zaprosił/a {target} do teamu.'
       20: '{actor} odrzucił/a zaproszenie do teamu.'
+      7: '{actor} usunął/ęła {target} z teamu.'
+      8: '{actor} opuścił/a team.'
+      19: '{actor} zaakceptował/a zaproszenie do teamu.'
+    type:
+      8: Opuszczenie teamu
+      17: zaproszenie Foodsaverów/ek do teamu
+      19: akceptowanie zaproszeń do teamu
+      20: odrzucenie zaproszeń do teamu
   to_map: Pokaż na mapie
   chat:
     team: Wiadomość do teamu
   no_chain_choosen: nie wybrano sieci
+  passport_expired: Twoja legitymacja już jest nieważna. Dlatego nie możesz się 
+    chwilowo tutaj zarejestrować. Skontaktuj się z twoimi ambasador(k)ami, aby 
+    odnowić swoją legitymację.
+  important: 'Ważne:'
 navi:
   google_maps: Google maps
   waze: Waze
@@ -898,6 +925,7 @@ navi:
   komoot: Komoot
   here: HERE WeGo
   no_native_app: Geo linki nie są wspierane przez to urządzenie.
+  native: native app
 really_delete: Na pewno usunąć?
 yes: Tak
 no: Nie
@@ -916,6 +944,9 @@ storeedit:
   actions: Opcje
   team:
     bread: Edytuj team
+    foodsaver: Foodsaver
+    leave_myself: Ciebie samego/samą
+    note: 'Uwaga:'
   store:
     status: status
   fetch:
@@ -926,6 +957,11 @@ storeedit:
     teamStatus2: Pomocnicy bardzo potrzebni
     verifiedRequired: Dopuść tylko zweryfikowanych/e foodsaverów/ki
     phoneRequirement: Dopuść tylko foodsaverów/ki z ważnym numerem telefonu
+    hygieneRequirement: Wymagania higieniczne
+  milestone:
+    statuschanged: Status zmieniony {date}
+    accepted: '{user} jest teraz w teamie'
+    dropped: '{user} już nie jest w teamie'
 pickup:
   overview:
     menu:
@@ -934,6 +970,15 @@ pickup:
       useCondensedDesign: Zgrupowane według dni
       loadMore: Załaduj więcej
     freeSlots: '{slots} wolne'
+  leave_pickup_ok: Już mam zastępstwo
+  leave_pickup_message_team: Powiadom team
+  leave_team_message_title: Wiadomość do teamu
+  team_message_success: Wiadomość do teamu została wysłana pomyślnie
+  join_title_date: Na pewno?
+  same_day_entry: '[{when}] {name}'
+  hygieneCertificateMissing:
+    link: Do quizu higieny
+  join_cancel: Jednak nie
 calendar:
   locale: pl
   labelNextYear: Przyszły rok
@@ -1149,3 +1194,7 @@ pickuplist:
   year_tab: Rok
   time_table_header: Okres czasu
   NumberOfFoodSavers_table_header: Liczba Foodsaverów/ek
+error_ajax: |
+  Niestety, to nie wyszło.
+  Być może twoje połączenie internetowe w tej chwili nie działa.
+  Odśwież stronę i spróbuj ponownie.
