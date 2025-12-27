@@ -970,6 +970,10 @@ pickup:
       useCondensedDesign: Zgrupowane według dni
       loadMore: Załaduj więcej
     freeSlots: '{slots} wolne'
+    cols:
+      time: Czas
+    status:
+      pending: NIepotwierdzony
   leave_pickup_ok: Już mam zastępstwo
   leave_pickup_message_team: Powiadom team
   leave_team_message_title: Wiadomość do teamu
@@ -979,6 +983,18 @@ pickup:
   hygieneCertificateMissing:
     link: Do quizu higieny
   join_cancel: Jednak nie
+  description_optional: Opis (opcjonalne)
+  description_max_length_info: Osiągnięto maksymalną długość opisu (100 znaków)
+  add_onetime_pickup: Dodaj pojedynczy termin
+  signout_history:
+    reload: Odśwież
+    signout_via_responsible_person:
+      via: przez
+      remove_reason: '(Powód: {reason})'
+  edit:
+    more: Dodaj termin
+    description_titel: Opis
+    disable_auto_slot_titel: Deaktywacja
 calendar:
   locale: pl
   labelNextYear: Przyszły rok
@@ -997,6 +1013,10 @@ calendar:
     event:
       linkTitle: Event foodsharingu
       description: Opis
+  labelPrevYear: poprzedni rok
+  labelPrevMonth: poprzedni miesiąc
+  labelCurrentMonth: obecny miesiąc
+  labelNextMonth: przyszły miesiąc
 timepicker:
   labelHours: godziny
   labelMinutes: minuty
@@ -1029,6 +1049,18 @@ forum:
       dlaczego post został ukryty, a moderatorzy/ki - także przez kogo.
     sureHide: Czy na pewno chcesz ukryć ten post?
     hiddenPost: Post ukryty przez [{moderatorName}]({moderatorUrl})
+    hiddenReason: 'Uzasadnienie: {reason}'
+    body: Wiadomość
+  thread:
+    delivery_mail: Aktywuj wysyłanie maili
+    no_mail: Temat został otwarty bez wysyłania maili
+    activate: Aktywuj temat
+    delete: Usuń temat
+  mail_confirmation:
+    title: Na pewno wysłać powiadomienie mailem?
+  go: Do forum
+  restore:
+    really: Czy na pewno chcesz odtworzyć ten post?
 chat:
   empty: Nie ma jeszcze żadnych rozmów
   placeholder: Napisz coś.

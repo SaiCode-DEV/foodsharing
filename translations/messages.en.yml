@@ -3287,7 +3287,8 @@ text: text
 besonderheiten: Procedure & instructions
 begin: Start of cooperation
 pass2: Repeat password
-totp_code: Please enter either the generated two-factor authentication code or one of the backup codes.
+totp_code: Please enter either the generated two-factor authentication code or 
+  one of the backup codes.
 pass1: Your new requested password
 position: Position in foodsharing (public)
 opt: Options
@@ -4875,12 +4876,12 @@ oauth:
     authorize: "Allow access"
     deny: "Deny access"
   scopes:
-    openid: 
+    openid:
       title: "Confirm your identity"
-    profile: 
+    profile:
       title: "Access your profile data"
       md: "Access to your name, profile picture, and other profile data."
-    email: 
+    email:
       title: "Access your email address"
     regions:
       title: "Access your memberships"
@@ -4890,7 +4891,8 @@ oauth:
     create_client: "Create New Client"
     edit_client: "Edit Client"
     confirm_delete: "Delete Client?"
-    delete_warning: "Do you really want to delete the client '{name}'? This action cannot be undone."
+    delete_warning: "Do you really want to delete the client '{name}'? This action
+      cannot be undone."
     identifier: "Client ID"
     name: "Name"
     active: "Active"
@@ -4899,13 +4901,15 @@ oauth:
     confidential: "Confidential"
     public: "Public"
     confidential_client: "Confidential client (e.g., server application)"
-    confidential_help: "Confidential clients can securely store a secret. Public clients (e.g., browser or mobile apps) cannot."
+    confidential_help: "Confidential clients can securely store a secret. Public clients
+      (e.g., browser or mobile apps) cannot."
     scopes: "Scopes"
     redirect_uris: "Redirect URIs"
     redirect_uris_help: "Valid callback URLs after authorization (one per line)"
     grant_types: "Grant Types"
     required_regions: "Required Regions"
-    required_regions_help: "Optional: Restrict access to users who are members of at least one of these regions"
+    required_regions_help: "Optional: Restrict access to users who are members of
+      at least one of these regions"
     no_region_restriction: "No restriction"
     restrictions: "Restrictions"
     no_restrictions: "None"
@@ -4923,7 +4927,8 @@ oauth:
     delete_success: "Client deleted successfully"
     delete_error: "Error deleting"
   error:
-    region_requirement_not_met: "You do not meet the region membership requirements to access {clientName}."
+    region_requirement_not_met: "You do not meet the region membership requirements
+      to access {clientName}."
     invalid_client: "Client verification failed."
     invalid_scope: "Invalid permissions requested."
     unknown_error: "An unknown error occurred. Please try again later."
