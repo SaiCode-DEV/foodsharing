@@ -27,6 +27,45 @@ test.describe('Settings', () => {
     await expect(page.locator('body')).toContainText(newSelfDesc);
   });
 
+  test('can edit location', async ({ page, acceptanceHelper }) => {
+    const orga = await foodsharing.createOrga(null, true);
+    const foodsharer = await foodsharing.createFoodsharer();
+
+    await acceptanceHelper.login(orga.email);
+
+    const address = "Teststra";
+
+    await page.goto(`/user/${foodsharer.id}/settings`);
+    if (await acceptanceHelper.isMobile()) {
+      await page.getByRole('button', { name: 'Profileinstellungen' }).click();
+    }
+
+    // Find an address in the search field
+    await page.click('#change-address-button');
+    await page.waitForSelector('text=Adresse auswählen');
+    await page.locator('#searchField').fill(address);
+    await page.waitForSelector('.location-options');
+    const addressText = await page.locator('.location-options .list-group-item').textContent();
+    const addressArray = addressText?.split(',').map(s => s.trim()) || [];
+    const street = addressArray[1] || '';
+    const postal = addressArray[2]?.split(' ')[0] || '';
+    const city = addressArray[2]?.split(' ').slice(1).join(' ') || '';
+    await page.click(`text=${address}`);
+    await page.click('text=Adresse übernehmen');
+    await page.click('text=Speichern');
+    await acceptanceHelper.waitForActiveAPICalls();
+
+    // Verify the address was saved by checking the fields
+    await page.click('#change-address-button');
+    await page.waitForSelector('text=Adresse auswählen');
+
+    await expect(page.locator('#input-street')).toHaveValue(street);
+    await expect(page.locator('#input-postal')).toHaveValue(postal);
+    await expect(page.locator('#input-city')).toHaveValue(city);
+
+    await page.click('text=Abbrechen');
+  });
+
   test('shows return to profile button and redirects correctly when editing another user', async ({ page, acceptanceHelper }) => {
     // Setup region, member, and ambassador
     const region = await foodsharing.createRegion();
@@ -126,7 +165,7 @@ test.describe('Settings', () => {
     await expect(page.locator('#input-lastname')).toHaveValue(expectedLastName);
   });
 
-    test('can edit profile fields as foodsaver', async ({ page, acceptanceHelper }) => {
+  test('can edit profile fields as foodsaver', async ({ page, acceptanceHelper }) => {
     const user = await foodsharing.createFoodsaver();
 
     await acceptanceHelper.login(user.email);
@@ -152,7 +191,7 @@ test.describe('Settings', () => {
     await page.click('text=Speichern');
 
     await acceptanceHelper.waitForActiveAPICalls();
-    
+
     // Assert fields contain the new values (normalized format without spaces)
     await expect(page.locator('#phone')).toHaveValue(phonenumber);
     await expect(page.locator('#mobile')).toHaveValue(mobilenumberNormalized);

@@ -15,6 +15,11 @@ export class AcceptanceHelper {
     return this.page.waitForSelector('body');
   }
 
+  async isMobile() {
+    const mobileMenuButton = this.page.locator('button.navbar-toggler');
+    return mobileMenuButton.isVisible();
+  }
+
   async openMobileMenuIfNeeded() {
     const mobileMenuButton = this.page.locator('button.navbar-toggler');
     if (await mobileMenuButton.isVisible()) {

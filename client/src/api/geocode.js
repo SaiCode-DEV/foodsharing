@@ -1,7 +1,7 @@
-import { geoapifyApiKey, isDev } from '@/helper/server-data'
+import { geoapifyApiKey, isDev, isTest } from '@/helper/server-data'
 import { languageCodeISO } from '@/helper/i18n'
 
-const GEOAPIFY_API_URL = isDev ? '/mock/geocode' : 'https://api.geoapify.com/v1/geocode'
+const GEOAPIFY_API_URL = isDev || isTest ? '/mock/geocode' : 'https://api.geoapify.com/v1/geocode'
 
 export async function fetchAutocomplete (input) {
   if (!input || input.length < 3) {
