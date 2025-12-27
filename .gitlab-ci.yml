@@ -94,28 +94,6 @@ outdated:
     paths:
       - vendor
 
-validate_renovate_config:
-  stage: update-dependencies
-  image: registry.gitlab.com/foodsharing-dev/images/ci/renovate:latest
-  script:
-    - renovate-config-validator
-  rules:
-    - if: $CI_COMMIT_BRANCH == 'master' || $CI_COMMIT_BRANCH == 'production'
-    - changes:
-        - renovate.json
-
-
-renovate:
-  stage: update-dependencies
-  image: renovate/renovate:latest
-  script:
-    - renovate
-  variables:
-    RENOVATE_TOKEN: "$RENOVATE_TOKEN"
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "schedule" && $SCHEDULED_JOB == "renovate"
-      when: always
-
 .build-artifacts: &build-artifacts
   expire_in: 1 day
 
