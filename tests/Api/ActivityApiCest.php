@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Api;
 
 use Codeception\Util\HttpCode;
+use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Tests\Support\ApiTester;
 
 /**
@@ -37,7 +38,7 @@ class ActivityApiCest
         $I->login($this->user['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPatch('api/activities/filters', []);
-        $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
+        $I->seeResponseCodeIs(HttpCode::UNPROCESSABLE_ENTITY);
     }
 
     public function canSetFilterDashboardActivities(ApiTester $I): void
@@ -48,7 +49,7 @@ class ActivityApiCest
         $filter = [
             'excluded' => [
                 [
-                    'id' => 332,
+                    'id' => RegionIDs::STORE_CHAIN_GROUP,
                     'index' => 'bezirk',
                 ],
             ],

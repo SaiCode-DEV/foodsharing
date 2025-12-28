@@ -6,18 +6,20 @@ namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Activity\ActivityTransactions;
+use Foodsharing\Modules\Activity\DTO\ActivityUpdate;
+use Foodsharing\Modules\Activity\DTO\ActivityUpdateMailbox;
 use Foodsharing\RestApi\Models\Activities\ActivityFilterModel;
 use Foodsharing\RestApi\Models\Activities\ActivityModel;
-use Foodsharing\RestApi\Models\Activities\ActivityUpdateModel;
-use Foodsharing\RestApi\Models\HttpCodeMessageModel;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
+use Symfony\Component\Routing\Attribute\Route;
 
+#[OA\Tag('activities')]
+#[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
 class ActivityRestController extends AbstractFoodsharingRestController
 {
     public function __construct(
@@ -28,18 +30,10 @@ class ActivityRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Get(summary: 'Returns the filters for all dashboard activities for the current user')]
-    #[Rest\Get(path: 'activities/filters')]
-    #[OA\Tag('activities')]
-    #[OA\Response(
-        response: Response::HTTP_OK,
-        description: 'Successful',
-        content: new OA\JsonContent(ref: new Model(type: ActivityModel::class))
-    )]
-    #[OA\Response(
-        response: Response::HTTP_UNAUTHORIZED,
-        description: 'Insufficient permissions to request filters.',
-        content: new OA\JsonContent(ref: new Model(type: HttpCodeMessageModel::class))
-    )]
+    #[Route(path: 'activities/filters', methods: ['GET'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
+        ref: new Model(type: ActivityModel::class)
+    ))]
     public function getActivityFilters(): Response
     {
         $this->assertLoggedIn();
@@ -50,26 +44,11 @@ class ActivityRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Patch(summary: 'Sets which dashboard activities should be deactivated for the current user.')]
-    #[Rest\Patch(path: 'activities/filters')]
-    #[OA\Tag('activities')]
+    #[Route(path: 'activities/filters', methods: ['PATCH'])]
     #[OA\RequestBody(content: new Model(type: ActivityFilterModel::class))]
-    #[ParamConverter(
-        data: 'activityExcluded',
-        class: ActivityFilterModel::class,
-        converter: 'fos_rest.request_body'
-    )]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Successful')]
-    #[OA\Response(
-        response: Response::HTTP_UNAUTHORIZED,
-        description: 'Insufficient permissions to set request filters.',
-        content: new OA\JsonContent(ref: new Model(type: HttpCodeMessageModel::class))
-    )]
-    #[OA\Response(
-        response: Response::HTTP_BAD_REQUEST,
-        description: 'Incomplete or incorrect request',
-        content: new OA\JsonContent(ref: new Model(type: HttpCodeMessageModel::class))
-    )]
-    public function setActivityFilters(ActivityFilterModel $activityExcluded): Response
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Incomplete or incorrect request parameters')]
+    public function setActivityFilters(#[MapRequestPayload] ActivityFilterModel $activityExcluded): Response
     {
         $this->assertLoggedIn();
 
@@ -82,26 +61,29 @@ class ActivityRestController extends AbstractFoodsharingRestController
         return $this->respondOK();
     }
 
-    #[OA\Get(summary: 'Returns the updates object for ActivityOverview to display on the dashboard')]
-    #[Rest\Get(path: 'activities/updates')]
-    #[OA\Tag('activities')]
-    #[Rest\QueryParam(name: 'page', requirements: '\d+', default: 0, description: 'Which page of updates to return')]
-    #[OA\Response(
-        response: Response::HTTP_OK,
-        description: 'Successful',
-        content: new OA\JsonContent(ref: new Model(type: ActivityUpdateModel::class))
-    )]
-    #[OA\Response(
-        response: Response::HTTP_UNAUTHORIZED,
-        description: 'Insufficient permissions to request filters.',
-        content: new OA\JsonContent(ref: new Model(type: HttpCodeMessageModel::class))
-    )]
-    public function getActivityUpdates(ParamFetcher $paramFetcher): Response
+    #[OA\Get(summary: 'Returns the updates to display on the dashboard')]
+    #[Route(path: 'activities/updates', methods: ['GET'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
+        type: 'array',
+        description: 'The list of achievements scoped to this region.',
+        items: new OA\Items(oneOf: [
+            new OA\Property(
+                ref: new Model(type: ActivityUpdate::class),
+                title: 'All updates, except mailbox'
+            ),
+            new OA\Property(
+                ref: new Model(type: ActivityUpdateMailbox::class),
+                title: 'Contains all mailbox updates'
+            ),
+        ])
+    ))]
+    public function getActivityUpdates(#[MapQueryParameter(options: ['min_range' => 0])] int $page = 0): Response
     {
+        // TODO unify pagination
+        // Currently, the page size is hardcoded and per activity type.
         $this->assertLoggedIn();
 
-        $page = intval($paramFetcher->get('page'));
-        $updates = new ActivityUpdateModel($this->activityTransactions->getUpdateData($page));
+        $updates = $this->activityTransactions->getUpdateData($page);
 
         return $this->respondOK($updates);
     }

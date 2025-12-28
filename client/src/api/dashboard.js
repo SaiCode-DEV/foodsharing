@@ -1,7 +1,7 @@
 import { get, patch } from './base'
 
 export async function getUpdates (pagenumber) {
-  return (await get(`/activities/updates?page=${pagenumber}`)).updates
+  return await get(`/activities/updates?page=${pagenumber}`)
 }
 
 export async function getFilters () {
