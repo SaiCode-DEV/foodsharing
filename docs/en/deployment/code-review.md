@@ -23,25 +23,4 @@ Still, try to be aware of what you are touching:
   * Always be aware what type of data is held in a variable: Plain text, HTML text, markdown? The old code does mostly not do this and is not even aware of the type when outputting it to the user. Still, when you want to change that behaviour, you must be aware of every single instance of that string used over the platform (e.g. it might be stored to the database or session and retrieved at other places). If in doubt, first try to leave that behaviour exactly as you found it and refactor as a separate step
 
 ### REST API Endpoints
-In the [issue #511](https://gitlab.com/foodsharing-dev/foodsharing/issues/511) some rules for creation of REST API Endpoints are formulated.
-For general explanation about REST, see [request types](requests.md).
-
-1. english only
-2. For the response, use DTOs that will be transformed to JSON by Symfony. If there is no DTO yet, use "normalizer" methods to transform gateway/db data into api responses
-3. **camel case** for keys (`regionId` instead of `region_id`)
-4. **prefixes** for booleans (`isPublic` instead of `public`)
-5. `GET` requests should never change data
-6. use *Permission* classes for permission checks
-7. never use *Model* classes, use *Gateway* classes instead
-8. Apart from checking permissions and parameters the REST controllers should not contain too much logic. Put those code blocks into *Transaction* classes instead. 
-9. regions and working groups are both 'groups'
-10. name keys always as specific as possible (`createdAt` instead of `time`,  `author` instead of `user`)
-11. integers and booleans should also be sent as an integer or boolean, not as a string
-12. Standardize date and time: [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601). Use the `DATE_ATOM` PHP DateTime formatter.
-13. Add a message to exceptions. (e.g. `throw new NotFoundHttpException('This region with id ' . $regionId . ' does not exist.');`)
-14. use response codes consistently (see below)
-
-More not-yet-implemented ideas include:
-1. Add API versioning (to allow introducing breaking api changes in the future without immediately breaking the apps) ([not yet](https://gitlab.com/foodsharing-dev/foodsharing/issues/511#note_173339753), hopefully coming at some point)
-1. Standardize pagination (e.g. fixed query param names, return total number of items, either via envelope or header)
-1. [Automatically generated documentation](https://gitlab.com/foodsharing-dev/foodsharing/issues/511#note_173339753) for REST API
+When new API endpoints are introduced or existing ones updated, reviewers need to pay special attention to these changes. First of all, make sure that the changes adhere to our [API standards](/backend/api/implementation). But most importantly, you need to review permission checks. Make sure that only those who shall be permitted are actually able to use the API endpoint. You should also think about how the API can be used from user scripts, not only how it is actually used via the frontend.

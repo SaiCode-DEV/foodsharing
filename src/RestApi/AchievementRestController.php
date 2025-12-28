@@ -56,7 +56,6 @@ class AchievementRestController extends AbstractFoodsharingRestController
 
     #[OA\Post(summary: 'Add a new achievement')]
     #[Route('achievements', methods: ['POST'])]
-    #[OA\RequestBody(content: new Model(type: Achievement::class))]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
         type: 'integer',
         description: 'the id of the newly created achievement',
@@ -76,7 +75,6 @@ class AchievementRestController extends AbstractFoodsharingRestController
 
     #[OA\Patch(summary: 'Edit an existing achievement')]
     #[Route('achievements/{achievementId}', methods: ['PATCH'], requirements: ['achievementId' => Requirement::POSITIVE_INT])]
-    #[OA\RequestBody(content: new Model(type: Achievement::class))]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_UNPROCESSABLE_ENTITY, description: 'Invalid data')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Achievement does not exist')]
@@ -137,7 +135,6 @@ class AchievementRestController extends AbstractFoodsharingRestController
 
     #[OA\Post(summary: 'Award an achievement to a user')]
     #[Route('achievements/{achievementId}/users/{userId}', methods: ['POST'], requirements: ['achievementId' => Requirement::POSITIVE_INT, 'userId' => Requirement::POSITIVE_INT])]
-    #[OA\RequestBody(content: new Model(type: AwardedAchievementDetails::class))]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: AwardedAchievementWithUserDetails::class))]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid data')]
     public function awardAchievement(int $achievementId, int $userId, #[MapRequestPayload] AwardedAchievementDetails $awardedAchievementDetails): Response
@@ -156,7 +153,6 @@ class AchievementRestController extends AbstractFoodsharingRestController
 
     #[OA\Patch(summary: 'Edit an awarded achievement of a user')]
     #[Route('achievements/awarded/{awardedAchievementId}', methods: ['PATCH'], requirements: ['awardedAchievementId' => Requirement::POSITIVE_INT])]
-    #[OA\RequestBody(content: new Model(type: AwardedAchievementDetails::class))]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: AwardedAchievementWithUserDetails::class))]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid data')]
     public function editAwardedAchievement(int $awardedAchievementId, #[MapRequestPayload] AwardedAchievementDetails $awardedAchievementDetails): Response

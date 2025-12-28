@@ -50,7 +50,7 @@ Pull Request
 
 ## REST
 
-REpresentational State Transfer. We use the [FOSRestBundle](https://symfony.com/doc/master/bundles/FOSRestBundle/index.html)
+REpresentational State Transfer. See [API > Introduction](/backend/api/introduction).
 
 ## SQL
 
