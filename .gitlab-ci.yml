@@ -27,7 +27,6 @@ stages:
   - outdated
   - update-dependencies
   - build
-  - php-compatibility-check
   - test
   - deploy
 
@@ -315,8 +314,8 @@ build:docs:
       - docs/.vitepress/dist
       - docs/data/api_dump.json
 
-php-compatibility-check:
-  stage: php-compatibility-check
+test:php-compatibility-check:
+  stage: test
   extends:
     - .defaults
   needs:
