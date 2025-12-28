@@ -22,7 +22,7 @@ class BananaApiCest
     private $faker;
 
     private const string EMAIL = 'email';
-    private const string API_USER = 'api/user';
+    private const string API_USER = 'api/users';
     private const string ID = 'id';
 
     public function _before(ApiTester $I): void
@@ -39,7 +39,7 @@ class BananaApiCest
         $testUser = $I->createFoodsaver();
         $I->login($this->user[self::EMAIL]);
         $message = $this->createRandomText(100, 150);
-        $I->sendPUT(self::API_USER . '/' . $testUser['id'] . '/banana', ['message' => $message]);
+        $I->sendPOST(self::API_USER . '/' . $testUser['id'] . '/bananas', ['message' => $message]);
         $I->seeResponseContainsJson([
             'message' => $message,
             'user' => ['id' => $this->user['id']],
@@ -61,24 +61,24 @@ class BananaApiCest
     {
         $testUser = $I->createFoodsaver();
         $I->login($this->user[self::EMAIL]);
-        $I->sendPUT(self::API_USER . '/' . $testUser['id'] . '/banana', ['message' => $this->faker->text(50)]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->sendPOST(self::API_USER . '/' . $testUser['id'] . '/bananas', ['message' => $this->faker->text(50)]);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
     }
 
     public function canNotGiveBananaTwice(ApiTester $I): void
     {
         $testUser = $I->createFoodsaver();
         $I->login($this->user[self::EMAIL]);
-        $I->sendPUT(self::API_USER . '/' . $testUser['id'] . '/banana', ['message' => $this->createRandomText(100, 150)]);
+        $I->sendPOST(self::API_USER . '/' . $testUser['id'] . '/bananas', ['message' => $this->createRandomText(100, 150)]);
         $I->seeResponseCodeIs(Http::OK);
-        $I->sendPUT(self::API_USER . '/' . $testUser['id'] . '/banana', ['message' => $this->createRandomText(100, 150)]);
+        $I->sendPOST(self::API_USER . '/' . $testUser['id'] . '/bananas', ['message' => $this->createRandomText(100, 150)]);
         $I->seeResponseCodeIs(Http::FORBIDDEN);
     }
 
     public function canNotGiveBananaToMyself(ApiTester $I): void
     {
         $I->login($this->user[self::EMAIL]);
-        $I->sendPUT(self::API_USER . '/' . $this->user['id'] . '/banana', ['message' => $this->createRandomText(100, 150)]);
+        $I->sendPOST(self::API_USER . '/' . $this->user['id'] . '/bananas', ['message' => $this->createRandomText(100, 150)]);
         $I->seeResponseCodeIs(Http::FORBIDDEN);
     }
 
@@ -86,7 +86,7 @@ class BananaApiCest
     {
         $I->giveBanana($this->user2['id'], $this->user['id'], 'message');
         $I->login($this->user[self::EMAIL]);
-        $I->sendDelete(self::API_USER . '/' . $this->user['id'] . '/banana/' . $this->user2['id']);
+        $I->sendDelete(self::API_USER . '/' . $this->user['id'] . '/bananas/' . $this->user2['id']);
         $I->seeResponseCodeIs(Http::OK);
     }
 
@@ -94,7 +94,7 @@ class BananaApiCest
     {
         $I->giveBanana($this->user2['id'], $this->user['id'], 'message');
         $I->login($this->user2[self::EMAIL]);
-        $I->sendDelete(self::API_USER . '/' . $this->user['id'] . '/banana/' . $this->user2['id']);
+        $I->sendDelete(self::API_USER . '/' . $this->user['id'] . '/bananas/' . $this->user2['id']);
         $I->seeResponseCodeIs(Http::OK);
     }
 
@@ -102,7 +102,7 @@ class BananaApiCest
     {
         $I->giveBanana($this->user2['id'], $this->user3['id'], 'message');
         $I->login($this->user[self::EMAIL]);
-        $I->sendDelete(self::API_USER . '/' . $this->user3['id'] . '/banana/' . $this->user2['id']);
+        $I->sendDelete(self::API_USER . '/' . $this->user3['id'] . '/bananas/' . $this->user2['id']);
         $I->seeResponseCodeIs(Http::FORBIDDEN);
     }
 
@@ -110,7 +110,7 @@ class BananaApiCest
     {
         $I->giveBanana($this->user['id'], $this->user2['id'], 'message');
         $I->login($this->user[self::EMAIL]);
-        $I->sendGet(self::API_USER . '/' . $this->user2['id'] . '/banana/meta');
+        $I->sendGet(self::API_USER . '/' . $this->user2['id'] . '/bananas/meta');
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseContainsJson([
             'receivedCount' => 1,
@@ -123,7 +123,7 @@ class BananaApiCest
     {
         $I->giveBanana($this->user['id'], $this->user2['id'], 'message');
         $I->login($this->user[self::EMAIL]);
-        $I->sendGet(self::API_USER . '/' . $this->user2['id'] . '/banana/received');
+        $I->sendGet(self::API_USER . '/' . $this->user2['id'] . '/bananas/received');
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseContainsJson([[
             'message' => 'message',
@@ -135,7 +135,7 @@ class BananaApiCest
     {
         $I->giveBanana($this->user['id'], $this->user2['id'], 'message');
         $I->login($this->user[self::EMAIL]);
-        $I->sendGet(self::API_USER . '/' . $this->user['id'] . '/banana/sent');
+        $I->sendGet(self::API_USER . '/' . $this->user['id'] . '/bananas/sent');
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseContainsJson([[
             'message' => 'message',

@@ -5,69 +5,61 @@ declare(strict_types=1);
 namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
-use Foodsharing\Modules\Banana\BananaGateway as BananaBananaGateway;
+use Foodsharing\Modules\Banana\BananaGateway;
 use Foodsharing\Modules\Banana\BananaTransactions;
 use Foodsharing\Modules\Banana\DTO\Banana;
+use Foodsharing\Modules\Banana\DTO\BananaMessage;
 use Foodsharing\Modules\Banana\DTO\BananaMetadata;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Permissions\BananaPermissions;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 
 #[OA\Tag(name: 'banana')]
+#[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
 class BananaRestController extends AbstractFoodsharingRestController
 {
-    private const int MIN_RATING_MESSAGE_LENGTH = 100;
+    public const int MIN_RATING_MESSAGE_LENGTH = 100;
 
     public function __construct(
         protected Session $session,
         private readonly FoodsaverGateway $foodsaverGateway,
-        private readonly BananaBananaGateway $bananaGateway,
+        private readonly BananaGateway $bananaGateway,
         private readonly BananaTransactions $bananaTransactions,
         private readonly BananaPermissions $bananaPermissions,
     ) {
         parent::__construct($this->session);
     }
 
-    #[OA\Put(summary: 'Gives a banana to a user')]
-    #[Rest\Put(path: 'user/{recipientId}/banana', requirements: ['recipientId' => Requirement::POSITIVE_INT])]
-    #[Rest\RequestParam(name: 'message', nullable: false)]
+    #[OA\Post(summary: 'Gives a banana to a user')]
+    #[Route('users/{recipientId}/bananas', methods: ['POST'], requirements: ['recipientId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new Model(type: Banana::class))]
-    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'User to rate does not exist.')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not allowed to give a banana to this user.')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid parameters.')]
-    public function addBanana(int $recipientId, ParamFetcher $paramFetcher): Response
+    public function addBanana(int $recipientId, #[MapRequestPayload] BananaMessage $bananaMessage): Response
     {
         $this->assertLoggedIn();
         $this->assertUserExists($recipientId);
 
         if (!$this->bananaPermissions->mayGiveBanana($recipientId)) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Not permitted');
         }
 
-        // check length of message
-        $message = trim((string)$paramFetcher->get('message'));
-        if (strlen($message) < self::MIN_RATING_MESSAGE_LENGTH) {
-            throw new BadRequestHttpException('text too short: ' . strlen($message) . ' < ' . self::MIN_RATING_MESSAGE_LENGTH);
-        }
-
-        $banana = $this->bananaTransactions->addBanana($recipientId, $this->session->id(), $message);
+        $banana = $this->bananaTransactions->addBanana($recipientId, $this->session->id(), $bananaMessage->message);
 
         return $this->respondOK($banana);
     }
 
     #[OA\Put(summary: 'Deletes a banana')]
-    #[Rest\Delete('user/{recipientId}/banana/{senderId}', requirements: ['recipientId' => Requirement::POSITIVE_INT, 'senderId' => Requirement::POSITIVE_INT])]
+    #[Route('users/{recipientId}/bananas/{senderId}', methods: ['DELETE'], requirements: ['recipientId' => Requirement::POSITIVE_INT, 'senderId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.')]
-    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to delete that banana.')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Banana does not exist.')]
     public function deleteBanana(int $recipientId, int $senderId): Response
@@ -75,20 +67,19 @@ class BananaRestController extends AbstractFoodsharingRestController
         $this->assertLoggedIn();
 
         if (!$this->bananaPermissions->mayDeleteBanana($recipientId, $senderId)) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Not permitted');
         }
 
         if (!$this->bananaGateway->deleteBanana($recipientId, $senderId)) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException('Banana does not exist');
         }
 
         return $this->respondOK();
     }
 
     #[OA\Get(summary: 'Returns basic metadata about the bananas of a user')]
-    #[Rest\Get('user/{userId}/banana/meta', requirements: ['userId' => Requirement::POSITIVE_INT])]
+    #[Route('users/{userId}/bananas/meta', methods: ['GET'], requirements: ['userId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new Model(type: BananaMetadata::class))]
-    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'User does not exist.')]
     public function getBananaMetadata(int $userId): Response
     {
@@ -105,11 +96,10 @@ class BananaRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Get(summary: 'Returns the bananas given to a user')]
-    #[Rest\Get('user/{recipientId}/banana/received', requirements: ['recipientId' => Requirement::POSITIVE_INT])]
+    #[Route('users/{recipientId}/bananas/received', methods: ['GET'], requirements: ['recipientId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new OA\JsonContent(
         type: 'array', items: new OA\Items(ref: new Model(type: Banana::class))
     ))]
-    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'User does not exist.')]
     public function getReceivedBananas(int $recipientId): Response
     {
@@ -122,11 +112,10 @@ class BananaRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Get(summary: 'Returns the bananas given by a user')]
-    #[Rest\Get('user/{senderId}/banana/sent', requirements: ['senderId' => Requirement::POSITIVE_INT])]
+    #[Route('users/{senderId}/bananas/sent', methods: ['GET'], requirements: ['senderId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new OA\JsonContent(
         type: 'array', items: new OA\Items(ref: new Model(type: Banana::class))
     ))]
-    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'User does not exist.')]
     public function getSentBananas(int $senderId): Response
     {
@@ -141,7 +130,7 @@ class BananaRestController extends AbstractFoodsharingRestController
     private function assertUserExists(int $userId): void
     {
         if (!$this->foodsaverGateway->foodsaverExists($userId)) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException('User does not exist: ' . $userId);
         }
     }
 }

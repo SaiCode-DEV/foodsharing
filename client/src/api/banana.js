@@ -1,21 +1,21 @@
-import { put, remove, get } from './base'
+import { post, remove, get } from './base'
 
 export function sendBanana (recipientId, message) {
-  return put(`/user/${recipientId}/banana`, { message })
+  return post(`/users/${recipientId}/bananas`, { message })
 }
 
 export function deleteBanana (recipientId, senderId) {
-  return remove(`/user/${recipientId}/banana/${senderId}`)
+  return remove(`/users/${recipientId}/bananas/${senderId}`)
 }
 
 export function getBananaMetadata (userId) {
-  return get(`/user/${userId}/banana/meta`)
+  return get(`/users/${userId}/bananas/meta`)
 }
 
 export function getReceivedBananas (recipientId) {
-  return get(`/user/${recipientId}/banana/received`)
+  return get(`/users/${recipientId}/bananas/received`)
 }
 
 export function getSentBananas (senderId) {
-  return get(`/user/${senderId}/banana/sent`)
+  return get(`/users/${senderId}/bananas/sent`)
 }
