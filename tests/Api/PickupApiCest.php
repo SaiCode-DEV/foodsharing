@@ -491,6 +491,32 @@ class PickupApiCest
         ]);
     }
 
+    public function noSameDayRegularPickupReportedWhenTimePassed(ApiTester $I): void
+    {
+        $I->login($this->user['email']);
+
+        // create a store where prefetchtime is 0 (no automatic pickups should be created)
+        $store = $I->createStore($this->region['id'], null, null, ['prefetchtime' => 0]);
+        $I->addStoreTeam($store['id'], $this->user['id']);
+
+        // create a regular pickup earlier today (time already passed)
+        $slotTime = Carbon::now()->subMinutes(2);
+        $I->addRecurringPickup($store['id'], [
+            'dow' => $slotTime->dayOfWeek,
+            'time' => sprintf('%02d:%02d:00', $slotTime->hour, $slotTime->minute),
+            'fetcher' => 3
+        ]);
+
+        $I->sendGET('api/stores/' . $store['id'] . '/pickups');
+        $I->seeResponseIsJson();
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        $response = json_decode($I->grabResponse(), true);
+
+        // Expect no pickups to be reported for the same day when the regular slot time has passed
+        $I->assertTrue(count($response['pickups']) === 0, 'Expected no pickups to be reported for today when regular slot time already passed. Got: ' . json_encode($response['pickups'] ?? []));
+    }
+
     public function cannotJoinPickupExpiredPassport(ApiTester $I): void
     {
         $pickupBaseDate = Carbon::now()->add('2 days');

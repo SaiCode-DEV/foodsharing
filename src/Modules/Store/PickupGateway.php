@@ -390,6 +390,14 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
         $signupsTo = is_null($oneTimeSlotTo) ? null : max($to, $oneTimeSlotTo);
         $signups = $this->getPickupSignUpsForDateRange($storeId, $from, $signupsTo);
 
+        if ($intervalFuturePickupSignup->isEmpty()) {
+            // No regular pickups. We have to manually set regularSlots to an
+            // empty array to avoid phantom pickups being reported. This can
+            // happen when the prefechtetime is 0, no slot existed at this date
+            // (e.g. holiday) and this slot wasn't explicitly deleted.
+            $regularSlots = [];
+        }
+
         $slots = [];
         foreach ($regularSlots as $slot) {
             $date = $from->copy();
