@@ -92,8 +92,8 @@ services:
   # ------------------------------------
   playwright:
     container_name: foodsharing_test_playwright
-    image: registry.gitlab.com/foodsharing-dev/images/playwright-dev:latest
-    command: sh -c "cd /home/pwuser && npx -y playwright@1.49.1 run-server --port 3005"
+    image: mcr.microsoft.com/playwright:v1.57.0-noble
+    command: sh -c "cd /home/pwuser && npx -y playwright@1.57.0 run-server --port 3005"
     ports:
       - "23005:3005"
 
