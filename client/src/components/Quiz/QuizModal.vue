@@ -38,10 +38,23 @@
             {{ answer.text }}
           </b-form-checkbox>
 
-          <div v-if="!isQuestionActive">
-            <p class="my-3">
-              <b>{{ $t(answerText(solutionById[answer.id]?.answerRating, selectedAnswers[answer.id])) }}</b>
-            </p>
+          <div
+            v-if="!isQuestionActive"
+            class="answer-feedback"
+            role="status"
+            aria-live="polite"
+          >
+            <div class="status-row">
+              <span
+                class="status-icon"
+                :class="statusIconClass(answer.id)"
+                aria-hidden="true"
+              />
+              <p class="my-3 status-text">
+                <b>{{ $t(answerText(solutionById[answer.id]?.answerRating, selectedAnswers[answer.id])) }}</b>
+                <span class="sr-only">{{ $t(answerText(solutionById[answer.id]?.answerRating, selectedAnswers[answer.id])) }}</span>
+              </p>
+            </div>
             <ExpandableExplanation
               :text="solutionById[answer.id].explanation"
             />
@@ -267,6 +280,13 @@ export default {
       if (!answerRating ^ selected) return 'success'
       return 'failure'
     },
+    statusIconClass (answerId) {
+      const colorClass = this.answerColorClass(answerId)
+      if (colorClass === 'success') return ['fas', 'fa-check-circle', 'status-icon--success']
+      if (colorClass === 'failure') return ['fas', 'fa-times-circle', 'status-icon--failure']
+      if (colorClass === 'neutral') return ['fas', 'fa-minus-circle', 'status-icon--neutral']
+      return ['fas', 'fa-circle', 'status-icon']
+    },
     answerText (answerRating, selected) {
       const path = 'quiz.answers.'
       if (!this.answeredInTime) return `${path}timedOut.${answerRating}`
@@ -305,9 +325,13 @@ export default {
 }
 
 .answer-wrapper {
-  padding: .5em 2em;
+  padding: .5em 1.25em;
+  /* make space for the result icon on the left when showing feedback */
+  padding-left: 2.5em;
   border-radius: 1em;
   margin-bottom: 1em;
+  position: relative;
+  background: transparent;
   ::v-deep .custom-control-label {
     color: currentColor;
   }
@@ -317,16 +341,71 @@ export default {
   }
 }
 
-.success {
-  background-color: var(--fs-color-success-500);
-  color:white;
+/* Use a colored left border + icon for feedback (better for accessibility than full background colors) */
+.answer-wrapper.success {
+  border-left: 6px solid var(--fs-color-success-500);
+  color: var(--fs-color-success-800, #0a6f3a);
+  background-color: transparent;
+  padding-left: calc(2.5em - 6px);
 }
-.failure {
-  background-color: var(--fs-color-danger-500);
-  color:white;
+.answer-wrapper.failure {
+  border-left: 6px solid var(--fs-color-danger-500);
+  color: var(--fs-color-danger-800, #8a1f2d);
+  background-color: transparent;
+  padding-left: calc(2.5em - 6px);
 }
-.neutral {
-  background-color: var(--fs-color-warning-200);
+.answer-wrapper.neutral {
+  border-left: 6px solid var(--fs-color-warning-500);
+  color: var(--fs-color-warning-800, #7a5c00);
+  background-color: transparent;
+  padding-left: calc(2.5em - 6px);
+}
+
+/* Result icon shown next to each answer when feedback is visible */
+.result-icon {
+  position: absolute;
+  left: 0.6em;
+  top: 0.9em;
+  font-size: 1.2em;
+  line-height: 1;
+}
+
+.result-icon.status-icon--success { color: var(--fs-color-success-500); }
+.result-icon.status-icon--failure { color: var(--fs-color-danger-500); }
+.result-icon.status-icon--neutral { color: var(--fs-color-warning-500); }
+
+.answer-feedback {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5em;
+}
+
+.status-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+}
+.status-icon {
+  font-size: 1.25em;
+  line-height: 1;
+}
+.status-icon--success { color: var(--fs-color-success-500); }
+.status-icon--failure { color: var(--fs-color-danger-500); }
+.status-icon--neutral { color: var(--fs-color-warning-500); }
+.status-text { margin: 0; }
+
+/* helper for screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 </style>
 <style lang="css">
