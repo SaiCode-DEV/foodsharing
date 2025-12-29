@@ -56,6 +56,21 @@ Each change in database schema is described by a migration file. On execution of
     - [Our database documentation]database-tables-columns.md)
     - [Phinx documentation](https://book.cakephp.org/phinx/0/en/migrations.html)
 
+   ::: warning
+   If a column is changed in a migration file, all its properties must be specified. The ones that are not specified will be reset to default. For example, if the initial migration creates a column
+   ```php
+   $this->table('test')->addColumn('something', 'string', [
+     'null' => false,
+     'limit' => 25,
+   ])
+   ```
+   and a later migration updates the limit to
+   ```php
+   $this->table('test')->changeColumn('something', 'string', ['limit' => 100])
+   ```
+   then the column will be null-able again because Phinx creates columns as null-able by default. To be on the safe side, the `'null' => false` property should also be specified in the second migration. The same is true for the properties `default`, `limit`, and `signed`. You do not, however, need to specify the location of the column (`before` or `after`) again.
+   :::
+
 3. Test migration script by a dry-run
 
     ```bash
