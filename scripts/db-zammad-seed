@@ -12,12 +12,7 @@ source "$dir/../docker/zammad/.env"
 TOKEN_NAME="token_for_support_form"
 PSQL_CMD="psql -U $POSTGRES_USER -d $POSTGRES_DB"
 
-if [ "$USER" == "gitpod" ]
-then
-    zammad_url=$(gp url $NGINX_EXPOSE_PORT)
-else
-    zammad_url="http://localhost:$NGINX_EXPOSE_PORT"
-fi
+zammad_url="http://localhost:$NGINX_EXPOSE_PORT"
 
 # Get initial session and CSRF token
 echo "Getting session and CSRF token..."

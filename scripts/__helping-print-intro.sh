@@ -23,26 +23,13 @@ else
   devdocs_port=3000
 fi
 
-# Cyrptic gitpod or localhost urls for the print
-if [ "$USER" == "gitpod" ]
-then
-    page_url=$(gp url $page_port)
-    api_url="$page_url/api/doc/"
-    devdocs_url=$(gp url $devdocs_port)
-    phpmyadmin_url=$(gp url $phpmyadmin_port)
-    zammad_url=$(gp url $zammad_port)
-    listmonk_url=$(gp url $listmonk_port)
-    gitpod_config="$page_url:8080"
-    echo "$gitpod_config" > config/gitpod
-else
-    page_url="http://localhost:$page_port"
-    api_url="http://localhost:$page_port/api/doc/"
-    devdocs_url="http://localhost:$devdocs_port"
-    phpmyadmin_url="http://localhost:$phpmyadmin_port"
-    zammad_url="http://localhost:$zammad_port"
-    listmonk_url="http://localhost:$listmonk_port"
-    bluespice_url="http://localhost:18085"
-fi
+page_url="http://localhost:$page_port"
+api_url="http://localhost:$page_port/api/doc/"
+devdocs_url="http://localhost:$devdocs_port"
+phpmyadmin_url="http://localhost:$phpmyadmin_port"
+zammad_url="http://localhost:$zammad_port"
+listmonk_url="http://localhost:$listmonk_port"
+bluespice_url="http://localhost:18085"
 
 echo
 echo

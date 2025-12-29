@@ -9,12 +9,6 @@ This is the code that powers
 
 Visit our [DevDocs](https://devdocs.foodsharing.network) to get started with development.
 
-### Quickstart
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://gitlab.com/foodsharing-dev/foodsharing/-/tree/master/)
-
-Gitpod is a fast development environment in your browser.
-
 ## 💒 Community
 
 Our developers hang out in the

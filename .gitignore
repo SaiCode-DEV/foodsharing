@@ -68,7 +68,6 @@ docs/en/backend/database/database-tables-columns.md
 ## SYSTEM
 .composer
 .DS_Store
-config/gitpod
 
 am_cache
 .idea/*

@@ -10,12 +10,6 @@ case "${unameOut}" in
     *)          export FS_PLATFORM=default;;
 esac
 
-# check if gp is there
-if [[ $(type -t gp) == file ]];
-then
-    FS_PLATFORM=gitpod
-fi
-
 dir=$(dirname "$0")
 
 # shellcheck source=./__common.sh

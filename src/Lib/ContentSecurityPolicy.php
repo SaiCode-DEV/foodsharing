@@ -10,13 +10,6 @@ class ContentSecurityPolicy
         $self = "'self'";
         $unsafeInline = "'unsafe-inline'";
         $unsafeEval = "'unsafe-eval'";
-        $gitpod_config = 'config/gitpod';
-        $gitpod_url = '';
-        if (file_exists($gitpod_config)) {
-            $gitpod_file = file_get_contents($gitpod_config, true);
-            $gitpod_explode = explode(PHP_EOL, $gitpod_file);
-            $gitpod_url = $gitpod_explode[0];
-        }
 
         $policy = [
             'default-src' => [
@@ -30,7 +23,6 @@ class ContentSecurityPolicy
             'connect-src' => [
                 $self,
                 $this->websocketUrlFor($httpHost),
-                $gitpod_url,
                 'https://localhost',
                 'https://nginx',
                 'https://sentry.io',
@@ -42,7 +34,6 @@ class ContentSecurityPolicy
                 'https://maps03.geoapify.com',
                 'https://tile.openstreetmap.org',
                 'https://search.mapzen.com', // only used in u_loadCoords, gets hopefully replaces soon
-                'https://gitpod.io',
                 'blob:',
                 'ws:'
             ],

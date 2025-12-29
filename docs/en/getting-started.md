@@ -92,9 +92,3 @@ You need an ssh key on your system to clone the repository with SSH ([set up gui
 
 Continue on [Seed Overview](backend/database/seed-overview).
 
-## Go mobile wild
-
-A pre-configured **Visual Studio Code**, requires a [GitLab](https://gitlab.com) account.
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://gitlab.com/foodsharing-dev/foodsharing/-/tree/master/)
-

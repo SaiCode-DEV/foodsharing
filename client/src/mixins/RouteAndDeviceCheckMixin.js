@@ -11,7 +11,7 @@ export default {
   },
   created: function () {
     this.isTest = window.location.port === '8080'
-    this.isDev = window.location.hostname.includes('localhost') || window.location.hostname.includes('gitpod')
+    this.isDev = window.location.hostname.includes('localhost')
     this.isBeta = window.location.hostname.includes('beta.foodsharing')
     this.isDotAt = window.location.hostname.includes('foodsharing.at')
     this.isChrome = navigator.userAgent.includes('Chrome')
