@@ -1109,6 +1109,43 @@ events:
     desc: Co to za rodzaj eventu?
     multiday: Event trwa kilka dni
     type: Jak odbędzie się ten event?
+  span: '{from} do {until}'
+  duration: 'Czas trwania: {duration}'
+  mumble:
+    title: spotkanie online (Mumble)
+    location: 'Nasz serwer Mumble: <br><strong>mumble.foodsharing.de</strong>'
+    guide: 'Instrukcja: <strong><a href="https://wiki.foodsharing.de/Mumble">wiki.foodsharing.de/Mumble</a></strong>'
+  goto: Do eventu
+  notFound: Ten event nie istnieje albo nie masz do niego dostępu.
+  acceptedCount: '{count} uczestniczy'
+  maybeCount: '{count} być może przyjdzie'
+  invitedCount: '{count} zaproszenia'
+  morePeople: … i jeszcze {count}
+  noneAccepted: Jak dotąd nikt nie potwierdził uczestnictwa w tym evencie.
+  button:
+    change: Zmień odpowiedź
+    yes: Dołączę
+    maybe: Może
+    no: Nie mogę
+  menu:
+    yes: Przyjmij zaproszenie
+    maybe: być może mogę
+    no: nie mogę
+  rsvp:
+    yes: Dziękujemy, przyjąłeś/ęłaś zaproszenie.
+    maybe: Miło, że być może będziesz!
+    no: 'Zmieniono status zaproszenia: teraz nie uczestniczysz.'
+  location: Miejsce
+  meeting:
+    past: Ten event odbył się online.
+    present: Ten event odbywa się online. Możesz teraz dołącyć.
+    future: Ten event odbędzie się online. Jak tylko się rozpocznie, możesz 
+      dołączyć przez poniższy przycisk.
+    not_started: Ten event jeszcze się nie rozpoczął
+  attendees: Uczestnicy/czki
+  online_info: |
+    Telekonferencje i spotkania online przebiegają najlepiej na naszym własnym serwerze [BigBlueButton](https://bigbluebutton.org). Na 10 minut przed rozpoczęciem eventu uczestnicy/czki mogą ze strony eventu łatwo dołączyć  do konferencji przez kliknięcie. Nie potrzeba do tego żadnych innych programów, tylko w miarę aktualna przeglądarka internetowa. Poza tym jest możliwość dołączenia przez telefon.
+    Jeśli mimo to chcesz użyć innej platformy do telekonferencji lub spotkań online, wybierz opcję "inne".
 recipients:
   recipients: Odbiorcy
   all: Wszyscy/tkie Foodsaverzy/ki na świecie
@@ -1142,6 +1179,9 @@ date:
   tomorrow: jutro
   -- Yesterday: Wczoraj
   yesterday: wczoraj
+  friday: piątek
+  saturday: sobota
+  sunday: niedziela
 month:
   "3": Marzec
   "4": Kwiecień
@@ -1153,6 +1193,21 @@ month:
   "10": Październik
   "11": Listopad
   "12": Grudzień
+  "1": styczeń
+  "2": luty
+  short:
+    "1": sty.
+    "2": lut.
+    "3": marzec
+    "4": kwi.
+    "5": maj
+    "6": czerwiec
+    "7": lipiec
+    "8": sier.
+    "9": wrz.
+    "10": paź.
+    "11": list.
+    "12": gru.
 bell:
   no_bells: Aktualnie nie masz żadnych powiadomień.
   translation_failed:
@@ -1208,6 +1263,7 @@ bell:
   mark_as:
     read: Oznacz jako przeczytane
     unread: Oznacz jako nieprzeczytane
+  forum_mention_title: '{user} wspomniał/a o tobie ({forum})'
 list:
   filter_for: Filtruj według …
 filterlist:
@@ -1230,3 +1286,8 @@ error_ajax: |
   Niestety, to nie wyszło.
   Być może twoje połączenie internetowe w tej chwili nie działa.
   Odśwież stronę i spróbuj ponownie.
+reports:
+  message: opis
+  reason: powód
+  id: ID
+  time: czas

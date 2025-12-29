@@ -1516,6 +1516,7 @@ login:
     submit: Submit
     success: If this email address exists and has not yet been verified, a new 
       email will be sent.
+  error_not_activated: Unfortunately, your email address is not yet activated.
 salutation:
   "3": Dear
   "2": Dear
@@ -3260,7 +3261,9 @@ register:
   error: An error has occurred
   check_mail: Check your e-mail now to complete the registration!
   join_success_message: You have successfully completed your registration at 
-    foodsharing. You can now log in with your email and password.
+    foodsharing. Before you can log in with your email address and password, you
+    need to confirm your email address. We have sent you an email with a 
+    confirmation link to this address.
   have_read_the_legal_stuff2: noted
   phone_not_valid: The phone number you entered is not valid
   login_phone_info: It can be helpful to share your phone number with other food
