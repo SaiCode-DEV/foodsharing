@@ -24,11 +24,11 @@ class BuddyApiCest
 
     public function canOnlySendBuddyRequestWhenLoggedIn(ApiTester $I): void
     {
-        $I->sendPUT('api/buddy/' . $this->user2['id']);
+        $I->sendPost('api/users/' . $this->user2['id'] . '/buddies');
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
 
         $I->login($this->user1['email']);
-        $I->sendPUT('api/buddy/' . $this->user2['id']);
+        $I->sendPost('api/users/' . $this->user2['id'] . '/buddies');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeInDatabase('fs_buddy', [
             'foodsaver_id' => $this->user1['id'],
@@ -40,11 +40,11 @@ class BuddyApiCest
     public function canAcceptBuddyRequest(ApiTester $I): void
     {
         $I->login($this->user1['email']);
-        $I->sendPUT('api/buddy/' . $this->user2['id']);
+        $I->sendPost('api/users/' . $this->user2['id'] . '/buddies');
         $I->seeResponseCodeIs(HttpCode::OK);
 
         $I->login($this->user2['email']);
-        $I->sendPUT('api/buddy/' . $this->user1['id']);
+        $I->sendPost('api/users/' . $this->user1['id'] . '/buddies');
         $I->seeResponseCodeIs(HttpCode::OK);
 
         $I->seeInDatabase('fs_buddy', [
@@ -62,7 +62,7 @@ class BuddyApiCest
     public function buddyRequestIsOverwritten(ApiTester $I): void
     {
         $I->login($this->user1['email']);
-        $I->sendPUT('api/buddy/' . $this->user2['id']);
+        $I->sendPost('api/users/' . $this->user2['id'] . '/buddies');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeInDatabase('fs_buddy', [
             'foodsaver_id' => $this->user1['id'],
@@ -70,21 +70,21 @@ class BuddyApiCest
             'confirmed' => BuddyId::REQUESTED
         ]);
 
-        $I->sendPUT('api/buddy/' . $this->user2['id']);
+        $I->sendPost('api/users/' . $this->user2['id'] . '/buddies');
         $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
     }
 
     public function canRemoveBuddyRequest(ApiTester $I): void
     {
         $I->login($this->user1['email']);
-        $I->sendPUT('api/buddy/' . $this->user2['id']);
+        $I->sendPost('api/users/' . $this->user2['id'] . '/buddies');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeInDatabase('fs_buddy', [
             'foodsaver_id' => $this->user1['id'],
             'buddy_id' => $this->user2['id'],
             'confirmed' => BuddyId::REQUESTED
         ]);
-        $I->sendDELETE('api/buddy/' . $this->user2['id']);
+        $I->sendDelete('api/users/' . $this->user2['id'] . '/buddies');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->dontSeeInDatabase('fs_buddy', [
             'foodsaver_id' => $this->user1['id'],
@@ -94,10 +94,10 @@ class BuddyApiCest
     public function canRemoveAcceptedBuddy(ApiTester $I): void
     {
         $I->login($this->user1['email']);
-        $I->sendPUT('api/buddy/' . $this->user2['id']);
+        $I->sendPost('api/users/' . $this->user2['id'] . '/buddies');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->login($this->user2['email']);
-        $I->sendPUT('api/buddy/' . $this->user1['id']);
+        $I->sendPost('api/users/' . $this->user1['id'] . '/buddies');
         $I->seeResponseCodeIs(HttpCode::OK);
 
         $I->seeInDatabase('fs_buddy', [
@@ -113,7 +113,7 @@ class BuddyApiCest
 
         $I->login($this->user1['email']);
 
-        $I->sendDELETE('api/buddy/' . $this->user2['id']);
+        $I->sendDelete('api/users/' . $this->user2['id'] . '/buddies');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->dontSeeInDatabase('fs_buddy', [
             'foodsaver_id' => $this->user1['id'],
@@ -140,11 +140,11 @@ class BuddyApiCest
         ]);
 
         $I->login($this->user1['email']);
-        $I->sendPUT('api/buddy/' . $this->user2['id']);
+        $I->sendPost('api/users/' . $this->user2['id'] . '/buddies');
         $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
 
         $I->login($this->user2['email']);
-        $I->sendPUT('api/buddy/' . $this->user1['id']);
+        $I->sendPost('api/users/' . $this->user1['id'] . '/buddies');
         $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
     }
 
@@ -155,59 +155,49 @@ class BuddyApiCest
 
         // User1 and User2 become buddies
         $I->login($this->user1['email']);
-        $I->sendPUT('api/buddy/' . $this->user2['id']);
+        $I->sendPost('api/users/' . $this->user2['id'] . '/buddies');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->login($this->user2['email']);
-        $I->sendPUT('api/buddy/' . $this->user1['id']);
+        $I->sendPost('api/users/' . $this->user1['id'] . '/buddies');
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // User1 requests User3 as a buddy
         $I->login($this->user1['email']);
-        $I->sendPUT('api/buddy/' . $user3['id']);
+        $I->sendPost('api/users/' . $user3['id'] . '/buddies');
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // User 4 requests User1 as a buddy
         $I->login($user4['email']);
-        $I->sendPUT('api/buddy/' . $this->user1['id']);
+        $I->sendPost('api/users/' . $this->user1['id'] . '/buddies');
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // User1 requests their buddy list
         $I->login($this->user1['email']);
-        $I->sendGET('api/buddy/list');
+        $I->sendGET('api/users/current/buddies');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson([
             'buddies' => [
                 [
                     // User1's buddy User2
-                    'fsId' => $this->user1['id'],
-                    'buddyId' => $this->user2['id'],
+                    'id' => $this->user2['id'],
                     'name' => $this->user2['name'],
-                    'photo' => $this->user2['photo'] ?? null,
-                    'confirmed' => 1,
                 ]
             ],
-            'requests' => [
-                'mine' => [
-                    [
-                        // User1's request to User3
-                        'fsId' => $this->user1['id'],
-                        'buddyId' => $user3['id'],
-                        'name' => $user3['name'],
-                        'photo' => $user3['photo'] ?? null,
-                        'confirmed' => 0,
-                    ],
+            'myRequests' => [
+                [
+                    // User1's request to User3
+                    'id' => $user3['id'],
+                    'name' => $user3['name'],
                 ],
-                'other' => [
-                    [   // User4's request to User1
-                        'fsId' => $user4['id'],
-                        'buddyId' => $this->user1['id'],
-                        'name' => $user4['name'],
-                        'photo' => $user4['photo'] ?? null,
-                        'confirmed' => 0,
-                    ],
+            ],
+            'requestsToMe' => [
+                [
+                    // User4's request to User1
+                    'id' => $user4['id'],
+                    'name' => $user4['name'],
                 ],
-            ]
+            ],
         ]);
     }
 }

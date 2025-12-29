@@ -263,7 +263,7 @@ export default {
       isMessageInputVisible: false,
       applicationMessage: '',
       // expose the module-level constant to the template
-      minApplicationMessageLength: minApplicationMessageLength,
+      minApplicationMessageLength,
       alertsExpanded: false,
     }
   },

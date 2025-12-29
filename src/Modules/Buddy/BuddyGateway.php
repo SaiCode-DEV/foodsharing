@@ -11,8 +11,8 @@ class BuddyGateway extends BaseGateway
     {
         $stm = '
             SELECT
-                b.foodsaver_id AS fsId, b.buddy_id AS buddyId,
-                fs.name, fs.photo, b.confirmed
+                b.foodsaver_id AS fsId, b.buddy_id AS buddyId, b.confirmed,
+                fs.id, fs.name, fs.photo, fs.is_sleeping
             FROM fs_buddy b
             JOIN fs_foodsaver fs ON fs.id = (CASE WHEN b.foodsaver_id = :fsId THEN b.buddy_id ELSE b.foodsaver_id END)
             WHERE b.foodsaver_id = :fsId OR b.buddy_id = :fsId

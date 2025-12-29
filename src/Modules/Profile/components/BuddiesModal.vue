@@ -22,12 +22,12 @@
             class="d-flex align-items-center mb-2"
           >
             <Avatar
-              :user="{ id: section.profileId(buddy), name: buddy.name, avatar: buddy.photo }"
+              :user="buddy"
               :size="35"
               tooltip=""
               class="mr-2"
             />
-            <a :href="$url('profile', section.profileId(buddy))" class="d-flex align-items-center">
+            <a :href="$url('profile', buddy.id)" class="d-flex align-items-center">
               {{ buddy.name }}
             </a>
           </li>
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { get } from '@/api/base'
+import { getBuddies } from '@/api/buddy'
 import Avatar from '@/components/Avatar/Avatar.vue'
 export default {
   name: 'BuddiesModal',
@@ -64,19 +64,16 @@ export default {
           title: this.$t('buddy.confirmed'),
           list: this.buddies.buddies || [],
           iconClass: 'fas fa-check-circle buddy-status-icon buddy-status-check',
-          profileId: buddy => buddy.buddyId,
         },
         {
           title: this.$t('buddy.requests.mine'),
-          list: this.buddies.requests?.mine || [],
+          list: this.buddies.myRequests || [],
           iconClass: 'fas fa-clock buddy-status-icon buddy-status-warn',
-          profileId: buddy => buddy.buddyId,
         },
         {
           title: this.$t('buddy.requests.other'),
-          list: this.buddies.requests?.other || [],
+          list: this.buddies.requestsToMe || [],
           iconClass: 'fas fa-question-circle buddy-status-icon buddy-status-warn',
-          profileId: buddy => buddy.fsId,
         },
       ]
     },
@@ -85,9 +82,9 @@ export default {
     async fetchBuddies () {
       this.loading = true
       try {
-        const res = await get('/buddy/list')
+        const res = await getBuddies()
         this.buddies = res || null
-        this.numbuddies = this.buddies ? this.buddies.buddies.length + this.buddies.requests.mine.length + this.buddies.requests.other.length : 0
+        this.numbuddies = this.buddies ? this.buddies.buddies.length + this.buddies.myRequests.length + this.buddies.requestsToMe.length : 0
       } catch (e) {
         this.buddies = null
       }

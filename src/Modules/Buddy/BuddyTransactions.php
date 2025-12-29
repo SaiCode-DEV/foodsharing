@@ -5,8 +5,10 @@ namespace Foodsharing\Modules\Buddy;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\Modules\Bell\DTO\Bell;
+use Foodsharing\Modules\Buddy\DTO\BuddyList;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Buddy\BuddyId;
+use Foodsharing\Modules\Foodsaver\Profile;
 
 class BuddyTransactions
 {
@@ -83,44 +85,24 @@ class BuddyTransactions
         return $buddies ?: [];
     }
 
-    /**
-     * Returns an object with buddies and buddy requests.
-     *
-     * @return array{
-     *     buddies: array<array{fsId: int, buddyId: int, name: string, photo: string|null, confirmed: int}>,
-     *     requests: array{
-     *         mine: array<array{fsId: int, name: string, photo: string|null, confirmed: int}>,
-     *         other: array<array{fsId: int, buddyId: int, name: string, photo: string|null, confirmed: int}>
-     *     }
-     * }
-     */
-    public function listBuddies(): array
+    public function listBuddies(): BuddyList
     {
         $fsId = $this->session->id();
         $buddies = $this->buddyGateway->listBuddies($fsId);
+        $buddyList = new BuddyList();
+        foreach ($buddies as $buddy) {
+            $profile = new Profile($buddy);
+            if ($buddy['confirmed'] === BuddyId::BUDDY) {
+                $buddyList->buddies[$profile->id] = $profile;
+            } elseif ($buddy['fsId'] === $fsId) {
+                $buddyList->myRequests[] = $profile;
+            } else {
+                $buddyList->requestsToMe[] = $profile;
+            }
+        }
+        $buddyList->buddies = array_values($buddyList->buddies);
 
-        // Get confirmed buddies
-        $myBuddies = array_values(array_filter($buddies, function ($buddy) use ($fsId) {
-            return $buddy['fsId'] === $fsId && $buddy['confirmed'] === BuddyId::BUDDY;
-        }));
-
-        // Get requests where the current user is the one who sent the request
-        $myRequests = array_values(array_filter($buddies, function ($buddy) use ($fsId) {
-            return $buddy['fsId'] === $fsId && $buddy['confirmed'] === BuddyId::REQUESTED;
-        }));
-
-        // Get requests where the current user is the one who received the request
-        $otherRequests = array_values(array_filter($buddies, function ($buddy) use ($fsId) {
-            return $buddy['buddyId'] === $fsId && $buddy['confirmed'] === BuddyId::REQUESTED;
-        }));
-
-        return [
-            'buddies' => $myBuddies,
-            'requests' => [
-                'mine' => $myRequests,
-                'other' => $otherRequests,
-            ],
-        ];
+        return $buddyList;
     }
 
     private function reloadMyBuddyListSessionCache()

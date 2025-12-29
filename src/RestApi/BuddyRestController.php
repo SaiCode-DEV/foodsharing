@@ -5,13 +5,17 @@ namespace Foodsharing\RestApi;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Buddy\BuddyGateway;
 use Foodsharing\Modules\Buddy\BuddyTransactions;
-use FOS\RestBundle\Controller\Annotations as Rest;
+use Foodsharing\Modules\Buddy\DTO\BuddyList;
+use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Requirement\Requirement;
 
 #[OA\Tag(name: 'buddy')]
+#[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
 class BuddyRestController extends AbstractFoodsharingRestController
 {
     public function __construct(
@@ -22,12 +26,12 @@ class BuddyRestController extends AbstractFoodsharingRestController
         parent::__construct($this->session);
     }
 
-    #[OA\Get(summary: 'Sends a buddy request to a user.')]
-    #[OA\Parameter(name: 'userId', description: 'which user to send the request to', in: 'path', schema: new OA\Schema(type: 'integer'))]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new OA\JsonContent(type: 'object', properties: [new OA\Property(property: 'isBuddy', type: 'boolean', description: "whether the other user is now this user's buddy")]))]
+    #[OA\Post(summary: 'Sends a buddy request to a user.')]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new OA\JsonContent(type: 'object', properties: [
+        new OA\Property(property: 'isBuddy', type: 'boolean', description: 'whether the other user is now this user\'s buddy')
+    ]))]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Already send a request to that user.')]
-    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to send the request.')]
-    #[Rest\Put('buddy/{userId}', requirements: ['userId' => "\d+"])]
+    #[Route('users/{userId}/buddies', methods: ['POST'], requirements: ['userId' => Requirement::POSITIVE_INT])]
     public function sendRequest(int $userId): Response
     {
         $this->assertLoggedIn();
@@ -47,11 +51,9 @@ class BuddyRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Delete(summary: 'Removes a buddy request to a user.')]
-    #[OA\Parameter(name: 'userId', description: 'which user to remove the request to', in: 'path', schema: new OA\Schema(type: 'integer'))]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new OA\JsonContent(type: 'boolean'))]
-    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Not currently requested to be a buddy of that user.')]
-    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to send the request.')]
-    #[Rest\Delete('buddy/{userId}', requirements: ['userId' => "\d+"])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'There was no request to be removed.')]
+    #[Route('users/{userId}/buddies', methods: ['DELETE'], requirements: ['userId' => Requirement::POSITIVE_INT])]
     public function removeRequest(int $userId): Response
     {
         $this->assertLoggedIn();
@@ -66,13 +68,8 @@ class BuddyRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Get(summary: 'Returns a list of all buddies with id, name, and photo.')]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new OA\JsonContent(type: 'array', items: new OA\Items(properties: [
-        new OA\Property(property: 'id', type: 'integer'),
-        new OA\Property(property: 'name', type: 'string'),
-        new OA\Property(property: 'photo', type: 'string', nullable: true),
-        new OA\Property(property: 'confirmed', type: 'boolean', description: 'Whether the buddy is confirmed or not'),
-    ])))]
-    #[Rest\Get('buddy/list')]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new Model(type: BuddyList::class))]
+    #[Route('users/current/buddies', methods: ['GET'])]
     public function listBuddies(): Response
     {
         $this->assertLoggedIn();
