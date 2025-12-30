@@ -53,7 +53,7 @@ final class DevDatabaseAdjustment extends AbstractMigration
             ->update();
 
         $this->table('fs_foodsaver_has_conversation')
-            ->changeColumn('unread', 'smallinteger', ['null' => false, 'default' => 1, 'signed' => false])
+            ->changeColumn('unread', 'smallinteger', ['null' => false, 'default' => 1, 'signed' => true])
             ->update();
 
         $this->table('fs_fsreports_has_wallpost')
