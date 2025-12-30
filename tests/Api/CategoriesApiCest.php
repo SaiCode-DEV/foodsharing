@@ -137,9 +137,9 @@ class CategoriesApiCest
         } while ($category1->id === $category2->id);
 
         $I->login($this->userAdmin['email']);
-        $I->sendPost('api/categories/store/merge/' . $category1->id . '/' . $category2->id);
+        $I->sendPost('api/categories/store/' . $category1->id . '/merges/' . $category2->id);
         $I->seeResponseCodeIs(Http::OK);
-        $I->seeResponseContainsJson(['duplicates' => 0]);
+        $I->seeResponseIsJson(0);
 
         // Check that the second category was merged into the first
         $I->dontSeeInDatabase('fs_betrieb_kategorie', ['id' => $category2->id]);

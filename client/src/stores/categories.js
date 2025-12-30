@@ -39,7 +39,7 @@ export const mutations = {
     const sourceIndex = store[type].findIndex(category => category.id === sourceId)
     const targetIndex = store[type].findIndex(category => category.id === targetId)
     if (sourceIndex >= 0 && targetIndex >= 0 && sourceIndex !== targetIndex) {
-      const { duplicates } = await mergeCategories(type, sourceId, targetId)
+      const duplicates = await mergeCategories(type, sourceId, targetId)
       const sourceCategory = store[type][sourceIndex]
       const targetCategory = store[type][targetIndex]
       sourceCategory.usageCount += targetCategory.usageCount - duplicates

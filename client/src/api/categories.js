@@ -17,5 +17,5 @@ export async function removeCategory (type, id) {
 }
 
 export async function mergeCategories (type, sourceId, targetId) {
-  return await post(`/categories/${type}/merge/${sourceId}/${targetId}`)
+  return await post(`/categories/${type}/${sourceId}/merges/${targetId}`)
 }

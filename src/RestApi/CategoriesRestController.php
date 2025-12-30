@@ -3,15 +3,11 @@
 namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
-use Foodsharing\Modules\Categories\AbstractCategoriesGateway;
+use Foodsharing\Modules\Categories\CategoriesTransactions;
 use Foodsharing\Modules\Categories\Category;
-use Foodsharing\Modules\Categories\ResourceCategoriesGateway;
-use Foodsharing\Modules\Categories\StoreCategoriesGateway;
 use Foodsharing\Modules\Core\DBConstants\CategoryType;
 use Foodsharing\Modules\Store\DTO\CommonLabel;
-use Foodsharing\Modules\Store\StoreTransactions;
 use Foodsharing\Permissions\CategoriesPermissions;
-use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -20,69 +16,63 @@ use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 
 #[OA\Tag(name: 'categories')]
+#[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
+#[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid category type')]
 class CategoriesRestController extends AbstractFoodsharingRestController
 {
     public function __construct(
         protected Session $session,
         private readonly CategoriesPermissions $categoriesPermissions,
-        private readonly StoreCategoriesGateway $storeCategoriesGateway,
-        private readonly ResourceCategoriesGateway $resourceCategoriesGateway,
-        private readonly StoreTransactions $storeTransactions,
+        private readonly CategoriesTransactions $categoriesTransactions,
     ) {
         parent::__construct($this->session);
     }
 
-    #[OA\Get(summary: 'Returns all existing categories')]
-    #[Rest\Get(path: 'categories/{type}', requirements: ['type' => '\w+'])]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new OA\JsonContent(
+    #[OA\Get(summary: 'Returns all existing categories of the given type')]
+    #[Route(path: 'categories/{type}', methods: ['GET'], requirements: ['type' => '\w+'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
         type: 'array',
         items: new OA\Items(ref: new Model(type: Category::class))
     ))]
-    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
-    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Invalid category type')]
     public function getCategories(string $type): Response
     {
         $this->assertLoggedIn();
         $type = $this->parseCategoryType($type);
-        $categories = $this->getCategoriesGateway($type)->getCategoriesWithUsageCounts();
+        $categories = $this->categoriesTransactions->getCategoriesGateway($type)->getCategoriesWithUsageCounts();
 
         return $this->respondOK($categories);
     }
 
     #[OA\Post(summary: 'Adds a category')]
-    #[Rest\Post(path: 'categories/{type}', requirements: ['type' => '\w+'])]
-    #[OA\RequestBody(content: new Model(type: CommonLabel::class))]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new OA\JsonContent(
+    #[Route(path: 'categories/{type}', methods: ['POST'], requirements: ['type' => '\w+'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
         ref: new Model(type: CommonLabel::class)
     ))]
-    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid parameters')]
-    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
-    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to add the category')]
-    public function addStoreCategory(string $type, #[MapRequestPayload] CommonLabel $category): Response
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
+    public function addCategory(string $type, #[MapRequestPayload] CommonLabel $category): Response
     {
         $this->assertLoggedIn();
         $type = $this->parseCategoryType($type);
         $this->assertHasEditPermissions($type);
 
-        $category->id = $this->getCategoriesGateway($type)->addCategory($category);
+        $category->id = $this->categoriesTransactions->getCategoriesGateway($type)->addCategory($category);
 
-        $this->handleTypeSpecificSideEffects($type);
+        $this->categoriesTransactions->handleTypeSpecificSideEffects($type);
 
         return $this->respondOK($category);
     }
 
     #[OA\Patch(summary: 'Changes a category')]
-    #[Rest\Patch('categories/{type}/{id}', requirements: ['type' => '\w+', 'id' => Requirement::DIGITS])]
+    #[Route('categories/{type}/{id}', methods: ['PATCH'], requirements: ['type' => '\w+', 'id' => Requirement::POSITIVE_INT])]
     #[ParamConverter('category', converter: 'fos_rest.request_body')]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success.')]
-    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid parameters')]
-    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
-    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to edit store categories')]
-    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Store category does not exist')]
-    public function updateStoreCategory(string $type, int $id, #[MapRequestPayload] CommonLabel $category): Response
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Category doesn\'t exist')]
+    public function updateCategory(string $type, int $id, #[MapRequestPayload] CommonLabel $category): Response
     {
         $this->assertLoggedIn();
         $type = $this->parseCategoryType($type);
@@ -90,18 +80,17 @@ class CategoriesRestController extends AbstractFoodsharingRestController
         $this->assertCategoryExists($type, $id);
 
         $category->id = $id;
-        $this->getCategoriesGateway($type)->updateCategory($category);
-        $this->handleTypeSpecificSideEffects($type);
+        $this->categoriesTransactions->getCategoriesGateway($type)->updateCategory($category);
+        $this->categoriesTransactions->handleTypeSpecificSideEffects($type);
 
         return $this->respondOK();
     }
 
-    #[OA\Patch(summary: 'Deletes a category')]
-    #[Rest\Delete('categories/{type}/{id}', requirements: ['type' => '\w+', 'id' => Requirement::DIGITS])]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success.')]
-    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
-    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to delete categories')]
-    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Category does not exist')]
+    #[OA\Delete(summary: 'Deletes a category')]
+    #[Route('categories/{type}/{id}', methods: ['DELETE'], requirements: ['type' => '\w+', 'id' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Category doesn\'t exist')]
     public function deleteCategory(string $type, int $id): Response
     {
         $this->assertLoggedIn();
@@ -109,25 +98,24 @@ class CategoriesRestController extends AbstractFoodsharingRestController
         $this->assertHasEditPermissions($type);
         $this->assertCategoryExists($type, $id);
 
-        $this->getCategoriesGateway($type)->deleteCategory($id);
-        $this->handleTypeSpecificSideEffects($type);
+        $this->categoriesTransactions->getCategoriesGateway($type)->deleteCategory($id);
+        $this->categoriesTransactions->handleTypeSpecificSideEffects($type);
 
         return $this->respondOK();
     }
 
     #[OA\Post(summary: 'Merge two categories')]
-    #[Rest\Post('categories/{type}/merge/{sourceId}/{targetId}', requirements: [
+    #[Route('categories/{type}/{sourceId}/merges/{targetId}', methods: ['POST'], requirements: [
         'type' => '\w+',
-        'sourceId' => Requirement::DIGITS,
-        'targetId' => Requirement::DIGITS,
+        'sourceId' => Requirement::POSITIVE_INT,
+        'targetId' => Requirement::POSITIVE_INT,
     ])]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new OA\JsonContent(
-        type: 'object',
-        properties: ['duplicates' => new OA\Property(type: 'integer', description: 'Number of duplicates removed')]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
+        type: 'integer',
+        description: 'Number of duplicates removed'
     ))]
-    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
-    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to merge categories')]
-    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'One of the categories does not exist')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Category doesn\'t exist')]
     public function mergeCategories(string $type, int $sourceId, int $targetId): Response
     {
         $this->assertLoggedIn();
@@ -140,10 +128,10 @@ class CategoriesRestController extends AbstractFoodsharingRestController
             throw new BadRequestHttpException('Cannot merge a category with itself');
         }
 
-        $duplicates = $this->getCategoriesGateway($type)->mergeCategories($sourceId, $targetId);
-        $this->handleTypeSpecificSideEffects($type);
+        $duplicates = $this->categoriesTransactions->getCategoriesGateway($type)->mergeCategories($sourceId, $targetId);
+        $this->categoriesTransactions->handleTypeSpecificSideEffects($type);
 
-        return $this->respondOK(['duplicates' => $duplicates]);
+        return $this->respondOK($duplicates);
     }
 
     private function parseCategoryType(string $type): CategoryType
@@ -159,29 +147,14 @@ class CategoriesRestController extends AbstractFoodsharingRestController
     private function assertHasEditPermissions(CategoryType $type): void
     {
         if (!$this->categoriesPermissions->mayEditCategories($type)) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('You are not permitted to edit categories of type ' . $type->value);
         }
     }
 
     private function assertCategoryExists(CategoryType $type, int $id): void
     {
-        if (!$this->getCategoriesGateway($type)->categoryExists($id)) {
+        if (!$this->categoriesTransactions->getCategoriesGateway($type)->categoryExists($id)) {
             throw new NotFoundHttpException('Category does not exist');
         }
-    }
-
-    private function handleTypeSpecificSideEffects(CategoryType $type): void
-    {
-        if ($type === CategoryType::STORE) {
-            $this->storeTransactions->invalidateCachedStoreMetadata();
-        }
-    }
-
-    private function getCategoriesGateway(CategoryType $type): AbstractCategoriesGateway
-    {
-        return match ($type) {
-            CategoryType::STORE => $this->storeCategoriesGateway,
-            CategoryType::RESOURCE => $this->resourceCategoriesGateway,
-        };
     }
 }
