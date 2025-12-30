@@ -46,6 +46,10 @@ class SettingsPermissions
         return false;
     }
 
+    /**
+     * Determines if the current user is allowed to change verified data (name, birthdate) of the profile with
+     * the given id.
+     */
     public function mayChangeVerifiedData(int $userId): bool
     {
         if ($this->session->mayRole(Role::ORGA)) {

@@ -1,6 +1,6 @@
 <template>
   <b-form v-if="isLoaded" @submit.prevent="handleSubmit">
-    <b-alert :show="!userStore.settings.mayChangeVerifiedData">
+    <b-alert :show="!profileData.mayChangeVerifiedData && isMe">
       <p>
         <i class="fas fa-user-pen mr-1" />
         <span v-text="$t('settings.change_data_info.general')" />
@@ -8,7 +8,7 @@
       <span v-text="$t('settings.change_data_info.verified')" />
       <Info info-key="change_verified_data" :props="{ link: $url('region_forum', settings.region.id )}" />
     </b-alert>
-    <b-alert :show="isAmbassador || isOrgUser">
+    <b-alert :show="profileData.mayChangeVerifiedData && !isMe">
       <Markdown :source="$t('profile.editNameInfo', {url: $url('editNameInfoUrl')})" />
     </b-alert>
     <div class="row">
@@ -19,7 +19,7 @@
             v-model.lazy="settings.firstName"
             :class="{ 'is-invalid': v$.firstName.$error }"
             type="text"
-            :disabled="!userStore.settings.mayChangeVerifiedData"
+            :disabled="!profileData.mayChangeVerifiedData"
           />
           <div
             v-if="v$.firstName.$error"
@@ -38,7 +38,7 @@
             v-model.lazy="settings.lastName"
             :class="{ 'is-invalid': v$.lastName.$error }"
             type="text"
-            :disabled="!userStore.settings.mayChangeVerifiedData"
+            :disabled="!profileData.mayChangeVerifiedData"
           />
           <div v-if="v$.lastName.$error" class="invalid-feedback">
             <span v-if="!v$.lastName.required">{{ $t('register.lastname_required') }}</span>
@@ -60,7 +60,7 @@
             v-model="birthdayFormatted"
             type="date"
             autocomplete="off"
-            :disabled="!userStore.settings.mayChangeVerifiedData"
+            :disabled="!profileData.mayChangeVerifiedData"
           />
           <div v-if="!isValidBirthdate" class="invalid-feedback">
             {{ $t('register.error_birthdate') }}
@@ -323,7 +323,6 @@ const noAutoDeleteOptions = [
 const selectableRegionTypes = SELECTABLE_REGION_TYPES
 const isOrgUser = computed(() => userStore.isOrga)
 const isMe = computed(() => userStore.getUserId === settings.value.id)
-const isAmbassador = computed(() => userStore.isAmbassador)
 const isLoaded = computed(() => props.profileData !== null && settings.value.id !== null)
 const isFieldsValid = computed(() =>
   settings.value.phone.valid && settings.value.mobile.valid && !v$.value.$invalid && isValidBirthdate.value,
@@ -376,7 +375,7 @@ function updateLocalFields (data) {
     photo: data.photo,
     gender: data.gender,
     birthday: data.birthday,
-    role: data.rolle,
+    role: data.role,
     mobile: { value: data.mobile, valid: true },
     phone: { value: data.phone, valid: true },
     location: {
