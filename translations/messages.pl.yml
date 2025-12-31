@@ -1260,10 +1260,31 @@ bell:
   new_forum_thread: '{author}: {title}'
   new_resource:
     one: 'Od {user}: „{title}“'
+    many: '{count} nowych zasobów'
   mark_as:
     read: Oznacz jako przeczytane
     unread: Oznacz jako nieprzeczytane
   forum_mention_title: '{user} wspomniał/a o tobie ({forum})'
+  foodsaver_adress_changed: Sprawdź przy częstych zmianach.
+  passport_created_or_renewed_title: Twoja legitymacja …
+  passport_created_or_renewed: została aktywowana lub przedłużona!
+  passgen_failed: Prześlij zdjęcie, wtedy się uda.
+  workgroup_request_accept: Zostałeś/aś przyjęty/a do zespołu.
+  workgroup_request_decline: Nie zostałeś/aś przyjęty/a do zespołu.
+  banana_given_title: Nowy banan zaufania
+  banana_given: '{name} podarował/a ci banana zaufania.'
+  report_reason: '{reason}'
+  internal_email_changed_title: '{address}'
+  internal_email_changed: Twój osobisty adres email został zmieniony.
+  forum_not_activated_thread: '{forum}'
+  forum_not_activated_thread_title: Temat w moderowanym forum
+  post_hidden_title: Post ukryty przez {user}
+  post_hidden: Twój post do {title} w forum {forum} został ukryty
+  delete_store: usunięto {name}
+  store_invitation_declined:
+    one: '{user} nie chce dołączyć do {store}'
+    many: '{count} użytkowników/czek nie chce dołączyć do {store}'
+  new_resource_title: '{region}: nowe zasoby'
 list:
   filter_for: Filtruj według …
 filterlist:
@@ -1275,6 +1296,8 @@ genderlist:
   gender_male: męska
   gender_female: żeńska
   number_table_header: liczba/ilość
+  header_for_district: Podział płci w {bezirk}
+  gender_divers: inne
 pickuplist:
   day_tab: Dzień
   week_tab: Tydzień
@@ -1282,6 +1305,12 @@ pickuplist:
   year_tab: Rok
   time_table_header: Okres czasu
   NumberOfFoodSavers_table_header: Liczba Foodsaverów/ek
+  tryagain: Spróbuj ponownie po odświeżeniu strony.
+  error_leave: 'Opuszczenie nie powiodło się: '
+  error_kick: 'Usunięcie nie powiodło się: '
+  error_confirm: 'Potwierdzenie nie powiodło się: '
+  error_whileSending: Błąd przy wysyłaniu wiadomości
+  unclear: Status niejasny
 error_ajax: |
   Niestety, to nie wyszło.
   Być może twoje połączenie internetowe w tej chwili nie działa.
@@ -1291,3 +1320,27 @@ reports:
   reason: powód
   id: ID
   time: czas
+memberlist:
+  header_for_workgroup: Foodsaverzy/ki w zespole {bezirk}
+ageBandList:
+  header_for_district: 'Grupy wiekowe w {bezirk} '
+  ageBand: Grupa wiekowa
+  NumberOfAgeband: Ilość/liczba
+regionOptions:
+  header_page: Opcje dla {bezirk}
+  success: Pomyślnie zapisano opcje
+  save: Zapisz opcje
+foodsaver:
+  bread: Wszyscy foodsaverzy/ki
+  title: Foodsaver
+  actions: Aktywności
+  edit: Edytuj foodsaverów/ki
+  editName: edytuj {name}
+  edit_failure: Nic się nie zmieniło albo zmiany nie zostały zapisane
+  profileBack: Powrót do profilu
+  delete_account: Usuń konto
+  delete_account_reason: Powód usunięcia konta
+  delete_account_sure: Czy na pewno chcesz usunąć swoje konto?
+  delete_account_sure_reason: 'Czy na pewno chcesz usunąć swoje konto? Powód: {reason}'
+  delete_account_now: Usuń konto teraz
+  url_error: Coś się nie zgadza z twoim URL strony domowej
