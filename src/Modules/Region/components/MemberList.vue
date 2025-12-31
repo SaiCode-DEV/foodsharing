@@ -210,7 +210,38 @@
         </div>
       </div>
 
+      <div
+        v-if="regionStore.isMemberListLoading"
+        class="card-body p-0"
+      >
+        <div class="list-group">
+          <div
+            v-for="i in 10"
+            :key="`skeleton-${i}`"
+            class="list-group-item d-flex align-items-center p-2"
+          >
+            <b-skeleton
+              type="avatar"
+              size="50px"
+              class="mr-3"
+            />
+            <div class="flex-grow-1">
+              <b-skeleton
+                width="80%"
+                height="1em"
+                class="mb-2"
+              />
+              <b-skeleton
+                width="60%"
+                height="0.8em"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
       <b-table
+        v-else
         ref="selectableTable"
         :fields="filteredFields"
         :items="membersFiltered"
@@ -345,7 +376,7 @@
           </b-button>
         </template>
       </b-table>
-      <div class="float-right p-1 pr-3">
+      <div v-if="!regionStore.isMemberListLoading" class="float-right p-1 pr-3">
         <b-pagination
           v-model="currentPage"
           :total-rows="membersFiltered.length"

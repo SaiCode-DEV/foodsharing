@@ -79,6 +79,7 @@ export const useRegionStore = defineStore('region', {
     memberList: [],
     publicRegions: {},
     regionMenus: {},
+    isMemberListLoading: false,
   }),
   getters: {
     findRegion: (state) => (regionId) => {
@@ -102,7 +103,12 @@ export const useRegionStore = defineStore('region', {
       document.location.href = url('relogin_and_redirect_to_url', url('region_forum', regionId))
     },
     async fetchMemberList (regionId) {
-      this.memberList = await listRegionMembers(regionId)
+      this.isMemberListLoading = true
+      try {
+        this.memberList = await listRegionMembers(regionId)
+      } finally {
+        this.isMemberListLoading = false
+      }
     },
     async fetchPublicRegionData (id, alwaysUpdate = false) {
       try {

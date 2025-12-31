@@ -46,7 +46,44 @@
     </b-container>
     <b-container>
       <ul class="forum_threads linklist">
-        <div v-if="!searchActive && threads.totalCount > 0">
+        <div v-if="isLoading">
+          <li
+            v-for="i in perPage"
+            :key="`skeleton-${i}`"
+            class="pl-2 thread-item"
+          >
+            <div class="d-flex align-items-center py-2">
+              <b-skeleton
+                type="avatar"
+                size="50px"
+                class="mr-3"
+              />
+              <div class="flex-grow-1">
+                <b-skeleton
+                  width="75%"
+                  height="1.1em"
+                  class="mb-2"
+                />
+                <b-skeleton
+                  width="50%"
+                  height="0.9em"
+                />
+              </div>
+              <div class="ml-auto">
+                <b-skeleton
+                  width="120px"
+                  height="0.9em"
+                  class="mb-1"
+                />
+                <b-skeleton
+                  width="100px"
+                  height="0.8em"
+                />
+              </div>
+            </div>
+          </li>
+        </div>
+        <div v-else-if="!searchActive && threads.totalCount > 0">
           <ThreadListEntry
             v-for="(thread, index) in threads.entries"
             :key="index"
@@ -99,6 +136,7 @@ export default {
       perPage: 20,
       isActiveFollower: false,
       searchActive: false,
+      isLoading: false,
     }
   },
   computed: {
@@ -124,10 +162,13 @@ export default {
     },
     async loadThreads (currentPage) {
       const offset = (currentPage - 1) * this.perPage
+      this.isLoading = true
       try {
         this.threads = await listThreads(this.groupId, this.subforumId, offset)
       } catch {
         pulseError(this.$t('error_unexpected'))
+      } finally {
+        this.isLoading = false
       }
     },
     setActiveFollowership (isActiveFollower) {
