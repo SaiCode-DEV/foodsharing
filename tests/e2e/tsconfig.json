@@ -11,8 +11,5 @@
     },
     "types": ["node", "@playwright/test"]
   },
-  "include": [
-    "./**/*.ts",
-    "../../client/src/**/*.ts"
-  ]
+  "include": ["./**/*.ts", "../../client/src/**/*.ts"]
 }

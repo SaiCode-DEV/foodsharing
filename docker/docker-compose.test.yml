@@ -1,5 +1,4 @@
 # expose, ports are additive, means each environment requires a own port mapping instead of a global one.
-
 services:
   nginx:
     container_name: foodsharing_test_nginx
@@ -56,7 +55,7 @@ services:
     container_name: foodsharing_test_phpmyadmin
     ports:
       - "28081:80"
-
+      
   maildev:
     container_name: foodsharing_test_maildev
     ports:
@@ -88,14 +87,29 @@ services:
     volumes:
       - selenium_downloads:/home/seluser/Downloads:cached
 
-  # Microsoft Playwright
-  # ------------------------------------
-  playwright:
-    container_name: foodsharing_test_playwright
+  # E2E Tests with Playwright (Test Environment)
+  #------------------------------------
+  e2e:
+    user: ${CURRENT_USER}
+    container_name: foodsharing_test_e2e
     image: mcr.microsoft.com/playwright:v1.57.0-noble
-    command: sh -c "cd /home/pwuser && npx -y playwright@1.57.0 run-server --port 3005"
+    working_dir: /app/tests/e2e
+    # Keep container running for on-demand test execution via docker-compose exec
+    command: sh -c "mkdir -p /app/cache/e2e-home && tail -f /dev/null"
+    depends_on:
+      - nginx
+      - db
+      - websocket
+    volumes:
+      - ../:/app:delegated
+    environment:
+      - NPM_CONFIG_UPDATE_NOTIFIER=false
+      - HOME=/app/cache/e2e-home
+      - YARN_CACHE_FOLDER=/app/cache/yarn
     ports:
-      - "23005:3005"
+      - "29323:9323"
+      - "23008:3008"
 
+# Volumes for test environment
 volumes:
   selenium_downloads:

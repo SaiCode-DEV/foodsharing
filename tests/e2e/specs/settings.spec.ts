@@ -1,33 +1,35 @@
-import { test, expect } from '../helpers/acceptance';
-import { foodsharing } from '../helpers/foodsharing';
-import { Database } from '../helpers/database';
-import Role from '../helpers/constants/Foodsaver/Role';
+import { test, expect } from "../helpers/acceptance";
+import { foodsharing } from "../helpers/foodsharing";
+import { Database } from "../helpers/database";
+import Role from "../helpers/constants/Foodsaver/Role";
 
-test.describe('Settings', () => {
-
-  test('can edit internal self description', async ({ page, acceptanceHelper }) => {
+test.describe("Settings", () => {
+  test("can edit internal self description", async ({
+    page,
+    acceptanceHelper,
+  }) => {
     const user = await foodsharing.createFoodsaver();
 
     await acceptanceHelper.login(user.email);
 
-    const newSelfDesc = 'This is a new self description!';
+    const newSelfDesc = "This is a new self description!";
 
-    await page.goto('/user/current/settings');
-    await page.getByRole('button', { name: 'Profileinstellungen' }).click();
-    const aboutMeIntern = page.locator('#about_me_intern');
-    await aboutMeIntern.waitFor({ state: 'visible' });
+    await page.goto("/user/current/settings");
+    await page.getByRole("button", { name: "Profileinstellungen" }).click();
+    const aboutMeIntern = page.locator("#about_me_intern");
+    await aboutMeIntern.waitFor({ state: "visible" });
     await aboutMeIntern.clear();
     await aboutMeIntern.fill(newSelfDesc);
-    await page.click('text=Speichern');
+    await page.click("text=Speichern");
 
     await acceptanceHelper.waitForActiveAPICalls();
 
     // Verify the description is visible on the profile page
     await page.goto(`/user/${user.id}/profile`);
-    await expect(page.locator('body')).toContainText(newSelfDesc);
+    await expect(page.locator("body")).toContainText(newSelfDesc);
   });
 
-  test('can edit location', async ({ page, acceptanceHelper }) => {
+  test("can edit location", async ({ page, acceptanceHelper }) => {
     const orga = await foodsharing.createOrga(null, true);
     const foodsharer = await foodsharing.createFoodsharer();
 
@@ -37,61 +39,71 @@ test.describe('Settings', () => {
 
     await page.goto(`/user/${foodsharer.id}/settings`);
     if (await acceptanceHelper.isMobile()) {
-      await page.getByRole('button', { name: 'Profileinstellungen' }).click();
+      await page.getByRole("button", { name: "Profileinstellungen" }).click();
     }
 
     // Find an address in the search field
-    await page.click('#change-address-button');
-    await page.waitForSelector('text=Adresse auswählen');
-    await page.locator('#searchField').fill(address);
-    await page.waitForSelector('.location-options');
-    const addressText = await page.locator('.location-options .list-group-item').textContent();
-    const addressArray = addressText?.split(',').map(s => s.trim()) || [];
-    const street = addressArray[1] || '';
-    const postal = addressArray[2]?.split(' ')[0] || '';
-    const city = addressArray[2]?.split(' ').slice(1).join(' ') || '';
+    await page.click("#change-address-button");
+    await page.waitForSelector("text=Adresse auswählen");
+    await page.locator("#searchField").fill(address);
+    await page.waitForSelector(".location-options");
+    const addressText = await page
+      .locator(".location-options .list-group-item")
+      .textContent();
+    const addressArray = addressText?.split(",").map((s) => s.trim()) || [];
+    const street = addressArray[1] || "";
+    const postal = addressArray[2]?.split(" ")[0] || "";
+    const city = addressArray[2]?.split(" ").slice(1).join(" ") || "";
     await page.click(`text=${address}`);
-    await page.click('text=Adresse übernehmen');
-    await page.click('text=Speichern');
+    await page.click("text=Adresse übernehmen");
+    await page.click("text=Speichern");
     await acceptanceHelper.waitForActiveAPICalls();
 
     // Verify the address was saved by checking the fields
-    await page.click('#change-address-button');
-    await page.waitForSelector('text=Adresse auswählen');
+    await page.click("#change-address-button");
+    await page.waitForSelector("text=Adresse auswählen");
 
-    await expect(page.locator('#input-street')).toHaveValue(street);
-    await expect(page.locator('#input-postal')).toHaveValue(postal);
-    await expect(page.locator('#input-city')).toHaveValue(city);
+    await expect(page.locator("#input-street")).toHaveValue(street);
+    await expect(page.locator("#input-postal")).toHaveValue(postal);
+    await expect(page.locator("#input-city")).toHaveValue(city);
 
-    await page.click('text=Abbrechen');
+    await page.click("text=Abbrechen");
   });
 
-  test('shows return to profile button and redirects correctly when editing another user', async ({ page, acceptanceHelper }) => {
+  test("shows return to profile button and redirects correctly when editing another user", async ({
+    page,
+    acceptanceHelper,
+  }) => {
     // Setup region, member, and ambassador
     const region = await foodsharing.createRegion();
     const member = await foodsharing.createFoodsaver();
-    const ambassador = await foodsharing.createAmbassador(null, { bezirk_id: region.id });
+    const ambassador = await foodsharing.createAmbassador(null, {
+      bezirk_id: region.id,
+    });
 
     await foodsharing.addRegionAdmin(region.id, ambassador.id);
     await foodsharing.addRegionMember(region.id, member.id);
 
     await acceptanceHelper.login(ambassador.email);
 
-    // Go to member's settings page
+    // Go to member"s settings page
     await page.goto(`/user/${member.id}/settings`);
     await acceptanceHelper.waitForActiveAPICalls();
 
-    await page.getByRole('button', { name: 'Profileinstellungen' }).click();
+    await page.getByRole("button", { name: "Profileinstellungen" }).click();
 
     // Check last name field
-    await expect(page.locator('#input-lastname')).toHaveValue(member.nachname);
+    await expect(page.locator("#input-lastname")).toHaveValue(member.nachname);
 
-    // Click 'Zurück zum Profil' and verify redirect
-    await page.click('text=Zurück zum Profil');
+    // Click "Zurück zum Profil" and verify redirect
+    await page.click("text=Zurück zum Profil");
     await expect(page).toHaveURL(`/user/${member.id}/profile`);
   });
 
-  test('can downgrade foodsharer permanently', async ({ page, acceptanceHelper }) => {
+  test("can downgrade foodsharer permanently", async ({
+    page,
+    acceptanceHelper,
+  }) => {
     const region = await foodsharing.createRegion(null, {}, false);
     const foodsharer = await foodsharing.createFoodsharer();
     await foodsharing.addRegionMember(region.id, foodsharer.id);
@@ -99,49 +111,88 @@ test.describe('Settings', () => {
 
     await acceptanceHelper.login(orga.email);
     await page.goto(`/user/${foodsharer.id}/settings`);
-    await page.getByRole('button', { name: 'Profileinstellungen' }).click();
-    await page.selectOption('#input-role', 'Foodsaver:in');
-    await page.click('text=Speichern');
-    await page.waitForSelector('text=Erfolgreich abgeschlossen', { timeout: 5000 });
+    await page.getByRole("button", { name: "Profileinstellungen" }).click();
+    await page.selectOption("#input-role", "Foodsaver:in");
+    await page.click("text=Speichern");
+    await page.waitForSelector("text=Erfolgreich abgeschlossen", {
+      timeout: 5000,
+    });
 
-    expect(await Database.seeInDatabase('fs_foodsaver', {
-      id: foodsharer.id,
-      rolle: Role.FOODSAVER,
-    })).toBeTruthy();
+    expect(
+      await Database.seeInDatabase("fs_foodsaver", {
+        id: foodsharer.id,
+        rolle: Role.FOODSAVER,
+      }),
+    ).toBeTruthy();
 
     await page.goto(`/user/${foodsharer.id}/settings`);
-    await page.getByRole('button', { name: 'Profileinstellungen' }).click();
-    await page.selectOption('#input-role', 'Foodsharer:in');
-    await page.click('text=Speichern');
-    await page.waitForSelector('text=Erfolgreich abgeschlossen', { timeout: 5000 });
+    await page.getByRole("button", { name: "Profileinstellungen" }).click();
+    await page.selectOption("#input-role", "Foodsharer:in");
+    await page.click("text=Speichern");
+    await page.waitForSelector("text=Erfolgreich abgeschlossen", {
+      timeout: 5000,
+    });
 
-    expect(await Database.seeInDatabase('fs_foodsaver_has_bell', { foodsaver_id: foodsharer.id })).toBeFalsy();
-    expect(await Database.seeInDatabase('fs_foodsaver_has_bezirk', { foodsaver_id: foodsharer.id })).toBeFalsy();
-    expect(await Database.seeInDatabase('fs_botschafter', { foodsaver_id: foodsharer.id })).toBeFalsy();
-    expect(await Database.seeInDatabase('fs_betrieb_team', { foodsaver_id: foodsharer.id })).toBeFalsy();
-    expect(await Database.seeInDatabase('fs_abholer', { foodsaver_id: foodsharer.id })).toBeFalsy();
-    expect(await Database.seeInDatabase('fs_foodsaver_has_conversation', { foodsaver_id: foodsharer.id })).toBeFalsy();
+    expect(
+      await Database.seeInDatabase("fs_foodsaver_has_bell", {
+        foodsaver_id: foodsharer.id,
+      }),
+    ).toBeFalsy();
+    expect(
+      await Database.seeInDatabase("fs_foodsaver_has_bezirk", {
+        foodsaver_id: foodsharer.id,
+      }),
+    ).toBeFalsy();
+    expect(
+      await Database.seeInDatabase("fs_botschafter", {
+        foodsaver_id: foodsharer.id,
+      }),
+    ).toBeFalsy();
+    expect(
+      await Database.seeInDatabase("fs_betrieb_team", {
+        foodsaver_id: foodsharer.id,
+      }),
+    ).toBeFalsy();
+    expect(
+      await Database.seeInDatabase("fs_abholer", {
+        foodsaver_id: foodsharer.id,
+      }),
+    ).toBeFalsy();
+    expect(
+      await Database.seeInDatabase("fs_foodsaver_has_conversation", {
+        foodsaver_id: foodsharer.id,
+      }),
+    ).toBeFalsy();
 
     // Check that there are 5 failed quiz sessions
     const conn = await Database.connect();
     const [rows] = await conn.execute(
-      'SELECT COUNT(*) as count FROM `fs_quiz_session` WHERE `foodsaver_id` = ? AND `quiz_id` = ? AND `status` = ?',
-      [foodsharer.id, Role.FOODSAVER, 2] // 2 = FAILED
+      "SELECT COUNT(*) as count FROM `fs_quiz_session` WHERE `foodsaver_id` = ? AND `quiz_id` = ? AND `status` = ?",
+      [foodsharer.id, Role.FOODSAVER, 2], // 2 = FAILED
     );
     const count = (rows as Array<{ count: number }>)[0].count;
     expect(count).toBe(5);
 
-    expect(await Database.seeInDatabase('fs_foodsaver', {
-      id: foodsharer.id,
-      rolle: Role.FOODSHARER,
-      quiz_rolle: Role.FOODSHARER
-    })).toBeTruthy();
+    expect(
+      await Database.seeInDatabase("fs_foodsaver", {
+        id: foodsharer.id,
+        rolle: Role.FOODSHARER,
+        quiz_rolle: Role.FOODSHARER,
+      }),
+    ).toBeTruthy();
   });
 
-  test('can view another user settings and verify data from DB', async ({ page, acceptanceHelper }) => {
+  test("can view another user settings and verify data from DB", async ({
+    page,
+    acceptanceHelper,
+  }) => {
     const region = await foodsharing.createRegion();
-    const foodSaver = await foodsharing.createFoodsaver(null, { bezirk_id: region.id });
-    const ambassador = await foodsharing.createAmbassador(null, { bezirk_id: region.id });
+    const foodSaver = await foodsharing.createFoodsaver(null, {
+      bezirk_id: region.id,
+    });
+    const ambassador = await foodsharing.createAmbassador(null, {
+      bezirk_id: region.id,
+    });
     await foodsharing.addRegionAdmin(region.id, ambassador.id);
 
     await acceptanceHelper.login(ambassador.email);
@@ -150,60 +201,78 @@ test.describe('Settings', () => {
     await page.goto(`/user/current/settings`);
     await acceptanceHelper.waitForActiveAPICalls();
 
-    // Then visit foodSaver's settings
+    // Then visit foodSaver"s settings
     await page.goto(`/user/${foodSaver.id}/settings`);
     await acceptanceHelper.waitForActiveAPICalls();
 
     // Grab expected data from database for foodSaver
-    const expectedName = await Database.grabFromDatabase('fs_foodsaver', 'name', { id: foodSaver.id });
-    const expectedLastName = await Database.grabFromDatabase('fs_foodsaver', 'nachname', { id: foodSaver.id });
+    const expectedName = await Database.grabFromDatabase(
+      "fs_foodsaver",
+      "name",
+      { id: foodSaver.id },
+    );
+    const expectedLastName = await Database.grabFromDatabase(
+      "fs_foodsaver",
+      "nachname",
+      { id: foodSaver.id },
+    );
 
-    await page.getByRole('button', { name: 'Profileinstellungen' }).click();
+    await page.getByRole("button", { name: "Profileinstellungen" }).click();
 
     // Assert that the settings form displays the expected data in specific fields
-    await expect(page.locator('#input-firstname')).toHaveValue(expectedName);
-    await expect(page.locator('#input-lastname')).toHaveValue(expectedLastName);
+    await expect(page.locator("#input-firstname")).toHaveValue(expectedName);
+    await expect(page.locator("#input-lastname")).toHaveValue(expectedLastName);
   });
 
-  test('can edit profile fields as foodsaver', async ({ page, acceptanceHelper }) => {
+  test("can edit profile fields as foodsaver", async ({
+    page,
+    acceptanceHelper,
+  }) => {
     const user = await foodsharing.createFoodsaver();
 
     await acceptanceHelper.login(user.email);
 
-    await page.goto('/user/current/settings');
+    await page.goto("/user/current/settings");
 
-    await page.getByRole('button', { name: 'Profileinstellungen' }).click();
+    await page.getByRole("button", { name: "Profileinstellungen" }).click();
 
-    const mobilenumber = '+49 151 8417482';
-    const phonenumber = '+49 4687 0307670';
-    const aboutMeIntern = 'Ich mag foodsharing.';
+    const mobilenumber = "+49 151 8417482";
+    const phonenumber = "+49 4687 0307670";
+    const aboutMeIntern = "Ich mag foodsharing.";
 
     // vue-tel-input normalizes phone numbers:
     // - mobile numbers: spaces removed
-    const mobilenumberNormalized = '+49 1518417482';
+    const mobilenumberNormalized = "+49 1518417482";
 
-    await page.locator('#mobile').clear();
-    await page.locator('#mobile').fill(mobilenumber);
-    await page.locator('#phone').clear();
-    await page.locator('#phone').fill(phonenumber);
-    await page.locator('#about_me_intern').fill(aboutMeIntern);
+    await page.locator("#mobile").clear();
+    await page.locator("#mobile").fill(mobilenumber);
+    await page.locator("#phone").clear();
+    await page.locator("#phone").fill(phonenumber);
+    await page.locator("#about_me_intern").fill(aboutMeIntern);
 
-    await page.click('text=Speichern');
+    await page.click("text=Speichern");
 
     await acceptanceHelper.waitForActiveAPICalls();
 
     // Assert fields contain the new values (normalized format without spaces)
-    await expect(page.locator('#phone')).toHaveValue(phonenumber);
-    await expect(page.locator('#mobile')).toHaveValue(mobilenumberNormalized);
-    await expect(page.locator('#about_me_intern')).toHaveValue(aboutMeIntern);
+    await expect(page.locator("#phone")).toHaveValue(phonenumber);
+    await expect(page.locator("#mobile")).toHaveValue(mobilenumberNormalized);
+    await expect(page.locator("#about_me_intern")).toHaveValue(aboutMeIntern);
   });
 
-  test('foodsharer with empty address can visit settings page', async ({ page, acceptanceHelper }) => {
-    const foodsharer = await foodsharing.createFoodsharer(null, { plz: '', stadt: '', anschrift: '' });
+  test("foodsharer with empty address can visit settings page", async ({
+    page,
+    acceptanceHelper,
+  }) => {
+    const foodsharer = await foodsharing.createFoodsharer(null, {
+      plz: "",
+      stadt: "",
+      anschrift: "",
+    });
 
     await acceptanceHelper.login(foodsharer.email);
 
-    await page.goto('/user/current/settings');
-    await expect(page.locator('body')).toContainText('Account löschen');
+    await page.goto("/user/current/settings");
+    await expect(page.locator("body")).toContainText("Account löschen");
   });
 });

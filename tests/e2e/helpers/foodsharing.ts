@@ -1,19 +1,19 @@
-import { fakerDE as faker } from '@faker-js/faker';
-import argon2 from 'argon2';
-import { DateTime } from 'luxon';
-import path from 'path';
-import { Database } from './database';
-import fs from 'fs';
-import { v4 as uuidv4 } from 'uuid';
-import { mkdirp } from 'mkdirp';
+import { fakerDE as faker } from "@faker-js/faker";
+import argon2 from "argon2";
+import { DateTime } from "luxon";
+import path from "path";
+import { Database } from "./database";
+import fs from "fs";
+import { v4 as uuidv4 } from "uuid";
+import { mkdirp } from "mkdirp";
 
 // Import enums from separate files
-import Role from './constants/Foodsaver/Role';
-import VotingScope from './constants/Voting/VotingScope';
-import VotingType from './constants/Voting/VotingType';
-import RegionIDs from './constants/Region/RegionIDs';
-import UnitType from './constants/Region/UnitType';
-import QuizID from './constants/Quiz/QuizID';
+import Role from "./constants/Foodsaver/Role";
+import VotingScope from "./constants/Voting/VotingScope";
+import VotingType from "./constants/Voting/VotingType";
+import RegionIDs from "./constants/Region/RegionIDs";
+import UnitType from "./constants/Region/UnitType";
+import QuizID from "./constants/Quiz/QuizID";
 
 class UploadedFile {
   constructor(
@@ -23,8 +23,8 @@ class UploadedFile {
     public mimeType: string,
     public uploaderId: number,
     public id: number | null = null,
-    public uuid: string | null = null
-  ) { }
+    public uuid: string | null = null,
+  ) {}
 }
 
 class Foodsharing {
@@ -37,15 +37,17 @@ class Foodsharing {
       RegionIDs.TEAM_BOARD_MEMBER,
       RegionIDs.TEAM_ALUMNI_MEMBER,
       RegionIDs.TEAM_ADMINISTRATION_MEMBER,
-    ].join(',');
+    ].join(",");
 
     const tablesToSkip = [
-      'fs_bezirk',
-      'fs_content',
-      'fs_fetchweight',
-      'fs_bezirk_closure',
-      'phinxlog'
-    ].map(t => `'${t}'`).join(',');
+      "fs_bezirk",
+      "fs_content",
+      "fs_fetchweight",
+      "fs_bezirk_closure",
+      "phinxlog",
+    ]
+      .map((t) => `'${t}'`)
+      .join(",");
 
     const conn = await Database.connect();
 
@@ -81,29 +83,39 @@ class Foodsharing {
    * @param extraParams Additional parameters to add to the foodsharer
    * @returns The created foodsharer
    */
-  async createFoodsharer(pass: string = null, extraParams: any = {}): Promise<any> {
+  async createFoodsharer(
+    pass: string = null,
+    extraParams: any = {},
+  ): Promise<any> {
     if (!pass) {
-      pass = 'password';
+      pass = "password";
     }
 
     let pictureUrl = null;
-    const gender = Math.random() > 0.1 ? Math.floor(Math.random() * 2) : Math.floor(Math.random() * 2) + 2;
+    const gender =
+      Math.random() > 0.1
+        ? Math.floor(Math.random() * 2)
+        : Math.floor(Math.random() * 2) + 2;
 
     // Handle profile picture upload if specified
     if (extraParams.image && (gender == 0 || gender == 1)) {
-      const genderDir = ['men', 'women'][gender];
+      const genderDir = ["men", "women"][gender];
       const imgNum = Math.floor(Math.random() * 100);
-      const imgPath = path.join('./img/seed-data/profile/', genderDir, `${imgNum}.jpg`);
+      const imgPath = path.join(
+        "./img/seed-data/profile/",
+        genderDir,
+        `${imgNum}.jpg`,
+      );
 
       const stats = await fs.promises.stat(imgPath);
-      const hash = await this.hashFile('sha256', imgPath);
+      const hash = await this.hashFile("sha256", imgPath);
 
       const profilePicture = new UploadedFile(
         imgPath,
         stats.size,
         hash,
-        'image/jpg',
-        1
+        "image/jpg",
+        1,
       );
 
       const uuid = await this.uploadFile(profilePicture);
@@ -136,17 +148,17 @@ class Foodsharing {
       lat: faker.location.latitude({ min: 46, max: 55 }),
       lon: faker.location.longitude({ min: 4, max: 16 }),
       anmeldedatum: faker.date.past({ years: 5 }),
-      geb_datum: faker.date.birthdate({ min: 18, max: 80, mode: 'age' }),
+      geb_datum: faker.date.birthdate({ min: 18, max: 80, mode: "age" }),
       last_login: faker.date.recent({ days: 365 }),
       anschrift: faker.location.street(),
-      handy: faker.phone.number({ style: 'international' }),
+      handy: faker.phone.number({ style: "international" }),
       active: 1,
       token: faker.string.uuid(),
       photo: pictureUrl,
       geschlecht: gender,
-      privacy_policy_accepted_date: '2020-05-16 00:09:33',
-      privacy_notice_accepted_date: '2018-05-24 18:25:28',
-      ...extraParams
+      privacy_policy_accepted_date: "2020-05-16 00:09:33",
+      privacy_notice_accepted_date: "2018-05-24 18:25:28",
+      ...extraParams,
     };
 
     // Convert password to hash using ARGON2I
@@ -158,7 +170,7 @@ class Foodsharing {
     params.anmeldedatum = this.toDateTime(params.anmeldedatum);
 
     // Insert into database
-    params.id = await Database.addToDatabase('fs_foodsaver', params);
+    params.id = await Database.addToDatabase("fs_foodsaver", params);
 
     if (params.bezirk_id) {
       await this.addRegionMember(params.bezirk_id, params.id);
@@ -178,12 +190,12 @@ class Foodsharing {
    * Convert a Date object or string to a formatted string
    * @param date Date object or string to convert
    * @returns Formatted date string or null if input is null
-  */
+   */
   private toDateTime(date: Date | string | null): string | null {
     if (!date) return null;
     return DateTime.fromJSDate(new Date(date))
-      .setZone('Europe/Berlin')
-      .toFormat('yyyy-MM-dd HH:mm:ss');
+      .setZone("Europe/Berlin")
+      .toFormat("yyyy-MM-dd HH:mm:ss");
   }
 
   /**
@@ -192,13 +204,15 @@ class Foodsharing {
    * @param extraParams Additional parameters to add to the foodsaver
    * @returns The created foodsaver
    */
-  async createFoodsaver(pass: string = null, extraParams: any = {}): Promise<any> {
-  
+  async createFoodsaver(
+    pass: string = null,
+    extraParams: any = {},
+  ): Promise<any> {
     const params = {
       verified: 1,
       rolle: 1,
       quiz_rolle: 1,
-      ...extraParams
+      ...extraParams,
     };
     const foodsaver = await this.createFoodsharer(pass, params);
     await this.createQuizTry(foodsaver.id, 1, 1);
@@ -211,8 +225,11 @@ class Foodsharing {
    * @param extraParams Additional parameters to add to the store coordinator
    * @returns The created store coordinator with associated mailbox
    */
-  async createStoreCoordinator(pass: string = null, extraParams: any = {}): Promise<any> {
-    if (!('bezirk_id' in extraParams)) {
+  async createStoreCoordinator(
+    pass: string = null,
+    extraParams: any = {},
+  ): Promise<any> {
+    if (!("bezirk_id" in extraParams)) {
       const region = await this.createRegion();
       extraParams.bezirk_id = region.id;
     }
@@ -220,16 +237,21 @@ class Foodsharing {
     const params = {
       rolle: 2,
       quiz_rolle: 2,
-      ...extraParams
+      ...extraParams,
     };
 
     const coordinator = await this.createFoodsaver(pass, params);
     await this.createQuizTry(coordinator.id, 2, 1);
 
     // Create mailbox and assign to user
-    const mailbox = await this.createMailbox(coordinator.name[0].toLowerCase() + '.' + coordinator.nachname);
-    await Database.connect().then(conn =>
-      conn.execute('UPDATE fs_foodsaver SET mailbox_id = ? WHERE id = ?', [mailbox.id, coordinator.id])
+    const mailbox = await this.createMailbox(
+      coordinator.name[0].toLowerCase() + "." + coordinator.nachname,
+    );
+    await Database.connect().then((conn) =>
+      conn.execute("UPDATE fs_foodsaver SET mailbox_id = ? WHERE id = ?", [
+        mailbox.id,
+        coordinator.id,
+      ]),
     );
 
     return coordinator;
@@ -241,11 +263,14 @@ class Foodsharing {
    * @param extraParams Additional parameters to add to the ambassador
    * @returns The created ambassador with associated permissions
    */
-  async createAmbassador(pass: string = null, extraParams: any = {}): Promise<any> {
+  async createAmbassador(
+    pass: string = null,
+    extraParams: any = {},
+  ): Promise<any> {
     const params = {
       rolle: 3,
       quiz_rolle: 3,
-      ...extraParams
+      ...extraParams,
     };
     const ambassador = await this.createStoreCoordinator(pass, params);
     await this.createQuizTry(ambassador.id, 3, 1);
@@ -259,10 +284,14 @@ class Foodsharing {
    * @param extraParams Additional parameters to add to the orga member
    * @returns The created orga member with associated permissions
    */
-  async createOrga(pass: string = null, isAdmin: boolean = false, extraParams: any = {}): Promise<any> {
+  async createOrga(
+    pass: string = null,
+    isAdmin: boolean = false,
+    extraParams: any = {},
+  ): Promise<any> {
     const params = {
       rolle: isAdmin ? 5 : 4,
-      ...extraParams
+      ...extraParams,
     };
     return this.createAmbassador(pass, params);
   }
@@ -275,16 +304,23 @@ class Foodsharing {
    * @param extraParams Additional parameters to add to the store
    * @returns The created store
    */
-  async createStore(bezirkId: number, teamConversation: number = null, springerConversation: number = null, extraParams: any = {}): Promise<any> {
+  async createStore(
+    bezirkId: number,
+    teamConversation: number = null,
+    springerConversation: number = null,
+    extraParams: any = {},
+  ): Promise<any> {
     // Get store category if needed
     let storeCategoryId = null;
-    if (Math.random() > 0.66) { // One third of stores get a category
-      const [rows] = await Database.connect().then(conn =>
-        conn.execute('SELECT id FROM fs_betrieb_kategorie')
+    if (Math.random() > 0.66) {
+      // One third of stores get a category
+      const [rows] = await Database.connect().then((conn) =>
+        conn.execute("SELECT id FROM fs_betrieb_kategorie"),
       );
-      const categories = (rows as any[]).map(row => row.id);
+      const categories = (rows as any[]).map((row) => row.id);
       if (categories.length > 0) {
-        storeCategoryId = categories[Math.floor(Math.random() * categories.length)];
+        storeCategoryId =
+          categories[Math.floor(Math.random() * categories.length)];
       }
     }
 
@@ -298,15 +334,15 @@ class Foodsharing {
       str: faker.location.streetAddress(),
       lat: faker.location.latitude({ min: 46, max: 55 }),
       lon: faker.location.longitude({ min: 4, max: 16 }),
-      name: 'betrieb_' + faker.company.name(),
+      name: "betrieb_" + faker.company.name(),
       status_date: this.toDateTime(faker.date.past()),
       ansprechpartner: faker.person.fullName(),
       telefon: faker.phone.number(),
       fax: faker.phone.number(),
       email: faker.internet.email(),
       begin: this.toDateTime(faker.date.past()),
-      besonderheiten: '',
-      public_info: '',
+      besonderheiten: "",
+      public_info: "",
       public_time: 0,
       ueberzeugungsarbeit: 0,
       presse: 0,
@@ -318,32 +354,38 @@ class Foodsharing {
       team_conversation_id: teamConversation,
       springer_conversation_id: springerConversation,
       kette_id: 0,
-      ...extraParams
+      ...extraParams,
     };
 
     // Insert store
-    params.id = await Database.addToDatabase('fs_betrieb', params);
+    params.id = await Database.addToDatabase("fs_betrieb", params);
     return params;
   }
 
-  async addStoreTeam(storeId: number, foodsaverId: number | number[], isCoordinator: boolean = false, isWaiting: boolean = false, isConfirmed: boolean = true): Promise<void> {
+  async addStoreTeam(
+    storeId: number,
+    foodsaverId: number | number[],
+    isCoordinator: boolean = false,
+    isWaiting: boolean = false,
+    isConfirmed: boolean = true,
+  ): Promise<void> {
     const addMember = async (fsId: number) => {
       const memberStatus = isConfirmed ? (isWaiting ? 2 : 1) : 0; // STATUS enum values
       const params = {
         betrieb_id: storeId,
         foodsaver_id: fsId,
         active: memberStatus,
-        verantwortlich: isCoordinator ? 1 : 0
+        verantwortlich: isCoordinator ? 1 : 0,
       };
 
       // Check if already exists
-      const exists = await Database.seeInDatabase('fs_betrieb_team', {
+      const exists = await Database.seeInDatabase("fs_betrieb_team", {
         betrieb_id: storeId,
-        foodsaver_id: fsId
+        foodsaver_id: fsId,
       });
 
       if (!exists) {
-        await Database.addToDatabase('fs_betrieb_team', params);
+        await Database.addToDatabase("fs_betrieb_team", params);
       }
     };
 
@@ -356,40 +398,52 @@ class Foodsharing {
     }
   }
 
-  async addCollector(user: number, store: number, extraParams: any = {}): Promise<any> {
+  async addCollector(
+    user: number,
+    store: number,
+    extraParams: any = {},
+  ): Promise<any> {
     const params = {
       foodsaver_id: user,
       betrieb_id: store,
       date: faker.date.recent(),
       confirmed: 1,
-      ...extraParams
+      ...extraParams,
     };
     params.date = this.toDateTime(params.date);
 
-    const exists = await Database.seeInDatabase('fs_abholer', params);
+    const exists = await Database.seeInDatabase("fs_abholer", params);
     if (!exists) {
-      params.id = await Database.addToDatabase('fs_abholer', params);
+      params.id = await Database.addToDatabase("fs_abholer", params);
     }
 
     return params;
   }
 
-  async createMailbox(name: string = null, fillMailbox: boolean = true): Promise<any> {
+  async createMailbox(
+    name: string = null,
+    fillMailbox: boolean = true,
+  ): Promise<any> {
     if (!name) {
       name = faker.internet.username();
       let counter = 1;
-      while (await Database.seeInDatabase('fs_mailbox', { name }) && counter <= 100) {
+      while (
+        (await Database.seeInDatabase("fs_mailbox", { name })) &&
+        counter <= 100
+      ) {
         name = `${faker.internet.username()}_${counter}`;
         counter++;
       }
       if (counter > 100) {
-        throw new Error('Unable to generate unique mailbox name after 100 attempts');
+        throw new Error(
+          "Unable to generate unique mailbox name after 100 attempts",
+        );
       }
     }
 
     const mailbox = {
       name,
-      id: await Database.addToDatabase('fs_mailbox', { name })
+      id: await Database.addToDatabase("fs_mailbox", { name }),
     };
 
     if (fillMailbox) {
@@ -406,7 +460,11 @@ class Foodsharing {
     return mailbox;
   }
 
-  async createEmail(mailbox: any, folder: number, extraParams: any = {}): Promise<number> {
+  async createEmail(
+    mailbox: any,
+    folder: number,
+    extraParams: any = {},
+  ): Promise<number> {
     const body = faker.lorem.paragraphs(2);
     const params = {
       mailbox_id: mailbox.id,
@@ -415,31 +473,36 @@ class Foodsharing {
       body,
       body_html: body,
       time: this.toDateTime(faker.date.recent()),
-      attach: '[]',
+      attach: "[]",
       read: folder === 0 ? faker.datatype.boolean() : true,
       answer: false,
-      ...extraParams
+      ...extraParams,
     };
 
     // Handle sender and receiver based on folder
-    if (folder === 0) { // INBOX
-      params.sender = JSON.stringify(this.createRandomEmailAddress(faker.datatype.boolean()));
+    if (folder === 0) {
+      // INBOX
+      params.sender = JSON.stringify(
+        this.createRandomEmailAddress(faker.datatype.boolean()),
+      );
       params.to = JSON.stringify([
         this.createFoodsharingEmailAddress(mailbox),
         ...Array(faker.number.int({ min: 0, max: 3 }))
           .fill(null)
-          .map(() => this.createRandomEmailAddress(false))
+          .map(() => this.createRandomEmailAddress(false)),
       ]);
     } else {
       params.to = JSON.stringify(
         Array(faker.number.int({ min: 1, max: 5 }))
           .fill(null)
-          .map(() => this.createRandomEmailAddress(false))
+          .map(() => this.createRandomEmailAddress(false)),
       );
-      params.sender = JSON.stringify(this.createFoodsharingEmailAddress(mailbox));
+      params.sender = JSON.stringify(
+        this.createFoodsharingEmailAddress(mailbox),
+      );
     }
 
-    return await Database.addToDatabase('fs_mailbox_message', params);
+    return await Database.addToDatabase("fs_mailbox_message", params);
   }
 
   /**
@@ -449,59 +512,73 @@ class Foodsharing {
    * @param fillMailbox Whether to populate the mailbox with test emails
    * @returns The created region with mailbox
    */
-  async createRegion(name: string = null, extraParams: any = {}, fillMailbox: boolean = true): Promise<any> {
+  async createRegion(
+    name: string = null,
+    extraParams: any = {},
+    fillMailbox: boolean = true,
+  ): Promise<any> {
     if (!name) {
-      name = faker.person.lastName() + '-region';
+      name = faker.person.lastName() + "-region";
     }
 
     const params = {
       parent_id: RegionIDs.EUROPE,
       name,
       type: UnitType.PART_OF_TOWN,
-      ...extraParams
+      ...extraParams,
     };
 
     const email = extraParams.email;
     delete params.email;
 
-    params.id = await Database.addToDatabase('fs_bezirk', params);
+    params.id = await Database.addToDatabase("fs_bezirk", params);
 
     const mailbox = await this.createMailbox(
       email || `region-${params.id}`,
-      fillMailbox
+      fillMailbox,
     );
 
-    await Database.connect().then(conn =>
-      conn.execute('UPDATE fs_bezirk SET mailbox_id = ? WHERE id = ?', [mailbox.id, params.id])
+    await Database.connect().then((conn) =>
+      conn.execute("UPDATE fs_bezirk SET mailbox_id = ? WHERE id = ?", [
+        mailbox.id,
+        params.id,
+      ]),
     );
 
     // Add to closure table for hierarchies
-    await Database.connect().then(conn =>
-      conn.execute(`
+    await Database.connect().then((conn) =>
+      conn.execute(
+        `
         INSERT INTO fs_bezirk_closure (ancestor_id, bezirk_id, depth)
         SELECT t.ancestor_id, ?, t.depth+1 
         FROM fs_bezirk_closure AS t 
         WHERE t.bezirk_id = ?
         UNION ALL SELECT ?, ?, 0
-      `, [params.id, params.parent_id, params.id, params.id])
+      `,
+        [params.id, params.parent_id, params.id, params.id],
+      ),
     );
 
     return params;
   }
 
-  private createFoodsharingEmailAddress(mailbox: { name: string }): EmailAddress {
+  private createFoodsharingEmailAddress(mailbox: {
+    name: string;
+  }): EmailAddress {
     return {
-      host: 'foodsharing.network',
+      host: "foodsharing.network",
       mailbox: mailbox.name,
-      personal: `${mailbox.name}@foodsharing.network`
+      personal: `${mailbox.name}@foodsharing.network`,
     };
   }
 
-  private createRandomEmailAddress(includePersonal: boolean = true): EmailAddress {
+  private createRandomEmailAddress(
+    includePersonal: boolean = true,
+  ): EmailAddress {
     return {
       host: faker.internet.domainName(),
       mailbox: faker.internet.username(),
-      personal: includePersonal ? faker.person.fullName() : null
+      personal: includePersonal ? faker.person.fullName() : null,
     };
   }
 
@@ -513,27 +590,32 @@ class Foodsharing {
    * @param extraParams Additional parameters to add to the thread
    * @returns The created thread with its first post
    */
-  async addForumThread(regionId: number, fsId: number, isAmbassadorThread: boolean = false, extraParams: any = {}): Promise<any> {
+  async addForumThread(
+    regionId: number,
+    fsId: number,
+    isAmbassadorThread: boolean = false,
+    extraParams: any = {},
+  ): Promise<any> {
     const params = {
       foodsaver_id: fsId,
       name: faker.lorem.sentence(),
       time: this.toDateTime(faker.date.recent()),
       active: 1,
       status: 0,
-      ...extraParams
+      ...extraParams,
     };
 
-    const threadId = await Database.addToDatabase('fs_theme', params);
+    const threadId = await Database.addToDatabase("fs_theme", params);
 
-    await Database.addToDatabase('fs_bezirk_has_theme', {
+    await Database.addToDatabase("fs_bezirk_has_theme", {
       theme_id: threadId,
       bezirk_id: regionId,
-      bot_theme: isAmbassadorThread ? 1 : 0
+      bot_theme: isAmbassadorThread ? 1 : 0,
     });
 
     const postParams = {
       body: faker.lorem.paragraphs(3),
-      time: params.time
+      time: params.time,
     };
 
     params.post = await this.addForumThreadPost(threadId, fsId, postParams);
@@ -542,28 +624,46 @@ class Foodsharing {
     return params;
   }
 
-  async addForumThreadPost(threadId: number, fsId: number, extraParams: any = {}): Promise<any> {
+  async addForumThreadPost(
+    threadId: number,
+    fsId: number,
+    extraParams: any = {},
+  ): Promise<any> {
     const params = {
       theme_id: threadId,
       foodsaver_id: fsId,
       body: faker.lorem.text(),
       time: this.toDateTime(faker.date.recent()),
-      ...extraParams
+      ...extraParams,
     };
 
-    params.id = await Database.addToDatabase('fs_theme_post', params);
+    params.id = await Database.addToDatabase("fs_theme_post", params);
     await this.updateForumThreadWithPost(threadId, params);
     return params;
   }
 
-  private async updateForumThreadWithPost(threadId: number, post: any): Promise<void> {
-    const lastPostId = await Database.grabFromDatabase('fs_theme', 'last_post_id', { id: threadId });
-    const lastPostDate = new Date(await Database.grabFromDatabase('fs_theme_post', 'time', { id: lastPostId }));
+  private async updateForumThreadWithPost(
+    threadId: number,
+    post: any,
+  ): Promise<void> {
+    const lastPostId = await Database.grabFromDatabase(
+      "fs_theme",
+      "last_post_id",
+      { id: threadId },
+    );
+    const lastPostDate = new Date(
+      await Database.grabFromDatabase("fs_theme_post", "time", {
+        id: lastPostId,
+      }),
+    );
     const thisPostDate = new Date(post.time);
 
     if (lastPostDate >= thisPostDate) {
-      await Database.connect().then(conn =>
-        conn.execute('UPDATE fs_theme SET last_post_id = ? WHERE id = ?', [post.id, threadId])
+      await Database.connect().then((conn) =>
+        conn.execute("UPDATE fs_theme SET last_post_id = ? WHERE id = ?", [
+          post.id,
+          threadId,
+        ]),
       );
     }
   }
@@ -574,7 +674,10 @@ class Foodsharing {
    * @param extraParams Additional parameters to add to the conversation
    * @returns The created conversation
    */
-  async createConversation(users: number[], extraParams: any = {}): Promise<any> {
+  async createConversation(
+    users: number[],
+    extraParams: any = {},
+  ): Promise<any> {
     const params = {
       locked: 0,
       name: null,
@@ -582,10 +685,10 @@ class Foodsharing {
       last_foodsaver_id: users?.length ? users[0] : null,
       last_message_id: null,
       last_message: null,
-      ...extraParams
+      ...extraParams,
     };
 
-    const id = await Database.addToDatabase('fs_conversation', params);
+    const id = await Database.addToDatabase("fs_conversation", params);
 
     for (const user of users) {
       await this.addUserToConversation(user, id);
@@ -595,55 +698,76 @@ class Foodsharing {
     return params;
   }
 
-  async addUserToConversation(userId: number, conversationId: number, extraParams: any = {}): Promise<any> {
+  async addUserToConversation(
+    userId: number,
+    conversationId: number,
+    extraParams: any = {},
+  ): Promise<any> {
     const params = {
       foodsaver_id: userId,
       conversation_id: conversationId,
       unread: 0,
-      ...extraParams
+      ...extraParams,
     };
 
-    params.id = await Database.addToDatabase('fs_foodsaver_has_conversation', params);
+    params.id = await Database.addToDatabase(
+      "fs_foodsaver_has_conversation",
+      params,
+    );
     return params;
   }
 
-  async createQuizTry(fsId: number, level: number, status: number, daysAgo: number = 0): Promise<void> {
+  async createQuizTry(
+    fsId: number,
+    level: number,
+    status: number,
+    daysAgo: number = 0,
+  ): Promise<void> {
     const startTime = DateTime.now().minus({ days: daysAgo });
     // if quizID does not exist, create it
-    const exists = await Database.seeInDatabase('fs_quiz', { id: level });
+    const exists = await Database.seeInDatabase("fs_quiz", { id: level });
     if (!exists) {
       await this.createQuiz(level);
     }
-    await Database.addToDatabase('fs_quiz_session', {
+    await Database.addToDatabase("fs_quiz_session", {
       quiz_id: level,
       status: status,
       foodsaver_id: fsId,
-      time_start: startTime.toFormat('yyyy-MM-dd HH:mm:ss')
+      time_start: startTime.toFormat("yyyy-MM-dd HH:mm:ss"),
     });
   }
 
-  async addVerificationHistory(userId: number, ambassadorId: number, verified: boolean, date: Date = null): Promise<void> {
+  async addVerificationHistory(
+    userId: number,
+    ambassadorId: number,
+    verified: boolean,
+    date: Date = null,
+  ): Promise<void> {
     if (!date) {
       date = faker.date.recent();
     }
 
-    await Database.addToDatabase('fs_verify_history', {
+    await Database.addToDatabase("fs_verify_history", {
       fs_id: userId,
       date: this.toDateTime(date),
       bot_id: ambassadorId,
-      change_status: verified ? 1 : 0
+      change_status: verified ? 1 : 0,
     });
   }
 
-  async addPassHistory(userId: number, ambassadorId: number, date: Date = null): Promise<void> {
+  async addPassHistory(
+    userId: number,
+    ambassadorId: number,
+    date: Date = null,
+  ): Promise<void> {
     if (!date) {
       date = faker.date.recent();
     }
 
-    await Database.addToDatabase('fs_pass_gen', {
+    await Database.addToDatabase("fs_pass_gen", {
       foodsaver_id: userId,
       date: this.toDateTime(date),
-      bot_id: ambassadorId
+      bot_id: ambassadorId,
     });
   }
 
@@ -670,33 +794,33 @@ class Foodsharing {
       lat: faker.location.latitude({ min: 46, max: 55 }),
       lon: faker.location.longitude({ min: 4, max: 16 }),
       bezirk_id: 0,
-      ...extraParams
+      ...extraParams,
     };
 
-    params.id = await Database.addToDatabase('fs_basket', params);
+    params.id = await Database.addToDatabase("fs_basket", params);
     return params;
   }
 
   async addBells(users: any[], extraParams: any = {}): Promise<number> {
     const params = {
-      name: 'title',
+      name: "title",
       body: faker.lorem.sentences(2),
-      vars: '',
-      attr: JSON.stringify({ href: '/' }),
-      icon: 'icon',
-      identifier: '',
+      vars: "",
+      attr: JSON.stringify({ href: "/" }),
+      icon: "icon",
+      identifier: "",
       time: this.toDateTime(faker.date.recent()),
       closeable: 1,
-      ...extraParams
+      ...extraParams,
     };
 
-    const bellId = await Database.addToDatabase('fs_bell', params);
+    const bellId = await Database.addToDatabase("fs_bell", params);
 
     for (const user of users) {
-      await Database.addToDatabase('fs_foodsaver_has_bell', {
+      await Database.addToDatabase("fs_foodsaver_has_bell", {
         foodsaver_id: user.id,
         bell_id: bellId,
-        seen: 0
+        seen: 0,
       });
     }
 
@@ -705,27 +829,27 @@ class Foodsharing {
 
   async createStoreCategories(): Promise<void> {
     const categories = [
-      'Bäckerei',
-      'Bio-Bäckerei',
-      'Bio-Supermarkt',
-      'Getränkemarkt',
-      'Metzgerei',
-      'Organisation - Einführungsabholungen',
-      'Organisation - Botschaftertätigkeit',
-      'Organisation - Fairteiler',
-      'Organisation - Vorstandsarbeit',
-      'Organisation - Meldebearbeitung',
-      'Öffentlichkeitsarbeit',
-      'Restaurant',
-      'Schnellimbiss',
-      'Supermarkt',
-      'Wochenmarkt'
+      "Bäckerei",
+      "Bio-Bäckerei",
+      "Bio-Supermarkt",
+      "Getränkemarkt",
+      "Metzgerei",
+      "Organisation - Einführungsabholungen",
+      "Organisation - Botschaftertätigkeit",
+      "Organisation - Fairteiler",
+      "Organisation - Vorstandsarbeit",
+      "Organisation - Meldebearbeitung",
+      "Öffentlichkeitsarbeit",
+      "Restaurant",
+      "Schnellimbiss",
+      "Supermarkt",
+      "Wochenmarkt",
     ];
 
     for (let i = 0; i < categories.length; i++) {
-      await Database.addToDatabase('fs_betrieb_kategorie', {
+      await Database.addToDatabase("fs_betrieb_kategorie", {
         id: i + 1,
-        name: categories[i]
+        name: categories[i],
       });
     }
   }
@@ -737,21 +861,25 @@ class Foodsharing {
     const conn = await Database.connect();
 
     // Set name and description based on quiz type
-    let name = '';
-    let description = '';
+    let name = "";
+    let description = "";
     switch (quizId) {
       case Role.FOODSAVER:
-        name = 'Quiz für Foodsaver';
-        description = 'Werde Foodsaver mit diesem Quiz!';
+        name = "Quiz für Foodsaver";
+        description = "Werde Foodsaver mit diesem Quiz!";
         break;
       // ...existing cases...
     }
 
-    description += ' ' + faker.lorem.paragraphs(2);
+    description += " " + faker.lorem.paragraphs(2);
 
     // Clear existing related data first (these don't have race condition issues)
-    await conn.execute('DELETE FROM fs_quiz_session WHERE quiz_id = ?', [quizId]);
-    await conn.execute('DELETE FROM fs_question_has_quiz WHERE quiz_id = ?', [quizId]);
+    await conn.execute("DELETE FROM fs_quiz_session WHERE quiz_id = ?", [
+      quizId,
+    ]);
+    await conn.execute("DELETE FROM fs_question_has_quiz WHERE quiz_id = ?", [
+      quizId,
+    ]);
 
     // Use REPLACE INTO for atomic upsert - handles concurrent quiz creation
     const quizSQL = `
@@ -765,13 +893,13 @@ class Foodsharing {
       name,
       description,
       1, // is_desc_htmlentity_encoded
-      2, // maxfp  
+      2, // maxfp
       questionCount,
-      questionCountUntimed
+      questionCountUntimed,
     ]);
 
     // Assertion: Quiz should exist
-    const quizExists = await Database.seeInDatabase('fs_quiz', { id: quizId });
+    const quizExists = await Database.seeInDatabase("fs_quiz", { id: quizId });
     if (!quizExists) {
       throw new Error(`Quiz with ID ${quizId} was not created correctly!`);
     }
@@ -790,10 +918,9 @@ class Foodsharing {
       maxfp: 2,
       questcount: questionCount,
       questcount_untimed: questionCountUntimed,
-      questions
+      questions,
     };
   }
-
 
   /**
    * Ensure a set of predefined quizzes exist in the test database.
@@ -804,8 +931,10 @@ class Foodsharing {
    * to be used as test setup.
    */
   private async createQuizes(): Promise<void> {
-    const wantQuizes = Object.values(QuizID).filter(value => typeof value === 'number') as number[];
-    const haveQuizes = await Database.grabColumnFromDatabase('fs_quiz', 'id');
+    const wantQuizes = Object.values(QuizID).filter(
+      (value) => typeof value === "number",
+    ) as number[];
+    const haveQuizes = await Database.grabColumnFromDatabase("fs_quiz", "id");
 
     for (const quizId of wantQuizes) {
       if (!haveQuizes.includes(quizId)) {
@@ -819,20 +948,23 @@ class Foodsharing {
     const dbParams = {
       text: faker.lorem.paragraphs(2),
       duration: Math.floor(Math.random() * 4 + 3) * 10,
-      wikilink: 'https://wiki.foodsharing.de/' + faker.lorem.slug()
+      wikilink: "https://wiki.foodsharing.de/" + faker.lorem.slug(),
     };
 
-    const questionId = await Database.addToDatabase('fs_question', dbParams);
+    const questionId = await Database.addToDatabase("fs_question", dbParams);
 
     const quizLinkParams = {
       question_id: questionId,
       quiz_id: quizId,
-      fp: Math.floor(Math.random() * 3) + 1
+      fp: Math.floor(Math.random() * 3) + 1,
     };
     try {
-      await Database.addToDatabase('fs_question_has_quiz', quizLinkParams);
+      await Database.addToDatabase("fs_question_has_quiz", quizLinkParams);
     } catch (err) {
-      console.error(`Error linking question ${questionId} to quiz ${quizId}:`, err.message);
+      console.error(
+        `Error linking question ${questionId} to quiz ${quizId}:`,
+        err.message,
+      );
       throw err;
     }
 
@@ -848,24 +980,24 @@ class Foodsharing {
       text: dbParams.text,
       duration: dbParams.duration,
       wikilink: dbParams.wikilink,
-      answers
+      answers,
     };
   }
 
   private async createAnswer(questionId: number): Promise<any> {
     const rightValue = Math.floor(Math.random() * 3);
-    const rightName = ['WRONG', 'CORRECT', 'MAYBE'][rightValue];
+    const rightName = ["WRONG", "CORRECT", "MAYBE"][rightValue];
 
     // Use direct SQL with backticks to escape the 'right' keyword
     const conn = await Database.connect();
     const [result] = await conn.execute(
-      'INSERT INTO fs_answer (question_id, text, explanation, `right`) VALUES (?, ?, ?, ?)',
+      "INSERT INTO fs_answer (question_id, text, explanation, `right`) VALUES (?, ?, ?, ?)",
       [
         questionId,
         `${faker.lorem.sentence()} (${rightName})`,
         `Diese Antwort ist ${rightName}. ${faker.lorem.paragraph()}`,
-        rightValue
-      ]
+        rightValue,
+      ],
     );
 
     return {
@@ -873,23 +1005,27 @@ class Foodsharing {
       question_id: questionId,
       text: `${faker.lorem.sentence()} (${rightName})`,
       explanation: `Diese Antwort ist ${rightName}. ${faker.lorem.paragraph()}`,
-      right: rightValue
+      right: rightValue,
     };
   }
 
   async addRegionAdmin(regionId: number, fsId: number): Promise<void> {
     const params = {
       bezirk_id: regionId,
-      foodsaver_id: fsId
+      foodsaver_id: fsId,
     };
 
-    const exists = await Database.seeInDatabase('fs_botschafter', params);
+    const exists = await Database.seeInDatabase("fs_botschafter", params);
     if (!exists) {
-      await Database.addToDatabase('fs_botschafter', params);
+      await Database.addToDatabase("fs_botschafter", params);
     }
   }
 
-  async addRegionMember(regionId: number, fsId: number | number[], isActive: boolean = true): Promise<void> {
+  async addRegionMember(
+    regionId: number,
+    fsId: number | number[],
+    isActive: boolean = true,
+  ): Promise<void> {
     if (Array.isArray(fsId)) {
       for (const id of fsId) {
         await this.addRegionMember(regionId, id, isActive);
@@ -898,17 +1034,24 @@ class Foodsharing {
       const params = {
         bezirk_id: regionId,
         foodsaver_id: fsId,
-        active: isActive ? 1 : 0
+        active: isActive ? 1 : 0,
       };
 
-      const exists = await Database.seeInDatabase('fs_foodsaver_has_bezirk', params);
+      const exists = await Database.seeInDatabase(
+        "fs_foodsaver_has_bezirk",
+        params,
+      );
       if (!exists) {
-        await Database.addToDatabase('fs_foodsaver_has_bezirk', params);
+        await Database.addToDatabase("fs_foodsaver_has_bezirk", params);
       }
     }
   }
 
-  async addStoreNotiz(userId: number, storeId: number, extraParams: any = {}): Promise<any> {
+  async addStoreNotiz(
+    userId: number,
+    storeId: number,
+    extraParams: any = {},
+  ): Promise<any> {
     const params = {
       foodsaver_id: userId,
       betrieb_id: storeId,
@@ -916,10 +1059,10 @@ class Foodsharing {
       text: faker.lorem.paragraph(),
       zeit: this.toDateTime(faker.date.recent()),
       last: 0,
-      ...extraParams
+      ...extraParams,
     };
 
-    params.id = await Database.addToDatabase('fs_betrieb_notiz', params);
+    params.id = await Database.addToDatabase("fs_betrieb_notiz", params);
     return params;
   }
 
@@ -929,29 +1072,43 @@ class Foodsharing {
       betrieb_id: storeId,
       time: this.toDateTime(date),
       fetchercount: faker.number.int({ min: 1, max: 8 }),
-      ...extraParams
+      ...extraParams,
     };
 
-    params.id = await Database.addToDatabase('fs_fetchdate', params);
+    params.id = await Database.addToDatabase("fs_fetchdate", params);
     return params;
   }
 
-  async addRecurringPickup(storeId: number, extraParams: any = {}): Promise<any> {
+  async addRecurringPickup(
+    storeId: number,
+    extraParams: any = {},
+  ): Promise<any> {
     const hours = faker.number.int({ min: 0, max: 23 });
-    const minutes = ['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'][
-      faker.number.int({ min: 0, max: 11 })
-    ];
+    const minutes = [
+      "00",
+      "05",
+      "10",
+      "15",
+      "20",
+      "25",
+      "30",
+      "35",
+      "40",
+      "45",
+      "50",
+      "55",
+    ][faker.number.int({ min: 0, max: 11 })];
 
     const params = {
       betrieb_id: storeId,
       dow: faker.number.int({ min: 0, max: 6 }),
-      time: `${hours.toString().padStart(2, '0')}:${minutes}:00`,
+      time: `${hours.toString().padStart(2, "0")}:${minutes}:00`,
       fetcher: faker.number.int({ min: 1, max: 8 }),
-      ...extraParams
+      ...extraParams,
     };
 
     try {
-      params.id = await Database.addToDatabase('fs_abholzeiten', params);
+      params.id = await Database.addToDatabase("fs_abholzeiten", params);
     } catch (e) {
       if (!extraParams) {
         return this.addRecurringPickup(storeId, extraParams);
@@ -962,58 +1119,72 @@ class Foodsharing {
     return params;
   }
 
-  async addBuddy(user1: number, user2: number, confirmed: boolean = true): Promise<void> {
-    await Database.addToDatabase('fs_buddy', {
+  async addBuddy(
+    user1: number,
+    user2: number,
+    confirmed: boolean = true,
+  ): Promise<void> {
+    await Database.addToDatabase("fs_buddy", {
       foodsaver_id: user1,
       buddy_id: user2,
-      confirmed: confirmed ? 1 : 0
+      confirmed: confirmed ? 1 : 0,
     });
   }
 
-  async addPicker(storeId: number, foodsaverId: number, extraParams: any = {}): Promise<any> {
+  async addPicker(
+    storeId: number,
+    foodsaverId: number,
+    extraParams: any = {},
+  ): Promise<any> {
     const params = {
       foodsaver_id: foodsaverId,
       betrieb_id: storeId,
       date: this.toDateTime(faker.date.recent()),
-      confirmed: '1',
-      ...extraParams
+      confirmed: "1",
+      ...extraParams,
     };
 
-    params.id = await Database.addToDatabase('fs_abholer', params);
+    params.id = await Database.addToDatabase("fs_abholer", params);
     return params;
   }
 
-  async addStoreLog(storeId: number, foodsaverIdA: number, foodsaverIdP: number, action: string, extraParams: any = {}): Promise<any> {
+  async addStoreLog(
+    storeId: number,
+    foodsaverIdA: number,
+    foodsaverIdP: number,
+    action: string,
+    extraParams: any = {},
+  ): Promise<any> {
     const params = {
       store_id: storeId,
       fs_id_a: foodsaverIdA,
       fs_id_p: foodsaverIdP,
       action: action,
       date_activity: this.toDateTime(faker.date.recent()),
-      ...extraParams
+      ...extraParams,
     };
 
     if (params.date_reference) {
       params.date_reference = this.toDateTime(params.date_reference);
     }
 
-    params.id = await Database.addToDatabase('fs_store_log', params);
+    params.id = await Database.addToDatabase("fs_store_log", params);
     return params;
   }
 
   async addStoreFoodType(extraParams: any = {}): Promise<any> {
     const params = {
-      name: 'food_' + faker.word.sample(),
-      ...extraParams
+      name: "food_" + faker.word.sample(),
+      ...extraParams,
     };
 
-    params.id = await Database.addToDatabase('fs_lebensmittel', params);
+    params.id = await Database.addToDatabase("fs_lebensmittel", params);
     return params;
   }
 
   async addStoreChain(extraParams: any = {}): Promise<any> {
     const params = {
-      name: 'chain_' + faker.company.name(),
+      name: "chain_" + faker.company.name(),
       headquarters_zip: faker.location.zipCode(),
       headquarters_city: faker.location.city(),
       status: faker.number.int({ min: 0, max: 2 }),
@@ -1021,10 +1192,10 @@ class Foodsharing {
       allow_press: faker.number.int({ min: 0, max: 1 }),
       notes: faker.lorem.paragraph(),
       common_store_information: faker.lorem.paragraphs(3),
-      ...extraParams
+      ...extraParams,
     };
 
-    params.id = await Database.addToDatabase('fs_chain', params);
+    params.id = await Database.addToDatabase("fs_chain", params);
     return params;
   }
 
@@ -1032,8 +1203,8 @@ class Foodsharing {
     const params = {
       parent_id: RegionIDs.GLOBAL_WORKING_GROUPS,
       type: UnitType.WORKING_GROUP,
-      teaser: 'an autogenerated working group without a description',
-      ...extraParams
+      teaser: "an autogenerated working group without a description",
+      ...extraParams,
     };
 
     return this.createRegion(name, params);
@@ -1044,41 +1215,54 @@ class Foodsharing {
    * @param email The email domain to blacklist
    * @returns The ID of the created blacklist entry
    */
-  async createBlacklistedEmailAddress(email: string = 'bad.com'): Promise<number> {
-    return await Database.addToDatabase('fs_email_blacklist', {
+  async createBlacklistedEmailAddress(
+    email: string = "bad.com",
+  ): Promise<number> {
+    return await Database.addToDatabase("fs_email_blacklist", {
       email: email,
-      since: '2010-10-14 12:00:00',
-      reason: 'Disposable email addresses should not be used for registration.'
+      since: "2010-10-14 12:00:00",
+      reason: "Disposable email addresses should not be used for registration.",
     });
   }
 
-  async addConversationMessage(userId: number, conversationId: number, extraParams: any = {}): Promise<any> {
+  async addConversationMessage(
+    userId: number,
+    conversationId: number,
+    extraParams: any = {},
+  ): Promise<any> {
     const params = {
       foodsaver_id: userId,
       conversation_id: conversationId,
       body: faker.lorem.paragraph(),
       time: this.toDateTime(faker.date.recent()),
-      ...extraParams
+      ...extraParams,
     };
 
-    params.id = await Database.addToDatabase('fs_msg', params);
+    params.id = await Database.addToDatabase("fs_msg", params);
 
     // Update conversation with last message
-    await Database.connect().then(conn =>
-      conn.execute(`
+    await Database.connect().then((conn) =>
+      conn.execute(
+        `
         UPDATE fs_conversation 
         SET last_message = ?,
             last_message_id = ?,
             last_foodsaver_id = ?,
             last = ?
         WHERE id = ?
-      `, [params.body, params.id, userId, params.time, conversationId])
+      `,
+        [params.body, params.id, userId, params.time, conversationId],
+      ),
     );
 
     return params;
   }
 
-  async createFoodSharePoint(userId: number, bezirkId: number = null, extraParams: any = {}): Promise<any> {
+  async createFoodSharePoint(
+    userId: number,
+    bezirkId: number = null,
+    extraParams: any = {},
+  ): Promise<any> {
     if (bezirkId === null) {
       bezirkId = (await this.createRegion()).id;
     }
@@ -1095,34 +1279,49 @@ class Foodsharing {
       lon: faker.location.longitude({ min: 4, max: 16 }),
       add_date: this.toDateTime(faker.date.recent()),
       add_foodsaver: userId,
-      ...extraParams
+      ...extraParams,
     };
 
-    params.id = await Database.addToDatabase('fs_fairteiler', params);
+    params.id = await Database.addToDatabase("fs_fairteiler", params);
     await this.addFoodSharePointAdmin(userId, params.id);
 
     return params;
   }
 
-  async addFoodSharePointFollower(userId: number, foodSharePointId: number, extraParams: any = {}): Promise<any> {
+  async addFoodSharePointFollower(
+    userId: number,
+    foodSharePointId: number,
+    extraParams: any = {},
+  ): Promise<any> {
     const params = {
       fairteiler_id: foodSharePointId,
       foodsaver_id: userId,
       type: 0, // FOLLOWER
       infotype: 1, // EMAIL
-      ...extraParams
+      ...extraParams,
     };
-    await Database.addToDatabase('fs_fairteiler_follower', params);
+    await Database.addToDatabase("fs_fairteiler_follower", params);
     return params;
   }
 
-  async addFoodSharePointAdmin(userId: number, foodSharePointId: number, extraParams: any = {}): Promise<any> {
-    return this.addFoodSharePointFollower(userId, foodSharePointId, { ...extraParams, type: 1 }); // FOOD_SHARE_POINT_MANAGER
+  async addFoodSharePointAdmin(
+    userId: number,
+    foodSharePointId: number,
+    extraParams: any = {},
+  ): Promise<any> {
+    return this.addFoodSharePointFollower(userId, foodSharePointId, {
+      ...extraParams,
+      type: 1,
+    }); // FOOD_SHARE_POINT_MANAGER
   }
 
-  async addFoodSharePointPost(userId: number, foodSharePointId: number, extraParams: any = {}): Promise<any> {
+  async addFoodSharePointPost(
+    userId: number,
+    foodSharePointId: number,
+    extraParams: any = {},
+  ): Promise<any> {
     const post = await this.createWallpost(userId, extraParams);
-    await Database.addToDatabase('fs_fairteiler_has_wallpost', {
+    await Database.addToDatabase("fs_fairteiler_has_wallpost", {
       fairteiler_id: foodSharePointId,
       wallpost_id: post.id,
     });
@@ -1134,33 +1333,43 @@ class Foodsharing {
       foodsaver_id: userId,
       body: faker.lorem.paragraph(),
       time: this.toDateTime(faker.date.recent()),
-      ...extraParams
+      ...extraParams,
     };
-    params.id = await Database.addToDatabase('fs_wallpost', params);
+    params.id = await Database.addToDatabase("fs_wallpost", params);
     return params;
   }
 
-  async createCommunityPin(regionId: number, extraParams: any = {}): Promise<any> {
+  async createCommunityPin(
+    regionId: number,
+    extraParams: any = {},
+  ): Promise<any> {
     const params = {
       region_id: regionId,
       lat: faker.location.latitude({ min: 46, max: 55 }),
       lon: faker.location.longitude({ min: 4, max: 16 }),
       desc: faker.lorem.paragraph(),
       status: 1, // ACTIVE
-      ...extraParams
+      ...extraParams,
     };
-    params.id = await Database.addToDatabase('fs_region_pin', params);
+    params.id = await Database.addToDatabase("fs_region_pin", params);
     return params;
   }
 
-  async createEvents(regionId: number, foodsaverId: number, extraParams: any = {}): Promise<any> {
+  async createEvents(
+    regionId: number,
+    foodsaverId: number,
+    extraParams: any = {},
+  ): Promise<any> {
     const locationParams = {
       name: faker.lorem.words(3),
       lat: faker.location.latitude({ min: 46, max: 55 }),
       lon: faker.location.longitude({ min: 4, max: 16 }),
     };
 
-    const locationId = await Database.addToDatabase('fs_location', locationParams);
+    const locationId = await Database.addToDatabase(
+      "fs_location",
+      locationParams,
+    );
 
     const params = {
       bezirk_id: regionId,
@@ -1171,12 +1380,12 @@ class Foodsharing {
       start: this.toDateTime(faker.date.soon({ days: 1 })),
       end: this.toDateTime(faker.date.soon({ days: 2 })),
       description: faker.lorem.paragraphs(2),
-      ...extraParams
+      ...extraParams,
     };
 
-    params.id = await Database.addToDatabase('fs_event', params);
+    params.id = await Database.addToDatabase("fs_event", params);
 
-    await Database.addToDatabase('fs_foodsaver_has_event', {
+    await Database.addToDatabase("fs_foodsaver_has_event", {
       foodsaver_id: foodsaverId,
       event_id: params.id,
     });
@@ -1184,17 +1393,25 @@ class Foodsharing {
     return params;
   }
 
-  async addEventInvitation(eventId: number, foodsaverId: number, extraParams: any = {}): Promise<any> {
+  async addEventInvitation(
+    eventId: number,
+    foodsaverId: number,
+    extraParams: any = {},
+  ): Promise<any> {
     const params = {
       foodsaver_id: foodsaverId,
       event_id: eventId,
-      ...extraParams
+      ...extraParams,
     };
-    params.id = await Database.addToDatabase('fs_foodsaver_has_event', params);
+    params.id = await Database.addToDatabase("fs_foodsaver_has_event", params);
     return params;
   }
 
-  async addBlogPost(authorId: number, regionId: number, extraParams: any = {}): Promise<any> {
+  async addBlogPost(
+    authorId: number,
+    regionId: number,
+    extraParams: any = {},
+  ): Promise<any> {
     const params = {
       bezirk_id: regionId,
       foodsaver_id: authorId,
@@ -1203,14 +1420,21 @@ class Foodsharing {
       teaser: faker.lorem.paragraph(),
       time: this.toDateTime(faker.date.recent()),
       active: 1,
-      picture: '',
-      ...extraParams
+      picture: "",
+      ...extraParams,
     };
-    params.id = await Database.addToDatabase('fs_blog_entry', params);
+    params.id = await Database.addToDatabase("fs_blog_entry", params);
     return params;
   }
 
-  async addReport(reporterId: number, reporteeId: number, storeId: number = 0, confirmed: number = 0, reason: string = null, message: string = null): Promise<any> {
+  async addReport(
+    reporterId: number,
+    reporteeId: number,
+    storeId: number = 0,
+    confirmed: number = 0,
+    reason: string = null,
+    message: string = null,
+  ): Promise<any> {
     const params = {
       reporter_id: reporterId,
       foodsaver_id: reporteeId,
@@ -1220,18 +1444,26 @@ class Foodsharing {
       time: this.toDateTime(faker.date.recent()),
       msg: message ?? faker.lorem.paragraphs(2),
       tvalue: reason ?? faker.lorem.sentence(),
-      committed: confirmed
+      committed: confirmed,
     };
-    params.id = await Database.addToDatabase('fs_report', params);
+    params.id = await Database.addToDatabase("fs_report", params);
     return params;
   }
 
-  async createPoll(regionId: number, authorId: number, extraParams: any = {}): Promise<any> {
+  async createPoll(
+    regionId: number,
+    authorId: number,
+    extraParams: any = {},
+  ): Promise<any> {
     const params = {
       name: faker.lorem.words(5),
       description: faker.lorem.paragraphs(2),
       scope: VotingScope.FOODSAVERS,
-      type: faker.helpers.arrayElement([VotingType.SELECT_ONE_CHOICE, VotingType.SELECT_MULTIPLE, VotingType.THUMB_VOTING]),
+      type: faker.helpers.arrayElement([
+        VotingType.SELECT_ONE_CHOICE,
+        VotingType.SELECT_MULTIPLE,
+        VotingType.THUMB_VOTING,
+      ]),
       author: authorId,
       region_id: regionId,
       start: this.toDateTime(faker.date.recent({ days: 7 })),
@@ -1239,34 +1471,38 @@ class Foodsharing {
       votes: faker.number.int({ min: 0, max: 1000 }),
       eligible_votes_count: 0,
       creation_timestamp: this.toDateTime(faker.date.recent({ days: 7 })),
-      ...extraParams
+      ...extraParams,
     };
-    params.id = await Database.addToDatabase('fs_poll', params);
+    params.id = await Database.addToDatabase("fs_poll", params);
     return params;
   }
 
-  async createPollOption(pollId: number, values: number[], extraParams: any = {}): Promise<any> {
+  async createPollOption(
+    pollId: number,
+    values: number[],
+    extraParams: any = {},
+  ): Promise<any> {
     const optionCount = await Database.grabFromDatabase(
-      'fs_poll_has_options',
-      'COUNT(*) as count',
-      { poll_id: pollId }
+      "fs_poll_has_options",
+      "COUNT(*) as count",
+      { poll_id: pollId },
     );
 
     const params = {
       poll_id: pollId,
       option: parseInt(optionCount),
       option_text: faker.lorem.sentence(),
-      ...extraParams
+      ...extraParams,
     };
 
-    await Database.addToDatabase('fs_poll_has_options', params);
+    await Database.addToDatabase("fs_poll_has_options", params);
 
     for (const value of values) {
-      await Database.addToDatabase('fs_poll_option_has_value', {
+      await Database.addToDatabase("fs_poll_option_has_value", {
         poll_id: pollId,
         option: params.option,
         value: value,
-        votes: faker.number.int({ min: 0, max: 100 })
+        votes: faker.number.int({ min: 0, max: 100 }),
       });
     }
 
@@ -1275,37 +1511,47 @@ class Foodsharing {
 
   async addVoters(pollId: number, userIds: number[]): Promise<void> {
     for (const id of userIds) {
-      await Database.addToDatabase('fs_foodsaver_has_poll', {
+      await Database.addToDatabase("fs_foodsaver_has_poll", {
         poll_id: pollId,
         foodsaver_id: id,
-        time: null
+        time: null,
       });
     }
 
-    const previousCount = await Database.grabFromDatabase('fs_poll', 'eligible_votes_count', { id: pollId });
-    await Database.connect().then(conn =>
-      conn.execute('UPDATE fs_poll SET eligible_votes_count = ? WHERE id = ?',
-        [parseInt(previousCount) + userIds.length, pollId])
+    const previousCount = await Database.grabFromDatabase(
+      "fs_poll",
+      "eligible_votes_count",
+      { id: pollId },
+    );
+    await Database.connect().then((conn) =>
+      conn.execute("UPDATE fs_poll SET eligible_votes_count = ? WHERE id = ?", [
+        parseInt(previousCount) + userIds.length,
+        pollId,
+      ]),
     );
   }
 
-  async giveBanana(senderId: number, recipientId: number, message: string = null): Promise<void> {
+  async giveBanana(
+    senderId: number,
+    recipientId: number,
+    message: string = null,
+  ): Promise<void> {
     if (!message) {
       message = this.createRandomText(100, 300);
     }
 
-    await Database.addToDatabase('fs_rating', {
+    await Database.addToDatabase("fs_rating", {
       foodsaver_id: recipientId,
       rater_id: senderId,
       msg: message,
-      time: this.toDateTime(faker.date.recent())
+      time: this.toDateTime(faker.date.recent()),
     });
   }
 
   private createRandomText(minLength: number, maxLength: number): string {
     let text = faker.lorem.paragraph();
     while (text.length < minLength) {
-      text += ' ' + faker.lorem.paragraph();
+      text += " " + faker.lorem.paragraph();
     }
     return text.slice(0, maxLength);
   }
@@ -1316,7 +1562,7 @@ class Foodsharing {
    */
   private async uploadFile(file: UploadedFile): Promise<string> {
     const uuid = uuidv4();
-    await Database.addToDatabase('uploads', {
+    await Database.addToDatabase("uploads", {
       uuid: uuid,
       user_id: file.uploaderId,
       sha256hash: file.hashedBody,
@@ -1326,11 +1572,11 @@ class Foodsharing {
     });
 
     const pathForPersistentFile = path.join(
-      process.env.ROOT_DIR || '.',
-      'data/uploads',
+      process.env.ROOT_DIR || ".",
+      "data/uploads",
       uuid[0],
       uuid.substring(1, 3),
-      uuid
+      uuid,
     );
 
     const dir = path.dirname(pathForPersistentFile);
@@ -1341,11 +1587,11 @@ class Foodsharing {
   }
 
   private async hashFile(algorithm: string, filePath: string): Promise<string> {
-    const crypto = require('crypto');
+    const crypto = require("crypto");
     const fileBuffer = await fs.promises.readFile(filePath);
     const hashSum = crypto.createHash(algorithm);
     hashSum.update(fileBuffer);
-    return hashSum.digest('hex');
+    return hashSum.digest("hex");
   }
 }
 

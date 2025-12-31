@@ -1,27 +1,85 @@
 #!/usr/bin/env bash
-
+export FS_ENV="test"
 dir=$(dirname "$0")
-
 # shellcheck source=./__common.sh
 source "$dir"/__common.sh
 
-log-header "Running client e2e tests with playwright"
-cd tests/e2e
-npm ci && npx playwright install
+echo ""
+log-header "Playwright E2E Tests"
+echo ""
 
-export DB_HOST="localhost"
-if [[ "${1:-}" == "test" ]]; then
-  FS_ENV="test"
-  log-header "Run on $FS_ENV containers ..."
-  port=23005
-  param="${*:2}"
-  export DB_PORT="23306"
-else
-  FS_ENV="dev"
-  log-header "Run on $FS_ENV containers ..."
-  port=13005
-  param="$@"
-  export DB_PORT="13306"
+# Check if test environment is fully initialized
+container_count=$("$dir"/docker-compose ps | grep -c "Up" | awk '{print $1}')
+if [[ ! "$container_count" -eq 11 ]]; then
+    log-header "Test environment not fully initialized (only $container_count/11 containers running)"
+    echo "🔄 Initializing test environment..."
+    "$dir"/test
 fi
 
-PW_TEST_CONNECT_WS_ENDPOINT=ws://127.0.0.1:$port/ npx playwright test $param
+# Check for interactive/debug mode
+if [[ "${1:-}" == "debug" || "${1:-}" == "interactive" ]]; then
+    log-header "Starting interactive mode..."
+    "$dir"/docker-compose up -d db nginx websocket e2e
+    echo "⏳ Waiting for services..."
+    sleep 5
+    echo "📦 Installing dependencies..."
+    "$dir"/docker-compose exec e2e yarn install --frozen-lockfile
+    echo ""
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo "  Interactive Shell - Available Commands:"
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo "  yarn test                  Run all tests"
+    echo "  yarn test <spec-file>      Run specific test"
+    echo "  yarn test --workers=N      Adjust parallelization"
+    echo "  yarn test:ui               Run tests with browser UI. Open browser on host at http://localhost:23008"
+    echo ""
+    echo "  After tests, open report:"
+    echo "  yarn show-report"
+    echo ""
+    echo "  Press CTRL-C to stop tests gracefully"
+    echo "  Type 'exit' to leave container"
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo ""
+    "$dir"/docker-compose exec e2e /bin/bash
+    exit 0
+fi
+
+# Normal test execution mode
+param="$*"
+
+echo "🚀 Starting services..."
+"$dir"/docker-compose up -d db nginx websocket
+
+echo "⏳ Waiting for services..."
+sleep 5
+
+"$dir"/docker-compose up -d e2e
+sleep 2
+
+echo "📦 Installing dependencies..."
+"$dir"/docker-compose exec e2e yarn install --frozen-lockfile
+
+echo ""
+log-header "Running tests${param:+ ($param)}"
+echo ""
+
+"$dir"/docker-compose exec \
+    -e DB_HOST="db" \
+    -e DB_PORT="3306" \
+    e2e yarn test $param
+
+test_exit_code=$?
+
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+if [[ "$test_exit_code" -eq 0 ]]; then
+    echo "  ✅ Tests passed!"
+else
+    echo "  ❌ Tests failed"
+fi
+
+if [[ "${CI:-}" == "true" ]]; then
+    "$dir"/docker-compose stop e2e > /dev/null 2>&1
+fi
+
+exit "$test_exit_code"

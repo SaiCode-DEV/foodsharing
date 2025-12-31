@@ -1,35 +1,32 @@
 #!/usr/bin/env bash
-
 export FS_ENV="test"
-
 dir=$(dirname "$0")
-
 # shellcheck source=./__common.sh
 source "$dir"/__common.sh
 
-if [[ ! $("$dir"/docker-compose ps | grep -c "Up" | awk '{print $1}') -eq 12 ]]; then
+if [[ ! $("$dir"/docker-compose ps | grep -c "Up" | awk '{print $1}') -eq 11 ]]; then
     log-header "Bringing up containers ..."
     "$dir"/docker-compose up --detach
-
+    
     log-header "Running composer install ..."
     exec-in-container app 'composer install'
-
+    
     log-header "Create folder structure ..."
     exec-in-container app bin/console foodsharing:setup
-
+    
     log-header "Reset (clear) cache ..."
     exec-in-container app "bin/console cache:clear"
     exec-in-container app "rm --recursive --force cache/.views-cache cache/di-cache.php"
-
+    
     log-header "Initialize Database ..."
     sql-query mysql "drop database if exists foodsharing; create database foodsharing"
-
+    
     log-header "Running migrations"
     migratedb
-
+    
     log-header "Create DB dump file for codeception"
     sql_dump_to_file dump.sql
-
+    
     log-header "Waiting for assets to be generated ..."
     wait-for-assets
     exec-in-container app "bin/console assets:install"
@@ -38,29 +35,25 @@ fi
 if ! sql-query mysql 'use foodsharing'; then
     log-header "Initialize Database ..."
     sql-query mysql "drop database if exists foodsharing; create database foodsharing"
-
+    
     log-header "Running migrations"
     migratedb
-
+    
     log-header "Create DB dump file for codeception"
     sql_dump_to_file dump.sql
 fi
 
-if [[ "${1:-}" == "e2e" ]]; then
-  "$dir"/test-e2e test "${*:2}"
-elif [[ -z "${1:-}" ]]; then
-  log-header "Running all tests"
-  "$dir"/test-e2e test
-  run_codeception
-
-  if [ $# -eq 0 ]; then
-      log-header "Running Client tests"
-      run-in-container client "yarn && yarn lint && yarn test"
-
-      log-header "Running websocket tests"
-      run-in-container websocket "yarn && yarn lint && yarn test"
-  fi
-  else
+if [[ -z "${1:-}" ]]; then
+    log-header "Running all tests"
+    "$dir"/test-e2e test
+    run_codeception
+    if [ $# -eq 0 ]; then
+        log-header "Running Client tests"
+        run-in-container client "yarn && yarn lint && yarn test"
+        log-header "Running websocket tests"
+        run-in-container websocket "yarn && yarn lint && yarn test"
+    fi
+else
     log-header "Running specific test"
     run_codeception "$@"
 fi

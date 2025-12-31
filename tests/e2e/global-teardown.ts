@@ -1,4 +1,4 @@
-import { Database } from './helpers/database';
+import { Database } from "./helpers/database";
 
 async function globalTeardown() {
   await Database.cleanup();

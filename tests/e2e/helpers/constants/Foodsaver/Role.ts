@@ -7,7 +7,7 @@ enum Role {
   STORE_MANAGER = 2,
   AMBASSADOR = 3,
   ORGA = 4,
-  ADMIN = 5
+  ADMIN = 5,
 }
 
 export default Role;

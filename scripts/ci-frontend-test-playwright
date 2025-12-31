@@ -1,43 +1,69 @@
 #!/usr/bin/env bash
-
+set -e  # Exit on error
 export FS_ENV=test
-
 dir=$(dirname "$0")
-
 # shellcheck source=./__common.sh
 source "$dir"/__common.sh
 
-echo $SECONDS seconds elapsed
+SCRIPT_START=$SECONDS
 
-log-header "Preparing execution environment: Prepare PHP config, application & composer dev dependencies"
+log-header "CI: Playwright E2E Tests"
+echo ""
+
+# Setup PHP environment
+log-header "Setting up PHP environment"
 bin/console foodsharing:setup
-# configure path to application
-# *https://forums.docker.com/t/sed-couldnt-open-temporary-file-xyz-permission-denied-when-using-virtiofs/125473/2
-tmpfile=$(mktemp tmp_file_XXXXXX)
-sed "s#/app#$CI_PROJECT_DIR#g" /usr/local/etc/php-fpm.d/fpm.conf > $tmpfile; cat $tmpfile > /usr/local/etc/php-fpm.d/fpm.conf; rm $tmpfile
-# let PHP-FPM run as root
-# sed -i "s#www-data#root#g" /usr/local/etc/php-fpm.d/fpm.conf
-# disable xdebug
-# rm /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
+# Configure PHP-FPM paths for CI
+tmpfile=$(mktemp)
+sed "s#/app#$CI_PROJECT_DIR#g" /usr/local/etc/php-fpm.d/fpm.conf > "$tmpfile"
+cat "$tmpfile" > /usr/local/etc/php-fpm.d/fpm.conf
+rm "$tmpfile"
+
+# Start PHP-FPM in background
 php-fpm -R 2> php_fpm_err.log &
+PHP_FPM_PID=$!
 
-log-header "Initializing database"
-SECONDS=0
-mariadb -u root -proot -hdb --execute="drop database if exists foodsharing; create database foodsharing"
+# Start mail queue worker
 bin/console foodsharing:mailqueueworker &
+MAIL_WORKER_PID=$!
+
+# Trap to cleanup background processes on exit
+trap "kill $PHP_FPM_PID $MAIL_WORKER_PID 2>/dev/null || true" EXIT
+
+# Initialize database
+log-header "Initializing database"
+DB_START=$SECONDS
+mariadb -u root -proot -hdb --execute="drop database if exists foodsharing; create database foodsharing"
 vendor/bin/phinx migrate
-echo $SECONDS seconds elapsed
+echo "✓ Database ready (${SECONDS}s elapsed)"
 
-log-header "Waiting for assets to be generated ..."
+# Wait for assets
+log-header "Waiting for assets"
+ASSET_START=$SECONDS
 wait-for-assets
+echo "✓ Assets ready (${SECONDS}s elapsed)"
 
-log-header "Create DB dump file for codeception"
+# Create database dump for Codeception
+log-header "Creating database dump"
 mariadb-dump --user root --password=root -hdb foodsharing > dump.sql
-pwd
+echo "✓ Dump created"
 
-log-header "Running tests"
-cd tests/e2e || exit 1
-npm ci
+# Run Playwright tests
+log-header "Running Playwright tests"
+cd tests/e2e
+
+# Install dependencies
+npm install -g yarn@1.22.22 --force
+yarn install --frozen-lockfile
 npx playwright install
-npx playwright test --project="${PROJECT}"
+
+# Run tests with JUnit reporter for GitLab
+PLAYWRIGHT_JUNIT_OUTPUT_NAME=../../tests/_output/report-playwright.xml \
+    npx playwright test --reporter=list,junit
+
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "✅ E2E tests completed"
+echo "⏱️  Total time: $((SECONDS - SCRIPT_START))s"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

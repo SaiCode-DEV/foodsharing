@@ -2,35 +2,70 @@
 
 ## Playwright: Automated Browser Testing
 
-### Installation
+### Quick Start
 
-1. Install NodeJS (https://nodejs.org/en/download/)
-2. Change to Playwright directory `cd tests/e2e`
-3. Install Playwright `npm ci && npx playwright install --with-deps`
+**Prerequisites:** Docker and Docker Compose installed
+
+**Run all tests:**
+```bash
+./scripts/test e2e
+```
+
+**Run specific test:**
+```bash
+./scripts/test-e2e specs/LoginTest.spec.ts
+```
+
+**Before pushing code:**
+```bash
+./scripts/test
+```
 
 ### Usage
 
-Run `npx playwright [options] [command]` e.g. `npx playwright test`
+| Command | Purpose |
+|---------|---------|
+| `./scripts/test e2e` | Run all E2E tests (includes DB setup) |
+| `./scripts/test-e2e` | Run E2E tests only (requires test env running) |
+| `./scripts/test-e2e <file>` | Run specific test file |
+| `./scripts/test-e2e --workers=2` | Run with custom worker count |
+| `./scripts/test-e2e debug` | Open interactive shell for manual testing |
 
-More on <https://playwright.dev/docs/running-tests>
+More options: https://playwright.dev/docs/running-tests
 
-### Docker setup
+### Interactive Mode
 
-Playwright only supports Ubuntu. To support all os, use we the original docker image in server mode. 
-The local scripts use playwright as a client and connect to the docker container via websocket port 3005.
-
-You can find the commands in [scripts commands](deployment/scripts.md#codestyle-scripts)
-
-### Contributing
-
-#### Husky, ESLint, and Prettier
-
-We use a combination of [Husky](https://github.com/typicode/husky), [ESLint](https://eslint.org/), and [Prettier](https://prettier.io/) within our repository to enforce consistent coding practices.
-Husky is a tool that installs a pre-commit hook to run the linter before each commit attempt.
-To install the pre-commit hook, run the following command:
-
+For development and debugging:
 ```bash
-npm run prepare
+./scripts/test-e2e debug
 ```
 
-If needed, you can still bypass the commit hook by passing `--no-verify` in your git commit message.
+Inside the container:
+```bash
+yarn test                           # Run all tests
+yarn test specs/LoginTest.spec.ts  # Run specific test
+yarn test --workers=2               # Adjust parallelization
+yarn test:ui                        # Run tests with browser UI. Open browser on host at http://localhost:23008
+exit                                # Leave container
+```
+
+Press CTRL-C to stop tests gracefully and view the HTML report.
+
+### Test Reports
+
+After tests you can open the report with:
+```bash
+yarn show-report
+```
+
+**Artifacts:**
+- Results: `tests/_output/test-results/`
+- HTML report: `tests/_output/html-report/`
+
+### Setup
+
+**Docker:** Tests run in `foodsharing_test_e2e` container with Chromium, Firefox, and WebKit pre-installed.
+
+**Linting:** Pre-commit hooks via Husky are installed automatically with `yarn install` in `tests/e2e/`.
+
+To bypass: `git commit --no-verify`

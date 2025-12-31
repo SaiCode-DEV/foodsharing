@@ -1,4 +1,4 @@
-import mysql from 'mysql2/promise';
+import mysql from "mysql2/promise";
 
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class Database {
@@ -11,11 +11,11 @@ export class Database {
   static async connect() {
     if (!this.connection) {
       this.connection = await mysql.createConnection({
-        host: process.env.DB_HOST || 'db',
+        host: process.env.DB_HOST || "db",
         port: Number(process.env.DB_PORT) || 3306,
-        user: process.env.DB_USER || 'root',
-        password: process.env.DB_PASS || 'root',
-        database: process.env.DB_NAME || 'foodsharing'
+        user: process.env.DB_USER || "root",
+        password: process.env.DB_PASS || "root",
+        database: process.env.DB_NAME || "foodsharing",
       });
     }
     return this.connection;
@@ -27,7 +27,10 @@ export class Database {
    * @param criteria The criteria to filter by
    * @returns True if a matching record exists, false otherwise
    */
-  static async seeInDatabase(table: string, criteria: Record<string, any>): Promise<boolean> {
+  static async seeInDatabase(
+    table: string,
+    criteria: Record<string, any>,
+  ): Promise<boolean> {
     const conn = await this.connect();
 
     const whereClauses = Object.entries(criteria)
@@ -37,10 +40,10 @@ export class Database {
         }
         return `\`${key}\` = ?`;
       })
-      .join(' AND ');
+      .join(" AND ");
 
     const query = `SELECT COUNT(*) as count FROM \`${table}\` WHERE ${whereClauses}`;
-    const values = Object.values(criteria).filter(value => value !== null);
+    const values = Object.values(criteria).filter((value) => value !== null);
 
     const [rows] = await conn.execute(query, values);
     const count = (rows as any)[0].count;
@@ -55,21 +58,25 @@ export class Database {
    * @param criteria The criteria to filter by
    * @returns The value of the specified column
    */
-  static async grabFromDatabase(table: string, column: string, criteria?: Record<string, any>): Promise<string> {
+  static async grabFromDatabase(
+    table: string,
+    column: string,
+    criteria?: Record<string, any>,
+  ): Promise<string> {
     const conn = await this.connect();
 
-    let whereClauses = '1=1';
+    let whereClauses = "1=1";
     let values: any[] = [];
 
     if (criteria) {
       whereClauses = Object.entries(criteria)
         .map(([key, value]) => {
-          if (typeof value === 'string' && value.includes('%')) {
+          if (typeof value === "string" && value.includes("%")) {
             return `\`${key}\` LIKE ?`;
           }
           return `\`${key}\` = ?`;
         })
-        .join(' AND ');
+        .join(" AND ");
       values = Object.values(criteria);
     }
 
@@ -89,21 +96,25 @@ export class Database {
    * @param criteria The criteria to filter by
    * @returns An array of values from the specified column
    */
-  static async grabColumnFromDatabase(table: string, column: string, criteria?: Record<string, any>): Promise<any[]> {
+  static async grabColumnFromDatabase(
+    table: string,
+    column: string,
+    criteria?: Record<string, any>,
+  ): Promise<any[]> {
     const conn = await this.connect();
 
-    let whereClauses = '1=1';
+    let whereClauses = "1=1";
     let values: any[] = [];
 
     if (criteria) {
       whereClauses = Object.entries(criteria)
         .map(([key, value]) => {
-          if (typeof value === 'string' && value.includes('%')) {
+          if (typeof value === "string" && value.includes("%")) {
             return `\`${key}\` LIKE ?`;
           }
           return `\`${key}\` = ?`;
         })
-        .join(' AND ');
+        .join(" AND ");
       values = Object.values(criteria);
     }
 
@@ -111,7 +122,7 @@ export class Database {
     const [rows] = await conn.execute(query, values);
 
     if (Array.isArray(rows)) {
-      return rows.map(row => row[column]);
+      return rows.map((row) => row[column]);
     }
     return [];
   }
@@ -122,12 +133,19 @@ export class Database {
    * @param data The data to insert
    * @returns The ID of the newly created record
    */
-  static async addToDatabase(table: string, data: Record<string, any>): Promise<number> {
+  static async addToDatabase(
+    table: string,
+    data: Record<string, any>,
+  ): Promise<number> {
     try {
       const conn = await this.connect();
 
-      const columns = Object.keys(data).map(c => `\`${c}\``).join(', ');
-      const placeholders = Object.keys(data).map(() => '?').join(', ');
+      const columns = Object.keys(data)
+        .map((c) => `\`${c}\``)
+        .join(", ");
+      const placeholders = Object.keys(data)
+        .map(() => "?")
+        .join(", ");
       const values = Object.values(data);
 
       const query = `INSERT INTO \`${table}\` (${columns}) VALUES (${placeholders})`;
@@ -135,7 +153,7 @@ export class Database {
 
       return (result as any).insertId;
     } catch (error) {
-      console.error(`Error addToDatabase ${table}: `,error.message);
+      console.error(`Error addToDatabase ${table}: `, error.message);
       throw error;
     }
   }

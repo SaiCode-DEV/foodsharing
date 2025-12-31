@@ -10,7 +10,7 @@ enum UnitType {
   COUNTRY = 6,
   WORKING_GROUP = 7,
   BIG_CITY = 8,
-  PART_OF_TOWN = 9
+  PART_OF_TOWN = 9,
 }
 
 export default UnitType;

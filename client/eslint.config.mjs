@@ -26,7 +26,7 @@ export default [
       'vendor/**',
       'docs/**',
       'public/**',
-      'tests/**',
+      'tests/!(e2e)/**',
       'websocket/**',
       'assets/**'
     ]

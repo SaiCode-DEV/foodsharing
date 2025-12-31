@@ -1,5 +1,5 @@
-import { Page } from '@playwright/test';
-import { DateTime } from 'luxon';
+import { Page } from "@playwright/test";
+import { DateTime } from "luxon";
 
 export class WebDriver {
   private page: Page;
@@ -15,34 +15,42 @@ export class WebDriver {
     const visible = await this.page.evaluate((sel) => {
       const elem = document.querySelector(sel);
       if (!elem) return false;
-      
+
       const box = elem.getBoundingClientRect();
       const cx = box.left + box.width / 2;
       const cy = box.top + box.height / 2;
-      
+
       return document.elementFromPoint(cx, cy) === elem;
     }, selector);
 
     return visible;
   }
 
-  async seeFormattedDateInRange(min: Date, max: Date, format: string, actual: string): Promise<void> {
-    const date = DateTime.fromFormat(actual, format, { zone: 'Europe/Berlin' });
+  async seeFormattedDateInRange(
+    min: Date,
+    max: Date,
+    format: string,
+    actual: string,
+  ): Promise<void> {
+    const date = DateTime.fromFormat(actual, format, { zone: "Europe/Berlin" });
     const dateTime = date.toJSDate();
     expect(dateTime).toBeGreaterThanOrEqual(min);
     expect(dateTime).toBeLessThanOrEqual(max);
   }
 
-  async waitForFileExists(filename: string, timeout: number = 4): Promise<void> {
-    const fs = require('fs').promises;
+  async waitForFileExists(
+    filename: string,
+    timeout: number = 4,
+  ): Promise<void> {
+    const fs = require("fs").promises;
     const startTime = Date.now();
-    
+
     while (Date.now() - startTime < timeout * 1000) {
       try {
         await fs.access(filename);
         return;
       } catch {
-        await new Promise(resolve => setTimeout(resolve, 100));
+        await new Promise((resolve) => setTimeout(resolve, 100));
       }
     }
     throw new Error(`File ${filename} did not exist within ${timeout} seconds`);
@@ -54,30 +62,36 @@ export class WebDriver {
 
   async unlockAllInputFields(): Promise<void> {
     await this.page.evaluate(() => {
-      document.querySelectorAll('*[readOnly]')
-        .forEach((el: Element) => (el as HTMLInputElement).readOnly = false);
+      document
+        .querySelectorAll("*[readOnly]")
+        .forEach((el: Element) => ((el as HTMLInputElement).readOnly = false));
     });
   }
 
   async fillFieldJs(selector: string, value: string): Promise<void> {
     await this.page.evaluate(
       ({ sel, val }) => {
-        document.querySelectorAll(sel)
-          .forEach((el: Element) => (el as HTMLInputElement).value = val);
+        document
+          .querySelectorAll(sel)
+          .forEach((el: Element) => ((el as HTMLInputElement).value = val));
       },
-      { sel: selector, val: value }
+      { sel: selector, val: value },
     );
   }
 
   async seeCookieHasSessionExpiry(cookieName: string): Promise<void> {
-    const cookie = await this.page.context().cookies()
-      .then(cookies => cookies.find(c => c.name === cookieName));
+    const cookie = await this.page
+      .context()
+      .cookies()
+      .then((cookies) => cookies.find((c) => c.name === cookieName));
     expect(cookie?.expires).toBeNull();
   }
 
   async seeCookieHasNoSessionExpiry(cookieName: string): Promise<void> {
-    const cookie = await this.page.context().cookies()
-      .then(cookies => cookies.find(c => c.name === cookieName));
+    const cookie = await this.page
+      .context()
+      .cookies()
+      .then((cookies) => cookies.find((c) => c.name === cookieName));
     expect(cookie?.expires).not.toBeNull();
   }
 }

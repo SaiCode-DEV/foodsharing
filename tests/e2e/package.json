@@ -1,4 +1,7 @@
 {
+  "name": "foodsharing-e2e-tests",
+  "version": "0.1.0",
+  "private": true,
   "devDependencies": {
     "@axe-core/playwright": "^4.8.2",
     "@faker-js/faker": "9.3.0",
@@ -11,7 +14,7 @@
     "eslint-plugin-playwright": "^0.20.0",
     "husky": "^8.0.0",
     "prettier": "3.1.1",
-    "typescript": "^5.3.3"
+    "typescript": "~5.9.3"
   },
   "dependencies": {
     "argon2": "^0.41.1",
@@ -22,10 +25,17 @@
     "uuid": "^11.0.3"
   },
   "scripts": {
-    "lint": "eslint specs/",
-    "lint:fix": "eslint specs/ --fix",
-    "prettier": "prettier specs/ --check",
-    "prettier:fix": "prettier specs/ --write",
-    "prepare": "cd ../../ && husky install tests/e2e/.husky"
+    "prepare": "cd ../../ && husky install tests/e2e/.husky",
+    "test": "playwright test",
+    "test:ci": "PLAYWRIGHT_JUNIT_OUTPUT_NAME=../../tests/_output/report-playwright.xml playwright test --reporter=junit",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:ui": "playwright test --ui-port=3008 --ui-host=0.0.0.0 --ui && echo 'Open http://localhost:23008 in the browser!'",
+    "report": "playwright show-report",
+    "show-report": "playwright show-report ../_output/html-report --host 0.0.0.0 && echo 'Open http://localhost:29323 in the browser!'",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prettier": "prettier '**/*.{ts,json}' --check",
+    "prettier:fix": "prettier '**/*.{ts,json}' --write"
   }
 }

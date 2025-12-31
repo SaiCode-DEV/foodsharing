@@ -175,6 +175,27 @@ services:
     # ports:
     #   - 3000:3000
 
+  # E2E Tests with Playwright
+  #------------------------------------
+  e2e:
+    user: ${CURRENT_USER}
+    container_name: foodsharing_e2e
+    image: mcr.microsoft.com/playwright:v1.57.0-noble
+    working_dir: /app/tests/e2e
+    # Keep container running for on-demand test execution via docker-compose exec
+    command: sh -c "mkdir -p /app/cache/e2e-home && tail -f /dev/null"
+    depends_on:
+      - nginx
+      - db
+      - websocket
+    volumes:
+      - ../:/app:delegated
+    environment:
+      - NPM_CONFIG_UPDATE_NOTIFIER=false
+      - HOME=/app/cache/e2e-home
+      - YARN_CACHE_FOLDER=/app/cache/yarn
+
+# Volumes for performance optimization
 volumes:
   database:
   influxdb:

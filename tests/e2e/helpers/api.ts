@@ -1,4 +1,4 @@
-import { APIRequestContext } from '@playwright/test';
+import { APIRequestContext } from "@playwright/test";
 
 export class Api {
   private request: APIRequestContext;
@@ -10,7 +10,7 @@ export class Api {
   async seeResponseIsHtml(response: any): Promise<void> {
     const text = await response.text();
     if (!text.match(/<!doctype html>/im)) {
-      throw new Error('Response is not HTML');
+      throw new Error("Response is not HTML");
     }
   }
 
@@ -28,15 +28,15 @@ export class Api {
     }
   }
 
-  async login(email: string, pass: string = 'password'): Promise<any> {
-    return await this.request.post('api/user/login', {
+  async login(email: string, pass: string = "password"): Promise<any> {
+    return await this.request.post("api/user/login", {
       form: {
         email,
-        password: pass
+        password: pass,
       },
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
     });
   }
 }

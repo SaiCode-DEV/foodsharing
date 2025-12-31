@@ -1,4 +1,5 @@
 import { defineConfig, devices } from "@playwright/test";
+import os from "os";
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -13,12 +14,20 @@ export default defineConfig({
   /* Limit the number of failures on CI to save resources */
   maxFailures: process.env.CI ? 10 : undefined,
   /* Limit the number of workers on CI, use default locally. */
-  workers: process.env.CI ? '70%' : '40%',
+  workers: process.env.CI
+    ? "70%"
+    : (() => {
+        const cores = os.cpus().length;
+        if (cores <= 4) return 1; // 1-4 cores: 1 worker (safe for weak machines)
+        if (cores <= 8) return "25%"; // 5-8 cores: 25% (~2 workers)
+        if (cores <= 16) return "40%"; // 9-16 cores: 40% (~4-6 workers)
+        return "50%"; // 17+ cores: 50%
+      })(), // you can always override manually by passing --workers=X to playwright test
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
-    ['list'],
-    ['html', { outputFolder: '../_output/html-report' }],
-    ['junit', { outputFile: '../_output/report-playwright.xml' }]
+    ["list"],
+    ["html", { outputFolder: "../_output/html-report" }],
+    ["junit", { outputFile: "../_output/report-playwright.xml" }],
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
@@ -42,7 +51,7 @@ export default defineConfig({
     actionTimeout: 15000,
   },
   /* Path to global teardown module */
-  globalTeardown: './global-teardown.ts',
+  globalTeardown: "./global-teardown.ts",
   /* Configure projects for major browsers */
   projects: [
     /* Test against desktop viewports. */
@@ -63,7 +72,7 @@ export default defineConfig({
       name: "Desktop Safari",
       use: { ...devices["Desktop Safari"] },
     },  */
-    
+
     /* Test against mobile viewports. */
     {
       name: "Mobile Chrome",

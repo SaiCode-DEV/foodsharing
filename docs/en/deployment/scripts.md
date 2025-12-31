@@ -27,15 +27,13 @@ All scripts can be run with `./scripts/[script]`.
 ## Testing `scripts`
 | Script                | ENV  | Description                                                                                                   |
 |-----------------------|------|---------------------------------------------------------------------------------------------------------------|
-| `test`                | test | Without parameters, it runs all tests in the src folder and only initialize when no test container is running |
-| `test [suite] [test]` | test | Runs a specific suite test example: `test Api BasketApiCest`                                                  |
+| `test`                | test | Without parameters, runs all tests (Codeception, E2E, Client, Websocket); only initializes when test environment is not running |
+| `test [suite] [test]` | test | Runs specific Codeception test, example: `test Api BasketApiCest`                                             |
+| `test-e2e`            | test | Runs all Playwright E2E tests                                                                                 |
+| `test-e2e debug`      | test | Opens interactive shell for debugging Playwright tests                                                        |
+| `test-e2e [test]`     | test | Runs specific Playwright test, example: `test-e2e login.spec.ts`                                              |
 | `test-js`             | test | Runs all tests in the `client` folder                                                                         |
 | `test-websocket`      | test | Runs all tests in the `websocket` folder                                                                      |
-| `test-e2e`            | dev  | Runs all playwright tests                                                                                     |
-| `test e2e [test]`     | test | Runs a specific suite test example on playwright: `test bcard`                                                |
-
-
-
 ## Container `scripts`
 | Script                                      | ENV           | Description                                                                           |
 |---------------------------------------------|---------------|---------------------------------------------------------------------------------------|

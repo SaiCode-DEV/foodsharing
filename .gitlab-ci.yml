@@ -15,6 +15,7 @@ gemnasium-dependency_scanning:
         - client/yarn.lock
         - websocket/yarn.lock
         - docs/yarn.lock
+        - tests/e2e/yarn.lock
 
 variables:
   PHPCS_VERSION: "8.3"
@@ -154,7 +155,7 @@ outdated:
     if: $CI_MERGE_REQUEST_ID
     changes:
       - tests/e2e/package.json
-      - tests/e2e/package-lock.json
+      - tests/e2e/yarn.lock
       - tests/e2e/playwright.config.ts
       - tests/e2e/specs/**/*
 
@@ -494,6 +495,8 @@ test:playwright:
     - !reference [.dirs-playwright-rule, rules]
     - if: $CI_COMMIT_BRANCH == 'production' && $SKIP_CI_TESTS == 'true'
       when: never
+  # Uses combined PHP+Node+Playwright image for CI
+  # Local dev uses docker-compose with separate containers
   image: registry.gitlab.com/foodsharing-dev/images/playwright:latest
   variables:
     MYSQL_ROOT_PASSWORD: root

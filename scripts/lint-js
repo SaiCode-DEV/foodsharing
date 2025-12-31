@@ -1,12 +1,17 @@
 #!/usr/bin/env bash
-
 dir=$(dirname "$0")
-
 # shellcheck source=./__common.sh
 source "$dir"/__common.sh
 
 echo "Linting client js"
+#run-in-container client yarn prettier # not yet available
 run-in-container client yarn lint
 
 echo "Linting websocket js"
+#run-in-container websocket yarn prettier # not yet available
 run-in-container websocket yarn lint
+
+echo "Linting e2e tests"
+export FS_ENV=test
+run-in-container e2e yarn prettier
+run-in-container e2e yarn lint

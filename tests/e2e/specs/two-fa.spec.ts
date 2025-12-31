@@ -1,15 +1,14 @@
-import { test, expect } from '../helpers/acceptance';
-import { foodsharing } from '../helpers/foodsharing';
-import { Database } from '../helpers/database';
-import { maildev } from '../helpers/maildev';
-import argon2 from 'argon2';
-import { authenticator } from 'otplib';
-import { Page } from '@playwright/test';
-import { AcceptanceHelper } from '../helpers/acceptance';
+import { test, expect } from "../helpers/acceptance";
+import { foodsharing } from "../helpers/foodsharing";
+import { Database } from "../helpers/database";
+import { maildev } from "../helpers/maildev";
+import argon2 from "argon2";
+import { authenticator } from "otplib";
+import { Page } from "@playwright/test";
+import { AcceptanceHelper } from "../helpers/acceptance";
 
-test.describe('Two-Factor Authentication', () => {
-
-  test.describe.configure({ timeout: 60000  });
+test.describe("Two-Factor Authentication", () => {
+  test.describe.configure({ timeout: 60000 });
 
   let password: string;
   let foodsaver: Record<string, unknown>;
@@ -17,18 +16,22 @@ test.describe('Two-Factor Authentication', () => {
   let backupCodes: string[];
 
   test.beforeEach(async () => {
-    password = 'password';
+    password = "password";
     foodsaver = await foodsharing.createFoodsharer(password);
-    secret = '';
+    secret = "";
     backupCodes = [];
   });
 
   /**
    * Helper function to enable TOTP for the current user
    */
-  async function enableTOTP(page: Page, acceptanceHelper: AcceptanceHelper, logout = true) {
+  async function enableTOTP(
+    page: Page,
+    acceptanceHelper: AcceptanceHelper,
+    logout = true,
+  ) {
     // Assert in database that TOTP is not enabled
-    const hasTotpBefore = await Database.seeInDatabase('fs_foodsaver', {
+    const hasTotpBefore = await Database.seeInDatabase("fs_foodsaver", {
       email: foodsaver.email as string,
       totp_secret: null,
       backup_codes: null,
@@ -39,36 +42,43 @@ test.describe('Two-Factor Authentication', () => {
     await acceptanceHelper.login(foodsaver.email as string, true, password);
 
     // Go to settings
-    await page.goto('/user/current/settings');
+    await page.goto("/user/current/settings");
     await acceptanceHelper.waitForPageBody();
     await acceptanceHelper.waitForActiveAPICalls();
-    await page.click('text=Kontosicherheit');
+    await page.click("text=Kontosicherheit");
 
     // Click on enable TOTP
-    await page.getByRole('button', { name: '2FA aktivieren' }).click();
+    await page.getByRole("button", { name: "2FA aktivieren" }).click();
     await acceptanceHelper.waitForActiveAPICalls();
 
     // Wait for modal to load with QR code (Tab 2)
     await acceptanceHelper.waitForActiveAPICalls();
-    await page.getByRole('button', { name: 'Weiter' }).click();
-    await page.waitForSelector('.testing-qr-code', { timeout: 5000 });
+    await page.getByRole("button", { name: "Weiter" }).click();
+    await page.waitForSelector(".testing-qr-code", { timeout: 5000 });
 
     // Expand secret code section
-    await page.getByRole('button', { name: 'Code anzeigen (falls QR-Scan nicht funktioniert)' }).click();
-    await page.waitForSelector('.testing-totp-secret', { timeout: 5000 });
+    await page
+      .getByRole("button", {
+        name: "Code anzeigen (falls QR-Scan nicht funktioniert)",
+      })
+      .click();
+    await page.waitForSelector(".testing-totp-secret", { timeout: 5000 });
 
     // Go to backup codes tab
-    await page.getByRole('button', { name: 'Weiter' }).click();
-    await page.waitForSelector('.testing-backup-codes', { timeout: 5000 });
+    await page.getByRole("button", { name: "Weiter" }).click();
+    await page.waitForSelector(".testing-backup-codes", { timeout: 5000 });
 
     // Get the secret (still visible from expanded section)
-    secret = (await page.locator('.testing-totp-secret').textContent())?.trim() || '';
+    secret =
+      (await page.locator(".testing-totp-secret").textContent())?.trim() || "";
 
     // Get backup codes (currently visible on this tab)
-    const backupCodeElements = await page.locator('.testing-backup-codes').all();
+    const backupCodeElements = await page
+      .locator(".testing-backup-codes")
+      .all();
     backupCodes = [];
     for (const element of backupCodeElements) {
-      const code = (await element.textContent())?.trim() || '';
+      const code = (await element.textContent())?.trim() || "";
       backupCodes.push(code);
     }
 
@@ -87,27 +97,37 @@ test.describe('Two-Factor Authentication', () => {
     expect(backupCodes.length).toBe(12);
 
     // Confirm backup codes saved
-    await page.getByText('Ich habe die Backup-Codes').check();
+    await page.getByText("Ich habe die Backup-Codes").check();
 
     // Go to confirmation tab
-    await page.getByRole('button', { name: 'Weiter' }).click();
-    await expect(page.getByRole('heading', { name: 'Aktivierung bestätigen' })).toBeVisible();
+    await page.getByRole("button", { name: "Weiter" }).click();
+    await expect(
+      page.getByRole("heading", { name: "Aktivierung bestätigen" }),
+    ).toBeVisible();
 
     // Compute valid code
     const validCode = authenticator.generate(secret);
 
     // Fill the form with the valid code
-    await page.getByRole('textbox', { name: 'z.B.' }).fill(validCode);
-    await page.getByRole('textbox', { name: 'Passwort' }).fill(password);
+    await page.getByRole("textbox", { name: "z.B." }).fill(validCode);
+    await page.getByRole("textbox", { name: "Passwort" }).fill(password);
 
     // Click on submit
-    await page.getByRole('button', { name: 'Aktivieren', exact: true }).click();
+    await page.getByRole("button", { name: "Aktivieren", exact: true }).click();
     await acceptanceHelper.waitForActiveAPICalls();
 
     // Assert in database that TOTP is enabled
-    const totpSecret = await Database.grabFromDatabase('fs_foodsaver', 'totp_secret', { email: foodsaver.email as string });
-    const backupCodesDb = await Database.grabFromDatabase('fs_foodsaver', 'backup_codes', { email: foodsaver.email as string });
-    
+    const totpSecret = await Database.grabFromDatabase(
+      "fs_foodsaver",
+      "totp_secret",
+      { email: foodsaver.email as string },
+    );
+    const backupCodesDb = await Database.grabFromDatabase(
+      "fs_foodsaver",
+      "backup_codes",
+      { email: foodsaver.email as string },
+    );
+
     expect(totpSecret).toBe(secret);
     expect(backupCodesDb).toBe(JSON.stringify(backupCodes));
 
@@ -119,7 +139,12 @@ test.describe('Two-Factor Authentication', () => {
   /**
    * Helper function to attempt login and check if it should fail
    */
-  async function attemptLogin(acceptanceHelper: AcceptanceHelper, email: string, pass: string, totpSecretOrCode?: string) {
+  async function attemptLogin(
+    acceptanceHelper: AcceptanceHelper,
+    email: string,
+    pass: string,
+    totpSecretOrCode?: string,
+  ) {
     try {
       await acceptanceHelper.login(email, true, pass, totpSecretOrCode);
       return true;
@@ -128,70 +153,106 @@ test.describe('Two-Factor Authentication', () => {
     }
   }
 
-  test('login without code fails when TOTP is enabled', async ({ page, acceptanceHelper }) => {
+  test("login without code fails when TOTP is enabled", async ({
+    page,
+    acceptanceHelper,
+  }) => {
     await enableTOTP(page, acceptanceHelper);
 
     // Assert login without TOTP fails
-    const loginSuccess = await attemptLogin(acceptanceHelper, foodsaver.email as string, password);
+    const loginSuccess = await attemptLogin(
+      acceptanceHelper,
+      foodsaver.email as string,
+      password,
+    );
     expect(loginSuccess).toBe(false);
   });
 
-  test('login with code succeeds when TOTP is enabled', async ({ page, acceptanceHelper }) => {
+  test("login with code succeeds when TOTP is enabled", async ({
+    page,
+    acceptanceHelper,
+  }) => {
     await enableTOTP(page, acceptanceHelper);
 
     // Assert login with TOTP succeeds
-    const loginSuccess = await attemptLogin(acceptanceHelper, foodsaver.email as string, password, secret);
+    const loginSuccess = await attemptLogin(
+      acceptanceHelper,
+      foodsaver.email as string,
+      password,
+      secret,
+    );
     expect(loginSuccess).toBe(true);
   });
 
-  test('login with backup code succeeds when TOTP is enabled', async ({ page, acceptanceHelper }) => {
+  test("login with backup code succeeds when TOTP is enabled", async ({
+    page,
+    acceptanceHelper,
+  }) => {
     await enableTOTP(page, acceptanceHelper);
 
     // Assert login with backup code succeeds
-    await acceptanceHelper.login(foodsaver.email as string, true, password, backupCodes[0]);
+    await acceptanceHelper.login(
+      foodsaver.email as string,
+      true,
+      password,
+      backupCodes[0],
+    );
 
     // Go to settings (test direct navigation via GET parameter)
-    await page.goto('/user/current/settings?sub=accountSecurity');
+    await page.goto("/user/current/settings?sub=accountSecurity");
     await acceptanceHelper.waitForPageBody();
     await acceptanceHelper.waitForActiveAPICalls();
 
     // Assert 11 backup codes remain
-    await expect(page.locator('#testing-num-backup-codes')).toContainText('11', { timeout: 10000 });
+    await expect(page.locator("#testing-num-backup-codes")).toContainText(
+      "11",
+      { timeout: 10000 },
+    );
   });
 
-  test('can enable and disable TOTP', async ({ page, acceptanceHelper }) => {
+  test("can enable and disable TOTP", async ({ page, acceptanceHelper }) => {
     await enableTOTP(page, acceptanceHelper, false);
 
     // Verify TOTP is actually enabled in the database
-    const totpSecretEnabled = await Database.grabFromDatabase('fs_foodsaver', 'totp_secret', { email: foodsaver.email as string });
-    const backupCodesEnabled = await Database.grabFromDatabase('fs_foodsaver', 'backup_codes', { email: foodsaver.email as string });
+    const totpSecretEnabled = await Database.grabFromDatabase(
+      "fs_foodsaver",
+      "totp_secret",
+      { email: foodsaver.email as string },
+    );
+    const backupCodesEnabled = await Database.grabFromDatabase(
+      "fs_foodsaver",
+      "backup_codes",
+      { email: foodsaver.email as string },
+    );
     expect(totpSecretEnabled).not.toBeNull();
     expect(backupCodesEnabled).not.toBeNull();
     expect(totpSecretEnabled).toBe(secret);
     expect(backupCodesEnabled).toBe(JSON.stringify(backupCodes));
 
     // Go to settings
-    await page.goto('/user/current/settings');
+    await page.goto("/user/current/settings");
     await acceptanceHelper.waitForPageBody();
     await acceptanceHelper.waitForActiveAPICalls();
-    await page.click('text=Kontosicherheit');
+    await page.click("text=Kontosicherheit");
     await acceptanceHelper.waitForPageBody();
-    await page.getByRole('button', { name: '2FA deaktivieren' }).click();
+    await page.getByRole("button", { name: "2FA deaktivieren" }).click();
 
     // Click on disable TOTP
     await acceptanceHelper.waitForActiveAPICalls();
 
     // Fill the form with a valid code (generate fresh code to avoid expiration)
     const validCode = authenticator.generate(secret);
-    await page.fill('#testing-totp-input-totp > input', validCode);
-    await page.fill('#testing-totp-input-password > input', password);
+    await page.fill("#testing-totp-input-totp > input", validCode);
+    await page.fill("#testing-totp-input-password > input", password);
 
     // Click on submit
-    await page.getByRole('button', { name: 'Deaktivieren', exact: true }).click();
+    await page
+      .getByRole("button", { name: "Deaktivieren", exact: true })
+      .click();
     await acceptanceHelper.waitForActiveAPICalls();
 
     // Assert in database that TOTP is not enabled
-    const hasTotpDisabled = await Database.seeInDatabase('fs_foodsaver', {
+    const hasTotpDisabled = await Database.seeInDatabase("fs_foodsaver", {
       email: foodsaver.email as string,
       totp_secret: null,
       backup_codes: null,
@@ -200,63 +261,76 @@ test.describe('Two-Factor Authentication', () => {
 
     // Assert login without TOTP now succeeds
     await acceptanceHelper.logMeOut();
-    const loginSuccess = await attemptLogin(acceptanceHelper, foodsaver.email as string, password);
+    const loginSuccess = await attemptLogin(
+      acceptanceHelper,
+      foodsaver.email as string,
+      password,
+    );
     expect(loginSuccess).toBe(true);
   });
 
-  test('password reset enforces TOTP', async ({ page, acceptanceHelper }) => {
+  test("password reset enforces TOTP", async ({ page, acceptanceHelper }) => {
     test.setTimeout(60000); // Extended timeout for email operations
 
-    const newPass = 'yourNewPassword1234!';
+    const newPass = "yourNewPassword1234!";
 
     // Enable TOTP
     await enableTOTP(page, acceptanceHelper);
 
-    await page.goto('/');
-    const mobileMenuButton = page.locator('button.navbar-toggler');
+    await page.goto("/");
+    const mobileMenuButton = page.locator("button.navbar-toggler");
     // eslint-disable-next-line playwright/no-conditional-in-test
     if (await mobileMenuButton.isVisible()) {
       await mobileMenuButton.click();
       // eslint-disable-next-line playwright/no-wait-for-timeout
       await page.waitForTimeout(500);
     } else {
-      await page.getByRole('button', { name: 'Einloggen' }).click({ timeout: 2000 });
+      await page
+        .getByRole("button", { name: "Einloggen" })
+        .click({ timeout: 2000 });
     }
-    await page.getByRole('menuitem', { name: 'Passwort vergessen?' }).click();
+    await page.getByRole("menuitem", { name: "Passwort vergessen?" }).click();
 
-    await expect(page.getByText('Gib deine E-Mail-Adresse ein')).toBeVisible({ timeout: 10000 });
+    await expect(page.getByText("Gib deine E-Mail-Adresse ein")).toBeVisible({
+      timeout: 10000,
+    });
 
-    await page.fill('#email', foodsaver.email as string);
-    await page.getByRole('button', { name: 'Senden' }).click();
+    await page.fill("#email", foodsaver.email as string);
+    await page.getByRole("button", { name: "Senden" }).click();
 
-    await expect(page.locator('text=Alles klar, dir wurde ein Link zum Ändern des Passworts per E-Mail zugeschickt')).toBeVisible();
+    await expect(
+      page.locator(
+        "text=Alles klar, dir wurde ein Link zum Ändern des Passworts per E-Mail zugeschickt",
+      ),
+    ).toBeVisible();
 
     // Wait for email and extract link
-    let link = '';
+    let link = "";
     let retries = 10;
-    
+
     // eslint-disable-next-line playwright/no-conditional-in-test
-    while (retries > 0 && link === '') {
+    while (retries > 0 && link === "") {
       // eslint-disable-next-line playwright/no-wait-for-timeout
       await page.waitForTimeout(1000);
-      
+
       const mails = await maildev.getMails();
-      
+
       for (const mail of mails) {
         // eslint-disable-next-line playwright/no-conditional-in-test
         if (mail.to[0].address !== (foodsaver.email as string).toLowerCase()) {
           continue;
         }
-        
+
         // Use text content instead of HTML and update regex to match TOTP parameter
-        const pattern = /http:\/\/[^\s<>'"]+\/password-reset\/[a-f0-9]+\?totp=true/g;
+        const pattern =
+          /http:\/\/[^\s<>'"]+\/password-reset\/[a-f0-9]+\?totp=true/g;
         const matches = mail.text.match(pattern);
-        
+
         // eslint-disable-next-line playwright/no-conditional-in-test
         if (matches && matches[0]) {
-          link = matches[0].replace(/(?<!:)\/\/+/g, '/');
+          link = matches[0].replace(/(?<!:)\/\/+/g, "/");
           link = maildev.replaceUrl(link);
-          
+
           // eslint-disable-next-line playwright/no-conditional-in-test
           if (link) {
             await maildev.deleteMail(mail.id);
@@ -264,12 +338,12 @@ test.describe('Two-Factor Authentication', () => {
           }
         }
       }
-      
+
       retries--;
     }
 
-    expect(link).not.toBe('');
-    expect(link).toContain('totp=true');
+    expect(link).not.toBe("");
+    expect(link).toContain("totp=true");
 
     // Navigate to the password reset link
     await page.goto(link);
@@ -280,16 +354,22 @@ test.describe('Two-Factor Authentication', () => {
     const validCode = authenticator.generate(secret);
 
     // Fill the form
-    await page.fill('#testing-reset-input-password > input', newPass);
-    await page.fill('#testing-reset-input-confirm-password > input', newPass);
-    await page.fill('#testing-reset-input-totp > input', validCode);
-    await page.click('#password-change-button');
-    await page.waitForSelector('text=Prima, dein Passwort wurde erfolgreich geändert.', { timeout: 10000 });
+    await page.fill("#testing-reset-input-password > input", newPass);
+    await page.fill("#testing-reset-input-confirm-password > input", newPass);
+    await page.fill("#testing-reset-input-totp > input", validCode);
+    await page.click("#password-change-button");
+    await page.waitForSelector(
+      "text=Prima, dein Passwort wurde erfolgreich geändert.",
+      { timeout: 10000 },
+    );
 
     // Ensure new password hash is set in database -> change password worked
-    const newHash = await Database.grabFromDatabase('fs_foodsaver', 'password', { email: foodsaver.email as string });
+    const newHash = await Database.grabFromDatabase(
+      "fs_foodsaver",
+      "password",
+      { email: foodsaver.email as string },
+    );
     const isValidPassword = await argon2.verify(newHash, newPass);
     expect(isValidPassword).toBe(true);
   });
-
 });
