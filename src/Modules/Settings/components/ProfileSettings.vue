@@ -1,5 +1,5 @@
 <template>
-  <b-form v-if="isLoaded" @submit.prevent="handleSubmit">
+  <b-form v-if="isLoaded && !isSubmitting" @submit.prevent="handleSubmit">
     <b-alert :show="!profileData.mayChangeVerifiedData && isMe">
       <p>
         <i class="fas fa-user-pen mr-1" />
@@ -209,7 +209,7 @@
         type="submit"
         variant="primary"
         class="ml-3 mr-3"
-        :disabled="!isFieldsValid"
+        :disabled="!isFieldsValid || isSubmitting"
       >
         {{ $t('button.save') }}
       </b-button>
@@ -324,6 +324,7 @@ const selectableRegionTypes = SELECTABLE_REGION_TYPES
 const isOrgUser = computed(() => userStore.isOrga)
 const isMe = computed(() => userStore.getUserId === settings.value.id)
 const isLoaded = computed(() => props.profileData !== null && settings.value.id !== null)
+const isSubmitting = ref(false)
 const isFieldsValid = computed(() =>
   settings.value.phone.valid && settings.value.mobile.valid && !v$.value.$invalid && isValidBirthdate.value,
 )
@@ -416,7 +417,7 @@ function handleValidValue (data) {
   if (data.id === 'mobile') settings.value.mobile = { value: data.value, valid: data.valid }
   if (data.id === 'phone') settings.value.phone = { value: data.value, valid: data.valid }
 }
-function handleSubmit () {
+async function handleSubmit () {
   const nullableLocation = (!settings.value.location?.street && !settings.value.location?.postalCode && !settings.value.location?.city) ? null : settings.value.location
   const nullableCoordinates = (!settings.value.coordinate?.lat && !settings.value.coordinate?.lon) ? null : settings.value.coordinate
   const formData = {
@@ -440,12 +441,16 @@ function handleSubmit () {
   if (!isFieldsValid.value) {
     return
   }
-  patchUserProfile(settings.value.id, formData).then(() => {
+  try {
+    isSubmitting.value = true
+    await patchUserProfile(settings.value.id, formData)
     pulseSuccess(i18n('success') ?? '')
-  }).catch((error) => {
+  } catch (error) {
     pulseError(i18n('error_unexpected') + ': ' + error)
     console.error(error)
-  })
+  } finally {
+    isSubmitting.value = false
+  }
 }
 </script>
 
