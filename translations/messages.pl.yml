@@ -263,6 +263,9 @@ quiz:
           placeholder: Wyjaśnienie …
         answerRating: 'Ocena:'
   test: Testuj quiz
+  sessionStatus:
+    2: Niezdane z {failurePoints} z maksymalnie {maxFailurePointsToSucceed} 
+      punktów ujemnych.
 request_time: 'Czas zapytania:'
 pass1: Twoje żądane nowe hasło
 public_time: Szacunkowy czas odbioru
@@ -368,6 +371,7 @@ group:
     title: Edytuj {group}
     name_required: Podaj nazwę.
     description_required: Podaj opis.
+    description_placeholder: Opis zespołu
   mail_link_title:
     workgroup: Skrzynka pocztowa
     region: Skrzynka pocztowa okręgu
@@ -377,6 +381,8 @@ group:
     send: Wyślij wiadomość
     sent: Wiadomość wysłana pomyślnie.
     admins: '{count} Osoby do kontaktu:'
+    disclaimer: |
+      Przy wysyłaniu wiadomości do tego zespołu, wszyscy/tkie administratorzy/ki będą widzieć twój adres email, który podałeś w twoim profilu foodsharingu. Kopia wiadomości zostanie ci przesłana mailem.
   apply:
     title: Zgłoszenie do {group}
     ability: Jakie masz umiejętności w tym zakresie?
@@ -396,6 +402,7 @@ group:
     experience: "Czy możesz w tej grupie wykorzystać doświadczenia, które gdzieś indziej
       zdobyłeś/aś? \nJeśli tak, gdzie lub jakie?\n"
     how_much_time: Ile godzin tygodniowo masz czas i chęć poświęcić się temu?
+    summary: '{name} chce dołączyć do zespołu {group}.'
   actions:
     edit: Edytuj grupę
     join: Dołącz do tej grupy
@@ -416,6 +423,8 @@ group:
     election: Wybory
     resources: Mozaika zasobów
     board: Zarząd
+    title: Funkcja zespołu
+    fsmanagement: Zarządzanie
   application_requirements:
     requirements: Kto może dołączyć do tej grupy?
     nobody: Nikt (zamknięta grupa).
@@ -499,6 +508,19 @@ group:
     all_roles: wszystkie role
   image: Obraz dla %name%
   show-all: Pokaż wszystko
+  application_from: przez
+  really_quit_workgroup: Czy na pewno chcesz opuścić zespół {name}?
+  unique_function:
+    tooltip_function_region331: Administratorzy/ki tego zespołu mogą wysyłać 
+      newslettery
+    tooltip_function_region341: Administratorzy/ki tego zespołu mogą zarządzać 
+      pytaniami quizu
+    tooltip_function_region1811: Administratorzy/ki tego zespołu mogą edytować 
+      strony "Partnerzy", "Kontakt" i "Team"
+    tooltip_function_region2287: Administratorzy/ki tego zespołu mogą edytować 
+      treści na stronie głównej
+    tooltip_function_region327: Administratorzy/ki tego zespołu mogą edytować 
+      wpisy na blogu
 test:
   vars: Mam na imię {NAME} i mam {AGE} lat(a)
   plain: To jest tłumaczenie
@@ -674,6 +696,7 @@ terminology:
   sent: wysłane
   subgroups: Podgrupy
   hygiene_training: Szkolenie higieny
+  group: zespół
 resource_mosaic:
   privacy_notice:
     ok: Zgadzam się
@@ -775,6 +798,10 @@ fsp:
   info:
     from: Update'y od jadłodzielni „{name}“
     none: wcale
+    descSettings: Śledzisz wszystkie informacje z jadłodzielni ‘{name}’. W jaki 
+      sposób chcesz otrzymywać te powiadomienia?
+    manager: Jesteś odpowiedzialny/a za tę jadłodzielnię i z tego względu 
+      zobowiązany/a akceptować update'y.
   createdAt: 'Otwarte:'
 storeview:
   common: Ogólne informacje
@@ -995,6 +1022,11 @@ pickup:
     more: Dodaj termin
     description_titel: Opis
     disable_auto_slot_titel: Deaktywacja
+  passport_expired:
+    short: Legitymacja nieważna
+    long: Twoja legitymacja wtedy nie będzie już ważna
+  edit_description: Edytuj opis
+  description: Opis
 calendar:
   locale: pl
   labelNextYear: Przyszły rok
@@ -1061,6 +1093,14 @@ forum:
   go: Do forum
   restore:
     really: Czy na pewno chcesz odtworzyć ten post?
+    hidden_by: Ukryty przez
+    reason: 'Uzasadnienie: „{reason}“'
+  no_posts: Jeszcze nie ma żadnych postów
+  no_threads: Jeszcze nie ma żadnych tematów
+  sending_error: Przy wysyłaniu wystąpił błąd
+  quickreply:
+    success: Świetnie, twoja odpowiedź została zapisana.
+    error: Nie można było zapisać postu.
 chat:
   empty: Nie ma jeszcze żadnych rozmów
   placeholder: Napisz coś.
@@ -1087,6 +1127,9 @@ chat:
     sending_message: Wysłanie wiadomości nie powiodło się.
     loading_conversation: Ładowanie konwersacji nie powiodło się.
     renaming_conversation: Zmiana nazwy konwersacji nie powiodła się.
+  open_chat: Napisz wiadomość
+  new_message: Nowa wiadomość
+  new_messages: Nowe wiadomości
 wall:
   see-more: Pokaż wszystkie posty
   delete: Usuń post
