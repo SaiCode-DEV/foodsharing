@@ -58,9 +58,8 @@ npm install -g yarn@1.22.22 --force
 yarn install --frozen-lockfile
 npx playwright install
 
-# Run tests with JUnit reporter for GitLab
 PLAYWRIGHT_JUNIT_OUTPUT_NAME=../../tests/_output/report-playwright.xml \
-    npx playwright test --reporter=list,junit
+    npx playwright test --project="${PROJECT}"
 
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
