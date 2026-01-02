@@ -19,6 +19,7 @@ use Foodsharing\Modules\OAuth\Repository\ScopeRepository;
 use Foodsharing\Modules\OAuth\Repository\UserRepository;
 use Foodsharing\Permissions\OAuthPermissions;
 use League\OAuth2\Server\AuthorizationServer;
+use League\OAuth2\Server\CryptKey;
 use League\OAuth2\Server\Exception\OAuthServerException;
 use League\OAuth2\Server\Grant\RefreshTokenGrant;
 use League\OAuth2\Server\ResourceServer;
@@ -75,12 +76,21 @@ class OAuthController extends FoodsharingController
         $claimExtractor = new ClaimExtractor();
         $responseType = new OIDCBearerTokenResponse($identityRepository, $claimExtractor);
 
+        // Setup private key with optional passphrase
+        if (!file_exists(OAUTH_PRIVATE_KEY_PATH)) {
+            throw new Exception('OAuth private key file not found');
+        }
+
+        $privateKey = defined('OAUTH_PRIVATE_KEY_PASS') && OAUTH_PRIVATE_KEY_PASS
+            ? new CryptKey('file://' . OAUTH_PRIVATE_KEY_PATH, OAUTH_PRIVATE_KEY_PASS)
+            : 'file://' . OAUTH_PRIVATE_KEY_PATH;
+
         // Setup the authorization server
         $this->server = new AuthorizationServer(
             $clientRepository,
             $accessTokenRepository,
             $this->scopeRepository,
-            'file://' . OAUTH_PRIVATE_KEY_PATH,
+            $privateKey,
             $encryptionKey,
             $responseType
         );
@@ -394,7 +404,7 @@ class OAuthController extends FoodsharingController
     public function index(): Response
     {
         if (!$this->permissions->mayAdministrateOAuthClients()) {
-            return $this->redirect('/');
+            return $this->redirect('/dashboard');
         }
 
         $this->pageHelper->addContent(
