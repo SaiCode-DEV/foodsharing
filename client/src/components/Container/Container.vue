@@ -32,7 +32,7 @@
     <slot v-if="isExpanded && !wrapContent" />
     <div
       v-if="isExpanded && wrapContent"
-      :class="[wrapperClasses, {'scrollable': enableScroll}]"
+      :class="[wrapperClasses]"
       :style="maxHeight ? { maxHeight: `${maxHeight}px` } : null"
     >
       <slot />
@@ -75,7 +75,6 @@ export default {
     infoKey: { type: String, default: '' },
     tooltipKey: { type: String, default: '' },
     maxHeight: { type: [String, Number], default: null },
-    enableScroll: { type: Boolean, default: false },
   },
   data () {
     return {
@@ -176,28 +175,6 @@ export default {
 
 .list-group-item:not(:last-child):not(.list-group-header):not(.list-row-item) {
   border-bottom: 0;
-}
-
-.scrollable {
-  overflow-y: auto;
-
-  &::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 4px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: var(--fs-color-primary-300);
-    border-radius: 4px;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background: var(--fs-color-primary-400);
-  }
 }
 
 ::v-deep .field {

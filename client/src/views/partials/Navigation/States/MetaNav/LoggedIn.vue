@@ -6,7 +6,7 @@
       :key="idx"
       :entry="entry"
     />
-    <NavAdmin v-if="!useRestrictedNavigation" />
+    <NavAdmin />
   </ul>
   <div v-else class="w-100">
     <NavItem
@@ -15,7 +15,7 @@
       :entry="entry"
     />
     <HelpDropdown />
-    <NavAdmin v-if="!useRestrictedNavigation" />
+    <NavAdmin />
   </div>
 </template>
 
@@ -49,15 +49,8 @@ export default {
     }
   },
   computed: {
-    useRestrictedNavigation () {
-      return userStore.isApiRestrictedForLegalReasons
-    },
     metaNav () {
-      let nav = MetaNavData
-      if (this.useRestrictedNavigation) {
-        nav = nav.filter(entry => !entry.isRestricted)
-      }
-      return nav
+      return MetaNavData
     },
     mobileTopNav () {
       return MetaNavData

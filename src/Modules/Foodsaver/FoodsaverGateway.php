@@ -153,8 +153,6 @@ class FoodsaverGateway extends BaseGateway
 			fs.token,
 			fs.mailbox_id,
 			fs.geschlecht,
-			fs.privacy_policy_accepted_date,
-			fs.privacy_notice_accepted_date,
 			fs.last_login as last_activity,
 			fs.geb_datum,
 			fs.handy as mobile,

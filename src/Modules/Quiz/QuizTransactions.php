@@ -405,8 +405,7 @@ class QuizTransactions
     {
         switch ($quizId) {
             case QuizID::STORE_MANAGER->value:
-                $currentPrivacyNoticeVersion = $this->legalGateway->getPnVersion();
-                $this->legalGateway->agreeToPrivacyNotice($this->session->id(), $currentPrivacyNoticeVersion);
+                $this->legalGateway->agreeToPrivacyNotice($this->session->id());
                 $this->createUserMailbox($this->session->id());
                 // no break
             case QuizID::FOODSAVER->value:

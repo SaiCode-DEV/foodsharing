@@ -6,8 +6,6 @@ use Redis;
 
 class Mem
 {
-    public const PRIVATE_POLICY_REDIS_KEY = 'privacy-policy-date';
-    public const PRIVATE_NOTICE_REDIS_KEY = 'privacy-notice-date';
     /**
      * @var Redis
      */

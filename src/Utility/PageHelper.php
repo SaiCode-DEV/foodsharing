@@ -187,7 +187,6 @@ final class PageHelper
             'permissions' => $permissions,
             'page' => $this->routeHelper->getPage(),
             'subPage' => $this->routeHelper->getSubPage(),
-            'isApiRestrictedForLegalReasons' => $this->routeHelper->isApiRestrictedForLegalReasons(),
             'locations' => $location,
             'ravenConfig' => $sentryConfig,
             'version' => defined('SRC_REVISION') ? SRC_REVISION : 'DEV',

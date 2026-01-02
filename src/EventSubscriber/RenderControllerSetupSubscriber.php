@@ -8,10 +8,8 @@ use Foodsharing\Lib\Db\Mem;
 use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Settings\SettingsTransactions;
-use Foodsharing\Utility\RouteHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -78,18 +76,6 @@ class RenderControllerSetupSubscriber implements EventSubscriberInterface
     {
         global $container;
         $container = $this->fullServiceContainer;
-
-        // Redirect to the legal page if the user still needs to accept it
-        /* @var RouteHelper $routeHelper */
-        $routeHelper = $this->get(RouteHelper::class);
-        $uri = $event->getRequest()->getRequestUri();
-        if ($routeHelper->isRedirectToLegalControlNecessary($event->getRequest())) {
-            if (str_starts_with($uri, '/api')) {
-                $event->setResponse(new Response('', Response::HTTP_UNAVAILABLE_FOR_LEGAL_REASONS));
-            } else {
-                $event->setResponse(new RedirectResponse('/legal'));
-            }
-        }
     }
 
     /**

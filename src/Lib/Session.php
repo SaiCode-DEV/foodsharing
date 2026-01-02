@@ -441,8 +441,6 @@ class Session
             'location' => GeoLocation::createFromArray($fs, false),
             'photo' => $fs['photo'],
             'gender' => $fs['geschlecht'],
-            'privacy_policy_accepted_date' => $fs['privacy_policy_accepted_date'],
-            'privacy_notice_accepted_date' => $fs['privacy_notice_accepted_date'],
         ]);
 
         $this->set('login', true);

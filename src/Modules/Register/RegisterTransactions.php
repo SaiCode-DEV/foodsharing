@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\Register;
 
 use Exception;
+use Foodsharing\Modules\Legal\LegalGateway;
 use Foodsharing\Modules\Login\LoginGateway;
 use Foodsharing\Modules\Login\LoginService;
 use Foodsharing\Modules\Register\DTO\RegisterData;
@@ -12,21 +13,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegisterTransactions
 {
-    private readonly LoginGateway $loginGateway;
-    private readonly EmailHelper $emailHelper;
-    private readonly TranslatorInterface $translator;
-    private readonly LoginService $loginService;
-
     public function __construct(
-        LoginGateway $loginGateway,
-        EmailHelper $emailHelper,
-        TranslatorInterface $translator,
-        LoginService $loginService
+        private readonly LoginGateway $loginGateway,
+        private readonly EmailHelper $emailHelper,
+        private readonly TranslatorInterface $translator,
+        private readonly LoginService $loginService,
+        private readonly LegalGateway $legalGateway,
     ) {
-        $this->loginGateway = $loginGateway;
-        $this->emailHelper = $emailHelper;
-        $this->translator = $translator;
-        $this->loginService = $loginService;
     }
 
     /**
@@ -57,6 +50,8 @@ class RegisterTransactions
             'link' => $activationUrl,
             'anrede' => $this->translator->trans('salutation.' . $data->gender),
         ], false, true);
+
+        $this->legalGateway->agreeToPrivacyPolicy($id);
 
         return $id;
     }

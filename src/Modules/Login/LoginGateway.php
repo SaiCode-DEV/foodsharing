@@ -5,7 +5,6 @@ namespace Foodsharing\Modules\Login;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
-use Foodsharing\Modules\Legal\LegalGateway;
 use Foodsharing\Modules\Register\DTO\RegisterData;
 use Foodsharing\Utility\EmailHelper;
 use RobThree\Auth\Providers\Qr\BaconQrCodeProvider;
@@ -15,17 +14,14 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LoginGateway extends BaseGateway
 {
-    private readonly LegalGateway $legalGateway;
     private readonly EmailHelper $emailHelper;
     private readonly TranslatorInterface $translator;
 
     public function __construct(
         Database $db,
-        LegalGateway $legalGateway,
         EmailHelper $emailHelper,
         TranslatorInterface $translator
     ) {
-        $this->legalGateway = $legalGateway;
         $this->emailHelper = $emailHelper;
         $this->translator = $translator;
 
@@ -139,7 +135,6 @@ class LoginGateway extends BaseGateway
                 'newsletter' => (int)$data->subscribeNewsletter,
                 'geschlecht' => (int)$data->gender,
                 'anmeldedatum' => $this->db->now(),
-                'privacy_policy_accepted_date' => $this->legalGateway->getPpVersion(),
                 'token' => strip_tags($token),
             ]
         );

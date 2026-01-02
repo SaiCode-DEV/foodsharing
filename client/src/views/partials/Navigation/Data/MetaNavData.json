@@ -7,8 +7,7 @@
     {
         "title": "navigation.map",
         "icon": "fas fa-map-marker-alt",
-        "url": "map",
-        "isRestricted": true
+        "url": "map"
     },
     {
         "title": "navigation.help_needed",

@@ -10,13 +10,13 @@
     }"
   >
     <Loader />
-    <DonationModal v-if="!useRestrictedNavigation" />
-    <PetitionBanner v-if="!useRestrictedNavigation" />
+    <DonationModal />
+    <PetitionBanner />
     <div class="metanav-container container">
       <MetaNavLoggedIn v-if="!mobile && isLoggedIn" />
       <MetaNavLoggedOut v-else-if="!mobile" />
     </div>
-    <div v-if="!useRestrictedNavigation" class="container nav-container">
+    <div class="container nav-container">
       <MainNavLoggedIn v-if="isLoggedIn" />
       <MainNavLoggedOut v-else />
 
@@ -28,29 +28,12 @@
         <SideNavLoggedOut v-else />
       </b-collapse>
     </div>
-    <div v-else class="container nav-container">
-      <ul class="metanav">
-        <ThemeSwitcher />
-        <b-nav-item
-          icon="fas fa-power-off"
-          @click="deleteCaches()"
-        >
-          <slot name="icon">
-            <i class="icon-nav fas fa-power-off" />
-          </slot>
-          <slot name="text">
-            <span class="nav-text" v-text="$t('login.logout')" />
-            <span class="sr-only" v-text="$t('login.logout')" />
-          </slot>
-        </b-nav-item>
-      </ul>
-    </div>
-    <ModalLoader v-if="isLoggedIn && !useRestrictedNavigation" />
+    <ModalLoader v-if="isLoggedIn" />
     <ThemeSwitcherModal />
 
     <ConfirmationDialogue ref="confirmDialog" />
     <Notifications />
-    <ChatDock v-if="isLoggedIn && !useRestrictedNavigation" />
+    <ChatDock v-if="isLoggedIn" />
   </b-navbar>
 </template>
 
@@ -76,9 +59,6 @@ import ThemeSwitcherModal from '@/views/partials/Modals/ThemeSwitcherModal.vue'
 // Mixins
 import Loader from './Loader.vue'
 import PetitionBanner from '@/views/partials/TopBanner/Petition/PetitionBanner.vue'
-import { clearCaches } from '@/helper/cache'
-import { BROADCAST_TYPE, channel } from '@/broadcastChannel'
-import ThemeSwitcher from '@/components/ThemeSwitcher.vue'
 import ConfirmationDialogue from '@/components/UI/ConfirmationDialogue.vue'
 import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 import Notifications from '@/components/UI/Notifications.vue'
@@ -106,18 +86,17 @@ const confirmDialog = ref(null)
 const isLoggedIn = computed(() => userStore.isLoggedIn)
 const isFoodsaver = computed(() => userStore.isFoodsaver)
 const userId = computed(() => userStore.getUserId)
-const useRestrictedNavigation = computed(() => userStore.isApiRestrictedForLegalReasons)
 
 const { emitter } = useConfirmationDialogue()
 
 watch(isFoodsaver, async (newValue) => {
-  if (newValue && !useRestrictedNavigation.value) {
+  if (newValue) {
     await DataStores.mutations.fetch(false, userId.value)
   }
 }, { immediate: true, deep: true })
 
 onBeforeMount(async () => {
-  if (isLoggedIn.value && !useRestrictedNavigation.value) {
+  if (isLoggedIn.value) {
     DataGroups.mutations.set(props.groups)
     regionStore.regions = props.regions
     await DataBells.mutations.fetch()
@@ -128,7 +107,7 @@ onBeforeMount(async () => {
 onMounted(() => {
   window.addEventListener('resize', resizeHandler)
   window.addEventListener('load', resizeHandler)
-  if (userStore.hasMailBox && !useRestrictedNavigation.value) {
+  if (userStore.hasMailBox) {
     userStore.fetchMailUnreadCount()
   }
 
@@ -140,11 +119,5 @@ onMounted(() => {
 function resizeHandler () {
   const height = navbar.value.$el.getBoundingClientRect().height + 'px'
   document.documentElement.style.setProperty('--navbar-height', height)
-}
-
-async function deleteCaches () {
-  await clearCaches()
-  channel.postMessage({ type: BROADCAST_TYPE.LOGOUT })
-  window.location.href = '/logout'
 }
 </script>

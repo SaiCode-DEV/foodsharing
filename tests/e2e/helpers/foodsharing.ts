@@ -156,8 +156,6 @@ class Foodsharing {
       token: faker.string.uuid(),
       photo: pictureUrl,
       geschlecht: gender,
-      privacy_policy_accepted_date: "2020-05-16 00:09:33",
-      privacy_notice_accepted_date: "2018-05-24 18:25:28",
       ...extraParams,
     };
 
