@@ -1,12 +1,12 @@
-import { get, post } from './base'
+import { get, patch } from './base'
 export async function fetchAllFeatureToggles () {
-  return get('/featuretoggle/')
+  return get('/feature-toggles')
 }
 
 export async function fetchFeatureToggle (featureToggleIdentifier) {
-  return get(`/featuretoggle/${featureToggleIdentifier}`)
+  return get(`/feature-toggles/${featureToggleIdentifier}`)
 }
 
 export async function switchFeatureToggleState (featureToggleIdentifier) {
-  return post(`/featuretoggle/${featureToggleIdentifier}/toggle`)
+  return patch(`/feature-toggles/${featureToggleIdentifier}`)
 }

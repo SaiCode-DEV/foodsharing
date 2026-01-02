@@ -62,8 +62,7 @@ export default {
       return state ? 'on' : 'off'
     },
     async fetchAllFeatureToggles () {
-      const response = await fetchAllFeatureToggles()
-      this.featureToggles = response.featureToggles
+      this.featureToggles = await fetchAllFeatureToggles()
     },
     async toggle (featureToggleIdentifier) {
       await switchFeatureToggleState(featureToggleIdentifier)

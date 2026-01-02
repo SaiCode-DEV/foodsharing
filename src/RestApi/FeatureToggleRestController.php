@@ -5,87 +5,81 @@ namespace Foodsharing\RestApi;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Development\FeatureToggles\DependencyInjection\FeatureToggleChecker;
 use Foodsharing\Modules\Development\FeatureToggles\Enums\FeatureToggleDefinitions;
+use Foodsharing\Modules\Development\FeatureToggles\Exceptions\FeatureToggleNotDefinedException;
 use Foodsharing\Modules\Development\FeatureToggles\Querys\HasPermissionToManageFeatureTogglesQuery;
 use Foodsharing\Modules\Development\FeatureToggles\Services\FeatureToggleService;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\RestApi\Models\FeatureToggle\FeatureToggle;
-use Foodsharing\RestApi\Models\FeatureToggle\FeatureTogglesResponse;
-use Foodsharing\RestApi\Models\FeatureToggle\IsFeatureToggleActiveResponse;
-use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Attribute\Route;
 
-final class FeatureToggleRestController extends AbstractFoodsharingRestController
+#[OA\Tag('feature-toggle')]
+class FeatureToggleRestController extends AbstractFoodsharingRestController
 {
+    final public const string FEATURE_TOGGLE_NAME_REQUIREMENT = '[a-zA-Z]+';
+
     public function __construct(
+        protected Session $session,
         private readonly FeatureToggleChecker $featureToggleChecker,
         private readonly FeatureToggleService $featureToggleService,
-        protected Session $session,
         private readonly HasPermissionToManageFeatureTogglesQuery $hasPermissionToManageFeatureTogglesQuery,
         private readonly CurrentUserUnitsInterface $currentUserUnitsInterface,
     ) {
         parent::__construct($session);
     }
 
-    /**
-     * Returns all feature toggle identifiers with some information.
-     */
-    #[OA\Tag('featuretoggle')]
-    #[Rest\Get(path: 'featuretoggle/')]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Successful', content: new Model(type: FeatureTogglesResponse::class))]
+    #[OA\Get(summary: 'Returns all feature toggles')]
+    #[Route('feature-toggles', methods: ['GET'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(type: 'array', items: new OA\Items(ref: new Model(type: FeatureToggle::class))
+    ))]
     public function getAllFeatureToggles(): Response
     {
-        $featureToggles = [];
+        $featureToggles = array_map(fn ($id) => new FeatureToggle(
+            $id,
+            $this->featureToggleChecker->isFeatureToggleActive($id),
+        ), FeatureToggleDefinitions::all());
 
-        foreach (FeatureToggleDefinitions::all() as $featureToggleIdentifier) {
-            $featureToggles[] = new FeatureToggle(
-                $featureToggleIdentifier,
-                $this->featureToggleChecker->isFeatureToggleActive($featureToggleIdentifier),
-            );
-        }
-
-        return $this->respondOK(new FeatureTogglesResponse($featureToggles));
+        return $this->respondOK($featureToggles);
     }
 
-    /**
-     * Checks if a feature toggle is active or not.
-     */
-    #[OA\Tag('featuretoggle')]
-    #[Rest\Get(path: 'featuretoggle/{featureToggle}')]
-    #[OA\Parameter(name: 'featureToggle', description: 'Identifier for feature toggle', in: 'path', required: true)]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Successful', content: new Model(type: IsFeatureToggleActiveResponse::class))]
+    #[OA\Get(summary: 'Checks if a feature toggle is active or not')]
+    #[Route('feature-toggles/{featureToggle}', methods: ['GET'], requirements: ['featureToggle' => self::FEATURE_TOGGLE_NAME_REQUIREMENT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: FeatureToggle::class))]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Feature toggle is not defined')]
     public function isFeatureToggleActive(string $featureToggle): Response
     {
-        $isFeatureFlagActive = $this->featureToggleChecker->isFeatureToggleActive($featureToggle);
+        try {
+            $isActive = $this->featureToggleChecker->isFeatureToggleActive($featureToggle);
+        } catch (FeatureToggleNotDefinedException) {
+            throw new NotFoundHttpException('Feature toggle is not defined');
+        }
 
-        return $this->respondOK(new IsFeatureToggleActiveResponse($featureToggle, $isFeatureFlagActive));
+        return $this->respondOK(new FeatureToggle($featureToggle, $isActive));
     }
 
-    /**
-     * Toggles a feature toggle state.
-     */
-    #[OA\Tag('featuretoggle')]
-    #[Rest\Post(path: 'featuretoggle/{featureToggle}/toggle')]
-    #[OA\Parameter(name: 'featureToggle', description: 'Identifier for feature toggle', in: 'path', required: true)]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Successful')]
-    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not enough privileges to toggle a feature toggle state')]
+    #[OA\Patch(summary: 'Changes a feature toggle state')]
+    #[Route('feature-toggles/{featureToggle}', methods: ['PATCH'], requirements: ['featureToggle' => self::FEATURE_TOGGLE_NAME_REQUIREMENT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Feature toggle is not defined')]
-    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Feature toggle is not toggable')]
-    public function toggleFeatureToggle(string $featureToggle): Response
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
+    public function toggleFeatureToggle(string $featureToggle, #[MapQueryParameter] ?bool $newState = null): Response
     {
         if (!$this->hasPermissionToManageFeatureTogglesQuery->execute($this->session, $this->currentUserUnitsInterface)) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Not permitted');
         }
 
-        if (!$this->featureToggleService->isFeatureToggleDefined($featureToggle)) {
-            throw $this->createNotFoundException('Feature toggle is not defined');
+        try {
+            $currentState = $this->featureToggleChecker->isFeatureToggleActive($featureToggle);
+        } catch (FeatureToggleNotDefinedException) {
+            throw new NotFoundHttpException('Feature toggle is not defined');
         }
 
-        $currentState = $this->featureToggleChecker->isFeatureToggleActive($featureToggle);
-
-        $this->featureToggleService->updateFeatureToggleState($featureToggle, !$currentState);
+        $this->featureToggleService->updateFeatureToggleState($featureToggle, $newState ?? !$currentState);
 
         return $this->respondOK();
     }
