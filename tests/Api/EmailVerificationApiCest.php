@@ -28,7 +28,7 @@ class EmailVerificationApiCest
 
     public function doReceiveEmailIfNotYetVerified(ApiTester $I): void
     {
-        $I->sendPOST('api/emailverification', ['address' => $this->unverifiedUser['email']]);
+        $I->sendPut('api/email-verification', ['address' => $this->unverifiedUser['email']]);
         $I->seeResponseCodeIs(Response::HTTP_OK);
         $I->expectNumMails(1, 5);
         $email = $I->getMails()[0];
@@ -37,14 +37,14 @@ class EmailVerificationApiCest
 
     public function doNotReceiveEmailIfAlreadyVerified(ApiTester $I): void
     {
-        $I->sendPOST('api/emailverification', ['address' => $this->verifiedUser['email']]);
+        $I->sendPut('api/email-verification', ['address' => $this->verifiedUser['email']]);
         $I->seeResponseCodeIs(Response::HTTP_OK);
         $I->expectNumMails(0, 5);
     }
 
     public function doNotReceiveEmailIfAddressIsNotRegistered(ApiTester $I): void
     {
-        $I->sendPOST('api/emailverification', ['address' => $this->faker->email()]);
+        $I->sendPut('api/email-verification', ['address' => $this->faker->email()]);
         $I->seeResponseCodeIs(Response::HTTP_OK);
         $I->expectNumMails(0, 5);
     }

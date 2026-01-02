@@ -25,11 +25,10 @@ class EmailVerificationRestController extends AbstractFoodsharingRestController
         parent::__construct($session);
     }
 
-    #[OA\Post(summary: 'Sends a new verification email to a specified address if an account with that address exists and is not yet verified')]
-    #[Route('/emailverification', methods: ['POST'])]
+    #[OA\Put(summary: 'Sends a new verification email to a specified address if an account with that address exists and is not yet verified')]
+    #[Route('/email-verification', methods: ['PUT'])]
     #[OA\RequestBody(content: new Model(type: VerificationEmailRequest::class))]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
-    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid data')]
     public function requestVerificationEmail(
         #[MapRequestPayload] VerificationEmailRequest $verificationRequest,
         Request $request,

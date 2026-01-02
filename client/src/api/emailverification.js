@@ -1,5 +1,5 @@
-import { post } from './base'
+import { put } from './base'
 
 export async function requestVerificationEmail (address) {
-  return await post('/emailverification', { address })
+  return await put('/email-verification', { address })
 }
