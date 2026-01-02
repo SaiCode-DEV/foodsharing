@@ -1158,6 +1158,7 @@ events:
     title: spotkanie online (Mumble)
     location: 'Nasz serwer Mumble: <br><strong>mumble.foodsharing.de</strong>'
     guide: 'Instrukcja: <strong><a href="https://wiki.foodsharing.de/Mumble">wiki.foodsharing.de/Mumble</a></strong>'
+    text: Przeprowadzamy telekonferencje z <em>Mumble</em>.
   goto: Do eventu
   notFound: Ten event nie istnieje albo nie masz do niego dostępu.
   acceptedCount: '{count} uczestniczy'
@@ -1189,6 +1190,9 @@ events:
   online_info: |
     Telekonferencje i spotkania online przebiegają najlepiej na naszym własnym serwerze [BigBlueButton](https://bigbluebutton.org). Na 10 minut przed rozpoczęciem eventu uczestnicy/czki mogą ze strony eventu łatwo dołączyć  do konferencji przez kliknięcie. Nie potrzeba do tego żadnych innych programów, tylko w miarę aktualna przeglądarka internetowa. Poza tym jest możliwość dołączenia przez telefon.
     Jeśli mimo to chcesz użyć innej platformy do telekonferencji lub spotkań online, wybierz opcję "inne".
+  public_info: Ten event jest publiczny i otwarty dla wszystkich. Komentarze i 
+    lista uczestniczących są widoczne tylko dla zarejestrowanych 
+    użytkowników/czek.
 recipients:
   recipients: Odbiorcy
   all: Wszyscy/tkie Foodsaverzy/ki na świecie
@@ -1209,8 +1213,26 @@ recipients:
   sent: Email został pomyślnie wysłany do {count} adresatów
   history: Emaile wysłane przez ciebie
   pending: Zostało jeszcze {count} maili do wysłania
+  prepare: Przygotuj do wysłania
+  manual: Wprowadzanie ręczne
+  body: Wiadomość
+  continue: Kontynuuj wysyłanie
+  abort: Zatrzymaj wysyłanie
+  permission: Nie jesteś uprawniony/a do wysyłania maili
+  status: 'Wysyłanie maili ... (aktualny adres: {current})'
+  unknown: nieznany
+  done: Wysłano wszystkie maile
 addresspicker:
   different_location: Popraw opis adresu
+  label: Szukaj adresu/lokalizacji
+  placeholder: Szukaj adresu …
+  infobox: Podaj adres w wyszukiwarce lub przesuń pinezkę na właściwą pozycję na
+    mapie.
+  different_location_warning: Upewnij się, że pinezka na mapie jest na właściwej
+    pozycji. Zmień dane w polach wypełnionych automatycznie (ulica i numer domu,
+    kod pocztowy i miasto/gmina) tylko wtedy, jeśli wartości wprowadzone 
+    automatycznie nie są poprawne. Może się to zdarzyć np. przy zmianie nazwy 
+    ulicy.
 date:
   time: godzina {time}
   clock: godzina
@@ -1225,6 +1247,10 @@ date:
   friday: piątek
   saturday: sobota
   sunday: niedziela
+  monday: poniedziałek
+  tuesday: wtorek
+  wednesday: środa
+  thursday: czwartek
 month:
   "3": Marzec
   "4": Kwiecień
@@ -1363,6 +1389,8 @@ reports:
   reason: powód
   id: ID
   time: czas
+  reportmessage: Podaj, jak można się z tobą skontaktować w razie dalszych 
+    pytań.
 memberlist:
   header_for_workgroup: Foodsaverzy/ki w zespole {bezirk}
 ageBandList:
