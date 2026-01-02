@@ -11,21 +11,21 @@ export const CONTENT_IDS = Object.freeze({
 })
 
 export async function getContent (contentId) {
-  return await get(`/content/${contentId}`)
+  return await get(`/contents/${contentId}`)
 }
 
 export async function listContent () {
-  return await get('/content')
+  return await get('/contents')
 }
 
 export async function deleteContent (contentId) {
-  return await remove(`/content/${contentId}`)
+  return await remove(`/contents/${contentId}`)
 }
 
 export async function editContent (contentId, contentData) {
-  return await patch(`/content/${contentId}`, contentData)
+  return await patch(`/contents/${contentId}`, contentData)
 }
 
 export async function addContent (contentData) {
-  return await post('/content', contentData)
+  return await post('/contents', contentData)
 }

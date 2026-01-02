@@ -32,7 +32,7 @@ class ContentApiCest
     {
         $I->login($this->user['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/content', $this->createRandomContentForPost());
+        $I->sendPost('api/contents', $this->createRandomContentForPost());
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
     }
 
@@ -41,15 +41,15 @@ class ContentApiCest
         $content = $this->createRandomContentForPost();
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/content', $content);
+        $I->sendPost('api/contents', $content);
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
 
         $I->login($this->userOrga['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/content', $content);
+        $I->sendPost('api/contents', $content);
         $I->seeResponseCodeIs(HttpCode::OK);
 
-        $id = $I->grabDataFromResponseByJsonPath('id')[0];
+        $id = (int)$I->grabDataFromResponseByJsonPath('id')[0];
         $I->seeInDatabase('fs_content', [
             'id' => $id,
             'title' => $content['title'],
@@ -69,8 +69,8 @@ class ContentApiCest
         $content = $this->createRandomContentForPost();
         $content[$example[0]] = '';
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/content', $content);
-        $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
+        $I->sendPost('api/contents', $content);
+        $I->seeResponseCodeIs(HttpCode::UNPROCESSABLE_ENTITY);
     }
 
     public function canNotEditContentAsFoodsaver(ApiTester $I): void
@@ -82,7 +82,7 @@ class ContentApiCest
         $content['title'] = $this->faker->title;
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/content/' . $this->existingContent['id'], $this->existingContent);
+        $I->sendPatch('api/contents/' . $this->existingContent['id'], $this->existingContent);
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
 
         // make sure that it was not modified in the database
@@ -102,7 +102,7 @@ class ContentApiCest
         $content['title'] = $this->faker->title;
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/content/' . $this->existingContent['id'], $content);
+        $I->sendPatch('api/contents/' . $this->existingContent['id'], $content);
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
         $I->seeInDatabase('fs_content', [
             'id' => $this->existingContent['id'],
@@ -111,7 +111,7 @@ class ContentApiCest
 
         $I->login($this->userOrga['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/content/' . $this->existingContent['id'], $content);
+        $I->sendPatch('api/contents/' . $this->existingContent['id'], $content);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // make sure that it was modified in the database
@@ -126,7 +126,7 @@ class ContentApiCest
         $I->login($this->userOrga['email']);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/content/999999', $this->existingContent);
+        $I->sendPatch('api/contents/999999', $this->existingContent);
         $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
 
         // make sure that it was not modified in the database
@@ -150,8 +150,8 @@ class ContentApiCest
         $content = $this->existingContent;
         $content[$example[0]] = '';
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/content/' . $this->existingContent['id'], $content);
-        $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
+        $I->sendPatch('api/contents/' . $this->existingContent['id'], $content);
+        $I->seeResponseCodeIs(HttpCode::UNPROCESSABLE_ENTITY);
 
         // make sure that it was not modified in the database
         $I->seeInDatabase('fs_content', [
