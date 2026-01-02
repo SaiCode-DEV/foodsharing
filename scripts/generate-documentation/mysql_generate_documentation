@@ -17,12 +17,10 @@ export NODE_PATH
 # prepare processing folder
 mkdir -p "$BUILD_DIR"
 
-# Generate a SQL dump file which allows extraction of the important schema information
-# Tables, Columns, Primary Key, foreign keys
-#https://dev.mysql.com/doc/refman/8.0/en/mysqldump.html
-SQL_DUMP_FILE="$BUILD_DIR/schema_sql_dump.sql"
-
-mariadb-dump -h "db" -u "root" -p"root" --skip-comments --no-data --skip-add-drop-table foodsharing > "$SQL_DUMP_FILE"
+# Extract database schema directly from database
+SCHEMA_JSON_FILE="$BUILD_DIR/schema.json"
+echo "Extracting schema from database..."
+node "$dir/generate-documentation/extract_schema_from_db.js" "$BUILD_DIR"
 
 # Extract modules and table usage from code base
 TABLE_USAGE_FILE="$BUILD_DIR/extract_tables_usage_from_php.grep_result"
@@ -30,8 +28,8 @@ MODULE_FILE="$BUILD_DIR/modules.json"
 grep --include=\*.php -E "([^\$]fs_[a-zA-Z0-9_]+)" -R -B5 -A 2 -n "$root/src" > "$TABLE_USAGE_FILE"
 node "$dir/generate-documentation/extract_tables_usage_from_php_parser.js"  "$BUILD_DIR" "$TABLE_USAGE_FILE" "$MODULE_FILE"
 
-# Transform SQL dump and usage information to documentation
-node "$dir/generate-documentation/sql_to_documentation.js" "$BUILD_DIR" "$RESULT_FOLDER" "$SQL_DUMP_FILE" "$META_DATA_FILE" "$MODULE_FILE"
+# Transform schema and usage information to documentation
+node "$dir/generate-documentation/sql_to_documentation.js" "$BUILD_DIR" "$RESULT_FOLDER" "$SCHEMA_JSON_FILE" "$META_DATA_FILE" "$MODULE_FILE"
 
 echo
 echo "GENERATION COMPLETE"
