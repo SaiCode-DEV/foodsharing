@@ -122,7 +122,6 @@ bcard:
   role: ''
   claim: ''
 legal:
-  not_acknowledge_privacy_policy_description: ''
   if_delete:
     this_gets_deleted_quiz: ''
     this_gets_deleted_friendlist: ''
@@ -136,18 +135,9 @@ legal:
     legal_1: ''
     this_doesnt_get_deleted_address: ''
     this_gets_deleted_verify: ''
-  agree_privacy_policy: ''
-  privacy_notice_agree:
-    not_acknowledge: ''
-    acknowledge: ''
-    select: ''
-  not_acknowledge_privacy_notice_description: ''
   privacy_policy: ''
   privacy_notice: ''
   legal_agreement: ''
-  must_accept_privacy_policy: ''
-  are_you_sure_to_downgrade: ''
-  agree_privacy_notice: ''
 register:
   login_email: ''
   lastname_required: ''

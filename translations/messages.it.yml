@@ -583,39 +583,9 @@ salutation:
   "1": Caro
   "0": Caro/a
 legal:
-  are_you_sure_to_downgrade: 'Attenzione: hai scelto di essere declassato a Foodsaver.
-    Sei sicuro?'
   legal_agreement: Accordo legale
-  not_acknowledge_privacy_notice_description: Se non sei d’accordo con 
-    l’insegnamento, verrai declassato a foodsaver. Ciò significa che non sarai 
-    più un ambasciatore distrettuale, perderai le tue responsabilità operative e
-    dovrai sostenere nuovamente il quiz per diventare un manager operativo / 
-    ambasciatore.
-  privacy_notice_agree:
-    not_acknowledge: Non sono d’accordo e vorrei essere declassato a Foodsaver.
-    acknowledge: Ho preso nota delle istruzioni.
-    select: Si prega di selezionare
   privacy_notice: Istruzioni sulla protezione dei dati
-  must_accept_privacy_policy: Per partecipare a Foodsharing è necessario 
-    accettare le condizioni di protezione dei dati.
-  agree_privacy_policy: Ho letto l’accordo sulla protezione dei dati.
-  not_acknowledge_privacy_policy_description: Per utilizzare la piattaforma 
-    Foodsharing è necessario leggere la dichiarazione sulla protezione dei dati 
-    descritta.
-  acknowledge:
-    agree: Sì, accetto l’informativa sulla privacy.
-    not_agree: No, non accetto l’informativa sulla privacy. Vorrei eliminare il 
-      mio account.
-    select: Si prega di selezionare
-    qustion_notice: Accetti la nostra politica sulla privacy e il nostro impegno
-      sulla protezione dei dati?
-    qustion_policy: Accetti la nostra politica sulla privacy?
-    agree_policy_and_notice: Sì, accetto l’informativa sulla privacy e l’impegno
-      sulla protezione dei dati.
   privacy_policy: Privacy policy
-  agree_privacy_notice: Sono stato informato dell'obbligo di riservatezza dei 
-    dati personali e dei comportamenti che ne derivano. Riceverò conferma di ciò
-    via e-mail all'indirizzo che ho fornito come riferimento.
   if_delete:
     this_gets_deleted_friendlist: La tua lista di amici viene eliminata.
     this_doesnt_get_deleted_address: Il tuo indirizzo
@@ -633,10 +603,8 @@ legal:
     this_gets_deleted_verify: La tua verifica sarà rimossa.
     legal_2: Ulteriori informazioni sui periodi di conservazione (pagina in 
       tedesco)
-  success: Le tue impostazioni sono state salvate correttamente.
   button:
     agree: Accettare
-    disagree: Elimina il mio account
 fsp:
   followName: Seguire il punto di condivisione {name}
   follow: Segui questo punto di condivisione

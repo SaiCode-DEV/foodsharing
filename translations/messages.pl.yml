@@ -527,16 +527,7 @@ test:
 legal:
   button:
     agree: Akceptuj
-    disagree: Usuń moje konto
   privacy_policy: polityka prywatności
-  acknowledge:
-    qustion_policy: Akceptujesz naszą politykę prywatności?
-    select: Wybierz
-    agree: Tak, akceptuję politykę prywatności.
-    not_agree: Nie, nie akceptuję polityki prywatności. Chcę usunąć moje konto.
-  not_acknowledge_privacy_policy_description: Aby móc używać platformy 
-    foodsharingu, musisz zaakceptować politykę prywatności.
-  agree_privacy_policy: Akceptuję politykę prywatności.
   if_delete:
     legal_1: Nasza obecna polityka prywatności
     this_gets_deleted_quiz: Wszystkie twoje quizy zostaną usunięte.
@@ -549,10 +540,6 @@ legal:
     this_gets_deleted_trustbananas: Banany, które dostałeś/aś od innych, będą 
       usunięte.
     this_doesnt_get_deleted_history: Historia twojej weryfikacji
-  privacy_notice_agree:
-    select: Proszę wybrać
-    acknowledge: Zgadzam się.
-  success: Twoje ustawienia zostały zapisane pomyślnie.
 salutation:
   "0": Drogi/a
   "1": Drogi
@@ -1354,6 +1341,12 @@ bell:
     one: '{user} nie chce dołączyć do {store}'
     many: '{count} użytkowników/czek nie chce dołączyć do {store}'
   new_resource_title: '{region}: nowe zasoby'
+  new_foodsaver_needs_verification: musi zostać zweryfikowany/a
+  new_foodsaver_verified_title: '{name} nowy/a w {bezirk}'
+  new_foodsaver_verified: Już zweryfikowany/a - może działać
+  foodsaver_verified_title: Teraz jesteś zweryfikowany/a!
+  foodsaver_adress_changed_title: '{name} zmienił/a adres'
+  workinggroup_new_request: Nowe zgłoszenie do zespołu
 list:
   filter_for: Filtruj według …
 filterlist:
@@ -1415,3 +1408,22 @@ foodsaver:
   delete_account_sure_reason: 'Czy na pewno chcesz usunąć swoje konto? Powód: {reason}'
   delete_account_now: Usuń konto teraz
   url_error: Coś się nie zgadza z twoim URL strony domowej
+  mailchange_error: Aktywacja twojego nowego adresu email nie powiodła się. 
+    Spróbuj ponownie.
+  manage:
+    photo: Zdjęcie
+    name: Imię
+    role: Rola
+    last-activity: Ostatnia aktywność
+    actions: Opcje
+content:
+  bread: Wszystkie strony
+  public: Strony publiczne
+  actions: Aktywności
+  new: Dodaj nową stronę
+  new_success: Utworzono stronę
+  edit: Edytuj stronę
+  edit_success: Zapisano stronę.
+  delete: Czy na pewno usunąć {name}?
+  delete_success: Usunięto stronę
+  error: Nie można było zapisać strony

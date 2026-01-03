@@ -1702,40 +1702,9 @@ salutation:
   "0": Kjære
 legal:
   legal_agreement: Juridisk avtale
-  privacy_notice_agree:
-    acknowledge: Jeg har tatt instruksjonene til etterretning.
-    select: Vennligst velg
-    not_acknowledge: Jeg er ikke enig og vil gjerne bli nedgradert til en 
-      matredder.
   privacy_notice: Instruks om konfidensialitet/datahemmelighold for 
     samarbeidsansvarlige og ambassadører
   privacy_policy: Personvernerklæring
-  are_you_sure_to_downgrade: 'Advarsel: Du har valgt å bli nedgradert til matredder.
-    Er du sikker?'
-  not_acknowledge_privacy_notice_description: Hvis du er uenig i undervisningen,
-    vil du bli degradert til en matsparer. Det betyr at du ikke lenger er 
-    distriktsambassadør og mister ansvaret for å samarbeide med bedrifter.
-  acknowledge:
-    select: Vennligst velg
-    qustion_policy: Godtar du vår personvernerklæring?
-    qustion_notice: Godtar du vår databeskyttelseserklæring og instruksjonene om
-      konfidensialitet/datahemmelighold?
-    agree: Ja, jeg godtar personvernreglene.
-    agree_only_policy: Jeg godtar rett og slett personvernreglene og vil gjerne 
-      bli nedgradert til matsparer.
-    not_agree: Nei, jeg godtar ikke personvernreglene. Jeg ønsker å slette 
-      kontoen min.
-    agree_policy_and_notice: Ja, jeg godtar databeskyttelseserklæringen og 
-      merker instruksjonene om konfidensialitet/datahemmelighold.
-  agree_privacy_policy: Jeg har lest databeskyttelsesavtalen.
-  not_acknowledge_privacy_policy_description: For å kunne bruke 
-    foodsharingplattformen må du godta databeskyttelseserklæringen som er 
-    beskrevet.
-  must_accept_privacy_policy: For å delta i foodsharing må du godta 
-    databeskyttelsesvilkårene.
-  agree_privacy_notice: Jeg ble informert om taushetsplikten for 
-    personopplysninger og den resulterende oppførselen. Jeg vil motta en 
-    bekreftelse på dette på e-post til den adressen jeg har oppgitt.
   if_delete:
     this_doesnt_get_deleted_name: Ditt navn
     this_doesnt_get_deleted_address: Din adresse
@@ -1753,10 +1722,7 @@ legal:
       1 bokstav b GDPR:'
     legal_2: Lover om oppbevaringsperioder (side på tysk)
   button:
-    disagree: Slett kontoen min
     agree: Akseptere
-    partially_agree: Nedgrader til matsparer
-  success: Innstillingene dine er lagret.
 group:
   show-all: Vis alt
   function:

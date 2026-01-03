@@ -2946,42 +2946,7 @@ legal:
   privacy_notice: Privacy notice for store managers and ambassadors
   button:
     agree: Accept
-    partially_agree: Downgrade to foodsaver
-    disagree: Delete my account
-  not_acknowledge_privacy_policy_description: In order to be able to use the 
-    foodsharing platform, must take note of the data protection declaration 
-    described.
-  agree_privacy_policy: I have read the data protection agreement.
   legal_agreement: Legal agreement
-  privacy_notice_agree:
-    acknowledge: I agree.
-    select: Please select
-    not_acknowledge: I do not agree and would like to be downgraded to a 
-      Foodsaver.
-  are_you_sure_to_downgrade: 'Warning: You have chosen to be downgraded to Foodsaver.
-    Are you sure?'
-  not_acknowledge_privacy_notice_description: If you do not accept the 
-    instructions, you will be downgraded to a food saver. This means that you 
-    are no longer an ambassador for districts, that you lose your store 
-    coordinator rights and that you have to take the quiz for store coordinators
-    / ambassadors again.
-  agree_privacy_notice: I was informed about the confidentiality obligation of 
-    personal data and the resulting behaviour. I will receive a confirmation of 
-    this by email for my records to the address I have given.
-  must_accept_privacy_policy: In order to participate in foodsharing, you have 
-    to agree to the data protection conditions.
-  acknowledge:
-    qustion_policy: Do you accept our privacy policy?
-    qustion_notice: Do you accept our privacy policy and the instructions on 
-      data confidentiality?
-    select: Please select
-    agree: Yes, I accept the privacy policy.
-    agree_only_policy: I only accept the privacy policy and would like to be 
-      downgraded to an ordinary foodsaver.
-    agree_policy_and_notice: Yes, I accept the privacy policy and the 
-      instructions on data confidentiality.
-    not_agree: No, I do not accept the privacy policy. I would like to delete my
-      account.
   if_delete:
     legal_1: our current privacy policy
     this_gets_deleted_main: 'The following information will be deleted from you and
@@ -2999,7 +2964,6 @@ legal:
       the active system, but is archived separately based on Article 17 paragraph
       3 sentence 1 letter b GDPR:'
     legal_2: Laws on retention periods (page in German)
-  success: Your settings have been saved successfully.
 answers: Which answers are correct?
 name: Name
 bcard:
