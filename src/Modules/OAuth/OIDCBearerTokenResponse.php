@@ -26,7 +26,7 @@ class OIDCBearerTokenResponse extends BaseIdTokenResponse
     {
         $builder = parent::getBuilder($accessToken, $userEntity);
 
-        $issuer = defined('BASE_URL') ? rtrim(BASE_URL, '/') : ('https://' . ($_SERVER['HTTP_HOST'] ?? 'localhost'));
+        $issuer = 'https://' . ($_SERVER['HTTP_HOST'] ?? 'localhost');
         $builder = $builder->issuedBy($issuer);
 
         if (!empty($this->nonce)) {

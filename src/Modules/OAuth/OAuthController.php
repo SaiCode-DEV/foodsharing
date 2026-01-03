@@ -345,7 +345,7 @@ class OAuthController extends FoodsharingController
     #[Route('/.well-known/openid-configuration', name: 'oauth_openid_configuration', methods: ['GET'])]
     public function openidConfiguration(Request $request): JsonResponse
     {
-        $baseUrl = defined('BASE_URL') ? rtrim(BASE_URL, '/') : $request->getSchemeAndHttpHost();
+        $baseUrl = $request->getSchemeAndHttpHost();
 
         $config = [
             'issuer' => $baseUrl,
