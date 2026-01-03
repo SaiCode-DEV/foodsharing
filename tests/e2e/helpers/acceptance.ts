@@ -34,44 +34,41 @@ export class AcceptanceHelper {
 
   async login(
     email: string,
-    rememberMe: boolean = false,
+    rememberMe: boolean = true,
     password: string = "password",
     totpSecretOrCode?: string,
   ) {
     await this.page.goto("/");
     await this.page.evaluate("window.localStorage.clear();");
-    await this.openMobileMenuIfNeeded();
-    await this.page.waitForSelector(".testing-login-dropdown");
-    await this.page.click(".testing-login-dropdown");
-    await this.page.fill(".testing-login-input-email", email);
-    await this.page.fill("#testing-login-input-password > input", password);
-    if (rememberMe) {
-      await this.page.click(".testing-login-input-remember");
-    }
-    await this.page.click(".testing-login-click-submit");
-    await this.waitForActiveAPICalls();
+    await this.page.evaluate("sessionStorage.clear();");
 
+    // Generate TOTP code if needed
+    let totpCode: string | undefined;
     if (totpSecretOrCode) {
-      // Wait for TOTP input to appear
-      await this.page.waitForSelector("#testing-login-input-totp > input", {
-        timeout: 5000,
-      });
-
-      // If it looks like a secret (32 chars, base32), generate the code from it
-      // Otherwise, use it directly as a code
-      const totpCode = totpSecretOrCode.match(/^[A-Z2-7]{32}$/)
+      totpCode = totpSecretOrCode.match(/^[A-Z2-7]{32}$/)
         ? authenticator.generate(totpSecretOrCode)
         : totpSecretOrCode;
-
-      await this.page.fill("#testing-login-input-totp > input", totpCode);
-      await this.page.click(".testing-login-click-submit");
-      await this.waitForActiveAPICalls();
     }
 
-    await this.page.waitForSelector("#pulse-success", {
-      state: "hidden",
-      timeout: 10000,
+    // Call login API directly
+    const response = await this.page.request.post("/api/user/login", {
+      data: {
+        email,
+        password,
+        code: totpCode,
+        remember_me: rememberMe,
+      },
     });
+
+    if (!response.ok()) {
+      throw new Error(`Login failed: ${response.status()} ${await response.text()}`);
+    }
+
+    // Wait a moment to ensure session is written
+    await this.page.waitForTimeout(250);
+
+    // Navigate to dashboard
+    await this.page.goto("/dashboard");
     await this.waitForPageBody();
     await this.page.waitForSelector(".testing-intro-field", { timeout: 5000 });
     await expect(this.page.locator(".testing-intro-field")).toContainText(

@@ -168,20 +168,88 @@ test.describe("Two-Factor Authentication", () => {
     expect(loginSuccess).toBe(false);
   });
 
+  test("reveals TOTP input and focuses it after 403 login response", async ({
+    page,
+    acceptanceHelper,
+  }) => {
+    await enableTOTP(page, acceptanceHelper);
+
+    // Open app and the login dropdown.
+    await page.goto("/");
+    await acceptanceHelper.openMobileMenuIfNeeded();
+    await page.click(".testing-login-dropdown");
+
+    // Fill credentials and submit
+    await page.fill(".testing-login-input-email", foodsaver.email as string);
+    await page.fill("#testing-login-input-password > input", password);
+    await page.waitForTimeout(250);
+    await page.click(".testing-login-click-submit");
+
+    // Wait until the TOTP component wrapper is visible
+    await page.waitForSelector("#testing-login-input-totp", {
+      state: "visible",
+      timeout: 5000,
+    });
+
+    // Wait until its inner input becomes the activeElement (focused)
+    await page.waitForFunction(
+      () => {
+        const totpInput = document.querySelector(
+          "#testing-login-input-totp input",
+        ) as HTMLElement | null;
+        return !!totpInput && document.activeElement === totpInput;
+      },
+      null,
+      { timeout: 3000 },
+    );
+
+    const focused = await page.evaluate(() => {
+      const totpInput = document.querySelector(
+        "#testing-login-input-totp input",
+      ) as HTMLElement | null;
+      return !!totpInput && document.activeElement === totpInput;
+    });
+
+    expect(focused).toBe(true);
+  });
+
   test("login with code succeeds when TOTP is enabled", async ({
     page,
     acceptanceHelper,
   }) => {
     await enableTOTP(page, acceptanceHelper);
 
-    // Assert login with TOTP succeeds
-    const loginSuccess = await attemptLogin(
-      acceptanceHelper,
-      foodsaver.email as string,
-      password,
-      secret,
+    // Login via UI with TOTP
+    await page.goto("/");
+    await page.evaluate("window.localStorage.clear();");
+    await acceptanceHelper.openMobileMenuIfNeeded();
+    await page.waitForSelector(".testing-login-dropdown");
+    await page.click(".testing-login-dropdown");
+    await page.fill(".testing-login-input-email", foodsaver.email as string);
+    await page.fill("#testing-login-input-password > input", password);
+    await page.click(".testing-login-click-submit");
+    await acceptanceHelper.waitForActiveAPICalls();
+
+    // Wait for TOTP input to appear
+    await page.waitForSelector("#testing-login-input-totp > input", {
+      timeout: 5000,
+    });
+
+    // Generate and fill TOTP code
+    const totpCode = authenticator.generate(secret);
+    await page.fill("#testing-login-input-totp > input", totpCode);
+    await page.click(".testing-login-click-submit");
+    await acceptanceHelper.waitForActiveAPICalls();
+
+    await page.waitForSelector("#pulse-success", {
+      state: "hidden",
+      timeout: 10000,
+    });
+    await acceptanceHelper.waitForPageBody();
+    await page.waitForSelector(".testing-intro-field", { timeout: 5000 });
+    await expect(page.locator(".testing-intro-field")).toContainText(
+      "Hallo",
     );
-    expect(loginSuccess).toBe(true);
   });
 
   test("login with backup code succeeds when TOTP is enabled", async ({
@@ -190,13 +258,33 @@ test.describe("Two-Factor Authentication", () => {
   }) => {
     await enableTOTP(page, acceptanceHelper);
 
-    // Assert login with backup code succeeds
-    await acceptanceHelper.login(
-      foodsaver.email as string,
-      true,
-      password,
-      backupCodes[0],
-    );
+    // Login via UI with backup code
+    await page.goto("/");
+    await page.evaluate("window.localStorage.clear();");
+    await acceptanceHelper.openMobileMenuIfNeeded();
+    await page.waitForSelector(".testing-login-dropdown");
+    await page.click(".testing-login-dropdown");
+    await page.fill(".testing-login-input-email", foodsaver.email as string);
+    await page.fill("#testing-login-input-password > input", password);
+    await page.click(".testing-login-click-submit");
+    await acceptanceHelper.waitForActiveAPICalls();
+
+    // Wait for TOTP input to appear
+    await page.waitForSelector("#testing-login-input-totp > input", {
+      timeout: 5000,
+    });
+
+    // Fill backup code
+    await page.fill("#testing-login-input-totp > input", backupCodes[0]);
+    await page.click(".testing-login-click-submit");
+    await acceptanceHelper.waitForActiveAPICalls();
+
+    await page.waitForSelector("#pulse-success", {
+      state: "hidden",
+      timeout: 10000,
+    });
+    await acceptanceHelper.waitForPageBody();
+    await page.waitForSelector(".testing-intro-field", { timeout: 5000 });
 
     // Go to settings (test direct navigation via GET parameter)
     await page.goto("/user/current/settings?sub=accountSecurity");

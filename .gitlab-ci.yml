@@ -534,9 +534,12 @@ test:playwright:
     - build:frontend
     - build:websocket
   cache:
-    key: frontend:build:cache
-    paths:
-      - client/node_modules
+    - key: frontend:build:cache
+      paths:
+        - client/node_modules
+    - key: playwright:e2e:cache
+      paths:
+        - tests/e2e/node_modules
   artifacts: *test-artifacts
 
 test:websocket:

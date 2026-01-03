@@ -10,7 +10,24 @@ test.describe("Login", () => {
   });
 
   test("can login", async ({ page, acceptanceHelper }) => {
-    await acceptanceHelper.login(foodsharer.email);
+    // Login via UI
+    await page.goto("/");
+    await page.evaluate("window.localStorage.clear();");
+    await acceptanceHelper.openMobileMenuIfNeeded();
+    await page.waitForSelector(".testing-login-dropdown");
+    await page.click(".testing-login-dropdown");
+    await page.fill(".testing-login-input-email", foodsharer.email);
+    await page.fill("#testing-login-input-password > input", "password");
+    await page.waitForTimeout(250);
+    await page.click(".testing-login-click-submit");
+    await acceptanceHelper.waitForActiveAPICalls();
+
+    await page.waitForSelector("#pulse-success", {
+      state: "hidden",
+      timeout: 10000,
+    });
+    await acceptanceHelper.waitForPageBody();
+    await page.waitForSelector(".testing-intro-field", { timeout: 5000 });
     await expect(page.locator(".testing-intro-field")).toContainText(
       `Hallo ${foodsharer.name}`,
     );
@@ -31,7 +48,25 @@ test.describe("Login", () => {
   });
 
   test("can remember login", async ({ page, acceptanceHelper }) => {
-    await acceptanceHelper.login(foodsharer.email, true);
+    // Login via UI with remember me checked
+    await page.goto("/");
+    await page.evaluate("window.localStorage.clear();");
+    await acceptanceHelper.openMobileMenuIfNeeded();
+    await page.waitForSelector(".testing-login-dropdown");
+    await page.click(".testing-login-dropdown");
+    await page.fill(".testing-login-input-email", foodsharer.email);
+    await page.fill("#testing-login-input-password > input", "password");
+    await page.click(".testing-login-input-remember");
+    await page.waitForTimeout(250);
+    await page.click(".testing-login-click-submit");
+    await acceptanceHelper.waitForActiveAPICalls();
+
+    await page.waitForSelector("#pulse-success", {
+      state: "hidden",
+      timeout: 10000,
+    });
+    await acceptanceHelper.waitForPageBody();
+    await page.waitForSelector(".testing-intro-field", { timeout: 5000 });
     await expect(page.locator(".testing-intro-field")).toContainText(
       `Hallo ${foodsharer.name}`,
     );
