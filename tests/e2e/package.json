@@ -7,13 +7,7 @@
     "@faker-js/faker": "9.3.0",
     "@playwright/test": "^1.57.0",
     "@types/node": "^22.13.13",
-    "@typescript-eslint/eslint-plugin": "^6.14.0",
-    "@typescript-eslint/parser": "^6.14.0",
-    "eslint": "^8.56.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-playwright": "^0.20.0",
     "husky": "^8.0.0",
-    "prettier": "3.1.1",
     "typescript": "~5.9.3"
   },
   "dependencies": {
@@ -32,10 +26,6 @@
     "test:debug": "playwright test --debug",
     "test:ui": "playwright test --ui-port=3008 --ui-host=0.0.0.0 --ui && echo 'Open http://localhost:23008 in the browser!'",
     "report": "playwright show-report",
-    "show-report": "playwright show-report ../_output/html-report --host 0.0.0.0 && echo 'Open http://localhost:29323 in the browser!'",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "prettier": "prettier '**/*.{ts,json}' --check",
-    "prettier:fix": "prettier '**/*.{ts,json}' --write"
+    "show-report": "playwright show-report ../_output/html-report --host 0.0.0.0 && echo 'Open http://localhost:29323 in the browser!'"
   }
 }

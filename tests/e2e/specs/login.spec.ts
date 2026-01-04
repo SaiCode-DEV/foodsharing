@@ -2,7 +2,6 @@ import { test, expect } from "../helpers/acceptance";
 import { foodsharing } from "../helpers/foodsharing";
 
 test.describe("Login", () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let foodsharer: any;
 
   test.beforeEach(async () => {
@@ -17,11 +16,12 @@ test.describe("Login", () => {
     await page.waitForSelector(".testing-login-dropdown");
     await page.click(".testing-login-dropdown", { position: { x: 10, y: 10 } });
     await page.fill(".testing-login-input-email", foodsharer.email);
-    await page.fill("#testing-login-input-password > input", "password");
-    await page.getByRole("checkbox", { name: "Dauerhaft eingeloggt bleiben" }).uncheck();
+    await page.fill("#testing-login-input-password    > input", "password");
+    await page
+      .getByRole("checkbox", { name: "Dauerhaft eingeloggt bleiben" })
+      .uncheck();
     await page.click(".testing-login-click-submit");
     await acceptanceHelper.waitForActiveAPICalls();
-
     await page.waitForSelector("#pulse-success", {
       state: "hidden",
       timeout: 10000,
@@ -56,7 +56,9 @@ test.describe("Login", () => {
     await page.click(".testing-login-dropdown", { position: { x: 10, y: 10 } });
     await page.fill(".testing-login-input-email", foodsharer.email);
     await page.fill("#testing-login-input-password > input", "password");
-    await page.getByRole("checkbox", { name: "Dauerhaft eingeloggt bleiben" }).check();
+    await page
+      .getByRole("checkbox", { name: "Dauerhaft eingeloggt bleiben" })
+      .check();
     await page.waitForTimeout(250);
     await page.click(".testing-login-click-submit");
     await acceptanceHelper.waitForActiveAPICalls();

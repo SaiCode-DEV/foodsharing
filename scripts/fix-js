@@ -3,8 +3,14 @@ dir=$(dirname "$0")
 # shellcheck source=./__common.sh
 source "$dir"/__common.sh
 
-log-header "Fixing js client code"
+log-header "Fixing js code"
+run-in-container client yarn prettier:e2e:fix
 run-in-container client yarn lint --fix
 
 log-header "Fixing js websocket code"
 run-in-container websocket yarn lint --fix
+
+# ToDo: enable lint fixing when tests are fixed
+# run-in-container e2e yarn lint:fix
+
+log-header "All done!"

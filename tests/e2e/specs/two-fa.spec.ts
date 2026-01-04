@@ -1,11 +1,10 @@
-import { test, expect } from "../helpers/acceptance";
+import { test, expect, AcceptanceHelper } from "../helpers/acceptance";
 import { foodsharing } from "../helpers/foodsharing";
 import { Database } from "../helpers/database";
 import { maildev } from "../helpers/maildev";
 import argon2 from "argon2";
 import { authenticator } from "otplib";
 import { Page } from "@playwright/test";
-import { AcceptanceHelper } from "../helpers/acceptance";
 
 test.describe("Two-Factor Authentication", () => {
   test.describe.configure({ timeout: 60000 });
@@ -148,7 +147,7 @@ test.describe("Two-Factor Authentication", () => {
     try {
       await acceptanceHelper.login(email, true, pass, totpSecretOrCode);
       return true;
-    } catch (error) {
+    } catch {
       return false;
     }
   }
@@ -247,9 +246,7 @@ test.describe("Two-Factor Authentication", () => {
     });
     await acceptanceHelper.waitForPageBody();
     await page.waitForSelector(".testing-intro-field", { timeout: 5000 });
-    await expect(page.locator(".testing-intro-field")).toContainText(
-      "Hallo",
-    );
+    await expect(page.locator(".testing-intro-field")).toContainText("Hallo");
   });
 
   test("login with backup code succeeds when TOTP is enabled", async ({
@@ -367,10 +364,10 @@ test.describe("Two-Factor Authentication", () => {
 
     await page.goto("/");
     const mobileMenuButton = page.locator("button.navbar-toggler");
-    // eslint-disable-next-line playwright/no-conditional-in-test
+
     if (await mobileMenuButton.isVisible()) {
       await mobileMenuButton.click();
-      // eslint-disable-next-line playwright/no-wait-for-timeout
+
       await page.waitForTimeout(500);
     } else {
       await page
@@ -396,15 +393,12 @@ test.describe("Two-Factor Authentication", () => {
     let link = "";
     let retries = 10;
 
-    // eslint-disable-next-line playwright/no-conditional-in-test
     while (retries > 0 && link === "") {
-      // eslint-disable-next-line playwright/no-wait-for-timeout
       await page.waitForTimeout(1000);
 
       const mails = await maildev.getMails();
 
       for (const mail of mails) {
-        // eslint-disable-next-line playwright/no-conditional-in-test
         if (mail.to[0].address !== (foodsaver.email as string).toLowerCase()) {
           continue;
         }
@@ -414,12 +408,10 @@ test.describe("Two-Factor Authentication", () => {
           /http:\/\/[^\s<>'"]+\/password-reset\/[a-f0-9]+\?totp=true/g;
         const matches = mail.text.match(pattern);
 
-        // eslint-disable-next-line playwright/no-conditional-in-test
         if (matches && matches[0]) {
           link = matches[0].replace(/(?<!:)\/\/+/g, "/");
           link = maildev.replaceUrl(link);
 
-          // eslint-disable-next-line playwright/no-conditional-in-test
           if (link) {
             await maildev.deleteMail(mail.id);
             break;

@@ -4,11 +4,10 @@ import Role from "../helpers/constants/Foodsaver/Role";
 import QuizID from "../helpers/constants/Quiz/QuizID";
 
 test.describe("Quiz", () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let foodsharer: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   let foodsaver: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   const quizzes: any = {};
 
   test.beforeEach(async () => {
@@ -50,7 +49,6 @@ test.describe("Quiz", () => {
       }) => {
         test.setTimeout(60000); // Extended timeout for quiz operations
 
-        // eslint-disable-next-line playwright/no-conditional-in-test
         const user = userType === "foodsharer" ? foodsharer : foodsaver;
 
         // Login as the user
@@ -89,7 +87,7 @@ test.describe("Quiz", () => {
 
         // Answer first question
         const correct = await page.getByText(/(CORRECT)/).all();
-        // eslint-disable-next-line playwright/no-conditional-in-test
+
         if (correct.length > 0) {
           for (const element of correct) {
             await element.click();

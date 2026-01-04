@@ -3,11 +3,10 @@ import { foodsharing } from "../helpers/foodsharing";
 import RegionIDs from "../helpers/constants/Region/RegionIDs";
 
 test.describe("Team Page", () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let boardMember: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   let administrationMember: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   let alumniMember: any;
 
   test.beforeEach(async () => {

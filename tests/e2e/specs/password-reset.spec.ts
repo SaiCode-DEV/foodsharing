@@ -16,10 +16,10 @@ test.describe("Password Reset", () => {
     await page.goto("/");
 
     const mobileMenuButton = page.locator("button.navbar-toggler");
-    // eslint-disable-next-line playwright/no-conditional-in-test
+
     if (await mobileMenuButton.isVisible()) {
       await mobileMenuButton.click();
-      // eslint-disable-next-line playwright/no-wait-for-timeout
+
       await page.waitForTimeout(500);
     } else {
       // Desktop navigation - button is visible
@@ -51,19 +51,16 @@ test.describe("Password Reset", () => {
     let link = "";
     let retries = 5;
 
-    // eslint-disable-next-line playwright/no-conditional-in-test
     while (retries > 0 && link === "") {
-      // eslint-disable-next-line playwright/no-wait-for-timeout
       await page.waitForTimeout(1000); // Wait longer for email delivery
 
       const mails = await maildev.getMails();
 
       for (const mail of mails) {
-        // eslint-disable-next-line playwright/no-conditional-in-test
         if (mail.to[0].address !== user.email.toLowerCase()) {
           continue;
         }
-        // eslint-disable-next-line playwright/no-conditional-in-test
+
         if (mail.subject !== "Neues Passwort auf foodsharing.de") {
           continue;
         }
@@ -71,12 +68,10 @@ test.describe("Password Reset", () => {
         const pattern = /http:\/\/[^\s<>'"]+\/password-reset\/[a-f0-9]+/g;
         const matches = mail.text.match(pattern);
 
-        // eslint-disable-next-line playwright/no-conditional-in-test
         if (matches && matches[0]) {
           link = matches[0].replace(/(?<!:)\/\/+/g, "/");
           link = maildev.replaceUrl(link);
 
-          // eslint-disable-next-line playwright/no-conditional-in-test
           if (link) {
             await maildev.deleteMail(mail.id);
             break;

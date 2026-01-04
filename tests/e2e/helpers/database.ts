@@ -1,6 +1,5 @@
 import mysql from "mysql2/promise";
 
-// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class Database {
   private static connection: mysql.Connection;
 

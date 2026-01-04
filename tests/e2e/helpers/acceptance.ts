@@ -61,7 +61,9 @@ export class AcceptanceHelper {
     });
 
     if (!response.ok()) {
-      throw new Error(`Login failed: ${response.status()} ${await response.text()}`);
+      throw new Error(
+        `Login failed: ${response.status()} ${await response.text()}`,
+      );
     }
 
     // Wait a moment to ensure session is written
@@ -108,7 +110,7 @@ export class AcceptanceHelper {
 
   async clickChatSendButton() {
     const mobileMenuButton = this.page.locator("button.navbar-toggler");
-    // eslint-disable-next-line playwright/no-conditional-in-test
+
     if (await mobileMenuButton.isVisible()) {
       const lastSvgButton = this.page.locator(".vac-svg-button").last();
       await lastSvgButton.click();

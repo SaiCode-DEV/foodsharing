@@ -6,6 +6,9 @@ import { FlatCompat } from '@eslint/eslintrc'
 import stylistic from '@stylistic/eslint-plugin'
 import parser from 'vue-eslint-parser'
 import pluginVue from 'eslint-plugin-vue'
+import tseslint from 'typescript-eslint'
+import playwright from 'eslint-plugin-playwright'
+import eslintConfigPrettier from 'eslint-config-prettier/flat'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -26,7 +29,7 @@ export default [
       'vendor/**',
       'docs/**',
       'public/**',
-      'tests/!(e2e)/**',
+      'tests/e2e/playwright-report/**',
       'websocket/**',
       'assets/**'
     ]
@@ -87,6 +90,21 @@ export default [
       globals: {
         ...globals.mocha
       }
+    }
+  },
+  ...tseslint.configs.recommended.map(config => ({
+    ...config,
+    files: ['tests/e2e/**/*.ts']
+  })),
+  {
+    files: ['tests/e2e/**/*.ts'],
+    ...playwright.configs['flat/recommended'],
+    ...eslintConfigPrettier,
+    rules: {
+      ...eslintConfigPrettier.rules,
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-require-imports': 'off',
+      '@typescript-eslint/no-unused-vars': 'warn'
     }
   }
 ]

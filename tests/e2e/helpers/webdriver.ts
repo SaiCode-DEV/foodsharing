@@ -1,5 +1,6 @@
-import { Page } from "@playwright/test";
+import { Page, expect } from "@playwright/test";
 import { DateTime } from "luxon";
+import { promises as fs } from "fs";
 
 export class WebDriver {
   private page: Page;
@@ -42,7 +43,6 @@ export class WebDriver {
     filename: string,
     timeout: number = 4,
   ): Promise<void> {
-    const fs = require("fs").promises;
     const startTime = Date.now();
 
     while (Date.now() - startTime < timeout * 1000) {

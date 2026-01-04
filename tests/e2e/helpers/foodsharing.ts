@@ -98,7 +98,7 @@ class Foodsharing {
         : Math.floor(Math.random() * 2) + 2;
 
     // Handle profile picture upload if specified
-    if (extraParams.image && (gender == 0 || gender == 1)) {
+    if (extraParams.image && (gender === 0 || gender === 1)) {
       const genderDir = ["men", "women"][gender];
       const imgNum = Math.floor(Math.random() * 100);
       const imgPath = path.join(
@@ -729,7 +729,7 @@ class Foodsharing {
     }
     await Database.addToDatabase("fs_quiz_session", {
       quiz_id: level,
-      status: status,
+      status,
       foodsaver_id: fsId,
       time_start: startTime.toFormat("yyyy-MM-dd HH:mm:ss"),
     });
@@ -1157,7 +1157,7 @@ class Foodsharing {
       store_id: storeId,
       fs_id_a: foodsaverIdA,
       fs_id_p: foodsaverIdP,
-      action: action,
+      action,
       date_activity: this.toDateTime(faker.date.recent()),
       ...extraParams,
     };
@@ -1217,7 +1217,7 @@ class Foodsharing {
     email: string = "bad.com",
   ): Promise<number> {
     return await Database.addToDatabase("fs_email_blacklist", {
-      email: email,
+      email,
       since: "2010-10-14 12:00:00",
       reason: "Disposable email addresses should not be used for registration.",
     });
@@ -1499,7 +1499,7 @@ class Foodsharing {
       await Database.addToDatabase("fs_poll_option_has_value", {
         poll_id: pollId,
         option: params.option,
-        value: value,
+        value,
         votes: faker.number.int({ min: 0, max: 100 }),
       });
     }
@@ -1561,7 +1561,7 @@ class Foodsharing {
   private async uploadFile(file: UploadedFile): Promise<string> {
     const uuid = uuidv4();
     await Database.addToDatabase("uploads", {
-      uuid: uuid,
+      uuid,
       user_id: file.uploaderId,
       sha256hash: file.hashedBody,
       mimetype: file.mimeType,

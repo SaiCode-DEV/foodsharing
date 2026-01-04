@@ -276,76 +276,96 @@ test.describe("Settings", () => {
     await expect(page.locator("body")).toContainText("Account löschen");
   });
 
-  test.fixme('can register and authenticate with passkey/webauthn', async ({ page, acceptanceHelper, browserName }) => {
+  test.fixme("can register and authenticate with passkey/webauthn", async ({
+    page,
+    acceptanceHelper,
+    browserName,
+  }) => {
     // WebAuthn CDP is only supported in Chromium-based browsers
-    // eslint-disable-next-line playwright/no-conditional-in-test
-    if (browserName !== 'chromium') {
-      //eslint-disable-next-line playwright/no-skipped-test
+
+    if (browserName !== "chromium") {
       test.skip();
     }
-    
+
     const user = await foodsharing.createFoodsaver();
 
     // Initialize CDP session for WebAuthn virtual authenticator
     const client = await page.context().newCDPSession(page);
-    
+
     // Enable WebAuthn environment
-    await client.send('WebAuthn.enable');
-    
+    await client.send("WebAuthn.enable");
+
     // Add virtual authenticator with specific options
-    const { authenticatorId } = await client.send('WebAuthn.addVirtualAuthenticator', {
-      options: {
-        protocol: 'ctap2',
-        transport: 'usb',
-        hasResidentKey: true,
-        hasUserVerification: true,
-        isUserVerified: true,
-        automaticPresenceSimulation: true,
+    const { authenticatorId } = await client.send(
+      "WebAuthn.addVirtualAuthenticator",
+      {
+        options: {
+          protocol: "ctap2",
+          transport: "usb",
+          hasResidentKey: true,
+          hasUserVerification: true,
+          isUserVerified: true,
+          automaticPresenceSimulation: true,
+        },
       },
-    });
+    );
 
     // Login and navigate to account security settings
     await acceptanceHelper.login(user.email);
-    await page.goto('/user/current/settings?sub=accountSecurity');
+    await page.goto("/user/current/settings?sub=accountSecurity");
     await acceptanceHelper.waitForActiveAPICalls();
-    
+
     // Verify no credentials are registered yet
-    const credentialsBefore = await client.send('WebAuthn.getCredentials', { authenticatorId });
+    const credentialsBefore = await client.send("WebAuthn.getCredentials", {
+      authenticatorId,
+    });
     expect(credentialsBefore.credentials).toHaveLength(0);
 
     // Check that "no security keys registered" message is visible
-    await expect(page.getByText('Noch keine Sicherheitsschlüssel registriert')).toBeVisible();
+    await expect(
+      page.getByText("Noch keine Sicherheitsschlüssel registriert"),
+    ).toBeVisible();
 
     // Add a listener for credential registration
     const credentialAddedPromise = new Promise<void>((resolve) => {
-      client.on('WebAuthn.credentialAdded', () => {
+      client.on("WebAuthn.credentialAdded", () => {
         resolve();
       });
     });
 
     // Click button to register a new passkey
-    await page.getByRole('button', { name: /Neuen Sicherheitsschlüssel registrieren/i }).click();
-    
+    await page
+      .getByRole("button", { name: /Neuen Sicherheitsschlüssel registrieren/i })
+      .click();
+
     // Wait for modal to appear
-    await expect(page.getByRole('heading', { name: 'Neuen Sicherheitsschlüssel registrieren' })).toBeVisible();
-    
+    await expect(
+      page.getByRole("heading", {
+        name: "Neuen Sicherheitsschlüssel registrieren",
+      }),
+    ).toBeVisible();
+
     // Fill in device name
-    const deviceName = 'Test Authenticator';
-    await page.getByRole('textbox', { name: /Gerätename/i }).fill(deviceName);
-    
+    const deviceName = "Test Authenticator";
+    await page.getByRole("textbox", { name: /Gerätename/i }).fill(deviceName);
+
     // Click register button
-    await page.getByRole('button', { name: 'Registrieren' }).click();
-    
+    await page.getByRole("button", { name: "Registrieren" }).click();
+
     // Wait for credential to be added
     await credentialAddedPromise;
     await acceptanceHelper.waitForActiveAPICalls();
 
     // Verify credential was registered
-    const credentialsAfter = await client.send('WebAuthn.getCredentials', { authenticatorId });
+    const credentialsAfter = await client.send("WebAuthn.getCredentials", {
+      authenticatorId,
+    });
     expect(credentialsAfter.credentials).toHaveLength(1);
-    
+
     // Verify the UI updates to show the registered key
-    await expect(page.getByText('Noch keine Sicherheitsschlüssel registriert')).toBeHidden();
+    await expect(
+      page.getByText("Noch keine Sicherheitsschlüssel registriert"),
+    ).toBeHidden();
     await expect(page.getByText(deviceName)).toBeVisible();
   });
 });

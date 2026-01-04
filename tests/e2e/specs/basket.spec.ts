@@ -51,14 +51,14 @@ test.describe("Food Basket", () => {
     // Verify database entry
     await expect(
       Database.seeInDatabase("fs_basket", {
-        description: description,
+        description,
         foodsaver_id: foodsaver.id,
         handy: "12345",
       }),
     ).resolves.toBeTruthy();
 
     const id = await Database.grabFromDatabase("fs_basket", "id", {
-      description: description,
+      description,
       foodsaver_id: foodsaver.id,
     });
 
