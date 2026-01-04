@@ -365,36 +365,32 @@ class BasketGateway extends BaseGateway
          *  - computes the great-circle distance using
          *    ST_Distance_Sphere(Point(:lon, :lat), Point(b.lon, b.lat)) and
          *    converts it to kilometers,
-         *  - filters results by a maximum distance (distance_in_km <=
-         *    :max_distance_in_km),
+         *  - filters results by maximum distance,
          *  - orders by ascending distance and limits the result set to 10 rows.
          *
          * Performance notes:
          *  - The bounding-box pre-filter (lat/lon BETWEEN ...) is used for performance to avoid
          *    running ST_Distance_Sphere on every row in the table
          */
-        $baskets = $this->db->fetchAll('
-            SELECT *
-            FROM (
-                SELECT
-                    b.id,
-                    UNIX_TIMESTAMP(b.`until`) AS until_ts,
-                    b.picture,
-                    b.description,
-                    ST_Distance_Sphere(Point(:lon, :lat), Point(b.lon, b.lat)) / 1000 AS distance_in_km,
-                    fs.id AS fs_id,
-                    fs.name AS fs_name,
-                    fs.photo AS fs_photo,
-                    fs.is_sleeping AS fs_is_sleeping
-                FROM fs_basket b
-                JOIN fs_foodsaver fs ON b.foodsaver_id = fs.id
-                WHERE b.status = :status
-                  AND b.foodsaver_id != :fs_id
-                  AND b.until > NOW()
-                  AND b.lat BETWEEN (:lat - :delta_lat) AND (:lat + :delta_lat)
-                  AND b.lon BETWEEN (:lon - :delta_lon) AND (:lon + :delta_lon)
-            ) t
-            WHERE distance_in_km <= :max_distance_in_km
+        $baskets = $this->db->fetchAll(
+            'SELECT
+                b.id,
+                UNIX_TIMESTAMP(b.`until`) AS until_ts,
+                b.picture,
+                b.description,
+                ST_Distance_Sphere(Point(:lon, :lat), Point(b.lon, b.lat)) / 1000 AS distance_in_km,
+                fs.id AS fs_id,
+                fs.name AS fs_name,
+                fs.photo AS fs_photo,
+                fs.is_sleeping AS fs_is_sleeping
+            FROM fs_basket b
+            JOIN fs_foodsaver fs ON b.foodsaver_id = fs.id
+            WHERE b.status = :status
+              AND b.foodsaver_id != :fs_id
+              AND b.until > NOW()
+              AND b.lat BETWEEN (:lat - :delta_lat) AND (:lat + :delta_lat)
+              AND b.lon BETWEEN (:lon - :delta_lon) AND (:lon + :delta_lon)
+            HAVING distance_in_km <= :max_distance_in_km
             ORDER BY distance_in_km
             LIMIT 10
         ', [
