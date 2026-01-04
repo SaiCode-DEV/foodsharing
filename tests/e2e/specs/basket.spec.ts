@@ -168,4 +168,34 @@ test.describe("Food Basket", () => {
     await page.click("text=Speichern");
     await page.waitForSelector("text=Erfolgreich abgeschlossen");
   });
+
+  test("expired and non-expired baskets show correct text", async ({
+    page,
+  }) => {
+    const foodsaver = await foodsharing.createFoodsaver();
+
+    const expiredId = await Database.addToDatabase("fs_basket", {
+      foodsaver_id: foodsaver.id,
+      status: 1,
+      time: "2016-04-04 11:47:52",
+      until: "2016-05-16",
+      description: "ICH BIN ABGELAUFEN",
+    });
+
+    const notExpiredId = await Database.addToDatabase("fs_basket", {
+      foodsaver_id: foodsaver.id,
+      status: 1,
+      time: "2016-08-01 11:47:43",
+      until: "2030-08-15",
+      description: "###TEST###",
+    });
+
+    await page.goto(`/essenskoerbe/${expiredId}`);
+    await expect(page.locator("body")).toContainText(
+      "Dieser Essenskorb ist leider nicht mehr verfügbar",
+    );
+
+    await page.goto(`/essenskoerbe/${notExpiredId}`);
+    await expect(page.locator("body")).toContainText("###TEST###");
+  });
 });
