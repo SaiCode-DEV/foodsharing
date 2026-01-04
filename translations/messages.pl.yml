@@ -337,6 +337,44 @@ settings:
   calendar:
     program:
       apple: Apple Kalendarz
+  no_rights: Nie masz uprawnień, aby zmienić ustawienia profilu.
+  edit_other: Zmień ustawienia profilu {name}
+  title: Ustawienia
+  profile: Ustawienia profilu
+  delete_profile: Usuń profil
+  address:
+    title: Wybierz adres
+  header: Ustawienia profilu
+  quiz:
+    1: Quiz dla foodsaverów/ek
+    3: Quiz dla ambasadorów/ek
+  sleep:
+    status: Twój aktualny status
+    message: Tu możesz zostawić krótką wiadomość, dlaczego chwilowo nie masz 
+      czasu.
+    from: Od
+    until: do
+    temp: Jestem niedostępny/a w następującym czasie
+    range: 'Podaj, jak długo będziesz niedostępny/a:'
+    saved: Zapisano ustawienia
+  email: Adres email & hasło
+  account_security:
+    title: Bezpieczeństwo konta
+    email_password_section: Email i hasło
+    change_password: Zmień hasło
+    change_email: Zmień adres email
+    last_used: Ostatnio użyty
+    never_used: Jeszcze nie użyty
+    delete: Usuń
+    rename: Zmień nazwę
+    register_modal:
+      device_name_placeholder: np. iPhone, YubiKey, Laptop
+      cancel: Anuluj
+      register: Zarejestruj
+  two_fa_manage:
+    status_is: Aktualny status to
+    active: Aktywny
+    inactive: Nieaktywny
 bcard:
   title: Generator wizytówek
   card: Twoja foodsharing-wizytówka
@@ -1427,3 +1465,54 @@ content:
   delete: Czy na pewno usunąć {name}?
   delete_success: Usunięto stronę
   error: Nie można było zapisać strony
+map:
+  filters:
+    stores:
+      status:
+        cooperating: współpracuje
+        not-cooperating: nie współpracuje
+      help:
+        all: obojętnie
+      scope:
+        label: Przynależność
+        all: wszystkie
+    users:
+      role:
+        label: rola
+        all: wszystkie
+        foodsaver: zweryfikowani/e foodsaverzy/ki
+      activity:
+        label: ostatni login
+        week: poprzedni tydzień
+        month: poprzedni miesiąc
+        3months: Ostatnie 3 miesiące
+        6months: ostatnie 6 miesięcy
+      member:
+        label: Członkostwo
+        all: wszystkie
+  foodsharepoint:
+    go: do jadłodzielni
+  events:
+    title: Eventy
+  users:
+    go: Do profilu
+mailbox:
+  mails: Maile
+  mail: Mail
+  title: Skrzynki mailowe
+  inbox: Skrzynka odbiorcza
+  sent: Wysłane
+  trash: Kosz
+  empty: Jeszcze nie ma żadnych maili w tej skrzynce
+  delete: Do kosza
+  move_to: Przenieś do
+  sender: Nadawca
+  unknown_sender: Nieznany nadawca
+  recipient: Odbiorca
+  date: Data
+  subject: Temat
+  actions: Opcje
+  refresh: Odśwież
+  addressbook: Książka adresowa
+  search_name_email: Szukaj według nazwy lub adresu email
+  show_html_body: Pokaż jako HTML
