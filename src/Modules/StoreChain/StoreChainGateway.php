@@ -91,7 +91,7 @@ class StoreChainGateway extends BaseGateway
      *
      * @throws Exception
      */
-    public function getStoreChains(?int $id = null, Pagination $pagination = new Pagination()): array
+    public function getStoreChains(?int $id = null, ?Pagination $pagination = null): array
     {
         $where = '';
         if (!is_null($id)) {

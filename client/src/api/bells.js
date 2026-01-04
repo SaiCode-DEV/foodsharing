@@ -19,7 +19,7 @@ export async function deleteBells (ids) {
  * @returns {Promise<void>}
  */
 export async function setReadStatus (ids, isRead) {
-  return (await patch(`/bells/readStatus?read=${isRead ? 1 : 0}`, {
+  return (await patch(`/bells/readStatus?isRead=${isRead ? 1 : 0}`, {
     ids,
   }, { skipErrorNotificationFor: [404] }))
 }

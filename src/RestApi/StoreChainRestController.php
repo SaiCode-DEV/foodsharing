@@ -63,7 +63,7 @@ class StoreChainRestController extends AbstractFoodsharingRestController
         }
 
         $pagination = new Pagination();
-        $pagination->pageSize = $paramFetcher->get('pageSize');
+        $pagination->limit = $paramFetcher->get('pageSize');
         $pagination->offset = $paramFetcher->get('offset');
 
         return $this->respondOk($this->transactions->getStoreChains(null, $pagination));
@@ -195,7 +195,7 @@ class StoreChainRestController extends AbstractFoodsharingRestController
         }
 
         $pagination = new Pagination();
-        $pagination->pageSize = $paramFetcher->get('pageSize');
+        $pagination->limit = $paramFetcher->get('pageSize');
         $pagination->offset = $paramFetcher->get('offset');
 
         return $this->respondOK($this->storeGateway->findAllStoresOfStoreChain($chainId, $pagination));

@@ -84,7 +84,7 @@ abstract class AbstractFoodsharingRestController extends AbstractFOSRestControll
             throw new \InvalidArgumentException("The limit parameter must non be larger than {$maxPageSize}.");
         }
         $pagination = new Pagination();
-        $pagination->pageSize = $limit;
+        $pagination->limit = $limit;
         $pagination->offset = $offset;
 
         return $pagination;

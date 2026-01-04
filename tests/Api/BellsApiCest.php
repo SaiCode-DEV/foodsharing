@@ -59,11 +59,11 @@ class BellsApiCest
     {
         $bellIds = array_slice($this->bells, 0, 3);
 
-        $I->sendPATCH('api/bells/readStatus?read=1', ['ids' => $bellIds]);
+        $I->sendPATCH('api/bells/readStatus?isRead=1', ['ids' => $bellIds]);
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
 
         $I->login($this->user['email']);
-        $I->sendPATCH('api/bells/readStatus?read=1', ['ids' => $bellIds]);
+        $I->sendPATCH('api/bells/readStatus?isRead=1', ['ids' => $bellIds]);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         foreach ($bellIds as $id) {
@@ -83,7 +83,7 @@ class BellsApiCest
         }
 
         $I->login($this->user['email']);
-        $I->sendPATCH('api/bells/readStatus?read=0', ['ids' => $bellIds]);
+        $I->sendPATCH('api/bells/readStatus?isRead=0', ['ids' => $bellIds]);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         foreach ($bellIds as $id) {

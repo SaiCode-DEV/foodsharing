@@ -2,12 +2,14 @@
 
 namespace Foodsharing\Modules\Bell;
 
+use Carbon\Carbon;
 use Foodsharing\Lib\WebSocketConnection;
 use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Bell\DTO\BellForExpirationUpdates;
 use Foodsharing\Modules\Bell\DTO\BellForList;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
+use Foodsharing\Modules\Core\Pagination;
 
 class BellGateway extends BaseGateway
 {
@@ -131,12 +133,8 @@ class BellGateway extends BaseGateway
      *
      * @return BellForList[]
      */
-    public function listBells(int $fsId, ?int $limit = null, int $offset = 0)
+    public function listBells(int $fsId, ?Pagination $pagination = null)
     {
-        if ($limit !== null) {
-            $limit = ' LIMIT ' . $offset . ', ' . $limit;
-        }
-
         $stm = 'SELECT
 				b.`id`,
 				b.`name`,
@@ -156,9 +154,9 @@ class BellGateway extends BaseGateway
 			ORDER BY
                 hb.seen ASC,
                 b.`time` DESC
-			' . $limit . '
-		';
-        $rows = $this->db->fetchAll($stm, [':foodsaver_id' => $fsId]);
+			' . $this->buildPaginationSqlLimit($pagination);
+        $params = $this->addPaginationSqlLimitParameters($pagination, ['foodsaver_id' => $fsId]);
+        $rows = $this->db->fetchAll($stm, $params);
 
         if (!$rows) {
             return [];
@@ -323,11 +321,11 @@ class BellGateway extends BaseGateway
             $bellDTO->id = $row['id'];
             $bellDTO->key = $row['body'];
             $bellDTO->title = $row['name'];
-            $bellDTO->payload = unserialize($row['vars'], ['allowed_classes' => false]);
+            $bellDTO->payload = unserialize($row['vars'], ['allowed_classes' => false]) ?: [];
             $bellDTO->href = unserialize($row['attr'], ['allowed_classes' => false])['href'];
             $bellDTO->icon = $this->isIconCssIdentifier($row['icon']) ? $row['icon'] : null;
             $bellDTO->image = $this->isImagePath($row['icon']) ? $row['icon'] : null;
-            $bellDTO->createdAt = (new \DateTime($row['time']))->format('Y-m-d\TH:i:s');
+            $bellDTO->createdAt = new Carbon($row['time']);
             $bellDTO->isRead = $row['seen'];
             $bellDTO->isCloseable = $row['closeable'];
 

@@ -66,7 +66,7 @@ class StoreGateway extends BaseGateway
      *
      * @throws Exception
      */
-    public function findAllStoresOfStoreChain(int $chainId, Pagination $pagination = new Pagination()): array
+    public function findAllStoresOfStoreChain(int $chainId, Pagination $pagination): array
     {
         $results = $this->db->fetchAll('SELECT id, name
             FROM fs_betrieb
@@ -1077,7 +1077,7 @@ class StoreGateway extends BaseGateway
             ORDER BY performed_at DESC
             LIMIT ?, ?
 		    ',
-            [$storeId, $fromDate, $toDate, ...$storeActions, $pagination->offset, $pagination->pageSize]);
+            [$storeId, $fromDate, $toDate, ...$storeActions, $pagination->offset, $pagination->limit]);
 
         return $logEntries;
     }

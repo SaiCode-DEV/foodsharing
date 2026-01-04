@@ -14,20 +14,20 @@ abstract class BaseGateway
         $this->db = $db;
     }
 
-    public function buildPaginationSqlLimit(Pagination $pagination): string
+    public function buildPaginationSqlLimit(?Pagination $pagination): string
     {
-        if ($pagination->pageSize > 0) {
-            return ' LIMIT :page_size OFFSET :start_item_index ';
+        if (!is_null($pagination) && $pagination->limit > 0) {
+            return ' LIMIT :limit OFFSET :offset ';
         }
 
         return '';
     }
 
-    public function addPaginationSqlLimitParameters(Pagination $pagination, array $params): array
+    public function addPaginationSqlLimitParameters(?Pagination $pagination, array $params): array
     {
-        if ($pagination->pageSize > 0) {
-            $params['start_item_index'] = $pagination->offset;
-            $params['page_size'] = $pagination->pageSize;
+        if (!is_null($pagination) && $pagination->limit > 0) {
+            $params['offset'] = $pagination->offset;
+            $params['limit'] = $pagination->limit;
         }
 
         return $params;

@@ -2,92 +2,39 @@
 
 namespace Foodsharing\Modules\Bell\DTO;
 
+use DateTime;
+use OpenApi\Attributes as OA;
+
 /**
  * A Data Transfer Object to contain all data of a bell to be displayed in the bell list in the frontend.
  */
 class BellForList
 {
-    public $id;
+    public int $id;
 
-    /**
-     * @var string
-     *
-     * @see Bell::$body
-     *
-     * The body is called "key" in the frontend
-     */
-    public $key;
+    #[OA\Property(example: 'event_post.many', description: 'translation key for the bell body')]
+    public string $key;
 
-    /**
-     * @var string
-     *
-     * @see Bell::$name
-     *
-     * The name is called "title" in the frontend
-     */
-    public $title;
+    #[OA\Property(example: 'event_post_title', description: 'translation key for the bell title')]
+    public string $title;
 
-    /**
-     * @var string
-     *
-     * The destination of the bell when clicked on. Will be put in the href attribute of the a tag surrounding the
-     * notification.
-     */
-    public $href;
+    #[OA\Property(example: 'event_post_title', description: 'The destination of the bell when clicked on')]
+    public string $href;
 
-    /**
-     * @var array<string,string>
-     *
-     * @see Bell::$vars
-     *
-     * The translation key variables ("vars") will be transferred as "payload" to the frontend.
-     */
-    public $payload;
+    #[OA\Property(type: 'object', description: 'The variables used in the translations', additionalProperties: new OA\AdditionalProperties())]
+    public array $payload;
 
-    /**
-     * @var string
-     *
-     * @see Bell::$icon
-     *
-     * A CSS class of the bell's icon. Must be one or multiple CSS classes.
-     */
-    public $icon;
+    #[OA\Property(example: 'fas fa-calendar', description: 'CSS class of the bell\'s icon')]
+    public ?string $icon;
 
-    /**
-     * @var string
-     *
-     * @see Bell::$icon
-     *
-     * A relative URL to an image to be used as an icon.
-     *
-     * Only one of $image and $icon are supported. Whether the $icon ot the $image property is used when converting from
-     * a database array or a BellData object will be determined by whether the BellData::$icon attribute starts with '/'.
-     */
-    public $image;
+    #[OA\Property(example: null, description: 'Relative URL to an image to be used as an icon.<br>Only one of $image and $icon are supported.')]
+    public ?string $image;
 
-    /**
-     * @var string
-     *
-     * @see Bell::$time
-     *
-     * The time of the bell – usually the creation time, but some bells use different times for this attribute.
-     * The time is formatted as a string of the date and the time, separated by a 'T'. To format a date accordingly
-     * using PHP's DateTime functionality, use the following format string: 'Y-m-d\TH:i:s'
-     */
-    public $createdAt;
+    #[OA\Property(description: 'The time of the bell – usually the creation time, but some bells use different times for this attribute.')]
+    public DateTime $createdAt;
 
-    /**
-     * @var bool
-     *
-     * @see Bell::$closeable
-     */
-    public $isCloseable;
+    public bool $isCloseable;
 
-    /**
-     * @var bool
-     *
-     * Whether the foodsharer, for whom the bell is displayed, has already clicked on it. The database refers to this
-     * as 'seen'.
-     */
-    public $isRead;
+    #[OA\Property(description: 'Whether the foodsharer, for whom the bell is displayed, has already clicked on it.')]
+    public bool $isRead;
 }

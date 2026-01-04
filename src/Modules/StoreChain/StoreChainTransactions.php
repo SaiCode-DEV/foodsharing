@@ -29,7 +29,7 @@ class StoreChainTransactions
      *
      * @throws Exception
      */
-    public function getStoreChains(?int $id = null, Pagination $pagination = new Pagination()): array
+    public function getStoreChains(?int $id = null, ?Pagination $pagination = null): array
     {
         $results = $this->storeChainGateway->getStoreChains($id, $pagination);
 
