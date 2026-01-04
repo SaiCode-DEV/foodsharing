@@ -1,0 +1,10 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "de.foodsharing",
+    "sha256_cert_fingerprints": [
+      "86:DD:67:D1:67:DD:D9:CB:61:E7:B0:16:75:2D:37:3D:5C:7D:EA:BF:B9:B6:64:FE:64:E6:EA:7E:48:BE:B7:6A"
+    ]
+  }
+}]
