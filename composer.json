@@ -99,6 +99,8 @@
     "twig/intl-extra": "~3.8.0",
     "twig/twig": "~3.14.2",
     "voku/bounce-mail-handler": "~6.0.4",
+    "web-auth/cose-lib": "~4.4",
+    "web-auth/webauthn-lib": "~5.2",
     "zammad/zammad-api-client-php": "~2.2.1"
   },
   "autoload": {

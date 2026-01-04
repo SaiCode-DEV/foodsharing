@@ -974,6 +974,22 @@ class FoodsaverGateway extends BaseGateway
     }
 
     /**
+     * Get foodsaver by email address.
+     *
+     * @return array|null the user data or null if not found
+     */
+    public function getFoodsaverByEmail(string $email): ?array
+    {
+        $data = $this->db->fetchByCriteria(
+            'fs_foodsaver',
+            ['id', 'name', 'nachname', 'email', 'photo'],
+            ['email' => trim($email), 'deleted_at' => null]
+        );
+
+        return $data ?: null;
+    }
+
+    /**
      * Returns the minimal profile data of multiple users.
      *
      * @param int[] $fsIds ids of the foodsavers

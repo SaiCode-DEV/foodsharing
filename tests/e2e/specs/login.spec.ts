@@ -15,10 +15,10 @@ test.describe("Login", () => {
     await page.evaluate("window.localStorage.clear();");
     await acceptanceHelper.openMobileMenuIfNeeded();
     await page.waitForSelector(".testing-login-dropdown");
-    await page.click(".testing-login-dropdown");
+    await page.click(".testing-login-dropdown", { position: { x: 10, y: 10 } });
     await page.fill(".testing-login-input-email", foodsharer.email);
     await page.fill("#testing-login-input-password > input", "password");
-    await page.waitForTimeout(250);
+    await page.getByRole("checkbox", { name: "Dauerhaft eingeloggt bleiben" }).uncheck();
     await page.click(".testing-login-click-submit");
     await acceptanceHelper.waitForActiveAPICalls();
 
@@ -53,10 +53,10 @@ test.describe("Login", () => {
     await page.evaluate("window.localStorage.clear();");
     await acceptanceHelper.openMobileMenuIfNeeded();
     await page.waitForSelector(".testing-login-dropdown");
-    await page.click(".testing-login-dropdown");
+    await page.click(".testing-login-dropdown", { position: { x: 10, y: 10 } });
     await page.fill(".testing-login-input-email", foodsharer.email);
     await page.fill("#testing-login-input-password > input", "password");
-    await page.click(".testing-login-input-remember");
+    await page.getByRole("checkbox", { name: "Dauerhaft eingeloggt bleiben" }).check();
     await page.waitForTimeout(250);
     await page.click(".testing-login-click-submit");
     await acceptanceHelper.waitForActiveAPICalls();
@@ -91,7 +91,7 @@ test.describe("Login", () => {
     // Return to login page and verify remember me is still checked
     await page.goto("/");
     await acceptanceHelper.openMobileMenuIfNeeded();
-    await page.click(".testing-login-dropdown");
+    await page.click(".testing-login-dropdown", { position: { x: 10, y: 10 } });
     await page.fill(".testing-login-input-email", foodsharer.email);
     await expect(page.locator(".testing-login-input-remember")).toBeChecked();
   });

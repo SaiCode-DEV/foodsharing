@@ -81,6 +81,23 @@
           </span>
           <i class="fas fa-arrow-right mr-auto" />
         </b-button>
+
+        <!-- Passkey Login Option -->
+        <div class="text-center my-2">
+          <span class="text-muted">{{ $t('login.or') }}</span>
+        </div>
+
+        <b-button
+          variant="outline-primary"
+          class="btn btn-block"
+          :disabled="isLoading"
+          @click="loginWithPasskey"
+        >
+          <i class="fas fa-fingerprint mr-2" />
+          <span>
+            {{ $t('login.passkey_btn') }}
+          </span>
+        </b-button>
       </b-overlay>
     </form>
   </div>
@@ -89,6 +106,7 @@
 <script>
 import { isDev } from '@/helper/server-data'
 import { login } from '@/api/user'
+import { getAuthenticationOptions, verifyAuthentication } from '@/api/passkey'
 import { useVuelidate } from '@vuelidate/core'
 import { required, email } from '@vuelidate/validators'
 
@@ -97,6 +115,7 @@ import { HTTP_RESPONSE } from '@/consts'
 import PasswordField from '@/components/Login/PasswordField.vue'
 import totpField from '@/components/Login/TOTPField.vue'
 import { BROADCAST_TYPE, channel } from '@/broadcastChannel'
+import { startAuthentication } from '@simplewebauthn/browser'
 
 export default {
   name: 'MenuLogin',
@@ -175,6 +194,46 @@ export default {
         } else {
           pulseError(this.$t('error_unexpected'))
           throw err
+        }
+      }
+    },
+    async loginWithPasskey () {
+      this.isLoading = true
+      try {
+        // Get authentication options from server (no email needed!)
+        // API client already extracts data from response
+        const options = await getAuthenticationOptions()
+
+        // Start WebAuthn authentication - browser will show available passkeys
+        // Pass options directly, not wrapped in optionsJSON
+        const assertion = await startAuthentication(options)
+
+        // Send assertion to server for verification using the passkey API
+        await verifyAuthentication(assertion)
+
+        // Login successful
+        if (this.rememberMe) {
+          localStorage.setItem('login-rememberme', 'true')
+        }
+
+        sessionStorage.clear()
+        channel.postMessage({ type: BROADCAST_TYPE.LOGIN })
+        let ref = new URL(location.href).searchParams.get('ref')
+        if (!ref?.startsWith('/')) ref = null
+        location.replace(ref ?? this.$url('dashboard'))
+      } catch (err) {
+        this.isLoading = false
+        if (err.name === 'NotAllowedError') {
+          pulseError(this.$t('login.passkey_cancelled'))
+        } else if (err.name === 'InvalidStateError') {
+          pulseError(this.$t('login.passkey_not_found'))
+        } else if (err.code && err.code === HTTP_RESPONSE.UNAUTHORIZED) {
+          pulseError(this.$t('login.error_no_auth'))
+        } else if (err.code && err.code === HTTP_RESPONSE.NOT_FOUND) {
+          pulseError(this.$t('login.passkey_not_found'))
+        } else {
+          pulseError(this.$t('error_unexpected'))
+          console.error('Passkey login error:', err)
         }
       }
     },

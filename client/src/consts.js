@@ -32,6 +32,7 @@ export const REGION_IDS = Object.freeze({
 })
 
 export const HTTP_RESPONSE = Object.freeze({
+  OK: 200,
   NOT_MODIFIED: 304,
   BAD_REQUEST: 400,
   UNAUTHORIZED: 401,

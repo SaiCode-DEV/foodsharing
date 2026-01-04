@@ -48,8 +48,6 @@ services:
 
   redis:
     container_name: foodsharing_test_redis
-    ports:
-      - "36379:6379"
 
   phpmyadmin:
     container_name: foodsharing_test_phpmyadmin

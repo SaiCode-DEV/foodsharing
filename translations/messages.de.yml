@@ -591,6 +591,8 @@ login:
   error_no_auth: "Leider finden wir diese E-Mail-Adresse oder Passwort nicht, bitte versuche es noch einmal. Evtl. ist auch Dein zweiter Faktor falsch falls Du einen verwendest."
   error_not_activated: "Leider ist deine E-Mail-Adresse noch nicht aktiviert."
   logout: "Abmelden"
+  or: "oder"
+  passkey_btn: "Mit Passkey einloggen"
   pwreset:
     bread: "Passwort zurücksetzen"
     wrongMail: "Leider finden wir diese E-Mail-Adresse nicht, bitte versuche es noch einmal."
@@ -2222,7 +2224,66 @@ settings:
     mfa_disabled: "Multi-Faktor-Authentisierung deaktiviert"
     authenticator_app: "Authenticator-App"
     authenticator_app_description: "Verwende eine Authenticator-App für zusätzliche Sicherheit bei der Anmeldung."
+    
+    # Passkeys Sektion
+    passkeys_section: "Sicherheitsschlüssel"
+    security_keys: "Sicherheitsschlüssel (Passkeys)"
+    security_keys_description: "Sicherheitsschlüssel ermöglichen eine sichere und passwortlose Anmeldung mit deinem Gerät."
+    passkeys_info: "Sicherheitsschlüssel (Passkeys) ermöglichen eine sichere und passwortlose Anmeldung."
+    passkeys_not_supported: "Dein Browser unterstützt keine Sicherheitsschlüssel (WebAuthn)."
+    register_passkey: "Neuen Sicherheitsschlüssel registrieren"
+    no_passkeys: "Noch keine Sicherheitsschlüssel registriert."
+    unnamed_passkey: "Unbenannter Sicherheitsschlüssel"
+    created: "Erstellt"
+    last_used: "Zuletzt verwendet"
+    never_used: "Noch nie verwendet"
+    delete: "Löschen"
+    rename: "Umbenennen"
+    device_name_placeholder: "z.B. iPhone, YubiKey, Laptop"
+    other_domain_info: "Dieser Sicherheitsschlüssel wurde auf {domain} registriert und kann nicht auf der aktuellen Domain verwendet werden."
+    domain_info: "Sicherheitsschlüssel sind domainspezifisch. Du musst separat deinen Sicherheitsschlüssel auf foodsharing.de, foodsharing.network usw. registrieren."
+    
+    # Passkey Register Modal
+    register_modal:
+      title: "Neuen Sicherheitsschlüssel registrieren"
+      device_name_label: "Gerätename"
+      device_name_placeholder: "z.B. iPhone, YubiKey, Laptop"
+      device_name_description: "Gib einen Namen ein, um diesen Sicherheitsschlüssel zu identifizieren"
+      cancel: "Abbrechen"
+      register: "Registrieren"
+      
+    # Passkey Delete Modal
+    delete_modal:
+      title: "Sicherheitsschlüssel löschen"
+      confirmation: "Bist du sicher, dass du diesen Sicherheitsschlüssel löschen möchtest?"
+      device_name: "Gerät"
+      cancel: "Abbrechen"
+      delete: "Löschen"
+      
+    # Passkey Rename Modal
+    rename_modal:
+      title: "Sicherheitsschlüssel umbenennen"
+      new_name_label: "Neuer Name"
+      new_name_placeholder: "Neuer Gerätename"
+      cancel: "Abbrechen"
+      save: "Speichern"
 
+    # Erfolgsmeldungen
+    passkey_registered: "Sicherheitsschlüssel erfolgreich registriert"
+    passkey_deleted: "Sicherheitsschlüssel erfolgreich gelöscht"
+    passkey_renamed: "Sicherheitsschlüssel erfolgreich umbenannt"
+
+    # Fehler
+    error:
+      operation_cancelled: "Vorgang abgebrochen oder Zeitüberschreitung"
+      authenticator_already_registered: "Dieser Authenticator ist bereits registriert"
+      webauthn_not_supported: "WebAuthn wird in diesem Browser nicht unterstützt"
+      operation_aborted: "Vorgang wurde abgebrochen"
+      registration_failed: "Sicherheitsschlüssel-Registrierung fehlgeschlagen: {error}"
+      deletion_failed: "Sicherheitsschlüssel konnte nicht gelöscht werden"
+      rename_failed: "Sicherheitsschlüssel konnte nicht umbenannt werden"
+      name_required: "Bitte gib einen Namen ein"
+  
   # 2FA Management
   two_fa_manage:
     title: "Zwei-Faktor-Authentisierung"

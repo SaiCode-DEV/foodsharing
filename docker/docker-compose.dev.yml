@@ -7,6 +7,7 @@ services:
     container_name: foodsharing_dev_nginx
     ports:
       - "18080:8080"
+      - "18443:8443"
 
   # Customized PHP
   #------------------------------------

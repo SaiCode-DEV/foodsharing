@@ -15,8 +15,7 @@ services:
       - ../:/app:delegated
     expose:
       - 8080
-    # ports:
-    #   - 80:8080
+      - 8443
 
   # Customized PHP
   #------------------------------------

@@ -15,6 +15,7 @@ use Foodsharing\Modules\Foodsaver\FoodsaverTransactions;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Group\GroupTransactions;
 use Foodsharing\Modules\Login\LoginGateway;
+use Foodsharing\Modules\Login\WebAuthn\WebAuthnService;
 use Foodsharing\Modules\Logout\LogoutTransactions;
 use Foodsharing\Modules\PassportGenerator\PassportGeneratorTransaction;
 use Foodsharing\Modules\Profile\ProfileGateway;
@@ -92,6 +93,7 @@ class UserRestController extends AbstractFoodsharingRestController
         private readonly LogoutTransactions $logoutTransactions,
         private readonly CategoriesPermissions $categoriesPermissions,
         private readonly TimeHelper $timeHelper,
+        private readonly WebAuthnService $webAuthnService,
     ) {
     }
 
@@ -315,6 +317,40 @@ class UserRestController extends AbstractFoodsharingRestController
         $user = $this->foodsaverGateway->getProfile($fs_id);
 
         return $this->handleView($this->view($user, 200));
+    }
+
+    /**
+     * Login with passkey (WebAuthn) - usernameless authentication.
+     *
+     * @OA\Tag(name="user")
+     */
+    #[Rest\Post('user/login/passkey')]
+    #[Rest\RequestParam(name: 'assertion')]
+    #[Rest\RequestParam(name: 'remember_me', default: false)]
+    public function loginWithPasskey(ParamFetcher $paramFetcher, Request $request, RateLimiterFactory $loginLimiter): Response
+    {
+        $this->checkRateLimit($request, $loginLimiter);
+
+        $assertion = $paramFetcher->get('assertion');
+        $rememberMe = (bool)$paramFetcher->get('remember_me');
+
+        try {
+            // Verify the passkey and get user ID
+            $userId = $this->webAuthnService->verifyAuthentication($assertion);
+
+            // Log the user in
+            $this->session->login($userId, $rememberMe);
+
+            // Get user profile data
+            $user = $this->foodsaverGateway->getProfile($userId);
+            if (empty($user)) {
+                throw new NotFoundHttpException('User does not exist.');
+            }
+
+            return $this->respondOK($user);
+        } catch (Exception $e) {
+            throw new UnauthorizedHttpException('', 'Passkey authentication failed: ' . $e->getMessage());
+        }
     }
 
     /**

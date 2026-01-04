@@ -52,12 +52,48 @@ if (initialMessages && initialLocale !== DEFAULT_LOCALE) {
   baseMessages[initialLocale] = initialMessages
 }
 
+const datetimeFormats = {
+  en: {
+    short: {
+      year: 'numeric', month: 'short', day: 'numeric',
+    },
+    long: {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      weekday: 'short',
+      hour: 'numeric',
+      minute: 'numeric',
+    },
+  },
+  de: {
+    short: {
+      year: 'numeric', month: 'short', day: 'numeric',
+    },
+    long: {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      weekday: 'short',
+      hour: 'numeric',
+      minute: 'numeric',
+    },
+  },
+}
+// fallback datetime formats for other languages
+AVAILABLE.forEach((lang) => {
+  if (!datetimeFormats[lang]) {
+    datetimeFormats[lang] = datetimeFormats[DEFAULT_LOCALE]
+  }
+})
+
 export const i18nInstance = createI18n({
   // Legacy API so we can use $t and options API across Vue 2 app
   legacy: true,
   locale: initialLocale,
   fallbackLocale: DEFAULT_LOCALE,
   messages: baseMessages,
+  datetimeFormats,
   // We intentionally store some HTML in translations; keep legacy behavior
   warnHtmlMessage: false,
   escapeParameterHtml: false,

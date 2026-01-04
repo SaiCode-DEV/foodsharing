@@ -349,12 +349,10 @@ settings:
       1_day: 1 day before
   account_security:
     title: "Account Security"
-
     # Main page
     email_password_section: "Email and Password"
     change_password: "Change password"
     change_email: "Change email address"
-
     # 2FA Section
     mfa_section: "Multi-Factor Authentication"
     mfa_enabled: "Multi-Factor Authentication Enabled"
@@ -362,7 +360,63 @@ settings:
     authenticator_app: "Authenticator App"
     authenticator_app_description: "Use an authenticator app for additional security
       when logging in."
+    
+    # Passkeys Section
+    passkeys_section: "Security Keys"
+    passkeys_info: "Security keys (Passkeys) enable secure and passwordless authentication."
+    passkeys_not_supported: "Your browser does not support security keys (WebAuthn)."
+    register_passkey: "Register new security key"
+    no_passkeys: "No security keys registered yet."
+    unnamed_passkey: "Unnamed security key"
+    created: "Created"
+    last_used: "Last used"
+    never_used: "Never used"
+    delete: "Delete"
+    rename: "Rename"
+    other_domain_info: "This security key was registered on {domain} and cannot be used on the current domain."
+    domain_info: "Security keys are domain-specific. You must separately register your security key on foodsharing.de, foodsharing.network, etc."
+    
+    # Passkey Register Modal
+    register_modal:
+      title: "Register New Security Key"
+      device_name_label: "Device name"
+      device_name_placeholder: "e.g. iPhone, YubiKey, Laptop"
+      device_name_description: "Enter a name to identify this security key"
+      cancel: "Cancel"
+      register: "Register"
+      
+    # Passkey Delete Modal
+    delete_modal:
+      title: "Delete Security Key"
+      confirmation: "Are you sure you want to delete this security key?"
+      device_name: "Device"
+      cancel: "Cancel"
+      delete: "Delete"
+      
+    # Passkey Rename Modal
+    rename_modal:
+      title: "Rename Security Key"
+      new_name_label: "New name"
+      new_name_placeholder: "New device name"
+      cancel: "Cancel"
+      save: "Save"
 
+    # Success messages
+    passkey_registered: "Security key successfully registered"
+    passkey_deleted: "Security key successfully deleted"
+    passkey_renamed: "Security key successfully renamed"
+
+    # Errors
+    error:
+      operation_cancelled: "Operation cancelled or timeout"
+      authenticator_already_registered: "This authenticator is already registered"
+      webauthn_not_supported: "WebAuthn is not supported in this browser"
+      operation_aborted: "Operation was aborted"
+      registration_failed: "Security key registration failed: {error}"
+      deletion_failed: "Could not delete security key"
+      rename_failed: "Could not rename security key"
+      name_required: "Please enter a name"
+      
   # 2FA Management
   two_fa_manage:
     title: "Two-Factor Authentication"
@@ -550,7 +604,6 @@ settings:
     phone: Your landline number
     current_address: Current address
     no_address: No address entered yet
-
   # Change Password
   password_change:
     title: "Change Password"
@@ -1489,6 +1542,8 @@ login:
     token_invalid: The two-factor authentication code you entered is invalid. 
       Please try again.
   logout: Logout
+  or: "or"
+  passkey_btn: Login with passkey
   topbar: Log in
   submit_btn: Login
   error_no_auth: Unfortunately we cannot find this e-mail address or password. 
