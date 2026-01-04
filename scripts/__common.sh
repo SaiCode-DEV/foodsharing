@@ -165,3 +165,32 @@ function run_codeception() {
   exec-in-container-asroot app rm --recursive --force cache/.views-cache cache/di-cache.php
   exec-in-container app vendor/bin/codecept run "$@"
 }
+
+function get-expected-container-count() {
+  "$dir"/docker-compose config --services | wc -l | tr -d '[:space:]'
+}
+
+function get-running-container-count() {
+  "$dir"/docker-compose ps --status running --format '{{.Name}}' 2>/dev/null | wc -l | tr -d '[:space:]' || echo "0"
+}
+
+# Services that are optional (may fail or not be running)
+OPTIONAL_SERVICES="docs"
+
+function is-environment-ready() {
+  local expected_count running_count optional_count
+  expected_count=$(get-expected-container-count)
+  
+  # Count optional services that are defined
+  optional_count=0
+  for service in $OPTIONAL_SERVICES; do
+    if "$dir"/docker-compose config --services 2>/dev/null | grep -q "^${service}$"; then
+      ((optional_count++)) || true
+    fi
+  done
+  
+  running_count=$(get-running-container-count)
+  
+  # Environment is ready if running >= expected - optional
+  [[ "$running_count" -ge $((expected_count - optional_count)) ]]
+}

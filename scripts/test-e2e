@@ -9,9 +9,8 @@ log-header "Playwright E2E Tests"
 echo ""
 
 # Check if test environment is fully initialized
-container_count=$("$dir"/docker-compose ps | grep -c "Up" | awk '{print $1}')
-if [[ ! "$container_count" -eq 11 ]]; then
-    log-header "Test environment not fully initialized (only $container_count/11 containers running)"
+if ! is-environment-ready; then
+    log-header "Test environment not fully initialized (only $(get-running-container-count)/$(get-expected-container-count) containers running)"
     echo "🔄 Initializing test environment..."
     "$dir"/test
 fi

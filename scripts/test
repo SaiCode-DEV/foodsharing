@@ -4,7 +4,7 @@ dir=$(dirname "$0")
 # shellcheck source=./__common.sh
 source "$dir"/__common.sh
 
-if [[ ! $("$dir"/docker-compose ps | grep -c "Up" | awk '{print $1}') -eq 11 ]]; then
+if ! is-environment-ready; then
     log-header "Bringing up containers ..."
     "$dir"/docker-compose up --detach
     
