@@ -175,7 +175,7 @@ function get-running-container-count() {
 }
 
 # Services that are optional (may fail or not be running)
-OPTIONAL_SERVICES="docs"
+OPTIONAL_SERVICES="docs mailqueuerunner"
 
 function is-environment-ready() {
   local expected_count running_count optional_count
