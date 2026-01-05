@@ -86,7 +86,7 @@ class SettingsTransactionsTest extends Unit
 
     public function testLoadOfOptionFromFsFoodsaverHasOptions(): void
     {
-        $foodsaver = $this->tester->createFoodsaver(null, ['option' => '']);
+        $foodsaver = $this->tester->createFoodsaver(null);
         $this->tester->haveInDatabase('fs_foodsaver_has_options', [
             'foodsaver_id' => $foodsaver['id'],
             'option_type' => 2,
@@ -109,7 +109,7 @@ class SettingsTransactionsTest extends Unit
 
     public function testNoValueDefined(): void
     {
-        $foodsaver = $this->tester->createFoodsaver(null, ['option' => '']);
+        $foodsaver = $this->tester->createFoodsaver(null);
         $this->session->expects($this->any())->method('id')->willReturn($foodsaver['id']);
         // Reject content in new format, reject old format ('activity-listings')
         $this->session->expects($this->any())->method('has')
@@ -121,7 +121,7 @@ class SettingsTransactionsTest extends Unit
 
     public function testStartRequestEMailChange()
     {
-        $foodsaver = $this->tester->createStoreCoordinator('NeedThePassword', ['option' => '']);
+        $foodsaver = $this->tester->createStoreCoordinator('NeedThePassword');
 
         $this->tester->cantSeeInDatabase('fs_mailchange', ['foodsaver_id' => $foodsaver['id']]);
         $this->session->expects($this->any())->method('id')->willReturn($foodsaver['id']);
@@ -152,7 +152,7 @@ class SettingsTransactionsTest extends Unit
 
     public function testCancelRequestEMailChange()
     {
-        $foodsaver = $this->tester->createStoreCoordinator('NeedThePassword', ['option' => '']);
+        $foodsaver = $this->tester->createStoreCoordinator('NeedThePassword');
 
         $this->tester->cantSeeInDatabase('fs_mailchange', ['foodsaver_id' => $foodsaver['id']]);
         $this->session->expects($this->any())->method('id')->willReturn($foodsaver['id']);
@@ -183,7 +183,7 @@ class SettingsTransactionsTest extends Unit
 
     public function testVerificationOfEMailChangeRequest()
     {
-        $foodsaver = $this->tester->createStoreCoordinator('NeedThePassword', ['option' => '']);
+        $foodsaver = $this->tester->createStoreCoordinator('NeedThePassword');
 
         $this->tester->cantSeeInDatabase('fs_mailchange', ['foodsaver_id' => $foodsaver['id']]);
         $this->session->expects($this->any())->method('id')->willReturn($foodsaver['id']);
@@ -215,7 +215,7 @@ class SettingsTransactionsTest extends Unit
 
     public function testVerificationOfEMailChangeRequestFailsEMailInUse()
     {
-        $foodsaver = $this->tester->createStoreCoordinator('NeedThePassword', ['option' => '']);
+        $foodsaver = $this->tester->createStoreCoordinator('NeedThePassword');
 
         $this->tester->cantSeeInDatabase('fs_mailchange', ['foodsaver_id' => $foodsaver['id']]);
         $this->session->expects($this->any())->method('id')->willReturn($foodsaver['id']);
@@ -237,7 +237,7 @@ class SettingsTransactionsTest extends Unit
         $this->assertNotNull($tokens);
         $token = $tokens[0][1];
 
-        $foodsaver2 = $this->tester->createStoreCoordinator('NeedThePassword', ['option' => '', 'email' => strtolower($changeRequest->email)]);
+        $foodsaver2 = $this->tester->createStoreCoordinator('NeedThePassword', ['email' => strtolower($changeRequest->email)]);
 
         try {
             $this->transaction->verifyAndCompleteEMailChange($token);
@@ -257,7 +257,7 @@ class SettingsTransactionsTest extends Unit
         $request->oldPassword = '';
         $request->newPassword = '';
 
-        $foodsaver = $this->tester->createFoodsaver('oldpassword', ['option' => '']);
+        $foodsaver = $this->tester->createFoodsaver('oldpassword');
         $this->session->expects($this->any())->method('id')->willReturn($foodsaver['id']);
 
         $this->expectException(AccessDeniedHttpException::class);
@@ -271,7 +271,7 @@ class SettingsTransactionsTest extends Unit
         $request->oldPassword = 'oldpassword';
         $request->newPassword = 'abc';
 
-        $foodsaver = $this->tester->createFoodsaver($request->oldPassword, ['option' => '']);
+        $foodsaver = $this->tester->createFoodsaver($request->oldPassword);
         $this->session->expects($this->any())->method('id')->willReturn($foodsaver['id']);
 
         $this->expectException(BadRequestHttpException::class);
@@ -285,7 +285,7 @@ class SettingsTransactionsTest extends Unit
         $request->oldPassword = 'oldpassword';
         $request->newPassword = 'abcabcabc';
 
-        $foodsaver = $this->tester->createFoodsaver($request->oldPassword, ['option' => '']);
+        $foodsaver = $this->tester->createFoodsaver($request->oldPassword);
         $this->session->expects($this->any())->method('id')->willReturn($foodsaver['id']);
 
         $this->expectException(BadRequestHttpException::class);
@@ -299,7 +299,7 @@ class SettingsTransactionsTest extends Unit
         $request->oldPassword = 'oldpassword';
         $request->newPassword = 'abcdefghijABC123';
 
-        $foodsaver = $this->tester->createFoodsaver($request->oldPassword, ['option' => '']);
+        $foodsaver = $this->tester->createFoodsaver($request->oldPassword);
         $this->session->expects($this->any())->method('id')->willReturn($foodsaver['id']);
         $this->tester->assertTrue(password_verify(
             $request->oldPassword,
