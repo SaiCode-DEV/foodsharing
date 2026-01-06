@@ -79,6 +79,14 @@ services:
   #------------------------------------
   docs:
     container_name: foodsharing_dev_docs
-    command: sh -c "yarn && yarn docs:dev"
+    command: >
+      sh -c "
+        echo 'Waiting for api_dump.json to be generated...';
+        while [ ! -s /app/docs/data/api_dump.json ]; do
+          sleep 2;
+        done;
+        echo 'api_dump.json found, starting VitePress...';
+        yarn && yarn docs:dev
+      "
     ports:
       - "13000:3000"
