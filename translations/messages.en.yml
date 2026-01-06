@@ -360,7 +360,7 @@ settings:
     authenticator_app: "Authenticator App"
     authenticator_app_description: "Use an authenticator app for additional security
       when logging in."
-    
+
     # Passkeys Section
     passkeys_section: "Security Keys"
     passkeys_info: "Security keys (Passkeys) enable secure and passwordless authentication."
@@ -373,9 +373,11 @@ settings:
     never_used: "Never used"
     delete: "Delete"
     rename: "Rename"
-    other_domain_info: "This security key was registered on {domain} and cannot be used on the current domain."
-    domain_info: "Security keys are domain-specific. You must separately register your security key on foodsharing.de, foodsharing.network, etc."
-    
+    other_domain_info: "This security key was registered on {domain} and cannot be
+      used on the current domain."
+    domain_info: "Security keys are domain-specific. You must separately register
+      your security key on foodsharing.de, foodsharing.network, etc."
+
     # Passkey Register Modal
     register_modal:
       title: "Register New Security Key"
@@ -384,7 +386,7 @@ settings:
       device_name_description: "Enter a name to identify this security key"
       cancel: "Cancel"
       register: "Register"
-      
+
     # Passkey Delete Modal
     delete_modal:
       title: "Delete Security Key"
@@ -392,7 +394,7 @@ settings:
       device_name: "Device"
       cancel: "Cancel"
       delete: "Delete"
-      
+
     # Passkey Rename Modal
     rename_modal:
       title: "Rename Security Key"
@@ -416,8 +418,12 @@ settings:
       deletion_failed: "Could not delete security key"
       rename_failed: "Could not rename security key"
       name_required: "Please enter a name"
-      
+
   # 2FA Management
+    security_keys: Security keys (passkeys)
+    security_keys_description: Security keys enable secure, password-free login 
+      with your device.
+    device_name_placeholder: e. g. iPhone, YubiKey, laptop
   two_fa_manage:
     title: "Two-Factor Authentication"
     intro: "Here you can change the settings for two-factor authentication."
@@ -3019,6 +3025,8 @@ legal:
       the active system, but is archived separately based on Article 17 paragraph
       3 sentence 1 letter b GDPR:'
     legal_2: Laws on retention periods (page in German)
+  latest_change: Last modified on {date}
+  show_changes: Show changes
 answers: Which answers are correct?
 name: Name
 bcard:

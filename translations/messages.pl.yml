@@ -375,6 +375,29 @@ settings:
     status_is: Aktualny status to
     active: Aktywny
     inactive: Nieaktywny
+  two_fa_enable:
+    tabs:
+      qr_code: Skanuj kod QR
+      confirm: Potwierdź aktywację
+    qrcode:
+      title: Skanuj kod QR
+    secret_toggle: Pokaż kod (jeśli kod QR nie działa)
+    confirm:
+      title: Potwierdź aktywację
+    generated_code_label: Wygenerowany kod
+    activate: Aktywuj
+  two_fa_disable:
+    deactivate: Deaktywuj
+  email_change:
+    title: Zmień adres email
+    explanation_password: Potwierdź zmianę swoim aktualnym hasłem
+    new_email_label: Nowy adres email
+    confirm_email_label: Potwierdź adres email
+    password_label: Aktualne hasło
+    password_placeholder: Twoje hasło
+    cancel: Anuluj
+    submit: Zmień email
+    question: 'Czy na pewno chcesz zmienić twój adres email na:'
 bcard:
   title: Generator wizytówek
   card: Twoja foodsharing-wizytówka
