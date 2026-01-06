@@ -9,15 +9,8 @@ Foodsharing is mostly written in [PHP](https://www.php.net/docs.php) and [vue.js
 ### Requirements
 - **UNIX** (or [WSL](https://ubuntu.com/tutorials/install-ubuntu-on-wsl2-on-windows-10#1-overview))
 - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-- [Node.js (20.16.0)](https://nodejs.org/)
-    - Newer versions can cause conflicts with the legacy code.
 - [Docker](https://docs.docker.com/)
 
-::: info
-
-To switch between Node.js versions on a **UNIX** system, you can use [nvm](https://github.com/nvm-sh/nvm).
-
-:::
 
 ## Project structure
 
