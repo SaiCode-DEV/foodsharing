@@ -7,16 +7,16 @@ namespace Foodsharing\RestApi;
 use Carbon\Carbon;
 use Foodsharing\Modules\Donation\Query\TwingleDonationDataQuery;
 use Foodsharing\RestApi\Models\Donation\DonationGoalInformation;
+use Nelmio\ApiDocBundle\Attribute\Model;
 use OpenApi\Attributes as OA;
-use OpenApi\Attributes\JsonContent;
-use OpenApi\Attributes\Response;
 use OpenApi\Attributes\Tag;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response as HttpResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 
+#[Tag('donation')]
 final class DonationGoalRestController extends AbstractFoodsharingRestController
 {
     private const int TEN_MINUTES_IN_SECONDS = 600;
@@ -28,15 +28,15 @@ final class DonationGoalRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Get(summary: 'Returns cached information of foodsharing donation-goal via third service provider twingle.')]
-    #[Tag('donation')]
     #[Route('/donation-goal', methods: ['GET'])]
-    #[Response(
-        response: HttpResponse::HTTP_OK,
-        description: 'Successful',
-        content: new JsonContent(ref: DonationGoalInformation::class)
-    )]
-    public function getInformation(): JsonResponse
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: DonationGoalInformation::class))]
+    #[OA\Response(response: Response::HTTP_SERVICE_UNAVAILABLE, description: 'Currently unavailable because there is no donation campaign')]
+    public function getInformation(bool $isUnavailable = true): Response
     {
+        if ($isUnavailable) {
+            throw new HttpException(Response::HTTP_SERVICE_UNAVAILABLE, 'This endpoint is currently disabled.');
+        }
+
         $donationGoalInformation = $this->cache->get('foodsharingDonationGoalInformation', function (ItemInterface $cacheItem) {
             $cacheItem->expiresAfter(self::TEN_MINUTES_IN_SECONDS);
 
@@ -45,10 +45,7 @@ final class DonationGoalRestController extends AbstractFoodsharingRestController
             return $this->convertTwingleDonationData($twingleDonationData);
         });
 
-        return $this->json(
-            $donationGoalInformation,
-            HttpResponse::HTTP_OK,
-        );
+        return $this->respondOK($donationGoalInformation);
     }
 
     private function convertTwingleDonationData(array $twingleDonationDataAsArray): DonationGoalInformation
@@ -59,7 +56,7 @@ final class DonationGoalRestController extends AbstractFoodsharingRestController
             isGoalReached: $twingleDonationDataAsArray['amount'] >= $twingleDonationDataAsArray['target'],
             percentOfGoalReached: $twingleDonationDataAsArray['percentage'],
             receivedDonationsInEuros: $twingleDonationDataAsArray['amount'],
-            updatedAt: Carbon::now()->toIso8601String(),
+            updatedAt: Carbon::now(),
         );
     }
 }

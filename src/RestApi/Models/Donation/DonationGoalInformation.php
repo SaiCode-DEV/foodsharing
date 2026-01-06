@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Foodsharing\RestApi\Models\Donation;
 
+use DateTime;
 use OpenApi\Attributes as OA;
 
 class DonationGoalInformation
@@ -38,11 +39,7 @@ class DonationGoalInformation
     )]
     public readonly bool $isGoalReached;
 
-    #[OA\Property(
-        description: 'time of data status (timezone is UTC)',
-        example: '2019-02-01T03:45:27.612584Z',
-    )]
-    public readonly string $updatedAt;
+    public readonly DateTime $updatedAt;
 
     public function __construct(
         int $donators,
@@ -50,7 +47,7 @@ class DonationGoalInformation
         bool $isGoalReached,
         float $percentOfGoalReached,
         float $receivedDonationsInEuros,
-        string $updatedAt,
+        DateTime $updatedAt,
     ) {
         $this->donators = $donators;
         $this->goalInEuros = $goalInEuros;
