@@ -1,0 +1,52 @@
+#!/bin/bash
+# Script to parse all files in ./release-notes/release-x and generate a markdown file for a given year and month
+
+set -e
+
+# Loop through all subfolders in ./release-notes
+for DIR in ./release-notes/*/; do
+    DIRNAME=$(basename "$DIR")
+    HEADER_FILE="$DIR/header.md"
+    OUTFILE="$DIR${DIRNAME}.md"
+
+    # Only proceed if header.md exists
+    if [ -f "$HEADER_FILE" ]; then
+        # Start with empty file
+        > "$OUTFILE"
+
+        # Write the full content of header.md to the output file
+
+        cat "$HEADER_FILE" >> "$OUTFILE"
+        echo "" >> "$OUTFILE"
+        echo "" >> "$OUTFILE"
+
+        # Collect all tags from .md files except header.md
+        TAGS=$(for f in "$DIR"*.md; do [ "$(basename "$f")" != "header.md" ] && grep '^tag:' "$f" | sed 's/^tag: //'; done | sort | uniq)
+
+        for TAG in $TAGS; do
+            echo "## $TAG" >> "$OUTFILE"
+            for f in "$DIR"*.md; do
+                if [ "$(basename "$f")" = "header.md" ]; then continue; fi
+                FILE_TAG=$(grep '^tag:' "$f" | sed 's/^tag: //')
+                if [ "$FILE_TAG" = "$TAG" ]; then
+                    TEXT=$(grep '^text:' "$f" | sed 's/^text: //')
+                    MR=$(grep '^mr:' "$f" | sed 's/^mr: //')
+                    # Format MR(s) as (!number) or (!n1, !n2)
+                    if [[ "$MR" =~ ^\[.*\]$ ]]; then
+                        # Remove brackets and spaces, split by comma
+                        MRS=$(echo "$MR" | sed 's/^\[//;s/\]$//;s/, /,/g')
+                        # Remove any leading ! from numbers, then format
+                        FORMATTED_MR=$(echo "$MRS" | awk -F, '{for(i=1;i<=NF;i++){gsub(/^!/,"",$i); printf "!%s%s", $i, (i<NF?", ":"")}}')
+                        echo "- $TEXT ($FORMATTED_MR)" >> "$OUTFILE"
+                    else
+                        # Remove any leading ! from single MR
+                        CLEAN_MR=$(echo "$MR" | sed 's/^!//;s/^\[//;s/\]$//')
+                        echo "- $TEXT (!${CLEAN_MR})" >> "$OUTFILE"
+                    fi
+                fi
+            done
+            echo "" >> "$OUTFILE"
+        done
+        echo "Done: $OUTFILE"
+    fi
+done

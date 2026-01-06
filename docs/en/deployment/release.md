@@ -12,8 +12,35 @@ Please don't recycle milestones, but always use a new one for each release.
 
 ## Release Notes
 
-We build a small python script to collect all german release notes text and images. Create gitlab in your profile in menu "Access Tokens" with permission level "read_api".
-Script command is: python3 ./scripts/releaseNotes.py
+The script release-notes-merge is executed shortly before the release and merges all markdown files from release-notes/milestone into a single file. The files are grouped by topic (by tags) and merge request numbers are correctly formatted (e.g. (!4067)). This automatically creates a clear and structured release overview.
+
+The file header.md in the release-notes/milestone directory contains introduction text for the release notes.
+
+### Adding Release Notes for a Merge Request
+
+For each relevant merge request (MR), create a separate markdown file in the `release-notes/release-p/` directory. The filename can be chosen freely, but it should include at least the first MR number (e.g. `4489.md` or, for multiple related MRs, `4360-4462-4480.md`).
+
+The structure of the file should be:
+
+```markdown
+---
+text: Short description of the change (in German)
+mr: [MR_NUMBER, ...]
+tag: Category (e.g. Account, Backend, UI, ...)
+---
+```
+
+**Example:**
+
+```markdown
+---
+text: Login per Passkey ist jetzt möglich. Auf Handys außerdem per Fingerabdruck oder FaceID.
+mr: [4489]
+tag: Account
+---
+```
+
+These files are automatically included when generating the release notes.
 
 ## Workflow
 
