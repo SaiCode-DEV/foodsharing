@@ -88,9 +88,9 @@ store:
     applicationSummary:
       intro: 'Quando enviares a tua candidatura, os responsáveis pela empresa verão
         as seguintes informações:'
-      time: Data da candidatura
+      time: A data da candidatura
       fullName: O teu nome completo ({first_name} {last_name})
-      verified: Estado da verificação ({status})
+      verified: O teu estado da verificação ({status})
       distance: A distância entre a tua residência e a empresa ({distance})
       storeList: A lista das tuas empresas
       text: A tua mensagem de candidatura
@@ -2457,6 +2457,8 @@ settings:
     authenticator_app: Aplicação autenticadora
     authenticator_app_description: Use um aplicativo autenticador para obter 
       segurança adicional ao iniciar a sessão.
+    error:
+      name_required: Por favor, insira um nome
   two_fa_manage:
     title: Autenticação de dois fatores
     intro: Aqui pode alterar as configurações da autenticação de dois fatores.
@@ -2732,8 +2734,10 @@ register:
   lastname_minLength: 'O apelido deve consistir em pelo menos dois caracteres'
   finish: 'Enviar inscrição'
   topbar: 'Participar'
-  join_success_message: 'O processo de registo no foodsharing foi completado com sucesso.
-    Agora pode fazer o login com o teu e-mail e palavra-passe.'
+  join_success_message: 'Concluíste com sucesso o teu registo no foodsharing. Antes
+    de te poderes iniciar sessão com o teu e-mail e palavra-passe, tens de confirmar
+    o teu endereço de e-mail. Para tal, enviámos um e-mail com o link de confirmação
+    para o teu endereço.'
   email_required: 'É precissário um endereço de e-mail'
   other: 'diverso'
   have_read_the_legal_stuff2: 'aqui'
@@ -3776,6 +3780,12 @@ help:
         estão envolvidos.\n---\nPode ler aqui as instruções para editar uma mensagem:
         [Editar uma mensagem](https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)\n\
         (Infelizmente, até agora só em alemão)\n"
+    achievementDuplicateMode:
+      md: |
+        Os stickers podem servir como marcação em situações muito diferentes. Por isso, é possível definir se o sticker pode ser atribuído várias vezes ao mesmo tempo à mesma pessoa.
+
+        - **Sobrescrever:** Não é possível receber o autocolante várias vezes ao mesmo tempo. Se o autocolante for atribuído novamente, a atribuição atual substitui ou prolonga a anterior. Isto é utilizado, por exemplo, para a formação em higiene. Quem renova a formação, o seu autocolante é simplesmente prolongado. Selecione *Sobrescrever* se o autocolante tiver de marcar um estado atual e inequívoco.
+        - **Atribuir várias vezes:** É possível atribuir várias vezes ao mesmo tempo. Os autocolantes atribuídos várias vezes são apresentados agrupados no perfil, mas todas as informações correspondentes estão acessíveis. Isto pode ser utilizado, por exemplo, para documentar recolhas de amostras, das quais são necessárias várias. Selecione *Atribuir várias vezes* se cada atribuição individual for importante e tiver de permanecer rastreável.
 test:
   vars: O meu nome é [NAME] e tenho [AGE] anos
 totp_code: Introduza o código de dois fatores gerado ou um dos códigos de 

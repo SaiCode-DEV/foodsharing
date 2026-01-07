@@ -398,6 +398,15 @@ settings:
     cancel: Anuluj
     submit: Zmień email
     question: 'Czy na pewno chcesz zmienić twój adres email na:'
+  password_change:
+    new_password_placeholder: Minimum 8 znaków
+    new_password_required: Hasło musi zawierać minimum 8 znaków
+    new_password_must_be_trimmed: Hasło nie może zaczynać się od lub kończyć na 
+      spacji
+    new_password_must_be_complex: Nowe hasło musi zawierać wielkie i małe litery
+      oraz cyfry
+    confirm_password_label: Potwierdź nowe hasło
+    confirm_password_placeholder: Powtórz hasło
 bcard:
   title: Generator wizytówek
   card: Twoja foodsharing-wizytówka
