@@ -2,7 +2,7 @@
 
 namespace Foodsharing\Command;
 
-use Foodsharing\Modules\Group\GroupGateway;
+use Foodsharing\Modules\Maintenance\MaintenanceGateway;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,14 +12,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 class RecreateGroupStructureCommand extends Command
 {
     public function __construct(
-        private readonly GroupGateway $groupGateway
+        private readonly MaintenanceGateway $maintenanceGateway
     ) {
         parent::__construct();
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->groupGateway->recreateClosure();
+        $this->maintenanceGateway->recreateClosure();
 
         return Command::SUCCESS;
     }

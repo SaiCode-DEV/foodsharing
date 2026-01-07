@@ -8,7 +8,6 @@ use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\FoodsaverTransactions;
-use Foodsharing\Modules\Group\GroupGateway;
 use Foodsharing\Modules\Region\ForumTransactions;
 use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Modules\Store\StoreMaintenanceTransactions;
@@ -26,7 +25,6 @@ class MaintenanceService
         private readonly FoodsaverTransactions $foodsaverTransactions,
         private readonly MaintenanceGateway $maintenanceGateway,
         private readonly BellUpdateTrigger $bellUpdateTrigger,
-        private readonly GroupGateway $groupGateway,
         private readonly StoreMaintenanceTransactions $storeMaintenanceTransactions,
         private readonly UploadsTransactions $uploadsTransactions,
         private readonly IMAPFolderCleanupHelper $imapFolderCleanupHelper,
@@ -162,7 +160,7 @@ class MaintenanceService
     private function rebuildRegionClosure(): void
     {
         ConsoleHelper::info('rebuilding region closure...');
-        $this->groupGateway->recreateClosure();
+        $this->maintenanceGateway->recreateClosure();
         ConsoleHelper::success('OK');
     }
 
