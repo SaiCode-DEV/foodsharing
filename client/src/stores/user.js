@@ -70,6 +70,10 @@ export const useUserStore = defineStore('user', {
     hasBouncingEmail: () => false,
     // TODO: this can be removed as soon as login without activation is not possible anymore
     hasActiveEmail: (state) => state.details?.hasActiveEmail ?? true,
+    hadPassport: (state) => {
+      if (!state.isLoadingFinished) return null
+      return state.details?.lastPassUntilValid !== null
+    },
     isPassportInvalid: (state) => {
       if (!state.isLoadingFinished) return null
       return state.details?.lastPassUntilValid ? (state.details.lastPassUntilValidInDays <= PASSPORT_STATUS.INVALID) : true

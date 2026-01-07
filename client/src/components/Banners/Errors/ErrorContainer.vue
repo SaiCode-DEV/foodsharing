@@ -108,7 +108,7 @@ export default {
           }],
         })
       }
-      if (this.userStore.isFoodsaver && this.userStore.isPassportInvalid) {
+      if (this.userStore.isFoodsaver && this.userStore.hadPassport && this.userStore.isPassportInvalid) {
         list.push({
           field: 'passport_is_invalid',
           links: [{
@@ -117,7 +117,7 @@ export default {
           },
           ],
         })
-      } else if (this.userStore.isFoodsaver && this.userStore.isPassportInvalidSoon) {
+      } else if (this.userStore.isFoodsaver && this.userStore.hadPassport && this.userStore.isPassportInvalidSoon) {
         list.push({
           field: 'passport_is_invalid_soon',
           days: this.userStore.details.lastPassUntilValidInDays,
