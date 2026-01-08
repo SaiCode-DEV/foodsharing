@@ -25,7 +25,7 @@ class LocaleApiCest
         $I->sendGET('api/locale');
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
 
-        $I->sendPOST('api/locale', ['locale' => 'de']);
+        $I->sendPUT('api/locale?locale=de');
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
     }
 
@@ -50,7 +50,7 @@ class LocaleApiCest
     public function canSetExistingLocale(ApiTester $I, Example $example): void
     {
         $I->login($this->user['email']);
-        $I->sendPOST('api/locale', ['locale' => $example[0]]);
+        $I->sendPUT('api/locale?locale=' . $example[0]);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson([
@@ -61,7 +61,7 @@ class LocaleApiCest
     public function canNotSetEmptyLocale(ApiTester $I): void
     {
         $I->login($this->user['email']);
-        $I->sendPOST('api/locale', ['locale' => '']);
+        $I->sendPUT('api/locale?locale=');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson([
