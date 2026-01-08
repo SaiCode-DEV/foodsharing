@@ -120,9 +120,9 @@ class MailboxGateway extends BaseGateway
              JOIN (
                SELECT mailbox_id FROM fs_bezirk r
                  JOIN fs_botschafter a ON r.id = a.bezirk_id
-                 WHERE a.foodsaver_id = :fs AND r.mailbox_id IS NOT NULL
+                 WHERE a.foodsaver_id = :userId AND r.mailbox_id IS NOT NULL
                UNION
-               SELECT mailbox_id FROM fs_foodsaver WHERE id = :fs AND mailbox_id IS NOT NULL
+               SELECT mailbox_id FROM fs_foodsaver WHERE id = :userId AND mailbox_id IS NOT NULL
                UNION
                SELECT mailbox_id FROM fs_mailbox_member WHERE foodsaver_id = :userId
              ) mb ON m.mailbox_id = mb.mailbox_id
