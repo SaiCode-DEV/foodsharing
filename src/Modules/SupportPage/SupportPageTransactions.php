@@ -4,7 +4,7 @@ namespace Foodsharing\Modules\SupportPage;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\RestApi\Models\SupportPage\TicketModel;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 use ZammadAPIClient\Client;
 use ZammadAPIClient\Resource\Ticket;
 use ZammadAPIClient\Resource\User;
@@ -22,7 +22,7 @@ class SupportPageTransactions
      * Sends the ticket to the Zammad API and returns the ticket ID.
      *
      * @return int the created ticket's id
-     * @throws BadRequestHttpException if the Zammad server cannot be reached
+     * @throws ServiceUnavailableHttpException if the Zammad server cannot be reached
      */
     public function createTicket(TicketModel $ticketModel): int
     {
@@ -34,6 +34,8 @@ class SupportPageTransactions
 
     /**
      * Creates a new ticket and return its id.
+     *
+     * @throws ServiceUnavailableHttpException if the Zammad server cannot be reached
      */
     private function sendTicket(Client $client, TicketModel $ticketModel): int
     {
@@ -68,7 +70,7 @@ class SupportPageTransactions
         $response = $ticket->save();
 
         if (!empty($response->getError())) {
-            throw new BadRequestHttpException(message: $ticket->getError());
+            throw new ServiceUnavailableHttpException(message: $ticket->getError());
         }
 
         return $ticket->getValues()['id'];

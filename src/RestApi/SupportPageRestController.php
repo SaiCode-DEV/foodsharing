@@ -8,12 +8,11 @@ use Foodsharing\RestApi\Models\SupportPage\TicketModel;
 use OpenApi\Attributes\Post;
 use OpenApi\Attributes\Response;
 use OpenApi\Attributes\Tag;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\RateLimiter\RateLimiterFactory;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Tag('support')]
 final class SupportPageRestController extends AbstractFoodsharingRestController
@@ -28,17 +27,13 @@ final class SupportPageRestController extends AbstractFoodsharingRestController
     #[Post(summary: 'Creates a new support ticket')]
     #[Route('/support/ticket', methods: ['POST'])]
     #[Response(response: HttpResponse::HTTP_OK, description: 'Successful')]
-    #[Response(response: HttpResponse::HTTP_BAD_REQUEST, description: 'Invalid data')]
     #[Response(response: HttpResponse::HTTP_SERVICE_UNAVAILABLE, description: 'Support API is not available')]
-    #[ParamConverter('ticketModel', class: TicketModel::class, converter: 'fos_rest.request_body')]
     public function createTicket(
-        TicketModel $ticketModel,
-        ValidatorInterface $validator,
+        #[MapRequestPayload] TicketModel $ticketModel,
         Request $request,
         RateLimiterFactory $supportTicketLimiter
     ): HttpResponse {
         $this->checkRateLimit($request, $supportTicketLimiter);
-        $this->assertThereAreNoValidationErrors($validator, $ticketModel);
 
         $ticketId = $this->supportPageTransactions->createTicket($ticketModel);
 

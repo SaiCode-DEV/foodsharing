@@ -26,6 +26,9 @@ class TicketModel
     #[OA\Property(description: 'The first name of the user')]
     public string $firstName;
 
+    /**
+     * @var TicketAttachment[]
+     */
     #[OA\Property(description: 'Optional list of attached files')]
     #[Type('array<Foodsharing\RestApi\Models\SupportPage\TicketAttachment>')]
     public array $attachments;
