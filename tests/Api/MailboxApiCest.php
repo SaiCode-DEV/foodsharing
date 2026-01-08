@@ -42,11 +42,11 @@ class MailboxApiCest
     public function canReadPersonalMailbox(ApiTester $I, Example $example): void
     {
         $folder = self::MAILBOX_FOLDERS[$example[0]];
-        $I->sendGet("api/mailbox/all/$this->ambassadorMailboxId/$folder");
+        $I->sendGet("api/mailboxes/{$this->ambassadorMailboxId}/folders/{$folder}/mails");
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
 
         $I->login($this->ambassador['email']);
-        $I->sendGet("api/mailbox/all/$this->ambassadorMailboxId/$folder");
+        $I->sendGet("api/mailboxes/{$this->ambassadorMailboxId}/folders/{$folder}/mails");
         $I->seeResponseCodeIs(HttpCode::OK);
     }
 
@@ -55,13 +55,13 @@ class MailboxApiCest
         $email = $this->createRandomEmail();
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost("api/mailbox/$this->ambassadorMailboxId", $email);
+        $I->sendPost("api/mailboxes/{$this->ambassadorMailboxId}/mails", $email);
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
 
         $I->login($this->ambassador['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost("api/mailbox/$this->ambassadorMailboxId", $email);
-        $I->seeResponseCodeIs(HttpCode::CREATED);
+        $I->sendPost("api/mailboxes/{$this->ambassadorMailboxId}/mails", $email);
+        $I->seeResponseCodeIs(HttpCode::OK);
     }
 
     public function canNotSendEmailWithNonExistentAttachment(ApiTester $I): void
@@ -71,7 +71,7 @@ class MailboxApiCest
 
         $I->login($this->ambassador['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost("api/mailbox/$this->ambassadorMailboxId", $email);
+        $I->sendPost("api/mailboxes/{$this->ambassadorMailboxId}/mails", $email);
         $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
     }
 
@@ -81,8 +81,8 @@ class MailboxApiCest
 
         $I->login($this->ambassador['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost("api/mailbox/$this->ambassadorMailboxId", $email);
-        $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
+        $I->sendPost("api/mailboxes/{$this->ambassadorMailboxId}/mails", $email);
+        $I->seeResponseCodeIs(HttpCode::UNPROCESSABLE_ENTITY);
     }
 
     private function createRandomEmail(int $numAttachments = 0): array

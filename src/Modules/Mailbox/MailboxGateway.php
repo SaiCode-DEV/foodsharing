@@ -7,10 +7,10 @@ use DateTimeZone;
 use Ddeboer\Imap\Message\EmailAddress;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Exception;
-use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
+use Foodsharing\Modules\Core\Pagination;
 use Foodsharing\Modules\Mailbox\DTO\Mailbox;
 use Foodsharing\Modules\Mailbox\DTO\Region;
 use Foodsharing\RestApi\Models\Region\RegionForAdministration;
@@ -112,7 +112,7 @@ class MailboxGateway extends BaseGateway
 		', $mailboxIds);
     }
 
-    public function getUnreadMailCount(Session $session): int
+    public function getUnreadMailCount(int $userId): int
     {
         return (int)$this->db->fetchValue(
             'SELECT COUNT(*) AS cnt
@@ -124,10 +124,10 @@ class MailboxGateway extends BaseGateway
                UNION
                SELECT mailbox_id FROM fs_foodsaver WHERE id = :fs AND mailbox_id IS NOT NULL
                UNION
-               SELECT mailbox_id FROM fs_mailbox_member WHERE foodsaver_id = :fs
+               SELECT mailbox_id FROM fs_mailbox_member WHERE foodsaver_id = :userId
              ) mb ON m.mailbox_id = mb.mailbox_id
              WHERE m.`read` = 0',
-            [':fs' => $session->id()]
+            [':userId' => $userId]
         );
     }
 
@@ -186,7 +186,7 @@ class MailboxGateway extends BaseGateway
      *
      * @return Email[]
      */
-    public function listEmails(int $mailboxId, int $folder, int $page, int $pageSize): array
+    public function listEmails(int $mailboxId, int $folder, Pagination $pagination): array
     {
         $query = '
 			SELECT 	`id`,
@@ -204,14 +204,9 @@ class MailboxGateway extends BaseGateway
 			WHERE	mailbox_id = :mailbox_id
 			AND 	folder = :farray_folder
 			ORDER BY `time` DESC
-		';
-        $params = [':mailbox_id' => $mailboxId, ':farray_folder' => $folder];
+		' . $this->buildPaginationSqlLimit($pagination);
+        $params = $this->addPaginationSqlLimitParameters($pagination, [':mailbox_id' => $mailboxId, ':farray_folder' => $folder]);
 
-        if ($page >= 0 && $pageSize >= 0) {
-            $query .= ' LIMIT :page_size OFFSET :start_item_index';
-            $params['start_item_index'] = $page * $pageSize;
-            $params['page_size'] = $pageSize;
-        }
         $data = $this->db->fetchAll($query, $params);
 
         return array_map(fn ($x) => $this->parseEmail($x), $data);

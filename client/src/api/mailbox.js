@@ -1,30 +1,30 @@
 import { get, remove, patch, post } from './base'
 
 export async function getMailUnreadCount () {
-  return get('/mailbox/unread-count')
+  return (await get('/mailboxes/unread-count')).unreadCount
 }
 
-export async function setEmailProperties (emailId, isRead = null, folder = null) {
-  return patch(`/mailbox/${emailId}`, {
+export async function setEmailProperties (mailId, isRead = null, folder = null) {
+  return patch(`/mailboxes/mails/${mailId}`, {
     isRead: isRead !== null ? isRead : undefined,
     folder,
   })
 }
 
-export async function deleteEmail (emailId) {
-  return remove(`/mailbox/${emailId}`)
+export async function deleteEmail (mailId) {
+  return remove(`/mailboxes/mails/${mailId}`)
 }
 
 export async function getAllEmails (mailboxId, folderId, page, pageSize) {
-  return get(`/mailbox/all/${mailboxId}/${folderId}?page=${page}&pageSize=${pageSize}`)
+  return get(`/mailboxes/${mailboxId}/folders/${folderId}/mails?page=${page}&pageSize=${pageSize}`)
 }
 
-export async function getEmail (emailId) {
-  return get(`/mailbox/${emailId}`)
+export async function getEmail (mailId) {
+  return get(`/mailboxes/mails/${mailId}`)
 }
 
 export function sendEmail (mailboxId, to, cc, bcc, subject, body, attachments, replyEmailId) {
-  return post(`/mailbox/${mailboxId}`, {
+  return post(`/mailboxes/${mailboxId}/mails`, {
     to,
     cc,
     bcc,
@@ -36,5 +36,5 @@ export function sendEmail (mailboxId, to, cc, bcc, subject, body, attachments, r
 }
 
 export async function listRegions () {
-  return get('/mailbox/regions')
+  return get('/regions/mailboxes')
 }

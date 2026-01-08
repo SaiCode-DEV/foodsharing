@@ -9,6 +9,7 @@ use Foodsharing\Lib\Mail\AsyncMail;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Mailbox\MailboxFolder;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
+use Foodsharing\Modules\Core\Pagination;
 use Foodsharing\Modules\Uploads\UploadsGateway;
 use Foodsharing\Modules\Uploads\UploadsTransactions;
 use Foodsharing\Permissions\MailboxPermissions;
@@ -45,11 +46,11 @@ class MailboxTransactions
      *
      * @return Email[]
      */
-    public function listEmails(int $mailboxId, int $folder, int $page, int $pageSize): array
+    public function listEmails(int $mailboxId, int $folder, Pagination $pagination): array
     {
         $this->mailboxGateway->updateMailboxActivityIndicator($mailboxId);
 
-        return $this->mailboxGateway->listEmails($mailboxId, $folder, $page, $pageSize);
+        return $this->mailboxGateway->listEmails($mailboxId, $folder, $pagination);
     }
 
     /**
