@@ -149,6 +149,7 @@ outdated:
     changes:
       - docs/**/*
       - scripts/**/*
+      - src/RestApi/**/*
 
 .dirs-playwright-rule:
   rules:
@@ -492,6 +493,7 @@ test:playwright:
     - if: $CI_COMMIT_BRANCH == 'master' || $CI_COMMIT_BRANCH == 'production'
     - !reference [.dirs-app-rule, rules]
     - !reference [.dirs-frontend-rule, rules]
+    - !reference [.dirs-backend-rule, rules]
     - !reference [.dirs-playwright-rule, rules]
     - if: $CI_COMMIT_BRANCH == 'production' && $SKIP_CI_TESTS == 'true'
       when: never
