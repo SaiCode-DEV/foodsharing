@@ -14,6 +14,7 @@ use Foodsharing\Modules\Core\DBConstants\Store\StoreLogAction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DBConstants\Voting\VotingScope;
 use Foodsharing\Modules\Core\DBConstants\Voting\VotingType;
+use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -29,14 +30,9 @@ class SeedCommand extends Command implements CustomCommandInterface
 
     protected OutputInterface $output;
 
-    protected $foodsaversFull = [];
     protected $foodsavers = [];
     protected $reportAdmins = [];
     protected $arbitrationAdmins = [];
-    protected $stores = [];
-    protected $chain_ids = [];
-    protected $prGroup = [];
-    protected $storesGroupAdmin = [];
 
     public static function getCommandName(): string
     {
@@ -238,17 +234,16 @@ class SeedCommand extends Command implements CustomCommandInterface
         }
     }
 
-    protected function CreateMorePickups()
+    protected function CreateMorePickups(array $stores)
     {
         for ($m = 0; $m <= 10; ++$m) {
-            $store_id = $this->getRandomIDOfArray($this->stores);
+            $store_id = $this->getRandomIDOfArray($stores);
             for ($i = 0; $i <= 10; ++$i) {
                 $pickupDate = Carbon::create(2022, 4, random_int(1, 30), random_int(1, 24), random_int(1, 59));
                 $maxFoodsavers = count($this->foodsavers) > 2 ? 2 : count($this->foodsavers);
                 for ($k = 0; $k <= $maxFoodsavers; ++$k) {
                     $foodSaver_id = $this->getRandomIDOfArray($this->foodsavers);
                     $this->helper->addCollector($foodSaver_id, $store_id, ['date' => $pickupDate->toDateTimeString()]);
-                    $this->helper->addStoreTeam($store_id, $foodSaver_id);
                 }
                 $this->progressBar(11 * $m + $i + 1, 121);
             }
@@ -269,16 +264,40 @@ class SeedCommand extends Command implements CustomCommandInterface
         $this->output->writeln('- created ' . $name . ' ' . $user['email'] . ' with password "' . $password . '"');
     }
 
-    private function createStoreAndAddToTeam(Foodsharing $I, $region, $conv1Id, $conv2Id, $statusId, $teamMembers, $addRecurringPickup = false, $is_waiting = false, $is_confirmed = true): mixed
-    {
-        $store = $I->createStore($region, $conv1Id, $conv2Id, ['betrieb_status_id' => $statusId]);
+    private function createStoreAndAddToTeam(
+        Foodsharing $I,
+        int $regionId,
+        int $statusId,
+        array $managerIds,
+        array $teamMemberIds,
+        array $waitingMemberIds,
+        array $applicantIds = [],
+        bool $addRecurringPickup = false,
+    ): array {
+        $conv1Id = $I->createConversation([], ['name' => 'betrieb_bla', 'locked' => 1])['id'];
+        $conv2Id = $I->createConversation([], ['name' => 'springer_bla', 'locked' => 1])['id'];
+        $store = $I->createStore($regionId, $conv1Id, $conv2Id, ['betrieb_status_id' => $statusId]);
+        $storeId = $store['id'];
 
-        foreach ($teamMembers as $teamMember) {
-            $I->addStoreTeam($store['id'], $teamMember['id'], $teamMember['manager'] ?? false, $is_waiting, $is_confirmed);
+        foreach ($managerIds as $managerId) {
+            $I->addStoreTeam($storeId, $managerId, true, false, true);
+            $I->addConversationMessage($managerId, $conv1Id);
+            $I->addConversationMessage($managerId, $conv2Id);
+        }
+        foreach ($teamMemberIds as $teamMemberId) {
+            $I->addStoreTeam($storeId, $teamMemberId, false, false, true);
+            $I->addConversationMessage($teamMemberId, $conv1Id);
+        }
+        foreach ($waitingMemberIds as $waitingMemberId) {
+            $I->addStoreTeam($storeId, $waitingMemberId, false, true, true);
+            $I->addConversationMessage($waitingMemberId, $conv2Id);
+        }
+        foreach ($applicantIds as $applicantId) {
+            $I->addStoreTeam($storeId, $applicantId, false, false, false);
         }
 
         if ($addRecurringPickup) {
-            $I->addRecurringPickup($store['id']);
+            $I->addRecurringPickup($storeId);
         }
 
         return $store;
@@ -348,7 +367,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         $I->createWorkingGroup('Oauth Client Administration', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::OAUTH_CLIENT_ADMINISTRATION_WORK_GROUP]);
         $I->createWorkingGroup('Quizfragen', ['parent_id' => RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP, 'id' => RegionIDs::NEW_QUIZZES_WORK_GROUP]);
 
-        $region1Subregion = $I->createRegion('Stadtteil von Göttingen', ['type' => UnitType::PART_OF_TOWN, 'parent_id' => $region1]);
+        $I->createRegion('Stadtteil von Göttingen', ['type' => UnitType::PART_OF_TOWN, 'parent_id' => $region1]);
 
         $this->output->writeln('Create achievements');
         $this->createAchievements($I);
@@ -360,17 +379,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         $user1 = $I->createFoodsharer($password, ['email' => 'user1@example.com', 'name' => 'One']);
         $this->writeUser($I, $user1, $password, 'foodsharer');
 
-        $userDataFile = 'src/Dev/userData.json';
-        if (!file_exists($userDataFile)) {
-            $this->output->write($userDataFile . 'not found');
-            exit(1);
-        }
-        $userData = json_decode(file_get_contents($userDataFile), true);
-
-        if ($userData === null) {
-            $this->output->write('userData is NULL');
-            exit(1);
-        }
+        $userData = $this->loadJsonFromFile('userData.json');
 
         $user2 = $I->createFoodsaver($password,
             [
@@ -561,34 +570,22 @@ Wir engagieren uns dafür, überschüssige Lebensmittel zu retten und sie vor de
 Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwelt!',
         ]);
 
-        // Create store team conversation
-        $this->output->writeln('- create store team conversations');
-        $conv1 = $I->createConversation([$userbot['id'], $user2['id'], $userStoreManager['id']], ['name' => 'betrieb_bla', 'locked' => 1]);
-        $conv2 = $I->createConversation([$userbot['id']], ['name' => 'springer_bla', 'locked' => 1]);
-        $I->addConversationMessage($userStoreManager['id'], $conv1['id']);
-        $I->addConversationMessage($userbot['id'], $conv1['id']);
-        $I->addConversationMessage($userbot['id'], $conv2['id']);
-
+        // Create stores
         $this->output->writeln('- create store and add team members');
-
-        $teamMembers = [
-            ['id' => $user2['id']],
-            ['id' => $userStoreManager['id'], 'manager' => true],
-            ['id' => $userbot['id'], 'manager' => true]
-        ];
 
         $regions = [
             $region1 => [
-                CooperationStatus::COOPERATION_ESTABLISHED->value => $teamMembers,
-                CooperationStatus::PERMANENTLY_CLOSED->value => [['id' => $userbot['id'], 'manager' => true]],
-                CooperationStatus::GIVES_TO_OTHER_CHARITY->value => [['id' => $userbot['id'], 'manager' => true]],
-                CooperationStatus::UNCLEAR->value => [['id' => $userbot['id'], 'manager' => true]],
+                // array structure: [managers, members, waiting, applicants]
+                CooperationStatus::COOPERATION_ESTABLISHED->value => [[$userStoreManager['id'], $userbot['id']], [$user2['id']], []],
+                CooperationStatus::PERMANENTLY_CLOSED->value => [[$userbot['id']], [], []],
+                CooperationStatus::GIVES_TO_OTHER_CHARITY->value => [[$userbot['id']], [], []],
+                CooperationStatus::UNCLEAR->value => [[$userbot['id']], [], []],
             ],
             $region2 => [
-                CooperationStatus::COOPERATION_ESTABLISHED->value => [['id' => $userbot['id']]],
-                CooperationStatus::PERMANENTLY_CLOSED->value => [['id' => $userbot['id'], 'manager' => true]],
-                CooperationStatus::GIVES_TO_OTHER_CHARITY->value => [['id' => $userbot['id'], 'manager' => true]],
-                CooperationStatus::UNCLEAR->value => [['id' => $userbot['id'], 'manager' => true]],
+                CooperationStatus::COOPERATION_ESTABLISHED->value => [[], [$userbot['id']], []],
+                CooperationStatus::PERMANENTLY_CLOSED->value => [[$userbot['id']], [], []],
+                CooperationStatus::GIVES_TO_OTHER_CHARITY->value => [[$userbot['id']], [], []],
+                CooperationStatus::UNCLEAR->value => [[$userbot['id']], [], []],
             ],
         ];
 
@@ -596,24 +593,24 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
             ['isWaiting' => true, 'isConfirmed' => false],
             ['isWaiting' => false, 'isConfirmed' => true]
         ];
-        foreach ($regions as $region => $statuses) {
-            foreach ($statuses as $status => $teamMembers) {
+        foreach ($regions as $regionId => $statuses) {
+            foreach ($statuses as $status => $userLists) {
                 $addRecurringPickup = $status === CooperationStatus::COOPERATION_ESTABLISHED->value;
-                $store = $this->createStoreAndAddToTeam($I, $region, $conv1['id'], $conv2['id'], $status, $teamMembers, $addRecurringPickup);
+                $store = $this->createStoreAndAddToTeam($I, $regionId, $status, $userLists[0], $userLists[1], $userLists[2], addRecurringPickup: $addRecurringPickup);
 
                 $additionalStoreCount = 2;
                 for ($i = 0; $i < $additionalStoreCount; ++$i) {
                     $memberState = $possibleMemberStates[random_int(0, 1)];
-                    $store = $this->createStoreAndAddToTeam($I, $region, $conv1['id'], $conv2['id'], $status, $teamMembers, $addRecurringPickup, $memberState['isWaiting'], $memberState['isConfirmed']);
+                    $store = $this->createStoreAndAddToTeam($I, $regionId, $status, $userLists[0], $userLists[1], $userLists[2]);
                 }
             }
         }
 
         $this->output->writeln('- create store chains');
-        $this->chain_ids = [];
+        $chain_ids = [];
         foreach (range(1, 50) as $_) {
             $chain = $I->addStoreChain();
-            $this->chain_ids[] = $chain['id'];
+            $chain_ids[] = $chain['id'];
             $this->progressBar($_, 50);
         }
         $this->output->writeln('');
@@ -734,12 +731,12 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
 
         // create more stores and collect their ids in a list
         $this->output->writeln('Create some stores');
-        $this->stores = [$store['id']];
+        $stores = [$store['id']];
         foreach (range(1, 40) as $_) {
             // TODO conversations are missing the other store members
             $extra_params = [];
             if (random_int(0, 1) == 1) {
-                $extra_params['kette_id'] = $this->chain_ids[random_int(0, 10)];
+                $extra_params['kette_id'] = $chain_ids[random_int(0, 10)];
             }
 
             $store = $I->createStore($region1, null, null, $extra_params);
@@ -749,7 +746,7 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
             foreach (range(0, 5) as $__) {
                 $I->addRecurringPickup($store['id']);
             }
-            $this->stores[] = $store['id'];
+            $stores[] = $store['id'];
             $this->progressBar($_, 40);
         }
         $this->output->writeln('');
@@ -768,21 +765,12 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
 
         $I->awardAchievement($this->getRandomIDOfArray($members, 15), 4, null);
 
-        $I->addConversationMessage($userStoreManager['id'], $conv1['id']);
-        $I->addConversationMessage($this->getRandomIDOfArray($members), $conv1['id']);
-        $I->addConversationMessage($userStoreManager['id'], $conv2['id']);
-        $I->addConversationMessage($this->getRandomIDOfArray($jumpers), $conv2['id']);
-
         $extra_params = [];
-        $extra_params['kette_id'] = $this->chain_ids[0];
+        $extra_params['kette_id'] = $chain_ids[0];
         $extra_params['name'] = 'Schulungsbetrieb Onboarding';
         $extra_params['betrieb_status_id'] = CooperationStatus::COOPERATION_ESTABLISHED->value;
 
-        $store = $I->createStore($region1, null, null, $extra_params);
-        $I->addStoreTeam($store['id'], $managers, true, false, true);
-        $I->addStoreTeam($store['id'], $members, false, false, true);
-        $I->addStoreTeam($store['id'], $jumpers, false, true, true);
-        $I->addStoreTeam($store['id'], $applied, false, false, false);
+        $store = $this->createStoreAndAddToTeam($I, $region1, CooperationStatus::COOPERATION_ESTABLISHED->value, $managers, $members, $jumpers, $applied);
 
         $appliedDate = Carbon::now()->addDays(-3);
         foreach ($applied as $applicant) {
@@ -815,12 +803,12 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
         $pickup = $pickup->addDay(+1);
         $this->helper->addCollector($this->getRandomIDOfArray($this->foodsavers), $store['id'], ['date' => $pickup->toDayDateTimeString(), 'confirmed' => 0]);
 
-        $this->stores[] = $store['id'];
+        $stores[] = $store['id'];
         $this->output->writeln('created Schulungsbetrieb Onboarding with id ' . $store['id']);
 
         // create pickups
         $this->output->writeln('Create more pickups');
-        $this->CreateMorePickups();
+        $this->CreateMorePickups($stores);
         $this->output->writeln('');
 
         // create foodbaskets
@@ -949,12 +937,7 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
 
     private function createAchievements(Foodsharing $I): void
     {
-        $achievementsDataFile = 'src/Dev/achievements.json';
-        if (!file_exists($achievementsDataFile)) {
-            $this->output->write($achievementsDataFile . ' not found');
-            exit(1);
-        }
-        $achievementsData = json_decode(file_get_contents($achievementsDataFile), true);
+        $achievementsData = $this->loadJsonFromFile('achievements.json');
 
         foreach ($achievementsData as $achievement) {
             $I->addAchievement($achievement);
@@ -1034,10 +1017,8 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
 
     private function createResources(): void
     {
-        $resourcesFile = 'src/Dev/resources.json';
-        $resourceCategoriesFile = 'src/Dev/resourceCategories.json';
-        $resourcesData = json_decode(file_get_contents($resourcesFile), true);
-        $resourceCategoriesData = json_decode(file_get_contents($resourceCategoriesFile), true);
+        $resourcesData = $this->loadJsonFromFile('resources.json');
+        $resourceCategoriesData = $this->loadJsonFromFile('resourceCategories.json');
 
         foreach ($resourceCategoriesData as $id => $name) {
             $categoryId = $this->helper->addResourceCategory($name);
@@ -1064,5 +1045,27 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
                 );
             }
         }
+    }
+
+    /**
+     * Loads JSON data from the file and returns it as an array.
+     *
+     * @param string $filename the file path relative to this file
+     * @param bool $isAssociative if the data is supposed to be loaded as an associative array
+     * @throws RuntimeException if the file does not exist or if the JSON data is invalid
+     */
+    private function loadJsonFromFile(string $filename, bool $isAssociative = true): array
+    {
+        $file = 'src/Dev/' . $filename;
+        if (!file_exists($file)) {
+            throw new RuntimeException("File {$file} not found");
+        }
+
+        $data = json_decode(file_get_contents($file), $isAssociative);
+        if (is_null($data)) {
+            throw new RuntimeException("JSON data from file {$file} could not be decoded");
+        }
+
+        return $data;
     }
 }
