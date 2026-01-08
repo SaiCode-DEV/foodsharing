@@ -91,6 +91,8 @@ group:
       modifier les entrées du blog
     tooltip_function_region332: Les membres de ce groupe ont accès à la liste 
       des chaînes
+    tooltip_function_region2296: Les admins de ce groupe de travail peuvent 
+      modifier les catégories de ressources et de coopérations
   function:
     tooltip_function_10: Les admins de ce groupe peuvent accepter des 
       contributions dans les forums déjà modérés. Si l’option est activée pour 
@@ -220,8 +222,12 @@ group:
         no_passport: pas de carte de membre
         with_passport: avec carte de membre
         invalid_passport: carte de membre non valable
+        all: tout·e·s
+        verified: vérifié·e
+        unverified: non vérifié·e
       already_verified: Tous les utilisateurs sélectionnés ont déjà été vérifiés
       inform_user: avec notification
+      filter_status: Afficher seulement le status
     default:
       lastname: Nom de famille
       title: Défaut
@@ -284,6 +290,7 @@ button:
   ok: D’accord
   filter_options: Options de filtre
   browse: Parcourir
+  yes_save: Oui, sauvegarder
 upload:
   crop_dialog_title: Rogner l’image
   new_file: Téléverser un nouveau fichier
@@ -1075,6 +1082,11 @@ login:
     success: Super, ton mot de passe a été changé avec succès. Tu peux 
       maintenant te reconnecter.
     bread: Réinitialiser le mot de passe
+    invalidCode: Le code n'est pas correcte. Veuillez réessayer. Ici, tu peux 
+      aussi utiliser de codes de secours.
+    request_new: Demander un nouveau mot de passe
+    token_invalid: Le code à deux facteurs renseigné est invalide. Veuillez 
+      réessayer.
   error_no_auth: Malheureusement, nous ne trouvons pas cette adresse courriel ou
     ce mot de passe, veuillez réessayer.
   error_no_email: Entre ton adresse courriel.
@@ -1089,6 +1101,14 @@ login:
   topbar: Se connecter
   submit_btn: Se connecter
   steady_login: Restez connecté
+  2fa: Authentification à deux étapes (A2F)
+  error_not_activated: Malheureusement, ton adresse courriel n'est pas encore 
+    activée.
+  or: ou
+  passkey_btn: Se connecter avec une clé d'accès
+  resend_verification:
+    email_invalid: Veuillez saisir une adresse e-mail.
+    title: Confirmation de l'adresse courriel
 legal:
   legal_agreement: Mentions légales
   privacy_notice: Charte relative à l’utilisation des données personnelles à 
@@ -1113,6 +1133,8 @@ legal:
       supprimées.
   button:
     agree: Accepter
+  latest_change: Dernière modification le {date}
+  show_changes: Afficher les modifications
 gender:
   d: les deux ou autre
   f: Femme

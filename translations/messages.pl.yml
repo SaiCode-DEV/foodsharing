@@ -337,6 +337,20 @@ settings:
   calendar:
     program:
       apple: Apple Kalendarz
+    menu: Kalendarz
+    export: Eksportuj kalendarz
+    delete_token:
+      button: Usuń token
+    generate_url:
+      button: Generuj URL kalendarza
+    download: Pobierz kalendarz
+    event:
+      none: żadne
+    reminders:
+      3_hours: 3 godziny przed
+      6_hours: 6 godzin przed
+      12_hours: 12 godzin przed
+      1_day: 1 dzień przed
   no_rights: Nie masz uprawnień, aby zmienić ustawienia profilu.
   edit_other: Zmień ustawienia profilu {name}
   title: Ustawienia
@@ -407,6 +421,46 @@ settings:
       oraz cyfry
     confirm_password_label: Potwierdź nowe hasło
     confirm_password_placeholder: Powtórz hasło
+  passport:
+    menu: legitymacja członkowska
+    renew: Odnów legitymację
+    non_verified_text: Nie jesteś jeszcze zweryfikowany/a. Tylko zweryfikowani/e
+      foodsaverzy/ki mogą pobrać swoją legitymację.
+    passport_not_activated: Twoja legitymacja jeszcze nie została aktywowana.
+    ask_your_ambassadors: Skontaktuj się w tej sprawie ze swoimi 
+      ambasador(k)ami.
+    passport_is_valid_until: Twoja legitymacja jest ważna jeszcze **{days}** 
+      dni, do **{date}**.
+    passport_is_invalid: Twoja legitymacja jest już nieważna.
+    button: Pobierz legitymację
+    add_to_wallet:
+      google: Dodaj do Google Wallet
+      apple: Dodaj do Apple Wallet
+    wallet:
+      name: Imię
+      role: Rola
+      valid_start: Ważny od
+      valid_end: Ważny do
+      generate_error: Podczas generowania legitymacji wystąpił błąd. Proszę, 
+        spróbuj ponownie później.
+  photo:
+    title: twoje zdjęcie
+  push:
+    title: Powiadomienia push
+    not-supported: Twoja przeglądarka nie wspiera powiadomień push.
+    denied: |
+      Odrzuciłe/aś otrzymywanie powiadomień push od strony foodsharing w twojej przeglądarce. 
+      Jeśli chcesz otrzymywać powiadomienia push, zmień ustawienia przeglądarki dla strony foodsharing  i odśwież stronę.
+    info-on: |
+      Jeśli aktywujesz powiadomienia push dla tego urządzenia, 
+      wiadomości z chatu będą w przyszłości dostarczane bezpośrednio do twojego urządzenia, 
+      nawet jeśli nie jesteś zalogowany/a.
+      Twoje urządzenie będzie wtedy pokazywać odpowiednie powiadomienie 
+      i reagować dźwiękiem lub wibracją.
+    enable: Aktywuj powiadomienia push
+    success: Powiadomienia push aktywowane pomyślnie
+    disable: Deaktywuj powiadomienia push
+    disabled: Powiadomienia push deaktywowane pomyślnie
 bcard:
   title: Generator wizytówek
   card: Twoja foodsharing-wizytówka
