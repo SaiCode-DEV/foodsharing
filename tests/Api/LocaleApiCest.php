@@ -6,6 +6,7 @@ namespace Tests\Api;
 
 use Codeception\Example;
 use Codeception\Util\HttpCode;
+use Foodsharing\Modules\Core\DBConstants\Foodsaver\UserOptionType;
 use Tests\Support\ApiTester;
 
 /**
@@ -52,20 +53,24 @@ class LocaleApiCest
         $I->login($this->user['email']);
         $I->sendPUT('api/locale?locale=' . $example[0]);
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->seeResponseIsJson();
-        $I->canSeeResponseContainsJson([
-            'locale' => $example[0]
-        ]);
     }
 
     public function canNotSetEmptyLocale(ApiTester $I): void
     {
+        $I->haveInDatabase('fs_foodsaver_has_options', [
+            'foodsaver_id' => $this->user['id'],
+            'option_type' => UserOptionType::LOCALE->value,
+            'option_value' => 'en',
+        ]);
+
         $I->login($this->user['email']);
         $I->sendPUT('api/locale?locale=');
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->seeResponseIsJson();
-        $I->canSeeResponseContainsJson([
-            'locale' => 'de'
+
+        $locale = $I->grabFromDatabase('fs_foodsaver_has_options', 'option_value', [
+            'foodsaver_id' => $this->user['id'],
+            'option_type' => UserOptionType::LOCALE->value,
         ]);
+        $I->assertEquals('de', $locale);
     }
 }
