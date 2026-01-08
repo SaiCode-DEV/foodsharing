@@ -54,7 +54,7 @@ class Foodsharing {
     // Get all tables except skipped ones
     const [tables] = await conn.execute(`
       SELECT table_name
-      FROM information_schema.tables 
+      FROM information_schema.tables
       WHERE table_type = 'BASE TABLE'
         AND table_schema = DATABASE()
         AND table_name NOT IN (${tablesToSkip})
@@ -308,6 +308,15 @@ class Foodsharing {
     springerConversation: number = null,
     extraParams: any = {},
   ): Promise<any> {
+    // Create conversations
+    const name = "betrieb_" + faker.company.name()
+    if (teamConversation === null) {
+      teamConversation = (await this.createConversation([], {locked: 1, name: 'Team ' + name})).id;
+    }
+    if (springerConversation === null) {
+      springerConversation = (await this.createConversation([], {locked: 1, name: 'Springer ' + name})).id;
+    }
+
     // Get store category if needed
     let storeCategoryId = null;
     if (Math.random() > 0.66) {
@@ -332,7 +341,7 @@ class Foodsharing {
       str: faker.location.streetAddress(),
       lat: faker.location.latitude({ min: 46, max: 55 }),
       lon: faker.location.longitude({ min: 4, max: 16 }),
-      name: "betrieb_" + faker.company.name(),
+      name: name,
       status_date: this.toDateTime(faker.date.past()),
       ansprechpartner: faker.person.fullName(),
       telefon: faker.phone.number(),
@@ -351,7 +360,7 @@ class Foodsharing {
       bezirk_id: bezirkId,
       team_conversation_id: teamConversation,
       springer_conversation_id: springerConversation,
-      kette_id: 0,
+      kette_id: null,
       ...extraParams,
     };
 
@@ -384,6 +393,16 @@ class Foodsharing {
 
       if (!exists) {
         await Database.addToDatabase("fs_betrieb_team", params);
+
+        // Also add the user to the store's team conversation. Store managers need to be members of both conversations.
+        let conversations = ['springer_conversation_id', 'team_conversation_id'];
+        if (isCoordinator) {
+          conversations = isWaiting ? [conversations[0]] : [conversations[1]];
+        }
+        conversations.forEach(conversation => {
+          const conversationId = Database.grabColumnFromDatabase('fs_betrieb', conversation, {'id': storeId})[0]
+          this.addUserToConversation(fsId, conversationId);
+        })
       }
     };
 
@@ -548,8 +567,8 @@ class Foodsharing {
       conn.execute(
         `
         INSERT INTO fs_bezirk_closure (ancestor_id, bezirk_id, depth)
-        SELECT t.ancestor_id, ?, t.depth+1 
-        FROM fs_bezirk_closure AS t 
+        SELECT t.ancestor_id, ?, t.depth+1
+        FROM fs_bezirk_closure AS t
         WHERE t.bezirk_id = ?
         UNION ALL SELECT ?, ?, 0
       `,
@@ -881,7 +900,7 @@ class Foodsharing {
 
     // Use REPLACE INTO for atomic upsert - handles concurrent quiz creation
     const quizSQL = `
-      REPLACE INTO fs_quiz 
+      REPLACE INTO fs_quiz
       (id, name, \`desc\`, is_desc_htmlentity_encoded, maxfp, questcount, questcount_untimed)
       VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
@@ -1242,7 +1261,7 @@ class Foodsharing {
     await Database.connect().then((conn) =>
       conn.execute(
         `
-        UPDATE fs_conversation 
+        UPDATE fs_conversation
         SET last_message = ?,
             last_message_id = ?,
             last_foodsaver_id = ?,

@@ -38,7 +38,7 @@ class StoreGateway extends BaseGateway
         parent::__construct($db);
     }
 
-    public function addStore(Store $store): int
+    public function addStore(Store $store, int $teamConversationId, int $standbyConversationId): int
     {
         return $this->db->insert('fs_betrieb', [
             'name' => $store->name,
@@ -50,7 +50,9 @@ class StoreGateway extends BaseGateway
             'stadt' => $store->address->city,
             'public_info' => $store->publicInfo,
             'added' => $this->db->date($store->createdAt, false),
-            'status_date' => $this->db->date($store->updatedAt, false)
+            'status_date' => $this->db->date($store->updatedAt, false),
+            'team_conversation_id' => $teamConversationId,
+            'springer_conversation_id' => $standbyConversationId,
         ]);
     }
 
@@ -833,13 +835,6 @@ class StoreGateway extends BaseGateway
     public function updateStoreRegion(int $storeId, int $regionId): int
     {
         return $this->db->update('fs_betrieb', ['bezirk_id' => $regionId], ['id' => $storeId]);
-    }
-
-    public function updateStoreConversation(int $storeId, int $conversationId, bool $isStandby): int
-    {
-        $fieldToUpdate = $isStandby ? 'springer_conversation_id' : 'team_conversation_id';
-
-        return $this->db->update('fs_betrieb', [$fieldToUpdate => $conversationId], ['id' => $storeId]);
     }
 
     public function getStoreByConversationId(int $id): ?array

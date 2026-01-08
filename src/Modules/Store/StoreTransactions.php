@@ -310,16 +310,13 @@ class StoreTransactions
             throw new StoreTransactionException(StoreTransactionException::INVALID_REGION_TYPE);
         }
 
+        $storeTeamChatId = $this->messageGateway->createConversation([$authorFsId], true);
+        $standbyTeamChatId = $this->messageGateway->createConversation([$authorFsId], true);
+
         $store = $createStore->toStore();
-        $storeId = $this->storeGateway->addStore($store);
+        $storeId = $this->storeGateway->addStore($store, $storeTeamChatId, $standbyTeamChatId);
 
         $this->storeGateway->addStoreManager($storeId, $authorFsId);
-
-        $storeTeamChatId = $this->messageGateway->createConversation([$authorFsId], true);
-        $this->storeGateway->updateStoreConversation($storeId, $storeTeamChatId, false);
-
-        $standbyTeamChatId = $this->messageGateway->createConversation([$authorFsId], true);
-        $this->storeGateway->updateStoreConversation($storeId, $standbyTeamChatId, true);
 
         $this->setStoreNameInConversations($storeId, $createStore->name);
 
@@ -1174,11 +1171,12 @@ class StoreTransactions
         );
         $this->bellGateway->addBell($teamIds, $bellData);
 
+        // Delete the store before the chats due to foreign keys
+        $this->storeGateway->deleteStore($storeId);
+
         //Clean store chats
         $this->messageGateway->deleteConversation($this->storeGateway->getBetriebConversation($storeId, false));
         $this->messageGateway->deleteConversation($this->storeGateway->getBetriebConversation($storeId, true));
-
-        $this->storeGateway->deleteStore($storeId);
     }
 
     /**

@@ -269,7 +269,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         $this->output->writeln('- created ' . $name . ' ' . $user['email'] . ' with password "' . $password . '"');
     }
 
-    private function createStoreAndAddToTeam($I, $region, $conv1Id, $conv2Id, $statusId, $teamMembers, $addRecurringPickup = false, $is_waiting = false, $is_confirmed = true): mixed
+    private function createStoreAndAddToTeam(Foodsharing $I, $region, $conv1Id, $conv2Id, $statusId, $teamMembers, $addRecurringPickup = false, $is_waiting = false, $is_confirmed = true): mixed
     {
         $store = $I->createStore($region, $conv1Id, $conv2Id, ['betrieb_status_id' => $statusId]);
 
@@ -737,15 +737,15 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
         $this->stores = [$store['id']];
         foreach (range(1, 40) as $_) {
             // TODO conversations are missing the other store members
-            $conv1 = $I->createConversation([$userbot['id']], ['name' => 'team', 'locked' => 1]);
-            $conv2 = $I->createConversation([$userbot['id']], ['name' => 'springer', 'locked' => 1]);
-
             $extra_params = [];
             if (random_int(0, 1) == 1) {
                 $extra_params['kette_id'] = $this->chain_ids[random_int(0, 10)];
             }
 
-            $store = $I->createStore($region1, $conv1['id'], $conv2['id'], $extra_params);
+            $store = $I->createStore($region1, null, null, $extra_params);
+            $I->addUserToConversation($userbot['id'], $store['team_conversation_id']);
+            $I->addUserToConversation($userbot['id'], $store['springer_conversation_id']);
+
             foreach (range(0, 5) as $__) {
                 $I->addRecurringPickup($store['id']);
             }
@@ -768,9 +768,6 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
 
         $I->awardAchievement($this->getRandomIDOfArray($members, 15), 4, null);
 
-        $conv1 = $I->createConversation(array_merge($managers, $members), ['name' => 'Team Schulungsbetrieb Onboarding', 'locked' => 1]);
-        $conv2 = $I->createConversation(array_merge($managers, $jumpers), ['name' => 'Springer Schulungsbetrieb Onboarding', 'locked' => 1]);
-
         $I->addConversationMessage($userStoreManager['id'], $conv1['id']);
         $I->addConversationMessage($this->getRandomIDOfArray($members), $conv1['id']);
         $I->addConversationMessage($userStoreManager['id'], $conv2['id']);
@@ -781,8 +778,7 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
         $extra_params['name'] = 'Schulungsbetrieb Onboarding';
         $extra_params['betrieb_status_id'] = CooperationStatus::COOPERATION_ESTABLISHED->value;
 
-        $store = $I->createStore($region1, $conv1['id'], $conv2['id'], $extra_params);
-
+        $store = $I->createStore($region1, null, null, $extra_params);
         $I->addStoreTeam($store['id'], $managers, true, false, true);
         $I->addStoreTeam($store['id'], $members, false, false, true);
         $I->addStoreTeam($store['id'], $jumpers, false, true, true);

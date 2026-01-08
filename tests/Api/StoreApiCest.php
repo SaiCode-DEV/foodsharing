@@ -60,9 +60,7 @@ class StoreApiCest
         $this->unverifiedUser = $I->createFoodsaver(null, ['verified' => 0]);
         $this->teamMember = $I->createFoodsaver();
         $this->manager = $I->createStoreCoordinator(null, ['bezirk_id' => $this->region['id']]);
-        $this->teamConversation = $I->createConversation([$this->manager['id'], $this->teamMember['id']]);
-        $this->springerConversation = $I->createConversation([$this->manager['id'], $this->teamMember['id']]);
-        $this->store = $I->createStore($this->region['id'], $this->teamConversation['id'], $this->springerConversation['id'], ['kette_id' => 40, 'betrieb_kategorie_id' => 20, 'use_region_pickup_rule' => 1]);
+        $this->store = $I->createStore($this->region['id'], null, null, ['kette_id' => 40, 'betrieb_kategorie_id' => 20, 'use_region_pickup_rule' => 1]);
 
         $I->addStoreTeam($this->store[self::ID], $this->teamMember[self::ID], false);
 
@@ -754,9 +752,9 @@ class StoreApiCest
             'id' => $this->store[self::ID],
             'name' => 'This is a nice store']);
 
-        $teamConversationName = $I->grabFromDatabase('fs_conversation', 'name', ['id' => $this->teamConversation['id']]);
+        $teamConversationName = $I->grabFromDatabase('fs_conversation', 'name', ['id' => $this->store['team_conversation_id']]);
         $I->assertStringContainsString('This is a nice store', $teamConversationName);
-        $sprinterConversationName = $I->grabFromDatabase('fs_conversation', 'name', ['id' => $this->springerConversation['id']]);
+        $sprinterConversationName = $I->grabFromDatabase('fs_conversation', 'name', ['id' => $this->store['springer_conversation_id']]);
         $I->assertStringContainsString('This is a nice store', $sprinterConversationName);
     }
 

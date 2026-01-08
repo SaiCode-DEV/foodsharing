@@ -436,8 +436,28 @@ class Foodsharing extends Db
         return $params;
     }
 
+    /**
+     * TODO: refactor the usage of this function such that team_conversation and springer_conversation are always integers.
+     *
+     * @param $team_conversation int|array ID of the conversation or the array object
+     * @param $springer_conversation int|array ID of the conversation or the array object
+     */
     public function createStore($bezirk_id, $team_conversation = null, $springer_conversation = null, $extra_params = []): array
     {
+        $name = 'betrieb_' . $this->faker->company();
+
+        // create conversations
+        if (is_null($team_conversation)) {
+            $team_conversation = $this->createConversation([], ['locked' => 1, 'name' => 'Team ' . $name])['id'];
+        } elseif (is_array($team_conversation)) {
+            $team_conversation = $team_conversation['id'];
+        }
+        if (is_null($springer_conversation)) {
+            $springer_conversation = $this->createConversation([], ['locked' => 1, 'name' => 'Springer ' . $name])['id'];
+        } elseif (is_array($springer_conversation)) {
+            $springer_conversation = $springer_conversation['id'];
+        }
+
         // one third of the stores are assigned to an existing store category
         $storeCategoryId = null;
         if (random_int(0, 2) > 1) {
@@ -455,7 +475,7 @@ class Foodsharing extends Db
             'str' => $this->faker->streetAddress(),
             'lat' => $this->faker->latitude(55, 46),
             'lon' => $this->faker->longitude(4, 16),
-            'name' => 'betrieb_' . $this->faker->company(),
+            'name' => $name,
             'status_date' => $this->toDate($this->faker->dateTime()),
             'ansprechpartner' => $this->faker->name(),
             'telefon' => $this->faker->phoneNumber(),
@@ -476,7 +496,7 @@ class Foodsharing extends Db
             'bezirk_id' => $bezirk_id,
             'team_conversation_id' => $team_conversation,
             'springer_conversation_id' => $springer_conversation,
-            'kette_id' => 0,
+            'kette_id' => null,
         ], $extra_params);
         $params['status_date'] = $this->toDate($params['status_date']);
         $params['added'] = $this->toDate($params['added']);
@@ -488,7 +508,7 @@ class Foodsharing extends Db
 
     /** Adds a user or an array of users to the store team.
      * If the user is not confirmed yet, the waiter status is ignored.
-     * Care: This method does not care about store conversations!
+     * The user is also added to the store team's chats.
      * Care: This method does not care about adding the user to the matching bezirk!
      */
     public function addStoreTeam($store_id, $fs_id, $is_coordinator = false, $is_waiting = false, $is_confirmed = true): void
@@ -513,6 +533,18 @@ class Foodsharing extends Db
             $res = $this->countInDatabase('fs_betrieb_team', $conditions);
             if ($res < 1) {
                 $this->haveInDatabase('fs_betrieb_team', $v);
+            }
+
+            // Also add the user to the store's team conversation. Store managers need to be members of both conversations.
+            $conversations = ['springer_conversation_id', 'team_conversation_id'];
+            if (!$is_coordinator) {
+                $conversations = $is_waiting ? [$conversations[0]] : [$conversations[1]];
+            }
+            foreach ($conversations as $conversation) {
+                $conversationId = $this->grabColumnFromDatabase('fs_betrieb', $conversation, [
+                    'id' => $store_id,
+                ])[0];
+                $this->addUserToConversation($fs_id, $conversationId);
             }
         }
     }

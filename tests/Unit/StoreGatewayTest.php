@@ -12,6 +12,7 @@ use Exception;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
+use Foodsharing\Modules\Message\MessageGateway;
 use Foodsharing\Modules\Region\DTO\MinimalRegionIdentifier;
 use Foodsharing\Modules\Store\DTO\Store;
 use Foodsharing\Modules\Store\StoreGateway;
@@ -57,6 +58,7 @@ class StoreGatewayTest extends Unit
     final public function _before(): void
     {
         $this->gateway = $this->tester->get(StoreGateway::class);
+        $this->messageGateway = $this->tester->get(MessageGateway::class);
         $this->region = $this->tester->createRegion(fillMailbox: false);
         $this->store = $this->tester->createStore($this->region['id']);
         $this->foodsaver = $this->tester->createFoodsaver();
@@ -66,7 +68,7 @@ class StoreGatewayTest extends Unit
     {
         $storeDTO = new Store();
         $storeDTO->name = 'StoreGatewayTestbetrieb';
-        $storeDTO->region = MinimalRegionIdentifier::create(1567);
+        $storeDTO->region = MinimalRegionIdentifier::create($this->region['id']);
         $storeDTO->location->lat = 51.5367827;
         $storeDTO->location->lon = 9.9258967;
         $storeDTO->address->street = 'Bahnhofsplatz 1';
@@ -76,7 +78,10 @@ class StoreGatewayTest extends Unit
         $storeDTO->createdAt = Carbon::now();
         $storeDTO->updatedAt = Carbon::now();
 
-        $storeId = $this->gateway->addStore($storeDTO);
+        $teamConversationId = $this->messageGateway->createConversation([], true);
+        $standbyConversationId = $this->messageGateway->createConversation([], true);
+
+        $storeId = $this->gateway->addStore($storeDTO, $teamConversationId, $standbyConversationId);
 
         $this->assertIsInt($storeId);
         $this->assertTrue($storeId !== 0);
@@ -354,18 +359,18 @@ class StoreGatewayTest extends Unit
         $this->tester->seeInDatabase('fs_betrieb', ['bezirk_id' => $newRegion['id'], 'id' => $this->store['id']]);
     }
 
-    public function testGetNoTeamConversation(): void
+    public function testGetTeamConversation(): void
     {
         $conversationId = $this->gateway->getBetriebConversation($this->store['id']);
 
-        $this->tester->assertEquals(0, $conversationId);
+        $this->tester->assertEquals($this->store['team_conversation_id'], $conversationId);
     }
 
-    public function testGetNoSpringerConversation(): void
+    public function testGetSpringerConversation(): void
     {
         $conversationId = $this->gateway->getBetriebConversation($this->store['id'], true);
 
-        $this->tester->assertEquals(0, $conversationId);
+        $this->tester->assertEquals($this->store['springer_conversation_id'], $conversationId);
     }
 
     public function testFoodsaverRelatedStoreMembershipStatus(): void

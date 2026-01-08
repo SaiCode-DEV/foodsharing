@@ -23,9 +23,6 @@ class StoreCest
     private array $storeManager;
     private array $foodsaverWithStoreManagerQuiz;
 
-    private array $teamConversation;
-    private array $jumperConversation;
-
     public function _before(AcceptanceTester $I): void
     {
         $this->region = $I->createRegion(fillMailbox: false);
@@ -40,13 +37,9 @@ class StoreCest
         $this->storeManager = $I->createStoreCoordinator(null, $extra_params);
         $this->foodsaverWithStoreManagerQuiz = $I->createStoreCoordinator(null, $extra_params);
 
-        // init store conversations (DIRTY, HOW IT WORKS ...)
-        $this->teamConversation = $I->createConversation([$this->storeManager['id'], $this->foodsaver['id']]);
-        $this->jumperConversation = $I->createConversation([$this->storeManager['id'], $this->foodsaverOnJumperList['id']]);
-
         // init store
         $this->store = $I->createStore(
-            $regionId, $this->teamConversation['id'], $this->jumperConversation['id'], ['betrieb_status_id' => CooperationStatus::COOPERATION_ESTABLISHED->value]
+            $regionId, null, null, ['betrieb_status_id' => CooperationStatus::COOPERATION_ESTABLISHED->value]
         );
 
         // add user to region (DIRTY, HOW IT WORKS ...)
