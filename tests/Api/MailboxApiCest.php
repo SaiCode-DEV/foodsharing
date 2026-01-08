@@ -85,6 +85,20 @@ class MailboxApiCest
         $I->seeResponseCodeIs(HttpCode::UNPROCESSABLE_ENTITY);
     }
 
+    public function canGetUnreadMailCount(ApiTester $I): void
+    {
+        $I->sendGet('api/mailboxes/unread-count');
+        $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
+
+        $I->login($this->ambassador['email']);
+        $I->sendGet('api/mailboxes/unread-count');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $I->seeResponseMatchesJsonType([
+            'unreadCount' => 'integer'
+        ]);
+    }
+
     private function createRandomEmail(int $numAttachments = 0): array
     {
         if ($numAttachments < 1) {
