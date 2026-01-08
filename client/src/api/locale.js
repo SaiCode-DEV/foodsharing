@@ -5,5 +5,5 @@ export async function getLocale () {
 }
 
 export function setLocale (locale) {
-  return put('/locale?locale=' + locale)
+  return put('/locale?locale=' + locale, {})
 }

@@ -40,7 +40,6 @@ class LocaleRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(properties: [
         new OA\Property(property: 'locale', type: 'string', example: 'de', description: 'The newly set locale.'),
     ]))]
-    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
     public function setLocale(#[MapQueryParameter] ?string $locale): Response
     {
         $this->assertLoggedIn();
@@ -50,6 +49,6 @@ class LocaleRestController extends AbstractFoodsharingRestController
         }
         $this->settingsTransactions->setOption(UserOptionType::LOCALE, $locale);
 
-        return $this->getLocale();
+        return $this->respondOK();
     }
 }
