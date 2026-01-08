@@ -32,12 +32,12 @@ class CalendarApiCest
 
         $this->acceptedEvent = $I->createEvents($this->region['id'], $this->user2['id']);
         $I->addEventInvitation($this->acceptedEvent['id'], $this->user['id'], [
-            'status' => InvitationStatus::ACCEPTED
+            'status' => InvitationStatus::ACCEPTED->value
         ]);
 
         $this->invitedEvent = $I->createEvents($this->region['id'], $this->user2['id']);
         $I->addEventInvitation($this->invitedEvent['id'], $this->user['id'], [
-            'status' => InvitationStatus::INVITED
+            'status' => InvitationStatus::INVITED->value
         ]);
     }
 

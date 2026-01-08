@@ -73,16 +73,16 @@ class EventGateway extends BaseGateway
 			AND
 				fhe.event_id = :eventId
                 AND fhe.status != :invitedStatus
-		', [':eventId' => $eventId, ':invitedStatus' => InvitationStatus::INVITED]);
+		', [':eventId' => $eventId, ':invitedStatus' => InvitationStatus::INVITED->value]);
 
         $out = [
             'accepted' => [],
             'maybe' => [],
         ];
         foreach ($invites as $invite) {
-            if ($invite['status'] == InvitationStatus::ACCEPTED) {
+            if ($invite['status'] == InvitationStatus::ACCEPTED->value) {
                 $out['accepted'][] = $invite;
-            } elseif ($invite['status'] == InvitationStatus::MAYBE) {
+            } elseif ($invite['status'] == InvitationStatus::MAYBE->value) {
                 $out['maybe'][] = $invite;
             }
         }
@@ -94,7 +94,7 @@ class EventGateway extends BaseGateway
      * Returns all future events with specific statuses from a foodsavers regions.
      *
      * @param int $userId The id of the user
-     * @param array $statuses Array of InvitationStatus. Statuses to be included in the result
+     * @param InvitationStatus[] $statuses Array of InvitationStatus. Statuses to be included in the result
      * @param int $pastEventsBufferInDays Number of days in the past to include events
      * @param Carbon|null $date_only If set, only events on this date will be included
      *
@@ -105,6 +105,7 @@ class EventGateway extends BaseGateway
         if (count($statuses) === 0) {
             return [];
         }
+        $statuses = array_map(fn ($status) => $status->value, $statuses);
 
         $dateFilter = '';
         $params = ['fs_id' => $userId, 'buffer' => $pastEventsBufferInDays];
@@ -124,7 +125,7 @@ class EventGateway extends BaseGateway
 			r.name AS regionName,
 			UNIX_TIMESTAMP(e.start) AS start_ts,
 			UNIX_TIMESTAMP(e.end) AS end_ts,
-			CAST(IFNULL(fhe.status, ' . InvitationStatus::INVITED . ') AS INTEGER) AS status,
+			CAST(IFNULL(fhe.status, ' . InvitationStatus::INVITED->value . ') AS INTEGER) AS status,
 			l.street,
 			l.zip,
 			l.city
@@ -136,7 +137,7 @@ class EventGateway extends BaseGateway
 		WHERE
 			fhb.foodsaver_id = :fs_id
 			AND e.end > DATE_SUB(NOW(), INTERVAL :buffer DAY)
-			AND IFNULL(fhe.status, ' . InvitationStatus::INVITED . ') IN (' . implode(',', $statuses) . ')
+			AND IFNULL(fhe.status, ' . InvitationStatus::INVITED->value . ') IN (' . implode(',', $statuses) . ')
 			' . $dateFilter . '
 		ORDER BY e.start
 		', $params);
@@ -213,7 +214,7 @@ class EventGateway extends BaseGateway
         return (int)$status;
     }
 
-    public function setInviteStatus(int $eventId, int $foodsaverId, int $status): int
+    public function setInviteStatus(int $eventId, int $foodsaverId, InvitationStatus $status): int
     {
         if ($status === InvitationStatus::INVITED) {
             return $this->db->delete('fs_foodsaver_has_event', [
@@ -225,7 +226,7 @@ class EventGateway extends BaseGateway
         return $this->db->insertOrUpdate('fs_foodsaver_has_event', [
             'event_id' => $eventId,
             'foodsaver_id' => $foodsaverId,
-            'status' => $status,
+            'status' => $status->value,
         ]);
     }
 }

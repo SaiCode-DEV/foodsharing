@@ -70,6 +70,7 @@ The JSON objects should follow these conventions:
 - Boolean properties are prefixed `is` (e.g. `isPublic: true` instead of `public: true`)
 - Property names should be specific and hint at the use of the field (e.g. `createdAt` instead of `time`,  `author` instead of `user`)
 - Request and response types should follow the same structure.
+- Single-property JSON is returned as an object, e.g. `{"id": 123}` instead of `123`.
 
 ::: tip EXAMPLE
 ```json

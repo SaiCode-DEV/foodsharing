@@ -4,77 +4,71 @@ namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Event\DTO\Event;
+use Foodsharing\Modules\Event\DTO\EventForListView;
 use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\Event\EventTransactions;
 use Foodsharing\Modules\Event\InvitationStatus;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\EventPermissions;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Request\ParamFetcher;
-use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Attribute\Model;
 use OpenApi\Attributes as OA;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[OA\Tag(name: 'events')]
 #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
 class EventRestController extends AbstractFoodsharingRestController
 {
     public function __construct(
+        protected Session $session,
         private readonly EventGateway $eventGateway,
         private readonly EventPermissions $eventPermissions,
         private readonly EventTransactions $eventTransactions,
-        protected Session $session,
         protected readonly CurrentUserUnitsInterface $currentUserUnits
     ) {
+        parent::__construct($this->session);
     }
 
-    #[OA\Patch(summary: 'Updates the user\'s response to an invitation.')]
-    #[Rest\Patch('users/current/events/{eventId}/invitation', requirements: ['eventId' => Requirement::POSITIVE_INT])]
-    #[Rest\RequestParam(name: 'status', requirements: Requirement::POSITIVE_INT, nullable: false)]
+    #[OA\Put(summary: 'Updates the user\'s response to an invitation.')]
+    #[Route('events/{eventId}/invitation', methods: ['PUT'], requirements: ['eventId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
-    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid status code')]
-    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to join the event')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Event doesn\'t exist')]
-    public function setResponse(int $eventId, ParamFetcher $paramFetcher): Response
+    public function setResponse(int $eventId, #[MapQueryParameter] InvitationStatus $status): Response
     {
         $this->assertLoggedIn();
-        $fsId = $this->session->id();
 
         // check that the event exists
         $event = $this->eventGateway->getEvent($eventId);
         if (empty($event)) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException('Event doesn\'t exist');
         }
         if (!$this->eventPermissions->mayJoinEvent($event)) {
-            throw new AccessDeniedHttpException();
-        }
-        // check that the status is valid
-        $status = (int)$paramFetcher->get('status');
-        if (!InvitationStatus::isValidStatus($status)) {
-            throw new BadRequestHttpException();
+            throw new AccessDeniedHttpException('Not permitted');
         }
 
-        $this->eventGateway->setInviteStatus($eventId, $fsId, $status);
+        $this->eventGateway->setInviteStatus($eventId, $this->session->id(), $status);
 
         return $this->respondOK();
     }
 
     #[OA\Get(summary: 'List events for region and groups.')]
-    #[Rest\Get('region/{regionId}/events', requirements: ['regionId' => Requirement::POSITIVE_INT])]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
-    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions for this region')]
+    #[Route('region/{regionId}/events', methods: ['GET'], requirements: ['regionId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
+        type: 'array', items: new OA\Items(ref: new Model(type: EventForListView::class))
+    ))]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
     public function listEvents(int $regionId): Response
     {
         $this->assertLoggedIn();
 
         if (!$this->currentUserUnits->mayBezirk($regionId)) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Not permitted');
         }
 
         $events = $this->eventGateway->listForRegion($regionId);
@@ -83,39 +77,40 @@ class EventRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Post(summary: 'Add a new event.')]
-    #[Rest\Post('events')]
-    #[OA\RequestBody(content: new Model(type: Event::class))]
-    #[ParamConverter('event', class: Event::class, converter: 'fos_rest.request_body')]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[Route('events', methods: ['POST'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(type: 'object', properties: [
+        new OA\Property(property: 'id', type: 'integer', description: 'Id of the newly created event')
+    ]))]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions for this region')]
-    public function addEvents(Event $event, ValidatorInterface $validator): Response
+    public function addEvents(#[MapRequestPayload] Event $event): Response
     {
         $this->assertLoggedIn();
-        $this->assertThereAreNoValidationErrors($validator, $event);
+
+        if (!$this->currentUserUnits->mayBezirk($event->regionId)) {
+            throw new AccessDeniedHttpException('Not permitted');
+        }
 
         $eventId = $this->eventTransactions->addEvent($this->session->id(), $event);
 
-        return $this->respondOK($eventId);
+        return $this->respondOK(['id' => $eventId]);
     }
 
-    #[OA\Post(summary: 'Edit an event.')]
-    #[Rest\Patch('events/{eventId}', requirements: ['eventId' => Requirement::POSITIVE_INT])]
-    #[OA\RequestBody(content: new Model(type: Event::class))]
-    #[ParamConverter('event', class: Event::class, converter: 'fos_rest.request_body')]
+    #[OA\Patch(summary: 'Edit an event.')]
+    #[Route('events/{eventId}', methods: ['PATCH'], requirements: ['eventId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
-    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to edit this event')]
-    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid request parameters')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Event doesn\'t exist')]
-    public function editEvents(int $eventId, Event $event, ValidatorInterface $validator): Response
+    public function editEvents(int $eventId, #[MapRequestPayload] Event $event): Response
     {
         $this->assertLoggedIn();
-        $this->assertThereAreNoValidationErrors($validator, $event);
         $event->id = $eventId;
         $currentEvent = $this->eventGateway->getEvent($eventId);
         if (empty($currentEvent)) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException('Event doesn\'t exist');
         }
-        $this->eventPermissions->mayEditEvent($currentEvent);
+        if (!$this->eventPermissions->mayEditEvent($currentEvent)) {
+            throw new AccessDeniedHttpException('Not permitted');
+        }
 
         $this->eventTransactions->editEvent($event);
 

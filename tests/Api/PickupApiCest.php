@@ -576,7 +576,7 @@ class PickupApiCest
         ];
         $event = $I->createEvents($this->region['id'], $this->user['id'], $eventParams);
         $I->addEventInvitation($event['id'], $this->user['id'], [
-            'status' => InvitationStatus::ACCEPTED
+            'status' => InvitationStatus::ACCEPTED->value
         ]);
 
         // Create a past event for the current user
@@ -588,7 +588,7 @@ class PickupApiCest
         ];
         $past_event = $I->createEvents($this->region['id'], $this->user['id'], $past_eventParams);
         $I->addEventInvitation($past_event['id'], $this->user['id'], [
-            'status' => InvitationStatus::MAYBE
+            'status' => InvitationStatus::MAYBE->value
         ]);
 
         // Create a future event on another day != pickup day
@@ -600,7 +600,7 @@ class PickupApiCest
         ];
         $future_event = $I->createEvents($this->region['id'], $this->user['id'], $future_eventParams);
         $I->addEventInvitation($future_event['id'], $this->user['id'], [
-            'status' => InvitationStatus::ACCEPTED
+            'status' => InvitationStatus::ACCEPTED->value
         ]);
 
         // Create a future event for the current user
@@ -612,7 +612,7 @@ class PickupApiCest
         ];
         $multi_event = $I->createEvents($this->region['id'], $this->user['id'], $multi_eventParams);
         $I->addEventInvitation($multi_event['id'], $this->user['id'], [
-            'status' => InvitationStatus::INVITED
+            'status' => InvitationStatus::INVITED->value
         ]);
 
         $I->login($this->user['email']);

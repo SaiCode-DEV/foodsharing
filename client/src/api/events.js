@@ -1,7 +1,7 @@
-import { patch, get, post } from './base'
+import { patch, get, post, put } from './base'
 
 export function updateInvitationResponse (eventId, status) {
-  return patch(`/users/current/events/${eventId}/invitation`, { status })
+  return put(`/events/${eventId}/invitation?status=${status}`)
 }
 
 export function listEvents (regionId) {

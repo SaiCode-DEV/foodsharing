@@ -131,7 +131,7 @@ class CategoriesRestController extends AbstractFoodsharingRestController
         $duplicates = $this->categoriesTransactions->getCategoriesGateway($type)->mergeCategories($sourceId, $targetId);
         $this->categoriesTransactions->handleTypeSpecificSideEffects($type);
 
-        return $this->respondOK($duplicates);
+        return $this->respondOK(['duplicates' => $duplicates]);
     }
 
     private function parseCategoryType(string $type): CategoryType

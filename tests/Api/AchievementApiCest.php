@@ -204,7 +204,7 @@ class AchievementApiCest
         // Adding
         $I->sendPost('api/achievements', $this->achievementToArrayForApi($this->achievement));
         $I->seeResponseCodeIs(Response::HTTP_OK);
-        $this->achievement->id = (int)$I->grabResponse();
+        $this->achievement->id = $I->grabDataFromResponseByJsonPath('$.id')[0];
         $I->seeInDatabase('fs_achievement', $this->achievementToArray($this->achievement));
 
         // Editing

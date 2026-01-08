@@ -56,10 +56,9 @@ class AchievementRestController extends AbstractFoodsharingRestController
 
     #[OA\Post(summary: 'Add a new achievement')]
     #[Route('achievements', methods: ['POST'])]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
-        type: 'integer',
-        description: 'the id of the newly created achievement',
-    ))]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(type: 'object', properties: [
+        new OA\Property(property: 'id', type: 'integer', description: 'Id of the newly created achievement')
+    ]))]
     #[OA\Response(response: Response::HTTP_UNPROCESSABLE_ENTITY, description: 'Invalid data')]
     public function addAchievement(#[MapRequestPayload] Achievement $achievement): Response
     {
@@ -70,7 +69,7 @@ class AchievementRestController extends AbstractFoodsharingRestController
 
         $achievementId = $this->achievementGateway->addAchievement($achievement);
 
-        return $this->respondOK($achievementId);
+        return $this->respondOK(['id' => $achievementId]);
     }
 
     #[OA\Patch(summary: 'Edit an existing achievement')]

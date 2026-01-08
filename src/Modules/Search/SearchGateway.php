@@ -1042,7 +1042,7 @@ class SearchGateway extends BaseGateway
             ORDER BY
                 IF(NOW() < start, start - NOW(), IF(NOW() > end, NOW() - end, 0)), # temporal distance from the event
                 event.name ASC",
-            [$foodsaverId, $foodsaverId, InvitationStatus::ACCEPTED, InvitationStatus::MAYBE]
+            [$foodsaverId, $foodsaverId, InvitationStatus::ACCEPTED->value, InvitationStatus::MAYBE->value]
         );
 
         return array_map(fn ($event) => EventSearchResult::createFromArray($event), $events);

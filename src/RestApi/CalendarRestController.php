@@ -260,7 +260,7 @@ class CalendarRestController extends AbstractFoodsharingRestController
         $url = BASE_URL . '/?page=event&id=' . $meeting['id'];
 
         $descriptionHint = '';
-        if ($meeting['status'] == InvitationStatus::INVITED) {
+        if ($meeting['status'] == InvitationStatus::INVITED->value) {
             $descriptionHint = '<i>' . $this->translator->trans('calendar.export.event.statusUnspecified') . '</i><br>';
         }
         $descriptionContent = (string)$meeting['description'];

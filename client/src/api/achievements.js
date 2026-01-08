@@ -21,7 +21,7 @@ export async function revokeAchievement (awardedAchievementId) {
 }
 
 export async function addAchievement (achievement) {
-  return await post('/achievements', achievement)
+  return (await post('/achievements', achievement)).id
 }
 
 export async function deleteAchievement (achievementId) {

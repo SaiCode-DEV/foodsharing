@@ -58,7 +58,7 @@ final class FoodsaverRestController extends AbstractFoodsharingRestController
             $formattedEvent = [
                 'name' => $event['name'],
                 'id' => $event['id'],
-                'status' => $event['status'] === InvitationStatus::ACCEPTED ? 'accepted' : ($event['status'] === InvitationStatus::INVITED ? 'invited' : 'maybe'),
+                'status' => strtolower(InvitationStatus::from($event['status'])->name),
                 'date' => $event['start'],
                 'end' => $event['end'],
                 'type' => 'event',
