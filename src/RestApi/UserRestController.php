@@ -9,11 +9,11 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\CategoryType;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Gender;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
+use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Foodsaver\DTO\EditableProfileDTO;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\FoodsaverTransactions;
 use Foodsharing\Modules\Foodsaver\Profile;
-use Foodsharing\Modules\Group\GroupTransactions;
 use Foodsharing\Modules\Login\LoginGateway;
 use Foodsharing\Modules\Login\WebAuthn\WebAuthnService;
 use Foodsharing\Modules\Logout\LogoutTransactions;
@@ -27,6 +27,7 @@ use Foodsharing\Modules\Register\RegisterTransactions;
 use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Modules\Settings\SettingsTransactions;
 use Foodsharing\Modules\Unit\DTO\UserUnit;
+use Foodsharing\Modules\Unit\UnitGateway;
 use Foodsharing\Permissions\BlogPermissions;
 use Foodsharing\Permissions\CategoriesPermissions;
 use Foodsharing\Permissions\ContentPermissions;
@@ -88,7 +89,7 @@ class UserRestController extends AbstractFoodsharingRestController
         private readonly SearchPermissions $searchPermissions,
         private readonly UploadsPermissions $uploadsPermissions,
         private readonly RegionTransactions $regionTransactions,
-        private readonly GroupTransactions $groupTransactions,
+        private readonly UnitGateway $unitGateway,
         private readonly SettingsTransactions $settingsTransactions,
         private readonly LogoutTransactions $logoutTransactions,
         private readonly CategoriesPermissions $categoriesPermissions,
@@ -224,7 +225,7 @@ class UserRestController extends AbstractFoodsharingRestController
             $response['regions'] = array_map(fn (UserUnit $region): UserRegionModel => UserRegionModel::createFrom($region), $regions);
 
             // load groups
-            $groups = $this->groupTransactions->getUserGroups($data['id']);
+            $groups = $this->unitGateway->listAllDirectReleatedUnitsAndResponsibilitiesOfFoodsaver($data['id'], UnitType::getGroupTypes());
             $response['groups'] = array_map(fn (UserUnit $group): UserGroupModel => UserGroupModel::createFrom($group), $groups);
         }
 

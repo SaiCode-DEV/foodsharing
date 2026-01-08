@@ -20,7 +20,7 @@ export default {
       this.join()
     },
     join () {
-      window.open(`/api/groups/${this.conferenceId}/conference?redirect=true`)
+      window.open(`/api/regions/${this.conferenceId}/conference?redirect=true`)
     },
   },
 }

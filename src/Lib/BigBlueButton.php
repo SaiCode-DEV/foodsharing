@@ -2,6 +2,7 @@
 
 namespace Foodsharing\Lib;
 
+use Foodsharing\Lib\DTO\ConferenceRoom;
 use GuzzleHttp\Client;
 
 class BigBlueButton
@@ -25,7 +26,7 @@ class BigBlueButton
         return $this->client != self::DEFAULT_CLIENT;
     }
 
-    public function createRoom($roomName, $roomKey, $logoutHost)
+    public function createRoom($roomName, $roomKey, $logoutHost): ?ConferenceRoom
     {
         $url = $this->createRoomURL($roomName, $roomKey, $logoutHost);
         try {
@@ -36,10 +37,10 @@ class BigBlueButton
                 return null;
             }
 
-            return [
-                'dialin' => (string)$res->dialNumber,
-                'id' => (string)$res->voiceBridge
-            ];
+            return ConferenceRoom::create(
+                (string)$res->voiceBridge,
+                (string)$res->dialNumber
+            );
         } catch (\Exception) {
             return null;
         }

@@ -1,7 +1,7 @@
 import { remove, patch, post, get } from './base'
 
 export function deleteGroup (id) {
-  return remove(`/groups/${id}`)
+  return remove(`/regions/${id}`)
 }
 
 export function addMember (groupId, memberId) {
