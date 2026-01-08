@@ -7,9 +7,10 @@ namespace Foodsharing\RestApi;
 use Foodsharing\Modules\Development\FeatureToggles\DependencyInjection\FeatureToggleChecker;
 use Foodsharing\Modules\Development\FeatureToggles\Enums\FeatureToggleDefinitions;
 use Foodsharing\Modules\Petition\Query\BundestagPetitionDataQuery;
-use FOS\RestBundle\Controller\Annotations as Rest;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 
@@ -26,12 +27,17 @@ final class PetitionRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Get(summary: 'Returns possibly cached information of foodsharing petition at bundestag.')]
-    #[Rest\Get(path: 'petition-data')]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Successful')]
+    #[Route(path: 'petition', methods: ['GET'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(type: 'object', properties: [
+        new OA\Property(property: 'href', type: 'string', description: 'Link to the petition page.'),
+        new OA\Property(property: 'signatures', type: 'integer', description: 'Number of online signatures.'),
+        new OA\Property(property: 'daysLeft', type: 'integer', description: 'Number of days left to sign the petition.'),
+    ]))]
+    #[OA\Response(response: Response::HTTP_SERVICE_UNAVAILABLE, description: 'No active petition.')]
     public function getSignaturesCount()
     {
         if (!$this->featureToggleChecker->isFeatureToggleActive(FeatureToggleDefinitions::PETITION_BANNER->value)) {
-            return $this->respondOK();
+            return throw new ServiceUnavailableHttpException(null, 'Currently no petition active.');
         }
 
         $petitionData = $this->cache->get('foodsharingPetitionData', function (ItemInterface $cacheItem) {
