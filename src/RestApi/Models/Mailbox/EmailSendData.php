@@ -27,7 +27,7 @@ class EmailSendData
     /**
      * An optional list of CC addresses. Can be empty or null.
      *
-     * @var string[]
+     * @var string[]|null
      */
     #[Assert\All([new Assert\Email()])]
     public ?array $cc = null;
@@ -35,7 +35,7 @@ class EmailSendData
     /**
      * An optional list of BCC addresses. Can be empty or null.
      *
-     * @var string[]
+     * @var string[]|null
      */
     #[Assert\All([new Assert\Email()])]
     public ?array $bcc = null;
@@ -78,7 +78,7 @@ class EmailSendData
         $e = new Email();
         $e->to = array_map(fn ($x) => self::stringToEmailAddress($x), $this->to);
         $e->cc = $this->cc ? array_map(fn ($x) => self::stringToEmailAddress($x), $this->cc) : null;
-        $e->bcc = $this->cc ? array_map(fn ($x) => self::stringToEmailAddress($x), $this->bcc) : null;
+        $e->bcc = $this->bcc ? array_map(fn ($x) => self::stringToEmailAddress($x), $this->bcc) : null;
         $e->subject = $this->subject;
         $e->body = $this->body;
         $e->attachments = $this->attachments ? array_map(fn ($a) => EmailAttachment::create($a->filename, $a->uuid, -1, ''), $this->attachments) : null;

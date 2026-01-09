@@ -50,9 +50,15 @@ class MailboxApiCest
         $I->seeResponseCodeIs(HttpCode::OK);
     }
 
-    public function canSendValidEmail(ApiTester $I): void
+    /**
+     * @example { "withCc": true, "withBcc": true }
+     * @example { "withCc": true, "withBcc": false }
+     * @example { "withCc": false, "withBcc": true }
+     * @example { "withCc": false, "withBcc": false }
+     */
+    public function canSendValidEmail(ApiTester $I, Example $example): void
     {
-        $email = $this->createRandomEmail();
+        $email = $this->createRandomEmail(0, $example['withCc'], $example['withBcc']);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPost("api/mailboxes/{$this->ambassadorMailboxId}/mails", $email);
@@ -99,7 +105,7 @@ class MailboxApiCest
         ]);
     }
 
-    private function createRandomEmail(int $numAttachments = 0): array
+    private function createRandomEmail(int $numAttachments = 0, bool $withCc = true, bool $withBcc = true): array
     {
         if ($numAttachments < 1) {
             $attachments = null;
@@ -112,8 +118,8 @@ class MailboxApiCest
 
         return [
             'to' => $this->createRandomEmailAddresses(random_int(1, 5)),
-            'cc' => $this->createRandomEmailAddresses(random_int(0, 2)),
-            'bcc' => $this->createRandomEmailAddresses(random_int(0, 2)),
+            'cc' => $withCc ? $this->createRandomEmailAddresses(random_int(1, 2)) : null,
+            'bcc' => $withBcc ? $this->createRandomEmailAddresses(random_int(1, 2)) : null,
             'subject' => $this->faker->text(),
             'body' => $this->faker->realTextBetween(100, 200),
             'attachments' => $attachments,
