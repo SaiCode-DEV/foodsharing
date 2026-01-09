@@ -2,13 +2,20 @@
 
 namespace Foodsharing\Modules\Foodsaver;
 
+use Carbon\Carbon;
+use DateTime;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Basket\BasketGateway;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\SleepStatus;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
+use Foodsharing\Modules\Event\EventGateway;
+use Foodsharing\Modules\Event\InvitationStatus;
+use Foodsharing\Modules\Foodsaver\DTO\AgendaEntry;
+use Foodsharing\Modules\Foodsaver\DTO\EventAgendaEntry;
 use Foodsharing\Modules\Quiz\QuizSessionGateway;
 use Foodsharing\Modules\Settings\SettingsGateway;
+use Foodsharing\Modules\Store\PickupGateway;
 use Foodsharing\Modules\Store\StoreTransactions;
 use Foodsharing\Modules\Uploads\UploadsGateway;
 use Foodsharing\Modules\Uploads\UploadsTransactions;
@@ -24,6 +31,8 @@ class FoodsaverTransactions
         private readonly UploadsTransactions $uploadsTransactions,
         private readonly StoreTransactions $storeTransactions,
         private readonly SettingsGateway $settingsGateway,
+        private readonly PickupGateway $pickupGateway,
+        private readonly EventGateway $eventGateway,
         private readonly Session $session
     ) {
     }
@@ -89,5 +98,29 @@ class FoodsaverTransactions
                 }
             }
         }
+    }
+
+    /**
+     * @return AgendaEntry[]
+     */
+    public function getAgenda(int $foodsaverId, DateTime $day): array
+    {
+        $agenda = $this->pickupGateway->getSameDayPickupsForUser($foodsaverId, $day);
+
+        $events = $this->eventGateway->getEventsByStatus($foodsaverId, [InvitationStatus::INVITED, InvitationStatus::ACCEPTED, InvitationStatus::MAYBE], 0, $day);
+
+        foreach ($events as &$event) {
+            $agenda[] = EventAgendaEntry::create(
+                $event['id'],
+                $event['name'],
+                new Carbon($event['start']),
+                new Carbon($event['end']),
+                strtolower(InvitationStatus::from($event['status'])->name),
+            );
+        }
+
+        usort($agenda, fn ($a, $b) => $a->date->getTimestamp() <=> $b->date->getTimestamp());
+
+        return $agenda;
     }
 }

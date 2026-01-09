@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\Event;
 
 use Carbon\Carbon;
+use DateTime;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Event\DTO\Event;
 use Foodsharing\Modules\Event\DTO\EventForListView;
@@ -96,11 +97,11 @@ class EventGateway extends BaseGateway
      * @param int $userId The id of the user
      * @param InvitationStatus[] $statuses Array of InvitationStatus. Statuses to be included in the result
      * @param int $pastEventsBufferInDays Number of days in the past to include events
-     * @param Carbon|null $date_only If set, only events on this date will be included
+     * @param DateTime|null $date_only If set, only events on this date will be included
      *
      * @return array all events matching the invitation status
      */
-    public function getEventsByStatus(int $userId, array $statuses, int $pastEventsBufferInDays = 0, ?Carbon $date_only = null): array
+    public function getEventsByStatus(int $userId, array $statuses, int $pastEventsBufferInDays = 0, ?DateTime $date_only = null): array
     {
         if (count($statuses) === 0) {
             return [];

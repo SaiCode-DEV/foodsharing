@@ -69,7 +69,7 @@ export async function listPickupHistory (storeId, fromDate, toDate) {
 
 export async function listSameDayAgendaForUser (fsId, onDate) {
   const day = onDate.toISOString()
-  const res = await get(`/foodsaver/${fsId}/agenda/${day}`)
+  const res = await get(`/users/${fsId}/agenda/${day}`)
 
   return res.map(p => ({
     ...p,

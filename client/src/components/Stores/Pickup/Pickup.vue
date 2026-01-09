@@ -390,6 +390,16 @@ export default {
   methods: {
     async fetchSameDayAgenda () {
       this.sameDayAgenda = await listSameDayAgendaForUser(this.user.id, this.date)
+
+      // Add proposal entry
+      this.sameDayAgenda.push({
+        type: 'proposal',
+        id: -1,
+        name: null,
+        date: this.date,
+      })
+      this.sameDayAgenda.sort((a, b) => a.date - b.date)
+
       this.loadedUserAgenda = true
     },
     async checkPickupRule () {

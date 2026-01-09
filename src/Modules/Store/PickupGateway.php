@@ -14,6 +14,7 @@ use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
+use Foodsharing\Modules\Foodsaver\DTO\PickupAgendaEntry;
 use Foodsharing\Modules\Store\DTO\OneTimePickup;
 use Foodsharing\Modules\Store\DTO\PickupSignUp;
 
@@ -85,9 +86,12 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
         return $deletedRows;
     }
 
+    /**
+     * @return PickupAgendaEntry[]
+     */
     public function getSameDayPickupsForUser(int $fsId, DateTime $day): array
     {
-        return $this->db->fetchAll('
+        $pickups = $this->db->fetchAll('
 			SELECT 	p.`date`,
 					p.confirmed AS isConfirmed,
 					s.name AS storeName,
@@ -104,6 +108,13 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
             ':fsId' => $fsId,
             ':pickupDay' => $this->db->date($day, false),
         ]);
+
+        return array_map(fn ($pickup) => PickupAgendaEntry::create(
+            $pickup['storeId'],
+            $pickup['storeName'],
+            new Carbon($pickup['date']),
+            boolval($pickup['isConfirmed']),
+        ), $pickups);
     }
 
     /**
