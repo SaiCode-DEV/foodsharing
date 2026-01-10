@@ -81,6 +81,8 @@ export default {
     },
   },
   async mounted () {
+    const isMyFeatureToggleActive = await this.$isFeatureToggleActive('petitionBanner')
+    if (!isMyFeatureToggleActive) return
     const [petitionsData, content] = await Promise.all([
       await getPetitionData(),
       await getContent(92),
