@@ -609,7 +609,7 @@ class Foodsharing {
    * @param extraParams Additional parameters to add to the thread
    * @returns The created thread with its first post
    */
-  async addForumThread(
+  async seedForumThread(
     regionId: number,
     fsId: number,
     isAmbassadorThread: boolean = false,
@@ -670,14 +670,25 @@ class Foodsharing {
       "last_post_id",
       { id: threadId },
     );
-    const lastPostDate = new Date(
-      await Database.grabFromDatabase("fs_theme_post", "time", {
-        id: lastPostId,
-      }),
-    );
-    const thisPostDate = new Date(post.time);
-
-    if (lastPostDate >= thisPostDate) {
+    let shouldUpdate = true;
+    if (lastPostId) {
+      try {
+        const lastPostTime = await Database.grabFromDatabase(
+          "fs_theme_post",
+          "time",
+          { id: lastPostId },
+        );
+        const lastPostDate = new Date(lastPostTime);
+        const thisPostDate = new Date(post.time);
+        if (lastPostDate >= thisPostDate) {
+          shouldUpdate = false;
+        }
+      } catch {
+        // If the last post does not exist, proceed to update
+        shouldUpdate = true;
+      }
+    }
+    if (shouldUpdate) {
       await Database.connect().then((conn) =>
         conn.execute("UPDATE fs_theme SET last_post_id = ? WHERE id = ?", [
           post.id,
@@ -1565,6 +1576,47 @@ class Foodsharing {
       msg: message,
       time: this.toDateTime(faker.date.recent()),
     });
+  }
+
+  async createForumThread({
+    forumId,
+    forumSubId = 0,
+    title,
+    body,
+    sendMail = false,
+    page,
+  }: {
+    forumId: number;
+    forumSubId?: number;
+    title: string;
+    body: string;
+    sendMail?: boolean;
+    page: any;
+  }): Promise<any> {    
+    const csrfToken = (await page.context().cookies()).find(c => c.name === 'FS_CSRF_TOKEN')?.value ?? '';
+    
+    const response = await page.request.post(`api/forum/${forumId}/${forumSubId}`, {
+      data: {
+        title,
+        body,
+        sendMail
+      },
+      headers: {
+        'X-CSRF-Token': csrfToken,
+      },
+    });
+    return response;
+  }
+
+    async forumThreadUrl(forumId: number, regionId: number | null): Promise<string> {
+    if (regionId === null) {
+      regionId = Number(
+        await Database.grabFromDatabase("fs_bezirk_has_theme", "bezirk_id", {
+          theme_id: forumId,
+        }),
+      );
+    }
+    return `/region?bid=${regionId}&sub=forum&tid=${forumId}`;
   }
 
   private createRandomText(minLength: number, maxLength: number): string {

@@ -48,39 +48,10 @@ test.describe("Password Reset", () => {
     ).toBeVisible();
 
     // Verify we received an email with retry mechanism
-    let link = "";
-    let retries = 5;
+    const subject = "Neues Passwort auf foodsharing.de";
+    const mail = await maildev.waitForMail(subject, user.email);
 
-    while (retries > 0 && link === "") {
-      await page.waitForTimeout(1000); // Wait longer for email delivery
-
-      const mails = await maildev.getMails();
-
-      for (const mail of mails) {
-        if (mail.to[0].address !== user.email.toLowerCase()) {
-          continue;
-        }
-
-        if (mail.subject !== "Neues Passwort auf foodsharing.de") {
-          continue;
-        }
-
-        const pattern = /http:\/\/[^\s<>'"]+\/password-reset\/[a-f0-9]+/g;
-        const matches = mail.text.match(pattern);
-
-        if (matches && matches[0]) {
-          link = matches[0].replace(/(?<!:)\/\/+/g, "/");
-          link = maildev.replaceUrl(link);
-
-          if (link) {
-            await maildev.deleteMail(mail.id);
-            break;
-          }
-        }
-      }
-
-      retries--;
-    }
+    const link = mail.findLink("password-reset");
 
     expect(link).not.toBe("");
 

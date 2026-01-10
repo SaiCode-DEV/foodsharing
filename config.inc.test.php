@@ -15,7 +15,7 @@ if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
     $protocol = 'https';
 }
 
-$host = 'lmr.local/';
+$host = 'lmr.local';
 
 define('SITE_ENVIRONMENT', 'test');
 
