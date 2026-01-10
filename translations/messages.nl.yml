@@ -22,7 +22,13 @@ quiz:
       0: onjuist
       1: juist
       2: neutrale
+    name: Antwoorden
+    none_correct: Geen enkel antwoord is juist.
   timelimit: tijdslimiet
+  button:
+    pause: Later verdergaan
+  startmodal:
+    title: Opmerkingen bij de quiz
 group:
   photo: Foto
   description: Beschrijving
@@ -145,7 +151,7 @@ group:
   quit_name_district: ''
   title: ''
   administrators: ''
-  entermotivation: ''
+  entermotivation: 'Motivatie:'
   quit: ''
   applications: ''
   no_groups: ''
@@ -2289,7 +2295,7 @@ upload:
 button:
   save: 'Opslaan'
   answer: ''
-  upload: ''
+  upload: 'Uploaden'
   new: 'Nieuw'
   clear_filter: ''
   next: ''
@@ -2299,9 +2305,9 @@ button:
   cancel: ''
   create: ''
   apply: ''
-  edit: ''
+  edit: 'Bewerken'
   delete: ''
-  yes_i_am_sure: ''
+  yes_i_am_sure: 'Ja, ik ben er zeker van'
   permadelete: ''
   send: ''
   ok: OK
@@ -2438,3 +2444,6 @@ navi:
   google_maps: Google Maps
 copied_to_clipboard: „{text}“ werd gekopieerd aan het clipboard.
 no_automatic_delete: 'Indien de laatste aanmelding meer dan 5 jaar achter is:'
+expand_all: Alles uitklappen
+collapse_all: Alles inklappen
+partner_foodsharing: Partner van foodsharing

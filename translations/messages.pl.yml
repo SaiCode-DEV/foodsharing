@@ -1602,3 +1602,56 @@ mailbox:
   addressbook: Książka adresowa
   search_name_email: Szukaj według nazwy lub adresu email
   show_html_body: Pokaż jako HTML
+profile:
+  sections:
+    ambassador_for: dla
+    workgroups_admin: jest osobą do kontaktu w następujących grupach
+    workgroups_member: razem z tobą w następujących grupach
+  mail_bounce:
+    warning_1: Twój osobisty adres email {email} jest zablokowany dla maili i 
+      komunikacji z foodsharingu. Przez
+    warning_2: zmianę adresu email
+    warning_3: 'blokada będzie zniesiona. Dalsze informacje znajdziesz w '
+    warning_4: tym artykule supportu.
+    warning_others: Adres email {email} tej osoby jest zablokowany dla maili i 
+      komunikacji z foodsharingu. Przez ten przycisk możesz znieść blokadę.
+  commitments_stat:
+    title: Statystyka zaangażowania
+    eventsParticipatedWeek: 'Dziękujemy za uczestnictwo w {count} eventach w tym tygodniu.
+      Łączny czas: {hour}:{minute} '
+    categorieName: Kategoria
+    pickupAmount: Ilość/Liczba
+    week_1: Przyszły tydzień
+    week_2: Obecny tydzień
+    week_3: Ubiegły tydzień
+  banana:
+    title: '{count} bananów zaufania'
+    recieved_none:
+      other: '{name} jeszcze nie otrzymał/a bananów zaufania.'
+      you: Jeszcze nie otrzymałeś/aś bananów zaufania.
+    sent_none:
+      other: '{name} jeszcze nie podarował/a żadnego banana zaufania.'
+      you: Jeszcze nie podarowałeś/aś żadnego banana zaufania.
+    give: Podaruj {name} banana zaufania
+  stores:
+    memberState:
+      filterAll: wszystkie
+      filterInvitations: Zaproszony/a
+      filterActive: Członek
+  nav:
+    buddy: Znam {name}
+    remove_buddy: Już nie znam {name}
+    history: Historia legitymacji
+    verificationHistory: Historia weryfikacji
+    notes: Notatki
+  history:
+    noActor: nieznany
+    noData: Brak dostępnych danych.
+    wasVerified: Zweryfikowany/a
+    actionBy: przez
+  notes:
+    bread: notatki
+    title: Notatki o {name}
+  online: '{name} jest online.'
+  infos:
+    title: Informacje
