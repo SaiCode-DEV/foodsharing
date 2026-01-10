@@ -399,10 +399,12 @@ class Foodsharing {
         if (isCoordinator) {
           conversations = isWaiting ? [conversations[0]] : [conversations[1]];
         }
-        conversations.forEach(conversation => {
-          const conversationId = Database.grabColumnFromDatabase('fs_betrieb', conversation, {'id': storeId})[0]
-          this.addUserToConversation(fsId, conversationId);
-        })
+        for (const conversation of conversations) {
+          const conversationIds = await Database.grabColumnFromDatabase('fs_betrieb', conversation, {'id': storeId});
+          if (conversationIds.length > 0 && conversationIds[0] != null) {
+            await this.addUserToConversation(fsId, conversationIds[0]);
+          }
+        }
       }
     };
 
