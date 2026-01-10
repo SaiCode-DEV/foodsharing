@@ -79,6 +79,9 @@ services:
   #------------------------------------
   docs:
     container_name: foodsharing_dev_docs
+    image: registry.gitlab.com/foodsharing-dev/images/docs:latest
+    working_dir: /app/docs
+    user: ${CURRENT_USER}
     command: >
       sh -c "
         echo 'Waiting for api_dump.json to be generated...';
@@ -88,5 +91,7 @@ services:
         echo 'api_dump.json found, starting VitePress...';
         yarn && yarn docs:dev
       "
+    volumes:
+      - ../:/app:delegated
     ports:
       - "13000:3000"

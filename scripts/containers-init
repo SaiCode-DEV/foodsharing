@@ -36,4 +36,6 @@ fi
 
 log-header "All done"
 
-"$dir"/__helping-print-intro.sh
+if ([ "$FS_ENV" == "dev" ] ); then
+    "$dir"/__helping-print-intro.sh
+fi

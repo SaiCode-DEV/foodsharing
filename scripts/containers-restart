@@ -15,4 +15,6 @@ log-header "Waiting for assets to be generated ..."
 wait-for-assets
 exec-in-container app bin/console assets:install
 
-"$dir"/__helping-print-intro.sh
+if ([ "$FS_ENV" == "dev" ] ); then
+    "$dir"/__helping-print-intro.sh
+fi

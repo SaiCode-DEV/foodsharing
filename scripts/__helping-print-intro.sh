@@ -5,23 +5,13 @@ dir=$(dirname "$0")
 source "$dir"/__common.sh
 
 ## Environment port mapping for the url creation
-if [ "$FS_ENV" == "dev" ]
-then
-  page_port=18080 #nginx
-  phpmyadmin_port=18081
-  devdocs_port=13000
-  zammad_port=18087
-  listmonk_port=18088
-elif [ "$FS_ENV" == "test" ]
-then
-  page_port=28080 #nginx
-  phpmyadmin_port=28081
-  devdocs_port=23000
-else
-  page_port=8080 #nginx
-  phpmyadmin_port=8081
-  devdocs_port=3000
-fi
+
+page_port=18080 #nginx (dev)
+phpmyadmin_port=18081
+devdocs_port=13000
+zammad_port=18087
+listmonk_port=18088
+
 
 page_url="http://localhost:$page_port"
 api_url="http://localhost:$page_port/api/doc/"

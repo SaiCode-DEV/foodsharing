@@ -59,15 +59,6 @@ services:
     ports:
       - "28084:1080"
 
-  # docs
-  # A plattform for the developer documentations
-  #------------------------------------
-  docs:
-    container_name: foodsharing_test_docs
-    command: sh -c "yarn && yarn docs:build && yarn docs:preview"
-    ports:
-      - "26000:3000"
-
   # selenium
   # for running browser-based tests
   #------------------------------------
