@@ -32,7 +32,6 @@
     <ThemeSwitcherModal />
 
     <ConfirmationDialogue ref="confirmDialog" />
-    <Notifications />
     <ChatDock v-if="isLoggedIn" />
   </b-navbar>
 </template>
@@ -61,7 +60,6 @@ import Loader from './Loader.vue'
 import PetitionBanner from '@/views/partials/TopBanner/Petition/PetitionBanner.vue'
 import ConfirmationDialogue from '@/components/UI/ConfirmationDialogue.vue'
 import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
-import Notifications from '@/components/UI/Notifications.vue'
 import { useMediaQuery } from '@/composables/useMediaQuery'
 import ChatDock from '@/components/Chat/ChatDock.vue'
 

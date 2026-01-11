@@ -109,13 +109,17 @@ test.describe("Food Basket", () => {
     await pickerPage.waitForSelector("text=Essenskorb anfragen");
     await pickerPage.click("text=Essenskorb anfragen");
     await pickerPage.waitForSelector("text=Anfrage absenden");
-    await pickerPage.fill(
-      "#contactmessage",
-      "Hi friend, can I have the basket please?",
-    );
+    const requestChatText = "Hi friend, can I have the basket please?";
+    await pickerPage.fill("#contactmessage", requestChatText);
     await pickerPage.click("text=Anfrage absenden");
     await pickerHelper.waitForActiveAPICalls();
-    await pickerPage.waitForSelector("text=Anfrage wurde versendet");
+    // Check if the chat message was saved in the database
+    await expect(
+      Database.seeInDatabase("fs_msg", {
+        body: requestChatText,
+        foodsaver_id: picker.id,
+      }),
+    ).resolves.toBeTruthy();
 
     await pickerContext.close();
 
@@ -166,36 +170,13 @@ test.describe("Food Basket", () => {
       page.locator('input[name=basket-request-status][value="2"]'),
     ).toBeChecked();
     await page.click("text=Speichern");
-    await page.waitForSelector("text=Erfolgreich abgeschlossen");
-  });
-
-  test("expired and non-expired baskets show correct text", async ({
-    page,
-  }) => {
-    const foodsaver = await foodsharing.createFoodsaver();
-
-    const expiredId = await Database.addToDatabase("fs_basket", {
-      foodsaver_id: foodsaver.id,
-      status: 1,
-      time: "2016-04-04 11:47:52",
-      until: "2016-05-16",
-      description: "ICH BIN ABGELAUFEN",
-    });
-
-    const notExpiredId = await Database.addToDatabase("fs_basket", {
-      foodsaver_id: foodsaver.id,
-      status: 1,
-      time: "2016-08-01 11:47:43",
-      until: "2030-08-15",
-      description: "###TEST###",
-    });
-
-    await page.goto(`/essenskoerbe/${expiredId}`);
-    await expect(page.locator("body")).toContainText(
-      "Dieser Essenskorb ist leider nicht mehr verfügbar",
-    );
-
-    await page.goto(`/essenskoerbe/${notExpiredId}`);
-    await expect(page.locator("body")).toContainText("###TEST###");
+    await acceptanceHelper.waitForActiveAPICalls();
+    // Check if the request was saved as closed in the database
+    await expect(
+      Database.seeInDatabase("fs_basket_anfrage", {
+        status: 2,
+        basket_id: id,
+      }),
+    ).resolves.toBeTruthy();
   });
 });

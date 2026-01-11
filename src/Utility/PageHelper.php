@@ -120,6 +120,7 @@ final class PageHelper
             'dev' => getenv('FS_ENV') === 'dev',
             'hidden' => $this->hidden,
             'footer' => $this->getFooter(),
+            'notificationsWrapper' => $this->getNotificationsWrapper(),
             'content' => [
                 'main' => [
                     'html' => $this->getContent(CNT_MAIN),
@@ -270,6 +271,23 @@ final class PageHelper
             [
                 'id' => 'vue-footer',
                 'component' => 'Footer',
+                'props' => [],
+            ]
+        );
+    }
+
+    /**
+     * Render a global notifications mount point so the Notifications Vue
+     * component is mounted outside of the topbar/navigation and not covered
+     * by modal backdrops that intentionally overlay the topbar.
+     */
+    private function getNotificationsWrapper(): string
+    {
+        return $this->twig->render(
+            'partials/vue-wrapper.twig',
+            [
+                'id' => 'vue-ui-notifications',
+                'component' => 'UiNotifications',
                 'props' => [],
             ]
         );

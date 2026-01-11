@@ -37,6 +37,34 @@ export function vueRegister (components) {
 }
 
 export function vueApply (selector, disableElNotFoundException = false) {
+  // If requesting the global notifications wrapper, ensure a fallback mount
+  // point exists on body
+  const selectorId = selector.replace('#', '')
+  // Only run fallback mount point creation if page is not /karte and does not start with /msg
+  const path = typeof window !== 'undefined' ? window.location.pathname : ''
+  const isBrowser = typeof document !== 'undefined'
+  const notMounted = !document.getElementById(selectorId)
+
+  // Only create a fallback mount point for global wrappers on pages
+  // where it is safe — skip on the map page (`/karte`) and the
+  // messages pages (`/msg*`) because those have special rendering
+  // behaviour and creating a body-level mount can interfere with them.
+  const shouldNotCreateFallbackMountPoint = (path === '/karte' || path.startsWith('/msg')) && selectorId === 'vue-footer'
+  if (isBrowser && notMounted && !shouldNotCreateFallbackMountPoint) {
+    const host = document.createElement('div')
+    host.id = selectorId
+    host.className = 'vue-wrapper'
+    // Construct component name from selector (e.g. #vue-ui-notifications ->
+    // UiNotifications)
+    const componentName = selectorId.replace('vue-', '').split('-').map((word, index) => {
+      return word.charAt(0).toUpperCase() + word.slice(1)
+    }).join('')
+    console.log('vueApply: creating fallback mount point for', selector, 'with component', componentName)
+    host.setAttribute('data-vue-component', componentName)
+    host.setAttribute('data-vue-props', '{}')
+    document.body.appendChild(host)
+  }
+
   let elements = document.querySelectorAll(selector)
 
   // querySelectorAll().forEach() is broken in iOS 9
