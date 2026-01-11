@@ -62,13 +62,6 @@ class FoodsharingUrl extends Db
         return '/region?bid=' . (int)$id . '&sub=wall';
     }
 
-    public function regionPublicPageUrl(int $regionId, ?int $deniedSubregionId = null): string
-    {
-        $query = !is_null($deniedSubregionId) ? "?denied={$deniedSubregionId}" : '';
-
-        return "/region/{$regionId}{$query}";
-    }
-
     public function foodSharePointRegionListUrl($region_id): string
     {
         return '/region?sub=fairteiler&bid=' . (int)$region_id;
