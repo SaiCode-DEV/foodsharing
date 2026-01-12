@@ -188,8 +188,8 @@ class Foodsharing {
    * Convert a Date object or string to a formatted string
    * @param date Date object or string to convert
    * @returns Formatted date string or null if input is null
-   */
-  private toDateTime(date: Date | string | null): string | null {
+  */
+  toDateTime(date: Date | string | null): string | null {
     if (!date) return null;
     return DateTime.fromJSDate(new Date(date))
       .setZone("Europe/Berlin")
@@ -396,7 +396,7 @@ class Foodsharing {
 
         // Also add the user to the store's team conversation. Store managers need to be members of both conversations.
         let conversations = ['springer_conversation_id', 'team_conversation_id'];
-        if (isCoordinator) {
+        if (!isCoordinator) {
           conversations = isWaiting ? [conversations[0]] : [conversations[1]];
         }
         for (const conversation of conversations) {
