@@ -1655,3 +1655,35 @@ profile:
   online: '{name} jest online.'
   infos:
     title: Informacje
+  stats:
+    bananas: Banany
+  about_me_intern: O mnie
+  public:
+    who: '{name} z {from}'
+    mayNot: nieaktywny/a
+    cta: 'Pełny profil {name} jest dostępny po rejestracji:'
+  report:
+    inthisblog: w tym poście na blogu
+    report_other: Inne
+    late: Spóźnił/a się
+    notes: Notatki i decyzje
+  alldatesdeleted: Wszystkie daty zostały usunięte
+  cantdeleteall: Nie możesz usunąć wszystkich dat!
+dashboard:
+  title: Dashboard
+  display_all: Wszystkie
+  settings: Ustawienia
+  no_updates: Nie ma update'ów
+  no_more_updates_all: To wszystko!
+  no_more_updates_mailbox: Nie ma więcej wiadomości w skrzynce pocztowej
+  empty_section: Jeszcze nie masz {type}
+  save_selection: Zapisz ustawienia
+  source_foodsharepoint: Jadłodzielnie {0}
+  source_friendWall: Pinnwand {0}
+  source_forum: Forum {0}
+  source_mailbox: '{0}'
+  activation_mail_failure: Nie można było wysłać nowego linku aktywującego
+  greeting_short: Cześć {name}!
+  my:
+    groups: Twoje grupy
+    events: Eventy
