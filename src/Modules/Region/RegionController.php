@@ -268,6 +268,22 @@ final class RegionController extends FoodsharingController
         return $this->redirect('/region/' . end($redirects)['id'] . '?denied=' . $deniedRegionId);
     }
 
+    /**
+     * TODO: Backwards compatible endpoint for old bells, see MR 4594. This can be removed as soon as there are no old
+     * bells referring to group applications anymore.
+     */
+    #[Route('/regions/{regionId}/applications', requirements: ['regionId' => '\d+'])]
+    #[Route('/regions/{regionId}/applications/{userId}', requirements: ['regionId' => '\d+', 'userId' => '\d+'])]
+    public function applicationsFallback(int $regionId, ?int $userId = null): Response
+    {
+        $path = "/region?bid=$regionId&sub=applications";
+        if (!is_null($userId)) {
+            $path .= "&userId=$userId";
+        }
+
+        return $this->redirect($path);
+    }
+
     private function wall(Request $request, array $region): Response
     {
         $this->pageHelper->addBread($this->translator->trans('terminology.wall'), '/region?bid=' . $region['id'] . '&sub=wall');

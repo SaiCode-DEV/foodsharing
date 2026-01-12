@@ -4,6 +4,7 @@ namespace Foodsharing\Modules\Region;
 
 use Carbon\Carbon;
 use Exception;
+use Foodsharing\Modules\Application\DTO\WorkingGroupApplication;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
@@ -11,7 +12,6 @@ use Foodsharing\Modules\Core\DBConstants\Region\ApplyType;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
-use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Region\DTO\BasicRegionStatistics;
 use Foodsharing\Modules\Region\DTO\HierachicalRegion;
 use Foodsharing\Modules\Region\DTO\MinimalRegionIdentifier;
@@ -295,20 +295,21 @@ class RegionGateway extends BaseGateway
     }
 
     /**
-     * Returns all users who have an pending application to the given region.
+     * Returns all pending applications to the given region.
      *
      * @param int $regionId the region for which to list the applicants
      *
-     * @return Profile[]
+     * @return WorkingGroupApplication[]
      */
-    public function listApplicants(int $regionId): array
+    public function listApplications(int $regionId): array
     {
         $applicants = $this->db->fetchAll('
 			SELECT 	fs.`id`,
 					fs.`name`,
 					fs.`photo`,
 					fs.is_sleeping,
-					fb.active
+					fb.active,
+					fb.application
 
 			FROM 	`fs_foodsaver_has_bezirk` fb,
 					`fs_foodsaver` fs
@@ -318,7 +319,7 @@ class RegionGateway extends BaseGateway
 			AND 	fb.active = 0
 		', ['regionId' => $regionId]);
 
-        return array_map(fn ($applicant) => new Profile($applicant), $applicants);
+        return array_map(fn ($application) => WorkingGroupApplication::create($regionId, $application), $applicants);
     }
 
     public function linkBezirk(int $foodsaverId, int $regionId, int $active = 1)

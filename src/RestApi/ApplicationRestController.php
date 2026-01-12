@@ -95,8 +95,8 @@ class ApplicationRestController extends AbstractFoodsharingRestController
             throw new AccessDeniedHttpException('Not permitted');
         }
 
-        $applicants = $this->regionGateway->listApplicants($groupId);
+        $applications = $this->regionGateway->listApplications($groupId);
 
-        return $this->respondOK($applicants);
+        return $this->respondOK($applications);
     }
 }

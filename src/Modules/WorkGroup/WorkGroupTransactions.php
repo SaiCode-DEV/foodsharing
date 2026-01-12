@@ -65,7 +65,7 @@ class WorkGroupTransactions
         if ($groupMail) {
             $userWithMail = $this->workGroupGateway->getFsWithMail($userId);
 
-            $link = BASE_URL . '/regions/' . $groupId . '/applications/' . $userId;
+            $link = BASE_URL . '/region?bid=' . $groupId . '&sub=applications&userId=' . $userId;
 
             $this->emailHelper->libmail(
                 [

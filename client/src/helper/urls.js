@@ -5,7 +5,7 @@ import phoneNumbers from './phone-numbers'
 const urls = {
   profile: (id) => `/user/${id}/profile`,
   academy: () => '/content?sub=academy',
-  application: (groupId, userId) => `/regions/${groupId}/applications/${userId}`,
+  application: (groupId, userId) => `/region?bid=${groupId}&sub=applications&userId=${userId}`,
   applications: (groupId) => `/region?bid=${groupId}&sub=applications`,
   basket: (basketId) => `/essenskoerbe/${basketId}`,
   baskets: () => '/essenskoerbe',

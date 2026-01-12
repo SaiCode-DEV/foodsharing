@@ -362,6 +362,7 @@ group:
   role_name: "Rolle"
   applications: "Bewerbungen"
   applications_for: "Bewerbungen für {name}"
+  confirm_decline: "Möchtest du diese Bewerbung wirklich ablehnen?"
   application_region: "Bewerbung für {group}"
   application_from: "von"
   motivation: "Motivationstext"
@@ -406,7 +407,8 @@ group:
       "5": "5 oder mehr Stunden"
     send: "Bewerbung absenden"
     sent: "Bewerbung wurde abgeschickt."
-    accept: "Bewerbung annehmen"
+    deny: "Ablehnen"
+    accept: "Annehmen"
     accepted: "Bewerbung angenommen"
     declined: "Bewerbung abgelehnt"
   application_requirements:

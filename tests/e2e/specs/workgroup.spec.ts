@@ -215,8 +215,7 @@ test.describe("WorkGroup", () => {
       await adminPage.click("text=Bewerbungen");
       await adminPage.waitForSelector(`text=${regionMember.name}`);
       await adminPage.click(`text=${regionMember.name}`);
-      await adminPage.waitForSelector("text=Bewerbung annehmen");
-      await adminPage.locator('#vmenu a:has-text("Ja")').click();
+      await adminPage.getByRole('button', { name: 'Annehmen' }).click();
       await adminHelper.waitForActiveAPICalls();
       await adminContext.close();
 
