@@ -1,6 +1,7 @@
 import { test, expect } from "../helpers/acceptance";
 import { foodsharing } from "../helpers/foodsharing";
 import { Database } from "../helpers/database";
+import { maildev } from "../helpers/maildev";
 import Role from "../helpers/constants/Foodsaver/Role";
 
 test.describe("Settings", () => {
@@ -367,5 +368,36 @@ test.describe("Settings", () => {
       page.getByText("Noch keine Sicherheitsschlüssel registriert"),
     ).toBeHidden();
     await expect(page.getByText(deviceName)).toBeVisible();
+  });
+
+  test("can change email address in profile", async ({ page, acceptanceHelper }) => {
+    const pass = "testpass123!";
+    const newMail = "test@blaa.com";
+
+    const user = await foodsharing.createFoodsaver(pass);
+
+    await acceptanceHelper.login(user.email, true, pass);
+
+    await page.goto("/user/current/settings");
+    await page.getByRole('button', { name: 'Kontosicherheit' }).click();
+    await page.getByRole("button", { name: /E-Mail-Adresse ändern/i }).click();
+    await page.waitForSelector("#new-email");
+    await page.fill("#new-email", newMail);
+    await page.fill("#new-email-confirm", newMail);
+    await page.getByRole('textbox', { name: 'Dein Passwort' }).fill(pass);
+    await page.getByRole('button', { name: 'E-Mail ändern' }).click();
+    await expect(page.getByRole('heading', { name: 'Bist du sicher?' })).toBeVisible();
+    await page.getByRole('button', { name: 'Übernehmen' }).click();
+    await acceptanceHelper.waitForActiveAPICalls();
+
+    // Wait for the confirmation mail sent to the new address and extract link
+    const subject = "Bestätige deine neue E-Mail-Adresse für foodsharing";
+    const mail = await maildev.waitForMail(subject, newMail);
+    const link = mail.findLink("user/current/settings/email/verify");
+    await page.goto(link);
+    await expect(page.locator("body")).toContainText("Deine E-Mail-Adresse wurde geändert");
+
+    const found = await Database.seeInDatabase("fs_foodsaver", { id: user.id, email: newMail });
+    expect(found).toBeTruthy();
   });
 });
