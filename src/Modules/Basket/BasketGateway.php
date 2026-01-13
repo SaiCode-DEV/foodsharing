@@ -225,6 +225,7 @@ class BasketGateway extends BaseGateway
         return $this->db->update(
             'fs_basket',
             [
+                'picture' => null,
                 'status' => BasketStatus::DELETED_OTHER_REASON,
                 'update' => date('Y-m-d H:i:s')
             ],

@@ -117,4 +117,20 @@ class BasketTransactions
 
         return $baskets;
     }
+
+    /**
+     * Removes a basket and deletes all attached pictures.
+     */
+    public function removeBasket(Basket $basket): void
+    {
+        // Delete all pictures
+        if (!empty($basket->pictures)) {
+            foreach ($basket->pictures as $picture) {
+                $uuid = substr((string)$picture, 13);
+                $this->uploadsTransactions->deleteUploadedFile($uuid);
+            }
+        }
+
+        $this->basketGateway->removeBasket($basket->id);
+    }
 }

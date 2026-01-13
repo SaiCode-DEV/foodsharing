@@ -13,17 +13,13 @@ use Foodsharing\Modules\Region\ForumTransactions;
 class MaintenanceGateway extends BaseGateway
 {
     /**
-     * Sets the status of all outdated baskets to {@link Status::DELETED_OTHER_REASON}.
-     *
-     * @return int the number of changed baskets
+     * Returns the ID of all outdated baskets.
      */
-    public function deactivateOldBaskets(): int
+    public function listOldBaskets(): array
     {
-        return $this->db->update(
-            'fs_basket',
-            ['status' => Status::DELETED_OTHER_REASON],
-            ['status' => Status::REQUESTED_MESSAGE_READ, 'until <' => $this->db->now()]
-        );
+        return $this->db->fetchAllValuesByCriteria('fs_basket', 'id', [
+            'status' => Status::REQUESTED_MESSAGE_READ, 'until <' => $this->db->now()
+        ]);
     }
 
     /**

@@ -48,15 +48,7 @@ const baskets = ref([])
 const basketBubbleRef = ref(null)
 
 function picturePath (basket) {
-  let img = '/img/basket.png'
-  if (basket.picture && basket.picture.length > 0) {
-    if (basket.picture.startsWith('/api')) {
-      img = basket.picture + '?w=35&h=35'
-    } else {
-      img = '/images/basket/thumb-' + basket.picture
-    }
-  }
-  return img
+  return basket.picture ? basket.picture + '?w=35&h=35' : '/img/basket.png'
 }
 
 function openBubble (id) {

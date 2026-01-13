@@ -156,11 +156,7 @@ final class BasketRestController extends AbstractFoodsharingRestController
             throw new AccessDeniedHttpException('you are not allowed to delete this basket.');
         }
 
-        $status = $this->basketGateway->removeBasket($basketId);
-
-        if ($status === 0) {
-            throw new NotFoundHttpException('Basket was not found or cannot be deleted.');
-        }
+        $this->basketTransactions->removeBasket($basket);
 
         return $this->respondOK();
     }

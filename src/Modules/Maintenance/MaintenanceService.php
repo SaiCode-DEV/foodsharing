@@ -3,6 +3,8 @@
 namespace Foodsharing\Modules\Maintenance;
 
 use Carbon\Carbon;
+use Foodsharing\Modules\Basket\BasketGateway;
+use Foodsharing\Modules\Basket\BasketTransactions;
 use Foodsharing\Modules\Bell\BellUpdateTrigger;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
@@ -29,6 +31,8 @@ class MaintenanceService
         private readonly UploadsTransactions $uploadsTransactions,
         private readonly IMAPFolderCleanupHelper $imapFolderCleanupHelper,
         private readonly ForumTransactions $forumTransactions,
+        private readonly BasketGateway $basketGateway,
+        private readonly BasketTransactions $basketTransactions,
     ) {
     }
 
@@ -264,8 +268,11 @@ class MaintenanceService
 
     private function deactivateBaskets(): void
     {
-        $count = $this->maintenanceGateway->deactivateOldBaskets();
-        ConsoleHelper::info($count . ' old foodbaskets deactivated');
+        $basketIds = $this->maintenanceGateway->listOldBaskets();
+        foreach ($basketIds as $basketId) {
+            $this->basketTransactions->removeBasket($this->basketGateway->getBasket($basketId));
+        }
+        ConsoleHelper::info(count($basketIds) . ' old foodbaskets deactivated');
     }
 
     private function deleteImages(): void

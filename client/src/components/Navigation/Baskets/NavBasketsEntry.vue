@@ -80,15 +80,6 @@ export default {
     basket: { type: Object, default: () => ({}) },
   },
   methods: {
-    getImageUrl (picture) {
-      if (picture) {
-        if (picture.startsWith('/api')) {
-          return `${picture}?w=35&h=35`
-        }
-        return `/images/basket/thumb-${picture}`
-      }
-      return '/img/basket.png'
-    },
     openChat (userId) {
       conversationStore.openChatWithUser(userId)
     },
