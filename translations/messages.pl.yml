@@ -695,6 +695,18 @@ login:
     mismatch: Niestety, hasła się nie pokrywają.
     request_new: Zażądaj nowego hasła
   steady_login: Pozostań stale zalogowany/a
+  resend_verification:
+    email_invalid: Podaj adres email
+    title: Potwierdzenie adresu email
+    hint1: Twój adres email musi być potwierdzony, aby móc się zalogować. Jeśli 
+      zostałeś przekierowany/a do tej strony ze strony logowania, twój adres 
+      email jeszcze nie jest potwierdzony. Możesz użyć tego formularza, aby 
+      poprosić o nowy email zawierający link aktywacyjny.
+    hint2: Jeśli nie otrzymasz maila, skontaktuj się z naszym 
+      [supportem](/support).
+    submit: Wyślij
+    success: Jeśli ten adres email istnieje i jeszcze nie został zweryfikowany, 
+      zostanie wysłany nowy email.
 register:
   topbar: dołącz
   title: rejestracja
@@ -751,6 +763,7 @@ register:
   mail_hint: 'Ważne: uważaj na poprawną pisownię!'
   requiredFields: Pole wymagane
   email_required: Adres email jest wymagany
+  email_invalid: Ten adres email jest nieważny bądź już używany
 gender:
   m: mężczyzna
   f: kobieta
@@ -999,6 +1012,7 @@ store:
     to-nowhere: odrzuć
     distance:
       unknown: nie podano ważnego miejsca zamieszkania
+      normal: Mieszka w odległości ok. {distance} km
     distance_short:
       unknown: brak ważnego adresu
       close: Mniej niż 500 m
@@ -1263,6 +1277,8 @@ events:
     desc: Co to za rodzaj eventu?
     multiday: Event trwa kilka dni
     type: Jak odbędzie się ten event?
+    public: Czy event jest publiczny?
+    isPublic: Event jest publiczny
   span: '{from} do {until}'
   duration: 'Czas trwania: {duration}'
   mumble:
@@ -1304,6 +1320,7 @@ events:
   public_info: Ten event jest publiczny i otwarty dla wszystkich. Komentarze i 
     lista uczestniczących są widoczne tylko dla zarejestrowanych 
     użytkowników/czek.
+  description: Opis
 recipients:
   recipients: Odbiorcy
   all: Wszyscy/tkie Foodsaverzy/ki na świecie
@@ -1471,6 +1488,7 @@ bell:
   foodsaver_verified_title: Teraz jesteś zweryfikowany/a!
   foodsaver_adress_changed_title: '{name} zmienił/a adres'
   workinggroup_new_request: Nowe zgłoszenie do zespołu
+  new_foodsaver_title: '{name} jest nowy/a w {bezirk}'
 list:
   filter_for: Filtruj według …
 filterlist:
@@ -1602,6 +1620,12 @@ mailbox:
   addressbook: Książka adresowa
   search_name_email: Szukaj według nazwy lub adresu email
   show_html_body: Pokaż jako HTML
+  new: Nowa skrzynka pocztowa
+  hostinfo: Podaj tylko nazwę skrzynki, bez @{host}
+  add_success: Skrzynka pocztowa została utworzona pomyślnie.
+  already_exists: Już istnieje skrzynka pocztowa o tej nazwie
+  okay: Email został wysłany pomyślnie.
+  failed: Nie można było wysłać maila.
 profile:
   sections:
     ambassador_for: dla
