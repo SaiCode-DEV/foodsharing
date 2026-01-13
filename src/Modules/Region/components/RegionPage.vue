@@ -223,8 +223,8 @@ export default {
       applications: [],
       regionMenu: null,
       activeSubpage: this.initialActiveSubpage,
-      forumThreadId: null,
-      showNewThreadForm: false,
+      forumThreadId: Number(GET('tid')) ?? null,
+      showNewThreadForm: Number(GET('newthread')) === 1,
     }
   },
   computed: {
@@ -240,8 +240,6 @@ export default {
       this.applications = await getApplications(this.regionId)
     }
     this.regionMenu = await regionStore.fetchRegionMenu(this.regionId)
-    this.forumThreadId = Number(GET('tid')) ?? null
-    this.showNewThreadForm = Number(GET('newthread')) === 1
   },
   methods: {
     changeSubPage (subPage) {
