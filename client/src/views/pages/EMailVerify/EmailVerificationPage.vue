@@ -4,10 +4,10 @@
     :collapsible="false"
   >
     <div class="m-3">
-      {{ cancel ? $t('settings.changemail.not_changed') : (verified ? $t('settings.changemail.done') : $t('settings.changemail.invalid')) }}
+      {{ cancel ? $t('settings.email_change.not_changed') : (verified ? $t('settings.email_change.done') : $t('settings.email_change.invalid')) }}
     </div>
 
-    <a class="mx-3 mb-3" :href="$url('dashboard')">{{ $t('settings.changemail.dashboard_link') }}</a>
+    <a class="mx-3 mb-3" :href="$url('dashboard')">{{ $t('settings.email_change.dashboard_link') }}</a>
   </Container>
 </template>
 

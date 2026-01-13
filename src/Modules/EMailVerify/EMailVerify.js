@@ -4,7 +4,7 @@ import { vueApply, vueRegister } from '@/vue'
 import EmailVerificationPage from '@/views/pages/EMailVerify/EmailVerificationPage.vue'
 import ResendEmailVerificationForm from '@/components/Login/ResendEmailVerificationForm.vue'
 
-if (document.getElementById('#email-verification-page')) {
+if (document.getElementById('email-verification-page')) {
   vueRegister({
     EmailVerificationPage,
   })
