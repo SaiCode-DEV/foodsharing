@@ -90,7 +90,7 @@ export default {
       let matchingForums = []
       const isNumber = /^\d+\.?\d*$/.test(query)
       if (isNumber) {
-        const thread = (await getThread(Number(query))).data
+        const thread = await getThread(Number(query))
         if (this.searchRegions.includes(thread.regionId)) {
           matchingForums.push({ id: thread.id, name: thread.title })
         }
@@ -112,7 +112,7 @@ export default {
     },
     async loadInitialForumInformation () {
       if (this.value) {
-        const forumInformation = (await getThread(this.value)).data
+        const forumInformation = await getThread(this.value)
         this.forum = this.formatItem({ id: forumInformation.id, name: forumInformation.title })
         this.initialForum = this.forum
       }

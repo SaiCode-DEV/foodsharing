@@ -85,6 +85,7 @@
           :deep-link="getPostLink(post.id)"
           :may-hide="mayHidePosts"
           :may-moderate="mayModerate"
+          :may-delete="mayDelete"
           :is-loading="loadingPosts.indexOf(post.id) != -1"
           :created-at="new Date(post.createdAt)"
           :may-reply="isOpen"
@@ -237,7 +238,7 @@ export default {
       regionId: null,
       regionSubId: null,
       posts: [],
-      creator: null,
+      creatorId: null,
 
       stickiness: 0,
       isActive: true,
@@ -270,7 +271,7 @@ export default {
       return this.status === ThreadStatus.THREAD_OPEN
     },
     mayRename () {
-      return this.mayModerate || this.userId === this.creator?.id
+      return this.mayModerate || this.userId === this.creatorId
     },
     overflowMenuOptions () {
       return [
@@ -343,21 +344,21 @@ export default {
     },
     async reload (isDeleteAction = false) {
       try {
-        const res = (await api.getThread(this.id)).data
+        const res = await api.getThread(this.id)
         Object.assign(this, {
           title: res.title,
           regionId: res.regionId,
-          regionSubId: res.regionSubId,
+          regionSubId: res.subforumId,
           posts: res.posts,
-          stickiness: res.stickiness,
+          stickiness: res.pinnedLevel,
           isActive: res.isActive,
-          mayModerate: res.mayModerate,
-          mayDelete: res.mayDelete,
-          mayHidePosts: res.mayHidePosts,
-          isFollowingEmail: res.isFollowingEmail,
-          isFollowingBell: res.isFollowingBell,
-          status: res.status,
-          creator: res.creator,
+          mayModerate: res.permissions.mayModerate,
+          mayDelete: res.permissions.mayDelete,
+          mayHidePosts: res.permissions.mayHidePosts,
+          isFollowingEmail: res.subscriptionsStatus.isMailSubscribed,
+          isFollowingBell: res.subscriptionsStatus.isBellSubscribed,
+          status: +res.isLocked,
+          creatorId: res.creatorId,
         })
         this.isLoading = false
       } catch (err) {

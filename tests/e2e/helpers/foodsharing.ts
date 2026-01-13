@@ -188,7 +188,7 @@ class Foodsharing {
    * Convert a Date object or string to a formatted string
    * @param date Date object or string to convert
    * @returns Formatted date string or null if input is null
-  */
+   */
   toDateTime(date: Date | string | null): string | null {
     if (!date) return null;
     return DateTime.fromJSDate(new Date(date))
@@ -309,12 +309,19 @@ class Foodsharing {
     extraParams: any = {},
   ): Promise<any> {
     // Create conversations
-    const name = "betrieb_" + faker.company.name()
+    const name = "betrieb_" + faker.company.name();
     if (teamConversation === null) {
-      teamConversation = (await this.createConversation([], {locked: 1, name: 'Team ' + name})).id;
+      teamConversation = (
+        await this.createConversation([], { locked: 1, name: "Team " + name })
+      ).id;
     }
     if (springerConversation === null) {
-      springerConversation = (await this.createConversation([], {locked: 1, name: 'Springer ' + name})).id;
+      springerConversation = (
+        await this.createConversation([], {
+          locked: 1,
+          name: "Springer " + name,
+        })
+      ).id;
     }
 
     // Get store category if needed
@@ -341,7 +348,7 @@ class Foodsharing {
       str: faker.location.streetAddress(),
       lat: faker.location.latitude({ min: 46, max: 55 }),
       lon: faker.location.longitude({ min: 4, max: 16 }),
-      name: name,
+      name,
       status_date: this.toDateTime(faker.date.past()),
       ansprechpartner: faker.person.fullName(),
       telefon: faker.phone.number(),
@@ -395,12 +402,19 @@ class Foodsharing {
         await Database.addToDatabase("fs_betrieb_team", params);
 
         // Also add the user to the store's team conversation. Store managers need to be members of both conversations.
-        let conversations = ['springer_conversation_id', 'team_conversation_id'];
+        let conversations = [
+          "springer_conversation_id",
+          "team_conversation_id",
+        ];
         if (!isCoordinator) {
           conversations = isWaiting ? [conversations[0]] : [conversations[1]];
         }
         for (const conversation of conversations) {
-          const conversationIds = await Database.grabColumnFromDatabase('fs_betrieb', conversation, {'id': storeId});
+          const conversationIds = await Database.grabColumnFromDatabase(
+            "fs_betrieb",
+            conversation,
+            { id: storeId },
+          );
           if (conversationIds.length > 0 && conversationIds[0] != null) {
             await this.addUserToConversation(fsId, conversationIds[0]);
           }
@@ -1592,23 +1606,31 @@ class Foodsharing {
     body: string;
     sendMail?: boolean;
     page: any;
-  }): Promise<any> {    
-    const csrfToken = (await page.context().cookies()).find(c => c.name === 'FS_CSRF_TOKEN')?.value ?? '';
-    
-    const response = await page.request.post(`api/forum/${forumId}/${forumSubId}`, {
-      data: {
-        title,
-        body,
-        sendMail
+  }): Promise<any> {
+    const csrfToken =
+      (await page.context().cookies()).find((c) => c.name === "FS_CSRF_TOKEN")
+        ?.value ?? "";
+
+    const response = await page.request.post(
+      `api/forum/${forumId}/${forumSubId}`,
+      {
+        data: {
+          title,
+          body,
+          sendMail,
+        },
+        headers: {
+          "X-CSRF-Token": csrfToken,
+        },
       },
-      headers: {
-        'X-CSRF-Token': csrfToken,
-      },
-    });
+    );
     return response;
   }
 
-    async forumThreadUrl(forumId: number, regionId: number | null): Promise<string> {
+  async forumThreadUrl(
+    forumId: number,
+    regionId: number | null,
+  ): Promise<string> {
     if (regionId === null) {
       regionId = Number(
         await Database.grabFromDatabase("fs_bezirk_has_theme", "bezirk_id", {

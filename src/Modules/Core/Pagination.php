@@ -21,10 +21,10 @@ class Pagination
     /**
      * @throws BadRequestHttpException
      */
-    public static function create(?int $limit = null, ?int $offset = null): self
+    public static function create(?int $limit = null, ?int $offset = null, int $defaultLimit = self::DEFAULT_LIMIT): self
     {
         $pagination = new Pagination();
-        $pagination->limit = self::assertMinValueWithDefault($limit, 1, self::DEFAULT_LIMIT);
+        $pagination->limit = self::assertMinValueWithDefault($limit, 1, $defaultLimit);
         $pagination->offset = self::assertMinValueWithDefault($offset, 0, 0);
 
         return $pagination;

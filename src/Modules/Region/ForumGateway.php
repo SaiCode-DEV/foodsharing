@@ -2,11 +2,19 @@
 
 namespace Foodsharing\Modules\Region;
 
+use Carbon\Carbon;
 use Exception;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
+use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Region\ThreadStatus;
+use Foodsharing\Modules\Core\PaginatedContent;
+use Foodsharing\Modules\Core\Pagination;
+use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Region\DTO\ForumPost;
+use Foodsharing\Modules\Region\DTO\ForumPostSummary;
+use Foodsharing\Modules\Region\DTO\ForumThread;
+use Foodsharing\Modules\Region\DTO\ForumThreadForListView;
 use Foodsharing\Modules\Region\Exceptions\NoVisiblePostException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -22,64 +30,6 @@ class ForumGateway extends BaseGateway
     }
 
     // Thread-related
-
-    public function listThreads(int $regionId, int $subforumId = 0, int $limit = 15, int $offset = 0): array
-    {
-        $threads = $this->db->fetchAll('SELECT
-                        t.id,
-						t.name as title,
-						t.`time`,
-						UNIX_TIMESTAMP(t.`time`) AS time_ts,
-						fs.id AS foodsaver_id,
-						IFNULL(fs.name,"abgemeldeter Benutzer") AS foodsaver_name,
-						fs.photo AS foodsaver_photo,
-						fs.is_sleeping as foodsaver_is_sleeping,
-						p.body AS post_body,
-						p.`time` AS post_time,
-						UNIX_TIMESTAMP(p.`time`) AS post_time_ts,
-						t.last_post_id,
-						t.sticky,
-						bt.bezirk_id AS regionId,
-						bt.bot_theme AS regionSubId,
-						creator.id as creator_id,
-						creator.name as creator_name,
-						creator.photo as creator_photo,
-						creator.is_sleeping as creator_is_sleeping,
-						t.status,
-				        COUNT(*) OVER() AS total_rows
-
-			FROM 		fs_theme t
-						INNER JOIN
-						fs_bezirk_has_theme bt
-						ON bt.theme_id = t.id
-						LEFT JOIN
-						fs_theme_post p
-						ON p.id = t.last_post_id
-						INNER JOIN
-						fs_foodsaver fs
-						ON  fs.id = p.foodsaver_id
-						INNER JOIN
-						fs_foodsaver creator
-						ON creator.id = t.foodsaver_id
-
-			WHERE       bt.bezirk_id = :regionId
-			AND 		bt.bot_theme = :subforumId
-			AND 		t.`active` = 1
-
-			ORDER BY    t.`sticky` DESC,
-                        p.`time` DESC
-			LIMIT :limit
-			OFFSET :offset
-		', [
-            ':regionId' => $regionId,
-            ':subforumId' => $subforumId,
-            ':limit' => $limit,
-            ':offset' => $offset,
-        ]);
-
-        return $threads ?: [];
-    }
-
     public function getThreadInfo(int $threadId): array
     {
         return $this->db->fetch('
@@ -92,30 +42,37 @@ class ForumGateway extends BaseGateway
 		', ['thread_id' => $threadId]);
     }
 
-    public function getThread(int $threadId): array
+    /**
+     * @return ForumThread where `permissions`, `subscriptionsStatus` and `posts` is not initialized
+     */
+    public function getThread(int $threadId): ForumThread
     {
-        return $this->db->fetch('
-			SELECT 		t.id,
-						b.bezirk_id AS regionId,
-						b.bot_theme AS regionSubId,
-						t.name as title,
-						t.`time`,
-						UNIX_TIMESTAMP(t.`time`) AS time_ts,
-						t.last_post_id,
-						t.`active`,
-						t.`sticky`,
-						t.foodsaver_id as creator_id,
-						t.status
+        $threadData = $this->db->fetch('SELECT
+                t.`id`, t.`name`, t.`sticky`, t.`status`, t.`active`,
+                t.`foodsaver_id`, t.`last_post_id`,
+                r.`bezirk_id` AS regionId, r.`bot_theme` AS subforumId
+			FROM fs_theme t
+			JOIN fs_bezirk_has_theme AS r ON r.theme_id = t.id
+			WHERE 		t.id = :thread_id',
+            ['thread_id' => $threadId]
+        );
 
-			FROM 		fs_theme t
+        if (!$threadData) {
+            throw new DatabaseNoValueFoundException();
+        }
 
-			LEFT JOIN fs_bezirk_has_theme AS b ON b.theme_id = t.id
+        $thread = new ForumThread();
+        $thread->id = $threadData['id'];
+        $thread->title = $threadData['name'];
+        $thread->pinnedLevel = $threadData['sticky'];
+        $thread->isLocked = ($threadData['status'] === ThreadStatus::CLOSED);
+        $thread->isActive = (bool)$threadData['active'];
+        $thread->regionId = $threadData['regionId'];
+        $thread->subforumId = $threadData['subforumId'];
+        $thread->creatorId = $threadData['foodsaver_id'];
+        $thread->lastPostId = $threadData['last_post_id'];
 
-			WHERE 		t.id = :thread_id
-
-			LIMIT 1
-
-		', ['thread_id' => $threadId]);
+        return $thread;
     }
 
     public function addThread($foodsaverId, $regionId, $title, $body, $isActive, $ambassadorForum = false)
@@ -417,5 +374,52 @@ class ForumGateway extends BaseGateway
         } else {
             return $threadId['theme_id'];
         }
+    }
+
+    /**
+     * @return PaginatedContent with entrys of type ForumThreadForListView
+     */
+    public function getForumThreadsForListView(int $regionId, int $subforumId, Pagination $pagination): PaginatedContent
+    {
+        $params = [
+            'regionId' => $regionId,
+            'subforumId' => $subforumId,
+        ];
+        $threadsData = $this->db->fetchAll('SELECT
+                t.`id`, t.`name`, t.`sticky`, t.`status`,
+                p.`time` AS lastPostTime,
+                fs.`id` AS fs_id, fs.`name` AS fs_name, fs.`photo` AS fs_photo, fs.`is_sleeping` AS fs_is_sleeping,
+                COUNT(*) OVER() AS totalCount
+            FROM fs_theme t
+            JOIN fs_theme_post p ON p.`id` = t.`last_post_id`
+            JOIN fs_foodsaver fs ON fs.`id` = p.`foodsaver_id`
+            JOIN fs_bezirk_has_theme r ON r.`theme_id` = t.`id`
+            WHERE r.`bezirk_id` = :regionId
+                AND r.`bot_theme` = :subforumId
+                AND t.`active` = 1
+            ORDER BY t.`sticky` DESC, p.`time` DESC
+            ' . $this->buildPaginationSqlLimit($pagination),
+            $this->addPaginationSqlLimitParameters($pagination, $params),
+        );
+
+        if (empty($threadsData)) {
+            return PaginatedContent::create(0, $pagination->offset, []);
+        }
+        $totalCount = $threadsData[0]['totalCount'];
+
+        $threads = array_map(function ($threadData) {
+            $thread = new ForumThreadForListView();
+            $thread->id = $threadData['id'];
+            $thread->title = $threadData['name'];
+            $thread->pinnedLevel = $threadData['sticky'];
+            $thread->isLocked = ($threadData['status'] === ThreadStatus::CLOSED);
+            $thread->latestPost = new ForumPostSummary();
+            $thread->latestPost->createdAt = new Carbon($threadData['lastPostTime']);
+            $thread->latestPost->author = new Profile($threadData, 'fs_');
+
+            return $thread;
+        }, $threadsData);
+
+        return PaginatedContent::create($totalCount, $pagination->offset, $threads);
     }
 }

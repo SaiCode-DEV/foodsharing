@@ -14,9 +14,11 @@ class ForumPost
     public DateTime $createdAt;
     public Profile $author;
     public ?HiddenPostInfo $hidden;
-    public array $reactions = [];
-    public bool $mayDelete = false;
 
+    /** @var array<string, Profile[]> */
+    public array $reactions = [];
+
+    // TODO change to create method
     public static function createFromArray(array $data): ForumPost
     {
         $result = new self();

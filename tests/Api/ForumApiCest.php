@@ -53,12 +53,12 @@ class ForumApiCest
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseEquals('[]');
 
-        $thread = $I->sendGet('/api/forum/thread/' . $this->thread['id']);
+        $thread = $I->sendGet('/api/forum/threads/' . $this->thread['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $j = json_decode($thread, true);
-        $I->assertFalse($j['data']['isFollowingBell']);
-        $I->assertFalse($j['data']['isFollowingEmail']);
+        $I->assertFalse($j['subscriptionsStatus']['isBellSubscribed']);
+        $I->assertFalse($j['subscriptionsStatus']['isMailSubscribed']);
 
         // Send post
         $I->login($this->user1['email']);
@@ -93,12 +93,12 @@ class ForumApiCest
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseEquals('[]');
 
-        $thread = $I->sendGet('/api/forum/thread/' . $this->thread['id']);
+        $thread = $I->sendGet('/api/forum/threads/' . $this->thread['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $j = json_decode($thread, true);
-        $I->assertTrue($j['data']['isFollowingBell']);
-        $I->assertFalse($j['data']['isFollowingEmail']);
+        $I->assertTrue($j['subscriptionsStatus']['isBellSubscribed']);
+        $I->assertFalse($j['subscriptionsStatus']['isMailSubscribed']);
 
         $I->login($this->user1['email']);
         $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test bell']);
@@ -129,19 +129,19 @@ class ForumApiCest
         $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/bell');
         $I->seeResponseCodeIs(HttpCode::OK);
 
-        $I->sendDelete('api/forum/thread/' . $this->thread['id'] . '/follow/email');
+        $I->sendDELETE('api/forum/thread/' . $this->thread['id'] . '/follow/email');
         $I->seeResponseCodeIs(HttpCode::OK);
 
         $I->sendGet('api/notifications/forum');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseEquals('[]');
 
-        $thread = $I->sendGet('/api/forum/thread/' . $this->thread['id']);
+        $thread = $I->sendGet('/api/forum/threads/' . $this->thread['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $j = json_decode($thread, true);
-        $I->assertTrue($j['data']['isFollowingBell']);
-        $I->assertFalse($j['data']['isFollowingEmail']);
+        $I->assertTrue($j['subscriptionsStatus']['isBellSubscribed']);
+        $I->assertFalse($j['subscriptionsStatus']['isMailSubscribed']);
 
         $I->login($this->user1['email']);
         $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test bell']);
@@ -169,7 +169,7 @@ class ForumApiCest
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Unfollow thread by bell
-        $I->sendDelete('api/forum/thread/' . $this->thread['id'] . '/follow/bell');
+        $I->sendDELETE('api/forum/thread/' . $this->thread['id'] . '/follow/bell');
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect no registrated notifications
@@ -177,12 +177,12 @@ class ForumApiCest
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseEquals('[]');
 
-        $thread = $I->sendGet('/api/forum/thread/' . $this->thread['id']);
+        $thread = $I->sendGet('/api/forum/threads/' . $this->thread['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $j = json_decode($thread, true);
-        $I->assertFalse($j['data']['isFollowingBell']);
-        $I->assertFalse($j['data']['isFollowingEmail']);
+        $I->assertFalse($j['subscriptionsStatus']['isBellSubscribed']);
+        $I->assertFalse($j['subscriptionsStatus']['isMailSubscribed']);
 
         // Send test mail
         $I->login($this->user1['email']);
@@ -209,7 +209,7 @@ class ForumApiCest
         $I->seeResponseContainsJson([]);
 
         // Register user with only email
-        $I->sendDelete('api/forum/thread/' . $this->thread['id'] . '/follow/bell');
+        $I->sendDELETE('api/forum/thread/' . $this->thread['id'] . '/follow/bell');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/email');
         $I->seeResponseCodeIs(HttpCode::OK);
@@ -222,12 +222,12 @@ class ForumApiCest
             'infotype' => InfoType::EMAIL,
             'region_or_group_name' => $this->region['name']]]);
 
-        $thread = $I->sendGet('/api/forum/thread/' . $this->thread['id']);
+        $thread = $I->sendGet('/api/forum/threads/' . $this->thread['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $j = json_decode($thread, true);
-        $I->assertFalse($j['data']['isFollowingBell']); // Expect that it is true (user can not disable it via notification)
-        $I->assertTrue($j['data']['isFollowingEmail']);
+        $I->assertFalse($j['subscriptionsStatus']['isBellSubscribed']); // Expect that it is true (user can not disable it via notification)
+        $I->assertTrue($j['subscriptionsStatus']['isMailSubscribed']);
 
         $I->login($this->user1['email']);
         $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
@@ -269,12 +269,12 @@ class ForumApiCest
             'infotype' => InfoType::EMAIL,
             'region_or_group_name' => $this->region['name']]]);
 
-        $thread = $I->sendGet('/api/forum/thread/' . $this->thread['id']);
+        $thread = $I->sendGet('/api/forum/threads/' . $this->thread['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $j = json_decode($thread, true);
-        $I->assertTrue($j['data']['isFollowingBell']);
-        $I->assertTrue($j['data']['isFollowingEmail']);
+        $I->assertTrue($j['subscriptionsStatus']['isBellSubscribed']);
+        $I->assertTrue($j['subscriptionsStatus']['isMailSubscribed']);
 
         $I->login($this->user1['email']);
         $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
@@ -309,7 +309,7 @@ class ForumApiCest
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Unfollow thread by e-mail
-        $I->sendDelete('api/forum/thread/' . $this->thread['id'] . '/follow/email');
+        $I->sendDELETE('api/forum/thread/' . $this->thread['id'] . '/follow/email');
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect no registrated notifications
@@ -318,12 +318,12 @@ class ForumApiCest
         $I->seeResponseIsJson();
         $I->seeResponseEquals('[]');
 
-        $thread = $I->sendGet('/api/forum/thread/' . $this->thread['id']);
+        $thread = $I->sendGet('/api/forum/threads/' . $this->thread['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $j = json_decode($thread, true);
-        $I->assertTrue($j['data']['isFollowingBell']); // Notification-Setting-UI does not support it
-        $I->assertFalse($j['data']['isFollowingEmail']);
+        $I->assertTrue($j['subscriptionsStatus']['isBellSubscribed']); // Notification-Setting-UI does not support it
+        $I->assertFalse($j['subscriptionsStatus']['isMailSubscribed']);
 
         // Send test mail
         $I->login($this->user1['email']);
@@ -351,12 +351,12 @@ class ForumApiCest
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson([]);
 
-        $thread = $I->sendGet('/api/forum/thread/' . $this->thread['id']);
+        $thread = $I->sendGet('/api/forum/threads/' . $this->thread['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $j = json_decode($thread, true);
-        $I->assertFalse($j['data']['isFollowingBell']);
-        $I->assertFalse($j['data']['isFollowingEmail']);
+        $I->assertFalse($j['subscriptionsStatus']['isBellSubscribed']);
+        $I->assertFalse($j['subscriptionsStatus']['isMailSubscribed']);
 
         // Register user with bell
         $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/bell'); // not working (Supports only E-Mail)
@@ -373,12 +373,12 @@ class ForumApiCest
             'infotype' => InfoType::EMAIL,
             'region_or_group_name' => $this->region['name']]]);
 
-        $thread = $I->sendGet('/api/forum/thread/' . $this->thread['id']);
+        $thread = $I->sendGet('/api/forum/threads/' . $this->thread['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $j = json_decode($thread, true);
-        $I->assertTrue($j['data']['isFollowingBell']);
-        $I->assertTrue($j['data']['isFollowingEmail']);
+        $I->assertTrue($j['subscriptionsStatus']['isBellSubscribed']);
+        $I->assertTrue($j['subscriptionsStatus']['isMailSubscribed']);
 
         // Expect Bell notification information
         $I->login($this->user1['email']);
@@ -411,9 +411,9 @@ class ForumApiCest
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Unfollow thread by e-mail
-        $I->sendDelete('api/forum/thread/' . $this->thread['id'] . '/follow/email');
+        $I->sendDELETE('api/forum/thread/' . $this->thread['id'] . '/follow/email');
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->sendDelete('api/forum/thread/' . $this->thread['id'] . '/follow/bell');
+        $I->sendDELETE('api/forum/thread/' . $this->thread['id'] . '/follow/bell');
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect no registrated notifications
@@ -422,12 +422,12 @@ class ForumApiCest
         $I->seeResponseIsJson();
         $I->seeResponseEquals('[]');
 
-        $thread = $I->sendGet('/api/forum/thread/' . $this->thread['id']);
+        $thread = $I->sendGet('/api/forum/threads/' . $this->thread['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $j = json_decode($thread, true);
-        $I->assertFalse($j['data']['isFollowingBell']);
-        $I->assertFalse($j['data']['isFollowingEmail']);
+        $I->assertFalse($j['subscriptionsStatus']['isBellSubscribed']);
+        $I->assertFalse($j['subscriptionsStatus']['isMailSubscribed']);
 
         // Send test mail
         $I->login($this->user1['email']);
@@ -464,12 +464,12 @@ class ForumApiCest
         $I->seeResponseIsJson();
         $I->seeResponseEquals('[]');
 
-        $thread = $I->sendGet('/api/forum/thread/' . $this->thread['id']);
+        $thread = $I->sendGet('/api/forum/threads/' . $this->thread['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $j = json_decode($thread, true);
-        $I->assertFalse($j['data']['isFollowingBell']);
-        $I->assertFalse($j['data']['isFollowingEmail']);
+        $I->assertFalse($j['subscriptionsStatus']['isBellSubscribed']);
+        $I->assertFalse($j['subscriptionsStatus']['isMailSubscribed']);
 
         // Send post
         $I->login($this->user1['email']);
@@ -517,12 +517,12 @@ class ForumApiCest
            'infotype' => InfoType::EMAIL,
            'region_or_group_name' => $this->region['name']]]);
 
-        $thread = $I->sendGet('/api/forum/thread/' . $this->thread['id']);
+        $thread = $I->sendGet('/api/forum/threads/' . $this->thread['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $j = json_decode($thread, true);
-        $I->assertTrue($j['data']['isFollowingBell']);
-        $I->assertTrue($j['data']['isFollowingEmail']);
+        $I->assertTrue($j['subscriptionsStatus']['isBellSubscribed']);
+        $I->assertTrue($j['subscriptionsStatus']['isMailSubscribed']);
 
         // Send post
         $I->login($this->user1['email']);
@@ -563,12 +563,12 @@ class ForumApiCest
         $I->seeResponseIsJson();
         $I->seeResponseEquals('[]');
 
-        $thread = $I->sendGet('/api/forum/thread/' . $this->thread['id']);
+        $thread = $I->sendGet('/api/forum/threads/' . $this->thread['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $j = json_decode($thread, true);
-        $I->assertFalse($j['data']['isFollowingBell']);
-        $I->assertFalse($j['data']['isFollowingEmail']);
+        $I->assertFalse($j['subscriptionsStatus']['isBellSubscribed']);
+        $I->assertFalse($j['subscriptionsStatus']['isMailSubscribed']);
 
         // Send post
         $I->login($this->user1['email']);
@@ -602,8 +602,8 @@ class ForumApiCest
         $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/email');
         $I->seeResponseCodeIs(HttpCode::OK);
 
-        // Register user with bell
-        $I->sendPatch('api/notifications/forum', [['id' => $this->thread['id'], 'infotype' => InfoType::BELL]]);
+        // Remove mail subscription
+        $I->sendPatch('api/notifications/forum', [['id' => $this->thread['id'], 'infotype' => InfoType::NONE]]);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect registrated notification for E-Mail and Bell
@@ -612,12 +612,12 @@ class ForumApiCest
         $I->seeResponseIsJson();
         $I->seeResponseEquals('[]');
 
-        $thread = $I->sendGet('/api/forum/thread/' . $this->thread['id']);
+        $thread = $I->sendGet('/api/forum/threads/' . $this->thread['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $j = json_decode($thread, true);
-        $I->assertTrue($j['data']['isFollowingBell']);
-        $I->assertFalse($j['data']['isFollowingEmail']);
+        $I->assertTrue($j['subscriptionsStatus']['isBellSubscribed']);
+        $I->assertFalse($j['subscriptionsStatus']['isMailSubscribed']);
 
         // Send post
         $I->login($this->user1['email']);
@@ -660,12 +660,12 @@ class ForumApiCest
         $I->seeResponseIsJson();
         $I->seeResponseEquals('[]');
 
-        $thread = $I->sendGet('/api/forum/thread/' . $this->thread['id']);
+        $thread = $I->sendGet('/api/forum/threads/' . $this->thread['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $j = json_decode($thread, true);
-        $I->assertTrue($j['data']['isFollowingBell']);
-        $I->assertFalse($j['data']['isFollowingEmail']);
+        $I->assertTrue($j['subscriptionsStatus']['isBellSubscribed']);
+        $I->assertFalse($j['subscriptionsStatus']['isMailSubscribed']);
 
         // Send test mail
         $I->login($this->user1['email']);
@@ -692,9 +692,9 @@ class ForumApiCest
         $I->login($this->user1['email']);
 
         // Unfollow thread by e-mail
-        $I->sendDelete('api/forum/thread/' . $this->thread['id'] . '/follow/email');
+        $I->sendDELETE('api/forum/thread/' . $this->thread['id'] . '/follow/email');
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->sendDelete('api/forum/thread/' . $this->thread['id'] . '/follow/bell'); // not working (Supports only E-Mail)
+        $I->sendDELETE('api/forum/thread/' . $this->thread['id'] . '/follow/bell'); // not working (Supports only E-Mail)
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // default behavior of mention
@@ -823,17 +823,16 @@ class ForumApiCest
     {
         $I->login($this->user['email']);
         $body = 'I am so 😂 for you! ' . $this->faker->text(50);
-        $threadPath = 'api/forum/thread/' . $this->thread['id'];
-        $I->sendPOST($threadPath . '/posts', [
+        $I->sendPOST('api/forum/thread/' . $this->thread['id'] . '/posts', [
             'body' => $body
         ]);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeInDatabase('fs_theme_post', ['body' => $body]);
-        $I->sendGET($threadPath);
+        $I->sendGET('api/forum/threads/' . $this->thread['id']);
         $I->seeResponseIsJson();
         $I->assertEquals(
             $body,
-            $I->grabDataFromResponseByJsonPath('$.data.posts[1].body')[0]
+            $I->grabDataFromResponseByJsonPath('$.posts[1].body')[0]
         );
     }
 
@@ -860,7 +859,7 @@ class ForumApiCest
     final public function canNotDeleteActiveThread(ApiTester $I): void
     {
         $I->login($this->ambassador['email']);
-        $I->sendPATCH('api/forum/thread/' . $this->thread['id'], [
+        $I->sendPatch('api/forum/thread/' . $this->thread['id'], [
             'isActive' => true
         ]);
         $I->sendDELETE('api/forum/thread/' . $this->thread['id']);
@@ -957,7 +956,7 @@ class ForumApiCest
         ]);
         $I->seeResponseCodeIs(HttpCode::OK);
         $respo = json_decode($I->grabResponse(), true);
-        $threadId = $respo['data']['id'];
+        $threadId = $respo['id'];
 
         $I->login($this->ambassador['email']);
         $I->sendGET('api/bells');
@@ -996,7 +995,7 @@ class ForumApiCest
         ]);
         $I->seeResponseCodeIs(HttpCode::OK);
         $respo = json_decode($I->grabResponse(), true);
-        $threadId = $respo['data']['id'];
+        $threadId = $respo['id'];
 
         $I->login($this->ambassador['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');

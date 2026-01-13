@@ -8,6 +8,7 @@ use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Region\ThreadStatus;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
+use Foodsharing\Modules\Region\DTO\ForumThread;
 use Foodsharing\Modules\Region\ForumGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
@@ -123,6 +124,11 @@ class ForumPermissions
         return boolval($this->regionGateway->getRegionOption($regionId, RegionOptionType::ALLOW_HIDING_IN_FORUM));
     }
 
+    public function mayDeletePosts(int $threadId): bool
+    {
+        return $this->session->mayRole(Role::ORGA);
+    }
+
     public function mayHidePost(int $postId): bool
     {
         $threadId = $this->forumGateway->getThreadForPost($postId);
@@ -143,7 +149,7 @@ class ForumPermissions
             return true;
         }
 
-        return $this->forumGateway->getThread($threadId)['creator_id'] == $this->session->id();
+        return $this->forumGateway->getThread($threadId)->creatorId === $this->session->id();
     }
 
     public function mayAccessThread(int $threadId): bool
@@ -198,9 +204,9 @@ class ForumPermissions
         return false;
     }
 
-    public function mayDeleteThread(array $thread): bool
+    public function mayDeleteThread(ForumThread $thread): bool
     {
-        return !$thread['active'] && $this->mayModerate($thread['id']);
+        return !$thread->isActive && $this->mayModerate($thread->id);
     }
 
     public function maySearchEveryForum(): bool

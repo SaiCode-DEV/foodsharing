@@ -42,10 +42,12 @@ test.describe("Region", () => {
   });
 });
 
-test.describe('Region Wallposts', () => {
-
-  test('region member can see and add wallposts', async ({ page, acceptanceHelper }) => {
-    const testGroup = await foodsharing.createWorkingGroup('a top group');
+test.describe("Region Wallposts", () => {
+  test("region member can see and add wallposts", async ({
+    page,
+    acceptanceHelper,
+  }) => {
+    const testGroup = await foodsharing.createWorkingGroup("a top group");
     const regionMember = await foodsharing.createFoodsaver();
     await foodsharing.addRegionMember(testGroup.id, regionMember.id);
 
@@ -53,28 +55,32 @@ test.describe('Region Wallposts', () => {
     await page.goto(`/region?bid=${testGroup.id}&sub=wall`);
     await acceptanceHelper.waitForActiveAPICalls();
 
-    await expect(page.getByRole('heading', { name: 'Pinnwand' })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Pinnwand" })).toBeVisible();
 
-    const wallPostText = 'Hey there, this is my new wallpost!';
-    await page.fill('.md-text-area', wallPostText);
-    await page.getByRole('button', { name: 'Senden' }).click();
-    await page.waitForSelector('.wallpost');
-    await expect(page.locator('.wallpost')).toContainText(wallPostText);
+    const wallPostText = "Hey there, this is my new wallpost!";
+    await page.fill(".md-text-area", wallPostText);
+    await page.getByRole("button", { name: "Senden" }).click();
+    await page.waitForSelector(".wallpost");
+    await expect(page.locator(".wallpost")).toContainText(wallPostText);
 
-    await expect(Database.seeInDatabase('fs_wallpost', { body: wallPostText, foodsaver_id: regionMember.id })).resolves.toBeTruthy();
+    await expect(
+      Database.seeInDatabase("fs_wallpost", {
+        body: wallPostText,
+        foodsaver_id: regionMember.id,
+      }),
+    ).resolves.toBeTruthy();
   });
 
-  test('cannot add empty wall post', async ({ page, acceptanceHelper }) => {
-    const testGroup = await foodsharing.createWorkingGroup('a top group');
+  test("cannot add empty wall post", async ({ page, acceptanceHelper }) => {
+    const testGroup = await foodsharing.createWorkingGroup("a top group");
     const regionMember = await foodsharing.createFoodsaver();
     await foodsharing.addRegionMember(testGroup.id, regionMember.id);
 
     await acceptanceHelper.login(regionMember.email);
     await page.goto(`/region?bid=${testGroup.id}&sub=wall`);
-    await page.waitForSelector('.md-text-area');
-    await page.fill('.md-text-area', ' ');
+    await page.waitForSelector(".md-text-area");
+    await page.fill(".md-text-area", " ");
 
-    await expect(page.getByRole('button', { name: 'Senden' })).toHaveCount(0);
+    await expect(page.getByRole("button", { name: "Senden" })).toHaveCount(0);
   });
-
 });

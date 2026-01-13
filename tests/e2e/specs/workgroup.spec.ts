@@ -10,13 +10,17 @@ test.describe("WorkGroup", () => {
   /* roles that refer to testGroup */
   let parentRegion: Awaited<ReturnType<typeof foodsharing.createRegion>>;
   let testGroup: Awaited<ReturnType<typeof foodsharing.createWorkingGroup>>;
-  let globalTestGroup: Awaited<ReturnType<typeof foodsharing.createWorkingGroup>>;
+  let globalTestGroup: Awaited<
+    ReturnType<typeof foodsharing.createWorkingGroup>
+  >;
 
   let regionMember: Awaited<ReturnType<typeof foodsharing.createFoodsaver>>;
   let groupAdmin: Awaited<ReturnType<typeof foodsharing.createFoodsaver>>;
 
   /* group that can be applied for */
-  let testGroupApply: Awaited<ReturnType<typeof foodsharing.createWorkingGroup>>;
+  let testGroupApply: Awaited<
+    ReturnType<typeof foodsharing.createWorkingGroup>
+  >;
   /* admin of testGroupApply */
   let groupApplyAdmin: Awaited<ReturnType<typeof foodsharing.createFoodsaver>>;
   let foodsharer: Awaited<ReturnType<typeof foodsharing.createFoodsharer>>;
@@ -49,10 +53,13 @@ test.describe("WorkGroup", () => {
   test.describe("with testGroup", () => {
     test.beforeEach(async () => {
       parentRegion = await foodsharing.createRegion(null, {}, false);
-      testGroup = await foodsharing.createWorkingGroup(`test-group-${faker.lorem.word()}`, {
-        apply_type: ApplyType.OPEN,
-        parent_id: parentRegion.id,
-      });
+      testGroup = await foodsharing.createWorkingGroup(
+        `test-group-${faker.lorem.word()}`,
+        {
+          apply_type: ApplyType.OPEN,
+          parent_id: parentRegion.id,
+        },
+      );
 
       // Create users tied to testGroup
       regionMember = await foodsharing.createFoodsaver(null, {
@@ -101,7 +108,10 @@ test.describe("WorkGroup", () => {
         );
       });
 
-      test("userOrga can edit work group", async ({ page, acceptanceHelper }) => {
+      test("userOrga can edit work group", async ({
+        page,
+        acceptanceHelper,
+      }) => {
         await acceptanceHelper.login(userOrga.email);
         await page.goto(Urls.groupEditUrl(testGroup.id));
         await expect(page.locator("body")).toContainText(
@@ -151,8 +161,6 @@ test.describe("WorkGroup", () => {
     );
   });
 
-  
-
   test.describe("with testGroupApply", () => {
     test.beforeEach(async () => {
       testGroupApply = await foodsharing.createWorkingGroup(
@@ -182,7 +190,6 @@ test.describe("WorkGroup", () => {
       acceptanceHelper,
       browser,
     }) => {
-
       await acceptanceHelper.login(regionMember.email);
       await page.goto(Urls.groupListUrl());
       await page.click(`.list-group:has-text("${testGroupApply.name}")`);
@@ -215,7 +222,7 @@ test.describe("WorkGroup", () => {
       await adminPage.click("text=Bewerbungen");
       await adminPage.waitForSelector(`text=${regionMember.name}`);
       await adminPage.click(`text=${regionMember.name}`);
-      await adminPage.getByRole('button', { name: 'Annehmen' }).click();
+      await adminPage.getByRole("button", { name: "Annehmen" }).click();
       await adminHelper.waitForActiveAPICalls();
       await adminContext.close();
 
@@ -224,7 +231,9 @@ test.describe("WorkGroup", () => {
       await acceptanceHelper.login(regionMember.email);
       await page.goto(Urls.forumUrl(testGroupApply.id));
       // Wait for forum page to load - check for the "no topics" message
-      await expect(page.locator("text=Noch keine Themen gepostet")).toBeVisible();
+      await expect(
+        page.locator("text=Noch keine Themen gepostet"),
+      ).toBeVisible();
     });
   });
 });

@@ -3,7 +3,7 @@
     <a class="ui-corner-all d-flex" :href="threadUrl">
       <Avatar
         class="mr-2"
-        :user="thread.lastPost.author"
+        :user="thread.latestPost.author"
         :size="50"
         href=""
       />
@@ -26,7 +26,7 @@
           class="last-post p-1 ui-corner-all align-self-center"
         >
           <span class="info d-inline d-sm-block">
-            {{ $t('forum.from', { name: thread.lastPost.author.name || '' }) }}
+            {{ $t('forum.from', { name: thread.latestPost.author.name || '' }) }}
           </span>
           <span class="time d-inline d-sm-block">
             {{ $dateFormatter.relativeTime(lastPostDate) }}
@@ -45,13 +45,15 @@ export default {
   components: { Avatar },
   props: {
     thread: { type: Object, required: true },
+    regionId: { type: Number, required: true },
+    subforumId: { type: Number, required: true },
   },
   computed: {
     threadUrl () {
-      return this.$url('forum', this.thread.regionId, this.thread.regionSubId, this.thread.id)
+      return this.$url('forum', this.regionId, this.subforumId, this.thread.id)
     },
     lastPostDate () {
-      return new Date(Date.parse(this.thread.lastPost.createdAt))
+      return new Date(Date.parse(this.thread.latestPost.createdAt))
     },
     isClosed () {
       return this.thread.status === ThreadStatus.THREAD_CLOSED

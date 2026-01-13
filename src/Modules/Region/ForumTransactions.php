@@ -14,8 +14,13 @@ use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Reaction\ReactionTransactions;
+use Foodsharing\Modules\Region\DTO\ForumPost;
+use Foodsharing\Modules\Region\DTO\ForumThread;
+use Foodsharing\Modules\Region\DTO\ForumThreadPermissions;
 use Foodsharing\Modules\Region\Exceptions\NoVisiblePostException;
 use Foodsharing\Modules\Settings\SettingsGateway;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
+use Foodsharing\Permissions\ForumPermissions;
 use Foodsharing\RestApi\Models\Notifications\Thread;
 use Foodsharing\Utility\EmailHelper;
 use Foodsharing\Utility\FlashMessageHelper;
@@ -39,6 +44,8 @@ class ForumTransactions
         private readonly BellGateway $bellGateway,
         private readonly SettingsGateway $settingsGateway,
         private readonly ReactionTransactions $reactionTransactions,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
+        private readonly ForumPermissions $forumPermissions,
     ) {
     }
 
@@ -88,6 +95,9 @@ class ForumTransactions
         }
     }
 
+    /**
+     * @return ForumPost[]
+     */
     public function listPostsWithReactions(int $threadId): array
     {
         $posts = $this->forumGateway->listPosts($threadId);
@@ -202,7 +212,7 @@ class ForumTransactions
     private function notifyAdminsModeratedThread($region, $threadId, $rawPostBody): void
     {
         $thread = $this->forumGateway->getThread($threadId);
-        $posterName = $this->foodsaverGateway->getFoodsaverName($thread['creator_id']);
+        $posterName = $this->foodsaverGateway->getFoodsaverName($thread->creatorId);
         $moderationGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($region['id'], WorkgroupFunction::MODERATION);
         if (empty($moderationGroup)) {
             $moderators = $this->foodsaverGateway->getAdminsOrAmbassadors($region['id']);
@@ -214,7 +224,7 @@ class ForumTransactions
             $link = BASE_URL . $this->url($region['id'], false, $threadId);
             $data = [
                 'link' => $link,
-                'thread' => $thread['title'],
+                'thread' => $thread->title,
                 'post' => $this->sanitizerService->markdownToHtml($rawPostBody),
                 'poster' => $posterName,
                 'bezirk' => $region['name'],
@@ -232,7 +242,7 @@ class ForumTransactions
                 [
                     'user' => $this->session->user('name'),
                     'forum' => $region['name'],
-                    'title' => $thread['title'],
+                    'title' => $thread->title,
                 ],
                 BellType::createIdentifier(BellType::NOT_ACTIVATED_FORUM_THREAD, $threadId),
                 false,
@@ -253,9 +263,9 @@ class ForumTransactions
         }
 
         $thread = $this->forumGateway->getThread($threadId);
-        $body = $this->forumGateway->getPost($thread['last_post_id'])['body'];
+        $body = $this->forumGateway->getPost($thread->lastPostId)['body'];
 
-        $posterName = $this->foodsaverGateway->getFoodsaverName($thread['creator_id']);
+        $posterName = $this->foodsaverGateway->getFoodsaverName($thread->creatorId);
 
         if ($isAmbassadorForum) {
             $recipients = $this->foodsaverGateway->getAdminsOrAmbassadors($regionData['id']);
@@ -266,7 +276,7 @@ class ForumTransactions
         $data = [
             'bezirk' => $regionData['name'],
             'poster' => $posterName,
-            'thread' => $thread['title'],
+            'thread' => $thread->title,
             'link' => BASE_URL . $this->url($regionData['id'], $isAmbassadorForum, $threadId),
             'post' => $this->sanitizerService->markdownToHtml($body),
             ];
@@ -420,5 +430,36 @@ class ForumTransactions
         if ($this->bellGateway->bellWithIdentifierExists($identifier)) {
             $this->bellGateway->delBellsByIdentifier($identifier);
         }
+    }
+
+    public function isFollowingForum($regionId): bool
+    {
+        $isFollowing = $this->forumFollowerGateway->isFollowingForum($regionId, $this->session->id());
+        if (is_null($isFollowing)) {
+            $isFollowing = $this->currentUserUnits->isAdminFor($regionId);
+        }
+
+        return $isFollowing;
+    }
+
+    public function getFullThread($threadId): ForumThread
+    {
+        $thread = $this->forumGateway->getThread($threadId);
+        $thread->permissions = new ForumThreadPermissions();
+        $thread->permissions->mayModerate = $this->forumPermissions->mayModerate($threadId);
+        $thread->permissions->mayHidePosts = $this->forumPermissions->mayHidePosts($threadId);
+        $thread->permissions->mayDelete = $this->forumPermissions->mayDeletePosts($threadId);
+        $thread->subscriptionsStatus = $this->forumFollowerGateway->getThreadSubscriptionsStatus($threadId, $this->session->id());
+        $thread->posts = $this->listPostsWithReactions($threadId);
+
+        if (!$thread->permissions->mayModerate) {
+            foreach ($thread->posts as &$post) {
+                if (!is_null($post->hidden)) {
+                    $post->body = null;
+                }
+            }
+        }
+
+        return $thread;
     }
 }

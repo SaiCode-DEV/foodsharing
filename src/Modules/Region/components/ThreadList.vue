@@ -46,11 +46,13 @@
     </b-container>
     <b-container>
       <ul class="forum_threads linklist">
-        <div v-if="!searchActive && threads.totalRows > 0">
+        <div v-if="!searchActive && threads.totalCount > 0">
           <ThreadListEntry
-            v-for="(thread, index) in threads.data"
+            v-for="(thread, index) in threads.entries"
             :key="index"
             :thread="thread"
+            :region-id="groupId"
+            :subforum-id="subforumId"
           />
         </div>
         <li
@@ -58,14 +60,14 @@
           slot="no-more"
           class="pl-2 thread-item"
         >
-          <span v-if="!threads.totalRows">
+          <span v-if="!threads.totalCount">
             {{ $t('forum.no_threads') }}
           </span>
         </li>
         <b-pagination
           v-if="!searchActive"
           v-model="currentPage"
-          :total-rows="threads.totalRows"
+          :total-rows="threads.totalCount"
           :per-page="perPage"
           aria-controls="thread-list"
           class="mt-3 my-0"
@@ -92,7 +94,7 @@ export default {
   },
   data () {
     return {
-      threads: [],
+      threads: {},
       currentPage: 1,
       perPage: 20,
       isActiveFollower: false,
@@ -123,7 +125,7 @@ export default {
     async loadThreads (currentPage) {
       const offset = (currentPage - 1) * this.perPage
       try {
-        this.threads = (await listThreads(this.groupId, this.subforumId, offset)).object
+        this.threads = await listThreads(this.groupId, this.subforumId, offset)
       } catch {
         pulseError(this.$t('error_unexpected'))
       }

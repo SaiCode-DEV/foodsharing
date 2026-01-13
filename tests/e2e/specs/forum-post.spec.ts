@@ -15,14 +15,14 @@ const testData = {} as {
 };
 
 test.beforeAll(async () => {
-  testData.testBezirk = await foodsharing.createRegion(null, {}, false);
+  testData.testBezirk = await foodsharing.createRegion("testRegion", {}, false);
   testData.bigTestBezirk = await foodsharing.createRegion(
-    null,
+    "bigTestRegion",
     { type: UnitType.BIG_CITY },
     false,
   );
   testData.moderatedTestBezirk = await foodsharing.createRegion(
-    null,
+    "moderatedTestRegion",
     { type: UnitType.CITY, moderated: true },
     false,
   );
@@ -40,11 +40,26 @@ test.beforeAll(async () => {
     testData.moderatedTestBezirk.id,
     testData.unverifiedFoodsaver.id,
   );
-  await foodsharing.addRegionAdmin(testData.testBezirk.id, testData.ambassador.id);
-  await foodsharing.addRegionAdmin(testData.bigTestBezirk.id, testData.ambassador.id);
-  await foodsharing.addRegionAdmin(testData.moderatedTestBezirk.id, testData.ambassador.id);
-  await foodsharing.addRegionMember(testData.bigTestBezirk.id, testData.foodsaver.id);
-  await foodsharing.addRegionMember(testData.moderatedTestBezirk.id, testData.foodsaver.id);
+  await foodsharing.addRegionAdmin(
+    testData.testBezirk.id,
+    testData.ambassador.id,
+  );
+  await foodsharing.addRegionAdmin(
+    testData.bigTestBezirk.id,
+    testData.ambassador.id,
+  );
+  await foodsharing.addRegionAdmin(
+    testData.moderatedTestBezirk.id,
+    testData.ambassador.id,
+  );
+  await foodsharing.addRegionMember(
+    testData.bigTestBezirk.id,
+    testData.foodsaver.id,
+  );
+  await foodsharing.addRegionMember(
+    testData.moderatedTestBezirk.id,
+    testData.foodsaver.id,
+  );
 });
 
 test.describe("Forum Post with Mails", () => {
@@ -55,9 +70,9 @@ test.describe("Forum Post with Mails", () => {
     const title = faker.word.words(5);
     await foodsharing.createForumThread({
       forumId: testData.moderatedTestBezirk.id,
-      title: title,
+      title,
       body: "TestThreadPost",
-      page: page,
+      page,
     });
     await expect(page.locator("body")).not.toContainText(title);
     const subject = "bestätigt werden";
@@ -70,9 +85,9 @@ test.describe("Forum Post with Mails", () => {
     const title = faker.word.words(5);
     await foodsharing.createForumThread({
       forumId: testData.testBezirk.id,
-      title: title,
+      title,
       body: "TestThreadPost",
-      page: page,
+      page,
     });
     await acceptanceHelper.waitForActiveAPICalls();
     await page.goto(`/region?bid=${testData.testBezirk.id}&sub=forum`);
@@ -90,7 +105,7 @@ test.describe("Forum Post with Mails", () => {
       title,
       body: "TestThreadPost",
       sendMail: true,
-      page: page,
+      page,
     });
     await acceptanceHelper.waitForActiveAPICalls();
     await page.goto(`/region?bid=${testData.testBezirk.id}&sub=forum`);
@@ -105,9 +120,9 @@ test.describe("Forum Post with Mails", () => {
     const title = faker.word.words(5);
     await foodsharing.createForumThread({
       forumId: testData.moderatedTestBezirk.id,
-      title: title,
+      title,
       body: "TestThreadPost",
-      page: page,
+      page,
     });
     await acceptanceHelper.waitForPageBody();
     let mail = await maildev.waitForMail(title);
@@ -147,9 +162,9 @@ test.describe("Forum Post with Mails", () => {
     const title = faker.word.words(5);
     await foodsharing.createForumThread({
       forumId: testData.moderatedTestBezirk.id,
-      title: title,
+      title,
       body: "TestThreadPost",
-      page: page,
+      page,
     });
     await acceptanceHelper.waitForPageBody();
     await acceptanceHelper.waitForActiveAPICalls();
@@ -174,8 +189,11 @@ test.describe("Forum Post with Mails", () => {
     await expect(page.locator("body")).toContainText(title);
     await page.click(".forum_threads a");
     await acceptanceHelper.waitForPageBody();
+    await acceptanceHelper.waitForActiveAPICalls();
     await expect(page).toHaveURL(
-      new RegExp(`/region\\?bid=${testData.moderatedTestBezirk.id}&sub=forum&tid=\\d+`),
+      new RegExp(
+        `/region\\?bid=${testData.moderatedTestBezirk.id}&sub=forum&tid=\\d+`,
+      ),
     );
     await page.click('a[title="Beitrag löschen"]');
     await page.waitForSelector("text=Beitrag löschen");
@@ -188,8 +206,12 @@ test.describe("Forum Post with Mails", () => {
 });
 
 test.describe("Forum Post without Mail", () => {
-  let threadUserAmbassador: Awaited<ReturnType<typeof foodsharing.seedForumThread>>;
-  let threadAmbassadorUser: Awaited<ReturnType<typeof foodsharing.seedForumThread>>;
+  let threadUserAmbassador: Awaited<
+    ReturnType<typeof foodsharing.seedForumThread>
+  >;
+  let threadAmbassadorUser: Awaited<
+    ReturnType<typeof foodsharing.seedForumThread>
+  >;
 
   // Threads werden modifiziert (close/open, pin/unpin, rename, follow) -> beforeEach
   test.beforeEach(async () => {
@@ -199,18 +221,26 @@ test.describe("Forum Post without Mail", () => {
       false,
       { time: "2 hours ago" },
     );
-    await foodsharing.addForumThreadPost(threadUserAmbassador.id, testData.ambassador.id, {
-      time: "1 hour 45 minutes ago",
-    });
+    await foodsharing.addForumThreadPost(
+      threadUserAmbassador.id,
+      testData.ambassador.id,
+      {
+        time: "1 hour 45 minutes ago",
+      },
+    );
     threadAmbassadorUser = await foodsharing.seedForumThread(
       testData.testBezirk.id,
       testData.ambassador.id,
       false,
       { time: "1 hour ago" },
     );
-    await foodsharing.addForumThreadPost(threadAmbassadorUser.id, testData.foodsaver.id, {
-      time: "45 minutes ago",
-    });
+    await foodsharing.addForumThreadPost(
+      threadAmbassadorUser.id,
+      testData.foodsaver.id,
+      {
+        time: "45 minutes ago",
+      },
+    );
   });
 
   test("Click follow/unfollow", async ({ page, acceptanceHelper }) => {
@@ -486,9 +516,9 @@ test.describe("Forum Post without Mail", () => {
     const title = "TestAmbassadorThreadTitle";
     await foodsharing.createForumThread({
       forumId: testData.testBezirk.id,
-      title: title,
+      title,
       body: "TestThreadPost",
-      page: page,
+      page,
     });
     await acceptanceHelper.waitForActiveAPICalls();
     await page.goto(`/region?bid=${testData.testBezirk.id}&sub=forum`);
@@ -501,9 +531,9 @@ test.describe("Forum Post without Mail", () => {
     const title = "TestThreadTitle";
     await foodsharing.createForumThread({
       forumId: testData.bigTestBezirk.id,
-      title: title,
+      title,
       body: "TestThreadPost",
-      page: page,
+      page,
     });
     await page.goto(`/region?bid=${testData.bigTestBezirk.id}&sub=forum`);
     await acceptanceHelper.waitForPageBody();

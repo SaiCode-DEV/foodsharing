@@ -3,7 +3,10 @@
 namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
-use Foodsharing\Modules\Foodsaver\Profile;
+use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
+use Foodsharing\Modules\Core\PaginatedForumThreadsForListView;
+use Foodsharing\Modules\Core\Pagination;
+use Foodsharing\Modules\Region\DTO\ForumThread;
 use Foodsharing\Modules\Region\ForumFollowerGateway;
 use Foodsharing\Modules\Region\ForumGateway;
 use Foodsharing\Modules\Region\ForumTransactions;
@@ -11,23 +14,26 @@ use Foodsharing\Modules\Region\RegionTransactions;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Modules\WallPost\EmojiList;
 use Foodsharing\Permissions\ForumPermissions;
-use Foodsharing\Utility\Sanitizer;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
-use OpenApi\Annotations as OA;
-use OpenApi\Attributes as OA2;
+use Nelmio\ApiDocBundle\Attribute\Model;
+use OpenApi\Annotations as OA1;
+use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 
-#[OA2\Tag(name: 'forum')]
-#[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+#[OA\Tag(name: 'forum')]
+#[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
 class ForumRestController extends AbstractFoodsharingRestController
 {
+    final public const int DEFAULT_THREADS_PAGE_SIZE = 20;
+
     public function __construct(
         protected Session $session,
         private readonly RegionTransactions $regionTransactions,
@@ -35,181 +41,93 @@ class ForumRestController extends AbstractFoodsharingRestController
         private readonly ForumFollowerGateway $forumFollowerGateway,
         private readonly ForumPermissions $forumPermissions,
         private readonly ForumTransactions $forumTransactions,
-        private readonly Sanitizer $sanitizerService,
         private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
         parent::__construct($this->session);
     }
 
-    private function normalizeThread(array $thread): array
-    {
-        $normalizedThread = [
-            'id' => $thread['id'],
-            'regionId' => $thread['regionId'],
-            'regionSubId' => $thread['regionSubId'],
-            'title' => $thread['title'],
-            'createdAt' => str_replace(' ', 'T', (string)$thread['time']),
-            'stickiness' => $thread['sticky'] ?? 0,
-            'isActive' => boolval($thread['active'] ?? true),
-            'lastPost' => [
-                'id' => $thread['last_post_id'],
-            ],
-            'creator' => [
-                'id' => $thread['creator_id'],
-            ],
-            'status' => intval($thread['status'])
-        ];
-        if (isset($thread['post_time'])) {
-            $normalizedThread['lastPost']['createdAt'] = str_replace(' ', 'T', (string)$thread['post_time']);
-            $normalizedThread['lastPost']['body'] = $this->sanitizerService->markdownToHtml($thread['post_body']);
-            $normalizedThread['lastPost']['author'] = new Profile($thread, 'foodsaver_');
-        }
-        if (isset($thread['creator_name'])) {
-            $normalizedThread['creator'] = new Profile($thread, 'creator_');
-        }
+    // *** FORUM MANAGEMENT *** //
+    // (the following endpoints are for handling forum related actions)
 
-        return $normalizedThread;
+    #[OA\Get(summary: 'Get forum following status.')]
+    #[Route('regions/{regionId}/forum/subscriptions', methods: ['GET'], requirements: ['regionId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(type: 'object', properties: [
+        new OA\Property('isFollowing', type: 'boolean')
+    ]))]
+    public function getIsFollowingForum(int $regionId): Response
+    {
+        $this->assertLoggedIn();
+        $isFollowing = $this->forumTransactions->isFollowingForum($regionId);
+
+        return $this->respondOK(['isFollowing' => $isFollowing]);
     }
 
-    /**
-     * Gets available threads including their last post.
-     *
-     * @OA\Parameter(name="forumId", in="path", @OA\Schema(type="integer"),
-     *   description="which forum to return threads for (region or group)")
-     * @OA\Parameter(name="forumSubId", in="path", @OA\Schema(type="integer"),
-     *   description="each region/group has another namespace to separate different forums with the same base id (region/group id, here: forumId). So with any forumId, there is (currently) 2, possibly infinite, actual forums (list of threads).
-     * 0: Forum, 1: Ambassador forum")
-     * @OA\Parameter(name="limit", in="query", @OA\Schema(type="integer"), description="how many search results to return")
-     * @OA\Parameter(name="offset", in="query", @OA\Schema(type="integer"), description="starting with which result")
-     * @OA\Response(response="200", description="Success",
-     *     @OA\Schema(type="object", @OA\Property(property="data", type="array", @OA\Items(type="object",
-     *     @OA\Property(property="id", type="integer", description="thread id"),
-     *     @OA\Property(property="regionId", type="integer", description="region/forum id"),
-     *     @OA\Property(property="regionSubId", type="integer", description="region/forum sub id"),
-     *     @OA\Property(property="title", type="string", description="thread title"),
-     *     @OA\Property(property="createdAt", type="integer", description="region/forum sub id"),
-     *     @OA\Property(property="stickiness", type="integer", description="stickiness of the thread"),
-     *     @OA\Property(property="isActive", type="integer", description="region/forum sub id"),
-     *     @OA\Property(property="lastPost", type="object", @OA\Items()),
-     *     @OA\Property(property="creator", type="object", @OA\Items()),
-     *
-     * ))))
-     * @OA\Response(response="403", description="Insufficient permissions to view that forum.")
-     */
-    #[Rest\Get('forum/{forumId}/{forumSubId}', requirements: ['forumId' => '\d+', 'forumSubId' => '\d'])]
-    #[Rest\QueryParam(name: 'limit', requirements: '\d+', default: '20', description: 'how many search results to return')]
-    #[Rest\QueryParam(name: 'offset', requirements: '\d+', default: '0', description: 'starting with which result')]
-    public function listThreads(int $forumId, int $forumSubId, ParamFetcher $paramFetcher): Response
+    #[OA\Put(summary: 'Set forum following status.')]
+    #[Route('regions/{regionId}/forum/subscriptions', methods: ['PUT'], requirements: ['regionId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted to access this forum')]
+    public function setFollowingForum(int $regionId, #[MapQueryParameter] bool $isFollowing): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
-        if (!$this->forumPermissions->mayAccessForum($forumId, $forumSubId)) {
-            throw new AccessDeniedHttpException();
+        $this->assertLoggedIn();
+        if (!$this->currentUserUnits->mayBezirk($regionId)) {
+            throw new AccessDeniedHttpException('Not permitted to access this forum');
         }
 
-        $limit = intval($paramFetcher->get('limit'));
-        $offset = intval($paramFetcher->get('offset'));
+        $this->forumFollowerGateway->setFollowingForum($regionId, $this->session->id(), $isFollowing);
 
-        $threads = $this->getNormalizedThreads($forumId, $forumSubId, $limit, $offset);
-
-        $view = $this->view([
-            'object' => $threads
-        ], 200);
-
-        return $this->handleView($view);
+        return $this->respondOK();
     }
 
-    private function getNormalizedThreads(int $forumId, int $forumSubId, int $limit, int $offset): array
-    {
-        $threads = $this->forumGateway->listThreads($forumId, $forumSubId, $limit, $offset);
-        $totalRows = $threads[0]['total_rows'] ?? 0;
-        $normalizedThreads = array_map(fn ($thread) => $this->normalizeThread($thread), $threads);
+    // *** THREAD MANAGEMENT *** //
+    // (the following endpoints are for handling thread related actions)
 
-        return [
-            'totalRows' => $totalRows,
-            'data' => $normalizedThreads,
-        ];
+    #[OA\Get(summary: 'List threads of a forum')]
+    #[Route('regions/{regionId}/forum/threads', methods: ['GET'], requirements: ['regionId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: PaginatedForumThreadsForListView::class))]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted to access this forum')]
+    public function listThreads(
+        int $regionId,
+        #[MapQueryParameter] ?int $subforumId,
+        #[MapQueryParameter] ?int $limit,
+        #[MapQueryParameter] ?int $offset,
+    ): Response {
+        $this->assertLoggedIn();
+
+        if (!$this->forumPermissions->mayAccessForum($regionId, $subforumId)) {
+            throw new AccessDeniedHttpException('Not permitted to access this forum');
+        }
+
+        $subforumId ??= 0;
+        $pagination = Pagination::create($limit, $offset, self::DEFAULT_THREADS_PAGE_SIZE);
+        $threads = $this->forumGateway->getForumThreadsForListView($regionId, $subforumId, $pagination);
+
+        return $this->respondOK($threads);
     }
 
-    /**
-     * Get a single forum thread including some of its messages.
-     *
-     * @OA\Parameter(name="threadId", in="path", @OA\Schema(type="integer"),
-     *   description="which ID to return threads for")
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="403", description="Insufficient permissions to view that forum/thread")
-     * @OA\Response(response="404", description="Thread does not exist.")
-     */
-    #[Rest\Get('forum/thread/{threadId}', requirements: ['threadId' => '\d+'])]
+    #[OA\Get(summary: 'Returns a forum thread including all posts')]
+    #[Route('forum/threads/{threadId}', methods: ['GET'], requirements: ['threadId' => '\d+'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: ForumThread::class))]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted to access this thread')]
     public function getThread(int $threadId): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
-
-        $thread = $this->forumGateway->getThread($threadId);
-
-        if (!$thread) {
-            throw new NotFoundHttpException();
-        }
+        $this->assertLoggedIn();
 
         if (!$this->forumPermissions->mayAccessThread($threadId)) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Not permitted to access this thread');
         }
 
-        $thread = $this->normalizeThread($thread);
+        $thread = $this->forumTransactions->getFullThread($threadId);
 
-        $thread['isFollowingEmail'] = $this->forumFollowerGateway->isFollowingEmail($this->session->id(), $threadId);
-        $thread['isFollowingBell'] = $this->forumFollowerGateway->isFollowingBell($this->session->id(), $threadId);
-        $thread['mayModerate'] = $this->forumPermissions->mayModerate($threadId);
-        $thread['mayHidePosts'] = $this->forumPermissions->mayHidePosts($threadId);
-
-        $posts = $this->forumTransactions->listPostsWithReactions($threadId);
-
-        // adjust post permissions
-        $includeHiddenBody = $thread['mayModerate'];
-        foreach ($posts as &$post) {
-            if (!$includeHiddenBody && !is_null($post->hidden)) {
-                $post->body = null;
-            }
-            $post->mayDelete = $this->forumPermissions->mayDeletePost($post->author->id);
-        }
-        $thread['posts'] = $posts;
-
-        return $this->respondOK(['data' => $thread]);
-    }
-
-    /**
-     * Create a post inside a thread.
-     *
-     * @OA\Response(response="200", description="success")
-     * @OA\Response(response="403", description="Insufficient permissions")
-     */
-    #[Rest\Post('forum/thread/{threadId}/posts', requirements: ['threadId' => '\d+'])]
-    #[Rest\RequestParam(name: 'body', description: 'post message')]
-    public function createPost(int $threadId, ParamFetcher $paramFetcher): Response
-    {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
-        if (!$this->forumPermissions->mayPostToThread($threadId)) {
-            throw new AccessDeniedHttpException();
-        }
-
-        $body = trim($paramFetcher->get('body'));
-        $this->forumTransactions->addPostToThread($this->session->id(), $threadId, $body);
-
-        return $this->handleView($this->view([], Response::HTTP_OK));
+        return $this->respondOK($thread);
     }
 
     /**
      * Create a thread inside a forum.
      *
-     * @OA\Response(response="200", description="success")
-     * @OA\Response(response="403", description="Insufficient permissions")
+     * @OA1\Response(response="200", description="success")
+     * @OA1\Response(response="403", description="Insufficient permissions")
      */
-    #[Rest\Post('forum/{forumId}/{forumSubId}', requirements: ['forumId' => '\d+', 'forumSubId' => '\d'])]
+    #[Route('forum/{forumId}/{forumSubId}', methods: ['POST'], requirements: ['forumId' => '\d+', 'forumSubId' => '\d'])]
     #[Rest\RequestParam(name: 'title', description: 'title of thread')]
     #[Rest\RequestParam(name: 'body', description: 'post message')]
     #[Rest\RequestParam(name: 'sendMail', description: 'false or true value - send a notification mail for all forum user')]
@@ -236,10 +154,10 @@ class ForumRestController extends AbstractFoodsharingRestController
     /**
      * Change attributes for a thread: Stickiness, activate thread, status.
      *
-     * @OA\Response(response="200", description="success")
-     * @OA\Response(response="403", description="Insufficient permissions")
+     * @OA1\Response(response="200", description="success")
+     * @OA1\Response(response="403", description="Insufficient permissions")
      */
-    #[Rest\Patch('forum/thread/{threadId}', requirements: ['threadId' => '\d+'])]
+    #[Route('forum/thread/{threadId}', methods: ['PATCH'], requirements: ['threadId' => '\d+'])]
     #[Rest\RequestParam(name: 'stickiness', nullable: true, default: null, description: 'should thread be pinned to the top of forum?')]
     #[Rest\RequestParam(name: 'isActive', nullable: true, default: null, description: 'should a thread in a moderated forum be activated?')]
     #[Rest\RequestParam(name: 'status', nullable: true, default: null, description: 'if the thread is open or closed')]
@@ -290,13 +208,36 @@ class ForumRestController extends AbstractFoodsharingRestController
         return $this->getThread($threadId);
     }
 
+    #[OA\Delete(summary: 'Deletes a non-activated forum thread')]
+    #[Route('forum/thread/{threadId}', methods: ['DELETE'], requirements: ['postId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Thread does not exist')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
+    public function deleteThread(int $threadId): Response
+    {
+        $this->assertLoggedIn();
+
+        try {
+            $thread = $this->forumGateway->getThread($threadId);
+        } catch (DatabaseNoValueFoundException) {
+            throw new NotFoundHttpException('Thread does not exist');
+        }
+        if (!$this->forumPermissions->mayDeleteThread($thread)) {
+            throw new AccessDeniedHttpException('Not permitted');
+        }
+
+        $this->forumTransactions->deleteThread($threadId);
+
+        return $this->respondOK();
+    }
+
     /**
      * request email notifications for activities in at thread.
      *
-     * @OA\Response(response="200", description="success")
-     * @OA\Response(response="403", description="Insufficient permissions")
+     * @OA1\Response(response="200", description="success")
+     * @OA1\Response(response="403", description="Insufficient permissions")
      */
-    #[Rest\Post('forum/thread/{threadId}/follow/email', requirements: ['threadId' => '\d+'])]
+    #[Route('forum/thread/{threadId}/follow/email', methods: ['POST'], requirements: ['threadId' => '\d+'])]
     public function followThreadByEmail(int $threadId): Response
     {
         if (!$this->session->id()) {
@@ -313,10 +254,10 @@ class ForumRestController extends AbstractFoodsharingRestController
     /**
      * request bell notifications for activities in a thread.
      *
-     * @OA\Response(response="200", description="success")
-     * @OA\Response(response="403", description="Insufficient permissions")
+     * @OA1\Response(response="200", description="success")
+     * @OA1\Response(response="403", description="Insufficient permissions")
      */
-    #[Rest\Post('forum/thread/{threadId}/follow/bell', requirements: ['threadId' => '\d+'])]
+    #[Route('forum/thread/{threadId}/follow/bell', methods: ['POST'], requirements: ['threadId' => '\d+'])]
     public function followThreadByBell(int $threadId): Response
     {
         if (!$this->session->id()) {
@@ -334,10 +275,10 @@ class ForumRestController extends AbstractFoodsharingRestController
     /**
      * Remove email notifications for activities in a thread.
      *
-     * @OA\Response(response="200", description="success")
-     * @OA\Response(response="403", description="Insufficient permissions")
+     * @OA1\Response(response="200", description="success")
+     * @OA1\Response(response="403", description="Insufficient permissions")
      */
-    #[Rest\Delete('forum/thread/{threadId}/follow/email', requirements: ['threadId' => '\d+'])]
+    #[Route('forum/thread/{threadId}/follow/email', methods: ['DELETE'], requirements: ['threadId' => '\d+'])]
     public function unfollowThreadByEmail(int $threadId): Response
     {
         if (!$this->session->id()) {
@@ -355,10 +296,10 @@ class ForumRestController extends AbstractFoodsharingRestController
     /**
      * Remove bell notifications for activities in a thread.
      *
-     * @OA\Response(response="200", description="success")
-     * @OA\Response(response="403", description="Insufficient permissions")
+     * @OA1\Response(response="200", description="success")
+     * @OA1\Response(response="403", description="Insufficient permissions")
      */
-    #[Rest\Delete('forum/thread/{threadId}/follow/bell', requirements: ['threadId' => '\d+'])]
+    #[Route('forum/thread/{threadId}/follow/bell', methods: ['DELETE'], requirements: ['threadId' => '\d+'])]
     public function unfollowThreadByBell(int $threadId): Response
     {
         if (!$this->session->id()) {
@@ -373,14 +314,40 @@ class ForumRestController extends AbstractFoodsharingRestController
         return $this->handleView($this->view([]));
     }
 
+    // *** POST MANAGEMENT *** //
+    // (the following endpoints are for handling post related actions)
+
+    /**
+     * Create a post inside a thread.
+     *
+     * @OA1\Response(response="200", description="success")
+     * @OA1\Response(response="403", description="Insufficient permissions")
+     */
+    #[Route('forum/thread/{threadId}/posts', methods: ['POST'], requirements: ['threadId' => '\d+'])]
+    #[Rest\RequestParam(name: 'body', description: 'post message')]
+    public function createPost(int $threadId, ParamFetcher $paramFetcher): Response
+    {
+        if (!$this->session->id()) {
+            throw new UnauthorizedHttpException('');
+        }
+        if (!$this->forumPermissions->mayPostToThread($threadId)) {
+            throw new AccessDeniedHttpException();
+        }
+
+        $body = trim($paramFetcher->get('body'));
+        $this->forumTransactions->addPostToThread($this->session->id(), $threadId, $body);
+
+        return $this->handleView($this->view([], Response::HTTP_OK));
+    }
+
     /**
      * Delete a forum post.
      *
-     * @OA\Response(response="200", description="success")
-     * @OA\Response(response="403", description="Insufficient permissions")
-     * @OA\Response(response="404", description="Post does not exist")
+     * @OA1\Response(response="200", description="success")
+     * @OA1\Response(response="403", description="Insufficient permissions")
+     * @OA1\Response(response="404", description="Post does not exist")
      */
-    #[Rest\Delete('forum/post/{postId}', requirements: ['postId' => '\d+'])]
+    #[Route('forum/post/{postId}', methods: ['DELETE'], requirements: ['postId' => '\d+'])]
     public function deletePost(int $postId): Response
     {
         if (!$this->session->id()) {
@@ -400,12 +367,12 @@ class ForumRestController extends AbstractFoodsharingRestController
         return $this->handleView($this->view([]));
     }
 
-    #[OA2\Patch(summary: 'Hide a forum post.')]
-    #[OA2\Response(response: Response::HTTP_OK, description: 'Success')]
-    #[OA2\Response(response: Response::HTTP_BAD_REQUEST, description: 'Post is already hidden.')]
-    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
-    #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'Post does not exist')]
-    #[Rest\Patch('forum/post/{postId}/hide', requirements: ['postId' => Requirement::POSITIVE_INT])]
+    #[OA\Patch(summary: 'Hide a forum post.')]
+    #[Route('forum/post/{postId}/hide', methods: ['PATCH'], requirements: ['postId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Post is already hidden.')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Post does not exist')]
     #[Rest\RequestParam(name: 'reason', description: 'hiding reason', requirements: '..{0,255}')]
     public function hidePost(int $postId, ParamFetcher $paramFetcher): Response
     {
@@ -429,12 +396,12 @@ class ForumRestController extends AbstractFoodsharingRestController
         return $this->respondOK();
     }
 
-    #[OA2\Delete(summary: 'Restore a hidden forum post')]
-    #[OA2\Response(response: Response::HTTP_OK, description: 'success')]
-    #[OA2\Response(response: Response::HTTP_BAD_REQUEST, description: 'Post is not hidden.')]
-    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
-    #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'Post does not exist')]
-    #[Rest\Delete('forum/post/{postId}/hide', requirements: ['postId' => Requirement::POSITIVE_INT])]
+    #[OA\Delete(summary: 'Restore a hidden forum post')]
+    #[Route('forum/post/{postId}/hide', methods: ['DELETE'], requirements: ['postId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'success')]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Post is not hidden.')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Post does not exist')]
     public function restorePost(int $postId): Response
     {
         $this->assertLoggedIn();
@@ -454,42 +421,17 @@ class ForumRestController extends AbstractFoodsharingRestController
         return $this->respondOK();
     }
 
-    /**
-     * Deletes a forum thread.
-     *
-     * @OA\Parameter(name="threadId", in="path", @OA\Schema(type="integer"), description="ID of the thread that will be deleted")
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="403", description="Insufficient permissions to delete that thread or thread is already active")
-     * @OA\Response(response="404", description="Thread does not exist.")
-     */
-    #[Rest\Delete('forum/thread/{threadId}', requirements: ['postId' => '\d+'])]
-    public function deleteThread(int $threadId): Response
-    {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
-
-        $thread = $this->forumGateway->getThread($threadId);
-        if (!$thread) {
-            throw new NotFoundHttpException();
-        }
-        if (!$this->forumPermissions->mayDeleteThread($thread)) {
-            throw new AccessDeniedHttpException();
-        }
-
-        $this->forumTransactions->deleteThread($threadId);
-
-        return $this->handleView($this->view([], 200));
-    }
+    // *** REACTION MANAGEMENT *** //
+    // (the following endpoints are for handling reaction related actions)
 
     /**
      * Adds an emoji reaction to a post. An emoji is an arbitrary string but needs to be supported by the frontend.
      *
-     * @OA\Response(response="200", description="success")
-     * @OA\Response(response="403", description="Insufficient permissions")
-     * @OA\Response(response="404", description="Post does not exist")
+     * @OA1\Response(response="200", description="success")
+     * @OA1\Response(response="403", description="Insufficient permissions")
+     * @OA1\Response(response="404", description="Post does not exist")
      */
-    #[Rest\Post('forum/post/{postId}/reaction/{emoji}', requirements: ['postId' => '\d+', 'emoji' => '\w+'])]
+    #[Route('forum/post/{postId}/reaction/{emoji}', methods: ['POST'], requirements: ['postId' => '\d+', 'emoji' => '\w+'])]
     public function addReaction(int $postId, string $emoji): Response
     {
         if (!$this->session->id()) {
@@ -514,11 +456,11 @@ class ForumRestController extends AbstractFoodsharingRestController
     /**
      * Remove an emoji reaction the logged in user has given from a post.
      *
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="403", description="Insufficient permissions")
-     * @OA\Response(response="404", description="Post does not exist")
+     * @OA1\Response(response="200", description="Success")
+     * @OA1\Response(response="403", description="Insufficient permissions")
+     * @OA1\Response(response="404", description="Post does not exist")
      */
-    #[Rest\Delete('forum/post/{postId}/reaction/{emoji}', requirements: ['postId' => '\d+', 'emoji' => '\w+'])]
+    #[Route('forum/post/{postId}/reaction/{emoji}', methods: ['DELETE'], requirements: ['postId' => '\d+', 'emoji' => '\w+'])]
     public function deleteReaction(int $postId, string $emoji): Response
     {
         if (!$this->session->id()) {
@@ -538,33 +480,5 @@ class ForumRestController extends AbstractFoodsharingRestController
         $this->forumTransactions->removeReaction($this->session->id(), $postId, $emoji);
 
         return $this->handleView($this->view([]));
-    }
-
-    #[OA2\Get(summary: 'Get forum following status.')]
-    #[OA2\Response(response: Response::HTTP_OK, description: 'Success')]
-    #[Rest\Get('forum/{regionId}/follow', requirements: ['regionId' => Requirement::POSITIVE_INT])]
-    public function getIsFollowingForum(int $regionId): Response
-    {
-        $this->assertLoggedIn();
-        $isFollowing = $this->forumFollowerGateway->isFollowingForum($regionId, $this->session->id());
-        if (is_null($isFollowing)) {
-            $isFollowing = $this->currentUserUnits->isAdminFor($regionId);
-        }
-
-        return $this->respondOK(['isFollowing' => $isFollowing]);
-    }
-
-    #[OA2\Patch(summary: 'Set forum following status.')]
-    #[OA2\Response(response: Response::HTTP_OK, description: 'Success')]
-    #[Rest\Patch('forum/{regionId}/follow', requirements: ['regionId' => Requirement::POSITIVE_INT])]
-    public function setFollowingForum(int $regionId, #[MapQueryParameter] bool $isFollowing): Response
-    {
-        $this->assertLoggedIn();
-        if (!$this->currentUserUnits->mayBezirk($regionId)) {
-            throw new AccessDeniedHttpException();
-        }
-        $this->forumFollowerGateway->setFollowingForum($regionId, $this->session->id(), $isFollowing);
-
-        return $this->respondOK();
     }
 }

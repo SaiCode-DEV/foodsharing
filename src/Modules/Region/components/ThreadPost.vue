@@ -65,7 +65,7 @@
       <div v-if="!post.hidden" class="card-footer text-right">
         <ThreadPostActions
           :reactions="post.reactions"
-          :may-delete="post.mayDelete"
+          :may-delete="mayDelete || isMe"
           :may-reply="mayReply"
           :may-hide="mayHide"
           @delete="$emit('delete')"
@@ -129,6 +129,7 @@ export default {
     reactions: { type: Object, default: () => ({}) },
     mayHide: { type: Boolean, default: false },
     mayModerate: { type: Boolean, default: false },
+    mayDelete: { type: Boolean, default: false },
     isLoading: { type: Boolean, default: true },
     mayReply: { type: Boolean, default: true },
     isLinked: { type: Boolean, default: false },

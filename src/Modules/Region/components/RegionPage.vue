@@ -51,13 +51,13 @@
       <div class="col-12 col-lg-8 col-xl-9">
         <NewThread
           v-if="(activeSubpage === SUB_PAGE.FORUM || activeSubpage === SUB_PAGE.AMBASSADOR_FORUM) && showNewThreadForm"
-          :subforum-id="subForumId"
+          :subforum-id="subforumId"
           :group-id="regionId"
           :is-moderated="moderated"
         />
         <ThreadList
           v-if="(activeSubpage === SUB_PAGE.FORUM || activeSubpage === SUB_PAGE.AMBASSADOR_FORUM) && !forumThreadId && !showNewThreadForm"
-          :subforum-id="subForumId"
+          :subforum-id="subforumId"
           :group-id="regionId"
         />
         <Thread
@@ -231,7 +231,7 @@ export default {
     SUB_PAGE () {
       return SUB_PAGE
     },
-    subForumId () {
+    subforumId () {
       return this.activeSubpage === SUB_PAGE.AMBASSADOR_FORUM ? 1 : 0
     },
   },

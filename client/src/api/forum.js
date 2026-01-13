@@ -1,12 +1,54 @@
-import { get, post, put, patch, remove } from './base'
+import { get, post, patch, remove, put } from './base'
 
-export function listThreads (groupId, subforumId, offset = 0) {
-  return get(`/forum/${groupId}/${subforumId}?offset=${offset}`)
+// *** FORUM MANAGEMENT *** //
+
+export function getForumFollowing (regionId) {
+  return get(`/regions/${regionId}/forum/subscriptions`)
+}
+
+export function setForumFollowing (regionId, isFollowing) {
+  return put(`/regions/${regionId}/forum/subscriptions?isFollowing=${isFollowing}`)
+}
+
+// *** THREAD MANAGEMENT *** //
+
+export function listThreads (regionId, subforumId, offset = 0) {
+  return get(`regions/${regionId}/forum/threads?subforumId=${subforumId}&offset=${offset}`)
 }
 
 export function getThread (threadId) {
-  return get(`/forum/thread/${threadId}`)
+  return get(`/forum/threads/${threadId}`)
 }
+
+export function createThread (forumId, forumSubId, title, body, sendMail) {
+  return post(`/forum/${forumId}/${forumSubId}`, {
+    title,
+    body,
+    sendMail,
+  },
+  )
+}
+
+export function setStickinessThread (threadId, stickiness) {
+  return patch(`/forum/thread/${threadId}`, { stickiness })
+}
+
+export function activateThread (threadId) {
+  return patch(`/forum/thread/${threadId}`, {
+    isActive: true,
+  })
+}
+
+export function setThreadStatus (threadId, status) {
+  return patch(`/forum/thread/${threadId}`, {
+    status,
+  })
+}
+
+export function setTitle (threadId, title) {
+  return patch(`/forum/thread/${threadId}`, { title })
+}
+
 export function deleteThread (threadId) {
   return remove(`/forum/thread/${threadId}`)
 }
@@ -27,30 +69,10 @@ export function unfollowThreadByBell (threadId) {
   return remove(`/forum/thread/${threadId}/follow/bell`)
 }
 
-export function setStickinessThread (threadId, stickiness) {
-  return patch(`/forum/thread/${threadId}`, { stickiness })
-}
-
-export function activateThread (threadId) {
-  return patch(`/forum/thread/${threadId}`, {
-    isActive: true,
-  })
-}
-
-export function setThreadStatus (threadId, status) {
-  return patch(`/forum/thread/${threadId}`, {
-    status,
-  })
-}
+// *** POST MANAGEMENT *** //
 
 export function createPost (threadId, body) {
   return post(`/forum/thread/${threadId}/posts`, {
-    body,
-  })
-}
-
-export function updatePost (postId, body) {
-  return put('/forum/post', {
     body,
   })
 }
@@ -67,31 +89,12 @@ export function restorePost (postId) {
   return remove(`/forum/post/${postId}/hide`)
 }
 
+// *** REACTION MANAGEMENT *** //
+
 export function addReaction (postId, key) {
   return post(`/forum/post/${postId}/reaction/${key}`)
 }
 
 export function removeReaction (postId, key) {
   return remove(`/forum/post/${postId}/reaction/${key}`)
-}
-
-export function createThread (forumId, forumSubId, title, body, sendMail) {
-  return post(`/forum/${forumId}/${forumSubId}`, {
-    title,
-    body,
-    sendMail,
-  },
-  )
-}
-
-export function setTitle (threadId, title) {
-  return patch(`/forum/thread/${threadId}`, { title })
-}
-
-export function getForumFollowing (forumId) {
-  return get(`/forum/${forumId}/follow`)
-}
-
-export function setForumFollowing (forumId, isFollowing) {
-  return patch(`/forum/${forumId}/follow?isFollowing=${isFollowing}`)
 }

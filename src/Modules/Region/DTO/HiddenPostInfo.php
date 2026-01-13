@@ -11,8 +11,9 @@ class HiddenPostInfo
 {
     public string $reason;
     public Profile $moderator;
-    public DateTime $time;
+    public DateTime $time; // TODO rename to hiddenAt
 
+    // TODO change to tryCreate method
     public static function tryCreateFromArray(array $data): ?HiddenPostInfo
     {
         if (empty($data['hidden_reason'])) {

@@ -6,6 +6,7 @@ use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Info\FollowStatus;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
+use Foodsharing\Modules\Region\DTO\SubscriptionsStatus;
 
 class ForumFollowerGateway extends BaseGateway
 {
@@ -55,20 +56,19 @@ class ForumFollowerGateway extends BaseGateway
     ', [':fsId' => $fsId]);
     }
 
-    public function isFollowingEmail(?int $fsId, int $threadId): bool
+    public function getThreadSubscriptionsStatus(int $threadId, int $userId): SubscriptionsStatus
     {
-        return $this->db->exists(
-            'fs_theme_follower',
-            ['theme_id' => $threadId, 'foodsaver_id' => $fsId, 'infotype' => InfoType::EMAIL]
+        $data = $this->db->fetchByCriteria('fs_theme_follower',
+            ['infotype', 'bell_notification'],
+            ['theme_id' => $threadId, 'foodsaver_id' => $userId]
         );
-    }
+        $subscriptions = new SubscriptionsStatus();
+        if ($data) {
+            $subscriptions->isBellSubscribed = (bool)$data['bell_notification'];
+            $subscriptions->isMailSubscribed = $data['infotype'] === InfoType::EMAIL;
+        }
 
-    public function isFollowingBell(?int $fsId, int $threadId): bool
-    {
-        return $this->db->exists(
-            'fs_theme_follower',
-            ['theme_id' => $threadId, 'foodsaver_id' => $fsId, 'bell_notification' => FollowStatus::ENABLED]
-        );
+        return $subscriptions;
     }
 
     public function followThreadByEmail(?int $fsId, int $threadId): int
