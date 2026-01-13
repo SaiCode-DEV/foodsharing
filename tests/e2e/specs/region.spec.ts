@@ -84,3 +84,27 @@ test.describe("Region Wallposts", () => {
     await expect(page.getByRole("button", { name: "Senden" })).toHaveCount(0);
   });
 });
+
+test("group admin can add user to working group by seeing their ID in tag select", async ({ page, acceptanceHelper }) => {
+  const region = await foodsharing.createRegion();
+  const group = await foodsharing.createWorkingGroup('a test group', { parent_id: region.id });
+  const foodsaver = await foodsharing.createFoodsaver(null, { name: 'WorkingGroupTestUser', nachname: 'lastNameOfThat' });
+  await foodsharing.addRegionMember(region.id, foodsaver.id);
+  const admin = await foodsharing.createFoodsaver();
+  await foodsharing.addRegionMember(group.id, admin.id);
+  await foodsharing.addRegionAdmin(group.id, admin.id);
+  await foodsharing.addRegionMember(region.id, admin.id);
+  await foodsharing.addRegionAdmin(region.id, admin.id);
+
+  await acceptanceHelper.login(admin.email);
+  await page.goto(`/region?sub=members&bid=${group.id}`);
+
+  await page.waitForSelector('#new-foodsaver-search');
+  await page.fill('#new-foodsaver-search div input', foodsaver.name);
+  await page.waitForSelector('.suggestions');
+  await page.click(`li[id$="suggestion-${foodsaver.id}"]`);
+  await page.click('.fa-user-plus');
+  await acceptanceHelper.waitForActiveAPICalls();
+
+  await expect(Database.seeInDatabase('fs_foodsaver_has_bezirk', { bezirk_id: group.id, foodsaver_id: foodsaver.id })).resolves.toBeTruthy();
+});
