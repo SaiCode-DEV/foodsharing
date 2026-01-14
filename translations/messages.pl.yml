@@ -707,6 +707,7 @@ login:
     submit: Wyślij
     success: Jeśli ten adres email istnieje i jeszcze nie został zweryfikowany, 
       zostanie wysłany nowy email.
+  or: albo
 register:
   topbar: dołącz
   title: rejestracja
@@ -1013,6 +1014,7 @@ store:
     distance:
       unknown: nie podano ważnego miejsca zamieszkania
       normal: Mieszka w odległości ok. {distance} km
+      close: Mieszka bliżej niż w odległości 500 m
     distance_short:
       unknown: brak ważnego adresu
       close: Mniej niż 500 m
@@ -1069,6 +1071,7 @@ store:
     chwilowo tutaj zarejestrować. Skontaktuj się z twoimi ambasador(k)ami, aby 
     odnowić swoją legitymację.
   important: 'Ważne:'
+  invitations: Otwarte zaproszenia ({count})
 navi:
   google_maps: Google maps
   waze: Waze
@@ -1213,6 +1216,12 @@ forum:
     no_mail: Temat został otwarty bez wysyłania maili
     activate: Aktywuj temat
     delete: Usuń temat
+    title: Tytuł
+    close: Zamknij temat
+    open: Otwórz temat ponownie
+    closed: temat zamknięty
+    navigate_to_newest_post: przejdź do najnowszego postu
+    navigate_to_oldest_post: przejdź do pierwszego postu
   mail_confirmation:
     title: Na pewno wysłać powiadomienie mailem?
   go: Do forum
@@ -1220,12 +1229,14 @@ forum:
     really: Czy na pewno chcesz odtworzyć ten post?
     hidden_by: Ukryty przez
     reason: 'Uzasadnienie: „{reason}“'
+    title: Odtwórz post
   no_posts: Jeszcze nie ma żadnych postów
   no_threads: Jeszcze nie ma żadnych tematów
   sending_error: Przy wysyłaniu wystąpił błąd
   quickreply:
     success: Świetnie, twoja odpowiedź została zapisana.
     error: Nie można było zapisać postu.
+  not_found: Ten wątek nie istnieje.
 chat:
   empty: Nie ma jeszcze żadnych rozmów
   placeholder: Napisz coś.
@@ -1255,6 +1266,9 @@ chat:
   open_chat: Napisz wiadomość
   new_message: Nowa wiadomość
   new_messages: Nowe wiadomości
+  receivermissing: Podaj odbiorcę
+  incorrect_address: Ten adres email nie jest poprawny
+  empty_message: Najpierw musisz napisać wiadomość.
 wall:
   see-more: Pokaż wszystkie posty
   delete: Usuń post
@@ -1279,6 +1293,9 @@ events:
     type: Jak odbędzie się ten event?
     public: Czy event jest publiczny?
     isPublic: Event jest publiczny
+    online: jako telekonferencja lub spotkanie online
+    other: inne
+    locationOther: Gdzie odbędzie się ten event?
   span: '{from} do {until}'
   duration: 'Czas trwania: {duration}'
   mumble:
