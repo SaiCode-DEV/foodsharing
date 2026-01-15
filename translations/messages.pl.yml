@@ -1506,6 +1506,15 @@ bell:
   foodsaver_adress_changed_title: '{name} zmienił/a adres'
   workinggroup_new_request: Nowe zgłoszenie do zespołu
   new_foodsaver_title: '{name} jest nowy/a w {bezirk}'
+  forum_reply_title: '{forum}: {title}'
+  forum_mention: w temacie „{title}“ z forum {forum}
+  store_request_accept: Zostałeś/aś przyjęty/a do teamu.
+  store_wallpost_title: '{name}'
+  store_cr_times_title: '{name}'
+  new_quiz_comment_title: 'Komentarz do pytania #{questionId}'
+  new_quiz_comment:
+    one: '{user}: {comment}'
+    many: '{count} nowych komentarzy'
 list:
   filter_for: Filtruj według …
 filterlist:
@@ -1643,6 +1652,22 @@ mailbox:
   already_exists: Już istnieje skrzynka pocztowa o tej nazwie
   okay: Email został wysłany pomyślnie.
   failed: Nie można było wysłać maila.
+  reply:
+    short: Odpowiedz
+  reply_all: Odpowiedz wszystkim
+  forward: Przekaż dalej
+  signature: Wiadomość z {date}
+  create: Stwórz nową skrzynkę pocztową
+  attachment:
+    not_found: nie znaleziono
+    too_many: Wybrano za dużo plików. Do maila można dołączyć maksymalnie 10 
+      plików.
+    attach: Załączniki (maksymalnie 10 plików, 1,5 MB / plik)
+  conformation_modal:
+    title: Potwierdzenie
+    message: Jesteś pewny/a, że chcesz usunąć ten mail?
+  search: Szukaj
+  add: Dodaj
 profile:
   sections:
     ambassador_for: dla

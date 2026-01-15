@@ -141,7 +141,7 @@ store:
       8: 'Abandonar a equipa'
       4: 'Adicionar Foodsaver ao equipa sem a solicitação'
       10: 'Eliminar os responsáveis de empresa'
-      6: 'Adicionar Foodsaver ao equipamento ativo'
+      6: 'Adicionar Foodsaver ao equipa ativo'
       12: 'Cancelar para recolha'
       9: 'Inscrever o responsável de empresa'
       5: 'Passar Foodsaver para a lista de suplentes'
@@ -176,7 +176,7 @@ store:
     filterQuizSM: 'Questinário aprovado para responsáveis pela cooperação'
     reallyRemove: 'Quer mesmo remover {name} da equipa da loja?'
     makeJumper: 'Na lista da reserva'
-    reloadRequired: 'Para atualizar as informações do equipamento:'
+    reloadRequired: 'Para atualizar as informações do equipa:'
     makeRegularTeamMember: 'Adicionar na equipa'
     filterNoHygiene: 'sem formação em higiene'
     sorting:
@@ -379,7 +379,7 @@ bell:
   store_request_accept_wait_title: '{name}'
   forum_answer_title: '{forum}'
   buddy_request_title: 'Conheces {name}?'
-  store_new_request_title: 'Aplicação nova pra o equipamento'
+  store_new_request_title: 'Aplicação nova pra o equipa'
   forum_new_thread: 'de {user} no fórum {forum}'
   store_new_title: 'Empresa nova'
   sharepoint_activate_title: 'Cantinho solidário novo em {bezirk}'
@@ -1018,6 +1018,10 @@ login:
     submit: Enviar
     success: Caso esse endereço de e-mail exista e ainda não tenha sido 
       verificado, será enviado um e-mail novo.
+  error_not_activated: Infelizmente, o teu endereço de e-mail ainda não foi 
+    ativado.
+  or: ou
+  passkey_btn: Fazer login com Passkey
 profile:
   alldatesdeleted: ''
   infos:
@@ -1322,7 +1326,7 @@ group:
       informados sobre recursos novos através de campainha.
   application_from: 'de'
   apply:
-    accept: 'Aceitar candidatura'
+    accept: 'Aceitar'
     title: 'Candidatura para {group}'
     motivation: 'Qual é a tua motivação para participar no {group}?'
     send: 'Enviar candidatura'
@@ -1342,6 +1346,7 @@ group:
     ability: Quais são as tuas competências neste área?
     how_much_time: Quantas horas por semana tens tempo e motivação para dedicar 
       a este grupo?
+    deny: Recursar
   member_list:
     set_admin_title: 'Atribuir como administrador'
     remove_ambassador_text: 'Tem a certeza de que pretende remover {name} ({id}) como
@@ -1507,6 +1512,7 @@ group:
   name: 'Nome'
   valid_until: Válido áte
   filter_placeholder: Filtrar grupos por nomes
+  confirm_decline: Queres mesmo recusar esta candidatura?
 foodsaver:
   delete_account_sure: 'Tem a certeza de que deseja eliminar a tua perfil?'
   list:
@@ -2356,6 +2362,12 @@ settings:
       à tua escolha.'
     program:
       apple: Apple Calendário
+      label: Que programa de calendário usas?
+      google: O calendário de Google
+      outlook: Microsoft Outlook
+      thunderbird: Mozilla Thunderbird
+      etar: Etar
+      other: Outra coisa
     generate_url:
       button: Gerar URL de calendário
     download: Descarregar calendário
@@ -2371,6 +2383,26 @@ settings:
       label: Devem ser incluídas datas de recolha?
       "true": Sim, mostrar as minhas recolhas no calendário
       "false": Não, não mostrar recolhas no calendário
+    event:
+      label: Que datas dos teus distritos e grupos de trabalho devem ser 
+        incluídas?
+      all: Todas as datas
+      invitations: Datas em que não cancelei
+      maybe: Datas em que indiquei que (talvez) estaria presente
+      accepted: Datas em que indiquei que estaria presente
+      none: Nenhuma
+    history:
+      label: As datas das últimas duas semanas devem ser incluídas?
+      "true": Sim, mostrar os meus datas anteriores no calendário
+      "false": Não, não mostrar datas passadas no calendário
+    protocol: Qual protocolo o teu programa de calendário usa?
+    formatting:
+      label: Como devem ser formatadas as descrições dos compromissos?
+      html: HTML
+      alt: Texto com HTML como representação alternativa
+      text: Apenas texto
+    reminders:
+      label: Queres que sejam definidos lembretes para os teus compromissos?
   email: 'E-mail & palavra-passe'
   push:
     info-off: ''
@@ -2435,6 +2467,25 @@ settings:
   account: 'Opções do perfil'
   password_change:
     wrong_password: Palavra-passe anterior incorreta
+    title: Alterar palavra-passe
+    explanation: Aqui podes alterar a tua palavra-passe atual
+    old_password_label: Palavra-passe anterior
+    old_password_placeholder: A tua palavra-passe atual
+    old_password_required: Tens de escrever a tua palavra-passe atual
+    new_password_label: Pallavra-passe nova
+    new_password_placeholder: Mínimo de 8 caracteres
+    new_password_required: A palavra-passe deve conter pelo menos oito 
+      caracteres
+    new_password_must_be_trimmed: A palavra-passe não pode começar ou terminar 
+      com espaços em branco
+    new_password_must_be_complex: A nova palavra-passe deve conter letras 
+      maiúsculas e minúsculas, bem como números
+    confirm_password_label: Confirmar palavra-passe nova
+    confirm_password_placeholder: Repita a palavra-passe
+    confirm_password_invalid: As palavras-passe não correspondem
+    cancel: Cancelar
+    submit: Alterar palavra-passe
+    success: A tua palavra-passe foi alterada com sucesso
   no_rights: Não está autorizado a alterar a configuração do perfil.
   edit_other: Editar configurações do perfil de {name}
   profile: Configurações de perfil
@@ -2459,6 +2510,58 @@ settings:
       segurança adicional ao iniciar a sessão.
     error:
       name_required: Por favor, insira um nome
+      operation_cancelled: Operação cancelada ou tempo limite excedido
+      authenticator_already_registered: Este autenticador já está registado
+      webauthn_not_supported: O WebAuthn não é suportado neste navegador
+      operation_aborted: A operação foi cancelada
+      registration_failed: 'Falha no registo da chave de segurança: {error}'
+      deletion_failed: Não foi possível eliminar a chave de segurança
+      rename_failed: Não foi possível renomear a chave de segurança
+    passkeys_section: Chave de segurança
+    security_keys: Chaves de segurança (Passkeys)
+    security_keys_description: As chaves de segurança permitem um login seguro e
+      sem palavra-passe no teu aparelho.
+    passkeys_info: As chaves de segurança permitem um login seguro e sem 
+      palavra-passe.
+    passkeys_not_supported: O teu navegador não suporta chaves de segurança 
+      (WebAuthn).
+    register_passkey: Registar chave de segurança nova
+    no_passkeys: Ainda não há chaves de segurança registadas.
+    unnamed_passkey: Chave de segurança desconhecida
+    created: Criado
+    last_used: Última utilizado
+    never_used: Nunca utilizado
+    delete: Apagar
+    rename: Renomear
+    device_name_placeholder: por exemplo iPhone, YubiKey, Laptop
+    other_domain_info: Esta chave de segurança foi registada em {domain} e não 
+      pode ser utilizada no domínio atual.
+    domain_info: As chaves de segurança são específicas para cada domínio. Tens 
+      de registar separadamente a tua chave de segurança em foodsharing.de, 
+      foodsharing.network, etc.
+    register_modal:
+      title: Registar chave de segurança nova
+      device_name_label: Nome do aparelho
+      device_name_placeholder: por exemplo Phone, YubiKey, Laptop
+      device_name_description: Insira um nome para identificar esta chave de 
+        segurança
+      cancel: Cancelar
+      register: Registrar
+    delete_modal:
+      title: Apagar chave de segurança
+      confirmation: Tem a certeza de que deseja apagar esta chave de segurança?
+      device_name: Aparelho
+      cancel: Cancelar
+      delete: Apagar
+    rename_modal:
+      title: Renomear chave de segurança
+      new_name_label: Nome novo
+      new_name_placeholder: Nome novo de aparelho
+      cancel: Cancelar
+      save: Guardar
+    passkey_registered: Chave de segurança registada com sucesso
+    passkey_deleted: Chave de segurança eliminada com sucesso
+    passkey_renamed: Chave de segurança renomeada com sucesso
   two_fa_manage:
     title: Autenticação de dois fatores
     intro: Aqui pode alterar as configurações da autenticação de dois fatores.
@@ -2499,7 +2602,7 @@ settings:
     apps:
       title: Apps de autenticação recomendadas
       description: 'Escolha uma das seguintes aplicações de autenticação gratuitas
-        e de código aberto para o teu equipamento:'
+        e de código aberto para o teu aparelho:'
       info: Também é possível utilizar aqui uma aplicação de autenticação já 
         utilizada para outros serviços. Se ainda não tiver uma, instale primeiro
         uma aplicação antes de continuar.
@@ -2582,6 +2685,26 @@ settings:
     password_placeholder: A tua palavra-passe
     cancel: Cancelar
     submit: Alterar e-mail
+    confirm_email_required: Os endereços de e-mail não correspondem
+    question: 'Queremos mesmo alterar o teu endereço de e-mail para este:'
+    question_other_user: 'Deve ser alterado o endereço de e-mail para este:'
+    invalid: Há um problema com o endereço de e-mail introduzido
+    domain: Por favor, utilize um outro endereço de e-mail para poder recuperar 
+      a sua palavra-passe a qualquer momento.
+    occupied: Não foi possível alterar o endereço de e-mail, pois ele já está a 
+      ser utilizado.
+    password_required: Tens de inscrever a tua palavra-passe para alterar o 
+      endereço de e-mail.
+    wrong_password: A palavra-passe é incorreta.
+    insufficient_permission: Não tens autorização para alterar o endereço de 
+      e-mail deste perfil.
+    sent: Acesse agora tua caixa de correio eletrónico nova para confirmar o 
+      endereço.
+    sent_other_user: Foi enviado um e-mail para o endereço novo para confirmar o
+      endereço.
+    done: O teu endereço de e-mail foi alterado.
+    not_changed: O teu endereço de e-mail não foi alterado.
+    dashboard_link: Continuar para o painel
 terminology:
   reportAdmins: 'Equipa de processamento de denúncias'
   storemanager:
@@ -2873,6 +2996,8 @@ legal:
   privacy_policy: 'Política de privacidade'
   button:
     agree: Aceitar
+  latest_change: Última alteração em {date}
+  show_changes: Mostrar alterações
 request_time: 'Hora de início:'
 startpage:
   join_welcome: ''
