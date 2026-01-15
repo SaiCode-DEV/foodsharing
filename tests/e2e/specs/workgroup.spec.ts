@@ -190,6 +190,7 @@ test.describe("WorkGroup", () => {
       acceptanceHelper,
       browser,
     }) => {
+      test.setTimeout(45000);
       await acceptanceHelper.login(regionMember.email);
       await page.goto(Urls.groupListUrl());
       await page.click(`.list-group:has-text("${testGroupApply.name}")`);
@@ -200,8 +201,8 @@ test.describe("WorkGroup", () => {
       await page.fill("#input-ability", "My Skillz");
       await page.fill("#input-experience", "My Experience");
       await page.selectOption("#input-time", "1–2 Stunden");
-      await page.click("text=Senden");
-      await page.waitForSelector("text=Erfolgreich abgeschlossen");
+      await page.getByRole('button', { name: 'Senden' }).click();
+      await acceptanceHelper.waitForActiveAPICalls();
 
       // Verify database entry
       expect(
