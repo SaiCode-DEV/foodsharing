@@ -566,8 +566,8 @@ dashboard:
     read: ''
     go: ''
     ack: ''
-  empty_section: ''
-  homeRegion: ''
+  empty_section: 'Ainda não tens {type}'
+  homeRegion: 'A tua distrito de origem é {region}.'
   source_foodsharepoint: 'Cantinho solidário {0}'
   foodsharer: ''
   my:
@@ -583,45 +583,46 @@ dashboard:
     groups: ''
     jumping_stores: ''
     managing_stores: ''
-  greeting_short: ''
-  source_store: ''
+  greeting_short: 'Olá {name}!'
+  source_store: 'Empresas {0}'
   release:
     for_news_from_it: ''
     for_support: ''
     for_release_notes: ''
   foodsharer_amount: ''
-  activity_filter_info: ''
-  source_forum: ''
-  save_selection: ''
-  updates_title_all: ''
-  no_more_updates_forum: ''
-  chooseHomeRegion: ''
+  activity_filter_info: 'Aqui pode definir quais atualizações devem ser exibidas na
+    sua página inicial.'
+  source_forum: 'Fórum {0}'
+  save_selection: 'Guardar configurações'
+  updates_title_all: 'Resumo das atualizações'
+  no_more_updates_forum: 'Não há mais entradas no fórum'
+  chooseHomeRegion: 'Por favor, selecione um distrito de origem.'
   deleted_user: ''
   source_friendWall: 'Pinboard de {0}'
-  source_forum_bot: ''
+  source_forum_bot: 'Fórum de Embaixadores {0}'
   foodsaver_amount: ''
   invitation: ''
-  no_more_updates_event: ''
-  settings_tooltip: ''
-  no_updates: ''
-  no_more_updates_store: ''
+  no_more_updates_event: 'Sem mais datas'
+  settings_tooltip: 'Configurações gerais'
+  no_updates: 'Sem atualizações'
+  no_more_updates_store: 'Sem mais informações sobre empresas'
   full_subline: ''
   no_more_updates_foodsharepoint: 'Não há mais mensagens do cantinho solidário'
-  activation_mail_sent: ''
-  no_more_updates_all: ''
+  activation_mail_sent: 'Link de ativação enviado – verifique os teus e-mails'
+  no_more_updates_all: 'foi isso!'
   greeting: ''
-  display_all: ''
+  display_all: 'Todos'
   no_more_updates_friendWall: 'Não há mais relatórios de estado'
   event: ''
   source_friendWall_own: 'O teu pinboard'
-  updates_title_some: ''
-  activation_mail_failure: ''
-  settings: ''
-  no_more_updates_mailbox: ''
+  updates_title_some: 'Resumo das atualizações ({0})'
+  activation_mail_failure: 'Não foi possível enviar um novo link de ativação'
+  settings: 'Configurações'
+  no_more_updates_mailbox: 'Não mais e-mails'
   invitationCount: ''
-  title: ''
+  title: 'Painel de controlo'
   polls: ''
-  source_event: ''
+  source_event: 'Cita {0}'
   pickupdates: ''
 storeview:
   groceries:
@@ -1023,43 +1024,49 @@ login:
   or: ou
   passkey_btn: Fazer login com Passkey
 profile:
-  alldatesdeleted: ''
+  alldatesdeleted: 'Todas as datas foram apagadas'
   infos:
-    fsMail: ''
-    title: ''
-    registrationDate: ''
-    buddies: ''
-    never: ''
-    lastActivity: ''
-    fetchrate: ''
-    buddycount_known: ''
-    foodsaverId: ''
-    buddycount_followed: ''
-    privateMail: ''
+    fsMail: 'Caixa de correio interna'
+    title: 'informação'
+    registrationDate: 'Data de registo'
+    buddies: 'amigos'
+    never: 'Nunca'
+    lastActivity: 'Atividade última'
+    fetchrate: 'Quota de recolhas'
+    buddycount_known: '{name} conhece {count} Foodsaver'
+    foodsaverId: 'ID'
+    buddycount_followed: '{count} Foodsaver conocen a {name}'
+    privateMail: 'Endereço de e-mail privado'
   mediation:
-    title: ''
-    info: ''
-    no_group: ''
-  notFound: ''
-  choosestore: ''
+    title: 'Solicitação de mediação para {name}'
+    info: 'Achamos fantástico que procures apoio para abordar o assunto com a pessoa
+      em questão. A equipa de mediação pode atuar como mediadora e ajudar a garantir
+      que as vossas conversas sejam conduzidas em pé de igualdade e com respeito mútuo.
+      Podes contactar o grupo de trabalho de mediação local através do seguinte endereço
+      de e-mail:'
+    no_group: 'Infelizmente, ainda não existe um grupo de mediação local para o distrito
+      de origem do salvador alimentar. Pode abordar o assunto numa reunião de grupo
+      ou no fórum, para que seja eleita uma equipa de mediação local.'
+  notFound: 'Este perfil de utilizador(a) não existe ou já não existe'
+  choosestore: 'Selecione a empresa em questão'
   report:
     oldReportButtonTextPart2: 'Se necessário, contacte o grupo da denúncias local
       do teu distrito.'
-    noshow: ''
-    doesNotAffectStore: ''
+    noshow: 'A pessoa não veio'
+    doesNotAffectStore: 'Não diz respeito a nenhuma empresa ou a outra empresa'
     arbAdminAgainstRepAdmin: 'É administrador do órgão de arbitragem e pretende comunicar
       um administrador para o processamento de notificações. De momento, isso não
       é tecnicamente possível. Pode, a qualquer momento, enviar uma notificação por
       e-mail para os responsáveis locais por este caso.'
-    oldReportButton: ''
+    oldReportButton: 'Denunciar violação das regras'
     send: 'Mandar denúncia'
-    late: ''
+    late: 'A pessoa chegou tarde'
     repAdminAgainstArbAdmin: 'É administrador da equipa de processamento de notificações
       e pretende notificar um/a administrador/a do órgão de arbitragem. No momento,
       isso não é tecnicamente possível. Pode enviar uma notificação por e-mail a qualquer
       momento para os responsáveis locais por este caso.'
     sent: 'A denúncia foi enviada'
-    inthisblog: ''
+    inthisblog: 'nesta entrada do blogue'
     oldReportButtonTextPart3: 'Mais informações sobre o sistema da denúncia podem
       ser encontradas em'
     info: 'Para que a tua denúncia possa ser processada da melhor forma possível,
@@ -1082,16 +1089,18 @@ profile:
     kindofreport: 'Por favor selecione o tipo de denúncia'
     noReportGroup: 'Não é possível utilizar o suporte técnico do sistema de denúncias,
       pois este não está ativado para o distrito do salvador dos alimentos.'
-    oldReportButtonTextPart1: ''
+    oldReportButtonTextPart1: 'Atualmente, as violações das regras não são comunicadas
+      neste local.'
     reportedAdminNoArbitration: 'Não pode denunciar {name}, pois ele/ela é administrador/a
       do grupo de denúncias local do distrito e não existe um órgão de arbitragem
       nesse grupo.'
-    sells: ''
+    sells: 'Vende comida salvada'
     reporterHasNoReportGroup: 'Não pode utilizar o suporte técnico do sistema de denúncias,
       pois não existe um grupo de denúncias local no seu distrito.'
     reporterAdminNoArbitration: 'És administrador do grupo local de denúncias e, como
       não existe um órgão arbitral local, não podes apresentar nenhuma denúncia.'
-    cancellation: ''
+    cancellation: 'Cancelamentos frequentes de recolhas a curto prazo sem procura
+      de substitutos'
     mail:
       reportGroup: 'Esta denúncia será enviada ao grupo de denúncias local. Também
         pode contactar este grupo através do seguinte endereço de e-mail:'
@@ -1099,88 +1108,185 @@ profile:
         que uma das pessoas envolvidas é membro do grupo local de denúncias. Também
         pode contactar o órgão de arbitragem através do seguinte endereço de e-mail:'
     confirmDelete: Deseja mesmo eliminar esta denúncia?
+    report_b1_0: Chegou tarde para a recolha (B01-1)
+    report_b1_1: Não compareceu para recolher (B01-2)
+    report_b1_2: Levou animais para a empresa sem autorização (B01-3)
+    report_b1_3: Levou crianças para o local de trabalho sem autorização (B01-4)
+    report_b1_4: Não tinha consigo o seu cartão de foodsharing (B01-5)
+    report_b2: Realizou uma recolha fora dos horários estabelecidos sem acordo 
+      prévio com o responsável de empresa (B02)
+    report_b3_0: Não entrou/saiu da empresa em conjunto com outros participantes
+      (B03-1)
+    report_b3_1: A recolha não foi realizada sem discussão ou disputa (B03-2)
+    report_b4_0: Nem todos os alimentos ainda comestíveis foram levados (B04-1)
+    report_b4_1: Os alimentos não foram distribuídos de forma justa (B04-2)
+    report_b5: Pessoas não autorizadas entraram na loja (B05)
+    report_b6_0: Não foi tida em consideração a clientela e os funcionários da 
+      loja (B06-1)
+    report_b6_1: O local de recolha não foi deixado em boas condições (B06-2)
+    report_b7: O tempo de espera da operação não foi respeitado (B07)
+    report_b8: Foi desagradável com os funcionários da empresa (B08)
+    report_b9: Foram feitos comentários inadequados sobre a quantidade, o tipo e
+      a utilização dos alimentos salvados (B09)
+    report_b10: Vende alimentos salvados (B10)
+    report_b11: Foram utilizados meios não ecológicos na recolha (B11)
+    report_b12: Não foi permitido aos responsáveis pela recolha decidir por 
+      conta própria a quem os alimentos seriam distribuídos (B12)
+    report_b13: Não foram envidados esforços para consumir/distribuir os 
+      alimentos salvados (B13)
+    report_other: Outros
+    notes: Notas e decisões
   mail_bounce:
-    remove_button: ''
-    warning_1: ''
-    warning_4: ''
-    warning_others: ''
-    warning_3: ''
-    warning_2: ''
-  deletesuccess: ''
+    remove_button: 'Remover da lista de rejeições'
+    warning_1: 'O teu endereço de e-mail pessoal {email} está bloqueado para comunicações
+      e e-mails do foodsharing. Através do'
+    warning_4: 'este artigo de suporte.'
+    warning_others: 'O endereço de e-mail {email} desta pessoa está bloqueado para
+      e-mails e comunicações do foodsharing. Pode remover o bloqueio através do botão.'
+    warning_3: 'eliminará este bloqueio. Para obter mais informações, consulte '
+    warning_2: 'Alterar o endereço de e-mail'
+  deletesuccess: 'Cita individual eliminada'
   banana:
     remove:
-      confirm_title: ''
-      confirm_message: ''
-    title: ''
-    sent: ''
-    undo: ''
-    vouch: ''
-    alreadyGiven: ''
-    give: ''
-    messageTooShort: ''
-    placeholder: ''
-    details: ''
+      confirm_title: 'Remover banana de confiança'
+      confirm_message: 'Queres mesmo remover esta banana da confiança?'
+      successful: A banana foi removida!
+    title: '{count} bananas de confiança'
+    sent: 'A banana foi enviada!'
+    undo: 'As bananas de confiança não podem ser alteradas.'
+    vouch: 'Por isso, conceda a banana da confiança apenas a pessoas que conheça pessoalmente,
+
+      que cumpram as regras de conduta e o acordo legal
+
+      e cuja fiabilidade e empenho possa garantir.
+
+      Nunca conceda bananas da confiança de ânimo leve!
+
+      '
+    alreadyGiven: '{name} já recebeu uma banana de ti.'
+    give: 'Dê uma banana para {name}'
+    messageTooShort: 'Por favor, insira um texto com pelo menos 100 caracteres sobre
+      esta banana.'
+    placeholder: 'Mínimo de 100 caracteres…'
+    details: 'Aqui podes descrever, em pelo menos 100 caracteres, porque gostarias
+      de oferecer uma banana a {name}.
+
+      '
+    recieved_none:
+      other: '{name} ainda não recebeu nenhuma banana de confiança.'
+      you: Ainda não recebeste nenhuma banana de confiança.
+    sent_none:
+      other: '{name} ainda não ofereceu nenhuma banana da confiança.'
+      you: Ainda não ofereceste nenhuma banana da confiança.
   stats:
-    baskets: ''
-    weight: ''
-    posts: ''
+    baskets: 'cestas de comida'
+    weight: 'salvo'
+    posts: 'posts'
     weight_unit: kg
+    fetch_count: recolhido
+    bananas: Bananas
   commitments_stat:
-    eventsParticipatedWeek: ''
-    pickupCount: ''
-    week_0: ''
-    week_3: ''
-    week_4: ''
-    categorieName: ''
-    title: ''
-    respActStores: ''
-    week_2: ''
-    pickupAmount: ''
-    securePickupWeek: ''
-    week_1: ''
-    basketsSharedWeek: ''
-    weekDesc: ''
-    eventsCreatedWeek: ''
-    districtName: ''
-    calenderWeek: ''
-    basketsOfferedWeek: ''
+    eventsParticipatedWeek: 'Obrigado por participar {count} vezes nos eventos desta
+      semana. Tempo total: {hour}:{minute} '
+    pickupCount: 'Frequência'
+    week_0: 'em duas semanas'
+    week_3: 'semana pasada'
+    week_4: 'há duas semanas'
+    categorieName: 'Categoria'
+    title: 'Estatísticas de participação'
+    respActStores: 'Obrigado por coordenar {count} ativos '
+    week_2: 'esta semana'
+    pickupAmount: 'Quantidade'
+    securePickupWeek: 'Obrigado pelas {count} vezes em que nos ajudou em cima da hora
+      e garantiu as recolhas!'
+    week_1: 'próxima semana'
+    basketsSharedWeek: 'Os cestos de comida foram partilhados com {count} pessoa(s). '
+    weekDesc: 'Semana {week} do calendário, de {weekStart} a {weekEnd}'
+    eventsCreatedWeek: 'Obrigado por criar {count} eventos esta semana.'
+    districtName: 'Distrito'
+    calenderWeek: 'sem.'
+    basketsOfferedWeek: 'Obrigado pelas {count} cestas de alimentos oferecidas esta
+      semana. No total, foram distribuídos {weight} kg.'
   history:
-    actionBy: ''
-    noData: ''
-    noActor: ''
-    wasVerified: ''
-    lostVerification: ''
-  warning: ''
+    actionBy: 'por'
+    noData: 'Não há dados disponíveis.'
+    noActor: 'desconocido'
+    wasVerified: 'Verificado'
+    lostVerification: 'Deverificado'
+  warning: 'Aviso'
   public:
-    join: ''
-    mayNot: ''
+    join: 'Registar e participar'
+    mayNot: 'não ativo'
     cta: 'O perfil completo de {name} está disponível após o registo:'
-    who: ''
-    login: ''
-    textMay: ''
-    textMayNot: ''
-    may: ''
-  pinboard: ''
-  cantdeleteall: ''
-  online: ''
+    who: '{name} de {from}'
+    login: 'Para fazer login'
+    textMay: 'e, por isso, pode receber alimentos em nome de foodsharing.'
+    textMayNot: 'e, por isso, não está autorizado a aceitar alimentos em nome de foodsharing.'
+    may: 'ativo'
+  pinboard: 'Atualizações de estado de {name}'
+  cantdeleteall: 'Não podes apagar todos os prazos!'
+  online: '{name} está online.'
   nav:
-    verificationHistory: ''
-    buddy: ''
-    notes: ''
-    history: ''
+    verificationHistory: 'Histórico de verificação'
+    buddy: 'Conheço {name}'
+    notes: 'Notas'
+    history: 'Histórico dos cartões de membro'
     violations: 'Denúncias'
-    storelist: ''
+    storelist: 'Empresas ({count})'
+    remove_buddy: Não me lembro mais de {name}
+    quizSessionHistory: Tentativas de quiz
   notes:
-    info: ''
-    bread: ''
-    title: ''
-  title: ''
-  mediationRequest: ''
-  go: ''
-  about_me_intern: ''
-  sleeping: ''
+    info: 'Por favor, utilize esta função com cuidado. Ela deve ajudar a tornar os
+      processos visíveis, para nos poupar trabalho. Informações pessoais ou julgamentos
+      sobre uma pessoa não têm lugar aqui. Mantenha-se objetivo.'
+    bread: 'Notas'
+    title: 'Notas sobre {name}'
+  title: 'Perfil'
+  mediationRequest: 'Solicitar mediação'
+  go: 'Abrir perfil'
+  about_me_intern: 'Sobre si mesmo'
+  sleeping: 'tem um touca de dormir por tempo indeterminado'
   reportRequest: 'Enviar denúncia'
-  cantdeletethis: ''
+  cantdeletethis: 'Não é possível eliminar citas individuais!'
+  homeDistrictHistory:
+    changed: registrado
+    by: de
+    previous: antes
+  sections:
+    orga_rights: '##### tem, como organizador(a), [amplos direitos]({wikiurl}) na
+      esta plataforma.'
+    ambassador_for: para
+    foodSaver_in_region: registrados nos distritos
+    workgroups_admin: Envolve-se como pessoa de contacto para os grupos
+    workgroups_member: em conjunto nos seguintes grupos de trabalho
+    no_common_workgroups: em nenhum grupo de trabalho comum
+    home_region_from: Distrito de origem
+    kam_for: 'Responsável pela coordenação das seguintes cadeias lojas:'
+  tab_navigation:
+    profile: Perfil
+    pickups: Recolhas
+    commitment_statistics: Estatísticas de participação
+    stores: Empresas ({count})
+    notes: Notas ({count})
+  stores:
+    search_placeholder: Buscar por nome
+    store_table: Lista de empresas
+    memberState:
+      filterAll: todos
+      filterRequested: Solicitação enviada
+      filterInvitations: Convidado
+      filterActive: membro
+      filterManage: Responsável por empresas
+      filterJumper: Suplente
+  sleeping_info_from_until: tem uma touca de dormir de {from} até {until}
+  choosereasonnostore: Não se aplica a nenhuma loja
+  chooseantherstore: Diz referência a uma loja não listada
+  editNameInfo: Tenha em atenção que os campos para nome e apelido devem ser 
+    utilizados exclusivamente para o nome da pessoa. Não utilize este campo para
+    guardar informações adicionais sobre o perfil, como, por exemplo, a 
+    realização de uma formação em higiene. Em vez disso, podem ser utilizados 
+    grupos de trabalho para guardar informações adicionais sobre perfis. Mais 
+    informações sobre este assunto no [Fórum dos Embaixadores]({url})
 mailbox:
   search: 'Revisar'
   claim: 'foodsharing.de - usar sem desperdiçar'
@@ -2403,17 +2509,50 @@ settings:
       text: Apenas texto
     reminders:
       label: Queres que sejam definidos lembretes para os teus compromissos?
+      15_minutes: 15 minutos antes
+      30_minutes: 30 minutos antes
+      1_hour: 1 hora antes
+      3_hours: 3 horas antes
+      6_hours: 6 horas antes
+      12_hours: 12 horas antes
+      1_day: 1 dia antes
   email: 'E-mail & palavra-passe'
   push:
-    info-off: ''
-    success: ''
-    enable: ''
-    denied: ''
-    disabled: ''
-    title: ''
-    not-supported: ''
-    disable: ''
-    info-on: ''
+    info-off: 'As notificações push do foodsharing estão ativadas neste aparelho.
+
+      Caso desative as notificações push, as mensagens de chat deixarão de ser enviadas
+      diretamente para o teu aparelho.
+
+      O teu aparelho deixará de mostrar notificações quando não estiver ligado,
+
+      nem reagirá com um som ou vibração.
+
+      '
+    success: 'Notificações push ativadas com sucesso'
+    enable: 'Ativar notificações push'
+    denied: 'Recusaste a exibição de notificações push do foodsharing no teu navegador.
+
+      Caso queiras receber notificações push, altera as configurações do teu navegador
+      para o foodsharing
+
+      e recarrega a página.
+
+      '
+    disabled: 'Notificações push desativadas com sucesso'
+    title: 'Notificações push'
+    not-supported: 'Infelizmente, o teu navegador não suporte notificações push.'
+    disable: 'Desativar notificações push'
+    info-on: 'Quando ativares as notificações push para este aparelho,
+
+      as mensagens de chat serão enviadas diretamente para o teu telemóvel,
+
+      mesmo que não estejas logado.
+
+      O teu aparelho exibirá uma notificação correspondente
+
+      ou reagirá com um som ou vibração.
+
+      '
   passport:
     menu: 'Cartão'
     button: 'Descarregar cartão de membro'
@@ -2440,8 +2579,17 @@ settings:
       generate_error: Ocorreu um erro ao gerar o cartão de membro. Por favor, 
         tente novamente mais tarde.
   photo:
-    info: ''
-    title: ''
+    info: 'O teu rosto deve ser <a href="{link_photo}">reconhecível</a> na foto do
+      perfil,
+
+      pois será utilizado para o <a href="{link_id}">cartão de membro do foodsharing</a>,
+      caso
+
+      mais tarde te tornes um <a href="{link_fs}">salvador(a) alimentar</a> e salves
+      alimentos em lojas.
+
+      '
+    title: 'A tua foto'
   follow:
     none: 'Por favor, não envie-me mais e-mails a informar sobre posts novos.'
     mail: 'Sim, gostaria de receber informações sobre posts novos por e-mail.'
@@ -2566,7 +2714,7 @@ settings:
     title: Autenticação de dois fatores
     intro: Aqui pode alterar as configurações da autenticação de dois fatores.
     status_is: O estado atual é
-    active: ativo
+    active: Ativo
     inactive: deativo
     num_backup_codes: Número de códigos de backup restantes
     enable_button: Ativar 2FA
@@ -2705,6 +2853,14 @@ settings:
     done: O teu endereço de e-mail foi alterado.
     not_changed: O teu endereço de e-mail não foi alterado.
     dashboard_link: Continuar para o painel
+  change_data_info:
+    general: Aqui podes alterar os dados do teu perfil.
+    verified: Não podes editar o teu nome e data de nascimento. Mas podes pedir 
+      a um embaixador(a) para alterar esses dados por ti.
+  general:
+    phone: O teu número de telefone fixo
+    current_address: Endereço atual
+    no_address: Ainda não foi inserido nenhum endereço
 terminology:
   reportAdmins: 'Equipa de processamento de denúncias'
   storemanager:

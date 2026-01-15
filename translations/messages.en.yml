@@ -112,7 +112,7 @@ group:
     title: Application for {group}
     motivation: What is your motivation to participate in the group {group}?
     summary: '{name} would like to participate in the {group} working group.'
-    accept: Accept the application
+    accept: Accept
     link_description: 'This link will take you directly to the application:'
     ability: What skills do you have in this area?
     experience: "Can you draw on experiences in the group that you have gained elsewhere?\n\
@@ -120,6 +120,7 @@ group:
     how_much_time: How many hours a week do you have the time and inclination to
       spend on this?
     error_missing_time: 'Error: no time has been selected.'
+    deny: Reject
   show-all: Show all
   really_quit_district: Do you really want to leave the region {name}?
   really_quit_workgroup: Do you really want to leave the working group {name}?
@@ -232,6 +233,7 @@ group:
   userId: ID
   filter_placeholder: Filter groups by name
   valid_until: valid until
+  confirm_decline: Are you sure you want to reject this application?
 settings:
   header: Profile settings
   push:
