@@ -1,4 +1,4 @@
-import { get, patch, post, remove } from './base'
+import { get, patch, post, put } from './base'
 import { generateQueryString } from '../utils'
 
 export function getConversationList (limit = '', offset = '') {
@@ -11,10 +11,12 @@ export function getConversation (conversationId) {
 }
 
 export function getConversationIdForConversationWithUser (userId) {
-  return get(`/user/${userId}/conversation`)
+  return post('/conversations/lookup', {
+    ids: [userId],
+  })
 }
 
-export function getMessages (conversationId, olderThanId, limit = '') {
+export function getMessages (conversationId, olderThanId = '', limit = '') {
   const queryString = generateQueryString({ olderThanId, limit })
   return get(`/conversations/${conversationId}/messages${queryString}`)
 }
@@ -31,16 +33,13 @@ export function renameConversation (conversationId, newName) {
   })
 }
 
-export function removeUserFromConversation (conversationId, userId) {
-  return remove(`/conversations/${conversationId}/members/${userId}`)
-}
-
-export function createConversation (userIds) {
-  return post('/conversations', {
-    members: userIds,
-  })
+export async function createConversation (userIds) {
+  const id = (await post('/conversations/lookup', {
+    ids: userIds,
+  })).id
+  return getConversation(id)
 }
 
 export function setReadStatus (conversationId, read) {
-  return post(`/conversations/${conversationId}/readStatus?read=${read ? 1 : 0}`)
+  return put(`/conversations/${conversationId}/read-status?isRead=${read ? 1 : 0}`)
 }

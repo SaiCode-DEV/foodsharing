@@ -11,6 +11,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class IDList
 {
+    /**
+     * @var int[]
+     */
     #[OA\Property(description: 'A list of IDs')]
     #[Assert\Count(min: 1)]
     #[Assert\All(new Assert\Positive())]

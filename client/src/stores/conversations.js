@@ -130,8 +130,8 @@ export default new Vue({
     },
     async sendMessage (conversationId, messageText) {
       try {
-        const response = await api.sendMessage(conversationId, messageText)
-        this.assignMessageToStore(conversationId, response.message)
+        const message = await api.sendMessage(conversationId, messageText)
+        this.assignMessageToStore(conversationId, message)
       } catch (e) {
         const errorMessage = {
           id: this.failureMessageId,
@@ -164,8 +164,8 @@ export default new Vue({
     },
     async resendFailedMessage (conversationId, failureMessageId) {
       const message = this.conversations[conversationId].messages[failureMessageId]
-      const response = await api.sendMessage(conversationId, message.body)
-      this.assignMessageToStore(conversationId, response.message)
+      const sentMessage = await api.sendMessage(conversationId, message.body)
+      this.assignMessageToStore(conversationId, sentMessage)
       Vue.delete(this.conversations[conversationId].messages, failureMessageId)
     },
     openChat (conversationId) {

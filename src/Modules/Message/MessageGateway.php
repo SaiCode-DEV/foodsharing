@@ -5,6 +5,7 @@ namespace Foodsharing\Modules\Message;
 use Carbon\Carbon;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
+use Foodsharing\Modules\Core\Pagination;
 use Foodsharing\Utility\Sanitizer;
 
 final class MessageGateway extends BaseGateway
@@ -108,7 +109,7 @@ final class MessageGateway extends BaseGateway
 
     public function getConversationForUser(int $conversationId, int $fsId): ?Conversation
     {
-        $result = $this->listConversationsForUserWithoutMembers($fsId, null, 0, $conversationId);
+        $result = $this->listConversationsForUserWithoutMembers($fsId, null, $conversationId);
         if ($result) {
             return $result[$conversationId];
         } else {
@@ -116,6 +117,9 @@ final class MessageGateway extends BaseGateway
         }
     }
 
+    /**
+     * @return Message[]
+     */
     public function getConversationMessages(int $conversation_id, int $limit = 20, ?int $olderThanId = null, int $offset = 0): array
     {
         $offsetStr = '';
@@ -175,8 +179,10 @@ final class MessageGateway extends BaseGateway
 
     /**
      * Method returns an array of all conversations a given user is part of.
+     *
+     * @return Conversation[]
      */
-    private function listConversationsForUserWithoutMembers(int $fsId, int $limit = null, int $offset = 0, int $cid = null): array
+    private function listConversationsForUserWithoutMembers(int $fsId, ?Pagination $pagination = null, ?int $cid = null): array
     {
         // prepare the query
         $params = [':fsId' => $fsId];
@@ -212,13 +218,9 @@ final class MessageGateway extends BaseGateway
 			ORDER BY
 				CASE WHEN hc.unread = 0 THEN 0 ELSE 1 END DESC,
 				c.`last` DESC';
-        if ($limit !== null) {
-            $query .= ' LIMIT :offset, :limit';
-            $params = array_merge($params, [
-                ':offset' => $offset,
-                ':limit' => $limit
-            ]);
-        }
+
+        $query .= $this->buildPaginationSqlLimit($pagination);
+        $params = $this->addPaginationSqlLimitParameters($pagination, $params);
 
         // fetch the data
         $conversations = $this->db->fetchAll($query, $params);
@@ -300,9 +302,12 @@ final class MessageGateway extends BaseGateway
         return [];
     }
 
-    public function listConversationsForUser(int $fsId, int $limit = null, int $offset = 0): array
+    /**
+     * @return Conversation[]
+     */
+    public function listConversationsForUser(int $fsId, Pagination $pagination): array
     {
-        $conversations = $this->listConversationsForUserWithoutMembers($fsId, $limit, $offset);
+        $conversations = $this->listConversationsForUserWithoutMembers($fsId, $pagination);
         $cids = array_keys($conversations);
         $members = $this->getMembersForConversations($cids);
         array_walk($conversations, function ($c) use ($members) {
@@ -414,18 +419,6 @@ final class MessageGateway extends BaseGateway
             $this->db->insertMultiple('fs_foodsaver_has_conversation', $data, ['ignore' => true]);
             $this->db->commit();
         }
-    }
-
-    /* checks if the conversation has a member that is not deleted (to expunge the conversation otherwise) */
-    public function conversationHasRealMembers(int $conversationId): bool
-    {
-        return $this->db->fetchValue('
-		SELECT COUNT(*)
-		FROM fs_foodsaver_has_conversation hc
-		INNER JOIN fs_foodsaver fs ON fs.id = hc.foodsaver_id
-		WHERE hc.conversation_id = :conversationId
-		AND fs.deleted_at IS NULL
-		', [':conversationId' => $conversationId]) >= 1;
     }
 
     public function deleteConversation(int $conversationId): void

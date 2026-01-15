@@ -88,7 +88,7 @@ class WebPushHandler implements PushNotificationHandlerInterface
 
         if ($notification instanceof MessagePushNotification) {
             $payloadArray['options']['body'] = $notification->getMessage()->body;
-            $payloadArray['options']['timestamp'] = strtotime((string)$notification->getMessage()->sentAt) * 1000; // timestamp needs to be in milliseconds
+            $payloadArray['options']['timestamp'] = $notification->getMessage()->sentAt->getTimestamp() * 1000; // timestamp needs to be in milliseconds
             $payloadArray['options']['tag'] = $notification->getConversationId(); // used to disable mutliple notifications for the same chat
             $payloadArray['options']['icon'] = $notification->getAuthor()->avatar . '?w=32&h=32';
             $payloadArray['options']['data']['action'] = ['page' => 'conversations', 'params' => [$notification->getConversationId()]]; // this thing will be resolved to a url by urls.js on client side

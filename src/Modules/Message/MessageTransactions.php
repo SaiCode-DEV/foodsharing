@@ -5,8 +5,10 @@ namespace Foodsharing\Modules\Message;
 use Carbon\Carbon;
 use Foodsharing\Lib\Session;
 use Foodsharing\Lib\WebSocketConnection;
+use Foodsharing\Modules\Core\Pagination;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\Profile;
+use Foodsharing\Modules\Message\DTO\MessageCollection;
 use Foodsharing\Modules\PushNotification\Notification\MessagePushNotification;
 use Foodsharing\Modules\PushNotification\PushNotificationGateway;
 use Foodsharing\Modules\Store\StoreGateway;
@@ -136,7 +138,7 @@ class MessageTransactions
         return $this->sendMessage($conversationId, $senderId, $body, $notificationTemplate);
     }
 
-    public function sendMessage(int $conversationId, int $senderId, string $body, string $notificationTemplate = null): ?Message
+    public function sendMessage(int $conversationId, int $senderId, string $body, ?string $notificationTemplate = null): ?Message
     {
         $body = trim($body);
         if (!empty($body)) {
@@ -150,31 +152,12 @@ class MessageTransactions
         return null;
     }
 
-    public function deleteUserFromConversation(int $conversationId, int $userId): bool
+    /**
+     * @return array{conversations: Conversation[], profiles: Profile[]}
+     */
+    public function listConversationsWithProfilesForUser(int $userId, Pagination $pagination): array
     {
-        /* only allow removing users from non-locked conversations (as "locked" means more something like "is part
-        of a synchronized user group".
-        When a user gets removed, check if the whole conversation can be removed. */
-        if (!$this->messageGateway->isConversationLocked(
-            $conversationId
-        ) && $this->messageGateway->deleteUserFromConversation($conversationId, $userId)) {
-            if (!$this->messageGateway->conversationHasRealMembers($conversationId)) {
-                $this->messageGateway->deleteConversation($conversationId);
-            }
-
-            return true;
-        }
-
-        return false;
-    }
-
-    public function listConversationsWithProfilesForUser(int $userId, ?int $limit = null, int $offset = 0): array
-    {
-        $conversations = $this->messageGateway->listConversationsForUser(
-            $userId,
-            $limit,
-            $offset
-        );
+        $conversations = $this->messageGateway->listConversationsForUser($userId, $pagination);
 
         $members = [];
         foreach ($conversations as $conversation) {
@@ -185,7 +168,7 @@ class MessageTransactions
         $profiles = $this->foodsaverGateway->getProfileForUsers($profileIDs);
 
         return [
-            'conversations' => $conversations,
+            'conversations' => array_values($conversations),
             'profiles' => $profiles
         ];
     }
@@ -204,5 +187,26 @@ class MessageTransactions
         $formattedMessage = "{$salutation},\n{$main}{$optionalMessage}\n{$footer}";
 
         $this->sendMessageToUser($userId, $senderId, $formattedMessage);
+    }
+
+    public function getConversationData(int $conversationId, int $messagesLimit): Conversation
+    {
+        $conversation = $this->messageGateway->getConversationForUser($conversationId, $this->session->id());
+        $conversation->members = $this->messageGateway->getMembersForConversations([$conversationId])[$conversationId];
+        $conversation->messages = $this->messageGateway->getConversationMessages($conversationId, $messagesLimit);
+
+        $this->messageGateway->setReadStatus($conversationId, $this->session->id(), true);
+
+        return $conversation;
+    }
+
+    public function messageCollectionFromMessages(array $messages): MessageCollection
+    {
+        $messageCollection = new MessageCollection();
+        $messageCollection->messages = $messages;
+        $profileIDs = array_unique(array_map(fn ($message) => $message->authorId, $messages));
+        $messageCollection->profiles = $this->foodsaverGateway->getProfileForUsers($profileIDs);
+
+        return $messageCollection;
     }
 }
