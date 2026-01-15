@@ -569,7 +569,7 @@ dashboard:
   empty_section: 'Ainda não tens {type}'
   homeRegion: 'A tua distrito de origem é {region}.'
   source_foodsharepoint: 'Cantinho solidário {0}'
-  foodsharer: ''
+  foodsharer: 'Divirta-se a salvar!'
   my:
     regions: ''
     users: ''
@@ -610,7 +610,7 @@ dashboard:
   no_more_updates_foodsharepoint: 'Não há mais mensagens do cantinho solidário'
   activation_mail_sent: 'Link de ativação enviado – verifique os teus e-mails'
   no_more_updates_all: 'foi isso!'
-  greeting: ''
+  greeting: 'Olá, {name}! Que bom que está aqui.'
   display_all: 'Todos'
   no_more_updates_friendWall: 'Não há mais relatórios de estado'
   event: ''
