@@ -1,6 +1,50 @@
 import { test, expect } from "../helpers/acceptance";
 import { foodsharing } from "../helpers/foodsharing";
 
+test.describe("Store user", () => {
+  test("shows slot multi chat when multiple pickers", async ({ page, acceptanceHelper }) => {
+    const region = await foodsharing.createRegion("A region for multi chat test", {}, false);
+    const storeCoordinator = await foodsharing.createStoreCoordinator(null, { bezirk_id: region.id });
+    await acceptanceHelper.login(storeCoordinator.email);
+
+    // Set localStorage item to avoid push notification prompt
+    await page.evaluate(() =>
+      localStorage.setItem("askForPushNotifications", "false"),
+    );
+
+    const store = await foodsharing.createStore(region.id);
+    await foodsharing.addStoreTeam(store.id, storeCoordinator.id, true);
+
+    const otherUser = await foodsharing.createFoodsaver();
+    await foodsharing.addStoreTeam(store.id, otherUser.id, false);
+
+    // Create a pickup and sign up both users
+    const pickup = await foodsharing.addPickup(store.id);
+    await foodsharing.addPicker(store.id, storeCoordinator.id, { date: pickup.time });
+    await foodsharing.addPicker(store.id, otherUser.id, { date: pickup.time });
+
+    // Load store page
+    await page.goto(`/store/${store.id}`);
+    await acceptanceHelper.waitForActiveAPICalls();
+
+    // Go to the pickup section and check for the multi chat button
+    await page.waitForSelector('[data-test="pickup-options-dropdown"]');
+    await page.click('[data-test="pickup-options-dropdown"]');
+    await page.waitForSelector('[data-test="slot-multi-chat"]');
+    await page.click('[data-test="slot-multi-chat"]');
+
+    // Check that the chat UI appears and contains the other user's name
+    if (await acceptanceHelper.isMobile()) {
+      await expect(
+        page.locator("#header").getByText(otherUser.name),
+      ).toBeVisible();
+    } else {
+      await page.waitForSelector('.chatboxtitle', { timeout: 5000 });
+      await expect(page.locator('.chatboxtitle')).toContainText(otherUser.name);
+    }
+  });
+});
+ 
 test.describe("Store user and chat interactions", () => {
   // shared test data created in beforeEach and reused in tests
   let testData: any;
