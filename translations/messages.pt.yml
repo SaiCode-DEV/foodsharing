@@ -192,7 +192,7 @@ store:
   isNotVerified: 'Ainda não foi verificado.'
   jumping: 'Substituto'
   may_not_referred_to_in_public: 'Por favor, nunca mencione esta cooperação publicamente
-    (por exemplo, em cestas de alimentos, nas redes sociais ou na imprensa).'
+    (por exemplo, em cestos alimentar, nas redes sociais ou na imprensa).'
   fetchCount: 'Recolhido aqui {count} vezes.'
   of_that: 'deles'
   requests: 'Consultas abertas ({count})'
@@ -578,7 +578,7 @@ dashboard:
     no-stores: 'Ainda não faz parte de nenhuma equipa corporativa.'
     stores: 'As tuas empresas'
     buddies: 'Pessoas que conheces'
-    baskets: 'Cestas de alimentos'
+    baskets: 'Cestos alimentar'
     events: 'Eventos'
     groups: 'Os tues grupos'
     jumping_stores: 'As tuas empresas substitutas'
@@ -811,85 +811,98 @@ pickuplist:
     body: Quer mesmo eliminar o último slot? A marcação será completamente 
       removida.
 basket:
-  my_list_empty: 'Não adicionaste nenhum cesto de comida'
+  my_list_empty: 'Não adicionaste nenhum cesto alimentar'
   not_active: ''
   valid:
-    "7": ''
-    "21": ''
-    "14": ''
-    "2": ''
-    "1": ''
-    "3": ''
+    "7": 'uma semana'
+    "21": 'tres semanas'
+    "14": 'dois semanas'
+    "2": 'dois dias'
+    "1": 'um dia'
+    "3": 'tres dias'
+    "5": cinco días
   all_map: 'Todos os cestos no mapa'
-  request_denied: ''
+  request_denied: 'A tua solicitação foi recusada pelo fornecedor da cesto alimentar.'
   is:
-    vegan: ''
-    gf: ''
-    veggie: ''
-    organic: ''
+    vegan: 'produtos são veganos'
+    gf: 'produtos são sem gluten'
+    veggie: 'produtos são vegetarianos'
+    organic: 'produtos são orgánicos'
   by: 'Cesto alimentar de {name}'
   nearby-short: 'perto de ti'
-  title: 'Cestas de comida'
-  not_withdrawn: ''
-  updated: ''
+  title: 'Cestos alimentar'
+  not_withdrawn: 'O pedido de cesto alimentar não pôde ser cancelado. '
+  updated: 'Atualizado:'
   has:
-    pet: ''
-    bread: ''
-    dairy: ''
-    greens: ''
-    frozen: ''
-    prepared: ''
-    dry: ''
+    pet: 'ração animal'
+    bread: 'Producos de panadería'
+    dairy: 'produtos lácteos'
+    greens: 'frutas e vegetales'
+    frozen: 'produtos congelados'
+    prepared: 'comidas preparadas'
+    dry: 'comida seca'
   date: 'Data de criação'
-  nearby: 'Cestas alimentar perto de ti'
+  nearby: 'Cestos alimentar perto de ti'
   publish: 'Publicar o cesto alimentar'
   state:
-    okay: ''
-    gone: ''
-    deny: ''
-    nope: ''
-    finished: ''
-  request-fs: ''
+    okay: 'Sim, o cesto alimentar foi recolhado.'
+    gone: 'Os alimentos foram recolhidos por uma outra pessoa.'
+    deny: 'Quero recusar este solicitação.'
+    nope: 'Não, o cesto alimentar não foi recolhido como combinado.'
+    finished: 'Obrigado, o processo está finalizado.'
+  request-fs: 'Solicitar cesto alimentar na nossa página web foodsharing'
   new: 'Cesto alimentar novo'
   publish_error: ''
   mapsearch: 'Busca de endereço …'
-  no_requests: ''
+  no_requests: 'Até agora, sem solicitações'
   contact:
-    call: ''
-    write: ''
-  login: ''
+    call: 'por telefone'
+    write: 'por mensagem'
+  login: 'Para obter informações detalhadas, é necessário estar logado. Ainda não
+    está registado como Foodsharer? Então clique em **Participar** acima e comece
+    agora mesmo.'
   go-to-settings: ''
-  request_empty: ''
-  request: ''
-  no_nearby: 'Não há cestas alimentar num raio de {radius} km'
+  request_empty: 'O texto da sua solicitação não pode estar em branco.'
+  request: 'Solicitar cesto alimentar'
+  no_nearby: 'Não há cestos alimentar num raio de {radius} km'
   add: 'Criar um cesto alimentar'
   not-allowed: ''
-  not_found: ''
+  not_found: 'O cesto alimentar já não existe.'
   delete: 'Apagar o cesto alimentar'
-  requests: ''
-  request_close: ''
-  withdraw_request: ''
-  change-state: ''
-  sent_request: ''
-  send_request: ''
+  requests: 'Solicitações ({count})'
+  request_close: 'Concluir a solicitação do cesto de alimentos'
+  withdraw_request: 'Cancelar a solicitação'
+  change-state: 'Concluir a solicitação de cesto alimentar de {name}'
+  sent_request: 'A solicitação foi enviada'
+  send_request: 'Enviar solicitação'
   created: 'Publicado:'
-  requested_by: ''
-  provider: ''
+  requested_by: 'solicitado por {name}'
+  provider: 'Fornecedor'
   published: ''
   public-info: ''
   edit: 'Editar o cesto alimentar'
   no-desc: ''
-  where: ''
-  recent: 'Cestos de comida mais novo'
-  image: ''
-  n_requests: ''
+  where: 'Onde?'
+  recent: 'Cestos alimentar mais novo'
+  image: 'Adicione uma foto ao cesto alimentar.'
+  n_requests: 'Solicitações até agora:'
   description: 'Descrição'
-  withdrawn_request: ''
-  all: 'Todos os cestas de comido'
+  withdrawn_request: 'A solicitação foi cancelada'
+  all: 'Todos os cestos alimentar'
   on: 'Cesto alimentar de {platform}'
   go: 'para o cesto alimentar'
   use_home_address: Utilizar o meu endereço residencial
   contact_types: Formas de contacto
+  until: 'Válido até:'
+  error:
+    taken: |
+      **Infelizmente, este cesto alimentar já não está disponível.**
+
+      É possível que já tenha sido recolhido ou removido pelo fornecedor.
+    register: |
+      Ainda não está registado como Foodsharer?
+      Então clique em [**Participar**](/content?sub=joininfo) para começar ou crie a tua própria cesto alimentar.
+    map: No nosso mapa, poderá encontrar outros cestos alimentar na tua área.
 menu:
   entry:
     options: ''
@@ -1185,7 +1198,7 @@ profile:
       other: '{name} ainda não ofereceu nenhuma banana da confiança.'
       you: Ainda não ofereceste nenhuma banana da confiança.
   stats:
-    baskets: 'cestas de comida'
+    baskets: 'cestos alimentar'
     weight: 'salvo'
     posts: 'posts'
     weight_unit: kg
@@ -1206,13 +1219,13 @@ profile:
     securePickupWeek: 'Obrigado pelas {count} vezes em que nos ajudou em cima da hora
       e garantiu as recolhas!'
     week_1: 'próxima semana'
-    basketsSharedWeek: 'Os cestos de comida foram partilhados com {count} pessoa(s). '
+    basketsSharedWeek: 'Os cestos alimentar foram partilhados com {count} pessoa(s). '
     weekDesc: 'Semana {week} do calendário, de {weekStart} a {weekEnd}'
     eventsCreatedWeek: 'Obrigado por criar {count} eventos esta semana.'
     districtName: 'Distrito'
     calenderWeek: 'sem.'
-    basketsOfferedWeek: 'Obrigado pelas {count} cestas de alimentos oferecidas esta
-      semana. No total, foram distribuídos {weight} kg.'
+    basketsOfferedWeek: 'Obrigado pelas {count} cestos alimentar oferecidas esta semana.
+      No total, foram distribuídos {weight} kg.'
   history:
     actionBy: 'por'
     noData: 'Não há dados disponíveis.'
@@ -3772,7 +3785,7 @@ addresspicker:
   label: 'Busca do localização/endereço'
   placeholder: 'Buscar o endereço …'
   infobox_profile: 'Para a partilha de alimentos (https://wiki.foodsharing.de/Foodsharer),
-    o endereço é necessário para poder oferecer cestas de alimentos através do site.
+    o endereço é necessário para poder oferecer cestos alimentar através do site.
     Para poder participar na recolha de alimentos como [Foodsaver](https://wiki.foodsharing.de/Foodsaver),
     é legalmente necessário.'
   different_location: 'Corrigir a descrição do endereço'
