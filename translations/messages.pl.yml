@@ -358,6 +358,7 @@ settings:
   delete_profile: Usuń profil
   address:
     title: Wybierz adres
+    choose: Akceptuj adres
   header: Ustawienia profilu
   quiz:
     1: Quiz dla foodsaverów/ek
@@ -461,6 +462,11 @@ settings:
     success: Powiadomienia push aktywowane pomyślnie
     disable: Deaktywuj powiadomienia push
     disabled: Powiadomienia push deaktywowane pomyślnie
+  notifications: Powiadomienia
+  follow:
+    none: Nie informuj mnie mailem o nowych postach.
+  businesscard: Osobista wizytówka
+  account: Opcje konta
 bcard:
   title: Generator wizytówek
   card: Twoja foodsharing-wizytówka
@@ -1155,6 +1161,7 @@ pickup:
     long: Twoja legitymacja wtedy nie będzie już ważna
   edit_description: Edytuj opis
   description: Opis
+  signout_confirm: Jesteś pewny/a?
 calendar:
   locale: pl
   labelNextYear: Przyszły rok
@@ -1296,6 +1303,7 @@ events:
     online: jako telekonferencja lub spotkanie online
     other: inne
     locationOther: Gdzie odbędzie się ten event?
+    fillCompletely: Proszę wypełnić do końca formularz.
   span: '{from} do {until}'
   duration: 'Czas trwania: {duration}'
   mumble:
@@ -1668,6 +1676,21 @@ mailbox:
     message: Jesteś pewny/a, że chcesz usunąć ten mail?
   search: Szukaj
   add: Dodaj
+  recipients: Za dużo odbiorców
+  ratelimit: Możesz wysyłać maksymalnie jednego maila co 15 sekund, poczekaj 
+    chwilę…
+  filetype: Ten typ pliku nie jest dozwolony
+  filesize: Sorry, plik jest za duży.
+  mark_as_unread: Oznacz email jako nieprzeczytany
+  mark_as_read: Oznacz email jako przeczytany
+  mark_all: Zaznacz wszystko
+  close_edit_mode: Zakończ edycję
+  from: Od
+  to: Do
+  fromto: Od/do
+  tag_recipient_hint: Odbiorcy (rozdzieleni średnikiem)
+  reply_header: '{name} napisał/a dnia {date}'
+  mailsend_unsuccess: Nie można było wysłać maila. {error}
 profile:
   sections:
     ambassador_for: dla
