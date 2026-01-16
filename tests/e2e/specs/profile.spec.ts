@@ -16,4 +16,36 @@ test.describe("Profile", () => {
       `Schenke ${foodsaver.id} eine Banane`,
     );
   });
+
+  test("see buddies modal on own profile", async ({ page, acceptanceHelper }) => {
+    const user = await foodsharing.createFoodsharer();
+    const buddy = await foodsharing.createFoodsharer();
+
+    await acceptanceHelper.login(user.email);
+
+    // Send buddy request to the other user
+    await page.goto(`/profile/${buddy.id}`);
+    await page.waitForSelector(`[data-testid="buddy-request-${buddy.id}"]`, { state: 'visible', timeout: 4000 });
+    await page.click(`[data-testid="buddy-request-${buddy.id}"]`);
+    await page.getByRole('button', { name: 'Ja' }).click();
+    await acceptanceHelper.waitForActiveAPICalls();
+
+    // Open own profile and show buddies modal
+    await page.goto(`/profile/${user.id}`);
+    await page.click('#buddies');
+    await page.waitForSelector('.modal', { state: 'visible', timeout: 4000 });
+    await expect(page.locator('.modal')).toContainText(buddy.name);
+  });
+
+  test("buddies badge not clickable on other profile", async ({ page, acceptanceHelper }) => {
+    const user = await foodsharing.createFoodsharer();
+    const buddy = await foodsharing.createFoodsharer();
+
+    await acceptanceHelper.login(user.email);
+    await page.goto(`/profile/${buddy.id}`);
+
+    // Ensure there's no anchor link for the buddies badge on someone else's profile
+    await acceptanceHelper.waitForPageBody();
+    await expect(page.locator('a#buddies')).toHaveCount(0);
+  });
 });
