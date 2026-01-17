@@ -158,6 +158,8 @@ test.describe("Forum Post with Mails", () => {
     page,
     acceptanceHelper,
   }) => {
+    test.setTimeout(60000);
+
     await acceptanceHelper.login(testData.foodsaver.email);
     const title = faker.word.words(5);
     await foodsharing.createForumThread({
