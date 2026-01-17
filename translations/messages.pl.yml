@@ -386,10 +386,34 @@ settings:
       device_name_placeholder: np. iPhone, YubiKey, Laptop
       cancel: Anuluj
       register: Zarejestruj
+      device_name_label: Nazwa urządzenia
+    created: Utworzony
+    device_name_placeholder: np. iPhone, YubiKey, Laptop
+    delete_modal:
+      device_name: Urządzenie
+      cancel: Anuluj
+      delete: Usuń
+    rename_modal:
+      new_name_label: Nowa nazwa
+      new_name_placeholder: Nowa nazwa urządzenia
+      cancel: Anuluj
+      save: Zapisz
+    error:
+      webauthn_not_supported: Ta przeglądarka nie wspiera WebAuthn
+      name_required: Proszę podać nazwę
   two_fa_manage:
     status_is: Aktualny status to
     active: Aktywny
     inactive: Nieaktywny
+    disable_button: Deaktywuj 2FA
+    close: Zamknij
+    totp_token_label: Kod
+    totp_token_placeholder: np. 458324
+    totp_required: Musisz podać kod
+    password_label: Hasło
+    password_placeholder: Twoje obecne hasło
+    password_required: Musisz podać hasło
+    cancel: Anuluj
   two_fa_enable:
     tabs:
       qr_code: Skanuj kod QR
@@ -413,6 +437,9 @@ settings:
     cancel: Anuluj
     submit: Zmień email
     question: 'Czy na pewno chcesz zmienić twój adres email na:'
+    new_email_placeholder: twoj.nowy@email.com
+    confirm_email_placeholder: twoj.nowy@email.com
+    wrong_password: Wprowadzono błędne hasło.
   password_change:
     new_password_placeholder: Minimum 8 znaków
     new_password_required: Hasło musi zawierać minimum 8 znaków
@@ -422,6 +449,8 @@ settings:
       oraz cyfry
     confirm_password_label: Potwierdź nowe hasło
     confirm_password_placeholder: Powtórz hasło
+    title: Zmień hasło
+    old_password_label: Obecne hasło
   passport:
     menu: legitymacja członkowska
     renew: Odnów legitymację
