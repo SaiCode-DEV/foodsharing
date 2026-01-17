@@ -1,6 +1,7 @@
 import { test, expect } from "../helpers/acceptance";
 import { foodsharing } from "../helpers/foodsharing";
 import { Database } from "../helpers/database";
+import fs from "fs/promises";
 import { maildev } from "../helpers/maildev";
 import Role from "../helpers/constants/Foodsaver/Role";
 
@@ -275,6 +276,50 @@ test.describe("Settings", () => {
 
     await page.goto("/user/current/settings");
     await expect(page.locator("body")).toContainText("Account löschen");
+  });
+
+  test("foodsaver can select business card role and region", async ({
+    page,
+    acceptanceHelper,
+  }) => {
+    const region = await foodsharing.createRegion();
+    const foodsaver = await foodsharing.createFoodsaver(null, {
+      name: "fs1",
+      nachname: "saver1",
+      photo: "does-not-exist.jpg",
+      handy: "+4966669999",
+      bezirk_id: region.id,
+    });
+
+    await acceptanceHelper.login(foodsaver.email);
+
+    await page.goto("/user/current/settings?sub=bcard");
+    await expect(
+      page.getByText("Hier einfach generieren, ausdrucken und ausschneiden"),
+    ).toBeVisible();
+
+    // select role 'fs' (Foodsaver) and the created region
+    await page.locator("select").first().selectOption("fs");
+    await page.locator("select").nth(1).selectOption(String(region.id));
+
+    // verify selections applied
+    await expect(page.locator("select").first()).toHaveValue("fs");
+    await expect(page.locator("select").nth(1)).toHaveValue(String(region.id));
+
+    // Click the generate link and wait for file download (PDF)
+    const generateLocator = page.getByRole('link', { name: 'Visitenkarten erstellen' });
+    const [download] = await Promise.all([
+      page.waitForEvent('download'),
+      generateLocator.click(),
+    ]);
+
+    const suggested = download.suggestedFilename();
+    expect(suggested).toMatch(/bcard-.*\.pdf/);
+
+    const tmpPath = await download.path();
+    if (!tmpPath) throw new Error('Download path not available');
+    const stat = await fs.stat(tmpPath);
+    expect(stat.size).toBeGreaterThan(1000);
   });
 
   test.fixme("can register and authenticate with passkey/webauthn", async ({
