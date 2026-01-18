@@ -1805,3 +1805,25 @@ dashboard:
   my:
     groups: Twoje grupy
     events: Eventy
+    users: Foodsaverzy/ki
+    buddies: Osoby, które znasz
+  source_forum_bot: Forum ambasadorów/ek {0}
+  release:
+    for_support: Poza tym możesz się z nami skontaktować pod
+  options:
+    hide:
+      text: Zmień widok
+    reset: Resetuj
+    grid_toggle:
+      2_columns: Widok 2 kolumn
+  invitation: Zostałeś zaproszony/a
+  invitationCount: Zostałeś zaproszony/a ({count})
+  event: Następny event
+  eventCount: Następne eventy ({count})
+  quiz:
+    read: Czytaj dalej
+    go: Przejdź do quizu
+home:
+  home: Home
+team:
+  current: Team
