@@ -7,7 +7,6 @@ use Foodsharing\Modules\Core\DBConstants\FoodSharePoint\ActivationStatus;
 use Foodsharing\Permissions\FoodSharePointPermissions;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 
@@ -48,8 +47,8 @@ class FoodSharePointController extends FoodsharingController
         return $this->renderGlobal();
     }
 
-    #[Route('/fairteiler/add', name: 'fairteiler_add')]
-    public function add(#[MapQueryParameter] int $regionId): Response
+    #[Route('/fairteiler/add/{regionId}', name: 'fairteiler_add')]
+    public function add(int $regionId): Response
     {
         $this->pageHelper->addContent($this->prepareVueComponent(
             'food-share-point-add-or-edit',
@@ -73,7 +72,7 @@ class FoodSharePointController extends FoodsharingController
 
                 return $this->redirectToRoute('fairteiler_id', ['id' => $foodSharePointId]);
             case 'add':
-                return $this->redirect("/fairteiler/add?regionId={$regionId}");
+                return $this->redirect("/fairteiler/add/{$regionId}");
             case 'edit':
                 if (!$foodSharePointId) {
                     break;

@@ -143,7 +143,7 @@ const urls = {
   },
   events: (regionId) => `/region?bid=${regionId}&sub=events`,
   foodsharepoints: (regionId) => `/region?bid=${regionId}&sub=fairteiler`,
-  foodsharepointAdd: (regionId) => `/fairteiler?bid=${regionId}&sub=add`,
+  foodsharepointAdd: (regionId) => `/fairteiler/add/${regionId}`,
   members: (regionId) => `/region?bid=${regionId}&sub=members`,
   options: (regionId) => `/region?bid=${regionId}&sub=options`,
   passports: (regionId) => `/?page=passgen&bid=${regionId}`,

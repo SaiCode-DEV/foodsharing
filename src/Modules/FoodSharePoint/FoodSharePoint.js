@@ -38,7 +38,7 @@ if (/^\/fairteiler\/\d+$/.test(location.pathname)) {
 }
 if (
   /^\/fairteiler\/\d+\/edit$/.test(location.pathname) ||
-  /^\/fairteiler\/add$/.test(location.pathname)
+  /^\/fairteiler\/add(?:\/\d+)?$/.test(location.pathname)
 ) {
   vueRegister({ FoodSharePointAddOrEdit })
   vueApply('#food-share-point-add-or-edit')
