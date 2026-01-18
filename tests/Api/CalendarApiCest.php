@@ -58,8 +58,7 @@ class CalendarApiCest
         $I->login($this->user['email']);
 
         $I->sendGet('api/calendar/token');
-        $I->seeResponseCodeIs(HttpCode::OK);
-        $I->seeResponseContainsJson(['token' => null]);
+        $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
     }
 
     public function canRequestExistingToken(ApiTester $I): void
@@ -72,7 +71,7 @@ class CalendarApiCest
         ]);
         $I->sendGet('api/calendar/token');
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->seeResponseContainsJson(['token' => self::TEST_TOKEN]);
+        $I->seeResponseIsJson(self::TEST_TOKEN);
     }
 
     public function canCreateToken(ApiTester $I): void
@@ -82,7 +81,7 @@ class CalendarApiCest
         // create a token
         $I->sendPut('api/calendar/token');
         $I->seeResponseCodeIs(HttpCode::OK);
-        $token1 = json_decode($I->grabResponse(), true)['token'];
+        $token1 = $I->grabDataFromResponseByJsonPath('$.token', true)[0];
 
         // check if the token was set
         $I->seeInDatabase('fs_apitoken', [
@@ -93,7 +92,7 @@ class CalendarApiCest
         // create a new token
         $I->sendPut('api/calendar/token');
         $I->seeResponseCodeIs(HttpCode::OK);
-        $token2 = json_decode($I->grabResponse(), true)['token'];
+        $token2 = $I->grabDataFromResponseByJsonPath('$.token', true)[0];
 
         // check if the token was overwritten
         $I->seeInDatabase('fs_apitoken', [

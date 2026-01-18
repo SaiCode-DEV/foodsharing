@@ -2,129 +2,77 @@
 
 namespace Foodsharing\RestApi;
 
-use Carbon\Carbon;
-use DateTimeZone;
 use Foodsharing\Lib\Session;
-use Foodsharing\Modules\Event\EventGateway;
-use Foodsharing\Modules\Event\InvitationStatus;
+use Foodsharing\Modules\Calendar\CalendarTransactions;
+use Foodsharing\Modules\Calendar\DTO\FormattingType;
+use Foodsharing\Modules\Calendar\DTO\IncludeEventsType;
 use Foodsharing\Modules\Settings\SettingsGateway;
-use Foodsharing\Modules\Store\PickupGateway;
-use Foodsharing\Utility\Sanitizer;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Request\ParamFetcher;
-use Jsvrcek\ICS\CalendarExport;
-use Jsvrcek\ICS\CalendarStream;
-use Jsvrcek\ICS\Exception\CalendarEventException;
-use Jsvrcek\ICS\Model\Calendar;
-use Jsvrcek\ICS\Model\CalendarAlarm;
-use Jsvrcek\ICS\Model\CalendarEvent;
-use Jsvrcek\ICS\Model\Description\Location;
-use Jsvrcek\ICS\Utility\Formatter;
-use OpenApi\Annotations as OA;
+use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Contracts\Translation\TranslatorInterface;
-
-enum FormattingType: string
-{
-    case HTML = 'html';
-    case ALT = 'alt';
-    case TEXT = 'text';
-}
-
-enum IncludeEventsType: string
-{
-    case EVERY = 'every';
-    case INVITATIONS = 'invitations'; // previously called 'all'
-    case MAYBE = 'maybe'; // previously called 'answered'
-    case ACCEPTED = 'accepted';
-    case NONE = 'none';
-
-    public static function tryFromString(string $value): ?self
-    {
-        return match ($value) {
-            'all' => self::INVITATIONS,
-            'answered' => self::MAYBE,
-            default => self::tryFrom($value),
-        };
-    }
-}
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Attribute\Route;
 
 /**
  * Provides endpoints for exporting pickup dates and other events to iCal and managing access tokens.
  */
+#[OA\Tag(name: 'calendar')]
 class CalendarRestController extends AbstractFoodsharingRestController
 {
-    private readonly SettingsGateway $settingsGateway;
-    private readonly PickupGateway $pickupGateway;
-    private readonly EventGateway $eventGateway;
-    private readonly TranslatorInterface $translator;
-
-    private const int TOKEN_LENGTH_IN_BYTES = 10;
-
     public function __construct(
-        Session $session,
-        SettingsGateway $settingsGateway,
-        PickupGateway $pickupGateway,
-        EventGateway $eventGateway,
-        TranslatorInterface $translator,
-        private readonly Sanitizer $sanitizer,
+        protected Session $session,
+        private readonly SettingsGateway $settingsGateway,
+        private readonly CalendarTransactions $calendarTransactions,
     ) {
         parent::__construct($session);
-
-        $this->settingsGateway = $settingsGateway;
-        $this->pickupGateway = $pickupGateway;
-        $this->eventGateway = $eventGateway;
-        $this->translator = $translator;
     }
 
-    /**
-     * Returns the user's current access token.
-     *
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Tag(name="calendar")
-     */
-    #[Rest\Get('calendar/token')]
+    #[OA\Get(summary: 'Returns the user\'s current access token')]
+    #[Route('calendar/token', methods: ['GET'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(type: 'object', properties: [
+        new OA\Property(property: 'token', type: 'string', example: 'fbb17c571c69affd1f18')
+    ]))]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'No access token created')]
     public function getToken(): Response
     {
         $this->assertLoggedIn();
 
         $token = $this->settingsGateway->getApiToken($this->session->id());
 
+        if (is_null($token)) {
+            throw new NotFoundHttpException('No access token created');
+        }
+
         return $this->respondOK(['token' => $token]);
     }
 
-    /**
-     * Creates a new random access token for the user. An existing token will be overwritten. Returns
-     * the created token.
-     *
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Tag(name="calendar")
-     */
-    #[Rest\Put('calendar/token')]
+    #[OA\Put(summary: 'Creates a new random access token for the user, replacing the old one')]
+    #[Route('calendar/token', methods: ['PUT'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(type: 'object', properties: [
+        new OA\Property(
+            property: 'token',
+            type: 'string',
+            example: 'fbb17c571c69affd1f18',
+            description: 'the newly created calendar access token'
+        )
+    ]))]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     public function createToken(): Response
     {
         $this->assertLoggedIn();
-        $userId = $this->session->id();
 
-        $token = bin2hex(openssl_random_pseudo_bytes(self::TOKEN_LENGTH_IN_BYTES));
-        $this->settingsGateway->removeApiToken($userId);
-        $this->settingsGateway->saveApiToken($userId, $token);
+        $token = $this->calendarTransactions->createToken($this->session->id());
 
         return $this->respondOK(['token' => $token]);
     }
 
-    /**
-     * Removes the user's token. If the user does not have a token nothing will happen.
-     *
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Tag(name="calendar")
-     */
-    #[Rest\Delete('calendar/token')]
+    #[OA\Delete(summary: 'Removes the user\'s access token')]
+    #[Route('calendar/token', methods: ['DELETE'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success - deleted or nothing to delete')]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     public function deleteToken(): Response
     {
         $this->assertLoggedIn();
@@ -134,224 +82,47 @@ class CalendarRestController extends AbstractFoodsharingRestController
         return $this->respondOK();
     }
 
-    /**
-     * Returns the user's future foodsharing dates as iCal.
-     *
-     * This includes pickups and meetings / events.
-     *
-     * @OA\Parameter(name="token", in="path", @OA\Schema(type="string"), description="Access token")
-     * @OA\Response(response="200", description="Success.")
-     * @OA\Response(response="403", description="Insufficient permissions or invalid token.")
-     * @OA\Tag(name="calendar")
-     */
-    #[Rest\Get('calendar/{token}')]
-    #[Rest\QueryParam(name: 'formatting', default: 'alt', description: 'How to format description texts')]
-    #[Rest\QueryParam(name: 'events', default: 'invitations', description: 'Include all or only answered invitations to events')]
-    #[Rest\QueryParam(name: 'pickups', default: true, description: 'Whether to include pickups')]
-    #[Rest\QueryParam(name: 'history', default: true, description: 'Whether to include some past events')]
-    #[Rest\QueryParam(name: 'reminders', default: '', description: 'List of reminders to include in the calendar')]
-    public function listAppointments(string $token, ParamFetcher $paramFetcher): Response
-    {
+    #[OA\Get(summary: 'Returns the user\'s foodsharing calendar as iCal')]
+    #[Route('calendar/{token}', methods: ['GET'], requirements: ['token' => '[0-9a-f]+'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success.')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Access token invalid')]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid query parameters')]
+    #[OA\QueryParameter(name: 'formatting', description: 'How to format description texts.<br>One of `alt` (default), `html` or `text`')]
+    #[OA\QueryParameter(name: 'events', description: 'What events to include in the calendar.<br>One of `every` (default), `invitations`, `maybe`, `accepted` or `none`')]
+    #[OA\QueryParameter(name: 'pickups', description: 'Whether to include pickups in the calendar.')]
+    #[OA\QueryParameter(name: 'history', description: 'Whether to include past entries (up to 2 weeks back) in the calendar.')]
+    #[OA\QueryParameter(name: 'reminders', example: '15,120', description: 'List of reminder times in minutes. These reminders are applied to each calendar event.')]
+    public function listAppointments(
+        string $token,
+        #[MapQueryParameter] ?FormattingType $formatting,
+        #[MapQueryParameter('events')] ?IncludeEventsType $includedEvents,
+        #[MapQueryParameter('pickups')] ?bool $includePickups,
+        #[MapQueryParameter('history')] ?bool $includeHistory,
+        #[MapQueryParameter('reminders')] ?string $reminders,
+    ): Response {
         // check access token
         $userId = $this->settingsGateway->getUserForToken($token);
         if (!$userId) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('The calendar token is invalid');
         }
 
-        $formatting = FormattingType::tryFrom($paramFetcher->get('formatting'));
-        $includedEvents = IncludeEventsType::tryFromString($paramFetcher->get('events'));
-        $includeHistory = $paramFetcher->get('history');
-        $includeHistory = $includeHistory ? $includeHistory !== 'false' : false;
-        $includePickups = $paramFetcher->get('pickups');
-        $includePickups = $includePickups ? $includePickups !== 'false' : false;
-        $reminders = $paramFetcher->get('reminders') ?? '';
-        $reminders = strlen($reminders) > 0 ? explode(',', $reminders) : [];
-        $remindersEitherEmptyOrAllPositive = array_reduce($reminders, function ($carry, $item) {
-            return $carry && (is_numeric($item) && $item > 0);
-        }, true);
-        if (!$formatting) {
-            throw new BadRequestHttpException('Invalid formatting type');
-        }
-        if (!$includedEvents) {
-            throw new BadRequestHttpException('Invalid events type');
-        }
-        if (!$remindersEitherEmptyOrAllPositive) {
+        $reminders = (!is_null($reminders) && strlen($reminders) > 0) ? explode(',', $reminders) : [];
+        if (array_any($reminders, fn ($value) => !is_numeric($value) || $value <= 0)) {
             throw new BadRequestHttpException('Invalid reminder value');
         }
-        $bufferDays = $includeHistory ? 14 : 0;
-        $bufferMinutes = $bufferDays * 24 * 60;
 
-        // add all future pickup dates
-        $dates = $this->pickupGateway->getNextPickups($userId, null, $bufferMinutes);
-        $pickups = [];
-        if ($includePickups) {
-            $pickups = array_map(fn ($date) => $this->createPickupEvent($date, $userId, $formatting, $reminders), $dates);
-        }
+        $appointments = $this->calendarTransactions->listAppointments(
+            $userId,
+            $formatting ?? FormattingType::ALT,
+            $includedEvents ?? IncludeEventsType::INVITATIONS,
+            $includePickups ?? true,
+            $includeHistory ?? true,
+            $reminders
+        );
 
-        // add all future meetings
-        $statuses = match ($includedEvents) {
-            IncludeEventsType::EVERY => [InvitationStatus::ACCEPTED, InvitationStatus::MAYBE, InvitationStatus::INVITED, InvitationStatus::WONT_JOIN],
-            IncludeEventsType::INVITATIONS => [InvitationStatus::ACCEPTED, InvitationStatus::MAYBE, InvitationStatus::INVITED],
-            IncludeEventsType::MAYBE => [InvitationStatus::ACCEPTED, InvitationStatus::MAYBE],
-            IncludeEventsType::ACCEPTED => [InvitationStatus::ACCEPTED],
-            IncludeEventsType::NONE => [],
-        };
-        $meetings = $this->eventGateway->getEventsByStatus($userId, $statuses, $bufferDays);
-        $events = array_map(fn ($meeting) => $this->createMeetingEvent($meeting, $userId, $formatting, $reminders), $meetings);
-
-        return new Response($this->formatCalendarResponse(array_merge($pickups, $events)), Response::HTTP_OK, [
+        return new Response($appointments, Response::HTTP_OK, [
             'content-type' => 'text/calendar',
             'content-disposition' => 'attachment; filename="calendar.ics"'
         ]);
-    }
-
-    private function createPickupEvent(array $pickup, int $userId, FormattingType $formatting, array $reminders): CalendarEvent
-    {
-        $start = Carbon::createFromTimestamp($pickup['timestamp'], new DateTimeZone('Europe/Berlin'));
-
-        $summary = $this->translator->trans('calendar.export.pickup.name', ['{store}' => $pickup['store_name']]);
-        $status = 'CONFIRMED';
-        if (!$pickup['confirmed']) {
-            $summary .= ' (' . $this->translator->trans('calendar.export.pickup.unconfirmed') . ')';
-            $status = 'TENTATIVE';
-        }
-
-        $location = (new Location())->setName($pickup['address']);
-        $store_url = BASE_URL . '/?page=fsbetrieb&id=' . $pickup['store_id'];
-
-        $event = new CalendarEvent();
-        $event->setStart($start);
-        $event->setEnd($start->clone()->addMinutes(30));
-        $event->setSummary($summary);
-        $event->setUid($userId . $pickup['store_id'] . $pickup['timestamp'] . '@fetch.foodsharing.de');
-        $description = $this->translator->trans('calendar.export.pickup.description', [
-            '{url}' => $store_url,
-            '{store}' => $pickup['store_name'],
-        ]);
-        $foodsaverIds = str_getcsv((string)$pickup['fs_ids']);
-        $foodsaverNames = str_getcsv((string)$pickup['fs_names'], ',', "'");
-
-        if (count($foodsaverIds)) {
-            $description .= '<br>' . $this->translator->trans('calendar.export.pickup.foodsavers');
-            $description .= implode(', ', array_map(fn ($id, $name) => '<a href="' . BASE_URL . "/profile/{$id}\">{$name}</a>", $foodsaverIds, $foodsaverNames));
-        }
-
-        if ($freeSlots = $pickup['max_fetchers'] - count($foodsaverIds)) {
-            $description .= '<br>' . $this->translator->trans('calendar.export.pickup.freeSlots', [
-                '{count}' => $freeSlots,
-            ]);
-        }
-
-        if ($pickup['description']) {
-            $description .= '<br><br>' . $pickup['description'];
-        }
-
-        $this->setEventDescription($event, $description, $formatting);
-        $event->setUrl($store_url);
-        $event->setStatus($status);
-        $event->addLocation($location);
-        $this->addReminders($event, $reminders);
-
-        return $event;
-    }
-
-    private function createMeetingEvent(array $meeting, int $userId, FormattingType $formatting, array $reminders): CalendarEvent
-    {
-        $url = BASE_URL . '/?page=event&id=' . $meeting['id'];
-
-        $descriptionHint = '';
-        if ($meeting['status'] == InvitationStatus::INVITED->value) {
-            $descriptionHint = '<i>' . $this->translator->trans('calendar.export.event.statusUnspecified') . '</i><br>';
-        }
-        $descriptionContent = (string)$meeting['description'];
-        $linebreakReplacement = '<br>';
-        if ($formatting === FormattingType::HTML) {
-            $descriptionContent = $this->sanitizer->markdownToHtml($descriptionContent);
-            $linebreakReplacement = '';
-        }
-        $descriptionContent = str_replace(["\r\n", "\n", "\r"], $linebreakReplacement, $descriptionContent);
-        $description = '<a href="' . $url . '">' . $this->translator->trans('calendar.export.event.linkTitle') . '</a><br>'
-            . $descriptionHint
-            . '<br><b>' . $this->translator->trans('calendar.export.event.description') . '</b>: '
-            . $descriptionContent;
-
-        $event = new CalendarEvent();
-        $event->setStart(Carbon::createFromTimestamp($meeting['start_ts'], new DateTimeZone('Europe/Berlin')));
-        try {
-            $event->setEnd(Carbon::createFromTimestamp($meeting['end_ts'], new DateTimeZone('Europe/Berlin')));
-        } catch (CalendarEventException) {
-            /* In some events the end date is before the start date because the event form accidentally allows this.
-            This workaround prevents errors and can be removed after the event form was updated. */
-            $newEnd = clone $event->getStart();
-            $event->setEnd($newEnd->modify('+1 hour'));
-        }
-
-        $event->setSummary($meeting['name']);
-        $event->setUid($userId . $meeting['id'] . '@meeting.foodsharing.de');
-        $this->setEventDescription($event, $description, $formatting);
-        $event->setUrl($url);
-        $event->setStatus(['TENTATIVE', 'CONFIRMED', 'TENTATIVE', 'CANCELLED'][$meeting['status']]);
-
-        if ($meeting['street']) {
-            $full_address = $meeting['street'] . ', ' . $meeting['zip'] . ' ' . $meeting['city'];
-            $location = (new Location())->setName($full_address);
-            $event->addLocation($location);
-        }
-        $this->addReminders($event, $reminders);
-
-        return $event;
-    }
-
-    private function setEventDescription(CalendarEvent &$event, string $description, FormattingType $formatting): void
-    {
-        $description .= $this->updateDateInfo();
-        $html = $description;
-        if ($formatting !== FormattingType::HTML) {
-            $description = str_replace('<br>', '\n', $description);
-            $description = strip_tags($description);
-        }
-        $event->setDescription($description);
-        if ($formatting === FormattingType::ALT) {
-            $event->setCustomProperties(['X-ALT-DESC;FMTTYPE=text/html' => $html]);
-        }
-    }
-
-    private function updateDateInfo(): string
-    {
-        $updated = $this->translator->trans('calendar.export.updated', ['{date}' => date('d.m.Y H:i')]);
-
-        return "<br><br><i>{$updated}</i>";
-    }
-
-    private function addReminders(CalendarEvent &$event, array $reminders): void
-    {
-        foreach ($reminders as $reminder) {
-            $alarm = new CalendarAlarm();
-            $alarm->setAction('DISPLAY');
-            $alarm->setDescription($event->getSummary());
-            $alarm->setTrigger(new \DateInterval('PT' . $reminder . 'S'));
-            $event->addAlarm($alarm);
-        }
-    }
-
-    /**
-     * Formats a list of events into an iCal calendar string.
-     *
-     * @param CalendarEvent[] $events
-     */
-    private function formatCalendarResponse(array $events): string
-    {
-        $calendar = new Calendar();
-        $calendar->setTimezone(new DateTimeZone('Europe/Berlin'));
-        $calendar->setProdId('-//Foodsharing//Calendar//DE');
-
-        foreach ($events as $e) {
-            $calendar->addEvent($e);
-        }
-
-        $calendarExport = new CalendarExport(new CalendarStream(), new Formatter());
-        $calendarExport->addCalendar($calendar);
-
-        return $calendarExport->getStream();
     }
 }
