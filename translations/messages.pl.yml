@@ -1827,3 +1827,27 @@ home:
   home: Home
 team:
   current: Team
+basket:
+  has:
+    dairy: nabiał
+    frozen: mrożonki
+    pet: karma dla zwierząt
+  is:
+    veggie: są wegetariańskie
+    vegan: są wegańskie
+    gf: są bez glutenu
+  public-info: Opis, obrazek, miejsce przekazania i czas ważności są publicznie 
+    widoczne.
+  no-desc: Podaj opis.
+  use_home_address: Użyj adresu domowego
+personal_data:
+  label: Kontakt
+  mobile: Numer telefonu komórkowego
+  landline: Telefon stacjonarny
+menu:
+  entry:
+    activities: Akcje
+    infos: Informacje
+    mark_as_read: Oznacz wszystkie jako przeczytane
+    refresh: Odśwież
+    delete_read: Usuń wszystkie przeczytane
