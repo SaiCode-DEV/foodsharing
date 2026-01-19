@@ -2,7 +2,7 @@
 
 namespace Foodsharing\Command;
 
-use Foodsharing\Modules\Mails\MailsService;
+use Foodsharing\Modules\Mails\OutgoingMailsService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,7 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class MailQueueWorkerCommand extends Command
 {
     public function __construct(
-        private readonly MailsService $maintenanceControl
+        private readonly OutgoingMailsService $outgoingMailsService
     ) {
         parent::__construct();
     }
@@ -26,7 +26,7 @@ class MailQueueWorkerCommand extends Command
     {
         $output->writeln('Starting MailsControl::queueWorker...');
         // this will keep running indefinitely
-        $this->maintenanceControl->queueWorker();
+        $this->outgoingMailsService->queueWorker();
 
         return Command::SUCCESS;
     }
