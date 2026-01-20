@@ -47,7 +47,6 @@ dashboard:
     pickupOptions: Opciones de recogida
     pickups: Fechas de recogida
   eventCount: 'Próximos eventos ({count})'
-  pickupdates: 'Próximas fechas de recogida'
   display_all: 'Tod@'
   no_more_updates_event: 'No hay más citas'
   activity_filter_info: 'Aquí puede configurar qué actualizaciones deben mostrarse
@@ -1389,7 +1388,6 @@ store:
     none: '¡No hubo ningún problema, se entusiasmaron inmediatamente!'
     some: 'Después de un poco de persuasión, aceptaron participar.'
     much: 'Muy difícil, pero al final accedieron.'
-  my_last_pickup: 'Mi ultima recogida'
   error: 'No se pudo cargar la empresa.'
   ownStores: 'Mis tiendas'
   particularities: 'Procedimiento e instrucciones'
@@ -1614,7 +1612,6 @@ pickup:
   confirm: 'Confirmar'
   edit:
     slotcount: '1 recogida'
-    more: 'Agregar cita'
     slotscount: '{count} recogidas'
     added: 'Se ha introducido la fecha de recogida.'
     many-people: 'Especificaste más de dos personas para recoger.
@@ -1634,7 +1631,6 @@ pickup:
       remolque de bicicletas o algo similar fuera de la vista de la empresa.
 
       '
-    add: 'Ingrese los horarios de recogida'
     bread: 'Editar horarios de recogida'
     disable_auto_slot_titel: Desactivación
     description_titel: Descripción
@@ -1678,7 +1674,6 @@ pickup:
   kick_message: 'lo eliminamos de la recogida en {storeName} el {date}.'
   leave: 'Dejar'
   kick_message_footer: 'Saludos cordiales, los responsables para la empresa'
-  dates: 'Fechas de recogida'
   to_be_confirmed: 'Esta fecha de recogida aún debe ser confirmada por un responsable
     para esta empresa.'
   join_title_date: '¿Segur@?'

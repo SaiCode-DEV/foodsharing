@@ -49,7 +49,6 @@ dashboard:
   settings: 'Настройки'
   source_forum: 'Форум {0}'
   invitation: 'Вас пригласили'
-  pickupdates: 'Ближайшие выдачи'
   source_forum_bot: 'Форум послов {0}'
   greeting_short: 'Привет {name}!'
   chooseHomeRegion: 'Пожалуйста, выберите родной район.'
@@ -1344,7 +1343,6 @@ store:
   all_of_my_stores: 'Все мои заведения'
   tooltip_red: 'Открытые заборы сегодня или завтра'
   noPickup: 'Ещё не было заборов здесь.'
-  my_last_pickup: 'Мой последний забор'
   team_conversation_name: 'Команда {name}'
   tooltip_managing: 'Вы ответственны за это заведение'
   joinDate: 'В команде с {date}'
@@ -1561,8 +1559,6 @@ pickup:
       вне слышимости и видимости заведения.
 
       '
-    add: 'Записать время выдачи'
-    more: 'Добавить время'
     disable_auto_slot: 'Автоматический слот в будущем должен быть отключён.'
     disable_auto_slot_titel: 'Отключение'
     slot_titel: 'Ячейки'
@@ -1593,7 +1589,6 @@ pickup:
   leave: 'Выйти'
   add_onetime_pickup: 'Добавить одиночную выдачу'
   no_slots_available: 'Нет доступных ячеек'
-  dates: 'Даты выдач'
   slot_add: 'Добавить слот'
   copyNumber: 'Скопировать номер'
   region_pickup_rule_failed: 'Это внесение не соответствует правилам района'

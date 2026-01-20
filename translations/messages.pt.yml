@@ -205,7 +205,6 @@ store:
     some: 'Depois de um pouco de persuasão, eles concordaram em participar.'
     none: 'Não houve nenhum problema, eles ficaram entusiasmados imediatamente!'
     final: 'No início não parecia promissor, mas depois entraram em contacto.'
-  my_last_pickup: 'A minha última recolha'
   mayAmb: 'Aprovou o questionário dos embaixadores.'
   chat:
     jumper: 'Mensagem para substituto'
@@ -630,7 +629,6 @@ dashboard:
   title: 'Painel de controlo'
   polls: 'As tuas votações em curso'
   source_event: 'Cita {0}'
-  pickupdates: 'Próximas datas de recolha'
 storeview:
   groceries:
     select_tag: 'Selecione a categoria de alimentos'
@@ -1789,8 +1787,6 @@ pickup:
     slot_titel: 'Vagas'
     slotcount: '1 pessoa a recolher'
     added: 'Die Abholzeit wurde registriert.'
-    more: 'Adicionar a hora'
-    add: 'Inscrever horarios de recolha'
     description_titel: 'Descrição'
     slotscount: '{count} pessoas a recolher'
   leave: 'Deixar'
@@ -1798,7 +1794,6 @@ pickup:
   team_message_success: 'A mensagem foi enviada com sucesso para a equipa'
   join_title_date: 'Tem a certeza?'
   really_leave_date_title: 'Cancelar a inscrição para {date}?'
-  dates: 'Prazos da recolha'
   slot_add: 'Adicionar slot'
   kick_message_placeholder: 'Opcionalmente, adicione informações aqui…'
   description_optional: 'Descrição (opcional)'
@@ -3305,6 +3300,36 @@ region:
       missing: Este distrito não é atualmente exibido no mapa e não tem 
         cantinhos solidário que podem ser exibidos aqui. Tem autorização para 
         colocar um pin de distrito agora.
+    children: Distritos em {name} ({count})
+    join: Entrar no distrito
+    join_name: Entrar em {nome}
+    join_text: Queres estar ativo em {name}? Então podes aderir a este distrito!
+    leave: Sair do distrito
+    leave_group: Sair do grupo
+    leave_name: Sair de {name}
+    leave_text_region: Já não estás ativo em {name} e desejas sair deste 
+      distrito?
+    leave_text_group: Já não estás ativo em {name} e desejas sair deste grupo?
+    description: Informações sobre este distrito
+    no_more_info: Não há mais informações disponíveis publicamente sobre este 
+      distrito.
+    wall: Atualidades do distrito
+    confirm_entering: Queres entrar para o distrito {name}? Os embaixadores 
+      terão acesso ao teu perfil.
+    confirm_leaving: Queres entrar para o distrito {name}? Os embaixadores terão
+      acesso ao teu perfil.
+    show_on_large_map: Ver no mapa grande
+    continue_editing: Continuar a editar
+    discard_changes: Rejeitar alterações
+    desc:
+      edit: Editar a descrição do distrito
+      confirm_discard_changes: Tem a certeza de querer descartar as tuas 
+        alterações na descrição do distrito?
+      confirm_save_changes: Queres guardar as alterações na descrição do 
+        distrito? A descrição nova vai ficar visível publicamente na página do 
+        distrito.
+      missing: Este distrito não tem atualmente nenhum texto descritivo. Tens 
+        permissão para escrever agora um texto descritivo.
   not-existant: Este distrito ou grupo de trabalho já não existe.
   select: Selecionar distrito para edição
   createNew: Criar um distrito novo
@@ -3317,6 +3342,8 @@ region:
   parent: Distrito parental
   master: Distrito principal
   mailbox: Nome da caixa eletrônica
+  allow_hiding_in_forum: Permitir que os moderadores apaguem publicações nos 
+    fóruns
 upload:
   new_image: 'Carregar imagem novo'
   no_image: 'O ficheiro carregado não é uma fotografia. Por favor, selecione outro

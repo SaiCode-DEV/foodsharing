@@ -681,9 +681,7 @@ select: Selezionare pregho
 pickup:
   confirm: confermare
   call: chiamare
-  dates: Date di ritiro
   edit:
-    add: inserire orari di ritiro
     bread: modificare gli orari di ritiro
     added: Data di ritiro è stata inserita.
     many-people: "Hai specificato più di due persone per il ritiro.\n<br>\nSi prega
@@ -694,7 +692,6 @@ pickup:
       o simili\nfuori dalla vista dell’azienda.\n"
     slotscount: '{count} Raccoglitore'
     slotcount: un raccoglitorǝ
-    more: Aggiungere appuntamento
     disable_auto_slot: Lo slot automatico in futuro dovrebbe essere disattivato.
     disable_auto_slot_titel: Disattivazione
     slot_titel: Slot
@@ -910,7 +907,6 @@ store:
     inviteMember: Invita alla squadra
   days_before: prima
   days: giorni
-  my_last_pickup: Il mio ultimo ritiro
   address: Indirizzo
   average_collection_quantity: Quantità di ritiro per persona
   particularities: Procedura e istruzioni
@@ -2154,7 +2150,6 @@ dashboard:
     go: Continua il quiz
     read: leggere di più
     ack: Nota letta e non più visualizzata
-  pickupdates: Prossime date di ritiro
   event: Prossimo evento
   my:
     no-stores: Non sei ancora in nessun team operativo.

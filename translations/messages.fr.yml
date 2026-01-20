@@ -1224,7 +1224,6 @@ store:
   team_conversation_name: Équipe {name}
   days_before: avant
   days: jours
-  my_last_pickup: Ma dernière collecte
   address: Adresse
   may_not_referred_to_in_public: Ne pas mentionner cette coopération 
     publiquement (que ce soit dans les paniers solidaires, sur les réseaux 
@@ -1588,7 +1587,6 @@ menu:
       text: Tu veux vraiment supprimer {count} cloches lues ?
       title: Supprimer les notifications ?
 dashboard:
-  pickupdates: Prochaines collectes
   no_more_updates_event: Plus de nouveaux évènements
   deleted_user: Utilisateur supprimé
   quiz:
@@ -1945,7 +1943,6 @@ pickuplist:
   day_tab: Jour
   header_for_district: 'Répartition des collectes à {bezirk} '
 pickup:
-  dates: Créneaux des collectes
   edit:
     added: La collecte a été ajoutée.
     many-people: "Tu as inscrit plus de deux personnes pour la collecte.\n<br>\nN’envoie
@@ -1956,8 +1953,6 @@ pickup:
       mètres du magasin\npour vous aider à porter.\n"
     slotscount: '{count} collecteur·ice·s'
     slotcount: 1 collecteur·rice
-    more: Ajouter un événement
-    add: Ajouter les horaires des collectes
     bread: Modifier les horaires des collectes
     slot_titel: Créneau
     disable_auto_slot: Le créneau automatique à l’avenir devrait être désactivé.

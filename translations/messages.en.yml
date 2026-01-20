@@ -1254,13 +1254,10 @@ pickup:
       via: "by"
       remove_reason: "(Reason: {reason})"
   join_title_date: Sure?
-  dates: Pick-up dates
   team_message_send_and_leave: Send and leave
   edit:
     slotscount: '{count} collectors'
     slotcount: 1 collector
-    more: Add date
-    add: Add pick-up dates
     bread: Edit pick-up dates
     many-people: "You specified more than two foodsavers to pick up.\n<br>\nPlease
       <strong>only send as many foodsavers as necessary</strong> to the company.\n\
@@ -2575,7 +2572,6 @@ store:
   short_tooltip_orange: Open slots in the next 3 days
   short_tooltip_red: Open slots today or tomorrow
   springer_conversation_name: Standby {name}
-  my_last_pickup: My last pick-up
   average_collection_quantity: Pick-up quantity per person
   mayManage: Passed the quiz for Store Coordinators.
   mayAmb: Passed the ambassador quiz.
@@ -3409,7 +3405,6 @@ dashboard:
   greeting_short: "Hello {name}!"
   greeting: Hello {name}! Nice to have you here.
   source_store: Stores {0}
-  pickupdates: Next pick-up dates
   invitation: You were invited
   invitationCount: You were invited ({count})
   event: Next event

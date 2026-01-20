@@ -58,7 +58,6 @@ dashboard:
   foodsharer: ''
   source_mailbox: '{0}'
   full_subline: ''
-  pickupdates: ''
   foodsharer_amount: ''
   foodsaver_amount: ''
   activation_mail_failure: ''
@@ -424,7 +423,6 @@ store:
   prefetchone: ''
   regionPickupRuleLong: ''
   not-in-team: ''
-  my_last_pickup: ''
   ownStores: ''
   appliedFor: ''
   prefetchfour: ''
@@ -556,8 +554,6 @@ pickup:
   call: ''
   edit:
     slotcount: ''
-    add: ''
-    more: ''
     added: ''
     many-people: ''
     slotscount: ''
@@ -581,7 +577,6 @@ pickup:
   history:
     title: ''
     search: ''
-  dates: ''
   kick_message_footer: ''
   delete_title: ''
   really_leave_date_title: ''

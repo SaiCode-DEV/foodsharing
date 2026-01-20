@@ -54,7 +54,6 @@ dashboard:
   source_mailbox: '{0}'
   event: 'Bir sonraki etkinlik'
   source_friendWall: '{0} Panosu'
-  pickupdates: 'Sonraki kurtarma tarihleri'
   deleted_user: 'Silinmiş kullanıcı'
   quiz:
     read: 'okumaya devam et'
@@ -1294,7 +1293,6 @@ store:
   average_collection_quantity: Kişi başı alım miktarı
   address: Adres
   may_referred_to_in_public: Bu işletmenin adı açık olarak dile getirilebilir.
-  my_last_pickup: Son alımım
   days: Günler
   noStores: Henüz işletme girişi yapılmadı
   error: İşletme yüklenemedi.
@@ -3338,13 +3336,10 @@ timepicker:
   to: "'e kadar"
   from: "'den"
 pickup:
-  dates: Alım tarihleri
   edit:
     added: Alım tarihi girildi.
     slotcount: 1 Alıcı
     bread: Alım saatlerini düzenleyin
-    add: Alım saatlerini girin
-    more: Randevu Ekle
     many-people: "Alım için ikiden fazla kişi belirttiniz.\n<br>\nLütfen işletmeye
       <strong>yalnızca gerektiği kadar toplayıcı gönderiniz</strong>.\nÇok fazla insan
       geçmişte bir işbirliğinin sona ermesine yol açmıştır.\n<br>\nİşletme ile olası

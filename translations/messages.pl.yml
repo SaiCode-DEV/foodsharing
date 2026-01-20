@@ -1182,7 +1182,6 @@ pickup:
       via: przez
       remove_reason: '(Powód: {reason})'
   edit:
-    more: Dodaj termin
     description_titel: Opis
     disable_auto_slot_titel: Deaktywacja
   passport_expired:

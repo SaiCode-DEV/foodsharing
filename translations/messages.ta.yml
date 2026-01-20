@@ -91,7 +91,6 @@ store:
     பகிரங்கமாக அழைக்க வேண்டாம் (எடுத்துக்காட்டாக எசென்கார்பனில், சமூக ஊடகங்களில்
     அல்லது செய்தித் தாள் விசாரணைகள்).
   address: முகவரி
-  my_last_pickup: எனது கடைசி தேர்வு
   days: நாட்கள்
   days_before: முன்
   team_conversation_name: குழு {name}
@@ -357,7 +356,6 @@ storeedit:
     dropped: '{user} இனி அணியில் இல்லை'
   add_success: ஒத்துழைப்பு உள்ளிடப்பட்டது
 pickup:
-  dates: பிக் -up தேதிகள்
   call: அழைப்பு
   confirm: உறுதிப்படுத்தவும்
   kick: நிறைவேற்றவும்
@@ -413,8 +411,6 @@ pickup:
     slot: சேகரிப்பு
   edit:
     bread: தேர்வு நேரங்களைத் திருத்து
-    add: தேர்வு நேரங்களை உள்ளிடவும்
-    more: நியமனம் சேர்க்கவும்
     slot_titel: இடங்கள்
     description_titel: விளக்கம்
     disable_auto_slot_titel: செயலிழக்கச் செய்தல்
@@ -1702,7 +1698,6 @@ dashboard:
   invitationCount: நீங்கள் அழைக்கப்பட்டீர்கள் ({count})
   event: அடுத்த நிகழ்வு
   eventCount: அடுத்த நிகழ்வுகள் ({count})
-  pickupdates: அடுத்த தேர்வு தேதிகள்
   polls: உங்கள் தற்போதைய வாக்குகள்
   quiz:
     ack: படித்து இனி காண்பிக்கப்படாது

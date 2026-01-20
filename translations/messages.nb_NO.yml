@@ -690,7 +690,6 @@ dashboard:
   source_friendWall: Oppslagstavle fra {0}
   source_store: Bedrifts {0}
   activation_mail_failure: En ny aktiveringslenke kunne ikke sendes
-  pickupdates: Neste hentedatoer
   deleted_user: slettet bruker
   foodsaver_amount: "Du hentet dagligvarer <b>{pickups}</b> ganger og dermed spart
     <b>{weight} kg</b> mat."
@@ -2394,9 +2393,7 @@ pickup:
   edit:
     bread: 'Rediger hentetider'
     slotcount: '1 plukker'
-    more: Legg til avtale
     slotscount: '{count} plukkere'
-    add: Skriv inn hentetider
     added: Hentingsdatoen er lagt inn.
     many-people: "Du har planlagt å hente mer enn to personer.\n<br>\nSend <strong>kun
       så mange samlere som nødvendig</strong> til selskapet.\nFor mange samlere førte
@@ -2438,7 +2435,6 @@ pickup:
     av igjen. …'
   signout_info: Alle dine hentedatoer vil bli slettet.
   really_join_date: Ønsker du å gjøre en bindende påmelding til henting {date}?
-  dates: Hentingsdatoere
   kick: kaste ut
   open_profile: Profilen til
   really_leave_date_title: Avregistrere {date}?
@@ -2671,7 +2667,6 @@ store:
   allStoresOfRegion: Alle bedrifter fra regionen
   addNewStoresButton: Legg til nytt selskap
   isManager: Ansvarlig for samarbeidet med dette selskapet.
-  my_last_pickup: Min siste henting
   may_referred_to_in_public: Dette samarbeidet kan nevnes offentlig.
   mayAmb: Bestod ambassadørquizen.
   average_collection_quantity: Hentingsmengde per person
