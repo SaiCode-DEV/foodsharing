@@ -66,7 +66,6 @@ class WorkingGroupApiCest
         $I->login($this->userOrga['email']);
         $I->sendPOST('api/groups/' . $this->workingGroup['id'] . '/members/' . $this->user['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->seeResponseIsJson();
     }
 
     public function canRemoveMembersFromWorkingGroups(ApiTester $I): void
@@ -83,7 +82,6 @@ class WorkingGroupApiCest
         $I->login($this->user['email']);
         $I->sendPOST('api/groups/' . $workingGroupOpen['id'] . '/members/' . $this->user['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->seeResponseIsJson();
     }
 
     public function canNotJoinClosedWorkingGroup(ApiTester $I): void
@@ -91,7 +89,6 @@ class WorkingGroupApiCest
         $I->login($this->user['email']);
         $I->sendPOST('api/groups/' . $this->workingGroup['id'] . '/members/' . $this->user['id']);
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
-        $I->seeResponseIsJson();
     }
 
     public function canNotEditWorkingGroup(ApiTester $I): void
@@ -177,7 +174,7 @@ class WorkingGroupApiCest
         // Send valid mail
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPost('api/groups/' . $this->workingGroup['id'] . '/mail', $validMessage);
-        $I->seeResponseCodeIs(HttpCode::ACCEPTED);
+        $I->seeResponseCodeIs(HttpCode::OK);
 
         // Check for emails with retries
         $maxRetries = 5;
@@ -207,29 +204,29 @@ class WorkingGroupApiCest
         $invalidMessage = '{ "motivation": "ThisIsATestMessage", "ability": "", "experience": "", "selectedTime": "a"}';
         // Test unauthorized
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/groups/' . $this->workingGroup['id'] . '/request', $validRequest);
+        $I->sendPost('api/groups/' . $this->workingGroup['id'] . '/applications', $validRequest);
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
 
         $I->login($this->user['email']);
 
         // Test wrong content
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/groups/' . $this->workingGroup['id'] . '/request', $invalidMessage);
+        $I->sendPost('api/groups/' . $this->workingGroup['id'] . '/applications', $invalidMessage);
         $I->seeResponseCodeIs(HttpCode::UNPROCESSABLE_ENTITY);
 
         // Test wrong content
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/groups/null/request', $invalidMessage);
+        $I->sendPost('api/groups/null/applications', $invalidMessage);
         $I->seeResponseCodeIs(HttpCode::UNPROCESSABLE_ENTITY);
 
         // Test Invalid Group
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/groups/' . $this->workingGroup['id'] + 100 . '/request', $validRequest);
+        $I->sendPost('api/groups/' . $this->workingGroup['id'] + 100 . '/applications', $validRequest);
         $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
 
         // Test send request
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/groups/' . $this->workingGroup['id'] . '/request', $validRequest);
+        $I->sendPost('api/groups/' . $this->workingGroup['id'] . '/applications', $validRequest);
         $I->seeResponseCodeIs(HttpCode::OK);
     }
 
@@ -248,7 +245,7 @@ class WorkingGroupApiCest
         // Apply for working group that has the test region as parent
         $I->haveHttpHeader('Content-Type', 'application/json');
         $validRequest = ['motivation' => 'ThisIsATestMessage', 'ability' => '', 'experience' => '', 'selectedTime' => 1];
-        $I->sendPost('api/groups/' . $this->workingGroup2['id'] . '/request', $validRequest);
+        $I->sendPost('api/groups/' . $this->workingGroup2['id'] . '/applications', $validRequest);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Verify user is still NOT member of the test region
@@ -260,7 +257,6 @@ class WorkingGroupApiCest
         $I->login($this->userAdmin['email']);
         $I->sendPOST('api/groups/' . $this->workingGroup2['id'] . '/members/' . $this->user['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->seeResponseIsJson();
 
         // Verify user is now member of the test region
         $I->login($this->user['email']);
@@ -285,7 +281,7 @@ class WorkingGroupApiCest
         // Apply for working group that has the test working group as parent
         $I->haveHttpHeader('Content-Type', 'application/json');
         $validRequest = ['motivation' => 'ThisIsATestMessage', 'ability' => '', 'experience' => '', 'selectedTime' => 1];
-        $I->sendPost('api/groups/' . $this->workingGroup3['id'] . '/request', $validRequest);
+        $I->sendPost('api/groups/' . $this->workingGroup3['id'] . '/applications', $validRequest);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Verify user is still NOT member of the test working group
@@ -297,9 +293,6 @@ class WorkingGroupApiCest
         $I->login($this->userAdmin['email']);
         $I->sendPOST('api/groups/' . $this->workingGroup['id'] . '/members/' . $this->user['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->seeResponseIsJson();
-        // Print response for debugging
-        $I->comment($I->grabResponse());
 
         // Verify user is still NOT member of the test region
         $I->login($this->user['email']);

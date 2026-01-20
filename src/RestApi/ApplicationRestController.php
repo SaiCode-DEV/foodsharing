@@ -31,7 +31,7 @@ class ApplicationRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Patch(summary: 'Accepts an application for a work group')]
-    #[Route('applications/{groupId}/{userId}', methods: ['PATCH'], requirements: ['groupId' => Requirement::POSITIVE_INT, 'userId' => Requirement::POSITIVE_INT])]
+    #[Route('groups/{groupId}/applications/{userId}', methods: ['PATCH'], requirements: ['groupId' => Requirement::POSITIVE_INT, 'userId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     public function acceptApplication(int $groupId, int $userId): Response
     {
@@ -53,7 +53,7 @@ class ApplicationRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Delete(summary: 'Declines an application for a work group')]
-    #[Route('applications/{groupId}/{userId}', methods: ['DELETE'], requirements: ['groupId' => Requirement::POSITIVE_INT, 'userId' => Requirement::POSITIVE_INT])]
+    #[Route('groups/{groupId}/applications/{userId}', methods: ['DELETE'], requirements: ['groupId' => Requirement::POSITIVE_INT, 'userId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     public function declineApplication(int $groupId, int $userId): Response
     {
@@ -75,7 +75,7 @@ class ApplicationRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Get(summary: 'Returns all pending applications for a working group')]
-    #[Route('applications/{groupId}', methods: ['GET'], requirements: ['groupId' => Requirement::POSITIVE_INT])]
+    #[Route('groups/{groupId}/applications', methods: ['GET'], requirements: ['groupId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
         type: 'array',
         items: new OA\Items(ref: new Model(type: Profile::class)),

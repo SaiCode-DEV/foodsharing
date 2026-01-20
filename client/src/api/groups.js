@@ -27,7 +27,7 @@ export function sendMail (groupId, message) {
 }
 
 export function sendRequest (groupId, motivation, ability, experience, selectedTime) {
-  return post(`/groups/${groupId}/request`, {
+  return post(`/groups/${groupId}/applications`, {
     motivation,
     ability,
     experience,
