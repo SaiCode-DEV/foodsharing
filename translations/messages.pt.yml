@@ -524,33 +524,35 @@ email_template:
 footer:
   meta:
     version: 'Versão: {version}'
-    it_devdocs: ''
+    it_devdocs: 'por foodsharing TI'
+    made_with: Feito com
   partner_names:
     denns: Denn’s Biomarkt
-    lebensministerium: ''
-    tafel_oesterreich: ''
-  our_partner: ''
-  wiki: ''
-  infosDeveloper: ''
-  infosPrivatePersons: ''
-  blog: ''
-  contact: ''
+    lebensministerium: 'Ministério Federal Alemão da Agricultura e Silvicultura, Proteção
+      Climática e Ambiental, Regiões e Gestão da Água'
+    tafel_oesterreich: 'Banco alimentar de Áustria'
+  our_partner: 'Os nossos parceiros'
+  wiki: 'Wiki'
+  infosDeveloper: 'Para programadores'
+  infosPrivatePersons: 'Para particulares'
+  blog: 'Blogue'
+  contact: 'Contacto'
   hosting:
-    info: ''
-    tooltip: ''
-  call_to_action: ''
-  guide: ''
+    info: 'Hospedado com emissões neutras de CO₂'
+    tooltip: 'Hospedado com neutralidade de CO₂ na manitu'
+  call_to_action: 'Participar'
+  guide: 'Guia de higiene'
   donate:
-    call_to: ''
-    cta: ''
-  statistics: ''
-  dataprivacy: ''
-  infosCompany: ''
-  team: ''
-  imprint: ''
-  partner: ''
-  press: ''
-  about_us: ''
+    call_to: 'Queres apoiar o foodsharing?'
+    cta: 'Fazer uma doação agora'
+  statistics: 'Estatística'
+  dataprivacy: 'Proteção de dados'
+  infosCompany: 'Para empresas'
+  team: 'Equipa'
+  imprint: 'Aviso legal'
+  partner: 'Parceiros'
+  press: 'Imprensa'
+  about_us: 'Sobre nós'
 dashboard:
   source_mailbox: '{0}'
   options:
@@ -655,7 +657,7 @@ storeview:
   public_time_in_the_evening: 'à noite'
   info: 'Informações'
   visible_for_public: 'Este texto é visível para todos os foodsavers.'
-  management: 'Administração'
+  management: 'Gestão'
   cooperation_start: 'Cooperação desde'
   contact:
     name: 'Nome e apelido'
@@ -812,7 +814,7 @@ pickuplist:
       removida.
 basket:
   my_list_empty: 'Não adicionaste nenhum cesta alimentar'
-  not_active: ''
+  not_active: 'A cesta alimentar já não está ativa.'
   valid:
     "7": 'uma semana'
     "21": 'tres semanas'
@@ -852,7 +854,7 @@ basket:
     finished: 'Obrigado, o processo está finalizado.'
   request-fs: 'Solicitar uma cesta alimentar na nossa página web foodsharing'
   new: 'Cesta alimentar novo'
-  publish_error: ''
+  publish_error: 'Ocorreu um erro. Não foi possível publicar a cesta alimentar.'
   mapsearch: 'Busca de endereço …'
   no_requests: 'Até agora, sem solicitações'
   contact:
@@ -861,12 +863,12 @@ basket:
   login: 'Para obter informações detalhadas, é necessário estar logado. Ainda não
     está registado como Foodsharer? Então clique em **Participar** acima e comece
     agora mesmo.'
-  go-to-settings: ''
+  go-to-settings: 'para as configurações'
   request_empty: 'O texto da sua solicitação não pode estar em branco.'
   request: 'Solicitar uma cesta alimentar'
   no_nearby: 'Não há cestas alimentar num raio de {radius} km'
   add: 'Criar uma cesta alimentar'
-  not-allowed: ''
+  not-allowed: 'Não tens permissão pra editar esta cesta alimentar.'
   not_found: 'A cesta alimentar já não existe.'
   delete: 'Apagar a cesta alimentar'
   requests: 'Solicitações ({count})'
@@ -878,10 +880,11 @@ basket:
   created: 'Publicado:'
   requested_by: 'solicitado por {name}'
   provider: 'Fornecedor'
-  published: ''
-  public-info: ''
+  published: 'Obrigado, a cesta alimentar foi publicado.'
+  public-info: 'A descrição, a imagem, o local de entrega e o período estão visíveis
+    ao público.'
   edit: 'Editar a cesta alimentar'
-  no-desc: ''
+  no-desc: 'Por favor, escreva uma descrição.'
   where: 'Onde?'
   recent: 'Cestas alimentar mais novo'
   image: 'Adicione uma foto à cesta alimentar.'
@@ -903,78 +906,87 @@ basket:
       Ainda não está registado como Foodsharer?
       Então clique em [**Participar**](/content?sub=joininfo) para começar ou crie a tua própria cesta alimentar.
     map: No nosso mapa, poderá encontrar outras cestas alimentar na tua área.
+  delete_confirmation:
+    text: Queres mesmo apagar esta cesta alimentar?
+    title: Apagar o cesto alimentar realmente?
+  modal_error:
+    no_contact: Selecione uma opção para solicitar o cesta alimentar.
+    no_phone: Por favor, insira um número de telefone.
 menu:
   entry:
-    options: ''
-    statistics: ''
-    imprint: ''
-    notifications: ''
-    language: ''
-    members: ''
-    load_more: ''
-    academy: ''
-    transparency: ''
-    ids: ''
-    blog: ''
-    mark_as_read: ''
-    refresh: ''
+    options: 'Opções'
+    statistics: 'Estatística'
+    imprint: 'Aviso legal'
+    notifications: 'Notificações'
+    language: 'Selecionara tua língua'
+    members: 'Membros'
+    load_more: 'Leia mais'
+    academy: 'Academia'
+    transparency: 'Transparência'
+    ids: 'Cartões de membro'
+    blog: 'Blogue'
+    mark_as_read: 'Marcar tudo como lido'
+    refresh: 'Atualizar'
     wall: 'Pinboard'
-    chainList: ''
-    helpwanted: ''
-    contact: ''
-    group_overview: ''
-    dataprivacy: ''
-    guide: ''
-    conference: ''
-    groups: ''
-    fsfestival: ''
-    administration: ''
-    demands: ''
-    delete_read: ''
-    friendcircle: ''
-    joinregion: ''
-    baskets: ''
-    workingGroupEdit: ''
-    background: ''
-    stores: ''
-    mailbox: ''
-    fs: ''
-    talksandworkshops: ''
-    politics: ''
-    pastcampaigns: ''
-    press: ''
-    fundraising: ''
-    donations: ''
-    all_messages: ''
-    activities: ''
-    events: ''
-    support: ''
-    BOTforum: ''
-    fundamentals: ''
-    selfservice: ''
-    forum: ''
-    your_groups: ''
-    other_stores: ''
-    your_stores: ''
-    helpneeded: ''
-    forcompanies: ''
-    team: ''
-    your_baskets: ''
-    partners: ''
-    your_account: ''
-    fscities: ''
-    wiki: ''
-    education: ''
-    security: ''
-    regionalgroups: ''
-    release-notes: ''
-    messages: ''
-    aboutUs: ''
-    infos: ''
+    chainList: 'Visão geral das cadeias'
+    helpwanted: 'Procuram-se ajudantes'
+    contact: 'Contacto'
+    group_overview: 'Visão geral dos grupos de trabalho globais'
+    dataprivacy: 'Proteção de dados'
+    guide: 'Guia de higiene'
+    conference: 'Conferência online'
+    groups: 'Grupos'
+    fsfestival: 'Festival de foodsharing'
+    administration: 'Administração'
+    demands: 'Cobranças'
+    delete_read: 'Apagar todos os lidos'
+    friendcircle: 'Círculo de amigos'
+    joinregion: 'Entrar para um distrito'
+    baskets: 'Cestas alimentar'
+    workingGroupEdit: 'Gerir grupo'
+    background: 'Contexto'
+    stores: 'Empresas'
+    mailbox: 'Conta de e-mail'
+    fs: 'Foodsaver'
+    talksandworkshops: 'Palestras e workshops'
+    politics: 'Política'
+    pastcampaigns: 'Campanhas anteriores'
+    press: 'Imprensa'
+    fundraising: 'Angariação de fundos'
+    donations: 'Fazer doações'
+    all_messages: 'Todos mensagems'
+    activities: 'Ações'
+    events: 'Datas'
+    support: 'Ajuda e suporte'
+    BOTforum: 'Fórum dos embaixadores'
+    fundamentals: 'Princípios'
+    selfservice: 'Autoserviço'
+    forum: 'Fórum'
+    your_groups: 'Os tues grupos'
+    other_stores: 'Outras empresas'
+    your_stores: 'As tuas empresas'
+    helpneeded: 'Procuram-se ajudantes urgente'
+    forcompanies: 'Pra empresas'
+    team: 'Equipa'
+    your_baskets: 'As tuas cestas alimentar'
+    partners: 'Parceiros'
+    your_account: 'A tua conta'
+    fscities: 'Cidades de foodsharing'
+    wiki: 'Wiki'
+    education: 'Educação'
+    security: 'Segurança'
+    regionalgroups: 'Grupos locais'
+    release-notes: 'O que é novo?'
+    messages: 'Mensagems'
+    aboutUs: 'Sobre nós'
+    infos: 'Informações'
+    close_all_chats: Fechar todas as conversas
+    applications: Aplicações ({count})
+    public: Página pública do distrito
   bell:
     delete_read_confirmation:
-      text: ''
-      title: ''
+      text: 'Queres mesmo apagar {count} sinos lidos?'
+      title: 'Apagar notificações?'
 date:
   tomorrow: 'amanha'
   yesterday: 'ontem'
@@ -1435,7 +1447,7 @@ group:
       as denúncias que envolvem a equipa de denúncia. Não são apresentadas denúncias
       que os administradores estejam envolvidos! A equipa da queixa recebe estas'
     welcome: 'Saudação'
-    board: 'Direção'
+    board: 'Junta'
     tooltip_function_3: 'Os administradores deste grupo de trabalho podem ativar e
       editar os cantinhos solidário do distrito e remover contribuições de cantinho
       solidário justos'
@@ -1894,7 +1906,7 @@ fsp:
     especialmente quando está acessível/aberto.'
   address: 'Endereço'
   noManager: 'Deve haver pelo menos uma pessoa responsável por este cantinho solidário.'
-  street: 'Rua'
+  street: 'Endereço'
   editSuccess: 'Cantinho solidário foi editado com sucesso'
   summary: 'Há {count} cantinho/s solidário em todos os distritos onde está ativo'
   acceptName: 'desbloquear {name}'
@@ -3247,44 +3259,64 @@ startpage:
   notallowed: ''
   join_rules: ''
 region:
-  bread: ''
-  noParent: ''
+  bread: 'Administrar distritos'
+  noParent: 'Sem distrito principal'
   forum-redirect: 'Não existe o pinboard para regiões. Foi redirecionado para o fórum.'
   hull:
-    closure: ''
-    parent-info: ''
-    parent: ''
-    start: ''
-    title: ''
-    confirm: ''
+    closure: 'Ingrese {region} como maestro para todos os distritos secundários'
+    parent-info: 'Todos os salvadores alimentar são automaticamente incluídos no distrito
+      principal, desde que tenha sido indicado um'
+    parent: 'Distrito maestro'
+    start: 'Iniciar atualização do mestre'
+    title: 'Atualização mestre'
+    confirm: 'Realmente iniciar a atualização mestra?'
   type:
-    title: ''
-    city: ''
-    region: ''
-    district: ''
-    country: ''
-  edit: ''
-  cancel: ''
+    title: 'Tipo do distrito'
+    city: 'Cidade'
+    region: 'Região'
+    district: 'Distrito'
+    country: 'País'
+    federal_state: Estado federal
+    working_group: Grupo de trabajo
+    big_city: Grande cidade (sem possibilidade de inscrição)
+    part_of_town: Bairro
+  edit: 'Editar distrito'
+  cancel: 'Não, afinal não'
   still_contains_elements: 'O distrito não pode ser apagado porque ainda contém sub-regiões,
     empresas ou cantinhos solidário.'
-  edit_success: ''
-  restricted: ''
-  store_managers_cannot_leave: ''
-  save: ''
+  edit_success: 'O distrito foi guardado.'
+  restricted: 'Infelizmente, não tens autorização para visualizar esses dados.'
+  store_managers_cannot_leave: 'Não podes sair do distrito, pois ainda és responsável
+    por pelo menos uma empresa lá.'
+  save: 'Sim, guardar'
   mail:
-    name-info: ''
-    sender: ''
-  none: ''
-  new: ''
-  no-huge: ''
-  change: ''
-  created: ''
-  delete: ''
+    name-info: 'Atenção, não altere arbitrariamente! Certifique-se também de que este
+      endereço ainda não existe em «Administrar e-mails».'
+    sender: 'Nome do remetente'
+  none: 'Ainda não selecionou nenhum distrito'
+  new: 'Distrito novo'
+  no-huge: 'Desculpe, não é possível selecionar um país ou um estado federal como
+    o distrito.'
+  change: 'Alterar distrito'
+  created: '{region} foi criado'
+  delete: 'Apagar distrito'
   public:
     map:
       missing: Este distrito não é atualmente exibido no mapa e não tem 
         cantinhos solidário que podem ser exibidos aqui. Tem autorização para 
         colocar um pin de distrito agora.
+  not-existant: Este distrito ou grupo de trabalho já não existe.
+  select: Selecionar distrito para edição
+  createNew: Criar um distrito novo
+  root: Nemhum (Root)
+  confirm:
+    edit: Tem a certeza de que deseja guardar as alterações no distrito {name}?
+    create: Tem a certeza de que deseja criar um distrito novo {name}?
+    delete: Tem a certeza de que deseja apagar o distrito {name}?
+  name: Nome
+  parent: Distrito parental
+  master: Distrito principal
+  mailbox: Nome da caixa eletrônica
 upload:
   new_image: 'Carregar imagem novo'
   no_image: 'O ficheiro carregado não é uma fotografia. Por favor, selecione outro
@@ -3629,16 +3661,16 @@ button:
   yes_save: sim, guardar
 about_me_intern: 'Descrição rápida'
 storestatus:
-  "3a": ''
-  "3": ''
-  "1": ''
-  "7": ''
-  "6": ''
-  "5a": ''
-  "5": ''
-  "0": ''
-  "4": ''
-  "2": ''
+  "3a": 'A empresa está disposta para fazer doações. :-)'
+  "3": 'A empresa está disposta a cooperar'
+  "1": 'Ainda não há contacto'
+  "7": 'A empresa já não existe'
+  "6": 'A empresa já faz doações pra o banco alimentar, etc., e não deita nada fora'
+  "5a": 'A empresa já faz doações'
+  "5": 'colabora connosco'
+  "0": 'Estado incerto'
+  "4": 'Não quer cooperar'
+  "2": 'As negociações estão em curso'
 markdown_input:
   tooltip:
     orderedList: ''
@@ -3685,26 +3717,27 @@ numbers:
 fp: 'Pontos de erro'
 fspmanagers: 'Pessoas de contacto para o cantinho solidário'
 storelist:
-  status: ''
-  emptyfilters: ''
-  added: ''
-  inprogress: ''
-  nocontact: ''
-  managing: ''
-  region: ''
-  memberState: ''
-  nowaste: ''
-  name: ''
-  address: ''
-  zipcode: ''
-  entered: ''
-  cooperating: ''
-  city: ''
-  others: ''
-  notcooperating: ''
-  map: ''
-  addressdata: ''
-  fetching: ''
+  status: 'Estado'
+  emptyfilters: 'Vaziar o filtro'
+  added: 'Registrado'
+  inprogress: 'As negociações estão em curso'
+  nocontact: 'Ainda há não contacto'
+  managing: 'Empresas pelas quais é responsável'
+  region: 'Distrito'
+  memberState: 'Estado de membro'
+  nowaste: 'Não deite nada fora'
+  name: 'Nome'
+  address: 'Rua'
+  zipcode: 'Código postal'
+  entered: 'Registrado:'
+  cooperating: 'Em cooperação'
+  city: 'Local'
+  others: 'Outras empresas de {região}'
+  notcooperating: 'Não quer cooperar'
+  map: 'Mapa'
+  addressdata: 'Direção'
+  fetching: 'Empresas onde recolhes alimentos'
+  actions: Ações
 activitypost:
   quickreply_button: 'Envia agora<br>ou <code class="key">pressionar a <code class="key">tecla
     enter.'
@@ -3746,16 +3779,21 @@ regionOptions:
     deste distrito como distrito de origem
 ort: 'Cidade/Comunidade'
 releases:
-  "2023-09": ''
-  "2022-12": ''
-  "2021-03": ''
-  "2020-08": ''
-  "2021-09": ''
-  "2020-12": ''
-  "2020-10": ''
-  "2022-05": ''
-  "2022-01": ''
-  "2020-05": ''
+  "2023-09": 'Versão “Jaca” 🍈 (Setembro de 2023)'
+  "2022-12": 'Versão „Gelado“ 🍨 (Decembro 2022)'
+  "2021-03": 'Versão „Morango“ 🍓 (Märço 2021)'
+  "2020-08": 'Versão “Pera” (Agosto 2020)'
+  "2021-09": 'Versão „Figo“ 🥧 (Setembro 2021)'
+  "2020-12": 'Versão „Fruta do dragão“ (Dezembro 2020)'
+  "2020-10": 'Versão „Cranberry“ (Outubro 2020)'
+  "2022-05": 'Versão „Mirtilo“ 🍇 (Maio 2022)'
+  "2022-01": 'Versão „Toranja“ 🍋 (Janeiro 2022)'
+  "2020-05": 'Versão “Naranja” (Mayo 2020)'
+  "2025-08": Versão «Oliva» 🫒 (Agosto de 2025)
+  "2024-12": Versão “Nektarina” 🍑 (Dezembro de 2024)
+  "2024-08": Versão «Tangerina» 🍊 (Agosto de 2024)
+  "2024-04": Versão «Pretzel» 🥨 (Abril de 2024)
+  "2024-01": Versão "Kiwi" 🥝 (Janeiro de 2024)
 error_ajax: "Infelizmente, isso não funcionou. \nTalvez a tua conexão com internet
   não funcione neste momento. \nRecarrega a pagina e tenta novamente.\n"
 information:
@@ -3939,8 +3977,8 @@ public_time: 'Hora do dia aproximada por da recolha'
 opt: 'Opções'
 filter_by: 'Filtrar por'
 push_notifications:
-  test_notification_body: ''
-  test_notification_title: ''
+  test_notification_body: 'Ótimo, parece que funcionou :)'
+  test_notification_title: 'Notificações push ativadas'
 savewithus: ''
 bezirk_id: 'Para qual região o artigo é relevante?'
 sidenav:
@@ -3957,9 +3995,9 @@ password:
   insertmail: ''
 pass2: 'Repetição da palavra-passe'
 personal_data:
-  label: ''
-  mobile: ''
-  landline: ''
+  label: 'Contacto'
+  mobile: 'Número de telemóvel'
+  landline: 'Número de teléfono fixo'
 fetchstate: 'Foi tudo bem?'
 abholmenge: 'Quantos quilogramas, aproximadamente, são levados por pessoa por recolha?'
 groups:

@@ -364,7 +364,7 @@ button:
   new: Yeni
   edit: Düzenle
   delete: Sil
-  apply: Kabul et
+  apply: Devral
   next: Devam et
   yes_i_am_sure: Evet eminim
   change_picture: Fotoğrafı değiştir
@@ -425,7 +425,7 @@ group:
       "3": 3-4 Saat
     send: Başvurunuzu gönderin
     sent: Başvuru gönderildi.
-    accept: Başvuruyu kabul et
+    accept: Kabul et
     accepted: Başvuru kabul edildi
     declined: Başvuru reddedildi
     link_description: 'Bu bağlantı sizi doğrudan uygulamaya yönlendirecektir:'
@@ -435,6 +435,7 @@ group:
     how_much_time: Haftada kaç saatinizi buna ayırmaya zamanınız ve isteğiniz 
       var?
     error_missing_time: 'Hata: Zaman seçilmedi.'
+    deny: Reddet
   application_requirements:
     everybody: Herkes başvurabilir.
     nobody: Kimse (kapalı grup).
@@ -572,7 +573,7 @@ group:
     tooltip_function_region387: Bu çalışma grubunun yöneticileri, e-posta geri 
       dönen listesinden girişleri kaldırabilir
     tooltip_function_region2296: Bu çalışma grubunun yöneticileri kaynak ve 
-      operasyonel kategorileri düzenleyebilir.
+      operasyonel kategorileri düzenleyebilir
   member_list:
     remove_admin_title: Yönetici olarak oturumu kapat
     is_verified: Onaylandı
@@ -637,6 +638,7 @@ group:
     emin misiniz?'
   filter_placeholder: Grupları isimlerine göre filtrele
   valid_until: Şu tarihe kadar geçerlidir_
+  confirm_decline: Bu başvuruyu gerçekten reddetmek mi istiyorsunuz?
 ansprechpartner: İşletmeden sorumlu Yektili (Şube Müdürü vs.)
 text: Metin
 fp: Hata puanları
@@ -788,7 +790,8 @@ error:
   passport_is_invalid_soon:
     link: Profil ayarları
     title: Kimliğiniz yakında artık geçerli olmayacak!
-    description: Yenilenmesi için yetkili elçilerinizle iletişime geçin.
+    description: Kimlik kartınızın geçerlilik süresi {gün} gündür. Yenilemek 
+      için temsilcilerinizle iletişime geçin.
   page:
     internal_server_error: Dahili bir Server hatası oluştu.
     other: Bilinmeyen bir hata oluştu.
@@ -1199,7 +1202,7 @@ store:
     got-it: Sorumlular talebiniz hakkında bilgilendirilmiştir ve sizinle 
       iletişime geçecektir.
     withdraw: Başvuruyu geri çekin
-    to-team: Kabul et
+    to-team: Takıma ekle
     to-nowhere: Reddet
     unverified: Kullanıcı doğrulanmadı
     distance:
@@ -1224,6 +1227,36 @@ store:
       unknown: Geçerli adres yok
       close: 500 metreden az
       normal: Yaklaşık {distance}km
+    completeProfileRequired:
+      text: 'Şu anda başvuru yapamazsınız çünkü profilinize gerekli tüm bilgileri
+        henüz girmediniz. En az aşağıdaki alanlara geçerli bilgiler girmeniz gerekmektedir:
+        ad, soyad, doğum tarihi, mevcut adres ve profil resmi. Lütfen bu bilgileri
+        girin. Bundan sonra tekrar başvuru yapmayı deneyebilirsiniz.'
+      link: Profili düzenle
+    needsHomeRegion:
+      text: Henüz ikamet ettiğiniz bölgeyi seçmediğiniz için şu anda başvuru 
+        yapamazsınız. İkamet ettiğiniz bölgeyi seçtikten sonra tekrar başvuru 
+        yapmayı deneyebilirsiniz.
+      link: Ev bölgenizi seçin
+    needsStoreRegion:
+      text: Şu anda başvuru yapamazsınız çünkü henüz {region} faaliyet 
+        bölgesinin üyesi değilsiniz. {region} bölgesine üye olduktan sonra 
+        tekrar başvuru yapmayı deneyebilirsiniz.
+      link: Bu bölgeye katıl
+    requireVerification:
+      text: Henüz doğrulanmadığınız için şu anda başvuru yapamazsınız. Bu 
+        işletme şu anda yalnızca doğrulanmış Foodsaver üyelerinden başvuru kabul
+        etmektedir. Lütfen önce deneme teslimatlarınızı tamamlayın veya 
+        doğrulanmak için temsilcilerinizle veya karşılama ekibiyle iletişime 
+        geçin. Bu iletişim bilgilerini sol kenar çubuğundaki bölgenizin 
+        forumunda bulabilirsiniz.
+      link: Ana bölge forumunu açın
+    requirePhone:
+      text: Şu anda başvuru yapamazsınız çünkü profilinize henüz bir telefon 
+        numarası eklemediniz. Bu işletme şu anda yalnızca en az bir telefon 
+        numarası kayıtlı olan gıda tasarrufu yapanlardan başvuru kabul 
+        etmektedir. Başvuru yapabilmek için lütfen profilinize bir telefon 
+        numarası ekleyin.
   filter: …göre filtrele…
   important: 'Önemli:'
   prefetchtwo: 2 Hafta
@@ -2910,16 +2943,23 @@ login:
       yapabilirsiniz.
     bread: Şifreyi yenile
     wrongMail: Maalesef bu e-posta adresini bulamıyoruz, lütfen tekrar deneyin.
-    mailSent: Anlaşıldı, e-postayla şifreni değiştirmen için bir bağlantı 
-      gönderildi.
+    mailSent: Tamam, şifrenizi değiştirmek için bir bağlantı içeren bir e-posta 
+      aldınız. Bu bağlantı 7 gün boyunca geçerlidir. Ondan sonra yeni bir 
+      bağlantı talep etmeniz gerekecek.
     expired: Bağlantı geçersiz. Muhtemelen çok uzun süre beklediniz. Lütfen yeni
       bir şifre isteyin.
     mismatch: Üzgünüz, şifreler eşleşmiyor.
+    invalidCode: Girdiğiniz kod geçersiz. Lütfen tekrar deneyin. Yedek kodları 
+      da burada kullanabilirsiniz.
+    request_new: Yeni bir şifre isteyin
+    token_invalid: Girdiğiniz iki faktörlü kimlik doğrulama kodu geçersiz. 
+      Lütfen tekrar deneyin.
   forgotten_password_label: Şifrenizi mi unuttunuz?
   login_button_label: Giriş yap
   logout: Çıkış yap
-  error_no_auth: Üzgünüz, o e-posta adresini veya şifreyi bulamıyoruz, lütfen 
-    tekrar deneyin.
+  error_no_auth: Maalesef bu e-posta adresini veya şifreyi bulamadık. Lütfen 
+    tekrar deneyin. İkinci bir doğrulama yöntemi kullanıyorsanız, bu yöntem de 
+    yanlış olabilir.
   topbar: Giriş yap
   form_title: Tekrar hoşgeldiniz
   email_address: E-Posta Adresi_
@@ -2929,6 +2969,22 @@ login:
   save_password: Şifreyi kaydet
   steady_login: Kalıcı olarak oturum açmış durumda kal
   error_no_email: Lütfen e-mail adresinizi giriniz.
+  2fa: İki faktörlü kimlik doğrulama (2FA)
+  error_not_activated: Maalesef, e-posta adresiniz henüz etkinleştirilmedi.
+  or: veya
+  passkey_btn: Parola ile giriş yapın
+  resend_verification:
+    email_invalid: Lütfen bir e-posta adresi girin
+    title: E-posta adresi onayı
+    hint1: Giriş yapmak için e-posta adresinizin doğrulanması gerekmektedir. 
+      Giriş sayfasından bu sayfaya yönlendirildiyseniz, e-posta adresiniz henüz 
+      doğrulanmamıştır. Bu formu kullanarak size bir aktivasyon bağlantısı 
+      içeren yeni bir e-posta gönderilmesini sağlayabilirsiniz.
+    hint2: Eğer e-posta almadıysanız, lütfen [Support](/support) ile iletişime 
+      geçin.
+    submit: Gönder
+    success: Bu e-posta adresi mevcutsa ve henüz doğrulanmamışsa, yeni bir 
+      e-posta gönderilecektir.
 terminology:
   foodsaver:
     d: Foodsaver
@@ -3043,6 +3099,8 @@ legal:
   privacy_policy: Veri Koruma Beyannamesi
   button:
     agree: Kabul ediyorum
+  latest_change: 'Son güncelleme tarihi: {date}'
+  show_changes: Değişiklikleri göster
 salutation:
   "0": Sevgili
   "2": Sevgili
@@ -3084,8 +3142,10 @@ register:
   woman: kadın
   login_surname: Soyadınız
   pass1: İstediğiniz yeni şifreniz
-  join_success_message: Foodsharing'e kaydınızı başarıyla tamamladınız. Artık 
-    e-postanız ve şifrenizle giriş yapabilirsiniz.
+  join_success_message: Foodsharing'e kayıt işleminizi başarıyla tamamladınız. 
+    E-posta adresiniz ve şifrenizle giriş yapmadan önce, e-posta adresinizi 
+    onaylamanız gerekmektedir. E-posta adresinize bir onay bağlantısı içeren bir
+    e-posta gönderdik.
   login_passwd2: Şifre tekrarı
   password_required: Şifre gerekli
   password_minLength: Parola en az sekiz karakterden oluşmalıdır
@@ -4324,3 +4384,5 @@ categories:
   confirm_delete_hint:
     store: Bu kategoriye hâlâ {count} işletme atanmış durumda. Bu işletmelerin 
       artık bir kategorisi olmayacak.
+totp_code: Lütfen oluşturulan iki faktörlü kimlik doğrulama kodunu veya yedek 
+  kodlardan birini girin.

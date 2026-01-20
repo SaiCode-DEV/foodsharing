@@ -1851,3 +1851,32 @@ menu:
     mark_as_read: Oznacz wszystkie jako przeczytane
     refresh: Odśwież
     delete_read: Usuń wszystkie przeczytane
+    fundamentals: Podstawy
+    blog: Blog
+    team: Team
+    partners: Partnerzy
+    support: Pomoc & support
+    wiki: Wiki
+    statistics: Statystyka
+    release-notes: Co nowego?
+    security: Bezpieczeństwo
+    fs: Foodsaver
+    ids: Legitymacje
+    conference: Konferencja online
+    fundraising: Fundraising
+    donations: Darowizny
+    language: Wybierz język
+    options: Opcje
+  bell:
+    delete_read_confirmation:
+      title: Usunąć powiadomienia?
+footer:
+  about_us: O nas
+  team: Team
+  imprint: Impressum
+  infosPrivatePersons: dla osób prywatnych
+  partner: Partnerzy
+  our_partner: Nasi partnerzy
+  contact: Kontakt
+  press: Prasa
+  wiki: Wiki
