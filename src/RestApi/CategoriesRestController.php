@@ -6,7 +6,7 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Categories\CategoriesTransactions;
 use Foodsharing\Modules\Categories\Category;
 use Foodsharing\Modules\Core\DBConstants\CategoryType;
-use Foodsharing\Modules\Store\DTO\CommonLabel;
+use Foodsharing\Modules\Store\DTO\CategoryWithType;
 use Foodsharing\Permissions\CategoriesPermissions;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
@@ -50,10 +50,10 @@ class CategoriesRestController extends AbstractFoodsharingRestController
     #[OA\Post(summary: 'Adds a category')]
     #[Route(path: 'categories/{type}', methods: ['POST'], requirements: ['type' => '\w+'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
-        ref: new Model(type: CommonLabel::class)
+        ref: new Model(type: CategoryWithType::class)
     ))]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
-    public function addCategory(string $type, #[MapRequestPayload] CommonLabel $category): Response
+    public function addCategory(string $type, #[MapRequestPayload] CategoryWithType $category): Response
     {
         $this->assertLoggedIn();
         $type = $this->parseCategoryType($type);
@@ -72,7 +72,7 @@ class CategoriesRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Category doesn\'t exist')]
-    public function updateCategory(string $type, int $id, #[MapRequestPayload] CommonLabel $category): Response
+    public function updateCategory(string $type, int $id, #[MapRequestPayload] CategoryWithType $category): Response
     {
         $this->assertLoggedIn();
         $type = $this->parseCategoryType($type);

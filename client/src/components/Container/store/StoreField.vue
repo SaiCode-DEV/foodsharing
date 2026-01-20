@@ -9,18 +9,20 @@
         class="field-headline"
         v-text="entry.name"
       />
-      <i
-        v-if="entry.isManaging"
-        v-b-tooltip="$t('store.tooltip_managing')"
-        class="fas fa-users-cog text-muted"
-        style="cursor: help;"
-      />
-      <i
-        v-if="entry.membershipStatus === 2"
-        v-b-tooltip="$t('store.tooltip_jumping')"
-        class="fas fa-people-carry text-muted"
-        style="cursor: help;"
-      />
+      <div class="ml-auto d-flex align-items-center">
+        <i
+          v-b-tooltip="storeCategoryTypeStatus"
+          class="fas text-muted"
+          :class="storeCategoryTypeIcon"
+          style="cursor: help;"
+        />&nbsp;
+        <i
+          v-if="entry.membershipStatus === 2"
+          v-b-tooltip="$t('store.tooltip_jumping')"
+          class="fas fa-people-carry text-muted"
+          style="cursor: help;"
+        />
+      </div>
     </div>
     <div
       v-if="entry.pickupStatus > 0"
@@ -43,7 +45,10 @@
 </template>
 
 <script>
+import storeEntryMixin from '@/mixins/storeEntryMixin'
+
 export default {
+  mixins: [storeEntryMixin],
   props: {
     entry: { type: Object, default: () => {} },
   },

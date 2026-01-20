@@ -214,7 +214,7 @@ test.describe("Store user and chat interactions", () => {
       await expect(
         page
           .locator("#inputAverageCollectionQuantity")
-          .getByText("Abholmenge pro Person"),
+          .getByText("Menge pro Person"),
       ).toBeVisible();
       await expect(page.locator("html")).toContainText(label);
     });

@@ -24,6 +24,11 @@ class ResourceCategoriesGateway extends AbstractCategoriesGateway
         return 'resource_id';
     }
 
+    protected function getEntityTypeColumn(): ?string
+    {
+        return null;
+    }
+
     protected function allowsMultipleCategories(): bool
     {
         return true;

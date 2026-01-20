@@ -31,6 +31,7 @@ use Foodsharing\Modules\Message\MessageGateway;
 use Foodsharing\Modules\Message\MessageTransactions;
 use Foodsharing\Modules\Region\DTO\MinimalRegionIdentifier;
 use Foodsharing\Modules\Region\RegionGateway;
+use Foodsharing\Modules\Store\DTO\CategoryWithType;
 use Foodsharing\Modules\Store\DTO\CommonLabel;
 use Foodsharing\Modules\Store\DTO\CommonStoreMetadata;
 use Foodsharing\Modules\Store\DTO\CreateStoreData;
@@ -134,7 +135,7 @@ class StoreTransactions
         $store->groceries = array_map(fn ($row) => CommonLabel::createFromArray($row), $this->storeGateway->getBasics_groceries());
 
         $store->categories = $this->storeCategoriesGateway->getCategories();
-        $store->categories[] = new CommonLabel(0, $this->translator->trans('store.nodeclaration'));
+        $store->categories[] = new CategoryWithType(0, $this->translator->trans('store.nodeclaration'));
 
         $store->status = array_map(fn ($row) => CommonLabel::createFromArray($row), [
             ['id' => CooperationStatus::UNCLEAR->value, 'name' => $this->translator->trans('store.nodeclaration')],
@@ -762,7 +763,7 @@ class StoreTransactions
                 // add info about the next free pickup slot to the store
                 $item->pickupStatus = $this->getAvailablePickupStatus($item->store->id);
             }
-
+            $item->categoryType = $resultRow->categoryType;
             $storeTeamMemberships[] = $item;
         }
 

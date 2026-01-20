@@ -2,7 +2,7 @@
   <Container
     v-if="pickups.length"
     tag="registered-pickups"
-    :title="$t('dashboard.pickupdates')"
+    :title="$t('dashboard.general-dates')"
   >
     <PaginatedContent :items="pickups">
       <template #default="{ currentPageItems }">
@@ -23,7 +23,12 @@ import PickupField from './PickupField'
 import PaginatedContent from '../PaginatedContent.vue'
 
 export default {
-  components: { Container, PickupField, PaginatedContent },
+  name: 'PickupContainer',
+  components: {
+    Container,
+    PickupField,
+    PaginatedContent,
+  },
   setup () {
     return {
       pickupStore: usePickupStore(),

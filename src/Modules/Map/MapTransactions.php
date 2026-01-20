@@ -5,6 +5,7 @@ namespace Foodsharing\Modules\Map;
 use Carbon\Carbon;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Achievement\AchievementGateway;
+use Foodsharing\Modules\Categories\StoreCategoryType;
 use Foodsharing\Modules\Core\DBConstants\Achievement\AchievementIDs;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\PublicTimes;
@@ -90,6 +91,7 @@ class MapTransactions
         $mapData->maySendRequest = $this->storePermissions->mayJoinStoreRequest($storeId);
         $mapData->mayWithdrawRequest = $mapData->teamSearchStatus != TeamSearchStatus::CLOSED && $teamStatus == TeamStatus::Applied;
 
+        $mapData->categoryType = StoreCategoryType::tryFrom($store['categoryType']) ?? StoreCategoryType::PICKUP;
         $mapData->isInvited = $teamStatus === TeamStatus::Invited;
 
         return $mapData;

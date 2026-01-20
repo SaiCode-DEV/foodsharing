@@ -369,6 +369,8 @@ final class ProfileController extends FoodsharingController
         $statistics = [
             'fetchWeight' => $userArray['stat_fetchweight'],
             'fetchCount' => $userArray['stat_fetchcount'],
+            'giveCount' => $userArray['stat_givecount'],
+            'engageCount' => $userArray['stat_engagecount'],
             'basketCount' => $userArray['basketCount'],
             'buddyCount' => $userArray['stat_buddycount'],
         ];

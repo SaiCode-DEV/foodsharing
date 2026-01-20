@@ -81,7 +81,9 @@ class StatisticsGateway extends BaseGateway
 				`id`,
 				`name`,
 				`stat_fetchweight` AS fetchWeight,
-				`stat_fetchcount` AS fetchCount
+				`stat_fetchcount` AS fetchCount,
+				`stat_givecount` AS giveCount,
+				`stat_engagecount` AS engageCount
 			FROM
 				fs_foodsaver
 			WHERE

@@ -90,6 +90,7 @@ import StoreTeamUserItem from './StoreTeamUserItem.vue'
 import StoreTeamManagementPanel from './StoreTeamManagementPanel.vue'
 import StoreTeamFilterPanel from './StoreTeamFilterPanel.vue'
 import { usePickupStore } from '@/stores/pickups'
+import { STORE_CATEGORY_PICKUP } from '@/constants/storeCategoryTypes'
 import CopyToClipboardMixin from '@/mixins/CopyToClipboardMixin'
 import RequiredMessageModal from '@/components/Modals/RequiredMessageModal.vue'
 
@@ -141,7 +142,7 @@ export default {
     sortingFunctions () {
       const sortingFunctions = [
         { func: this.defaultSortingFunction, name: 'default', displayInfo: 'times' },
-        { func: this.pickupSortingFunction, name: 'pickup', displayInfo: 'times' },
+        { func: this.pickupSortingFunction, name: STORE_CATEGORY_PICKUP, displayInfo: 'times' },
       ]
       if (this.hasMemberDistances) {
         sortingFunctions.push(

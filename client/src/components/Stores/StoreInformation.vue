@@ -189,10 +189,11 @@
         </b-card-text>
       </b-tab>
       <b-tab
-        :title="$t('terminology.pickup')"
+        :title="$t('pickup.slots')"
       >
         <b-card-text>
           <b-form-group
+            v-if="store.categoryType === STORE_CATEGORY_PICKUP || store.categoryType === STORE_CATEGORY_GIVING"
             :label="$t('store.average_collection_quantity')"
             label-for="weight"
             class="bootstrap input-wrapper"
@@ -485,6 +486,7 @@ import ChainSearchPicker from '@/components/Stores/ChainSearchPicker.vue'
 import PublicInfo from '@/components/Stores/PublicInfo.vue'
 import Info from '../Help/Info.vue'
 import { MARKER_TYPES } from '@/stores/map'
+import { STORE_CATEGORY_PICKUP, STORE_CATEGORY_GIVING } from '@/constants/storeCategoryTypes'
 
 export default {
   name: 'StoreInformationEditModal',
@@ -515,6 +517,7 @@ export default {
   data () {
     return {
       editMode: false,
+      initialCategoryId: null,
       editPickups: [],
       selectedWeekDay: null,
       foodSearchCriteriaField: '',
@@ -535,6 +538,8 @@ export default {
     }
   },
   computed: {
+    STORE_CATEGORY_PICKUP: () => STORE_CATEGORY_PICKUP,
+    STORE_CATEGORY_GIVING: () => STORE_CATEGORY_GIVING,
     MARKER_TYPES: () => MARKER_TYPES,
     getChainTextById () {
       if (this.storeChains?.length > 0 && this.store.chainId != null) {
@@ -573,7 +578,7 @@ export default {
       return this.storeStore.getPublicTimes.map(item => ({ value: item.id, text: item.name }))
     },
     categoryTypes () {
-      return this.storeStore.getStoreCategoryTypes.map(item => ({ value: item.id, text: item.name }))
+      return this.storeStore.getStoreCategoryTypes.map(item => ({ value: item.id, text: item.name, type: item.type }))
     },
     convinceStatusTypes () {
       return this.storeStore.getStoreConvinceStatusTypes.map(item => ({ value: item.id, text: item.name }))
@@ -612,6 +617,9 @@ export default {
     if (this.store.categoryId === null) {
       this.store.categoryId = 0
     }
+
+    // remember initial category to detect changes on submit
+    this.initialCategoryId = this.store.categoryId
 
     if (this.store.groceries !== null) {
       const selectedValues = this.storeStore.getGrocerieTypes.filter(opt => this.store.groceries.indexOf(opt.id) !== -1).map(opt => opt.name)
@@ -656,6 +664,14 @@ export default {
           this.pickupStore.invalidateOptionsCache()
           await this.pickupStore.fetchRegularPickup(this.storeId)
         }
+
+        // If category changed, force a full page reload to update displaying of
+        // fetch weiqht etc.
+        if (this.initialCategoryId !== store.categoryId) {
+          window.location.reload()
+          return
+        }
+
         pulseSuccess(this.$t('globals.saved'))
         this.$bvModal.hide('storeInformationModal')
       } catch (err) {

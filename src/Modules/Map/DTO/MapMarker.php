@@ -2,6 +2,8 @@
 
 namespace Foodsharing\Modules\Map\DTO;
 
+use Foodsharing\Modules\Categories\StoreCategoryType;
+
 class MapMarker
 {
     /**
@@ -20,6 +22,12 @@ class MapMarker
     public float $lat;
     public float $lon;
 
+    /**
+     * Category Type of the object.
+     * May be null for objects without category.
+     */
+    public ?StoreCategoryType $categoryType = StoreCategoryType::PICKUP;
+
     public static function createFromArray(array $data): MapMarker
     {
         $marker = new self();
@@ -27,6 +35,7 @@ class MapMarker
         $marker->name = $data['name'] ?? null;
         $marker->lat = round($data['lat'], 6);
         $marker->lon = round($data['lon'], 6);
+        $marker->categoryType = StoreCategoryType::tryFrom($data['categoryType'] ?? null) ?? StoreCategoryType::PICKUP;
 
         return $marker;
     }

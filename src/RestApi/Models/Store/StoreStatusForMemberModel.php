@@ -2,6 +2,7 @@
 
 namespace Foodsharing\RestApi\Models\Store;
 
+use Foodsharing\Modules\Categories\StoreCategoryType;
 use Foodsharing\Modules\Store\DTO\StoreStatusForMember;
 use OpenApi\Annotations as OA;
 
@@ -60,6 +61,11 @@ class StoreStatusForMemberModel
     public ?int $pickupStatus = null;
 
     /**
+     * Category Type of the store.
+     */
+    public StoreCategoryType $categoryType = StoreCategoryType::PICKUP;
+
+    /**
      * @param StoreStatusForMember $model Model to recreate from
      */
     public function __construct(StoreStatusForMember $model)
@@ -68,6 +74,9 @@ class StoreStatusForMemberModel
         $this->name = $model->store->name;
         $this->isManaging = $model->isManaging;
         $this->membershipStatus = $model->membershipStatus;
+        if (isset($model->categoryType)) {
+            $this->categoryType = $model->categoryType;
+        }
         if (isset($model->pickupStatus)) {
             $this->pickupStatus = $model->pickupStatus;
         }

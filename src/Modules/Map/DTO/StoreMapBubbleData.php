@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\Map\DTO;
 
 use DateTime;
+use Foodsharing\Modules\Categories\StoreCategoryType;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\PublicTimes;
 use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
@@ -147,4 +148,9 @@ class StoreMapBubbleData
      * The ID of the region this store belongs to.
      */
     public int $regionId = 0;
+
+    /**
+     * The type of the store category.
+     */
+    public StoreCategoryType $categoryType = StoreCategoryType::PICKUP;
 }

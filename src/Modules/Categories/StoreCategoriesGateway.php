@@ -24,6 +24,11 @@ class StoreCategoriesGateway extends AbstractCategoriesGateway
         return 'id';
     }
 
+    protected function getEntityTypeColumn(): ?string
+    {
+        return 'type';
+    }
+
     protected function allowsMultipleCategories(): bool
     {
         return false;

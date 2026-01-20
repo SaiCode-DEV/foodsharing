@@ -1,7 +1,7 @@
 <template>
   <div>
     <Container
-      :title="$t('pickup.dates')"
+      :title="$t('pickup.slots')"
       :tag="`store-pickup-list-${storeId}`"
       wrap-content="p-0"
     >
@@ -147,6 +147,10 @@ export default {
     mayEditStore: {
       type: Boolean,
       default: null,
+    },
+    categoryType: {
+      type: Number,
+      default: () => require('@/constants/storeCategoryTypes').STORE_CATEGORY_PICKUP,
     },
   },
   setup () {

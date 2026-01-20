@@ -4,6 +4,7 @@ namespace Foodsharing\RestApi;
 
 use Exception;
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Categories\StoreCategoryType;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionPinStatus;
 use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
@@ -85,11 +86,15 @@ class MapRestController extends AbstractFoodsharingRestController
                     $status = StoreMarkerStatusType::from($queryParams['status'] ?? 'all');
                     $help = StoreMarkerHelpType::from($queryParams['help'] ?? 'all');
                     $scope = StoreMarkerScopeType::from($queryParams['scope'] ?? 'all');
-                } catch (ValueError) {
-                    throw new BadRequestHttpException('Invalid store marker query parameters');
+                    $type = null;
+                    if (isset($queryParams['type']) && $queryParams['type'] !== '' && $queryParams['type'] !== 'null') {
+                        $type = StoreCategoryType::tryFrom($queryParams['type']);
+                    }
+                } catch (ValueError $ex) {
+                    throw new BadRequestHttpException('Invalid store marker query parameters: ' . $ex->getMessage());
                 }
 
-                return $this->respondOK($this->storeGateway->getStoreMarkers($this->session->id(), $status, $help, $scope));
+                return $this->respondOK($this->storeGateway->getStoreMarkers($this->session->id(), $status, $help, $scope, $type));
             case MapMarkerType::USERS:
                 $this->assertLoggedIn();
 

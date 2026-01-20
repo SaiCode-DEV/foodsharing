@@ -219,6 +219,8 @@ class FoodsaverGateway extends BaseGateway
             'geschlecht',
             'stat_fetchweight',
             'stat_fetchcount',
+            'stat_givecount',
+            'stat_engagecount',
             'is_sleeping'
         ], [
             'id' => $fsId

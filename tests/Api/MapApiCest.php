@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Api;
 
 use Codeception\Util\HttpCode;
+use Foodsharing\Modules\Categories\StoreCategoryType;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionPinStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
@@ -20,20 +21,37 @@ class MapApiCest
     private $foodSharePoint;
     private $user;
     private $basket;
-    private $store;
+    private $stores;
+    private $categories;
 
     final public function _before(ApiTester $I): void
     {
         $this->region = $I->createRegion(fillMailbox: false);
         $this->user = $I->createFoodsaver();
         $this->communityPin = $I->createCommunityPin($this->region['id']);
-        $this->store = $I->createStore($this->region['id'], null, null, ['lat' => 49.1, 'lon' => 5.2, 'team_status' => TeamSearchStatus::OPEN_SEARCHING->value, 'betrieb_status_id' => CooperationStatus::COOPERATION_ESTABLISHED->value]);
-        $I->createStore($this->region['id'], null, null, ['lat' => 49.1, 'lon' => 5.2, 'team_status' => TeamSearchStatus::CLOSED->value, 'betrieb_status_id' => CooperationStatus::GIVES_TO_OTHER_CHARITY->value]);
-        $I->createStore($this->region['id'], null, null, ['lat' => 49.1, 'lon' => 5.2, 'team_status' => TeamSearchStatus::OPEN_SEARCHING->value, 'betrieb_status_id' => CooperationStatus::COOPERATION_ESTABLISHED->value]);
-        $I->createStore($this->region['id'], null, null, ['lat' => 49.1, 'lon' => 5.2, 'team_status' => TeamSearchStatus::OPEN->value, 'betrieb_status_id' => CooperationStatus::COOPERATION_ESTABLISHED->value]);
-        $I->createStore($this->region['id'], null, null, ['lat' => 49.1, 'lon' => 5.2, 'team_status' => TeamSearchStatus::OPEN->value, 'betrieb_status_id' => CooperationStatus::COOPERATION_ESTABLISHED->value]);
-        $I->createStore($this->region['id'], null, null, ['lat' => 49.1, 'lon' => 5.2, 'team_status' => TeamSearchStatus::CLOSED->value, 'betrieb_status_id' => CooperationStatus::COOPERATION_ESTABLISHED->value]);
-        $I->createStore($this->region['id'], null, null, ['lat' => null, 'lon' => null, 'team_status' => TeamSearchStatus::OPEN->value, 'betrieb_status_id' => CooperationStatus::COOPERATION_ESTABLISHED->value]);
+
+        // Create store categories
+        $this->categories = [];
+        $I->clearTable('fs_betrieb_kategorie');
+        $this->categories[] = $I->haveInDatabase('fs_betrieb_kategorie', ['id' => 5, 'name' => 'Category Pickup', 'type' => StoreCategoryType::PICKUP->value]);
+        $this->categories[] = $I->haveInDatabase('fs_betrieb_kategorie', ['id' => 9, 'name' => 'Category Giving', 'type' => StoreCategoryType::GIVING->value]);
+        $this->categories[] = $I->haveInDatabase('fs_betrieb_kategorie', ['id' => 13, 'name' => 'Category Orga', 'type' => StoreCategoryType::ORGA->value]);
+
+        // Create stores
+        $this->stores = [];
+        // Pickup store
+        $this->stores[] = $I->createStore($this->region['id'], null, null, ['lat' => 49.1, 'lon' => 5.2, 'team_status' => TeamSearchStatus::OPEN_SEARCHING->value, 'betrieb_status_id' => CooperationStatus::COOPERATION_ESTABLISHED->value, 'betrieb_kategorie_id' => $this->categories[0]]);
+        // Giving store
+        $this->stores[] = $I->createStore($this->region['id'], null, null, ['lat' => 49.1, 'lon' => 5.2, 'team_status' => TeamSearchStatus::CLOSED->value, 'betrieb_status_id' => CooperationStatus::GIVES_TO_OTHER_CHARITY->value, 'betrieb_kategorie_id' => $this->categories[1]]);
+        // Orga store
+        $this->stores[] = $I->createStore($this->region['id'], null, null, ['lat' => 49.1, 'lon' => 5.2, 'team_status' => TeamSearchStatus::OPEN_SEARCHING->value, 'betrieb_status_id' => CooperationStatus::COOPERATION_ESTABLISHED->value, 'betrieb_kategorie_id' => $this->categories[2]]);
+        // More pickup stores
+        $this->stores[] = $I->createStore($this->region['id'], null, null, ['lat' => 49.1, 'lon' => 5.2, 'team_status' => TeamSearchStatus::OPEN->value, 'betrieb_status_id' => CooperationStatus::COOPERATION_ESTABLISHED->value, 'betrieb_kategorie_id' => $this->categories[0]]);
+        $this->stores[] = $I->createStore($this->region['id'], null, null, ['lat' => 49.1, 'lon' => 5.2, 'team_status' => TeamSearchStatus::OPEN->value, 'betrieb_status_id' => CooperationStatus::COOPERATION_ESTABLISHED->value, 'betrieb_kategorie_id' => $this->categories[0]]);
+        $this->stores[] = $I->createStore($this->region['id'], null, null, ['lat' => 49.1, 'lon' => 5.2, 'team_status' => TeamSearchStatus::CLOSED->value, 'betrieb_status_id' => CooperationStatus::COOPERATION_ESTABLISHED->value, 'betrieb_kategorie_id' => $this->categories[0]]);
+        // Invalid store (no coordinates)
+        $this->stores[] = $I->createStore($this->region['id'], null, null, ['lat' => null, 'lon' => null, 'team_status' => TeamSearchStatus::OPEN->value, 'betrieb_status_id' => CooperationStatus::COOPERATION_ESTABLISHED->value, 'betrieb_kategorie_id' => $this->categories[0]]);
+
         $this->foodSharePoint = $I->createFoodSharePoint($this->user['id']);
         $this->basket = $I->createFoodbasket($this->user['id']);
     }
@@ -170,23 +188,65 @@ class MapApiCest
         ]);
     }
 
+    final public function canFetchStoreMarkersPickup(ApiTester $I): void
+    {
+        $I->login($this->user['email']);
+        $I->sendGet('api/map/markers/stores', ['type' => StoreCategoryType::PICKUP->value]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $stores = $I->grabDataFromResponseByJsonPath('$');
+        $I->assertCount(1, $stores);
+        $I->assertCount(4, $stores[0]);
+    }
+
     final public function canFetchStoreBubble(ApiTester $I)
     {
         $I->login($this->user['email']);
-        $I->sendGet('api/map/stores/' . $this->store['id']);
+        $I->sendGet('api/map/stores/' . $this->stores[0]['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson([
-            'id' => $this->store['id'],
-            'name' => $this->store['name'],
-            'regionId' => $this->store['bezirk_id'],
+            'id' => $this->stores[0]['id'],
+            'name' => $this->stores[0]['name'],
+            'regionId' => $this->stores[0]['bezirk_id'],
             'regionName' => $this->region['name'],
+            'categoryType' => StoreCategoryType::PICKUP->value,
+        ]);
+    }
+
+    final public function canFetchStoreBubbleGiving(ApiTester $I)
+    {
+        $I->login($this->user['email']);
+        $I->sendGet('api/map/stores/' . $this->stores[1]['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson([
+            'id' => $this->stores[1]['id'],
+            'name' => $this->stores[1]['name'],
+            'regionId' => $this->stores[1]['bezirk_id'],
+            'regionName' => $this->region['name'],
+            'categoryType' => StoreCategoryType::GIVING->value,
+        ]);
+    }
+
+    final public function canFetchStoreBubbleOrga(ApiTester $I)
+    {
+        $I->login($this->user['email']);
+        $I->sendGet('api/map/stores/' . $this->stores[2]['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson([
+            'id' => $this->stores[2]['id'],
+            'name' => $this->stores[2]['name'],
+            'regionId' => $this->stores[2]['bezirk_id'],
+            'regionName' => $this->region['name'],
+            'categoryType' => StoreCategoryType::ORGA->value,
         ]);
     }
 
     final public function canNotFetchStoreBubbleWithoutLogin(ApiTester $I)
     {
-        $I->sendGet('api/map/stores/' . $this->store['id']);
+        $I->sendGet('api/map/stores/' . $this->stores[0]['id']);
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
     }
 

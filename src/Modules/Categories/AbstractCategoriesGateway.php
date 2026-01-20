@@ -4,6 +4,7 @@ namespace Foodsharing\Modules\Categories;
 
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
+use Foodsharing\Modules\Store\DTO\CategoryWithType;
 use Foodsharing\Modules\Store\DTO\CommonLabel;
 
 abstract class AbstractCategoriesGateway extends BaseGateway
@@ -34,6 +35,12 @@ abstract class AbstractCategoriesGateway extends BaseGateway
     abstract protected function getEntityIdColumn(): string;
 
     /**
+     * @return ?string the name of the column in the category table that identifies the entity type,
+     *                 or null if there is no such column
+     */
+    abstract protected function getEntityTypeColumn(): ?string;
+
+    /**
      * Whether an entity can be linked to multiple categories (m:n relation).
      *
      * - Return false if each entity has at most one category (1:n).
@@ -49,32 +56,63 @@ abstract class AbstractCategoriesGateway extends BaseGateway
      */
     public function getCategoriesWithUsageCounts(): array
     {
+        $extra = $this->getEntityTypeColumn() ? ", c.{$this->getEntityTypeColumn()}" : '';
         $categories = $this->db->fetchAll("SELECT
-                c.id, c.name, COUNT(u.{$this->getUsageColumn()}) AS count
+                c.id, c.name, COUNT(u.{$this->getUsageColumn()}) AS count{$extra}
             FROM {$this->getCategoryTable()} c
             LEFT OUTER JOIN {$this->getUsageTable()} u ON c.id = u.{$this->getUsageColumn()}
             GROUP BY c.id");
 
-        return array_map(fn ($row) => Category::create($row['id'], $row['name'], $row['count']), $categories);
+        return array_map(fn ($row) => Category::create(
+            $row['id'],
+            $row['name'],
+            $row['count'],
+            $this->getEntityTypeColumn() ? $row[$this->getEntityTypeColumn()] : null
+        ), $categories);
     }
 
     /**
-     * @return CommonLabel[]
+     * @return CommonLabel[]|CategoryWithType[]
      */
     public function getCategories(): array
     {
-        $categories = $this->db->fetchAll("SELECT id, name FROM {$this->getCategoryTable()} ORDER BY name");
+        $extra = $this->getEntityTypeColumn() ? ", {$this->getEntityTypeColumn()}" : '';
+        $categories = $this->db->fetchAll("SELECT id, name{$extra} FROM {$this->getCategoryTable()} ORDER BY name");
+
+        if ($this->getEntityTypeColumn() !== null) {
+            // convert DB integer type to string name for API consumers
+            foreach ($categories as &$row) {
+                if (isset($row[$this->getEntityTypeColumn()])) {
+                    $row['type'] = $row[$this->getEntityTypeColumn()];
+                }
+            }
+            unset($row);
+
+            return array_map(fn ($row) => CategoryWithType::createFromArray($row), $categories);
+        }
 
         return array_map(fn ($row) => CommonLabel::createFromArray($row), $categories);
     }
 
     public function addCategory(CommonLabel $category): int
     {
+        if ($this->getEntityTypeColumn() !== null) {
+            $subType = $category instanceof CategoryWithType ? $category->subType : null;
+
+            return $this->db->insert($this->getCategoryTable(), ['name' => $category->name, $this->getEntityTypeColumn() => $subType]);
+        }
+
         return $this->db->insert($this->getCategoryTable(), ['name' => $category->name]);
     }
 
     public function updateCategory(CommonLabel $category): void
     {
+        if ($this->getEntityTypeColumn() !== null) {
+            $subType = $category instanceof CategoryWithType ? $category->subType : null;
+            $this->db->update($this->getCategoryTable(), ['name' => $category->name, $this->getEntityTypeColumn() => $subType], ['id' => $category->id]);
+
+            return;
+        }
         $this->db->update($this->getCategoryTable(), ['name' => $category->name], ['id' => $category->id]);
     }
 

@@ -7,7 +7,7 @@ namespace Api;
 use Codeception\Util\HttpCode as Http;
 use Faker\Factory;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
-use Foodsharing\Modules\Store\DTO\CommonLabel;
+use Foodsharing\Modules\Store\DTO\CategoryWithType;
 use Tests\Support\ApiTester;
 
 /**
@@ -50,7 +50,7 @@ class CategoriesApiCest
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPost('api/categories/store', $newCategory);
         $I->seeResponseCodeIs(Http::UNAUTHORIZED);
-        $I->dontSeeInDatabase('fs_betrieb_kategorie', ['name' => $newCategory['name']]);
+        $I->dontSeeInDatabase('fs_betrieb_kategorie', ['name' => $newCategory['name'], 'type' => $newCategory['subType']]);
 
         $I->login($this->userAdmin['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
@@ -59,7 +59,7 @@ class CategoriesApiCest
         $I->seeResponseContainsJson($newCategory);
         $id = $I->grabDataFromResponseByJsonPath('id')[0];
 
-        $I->seeInDatabase('fs_betrieb_kategorie', ['id' => $id, 'name' => $newCategory['name']]);
+        $I->seeInDatabase('fs_betrieb_kategorie', ['id' => $id, 'name' => $newCategory['name'], 'type' => $newCategory['subType']]);
     }
 
     public function canNotAddStoreCategoryAsUser(ApiTester $I): void
@@ -70,7 +70,7 @@ class CategoriesApiCest
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPost('api/categories/store', $newCategory);
         $I->seeResponseCodeIs(Http::FORBIDDEN);
-        $I->dontSeeInDatabase('fs_betrieb_kategorie', ['name' => $newCategory['name']]);
+        $I->dontSeeInDatabase('fs_betrieb_kategorie', ['name' => $newCategory['name'], 'type' => $newCategory['subType']]);
     }
 
     public function canEditStoreCategoryAsAdmin(ApiTester $I): void
@@ -81,14 +81,15 @@ class CategoriesApiCest
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPatch('api/categories/store/' . $category->id, $newProperties);
         $I->seeResponseCodeIs(Http::UNAUTHORIZED);
-        $I->seeInDatabase('fs_betrieb_kategorie', ['id' => $category->id, 'name' => $category->name]);
+        $I->seeInDatabase('fs_betrieb_kategorie', ['id' => $category->id, 'name' => $category->name, 'type' => $category->subType]);
+        $I->dontSeeInDatabase('fs_betrieb_kategorie', ['id' => $category->id, 'name' => $newProperties['name'], 'type' => $newProperties['subType']]);
 
         $I->login($this->userAdmin['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPatch('api/categories/store/' . $category->id, $newProperties);
         $I->seeResponseCodeIs(Http::OK);
 
-        $I->seeInDatabase('fs_betrieb_kategorie', ['id' => $category->id, 'name' => $newProperties['name']]);
+        $I->seeInDatabase('fs_betrieb_kategorie', ['id' => $category->id, 'name' => $newProperties['name'], 'type' => $newProperties['subType']]);
     }
 
     public function canNotEditStoreCategoryAsUser(ApiTester $I): void
@@ -149,15 +150,16 @@ class CategoriesApiCest
     private function createRandomCategory(): array
     {
         return [
-            'name' => $this->faker->realTextBetween(5, 20)
+            'name' => $this->faker->realTextBetween(5, 20),
+            'subType' => random_int(0, 2)
         ];
     }
 
-    private function getRandomCategoryFromDatabase(ApiTester $I): CommonLabel
+    private function getRandomCategoryFromDatabase(ApiTester $I): CategoryWithType
     {
         $entries = $I->grabEntriesFromDatabase('fs_betrieb_kategorie');
         $entry = $entries[random_int(0, sizeof($entries) - 1)];
 
-        return new CommonLabel($entry['id'], $entry['name']);
+        return new CategoryWithType($entry['id'], $entry['name'], $entry['type']);
     }
 }

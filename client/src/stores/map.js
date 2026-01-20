@@ -1,4 +1,5 @@
 import { getMapMarkers } from '@/api/map'
+import { STORE_CATEGORY_PICKUP, STORE_CATEGORY_GIVING, STORE_CATEGORY_ORGA } from '@/constants/storeCategoryTypes'
 import { getCache, getCacheInterval, setCache } from '@/helper/cache'
 
 // Markers are reloaded from the server if they are older than this
@@ -15,11 +16,15 @@ export const MAP_CONSTANTS = Object.freeze({
 
 export const MARKER_TYPES = Object.freeze({
   baskets: { name: 'baskets', label: 'terminology.baskets', icon: 'shopping-basket', color: 'green' },
-  stores: { name: 'stores', label: 'menu.entry.stores', icon: 'shopping-cart', color: 'darkred' },
+  stores: { name: 'stores', label: 'menu.entry.stores', icon: 'map-marker-alt', color: 'darkred' },
   foodsharepoints: { name: 'foodsharepoints', label: 'terminology.fsp', icon: 'recycle', color: 'beige' },
   communities: { name: 'communities', label: 'menu.entry.regionalgroups', icon: 'users', color: 'blue' },
   users: { name: 'users', label: 'terminology.users', icon: 'user', color: 'darkpurple' },
   events: { name: 'events', label: 'map.events.title', icon: 'calendar', color: 'orange' },
+  // Special types for store categories
+  stores_0: { name: 'stores_pickup', label: 'map.filter.stores.type.pickup', icon: 'shopping-cart', color: 'darkred' },
+  stores_1: { name: 'stores_giving', label: 'map.filter.stores.type.giving', icon: 'hand-holding-hand', color: 'darkred' },
+  stores_2: { name: 'stores_orga', label: 'map.filter.stores.type.orga', icon: 'clipboard-list', color: 'darkred' },
 })
 
 export const MARKER_SELECT_TYPES = Object.freeze({
@@ -27,6 +32,7 @@ export const MARKER_SELECT_TYPES = Object.freeze({
     status: ['all', 'cooperating', 'not-cooperating'],
     help: ['all', 'open', 'searching'],
     scope: ['all', 'region', 'member'],
+    type: [null, STORE_CATEGORY_PICKUP, STORE_CATEGORY_GIVING, STORE_CATEGORY_ORGA],
   },
   users: {
     role: ['all', 'foodsaver', 'store-manager'],

@@ -89,14 +89,14 @@ fax: "Fax"
 lebensmittel: "Welche Lebensmittel werden abgeholt?"
 begin: "Beginn der Kooperation"
 besonderheiten: "Ablauf & Hinweise"
-public_time: "Ungefähre Tageszeit der Abholung"
+public_time: "Ungefähre Tageszeit der Slots"
 first_post: "Erster Pinnwandeintrag"
 ueberzeugungsarbeit: "War es einfach, die Verantwortlichen zu überzeugen, mit foodsharing zu kooperieren?"
 presse: "Ist der Betrieb/Laden/Verein bereit, bei der Presse und foodsharing.de genannt zu werden?"
 sticker: "Ist der Betrieb/Laden/Verein etc. gewillt, einen Sticker beim Eingang oder anderswo sichtbar anzubringen?"
 prefetchtime: "Wie viele Wochen im Voraus können sich Foodsaver:innen mittels automatischer Slots eintragen?"
-abholmenge: "Wie viel kg werden pro Abholung ungefähr von jeder Person mitgenommen?"
-use_region_pickup_rule: "Soll für diesen Betrieb die Bezirks-ROSINEN-Regel für Abholungen gelten?"
+abholmenge: "Wie viel kg fallen pro Slot ungefähr für jede Person an?"
+use_region_pickup_rule: "Soll für Slots in diesem Betrieb die Bezirks-ROSINEN-Regel gelten?"
 #
 # FORM DATA KEYS: QuizView QuizXhr and Quizview
 # --
@@ -417,14 +417,14 @@ group:
     requires_properties: "Alle, die bestimmte Vertrauenspunkte erfüllen."
     everybody: "Jede:r darf sich bewerben."
     open: "Jede:r kann sich ohne Bewerbung einklinken."
-    fetch_count: "Wie viele Abholungen sollte man bereits gemacht haben?"
+    fetch_count: "Wie viele Slots sollte man bereits gemacht haben?"
     banana_count: "Wie viele Vertrauensbananen müssen vorhanden sein?"
     banana_count_errors:
       min: "Niemand soll weniger als {{ limit }} Vertrauensbananen haben."
       max: "Bitte erwarte nicht mehr als {{ limit }} Vertrauensbananen."
       not_in_range: "{{ limit }} Niemand sollte weniger als {{ min }} oder mehr als {{ max }} Vertrauensbananen haben."
     member_since_weeks: "Seit wie vielen Wochen sollten die Bewerber:innen schon bei foodsharing sein?"
-    not_fulfilled: "Um dich für diese Arbeitsgruppe zu bewerben, musst du seit %weeks% Wochen bei foodsharing sein, schon %bananas% Vertrauensbananen gesammelt und schon %fetches% Abholungen mitgemacht haben."
+    not_fulfilled: "Um dich für diese Arbeitsgruppe zu bewerben, musst du seit %weeks% Wochen bei foodsharing sein, schon %bananas% Vertrauensbananen gesammelt und schon %fetches% Slots wahrgenommen haben."
   members: "Mitglieder"
   administrators: "Gruppen-Admins"
   title: "foodsharing-Arbeitsgruppen"
@@ -687,7 +687,8 @@ terminology:
   stores: "Betriebe"
   store: Betrieb
   pickup: "Abholung"
-  previous_pickups: "Abholungen hier"
+  giving: "Abgabe"
+  previous_pickups: "Slots hier"
   no_pickups: "keine"
   users: "Nutzer:innen"
   foodsharer:
@@ -903,7 +904,7 @@ storeview:
   team_info_distance: "Luftlinien-Entfernung zum Betrieb:"
   team_info_active: "Aktive im Team:"
   team_info_jumper: "Springer:"
-  pickupCount: "Abholungen"
+  pickupCount: "Slots"
   pickupWeight: "kg gerettet"
   cooperation: "Kooperation seit {startTime}."
   cooperation_start: "Kooperation seit"
@@ -921,7 +922,7 @@ storeview:
   status_notes: "Statusnotizen"
   managers: "Betriebsverantwortliche"
   specials: "Besonderheiten"
-  team: "Abholteam"
+  team: "Betriebsteam"
   want_to_fetch: "In diesem Team würde ich gerne helfen."
   public_and_statistics: "Statistik & Öffentlichkeitsarbeit"
   no_permission_to_view: "Nur für Betriebsverantwortliche sichtbar."
@@ -952,12 +953,12 @@ store:
   not-in-team: "Du bist noch nicht im Team dieses Betriebs."
   pickup_slot_unavailable: "Dieser Slot liegt weiter in der Zukunft als von deinen Betriebsverantwortlichen vorgesehen ist. Versuche es also bitte zu einem späteren Zeitpunkt erneut."
   all_of_my_stores: "Alle meine Betriebe"
-  tooltip_yellow: "Offene Abholungen in den nächsten fünf Tagen"
-  tooltip_orange: "Offene Abholungen in den nächsten drei Tagen"
-  tooltip_red: "Offene Abholungen heute oder morgen"
-  short_tooltip_yellow: "Offene Abholungen in 5 Tagen"
-  short_tooltip_orange: "Offene Abholungen in 3 Tagen"
-  short_tooltip_red: "Offene Abholungen heute oder morgen"
+  tooltip_yellow: "Offene Slots in den nächsten fünf Tagen"
+  tooltip_orange: "Offene Slots in den nächsten drei Tagen"
+  tooltip_red: "Offene Slots heute oder morgen"
+  short_tooltip_yellow: "Offene Slots in 5 Tagen"
+  short_tooltip_orange: "Offene Slots in 3 Tagen"
+  short_tooltip_red: "Offene Slots heute oder morgen"
   tooltip_managing: "Du bist verantwortlich für diesen Betrieb"
   tooltip_jumping: "Du bist Springer für diesen Betrieb"
   managing: "Betriebsverantwortung"
@@ -981,8 +982,8 @@ store:
   teamName: "{storeTitle}-Team"
   joinDate: "Im Team seit {date}"
   jumperSince: "Springer seit {date}"
-  lastPickupTitle: "Letzte Abholung hier"
-  lastPickup: "Letzte Abholung {date}"
+  lastPickupTitle: "Letzter Termin hier"
+  lastPickup: "Letzter Termin {date}"
   lastPickupShort: "zuletzt {date}"
   signInDateTime: "Eintragungszeitpunkt"
   slotsCurrentlyOccupied: "Aktuell belegte Slots"
@@ -1000,21 +1001,21 @@ store:
   particularities: "Ablauf & Hinweise"
   particularities_chain: "Besonderheiten der Kette"
   particularities_chain_tooltip: "Dieser Betrieb ist Teil einer Kette. Deshalb werden diese zusätzlichen Informationen angezeigt, die für alle Betriebe der Kette gelten."
-  average_collection_quantity: "Abholmenge pro Person"
+  average_collection_quantity: "Menge pro Person"
   attribution: "Namensnennung"
   may_referred_to_in_public_unclear: "Noch nicht geklärt"
   may_referred_to_in_public: "Dieser Betrieb darf öffentlich genannt werden."
   may_not_referred_to_in_public: "Bitte diesen Betrieb niemals öffentlich (bspw. bei Essenskörben, in sozialen Medien oder bei Presseanfragen) nennen."
   address: "Adresse"
-  my_last_pickup: "Meine letzte Abholung"
+  my_last_slot: "Mein letzter Slot"
   days: "Tagen"
   days_before: "vor"
   team_conversation_name: "Team {name}"
   springer_conversation_name: "Springer {name}"
   regionPickupRules: "zusätzliche Rosinen-Regel"
-  useRegionPickupRules: "Dies ist ein Rosinenbetrieb. Zusätzlich zu den Betriebsregeln gilt folgende betriebsübergreifende Fairnessregel für Abholungen:"
-  regionPickupRulesInactive: "Die zusätzlichen Bezirksregeln für Abholungen sind nicht aktiv"
-  regionPickupRuleLong: "Innerhalb von jeweils {regionPickupRuleTimespan} Tagen vor und nach der gewünschten Abholung dürfen insgesamt nicht mehr als {regionPickupRuleLimit} Abholungen bei Rosinenbetrieben eingetragen sein. Pro Tag darf höchstens insgesamt {regionPickupRuleLimitDay}-mal bei Rosinenbetrieben abgeholt werden. {regionPickupRuleInactive} Stunden vor der Abholung bleibt diese Regel unberücksichtigt."
+  useRegionPickupRules: "Dies ist ein Rosinenbetrieb. Zusätzlich zu den Betriebsregeln gilt folgende betriebsübergreifende Fairnessregel für Slots:"
+  regionPickupRulesInactive: "Die zusätzlichen Bezirksregeln für Slots sind nicht aktiv"
+  regionPickupRuleLong: "Innerhalb von jeweils {regionPickupRuleTimespan} Tagen vor und nach der gewünschten Abholung dürfen insgesamt nicht mehr als {regionPickupRuleLimit} Slots bei Rosinenbetrieben eingetragen sein. Pro Tag darf höchstens insgesamt {regionPickupRuleLimitDay}-mal bei Rosinenbetrieben abgeholt werden. {regionPickupRuleInactive} Stunden vor der Abholung bleibt diese Regel unberücksichtigt."
   sm: # TODO Cleanup
     sorting:
       default: "Standard-Sortierung"
@@ -1030,7 +1031,7 @@ store:
     filterQuizSM: "Quiz für Betriebsverantwortliche bestanden"
     removeFromTeam: "Aus dem Team entfernen"
     reallyRemove: "Möchtest du wirklich {name} aus diesem Betriebs-Team entfernen?"
-    userHasPickupsWarning: "{name} ist noch für {occupiedSlots} Abholungen in diesem Betrieb eingetragen. Diese Slots werden dann frei. Möchtest du trotzdem fortfahren?"
+    userHasPickupsWarning: "{name} ist noch für {occupiedSlots} Slots in diesem Betrieb eingetragen. Diese Slots werden dann frei. Möchtest du trotzdem fortfahren?"
     makeJumper: "Auf die Springerliste"
     makeRegularTeamMember: "In das Team aufnehmen"
     inviteMember: "In das Team einladen"
@@ -1068,7 +1069,7 @@ store:
     confirm-no-location-ok: "Trotzdem bewerben"
     application-message: "Bewerbungsnachricht"
     application-placeholder: "Ich möchte gerne in diesem Team helfen, weil …"
-    hygieneRequired: "Für die Abholungen in diesem Betrieb ist eine gültige Hygieneschulung nötig."
+    hygieneRequired: "Für diesen Betrieb ist eine gültige Hygieneschulung nötig."
     hygieneMissing: "Die fehlt dir aktuell. Führe jetzt das Hygienequiz durch, um dich für dieses Team bewerben zu können."
     completeProfileRequired:
       text: "Du kannst dich aktuell nicht bewerben, da du noch nicht alle notwendigen Daten in deinem Profil hinterlegt hast. Du musst mindestens in den folgenden Feldern gültige Angaben eingegeben haben: Vorname, Nachname, Geburtsdatum, Aktuelle Adresse, Profilfoto. Bitte trage diese Daten nach. Danach kannst du erneut versuchen dich zu bewerben."
@@ -1115,7 +1116,7 @@ store:
     search_input: "Suche nach Namen der Kette"
   delete:
     button: "Betrieb löschen"
-    sure: "Möchtest du diesen Betrieb wirklich löschen? Dieser Vorgang kann nicht rückgängig gemacht werden! Alle Mitglieder werden aus dem Betrieb entfernt und alle betriebsspezifischen Informationen außer dem Betriebsprotokoll werden gelöscht. Bitte lösche nur Betriebe, die tatsächlich nicht mehr existieren oder doppelt eingetragen wurden. Betriebe, die einer Kooperation abgesagt haben, sollten eingetragen bleiben. Es können nur Betriebe gelöscht werden, in denen noch nie eine Abholung stattgefunden hat, und deren Team-Chats für mindestens 3 Monate ungenutzt waren."
+    sure: "Möchtest du diesen Betrieb wirklich löschen? Dieser Vorgang kann nicht rückgängig gemacht werden! Alle Mitglieder werden aus dem Betrieb entfernt und alle betriebsspezifischen Informationen außer dem Betriebsprotokoll werden gelöscht. Bitte lösche nur Betriebe, die tatsächlich nicht mehr existieren oder doppelt eingetragen wurden. Betriebe, die einer Kooperation abgesagt haben, sollten eingetragen bleiben. Es können nur Betriebe gelöscht werden, in denen noch nie eine Slot stattgefunden hat, und deren Team-Chats für mindestens 3 Monate ungenutzt waren."
 
 #
 # Store and StoreUser
@@ -1130,15 +1131,15 @@ store:
     search_reset: "Suche zurücksetzen"
     no_record: "Es wurde kein Eintrag gefunden."
   filter: "Filtern nach …"
-  enter_date: "Einzelnen Abholtermin eintragen"
-  enter_date_description: "Nachdem du Datum, Uhrzeit und Abholendenzahl ausgewählt hast, kannst du einen einmaligen Abholtermin anlegen. Solltest du regelmäßige (wöchentlich automatisch wiederkehrende) Slots erstellen wollen, nutze bitte das Menü „Betriebseinstellungen“."
-  delete_date: "Einzelnen Abholtermin löschen"
+  enter_date: "Einzelnen Slot eintragen"
+  enter_date_description: "Nachdem du Datum, Uhrzeit und Anzahl der Slots ausgewählt hast, kannst du einen einmaligen Slot anlegen. Solltest du regelmäßige (wöchentlich automatisch wiederkehrende) Slots erstellen wollen, nutze bitte das Menü „Betriebseinstellungen“."
+  delete_date: "Einzelnen Slot löschen"
   delete_date_description: "Solltest du regelmäßige (wöchentlich automatisch wiederkehrende) Slots in deinem Betrieb nutzen und im Vorfeld verhindern wollen, dass ein bestimmter Termin (etwa ein Feiertag) erzeugt wird, kannst du durch Angabe von Datum und Uhrzeit mit dieser Funktion dafür sorgen. Solltest du bereits sichtbare Slots löschen wollen, ist dies auch direkt per Klick auf den Slot möglich, sofern noch niemand eingetragen ist."
-  enternumber: "Du musst noch die Anzahl der Abholenden auswählen."
+  enternumber: "Du musst noch die Anzahl der Slots auswählen."
   leaveinfo: "Hier kannst du einige Infos für die Foodsavenden angeben, die sich für das Team bewerben möchten."
   maxchar: "(max. 180 Zeichen)"
   important: "Wichtig:"
-  nodetails: "Gib hier keine genauen Abholzeiten an."
+  nodetails: "Gib hier keine genauen Slot-Zeiten an."
   peoplecame: "Es ist schon vorgekommen, dass Leute unabgesprochen zum Laden gegangen sind."
   nochains: "Bitte nur inhabergeführte Betriebe mit höchstens drei Filialen ansprechen, niemals Filialen einer größeren Kette ansprechen! Betriebskettenregeln beachten!"
   nodeclaration: "Keine Angabe"
@@ -1170,10 +1171,10 @@ store:
       8: Team verlassen
       9: Betriebsverantwortliche eintragen
       10: Betriebsverantwortliche austragen
-      11: Eintragen für Abholung
-      12: Austragen für Abholung
-      13: Für Abholung ausgetragen werden
-      14: Abholslot bestätigen
+      11: Eintragen für Slot
+      12: Austragen für Slot
+      13: Für Slot ausgetragen werden
+      14: Slot bestätigen
       15: Pinnwandeintrag löschen
       16: Beitrittsanfrage zurückziehen
       17: Foodsaver:innen ins Team einladen
@@ -1191,11 +1192,11 @@ store:
       8: "{actor} hat das Team verlassen."
       9: "{actor} hat {target} als Betriebsverantwortliche:n eingetragen."
       10: "{actor} hat {target} als Betriebsverantwortliche:n ausgetragen."
-      11: "{actor} hat sich für die Abholung am {date} eingetragen."
-      12: "{actor} hat sich für die Abholung am {date} ausgetragen."
-      13: "{actor} hat {target} für die Abholung am {date} ausgetragen."
-      13_with_reason: "{actor} hat {target} für die Abholung am {date} mit folgender Nachricht ausgetragen"
-      14: "{actor} hat den Abholslot von {target} am {date} bestätigt."
+      11: "{actor} hat sich am {date} eingetragen."
+      12: "{actor} hat sich am {date} ausgetragen."
+      13: "{actor} hat {target} am {date} ausgetragen."
+      13_with_reason: "{actor} hat {target} am {date} mit folgender Nachricht ausgetragen"
+      14: "{actor} hat den Slot von {target} am {date} bestätigt."
       15: "{actor} hat {target}s Pinnwandeintrag vom {date} gelöscht."
       16: "{actor} hat die Beitrittsanfrage zurückgezogen."
       17: "{actor} hat {target} ins Team eingeladen."
@@ -1253,7 +1254,7 @@ storeedit:
     teamStatus1: "Es werden noch Helfer:innen gesucht"
     teamStatus2: "Es werden dringend noch Helfer:innen gesucht"
     hygieneRequirement: "Hygieneanforderungen"
-    hygieneRequired: "Abholung nur mit gültiger Hygieneschulung erlauben"
+    hygieneRequired: "Eintragung nur mit gültiger Hygieneschulung erlauben"
     applicationRequirements: "Bewerbungsanforderungen"
     verifiedRequired: "Nur verifizierte Foodsaver:innen zulassen"
     phoneRequirement: "Nur Foodsaver:innen mit hinterlegter Telefonnummer zulassen"
@@ -1267,7 +1268,7 @@ storeedit:
     dropped: "{user} ist jetzt nicht mehr im Team"
 
 pickup:
-  dates: "Abholtermine"
+  slots: "Slots"
   call: "Anrufen"
   confirm: "Bestätigen"
   kick: "Austragen"
@@ -1295,37 +1296,37 @@ pickup:
   same_day_hint: "Folgendes findet am gleichen Tag statt:"
   region_pickup_rule_failed: "Diese Eintragung erfüllt nicht die Bezirksregeln"
   same_day_entry: "[{when} Uhr] {name}"
-  really_join_date: "Möchtest du dich verbindlich für die Abholung am {date} eintragen?"
+  really_join_date: "Möchtest du dich verbindlich am {date} eintragen?"
   hygieneCertificateMissing:
-    none: "Du hast aktuell keine gültige Hygieneschulung. Führe jetzt das Hygienequiz durch, um dich für die Abholung eintragen zu können."
-    timeout: "Bis zum Zeitpunkt der Abholung läuft deine Hygieneschulung ab. Führe jetzt erneut das Hygienequiz durch, um dich für die Abholung eintragen zu können."
+    none: "Du hast aktuell keine gültige Hygieneschulung. Führe jetzt das Hygienequiz durch, um dich eintragen zu können."
+    timeout: "Bis zum Zeitpunkt der Abholung läuft deine Hygieneschulung ab. Führe jetzt erneut das Hygienequiz durch, um dich eintragen zu können."
     link: "Zur Hygieneschulung"
   membershipMissing: "Du bist kein Mitglied dieses Teams. Daher solltest du dich nicht für Abholungen eintragen. Trage dich im Zweifelsfall erst als Teammitglied ein."
   join_cancel: "Doch nicht"
   join_agree: "Ja, verbindlich eintragen"
   take_empty_slot: "Hier eintragen"
+  delete_title: "Slot löschen"
   passport_expired:
     short: "Ausweis abgelaufen"
     long: "Dein Ausweis ist zu diesem Zeitpunkt nicht mehr gültig"
-  delete_title: "Abholtermin löschen"
   edit_description: "Beschreibung bearbeiten"
   description: "Beschreibung"
   description_optional: "Beschreibung (optional)"
-  description_modal_text: "Gib eine neue Beschreibung für die Abholung an:"
+  description_modal_text: "Gib eine neue Beschreibung an:"
   description_max_length_info: "Maximale Beschreibungslänge erreicht (100 Zeichen)"
-  really_delete_date: "Möchtest du die Abholung am {date} wirklich löschen?"
-  delete_not_empty: "Aktuell sind noch Abholende eingetragen. Du kannst diesen Abholtermin erst löschen, wenn alle ausgetragen sind."
-  to_be_confirmed: "Dieser Abholtermin muss noch von einer für diesen Betrieb verantwortlichen Person bestätigt werden."
-  confirmed: "Abholtermin ist bestätigt."
-  may_enter: "Bei diesem Abholtermin ist noch ein Slot für dich frei."
-  edit_recurring_pickups: "Terminserie bearbeiten"
-  add_onetime_pickup: "einzelnen Termin eintragen"
+  really_delete_date: "Möchtest du den Slot am {date} wirklich löschen?"
+  delete_not_empty: "Aktuell sind noch Abholende eingetragen. Du kannst diesen Slot erst löschen, wenn alle ausgetragen sind."
+  to_be_confirmed: "Dieser Slot muss noch von einer für diesen Betrieb verantwortlichen Person bestätigt werden."
+  confirmed: "Slot ist bestätigt."
+  may_enter: "Bei diesem Slot ist noch ein Platz für dich frei."
+  edit_recurring_pickups: "Slotserie bearbeiten"
+  add_onetime_pickup: "einzelnen Slot eintragen"
   slot_add: "Slot hinzufügen"
   slot_remove: "Slot entfernen"
   no_slots_available: "Keine Slots verfügbar"
   history:
-    title: "Abholungshistorie"
-    search: "Abholungen anzeigen"
+    title: "Slothistorie"
+    search: "Slots anzeigen"
   signout_history:
     title: "Historie ausgetragener Foodsaver:innen der letzten 7 Tage"
     reload: "Neuladen"
@@ -1336,9 +1337,7 @@ pickup:
       remove_reason: "(Grund: {reason})"
   chat: "Slot-Chat starten"
   edit:
-    bread: "Abholzeiten bearbeiten"
-    add: "Abholzeiten eintragen"
-    more: "Termin hinzufügen"
+    bread: "Slots bearbeiten"
     slot_titel: "Slots"
     description_titel: "Beschreibung"
     disable_auto_slot_titel: "Deaktivierung"
@@ -1353,28 +1352,28 @@ pickup:
       Kläre die maximale Zahl möglicher Abholender mit dem Betrieb ab.
       Zusätzlich benötigte Helfende können mit Fahrradanhängern oder ähnlichem
       außerhalb der Hör- und Sichtweite des Betriebs warten.
-    added: "Abholtermin wurde eingetragen."
+    added: "Slot wurde eingetragen."
     disable_auto_slot: "Automatischer Slot in der Zukunft soll deaktiviert werden."
   overview:
-    header: Abholtermine
+    header: Slots
     tab:
       registered:
-        name: Eingetragene Abholtermine
+        name: Eingetragene Slots
         tooltip:
-          own: Zukünftige Abholtermine, für die du dich eingetragen hast
-          other: Eingetragene zukünftige Abholtermine
-        empty: Momentan sind keine Abholungen eingetragen.
+          own: Zukünftige Slots, für die du dich eingetragen hast
+          other: Eingetragene zukünftige Slots
+        empty: Momentan sind keine Slots eingetragen.
       options:
-        name: Abholmöglichkeiten
+        name: Eintragungsmöglichkeiten
         tooltip:
-          own: Zukünftige Abholtermine, für die du dich noch eintragen könntest
+          own: Zukünftige Slots, für die du dich noch eintragen könntest
         empty: Momentan sind in deinen Betrieben keine Slots frei.
       history:
-        name: Abholhistorie
+        name: Slot-Historie
         tooltip:
-          own: Vergangene Abholtermine, an denen du teilgenommen hast
-          other: Vergangene Abholtermine des letzten Monats, an denen teilgenommen wurde
-        empty: Es wurde noch an keinen Abholungen teilgenommen.
+          own: Vergangene Slots, an denen du teilgenommen hast
+          other: Vergangene Slots des letzten Monats, an denen teilgenommen wurde
+        empty: Es wurde sich noch für keinen Slot eingetragen.
     cols:
       time: Zeitpunkt
       store: Betrieb
@@ -1387,7 +1386,7 @@ pickup:
       refresh: Aktualisieren
       signOffAll: Aus allen austragen
       signOff: Austragen
-      registeredSwitch: Eingetragene Abholungen
+      registeredSwitch: Eingetragene Slots
       managedOnlySwitch: BV-Ansicht
       useCondensedDesign: Gruppiert nach Tagen
       loadMore: Weitere laden
@@ -1419,9 +1418,9 @@ calendar:
   copiedUrl: "Kalender-URL kopiert!"
   export:
     pickup:
-      name: "{store} Abholung"
+      name: "{store} Slot"
       unconfirmed: "unbestätigt"
-      description: 'foodsharing-Abholung bei <a href="{url}">{store}</a>'
+      description: 'foodsharing-Slot bei <a href="{url}">{store}</a>'
       foodsavers: "Eingetragene Foodsaver:innen: "
       freeSlots: "{count} Slots sind noch frei"
     updated: "(Zuletzt aktualisiert: {date})"
@@ -1813,11 +1812,10 @@ bell:
     many: "{count} neue Pinnwandeinträge"
 
   store_cr_times_title: "{name}"
-  store_cr_times: "Abholtermine wurden angepasst"
+  store_cr_times: "Aufgabentermine wurden angepasst"
   store_change_regular_pickup_times:
-    one: "Abholtermine wurden angepasst"
-    many: "Abholtermine wurden angepasst"
-
+    one: "Aufgabentermin wurden angepasst"
+    many: "Aufgabentermine wurden angepasst"
 
   fs_sleepmode_title: "Neue Schlafmütze"
   fs_sleepmode: "{name} {nachname} ist jetzt inaktiv"
@@ -1920,7 +1918,7 @@ genderlist:
   number_table_header: "Anzahl"
 
 pickuplist:
-  header_for_district: "Aufteilung der Abholungen in {bezirk} "
+  header_for_district: "Aufteilung der Slots in {bezirk} "
   day_tab: "Tag"
   week_tab: "Woche"
   month_tab: "Monat"
@@ -1959,12 +1957,12 @@ regionOptions:
   regionReportReasonCategoryB: "Erweiterte Meldungsgründe: Verhaltensregeln - B) Verhalten bei Abholungen"
   regionReportReasonOther: "„Sonstiges“ als Meldungsgrund erlauben"
   enableMediationButton: "Mediationsformular auf Profilseiten der Stammfoodsaver:innen des Bezirks aktivieren"
-  regionPickupRuleActive: "Folgende Bezirksregel für Abholungen bei beliebten „Rosinen“-Betrieben aktivieren:"
-  regionPickupTimespan: "Zeitspanne (Tage vor und nach dem gewünschten Abholtermin), auf die sich die Rosinen-Regel bezieht"
-  regionPickupLimitNumber: "Maximale Anzahl der zulässigen Rosinen-Abholungen im gewählten Zeitraum"
-  regionPickupLimitDayNumber: "Maximale Anzahl von Rosinen-Abholungen pro Tag"
+  regionPickupRuleActive: "Folgende Bezirksregel für Slots bei beliebten „Rosinen“-Betrieben aktivieren:"
+  regionPickupTimespan: "Zeitspanne (Tage vor und nach dem gewünschten Slot), auf die sich die Rosinen-Regel bezieht"
+  regionPickupLimitNumber: "Maximale Anzahl der zulässigen Rosinen-Slots im gewählten Zeitraum"
+  regionPickupLimitDayNumber: "Maximale Anzahl von Rosinen-Slots pro Tag"
   regionPickupInactiveHours: "Wie viele Stunden vorher soll eine Eintragung auch möglich sein, wenn die maximale Anzahl im entsprechenden Zeitraum bereits erreicht oder überschritten ist?"
-  regionPickupRuleActiveStoreList: "Liste der Betriebe im Bezirk, die für die Rosinen-Regel berücksichtigt werden. Alle Abholungen der aufgelisteten Betriebe werden zusammengezählt und für die Regel berücksichtigt."
+  regionPickupRuleActiveStoreList: "Liste der Betriebe im Bezirk, die für die Rosinen-Regel berücksichtigt werden. Alle Slots der aufgelisteten Betriebe werden zusammengezählt und für die Regel berücksichtigt."
   noPickupRuleActiveStores: "Aktuell ist die Rosinen-Regel für keinen Betrieb im Bezirk aktiviert."
   enableAddressChangeNotification: "Benachrichtigung an Botschafter:innen und Admins bei Adressänderung eines:r Stammfoodsaver:in des Bezirks"
 
@@ -2057,6 +2055,12 @@ map:
         all: "Alle"
         region: "Nur meine Bezirke"
         member: "Nur meine Betriebe"
+      type:
+        label: "Typ"
+        "null": "Alle"
+        0: "Abholbetrieb"
+        1: "Abgabebetrieb"
+        2: "Orgabetrieb"
     users:
       role:
         label: 'Rolle'
@@ -2199,7 +2203,7 @@ settings:
       Mit der Schlafmützenfunktion teilst du der Community mit, dass du zur Zeit verreist bist
       oder aus anderen Gründen gerade keine Zeit für das Retten von Lebensmitteln hast.
       Es ist hilfreich zu wissen, ob du auf Nachrichten reagieren kannst
-      oder sogar manchmal Abholungen durchführst.
+      oder sogar manchmal Slots wahrnimmst.
     show: |
       Mit der Nutzung dieser Funktion erklärst du dich damit einverstanden, dass dein Status,
       deine Abwesenheitsdauer und deine Nachricht auf deiner Profilseite angezeigt werden
@@ -2440,17 +2444,16 @@ settings:
     download: Kalender herunterladen
 
     info: |
-      Hier kannst du deine foodsharing Termine mit einem Kalenderprogramm deiner Wahl verknüpfen. Damit können automatisch all deine Abholungen und/oder Termine in deinem Kalender eingetragen werden.
+      Hier kannst du deine foodsharing Termine mit einem Kalenderprogramm deiner Wahl verknüpfen. Damit können automatisch all deine Slots und/oder Termine in deinem Kalender eingetragen werden.
 
-      **Halte Kalender-Links unbedingt geheim.** Sie enthalten ein *Token*, mit dem ohne Passwort auf die Daten deiner Abholungen zugegriffen werden kann. Du kannst dein aktuelles Token jederzeit löschen, womit früher erstellte Kalender-Links ungültig werden.
+      **Halte Kalender-Links unbedingt geheim.** Sie enthalten ein *Token*, mit dem ohne Passwort auf die Daten deiner Slots zugegriffen werden kann. Du kannst dein aktuelles Token jederzeit löschen, womit früher erstellte Kalender-Links ungültig werden.
 
-      Dein Kalenderprogramm muss diesen Kalender regelmäßig **synchronisieren**. Nur dann tauchen neue Abholtermine auf und abgesagte Termine nicht mehr. Wenn du stattdessen deinen aktuellen Kalender herunterlädst, enthält dieser nur deine jetzigen Termine und wird nicht automatisch aktualisiert.
-
+      Dein Kalenderprogramm muss diesen Kalender regelmäßig **synchronisieren**. Nur dann tauchen neue Slots auf und abgesagte Termine nicht mehr. Wenn du stattdessen deinen aktuellen Kalender herunterlädst, enthält dieser nur deine jetzigen Termine und wird nicht automatisch aktualisiert.
       Weitere Informationen findest du [hier im Wiki]({calendarUrl})
     pickup:
-      label: "Sollen Abholtermine enthalten sein?"
-      "true": "Ja, meine Abholungen im Kalender anzeigen"
-      "false": "Nein, keine Abholungen im Kalender anzeigen"
+      label: "Sollen Slots z.B. für Abholungen enthalten sein?"
+      "true": "Ja, meine Slots im Kalender anzeigen"
+      "false": "Nein, keine Slots im Kalender anzeigen"
     event:
       label: "Welche Termine deiner Bezirke und Arbeitsgruppen sollen enthalten sein?"
       all: "Alle Termine"
@@ -2596,7 +2599,7 @@ profile:
       successful: "Banane wurde entfernt!"
   tab_navigation:
     profile: "Profil"
-    pickups: "Abholungen"
+    pickups: "Slots"
     commitment_statistics: "Engagementstatistik"
     stores: "Betriebe ({count})"
     notes: "Notizen ({count})"
@@ -2646,7 +2649,10 @@ profile:
   stats:
     weight_unit: "kg"
     weight: "gerettet"
-    fetch_count: "abgeholt"
+    slots: "Slots"
+    fetch_count: "Abgeholt"
+    give_count: "Abgegeben"
+    engagement_count: "Engagiert"
     baskets: "Essenskörbe"
     posts: "Beiträge"
     bananas: "Bananen"
@@ -2787,8 +2793,8 @@ dashboard:
     users: "Foodsaver:innen"
     buddies: "Menschen, die du kennst"
     polls: Abstimmungen
-    pickups: "Abholtermine"
-    pickupOptions: "Abholmöglichkeiten"
+    pickups: "Gebuchte Slots"
+    pickupOptions: "Eintragungsmöglichkeiten"
   options:
     hide:
       text: "Anzeige verwalten"
@@ -2801,7 +2807,7 @@ dashboard:
   invitationCount: "Du wurdest eingeladen ({count})"
   event: "Nächstes Event"
   eventCount: "Nächste Events ({count})"
-  pickupdates: "Nächste Abholtermine"
+  general-dates: "Nächste gebuchte Slots"
   polls: Deine laufenden Abstimmungen
   quiz:
     ack: "Hinweis gelesen und nicht mehr anzeigen"
@@ -3678,8 +3684,8 @@ information:
     description: "Wenn du keine Push-Benachrichtigungen mehr empfangen willst, kannst du sie jederzeit in den Einstellungen wieder deaktivieren."
     link: "Zu den Einstellungen"
   calendar_sync:
-    title: "Kennst du die Kalender-Synchronisation für deine Abholungen?"
-    description: "Damit kannst du deine nächsten Abholtermine mit einem Kalenderprogramm deiner Wahl sehen."
+    title: "Kennst du die Kalender-Synchronisation für deine Slots?"
+    description: "Damit kannst du deine nächsten Slots mit einem Kalenderprogramm deiner Wahl sehen."
     link: "Jetzt abonnieren"
 
 system_administration:
@@ -4145,7 +4151,7 @@ help:
     hygieneRequirement:
       title: "Hygieneanforderung für Betriebe"
       md: |
-        Für die Abholung in manchen Betrieben müssen Foodsaver:innen in Lebensmittelhygiene geschult sein. Wenn diese Funktion für einen Betrieb aktiviert ist, hat das folgende Auswirkungen:
+        Für die Mitarbeit in manchen Betrieben müssen Foodsaver:innen in Lebensmittelhygiene geschult sein. Wenn diese Funktion für einen Betrieb aktiviert ist, hat das folgende Auswirkungen:
         1. Foodsaver:innen ohne gültige Hygieneschulung können sich nicht für das Betriebsteam bewerben.
         2. Foodsaver:innen, die bereits Teil des Teams sind, können sich nur in Slots eintragen, zu deren Zeitpunkt ihre Hygieneschulung noch gültig ist.
 
@@ -4166,15 +4172,14 @@ help:
         ---
         Sollte es doch mal vorkommen, dass eines dieser Felder geändert werden muss, kannst du dich hierzu an eine:n Botschafter:in aus deinem Stammbezirk wenden. Sie können die entsprechende Änderung für dich durchführen. Wer Botschafter:in in deinem Stammbezirk ist, siehst du im [Forum des Bezirks]({link}) in der linken Seitenleiste.
     pickupOptions:
-      title: "Abholmöglichkeiten"
+      title: "Eintragungsmöglichkeiten"
       md: |
-        Der Bereich *Abholmöglichkeiten* zeigt dir eine Übersicht über alle kommenden Abholungen in deinen Betrieben, bei denen noch Foodsaver:innen gesucht werden. Über das Optionsmenü kannst du die Ansicht an deine Bedürfnisse anpassen:
+        Der Bereich *Eintragungsmöglichkeiten* zeigt dir eine Übersicht über alle kommenden Slots in deinen Betrieben, bei denen noch Foodsaver:innen gesucht werden. Über das Optionsmenü kannst du die Ansicht an deine Bedürfnisse anpassen:
 
-        **Eingetragene Abholungen:** Damit du deine Abholungen besser planen kannst, kannst du dir auch die Abholungen anzeigen lassen, bei denen du selbst bereits eingetragen bist. Diese Abholungen werden etwas blasser dargestellt, damit du sie auf einen Blick erkennen kannst.
+        **Eingetragene Slots:** Damit du deine Slots besser planen kannst, kannst du dir auch die Slots anzeigen lassen, bei denen du selbst bereits eingetragen bist. Diese Slots werden etwas blasser dargestellt, damit du sie auf einen Blick erkennen kannst.
 
-        **BV-Ansicht:** Betriebsverantwortliche (BV) kümmern sich darum, dass in ihren Betrieben alle Abholungen zuverlässig stattfinden. Wenn du BV bist, kannst du die Ansicht auf die Betriebe einschränken, für die du zuständig bist. So behältst du leichter den Überblick.
-
-        **Gruppiert nach Tagen:** In dieser Darstellung werden deine Abholmöglichkeiten nach Tagen zusammengefasst und etwas kompakter dargestellt. Gerade, wenn dir pro Tag viele Abholmöglichkeiten zur Verfügung stehen, macht es das leichter, einen Überblick zu bekommen.
+        **BV-Ansicht:** Betriebsverantwortliche (BV) kümmern sich darum, dass in ihren Betrieben alle Slots zuverlässig stattfinden. Wenn du BV bist, kannst du die Ansicht auf die Betriebe einschränken, für die du zuständig bist. So behältst du leichter den Überblick.
+        **Gruppiert nach Tagen:** In dieser Darstellung werden deine Eintragungsmöglichkeiten nach Tagen zusammengefasst und etwas kompakter dargestellt. Gerade, wenn dir pro Tag viele Eintragungsmöglichkeiten zur Verfügung stehen, macht es das leichter, einen Überblick zu bekommen.
     resource_mosaic:
       title: "Ressourcen-Mosaik"
       md: |
@@ -4243,12 +4248,19 @@ categories:
   columns:
     id: 'ID'
     name: 'Name'
+    type: 'Typ'
+    number_of_stores: 'Betriebe in der Kategorie'
     usage_count: 'Anzahl der Verwendungen'
+  types:
+    "null": 'Nicht zugeordnet'
+    0: 'Abholung'
+    1: 'Abgabe'
+    2: 'Orga'
   title:
     store: 'Betriebskategorien'
     resource: 'Ressourcenkategorien'
   empty: 'Bisher wurde keine Kategorie eingetragen'
-  edit: 'Kategorie umbenennen'
+  edit: 'Kategorie bearbeiten'
   delete: 'Kategorie löschen'
   merge: "Mit anderer zusammenführen"
   merge_title: 'Kategorien zusammenführen'
@@ -4329,11 +4341,11 @@ required_messages:
     footer: "Viele Grüße, deine Botschafter:innen"
   kick_from_store_team:
     really: "Möchtest du {name} wirklich aus dem Team dieses Betriebs austragen?"
-    main: "du wurdest aus dem Team des Betriebs [{store}](/store/{storeId}) ausgetragen. Du kannst dich somit nicht mehr für Abholungen in diesem Betrieb eintragen."
+    main: "du wurdest aus dem Team des Betriebs [{store}](/store/{storeId}) ausgetragen. Du kannst dich somit nicht mehr für Slots in diesem Betrieb eintragen."
     footer: "Viele Grüße"
   move_to_standby_team:
     really: "Möchtest du {name} wirklich aus dem aktiven Team auf die Springerliste setzen?"
-    main: "du wurdest im Betrieb [{store}](/store/{storeId}) auf die Springerliste gesetzt. Du kannst dich damit aktuell nicht für Abholungen in diesem Betrieb eintragen und nicht den allgemeinen Gruppenchat lesen."
+    main: "du wurdest im Betrieb [{store}](/store/{storeId}) auf die Springerliste gesetzt. Du kannst dich damit aktuell nicht für Slots in diesem Betrieb eintragen und nicht den allgemeinen Gruppenchat lesen."
     footer: "Viele Grüße"
   decline_store_application:
     really: "Möchtest du die Teambewerbung von {name} wirklich ablehnen?"

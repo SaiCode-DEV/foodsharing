@@ -81,20 +81,22 @@ class StatsGateway extends BaseGateway
      */
     public function updateFoodsaverStats(): void
     {
-        $this->db->execute('UPDATE fs_foodsaver fs
-			LEFT OUTER JOIN (
+        $this->db->execute('CREATE TEMPORARY TABLE _fetches
 				SELECT
 					a.foodsaver_id AS id,
 					SUM(w.weight) AS weight,
-					COUNT(a.foodsaver_id) AS fetches
+					COUNT(a.foodsaver_id) AS fetches,
+					k.type AS ktype
 				FROM fs_abholer a
 				LEFT OUTER JOIN fs_betrieb b ON
 					a.betrieb_id = b.id
 				LEFT OUTER JOIN fs_fetchweight w ON
 					b.abholmenge = w.id
+				LEFT OUTER JOIN fs_betrieb_kategorie k ON
+					b.betrieb_kategorie_id = k.id
 				WHERE a.date < NOW()
-				GROUP BY a.foodsaver_id
-			) as fetches ON fetches.id = fs.id
+				GROUP BY a.foodsaver_id, k.type;
+			UPDATE fs_foodsaver fs
 			LEFT OUTER JOIN (
 				SELECT foodsaver_id AS id, COUNT(id) AS posts FROM (
 					SELECT foodsaver_id, id FROM fs_theme_post
@@ -121,12 +123,15 @@ class StatsGateway extends BaseGateway
 				GROUP BY foodsaver_id
 			) as missed ON missed.id = fs.id
 			SET
-				fs.stat_fetchcount = IFNULL(fetches.fetches, 0),
-				fs.stat_fetchweight = IFNULL(fetches.weight, 0),
+				fs.stat_fetchcount = IFNULL((SELECT SUM(fetches) FROM _fetches f WHERE f.ktype = 0 AND f.id = fs.id), 0),
+				fs.stat_fetchweight = IFNULL((SELECT SUM(weight) FROM _fetches f WHERE f.ktype = 0 AND f.id = fs.id), 0),
+				fs.stat_givecount = IFNULL((SELECT SUM(fetches) FROM _fetches f WHERE f.ktype = 1 AND f.id = fs.id), 0),
+				fs.stat_engagecount = IFNULL((SELECT SUM(fetches) FROM _fetches f WHERE f.ktype = 2 AND f.id = fs.id), 0),
 				fs.stat_postcount = IFNULL(posts.posts, 0),
 				fs.stat_bananacount = IFNULL(bananas.bananas, 0),
 				fs.stat_buddycount = IFNULL(buddies.buddies, 0),
-				fs.stat_fetchrate = IFNULL(ROUND(100 - IFNULL(missed.missed, 0) / fetches.fetches * 100, 2), 100)
+				fs.stat_fetchrate = IFNULL(ROUND(100 - IFNULL(missed.missed, 0) / IFNULL((SELECT SUM(fetches) FROM _fetches f WHERE ktype = 0 AND f.id = fs.id), 0) * 100, 2), 100);
+			DROP TEMPORARY TABLE IF EXISTS _fetches;
 		');
     }
 
@@ -350,6 +355,9 @@ class StatsGateway extends BaseGateway
 				FROM fs_bezirk_closure c
 				INNER JOIN fs_bezirk r ON r.id = c.bezirk_id
 				INNER JOIN fs_betrieb b ON b.bezirk_id = c.bezirk_id
+				INNER JOIN fs_betrieb_kategorie k ON b.betrieb_kategorie_id = k.id
+					AND k.type = 0
+				-- AND k.type = 0 means that we only want to count pickups
 				INNER JOIN fs_abholer a ON a.betrieb_id = b.id
 					AND a.date < NOW()
 					AND a.date > r.stat_last_update
@@ -387,6 +395,9 @@ class StatsGateway extends BaseGateway
 					COUNT(*) AS fetches_diff
 				FROM fs_bezirk_closure c
 				INNER JOIN fs_betrieb b ON b.bezirk_id = c.bezirk_id
+				INNER JOIN fs_betrieb_kategorie k ON b.betrieb_kategorie_id = k.id
+					AND k.type = 0
+				-- AND k.type = 0 means that we only want to count pickups
 				INNER JOIN fs_abholer a ON a.betrieb_id = b.id
 					AND a.date < NOW()
 				INNER JOIN fs_fetchweight w ON w.id = b.abholmenge

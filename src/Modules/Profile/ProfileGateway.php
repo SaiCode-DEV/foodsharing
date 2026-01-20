@@ -54,6 +54,8 @@ final class ProfileGateway extends BaseGateway
 					fs.`last_login` as last_activity,
 					fs.stat_fetchweight,
 					fs.stat_fetchcount,
+					fs.stat_givecount,
+					fs.stat_engagecount,
 					fs.stat_ratecount,
 					fs.stat_rating,
 					fs.stat_postcount,

@@ -128,6 +128,11 @@
     <BuddiesModal
       :buddies="buddiesList"
     />
+    <SlotsModal
+      :fetch-count="statistics.fetchCount"
+      :give-count="statistics.giveCount"
+      :engage-count="statistics.engageCount"
+    />
   </div>
 </template>
 
@@ -135,6 +140,7 @@
 import { useUserStore, SLEEP_STATUS } from '@/stores/user'
 import BananaModal from '@/components/Modals/Profile/BananaModal.vue'
 import BuddiesModal from './BuddiesModal.vue'
+import SlotsModal from './SlotsModal.vue'
 import { ROLE } from '@/consts'
 import Markdown from '@/components/Markdown/Markdown.vue'
 import { getBananaMetadata } from '@/api/banana'
@@ -162,7 +168,7 @@ const formatNumber = (number, unit) => {
 }
 
 export default {
-  components: { Markdown, BananaModal, BuddiesModal },
+  components: { Markdown, BananaModal, BuddiesModal, SlotsModal },
   props: {
     userId: { type: Number, required: true },
     name: { type: String, required: true },
@@ -200,12 +206,15 @@ export default {
     SLEEP_STATUS () {
       return SLEEP_STATUS
     },
+    slotCount () {
+      return this.statistics.fetchCount + this.statistics.giveCount + this.statistics.engageCount
+    },
     badges () {
       return [
         { id: 'bananas', text: this.$t('profile.stats.bananas'), value: this.bananaData?.receivedCount, link: this.openBananaModal },
         { id: 'posts', text: this.$t('profile.stats.posts'), value: this.statistics.postCount >= 0 ? formatNumber(this.statistics.postCount) : null },
         { id: 'baskets', text: this.$t('profile.stats.baskets'), value: this.statistics.basketCount >= 0 ? formatNumber(this.statistics.basketCount) : null },
-        { id: 'fetched', text: this.$t('profile.stats.fetch_count'), value: this.statistics.fetchCount >= 0 ? formatNumber(this.statistics.fetchCount) + ' x' : null },
+        { id: 'slots', text: this.$t('profile.stats.slots'), value: this.slotCount >= 0 ? formatNumber(this.slotCount) : null, link: this.openSlotsModal },
         { id: 'saved', text: this.$t('profile.stats.weight'), value: this.formatFetchWeight >= 0.00 ? formatNumber(this.formatFetchWeight) + ' ' + this.$t('profile.stats.weight_unit') : null },
         { id: 'buddies', text: this.$t('profile.infos.buddies'), value: this.statistics.buddyCount >= 0 ? formatNumber(this.statistics.buddyCount) : null, link: this.isMe ? this.openBuddiesModal : null },
       ]
@@ -237,6 +246,7 @@ export default {
       // Assuming statistics.buddies is an array of {id, name}
       return this.statistics.buddies || []
     },
+
   },
   async mounted () {
     this.bananaData = await getBananaMetadata(this.userId)
@@ -256,6 +266,9 @@ export default {
           mayGiveBanana,
         }
       }
+    },
+    openSlotsModal () {
+      this.$bvModal.show('SlotsModal')
     },
   },
 }

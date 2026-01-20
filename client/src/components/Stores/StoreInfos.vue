@@ -1,9 +1,20 @@
 <template>
   <Container
-    :title="$t('store.info_container')"
     :tag="`store-infos-${storeId}`"
     wrap-content="p-2"
   >
+    <template #title>
+      <h5>
+        {{ $t('store.info_container') }} (
+        <i
+          v-b-tooltip="storeCategoryTypeStatus"
+          :class="['fas', storeCategoryTypeIcon]"
+          style="cursor: help;"
+        />
+        <span class="ml-1">{{ $t('map.filters.stores.type.' + categoryType) }}</span>
+        )
+      </h5>
+    </template>
     <div
       v-show="displayInfos"
       class="store-desc"
@@ -56,6 +67,7 @@
         <Markdown :source="particularitiesChain" />
       </div>
       <div
+        v-if="categoryType === STORE_CATEGORY_PICKUP || categoryType === STORE_CATEGORY_GIVING"
         id="inputAverageCollectionQuantity"
         class="desc-block mb-1 py-1"
       >
@@ -92,7 +104,7 @@
         class="desc-block mb-1 py-1"
       >
         <div class="desc-block-title mb-2 py-1">
-          {{ $t('store.my_last_pickup') }}
+          {{ $t('store.my_last_slot') }}
         </div>
         <span>
           {{ $dateFormatter.date(lastFetchDate) }}
@@ -106,12 +118,15 @@
 <script>
 import Markdown from '@/components/Markdown/Markdown.vue'
 import Container from '@/components/Container/Container.vue'
+import storeEntryMixin from '@/mixins/storeEntryMixin'
 import { STORE_PUBLICITY_AND_STICKER_OPTIONS } from '@/stores/stores'
 import { useStoreStore } from '@/stores/store'
+import { STORE_CATEGORY_PICKUP } from '@/constants/storeCategoryTypes'
 import NavigateWithSelector from '@/components/UI/NavigateWithSelector.vue'
 
 export default {
   components: { Markdown, Container, NavigateWithSelector },
+  mixins: [storeEntryMixin],
   props: {
     particularitiesDescription: {
       type: String,
@@ -185,6 +200,10 @@ export default {
       type: Number,
       required: true,
     },
+    categoryType: {
+      type: Number,
+      default: STORE_CATEGORY_PICKUP,
+    },
   },
   setup () {
     return {
@@ -197,6 +216,11 @@ export default {
     }
   },
   computed: {
+    entry () {
+      // Used by storeEntryMixin
+      return { categoryType: this.categoryType }
+    },
+    STORE_CATEGORY_PICKUP: () => STORE_CATEGORY_PICKUP,
     pressInfo () {
       switch (this.press) {
         case STORE_PUBLICITY_AND_STICKER_OPTIONS.YES:

@@ -10,6 +10,7 @@ use DateTime;
 use DateTimeZone;
 use Exception;
 use Faker\Factory;
+use Foodsharing\Modules\Categories\StoreCategoryType;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\FoodSharePoint\FollowerType;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
@@ -219,25 +220,26 @@ class Foodsharing extends Db
     public function createStoreCategories(): void
     {
         $Categories = [
-                             'Bäckerei',
-                             'Bio-Bäckerei',
-                             'Bio-Supermarkt',
-                             'Getränkemarkt',
-                             'Metzgerei',
-                             'Organisation - Einführungsabholungen',
-                             'Organisation - Botschaftertätigkeit',
-                             'Organisation - Fairteiler',
-                             'Organisation - Vorstandsarbeit',
-                             'Organisation - Meldebearbeitung',
-                             'Öffentlichkeitsarbeit',
-                             'Restaurant',
-                             'Schnellimbiss',
-                             'Supermarkt',
-                             'Wochenmarkt'
-                            ];
+            ['name' => 'Bäckerei', 'type' => StoreCategoryType::PICKUP],
+            ['name' => 'Bio-Bäckerei', 'type' => StoreCategoryType::PICKUP],
+            ['name' => 'Bio-Supermarkt', 'type' => StoreCategoryType::PICKUP],
+            ['name' => 'Getränkemarkt', 'type' => StoreCategoryType::PICKUP],
+            ['name' => 'Metzgerei', 'type' => StoreCategoryType::PICKUP],
+            ['name' => 'Organisation - Einführungsabholungen', 'type' => StoreCategoryType::ORGA],
+            ['name' => 'Organisation - Botschaftertätigkeit', 'type' => StoreCategoryType::ORGA],
+            ['name' => 'Organisation - Fairteiler', 'type' => StoreCategoryType::ORGA],
+            ['name' => 'Organisation - Vorstandsarbeit', 'type' => StoreCategoryType::ORGA],
+            ['name' => 'Organisation - Meldebearbeitung', 'type' => StoreCategoryType::ORGA],
+            ['name' => 'Öffentlichkeitsarbeit', 'type' => StoreCategoryType::ORGA],
+            ['name' => 'Restaurant', 'type' => StoreCategoryType::PICKUP],
+            ['name' => 'Schnellimbiss', 'type' => StoreCategoryType::PICKUP],
+            ['name' => 'Supermarkt', 'type' => StoreCategoryType::PICKUP],
+            ['name' => 'Wochenmarkt', 'type' => StoreCategoryType::PICKUP],
+            ['name' => 'Abgabestelle', 'type' => StoreCategoryType::GIVING]
+        ];
         $entryId = 1;
         foreach ($Categories as $catEntry) {
-            $this->haveInDatabase('fs_betrieb_kategorie', ['id' => $entryId, 'name' => $catEntry]);
+            $this->haveInDatabase('fs_betrieb_kategorie', ['id' => $entryId, 'name' => $catEntry['name'], 'type' => $catEntry['type']->value]);
             ++$entryId;
         }
     }
@@ -458,9 +460,9 @@ class Foodsharing extends Db
             $springer_conversation = $springer_conversation['id'];
         }
 
-        // one third of the stores are assigned to an existing store category
+        // two third of the stores are assigned to an existing store category
         $storeCategoryId = null;
-        if (random_int(0, 2) > 1) {
+        if (random_int(0, 2) > 0) {
             $categories = $this->grabColumnFromDatabase('fs_betrieb_kategorie', 'id');
             $storeCategoryId = $this->faker->randomElement($categories);
         }

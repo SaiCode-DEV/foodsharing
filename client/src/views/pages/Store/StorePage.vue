@@ -27,6 +27,7 @@
               :store-id="storeId"
               :is-coordinator="permissions.isCoordinator"
               :is-verified="isVerified"
+              :category-type="storeInformation.categoryType"
               :may-delete-store="permissions.mayDeleteStore"
               @multi-chat="multiChat"
             />
@@ -101,6 +102,7 @@
               :region-pickup-rule-limit="regionOptions.regionPickupRuleLimit"
               :region-pickup-rule-limit-day="regionOptions.regionPickupRuleLimitDay"
               :region-pickup-rule-inactive="regionOptions.regionPickupRuleInactiveHours"
+              :category-type="storeInformation.categoryType"
             />
             <PickupList
               v-if="permissions.maySeePickup"
@@ -110,6 +112,7 @@
               :store-title="storeInformation.name"
               :is-coordinator="permissions.isCoordinator"
               :may-edit-store="permissions.mayEditStore"
+              :category-type="storeInformation.categoryType"
               :team-conversation-id="permissions.teamConversationId"
             />
             <StoreTeam

@@ -168,11 +168,11 @@ test.describe("Store", () => {
     await acceptanceHelper.login(storeManager.email);
     await page.goto(`/store/${store.id}`);
     // Wait for the pickup history section
-    await expect(page.getByText("Abholungshistorie")).toBeVisible();
+    await expect(page.getByText("Slothistorie")).toBeVisible();
 
     // Expand UI (should be collapsed by default)
-    await page.getByRole("heading", { name: "Abholungshistorie" }).click();
-    await expect(page.getByText("Abholungen anzeigen")).toBeVisible();
+    await page.getByRole("heading", { name: "Slothistorie" }).click();
+    await expect(page.getByText("Slots anzeigen")).toBeVisible();
 
     await page.click(".date-picker-from");
     // Click 'Previous Month' as often as possible

@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\Store\DTO;
 
 use DateTime;
+use Foodsharing\Modules\Categories\StoreCategoryType;
 use Foodsharing\Modules\Core\DBConstants\Store\ConvinceStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\PublicityStatus;
@@ -211,6 +212,11 @@ class Store
     #[Type("DateTime<'Y-m-d'>")]
     public ?DateTime $updatedAt = null;
 
+    /**
+     * Category type of the store.
+     */
+    public StoreCategoryType $categoryType;
+
     public function __construct()
     {
         $this->location = new GeoLocation();
@@ -240,6 +246,7 @@ class Store
         $obj->publicInfo = $queryResult['public_info'] ?? '';
         $obj->publicTime = PublicTimes::tryFrom($queryResult['public_time']);
 
+        $obj->categoryType = StoreCategoryType::tryFrom($queryResult['categoryType']) ?? StoreCategoryType::PICKUP;
         $obj->category = MinimalIdentifier::createFromId($queryResult['categoryId']);
         $obj->chain = StoreChainInformation::createFromId($queryResult['chainId']);
 

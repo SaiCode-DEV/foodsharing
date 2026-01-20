@@ -14,6 +14,12 @@
             </span>
           </div>
 
+          <div>
+            {{ $t('map.filters.stores.type.label') }}:
+            <strong>
+              {{ $t('map.filters.stores.type.' + store.categoryType) }}
+            </strong>
+          </div>
           <div v-if="userAndStoreHaveLocation">
             {{ $t('storeview.team_info_distance') }}
             <strong :class="distanceClass">{{ distanceDisplay }}</strong>

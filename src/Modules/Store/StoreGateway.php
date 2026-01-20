@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use DateTime;
 use DateTimeZone;
 use Exception;
+use Foodsharing\Modules\Categories\StoreCategoryType;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
@@ -90,41 +91,43 @@ class StoreGateway extends BaseGateway
     public function getStore(int $storeId, bool $skipLoadingOfGroceries = false): Store
     {
         $result = $this->db->fetch(
-            'SELECT	`id`,
-                    `name`,
-					`bezirk_id` as regionId,
-					`lat`,
-					`lon`,
-					`str` AS street,
-					`plz` AS zipCode,
-					`stadt` as city,
-					`public_info`,
-					`public_time`,
-					`betrieb_kategorie_id` as categoryId,
-					`kette_id` as chainId,
-					`betrieb_status_id` as cooperationStatus,
-					`begin` as cooperationStart,
-					`besonderheiten` as description,
-					`ansprechpartner` as contactName,
-					`telefon` as contactPhone,
-					`fax` as contactFax,
-					`email` as contactEmail,
-					`prefetchtime` as calendarInterval,
-					`abholmenge` as weight,
-					`ueberzeugungsarbeit` as effort,
-					`presse` as publicity,
-					`sticker`,
-					`team_status` as teamStatus,
-					`use_region_pickup_rule` as useRegionPickupRule,
-					`hygiene_requirement`,
-					`verified_requirement`,
-					`phone_requirement`,
-					`apply_text_requirement`,
-					`status_date` as updatedAt,
-					`added` as createdAt
-			FROM 	`fs_betrieb`
+            'SELECT	b.`id`,
+                    b.`name`,
+					b.`bezirk_id` as regionId,
+					b.`lat`,
+					b.`lon`,
+					b.`str` AS street,
+					b.`plz` AS zipCode,
+					b.`stadt` as city,
+					b.`public_info`,
+					b.`public_time`,
+					b.`betrieb_kategorie_id` as categoryId,
+					b.`kette_id` as chainId,
+					b.`betrieb_status_id` as cooperationStatus,
+					b.`begin` as cooperationStart,
+					b.`besonderheiten` as description,
+					b.`ansprechpartner` as contactName,
+					b.`telefon` as contactPhone,
+					b.`fax` as contactFax,
+					b.`email` as contactEmail,
+					b.`prefetchtime` as calendarInterval,
+					b.`abholmenge` as weight,
+					b.`ueberzeugungsarbeit` as effort,
+					b.`presse` as publicity,
+					b.`sticker`,
+					b.`team_status` as teamStatus,
+					b.`use_region_pickup_rule` as useRegionPickupRule,
+					b.`hygiene_requirement`,
+					b.`verified_requirement`,
+					b.`phone_requirement`,
+					b.`apply_text_requirement`,
+					b.`status_date` as updatedAt,
+					k.`type` as categoryType,
+					b.`added` as createdAt
+			FROM 	`fs_betrieb` b
+					LEFT JOIN `fs_betrieb_kategorie` k ON b.betrieb_kategorie_id = k.id
 
-			WHERE 	`id` = :storeId
+			WHERE 	`b`.`id` = :storeId
 		', [
             ':storeId' => $storeId,
         ]);
@@ -363,6 +366,7 @@ class StoreGateway extends BaseGateway
                     b.lat,
                     b.lon,
                     b.hygiene_requirement,
+                    k.type AS categoryType,
                     b.verified_requirement,
                     b.phone_requirement,
                     b.apply_text_requirement,
@@ -373,6 +377,9 @@ class StoreGateway extends BaseGateway
 			LEFT JOIN `fs_abholer` a
 			ON a.betrieb_id = b.id
 			AND a.date < CURDATE()
+
+            LEFT JOIN `fs_betrieb_kategorie` k
+            ON k.id = b.betrieb_kategorie_id
 
 			WHERE b.`id` = :storeId
 
@@ -792,10 +799,13 @@ class StoreGateway extends BaseGateway
 			SELECT 	b.id as store_id,
 					b.name as store_name,
 					bt.verantwortlich AS managing,
-					bt.active as membership_status
+					bt.active as membership_status,
+					k.type as categoryType
 			FROM fs_betrieb_team bt
 				INNER JOIN fs_betrieb b
 					ON bt.betrieb_id = b.id
+				LEFT JOIN fs_betrieb_kategorie k
+                    ON b.betrieb_kategorie_id = k.id
 			WHERE   bt.`foodsaver_id` = ?
         ';
 
@@ -809,8 +819,7 @@ class StoreGateway extends BaseGateway
             )
             );
         }
-        $query .= 'ORDER BY bt.verantwortlich DESC, membership_status ASC, b.name ASC
-		';
+        $query .= 'ORDER BY bt.verantwortlich DESC, membership_status ASC, b.name ASC';
 
         $rows = $this->db->fetchAll($query, $queryParams);
 
@@ -1022,10 +1031,10 @@ class StoreGateway extends BaseGateway
 
         $placeholders = implode(',', array_fill(0, count($regionIds), '?'));
         $results = $this->db->fetchAll($this->sqlSelectStoreColumns() . '
-            FROM fs_betrieb,
-                fs_bezirk
-            WHERE 	fs_betrieb.bezirk_id = fs_bezirk.id
-            AND 	fs_betrieb.bezirk_id IN(' . $placeholders . ')
+            FROM fs_betrieb
+            LEFT JOIN fs_betrieb_kategorie k ON
+                fs_betrieb.betrieb_kategorie_id = k.id
+            WHERE 	fs_betrieb.bezirk_id IN(' . $placeholders . ')
 		', $regionIds);
 
         return array_map(fn ($store) => Store::createFromArray($store), $results);
@@ -1044,6 +1053,8 @@ class StoreGateway extends BaseGateway
             FROM fs_betrieb_team
             JOIN fs_betrieb ON
                 fs_betrieb.id = fs_betrieb_team.betrieb_id
+            LEFT JOIN fs_betrieb_kategorie k ON
+                fs_betrieb.betrieb_kategorie_id = k.id
             WHERE fs_betrieb_team.foodsaver_id = :fs_id
     ', [
                 'fs_id' => $fs_id
@@ -1094,9 +1105,9 @@ class StoreGateway extends BaseGateway
      *
      * @return MapMarker[]
      */
-    public function getStoreMarkers(int $userId, StoreMarkerStatusType $status, StoreMarkerHelpType $help, StoreMarkerScopeType $scope): array
+    public function getStoreMarkers(int $userId, StoreMarkerStatusType $status, StoreMarkerHelpType $help, StoreMarkerScopeType $scope, ?StoreCategoryType $type): array
     {
-        $query = 'SELECT b.id, b.lat, b.lon, b.name FROM fs_betrieb b';
+        $query = 'SELECT b.id, b.lat, b.lon, b.name, k.type as categoryType FROM fs_betrieb b';
         $conditions = [
             'b.lat != ""',
             'b.lon != ""',
@@ -1126,10 +1137,18 @@ class StoreGateway extends BaseGateway
             $params[':searchStatus'] = $help === StoreMarkerHelpType::OPEN ? TeamSearchStatus::OPEN->value : TeamSearchStatus::OPEN_SEARCHING->value;
         }
 
+        // Always have to do the join to be able to use the appropriate category
+        // type icons on the map
+        $query .= ' INNER JOIN fs_betrieb_kategorie k ON b.betrieb_kategorie_id = k.id';
+        if ($type !== null) {
+            $conditions[] = 'k.type = :categoryType';
+            $params[':categoryType'] = $type->value;
+        }
+
         $query .= ' WHERE ' . implode(' AND ', $conditions);
         $markers = $this->db->fetchAll($query, $params);
 
-        return array_map(MapMarker::createFromArray(...), $markers);
+        return array_map(fn ($marker) => MapMarker::createFromArray($marker), $markers);
     }
 
     public function hasHadPickups(int $storeId): bool
@@ -1234,6 +1253,7 @@ class StoreGateway extends BaseGateway
                     fs_betrieb.phone_requirement,
                     fs_betrieb.apply_text_requirement,
                     fs_betrieb.status_date as updatedAt,
+                    k.type as categoryType,
                     fs_betrieb.added as createdAt';
     }
 }

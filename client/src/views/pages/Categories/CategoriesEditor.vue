@@ -13,6 +13,11 @@
           :busy="isLoading"
           sort-icon-left
         >
+          <template v-if="categoryType === 'store'" #cell(subType)="entry">
+            <span>
+              {{ $t(`categories.types.${entry.item.subType}`) }}
+            </span>
+          </template>
           <template #cell(buttons)="entry">
             <OverflowMenu
               class="d-inline m-auto text-nowrap"
@@ -50,6 +55,10 @@
       @shown="$refs.edit_modal_input.focus()"
     >
       <b-form-input ref="edit_modal_input" v-model="editingCategoryName" />
+      <div v-if="categoryType === 'store'" class="mt-2">
+        <label class="d-block mb-1">{{ $t('categories.columns.type') }}</label>
+        <b-form-select v-model="editingCategoryType" :options="storeCategoryTypeOptions" />
+      </div>
     </b-modal>
 
     <b-modal
@@ -77,28 +86,41 @@ import Container from '@/components/Container/Container.vue'
 import StoreCategoriesData from '@/stores/categories'
 import OverflowMenu from '@/components/OverflowMenu.vue'
 import ContainerButton from '@/components/Container/ContainerButton.vue'
+import { STORE_CATEGORY_PICKUP, STORE_CATEGORY_GIVING, STORE_CATEGORY_ORGA } from '@/constants/storeCategoryTypes'
 
 export default {
   components: { Container, OverflowMenu, ContainerButton },
   props: {
-    categoryType: { type: String, required: true },
+    categoryType: { subType: Number, required: true },
   },
   data () {
     return {
       isLoading: false,
-      fields: [
-        { key: 'id', label: this.$t('categories.columns.id'), sortable: true },
-        { key: 'name', label: this.$t('categories.columns.name'), sortable: true },
-        { key: 'usageCount', label: this.$t('categories.columns.usage_count'), sortable: true },
-        { key: 'buttons', label: '' },
-      ],
       editingCategoryId: null,
       editingCategoryName: null,
+      editingCategoryType: null,
       sourceCategory: null,
       targetCategory: null,
+      storeCategoryTypeOptions: [
+        { value: STORE_CATEGORY_PICKUP, text: this.$t('categories.types.0') },
+        { value: STORE_CATEGORY_GIVING, text: this.$t('categories.types.1') },
+        { value: STORE_CATEGORY_ORGA, text: this.$t('categories.types.2') },
+      ],
     }
   },
   computed: {
+    fields () {
+      const fields = [
+        { key: 'id', label: this.$t('categories.columns.id'), sortable: true },
+        { key: 'name', label: this.$t('categories.columns.name'), sortable: true },
+        { key: 'usageCount', label: this.$t('categories.columns.usage_count'), sortable: true },
+      ]
+      if (this.categoryType === 'store') {
+        fields.push({ key: 'subType', label: this.$t('categories.columns.type'), sortable: true })
+      }
+      fields.push({ key: 'buttons', label: '' })
+      return fields
+    },
     categories () {
       return StoreCategoriesData.getters.getCategories(this.categoryType)
     },
@@ -127,9 +149,11 @@ export default {
       if (category) {
         this.editingCategoryId = category.id
         this.editingCategoryName = category.name
+        this.editingCategoryType = category.subType
       } else {
         this.editingCategoryId = null
         this.editingCategoryName = ''
+        this.editingCategoryType = STORE_CATEGORY_PICKUP
       }
       this.$refs.edit_category_modal.show()
     },
@@ -137,11 +161,12 @@ export default {
       if (this.editingCategoryName && this.editingCategoryName.length > 0) {
         this.isLoading = true
         try {
-          await StoreCategoriesData.mutations.addCategory(this.categoryType, this.editingCategoryName)
+          await StoreCategoriesData.mutations.addCategory(this.categoryType, this.editingCategoryName, this.editingCategoryType)
         } catch (e) {
           pulseError(this.$t('error_unexpected'))
         }
         this.editingCategoryName = null
+        this.editingCategoryType = null
         this.isLoading = false
       }
     },
@@ -149,11 +174,12 @@ export default {
       if (this.editingCategoryId) {
         this.isLoading = true
         try {
-          await StoreCategoriesData.mutations.editCategory(this.categoryType, this.editingCategoryId, this.editingCategoryName)
+          await StoreCategoriesData.mutations.editCategory(this.categoryType, this.editingCategoryId, this.editingCategoryName, this.editingCategoryType)
         } catch (e) {
           pulseError(this.$t('error_unexpected'))
         }
         this.editingCategoryId = null
+        this.editingCategoryType = null
         this.isLoading = false
       }
     },

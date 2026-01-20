@@ -6,34 +6,27 @@
   >
     <i
       v-b-tooltip="pickupStringStatus"
-      class="icon-subnav fas fa-circle"
-      :class="{
-        'text-transparent': !entry.pickupStatus,
+      :class="['icon-subnav', 'fas', storeCategoryTypeIcon, {
+        'text-muted': !entry.pickupStatus,
         'text-primary': entry.pickupStatus === 1,
         'text-warning': entry.pickupStatus === 2,
         'text-danger': entry.pickupStatus === 3,
-        'icon--help': entry.pickupStatus > 0,
-      }"
+      }]"
+      style="cursor: help;"
     />
     {{ entry.name }}
   </a>
 </template>
 
 <script>
+import storeEntryMixin from '@/mixins/storeEntryMixin'
 
 export default {
+  mixins: [storeEntryMixin],
   props: {
     entry: {
       type: Object,
       default: () => ({}),
-    },
-  },
-  computed: {
-    pickupStringStatus () {
-      if (this.entry.pickupStatus > 0) {
-        return this.$t('store.tooltip_' + ['yellow', 'orange', 'red'][this.entry.pickupStatus - 1])
-      }
-      return ''
     },
   },
 }

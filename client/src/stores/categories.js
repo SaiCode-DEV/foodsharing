@@ -16,8 +16,11 @@ export const mutations = {
   async fetchCategories (type) {
     store[type] = await getCategories(type)
   },
-  async addCategory (type, name) {
-    const category = await addCategory(type, name)
+  async addCategory (type, name, subType = null) {
+    // type is either 'store' or 'resource'
+    // for type === 'store', subType is one of the STORE_CATEGORY_... constants
+    // otherwise, it is null
+    const category = await addCategory(type, name, subType)
     category.usageCount = 0
     store[type].push(category)
   },
@@ -28,11 +31,13 @@ export const mutations = {
       store[type].splice(index, 1)
     }
   },
-  async editCategory (type, id, name) {
+  async editCategory (type, id, name, subType = null) {
+    // see comment about what type and subType are in addCategory() above
     const index = store[type].findIndex(category => category.id === id)
     if (index >= 0) {
-      await editCategory(type, id, name)
+      await editCategory(type, id, name, subType)
       store[type][index].name = name
+      store[type][index].subType = subType
     }
   },
   async mergeCategories (type, sourceId, targetId) {

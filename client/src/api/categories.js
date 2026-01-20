@@ -4,12 +4,12 @@ export async function getCategories (type) {
   return await get(`/categories/${type}`)
 }
 
-export async function addCategory (type, name) {
-  return await post(`/categories/${type}`, { name })
+export async function addCategory (type, name, subType = null) {
+  return await post(`/categories/${type}`, { name, subType })
 }
 
-export async function editCategory (type, id, name) {
-  return await patch(`/categories/${type}/${id}`, { name })
+export async function editCategory (type, id, name, subType = null) {
+  return await patch(`/categories/${type}/${id}`, { name, subType })
 }
 
 export async function removeCategory (type, id) {

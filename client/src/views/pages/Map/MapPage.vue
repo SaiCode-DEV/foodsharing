@@ -95,6 +95,7 @@ export default {
           status: 'cooperating',
           help: 'all',
           scope: 'region',
+          type: null,
         },
         users: {
           region: this.ambassadorRegions?.[0]?.id,
@@ -234,7 +235,11 @@ export default {
       const markerList = []
 
       for (const markerData of markersData) {
-        const marker = L.marker(L.latLng(markerData.lat, markerData.lon), { icon: this.icons[type] })
+        let icon = this.icons[type]
+        if (type === MARKER_TYPES.stores.name) {
+          icon = this.icons[type + '_' + markerData.categoryType]
+        }
+        const marker = L.marker(L.latLng(markerData.lat, markerData.lon), { icon })
         let markerName = markerData.name
 
         // Baskets use their description as name, but 30 chars at max.

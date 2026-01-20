@@ -26,7 +26,7 @@ import ListToggleMixin from '@/mixins/ContainerToggleMixin'
 const regionStore = useRegionStore()
 
 export default {
-  name: 'RegionList',
+  name: 'RegionContainer',
   components: {
     Container,
     RegionField,
