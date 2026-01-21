@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+export FS_ENV="test"
+dir=$(dirname "$0")
+# shellcheck source=./__common.sh
+source "$dir"/__common.sh
+
+"$dir"/test-init
+
+if [[ -z "${1:-}" ]]; then
+    log-header "Running backend tests"
+    run_codeception
+else
+    log-header "Running specific test"
+    run_codeception "$@"
+fi

@@ -42,18 +42,3 @@ if ! sql-query mysql 'use foodsharing'; then
     log-header "Create DB dump file for codeception"
     sql_dump_to_file dump.sql
 fi
-
-if [[ -z "${1:-}" ]]; then
-    log-header "Running all tests"
-    "$dir"/test-e2e test
-    run_codeception
-    if [ $# -eq 0 ]; then
-        log-header "Running Client tests"
-        run-in-container client "yarn && yarn lint && yarn test"
-        log-header "Running websocket tests"
-        run-in-container websocket "yarn && yarn lint && yarn test"
-    fi
-else
-    log-header "Running specific test"
-    run_codeception "$@"
-fi

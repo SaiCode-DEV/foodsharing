@@ -12,7 +12,7 @@ echo ""
 if ! is-environment-ready; then
     log-header "Test environment not fully initialized (only $(get-running-container-count)/$(get-expected-container-count) containers running)"
     echo "🔄 Initializing test environment..."
-    "$dir"/test
+    "$dir"/test-init
 fi
 
 # Check for interactive/debug mode

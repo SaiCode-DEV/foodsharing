@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+export FS_ENV="test"
+dir=$(dirname "$0")
+# shellcheck source=./__common.sh
+source "$dir"/__common.sh
+
+"$dir"/test-init
+
+if [[ -z "${1:-}" ]]; then
+    log-header "Running all tests"
+    "$dir"/test-e2e test
+    run_codeception
+    if [ $# -eq 0 ]; then
+        log-header "Running Client tests"
+        run-in-container client "yarn && yarn lint && yarn test"
+        log-header "Running websocket tests"
+        run-in-container websocket "yarn && yarn lint && yarn test"
+    fi
+else
+    log-header "Running specific test"
+    run_codeception "$@"
+fi

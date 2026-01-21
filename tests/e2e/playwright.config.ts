@@ -19,8 +19,8 @@ export default defineConfig({
     : (() => {
         const cores = os.cpus().length;
         if (cores <= 4) return 1; // 1-4 cores: 1 worker (safe for weak machines)
-        if (cores <= 8) return "25%"; // 5-8 cores: 25% (~2 workers)
-        if (cores <= 16) return "40%"; // 9-16 cores: 40% (~4-6 workers)
+        if (cores <= 8) return 2; // 5-8 cores
+        if (cores <= 16) return 3; // 9-16 cores
         return "50%"; // 17+ cores: 50%
       })(), // you can always override manually by passing --workers=X to playwright test
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
