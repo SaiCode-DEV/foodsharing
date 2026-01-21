@@ -76,7 +76,12 @@ To submit your change:
 
 1. Check if the code style is fixed before commiting, by running `./scripts/fix-codestyle-local` (or if that does not work by running the slower `./scripts/fix`).
 
-2. Check if the tests pass locally, by running `./scripts/test`.
+2. Check if the tests pass locally.
+
+   See the backend and frontend testing guides for more details:
+
+   - Backend: [docs/backend/testing.md](../../backend/testing.md)
+   - Frontend: [docs/frontend/testing.md](../../frontend/testing.md)
 
 3. Create a merge request to master for your branch early on.
 
@@ -111,27 +116,3 @@ The next steps will be:
 - Hang around and see if people in `#foodsharing-dev` on Slack at <https://yunity.slack.com/> find any issues, etc.
 
 - At some point in the future, once a few changes have been collected, they will all be deployed to production.
-
-## Testing
-
-It is recommended to only run individual tests locally.
-To do so, pass the path to that test as an argument to the test script,
-e.g.: `./scripts/test tests/acceptance/LoginCept.php` to run only the tests within this test bundle.
-
-You can run a single test by `./scripts/test <path>:<method_name> <parameters>`, e.g. `./scripts/test tests/api/StoreApiCest.php:canWriteStoreWallpostAndGetAllPosts --debug`.
-
-If you want to run the tests with debug mode turned on, use: `./scripts/test --debug`.
-
-You can run all the tests at once with `./scripts/test` locally (a lot of time and good hardware required).
-For your second and following runs, you can use `./scripts/test-rerun` which runs much quicker.
-(as long as we keep writing the tests to run idempotently, please do!).
-
-So far, end-to-end tests (called _acceptance tests_ in codeception) work nicely.
-They run with a headless Firefox and Selenium inside the Docker setup and they are run on CI build too.
-
-We are restructuring the code to enable unit testing.
-Related issue: <https://gitlab.com/foodsharing-dev/foodsharing/issues/68>
-
-The state created during testing is not thrown away, and you can visit the test app
-in your browser :<http://localhost:28080/>
-and it has its own phpmyadmin: <http://localhost:28081>

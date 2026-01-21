@@ -59,23 +59,6 @@ services:
     ports:
       - "28084:1080"
 
-  # selenium
-  # for running browser-based tests
-  #------------------------------------
-  selenium:
-    user: ${CURRENT_USER}
-    container_name: foodsharing_test_selenium
-    image: registry.gitlab.com/foodsharing-dev/images/selenium:latest
-    shm_size: 2gb
-    ulimits:
-      nofile:
-        soft: 65536
-        hard: 65536
-    depends_on:
-      - nginx
-    volumes:
-      - selenium_downloads:/home/seluser/Downloads:cached
-
   # E2E Tests with Playwright (Test Environment)
   #------------------------------------
   e2e:
@@ -98,7 +81,3 @@ services:
     ports:
       - "29323:9323"
       - "23008:3008"
-
-# Volumes for test environment
-volumes:
-  selenium_downloads:

@@ -161,7 +161,6 @@ function gitlab_end_section() {
 }
 
 function run_codeception() {
-  exec-in-container selenium "find /home/seluser/Downloads -type f -print0 | xargs -r -n 1 -0 rm"
   exec-in-container-asroot app rm --recursive --force cache/.views-cache cache/di-cache.php
   exec-in-container app vendor/bin/codecept run "$@"
 }

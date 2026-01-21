@@ -163,6 +163,6 @@ yarn lint && yarn prettier
 ### Before Merge Request
 ```bash
 # Full test suite
-./scripts/test
+./scripts/test-all
 ./scripts/lint
 ```

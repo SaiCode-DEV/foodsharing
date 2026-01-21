@@ -70,8 +70,6 @@ stages:
     - build:websocket
     - job: test:frontend
       artifacts: false
-    - job: test:backend-acceptance
-      artifacts: false
     - job: test:backend-unit
       artifacts: false
     - job: test:backend-api
@@ -355,8 +353,6 @@ test:php-compatibility-check:
       alias: redis
     - name: registry.gitlab.com/foodsharing-dev/images/mariadb:latest
       alias: db
-    - name: registry.gitlab.com/foodsharing-dev/images/selenium:latest
-      alias: selenium
     - name: registry.gitlab.com/foodsharing-dev/images/maildev:latest
       alias: maildev
       command: [ "bin/maildev",  "--web", "1080", "--smtp", "1025" ]
@@ -392,64 +388,6 @@ test:backend-unit:
   script:
     - touch $CI_PROJECT_DIR/code_updated # Create file to notify websocket container that code is up to date
     - ./scripts/ci-backend-test Unit
-
-test:backend-acceptance:
-  extends:
-    - .defaults
-  stage: test
-  interruptible: true
-  timeout: 60 minutes
-  rules:
-    - if: $CI_COMMIT_BRANCH == 'production' && $SKIP_CI_TESTS == 'true'
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_COMMIT_BRANCH == 'master' || $CI_COMMIT_BRANCH == 'production'
-    - !reference [.dirs-app-rule, rules]
-    - !reference [.dirs-backend-rule, rules]
-    - !reference [.dirs-frontend-rule, rules]
-    - !reference [.dirs-websocket-rule, rules]
-  image: registry.gitlab.com/foodsharing-dev/images/php:latest
-  variables:
-    MYSQL_ROOT_PASSWORD: root
-    MYSQL_INITDB_SKIP_TZINFO: 1
-    TZ: Europe/Berlin
-    FF_NETWORK_PER_BUILD: 1
-    REDIS_HOST: redis
-    FS_ENV: test
-  services:
-    # Note: Gitlab runner will mark a lot of service healthchecks as failed.
-    # This is a bug that will partly be addressed with the upcoming release of the gitlab-runner.
-    # It is also due to our configuration, e.g. the websocket container not exposing ports but listed as a service.
-    # Unfortunately, health check cannot be disabled.
-    - name: registry.gitlab.com/foodsharing-dev/images/redis:latest
-      alias: redis
-    - name: registry.gitlab.com/foodsharing-dev/images/mariadb:latest
-      alias: db
-    - name: registry.gitlab.com/foodsharing-dev/images/selenium:latest
-      alias: selenium
-    - name: registry.gitlab.com/foodsharing-dev/images/maildev:latest
-      alias: maildev
-      command: [ "bin/maildev",  "--web", "1080", "--smtp", "1025" ]
-    - name: registry.gitlab.com/foodsharing-dev/images/node:latest
-      alias: websocket
-      command: [ "/bin/sh", "-c", 'rm $CI_PROJECT_DIR/code_updated; while [ ! -e $CI_PROJECT_DIR/code_updated ]; do sleep 1; done; cd /builds/foodsharing-dev/foodsharing/websocket && yarn ts-node src/index.ts 0.0.0.0' ]
-      # websocket service runs with code that gets checked out later by the main build job.
-      # We use a file to synchronize that, so start websocket service only when that file has been recreated.
-    - name: registry.gitlab.com/foodsharing-dev/images/ci/nginx:latest
-      alias: nginx
-  needs:
-    - build:backend-dev
-    - build:frontend
-    - build:websocket
-  script:
-    - touch $CI_PROJECT_DIR/code_updated # Create file to notify websocket container that code is up to date
-    - ./scripts/ci-backend-test Acceptance 3
-  cache:
-    key: backend:build:cache
-    paths:
-      - .php-cs-fixer.cache
-  artifacts: *test-artifacts
 
 test:frontend:
   extends:

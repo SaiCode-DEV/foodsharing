@@ -31,7 +31,10 @@ changes, e.g. doc fixes and typos.
     - In our case, you create the branch for the ticket number 89 with the Git command ``git checkout -b 89-create-emails-for-invitations``.
     - Optionally, add your GitLab handle or real name: ``89-inktrap-create-emails-for-invitations``
  - make the edits *only* in your new branch. Preferably commit in smaller intervals so that we can keep track of the progress and see what's happening.
- - Ensure the tests pass locally by calling ``./scripts/test``.
+ - Ensure the tests pass locally.
+    See the backend and frontend testing guides for more details:
+    - Backend: [docs/backend/testing.md](../../backend/testing.md)
+    - Frontend: [docs/frontend/testing.md](../../frontend/testing.md)
  - [create a MR](https://docs.gitlab.com/ee/gitlab-basics/add-merge-request.html). If your change requires multiple commits or is bigger, add the ``Draft:`` prefix to the name of the MR
  - Wait. Somebody will ask you some questions, and if everything goes well, will approve your merge request.
 

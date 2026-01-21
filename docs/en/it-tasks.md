@@ -77,7 +77,8 @@ For sure:
 - RESTful APIs
 - Git
 - Docker Compose development environment
-- Codeception for Unit-, API-, and Acceptance testing (with Selenium)
+- Codeception for Unit and API
+- Playwright for e2e testing
 - GitLab CI for tests and automatic deployment (with php deployer)
 
 ### General information for the smartphone app

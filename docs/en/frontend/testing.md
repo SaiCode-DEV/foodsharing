@@ -2,23 +2,28 @@
 
 ## Playwright: Automated Browser Testing
 
+### How e2e tests work (Playwright)
+
+For guidance on writing stable, non‑flaky Playwright tests (including patterns for parallel runs, retries, timeouts,
+fixtures, network stubbing and selectors), follow Playwright's official best practices:
+
+- https://playwright.dev/docs/best-practices
+
+If you need an internal quick reference, keep tests small and deterministic, use `page.locator()` + `expect` matchers,
+prefer API setup over UI setup, and wait for network or specific selectors rather than using fixed timeouts.
+
 ### Quick Start
 
 **Prerequisites:** Docker and Docker Compose installed
 
 **Run all tests:**
 ```bash
-./scripts/test e2e
+./scripts/test-e2e
 ```
 
 **Run specific test:**
 ```bash
 ./scripts/test-e2e specs/LoginTest.spec.ts
-```
-
-**Before pushing code:**
-```bash
-./scripts/test
 ```
 
 ### Usage
@@ -69,3 +74,5 @@ yarn show-report
 **Linting:** Pre-commit hooks via Husky are installed automatically with `yarn install` in `tests/e2e/`.
 
 To bypass: `git commit --no-verify`
+
+To stop the Test containers run ```./scripts/stop test```.

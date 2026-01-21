@@ -73,7 +73,8 @@ A: We use ...
 * socket.io [nodejs](deployment/requests) server - the chat server. Low maintenance.
 * [RESTful APIs](backend/api/introduction) - We also have old ones but are moving towards REST.
 * the Docker Compose development environment
-* [Codeception](backend/testing) for Unit-, API-, and Acceptance testing (with Selenium) - 
+* [Codeception](backend/testing) for Unit and API
+* Playwright for e2e testing
 * [Git](deployment/git)
 * GitLab CI for tests and automatic deployment (with php deployer) - this is a nice, stable setup through which multiple people can deploy stuff. (Not bottle-necking through one person as jobs are usually splitted between at least two servers.)
 

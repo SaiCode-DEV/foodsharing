@@ -27,8 +27,8 @@ All scripts can be run with `./scripts/[script]`.
 ## Testing `scripts`
 | Script                | ENV  | Description                                                                                                   |
 |-----------------------|------|---------------------------------------------------------------------------------------------------------------|
-| `test`                | test | Without parameters, runs all tests (Codeception, E2E, Client, Websocket); only initializes when test environment is not running |
-| `test [suite] [test]` | test | Runs specific Codeception test, example: `test Api BasketApiCest`                                             |
+| `test-all`                | test | Without parameters, runs all tests (Codeception, E2E, Client, Websocket); only initializes when test environment is not running |
+| `test-backend [suite] [test]` | test | Runs specific Codeception test, example: `test Api BasketApiCest`                                             |
 | `test-e2e`            | test | Runs all Playwright E2E tests                                                                                 |
 | `test-e2e debug`      | test | Opens interactive shell for debugging Playwright tests                                                        |
 | `test-e2e [test]`     | test | Runs specific Playwright test, example: `test-e2e login.spec.ts`                                              |

@@ -44,7 +44,7 @@ Before you push a commit the following points should be done
 
 - check for code and style errors `./scripts/lint`
   see also [Scripts](deployment/scripts.md#codestyle-scripts)
-- check if the tests run without errors `./scripts/test`
+- check if the tests run without errors
   see also [Testing](backend/testing.md#running-tests) and [Scripts](deployment/scripts.md#testing-scripts)
 
 
