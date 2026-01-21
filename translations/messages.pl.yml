@@ -1164,6 +1164,7 @@ pickup:
       time: Czas
     status:
       pending: NIepotwierdzony
+      confirmed: Potwierdzony
   leave_pickup_ok: Już mam zastępstwo
   leave_pickup_message_team: Powiadom team
   leave_team_message_title: Wiadomość do teamu
@@ -1190,6 +1191,11 @@ pickup:
   edit_description: Edytuj opis
   description: Opis
   signout_confirm: Jesteś pewny/a?
+  open_profile: Profil
+  copyNumber: kopiuj numer telefonu
+  signout_sure: Czy na pewno chcesz opuścić ten team?
+  kick_message_placeholder: Opcjonalnie dodaj informacje tutaj …
+  description_modal_text: 'Podaj nowy opis:'
 calendar:
   locale: pl
   labelNextYear: Przyszły rok
@@ -1304,6 +1310,7 @@ chat:
   receivermissing: Podaj odbiorcę
   incorrect_address: Ten adres email nie jest poprawny
   empty_message: Najpierw musisz napisać wiadomość.
+  conversations: Konwersacje
 wall:
   see-more: Pokaż wszystkie posty
   delete: Usuń post
@@ -1484,6 +1491,7 @@ bell:
     many: '{teaser}'
   new_store_request:
     one: dla {name} od {user}
+    many: do {name} od {count} użytkowników/czek
   store_request_accept_title: '{name}'
   store_request_accept_wait_title: '{name}'
   store_request_deny_title: '{name}'
@@ -1620,6 +1628,11 @@ foodsaver:
     role: Rola
     last-activity: Ostatnia aktywność
     actions: Opcje
+  upgrade:
+    ad_fs: Chcę przystąpić teraz do quizu dla foodsaverów/ek i zostać 
+      foodsaverem/ką!
+    FOODSAVER: Zostań foodsaverem/ką
+  kicked: Usunięto foodsavera/kę
 content:
   bread: Wszystkie strony
   public: Strony publiczne
@@ -1631,6 +1644,8 @@ content:
   delete: Czy na pewno usunąć {name}?
   delete_success: Usunięto stronę
   error: Nie można było zapisać strony
+  content: Treść
+  id: ID
 map:
   filters:
     stores:

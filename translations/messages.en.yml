@@ -1275,7 +1275,7 @@ pickup:
   no_slots_available: No pick-up slots available
   add_onetime_pickup: Add single date
   edit_recurring_pickups: Edit regular pick-up dates
-  really_delete_date: Do you really want to delete the pick-up on {date}?
+  really_delete_date: Do you really want to delete the slot on {date}?
   leave_team_message_template: '{date} I can’t pick up after all and have therefore
     signed out again. …'
   really_leave_date: You are responsible for this pick-up. Please arrange a 
@@ -1289,10 +1289,10 @@ pickup:
     only delete this pick-up date once all slots are empty.
   to_be_confirmed: This pick-up date still has to be confirmed by a store 
     coordinator.
-  delete_title: Delete pick-up slot
+  delete_title: Delete slot
   join_agree: yes, sign up
   join_cancel: rather not
-  really_join_date: Would you like to sign up for the pick-up on {date}?
+  really_join_date: Do you really want to sign up for {date}?
   kick_message: we have removed you from the {storeName} pick-up on {date}.
   really_kick_user_info: "Do you really want to unsubscribe {name} from the pick-up
     on {date}?\n{name} will receive the following message about this:\n"
@@ -1349,7 +1349,7 @@ pickup:
 
   region_pickup_rule_failed: This entry does not comply with district rules
   description_optional: Description (optional)
-  description_modal_text: 'Enter a new description for the pickup:'
+  description_modal_text: 'Enter a new description for this event:'
   edit_description: Edit description
   description: Description
   description_max_length_info: Maximum length of the description reached (100 
@@ -1357,10 +1357,10 @@ pickup:
   hygieneCertificateMissing:
     link: Take the hygiene exam here
     none: You do not have a valid hygiene qualification at the moment. Take the 
-      hygiene quiz now to be able to register for pick-ups.
+      hygiene quiz now to be able to sign in into slots here.
     timeout: Your current hygiene certificate will already have expired at the 
-      time of the desired pick-up. Take the hygiene quiz again now to be able to
-      register for the desired pick-up.
+      time of the desired appointment. Take the hygiene quiz again now to 
+      register for this appointment.
   membershipMissing: You are not a member of this team. Therefore, you should 
     not register for pick-ups. If necessary, register as a team member first.
   may_enter: There is a slot available for you on this pickup date.
@@ -1369,6 +1369,7 @@ pickup:
     short: Membership card expired
     long: Your membership card will no longer be valid at this time
   chat: Start pickup chat
+  slots: Slots
 storeview:
   cooperation: Cooperation since {startTime}.
   cooperation_start: "Cooperation since"
@@ -1411,7 +1412,7 @@ storeview:
   public_time: 'It will be picked up roughly {freq}. Please never go to the store
     without prior consultation!'
   pickupWeight: 'kg were saved'
-  pickupCount: 'pick-ups'
+  pickupCount: 'Slots'
   status_notes: status notes
   team: Store team
   show_settings: Store settings
@@ -1526,6 +1527,7 @@ terminology:
   received: received
   users: Users
   resourcesAdmins: Resource Mosaic Team
+  giving: Donation
 login:
   pwreset:
     bread: Reset password
@@ -2455,8 +2457,8 @@ store:
       to decide on your application.
     application-placeholder: I would like to help in this team because …
     application-message: Application message
-    hygieneRequired: A valid hygiene qualification is required for pickup at 
-      this facility.
+    hygieneRequired: A valid hygiene qualification is required in order to carry
+      out activities at this facility.
     hygieneMissing: However, you do not meet this requirement at the moment. 
       Take the hygiene quiz now to apply for this team.
     distance_short:
@@ -2533,9 +2535,9 @@ store:
       default: Default sorting
       pickup: Sorted by last pick-up
       distance: Sorted by distance
-    userHasPickupsWarning: '{name} is still registered for {occupiedSlots} pick-ups
-      at this company. These slots will then become free. Would you still like to
-      continue?'
+    userHasPickupsWarning: '{name} is currently registered for {occupiedSlots} slots
+      at this facility. These slots will then become available. Do you still want
+      to continue?'
     filterNoHygiene: 'without hygiene training'
     inviteMember: Invite to the team
     demoteAsManagerConfirm: Do you really want to give up your responsibility as
@@ -2561,7 +2563,7 @@ store:
     (e. g. in food baskets, on social media or to the press).
   joinDate: 'In team since: {date}'
   lastPickupShort: last {date}
-  lastPickup: 'Last pick-up {date}'
+  lastPickup: 'Last activity {date}'
   jumperSince: 'Standby since {date}'
   tooltip_managing: You are responsible for this store
   not-in-team: You are not a member of this store’s team yet.
@@ -2572,7 +2574,7 @@ store:
   short_tooltip_orange: Open slots in the next 3 days
   short_tooltip_red: Open slots today or tomorrow
   springer_conversation_name: Standby {name}
-  average_collection_quantity: Pick-up quantity per person
+  average_collection_quantity: Quantity per person
   mayManage: Passed the quiz for Store Coordinators.
   mayAmb: Passed the ambassador quiz.
   fetchCount: Picked up {count}× here.
@@ -2590,7 +2592,7 @@ store:
     no_record: No record found.
     is_closed: Team is closed
   filter: Filter by …
-  enternumber: You need to select the number of people who can pick up.
+  enternumber: You still need to select the number of associated slots.
   prefetchfour: 4 weeks
   maxchar: (max. 180 characters)
   important: 'Important:'
@@ -2634,8 +2636,8 @@ store:
     additional information is displayed, which applies to all establishments in 
     the chain.
   particularities_chain: Particularities of the chain
-  enter_date: Enter a single pick-up date
-  delete_date: Delete a single pick-up date
+  enter_date: Enter a single slot
+  delete_date: Delete a single slot
   enter_date_description: After you have selected the date, time and number of 
     people for a pick-up, you can set slots once for a single appointment. If 
     you want to create regular (automatically recurring weekly) slots, please 
@@ -2660,18 +2662,18 @@ store:
     message:
       6: '{actor} has added {target} to the active team.'
       1: '{actor} would like to join the team.'
-      14: '{actor} has confirmed the pick-up request from {target} on {date}.'
+      14: '{actor} has confirmed the slot request from {target} on {date}.'
       3: '{actor} has accepted the request to join the team from {target}.'
       4: '{actor} has added {target} manually.'
-      11: '{actor} signed up for the pick-up on {date}.'
+      11: '{actor} signed up on {date}.'
       7: '{actor} has removed {target} from the team.'
-      13: '{actor} has signed {target} out for the pickup on {date}.'
-      13_with_reason: '{actor} has cancelled the pickup from {target} on {date} with
-        the following message'
+      13: '{actor} has signed {target} out for {date}.'
+      13_with_reason: '{actor} has signed out {target} for {date} with the following
+        message'
       8: '{actor} has left the team.'
       16: '{actor} has withdrawn the request to join the team.'
       10: '{actor} removed {target} as store coordinator.'
-      12: '{actor} signed out for the pick-up on {date}.'
+      12: '{actor} signed out for {date}.'
       2: '{actor} has rejected the request to join the team from {target}.'
       5: '{actor} has put {target} on the list of standby foodsavers.'
       9: '{actor} enlisted {target} as store coordinator.'
@@ -2684,18 +2686,18 @@ store:
       3: membership requests accepted
       2: membership requests rejected
       7: team members removed from team
-      14: pick-ups confirmed
+      14: confirmed a slot
       1: membership requests made
       16: team applications withdrawn
       8: team members left team
       4: members added manually
       10: store coordinators removed
       6: team members moved to active team
-      12: signed out from pick-ups
+      12: signed out from a slot
       9: store coordinators appointed
       5: team members made standby
-      13: removed from pick-ups
-      11: signed up for pick-ups
+      13: removed from a slot
+      11: signed up for a slot
       15: wall posts deleted
       18: withdrawn team invitations
       17: invitations to the team
@@ -2708,7 +2710,7 @@ store:
     message_saved_info: Your message will be stored in the operation log.
   signInDateTime: Sign-in time
   slot_state: Slot status
-  lastPickupTitle: Last pick-up here
+  lastPickupTitle: Last activity here
   slotsCurrentlyOccupied: Currently occupied slots
   deactivatedRegion: The store list cannot be displayed for entire countries and
     continents at the moment.
@@ -2749,6 +2751,7 @@ store:
       have canceled a partnership should remain listed. Only stores where no 
       pickups have ever taken place and whose team chats have been unused for at
       least three months can be deleted.
+  my_last_slot: My last activity
 navi:
   google_maps: "Google Maps"
   waze: "Waze"
@@ -2988,7 +2991,8 @@ storeedit:
     teamStatus0: This team is full and presently does not search for more 
       helpers
     hygieneRequirement: Hygiene requirements
-    hygieneRequired: Allow pick-ups only with valid hygiene training
+    hygieneRequired: Registrations are only permitted with valid hygiene 
+      training
     applicationRequirements: Application requirements
     verifiedRequired: Only allow verified foodsavers
     phoneRequirement: Only allow foodsavers with a registered phone number
@@ -3452,7 +3456,7 @@ gender:
   d: Both or something else
 questcount: How many questions should be asked during the exam?
 maxfp: Maximum number of failure points to pass
-abholmenge: How many kilograms are taken per pick-up approximately per person?
+abholmenge: How many kilograms can be expected per slot?
 prefetchtime: How many weeks in advance can food savers sign up using automatic 
   slots?
 sticker: Is the store/shop/club etc. willing to display a sticker visibly at the
