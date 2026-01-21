@@ -1812,10 +1812,10 @@ bell:
     many: "{count} neue Pinnwandeinträge"
 
   store_cr_times_title: "{name}"
-  store_cr_times: "Aufgabentermine wurden angepasst"
+  store_cr_times: "Slots wurden angepasst"
   store_change_regular_pickup_times:
-    one: "Aufgabentermin wurden angepasst"
-    many: "Aufgabentermine wurden angepasst"
+    one: "Slot wurde angepasst"
+    many: "Slots wurden angepasst"
 
   fs_sleepmode_title: "Neue Schlafmütze"
   fs_sleepmode: "{name} {nachname} ist jetzt inaktiv"
