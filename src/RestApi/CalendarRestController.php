@@ -91,7 +91,7 @@ class CalendarRestController extends AbstractFoodsharingRestController
     #[OA\QueryParameter(name: 'events', description: 'What events to include in the calendar.<br>One of `every` (default), `invitations`, `maybe`, `accepted` or `none`')]
     #[OA\QueryParameter(name: 'pickups', description: 'Whether to include pickups in the calendar.')]
     #[OA\QueryParameter(name: 'history', description: 'Whether to include past entries (up to 2 weeks back) in the calendar.')]
-    #[OA\QueryParameter(name: 'reminders', example: '15,120', description: 'List of reminder times in minutes. These reminders are applied to each calendar event.')]
+    #[OA\QueryParameter(name: 'reminders', description: 'List of reminder times in minutes. These reminders are applied to each calendar event.', example: '15,120')]
     public function listAppointments(
         string $token,
         #[MapQueryParameter] ?FormattingType $formatting,
@@ -110,6 +110,7 @@ class CalendarRestController extends AbstractFoodsharingRestController
         if (array_any($reminders, fn ($value) => !is_numeric($value) || $value <= 0)) {
             throw new BadRequestHttpException('Invalid reminder value');
         }
+        $reminders = array_map(fn ($reminder) => (int)$reminder, $reminders);
 
         $appointments = $this->calendarTransactions->listAppointments(
             $userId,

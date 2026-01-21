@@ -43,6 +43,9 @@ class CalendarTransactions
         return $token;
     }
 
+    /**
+     * @param int[] $reminders
+     */
     public function listAppointments(
         int $userId,
         FormattingType $formatting,
@@ -75,6 +78,9 @@ class CalendarTransactions
         return $this->formatCalendarResponse(array_merge($pickups, $events));
     }
 
+    /**
+     * @param int[] $reminders
+     */
     private function createPickupEvent(array $pickup, int $userId, FormattingType $formatting, array $reminders): CalendarEvent
     {
         $start = Carbon::createFromTimestamp($pickup['timestamp'], new DateTimeZone('Europe/Berlin'));
@@ -125,6 +131,9 @@ class CalendarTransactions
         return $event;
     }
 
+    /**
+     * @param int[] $reminders
+     */
     private function createMeetingEvent(array $meeting, int $userId, FormattingType $formatting, array $reminders): CalendarEvent
     {
         $url = BASE_URL . '/?page=event&id=' . $meeting['id'];
@@ -193,13 +202,17 @@ class CalendarTransactions
         return "<br><br><i>{$updated}</i>";
     }
 
+    /**
+     * @param CalendarEvent $event the event to which the reminders shall be added
+     * @param int[] $reminders list of reminder intervals in minutes
+     */
     private function addReminders(CalendarEvent &$event, array $reminders): void
     {
         foreach ($reminders as $reminder) {
             $alarm = new CalendarAlarm();
             $alarm->setAction('DISPLAY');
             $alarm->setDescription($event->getSummary());
-            $alarm->setTrigger(new \DateInterval('PT' . $reminder . 'S'));
+            $alarm->setTrigger(new \DateInterval('PT' . $reminder . 'M'));
             $event->addAlarm($alarm);
         }
     }

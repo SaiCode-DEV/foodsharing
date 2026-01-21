@@ -147,10 +147,10 @@ class CalendarApiCest
             'foodsaver_id' => $this->user['id'],
             'token' => self::TEST_TOKEN
         ]);
-        $I->sendGet('api/calendar/' . self::TEST_TOKEN . '?reminders=600');
+        $I->sendGet('api/calendar/' . self::TEST_TOKEN . '?reminders=60');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContains('BEGIN:VALARM');
-        $I->seeResponseContains('TRIGGER:-PT600S');
+        $I->seeResponseContains('TRIGGER:-PT60M');
         $I->seeResponseContains('ACTION:DISPLAY');
     }
 
