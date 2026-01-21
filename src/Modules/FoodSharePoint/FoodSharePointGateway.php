@@ -20,9 +20,9 @@ use Foodsharing\Modules\FoodSharePoint\DTO\FoodSharePoint;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Map\DTO\MapMarker;
 use Foodsharing\Modules\Region\RegionGateway;
-use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointData;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointEditData;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointForCreation;
+use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointForListView;
 
 class FoodSharePointGateway extends BaseGateway
 {
@@ -128,34 +128,28 @@ class FoodSharePointGateway extends BaseGateway
         );
     }
 
+    /**
+     * @return FoodSharePointForListView[]
+     */
     public function listActiveFoodSharePoints(array $regionIds): array
     {
         if (!$regionIds) {
             return [];
         }
-        if ($foodSharePoints = $this->db->fetchAll(
-            '
-			SELECT 	`id`,
-					`name`,
-					`picture`
-			FROM 	`fs_fairteiler`
-			WHERE 	`bezirk_id` IN( ' . implode(',', $regionIds) . ' )
-			AND 	`status` = 1
-			ORDER BY `name`
-		'
-        )
-        ) {
-            foreach ($foodSharePoints as $fspKey => $fspValue) {
-                $foodSharePoints[$fspKey]['pic'] = false;
-                if (!empty($fspValue['picture'])) {
-                    $foodSharePoints[$fspKey]['pic'] = $this->getPicturePaths($fspValue['picture']);
-                }
-            }
+        $foodSharePoints = $this->db->fetchAll('SELECT
+                `id`,
+                `name`,
+                `picture`
+			FROM `fs_fairteiler`
+			WHERE `bezirk_id` IN( ' . implode(',', $regionIds) . ' )
+			    AND	`status` = :activeStatus
+			ORDER BY `name`',
+            [':activeStatus' => ActivationStatus::ACTIVE->value],
+        );
 
-            return $foodSharePoints;
-        }
-
-        return [];
+        return array_map(fn ($fsp) => FoodSharePointForListView::create(
+            $fsp['id'], $fsp['name'], $fsp['picture']
+        ), $foodSharePoints);
     }
 
     /**
@@ -188,54 +182,6 @@ class FoodSharePointGateway extends BaseGateway
 			WHERE
 				ff.foodsaver_id = :fsId
 		', [':fsId' => $fsId]);
-    }
-
-    public function listFoodSharePointsNested(array $regionIds = []): array
-    {
-        if (!empty($regionIds) && ($foodSharePoint = $this->db->fetchAll(
-            '
-			SELECT 	ft.`id`,
-					ft.`name`,
-					ft.`picture`,
-					bz.id AS bezirk_id,
-					bz.name AS bezirk_name
-
-			FROM 	`fs_fairteiler` ft,
-					`fs_bezirk` bz
-
-			WHERE 	ft.bezirk_id = bz.id
-			AND 	ft.`bezirk_id` IN(' . implode(',', $regionIds) . ')
-			AND 	ft.`status` = 1
-			ORDER BY ft.`name`
-		'
-        ))
-        ) {
-            $out = [];
-
-            foreach ($foodSharePoint as $fsp) {
-                if (!isset($out[$fsp['bezirk_id']])) {
-                    $out[$fsp['bezirk_id']] = [
-                        'id' => $fsp['bezirk_id'],
-                        'name' => $fsp['bezirk_name'],
-                        'fairteiler' => [],
-                    ];
-                }
-                $pic = false;
-                if (!empty($fsp['picture'])) {
-                    $pic = $this->getPicturePaths($fsp['picture']);
-                }
-                $out[$fsp['bezirk_id']]['fairteiler'][] = [
-                    'id' => $fsp['id'],
-                    'name' => $fsp['name'],
-                    'picture' => $fsp['picture'],
-                    'pic' => $pic,
-                ];
-            }
-
-            return $out;
-        }
-
-        return [];
     }
 
     public function follow(int $foodsaverId, int $foodSharePointId, int $infoType): void
@@ -330,108 +276,79 @@ class FoodSharePointGateway extends BaseGateway
         return $result;
     }
 
-    /**
-     * TODO: split up the data for FSPs and followers into two functions, two DTOs. Replace the REST endpoint with
-     * two endpoints. After that, mark getFoodSharePoint and getFollower as deprecated.
-     */
-    public function getFoodSharePointWithManagers(int $foodSharePointId): ?FoodSharePointData
+    public function getFoodSharePoint(int $foodSharePointId): ?FoodSharePoint
     {
-        $data = $this->db->fetch('SELECT
-                ft.id AS food_share_point_id,
-                ft.bezirk_id AS region_id,
-                b.name AS region_name,
-                ft.`name` AS food_share_point_name,
+        $foodSharePoint = $this->db->fetch('SELECT
+                ft.`id`,
+                ft.`bezirk_id`,
+                ft.`name`,
                 ft.`picture`,
                 ft.`status`,
                 ft.`desc`,
-                ft.`anschrift`,
-                ft.`plz`,
-                ft.`ort`,
+                ft.`anschrift` as street,
+                ft.`plz` as postalCode,
+                ft.`ort` as city,
                 ft.`lat`,
                 ft.`lon`,
-                UNIX_TIMESTAMP(ft.`add_date`) AS add_date,
+                ft.`add_date`,
                 ft.`add_foodsaver`,
-                fs.id AS creator_id,
-                fs.name AS creator_name,
-                fs.photo AS creator_photo,
-                COUNT(ff.foodsaver_id) AS follower_count
-        FROM    fs_fairteiler ft
-        JOIN fs_foodsaver fs ON ft.add_foodsaver = fs.id
-        LEFT OUTER JOIN fs_fairteiler_follower ff ON ff.fairteiler_id = ft.id AND ff.type = :followerType
-        JOIN fs_bezirk b ON b.id = ft.bezirk_id
-        WHERE ft.id = :foodSharePointId
+                fs.`name` AS fs_name,
+                fs.`id` AS fs_id,
+                fs.`is_sleeping` AS fs_is_sleeping,
+                fs.`photo` AS fs_avatar
+			FROM  fs_fairteiler ft
+			LEFT JOIN fs_foodsaver fs ON ft.`add_foodsaver` = fs.`id`
+			WHERE  ft.`id` = :foodSharePointId',
+            [':foodSharePointId' => $foodSharePointId]
+        );
+        if (!$foodSharePoint) {
+            return null;
+        }
+
+        return FoodSharePoint::create(
+            $foodSharePoint['id'],
+            $foodSharePoint['name'],
+            $foodSharePoint['bezirk_id'],
+            $foodSharePoint['picture'],
+            ActivationStatus::tryFrom($foodSharePoint['status']),
+            $foodSharePoint['desc'],
+            Address::createFromArray($foodSharePoint),
+            GeoLocation::createFromArray($foodSharePoint),
+            DateTime::createFromFormat('Y-m-d', $foodSharePoint['add_date']),
+            new Profile($foodSharePoint, 'fs_')
+        );
+    }
+
+    public function getFollowerCount(int $foodSharePointId): int
+    {
+        return $this->db->fetchValue('SELECT COUNT(*)
+            FROM fs_fairteiler_follower
+            WHERE `fairteiler_id` = :foodSharePointId
+                AND `type` = :followerType
         ', [
             ':foodSharePointId' => $foodSharePointId,
             ':followerType' => FollowerType::FOLLOWER,
         ]);
-        if (empty($data)) {
-            return null;
-        }
-        $foodSharePoint = FoodSharePointData::createFromArray($data);
+    }
 
+    /**
+     * @return Profile[]
+     */
+    public function getManagers(int $foodSharePointId): array
+    {
         $managers = $this->db->fetchAll('SELECT
                 fs.id, fs.name, fs.photo, fs.is_sleeping
-        FROM fs_fairteiler_follower ff
-        JOIN fs_foodsaver fs ON fs.id = ff.foodsaver_id
-        WHERE ff.fairteiler_id = :foodSharePointId
-        AND ff.type = :managerType
+            FROM fs_fairteiler_follower ff
+            JOIN fs_foodsaver fs ON fs.id = ff.foodsaver_id
+            WHERE ff.fairteiler_id = :foodSharePointId
+                AND ff.type = :managerType
+                AND fs.deleted_at IS NULL
         ', [
             ':foodSharePointId' => $foodSharePointId,
             ':managerType' => FollowerType::FOOD_SHARE_POINT_MANAGER,
         ]);
-        $foodSharePoint->setManagers($managers);
 
-        return $foodSharePoint;
-    }
-
-    public function getFoodSharePoint(int $foodSharePointId): ?FoodSharePoint
-    {
-        if ($foodSharePoint = $this->db->fetch(
-            '
-			SELECT 	ft.id,
-					ft.`bezirk_id`,
-					ft.`name`,
-					ft.`picture`,
-					ft.`status`,
-					ft.`desc`,
-					ft.`anschrift` as street,
-					ft.`plz` as postalCode,
-					ft.`ort` as city,
-					ft.`lat`,
-					ft.`lon`,
-					ft.`add_date`,
-					ft.`add_foodsaver`,
-					fs.name AS fs_name,
-					fs.id AS fs_id,
-					fs.is_sleeping AS fs_is_sleeping,
-					fs.photo AS fs_avatar
-
-			FROM 	fs_fairteiler ft
-			LEFT JOIN
-					fs_foodsaver fs
-
-
-			ON 	ft.add_foodsaver = fs.id
-			WHERE 	ft.id = :foodSharePointId
-		',
-            [':foodSharePointId' => $foodSharePointId]
-        )
-        ) {
-            return FoodSharePoint::create(
-                $foodSharePoint['id'],
-                $foodSharePoint['name'],
-                $foodSharePoint['bezirk_id'],
-                $foodSharePoint['picture'],
-                ActivationStatus::tryFrom($foodSharePoint['status']),
-                $foodSharePoint['desc'],
-                Address::createFromArray($foodSharePoint),
-                GeoLocation::createFromArray($foodSharePoint),
-                DateTime::createFromFormat('Y-m-d', $foodSharePoint['add_date']),
-                new Profile($foodSharePoint, 'fs_')
-            );
-        }
-
-        return null;
+        return array_map(fn ($manager) => new Profile($manager), $managers);
     }
 
     public function addFoodSharePoint(int $foodsaverId, FoodSharePointForCreation $data, bool $isProposal): int
@@ -498,32 +415,6 @@ class FoodSharePointGateway extends BaseGateway
             return;
         }
         $this->bellGateway->delBellsByIdentifier($identifier);
-    }
-
-    /**
-     * Returns the URL paths for the 'thumb', 'head', and 'orig' version of the picture. This differentiates between
-     * newer files, which are requested via rest API, and older files, which are requested directly with their file
-     * path.
-     *
-     * @param string $picture a picture file's name
-     *
-     * @return array URL paths for the 'thumb', 'head', 'orig' version
-     */
-    private function getPicturePaths(string $picture): array
-    {
-        if (str_starts_with($picture, '/api/uploads/')) {
-            return [
-                'thumb' => $picture . '?h=60&w=60',
-                'head' => $picture . '?h=169&w=525',
-                'orig' => $picture
-            ];
-        }
-
-        return [
-            'thumb' => 'images/' . str_replace('/', '/crop_1_60_', $picture),
-            'head' => 'images/' . str_replace('/', '/crop_0_528_', $picture),
-            'orig' => 'images/' . $picture,
-        ];
     }
 
     public function getFollowerStatus(int $foodSharePointId, int $userId): int

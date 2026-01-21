@@ -6,9 +6,6 @@ use Foodsharing\Modules\Core\DTO\GeoLocation;
 use OpenApi\Attributes as OA;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * Contains all the information that is needed for creating a new food share point.
- */
 class FoodSharePointForCreation
 {
     #[OA\Property(example: 1)]

@@ -62,15 +62,8 @@ export default {
   },
   methods: {
     pictureUrl (fsp) {
-      if (fsp.picture) {
-        if (fsp.picture.startsWith('/api/uploads/')) {
-          return fsp.picture + '?w=55&h=55' // path for pictures uploaded with the new API
-        } else {
-          return '/images' + fsp.picture.replace('/', '/crop_1_60_') + fsp.picture // backward compatible path for old pictures
-        }
-      } else {
-        return 'img/foodSharePointThumb.png'
-      }
+      if (!fsp.picture) return 'img/foodSharePointThumb.png'
+      return fsp.picture + '?w=55&h=55'
     },
   },
 }

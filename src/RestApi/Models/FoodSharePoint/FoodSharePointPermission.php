@@ -4,7 +4,7 @@ namespace Foodsharing\RestApi\Models\FoodSharePoint;
 
 class FoodSharePointPermission
 {
-    public bool $isFollower;
-    public bool $mayEdit;
-    public bool $mayDelete;
+    public bool $isFollower = false;
+    public bool $mayEdit = false;
+    public bool $mayDelete = false;
 }

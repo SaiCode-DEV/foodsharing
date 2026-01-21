@@ -3,14 +3,18 @@
 namespace Foodsharing\Modules\FoodSharePoint;
 
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Core\DBConstants\FoodSharePoint\FollowerType;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
+use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Uploads\UploadsGateway;
 use Foodsharing\Modules\Uploads\UploadsTransactions;
 use Foodsharing\Permissions\FoodSharePointPermissions;
 use Foodsharing\RestApi\Models\FoodSharePoint\AddFoodSharePointResponse;
+use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointDetails;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointEditData;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointForCreation;
+use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointPermission;
 use Foodsharing\RestApi\Models\Notifications\FoodSharePoint;
 use Foodsharing\Utility\EmailHelper;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -24,6 +28,7 @@ class FoodSharePointTransactions
         private readonly UploadsTransactions $uploadsTransactions,
         private readonly EmailHelper $emailHelper,
         private readonly TranslatorInterface $translator,
+        private readonly RegionGateway $regionGateway,
         private readonly Session $session
     ) {
     }
@@ -135,5 +140,45 @@ class FoodSharePointTransactions
         }
 
         $this->foodSharePointGateway->deleteFoodSharePoint($foodSharePointId);
+    }
+
+    /**
+     * Assumes that the given Id exists. This needs to be asserted beforehand.
+     */
+    public function getFoodSharePointDetails(int $foodSharePointId): FoodSharePointDetails
+    {
+        $foodSharePoint = $this->foodSharePointGateway->getFoodSharePoint($foodSharePointId);
+
+        $fspDetails = FoodSharePointDetails::create(
+            $foodSharePoint->id,
+            $foodSharePoint->name,
+            $foodSharePoint->regionId,
+            $foodSharePoint->picture,
+            $foodSharePoint->status,
+            $foodSharePoint->description,
+            $foodSharePoint->address,
+            $foodSharePoint->location,
+            $foodSharePoint->createdAt,
+            $foodSharePoint->creator,
+        );
+        $fspDetails->regionName = $this->regionGateway->getRegionName($foodSharePoint->regionId);
+        $fspDetails->followerCount = $this->foodSharePointGateway->getFollowerCount($foodSharePointId);
+        $fspDetails->managers = $this->foodSharePointGateway->getManagers($foodSharePointId);
+
+        return $fspDetails;
+    }
+
+    public function getPermission(int $foodSharePointId): ?FoodSharePointPermission
+    {
+        $regionId = $this->foodSharePointGateway->getFoodSharePoint($foodSharePointId)->regionId;
+        $permission = new FoodSharePointPermission();
+        if ($this->session->id()) {
+            $followerType = $this->foodSharePointGateway->getFollowerStatus($foodSharePointId, $this->session->id());
+            $permission->isFollower = $followerType >= FollowerType::FOLLOWER;
+            $permission->mayEdit = $this->foodSharePointPermissions->mayEditFromManager($regionId, $followerType === FollowerType::FOOD_SHARE_POINT_MANAGER);
+            $permission->mayDelete = $this->foodSharePointPermissions->mayDeleteFoodSharePointOfRegion($regionId);
+        }
+
+        return $permission;
     }
 }

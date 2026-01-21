@@ -23,7 +23,7 @@ class FoodSharePointApiCest
     private $region;
 
     private const string EMAIL = 'email';
-    private const string API_FSPS = 'api/foodSharePoints';
+    private const string API_FSPS = 'api/food-share-points';
     private const string ID = 'id';
     private const string TEST_PICTURE = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAACklEQVR4nGNiAAAABgADNjd8qAAAAABJRU5ErkJggg==';
 
@@ -52,21 +52,22 @@ class FoodSharePointApiCest
     public function canListFoodSharePointsInRegion(ApiTester $I)
     {
         $I->login($this->user[self::EMAIL]);
-        $I->sendGET('api/regions/' . $this->region['id'] . '/foodSharePoints');
+        $I->sendGET('api/regions/' . $this->region['id'] . '/food-share-points');
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseIsJson();
     }
 
     public function canNotListFoodSharePointsInRegionWithoutLogin(ApiTester $I)
     {
-        $I->sendGET('api/regions/' . $this->region['id'] . '/foodSharePoints');
+        $I->sendGET('api/regions/' . $this->region['id'] . '/food-share-points');
         $I->seeResponseCodeIs(Http::UNAUTHORIZED);
     }
 
     public function canNotAddFoodSharePointWithoutLogin(ApiTester $I): void
     {
+        $fsp = $this->createRandomFoodSharePoint();
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPOST('api/regions/' . $this->region['id'] . '/foodSharePoints');
+        $I->sendPOST('api/regions/' . $this->region['id'] . '/food-share-points', $fsp);
         $I->seeResponseCodeIs(Http::UNAUTHORIZED);
     }
 
@@ -77,7 +78,7 @@ class FoodSharePointApiCest
         $user2 = $I->createFoodsaver();
         $I->login($user2['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPOST('api/regions/' . $this->region['id'] . '/foodSharePoints', $fsp);
+        $I->sendPOST('api/regions/' . $this->region['id'] . '/food-share-points', $fsp);
         $I->seeResponseCodeIs(Http::FORBIDDEN);
     }
 
@@ -87,7 +88,7 @@ class FoodSharePointApiCest
 
         $I->login($this->user['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPOST('api/regions/' . $this->region['id'] . '/foodSharePoints', $fsp);
+        $I->sendPOST('api/regions/' . $this->region['id'] . '/food-share-points', $fsp);
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseIsJson();
 
@@ -105,7 +106,7 @@ class FoodSharePointApiCest
 
         $I->login($this->userAmbassador['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPOST('api/regions/' . $this->region['id'] . '/foodSharePoints', $fsp);
+        $I->sendPOST('api/regions/' . $this->region['id'] . '/food-share-points', $fsp);
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseIsJson();
 

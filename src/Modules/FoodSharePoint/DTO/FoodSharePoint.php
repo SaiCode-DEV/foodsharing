@@ -8,6 +8,7 @@ use Foodsharing\Modules\Core\DTO\Address;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Foodsaver\Profile;
 
+/** @psalm-consistent-constructor */
 class FoodSharePoint
 {
     public int $id;
@@ -33,8 +34,8 @@ class FoodSharePoint
     public static function create(
         int $id, string $name, ?int $regionId, ?string $picture, ?ActivationStatus $status, string $description, Address $address,
         GeoLocation $location, DateTime $addedAt, Profile $addingUser
-    ): FoodSharePoint {
-        $fsp = new self();
+    ): static {
+        $fsp = new static();
         $fsp->id = $id;
         $fsp->name = $name;
         $fsp->regionId = $regionId;

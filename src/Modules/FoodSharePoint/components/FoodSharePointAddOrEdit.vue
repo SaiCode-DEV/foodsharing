@@ -322,9 +322,9 @@ onMounted(async () => {
       name: response.name,
       description: response.description,
       picture: response.picture,
-      address: response.address,
-      postalCode: response.postalCode,
-      city: response.city,
+      address: response.address.street,
+      postalCode: response.address.postalCode,
+      city: response.address.city,
       location: response.location,
       managerIds: response.managers.map(x => x.id),
     }
