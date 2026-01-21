@@ -2,6 +2,7 @@
 
 namespace Foodsharing\Modules\Basket;
 
+use Carbon\Carbon;
 use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Core\DBConstants\Basket\Status;
 use Foodsharing\Permissions\BasketPermissions;
@@ -50,7 +51,8 @@ class BasketController extends FoodsharingController
                 $ownRequest = $this->basketGateway->getRequest($basket->id, $this->session->id(), $basket->creator->id);
             }
         }
-        if ($basket->status === Status::REQUESTED_MESSAGE_READ && $basket->until >= time()) {
+        $isFuture = Carbon::instance($basket->until)->isFuture();
+        if ($basket->status === Status::REQUESTED_MESSAGE_READ && $isFuture) {
             $this->pageHelper->addContent($this->prepareVueComponent('vue-basket-page', 'basket-page', [
                 'basket' => $basket,
                 'requests' => $requests,
@@ -59,7 +61,7 @@ class BasketController extends FoodsharingController
                 'mayDelete' => $this->basketPermissions->mayDelete($basket),
                 'mayRequest' => $this->basketPermissions->mayRequest($basket->creator->id)
             ]));
-        } elseif ($basket->status === Status::DELETED_OTHER_REASON || $basket->status === Status::DENIED || $basket->until <= time()) {
+        } elseif ($basket->status === Status::DELETED_OTHER_REASON || $basket->status === Status::DENIED || !$isFuture) {
             $this->pageHelper->addContent($this->prepareVueComponent('BasketErrorPage', 'BasketErrorPage', [
                 'id' => $basket->id,
             ]));

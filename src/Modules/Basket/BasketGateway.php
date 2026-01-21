@@ -2,6 +2,7 @@
 
 namespace Foodsharing\Modules\Basket;
 
+use Carbon\Carbon;
 use Foodsharing\Modules\Basket\DTO\Basket;
 use Foodsharing\Modules\Basket\DTO\BasketForListView;
 use Foodsharing\Modules\Basket\DTO\BasketForOwnerMenu;
@@ -70,9 +71,9 @@ class BasketGateway extends BaseGateway
             b.lat,
             b.lon,
             b.weight AS weightInKg,
-            UNIX_TIMESTAMP(b.time) AS time_ts,
-            UNIX_TIMESTAMP(b.update) AS update_ts,
-            UNIX_TIMESTAMP(b.until) AS until_ts,
+            b.time,
+            b.update,
+            b.until,
             fs.id AS fs_id,
             fs.name AS fs_name,
             fs.photo AS fs_photo,
@@ -264,11 +265,12 @@ class BasketGateway extends BaseGateway
 				`id`,
 				`description`,
 				`picture`,
-				UNIX_TIMESTAMP(`time`) AS time_ts
+				`time`
 			FROM fs_basket
 			WHERE `foodsaver_id` = :foodsaver_id
 			AND `status` = :status
-			AND `until` > NOW()', [
+			AND `until` > NOW()
+            ORDER BY `time` ASC', [
             ':foodsaver_id' => $foodsaverId,
             ':status' => BasketStatus::REQUESTED_MESSAGE_READ
         ]);
@@ -279,7 +281,7 @@ class BasketGateway extends BaseGateway
             $data['id'],
             $data['description'],
             is_array($picture) ? ($picture[0] ?? null) : $data['picture'],
-            $data['time_ts'],
+            new Carbon($data['time']),
         ), $baskets);
     }
 
@@ -376,7 +378,7 @@ class BasketGateway extends BaseGateway
         $baskets = $this->db->fetchAll(
             'SELECT
                 b.id,
-                UNIX_TIMESTAMP(b.`until`) AS until_ts,
+                b.`until`,
                 b.picture,
                 b.description,
                 ST_Distance_Sphere(Point(:lon, :lat), Point(b.lon, b.lat)) / 1000 AS distance_in_km,

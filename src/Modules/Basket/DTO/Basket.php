@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Foodsharing\Modules\Basket\DTO;
 
+use Carbon\Carbon;
+use DateTime;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Foodsaver\Profile;
 use JMS\Serializer\Annotation\Type;
@@ -62,13 +64,13 @@ class Basket
     public ?Profile $creator = null;
 
     #[Assert\Blank]
-    public ?int $created = null;
+    public ?DateTime $created = null;
 
     #[Assert\Blank]
-    public ?int $updated = null;
+    public ?DateTime $updated = null;
 
     #[Assert\Blank]
-    public ?int $until = null;
+    public ?DateTime $until = null;
 
     #[Assert\Blank]
     public ?int $requestCount = null;
@@ -95,9 +97,9 @@ class Basket
             $basket->mobile = $data['handy'];
         }
         $basket->weightInGrams = (int)($data['weightInKg'] * 1000);
-        $basket->created = $data['time_ts'];
-        $basket->updated = $data['update_ts'];
-        $basket->until = $data['until_ts'];
+        $basket->created = isset($data['time']) ? new Carbon($data['time']) : null;
+        $basket->until = isset($data['until']) ? new Carbon($data['until']) : null;
+        $basket->updated = isset($data['update']) ? new Carbon($data['update']) : null;
         $basket->requestCount = $data['request_count'];
 
         return $basket;

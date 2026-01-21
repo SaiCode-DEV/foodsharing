@@ -84,7 +84,7 @@ class BasketApiCest
         $I->createFoodbasket($this->user[self::ID]);
 
         $I->login($this->user[self::EMAIL]);
-        $I->sendGET('api/user/current/baskets');
+        $I->sendGET('api/users/current/baskets');
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseIsJson();
     }
@@ -115,7 +115,7 @@ class BasketApiCest
 
         // an invalid distance should not work
         $I->sendGET(self::API_BASKETS . '/nearby?lat=50&lon=9&distance=51');
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::NOT_FOUND);
         $I->seeResponseIsJson();
     }
 
@@ -140,7 +140,7 @@ class BasketApiCest
     {
         $basket = $I->createFoodbasket($this->user[self::ID]);
 
-        $I->sendGET('api/user/current/baskets');
+        $I->sendGET('api/users/current/baskets');
         $I->seeResponseCodeIs(Http::UNAUTHORIZED);
         $I->sendGET(self::API_BASKETS . '/' . $basket[self::ID]);
         $I->seeResponseCodeIs(Http::UNAUTHORIZED);
@@ -149,7 +149,7 @@ class BasketApiCest
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPOST(self::API_BASKETS);
-        $I->seeResponseCodeIs(Http::UNAUTHORIZED);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
     }
 
     public function editBasket(ApiTester $I)
@@ -162,11 +162,11 @@ class BasketApiCest
         $I->login($this->user[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPUT(self::API_BASKETS . '/' . $basket[self::ID], ['description' => '']);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->sendPatch(self::API_BASKETS . '/' . $basket[self::ID], ['description' => '']);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPUT(self::API_BASKETS . '/' . $basket[self::ID], [
+        $I->sendPatch(self::API_BASKETS . '/' . $basket[self::ID], [
             'description' => $testDescription,
             'lat' => $lat,
             'lon' => $lon,

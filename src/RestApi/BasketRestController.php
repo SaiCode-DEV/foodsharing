@@ -2,59 +2,55 @@
 
 namespace Foodsharing\RestApi;
 
+use Carbon\Carbon;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Basket\BasketGateway;
 use Foodsharing\Modules\Basket\BasketTransactions;
 use Foodsharing\Modules\Basket\DTO\Basket;
+use Foodsharing\Modules\Basket\DTO\BasketForListView;
+use Foodsharing\Modules\Basket\DTO\BasketForOwnerMenu;
 use Foodsharing\Modules\Core\DBConstants\Basket\Status as BasketStatus;
 use Foodsharing\Modules\Core\DBConstants\BasketRequests\Status as RequestStatus;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Message\MessageTransactions;
 use Foodsharing\Permissions\BasketPermissions;
+use Foodsharing\RestApi\DTO\RequiredMessage;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use OpenApi\Annotations as OA;
-use OpenApi\Attributes as OA2;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Requirement\Requirement;
 
-/**
- * Rest controller for food baskets.
- */
-#[OA2\Tag(name: 'basket')]
+#[OA\Tag(name: 'basket')]
+#[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
 final class BasketRestController extends AbstractFoodsharingRestController
 {
     // literal constants
     private const string STATUS = 'status';
-    private const string LAT = 'lat';
-    private const string LON = 'lon';
     private const int MAX_BASKET_DISTANCE = 50;
 
     public function __construct(
+        protected Session $session,
         private readonly BasketTransactions $basketTransactions,
         private readonly MessageTransactions $messageTransactions,
-        protected Session $session,
         private readonly BasketPermissions $basketPermissions,
         private readonly BasketGateway $basketGateway
     ) {
         parent::__construct($session);
     }
 
-    // TODO rework api description
-    /**
-     * Returns all current baskets of the user.
-     *
-     * Returns 200 and a list of baskets or 401 if not logged in.
-     *
-     * @OA\Tag(name="basket")
-     */
-    #[Rest\Get('user/current/baskets')]
+    #[OA\Get(summary: 'Returns all current baskets of the user')]
+    #[Route('users/current/baskets', methods: ['GET'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
+        type: 'array',
+        items: new OA\Items(ref: new Model(type: BasketForOwnerMenu::class)),
+    ))]
     public function listBaskets(): Response
     {
         $this->assertLoggedIn();
@@ -63,28 +59,24 @@ final class BasketRestController extends AbstractFoodsharingRestController
         return $this->respondOK($baskets);
     }
 
-    /**
-     * Returns a list of baskets close to a given location. If the location is not valid the user's
-     * home location is used. The distance is measured in kilometers.
-     * Does not include baskets created by the current user.
-     *
-     * Returns 200 and a list of baskets, 400 if the distance is out of range, or 401 if not logged in.
-     *
-     * @OA\Tag(name="basket")
-     */
-    #[Rest\Get('baskets/nearby')]
-    #[Rest\QueryParam(name: 'lat', nullable: true)]
-    #[Rest\QueryParam(name: 'lon', nullable: true)]
-    #[Rest\QueryParam(name: 'distance', nullable: false, requirements: '\d+')]
-    public function listNearbyBaskets(ParamFetcher $paramFetcher): Response
-    {
+    #[OA\Get(
+        summary: 'Returns a list of baskets close to a given location.',
+        description: 'If no valid location is given, the user\'s home location is used. If the user has no home location, lat and lon paramters are required.<br>Baskets created by the current user are excluded.'
+    )]
+    #[Route('baskets/nearby', methods: ['GET'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
+        type: 'array',
+        items: new OA\Items(ref: new Model(type: BasketForListView::class)),
+    ))]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Location missing')]
+    #[Rest\QueryParam(name: 'distance', description: 'Distance in kilometers.', default: 30)]
+    public function listNearbyBaskets(
+        #[MapQueryParameter(options: ['min_range' => -90, 'max_range' => 90])] ?float $lat,
+        #[MapQueryParameter(options: ['min_range' => -180, 'max_range' => 180])] ?float $lon,
+        #[MapQueryParameter(options: ['min_range' => 1, 'max_range' => self::MAX_BASKET_DISTANCE])] int $distance = 30,
+    ): Response {
         $this->assertLoggedIn();
-
-        $location = $this->fetchLocationOrUserHome($paramFetcher);
-        $distance = $paramFetcher->get('distance');
-        if ($distance < 1 || $distance > self::MAX_BASKET_DISTANCE) {
-            throw new BadRequestHttpException('distance must be positive and <= ' . self::MAX_BASKET_DISTANCE);
-        }
+        $location = $this->fetchLocationOrUserHome($lat, $lon);
 
         $baskets = $this->basketGateway->listNearbyBasketsByDistance($this->session->id(), $location, $distance);
 
@@ -94,10 +86,11 @@ final class BasketRestController extends AbstractFoodsharingRestController
     /**
      * Returns details of the basket with the given ID. Returns 200 and the
      * basket, 500 if the basket does not exist, or 401 if not logged in.
-     *
-     * @OA\Tag(name="basket")
      */
-    #[Rest\Get('baskets/{basketId}', requirements: ['basketId' => '\d+'])]
+    #[OA\Get(summary: 'Returns details of a basket')]
+    #[Route('baskets/{basketId}', methods: ['GET'], requirements: ['basketId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: Basket::class))]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Basket not available')]
     public function getBasket(int $basketId): Response
     {
         $this->assertLoggedIn();
@@ -109,24 +102,13 @@ final class BasketRestController extends AbstractFoodsharingRestController
         return $this->respondOK($basket);
     }
 
-    /**
-     * Adds a new basket. The description must not be empty. All other
-     * parameters are optional. Returns the created basket.
-     *
-     * @OA\Tag(name="basket")
-     * @OA\RequestBody(@Model(type=Basket::class))
-     */
-    #[Rest\Post('baskets')]
-    #[ParamConverter('basket', class: Basket::class, converter: 'fos_rest.request_body')]
-    public function addBasket(Basket $basket, ValidatorInterface $validator): Response
+    #[OA\Post(summary: 'Adds a new basket')]
+    #[Route('baskets', methods: ['POST'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: Basket::class))]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid basket data')]
+    public function addBasket(#[MapRequestPayload] Basket $basket): Response
     {
         $this->assertLoggedIn();
-
-        $errors = $validator->validate($basket);
-        if ($errors->count() > 0) {
-            $firstError = $errors->get(0);
-            throw new BadRequestHttpException(json_encode(['field' => $firstError->getPropertyPath(), 'message' => $firstError->getMessage()]));
-        }
 
         $basketId = $this->basketTransactions->addBasket($basket);
         if (!$basketId) {
@@ -136,21 +118,16 @@ final class BasketRestController extends AbstractFoodsharingRestController
         return $this->getBasket($basketId);
     }
 
-    /**
-     * Removes a basket of this user with the given ID. Returns 200 if a basket
-     * of the user was found and deleted, 404 if no such basket was found, or
-     * 401 if not logged in.
-     *
-     * @OA\Tag(name="basket")
-     */
-    #[Rest\Delete('baskets/{basketId}', requirements: ['basketId' => '\d+'])]
+    #[OA\Delete(summary: 'Removes a new basket')]
+    #[Route('baskets/{basketId}', methods: ['DELETE'], requirements: ['basketId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Basket not available')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
     public function removeBasket(int $basketId): Response
     {
         $this->assertLoggedIn();
         $basket = $this->basketGateway->getBasket($basketId);
-        if (empty($basket)) {
-            throw new NotFoundHttpException('Basket was not found or cannot be deleted.');
-        }
+        $this->verifyBasketIsAvailable($basket);
 
         if (!$this->basketPermissions->mayDelete($basket)) {
             throw new AccessDeniedHttpException('you are not allowed to delete this basket.');
@@ -161,30 +138,19 @@ final class BasketRestController extends AbstractFoodsharingRestController
         return $this->respondOK();
     }
 
-    /**
-     * Updates the description of an existing basket. The description must not be empty. If the location
-     * is not given or invalid it falls back to the user's home. Returns the updated basket.
-     *
-     * @OA\Tag(name="basket")
-     * @OA\RequestBody(@Model(type=Basket::class))
-     * @param int $basketId ID of an existing basket
-     */
-    #[Rest\Put('baskets/{basketId}', requirements: ['basketId' => '\d+'])]
-    #[ParamConverter('basket', class: Basket::class, converter: 'fos_rest.request_body')]
-    public function editBasket(int $basketId, Basket $basket, ValidatorInterface $validator): Response
+    #[OA\Patch(summary: 'Updates an existing basket')]
+    #[Route('baskets/{basketId}', methods: ['PATCH'], requirements: ['basketId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: Basket::class))]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Basket not available')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
+    public function editBasket(int $basketId, #[MapRequestPayload] Basket $basket): Response
     {
         $this->assertLoggedIn();
         $existingBasket = $this->basketGateway->getBasket($basketId);
-
         $this->verifyBasketIsAvailable($existingBasket);
-        if ($existingBasket->creator->id !== $this->session->id()) {
-            throw new UnauthorizedHttpException('', 'You are not the owner of the basket.');
-        }
 
-        $errors = $validator->validate($basket);
-        if ($errors->count() > 0) {
-            $firstError = $errors->get(0);
-            throw new BadRequestHttpException(json_encode(['field' => $firstError->getPropertyPath(), 'message' => $firstError->getMessage()]));
+        if ($existingBasket->creator->id !== $this->session->id()) {
+            throw new AccessDeniedHttpException('You are not the owner of the basket.');
         }
 
         $this->basketTransactions->editBasket($basketId, $basket);
@@ -192,24 +158,14 @@ final class BasketRestController extends AbstractFoodsharingRestController
         return $this->getBasket($basketId);
     }
 
-    /**
-     * Requests a basket.
-     *
-     * @OA\Tag(name="basket")
-     *
-     * @param int $basketId ID of an existing basket
-     */
-    #[Rest\Post('baskets/{basketId}/request', requirements: ['basketId' => '\d+'])]
-    #[Rest\RequestParam(name: 'message', nullable: false)]
-    public function requestBasket(int $basketId, ParamFetcher $paramFetcher): Response
+    #[OA\Post(summary: 'Requests a basket')]
+    #[Route('baskets/{basketId}/requests', methods: ['POST'], requirements: ['basketId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: Basket::class))]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Basket not available')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Request was denied')]
+    public function requestBasket(int $basketId, #[MapRequestPayload] RequiredMessage $message): Response
     {
         $this->assertLoggedIn();
-
-        $message = trim(strip_tags((string)$paramFetcher->get('message')));
-
-        if (empty($message)) {
-            throw new BadRequestHttpException('The request message should not be empty.');
-        }
 
         $basket = $this->basketGateway->getBasket($basketId);
         $this->verifyBasketIsAvailable($basket);
@@ -223,20 +179,16 @@ final class BasketRestController extends AbstractFoodsharingRestController
         }
 
         // Send the message to the creator
-        $this->messageTransactions->sendMessageToUser($basketCreatorId, $this->session->id(), $message, 'basket/request');
+        $this->messageTransactions->sendMessageToUser($basketCreatorId, $this->session->id(), trim($message->message), 'basket/request');
         $this->basketGateway->setStatus($basketId, RequestStatus::REQUESTED_MESSAGE_UNREAD, $this->session->id());
 
         return $this->getBasket($basketId);
     }
 
-    /**
-     * Withdraw a basket request.
-     *
-     * @OA\Tag(name="basket")
-     *
-     * @param int $basketId ID of an existing basket
-     */
-    #[Rest\Post('baskets/{basketId}/withdraw', requirements: ['basketId' => '\d+'])]
+    #[OA\Delete(summary: 'Withdraws a basket requests')]
+    #[Route('baskets/{basketId}/requests', methods: ['DELETE'], requirements: ['basketId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: Basket::class))]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Basket not available')]
     public function withdrawBasketRequest(int $basketId): Response
     {
         $this->assertLoggedIn();
@@ -253,78 +205,24 @@ final class BasketRestController extends AbstractFoodsharingRestController
         return $this->getBasket($basketId);
     }
 
-    /**
-     * Verifies that the basket was not deleted and is not expired. Otherwise this
-     * method throws an appropriate HttpException.
-     */
-    private function verifyBasketIsAvailable(?Basket $basket): void
-    {
-        if (!$basket || $basket->status === BasketStatus::DELETED_OTHER_REASON) {
-            throw new NotFoundHttpException('Basket does not exist.');
-        }
-
-        if ($basket->status === BasketStatus::DELETED_PICKED_UP) {
-            throw new NotFoundHttpException('Basket was already picked up.');
-        }
-
-        if ($basket->until < time()) {
-            throw new NotFoundHttpException('Basket is expired.');
-        }
-    }
-
-    /**
-     * Returns a location from the param fetcher in the 'lat' and 'lon' fields. If none
-     * is given, it returns the default location or the user's home address, if the default
-     * location is null.
-     *
-     * @param GeoLocation $defaultLocation a fallback value or null
-     *
-     * @return GeoLocation the location
-     *
-     * @throws BadRequestHttpException if no location and no default location were given and the user's
-     * home address is not set
-     */
-    private function fetchLocationOrUserHome(ParamFetcher $paramFetcher, ?GeoLocation $defaultLocation = null): GeoLocation
-    {
-        $lat = $paramFetcher->get(self::LAT);
-        $lon = $paramFetcher->get(self::LON);
-        $lat = is_numeric($lat) ? (float)$lat : null;
-        $lon = is_numeric($lon) ? (float)$lon : null;
-        if (!$this->isValidNumber($lat, -90.0, 90.0) || !$this->isValidNumber($lon, -180.0, 180.0)) {
-            if ($defaultLocation !== null) {
-                return $defaultLocation;
-            }
-            // find user's location
-            $loc = $this->session->user('location');
-            if (!$loc || ($loc->lat === 0 && $loc->lon === 0)) {
-                throw new BadRequestHttpException('The user profile has no address.');
-            }
-            $lat = $loc->lat;
-            $lon = $loc->lon;
-        }
-
-        return GeoLocation::createFromArray(['lat' => $lat, 'lon' => $lon]);
-    }
-
-    #[OA2\Patch(summary: 'Updates the status of a basket request. The creator of a basket can set the
-      status of requests for their basket (e.g. mark as picked up, not picked up, denied etc.).')]
-    #[OA2\Tag(name: 'basket')]
-    #[OA2\Response(response: Response::HTTP_OK, description: 'Success')]
-    #[OA2\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid new status')]
-    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
-    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Not allowed to request this basket')]
-    #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'Basket does not exist')]
-    #[Rest\Patch('baskets/{basketId}/requests/{requesterId}/status',
-        requirements: [
-            'basketId' => '\d+',
-            'requesterId' => '\d+'
-        ],
+    #[OA\Patch(
+        summary: 'Updates the status of a basket request',
+        description: 'The creator of a basket can set the request status for their basket (e.g. mark as picked up, not picked up, denied etc.).'
     )]
-    #[Rest\RequestParam(name: 'status', requirements: '(2|3|4|5)', nullable: false)]
+    #[Route('baskets/{basketId}/requests/{requesterId}/status', methods: ['PATCH'], requirements: [
+        'basketId' => Requirement::POSITIVE_INT,
+        'requesterId' => Requirement::POSITIVE_INT
+    ])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Request not available')]
     public function updateRequestStatus(
         int $basketId,
         int $requesterId,
-        ParamFetcher $paramFetcher
+        #[MapQueryParameter(options: [
+            'min_range' => RequestStatus::DELETED_PICKED_UP,
+            'max_range' => RequestStatus::DELETED_OTHER_REASON
+        ])] int $status,
     ): Response {
         $this->assertLoggedIn();
 
@@ -338,31 +236,52 @@ final class BasketRestController extends AbstractFoodsharingRestController
             throw new NotFoundHttpException('Request not found.');
         }
 
-        $status = (int)$paramFetcher->get('status');
-
-        $allowedStatuses = [
-            RequestStatus::DELETED_PICKED_UP,
-            RequestStatus::NOT_PICKED_UP,
-            RequestStatus::DELETED_OTHER_REASON,
-            RequestStatus::DENIED
-        ];
-
-        if (!in_array($status, $allowedStatuses)) {
-            throw new BadRequestHttpException('Invalid status value.');
-        }
-
         $this->basketGateway->setStatus($basketId, $status, $requesterId);
 
-        return $this->respondOK(['status' => $status]);
+        return $this->respondOK();
     }
 
     /**
-     * Checks if the number is a valid value in the given range.
-     * TODO Duplicated in FoodSharePointRestController.php.
+     * Verifies that the basket was not deleted and is not expired. Otherwise this
+     * method throws a fitting 404 not found HttpException.
+     *
+     * @throws NotFoundHttpException if the basket is not available
      */
-    private function isValidNumber($value, float $lowerBound, float $upperBound): bool
+    private function verifyBasketIsAvailable(?Basket $basket): void
     {
-        return !is_null($value) && !is_nan($value)
-            && ($lowerBound <= $value) && ($upperBound >= $value);
+        if (!$basket || $basket->status === BasketStatus::DELETED_OTHER_REASON) {
+            throw new NotFoundHttpException('Basket does not exist.');
+        }
+
+        if ($basket->status === BasketStatus::DELETED_PICKED_UP) {
+            throw new NotFoundHttpException('Basket was already picked up.');
+        }
+
+        if (Carbon::instance($basket->until)->isPast()) {
+            throw new NotFoundHttpException('Basket is expired.');
+        }
+    }
+
+    /**
+     * Returns a location from the param fetcher in the 'lat' and 'lon' fields.
+     * If no valid location is given, it returns the user's home address.
+     * If that also doesn't exist or is invalid, an Exception is thrown.
+     *
+     * @return GeoLocation the location
+     * @throws BadRequestHttpException if no location and no default location were given and the user's
+     * home address is not set
+     */
+    private function fetchLocationOrUserHome(?float $lat, ?float $lon): GeoLocation
+    {
+        if (is_null($lat) || is_null($lon)) {
+            $loc = $this->session->user('location');
+            if (!$loc || ($loc->lat === 0 && $loc->lon === 0)) {
+                throw new BadRequestHttpException('You must provide a location since the user profile has none.');
+            }
+            $lat = $loc->lat;
+            $lon = $loc->lon;
+        }
+
+        return GeoLocation::createFromArray(['lat' => $lat, 'lon' => $lon]);
     }
 }

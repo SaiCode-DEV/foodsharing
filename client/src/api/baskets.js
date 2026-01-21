@@ -1,32 +1,21 @@
-import { get, post, remove, put, patch } from './base'
+import { get, post, remove, patch } from './base'
 
 export async function getBaskets () {
-  const baskets = await get('/user/current/baskets')
-  return baskets.map(basket => {
-    basket.createdAt = new Date(basket.createdAt * 1000)
-    basket.updatedAt = new Date(basket.updatedAt * 1000)
-    basket.requests = basket.requests.map(request => {
-      request.time = new Date(request.time * 1000)
-      return request
-    })
-    return basket
-  })
+  return await get('/users/current/baskets')
 }
 
 export async function requestBasket (basketId, message) {
-  return (post(`/baskets/${basketId}/request`, {
+  return post(`/baskets/${basketId}/requests`, {
     message,
-  }))
+  })
 }
 
 export async function updateRequestStatus (basketId, requesterId, status) {
-  return (patch(`/baskets/${basketId}/requests/${requesterId}/status`, {
-    status,
-  }))
+  return patch(`/baskets/${basketId}/requests/${requesterId}/status?status=${status}`)
 }
 
 export async function withdrawBasketRequest (basketId) {
-  return (post(`/baskets/${basketId}/withdraw`))
+  return remove(`/baskets/${basketId}/requests`)
 }
 
 export async function removeBasket (basketId) {
@@ -45,5 +34,5 @@ export async function addBasket (basketData) {
 }
 
 export async function editBasket (basketId, basketData) {
-  return put(`/baskets/${basketId}`, basketData)
+  return patch(`/baskets/${basketId}`, basketData)
 }

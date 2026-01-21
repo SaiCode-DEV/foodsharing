@@ -24,9 +24,7 @@
             v-html="basket.description"
           />
           <!-- eslint-enable -->
-          <small class="time-ago text-right nowrap">
-            {{ $dateFormatter.relativeTime(basket.createdAt) }}
-          </small>
+          <Time :time="new Date(basket.createdAt)" />
         </span>
         <small
           v-if="!basket.requests.length"
@@ -72,10 +70,11 @@
 <script>
 // Others
 import Avatar from '@/components/Avatar/Avatar.vue'
+import Time from '@/components/Time.vue'
 import conversationStore from '@/stores/conversations'
 
 export default {
-  components: { Avatar },
+  components: { Avatar, Time },
   props: {
     basket: { type: Object, default: () => ({}) },
   },

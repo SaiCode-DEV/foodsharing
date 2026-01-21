@@ -20,7 +20,7 @@
       <span v-for="key in timeKeys" :key="key">
         {{ $t(`basket.${key}`) }}
         <Time
-          :time="basket[key] * 1000"
+          :time="basket[key]"
           plain
           :tooltip="null"
         />

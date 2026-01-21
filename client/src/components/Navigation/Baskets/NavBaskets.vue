@@ -9,11 +9,11 @@
       class="testing-basket-dropdown"
     >
       <template
-        v-if="basketsSorted.length > 0"
+        v-if="baskets.length > 0"
         #content
       >
         <BasketsEntry
-          v-for="basket in basketsSorted"
+          v-for="basket in baskets"
           :key="basket.id"
           :basket="basket"
           @basket-remove="openRemoveBasketModal"
@@ -87,14 +87,6 @@ export default {
   computed: {
     baskets () {
       return this.basketStore.getOwn
-    },
-    basketsSorted () {
-      return this.baskets.slice().sort((a, b) => {
-        const aD = new Date(a.updatedAt)
-        const bD = new Date(b.updatedAt)
-        if (aD.getTime() === bD.getTime()) return 0
-        return bD > aD ? 1 : -1
-      })
     },
     basketsRequestCount () {
       return this.basketStore.getRequestedCount
