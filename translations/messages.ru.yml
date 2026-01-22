@@ -18,6 +18,8 @@ dashboard:
     polls: 'Опросы'
     users: 'Фудсейверы'
     regions: 'Ваши районы'
+    pickups: ''
+    pickupOptions: ''
   options:
     hide:
       tooltip: 'Здесь вы можете скрывать или показывать отдельные области на панели.'
@@ -71,6 +73,7 @@ dashboard:
     for_news_from_it: 'Если есть вопросы, смотрите сначала'
     for_support: 'Иначе свяжитесь с нами'
     for_release_notes: 'Основные изменения смотрите на'
+  general-dates: ''
 lat: Широта
 lon: Долгота
 desc: Описание
@@ -122,6 +125,7 @@ basket:
     "14": 'Две недели'
     "2": 'Два дня'
     "7": 'Одна неделя'
+    "5": ''
   has:
     prepared: 'Приготовленные блюда'
     dairy: 'Молочные продукты'
@@ -187,6 +191,18 @@ basket:
   request_empty: 'Текст запроса не может быть пустым.'
   image: 'Добавьте фото к корзине.'
   use_home_address: Использовать домашний адрес
+  until: ''
+  error:
+    map: ''
+    register: ''
+    taken: ''
+  modal_error:
+    no_contact: ''
+    no_phone: ''
+  contact_types: ''
+  delete_confirmation:
+    text: ''
+    title: ''
 storelist:
   status: 'Статус'
   cooperating: 'Сотрудничают'
@@ -208,6 +224,7 @@ storelist:
   inprogress: 'Переговоры идут'
   address: 'Улица'
   memberState: 'Статус участника'
+  actions: ''
 region:
   type:
     district: 'Округ'
@@ -215,6 +232,10 @@ region:
     region: 'Регион'
     title: 'Тип района'
     city: 'Город'
+    working_group: ''
+    big_city: ''
+    federal_state: ''
+    part_of_town: ''
   created: '{region} был создан'
   forum-redirect: 'Для районов нет доски объявлений. Вы будете перенаправлены в форум.'
   none: 'Район пока не выбран'
@@ -245,6 +266,60 @@ region:
     как минимум за одно предприятие в нём.'
   bread: 'Управление районами'
   edit: 'Редактировать район'
+  denied:
+    group_in_this_group: ''
+    subgroup_in: ''
+    this_region: ''
+    group_in_this_region: ''
+    some_group: ''
+  public:
+    description: ''
+    desc:
+      missing: ''
+      confirm_discard_changes: ''
+      confirm_save_changes: ''
+      edit: ''
+    discard_changes: ''
+    leave_text_group: ''
+    map:
+      set_pin: ''
+      missing: ''
+      confirm_save_changes: ''
+      confirm_discard_changes: ''
+      hide_pin: ''
+      confirm_remove: ''
+      edit_pin: ''
+    join: ''
+    continue_editing: ''
+    leave_group: ''
+    show_on_large_map: ''
+    join_name: ''
+    leave_name: ''
+    leave_text_region: ''
+    leave: ''
+    join_text: ''
+    events:
+      title: ''
+      no_future_events: ''
+      load_past: ''
+    confirm_entering: ''
+    confirm_leaving: ''
+    wall: ''
+    children: ''
+    no_more_info: ''
+  not-existant: ''
+  name: ''
+  confirm:
+    edit: ''
+    delete: ''
+    create: ''
+  allow_hiding_in_forum: ''
+  select: ''
+  createNew: ''
+  parent: ''
+  master: ''
+  root: ''
+  mailbox: ''
 stats:
   total:
     weight: 'Продуктов успешно спасено от выбрасывания.'
@@ -262,6 +337,9 @@ stats:
   leader:
     regions: 'Самые активные районы'
     users: 'Самые активные фудсейверы'
+  sort:
+    by_count: ''
+    by_weight: ''
 about_me_public: 'Публичное краткое описание'
 about_me_intern: 'Краткое описание'
 first_post: 'Первое сообщение на стене'
@@ -274,6 +352,11 @@ quiz:
   results:
     title:
       1: Поздравляем!
+      2: ''
+    deleted: ''
+    points:
+      1: ''
+      2: ''
   plural: Тесты
   button:
     pause: Продолжить позже
@@ -286,6 +369,146 @@ quiz:
     finished: '{name} – Вы прошли!'
   startmodal:
     title: Указания к тесту
+    infos:
+      unlimited_tries: ''
+      feedback: ''
+      pause: ''
+      read_carefully: ''
+      comment: ''
+      limited_tries: ''
+      multiple_choice: ''
+      wiki: ''
+      alone: ''
+      real_life_examples: ''
+      timed: ''
+    privacyNotice:
+      hygiene: ''
+    acceptPrivacyNotice: ''
+  editModal:
+    question:
+      input:
+        wikilink:
+          placeholder: ''
+          label: ''
+        text:
+          label: ''
+          placeholder: ''
+        fp: ''
+        duration: ''
+        mandatory:
+          text: ''
+          label: ''
+      title: ''
+      confirmDelete:
+        title: ''
+    quiz:
+      input:
+        allowUntimed: ''
+        name:
+          label: ''
+          placeholder: ''
+        maxFp: ''
+        questionCountTimed: ''
+        questionCountUntimed: ''
+      htmlWarning: ''
+      title: ''
+    answer:
+      title: ''
+      input:
+        text:
+          placeholder: ''
+          label: ''
+        explanation:
+          placeholder: ''
+          label: ''
+        answerRating: ''
+  question_options:
+    show_comments: ''
+    delete: ''
+    add: ''
+    edit: ''
+    add_answer: ''
+  stateBasedInfo:
+    pauseElapsed: ''
+    passed: ''
+    running: ''
+    disqualified: ''
+    pause: ''
+    willExpire: ''
+    expired: ''
+    failed: ''
+    passedBefore: ''
+    neverTried: ''
+    waitAfter: ''
+    noWaitAfter: ''
+    disqualifiedAfter: ''
+  answers:
+    true_true: ''
+    none_correct: ''
+    short:
+      0: ''
+      2: ''
+      1: ''
+    neutral: ''
+    timedOut:
+      0: ''
+      2: ''
+      1: ''
+    name: ''
+    true_false: ''
+    false_true: ''
+    false_false: ''
+  confirmComment: ''
+  comment:
+    toggle: ''
+    wallTitle: ''
+    placeholder: ''
+    info: ''
+    sent: ''
+    send: ''
+    label: ''
+  fp_options:
+    ko: ''
+    default: ''
+    joke: ''
+  confirm: ''
+  mandatory_question: ''
+  sessionStatus:
+    1: ''
+    2: ''
+    0: ''
+  confirmDelete:
+    answer: ''
+    question: ''
+    session: ''
+  fp_description: ''
+  test: ''
+  timed_out_last: ''
+  key_facts:
+    timed: ''
+    to_pass: ''
+    untimed: ''
+  test_results: ''
+  questions_section:
+    title: ''
+  timelimit: ''
+  general:
+    edit: ''
+    title: ''
+  infomodal:
+    title: ''
+  timed_out: ''
+  max_fp: ''
+  confirmDashboardText: ''
+  show_results: ''
+  fp_badge:
+    right: ''
+    wrong: ''
+  editable_tooltip: ''
+  answer_options:
+    edit: ''
+    delete: ''
+  timed_out_error: ''
 genderlist:
   gender_not_selected: 'не указано'
   district_tab: 'Район'
@@ -319,6 +542,9 @@ pickuplist:
   unclear: 'Статус неясен'
   NumberOfFoodSavers_table_header: 'Количество фудсейверов'
   week_tab: 'Неделя'
+  really_delete_last_slot:
+    body: ''
+    title: ''
 regionOptions:
   header_page: 'Опции для {bezirk}'
   enableReportButton: 'Включить форму жалобы на страницах профиля родных фудсейверов
@@ -338,6 +564,11 @@ regionOptions:
     возможной, если максимум в периоде достигнут?'
   regionPickupLimitNumber: 'Максимальное количество допустимых Rosinen-выдач в выбранный
     период'
+  regionReportReasonSimple: ''
+  regionReportReasonCategoryB: ''
+  regionReportReasonOther: ''
+  noPickupRuleActiveStores: ''
+  enableAddressChangeNotification: ''
 foodsaver:
   manage:
     last-activity: 'Последняя активность'
@@ -358,6 +589,10 @@ foodsaver:
     learning: 'Посмотреть обучающее видео'
     ad_fs: 'Я хочу пройти тест Фудсейвера и стать фудсейвером!'
     rv: 'Да, я прочитал(а) и принимаю юридическое соглашение.'
+    pn: ''
+    STORE_MANAGER: ''
+    AMBASSADOR: ''
+    FOODSAVER: ''
   restricted: 'У вас нет прав для просмотра этих данных.'
   list:
     summary: '{count} фудсейверов в {region}'
@@ -378,6 +613,7 @@ foodsaver:
     '
   title: 'Фудсейверы'
   actions: 'Действия'
+  delete_account_reason: ''
 mailbox:
   mail: 'Почта'
   signature: 'Сообщение от {date}'
@@ -431,11 +667,23 @@ mailbox:
   attachment:
     not_found_explanation: 'Прикреплённый файл не найден на сервере'
     not_found: 'не найдено'
+    too_many: ''
+    attach: ''
+    too_large_to_send: ''
   move_to: 'Переместить в'
   close_edit_mode: 'Завершить редактирование'
   add: 'Добавить'
   mails: 'Письма'
   unknown_sender: 'Неизвестный отправитель'
+  reply_header: ''
+  forward_attachment_warning: ''
+  search_name_email: ''
+  global_addressbook: ''
+  addressbook: ''
+  show_html_body: ''
+  reply_all: ''
+  forward: ''
+  mark_none: ''
 settings:
   passport:
     non_verified_text: 'Вы ещё не верифицированы. Скачивание документа доступно только
@@ -445,6 +693,20 @@ settings:
       можете сохранить его и показывать при необходимости. Если у вас нет смартфона
       или вам нужен бумажный документ, обратитесь к местным послам.'
     button: 'Скачать документ'
+    wallet:
+      valid_end: ''
+      valid_start: ''
+      generate_error: ''
+      name: ''
+      role: ''
+    passport_not_activated: ''
+    add_to_wallet:
+      apple: ''
+      google: ''
+    passport_is_invalid: ''
+    passport_is_valid_until: ''
+    renew: ''
+    ask_your_ambassadors: ''
   follow:
     none: 'Не присылать больше e-mail о новых постах.'
     thread: 'Следить за темой «{thread}»?'
@@ -489,6 +751,46 @@ settings:
       календаря.'
     program:
       apple: Apple Календарь
+      outlook: ''
+      etar: ''
+      google: ''
+      thunderbird: ''
+      label: ''
+      other: ''
+    reminders:
+      12_hours: ''
+      30_minutes: ''
+      label: ''
+      1_day: ''
+      1_hour: ''
+      15_minutes: ''
+      6_hours: ''
+      3_hours: ''
+    formatting:
+      label: ''
+      text: ''
+      html: ''
+      alt: ''
+    history:
+      "false": ''
+      "true": ''
+      label: ''
+    event:
+      all: ''
+      invitations: ''
+      label: ''
+      maybe: ''
+      accepted: ''
+      none: ''
+    pickup:
+      "true": ''
+      "false": ''
+      label: ''
+    generate_url:
+      button: ''
+    protocol: ''
+    download: ''
+    info: ''
   email: 'E-mail и пароль'
   photo:
     info: 'На профильном фото ваше лицо должно быть <a href="{link_photo}">узнаваемо</a>,
@@ -531,6 +833,190 @@ settings:
   account: 'Настройки аккаунта'
   general:
     phone: Ваш стационарный (домашний) номер
+    no_address: ''
+    current_address: ''
+  account_security:
+    unnamed_passkey: ''
+    error:
+      operation_cancelled: ''
+      authenticator_already_registered: ''
+      rename_failed: ''
+      deletion_failed: ''
+      registration_failed: ''
+      name_required: ''
+      webauthn_not_supported: ''
+      operation_aborted: ''
+    security_keys_description: ''
+    mfa_enabled: ''
+    register_modal:
+      title: ''
+      register: ''
+      device_name_description: ''
+      cancel: ''
+      device_name_placeholder: ''
+      device_name_label: ''
+    rename_modal:
+      new_name_label: ''
+      title: ''
+      cancel: ''
+      new_name_placeholder: ''
+      save: ''
+    delete: ''
+    created: ''
+    authenticator_app: ''
+    passkeys_section: ''
+    passkey_deleted: ''
+    mfa_section: ''
+    passkey_renamed: ''
+    register_passkey: ''
+    passkeys_info: ''
+    never_used: ''
+    device_name_placeholder: ''
+    security_keys: ''
+    delete_modal:
+      confirmation: ''
+      cancel: ''
+      device_name: ''
+      delete: ''
+      title: ''
+    other_domain_info: ''
+    authenticator_app_description: ''
+    rename: ''
+    no_passkeys: ''
+    title: ''
+    email_password_section: ''
+    last_used: ''
+    change_password: ''
+    change_email: ''
+    domain_info: ''
+    passkeys_not_supported: ''
+    mfa_disabled: ''
+    passkey_registered: ''
+  two_fa_manage:
+    status_is: ''
+    disable_button: ''
+    inactive: ''
+    cancel: ''
+    close: ''
+    intro: ''
+    password_label: ''
+    num_backup_codes: ''
+    active: ''
+    title: ''
+    password_placeholder: ''
+    password_required: ''
+    totp_token_label: ''
+    totp_token_placeholder: ''
+    enable_button: ''
+    totp_required: ''
+  password_change:
+    submit: ''
+    success: ''
+    old_password_label: ''
+    confirm_password_label: ''
+    new_password_placeholder: ''
+    title: ''
+    cancel: ''
+    wrong_password: ''
+    confirm_password_placeholder: ''
+    new_password_must_be_trimmed: ''
+    explanation: ''
+    new_password_must_be_complex: ''
+    confirm_password_invalid: ''
+    new_password_required: ''
+    old_password_required: ''
+    old_password_placeholder: ''
+    new_password_label: ''
+  email_change:
+    wrong_password: ''
+    invalid: ''
+    password_placeholder: ''
+    not_changed: ''
+    new_email_label: ''
+    sent_other_user: ''
+    dashboard_link: ''
+    explanation_password: ''
+    confirm_email_label: ''
+    confirm_email_placeholder: ''
+    title: ''
+    explanation: ''
+    explanation_other_user: ''
+    domain: ''
+    question: ''
+    sent: ''
+    new_email_placeholder: ''
+    cancel: ''
+    done: ''
+    password_required: ''
+    occupied: ''
+    submit: ''
+    confirm_email_required: ''
+    insufficient_permission: ''
+    password_label: ''
+    question_other_user: ''
+  two_fa_enable:
+    tabs:
+      backup_codes: ''
+      tutorial: ''
+      qr_code: ''
+      confirm: ''
+    confirm:
+      instruction: ''
+      test_instruction: ''
+      title: ''
+      logout_notice: ''
+    next: ''
+    qrcode:
+      scan_instruction: ''
+      multi_device: ''
+      title: ''
+      label: ''
+    danger: ''
+    explanation: ''
+    generated_code_label: ''
+    secret_label: ''
+    failed: ''
+    apps:
+      description: ''
+      title: ''
+      info: ''
+    tutorial: ''
+    backup_codes:
+      info: ''
+      save_instruction: ''
+      title: ''
+      confirmation: ''
+      must_confirm: ''
+      label: ''
+    further_info: ''
+    activate: ''
+    secret_toggle: ''
+    password_info: ''
+    success: ''
+    title: ''
+  two_fa_disable:
+    confirm_text: ''
+    danger: ''
+    admin_description: ''
+    failed: ''
+    warning: ''
+    deactivate: ''
+    title: ''
+    success: ''
+  address:
+    choose: ''
+    title: ''
+  quiz:
+    1: ''
+    3: ''
+    2: ''
+  profile: ''
+  no_rights: ''
+  delete_profile: ''
+  edit_other: ''
+  change_data_info:
+    verified: ''
+    general: ''
 profile:
   mail_bounce:
     remove_button: 'Убрать из списка адресов с ошибкой доставки (bounce list)'
@@ -568,6 +1054,7 @@ profile:
     remove:
       confirm_title: 'Удалить доверительный банан'
       confirm_message: 'Вы действительно хотите удалить этот банан?'
+      successful: ''
     give: 'Подарить {name} банан'
     vouch: 'Пожалуйста, дарите банан только знакомым людям, которые следуют правилам
       поведения и юридическому соглашению, и за которых вы готовы поручиться. Не раздавайте
@@ -583,6 +1070,12 @@ profile:
       '
     placeholder: 'минимум 100 символов…'
     undo: 'Доверительные бананы изменить нельзя.'
+    sent_none:
+      other: ''
+      you: ''
+    recieved_none:
+      you: ''
+      other: ''
   nav:
     notes: 'Заметки'
     violations: 'Жалобы'
@@ -590,6 +1083,8 @@ profile:
     storelist: 'Заведения ({count})'
     history: 'История документа'
     verificationHistory: 'История верификаций'
+    quizSessionHistory: ''
+    remove_buddy: ''
   infos:
     title: 'Информация'
     buddies: 'Знакомые'
@@ -636,6 +1131,32 @@ profile:
     oldReportButtonTextPart2: 'При необходимости обращайтесь в локальную группу вашего
       района.'
     doesNotAffectStore: 'Не затрагивает текущее или другое заведение'
+    report_b11: ''
+    report_b10: ''
+    confirmDelete: ''
+    notes: ''
+    report_b3_1: ''
+    report_b1_3: ''
+    report_b6_0: ''
+    report_b12: ''
+    report_b7: ''
+    report_b4_1: ''
+    report_other: ''
+    report_b1_2: ''
+    report_b4_0: ''
+    report_b3_0: ''
+    report_b8: ''
+    report_b1_1: ''
+    mail:
+      reportGroup: ''
+      arbitrationGroup: ''
+    report_b2: ''
+    report_b5: ''
+    report_b9: ''
+    report_b1_4: ''
+    report_b1_0: ''
+    report_b6_1: ''
+    report_b13: ''
   alldatesdeleted: 'Все даты удалены'
   online: '{name} в сети.'
   public:
@@ -678,6 +1199,11 @@ profile:
     posts: 'Посты'
     baskets: 'Корзины'
     weight_unit: кг
+    give_count: ''
+    slots: ''
+    engagement_count: ''
+    fetch_count: ''
+    bananas: ''
   go: 'Открыть профиль'
   pinboard: 'Статусы от {name}'
   title: 'Профиль'
@@ -685,6 +1211,39 @@ profile:
   deletesuccess: 'Одиночная дата удалена'
   cantdeletethis: 'Вы не можете удалить одиночные даты!'
   reportRequest: 'Подать жалобу'
+  sections:
+    workgroups_admin: ''
+    no_common_workgroups: ''
+    home_region_from: ''
+    kam_for: ''
+    ambassador_for: ''
+    workgroups_member: ''
+    orga_rights: ''
+    foodSaver_in_region: ''
+  sleeping_info_from_until: ''
+  tab_navigation:
+    pickups: ''
+    notes: ''
+    commitment_statistics: ''
+    stores: ''
+    profile: ''
+  homeDistrictHistory:
+    previous: ''
+    changed: ''
+    by: ''
+  stores:
+    memberState:
+      filterRequested: ''
+      filterManage: ''
+      filterInvitations: ''
+      filterAll: ''
+      filterJumper: ''
+      filterActive: ''
+    store_table: ''
+    search_placeholder: ''
+  choosereasonnostore: ''
+  editNameInfo: ''
+  chooseantherstore: ''
 home:
   home: 'Главная'
 menu:
@@ -755,6 +1314,9 @@ menu:
     refresh: 'Обновить'
     delete_read: 'Удалить все прочитанные'
     security: 'Безопасность'
+    applications: ''
+    close_all_chats: ''
+    public: ''
   bell:
     delete_read_confirmation:
       text: 'Вы действительно хотите удалить {count} прочитанных уведомлений?'
@@ -784,6 +1346,7 @@ footer:
   meta:
     it_devdocs: 'командой IT фудшеринг'
     version: 'Версия: {version}'
+    made_with: ''
   contact: 'Контакт'
   blog: 'Блог'
   hosting:
@@ -802,6 +1365,11 @@ releases:
   "2020-05": 'Релиз «Apfelsine» (май 2020)'
   "2022-12": 'Релиз «Icecream» 🍨 (декабрь 2022)'
   "2023-09": 'Релиз «Jackfrucht» 🍈 (сентябрь 2023)'
+  "2024-08": ''
+  "2024-04": ''
+  "2024-12": ''
+  "2024-01": ''
+  "2025-08": ''
 storestatus:
   "0": 'Статус неясен'
   "1": 'Контакт ещё не установлен'
@@ -859,6 +1427,8 @@ poll:
     number_of_votes: 'Поданные голоса'
     standardDeviationShort: σ
     standardDeviation: Среднеквадратическое отклонение
+    sumShort: ''
+    averageShort: ''
   time_period: 'Период'
   in_future: 'ещё не началось'
   scope_description_2: 'Все ответственные за предприятия в районе, которые в данный
@@ -897,6 +1467,8 @@ poll:
   scope_description_0: 'Все проверенные и непроверенные фудсейверы из района/группы'
   in_past: 'завершено'
   allowed_voters: 'Имеют право голоса'
+  hint_sorted_order: ''
+  title: ''
 startpage:
   join_rules: 'Участие - наши правила'
   makeproposals: 'Делайте предложения'
@@ -975,6 +1547,7 @@ startpage:
       образование по питанию.
 
       '
+    image_alt: ''
   vision:
     title: 'Миссия'
     text: 'Мы — экологическое и просветительское движение, которое выступает против
@@ -1012,6 +1585,8 @@ startpage:
     очень человеческий, но ответственный акт. В основе всегда: «Не отдавать то, что
     вы сами бы не стали есть». Пожалуйста, прочтите этикет фудшеринг!'
   bedependable: 'Будьте надёжны'
+  followrules: ''
+  followrules_title: ''
 chain:
   listheader: 'Сети предприятий'
   filterplaceholder: 'Название / Адрес / KAM-ID'
@@ -1023,6 +1598,7 @@ chain:
     kams: ''
     headquarters: 'Штаб-квартира'
     estimatedStoreCount: 'Филиалов'
+    actions: ''
   tooltips:
     options: 'Параметры'
     modificationDate: 'Последнее редактирование'
@@ -1129,6 +1705,23 @@ error:
     title: 'Вы ещё не загрузили аватар.'
     description: 'Покажите участникам фудшеринга, кто вы!'
     link: 'Загрузить аватар сейчас'
+  passport_is_invalid_soon:
+    description: ''
+    link: ''
+    title: ''
+  invalid_landline_phonenumber:
+    title: ''
+    link: ''
+    description: ''
+  page:
+    back_home: ''
+    not_found: ''
+    internal_server_error: ''
+    other: ''
+  passport_is_invalid:
+    description: ''
+    title: ''
+    link: ''
 navigation:
   styleguide: 'Руководство по стилю'
   help: 'Помощь'
@@ -1149,6 +1742,7 @@ navigation:
   news_from_it: 'Новости и сбои'
   contact: 'Контакт и поддержка'
   support: 'Поддержка'
+  toggle: ''
 globals:
   type:
     mailboxes: 'Почтовые ящики'
@@ -1165,12 +1759,23 @@ globals:
     threads: 'Темы'
     chats: 'Чаты'
     foodSharePoints: Фэйртейлеры / станции фудшеринга
+    users: ''
+    regions_menu: ''
+    mails: ''
+    events: ''
+    workingGroups: ''
+    groups_menu: ''
+    polls: ''
   show_more: 'Показать больше'
   select: 'Пожалуйста, выберите…'
   you: 'Вы'
   close: 'Закрыть'
   save: 'Сохранить'
   show_less: 'Показать меньше'
+  saved: ''
+  save_changes: ''
+  telephone_number: ''
+  updated: ''
 activitypost:
   write: 'Напишите ответ…'
   quickreply_button: 'Отправить сейчас<br>или нажмите <code class="key">Enter</code>.'
@@ -1255,6 +1860,22 @@ terminology:
   n_home_regions: '{count} с основным районом'
   no: Нет
   yes: Да
+  sent: ''
+  giving: ''
+  electionAdmins: ''
+  achievements: ''
+  achievement: ''
+  resourcesAdmins: ''
+  reports:
+    report: ''
+    orga: ''
+    arbitration: ''
+  users: ''
+  hygiene_training: ''
+  landline: ''
+  phone: ''
+  mobile_phone: ''
+  received: ''
 storeview:
   common: 'Общее'
   visible_for_public: 'Этот текст виден всем Foodsaver(ам), напр., на карте.'
@@ -1296,6 +1917,19 @@ storeview:
   store: 'Заведение'
   public_time_in_the_morning: 'утром'
   public_time_at_night: 'ночью'
+  public_info:
+    available_count: ''
+    label: ''
+    error_message: ''
+  publicity_and_sticker_options:
+    yes: ''
+    not_yet_clarified: ''
+    no: ''
+  team_info_distance: ''
+  team_info_active: ''
+  choose_chain: ''
+  team_info_jumper: ''
+  show_settings: ''
 store:
   pickup_slot_unavailable: 'Этот слот находится дальше в будущем, чем предусмотрено
     ответственными заведения. Попробуйте позже.'
@@ -1320,6 +1954,13 @@ store:
     filterActive: 'Активные'
     filterSleeping: 'Спящие'
     filterNoHygiene: 'Без гигиенического обучения'
+    demoteAsManagerConfirm: ''
+    sorting:
+      default: ''
+      distance: ''
+      pickup: ''
+    inviteMember: ''
+    userHasPickupsWarning: ''
   request:
     title: 'Заявки в {storeTitle}'
     withdraw: 'Отозвать заявку'
@@ -1333,6 +1974,50 @@ store:
     verified: 'Пользователь верифицирован'
     unverified: 'Пользователь не верифицирован'
     air_line: 'Показанное расстояние — по прямой.'
+    needsStoreRegion:
+      link: ''
+      text: ''
+    distance:
+      close: ''
+      normal: ''
+      unknown: ''
+    hygieneMissing: ''
+    distance_short:
+      unknown: ''
+      close: ''
+      normal: ''
+    alerts:
+      many_more: ''
+      many_less: ''
+      one_more: ''
+      one_less: ''
+    applicationSummary:
+      distance: ''
+      storeList: ''
+      verified: ''
+      text: ''
+      intro: ''
+      fullName: ''
+      time: ''
+    requireVerification:
+      link: ''
+      text: ''
+    application-placeholder: ''
+    requirePhone:
+      link: ''
+      text: ''
+    needsHomeRegion:
+      link: ''
+      text: ''
+    confirm-far: ''
+    hygieneRequired: ''
+    completeProfileRequired:
+      text: ''
+      link: ''
+    application-message: ''
+    applicationMessageTooShort: ''
+    confirm-no-location-ok: ''
+    confirm-no-location: ''
   convince:
     none: 'Вовсе не проблема, они сразу же были в восторге!'
     some: 'После убеждения они согласились участвовать.'
@@ -1358,6 +2043,7 @@ store:
   chat:
     team: 'Сообщение команде'
     jumper: 'Сообщение резерву'
+    managers: ''
   not-in-team: 'Вы ещё не в команде этого заведения.'
   isManager: 'Ответственный за это заведение.'
   regionPickupRulesInactive: 'Дополнительные районные правила для заборов не активны'
@@ -1436,6 +2122,10 @@ store:
       5: ''
       9: ''
       15: ''
+      18: ''
+      19: ''
+      17: ''
+      20: ''
     type:
       3: ''
       2: ''
@@ -1453,10 +2143,15 @@ store:
       13: ''
       11: ''
       15: ''
+      18: ''
+      19: ''
+      17: ''
+      20: ''
     log_types_placeholder: 'Выберите типы действий для отображения'
     search: 'Показать выбранные действия'
     selected_log_types: 'Выбрано {amount} типов действий'
     title: 'Журнал действий заведения'
+    message_saved_info: ''
   signInDateTime: 'Время записи'
   jumping: 'Резервы'
   of_that: 'из них'
@@ -1486,6 +2181,32 @@ store:
   particularities_chain_tooltip: 'Это заведение входит в сеть. Поэтому отображаются
     дополнительные сведения, применимые ко всем заведениям сети.'
   delete_date: 'Удалить отдельную дату забора'
+  to_map: ''
+  invitation:
+    info: ''
+    accept: ''
+    title: ''
+    withdraw: ''
+    invited_by: ''
+    decline: ''
+    invited_info: ''
+  my_last_slot: ''
+  invited: ''
+  delete:
+    button: ''
+    sure: ''
+  may_referred_to_in_public_unclear: ''
+  storeFrom: ''
+  invitations: ''
+  no_chain_choosen: ''
+  passport_expired: ''
+  lastPickupTitle: ''
+  passport_expires_soon: ''
+  chain_search_picker:
+    search_input: ''
+    modal_title: ''
+  deactivatedRegion: ''
+  slotsCurrentlyOccupied: ''
 pickup:
   same_day_entry: '[{when} ч] {name}'
   join_agree: 'Да, обязующе записаться'
@@ -1504,6 +2225,8 @@ pickup:
       signOffAll: 'Удалить из всех'
       loadMore: 'Загрузить ещё'
       registeredSwitch: 'Записанные выдачи'
+      managedOnlySwitch: ''
+      useCondensedDesign: ''
     tab:
       history:
         empty: 'Ещё ни в одной выдаче не участвовали.'
@@ -1616,6 +2339,18 @@ pickup:
   description: 'Описание'
   description_optional: 'Описание (необязательно)'
   description_max_length_info: 'Достигнута максимальная длина описания (100 символов)'
+  hygieneCertificateMissing:
+    timeout: ''
+    link: ''
+    none: ''
+  slots: ''
+  chat: ''
+  may_enter: ''
+  confirmed: ''
+  membershipMissing: ''
+  passport_expired:
+    short: ''
+    long: ''
 calendar:
   locale: 'ru'
   labelPrevMonth: 'Предыдущий месяц'
@@ -1626,11 +2361,14 @@ calendar:
       name: '{store} выдача'
       unconfirmed: 'неподтверждённо'
       description: 'фудшеринг-выдача в <a href="{url}">{store}</a>'
+      foodsavers: ''
+      freeSlots: ''
     event:
       statusUnspecified: 'Вы ещё не указали, придёте ли вы на это мероприятие. Это
         можно сделать на странице по ссылке.'
       linkTitle: 'фудшеринг-событие'
       description: 'Описание'
+    updated: ''
   labelHelp: 'Навигация также возможна с помощью стрелок'
   labelNextYear: 'Следующий год'
   labelSelected: 'Выбранная дата'
@@ -1639,6 +2377,9 @@ calendar:
   labelNav: 'Навигация по календарю'
   labelPrevYear: 'Предыдущий год'
   labelToday: 'Сегодня'
+  copiedUrl: ''
+  labelResetButton: ''
+  placeholder: ''
 timepicker:
   labelSeconds: 'Секунды'
   labelNoTimeSelected: 'Время не выбрано'
@@ -1649,6 +2390,9 @@ timepicker:
   labelCloseButton: 'Закрыть'
   labelNowButton: 'Сейчас'
   labelMinutes: 'Минуты'
+  to: ''
+  from: ''
+  placeholder: ''
 forum:
   from: 'От {name}'
   thread:
@@ -1674,6 +2418,10 @@ forum:
     subscriptions:
       subscribed: 'Подписан'
       subscribe: 'Подписаться'
+    delivery_mail: ''
+    post_not_found: ''
+    all_hidden: ''
+    bottom: ''
   threads: 'Темы'
   no_threads: 'Ещё нет тем'
   no_posts: 'Пока нет сообщений'
@@ -1688,6 +2436,14 @@ forum:
   post:
     delete: 'Удалить сообщение'
     body: 'Сообщение'
+    sureHide: ''
+    hideReasonPlaceholder: ''
+    hide: ''
+    hiddenReason: ''
+    hideInfo: ''
+    hiddenPost: ''
+    giveHideReason: ''
+    moderator_info: ''
   hold_back_for_moderation: 'Тема сохранена и будет опубликована после подтверждения
     модератором или послом.'
   inform_per_email: 'Уведомить всех активных за последние шесть месяцев участников
@@ -1700,6 +2456,14 @@ forum:
       сообщение касается всех и достаточно важно.'
     title: 'Действительно отправить e-mail-уведомление?'
   deleted_user: 'удалённый пользователь'
+  go: ''
+  restore:
+    reason: ''
+    hidden_by: ''
+    really: ''
+    title: ''
+  options:
+    bells_for_new_posts: ''
 chat:
   confirm_draft_discard: 'Вы переходите к новому разговору. Текущий черновик будет
     отброшен.
@@ -1727,6 +2491,20 @@ chat:
   start_of_conversation: 'Разговор начат:'
   no_conversation: 'Разговор не выбран'
   unknown_username: 'неизвестное имя'
+  error:
+    sending_message: ''
+    loading_conversation: ''
+    renaming_conversation: ''
+  show_participants: ''
+  participants: ''
+  rename_empty_hint: ''
+  mark_as:
+    read: ''
+    unread: ''
+  reply: ''
+  open_multi_chat: ''
+  rename_placeholder: ''
+  rename: ''
 wall:
   confirm-deletion: 'Вы действительно хотите удалить следующую запись от {name}?'
   name: 'Доска объявлений'
@@ -1740,6 +2518,9 @@ wall:
   info-logging: 'Учтите, что для избежания конфликтов содержимое и исполнитель будут
     протоколироваться.'
   placeholder: Написать новую запись на стене…
+  delete_confirmation:
+    title: ''
+    text: ''
 events:
   create:
     offline: 'Офлайн/вживую'
@@ -1753,6 +2534,13 @@ events:
     online: 'По телефону или онлайн'
     multiday: 'Мероприятие длится несколько дней'
     isPublic: 'Мероприятие публичное'
+    other: ''
+    locationOther: ''
+    fillCompletely: ''
+    locationDetails: ''
+    type: ''
+    time: ''
+    name: ''
   duration: 'Длительность: {duration}'
   created: 'Мероприятие успешно добавлено.'
   edited: 'Мероприятие успешно изменено.'
@@ -1787,6 +2575,16 @@ events:
   description: 'Описание'
   span: 'с {from} по {until}'
   past: 'Прошедшие мероприятия'
+  noneAccepted: ''
+  meeting:
+    present: ''
+    future: ''
+    not_started: ''
+    past: ''
+  location: ''
+  public_info: ''
+  online_info: ''
+  attendees: ''
 recipients:
   orga_team: 'глобальная оргкоманда (админы сайта)'
   test_email_sent: 'Письмо отправлено.'
@@ -1853,6 +2651,40 @@ group:
     remove_text_group: 'Вы действительно хотите удалить {name} ({id}) из рабочей группы?'
     set_ambassador_title: 'Назначить участника куратором'
     not_verified: 'Не верифицирован'
+    passports:
+      filter_selection: ''
+      never_before: ''
+      button:
+        unverify: ''
+        verify: ''
+      verify:
+        undo: ''
+        do_selected: ''
+        do: ''
+      execute: ''
+      filter_options:
+        no_filter: ''
+        with_passport: ''
+        all: ''
+        no_passport: ''
+        unverified: ''
+        verified: ''
+        invalid_passport: ''
+      verify_selected: ''
+      active_or_renew_passport: ''
+      show_only_member_after: ''
+      automatic_paper_size: ''
+      inform_user: ''
+      generate_button: ''
+      already_verified: ''
+      create_pdf: ''
+      filter_status: ''
+      created_at: ''
+      title: ''
+    default:
+      lastname: ''
+      title: ''
+    all_roles: ''
   contact:
     title: 'Связаться с {group}'
     sent: 'Сообщение успешно отправлено.'
@@ -1882,6 +2714,12 @@ group:
     sent: 'Заявка отправлена.'
     title: 'Заявка в {group}'
     send: 'Отправить заявку'
+    how_much_time: ''
+    error_missing_time: ''
+    link_description: ''
+    experience: ''
+    deny: ''
+    ability: ''
   actions:
     save: 'Сохранить изменения'
     contact: 'Связаться с группой'
@@ -1903,6 +2741,7 @@ group:
       главной страницы'
     tooltip_function_region341: 'Администраторы этой группы могут управлять вопросами
       теста'
+    tooltip_function_region2296: ''
   edit:
     title: 'Редактировать {group}'
     name_required: 'Пожалуйста, введите название.'
@@ -1914,6 +2753,7 @@ group:
     banana_count_errors:
       max: 'Пожалуйста, не требуйте больше чем {{ limit }} бананов доверия.'
       min: 'Никто не должен иметь меньше чем {{ limit }} бананов доверия.'
+      not_in_range: ''
     everybody: 'Любой может подать заявку.'
     open: 'Любой может присоединиться без заявки.'
     requirements: 'Кто может подать заявку в эту группу?'
@@ -1968,6 +2808,12 @@ group:
       «Запросить медиацию». Администраторы не получают дополнительных прав.'
     tooltip_function_3: 'Администраторы этой группы могут одобрять и редактировать
       Fairteiler района, а также удалять записи в Fairteiler'
+    tooltip_function_12: ''
+    election: ''
+    resources: ''
+    tooltip_function_13: ''
+    none: ''
+    stores_coordination: ''
   show-all: 'Показать все'
   photo: 'Фото'
   enterskills: 'Навыки:'
@@ -1995,6 +2841,17 @@ group:
   quit: 'Покинуть'
   filter_by_last_activity: 'Не активен в течение (месяцев)'
   application_from: 'от'
+  confirm_decline: ''
+  member_count:
+    zero: ''
+    one: ''
+    other: ''
+  admin_count:
+    zero: ''
+    other: ''
+    one: ''
+  valid_until: ''
+  filter_placeholder: ''
 register:
   check_mail: 'Проверьте почтовый ящик, чтобы завершить регистрацию!'
   other: 'другой'
@@ -2056,6 +2913,10 @@ register:
   password_required: 'Требуется пароль'
   activation_success: '<strong>Активация выполнена.</strong> Войдите сейчас с вашей
     электронной почтой и выбранным паролем.'
+  password_must_be_complex: ''
+  lastname_maxLength: ''
+  password_must_be_trimmed: ''
+  firstname_maxLength: ''
 formatting:
   md: 'Для форматирования вы можете использовать <a href="https://markdown.de/">Markdown</a>.'
 bell:
@@ -2125,6 +2986,64 @@ bell:
   internal_email_changed_title: '{address}'
   forum_not_activated_thread: '{forum}'
   new_forum_thread: '{author}: {title}'
+  delete_store_title: ''
+  event_post:
+    many: ''
+    one: ''
+  new_quiz_comment:
+    one: ''
+    many: ''
+  new_store_request:
+    one: ''
+    many: ''
+  store_invitation_accepted_title: ''
+  mark_as:
+    read: ''
+    unread: ''
+  store_change_regular_pickup_times:
+    many: ''
+    one: ''
+  new_forum_thread_title: ''
+  foodsaver_adress_changed: ''
+  ft_update:
+    many: ''
+    one: ''
+  translation_failed:
+    md: ''
+    title: ''
+    key: ''
+    md_support: ''
+  post_hidden_title: ''
+  delete_store: ''
+  passport_created_or_renewed_title: ''
+  workinggroup_new_request: ''
+  poll_started_title: ''
+  new_resource_title: ''
+  store_wall_post:
+    many: ''
+    one: ''
+  store_invitation_accepted:
+    one: ''
+    many: ''
+  poll_ending_soon: ''
+  foodsaver_adress_changed_title: ''
+  poll_ending_soon_title: ''
+  passport_created_or_renewed: ''
+  internal_email_changed: ''
+  new_resource:
+    many: ''
+    one: ''
+  store_wall_post_title: ''
+  post_hidden: ''
+  forum_not_activated_thread_title: ''
+  store_invite_title: ''
+  store_invite: ''
+  store_invitation_declined:
+    one: ''
+    many: ''
+  poll_started: ''
+  store_invitation_declined_title: ''
+  event_post_title: ''
 memberlist:
   header_for_district: 'Фудсейверы в районе {bezirk}'
   header_for_workgroup: 'Фудсейверы в рабочей группе {bezirk}'
@@ -2152,6 +3071,14 @@ content:
   title: 'Заголовок'
   last_modified: 'Последнее изменение'
   delete_tooltip: 'Удалить страницу'
+  communities:
+    title: ''
+    noAmbassador: ''
+    searchInfo: ''
+    text: ''
+  error_loading: ''
+  edit_raw: ''
+  error: ''
 email_template:
   foodsharepoint: '-- Фэйртейлер'
   information: 'Информация'
@@ -2184,6 +3111,17 @@ email_template:
   warning: 'Предупреждение'
   foodbasket_request: 'На вашу корзину с продуктами запросил %SENDER%'
   unknown_email: 'Неизвестный адрес электронной почты'
+  fetch_warning:
+    disable_warning: ''
+    subject:
+      multiple: ''
+      single: ''
+    settings_link: ''
+    empty_slots: ''
+    part2: ''
+    part1: ''
+  confirm_for_moderated_forum: ''
+  confirm_for_unverified: ''
 polls:
   ended: 'Прошедшие голосования'
   new_poll: 'Создать новое голосование'
@@ -2196,6 +3134,14 @@ polls:
   end_date: 'по'
   until: 'Возможно до {until}'
   future: 'Будущие голосования'
+  score:
+    disapproval: ''
+    approval: ''
+    neutral: ''
+  badge:
+    vote_now: ''
+    already_voted: ''
+    not_eligible: ''
 system_administration:
   reports: 'Просмотр жалоб'
   content: 'Редактирование контента'
@@ -2203,9 +3149,63 @@ system_administration:
   blog: 'Редактировать записи блога'
   quiz: 'Управление викторинами'
   email: 'Отправка рассылок'
+  resource_categories: ''
+  store_categories: ''
 map:
   donates: 'Заведение жертвует'
   title: 'Карта'
+  users:
+    go: ''
+  filters:
+    stores:
+      type:
+        label: ''
+        2: ''
+        "null": ''
+        1: ''
+        0: ''
+      status:
+        label: ''
+        all: ''
+        not-cooperating: ''
+        cooperating: ''
+      help:
+        label: ''
+        all: ''
+        searching: ''
+        open: ''
+      scope:
+        region: ''
+        all: ''
+        member: ''
+        label: ''
+    users:
+      role:
+        all: ''
+        foodsaver: ''
+        label: ''
+        store-manager: ''
+      region:
+        label: ''
+      member:
+        other: ''
+        label: ''
+        all: ''
+        homeregion: ''
+      activity:
+        month: ''
+        all: ''
+        6months: ''
+        week: ''
+        3months: ''
+        label: ''
+  community:
+    go: ''
+  foodsharepoint:
+    go: ''
+  events:
+    go: ''
+    title: ''
 language_chooser:
   title: 'Выбор языка'
   content: 'Пожалуйста, выберите язык'
@@ -2270,6 +3270,14 @@ fsp:
   new: 'Новый Fairteiler'
   summaryRegion: 'В {count} Fairteiler(ах) в {region} и во всех подрайонах'
   addError: 'Не удалось добавить Fairteiler. Всё ли вы правильно заполнили?'
+  show_on_large_map: ''
+  form_validation:
+    invalid: ''
+    min_length: ''
+    required: ''
+  followerCount: ''
+  onlySuggested: ''
+  createdAt: ''
 date:
   from: 'с'
   sunday: 'воскресенье'
@@ -2334,6 +3342,10 @@ legal:
     this_gets_deleted_quiz: 'Все ваши квизы будут удалены.'
   legal_agreement: 'Юридическое соглашение'
   privacy_notice: 'Инструкция по защите данных для ответственных за заведения и послов'
+  latest_change: ''
+  show_changes: ''
+  button:
+    agree: ''
 login:
   login_button_label: 'Войти'
   password: 'Пароль'
@@ -2349,6 +3361,9 @@ login:
     mismatch: 'Извините, пароли не совпадают.'
     expired: 'Ссылка недействительна. Возможно, вы слишком долго ждали. Пожалуйста,
       запросите новую ссылку.'
+    request_new: ''
+    invalidCode: ''
+    token_invalid: ''
   forgotten_password_label: 'Забыли пароль?'
   error_no_auth: 'К сожалению, мы не нашли эту электронную почту или пароль, попробуйте
     ещё раз. Возможно, также неверен второй фактор, если вы его используете.'
@@ -2361,6 +3376,17 @@ login:
   logout: 'Выйти'
   topbar: 'Войти'
   email_address: 'Электронная почта'
+  or: ''
+  resend_verification:
+    success: ''
+    email_invalid: ''
+    hint2: ''
+    title: ''
+    submit: ''
+    hint1: ''
+  error_not_activated: ''
+  2fa: ''
+  passkey_btn: ''
 reports:
   message: 'Описание'
   reportmessage: 'Кратко укажите, как с вами связаться при уточнениях.'
@@ -2369,9 +3395,27 @@ reports:
   no_reports_fallback: 'Ещё нет жалоб'
   report_id: 'ID жалобы'
   reason: 'Причина'
+  reports_region: ''
+  reports_user: ''
+  reported: ''
+  reporter: ''
+  id: ''
 buddy:
   request_accepted: 'Теперь вы знакомы.'
   request_sent: 'Запрос отправлен.'
+  send:
+    confirm_text: ''
+    confirm_title: ''
+  remove:
+    confirm_text: ''
+    confirm_title: ''
+  requests:
+    mine: ''
+    other: ''
+  my: ''
+  is_buddy: ''
+  confirmed: ''
+  none: ''
 error_permissions: 'К сожалению, у вас нет необходимых прав для этой операции.'
 error_unexpected: 'Произошла ошибка'
 storeedit:
@@ -2423,8 +3467,16 @@ storeedit:
     teamStatus1: 'Ещё ищут помощников'
     teamStatus0: 'Эта команда закрыта и в настоящее время не ищет новых помощников'
     teamStatus2: 'Срочно нужны помощники'
+    phoneRequirement: ''
+    hygieneRequirement: ''
+    applicationRequirements: ''
+    hygieneRequired: ''
+    applyTextRequired: ''
+    verifiedRequired: ''
   unsuccess: 'Не удалось сохранить изменения. {error}'
   add_success: 'Кооперативное заведение было добавлено'
+  name_error: ''
+  store_name_placeholder: ''
 personal_data:
   mobile: 'Мобильный номер'
   landline: 'Стационарный телефон'
@@ -2463,6 +3515,7 @@ blog:
   new: 'Написать новую статью'
   read: 'читать далее'
   edit: 'Редактировать запись блога'
+  teaser: ''
 information:
   calendar_sync:
     title: 'Знаете ли вы о синхронизации календаря для своих заборов?'
@@ -2497,6 +3550,7 @@ bcard:
   for: '{role} для {region}'
   title: 'Генератор визиток'
   desc: 'Выберите, для какого района или какой роли вы хотите создать визитку.'
+  region: ''
 savewithus: 'Спасай с нами!'
 gender:
   f: 'Женщина'
@@ -2521,6 +3575,7 @@ search:
       sticky_tooltip: 'Тема прикреплена'
       ambassador_forum: 'BOT-Форум'
       last_post: 'последнее сообщение'
+      bottom_tooltip: ''
     region:
       ambassador_tooltip: 'Вы — посол этого района'
       home_region_tooltip: 'Это ваш домашний район'
@@ -2534,6 +3589,8 @@ search:
       chat_with_others: 'другими'
     user:
       no_home_region: 'Нет домашнего района'
+      copied_id: ''
+      copy_id: ''
     store:
       manager_tooltip: 'Вы отвечаете за это предприятие'
       jumper_tooltip: 'Вы — перебежчик этого предприятия'
@@ -2541,17 +3598,52 @@ search:
     from: 'из'
     mail:
       mail_name: '{name} <{mail}>'
+      from_to_many: ''
+      attachment_tooltip: ''
+      sent_tooltip: ''
+      recieved_tooltip: ''
+      from_to: ''
+    time_relation:
+      present_since: ''
+      past: ''
+      future: ''
+      present_until: ''
+    poll:
+      not_eligible: ''
+      can_vote: ''
+      has_voted: ''
+    relevance: ''
+    event:
+      invitation_tooltip:
+        3: ''
+        1: ''
+        0: ''
+        2: ''
+      location_online: ''
+  too_short: ''
+  forum:
+    placeholder: ''
+    found:
+      body: ''
+      title: ''
+  maxresults: ''
+  scope:
+    global: ''
+    local: ''
+  thread-body-only: ''
 push_notifications:
   test_notification_title: 'Push-уведомления включены'
   test_notification_body: 'Отлично, похоже, это сработало :)'
 conference:
   join_title: 'Присоединиться к конференции'
   join: 'Присоединиться к конференции'
+  confirm_info: ''
 sidenav:
   superregional: 'Надрегионально'
   countryspecific: 'Национальные группы'
   yourgroups: 'Ваши группы'
   localgroups: 'Региональные группы'
+  yourregions: ''
 button:
   send: 'Отправить'
   next: 'Далее'
@@ -2570,6 +3662,16 @@ button:
   edit: 'Редактировать'
   create: 'Создать'
   delete: 'Удалить'
+  ok: ''
+  close: ''
+  browse: ''
+  start: ''
+  reset_default: ''
+  prev: ''
+  countdown_clickable: ''
+  filter_options: ''
+  yes_save: ''
+  confirm: ''
 opt: 'Параметры'
 message: 'Сообщение'
 ueberzeugungsarbeit: 'Насколько просто было убедить ответственное лицо предприятия
@@ -2583,6 +3685,7 @@ addresspicker:
   infobox_profile: '[Фудшарер](https://wiki.foodsharing.de/Foodsharer) нуждается в
     адресе, чтобы предлагать Essenskörbe через сайт. Чтобы участвовать в спасении
     еды как [Фудсейвер](https://wiki.foodsharing.de/Foodsaver), адрес обязателен.'
+  different_location_warning: ''
 list:
   filter_for: 'Фильтр по…'
 upload:
@@ -2597,6 +3700,9 @@ upload:
     файл.'
   choose_file: 'Загрузить файл'
   image: 'Загрузить изображение'
+  images: ''
+  invalid_image_files: ''
+  image-problem: ''
 begin: 'Начало сотрудничества'
 explanation: 'Пояснение'
 ui: {}
@@ -2604,6 +3710,12 @@ delete: 'Удалить'
 join_region:
   error:
     not_allowed: 'Вы не можете зарегистрироваться в этот район.'
+    is_country_2: ''
+    is_country_1: ''
+    is_big_city_2: ''
+    is_state_2: ''
+    is_big_city_1: ''
+    is_state_1: ''
   headline: 'Выберите район, в котором вы хотите быть активным.'
   description: 'Вы можете присоединиться к первому району, переходя от континента
     через страну до района. Если вы не можете найти подходящий район, выберите уровень
@@ -2630,6 +3742,15 @@ regions: 'Районы'
 statistics:
   kg_food_saved: '{count} кг спасённой еды'
   num_fetches: 'за {count} выездов по спасению'
+  region_public:
+    foodBasketsLastMonth: ''
+    activeHomeRegionFoodsavers: ''
+    savedFoodKgLastMonth: ''
+    activeCoorporations: ''
+    activeFoodSharePoints: ''
+    pickupsLastMonth: ''
+  food_saved: ''
+  lastMonth: ''
 betrieb_status_id: 'Статус'
 fetchstate: 'Всё прошло успешно?'
 fp: 'Штрафные очки'
@@ -2705,6 +3826,8 @@ markdown_input:
     hrule: горизонтальная линия
     link: ссылка
     heading: Заголовок
+    image: ''
+    mention: ''
   empty_preview_placeholder: 'Это предварительный просмотр форматирования. Текст здесь
     будет показан так, как он будет отображаться позже.
 
@@ -2736,6 +3859,23 @@ notifications:
   config_button: 'настроить по отдельности'
   success: 'Успех'
   checkbox_bell: 'Колокольчик'
+  save_success: ''
+  pushModal:
+    ok: ''
+    cancel: ''
+    dontAskAgain: ''
+    title: ''
+    content: ''
+  info: ''
+  warning: ''
+  error: ''
+  mention:
+    description: ''
+    title: ''
+  pickupReminder:
+    title: ''
+    description: ''
+  safari_add_to_home_screen: ''
 thread:
   rename:
     placeholder: Название
@@ -2748,10 +3888,29 @@ thread:
     pin: 'Прикрепить сообщение'
     lock: 'Закрыть тему'
     unpin: 'Открепить'
+    hideHidden: ''
+    priority: ''
+    showHidden: ''
   post:
     options:
       copy_source: 'Копировать исходный текст'
+      copy_direct_link: ''
+      restore: ''
     copy_source_success: 'Исходный текст скопирован!'
+    quote_button: ''
+    linked_post: ''
+    copy_direct_link_success: ''
+    quote_post_wrote: ''
+  priorityModal:
+    higher: ''
+    text: ''
+    lower: ''
+    title: ''
+    normal: ''
+  hiddenPostsInfo:
+    cannotSee: ''
+    toggle: ''
+    includesHidden: ''
 usersearch:
   search_tag: 'Выберите пользователя'
   no_tag_preset: 'Пользователь не найден'
@@ -2763,6 +3922,13 @@ validation:
 navi:
   google_maps: Карты Google
   apple_maps: Карты Apple
+  here: ''
+  waze: ''
+  osmand: ''
+  native: ''
+  komoot: ''
+  no_native_app: ''
+  gdpr_warning: ''
 no_automatic_delete: 'Если вы не заходили на сайт больше 5 лет:'
 automatic_delete: '- профиль должен быть удалён.'
 automatic_not_delete: '- профиль должен быть сохранён.'
@@ -2776,3 +3942,447 @@ partner_foodsharing: Партнер фудшеринга
 test:
   plain: Это перевод
   vars: Меня зовут {NAME}, мне {AGE} год(а)/лет
+categories:
+  title:
+    resource: ''
+    store: ''
+  confirm_delete: ''
+  types:
+    0: ''
+    2: ''
+    1: ''
+    "null": ''
+  empty: ''
+  confirm_delete_hint:
+    store: ''
+    resource: ''
+  new: ''
+  delete: ''
+  edit: ''
+  columns:
+    name: ''
+    type: ''
+    id: ''
+    usage_count: ''
+    number_of_stores: ''
+  merge_hint: ''
+  merge: ''
+  merge_title: ''
+help:
+  key:
+    commons_resources:
+      title: ''
+      md: ''
+    basket:
+      title: ''
+      md: ''
+    storeLog:
+      md: ''
+      title: ''
+    hygieneRequirement:
+      title: ''
+      md: ''
+    pickupOptions:
+      title: ''
+      md: ''
+    resource_mosaic:
+      title: ''
+      md: ''
+    threadPriority:
+      md: ''
+      title: ''
+    similar_resources:
+      title: ''
+      md: ''
+    profileCommitmentsStat:
+      title: ''
+      md: ''
+    pollScopes:
+      md: ''
+      title: ''
+    polls:
+      title: ''
+      md: ''
+    publicEvent:
+      title: ''
+      md: ''
+    reportReasons:
+      title: ''
+      md: ''
+    achievementIcon:
+      title: ''
+      md: ''
+    moderatorForumHide:
+      title: ''
+      md: ''
+    my_resources:
+      title: ''
+      md: ''
+    report:
+      title: ''
+      md: ''
+    achievementDuplicateMode:
+      title: ''
+      md: ''
+    masterRegion:
+      title: ''
+      md: ''
+    change_verified_data:
+      title: ''
+      md: ''
+    achievementVisibility:
+      title: ''
+      md: ''
+    achievements:
+      md: ''
+      title: ''
+  helpTitle: ''
+  tooltip: ''
+petition:
+  progressText:
+    2000: ''
+    Infinity: ''
+    8000: ''
+    20000: ''
+    25000: ''
+    30000: ''
+    500: ''
+    15000: ''
+  daysLeft: ''
+  link: ''
+resource_mosaic:
+  commons_resources_in: ''
+  editModal:
+    openness: ''
+    description_warning:
+      none: ''
+      short: ''
+      title: ''
+    name:
+      placeholder: ''
+      label: ''
+      max_length: ''
+    categories:
+      placeholder: ''
+      label: ''
+    is_restricted_to_region: ''
+    is_private: ''
+    description:
+      placeholder: ''
+      placeholder_commons: ''
+      label: ''
+  privacy_notice:
+    title: ''
+    text: ''
+    ok: ''
+  favorite: ''
+  filter:
+    favorites: ''
+    active: ''
+    home_region: ''
+  my_resources: ''
+  resource_not_found_warning: ''
+  message_modal:
+    intro: ''
+    request_for: ''
+    request_sent: ''
+    placeholder: ''
+    polite_info: ''
+    title: ''
+  search_placeholder: ''
+  no_commons_resources: ''
+  openness:
+    level_3: ''
+    level_4: ''
+    title: ''
+    level_5: ''
+    level_1: ''
+    level_2: ''
+  is_commons: ''
+  order:
+    sort_age: ''
+    sort_openness: ''
+    shuffle: ''
+  my_resources_in: ''
+  list_status:
+    none_in_region: ''
+    filter: ''
+    none_in_filter: ''
+    total: ''
+  add_commons: ''
+  confirm_delete: ''
+  other_resources:
+    commons: ''
+    own: ''
+    similar: ''
+    new: ''
+    other: ''
+  has_resources_elsewhere: ''
+  edit: ''
+  categories_filter_placeholder: ''
+  request_header: ''
+  favorite_tooltip: ''
+  max_resources: ''
+  no_own_resources: ''
+  message: ''
+  title: ''
+  is_private_hint: ''
+  add: ''
+achievements:
+  visibility_type_explanation:
+    scope: ''
+    store_managers: ''
+    private: ''
+    hidden: ''
+    global: ''
+  inRegion: ''
+  add: ''
+  visibility_type:
+    private: ''
+    scope: ''
+    global: ''
+    store_managers: ''
+    hidden: ''
+  validity:
+    days: ''
+    indefiniteShort: ''
+    indefinite: ''
+  duplicate_mode:
+    override: ''
+    multiple: ''
+  validUntil: ''
+  edit: ''
+  editor:
+    name: ''
+    preview: ''
+    description: ''
+    visibility_type: ''
+    validityInDaysAfterAssignment: ''
+    duplicate_mode: ''
+    icon: ''
+  notAwarded: ''
+  awardedNoReviewer: ''
+  reviewer: ''
+  duplicate_mode_explanation:
+    multiple: ''
+  awardedTo: ''
+  new: ''
+  inThis:
+    region: ''
+    group: ''
+  scope: ''
+  editTitle: ''
+  revokeConfirmation: ''
+  noneInThisRegion: ''
+  editDetails: ''
+  revoke: ''
+  deleteConfirmation: ''
+  findUser: ''
+  editAwarded: ''
+  notice: ''
+  award: ''
+  awarded: ''
+oauth:
+  error:
+    invalid_client: ''
+    unknown_error: ''
+    invalid_scope: ''
+    region_requirement_not_met: ''
+  remember:
+    title: ''
+    md: ''
+  action:
+    deny: ''
+    authorize: ''
+  admin:
+    public: ''
+    active: ''
+    type: ''
+    update_success: ''
+    regions: ''
+    delete_error: ''
+    redirect_uris_help: ''
+    confirm_delete: ''
+    confidential_client: ''
+    regenerate_secret: ''
+    create_success: ''
+    region_restriction_tooltip: ''
+    redirect_uris: ''
+    grant_types: ''
+    required_regions_help: ''
+    required_regions: ''
+    name: ''
+    confidential: ''
+    delete_warning: ''
+    title: ''
+    restrictions: ''
+    secret_save_warning: ''
+    confidential_help: ''
+    regenerate_secret_warning: ''
+    edit_client: ''
+    scopes: ''
+    delete_success: ''
+    no_region_restriction: ''
+    create_client: ''
+    load_error: ''
+    save_error: ''
+    secret_generated: ''
+    actions: ''
+    confirm_save_secret: ''
+    identifier: ''
+    no_restrictions: ''
+  authorize:
+    title: ''
+    requested_permissions: ''
+    redirect_notice: ''
+  scopes:
+    openid:
+      title: ''
+    regions:
+      title: ''
+      md: ''
+    email:
+      title: ''
+    profile:
+      title: ''
+      md: ''
+  title: ''
+support_page:
+  subject: ''
+  attachment:
+    max_size: ''
+    placeholder: ''
+    drop_placeholder: ''
+    browse: ''
+  info_teaser: ''
+  body: ''
+  title: ''
+  validation_firstName: ''
+  email: ''
+  validation_body: ''
+  validation_subject: ''
+  validation_email: ''
+  new_request: ''
+  success: ''
+  notification_name: ''
+  your_name: ''
+  firstName: ''
+contact_page:
+  title: ''
+  regions:
+    link: ''
+    title: ''
+    text: ''
+  description: ''
+  common:
+    modal:
+      title: ''
+      text: ''
+    link: ''
+    title: ''
+    text: ''
+  support:
+    title: ''
+    link: ''
+    text: ''
+  bread: ''
+required_messages:
+  demote_store_manager:
+    really: ''
+    footer: ''
+    main: ''
+  placeholder: ''
+  move_to_standby_team:
+    main: ''
+    footer: ''
+    really: ''
+  decline_store_application:
+    footer: ''
+    main: ''
+    really: ''
+  kick_from_store_team:
+    footer: ''
+    main: ''
+    really: ''
+  verify:
+    main: ''
+    really_multiple: ''
+    really: ''
+    footer: ''
+  sure_title: ''
+  message_info: ''
+  name_placeholder: ''
+  save_message: ''
+  message_info_multiple: ''
+feedback:
+  error:
+    screenshot: ''
+    invalid_file: ''
+    message_short: ''
+    no_sentry: ''
+  button: ''
+  privacy: ''
+  success: ''
+  title: ''
+  name_sent: ''
+  no_support: ''
+  capture_screenshot: ''
+sort:
+  sort_by: ''
+  options:
+    updated_at: ''
+    name: ''
+    date: ''
+    relevance: ''
+    created_at: ''
+theme_switcher:
+  theme:
+    system: ''
+    light: ''
+    dark: ''
+  choose_button: ''
+  content: ''
+  title: ''
+network_errors:
+  csrf_token_invalid:
+    title: ''
+    text: ''
+team_page:
+  alumni_member:
+    title: ''
+    text: ''
+  board_member:
+    title: ''
+    text: ''
+  it_member:
+    title: ''
+    text: ''
+error_base64_image: ''
+net_errors:
+  title:
+    400: ''
+    500: ''
+    general: ''
+  ETIMEDOUT: ''
+  action_response: ''
+  message: ''
+  SERVER_ERROR: ''
+  ERR_CANCELED: ''
+  ERR_NETWORK: ''
+  FORBIDDEN: ''
+  unknown: ''
+  BAD_REQUEST: ''
+  ECONNABORTED: ''
+  code: ''
+  ERR_NETWORK_CHANGED: ''
+  NOT_FOUND: ''
+  ERR_BAD_RESPONSE: ''
+  TOO_MANY_REQUESTS: ''
+donation_banner:
+  action_button: ''
+  amount: ''
+  info_button: ''
+totp_code: ''
+debug:
+  title: ''
+  info: ''

@@ -104,6 +104,8 @@ quiz:
     pauseElapsed: Twoja przerwa na naukę się skończyła. Dlatego możesz ponownie 
       przystąpić do quizu. Miejmy nadzieję, że wykorzystałeś/aś czas to lepiej 
       zaznajomić się z treściami.
+    pause: ''
+    waitAfter: ''
   regstart: Rozpocznij quiz bez limitu czasu i {count} pytań
   button:
     pause: Kontynuuj później
@@ -154,6 +156,8 @@ quiz:
         komentarz. Twoje komentarze są przyporządkowane do ciebie, aby umożliwić
         indywidualną informację zwrotną.
     acceptPrivacyNotice: Zgadzam się.
+    privacyNotice:
+      hygiene: ''
   infomodal:
     title: Pytanie {index} z {questions}
   comment:
@@ -163,6 +167,7 @@ quiz:
     sent: Komentarz wysłany.
     wallTitle: 'Komentarze do pytania #{id}'
     label: Skomentuj pytanie
+    info: ''
   question_options:
     add: Dodaj pytanie
     edit: Edytuj pytanie
@@ -175,6 +180,7 @@ quiz:
   fp_options:
     default: '{failurePoints} punkty ujemne'
     joke: '{failurePoints} punkty ujemne (bez oceny)'
+    ko: ''
   confirmDelete:
     session: Czy na pewno chcesz usunąć tę sesję quizu?
     question: Czy na pewno chcesz usunąć to pytanie?
@@ -236,6 +242,7 @@ quiz:
         questionCountTimed: 'Liczba pytań:'
         allowUntimed: Pozwól na edycję bez limitu czasu
         questionCountUntimed: 'Liczba pytań bez limitu czasu:'
+      htmlWarning: ''
     question:
       title: Edytuj pytanie
       input:
@@ -266,6 +273,8 @@ quiz:
   sessionStatus:
     2: Niezdane z {failurePoints} z maksymalnie {maxFailurePointsToSucceed} 
       punktów ujemnych.
+    1: ''
+    0: ''
 request_time: 'Czas zapytania:'
 pass1: Twoje żądane nowe hasło
 public_time: Szacunkowy czas odbioru
@@ -306,6 +315,7 @@ upload:
   crop_dialog_title: Przytnij obraz
   image-problem: Twój plik wydaje się nie być w porządku, najlepiej wybierz 
     zwykły obraz jpg
+  invalid_image_files: ''
 button:
   save: Zapisz
   next: następny
@@ -333,6 +343,7 @@ button:
   browse: Przeglądaj
   yes_save: Tak, zapisz
   reset_default: Zresetuj standard
+  countdown_clickable: ''
 settings:
   calendar:
     program:
@@ -340,22 +351,49 @@ settings:
       thunderbird: Mozilla Thunderbird
       etar: Etar
       other: Coś innego
+      outlook: ''
+      google: ''
+      label: ''
     menu: Kalendarz
     export: Eksportuj kalendarz
     delete_token:
       button: Usuń token
+      message: ''
     generate_url:
       button: Generuj URL kalendarza
     download: Pobierz kalendarz
     event:
       none: żadne
+      all: ''
+      invitations: ''
+      label: ''
+      maybe: ''
+      accepted: ''
     reminders:
       3_hours: 3 godziny przed
       6_hours: 6 godzin przed
       12_hours: 12 godzin przed
       1_day: 1 dzień przed
+      30_minutes: ''
+      label: ''
+      1_hour: ''
+      15_minutes: ''
     formatting:
       html: HTML
+      label: ''
+      text: ''
+      alt: ''
+    history:
+      "false": ''
+      "true": ''
+      label: ''
+    pickup:
+      "true": ''
+      "false": ''
+      label: ''
+    protocol: ''
+    export_tooltip: ''
+    info: ''
   no_rights: Nie masz uprawnień, aby zmienić ustawienia profilu.
   edit_other: Zmień ustawienia profilu {name}
   title: Ustawienia
@@ -368,6 +406,7 @@ settings:
   quiz:
     1: Quiz dla foodsaverów/ek
     3: Quiz dla ambasadorów/ek
+    2: ''
   sleep:
     status: Twój aktualny status
     message: Tu możesz zostawić krótką wiadomość, dlaczego chwilowo nie masz 
@@ -377,6 +416,14 @@ settings:
     temp: Jestem niedostępny/a w następującym czasie
     range: 'Podaj, jak długo będziesz niedostępny/a:'
     saved: Zapisano ustawienia
+    tooltip: ''
+    info: ''
+    missing-date: ''
+    none: ''
+    header: ''
+    title: ''
+    full: ''
+    show: ''
   email: Adres email & hasło
   account_security:
     title: Bezpieczeństwo konta
@@ -392,20 +439,49 @@ settings:
       cancel: Anuluj
       register: Zarejestruj
       device_name_label: Nazwa urządzenia
+      title: ''
+      device_name_description: ''
     created: Utworzony
     device_name_placeholder: np. iPhone, YubiKey, Laptop
     delete_modal:
       device_name: Urządzenie
       cancel: Anuluj
       delete: Usuń
+      confirmation: ''
+      title: ''
     rename_modal:
       new_name_label: Nowa nazwa
       new_name_placeholder: Nowa nazwa urządzenia
       cancel: Anuluj
       save: Zapisz
+      title: ''
     error:
       webauthn_not_supported: Ta przeglądarka nie wspiera WebAuthn
       name_required: Proszę podać nazwę
+      operation_cancelled: ''
+      authenticator_already_registered: ''
+      rename_failed: ''
+      deletion_failed: ''
+      registration_failed: ''
+      operation_aborted: ''
+    unnamed_passkey: ''
+    security_keys_description: ''
+    mfa_enabled: ''
+    authenticator_app: ''
+    passkeys_section: ''
+    passkey_deleted: ''
+    mfa_section: ''
+    passkey_renamed: ''
+    register_passkey: ''
+    passkeys_info: ''
+    security_keys: ''
+    other_domain_info: ''
+    authenticator_app_description: ''
+    no_passkeys: ''
+    domain_info: ''
+    passkeys_not_supported: ''
+    mfa_disabled: ''
+    passkey_registered: ''
   two_fa_manage:
     status_is: Aktualny status to
     active: Aktywny
@@ -419,19 +495,59 @@ settings:
     password_placeholder: Twoje obecne hasło
     password_required: Musisz podać hasło
     cancel: Anuluj
+    intro: ''
+    num_backup_codes: ''
+    title: ''
+    enable_button: ''
   two_fa_enable:
     tabs:
       qr_code: Skanuj kod QR
       confirm: Potwierdź aktywację
+      backup_codes: ''
+      tutorial: ''
     qrcode:
       title: Skanuj kod QR
+      scan_instruction: ''
+      multi_device: ''
+      label: ''
     secret_toggle: Pokaż kod (jeśli kod QR nie działa)
     confirm:
       title: Potwierdź aktywację
+      instruction: ''
+      test_instruction: ''
+      logout_notice: ''
     generated_code_label: Wygenerowany kod
     activate: Aktywuj
+    next: ''
+    danger: ''
+    explanation: ''
+    secret_label: ''
+    failed: ''
+    apps:
+      description: ''
+      title: ''
+      info: ''
+    tutorial: ''
+    backup_codes:
+      info: ''
+      save_instruction: ''
+      title: ''
+      confirmation: ''
+      must_confirm: ''
+      label: ''
+    further_info: ''
+    password_info: ''
+    success: ''
+    title: ''
   two_fa_disable:
     deactivate: Deaktywuj
+    confirm_text: ''
+    danger: ''
+    admin_description: ''
+    failed: ''
+    warning: ''
+    title: ''
+    success: ''
   email_change:
     title: Zmień adres email
     explanation_password: Potwierdź zmianę swoim aktualnym hasłem
@@ -445,6 +561,20 @@ settings:
     new_email_placeholder: twoj.nowy@email.com
     confirm_email_placeholder: twoj.nowy@email.com
     wrong_password: Wprowadzono błędne hasło.
+    invalid: ''
+    not_changed: ''
+    sent_other_user: ''
+    dashboard_link: ''
+    explanation: ''
+    explanation_other_user: ''
+    domain: ''
+    sent: ''
+    done: ''
+    password_required: ''
+    occupied: ''
+    confirm_email_required: ''
+    insufficient_permission: ''
+    question_other_user: ''
   password_change:
     new_password_placeholder: Minimum 8 znaków
     new_password_required: Hasło musi zawierać minimum 8 znaków
@@ -462,6 +592,9 @@ settings:
     cancel: Anuluj
     submit: Zmień hasło
     success: Twoje hasło zostało pomyślnie zmienione
+    wrong_password: ''
+    explanation: ''
+    confirm_password_invalid: ''
   passport:
     menu: legitymacja członkowska
     renew: Odnów legitymację
@@ -484,8 +617,10 @@ settings:
       valid_end: Ważny do
       generate_error: Podczas generowania legitymacji wystąpił błąd. Proszę, 
         spróbuj ponownie później.
+    verified_text: ''
   photo:
     title: twoje zdjęcie
+    info: ''
   push:
     title: Powiadomienia push
     not-supported: Twoja przeglądarka nie wspiera powiadomień push.
@@ -502,11 +637,23 @@ settings:
     success: Powiadomienia push aktywowane pomyślnie
     disable: Deaktywuj powiadomienia push
     disabled: Powiadomienia push deaktywowane pomyślnie
+    info-off: ''
   notifications: Powiadomienia
   follow:
     none: Nie informuj mnie mailem o nowych postach.
+    mail: ''
+    thread: ''
   businesscard: Osobista wizytówka
   account: Opcje konta
+  general:
+    phone: ''
+    no_address: ''
+    current_address: ''
+  chatmail: ''
+  newsletter: ''
+  change_data_info:
+    verified: ''
+    general: ''
 bcard:
   title: Generator wizytówek
   card: Twoja foodsharing-wizytówka
@@ -520,6 +667,7 @@ bcard:
   generate: Stwórz wizytówkę
   role: Rola
   region: Region
+  claim: ''
 group:
   name: Imię
   userId: ID
@@ -573,6 +721,7 @@ group:
       zdobyłeś/aś? \nJeśli tak, gdzie lub jakie?\n"
     how_much_time: Ile godzin tygodniowo masz czas i chęć poświęcić się temu?
     summary: '{name} chce dołączyć do zespołu {group}.'
+    deny: ''
   actions:
     edit: Edytuj grupę
     join: Dołącz do tej grupy
@@ -595,6 +744,25 @@ group:
     board: Zarząd
     title: Funkcja zespołu
     fsmanagement: Zarządzanie
+    restricted_workgroup_function: ''
+    tooltip_function_9: ''
+    tooltip_function_4: ''
+    pr: ''
+    tooltip_function_5: ''
+    tooltip_function_10: ''
+    tooltip_function_1: ''
+    report: ''
+    invalid: ''
+    tooltip_function_12: ''
+    tooltip_function_2: ''
+    tooltip_function_11: ''
+    tooltip_function_6: ''
+    tooltip_function_7: ''
+    tooltip_function_13: ''
+    none: ''
+    stores_coordination: ''
+    tooltip_function_3: ''
+    arbitration: ''
   application_requirements:
     requirements: Kto może dołączyć do tej grupy?
     nobody: Nikt (zamknięta grupa).
@@ -609,6 +777,8 @@ group:
         niż {{ max }} bananów zaufania.'
     member_since_weeks: Od ilu tygodni kandydat/ka powinien/na być aktywny/a w 
       foodsharingu?
+    fetch_count: ''
+    not_fulfilled: ''
   members: Członkowie
   administrators: Administratorzy/ki grupy
   member_count:
@@ -630,6 +800,7 @@ group:
     passports:
       button:
         verify: weryfikować
+        unverify: ''
       title: Legitymacje i weryfikacja
       created_at: Legitymacja utworzona
       generate_button: Stwórz legitymację/e dla wybranej/ych osoby/osób
@@ -646,6 +817,7 @@ group:
         do_selected: Czy na pewno chcesz aktywować wszystkich/e zaznaczonych/e 
           użytkowników/czki (porównanie danych osobistych/ kontrola dowodu 
           tożsamości itd.)?
+        undo: ''
       filter_options:
         invalid_passport: legitymacja nieważna
         verified: zweryfikowany/a
@@ -676,6 +848,9 @@ group:
     admin_mode_off: Powrót do widoku standardowego
     not_verified: niezweryfikowany
     all_roles: wszystkie role
+    remove_text_group: ''
+    is_home_region: ''
+    remove_text_region: ''
   image: Obraz dla %name%
   show-all: Pokaż wszystko
   application_from: przez
@@ -691,6 +866,15 @@ group:
       treści na stronie głównej
     tooltip_function_region327: Administratorzy/ki tego zespołu mogą edytować 
       wpisy na blogu
+    tooltip_function_region387: ''
+    tooltip_function_region332: ''
+    tooltip_function_region432: ''
+    tooltip_function_region2296: ''
+  confirm_decline: ''
+  quitting_home_district_warning: ''
+  delete_group_sure: ''
+  subtitle: ''
+  title: ''
 test:
   vars: Mam na imię {NAME} i mam {AGE} lat(a)
   plain: To jest tłumaczenie
@@ -710,6 +894,13 @@ legal:
     this_gets_deleted_trustbananas: Banany, które dostałeś/aś od innych, będą 
       usunięte.
     this_doesnt_get_deleted_history: Historia twojej weryfikacji
+    legal_2: ''
+    this_doesnt_get_deleted: ''
+    this_gets_deleted_stores: ''
+  latest_change: ''
+  show_changes: ''
+  legal_agreement: ''
+  privacy_notice: ''
 salutation:
   "0": Drogi/a
   "1": Drogi
@@ -740,6 +931,8 @@ login:
     error: Niestety, jest problem z twoimi danymi.
     mismatch: Niestety, hasła się nie pokrywają.
     request_new: Zażądaj nowego hasła
+    invalidCode: ''
+    token_invalid: ''
   steady_login: Pozostań stale zalogowany/a
   resend_verification:
     email_invalid: Podaj adres email
@@ -754,6 +947,10 @@ login:
     success: Jeśli ten adres email istnieje i jeszcze nie został zweryfikowany, 
       zostanie wysłany nowy email.
   or: albo
+  error_not_activated: ''
+  error_no_auth: ''
+  2fa: ''
+  passkey_btn: ''
 register:
   topbar: dołącz
   title: rejestracja
@@ -811,6 +1008,11 @@ register:
   requiredFields: Pole wymagane
   email_required: Adres email jest wymagany
   email_invalid: Ten adres email jest nieważny bądź już używany
+  login_phone_info: ''
+  error_birthdate: ''
+  join_success_message: ''
+  select_your_gender: ''
+  birthdate_hint: ''
 gender:
   m: mężczyzna
   f: kobieta
@@ -839,6 +1041,8 @@ terminology:
     "0": Foodsharer:ka
     "1": Foodsaver:ka
     "3": Ambasador:ka
+    "4": ''
+    "2": ''
   ambassadors: Ambasadorowie/ki
   ambassador_forum: Forum ambasadorów/ek
   admins: Administratorzy/ki
@@ -868,9 +1072,50 @@ terminology:
   subgroups: Podgrupy
   hygiene_training: Szkolenie higieny
   group: zespół
+  reportAdmins: ''
+  storemanager:
+    m: ''
+    d: ''
+    f: ''
+  mediationAdmins: ''
+  giving: ''
+  baskets: ''
+  homeRegion: ''
+  prAdmins: ''
+  n_sleeping: ''
+  votingAdmins: ''
+  previous_pickups: ''
+  orga:
+    d: ''
+    f: ''
+    m: ''
+  n_cooperating_stores: ''
+  resourcesAdmins: ''
+  stores: ''
+  wall: ''
+  reports:
+    report: ''
+    orga: ''
+    arbitration: ''
+  fsManagementAdmins: ''
+  boardAdmins: ''
+  pickup: ''
+  fspAdmins: ''
+  welcomeAdmins: ''
+  groups: ''
+  moderationAdmins: ''
+  community: ''
+  n_home_regions: ''
+  arbitrationAdmins: ''
+  storesAdmins: ''
+  n_stores: ''
+  store: ''
+  basket: ''
 resource_mosaic:
   privacy_notice:
     ok: Zgadzam się
+    title: ''
+    text: ''
   title: Mozaika zasobów
   my_resources: Moje zasoby
   add: Dodaj nowe zasoby
@@ -879,15 +1124,80 @@ resource_mosaic:
   filter:
     active: Tylko aktywni/e użytkownicy/czki
     favorites: Tylko ulubione
+    home_region: ''
   other_resources:
     other: Dalsze zasoby {user}
     own: Twoje inne zasoby
     similar: Podobne zasoby
+    commons: ''
+    new: ''
+  commons_resources_in: ''
+  editModal:
+    openness: ''
+    description_warning:
+      none: ''
+      short: ''
+      title: ''
+    name:
+      placeholder: ''
+      label: ''
+      max_length: ''
+    categories:
+      placeholder: ''
+      label: ''
+    is_restricted_to_region: ''
+    is_private: ''
+    description:
+      placeholder: ''
+      placeholder_commons: ''
+      label: ''
+  favorite: ''
+  resource_not_found_warning: ''
+  message_modal:
+    intro: ''
+    request_for: ''
+    request_sent: ''
+    placeholder: ''
+    polite_info: ''
+    title: ''
+  search_placeholder: ''
+  no_commons_resources: ''
+  openness:
+    level_3: ''
+    level_4: ''
+    title: ''
+    level_5: ''
+    level_1: ''
+    level_2: ''
+  is_commons: ''
+  order:
+    sort_age: ''
+    sort_openness: ''
+    shuffle: ''
+  my_resources_in: ''
+  list_status:
+    none_in_region: ''
+    filter: ''
+    none_in_filter: ''
+    total: ''
+  add_commons: ''
+  confirm_delete: ''
+  has_resources_elsewhere: ''
+  request_header: ''
+  favorite_tooltip: ''
+  max_resources: ''
+  no_own_resources: ''
+  message: ''
+  is_private_hint: ''
 required_messages:
   kick_from_store_team:
     footer: Pozdrawiam
+    main: ''
+    really: ''
   move_to_standby_team:
     footer: Pozdrawiam
+    main: ''
+    really: ''
   decline_store_application:
     really: Czy na pewno chcesz odrzucić zgłoszenie {name}?
     main: Twoje zgłoszenie do Teamu [{store}](/store/{storeId}) zostało 
@@ -895,9 +1205,31 @@ required_messages:
     footer: Pozdrawiam
   demote_store_manager:
     footer: Pozdrawiam
+    really: ''
+    main: ''
+  placeholder: ''
+  verify:
+    main: ''
+    really_multiple: ''
+    really: ''
+    footer: ''
+  sure_title: ''
+  message_info: ''
+  name_placeholder: ''
+  save_message: ''
+  message_info_multiple: ''
 petition:
   daysLeft: Zostało {daysLeft} dni
   link: Do petycji
+  progressText:
+    2000: ''
+    Infinity: ''
+    8000: ''
+    20000: ''
+    25000: ''
+    30000: ''
+    500: ''
+    15000: ''
 notice: Uwaga!
 validate:
   required: '{it} nie może być puste'
@@ -908,6 +1240,7 @@ net_errors:
   title:
     general: Błąd sieci
     500: Błąd serwera
+    400: ''
   code: 'Kod błędu: '
   message: 'Komunikat błędu: '
   FORBIDDEN: Nie jesteś upoważniony/a do wykonania tej akcji.
@@ -917,6 +1250,14 @@ net_errors:
   ERR_NETWORK_CHANGED: Twoje połączenie internetowe jest niestabilne. Proszę 
     sprawdź swoje połączenie i spróbuj ponownie.
   unknown: Wystąpił nieznany błąd. Spróbuj ponownie później.
+  ETIMEDOUT: ''
+  action_response: ''
+  SERVER_ERROR: ''
+  ERR_CANCELED: ''
+  BAD_REQUEST: ''
+  ECONNABORTED: ''
+  ERR_BAD_RESPONSE: ''
+  TOO_MANY_REQUESTS: ''
 formatting:
   md: Do formatowania możesz użyć <a href="https://markdown.de/">Markdown</a>.
 fsp:
@@ -957,6 +1298,7 @@ fsp:
   form_validation:
     required: '{name} jest wymagane.'
     min_length: '{name} musi zawierać co najmniej {length} znaków.'
+    invalid: ''
   twig:
     n_in_region: '{count} jadłodzielni w {name}'
   followerCount: 'Zainteresowani/e użytkownicy/czki: {followerCount}'
@@ -973,7 +1315,14 @@ fsp:
       sposób chcesz otrzymywać te powiadomienia?
     manager: Jesteś odpowiedzialny/a za tę jadłodzielnię i z tego względu 
       zobowiązany/a akceptować update'y.
+    mail: ''
+    descModal: ''
+    bell: ''
   createdAt: 'Otwarte:'
+  summary: ''
+  summaryRegion: ''
+  publicwall: ''
+  suggestSuccess: ''
 storeview:
   common: Ogólne informacje
   public_time_at_noon_or_afternoon: w południe/po południu
@@ -994,6 +1343,7 @@ storeview:
   calendar_interval:
     single: 1 tydzień
     multiply: '{weeks} Tygodni(e)'
+    not_set: ''
   choose_chain: Wybierz sieć
   info: Informacje
   team_info_active: 'Aktywni/e w teamie:'
@@ -1003,12 +1353,30 @@ storeview:
   public_info:
     error_message: Tekst jest za długi (max. {count} znaki/ów)
     available_count: Dostępna liczba znaków
+    label: ''
   visible_for_public: Ten tekst jest widoczny dla wszystkich foodsaverów/ek, np.
     na mapie.
   contact:
     name: Imię/Nazwisko
   public_time_in_the_morning: rano
   management: Zarządzanie
+  team_info_distance: ''
+  public_time: ''
+  specials: ''
+  source_data: ''
+  public_and_statistics: ''
+  team: ''
+  invalid_field: ''
+  team_info_jumper: ''
+  store: ''
+  show_settings: ''
+  status_notes: ''
+  select_related_region: ''
+  visible_for_team: ''
+  no_permission_to_view: ''
+  pickupWeight: ''
+  managers: ''
+  pickupCount: ''
 store:
   team_container: Team
   member: Członek
@@ -1034,6 +1402,7 @@ store:
     sorting:
       default: Sortowanie standardowe
       distance: Sortowanie według odległości
+      pickup: ''
     filterAll: Członkowie
     filterActive: Aktywni
     filterUnverified: Niezweryfikowani
@@ -1044,11 +1413,26 @@ store:
     reloadPage: Załaduj ponownie
     searchPlaceholder: Imię lub ID
     reloadRequired: 'Do aktualizacji informacji o teamie:'
+    demoteAsManagerConfirm: ''
+    demoteAsManager: ''
+    filterManage: ''
+    promoteToManager: ''
+    userHasPickupsWarning: ''
+    promoteToManagerNotPossible: ''
+    filterSleeping: ''
+    filterJumper: ''
+    filterQuizSM: ''
+    reallyRemove: ''
+    makeJumper: ''
   request:
     applicationSummary:
       verified: Status weryfikacji ({status})
       time: Czas zgłoszenia
       fullName: Twoje pełne imię i nazwisko ({first_name} {last_name})
+      distance: ''
+      storeList: ''
+      text: ''
+      intro: ''
     alerts:
       one_more: Pokaż kolejną wskazówkę
       many_more: Pokaż {count} kolejne wpisy
@@ -1068,18 +1452,44 @@ store:
     application-placeholder: Chciał(a)bym pomagać w tym teamie, bo …
     completeProfileRequired:
       link: Edytuj profil
+      text: ''
     requirePhone:
       link: Edytuj profil
+      text: ''
     request: Zgłoś się do tego teamu
     verified: Użytkownik/czka jest zweryfikowany/a
     hygieneMissing: Tego warunku jeszcze nie spełniasz. Weź teraz udział w 
       quizie higieny, aby móc się zgłosić do tego teamu.
+    title: ''
+    needsStoreRegion:
+      link: ''
+      text: ''
+    requireVerification:
+      link: ''
+      text: ''
+    withdrawn: ''
+    got-it: ''
+    air_line: ''
+    needsHomeRegion:
+      link: ''
+      text: ''
+    confirm-far: ''
+    hygieneRequired: ''
+    no-duplicate: ''
+    to-jumper: ''
+    application-message: ''
+    withdraw: ''
+    applicationMessageTooShort: ''
+    confirm-no-location-ok: ''
+    confirm-no-location: ''
   invitation:
     accept: Zaakceptuj zaproszenie
     decline: Odrzuć
     invited_by: Zaproszony/a przez
     withdraw: Cofnij zaproszenie
     title: Zaproszenia do {storeTitle}
+    info: ''
+    invited_info: ''
   info_container: Informacje
   chain_search_picker:
     modal_title: Wybierz sieć
@@ -1104,20 +1514,129 @@ store:
       7: '{actor} usunął/ęła {target} z teamu.'
       8: '{actor} opuścił/a team.'
       19: '{actor} zaakceptował/a zaproszenie do teamu.'
+      6: ''
+      1: ''
+      18: ''
+      14: ''
+      3: ''
+      4: ''
+      11: ''
+      13: ''
+      13_with_reason: ''
+      16: ''
+      10: ''
+      12: ''
+      2: ''
+      5: ''
+      9: ''
+      15: ''
     type:
       8: Opuszczenie teamu
       17: zaproszenie Foodsaverów/ek do teamu
       19: akceptowanie zaproszeń do teamu
       20: odrzucenie zaproszeń do teamu
+      3: ''
+      2: ''
+      18: ''
+      7: ''
+      14: ''
+      1: ''
+      16: ''
+      4: ''
+      10: ''
+      6: ''
+      12: ''
+      9: ''
+      5: ''
+      13: ''
+      11: ''
+      15: ''
+    log_types_placeholder: ''
+    message_saved_info: ''
+    selected_log_types: ''
+    title: ''
   to_map: Pokaż na mapie
   chat:
     team: Wiadomość do teamu
+    jumper: ''
+    managers: ''
   no_chain_choosen: nie wybrano sieci
   passport_expired: Twoja legitymacja już jest nieważna. Dlatego nie możesz się 
     chwilowo tutaj zarejestrować. Skontaktuj się z twoimi ambasador(k)ami, aby 
     odnowić swoją legitymację.
   important: 'Ważne:'
   invitations: Otwarte zaproszenia ({count})
+  jumperSince: ''
+  signInDateTime: ''
+  jumping: ''
+  may_not_referred_to_in_public: ''
+  fetchCount: ''
+  requests: ''
+  error: ''
+  leaveinfo: ''
+  convince:
+    much: ''
+    some: ''
+    none: ''
+    final: ''
+  mayAmb: ''
+  my_last_slot: ''
+  isAppliedForTeam: ''
+  locked: ''
+  lastPickup: ''
+  managing: ''
+  springer_conversation_name: ''
+  isManager: ''
+  noPickup: ''
+  tooltip_red: ''
+  not-in-team: ''
+  allStoresOfRegion: ''
+  willgetcontacted: ''
+  slot_state: ''
+  delete_date_description: ''
+  tooltip_orange: ''
+  attribution: ''
+  useRegionPickupRules: ''
+  short_tooltip_red: ''
+  regionPickupRulesInactive: ''
+  delete:
+    button: ''
+    sure: ''
+  short_tooltip_orange: ''
+  regionPickupRules: ''
+  tooltip_jumping: ''
+  tooltip_managing: ''
+  addNewStoresButton: ''
+  enternumber: ''
+  nodetails: ''
+  storeFrom: ''
+  enter_date: ''
+  ownStores: ''
+  lastPickupTitle: ''
+  mayManage: ''
+  passport_expires_soon: ''
+  bread: ''
+  particularities_chain: ''
+  appliedFor: ''
+  regionPickupRuleLong: ''
+  isJumper: ''
+  nodeclaration: ''
+  nochains: ''
+  enter_date_description: ''
+  tooltip_yellow: ''
+  deactivatedRegion: ''
+  peoplecame: ''
+  may_referred_to_in_public: ''
+  noStores: ''
+  short_tooltip_yellow: ''
+  not_verified: ''
+  particularities_chain_tooltip: ''
+  all_of_my_stores: ''
+  delete_date: ''
+  slotsCurrentlyOccupied: ''
+  average_collection_quantity: ''
+  pickup_slot_unavailable: ''
+  smneeded: ''
 navi:
   google_maps: Google maps
   waze: Waze
@@ -1127,6 +1646,7 @@ navi:
   here: HERE WeGo
   no_native_app: Geo linki nie są wspierane przez to urządzenie.
   native: native app
+  gdpr_warning: ''
 really_delete: Na pewno usunąć?
 yes: Tak
 no: Nie
@@ -1139,6 +1659,13 @@ statistics:
   region_public:
     activeHomeRegionFoodsavers: aktywni/e foodsaverzy/ki
     activeFoodSharePoints: aktywne jadłodzielnie
+    foodBasketsLastMonth: ''
+    savedFoodKgLastMonth: ''
+    activeCoorporations: ''
+    pickupsLastMonth: ''
+  food_saved: ''
+  num_fetches: ''
+  kg_food_saved: ''
 are_you_sure: Jesteś pewny/a?
 storeedit:
   name_error: Nazwa musi zawierać co najmniej trzy znaki.
@@ -1148,6 +1675,15 @@ storeedit:
     foodsaver: Foodsaver
     leave_myself: Ciebie samego/samą
     note: 'Uwaga:'
+    cannot-leave: ''
+    orga: ''
+    unmanaged: ''
+    leave: ''
+    need-sm: ''
+    empty: ''
+    max-sm: ''
+    amb: ''
+    coordinator: ''
   store:
     status: status
   fetch:
@@ -1159,10 +1695,20 @@ storeedit:
     verifiedRequired: Dopuść tylko zweryfikowanych/e foodsaverów/ki
     phoneRequirement: Dopuść tylko foodsaverów/ki z ważnym numerem telefonu
     hygieneRequirement: Wymagania higieniczne
+    applicationRequirements: ''
+    hygieneRequired: ''
+    applyTextRequired: ''
   milestone:
     statuschanged: Status zmieniony {date}
     accepted: '{user} jest teraz w teamie'
     dropped: '{user} już nie jest w teamie'
+    created: ''
+  store_name_placeholder: ''
+  unsuccess: ''
+  bread: ''
+  add-new: ''
+  not-in-region: ''
+  add_success: ''
 pickup:
   overview:
     menu:
@@ -1170,12 +1716,45 @@ pickup:
       signOffAll: Usuń wszędzie
       useCondensedDesign: Zgrupowane według dni
       loadMore: Załaduj więcej
+      registeredSwitch: ''
+      managedOnlySwitch: ''
+      signOff: ''
     freeSlots: '{slots} wolne'
     cols:
       time: Czas
+      slots: ''
+      store: ''
     status:
       pending: NIepotwierdzony
       confirmed: Potwierdzony
+      option: ''
+    tab:
+      options:
+        empty: ''
+        name: ''
+        tooltip:
+          own: ''
+      registered:
+        tooltip:
+          other: ''
+          own: ''
+        name: ''
+        empty: ''
+      history:
+        tooltip:
+          own: ''
+          other: ''
+        name: ''
+        empty: ''
+    modals:
+      signOffAll:
+        title: ''
+        message: ''
+      signOff:
+        title: ''
+        message: ''
+    allLoaded: ''
+    header: ''
   leave_pickup_ok: Już mam zastępstwo
   leave_pickup_message_team: Powiadom team
   leave_team_message_title: Wiadomość do teamu
@@ -1184,6 +1763,8 @@ pickup:
   same_day_entry: '[{when}] {name}'
   hygieneCertificateMissing:
     link: Do quizu higieny
+    timeout: ''
+    none: ''
   join_cancel: Jednak nie
   description_optional: Opis (opcjonalne)
   description_max_length_info: Osiągnięto maksymalną długość opisu (100 znaków)
@@ -1193,9 +1774,19 @@ pickup:
     signout_via_responsible_person:
       via: przez
       remove_reason: '(Powód: {reason})'
+    slot: ''
+    no_signouts_found: ''
+    title: ''
   edit:
     description_titel: Opis
     disable_auto_slot_titel: Deaktywacja
+    disable_auto_slot: ''
+    bread: ''
+    many-people: ''
+    slot_titel: ''
+    slotcount: ''
+    added: ''
+    slotscount: ''
   passport_expired:
     short: Legitymacja nieważna
     long: Twoja legitymacja wtedy nie będzie już ważna
@@ -1207,6 +1798,39 @@ pickup:
   signout_sure: Czy na pewno chcesz opuścić ten team?
   kick_message_placeholder: Opcjonalnie dodaj informacje tutaj …
   description_modal_text: 'Podaj nowy opis:'
+  no_slots_available: ''
+  history:
+    search: ''
+    title: ''
+  really_delete_date: ''
+  edit_recurring_pickups: ''
+  kick: ''
+  kick_message_footer: ''
+  really_kick_user_info: ''
+  leave: ''
+  kick_message: ''
+  really_leave_date_title: ''
+  slot_add: ''
+  slots: ''
+  delete_not_empty: ''
+  same_day_hint: ''
+  team_message_send_and_leave: ''
+  slot_remove: ''
+  chat: ''
+  really_join_date: ''
+  may_enter: ''
+  confirmed: ''
+  region_pickup_rule_failed: ''
+  confirm: ''
+  call: ''
+  really_leave_date: ''
+  to_be_confirmed: ''
+  delete_title: ''
+  signout_info: ''
+  leave_team_message_template: ''
+  membershipMissing: ''
+  take_empty_slot: ''
+  join_agree: ''
 calendar:
   locale: pl
   labelNextYear: Przyszły rok
@@ -1221,14 +1845,20 @@ calendar:
   export:
     pickup:
       unconfirmed: niepotwierdzony
+      foodsavers: ''
+      freeSlots: ''
+      description: ''
+      name: ''
     updated: '(ostatnia aktualizacja: {date})'
     event:
       linkTitle: Event foodsharingu
       description: Opis
+      statusUnspecified: ''
   labelPrevYear: poprzedni rok
   labelPrevMonth: poprzedni miesiąc
   labelCurrentMonth: obecny miesiąc
   labelNextMonth: przyszły miesiąc
+  labelResetButton: ''
 timepicker:
   labelHours: godziny
   labelMinutes: minuty
@@ -1250,6 +1880,7 @@ forum:
   follow:
     header: 'Powiadomienie przy nowych odpowiedziach:'
     email: przez email
+    bell: ''
   post:
     delete: usuń post
     hide: ukryj post
@@ -1263,6 +1894,7 @@ forum:
     hiddenPost: Post ukryty przez [{moderatorName}]({moderatorUrl})
     hiddenReason: 'Uzasadnienie: {reason}'
     body: Wiadomość
+    moderator_info: ''
   thread:
     delivery_mail: Aktywuj wysyłanie maili
     no_mail: Temat został otwarty bez wysyłania maili
@@ -1274,8 +1906,20 @@ forum:
     closed: temat zamknięty
     navigate_to_newest_post: przejdź do najnowszego postu
     navigate_to_oldest_post: przejdź do pierwszego postu
+    inactive: ''
+    sticky: ''
+    stick: ''
+    post_not_found: ''
+    too_big_to_mail: ''
+    all_hidden: ''
+    subscriptions:
+      subscribed: ''
+      subscribe: ''
+    with_mail: ''
+    bottom: ''
   mail_confirmation:
     title: Na pewno wysłać powiadomienie mailem?
+    text: ''
   go: Do forum
   restore:
     really: Czy na pewno chcesz odtworzyć ten post?
@@ -1289,6 +1933,10 @@ forum:
     success: Świetnie, twoja odpowiedź została zapisana.
     error: Nie można było zapisać postu.
   not_found: Ten wątek nie istnieje.
+  options:
+    bells_for_new_posts: ''
+  hold_back_for_moderation: ''
+  inform_per_email: ''
 chat:
   empty: Nie ma jeszcze żadnych rozmów
   placeholder: Napisz coś.
@@ -1322,12 +1970,23 @@ chat:
   incorrect_address: Ten adres email nie jest poprawny
   empty_message: Najpierw musisz napisać wiadomość.
   conversations: Konwersacje
+  confirm_draft_discard: ''
+  open_multi_chat: ''
 wall:
   see-more: Pokaż wszystkie posty
   delete: Usuń post
   info-logging: Miej na uwadze, że aby uniknąć konfliktów, zostanie 
     zarejestrowana treść i osoba wykonująca tę akcję.
   error-delete: Nie możesz usunąć tego postu.
+  delete_confirmation:
+    title: ''
+    text: ''
+  name: ''
+  placeholder: ''
+  error-create: ''
+  created: ''
+  info-somebody-else: ''
+  confirm-deletion: ''
 events:
   bread: Eventy
   past: Minione eventy
@@ -1350,6 +2009,11 @@ events:
     other: inne
     locationOther: Gdzie odbędzie się ten event?
     fillCompletely: Proszę wypełnić do końca formularz.
+    locationDetails: ''
+    regions: ''
+    who: ''
+    groups: ''
+    offline: ''
   span: '{from} do {until}'
   duration: 'Czas trwania: {duration}'
   mumble:
@@ -1421,6 +2085,15 @@ recipients:
   status: 'Wysyłanie maili ... (aktualny adres: {current})'
   unknown: nieznany
   done: Wysłano wszystkie maile
+  empty-region: ''
+  region-hint: ''
+  variables: ''
+  orga_team: ''
+  bread: ''
+  choose: ''
+  variable-info: ''
+  storemanagers: ''
+  storemanagers_and_ambs: ''
 addresspicker:
   different_location: Popraw opis adresu
   label: Szukaj adresu/lokalizacji
@@ -1432,6 +2105,7 @@ addresspicker:
     kod pocztowy i miasto/gmina) tylko wtedy, jeśli wartości wprowadzone 
     automatycznie nie są poprawne. Może się to zdarzyć np. przy zmianie nazwy 
     ulicy.
+  infobox_profile: ''
 date:
   time: godzina {time}
   clock: godzina
@@ -1481,6 +2155,9 @@ bell:
   translation_failed:
     md_support: Jeśli myślisz, że wystąpił błąd, zgłoś ten fakt do 
       [Support](/support)
+    md: ''
+    title: ''
+    key: ''
   forum_answer_title: '{forum}'
   forum_answer: '{user} odpowiedział/a na twój post'
   forum_post_title: '{title}'
@@ -1570,6 +2247,35 @@ bell:
   new_quiz_comment:
     one: '{user}: {comment}'
     many: '{count} nowych komentarzy'
+  delete_store_title: ''
+  store_new_request_title: ''
+  store_new_title: ''
+  store_cr_times: ''
+  store_change_regular_pickup_times:
+    many: ''
+    one: ''
+  foodsaver_verified: ''
+  store_new: ''
+  betrieb_fetch: ''
+  store_wallpost: ''
+  new_foodsaver: ''
+  store_wall_post:
+    many: ''
+    one: ''
+  new_foodsaver_needs_introduction: ''
+  poll_ending_soon: ''
+  fs_sleepmode_title: ''
+  poll_ending_soon_title: ''
+  store_new_request: ''
+  sharepoint_activate: ''
+  store_wall_post_title: ''
+  fs_sleepmode: ''
+  forum_new_thread_title: ''
+  new_report_title: ''
+  poll_started: ''
+  store_request_imposed: ''
+  store_request_accept_wait: ''
+  store_request_deny: ''
 list:
   filter_for: Filtruj według …
 filterlist:
@@ -1583,6 +2289,10 @@ genderlist:
   number_table_header: liczba/ilość
   header_for_district: Podział płci w {bezirk}
   gender_divers: inne
+  district_tab: ''
+  gender_home_district_table_caption: ''
+  gender_district_table_caption: ''
+  home_district_tab: ''
 pickuplist:
   day_tab: Dzień
   week_tab: Tydzień
@@ -1596,6 +2306,16 @@ pickuplist:
   error_confirm: 'Potwierdzenie nie powiodło się: '
   error_whileSending: Błąd przy wysyłaniu wiadomości
   unclear: Status niejasny
+  NumberOfStores_table_header: ''
+  error_loadingPickup: ''
+  NumberOfSlots_table_header: ''
+  error_changeSlotCount: ''
+  header_for_district: ''
+  tooslow: ''
+  NumberOfAppointments_table_header: ''
+  really_delete_last_slot:
+    body: ''
+    title: ''
 error_ajax: |
   Niestety, to nie wyszło.
   Być może twoje połączenie internetowe w tej chwili nie działa.
@@ -1607,16 +2327,39 @@ reports:
   time: czas
   reportmessage: Podaj, jak można się z tobą skontaktować w razie dalszych 
     pytań.
+  reports_region: ''
+  reports_user: ''
+  reported: ''
+  reporter: ''
+  no_reports_fallback: ''
+  store: ''
+  report_id: ''
 memberlist:
   header_for_workgroup: Foodsaverzy/ki w zespole {bezirk}
+  header_for_district: ''
 ageBandList:
   header_for_district: 'Grupy wiekowe w {bezirk} '
   ageBand: Grupa wiekowa
   NumberOfAgeband: Ilość/liczba
+  home_district_tab: ''
+  district_tab: ''
 regionOptions:
   header_page: Opcje dla {bezirk}
   success: Pomyślnie zapisano opcje
   save: Zapisz opcje
+  regionReportReasonSimple: ''
+  regionPickupInactiveHours: ''
+  regionPickupLimitNumber: ''
+  regionReportReasonCategoryB: ''
+  regionPickupRuleActiveStoreList: ''
+  enableMediationButton: ''
+  regionReportReasonOther: ''
+  enableReportButton: ''
+  regionPickupTimespan: ''
+  noPickupRuleActiveStores: ''
+  regionPickupRuleActive: ''
+  regionPickupLimitDayNumber: ''
+  enableAddressChangeNotification: ''
 foodsaver:
   bread: Wszyscy foodsaverzy/ki
   title: Foodsaver
@@ -1639,11 +2382,25 @@ foodsaver:
     role: Rola
     last-activity: Ostatnia aktywność
     actions: Opcje
+    orga: ''
+    remove: ''
   upgrade:
     ad_fs: Chcę przystąpić teraz do quizu dla foodsaverów/ek i zostać 
       foodsaverem/ką!
     FOODSAVER: Zostań foodsaverem/ką
+    learning: ''
+    pn: ''
+    STORE_MANAGER: ''
+    rv: ''
+    AMBASSADOR: ''
   kicked: Usunięto foodsavera/kę
+  list:
+    summary: ''
+    inactive: ''
+  restricted: ''
+  about_me_intern: ''
+  delete_own_account: ''
+  about_me_public: ''
 content:
   bread: Wszystkie strony
   public: Strony publiczne
@@ -1657,39 +2414,74 @@ content:
   error: Nie można było zapisać strony
   content: Treść
   id: ID
+  communities:
+    title: ''
+    noAmbassador: ''
+    searchInfo: ''
+    text: ''
+  title: ''
+  error_loading: ''
+  name: ''
+  empty: ''
+  last_modified: ''
+  edit_raw: ''
+  delete_tooltip: ''
+  changelog: ''
 map:
   filters:
     stores:
       status:
         cooperating: współpracuje
         not-cooperating: nie współpracuje
+        label: ''
+        all: ''
       help:
         all: obojętnie
+        label: ''
+        searching: ''
+        open: ''
       scope:
         label: Przynależność
         all: wszystkie
+        region: ''
+        member: ''
       type:
         label: Typ
+        2: ''
+        "null": ''
+        1: ''
+        0: ''
     users:
       role:
         label: rola
         all: wszystkie
         foodsaver: zweryfikowani/e foodsaverzy/ki
+        store-manager: ''
       activity:
         label: ostatni login
         week: poprzedni tydzień
         month: poprzedni miesiąc
         3months: Ostatnie 3 miesiące
         6months: ostatnie 6 miesięcy
+        all: ''
       member:
         label: Członkostwo
         all: wszystkie
+        other: ''
+        homeregion: ''
+      region:
+        label: ''
   foodsharepoint:
     go: do jadłodzielni
   events:
     title: Eventy
+    go: ''
   users:
     go: Do profilu
+  community:
+    go: ''
+  title: ''
+  donates: ''
 mailbox:
   mails: Maile
   mail: Mail
@@ -1728,6 +2520,8 @@ mailbox:
     too_many: Wybrano za dużo plików. Do maila można dołączyć maksymalnie 10 
       plików.
     attach: Załączniki (maksymalnie 10 plików, 1,5 MB / plik)
+    not_found_explanation: ''
+    too_large_to_send: ''
   conformation_modal:
     title: Potwierdzenie
     message: Jesteś pewny/a, że chcesz usunąć ten mail?
@@ -1750,11 +2544,25 @@ mailbox:
   mailsend_unsuccess: Nie można było wysłać maila. {error}
   member: Użytkownik/czka skrzynki mailowej
   write: Nowy mail
+  claim: ''
+  not-allowed: ''
+  name: ''
+  forward_attachment_warning: ''
+  global_addressbook: ''
+  sm-quiz: ''
+  manage: ''
+  not-available: ''
+  mark_none: ''
 profile:
   sections:
     ambassador_for: dla
     workgroups_admin: jest osobą do kontaktu w następujących grupach
     workgroups_member: razem z tobą w następujących grupach
+    no_common_workgroups: ''
+    home_region_from: ''
+    kam_for: ''
+    orga_rights: ''
+    foodSaver_in_region: ''
   mail_bounce:
     warning_1: Twój osobisty adres email {email} jest zablokowany dla maili i 
       komunikacji z foodsharingu. Przez
@@ -1763,6 +2571,7 @@ profile:
     warning_4: tym artykule supportu.
     warning_others: Adres email {email} tej osoby jest zablokowany dla maili i 
       komunikacji z foodsharingu. Przez ten przycisk możesz znieść blokadę.
+    remove_button: ''
   commitments_stat:
     title: Statystyka zaangażowania
     eventsParticipatedWeek: 'Dziękujemy za uczestnictwo w {count} eventach w tym tygodniu.
@@ -1772,6 +2581,17 @@ profile:
     week_1: Przyszły tydzień
     week_2: Obecny tydzień
     week_3: Ubiegły tydzień
+    pickupCount: ''
+    week_0: ''
+    week_4: ''
+    respActStores: ''
+    securePickupWeek: ''
+    basketsSharedWeek: ''
+    weekDesc: ''
+    eventsCreatedWeek: ''
+    districtName: ''
+    calenderWeek: ''
+    basketsOfferedWeek: ''
   banana:
     title: '{count} bananów zaufania'
     recieved_none:
@@ -1781,42 +2601,158 @@ profile:
       other: '{name} jeszcze nie podarował/a żadnego banana zaufania.'
       you: Jeszcze nie podarowałeś/aś żadnego banana zaufania.
     give: Podaruj {name} banana zaufania
+    remove:
+      confirm_title: ''
+      successful: ''
+      confirm_message: ''
+    sent: ''
+    undo: ''
+    vouch: ''
+    alreadyGiven: ''
+    messageTooShort: ''
+    placeholder: ''
+    details: ''
   stores:
     memberState:
       filterAll: wszystkie
       filterInvitations: Zaproszony/a
       filterActive: Członek
+      filterRequested: ''
+      filterManage: ''
+      filterJumper: ''
+    store_table: ''
+    search_placeholder: ''
   nav:
     buddy: Znam {name}
     remove_buddy: Już nie znam {name}
     history: Historia legitymacji
     verificationHistory: Historia weryfikacji
     notes: Notatki
+    quizSessionHistory: ''
+    violations: ''
+    storelist: ''
   history:
     noActor: nieznany
     noData: Brak dostępnych danych.
     wasVerified: Zweryfikowany/a
     actionBy: przez
+    lostVerification: ''
   notes:
     bread: notatki
     title: Notatki o {name}
+    info: ''
   online: '{name} jest online.'
   infos:
     title: Informacje
+    fsMail: ''
+    registrationDate: ''
+    buddies: ''
+    never: ''
+    lastActivity: ''
+    fetchrate: ''
+    buddycount_known: ''
+    foodsaverId: ''
+    buddycount_followed: ''
+    privateMail: ''
   stats:
     bananas: Banany
+    baskets: ''
+    weight_unit: ''
+    weight: ''
+    give_count: ''
+    slots: ''
+    engagement_count: ''
+    fetch_count: ''
+    posts: ''
   about_me_intern: O mnie
   public:
     who: '{name} z {from}'
     mayNot: nieaktywny/a
     cta: 'Pełny profil {name} jest dostępny po rejestracji:'
+    join: ''
+    login: ''
+    textMay: ''
+    textMayNot: ''
+    may: ''
   report:
     inthisblog: w tym poście na blogu
     report_other: Inne
     late: Spóźnił/a się
     notes: Notatki i decyzje
+    report_b11: ''
+    report_b10: ''
+    oldReportButtonTextPart2: ''
+    noshow: ''
+    doesNotAffectStore: ''
+    arbAdminAgainstRepAdmin: ''
+    confirmDelete: ''
+    oldReportButton: ''
+    send: ''
+    report_b3_1: ''
+    report_b1_3: ''
+    report_b6_0: ''
+    report_b12: ''
+    report_b7: ''
+    report_b4_1: ''
+    report_b1_2: ''
+    repAdminAgainstArbAdmin: ''
+    sent: ''
+    report_b4_0: ''
+    oldReportButtonTextPart3: ''
+    info: ''
+    report_b3_0: ''
+    report_b8: ''
+    title: ''
+    report_b1_1: ''
+    mail:
+      reportGroup: ''
+      arbitrationGroup: ''
+    kindofreport: ''
+    noReportGroup: ''
+    oldReportButtonTextPart1: ''
+    reportedAdminNoArbitration: ''
+    report_b2: ''
+    sells: ''
+    report_b5: ''
+    report_b9: ''
+    report_b1_4: ''
+    reporterHasNoReportGroup: ''
+    reporterAdminNoArbitration: ''
+    report_b1_0: ''
+    report_b6_1: ''
+    cancellation: ''
+    report_b13: ''
   alldatesdeleted: Wszystkie daty zostały usunięte
   cantdeleteall: Nie możesz usunąć wszystkich dat!
+  mediation:
+    title: ''
+    info: ''
+    no_group: ''
+  notFound: ''
+  choosestore: ''
+  deletesuccess: ''
+  sleeping_info_from_until: ''
+  warning: ''
+  tab_navigation:
+    pickups: ''
+    notes: ''
+    commitment_statistics: ''
+    stores: ''
+    profile: ''
+  homeDistrictHistory:
+    previous: ''
+    changed: ''
+    by: ''
+  pinboard: ''
+  choosereasonnostore: ''
+  title: ''
+  mediationRequest: ''
+  go: ''
+  sleeping: ''
+  reportRequest: ''
+  editNameInfo: ''
+  cantdeletethis: ''
+  chooseantherstore: ''
 dashboard:
   title: Dashboard
   display_all: Wszystkie
@@ -1837,15 +2773,29 @@ dashboard:
     events: Eventy
     users: Foodsaverzy/ki
     buddies: Osoby, które znasz
+    regions: ''
+    polls: ''
+    pending: ''
+    no-stores: ''
+    pickups: ''
+    pickupOptions: ''
+    stores: ''
+    baskets: ''
+    jumping_stores: ''
+    managing_stores: ''
   source_forum_bot: Forum ambasadorów/ek {0}
   release:
     for_support: Poza tym możesz się z nami skontaktować pod
+    for_news_from_it: ''
+    for_release_notes: ''
   options:
     hide:
       text: Zmień widok
+      tooltip: ''
     reset: Resetuj
     grid_toggle:
       2_columns: Widok 2 kolumn
+      3_columns: ''
   invitation: Zostałeś zaproszony/a
   invitationCount: Zostałeś zaproszony/a ({count})
   event: Następny event
@@ -1853,6 +2803,30 @@ dashboard:
   quiz:
     read: Czytaj dalej
     go: Przejdź do quizu
+    ack: ''
+  homeRegion: ''
+  foodsharer: ''
+  source_store: ''
+  foodsharer_amount: ''
+  activity_filter_info: ''
+  general-dates: ''
+  updates_title_all: ''
+  no_more_updates_forum: ''
+  chooseHomeRegion: ''
+  deleted_user: ''
+  foodsaver_amount: ''
+  no_more_updates_event: ''
+  settings_tooltip: ''
+  no_more_updates_store: ''
+  full_subline: ''
+  no_more_updates_foodsharepoint: ''
+  activation_mail_sent: ''
+  greeting: ''
+  no_more_updates_friendWall: ''
+  source_friendWall_own: ''
+  updates_title_some: ''
+  polls: ''
+  source_event: ''
 home:
   home: Home
 team:
@@ -1862,14 +2836,94 @@ basket:
     dairy: nabiał
     frozen: mrożonki
     pet: karma dla zwierząt
+    bread: ''
+    greens: ''
+    prepared: ''
+    dry: ''
   is:
     veggie: są wegetariańskie
     vegan: są wegańskie
     gf: są bez glutenu
+    organic: ''
   public-info: Opis, obrazek, miejsce przekazania i czas ważności są publicznie 
     widoczne.
   no-desc: Podaj opis.
   use_home_address: Użyj adresu domowego
+  my_list_empty: ''
+  until: ''
+  not_active: ''
+  valid:
+    "7": ''
+    "5": ''
+    "21": ''
+    "14": ''
+    "2": ''
+    "1": ''
+    "3": ''
+  all_map: ''
+  error:
+    map: ''
+    register: ''
+    taken: ''
+  request_denied: ''
+  by: ''
+  nearby-short: ''
+  title: ''
+  not_withdrawn: ''
+  updated: ''
+  modal_error:
+    no_contact: ''
+    no_phone: ''
+  contact_types: ''
+  date: ''
+  nearby: ''
+  publish: ''
+  state:
+    okay: ''
+    gone: ''
+    deny: ''
+    nope: ''
+    finished: ''
+  delete_confirmation:
+    text: ''
+    title: ''
+  request-fs: ''
+  new: ''
+  publish_error: ''
+  mapsearch: ''
+  no_requests: ''
+  contact:
+    call: ''
+    write: ''
+  login: ''
+  go-to-settings: ''
+  request_empty: ''
+  request: ''
+  no_nearby: ''
+  add: ''
+  not-allowed: ''
+  not_found: ''
+  delete: ''
+  requests: ''
+  request_close: ''
+  withdraw_request: ''
+  change-state: ''
+  sent_request: ''
+  send_request: ''
+  created: ''
+  requested_by: ''
+  provider: ''
+  published: ''
+  edit: ''
+  where: ''
+  recent: ''
+  image: ''
+  n_requests: ''
+  description: ''
+  withdrawn_request: ''
+  all: ''
+  on: ''
+  go: ''
 personal_data:
   label: Kontakt
   mobile: Numer telefonu komórkowego
@@ -1897,9 +2951,58 @@ menu:
     donations: Darowizny
     language: Wybierz język
     options: Opcje
+    imprint: ''
+    notifications: ''
+    applications: ''
+    members: ''
+    load_more: ''
+    academy: ''
+    close_all_chats: ''
+    transparency: ''
+    wall: ''
+    chainList: ''
+    helpwanted: ''
+    contact: ''
+    group_overview: ''
+    dataprivacy: ''
+    guide: ''
+    groups: ''
+    fsfestival: ''
+    administration: ''
+    demands: ''
+    friendcircle: ''
+    joinregion: ''
+    baskets: ''
+    workingGroupEdit: ''
+    background: ''
+    stores: ''
+    mailbox: ''
+    talksandworkshops: ''
+    politics: ''
+    pastcampaigns: ''
+    press: ''
+    all_messages: ''
+    events: ''
+    BOTforum: ''
+    public: ''
+    selfservice: ''
+    forum: ''
+    your_groups: ''
+    other_stores: ''
+    your_stores: ''
+    helpneeded: ''
+    forcompanies: ''
+    your_baskets: ''
+    your_account: ''
+    fscities: ''
+    education: ''
+    regionalgroups: ''
+    messages: ''
+    aboutUs: ''
   bell:
     delete_read_confirmation:
       title: Usunąć powiadomienia?
+      text: ''
 footer:
   about_us: O nas
   team: Team
@@ -1910,3 +3013,1190 @@ footer:
   contact: Kontakt
   press: Prasa
   wiki: Wiki
+  meta:
+    made_with: ''
+    it_devdocs: ''
+    version: ''
+  partner_names:
+    lebensministerium: ''
+    denns: ''
+    tafel_oesterreich: ''
+  infosDeveloper: ''
+  blog: ''
+  hosting:
+    info: ''
+    tooltip: ''
+  call_to_action: ''
+  guide: ''
+  donate:
+    call_to: ''
+    cta: ''
+  statistics: ''
+  dataprivacy: ''
+  infosCompany: ''
+thread:
+  priorityModal:
+    higher: ''
+    text: ''
+    lower: ''
+    title: ''
+    normal: ''
+  options:
+    rename: ''
+    unlock: ''
+    pin: ''
+    lock: ''
+    unpin: ''
+    hideHidden: ''
+    priority: ''
+    showHidden: ''
+  post:
+    options:
+      copy_direct_link: ''
+      restore: ''
+      copy_source: ''
+    quote_button: ''
+    linked_post: ''
+    copy_direct_link_success: ''
+    quote_post_wrote: ''
+    copy_source_success: ''
+  rename:
+    description_modal_text: ''
+    placeholder: ''
+    max_length_info: ''
+    edit_description: ''
+  hiddenPostsInfo:
+    cannotSee: ''
+    toggle: ''
+    includesHidden: ''
+poll:
+  submit_vote: ''
+  allowed_voters: ''
+  edit:
+    title: ''
+    submit: ''
+    submit_question: ''
+  in_future: ''
+  in_past: ''
+  results:
+    average: ''
+    sum: ''
+    percentage_of_votes: ''
+    sumShort: ''
+    standardDeviationShort: ''
+    number_of_votes: ''
+    standardDeviation: ''
+    option_text: ''
+    votes: ''
+    averageShort: ''
+  new_poll:
+    type: ''
+    name_required: ''
+    name: ''
+    scope: ''
+    time: ''
+    option_texts_required: ''
+    start_date_required: ''
+    description: ''
+    options: ''
+    end_date_required: ''
+    end_date: ''
+    title: ''
+    description_placeholder: ''
+    submit_success: ''
+    start_date: ''
+    description_required: ''
+    submit_question: ''
+    option: ''
+    missing_fields: ''
+    shuffle_options: ''
+    submit: ''
+  time_period: ''
+  may_not_vote: ''
+  type_description_0: ''
+  type_description_1: ''
+  may_not_edit: ''
+  hint_random_order: ''
+  ended_at: ''
+  type_description_2: ''
+  begins_at: ''
+  error_cannot_vote: ''
+  type_description_3: ''
+  cancel:
+    title: ''
+    question: ''
+  may_not_yet_vote: ''
+  not_available: ''
+  eligible_votes_count: ''
+  already_voted: ''
+  submit_vote_warning: ''
+  untraceable: ''
+  scope_description_1: ''
+  type_2:
+    tooltip_positive: ''
+    tooltip_neutral: ''
+    tooltip_negative: ''
+  submit_vote_question: ''
+  vote_success: ''
+  scope_description_3: ''
+  scope_description_4: ''
+  hint_sorted_order: ''
+  scope_description_0: ''
+  title: ''
+  scope_description_2: ''
+  type: ''
+categories:
+  title:
+    resource: ''
+    store: ''
+  confirm_delete: ''
+  types:
+    0: ''
+    2: ''
+    1: ''
+    "null": ''
+  empty: ''
+  confirm_delete_hint:
+    store: ''
+    resource: ''
+  new: ''
+  delete: ''
+  edit: ''
+  columns:
+    name: ''
+    type: ''
+    id: ''
+    usage_count: ''
+    number_of_stores: ''
+  merge_hint: ''
+  merge: ''
+  merge_title: ''
+help:
+  key:
+    commons_resources:
+      title: ''
+      md: ''
+    basket:
+      title: ''
+      md: ''
+    storeLog:
+      md: ''
+      title: ''
+    hygieneRequirement:
+      title: ''
+      md: ''
+    pickupOptions:
+      title: ''
+      md: ''
+    resource_mosaic:
+      title: ''
+      md: ''
+    threadPriority:
+      md: ''
+      title: ''
+    similar_resources:
+      title: ''
+      md: ''
+    profileCommitmentsStat:
+      title: ''
+      md: ''
+    pollScopes:
+      md: ''
+      title: ''
+    polls:
+      title: ''
+      md: ''
+    publicEvent:
+      title: ''
+      md: ''
+    reportReasons:
+      title: ''
+      md: ''
+    achievementIcon:
+      title: ''
+      md: ''
+    moderatorForumHide:
+      title: ''
+      md: ''
+    my_resources:
+      title: ''
+      md: ''
+    report:
+      title: ''
+      md: ''
+    achievementDuplicateMode:
+      title: ''
+      md: ''
+    masterRegion:
+      title: ''
+      md: ''
+    change_verified_data:
+      title: ''
+      md: ''
+    achievementVisibility:
+      title: ''
+      md: ''
+    achievements:
+      md: ''
+      title: ''
+  helpTitle: ''
+  tooltip: ''
+email_template:
+  login: ''
+  fetch_warning:
+    disable_warning: ''
+    subject:
+      multiple: ''
+      single: ''
+    settings_link: ''
+    empty_slots: ''
+    part2: ''
+    part1: ''
+  reply: ''
+  confirm_for_moderated_forum: ''
+  foodbasket_request: ''
+  in: ''
+  newsletter:
+    unsubscribe: ''
+    linktext: ''
+  request_from: ''
+  foodsharepoint: ''
+  to: ''
+  confirm_for_unverified: ''
+  dont_respond:
+    notification: ''
+    noreply: ''
+    you_can: ''
+    nomail: ''
+    no_notification_link: ''
+  from: ''
+  unknown_email: ''
+  impress:
+    title: ''
+    address: ''
+    general_information_requirements: ''
+  unknown_email2: ''
+  confirm_topic: ''
+  warning: ''
+  confirm_BOT: ''
+  information: ''
+  confirm_link: ''
+notifications:
+  save_success: ''
+  newsletter:
+    description: ''
+    title: ''
+  foodSharePoints:
+    title: ''
+    description: ''
+  pushModal:
+    ok: ''
+    cancel: ''
+    dontAskAgain: ''
+    title: ''
+    content: ''
+  groups:
+    title: ''
+  checkbox_push: ''
+  info: ''
+  warning: ''
+  error: ''
+  mention:
+    description: ''
+    title: ''
+  checkbox_disabled: ''
+  regions:
+    title: ''
+  chat:
+    description: ''
+    title: ''
+  pickupReminder:
+    title: ''
+    description: ''
+  safari_add_to_home_screen: ''
+  threads:
+    title: ''
+  config_button: ''
+  success: ''
+  checkbox_email: ''
+  checkbox_bell: ''
+buddy:
+  send:
+    confirm_text: ''
+    confirm_title: ''
+  remove:
+    confirm_text: ''
+    confirm_title: ''
+  requests:
+    mine: ''
+    other: ''
+  request_accepted: ''
+  request_sent: ''
+  my: ''
+  is_buddy: ''
+  confirmed: ''
+  none: ''
+error:
+  mail_bounce:
+    title: ''
+    description: ''
+    link_2: ''
+    link_1: ''
+  missing_geolocation:
+    title: ''
+    description: ''
+    link: ''
+  missing_user_avatar:
+    title: ''
+    link: ''
+    description: ''
+  passport_is_invalid_soon:
+    description: ''
+    link: ''
+    title: ''
+  invalid_landline_phonenumber:
+    title: ''
+    link: ''
+    description: ''
+  invalid_mobile_phonenumber:
+    title: ''
+    description: ''
+    link: ''
+  page:
+    back_home: ''
+    not_found: ''
+    internal_server_error: ''
+    other: ''
+  mail_activation:
+    description: ''
+    title: ''
+    link_1: ''
+    link_2: ''
+  passport_is_invalid:
+    description: ''
+    title: ''
+    link: ''
+achievements:
+  visibility_type_explanation:
+    scope: ''
+    store_managers: ''
+    private: ''
+    hidden: ''
+    global: ''
+  inRegion: ''
+  add: ''
+  visibility_type:
+    private: ''
+    scope: ''
+    global: ''
+    store_managers: ''
+    hidden: ''
+  validity:
+    days: ''
+    indefiniteShort: ''
+    indefinite: ''
+  duplicate_mode:
+    override: ''
+    multiple: ''
+  validUntil: ''
+  edit: ''
+  editor:
+    name: ''
+    preview: ''
+    description: ''
+    visibility_type: ''
+    validityInDaysAfterAssignment: ''
+    duplicate_mode: ''
+    icon: ''
+  notAwarded: ''
+  awardedNoReviewer: ''
+  reviewer: ''
+  duplicate_mode_explanation:
+    multiple: ''
+  awardedTo: ''
+  new: ''
+  inThis:
+    region: ''
+    group: ''
+  scope: ''
+  editTitle: ''
+  revokeConfirmation: ''
+  noneInThisRegion: ''
+  editDetails: ''
+  revoke: ''
+  deleteConfirmation: ''
+  findUser: ''
+  editAwarded: ''
+  notice: ''
+  award: ''
+  awarded: ''
+search:
+  thread-title-only: ''
+  results:
+    region:
+      ambassador_tooltip: ''
+      home_region_tooltip: ''
+      member_tooltip: ''
+    mail:
+      from_to_many: ''
+      attachment_tooltip: ''
+      sent_tooltip: ''
+      recieved_tooltip: ''
+      mail_name: ''
+      from_to: ''
+    time_relation:
+      present_since: ''
+      past: ''
+      future: ''
+      present_until: ''
+    working_group:
+      member_tooltip: ''
+      admin_tooltip: ''
+    poll:
+      not_eligible: ''
+      can_vote: ''
+      has_voted: ''
+    thread:
+      closed_tooltip: ''
+      forum: ''
+      sticky_tooltip: ''
+      ambassador_forum: ''
+      last_post: ''
+      bottom_tooltip: ''
+    relevance: ''
+    event:
+      invitation_tooltip:
+        3: ''
+        1: ''
+        0: ''
+        2: ''
+      location_online: ''
+    in: ''
+    chat:
+      chat_with: ''
+      chat_with_others: ''
+    user:
+      copied_id: ''
+      no_home_region: ''
+      copy_id: ''
+    store:
+      manager_tooltip: ''
+      jumper_tooltip: ''
+      member_tooltip: ''
+    from: ''
+  title: ''
+  too_short: ''
+  placeholder: ''
+  forum:
+    placeholder: ''
+    found:
+      body: ''
+      title: ''
+  user_search:
+    placeholder: ''
+  maxresults: ''
+  informations: ''
+  noresults: ''
+  scope:
+    global: ''
+    local: ''
+  thread-body-only: ''
+error_permissions: ''
+oauth:
+  error:
+    invalid_client: ''
+    unknown_error: ''
+    invalid_scope: ''
+    region_requirement_not_met: ''
+  remember:
+    title: ''
+    md: ''
+  action:
+    deny: ''
+    authorize: ''
+  admin:
+    public: ''
+    active: ''
+    type: ''
+    update_success: ''
+    regions: ''
+    delete_error: ''
+    redirect_uris_help: ''
+    confirm_delete: ''
+    confidential_client: ''
+    regenerate_secret: ''
+    create_success: ''
+    region_restriction_tooltip: ''
+    redirect_uris: ''
+    grant_types: ''
+    required_regions_help: ''
+    required_regions: ''
+    name: ''
+    confidential: ''
+    delete_warning: ''
+    title: ''
+    restrictions: ''
+    secret_save_warning: ''
+    confidential_help: ''
+    regenerate_secret_warning: ''
+    edit_client: ''
+    scopes: ''
+    delete_success: ''
+    no_region_restriction: ''
+    create_client: ''
+    load_error: ''
+    save_error: ''
+    secret_generated: ''
+    actions: ''
+    confirm_save_secret: ''
+    identifier: ''
+    no_restrictions: ''
+  authorize:
+    title: ''
+    requested_permissions: ''
+    redirect_notice: ''
+  scopes:
+    openid:
+      title: ''
+    regions:
+      title: ''
+      md: ''
+    email:
+      title: ''
+    profile:
+      title: ''
+      md: ''
+  title: ''
+region:
+  denied:
+    group_in_this_group: ''
+    subgroup_in: ''
+    this_region: ''
+    group_in_this_region: ''
+    some_group: ''
+  public:
+    description: ''
+    desc:
+      missing: ''
+      confirm_discard_changes: ''
+      confirm_save_changes: ''
+      edit: ''
+    discard_changes: ''
+    leave_text_group: ''
+    map:
+      set_pin: ''
+      missing: ''
+      confirm_save_changes: ''
+      confirm_discard_changes: ''
+      hide_pin: ''
+      confirm_remove: ''
+      edit_pin: ''
+    join: ''
+    continue_editing: ''
+    leave_group: ''
+    show_on_large_map: ''
+    join_name: ''
+    leave_name: ''
+    leave_text_region: ''
+    leave: ''
+    join_text: ''
+    events:
+      title: ''
+      no_future_events: ''
+      load_past: ''
+    confirm_entering: ''
+    confirm_leaving: ''
+    wall: ''
+    children: ''
+    no_more_info: ''
+  bread: ''
+  not-existant: ''
+  noParent: ''
+  type:
+    working_group: ''
+    title: ''
+    city: ''
+    region: ''
+    big_city: ''
+    district: ''
+    country: ''
+    federal_state: ''
+    part_of_town: ''
+  forum-redirect: ''
+  name: ''
+  confirm:
+    edit: ''
+    delete: ''
+    create: ''
+  hull:
+    closure: ''
+    parent-info: ''
+    parent: ''
+    start: ''
+    title: ''
+    confirm: ''
+  allow_hiding_in_forum: ''
+  edit: ''
+  cancel: ''
+  still_contains_elements: ''
+  edit_success: ''
+  select: ''
+  createNew: ''
+  parent: ''
+  restricted: ''
+  store_managers_cannot_leave: ''
+  master: ''
+  save: ''
+  mail:
+    name-info: ''
+    sender: ''
+  none: ''
+  new: ''
+  root: ''
+  no-huge: ''
+  change: ''
+  created: ''
+  delete: ''
+  mailbox: ''
+chain:
+  new: ''
+  error:
+    create: ''
+    edit: ''
+    notfs: ''
+  columns:
+    kams: ''
+    stores: ''
+    actions: ''
+    name: ''
+    headquarters: ''
+    estimatedStoreCount: ''
+    notes: ''
+    status: ''
+  inputmodal:
+    inputs:
+      press:
+        description: ''
+        label: ''
+      thread:
+        invalidfeedback: ''
+        description: ''
+        placeholder: ''
+        label: ''
+      kam:
+        invalidfeedback: ''
+        description: ''
+        label: ''
+      headquarters:
+        placeholder:
+          city: ''
+          country: ''
+          zip: ''
+        label: ''
+      notes:
+        label: ''
+        invalidfeedback: ''
+        description: ''
+      estimatedStoreCount:
+        description: ''
+        label: ''
+        invalidfeedback: ''
+      details:
+        label: ''
+        description: ''
+      status:
+        label: ''
+      name:
+        invalidfeedback: ''
+        label: ''
+        placeholder: ''
+    title:
+      edit: ''
+      new: ''
+    ok: ''
+    cancel: ''
+  errorCodes:
+    EMPTY_COUNTRY: ''
+    KEY_ACCOUNT_MANAGER_MISSING_ACHIEVEMENT: ''
+    EMPTY_CITY: ''
+    EMPTY_NAME: ''
+    INVALID_STORECHAIN_ID: ''
+    WRONG_FORUM: ''
+    KEY_ACCOUNT_MANAGER_ID_NOT_EXISTS: ''
+    INVALID_STATUS: ''
+    EMPTY_ZIP: ''
+    THREAD_ID_NOT_EXISTS: ''
+  detailsmodal:
+    nostores: ''
+    title: ''
+    stores: ''
+  tooltips:
+    modificationDate: ''
+    options: ''
+  bread:
+    list: ''
+    workinggroup: ''
+  pagetitle: ''
+  allowpress: ''
+  status:
+    filterplaceholder: ''
+    notcooperating: ''
+    cooperating: ''
+    negotiating: ''
+  options:
+    showstores: ''
+    edit: ''
+  filterplaceholder: ''
+  listheader: ''
+globals:
+  saved: ''
+  type:
+    foodSharePoints: ''
+    threads: ''
+    users: ''
+    buddies: ''
+    regions: ''
+    stores: ''
+    my_mailboxes: ''
+    regions_menu: ''
+    mails: ''
+    my_buddies: ''
+    my_stores: ''
+    my_regions: ''
+    chats: ''
+    mailboxes: ''
+    events: ''
+    workingGroups: ''
+    groups_menu: ''
+    my_foodshare_points: ''
+    my_persons: ''
+    my_groups: ''
+    polls: ''
+  save: ''
+  show_more: ''
+  save_changes: ''
+  close: ''
+  show_less: ''
+  you: ''
+  telephone_number: ''
+  updated: ''
+  select: ''
+polls:
+  score:
+    disapproval: ''
+    approval: ''
+    neutral: ''
+  ended: ''
+  ongoing: ''
+  start_date: ''
+  end_date: ''
+  badge:
+    vote_now: ''
+    already_voted: ''
+    not_eligible: ''
+  hint: ''
+  new_poll: ''
+  hint_2: ''
+  until: ''
+  future: ''
+  title: ''
+join_region:
+  headline: ''
+  error:
+    is_country_2: ''
+    is_country_1: ''
+    is_big_city_2: ''
+    not_allowed: ''
+    is_state_2: ''
+    is_big_city_1: ''
+    is_state_1: ''
+  description: ''
+support_page:
+  subject: ''
+  attachment:
+    max_size: ''
+    placeholder: ''
+    drop_placeholder: ''
+    browse: ''
+  info_teaser: ''
+  body: ''
+  title: ''
+  validation_firstName: ''
+  email: ''
+  validation_body: ''
+  validation_subject: ''
+  validation_email: ''
+  new_request: ''
+  success: ''
+  notification_name: ''
+  your_name: ''
+  firstName: ''
+contact_page:
+  title: ''
+  regions:
+    link: ''
+    title: ''
+    text: ''
+  description: ''
+  common:
+    modal:
+      title: ''
+      text: ''
+    link: ''
+    title: ''
+    text: ''
+  support:
+    title: ''
+    link: ''
+    text: ''
+  bread: ''
+base:
+  whatfor: ''
+  slogan: ''
+  jsrequired: ''
+  keywords: ''
+blog:
+  permissions:
+    edit: ''
+    new: ''
+    delete: ''
+  new: ''
+  failure:
+    new: ''
+    edit: ''
+    delete: ''
+  author: ''
+  success:
+    edit: ''
+    delete: ''
+    new: ''
+  edit: ''
+  manage: ''
+  newTitle: ''
+  teaser: ''
+  all: ''
+  actions: ''
+  delete: ''
+  header: ''
+  read: ''
+  empty: ''
+  publish-info: ''
+  content: ''
+  go: ''
+  status:
+    "1": ''
+    "0": ''
+  last-editor: ''
+  confirmDelete: ''
+  title: ''
+  bread: ''
+startpage:
+  join_welcome: ''
+  near_you:
+    text2:
+      part2: ''
+      part3: ''
+      part1: ''
+    text3:
+      part1: ''
+      part2: ''
+    text1:
+      part2: ''
+      part1: ''
+      part3: ''
+      part5: ''
+      part4: ''
+    title: ''
+  demands:
+    image_alt: ''
+    title: ''
+    text: ''
+  call_to_action:
+    title: ''
+    text: ''
+  how_we_work:
+    title: ''
+    text: ''
+  member:
+    text: ''
+    title: ''
+  welcome_text: ''
+  store:
+    title: ''
+    text: ''
+  slogan_2: ''
+  makeproposals: ''
+  followrules: ''
+  respect: ''
+  followrules_title: ''
+  join: ''
+  etiquette: ''
+  donate:
+    title: ''
+    link: ''
+    text: ''
+  slogan_1: ''
+  registernow: ''
+  this_is_how_it_works: ''
+  beresponsible: ''
+  telltruth: ''
+  more_infos: ''
+  slogan_3: ''
+  bedependable: ''
+  towns:
+    text: ''
+    title: ''
+  dependability: ''
+  call_to_action_button: ''
+  forstores: ''
+  honest: ''
+  vision:
+    title: ''
+    text: ''
+  register: ''
+  private:
+    title: ''
+    text: ''
+  proposals: ''
+  together: ''
+  responsibility: ''
+  notallowed: ''
+  join_rules: ''
+markdown_input:
+  tooltip:
+    image: ''
+    orderedList: ''
+    preview: ''
+    quote: ''
+    unorderedList: ''
+    italic: ''
+    code: ''
+    strikethrough: ''
+    mention: ''
+    bold: ''
+    hrule: ''
+    link: ''
+    heading: ''
+  empty_preview_placeholder: ''
+feedback:
+  error:
+    screenshot: ''
+    invalid_file: ''
+    message_short: ''
+    no_sentry: ''
+  button: ''
+  privacy: ''
+  success: ''
+  title: ''
+  name_sent: ''
+  no_support: ''
+  capture_screenshot: ''
+conference:
+  join_title: ''
+  confirm_info: ''
+  join: ''
+system_administration:
+  regions: ''
+  email: ''
+  quiz: ''
+  resource_categories: ''
+  store_categories: ''
+  blog: ''
+  reports: ''
+  content: ''
+sort:
+  sort_by: ''
+  options:
+    updated_at: ''
+    name: ''
+    date: ''
+    relevance: ''
+    created_at: ''
+bootstrap-datepicker:
+  labelCalendar: ''
+  labelCurrentMonth: ''
+  labelPrevYear: ''
+  labelHelp: ''
+  labelNav: ''
+  labelNextMonth: ''
+  labelPrevMonth: ''
+  labelNoDateSelected: ''
+  labelNextYear: ''
+  labelToday: ''
+  labelNextDecade: ''
+  labelSelected: ''
+  labelPrevDecade: ''
+navigation:
+  toggle: ''
+  conversations: ''
+  help: ''
+  regions: ''
+  support: ''
+  search: ''
+  contact: ''
+  whats_new: ''
+  promotion: ''
+  notifications: ''
+  stores: ''
+  system_administration: ''
+  styleguide: ''
+  wiki: ''
+  map: ''
+  groups: ''
+  profil: ''
+  news_from_it: ''
+  basket: ''
+  help_needed: ''
+logincontrol:
+  bread: ''
+  success: ''
+  nomorenewsletter: ''
+  title: ''
+storestatus:
+  "3a": ''
+  "3": ''
+  "1": ''
+  "7": ''
+  "6": ''
+  "5a": ''
+  "5": ''
+  "0": ''
+  "4": ''
+  "2": ''
+stats:
+  total:
+    pickups: ''
+    weight: ''
+    fsp: ''
+    foodsharer: ''
+    foodsaver: ''
+    baskets: ''
+    cooperations: ''
+  leader:
+    regions: ''
+    users: ''
+  sort:
+    by_count: ''
+    by_weight: ''
+  avg:
+    baskets: ''
+    pickups: ''
+  title: ''
+numbers:
+  decimal_separator: ''
+  million_abbreviation: ''
+  thousands_separator: ''
+  billion_abbreviation: ''
+storelist:
+  status: ''
+  emptyfilters: ''
+  added: ''
+  inprogress: ''
+  nocontact: ''
+  managing: ''
+  region: ''
+  memberState: ''
+  nowaste: ''
+  name: ''
+  address: ''
+  zipcode: ''
+  entered: ''
+  cooperating: ''
+  city: ''
+  others: ''
+  notcooperating: ''
+  actions: ''
+  map: ''
+  addressdata: ''
+  fetching: ''
+validation:
+  phone_number_invalid: ''
+theme_switcher:
+  theme:
+    system: ''
+    light: ''
+    dark: ''
+  choose_button: ''
+  content: ''
+  title: ''
+activitypost:
+  quickreply_button: ''
+  write: ''
+  quickreply_info: ''
+  response: ''
+  Response: ''
+addreaction: ''
+network_errors:
+  csrf_token_invalid:
+    title: ''
+    text: ''
+releases:
+  "2023-09": ''
+  "2022-12": ''
+  "2021-03": ''
+  "2020-08": ''
+  "2024-08": ''
+  "2024-04": ''
+  "2021-09": ''
+  "2024-12": ''
+  "2020-12": ''
+  "2020-10": ''
+  "2022-05": ''
+  "2022-01": ''
+  "2024-01": ''
+  "2025-08": ''
+  "2020-05": ''
+information:
+  push:
+    link: ''
+    description: ''
+    title: ''
+  calendar_sync:
+    title: ''
+    link: ''
+    description: ''
+team_page:
+  alumni_member:
+    title: ''
+    text: ''
+  board_member:
+    title: ''
+    text: ''
+  it_member:
+    title: ''
+    text: ''
+error_base64_image: ''
+donation_banner:
+  action_button: ''
+  amount: ''
+  info_button: ''
+totp_code: ''
+language_chooser:
+  translation_help: ''
+  title: ''
+  translation_help_info_text: ''
+  choose_button: ''
+  content: ''
+debug:
+  title: ''
+  info: ''
+prefetchtime: ''
+usersearch:
+  search_tag: ''
+  no_tag_preset: ''
+  select_tag: ''
+contentmanagement: ''
+sidenav:
+  yourregions: ''
+  yourgroups: ''
+  localgroups: ''
+  countryspecific: ''
+  superregional: ''
+push_notifications:
+  test_notification_body: ''
+  test_notification_title: ''
+savewithus: ''
+password:
+  reset: ''
+  insertmail: ''
+parent_id: ''

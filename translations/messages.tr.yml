@@ -75,6 +75,7 @@ dashboard:
     for_release_notes: En önemli değişiklikleri şu adreste bulabilirsiniz
     for_news_from_it: Herhangi bir sorunuz veya herhangi bir zorluk varsa 
       öncelikle aşağıya bakın
+  general-dates: ''
 add: ekle
 lat: Enlem
 lon: Boylam
@@ -754,6 +755,19 @@ bell:
   new_resource:
     one: "{user}'dan: \"{title}\""
     many: '{count} yeni kaynak'
+  delete_store_title: ''
+  foodsaver_adress_changed: ''
+  translation_failed:
+    md: ''
+    title: ''
+    key: ''
+    md_support: ''
+  delete_store: ''
+  poll_started_title: ''
+  poll_ending_soon: ''
+  foodsaver_adress_changed_title: ''
+  poll_ending_soon_title: ''
+  poll_started: ''
 error:
   mail_activation:
     link_2: E-Posta adresini değiştirin
@@ -839,6 +853,9 @@ pickuplist:
   error_confirm: 'Onay başarısız oldu: '
   NumberOfFoodSavers_table_header: Foodsaver sayısı
   NumberOfAppointments_table_header: Randevu sayısı
+  really_delete_last_slot:
+    body: ''
+    title: ''
 list:
   filter_for: '…göre filtrele…'
 startpage:
@@ -901,6 +918,7 @@ startpage:
 
       '
     title: 'Talepler'
+    image_alt: ''
   donate:
     text: 'Tüm harcamalarımıza sponsorluk bulmak için çalışıyoruz. Ancak bazı durumlarda
       bu mümkün olmuyor
@@ -1074,6 +1092,10 @@ storeedit:
     hygieneRequirement: Hijyen gereksinimleri
     hygieneRequired: Gıda alım işlemine yalnızca geçerli hijyen eğitimi ile izin
       verin
+    phoneRequirement: ''
+    applicationRequirements: ''
+    applyTextRequired: ''
+    verifiedRequired: ''
   add_success: İşbirliği yapan işletme kaydedildi
   unsuccess: Değişiklikler kaydedilemedi. {error}
   store:
@@ -1137,6 +1159,7 @@ regionOptions:
   regionReportReasonCategoryB: 'Genişletilmiş raporlama nedenleri: Davranış kuralları
     - B) Gıda kurtarma sırasındaki davranışlar'
   regionReportReasonOther: Raporlama nedeni olarak “Diğer”e izin ver
+  enableAddressChangeNotification: ''
 validate:
   required: '{it} boş kalamaz'
 select: Lütfen seçiniz
@@ -1256,6 +1279,21 @@ store:
         numarası kayıtlı olan gıda tasarrufu yapanlardan başvuru kabul 
         etmektedir. Başvuru yapabilmek için lütfen profilinize bir telefon 
         numarası ekleyin.
+      link: ''
+    alerts:
+      many_more: ''
+      many_less: ''
+      one_more: ''
+      one_less: ''
+    applicationSummary:
+      distance: ''
+      storeList: ''
+      verified: ''
+      text: ''
+      intro: ''
+      fullName: ''
+      time: ''
+    applicationMessageTooShort: ''
   filter: …göre filtrele…
   important: 'Önemli:'
   prefetchtwo: 2 Hafta
@@ -1456,6 +1494,10 @@ store:
   passport_expires_soon: Kimlik kartınız {days} gün daha geçerli! Yenilemek için
     bölge elçiliklerinizle iletişime geçin. Süresi dolduktan sonra burada kayıt 
     yaptıramayacaksınız.
+  my_last_slot: ''
+  delete:
+    button: ''
+    sure: ''
 polls:
   title: Başlık
   new_poll: Yeni Anket oluştur
@@ -2029,6 +2071,10 @@ basket:
     text: Bu yemek sepetini gerçekten silmek istiyor musun?
     title: Yemek sepeti silinsin mi?
   until: 'Şu tarihe kadar geçerlidir:'
+  error:
+    map: ''
+    register: ''
+    taken: ''
 menu:
   entry:
     joinregion: Bir bölgeye katılın
@@ -2099,6 +2145,7 @@ menu:
     delete_read: Tüm okunmuş olanları sil
     applications: Başvurular ({count})
     public: Kamusal Bölge sayfası
+    close_all_chats: ''
   bell:
     delete_read_confirmation:
       text: '{count} okuma çanlarını silmek istediğinizden emin misiniz?'
@@ -2350,6 +2397,7 @@ settings:
       other: Başka bir şey
       label: Hangi takvim programını kullanıyorsunuz?
       apple: Apple Takvim
+      etar: ''
     formatting:
       alt: Alternatif bir temsil olarak HTML içeren metin
       label: Randevu açıklamaları nasıl biçimlendirilmelidir?
@@ -2382,6 +2430,15 @@ settings:
       görünecek ve iptal edilen tarihler artık görünmeyecek. Bunun yerine mevcut takviminizi
       indirirseniz, yalnızca mevcut randevularınızı içerecek ve otomatik olarak güncellenmeyecektir.\n\
       \ \nDaha fazla bilgiyi [wiki'de]({calendarUrl}) bulabilirsiniz\n"
+    reminders:
+      12_hours: ''
+      30_minutes: ''
+      label: ''
+      1_day: ''
+      1_hour: ''
+      15_minutes: ''
+      6_hours: ''
+      3_hours: ''
   title: Ayarlar_
   passport:
     menu: Kimlik Kartı
@@ -2457,6 +2514,176 @@ settings:
     general: Burada profil verilerinizi ayarlayabilirsiniz.
     verified: Adınızı ve doğum tarihinizi düzenleyemezsiniz. Ancak bir Elçiden 
       bu bilgileri sizin adınıza değiştirmesini isteyebilirsiniz.
+  account_security:
+    unnamed_passkey: ''
+    error:
+      operation_cancelled: ''
+      authenticator_already_registered: ''
+      rename_failed: ''
+      deletion_failed: ''
+      registration_failed: ''
+      name_required: ''
+      webauthn_not_supported: ''
+      operation_aborted: ''
+    security_keys_description: ''
+    mfa_enabled: ''
+    register_modal:
+      title: ''
+      register: ''
+      device_name_description: ''
+      cancel: ''
+      device_name_placeholder: ''
+      device_name_label: ''
+    rename_modal:
+      new_name_label: ''
+      title: ''
+      cancel: ''
+      new_name_placeholder: ''
+      save: ''
+    delete: ''
+    created: ''
+    authenticator_app: ''
+    passkeys_section: ''
+    passkey_deleted: ''
+    mfa_section: ''
+    passkey_renamed: ''
+    register_passkey: ''
+    passkeys_info: ''
+    never_used: ''
+    device_name_placeholder: ''
+    security_keys: ''
+    delete_modal:
+      confirmation: ''
+      cancel: ''
+      device_name: ''
+      delete: ''
+      title: ''
+    other_domain_info: ''
+    authenticator_app_description: ''
+    rename: ''
+    no_passkeys: ''
+    title: ''
+    email_password_section: ''
+    last_used: ''
+    change_password: ''
+    change_email: ''
+    domain_info: ''
+    passkeys_not_supported: ''
+    mfa_disabled: ''
+    passkey_registered: ''
+  two_fa_manage:
+    status_is: ''
+    disable_button: ''
+    inactive: ''
+    cancel: ''
+    close: ''
+    intro: ''
+    password_label: ''
+    num_backup_codes: ''
+    active: ''
+    title: ''
+    password_placeholder: ''
+    password_required: ''
+    totp_token_label: ''
+    totp_token_placeholder: ''
+    enable_button: ''
+    totp_required: ''
+  password_change:
+    submit: ''
+    success: ''
+    old_password_label: ''
+    confirm_password_label: ''
+    new_password_placeholder: ''
+    title: ''
+    cancel: ''
+    wrong_password: ''
+    confirm_password_placeholder: ''
+    new_password_must_be_trimmed: ''
+    explanation: ''
+    new_password_must_be_complex: ''
+    confirm_password_invalid: ''
+    new_password_required: ''
+    old_password_required: ''
+    old_password_placeholder: ''
+    new_password_label: ''
+  email_change:
+    wrong_password: ''
+    invalid: ''
+    password_placeholder: ''
+    not_changed: ''
+    new_email_label: ''
+    sent_other_user: ''
+    dashboard_link: ''
+    explanation_password: ''
+    confirm_email_label: ''
+    confirm_email_placeholder: ''
+    title: ''
+    explanation: ''
+    explanation_other_user: ''
+    domain: ''
+    question: ''
+    sent: ''
+    new_email_placeholder: ''
+    cancel: ''
+    done: ''
+    password_required: ''
+    occupied: ''
+    submit: ''
+    confirm_email_required: ''
+    insufficient_permission: ''
+    password_label: ''
+    question_other_user: ''
+  two_fa_enable:
+    tabs:
+      backup_codes: ''
+      tutorial: ''
+      qr_code: ''
+      confirm: ''
+    confirm:
+      instruction: ''
+      test_instruction: ''
+      title: ''
+      logout_notice: ''
+    next: ''
+    qrcode:
+      scan_instruction: ''
+      multi_device: ''
+      title: ''
+      label: ''
+    danger: ''
+    explanation: ''
+    generated_code_label: ''
+    secret_label: ''
+    failed: ''
+    apps:
+      description: ''
+      title: ''
+      info: ''
+    tutorial: ''
+    backup_codes:
+      info: ''
+      save_instruction: ''
+      title: ''
+      confirmation: ''
+      must_confirm: ''
+      label: ''
+    further_info: ''
+    activate: ''
+    secret_toggle: ''
+    password_info: ''
+    success: ''
+    title: ''
+  two_fa_disable:
+    confirm_text: ''
+    danger: ''
+    admin_description: ''
+    failed: ''
+    warning: ''
+    deactivate: ''
+    title: ''
+    success: ''
+  profile: ''
+  edit_other: ''
 forum:
   thread:
     navigate_to_oldest_post: ilk gönderiye git
@@ -2560,6 +2787,15 @@ chat:
     unread: Okunmadı olarak işaretle
   reply: Cevaplar
   open_multi_chat: Bir BV (İşletme Ekip Yöneticileri) grup mesajı yazın
+  error:
+    sending_message: ''
+    loading_conversation: ''
+    renaming_conversation: ''
+  show_participants: ''
+  participants: ''
+  rename_empty_hint: ''
+  rename_placeholder: ''
+  rename: ''
 push_notifications:
   test_notification_title: Push bildirimleri etkinleştirildi
   test_notification_body: Harika, bu işe yaramış gibi görünüyor :)
@@ -2799,6 +3035,9 @@ profile:
     fetch_count: alındı
     bananas: Muzlar
     weight_unit: kg
+    give_count: ''
+    slots: ''
+    engagement_count: ''
   pinboard: '{name} tarafından durum güncellemeleri'
   reportRequest: Rapor gönder
   editNameInfo: Lütfen ad ve soyadı alanlarının yalnızca kişinin adı için 
@@ -2882,6 +3121,12 @@ map:
         region: Sadece benim Bölgelerim
         member: Sadece benim İşletmelerim
         label: Üyeliği
+      type:
+        label: ''
+        2: ''
+        "null": ''
+        1: ''
+        0: ''
     users:
       activity:
         3months: Son 3 Ay
@@ -2909,6 +3154,8 @@ map:
   events:
     title: Etkinlikler_
     go: Etkinliğe git
+  users:
+    go: ''
 buddy:
   request_sent: İstek gönderildi.
   request_accepted: Artık birbirinizi tanıyorsunuz.
@@ -3076,6 +3323,7 @@ terminology:
   received: Kalmış
   users: Kullanıcılar
   resourcesAdmins: Kaynak Mozaik Ekibi
+  giving: ''
 legal:
   if_delete:
     this_doesnt_get_deleted: 'Aşağıdaki bilgiler artık aktif sistemde mevcut değildir,
@@ -3468,6 +3716,11 @@ pickup:
     olarak kaydolun.
   may_enter: Bu alım tarihinde boş bir Slot mevcut.
   confirmed: Alım tarihi onaylandı.
+  slots: ''
+  chat: ''
+  passport_expired:
+    short: ''
+    long: ''
 calendar:
   export:
     pickup:
@@ -3539,6 +3792,7 @@ navigation:
   system_administration: 'Sistem Administratörü'
   promotion: 'Bilişimde misin? Sana ihtiyacımız var !'
   groups: 'Gruplar'
+  toggle: ''
 chain:
   inputmodal:
     inputs:
@@ -3726,12 +3980,19 @@ search:
       not_eligible: Oy verme hakkınız yok
       can_vote: Hala oy verebilirsiniz
       has_voted: Burada oy verdiniz
+    relevance: ''
   maxresults: Kategori başına en fazla 30 sonuç görüntülenir. Belki daha 
     spesifik bir arama terimi kullanabilirsiniz.
   too_short: Lütfen daha uzun bir arama terimi girin.
   scope:
     global: Küresel arama
     local: Kullanıcıya özel arama
+  forum:
+    placeholder: ''
+    found:
+      body: ''
+      title: ''
+  thread-body-only: ''
 language_chooser:
   choose_button: 'Güncelle'
   translation_help_info_text: 'Bu bağlantı tercüme portalına yönlendiriyor, başlamak
@@ -4120,6 +4381,15 @@ help:
       title: Benzer kaynaklar
       md: Benzer kaynaklar olarak, **aynı kategorilere** girilmiş en fazla 10 
         başka kaynak gösterilecektir.
+    commons_resources:
+      title: ''
+      md: ''
+    achievementDuplicateMode:
+      title: ''
+      md: ''
+    achievementVisibility:
+      title: ''
+      md: ''
   helpTitle: 'Yardım: {title}'
   tooltip: Yardımı göster
 team_page:
@@ -4178,12 +4448,32 @@ achievements:
     name: İsim
     icon: İcon
     validityInDaysAfterAssignment: Verildikten sonra geçerlilik süresi
+    visibility_type: ''
+    duplicate_mode: ''
   noneInThisRegion: Bu bölgede kayıtlı hiçbir Rozet yok.
   deleteConfirmation: Bu Rozeti gerçekten silmek istiyor musunuz?
   editTitle: Rozeti düzenle
   editAwarded: '{user} için {achievement} Rozeti ayarlayın'
   inRegion: '{region} ({count}) bölgesindeki Rozetler'
   add: Rozet ekle
+  visibility_type_explanation:
+    scope: ''
+    store_managers: ''
+    private: ''
+    hidden: ''
+    global: ''
+  visibility_type:
+    private: ''
+    scope: ''
+    global: ''
+    store_managers: ''
+    hidden: ''
+  duplicate_mode:
+    override: ''
+    multiple: ''
+  duplicate_mode_explanation:
+    multiple: ''
+  scope: ''
 copied_to_clipboard: “{text}” panoya kopyalandı.
 theme_switcher:
   title: Tasarım seçin
@@ -4366,6 +4656,8 @@ categories:
     id: ID
     name: İsim
     usage_count: Kullanım sayısı
+    type: ''
+    number_of_stores: ''
   title:
     store: İşletme kategorileri
     resource: Kaynak kategorileri
@@ -4379,5 +4671,174 @@ categories:
   confirm_delete_hint:
     store: Bu kategoriye hâlâ {count} işletme atanmış durumda. Bu işletmelerin 
       artık bir kategorisi olmayacak.
+    resource: ''
+  types:
+    0: ''
+    2: ''
+    1: ''
+    "null": ''
+  new: ''
+  merge: ''
 totp_code: Lütfen oluşturulan iki faktörlü kimlik doğrulama kodunu veya yedek 
   kodlardan birini girin.
+resource_mosaic:
+  commons_resources_in: ''
+  editModal:
+    openness: ''
+    description_warning:
+      none: ''
+      short: ''
+      title: ''
+    name:
+      placeholder: ''
+      label: ''
+      max_length: ''
+    categories:
+      placeholder: ''
+      label: ''
+    is_restricted_to_region: ''
+    is_private: ''
+    description:
+      placeholder: ''
+      placeholder_commons: ''
+      label: ''
+  privacy_notice:
+    title: ''
+    text: ''
+    ok: ''
+  favorite: ''
+  filter:
+    favorites: ''
+    active: ''
+    home_region: ''
+  my_resources: ''
+  resource_not_found_warning: ''
+  message_modal:
+    intro: ''
+    request_for: ''
+    request_sent: ''
+    placeholder: ''
+    polite_info: ''
+    title: ''
+  search_placeholder: ''
+  no_commons_resources: ''
+  openness:
+    level_3: ''
+    level_4: ''
+    title: ''
+    level_5: ''
+    level_1: ''
+    level_2: ''
+  is_commons: ''
+  order:
+    sort_age: ''
+    sort_openness: ''
+    shuffle: ''
+  my_resources_in: ''
+  list_status:
+    none_in_region: ''
+    filter: ''
+    none_in_filter: ''
+    total: ''
+  add_commons: ''
+  confirm_delete: ''
+  other_resources:
+    commons: ''
+    own: ''
+    similar: ''
+    new: ''
+    other: ''
+  has_resources_elsewhere: ''
+  edit: ''
+  categories_filter_placeholder: ''
+  request_header: ''
+  favorite_tooltip: ''
+  max_resources: ''
+  no_own_resources: ''
+  message: ''
+  title: ''
+  is_private_hint: ''
+  add: ''
+oauth:
+  error:
+    invalid_client: ''
+    unknown_error: ''
+    invalid_scope: ''
+    region_requirement_not_met: ''
+  remember:
+    title: ''
+    md: ''
+  action:
+    deny: ''
+    authorize: ''
+  admin:
+    public: ''
+    active: ''
+    type: ''
+    update_success: ''
+    regions: ''
+    delete_error: ''
+    redirect_uris_help: ''
+    confirm_delete: ''
+    confidential_client: ''
+    regenerate_secret: ''
+    create_success: ''
+    region_restriction_tooltip: ''
+    redirect_uris: ''
+    grant_types: ''
+    required_regions_help: ''
+    required_regions: ''
+    name: ''
+    confidential: ''
+    delete_warning: ''
+    title: ''
+    restrictions: ''
+    secret_save_warning: ''
+    confidential_help: ''
+    regenerate_secret_warning: ''
+    edit_client: ''
+    scopes: ''
+    delete_success: ''
+    no_region_restriction: ''
+    create_client: ''
+    load_error: ''
+    save_error: ''
+    secret_generated: ''
+    actions: ''
+    confirm_save_secret: ''
+    identifier: ''
+    no_restrictions: ''
+  authorize:
+    title: ''
+    requested_permissions: ''
+    redirect_notice: ''
+  scopes:
+    openid:
+      title: ''
+    regions:
+      title: ''
+      md: ''
+    email:
+      title: ''
+    profile:
+      title: ''
+      md: ''
+  title: ''
+sort:
+  sort_by: ''
+  options:
+    updated_at: ''
+    name: ''
+    date: ''
+    relevance: ''
+    created_at: ''
+network_errors:
+  csrf_token_invalid:
+    title: ''
+    text: ''
+debug:
+  title: ''
+  info: ''
+test:
+  vars: ''
+  plain: ''

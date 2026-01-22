@@ -106,6 +106,7 @@ store:
     sorting:
       default: நிலையான வரிசையாக்கம்
       pickup: கடைசி சேகரிப்பால் வரிசைப்படுத்தப்பட்டது
+      distance: ''
     filterAll: உறுப்பினர்கள்
     filterActive: செயலில்
     filterUnverified: ஒன்றுபட்ட
@@ -158,6 +159,43 @@ store:
     hygieneRequired: இந்த நிறுவனத்தில் தேர்வு செய்ய சரியான சுகாதார பயிற்சி தேவை.
     hygieneMissing: நீங்கள் தற்போது அதைக் காணவில்லை. இப்போது நீங்கள் இந்த 
       அணிக்கு விண்ணப்பிக்கக்கூடிய சுகாதார நொடி வினாவை மேற்கொள்ளுங்கள்.
+    needsStoreRegion:
+      link: ''
+      text: ''
+    distance:
+      close: ''
+      normal: ''
+      unknown: ''
+    distance_short:
+      unknown: ''
+      close: ''
+      normal: ''
+    alerts:
+      many_more: ''
+      many_less: ''
+      one_more: ''
+      one_less: ''
+    applicationSummary:
+      distance: ''
+      storeList: ''
+      verified: ''
+      text: ''
+      intro: ''
+      fullName: ''
+      time: ''
+    requireVerification:
+      link: ''
+      text: ''
+    requirePhone:
+      link: ''
+      text: ''
+    needsHomeRegion:
+      link: ''
+      text: ''
+    completeProfileRequired:
+      text: ''
+      link: ''
+    applicationMessageTooShort: ''
   chain_search_picker:
     modal_title: இயக்கச் சங்கிலியைத் தேர்ந்தெடுக்கவும்
     search_input: சங்கிலியின் பெயரைத் தேடுங்கள்
@@ -247,6 +285,7 @@ store:
   chat:
     team: அணிக்கு செய்தி
     jumper: ச்பிரிங்கிற்கு செய்தி
+    managers: ''
   tooltip_yellow: அடுத்த ஐந்து நாட்களில் திறந்த சேகரிப்பு
   tooltip_orange: அடுத்த மூன்று நாட்களில் திறந்த சேகரிப்பு
   short_tooltip_yellow: 5 நாட்களில் திறந்த சேகரிப்பு
@@ -310,6 +349,12 @@ store:
       ஏற்றுக்கொள்வதன் மூலம் நீங்கள் நிறுவன அணியில் சேரலாம்.
     decline: மறுக்கவும்
     invited_by: அழைத்தார்
+  my_last_slot: ''
+  delete:
+    button: ''
+    sure: ''
+  passport_expired: ''
+  passport_expires_soon: ''
 storeedit:
   bread: செயல்பாட்டைத் திருத்து
   add-new: புதிய செயல்பாட்டை உருவாக்கவும்
@@ -348,6 +393,10 @@ storeedit:
     hygieneRequirement: சுகாதார தேவைகள்
     hygieneRequired: செல்லுபடியாகும் சுகாதார பயிற்சியுடன் மட்டுமே எடுத்துக் 
       கொள்ளுங்கள்
+    phoneRequirement: ''
+    applicationRequirements: ''
+    applyTextRequired: ''
+    verifiedRequired: ''
   unsuccess: மாற்றங்களை ஏற்றுக்கொள்ள முடியவில்லை. {error}
   milestone:
     statuschanged: '{date} இல் நிலை மாற்றம்'
@@ -488,6 +537,11 @@ pickup:
     சிக்கிக்கொள்ளுங்கள்.
   confirmed: சேகரிப்பு தேதி உறுதிப்படுத்தப்பட்டுள்ளது.
   may_enter: இந்த தேர்வு தேதியில் ஒரு ச்லாட் உங்களுக்கு இன்னும் இலவசம்.
+  slots: ''
+  chat: ''
+  passport_expired:
+    short: ''
+    long: ''
 calendar:
   labelSelected: தேர்ந்தெடுக்கப்பட்ட தேதி
   labelNoDateSelected: தேதியைத் தேர்ந்தெடுக்கவும்
@@ -579,6 +633,7 @@ forum:
     all_hidden: இந்த நூலில் உள்ள அனைத்து இடுகைகளும் மறைக்கப்பட்டுள்ளன.
     too_big_to_mail: தலைப்புக்கு மின்னஞ்சல்கள் எதுவும் அனுப்பப்படவில்லை, ஏனெனில்
       இது ஒரு நாடு அல்லது கூட்டாட்சி மாநிலம்.
+    post_not_found: ''
   no_threads: தலைப்புகள் எதுவும் இதுவரை வெளியிடப்படவில்லை
   sending_error: அனுப்பும்போது பிழை ஏற்பட்டது
   inform_per_email: இந்த புதிய தலைப்பை மின்னஞ்சல் மூலம் உருவாக்குவது குறித்து 
@@ -632,6 +687,16 @@ chat:
   no_conversation: பொழுதுபோக்கு எதுவும் தேர்ந்தெடுக்கப்படவில்லை
   start_of_conversation: 'உரையாடல் தொடங்கியது:'
   reply: பதில்
+  error:
+    sending_message: ''
+    loading_conversation: ''
+    renaming_conversation: ''
+  show_participants: ''
+  participants: ''
+  rename_empty_hint: ''
+  open_multi_chat: ''
+  rename_placeholder: ''
+  rename: ''
 wall:
   name: பின்போர்டு
   see-more: எல்லா இடுகைகளையும் காட்டு
@@ -950,6 +1015,23 @@ bell:
     many: '{count} பயனர்: உள்ளே {store} சேர விரும்பவில்லை'
   new_forum_thread_title: '{forum} புதிய தலைப்பு'
   new_forum_thread: '{author}: {title}'
+  delete_store_title: ''
+  foodsaver_adress_changed: ''
+  translation_failed:
+    md: ''
+    title: ''
+    key: ''
+    md_support: ''
+  delete_store: ''
+  poll_started_title: ''
+  new_resource_title: ''
+  poll_ending_soon: ''
+  foodsaver_adress_changed_title: ''
+  poll_ending_soon_title: ''
+  new_resource:
+    many: ''
+    one: ''
+  poll_started: ''
 list:
   filter_for: பின்னர் வடிகட்டி …
 memberlist:
@@ -990,6 +1072,9 @@ pickuplist:
   unclear: நிலை தெளிவாக இல்லை
   tryagain: தேவைப்பட்டால், புதிய ஏற்றுதலுக்குப் பிறகு மீண்டும் முயற்சிக்கவும்.
   error_changeSlotCount: 'ச்லோட்டனின் எண்ணிக்கையை மாற்றவும் தோல்வியுற்றது: '
+  really_delete_last_slot:
+    body: ''
+    title: ''
 regionOptions:
   regionReportReasonOther: செய்தி காரணியாக “மற்றவை” ஐ அனுமதிக்கவும்
   enableMediationButton: 'STEM ஃபுட்சேவரின் சுயவிவர பக்கங்களில் மத்தியச்த வடிவம்:
@@ -1018,6 +1103,7 @@ regionOptions:
     கொள்ளப்பட்ட மாவட்டத்தில் உள்ள நிறுவனங்களின் பட்டியல். பட்டியலிடப்பட்ட 
     நிறுவனங்களின் அனைத்து சேகரிப்புகளும் சேர்க்கப்பட்டு விதிக்கு கணக்கில் 
     எடுத்துக்கொள்ளப்படுகின்றன.
+  enableAddressChangeNotification: ''
 foodsaver:
   bread: அனைத்து உணவுகள்
   title: உணவு
@@ -1115,6 +1201,12 @@ map:
         member: எனது நிறுவனங்கள் மட்டுமே
         all: எல்லாம்
         region: எனது மாவட்டங்கள் மட்டுமே
+      type:
+        label: ''
+        2: ''
+        "null": ''
+        1: ''
+        0: ''
     users:
       role:
         all: அனைத்தும்
@@ -1144,6 +1236,8 @@ map:
   events:
     title: நிகழ்வுகள்
     go: நிகழ்வுக்கு
+  users:
+    go: ''
 mailbox:
   empty: இந்த அஞ்சல் பெட்டியில் இதுவரை செய்திகள் இல்லை
   delete: டை டன்னில்
@@ -1266,6 +1360,7 @@ settings:
     add_to_wallet:
       google: Google பணப்பையில் சேர்க்கவும்
       apple: ஆப்பிள் பணப்பையில் சேர்க்கவும்
+    renew: ''
   calendar:
     export_tooltip: உங்கள் விருப்பப்படி ஒரு காலண்டர் திட்டத்துடன் உங்கள் பிக் 
       -அப் தேதிகளுக்கு நீங்கள் குழுசேரலாம்.
@@ -1300,6 +1395,8 @@ settings:
       outlook: அவுட்லுக்
       thunderbird: தண்டர்பேர்ட்
       other: வேறு ஏதாவது
+      etar: ''
+      apple: ''
     info: "இங்கே உங்கள் உணவு பகிர்வு சந்திப்புகளை நீங்கள் விரும்பும் காலண்டர் திட்டத்துடன்
       இணைக்கலாம். இது உங்கள் சேகரிப்புகள் மற்றும்/அல்லது சந்திப்புகள் அனைத்தையும்
       உங்கள் காலெண்டரில் உள்ளிட அனுமதிக்கிறது.\n\n ** காலெண்டர் இணைப்புகளை ரகசியமாக
@@ -1315,6 +1412,15 @@ settings:
       html: உஉகுமொ
       alt: மாற்று பிரதிநிதித்துவமாக உஉகுமொ உடன் உரை
       text: உரை மட்டுமே
+    reminders:
+      12_hours: ''
+      30_minutes: ''
+      label: ''
+      1_day: ''
+      1_hour: ''
+      15_minutes: ''
+      6_hours: ''
+      3_hours: ''
   push:
     denied: "உங்கள் உலாவியில் உணவு பகிர்விலிருந்து புச் அறிவிப்புகளைக் காண்பிப்பதை
       நீங்கள் நிராகரித்தீர்கள்.\n நீங்கள் புச் செய்திகளைப் பெற விரும்பினால், உணவு
@@ -1374,6 +1480,176 @@ settings:
     general: இங்கே நீங்கள் உங்கள் சுயவிவரத் தரவை சரிசெய்யலாம்.
     verified: 'உங்கள் பெயரையும் பிறந்த தேதியையும் திருத்த முடியாது. ஆனால் நீங்கள்
       ஒருவர் செய்யலாம்: n தூதர்: உங்களுக்காக இந்தத் தரவை மாற்றும்படி கேட்பதில்.'
+  account_security:
+    unnamed_passkey: ''
+    error:
+      operation_cancelled: ''
+      authenticator_already_registered: ''
+      rename_failed: ''
+      deletion_failed: ''
+      registration_failed: ''
+      name_required: ''
+      webauthn_not_supported: ''
+      operation_aborted: ''
+    security_keys_description: ''
+    mfa_enabled: ''
+    register_modal:
+      title: ''
+      register: ''
+      device_name_description: ''
+      cancel: ''
+      device_name_placeholder: ''
+      device_name_label: ''
+    rename_modal:
+      new_name_label: ''
+      title: ''
+      cancel: ''
+      new_name_placeholder: ''
+      save: ''
+    delete: ''
+    created: ''
+    authenticator_app: ''
+    passkeys_section: ''
+    passkey_deleted: ''
+    mfa_section: ''
+    passkey_renamed: ''
+    register_passkey: ''
+    passkeys_info: ''
+    never_used: ''
+    device_name_placeholder: ''
+    security_keys: ''
+    delete_modal:
+      confirmation: ''
+      cancel: ''
+      device_name: ''
+      delete: ''
+      title: ''
+    other_domain_info: ''
+    authenticator_app_description: ''
+    rename: ''
+    no_passkeys: ''
+    title: ''
+    email_password_section: ''
+    last_used: ''
+    change_password: ''
+    change_email: ''
+    domain_info: ''
+    passkeys_not_supported: ''
+    mfa_disabled: ''
+    passkey_registered: ''
+  two_fa_manage:
+    status_is: ''
+    disable_button: ''
+    inactive: ''
+    cancel: ''
+    close: ''
+    intro: ''
+    password_label: ''
+    num_backup_codes: ''
+    active: ''
+    title: ''
+    password_placeholder: ''
+    password_required: ''
+    totp_token_label: ''
+    totp_token_placeholder: ''
+    enable_button: ''
+    totp_required: ''
+  password_change:
+    submit: ''
+    success: ''
+    old_password_label: ''
+    confirm_password_label: ''
+    new_password_placeholder: ''
+    title: ''
+    cancel: ''
+    wrong_password: ''
+    confirm_password_placeholder: ''
+    new_password_must_be_trimmed: ''
+    explanation: ''
+    new_password_must_be_complex: ''
+    confirm_password_invalid: ''
+    new_password_required: ''
+    old_password_required: ''
+    old_password_placeholder: ''
+    new_password_label: ''
+  email_change:
+    wrong_password: ''
+    invalid: ''
+    password_placeholder: ''
+    not_changed: ''
+    new_email_label: ''
+    sent_other_user: ''
+    dashboard_link: ''
+    explanation_password: ''
+    confirm_email_label: ''
+    confirm_email_placeholder: ''
+    title: ''
+    explanation: ''
+    explanation_other_user: ''
+    domain: ''
+    question: ''
+    sent: ''
+    new_email_placeholder: ''
+    cancel: ''
+    done: ''
+    password_required: ''
+    occupied: ''
+    submit: ''
+    confirm_email_required: ''
+    insufficient_permission: ''
+    password_label: ''
+    question_other_user: ''
+  two_fa_enable:
+    tabs:
+      backup_codes: ''
+      tutorial: ''
+      qr_code: ''
+      confirm: ''
+    confirm:
+      instruction: ''
+      test_instruction: ''
+      title: ''
+      logout_notice: ''
+    next: ''
+    qrcode:
+      scan_instruction: ''
+      multi_device: ''
+      title: ''
+      label: ''
+    danger: ''
+    explanation: ''
+    generated_code_label: ''
+    secret_label: ''
+    failed: ''
+    apps:
+      description: ''
+      title: ''
+      info: ''
+    tutorial: ''
+    backup_codes:
+      info: ''
+      save_instruction: ''
+      title: ''
+      confirmation: ''
+      must_confirm: ''
+      label: ''
+    further_info: ''
+    activate: ''
+    secret_toggle: ''
+    password_info: ''
+    success: ''
+    title: ''
+  two_fa_disable:
+    confirm_text: ''
+    danger: ''
+    admin_description: ''
+    failed: ''
+    warning: ''
+    deactivate: ''
+    title: ''
+    success: ''
+  profile: ''
+  edit_other: ''
 profile:
   banana:
     title: '{count} அறக்கட்டளை வாழைப்பழம்'
@@ -1599,6 +1875,9 @@ profile:
     posts: பங்களிப்புகள்
     bananas: வாழைப்பழம்
     weight_unit: கிலோ
+    give_count: ''
+    slots: ''
+    engagement_count: ''
   sleeping: காலவரையற்ற காலத்திற்கு ஒரு ச்லீப்பர் உள்ளது
   sleeping_info_from_until: '{from} முதல் {until} வரை ஒரு தூக்க தொப்பி உள்ளது'
   about_me_intern: உங்களைப் பற்றி
@@ -1704,6 +1983,7 @@ dashboard:
     read: படிக்கவும்
     go: நொடி வினாவுக்குத் தொடரவும்
   deleted_user: 'அன்பே: ஆர் பயனர்: இல்'
+  general-dates: ''
 basket:
   on: '{இயங்குதளத்திலிருந்து எசென் கூடை'
   add: உணவு கூடையை உருவாக்கவும்
@@ -1795,6 +2075,10 @@ basket:
       தேர்ந்தெடுக்கவும்.
     no_phone: தொலைபேசி எண்ணை உள்ளிடவும்.
   use_home_address: வாழ்க்கை முகவரியைப் பயன்படுத்துங்கள்
+  error:
+    map: ''
+    register: ''
+    taken: ''
 menu:
   entry:
     events: கால
@@ -1865,6 +2149,7 @@ menu:
     selfservice: தன்வய பணி
     applications: பயன்பாடுகள் ({count})
     public: பொது மாவட்ட பக்கம்
+    close_all_chats: ''
   bell:
     delete_read_confirmation:
       text: நீங்கள் உண்மையில் {count} வாசிப்பு மணிகளை நீக்க விரும்புகிறீர்களா?
@@ -2022,6 +2307,7 @@ region:
       load_past: கடந்த நிகழ்வுகளைக் காட்டு
       no_future_events: 'இந்த மாவட்டத்தில் தற்போது பொது நிகழ்வுகள் எதுவும் பதிவு செய்யப்படவில்லை.
         கடந்த காலங்களில் பின்வரும் நிகழ்வுகள் நடந்துள்ளன:'
+    leave_group: ''
   denied:
     this_region: இந்த மாவட்டத்தின் உள்ளடக்கத்தை அணுக முயற்சித்தீர்கள். 
       இருப்பினும், மாவட்ட உறுப்பினர்களுக்கு மட்டுமே இதை அணுகலாம்.
@@ -2156,6 +2442,12 @@ buddy:
     confirm_text: அறிமுகமானவர்களை முடிக்க விரும்புகிறீர்களா? உங்கள் சுயவிவர முள்
       சுவர்களில் புதுப்பிப்புகள் இனி முகப்புப்பக்கத்தில் காட்டப்படாது.
   is_buddy: நீங்கள் அறியப்பட்டிருக்கிறீர்கள்
+  requests:
+    mine: ''
+    other: ''
+  my: ''
+  confirmed: ''
+  none: ''
 polls:
   hint: வாக்களிக்கும் தொகுதியை தேசிய "வாக்களிப்பு - சோதனை" பணிக்குழுவில் சோதிக்க
     முடியும்.
@@ -2413,6 +2705,7 @@ startpage:
       பிணைப்பு குறைப்பு இலக்குகள் நமக்குத் தேவை.\n கூடுதலாக, தற்போதுள்ள வர்த்தக தரநிலைகள்
       மறைக்கப்பட வேண்டும் மற்றும் நிதானமாக இருக்க வேண்டும், அத்துடன் நிறுவனங்கள்\n\
       \ ஊட்டச்சத்து என்ற தலைப்பைச் சுற்றி உணவு அல்லது கல்வியை அகற்றுவது பலப்படுத்தப்படுகிறது.\n"
+    image_alt: ''
 chain:
   bread:
     list: கண்ணோட்டம்
@@ -2575,6 +2868,7 @@ navigation:
   notifications: அறிவிப்புகள்
   profil: 👋 அலோ {name}!
   system_administration: SystemAdministration
+  toggle: ''
 join_region:
   headline: நீங்கள் செயலில் இருக்க விரும்பும் மாவட்டத்தைத் தேர்ந்தெடுக்கவும்.
   error:
@@ -2686,6 +2980,7 @@ search:
       can_vote: நீங்கள் இன்னும் வாக்களிக்கலாம்
       has_voted: நீங்கள் ஏற்கனவே வாக்களித்துள்ளீர்கள்
       not_eligible: உங்களுக்கு வாக்களிக்க உரிமை இல்லை
+    relevance: ''
   scope:
     global: உலக தேடல்
     local: பயனர் -குறிப்பிட்ட தேடல்
@@ -2698,6 +2993,12 @@ search:
   thread-title-only: தலைப்புகள் மட்டுமே தேடப்படுகின்றன, கட்டுரைகளின் உரை அல்ல.
   user_search:
     placeholder: பெயர் அல்லது ஐடி
+  forum:
+    placeholder: ''
+    found:
+      body: ''
+      title: ''
+  thread-body-only: ''
 notifications:
   checkbox_push: புச்
   pushModal:
@@ -2796,6 +3097,8 @@ achievements:
     icon: படவுரு
     validityInDaysAfterAssignment: நாட்களில் விருதுக்குப் பிறகு செல்லுபடியாகும்
     preview: முன்னோட்டம்
+    visibility_type: ''
+    duplicate_mode: ''
   deleteConfirmation: இந்த ச்டிக்கரை நீக்க விரும்புகிறீர்களா?
   editTitle: ச்டிக்கரைத் திருத்து
   inThis:
@@ -2820,6 +3123,24 @@ achievements:
   edit: 'ச்டிக்கரைத் திருத்து: {name}'
   noneInThisRegion: இந்த பிராந்தியத்தில் ச்டிக்கர்கள் எதுவும் பதிவு 
     செய்யப்படவில்லை.
+  visibility_type_explanation:
+    scope: ''
+    store_managers: ''
+    private: ''
+    hidden: ''
+    global: ''
+  visibility_type:
+    private: ''
+    scope: ''
+    global: ''
+    store_managers: ''
+    hidden: ''
+  duplicate_mode:
+    override: ''
+    multiple: ''
+  duplicate_mode_explanation:
+    multiple: ''
+  scope: ''
 help:
   helpTitle: 'உதவி: {title}'
   tooltip: உதவியைக் காட்டு
@@ -2984,6 +3305,24 @@ help:
         நீங்கள் பி.வி என்றால், நீங்கள் பொறுப்பான நிறுவனங்களின் பார்வையை மட்டுப்படுத்தலாம்.
         இது ஒரு கண்ணோட்டத்தை எளிதாக்குகிறது.\n\n. குறிப்பாக ஒரு நாளைக்கு உங்களுக்கு
         பல தேர்வு விருப்பங்கள் கிடைக்கும்போது, ஒரு கண்ணோட்டத்தைப் பெறுவதை எளிதாக்குகிறது.\n"
+    commons_resources:
+      title: ''
+      md: ''
+    resource_mosaic:
+      title: ''
+      md: ''
+    similar_resources:
+      title: ''
+      md: ''
+    my_resources:
+      title: ''
+      md: ''
+    achievementDuplicateMode:
+      title: ''
+      md: ''
+    achievementVisibility:
+      title: ''
+      md: ''
 team_page:
   board_member:
     title: பலகை
@@ -3346,6 +3685,7 @@ button:
   confirm: உறுதிப்படுத்தவும்
   close: மூடு
   browse: தேடல்
+  yes_save: ''
 group:
   applications: பயன்பாடுகள்
   applications_for: '{name} க்கான விண்ணப்பங்கள்'
@@ -3374,6 +3714,7 @@ group:
       "5": 5 அல்லது அதற்கு மேற்பட்ட மணிநேரம்
     accept: விண்ணப்பத்தை ஏற்றுக்கொள்ளுங்கள்
     accepted: விண்ணப்பம் ஏற்றுக்கொள்ளப்பட்டது
+    deny: ''
   member_count:
     one: 'ஒட்டுமொத்த உறுப்பினர்'
     zero: உறுப்பினர்கள் இல்லை
@@ -3424,6 +3765,8 @@ group:
       திறக்க முடியும். மாவட்டத்திற்கு விருப்பம் செயல்படுத்தப்பட்டால், நீங்கள் மன்றத்தில்
       இடுகைகளையும் மறைக்கலாம்.'
     tooltip_function_11: 'நிர்வாகி: இந்த பணிக்குழுவுக்குள் மாவட்ட கண்ணோட்டத்தில் காட்டப்பட்டுள்ளது.'
+    resources: ''
+    tooltip_function_13: ''
   show-all: அனைத்தையும் காட்டு
   member_list:
     remove_admin_title: ஒரு நிர்வாகியாக
@@ -3446,6 +3789,9 @@ group:
         no_passport: ஐடி இல்லை
         with_passport: ஐடியுடன்
         invalid_passport: தவறான ஐடி
+        all: ''
+        unverified: ''
+        verified: ''
       automatic_paper_size: A4 காகிதத்தைப் பயன்படுத்தவும்
       active_or_renew_passport: அடையாள அட்டையை செயல்படுத்தவும் / நீட்டிக்கவும்
       execute: நிறைவேற்றவும்
@@ -3457,6 +3803,7 @@ group:
         unverify: ஈடுபடுங்கள்
       already_verified: 'தேர்ந்தெடுக்கப்பட்ட அனைத்து பயனர்களும்: உள்ளே ஏற்கனவே சரிபார்க்கப்பட்டது'
       inform_user: அறிவிப்புடன்
+      filter_status: ''
     remove_ambassador_title: 'ஒரு தூதராக: கையில்'
     remove_admin_text: நிர்வாகியாக ({name}) செய்ய விரும்புகிறீர்களா?
     remove_ambassador_text: நீங்கள் ஒரு தூதராக {name} ({id}) செய்ய 
@@ -3569,6 +3916,8 @@ group:
       திருத்த முடியும்'
     tooltip_function_region332: இந்த பணிக்குழுவின் உறுப்பினர்கள் சங்கிலி 
       பட்டியலை அணுகலாம்
+    tooltip_function_region2296: ''
+  confirm_decline: ''
 legal:
   legal_agreement: சட்ட ஒப்பந்தம்
   if_delete:
@@ -3592,6 +3941,8 @@ legal:
   button:
     agree: ஏற்றுக்கொள்
   privacy_policy: தரவு பாதுகாப்பு அறிவிப்பு
+  latest_change: ''
+  show_changes: ''
 salutation:
   "2": காதல்
   "3": அன்பே
@@ -3625,6 +3976,20 @@ login:
     tooShort: மன்னிக்கவும், நீங்கள் தேர்ந்தெடுத்த கடவுச்சொல் மிகவும் குறுகியது.
     error: மன்னிக்கவும், உங்கள் தரவில் சிக்கல் உள்ளது.
     mismatch: மன்னிக்கவும், கடவுச்சொற்கள் பொருந்தவில்லை.
+    request_new: ''
+    invalidCode: ''
+    token_invalid: ''
+  or: ''
+  resend_verification:
+    success: ''
+    email_invalid: ''
+    hint2: ''
+    title: ''
+    submit: ''
+    hint1: ''
+  error_not_activated: ''
+  2fa: ''
+  passkey_btn: ''
 register:
   login_email: மின்னஞ்சல்-அம்சம்
   email_required: மின்னஞ்சல் முகவரி தேவை
@@ -3791,6 +4156,8 @@ terminology:
   hygiene_training: சுகாதார பயிற்சி
   received: பாதுகாக்கப்பட்டது
   sent: அனுப்பப்பட்டது
+  giving: ''
+  resourcesAdmins: ''
 statistics:
   num_fetches: '{count} மீட்பு நடவடிக்கைகளில்'
   food_saved: உணவு காப்பாற்றப்பட்டது
@@ -4102,6 +4469,7 @@ system_administration:
   email: செய்திமடலை அனுப்புங்கள்
   content: உள்ளடக்கத்தைத் திருத்தவும்
   store_categories: இயக்க வகைகளைத் திருத்து
+  resource_categories: ''
 information:
   push:
     title: நீங்கள் இப்போது உணவு பகிர்விலிருந்து புச் அறிவிப்புகளைப் பெறலாம்.
@@ -4285,3 +4653,191 @@ required_messages:
     main: 'நான் உங்களை செயல்பாட்டு மேலாளர்களாக வைத்திருக்கிறேன்: நிறுவனத்தின் n [{store}]
       (/store/{storeId}).'
     footer: வாழ்த்துக்கள்
+categories:
+  title:
+    resource: ''
+    store: ''
+  confirm_delete: ''
+  types:
+    0: ''
+    2: ''
+    1: ''
+    "null": ''
+  empty: ''
+  confirm_delete_hint:
+    store: ''
+    resource: ''
+  new: ''
+  delete: ''
+  edit: ''
+  columns:
+    name: ''
+    type: ''
+    id: ''
+    usage_count: ''
+    number_of_stores: ''
+  merge_hint: ''
+  merge: ''
+  merge_title: ''
+resource_mosaic:
+  commons_resources_in: ''
+  editModal:
+    openness: ''
+    description_warning:
+      none: ''
+      short: ''
+      title: ''
+    name:
+      placeholder: ''
+      label: ''
+      max_length: ''
+    categories:
+      placeholder: ''
+      label: ''
+    is_restricted_to_region: ''
+    is_private: ''
+    description:
+      placeholder: ''
+      placeholder_commons: ''
+      label: ''
+  privacy_notice:
+    title: ''
+    text: ''
+    ok: ''
+  favorite: ''
+  filter:
+    favorites: ''
+    active: ''
+    home_region: ''
+  my_resources: ''
+  resource_not_found_warning: ''
+  message_modal:
+    intro: ''
+    request_for: ''
+    request_sent: ''
+    placeholder: ''
+    polite_info: ''
+    title: ''
+  search_placeholder: ''
+  no_commons_resources: ''
+  openness:
+    level_3: ''
+    level_4: ''
+    title: ''
+    level_5: ''
+    level_1: ''
+    level_2: ''
+  is_commons: ''
+  order:
+    sort_age: ''
+    sort_openness: ''
+    shuffle: ''
+  my_resources_in: ''
+  list_status:
+    none_in_region: ''
+    filter: ''
+    none_in_filter: ''
+    total: ''
+  add_commons: ''
+  confirm_delete: ''
+  other_resources:
+    commons: ''
+    own: ''
+    similar: ''
+    new: ''
+    other: ''
+  has_resources_elsewhere: ''
+  edit: ''
+  categories_filter_placeholder: ''
+  request_header: ''
+  favorite_tooltip: ''
+  max_resources: ''
+  no_own_resources: ''
+  message: ''
+  title: ''
+  is_private_hint: ''
+  add: ''
+oauth:
+  error:
+    invalid_client: ''
+    unknown_error: ''
+    invalid_scope: ''
+    region_requirement_not_met: ''
+  remember:
+    title: ''
+    md: ''
+  action:
+    deny: ''
+    authorize: ''
+  admin:
+    public: ''
+    active: ''
+    type: ''
+    update_success: ''
+    regions: ''
+    delete_error: ''
+    redirect_uris_help: ''
+    confirm_delete: ''
+    confidential_client: ''
+    regenerate_secret: ''
+    create_success: ''
+    region_restriction_tooltip: ''
+    redirect_uris: ''
+    grant_types: ''
+    required_regions_help: ''
+    required_regions: ''
+    name: ''
+    confidential: ''
+    delete_warning: ''
+    title: ''
+    restrictions: ''
+    secret_save_warning: ''
+    confidential_help: ''
+    regenerate_secret_warning: ''
+    edit_client: ''
+    scopes: ''
+    delete_success: ''
+    no_region_restriction: ''
+    create_client: ''
+    load_error: ''
+    save_error: ''
+    secret_generated: ''
+    actions: ''
+    confirm_save_secret: ''
+    identifier: ''
+    no_restrictions: ''
+  authorize:
+    title: ''
+    requested_permissions: ''
+    redirect_notice: ''
+  scopes:
+    openid:
+      title: ''
+    regions:
+      title: ''
+      md: ''
+    email:
+      title: ''
+    profile:
+      title: ''
+      md: ''
+  title: ''
+sort:
+  sort_by: ''
+  options:
+    updated_at: ''
+    name: ''
+    date: ''
+    relevance: ''
+    created_at: ''
+network_errors:
+  csrf_token_invalid:
+    title: ''
+    text: ''
+totp_code: ''
+debug:
+  title: ''
+  info: ''
+test:
+  vars: ''
+  plain: ''

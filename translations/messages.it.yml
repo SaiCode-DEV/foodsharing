@@ -23,6 +23,7 @@ group:
       \ Se sì, dove o quali?\n"
     how_much_time: Quante ore alla settimana hai tempo e voglia di dedicarci?
     error_missing_time: 'Errore: non è stato selezionato alcun orario.'
+    deny: ''
   contact:
     send: Invia messaggio
     admins: '{count} referenti:'
@@ -60,6 +61,7 @@ group:
       possono modificare i post del blog
     tooltip_function_region332: I membri di questo gruppo di lavoro hanno 
       accesso all'elenco delle catene
+    tooltip_function_region2296: ''
   function:
     tooltip_function_7: Gli amministratori di questo gruppo di lavoro 
       visualizzano le segnalazioni che coinvolgono il team segnalazioni. Non 
@@ -108,6 +110,8 @@ group:
       visualizzati nella visione d’insieme dei distretti.
     stores_coordination: Negozi
     none: Nessun gruppo di lavoro GOALS
+    resources: ''
+    tooltip_function_13: ''
   delete_group_sure: Vuoi davvero eliminare il gruppo di lavoro/distretto 
     {groupName}?
   quitting_home_district_warning: Vuoi davvero lasciare il tuo distretto di 
@@ -205,10 +209,14 @@ group:
         no_passport: nessuna tessera associativa
         invalid_passport: tessera associativa non valida
         with_passport: con tessera associativa
+        all: ''
+        unverified: ''
+        verified: ''
       title: Tessere associative e verifica
       generate_button: Crea tessere associative per le persone contrassegnate
       already_verified: Tutti gli utenti selezionati sono già stati attivati
       inform_user: con notifica
+      filter_status: ''
     all_roles: Tutti i ruoli
     default:
       lastname: Cognome
@@ -226,6 +234,7 @@ group:
   filter_by_last_activity: Non attivo da mesi
   filter_placeholder: Filtrare i gruppi per nome
   valid_until: Valido fino al
+  confirm_decline: ''
 bcard:
   error:
     verified: Devi essere verificato per poter generare il tuo biglietto da 
@@ -272,6 +281,7 @@ button:
   confirm: Conferma
   start: Iniziamo!
   browse: Sfogliare
+  yes_save: ''
 upload:
   crop_dialog_title: Ritaglia l'immagine
   new_file: Carica un nuovo file
@@ -383,6 +393,9 @@ statistics:
     savedFoodKgLastMonth: di cibo risparmiati
     pickupsLastMonth: ritiri di cibo
     foodBasketsLastMonth: cesti alimentari distribuiti
+    activeHomeRegionFoodsavers: ''
+    activeCoorporations: ''
+    activeFoodSharePoints: ''
   food_saved: di cibo risparmiati
   lastMonth: Statistiche degli ultimi 30 giorni
 terminology:
@@ -410,6 +423,8 @@ terminology:
   fsp: Punto di condivisione
   reports:
     orga: Visualizzazione messaggi (organizzazione)
+    report: ''
+    arbitration: ''
   statistic: Statistiche
   wall: Bacheca
   moderationAdmins: Team moderazione
@@ -475,6 +490,8 @@ terminology:
   hygiene_training: Formazione sull'igiene
   sent: Inviati
   received: Ricevuto
+  giving: ''
+  resourcesAdmins: ''
 register:
   woman: femmina
   signup_newsletter: Vorrei ricevere la newsletter di foodsharing circa una 
@@ -563,6 +580,9 @@ login:
     wrongMail: Purtroppo non riusciamo a trovare questo indirizzo e-mail, per 
       favore riprova.
     bread: Reimposta la password
+    request_new: ''
+    invalidCode: ''
+    token_invalid: ''
   logout: Logout
   error_no_auth: Purtroppo non riusciamo a trovare questo indirizzo e-mail o 
     password, per favore riprova.
@@ -577,6 +597,17 @@ login:
   topbar: Accedi
   submit_btn: Accedi
   steady_login: Resta connesso
+  or: ''
+  resend_verification:
+    success: ''
+    email_invalid: ''
+    hint2: ''
+    title: ''
+    submit: ''
+    hint1: ''
+  error_not_activated: ''
+  2fa: ''
+  passkey_btn: ''
 salutation:
   "3": Cara/o
   "2": Cara
@@ -605,6 +636,8 @@ legal:
       tedesco)
   button:
     agree: Accettare
+  latest_change: ''
+  show_changes: ''
 fsp:
   followName: Seguire il punto di condivisione {name}
   follow: Segui questo punto di condivisione
@@ -789,6 +822,8 @@ pickup:
       loadMore: 'Carica di più'
       registeredSwitch: 'Mostra ritiri registrati'
       signOff: 'Rimuovi'
+      managedOnlySwitch: ''
+      useCondensedDesign: ''
     allLoaded: 'Tutte le voci sono già visualizzate.'
   region_pickup_rule_failed: 'Questa voce non è conforme alle regole del distretto'
   no_slots_available: 'Nessuno slot disponibile'
@@ -807,6 +842,12 @@ pickup:
       ritiro.
   may_enter: C’è un posto disponibile per te in questa data di ritiro.
   confirmed: La data del ritiro è confermata.
+  slots: ''
+  chat: ''
+  membershipMissing: ''
+  passport_expired:
+    short: ''
+    long: ''
 storeedit:
   milestone:
     statuschanged: Cambio di stato il {date}
@@ -821,6 +862,10 @@ storeedit:
     hygieneRequired: Consentire la raccolta solo a chi ha una formazione valida 
       in materia di igiene
     hygieneRequirement: Requisiti di igiene
+    phoneRequirement: ''
+    applicationRequirements: ''
+    applyTextRequired: ''
+    verifiedRequired: ''
   store:
     status: stato
   team:
@@ -878,6 +923,43 @@ store:
       Inserisci un indirizzo di casa per facilitare la decisione dei 
       responsabili operativi in merito alla tua candidatura.
     confirm-no-location-ok: Candidati comunque
+    needsStoreRegion:
+      link: ''
+      text: ''
+    distance:
+      close: ''
+      normal: ''
+      unknown: ''
+    distance_short:
+      unknown: ''
+      close: ''
+      normal: ''
+    alerts:
+      many_more: ''
+      many_less: ''
+      one_more: ''
+      one_less: ''
+    applicationSummary:
+      distance: ''
+      storeList: ''
+      verified: ''
+      text: ''
+      intro: ''
+      fullName: ''
+      time: ''
+    requireVerification:
+      link: ''
+      text: ''
+    requirePhone:
+      link: ''
+      text: ''
+    needsHomeRegion:
+      link: ''
+      text: ''
+    completeProfileRequired:
+      text: ''
+      link: ''
+    applicationMessageTooShort: ''
   sm:
     removeFromTeam: Rimuovare dal team
     filterUnverified: Non verificate
@@ -901,10 +983,12 @@ store:
     sorting:
       default: Ordinamento standard
       pickup: Ordina per ultimo ritiro
+      distance: ''
     filterNoHygiene: 'senza formazione sull’igiene'
     userHasPickupsWarning: '{name} è ancora registrato per i ritiri di {occupiedSlots}
       presso questa attività. Questi slot ritorneranno liberi. Vuoi ancora procedere?'
     inviteMember: Invita alla squadra
+    demoteAsManagerConfirm: ''
   days_before: prima
   days: giorni
   address: Indirizzo
@@ -921,6 +1005,7 @@ store:
   chat:
     team: Messaggio al team
     jumper: messaggio ai intervenisti
+    managers: ''
   isManager: Responsabile di questa agenzia.
   lastPickupShort: ultimo {data}
   lastPickup: 'Ultimo ritiro {date}'
@@ -1043,6 +1128,10 @@ store:
       13: 'Essere consegnati per il ritiro'
       11: 'Inserire per il ritiro'
       15: 'Cancellare una voce della bacheca'
+      18: ''
+      19: ''
+      17: ''
+      20: ''
     log_types_placeholder: Seleziona i tipi di azione da visualizzare
     search: Elenca le azioni selezionate
     selected_log_types: '{amount} tipi di azione selezionati'
@@ -1066,6 +1155,10 @@ store:
       2: '{actor} ha rifiutato la richiesta di adesione di {target}.'
       9: '{actor} ha inserito {target} come responsabile dell’attività.'
       15: '{actor} ha eliminato il post in bacheca di {target} del {date}.'
+      18: ''
+      19: ''
+      17: ''
+      20: ''
     message_saved_info: Il tuo messaggio verrà salvato nel registro delle 
       operazioni.
   signInDateTime: 'Data di ingresso'
@@ -1087,8 +1180,16 @@ store:
     title: Inviti per {storeTitle}
     accept: Accetta l’invito
     invited_by: Invitato da
+    info: ''
+    invited_info: ''
   invitations: Inviti aperti ({count})
   invited: Invitato
+  my_last_slot: ''
+  delete:
+    button: ''
+    sure: ''
+  passport_expired: ''
+  passport_expires_soon: ''
 storeview:
   want_to_fetch: Vorrei aiutare in questo team.
   specials: Istruzioni e procedura
@@ -1212,6 +1313,7 @@ startpage:
       o che offrono un’educazione sui rifiuti devono essere in grado di fornire un’assistenza
       adeguata.\n"
     title: Richieste
+    image_alt: ''
   store:
     text: Lavori in un supermercato, un ristorante, una mensa …? Registra la tua
       azienda e salva il cibo.
@@ -1262,6 +1364,8 @@ startpage:
     Puoi incontrarti lì o in altri luoghi neutrali per condividere. Se vuoi consegnare
     o prendere in consegna del cibo sii affidabile e puntuale, non lasciare nessuno
     fuori sotto la pioggia.'
+  followrules: ''
+  followrules_title: ''
 poll:
   results:
     option_text: Opzione
@@ -1353,6 +1457,8 @@ poll:
   in_past: finito
   time_period: Periodo
   not_available: Questo sondaggio non esiste o non puoi accedervi.
+  hint_sorted_order: ''
+  title: ''
 language_chooser:
   content: Scegli una lingua
   title: Scegli la lingua
@@ -1399,6 +1505,17 @@ email_template:
   to: a
   from: '-- Da '
   request_from: Richiesta di
+  fetch_warning:
+    disable_warning: ''
+    subject:
+      multiple: ''
+      single: ''
+    settings_link: ''
+    empty_slots: ''
+    part2: ''
+    part1: ''
+  confirm_for_moderated_forum: ''
+  confirm_for_unverified: ''
 foodsaver:
   list:
     inactive: "che non sono stati attivi negli ultimi 6 mesi:"
@@ -1442,6 +1559,7 @@ foodsaver:
     Si prega di riprovare.
   delete_account_sure_reason: 'L''account dovrebbe davvero essere cancellato? Motivo:
     {reason}'
+  delete_account_reason: ''
 reports:
   reason: Motivo
   message: Descrizione
@@ -1509,6 +1627,7 @@ addresspicker:
     posizione corretta sulla mappa.
   placeholder: Cerca l’indirizzo …
   different_location: 'Descrizione corretta dell’indirizzo'
+  different_location_warning: ''
 recipients:
   done: Tutte le e-mail sono state inviate
   unknown: sconosciuto
@@ -1575,6 +1694,7 @@ forum:
       subscribe: Sottoscrivi
     bottom: visibilità ridotta
     all_hidden: Tutti i post in questa discussione sono stati nascosti.
+    post_not_found: ''
   follow:
     email: come email
     bell: come una campana
@@ -1624,6 +1744,8 @@ forum:
     hidden_by: Nascosto da
     title: Ripristina post
   go: Vai al Forum
+  options:
+    bells_for_new_posts: ''
 first_post: Primo post in bacheca
 events:
   rsvp:
@@ -1691,6 +1813,8 @@ events:
     future: Questo evento si svolgerà online. Non appena inizierà, potrai 
       iscriverti utilizzando il pulsante qui sotto.
   location: Posizione
+  public_info: ''
+  online_info: ''
 wall:
   error-delete: Non è possibile rimuovere questo post.
   info-logging: Si nota pregho, che per evitare conflitti, il contenuto e la 
@@ -1735,6 +1859,16 @@ chat:
     read: Segna come letto
     unread: Segna come da leggere
   reply: Rispondere
+  error:
+    sending_message: ''
+    loading_conversation: ''
+    renaming_conversation: ''
+  show_participants: ''
+  participants: ''
+  rename_empty_hint: ''
+  open_multi_chat: ''
+  rename_placeholder: ''
+  rename: ''
 timepicker:
   labelNowButton: Adesso
   labelCloseButton: Chiudere
@@ -1872,6 +2006,36 @@ bell:
   event_post_title: Appuntamento {event} a {region}
   store_invite: '{user} ti ha invitato a unirti al team.'
   passport_created_or_renewed: è stata attivata o rinnovata!
+  delete_store_title: ''
+  store_invitation_accepted_title: ''
+  new_forum_thread_title: ''
+  foodsaver_adress_changed: ''
+  translation_failed:
+    md: ''
+    title: ''
+    key: ''
+    md_support: ''
+  post_hidden_title: ''
+  delete_store: ''
+  workinggroup_new_request: ''
+  poll_started_title: ''
+  new_resource_title: ''
+  store_invitation_accepted:
+    one: ''
+    many: ''
+  poll_ending_soon: ''
+  foodsaver_adress_changed_title: ''
+  poll_ending_soon_title: ''
+  new_resource:
+    many: ''
+    one: ''
+  post_hidden: ''
+  forum_not_activated_thread_title: ''
+  store_invitation_declined:
+    one: ''
+    many: ''
+  poll_started: ''
+  store_invitation_declined_title: ''
 content:
   edit: Modifica pagina
   new_success: La pagina è stata creata
@@ -1926,6 +2090,11 @@ regionOptions:
   regionPickupRuleActiveStoreList: 'Elenco delle aziende del distretto che verranno
     prese in considerazione per la regola PASTA. Tutti i ritiri dalle aziende elencate
     vengono sommati e presi in considerazione per la regola.'
+  regionReportReasonSimple: ''
+  regionReportReasonCategoryB: ''
+  regionReportReasonOther: ''
+  noPickupRuleActiveStores: ''
+  enableAddressChangeNotification: ''
 ageBandList:
   NumberOfAgeband: Numero
   ageBand: Fascia di età
@@ -1953,6 +2122,9 @@ pickuplist:
   error_loadingPickup: 'Fallito il caricamento degli slot: '
   NumberOfSlots_table_header: Numero di slot
   NumberOfStores_table_header: numero di agenzie
+  really_delete_last_slot:
+    body: ''
+    title: ''
 genderlist:
   number_table_header: Numero
   gender_female: Donna
@@ -2044,6 +2216,8 @@ menu:
     refresh: 'Aggiornare'
     delete_read: 'Elimina tutto letto'
     applications: Applicazioni ({count})
+    close_all_chats: ''
+    public: ''
   bell:
     delete_read_confirmation:
       text: 'Sei sicuro di voler eliminare {count} campanelli di lettura?'
@@ -2140,6 +2314,11 @@ basket:
   delete_confirmation:
     title: Eliminare il cestino degli alimenti?
     text: Vuoi davvero eliminare questo paniere di cibo?
+  until: ''
+  error:
+    map: ''
+    register: ''
+    taken: ''
 team:
   current: Team
 home:
@@ -2164,6 +2343,8 @@ dashboard:
     baskets: 'Cesti alimentari'
     polls: 'Sondaggi'
     managing_stores: 'Negozi che coordini'
+    pickups: ''
+    pickupOptions: ''
   foodsharer: Divertiti a salvare il cibo!
   source_event: Appuntamento {0}
   source_forum_bot: Forum degli ambasciatori {0}
@@ -2219,6 +2400,7 @@ dashboard:
       sotto
     for_support: Altrimenti puoi contattarci a
     for_release_notes: Puoi trovare le modifiche più importanti qui
+  general-dates: ''
 search:
   thread-title-only: Vengono ricercati solo i titoli, non il testo dei post.
   placeholder: Avvia la ricerca ora …
@@ -2242,6 +2424,7 @@ search:
       sticky_tooltip: 'Il thread è fisso'
       ambassador_forum: 'Forum degli Ambasciatori'
       last_post: 'ultimo contributo'
+      bottom_tooltip: ''
     in: 'in'
     chat:
       chat_with: 'Chiacchiera con {names}'
@@ -2260,14 +2443,37 @@ search:
       from_to_many: Da {from} ad {to} e altri {other}
       attachment_tooltip: Con questa e-mail è stato inviato un allegato.
       from_to: Da {from} ad {to}
+      sent_tooltip: ''
+      recieved_tooltip: ''
     event:
       location_online: In linea
+      invitation_tooltip:
+        3: ''
+        1: ''
+        0: ''
+        2: ''
+    time_relation:
+      present_since: ''
+      past: ''
+      future: ''
+      present_until: ''
+    poll:
+      not_eligible: ''
+      can_vote: ''
+      has_voted: ''
+    relevance: ''
   too_short: Inserisci un termine di ricerca più lungo.
   maxresults: Il numero di risultati visualizzati è limitato. Forse usa un 
     termine di ricerca più specifico.
   scope:
     global: Ricerca globale
     local: Ricerca specifica per utente
+  forum:
+    placeholder: ''
+    found:
+      body: ''
+      title: ''
+  thread-body-only: ''
 profile:
   report:
     arbAdminAgainstRepAdmin: Sei un amministratore del collegio arbitrale e vuoi
@@ -2309,12 +2515,39 @@ profile:
     sells: 'Vende cibo salvato'
     late: 'È arrivato/a troppo tardi'
     doesNotAffectStore: Non influisce su nessuna o altre aziende
+    report_b11: ''
+    report_b10: ''
+    confirmDelete: ''
+    notes: ''
+    report_b3_1: ''
+    report_b1_3: ''
+    report_b6_0: ''
+    report_b12: ''
+    report_b7: ''
+    report_b4_1: ''
+    report_other: ''
+    report_b1_2: ''
+    report_b4_0: ''
+    report_b3_0: ''
+    report_b8: ''
+    report_b1_1: ''
+    mail:
+      reportGroup: ''
+      arbitrationGroup: ''
+    report_b2: ''
+    report_b5: ''
+    report_b9: ''
+    report_b1_4: ''
+    report_b1_0: ''
+    report_b6_1: ''
+    report_b13: ''
   banana:
     give: Dai a {name} una banana
     title: '{count} Banane di fiducia'
     remove:
       confirm_message: Vuoi davvero rimuovere quel banano di fiducia?
       confirm_title: Rimuovere la banana della fiducia
+      successful: ''
     alreadyGiven: '{name} ha già ricevuto una banana da te.'
     messageTooShort: Inserisci almeno 100 caratteri di testo sulla tua banana.
     sent: La banana è stata inviata!
@@ -2326,6 +2559,12 @@ profile:
     undo: Le banane di fiducia non possono essere cambiate.
     details: "Qui puoi descrivere in almeno 100 caratteri perché vorresti dare a {name}
       una banana.\n"
+    sent_none:
+      other: ''
+      you: ''
+    recieved_none:
+      you: ''
+      other: ''
   mail_bounce:
     remove_button: Rimuovi dalla lista di rimbalzo
     warning_others: L'indirizzo email {email} di questo utente è bloccato per le
@@ -2374,6 +2613,9 @@ profile:
     bananas: Banane
     weight_unit: kg
     fetch_count: raccolti
+    give_count: ''
+    slots: ''
+    engagement_count: ''
   infos:
     foodsaverId: ID
     fetchrate: Quoto di ritiri
@@ -2407,6 +2649,7 @@ profile:
     history: Tessere associative
     buddy: Conosco {name}
     remove_buddy: Non conosco più {name}
+    quizSessionHistory: ''
   cantdeleteall: 'Non puoi eliminare tutti gli appuntamenti!'
   commitments_stat:
     pickupCount: 'Numero di ritiri'
@@ -2444,13 +2687,35 @@ profile:
   tab_navigation:
     commitment_statistics: Statistiche sul coinvolgimento
     profile: Profilo
+    pickups: ''
+    notes: ''
+    stores: ''
   sections:
     home_region_from: Distretto di residenza
     ambassador_for: per
+    workgroups_admin: ''
+    no_common_workgroups: ''
+    kam_for: ''
+    workgroups_member: ''
+    orga_rights: ''
+    foodSaver_in_region: ''
   homeDistrictHistory:
     by: da
     previous: precedentemente
     changed: registrato
+  sleeping_info_from_until: ''
+  stores:
+    memberState:
+      filterRequested: ''
+      filterManage: ''
+      filterInvitations: ''
+      filterAll: ''
+      filterJumper: ''
+      filterActive: ''
+    store_table: ''
+    search_placeholder: ''
+  choosereasonnostore: ''
+  chooseantherstore: ''
 settings:
   push:
     disabled: Notifiche push disabilitate con successo
@@ -2487,6 +2752,7 @@ settings:
       thunderbird: Mozilla Thunderbird
       label: Quale programma di calendario usi?
       apple: Apple Calendario
+      etar: ''
     formatting:
       html: HTML
       text: Solo testo
@@ -2504,6 +2770,7 @@ settings:
       maybe: Date in cui ho indicato che (forse) parteciperò
       label: Quali date dei vostri distretti e gruppi di lavoro dovrebbero 
         essere incluse?
+      none: ''
     pickup:
       "false": No, non mostrare i ritiri nel calendario
       label: È necessario includere le date di ritiro?
@@ -2511,6 +2778,16 @@ settings:
     generate_url:
       button: Genera URL del calendario
     protocol: Quale protocollo utilizza il tuo programma di calendario?
+    reminders:
+      12_hours: ''
+      30_minutes: ''
+      label: ''
+      1_day: ''
+      1_hour: ''
+      15_minutes: ''
+      6_hours: ''
+      3_hours: ''
+    info: ''
   photo:
     info: "Il tuo viso dovrebbe essere <a href=\"{link_photo}\">riconoscibile</a>
       nella tua foto del profilo,\nperché sarà usato per il foodsharing<a href=\"\
@@ -2574,6 +2851,10 @@ settings:
     add_to_wallet:
       apple: Aggiungi ad Apple Wallet
       google: Aggiungi a Google Wallet
+    passport_not_activated: ''
+    passport_is_valid_until: ''
+    renew: ''
+    ask_your_ambassadors: ''
   no_rights: L’utente non è autorizzato a modificare le impostazioni del 
     profilo.
   delete_profile: Cancellare questo profilo
@@ -2589,6 +2870,180 @@ settings:
       Tuttavia, puoi chiedere a un ambasciatore di modificare questi dati per 
       te.
     general: Qui puoi modificare i dati del tuo profilo.
+  account_security:
+    unnamed_passkey: ''
+    error:
+      operation_cancelled: ''
+      authenticator_already_registered: ''
+      rename_failed: ''
+      deletion_failed: ''
+      registration_failed: ''
+      name_required: ''
+      webauthn_not_supported: ''
+      operation_aborted: ''
+    security_keys_description: ''
+    mfa_enabled: ''
+    register_modal:
+      title: ''
+      register: ''
+      device_name_description: ''
+      cancel: ''
+      device_name_placeholder: ''
+      device_name_label: ''
+    rename_modal:
+      new_name_label: ''
+      title: ''
+      cancel: ''
+      new_name_placeholder: ''
+      save: ''
+    delete: ''
+    created: ''
+    authenticator_app: ''
+    passkeys_section: ''
+    passkey_deleted: ''
+    mfa_section: ''
+    passkey_renamed: ''
+    register_passkey: ''
+    passkeys_info: ''
+    never_used: ''
+    device_name_placeholder: ''
+    security_keys: ''
+    delete_modal:
+      confirmation: ''
+      cancel: ''
+      device_name: ''
+      delete: ''
+      title: ''
+    other_domain_info: ''
+    authenticator_app_description: ''
+    rename: ''
+    no_passkeys: ''
+    title: ''
+    email_password_section: ''
+    last_used: ''
+    change_password: ''
+    change_email: ''
+    domain_info: ''
+    passkeys_not_supported: ''
+    mfa_disabled: ''
+    passkey_registered: ''
+  two_fa_manage:
+    status_is: ''
+    disable_button: ''
+    inactive: ''
+    cancel: ''
+    close: ''
+    intro: ''
+    password_label: ''
+    num_backup_codes: ''
+    active: ''
+    title: ''
+    password_placeholder: ''
+    password_required: ''
+    totp_token_label: ''
+    totp_token_placeholder: ''
+    enable_button: ''
+    totp_required: ''
+  password_change:
+    submit: ''
+    success: ''
+    old_password_label: ''
+    confirm_password_label: ''
+    new_password_placeholder: ''
+    title: ''
+    cancel: ''
+    wrong_password: ''
+    confirm_password_placeholder: ''
+    new_password_must_be_trimmed: ''
+    explanation: ''
+    new_password_must_be_complex: ''
+    confirm_password_invalid: ''
+    new_password_required: ''
+    old_password_required: ''
+    old_password_placeholder: ''
+    new_password_label: ''
+  email_change:
+    wrong_password: ''
+    invalid: ''
+    password_placeholder: ''
+    not_changed: ''
+    new_email_label: ''
+    sent_other_user: ''
+    dashboard_link: ''
+    explanation_password: ''
+    confirm_email_label: ''
+    confirm_email_placeholder: ''
+    title: ''
+    explanation: ''
+    explanation_other_user: ''
+    domain: ''
+    question: ''
+    sent: ''
+    new_email_placeholder: ''
+    cancel: ''
+    done: ''
+    password_required: ''
+    occupied: ''
+    submit: ''
+    confirm_email_required: ''
+    insufficient_permission: ''
+    password_label: ''
+    question_other_user: ''
+  two_fa_enable:
+    tabs:
+      backup_codes: ''
+      tutorial: ''
+      qr_code: ''
+      confirm: ''
+    confirm:
+      instruction: ''
+      test_instruction: ''
+      title: ''
+      logout_notice: ''
+    next: ''
+    qrcode:
+      scan_instruction: ''
+      multi_device: ''
+      title: ''
+      label: ''
+    danger: ''
+    explanation: ''
+    generated_code_label: ''
+    secret_label: ''
+    failed: ''
+    apps:
+      description: ''
+      title: ''
+      info: ''
+    tutorial: ''
+    backup_codes:
+      info: ''
+      save_instruction: ''
+      title: ''
+      confirmation: ''
+      must_confirm: ''
+      label: ''
+    further_info: ''
+    activate: ''
+    secret_toggle: ''
+    password_info: ''
+    success: ''
+    title: ''
+  two_fa_disable:
+    confirm_text: ''
+    danger: ''
+    admin_description: ''
+    failed: ''
+    warning: ''
+    deactivate: ''
+    title: ''
+    success: ''
+  quiz:
+    1: ''
+    3: ''
+    2: ''
+  profile: ''
+  edit_other: ''
 mailbox:
   mark_as_unread: Contrassegna l'e-mail come non letta
   filesize: Scusa, il file è troppo grande.
@@ -2673,8 +3128,12 @@ map:
         all: tutti
         other: Secondo distretto
         homeregion: Distretto di residenza
+        label: ''
       role:
         all: tutti
+        foodsaver: ''
+        label: ''
+        store-manager: ''
       activity:
         all: tutti
         6months: ultimi sei mesi
@@ -2698,10 +3157,23 @@ map:
       scope:
         all: tutte
         label: Affiliazione
+        region: ''
+        member: ''
+      type:
+        label: ''
+        2: ''
+        "null": ''
+        1: ''
+        0: ''
   events:
     title: Eventi
+    go: ''
   users:
     go: Vedi profilo
+  community:
+    go: ''
+  foodsharepoint:
+    go: ''
 push_notifications:
   test_notification_body: Ottimo, sembra che abbia funzionato :)
   test_notification_title: Notifiche push abilitate
@@ -2760,6 +3232,7 @@ footer:
   meta:
     version: 'Versione: {version}'
     it_devdocs: 'by foodsharing IT'
+    made_with: ''
   infosDeveloper: 'per gli sviluppatori'
   hosting:
     tooltip: 'ospitato ad emissioni neutrali di CO₂ su manitu'
@@ -2789,6 +3262,10 @@ region:
     district: Distretto
     city: Cittá
     title: Tipo di distretto
+    working_group: ''
+    big_city: ''
+    federal_state: ''
+    part_of_town: ''
   noParent: Senza distretto di affiliazione
   still_contains_elements: Il distretto non può essere cancellato perché 
     contiene ancora sottoregioni, siti o divisori.
@@ -2816,7 +3293,56 @@ region:
   public:
     events:
       title: Eventi pubblici
+      no_future_events: ''
+      load_past: ''
+    description: ''
+    desc:
+      missing: ''
+      confirm_discard_changes: ''
+      confirm_save_changes: ''
+      edit: ''
+    discard_changes: ''
+    leave_text_group: ''
+    map:
+      set_pin: ''
+      missing: ''
+      confirm_save_changes: ''
+      confirm_discard_changes: ''
+      hide_pin: ''
+      confirm_remove: ''
+      edit_pin: ''
+    join: ''
+    continue_editing: ''
+    leave_group: ''
+    show_on_large_map: ''
+    join_name: ''
+    leave_name: ''
+    leave_text_region: ''
+    leave: ''
+    join_text: ''
+    confirm_entering: ''
+    confirm_leaving: ''
+    wall: ''
+    children: ''
+    no_more_info: ''
   master: Distretto principale
+  denied:
+    group_in_this_group: ''
+    subgroup_in: ''
+    this_region: ''
+    group_in_this_region: ''
+    some_group: ''
+  not-existant: ''
+  confirm:
+    edit: ''
+    delete: ''
+    create: ''
+  allow_hiding_in_forum: ''
+  select: ''
+  createNew: ''
+  parent: ''
+  root: ''
+  mailbox: ''
 polls:
   future: Votazioni futuri
   ended: Votazioni passati
@@ -2830,6 +3356,14 @@ polls:
   hint: Il modulo di voto può essere testato nel gruppo di lavoro sovraregionale
     “Voting Test”.
   until: 'Possibile fino al {until}'
+  score:
+    disapproval: ''
+    approval: ''
+    neutral: ''
+  badge:
+    vote_now: ''
+    already_voted: ''
+    not_eligible: ''
 buddy:
   request_accepted: Ora vi conoscete.
   request_sent: Richiesta inviata.
@@ -2844,6 +3378,12 @@ buddy:
       bacheche del vostro profilo non verranno più visualizzati sulla pagina 
       iniziale dell'altra persona.
   is_buddy: Siete conoscenti
+  requests:
+    mine: ''
+    other: ''
+  my: ''
+  confirmed: ''
+  none: ''
 conference:
   join: Partecipa alla conferenza
   join_title: Partecipa alla conferenza
@@ -2910,6 +3450,7 @@ blog:
   go: Al Blog
   bread: Blog
   read: 'Continua a leggere'
+  teaser: ''
 releases:
   "2020-05": Versione “Arancia” (maggio 2020)
   "2020-08": Versione “Pera” (agosto 2020)
@@ -3219,10 +3760,19 @@ error:
     other: Si è verificato un errore sconosciuto.
     not_found: Impossibile trovare la pagina.
     internal_server_error: Si è verificato un errore interno del server.
+    back_home: ''
   passport_is_invalid_soon:
     link: Impostazioni del profilo
+    description: ''
+    title: ''
   passport_is_invalid:
     link: Impostazioni del profilo
+    description: ''
+    title: ''
+  invalid_landline_phonenumber:
+    title: ''
+    link: ''
+    description: ''
 globals:
   type:
     mailboxes: 'Caselle postali'
@@ -3243,6 +3793,9 @@ globals:
     users: Persone
     groups_menu: Menù di gruppo
     regions_menu: Menù del distretto
+    mails: ''
+    events: ''
+    polls: ''
   close: 'Chiudi'
   select: 'Si prega di selezionare …'
   you: 'Tu'
@@ -3252,6 +3805,7 @@ globals:
   telephone_number: Numero di telefono
   updated: 'Aggiornato:'
   saved: Le modifiche sono state salvate
+  save_changes: ''
 activitypost:
   response: 'risposta'
   quickreply_info: '<code class="key">Maiusc + Invio</code> per aggiungere una nuova
@@ -3293,6 +3847,7 @@ navigation:
   notifications: 'Notifiche'
   profil: '👋 Ciao {name}!'
   system_administration: 'Amministrazione di sistema'
+  toggle: ''
 system_administration:
   email: 'Invia newsletter'
   quiz: 'Gestisci quiz'
@@ -3300,6 +3855,8 @@ system_administration:
   reports: 'Visualizza i report'
   content: 'Modifica contenuto'
   regions: 'Gestisci i distretti'
+  resource_categories: ''
+  store_categories: ''
 join_region:
   headline: 'Seleziona il distretto in cui desideri diventare attivo.'
   error:
@@ -3425,6 +3982,7 @@ chain:
     INVALID_STATUS: Il campo Stato non è valido
     EMPTY_ZIP: Il campo del codice postale (CAP) è vuoto
     THREAD_ID_NOT_EXISTS: La discussione non esiste
+    KEY_ACCOUNT_MANAGER_MISSING_ACHIEVEMENT: ''
 use_region_pickup_rule: 'La regola RASMR distrettuale dovrebbe applicarsi a questa
   attività?'
 contentmanagement: 'Gestione dei contenuti'
@@ -3459,6 +4017,19 @@ notifications:
   info: Informazioni
   error: Errore
   warning: Avviso
+  pushModal:
+    ok: ''
+    cancel: ''
+    dontAskAgain: ''
+    title: ''
+    content: ''
+  mention:
+    description: ''
+    title: ''
+  pickupReminder:
+    title: ''
+    description: ''
+  safari_add_to_home_screen: ''
 usersearch:
   search_tag: Cerca utenti
   no_tag_preset: Utente non trovato
@@ -3489,6 +4060,8 @@ thread:
     lock: Chiudi discussione
     unpin: Spillare il filo
     priority: Modifica la priorità di visualizzazione
+    hideHidden: ''
+    showHidden: ''
   rename:
     description_modal_text: 'Inserisci un nuovo titolo per questa discussione:'
     placeholder: Titolo
@@ -3497,8 +4070,13 @@ thread:
   post:
     options:
       copy_source: 'Copia il codice sorgente'
+      copy_direct_link: ''
+      restore: ''
     copy_source_success: 'Copia il codice sorgente!'
     quote_post_wrote: ha scritto il
+    quote_button: ''
+    linked_post: ''
+    copy_direct_link_success: ''
   priorityModal:
     title: Modifica la priorità di visualizzazione
     text: 'Visualizza la priorità di questo post:'
@@ -3507,6 +4085,8 @@ thread:
     higher: in alto
   hiddenPostsInfo:
     toggle: Mostra post nascosti
+    cannotSee: ''
+    includesHidden: ''
 save_state: Salva filtri e ordinamento
 save_state_description: Salva i filtri applicati e l’ordinamento per le chiamate
   future
@@ -3548,14 +4128,64 @@ help:
         non vengono visualizzati tutti i risultati.\n"
     basket:
       title: Cestini
+      md: ''
     profileCommitmentsStat:
       title: Statistiche sul coinvolgimento
+      md: ''
     publicEvent:
       title: Eventi pubblici
+      md: ''
     masterRegion:
       title: Distretto principale
+      md: ''
     pollScopes:
       title: Diritto al voto
+      md: ''
+    commons_resources:
+      title: ''
+      md: ''
+    hygieneRequirement:
+      title: ''
+      md: ''
+    pickupOptions:
+      title: ''
+      md: ''
+    resource_mosaic:
+      title: ''
+      md: ''
+    similar_resources:
+      title: ''
+      md: ''
+    polls:
+      title: ''
+      md: ''
+    reportReasons:
+      title: ''
+      md: ''
+    achievementIcon:
+      title: ''
+      md: ''
+    moderatorForumHide:
+      title: ''
+      md: ''
+    my_resources:
+      title: ''
+      md: ''
+    report:
+      title: ''
+      md: ''
+    achievementDuplicateMode:
+      title: ''
+      md: ''
+    change_verified_data:
+      title: ''
+      md: ''
+    achievementVisibility:
+      title: ''
+      md: ''
+    achievements:
+      md: ''
+      title: ''
 no_automatic_delete: 'Se l’ultimo accesso è avvenuto cinque anni fa:'
 automatic_delete: '- il profilo deve essere cancellato.'
 automatic_not_delete: '- il profilo deve essere mantenuto.'
@@ -3573,9 +4203,17 @@ theme_switcher:
     system: Sistema
   choose_button: Va bene
   title: Scegli il design
+  content: ''
 team_page:
   it_member:
     title: Squadra informatica
+    text: ''
+  alumni_member:
+    title: ''
+    text: ''
+  board_member:
+    title: ''
+    text: ''
 support_page:
   firstName: Nome di battesimo
   validation_email: Indirizzo e-mail non valido
@@ -3585,10 +4223,17 @@ support_page:
   attachment:
     max_size: Allegati (massimo 10 e 5 MB per file)
     placeholder: Seleziona file
+    drop_placeholder: ''
+    browse: ''
   subject: Oggetto
   validation_firstName: Il nome è vuoto
   validation_subject: L’oggetto è vuoto
   body: Messaggio
+  info_teaser: ''
+  title: ''
+  new_request: ''
+  success: ''
+  notification_name: ''
 store_categories: {}
 navi:
   komoot: Komoot
@@ -3596,6 +4241,10 @@ navi:
   apple_maps: Mappe
   native: App nativa
   no_native_app: I geolink non sono supportati da questo dispositivo.
+  here: ''
+  waze: ''
+  osmand: ''
+  gdpr_warning: ''
 partner_foodsharing: Partner di foodsharing
 net_errors:
   SERVER_ERROR: Si è verificato un errore interno del server. Al momento la tua 
@@ -3626,25 +4275,313 @@ feedback:
   button: Invia feedback
   title: Feedback
   capture_screenshot: Fai uno screenshot
+  error:
+    screenshot: ''
+    invalid_file: ''
+    message_short: ''
+    no_sentry: ''
+  privacy: ''
+  success: ''
+  name_sent: ''
+  no_support: ''
 required_messages:
   decline_store_application:
     footer: Distinti saluti
+    main: ''
+    really: ''
   sure_title: Sei sicuro?
   name_placeholder: <Nome>
   kick_from_store_team:
     footer: Distinti saluti
+    main: ''
+    really: ''
   move_to_standby_team:
     footer: Distinti saluti
+    main: ''
+    really: ''
   demote_store_manager:
     footer: Distinti saluti
+    really: ''
+    main: ''
+  placeholder: ''
+  verify:
+    main: ''
+    really_multiple: ''
+    really: ''
+    footer: ''
+  message_info: ''
+  save_message: ''
+  message_info_multiple: ''
 achievements:
   editor:
     name: Nome
+    preview: ''
+    description: ''
+    visibility_type: ''
+    validityInDaysAfterAssignment: ''
+    duplicate_mode: ''
+    icon: ''
   validity:
     indefiniteShort: illimitato
+    days: ''
+    indefinite: ''
   awardedNoReviewer: automaticamente
+  visibility_type_explanation:
+    scope: ''
+    store_managers: ''
+    private: ''
+    hidden: ''
+    global: ''
+  inRegion: ''
+  add: ''
+  visibility_type:
+    private: ''
+    scope: ''
+    global: ''
+    store_managers: ''
+    hidden: ''
+  duplicate_mode:
+    override: ''
+    multiple: ''
+  validUntil: ''
+  edit: ''
+  notAwarded: ''
+  reviewer: ''
+  duplicate_mode_explanation:
+    multiple: ''
+  awardedTo: ''
+  new: ''
+  inThis:
+    region: ''
+    group: ''
+  scope: ''
+  editTitle: ''
+  revokeConfirmation: ''
+  noneInThisRegion: ''
+  editDetails: ''
+  revoke: ''
+  deleteConfirmation: ''
+  findUser: ''
+  editAwarded: ''
+  notice: ''
+  award: ''
+  awarded: ''
 contact_page:
   bread: Contatti e supporto
+  title: ''
+  regions:
+    link: ''
+    title: ''
+    text: ''
+  description: ''
+  common:
+    modal:
+      title: ''
+      text: ''
+    link: ''
+    title: ''
+    text: ''
+  support:
+    title: ''
+    link: ''
+    text: ''
 test:
   vars: Mi chiamo {NAME} e ho {AGE} anni
   plain: Questa è una traduzione
+categories:
+  title:
+    resource: ''
+    store: ''
+  confirm_delete: ''
+  types:
+    0: ''
+    2: ''
+    1: ''
+    "null": ''
+  empty: ''
+  confirm_delete_hint:
+    store: ''
+    resource: ''
+  new: ''
+  delete: ''
+  edit: ''
+  columns:
+    name: ''
+    type: ''
+    id: ''
+    usage_count: ''
+    number_of_stores: ''
+  merge_hint: ''
+  merge: ''
+  merge_title: ''
+petition:
+  progressText:
+    2000: ''
+    Infinity: ''
+    8000: ''
+    20000: ''
+    25000: ''
+    30000: ''
+    500: ''
+    15000: ''
+  daysLeft: ''
+  link: ''
+resource_mosaic:
+  commons_resources_in: ''
+  editModal:
+    openness: ''
+    description_warning:
+      none: ''
+      short: ''
+      title: ''
+    name:
+      placeholder: ''
+      label: ''
+      max_length: ''
+    categories:
+      placeholder: ''
+      label: ''
+    is_restricted_to_region: ''
+    is_private: ''
+    description:
+      placeholder: ''
+      placeholder_commons: ''
+      label: ''
+  privacy_notice:
+    title: ''
+    text: ''
+    ok: ''
+  favorite: ''
+  filter:
+    favorites: ''
+    active: ''
+    home_region: ''
+  my_resources: ''
+  resource_not_found_warning: ''
+  message_modal:
+    intro: ''
+    request_for: ''
+    request_sent: ''
+    placeholder: ''
+    polite_info: ''
+    title: ''
+  search_placeholder: ''
+  no_commons_resources: ''
+  openness:
+    level_3: ''
+    level_4: ''
+    title: ''
+    level_5: ''
+    level_1: ''
+    level_2: ''
+  is_commons: ''
+  order:
+    sort_age: ''
+    sort_openness: ''
+    shuffle: ''
+  my_resources_in: ''
+  list_status:
+    none_in_region: ''
+    filter: ''
+    none_in_filter: ''
+    total: ''
+  add_commons: ''
+  confirm_delete: ''
+  other_resources:
+    commons: ''
+    own: ''
+    similar: ''
+    new: ''
+    other: ''
+  has_resources_elsewhere: ''
+  edit: ''
+  categories_filter_placeholder: ''
+  request_header: ''
+  favorite_tooltip: ''
+  max_resources: ''
+  no_own_resources: ''
+  message: ''
+  title: ''
+  is_private_hint: ''
+  add: ''
+oauth:
+  error:
+    invalid_client: ''
+    unknown_error: ''
+    invalid_scope: ''
+    region_requirement_not_met: ''
+  remember:
+    title: ''
+    md: ''
+  action:
+    deny: ''
+    authorize: ''
+  admin:
+    public: ''
+    active: ''
+    type: ''
+    update_success: ''
+    regions: ''
+    delete_error: ''
+    redirect_uris_help: ''
+    confirm_delete: ''
+    confidential_client: ''
+    regenerate_secret: ''
+    create_success: ''
+    region_restriction_tooltip: ''
+    redirect_uris: ''
+    grant_types: ''
+    required_regions_help: ''
+    required_regions: ''
+    name: ''
+    confidential: ''
+    delete_warning: ''
+    title: ''
+    restrictions: ''
+    secret_save_warning: ''
+    confidential_help: ''
+    regenerate_secret_warning: ''
+    edit_client: ''
+    scopes: ''
+    delete_success: ''
+    no_region_restriction: ''
+    create_client: ''
+    load_error: ''
+    save_error: ''
+    secret_generated: ''
+    actions: ''
+    confirm_save_secret: ''
+    identifier: ''
+    no_restrictions: ''
+  authorize:
+    title: ''
+    requested_permissions: ''
+    redirect_notice: ''
+  scopes:
+    openid:
+      title: ''
+    regions:
+      title: ''
+      md: ''
+    email:
+      title: ''
+    profile:
+      title: ''
+      md: ''
+  title: ''
+sort:
+  sort_by: ''
+  options:
+    updated_at: ''
+    name: ''
+    date: ''
+    relevance: ''
+    created_at: ''
+network_errors:
+  csrf_token_invalid:
+    title: ''
+    text: ''
+totp_code: ''
+debug:
+  title: ''
+  info: ''

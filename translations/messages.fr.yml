@@ -53,6 +53,7 @@ group:
     experience: "Peux-tu te référer à des expériences acquises ailleurs dans le groupe ?\n\
       \ Si oui, où et lesquels ?\n"
     error_missing_time: 'Erreur : aucune heure n’a été choisie.'
+    deny: ''
   contact:
     sent: Le message a bien été envoyé.
     send: Envoyer le message
@@ -142,6 +143,7 @@ group:
     stores_coordination: Établissements
     none: Aucun groupe de travail GOALS
     resources: Mosaïque de ressources
+    tooltip_function_13: ''
   delete_group_sure: Le groupe de travail/le district {groupName} doit-il 
     réellement être supprimé ?
   quitting_home_district_warning: Souhaites-tu vraiment quitter ton district 
@@ -245,6 +247,7 @@ group:
   userId: ID
   filter_placeholder: filtrer les groupes par nom
   valid_until: valable jusqu’au
+  confirm_decline: ''
 bcard:
   generate: Créer une carte de visite
   error:
@@ -395,6 +398,7 @@ settings:
       thunderbird: Mozilla Thunderbird
       label: Quel programme de calendrier utilises-tu ?
       apple: Apple Calendrier
+      etar: ''
     formatting:
       label: Comment formater les descriptions ?
       html: HTML
@@ -429,6 +433,15 @@ settings:
       n’apparaîtront plus. Si tu télécharges ton calendrier actuel, celui-ci ne contiendra
       que tes dates actuels et ne sera pas mis à jour automatiquement.\n\nTu trouveras
       plus d’informations [ici dans le wiki]({calendarUrl})\n"
+    reminders:
+      12_hours: ''
+      30_minutes: ''
+      label: ''
+      1_day: ''
+      1_hour: ''
+      15_minutes: ''
+      6_hours: ''
+      3_hours: ''
   push:
     disabled: Les notifications push on été désactivées
     disable: Désactiver les notifications push
@@ -531,6 +544,176 @@ settings:
       toutefois demander à un·e ambassadeur·rice de modifier ces données pour 
       toi.
     general: Ici, tu peux adapter les données de ton profil.
+  account_security:
+    unnamed_passkey: ''
+    error:
+      operation_cancelled: ''
+      authenticator_already_registered: ''
+      rename_failed: ''
+      deletion_failed: ''
+      registration_failed: ''
+      name_required: ''
+      webauthn_not_supported: ''
+      operation_aborted: ''
+    security_keys_description: ''
+    mfa_enabled: ''
+    register_modal:
+      title: ''
+      register: ''
+      device_name_description: ''
+      cancel: ''
+      device_name_placeholder: ''
+      device_name_label: ''
+    rename_modal:
+      new_name_label: ''
+      title: ''
+      cancel: ''
+      new_name_placeholder: ''
+      save: ''
+    delete: ''
+    created: ''
+    authenticator_app: ''
+    passkeys_section: ''
+    passkey_deleted: ''
+    mfa_section: ''
+    passkey_renamed: ''
+    register_passkey: ''
+    passkeys_info: ''
+    never_used: ''
+    device_name_placeholder: ''
+    security_keys: ''
+    delete_modal:
+      confirmation: ''
+      cancel: ''
+      device_name: ''
+      delete: ''
+      title: ''
+    other_domain_info: ''
+    authenticator_app_description: ''
+    rename: ''
+    no_passkeys: ''
+    title: ''
+    email_password_section: ''
+    last_used: ''
+    change_password: ''
+    change_email: ''
+    domain_info: ''
+    passkeys_not_supported: ''
+    mfa_disabled: ''
+    passkey_registered: ''
+  two_fa_manage:
+    status_is: ''
+    disable_button: ''
+    inactive: ''
+    cancel: ''
+    close: ''
+    intro: ''
+    password_label: ''
+    num_backup_codes: ''
+    active: ''
+    title: ''
+    password_placeholder: ''
+    password_required: ''
+    totp_token_label: ''
+    totp_token_placeholder: ''
+    enable_button: ''
+    totp_required: ''
+  password_change:
+    submit: ''
+    success: ''
+    old_password_label: ''
+    confirm_password_label: ''
+    new_password_placeholder: ''
+    title: ''
+    cancel: ''
+    wrong_password: ''
+    confirm_password_placeholder: ''
+    new_password_must_be_trimmed: ''
+    explanation: ''
+    new_password_must_be_complex: ''
+    confirm_password_invalid: ''
+    new_password_required: ''
+    old_password_required: ''
+    old_password_placeholder: ''
+    new_password_label: ''
+  email_change:
+    wrong_password: ''
+    invalid: ''
+    password_placeholder: ''
+    not_changed: ''
+    new_email_label: ''
+    sent_other_user: ''
+    dashboard_link: ''
+    explanation_password: ''
+    confirm_email_label: ''
+    confirm_email_placeholder: ''
+    title: ''
+    explanation: ''
+    explanation_other_user: ''
+    domain: ''
+    question: ''
+    sent: ''
+    new_email_placeholder: ''
+    cancel: ''
+    done: ''
+    password_required: ''
+    occupied: ''
+    submit: ''
+    confirm_email_required: ''
+    insufficient_permission: ''
+    password_label: ''
+    question_other_user: ''
+  two_fa_enable:
+    tabs:
+      backup_codes: ''
+      tutorial: ''
+      qr_code: ''
+      confirm: ''
+    confirm:
+      instruction: ''
+      test_instruction: ''
+      title: ''
+      logout_notice: ''
+    next: ''
+    qrcode:
+      scan_instruction: ''
+      multi_device: ''
+      title: ''
+      label: ''
+    danger: ''
+    explanation: ''
+    generated_code_label: ''
+    secret_label: ''
+    failed: ''
+    apps:
+      description: ''
+      title: ''
+      info: ''
+    tutorial: ''
+    backup_codes:
+      info: ''
+      save_instruction: ''
+      title: ''
+      confirmation: ''
+      must_confirm: ''
+      label: ''
+    further_info: ''
+    activate: ''
+    secret_toggle: ''
+    password_info: ''
+    success: ''
+    title: ''
+  two_fa_disable:
+    confirm_text: ''
+    danger: ''
+    admin_description: ''
+    failed: ''
+    warning: ''
+    deactivate: ''
+    title: ''
+    success: ''
+  profile: ''
+  edit_other: ''
 email_template:
   newsletter:
     unsubscribe: Tu ne veux plus recevoir de lettres d’information ?
@@ -995,6 +1178,7 @@ terminology:
   achievements: Vignettes
   users: Utilisateurs
   resourcesAdmins: Équipe de la mosaïque de ressources
+  giving: ''
 register:
   activation_success: <strong>Activation réussie.</strong> Connecte-toi 
     maintenant avec ton adresse courriel et le mot de passe que tu as choisi.
@@ -1109,6 +1293,10 @@ login:
   resend_verification:
     email_invalid: Veuillez saisir une adresse e-mail.
     title: Confirmation de l'adresse courriel
+    success: ''
+    hint2: ''
+    submit: ''
+    hint1: ''
 legal:
   legal_agreement: Mentions légales
   privacy_notice: Charte relative à l’utilisation des données personnelles à 
@@ -1153,6 +1341,7 @@ store:
   chat:
     team: Message à l’équipe
     jumper: Message aux remplaçant·e·s
+    managers: ''
   bread: Toutes les coopérations
   request:
     to-nowhere: Refuser
@@ -1189,6 +1378,35 @@ store:
       unknown: adresse non valide
       close: moins de 500 m
       normal: environ {distance} km
+    needsStoreRegion:
+      link: ''
+      text: ''
+    alerts:
+      many_more: ''
+      many_less: ''
+      one_more: ''
+      one_less: ''
+    applicationSummary:
+      distance: ''
+      storeList: ''
+      verified: ''
+      text: ''
+      intro: ''
+      fullName: ''
+      time: ''
+    requireVerification:
+      link: ''
+      text: ''
+    requirePhone:
+      link: ''
+      text: ''
+    needsHomeRegion:
+      link: ''
+      text: ''
+    completeProfileRequired:
+      text: ''
+      link: ''
+    applicationMessageTooShort: ''
   sm:
     makeRegularTeamMember: Intégrer dans l’équipe
     makeJumper: Nommer remplaçant·e
@@ -1429,6 +1647,10 @@ store:
   passport_expires_soon: Ta carte de membre est encore valable pendant {days} 
     jours ! Contacte tes ambassad·rice·s pour la faire renouveler. Après 
     expiration, tu ne pourras plus t’inscrire ici.
+  my_last_slot: ''
+  delete:
+    button: ''
+    sure: ''
 storeview:
   want_to_fetch: J’aimerais m’engager dans cette équipe.
   specials: Procédure & instructions
@@ -1582,6 +1804,7 @@ menu:
     delete_read: Effacer tout ce qui a été lu
     applications: Applications ({count})
     public: Page publique du district
+    close_all_chats: ''
   bell:
     delete_read_confirmation:
       text: Tu veux vraiment supprimer {count} cloches lues ?
@@ -1665,6 +1888,7 @@ dashboard:
       coup d’œil sur
     for_support: Sinon, vous pouvez nous contacter sur
     for_release_notes: Vous trouverez les changements les plus importants sur
+  general-dates: ''
 profile:
   report:
     arbAdminAgainstRepAdmin: Tu es admin dans un groupe d’arbitrage et tu 
@@ -1781,6 +2005,9 @@ profile:
     fetch_count: collectes
     bananas: Bananes
     weight_unit: kg
+    give_count: ''
+    slots: ''
+    engagement_count: ''
   infos:
     foodsaverId: ID
     fetchrate: Quotat de collectes
@@ -1942,6 +2169,9 @@ pickuplist:
   week_tab: Semaine
   day_tab: Jour
   header_for_district: 'Répartition des collectes à {bezirk} '
+  really_delete_last_slot:
+    body: ''
+    title: ''
 pickup:
   edit:
     added: La collecte a été ajoutée.
@@ -2082,6 +2312,11 @@ pickup:
     membre de l’équipe.
   may_enter: Il y a une place disponible pour toi à cette date de ramassage.
   confirmed: La date d’enlèvement est confirmée.
+  slots: ''
+  chat: ''
+  passport_expired:
+    short: ''
+    long: ''
 events:
   bread: Évènements
   past: Évènements passés
@@ -2201,6 +2436,16 @@ chat:
     read: Marquer comme lu
     unread: Marquer comme non lu
   reply: Répondre
+  error:
+    sending_message: ''
+    loading_conversation: ''
+    renaming_conversation: ''
+  show_participants: ''
+  participants: ''
+  rename_empty_hint: ''
+  open_multi_chat: ''
+  rename_placeholder: ''
+  rename: ''
 timepicker:
   labelNowButton: Maintenant
   labelCloseButton: Fermer
@@ -2259,6 +2504,10 @@ storeedit:
     hygieneRequired: Autoriser la collecte uniquement avec une formation à 
       l’hygiène valable
     hygieneRequirement: Exigences d’hygiène
+    phoneRequirement: ''
+    applicationRequirements: ''
+    applyTextRequired: ''
+    verifiedRequired: ''
   store:
     status: Statut
   team:
@@ -2491,12 +2740,19 @@ search:
         1: Tu es présent à ce rendez-vous.
         0: Tu n’as pas indiqué si tu étais présent à ce rendez-vous.
       location_online: En ligne
+    relevance: ''
   maxresults: Le nombre de résultats affichés est limité. Utilisez peut-être un 
     terme de recherche plus spécifique.
   too_short: Veuillez saisir un terme de recherche plus long.
   scope:
     global: Recherche globale
     local: Recherche personnalisée
+  forum:
+    placeholder: ''
+    found:
+      body: ''
+      title: ''
+  thread-body-only: ''
 map:
   title: Carte
   donates: Établissement fait des donations ailleurs
@@ -2517,6 +2773,12 @@ map:
         member: seulement mes établissements
         all: tous
         label: Appartenance
+      type:
+        label: ''
+        2: ''
+        "null": ''
+        1: ''
+        0: ''
     users:
       role:
         all: tous
@@ -2621,6 +2883,7 @@ regionOptions:
   noPickupRuleActiveStores: Actuellement, la règle des coopérations 
     particulièrement populaires n’est activée pour aucune coopération dans le 
     district.
+  enableAddressChangeNotification: ''
 ageBandList:
   NumberOfAgeband: Nombre
   ageBand: Groupe d’âge
@@ -2747,6 +3010,19 @@ bell:
   new_resource:
     one: 'De {user} : « {title} »'
     many: '{count} nouvelles ressources'
+  delete_store_title: ''
+  foodsaver_adress_changed: ''
+  translation_failed:
+    md: ''
+    title: ''
+    key: ''
+    md_support: ''
+  delete_store: ''
+  poll_started_title: ''
+  poll_ending_soon: ''
+  foodsaver_adress_changed_title: ''
+  poll_ending_soon_title: ''
+  poll_started: ''
 personal_data:
   landline: Numéro de fixe
   mobile: Numéro de portable
@@ -2903,6 +3179,7 @@ startpage:
       les aliments ou qui proposent des formations sur le thème de l’alimentation
       doivent être soutenues.\n"
     title: Revendications
+    image_alt: ''
   near_you:
     text3:
       part2: Trouve les secteurs autour de toi
@@ -3702,6 +3979,7 @@ navigation:
   wiki: Wiki
   conversations: Messages
   news_from_it: Actualités et perturbations
+  toggle: ''
 information:
   calendar_sync:
     description: Tu peux ainsi voir tes prochaines dates de collecte avec le 
@@ -4183,6 +4461,24 @@ help:
         Dans cette représentation, tes possibilités de collecte sont regroupées par
         jour et présentées de manière un peu plus compacte. Si tu as beaucoup de possibilités
         de ramassage par jour, il est plus facile d’avoir une vue d’ensemble.\n"
+    commons_resources:
+      title: ''
+      md: ''
+    resource_mosaic:
+      title: ''
+      md: ''
+    similar_resources:
+      title: ''
+      md: ''
+    my_resources:
+      title: ''
+      md: ''
+    achievementDuplicateMode:
+      title: ''
+      md: ''
+    achievementVisibility:
+      title: ''
+      md: ''
 automatic_delete: '- le profil doit être supprimé.'
 automatic_not_delete: '- le profil doit être conservé.'
 no_automatic_delete: 'Si la dernière connexion remonte à plus de cinq ans :'
@@ -4238,6 +4534,8 @@ achievements:
     description: Description
     name: Nom
     validityInDaysAfterAssignment: Validité après l’attribution en jours
+    visibility_type: ''
+    duplicate_mode: ''
   awardedTo: Attribué à
   awardedNoReviewer: automatique
   inThis:
@@ -4248,6 +4546,24 @@ achievements:
   editDetails: Éditer les détails
   awarded: attribuée
   findUser: Trouver un(e) utilisat·rice
+  visibility_type_explanation:
+    scope: ''
+    store_managers: ''
+    private: ''
+    hidden: ''
+    global: ''
+  visibility_type:
+    private: ''
+    scope: ''
+    global: ''
+    store_managers: ''
+    hidden: ''
+  duplicate_mode:
+    override: ''
+    multiple: ''
+  duplicate_mode_explanation:
+    multiple: ''
+  scope: ''
 theme_switcher:
   content: Choisis ton design
   title: Choisir le design
@@ -4437,6 +4753,184 @@ resource_mosaic:
   privacy_notice:
     ok: Je suis d’accord
     title: Avis de confidentialité
+    text: ''
+  commons_resources_in: ''
+  editModal:
+    openness: ''
+    description_warning:
+      none: ''
+      short: ''
+      title: ''
+    name:
+      placeholder: ''
+      label: ''
+      max_length: ''
+    categories:
+      placeholder: ''
+      label: ''
+    is_restricted_to_region: ''
+    is_private: ''
+    description:
+      placeholder: ''
+      placeholder_commons: ''
+      label: ''
+  favorite: ''
+  filter:
+    favorites: ''
+    active: ''
+    home_region: ''
+  my_resources: ''
+  resource_not_found_warning: ''
+  message_modal:
+    intro: ''
+    request_for: ''
+    request_sent: ''
+    placeholder: ''
+    polite_info: ''
+    title: ''
+  search_placeholder: ''
+  no_commons_resources: ''
+  openness:
+    level_3: ''
+    level_4: ''
+    title: ''
+    level_5: ''
+    level_1: ''
+    level_2: ''
+  is_commons: ''
+  order:
+    sort_age: ''
+    sort_openness: ''
+    shuffle: ''
+  my_resources_in: ''
+  list_status:
+    none_in_region: ''
+    filter: ''
+    none_in_filter: ''
+    total: ''
+  add_commons: ''
+  confirm_delete: ''
+  other_resources:
+    commons: ''
+    own: ''
+    similar: ''
+    new: ''
+    other: ''
+  has_resources_elsewhere: ''
+  edit: ''
+  categories_filter_placeholder: ''
+  request_header: ''
+  favorite_tooltip: ''
+  max_resources: ''
+  no_own_resources: ''
+  message: ''
+  title: ''
+  is_private_hint: ''
+  add: ''
 test:
   vars: Je m’appelle {NAME} et j’ai {AGE} ans
   plain: Ceci est une traduction
+categories:
+  title:
+    resource: ''
+    store: ''
+  confirm_delete: ''
+  types:
+    0: ''
+    2: ''
+    1: ''
+    "null": ''
+  empty: ''
+  confirm_delete_hint:
+    store: ''
+    resource: ''
+  new: ''
+  delete: ''
+  edit: ''
+  columns:
+    name: ''
+    type: ''
+    id: ''
+    usage_count: ''
+    number_of_stores: ''
+  merge_hint: ''
+  merge: ''
+  merge_title: ''
+oauth:
+  error:
+    invalid_client: ''
+    unknown_error: ''
+    invalid_scope: ''
+    region_requirement_not_met: ''
+  remember:
+    title: ''
+    md: ''
+  action:
+    deny: ''
+    authorize: ''
+  admin:
+    public: ''
+    active: ''
+    type: ''
+    update_success: ''
+    regions: ''
+    delete_error: ''
+    redirect_uris_help: ''
+    confirm_delete: ''
+    confidential_client: ''
+    regenerate_secret: ''
+    create_success: ''
+    region_restriction_tooltip: ''
+    redirect_uris: ''
+    grant_types: ''
+    required_regions_help: ''
+    required_regions: ''
+    name: ''
+    confidential: ''
+    delete_warning: ''
+    title: ''
+    restrictions: ''
+    secret_save_warning: ''
+    confidential_help: ''
+    regenerate_secret_warning: ''
+    edit_client: ''
+    scopes: ''
+    delete_success: ''
+    no_region_restriction: ''
+    create_client: ''
+    load_error: ''
+    save_error: ''
+    secret_generated: ''
+    actions: ''
+    confirm_save_secret: ''
+    identifier: ''
+    no_restrictions: ''
+  authorize:
+    title: ''
+    requested_permissions: ''
+    redirect_notice: ''
+  scopes:
+    openid:
+      title: ''
+    regions:
+      title: ''
+      md: ''
+    email:
+      title: ''
+    profile:
+      title: ''
+      md: ''
+  title: ''
+sort:
+  sort_by: ''
+  options:
+    updated_at: ''
+    name: ''
+    date: ''
+    relevance: ''
+    created_at: ''
+network_errors:
+  csrf_token_invalid:
+    title: ''
+    text: ''
+totp_code: ''

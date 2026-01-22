@@ -758,6 +758,9 @@ profile:
     fetch_count: picked up
     bananas: Bananas
     weight_unit: kg
+    give_count: ''
+    slots: ''
+    engagement_count: ''
   infos:
     buddies: buddies
     never: Never
@@ -2320,6 +2323,12 @@ map:
         region: only my districts
         member: only my stores
         label: Belonging
+      type:
+        label: ''
+        2: ''
+        "null": ''
+        1: ''
+        0: ''
     users:
       role:
         label: Role
@@ -3427,6 +3436,7 @@ dashboard:
     for_news_from_it: If there are any questions or challenges, first look at
     for_support: Otherwise you can contact us at
     for_release_notes: You can find the most important changes at
+  general-dates: ''
 right: Score
 ansprechpartner: Store contact person (store manager, etc.)
 stats:
@@ -4767,6 +4777,8 @@ categories:
     id: ID
     name: Name
     usage_count: Usage count
+    type: ''
+    number_of_stores: ''
   title:
     store: Store categories
     resource: Resource categories
@@ -4784,6 +4796,11 @@ categories:
     resource: There are still {count} resources assigned to this category. These
       resources will lose this category.
   new: Add new category
+  types:
+    0: ''
+    2: ''
+    1: ''
+    "null": ''
 resource_mosaic:
   title: Resource Mosaic
   my_resources: My resources

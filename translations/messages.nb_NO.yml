@@ -540,6 +540,7 @@ menu:
     delete_read: Slett alle lesninger
     applications: Søknader ({count})
     public: Offentlig distriktsside
+    close_all_chats: ''
   bell:
     delete_read_confirmation:
       text: Vil du virkelig slette {count} leseklokker?
@@ -638,6 +639,10 @@ basket:
     text: Vil du virkelig slette denne matkurven?
     title: Tømmer du matkurven?
   until: 'Gyldig til:'
+  error:
+    map: ''
+    register: ''
+    taken: ''
 team:
   current: Team
 home:
@@ -718,6 +723,7 @@ dashboard:
     for_news_from_it: Hvis det er noen spørsmål eller utfordringer, se først på
     for_support: Ellers kan du kontakte oss på
     for_release_notes: Du finner de viktigste endringene på
+  general-dates: ''
 search:
   placeholder: Søk nå …
   title: Søk
@@ -778,12 +784,19 @@ search:
         1: Du har bekreftet datoen.
         0: Du har ikke oppgitt om du vil være på dette arrangementet.
       location_online: Online
+    relevance: ''
   maxresults: Antallet resultater som vises er begrenset. Bruk kanskje et mer 
     spesifikt søkeord.
   too_short: Skriv inn et lengre søkeord.
   scope:
     global: Globalt søk
     local: Brukerspesifikt søk
+  forum:
+    placeholder: ''
+    found:
+      body: ''
+      title: ''
+  thread-body-only: ''
 profile:
   public:
     mayNot: ikke aktiv
@@ -802,6 +815,9 @@ profile:
     bananas: Bananer
     fetch_count: innsamlet
     weight_unit: kg
+    give_count: ''
+    slots: ''
+    engagement_count: ''
   infos:
     buddies: bekjente
     fsMail: Intern postkasse
@@ -1187,6 +1203,176 @@ settings:
     general: Her kan du justere profildataene dine.
     verified: Du kan ikke redigere navn og fødselsdato. Du kan imidlertid be en 
       ambassadør om å endre denne informasjonen for deg.
+  account_security:
+    unnamed_passkey: ''
+    error:
+      operation_cancelled: ''
+      authenticator_already_registered: ''
+      rename_failed: ''
+      deletion_failed: ''
+      registration_failed: ''
+      name_required: ''
+      webauthn_not_supported: ''
+      operation_aborted: ''
+    security_keys_description: ''
+    mfa_enabled: ''
+    register_modal:
+      title: ''
+      register: ''
+      device_name_description: ''
+      cancel: ''
+      device_name_placeholder: ''
+      device_name_label: ''
+    rename_modal:
+      new_name_label: ''
+      title: ''
+      cancel: ''
+      new_name_placeholder: ''
+      save: ''
+    delete: ''
+    created: ''
+    authenticator_app: ''
+    passkeys_section: ''
+    passkey_deleted: ''
+    mfa_section: ''
+    passkey_renamed: ''
+    register_passkey: ''
+    passkeys_info: ''
+    never_used: ''
+    device_name_placeholder: ''
+    security_keys: ''
+    delete_modal:
+      confirmation: ''
+      cancel: ''
+      device_name: ''
+      delete: ''
+      title: ''
+    other_domain_info: ''
+    authenticator_app_description: ''
+    rename: ''
+    no_passkeys: ''
+    title: ''
+    email_password_section: ''
+    last_used: ''
+    change_password: ''
+    change_email: ''
+    domain_info: ''
+    passkeys_not_supported: ''
+    mfa_disabled: ''
+    passkey_registered: ''
+  two_fa_manage:
+    status_is: ''
+    disable_button: ''
+    inactive: ''
+    cancel: ''
+    close: ''
+    intro: ''
+    password_label: ''
+    num_backup_codes: ''
+    active: ''
+    title: ''
+    password_placeholder: ''
+    password_required: ''
+    totp_token_label: ''
+    totp_token_placeholder: ''
+    enable_button: ''
+    totp_required: ''
+  password_change:
+    submit: ''
+    success: ''
+    old_password_label: ''
+    confirm_password_label: ''
+    new_password_placeholder: ''
+    title: ''
+    cancel: ''
+    wrong_password: ''
+    confirm_password_placeholder: ''
+    new_password_must_be_trimmed: ''
+    explanation: ''
+    new_password_must_be_complex: ''
+    confirm_password_invalid: ''
+    new_password_required: ''
+    old_password_required: ''
+    old_password_placeholder: ''
+    new_password_label: ''
+  email_change:
+    wrong_password: ''
+    invalid: ''
+    password_placeholder: ''
+    not_changed: ''
+    new_email_label: ''
+    sent_other_user: ''
+    dashboard_link: ''
+    explanation_password: ''
+    confirm_email_label: ''
+    confirm_email_placeholder: ''
+    title: ''
+    explanation: ''
+    explanation_other_user: ''
+    domain: ''
+    question: ''
+    sent: ''
+    new_email_placeholder: ''
+    cancel: ''
+    done: ''
+    password_required: ''
+    occupied: ''
+    submit: ''
+    confirm_email_required: ''
+    insufficient_permission: ''
+    password_label: ''
+    question_other_user: ''
+  two_fa_enable:
+    tabs:
+      backup_codes: ''
+      tutorial: ''
+      qr_code: ''
+      confirm: ''
+    confirm:
+      instruction: ''
+      test_instruction: ''
+      title: ''
+      logout_notice: ''
+    next: ''
+    qrcode:
+      scan_instruction: ''
+      multi_device: ''
+      title: ''
+      label: ''
+    danger: ''
+    explanation: ''
+    generated_code_label: ''
+    secret_label: ''
+    failed: ''
+    apps:
+      description: ''
+      title: ''
+      info: ''
+    tutorial: ''
+    backup_codes:
+      info: ''
+      save_instruction: ''
+      title: ''
+      confirmation: ''
+      must_confirm: ''
+      label: ''
+    further_info: ''
+    activate: ''
+    secret_toggle: ''
+    password_info: ''
+    success: ''
+    title: ''
+  two_fa_disable:
+    confirm_text: ''
+    danger: ''
+    admin_description: ''
+    failed: ''
+    warning: ''
+    deactivate: ''
+    title: ''
+    success: ''
+  profile: ''
+  edit_other: ''
 mailbox:
   date: Dato
   recipient: Mottaker
@@ -1281,6 +1467,12 @@ map:
         all: alle
         region: bare mine distrikter
         member: bare bedriftene mine
+      type:
+        label: ''
+        2: ''
+        "null": ''
+        1: ''
+        0: ''
     users:
       role:
         label: Rolle
@@ -1561,6 +1753,8 @@ bell:
       `{bellKey}`"
     md_support: Hvis du mener dette er en feil, kan du rapportere det til 
       [support](/support)
+  delete_store_title: ''
+  delete_store: ''
 reports:
   time: Tidspunkt
   message: Beskrivelse
@@ -1680,6 +1874,9 @@ login:
     expired: Beklager, du ventet litt for lenge. Vennligst be om et nytt passord
       på nytt.
     mismatch: Beklager, passordene stemmer ikke overens.
+    request_new: ''
+    invalidCode: ''
+    token_invalid: ''
   logout: Logg ut
   save_password: Lagre passord
   login_button_label: Logg Inn
@@ -1694,6 +1891,17 @@ login:
   error_no_auth: Beklager, vi finner ikke denne e-postadressen eller passordet. 
     Vær så snill, prøv på nytt.
   steady_login: Forbli pålogget permanent
+  or: ''
+  resend_verification:
+    success: ''
+    email_invalid: ''
+    hint2: ''
+    title: ''
+    submit: ''
+    hint1: ''
+  error_not_activated: ''
+  2fa: ''
+  passkey_btn: ''
 salutation:
   "3": Kjære
   "2": Kjære
@@ -1722,6 +1930,8 @@ legal:
     legal_2: Lover om oppbevaringsperioder (side på tysk)
   button:
     agree: Akseptere
+  latest_change: ''
+  show_changes: ''
 group:
   show-all: Vis alt
   function:
@@ -1806,6 +2016,7 @@ group:
     how_much_time: Hvor mange timer i uken har du tid og lyst til å bruke til 
       det?
     error_missing_time: 'Feil: Ingen tid er valgt.'
+    deny: ''
   contact:
     send: Sende melding
     sent: Meldingen ble sendt.
@@ -1956,6 +2167,7 @@ group:
   userId: ID
   filter_placeholder: Filtrer grupper etter navn
   valid_until: gyldig til
+  confirm_decline: ''
 bcard:
   generate: Lag visittkort
   for: '{role} i {region}'
@@ -2271,6 +2483,15 @@ chat:
     unread: Merk som ulest
   reply: Svar
   open_multi_chat: Send melding til teamlederne
+  error:
+    sending_message: ''
+    loading_conversation: ''
+    renaming_conversation: ''
+  show_participants: ''
+  participants: ''
+  rename_empty_hint: ''
+  rename_placeholder: ''
+  rename: ''
 forum:
   thread:
     title: Tittel
@@ -2523,6 +2744,8 @@ pickup:
   passport_expired:
     short: Medlemskortet er utløpt
     long: Medlemskortet ditt er ikke lenger gyldig for øyeblikket
+  slots: ''
+  chat: ''
 storeedit:
   fetch:
     teamStatus: lagstatus
@@ -2532,6 +2755,10 @@ storeedit:
       hjelpere
     hygieneRequirement: Hygienekrav
     hygieneRequired: Tillat kun henting med gyldig hygieneopplæring
+    phoneRequirement: ''
+    applicationRequirements: ''
+    applyTextRequired: ''
+    verifiedRequired: ''
   store:
     status: Status
   team:
@@ -2638,6 +2865,35 @@ store:
       unknown: ingen gyldig adresse
       close: mindre enn 500 m
       normal: omtrent {distance} km
+    needsStoreRegion:
+      link: ''
+      text: ''
+    alerts:
+      many_more: ''
+      many_less: ''
+      one_more: ''
+      one_less: ''
+    applicationSummary:
+      distance: ''
+      storeList: ''
+      verified: ''
+      text: ''
+      intro: ''
+      fullName: ''
+      time: ''
+    requireVerification:
+      link: ''
+      text: ''
+    requirePhone:
+      link: ''
+      text: ''
+    needsHomeRegion:
+      link: ''
+      text: ''
+    completeProfileRequired:
+      text: ''
+      link: ''
+    applicationMessageTooShort: ''
   team_conversation_name: '{name}-laget'
   appliedFor: Forespørsel fremsatt
   bread: Alle virksomheter
@@ -2835,6 +3091,10 @@ store:
   passport_expires_soon: Medlemskortet ditt er gyldig i ytterligere {days} 
     dager! Kontakt ambassadørene dine for å fornye det. Etter at det utløper, 
     kan du ikke registrere deg her igjen.
+  my_last_slot: ''
+  delete:
+    button: ''
+    sure: ''
 storeview:
   status: Nåværende status
   public_time_at_night: om natten
@@ -3072,6 +3332,7 @@ terminology:
   sent: Sendt
   users: Brukere
   resourcesAdmins: Ressursmosaikkteamet
+  giving: ''
 gender:
   d: mangfoldig
   f: Fru
@@ -3531,6 +3792,7 @@ navigation:
   profil: 👋 Hei {name}!
   system_administration: Systemadministrasjon
   news_from_it: Nyheter og forstyrrelser
+  toggle: ''
 error:
   mail_bounce:
     link_2: Jeg trenger hjelp
@@ -4009,12 +4271,23 @@ help:
       title: Hentingsmuligheter
     resource_mosaic:
       title: Ressursmosaikk
+      md: ''
     my_resources:
       title: Egne ressurser
+      md: ''
     similar_resources:
       title: Lignende ressurser
       md: Du vil bli vist opptil 10 andre ressurser som lignende ressurser, der 
         de **samme kategoriene** er angitt.
+    commons_resources:
+      title: ''
+      md: ''
+    achievementDuplicateMode:
+      title: ''
+      md: ''
+    achievementVisibility:
+      title: ''
+      md: ''
   helpTitle: 'Hjelp: {title}'
   tooltip: Vis hjelp
 team_page:
@@ -4083,9 +4356,29 @@ achievements:
     icon: Ikon
     validityInDaysAfterAssignment: Gyldig etter utstedelse i dager
     preview: Forhåndsvisning
+    visibility_type: ''
+    duplicate_mode: ''
   deleteConfirmation: Vil du virkelig slette denne klistremerke?
   editTitle: Rediger klistremerke
   noneInThisRegion: Det er ingen klistremerker registrert i denne regionen ennå.
+  visibility_type_explanation:
+    scope: ''
+    store_managers: ''
+    private: ''
+    hidden: ''
+    global: ''
+  visibility_type:
+    private: ''
+    scope: ''
+    global: ''
+    store_managers: ''
+    hidden: ''
+  duplicate_mode:
+    override: ''
+    multiple: ''
+  duplicate_mode_explanation:
+    multiple: ''
+  scope: ''
 error_base64_image: Det er ikke tillatt å sette inn bilder ved hjelp av dra og 
   slipp.
 support_page:
@@ -4256,6 +4549,8 @@ categories:
     id: ID
     name: Navn
     usage_count: Brukstall
+    type: ''
+    number_of_stores: ''
   title:
     store: Driftskategorier
     resource: Ressurskategorier
@@ -4273,6 +4568,11 @@ categories:
     resource: Det er fortsatt {count} ressurser tilordnet denne kategorien. 
       Disse ressursene vil miste denne kategorien.
   new: Legg til ny kategori
+  types:
+    0: ''
+    2: ''
+    1: ''
+    "null": ''
 resource_mosaic:
   title: Ressursmosaikk
   my_resources: Mine ressurser
@@ -4289,6 +4589,7 @@ resource_mosaic:
     own: Dine andre ressurser
     similar: Lignende ressurser
     new: Alle nye ressurser i dette distriktet
+    commons: ''
   editModal:
     name:
       label: Navn
@@ -4300,6 +4601,7 @@ resource_mosaic:
       label: Beskrivelse
       placeholder: Gi ytterligere informasjon slik at andre kan få en klar idé 
         om hva du ønsker å støtte. Du kan også legge ved bilder.
+      placeholder_commons: ''
     categories:
       label: Kategorier
       placeholder: Velg kategorier…
@@ -4312,6 +4614,7 @@ resource_mosaic:
       none: Du har ikke oppgitt en beskrivelse av ressursen din. Er du sikker på
         at andre brukere kan forstå hva ressursen din handler om, slik at de kan
         spørre deg spesifikt om den?
+    is_restricted_to_region: ''
   is_private_hint: Denne ressursen vil kun vises til venner.
   confirm_delete: Vil du virkelig slette denne ressursen?
   no_own_resources: Du har ikke spesifisert noen ressurser ennå. Du kan nå legge
@@ -4360,6 +4663,12 @@ resource_mosaic:
       når som helst. Du kan også begrense synligheten til ressursene dine, slik 
       at bare vennene dine har tilgang til dem.
     ok: Jeg er enig
+  commons_resources_in: ''
+  no_commons_resources: ''
+  is_commons: ''
+  my_resources_in: ''
+  add_commons: ''
+  has_resources_elsewhere: ''
 debug:
   title: Feilsøkingsside
   info: Dette er en feilsøkingsside for feilsøkingsformål. Hvis du ikke vet hva 
@@ -4367,3 +4676,81 @@ debug:
 test:
   plain: Dette er en oversettelse
   vars: Jeg heter {NAME}, og jeg er {AGE} år gammel
+oauth:
+  error:
+    invalid_client: ''
+    unknown_error: ''
+    invalid_scope: ''
+    region_requirement_not_met: ''
+  remember:
+    title: ''
+    md: ''
+  action:
+    deny: ''
+    authorize: ''
+  admin:
+    public: ''
+    active: ''
+    type: ''
+    update_success: ''
+    regions: ''
+    delete_error: ''
+    redirect_uris_help: ''
+    confirm_delete: ''
+    confidential_client: ''
+    regenerate_secret: ''
+    create_success: ''
+    region_restriction_tooltip: ''
+    redirect_uris: ''
+    grant_types: ''
+    required_regions_help: ''
+    required_regions: ''
+    name: ''
+    confidential: ''
+    delete_warning: ''
+    title: ''
+    restrictions: ''
+    secret_save_warning: ''
+    confidential_help: ''
+    regenerate_secret_warning: ''
+    edit_client: ''
+    scopes: ''
+    delete_success: ''
+    no_region_restriction: ''
+    create_client: ''
+    load_error: ''
+    save_error: ''
+    secret_generated: ''
+    actions: ''
+    confirm_save_secret: ''
+    identifier: ''
+    no_restrictions: ''
+  authorize:
+    title: ''
+    requested_permissions: ''
+    redirect_notice: ''
+  scopes:
+    openid:
+      title: ''
+    regions:
+      title: ''
+      md: ''
+    email:
+      title: ''
+    profile:
+      title: ''
+      md: ''
+  title: ''
+sort:
+  sort_by: ''
+  options:
+    updated_at: ''
+    name: ''
+    date: ''
+    relevance: ''
+    created_at: ''
+network_errors:
+  csrf_token_invalid:
+    title: ''
+    text: ''
+totp_code: ''
