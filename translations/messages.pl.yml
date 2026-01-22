@@ -337,6 +337,9 @@ settings:
   calendar:
     program:
       apple: Apple Kalendarz
+      thunderbird: Mozilla Thunderbird
+      etar: Etar
+      other: Coś innego
     menu: Kalendarz
     export: Eksportuj kalendarz
     delete_token:
@@ -351,6 +354,8 @@ settings:
       6_hours: 6 godzin przed
       12_hours: 12 godzin przed
       1_day: 1 dzień przed
+    formatting:
+      html: HTML
   no_rights: Nie masz uprawnień, aby zmienić ustawienia profilu.
   edit_other: Zmień ustawienia profilu {name}
   title: Ustawienia
@@ -451,6 +456,12 @@ settings:
     confirm_password_placeholder: Powtórz hasło
     title: Zmień hasło
     old_password_label: Obecne hasło
+    old_password_placeholder: Twoje aktualne hasło
+    old_password_required: Musisz podać swoje aktualne hasło
+    new_password_label: Nowe hasło
+    cancel: Anuluj
+    submit: Zmień hasło
+    success: Twoje hasło zostało pomyślnie zmienione
   passport:
     menu: legitymacja członkowska
     renew: Odnów legitymację
@@ -1657,6 +1668,8 @@ map:
       scope:
         label: Przynależność
         all: wszystkie
+      type:
+        label: Typ
     users:
       role:
         label: rola
@@ -1705,6 +1718,7 @@ mailbox:
   failed: Nie można było wysłać maila.
   reply:
     short: Odpowiedz
+    full: Odpowiedz
   reply_all: Odpowiedz wszystkim
   forward: Przekaż dalej
   signature: Wiadomość z {date}
@@ -1734,6 +1748,8 @@ mailbox:
   tag_recipient_hint: Odbiorcy (rozdzieleni średnikiem)
   reply_header: '{name} napisał/a dnia {date}'
   mailsend_unsuccess: Nie można było wysłać maila. {error}
+  member: Użytkownik/czka skrzynki mailowej
+  write: Nowy mail
 profile:
   sections:
     ambassador_for: dla

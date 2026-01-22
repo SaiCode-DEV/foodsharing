@@ -46,8 +46,8 @@ store:
     confirm-no-location-ok: Candidatar mesmo assim
     application-message: Mensagem de candidatura
     application-placeholder: Gostaria de ajudar na esta equipa porque …
-    hygieneRequired: É necessária uma formação válida em higiene para as 
-      recolhas desta empresa.
+    hygieneRequired: É necessária uma formação válida em higiene para desta 
+      empresa.
     hygieneMissing: Esse está a faltar actualmente. Responda ao questionário de 
       higiene agora para poderia candidatar a esta equipa.
     distance_short:
@@ -111,18 +111,18 @@ store:
     message:
       6: '{actor} adicionou {target} à equipa.'
       1: '{actor} fez um pedido de adesão.'
-      14: '{actor} confirmou o horário de recolha de {target} no dia {date}.'
+      14: '{actor} confirmou o assento de {target} no dia {date}.'
       3: '{actor} aceitou o pedido de afiliação de {target}.'
       4: '{actor} adicionou {target} á equipa sem solicitar.'
-      11: '{actor} registou-se para ser recolhido no dia {date}.'
+      11: '{actor} registou-se para no dia {date}.'
       7: '{actor} eliminou {target} da equipa.'
-      13: '{actor} cancelau {target} para recolha em {date}.'
-      13_with_reason: '{actor} cancelau {target} para recolha em {date} com a seguinte
+      13: '{actor} cancelau {target} para no dia {date}.'
+      13_with_reason: '{actor} cancelau {target} para no dia {date} com a seguinte
         mensagem'
       8: '{actor} deixou a equipa.'
       16: '{actor} retirou o pedido de filiação.'
       10: '{actor} demitiu {target} do eliminar de responsável de empresa.'
-      12: '{actor} cancelou a recolha em {date}.'
+      12: '{actor} descreu-se para o dia {date}.'
       2: '{actor} rejeitou o pedido de afiliação de {target}.'
       5: '{actor} colocou {target} na lista de substitutos.'
       9: '{actor} designou {target} como responsável pela cooperação.'
@@ -135,18 +135,18 @@ store:
       3: 'Aceitar solicitações de adesão'
       2: 'Recursar solicitações de adesão'
       7: 'Foodsaver aus dem Team entfernen'
-      14: 'Confirmar a hora de recolha'
+      14: 'Confirmar o assento'
       1: 'Fazer uma solicitação de adesão'
       16: 'Retirar o pedido de affiliação'
       8: 'Abandonar a equipa'
       4: 'Adicionar Foodsaver ao equipa sem a solicitação'
       10: 'Eliminar os responsáveis de empresa'
       6: 'Adicionar Foodsaver ao equipa ativo'
-      12: 'Cancelar para recolha'
+      12: 'Cancelar para assento'
       9: 'Inscrever o responsável de empresa'
       5: 'Passar Foodsaver para a lista de suplentes'
-      13: 'Ser cancelado da recolha'
-      11: 'Inscrever pela a recolha'
+      13: 'Ser cancelado do assento'
+      11: 'Inscrever pela o assento'
       15: 'Apagar a entrada de pinboard'
       17: Convidar Foodsaver para a equipa
       18: Retirar convites de equipa
@@ -183,8 +183,8 @@ store:
       default: Classificação standard
       pickup: ordenada pela última recolha
       distance: Ordenado por distância
-    userHasPickupsWarning: '{name} ainda está registado para recolher {occupiedSlots}
-      nesta empresa. Estes horários ficarão livres. Deseja continuar?'
+    userHasPickupsWarning: '{name} ainda está registado para {occupiedSlots} assentos
+      nesta empresa. Estes assentos ficarão livres. Deseja continuar?'
     inviteMember: Convidar na equipa
     demoteAsManagerConfirm: Quer mesmo abdicar da tua responsabilidade pela este
       cooperação?
@@ -212,7 +212,7 @@ store:
     managers: Mensagem para os responsávels pela a empresa
   isAppliedForTeam: 'Solicitação'
   locked: 'Não pode editar esta loja.'
-  lastPickup: 'Última recolha {date}'
+  lastPickup: 'Última Assento {date}'
   team_container: 'Equipe'
   managing: 'Responsabilidade de cooperação'
   prefetchthree: '3 semanas'
@@ -221,7 +221,7 @@ store:
   prefetchtwo: '2 semanas'
   particularities: 'Procedimento e instruções'
   noPickup: 'Nunca recolheu nada aqui.'
-  tooltip_red: 'Recolhas disponíveis hoje e amanha'
+  tooltip_red: 'Assentos disponíveis hoje e amanha'
   active: 'Activo'
   one_active: 'Activo'
   not-in-team: 'Ainda não estás na equipa desta empresa.'
@@ -229,7 +229,7 @@ store:
   allStoresOfRegion: 'Todas as empresas do distrito'
   willgetcontacted: 'Atualmente, está na lista dos substitutos. Entraremos em contacto
     consigo assim que precisarmos de ajuda.'
-  slot_state: 'Estado de Slot'
+  slot_state: 'Estado de assento'
   delete_date_description: 'Caso utilize intervalos regulares (recorrentes semanalmente
     de forma automática) na tua empresa e deseje evitar que uma data específica seja
     criada (por exemplo, um feriado), pode fazê-lo especificando a data e a hora com
@@ -238,24 +238,24 @@ store:
   complete: 'base de dados completa'
   address: 'Endereço'
   days_before: 'há'
-  tooltip_orange: 'Recolhas disponíveis nos próximos tres dias'
+  tooltip_orange: 'Assentos disponíveis nos próximos tres dias'
   attribution: 'Atribuição'
   useRegionPickupRules: 'Esta é uma empresa muito popular. Além das regras internas
     da empresa, aplicam-se as seguintes restrições às inscrições:'
-  short_tooltip_red: 'Recolhas disponíveis hoje e amanha'
-  regionPickupRulesInactive: 'As regras adicionais do distrito para recolhas não estão
-    ativas'
+  short_tooltip_red: 'Assentos disponíveis hoje e amanha'
+  regionPickupRulesInactive: 'As regras adicionais do distrito para os assentos não
+    estão ativas'
   maxchar: '(máx. 180 caracteres)'
-  short_tooltip_orange: 'Recolhas disponíveis em 3 dias'
+  short_tooltip_orange: 'Assentos disponíveis em 3 dias'
   regionPickupRules: 'Regra adicional para empresas populares'
   tooltip_jumping: 'Tu é o substituto por está empresa'
   member: 'Membro'
   tooltip_managing: 'Tu és responsável por esta cooperação'
   addNewStoresButton: 'Adicionar nova empresa'
-  enternumber: 'Ainda tens de selectionar o número dos recolheiros.'
-  nodetails: 'Não indique aqui horários exatos para a recolha.'
+  enternumber: 'Ainda tens de selectionar o número de assentos.'
+  nodetails: 'Não indique aqui horários exatos para o assento.'
   teamName: '(storeTitle) equipe'
-  enter_date: 'Inscrever data de recolha individual'
+  enter_date: 'Inscrever um assento individual'
   ownStores: 'Empresas próprias'
   mayManage: 'Aprovou o exame de responsáveis das empresas.'
   go: 'Para a equipa'
@@ -265,7 +265,7 @@ store:
   filter: 'Filtrar por …'
   regionPickupRuleLong: 'No prazo de {regionPickupRuleTimespan} dias antes e depois
     da data de recolha desejada, não podem ter sido registadas mais de {regionPickupRuleLimit}
-    recolhas em empresas populares. Podem ser realizadas no máximo {regionPickupRuleLimitDay}
+    assentos em empresas populares. Podem ser realizadas no máximo {regionPickupRuleLimitDay}
     recolhas por dia nessas empresas. {regionPickupRuleInactive} horas antes da recolha,
     esta regra deixa de ser aplicável.'
   isJumper: 'Está en la lista dos substitutos.'
@@ -274,38 +274,38 @@ store:
   nochains: 'Por favor, contacte apenas empresas geridas pelos proprietários com,
     no máximo, três filiais, nunca contacte filiais de uma cadeia maior! Respeite
     as regras da cadeia de empresas!'
-  enter_date_description: 'Depois de selecionar a data, a hora e o número de pessoas
-    que serão recolhidas, pode definir horários únicos para este compromisso. Se desejar
-    criar horários regulares (recorrentes automaticamente todas as semanas), utilize
-    o menu "configurações da empresa".'
-  tooltip_yellow: 'Recolhas disponíveis nos próximos cinco dias'
+  enter_date_description: 'Depois de selecionar a data, a hora e o número de assentos,
+    pode definir horários únicos para este compromisso. Se desejar criar horários
+    regulares (recorrentes automaticamente todas as semanas), utilize o menu "configurações
+    da empresa".'
+  tooltip_yellow: 'Assentos disponíveis nos próximos cinco dias'
   joinDate: 'Na equipa desde {data}'
   peoplecame: 'Muitas vezes já aconteceu de pessoas irem à loja sem aviso prévio.'
   may_referred_to_in_public: 'Esta cooperação pode ser mencionada publicamente.'
   noStores: 'Ainda não há empresas inscritas'
-  short_tooltip_yellow: 'Recolhas disponíveis em cinco dias'
+  short_tooltip_yellow: 'Assentos disponíveis em cinco dias'
   info_container: 'Informações'
-  not_verified: 'Não está verificado. Portanto, ainda não pode ver as datas de recolha
-    nem os números de telefone dos membros da equipa.'
+  not_verified: 'Não está verificado. Portanto, ainda não pode ver os assentos nem
+    os números de telefone dos membros da equipa.'
   unverified_member: 'não verificado'
   particularities_chain_tooltip: 'Esta empresa é o parte de uma cadeia. Por isso,
     são apresentadas estas informações adicionais, que se aplicam a todos os estabelecimentos
     desta cadeia.'
   all_of_my_stores: 'Todas as minhas empresas'
-  delete_date: 'Eliminar evento de recolha individual'
+  delete_date: 'Eliminar assento individual'
   unknownDate: 'desconhecido'
-  average_collection_quantity: 'Quantidade da recolha por pessoa'
+  average_collection_quantity: 'Quantidade por pessoa'
   team_conversation_name: 'Equipa {name}'
   lastPickupShort: 'última vez {date}'
-  pickup_slot_unavailable: 'Este slot está mais distante no futuro do que os responsáveis
+  pickup_slot_unavailable: 'Este assento está mais distante no futuro do que os responsáveis
     desta empresa pretendiam. Por isso, tente novamente mais tarde.'
   smneeded: 'Para criar uma empresa, tens de ser responsabilizar pelas cooperações.'
   invitations: Convites abertos ({count})
   deactivatedRegion: A lista de empresas ainda não pode ser apresentada para 
     países e continentes.
   storeFrom: Empresa de {name}
-  lastPickupTitle: Última recolha aqui
-  slotsCurrentlyOccupied: Slots atualmente ocupados
+  lastPickupTitle: Última Assento aqui
+  slotsCurrentlyOccupied: Assentos atualmente ocupados
   invited: Convidado
   may_referred_to_in_public_unclear: Ainda não esclarecido
   invitation:
@@ -337,9 +337,10 @@ store:
       específicas da empresa, exceto o registo da empresa, serão eliminadas. Por
       favor, apagine apenas empresas que realmente já não existem ou que foram 
       registadas duas vezes. As empresas que cancelaram uma cooperação devem 
-      permanecer registadas. Só podem ser eliminadas empresas nas quais nunca 
-      tenha ocorrido uma recolha alimentar e cujos chats de equipa não tenham 
-      sido utilizados durante pelo menos 3 meses.
+      permanecer registadas. Só é possível eliminar empresas nas quais nunca foi
+      ocupada uma assento e cujos chats de equipa não tenham sido utilizados 
+      durante pelo menos 3 meses.
+  my_last_slot: O meu assento último
 navigation:
   profil: 👋 Olá {name}!
   conversations: ''
@@ -382,13 +383,13 @@ bell:
   forum_new_thread: 'de {user} no fórum {forum}'
   store_new_title: 'Empresa nova'
   sharepoint_activate_title: 'Cantinho solidário novo em {bezirk}'
-  store_cr_times: 'Os prazos de recolha foram coregadas'
+  store_cr_times: 'Os assentos foram coregadas'
   new_foodsaver_verified: 'yá verificado - pode dar início'
   buddy_request: '{name} conhece-te.'
   poll_new_title: 'Votação nova'
   banana_given: '{name} ofereceu-te uma banana da confiança.'
   foodsaver_verified: 'Faça o download do teu cartão de membro em …'
-  store_new: '{name} foi registrado'
+  store_new: '{name} foi registado'
   new_foodsaver_verified_title: '{name} é novo em {bezirk}'
   betrieb_fetch: '{count} recolhas no confirmádas'
   store_wallpost: 'Publicação nova no pinboard.'
@@ -456,8 +457,8 @@ bell:
   poll_ending_soon: A Votação termina em breve e ainda não votaste.
   store_wall_post_title: Empresa {name}
   store_change_regular_pickup_times:
-    one: Os prazos de recolha foram coregadas
-    many: Os prazos de recolha foram coregadas
+    one: Os assentos foram coregadas
+    many: Os assentos foram coregados
   new_quiz_comment:
     one: '{user}: {comment}'
     many: '{count} comentários novos'
@@ -520,6 +521,8 @@ email_template:
   confirm_BOT: ''
   information: ''
   confirm_link: ''
+  fetch_warning:
+    empty_slots: '%COUNT% vagas assentos para recolha'
 footer:
   meta:
     version: 'Versão: {version}'
@@ -584,8 +587,8 @@ dashboard:
     groups: 'Os tues grupos'
     jumping_stores: 'As tuas empresas substitutas'
     managing_stores: 'As tuas responsabilidades corporativas'
-    pickups: Datas de recolha
-    pickupOptions: Possibilidades de recolha
+    pickups: Assentos registados
+    pickupOptions: Opções de inscrição
   greeting_short: 'Olá {name}!'
   source_store: 'Empresas {0}'
   release:
@@ -629,6 +632,7 @@ dashboard:
   title: 'Painel de controlo'
   polls: 'As tuas votações em curso'
   source_event: 'Cita {0}'
+  general-dates: Próximos assentos reservados
 storeview:
   groceries:
     select_tag: 'Selecione a categoria de alimentos'
@@ -646,7 +650,7 @@ storeview:
   want_to_fetch: 'Gostaria de ajudar esta equipa.'
   source_data: 'Datos de base'
   public_and_statistics: 'Estatísticas & relações públicas'
-  team: 'Equipa de recolha'
+  team: 'Equipa de empresa'
   cooperation_status: 'Estado de cooperação'
   invalid_field: 'Teor inválido no campo do formulário. Não é possível guardar a alteração.'
   public_time_in_the_morning: 'de manhã'
@@ -668,7 +672,7 @@ storeview:
   pickupWeight: 'kg salvado'
   managers: 'Responsáveis da empreaa'
   common: 'Geral'
-  pickupCount: 'Recolhas'
+  pickupCount: 'Assentos'
   team_info_distance: 'Distância aérea para a empresa:'
   publicity_and_sticker_options:
     no: Não
@@ -690,11 +694,11 @@ calendar:
   labelSelected: 'Data selecionada'
   export:
     pickup:
-      description: 'Recolha foodsharing em <a href="{url}">{store}</a>'
-      name: 'Recolha {store}'
+      description: 'Assento de foodsharing em <a href="{url}">{store}</a>'
+      name: '{store} Assento'
       unconfirmed: 'não confirmado'
-      foodsavers: 'Salvadores dos alimentos registrados: '
-      freeSlots: '{count} vagas ainda disponíveis'
+      foodsavers: 'Salvadores dos alimentos registados: '
+      freeSlots: '{count} assentos ainda disponíveis'
     event:
       description: 'Descrição'
       statusUnspecified: 'Ainda não indicou se irá participar neste evento. Pode fazer
@@ -789,10 +793,10 @@ pickuplist:
   month_tab: 'Mes'
   error_whileSending: 'Erro ao enviar a mensagem'
   NumberOfStores_table_header: 'Número de empresas'
-  error_loadingPickup: 'Falha ao carregar os slots: '
-  NumberOfSlots_table_header: 'Número de Slots'
-  error_changeSlotCount: 'Falha ao alterar o número de slots: '
-  header_for_district: 'Distribuição das recolhas em {bezirk} '
+  error_loadingPickup: 'Falha ao carregar de assentos: '
+  NumberOfSlots_table_header: 'Número dos assentos'
+  error_changeSlotCount: 'Falha ao alterar o número de assentos: '
+  header_for_district: 'Distribuição dos assentos em {bezirk} '
   week_tab: 'Semana'
   unclear: 'Estado purco claro'
   tooslow: 'Infelizmente, o registo não funcionou. Provavelmente porque outra pessoa
@@ -807,8 +811,8 @@ pickuplist:
   NumberOfFoodSavers_table_header: 'Número de salvadores alimentar'
   error_confirm: 'Falha na confirmação: '
   really_delete_last_slot:
-    title: Apagar o último slot?
-    body: Quer mesmo eliminar o último slot? A marcação será completamente 
+    title: Apagar o assento último?
+    body: Quer mesmo eliminar o assento último ? A marcação será completamente 
       removida.
 basket:
   my_list_empty: 'Não adicionaste nenhum cesta alimentar'
@@ -859,7 +863,7 @@ basket:
     call: 'por telefone'
     write: 'por mensagem'
   login: 'Para obter informações detalhadas, é necessário estar logado. Ainda não
-    está registado como Foodsharer? Então clique em **Participar** acima e comece
+    está registado como o foodsharer? Então clique em **Participar** acima e comece
     agora mesmo.'
   go-to-settings: 'para as configurações'
   request_empty: 'O texto da sua solicitação não pode estar em branco.'
@@ -901,7 +905,7 @@ basket:
 
       É possível que já tenha sido recolhido ou removido pelo fornecedor.
     register: |
-      Ainda não está registado como Foodsharer?
+      Ainda não está registado como foodsharer?
       Então clique em [**Participar**](/content?sub=joininfo) para começar ou crie a tua própria cesta alimentar.
     map: No nosso mapa, poderá encontrar outras cestas alimentar na tua área.
   delete_confirmation:
@@ -1212,8 +1216,11 @@ profile:
     weight: 'salvo'
     posts: 'posts'
     weight_unit: kg
-    fetch_count: recolhido
+    fetch_count: Recolhido
     bananas: Bananas
+    slots: Assentos
+    give_count: Entregue
+    engagement_count: Engajado
   commitments_stat:
     eventsParticipatedWeek: 'Obrigado por participar {count} vezes nos eventos desta
       semana. Tempo total: {hour}:{minute} '
@@ -1278,14 +1285,14 @@ profile:
   reportRequest: 'Enviar denúncia'
   cantdeletethis: 'Não é possível eliminar citas individuais!'
   homeDistrictHistory:
-    changed: registrado
+    changed: registado
     by: de
     previous: antes
   sections:
     orga_rights: '##### tem, como organizador(a), [amplos direitos]({wikiurl}) na
       esta plataforma.'
     ambassador_for: para
-    foodSaver_in_region: registrados nos distritos
+    foodSaver_in_region: registados nos distritos
     workgroups_admin: Envolve-se como pessoa de contacto para os grupos
     workgroups_member: em conjunto nos seguintes grupos de trabalho
     no_common_workgroups: em nenhum grupo de trabalho comum
@@ -1293,7 +1300,7 @@ profile:
     kam_for: 'Responsável pela coordenação das seguintes cadeias lojas:'
   tab_navigation:
     profile: Perfil
-    pickups: Recolhas
+    pickups: Assentos
     commitment_statistics: Estatísticas de participação
     stores: Empresas ({count})
     notes: Notas ({count})
@@ -1595,11 +1602,11 @@ group:
     nobody: 'Ninguém (grupo fechado).'
     member_since_weeks: 'Quantas semanas são necessárias para um candidato estar registado
       na plataforma?'
-    fetch_count: 'Quantas recolhas já deveriam ter sido efectuadas?'
+    fetch_count: 'Quantos assentos já deveriam ter sido efectuadas?'
     banana_count: 'Quantas bananas de confiança devem estar presentes?'
     not_fulfilled: 'Para candidatar-se a este grupo de trabalho, deve fazer parte
       da foodsharing há %weeks% semanas, já ter recolhido %bananas% bananas de confiança
-      e ter participado em %fetches% de recolhas.'
+      e ter participado em %fetches% dos assentos.'
     requires_properties: 'Todos quantos preencham certos pontos de confiança.'
     requirements: 'Quem pode inscrever no neste grupo?'
     open: 'Todos pessoas podem participar sem se candidatarem.'
@@ -1667,7 +1674,7 @@ foodsaver:
     rv: 'Sim, li e consinto com o acordo legal.'
     FOODSAVER: Tornar-me um(a) Foodsaver
     STORE_MANAGER: Torne-se responsavel de cooperações
-    AMBASSADOR: Tornar-me embaixador(a)
+    AMBASSADOR: Torne-se embaixador(a)
     pn: Sim, li e aceito a política de privacidade.
   editName: 'Editar {name}'
   mailchange_error: 'A ativação do teu novo endereço de correio electrónico falhou.
@@ -1696,61 +1703,61 @@ foodsaver:
   bread: 'Todos os Foodsaver'
   delete_account_reason: Motivo da eliminação do perfil
 pickup:
-  no_slots_available: 'Não há vagas disponíveis'
+  no_slots_available: 'Não há assentos disponíveis'
   history:
-    search: 'Mostrar recolhas'
-    title: 'Histórico de recolhas'
+    search: 'Mostrar assentos'
+    title: 'Histórico de assentos'
   overview:
     tab:
       options:
-        empty: 'Atualmente, não há horários disponíveis para recolha nas tuas empresas.'
-        name: 'Opções de recolha'
+        empty: 'Atualmente, não há assentos disponíveis nas suas empresas.'
+        name: 'Opções de insção'
         tooltip:
-          own: 'Datas futuras de recolha para as quais ainda te podes inscrever'
+          own: 'Assentos futuros para os quais ainda te podes inscrever'
       registered:
         tooltip:
-          other: 'Datas futuras de recolha inscritas'
-          own: 'Datas futuras de recolha para as quais se inscreveu'
-        name: 'Datas de recolha inscritas'
-        empty: 'Atualmente, não há recolhas inscritas.'
+          other: 'Assentos futuros inscridos'
+          own: 'Assentos futuros para os quais se inscreveu'
+        name: 'Assentos inscritos'
+        empty: 'Atualmente, não há assentos inscridos.'
       history:
         tooltip:
-          own: 'Datas de recolha anteriores em que participaste'
-          other: 'Datas de recolha do mês passado em que participou'
-        name: 'Histórico de recolhas'
-        empty: 'Ainda não participou em nenhuma recolha.'
+          own: 'Assentos anteriores que ocupaste'
+          other: 'Assentos anteriores que ocupaste do mês passado'
+        name: 'Histórico de assentos'
+        empty: 'Ainda não foi inscrito nenhum assento.'
     modals:
       signOffAll:
-        title: 'Remover em todas as recolhas?'
-        message: 'Quer mesmo remover o utilizador de todos os slots registados?'
+        title: 'Remover em todas os assentos?'
+        message: 'Quer mesmo remover o utilizador de todos os assentos registados?'
       signOff:
-        title: 'Remover no slot?'
-        message: 'Deseja realmente cancelar a pessoa para esta data de recolha?'
+        title: 'Remover no assento?'
+        message: 'Deseja realmente cancelar a pessoa para este assento?'
     cols:
       time: 'Tempo'
-      slots: 'Vagas'
+      slots: 'Assentos'
       store: 'Empresa'
     allLoaded: 'Já estão apresentadas todas as entradas.'
     menu:
       signOffAll: 'Remover de todos'
       refresh: 'Atualizar'
-      registeredSwitch: 'Recolhas registradas'
+      registeredSwitch: 'Assentos inscritos'
       loadMore: 'Ver mais'
       signOff: 'Remover'
       managedOnlySwitch: Vista de responsável(e)
       useCondensedDesign: Agrupados por dias
-    header: 'Horário de recolha'
+    header: 'Assentos'
     status:
-      option: 'Vaga vacante'
+      option: 'Assento vacante'
       confirmed: 'Confirmada'
       pending: 'Não confirmada'
     freeSlots: '{slots} disponíveis'
-  really_delete_date: 'Deseja mesmo apagar a recolha de {date}?'
-  add_onetime_pickup: 'Insira hora única'
-  description_modal_text: 'Introduza uma descrição nova para a recolha:'
+  really_delete_date: 'Deseja mesmo apagar o assento de {date}?'
+  add_onetime_pickup: 'Insira assento único'
+  description_modal_text: 'Introduza uma descrição nova:'
   edit_description: 'Editar Descrição'
   description: 'Descrição'
-  edit_recurring_pickups: 'Editar série de datas'
+  edit_recurring_pickups: 'Editar série de assentos'
   kick: 'Eliminar'
   kick_message_footer: 'Cumprimentos cordiais, os responsáveis pela empresa'
   really_kick_user_info: 'Tem a certeza de que deseja cancelar a inscrição de {name}
@@ -1761,8 +1768,8 @@ pickup:
     '
   open_profile: 'Perfil de'
   edit:
-    disable_auto_slot: 'A slot automática no futuro deverá ser desativada.'
-    bread: 'Editar horarios de recolha'
+    disable_auto_slot: 'O assento automático no futuro deverá ser desativado.'
+    bread: 'Editar horarios dos assentos'
     disable_auto_slot_titel: 'Desativação'
     many-people: 'Indicaste mais de duas pessoas para recolher a encomenda.
 
@@ -1784,9 +1791,9 @@ pickup:
       fora do alcance auditivo e visual da empresa.
 
       '
-    slot_titel: 'Vagas'
+    slot_titel: 'Assentos'
     slotcount: '1 pessoa a recolher'
-    added: 'Die Abholzeit wurde registriert.'
+    added: 'O assento foi reservado.'
     description_titel: 'Descrição'
     slotscount: '{count} pessoas a recolher'
   leave: 'Deixar'
@@ -1794,17 +1801,16 @@ pickup:
   team_message_success: 'A mensagem foi enviada com sucesso para a equipa'
   join_title_date: 'Tem a certeza?'
   really_leave_date_title: 'Cancelar a inscrição para {date}?'
-  slot_add: 'Adicionar slot'
+  slot_add: 'Adicionar um assento'
   kick_message_placeholder: 'Opcionalmente, adicione informações aqui…'
   description_optional: 'Descrição (opcional)'
   delete_not_empty: 'Atualmente, ainda há pessoas inscritas para recolha. Só poderá
-    eliminar esta data de recolha quando todas as inscrições forem canceladas.'
+    eliminar este assento quando todas as inscrições forem canceladas.'
   same_day_hint: 'O evento a seguir ocorrerá no mesmo dia:'
   team_message_send_and_leave: 'Enviar e cancelar a inscrição'
-  slot_remove: 'Remover slot'
+  slot_remove: 'Remover um assento'
   description_max_length_info: 'Comprimento máximo da descrição alcançado (100 caracteres)'
-  really_join_date: 'Gostaria de se inscrever de forma definitiva para a sua recolha
-    no dia {date}?'
+  really_join_date: 'Gostaria de se inscrever de forma definitiva no dia {date}?'
   signout_history:
     signout_via_responsible_person:
       via: 'por'
@@ -1822,9 +1828,9 @@ pickup:
   same_day_entry: '[{when}] h {name}'
   really_leave_date: 'És responsável por essa recolha. Por favor, providencie mesmo
     um substituto.'
-  to_be_confirmed: 'Esta data de recolha ainda tem de ser confirmada por um responsável
-    desta empresa.'
-  delete_title: 'Apagar a data de recolha'
+  to_be_confirmed: 'Este assento ainda tem de ser confirmada por um responsável desta
+    empresa.'
+  delete_title: 'Apagar o assento'
   signout_info: 'As tuas recolhas pendentes serão eliminadas.'
   leave_team_message_template: '{data}, não posso recolhê-lo afinal e, por isso, cancelei
     a minha inscrição novamente. …'
@@ -1836,19 +1842,20 @@ pickup:
   signout_sure: 'Queres mesmo deixar esta equipa?'
   hygieneCertificateMissing:
     none: Atualmente, não tem um certificado de higiene válido. Preencha agora o
-      questionário de higiene para se poder registar para a recolha.
+      questionário de higiene para podes inscrever-te.
     timeout: O seu certificado de higiene expirará no momento em que o recolher.
-      Agora, preencha novamente o questionário de higiene para se registar para 
-      a recolha.
+      Agora, preencha novamente o questionário de higiene para podes 
+      inscrever-te.
     link: Para formação em higiene
   membershipMissing: Não faz parte desta equipa. Por isso, não deve inscrever-se
     para as recolhas. Se necessário, inscreva-se primeiro como membro da equipa.
-  confirmed: A data da recolha está confirmada.
-  may_enter: Ainda há uma vaga disponível por ti na esta data de recolha.
+  confirmed: O assento está confirmado.
+  may_enter: Ainda há uma vaga disponível por ti no este assento.
   passport_expired:
     short: Cartão de membro expirado
     long: O teu cartão de membro já não é válido neste momento
-  chat: Iniciar slot-chat
+  chat: Iniciar um conversação para o assento
+  slots: Assentos
 error:
   mail_bounce:
     title: ''
@@ -1889,12 +1896,12 @@ fsp:
   addedOn: 'Adicionado em'
   suggest: 'Sugerir um cantinho solidário'
   location: 'código postal / local'
-  followers: 'Foodsaver interessados'
-  addError: 'Não foi possível registrar o cantinho solidário. Preencheu tudo corretamente?'
+  followers: 'Partilhadores alimentar interessados'
+  addError: 'Não foi possível registar o cantinho solidário. Preencheu tudo corretamente?'
   rejectConfirm: 'Atenção, se eliminar o cantinho solidário, já não pode anular esta
     ação. Queres mesmo continuar?'
   reject: 'Recusar o cantinho solidário'
-  add: 'Registrar o cantinho solidário'
+  add: 'Registar o cantinho solidário'
   managers: 'Pessoas de contacto'
   accept: 'Liberar o cantinho solidário'
   descLabel: 'Escreva aqui algumas informações básicas sobre o cantinho solidário,
@@ -2289,8 +2296,7 @@ storeedit:
     teamStatus2: 'Precisa-se de ajudantes urgente'
     teamStatus: 'Estado da equipa'
     hygieneRequirement: Requisitos de higiene
-    hygieneRequired: Permitir apenas a recolha com formação válida em matéria de
-      higiene
+    hygieneRequired: Permitir a inscrição apenas com formação válida em higiene
     applyTextRequired: É necessário introduzir um texto para candidaturas
     applicationRequirements: Critérios de candidatura
     verifiedRequired: Permitir apenas salvadores dos alimentos verificados
@@ -2417,12 +2423,12 @@ recipients:
 
     '
   variables: 'Tratamento pessoal'
-  newsletter_all: 'Todos os assinantes do boletim informativo (pelo menos soccorista
-    dos alimentos)'
+  newsletter_all: 'Todos os assinantes do boletim informativo (partilhadores alimentar,
+    soccoristos alimentar, todos)'
   sent: 'O e-mail foi enviado com sucesso para {count} endereços de e-mail'
   test_email_sent: 'O e-mail foi enviado.'
   orga_team: 'Equipa organizadora global (administradores do site)'
-  newsletter_only_foodsharer: 'SÓ aqueles que Foodsharer entre todos os assinantes
+  newsletter_only_foodsharer: 'SÓ aqueles que foodsharer entre todos os assinantes
     da newsletter'
   bread: 'Distribuição da newsletter'
   abort: 'Cancelar o envio'
@@ -2458,7 +2464,7 @@ settings:
 
       É útil saber se podes responder a mensagens
 
-      ou mesmo se, por vezes, fazes recolhas.
+      ou mesmo se, por vezes, fazes assentos.
 
       '
     saved: 'As configurações foram gravadas'
@@ -2504,17 +2510,16 @@ settings:
       button: Gerar URL de calendário
     download: Descarregar calendário
     info: |
-      Aqui podes associar os teus compromissos de foodsharing a um programa de calendário à tua escolha. Assim, todas as tuas recolhas e/ou compromissos podem ser automaticamente inseridos no teu calendário.
+      Aqui podes associar os teus compromissos de foodsharing a um programa de calendário à tua escolha. Assim, todos os tues assentos e/ou compromissos podem ser automaticamente inseridos no teu calendário.
 
-      **Mantenha os links do calendário em segredo.** Eles contêm um *token* que permite aceder aos dados das suas recolhas sem necessidade de palavra-passe. Pode eliminar o seu token atual a qualquer momento, tornando inválidos os links do calendário criados anteriormente.
+      **Mantenha os links do calendário em segredo.** Eles contêm um *token* que permite aceder aos dados dos tues assentos sem necessidade de palavra-passe. Pode eliminar o seu token atual a qualquer momento, tornando inválidos os links do calendário criados anteriormente.
 
-      O teu programa de calendário deve **sincronizar** este calendário regularmente. Só assim os novos compromissos de recolha aparecerão e os compromissos cancelados deixarão de aparecer. Se, em vez disso, descarregares o teu calendário atual, este conterá apenas os teus compromissos atuais e não será atualizado automaticamente.
-
+      O teu programa de calendário deve **sincronizar** este calendário regularmente. Só assim os assentos novos aparecerão e os compromissos cancelados deixarão de aparecer. Se, em vez disso, descarregares o teu calendário atual, este conterá apenas os teus compromissos atuais e não será atualizado automaticamente.
       Encontras mais informações [aqui no Wiki]({calendarUrl})
     pickup:
-      label: Devem ser incluídas datas de recolha?
-      "true": Sim, mostrar as minhas recolhas no calendário
-      "false": Não, não mostrar recolhas no calendário
+      label: É necessário incluir assentos , por exemplo para recolhas?
+      "true": Sim, mostrar os meus assentos no calendário
+      "false": Não, não mostrar os assentos no calendário
     event:
       label: Que datas dos teus distritos e grupos de trabalho devem ser 
         incluídas?
@@ -2720,7 +2725,7 @@ settings:
       device_name_description: Insira um nome para identificar esta chave de 
         segurança
       cancel: Cancelar
-      register: Registrar
+      register: Registar
     delete_modal:
       title: Apagar chave de segurança
       confirmation: Tem a certeza de que deseja apagar esta chave de segurança?
@@ -2904,16 +2909,16 @@ terminology:
     "4": 'Administrador(a) global'
     "2": 'Responsavel de empresa'
     "1": 'Salvador/a dos alimentos'
-    "0": 'partilhador(a) dos alimentos'
+    "0": 'partilhador(a) alimentar'
     "3": 'Embaixador(-a)'
   statistic: 'Estatísticas'
   n_foodsaver: '{count} salvadores dos alimentos'
   admins: 'Administradores/as'
   baskets: 'Cestas de comida'
   foodsharer:
-    f: 'Compartilhadora dos alimentos'
-    m: 'Compartilhador dos alimentos'
-    d: 'Compartilhador/a dos alimentos'
+    f: 'Partilhadora alimentar'
+    m: 'Partilhador alimentar'
+    d: 'Partilhador(a) alimentar'
   no_pickups: 'nenhum'
   homeRegion: 'Distrito de origem'
   prAdmins: 'Equipe de relações públicas'
@@ -2927,7 +2932,7 @@ terminology:
     f: 'Salvadora dos alimentos'
     m: 'Salvador dos alimentos'
   regions: 'Distritos'
-  previous_pickups: 'Recolha aqui'
+  previous_pickups: 'Assentos aqui'
   orga:
     d: 'Administrador(a) global'
     f: 'Administradora global'
@@ -2980,6 +2985,7 @@ terminology:
   received: recebido
   sent: Enviados
   resourcesAdmins: Equipa do mosaico dos recursos
+  giving: Entrega
 timepicker:
   labelCloseButton: 'fechar'
   labelMinutes: 'minutos'
@@ -3019,7 +3025,7 @@ register:
   login_passwd2: 'Repetição da palavra-passe'
   mail_hint: 'Importante: Preste atenção à grafia correta!'
   login_phone_info: 'É Pode ser útil partilhar o teu número de telefone com outros
-    Foodsharers'
+    partilhadores alimentar'
   forgotten_password: 'Esqueceu a tua palavra-passe?'
   change-password: 'Agora podes alterar o teu palavra-passe.'
   title: 'Registo'
@@ -3052,8 +3058,8 @@ register:
   login_passwd1: 'Palavra-passe ( mínimo de 8 caracteres)'
   join_error: 'O teu registo foi realizado com sucesso.'
   woman: 'feminino'
-  check_mail: 'Olha para a tua caixa de correio de e-mail agora para completar o registro!'
-  register_button_label: 'Registrar'
+  check_mail: 'Olha para a tua caixa de correio de e-mail agora para completar o registo!'
+  register_button_label: 'Registar'
   firstname_required: 'Por favor, insira o teu primeiro nome'
   join_success: 'O teu registo foi bem-sucedido.'
   login_location: 'O teu endereço'
@@ -3067,7 +3073,7 @@ register:
   pass1: 'A tua nova palavra-passe desejada'
   pass2: 'Repetição da palavra-passe'
   birthdate_hint: 'Para mais informações, consulte a [Política de Privacidade]({url})
-    no ponto 2d, «Registo como Foodsharer ou Foodsaver».'
+    no ponto 2d.'
   set-password: 'Criar uma nova palavra-passe'
   login_email: 'Endereço de e-mail'
   activation_success: '<strong>Ativação bem-sucedida.</strong> Faça login agora com
@@ -3102,37 +3108,39 @@ base:
 blog:
   permissions:
     edit: ''
-    new: ''
+    new: 'Não é permitido criar artigos'
     delete: ''
-  new: ''
+  new: 'Escrever um artigo novo'
   failure:
-    new: ''
-    edit: ''
-    delete: ''
-  author: ''
+    new: 'Não foi possível criar o artigo'
+    edit: 'Não foi possível guardar o artigo'
+    delete: 'Não foi possível apagar o artigo'
+  author: 'Escrito por'
   success:
-    edit: ''
-    delete: ''
-    new: ''
-  edit: ''
-  manage: ''
-  newTitle: ''
-  all: ''
-  actions: ''
-  delete: ''
-  header: ''
-  read: ''
-  empty: ''
-  publish-info: ''
-  content: ''
-  go: ''
+    edit: 'O artigo foi guartado'
+    delete: 'Artigo apagado'
+    new: 'O artigo foi criado'
+  edit: 'Editar um publicação do blogue'
+  manage: 'Gerir entradas de blogue'
+  newTitle: 'Artigo novo para {region}'
+  all: 'Todas as publicações do blogue'
+  actions: 'Açioes'
+  delete: 'Apagar artigo'
+  header: 'Notícias do mundo foodsharing'
+  read: 'seguir lendo'
+  empty: 'Ainda não há nenhuma publicações.'
+  publish-info: 'O estado de publicação do artigo pode ser ajustado na página de visão
+    geral.'
+  content: 'Conteúdo'
+  go: 'Para o Blogue'
   status:
-    "1": ''
-    "0": ''
-  last-editor: ''
-  confirmDelete: ''
-  title: ''
-  bread: ''
+    "1": 'publicado'
+    "0": 'inativo'
+  last-editor: 'Última edição por'
+  confirmDelete: 'Realmente deveria apagar {nome} de forma permanente?'
+  title: 'Artigos de blogue'
+  bread: 'Blogue'
+  teaser: Visão prévia do texto
 globals:
   type:
     threads: ''
@@ -3213,7 +3221,8 @@ startpage:
   welcome_text: ''
   store:
     title: ''
-    text: ''
+    text: 'Trabalhas num supermercado, restaurante, cantina, ...? Regista a tua empresa
+      e salvo alimentos.'
   slogan_2: ''
   makeproposals: ''
   respect: ''
@@ -3224,7 +3233,7 @@ startpage:
     link: ''
     text: ''
   slogan_1: ''
-  registernow: ''
+  registernow: 'Regista-te agora'
   this_is_how_it_works: ''
   beresponsible: ''
   telltruth: ''
@@ -3244,7 +3253,8 @@ startpage:
   vision:
     title: ''
     text: ''
-  register: ''
+  register: 'Al final de esta página puedes registar te para partilhar alimentos como
+    outros pessoas.'
   private:
     title: ''
     text: ''
@@ -3300,6 +3310,16 @@ region:
       missing: Este distrito não é atualmente exibido no mapa e não tem 
         cantinhos solidário que podem ser exibidos aqui. Tem autorização para 
         colocar um pin de distrito agora.
+      set_pin: Marcar o pin do distrito no mapa
+      hide_pin: Apagar o pin do distrito
+      edit_pin: Editar o pin do distrito
+      confirm_discard_changes: Tens a certeza de que deseja descartar as 
+        alterações feitas no pin do distrito?
+      confirm_save_changes: Queres guardar as tuas alterações no pin do 
+        distrito? O novo pin ficará visível publicamente na página do distrito e
+        no mapa.
+      confirm_remove: Queres mesmo apagar o pin do distrito? Este distrito 
+        deixará de ser apresentado no mapa.
     children: Distritos em {name} ({count})
     join: Entrar no distrito
     join_name: Entrar em {nome}
@@ -3330,6 +3350,11 @@ region:
         distrito.
       missing: Este distrito não tem atualmente nenhum texto descritivo. Tens 
         permissão para escrever agora um texto descritivo.
+    events:
+      title: Eventos públicos
+      load_past: Mostrar eventos pasados
+      no_future_events: 'Atualmente, não há eventos públicos registados neste distrito.
+        Os seguintes eventos ocorreram no passado:'
   not-existant: Este distrito ou grupo de trabalho já não existe.
   select: Selecionar distrito para edição
   createNew: Criar um distrito novo
@@ -3344,6 +3369,14 @@ region:
   mailbox: Nome da caixa eletrônica
   allow_hiding_in_forum: Permitir que os moderadores apaguem publicações nos 
     fóruns
+  denied:
+    this_region: Tentaste obter acesso ao conteúdo deste distrito. Entretanto, 
+      apenas os membros do distrito têm acesso a ele.
+    some_group: Tentaste obter acesso ao conteúdo do grupo de trabalho «{name}».
+      Entretanto, apenas os membros do grupo têm acesso a esse conteúdo.
+    subgroup_in: «{name}» é um subgrupo do grupo «{parent}».
+    group_in_this_region: «{name}» é um grupo deste distrito.
+    group_in_this_group: «{name}» é um subgrupo deste distrito.
 upload:
   new_image: 'Carregar imagem novo'
   no_image: 'O ficheiro carregado não é uma fotografia. Por favor, selecione outro
@@ -3657,6 +3690,10 @@ notifications:
   warning: Aviso
   error: Ero
   info: Informação
+  pickupReminder:
+    title: Recordações para os assentos não ocupados
+    description: Receba e-mails que o alertam quando os assentos nas empresas 
+      que gere ainda não estiverem atribuídos no dia seguinte.
 are_you_sure: 'Estás a certeza?'
 button:
   save: 'Salvar'
@@ -3722,7 +3759,8 @@ stats:
     pickups: ''
     weight: ''
     fsp: 'Os cantinhos solidário são utilizados para trocar alimentos.'
-    foodsharer: ''
+    foodsharer: 'pessoas que partilham alimentos estão registadas no "foodsharing"
+      e interessadas no nosso trabalho.'
     foodsaver: ''
     baskets: ''
     cooperations: ''
@@ -3746,7 +3784,7 @@ fspmanagers: 'Pessoas de contacto para o cantinho solidário'
 storelist:
   status: 'Estado'
   emptyfilters: 'Vaziar o filtro'
-  added: 'Registrado'
+  added: 'Registado'
   inprogress: 'As negociações estão em curso'
   nocontact: 'Ainda há não contacto'
   managing: 'Empresas pelas quais é responsável'
@@ -3756,7 +3794,7 @@ storelist:
   name: 'Nome'
   address: 'Rua'
   zipcode: 'Código postal'
-  entered: 'Registrado:'
+  entered: 'Registado:'
   cooperating: 'Em cooperação'
   city: 'Local'
   others: 'Outras empresas de {região}'
@@ -3779,22 +3817,22 @@ regionOptions:
   regionPickupInactiveHours: 'Quantas horas antes da recolha a regra deixa de ser
     aplicada?'
   header_page: 'Configuração para {bezirk}'
-  regionPickupLimitNumber: 'Número máximo de recolhas permitidas de empresas "sultanas"
+  regionPickupLimitNumber: 'Número máximo dos assentos permitidos dos empresas "sultanas"
     populares no período selecionado'
   regionPickupRuleActiveStoreList: 'Lista das empresas do distrito que são consideradas
-    para a regra das sultanas. Todas as recolhas das empresas listadas são somadas
+    para a regra das sultanas. Todos os assentos das empresas listadas são somadas
     e consideradas para a regra.'
   enableMediationButton: 'Ativar o formulário de mediação nas páginas de perfil dos
     comensais habituais do distrito'
   enableReportButton: 'Ativar formulário de denúncia nas páginas de perfil dos salvadores
     dos alimentos habitual do distrito'
-  regionPickupTimespan: 'Período de tempo (dias antes e depois da data de recolha
-    desejada) ao qual a regra das sultanas se aplica'
-  regionPickupRuleActive: 'Ative a seguinte regra distrital para recolhas de empresas
+  regionPickupTimespan: 'Período de tempo (dias antes e depois da data do assento
+    desejado) ao qual a regra das sultanas se aplica'
+  regionPickupRuleActive: 'Ative a seguinte regra distrital para os assentos de empresas
     das "sultanas" populares:'
   save: 'Guardar opções'
-  regionPickupLimitDayNumber: 'Número máximo de recolhas permitidas de empresas das
-    "sultanas" populares num dia'
+  regionPickupLimitDayNumber: 'Número máximo dos assentos permitidos dos empresas
+    das "sultanas" populares num dia'
   regionReportReasonSimple: motivos da denúncia simplificados
   regionReportReasonCategoryB: motivos da denúncia adicionais - B) comportamento
     durante as recolhas
@@ -3829,9 +3867,10 @@ information:
     description: ''
     title: ''
   calendar_sync:
-    title: ''
+    title: 'Conhece a sincronização do calendário para os teus assentos registados?'
     link: ''
-    description: ''
+    description: 'Assim, poderá ver os teus próximos assentos registados com um programa
+      de calendário à tua escolha.'
 wikilink: 'Link com mais informações'
 memberlist:
   header_for_district: 'Resgatadores alimentar em distrito (bezirk}'
@@ -3900,8 +3939,8 @@ language_chooser:
   translation_help_info_text: ''
   choose_button: ''
   content: ''
-prefetchtime: 'Com quantas semanas de antecipação podem os foodsaver registar-se utilizando
-  as ranhuras automáticas?'
+prefetchtime: 'Com quantas semanas de antecipação podem os salvadores alimentar registar-se
+  utilizando as assentos gerados automaticamente?'
 ueberzeugungsarbeit: 'Foi fácil convencer os responsáveis a cooperar com o foodsharing?'
 ageBandList:
   ageBand: 'Grupos etários'
@@ -3971,6 +4010,12 @@ map:
         all: Todos
         region: Só os meus distritos
         member: Só as minhas empresas
+      type:
+        label: Tipo
+        "null": Todos
+        0: Lugar da recolha
+        1: Lugar da entrega
+        2: Lugar da organização
     users:
       role:
         label: Função
@@ -4000,7 +4045,7 @@ map:
     go: Para o perfil
 list:
   filter_for: 'Filtrar por …'
-public_time: 'Hora do dia aproximada por da recolha'
+public_time: 'Hora do dia aproximada por dos assentos'
 opt: 'Opções'
 filter_by: 'Filtrar por'
 push_notifications:
@@ -4026,15 +4071,15 @@ personal_data:
   mobile: 'Número de telemóvel'
   landline: 'Número de teléfono fixo'
 fetchstate: 'Foi tudo bem?'
-abholmenge: 'Quantos quilogramas, aproximadamente, são levados por pessoa por recolha?'
+abholmenge: 'Quantos kg por assento são normalmente habitual para cada pessoa?'
 groups:
   empty: 'Ainda não faz parte dos grupos de trabalho'
 besonderheiten: 'Indicações'
 rolle: 'Função do utilizador'
 regions: 'Distritos'
 text: 'texto'
-use_region_pickup_rule: 'A regra das SULTANAS do distrito deve ser de aplicada para
-  a recolha por esta empresa?'
+use_region_pickup_rule: 'A regra distrital das SULTANAS deve ser aplicada os assentos
+  nesta empresa?'
 teaser: 'Teaser'
 presse: 'A empresa/loja/clube está disponível para ser mencionada na imprensa e em
   foodsharing.de?'
@@ -4112,7 +4157,7 @@ support_page:
 help:
   key:
     publicEvent:
-      md: "Os eventos podem ser registrados como públicos pelos administradores de
+      md: "Os eventos podem ser registados como públicos pelos administradores de
         um grupo de trabalho ou pelos administradores do GOALS-AG Relações Públicas
         ou pelos embaixadores. Os eventos públicos são acessíveis a todos. Não é necessário
         estar registado na plataforma para ver o local do evento e as informações.
@@ -4151,6 +4196,29 @@ help:
 
         - **Sobrescrever:** Não é possível receber o autocolante várias vezes ao mesmo tempo. Se o autocolante for atribuído novamente, a atribuição atual substitui ou prolonga a anterior. Isto é utilizado, por exemplo, para a formação em higiene. Quem renova a formação, o seu autocolante é simplesmente prolongado. Selecione *Sobrescrever* se o autocolante tiver de marcar um estado atual e inequívoco.
         - **Atribuir várias vezes:** É possível atribuir várias vezes ao mesmo tempo. Os autocolantes atribuídos várias vezes são apresentados agrupados no perfil, mas todas as informações correspondentes estão acessíveis. Isto pode ser utilizado, por exemplo, para documentar recolhas de amostras, das quais são necessárias várias. Selecione *Atribuir várias vezes* se cada atribuição individual for importante e tiver de permanecer rastreável.
+    hygieneRequirement:
+      md: |
+        Para trabalhar em algumas empresas, os salvadores alimentar devem ter formação em higiene alimentar. Quando esta função está ativada para uma empresa, tem as seguintes implicações:
+        1. Os salvadores alimentar sem formação válida em higiene não podem candidatar-se à equipa da empresa.
+        2. Os salvadores alimentar que já fazem parte da equipa só podem inscrever-se em assentos cuja formação em higiene ainda seja válida.
+
+        Em ambos os casos, é exibida uma nota explicando que falta a formação em higiene para esta ação. Além disso, a formação em higiene está diretamente ligada em cada caso.
+
+        ---
+
+        Importante: esta função baseia-se apenas nos autocolantes de higiene próprios da foodsharing. Nem os certificados de higiene de fornecedores externos (como, por exemplo, Metro) carregados no perfil, nem os cursos de higiene adquiridos noutro local são tecnicamente considerados.
+    achievementVisibility:
+      md: |
+        A visibilidade de um autocolante determina quem pode ver se o autocolante foi atribuído a alguém. Estão disponíveis as seguintes opções:
+
+        - **Oculto:** o autocolante só é visível para utilizadores com direitos de organização.
+        oculto: «Não é exibido a ninguém»
+        - **Privado:** Apenas a própria pessoa em questão, bem como os administradores e embaixadores da área de validade especificada, podem ver o autocolante.
+        - **Apenas responsáveis da empresa:** O autocolante é exibido à própria pessoa, bem como a todos os responsáveis da empresa na área selecionada.
+        - **Na área de validade:** O autocolante é visível para todos os utilizadores que são membros do distrito especificado.
+        - **Global:** O autocolante é visível para todos os utilizadores registados.
+
+        Considere sempre até que ponto a visibilidade pode ser restringida para não tornar desnecessariamente visíveis informações pessoais. O nível de visibilidade pode ser ajustado posteriormente.
 test:
   vars: O meu nome é [NAME] e tenho [AGE] anos
 totp_code: Introduza o código de dois fatores gerado ou um dos códigos de 
@@ -4158,3 +4226,14 @@ totp_code: Introduza o código de dois fatores gerado ou um dos códigos de
 sort:
   options:
     name: Nome
+required_messages:
+  kick_from_store_team:
+    main: Foste removido da equipa da empresa [{store}](/store/{storeId}). 
+      Assim, já não podes inscrever-te para os assentos nesta empresa.
+  move_to_standby_team:
+    main: Foste colocado na lista de substitutos da empresa 
+      [{store}](/store/{storeId}). Atualmente, não podes inscrever-te para os 
+      assentos nesta empresa nem ler o chat geral do grupo.
+resource_mosaic:
+  search_placeholder: Busca por recursos, partilhadores alimentar ou ID de 
+    membros
