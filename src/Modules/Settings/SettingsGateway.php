@@ -312,7 +312,7 @@ class SettingsGateway extends BaseGateway
             $data['position'],
             $data['bezirk_id'],
             $data['geschlecht'],
-            Carbon::createFromFormat('Y-m-d', $data['geb_datum'], new DateTimeZone('Europe/Berlin')),
+            $data['geb_datum'] ? Carbon::createFromFormat('Y-m-d', $data['geb_datum'], new DateTimeZone('Europe/Berlin')) : null,
             $data['telefon'],
             $data['handy'],
             $address,
