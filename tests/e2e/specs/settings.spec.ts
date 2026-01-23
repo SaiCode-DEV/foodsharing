@@ -307,9 +307,11 @@ test.describe("Settings", () => {
     await expect(page.locator("select").nth(1)).toHaveValue(String(region.id));
 
     // Click the generate link and wait for file download (PDF)
-    const generateLocator = page.getByRole('link', { name: 'Visitenkarten erstellen' });
+    const generateLocator = page.getByRole("link", {
+      name: "Visitenkarten erstellen",
+    });
     const [download] = await Promise.all([
-      page.waitForEvent('download'),
+      page.waitForEvent("download"),
       generateLocator.click(),
     ]);
 
@@ -317,7 +319,7 @@ test.describe("Settings", () => {
     expect(suggested).toMatch(/bcard-.*\.pdf/);
 
     const tmpPath = await download.path();
-    if (!tmpPath) throw new Error('Download path not available');
+    if (!tmpPath) throw new Error("Download path not available");
     const stat = await fs.stat(tmpPath);
     expect(stat.size).toBeGreaterThan(1000);
   });

@@ -15,12 +15,21 @@ test.describe("Store user", () => {
   let store: Awaited<ReturnType<typeof foodsharing.createStore>>;
 
   test.beforeEach(async () => {
-    region = await foodsharing.createRegion("A region for store-user tests", {}, false);
+    region = await foodsharing.createRegion(
+      "A region for store-user tests",
+      {},
+      false,
+    );
     store = await foodsharing.createStore(region.id);
   });
 
-  test("shows slot multi chat when multiple pickers", async ({ page, acceptanceHelper }) => {
-    const storeCoordinator = await foodsharing.createStoreCoordinator(null, { bezirk_id: region.id });
+  test("shows slot multi chat when multiple pickers", async ({
+    page,
+    acceptanceHelper,
+  }) => {
+    const storeCoordinator = await foodsharing.createStoreCoordinator(null, {
+      bezirk_id: region.id,
+    });
     await acceptanceHelper.login(storeCoordinator.email);
 
     // Set localStorage item to avoid push notification prompt
@@ -35,7 +44,9 @@ test.describe("Store user", () => {
 
     // Create a pickup and sign up both users
     const pickup = await foodsharing.addPickup(store.id);
-    await foodsharing.addPicker(store.id, storeCoordinator.id, { date: pickup.time });
+    await foodsharing.addPicker(store.id, storeCoordinator.id, {
+      date: pickup.time,
+    });
     await foodsharing.addPicker(store.id, otherUser.id, { date: pickup.time });
 
     // Load store page
@@ -54,31 +65,37 @@ test.describe("Store user", () => {
         page.locator("#header").getByText(otherUser.name),
       ).toBeVisible();
     } else {
-      await page.waitForSelector('.chatboxtitle', { timeout: 5000 });
-      await expect(page.locator('.chatboxtitle')).toContainText(otherUser.name);
+      await page.waitForSelector(".chatboxtitle", { timeout: 5000 });
+      await expect(page.locator(".chatboxtitle")).toContainText(otherUser.name);
     }
   });
 
   /*
-  * The "TakenSlotDialog" appears upon clicking a slot or user avatar within
-  * the slots list. Within this dialog, the store coordinator can confirm or
-  * reject the request and view the contact options for the foodsaver, along
-  * with other pertinent details. This assists in making an informed decision
-  * regarding the confirmation or rejection of a slot.
-  */
+   * The "TakenSlotDialog" appears upon clicking a slot or user avatar within
+   * the slots list. Within this dialog, the store coordinator can confirm or
+   * reject the request and view the contact options for the foodsaver, along
+   * with other pertinent details. This assists in making an informed decision
+   * regarding the confirmation or rejection of a slot.
+   */
   test.describe("TakenSlotDialog", () => {
-
     /**
-    * The store coordinator should be able to view the slots occupied
-    * by the foodsaver along with the respective status. This information can be
-    * leveraged by the coordinator to make informed decisions regarding the
-    * approval or rejection of the pickup slots. For instance, this is
-    * particularly valuable in cases where a foodsaver has occupied a
-    * significant number of slots in a short period of time.
-    */
-    test("can see user occupied slot details in taken slot dialog", async ({ page, acceptanceHelper }) => {
-      const foodsaver = await foodsharing.createFoodsaver(null, { bezirk_id: region.id });
-      const coordinator = await foodsharing.createStoreCoordinator(null, { bezirk_id: region.id });
+     * The store coordinator should be able to view the slots occupied
+     * by the foodsaver along with the respective status. This information can be
+     * leveraged by the coordinator to make informed decisions regarding the
+     * approval or rejection of the pickup slots. For instance, this is
+     * particularly valuable in cases where a foodsaver has occupied a
+     * significant number of slots in a short period of time.
+     */
+    test("can see user occupied slot details in taken slot dialog", async ({
+      page,
+      acceptanceHelper,
+    }) => {
+      const foodsaver = await foodsharing.createFoodsaver(null, {
+        bezirk_id: region.id,
+      });
+      const coordinator = await foodsharing.createStoreCoordinator(null, {
+        bezirk_id: region.id,
+      });
 
       await foodsharing.addStoreTeam(store.id, coordinator.id, true);
       await foodsharing.addStoreTeam(store.id, foodsaver.id, false);
@@ -86,10 +103,18 @@ test.describe("Store user", () => {
       // add two pickups for the foodsaver using faker-generated dates
       const slot1DateObj = faker.date.future({ years: 1, refDate: new Date() });
       const slot2DateObj = faker.date.soon({ days: 1, refDate: slot1DateObj });
-      await foodsharing.addPickup(store.id, { time: foodsharing.toDateTime(slot1DateObj) });
-      await foodsharing.addPickup(store.id, { time: foodsharing.toDateTime(slot2DateObj) });
-      await foodsharing.addPicker(store.id, foodsaver.id, { date: foodsharing.toDateTime(slot1DateObj) });
-      await foodsharing.addPicker(store.id, foodsaver.id, { date: foodsharing.toDateTime(slot2DateObj) });
+      await foodsharing.addPickup(store.id, {
+        time: foodsharing.toDateTime(slot1DateObj),
+      });
+      await foodsharing.addPickup(store.id, {
+        time: foodsharing.toDateTime(slot2DateObj),
+      });
+      await foodsharing.addPicker(store.id, foodsaver.id, {
+        date: foodsharing.toDateTime(slot1DateObj),
+      });
+      await foodsharing.addPicker(store.id, foodsaver.id, {
+        date: foodsharing.toDateTime(slot2DateObj),
+      });
 
       // navigate as coordinator
       await acceptanceHelper.login(coordinator.email);
@@ -97,41 +122,82 @@ test.describe("Store user", () => {
       await acceptanceHelper.waitForActiveAPICalls();
 
       // open taken slot dialog for first slot and toggle details
-      await page.locator("xpath=(//*[contains(@role,'taken-slot-dialog-button')])").first().click();
+      await page
+        .locator("xpath=(//*[contains(@role,'taken-slot-dialog-button')])")
+        .first()
+        .click();
       await page.click("[role~='occupied-slot-details-button']");
 
       await expect(
-        page.locator('.modal-dialog .modal-body', { hasText: dateForOccupiedSlot(slot1DateObj) }).first(),
+        page
+          .locator(".modal-dialog .modal-body", {
+            hasText: dateForOccupiedSlot(slot1DateObj),
+          })
+          .first(),
       ).toBeVisible();
       await expect(
-        page.locator('.modal-dialog .modal-body', { hasText: dateForOccupiedSlot(slot2DateObj) }).first(),
+        page
+          .locator(".modal-dialog .modal-body", {
+            hasText: dateForOccupiedSlot(slot2DateObj),
+          })
+          .first(),
       ).toBeVisible();
     });
 
-   /**
-   * Among the occupied slots, make sure we only display those taken by the
-   * same user who occupies the currently opened slot.
-   */
-    test("does not show other users occupied slots in details", async ({ page, acceptanceHelper }) => {
-      const foodsaver1 = await foodsharing.createFoodsaver(null, { bezirk_id: region.id });
-      const foodsaver2 = await foodsharing.createFoodsaver(null, { bezirk_id: region.id });
-      const coordinator = await foodsharing.createStoreCoordinator(null, { bezirk_id: region.id });
+    /**
+     * Among the occupied slots, make sure we only display those taken by the
+     * same user who occupies the currently opened slot.
+     */
+    test("does not show other users occupied slots in details", async ({
+      page,
+      acceptanceHelper,
+    }) => {
+      const foodsaver1 = await foodsharing.createFoodsaver(null, {
+        bezirk_id: region.id,
+      });
+      const foodsaver2 = await foodsharing.createFoodsaver(null, {
+        bezirk_id: region.id,
+      });
+      const coordinator = await foodsharing.createStoreCoordinator(null, {
+        bezirk_id: region.id,
+      });
 
       await foodsharing.addStoreTeam(store.id, coordinator.id, true);
       await foodsharing.addStoreTeam(store.id, foodsaver1.id, false);
       await foodsharing.addStoreTeam(store.id, foodsaver2.id, false);
 
       // create three future pickups using faker-generated dates
-      const pickup1DateObj = faker.date.future({ years: 1, refDate: new Date() });
-      const pickup2DateObj = faker.date.future({ years: 1, refDate: pickup1DateObj });
-      const pickup3DateObj = faker.date.future({ years: 1, refDate: pickup2DateObj });
-      await foodsharing.addPickup(store.id, { time: foodsharing.toDateTime(pickup1DateObj) });
-      await foodsharing.addPickup(store.id, { time: foodsharing.toDateTime(pickup2DateObj) });
-      await foodsharing.addPickup(store.id, { time: foodsharing.toDateTime(pickup3DateObj) });
+      const pickup1DateObj = faker.date.future({
+        years: 1,
+        refDate: new Date(),
+      });
+      const pickup2DateObj = faker.date.future({
+        years: 1,
+        refDate: pickup1DateObj,
+      });
+      const pickup3DateObj = faker.date.future({
+        years: 1,
+        refDate: pickup2DateObj,
+      });
+      await foodsharing.addPickup(store.id, {
+        time: foodsharing.toDateTime(pickup1DateObj),
+      });
+      await foodsharing.addPickup(store.id, {
+        time: foodsharing.toDateTime(pickup2DateObj),
+      });
+      await foodsharing.addPickup(store.id, {
+        time: foodsharing.toDateTime(pickup3DateObj),
+      });
 
-      await foodsharing.addPicker(store.id, foodsaver1.id, { date: foodsharing.toDateTime(pickup1DateObj) });
-      await foodsharing.addPicker(store.id, foodsaver1.id, { date: foodsharing.toDateTime(pickup2DateObj) });
-      await foodsharing.addPicker(store.id, foodsaver2.id, { date: foodsharing.toDateTime(pickup3DateObj) });
+      await foodsharing.addPicker(store.id, foodsaver1.id, {
+        date: foodsharing.toDateTime(pickup1DateObj),
+      });
+      await foodsharing.addPicker(store.id, foodsaver1.id, {
+        date: foodsharing.toDateTime(pickup2DateObj),
+      });
+      await foodsharing.addPicker(store.id, foodsaver2.id, {
+        date: foodsharing.toDateTime(pickup3DateObj),
+      });
 
       // navigate as coordinator
       await acceptanceHelper.login(coordinator.email);
@@ -139,13 +205,22 @@ test.describe("Store user", () => {
       await acceptanceHelper.waitForActiveAPICalls();
 
       // open taken slot dialog for third slot (occupied by foodsaver2)
-      await page.locator("xpath=(//*[contains(@role,'taken-slot-dialog-button')])").nth(2).click();
+      await page
+        .locator("xpath=(//*[contains(@role,'taken-slot-dialog-button')])")
+        .nth(2)
+        .click();
       await page.click("[role~='occupied-slot-details-button']");
 
-      await expect(page.locator("[role~='user-occupied-slots-listitem']")).toHaveCount(1);
+      await expect(
+        page.locator("[role~='user-occupied-slots-listitem']"),
+      ).toHaveCount(1);
 
       await expect(
-        page.locator('.modal-dialog .modal-body', { hasText: dateForOccupiedSlot(pickup3DateObj) }).first(),
+        page
+          .locator(".modal-dialog .modal-body", {
+            hasText: dateForOccupiedSlot(pickup3DateObj),
+          })
+          .first(),
       ).toBeVisible();
     });
   });

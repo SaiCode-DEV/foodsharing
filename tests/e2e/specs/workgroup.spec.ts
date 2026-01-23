@@ -201,7 +201,7 @@ test.describe("WorkGroup", () => {
       await page.fill("#input-ability", "My Skillz");
       await page.fill("#input-experience", "My Experience");
       await page.selectOption("#input-time", "1–2 Stunden");
-      await page.getByRole('button', { name: 'Senden' }).click();
+      await page.getByRole("button", { name: "Senden" }).click();
       await acceptanceHelper.waitForActiveAPICalls();
 
       // Verify database entry

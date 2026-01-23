@@ -9,16 +9,25 @@ test.describe("FoodSharePoint", () => {
   let user: Awaited<ReturnType<typeof foodsharing.createFoodsharer>>;
   let responsible: Awaited<ReturnType<typeof foodsharing.createAmbassador>>;
   let otherBot: Awaited<ReturnType<typeof foodsharing.createAmbassador>>;
-  let foodSharePoint: Awaited<ReturnType<typeof foodsharing.createFoodSharePoint>>;
+  let foodSharePoint: Awaited<
+    ReturnType<typeof foodsharing.createFoodSharePoint>
+  >;
 
   test.beforeEach(async () => {
     region = await foodsharing.createRegion("MyFunnyBezirk", {}, false);
     user = await foodsharing.createFoodsharer(null, { bezirk_id: region.id });
-    responsible = await foodsharing.createAmbassador(null, { bezirk_id: region.id });
+    responsible = await foodsharing.createAmbassador(null, {
+      bezirk_id: region.id,
+    });
     await foodsharing.addRegionAdmin(region.id, responsible.id);
-    otherBot = await foodsharing.createAmbassador(null, { bezirk_id: region.id });
+    otherBot = await foodsharing.createAmbassador(null, {
+      bezirk_id: region.id,
+    });
     await foodsharing.addRegionAdmin(region.id, otherBot.id);
-    foodSharePoint = await foodsharing.createFoodSharePoint(responsible.id, region.id);
+    foodSharePoint = await foodsharing.createFoodSharePoint(
+      responsible.id,
+      region.id,
+    );
   });
 
   test("create food share point via UI", async ({ page, acceptanceHelper }) => {
@@ -29,13 +38,18 @@ test.describe("FoodSharePoint", () => {
     await page.goto(`/region?bid=${region.id}&sub=fairteiler`);
     await acceptanceHelper.waitForActiveAPICalls();
     await page.waitForSelector("text=Fairteiler eintragen", { timeout: 10000 });
-    await page.getByRole('link', { name: 'Fairteiler eintragen' }).first().click();
+    await page
+      .getByRole("link", { name: "Fairteiler eintragen" })
+      .first()
+      .click();
     await page.waitForSelector("text=In welchem Bezirk", { timeout: 10000 });
     await page.waitForSelector("#name-input", { timeout: 5000 });
     await page.fill("#name-input", name);
-    await page.getByRole('textbox', { name: 'Beschreibung' }).fill("Blablabla if you come here be hungry!");
+    await page
+      .getByRole("textbox", { name: "Beschreibung" })
+      .fill("Blablabla if you come here be hungry!");
 
-    await page.locator('#searchField').first().fill(streetName);
+    await page.locator("#searchField").first().fill(streetName);
     await page.waitForSelector(".location-options");
     const addressText = await page
       .locator(".location-options .list-group-item")
@@ -44,22 +58,32 @@ test.describe("FoodSharePoint", () => {
     const addressArray = addressText?.split(",").map((s) => s.trim()) || [];
     const street = addressArray[1] || "";
     const postalCity = addressArray[2]?.trim() || "";
-    await page.locator('.location-options .list-group-item', { hasText: streetName }).first().click();
-    await page.getByRole('button', { name: 'Speichern' }).first().click();
+    await page
+      .locator(".location-options .list-group-item", { hasText: streetName })
+      .first()
+      .click();
+    await page.getByRole("button", { name: "Speichern" }).first().click();
     await acceptanceHelper.waitForActiveAPICalls();
 
     const id = await Database.grabFromDatabase("fs_fairteiler", "id", {
-      name: name,
+      name,
       bezirk_id: region.id,
     });
 
     await page.goto(`/fairteiler/${id}`);
 
-    await expect(page.locator(`text=${street}`)).toBeVisible({ timeout: 10000 });
-    await expect(page.locator(`text=${postalCity}`)).toBeVisible({ timeout: 10000 });
+    await expect(page.locator(`text=${street}`)).toBeVisible({
+      timeout: 10000,
+    });
+    await expect(page.locator(`text=${postalCity}`)).toBeVisible({
+      timeout: 10000,
+    });
   });
 
-  test("can see food share point in list", async ({ page, acceptanceHelper }) => {
+  test("can see food share point in list", async ({
+    page,
+    acceptanceHelper,
+  }) => {
     await acceptanceHelper.login(responsible.email);
     await page.goto(`/region?sub=fairteiler&bid=${region.id}`);
     await page.waitForSelector(`text=${foodSharePoint.name}`);
@@ -76,12 +100,18 @@ test.describe("FoodSharePoint", () => {
   });
 
   test("edit food share point", async ({ page, acceptanceHelper }) => {
-    const newManager = await foodsharing.createFoodsaver(null, { bezirk_id: region.id });
+    const newManager = await foodsharing.createFoodsaver(null, {
+      bezirk_id: region.id,
+    });
 
     await acceptanceHelper.login(responsible.email);
     await page.goto(`/fairteiler/${foodSharePoint.id}/edit`);
-    await page.waitForSelector("text=Schreibe hier ein paar grundsätzliche Infos über den Fairteiler");
-    await page.waitForSelector("text=insbesondere wann er zugänglich/geöffnet ist");
+    await page.waitForSelector(
+      "text=Schreibe hier ein paar grundsätzliche Infos über den Fairteiler",
+    );
+    await page.waitForSelector(
+      "text=insbesondere wann er zugänglich/geöffnet ist",
+    );
     await page.fill("#description-md", "The BEST fairshare point!");
 
     const ui = new FoodsharingUI(page);
@@ -93,7 +123,10 @@ test.describe("FoodSharePoint", () => {
     await page.waitForSelector("text=The BEST fairshare point");
   });
 
-  test("user may not edit food share point", async ({ page, acceptanceHelper }) => {
+  test("user may not edit food share point", async ({
+    page,
+    acceptanceHelper,
+  }) => {
     await acceptanceHelper.login(user.email);
     await page.goto(`/fairteiler/${foodSharePoint.id}`);
     await acceptanceHelper.waitForActiveAPICalls();
@@ -101,7 +134,10 @@ test.describe("FoodSharePoint", () => {
     await expect(page.getByText("Fairteiler bearbeiten")).toBeHidden();
   });
 
-  test("responsible may edit food share point", async ({ page, acceptanceHelper }) => {
+  test("responsible may edit food share point", async ({
+    page,
+    acceptanceHelper,
+  }) => {
     await acceptanceHelper.login(responsible.email);
     await page.goto(`/fairteiler/${foodSharePoint.id}`);
     await acceptanceHelper.waitForActiveAPICalls();
@@ -110,7 +146,10 @@ test.describe("FoodSharePoint", () => {
     await page.waitForSelector("text=Schreibe hier ein paar");
   });
 
-  test("other bot may edit food share point", async ({ page, acceptanceHelper }) => {
+  test("other bot may edit food share point", async ({
+    page,
+    acceptanceHelper,
+  }) => {
     await acceptanceHelper.login(otherBot.email);
     await page.goto(`/fairteiler/${foodSharePoint.id}`);
     await acceptanceHelper.waitForActiveAPICalls();
@@ -119,9 +158,14 @@ test.describe("FoodSharePoint", () => {
     await page.waitForSelector("text=Schreibe hier ein paar");
   });
 
-  test("may not edit food share point wrong bid", async ({ page, acceptanceHelper }) => {
+  test("may not edit food share point wrong bid", async ({
+    page,
+    acceptanceHelper,
+  }) => {
     const otherRegion = await foodsharing.createRegion("another funny region");
-    const bot = await foodsharing.createAmbassador(null, { bezirk_id: otherRegion.id });
+    const bot = await foodsharing.createAmbassador(null, {
+      bezirk_id: otherRegion.id,
+    });
     await foodsharing.addRegionAdmin(otherRegion.id, bot.id);
 
     await acceptanceHelper.login(bot.email);
