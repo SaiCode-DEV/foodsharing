@@ -121,7 +121,7 @@ store:
         mensagem'
       8: '{actor} deixou a equipa.'
       16: '{actor} retirou o pedido de filiação.'
-      10: '{actor} demitiu {target} do eliminar de responsável de empresa.'
+      10: '{actor} demitiu {target} do apagar de responsável de empresa.'
       12: '{actor} descreu-se para o dia {date}.'
       2: '{actor} rejeitou o pedido de afiliação de {target}.'
       5: '{actor} colocou {target} na lista de substitutos.'
@@ -140,7 +140,7 @@ store:
       16: 'Retirar o pedido de affiliação'
       8: 'Abandonar a equipa'
       4: 'Adicionar Foodsaver ao equipa sem a solicitação'
-      10: 'Eliminar os responsáveis de empresa'
+      10: 'Remover os responsáveis de empresa'
       6: 'Adicionar Foodsaver ao equipa ativo'
       12: 'Cancelar para assento'
       9: 'Inscrever o responsável de empresa'
@@ -233,7 +233,7 @@ store:
   delete_date_description: 'Caso utilize intervalos regulares (recorrentes semanalmente
     de forma automática) na tua empresa e deseje evitar que uma data específica seja
     criada (por exemplo, um feriado), pode fazê-lo especificando a data e a hora com
-    esta função. Caso deseje eliminar intervalos que já estão visíveis, pode fazê-lo
+    esta função. Caso deseje apagar intervalos que já estão visíveis, pode fazê-lo
     diretamente com um clique no intervalo, desde que ninguém tenha sido inserido.'
   complete: 'base de dados completa'
   address: 'Endereço'
@@ -292,7 +292,7 @@ store:
     são apresentadas estas informações adicionais, que se aplicam a todos os estabelecimentos
     desta cadeia.'
   all_of_my_stores: 'Todas as minhas empresas'
-  delete_date: 'Eliminar assento individual'
+  delete_date: 'Apagar assento individual'
   unknownDate: 'desconhecido'
   average_collection_quantity: 'Quantidade por pessoa'
   team_conversation_name: 'Equipa {name}'
@@ -337,7 +337,7 @@ store:
       específicas da empresa, exceto o registo da empresa, serão eliminadas. Por
       favor, apagine apenas empresas que realmente já não existem ou que foram 
       registadas duas vezes. As empresas que cancelaram uma cooperação devem 
-      permanecer registadas. Só é possível eliminar empresas nas quais nunca foi
+      permanecer registadas. Só é possível apagar empresas nas quais nunca foi 
       ocupada uma assento e cujos chats de equipa não tenham sido utilizados 
       durante pelo menos 3 meses.
   my_last_slot: O meu assento último
@@ -722,7 +722,7 @@ calendar:
   labelNoDateSelected: 'Selecionar data'
   labelToday: 'Hoje'
   labelPrevYear: 'O ano pasado'
-  labelResetButton: Eliminar seleção
+  labelResetButton: Anular seleção
   placeholder: Selectionar uma data
   copiedUrl: URL de calendário copiáda!
 poll:
@@ -825,7 +825,7 @@ pickuplist:
   error_confirm: 'Falha na confirmação: '
   really_delete_last_slot:
     title: Apagar o assento último?
-    body: Quer mesmo eliminar o assento último ? A marcação será completamente 
+    body: Quer mesmo cancelar o assento último ? A marcação será completamente 
       removida.
 basket:
   my_list_empty: 'Não adicionaste nenhum cesta alimentar'
@@ -1153,7 +1153,7 @@ profile:
       arbitrationGroup: 'Esta denúncia será enviada ao órgão de arbitragem, uma vez
         que uma das pessoas envolvidas é membro do grupo local de denúncias. Também
         pode contactar o órgão de arbitragem através do seguinte endereço de e-mail:'
-    confirmDelete: Deseja mesmo eliminar esta denúncia?
+    confirmDelete: Deseja mesmo apagar esta denúncia?
     report_b1_0: Chegou tarde para a recolha (B01-1)
     report_b1_1: Não compareceu para recolher (B01-2)
     report_b1_2: Levou animais para a empresa sem autorização (B01-3)
@@ -1189,7 +1189,7 @@ profile:
     warning_4: 'este artigo de suporte.'
     warning_others: 'O endereço de e-mail {email} desta pessoa está bloqueado para
       e-mails e comunicações do foodsharing. Pode remover o bloqueio através do botão.'
-    warning_3: 'eliminará este bloqueio. Para obter mais informações, consulte '
+    warning_3: 'esse bloqueio será removido. Para obter mais informações, consulte '
     warning_2: 'Alterar o endereço de e-mail'
   deletesuccess: 'Cita individual eliminada'
   banana:
@@ -1296,7 +1296,7 @@ profile:
   about_me_intern: 'Sobre si mesmo'
   sleeping: 'tem um touca de dormir por tempo indeterminado'
   reportRequest: 'Enviar denúncia'
-  cantdeletethis: 'Não é possível eliminar citas individuais!'
+  cantdeletethis: 'Não é possível apagar citas individuais!'
   homeDistrictHistory:
     changed: registado
     by: de
@@ -1346,7 +1346,7 @@ mailbox:
   not-allowed: 'Não tens a autorização necessária para fazer isso.'
   conformation_modal:
     title: 'Confirmação'
-    message: 'Tem a certeza de que deseja eliminar o e-mail?'
+    message: 'Tem a certeza de que deseja apagar o e-mail?'
   mark_as_unread: 'Marcar e-mail como não lido'
   fromto: 'De/Para'
   mark_all: 'Marcar todos'
@@ -1509,18 +1509,18 @@ group:
     is_verified: 'Verificado'
     add_member: 'incluir na equipa'
     remove_admin_text: 'Tem a certeza de que pretende remover {name} ({id}) como administrador?'
-    remove_admin_title: 'Eliminar como administrador'
-    remove_title: 'Eliminar miembro'
-    remove_text_group: 'Queres mesmo eliminar {name} ({id}) do grupo de trabalho?'
+    remove_admin_title: 'Remover como administrador'
+    remove_title: 'Apagar membro'
+    remove_text_group: 'Queres mesmo apagar {name} ({id}) do grupo de trabalho?'
     admin_mode_off: 'Voltar à vista normal'
     set_admin_text: 'Quer mesmo adicionar {name} ({id}) como administrador?'
     set_ambassador_title: 'Atribuir como embaixador(-a)'
     admin_mode_on: 'Ativar a vista do administrador'
     is_home_region: 'Distrito de origem'
-    remove_ambassador_title: 'Eliminar como embaixador(-a)'
+    remove_ambassador_title: 'Remover como embaixador(-a)'
     set_ambassador_text: 'Quer mesmo adicionar {name} ({id}) como embaixador(-a)?'
     not_verified: 'Não verificado'
-    remove_text_region: 'Queres mesmo eliminar {name} ({id}) do distrito?'
+    remove_text_region: 'Queres mesmo apagar {name} ({id}) do distrito?'
     default:
       lastname: Sobrenome
       title: Standard
@@ -1628,7 +1628,7 @@ group:
   mail_link_title:
     region: 'Caixa postal do distrito'
     workgroup: 'Caixa postal do grupo de trabalho'
-  delete_group_sure: 'Queres realmente eliminar o grupo/distrito {groupName}?'
+  delete_group_sure: 'Queres realmente apagar o grupo/distrito {groupName}?'
   filter_by_last_activity: 'Não ativo há meses'
   image: 'Imagem de capa para %name%'
   show-all: 'Mostrar todo'
@@ -1669,7 +1669,7 @@ group:
   filter_placeholder: Filtrar grupos por nomes
   confirm_decline: Queres mesmo recusar esta candidatura?
 foodsaver:
-  delete_account_sure: 'Tem a certeza de que deseja eliminar a tua perfil?'
+  delete_account_sure: 'Tem a certeza de que deseja apagar a tua conta?'
   list:
     summary: '{count} Foodsaver em {region}'
     inactive: ', quem não esteve ativo nos últimos 6 meses:'
@@ -1677,7 +1677,7 @@ foodsaver:
     photo: 'Fotografia'
     orga: 'Faz parte da equipa organizadora global'
     role: 'Função'
-    remove: 'Eliminar do distrito'
+    remove: 'Remover do distrito'
     actions: 'Opções'
     name: 'Nome'
     last-activity: 'Atividade mais recente'
@@ -1692,21 +1692,21 @@ foodsaver:
   editName: 'Editar {name}'
   mailchange_error: 'A ativação do teu novo endereço de correio electrónico falhou.
     Por favor, tente novamente.'
-  delete_account_now: 'Eliminar perfil agora'
+  delete_account_now: 'Apagar conta agora'
   restricted: 'Infelizmente, não tem permissão para visualizar estes dados.'
   edit_failure: 'Nada foi alterado ou as alterações não foram guardadas'
   profileBack: 'Voltar ao perfil'
-  delete_account: 'Eliminar Perfil'
+  delete_account: 'Apagar conta'
   about_me_intern: 'Fica exibido na tua página de perfil e visível a todos na comunidade
     foodsharing.
 
     '
-  delete_own_account: 'Está prestes a eliminar o teu perfil. Tem a certeza absoluta?'
+  delete_own_account: 'Está prestes a apagar a tua conta. Tem a certeza absoluta?'
   actions: 'Ações'
   title: 'Foodsaver'
   edit: 'Editar os salvadores alimentar'
-  delete_account_sure_reason: 'Tem a certeza de que deseja eliminar a tua perfil?
-    Motivo: {reason}'
+  delete_account_sure_reason: 'Tem a certeza de que deseja apagar a tua conta? Motivo:
+    {reason}'
   url_error: 'Parece haver algo de errado com o URL da sua página inicial'
   kicked: 'O/A Foodsaver foi removido/a'
   about_me_public: 'Se exibido/a a todas as pessoas listadas em [página da equipa
@@ -1745,7 +1745,7 @@ pickup:
         message: 'Quer mesmo remover o utilizador de todos os assentos registados?'
       signOff:
         title: 'Remover no assento?'
-        message: 'Deseja realmente cancelar a pessoa para este assento?'
+        message: 'Deseja realmente remover a pessoa para este assento?'
     cols:
       time: 'Tempo'
       slots: 'Assentos'
@@ -1771,7 +1771,7 @@ pickup:
   edit_description: 'Editar Descrição'
   description: 'Descrição'
   edit_recurring_pickups: 'Editar série de assentos'
-  kick: 'Eliminar'
+  kick: 'Remover'
   kick_message_footer: 'Cumprimentos cordiais, os responsáveis pela empresa'
   really_kick_user_info: 'Tem a certeza de que deseja cancelar a inscrição de {name}
     na recolha de {date}?
@@ -1809,18 +1809,18 @@ pickup:
     added: 'O assento foi reservado.'
     description_titel: 'Descrição'
     slotscount: '{count} pessoas a recolher'
-  leave: 'Deixar'
+  leave: 'Retirar'
   kick_message: 'Cancelámos a tua inscrição na recolha da {storeName} em {date}.'
   team_message_success: 'A mensagem foi enviada com sucesso para a equipa'
   join_title_date: 'Tem a certeza?'
-  really_leave_date_title: 'Cancelar a inscrição para {date}?'
+  really_leave_date_title: 'Retirar a inscrição para {date}?'
   slot_add: 'Adicionar um assento'
   kick_message_placeholder: 'Opcionalmente, adicione informações aqui…'
   description_optional: 'Descrição (opcional)'
   delete_not_empty: 'Atualmente, ainda há pessoas inscritas para recolha. Só poderá
-    eliminar este assento quando todas as inscrições forem canceladas.'
+    cancelar este assento quando todas as inscrições forem canceladas.'
   same_day_hint: 'O evento a seguir ocorrerá no mesmo dia:'
-  team_message_send_and_leave: 'Enviar e cancelar a inscrição'
+  team_message_send_and_leave: 'Enviar e retirar a inscrição'
   slot_remove: 'Remover um assento'
   description_max_length_info: 'Comprimento máximo da descrição alcançado (100 caracteres)'
   really_join_date: 'Gostaria de se inscrever de forma definitiva no dia {date}?'
@@ -1928,7 +1928,7 @@ fsp:
   location: 'código postal / local'
   followers: 'Partilhadores alimentar interessados'
   addError: 'Não foi possível registar o cantinho solidário. Preencheu tudo corretamente?'
-  rejectConfirm: 'Atenção, se eliminar o cantinho solidário, já não pode anular esta
+  rejectConfirm: 'Atenção, se apagar o cantinho solidário, já não pode anular esta
     ação. Queres mesmo continuar?'
   reject: 'Recusar o cantinho solidário'
   add: 'Registar o cantinho solidário'
@@ -2338,7 +2338,7 @@ storeedit:
 
       '
     bread: 'Editar equipa'
-    leave: 'Deixar esta empresa'
+    leave: 'Remover esta empresa'
     need-sm: 'Deve haver pelo menos uma pessoa responsável por esta empresa.'
     note: 'Nota:'
     empty: 'O equipa não deve estar vazio'
@@ -2558,9 +2558,9 @@ settings:
       neste momento.'
   calendar:
     delete_token:
-      button: 'Eliminar token'
+      button: 'Apagar token'
       message: 'Todos os links de calendário criados até agora serão invalidados.
-        Queres mesmo eliminar o token?'
+        Queres mesmo apagar o token?'
     export: 'Exportar calendário'
     menu: 'Calendário'
     export_tooltip: 'Pode subscrever as tuas datas de recolha com um programa de calendário
@@ -2579,7 +2579,7 @@ settings:
     info: |
       Aqui podes associar os teus compromissos de foodsharing a um programa de calendário à tua escolha. Assim, todos os tues assentos e/ou compromissos podem ser automaticamente inseridos no teu calendário.
 
-      **Mantenha os links do calendário em segredo.** Eles contêm um *token* que permite aceder aos dados dos tues assentos sem necessidade de palavra-passe. Pode eliminar o seu token atual a qualquer momento, tornando inválidos os links do calendário criados anteriormente.
+      **Mantenha os links do calendário em segredo.** Eles contêm um *token* que permite aceder aos dados dos tues assentos sem necessidade de palavra-passe. Pode apagar o teu token atual a qualquer momento, tornando inválidos os links do calendário criados anteriormente.
 
       O teu programa de calendário deve **sincronizar** este calendário regularmente. Só assim os assentos novos aparecerão e os compromissos cancelados deixarão de aparecer. Se, em vez disso, descarregares o teu calendário atual, este conterá apenas os teus compromissos atuais e não será atualizado automaticamente.
       Encontras mais informações [aqui no Wiki]({calendarUrl})
@@ -2735,7 +2735,7 @@ settings:
   no_rights: Não está autorizado a alterar a configuração do perfil.
   edit_other: Editar configurações do perfil de {name}
   profile: Configurações de perfil
-  delete_profile: Eliminar este perfil
+  delete_profile: Apagar este perfil
   address:
     title: Selecionar endereço
     choose: Aceitar endereço
@@ -2761,7 +2761,7 @@ settings:
       webauthn_not_supported: O WebAuthn não é suportado neste navegador
       operation_aborted: A operação foi cancelada
       registration_failed: 'Falha no registo da chave de segurança: {error}'
-      deletion_failed: Não foi possível eliminar a chave de segurança
+      deletion_failed: Não foi possível apagar a chave de segurança
       rename_failed: Não foi possível renomear a chave de segurança
     passkeys_section: Chave de segurança
     security_keys: Chaves de segurança (Passkeys)
@@ -3207,9 +3207,9 @@ base:
   keywords: ''
 blog:
   permissions:
-    edit: ''
+    edit: 'Não podes editar este artigo'
     new: 'Não é permitido criar artigos'
-    delete: ''
+    delete: 'Não podes apagar este artigo'
   new: 'Escrever um artigo novo'
   failure:
     new: 'Não foi possível criar o artigo'
@@ -3515,13 +3515,13 @@ content:
   new: 'Criar página nova'
   id: 'ID'
   title: 'Titulo'
-  delete: 'Quer mesmo eliminar {name}?'
+  delete: 'Quer mesmo remover {name}?'
   content: 'Conteúdo'
   name: 'Nome único'
   empty: 'Até agora, nenhuma página foi inserida.'
   last_modified: 'Últimas alterações'
   edit: 'Editar página'
-  delete_tooltip: 'Eliminar página'
+  delete_tooltip: 'Apagar página'
   delete_success: 'Página foi eliminada'
   changelog: 'Registo de alterações atual'
   edit_success: 'A página foi guardada.'
@@ -3886,21 +3886,22 @@ salutation:
   "2": 'Querida'
 stats:
   total:
-    pickups: ''
-    weight: ''
+    pickups: 'missões que os nossos salvadores de alimentos já completaram.'
+    weight: 'Alimentos salvos com sucesso do lixo.'
     fsp: 'Os cantinhos solidário são utilizados para trocar alimentos.'
     foodsharer: 'pessoas que partilham alimentos estão registadas no "foodsharing"
       e interessadas no nosso trabalho.'
-    foodsaver: ''
-    baskets: ''
-    cooperations: ''
+    foodsaver: 'salvadores alimentar trabalham voluntariamente por um mundo sem desperdício
+      de alimentos.'
+    baskets: 'cestas alimentar foram colocadas online.'
+    cooperations: 'empresas cooperam continuamente e com satisfação connosco.'
   leader:
     regions: ''
     users: ''
   avg:
     baskets: ''
-    pickups: ''
-  title: ''
+    pickups: 'missões ocorrem atualmente em média por dia.'
+  title: 'Estatística geral'
   sort:
     by_weight: por peso
     by_count: por número
@@ -4045,7 +4046,7 @@ wall:
   confirm-deletion: 'A seguinte publicação do {name} deve mesmo ser removida do pinboard?'
   delete: 'Apagar a contribuição'
   delete_confirmation:
-    text: Quer mesmo eliminar esta entrada de {author}?
+    text: Quer mesmo apagar esta entrada de {author}?
     title: Apagar uma publicação no pinboard?
 betrieb_kategorie_id: 'Categoria'
 success: 'Completado com sucesso'
@@ -4449,7 +4450,7 @@ required_messages:
     main: Foste removido da equipa da empresa [{store}](/store/{storeId}). 
       Assim, já não podes inscrever-te para os assentos nesta empresa.
     footer: ''
-    really: ''
+    really: 'Quer mesmo remover {name} da equipa desta empresa?'
   move_to_standby_team:
     main: Foste colocado na lista de substitutos da empresa 
       [{store}](/store/{storeId}). Atualmente, não podes inscrever-te para os 
