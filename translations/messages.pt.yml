@@ -41,8 +41,8 @@ store:
       sítio ({distance}). Tens a certeza de que podes apoiar a equipa de forma 
       regular e fiável?
     confirm-no-location: Não inscreveu um endereço válido no seu perfil. Por 
-      favor, insira um endereço para facilitar aos responsáveis da empresa a 
-      decisão sobre a sua candidatura.
+      favor, insira um endereço para facilitar aos lideres de equipa a decisão 
+      sobre a sua candidatura.
     confirm-no-location-ok: Candidatar mesmo assim
     application-message: Mensagem de candidatura
     application-placeholder: Gostaria de ajudar na esta equipa porque …
@@ -86,8 +86,8 @@ store:
         Introduz um número de telefone no teu perfil para te poderes candidatar.
       link: Editar o perfil
     applicationSummary:
-      intro: 'Quando enviares a tua candidatura, os responsáveis pela empresa verão
-        as seguintes informações:'
+      intro: 'Quando enviares a tua candidatura, os lideres de equipa verão as seguintes
+        informações:'
       time: A data da candidatura
       fullName: O teu nome completo ({first_name} {last_name})
       verified: O teu estado da verificação ({status})
@@ -121,11 +121,11 @@ store:
         mensagem'
       8: '{actor} deixou a equipa.'
       16: '{actor} retirou o pedido de filiação.'
-      10: '{actor} demitiu {target} do apagar de responsável de empresa.'
+      10: '{actor} demitiu {target} do apagar de lider de equipa.'
       12: '{actor} descreu-se para o dia {date}.'
       2: '{actor} rejeitou o pedido de afiliação de {target}.'
       5: '{actor} colocou {target} na lista de substitutos.'
-      9: '{actor} designou {target} como responsável pela cooperação.'
+      9: '{actor} designou {target} como lider de equipa.'
       15: '{actor} eliminou a publicação do pinboard de {target} em {date}.'
       17: '{actor} convidou {target} para a equipa.'
       18: '{actor} retirou o convite à equipa para {target}.'
@@ -140,10 +140,10 @@ store:
       16: 'Retirar o pedido de affiliação'
       8: 'Abandonar a equipa'
       4: 'Adicionar Foodsaver ao equipa sem a solicitação'
-      10: 'Remover os responsáveis de empresa'
+      10: 'Remover os lideres de equipa'
       6: 'Adicionar Foodsaver ao equipa ativo'
       12: 'Cancelar para assento'
-      9: 'Inscrever o responsável de empresa'
+      9: 'Inscrever lideres de equipa'
       5: 'Passar Foodsaver para a lista de suplentes'
       13: 'Ser cancelado do assento'
       11: 'Inscrever pela o assento'
@@ -167,13 +167,13 @@ store:
     filterManage: 'com questinário dos responsáveis pela cooperação'
     promoteToManager: 'Assumir a responsabilidade por esta empresa'
     promoteToManagerNotPossible: 'A pessoa não pode ser registada como responsável
-      porque já existem três pessoas responsáveis por esta empresa ou porque a pessoa
-      ainda não passou no questinário correspondente.'
+      porque já existem três lideres de equipa ou porque a pessoa ainda não passou
+      no questinário correspondente.'
     filterActive: 'Ativos'
     searchPlaceholder: 'Nome ou ID'
     filterSleeping: 'Dormilhões'
     filterJumper: 'Substitutos'
-    filterQuizSM: 'Questinário aprovado para responsáveis pela cooperação'
+    filterQuizSM: 'Questinário aprovado para lideres de equipas'
     reallyRemove: 'Quer mesmo remover {name} da equipa da loja?'
     makeJumper: 'Na lista da reserva'
     reloadRequired: 'Para atualizar as informações do equipa:'
@@ -209,7 +209,7 @@ store:
   chat:
     jumper: 'Mensagem para substituto'
     team: 'Mensagem para a equipe'
-    managers: Mensagem para os responsávels pela a empresa
+    managers: Mensagem para os lideres de equipa
   isAppliedForTeam: 'Solicitação'
   locked: 'Não pode editar esta loja.'
   lastPickup: 'Última Assento {date}'
@@ -257,7 +257,7 @@ store:
   teamName: '(storeTitle) equipe'
   enter_date: 'Inscrever um assento individual'
   ownStores: 'Empresas próprias'
-  mayManage: 'Aprovou o exame de responsáveis das empresas.'
+  mayManage: 'Aprovou o exame de lideres de equipas.'
   go: 'Para a equipa'
   bread: 'Todas as empresas'
   particularities_chain: 'Particularidades da cadeia'
@@ -297,9 +297,9 @@ store:
   average_collection_quantity: 'Quantidade por pessoa'
   team_conversation_name: 'Equipa {name}'
   lastPickupShort: 'última vez {date}'
-  pickup_slot_unavailable: 'Este assento está mais distante no futuro do que os responsáveis
-    desta empresa pretendiam. Por isso, tente novamente mais tarde.'
-  smneeded: 'Para criar uma empresa, tens de ser responsabilizar pelas cooperações.'
+  pickup_slot_unavailable: 'Este assento está mais distante no futuro do que os tues
+    lideres de equipa pretendiam. Por isso, tente novamente mais tarde.'
+  smneeded: 'Para criar uma empresa, tens de ser o/a lider de equipas.'
   invitations: Convites abertos ({count})
   deactivatedRegion: A lista de empresas ainda não pode ser apresentada para 
     países e continentes.
@@ -494,45 +494,61 @@ bell:
     read: Marcar como lido
     unread: Marcar como no lido
 email_template:
-  login: ''
-  reply: ''
-  foodbasket_request: ''
-  in: ''
+  login: 'Fazer login para responder'
+  reply: 'Responder'
+  foodbasket_request: 'A tua cesta alimentar foi solicitada por %SENDER%'
+  in: 'em'
   newsletter:
-    unsubscribe: ''
-    linktext: ''
-  request_from: ''
+    unsubscribe: 'Não queres receber mais a newsletter?'
+    linktext: 'Clique aqui para cancelar a subscrição.'
+  request_from: 'Pedido de'
   foodsharepoint: '-- cantinho solidário'
-  to: ''
+  to: 'a'
   dont_respond:
-    notification: ''
-    noreply: ''
-    you_can: ''
-    nomail: ''
-    no_notification_link: ''
-  from: ''
-  unknown_email: ''
+    notification: 'notificaçães'
+    noreply: 'Por favor, não responda a este e-mail. Esta mensagem foi enviada de
+      um endereço para o qual não existe a caixa de correio.'
+    you_can: 'Podes configurar em'
+    nomail: 'que e-mails recebes.'
+    no_notification_link: 'Não quer mais receber este tipo de notificações?'
+  from: '-- De '
+  unknown_email: 'Endereço de e-mail desconhecido'
   impress:
-    title: ''
-    address: ''
-    general_information_requirements: ''
-  unknown_email2: ''
-  confirm_topic: ''
-  warning: ''
-  confirm_BOT: ''
-  information: ''
-  confirm_link: ''
+    title: 'Aviso legal'
+    address: "foodsharing e. V. \n Neven-DuMont-Str. 14 \n 50667 Köln \n\n Representado
+      por:\n Anja Westermann \n Contacto:\nE-Mail: info@foodsharing.de\n \n Entrada
+      de registro:\nInscrição no registo de associações\n Tribunal de registro: Tribunal
+      de Distrito de Colonia\n Número de registro: VR 17439\n \nResponsável pelo conteúdo
+      de acordo com o § 18 MStV (Tratado sobre o Estado de Media):\n Anja Westermann"
+    general_information_requirements: 'Informações de acordo com o § 5 da lei alemã
+      «Telemediengesetz» (Lei dos meios de comunicação telemáticos)'
+  unknown_email2: "O endereço de e-mail %ADDRESS% não é conhecido. \nTenha em atenção
+    que os e-mails com cópia oculta para o domínio @foodsharing.network não podem
+    ser entregues."
+  confirm_topic: 'O tópico precisa de aprovação:'
+  warning: 'Aviso'
+  confirm_BOT: 'Como és embaixador(a) ou moderador(a) do %BEZIRK%, tens de confirmar
+    antes de ser publicado.'
+  information: 'Informação'
+  confirm_link: 'quer enviar o tópico'
   fetch_warning:
     empty_slots: '%COUNT% vagas assentos para recolha'
-    disable_warning: ''
+    disable_warning: 'Desligar este aviso?'
     subject:
-      multiple: ''
-      single: ''
-    settings_link: ''
-    part2: ''
-    part1: ''
-  confirm_for_moderated_forum: ''
-  confirm_for_unverified: ''
+      multiple: 'Datas disponíveis para recolha na %COUNT% lojas!'
+      single: 'Datas disponíveis para recolha na %EMPRESA%!'
+    settings_link: 'Para as configurações de notificação'
+    part2: 'Por favor, procure o mais rápido possível salvadores alimentar para que
+      todas as recolhas possam ser feitas. Se não conseguir mobilizar ninguém, seria
+      bom se pudesse assumir as recolhas em aberto. Se isso não for possível, por
+      favor, cancele as datas correspondentes com antecedência junto da loja.'
+    part1: 'A tarefa dos líderes de equipa é garantir que as recolhas sejam realizadas
+      conforme previsto. Infelizmente, nem todos os seus negócios registaram poupadores
+      de alimentos suficientes para as recolhas nos próximos dois dias:'
+  confirm_for_moderated_forum: 'O tópico precisa ser confirmado, pois se trata de
+    um fórum moderado.'
+  confirm_for_unverified: 'O tópico precisa ser confirmado, pois foi criado por uma
+    pessoa não verificada.'
 footer:
   meta:
     version: 'Versão: {version}'
@@ -677,10 +693,10 @@ storeview:
   select_related_region: 'Seleção do distrito competente'
   visible_for_team: 'Este texto é visível para a equipa de empresa.'
   public_time_at_night: 'à noite'
-  no_permission_to_view: 'Visível apenas pelos responsáveis pela coordenação da empresa.'
+  no_permission_to_view: 'Visível apenas pelos lideres de equipas.'
   status: 'Situação actual'
   pickupWeight: 'kg salvado'
-  managers: 'Responsáveis da empreaa'
+  managers: 'Lideres de equipa'
   common: 'Geral'
   pickupCount: 'Assentos'
   team_info_distance: 'Distância aérea para a empresa:'
@@ -798,7 +814,8 @@ poll:
   scope_description_3: ''
   scope_description_4: ''
   scope_description_0: ''
-  scope_description_2: ''
+  scope_description_2: 'Todos os lideres de equipas do distrito que atualmente são
+    responsáveis por uma equipa empresal'
   type: ''
   hint_sorted_order: ''
   title: ''
@@ -1364,7 +1381,7 @@ mailbox:
   mark_as_read: 'Marcar e-mail como lido'
   actions: 'Opções'
   to: 'Para'
-  sm-quiz: 'Concurso questinario para Responsáveis por o coordenação da empresa'
+  sm-quiz: 'Concurso questinario para lideres de equipas'
   okay: 'O e-mail foi enviado com sucesso.'
   manage: 'Administrador de caixa de correio'
   trash: 'Cesto de papel'
@@ -1686,7 +1703,7 @@ foodsaver:
     ad_fs: 'Quero fazer o questionário Foodsaver agora e tornar-me Foodsaver!'
     rv: 'Sim, li e consinto com o acordo legal.'
     FOODSAVER: Tornar-me um(a) Foodsaver
-    STORE_MANAGER: Torne-se responsavel de cooperações
+    STORE_MANAGER: Torne-se o lider de equipa
     AMBASSADOR: Torne-se embaixador(a)
     pn: Sim, li e aceito a política de privacidade.
   editName: 'Editar {name}'
@@ -1772,7 +1789,7 @@ pickup:
   description: 'Descrição'
   edit_recurring_pickups: 'Editar série de assentos'
   kick: 'Remover'
-  kick_message_footer: 'Cumprimentos cordiais, os responsáveis pela empresa'
+  kick_message_footer: 'Cumprimentos cordiais, os lideres de equipa'
   really_kick_user_info: 'Tem a certeza de que deseja cancelar a inscrição de {name}
     na recolha de {date}?
 
@@ -2148,7 +2165,7 @@ quiz:
     privacyNotice:
       hygiene: Se passar neste concurso questinario, ficará registado que o fez 
         e ser-lhe-á atribuído um autocolante de higiene. Os responsáveis pela 
-        higiene e pelas operações podem verificar se tem um autocolante de 
+        higiene e lideres de equipas podem verificar se tem um autocolante de 
         higiene válido.
     title: Notas ao questionário
   comment:
@@ -2343,7 +2360,7 @@ storeedit:
     note: 'Nota:'
     empty: 'O equipa não deve estar vazio'
     foodsaver: 'Foodsaver'
-    max-sm: 'Por favor selecionar no máximo três pessoas responsáveis pela empresa'
+    max-sm: 'Por favor selecionar no máximo três pessoas como lider de equipa'
     amb: 'És não responsável por esta empresa.
 
       Mas tens amplos direitos como o embaixador(-a).
@@ -2515,12 +2532,12 @@ recipients:
   recipients: 'Destinatários'
   all: 'Todos os Foodsavers em todo o mundo'
   prepare: 'Preparação para envio'
-  storemanagers: 'Todos os responsáveis pelas cooperações a nível mundial'
+  storemanagers: 'Todos os lideres de equipas a nível mundial'
   body: 'Mensagem'
   send: 'Enviar o e-mail'
   active_ambassadors: 'Todos os embaixadores do país'
   doublecheck: 'Tudo verificado? O e-mail deve ser enviado ao público-alvo selecionado?'
-  storemanagers_and_ambs: 'Todos os responsáveis pelas cooperações e embaixadores'
+  storemanagers_and_ambs: 'Todos os lideres de equipas e embaixadores'
 settings:
   sleep:
     tooltip: '{name} está atualmente a fazer uma pausa e está em modo de suspensão'
@@ -2741,7 +2758,7 @@ settings:
     choose: Aceitar endereço
   quiz:
     1: Quiz para te tornar um(a) salvador(a) alimentar
-    2: Quiz para te tornar um(a) responsável de cooperação
+    2: Quiz para te tornar um(a) lider de equipas
     3: Quiz para te tornar um(a) embaixador(a)
   account_security:
     title: Segurança da conta de acesso
@@ -2962,9 +2979,9 @@ settings:
 terminology:
   reportAdmins: 'Equipa de processamento de denúncias'
   storemanager:
-    m: 'Responsável pela empresa'
-    d: 'Responsável pela empresa'
-    f: 'Responsável pela empresa'
+    m: 'Lider de equipas'
+    d: 'Lider de equipa'
+    f: 'Lider de equipa'
   ambassador:
     m: 'Embasador'
     d: 'Embasador/a'
@@ -2974,7 +2991,7 @@ terminology:
   ambassador_forum: 'Forum dos embaixadores'
   role:
     "4": 'Administrador(a) global'
-    "2": 'Responsavel de empresa'
+    "2": 'Lider de equipa'
     "1": 'Salvador/a dos alimentos'
     "0": 'partilhador(a) alimentar'
     "3": 'Embaixador(-a)'
@@ -3078,24 +3095,25 @@ join_region:
     is_state_1: ''
   description: ''
 polls:
-  ended: ''
-  ongoing: ''
-  start_date: ''
-  end_date: ''
-  hint: ''
-  new_poll: ''
-  hint_2: ''
-  until: ''
-  future: ''
-  title: ''
+  ended: 'Votações passadas'
+  ongoing: 'Votações em curso'
+  start_date: 'de'
+  end_date: 'até'
+  hint: 'O módulo de votação pode ser testado no grupo de trabalho suprarregional
+    «Votações – Teste».'
+  new_poll: 'Criar a votação nova'
+  hint_2: 'Informações sobre como usar as votações podem ser encontradas no Wiki'
+  until: 'Possível até {until}'
+  future: 'Votações futuras'
+  title: 'Título'
   score:
     disapproval: ''
     approval: ''
     neutral: ''
   badge:
-    vote_now: ''
-    already_voted: ''
-    not_eligible: ''
+    vote_now: 'Votar agora'
+    already_voted: 'Já votado'
+    not_eligible: 'Sem direito a voto'
 register:
   confirmPassword_sameAsPassword: 'Ambas as palavras-passe tenho concordar'
   phone_example: 'Exemplo: +351 612 34 56 78'
@@ -3201,10 +3219,12 @@ thread:
     toggle: ''
     includesHidden: ''
 base:
-  whatfor: ''
-  slogan: ''
-  jsrequired: ''
-  keywords: ''
+  whatfor: 'No foodsharing, podes doar os teus alimentos ainda aproveitáveis a instituições
+    sociais ou a outras pessoas'
+  slogan: 'foodsharing: juntos contra o desperdício alimentar'
+  jsrequired: 'Esta página não funciona corretamente sem JavaScript.'
+  keywords: 'foodsharing, comida, alimentos, data de validade, desperdício alimentar,
+    deitar comida fora, doações, troca de alimentos'
 blog:
   permissions:
     edit: 'Não podes editar este artigo'
@@ -3292,8 +3312,8 @@ legal:
     this_gets_deleted_quiz: 'Todos os teus questinários são removidos.'
     this_doesnt_get_deleted_history: 'História da tua verificação'
   legal_agreement: 'acordo legal'
-  privacy_notice: 'Instruções sobre proteção de dados para os responsávels de empresas
-    e embaixadores'
+  privacy_notice: 'Instruções sobre proteção de dados para os liederes de equipas
+    e os embaixadores'
   privacy_policy: 'Política de privacidade'
   button:
     agree: Aceitar
@@ -3542,9 +3562,13 @@ content:
       vizinho ou com o distrito imediatamente superior.
   error_loading: Não foi possível carregar o conteúdo
 conference:
-  join_title: ''
-  join: ''
-  confirm_info: ''
+  join_title: 'Entrar na conferência'
+  join: 'Entrar na conferência'
+  confirm_info: 'Aqui pode participar numa conferência de video online para o grupo
+    selecionado. A conferência de video online abre o BigBlueButton numa janela nova.
+    Nota: as conferências de video online são realizadas através do servidor de conferências
+    do coletivo "living utopia". Será automaticamente conectado com o teu nome, ID
+    de membro e avatar inseridos no foodsharing.'
 system_administration:
   regions: ''
   email: ''
@@ -3896,10 +3920,10 @@ stats:
     baskets: 'cestas alimentar foram colocadas online.'
     cooperations: 'empresas cooperam continuamente e com satisfação connosco.'
   leader:
-    regions: ''
-    users: ''
+    regions: 'Distritos mais ativos'
+    users: 'Salvadores alimentar mais ativos'
   avg:
-    baskets: ''
+    baskets: 'cestas alimentar são colocadas online em media por semana.'
     pickups: 'missões ocorrem atualmente em média por dia.'
   title: 'Estatística geral'
   sort:
@@ -4051,23 +4075,24 @@ wall:
 betrieb_kategorie_id: 'Categoria'
 success: 'Completado com sucesso'
 buddy:
-  request_accepted: ''
-  request_sent: ''
+  request_accepted: 'Agora vos conhecem.'
+  request_sent: 'Solicitação enviada.'
   send:
     confirm_text: Caso se marquem mutuamente como conhecidos, as publicações do 
       mural do perfil da outra pessoa serão exibidas na vossa página inicial. 
       Além disso, será mais fácil encontrarem-se através da procura.
-    confirm_title: ''
+    confirm_title: 'Conheces a {name}?'
   remove:
-    confirm_text: ''
-    confirm_title: ''
+    confirm_text: 'Queres terminar a amizade? As atualizações nos vossos painéis de
+      perfil deixarão de ser exibidas na página inicial.'
+    confirm_title: 'Terminar a amizade com {name}?'
   requests:
-    mine: ''
-    other: ''
-  my: ''
-  is_buddy: ''
-  confirmed: ''
-  none: ''
+    mine: 'As minhas solicitações'
+    other: 'Colicitações de outras pessoas'
+  my: 'Os meus conhecidos e as minhas solicitações'
+  is_buddy: 'Sois conhecidos'
+  confirmed: 'Conhecidos confirmados'
+  none: 'Ainda sem conhecidos'
 right: 'Avaliação'
 begin: 'Início da cooperação'
 picture_upload_widget:
@@ -4163,7 +4188,7 @@ map:
         label: Função
         all: Todos
         foodsaver: Salvadores alimentar verificados
-        store-manager: Responsáveis por o coordenação da empresa
+        store-manager: Lider de equipa
       activity:
         label: Último login
         week: Última semana
@@ -4196,18 +4221,18 @@ push_notifications:
 savewithus: ''
 bezirk_id: 'Para qual região o artigo é relevante?'
 sidenav:
-  yourgroups: ''
-  localgroups: ''
-  countryspecific: ''
-  superregional: ''
-  yourregions: ''
+  yourgroups: 'Os teus grupos'
+  localgroups: 'Grupos regionais'
+  countryspecific: 'Grupos em todo o país'
+  superregional: 'Suprarregional'
+  yourregions: 'Os teus distritos'
 explanation: 'Explicação'
 status: 'Estado atual'
 nofp: 'Nemhum pontos de erro (pergunta de brincadeira)'
 select: 'Por favor selecionar'
 password:
-  reset: ''
-  insertmail: ''
+  reset: 'Esqueceu a palavra-passe?'
+  insertmail: 'Escreva o teu endereço de e-mail para redefinir a tua palavra-passe.'
 pass2: 'Repetição da palavra-passe'
 personal_data:
   label: 'Contacto'
@@ -4376,7 +4401,7 @@ help:
         - **Oculto:** o autocolante só é visível para utilizadores com direitos de organização.
         oculto: «Não é exibido a ninguém»
         - **Privado:** Apenas a própria pessoa em questão, bem como os administradores e embaixadores da área de validade especificada, podem ver o autocolante.
-        - **Apenas responsáveis da empresa:** O autocolante é exibido à própria pessoa, bem como a todos os responsáveis da empresa na área selecionada.
+        - **Apenas lideres de equipas:** O autocolante é exibido à própria pessoa, bem como a todos os lideres de equipas na área selecionada.
         - **Na área de validade:** O autocolante é visível para todos os utilizadores que são membros do distrito especificado.
         - **Global:** O autocolante é visível para todos os utilizadores registados.
 
@@ -4393,7 +4418,28 @@ help:
       title: ''
     pickupOptions:
       title: ''
-      md: ''
+      md: 'A secção *Possibilidades de inscrição* mostra-lhe uma visão geral de todos
+        os turnos assentos nas tuas empresas, para os quais ainda se procuram salvadores
+        alimentar. Através do menu de opções, pode ajustar a visualização às suas
+        necessidades:
+
+
+        **Assentos inscritos:** Para que possa planear melhor os teus turnos, também
+        pode visualizar os turnos nos quais já se inscreveu. Esses turnos são apresentados
+        em tons mais claros para que os possas identificar rapidamente.
+
+
+        **Visualização para líderes de equipas:** Os lideres de equipas garantem que
+        todos os assentos nas tuas empresas decorram de forma fiável. Se fores um
+        lider, podes restringir a visualização às empresas pelas quais és responsável.
+        Assim, é mais fácil manter uma visão geral.
+
+        **Agrupado por dias:** Nesta apresentação, as suas opções de inscrição são
+        agrupadas por dias e apresentadas de forma um pouco mais compacta. Especialmente
+        quando tem muitas opções de inscrição disponíveis por dia, isso facilita a
+        obtenção de uma visão geral.
+
+        '
     resource_mosaic:
       title: ''
       md: ''
@@ -4405,7 +4451,8 @@ help:
       md: ''
     profileCommitmentsStat:
       title: ''
-      md: ''
+      md: 'é visível a partir da função de lider de equipas. É restrita ao distrito
+        comum ou às empresas comuns.'
     pollScopes:
       md: ''
       title: ''
@@ -4458,9 +4505,9 @@ required_messages:
     footer: ''
     really: ''
   demote_store_manager:
-    really: ''
+    really: 'Quer mesmo retirar a responsabilidade de {name} como líder da equipa?'
     footer: ''
-    main: ''
+    main: 'Eu removi-te como líder da equipa da loja [{store}](/store/{storeId}).'
   placeholder: ''
   decline_store_application:
     footer: ''
@@ -4596,7 +4643,8 @@ petition:
 achievements:
   visibility_type_explanation:
     scope: ''
-    store_managers: ''
+    store_managers: 'É exibido para a própria pessoa e para todos os lideres de equipas
+      em {scope}'
     private: ''
     hidden: ''
     global: ''
@@ -4606,7 +4654,7 @@ achievements:
     private: ''
     scope: ''
     global: ''
-    store_managers: ''
+    store_managers: 'Só lideres de equipas'
     hidden: ''
   validity:
     days: ''
