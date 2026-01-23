@@ -2588,7 +2588,7 @@ profile:
     securePickupWeek: ''
     basketsSharedWeek: ''
     weekDesc: ''
-    eventsCreatedWeek: ''
+    eventsCreatedWeek: 'Dzięki za utworzenie eventów {count} raz/y w tym tygodniu.'
     districtName: ''
     calenderWeek: ''
     basketsOfferedWeek: ''
@@ -2602,15 +2602,15 @@ profile:
       you: Jeszcze nie podarowałeś/aś żadnego banana zaufania.
     give: Podaruj {name} banana zaufania
     remove:
-      confirm_title: ''
-      successful: ''
-      confirm_message: ''
+      confirm_title: 'Usuń banana zaufania'
+      successful: 'Usunięto banana!'
+      confirm_message: 'Czy na pewno chcesz usunąć tego banana?'
     sent: ''
-    undo: ''
+    undo: 'Nie można zmienić bananów zaufania.'
     vouch: ''
-    alreadyGiven: ''
-    messageTooShort: ''
-    placeholder: ''
+    alreadyGiven: '{name} już otrzymał/a banana od ciebie.'
+    messageTooShort: 'Podaj tekst o długości co najmniej 100 znaków do tego banana.'
+    placeholder: 'minimum 100 znaków …'
     details: ''
   stores:
     memberState:
@@ -2645,19 +2645,19 @@ profile:
   infos:
     title: Informacje
     fsMail: ''
-    registrationDate: ''
-    buddies: ''
-    never: ''
-    lastActivity: ''
+    registrationDate: 'Data rejestracji'
+    buddies: 'znajomi'
+    never: 'Jeszcze nigdy'
+    lastActivity: 'Ostatnia aktywność'
     fetchrate: ''
-    buddycount_known: ''
-    foodsaverId: ''
+    buddycount_known: '{name} zna {count} foodsaverów/ek'
+    foodsaverId: 'ID'
     buddycount_followed: ''
-    privateMail: ''
+    privateMail: 'Prywatny adres email'
   stats:
     bananas: Banany
     baskets: ''
-    weight_unit: ''
+    weight_unit: 'kg'
     weight: ''
     give_count: ''
     slots: ''
@@ -2673,7 +2673,7 @@ profile:
     login: ''
     textMay: ''
     textMayNot: ''
-    may: ''
+    may: 'aktywny/a'
   report:
     inthisblog: w tym poście na blogu
     report_other: Inne
@@ -2732,20 +2732,20 @@ profile:
   choosestore: ''
   deletesuccess: ''
   sleeping_info_from_until: ''
-  warning: ''
+  warning: 'Uwaga'
   tab_navigation:
     pickups: ''
-    notes: ''
+    notes: 'Notatki ({count})'
     commitment_statistics: ''
     stores: ''
-    profile: ''
+    profile: 'Profil'
   homeDistrictHistory:
     previous: ''
     changed: ''
     by: ''
   pinboard: ''
   choosereasonnostore: ''
-  title: ''
+  title: 'Profil'
   mediationRequest: ''
   go: ''
   sleeping: ''
