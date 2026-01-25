@@ -759,8 +759,8 @@ profile:
     bananas: Bananas
     weight_unit: kg
     give_count: ''
-    slots: ''
-    engagement_count: ''
+    slots: 'Slots'
+    engagement_count: 'Committed'
   infos:
     buddies: buddies
     never: Never
@@ -1290,8 +1290,7 @@ pickup:
   take_empty_slot: sign up here
   delete_not_empty: At the moment there are still foodsavers enrolled. You can 
     only delete this pick-up date once all slots are empty.
-  to_be_confirmed: This pick-up date still has to be confirmed by a store 
-    coordinator.
+  to_be_confirmed: This slot still has to be confirmed by a store coordinator.
   delete_title: Delete slot
   join_agree: yes, sign up
   join_cancel: rather not
@@ -1367,7 +1366,7 @@ pickup:
   membershipMissing: You are not a member of this team. Therefore, you should 
     not register for pick-ups. If necessary, register as a team member first.
   may_enter: There is a slot available for you on this pickup date.
-  confirmed: Pickup is confirmed.
+  confirmed: Slot is confirmed.
   passport_expired:
     short: Membership card expired
     long: Your membership card will no longer be valid at this time
@@ -2324,9 +2323,9 @@ map:
         member: only my stores
         label: Belonging
       type:
-        label: ''
+        label: 'Type'
         2: ''
-        "null": ''
+        "null": 'All'
         1: ''
         0: ''
     users:
@@ -2648,9 +2647,9 @@ store:
   enter_date: Enter a single slot
   delete_date: Delete a single slot
   enter_date_description: After you have selected the date, time and number of 
-    people for a pick-up, you can set slots once for a single appointment. If 
-    you want to create regular (automatically recurring weekly) slots, please 
-    use the ‘Store settings’ menu.
+    slots for a pick-up, you can set slots once for a single appointment. If you
+    want to create regular (automatically recurring weekly) slots, please use 
+    the ‘Store settings’ menu.
   delete_date_description: If you use regular (automatically recurring weekly) 
     slots for your pick-ups and want to prevent a specific date (e.g. public 
     holiday) from being created, you can use this function by specifying date 
@@ -2757,9 +2756,9 @@ store:
       undone! All members will be removed from the team and all company-specific
       information except the event log will be deleted. Please only delete 
       stores that no longer exist or have been entered twice. Companies that 
-      have canceled a partnership should remain listed. Only stores where no 
-      pickups have ever taken place and whose team chats have been unused for at
-      least three months can be deleted.
+      have cancelled a partnership should remain listed. Only stores where no 
+      pick-ups have ever taken place and whose team chats have been unused for 
+      at least three months can be deleted.
   my_last_slot: My last activity
 navi:
   google_maps: "Google Maps"
@@ -4777,13 +4776,13 @@ categories:
     id: ID
     name: Name
     usage_count: Usage count
-    type: ''
-    number_of_stores: ''
+    type: 'Type'
+    number_of_stores: 'Stores in the category'
   title:
     store: Store categories
     resource: Resource categories
   empty: No category has been entered yet
-  edit: Rename category
+  edit: Edit category
   delete: Delete category
   merge: Merge with another category
   merge_title: Merge categories
@@ -4798,9 +4797,9 @@ categories:
   new: Add new category
   types:
     0: ''
-    2: ''
+    2: 'Organisation'
     1: ''
-    "null": ''
+    "null": 'Not categorised'
 resource_mosaic:
   title: Resource Mosaic
   my_resources: My resources
