@@ -40,13 +40,16 @@ class Mem
         return false;
     }
 
-    /* enqueue work of specified type.
-       counterpart of asynchronous queue runner in mails.control
+    /**
+     * Enqueue an email to be processed by the mailqueuerunner.
+     * Counterpart of the asynchronous queue runner in OutgoingMailsService.
+     *
+     * TODO: rename this function to make it clear that this is only for emails
      */
-    public function queueWork($type, $data, bool $highPriority = false)
+    public function queueWork($data, bool $highPriority = false)
     {
         if (MEM_ENABLED) {
-            $e = serialize(['type' => $type, 'data' => $data]);
+            $e = serialize(['data' => $data]);
             $this->ensureConnected();
 
             if ($highPriority) {

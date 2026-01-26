@@ -26,7 +26,7 @@ class AsyncMail
             'html' => false,
             'subject' => DEFAULT_EMAIL_NAME,
             'identifier' => '',
-            'queuedAt' => new \DateTime()];
+        ];
     }
 
     public function addRecipient($email, $name = null)
@@ -89,6 +89,6 @@ class AsyncMail
 
     public function send()
     {
-        $this->mem->queueWork('email', $this->toArray(), $this->highPriority);
+        $this->mem->queueWork($this->toArray(), $this->highPriority);
     }
 }

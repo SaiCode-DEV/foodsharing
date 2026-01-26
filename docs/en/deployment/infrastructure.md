@@ -143,7 +143,10 @@ If changes are needed here you need to check if they can be applied before a dep
 
 ### fs-mailqueuerunner
 This service helps us to deliver our Mails.
-The Service is running as a [systemd Service](https://gitlab.com/foodsharing-dev/foodsharing-ansible/-/blob/master/roles/foodsharing/templates/fs-mailqueuerunner.service).
+The service is running as a [systemd Service](https://gitlab.com/foodsharing-dev/foodsharing-ansible/-/blob/master/roles/foodsharing/templates/fs-mailqueuerunner.service).
+Emails that shall be sent are pushed into the Redis queue `workqueue`. The mailqueuerunner takes entries from this queue 
+and sends them. If the send process fails, mailqueuerunner pushes that email into the queue `workqueue:failed`. This
+queue is not processed further at the moment.
 
 ### cronjob
 The command `bin/console foodsharing:cronjob` is running all 5 minutes.

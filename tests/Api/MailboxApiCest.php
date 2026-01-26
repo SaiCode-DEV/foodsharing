@@ -58,6 +58,7 @@ class MailboxApiCest
      */
     public function canSendValidEmail(ApiTester $I, Example $example): void
     {
+        $I->deleteAllMails();
         $email = $this->createRandomEmail(0, $example['withCc'], $example['withBcc']);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
@@ -68,6 +69,8 @@ class MailboxApiCest
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPost("api/mailboxes/{$this->ambassadorMailboxId}/mails", $email);
         $I->seeResponseCodeIs(HttpCode::OK);
+
+        $I->expectNumMails(1, 10);
     }
 
     public function canNotSendEmailWithNonExistentAttachment(ApiTester $I): void

@@ -4,9 +4,11 @@ namespace Foodsharing\Modules\Mails;
 
 use Foodsharing\Lib\Db\Mem;
 use Foodsharing\Utility\ConsoleHelper;
+use RuntimeException;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
+use Throwable;
 
 class OutgoingMailsService
 {
@@ -26,22 +28,60 @@ class OutgoingMailsService
     {
         $this->mem->ensureConnected();
         $running = true;
+        $maxAttempts = 3;
         while ($running) {
-            $elem = $this->mem->cache->brpoplpush('workqueue', 'workqueueprocessing', 10);
-            if ($elem !== false && $e = unserialize($elem)) {
-                if ($e['type'] == 'email') {
-                    $res = $this->handleEmailRateLimited($e['data']);
-                } else {
-                    $res = false;
-                }
+            // Try to retrieve one element from the queue
+            try {
+                $rawElement = $this->mem->cache->brPop('workqueue', 10);
+            } catch (Throwable $ex) {
+                ConsoleHelper::error('Redis brpoplpush failed: ' . $ex->getMessage());
+                sleep(5);
+                $this->mem->ensureConnected();
+                continue;
+            }
+            if (is_array($rawElement)) {
+                $rawElement = $rawElement[1] ?? false;
+            }
+            if ($rawElement === false) {
+                continue; // timeout, loop again
+            }
 
-                if ($res) {
-                    $this->mem->cache->lrem('workqueueprocessing', $elem, 1);
-                } else {
+            // Unserialise it and make sure that it is a valid element
+            $element = @unserialize($rawElement);
+            if (!is_array($element) || !isset($element['data'])) {
+                ConsoleHelper::error('Invalid queue payload, moving to workqueue:failed');
+                try {
+                    $this->mem->cache->lpush('workqueue:failed', $rawElement);
+                } catch (Throwable $ex) {
+                    ConsoleHelper::error('Failed to move invalid payload to failed queue: ' . $ex->getMessage());
+                }
+                continue;
+            }
+
+            // Process it
+            $processed = false;
+            for ($attempts = 0; $attempts < $maxAttempts && !$processed; ++$attempts) {
+                try {
+                    $this->handleEmailRateLimited($element['data']);
+                    $processed = true;
+                } catch (Throwable $ex) {
+                    ConsoleHelper::error('Error processing element: ' . $ex->getMessage());
                     sleep(3);
-                    /* trigger a restart as there is the database and SMTP connection that can hang :-( */
+                }
+            }
+
+            // If it was not processed successfully, push it into the queue for failed elements
+            if (!$processed) {
+                ConsoleHelper::info('Email not processed after ' . $attempts . ' attempts');
+
+                try {
+                    $this->mem->cache->lpush('workqueue:failed', $rawElement);
+                    ConsoleHelper::error('Task failed after ' . $attempts . ' attempts, moved to workqueue:failed');
+                } catch (Throwable $ex) {
+                    ConsoleHelper::error('Failed to requeue failed task: ' . $ex->getMessage());
+                    // If we cannot push to Redis, break to allow the cron job to restart
+                    sleep(5);
                     $running = false;
-                    // TODO handle failed tasks?
                 }
             }
         }
@@ -51,9 +91,9 @@ class OutgoingMailsService
      * Prepares and sends one email.
      *
      * @param array $data the email
-     * @return bool if the email was processed and should be removed from the queue
+     * @throws RuntimeException if the email was not processed successfully
      */
-    private function handleEmailRateLimited(array $data): bool
+    private function handleEmailRateLimited(array $data): void
     {
         ConsoleHelper::info('Mail from: ' . $data['from'][0] . ' (' . $data['from'][1] . ')');
         $email = new Email();
@@ -104,11 +144,10 @@ class OutgoingMailsService
         }
         $email->to(...$recipients);
         if ($mailCount < 1) {
-            return true;
+            return;
         }
 
         for ($attemptsLeft = 2; $attemptsLeft > 0; --$attemptsLeft) {
-            ConsoleHelper::info('send email tries remaining ' . $attemptsLeft);
             try {
                 $this->mailer->send($email);
                 ConsoleHelper::success('email send OK');
@@ -116,14 +155,15 @@ class OutgoingMailsService
                 // rate limiting
                 usleep($mailCount * DELAY_MICRO_SECONDS_BETWEEN_MAILS);
 
-                return true;
-            } catch (\Throwable $e) {
+                return;
+            } catch (Throwable $e) {
                 ConsoleHelper::error('email send error: ' . $e->getMessage());
                 ConsoleHelper::error(print_r($data, true));
+                ConsoleHelper::error('tries remaining: ' . $attemptsLeft);
             }
         }
 
         // no attempts left
-        return false;
+        throw new RuntimeException('Failed to send email after 3 attempts');
     }
 }
