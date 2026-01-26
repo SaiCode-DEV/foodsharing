@@ -33,7 +33,7 @@ class ResourceApiCest
 
         foreach ($expectedResponses as $type => $responseCode) {
             $I->updateInDatabase('fs_bezirk', ['type' => $type], ['id' => $region['id']]);
-            $I->sendGet('api/region/' . $region['id'] . '/resources');
+            $I->sendGet('api/regions/' . $region['id'] . '/resources');
             $I->seeResponseCodeIs($responseCode);
         }
     }
@@ -45,12 +45,12 @@ class ResourceApiCest
         $I->addRegionMember($region['id'], $buddy['id']);
 
         $resourceId = $I->addResource($buddy['id'], 'resource', null, [], true, 3);
-        $I->sendGet('api/region/' . $region['id'] . '/resources');
+        $I->sendGet('api/regions/' . $region['id'] . '/resources');
         $I->seeResponseCodeIs(Http::OK);
         $I->dontSeeResponseContainsJson([['id' => $resourceId]]);
 
         $I->addBuddy($user['id'], $buddy['id']);
-        $I->sendGet('api/region/' . $region['id'] . '/resources');
+        $I->sendGet('api/regions/' . $region['id'] . '/resources');
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseContainsJson([['id' => $resourceId, 'isPrivate' => true]]);
     }
@@ -60,7 +60,7 @@ class ResourceApiCest
         [$user, $region] = $this->setupUserAndRegion($I);
         $categoryIds = $this->addResourceCategories($I);
         $I->addResource($user['id'], 'resource1', 'description', [$categoryIds[0], $categoryIds[1]], false, 4);
-        $I->sendGet('api/region/' . $region['id'] . '/resources');
+        $I->sendGet('api/regions/' . $region['id'] . '/resources');
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseContainsJson([[
             'name' => 'resource1',
@@ -232,7 +232,7 @@ class ResourceApiCest
         $I->seeResponseCodeIs(Http::OK);
         $I->seeInDatabase('fs_foodsaver_has_favorite_resource', ['resource_id' => $resourceId, 'foodsaver_id' => $user['id']]);
 
-        $I->sendGet('api/region/' . $region['id'] . '/resources');
+        $I->sendGet('api/regions/' . $region['id'] . '/resources');
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseContainsJson([[
             'id' => $resourceId,
@@ -242,7 +242,7 @@ class ResourceApiCest
         $I->sendDelete('api/resources/' . $resourceId . '/favorite');
         $I->seeResponseCodeIs(Http::OK);
         $I->dontSeeInDatabase('fs_foodsaver_has_favorite_resource', ['resource_id' => $resourceId, 'foodsaver_id' => $user['id']]);
-        $I->sendGet('api/region/' . $region['id'] . '/resources');
+        $I->sendGet('api/regions/' . $region['id'] . '/resources');
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseContainsJson([[
             'id' => $resourceId,
@@ -260,15 +260,15 @@ class ResourceApiCest
 
         $resourceId = $I->addResource($user['id'], 'resource', null, [], false, 3, $region['id']);
 
-        $I->sendGet('api/region/' . $region['id'] . '/resources');
+        $I->sendGet('api/regions/' . $region['id'] . '/resources');
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseContainsJson([['id' => $resourceId, 'regionId' => $region['id']]]);
 
-        $I->sendGet('api/region/' . $subregion['id'] . '/resources');
+        $I->sendGet('api/regions/' . $subregion['id'] . '/resources');
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseContainsJson([['id' => $resourceId, 'regionId' => $region['id']]]);
 
-        $I->sendGet('api/region/' . $otherRegion['id'] . '/resources');
+        $I->sendGet('api/regions/' . $otherRegion['id'] . '/resources');
         $I->seeResponseCodeIs(Http::OK);
         $I->dontSeeResponseContainsJson([['id' => $resourceId]]);
     }

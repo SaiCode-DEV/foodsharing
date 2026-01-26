@@ -1,7 +1,7 @@
 import { get, patch, post, remove } from './base'
 
 export async function getResourcesForRegion (regionId) {
-  return await get(`/region/${regionId}/resources`)
+  return await get(`/regions/${regionId}/resources`)
 }
 
 export async function getOwnResources () {
@@ -37,5 +37,5 @@ export async function unfavoriteResource (resourceId) {
 }
 
 export async function getResourcePermissions (regionId) {
-  return await get(`/region/${regionId}/resources/permissions`)
+  return await get(`/regions/${regionId}/resources/permissions`)
 }
