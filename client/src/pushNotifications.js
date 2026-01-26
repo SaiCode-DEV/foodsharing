@@ -6,7 +6,7 @@ import * as ajax from '@/api/serviceWorker'
  */
 export async function subscribeForPushNotifications (options = { userVisibleOnly: true, applicationServerKey: null }) {
   if (options.applicationServerKey === null) {
-    options.applicationServerKey = urlBase64ToUint8Array((await ajax.get('/pushnotification/webpush/server-information')).key)
+    options.applicationServerKey = urlBase64ToUint8Array((await ajax.get('/push-notification/webpush/server-information')).key)
   }
 
   const serviceWorkerRegistration = await navigator.serviceWorker.ready
@@ -34,7 +34,7 @@ function sendPushSubscriptionToServer (subscription) {
   const token = subscription.getKey('auth')
   const contentEncoding = (PushManager.supportedContentEncodings || ['aes128gcm'])[0]
 
-  return ajax.post('/pushnotification/webpush/subscription', {
+  return ajax.post('/push-notification/webpush/subscription', {
     endpoint: subscription.endpoint,
     publicKey: key ? btoa(String.fromCharCode.apply(null, new Uint8Array(key))) : null,
     authToken: token ? btoa(String.fromCharCode.apply(null, new Uint8Array(token))) : null,

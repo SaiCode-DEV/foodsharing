@@ -12,18 +12,13 @@ use Tests\Support\ApiTester;
  */
 class PushNotificationSubscriptionCest
 {
-    /**
-     * @var string
-     */
-    private $testSubscription;
+    private string $testSubscription;
+    private array $user;
 
     public function _before(ApiTester $I): void
     {
-        $this->tester = $I;
         $this->user = $I->createFoodsaver();
-
-        $this->testSubscription = '
-		{
+        $this->testSubscription = '{
 			"endpoint": "https://some.pushservice.com/something-unique",
 			"keys": {
 				"p256dh": "BIPUL12DLfytvTajnryr2PRdAgXS3HGKiLqndGcJGabyhHheJYlNGCeXl1dn18gSJ1WAkAPIxr4gK0_dQds4yiI=",
@@ -35,7 +30,7 @@ class PushNotificationSubscriptionCest
     public function subscriptionSucceedsIfLoggedIn(ApiTester $I): void
     {
         $I->login($this->user['email']);
-        $I->sendPOST('api/pushnotification/webpush/subscription', $this->testSubscription);
+        $I->sendPOST('api/push-notification/webpush/subscription', $this->testSubscription);
 
         $I->seeResponseCodeIs(HttpCode::OK);
         $subscriptionId = $I->grabDataFromResponseByJsonPath('id')[0];
@@ -58,7 +53,7 @@ class PushNotificationSubscriptionCest
         ]);
 
         $I->login($this->user['email']);
-        $I->sendDELETE('api/pushnotification/webpush/subscription/' . $subscriptionId);
+        $I->sendDELETE('api/push-notification/webpush/subscription/' . $subscriptionId);
 
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->dontSeeInDatabase('fs_push_notification_subscription', ['id' => $subscriptionId]);
@@ -66,14 +61,14 @@ class PushNotificationSubscriptionCest
 
     public function subscriptionFailsIfNotLoggedIn(ApiTester $I): void
     {
-        $I->sendPOST('api/pushnotification/webpush/subscription', $this->testSubscription);
+        $I->sendPOST('api/push-notification/webpush/subscription', $this->testSubscription);
 
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
     }
 
     public function unsubscriptionFailsIfNotLoggedIn(ApiTester $I): void
     {
-        $I->sendDELETE('api/pushnotification/webpush/subscription/123');
+        $I->sendDELETE('api/push-notification/webpush/subscription/123');
 
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
     }
