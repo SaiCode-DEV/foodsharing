@@ -3,28 +3,12 @@
 include:
   - template: Dependency-Scanning.gitlab-ci.yml
 
-gemnasium-dependency_scanning:
-  rules:
-    - if: $CI_COMMIT_BRANCH == 'production' && $SKIP_CI_TESTS == 'true'
-      when: never
-    - if: $CI_COMMIT_BRANCH == 'master' || $CI_COMMIT_BRANCH == 'production'
-    - if: $CI_MERGE_REQUEST_ID
-      changes:
-        - composer.lock
-        - deployer/composer.lock
-        - client/yarn.lock
-        - websocket/yarn.lock
-        - docs/yarn.lock
-        - tests/e2e/yarn.lock
-
 variables:
   PHPCS_VERSION: "8.3"
   DS_EXCLUDED_ANALYZERS: "gemnasium-maven, gemnasium-python"
-  # https://docs.docker.com/engine/userguide/storagedriver/selectadriver/
-  # https://gitlab.com/gitlab-org/gitlab-ce/issues/19971
-  DOCKER_DRIVER: overlay
 
 stages:
+  - gemnasium-dependency_scanning
   - outdated
   - update-dependencies
   - build
@@ -79,26 +63,32 @@ stages:
     - job: test:playwright
       artifacts: false
 
-outdated:
-  extends:
-    - .defaults
-  stage: outdated
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "schedule" && $SCHEDULED_JOB == "outdated"
-      when: always
-  script:
-    - ./scripts/ci-notify-outdated
-  cache:
-    key: outdated:cache
-    paths:
-      - vendor
+# Consolidated rule definitions (to most degree reused across jobs)
+.rule-gemnasium-dependency-scanning: &rule-gemnasium-dependency-scanning
+  - if: $CI_COMMIT_BRANCH == 'production' && $SKIP_CI_TESTS == 'true'
+    when: never
+  - if: $CI_COMMIT_BRANCH == 'master' || $CI_COMMIT_BRANCH == 'production'
+  - if: $CI_MERGE_REQUEST_ID
+    changes:
+      - composer.lock
+      - deployer/composer.lock
+      - client/yarn.lock
+      - websocket/yarn.lock
+      - docs/yarn.lock
+      - tests/e2e/yarn.lock
+.rule-skip-on-production-skip-ci: &rule-skip-on-production-skip-ci
+  - if: $CI_COMMIT_BRANCH == 'production' && $SKIP_CI_TESTS == 'true'
+    when: never
 
-.build-artifacts: &build-artifacts
-  expire_in: 1 day
+.rule-skip-on-schedule: &rule-skip-on-schedule
+  - if: $CI_PIPELINE_SOURCE == "schedule"
+    when: never
 
-.dirs-app-rule:
-  rules:
-    if: $CI_MERGE_REQUEST_ID
+.rule-main-branches: &rule-main-branches
+  - if: $CI_COMMIT_BRANCH == 'master' || $CI_COMMIT_BRANCH == 'production'
+
+.rule-mr-app-changes: &rule-mr-app-changes
+  - if: $CI_MERGE_REQUEST_ID
     changes:
       - css/**/*
       - docker/**/*
@@ -122,41 +112,107 @@ outdated:
       - phpstan.neon
       - run.php
 
-.dirs-backend-rule:
-  rules:
-    if: $CI_MERGE_REQUEST_ID
+.rule-mr-backend-changes: &rule-mr-backend-changes
+  - if: $CI_MERGE_REQUEST_ID
     changes:
       - src/**/*
       - config/**/*
 
-.dirs-frontend-rule:
-  rules:
-    if: $CI_MERGE_REQUEST_ID
+.rule-mr-frontend-changes: &rule-mr-frontend-changes
+  - if: $CI_MERGE_REQUEST_ID
     changes:
       - client/**/*
 
-.dirs-websocket-rule:
-  rules:
-    if: $CI_MERGE_REQUEST_ID
+.rule-mr-websocket-changes: &rule-mr-websocket-changes
+  - if: $CI_MERGE_REQUEST_ID
     changes:
       - websocket/**/*
 
-.dirs-docs-rule:
-  rules:
-    if: $CI_MERGE_REQUEST_ID
+.rule-mr-docs-changes: &rule-mr-docs-changes
+  - if: $CI_MERGE_REQUEST_ID
     changes:
       - docs/**/*
       - scripts/**/*
       - src/RestApi/**/*
 
-.dirs-playwright-rule:
-  rules:
-    if: $CI_MERGE_REQUEST_ID
+.rule-mr-playwright-changes: &rule-mr-playwright-changes
+  - if: $CI_MERGE_REQUEST_ID
     changes:
       - tests/e2e/package.json
       - tests/e2e/yarn.lock
       - tests/e2e/playwright.config.ts
       - tests/e2e/specs/**/*
+
+# Shared artifact definitions
+.build-artifacts: &build-artifacts
+  expire_in: 1 day
+
+.test-artifacts: &test-artifacts
+  expire_in: 2 weeks
+  when: always
+  paths:
+    - tests/_output
+  reports:
+    junit: tests/_output/report-*.xml
+
+# Shared cache definitions
+.cache-backend-build: &cache-backend-build
+  cache:
+    key: backend:build:cache
+    paths:
+      - .php-cs-fixer.cache
+
+.cache-frontend-build: &cache-frontend-build
+  cache:
+    key: frontend:build:cache
+    paths:
+      - client/node_modules
+
+# Shared service definitions for backend tests
+.services-backend-test: &services-backend-test
+  services:
+    - name: registry.gitlab.com/foodsharing-dev/images/redis:latest
+      alias: redis
+    - name: registry.gitlab.com/foodsharing-dev/images/mariadb:latest
+      alias: db
+    - name: registry.gitlab.com/foodsharing-dev/images/selenium:latest
+      alias: selenium
+    - name: registry.gitlab.com/foodsharing-dev/images/maildev:latest
+      alias: maildev
+      command: ["bin/maildev", "--web", "1080", "--smtp", "1025"]
+    - name: registry.gitlab.com/foodsharing-dev/images/node:latest
+      alias: websocket
+      command: ["/bin/sh", "-c", 'rm $CI_PROJECT_DIR/code_updated; while [ ! -e $CI_PROJECT_DIR/code_updated ]; do sleep 1; done; cd /builds/foodsharing-dev/foodsharing/websocket && yarn ts-node src/index.ts 0.0.0.0']
+    - name: registry.gitlab.com/foodsharing-dev/images/ci/nginx:latest
+      alias: nginx
+
+# Shared variables for backend tests
+.vars-backend-test: &vars-backend-test
+  variables:
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_INITDB_SKIP_TZINFO: 1
+    TZ: Europe/Berlin
+    FF_NETWORK_PER_BUILD: 1
+    REDIS_HOST: redis
+    FS_ENV: test
+
+gemnasium-dependency_scanning:
+  rules:
+    *rule-gemnasium-dependency-scanning
+
+outdated:
+  extends:
+    - .defaults
+  stage: outdated
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule" && $SCHEDULED_JOB == "outdated"
+      when: always
+  script:
+    - ./scripts/ci-notify-outdated
+  cache:
+    key: outdated:cache
+    paths:
+      - vendor
 
 build:backend-dev:
   extends:
@@ -164,24 +220,19 @@ build:backend-dev:
   stage: build
   interruptible: true
   rules:
-    - if: $CI_COMMIT_BRANCH == 'production' && $SKIP_CI_TESTS == 'true'
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_COMMIT_BRANCH == 'master' || $CI_COMMIT_BRANCH == 'production'
-    - !reference [.dirs-app-rule, rules]
-    - !reference [.dirs-backend-rule, rules]
-    - !reference [.dirs-frontend-rule, rules]
-    - !reference [.dirs-playwright-rule, rules]
-    - !reference [.dirs-websocket-rule, rules]
-    - !reference [.dirs-docs-rule, rules]
+    - *rule-skip-on-production-skip-ci
+    - *rule-skip-on-schedule
+    - *rule-main-branches
+    - *rule-mr-app-changes
+    - *rule-mr-backend-changes
+    - *rule-mr-frontend-changes
+    - *rule-mr-playwright-changes
+    - *rule-mr-websocket-changes
+    - *rule-mr-docs-changes
   image: registry.gitlab.com/foodsharing-dev/images/php:latest
   script:
     - ./scripts/ci-backend-build-dev
-  cache:
-    key: backend:build:cache
-    paths:
-      - .php-cs-fixer.cache
+  <<: *cache-backend-build
   artifacts:
     <<: *build-artifacts
     paths:
@@ -189,8 +240,6 @@ build:backend-dev:
       - vendor
     reports:
       codequality: gitlab-ci-cs-report.json
-      # we could have both in theory, but in practice: https://gitlab.com/gitlab-org/gitlab/-/issues/351546
-      #- gitlab-ci-phpstan-report.json
 
 build:websocket:
   extends:
@@ -198,13 +247,12 @@ build:websocket:
   stage: build
   interruptible: true
   rules:
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_COMMIT_BRANCH == 'master' || $CI_COMMIT_BRANCH == 'production'
-    - !reference [ .dirs-app-rule, rules ]
-    - !reference [ .dirs-backend-rule, rules ]
-    - !reference [ .dirs-frontend-rule, rules ]
-    - !reference [ .dirs-websocket-rule, rules ]
+    - *rule-skip-on-schedule
+    - *rule-main-branches
+    - *rule-mr-app-changes
+    - *rule-mr-backend-changes
+    - *rule-mr-frontend-changes
+    - *rule-mr-websocket-changes
   image: registry.gitlab.com/foodsharing-dev/images/node:latest
   script:
     - (cd websocket && yarn && yarn lint)
@@ -219,20 +267,16 @@ build:frontend:
   stage: build
   interruptible: true
   rules:
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_COMMIT_BRANCH == 'master' || $CI_COMMIT_BRANCH == 'production'
-    - !reference [ .dirs-app-rule, rules ]
-    - !reference [ .dirs-backend-rule, rules ]
-    - !reference [ .dirs-frontend-rule, rules ]
-    - !reference [ .dirs-websocket-rule, rules ]
+    - *rule-skip-on-schedule
+    - *rule-main-branches
+    - *rule-mr-app-changes
+    - *rule-mr-backend-changes
+    - *rule-mr-frontend-changes
+    - *rule-mr-websocket-changes
   image: registry.gitlab.com/foodsharing-dev/images/node:latest
   script:
     - (cd client && yarn && yarn lint && yarn build)
-  cache:
-    key: frontend:build:cache
-    paths:
-      - client/node_modules
+  <<: *cache-frontend-build
   artifacts:
     <<: *build-artifacts
     paths:
@@ -245,20 +289,16 @@ build:backend:
   stage: build
   interruptible: true
   rules:
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_COMMIT_BRANCH == 'master' || $CI_COMMIT_BRANCH == 'production'
-    - !reference [ .dirs-app-rule, rules ]
-    - !reference [ .dirs-backend-rule, rules ]
-    - !reference [ .dirs-frontend-rule, rules ]
-    - !reference [ .dirs-websocket-rule, rules ]
+    - *rule-skip-on-schedule
+    - *rule-main-branches
+    - *rule-mr-app-changes
+    - *rule-mr-backend-changes
+    - *rule-mr-frontend-changes
+    - *rule-mr-websocket-changes
   image: registry.gitlab.com/foodsharing-dev/images/php:latest
   script:
     - ./scripts/ci-backend-build
-  cache:
-    key: backend:build:cache
-    paths:
-      - .php-cs-fixer.cache
+  <<: *cache-backend-build
   artifacts:
     <<: *build-artifacts
     paths:
@@ -271,10 +311,9 @@ build:docs:
   stage: build
   interruptible: true
   rules:
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
+    - *rule-skip-on-schedule
     - if: $CI_COMMIT_BRANCH == 'master'
-    - !reference [ .dirs-docs-rule, rules ]
+    - *rule-mr-docs-changes
   image: registry.gitlab.com/foodsharing-dev/images/docs:latest
   variables:
     MYSQL_ROOT_PASSWORD: root
@@ -296,20 +335,17 @@ test:php-compatibility-check:
   stage: test
   extends:
     - .defaults
+  interruptible: true
   needs:
     - build:backend-dev
   rules:
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - !reference [ .dirs-app-rule, rules ]
+    - *rule-skip-on-schedule
+    - *rule-mr-app-changes
   script:
     - vendor/bin/phpcs src --standard=PHPCompatibility --report=junit --report-file=compatibility-report.xml --runtime-set testVersion $PHPCS_VERSION || true
     - echo "==== PHPCompatibility Summary Output ===="
     - vendor/bin/phpcs src --standard=PHPCompatibility --report=summary --runtime-set testVersion $PHPCS_VERSION || true
-  cache:
-    key: php-compatibility-check:cache
-    paths:
-      - vendor
+  <<: *cache-backend-build
   artifacts:
     expire_in: 2 weeks
     paths:
@@ -317,59 +353,22 @@ test:php-compatibility-check:
     reports:
       junit: compatibility-report.xml
 
-.test-artifacts: &test-artifacts
-  expire_in: 2 weeks
-  when: always
-  paths:
-    - tests/_output
-  reports: # make test report(s) available in Gitlab UI. see https://docs.gitlab.com/ee/ci/unit_test_reports.html
-    junit: tests/_output/report-*.xml
-
 .test-backend:
   stage: test
   interruptible: true
   rules:
-    - if: $CI_COMMIT_BRANCH == 'production' && $SKIP_CI_TESTS == 'true'
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_COMMIT_BRANCH == 'master' || $CI_COMMIT_BRANCH == 'production'
-    - !reference [ .dirs-app-rule, rules ]
-    - !reference [ .dirs-backend-rule, rules ]
+    - *rule-skip-on-production-skip-ci
+    - *rule-skip-on-schedule
+    - *rule-main-branches
+    - *rule-mr-app-changes
+    - *rule-mr-backend-changes
   image: registry.gitlab.com/foodsharing-dev/images/php:latest
-  variables:
-    MYSQL_ROOT_PASSWORD: root
-    MYSQL_INITDB_SKIP_TZINFO: 1
-    TZ: Europe/Berlin
-    FF_NETWORK_PER_BUILD: 1
-    REDIS_HOST: redis
-    FS_ENV: test
-  services:
-    # Note: Gitlab runner will mark a lot of service healthchecks as failed.
-    # This is a bug that will partly be addressed with the upcoming release of the gitlab-runner.
-    # It is also due to our configuration, e.g. the websocket container not exposing ports but listed as a service.
-    # Unfortunately, health check cannot be disabled.
-    - name: registry.gitlab.com/foodsharing-dev/images/redis:latest
-      alias: redis
-    - name: registry.gitlab.com/foodsharing-dev/images/mariadb:latest
-      alias: db
-    - name: registry.gitlab.com/foodsharing-dev/images/maildev:latest
-      alias: maildev
-      command: [ "bin/maildev",  "--web", "1080", "--smtp", "1025" ]
-    - name: registry.gitlab.com/foodsharing-dev/images/node:latest
-      alias: websocket
-      command: [ "/bin/sh", "-c", 'rm $CI_PROJECT_DIR/code_updated; while [ ! -e $CI_PROJECT_DIR/code_updated ]; do sleep 1; done; cd /builds/foodsharing-dev/foodsharing/websocket && yarn ts-node src/index.ts 0.0.0.0' ]
-      # websocket service runs with code that gets checked out later by the main build job.
-      # We use a file to synchronize that, so start websocket service only when that file has been recreated.
-    - name: registry.gitlab.com/foodsharing-dev/images/ci/nginx:latest
-      alias: nginx
+  <<: *vars-backend-test
+  <<: *services-backend-test
   needs:
     - build:frontend
     - build:backend-dev
-  cache:
-    key: backend:build:cache
-    paths:
-      - .php-cs-fixer.cache
+  <<: *cache-backend-build
   artifacts: *test-artifacts
 
 test:backend-api:
@@ -379,14 +378,14 @@ test:backend-api:
     matrix:
       - GROUP: [api-group-1, api-group-2, api-group-3]
   script:
-    - touch $CI_PROJECT_DIR/code_updated # Create file to notify websocket container that code is up to date
+    - touch $CI_PROJECT_DIR/code_updated
     - ./scripts/ci-backend-test Api 1 $GROUP
 
 test:backend-unit:
   extends:
     - .test-backend
   script:
-    - touch $CI_PROJECT_DIR/code_updated # Create file to notify websocket container that code is up to date
+    - touch $CI_PROJECT_DIR/code_updated
     - ./scripts/ci-backend-test Unit
 
 test:frontend:
@@ -395,13 +394,11 @@ test:frontend:
   stage: test
   interruptible: true
   rules:
-    - if: $CI_COMMIT_BRANCH == 'production' && $SKIP_CI_TESTS == 'true'
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_COMMIT_BRANCH == 'master' || $CI_COMMIT_BRANCH == 'production'
-    - !reference [.dirs-app-rule, rules]
-    - !reference [.dirs-frontend-rule, rules]
+    - *rule-skip-on-production-skip-ci
+    - *rule-skip-on-schedule
+    - *rule-main-branches
+    - *rule-mr-app-changes
+    - *rule-mr-frontend-changes
   image: registry.gitlab.com/foodsharing-dev/images/node:latest
   variables:
     REDIS_HOST: redis
@@ -409,10 +406,7 @@ test:frontend:
     - (cd client && yarn && yarn test)
   needs:
     - build:frontend
-  cache:
-    key: frontend:build:cache
-    paths:
-      - client/node_modules
+  <<: *cache-frontend-build
 
 test:playwright:
   extends:
@@ -426,46 +420,30 @@ test:playwright:
     url: http://nginx:8080/
   interruptible: true
   rules:
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_COMMIT_BRANCH == 'master' || $CI_COMMIT_BRANCH == 'production'
-    - !reference [.dirs-app-rule, rules]
-    - !reference [.dirs-frontend-rule, rules]
-    - !reference [.dirs-backend-rule, rules]
-    - !reference [.dirs-playwright-rule, rules]
-    - if: $CI_COMMIT_BRANCH == 'production' && $SKIP_CI_TESTS == 'true'
-      when: never
-  # Uses combined PHP+Node+Playwright image for CI
-  # Local dev uses docker-compose with separate containers
+    - *rule-skip-on-schedule
+    - *rule-main-branches
+    - *rule-mr-app-changes
+    - *rule-mr-frontend-changes
+    - *rule-mr-backend-changes
+    - *rule-mr-playwright-changes
+    - *rule-skip-on-production-skip-ci
   image: registry.gitlab.com/foodsharing-dev/images/playwright:latest
-  variables:
-    MYSQL_ROOT_PASSWORD: root
-    MYSQL_INITDB_SKIP_TZINFO: 1
-    TZ: Europe/Berlin
-    FF_NETWORK_PER_BUILD: 1
-    REDIS_HOST: redis
-    FS_ENV: test
+  <<: *vars-backend-test
   services:
-    # Note: Gitlab runner will mark a lot of service healthchecks as failed.
-    # This is a bug that will partly be addressed with the upcoming release of the gitlab-runner.
-    # It is also due to our configuration, e.g. the websocket container not exposing ports but listed as a service.
-    # Unfortunately, health check cannot be disabled.
     - name: registry.gitlab.com/foodsharing-dev/images/redis:latest
       alias: redis
     - name: registry.gitlab.com/foodsharing-dev/images/mariadb:latest
       alias: db
     - name: registry.gitlab.com/foodsharing-dev/images/maildev:latest
       alias: maildev
-      command: [ "bin/maildev",  "--web", "1080", "--smtp", "1025" ]
+      command: ["bin/maildev", "--web", "1080", "--smtp", "1025"]
     - name: registry.gitlab.com/foodsharing-dev/images/node:latest
       alias: websocket
-      command: [ "/bin/sh", "-c", 'rm $CI_PROJECT_DIR/code_updated; while [ ! -e $CI_PROJECT_DIR/code_updated ]; do sleep 1; done; cd /builds/foodsharing-dev/foodsharing/websocket && yarn ts-node src/index.ts 0.0.0.0' ]
-      # websocket service runs with code that gets checked out later by the main build job.
-      # We use a file to synchronize that, so start websocket service only when that file has been recreated.
+      command: ["/bin/sh", "-c", 'rm $CI_PROJECT_DIR/code_updated; while [ ! -e $CI_PROJECT_DIR/code_updated ]; do sleep 1; done; cd /builds/foodsharing-dev/foodsharing/websocket && yarn ts-node src/index.ts 0.0.0.0']
     - name: registry.gitlab.com/foodsharing-dev/images/ci/nginx:22
       alias: nginx
   script:
-    - touch $CI_PROJECT_DIR/code_updated # Create file to notify websocket container that code is up to date
+    - touch $CI_PROJECT_DIR/code_updated
     - ./scripts/ci-frontend-test-playwright
   after_script:
     - echo "📊 View Playwright HTML Report at https://foodsharing-dev.gitlab.io/-/foodsharing/-/jobs/${CI_JOB_ID}/artifacts/tests/_output/html-report/index.html"
@@ -488,13 +466,11 @@ test:websocket:
   stage: test
   interruptible: true
   rules:
-    - if: $CI_COMMIT_BRANCH == 'production' && $SKIP_CI_TESTS == 'true'
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_COMMIT_BRANCH == 'master' || $CI_COMMIT_BRANCH == 'production'
-    - !reference [.dirs-app-rule, rules]
-    - !reference [.dirs-websocket-rule, rules]
+    - *rule-skip-on-production-skip-ci
+    - *rule-skip-on-schedule
+    - *rule-main-branches
+    - *rule-mr-app-changes
+    - *rule-mr-websocket-changes
   image: registry.gitlab.com/foodsharing-dev/images/node:latest
   variables:
     REDIS_HOST: redis
@@ -510,8 +486,7 @@ deploy:beta:
   extends:
     - .deploy-app
   rules:
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
+    - *rule-skip-on-schedule
     - if: $CI_COMMIT_BRANCH == 'master'
   environment:
     name: beta
@@ -522,8 +497,7 @@ deploy:production:
     - .deploy-app
   rules:
     - if: $CI_COMMIT_BRANCH == 'production'
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
+    - *rule-skip-on-schedule
   environment:
     name: production
     url: https://foodsharing.de
@@ -532,8 +506,7 @@ deploy:docs:
   extends:
     - .deploy
   rules:
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
+    - *rule-skip-on-schedule
     - if: $CI_COMMIT_BRANCH == 'master'
   needs:
     - build:docs
