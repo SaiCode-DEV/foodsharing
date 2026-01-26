@@ -696,19 +696,14 @@ class StoreTransactions
         }
     }
 
-    public function joinPickup(int $storeId, Carbon $date, int $fsId, int $issuerId = null): bool
+    public function joinPickup(int $storeId, Carbon $date, int $userId): bool
     {
-        if ($fsId != $issuerId) {
-            /* currently it is forbidden to add other users to a pickup */
-            throw new StoreTransactionException(StoreTransactionException::NO_PICKUP_OTHER_USER);
-        }
-
-        $confirmed = $this->pickupIsPreconfirmed($storeId, $issuerId);
+        $confirmed = $this->pickupIsPreconfirmed($storeId, $userId);
 
         /* Never occupy more slots than available */
-        if ($pickup = $this->getPickupIfPickupSlotAvailable($storeId, $date, $fsId)) {
-            if ($this->checkPickupRule($storeId, $date, $fsId)) {
-                $this->pickupGateway->addFetcher($fsId, $storeId, $date, $confirmed);
+        if ($pickup = $this->getPickupIfPickupSlotAvailable($storeId, $date, $userId)) {
+            if ($this->checkPickupRule($storeId, $date, $userId)) {
+                $this->pickupGateway->addFetcher($userId, $storeId, $date, $confirmed);
                 // [#860] convert to manual slot, so they don't vanish when changing the schedule
                 $this->createOrUpdatePickup($storeId, $pickup);
             } else {
@@ -718,7 +713,7 @@ class StoreTransactions
             throw new StoreTransactionException(StoreTransactionException::NO_PICKUP_SLOT_AVAILABLE);
         }
 
-        $this->storeGateway->addStoreLog($storeId, $fsId, null, $date, StoreLogAction::SIGN_UP_SLOT);
+        $this->storeGateway->addStoreLog($storeId, $userId, null, $date, StoreLogAction::SIGN_UP_SLOT);
 
         return $confirmed;
     }

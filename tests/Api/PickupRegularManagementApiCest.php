@@ -48,7 +48,7 @@ class PickupRegularManagementApiCest
             ['time' => $time, 'dow' => 4, 'fetcher' => $fetcher]
         );
         $I->login($this->userNoMember['email']);
-        $I->sendGET('/api/stores/' . $this->store['id'] . '/regularPickup');
+        $I->sendGET('/api/stores/' . $this->store['id'] . '/regular-pickups');
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
     }
 
@@ -68,7 +68,7 @@ class PickupRegularManagementApiCest
             ['time' => $time, 'dow' => 4, 'fetcher' => $fetcher]
         );
         $I->login($this->user1['email']);
-        $I->sendGET('/api/stores/' . $this->store['id'] . '/regularPickup');
+        $I->sendGET('/api/stores/' . $this->store['id'] . '/regular-pickups');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson([
@@ -93,7 +93,7 @@ class PickupRegularManagementApiCest
             ['time' => $time, 'dow' => 4, 'fetcher' => $fetcher]
         );
         $I->login($this->coordinator['email']);
-        $I->sendGET('/api/stores/' . $this->store['id'] . '/regularPickup');
+        $I->sendGET('/api/stores/' . $this->store['id'] . '/regular-pickups');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson([
@@ -112,10 +112,10 @@ class PickupRegularManagementApiCest
 
         $I->login($this->userNoMember['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPUT('/api/stores/' . $this->store['id'] . '/regularPickup', [
+        $I->sendPUT('/api/stores/' . $this->store['id'] . '/regular-pickups', ['regularPickups' => [
             ['startTimeOfPickup' => $time, 'weekday' => 3, 'maxCountOfSlots' => $fetcher],
             ['startTimeOfPickup' => $time, 'weekday' => 4, 'maxCountOfSlots' => $fetcher]
-        ]);
+        ]]);
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
     }
 
@@ -129,10 +129,10 @@ class PickupRegularManagementApiCest
 
         $I->login($this->userNoMember['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPUT('/api/stores/' . $this->store['id'] . '/regularPickup', [
+        $I->sendPUT('/api/stores/' . $this->store['id'] . '/regular-pickups', ['regularPickups' => [
             ['startTimeOfPickup' => $time, 'weekday' => 3, 'maxCountOfSlots' => $fetcher],
             ['startTimeOfPickup' => $time, 'weekday' => 4, 'maxCountOfSlots' => $fetcher]
-        ]);
+        ]]);
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
     }
 
@@ -144,10 +144,10 @@ class PickupRegularManagementApiCest
 
         $I->login($this->coordinator['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPUT('/api/stores/' . $this->store['id'] . '/regularPickup', [
+        $I->sendPUT('/api/stores/' . $this->store['id'] . '/regular-pickups', ['regularPickups' => [
             ['startTimeOfPickup' => $time, 'weekday' => 3, 'maxCountOfSlots' => $fetcher],
             ['startTimeOfPickup' => $time, 'weekday' => 4, 'maxCountOfSlots' => $fetcher]
-        ]);
+        ]]);
         $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
     }
 
@@ -159,10 +159,10 @@ class PickupRegularManagementApiCest
 
         $I->login($this->coordinator['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPUT('/api/stores/' . $this->store['id'] . '/regularPickup', [
+        $I->sendPUT('/api/stores/' . $this->store['id'] . '/regular-pickups', ['regularPickups' => [
             ['startTimeOfPickup' => $time, 'weekday' => 3, 'maxCountOfSlots' => $fetcher],
             ['startTimeOfPickup' => $time, 'weekday' => 4, 'maxCountOfSlots' => $fetcher]
-        ]);
+        ]]);
         $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
     }
 
@@ -174,10 +174,10 @@ class PickupRegularManagementApiCest
 
         $I->login($this->coordinator['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPUT('/api/stores/' . $this->store['id'] . '/regularPickup', [
+        $I->sendPUT('/api/stores/' . $this->store['id'] . '/regular-pickups', ['regularPickups' => [
             ['startTimeOfPickup' => $time, 'weekday' => 3, 'maxCountOfSlots' => $fetcher],
             ['startTimeOfPickup' => $time, 'weekday' => 4, 'maxCountOfSlots' => $fetcher]
-        ]);
+        ]]);
         $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
     }
 
@@ -191,12 +191,11 @@ class PickupRegularManagementApiCest
 
         $I->login($this->coordinator['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPUT('/api/stores/' . $this->store['id'] . '/regularPickup', [
+        $I->sendPUT('/api/stores/' . $this->store['id'] . '/regular-pickups', ['regularPickups' => [
             ['startTimeOfPickup' => $time, 'weekday' => 3, 'maxCountOfSlots' => $fetcher],
             ['startTimeOfPickup' => $time, 'weekday' => 4, 'maxCountOfSlots' => $fetcher]
-        ]);
+        ]]);
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->seeResponseIsJson();
 
         $I->seeInDatabase('fs_abholzeiten', [
             'time' => $time,

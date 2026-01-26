@@ -14,6 +14,7 @@ use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
+use Foodsharing\Modules\Core\Pagination;
 use Foodsharing\Modules\Foodsaver\DTO\PickupAgendaEntry;
 use Foodsharing\Modules\Store\DTO\OneTimePickup;
 use Foodsharing\Modules\Store\DTO\PickupSignUp;
@@ -478,13 +479,11 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
      * If either page or pageSize is set to -1 pagination is disabled and all entries are returned.
      *
      * @param int $fsId ID of the foodsaver
-     * @param int $page the number of the page to be queried (for pagination)
-     * @param int $pageSize the size of pages to be queried (for pagination)
      * @param bool $fullHistory whether to include entries older than a month
      *
      * @return array the fetched pickups including information about the other fs who took part and the store
      */
-    public function getPastPickups(int $fsId, int $page, int $pageSize, bool $fullHistory): array
+    public function getPastPickups(int $fsId, Pagination $pagination, bool $fullHistory): array
     {
         $timeContraint = '';
         if (!$fullHistory) {
@@ -508,14 +507,9 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
 			WHERE p1.foodsaver_id = :fs_id AND p1.date < NOW() '
             . $timeContraint .
             'GROUP BY p1.betrieb_id, p1.date
-			ORDER BY p1.date DESC';
-
-        $params = ['fs_id' => $fsId];
-        if ($page != -1 && $pageSize != -1) {
-            $query .= ' LIMIT :page_size OFFSET :start_item_index';
-            $params['start_item_index'] = $page * $pageSize;
-            $params['page_size'] = $pageSize;
-        }
+			ORDER BY p1.date DESC'
+            . $this->buildPaginationSqlLimit($pagination);
+        $params = $this->addPaginationSqlLimitParameters($pagination, ['fs_id' => $fsId]);
 
         return $this->db->fetchAll($query, $params);
     }
@@ -530,6 +524,7 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
      */
     public function getNextPickups(int $fsId, int $limit = null, int $runningPickupsBufferInMinutes = 0): array
     {
+        // TODO refactor to return PickupForListView DTOs
         $stm = 'SELECT
 				s.id AS store_id,
 				s.name AS store_name,

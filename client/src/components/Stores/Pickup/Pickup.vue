@@ -403,7 +403,7 @@ export default {
       this.loadedUserAgenda = true
     },
     async checkPickupRule () {
-      this.pickupRulePass = await checkPickupRuleStore(this.user.id, this.storeId, this.date)
+      this.pickupRulePass = await checkPickupRuleStore(this.storeId, this.date)
       this.okVariant = (!this.pickupRulePass) ? 'danger' : 'success'
       this.loadedPickupRule = true
     },

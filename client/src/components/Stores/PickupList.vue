@@ -209,7 +209,7 @@ export default {
     async join (date) {
       this.isLoading = true
       try {
-        await joinPickup(this.storeId, date, this.userStore.getUserId)
+        await joinPickup(this.storeId, date)
         this.pickupStore.invalidateOptionsCache()
       } catch (e) {
         console.error(e)

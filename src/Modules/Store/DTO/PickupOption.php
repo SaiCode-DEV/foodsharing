@@ -27,8 +27,9 @@ class PickupOption
 
     /**
      * Total number of slots in the pickup.
+     * null for past pickups.
      */
-    public int $slots;
+    public ?int $slots = null;
 
     /**
      * Description of the pickup. null if the pickup has no additional text.

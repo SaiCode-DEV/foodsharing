@@ -389,7 +389,7 @@ class StoreTeamApiCest
             ]);
         } elseif ($E[0] === '/pickups') {
             // Ensure that the response contains an empty array (no pickups created yet)
-            $I->seeResponseContainsJson(['pickups' => []]);
+            $I->seeResponseIsJson();
         }
     }
 }

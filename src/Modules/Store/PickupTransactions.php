@@ -4,10 +4,17 @@ namespace Foodsharing\Modules\Store;
 
 use Carbon\Carbon;
 use DateTime;
+use DateTimeZone;
+use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Core\DBConstants\Store\StoreLogAction;
+use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\Profile;
+use Foodsharing\Modules\Message\MessageTransactions;
 use Foodsharing\Modules\Store\DTO\MinimalStoreIdentifier;
 use Foodsharing\Modules\Store\DTO\PickupOption;
 use Foodsharing\Modules\Store\DTO\RegularPickup;
+use Foodsharing\RestApi\RestNormalization;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class PickupTransactions
 {
@@ -16,6 +23,9 @@ class PickupTransactions
         private readonly RegularPickupGateway $regularPickupGateway,
         private readonly PickupGateway $oneTimePickupGateway,
         private readonly StoreGateway $storeGateway,
+        private readonly MessageTransactions $messageTransactions,
+        private readonly FoodsaverGateway $foodsaverGateway,
+        private readonly Session $session,
     ) {
     }
 
@@ -145,5 +155,110 @@ class PickupTransactions
         usort($pickupOptions, fn ($a, $b) => $a->date <=> $b->date);
 
         return $pickupOptions;
+    }
+
+    public function doLeavePickup(int $storeId, DateTime $pickupDate, int $fsId, string $message = '', bool $sendKickMessage = true)
+    {
+        $message = trim($message);
+
+        if ($pickupDate < Carbon::now()) {
+            throw new BadRequestHttpException('Cannot modify pickup in the past.');
+        }
+
+        if (!$this->oneTimePickupGateway->removeFetcher($fsId, $storeId, $pickupDate)) {
+            throw new BadRequestHttpException('Failed to remove user from pickup');
+        }
+
+        if ($this->session->id() === $fsId) {
+            $this->storeGateway->addStoreLog( // the user removed their own pickup
+                $storeId,
+                $fsId,
+                null,
+                $pickupDate,
+                StoreLogAction::SIGN_OUT_SLOT
+            );
+        } else {
+            $this->storeGateway->addStoreLog( // the user got kicked/the pickup got denied
+                $storeId,
+                $this->session->id(),
+                $fsId,
+                $pickupDate,
+                StoreLogAction::REMOVED_FROM_SLOT,
+                null,
+                empty($message) ? null : $message
+            );
+
+            // send direct message to the user
+            if ($sendKickMessage) {
+                $formattedMessage = $this->storeTransactions->createKickMessage($fsId, $storeId, $pickupDate, $message);
+                $this->messageTransactions->sendMessageToUser($fsId, $this->session->id(), $formattedMessage);
+            }
+        }
+    }
+
+    public function enrichPickupSlots(array $pickups, int $storeId): array
+    {
+        $team = [];
+        foreach ($this->storeGateway->getStoreTeam($storeId) as $user) {
+            $team[$user['id']] = RestNormalization::normalizeStoreUser($user);
+        }
+        foreach ($pickups as &$pickup) {
+            foreach ($pickup['occupiedSlots'] as &$slot) {
+                if (isset($team[$slot['foodsaverId']])) {
+                    $slot['profile'] = $team[$slot['foodsaverId']];
+                } else {
+                    $details = $this->foodsaverGateway->getFoodsaver($slot['foodsaverId']);
+                    $slot['profile'] = RestNormalization::normalizeStoreUser($details);
+                }
+                unset($slot['foodsaverId']);
+            }
+        }
+        unset($pickup);
+        usort($pickups, fn ($a, $b) => $a['date']->lt($b['date']) ? -1 : 1);
+
+        $pickups = array_map(function ($pickup) {
+            // Check required for history (does not contain dates)
+            if (!empty($pickup['date'])) {
+                // List of last and future and only future have a date on highest level
+                $pickup['date'] = $pickup['date']->toIso8601String();
+            }
+
+            foreach ($pickup['occupiedSlots'] as &$slot) {
+                // Check required for list of last and future pickups
+                if (!empty($slot['date'])) {
+                    // Time convertation needed for history
+                    $slot['date'] = Carbon::createFromTimestamp($slot['date_ts'], new DateTimeZone('Europe/Berlin'))
+                        ->toIso8601String();
+                }
+            }
+
+            return $pickup;
+        }, $pickups);
+
+        return $pickups;
+    }
+
+    public function createPickupOption(array $pickupData): PickupOption
+    {
+        $pickup = new PickupOption();
+        $pickup->date = Carbon::createFromTimestamp($pickupData['timestamp'])->toDateTime();
+        $pickup->store = new MinimalStoreIdentifier();
+        $pickup->store->id = $pickupData['store_id'];
+        $pickup->store->name = $pickupData['store_name'];
+        $pickup->isConfirmed = boolval($pickupData['confirmed']);
+        $pickup->slots = isset($pickupData['max_fetchers']) ? (int)$pickupData['max_fetchers'] : null;
+        $pickup->occupiedSlots = array_map(
+            fn ($id, $name, $avatar) => new Profile([
+                'id' => (int)$id,
+                'name' => $name,
+                'photo' => $avatar == '' ? null : $avatar,
+            ]),
+            str_getcsv((string)$pickupData['fs_ids']),
+            str_getcsv((string)$pickupData['fs_names'], ',', '\''),
+            str_getcsv((string)$pickupData['fs_avatars'])
+        );
+        $pickup->description = $pickupData['description'];
+
+        return $pickup;
     }
 }

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
+use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
+use Foodsharing\Modules\Message\MessageTransactions;
 use Foodsharing\Modules\Store\DTO\RegularPickup;
 use Foodsharing\Modules\Store\PickupGateway;
 use Foodsharing\Modules\Store\PickupTransactions;
@@ -21,6 +24,9 @@ class PickupTransactionsTest extends TestCase
     private RegularPickupGateway $regularPickupGateway;
     private PickupGateway $oneTimePickupGateway;
     private StoreGateway $storeGateway;
+    private MessageTransactions $messageTransactions;
+    private FoodsaverGateway $foodsaverGateway;
+    private Session $session;
 
     protected function setUp(): void
     {
@@ -28,7 +34,10 @@ class PickupTransactionsTest extends TestCase
         $this->regularPickupGateway = $this->createMock(RegularPickupGateway::class);
         $this->storeGateway = $this->createMock(StoreGateway::class);
         $this->storeTransactions = $this->createMock(StoreTransactions::class);
-        $this->pickupTransactions = new PickupTransactions($this->storeTransactions, $this->regularPickupGateway, $this->oneTimePickupGateway, $this->storeGateway);
+        $this->messageTransactions = $this->createMock(MessageTransactions::class);
+        $this->foodsaverGateway = $this->createMock(FoodsaverGateway::class);
+        $this->session = $this->createMock(Session::class);
+        $this->pickupTransactions = new PickupTransactions($this->storeTransactions, $this->regularPickupGateway, $this->oneTimePickupGateway, $this->storeGateway, $this->messageTransactions, $this->foodsaverGateway, $this->session);
     }
 
     public function testListRegularPickups(): void

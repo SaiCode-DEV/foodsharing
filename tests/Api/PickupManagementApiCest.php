@@ -29,12 +29,12 @@ class PickupManagementApiCest
         $I->addStoreTeam($this->store['id'], $this->user1['id'], false);
     }
 
-    public function createManualPickUp(ApiTester $I): void
+    public function createManualPickUpee(ApiTester $I): void
     {
         $I->login($this->coordinator['email']);
         $pickupBaseDate = Carbon::now()->add('2 days');
         $pickupBaseDate->hours(14)->minutes(45)->seconds(0);
-        $I->sendPatch('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toIso8601String(), ['totalSlots' => 5]);
+        $I->sendPut('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toISOString(), ['totalSlots' => 5]);
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(HttpCode::OK);
     }
@@ -44,7 +44,7 @@ class PickupManagementApiCest
         $I->login($this->coordinator['email']);
         $pickupBaseDate = Carbon::now()->add('2 days');
         $pickupBaseDate->hours(14)->minutes(45)->seconds(0);
-        $I->sendPatch('api/stores/badStoreId/pickups/' . $pickupBaseDate->toIso8601String(), ['totalSlots' => 5]);
+        $I->sendPut('api/stores/badStoreId/pickups/' . $pickupBaseDate->toISOString(), ['totalSlots' => 5]);
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
     }
@@ -54,7 +54,7 @@ class PickupManagementApiCest
         $I->login($this->coordinator['email']);
         $pickupBaseDate = Carbon::now()->add('2 days');
         $pickupBaseDate->hours(14)->minutes(45)->seconds(0);
-        $I->sendPatch('api/stores/' . ($this->store['id'] + 1) . '/pickups/' . $pickupBaseDate->toIso8601String(), ['totalSlots' => 5]);
+        $I->sendPut('api/stores/' . ($this->store['id'] + 1) . '/pickups/' . $pickupBaseDate->toISOString(), ['totalSlots' => 5]);
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
     }
@@ -62,9 +62,8 @@ class PickupManagementApiCest
     public function createManualPickUpInvalidDateStore(ApiTester $I): void
     {
         $I->login($this->coordinator['email']);
-        $pickupBaseDate = Carbon::now()->add('2 days');
-        $pickupBaseDate->hours(14)->minutes(45)->seconds(0);
-        $I->sendPatch('api/stores/' . $this->store['id'] . '/pickups/2001-12-12', ['totalSlots' => 5]);
+        $pickupBaseDate = Carbon::parse('2001-12-12');
+        $I->sendPut('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toISOString(), ['totalSlots' => 5]);
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
     }
@@ -74,7 +73,7 @@ class PickupManagementApiCest
         $I->login($this->coordinator['email']);
         $pickupBaseDate = Carbon::now()->sub('2 days');
         $pickupBaseDate->hours(14)->minutes(45)->seconds(0);
-        $I->sendPatch('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toIso8601String(), ['totalSlots' => 5]);
+        $I->sendPut('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toISOString(), ['totalSlots' => 5]);
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
     }
@@ -84,7 +83,7 @@ class PickupManagementApiCest
         $I->login($this->coordinator['email']);
         $pickupBaseDate = Carbon::now()->add('2 days');
         $pickupBaseDate->hours(14)->minutes(45)->seconds(0);
-        $I->sendPatch('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toIso8601String(), ['totalSlots' => StoreTransactions::MAX_SLOTS_PER_PICKUP + 1]);
+        $I->sendPut('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toISOString(), ['totalSlots' => StoreTransactions::MAX_SLOTS_PER_PICKUP + 1]);
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
     }
@@ -94,7 +93,7 @@ class PickupManagementApiCest
         $I->login($this->coordinator['email']);
         $pickupBaseDate = Carbon::now()->add('2 days');
         $pickupBaseDate->hours(14)->minutes(45)->seconds(0);
-        $I->sendPatch('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toIso8601String(), ['totalSlots' => 0]);
+        $I->sendPut('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toISOString(), ['totalSlots' => 0]);
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(HttpCode::OK);
     }
@@ -104,7 +103,7 @@ class PickupManagementApiCest
         $I->login($this->user1['email']);
         $pickupBaseDate = Carbon::now()->add('2 days');
         $pickupBaseDate->hours(14)->minutes(45)->seconds(0);
-        $I->sendPatch('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toIso8601String(), ['totalSlots' => 5]);
+        $I->sendPut('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toISOString(), ['totalSlots' => 5]);
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
     }
@@ -113,7 +112,7 @@ class PickupManagementApiCest
     {
         $pickupBaseDate = Carbon::now()->add('2 days');
         $pickupBaseDate->hours(14)->minutes(45)->seconds(0);
-        $I->sendPatch('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toIso8601String(), ['totalSlots' => 5]);
+        $I->sendPut('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toISOString(), ['totalSlots' => 5]);
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
     }
@@ -124,7 +123,7 @@ class PickupManagementApiCest
         $pickupBaseDate = Carbon::now()->add('2 days');
         $pickupBaseDate->hours(14)->minutes(45)->seconds(0);
         $I->addPickup($this->store['id'], ['time' => $pickupBaseDate, 'fetchercount' => 2]);
-        $I->sendPatch('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toIso8601String(), ['totalSlots' => 5]);
+        $I->sendPut('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toISOString(), ['totalSlots' => 5]);
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(HttpCode::OK);
     }
@@ -135,7 +134,7 @@ class PickupManagementApiCest
         $pickupBaseDate = Carbon::now()->add('2 days');
         $pickupBaseDate->hours(14)->minutes(45)->seconds(0);
         $I->addPickup($this->store['id'], ['time' => $pickupBaseDate, 'fetchercount' => 2]);
-        $I->sendPatch('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toIso8601String(), ['totalSlots' => 0]);
+        $I->sendPut('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toISOString(), ['totalSlots' => 0]);
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(HttpCode::OK);
     }
@@ -149,9 +148,9 @@ class PickupManagementApiCest
         $pickupBaseDate = Carbon::now()->sub('2 days');
         $pickupBaseDate->hours(14)->minutes(45)->seconds(0);
         $I->addPickup($this->store['id'], ['time' => $pickupBaseDate, 'fetchercount' => 2]);
-        $I->addPicker($this->store['id'], $this->user1['id'], ['date' => $pickupBaseDate->toIso8601String()]);
-        $I->addPicker($this->store['id'], $user2['id'], ['date' => $pickupBaseDate->toIso8601String()]);
-        $I->sendPatch('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toIso8601String(), ['totalSlots' => 1]);
+        $I->addPicker($this->store['id'], $this->user1['id'], ['date' => $pickupBaseDate->toISOString()]);
+        $I->addPicker($this->store['id'], $user2['id'], ['date' => $pickupBaseDate->toISOString()]);
+        $I->sendPut('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toISOString(), ['totalSlots' => 1]);
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
     }

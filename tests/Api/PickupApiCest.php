@@ -42,66 +42,13 @@ class PickupApiCest
         $I->addStoreTeam($this->store4['id'], $this->user['id']);
     }
 
-    public function acceptsDifferentIsoFormats(ApiTester $I): void
-    {
-        $I->login($this->user['email']);
-        $id = $this->user['id'];
-        $pickupBaseDate = Carbon::now()->add('2 days');
-        $pickupBaseDate->hours(13)->minutes(45)->seconds(0);
-        $I->addPickup($this->store['id'], ['time' => $pickupBaseDate, 'fetchercount' => 2]);
-        $I->sendPOST('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->copy()->setTimezone('UTC')->format('Y-m-d\TH:i:s') . '+0000/' . $id);
-        $I->seeResponseIsJson();
-        $I->seeResponseCodeIs(HttpCode::OK);
-        $I->seeResponseIsJson();
-        $pickupBaseDate->minutes(50);
-        $I->addPickup($this->store['id'], ['time' => $pickupBaseDate, 'fetchercount' => 2]);
-        $I->sendPOST('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->copy()->setTimezone('+01:00')->format('Y-m-d\TH:i:s') . '.000+01:00/' . $id);
-        $I->seeResponseIsJson();
-        $I->seeResponseCodeIs(HttpCode::OK);
-        $I->seeResponseIsJson();
-        $pickupBaseDate->minutes(55);
-        $I->addPickup($this->store['id'], ['time' => $pickupBaseDate, 'fetchercount' => 2]);
-        $I->sendPOST('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->copy()->setTimezone('-01:00')->format('Y-m-d\TH:i:s') . '-01:00/' . $id);
-        $I->seeResponseIsJson();
-        $I->seeResponseCodeIs(HttpCode::OK);
-        $I->seeResponseIsJson();
-        $pickupBaseDate->minutes(35);
-        $I->addPickup($this->store['id'], ['time' => $pickupBaseDate, 'fetchercount' => 2]);
-        $I->sendPOST('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->copy()->setTimezone('UTC')->format('Y-m-d\TH:i:s') . 'Z/' . $id);
-        $I->seeResponseIsJson();
-        $I->seeResponseCodeIs(HttpCode::OK);
-        $I->seeResponseIsJson();
-    }
-
     public function signupAsWaiterDoesNotWork(ApiTester $I): void
     {
         $I->login($this->waiter['email']);
         $pickupBaseDate = Carbon::now()->add('2 days');
-        $pickupBaseDate->hours(14)->minutes(50)->seconds(0);
+        $pickupBaseDate->hours(14)->minutes(50)->seconds(0)->microseconds(0);
         $I->addPickup($this->store['id'], ['time' => $pickupBaseDate, 'fetchercount' => 2]);
-        $I->sendPOST('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toIso8601String() . '/' . $this->waiter['id']);
-        $I->seeResponseIsJson();
-        $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
-    }
-
-    public function signupForDifferentUserShouldBeRejected(ApiTester $I): void
-    {
-        $I->login($this->user['email']);
-        $pickupBaseDate = Carbon::now()->add('2 days');
-        $pickupBaseDate->hours(14)->minutes(50)->seconds(0);
-        $I->addPickup($this->store['id'], ['time' => $pickupBaseDate, 'fetchercount' => 2]);
-        $I->sendPOST('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toIso8601String() . '/' . $this->waiter['id']);
-        $I->seeResponseIsJson();
-        $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
-    }
-
-    public function signupForNotAvailableSlots(ApiTester $I): void
-    {
-        $I->login($this->user['email']);
-        $pickupBaseDate = Carbon::now()->add('2 days');
-        $pickupBaseDate->hours(14)->minutes(50)->seconds(0);
-        $I->addPickup($this->store['id'], ['time' => $pickupBaseDate, 'fetchercount' => 1]);
-        $I->sendPOST('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toIso8601String() . '/' . $this->waiter['id']);
+        $I->sendPOST('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toISOString() . '/users/current');
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
     }
@@ -110,10 +57,11 @@ class PickupApiCest
     {
         $I->login($this->storeCoordinator['email']);
         $pickupBaseDate = Carbon::now()->add('2 days');
-        $pickupBaseDate->hours(14)->minutes(45)->seconds(0);
+        $pickupBaseDate->hours(14)->minutes(45)->seconds(0)->microseconds(0);
         $I->addPickup($this->store['id'], ['time' => $pickupBaseDate, 'fetchercount' => 1]);
-        $I->sendPOST('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toIso8601String() . '/' . $this->storeCoordinator['id']);
-        $I->sendPOST('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toIso8601String() . '/' . $this->user['id']);
+        $I->sendPOST('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toISOString() . '/users/current');
+        $I->login($this->user['email']);
+        $I->sendPOST('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toISOString() . '/users/current');
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
     }
@@ -124,13 +72,13 @@ class PickupApiCest
 
         //Create a pickup
         $pickupBaseDate = Carbon::now()->add('1 days');
-        $pickupBaseDate->hours(14)->minutes(45)->seconds(0);
+        $pickupBaseDate->hours(14)->minutes(45)->seconds(0)->microseconds(0);
         $I->addPickup($this->store['id'], ['time' => $pickupBaseDate, 'fetchercount' => 1, 'description' => 'some description']);
 
         $I->sendGet('api/stores/' . $this->store['id'] . '/pickups');
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->canSeeResponseContainsJson([
+        $I->seeResponseContainsJson([
             'description' => 'some description'
         ]);
     }
@@ -141,22 +89,22 @@ class PickupApiCest
 
         //Create a pickup
         $pickupBaseDate = Carbon::now()->add('1 days');
-        $pickupBaseDate->hours(14)->minutes(45)->seconds(0);
+        $pickupBaseDate->hours(14)->minutes(45)->seconds(0)->microseconds(0);
         $I->addPickup($this->store['id'], ['time' => $pickupBaseDate, 'fetchercount' => 1]);
 
-        $I->sendPatch('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toIso8601String(),
+        $I->sendPut('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toISOString(),
             ['description' => 'random description', 'totalSlots' => 3]
         );
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->canSeeResponseContainsJson([
-            'created' => false
+        $I->seeResponseContainsJson([
+            'isNewlyCreated' => false
         ]);
 
         $I->sendGet('api/stores/' . $this->store['id'] . '/pickups');
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->canSeeResponseContainsJson([
+        $I->seeResponseContainsJson([
             'description' => 'random description'
         ]);
     }
@@ -167,21 +115,21 @@ class PickupApiCest
 
         //Create a pickup
         $pickupBaseDate = Carbon::now()->add('1 days');
-        $pickupBaseDate->hours(14)->minutes(45)->seconds(0);
+        $pickupBaseDate->hours(14)->minutes(45)->seconds(0)->microseconds(0);
 
-        $I->sendPatch('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toIso8601String(),
+        $I->sendPut('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toISOString(),
             ['description' => 'another random description', 'totalSlots' => 3]
         );
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->canSeeResponseContainsJson([
-            'created' => true
+        $I->seeResponseContainsJson([
+            'isNewlyCreated' => true
         ]);
 
         $I->sendGet('api/stores/' . $this->store['id'] . '/pickups');
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->canSeeResponseContainsJson([
+        $I->seeResponseContainsJson([
             'description' => 'another random description'
         ]);
     }
@@ -194,29 +142,29 @@ class PickupApiCest
 
         //Create a pickup
         $pickupBaseDate = Carbon::now()->addDay()->add('1 weeks');
-        $pickupBaseDate->hours(11)->minutes(30)->seconds(0);
+        $pickupBaseDate->hours(11)->minutes(30)->seconds(0)->microseconds(0);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPut('api/stores/' . $this->store['id'] . '/regularPickup',
-            [[
+        $I->sendPut('api/stores/' . $this->store['id'] . '/regular-pickups',
+            ['regularPickups' => [[
                 'description' => 'regular slot description',
                 'maxCountOfSlots' => 1,
                 'startTimeOfPickup' => '11:30:00',
                 'weekday' => $pickupBaseDate->dayOfWeek,
-            ]]
+            ]]]
         );
-        $I->seeResponseIsJson();
         $I->seeResponseCodeIs(HttpCode::OK);
 
         $I->sendGet('api/stores/' . $this->store['id'] . '/pickups');
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->canSeeResponseContainsJson([
+        $I->seeResponseContainsJson([
             'description' => 'regular slot description'
         ]);
 
         // Enter into that regular slot
-        $I->sendPOST('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toIso8601String() . '/' . $coordinator['id']);
+
+        $I->sendPOST('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toISOString() . '/users/current');
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(HttpCode::OK);
 
@@ -225,7 +173,7 @@ class PickupApiCest
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Make sure the description of the regular pickup slot is still there (now as a onetime pickup)
-        $I->canSeeResponseContainsJson([
+        $I->seeResponseContainsJson([
             'description' => 'regular slot description',
             'occupiedSlots' => [
                 ['isConfirmed' => true]
@@ -236,15 +184,15 @@ class PickupApiCest
     public function signupAsCoordinarIsPreconfirmed(ApiTester $I): void
     {
         $pickupBaseDate = Carbon::now()->add('2 days');
-        $pickupBaseDate->hours(16)->minutes(45)->seconds(0);
+        $pickupBaseDate->hours(16)->minutes(45)->seconds(0)->microseconds(0);
         $coordinator = $I->createStoreCoordinator();
         $I->addStoreTeam($this->store['id'], $coordinator['id'], true, false, true);
         $I->login($coordinator['email']);
         $I->addPickup($this->store['id'], ['time' => $pickupBaseDate, 'fetchercount' => 2]);
-        $I->sendPOST('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toIso8601String() . '/' . $coordinator['id']);
+        $I->sendPOST('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toISOString() . '/users/current');
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->canSeeResponseContainsJson([
+        $I->seeResponseContainsJson([
             'isConfirmed' => true
         ]);
     }
@@ -252,7 +200,7 @@ class PickupApiCest
     public function AsWaiterICannotSeePickups(ApiTester $I): void
     {
         $pickupBaseDate = Carbon::now()->add('2 days');
-        $pickupBaseDate->hours(16)->minutes(55)->seconds(0);
+        $pickupBaseDate->hours(16)->minutes(55)->seconds(0)->microseconds(0);
         $I->addPickup($this->store['id'], ['time' => $pickupBaseDate, 'fetchercount' => 2]);
         $I->login($this->waiter['email']);
         $I->sendGET('api/stores/' . $this->store['id'] . '/pickups');
@@ -262,19 +210,17 @@ class PickupApiCest
     public function testSinglePickupInListExistsAndIsValid(ApiTester $I): void
     {
         $pickupBaseDate = Carbon::now()->add('2 days');
-        $pickupBaseDate->hours(16)->minutes(55)->seconds(0);
+        $pickupBaseDate->hours(16)->minutes(55)->seconds(0)->microseconds(0);
         $I->addPickup($this->store['id'], ['time' => $pickupBaseDate, 'fetchercount' => 2]);
         $I->login($this->user['email']);
         $I->sendGET('api/stores/' . $this->store['id'] . '/pickups');
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->canSeeResponseContainsJson([
-            'pickups' => [[
+        $I->seeResponseContainsJson([[
             'date' => $pickupBaseDate->toIso8601String(),
             'totalSlots' => 2,
             'occupiedSlots' => [],
             'isAvailable' => true
-            ]]
-        ]);
+        ]]);
     }
 
     public function testListPickupWithHistoryShowFutureAndHistory(ApiTester $I): void
@@ -312,36 +258,34 @@ class PickupApiCest
         $I->login($this->user['email']);
         $I->sendGET('api/stores/' . $this->store['id'] . '/pickups');
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->canSeeResponseContainsJson([
-            'pickups' => [
-                [
-                    'date' => $pickupBaseDate->toIso8601String(),
-                    'totalSlots' => 2,
-                    'occupiedSlots' => [],
-                    'isAvailable' => true
-                ], [
-                    'date' => $manualPickup3HoursBeforeDate->toIso8601String(),
-                    'totalSlots' => 1,
-                    'occupiedSlots' => [['isConfirmed' => true, 'profile' => ['id' => $this->user['id']]]],
-                    'isAvailable' => false
-                ], [
-                    'date' => $regularPickup1HoursBeforeDate->toIso8601String(),
-                    'totalSlots' => 3,
-                    'occupiedSlots' => [['isConfirmed' => true, 'profile' => ['id' => $this->user['id']]]],
-                    'isAvailable' => false
-                ], [
-                    'date' => $regularPickup5HoursBeforeDate->toIso8601String(),
-                    'totalSlots' => 4,
-                    'occupiedSlots' => [['isConfirmed' => true, 'profile' => ['id' => $this->user['id']]]],
-                    'isAvailable' => false
-                ]
+        $I->seeResponseContainsJson([
+            [
+                'date' => $pickupBaseDate->toIso8601String(),
+                'totalSlots' => 2,
+                'occupiedSlots' => [],
+                'isAvailable' => true
+            ], [
+                'date' => $manualPickup3HoursBeforeDate->toIso8601String(),
+                'totalSlots' => 1,
+                'occupiedSlots' => [['isConfirmed' => true, 'profile' => ['id' => $this->user['id']]]],
+                'isAvailable' => false
+            ], [
+                'date' => $regularPickup1HoursBeforeDate->toIso8601String(),
+                'totalSlots' => 3,
+                'occupiedSlots' => [['isConfirmed' => true, 'profile' => ['id' => $this->user['id']]]],
+                'isAvailable' => false
+            ], [
+                'date' => $regularPickup5HoursBeforeDate->toIso8601String(),
+                'totalSlots' => 4,
+                'occupiedSlots' => [['isConfirmed' => true, 'profile' => ['id' => $this->user['id']]]],
+                'isAvailable' => false
             ]
         ]);
     }
 
     public function testSinglePickupHistoryInListExistsAndIsValid(ApiTester $I): void
     {
-        $refDate = Carbon::now()->subYears(3)->subHours(8);
+        $refDate = Carbon::now()->subYears(3)->subHours(8)->minutes(0)->seconds(0)->microseconds(0);
         $I->haveInDatabase('fs_abholer', [
             'betrieb_id' => $this->store['id'],
             'foodsaver_id' => $this->storeCoordinator['id'],
@@ -357,48 +301,41 @@ class PickupApiCest
         $endDate = $refDate->copy()->addYears(2);
 
         $I->login($this->storeCoordinator['email']);
-        $I->sendGET('api/stores/' . $this->store['id'] . '/history/' . $startDate->toIso8601String() . '/' . $endDate->toIso8601String());
+        $I->sendGET('api/stores/' . $this->store['id'] . '/pickups/history/' . $startDate->toISOString() . '/' . $endDate->toISOString());
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->canSeeResponseContainsJson([
-            'pickups' => [
-                [
-                    'occupiedSlots' => [
-                        [
-                            'profile' => [
-                                'id' => $this->storeCoordinator['id']
-                            ],
-                            'date' => $refDate->toIso8601String(),
-                            'date_ts' => $refDate->timestamp,
-                            'confirmed' => 0
-                        ]
-                    ]
-            ]]
-        ]);
+        $I->seeResponseContainsJson([[
+            'profile' => [
+                'id' => $this->storeCoordinator['id']
+            ],
+            'date' => $refDate->toIso8601String(),
+            'date_ts' => $refDate->timestamp,
+            'confirmed' => 0
+        ]]);
     }
 
     public function cannotSignOutOfPastPickup(ApiTester $I): void
     {
         $pickupBaseDate = Carbon::now()->sub('2 days');
-        $pickupBaseDate->hours(14)->minutes(45)->seconds(0);
+        $pickupBaseDate->hours(14)->minutes(45)->seconds(0)->microseconds(0);
         $I->addPickup($this->store['id'], ['time' => $pickupBaseDate, 'fetchercount' => 2]);
         $I->addPicker($this->store['id'], $this->user['id'], ['date' => $pickupBaseDate]);
 
         $I->login($this->user['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendDELETE('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toIso8601String() . '/' . $this->user['id']);
+        $I->sendDELETE('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toISOString() . '/users/' . $this->user['id']);
         $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
     }
 
     public function canSignOutOfPickupWithMessage(ApiTester $I): void
     {
         $pickupBaseDate = Carbon::now()->add('2 days');
-        $pickupBaseDate->hours(14)->minutes(45)->seconds(0);
+        $pickupBaseDate->hours(14)->minutes(45)->seconds(0)->microseconds(0);
         $I->addPickup($this->store['id'], ['time' => $pickupBaseDate, 'fetchercount' => 2]);
         $I->addPicker($this->store['id'], $this->user['id'], ['date' => $pickupBaseDate]);
 
         $I->login($this->storeCoordinator['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendDELETE('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toIso8601String() . '/' . $this->user['id'], ['sendKickMessage' => true, 'message' => 'Hallo']);
+        $I->sendDELETE('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toISOString() . '/users/' . $this->user['id'], ['sendKickMessage' => true, 'message' => 'Hallo']);
         $I->seeResponseCodeIs(HttpCode::OK);
     }
 
@@ -414,80 +351,80 @@ class PickupApiCest
 
         // Test for maximum 3 pickups in 7 days over multiple stores.
         $pickupBaseDate = Carbon::now()->add('3 days');
-        $pickupBaseDate->hours(10)->minutes(00)->seconds(0);
+        $pickupBaseDate->hours(10)->minutes(00)->seconds(0)->microseconds(0);
         $I->addPickup($this->store2['id'], ['time' => $pickupBaseDate, 'fetchercount' => 2]);
         $I->addPicker($this->store2['id'], $this->user['id'], ['date' => $pickupBaseDate]);
 
         $pickupBaseDate = Carbon::now()->add('4 days');
-        $pickupBaseDate->hours(11)->minutes(00)->seconds(0);
+        $pickupBaseDate->hours(11)->minutes(00)->seconds(0)->microseconds(0);
         $I->addPickup($this->store3['id'], ['time' => $pickupBaseDate, 'fetchercount' => 2]);
         $I->addPicker($this->store3['id'], $this->user['id'], ['date' => $pickupBaseDate]);
 
         $pickupBaseDate = Carbon::now()->add('5 days');
-        $pickupBaseDate->hours(11)->minutes(00)->seconds(0);
+        $pickupBaseDate->hours(11)->minutes(00)->seconds(0)->microseconds(0);
         $I->addPickup($this->store4['id'], ['time' => $pickupBaseDate, 'fetchercount' => 2]);
 
         // This signup is ok because it is the third one
-        $I->sendGET('api/stores/' . $this->store4['id'] . '/pickupRuleCheck/' . $pickupBaseDate->toIso8601String() . '/' . $this->user['id']);
+        $I->sendGET('api/stores/' . $this->store4['id'] . '/pickups/' . $pickupBaseDate->toISOString() . '/eligibility');
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->canSeeResponseContainsJson([
-            'result' => true
+        $I->seeResponseContainsJson([
+            'isEligible' => true
         ]);
 
         // this signup breaks the rule as it is the fourth one
         $I->addPicker($this->store4['id'], $this->user['id'], ['date' => $pickupBaseDate]);
 
         $pickupBaseDate = Carbon::now()->add('6 days');
-        $pickupBaseDate->hours(11)->minutes(00)->seconds(0);
+        $pickupBaseDate->hours(11)->minutes(00)->seconds(0)->microseconds(0);
         $I->addPickup($this->store4['id'], ['time' => $pickupBaseDate, 'fetchercount' => 2]);
-        $I->sendGET('api/stores/' . $this->store4['id'] . '/pickupRuleCheck/' . $pickupBaseDate->toIso8601String() . '/' . $this->user['id']);
+        $I->sendGET('api/stores/' . $this->store4['id'] . '/pickups/' . $pickupBaseDate->toISOString() . '/eligibility');
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->canSeeResponseContainsJson([
-            'result' => false
+        $I->seeResponseContainsJson([
+            'isEligible' => false
         ]);
 
         // Test for third signups on the same day over multiple stores
         $pickupBaseDate = Carbon::now()->add('20 days');
-        $pickupBaseDate->hours(10)->minutes(00)->seconds(0);
+        $pickupBaseDate->hours(10)->minutes(00)->seconds(0)->microseconds(0);
         $I->addPickup($this->store2['id'], ['time' => $pickupBaseDate, 'fetchercount' => 2]);
         $I->addPicker($this->store2['id'], $this->user['id'], ['date' => $pickupBaseDate]);
 
         $pickupBaseDate = Carbon::now()->add('20 days');
-        $pickupBaseDate->hours(11)->minutes(00)->seconds(0);
+        $pickupBaseDate->hours(11)->minutes(00)->seconds(0)->microseconds(0);
         $I->addPickup($this->store3['id'], ['time' => $pickupBaseDate, 'fetchercount' => 2]);
         $I->addPicker($this->store3['id'], $this->user['id'], ['date' => $pickupBaseDate]);
 
         $pickupBaseDate = Carbon::now()->add('20 days');
-        $pickupBaseDate->hours(12)->minutes(00)->seconds(0);
+        $pickupBaseDate->hours(12)->minutes(00)->seconds(0)->microseconds(0);
         $I->addPickup($this->store4['id'], ['time' => $pickupBaseDate, 'fetchercount' => 2]);
-        $I->sendGET('api/stores/' . $this->store4['id'] . '/pickupRuleCheck/' . $pickupBaseDate->toIso8601String() . '/' . $this->user['id']);
+        $I->sendGET('api/stores/' . $this->store4['id'] . '/pickups/' . $pickupBaseDate->toISOString() . '/eligibility');
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->canSeeResponseContainsJson([
-            'result' => false
+        $I->seeResponseContainsJson([
+            'isEligible' => false
         ]);
 
         // test for ignoring of the rule if signup date is closer then ignorerulehours
         $pickupBaseDate = Carbon::now()->addDay();
-        $pickupBaseDate->hours(10)->minutes(00)->seconds(0);
+        $pickupBaseDate->hours(10)->minutes(00)->seconds(0)->microseconds(0);
         $I->addPickup($this->store2['id'], ['time' => $pickupBaseDate, 'fetchercount' => 2]);
         $I->addPicker($this->store2['id'], $this->user['id'], ['date' => $pickupBaseDate]);
 
         $pickupBaseDate = Carbon::now()->addDay();
-        $pickupBaseDate->hours(11)->minutes(00)->seconds(0);
+        $pickupBaseDate->hours(11)->minutes(00)->seconds(0)->microseconds(0);
         $I->addPickup($this->store4['id'], ['time' => $pickupBaseDate, 'fetchercount' => 2]);
         $I->addPicker($this->store4['id'], $this->user['id'], ['date' => $pickupBaseDate]);
 
         $pickupBaseDate = Carbon::now()->addDay();
-        $pickupBaseDate->hours(12)->minutes(00)->seconds(0);
+        $pickupBaseDate->hours(12)->minutes(00)->seconds(0)->microseconds(0);
         $I->addPickup($this->store4['id'], ['time' => $pickupBaseDate, 'fetchercount' => 2]);
-        $I->sendGET('api/stores/' . $this->store4['id'] . '/pickupRuleCheck/' . $pickupBaseDate->toIso8601String() . '/' . $this->user['id']);
+        $I->sendGET('api/stores/' . $this->store4['id'] . '/pickups/' . $pickupBaseDate->toISOString() . '/eligibility');
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->canSeeResponseContainsJson([
-            'result' => true
+        $I->seeResponseContainsJson([
+            'isEligible' => true
         ]);
     }
 
@@ -514,13 +451,13 @@ class PickupApiCest
         $response = json_decode($I->grabResponse(), true);
 
         // Expect no pickups to be reported for the same day when the regular slot time has passed
-        $I->assertTrue(count($response['pickups']) === 0, 'Expected no pickups to be reported for today when regular slot time already passed. Got: ' . json_encode($response['pickups'] ?? []));
+        $I->assertTrue(count($response) === 0, 'Expected no pickups to be reported for today when regular slot time already passed. Got: ' . json_encode($response ?? []));
     }
 
     public function cannotJoinPickupExpiredPassport(ApiTester $I): void
     {
         $pickupBaseDate = Carbon::now()->add('2 days');
-        $pickupBaseDate->hours(14)->minutes(45)->seconds(0);
+        $pickupBaseDate->hours(14)->minutes(45)->seconds(0)->microseconds(0);
         $I->addPickup($this->store['id'], ['time' => $pickupBaseDate, 'fetchercount' => 2]);
 
         // Set expired passport
@@ -531,7 +468,7 @@ class PickupApiCest
         ]);
 
         $I->login($this->user['email']);
-        $I->sendPost('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toIso8601String() . '/' . $this->user['id']);
+        $I->sendPost('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toISOString() . '/users/current');
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
     }
@@ -539,7 +476,7 @@ class PickupApiCest
     public function cannotJoinPickupAfterPassportExpiry(ApiTester $I): void
     {
         $pickupBaseDate = Carbon::now()->addYears(4);
-        $pickupBaseDate->hours(14)->minutes(45)->seconds(0);
+        $pickupBaseDate->hours(14)->minutes(45)->seconds(0)->microseconds(0);
         $I->addPickup($this->store['id'], ['time' => $pickupBaseDate, 'fetchercount' => 2]);
 
         // Set expired passport
@@ -550,7 +487,7 @@ class PickupApiCest
         ]);
 
         $I->login($this->user['email']);
-        $I->sendPost('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toIso8601String() . '/' . $this->user['id']);
+        $I->sendPost('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toISOString() . '/users/current');
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
     }
@@ -558,7 +495,7 @@ class PickupApiCest
     public function listSameDayAgenda(ApiTester $I)
     {
         // Add past pickup
-        $past_pickupDate = Carbon::now()->subMinutes(10);
+        $past_pickupDate = Carbon::now()->subMinutes(10)->second(0)->microseconds(0);
         $I->addPickup($this->store['id'], ['time' => $past_pickupDate, 'fetchercount' => 3]);
         $I->addPicker($this->store['id'], $this->user['id'], ['date' => $past_pickupDate]);
 

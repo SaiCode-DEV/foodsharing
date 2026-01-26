@@ -3,14 +3,16 @@
 namespace Foodsharing\RestApi;
 
 use Carbon\Carbon;
-use DateTimeZone;
+use DateTime;
 use Exception;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Store\StoreLogAction;
-use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
-use Foodsharing\Modules\Message\MessageTransactions;
+use Foodsharing\Modules\Core\Pagination;
+use Foodsharing\Modules\Store\DTO\EditPickupData;
 use Foodsharing\Modules\Store\DTO\OneTimePickup;
+use Foodsharing\Modules\Store\DTO\PickupOption;
 use Foodsharing\Modules\Store\DTO\RegularPickup;
+use Foodsharing\Modules\Store\DTO\RegularPickups;
 use Foodsharing\Modules\Store\PickupGateway;
 use Foodsharing\Modules\Store\PickupTransactions;
 use Foodsharing\Modules\Store\PickupValidationException;
@@ -20,174 +22,117 @@ use Foodsharing\Modules\Store\StoreTransactions;
 use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\StorePermissions;
 use Foodsharing\RestApi\Models\Store\PickupLeaveMessageOptions;
+use Foodsharing\Utility\Requirement as FSRequirement;
 use Foodsharing\Utility\TimeHelper;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Request\ParamFetcherInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use OpenApi\Annotations as OA;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
-use Symfony\Component\Validator\ConstraintViolationListInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Requirement\Requirement;
 
+#[OA\Tag(name: 'pickup')]
+#[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
 final class PickupRestController extends AbstractFoodsharingRestController
 {
     public function __construct(
         protected Session $session,
-        private readonly FoodsaverGateway $foodsaverGateway,
         private readonly PickupGateway $pickupGateway,
         private readonly StoreGateway $storeGateway,
         private readonly StorePermissions $storePermissions,
         private readonly ProfilePermissions $profilePermissions,
         private readonly StoreTransactions $storeTransactions,
-        private readonly MessageTransactions $messageTransactions,
         private readonly PickupTransactions $pickupTransactions
     ) {
     }
 
-    /**
-     * @OA\Tag(name="pickup")
-     */
-    #[Rest\Post('stores/{storeId}/pickups/{pickupDate}/{fsId}', requirements: ['storeId' => '\d+', 'pickupDate' => '[^/]+', 'fsId' => '\d+'])]
-    public function joinPickup(int $storeId, string $pickupDate, int $fsId): Response
+    #[OA\Post(summary: 'Join a pickup slot')]
+    #[Route('stores/{storeId}/pickups/{pickupDate}/users/current', methods: ['POST'], requirements: ['storeId' => Requirement::POSITIVE_INT, 'pickupDate' => FSRequirement::ISO_DATE_TIME])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(type: 'object', properties: [
+        new OA\Property(property: 'isConfirmed', type: 'boolean'),
+    ]))]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted to join pickup')]
+    public function joinPickup(int $storeId, DateTime $pickupDate): Response
     {
         $this->assertLoggedIn();
 
-        $date = TimeHelper::parsePickupDate($pickupDate);
-
         $reason = '';
-        if (!$this->storePermissions->mayDoPickup($storeId, $date, $reason)) {
+        if (!$this->storePermissions->mayDoPickup($storeId, $pickupDate, $reason)) {
             throw new AccessDeniedHttpException($reason);
         }
 
         try {
-            $isConfirmed = $this->storeTransactions->joinPickup($storeId, $date, $fsId, $this->session->id());
-
-            return $this->respondOk(['isConfirmed' => $isConfirmed]);
+            $isConfirmed = $this->storeTransactions->joinPickup($storeId, Carbon::instance($pickupDate), $this->session->id());
         } catch (StoreTransactionException $ex) {
             throw new AccessDeniedHttpException($ex->getMessage(), $ex);
         }
+
+        return $this->respondOk(['isConfirmed' => $isConfirmed]);
     }
 
-    /**
-     * Remove a user from a pickup.
-     *
-     * @OA\Tag(name="pickup")
-     * @OA\RequestBody(@Model(type=PickupLeaveMessageOptions::class))
-     */
-    #[Rest\Delete('stores/{storeId}/pickups/{pickupDate}/{fsId}', requirements: ['storeId' => '\d+', 'pickupDate' => '[^/]+', 'fsId' => '\d+'])]
-    #[ParamConverter('leaveInformation', class: PickupLeaveMessageOptions::class, converter: 'fos_rest.request_body')]
-    public function leavePickup(int $storeId, string $pickupDate, int $fsId, PickupLeaveMessageOptions $leaveInformation, ValidatorInterface $validator): Response
+    #[OA\Delete(summary: 'Remove a user from a pickup')]
+    #[Route('stores/{storeId}/pickups/{pickupDate}/users/{userId}', methods: ['DELETE'], requirements: ['storeId' => Requirement::POSITIVE_INT, 'pickupDate' => FSRequirement::ISO_DATE_TIME, 'userId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
+    public function leavePickup(int $storeId, DateTime $pickupDate, int $userId, #[MapRequestPayload] PickupLeaveMessageOptions $leaveInformation): Response
     {
         $this->assertLoggedIn();
-        if (!$this->storePermissions->mayRemovePickupUser($storeId, $fsId)) {
-            throw new AccessDeniedHttpException();
+        if (!$this->storePermissions->mayRemovePickupUser($storeId, $userId)) {
+            throw new AccessDeniedHttpException('Not permitted');
         }
 
-        $errors = $validator->validate($leaveInformation);
-        $this->throwBadRequestExceptionOnError($errors);
-
-        $sendKickMessage = $leaveInformation->sendKickMessage || !$this->profilePermissions->mayCancelSlotsFromProfile($fsId);
-        $this->doLeavePickup($storeId, $pickupDate, $fsId, $leaveInformation->message, $sendKickMessage);
+        $sendKickMessage = $leaveInformation->sendKickMessage || !$this->profilePermissions->mayCancelSlotsFromProfile($userId);
+        $this->pickupTransactions->doLeavePickup($storeId, $pickupDate, $userId, $leaveInformation->message, $sendKickMessage);
 
         return $this->respondOk();
     }
 
-    /**
-     * Remove a user from all his pickups.
-     *
-     * @OA\Tag(name="pickup")
-     * @OA\RequestBody(@Model(type=PickupLeaveMessageOptions::class))
-     */
-    #[Rest\Delete('pickups/{fsId}', requirements: ['fsId' => '\d+'])]
-    #[ParamConverter('leaveInformation', class: PickupLeaveMessageOptions::class, converter: 'fos_rest.request_body')]
-    public function leaveAllPickups(int $fsId, PickupLeaveMessageOptions $leaveInformation, ValidatorInterface $validator)
+    #[OA\Delete(summary: 'Remove a user from all his pickups')]
+    #[Route('users/{userId}/pickups', methods: ['DELETE'], requirements: ['userId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
+    public function leaveAllPickups(int $userId, #[MapRequestPayload] PickupLeaveMessageOptions $leaveInformation): Response
     {
         $this->assertLoggedIn();
-        if (!$this->profilePermissions->mayCancelSlotsFromProfile($fsId)) {
-            throw new AccessDeniedHttpException();
+        if (!$this->profilePermissions->mayCancelSlotsFromProfile($userId)) {
+            throw new AccessDeniedHttpException('Not permitted');
         }
 
-        $errors = $validator->validate($leaveInformation);
-        $this->throwBadRequestExceptionOnError($errors);
-
-        $pickups = $this->pickupGateway->getNextPickups($fsId);
+        $pickups = $this->pickupGateway->getNextPickups($userId);
         $sendKickMessage = $leaveInformation->sendKickMessage;
 
         foreach ($pickups as $pickup) {
-            $this->doLeavePickup($pickup['store_id'], date(DATE_ATOM, $pickup['timestamp']), $fsId, $leaveInformation->message, $sendKickMessage);
+            $this->pickupTransactions->doLeavePickup($pickup['store_id'], Carbon::createFromTimestamp($pickup['timestamp']), $userId, $leaveInformation->message, $sendKickMessage);
         }
 
         return $this->respondOK();
     }
 
-    private function doLeavePickup(int $storeId, string $pickupDate, int $fsId, string $message = '', bool $sendKickMessage = true)
-    {
-        $message = trim($message);
-        $date = TimeHelper::parsePickupDate($pickupDate);
-
-        if ($date < Carbon::now()) {
-            throw new BadRequestHttpException('Cannot modify pickup in the past.');
-        }
-
-        if (!$this->pickupGateway->removeFetcher($fsId, $storeId, $date)) {
-            throw new BadRequestHttpException('Failed to remove user from pickup');
-        }
-
-        if ($this->session->id() === $fsId) {
-            $this->storeGateway->addStoreLog( // the user removed their own pickup
-                $storeId,
-                $fsId,
-                null,
-                $date,
-                StoreLogAction::SIGN_OUT_SLOT
-            );
-        } else {
-            $this->storeGateway->addStoreLog( // the user got kicked/the pickup got denied
-                $storeId,
-                $this->session->id(),
-                $fsId,
-                $date,
-                StoreLogAction::REMOVED_FROM_SLOT,
-                null,
-                empty($message) ? null : $message
-            );
-
-            // send direct message to the user
-            if ($sendKickMessage) {
-                $formattedMessage = $this->storeTransactions->createKickMessage($fsId, $storeId, $date, $message);
-                $this->messageTransactions->sendMessageToUser($fsId, $this->session->id(), $formattedMessage);
-            }
-        }
-    }
-
-    /**
-     * @OA\Tag(name="pickup")
-     */
-    #[Rest\Patch('stores/{storeId}/pickups/{pickupDate}/{fsId}', requirements: ['storeId' => '\d+', 'pickupDate' => '[^/]+', 'fsId' => '\d+'])]
-    #[Rest\RequestParam(name: 'isConfirmed', default: null, nullable: true)]
-    public function editPickupSlot(int $storeId, string $pickupDate, int $fsId, ParamFetcherInterface $paramFetcher): Response
+    #[OA\Patch(summary: 'Confirm a pickup slot')]
+    #[Route('stores/{storeId}/pickups/{pickupDate}/users/{userId}', methods: ['PATCH'], requirements: ['storeId' => Requirement::POSITIVE_INT, 'pickupDate' => FSRequirement::ISO_DATE_TIME, 'userId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid request')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
+    public function editPickupSlot(int $storeId, DateTime $pickupDate, int $fsId, #[MapQueryParameter] ?bool $isConfirmed): Response
     {
         $this->assertLoggedIn();
-        if (!$this->storePermissions->mayConfirmPickup($storeId)) {
-            throw new AccessDeniedHttpException();
-        }
 
-        $date = TimeHelper::parsePickupDate($pickupDate);
-
-        if ($paramFetcher->get('isConfirmed')) {
-            if (!$this->pickupGateway->confirmFetcher($fsId, $storeId, $date)) {
-                throw new BadRequestHttpException();
+        if ($isConfirmed) {
+            if (!$this->storePermissions->mayConfirmPickup($storeId)) {
+                throw new AccessDeniedHttpException('Not permitted');
+            }
+            if (!$this->pickupGateway->confirmFetcher($fsId, $storeId, $pickupDate)) {
+                throw new BadRequestHttpException('Could not confirm pickup slot.');
             }
             $this->storeGateway->addStoreLog(
                 $storeId,
                 $this->session->id(),
                 $fsId,
-                $date,
+                $pickupDate,
                 StoreLogAction::SLOT_CONFIRMED
             );
         }
@@ -195,19 +140,13 @@ final class PickupRestController extends AbstractFoodsharingRestController
         return $this->respondOk();
     }
 
-    /**
-     * Return the regular pickups for an store.
-     *
-     * @OA\Tag(name="pickup")
-     * @OA\Response(
-     * 		response="200",
-     * 		description="Success.",
-     *      @OA\JsonContent(
-     *        type="array",
-     *        @OA\Items(ref=@Model(type=RegularPickup::class))
-     *     ))
-     */
-    #[Rest\Get('stores/{storeId}/regularPickup', requirements: ['storeId' => '\d+'])]
+    #[OA\Get(summary: 'Get the regular pickups for a store')]
+    #[Route('stores/{storeId}/regular-pickups', methods: ['GET'], requirements: ['storeId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
+        type: 'array', items: new OA\Items(ref: new Model(type: RegularPickup::class))
+    ))]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'No permission to access pickups')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Store not found')]
     public function getRegularPickup(int $storeId): Response
     {
         $this->assertLoggedIn();
@@ -226,71 +165,36 @@ final class PickupRestController extends AbstractFoodsharingRestController
         return $this->respondOk($regularPickups);
     }
 
-    /**
-     * Configures the regular pickups for a store.
-     *
-     * @OA\Tag(name="stores")
-     * @OA\RequestBody(@OA\JsonContent(
-     *        type="array",
-     *        @OA\Items(ref=@Model(type=RegularPickup::class))
-     *     ))
-     */
-    #[Rest\Put('stores/{storeId}/regularPickup', requirements: ['storeId' => '\d+'])]
-    #[ParamConverter('regularPickups', class: 'array<Foodsharing\Modules\Store\DTO\RegularPickup>', converter: 'fos_rest.request_body')]
-    public function editRegularPickup(int $storeId, array $regularPickups, ValidatorInterface $validator): Response
+    #[OA\Put(summary: 'Set the regular pickups for a store')]
+    #[Route('stores/{storeId}/regular-pickups', methods: ['PUT'], requirements: ['storeId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid request body')]
+    public function editRegularPickup(int $storeId, #[MapRequestPayload] RegularPickups $regularPickups): Response
     {
         $this->assertLoggedIn();
         if (!$this->storePermissions->mayEditPickups($storeId)) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Not permitted');
         }
 
-        $errors = $validator->validate($regularPickups);
-        $this->throwBadRequestExceptionOnError($errors);
-
         try {
-            $regularPickups = $this->pickupTransactions->replaceRegularPickup($storeId, $regularPickups);
+            $this->pickupTransactions->replaceRegularPickup($storeId, $regularPickups->regularPickups);
         } catch (PickupValidationException $ex) {
             throw new BadRequestHttpException($ex->getMessage(), $ex);
         }
 
-        return $this->respondOk($regularPickups);
+        return $this->respondOk();
     }
 
-    /**
-     * Creates or modifies a manual pick up for an store.
-     *
-     * @OA\Tag(name="stores")
-     * @OA\Parameter(
-     *         name="storeId",
-     *         in="path",
-     *         description="ID of store",
-     *         required=true,
-     *         @OA\Schema(
-     *             type="integer",
-     *             format="int64"
-     *         )
-     *     )
-     * @OA\Parameter(
-     *         name="pickupDate",
-     *         in="path",
-     *         description="Pickup timestamp",
-     *         required=true,
-     *         example="2017-07-21T17:32:28Z",
-     *         @OA\Schema(
-     *             type="string",
-     *             format="date-time"
-     *         )
-     *     )
-     * @OA\Response(response="200", description="Created new pickup was successful")
-     * @OA\Response(response="400", description="Bad request body")
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Response(response="403", description="No permission to change pickup")
-     * @OA\Response(response="404", description="Store not found")
-     */
-    #[Rest\Patch('stores/{storeId}/pickups/{pickupDate}', requirements: ['storeId' => '\d+', 'pickupDate' => '[^/]+'])]
-    #[Rest\RequestParam(name: 'totalSlots', requirements: '\d+', description: 'Maximum allowed user on this pickup.')]
-    #[Rest\RequestParam(name: 'description', requirements: '.{0,100}', description: 'Description of this pickup.', nullable: true)]
-    public function editPickup(int $storeId, string $pickupDate, ParamFetcherInterface $paramFetcher): Response
+    #[OA\Put(summary: 'Create or modify a manual pick up for a store')]
+    #[Route('stores/{storeId}/pickups/{pickupDate}', methods: ['PUT'], requirements: ['storeId' => Requirement::POSITIVE_INT, 'pickupDate' => FSRequirement::ISO_DATE_TIME])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(type: 'object', properties: [
+        new OA\Property(property: 'isNewlyCreated', type: 'boolean', description: 'Indicates whether a new pickup was created (true) or an existing one was updated (false).')
+    ]))]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'No permission to change pickup')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Store not found')]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid request body')]
+    public function editPickup(int $storeId, DateTime $pickupDate, #[MapRequestPayload] EditPickupData $editPickupData): Response
     {
         $this->assertLoggedIn();
 
@@ -299,39 +203,47 @@ final class PickupRestController extends AbstractFoodsharingRestController
             if (!$existingStore) {
                 throw new NotFoundHttpException("Store '$storeId' not found");
             } else {
-                throw new AccessDeniedHttpException();
+                throw new AccessDeniedHttpException('Not permitted');
             }
         }
 
-        $date = TimeHelper::parsePickupDate($pickupDate);
-        $totalSlots = $paramFetcher->get('totalSlots');
-        if (!is_numeric($totalSlots)) {
-            throw new BadRequestHttpException("Invalid 'totalSlots'");
-        }
-
-        $description = $paramFetcher->get('description');
-        if (!(is_null($description) || is_string($description))) {
-            throw new BadRequestHttpException("Invalid 'description'");
-        }
+        $pickup = new OneTimePickup();
+        $pickup->date = $pickupDate;
+        $pickup->slots = $editPickupData->totalSlots;
+        $pickup->description = $editPickupData->description;
 
         try {
-            $pickup = new OneTimePickup();
-            $pickup->date = $date;
-            $pickup->slots = $totalSlots;
-            $pickup->description = $description;
-
-            $created = $this->storeTransactions->createOrUpdatePickup($storeId, $pickup);
-
-            return $this->respondOk(['created' => $created]);
+            $isNewlyCreated = $this->storeTransactions->createOrUpdatePickup($storeId, $pickup);
         } catch (PickupValidationException $ex) {
             throw new BadRequestHttpException($ex->getMessage());
         }
+
+        return $this->respondOk(['isNewlyCreated' => $isNewlyCreated]);
     }
 
-    /**
-     * @OA\Tag(name="pickup")
-     */
-    #[Rest\Get('stores/{storeId}/pickups', requirements: ['storeId' => '\d+'])]
+    #[OA\Get(summary: 'List pickups for a store')]
+    #[Route('stores/{storeId}/pickups', methods: ['GET'], requirements: ['storeId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
+        type: 'array', items: new OA\Items(type: 'object', properties: [
+            new OA\Property(property: 'date', type: 'string', format: 'date-time'),
+            new OA\Property(property: 'totalSlots', type: 'integer', example: 5),
+            new OA\Property(property: 'occupiedSlots', type: 'array', items: new OA\Items(type: 'object', properties: [
+                new OA\Property(property: 'isConfirmed', type: 'boolean'),
+                new OA\Property(property: 'profile', type: 'object', properties: [
+                    new OA\Property(property: 'id', type: 'integer'),
+                    new OA\Property(property: 'name', type: 'string'),
+                    new OA\Property(property: 'avatar', type: 'string', nullable: true),
+                    new OA\Property(property: 'isSleeping', type: 'boolean'),
+                    new OA\Property(property: 'mobile', type: 'string', nullable: true),
+                    new OA\Property(property: 'landline', type: 'string', nullable: true),
+                    new OA\Property(property: 'isManager', type: 'boolean'),
+                ]),
+            ])),
+            new OA\Property(property: 'isAvailable', type: 'boolean'),
+            new OA\Property(property: 'description', type: 'string'),
+        ])
+    ))]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'No permission to access pickups')]
     public function listPickups(int $storeId): Response
     {
         $this->assertLoggedIn();
@@ -344,184 +256,108 @@ final class PickupRestController extends AbstractFoodsharingRestController
             $fromTime = Carbon::today()->subHours(6);
         }
 
+        // TODO: refactor to use DTOs and clean up return data
         $pickups = $this->pickupGateway->getPickupSlots($storeId, $fromTime);
+        $pickups = $this->pickupTransactions->enrichPickupSlots($pickups, $storeId);
 
-        return $this->respondOk(['pickups' => $this->enrichPickupSlots($pickups, $storeId)]);
+        return $this->respondOk($pickups);
     }
 
-    /**
-     * @OA\Tag(name="pickup")
-     */
-    #[Rest\Get('stores/{storeId}/history/{fromDate}/{toDate}', requirements: ['storeId' => '\d+', 'fromDate' => '[^/]+', 'toDate' => '[^/]+'])]
-    public function listPickupHistory(int $storeId, string $fromDate, string $toDate): Response
+    #[OA\Get(summary: 'List pickup history for a store')]
+    #[Route('stores/{storeId}/pickups/history/{fromDate}/{toDate}', methods: ['GET'], requirements: ['storeId' => Requirement::POSITIVE_INT, 'fromDate' => FSRequirement::ISO_DATE_TIME, 'toDate' => FSRequirement::ISO_DATE_TIME])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
+        type: 'array', items: new OA\Items(type: 'object', properties: [
+            new OA\Property(property: 'confirmed', type: 'integer'),
+            new OA\Property(property: 'date', type: 'string', format: 'date-time'),
+            new OA\Property(property: 'date_ts', type: 'integer'),
+            new OA\Property(property: 'description', type: 'string', nullable: true),
+            new OA\Property(property: 'profile', type: 'object', properties: [
+                new OA\Property(property: 'id', type: 'integer'),
+                new OA\Property(property: 'name', type: 'string'),
+                new OA\Property(property: 'avatar', type: 'string', nullable: true),
+                new OA\Property(property: 'isSleeping', type: 'boolean'),
+                new OA\Property(property: 'mobile', type: 'string', nullable: true),
+                new OA\Property(property: 'landline', type: 'string', nullable: true),
+                new OA\Property(property: 'isManager', type: 'boolean'),
+            ]),
+        ])
+    ))]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'No permission to access pickup history')]
+    public function listPickupHistory(int $storeId, Carbon $fromDate, Carbon $toDate): Response
     {
         $this->assertLoggedIn();
         if (!$this->storePermissions->maySeePickupHistory($storeId)) {
-            throw new AccessDeniedHttpException();
-        }
-        // convert date strings into datetime objects
-        $from = TimeHelper::parsePickupDate($fromDate);
-        $to = TimeHelper::parsePickupDate($toDate);
-        $from = $from->min(Carbon::now());
-        $to = $to->min(Carbon::now());
-
-        $pickups = [[
-            'occupiedSlots' => $this->pickupGateway->getPickupHistory($storeId, $from, $to)
-        ]];
-
-        return $this->respondOk(['pickups' => $this->enrichPickupSlots($pickups, $storeId)]);
-    }
-
-    private function enrichPickupSlots(array $pickups, int $storeId): array
-    {
-        $team = [];
-        foreach ($this->storeGateway->getStoreTeam($storeId) as $user) {
-            $team[$user['id']] = RestNormalization::normalizeStoreUser($user);
-        }
-        foreach ($pickups as &$pickup) {
-            foreach ($pickup['occupiedSlots'] as &$slot) {
-                if (isset($team[$slot['foodsaverId']])) {
-                    $slot['profile'] = $team[$slot['foodsaverId']];
-                } else {
-                    $details = $this->foodsaverGateway->getFoodsaver($slot['foodsaverId']);
-                    $slot['profile'] = RestNormalization::normalizeStoreUser($details);
-                }
-                unset($slot['foodsaverId']);
-            }
-        }
-        unset($pickup);
-        usort($pickups, fn ($a, $b) => $a['date']->lt($b['date']) ? -1 : 1);
-
-        $pickups = array_map(function ($pickup) {
-            // Check required for history (does not contain dates)
-            if (!empty($pickup['date'])) {
-                // List of last and future and only future have a date on highest level
-                $pickup['date'] = $pickup['date']->toIso8601String();
-            }
-
-            foreach ($pickup['occupiedSlots'] as &$slot) {
-                // Check required for list of last and future pickups
-                if (!empty($slot['date'])) {
-                    // Time convertation needed for history
-                    $slot['date'] = Carbon::createFromTimestamp($slot['date_ts'], new DateTimeZone('Europe/Berlin'))
-                        ->toIso8601String();
-                }
-            }
-
-            return $pickup;
-        }, $pickups);
-
-        return $pickups;
-    }
-
-    /**
-     * Get past pickups of a user.
-     * Might be restricted (to the last month or one entry at least) depending on the permissions.
-     *
-     * @OA\Tag(name="pickup")
-     */
-    #[Rest\Get('pickup/history')]
-    #[Rest\QueryParam(name: 'fsId', default: null, nullable: true)]
-    #[Rest\QueryParam(name: 'page', default: 0, nullable: false)]
-    #[Rest\QueryParam(name: 'pageSize', default: 50, nullable: false)]
-    public function listPastPickups(ParamFetcherInterface $paramFetcher): Response
-    {
-        $this->assertLoggedIn();
-
-        $fsId = (int)($paramFetcher->get('fsId') ?? $this->session->id());
-        $page = (int)$paramFetcher->get('page');
-        $pageSize = (int)$paramFetcher->get('pageSize');
-
-        if (!$this->profilePermissions->maySeePickups($fsId)) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('You are not allowed to see pickup history in this store.');
         }
 
-        $maySeeFullHistory = $this->profilePermissions->maySeeAllPickups($fsId);
+        $fromDate = $fromDate->min(Carbon::now());
+        $toDate = $toDate->min(Carbon::now());
 
-        $pickups = $this->pickupGateway->getPastPickups($fsId, $page, $pageSize, $maySeeFullHistory);
-        if (!$maySeeFullHistory && empty($pickups) && $page === 0) {
-            $pickups = $this->pickupGateway->getPastPickups($fsId, 0, 1, true);
-        }
-
-        $pickups = array_map(fn ($pickup) => [
-            'date' => Carbon::createFromTimestamp($pickup['timestamp'])->toDateTime(),
-            'store' => [
-                'id' => $pickup['store_id'],
-                'name' => $pickup['store_name'],
-            ],
-            'isConfirmed' => boolval($pickup['confirmed']),
-            'occupiedSlots' => array_map(
-                fn ($id, $name, $avatar) => [
-                    'id' => (int)$id,
-                    'name' => $name,
-                    'avatar' => $avatar == '' ? null : $avatar,
-                ],
-                str_getcsv((string)$pickup['fs_ids']),
-                str_getcsv((string)$pickup['fs_names'], ',', '\''),
-                str_getcsv((string)$pickup['fs_avatars'])
-            ),
-            'description' => $pickup['description']
-        ], $pickups);
+        $pickups = $this->pickupGateway->getPickupHistory($storeId, $fromDate, $toDate);
+        $pickups = $this->pickupTransactions->enrichPickupSlots([['occupiedSlots' => $pickups]], $storeId);
+        $pickups = $pickups[0]['occupiedSlots'];
 
         return $this->respondOk($pickups);
     }
 
-    /**
-     * Get all future pickups a user has registered.
-     *
-     * @OA\Tag(name="pickup")
-     */
-    #[Rest\Get('pickup/registered')]
-    #[Rest\QueryParam(name: 'fsId', default: null, nullable: true)]
-    public function listRegisteredPickups(ParamFetcherInterface $paramFetcher): Response
+    #[OA\Get(summary: 'Get past pickups for a user', description: 'Can be restricted (to the last month or one entry at least) depending on the requesting users permissions.')]
+    #[Route('users/{userId}/pickups/history', methods: ['GET'], requirements: ['userId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
+        type: 'array', items: new OA\Items(type: 'object', ref: new Model(type: PickupOption::class))
+    ))]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
+    public function listPastPickups(int $userId, #[MapQueryParameter] ?int $limit, #[MapQueryParameter] ?int $offset): Response
     {
         $this->assertLoggedIn();
-
-        $fsId = (int)($paramFetcher->get('fsId') ?? $this->session->id());
-
-        if (!$this->profilePermissions->maySeePickups($fsId)) {
-            throw new AccessDeniedHttpException();
+        if (!$this->profilePermissions->maySeePickups($userId)) {
+            throw new AccessDeniedHttpException('Not permitted');
         }
 
-        $pickups = $this->pickupGateway->getNextPickups($fsId, null, 30);
+        $pagination = Pagination::create($limit, $offset, 50);
+        $maySeeFullHistory = $this->profilePermissions->maySeeAllPickups($userId);
 
-        $pickups = array_map(fn ($pickup) => [
-            'date' => Carbon::createFromTimestamp($pickup['timestamp'], new DateTimeZone('Europe/Berlin'))->toDateTime(),
-            'store' => [
-                'id' => $pickup['store_id'],
-                'name' => $pickup['store_name'],
-            ],
-            'isConfirmed' => boolval($pickup['confirmed']),
-            'slots' => $pickup['max_fetchers'],
-            'occupiedSlots' => array_map(
-                fn ($id, $name, $avatar) => [
-                    'id' => (int)$id,
-                    'name' => $name,
-                    'avatar' => $avatar == '' ? null : $avatar,
-                ],
-                str_getcsv((string)$pickup['fs_ids']),
-                str_getcsv((string)$pickup['fs_names'], ',', '\''),
-                str_getcsv((string)$pickup['fs_avatars'])
-            ),
-            'description' => $pickup['description']
-        ], $pickups);
+        $pickups = $this->pickupGateway->getPastPickups($userId, $pagination, $maySeeFullHistory);
+        if (!$maySeeFullHistory && empty($pickups) && $pagination->offset === 0) {
+            $pickups = $this->pickupGateway->getPastPickups($userId, Pagination::create(1, 0), true);
+        }
+
+        $pickups = array_map(fn ($pickup) => $this->pickupTransactions->createPickupOption($pickup), $pickups);
 
         return $this->respondOk($pickups);
     }
 
-    /**
-     * Get all pickup options a user has, including already registered slots.
-     *
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="403", description="Insufficient permissions")
-     * @OA\Tag(name="pickup")
-     */
-    #[Rest\Get('pickup/options')]
+    #[OA\Get(summary: 'Get future registered pickups for a user')]
+    #[Route('users/{userId}/pickups/registered', methods: ['GET'], requirements: ['userId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
+        type: 'array', items: new OA\Items(type: 'object', ref: new Model(type: PickupOption::class))
+    ))]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
+    public function listRegisteredPickups(int $userId): Response
+    {
+        $this->assertLoggedIn();
+
+        if (!$this->profilePermissions->maySeePickups($userId)) {
+            throw new AccessDeniedHttpException('Not permitted');
+        }
+
+        $pickups = $this->pickupGateway->getNextPickups($userId, null, 30);
+
+        $pickups = array_map(fn ($pickup) => $this->pickupTransactions->createPickupOption($pickup), $pickups);
+
+        return $this->respondOk($pickups);
+    }
+
+    #[OA\Get(summary: 'Get all pickup options a user has, including already registered slots')]
+    #[Route('users/current/pickups/options', methods: ['GET'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
+        type: 'array', items: new OA\Items(type: 'object', ref: new Model(type: PickupOption::class))
+    ))]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
     public function listPickupOptions(): Response
     {
         $this->assertLoggedIn();
         if (!$this->storePermissions->maySeePickupOptions()) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Not permitted');
         }
 
         $pickupOptions = $this->pickupTransactions->getPickupOptions($this->session->id());
@@ -529,37 +365,17 @@ final class PickupRestController extends AbstractFoodsharingRestController
         return $this->respondOk($pickupOptions);
     }
 
-    /**
-     * Check if a Constraint violation is found and if it exist it throws an BadRequestExeption.
-     *
-     * @param ConstraintViolationListInterface $errors Validation result
-     *
-     * @throws BadRequestHttpException if violation is detected
-     */
-    private function throwBadRequestExceptionOnError(ConstraintViolationListInterface $errors): void
+    #[OA\Get(summary: 'Check if a user may enter a specific pickup based on pickup rules')]
+    #[Route('stores/{storeId}/pickups/{pickupDate}/eligibility', methods: ['GET'], requirements: ['storeId' => Requirement::POSITIVE_INT, 'pickupDate' => FSRequirement::ISO_DATE_TIME])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(type: 'object', properties: [
+        new OA\Property(property: 'isEligible', type: 'boolean'),
+    ]))]
+    public function passesPickupRule(int $storeId, string $pickupDate): Response
     {
-        if ($errors->count() > 0) {
-            $firstError = $errors->get(0);
-            $relevantErrorContent = ['field' => $firstError->getPropertyPath(), 'message' => $firstError->getMessage()];
-            throw new BadRequestHttpException(json_encode($relevantErrorContent));
-        }
-    }
-
-    /**
-     * Validation of PickupRuleCheck.
-     *
-     * @OA\Tag(name="pickup")
-     */
-    #[Rest\Get('stores/{storeId}/pickupRuleCheck/{pickupDate}/{fsId}', requirements: ['storeId' => '\d+', 'pickupDate' => '[^/]+', 'fsId' => '\d+'])]
-    public function passesPickupRule(int $storeId, string $pickupDate, int $fsId): Response
-    {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('');
-        }
-
+        $this->assertLoggedIn();
         $date = TimeHelper::parsePickupDate($pickupDate);
-        $response['result'] = $this->storeTransactions->checkPickupRule($storeId, $date, $fsId);
+        $isEligible = $this->storeTransactions->checkPickupRule($storeId, $date, $this->session->id());
 
-        return $this->respondOk($response);
+        return $this->respondOk(['isEligible' => $isEligible]);
     }
 }

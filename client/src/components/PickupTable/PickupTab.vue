@@ -180,7 +180,7 @@ export default {
       this.isFetching = true
 
       const page = this.paginated ? this.nextPage++ : undefined
-      let data = await this.dataEndpoint(this.fsId, page)
+      let data = await this.dataEndpoint(this.fsId, PAGE_SIZE, page * PAGE_SIZE)
 
       if (this.paginated) {
         if (data.length < PAGE_SIZE) {

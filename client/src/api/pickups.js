@@ -3,28 +3,28 @@ import { get, patch, post, remove, put } from './base'
 export async function listPickups (storeId) {
   const res = await get(`/stores/${storeId}/pickups`)
 
-  return res.pickups.map(c => ({
+  return res.map(c => ({
     ...c,
     date: new Date(Date.parse(c.date)),
   }))
 }
 
-export async function joinPickup (storeId, pickupDate, fsId) {
+export async function joinPickup (storeId, pickupDate) {
   const date = pickupDate.toISOString()
-  return post(`/stores/${storeId}/pickups/${date}/${fsId}`)
+  return post(`/stores/${storeId}/pickups/${date}/users/current`)
 }
 
-export async function leavePickup (storeId, pickupDate, fsId, message, sendKickMessage = true) {
+export async function leavePickup (storeId, pickupDate, userId, message, sendKickMessage = true) {
   const date = pickupDate.toISOString()
-  return remove(`/stores/${storeId}/pickups/${date}/${fsId}`, {
+  return remove(`/stores/${storeId}/pickups/${date}/users/${userId}`, {
     message,
     sendKickMessage,
   })
 }
 
-export async function leaveAllPickups (fsId, message, sendKickMessage = false) {
+export async function leaveAllPickups (userId, message, sendKickMessage = false) {
   return remove(
-    `/pickups/${fsId}`,
+    `users/${userId}/pickups`,
     {
       message,
       sendKickMessage,
@@ -32,27 +32,26 @@ export async function leaveAllPickups (fsId, message, sendKickMessage = false) {
   )
 }
 
-export async function confirmPickup (storeId, pickupDate, fsId) {
+export async function confirmPickup (storeId, pickupDate, userId) {
   const date = pickupDate.toISOString()
-  return patch(`/stores/${storeId}/pickups/${date}/${fsId}`, { isConfirmed: true })
+  return patch(`/stores/${storeId}/pickups/${date}/users/${userId}`, { isConfirmed: true })
 }
 
-export async function checkPickupRuleStore (fsId, storeId, pickupDate) {
+export async function checkPickupRuleStore (storeId, pickupDate) {
   const date = pickupDate.toISOString()
-  const res = await get(`/stores/${storeId}/pickupRuleCheck/${date}/${fsId}`)
-  return res.result
+  const res = await get(`/stores/${storeId}/pickups/${date}/eligibility`)
+  return res.isEligible
 }
 
 export async function setPickupSlots (storeId, pickupDate, totalSlots, description) {
   const date = pickupDate.toISOString()
-  return patch(`/stores/${storeId}/pickups/${date}`, { totalSlots, description })
+  return put(`/stores/${storeId}/pickups/${date}`, { totalSlots, description })
 }
 
 export async function listPickupHistory (storeId, fromDate, toDate) {
   const from = fromDate.toISOString()
   const to = toDate.toISOString()
-  const res = await get(`/stores/${storeId}/history/${from}/${to}`)
-  let slots = res.pickups[0].occupiedSlots
+  let slots = await get(`/stores/${storeId}/pickups/history/${from}/${to}`)
   slots = slots.map(s => ({
     ...s,
     storeId,
@@ -85,17 +84,17 @@ export async function listRegisteredPickups (fsId) {
 }
 
 export async function listPickupOptions () {
-  return await get('/pickup/options')
+  return await get('/users/current/pickups/options')
 }
 
-export async function listPastPickups (fsId, page) {
-  return await get(`/pickup/history?fsId=${fsId}&page=${page}`)
+export async function listPastPickups (userId, limit, offset) {
+  return await get(`/users/${userId}/pickups/history?limit=${limit}&offset=${offset}`)
 }
 
 export async function getRegularPickup (storeId) {
-  return await get(`/stores/${storeId}/regularPickup`)
+  return await get(`/stores/${storeId}/regular-pickups`)
 }
 
 export async function editRegularPickup (storeId, regularPickups) {
-  return await put(`/stores/${storeId}/regularPickup`, regularPickups)
+  return await put(`/stores/${storeId}/regular-pickups`, { regularPickups })
 }
