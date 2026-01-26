@@ -31,9 +31,6 @@ class SearchTransactions
      */
     public function search(string $query, bool $global): MixedSearchResult
     {
-        // TODO: Search by Email for IT-Support Group and ORGA
-        // $this->searchPermissions->maySearchByEmailAddress()
-
         $result = new MixedSearchResult();
         $result->timings = [];
 

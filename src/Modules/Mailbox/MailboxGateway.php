@@ -397,20 +397,11 @@ class MailboxGateway extends BaseGateway
     }
 
     /**
-     * Fixes legacy email address JSON possibly containing quoted keys and/or values.
-     */
-    private function fixQuotedAddressJson(string $json): string
-    {
-        return preg_replace('/(?<=\{|,)\\\\"(host|mailbox|personal)\\\\":\\\\"(.*?)\\\\"(?=\}|,\\\\"(?:host|mailbox|personal)\\\\")/', '"$1":"$2"', trim($json, '"'));
-    }
-
-    /**
      * Converts a JSON string into an email address DTO. Returns null if the JSON cannot be parsed.
      */
     private function parseAddress(string $json): ?EmailAddress
     {
         try {
-            $json = $this->fixQuotedAddressJson($json);
             $data = json_decode($json, true, 512, JSON_THROW_ON_ERROR + JSON_INVALID_UTF8_IGNORE);
             $name = $data['personal'] ?? null;
 
@@ -427,7 +418,6 @@ class MailboxGateway extends BaseGateway
      */
     private function parseAddresses(string $json): ?array
     {
-        $json = $this->fixQuotedAddressJson($json);
         try {
             $data = json_decode($json, true, 512, JSON_THROW_ON_ERROR + JSON_INVALID_UTF8_IGNORE);
 

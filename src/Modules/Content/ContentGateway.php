@@ -23,14 +23,6 @@ class ContentGateway extends BaseGateway
     }
 
     /**
-     * @deprecated use getContent instead
-     */
-    public function get($id): array
-    {
-        return $this->db->fetchByCriteria('fs_content', ['title', 'body'], ['id' => $id]);
-    }
-
-    /**
      * Returns the content with the specific id or null if the id does not exist.
      */
     public function getContent(int $id): ?Content

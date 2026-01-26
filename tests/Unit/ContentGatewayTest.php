@@ -21,9 +21,9 @@ class ContentGatewayTest extends Unit
 
     public function testGetContent(): void
     {
-        $content = $this->gateway->get(ContentId::QUIZ_REMARK_PAGE_33);
+        $content = $this->gateway->getContent(ContentId::QUIZ_REMARK_PAGE_33);
         $this->assertNotNull($content);
-        $this->assertEquals('Wichtiger Hinweis:', $content['title']);
-        $this->assertStringContainsString('Lebensmittelverschwendung', $content['body']);
+        $this->assertEquals('Wichtiger Hinweis:', $content->title);
+        $this->assertStringContainsString('Lebensmittelverschwendung', $content->body);
     }
 }

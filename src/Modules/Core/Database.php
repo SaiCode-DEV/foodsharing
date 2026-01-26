@@ -635,7 +635,6 @@ class Database
      */
     private function preparedQuery(string $query, array $params): Result
     {
-        $timing_start = hrtime(true);
         try {
             $statement = $this->dbalConnection->prepare($query);
         } catch (DriverException $e) {
