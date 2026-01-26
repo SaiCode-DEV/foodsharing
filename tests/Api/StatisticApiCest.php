@@ -46,8 +46,9 @@ class StatisticApiCest
 
     public function canListGenderStatistics(ApiTester $I): void
     {
+        $I->login($this->foodsaver['email']);
         $I->sendGet(
-            'api/statistics/regions/' . $this->region['id'] . '/gender'
+            'api/regions/' . $this->region['id'] . '/statistics/gender'
         );
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseIsJson();
@@ -57,8 +58,9 @@ class StatisticApiCest
 
     public function canListGenderInHomeRegionStatistics(ApiTester $I): void
     {
+        $I->login($this->foodsaver['email']);
         $I->sendGet(
-            'api/statistics/regions/' . $this->region['id'] . '/gender', ['homeRegion' => 'true']
+            'api/regions/' . $this->region['id'] . '/statistics/gender', ['onlyHomeRegion' => 'true']
         );
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseIsJson();
@@ -68,8 +70,9 @@ class StatisticApiCest
 
     public function canListAgeBandStatistics(ApiTester $I): void
     {
+        $I->login($this->foodsaver['email']);
         $I->sendGet(
-            'api/statistics/regions/' . $this->region['id'] . '/age-band'
+            'api/regions/' . $this->region['id'] . '/statistics/age-band'
         );
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseIsJson();
@@ -78,8 +81,9 @@ class StatisticApiCest
 
     public function canListAgeBandInHomeRegionStatistics(ApiTester $I): void
     {
+        $I->login($this->foodsaver['email']);
         $I->sendGet(
-            'api/statistics/regions/' . $this->region['id'] . '/age-band', ['homeRegion' => 'true']
+            'api/regions/' . $this->region['id'] . '/statistics/age-band', ['onlyHomeRegion' => 'true']
         );
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseIsJson();
