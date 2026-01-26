@@ -2,6 +2,7 @@
 
 namespace Foodsharing\RestApi;
 
+use Foodsharing\Annotation\DisableCsrfProtection;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Login\DTO\PasskeyAuthenticationRequest;
@@ -65,9 +66,21 @@ class PasskeyRestController extends AbstractFoodsharingRestController
 
     #[OA\Post(summary: 'Generate authentication options for passkey login')]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success - returns authentication options')]
+    // CSRF protection is disabled because this endpoint is called before authentication,
+    // so no CSRF token is available. This is safe as it only generates a challenge and
+    // doesn't modify any sensitive state.
+    #[DisableCsrfProtection]
     #[Route('passkey/authentication/options', methods: ['POST'])]
     public function authenticationOptions(): Response
     {
+        // Ensure session is initialized even for unauthenticated users
+        // so we can store the authentication challenge
+        try {
+            $this->session->init();
+        } catch (\Exception $e) {
+            // Session already initialized, which is fine
+        }
+
         try {
             $options = $this->webAuthnService->generateAuthenticationOptions();
 
@@ -80,6 +93,10 @@ class PasskeyRestController extends AbstractFoodsharingRestController
     #[OA\Post(summary: 'Verify passkey authentication and log in the user')]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success - user authenticated')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid assertion data')]
+    // CSRF protection is disabled because the WebAuthn protocol provides its own protection
+    // against cross-origin attacks through cryptographic verification of the credential,
+    // challenge binding, and origin validation.
+    #[DisableCsrfProtection]
     #[Route('passkey/authentication/verify', methods: ['POST'])]
     public function verifyAuthentication(
         #[MapRequestPayload] PasskeyAuthenticationRequest $request
