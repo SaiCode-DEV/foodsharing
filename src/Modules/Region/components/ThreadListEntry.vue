@@ -10,11 +10,11 @@
       <div class="text-truncate flex-grow-1 d-flex flex-wrap-reverse flex-sm-nowrap">
         <div
           class="text-truncate thread-main px-1 mr-1 align-self-center flex-grow-1 flex-shrink-1 flex-sm-noshrink"
-          :class="{'font-weight-bold': thread.stickiness > 0}"
+          :class="{'font-weight-bold': thread.pinnedLevel > 0}"
         >
           <span class="thread-title d-inline" :class="titleClass">
             <i
-              v-if="isClosed"
+              v-if="thread.isLocked"
               class="fas fa-lock"
               :title="$t('forum.thread.closed')"
             />
@@ -39,7 +39,6 @@
 
 <script>
 import Avatar from '@/components/Avatar/Avatar.vue'
-import ThreadStatus from './ThreadStatus'
 
 export default {
   components: { Avatar },
@@ -55,11 +54,8 @@ export default {
     lastPostDate () {
       return new Date(Date.parse(this.thread.latestPost.createdAt))
     },
-    isClosed () {
-      return this.thread.status === ThreadStatus.THREAD_CLOSED
-    },
     titleClass () {
-      return this.isClosed ? 'thread-title-closed' : ''
+      return this.thread.isLocked ? 'thread-title-closed' : ''
     },
   },
 }
