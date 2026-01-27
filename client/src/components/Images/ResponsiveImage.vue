@@ -146,7 +146,7 @@ export default {
       this.imageLoaded = true
     },
     intersectionHandler (evt) {
-      this.isIntersecting = evt.at(-1).isIntersecting
+      this.isIntersecting = evt[evt.length - 1].isIntersecting
       if (!this.wasIntersecting && this.isIntersecting) {
         this.wasIntersecting = true
         this.updateAspectRatio()

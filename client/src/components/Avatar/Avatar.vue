@@ -116,7 +116,7 @@ export default {
   },
   methods: {
     intersectionHandler (evt) {
-      const isIntersecting = evt.at(-1).isIntersecting
+      const isIntersecting = evt[evt.length - 1].isIntersecting
       if (isIntersecting) {
         this.lazyLoaded = true
         this.observer.disconnect()

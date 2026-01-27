@@ -14,12 +14,12 @@
       v-text="$t('region.denied.subgroup_in', { parent: ancestor.name, name: ancestors[i].name })"
     />
     <span
-      v-if="ancestors.length > 1 && ancestors.at(-1).type === 7"
-      v-text="$t('region.denied.group_in_this_group', ancestors.at(-2))"
+      v-if="ancestors.length > 1 && ancestors[ancestors.length - 1].type === 7"
+      v-text="$t('region.denied.group_in_this_group', ancestors[ancestors.length - 2])"
     />
     <span
-      v-else-if="ancestors.length > 1 && ancestors.at(-1).type !== 7"
-      v-text="$t('region.denied.group_in_this_region', ancestors.at(-2))"
+      v-else-if="ancestors.length > 1 && ancestors[ancestors.length - 1].type !== 7"
+      v-text="$t('region.denied.group_in_this_region', ancestors[ancestors.length - 2])"
     />
   </b-alert>
 </template>
