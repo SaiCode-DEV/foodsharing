@@ -351,8 +351,8 @@ settings:
       thunderbird: Mozilla Thunderbird
       etar: Etar
       other: Coś innego
-      outlook: ''
-      google: ''
+      outlook: 'Microsoft Outlook'
+      google: 'kalendarz Google'
       label: ''
     menu: Kalendarz
     export: Eksportuj kalendarz
@@ -381,7 +381,7 @@ settings:
     formatting:
       html: HTML
       label: ''
-      text: ''
+      text: 'tylko tekst'
       alt: ''
     history:
       "false": ''
@@ -521,7 +521,7 @@ settings:
     next: ''
     danger: ''
     explanation: ''
-    secret_label: ''
+    secret_label: 'Alternatywnie możesz podać ten kod ręcznie:'
     failed: ''
     apps:
       description: ''
@@ -561,20 +561,21 @@ settings:
     new_email_placeholder: twoj.nowy@email.com
     confirm_email_placeholder: twoj.nowy@email.com
     wrong_password: Wprowadzono błędne hasło.
-    invalid: ''
-    not_changed: ''
+    invalid: 'Z podanym adresem email coś się nie zgadza'
+    not_changed: 'Twój adres email nie został zmieniony.'
     sent_other_user: ''
     dashboard_link: ''
     explanation: ''
     explanation_other_user: ''
     domain: ''
-    sent: ''
-    done: ''
-    password_required: ''
+    sent: 'Przejdź teraz do swojej nowej skrzynki mailowej, żeby potwierdzić adres
+      email.'
+    done: 'Twój adres email został zmieniony.'
+    password_required: 'Musisz podać swoje hasło, aby zmienić adres email.'
     occupied: ''
     confirm_email_required: ''
     insufficient_permission: ''
-    question_other_user: ''
+    question_other_user: 'Czy na pewno zmienić twój adres email na ten:'
   password_change:
     new_password_placeholder: Minimum 8 znaków
     new_password_required: Hasło musi zawierać minimum 8 znaków
@@ -592,9 +593,9 @@ settings:
     cancel: Anuluj
     submit: Zmień hasło
     success: Twoje hasło zostało pomyślnie zmienione
-    wrong_password: ''
-    explanation: ''
-    confirm_password_invalid: ''
+    wrong_password: 'Błędne aktualne hasło'
+    explanation: 'Tu możesz zmienić swoje aktualne hasło'
+    confirm_password_invalid: 'Hasła się nie zgadzają'
   passport:
     menu: legitymacja członkowska
     renew: Odnów legitymację
@@ -647,8 +648,8 @@ settings:
   account: Opcje konta
   general:
     phone: ''
-    no_address: ''
-    current_address: ''
+    no_address: 'Jeszcze nie podano adresu'
+    current_address: 'Aktualny adres'
   chatmail: ''
   newsletter: ''
   change_data_info:
@@ -2433,7 +2434,7 @@ map:
       status:
         cooperating: współpracuje
         not-cooperating: nie współpracuje
-        label: ''
+        label: 'Status'
         all: ''
       help:
         all: obojętnie
@@ -2463,7 +2464,7 @@ map:
         month: poprzedni miesiąc
         3months: Ostatnie 3 miesiące
         6months: ostatnie 6 miesięcy
-        all: ''
+        all: 'obojętnie'
       member:
         label: Członkostwo
         all: wszystkie
@@ -2475,7 +2476,7 @@ map:
     go: do jadłodzielni
   events:
     title: Eventy
-    go: ''
+    go: 'Do eventu'
   users:
     go: Do profilu
   community:
@@ -2521,7 +2522,7 @@ mailbox:
       plików.
     attach: Załączniki (maksymalnie 10 plików, 1,5 MB / plik)
     not_found_explanation: ''
-    too_large_to_send: ''
+    too_large_to_send: 'Niektóre pliki były za duże i nie mogły zostać dołączone.'
   conformation_modal:
     title: Potwierdzenie
     message: Jesteś pewny/a, że chcesz usunąć ten mail?
@@ -2547,8 +2548,10 @@ mailbox:
   claim: ''
   not-allowed: ''
   name: ''
-  forward_attachment_warning: ''
-  global_addressbook: ''
+  forward_attachment_warning: 'Aktualnie nie można przekazywać dalej załączników.
+    Jeśli chcesz przekazać dalej maila z załącznikami, możesz pobrać załączniki i
+    dołączyć je do nowego maila.'
+  global_addressbook: 'globalna książka adresowa'
   sm-quiz: ''
   manage: ''
   not-available: ''

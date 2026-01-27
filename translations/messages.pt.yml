@@ -82,8 +82,9 @@ store:
     requirePhone:
       text: Não podes candidatar-te neste momento, pois ainda não introduziste 
         um número de telefone no teu perfil. Esta empresa só aceita candidaturas
-        dos salvadores alimentar com pelo menos um número de telefone registado.
-        Introduz um número de telefone no teu perfil para te poderes candidatar.
+        dos salvadores alimentares com pelo menos um número de telefone 
+        registado. Introduz um número de telefone no teu perfil para te poderes 
+        candidatar.
       link: Editar o perfil
     applicationSummary:
       intro: 'Quando enviares a tua candidatura, os lideres de equipa verão as seguintes
@@ -171,7 +172,7 @@ store:
       no questinário correspondente.'
     filterActive: 'Ativos'
     searchPlaceholder: 'Nome ou ID'
-    filterSleeping: 'Dormilhões'
+    filterSleeping: 'Dorminhoco'
     filterJumper: 'Substitutos'
     filterQuizSM: 'Questinário aprovado para lideres de equipas'
     reallyRemove: 'Quer mesmo remover {name} da equipa da loja?'
@@ -380,43 +381,43 @@ bell:
   store_request_accept_wait_title: '{name}'
   forum_answer_title: '{forum}'
   buddy_request_title: 'Conheces {name}?'
-  store_new_request_title: 'Aplicação nova pra o equipa'
+  store_new_request_title: 'Nova aplicação pra o equipa'
   forum_new_thread: 'de {user} no fórum {forum}'
-  store_new_title: 'Empresa nova'
+  store_new_title: 'Nova loja'
   sharepoint_activate_title: 'Cantinho solidário novo em {bezirk}'
   store_cr_times: 'Os assentos foram coregadas'
   new_foodsaver_verified: 'yá verificado - pode dar início'
   buddy_request: '{name} conhece-te.'
-  poll_new_title: 'Votação nova'
+  poll_new_title: 'Nova votação'
   banana_given: '{name} ofereceu-te uma banana da confiança.'
   foodsaver_verified: 'Faça o download do teu cartão de membro em …'
   store_new: '{name} foi registado'
   new_foodsaver_verified_title: '{name} é novo em {bezirk}'
   betrieb_fetch: '{count} recolhas no confirmádas'
-  store_wallpost: 'Publicação nova no pinboard.'
+  store_wallpost: 'Nova publicação no pinboard.'
   new_foodsaver: 'precisa recolhas introdutórias'
   forum_answer: '{user} te respondeu'
   forum_announcement: 'de {user} no fórum {forum}'
   forum_post:
-    one: 'Publicação nova de {user} no fórum {forum}'
-    many: '{count} publicações novas no fórum {forum}'
-  blog_new_check_title: 'Artigo novo no blog'
+    one: 'Nova publicação de {user} no fórum {forum}'
+    many: '{count} novas publicações no fórum {forum}'
+  blog_new_check_title: 'Novo artigo no blog'
   new_foodsaver_needs_introduction: 'precisa recolhas introdutórias'
   foodsaver_verified_title: 'Estas verificado!'
-  fs_sleepmode_title: 'Touco de dormir novo'
+  fs_sleepmode_title: 'Novo dorminhoco'
   forum_mention_title: '{user} mencionou-te ({forum})'
   store_new_request: 'Aplicação pra {name}'
   sharepoint_activate: '{name} foi internado'
   passgen_failed_title: 'Não foi possível criar o teu cartão de membro'
   fs_sleepmode: '{name} {nachname} agora está inactivo'
-  forum_new_thread_title: 'Tópico novo: {title}'
+  forum_new_thread_title: 'Novo tópico: {title}'
   new_foodsaver_title: '{name} é novo em {bezirk}'
   workgroup_request_decline: 'Não foste aceite no grupo de trabalho.'
   no_bells: 'Não tem notificações.'
   new_report_title: 'Denúncia nova sobre {name}'
   forum_announcement_title: 'Aviso importante: {title}'
   store_request_accept: 'Foste aceito na equipa.'
-  banana_given_title: 'Banana da confiança nova'
+  banana_given_title: 'Nova banana da confiança'
   passgen_failed: 'Carregue uma foto e funcionará.'
   store_request_imposed: 'Foste adicionado à equipa.'
   store_request_accept_wait: 'Agora está na lista de espera/substitutos.'
@@ -428,7 +429,7 @@ bell:
   workinggroup_new_request_title: '{name}'
   store_wall_post:
     one: Entrada do pinboard de {user}
-    many: '{count} entradas novas no pinboard'
+    many: '{count} novas entradas no pinboard'
   translation_failed:
     title: Sino desconhecido
     key: Os sinos da versão beta não podem ser mostrados
@@ -442,8 +443,8 @@ bell:
       através do [Suporte](/support)
   event_post_title: Prazo {event} em {region}
   event_post:
-    one: 'Comentário novo de {user} '
-    many: '{count} comentários novos sobre {event}'
+    one: 'Novo comentário de {user} '
+    many: '{count} novos comentários sobre {event}'
   ft_update:
     one: '{teaser}'
     many: '{teaser}'
@@ -462,12 +463,12 @@ bell:
     many: Os assentos foram coregados
   new_quiz_comment:
     one: '{user}: {comment}'
-    many: '{count} comentários novos'
+    many: '{count} novos comentários'
   foodsaver_adress_changed_title: '{name} alterou o endereço'
   foodsaver_adress_changed: Em caso de alterações frequentes, verifique.
   passport_created_or_renewed_title: O teu cartão do membro …
   passport_created_or_renewed: foi ativado ou prolongado!
-  workinggroup_new_request: Candidatura nova para um grupo de trabalho
+  workinggroup_new_request: Nova candidatura para um grupo de trabalho
   internal_email_changed_title: '{address}'
   internal_email_changed: O teu endereço de e-mail pessoal foi alterado.
   forum_not_activated_thread: '{forum}'
@@ -538,10 +539,10 @@ email_template:
       multiple: 'Datas disponíveis para recolha na %COUNT% lojas!'
       single: 'Datas disponíveis para recolha na %EMPRESA%!'
     settings_link: 'Para as configurações de notificação'
-    part2: 'Por favor, procure o mais rápido possível salvadores alimentar para que
-      todas as recolhas possam ser feitas. Se não conseguir mobilizar ninguém, seria
-      bom se pudesse assumir as recolhas em aberto. Se isso não for possível, por
-      favor, cancele as datas correspondentes com antecedência junto da loja.'
+    part2: 'Por favor, procure o mais rápido possível salvadores alimentares para
+      que todas as recolhas possam ser feitas. Se não conseguir mobilizar ninguém,
+      seria bom se pudesse assumir as recolhas em aberto. Se isso não for possível,
+      por favor, cancele as datas correspondentes com antecedência junto da loja.'
     part1: 'A tarefa dos líderes de equipa é garantir que as recolhas sejam realizadas
       conforme previsto. Infelizmente, nem todos os seus negócios registaram poupadores
       de alimentos suficientes para as recolhas nos próximos dois dias:'
@@ -723,7 +724,7 @@ calendar:
       description: 'Assento de foodsharing em <a href="{url}">{store}</a>'
       name: '{store} Assento'
       unconfirmed: 'não confirmado'
-      foodsavers: 'Salvadores dos alimentos registados: '
+      foodsavers: 'Salvadores alimentares registados: '
       freeSlots: '{count} assentos ainda disponíveis'
     event:
       description: 'Descrição'
@@ -742,16 +743,16 @@ calendar:
   placeholder: Selectionar uma data
   copiedUrl: URL de calendário copiáda!
 poll:
-  type_description_3: Seleção de avaliações com valores entre -3 (rejeição) e +3
+  type_description_3: Seleção de avaliações com valores entre -3 (contra) e +3 
     (aprovação)
-  submit_vote: ''
-  allowed_voters: ''
+  submit_vote: 'Votar'
+  allowed_voters: 'Direito a voto'
   edit:
     title: ''
     submit: ''
     submit_question: ''
-  in_future: ''
-  in_past: ''
+  in_future: 'ainda não foi iniciado'
+  in_past: 'terminado'
   results:
     average: ''
     sum: ''
@@ -764,18 +765,18 @@ poll:
     sumShort: ∑
     averageShort: ''
   new_poll:
-    type: ''
-    name_required: ''
-    name: ''
-    scope: ''
-    time: ''
+    type: 'Modo de votação'
+    name_required: 'Por favor, escreva um nome.'
+    name: 'Nome da votação'
+    scope: 'Quem pode votar?'
+    time: 'Hora'
     option_texts_required: ''
     start_date_required: ''
     description: ''
     options: ''
     end_date_required: ''
     end_date: ''
-    title: ''
+    title: 'Nova votação'
     description_placeholder: ''
     submit_success: ''
     start_date: ''
@@ -785,38 +786,42 @@ poll:
     missing_fields: ''
     shuffle_options: ''
     submit: ''
-  time_period: ''
+  time_period: 'Período'
   may_not_vote: ''
-  type_description_0: ''
-  type_description_1: ''
+  type_description_0: 'Selecionar (apenas uma opção pode ser selecionada)'
+  type_description_1: 'Assinale (pode selecionar várias opções)'
   may_not_edit: ''
   hint_random_order: ''
   ended_at: ''
-  type_description_2: ''
+  type_description_2: 'Opções de votação: a favor / abstenção / contra'
   begins_at: ''
-  error_cannot_vote: ''
+  error_cannot_vote: 'Não pode participar nesta votação'
   cancel:
     title: ''
     question: ''
   may_not_yet_vote: ''
-  not_available: ''
+  not_available: 'Esta votação não existe ou não tem acesso a ela.'
   eligible_votes_count: ''
   already_voted: ''
-  submit_vote_warning: ''
-  untraceable: ''
-  scope_description_1: ''
+  submit_vote_warning: 'Atenção: a votação é anónima e não é possível alterar a tua
+    seleção após votar.'
+  untraceable: 'A informação sobre como votaste em cada opção não pode ser rastreada
+    e, por isso, não pode ser mostrada aqui.'
+  scope_description_1: 'Todos os salvadores alimentares verificados do distrito/grupo'
   type_2:
-    tooltip_positive: ''
-    tooltip_neutral: ''
-    tooltip_negative: ''
+    tooltip_positive: 'Aprovação'
+    tooltip_neutral: 'Abstenção'
+    tooltip_negative: 'Contra'
   submit_vote_question: ''
-  vote_success: ''
-  scope_description_3: ''
-  scope_description_4: ''
-  scope_description_0: ''
+  vote_success: 'Votaste com sucesso.'
+  scope_description_3: 'Todos os embaixadores do distrito'
+  scope_description_4: 'Todos os salvadores alimentares verificados com o distrito
+    de origem da votação'
+  scope_description_0: 'Todos os salvadores alimentares verificados e não verificados
+    do distrito/grupo'
   scope_description_2: 'Todos os lideres de equipas do distrito que atualmente são
     responsáveis por uma equipa empresal'
-  type: ''
+  type: 'Tipo de votação'
   hint_sorted_order: ''
   title: ''
 pickuplist:
@@ -838,7 +843,7 @@ pickuplist:
   tryagain: 'Tente novamente após recarregar a página, se necessário.'
   time_table_header: 'Periodo'
   year_tab: 'Ano'
-  NumberOfFoodSavers_table_header: 'Número de salvadores alimentar'
+  NumberOfFoodSavers_table_header: 'Número de salvadores alimentares'
   error_confirm: 'Falha na confirmação: '
   really_delete_last_slot:
     title: Apagar o assento último?
@@ -1048,10 +1053,10 @@ login:
     bread: 'Redefinir palavra-passe'
     mismatch: 'Desculpe, as palavras-passe não correspondem.'
     mailSent: 'Tudo bem, foi-te mandado um link por e-mail para alterar a palavra-passe.
-      O link é válido por 7 dias. Depois disso, terá de solicitar um link novo.'
+      O link é válido por 7 dias. Depois disso, terá de solicitar um novo link.'
     invalidCode: O código introduzido não é válido. Por favor, tente novamente. 
       Também pode utilizar códigos de segurança aqui.
-    request_new: Solicitar palavra-passe nova
+    request_new: Solicitar nova palavra-passe
     token_invalid: O código de dois fatores introduzido não é válido. Por favor,
       tente novamente.
   form_title: 'Bem-vindo de volta'
@@ -1076,12 +1081,12 @@ login:
     hint1: Pra fazer login, o teu endereço de e-mail deve estar confirmado. Se 
       foi redirecionado para esta página a partir do login, significa que o teu 
       endereço de e-mail ainda não foi confirmado. Com este formulário, pode 
-      solicitar o envio de um e-mail novo com um link de ativação.
+      solicitar o envio de um novo e-mail com um link de ativação.
     hint2: Caso não receba nenhum e-mail, entre em contacto com o 
       [suporte](/support).
     submit: Enviar
     success: Caso esse endereço de e-mail exista e ainda não tenha sido 
-      verificado, será enviado um e-mail novo.
+      verificado, será enviado um novo e-mail.
   error_not_activated: Infelizmente, o teu endereço de e-mail ainda não foi 
     ativado.
   or: ou
@@ -1311,7 +1316,7 @@ profile:
   mediationRequest: 'Solicitar mediação'
   go: 'Abrir perfil'
   about_me_intern: 'Sobre si mesmo'
-  sleeping: 'tem um touca de dormir por tempo indeterminado'
+  sleeping: 'tem um dorminhoco por tempo indeterminado'
   reportRequest: 'Enviar denúncia'
   cantdeletethis: 'Não é possível apagar citas individuais!'
   homeDistrictHistory:
@@ -1344,7 +1349,7 @@ profile:
       filterActive: membro
       filterManage: Responsável por empresas
       filterJumper: Suplente
-  sleeping_info_from_until: tem uma touca de dormir de {from} até {until}
+  sleeping_info_from_until: tem um dorminhoco de {from} até {until}
   choosereasonnostore: Não se aplica a nenhuma loja
   chooseantherstore: Diz referência a uma loja não listada
   editNameInfo: Tenha em atenção que os campos para nome e apelido devem ser 
@@ -1387,7 +1392,7 @@ mailbox:
   trash: 'Cesto de papel'
   failed: 'Não foi possível enviar o e-mail.'
   mailsend_unsuccess: 'Não foi possível enviar o e-mail. {error}'
-  new: 'Caixa de correio nova'
+  new: 'Nova caixa de correio'
   write: 'E-Mail novo'
   date: 'Data'
   refresh: 'Atualizar'
@@ -1411,7 +1416,7 @@ mailbox:
     '
   move_to: 'Mover para'
   recipients: 'Demasiados destinatários'
-  create: 'Criar a caixa de correio nova'
+  create: 'Criar a nova caixa de correio'
   subject: 'Asunto'
   close_edit_mode: 'Parar de editar'
   signature: 'Mensagem de {date}'
@@ -1462,14 +1467,14 @@ group:
     fsmanagement: 'Administração'
     title: 'Missão do grupo de trabalho'
     tooltip_function_5: 'Os administradores deste grupo de trabalho podem ver denúncias
-      sobre os salvadores alimentar no distrito. Não são apresentados denúncias em
-      que os administradores estejam envolvidos! O conselho de arbitragem recebe-os.'
+      sobre os salvadores alimentares no distrito. Não são apresentados denúncias
+      em que os administradores estejam envolvidos! O conselho de arbitragem recebe-os.'
     tooltip_function_10: 'Os administradores deste grupo de trabalho podem desbloquear
       mensagens em fóruns moderados. Caso esta opção esteja activada para o distrito,
       podem também ocultar mensagens no fórum.'
     fsp: 'Cantinho solidário'
     tooltip_function_1: 'Os administradores deste grupo de trabalho são notificados
-      dos membros novos do distrito'
+      dos novos membros do distrito'
     report: 'Denúncias'
     invalid: 'Um distrito não pode ser afetado a uma função de grupo de trabalho.'
     tooltip_function_2: 'Os administradores deste grupo de trabalho podem criar votações
@@ -1495,7 +1500,7 @@ group:
       apresentados na visão geral do distrito.
     resources: Mosaico dos recursos
     tooltip_function_13: Os administradores deste grupo de trabalho serão 
-      informados sobre recursos novos através de campainha.
+      informados sobre novos recursos através de campainha.
   application_from: 'de'
   apply:
     accept: 'Aceitar'
@@ -1721,7 +1726,7 @@ foodsaver:
   delete_own_account: 'Está prestes a apagar a tua conta. Tem a certeza absoluta?'
   actions: 'Ações'
   title: 'Foodsaver'
-  edit: 'Editar os salvadores alimentar'
+  edit: 'Editar os salvadores alimentares'
   delete_account_sure_reason: 'Tem a certeza de que deseja apagar a tua conta? Motivo:
     {reason}'
   url_error: 'Parece haver algo de errado com o URL da sua página inicial'
@@ -1784,7 +1789,7 @@ pickup:
     freeSlots: '{slots} disponíveis'
   really_delete_date: 'Deseja mesmo apagar o assento de {date}?'
   add_onetime_pickup: 'Insira assento único'
-  description_modal_text: 'Introduza uma descrição nova:'
+  description_modal_text: 'Introduza uma nova descrição:'
   edit_description: 'Editar Descrição'
   description: 'Descrição'
   edit_recurring_pickups: 'Editar série de assentos'
@@ -1963,7 +1968,7 @@ fsp:
   none: 'Ainda não registados cantinhos solidário'
   yours: 'Cantinhos solidário nos vossos distritos'
   acceptSuccess: 'O Cantinho solidário esta ativo agora'
-  new: 'Cantinho solidário novo'
+  new: 'Novo cantinho solidário'
   addSuccess: 'O cantinho solidário foi registado com sucesso'
   edit: 'Editar o cantinho solidário'
   inRegion: 'Tudos cantinhos solidário no (region)'
@@ -2305,22 +2310,22 @@ chat:
   conversations: 'Conversas'
   open_chat: 'Escrever um mensagem'
   no_conversation: 'Nenhuma conversa selecionada'
-  confirm_draft_discard: 'Mudas para uma conversa nova. O texto no campo de resposta
+  confirm_draft_discard: 'Mudas para uma nova conversa. O texto no campo de resposta
     será descartado.
 
 
-    Te cancelar esta caixa de diálogo, o seu rascunho será transferido para a nova
+    Te cancelar esta caixa de diálogo, o teu rascunho será transferido para a nova
     conversa.
 
     '
   notification_named_conversation: '{foodsaver} escreveu em {conversation}.'
-  new_messages: 'Mensagems novos'
+  new_messages: 'Novos mensagems'
   placeholder: 'Escreva algo.'
   display_all_messages: 'Mostrar todos os mensagems'
   select_recipients: 'Seleccionar destinatarios'
   empty_message: 'Primeiro tens de inserir uma mensagem.'
   empty_recipients: 'Tem de selecionar primeiro um ou mais destinatário.'
-  new_message: 'Mensagem novo'
+  new_message: 'Novo mensagem'
   start_of_conversation: 'A conversa começou em:'
   unknown_username: 'Nome desconecido'
   search: 'Procurar'
@@ -2382,8 +2387,8 @@ storeedit:
     hygieneRequired: Permitir a inscrição apenas com formação válida em higiene
     applyTextRequired: É necessário introduzir um texto para candidaturas
     applicationRequirements: Critérios de candidatura
-    verifiedRequired: Permitir apenas salvadores dos alimentos verificados
-    phoneRequirement: Permitir apenas salvadores dos alimentos com número de 
+    verifiedRequired: Permitir apenas salvadores alimentares verificados
+    phoneRequirement: Permitir apenas salvadores alimentares com número de 
       telefone registado
   unsuccess: 'As alterações não puderam ser aplicadas. {error}'
   milestone:
@@ -2392,7 +2397,7 @@ storeedit:
     statuschanged: 'Estado alterado em {date}'
     created: '{user} registou a empresa em {date}'
   bread: 'Editar cooperação'
-  add-new: 'Organizar cooperação nova'
+  add-new: 'Organizar nova loja'
   not-in-region: 'Só podes criar empresas em distritos onde estás membro.'
   add_success: 'A empresa colaboradora foi registada'
   actions: 'Opções'
@@ -2540,9 +2545,8 @@ recipients:
   storemanagers_and_ambs: 'Todos os lideres de equipas e embaixadores'
 settings:
   sleep:
-    tooltip: '{name} está atualmente a fazer uma pausa e está em modo de suspensão'
-    info: 'Com a função «touca de dormir», podes informar a comunidade que estás de
-      viagem
+    tooltip: '{name} está atualmente a fazer uma pausa e está em modo de dorminhoco'
+    info: 'Com a função «dorminhoco», podes informar a comunidade que estás de viagem
 
       ou que, por outros motivos, não tens tempo para salvar alimentos.
 
@@ -2554,21 +2558,20 @@ settings:
     saved: 'As configurações foram gravadas'
     missing-date: 'Por favor, introduza uma data inicial e uma data final para o período.'
     none: 'Sou ativo e totalmente envolvido'
-    header: 'Modo sonolento'
+    header: 'Modo dorminhoco'
     status: 'Tu estado atual'
     range: 'Indique por quanto tempo aproximadamente não estará disponível:'
-    title: 'Touco de dormir'
+    title: 'Dorminhoco'
     until: 'até'
     from: 'De'
     full: 'Vou estar fora por tempo indeterminado'
     temp: 'Não estou disponível durante o período seguinte'
-    show: 'Durch die Nutzung dieser Funktion erklären Sie sich damit einverstanden,
-      dass Ihr Status,
+    show: 'Ao usar essa função, você concorda que o teu estado,
 
-      die Dauer Ihrer Abwesenheit und Ihre Nachricht auf Ihrer Profilseite angezeigt
-      werden
+      a duração da tua ausência e a sua mensagem serão mostrados na tua página de
+      perfil
 
-      und dass auf Ihrem Profilfoto ein Schlafmützen-Symbol erscheint.
+      e que um ícone de dorminhoco aparecerá na tua foto de perfil.
 
       '
     message: 'Aqui podes deixar uma breve mensagem explicando porque não tens tempo
@@ -2675,7 +2678,7 @@ settings:
       cartão no seu telemóvel e, em caso de necessidade, apresentá-lo. Caso não possua
       um smartphone ou, por qualquer outro motivo, necessite de um cartão convencional,
       entre em contacto com os embaixadores locais.'
-    non_verified_text: 'Ainda não estás verificado. Apenas os salvadores alimentar
+    non_verified_text: 'Ainda não estás verificado. Apenas os salvadores alimentares
       verificados podem descarregar o cartão de membro.'
     renew: Renovar o cartão
     passport_not_activated: O teu cartão de membro ainda não foi ativado.
@@ -2735,7 +2738,7 @@ settings:
     old_password_label: Palavra-passe anterior
     old_password_placeholder: A tua palavra-passe atual
     old_password_required: Tens de escrever a tua palavra-passe atual
-    new_password_label: Pallavra-passe nova
+    new_password_label: Nova pallavra-passe
     new_password_placeholder: Mínimo de 8 caracteres
     new_password_required: A palavra-passe deve conter pelo menos oito 
       caracteres
@@ -2743,7 +2746,7 @@ settings:
       com espaços em branco
     new_password_must_be_complex: A nova palavra-passe deve conter letras 
       maiúsculas e minúsculas, bem como números
-    confirm_password_label: Confirmar palavra-passe nova
+    confirm_password_label: Confirmar nova palavra-passe
     confirm_password_placeholder: Repita a palavra-passe
     confirm_password_invalid: As palavras-passe não correspondem
     cancel: Cancelar
@@ -2788,7 +2791,7 @@ settings:
       palavra-passe.
     passkeys_not_supported: O teu navegador não suporta chaves de segurança 
       (WebAuthn).
-    register_passkey: Registar chave de segurança nova
+    register_passkey: Registar nova chave de segurança
     no_passkeys: Ainda não há chaves de segurança registadas.
     unnamed_passkey: Chave de segurança desconhecida
     created: Criado
@@ -2803,7 +2806,7 @@ settings:
       de registar separadamente a tua chave de segurança em foodsharing.de, 
       foodsharing.network, etc.
     register_modal:
-      title: Registar chave de segurança nova
+      title: Registar nova chave de segurança
       device_name_label: Nome do aparelho
       device_name_placeholder: por exemplo Phone, YubiKey, Laptop
       device_name_description: Insira um nome para identificar esta chave de 
@@ -2961,7 +2964,7 @@ settings:
     wrong_password: A palavra-passe é incorreta.
     insufficient_permission: Não tens autorização para alterar o endereço de 
       e-mail deste perfil.
-    sent: Acesse agora tua caixa de correio eletrónico nova para confirmar o 
+    sent: Acesse agora tua nova caixa de correio eletrónico para confirmar o 
       endereço.
     sent_other_user: Foi enviado um e-mail para o endereço novo para confirmar o
       endereço.
@@ -2996,7 +2999,7 @@ terminology:
     "0": 'partilhador(a) alimentar'
     "3": 'Embaixador(-a)'
   statistic: 'Estatísticas'
-  n_foodsaver: '{count} salvadores dos alimentos'
+  n_foodsaver: '{count} salvadores alimentares'
   admins: 'Administradores/as'
   baskets: 'Cestas de comida'
   foodsharer:
@@ -3009,7 +3012,7 @@ terminology:
   mailboxes: 'Caixas de correio eletrónico'
   polls: 'Votações'
   profile_picture: 'Foto de perfil'
-  n_sleeping: '{count} gorros de dormir'
+  n_sleeping: '{count} dorminhocos'
   votingAdmins: 'Equipa de votação'
   foodsaver:
     d: 'Salvador/a dos alimentos'
@@ -3101,15 +3104,15 @@ polls:
   end_date: 'até'
   hint: 'O módulo de votação pode ser testado no grupo de trabalho suprarregional
     «Votações – Teste».'
-  new_poll: 'Criar a votação nova'
+  new_poll: 'Criar a nova votação'
   hint_2: 'Informações sobre como usar as votações podem ser encontradas no Wiki'
   until: 'Possível até {until}'
   future: 'Votações futuras'
   title: 'Título'
   score:
-    disapproval: ''
-    approval: ''
-    neutral: ''
+    disapproval: 'Contra'
+    approval: 'Autorização'
+    neutral: 'Neutro'
   badge:
     vote_now: 'Votar agora'
     already_voted: 'Já votado'
@@ -3403,8 +3406,8 @@ region:
   forum-redirect: 'Não existe o pinboard para regiões. Foi redirecionado para o fórum.'
   hull:
     closure: 'Ingrese {region} como maestro para todos os distritos secundários'
-    parent-info: 'Todos os salvadores alimentar são automaticamente incluídos no distrito
-      principal, desde que tenha sido indicado um'
+    parent-info: 'Todos os salvadores alimentares são automaticamente incluídos no
+      distrito principal, desde que tenha sido indicado um'
     parent: 'Distrito maestro'
     start: 'Iniciar atualização do mestre'
     title: 'Atualização mestre'
@@ -3480,7 +3483,7 @@ region:
       confirm_discard_changes: Tem a certeza de querer descartar as tuas 
         alterações na descrição do distrito?
       confirm_save_changes: Queres guardar as alterações na descrição do 
-        distrito? A descrição nova vai ficar visível publicamente na página do 
+        distrito? A nova descrição vai ficar visível publicamente na página do 
         distrito.
       missing: Este distrito não tem atualmente nenhum texto descritivo. Tens 
         permissão para escrever agora um texto descritivo.
@@ -3512,7 +3515,7 @@ region:
     group_in_this_region: «{name}» é um grupo deste distrito.
     group_in_this_group: «{name}» é um subgrupo deste distrito.
 upload:
-  new_image: 'Carregar imagem novo'
+  new_image: 'Carregar novo imagem'
   no_image: 'O ficheiro carregado não é uma fotografia. Por favor, selecione outro
     ficheiro.'
   image: 'Carregar imagem'
@@ -3522,7 +3525,7 @@ upload:
   no_image_chosen: 'Ainda não foi selecionado qualquer ficheiro'
   file: 'Carregar ficheiro'
   crop_dialog_title: 'Recortar a imagem'
-  new_file: 'Carregar ficheiro novo'
+  new_file: 'Carregar novo ficheiro'
   images: Carregar imagems
   invalid_image_files: '{count} os ficheiros selecionados não são imagens válidas:
     {fileNames}'
@@ -3532,7 +3535,7 @@ content:
   new_success: 'A página foi criada'
   public: 'Páginas públicas'
   actions: 'Ações'
-  new: 'Criar página nova'
+  new: 'Criar nova página'
   id: 'ID'
   title: 'Titulo'
   delete: 'Quer mesmo remover {name}?'
@@ -3565,7 +3568,7 @@ conference:
   join_title: 'Entrar na conferência'
   join: 'Entrar na conferência'
   confirm_info: 'Aqui pode participar numa conferência de video online para o grupo
-    selecionado. A conferência de video online abre o BigBlueButton numa janela nova.
+    selecionado. A conferência de video online abre o BigBlueButton numa nova janela.
     Nota: as conferências de video online são realizadas através do servidor de conferências
     do coletivo "living utopia". Será automaticamente conectado com o teu nome, ID
     de membro e avatar inseridos no foodsharing.'
@@ -3599,7 +3602,7 @@ events:
     online: 'por teleconferência ou online'
     date: 'Data'
     regions: 'Os teus distritos'
-    title: 'Registar evento novo'
+    title: 'Registar novo evento'
     who: 'Para que distrito ou grupo de trabalho o evento deve ser criado?'
     isPublic: 'O evento é publico'
     groups: 'Os teus grupos de trabalho'
@@ -3627,7 +3630,7 @@ events:
     maybe: 'Talvez'
     yes: 'Vou participar'
   goto: 'Para a data marcada'
-  add_event: 'Evento novo'
+  add_event: 'Novo evento'
   menu:
     yes: 'Aceite o convite'
     no: 'Não posso'
@@ -3646,7 +3649,7 @@ events:
     no: 'Status do convite alterado: agora não participas.'
     maybe: 'Que bom que talvez esteja participar!'
   bread: 'Datas'
-  add_new_event: 'Adicionar um evento novo'
+  add_new_event: 'Adicionar um novo evento'
   noneAccepted: Até agora, ninguém confirmou a participação neste evento.
   location: Localização
   meeting:
@@ -3741,14 +3744,14 @@ forum:
   threads: 'Temas'
   sending_error: 'Ocorreu um erro ao envio'
   follow:
-    header: 'Notificação em casa de respostas novas:'
+    header: 'Notificação em novas casa de respostas:'
     email: 'por e-Mail'
     bell: 'por campana'
   from: 'de {name}'
   quickreply:
     error: 'A tua contribuição não pode ser guardada.'
     success: 'Ótimo, a tua resposta foi guardada.'
-  new_thread: 'Redigir uma tema nova'
+  new_thread: 'Redigir uma nova tema'
   mail_confirmation:
     text: 'Queres mesmo que esta nova publicação seja enviada por e-mail a todos os
       membros deste grupo de trabalho ou deste distrito? Só deves fazer isso se o
@@ -3777,11 +3780,11 @@ genderlist:
   number_table_header: 'Número'
   gender_male: 'masculino'
   gender_home_district_table_caption: 'Distribuição da característica «género» entre
-    todos os salvadores alimentar de distrito de origem'
+    todos os salvadores alimentares de distrito de origem'
   header_for_district: 'Distribuição por género em {bezirk}'
   gender_not_selected: 'não selecionado'
   gender_district_table_caption: 'Distribuição da característica «género» entre todos
-    os salvadores alimentar no distrito'
+    os salvadores alimentares no distrito'
   home_district_tab: 'Distrito de origem'
   gender_table_header: 'Género'
   gender_divers: 'vários'
@@ -3910,18 +3913,18 @@ salutation:
   "2": 'Querida'
 stats:
   total:
-    pickups: 'missões que os nossos salvadores de alimentos já completaram.'
+    pickups: 'missões que os nossos salvadores alimentares já completaram.'
     weight: 'Alimentos salvos com sucesso do lixo.'
     fsp: 'Os cantinhos solidário são utilizados para trocar alimentos.'
     foodsharer: 'pessoas que partilham alimentos estão registadas no "foodsharing"
       e interessadas no nosso trabalho.'
-    foodsaver: 'salvadores alimentar trabalham voluntariamente por um mundo sem desperdício
-      de alimentos.'
+    foodsaver: 'salvadores alimentares trabalham voluntariamente por um mundo sem
+      desperdício de alimentos.'
     baskets: 'cestas alimentar foram colocadas online.'
     cooperations: 'empresas cooperam continuamente e com satisfação connosco.'
   leader:
     regions: 'Distritos mais ativos'
-    users: 'Salvadores alimentar mais ativos'
+    users: 'Salvadores alimentares mais ativos'
   avg:
     baskets: 'cestas alimentar são colocadas online em media por semana.'
     pickups: 'missões ocorrem atualmente em média por dia.'
@@ -3963,7 +3966,7 @@ activitypost:
     enter.'
   write: 'Escreve uma resposta …'
   quickreply_info: '<code class="key">tecla shift + tecla enter</code> para agregar
-    uma linea nova.'
+    uma nova linea.'
   response: 'responder'
   Response: 'Respostas'
 addreaction: ''
@@ -3980,7 +3983,7 @@ regionOptions:
   enableMediationButton: 'Ativar o formulário de mediação nas páginas de perfil dos
     comensais habituais do distrito'
   enableReportButton: 'Ativar formulário de denúncia nas páginas de perfil dos salvadores
-    dos alimentos habitual do distrito'
+    alimentares habitual do distrito'
   regionPickupTimespan: 'Período de tempo (dias antes e depois da data do assento
     desejado) ao qual a regra das sultanas se aplica'
   regionPickupRuleActive: 'Ative a seguinte regra distrital para os assentos de empresas
@@ -4029,7 +4032,7 @@ information:
 wikilink: 'Link com mais informações'
 memberlist:
   header_for_district: 'Resgatadores alimentar em distrito (bezirk}'
-  header_for_workgroup: 'Salvadores alimentar no grupo de trabalho {distrito}'
+  header_for_workgroup: 'Salvadores alimentares no grupo de trabalho {distrito}'
 ui: {}
 gender:
   d: 'Ambos ou outro'
@@ -4106,8 +4109,8 @@ language_chooser:
   translation_help_info_text: ''
   choose_button: ''
   content: ''
-prefetchtime: 'Com quantas semanas de antecipação podem os salvadores alimentar registar-se
-  utilizando as assentos gerados automaticamente?'
+prefetchtime: 'Com quantas semanas de antecipação podem os salvadores alimentares
+  registar-se utilizando as assentos gerados automaticamente?'
 ueberzeugungsarbeit: 'Foi fácil convencer os responsáveis a cooperar com o foodsharing?'
 ageBandList:
   ageBand: 'Grupos etários'
@@ -4187,7 +4190,7 @@ map:
       role:
         label: Função
         all: Todos
-        foodsaver: Salvadores alimentar verificados
+        foodsaver: Salvadores alimentares verificados
         store-manager: Lider de equipa
       activity:
         label: Último login
@@ -4251,7 +4254,7 @@ use_region_pickup_rule: 'A regra distrital das SULTANAS deve ser aplicada os ass
 teaser: 'Teaser'
 presse: 'A empresa/loja/clube está disponível para ser mencionada na imprensa e em
   foodsharing.de?'
-pass1: 'O tua desejada palavra-passe nova'
+pass1: 'O tua desejada nova palavra-passe'
 weight: 'Peso estimado:'
 answers: 'Quais respostas é certamento?'
 time: 'horas'
@@ -4351,7 +4354,7 @@ help:
       title: ''
     reportReasons:
       title: Formulário de denúncias
-      md: "Através do formulário de denúncias, os salvadores dos alimentos podem denunciar
+      md: "Através do formulário de denúncias, os salvadores alimentares podem denunciar
         diretamente as violações das regras. Ao ativá-lo, as pessoas responsáveis
         pelas denúncias recebem notificações rápidas e fáceis sobre as notificações
         enviadas dessa forma.\n---\nO grupo de denúncias local do distrito pode definir
@@ -4384,7 +4387,7 @@ help:
       title: ''
     hygieneRequirement:
       md: |
-        Para trabalhar em algumas empresas, os salvadores alimentar devem ter formação em higiene alimentar. Quando esta função está ativada para uma empresa, tem as seguintes implicações:
+        Para trabalhar em algumas empresas, os salvadores alimentares devem ter formação em higiene alimentar. Quando esta função está ativada para uma empresa, tem as seguintes implicações:
         1. Os salvadores alimentar sem formação válida em higiene não podem candidatar-se à equipa da empresa.
         2. Os salvadores alimentar que já fazem parte da equipa só podem inscrever-se em assentos cuja formação em higiene ainda seja válida.
 
@@ -4420,7 +4423,7 @@ help:
       title: ''
       md: 'A secção *Possibilidades de inscrição* mostra-lhe uma visão geral de todos
         os turnos assentos nas tuas empresas, para os quais ainda se procuram salvadores
-        alimentar. Através do menu de opções, pode ajustar a visualização às suas
+        alimentares. Através do menu de opções, pode ajustar a visualização às suas
         necessidades:
 
 
@@ -4442,7 +4445,35 @@ help:
         '
     resource_mosaic:
       title: ''
-      md: ''
+      md: "A ideia\nAo salvar alimentos, todos nós partilhamos de forma muito eficaz
+        o nosso tempo, capacidade de transporte e experiência. Mas, para dar novos
+        impulsos a um sistema alimentar sustentável e fortalecer o movimento de partilha
+        de alimentos a longo prazo, é preciso mais do que apenas salvar. Cada um de
+        nós traz recursos diferentes, ou seja, *habilidades*, *objetos* ou *contatos*
+        que, por si só, muitas vezes ficam ocultos e sem uso. Juntos, porém, esses
+        recursos podem se tornar visíveis e utilizáveis – como peças individuais de
+        um mosaico que, juntas, formam uma grande imagem. O mosaico de recursos pode
+        tornar essa diversidade visível. Assim, cria espaço para novas ideias de projetos,
+        colaboração e apoio mútuo além da recuperação. \n\n##### A visão geral dos
+        recursos\nO coração do mosaico de recursos é a visão geral de todos os recursos
+        do distrito ou do grupo de trabalho. Pode simplesmente inspirar-se na diversidade
+        do seu grupo ou procurar recursos específicos. Podes clicar em qualquer recurso
+        para obter mais informações sobre ele. Também podes guardar recursos como
+        favoritos para encontrá-los mais facilmente mais tarde. \nA cor de um recurso
+        mostra o quanto a pessoa gosta de o partilhar: os recursos oferecidos com
+        muito prazer aparecem em cores fortes e brilhantes, enquanto os recursos menos
+        partilhados são apresentados em tons cinzentos.\n \n\n##### Pesquisar, filtrar
+        e ordenar\nPara encontrar rapidamente os recursos adequados, tem várias opções
+        de filtragem à sua disposição.\n- Pode filtrar por **categorias** específicas
+        ou pesquisar diretamente por determinados **termos**.\n- **Apenas utilizadores
+        ativos** oculta os recursos de utilizadores que não iniciaram sessão nos últimos
+        30 dias ou que estão atualmente dorminhocos.\n- No mosaico de recursos, são
+        exibidos os recursos de todos os salvadores alimentares do grupo. Nos distritos,
+        também podes restringir a visualização aos utilizadores cujo **distrito principal**
+        é o distrito em questão.\n- Se tiver marcado recursos como **favoritos**,
+        pode visualizar apenas esses recursos.\n\nAlém disso, pode **ordenar** os
+        resultados, por exemplo, por «alegria com as solicitações», atualidade das
+        entradas ou simplesmente aleatoriamente.\n"
     threadPriority:
       md: ''
       title: ''
