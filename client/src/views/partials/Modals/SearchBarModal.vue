@@ -109,7 +109,7 @@ export default {
       for (const key in this.index) {
         // Search local index for results
         results[key] = this.index[key].filter(
-          entry => queryWords.every(word => this.searchString(entry.search_string, detailedSearch).includes(this.collateString(word))),
+          entry => queryWords.every(word => this.searchString(entry.searchString, detailedSearch).includes(this.collateString(word))),
         )
         if (this.directSearchResults) {
           const directSearchResult = this.directSearchResults?.[key] ?? []

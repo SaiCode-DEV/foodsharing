@@ -4,66 +4,32 @@ declare(strict_types=1);
 
 namespace Foodsharing\Modules\Search\DTO;
 
-use OpenApi\Annotations as OA;
+use OpenApi\Attributes as OA;
 
 class UserSearchResult extends SearchResult
 {
-    /**
-     * URL of the users avatar.
-     *
-     * May be null.
-     *
-     * @OA\Property(example=null)
-     */
+    #[OA\Property(example: null, description: 'URL of the users avatar. May be null.')]
     public ?string $avatar = null;
 
-    /**
-     * Last name of the user.
-     *
-     * @OA\Property(example="Mustermann")
-     */
-    public ?string $last_name = null;
+    #[OA\Property(example: 'Mustermann', description: 'Last name of the user.')]
+    public ?string $lastName = null;
 
-    /**
-     * Mobile phone number of the user.
-     *
-     * @OA\Property(example="+49 1234 56789")
-     */
+    #[OA\Property(example: '+49 1234 56789', description: 'Mobile phone number of the user.')]
     public ?string $mobile = null;
 
-    /**
-     * Whether the searching user and the found user are buddies.
-     *
-     * @OA\Property(example=true)
-     */
-    public bool $is_buddy;
+    #[OA\Property(description: 'Whether the searching user and the found user are buddies.')]
+    public bool $isBuddy;
 
-    /**
-     * Whether the user is verified.
-     *
-     * @OA\Property(example=true)
-     */
-    public bool $is_verified;
+    #[OA\Property(description: 'Whether the user is verified.')]
+    public bool $isVerified;
 
-    /**
-     * Unique identifier of the users home region.
-     *
-     * @OA\Property(example=1)
-     */
-    public int $region_id;
+    #[OA\Property(description: 'Unique identifier of the users home region.')]
+    public int $regionId;
 
-    /**
-     * Name of the users home region.
-     *
-     * @OA\Property(example="Münster")
-     */
-    public string $region_name;
+    #[OA\Property(example: 'Münster', description: 'Name of the users home region.')]
+    public string $regionName;
 
-    /**
-     * Name of the users home region.
-     *
-     * @OA\Property(example="Münster")
-     */
+    #[OA\Property(example: 'max@mustermann.com', description: 'The users private mail address.')]
     public ?string $email = null;
 
     public static function createFromArray(array $data): UserSearchResult
@@ -72,12 +38,12 @@ class UserSearchResult extends SearchResult
         $result->id = $data['id'];
         $result->name = $data['name'];
         $result->avatar = $data['photo'];
-        $result->region_id = $data['region_id'];
-        $result->region_name = $data['region_name'];
-        $result->last_name = $data['last_name'];
+        $result->regionId = $data['region_id'];
+        $result->regionName = $data['region_name'];
+        $result->lastName = $data['last_name'];
         $result->mobile = $data['mobile'];
-        $result->is_buddy = (bool)$data['is_buddy'];
-        $result->is_verified = (bool)$data['is_verified'];
+        $result->isBuddy = (bool)$data['is_buddy'];
+        $result->isVerified = (bool)$data['is_verified'];
         $result->email = $data['email'] ?? null;
         $result->setSearchString($data);
 

@@ -1,41 +1,41 @@
 <template>
   <a
-    :href="$url('forumThread', thread.region_id, thread.id)"
+    :href="$url('forumThread', thread.regionId, thread.id)"
     class="d-flex dropdown-item search-result"
     tabindex="1"
   >
     <div class="text-truncate flex-grow-1">
       <h6 class="m-0 text-truncate d-inline">
         <i
-          v-if="thread.stickiness > 0"
+          v-if="thread.pinnedLevel > 0"
           v-b-tooltip.noninteractive="$t('search.results.thread.sticky_tooltip')"
           class="fas fa-thumbtack"
         />
         <i
-          v-else-if="thread.stickiness < 0"
+          v-else-if="thread.pinnedLevel < 0"
           v-b-tooltip.noninteractive="$t('search.results.thread.bottom_tooltip')"
           class="fas fa-sign-in-alt fa-rotate-90"
         />
         <i
-          v-if="thread.is_closed"
+          v-if="thread.isClosed"
           v-b-tooltip.noninteractive="$t('search.results.thread.closed_tooltip')"
-          :class="{'ml-1': thread.stickiness}"
+          :class="{'ml-1': thread.pinnedLevel}"
           class="fas fa-lock"
         />
         {{ thread.name }}
       </h6>
       <br>
       <small class="separate">
-        <span v-if="thread.region_id && !hideRegion">
+        <span v-if="thread.regionId && !hideRegion">
           {{ $t('search.results.in') }}
-          <a :href="$url('forum', thread.region_id)">
-            {{ $t(`search.results.thread.${thread.is_inside_ambassador_forum ? 'ambassador_' : ''}forum`) }}
-            {{ thread.region_name }}
+          <a :href="$url('forum', thread.regionId)">
+            {{ $t(`search.results.thread.${thread.isInsideAmbassadorForum ? 'ambassador_' : ''}forum`) }}
+            {{ thread.regionName }}
           </a>
         </span>
         <span>
           {{ $t('search.results.thread.last_post') }}
-          {{ $dateFormatter.relativeTime(new Date(thread.time)) }}
+          {{ $dateFormatter.relativeTime(new Date(thread.lastPostSentAt)) }}
         </span>
       </small>
     </div>

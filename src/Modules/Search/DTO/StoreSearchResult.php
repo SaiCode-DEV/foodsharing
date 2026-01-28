@@ -5,87 +5,51 @@ declare(strict_types=1);
 namespace Foodsharing\Modules\Search\DTO;
 
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
-use OpenApi\Annotations as OA;
+use OpenApi\Attributes as OA;
 
 class StoreSearchResult extends SearchResult
 {
-    /**
-     * Cooperation status of the store.
-     *
-     * @OA\Property(example=5)
-     */
-    public CooperationStatus $cooperation_status;
+    #[OA\Property(example: 5, description: 'Cooperation status of the store')]
+    public CooperationStatus $cooperationStatus;
 
-    /**
-     * Street in which the store lays.
-     *
-     * @OA\Property(example="Oskar-Michels-Ring 29")
-     */
+    #[OA\Property(example: 'Oskar-Michels-Ring 29', description: 'Street in which the store lays')]
     public string $street;
 
-    /**
-     * Zip code of the stores adress.
-     *
-     * @OA\Property(example="Oskar-Michels-Ring 29")
-     */
+    #[OA\Property(example: '48163', description: 'Zip code of the stores adress')]
     public string $zipCode;
 
-    /**
-     * City of the stores adress.
-     *
-     * @OA\Property(example="Münster")
-     */
+    #[OA\Property(example: 'Münster', description: 'City of the stores adress')]
     public string $city;
 
-    /**
-     * Unique identifier of the stores region.
-     *
-     * @OA\Property(example=1)
-     */
-    public int $region_id;
+    #[OA\Property(example: 1)]
+    public int $regionId;
 
-    /**
-     * Name of the stores region.
-     *
-     * @OA\Property(example="Münster")
-     */
-    public string $region_name;
+    #[OA\Property(example: 'Münster')]
+    public string $regionName;
 
-    /**
-     * Identifier of the searching users membership to the store.
-     *
-     * @OA\Property(example=1)
-     */
-    public ?int $membership_status = null;
+    #[OA\Property(example: 1, description: 'Identifier of the searching users membership to the store')]
+    public ?int $membershipStatus = null;
 
-    /**
-     * Whether the searching user is manager of the store.
-     *
-     * @OA\Property(example=true)
-     */
-    public bool $is_manager;
+    #[OA\Property(description: 'Whether the searching user is manager of the store')]
+    public bool $isManager;
 
-    /**
-     * Name of the chain the store belongs to, null if the store has no chain.
-     *
-     * @OA\Property(example=null)
-     */
-    public ?string $chain_name = null;
+    #[OA\Property(example: null, description: 'Name of the chain the store belongs to, null if the store has no chain')]
+    public ?string $chainName = null;
 
     public static function createFromArray(array $data): StoreSearchResult
     {
         $result = new StoreSearchResult();
         $result->id = $data['id'];
         $result->name = $data['name'];
-        $result->cooperation_status = CooperationStatus::from($data['cooperation_status']);
+        $result->cooperationStatus = CooperationStatus::from($data['cooperation_status']);
         $result->street = $data['street'];
         $result->zipCode = $data['zip'];
         $result->city = $data['city'];
-        $result->region_id = $data['region_id'];
-        $result->region_name = $data['region_name'];
-        $result->membership_status = $data['membership_status'];
-        $result->is_manager = boolval($data['is_manager']);
-        $result->chain_name = $data['chain_name'];
+        $result->regionId = $data['region_id'];
+        $result->regionName = $data['region_name'];
+        $result->membershipStatus = $data['membership_status'];
+        $result->isManager = boolval($data['is_manager']);
+        $result->chainName = $data['chain_name'];
         $result->setSearchString($data);
 
         return $result;

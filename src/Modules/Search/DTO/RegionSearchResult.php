@@ -6,50 +6,23 @@ namespace Foodsharing\Modules\Search\DTO;
 
 use Foodsharing\Modules\Foodsaver\Profile;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use OpenApi\Annotations as OA;
+use OpenApi\Attributes as OA;
 
 class RegionSearchResult extends SearchResult
 {
-    /**
-     * Email address of the region.
-     *
-     * Includes the '@...' mail ending.
-     *
-     * @OA\Property(example="muenster@foodsharing.network")
-     */
+    #[OA\Property(example: 'muenster@foodsharing.network', description: "Email address of the region. Includes the '@...' mail ending.")]
     public string $email;
 
-    /**
-     * Unique identifier of the regions parent region.
-     *
-     * @OA\Property(example=1)
-     */
-    public int $parent_id;
+    #[OA\Property(example: 42, description: 'ID of the region.')]
+    public int $parentId;
 
-    /**
-     * Name of the regions parent region.
-     *
-     * @OA\Property(example="Nordrhein-Westfalen")
-     */
-    public string $parent_name;
+    #[OA\Property(example: 'Nordrhein-Westfalen', description: 'Name of the regions parent region.')]
+    public string $parentName;
 
-    /**
-     * Whether the searching user is member in the region.
-     *
-     * @OA\Property(example=true)
-     */
-    public bool $is_member;
+    #[OA\Property(description: 'Whether the searching user is member in the region.')]
+    public bool $isMember;
 
-    /**
-     * Ambassadors of the region.
-     *
-     * @var array<Profile> Array of Ambassadors
-     *
-     * @OA\Property(
-     *     type="array",
-     *     @OA\Items(ref=@Model(type=Profile::class))
-     * )
-     */
+    #[OA\Property(type: 'array', items: new OA\Items(ref: new Model(type: Profile::class)))]
     public array $ambassadors;
 
     public static function createFromArray(array $data): RegionSearchResult
@@ -61,9 +34,9 @@ class RegionSearchResult extends SearchResult
         if (!empty($data['email']) && !str_contains((string)$data['email'], '@')) {
             $result->email .= '@' . PLATFORM_MAILBOX_HOST;
         }
-        $result->parent_id = $data['parent_id'];
-        $result->parent_name = $data['parent_name'];
-        $result->is_member = boolval($data['is_member']);
+        $result->parentId = $data['parent_id'];
+        $result->parentName = $data['parent_name'];
+        $result->isMember = boolval($data['is_member']);
         $result->ambassadors = self::formatUserList($data, 'ambassador');
         $result->setSearchString($data);
 

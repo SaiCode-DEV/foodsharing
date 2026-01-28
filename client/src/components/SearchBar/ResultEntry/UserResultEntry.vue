@@ -11,14 +11,14 @@
     <div class="text-truncate flex-grow-1">
       <h6 class="m-0 text-truncate d-inline">
         <i
-          v-if="user.is_buddy"
+          v-if="user.isBuddy"
           v-b-tooltip.noninteractive="$t('buddy.is_buddy')"
           class="fas fa-user-friends"
         />
-        {{ user.name }} {{ user.last_name }}
+        {{ user.name }} {{ user.lastName }}
       </h6>
       <i
-        v-if="!user.is_verified"
+        v-if="!user.isVerified"
         v-b-tooltip.noninteractive="$t('store.request.unverified')"
         class="fas fa-user-slash"
       />
@@ -32,9 +32,9 @@
       </small>
       <br>
       <small class="separate">
-        <span v-if="user.region_id">
+        <span v-if="user.regionId">
           {{ $t('search.results.from') }}
-          {{ user.region_name }}
+          {{ user.regionName }}
         </span>
         <i v-else>{{ $t('search.results.user.no_home_region') }}</i>
         <span v-if="user.email">

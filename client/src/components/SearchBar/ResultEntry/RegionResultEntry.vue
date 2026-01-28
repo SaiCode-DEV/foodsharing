@@ -17,7 +17,7 @@
           class="fas fa-home"
         />
         <i
-          v-else-if="region.is_member"
+          v-else-if="region.isMember"
           v-b-tooltip.noninteractive="$t('search.results.region.member_tooltip')"
           class="fas fa-user-check"
         />
@@ -25,10 +25,10 @@
       </h6>
       <br>
       <small class="separate">
-        <span v-if="region.parent_id">
+        <span v-if="region.parentId">
           {{ $t('search.results.in') }}
-          <a :href="$url('publicRegion', region.parent_id)">
-            {{ region.parent_name }}
+          <a :href="$url('publicRegion', region.parentId)">
+            {{ region.parentName }}
           </a>
         </span>
         <a

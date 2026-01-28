@@ -5,58 +5,27 @@ declare(strict_types=1);
 namespace Foodsharing\Modules\Search\DTO;
 
 use Foodsharing\Modules\Foodsaver\Profile;
-use Nelmio\ApiDocBundle\Annotation\Model;
-use OpenApi\Annotations as OA;
+use Nelmio\ApiDocBundle\Attribute\Model;
+use OpenApi\Attributes as OA;
 
 class WorkingGroupSearchResult extends SearchResult
 {
-    /**
-     * Email address of the working group.
-     *
-     * Includes the '@...' mail ending.
-     *
-     * @OA\Property(example="bildung.muenster@foodsharing.network")
-     */
+    #[OA\Property(example: 'bildung.muenster@foodsharing.network', description: "Includes the '@...' mail ending.")]
     public string $email;
 
-    /**
-     * Unique identifier of the working groups parent region.
-     *
-     * @OA\Property(example=1)
-     */
-    public int $parent_id;
+    #[OA\Property(example: 1)]
+    public int $parentId;
 
-    /**
-     * Name of the working groups parent region.
-     *
-     * @OA\Property(example="Münster")
-     */
-    public string $parent_name;
+    #[OA\Property(example: 'Münster')]
+    public string $parentName;
 
-    /**
-     * Whether the searching user is member in the working group.
-     *
-     * @OA\Property(example=true)
-     */
-    public bool $is_member;
+    #[OA\Property(description: 'Whether the searching user is member in the working group.')]
+    public bool $isMember;
 
-    /**
-     * Whether the searching user is admin in the working group.
-     *
-     * @OA\Property(example=false)
-     */
-    public bool $is_admin;
+    #[OA\Property(description: 'Whether the searching user is admin in the working group.')]
+    public bool $isAdmin;
 
-    /**
-     * Admins of the working group.
-     *
-     * @var array<Profile> Array of Admins
-     *
-     * @OA\Property(
-     *     type="array",
-     *     @OA\Items(ref=@Model(type=Profile::class))
-     * )
-     */
+    #[OA\Property(type: 'array', items: new OA\Items(ref: new Model(type: Profile::class)))]
     public array $admins;
 
     public static function createFromArray(array $data): WorkingGroupSearchResult
@@ -68,10 +37,10 @@ class WorkingGroupSearchResult extends SearchResult
         if (!empty($data['email']) && !str_contains((string)$data['email'], '@')) {
             $result->email .= '@' . PLATFORM_MAILBOX_HOST;
         }
-        $result->parent_id = $data['parent_id'];
-        $result->parent_name = $data['parent_name'];
-        $result->is_member = boolval($data['is_member']);
-        $result->is_admin = boolval($data['is_admin']);
+        $result->parentId = $data['parent_id'];
+        $result->parentName = $data['parent_name'];
+        $result->isMember = boolval($data['is_member']);
+        $result->isAdmin = boolval($data['is_admin']);
         $result->admins = self::formatUserList($data, 'admin');
         $result->setSearchString($data);
 

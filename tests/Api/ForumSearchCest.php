@@ -44,7 +44,7 @@ class ForumSearchCest
 
     public function canSearchByThreadTitleOneKeyword(ApiTester $I): void
     {
-        $I->sendGET("api/search/forum/{$this->region['id']}/0?q=" . urlencode('Foodsharing'));
+        $I->sendGET("api/search/regions/{$this->region['id']}/forum?q=" . urlencode('Foodsharing'));
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson([
@@ -66,7 +66,7 @@ class ForumSearchCest
 
     public function canSearchByThreadTitleMultipleKeywords(ApiTester $I): void
     {
-        $I->sendGET("api/search/forum/{$this->region['id']}/0?q=" . urlencode('Foodsharing Tricks'));
+        $I->sendGET("api/search/regions/{$this->region['id']}/forum?q=" . urlencode('Foodsharing Tricks'));
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson([
@@ -90,7 +90,7 @@ class ForumSearchCest
 
     public function noResultsForUnknownKeyword(ApiTester $I): void
     {
-        $I->sendGET("api/search/forum/{$this->region['id']}/0?q=" . urlencode('Apfeltorte'));
+        $I->sendGET("api/search/regions/{$this->region['id']}/forum?q=" . urlencode('Apfeltorte'));
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $I->seeResponseEquals('[]');
@@ -98,7 +98,7 @@ class ForumSearchCest
 
     public function canSearchByThreadBodyOneKeyword(ApiTester $I): void
     {
-        $I->sendGET("api/search/forum/{$this->region['id']}/0?searchBody=1&q=" . urlencode('Foodsharing'));
+        $I->sendGET("api/search/regions/{$this->region['id']}/forum?searchBody=1&q=" . urlencode('Foodsharing'));
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson([
@@ -125,7 +125,7 @@ class ForumSearchCest
 
     public function canSearchByThreadBodyMultipleKeywords(ApiTester $I): void
     {
-        $I->sendGET("api/search/forum/{$this->region['id']}/0?searchBody=1&q=" . urlencode('Foodsharing Stadt'));
+        $I->sendGET("api/search/regions/{$this->region['id']}/forum?searchBody=1&q=" . urlencode('Foodsharing Stadt'));
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson([

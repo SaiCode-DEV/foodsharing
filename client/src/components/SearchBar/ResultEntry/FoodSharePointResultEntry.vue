@@ -10,10 +10,10 @@
       </h6>
       <br>
       <small class="separate">
-        <span v-if="foodSharePoint.region_id">
+        <span v-if="foodSharePoint.regionId">
           in
-          <a :href="$url('foodsharepoints', foodSharePoint.region_id)">
-            {{ foodSharePoint.region_name }}
+          <a :href="$url('foodsharepoints', foodSharePoint.regionId)">
+            {{ foodSharePoint.regionName }}
           </a>
         </span>
         <span v-if="foodSharePoint.city">

@@ -7,12 +7,12 @@
     <div class="text-truncate flex-grow-1">
       <h6 class="m-0 text-truncate d-inline">
         <i
-          v-if="workingGroup.is_admin"
+          v-if="workingGroup.isAdmin"
           v-b-tooltip.noninteractive="$t('search.results.working_group.admin_tooltip')"
           class="fas fa-user-cog"
         />
         <i
-          v-else-if="workingGroup.is_member"
+          v-else-if="workingGroup.isMember"
           v-b-tooltip.noninteractive="$t('search.results.working_group.member_tooltip')"
           class="fas fa-user-check"
         />
@@ -20,10 +20,10 @@
       </h6>
       <br>
       <small class="separate">
-        <span v-if="workingGroup.parent_id">
+        <span v-if="workingGroup.parentId">
           {{ $t('search.results.in') }}
-          <a :href="$url('workingGroups', workingGroup.parent_id)">
-            {{ workingGroup.parent_name }}
+          <a :href="$url('workingGroups', workingGroup.parentId)">
+            {{ workingGroup.parentName }}
           </a>
         </span>
         <a
@@ -56,10 +56,10 @@ export default {
   },
   computed: {
     url () {
-      if (this.workingGroup.is_member || this.userStore.isOrga) {
+      if (this.workingGroup.isMember || this.userStore.isOrga) {
         return this.$url('forum', this.workingGroup.id)
       } else {
-        return this.$url('workingGroups', this.workingGroup.parent_id)
+        return this.$url('workingGroups', this.workingGroup.parentId)
       }
     },
   },

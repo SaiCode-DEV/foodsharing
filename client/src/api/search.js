@@ -5,7 +5,7 @@ export async function search (query, global = false) {
 }
 
 export async function searchUser (query, regionId = null) {
-  let path = `/search/user?q=${encodeURIComponent(query)}`
+  let path = `/search/users?q=${encodeURIComponent(query)}`
   if (regionId !== null) {
     path += `&regionId=${regionId}`
   }
@@ -16,6 +16,6 @@ export async function getSearchIndex () {
   return await get('/search/index')
 }
 
-export async function searchForum (groupId, subforumId, query, searchBody = false) {
-  return await get(`/search/forum/${groupId}/${subforumId}?q=${encodeURIComponent(query)}&searchBody=${searchBody ? '1' : '0'}`)
+export async function searchForum (regionId, subforumId, query, searchBody = false) {
+  return await get(`/search/regions/${regionId}/forum?q=${encodeURIComponent(query)}&searchBody=${searchBody ? '1' : '0'}&subforumId=${subforumId}`)
 }

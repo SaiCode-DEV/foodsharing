@@ -18,7 +18,7 @@
         />
         {{ mail.name }}
         <i
-          v-if="mail.has_attachments"
+          v-if="mail.hasAttachments"
           v-b-tooltip.noninteractive="$t('search.results.mail.attachment_tooltip')"
           class="fas fa-paperclip ml-1"
         />
@@ -27,7 +27,7 @@
       <small class="separate">
         <span v-text="fromTo" />
         <Time
-          :time="mail.time"
+          :time="mail.sentAt"
           plain
           :tooltip="null"
         />
@@ -48,9 +48,9 @@ export default {
   },
   computed: {
     fromTo () {
-      const from = this.mailDisplay(this.mail.sender_name, this.mail.sender_mail)
-      const to = this.mailDisplay(this.mail.recipient_name, this.mail.recipient_mail)
-      const other = this.mail.recipient_count - 1
+      const from = this.mailDisplay(this.mail.senderName, this.mail.senderMail)
+      const to = this.mailDisplay(this.mail.recipientName, this.mail.recipientMail)
+      const other = this.mail.recipientCount - 1
       if (other) {
         return this.$t('search.results.mail.from_to_many', { from, to, other })
       }

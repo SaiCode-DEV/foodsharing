@@ -11,11 +11,11 @@
       </h6>
       <br>
       <small>
-        <a :href="$url('profile', chat.last_foodsaver_id)">
-          {{ chat.last_foodsaver_name }}
+        <a :href="$url('profile', chat.lastFoodsaverId)">
+          {{ chat.lastFoodsaverName }}
         </a>
-        {{ $dateFormatter.relativeTime(new Date(chat.last_message_date)) }}:
-        {{ chat.last_message }}
+        {{ $dateFormatter.relativeTime(new Date(chat.lastMessageSentAt)) }}:
+        {{ chat.lastMessage }}
       </small>
     </div>
     <AvatarStack
@@ -39,13 +39,13 @@ export default {
   },
   computed: {
     fullSizeMembersList () {
-      const missingProfilesCount = this.chat.member_count - this.chat.members.length
+      const missingProfilesCount = this.chat.memberCount - this.chat.members.length
       return [...this.chat.members, ...Array(missingProfilesCount).fill({})]
     },
     title () {
       if (this.chat.name) return this.chat.name
       const formatter = new Intl.ListFormat(this.$t('calendar.locale'), { type: 'conjunction' })
-      const allNamesAvailable = this.chat.members.length === this.chat.member_count
+      const allNamesAvailable = this.chat.members.length === this.chat.memberCount
       const names = this.chat.members.map(member => member.name)
       if (!allNamesAvailable) names.push(this.$t('search.results.chat.chat_with_others'))
       const jointNames = formatter.format(names)

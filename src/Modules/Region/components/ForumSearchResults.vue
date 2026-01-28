@@ -131,7 +131,7 @@ export default {
     },
     calculateBlendedScore (thread) {
       const relevance = Number(thread.relevance) || 0
-      const threadDate = new Date(thread.time)
+      const threadDate = new Date(thread.lastPostSentAt)
       const now = new Date()
 
       const ageInDays = (now - threadDate) / (1000 * 60 * 60 * 24)

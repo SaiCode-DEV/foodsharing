@@ -50,11 +50,11 @@ class SearchApiCest
 
     public function canOnlySearchInForumWhenLoggedIn(ApiTester $I)
     {
-        $I->sendGET('api/search/forum/' . $this->region1['id'] . '/0?q=test');
+        $I->sendGET('api/search/regions/' . $this->region1['id'] . '/forum?q=test');
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
 
         $I->login($this->user1['email']);
-        $I->sendGET('api/search/forum/' . $this->region1['id'] . '/0?q=test');
+        $I->sendGET('api/search/regions/' . $this->region1['id'] . '/forum?q=test');
         $I->seeResponseCodeIs(HttpCode::OK);
     }
 
@@ -69,15 +69,15 @@ class SearchApiCest
         $query = substr((string)$this->region2ForumThread['name'], 0, 5);
 
         $I->login($this->user1['email']);
-        $I->sendGET('api/search/forum/' . $this->region2['id'] . '/0?q=' . urlencode($query));
+        $I->sendGET('api/search/regions/' . $this->region2['id'] . '/forum?q=' . urlencode($query));
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
     }
 
     public function canNotSearchForEmptyString(ApiTester $I)
     {
         $I->login($this->user1['email']);
-        $I->sendGET('api/search/forum/' . $this->region1['id'] . '/0?q=');
-        $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
+        $I->sendGET('api/search/regions/' . $this->region1['id'] . '/forum?q=');
+        $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
     }
 
     public function canOnlySearchInAmbassadorForumAsAmbassador(ApiTester $I)
@@ -85,7 +85,7 @@ class SearchApiCest
         $query = substr((string)$this->region1AmbassadorForumThread['name'], 0, 5);
 
         $I->login($this->user1['email']);
-        $I->sendGET('api/search/forum/' . $this->region1['id'] . '/1?q=' . urlencode($query));
+        $I->sendGET('api/search/regions/' . $this->region1['id'] . '/forum?subforumId=1&q=' . urlencode($query));
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
 
         $I->login($this->userAmbassador['email']);
@@ -106,7 +106,7 @@ class SearchApiCest
         $query = $thread['name'];
         $subforumId = $ambassadorForum ? 1 : 0;
 
-        $I->sendGET("api/search/forum/$regionId/$subforumId?q=" . urlencode($query));
+        $I->sendGET("api/search/regions/{$regionId}/forum?subforumId={$subforumId}&q=" . urlencode($query));
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson([
             'id' => $thread['id'],
@@ -118,18 +118,18 @@ class SearchApiCest
 
     public function canOnlySearchWhenLoggedIn(ApiTester $I): void
     {
-        $I->sendGET('api/search/user?q=test');
+        $I->sendGET('api/search/users?q=test');
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
 
         $I->login($this->user1['email']);
-        $I->sendGET('api/search/user?q=test');
+        $I->sendGET('api/search/users?q=test');
         $I->seeResponseCodeIs(HttpCode::OK);
     }
 
     public function canSearchInSameRegion(ApiTester $I): void
     {
         $I->login($this->user1['email']);
-        $I->sendGET("api/search/user?q={$this->user1['name']}&regionId={$this->region1['id']}");
+        $I->sendGET("api/search/users?q={$this->user1['name']}&regionId={$this->region1['id']}");
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson(['id' => $this->user1['id']]);
@@ -138,7 +138,7 @@ class SearchApiCest
     public function canNotSearchInOtherRegions(ApiTester $I): void
     {
         $I->login($this->user1['email']);
-        $I->sendGET("api/search/user?q={$this->user2['name']}&regionId={$this->region2['id']}");
+        $I->sendGET("api/search/users?q={$this->user2['name']}&regionId={$this->region2['id']}");
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
     }
 
@@ -146,11 +146,11 @@ class SearchApiCest
     {
         $I->login($this->userOrga['email']);
 
-        $I->sendGET("api/search/user?q={$this->user1['name']}&regionId={$this->region1['id']}");
+        $I->sendGET("api/search/users?q={$this->user1['name']}&regionId={$this->region1['id']}");
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->canSeeResponseContainsJson(['id' => $this->user1['id']]);
 
-        $I->sendGET("api/search/user?q={$this->user2['name']}&regionId={$this->region2['id']}");
+        $I->sendGET("api/search/users?q={$this->user2['name']}&regionId={$this->region2['id']}");
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->canSeeResponseContainsJson(['id' => $this->user2['id']]);
     }
@@ -158,7 +158,7 @@ class SearchApiCest
     public function canFindUsersById(ApiTester $I): void
     {
         $I->login($this->userAmbassador['email']);
-        $I->sendGET("api/search/user?q={$this->user1['id']}&regionId={$this->region1['id']}");
+        $I->sendGET("api/search/users?q={$this->user1['id']}&regionId={$this->region1['id']}");
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson(['id' => $this->user1['id']]);
@@ -167,7 +167,7 @@ class SearchApiCest
     public function canNotFindUsersByIdWhoAreNotMember(ApiTester $I)
     {
         $I->login($this->userAmbassador['email']);
-        $I->sendGET("api/search/user?q={$this->user2['id']}&regionId={$this->region1['id']}");
+        $I->sendGET("api/search/users?q={$this->user2['id']}&regionId={$this->region1['id']}");
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $I->cantSeeResponseContainsJson(['id' => $this->user2['id']]);
@@ -201,7 +201,7 @@ class SearchApiCest
         $searchUser = $searchUsers[$example['searchUser']];
 
         $I->login($loginUser['email']);
-        $I->sendGET("api/search/all?q={$searchUser['name']}&global");
+        $I->sendGET("api/search/all?q={$searchUser['name']}&global=1");
         $I->seeResponseCodeIs(HttpCode::OK);
 
         if ($example['canFind']) {
@@ -210,7 +210,7 @@ class SearchApiCest
                 'name' => $searchUser['name'],
             ];
             if ($example['canSeeFullName']) {
-                $userToFind['last_name'] = $searchUser['nachname'];
+                $userToFind['lastName'] = $searchUser['nachname'];
             }
             $I->seeResponseContainsJson(['users' => [$userToFind]]);
         } else {
@@ -236,7 +236,7 @@ class SearchApiCest
         $searchUser = $searchUsers[$example['searchUser']];
 
         $I->login($loginUser['email']);
-        $I->sendGET("api/search/all?q={$searchUser['nachname']}&global");
+        $I->sendGET("api/search/all?q={$searchUser['nachname']}&global=1");
         $I->seeResponseCodeIs(HttpCode::OK);
 
         if ($example['canFind']) {
@@ -266,7 +266,7 @@ class SearchApiCest
     public function canUserWithOrgaRightsSearchForEmailAdresses(ApiTester $I)
     {
         $I->login($this->userOrga['email']);
-        $I->sendGET("api/search/all?q={$this->user1['email']}&global");
+        $I->sendGET("api/search/all?q={$this->user1['email']}&global=1");
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->canSeeResponseContainsJson(['users' => [
             0 => [

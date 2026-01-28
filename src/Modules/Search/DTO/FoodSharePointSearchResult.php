@@ -4,44 +4,24 @@ declare(strict_types=1);
 
 namespace Foodsharing\Modules\Search\DTO;
 
-use OpenApi\Annotations as OA;
+use OpenApi\Attributes as OA;
 
 class FoodSharePointSearchResult extends SearchResult
 {
-    /**
-     * Street in which the food share point lays.
-     *
-     * @OA\Property(example="Oskar-Michels-Ring 29")
-     */
+    #[OA\Property(example: 'Oskar-Michels-Ring 29')]
     public string $street;
 
-    /**
-     * Zip code of the food share points adress.
-     *
-     * @OA\Property(example="12345")
-     */
+    #[OA\Property(example: '12345')]
     public string $zipCode;
 
-    /**
-     * City of the food share points adress.
-     *
-     * @OA\Property(example="Münster")
-     */
+    #[OA\Property(example: 'Münster', description: 'City of the food share points adress.')]
     public string $city;
 
-    /**
-     * Unique identifier of the food share points region.
-     *
-     * @OA\Property(example=1)
-     */
-    public int $region_id;
+    #[OA\Property(example: 1)]
+    public int $regionId;
 
-    /**
-     * Name of the food share points region.
-     *
-     * @OA\Property(example="Münster")
-     */
-    public string $region_name;
+    #[OA\Property(example: 'Münster', description: 'Name of the food share points region.')]
+    public string $regionName;
 
     public static function createFromArray(array $data): FoodSharePointSearchResult
     {
@@ -51,8 +31,8 @@ class FoodSharePointSearchResult extends SearchResult
         $result->street = $data['street'];
         $result->zipCode = $data['zip'];
         $result->city = $data['city'];
-        $result->region_id = $data['region_id'];
-        $result->region_name = $data['region_name'];
+        $result->regionId = $data['region_id'];
+        $result->regionName = $data['region_name'];
         $result->setSearchString($data);
 
         return $result;

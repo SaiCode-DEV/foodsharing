@@ -14,10 +14,10 @@
       </h6>
       <br>
       <small class="separate">
-        <span v-if="event.region_id">
+        <span v-if="event.regionId">
           {{ $t('search.results.in') }}
-          <a :href="$url('events', event.region_id)">
-            {{ event.region_name }}
+          <a :href="$url('events', event.regionId)">
+            {{ event.regionName }}
           </a>
         </span>
         <span v-text="locationText" />
@@ -27,6 +27,8 @@
   </a>
 </template>
 <script>
+import { EVENT_TYPE } from '@/consts'
+
 export default {
   props: {
     event: {
@@ -39,18 +41,18 @@ export default {
       return 'fas fa-user-' + ['clock', 'check', 'clock', 'times'][+this.event.status]
     },
     locationText () {
-      if (this.event.location_type === 1) { // TODO use const after MR !3387
+      if (this.event.locationType === EVENT_TYPE.ONLINE) {
         return this.$t('search.results.event.location_online')
       }
       return [
-        this.event.location_name,
+        this.event.locationName,
         this.event.location[0],
-        `${this.event.location[1]} ${this.event.location[2]}`.trim(),
+        this.event.location[1] ? `${this.event.location[1]} ${this.event.location[2] ?? ''}`.trim() : '',
       ].filter(x => x).join(', ')
     },
     timeText () {
-      const start = new Date(this.event.start)
-      const end = new Date(this.event.end)
+      const start = new Date(this.event.startAt)
+      const end = new Date(this.event.endAt)
       const now = new Date()
       const dates = [start, end].map(date => this.$dateFormatter.date(date, { short: true }))
       const times = [start, end].map(date => this.$dateFormatter.time(date))

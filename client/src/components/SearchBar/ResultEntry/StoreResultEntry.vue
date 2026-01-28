@@ -7,7 +7,7 @@
     <div class="text-truncate flex-grow-1">
       <h6 class="m-0 text-truncate d-inline">
         <i
-          v-if="store.is_manager"
+          v-if="store.isManager"
           v-b-tooltip.noninteractive="$t('search.results.store.manager_tooltip')"
           class="fas fa-user-cog"
         />
@@ -25,14 +25,14 @@
       </h6>
       <br>
       <small class="separate">
-        <span v-if="store.region_id">
+        <span v-if="store.regionId">
           {{ $t('search.results.in') }}
-          <a :href="$url('stores', store.region_id)">
-            {{ store.region_name }}
+          <a :href="$url('stores', store.regionId)">
+            {{ store.regionName }}
           </a>
         </span>
         <span>
-          {{ $t(`storestatus.${store.cooperation_status}`) }}
+          {{ $t(`storestatus.${store.cooperationStatus}`) }}
         </span>
         <span v-if="store.city">
           <span v-if="store.street">{{ store.street }},</span>
@@ -56,10 +56,10 @@ export default {
   },
   computed: {
     isMember () {
-      return this.store.membership_status === STORE_TEAM_STATE.ACTIVE
+      return this.store.membershipStatus === STORE_TEAM_STATE.ACTIVE
     },
     isJumper () {
-      return this.store.membership_status === STORE_TEAM_STATE.JUMPER
+      return this.store.membershipStatus === STORE_TEAM_STATE.JUMPER
     },
   },
 }

@@ -10,10 +10,10 @@
       </h6>
       <br>
       <small class="separate">
-        <span v-if="poll.region_id">
+        <span v-if="poll.regionId">
           {{ $t('search.results.in') }}
-          <a :href="$url('polls', poll.region_id)">
-            {{ poll.region_name }}
+          <a :href="$url('polls', poll.regionId)">
+            {{ poll.regionName }}
           </a>
         </span>
         <span v-text="timeText" />
@@ -32,8 +32,8 @@ export default {
   },
   computed: {
     timeText () {
-      const start = new Date(this.poll.start)
-      const end = new Date(this.poll.end)
+      const start = new Date(this.poll.startAt)
+      const end = new Date(this.poll.endAt)
       const now = new Date()
       const dates = [start, end].map(date => this.$dateFormatter.date(date, { short: true }))
       const times = [start, end].map(date => this.$dateFormatter.time(date))
@@ -53,13 +53,13 @@ export default {
       return `${range} (${relation} ${relativeTime})`
     },
     voteText () {
-      const start = new Date(this.poll.start)
-      const end = new Date(this.poll.end)
+      const start = new Date(this.poll.startAt)
+      const end = new Date(this.poll.endAt)
       const now = new Date()
       if (start > now || end < now) {
         return ''
       }
-      const hasVotedCase = { null: 'not_eligible', false: 'can_vote', true: 'has_voted' }[this.poll.has_voted]
+      const hasVotedCase = { null: 'not_eligible', false: 'can_vote', true: 'has_voted' }[this.poll.hasVoted]
       return this.$t('search.results.poll.' + hasVotedCase)
     },
   },

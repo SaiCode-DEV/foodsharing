@@ -3,32 +3,18 @@
 namespace Foodsharing\Modules\Search\DTO;
 
 use Foodsharing\Modules\Foodsaver\Profile;
-use OpenApi\Annotations as OA;
+use OpenApi\Attributes as OA;
 
 class SearchResult
 {
-    /**
-     * Unique identifier of the entity represented by the search result.
-     *
-     * @OA\Property(example=1)
-     */
+    #[OA\Property(example: 1, description: 'Unique identifier of the entity represented by the search result.')]
     public int $id;
 
-    /**
-     * Name of the entity represented by the search result.
-     *
-     * @OA\Property(example="Name")
-     */
+    #[OA\Property(example: 'Name', description: 'Name of the entity represented by the search result.')]
     public ?string $name = null;
 
-    /**
-     * Search criteria to test the search against.
-     *
-     * @var ?string search criteria string in which query words must be contained
-     *
-     * @OA\Property(example="Münster;meunster")
-     */
-    public ?string $search_string = null;
+    #[OA\Property(example: 'Münster;meunster', description: 'Search criteria to test the search against.')]
+    public ?string $searchString = null;
 
     protected static function formatUserList(array $data, string $namespace): array
     {
@@ -46,7 +32,7 @@ class SearchResult
     protected function setSearchString($data): void
     {
         if (array_key_exists('search_string', $data)) {
-            $this->search_string = $data['search_string'];
+            $this->searchString = $data['search_string'];
         }
     }
 }
