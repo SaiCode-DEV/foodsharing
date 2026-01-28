@@ -3090,7 +3090,6 @@ calendar:
   labelHelp: ''
   export:
     pickup:
-      name: ''
       description: ''
       unconfirmed: ''
       foodsavers: ''

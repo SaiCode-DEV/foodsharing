@@ -3356,7 +3356,6 @@ calendar:
       linkTitle: ''
     pickup:
       description: ''
-      name: ''
       unconfirmed: ''
       foodsavers: ''
       freeSlots: ''

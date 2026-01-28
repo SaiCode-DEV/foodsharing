@@ -549,7 +549,6 @@ calendar:
   export:
     pickup:
       freeSlots: '{count} இடங்கள் இன்னும் இலவசம்'
-      name: '{store} சேகரிப்பு'
       unconfirmed: உறுதிப்படுத்தப்படாதது
       description: <a href="{url}">{store} </a> இல் உணவுபகிர் சேகரிப்பு
       foodsavers: 'உணவுப் பாதையில் நுழைந்தது: உள்ளே: '

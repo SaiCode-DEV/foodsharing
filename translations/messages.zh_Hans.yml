@@ -2296,7 +2296,6 @@ calendar:
     pickup:
       unconfirmed: ''
       description: ''
-      name: ''
       foodsavers: ''
       freeSlots: ''
     event:

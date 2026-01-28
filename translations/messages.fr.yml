@@ -2479,7 +2479,6 @@ calendar:
         événement. Tu peux le faire sur la page en lien.
       description: Description
     pickup:
-      name: '{store} collecte'
       unconfirmed: non confirmé
       description: Collecte Foodsharing chez <a href="{url}">{store}</a>
       freeSlots: '{count} places sont encore disponibles'

@@ -1217,7 +1217,6 @@ calendar:
   labelHelp: Navigation is also possible with arrow keys
   export:
     pickup:
-      name: "{store} Pick-up"
       unconfirmed: not confirmed
       description: 'Foodsharing pick-up at <a href="{url}">{store}</a>'
       freeSlots: '{count} slots are still free'

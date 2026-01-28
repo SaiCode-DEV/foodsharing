@@ -2596,7 +2596,6 @@ calendar:
   labelHelp: Navigering er også mulig med piltastene
   export:
     pickup:
-      name: '{store} henting'
       unconfirmed: ubekreftet
       description: Matdeling hentes i <a href="{url}">{store}</a>
       freeSlots: '{count} plasser er fortsatt ledige'

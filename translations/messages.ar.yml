@@ -2919,7 +2919,6 @@ calendar:
   labelNoDateSelected: ''
   export:
     pickup:
-      name: ''
       unconfirmed: ''
       description: ''
       foodsavers: ''

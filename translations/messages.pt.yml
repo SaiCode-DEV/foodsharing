@@ -384,7 +384,7 @@ bell:
   store_new_request_title: 'Nova aplicação pra o equipa'
   forum_new_thread: 'de {user} no fórum {forum}'
   store_new_title: 'Nova loja'
-  sharepoint_activate_title: 'Cantinho solidário novo em {bezirk}'
+  sharepoint_activate_title: 'Novo cantinho solidário em {bezirk}'
   store_cr_times: 'Os assentos foram coregadas'
   new_foodsaver_verified: 'yá verificado - pode dar início'
   buddy_request: '{name} conhece-te.'
@@ -485,12 +485,12 @@ bell:
   store_invitation_declined:
     one: '{user} não quer juntar-se à {store}'
     many: '{count} utilizadores não querem juntar-se ao {store}'
-  new_forum_thread_title: Tópico novo em {fórum}
+  new_forum_thread_title: Novo tópico em {fórum}
   new_forum_thread: '{author}: {title}'
-  new_resource_title: '{região}: Recursos novos'
+  new_resource_title: '{região}: Novos recursos'
   new_resource:
     one: 'Por {user}: „{title}“'
-    many: '{count} recursos novos'
+    many: '{count} novos recursos'
   mark_as:
     read: Marcar como lido
     unread: Marcar como no lido
@@ -722,7 +722,6 @@ calendar:
   export:
     pickup:
       description: 'Assento de foodsharing em <a href="{url}">{store}</a>'
-      name: '{store} Assento'
       unconfirmed: 'não confirmado'
       foodsavers: 'Salvadores alimentares registados: '
       freeSlots: '{count} assentos ainda disponíveis'
@@ -923,7 +922,7 @@ basket:
   edit: 'Editar a cesta alimentar'
   no-desc: 'Por favor, escreva uma descrição.'
   where: 'Onde?'
-  recent: 'Cestas alimentar mais novo'
+  recent: 'Cestas alimentares mais novas'
   image: 'Adicione uma foto à cesta alimentar.'
   n_requests: 'Solicitações até agora:'
   description: 'Descrição'
@@ -1393,7 +1392,7 @@ mailbox:
   failed: 'Não foi possível enviar o e-mail.'
   mailsend_unsuccess: 'Não foi possível enviar o e-mail. {error}'
   new: 'Nova caixa de correio'
-  write: 'E-Mail novo'
+  write: 'Novo e-Mail'
   date: 'Data'
   refresh: 'Atualizar'
   sent: 'Enviado'
@@ -1428,7 +1427,7 @@ mailbox:
   forward: Reenviar
   forward_attachment_warning: Até ao momento, não é possível reenviar anexos. Se
     pretender reenviar o e-mail com anexos, pode descarregar os anexos e 
-    anexá-los ao e-mail novo.
+    anexá-los ao novo e-mail.
   mark_none: Não marcar nenhum
   reply_header: '{name} escreveu em {date}'
   global_addressbook: Livro de endereços global
@@ -1553,7 +1552,7 @@ group:
       never_before: nunca
       verify:
         do: Queres mesmo verificar {name} ({id}) (comparação de dados efectuada 
-          / ID verificada, etc.)?
+          / cartão de identificação verificada, etc.)?
         undo: Cancelar a ativação de {name} ({id})
         do_selected: Queres mesmo verificar todos os dados selecionados 
           (comparação de dados efectuada/identificação verificada, etc.)?
@@ -2601,7 +2600,7 @@ settings:
 
       **Mantenha os links do calendário em segredo.** Eles contêm um *token* que permite aceder aos dados dos tues assentos sem necessidade de palavra-passe. Pode apagar o teu token atual a qualquer momento, tornando inválidos os links do calendário criados anteriormente.
 
-      O teu programa de calendário deve **sincronizar** este calendário regularmente. Só assim os assentos novos aparecerão e os compromissos cancelados deixarão de aparecer. Se, em vez disso, descarregares o teu calendário atual, este conterá apenas os teus compromissos atuais e não será atualizado automaticamente.
+      O teu programa de calendário deve **sincronizar** este calendário regularmente. Só assim os novos assentos aparecerão e os compromissos cancelados deixarão de aparecer. Se, em vez disso, descarregares o teu calendário atual, este conterá apenas os teus compromissos atuais e não será atualizado automaticamente.
       Encontras mais informações [aqui no Wiki]({calendarUrl})
     pickup:
       label: É necessário incluir assentos , por exemplo para recolhas?
@@ -2709,8 +2708,8 @@ settings:
       '
     title: 'A tua foto'
   follow:
-    none: 'Por favor, não envie-me mais e-mails a informar sobre posts novos.'
-    mail: 'Sim, gostaria de receber informações sobre posts novos por e-mail.'
+    none: 'Por favor, não envie-me mais e-mails a informar sobre novos posts.'
+    mail: 'Sim, gostaria de receber informações sobre novos posts por e-mail.'
     thread: 'Queres manter-se atualizado sobre o tema do fórum “{thread}”?'
   chatmail: 'Caso receba uma mensagem interna na página inicial do foodsharing,
 
@@ -2821,8 +2820,8 @@ settings:
       delete: Apagar
     rename_modal:
       title: Renomear chave de segurança
-      new_name_label: Nome novo
-      new_name_placeholder: Nome novo de aparelho
+      new_name_label: Novo nome
+      new_name_placeholder: Novo nome de aparelho
       cancel: Cancelar
       save: Guardar
     passkey_registered: Chave de segurança registada com sucesso
@@ -2937,13 +2936,13 @@ settings:
     title: Alterar endereço de e-mail
     explanation: Aqui pode alterar o endereço de e-mail com o qual se registou. 
       Após o envio, receberá um e-mail no teu endereço novo com um link para 
-      confirmar o teu endereço novo.
+      confirmar o teu novo endereço.
     explanation_other_user: Aqui pode alterar o endereço de e-mail com o qual 
       este perfil foi registado. Após o envio, o utilizador receberá um e-mail 
-      no endereço novo, contendo um link para confirmar o endereço novo.
+      no endereço novo, contendo um link para confirmar o novo endereço.
     explanation_password: Confirme a solicitação de alteração com a tua 
       palavra-passe atual
-    new_email_label: Endereço de e-mail novo
+    new_email_label: Novo endereço de e-mail
     new_email_placeholder: a.tua.novo@email.pt
     confirm_email_label: Confirmar endereço de e-mail
     confirm_email_placeholder: a.tua.novo@email.pt
@@ -2966,7 +2965,7 @@ settings:
       e-mail deste perfil.
     sent: Acesse agora tua nova caixa de correio eletrónico para confirmar o 
       endereço.
-    sent_other_user: Foi enviado um e-mail para o endereço novo para confirmar o
+    sent_other_user: Foi enviado um e-mail para o novo endereço para confirmar o
       endereço.
     done: O teu endereço de e-mail foi alterado.
     not_changed: O teu endereço de e-mail não foi alterado.
@@ -3233,7 +3232,7 @@ blog:
     edit: 'Não podes editar este artigo'
     new: 'Não é permitido criar artigos'
     delete: 'Não podes apagar este artigo'
-  new: 'Escrever um artigo novo'
+  new: 'Escrever um novo artigo'
   failure:
     new: 'Não foi possível criar o artigo'
     edit: 'Não foi possível guardar o artigo'
@@ -3245,7 +3244,7 @@ blog:
     new: 'O artigo foi criado'
   edit: 'Editar um publicação do blogue'
   manage: 'Gerir entradas de blogue'
-  newTitle: 'Artigo novo para {region}'
+  newTitle: 'Niovo artigo para {region}'
   all: 'Todas as publicações do blogue'
   actions: 'Açioes'
   delete: 'Apagar artigo'
@@ -3436,7 +3435,7 @@ region:
       endereço ainda não existe em «Administrar e-mails».'
     sender: 'Nome do remetente'
   none: 'Ainda não selecionou nenhum distrito'
-  new: 'Distrito novo'
+  new: 'Novo distrito'
   no-huge: 'Desculpe, não é possível selecionar um país ou um estado federal como
     o distrito.'
   change: 'Alterar distrito'
@@ -3494,11 +3493,11 @@ region:
         Os seguintes eventos ocorreram no passado:'
   not-existant: Este distrito ou grupo de trabalho já não existe.
   select: Selecionar distrito para edição
-  createNew: Criar um distrito novo
+  createNew: Criar um novo distrito
   root: Nemhum (Root)
   confirm:
     edit: Tem a certeza de que deseja guardar as alterações no distrito {name}?
-    create: Tem a certeza de que deseja criar um distrito novo {name}?
+    create: Tem a certeza de que deseja criar um novo distrito {name}?
     delete: Tem a certeza de que deseja apagar o distrito {name}?
   name: Nome
   parent: Distrito parental
@@ -3772,7 +3771,7 @@ forum:
     reason: 'Motivo: «{reason}»'
     title: Restaurar o contribuição
   options:
-    bells_for_new_posts: Receber campainha para novos tópicos
+    bells_for_new_posts: Receber um sinal para novos tópicos
 title: 'Titulo'
 genderlist:
   gender_female: 'femenino'

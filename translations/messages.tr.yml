@@ -3724,7 +3724,6 @@ pickup:
 calendar:
   export:
     pickup:
-      name: '{store} Alım'
       unconfirmed: onaylanmamış
       description: <a href="{url}">{store}</a> 'a Foodsharing alımı
       freeSlots: '{count} Slotlar hâlâ boş'

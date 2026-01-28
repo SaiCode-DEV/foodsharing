@@ -2358,7 +2358,6 @@ calendar:
   labelNextMonth: 'Следующий месяц'
   export:
     pickup:
-      name: '{store} выдача'
       unconfirmed: 'неподтверждённо'
       description: 'фудшеринг-выдача в <a href="{url}">{store}</a>'
       foodsavers: ''

@@ -3914,7 +3914,6 @@ calendar:
     pickup:
       description: 'Recoger foodsharing en <a href="{url}">{store}</a>'
       unconfirmed: 'inconfirmado'
-      name: 'recogida {store}'
       freeSlots: '{count} espacios todavía están libres'
       foodsavers: 'Registrar como ahorrador de alimentos: '
     updated: '(Última actualización: {date})'

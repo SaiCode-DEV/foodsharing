@@ -3807,7 +3807,6 @@ calendar:
       foodsavers: ''
       freeSlots: ''
       description: ''
-      name: ''
       unconfirmed: ''
     event:
       description: ''

@@ -1898,7 +1898,6 @@ calendar:
   export:
     pickup:
       description: 'Ritiro foodsharing presso <a href="{url}">{store}</a>'
-      name: 'Ritiro {store}'
       unconfirmed: 'non confermato'
       freeSlots: '{count} slot sono ancora liberi'
       foodsavers: 'Foodsavers registrati: '

@@ -2740,7 +2740,6 @@ calendar:
   export:
     pickup:
       unconfirmed: ''
-      name: ''
       description: ''
       foodsavers: ''
       freeSlots: ''
