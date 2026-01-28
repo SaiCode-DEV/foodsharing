@@ -95,7 +95,7 @@ ueberzeugungsarbeit: "War es einfach, die Verantwortlichen zu überzeugen, mit f
 presse: "Ist der Betrieb/Laden/Verein bereit, bei der Presse und foodsharing.de genannt zu werden?"
 sticker: "Ist der Betrieb/Laden/Verein etc. gewillt, einen Sticker beim Eingang oder anderswo sichtbar anzubringen?"
 prefetchtime: "Wie viele Wochen im Voraus können sich Foodsaver:innen mittels automatischer Slots eintragen?"
-abholmenge: "Wie viel kg fallen pro Slot ungefähr für jede Person an?"
+abholmenge: "Wie viel kg fallen pro Abholung bzw. Abgabe ungefähr für jede Person an?"
 use_region_pickup_rule: "Soll für Slots in diesem Betrieb die Bezirks-ROSINEN-Regel gelten?"
 #
 # FORM DATA KEYS: QuizView QuizXhr and Quizview
@@ -417,7 +417,7 @@ group:
     requires_properties: "Alle, die bestimmte Vertrauenspunkte erfüllen."
     everybody: "Jede:r darf sich bewerben."
     open: "Jede:r kann sich ohne Bewerbung einklinken."
-    fetch_count: "Wie viele Slots sollte man bereits gemacht haben?"
+    fetch_count: "Wie viele Abholungen/Abgaben/Orga-Slots sollte man bereits gemacht haben?"
     banana_count: "Wie viele Vertrauensbananen müssen vorhanden sein?"
     banana_count_errors:
       min: "Niemand soll weniger als {{ limit }} Vertrauensbananen haben."
@@ -1116,7 +1116,7 @@ store:
     search_input: "Suche nach Namen der Kette"
   delete:
     button: "Betrieb löschen"
-    sure: "Möchtest du diesen Betrieb wirklich löschen? Dieser Vorgang kann nicht rückgängig gemacht werden! Alle Mitglieder werden aus dem Betrieb entfernt und alle betriebsspezifischen Informationen außer dem Betriebsprotokoll werden gelöscht. Bitte lösche nur Betriebe, die tatsächlich nicht mehr existieren oder doppelt eingetragen wurden. Betriebe, die einer Kooperation abgesagt haben, sollten eingetragen bleiben. Es können nur Betriebe gelöscht werden, in denen noch nie eine Slot stattgefunden hat, und deren Team-Chats für mindestens 3 Monate ungenutzt waren."
+    sure: "Möchtest du diesen Betrieb wirklich löschen? Dieser Vorgang kann nicht rückgängig gemacht werden! Alle Mitglieder werden aus dem Betrieb entfernt und alle betriebsspezifischen Informationen außer dem Betriebsprotokoll werden gelöscht. Bitte lösche nur Betriebe, die tatsächlich nicht mehr existieren oder doppelt eingetragen wurden. Betriebe, die einer Kooperation abgesagt haben, sollten eingetragen bleiben. Es können nur Betriebe gelöscht werden, in denen es nie Slots gab, und deren Team-Chats für mindestens 3 Monate ungenutzt waren."
 
 #
 # Store and StoreUser
@@ -1132,7 +1132,7 @@ store:
     no_record: "Es wurde kein Eintrag gefunden."
   filter: "Filtern nach …"
   enter_date: "Einzelnen Slot eintragen"
-  enter_date_description: "Nachdem du Datum, Uhrzeit und Anzahl der Slots ausgewählt hast, kannst du einen einmaligen Slot anlegen. Solltest du regelmäßige (wöchentlich automatisch wiederkehrende) Slots erstellen wollen, nutze bitte das Menü „Betriebseinstellungen“."
+  enter_date_description: "Nachdem du Datum, Uhrzeit und Anzahl ausgewählt hast, kannst du einen einmaligen Slot anlegen. Solltest du regelmäßige (wöchentlich automatisch wiederkehrende) Slots erstellen wollen, nutze bitte das Menü „Betriebseinstellungen“."
   delete_date: "Einzelnen Slot löschen"
   delete_date_description: "Solltest du regelmäßige (wöchentlich automatisch wiederkehrende) Slots in deinem Betrieb nutzen und im Vorfeld verhindern wollen, dass ein bestimmter Termin (etwa ein Feiertag) erzeugt wird, kannst du durch Angabe von Datum und Uhrzeit mit dieser Funktion dafür sorgen. Solltest du bereits sichtbare Slots löschen wollen, ist dies auch direkt per Klick auf den Slot möglich, sofern noch niemand eingetragen ist."
   enternumber: "Du musst noch die Anzahl der Slots auswählen."
@@ -1192,10 +1192,10 @@ store:
       8: "{actor} hat das Team verlassen."
       9: "{actor} hat {target} als Betriebsverantwortliche:n eingetragen."
       10: "{actor} hat {target} als Betriebsverantwortliche:n ausgetragen."
-      11: "{actor} hat sich am {date} eingetragen."
-      12: "{actor} hat sich am {date} ausgetragen."
-      13: "{actor} hat {target} am {date} ausgetragen."
-      13_with_reason: "{actor} hat {target} am {date} mit folgender Nachricht ausgetragen"
+      11: "{actor} hat sich für einen Slot am {date} eingetragen."
+      12: "{actor} hat sich für einen Slot am {date} ausgetragen."
+      13: "{actor} hat {target} für einen Slot am {date} ausgetragen."
+      13_with_reason: "{actor} hat {target} für einen Slot am {date} mit folgender Nachricht ausgetragen"
       14: "{actor} hat den Slot von {target} am {date} bestätigt."
       15: "{actor} hat {target}s Pinnwandeintrag vom {date} gelöscht."
       16: "{actor} hat die Beitrittsanfrage zurückgezogen."
@@ -1304,8 +1304,8 @@ pickup:
   membershipMissing: "Du bist kein Mitglied dieses Teams. Daher solltest du dich nicht für Abholungen eintragen. Trage dich im Zweifelsfall erst als Teammitglied ein."
   join_cancel: "Doch nicht"
   join_agree: "Ja, verbindlich eintragen"
-  take_empty_slot: "Hier eintragen"
-  delete_title: "Slot löschen"
+  take_empty_slot: "Mich hier eintragen"
+  delete_title: "Diese Slots löschen"
   passport_expired:
     short: "Ausweis abgelaufen"
     long: "Dein Ausweis ist zu diesem Zeitpunkt nicht mehr gültig"
@@ -1418,7 +1418,10 @@ calendar:
   copiedUrl: "Kalender-URL kopiert!"
   export:
     pickup:
-      name: "{store} Slot"
+      name:
+        pickup: "{store} Abholung"
+        giving: "{store} Abgabe"
+        orga: "{store} Slot"
       unconfirmed: "unbestätigt"
       description: 'foodsharing-Slot bei <a href="{url}">{store}</a>'
       foodsavers: "Eingetragene Foodsaver:innen: "

@@ -1,5 +1,6 @@
 <template>
   <b-form-group
+    class="regular-pickup"
     :label="$t('pickup.edit.bread')"
   >
     <b-row>
@@ -205,5 +206,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+.regular-pickup {
+  margin-left: 20px;
+  margin-right: 20px;
+}
 </style>

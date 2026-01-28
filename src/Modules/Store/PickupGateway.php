@@ -536,7 +536,8 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
 				GROUP_CONCAT(IFNULL(f.photo, "")) AS fs_avatars,
 				GROUP_CONCAT(a2.confirmed) AS slot_confimations,
 				d.fetchercount AS max_fetchers,
-                d.`description` AS `description`
+				d.`description` AS `description`,
+				k.type AS ktype
 			FROM `fs_abholer` a
 			LEFT OUTER JOIN `fs_abholer` a2 ON
 				a.betrieb_id = a2.betrieb_id AND a.date = a2.date
@@ -546,6 +547,8 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
 				a.betrieb_id = s.id
 			LEFT OUTER JOIN `fs_fetchdate` d ON
 				a.betrieb_id = d.betrieb_id AND a.`date` = d.time
+			LEFT OUTER JOIN fs_betrieb_kategorie k ON
+				s.betrieb_kategorie_id = k.id
 			WHERE a.foodsaver_id = :fs_id AND a.`date` > DATE_SUB(NOW(), INTERVAL :buffer MINUTE)
 			GROUP BY a.id
 			ORDER BY a.`date`';

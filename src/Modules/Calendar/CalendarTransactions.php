@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use DateTimeZone;
 use Foodsharing\Modules\Calendar\DTO\FormattingType;
 use Foodsharing\Modules\Calendar\DTO\IncludeEventsType;
+use Foodsharing\Modules\Categories\StoreCategoryType;
 use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\Event\InvitationStatus;
 use Foodsharing\Modules\Settings\SettingsGateway;
@@ -85,7 +86,13 @@ class CalendarTransactions
     {
         $start = Carbon::createFromTimestamp($pickup['timestamp'], new DateTimeZone('Europe/Berlin'));
 
-        $summary = $this->translator->trans('calendar.export.pickup.name', ['{store}' => $pickup['store_name']]);
+        if ($pickup['ktype'] === StoreCategoryType::ORGA->value) {
+            $summary = $this->translator->trans('calendar.export.pickup.name.orga', ['{store}' => $pickup['store_name']]);
+        } elseif ($pickup['ktype'] === StoreCategoryType::GIVING->value) {
+            $summary = $this->translator->trans('calendar.export.pickup.name.giving', ['{store}' => $pickup['store_name']]);
+        } else {
+            $summary = $this->translator->trans('calendar.export.pickup.name.pickup', ['{store}' => $pickup['store_name']]);
+        }
         $status = 'CONFIRMED';
         if (!$pickup['confirmed']) {
             $summary .= ' (' . $this->translator->trans('calendar.export.pickup.unconfirmed') . ')';
