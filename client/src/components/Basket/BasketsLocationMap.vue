@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, defineExpose } from 'vue'
 import { useUserStore } from '@/stores/user.js'
 import { MAP_CONSTANTS } from '@/stores/map'
 import L from 'leaflet'
@@ -69,12 +69,20 @@ onMounted(async () => {
 
 function updateMapCenter (coordinates) {
   currentCenter.value = coordinates
-  currentZoom.value = 17
+}
+
+function moveToBasket (id) {
+  const basket = baskets.value.find(x => x.id === id)
+  if (!basket) return
+  updateMapCenter({ lat: basket.lat, lon: basket.lon })
 }
 
 function openBasketBubble (id) {
   basketBubbleRef.value.show(id)
+  moveToBasket(id)
 }
+
+defineExpose({ moveToBasket })
 </script>
 
 <style lang="scss">

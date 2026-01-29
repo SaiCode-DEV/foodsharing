@@ -12,7 +12,7 @@
         v-for="basket in baskets"
         :key="basket.id"
         button
-        @click="openBubble(basket.id)"
+        @click="openBubble(basket)"
       >
         <img
           width="35px"
@@ -35,7 +35,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, defineEmits } from 'vue'
 import { useUserStore } from '@/stores/user.js'
 import { useBasketStore } from '@/stores/baskets'
 import BasketBubble from '@php/Modules/Map/components/BasketBubble.vue'
@@ -43,6 +43,7 @@ import Container from '@/components/Container/Container.vue'
 
 const userStore = useUserStore()
 const basketStore = useBasketStore()
+const emit = defineEmits(['select-basket'])
 
 const baskets = ref([])
 const basketBubbleRef = ref(null)
@@ -51,8 +52,9 @@ function picturePath (basket) {
   return basket.picture ? basket.picture + '?w=35&h=35' : '/img/basket.png'
 }
 
-function openBubble (id) {
-  basketBubbleRef.value.show(id)
+function openBubble (basket) {
+  basketBubbleRef.value.show(basket.id)
+  emit('select-basket', basket)
 }
 
 function formattedDistance (basket) {
