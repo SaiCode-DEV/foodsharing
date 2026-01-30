@@ -1106,9 +1106,6 @@ store:
   not_verified: Non sei verificato. Pertanto non puoi visualizzare gli slot o i 
     numeri di telefono dei membri del team.
   unverified_member: non verificato
-  particularities_chain_tooltip: Questo negozio fa parte di una catena. Pertanto
-    vengono visualizzate queste informazioni aggiuntive, che si applicano a 
-    tutti gli stabilimenti della catena.
   delete_date: Elimina una singola data di ritiro
   log:
     type:

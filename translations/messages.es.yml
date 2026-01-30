@@ -1510,9 +1510,6 @@ store:
   of_that: de ell@s
   unverified_members: no verificadas
   unverified_member: no verificados
-  particularities_chain_tooltip: Esta empresa es parte de una cadena. Por ello 
-    se muestra esta información adicional, que aplica a todos los 
-    establecimientos de esta cadena.
   jumping: Suplente
   isAppliedForTeam: Solicitud
   managing: Responsabilidad de cooperación

@@ -289,9 +289,6 @@ store:
   not_verified: 'Não está verificado. Portanto, ainda não pode ver os assentos nem
     os números de telefone dos membros da equipa.'
   unverified_member: 'não verificado'
-  particularities_chain_tooltip: 'Esta empresa é o parte de uma cadeia. Por isso,
-    são apresentadas estas informações adicionais, que se aplicam a todos os estabelecimentos
-    desta cadeia.'
   all_of_my_stores: 'Todas as minhas empresas'
   delete_date: 'Apagar assento individual'
   unknownDate: 'desconhecido'

@@ -2981,9 +2981,6 @@ store:
   member: Medlem
   isAppliedForTeam: Forespørsel
   particularities_chain: Kjedens spesielle egenskaper
-  particularities_chain_tooltip: Dette etablissementet er en del av en kjede. 
-    Dette er grunnen til at denne tilleggsinformasjonen vises, som gjelder for 
-    alle virksomheter i kjeden.
   delete_date: Slett individuell innsamlingsdato
   enter_date: Angi den individuelle hentedatoen
   delete_date_description: Hvis du bruker regelmessige (ukentlige, automatisk 

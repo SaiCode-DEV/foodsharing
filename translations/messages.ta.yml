@@ -80,9 +80,6 @@ store:
   mayManage: நிறுவனத்தின் மேலாளர்களுக்கான நொடி வினாவை கடந்துவிட்டது.
   particularities: செயல்முறை & குறிப்புகள்
   particularities_chain: சங்கிலியின் சிறப்பு நற்பொருத்தங்கள்
-  particularities_chain_tooltip: இந்த நிறுவனம் ஒரு சங்கிலியின் ஒரு பகுதியாகும். 
-    எனவே, இந்த கூடுதல் தகவல்கள் சங்கிலியில் உள்ள அனைத்து நிறுவனங்களுக்கும் 
-    பொருந்தும்.
   average_collection_quantity: Abholmenge pro ஆள்
   attribution: பெயர்கள்
   may_referred_to_in_public_unclear: இன்னும் தெளிவுபடுத்தப்படவில்லை

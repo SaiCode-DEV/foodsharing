@@ -2639,9 +2639,6 @@ store:
   member: Member
   isAppliedForTeam: Request
   jumping: Standby
-  particularities_chain_tooltip: This store is part of a chain. This is why this
-    additional information is displayed, which applies to all establishments in 
-    the chain.
   particularities_chain: Particularities of the chain
   enter_date: Enter a single slot
   delete_date: Delete a single slot

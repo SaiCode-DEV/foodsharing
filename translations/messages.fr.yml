@@ -1536,9 +1536,6 @@ store:
   member: Membre
   isAppliedForTeam: Demande
   particularities_chain: Particularités de la chaîne
-  particularities_chain_tooltip: Cet établissement fait partie d’une chaîne. 
-    Pour cette raison, ces informations supplémentaires sont affichées, qui 
-    s’appliquent à tous les établissements de cette chaîne.
   enter_date: Entrez une seule date de collecte
   delete_date: Supprimer une seule date de collecte
   team_container: Équipe

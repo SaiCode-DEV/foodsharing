@@ -1390,9 +1390,6 @@ store:
   one_active: aktif
   of_that: bundan
   unverified_member: daha doğrulanmamış
-  particularities_chain_tooltip: Bu kuruluş bir zincirin parçası. Zincirdeki tüm
-    kuruluşlar için geçerli olan bu ek bilgilerin görüntülenmesinin nedeni 
-    budur.
   unverified_members: daha doğrulanmamış
   particularities_chain: Zincirin özellikleri
   info_container: Bilgiler

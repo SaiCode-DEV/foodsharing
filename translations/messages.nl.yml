@@ -966,7 +966,6 @@ store:
   info_container: ''
   not_verified: ''
   unverified_member: ''
-  particularities_chain_tooltip: ''
   delete_date: ''
   to_map: ''
   invitation:
