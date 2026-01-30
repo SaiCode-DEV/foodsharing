@@ -613,6 +613,7 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
             $chain_ids[] = $chain['id'];
             $this->progressBar($_, 50);
         }
+        $I->addKamToStoreChain($this->chain_ids[0], $userbot['id']);
         $this->output->writeln('');
 
         $this->output->writeln('- create food types');

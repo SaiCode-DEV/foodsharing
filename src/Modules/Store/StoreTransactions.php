@@ -263,7 +263,10 @@ class StoreTransactions
         $dbResult->region->name = $this->regionGateway->getRegionName($dbResult->region->id);
 
         if ($dbResult->chain) {
-            $dbResult->chain->information = $this->storeChainGateway->getCommonStoreInformation($dbResult->chain->id);
+            $chainDetails = $this->storeChainGateway->getChainInformationForStore($dbResult->chain->id);
+            $dbResult->chain->name = $chainDetails['name'];
+            $dbResult->chain->information = $chainDetails['common_store_information'];
+            $dbResult->chain->kams = $this->storeChainGateway->getStoreChainKeyAccountManagers($dbResult->chain->id);
         }
 
         if (!$showDetails) {
@@ -371,6 +374,22 @@ class StoreTransactions
             }
         }
 
+        if ($changeInformation->chainChanged && $store->chain) {
+            $kams = $this->storeChainGateway->getStoreChainKeyAccountManagers($store->chain->id);
+            $chain = $this->storeChainGateway->getChainInformationForStore($store->chain->id);
+
+            $bell = Bell::create(
+                'store_added_to_chain_title',
+                'store_added_to_chain',
+                'fas fa-chain',
+                ['href' => '/store/' . $store->id],
+                ['chain' => $chain['name'], 'store' => $store->name],
+                BellType::createIdentifier(BellType::STORE_ADDED_TO_CHAIN, $store->chain->id, $store->id),
+            );
+            $this->bellGateway->delBellsByIdentifier($bell->identifier);
+            $this->bellGateway->addBellForUsers(array_map(fn ($kam) => $kam->id, $kams), $bell);
+        }
+
         return $changeInformation->informationChanged;
     }
 
@@ -427,6 +446,7 @@ class StoreTransactions
 
         if (!is_null($storeChange->chainId)) {
             $changeInformation->informationChanged = true;
+            $changeInformation->chainChanged = $store->chain ? $store->chain->id !== $storeChange->chainId : true;
             if ($storeChange->chainId !== 0) {
                 $storeChainExists = $this->storeGateway->existStoreChain($storeChange->chainId);
                 if (!$storeChainExists) {
@@ -1193,6 +1213,12 @@ class StoreTransactions
         ];
         if ($includeUserDetails) {
             array_push($allowedFields, 'handy', 'telefon', 'last_fetch');
+        } else {
+            foreach ($members as &$member) {
+                if (isset($member['firstName'])) {
+                    $member['name'] = $member['firstName'];
+                }
+            }
         }
         if ($includeDistance) {
             array_push($allowedFields, 'distance');

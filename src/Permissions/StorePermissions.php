@@ -17,6 +17,7 @@ use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Modules\Store\StoreManagerAmount;
 use Foodsharing\Modules\Store\TeamStatus as UserTeamStatus;
+use Foodsharing\Modules\StoreChain\StoreChainGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
 class StorePermissions
@@ -42,7 +43,8 @@ class StorePermissions
         private readonly CurrentUserUnitsInterface $currentUserUnits,
         private readonly AchievementGateway $achievementGateway,
         private readonly FoodsaverGateway $foodsaverGateway,
-        private readonly PassportGeneratorTransaction $passportGeneratorTransaction
+        private readonly PassportGeneratorTransaction $passportGeneratorTransaction,
+        private readonly StoreChainGateway $storeChainGateway,
     ) {
     }
 
@@ -171,6 +173,10 @@ class StorePermissions
             return true;
         }
         if (in_array($this->getCachedUserTeamStatus($storeId), [UserTeamStatus::WaitingList, UserTeamStatus::Member, UserTeamStatus::Coordinator])) {
+            return true;
+        }
+
+        if ($this->session->mayRole(Role::STORE_MANAGER) && $this->isKamForStore($storeId)) {
             return true;
         }
 
@@ -321,9 +327,9 @@ class StorePermissions
         return $this->mayEditPickups($storeId);
     }
 
-    public function maySeePickupHistory(int $storeId): bool
+    public function maySeePickupHistory(int $storeId, ?int $chainId = -1): bool
     {
-        return $this->mayEditStore($storeId);
+        return $this->mayEditStore($storeId) || $this->isKamForStore($storeId, $chainId);
     }
 
     public function maySeeStoreLog(int $storeId): bool
@@ -377,6 +383,9 @@ class StorePermissions
         if (!$this->session->isVerified()) {
             return false;
         }
+        if ($this->isKamForStore($storeId)) {
+            return true;
+        }
         if (!$this->mayReadStoreWall($storeId)) {
             return false;
         }
@@ -386,7 +395,7 @@ class StorePermissions
 
     public function maySeePhoneNumbers(int $storeId): bool
     {
-        return $this->maySeePickups($storeId);
+        return $this->mayReadStoreWall($storeId);
     }
 
     public function maySeeMemberDistance(int $storeId): bool
@@ -396,7 +405,7 @@ class StorePermissions
 
     public function mayChatWithRegularTeam(array $store): bool
     {
-        if ($store['jumper']) {
+        if (!in_array($this->getCachedUserTeamStatus($store['id']), [UserTeamStatus::Member, UserTeamStatus::Coordinator])) {
             return false;
         }
 
@@ -489,5 +498,18 @@ class StorePermissions
     public function mayDeleteStore($storeId): bool
     {
         return $this->mayEditStore($storeId) && $this->mayStoreBeDeleted($storeId);
+    }
+
+    public function isKamForStore(int $storeId, ?int $chainId = -1): bool
+    {
+        if (is_null($chainId) || $chainId === -1) {
+            try {
+                $chainId = $this->storeGateway->getStore($storeId, true)->chain->id;
+            } catch (\Exception) {
+                return false;
+            }
+        }
+
+        return $this->storeChainGateway->isUserKeyAccountManager($chainId, $this->session->id());
     }
 }

@@ -7,7 +7,9 @@
     <StoreTeamAvatar :user="user" />
     <div class="flex-grow-1 px-1 small">
       <b>{{ user.name }}</b><br>
-      <span>{{ user.phoneNumber }}</span><br>
+      <div v-if="user.phoneNumber">
+        <span>{{ user.phoneNumber }}</span><br>
+      </div>
       <Time
         v-if="(user.lastPickup ?? user.joinDate) && (!sortingFunction || sortingFunction.displayInfo === 'times')"
         :tooltip="timeTooltip(user)"

@@ -53,18 +53,27 @@
         <Markdown :source="particularitiesDescription" />
       </div>
       <div
-        v-if="particularitiesChain"
+        v-if="chainDetails"
         id="chainParticularities"
         class="desc-block mb-1 py-1"
       >
         <div class="desc-block-title mb-2 py-1">
           {{ $t('store.particularities_chain') }}
-          <i
-            class="fas fa-info-circle fa-fw"
-            :title="$t('store.particularities_chain_tooltip')"
-          />
+          <Info info-key="store_chain_info" style="margin-top: -0.5rem; margin-bottom: -0.5rem;" />
         </div>
-        <Markdown :source="particularitiesChain" />
+        <span>
+          <span>{{ $t('store.part_of_chain') }}</span>
+          <strong>{{ chainDetails.name }}</strong>
+        </span>
+        <div v-if="chainDetails.kams.length" class="d-flex align-items-center">
+          <span class="flex-grow-1" v-text="$t('store.chain_has_kams')" />
+          <AvatarStack :users="chainDetails.kams" />
+        </div>
+        <Markdown
+          v-if="chainDetails.information"
+          class="border-top pt-1 mt-2"
+          :source="chainDetails.information"
+        />
       </div>
       <div
         v-if="categoryType === STORE_CATEGORY_PICKUP || categoryType === STORE_CATEGORY_GIVING"
@@ -123,17 +132,19 @@ import { STORE_PUBLICITY_AND_STICKER_OPTIONS } from '@/stores/stores'
 import { useStoreStore } from '@/stores/store'
 import { STORE_CATEGORY_PICKUP } from '@/constants/storeCategoryTypes'
 import NavigateWithSelector from '@/components/UI/NavigateWithSelector.vue'
+import AvatarStack from '../Avatar/AvatarStack.vue'
+import Info from '../Help/Info.vue'
 
 export default {
-  components: { Markdown, Container, NavigateWithSelector },
+  components: { Markdown, Container, NavigateWithSelector, AvatarStack, Info },
   mixins: [storeEntryMixin],
   props: {
     particularitiesDescription: {
       type: String,
       default: '',
     },
-    particularitiesChain: {
-      type: String,
+    chainDetails: {
+      type: Object,
       default: null,
     },
     storeTitle: {

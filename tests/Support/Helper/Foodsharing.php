@@ -701,6 +701,14 @@ class Foodsharing extends Db
         return $params;
     }
 
+    public function addKamToStoreChain(int $chainId, int $userId)
+    {
+        $this->haveInDatabase('fs_key_account_manager', [
+            'chain_id' => $chainId,
+            'foodsaver_id' => $userId,
+        ]);
+    }
+
     public function createWorkingGroup($name, $extra_params = [], bool $fillMailbox = true)
     {
         $extra_params = array_merge([

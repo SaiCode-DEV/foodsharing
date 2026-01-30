@@ -16,6 +16,7 @@ use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\PassportGenerator\PassportGeneratorTransaction;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\StoreGateway;
+use Foodsharing\Modules\StoreChain\StoreChainGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\StorePermissions;
@@ -45,6 +46,7 @@ final class StorePermissionsTest extends Unit
             $this->tester->get(AchievementGateway::class),
             $this->tester->get(FoodsaverGateway::class),
             $this->tester->get(PassportGeneratorTransaction::class),
+            $this->tester->get(StoreChainGateway::class),
         );
     }
 

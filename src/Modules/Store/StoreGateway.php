@@ -69,7 +69,7 @@ class StoreGateway extends BaseGateway
      *
      * @throws Exception
      */
-    public function findAllStoresOfStoreChain(int $chainId, Pagination $pagination): array
+    public function findAllStoresOfStoreChain(int $chainId, ?Pagination $pagination = null): array
     {
         $results = $this->db->fetchAll('SELECT id, name
             FROM fs_betrieb

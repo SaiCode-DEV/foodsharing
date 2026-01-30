@@ -234,11 +234,7 @@ class StoreRestController extends AbstractFoodsharingRestController
             throw new NotFoundHttpException('Store not found.');
         }
 
-        // Member-only (org/coord flows are enforced elsewhere; default to deny if not a member)
-        if (
-            $this->storeGateway->getUserTeamStatus($this->session->id(), $storeId) === TeamMembershipStatus::NoMember
-            && !$this->storePermissions->mayCoordianteRegionStores($storeId)
-        ) {
+        if (!$this->storePermissions->mayAccessStore($storeId)) {
             throw new AccessDeniedHttpException('Not allowed to see store members.');
         }
 
@@ -276,9 +272,7 @@ class StoreRestController extends AbstractFoodsharingRestController
 
         // 403 if logged in but not a member (aligns with /stores/{storeId}/member)
         if (
-            $this->storeGateway->getUserTeamStatus($this->session->id(), $storeId) === TeamMembershipStatus::NoMember
-            && !$this->storePermissions->mayCoordianteRegionStores($storeId)
-        ) {
+            !$this->storePermissions->mayAccessStore($storeId)) {
             throw new AccessDeniedHttpException('Not allowed to see store permissions.');
         }
 
@@ -318,13 +312,14 @@ class StoreRestController extends AbstractFoodsharingRestController
                 'isOrgUser' => $isOrgUser,
                 'isJumper' => $store['jumper'],
                 'isManager' => $store['verantwortlich'],
+                'isKam' => $this->storePermissions->isKamForStore($storeId, $store['kette_id']),
                 'maySeePickup' => $this->storePermissions->maySeePickups($storeId),
                 'teamConversationId' => $teamConversationId,
                 'jumperConversationId' => $jumperConversationId,
                 'mayEditStore' => $this->storePermissions->mayEditStore($storeId),
                 'mayLeaveStoreTeam' => $this->storePermissions->mayLeaveStoreTeam($storeId, $this->session->id()),
                 'storeId' => $storeId,
-                'maySeePickupHistory' => $this->storePermissions->maySeePickupHistory($storeId),
+                'maySeePickupHistory' => $this->storePermissions->maySeePickupHistory($storeId, $store['kette_id']),
                 'maySeeStoreLog' => $this->storePermissions->maySeeStoreLog($storeId),
                 'maySeePickups' => $this->storePermissions->maySeePickups($storeId) || $store['betrieb_status_id'] === CooperationStatus::COOPERATION_ESTABLISHED,
                 'mayDeleteStore' => $this->storePermissions->mayDeleteStore($storeId),

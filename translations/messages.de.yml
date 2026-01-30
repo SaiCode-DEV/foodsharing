@@ -999,8 +999,9 @@ store:
   mayAmb: "Hat das Botschafter:innen-Quiz bestanden."
   mayManage: "Hat das Quiz für Betriebsverantwortliche bestanden."
   particularities: "Ablauf & Hinweise"
-  particularities_chain: "Besonderheiten der Kette"
-  particularities_chain_tooltip: "Dieser Betrieb ist Teil einer Kette. Deshalb werden diese zusätzlichen Informationen angezeigt, die für alle Betriebe der Kette gelten."
+  particularities_chain: "Hinweise zur Kette"
+  chain_has_kams: "Verantwortlich für die Kette:"
+  part_of_chain: "Gehört zur Kette:"
   average_collection_quantity: "Menge pro Person"
   attribution: "Namensnennung"
   may_referred_to_in_public_unclear: "Noch nicht geklärt"
@@ -1246,6 +1247,10 @@ storeedit:
     orga: |
       Du bist nicht verantwortlich für diesen Betrieb.
       Du hast jedoch weitreichende Rechte als Teil des globalen Orgateams.
+    kam: |
+      Du bist nicht verantwortlich für diesen Betrieb.
+      Du hast jedoch eingeschränkten Zugriff als KAM der zugehörigen Kette.
+
   store:
     status: "Status" #also in QuizView
   fetch:
@@ -1891,6 +1896,12 @@ bell:
   new_resource:
     one: "Von {user}: „{title}“"
     many: "{count} neue Ressourcen"
+
+  store_added_to_chain_title: "{chain}: Betrieb hinzugefügt"
+  store_added_to_chain: "Betrieb „{store}“ ist jetzt Teil der Kette."
+
+  chain_info_updated_title: "Kette {chain} aktualisiert"
+  chain_info_updated: "{store} ist Teil der Kette."
 
   mark_as:
     read: "Als gelesen markieren"
@@ -3618,9 +3629,11 @@ chain:
         label: Notizen
         invalidfeedback: Notizen dürfen nicht länger als 200 Zeichen sein.
         description: Hinweise, die in der Kettenübersicht angezeigt werden.
+        default: Verhandlungen laufen
       details:
         label: Infos für Betriebe
         description: Hinweise, die auf Betriebsseiten angezeigt werden, die zur Kette gehören.
+        default: Betrieb darf nicht angesprochen werden, da kein Ketten-Go vorliegt.
     cancel: Abbrechen
     ok: Speichern
   detailsmodal:
@@ -4229,6 +4242,10 @@ help:
     similar_resources:
       title: "Ähnliche Ressourcen"
       md: "Als ähnliche Ressourcen werden dir bis zu 10 weitere Ressourcen angezeigt, für welche die **gleichen Kategorien** eingetragen sind."
+    store_chain_info:
+      title: "Kettenbetriebe"
+      md: |
+        Dieser Betrieb gehört zu einer [Betriebskette](https://wiki.foodsharing.de/Betrieb#Betriebskette). Für alle Betriebsketten gibt es verantwortliche [KAMs](https://wiki.foodsharing.de/Key_Account_Manager_(KAM)), die die Möglichkeit haben in diesem Betrieb das Team sowie die Auslastung und Anzahl der Abholslots einzusehen.
 
 team_page:
   board_member:

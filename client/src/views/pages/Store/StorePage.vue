@@ -85,7 +85,7 @@
             <StoreInfos
               :key="'storeInfo' + componentKey"
               :particularities-description="storeInformation.description"
-              :particularities-chain="storeInformation.chain?.information"
+              :chain-details="storeInformation.chain"
               :weight-type="storeInformation.weight"
               :store-title="storeInformation.name"
               :latitude="storeInformation.location.lat"
@@ -240,11 +240,15 @@ export default {
         this.getLastFetchDate()
       }),
       Promise.all([storeInformationPromise, userDetailsPromise, permissionsPromise]).then(async () => {
-        if (this.isVerified && this.permissions.isJumper === false) {
-          await this.pickupStore.fetchRegularPickup(this.storeId)
-          await StoreData.mutations.loadStoreLog(this.storeId, this.storeInformation.calendarInterval)
+        const loading = []
+        if (this.permissions.maySeePickups) {
+          loading.push(this.pickupStore.fetchRegularPickup(this.storeId))
         }
-        StoreData.mutations.loadGetRegionOptions(this.regionId)
+        if (this.permissions.maySeeStoreLog) {
+          loading.push(StoreData.mutations.loadStoreLog(this.storeId, this.storeInformation.calendarInterval))
+        }
+        loading.push(StoreData.mutations.loadGetRegionOptions(this.regionId))
+        await Promise.all(loading)
         this.loadRightsInfo()
         this.finishedLoading = true
         this.componentKey += 1
@@ -253,7 +257,8 @@ export default {
   },
   methods: {
     loadRightsInfo () {
-      if (this.permissions.mayEditStore && this.permissions.isManager === false) {
+      if (this.permissions.isManager) return
+      if (this.permissions.mayEditStore) {
         if (this.permissions.isOrgUser) {
           pulseInfo(this.$t('storeedit.team.orga'))
         } else if (this.permissions.isCoordinator) {
@@ -261,6 +266,8 @@ export default {
         } else if (this.permissions.isAmbassador) {
           pulseInfo(this.$t('storeedit.team.amb'))
         }
+      } else if (this.permissions.isKam) {
+        pulseInfo(this.$t('storeedit.team.kam'))
       }
     },
     checkIsUserInStore () {

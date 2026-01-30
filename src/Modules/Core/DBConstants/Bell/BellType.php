@@ -174,6 +174,16 @@ class BellType
     final public const string POLL_STARTED = 'poll-started-%d';
 
     /**
+     * A poll has started and the user can now vote. Argument: IDs of the chain and the store.
+     */
+    final public const string CHAIN_INFO_UPDATED = 'chain-info-updated-%d-%d';
+
+    /**
+     * A poll has started and the user can now vote. Argument: IDs of the chain and the store.
+     */
+    final public const string STORE_ADDED_TO_CHAIN = 'store-added-to-chain-%d-%d';
+
+    /**
      * Creates a bell identifier from a template and an optional list of parameters.
      */
     public static function createIdentifier(string $typeString, ...$params)

@@ -190,6 +190,7 @@ import { getters, mutations } from '@/stores/chains'
 import { pulseError } from '@/script'
 import BTableMobileFriendly from '@/components/BTableMobileFriendly.vue'
 import ConfigureableList from '@/components/ConfigureableList.vue'
+import i18n from '@/helper/i18n'
 
 export default {
   components: { BTableMobileFriendly, AvatarStack, InputModal, StoreDetailsModal, ConfigureableList },
@@ -369,8 +370,8 @@ export default {
         forumThread: null,
         allowPress: false,
         estimatedStoreCount: 0,
-        notes: '',
-        commonStoreInformation: '',
+        notes: i18n('chain.inputmodal.inputs.notes.default'),
+        commonStoreInformation: i18n('chain.inputmodal.inputs.details.default'),
         kamIds: [],
       }, this.finishEditing)
     },

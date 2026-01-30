@@ -12,4 +12,6 @@ class PatchStoreChangeInformation
     public bool $nameChanged = false;
 
     public bool $groceriesChanged = false;
+
+    public bool $chainChanged = false;
 }
