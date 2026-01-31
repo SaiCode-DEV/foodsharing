@@ -20,7 +20,7 @@ export const useUserStore = defineStore('user', {
     fetching: {},
   }),
   getters: {
-    isLoadingFinished: (state) => Object.keys(state.details).length > 0,
+    isLoadingFinished: (state) => Object.keys(state.details || {}).length > 0,
     isSleeping: (state) => state.details?.isSleeping,
     isVerified: (state) => state.details?.isVerified,
     isFoodsaver: (state) => state.user?.isFoodsaver,
@@ -70,13 +70,13 @@ export const useUserStore = defineStore('user', {
     hasBouncingEmail: () => false,
     // TODO: this can be removed as soon as login without activation is not possible anymore
     hasActiveEmail: (state) => state.details?.hasActiveEmail ?? true,
-    hadPassport: (state) => {
-      if (!state.isLoadingFinished) return null
-      return state.details?.lastPassUntilValid !== null
+    hadPassport () {
+      if (!this.isLoadingFinished) return null
+      return this.details?.lastPassUntilValid !== null
     },
-    isPassportInvalid: (state) => {
-      if (!state.isLoadingFinished) return null
-      return state.details?.lastPassUntilValid ? (state.details.lastPassUntilValidInDays <= PASSPORT_STATUS.INVALID) : true
+    isPassportInvalid () {
+      if (!this.isLoadingFinished) return null
+      return this.details?.lastPassUntilValid ? (this.details.lastPassUntilValidInDays <= PASSPORT_STATUS.INVALID) : true
     },
     isPassportInvalidSoon: (state) => {
       return state.details?.lastPassUntilValid ? (state.details.lastPassUntilValidInDays <= PASSPORT_STATUS.INVALID_SOON_WARNING_TIME) : false
