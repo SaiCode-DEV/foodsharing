@@ -6,9 +6,10 @@ use Carbon\Carbon;
 use DateTimeZone;
 use Exception;
 use Foodsharing\Modules\Blog\DTO\BlogPost;
-use Foodsharing\Modules\Blog\DTO\BlogPostList;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
+use Foodsharing\Modules\Core\PaginatedContent;
+use Foodsharing\Modules\Core\Pagination;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\BlogPermissions;
 use Foodsharing\RestApi\Models\Blog\BlogPostData;
@@ -114,13 +115,12 @@ final class BlogGateway extends BaseGateway
      * Returns a page of 10 posts from the list of blog posts. The page numbers start at 0. Instead of the full body,
      * the posts will only contain a teaser text.
      *
+     * @return PaginatedContent with entrys of type ForumThreadForListView
      * @throws Exception
      */
-    public function listNews(int $page): BlogPostList
+    public function listNews(Pagination $pagination): PaginatedContent
     {
-        $postData = $this->db->fetchAll(
-            '
-			SELECT
+        $postData = $this->db->fetchAll('SELECT
 				b.`id`,
 				b.`name`,
 				UNIX_TIMESTAMP(b.`time`) AS time_ts,
@@ -129,17 +129,12 @@ final class BlogGateway extends BaseGateway
 				b.`picture`,
 				CONCAT(fs.name," ",fs.nachname) AS fs_name,
 			COUNT(*) OVER () as totalPosts
-			FROM
-				`fs_blog_entry` b,
-				`fs_foodsaver` fs
-			WHERE
-				b.foodsaver_id = fs.id
-			AND
-				b.`active` = 1
-			ORDER BY
-				b.`id` DESC
-			LIMIT :page,10',
-            [':page' => $page * 10]
+			FROM `fs_blog_entry` b
+			JOIN `fs_foodsaver` fs ON fs.`id` = b.`foodsaver_id`
+			WHERE b.`active` = 1
+			ORDER BY b.`id` DESC
+            ' . $this->buildPaginationSqlLimit($pagination),
+            $this->addPaginationSqlLimitParameters($pagination, [])
         );
 
         $posts = array_map(fn ($post) => BlogPost::create(
@@ -152,7 +147,7 @@ final class BlogGateway extends BaseGateway
             $post['picture']
         ), $postData);
 
-        return BlogPostList::create($posts, $postData[0]['totalPosts'] ?? 0);
+        return PaginatedContent::create($postData[0]['totalPosts'] ?? 0, $pagination->offset, $posts);
     }
 
     public function getBlogpostList(): array

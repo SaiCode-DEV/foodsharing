@@ -1,15 +1,15 @@
-import { get, patch, post, remove } from './base'
+import { get, patch, post, put, remove } from './base'
 
 export async function getBlogposts (page) {
-  return get(`/blog?page=${page}`)
+  return get(`/blog?offset=${page * 10}&limit=10`)
 }
 
 export async function getBlogpost (blogPostId) {
   return get(`/blog/${blogPostId}`)
 }
 
-export async function publishBlogpost (blogId, regionId, newPublishedState) {
-  return patch(`/blog/${blogId}/publish`, { regionId, isPublished: newPublishedState })
+export async function publishBlogpost (blogId, newPublishedState) {
+  return put(`/blog/${blogId}/published?isPublished=${newPublishedState}`)
 }
 
 export async function deleteBlogpost (blogId) {

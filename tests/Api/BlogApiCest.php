@@ -34,7 +34,7 @@ class BlogApiCest
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson([
-            'blogPosts' => [[
+            'entries' => [[
                 'id' => $this->blogPost['id'],
                 'title' => $this->blogPost['name'],
                 'teaser' => $this->blogPost['teaser'],
@@ -92,7 +92,7 @@ class BlogApiCest
         $I->login($this->userOrga['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPOST('api/blog', $post);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $numAfter = count($I->grabColumnFromDatabase('fs_blog_entry', 'id'));
         assert($numAfter === $numBefore);

@@ -71,7 +71,7 @@ export default {
   methods: {
     async togglePublished () {
       try {
-        await publishBlogpost(this.blogId, this.regionId, !this.isPublished)
+        await publishBlogpost(this.blogId, !this.isPublished)
         this.isPublished = !this.isPublished
       } catch (e) {
         pulseError(i18n('error_unexpected'))

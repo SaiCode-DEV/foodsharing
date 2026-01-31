@@ -2,6 +2,7 @@
 
 namespace Foodsharing\Modules\Core;
 
+use Foodsharing\Modules\Blog\DTO\BlogPost;
 use Foodsharing\Modules\Region\DTO\ForumThreadForListView;
 use Nelmio\ApiDocBundle\Attribute\Model;
 use OpenApi\Attributes as OA;
@@ -34,5 +35,11 @@ class PaginatedContent
 class PaginatedForumThreadsForListView extends PaginatedContent
 {
     #[OA\Property(property: 'entries', type: 'array', items: new OA\Items(ref: new Model(type: ForumThreadForListView::class)))]
+    public array $entries;
+}
+
+class PaginatedBlogPosts extends PaginatedContent
+{
+    #[OA\Property(property: 'entries', type: 'array', items: new OA\Items(ref: new Model(type: BlogPost::class)))]
     public array $entries;
 }

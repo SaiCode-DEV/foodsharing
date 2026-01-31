@@ -17,7 +17,7 @@
 
     <b-pagination
       v-model="currentPage"
-      :total-rows="totalPosts"
+      :total-rows="totalCount"
       :per-page="10"
       class="pagination m-2"
       align="center"
@@ -38,7 +38,7 @@ export default {
     return {
       isLoading: true,
       currentPage: 1,
-      totalPosts: 10,
+      totalCount: 10,
       blogPosts: {
         1: [],
       },
@@ -62,8 +62,8 @@ export default {
 
       try {
         const response = await getBlogposts(this.currentPage - 1)
-        this.totalPosts = response.totalPosts
-        this.blogPosts[this.currentPage] = response.blogPosts
+        this.totalCount = response.totalCount
+        this.blogPosts[this.currentPage] = response.entries
       } catch (e) {
         pulseError(this.$t('error_unexpected'))
       }
