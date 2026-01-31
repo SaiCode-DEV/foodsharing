@@ -642,7 +642,7 @@ settings:
   notifications: Powiadomienia
   follow:
     none: Nie informuj mnie mailem o nowych postach.
-    mail: ''
+    mail: 'Tak, chcę być informowany/a o nowych postach mailowo.'
     thread: ''
   businesscard: Osobista wizytówka
   account: Opcje konta
@@ -2392,12 +2392,12 @@ foodsaver:
     pn: ''
     STORE_MANAGER: ''
     rv: ''
-    AMBASSADOR: ''
+    AMBASSADOR: 'Zostań ambasadorem/ką'
   kicked: Usunięto foodsavera/kę
   list:
-    summary: ''
-    inactive: ''
-  restricted: ''
+    summary: '{count} foodsaverów/ek w {region}'
+    inactive: ', którzy/e nie byli aktywni/e w ciągu ostatnich 6 miesięcy:'
+  restricted: 'Niestety, nie masz uprawnień, żeby zobaczyć te dane.'
   about_me_intern: ''
   delete_own_account: ''
   about_me_public: ''
@@ -2419,13 +2419,13 @@ content:
     noAmbassador: ''
     searchInfo: ''
     text: ''
-  title: ''
-  error_loading: ''
+  title: 'Tytuł'
+  error_loading: 'Nie można było załadować treści'
   name: ''
-  empty: ''
-  last_modified: ''
+  empty: 'Jeszcze nie wprowadzono żadnej strony.'
+  last_modified: 'Ostatnio edytowany'
   edit_raw: ''
-  delete_tooltip: ''
+  delete_tooltip: 'Usuń stronę'
   changelog: ''
 map:
   filters:
@@ -2434,7 +2434,7 @@ map:
         cooperating: współpracuje
         not-cooperating: nie współpracuje
         label: 'Status'
-        all: ''
+        all: 'wszystkie'
       help:
         all: obojętnie
         label: ''
@@ -2448,7 +2448,7 @@ map:
       type:
         label: Typ
         2: ''
-        "null": ''
+        "null": 'wszystkie'
         1: ''
         0: ''
     users:
@@ -2480,7 +2480,7 @@ map:
     go: Do profilu
   community:
     go: ''
-  title: ''
+  title: 'Mapa'
   donates: ''
 mailbox:
   mails: Maile
@@ -2552,7 +2552,7 @@ mailbox:
     dołączyć je do nowego maila.'
   global_addressbook: 'globalna książka adresowa'
   sm-quiz: ''
-  manage: ''
+  manage: 'Manager skrzynki pocztowej'
   not-available: ''
   mark_none: ''
 profile:
@@ -2956,13 +2956,13 @@ menu:
     imprint: ''
     notifications: 'Powiadomienia'
     applications: ''
-    members: ''
+    members: 'Członkowie'
     load_more: 'Załaduj więcej'
     academy: 'Akademia'
     close_all_chats: 'Zamknij wszystkie chaty'
     transparency: ''
     wall: ''
-    chainList: ''
+    chainList: 'Lista sieci'
     helpwanted: ''
     contact: 'Kontakt'
     group_overview: ''
@@ -2976,7 +2976,7 @@ menu:
     joinregion: ''
     baskets: ''
     workingGroupEdit: ''
-    background: ''
+    background: 'Tło'
     stores: ''
     mailbox: 'skrzynka pocztowa'
     talksandworkshops: ''
@@ -3000,7 +3000,7 @@ menu:
     education: 'Edukacja'
     regionalgroups: ''
     messages: 'Wiadomości'
-    aboutUs: ''
+    aboutUs: 'O nas'
   bell:
     delete_read_confirmation:
       title: Usunąć powiadomienia?
