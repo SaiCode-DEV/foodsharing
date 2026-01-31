@@ -147,7 +147,7 @@ async function updateMayRefresh (age) {
 let timeoutId = null
 function scheduleRemovalOfOutdatedOptions () {
   window.clearTimeout(timeoutId)
-  if (!pickupStore.getOptions.length) return
+  if (!pickupStore.getOptions?.length) return
   const nextOptionTime = new Date(pickupStore.getOptions[0].date)
   const timeout = nextOptionTime.getTime() - Date.now() + 1000 // one second buffer to make sure that timing imperfections don't cause problems
   timeoutId = window.setTimeout(function () {
