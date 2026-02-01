@@ -884,16 +884,20 @@ class StoreApiCest
             'bezirk_id' => $this->nextRegion['id']]);
     }
 
-    public function patchStoreZipCodeAsStoreManager(ApiTester $I): void
+    /**
+     * @example {"value": "A2345", "expected": "A2345"}
+     * @example {"value": "  B6 ", "expected": "B6"}
+     */
+    public function patchStoreZipCodeAsStoreManager(ApiTester $I, Example $example): void
     {
         $I->login($this->manager[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['address' => ['postalCode' => 'A2345']]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['address' => ['postalCode' => $example['value']]]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
             'id' => $this->store[self::ID],
-            'plz' => 'A2345']);
+            'plz' => $example['expected']]);
     }
 
     public function canNotPatchStoreZipCodeWithInvalidFormatForStoreManager(ApiTester $I): void
@@ -909,16 +913,20 @@ class StoreApiCest
             'plz' => $this->store['plz']]);
     }
 
-    public function patchStoreStreetAsStoreManager(ApiTester $I): void
+    /**
+     * @example {"value": "Store street 123", "expected": "Store street 123"}
+     * @example {"value": "   Another street  45  ", "expected": "Another street  45"}
+     */
+    public function patchStoreStreetAsStoreManager(ApiTester $I, Example $example): void
     {
         $I->login($this->manager[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['address' => ['street' => 'Store street 123']]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['address' => ['street' => $example['value']]]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
             'id' => $this->store[self::ID],
-            'str' => 'Store Street 123']);
+            'str' => $example['expected']]);
     }
 
     public function patchStoreGeoLocationLatAsStoreManager(ApiTester $I): void
@@ -1621,16 +1629,20 @@ class StoreApiCest
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
     }
 
-    public function patchStoreCityAsStoreManager(ApiTester $I): void
+    /**
+     * @example {"value": "Store town", "expected": "Store town"}
+     * @example {"value": "   Another  town   ", "expected": "Another  town"}
+     */
+    public function patchStoreCityAsStoreManager(ApiTester $I, Example $example): void
     {
         $I->login($this->manager[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['address' => ['city' => 'Store town 123']]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['address' => ['city' => $example['value']]]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
             'id' => $this->store[self::ID],
-            'stadt' => 'Store town 123']);
+            'stadt' => $example['expected']]);
     }
 
     public function canNotPatchStoreCityWithInvalidFormatForStoreManager(ApiTester $I): void
