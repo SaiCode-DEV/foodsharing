@@ -591,6 +591,8 @@ login:
   error_no_email: "Bitte gib deine E-Mail-Adresse an."
   error_no_password: "Bitte gib dein Passwort an."
   error_no_auth: "Leider finden wir diese E-Mail-Adresse oder Passwort nicht, bitte versuche es noch einmal. Evtl. ist auch Dein zweiter Faktor falsch falls Du einen verwendest."
+  passkey_cancelled: "Die Anmeldung mit Passkey wurde abgebrochen."
+  passkey_not_found: "Für dieses Konto ist auf diesem Gerät kein Passkey verfügbar."
   error_not_activated: "Leider ist deine E-Mail-Adresse noch nicht aktiviert."
   logout: "Abmelden"
   or: "oder"
