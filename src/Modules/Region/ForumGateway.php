@@ -99,9 +99,13 @@ class ForumGateway extends BaseGateway
         return $threadId;
     }
 
-    public function activateThread(int $threadId): void
+    /**
+     * Activates a thread (sets active = 1).
+     * @return bool if the thread was activated, false if it was already active
+     */
+    public function activateThread(int $threadId): bool
     {
-        $this->db->update('fs_theme', ['active' => 1], ['id' => $threadId]);
+        return $this->db->update('fs_theme', ['active' => 1], ['id' => $threadId, 'active' => 0]) > 0;
     }
 
     public function deleteThread($thread_id)

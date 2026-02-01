@@ -404,8 +404,20 @@ class ForumTransactions
      */
     public function activateThread(int $threadId): void
     {
-        $this->forumGateway->activateThread($threadId);
-        $this->removeInactiveThreadBell($threadId);
+        if ($this->forumGateway->activateThread($threadId)) {
+            // Thread was activated now, send notifications to followers
+            $info = $this->forumGateway->getThreadInfo($threadId);
+            $region = $this->regionGateway->getRegionDetails($info['region_id']);
+            $this->notifyActiveFollowersOfForumAboutNewThreadViaBell(
+                $region,
+                $threadId,
+                $info['ambassador_forum'],
+                $this->forumGateway->getThread($threadId)->title
+            );
+
+            // Remove notification bell for moderators
+            $this->removeInactiveThreadBell($threadId);
+        }
     }
 
     /**

@@ -980,6 +980,81 @@ class ForumApiCest
         // Actual no E-Mail or Bell notification is generated for the activated
     }
 
+    final public function followerBellsCreatedOnlyOnActivation(ApiTester $I): void
+    {
+        $moderatedRegion = $I->createRegion('ModeratedRegionFollowers', ['moderated' => true]);
+        $I->addRegionMember($moderatedRegion['id'], $this->user['id']);
+        $I->addRegionMember($moderatedRegion['id'], $this->user1['id']);
+        $I->addRegionAdmin($moderatedRegion['id'], $this->ambassador['id']);
+
+        // Make user1 follow new threads in the forum
+        $I->updateInDatabase('fs_foodsaver_has_bezirk', ['notify_on_all_new_threads' => 1], ['bezirk_id' => $moderatedRegion['id'], 'foodsaver_id' => $this->user1['id']]);
+
+        $I->login($this->user['email']);
+        $title = $this->faker->text(16);
+        $I->sendPost('api/forum/' . $moderatedRegion['id'] . '/0', [
+            'title' => $title,
+            'body' => $this->faker->text(100),
+            'sendMail' => false
+        ]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $respo = json_decode($I->grabResponse(), true);
+        $threadId = $respo['id'];
+
+        // Before activation: follower should not receive a bell
+        $I->login($this->user1['email']);
+        $I->sendGET('api/bells');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $bells = json_decode($I->grabResponse(), true);
+        $I->assertCount(0, $bells);
+
+        // Activate thread as ambassador
+        $I->login($this->ambassador['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/forum/thread/' . $threadId, ['isActive' => true]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // After activation: follower should receive a new thread bell
+        $I->login($this->user1['email']);
+        $I->sendGET('api/bells');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $bells = json_decode($I->grabResponse(), true);
+        $I->assertCount(1, $bells);
+        $I->assertEquals('new_forum_thread', $bells[0]['key']);
+        $I->assertEquals($title, $bells[0]['payload']['title']);
+    }
+
+    final public function followerBellsCreatedImmediatelyForNonModerated(ApiTester $I): void
+    {
+        $nonModeratedRegion = $I->createRegion('NonModeratedRegion', ['moderated' => false]);
+        $I->addRegionMember($nonModeratedRegion['id'], $this->user['id']);
+        $I->addRegionMember($nonModeratedRegion['id'], $this->user1['id']);
+        $I->addRegionAdmin($nonModeratedRegion['id'], $this->ambassador['id']);
+
+        // Make user1 follow new threads in the forum
+        $I->updateInDatabase('fs_foodsaver_has_bezirk', ['notify_on_all_new_threads' => 1], ['bezirk_id' => $nonModeratedRegion['id'], 'foodsaver_id' => $this->user1['id']]);
+
+        $I->login($this->user['email']);
+        $title = $this->faker->text(16);
+        $I->sendPost('api/forum/' . $nonModeratedRegion['id'] . '/0', [
+            'title' => $title,
+            'body' => $this->faker->text(100),
+            'sendMail' => false
+        ]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $respo = json_decode($I->grabResponse(), true);
+        $threadId = $respo['id'];
+
+        // Immediately after creation (non-moderated) follower should receive a new thread bell
+        $I->login($this->user1['email']);
+        $I->sendGET('api/bells');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $bells = json_decode($I->grabResponse(), true);
+        $I->assertCount(1, $bells);
+        $I->assertEquals('new_forum_thread', $bells[0]['key']);
+        $I->assertEquals($title, $bells[0]['payload']['title']);
+    }
+
     final public function checkNotificationForThreadCreatedButIsActiveValueBehavior(ApiTester $I): void
     {
         $I->haveHttpHeader('Content-Type', 'application/json');
