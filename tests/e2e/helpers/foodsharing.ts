@@ -6,6 +6,7 @@ import { Database } from "./database";
 import fs from "fs";
 import { v4 as uuidv4 } from "uuid";
 import { mkdirp } from "mkdirp";
+import { serialize } from "php-serialize";
 
 // Import enums from separate files
 import Role from "./constants/Foodsaver/Role";
@@ -846,17 +847,34 @@ class Foodsharing {
   }
 
   async addBells(users: any[], extraParams: any = {}): Promise<number> {
+    // Prepare params with defaults
+    const defaultVars = {};
+    const defaultAttr = { href: "/" };
+
     const params = {
       name: "title",
       body: faker.lorem.sentences(2),
       vars: "",
-      attr: JSON.stringify({ href: "/" }),
+      attr: "",
       icon: "icon",
       identifier: "",
       time: this.toDateTime(faker.date.recent()),
       closeable: 1,
       ...extraParams,
     };
+
+    // PHP serialize vars and attr if they exist
+    if (extraParams.vars !== undefined) {
+      params.vars = serialize(extraParams.vars);
+    } else if (params.vars === "") {
+      params.vars = serialize(defaultVars);
+    }
+
+    if (extraParams.attr !== undefined) {
+      params.attr = serialize(extraParams.attr);
+    } else if (params.attr === "") {
+      params.attr = serialize(defaultAttr);
+    }
 
     const bellId = await Database.addToDatabase("fs_bell", params);
 

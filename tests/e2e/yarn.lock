@@ -190,6 +190,11 @@ otplib@^12.0.1:
     "@otplib/preset-default" "^12.0.1"
     "@otplib/preset-v11" "^12.0.1"
 
+php-serialize@^5.1.3:
+  version "5.1.3"
+  resolved "https://registry.yarnpkg.com/php-serialize/-/php-serialize-5.1.3.tgz#95b6e1d9195bd9959a180b2870cccd72ef3ee105"
+  integrity sha512-p7zXX8xjGgddgP6byN+KmGKM0x6uoMZBRZteBa9LonqgrDV3LyMxUeGVX7RTFYwWaUAnTEsUWJfHI3N7eKvJgw==
+
 playwright-core@1.57.0:
   version "1.57.0"
   resolved "https://registry.yarnpkg.com/playwright-core/-/playwright-core-1.57.0.tgz#3dcc9a865af256fa9f0af0d67fc8dd54eecaebf5"
