@@ -46,6 +46,7 @@
           :independent="multipleDays && event.startDay < event.endDay"
           :from-time.sync="event.startTime"
           :to-time.sync="event.endTime"
+          :allow-zero-duration="false"
         />
       </b-form-group>
 
@@ -236,7 +237,7 @@ export default {
       if (!this.event.name) return false
       if (!this.startDate?.getTime?.()) return false
       if (!this.endDate?.getTime?.()) return false
-      if (this.startDate > this.endDate) return false
+      if (this.startDate >= this.endDate) return false
       if (!this.event.description) return false
       switch (this.event.type) {
         case EVENT_TYPE.OFFLINE:
@@ -279,13 +280,18 @@ export default {
     async submit () {
       this.submitting = true
       const event = this.prepareEventData()
-      if (this.edit) {
-        event.id = this.edit.id
-        await editEvent(event)
-        location.replace(this.$url('event', event.id))
-      } else {
-        const eventId = await addEvent(event)
-        location.replace(this.$url('event', eventId))
+      try {
+        if (this.edit) {
+          event.id = this.edit.id
+          await editEvent(event)
+          location.replace(this.$url('event', event.id))
+        } else {
+          const createdEvent = await addEvent(event)
+          location.replace(this.$url('event', createdEvent.id))
+        }
+      } catch (error) {
+        this.submitting = false
+        throw error
       }
     },
     prepareEventData () {

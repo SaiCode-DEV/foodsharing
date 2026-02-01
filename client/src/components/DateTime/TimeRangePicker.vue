@@ -29,13 +29,17 @@ export default {
     fromTime: { type: String, default: null },
     toTime: { type: String, default: null },
     independent: { type: Boolean, default: false },
+    allowZeroDuration: { type: Boolean, default: false },
   },
   computed: {
     state () {
       if (this.independent || !this.fromTime || !this.toTime) return null
       const [from, to] = [this.fromTime, this.toTime].map(time => time.split(':').map(Number))
       if (from[0] > to[0]) return false
-      if (from[0] === to[0] && from[1] > to[1]) return false
+      if (from[0] === to[0]) {
+        if (from[1] > to[1]) return false
+        if (from[1] === to[1] && !this.allowZeroDuration) return false
+      }
       return null
     },
   },
