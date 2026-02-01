@@ -444,7 +444,7 @@ function fetchStats (callback: (error: any, stats?: {connections: number, regist
 }
 
 function addPHPSessionToRedis (userId: number, sessionId: string, callback: (error: any) => any): void {
-    redisClient.set(`PHPREDIS_SESSION:${sessionId}`, 'foo')
+    redisClient.set(`fs_sess:${sessionId}`, 'foo')
         .then(async () =>
             await redisClient.sadd(`php:user:${userId}:sessions`, sessionId)
         ).then(callback)

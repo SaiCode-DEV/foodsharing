@@ -13,6 +13,6 @@ local function collect(user_key, session_prefix)
   end
 end
 
-collect("php:user:" .. user_id .. ":sessions", "PHPREDIS_SESSION:")
+collect("php:user:" .. user_id .. ":sessions", "fs_sess:")
 
 return all_session_ids
