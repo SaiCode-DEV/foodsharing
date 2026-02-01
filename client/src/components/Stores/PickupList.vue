@@ -211,6 +211,7 @@ export default {
       try {
         await joinPickup(this.storeId, date)
         this.pickupStore.invalidateOptionsCache()
+        this.pickupStore.invalidateRegisteredCache()
       } catch (e) {
         console.error(e)
         pulseError(this.$t('pickuplist.tooslow') + '<br /><br />' + this.$t('pickuplist.tryagain'))
@@ -222,6 +223,7 @@ export default {
       try {
         await leavePickup(this.storeId, date, this.userStore.getUserId)
         this.pickupStore.invalidateOptionsCache()
+        this.pickupStore.invalidateRegisteredCache()
       } catch (e) {
         pulseError(this.$t('pickuplist.error_leave') + e)
       }
@@ -250,6 +252,7 @@ export default {
       try {
         await setPickupSlots(this.storeId, date, totalSlots, description)
         this.pickupStore.invalidateOptionsCache()
+        this.pickupStore.invalidateRegisteredCache()
       } catch (e) {
         pulseError(this.$t('pickuplist.error_changeSlotCount') + e)
       }
@@ -289,6 +292,7 @@ export default {
       try {
         await setPickupSlots(this.storeId, date, totalSlots, description)
         this.pickupStore.invalidateOptionsCache()
+        this.pickupStore.invalidateRegisteredCache()
       } catch (e) {
         pulseError(this.$t('pickuplist.error_changeSlotCount') + e)
       }

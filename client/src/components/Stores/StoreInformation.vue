@@ -662,6 +662,7 @@ export default {
         if (JSON.stringify(this.loadedPickups) !== JSON.stringify(this.editPickups)) {
           await editRegularPickup(this.storeId, this.editPickups)
           this.pickupStore.invalidateOptionsCache()
+          this.pickupStore.invalidateRegisteredCache()
           await this.pickupStore.fetchRegularPickup(this.storeId)
         }
 

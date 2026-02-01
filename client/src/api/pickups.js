@@ -1,4 +1,5 @@
-import { get, patch, post, remove, put } from './base'
+import { get, patch, post, remove, put, cachedGet } from './base'
+import { cacheKeys } from '@/helper/cache-keys'
 
 export async function listPickups (storeId) {
   const res = await get(`/stores/${storeId}/pickups`)
@@ -77,14 +78,17 @@ export async function listSameDayAgendaForUser (fsId, onDate) {
 }
 
 export async function listRegisteredPickups (fsId) {
-  if (fsId) {
-    return await get(`/pickup/registered?fsId=${fsId}`)
-  }
-  return await get('/pickup/registered')
+  const userId = fsId ?? 'current'
+  return await cachedGet(`/users/${userId}/pickups/registered`, {
+    ...cacheKeys.listRegisteredPickups(userId),
+  })
 }
 
-export async function listPickupOptions () {
-  return await get('/users/current/pickups/options')
+export async function listPickupOptions ({ force = false } = {}) {
+  return await cachedGet('/users/current/pickups/options', {
+    ...cacheKeys.listPickupOptions(),
+    force,
+  })
 }
 
 export async function listPastPickups (userId, limit, offset) {

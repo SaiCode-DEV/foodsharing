@@ -3,6 +3,7 @@ import { HTTP_RESPONSE } from '@/consts'
 import { url } from '@/helper/urls'
 import { captureRequestError } from '@/sentry'
 import { pulseError } from '@/script'
+import { getCache, setCache, getCacheInterval } from '@/helper/cache'
 import i18n from '@/helper/i18n'
 
 const api = axios.create({
@@ -231,6 +232,40 @@ export const post = (path, data, config = {}) => request(path, { method: 'POST',
 export const put = (path, data, config = {}) => request(path, { method: 'PUT', data, ...config })
 export const patch = (path, data, config = {}) => request(path, { method: 'PATCH', data, ...config })
 export const remove = (path, data, config = {}) => request(path, { method: 'DELETE', data, ...config })
+
+// Cached GET with automatic cache handling
+// Usage: cachedGet('/api/path', { cacheKey: cacheKey('pickupOptions'), cacheDuration: 300000 })
+const activeCacheRequests = new Map()
+
+export const cachedGet = async (path, { cacheKey, cacheDuration = 300000, force = false, ...config } = {}) => {
+  if (!cacheKey) {
+    throw new Error('cachedGet requires a cacheKey')
+  }
+
+  // Check if this exact cache key is already being fetched
+  if (activeCacheRequests.has(cacheKey)) {
+    return activeCacheRequests.get(cacheKey)
+  }
+
+  const fetchPromise = (async () => {
+    try {
+      const shouldRefetch = force || await getCacheInterval(cacheKey, cacheDuration)
+
+      if (shouldRefetch) {
+        const data = await get(path, config)
+        await setCache(cacheKey, data)
+        return data
+      } else {
+        return await getCache(cacheKey)
+      }
+    } finally {
+      activeCacheRequests.delete(cacheKey)
+    }
+  })()
+
+  activeCacheRequests.set(cacheKey, fetchPromise)
+  return fetchPromise
+}
 
 // Export method to check for active requests
 export const hasActiveRequests = () => activeRequests > 0

@@ -1,7 +1,15 @@
 const cacheName = 'foodsharing.network'
 
+// Helper to extract cache key from string or cache config object
+function getCacheKeyString (cacheRequestName) {
+  return typeof cacheRequestName === 'string'
+    ? cacheRequestName
+    : cacheRequestName.cacheKey
+}
+
 export async function getCacheAge (cacheRequestName) {
-  const cacheRequestNameWithSlash = '/' + cacheRequestName
+  const key = getCacheKeyString(cacheRequestName)
+  const cacheRequestNameWithSlash = '/' + key
   const lastFetchTimeRequestName = `${cacheRequestNameWithSlash}_lastFetchTime`
   let cachedLastFetchTime = 0
   try {
@@ -20,7 +28,8 @@ export async function getCacheInterval (cacheRequestName, rateLimitInterval) {
 }
 
 export async function setCache (cacheRequestName, cacheValue) {
-  const cacheRequestNameWithSlash = '/' + cacheRequestName
+  const key = getCacheKeyString(cacheRequestName)
+  const cacheRequestNameWithSlash = '/' + key
 
   try {
     const cache = await caches.open(cacheName)
@@ -53,7 +62,8 @@ async function setCacheLastFetch (cacheRequestNameWithSlash, cache) {
 }
 
 export async function getCache (cacheRequestName) {
-  const cacheRequestNameWithSlash = '/' + cacheRequestName
+  const key = getCacheKeyString(cacheRequestName)
+  const cacheRequestNameWithSlash = '/' + key
   try {
     const cache = await caches.open(cacheName)
     const cacheResponse = await cache.match(cacheRequestNameWithSlash)
@@ -77,13 +87,14 @@ export async function clearCaches () {
 }
 
 export async function invalidateCache (cacheRequestName) {
-  const cacheRequestNameWithSlash = '/' + cacheRequestName
+  const key = getCacheKeyString(cacheRequestName)
+  const cacheRequestNameWithSlash = '/' + key
   const lastFetchTimeRequestName = `${cacheRequestNameWithSlash}`
   try {
     const cache = await caches.open(cacheName)
     cache.delete(cacheRequestNameWithSlash)
     cache.delete(lastFetchTimeRequestName + '_lastFetchTime')
-    console.debug(`Invalidated cache ${cacheRequestName}`)
+    console.debug(`Invalidated cache ${key}`)
   } catch (error) {
     console.error(`Error while invalidating cache ${cacheRequestName}:`, error)
   }

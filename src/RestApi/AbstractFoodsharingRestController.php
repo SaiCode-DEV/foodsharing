@@ -89,4 +89,17 @@ abstract class AbstractFoodsharingRestController extends AbstractFOSRestControll
 
         return $pagination;
     }
+
+    protected function resolveUserId(string $userId): int
+    {
+        if ($userId === 'current') {
+            $this->assertLoggedIn();
+
+            return $this->session->id();
+        } elseif (!ctype_digit($userId)) {
+            throw new BadRequestHttpException('Invalid userId');
+        }
+
+        return (int)$userId;
+    }
 }

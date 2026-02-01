@@ -327,14 +327,15 @@ final class PickupRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Get(summary: 'Get future registered pickups for a user')]
-    #[Route('users/{userId}/pickups/registered', methods: ['GET'], requirements: ['userId' => Requirement::POSITIVE_INT])]
+    #[Route('users/{userId}/pickups/registered', methods: ['GET'], requirements: ['userId' => FSRequirement::USER_ID])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
         type: 'array', items: new OA\Items(type: 'object', ref: new Model(type: PickupOption::class))
     ))]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
-    public function listRegisteredPickups(int $userId): Response
+    public function listRegisteredPickups(string $userId): Response
     {
         $this->assertLoggedIn();
+        $userId = $this->resolveUserId($userId);
 
         if (!$this->profilePermissions->maySeePickups($userId)) {
             throw new AccessDeniedHttpException('Not permitted');

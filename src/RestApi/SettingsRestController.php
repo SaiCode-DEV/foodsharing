@@ -11,6 +11,7 @@ use Foodsharing\RestApi\Models\Settings\EmailChangeRequest;
 use Foodsharing\RestApi\Models\Settings\PasswordChangeRequest;
 use Foodsharing\RestApi\Models\Settings\SleepStatusRequest;
 use Foodsharing\RestApi\Models\Settings\TwoFARequest;
+use Foodsharing\Utility\Requirement as FSRequirement;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
@@ -63,23 +64,22 @@ class SettingsRestController extends AbstractFoodsharingRestController
         out the confirmation email. Every user can change their own email address.
         Changing someone elses address requires certain permissions.'
     )]
-    #[Route('/user/current/email', methods: ['PATCH'])]
-    #[Route('/user/{userId}/email', requirements: ['userId' => Requirement::POSITIVE_INT], methods: ['PATCH'])]
+    #[Route('/user/{userId}/email', requirements: ['userId' => FSRequirement::USER_ID], methods: ['PATCH'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Empty or invalid parameters')]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Wrong password')]
     public function requestEmailChange(
         #[MapRequestPayload] EmailChangeRequest $request,
-        ?int $userId = null
+        string $userId
     ): Response {
         $this->assertLoggedIn();
-        $targetUserId = $userId ?? $this->session->id();
+        $userId = $this->resolveUserId($userId);
 
-        if ($targetUserId == $this->session->id()) {
+        if ($userId == $this->session->id()) {
             $this->settingsTransactions->requestEmailChange($request);
         } else {
-            $this->settingsTransactions->changeLoginEmail($request, $targetUserId);
+            $this->settingsTransactions->changeLoginEmail($request, $userId);
         }
 
         return $this->respondOK();

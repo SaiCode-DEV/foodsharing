@@ -1,24 +1,17 @@
 import { defineStore } from 'pinia'
 import { listRegisteredPickups, listPickupOptions, getRegularPickup, listPickups } from '@/api/pickups'
-import { getCache, getCacheInterval, setCache, invalidateCache, getCacheAge } from '@/helper/cache'
-
-const CACHES = {
-  options: {
-    name: 'pickup-options',
-    interval: 900000, // 15 minutes in milliseconds
-  },
-}
+import { invalidateCache, getCacheAge } from '@/helper/cache'
+import { cacheKeys } from '@/helper/cache-keys'
 
 export const usePickupStore = defineStore('pickup', {
   state: () => ({
-    registred: [],
+    registered: [],
     options: [],
     regularPickup: [],
     pickups: [],
-    loading: null,
   }),
   getters: {
-    getRegistered: (state) => state.registred,
+    getRegistered: (state) => state.registered,
     getOptions: (state) => state.options,
     getRegularPickup: (state) => state.regularPickup,
     getPickups: (state) => state.pickups,
@@ -26,7 +19,7 @@ export const usePickupStore = defineStore('pickup', {
   actions: {
     async fetchRegistered (id) {
       try {
-        this.registred = await listRegisteredPickups(id)
+        this.registered = await listRegisteredPickups(id)
       } catch (error) {
         console.error('Error fetching registered pickups:', error)
       }
@@ -39,29 +32,21 @@ export const usePickupStore = defineStore('pickup', {
       }
     },
     async fetchOptions (force = false) {
-      if (this.loading) return this.loading
-      let doneLoading
-      this.loading = new Promise(resolve => { doneLoading = resolve })
       try {
-        const doRefetch = force || await getCacheInterval(CACHES.options.name, CACHES.options.interval)
-        if (doRefetch) {
-          this.options = await listPickupOptions()
-          await setCache(CACHES.options.name, this.options)
-        } else {
-          this.options = await getCache(CACHES.options.name)
-        }
-        doneLoading()
-        this.loading = null
-        return doRefetch
+        this.options = await listPickupOptions({ force })
       } catch (error) {
         console.error('Error fetching pickup options:', error)
       }
     },
     async invalidateOptionsCache () {
-      await invalidateCache(CACHES.options.name)
+      await invalidateCache(cacheKeys.listPickupOptions())
+    },
+    async invalidateRegisteredCache (id) {
+      const userId = id ?? 'current'
+      await invalidateCache(cacheKeys.listRegisteredPickups(userId))
     },
     async getOptionsCacheAge () {
-      return await getCacheAge(CACHES.options.name)
+      return await getCacheAge(cacheKeys.listPickupOptions())
     },
     async loadPickups (storeId) {
       try {

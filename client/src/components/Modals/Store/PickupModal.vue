@@ -169,6 +169,7 @@ export default {
 
         await setPickupSlots(this.storeId, combinedDateTime, this.selectedSlotCount, this.slotDescription)
         this.pickupStore.invalidateOptionsCache()
+        this.pickupStore.invalidateRegisteredCache()
         await this.pickupStore.loadPickups(this.storeId)
       } catch (err) {
         const errorDescription = err.jsonContent ?? { message: '' }
