@@ -426,12 +426,20 @@ class QuizTransactions
     {
         $user = $this->foodsaverGateway->getFoodsaverDetails($userId);
         if ($user['mailbox_id'] === null) {
-            $firstName = explode(' ', $user['name'])[0];
-            $lastName = explode(' ', $user['nachname'])[0];
+            // Make sure that first and last name are not empty
+            $firstName = mb_trim($user['name']);
+            $lastName = mb_trim($user['nachname']);
+            if (mb_strlen($firstName) < 1 || mb_strlen($lastName) < 1) {
+                throw new BadRequestHttpException('Could not create a personal mailbox if either first or last name are empty');
+            }
 
-            $mailboxName = mb_strtolower(substr($firstName, 0, 1) . '.' . $lastName);
-            $mailboxName = trim($mailboxName);
-            $mailboxName = str_replace(['ä', 'ö', 'ü', 'è', 'ß', ' '], ['ae', 'oe', 'ue', 'e', 'ss', '.'], $mailboxName);
+            // Only use the first part of each name
+            $firstName = explode(' ', $firstName)[0];
+            $lastName = explode(' ', $lastName)[0];
+
+            $mailboxName = mb_strtolower(mb_substr($firstName, 0, 1) . '.' . $lastName);
+            $mailboxName = mb_trim($mailboxName);
+            $mailboxName = str_replace(['ä', 'ö', 'ü', 'è', 'ß', 'ş', ' '], ['ae', 'oe', 'ue', 'e', 'ss', 's', '.'], $mailboxName);
             $mailboxName = preg_replace('/[^0-9a-z\.]/', '', $mailboxName) ?? '';
             $mailboxName = substr($mailboxName, 0, 25);
 
