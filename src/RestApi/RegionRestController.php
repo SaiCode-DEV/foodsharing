@@ -73,12 +73,18 @@ class RegionRestController extends AbstractFoodsharingRestController
     ) {
     }
 
+    #[OA2\Post(description: 'Calling the endpoint with a region in which the user is already a member has no effect.')]
     #[Rest\Post('region/{regionId}/join', requirements: ['regionId' => '\d+'])]
     public function joinRegion(int $regionId): Response
     {
         $sessionId = $this->session->id();
         if ($sessionId === null) {
             throw new UnauthorizedHttpException('');
+        }
+
+        // If the user is already in the region, there is nothing to do
+        if (in_array($regionId, $this->currentUserUnits->listRegionIDs())) {
+            return $this->respondOK();
         }
 
         $region = $this->regionGateway->getRegion($regionId);
