@@ -41,7 +41,7 @@
     <div class="list-group-item">
       <b-form-checkbox
         id="activeRegionPickupRule"
-        v-model="regionPickupRuleActive"
+        v-model="isRegionPickupRuleActive"
         class="mt-1"
         :disabled="!maySetRule"
       >
@@ -55,7 +55,7 @@
             type="range"
             min="1"
             max="31"
-            :disabled="!maySetRule || !regionPickupRuleActive"
+            :disabled="!maySetRule || !isRegionPickupRuleActive"
           />
         </b-col>
       </b-row>
@@ -67,7 +67,7 @@
             type="range"
             min="1"
             max="14"
-            :disabled="!maySetRule || !regionPickupRuleActive"
+            :disabled="!maySetRule || !isRegionPickupRuleActive"
             @change="onChangeMax()"
           />
         </b-col>
@@ -80,7 +80,7 @@
             type="range"
             min="1"
             :max="rangeDayLimit"
-            :disabled="!maySetRule || !regionPickupRuleActive"
+            :disabled="!maySetRule || !isRegionPickupRuleActive"
           />
         </b-col>
       </b-row>
@@ -92,7 +92,7 @@
           <b-form-select
             v-model="regionPickupRuleInactiveHours"
             :options="optionsIgnoreRuleHours"
-            :disabled="!maySetRule || !regionPickupRuleActive"
+            :disabled="!maySetRule || !isRegionPickupRuleActive"
           />
         </b-col>
       </b-row>
@@ -146,7 +146,7 @@ export default {
       isReportButtonEnabled: false,
       isMediationButtonEnabled: false,
       isAddressChangeNotificationEnabled: false,
-      regionPickupRuleActive: false,
+      isRegionPickupRuleActive: false,
       regionPickupRuleTimespanDays: 0,
       regionPickupRuleLimitNumber: 0,
       regionPickupRuleLimitDayNumber: 0,
@@ -209,7 +209,7 @@ export default {
           this.regionId,
           this.isReportButtonEnabled,
           this.isMediationButtonEnabled,
-          this.regionPickupRuleActive,
+          this.isRegionPickupRuleActive,
           this.regionPickupRuleTimespanDays,
           this.regionPickupRuleLimitNumber,
           this.regionPickupRuleLimitDayNumber,
