@@ -6,6 +6,8 @@
     "preserveConstEnums": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
     "experimentalDecorators": true,
     "typeRoots": ["./node_modules/@types"],
     "outDir": "dist"

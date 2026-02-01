@@ -1,6 +1,6 @@
 import { Tedis } from 'tedis';
 import { spawn } from 'child_process';
-import * as test from 'tape';
+import test from 'tape';
 import * as randomString from 'randomstring';
 import { Test } from 'tape';
 import { io, Socket } from 'socket.io-client';
