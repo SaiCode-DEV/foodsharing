@@ -27,14 +27,14 @@
         @load="(evt) => evt.target.classList.add('loaded')"
       >
       <div
-        v-if="gallerySiblings[0]"
+        v-if="gallerySiblings?.[0]"
         class="gallery-navigation prev"
         @click="swapToModal(0)"
       >
         <i class="fas fa-angle-left" />
       </div>
       <div
-        v-if="gallerySiblings[1]"
+        v-if="gallerySiblings?.[1]"
         class="gallery-navigation next"
         @click="swapToModal(1)"
       >
@@ -153,7 +153,7 @@ export default {
       }
     },
     swapToModal (siblingIndex) {
-      if (this.gallerySiblings[siblingIndex]) {
+      if (this.gallerySiblings?.[siblingIndex]) {
         this.$bvModal.hide(this.uniqueId)
         this.$bvModal.show(this.gallerySiblings[siblingIndex])
       }
@@ -161,7 +161,7 @@ export default {
     async showHandler () {
       if (this.galleryIndex === null) return
       this.canScrollSwap = false
-      this.gallerySiblings = this.$parent.getGallerySiblings(this.galleryIndex)
+      this.gallerySiblings = this.$parent.getGallerySiblings(this.galleryIndex) || [null, null]
       await new Promise(resolve => window.setTimeout(resolve, 100)) // timeout for key swapping
       this.$refs.img?.focus()
       await new Promise(resolve => window.setTimeout(resolve, 400)) // timeout for scroll swappping
@@ -176,7 +176,7 @@ export default {
       }
     },
     touchStartHandler (evt) {
-      if (evt.touches.lenght > 1) {
+      if (evt.touches.length > 1) {
         this.touchStart = null
         return
       }
