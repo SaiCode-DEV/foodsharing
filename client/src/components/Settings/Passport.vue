@@ -46,11 +46,11 @@
       />
       <GoogleWalletButton
         class="m-2"
-        href="/api/user/current/google/wallet"
+        :href="walletUrls.GOOGLE"
       />
       <AppleWalletButton
         class="m-2"
-        href="/api/user/current/apple/wallet"
+        :href="walletUrls.APPLE"
       />
     </div>
   </div>
@@ -65,6 +65,7 @@ import { onMounted, computed } from 'vue'
 import Markdown from '@/components/Markdown/Markdown.vue'
 import i18n from '@/helper/i18n'
 import dateFormatter from '@/helper/date-formatter'
+import { walletUrls } from '@/api/verification'
 
 const userStore = useUserStore()
 

@@ -313,7 +313,7 @@ class PassportGeneratorTransaction
         return $validUntil >= $date;
     }
 
-    public function generatePassportAsAmbassador(CreateRegionPassportModel $regionPassportModel): mixed
+    public function generatePassportAsAmbassador(CreateRegionPassportModel $regionPassportModel): ?string
     {
         $result = new stdClass();
         $generatedUserId = $this->session->id();
@@ -336,7 +336,11 @@ class PassportGeneratorTransaction
             }
         }
 
-        return $regionPassportModel->createPdf ? $result->pdf->Output('', 'S') : json_encode(['userIds' => $regionPassportModel->userIds]);
+        if ($regionPassportModel->createPdf) {
+            return $result->pdf->Output('', 'S');
+        }
+
+        return null;
     }
 
     private function addBellAndSendPassportMail(array $userIds): void

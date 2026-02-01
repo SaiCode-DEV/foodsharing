@@ -24,7 +24,7 @@
 <script setup>
 import { defineProps, ref } from 'vue'
 import { pulseError } from '@/script'
-import { createPassportAsUser } from '@/api/verification'
+import { getPassportAsUser } from '@/api/verification'
 import { useUserStore } from '@/stores/user.js'
 import i18n from '@/helper/i18n'
 
@@ -43,7 +43,7 @@ async function tryCreateAsUser () {
   if (props.disabled || busy.value) return
   busy.value = true
   try {
-    const blob = await createPassportAsUser()
+    const blob = await getPassportAsUser()
     const filename = 'fs_passport_' + userStore.getUserId + '.pdf'
     downloadFile(blob, filename)
   } catch (e) {
