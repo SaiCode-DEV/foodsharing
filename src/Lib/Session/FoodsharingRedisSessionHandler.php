@@ -65,8 +65,8 @@ class FoodsharingRedisSessionHandler extends AbstractSessionHandler
         );
 
         // Store the session ID in the user's session list if user is logged in
-        if (isset($_SESSION['client']['id']) && !empty($_SESSION['client']['id'])) {
-            $this->mem->userAddSession($_SESSION['client']['id'], $sessionId);
+        if (isset($_SESSION['user']['id']) && !empty($_SESSION['user']['id'])) {
+            $this->mem->userAddSession($_SESSION['user']['id'], $sessionId);
         }
 
         return $result;
@@ -75,8 +75,8 @@ class FoodsharingRedisSessionHandler extends AbstractSessionHandler
     protected function doDestroy(string $sessionId): bool
     {
         // Remove the session from the user's session list if user is logged in
-        if (isset($_SESSION['client']['id']) && !empty($_SESSION['client']['id'])) {
-            $this->mem->userRemoveSession($_SESSION['client']['id'], $sessionId);
+        if (isset($_SESSION['user']['id']) && !empty($_SESSION['user']['id'])) {
+            $this->mem->userRemoveSession($_SESSION['user']['id'], $sessionId);
         }
 
         $result = $this->mem->cache->del($this->prefix . $sessionId);

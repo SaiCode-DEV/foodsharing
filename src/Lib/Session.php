@@ -18,7 +18,7 @@ class Session
 {
     // update this whenever adding new fields to the session!!!
     // this should be a unix timestamp, together with a human readable date in a comment.
-    private const int LAST_SESSION_SCHEMA_CHANGE = 1_741_984_322; // 2025-03-14 20:32 UTC
+    private const int LAST_SESSION_SCHEMA_CHANGE = 1_768_464_660; // 2026-01-15 08:11 UTC
 
     private const string SESSION_TIMESTAMP_FIELD_NAME = 'last_updated_ts';
 
@@ -441,16 +441,11 @@ class Session
             'location' => GeoLocation::createFromArray($fs, false),
             'photo' => $fs['photo'],
             'gender' => $fs['geschlecht'],
+            'verified' => (int)$fs['verified'],
+            'id' => $fs['id'],
         ]);
 
         $this->set('login', true);
-        $this->set('client', [
-            'id' => $fs['id'],
-            'bezirk_id' => $fs['bezirk_id'],
-            'rolle' => (int)$fs['rolle'],
-            'verified' => (int)$fs['verified'],
-            'last_activity' => $fs['last_activity'],
-        ]);
 
         // Force immediate write to Redis to prevent race conditions
         $this->symfonySession->save();
@@ -465,12 +460,7 @@ class Session
             return true;
         }
 
-        $client = $this->get('client');
-        if (isset($client['verified']) && $client['verified'] == 1) {
-            return true;
-        }
-
-        return false;
+        return $this->user('verified') === 1;
     }
 
     /**
