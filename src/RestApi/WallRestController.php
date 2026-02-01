@@ -5,6 +5,7 @@ namespace Foodsharing\RestApi;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DBConstants\WallType;
+use Foodsharing\Modules\Core\Pagination;
 use Foodsharing\Modules\Reaction\ReactionTransactions;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\WallPost\DTO\WallPost;
@@ -12,7 +13,6 @@ use Foodsharing\Modules\WallPost\EmojiList;
 use Foodsharing\Modules\WallPost\WallPostGateway;
 use Foodsharing\Modules\WallPost\WallPostTransactions;
 use Foodsharing\Permissions\WallPostPermissions;
-use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,8 +21,11 @@ use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Requirement\Requirement;
 
 #[OA\Tag(name: 'wall')]
+#[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
 class WallRestController extends AbstractFoodsharingRestController
 {
     public function __construct(
@@ -37,58 +40,41 @@ class WallRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Get(summary: 'Get posts of a wall.')]
-    #[Rest\Get('wall/{target}/{targetId}', requirements: ['target' => '\w+', 'targetId' => '\d+'])]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(properties: [
+    #[Route('/walls/{target}/{targetId}', requirements: ['target' => '\w+', 'targetId' => Requirement::POSITIVE_INT], methods: ['GET'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(type: 'object', properties: [
         new OA\Property(property: 'posts', type: 'array', items: new OA\Items(ref: new Model(type: WallPost::class))),
-        new OA\Property(
-            property: 'mayPost',
-            description: 'Whether the user is permitted to post to this wall',
-            type: 'boolean'
-        ),
-        new OA\Property(
-            property: 'mayDelete',
-            description: 'whether the user is permitted to delete all posts on this wall',
-            type: 'boolean'
-        ),
-        new OA\Property(
-            property: 'mayReact',
-            description: 'whether the user is permitted to react to posts on this wall',
-            type: 'boolean'
-        ),
-    ], type: 'object'))]
+        new OA\Property(property: 'mayPost', type: 'boolean', description: 'Whether the user is permitted to post to this wall'),
+        new OA\Property(property: 'mayDelete', type: 'boolean', description: 'whether the user is permitted to delete all posts on this wall'),
+        new OA\Property(property: 'mayReact', type: 'boolean', description: 'whether the user is permitted to react to posts on this wall'),
+    ]))]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted to read this wall')]
-    public function getPosts(
-        string $target,
-        int $targetId,
-        #[MapQueryParameter] int $limit = 50,
-        #[MapQueryParameter] int $offset = 0,
-    ): Response {
+    public function getPosts(string $target, int $targetId, #[MapQueryParameter] ?int $limit, #[MapQueryParameter] ?int $offset): Response
+    {
         $wallType = $this->parseWallType($target, $targetId);
         if (!$this->wallPostPermissions->mayReadWall($wallType, $targetId)) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Not permitted ');
         }
+        $pagination = Pagination::create($limit, $offset);
 
-        $posts = $this->wallPostGateway->getPosts($wallType, $targetId, $limit, $offset);
+        $posts = $this->wallPostGateway->getPosts($wallType, $targetId, $pagination);
 
         $mayReact = $this->wallPostPermissions->mayReactToPostsOnWall($wallType, $targetId);
         if ($mayReact && !empty($posts)) {
             $reactions = $this->wallPostGateway->getReactionsForPosts(array_column($posts, 'id'));
             $this->reactionTransactions->addReactionsToPosts($reactions, $posts);
         }
-        $response = [
+
+        return $this->respondOK([
             'posts' => $posts,
             'mayPost' => $this->wallPostPermissions->mayWriteWall($wallType, $targetId),
             'mayDelete' => $this->wallPostPermissions->mayDeleteWall($wallType, $targetId),
             'mayReact' => $mayReact,
-        ];
-
-        return $this->respondOK($response);
+        ]);
     }
 
     #[OA\Post(summary: 'Add a post to a wall.')]
-    #[Rest\Post('wall/{target}/{targetId}', requirements: ['target' => '\w+', 'targetId' => '\d+'])]
+    #[Route('/walls/{target}/{targetId}', requirements: ['target' => '\w+', 'targetId' => Requirement::POSITIVE_INT], methods: ['POST'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: WallPost::class))]
-    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted to post to this wall or to use the upload UUIDs')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid post data')]
     public function addPost(string $target, int $targetId, #[MapRequestPayload] WallPost $wallPost): Response
@@ -96,7 +82,7 @@ class WallRestController extends AbstractFoodsharingRestController
         $this->assertLoggedIn();
         $wallType = $this->parseWallType($target, $targetId);
         if (!$this->wallPostPermissions->mayWriteWall($wallType, $targetId)) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Not permitted to post to this wall');
         }
         if (!($wallPost->body || $wallPost->pictures)) {
             throw new BadRequestHttpException('Post cannot be empty');
@@ -108,9 +94,8 @@ class WallRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Delete(summary: 'Delete a post from a wall.')]
-    #[Rest\Delete('wall/{target}/{targetId}/{postId}', requirements: ['target' => '\w+', 'targetId' => '\d+', 'postId' => '\d+'])]
+    #[Route('/walls/{target}/{targetId}/posts/{postId}', requirements: ['target' => '\w+', 'targetId' => Requirement::POSITIVE_INT, 'postId' => Requirement::POSITIVE_INT], methods: ['DELETE'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
-    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted to delete this post')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'The post does not exist')]
     public function deletePost(string $target, int $targetId, int $postId): Response
@@ -118,10 +103,10 @@ class WallRestController extends AbstractFoodsharingRestController
         $this->assertLoggedIn();
         $wallType = $this->parseWallType($target, $targetId);
         if (!$this->wallPostPermissions->mayDeleteWallPost($wallType, $targetId, $postId)) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Not permitted to delete this post');
         }
         if (!$this->wallPostGateway->isLinkedToTarget($postId, $wallType, $targetId)) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException('The post does not exist');
         }
 
         $this->wallPostTransactions->deletePost($postId, $wallType, $targetId);
@@ -130,9 +115,8 @@ class WallRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Post(summary: 'Adds a reactions to a post.', description: 'The reaction type key can be any emoji name supported by the frontend.')]
-    #[Rest\Post('wall/{target}/{targetId}/{postId}/reaction/{key}', requirements: ['target' => '\w+', 'targetId' => '\d+', 'postId' => '\d+', 'key' => '\w+'])]
+    #[Route('/walls/{target}/{targetId}/posts/{postId}/reactions/{key}', requirements: ['target' => '\w+', 'targetId' => Requirement::POSITIVE_INT, 'postId' => Requirement::POSITIVE_INT, 'key' => '\w+'], methods: ['POST'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
-    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted to react on this post')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'The post does not exist')]
     public function addReaction(string $target, int $targetId, int $postId, string $key): Response
@@ -141,10 +125,10 @@ class WallRestController extends AbstractFoodsharingRestController
         EmojiList::assertIsValidEmoji($key);
         $wallType = $this->parseWallType($target, $targetId);
         if (!$this->wallPostGateway->isLinkedToTarget($postId, $wallType, $targetId)) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException('The post does not exist');
         }
         if (!$this->wallPostPermissions->mayReactToPostsOnWall($wallType, $targetId)) {
-            throw new AccessDeniedHttpException('You are not permitted to react to posts on this wall.');
+            throw new AccessDeniedHttpException('Not permitted to react on this post');
         }
 
         $this->wallPostGateway->addReaction($postId, $this->session->id(), $key);
@@ -153,20 +137,19 @@ class WallRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Delete(summary: 'Removes one of your a reactions from a post.', description: 'The reaction type key can be any emoji name supported by the frontend.')]
-    #[Rest\Delete('wall/{target}/{targetId}/{postId}/reaction/{key}', requirements: ['target' => '\w+', 'targetId' => '\d+', 'postId' => '\d+', 'key' => '\w+'])]
+    #[Route('/walls/{target}/{targetId}/posts/{postId}/reactions/{reactionKey}', requirements: ['target' => '\w+', 'targetId' => Requirement::POSITIVE_INT, 'postId' => Requirement::POSITIVE_INT, 'reactionKey' => '\w+'], methods: ['DELETE'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
-    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'The post does not exist')]
-    public function deleteReaction(string $target, int $targetId, int $postId, string $key): Response
+    public function deleteReaction(string $target, int $targetId, int $postId, string $reactionKey): Response
     {
         $this->assertLoggedIn();
-        EmojiList::assertIsValidEmoji($key);
+        EmojiList::assertIsValidEmoji($reactionKey);
         $wallType = $this->parseWallType($target, $targetId);
         if (!$this->wallPostGateway->isLinkedToTarget($postId, $wallType, $targetId)) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException('The post does not exist');
         }
 
-        $this->wallPostGateway->removeReaction($postId, $this->session->id(), $key);
+        $this->wallPostGateway->removeReaction($postId, $this->session->id(), $reactionKey);
 
         return $this->respondOK();
     }

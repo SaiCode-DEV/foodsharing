@@ -4,6 +4,7 @@ namespace Foodsharing\Modules\WallPost;
 
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\DBConstants\WallType;
+use Foodsharing\Modules\Core\Pagination;
 use Foodsharing\Modules\WallPost\DTO\WallPost;
 
 class WallPostGateway extends BaseGateway
@@ -46,7 +47,7 @@ class WallPostGateway extends BaseGateway
     /**
      * @return WallPost[]
      */
-    public function getPosts(WallType $target, int $targetId, int $limit = 50, int $offset = 0): array
+    public function getPosts(WallType $target, int $targetId, Pagination $pagination): array
     {
         $posts = $this->db->fetchAll("SELECT {$this->selectColumns}
 		    FROM fs_wallpost post
@@ -54,8 +55,8 @@ class WallPostGateway extends BaseGateway
             INNER JOIN {$this->getLinkTableName($target)} has_post ON post.id = has_post.wallpost_id
 			WHERE has_post.`{$this->getLinkTableForeignIdColumnName($target)}` = :targetId
 			ORDER BY post.time DESC
-			LIMIT :offset, :limit 
-		", ['targetId' => $targetId, 'limit' => $limit, 'offset' => $offset]);
+        " . $this->buildPaginationSqlLimit($pagination),
+            $this->addPaginationSqlLimitParameters($pagination, ['targetId' => $targetId]));
 
         return array_map(WallPost::createFromArray(...), $posts);
     }

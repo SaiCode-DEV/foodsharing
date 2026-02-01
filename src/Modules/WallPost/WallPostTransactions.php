@@ -2,7 +2,6 @@
 
 namespace Foodsharing\Modules\WallPost;
 
-use DateTime;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Bell\BellTransactions;
 use Foodsharing\Modules\Bell\DTO\Bell;
@@ -109,7 +108,7 @@ class WallPostTransactions
 
         switch ($target) {
             case WallType::STORE:
-                $this->storeGateway->addStoreLog($targetId, $this->session->id(), $post->author->id, new DateTime($post->time), StoreLogAction::DELETED_FROM_WALL, $post->body);
+                $this->storeGateway->addStoreLog($targetId, $this->session->id(), $post->author->id, $post->time, StoreLogAction::DELETED_FROM_WALL, $post->body);
                 break;
         }
 

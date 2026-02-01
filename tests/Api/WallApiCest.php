@@ -49,7 +49,7 @@ class WallApiCest
     {
         $I->login($this->foodsaver['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/wall/foodsaver/' . $this->foodsaver['id'], ['body' => $this->postText]);
+        $I->sendPost('api/walls/foodsaver/' . $this->foodsaver['id'], ['body' => $this->postText]);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson([
             'body' => $this->postText,
@@ -81,7 +81,7 @@ class WallApiCest
 
         $I->login($this->foodsaver['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/wall/foodsaver/' . $this->foodsaver['id'], ['body' => '', 'pictures' => $newPicturePaths]);
+        $I->sendPost('api/walls/foodsaver/' . $this->foodsaver['id'], ['body' => '', 'pictures' => $newPicturePaths]);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson([
             'body' => '',
@@ -103,7 +103,7 @@ class WallApiCest
     public function cantPostToWallLoggedOut(ApiTester $I): void
     {
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/wall/foodsaver/' . $this->foodsaver['id'], ['body' => $this->postText]);
+        $I->sendPost('api/walls/foodsaver/' . $this->foodsaver['id'], ['body' => $this->postText]);
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
     }
 
@@ -112,7 +112,7 @@ class WallApiCest
         // Example for a forbidden wall
         $I->login($this->orga['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/wall/foodsaver/' . $this->foodsaver['id'], ['body' => $this->postText]);
+        $I->sendPost('api/walls/foodsaver/' . $this->foodsaver['id'], ['body' => $this->postText]);
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
     }
 
@@ -120,7 +120,7 @@ class WallApiCest
     {
         $I->login($this->orga['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/wall/foodsaver/' . $this->foodsaver['id'], ['body' => $this->postText]);
+        $I->sendPost('api/walls/foodsaver/' . $this->foodsaver['id'], ['body' => $this->postText]);
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
     }
 
@@ -129,7 +129,7 @@ class WallApiCest
     public function canGetWallPosts(ApiTester $I): void
     {
         $I->login($this->foodsaver['email']);
-        $I->sendGet('api/wall/foodsaver/' . $this->foodsaver['id']);
+        $I->sendGet('api/walls/foodsaver/' . $this->foodsaver['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson([
             'posts' => [
@@ -152,7 +152,7 @@ class WallApiCest
         ];
         $this->havePostInDatabase($I, $legacyPost, 'fs_foodsaver_has_wallpost', 'foodsaver_id', $this->foodsaver['id']);
         $I->login($this->foodsaver['email']);
-        $I->sendGet('api/wall/foodsaver/' . $this->foodsaver['id']);
+        $I->sendGet('api/walls/foodsaver/' . $this->foodsaver['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson(['posts' => [[
             'body' => 'legacy', 'pictures' => ['659ea325eed654.89502817.png']
@@ -161,14 +161,14 @@ class WallApiCest
 
     public function cantGetWallPostsLoggedOut(ApiTester $I): void
     {
-        $I->sendGet('api/wall/foodsaver/' . $this->foodsaver['id']);
+        $I->sendGet('api/walls/foodsaver/' . $this->foodsaver['id']);
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
     }
 
     public function cantGetWallPostsWithoutPermission(ApiTester $I): void
     {
         $I->login($this->foodsaver['email']);
-        $I->sendGet('api/wall/usernotes/' . $this->foodsaver['id']);
+        $I->sendGet('api/walls/usernotes/' . $this->foodsaver['id']);
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
     }
 
@@ -177,20 +177,20 @@ class WallApiCest
     public function canDeleteOwnWallPost(ApiTester $I): void
     {
         $I->login($this->foodsaver['email']);
-        $I->sendDelete('api/wall/foodsaver/' . $this->foodsaver['id'] . '/' . 1);
+        $I->sendDelete('api/walls/foodsaver/' . $this->foodsaver['id'] . '/posts/' . 1);
         $I->seeResponseCodeIs(HttpCode::OK);
     }
 
     public function canDeleteWallPostAsOrga(ApiTester $I): void
     {
         $I->login($this->orga['email']);
-        $I->sendDelete('api/wall/foodsaver/' . $this->foodsaver['id'] . '/' . 1);
+        $I->sendDelete('api/walls/foodsaver/' . $this->foodsaver['id'] . '/posts/' . 1);
         $I->seeResponseCodeIs(HttpCode::OK);
     }
 
     public function cantDeleteWallPostLoggedOut(ApiTester $I): void
     {
-        $I->sendDelete('api/wall/foodsaver/' . $this->foodsaver['id'] . '/' . 1);
+        $I->sendDelete('api/walls/foodsaver/' . $this->foodsaver['id'] . '/posts/' . 1);
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
     }
 
@@ -203,14 +203,14 @@ class WallApiCest
         $id = $this->havePostInDatabase($I, $post, 'fs_foodsaver_has_wallpost', 'foodsaver_id', $this->orga['id']);
 
         $I->login($this->foodsaver['email']);
-        $I->sendDelete('api/wall/foodsaver/' . $this->foodsaver['id'] . '/' . $id);
+        $I->sendDelete('api/walls/foodsaver/' . $this->foodsaver['id'] . '/posts/' . $id);
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
     }
 
     public function cantDeleteWallPostFromWrongWall(ApiTester $I): void
     {
         $I->login($this->foodsaver['email']);
-        $I->sendDelete('api/wall/foodsaver/' . $this->orga['id'] . '/1');
+        $I->sendDelete('api/walls/foodsaver/' . $this->orga['id'] . '/posts/1');
         $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
     }
 

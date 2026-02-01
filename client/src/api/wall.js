@@ -6,21 +6,21 @@ export function getWallPosts (target, targetId, limit, offset = 0) {
   // with 403 errors that we need to ignore here. See
   // https://beta.foodsharing.de/region?bid=741&sub=forum&tid=301732&pid=1788926
   // and my Dominik's reply to this for reference.
-  return get(`/wall/${target}/${targetId}?limit=${limit}&offset=${offset}`, { skipErrorNotificationFor: [403] })
+  return get(`/walls/${target}/${targetId}?limit=${limit}&offset=${offset}`, { skipErrorNotificationFor: [403] })
 }
 
 export function addPost (target, targetId, body, pictures) {
-  return post(`/wall/${target}/${targetId}`, { body, pictures })
+  return post(`/walls/${target}/${targetId}`, { body, pictures })
 }
 
 export function deletePost (target, targetId, postId) {
-  return remove(`/wall/${target}/${targetId}/${postId}`)
+  return remove(`/walls/${target}/${targetId}/posts/${postId}`)
 }
 
 export function addReaction (target, targetId, postId, key) {
-  return post(`/wall/${target}/${targetId}/${postId}/reaction/${key}`)
+  return post(`/walls/${target}/${targetId}/posts/${postId}/reactions/${key}`)
 }
 
 export function removeReaction (target, targetId, postId, key) {
-  return remove(`/wall/${target}/${targetId}/${postId}/reaction/${key}`)
+  return remove(`/walls/${target}/${targetId}/posts/${postId}/reactions/${key}`)
 }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Foodsharing\Modules\WallPost\DTO;
 
+use Carbon\Carbon;
+use DateTime;
 use Foodsharing\Modules\Foodsaver\Profile;
 use JMS\Serializer\Annotation\Type;
 use OpenApi\Attributes as OA;
@@ -19,8 +21,9 @@ class WallPost
     #[Assert\NotNull()]
     public string $body;
 
-    #[OA\Property(example: '2024-01-14 09:57:24', title: 'The posts time of creation')]
-    public ?string $time = null;
+    #[OA\Property(title: 'The posts time of creation')]
+    #[Assert\Blank]
+    public ?DateTime $time = null;
 
     #[OA\Property(type: 'array', title: 'Pictures associated with the post',
         items: new OA\Items(type: 'string', example: '/api/uploads/bcb57ea1-ed73-4fde-849b-c88b11393690'),
@@ -44,7 +47,7 @@ class WallPost
         $result = new WallPost();
         $result->id = $data['id'];
         $result->body = $data['body'];
-        $result->time = $data['time'];
+        $result->time = Carbon::parse($data['time']);
 
         if (!empty($data['attach'])) {
             $attach = json_decode((string)$data['attach'], true);
