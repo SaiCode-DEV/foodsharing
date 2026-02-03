@@ -571,6 +571,7 @@ class SearchGateway extends BaseGateway
                 thread.id,
                 thread.name,
                 post.time,
+                post.id AS post_id,
                 {$includeBodyResult}
                 {$matchClause} AS relevance,
                 thread.sticky AS stickiness,

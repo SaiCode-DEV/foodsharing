@@ -166,9 +166,11 @@ class ForumGateway extends BaseGateway
         $lastPostBody = $this->db->fetchAllValues('
             SELECT body FROM fs_theme_post
             WHERE theme_id = :thread_id
+            AND foodsaver_id = :fs_id
             ORDER BY time DESC
             LIMIT 1', [
             'thread_id' => $thread_id,
+            'fs_id' => $fs_id
         ]);
 
         // If so, raise an exception to prevent duplicate posts.

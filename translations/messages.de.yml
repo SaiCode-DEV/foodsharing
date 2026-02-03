@@ -3851,7 +3851,6 @@ search:
       can_vote: "Du kannst noch abstimmen"
       has_voted: "Du hast bereits abgestimmt"
       not_eligible: "Du bist nicht wahlberechtigt"
-    relevance: Relevanz ({percent}%)
   scope:
     global: Globale Suche
     local: Nutzerspezifische Suche

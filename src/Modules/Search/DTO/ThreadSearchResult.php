@@ -20,6 +20,9 @@ class ThreadSearchResult extends SearchResult
     #[OA\Property(description: 'Whether the thread is located in the ambassador forum.')]
     public bool $isInsideAmbassadorForum;
 
+    #[OA\Property(example: 42, description: 'Unique identifier of the post that was matched.')]
+    public int $postId;
+
     #[OA\Property(description: 'Unique identifier of the forums region.')]
     public int $regionId;
 
@@ -36,6 +39,7 @@ class ThreadSearchResult extends SearchResult
     {
         $result = new ThreadSearchResult();
         $result->id = $data['id'];
+        $result->postId = $data['post_id'];
         $result->name = $data['name'];
         $result->lastPostSentAt = Carbon::parse($data['time']);
         $result->pinnedLevel = $data['stickiness'];

@@ -51,20 +51,19 @@ test.describe("Notifications", () => {
     await notificationButton.click();
 
     // Wait for notifications dropdown menu to be visible
-    const notificationsList = page.locator('ul.dropdown-menu.dropdown-menu-right.show[aria-labelledby*="BV_toggle_"]');
+    const notificationsList = page.locator(
+      'ul.dropdown-menu.dropdown-menu-right.show[aria-labelledby*="BV_toggle_"]',
+    );
     await notificationsList.waitFor({ state: "visible" });
 
     // Verify notifications are displayed
-    await expect(notificationsList).toContainText(
-      "Test notification body",
-    );
-    await expect(notificationsList).toContainText(
-      "You received a banana!",
-    );
+    await expect(notificationsList).toContainText("Test notification body");
+    await expect(notificationsList).toContainText("You received a banana!");
 
     // Click on a notification link to mark it as read
-    const firstNotification = notificationsList
-      .getByRole("link", { name: /Test notification body/ });
+    const firstNotification = notificationsList.getByRole("link", {
+      name: /Test notification body/,
+    });
     await firstNotification.click();
 
     // Wait for the action to complete
@@ -109,7 +108,9 @@ test.describe("Notifications", () => {
       name: "Benachrichtigungen",
     });
     await notificationButton.click();
-    const notificationsList = page.locator('ul.dropdown-menu.dropdown-menu-right.show[aria-labelledby*="BV_toggle_"]');
+    const notificationsList = page.locator(
+      'ul.dropdown-menu.dropdown-menu-right.show[aria-labelledby*="BV_toggle_"]',
+    );
     await notificationsList.waitFor({ state: "visible" });
 
     // Verify notification exists
@@ -118,7 +119,10 @@ test.describe("Notifications", () => {
     );
 
     // Click on the close/delete button (look for close link with # href)
-    const deleteButton = notificationsList.getByRole("link").filter({ hasText: "" }).first();
+    const deleteButton = notificationsList
+      .getByRole("link")
+      .filter({ hasText: "" })
+      .first();
 
     await deleteButton.click();
     await acceptanceHelper.waitForActiveAPICalls();
@@ -164,14 +168,17 @@ test.describe("Notifications", () => {
     });
     await notificationButton.click();
     await page.waitForTimeout(50);
-    
+
     // Get the notifications dropdown menu specifically
-    const notificationsList = page.locator('ul.dropdown-menu.dropdown-menu-right.show[aria-labelledby*="BV_toggle_"]');
+    const notificationsList = page.locator(
+      'ul.dropdown-menu.dropdown-menu-right.show[aria-labelledby*="BV_toggle_"]',
+    );
     await notificationsList.waitFor({ state: "visible" });
 
     // Verify time is displayed (should show something like "vor X")
-    const notificationWithTime = notificationsList
-      .getByRole("link", { name: /seems to have worked/ });
+    const notificationWithTime = notificationsList.getByRole("link", {
+      name: /seems to have worked/,
+    });
     await expect(notificationWithTime).toContainText("vor");
   });
 
@@ -243,7 +250,9 @@ test.describe("Notifications", () => {
       name: "Benachrichtigungen",
     });
     await notificationButton.click();
-    const notificationsList = page.locator('ul.dropdown-menu.dropdown-menu-right.show[aria-labelledby*="BV_toggle_"]');
+    const notificationsList = page.locator(
+      'ul.dropdown-menu.dropdown-menu-right.show[aria-labelledby*="BV_toggle_"]',
+    );
     await notificationsList.waitFor({ state: "visible" });
 
     // Count initial notifications

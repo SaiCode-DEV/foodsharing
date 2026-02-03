@@ -452,7 +452,11 @@ test.describe("Store", () => {
     // Now the store log should contain the action
     await page.click("#search-store-log");
     await acceptanceHelper.waitForActiveAPICalls();
-    await expect(page.locator('.list-group-item').getByText("auf die Springerliste gesetzt")).toBeVisible();
+    await expect(
+      page
+        .locator(".list-group-item")
+        .getByText("auf die Springerliste gesetzt"),
+    ).toBeVisible();
 
     // Toggle filters: enable other category and disable the previous one
     await page.click(".multiselect");

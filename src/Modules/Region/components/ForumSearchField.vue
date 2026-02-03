@@ -41,7 +41,7 @@
       </span>
     </div>
     <div v-if="isOpen" id="forum-search-results">
-      <forum-search-results
+      <ForumSearchResults
         :title-threads="titleThreads || []"
         :body-threads="bodyThreads || []"
         :group-id="groupId"
@@ -55,111 +55,107 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, watch, defineProps, defineEmits } from 'vue'
 import ForumSearchResults from './ForumSearchResults'
 import { searchForum } from '@/api/search'
 
-export default {
-  components: { ForumSearchResults },
-  props: {
-    groupId: {
-      type: Number,
-      default: -1,
-    },
-    subforumId: {
-      type: Number,
-      required: true,
-    },
+const props = defineProps({
+  groupId: {
+    type: Number,
+    default: -1,
   },
-  data () {
-    return {
-      query: '',
-      isOpen: false,
-      isLoading: false,
-      isLoadingTitle: false,
-      isLoadingBody: false,
-      titleThreads: [],
-      bodyThreads: [],
-    }
+  subforumId: {
+    type: Number,
+    required: true,
   },
-  watch: {
-    query (query) {
-      if (query.trim().length > 2) {
-        this.open()
-        this.delayedFetch()
-      } else {
-        clearTimeout(this.timeout)
-        this.close()
-        this.isLoading = false
-        this.titleThreads = []
-        this.bodyThreads = []
-      }
-    },
-  },
+})
 
-  methods: {
-    open () {
-      this.isOpen = true
-      this.$emit('search-active', true)
-    },
-    delayedFetch () {
-      this.isLoading = true
-      this.isLoadingTitle = true
-      this.isLoadingBody = true
-      if (this.timeout) {
-        clearTimeout(this.timeout)
-        this.timer = null
-      }
-      this.timeout = setTimeout(() => {
-        this.fetch()
-      }, 500)
-    },
-    close () {
-      this.isOpen = false
-      this.$emit('search-active', false)
-    },
-    clearSearch () {
-      this.query = ''
-      this.titleThreads = []
-      this.bodyThreads = []
-      this.close()
-    },
-    async fetch () {
-      const curQuery = this.query
-      if (this.query.trim().length === 0) return
-      this.open()
+const emit = defineEmits(['search-active'])
 
-      // Fetch title results
-      searchForum(this.groupId, this.subforumId, curQuery, false).then(res => {
-        if (curQuery !== this.query) {
-          // query has changed, throw away this response
-          return
-        }
-        this.titleThreads = res
-        this.isLoadingTitle = false
-        this.updateLoadingState()
-      })
+const query = ref('')
+const isOpen = ref(false)
+const isLoading = ref(false)
+const isLoadingTitle = ref(false)
+const isLoadingBody = ref(false)
+const titleThreads = ref([])
+const bodyThreads = ref([])
+let timeout = null
 
-      // Fetch body results independently
-      searchForum(this.groupId, this.subforumId, curQuery, true).then(res => {
-        if (curQuery !== this.query) {
-          // query has changed, throw away this response
-          return
-        }
-        this.bodyThreads = res
-        this.isLoadingBody = false
-        this.updateLoadingState()
-      })
-    },
-    updateLoadingState () {
-      this.isLoading = this.isLoadingTitle || this.isLoadingBody
-    },
-    clickOutListener () {
-      this.isOpen = false
-      this.$emit('search-active', false)
-    },
-  },
+watch(query, (newQuery) => {
+  if (newQuery.trim().length > 2) {
+    open()
+    delayedFetch()
+  } else {
+    clearTimeout(timeout)
+    close()
+    isLoading.value = false
+    titleThreads.value = []
+    bodyThreads.value = []
+  }
+})
+
+function open () {
+  isOpen.value = true
+  emit('search-active', true)
 }
+
+function delayedFetch () {
+  isLoading.value = true
+  isLoadingTitle.value = true
+  isLoadingBody.value = true
+  if (timeout) {
+    clearTimeout(timeout)
+  }
+  timeout = setTimeout(() => {
+    fetch()
+  }, 500)
+}
+
+function close () {
+  isOpen.value = false
+  emit('search-active', false)
+}
+
+function clearSearch () {
+  query.value = ''
+  titleThreads.value = []
+  bodyThreads.value = []
+  close()
+}
+
+async function fetch () {
+  const curQuery = query.value
+  if (query.value.trim().length === 0) return
+  open()
+
+  // Fetch title results
+  searchForum(props.groupId, props.subforumId, curQuery, false).then(res => {
+    if (curQuery !== query.value) {
+      // query has changed, throw away this response
+      return
+    }
+    titleThreads.value = res
+    isLoadingTitle.value = false
+    updateLoadingState()
+  })
+
+  // Fetch body results independently
+  searchForum(props.groupId, props.subforumId, curQuery, true).then(res => {
+    if (curQuery !== query.value) {
+      // query has changed, throw away this response
+      return
+    }
+    bodyThreads.value = res
+    isLoadingBody.value = false
+    updateLoadingState()
+  })
+}
+
+function updateLoadingState () {
+  isLoading.value = isLoadingTitle.value || isLoadingBody.value
+}
+
 </script>
 
 <style lang="scss" scoped>
