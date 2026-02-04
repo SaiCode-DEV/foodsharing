@@ -146,16 +146,15 @@
         class="w-100"
       >
         <b-form-group
-          v-if="store.requireApplyText"
           class="mb-2"
           :label="$t('store.request.application-message')"
         >
           <b-form-textarea
             v-model="applicationMessage"
             :placeholder="$t('store.request.application-placeholder')"
-            :state="applicationMessage.length >= minApplicationMessageLength"
+            :state="!store.requireApplyText || applicationMessage.length >= minApplicationMessageLength"
           />
-          <b-form-invalid-feedback v-if="applicationMessage.length < minApplicationMessageLength">
+          <b-form-invalid-feedback v-if="store.requireApplyText && applicationMessage.length < minApplicationMessageLength">
             {{ $t('store.request.applicationMessageTooShort') }}
           </b-form-invalid-feedback>
         </b-form-group>
