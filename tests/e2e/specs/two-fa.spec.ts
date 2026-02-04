@@ -4,7 +4,7 @@ import { Database } from "../helpers/database";
 import { maildev } from "../helpers/maildev";
 import argon2 from "argon2";
 import { authenticator } from "otplib";
-import { Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
 
 test.describe("Two-Factor Authentication", () => {
   test.describe.configure({ timeout: 60000 });

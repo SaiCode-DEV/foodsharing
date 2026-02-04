@@ -1,5 +1,4 @@
-import { test } from "../helpers/acceptance";
-import { expect } from "@playwright/test";
+import { test, expect } from "../helpers/acceptance";
 import { foodsharing } from "../helpers/foodsharing";
 
 test.describe("Business card", () => {

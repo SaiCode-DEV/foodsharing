@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "../helpers/acceptance";
 import { fakerDE as faker } from "@faker-js/faker";
 import { foodsharing } from "../helpers/foodsharing";
 import { Database } from "../helpers/database";

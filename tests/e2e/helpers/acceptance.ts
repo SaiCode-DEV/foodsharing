@@ -3,13 +3,21 @@ import { authenticator } from "otplib";
 
 export class AcceptanceHelper {
   constructor(private page: Page) {
-    // on Missing translation for console errors, fail the test
+    // Fail on console errors
     page.on("console", (msg) => {
-      if (
-        msg.type() === "error" &&
-        msg.text().includes("Missing translation for")
-      ) {
-        throw new Error(msg.text());
+      if (msg.type() === "error") {
+        const text = msg.text();
+
+        // Missing translations
+        if (text.includes("Missing translation for")) {
+          throw new Error(text);
+        }
+
+        // Network errors shown to the user (these are real problems)
+        // These errors come from base.js showNetworkError() function
+        if (text.includes("net_errors.") || text.includes("network_errors.")) {
+          throw new Error(`User-facing error detected: ${text}`);
+        }
       }
     });
   }

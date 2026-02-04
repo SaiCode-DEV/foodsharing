@@ -1,5 +1,5 @@
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test } from "@playwright/test";
+import { expect, test } from "../helpers/acceptance";
 
 test.describe("Accessibility check", () => {
   test.describe.configure({ retries: 0 });
