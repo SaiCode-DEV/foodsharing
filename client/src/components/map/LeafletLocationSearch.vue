@@ -50,6 +50,7 @@
               id="input-postal"
               v-model="currentPostal"
               class="my-2"
+              maxlength="10"
               :disabled="disabled || !differentLocation"
               @change="emitAddressChange"
             />

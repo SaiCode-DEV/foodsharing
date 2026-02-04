@@ -25,7 +25,7 @@ class PatchAddress
     /**
      * String with zip code of store.
      */
-    #[Assert\Length(max: 5)]
+    #[Assert\Length(max: 10)]
     public ?string $postalCode = null;
 
     public static function apply(PatchAddress &$addressChange, Address &$storeAddress): bool
