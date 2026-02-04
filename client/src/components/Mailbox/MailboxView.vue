@@ -214,7 +214,7 @@ export default {
     async loadNextPage () {
       this.isBusy = true
       try {
-        const emails = await getAllEmails(this.selectedMailbox[0], this.selectedMailbox[2], this.page, PAGE_SIZE)
+        const emails = await getAllEmails(this.selectedMailbox[0], this.selectedMailbox[2], this.mailboxMails.length, PAGE_SIZE)
         if (emails.length > 0) {
           this.mailboxMails.push(...emails)
           this.page++
