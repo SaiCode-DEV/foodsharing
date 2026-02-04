@@ -2736,7 +2736,6 @@ search:
         1: Tu es présent à ce rendez-vous.
         0: Tu n’as pas indiqué si tu étais présent à ce rendez-vous.
       location_online: En ligne
-    relevance: ''
   maxresults: Le nombre de résultats affichés est limité. Utilisez peut-être un 
     terme de recherche plus spécifique.
   too_short: Veuillez saisir un terme de recherche plus long.

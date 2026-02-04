@@ -3976,7 +3976,6 @@ search:
       not_eligible: Oy verme hakkınız yok
       can_vote: Hala oy verebilirsiniz
       has_voted: Burada oy verdiniz
-    relevance: ''
   maxresults: Kategori başına en fazla 30 sonuç görüntülenir. Belki daha 
     spesifik bir arama terimi kullanabilirsiniz.
   too_short: Lütfen daha uzun bir arama terimi girin.

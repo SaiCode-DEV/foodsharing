@@ -2859,7 +2859,6 @@ search:
       not_eligible: ''
       can_vote: ''
       has_voted: ''
-    relevance: ''
     event:
       invitation_tooltip:
         3: ''

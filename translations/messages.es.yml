@@ -167,7 +167,6 @@ search:
       can_vote: Aún puedes votar
       has_voted: Ya has votado
       not_eligible: No está acreditado para votar
-    relevance: ''
   maxresults: El número de resultados mostrados es limitado. Quizás utilice un 
     término de búsqueda más específico.
   too_short: Por favor ingrese un término de búsqueda más largo.

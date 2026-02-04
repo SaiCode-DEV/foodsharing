@@ -2552,7 +2552,6 @@ search:
       ambassador_forum: ''
       last_post: ''
       bottom_tooltip: ''
-    relevance: ''
     event:
       invitation_tooltip:
         3: ''

@@ -2457,7 +2457,6 @@ search:
       not_eligible: ''
       can_vote: ''
       has_voted: ''
-    relevance: ''
   too_short: Inserisci un termine di ricerca più lungo.
   maxresults: Il numero di risultati visualizzati è limitato. Forse usa un 
     termine di ricerca più specifico.

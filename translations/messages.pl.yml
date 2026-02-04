@@ -647,7 +647,7 @@ settings:
   businesscard: Osobista wizytówka
   account: Opcje konta
   general:
-    phone: ''
+    phone: 'Twój numer telefonu stacjonarnego'
     no_address: 'Jeszcze nie podano adresu'
     current_address: 'Aktualny adres'
   chatmail: ''
@@ -2012,7 +2012,7 @@ events:
     locationDetails: ''
     regions: ''
     who: ''
-    groups: ''
+    groups: 'Twoje zespoły'
     offline: ''
   span: '{from} do {until}'
   duration: 'Czas trwania: {duration}'
@@ -2315,7 +2315,7 @@ pickuplist:
   NumberOfAppointments_table_header: ''
   really_delete_last_slot:
     body: ''
-    title: ''
+    title: 'Usunąć ostatni slot?'
 error_ajax: |
   Niestety, to nie wyszło.
   Być może twoje połączenie internetowe w tej chwili nie działa.
@@ -2520,7 +2520,7 @@ mailbox:
     too_many: Wybrano za dużo plików. Do maila można dołączyć maksymalnie 10 
       plików.
     attach: Załączniki (maksymalnie 10 plików, 1,5 MB / plik)
-    not_found_explanation: ''
+    not_found_explanation: 'Nie można znaleźć załącznika na serwerze'
     too_large_to_send: 'Niektóre pliki były za duże i nie mogły zostać dołączone.'
   conformation_modal:
     title: Potwierdzenie
@@ -2560,7 +2560,7 @@ profile:
     ambassador_for: dla
     workgroups_admin: jest osobą do kontaktu w następujących grupach
     workgroups_member: razem z tobą w następujących grupach
-    no_common_workgroups: ''
+    no_common_workgroups: 'żadnych wspólnych zespołów'
     home_region_from: ''
     kam_for: ''
     orga_rights: ''
@@ -2613,7 +2613,10 @@ profile:
     alreadyGiven: '{name} już otrzymał/a banana od ciebie.'
     messageTooShort: 'Podaj tekst o długości co najmniej 100 znaków do tego banana.'
     placeholder: 'minimum 100 znaków …'
-    details: ''
+    details: 'Tu możesz opisać w co najmniej 100 znakach, dlaczego chcesz podarować
+      {name} banana zaufania.
+
+      '
   stores:
     memberState:
       filterAll: wszystkie
@@ -2623,7 +2626,7 @@ profile:
       filterManage: ''
       filterJumper: ''
     store_table: ''
-    search_placeholder: ''
+    search_placeholder: 'Szukaj według nazwy'
   nav:
     buddy: Znam {name}
     remove_buddy: Już nie znam {name}
@@ -2646,7 +2649,7 @@ profile:
   online: '{name} jest online.'
   infos:
     title: Informacje
-    fsMail: ''
+    fsMail: 'Wewnętrzna skrzynka pocztowa'
     registrationDate: 'Data rejestracji'
     buddies: 'znajomi'
     never: 'Jeszcze nigdy'
@@ -2654,7 +2657,7 @@ profile:
     fetchrate: ''
     buddycount_known: '{name} zna {count} foodsaverów/ek'
     foodsaverId: 'ID'
-    buddycount_followed: ''
+    buddycount_followed: '{name} jest znany/a przez {count} foodsaverów/ek'
     privateMail: 'Prywatny adres email'
   stats:
     bananas: Banany
@@ -2662,7 +2665,7 @@ profile:
     weight_unit: 'kg'
     weight: ''
     give_count: ''
-    slots: ''
+    slots: 'sloty'
     engagement_count: ''
     fetch_count: ''
     posts: ''
@@ -2730,26 +2733,26 @@ profile:
     title: ''
     info: ''
     no_group: ''
-  notFound: ''
+  notFound: 'Tego profilu użytkownika/czki (już) nie ma'
   choosestore: ''
   deletesuccess: ''
   sleeping_info_from_until: ''
   warning: 'Uwaga'
   tab_navigation:
-    pickups: ''
+    pickups: 'Sloty'
     notes: 'Notatki ({count})'
-    commitment_statistics: ''
+    commitment_statistics: 'Statystyka zaangażowania'
     stores: ''
     profile: 'Profil'
   homeDistrictHistory:
     previous: ''
     changed: ''
-    by: ''
+    by: 'od'
   pinboard: ''
   choosereasonnostore: ''
   title: 'Profil'
   mediationRequest: ''
-  go: ''
+  go: 'Przejdź do profilu'
   sleeping: ''
   reportRequest: ''
   editNameInfo: ''
@@ -3467,7 +3470,6 @@ search:
       ambassador_forum: ''
       last_post: ''
       bottom_tooltip: ''
-    relevance: ''
     event:
       invitation_tooltip:
         3: ''
@@ -3933,16 +3935,16 @@ startpage:
   followrules: ''
   respect: ''
   followrules_title: ''
-  join: ''
-  etiquette: ''
+  join: 'Dołącz'
+  etiquette: 'etykieta foosharingu'
   donate:
     title: ''
     link: ''
     text: ''
   slogan_1: ''
-  registernow: ''
+  registernow: 'Zarejestruj się teraz'
   this_is_how_it_works: ''
-  beresponsible: ''
+  beresponsible: 'Bądź odpowiedzialny/a'
   telltruth: ''
   more_infos: ''
   slogan_3: ''
@@ -3953,11 +3955,11 @@ startpage:
   dependability: ''
   call_to_action_button: ''
   forstores: ''
-  honest: ''
+  honest: 'Bądź szczery/a'
   vision:
     title: ''
     text: ''
-  register: ''
+  register: 'Na końcu tej strony możesz się zarejestrować jako foodsharer/ka.'
   private:
     title: ''
     text: ''
@@ -4117,12 +4119,12 @@ validation:
   phone_number_invalid: ''
 theme_switcher:
   theme:
-    system: ''
-    light: ''
-    dark: ''
-  choose_button: ''
-  content: ''
-  title: ''
+    system: 'System'
+    light: 'Jasny'
+    dark: 'Ciemny'
+  choose_button: 'OK'
+  content: 'Proszę wybrać design'
+  title: 'Wybierz design'
 activitypost:
   quickreply_button: ''
   write: ''
@@ -4177,10 +4179,11 @@ donation_banner:
 totp_code: ''
 language_chooser:
   translation_help: ''
-  title: ''
-  translation_help_info_text: ''
-  choose_button: ''
-  content: ''
+  title: 'Wybierz język'
+  translation_help_info_text: 'Ten link prowadzi do portalu tłumaczeń. Zarejestruj
+    się tam i kliknij na długopis, aby rozpocząć'
+  choose_button: 'Aktualizuj'
+  content: 'Proszę wybrać język'
 debug:
   title: ''
   info: ''

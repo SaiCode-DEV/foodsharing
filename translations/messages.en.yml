@@ -2832,7 +2832,6 @@ search:
       present_since: Started
       present_until: Ends
       future: Begins
-    relevance: Relevance ({percent} %)
   maxresults: The number of results displayed is limited. Maybe use a more 
     specific search term.
   too_short: Please enter a longer search term.

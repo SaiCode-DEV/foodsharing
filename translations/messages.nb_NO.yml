@@ -784,7 +784,6 @@ search:
         1: Du har bekreftet datoen.
         0: Du har ikke oppgitt om du vil være på dette arrangementet.
       location_online: Online
-    relevance: ''
   maxresults: Antallet resultater som vises er begrenset. Bruk kanskje et mer 
     spesifikt søkeord.
   too_short: Skriv inn et lengre søkeord.
