@@ -85,7 +85,16 @@ class MailboxGateway extends BaseGateway
 		'
         );
 
-        return array_map(fn ($region) => Region::createFromArray($region), $regions);
+        return array_map(function ($region) {
+            return Region::createRegion(
+                $region['id'],
+                $region['parent_id'],
+                $region['name'],
+                $region['type'],
+                $region['email'],
+                $region['email_name']
+            );
+        }, $regions);
     }
 
     public function getMailboxesWithUnreadCount(array $mailboxIds): array

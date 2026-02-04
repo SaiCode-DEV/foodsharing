@@ -31,16 +31,23 @@ class Region extends MinimalRegionIdentifier
      */
     public ?string $emailName = null;
 
-    public static function createFromArray(array $data): Region
-    {
-        $r = new Region();
-        $r->id = $data['id'];
-        $r->name = $data['name'];
-        $r->parentId = $data['parent_id'];
-        $r->type = $data['type'];
-        $r->emailAddress = $data['email'];
-        $r->emailName = $data['email_name'];
+    public static function createRegion(
+        int $id,
+        int $parentId,
+        string $name,
+        int $type,
+        string $emailAddress,
+        ?string $emailName
+    ): Region {
+        $region = new Region();
 
-        return $r;
+        $region->parentId = $parentId;
+        $region->id = $id;
+        $region->name = $name;
+        $region->type = $type;
+        $region->emailAddress = $emailAddress;
+        $region->emailName = $emailName;
+
+        return $region;
     }
 }

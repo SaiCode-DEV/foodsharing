@@ -36,7 +36,7 @@ class MapGateway extends BaseGateway
             FROM fs_basket
             WHERE `status` = 1');
 
-        return array_map(MapMarker::createFromArray(...), $markers);
+        return array_map(fn ($marker) => MapMarker::create($marker['id'], $marker['name'], $marker['lat'], $marker['lon']), $markers);
     }
 
     public function getFoodSharePointMarkers(): array
@@ -46,7 +46,7 @@ class MapGateway extends BaseGateway
             'lat !=' => ''
         ]);
 
-        return array_map(MapMarker::createFromArray(...), $markers);
+        return array_map(fn ($marker) => MapMarker::create($marker['id'], $marker['name'], $marker['lat'], $marker['lon']), $markers);
     }
 
     public function getCommunityMarkers(): array
@@ -58,7 +58,7 @@ class MapGateway extends BaseGateway
             WHERE p.lat != '' AND p.status = ?",
             [RegionPinStatus::ACTIVE]);
 
-        return array_map(MapMarker::createFromArray(...), $markers);
+        return array_map(fn ($marker) => MapMarker::create($marker['id'], $marker['name'], $marker['lat'], $marker['lon']), $markers);
     }
 
     public function getEventMarkers(): array
@@ -69,7 +69,7 @@ class MapGateway extends BaseGateway
             INNER JOIN fs_location l ON l.id = e.location_id
             WHERE e.is_public = 1 AND e.end > NOW()');
 
-        return array_map(MapMarker::createFromArray(...), $markers);
+        return array_map(fn ($marker) => MapMarker::create($marker['id'], $marker['name'], $marker['lat'], $marker['lon']), $markers);
     }
 
     /**
@@ -106,7 +106,14 @@ class MapGateway extends BaseGateway
             return null;
         }
 
-        $bubbleData = BasketBubbleData::createFromArray($basket);
+        $pictureData = json_decode($basket['picture'] ?? '', true);
+        $picture = match ($pictureData) {
+            is_array($pictureData) => $pictureData,
+            is_null($pictureData) => [],
+            default => [$pictureData],
+        };
+
+        $bubbleData = BasketBubbleData::create($basket['id'], $basket['description'], $picture);
         if ($includeDetails) {
             $bubbleData->createdAt = Carbon::createFromTimestamp($basket['created_at'], new DateTimeZone('Europe/Berlin'));
             $bubbleData->creator = new Profile($basket, 'fs_');

@@ -6,10 +6,12 @@ use Carbon\Carbon;
 use Foodsharing\Modules\Basket\DTO\Basket;
 use Foodsharing\Modules\Basket\DTO\BasketForListView;
 use Foodsharing\Modules\Basket\DTO\BasketForOwnerMenu;
+use Foodsharing\Modules\Basket\DTO\BasketRequest;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\DBConstants\Basket\Status as BasketStatus;
 use Foodsharing\Modules\Core\DBConstants\BasketRequests\Status as RequestStatus;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
+use Foodsharing\Modules\Foodsaver\Profile;
 
 class BasketGateway extends BaseGateway
 {
@@ -287,10 +289,11 @@ class BasketGateway extends BaseGateway
 
     /**
      * Lists all requests for baskets of a given user.
+     * @return BasketRequest[]
      */
-    public function getBasketRequestData(int $foodsaverId): array
+    public function getBasketRequests(int $foodsaverId): array
     {
-        return $this->db->fetchAll('SELECT
+        $requests = $this->db->fetchAll('SELECT
 				UNIX_TIMESTAMP(a.time) AS time_ts,
 				fs.name AS fs_name,
 				fs.photo AS fs_photo,
@@ -308,6 +311,10 @@ class BasketGateway extends BaseGateway
             ':status_read' => RequestStatus::REQUESTED_MESSAGE_READ,
             ':foodsaver_id' => $foodsaverId,
         ]);
+
+        return array_map(function ($request) {
+            return BasketRequest::create($request['id'], new Profile($request, 'fs_'), $request['time_ts']);
+        }, $requests);
     }
 
     public function setStatus(int $basket_id, int $status, int $foodsaverId): void

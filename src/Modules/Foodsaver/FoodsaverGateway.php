@@ -1145,7 +1145,7 @@ class FoodsaverGateway extends BaseGateway
         $query .= ' WHERE ' . implode(' AND ', $conditions);
         $markers = $this->db->fetchAll($query, $params);
 
-        return array_map(MapMarker::createFromArray(...), $markers);
+        return array_map(fn ($marker) => MapMarker::create($marker['id'], $marker['name'], $marker['lat'], $marker['lon']), $markers);
     }
 
     public function setPersonalMailboxId(int $userId, int $mailboxId): void

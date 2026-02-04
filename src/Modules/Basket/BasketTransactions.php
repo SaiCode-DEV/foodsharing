@@ -5,7 +5,6 @@ namespace Foodsharing\Modules\Basket;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Basket\DTO\Basket;
 use Foodsharing\Modules\Basket\DTO\BasketForOwnerMenu;
-use Foodsharing\Modules\Basket\DTO\BasketRequest;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Modules\Uploads\UploadsGateway;
@@ -109,13 +108,13 @@ class BasketTransactions
             return $baskets;
         }
 
-        $requests = $this->basketGateway->getBasketRequestData($this->session->id());
-        foreach ($baskets as $basket) {
-            $fittingRequests = array_values(array_filter($requests, fn ($request) => $request['id'] === $basket->id));
-            $basket->requests = array_map(BasketRequest::createFromArray(...), $fittingRequests);
-        }
+        $requests = $this->basketGateway->getBasketRequests($this->session->id());
 
-        return $baskets;
+        return array_map(function ($basket) use ($requests) {
+            $basket->requests = array_filter($requests, fn ($request) => $request->basketId === $basket->id);
+
+            return $basket;
+        }, $baskets);
     }
 
     /**

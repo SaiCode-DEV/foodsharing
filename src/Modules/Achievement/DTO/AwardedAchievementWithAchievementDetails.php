@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Foodsharing\Modules\Achievement\DTO;
 
 use DateTime;
+use Foodsharing\Modules\Core\DBConstants\Achievement\DuplicateMode;
+use Foodsharing\Modules\Core\DBConstants\Achievement\VisibilityType;
 use Foodsharing\Modules\Store\DTO\CommonLabel;
 
 /**
@@ -17,17 +19,36 @@ class AwardedAchievementWithAchievementDetails extends Achievement
     public ?DateTime $validUntil = null;
     public CommonLabel $scope;
 
-    protected function __construct(array $data)
-    {
-        parent::__construct($data);
-        $this->notice = $data['notice'];
-        $this->validUntil = isset($data['valid_until']) ? new DateTime($data['valid_until']) : null;
-        $this->createdAt = new DateTime($data['awarded_at']);
-        $this->scope = new CommonLabel($data['region_id'], $data['region_name']);
-    }
+    public static function createWithDetails(
+        int $id,
+        int $regionId,
+        string $name,
+        string $description,
+        ?string $icon,
+        ?int $validityInDaysAfterAssignment,
+        ?DateTime $createdAt,
+        ?DateTime $updatedAt,
+        ?string $notice,
+        ?DateTime $validUntil,
+        VisibilityType $visibilityType,
+        DuplicateMode $duplicateMode,
+        CommonLabel $scope,
+    ): AwardedAchievementWithAchievementDetails {
+        $achievement = new self();
+        $achievement->id = $id;
+        $achievement->regionId = $regionId;
+        $achievement->name = $name;
+        $achievement->description = $description;
+        $achievement->icon = $icon;
+        $achievement->validityInDaysAfterAssignment = $validityInDaysAfterAssignment;
+        $achievement->createdAt = $createdAt;
+        $achievement->updatedAt = $updatedAt;
+        $achievement->visibilityType = $visibilityType;
+        $achievement->duplicateMode = $duplicateMode;
+        $achievement->notice = $notice;
+        $achievement->validUntil = $validUntil;
+        $achievement->scope = $scope;
 
-    public static function createFromArray(array $data): AwardedAchievementWithAchievementDetails
-    {
-        return new self($data);
+        return $achievement;
     }
 }

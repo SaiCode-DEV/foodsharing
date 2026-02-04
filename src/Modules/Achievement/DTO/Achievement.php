@@ -48,21 +48,30 @@ class Achievement
     #[Assert\IsNull]
     public ?DateTime $updatedAt = null;
 
-    public function __construct(?array $data = null)
-    {
-        if (is_null($data)) {
-            return;
-        }
+    public static function create(
+        ?int $id,
+        int $regionId,
+        string $name,
+        string $description,
+        ?string $icon,
+        ?int $validityInDaysAfterAssignment,
+        ?DateTime $createdAt,
+        ?DateTime $updatedAt,
+        VisibilityType $visibilityType,
+        DuplicateMode $duplicateMode,
+    ): Achievement {
+        $achievement = new self();
+        $achievement->id = $id;
+        $achievement->regionId = $regionId;
+        $achievement->name = $name;
+        $achievement->description = $description;
+        $achievement->icon = $icon;
+        $achievement->validityInDaysAfterAssignment = $validityInDaysAfterAssignment;
+        $achievement->createdAt = $createdAt;
+        $achievement->updatedAt = $updatedAt;
+        $achievement->visibilityType = $visibilityType;
+        $achievement->duplicateMode = $duplicateMode;
 
-        $this->id = $data['id'];
-        $this->regionId = $data['region_id'];
-        $this->name = $data['name'];
-        $this->description = $data['description'];
-        $this->icon = $data['icon'];
-        $this->validityInDaysAfterAssignment = $data['validity_in_days_after_assignment'];
-        $this->createdAt = new DateTime($data['created_at']);
-        $this->updatedAt = isset($data['updated_at']) ? new DateTime($data['updated_at']) : null;
-        $this->visibilityType = VisibilityType::from($data['visibility_type']);
-        $this->duplicateMode = DuplicateMode::from($data['duplicate_mode']);
+        return $achievement;
     }
 }

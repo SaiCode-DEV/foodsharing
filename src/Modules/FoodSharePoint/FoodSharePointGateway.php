@@ -162,7 +162,14 @@ class FoodSharePointGateway extends BaseGateway
             'status' => 1
         ]);
 
-        return array_map([MapMarker::class, 'createFromArray'], $foodSharePoints);
+        return array_map(function ($foodSharePoint) {
+            return MapMarker::create(
+                $foodSharePoint['id'],
+                $foodSharePoint['name'],
+                $foodSharePoint['lat'],
+                $foodSharePoint['lon']
+            );
+        }, $foodSharePoints);
     }
 
     public function listFoodsaversFoodSharePoints(int $fsId): array

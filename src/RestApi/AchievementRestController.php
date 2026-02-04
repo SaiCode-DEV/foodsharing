@@ -225,12 +225,14 @@ class AchievementRestController extends AbstractFoodsharingRestController
      */
     private function prepareAwardedAchievement(int $achievementId, int $userId, AwardedAchievementDetails $awardedAchievementDetails, bool $strict): AwardedAchievement
     {
-        $achievement = new AwardedAchievement();
-        $achievement->foodsaverId = $userId;
-        $achievement->achievementId = $achievementId;
-        $achievement->reviewerId = $this->session->id();
-        $achievement->validUntil = $this->getValidUntil($awardedAchievementDetails->validUntil, $strict, $achievementId);
-        $achievement->notice = $awardedAchievementDetails->notice;
+        $achievement = AwardedAchievement::create(
+            0,
+            $userId,
+            $achievementId,
+            reviewerId: $this->session->id(),
+            notice: $awardedAchievementDetails->notice,
+            validUntil: $this->getValidUntil($awardedAchievementDetails->validUntil, $strict, $achievementId)
+        );
 
         return $achievement;
     }

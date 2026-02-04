@@ -17,9 +17,13 @@ class MapMarker
     public ?string $name = null;
 
     /**
-     * Coordinates of the marker.
+     * latitude of the marker.
      */
     public float $lat;
+
+    /**
+     * longitude of the marker.
+     */
     public float $lon;
 
     /**
@@ -28,14 +32,19 @@ class MapMarker
      */
     public ?StoreCategoryType $categoryType = StoreCategoryType::PICKUP;
 
-    public static function createFromArray(array $data): MapMarker
-    {
+    public static function create(
+        int $id,
+        ?string $name,
+        float $lat,
+        float $lon,
+        ?StoreCategoryType $categoryType = null
+    ): MapMarker {
         $marker = new self();
-        $marker->id = $data['id'];
-        $marker->name = $data['name'] ?? null;
-        $marker->lat = round($data['lat'], 6);
-        $marker->lon = round($data['lon'], 6);
-        $marker->categoryType = StoreCategoryType::tryFrom($data['categoryType'] ?? null) ?? StoreCategoryType::PICKUP;
+        $marker->id = $id;
+        $marker->name = $name;
+        $marker->lat = round($lat, 6);
+        $marker->lon = round($lon, 6);
+        $marker->categoryType = $categoryType;
 
         return $marker;
     }

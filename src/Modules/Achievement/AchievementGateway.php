@@ -12,6 +12,10 @@ use Foodsharing\Modules\Achievement\DTO\AwardedAchievementWithUserDetails;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
+use Foodsharing\Modules\Core\DBConstants\Achievement\DuplicateMode;
+use Foodsharing\Modules\Core\DBConstants\Achievement\VisibilityType;
+use Foodsharing\Modules\Foodsaver\Profile;
+use Foodsharing\Modules\Store\DTO\CommonLabel;
 
 class AchievementGateway extends BaseGateway
 {
@@ -79,7 +83,18 @@ class AchievementGateway extends BaseGateway
     {
         $achievement = $this->db->fetchById('fs_achievement', '*', $achievementId);
 
-        return new Achievement($achievement);
+        return Achievement::create(
+            $achievement['id'],
+            $achievement['region_id'],
+            $achievement['name'],
+            $achievement['description'],
+            $achievement['icon'],
+            $achievement['validity_in_days_after_assignment'],
+            new DateTime($achievement['created_at']),
+            isset($achievement['updated_at']) ? new DateTime($achievement['updated_at']) : null,
+            VisibilityType::from($achievement['visibility_type']),
+            DuplicateMode::from($achievement['duplicate_mode']),
+        );
     }
 
     /**
@@ -92,7 +107,20 @@ class AchievementGateway extends BaseGateway
             'region_id' => $regionId,
         ]);
 
-        return array_map(fn ($data) => new Achievement($data), $achievements);
+        return array_map(function ($achievementData) {
+            return Achievement::create(
+                $achievementData['id'],
+                $achievementData['region_id'],
+                $achievementData['name'],
+                $achievementData['description'],
+                $achievementData['icon'],
+                $achievementData['validity_in_days_after_assignment'],
+                new DateTime($achievementData['created_at']),
+                isset($achievementData['updated_at']) ? new DateTime($achievementData['updated_at']) : null,
+                VisibilityType::from($achievementData['visibility_type']),
+                DuplicateMode::from($achievementData['duplicate_mode']),
+            );
+        }, $achievements);
     }
 
     /**
@@ -185,7 +213,9 @@ class AchievementGateway extends BaseGateway
     {
         $awardedAchievements = $this->db->fetchAll($this::AWARDED_ACHIEVEMENT_QUERY, [$achievementId]);
 
-        return array_map(AwardedAchievementWithUserDetails::createFromArray(...), $awardedAchievements);
+        return array_map(function ($awardedAchievement) {
+            return $this->convertDataToAwardedAchievementWithUserDetails($awardedAchievement);
+        }, $awardedAchievements);
     }
 
     /**
@@ -195,7 +225,7 @@ class AchievementGateway extends BaseGateway
     {
         $awardedAchievement = $this->db->fetch($this::AWARDED_ACHIEVEMENT_QUERY . ' AND user.id = ?', [$achievementId, $userId]);
 
-        return AwardedAchievementWithUserDetails::createFromArray($awardedAchievement);
+        return $this->convertDataToAwardedAchievementWithUserDetails($awardedAchievement);
     }
 
     /**
@@ -214,14 +244,55 @@ class AchievementGateway extends BaseGateway
             WHERE awarded.foodsaver_id = ? AND (valid_until IS NULL OR valid_until > NOW())
             ORDER BY created_at DESC', [$userId]);
 
-        return array_map([AwardedAchievementWithAchievementDetails::class, 'createFromArray'], $achievements);
+        return array_map(function ($achievement) {
+            return AwardedAchievementWithAchievementDetails::createWithDetails(
+                $achievement['id'],
+                $achievement['region_id'],
+                $achievement['name'],
+                $achievement['description'],
+                $achievement['icon'],
+                $achievement['validity_in_days_after_assignment'],
+                new DateTime($achievement['awarded_at']),
+                isset($achievement['updated_at']) ? new DateTime($achievement['updated_at']) : null,
+                $achievement['notice'],
+                isset($achievement['valid_until']) ? new DateTime($achievement['valid_until']) : null,
+                VisibilityType::from($achievement['visibility_type']),
+                DuplicateMode::from($achievement['duplicate_mode']),
+                new CommonLabel($achievement['region_id'], $achievement['region_name']),
+            );
+        }, $achievements);
+    }
+
+    /**
+     * Creates object from raw sql data.
+     * @param array $awardedAchievement associative array with db column title as key
+     */
+    private function convertDataToAwardedAchievementWithUserDetails(array $awardedAchievement): AwardedAchievementWithUserDetails
+    {
+        $achievementId = $awardedAchievement['achievement_id'];
+        $user = new Profile($awardedAchievement, 'user_');
+        $reviewer = $awardedAchievement['reviewer_id'] ? new Profile($awardedAchievement, 'reviewer_') : null;
+        $notice = $awardedAchievement['notice'];
+        $validUntil = isset($awardedAchievement['valid_until']) ? new DateTime($awardedAchievement['valid_until']) : null;
+        $createdAt = new DateTime($awardedAchievement['created_at']);
+
+        return AwardedAchievementWithUserDetails::create($achievementId, $user, $reviewer, $achievementId, $notice, $validUntil, $createdAt);
     }
 
     public function getAwardedAchievementById(int $awardedAchievementId): AwardedAchievement
     {
         $awardedAchievement = $this->db->fetchByCriteria('fs_foodsaver_has_achievement', '*', ['id' => $awardedAchievementId]);
 
-        return AwardedAchievement::createFromArray($awardedAchievement);
+        return AwardedAchievement::create(
+            $awardedAchievement['id'],
+            $awardedAchievement['foodsaver_id'],
+            $awardedAchievement['achievement_id'],
+            $awardedAchievement['reviewer_id'],
+            $awardedAchievement['notice'],
+            !is_null($awardedAchievement['valid_until']) ? new DateTime($awardedAchievement['valid_until']) : null,
+            new DateTime($awardedAchievement['created_at']),
+            !is_null($awardedAchievement['updated_at']) ? new DateTime($awardedAchievement['updated_at']) : null
+        );
     }
 
     /**
@@ -231,6 +302,14 @@ class AchievementGateway extends BaseGateway
     {
         $awardedAchievement = $this->db->fetch($this::AWARDED_ACHIEVEMENT_QUERY . ' AND awarded.id = ?', [$achievementId, $awardedAchievementId]);
 
-        return AwardedAchievementWithUserDetails::createFromArray($awardedAchievement);
+        return AwardedAchievementWithUserDetails::create(
+            $awardedAchievement['id'],
+            new Profile($awardedAchievement, 'user_'),
+            $awardedAchievement['reviewer_id'] ? new Profile($awardedAchievement, 'reviewer_') : null,
+            $awardedAchievement['achievement_id'],
+            $awardedAchievement['notice'],
+            isset($awardedAchievement['valid_until']) ? new DateTime($awardedAchievement['valid_until']) : null,
+            new DateTime($awardedAchievement['created_at']),
+        );
     }
 }

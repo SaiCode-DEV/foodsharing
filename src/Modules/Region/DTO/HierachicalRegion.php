@@ -12,14 +12,14 @@ class HierachicalRegion extends Region
     public array $children = [];
     public bool $hasAmbassador;
 
-    public static function createfromArray(array $data): HierachicalRegion
+    public static function createHierachicalRegion(int $id, int $parentId, string $name, string $emailAddress, bool $hasAmbassador): HierachicalRegion
     {
         $region = new HierachicalRegion();
-        $region->id = $data['id'];
-        $region->name = $data['name'];
-        $region->parentId = $data['parentId'];
-        $region->emailAddress = $data['email'];
-        $region->hasAmbassador = $data['hasAmbassador'];
+        $region->id = $id;
+        $region->name = $name;
+        $region->parentId = $parentId;
+        $region->emailAddress = $emailAddress;
+        $region->hasAmbassador = $hasAmbassador;
 
         return $region;
     }

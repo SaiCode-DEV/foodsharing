@@ -1148,7 +1148,16 @@ class StoreGateway extends BaseGateway
         $query .= ' WHERE ' . implode(' AND ', $conditions);
         $markers = $this->db->fetchAll($query, $params);
 
-        return array_map(fn ($marker) => MapMarker::createFromArray($marker), $markers);
+        return array_map(function ($m) use ($type) {
+            $marker = MapMarker::create($m['id'], $m['name'], (float)$m['lat'], (float)$m['lon']);
+            if ($type !== null) {
+                $marker->categoryType = $type;
+            } elseif (isset($m['type'])) {
+                $marker->categoryType = StoreCategoryType::tryFrom($m['type']);
+            }
+
+            return $marker;
+        }, $markers);
     }
 
     public function hasHadPickups(int $storeId): bool
@@ -1188,7 +1197,7 @@ class StoreGateway extends BaseGateway
         return $this->db->fetchAll('SELECT
             ' . $select . '
             FROM fs_betrieb store
-            JOIN fs_betrieb_team team ON team.betrieb_id = store.id 
+            JOIN fs_betrieb_team team ON team.betrieb_id = store.id
             WHERE team.foodsaver_id = :userId
             AND team.active = :activeStatus',
             [

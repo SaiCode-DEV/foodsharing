@@ -36,20 +36,14 @@ class BasketBubbleData
      */
     public ?Profile $creator = null;
 
-    public static function createFromArray(array $data): BasketBubbleData
+    public static function create(int $id, ?string $description, array $pictures): self
     {
-        $result = new BasketBubbleData();
-        $result->id = $data['id'];
-        $result->description = $data['description'];
-        $picture = json_decode($data['picture'] ?? '', true);
-        if (is_null($picture)) {
-            $result->pictures = [];
-        } elseif (is_array($picture)) {
-            $result->pictures = $picture;
-        } else {
-            $result->pictures = [$data['picture']];
-        }
+        $basketBubbleData = new BasketBubbleData();
 
-        return $result;
+        $basketBubbleData->id = $id;
+        $basketBubbleData->description = $description;
+        $basketBubbleData->pictures = $pictures;
+
+        return $basketBubbleData;
     }
 }

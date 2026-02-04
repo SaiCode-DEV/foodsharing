@@ -21,19 +21,25 @@ class AwardedAchievementWithUserDetails
     public ?DateTime $validUntil = null;
     public DateTime $createdAt;
 
-    public static function createFromArray(array $data): AwardedAchievementWithUserDetails
-    {
-        $awarded = new self();
-        $awarded->id = $data['id'];
-        $awarded->user = new Profile($data, 'user_');
-        if ($data['reviewer_id']) {
-            $awarded->reviewer = new Profile($data, 'reviewer_');
-        }
-        $awarded->achievementId = $data['achievement_id'];
-        $awarded->notice = $data['notice'];
-        $awarded->validUntil = isset($data['valid_until']) ? new DateTime($data['valid_until']) : null;
-        $awarded->createdAt = new DateTime($data['created_at']);
+    public static function create(
+        int $id,
+        Profile $user,
+        ?Profile $reviewer,
+        int $achievementId,
+        ?string $notice,
+        ?DateTime $validUntil,
+        DateTime $createdAt
+    ): self {
+        $awardedAchievement = new self();
 
-        return $awarded;
+        $awardedAchievement->id = $id;
+        $awardedAchievement->user = $user;
+        $awardedAchievement->reviewer = $reviewer;
+        $awardedAchievement->achievementId = $achievementId;
+        $awardedAchievement->notice = $notice;
+        $awardedAchievement->validUntil = $validUntil;
+        $awardedAchievement->createdAt = $createdAt;
+
+        return $awardedAchievement;
     }
 }

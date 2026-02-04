@@ -30,14 +30,18 @@ class AchievementGatewayTest extends Unit
         $this->gateway = $this->tester->get(AchievementGateway::class);
         $this->transactions = $this->tester->get(AchievementTransactions::class);
 
-        $this->initialAchievement = new Achievement();
-        $this->initialAchievement->regionId = 0;
-        $this->initialAchievement->name = 'Some name';
-        $this->initialAchievement->description = 'Some description';
-        $this->initialAchievement->icon = 'icon';
-        $this->initialAchievement->validityInDaysAfterAssignment = 365;
-        $this->initialAchievement->duplicateMode = DuplicateMode::OVERRIDE;
-        $this->initialAchievement->visibilityType = VisibilityType::STORE_MANAGERS;
+        $this->initialAchievement = Achievement::create(
+            id: null,
+            regionId: 0,
+            name: 'Some name',
+            description: 'Some description',
+            icon: 'icon',
+            validityInDaysAfterAssignment: 365,
+            createdAt: null,
+            updatedAt: null,
+            visibilityType: VisibilityType::PRIVATE,
+            duplicateMode: DuplicateMode::OVERRIDE,
+        );
 
         $this->user = $this->tester->createFoodsharer();
         $this->otherUser = $this->tester->createFoodsharer();
@@ -90,12 +94,13 @@ class AchievementGatewayTest extends Unit
     public function testAwardingAchievements(): void
     {
         $achievementId = $this->gateway->addAchievement($this->initialAchievement);
-        $awardedAchievement = new AwardedAchievement();
-        $awardedAchievement->foodsaverId = $this->user['id'];
-        $awardedAchievement->achievementId = $achievementId;
-        $awardedAchievement->reviewerId = $this->otherUser['id'];
-        $awardedAchievement->notice = 'Some notice';
-        $awardedAchievement->validUntil = null;
+        $awardedAchievement = AwardedAchievement::create(
+            0,
+            $this->user['id'],
+            $achievementId,
+            reviewerId: $this->otherUser['id'],
+            notice: 'Some notice'
+        );
 
         $this->gateway->awardAchievement($awardedAchievement);
         $this->assertEquals(true, $this->gateway->hasAchievement($this->user['id'], $achievementId));
@@ -104,12 +109,14 @@ class AchievementGatewayTest extends Unit
     public function testOutdatedAchievement(): void
     {
         $achievementId = $this->gateway->addAchievement($this->initialAchievement);
-        $awardedAchievement = new AwardedAchievement();
-        $awardedAchievement->foodsaverId = $this->user['id'];
-        $awardedAchievement->achievementId = $achievementId;
-        $awardedAchievement->reviewerId = $this->otherUser['id'];
-        $awardedAchievement->notice = 'Some notice';
-        $awardedAchievement->validUntil = Carbon::now()->subDay();
+        $awardedAchievement = AwardedAchievement::create(
+            0,
+            $this->user['id'],
+            $achievementId,
+            reviewerId: $this->otherUser['id'],
+            notice: 'Some notice',
+            validUntil: Carbon::now()->subDay()
+        );
 
         $this->gateway->awardAchievement($awardedAchievement);
         $this->assertEquals(false, $this->gateway->hasAchievement($this->user['id'], $achievementId));
@@ -277,12 +284,13 @@ class AchievementGatewayTest extends Unit
         $this->initialAchievement->duplicateMode = DuplicateMode::OVERRIDE;
         $achievementOverrideId = $this->gateway->addAchievement($this->initialAchievement);
 
-        $awarded1 = new AwardedAchievement();
-        $awarded1->foodsaverId = $this->user['id'];
-        $awarded1->achievementId = $achievementOverrideId;
-        $awarded1->reviewerId = $this->otherUser['id'];
-        $awarded1->notice = 'first override notice';
-        $awarded1->validUntil = null;
+        $awarded1 = AwardedAchievement::create(
+            0,
+            $this->user['id'],
+            $achievementOverrideId,
+            reviewerId: $this->otherUser['id'],
+            notice: 'first override notice',
+        );
 
         $id1 = $this->transactions->awardAchievement($awarded1);
 
@@ -301,12 +309,13 @@ class AchievementGatewayTest extends Unit
         $this->initialAchievement->duplicateMode = DuplicateMode::MULTIPLE;
         $achievementId = $this->gateway->addAchievement($this->initialAchievement);
 
-        $awarded1 = new AwardedAchievement();
-        $awarded1->foodsaverId = $this->user['id'];
-        $awarded1->achievementId = $achievementId;
-        $awarded1->reviewerId = $this->otherUser['id'];
-        $awarded1->notice = 'first notice';
-        $awarded1->validUntil = null;
+        $awarded1 = AwardedAchievement::create(
+            0,
+            $this->user['id'],
+            $achievementId,
+            reviewerId: $this->otherUser['id'],
+            notice: 'first notice',
+        );
 
         $id1 = $this->transactions->awardAchievement($awarded1);
 

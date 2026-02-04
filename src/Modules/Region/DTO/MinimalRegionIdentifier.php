@@ -19,7 +19,7 @@ class MinimalRegionIdentifier
      */
     public ?string $name = null;
 
-    public static function create(int $id, ?string $name = null): MinimalRegionIdentifier
+    public static function createMinimalRegionIdentifier(int $id, ?string $name = null): MinimalRegionIdentifier
     {
         $region = new MinimalRegionIdentifier();
         $region->id = $id;

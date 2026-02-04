@@ -39,15 +39,7 @@ class AchievementApiCest
         $this->tester->addRegionMember($createWGGroup['id'], $this->admin['id']);
         $this->tester->addRegionAdmin($createWGGroup['id'], $this->admin['id']);
 
-        $this->achievement = new Achievement();
-        $this->achievement->id = 1;
-        $this->achievement->regionId = $this->region['id'];
-        $this->achievement->name = 'Some name';
-        $this->achievement->description = 'Some description';
-        $this->achievement->icon = 'icon';
-        $this->achievement->validityInDaysAfterAssignment = 365;
-        $this->achievement->visibilityType = VisibilityType::GLOBAL;
-        $this->achievement->duplicateMode = DuplicateMode::OVERRIDE;
+        $this->achievement = Achievement::create(1, $this->region['id'], 'Some name', 'Some description', 'icon', 365, null, null, VisibilityType::GLOBAL, DuplicateMode::OVERRIDE);
 
         $this->otherAchievement = clone $this->achievement;
         $this->otherAchievement->id = 2;

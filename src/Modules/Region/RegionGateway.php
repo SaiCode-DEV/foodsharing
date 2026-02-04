@@ -597,7 +597,15 @@ class RegionGateway extends BaseGateway
             ':country' => UnitType::COUNTRY,
         ]);
 
-        return array_map(HierachicalRegion::createFromArray(...), $data);
+        return array_map(function ($data) {
+            return HierachicalRegion::createHierachicalRegion(
+                $data['id'],
+                $data['parentId'],
+                $data['name'],
+                $data['email'],
+                $data['hasAmbassador']
+            );
+        }, $data);
     }
 
     public function getRegionForEditing(int $regionId): array
@@ -717,7 +725,7 @@ class RegionGateway extends BaseGateway
             ORDER BY depth DESC
         ', ['id' => $regionId]);
 
-        return array_map(fn ($region) => MinimalRegionIdentifier::create($region['id'], $region['name']), $ancestors);
+        return array_map(fn ($region) => MinimalRegionIdentifier::createMinimalRegionIdentifier($region['id'], $region['name']), $ancestors);
     }
 
     /**
@@ -745,7 +753,7 @@ class RegionGateway extends BaseGateway
             ORDER BY r.name ASC
         ', ['id' => $regionId, 'workingGroupType' => UnitType::WORKING_GROUP]);
 
-        return array_map(fn ($region) => MinimalRegionIdentifier::create($region['id'], $region['name']), $children);
+        return array_map(fn ($region) => MinimalRegionIdentifier::createMinimalRegionIdentifier($region['id'], $region['name']), $children);
     }
 
     /**

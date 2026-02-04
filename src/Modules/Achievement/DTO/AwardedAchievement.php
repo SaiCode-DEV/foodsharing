@@ -30,19 +30,26 @@ class AwardedAchievement
     public ?DateTime $createdAt = null;
     public ?DateTime $updatedAt = null;
 
-    public static function createFromArray(array $data): AwardedAchievement
-    {
-        $awarded = new self();
+    public static function create(
+        int $id,
+        int $foodsaverId,
+        int $achievementId,
+        ?int $reviewerId = null,
+        ?string $notice = null,
+        ?DateTime $validUntil = null,
+        ?DateTime $createdAt = null,
+        ?DateTime $updatedAt = null
+    ): AwardedAchievement {
+        $achievement = new self();
+        $achievement->id = $id;
+        $achievement->foodsaverId = $foodsaverId;
+        $achievement->achievementId = $achievementId;
+        $achievement->reviewerId = $reviewerId;
+        $achievement->notice = $notice;
+        $achievement->validUntil = $validUntil;
+        $achievement->createdAt = $createdAt;
+        $achievement->updatedAt = $updatedAt;
 
-        $awarded->id = $data['id'];
-        $awarded->foodsaverId = $data['foodsaver_id'];
-        $awarded->achievementId = $data['achievement_id'];
-        $awarded->reviewerId = $data['reviewer_id'];
-        $awarded->notice = $data['notice'];
-        $awarded->validUntil = isset($data['valid_until']) ? new DateTime($data['valid_until']) : null;
-        $awarded->createdAt = new DateTime($data['created_at']);
-        $awarded->updatedAt = isset($data['updated_at']) ? new DateTime($data['updated_at']) : null;
-
-        return $awarded;
+        return $achievement;
     }
 }

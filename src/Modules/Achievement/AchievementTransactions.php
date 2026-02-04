@@ -33,10 +33,12 @@ class AchievementTransactions
 
     public function awardAchievementFromId(int $achievementId, int $foodsaverId): void
     {
-        $awardedAchievement = new AwardedAchievement();
-        $awardedAchievement->foodsaverId = $foodsaverId;
-        $awardedAchievement->achievementId = $achievementId;
-        $awardedAchievement->validUntil = $this->getValidityDateFromNow($achievementId);
+        $awardedAchievement = AwardedAchievement::create(
+            0,
+            $foodsaverId,
+            $achievementId,
+            validUntil: $this->getValidityDateFromNow($achievementId),
+        );
         $this->awardAchievement($awardedAchievement);
     }
 
