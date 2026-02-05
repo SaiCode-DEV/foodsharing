@@ -2975,7 +2975,7 @@ menu:
     fsfestival: 'festiwal foodsharingu'
     administration: 'Administracja'
     demands: ''
-    friendcircle: ''
+    friendcircle: 'Krąg przyjaciół'
     joinregion: ''
     baskets: ''
     workingGroupEdit: ''
@@ -3032,12 +3032,12 @@ footer:
     info: ''
     tooltip: ''
   call_to_action: ''
-  guide: ''
+  guide: 'Poradnik higieny'
   donate:
     call_to: 'Chciał(a)byś wesprzeć foodsharing?'
     cta: ''
   statistics: 'Statystyka'
-  dataprivacy: ''
+  dataprivacy: 'Prywatność'
   infosCompany: 'dla przedsiębiorstw'
 thread:
   priorityModal:
@@ -3678,7 +3678,7 @@ chain:
     headquarters: ''
     estimatedStoreCount: ''
     notes: ''
-    status: ''
+    status: 'Status'
   inputmodal:
     inputs:
       press:
@@ -3722,15 +3722,15 @@ chain:
     ok: ''
     cancel: ''
   errorCodes:
-    EMPTY_COUNTRY: ''
+    EMPTY_COUNTRY: 'Pole "państwo" nie może być puste'
     KEY_ACCOUNT_MANAGER_MISSING_ACHIEVEMENT: ''
-    EMPTY_CITY: ''
+    EMPTY_CITY: 'Pole "miasto" nie może być puste'
     EMPTY_NAME: ''
     INVALID_STORECHAIN_ID: ''
     WRONG_FORUM: ''
     KEY_ACCOUNT_MANAGER_ID_NOT_EXISTS: ''
     INVALID_STATUS: ''
-    EMPTY_ZIP: ''
+    EMPTY_ZIP: 'Pole "kod pocztowy" nie może być puste'
     THREAD_ID_NOT_EXISTS: ''
   detailsmodal:
     nostores: ''
@@ -3907,11 +3907,11 @@ startpage:
       part1: ''
       part2: ''
     text1:
-      part2: ''
-      part1: ''
-      part3: ''
-      part5: ''
-      part4: ''
+      part2: 'mapie'
+      part1: 'Na'
+      part3: 'znajdziesz'
+      part5: ', są to regały lub lodówki, gdzie możesz za darmo wziąć lub oddać żywność.'
+      part4: 'jadłodzielnie'
     title: ''
   demands:
     image_alt: ''
@@ -3939,7 +3939,7 @@ startpage:
   etiquette: 'etykieta foosharingu'
   donate:
     title: ''
-    link: ''
+    link: 'wspieraj foodsharing'
     text: ''
   slogan_1: ''
   registernow: 'Zarejestruj się teraz'
@@ -3951,7 +3951,7 @@ startpage:
   bedependable: ''
   towns:
     text: ''
-    title: ''
+    title: 'miasta foodsharingu'
   dependability: ''
   call_to_action_button: ''
   forstores: ''
@@ -3961,7 +3961,7 @@ startpage:
     text: ''
   register: 'Na końcu tej strony możesz się zarejestrować jako foodsharer/ka.'
   private:
-    title: ''
+    title: 'prywatnie'
     text: ''
   proposals: ''
   together: ''
@@ -4055,7 +4055,7 @@ navigation:
   help_needed: ''
 logincontrol:
   bread: ''
-  success: ''
+  success: 'Sukces!'
   nomorenewsletter: ''
   title: ''
 storestatus:
@@ -4131,7 +4131,7 @@ activitypost:
   quickreply_info: ''
   response: ''
   Response: ''
-addreaction: ''
+addreaction: 'Dodaj reakcję'
 network_errors:
   csrf_token_invalid:
     title: ''

@@ -115,15 +115,15 @@ store:
       14: '{actor} confirmou o assento de {target} no dia {date}.'
       3: '{actor} aceitou o pedido de afiliação de {target}.'
       4: '{actor} adicionou {target} á equipa sem solicitar.'
-      11: '{actor} registou-se para no dia {date}.'
+      11: '{actor} registou-se para o assento no dia {date}.'
       7: '{actor} eliminou {target} da equipa.'
-      13: '{actor} cancelau {target} para no dia {date}.'
-      13_with_reason: '{actor} cancelau {target} para no dia {date} com a seguinte
-        mensagem'
+      13: '{actor} cancelau {target} para o assento no dia {date}.'
+      13_with_reason: '{actor} cancelau {target} para o assento no dia {date} com
+        a seguinte mensagem'
       8: '{actor} deixou a equipa.'
       16: '{actor} retirou o pedido de filiação.'
       10: '{actor} demitiu {target} do apagar de lider de equipa.'
-      12: '{actor} descreu-se para o dia {date}.'
+      12: '{actor} descreu-se para o assento no dia {date}.'
       2: '{actor} rejeitou o pedido de afiliação de {target}.'
       5: '{actor} colocou {target} na lista de substitutos.'
       9: '{actor} designou {target} como lider de equipa.'
@@ -261,7 +261,7 @@ store:
   mayManage: 'Aprovou o exame de lideres de equipas.'
   go: 'Para a equipa'
   bread: 'Todas as empresas'
-  particularities_chain: 'Particularidades da cadeia'
+  particularities_chain: 'Instruções da cadeia'
   appliedFor: 'Solicitação realizada'
   filter: 'Filtrar por …'
   regionPickupRuleLong: 'No prazo de {regionPickupRuleTimespan} dias antes e depois
@@ -275,10 +275,9 @@ store:
   nochains: 'Por favor, contacte apenas empresas geridas pelos proprietários com,
     no máximo, três filiais, nunca contacte filiais de uma cadeia maior! Respeite
     as regras da cadeia de empresas!'
-  enter_date_description: 'Depois de selecionar a data, a hora e o número de assentos,
-    pode definir horários únicos para este compromisso. Se desejar criar horários
-    regulares (recorrentes automaticamente todas as semanas), utilize o menu "configurações
-    da empresa".'
+  enter_date_description: 'Depois de selecionar a data, a hora e o número, pode definir
+    horários únicos para este compromisso. Se desejar criar horários regulares (recorrentes
+    automaticamente todas as semanas), utilize o menu "configurações da empresa".'
   tooltip_yellow: 'Assentos disponíveis nos próximos cinco dias'
   joinDate: 'Na equipa desde {data}'
   peoplecame: 'Muitas vezes já aconteceu de pessoas irem à loja sem aviso prévio.'
@@ -335,10 +334,12 @@ store:
       específicas da empresa, exceto o registo da empresa, serão eliminadas. Por
       favor, apagine apenas empresas que realmente já não existem ou que foram 
       registadas duas vezes. As empresas que cancelaram uma cooperação devem 
-      permanecer registadas. Só é possível apagar empresas nas quais nunca foi 
-      ocupada uma assento e cujos chats de equipa não tenham sido utilizados 
-      durante pelo menos 3 meses.
+      permanecer registadas. Só é possível apagar empresas que nunca tiveram 
+      assentos e cujos chats de equipa não tenham sido utilizados durante pelo 
+      menos 3 meses.
   my_last_slot: O meu assento último
+  chain_has_kams: 'Responsável pra esta cadeia:'
+  part_of_chain: 'Faz parte da cadeia:'
 navigation:
   profil: 👋 Olá {name}!
   conversations: ''
@@ -491,6 +492,10 @@ bell:
   mark_as:
     read: Marcar como lido
     unread: Marcar como no lido
+  store_added_to_chain_title: '{chain}: empresa adicionada'
+  store_added_to_chain: A loja «{store}» agora faz parte da cadeia.
+  chain_info_updated_title: Cadeia {chain} atualizada
+  chain_info_updated: '{store} faz parte da cadeia.'
 email_template:
   login: 'Fazer login para responder'
   reply: 'Responder'
@@ -722,6 +727,10 @@ calendar:
       unconfirmed: 'não confirmado'
       foodsavers: 'Salvadores alimentares registados: '
       freeSlots: '{count} assentos ainda disponíveis'
+      name:
+        pickup: '{store} recolha'
+        giving: '{store} entrega'
+        orga: '{store} assento'
     event:
       description: 'Descrição'
       statusUnspecified: 'Ainda não indicou se irá participar neste evento. Pode fazer
@@ -766,31 +775,36 @@ poll:
     name: 'Nome da votação'
     scope: 'Quem pode votar?'
     time: 'Hora'
-    option_texts_required: ''
-    start_date_required: ''
-    description: ''
-    options: ''
-    end_date_required: ''
-    end_date: ''
+    option_texts_required: 'Por favor, escreva um texto único para cada opção.'
+    start_date_required: 'Por favor, selecione a hora de início da votação. Ela deve
+      ser pelo menos uma hora no futuro.'
+    description: 'Descrição'
+    options: 'Opções que devem estar disponíveis para seleção.'
+    end_date_required: 'Por favor, selecione o fim da votação que está depois do início.'
+    end_date: 'Fim da votação'
     title: 'Nova votação'
-    description_placeholder: ''
-    submit_success: ''
-    start_date: ''
-    description_required: ''
-    submit_question: ''
-    option: ''
-    missing_fields: ''
-    shuffle_options: ''
-    submit: ''
+    description_placeholder: 'Que tipo de votação é essa?'
+    submit_success: 'A votação foi criada'
+    start_date: 'Início da votação'
+    description_required: 'Por favor, escreva uma descrição.'
+    submit_question: 'A votação pode ser alterada até ao seu início. Quer mesmo criá-la
+      agora?'
+    option: 'Opção'
+    missing_fields: 'Todos os espaços precisam ser preenchidos'
+    shuffle_options: 'Mostrar opções ao votar em ordem aleatória'
+    submit: 'Guardar votação'
   time_period: 'Período'
-  may_not_vote: ''
+  may_not_vote: 'Não podes votar nesta votação. Quando ela foi criada, não fazias
+    parte do grupo com direito a voto. Mesmo que, durante o período de votação, venhas
+    a cumprir os critérios que te dão direito a votar, não é possível obter o direito
+    de voto retroativamente.'
   type_description_0: 'Selecionar (apenas uma opção pode ser selecionada)'
   type_description_1: 'Assinale (pode selecionar várias opções)'
   may_not_edit: ''
   hint_random_order: ''
-  ended_at: ''
+  ended_at: 'foi até'
   type_description_2: 'Opções de votação: a favor / abstenção / contra'
-  begins_at: ''
+  begins_at: 'Início'
   error_cannot_vote: 'Não pode participar nesta votação'
   cancel:
     title: ''
@@ -798,7 +812,7 @@ poll:
   may_not_yet_vote: ''
   not_available: 'Esta votação não existe ou não tem acesso a ela.'
   eligible_votes_count: ''
-  already_voted: ''
+  already_voted: 'Já participaste nesta votação'
   submit_vote_warning: 'Atenção: a votação é anónima e não é possível alterar a tua
     seleção após votar.'
   untraceable: 'A informação sobre como votaste em cada opção não pode ser rastreada
@@ -1087,6 +1101,9 @@ login:
     ativado.
   or: ou
   passkey_btn: Fazer login com Passkey
+  passkey_cancelled: O login com a chave de acesso foi cancelado.
+  passkey_not_found: Não há chave de acesso disponível para essa conta neste 
+    aparelho.
 profile:
   alldatesdeleted: 'Todas as datas foram apagadas'
   infos:
@@ -1633,7 +1650,7 @@ group:
     nobody: 'Ninguém (grupo fechado).'
     member_since_weeks: 'Quantas semanas são necessárias para um candidato estar registado
       na plataforma?'
-    fetch_count: 'Quantos assentos já deveriam ter sido efectuadas?'
+    fetch_count: 'Quantos assentos de recolha/entrega/orga já deveriam ter sido efectuadas?'
     banana_count: 'Quantas bananas de confiança devem estar presentes?'
     not_fulfilled: 'Para candidatar-se a este grupo de trabalho, deve fazer parte
       da foodsharing há %weeks% semanas, já ter recolhido %bananas% bananas de confiança
@@ -1861,14 +1878,14 @@ pickup:
     um substituto.'
   to_be_confirmed: 'Este assento ainda tem de ser confirmada por um responsável desta
     empresa.'
-  delete_title: 'Apagar o assento'
+  delete_title: 'Apagar esses assentos'
   signout_info: 'As tuas recolhas pendentes serão eliminadas.'
   leave_team_message_template: '{data}, não posso recolhê-lo afinal e, por isso, cancelei
     a minha inscrição novamente. …'
   leave_pickup_message_team: 'Notificar a equipa'
   leave_team_message_title: 'Mensagem para a equipa'
   signout_confirm: 'Tem a certeza?'
-  take_empty_slot: 'Inscrever-se aqui'
+  take_empty_slot: 'Inscrever-me aqui'
   join_agree: 'Sim, inscrever vinculativo'
   signout_sure: 'Queres mesmo deixar esta equipa?'
   hygieneCertificateMissing:
@@ -2371,6 +2388,9 @@ storeedit:
       Mas tens amplos direitos como parte da equipa de coordenação da cooperação.
 
       '
+    kam: |
+      Não és responsável por esta operação.
+      No entanto, tens acesso limitado como o gestor de grandes contas (KAM) da cadeia correspondente.
   store:
     status: 'Estado'
   fetch:
@@ -4237,7 +4257,8 @@ personal_data:
   mobile: 'Número de telemóvel'
   landline: 'Número de teléfono fixo'
 fetchstate: 'Foi tudo bem?'
-abholmenge: 'Quantos kg por assento são normalmente habitual para cada pessoa?'
+abholmenge: 'Quantos kg por recolha ou entrega são normalmente habitual para cada
+  pessoa?'
 groups:
   empty: 'Ainda não faz parte dos grupos de trabalho'
 besonderheiten: 'Indicações'
