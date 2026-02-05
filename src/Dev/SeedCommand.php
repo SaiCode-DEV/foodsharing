@@ -273,10 +273,12 @@ class SeedCommand extends Command implements CustomCommandInterface
         array $waitingMemberIds,
         array $applicantIds = [],
         bool $addRecurringPickup = false,
+        array $extraStoreParams = []
     ): array {
         $conv1Id = $I->createConversation([], ['name' => 'betrieb_bla', 'locked' => 1])['id'];
         $conv2Id = $I->createConversation([], ['name' => 'springer_bla', 'locked' => 1])['id'];
-        $store = $I->createStore($regionId, $conv1Id, $conv2Id, ['betrieb_status_id' => $statusId]);
+        $extraStoreParams['betrieb_status_id'] = $statusId;
+        $store = $I->createStore($regionId, $conv1Id, $conv2Id, $extraStoreParams);
         $storeId = $store['id'];
 
         foreach ($managerIds as $managerId) {
@@ -769,9 +771,8 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
         $extra_params = [];
         $extra_params['kette_id'] = $chain_ids[0];
         $extra_params['name'] = 'Schulungsbetrieb Onboarding';
-        $extra_params['betrieb_status_id'] = CooperationStatus::COOPERATION_ESTABLISHED->value;
 
-        $store = $this->createStoreAndAddToTeam($I, $region1, CooperationStatus::COOPERATION_ESTABLISHED->value, $managers, $members, $jumpers, $applied);
+        $store = $this->createStoreAndAddToTeam($I, $region1, CooperationStatus::COOPERATION_ESTABLISHED->value, $managers, $members, $jumpers, $applied, false, $extra_params);
 
         $appliedDate = Carbon::now()->addDays(-3);
         foreach ($applied as $applicant) {
