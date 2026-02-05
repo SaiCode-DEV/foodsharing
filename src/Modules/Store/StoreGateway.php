@@ -1148,12 +1148,13 @@ class StoreGateway extends BaseGateway
         $query .= ' WHERE ' . implode(' AND ', $conditions);
         $markers = $this->db->fetchAll($query, $params);
 
-        return array_map(function ($m) use ($type) {
+        return array_map(function ($m) {
             $marker = MapMarker::create($m['id'], $m['name'], (float)$m['lat'], (float)$m['lon']);
-            if ($type !== null) {
-                $marker->categoryType = $type;
-            } elseif (isset($m['type'])) {
-                $marker->categoryType = StoreCategoryType::tryFrom($m['type']);
+            if (isset($m['categoryType'])) {
+                $marker->categoryType = StoreCategoryType::tryFrom($m['categoryType']);
+            } else {
+                // Fallback for stores without category
+                $marker->categoryType = StoreCategoryType::PICKUP;
             }
 
             return $marker;
