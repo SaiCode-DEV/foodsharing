@@ -12,18 +12,34 @@
           v-for="partner in partnersList"
           :key="partner.name"
           class="partner"
+          :class="{ 'logo-only': isLogoOnly(partner) }"
         >
+          <a
+            v-if="partner.link"
+            :href="partner.link"
+            target="_blank"
+            rel="noopener"
+            class="hide-external logo-link"
+          >
+            <img
+              :src="getLogoSrc(partner)"
+              :alt="partner.name + ' Logo'"
+              class="logo"
+            >
+          </a>
           <img
+            v-else
             :src="getLogoSrc(partner)"
             :alt="partner.name + ' Logo'"
             class="logo"
           >
-          <h3 class="my-2 partner-name">
+          <h3 v-if="partner.name" class="my-2 partner-name">
             <a
               v-if="partner.link"
               :href="partner.link"
               target="_blank"
               rel="noopener"
+              class="hide-external"
             >
               {{ partner.name }}
             </a>
@@ -31,7 +47,7 @@
               {{ partner.name }}
             </template>
           </h3>
-          <p v-text="partner.description" />
+          <p v-if="partner.description" v-text="partner.description" />
         </div>
       </div>
     </div>
@@ -88,6 +104,10 @@ const getCategoryId = (category) => {
   // Remove colons and replace the rest with _
   return category.replace(/[:]/g, '').replace(/[^\w]/g, '_')
 }
+
+const isLogoOnly = (partner) => {
+  return !partner.name && !partner.description
+}
 </script>
 
 <style lang="scss" scoped>
@@ -111,6 +131,11 @@ const getCategoryId = (category) => {
   border: 2px solid var(--fs-color-dark);
   border-radius: 10px;
   background-color: var(--fs-color-light);
+
+  &.logo-only {
+    border: none;
+    background-color: transparent;
+  }
 
   body.light-mode & {
     // for images with white background, make the upper part white
