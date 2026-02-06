@@ -61,13 +61,20 @@ class MapGateway extends BaseGateway
         return array_map(fn ($marker) => MapMarker::create($marker['id'], $marker['name'], $marker['lat'], $marker['lon']), $markers);
     }
 
+    /**
+     * Returns all public events that have valid coordinates. Online events do not have coordinates and are not shown
+     * on the map.
+     *
+     * @return MapMarker[]
+     */
     public function getEventMarkers(): array
     {
         $markers = $this->db->fetchAll('SELECT
                 e.id, l.lat, l.lon, e.name
             FROM fs_event e
             INNER JOIN fs_location l ON l.id = e.location_id
-            WHERE e.is_public = 1 AND e.end > NOW()');
+            WHERE e.is_public = 1 AND e.end > NOW()
+            AND l.lat IS NOT NULL AND l.lon IS NOT NULL');
 
         return array_map(fn ($marker) => MapMarker::create($marker['id'], $marker['name'], $marker['lat'], $marker['lon']), $markers);
     }

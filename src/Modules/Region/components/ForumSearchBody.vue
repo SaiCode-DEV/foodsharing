@@ -1,6 +1,6 @@
 <template>
   <a
-    :href="$url('forumThread', thread.region_id, thread.id, thread.post_id)"
+    :href="$url('forumThread', thread.region_id, thread.id, thread.postId)"
     class="d-flex dropdown-item search-result"
     tabindex="1"
   >
