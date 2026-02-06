@@ -3178,8 +3178,6 @@ map:
     go: ''
   users:
     go: Vedi profilo
-  community:
-    go: ''
   foodsharepoint:
     go: ''
 push_notifications:

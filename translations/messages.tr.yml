@@ -3153,8 +3153,6 @@ map:
         label: -Bölge
   foodsharepoint:
     go: Dağıtım Noktası
-  community:
-    go: Bölge sayfasına
   events:
     title: Etkinlikler_
     go: Etkinliğe git

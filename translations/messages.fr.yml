@@ -2805,8 +2805,6 @@ map:
         label: District
   foodsharepoint:
     go: Au frigo solidaire
-  community:
-    go: vers la page du district
   events:
     go: à l’événement
     title: Événements

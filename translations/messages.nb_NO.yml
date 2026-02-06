@@ -1494,8 +1494,6 @@ map:
         label: Distrikt
   foodsharepoint:
     go: til matdelingsskapet
-  community:
-    go: til distriktssiden
   events:
     title: Arrangementer
     go: til arrangementet

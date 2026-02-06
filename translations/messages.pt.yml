@@ -35,7 +35,7 @@ store:
     verified: 'O Utilisador está verificado'
     no-duplicate: 'Já existe uma solicitação.'
     request: 'Aplicar para esta equipa'
-    to-jumper: 'Lista da reserva'
+    to-jumper: 'Lista de substitutos'
     withdraw: 'Cancelar minha solicitação'
     confirm-far: De acordo com o endereço guardado, moras muito longe deste 
       sítio ({distance}). Tens a certeza de que podes apoiar a equipa de forma 
@@ -145,7 +145,7 @@ store:
       6: 'Adicionar Foodsaver ao equipa ativo'
       12: 'Cancelar para assento'
       9: 'Inscrever lideres de equipa'
-      5: 'Passar Foodsaver para a lista de suplentes'
+      5: 'Passar Foodsaver para a lista de substitutos'
       13: 'Ser cancelado do assento'
       11: 'Inscrever pela o assento'
       15: 'Apagar a entrada de pinboard'
@@ -176,7 +176,7 @@ store:
     filterJumper: 'Substitutos'
     filterQuizSM: 'Questinário aprovado para lideres de equipas'
     reallyRemove: 'Quer mesmo remover {name} da equipa da loja?'
-    makeJumper: 'Na lista da reserva'
+    makeJumper: 'Na lista de substitutos'
     reloadRequired: 'Para atualizar as informações do equipa:'
     makeRegularTeamMember: 'Adicionar na equipa'
     filterNoHygiene: 'sem formação em higiene'
@@ -208,7 +208,7 @@ store:
     final: 'No início não parecia promissor, mas depois entraram em contacto.'
   mayAmb: 'Aprovou o questionário dos embaixadores.'
   chat:
-    jumper: 'Mensagem para substituto'
+    jumper: 'Mensagem para substitutos'
     team: 'Mensagem para a equipe'
     managers: Mensagem para os lideres de equipa
   isAppliedForTeam: 'Solicitação'
@@ -228,7 +228,7 @@ store:
   not-in-team: 'Ainda não estás na equipa desta loja.'
   unverified_members: 'não verificados'
   allStoresOfRegion: 'Todas as lojas do distrito'
-  willgetcontacted: 'Atualmente, está na lista dos substitutos. Entraremos em contacto
+  willgetcontacted: 'Atualmente, está na lista de substitutos. Entraremos em contacto
     consigo assim que precisarmos de ajuda.'
   slot_state: 'Estado de assento'
   delete_date_description: 'Caso utilize intervalos regulares (recorrentes semanalmente
@@ -647,7 +647,7 @@ dashboard:
   no_more_updates_foodsharepoint: 'Não há mais mensagens do cantinho solidário'
   activation_mail_sent: 'Link de ativação enviado – verifique os teus e-mails'
   no_more_updates_all: 'foi isso!'
-  greeting: 'Olá, {name}! Que bom que está aqui.'
+  greeting: 'Olá, {name}! É um prazer ter-te aqui.'
   display_all: 'Todos'
   no_more_updates_friendWall: 'Não há mais relatórios de estado'
   event: 'Próximo evento'
@@ -713,7 +713,7 @@ storeview:
     available_count: Número de caracteres disponíveis
   show_settings: Configurações de loja
   team_info_active: 'Membros ativos da equipa:'
-  team_info_jumper: 'Reserva:'
+  team_info_jumper: 'Substitutos:'
 calendar:
   locale: pt
   labelNextYear: 'O próximo ano'
@@ -1029,7 +1029,7 @@ menu:
     messages: 'Mensagems'
     aboutUs: 'Sobre nós'
     infos: 'Informações'
-    close_all_chats: Fechar todas as conversas
+    close_all_chats: Fechar todos os chats
     applications: Aplicações ({count})
     public: Página pública do distrito
   bell:
@@ -1363,7 +1363,7 @@ profile:
       filterInvitations: Convidado
       filterActive: membro
       filterManage: Responsável por lojas
-      filterJumper: Suplente
+      filterJumper: Substituto
   sleeping_info_from_until: tem um dorminhoco de {from} até {until}
   choosereasonnostore: Não se aplica a nenhuma loja
   chooseantherstore: Diz referência a uma loja não listada
@@ -1904,7 +1904,7 @@ pickup:
   passport_expired:
     short: Cartão de membro expirado
     long: O teu cartão de membro já não é válido neste momento
-  chat: Iniciar um conversação para o assento
+  chat: Iniciar um chat de assento
   slots: Assentos
 error:
   mail_bounce:
@@ -2017,35 +2017,35 @@ fsp:
   createdAt: 'Inaugurado:'
   followerCount: 'Utilizadores interessados: {followerCount}'
 search:
-  thread-title-only: ''
+  thread-title-only: 'Apenas os títulos são pesquisados, não o texto das publicações.'
   results:
     region:
-      ambassador_tooltip: ''
-      home_region_tooltip: ''
-      member_tooltip: ''
+      ambassador_tooltip: 'És o embaixador deste distrito'
+      home_region_tooltip: 'Este é o teu distrito de origem'
+      member_tooltip: 'És membro deste distrito'
     working_group:
-      member_tooltip: ''
-      admin_tooltip: ''
+      member_tooltip: 'És o membro deste grupo de trabalho'
+      admin_tooltip: 'És o administrador deste grupo de trabalho'
     thread:
-      closed_tooltip: ''
-      forum: ''
-      sticky_tooltip: ''
-      ambassador_forum: ''
-      last_post: ''
-      bottom_tooltip: ''
-    in: ''
+      closed_tooltip: 'O tópico está fechado'
+      forum: 'Fórum'
+      sticky_tooltip: 'O tópico está fixado'
+      ambassador_forum: 'Fórum de embaixadores'
+      last_post: 'Última publicação'
+      bottom_tooltip: 'O tópico tem visibilidade reduzida'
+    in: 'em'
     chat:
-      chat_with: ''
-      chat_with_others: ''
+      chat_with: 'Chat com {names}'
+      chat_with_others: 'outros'
     user:
-      no_home_region: ''
-      copied_id: ''
-      copy_id: ''
+      no_home_region: 'Não há distrito de origem'
+      copied_id: 'ID de {name} copiado ({text})'
+      copy_id: 'Copiar ID'
     store:
-      manager_tooltip: ''
-      jumper_tooltip: ''
-      member_tooltip: ''
-    from: ''
+      manager_tooltip: 'És responsável por esta loja'
+      jumper_tooltip: 'Estás na lista de substitutos desta loja'
+      member_tooltip: 'És membro desta empresa'
+    from: 'de'
     mail:
       mail_name: '{name} <{mail}>'
       from_to_many: ''
@@ -2054,10 +2054,10 @@ search:
       recieved_tooltip: ''
       from_to: ''
     time_relation:
-      present_since: ''
-      past: ''
-      future: ''
-      present_until: ''
+      present_since: 'Começar'
+      past: 'Finalizado'
+      future: 'Começa'
+      present_until: 'Finaliza'
     poll:
       not_eligible: ''
       can_vote: ''
@@ -2072,21 +2072,22 @@ search:
   title: 'Buscar'
   placeholder: 'Iniciar busca agora …'
   user_search:
-    placeholder: ''
-  informations: 'Podes procuro por pessoas, grupos, lojas, distritos, bate-papos,
-    mensagens do fórum e cantinhos solidário.'
-  noresults: ''
+    placeholder: 'Nome ou DNI'
+  informations: 'Podes procuro por pessoas, grupos, lojas, distritos, chats, mensagens
+    do fórum e cantinhos solidários.'
+  noresults: 'Nenhum resultado encontrado para a sua pesquisa'
   too_short: 'Por favor, insira um termo de busca mais longo.'
   forum:
     placeholder: 'Buscar neste fórum …'
     found:
-      body: ''
-      title: ''
-  maxresults: ''
+      body: 'Resultados no conteúdo'
+      title: 'Resultados no título'
+  maxresults: 'O número de resultados mostrados é limitado. Tenta usar um termo de
+    pesquisa mais específico.'
   scope:
     global: ''
     local: ''
-  thread-body-only: ''
+  thread-body-only: 'Apenas o texto das publicações é pesquisado, não os títulos.'
 quiz:
   question: 'Pergunta'
   timedstart: 'Iniciar um questionário com limite de tempo e {count} perguntas'
@@ -3227,14 +3228,14 @@ thread:
   options:
     rename: ''
     unlock: ''
-    pin: ''
+    pin: 'Fixar a publicação'
     lock: 'Fechar tópico'
     unpin: ''
     hideHidden: ''
     priority: ''
     showHidden: ''
   rename:
-    description_modal_text: ''
+    description_modal_text: 'Insira um novo título para esta publicação:'
     placeholder: ''
     max_length_info: ''
     edit_description: ''
@@ -3244,13 +3245,14 @@ thread:
       copy_direct_link: ''
       restore: ''
     copy_source_success: ''
-    quote_button: ''
+    quote_button: 'Ao clicar, insere o texto da publicação (se necessário, abreviado)
+      na resposta. Se pressionar [Shift] ao mesmo tempo, todo o texto será inserido.'
     linked_post: ''
     copy_direct_link_success: ''
     quote_post_wrote: ''
   priorityModal:
     higher: ''
-    text: ''
+    text: 'Prioridade de exibição desta publicação:'
     lower: ''
     title: ''
     normal: ''
@@ -3871,7 +3873,7 @@ forum:
     really: Quer mesmo restaurar esta publicação?
     hidden_by: Ocultado por
     reason: 'Motivo: «{reason}»'
-    title: Restaurar o contribuição
+    title: Restaurar a publicação
   options:
     bells_for_new_posts: Receber um sinal para novos tópicos
 title: 'Titulo'
@@ -3924,8 +3926,9 @@ notifications:
   regions:
     title: ''
   chat:
-    description: ''
-    title: 'Mensagens de chat'
+    description: 'Receba uma notificação quando tiver novas mensagens de chat, mesmo
+      que não esteja conectado.'
+    title: 'Mensagems de chat'
   threads:
     title: ''
   config_button: ''
@@ -4309,8 +4312,6 @@ map:
         other: Segundo distrito
       region:
         label: Distrito
-  community:
-    go: Para a página do distrito
   events:
     title: Eventos
     go: Para o evento
@@ -4521,7 +4522,37 @@ help:
       title: ''
       md: ''
     storeLog:
-      md: ''
+      md: 'O registo de loja é uma forma de acompanhar as atividades numa loja. Pode
+        ajudar a resolver conflitos ou corrigir erros acidentais.
+
+        ---
+
+        ###### Exemplo
+
+        Digamos que queiras saber quem foi adicionado à equipa nas últimas 3 semanas
+        e por quem. Então, podes definir o período usando as datas de início e fim
+        nos dois campos de data. Em seguida, podes selecionar todos os tipos de ações
+        relevantes no menu suspenso. Neste caso, por exemplo, «*Fazer pedidos de adesão*»,
+        «*Aceitar pedidos de adesão*» e «*Recusar pedidos de adesão*». Agora, se clicar
+        no botão «*Mostrar ações selecionadas*», será exibido um histórico dos eventos
+        selecionados.
+
+        ---
+
+        ###### Acesso
+
+        Apenas quem também pode administrar a loja tem acesso a isso. Para salvadores
+        alimentares e substitutos normais, o registo de loja não é visível.
+
+        ---
+
+        ###### Restrições
+
+        São carregadas no máximo 100 entradas. Se necessário, pode ter de restringir
+        o período de pesquisa ou os tipos de ação selecionados, caso nem todos os
+        resultados sejam exibidos.
+
+        '
       title: ''
     pickupOptions:
       title: ''
@@ -4602,7 +4633,34 @@ help:
       md: ''
     my_resources:
       title: ''
-      md: ''
+      md: 'Nesta secção, podes gerir os teus próprios recursos; criar novos recursos,
+        editar, eliminar ou simplesmente ver o que estás a partilhar atualmente.
+
+
+        ##### O que é um recurso?
+
+        Um recurso pode ser qualquer coisa que queiras contribuir para a comunidade
+        foodsharing. Podem ser **habilidades**, como cozinhar ou programar, **objetos**
+        que estarias disposto a emprestar, como uma bicicleta de carga ou uma estação
+        de cozinha móvel, ou mesmo **contatos** com outras iniciativas, autoridades,
+        meios de comunicação, etc.
+
+
+        ##### Tudo pode, nada tem de ser
+
+        Ninguém é obrigado a registar recursos, e só porque registaste um determinado
+        recurso, isso não significa que *tenhas* de o disponibilizar para determinadas
+        ações. Trata-se mais de partilhar aquilo com que *gostarias de contribuir*.
+
+
+        ##### Quem vê os meus recursos?
+
+        Os recursos ficam visíveis dentro dos teus distritos e grupos de trabalho.
+        Mas isso não vale para distritos muito grandes, como estados ou províncias,
+        onde não tem um mosaico de recursos disponível. Também podes limitar a visibilidade
+        de cada recurso aos salvadores alimentares que conheces.
+
+        '
     masterRegion:
       title: ''
       md: ''
@@ -4642,7 +4700,7 @@ required_messages:
       [{store}](/store/{storeId}). Atualmente, não podes inscrever-te para os 
       assentos nesta loja nem ler o chat geral do grupo.
     footer: ''
-    really: ''
+    really: 'Queres mesmo tirar {name} da equipa ativa e colocá-lo na lista de substitutos?'
   demote_store_manager:
     really: 'Quer mesmo retirar a responsabilidade de {name} como líder da equipa?'
     footer: ''

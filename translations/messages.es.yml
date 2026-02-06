@@ -4109,8 +4109,6 @@ map:
         label: Distrito
   foodsharepoint:
     go: Punto para compartir alimentos
-  community:
-    go: A la página del distrito
   events:
     go: al evento
     title: Eventos

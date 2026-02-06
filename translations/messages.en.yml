@@ -2359,8 +2359,6 @@ map:
         label: District
   foodsharepoint:
     go: to the food share point
-  community:
-    go: to the district’s page
   events:
     title: Events
     go: more about this event
@@ -4118,7 +4116,7 @@ globals:
     users: Persons
     workingGroups: Groups
     groups_menu: Groups menu
-    regions_menu: DIstricts menu
+    regions_menu: Regions menu
     events: Events
     polls: Polls
     mails: E-mails

@@ -2491,8 +2491,6 @@ map:
     go: 'Do eventu'
   users:
     go: Do profilu
-  community:
-    go: ''
   title: 'Mapa'
   donates: ''
 mailbox:
@@ -3375,8 +3373,8 @@ error:
     description: ''
   passport_is_invalid_soon:
     description: ''
-    link: ''
-    title: ''
+    link: 'Ustawienia profilu'
+    title: 'Ważność twojej legitymacji niedługo się kończy!'
   invalid_landline_phonenumber:
     title: ''
     link: ''
@@ -3396,9 +3394,9 @@ error:
     link_1: ''
     link_2: ''
   passport_is_invalid:
-    description: ''
-    title: ''
-    link: ''
+    description: 'Skontaktuj się ze swoimi ambasador(k)ami, żeby ją odnowić.'
+    title: 'Twoja legitymacja jest już nieważna!'
+    link: 'Ustawienia profilu'
 achievements:
   visibility_type_explanation:
     scope: ''
@@ -4021,13 +4019,13 @@ conference:
   join: 'Dołącz do konferencji online'
 system_administration:
   regions: ''
-  email: ''
-  quiz: ''
+  email: 'Wyślij newsletter'
+  quiz: 'Zarządzaj quizem'
   resource_categories: ''
   store_categories: ''
-  blog: ''
+  blog: 'Edytuj posty na blogu'
   reports: ''
-  content: ''
+  content: 'Edytuj treści'
 sort:
   sort_by: ''
   options:
@@ -4052,25 +4050,25 @@ bootstrap-datepicker:
   labelPrevDecade: ''
 navigation:
   toggle: ''
-  conversations: ''
-  help: ''
+  conversations: 'Wiadomości'
+  help: 'Pomoc'
   regions: ''
-  support: ''
-  search: ''
-  contact: ''
-  whats_new: ''
+  support: 'Support'
+  search: 'Szukaj'
+  contact: 'Kontakt & support'
+  whats_new: 'Co nowego?'
   promotion: ''
-  notifications: ''
+  notifications: 'Powiadomienia'
   stores: ''
   system_administration: ''
   styleguide: ''
-  wiki: ''
-  map: ''
+  wiki: 'Wiki'
+  map: 'Mapa'
   groups: ''
-  profil: ''
+  profil: '👋 Cześć {name}!'
   news_from_it: ''
   basket: ''
-  help_needed: ''
+  help_needed: 'Potrzebna pomoc?'
 logincontrol:
   bread: ''
   success: 'Sukces!'
@@ -4172,7 +4170,7 @@ releases:
   "2020-05": 'Release "Pomarańcza" (Maj 2020)'
 information:
   push:
-    link: ''
+    link: 'Do ustawień'
     description: ''
     title: ''
   calendar_sync:

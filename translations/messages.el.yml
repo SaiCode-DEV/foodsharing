@@ -3248,8 +3248,6 @@ map:
         week: ''
         3months: ''
         label: ''
-  community:
-    go: ''
   foodsharepoint:
     go: ''
   events:
