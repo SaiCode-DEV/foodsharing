@@ -47,7 +47,7 @@ export function patchUserProfile (userId, data) {
 }
 
 export function getUserProfileSettings (userId) {
-  return get(`/user/${userId}/profileSettings`)
+  return get(`/users/${userId}/profile-settings`)
 }
 
 export function testRegisterEmail (email) {
@@ -62,7 +62,7 @@ export function testRegisterEmail (email) {
 }
 
 export function setSleepStatus (mode, from, to, message) {
-  return patch('/user/sleepmode', {
+  return patch('/users/current/sleep-mode', {
     mode,
     from,
     to,

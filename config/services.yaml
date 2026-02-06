@@ -28,11 +28,11 @@ services:
             - '../src/Dev'
             - '../src/Kernel.php'
             - '../src/Modules/{PushNotification/Notification,Foodsaver/Profile.php,Message/Message.php}'
-            - '../src/Modules/Uploads/DTO/'
             - '../src/RestApi/Models/'
             - '../src/Modules/OAuth/Grant/'
             - '../src/Modules/OAuth/Entity/'
             - '../src/Modules/OAuth/OIDCBearerTokenResponse.php'
+            - '../src/**/DTO/'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

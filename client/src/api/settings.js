@@ -1,4 +1,4 @@
-import { patch, get } from './base'
+import { patch, post } from './base'
 
 export async function setProfilePhoto (uuid) {
   return await patch('/user/photo', {
@@ -7,7 +7,7 @@ export async function setProfilePhoto (uuid) {
 }
 
 export function requestEmailChange (userId, email, password) {
-  return patch(`/user/${userId}/email`, {
+  return patch(`/users/${userId}/email`, {
     email,
     password,
   }, {
@@ -16,7 +16,7 @@ export function requestEmailChange (userId, email, password) {
 }
 
 export function requestPasswordChange (oldPassword, newPassword) {
-  return patch('/user/current/password', {
+  return patch('/users/current/password', {
     oldPassword,
     newPassword,
   }, {
@@ -25,12 +25,12 @@ export function requestPasswordChange (oldPassword, newPassword) {
 }
 
 export function get2FAdata () {
-  return get('/user/current/2fa/generate')
+  return post('/users/current/2fa')
 }
 
 export function set2FA (password, code, enable, userId = null) {
   if (userId === null) userId = 'current'
-  return patch(`/user/${userId}/2fa`, {
+  return patch(`/users/${userId}/2fa`, {
     password,
     code,
     enable,

@@ -23,6 +23,7 @@ use Foodsharing\Modules\Foodsaver\FoodsaverTransactions;
 use Foodsharing\Modules\Login\LoginGateway;
 use Foodsharing\Modules\Mails\MailsGateway;
 use Foodsharing\Modules\Region\RegionGateway;
+use Foodsharing\Modules\Settings\DTO\TOTPProposal;
 use Foodsharing\Modules\Unit\UnitGateway;
 use Foodsharing\Permissions\SettingsPermissions;
 use Foodsharing\RestApi\Models\Settings\EmailChangeRequest;
@@ -115,12 +116,12 @@ class SettingsTransactions
         // check that the password is correct
         $currentEmail = $this->foodsaverGateway->getEmailAddress($this->session->id());
         if (!$this->loginGateway->checkClient($currentEmail, $request->password)) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Password is not correct');
         }
 
         // check that the new address is valid and not in use
         if (!$this->isValidNewEmailAddress($request->email)) {
-            throw new BadRequestHttpException();
+            throw new BadRequestHttpException('mail address is invalid or already used');
         }
 
         // store a random token in the database
@@ -160,7 +161,7 @@ class SettingsTransactions
     {
         // check the permissions and that the email is valid and not in use
         if (!$this->settingsPermissions->mayChangeLoginEmail($userId)) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Not permitted');
         }
         if (!$this->isValidNewEmailAddress($request->email)) {
             throw new BadRequestHttpException('new email is not valid');
@@ -461,15 +462,13 @@ class SettingsTransactions
 
     /**
      * Generate 2FA secret, QR code and backup codes.
-     *
-     * @return array<string, mixed> The generated 2FA data
      */
-    public function generateTwoFA(): array
+    public function generateTwoFA(): TOTPProposal
     {
         // First check if there is already an ongoing TOTP activation
-        $totpProposal = $this->session->get('totp_proposal');
-        if ($totpProposal && is_array($totpProposal)) {
-            ++$totpProposal['reused'];
+        $totpProposal = TOTPProposal::tryFromArray($this->session->get('totp_proposal'));
+        if (!is_null($totpProposal)) {
+            ++$totpProposal->reused;
 
             return $totpProposal;
         }
@@ -507,7 +506,7 @@ class SettingsTransactions
         $this->session->set('totp_proposal', $totpProposal);
 
         // Return data array
-        return $totpProposal;
+        return TOTPProposal::tryFromArray($totpProposal);
     }
 
     /**

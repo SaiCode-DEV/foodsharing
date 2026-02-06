@@ -56,7 +56,7 @@ class SettingsApiCest
 
     public function canOnlySetSleepStatusWhenLoggedIn(ApiTester $I): void
     {
-        $I->sendPATCH('api/user/sleepmode', ['mode' => SleepStatus::NONE]);
+        $I->sendPATCH('api/users/current/sleep-mode', ['mode' => SleepStatus::NONE]);
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
         $I->seeInDatabase('fs_foodsaver', [
             'id' => $this->user['id'],
@@ -68,8 +68,8 @@ class SettingsApiCest
     {
         // full sleep mode
         $I->login($this->user['email']);
-        $I->sendPATCH('api/user/sleepmode', ['mode' => SleepStatus::FULL]);
-        $I->seeResponseCodeIs(HttpCode::NO_CONTENT);
+        $I->sendPATCH('api/users/current/sleep-mode', ['mode' => SleepStatus::FULL]);
+        $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeInDatabase('fs_foodsaver', [
             'id' => $this->user['id'],
             'sleep_status' => SleepStatus::FULL
@@ -77,12 +77,12 @@ class SettingsApiCest
 
         // temporary sleep mode
         $I->login($this->user['email']);
-        $I->sendPATCH('api/user/sleepmode', [
+        $I->sendPATCH('api/users/current/sleep-mode', [
             'mode' => SleepStatus::TEMP,
             'from' => Carbon::today()->addDay()->format('Y-m-d'),
             'to' => Carbon::today()->addWeek()->format('Y-m-d')
         ]);
-        $I->seeResponseCodeIs(HttpCode::NO_CONTENT);
+        $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeInDatabase('fs_foodsaver', [
             'id' => $this->user['id'],
             'sleep_status' => SleepStatus::TEMP
@@ -90,8 +90,8 @@ class SettingsApiCest
 
         // no sleeping
         $I->login($this->user['email']);
-        $I->sendPATCH('api/user/sleepmode', ['mode' => SleepStatus::NONE]);
-        $I->seeResponseCodeIs(HttpCode::NO_CONTENT);
+        $I->sendPATCH('api/users/current/sleep-mode', ['mode' => SleepStatus::NONE]);
+        $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeInDatabase('fs_foodsaver', [
             'id' => $this->user['id'],
             'sleep_status' => SleepStatus::NONE
@@ -104,7 +104,7 @@ class SettingsApiCest
 
         // without 'from'
         $I->login($this->user['email']);
-        $I->sendPATCH('api/user/sleepmode', [
+        $I->sendPATCH('api/users/current/sleep-mode', [
             'mode' => SleepStatus::TEMP,
             'to' => Carbon::today()->addWeek()->format('d.m.Y')
         ]);
@@ -116,7 +116,7 @@ class SettingsApiCest
 
         // without 'to'
         $I->login($this->user['email']);
-        $I->sendPATCH('api/user/sleepmode', [
+        $I->sendPATCH('api/users/current/sleep-mode', [
             'mode' => SleepStatus::TEMP,
             'from' => Carbon::today()->addDay()->format('d.m.Y'),
         ]);
@@ -132,7 +132,7 @@ class SettingsApiCest
         $I->updateInDatabase('fs_foodsaver', ['sleep_status' => SleepStatus::NONE], ['id' => $this->user['id']]);
 
         $I->login($this->user['email']);
-        $I->sendPATCH('api/user/sleepmode', [
+        $I->sendPATCH('api/users/current/sleep-mode', [
             'mode' => SleepStatus::TEMP,
             'from' => 'abcdefg',
             'to' => Carbon::today()->addWeek()->format('d.m.Y')
@@ -159,7 +159,7 @@ class SettingsApiCest
         $I->updateInDatabase('fs_foodsaver', ['sleep_status' => SleepStatus::NONE], ['id' => $this->user['id']]);
 
         $I->login($this->user['email']);
-        $I->sendPATCH('api/user/sleepmode', ['mode' => $example['mode']]);
+        $I->sendPATCH('api/users/current/sleep-mode', ['mode' => $example['mode']]);
         $I->seeResponseCodeIs(constant('Codeception\Util\HttpCode::' . $example['expectedCode']));
         $I->seeInDatabase('fs_foodsaver', [
             'id' => $this->user['id'],
@@ -177,7 +177,7 @@ class SettingsApiCest
         $I->login($user['email']);
 
         // Check on the day before sleep_until
-        $I->sendPATCH('api/user/sleepmode', [
+        $I->sendPATCH('api/users/current/sleep-mode', [
             'mode' => SleepStatus::TEMP,
             'from' => $today->format('Y-m-d'),
             'to' => $tomorrow->format('Y-m-d'),
@@ -187,7 +187,7 @@ class SettingsApiCest
         $I->seeResponseContainsJson(['isSleeping' => true]);
 
         // Check on the same day as sleep_until
-        $I->sendPATCH('api/user/sleepmode', [
+        $I->sendPATCH('api/users/current/sleep-mode', [
             'mode' => SleepStatus::TEMP,
             'from' => $yesterday->format('Y-m-d'),
             'to' => $today->format('Y-m-d'),
@@ -197,7 +197,7 @@ class SettingsApiCest
         $I->seeResponseContainsJson(['isSleeping' => true]);
 
         // Check on one-day sleeping
-        $I->sendPATCH('api/user/sleepmode', [
+        $I->sendPATCH('api/users/current/sleep-mode', [
             'mode' => SleepStatus::TEMP,
             'from' => $today->format('Y-m-d'),
             'to' => $today->format('Y-m-d'),
@@ -207,7 +207,7 @@ class SettingsApiCest
         $I->seeResponseContainsJson(['isSleeping' => true]);
 
         // Check on the day after sleep_until
-        $I->sendPATCH('api/user/sleepmode', [
+        $I->sendPATCH('api/users/current/sleep-mode', [
             'mode' => SleepStatus::TEMP,
             'from' => $yesterday->format('Y-m-d'),
             'to' => $yesterday->format('Y-m-d'),
@@ -397,7 +397,7 @@ class SettingsApiCest
     public function canNotChangePasswordWithoutLogin(ApiTester $I): void
     {
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/user/current/password', [
+        $I->sendPatch('api/users/current/password', [
             'oldPassword' => $this->passwordOfUser,
             'newPassword' => $this->faker->password(8)
         ]);
@@ -408,7 +408,7 @@ class SettingsApiCest
     {
         $I->login($this->userWithPassword['email'], $this->passwordOfUser);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/user/current/password', [
+        $I->sendPatch('api/users/current/password', [
             'oldPassword' => 'abcdefghi',
             'newPassword' => $this->faker->password(8)
         ]);
@@ -419,7 +419,7 @@ class SettingsApiCest
     {
         $I->login($this->userWithPassword['email'], $this->passwordOfUser);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/user/current/password', [
+        $I->sendPatch('api/users/current/password', [
             'oldPassword' => $this->passwordOfUser,
             'newPassword' => $this->faker->password(2, 7)
         ]);
@@ -432,7 +432,7 @@ class SettingsApiCest
 
         $I->login($this->userWithPassword['email'], $this->passwordOfUser);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/user/current/password', [
+        $I->sendPatch('api/users/current/password', [
             'oldPassword' => $this->passwordOfUser,
             'newPassword' => $newPassword
         ]);
@@ -472,7 +472,7 @@ class SettingsApiCest
         $testUser = $users->{$example['testUser']};
 
         $I->login($loginUser['email']);
-        $I->sendGET('api/user/' . $testUser['id'] . '/profileSettings');
+        $I->sendGET('api/users/' . $testUser['id'] . '/profile-settings');
 
         if ($example['canRead']) {
             $I->seeResponseCodeIs(HttpCode::OK);
@@ -566,7 +566,7 @@ class SettingsApiCest
 
         $I->login($loginUser['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/user/' . $this->user['id'] . '/email', [
+        $I->sendPatch('api/users/' . $this->user['id'] . '/email', [
             'email' => $newEmail,
             'password' => 'password'
         ]);
