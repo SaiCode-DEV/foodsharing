@@ -19,10 +19,11 @@ export function getDetails () {
   return get('/user/current/details')
 }
 
-export function deleteUser (id, reason) {
+export function deleteUser (id, reason, password = null) {
   return remove(`/user/${id}`, {
     reason,
-  })
+    password,
+  }, { skipErrorNotificationFor: [401] })
 }
 
 export function getUserNames (ids) {

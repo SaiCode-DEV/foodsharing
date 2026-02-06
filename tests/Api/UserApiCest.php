@@ -417,9 +417,14 @@ class UserApiCest
         $I->addPicker($store['id'], $this->user['id']);
         $I->addPicker($store['id'], $this->user['id'], ['confirmed' => 0]);
 
+        // delete user without password should fail
+        $I->login($this->user[self::EMAIL]);
+        $I->sendDELETE(self::API_USER . '/' . $this->user['id'], ['password' => '124']);
+        $I->seeResponseCodeIs(Http::UNAUTHORIZED);
+
         // delete user
         $I->login($this->user[self::EMAIL]);
-        $I->sendDELETE(self::API_USER . '/' . $this->user['id']);
+        $I->sendDELETE(self::API_USER . '/' . $this->user['id'], ['password' => 'password']);
         $I->seeResponseCodeIs(Http::NO_CONTENT);
 
         // check that the user is not in the team anymore and that no future slots are assigned to the user

@@ -275,7 +275,7 @@ test.describe("Settings", () => {
     await acceptanceHelper.login(foodsharer.email);
 
     await page.goto("/user/current/settings");
-    await expect(page.locator("body")).toContainText("Account löschen");
+    await expect(page.locator("body")).toContainText("Konto löschen");
   });
 
   test("foodsaver can select business card role and region", async ({

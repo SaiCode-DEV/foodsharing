@@ -87,7 +87,7 @@
         :title="$t('foodsaver.delete_account')"
         :active="subPage === SUB_PAGE.DELETE_ACCOUNT"
       >
-        <DeleteAccount :user-id="userId" />
+        <DeleteAccount :user-id="userId" :profile-data="profileData" />
       </ResponsiveTab>
     </TabbedPage>
 

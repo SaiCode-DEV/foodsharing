@@ -469,18 +469,34 @@ class UserRestController extends AbstractFoodsharingRestController
      */
     #[Rest\Delete('user/{userId}', requirements: ['userId' => '\d+'])]
     #[Rest\RequestParam(name: 'reason', nullable: true, default: '')]
+    #[Rest\RequestParam(name: 'password', nullable: true, default: '')]
     public function deleteUser(int $userId, ParamFetcher $paramFetcher): Response
     {
         if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
+            throw new UnauthorizedHttpException('', 'Not logged in');
         }
         if (!$this->profilePermissions->mayDeleteUser($userId)) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Insufficient permissions');
         }
 
         $reason = trim((string)$paramFetcher->get('reason'));
         if (strlen($reason) > self::DELETE_USER_MAX_REASON_LEN) {
             throw new BadRequestHttpException('reason text is too long: must be at most ' . self::DELETE_USER_MAX_REASON_LEN . ' characters');
+        }
+
+        // If the user deletes themself, require current password as additional validation
+        if ($userId === $this->session->id()) {
+            $password = (string)$paramFetcher->get('password');
+            if (empty($password)) {
+                throw new BadRequestHttpException('password required');
+            }
+
+            // validate password for current user
+            $email = $this->foodsaverGateway->getEmailAddress($userId);
+            $canLogin = $this->loginGateway->canLogin($email, $password, '');
+            if (!$canLogin) {
+                throw new UnauthorizedHttpException('', 'Password is incorrect or 2FA is enabled');
+            }
         }
 
         // needs the session ID, so we can't log out just yet
