@@ -1312,6 +1312,8 @@ store:
     modal_title: ''
   deactivatedRegion: ''
   slotsCurrentlyOccupied: ''
+  part_of_chain: ''
+  chain_has_kams: ''
 pickup:
   kick: ''
   confirm: ''
@@ -2157,6 +2159,7 @@ storeedit:
     leave: ''
     orga: ''
     unmanaged: ''
+    kam: ''
   add-new: ''
   actions: ''
   milestone:
@@ -2430,6 +2433,10 @@ bell:
   store_invitation_declined_title: ''
   event_post_title: ''
   internal_email_changed_title: ''
+  chain_info_updated_title: ''
+  chain_info_updated: ''
+  store_added_to_chain_title: ''
+  store_added_to_chain: ''
 genderlist:
   gender_female: ''
   number_table_header: ''
@@ -2725,9 +2732,11 @@ chain:
         label: ''
         invalidfeedback: ''
         description: ''
+        default: ''
       details:
         label: ''
         description: ''
+        default: ''
       estimatedStoreCount:
         description: ''
         label: ''
@@ -3092,6 +3101,10 @@ calendar:
       unconfirmed: ''
       foodsavers: ''
       freeSlots: ''
+      name:
+        giving: ''
+        orga: ''
+        pickup: ''
     event:
       linkTitle: ''
       description: ''
@@ -3180,6 +3193,8 @@ login:
   error_not_activated: ''
   2fa: ''
   passkey_btn: ''
+  passkey_cancelled: ''
+  passkey_not_found: ''
 yes: ''
 notice: ''
 validate:
@@ -3688,6 +3703,9 @@ help:
       title: ''
       md: ''
     achievements:
+      md: ''
+      title: ''
+    store_chain_info:
       md: ''
       title: ''
   helpTitle: ''

@@ -1221,6 +1221,10 @@ calendar:
       description: 'Foodsharing pick-up at <a href="{url}">{store}</a>'
       freeSlots: '{count} slots are still free'
       foodsavers: 'Registered Foodsavers: '
+      name:
+        giving: ''
+        orga: ''
+        pickup: ''
     event:
       statusUnspecified: You have not stated whether you would like to 
         participate in this event. You can do so on the linked page.
@@ -4012,10 +4016,12 @@ chain:
         label: Notes
         invalidfeedback: Notes must not be longer than 200 chars.
         description: Notes that are displayed in the chain list.
+        default: ''
       details:
         label: Store info
         description: Information text that gets displayed on the store pages of 
           stores belonging to this chain.
+        default: ''
     cancel: Cancel
     ok: Save
   detailsmodal:
@@ -4549,6 +4555,7 @@ help:
     store_chain_info:
       md: |
         This store is part of a [store chain](https://wiki.foodsharing.de/Betrieb#Betriebskette). Each chain has responsible [KAMs](https://wiki.foodsharing.de/Key_Account_Manager_(KAM)) who are allowed to see the team and the pick-up slots of this store.
+      title: ''
   tooltip: Show help
   helpTitle: 'Help: {title}'
 team_page:

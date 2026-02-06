@@ -573,6 +573,8 @@ login:
   error_no_email: ''
   topbar: ''
   error_no_password: ''
+  passkey_cancelled: ''
+  passkey_not_found: ''
 group:
   member_list:
     passports:
@@ -1435,6 +1437,9 @@ help:
     achievements:
       md: ''
       title: ''
+    store_chain_info:
+      md: ''
+      title: ''
   helpTitle: ''
   tooltip: ''
 store:
@@ -1693,6 +1698,8 @@ store:
   lastPickupShort: ''
   pickup_slot_unavailable: ''
   smneeded: ''
+  part_of_chain: ''
+  chain_has_kams: ''
 email_template:
   login: ''
   fetch_warning:
@@ -1843,6 +1850,7 @@ storeedit:
     max-sm: ''
     amb: ''
     coordinator: ''
+    kam: ''
   store:
     status: ''
   fetch:
@@ -2669,6 +2677,7 @@ chain:
         label: ''
         invalidfeedback: ''
         description: ''
+        default: ''
       estimatedStoreCount:
         description: ''
         label: ''
@@ -2676,6 +2685,7 @@ chain:
       details:
         label: ''
         description: ''
+        default: ''
       status:
         label: ''
       name:
@@ -3018,6 +3028,10 @@ bell:
   new_foodsaver_needs_verification: ''
   store_request_deny: ''
   new_quiz_comment_title: ''
+  chain_info_updated_title: ''
+  chain_info_updated: ''
+  store_added_to_chain_title: ''
+  store_added_to_chain: ''
 timepicker:
   labelCloseButton: ''
   labelMinutes: ''
@@ -3806,6 +3820,10 @@ calendar:
       freeSlots: ''
       description: ''
       unconfirmed: ''
+      name:
+        giving: ''
+        orga: ''
+        pickup: ''
     event:
       description: ''
       statusUnspecified: ''

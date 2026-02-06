@@ -608,6 +608,8 @@ login:
   error_not_activated: ''
   2fa: ''
   passkey_btn: ''
+  passkey_cancelled: ''
+  passkey_not_found: ''
 salutation:
   "3": Cara/o
   "2": Cara
@@ -887,6 +889,7 @@ storeedit:
     leave: Annulla l'iscrizione del agenzia
     bread: modificare il team
     leave_myself: 'Te stesso'
+    kam: ''
   actions: Opzioni
   bread: Modifica l’agenzia
   add_success: L´agenzia di cooperazione è stata registrata
@@ -1187,6 +1190,8 @@ store:
     sure: ''
   passport_expired: ''
   passport_expires_soon: ''
+  part_of_chain: ''
+  chain_has_kams: ''
 storeview:
   want_to_fetch: Vorrei aiutare in questo team.
   specials: Istruzioni e procedura
@@ -1898,6 +1903,10 @@ calendar:
       unconfirmed: 'non confermato'
       freeSlots: '{count} slot sono ancora liberi'
       foodsavers: 'Foodsavers registrati: '
+      name:
+        giving: ''
+        orga: ''
+        pickup: ''
     event:
       description: 'Descrizione'
       linkTitle: 'Evento Foodsharing'
@@ -2032,6 +2041,10 @@ bell:
     many: ''
   poll_started: ''
   store_invitation_declined_title: ''
+  chain_info_updated_title: ''
+  chain_info_updated: ''
+  store_added_to_chain_title: ''
+  store_added_to_chain: ''
 content:
   edit: Modifica pagina
   new_success: La pagina è stata creata
@@ -3918,10 +3931,12 @@ chain:
         label: 'Note'
         invalidfeedback: 'Le note non possono contenere più di 200 caratteri.'
         description: 'Note visualizzate nella panoramica della catena.'
+        default: ''
       details:
         label: 'Informazioni per le aziende'
         description: 'Avvisi visualizzati sulle pagine dei negozi appartenenti alla
           catena.'
+        default: ''
       estimatedStoreCount:
         description: Numero totale di negozi della catena
         label: Filiali
@@ -4179,6 +4194,9 @@ help:
       title: ''
       md: ''
     achievements:
+      md: ''
+      title: ''
+    store_chain_info:
       md: ''
       title: ''
 no_automatic_delete: 'Se l’ultimo accesso è avvenuto cinque anni fa:'

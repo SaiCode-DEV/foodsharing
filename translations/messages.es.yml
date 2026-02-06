@@ -1608,6 +1608,8 @@ store:
     sure: ''
   passport_expired: ''
   passport_expires_soon: ''
+  part_of_chain: ''
+  chain_has_kams: ''
 pickup:
   overview:
     status:
@@ -1908,6 +1910,10 @@ bell:
     many: ''
     one: ''
   poll_started: ''
+  chain_info_updated_title: ''
+  chain_info_updated: ''
+  store_added_to_chain_title: ''
+  store_added_to_chain: ''
 foodsaver:
   restricted: 'Lamentablemente, no tienes permiso para ver estos datos.'
   upgrade:
@@ -2461,6 +2467,7 @@ chain:
         description: 'Avisos mostrados en páginas de empresas pertenecientes a la
           cadena.'
         label: 'Información sobre empresas'
+        default: ''
       press:
         description: 'Permitir la mención pública de la cooperación'
         label: 'Prensa'
@@ -2468,6 +2475,7 @@ chain:
         description: 'Notas que se muestran en la descripción general de la cadena.'
         invalidfeedback: 'Las notas no pueden tener más de 200 caracteres.'
         label: 'Notas'
+        default: ''
       kam:
         label: 'Ejecutiv@ de cuentas clave'
         invalidfeedback: 'Entrada inválida. Se requieren uno o más ID de usuario.'
@@ -2711,6 +2719,7 @@ storeedit:
     cannot-leave: 'Eres responsable de esta empresa, por lo que no puedes dejarla.'
     foodsaver: 'Rescatistas'
     need-sm: 'Debe haber al menos una persona responsable de esta empresa.'
+    kam: ''
   fetch:
     teamStatus1: 'Se necesitan ayudantes'
     teamStatus0: 'Este equipo está completo y actualmente no busca más ayudantes'
@@ -3886,6 +3895,8 @@ login:
   error_not_activated: ''
   2fa: ''
   passkey_btn: ''
+  passkey_cancelled: ''
+  passkey_not_found: ''
 gender:
   d: 'Ambos u Otro'
   m: 'Hombre'
@@ -3912,6 +3923,10 @@ calendar:
       unconfirmed: 'inconfirmado'
       freeSlots: '{count} espacios todavía están libres'
       foodsavers: 'Registrar como ahorrador de alimentos: '
+      name:
+        giving: ''
+        orga: ''
+        pickup: ''
     updated: '(Última actualización: {date})'
   labelPrevMonth: 'el mes pasado'
   labelCurrentMonth: 'mes actual'
@@ -4475,6 +4490,9 @@ help:
     achievementVisibility:
       title: ''
       md: ''
+    store_chain_info:
+      md: ''
+      title: ''
 team_page:
   board_member:
     text: "La junta directiva de foodsharing e.V. mantiene unidos los hilos, conecta

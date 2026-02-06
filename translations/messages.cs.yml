@@ -685,9 +685,11 @@ chain:
         label: ''
         description: ''
         invalidfeedback: ''
+        default: ''
       details:
         description: ''
         label: ''
+        default: ''
       kam:
         description: ''
         invalidfeedback: ''
@@ -813,6 +815,8 @@ login:
   error_not_activated: ''
   2fa: ''
   passkey_btn: ''
+  passkey_cancelled: ''
+  passkey_not_found: ''
 register:
   login_email: 'E-mailová adresa'
   login_passwd2: ''
@@ -1221,6 +1225,8 @@ store:
     modal_title: ''
   deactivatedRegion: ''
   slotsCurrentlyOccupied: ''
+  part_of_chain: ''
+  chain_has_kams: ''
 storeedit:
   team:
     bread: ''
@@ -1236,6 +1242,7 @@ storeedit:
     cannot-leave: ''
     leave: ''
     orga: ''
+    kam: ''
   actions: ''
   fetch:
     teamStatus: ''
@@ -1628,6 +1635,10 @@ bell:
   poll_started: ''
   store_invitation_declined_title: ''
   event_post_title: ''
+  chain_info_updated_title: ''
+  chain_info_updated: ''
+  store_added_to_chain_title: ''
+  store_added_to_chain: ''
 genderlist:
   home_district_tab: ''
   gender_female: ''
@@ -2742,6 +2753,10 @@ calendar:
       description: ''
       foodsavers: ''
       freeSlots: ''
+      name:
+        giving: ''
+        orga: ''
+        pickup: ''
     event:
       statusUnspecified: ''
       description: ''
@@ -3718,6 +3733,9 @@ help:
       title: ''
       md: ''
     achievements:
+      md: ''
+      title: ''
+    store_chain_info:
       md: ''
       title: ''
   helpTitle: ''

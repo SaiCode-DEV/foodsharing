@@ -1910,9 +1910,11 @@ chain:
         invalidfeedback: ''
         description: ''
         label: ''
+        default: ''
       details:
         description: ''
         label: ''
+        default: ''
       kam:
         invalidfeedback: ''
         label: ''
@@ -2245,6 +2247,8 @@ store:
     modal_title: ''
   deactivatedRegion: ''
   slotsCurrentlyOccupied: ''
+  part_of_chain: ''
+  chain_has_kams: ''
 storeedit:
   team:
     bread: ''
@@ -2260,6 +2264,7 @@ storeedit:
     max-sm: ''
     note: ''
     unmanaged: ''
+    kam: ''
   milestone:
     dropped: ''
     accepted: ''
@@ -2297,6 +2302,10 @@ calendar:
       description: ''
       foodsavers: ''
       freeSlots: ''
+      name:
+        giving: ''
+        orga: ''
+        pickup: ''
     event:
       linkTitle: ''
       description: ''
@@ -2525,6 +2534,10 @@ bell:
   store_invitation_declined_title: ''
   event_post_title: ''
   internal_email_changed_title: ''
+  chain_info_updated_title: ''
+  chain_info_updated: ''
+  store_added_to_chain_title: ''
+  store_added_to_chain: ''
 basket:
   is:
     vegan: ''
@@ -3040,6 +3053,8 @@ login:
   error_not_activated: ''
   2fa: ''
   passkey_btn: ''
+  passkey_cancelled: ''
+  passkey_not_found: ''
 email_template:
   reply: ''
   dont_respond:
@@ -3685,6 +3700,9 @@ help:
       title: ''
       md: ''
     achievements:
+      md: ''
+      title: ''
+    store_chain_info:
       md: ''
       title: ''
   helpTitle: ''

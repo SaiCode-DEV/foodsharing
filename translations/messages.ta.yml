@@ -352,6 +352,8 @@ store:
     sure: ''
   passport_expired: ''
   passport_expires_soon: ''
+  part_of_chain: ''
+  chain_has_kams: ''
 storeedit:
   bread: செயல்பாட்டைத் திருத்து
   add-new: புதிய செயல்பாட்டை உருவாக்கவும்
@@ -379,6 +381,7 @@ storeedit:
       தொலைதூர உரிமைகள் உள்ளன: இல்.\n"
     orga: "இந்த நிறுவனத்திற்கு நீங்கள் பொறுப்பல்ல.\n இருப்பினும், உலகளாவிய அமைப்பின்
       ஒரு பகுதியாக உங்களுக்கு தொலைதூர உரிமைகள் உள்ளன.\n"
+    kam: ''
   store:
     status: நிலை
   fetch:
@@ -549,6 +552,10 @@ calendar:
       unconfirmed: உறுதிப்படுத்தப்படாதது
       description: <a href="{url}">{store} </a> இல் உணவுபகிர் சேகரிப்பு
       foodsavers: 'உணவுப் பாதையில் நுழைந்தது: உள்ளே: '
+      name:
+        giving: ''
+        orga: ''
+        pickup: ''
     updated: '(கடைசியாக புதுப்பிக்கப்பட்டது: {date})'
     event:
       statusUnspecified: இந்த தேதியில் நீங்கள் பங்கேற்கிறீர்களா என்பதை நீங்கள் 
@@ -1028,6 +1035,10 @@ bell:
     many: ''
     one: ''
   poll_started: ''
+  chain_info_updated_title: ''
+  chain_info_updated: ''
+  store_added_to_chain_title: ''
+  store_added_to_chain: ''
 list:
   filter_for: பின்னர் வடிகட்டி …
 memberlist:
@@ -2777,10 +2788,12 @@ chain:
         label: குறிப்புகள்
         invalidfeedback: குறிப்புகள் 200 எழுத்துகளுக்கு மேல் இருக்கக்கூடாது.
         description: சங்கிலி கண்ணோட்டத்தில் காட்டப்படும் குறிப்புகள்.
+        default: ''
       details:
         label: நிறுவனங்களுக்கான செய்தி
         description: சங்கிலிக்கு சொந்தமான நிறுவனத்தின் பக்கங்களில் காட்டப்படும் 
           குறிப்புகள்.
+        default: ''
     cancel: ரத்துசெய்
     ok: சேமிக்கவும்
   detailsmodal:
@@ -3318,6 +3331,9 @@ help:
     achievementVisibility:
       title: ''
       md: ''
+    store_chain_info:
+      md: ''
+      title: ''
 team_page:
   board_member:
     title: பலகை
@@ -3985,6 +4001,8 @@ login:
   error_not_activated: ''
   2fa: ''
   passkey_btn: ''
+  passkey_cancelled: ''
+  passkey_not_found: ''
 register:
   login_email: மின்னஞ்சல்-அம்சம்
   email_required: மின்னஞ்சல் முகவரி தேவை

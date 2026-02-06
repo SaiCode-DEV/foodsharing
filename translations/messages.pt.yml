@@ -341,25 +341,25 @@ store:
   part_of_chain: 'Faz parte da cadeia:'
 navigation:
   profil: 👋 Olá {name}!
-  conversations: ''
-  help: ''
-  regions: ''
-  support: ''
-  search: ''
-  contact: ''
-  whats_new: ''
-  promotion: ''
-  notifications: ''
-  stores: ''
-  system_administration: ''
-  styleguide: ''
-  wiki: ''
-  map: ''
-  groups: ''
-  news_from_it: ''
-  basket: ''
-  help_needed: ''
-  toggle: ''
+  conversations: 'Mensagems'
+  help: 'Ajuda'
+  regions: 'Distritos'
+  support: 'Suporte ao utilizador'
+  search: 'Buscar'
+  contact: 'Contacto e suporte'
+  whats_new: 'O que é novo?'
+  promotion: 'Na área de TI? Precisamos de ti!'
+  notifications: 'Notificaçães'
+  stores: 'Lojas'
+  system_administration: 'Administração de sistema'
+  styleguide: 'Guia de estilo'
+  wiki: 'Wiki'
+  map: 'Mapa'
+  groups: 'Grupos'
+  news_from_it: 'Notícias e falhas'
+  basket: 'Cestas de comidas'
+  help_needed: 'Precisa de ajuda?'
+  toggle: 'Mostrar/ocultar navegação'
 bell:
   poll_new: '{title}'
   workgroup_request_decline_title: '{name}'
@@ -628,7 +628,7 @@ dashboard:
   activity_filter_info: 'Aqui pode definir quais atualizações devem ser exibidas na
     sua página inicial.'
   source_forum: 'Fórum {0}'
-  save_selection: 'Guardar configurações'
+  save_selection: 'Salvar configurações'
   updates_title_all: 'Resumo das atualizações'
   no_more_updates_forum: 'Não há mais entradas no fórum'
   chooseHomeRegion: 'Por favor, selecione um distrito de origem.'
@@ -753,8 +753,8 @@ poll:
   allowed_voters: 'Direito a voto'
   edit:
     title: 'Editar votação'
-    submit: 'Guardar votação'
-    submit_question: 'Queres mesmo guardar as alterações na votação?'
+    submit: 'Salvar votação'
+    submit_question: 'Queres mesmo salvar as alterações na votação?'
   in_future: 'ainda não foi iniciado'
   in_past: 'terminado'
   results:
@@ -791,7 +791,7 @@ poll:
     option: 'Opção'
     missing_fields: 'Todos os espaços precisam ser preenchidos'
     shuffle_options: 'Mostrar opções ao votar em ordem aleatória'
-    submit: 'Guardar votação'
+    submit: 'Salvar votação'
   time_period: 'Período'
   may_not_vote: 'Não podes votar nesta votação. Quando ela foi criada, não fazias
     parte do grupo com direito a voto. Mesmo que, durante o período de votação, venhas
@@ -1082,7 +1082,7 @@ login:
   password: 'palavra-passe'
   email_address: 'Endereço electrónico'
   logout: 'Sair'
-  save_password: 'Guardar a palavra-passe'
+  save_password: 'Salvar a palavra-passe'
   error_no_email: 'Digite o seu endereço de e-mail.'
   topbar: 'Fazer login'
   error_no_password: 'Digite a sua palavra-passe.'
@@ -1671,7 +1671,7 @@ group:
   show-all: 'Mostrar todo'
   actions:
     go: 'Ao grupo'
-    save: 'Guardar alterações'
+    save: 'Salvar alterações'
     contact: 'Contacto este grupo'
     join: 'Participe neste grupo de trabalho'
     apply: 'Aplicar para este grupo de trabalho'
@@ -1915,16 +1915,18 @@ error:
     link_1: 'Alterar endereço de e-mail'
   missing_geolocation:
     title: 'Não foi indicado nenhum endereço válido'
-    description: ''
-    link: ''
+    description: 'Por favor, verifica o teu endereço. Não foi possível determinar
+      as coordenadas.'
+    link: 'Para entrada o endereço'
   missing_user_avatar:
-    title: ''
-    link: ''
-    description: ''
+    title: 'Ainda não carregaste uma foto de perfil.'
+    link: 'Carregar uma foto de perfil agora'
+    description: 'Mostra aos membros de foodsharing quem tu és!'
   invalid_mobile_phonenumber:
-    title: ''
-    description: ''
-    link: ''
+    title: 'Tem um problema com o teu número de telemóvel.'
+    description: 'Infelizmente, o teu número de telemóvel tem um formato que não permite
+      receber chamadas.'
+    link: 'Corrigir o número do telemóvel agora'
   mail_activation:
     description: 'A utilização do site só é possível com um endereço de e-mail confirmado.
       Confirma o teu endereço de e-mail clicando no link do e-mail de ativação.'
@@ -1932,22 +1934,24 @@ error:
     link_1: 'Pedir um novo e-mail de ativação'
     link_2: 'Alterar endereço de e-mail'
   passport_is_invalid_soon:
-    description: ''
-    link: ''
-    title: ''
+    description: 'A tua cartão de membro ainda é válida por {days} dias. Entra em
+      contacto com os teus embaixadores para a renovar.'
+    link: 'Ajustes do perfil'
+    title: 'O teu cartão de membro vai expirar em breve!'
   invalid_landline_phonenumber:
-    title: ''
-    link: ''
-    description: ''
+    title: 'Tem um problema com o teu número de telefone fixo.'
+    link: 'Corrigir o número de telefone fixo agora'
+    description: 'Infelizmente, o teu número de telefone fixo tem um formato que não
+      permite receber chamadas.'
   page:
     back_home: 'Voltar à página inicial'
     not_found: 'A página não foi encontrada.'
     internal_server_error: 'Ocorreu um erro interno no servidor.'
     other: 'Ocorreu um erro desconecido.'
   passport_is_invalid:
-    description: ''
-    title: ''
-    link: ''
+    description: 'Entre em contato com os teus embaixadores para uma renovação.'
+    title: 'A tua cartão de membro já não é válida!'
+    link: 'Opções do perfil'
 fsp:
   info:
     mail: 'Notificação por campainha e e-mail'
@@ -2065,16 +2069,16 @@ search:
         0: ''
         2: ''
       location_online: ''
-  title: ''
-  placeholder: ''
+  title: 'Buscar'
+  placeholder: 'Iniciar busca agora …'
   user_search:
     placeholder: ''
   informations: 'Podes procuro por pessoas, grupos, lojas, distritos, bate-papos,
     mensagens do fórum e cantinhos solidário.'
   noresults: ''
-  too_short: ''
+  too_short: 'Por favor, insira um termo de busca mais longo.'
   forum:
-    placeholder: ''
+    placeholder: 'Buscar neste fórum …'
     found:
       body: ''
       title: ''
@@ -2481,7 +2485,7 @@ chain:
     title:
       edit: 'Editar cadeia'
       new: 'Criar cadeia'
-    ok: 'Guardar'
+    ok: 'Salvar'
     cancel: 'Cancelar'
   errorCodes:
     EMPTY_COUNTRY: 'O espaço para o pai está vazio'
@@ -2698,9 +2702,9 @@ settings:
   passport:
     menu: 'Cartão'
     button: 'Descarregar cartão de membro'
-    verified_text: 'Este cartão é destinado ao uso em smartphones. Pode guardar o
-      cartão no seu telemóvel e, em caso de necessidade, apresentá-lo. Caso não possua
-      um smartphone ou, por qualquer outro motivo, necessite de um cartão convencional,
+    verified_text: 'Este cartão é destinado ao uso em smartphones. Pode salvar o cartão
+      no seu telemóvel e, em caso de necessidade, apresentá-lo. Caso não possua um
+      smartphone ou, por qualquer outro motivo, necessite de um cartão convencional,
       entre em contacto com os embaixadores locais.'
     non_verified_text: 'Ainda não estás verificado. Apenas os salvadores alimentares
       verificados podem descarregar o cartão de membro.'
@@ -2754,7 +2758,7 @@ settings:
 
     '
   header: 'Configurações do perfil'
-  account: 'Opções do perfil'
+  account: 'Opções de conta'
   password_change:
     wrong_password: Palavra-passe anterior incorreta
     title: Alterar palavra-passe
@@ -2848,7 +2852,7 @@ settings:
       new_name_label: Novo nome
       new_name_placeholder: Novo nome de aparelho
       cancel: Cancelar
-      save: Guardar
+      save: Salvar
     passkey_registered: Chave de segurança registada com sucesso
     passkey_deleted: Chave de segurança eliminada com sucesso
     passkey_renamed: Chave de segurança renomeada com sucesso
@@ -3098,7 +3102,7 @@ terminology:
   resourcesAdmins: Equipa do mosaico dos recursos
   giving: Entrega
 timepicker:
-  labelCloseButton: 'fechar'
+  labelCloseButton: 'Fechar'
   labelMinutes: 'minutos'
   labelDecrement: 'Diminuir'
   labelSelected: 'Hora seleccionada'
@@ -3111,16 +3115,25 @@ timepicker:
   from: de
   to: até
 join_region:
-  headline: ''
+  headline: 'Seleciona o distrito onde queres atuar.'
   error:
-    not_allowed: ''
-    is_country_2: ''
-    is_country_1: ''
-    is_big_city_2: ''
-    is_state_2: ''
-    is_big_city_1: ''
-    is_state_1: ''
-  description: ''
+    not_allowed: 'Não podes inscrever-te neste distrito.'
+    is_country_2: 'Selecione uma cidade, região ou distrito!'
+    is_country_1: 'Este é un país.'
+    is_big_city_2: 'Selecione uma cidade, região ou distrito!'
+    is_state_2: 'Selecione uma cidade, região ou distrito!'
+    is_big_city_1: 'Este é uma cidade grande.'
+    is_state_1: 'Este é um estado federal. Por favor, selecione uma cidade, uma região
+      ou um distrito!'
+  description: 'Podes entrar no teu primeiro distrito clicando a partir do teu continente
+    até ao teu distrito. Se não encontrares um distrito para ti, escolhe um nível
+    acima ou entra no distrito mais próximo. Se não tiveres a possibilidade de te
+    formar como salvador alimentar na tua área, podes pensar em criar o teu próprio
+    distrito. Nesse caso, lê atentamente o Wiki e, em particular, o [artigo sobre
+    como criar ou reativar distritos]({href}). Se quiseres registar o distrito ou
+    tiveres perguntas específicas que o Wiki não responda, envia-nos [um e-mail]({mail}).
+    Não somos o ponto de contacto central para perguntas gerais, mas podemos ajudar-te
+    com perguntas sobre distritos.'
 polls:
   ended: 'Votações passadas'
   ongoing: 'Votações em curso'
@@ -3215,7 +3228,7 @@ thread:
     rename: ''
     unlock: ''
     pin: ''
-    lock: ''
+    lock: 'Fechar tópico'
     unpin: ''
     hideHidden: ''
     priority: ''
@@ -3290,37 +3303,37 @@ blog:
   teaser: Visão prévia do texto
 globals:
   type:
-    threads: ''
-    buddies: ''
-    regions: ''
-    stores: ''
-    my_mailboxes: ''
-    my_buddies: ''
-    my_stores: ''
-    my_regions: ''
-    chats: ''
-    mailboxes: ''
+    threads: 'Tópicos'
+    buddies: 'Amigos'
+    regions: 'Distritos'
+    stores: 'Lojas'
+    my_mailboxes: 'As minhas caixas de correio'
+    my_buddies: 'Os meus amigos'
+    my_stores: 'As minhas lojas'
+    my_regions: 'Os meus distritos'
+    chats: 'Chats'
+    mailboxes: 'Caixas de correio'
     my_foodshare_points: 'Os meus cantinhos solidário'
-    my_persons: ''
-    my_groups: ''
+    my_persons: 'As minhas pessoas'
+    my_groups: 'Os meus grupos'
     foodSharePoints: Cantinho solidário
-    users: ''
-    regions_menu: ''
-    mails: ''
-    events: ''
-    workingGroups: ''
-    groups_menu: ''
-    polls: ''
-  save: ''
-  show_more: ''
-  close: ''
-  show_less: ''
-  you: ''
-  select: ''
-  saved: ''
-  save_changes: ''
-  telephone_number: ''
-  updated: ''
+    users: 'Pessoas'
+    regions_menu: 'Menu do distrito'
+    mails: 'E-Mails'
+    events: 'Datas'
+    workingGroups: 'Grupos'
+    groups_menu: 'Menu do grupo'
+    polls: 'Votações'
+  save: 'Salvar'
+  show_more: 'Mostrar mais'
+  close: 'Fechar'
+  show_less: 'Mostrar menos'
+  you: 'Tu'
+  select: 'Por favor, selecione …'
+  saved: 'As alterações foram salvas'
+  save_changes: 'Salvar as alterações'
+  telephone_number: 'Número de telefóno'
+  updated: 'Atualizado:'
 legal:
   if_delete:
     legal_2: 'Mais informações sobre os períodos de depósito (página em alemão)'
@@ -3518,7 +3531,7 @@ region:
   restricted: 'Infelizmente, não tens autorização para visualizar esses dados.'
   store_managers_cannot_leave: 'Não podes sair do distrito, pois ainda és responsável
     por pelo menos uma loja lá.'
-  save: 'Sim, guardar'
+  save: 'Sim, salvar'
   mail:
     name-info: 'Atenção, não altere arbitrariamente! Certifique-se também de que este
       endereço ainda não existe em «Administrar e-mails».'
@@ -3585,7 +3598,7 @@ region:
   createNew: Criar um novo distrito
   root: Nemhum (Root)
   confirm:
-    edit: Tem a certeza de que deseja guardar as alterações no distrito {name}?
+    edit: Tem a certeza de que deseja salvar as alterações no distrito {name}?
     create: Tem a certeza de que deseja criar um novo distrito {name}?
     delete: Tem a certeza de que deseja apagar o distrito {name}?
   name: Nome
@@ -3661,14 +3674,14 @@ conference:
     do coletivo "living utopia". Será automaticamente conectado com o teu nome, ID
     de membro e avatar inseridos no foodsharing.'
 system_administration:
-  regions: ''
-  email: ''
-  quiz: ''
-  blog: ''
+  regions: 'Administrar distritos'
+  email: 'Enviar boletim informativo'
+  quiz: 'Administrar concurso questinario'
+  blog: 'Editar publicações do blogue'
   reports: 'Mostrar denúncias'
-  content: ''
-  resource_categories: ''
-  store_categories: ''
+  content: 'Editar conteúdos'
+  resource_categories: 'Editar categorias de recursos'
+  store_categories: 'Editar categorías de lojas'
 maxfp: 'Número máximo de pontos de erro para passar o testo'
 bootstrap-datepicker:
   labelCalendar: 'Calendário'
@@ -3965,7 +3978,7 @@ button:
   confirm: Confirmar
   browse: Revistar
   filter_options: Opções do filtro
-  yes_save: sim, guardar
+  yes_save: sim, salvar
 about_me_intern: 'Descrição rápida'
 storestatus:
   "3a": 'A loja está disposta para fazer doações. :-)'
@@ -4075,7 +4088,7 @@ regionOptions:
     desejado) ao qual a regra das sultanas se aplica'
   regionPickupRuleActive: 'Ative a seguinte regra distrital para os assentos de lojas
     populares:'
-  save: 'Guardar opções'
+  save: 'Salvar opções'
   regionPickupLimitDayNumber: 'Número máximo dos assentos permitidos de lojas populares
     num dia'
   regionReportReasonSimple: motivos da denúncia simplificados
@@ -4108,12 +4121,13 @@ error_ajax: "Infelizmente, isso não funcionou. \nTalvez a tua conexão com inte
   não funcione neste momento. \nRecarrega a pagina e tenta novamente.\n"
 information:
   push:
-    link: ''
-    description: ''
-    title: ''
+    link: 'Para as configurações'
+    description: 'Caso não queres mais receber notificações instantâneas, podes desativá-las
+      a qualquer momento nas configurações.'
+    title: 'Agora podes receber notificações instantâneas do foodsharing.'
   calendar_sync:
     title: 'Conhece a sincronização do calendário para os teus assentos registados?'
-    link: ''
+    link: 'Subscreve agora'
     description: 'Assim, poderá ver os teus próximos assentos registados com um programa
       de calendário à tua escolha.'
 wikilink: 'Link com mais informações'
@@ -4548,18 +4562,18 @@ help:
         recursos\nO coração do mosaico de recursos é a visão geral de todos os recursos
         do distrito ou do grupo de trabalho. Pode simplesmente inspirar-se na diversidade
         do seu grupo ou procurar recursos específicos. Podes clicar em qualquer recurso
-        para obter mais informações sobre ele. Também podes guardar recursos como
-        favoritos para encontrá-los mais facilmente mais tarde. \nA cor de um recurso
-        mostra o quanto a pessoa gosta de o partilhar: os recursos oferecidos com
-        muito prazer aparecem em cores fortes e brilhantes, enquanto os recursos menos
-        partilhados são apresentados em tons cinzentos.\n \n\n##### Pesquisar, filtrar
-        e ordenar\nPara encontrar rapidamente os recursos adequados, tem várias opções
-        de filtragem à sua disposição.\n- Pode filtrar por **categorias** específicas
-        ou pesquisar diretamente por determinados **termos**.\n- **Apenas utilizadores
-        ativos** oculta os recursos de utilizadores que não iniciaram sessão nos últimos
-        30 dias ou que estão atualmente dorminhocos.\n- No mosaico de recursos, são
-        exibidos os recursos de todos os salvadores alimentares do grupo. Nos distritos,
-        também podes restringir a visualização aos utilizadores cujo **distrito principal**
+        para obter mais informações sobre ele. Também podes salvar recursos como favoritos
+        para encontrá-los mais facilmente mais tarde. \nA cor de um recurso mostra
+        o quanto a pessoa gosta de o partilhar: os recursos oferecidos com muito prazer
+        aparecem em cores fortes e brilhantes, enquanto os recursos menos partilhados
+        são apresentados em tons cinzentos.\n \n\n##### Pesquisar, filtrar e ordenar\n\
+        Para encontrar rapidamente os recursos adequados, tem várias opções de filtragem
+        à sua disposição.\n- Pode filtrar por **categorias** específicas ou pesquisar
+        diretamente por determinados **termos**.\n- **Apenas utilizadores ativos**
+        oculta os recursos de utilizadores que não iniciaram sessão nos últimos 30
+        dias ou que estão atualmente dorminhocos.\n- No mosaico de recursos, são exibidos
+        os recursos de todos os salvadores alimentares do grupo. Nos distritos, também
+        podes restringir a visualização aos utilizadores cujo **distrito principal**
         é o distrito em questão.\n- Se tiver marcado recursos como **favoritos**,
         pode visualizar apenas esses recursos.\n\nAlém disso, pode **ordenar** os
         resultados, por exemplo, por «alegria com as solicitações», atualidade das
@@ -4601,6 +4615,7 @@ help:
     store_chain_info:
       md: |
         Esta loja faz parte de uma [cadeia comercial](https://wiki.foodsharing.de/Betrieb#Betriebskette). Todas as cadeias comerciais têm [KAMs](https://wiki.foodsharing.de/Key_Account_Manager_(KAM)) responsáveis, que podem ver a equipa, a carga de trabalho e o número de assentos para recolha nesta loja.
+      title: ''
   helpTitle: ''
   tooltip: ''
 test:
@@ -4645,7 +4660,7 @@ required_messages:
   sure_title: ''
   message_info: ''
   name_placeholder: ''
-  save_message: ''
+  save_message: 'Salvar minha mensagem para a próxima vez'
   message_info_multiple: ''
 resource_mosaic:
   search_placeholder: Busca por recursos, partilhadores alimentar ou ID de 
@@ -4854,7 +4869,9 @@ oauth:
     title: ''
     restrictions: ''
     secret_save_warning: ''
-    confidential_help: ''
+    confidential_help: 'Os clientes confidenciais podem salvar um segredo com segurança.
+      Os clientes públicos (por exemplo, navegadores ou aplicativos móveis) não podem
+      fazer isso.'
     regenerate_secret_warning: ''
     edit_client: ''
     scopes: ''
@@ -4862,7 +4879,7 @@ oauth:
     no_region_restriction: ''
     create_client: ''
     load_error: ''
-    save_error: ''
+    save_error: 'Erro ao salvar'
     secret_generated: ''
     actions: ''
     confirm_save_secret: ''

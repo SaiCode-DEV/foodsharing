@@ -768,6 +768,10 @@ bell:
   foodsaver_adress_changed_title: ''
   poll_ending_soon_title: ''
   poll_started: ''
+  chain_info_updated_title: ''
+  chain_info_updated: ''
+  store_added_to_chain_title: ''
+  store_added_to_chain: ''
 error:
   mail_activation:
     link_2: E-Posta adresini değiştirin
@@ -1080,6 +1084,7 @@ storeedit:
       kapsamlı haklarınız var.\n"
     orga: "Bu işletmeden siz sorumlu değilsiniz.\nAncak, küresel organizasyon ekibinin
       bir parçası olarak geniş kapsamlı haklara sahipsiniz.\n"
+    kam: ''
   actions: Opsiyonlar
   bread: İşletmeyi düzenle
   not-in-region: Sadece üye olduğunuz bölgelerde işletme açabilirsiniz.
@@ -1495,6 +1500,8 @@ store:
   delete:
     button: ''
     sure: ''
+  part_of_chain: ''
+  chain_has_kams: ''
 polls:
   title: Başlık
   new_poll: Yeni Anket oluştur
@@ -3227,6 +3234,8 @@ login:
     submit: Gönder
     success: Bu e-posta adresi mevcutsa ve henüz doğrulanmamışsa, yeni bir 
       e-posta gönderilecektir.
+  passkey_cancelled: ''
+  passkey_not_found: ''
 terminology:
   foodsaver:
     d: Foodsaver
@@ -3725,6 +3734,10 @@ calendar:
       description: <a href="{url}">{store}</a> 'a Foodsharing alımı
       freeSlots: '{count} Slotlar hâlâ boş'
       foodsavers: 'Kayıtlı foodsaver: '
+      name:
+        giving: ''
+        orga: ''
+        pickup: ''
     event:
       linkTitle: Foodsharing etkinliği
       statusUnspecified: Bu randevuya katılıp katılmayacağınızı henüz 
@@ -3811,9 +3824,11 @@ chain:
         label: 'Notlar'
         invalidfeedback: 'Notlar 200 karakterden uzun olamaz.'
         description: 'İşletme zincirinde görüntülenen uyarılar.'
+        default: ''
       details:
         description: 'Açıklamalar, işletme zincirdeki sitelerin sayfalarında yer alır.'
         label: 'İşletmeler hakkında bilgi'
+        default: ''
       press:
         description: 'İşbirliğinin kamuya açıklanmasına izin ver'
         label: 'Basın'
@@ -4385,6 +4400,9 @@ help:
     achievementVisibility:
       title: ''
       md: ''
+    store_chain_info:
+      md: ''
+      title: ''
   helpTitle: 'Yardım: {title}'
   tooltip: Yardımı göster
 team_page:

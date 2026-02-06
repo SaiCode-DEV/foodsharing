@@ -1297,6 +1297,8 @@ login:
     hint2: ''
     submit: ''
     hint1: ''
+  passkey_cancelled: ''
+  passkey_not_found: ''
 legal:
   legal_agreement: Mentions légales
   privacy_notice: Charte relative à l’utilisation des données personnelles à 
@@ -1648,6 +1650,8 @@ store:
   delete:
     button: ''
     sure: ''
+  part_of_chain: ''
+  chain_has_kams: ''
 storeview:
   want_to_fetch: J’aimerais m’engager dans cette équipe.
   specials: Procédure & instructions
@@ -2480,6 +2484,10 @@ calendar:
       description: Collecte Foodsharing chez <a href="{url}">{store}</a>
       freeSlots: '{count} places sont encore disponibles'
       foodsavers: 'Collecteur·rice·s enregistrés : '
+      name:
+        giving: ''
+        orga: ''
+        pickup: ''
     updated: '(Dernière mise à jour : {date})'
   placeholder: Choisis une date
   copiedUrl: L’URL du calendrier a été copiée !
@@ -2525,6 +2533,7 @@ storeedit:
     bread: Modifier l’équipe
     foodsaver: Collecteurs
     leave_myself: Toi-même
+    kam: ''
   actions: Options
   not-in-region: Tu peux ajouter des coopérations uniquement dans la région dont
     tu fais partie.
@@ -3018,6 +3027,10 @@ bell:
   foodsaver_adress_changed_title: ''
   poll_ending_soon_title: ''
   poll_started: ''
+  chain_info_updated_title: ''
+  chain_info_updated: ''
+  store_added_to_chain_title: ''
+  store_added_to_chain: ''
 personal_data:
   landline: Numéro de fixe
   mobile: Numéro de portable
@@ -4110,6 +4123,7 @@ chain:
         label: Remarques
         invalidfeedback: Les notes ne peuvent pas dépasser 200 caractères.
         description: Conseils affichés dans l’aperçu de la chaîne.
+        default: ''
       press:
         description: Permettre la mention publique de la coopération
         label: Presse
@@ -4119,6 +4133,7 @@ chain:
         label: 'Informations sur la coopération'
         description: 'Remarques affichées sur les pages de sites appartenant à la
           chaîne.'
+        default: ''
       estimatedStoreCount:
         invalidfeedback: Seuls les nombres entiers sont autorisés comme valeurs 
           d’entrée.
@@ -4474,6 +4489,9 @@ help:
     achievementVisibility:
       title: ''
       md: ''
+    store_chain_info:
+      md: ''
+      title: ''
 automatic_delete: '- le profil doit être supprimé.'
 automatic_not_delete: '- le profil doit être conservé.'
 no_automatic_delete: 'Si la dernière connexion remonte à plus de cinq ans :'

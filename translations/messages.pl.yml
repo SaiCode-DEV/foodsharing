@@ -952,6 +952,8 @@ login:
   error_no_auth: ''
   2fa: ''
   passkey_btn: ''
+  passkey_cancelled: ''
+  passkey_not_found: ''
 register:
   topbar: dołącz
   title: rejestracja
@@ -1638,6 +1640,8 @@ store:
   average_collection_quantity: ''
   pickup_slot_unavailable: ''
   smneeded: ''
+  part_of_chain: ''
+  chain_has_kams: ''
 navi:
   google_maps: Google maps
   waze: Waze
@@ -1685,6 +1689,7 @@ storeedit:
     max-sm: ''
     amb: ''
     coordinator: ''
+    kam: ''
   store:
     status: status
   fetch:
@@ -1849,6 +1854,10 @@ calendar:
       foodsavers: ''
       freeSlots: ''
       description: ''
+      name:
+        giving: ''
+        orga: ''
+        pickup: ''
     updated: '(ostatnia aktualizacja: {date})'
     event:
       linkTitle: Event foodsharingu
@@ -2276,6 +2285,10 @@ bell:
   store_request_imposed: ''
   store_request_accept_wait: ''
   store_request_deny: ''
+  chain_info_updated_title: ''
+  chain_info_updated: ''
+  store_added_to_chain_title: ''
+  store_added_to_chain: ''
 list:
   filter_for: Filtruj według …
 filterlist:
@@ -3244,6 +3257,9 @@ help:
     achievements:
       md: ''
       title: ''
+    store_chain_info:
+      md: ''
+      title: ''
   helpTitle: ''
   tooltip: ''
 email_template:
@@ -3703,6 +3719,7 @@ chain:
         label: 'notatki'
         invalidfeedback: 'Notatki nie mogą być dłuższe niż 200 znaków.'
         description: ''
+        default: ''
       estimatedStoreCount:
         description: 'Całkowita liczba filii sieci'
         label: 'filie'
@@ -3710,6 +3727,7 @@ chain:
       details:
         label: ''
         description: ''
+        default: ''
       status:
         label: 'status'
       name:

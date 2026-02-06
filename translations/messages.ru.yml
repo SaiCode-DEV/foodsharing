@@ -1636,10 +1636,12 @@ chain:
         label: 'Заметки'
         description: 'Подсказки, отображаемые в обзоре сетей.'
         invalidfeedback: 'Заметки не должны быть длиннее 200 символов.'
+        default: ''
       details:
         label: 'Информация для предприятий'
         description: 'Подсказки, отображаемые на страницах предприятий, принадлежащих
           сети.'
+        default: ''
       estimatedStoreCount:
         description: 'Общее количество филиалов сети'
         label: 'Филиалы'
@@ -2205,6 +2207,8 @@ store:
     modal_title: ''
   deactivatedRegion: ''
   slotsCurrentlyOccupied: ''
+  part_of_chain: ''
+  chain_has_kams: ''
 pickup:
   same_day_entry: '[{when} ч] {name}'
   join_agree: 'Да, обязующе записаться'
@@ -2360,6 +2364,10 @@ calendar:
       description: 'фудшеринг-выдача в <a href="{url}">{store}</a>'
       foodsavers: ''
       freeSlots: ''
+      name:
+        giving: ''
+        orga: ''
+        pickup: ''
     event:
       statusUnspecified: 'Вы ещё не указали, придёте ли вы на это мероприятие. Это
         можно сделать на странице по ссылке.'
@@ -3041,6 +3049,10 @@ bell:
   poll_started: ''
   store_invitation_declined_title: ''
   event_post_title: ''
+  chain_info_updated_title: ''
+  chain_info_updated: ''
+  store_added_to_chain_title: ''
+  store_added_to_chain: ''
 memberlist:
   header_for_district: 'Фудсейверы в районе {bezirk}'
   header_for_workgroup: 'Фудсейверы в рабочей группе {bezirk}'
@@ -3384,6 +3396,8 @@ login:
   error_not_activated: ''
   2fa: ''
   passkey_btn: ''
+  passkey_cancelled: ''
+  passkey_not_found: ''
 reports:
   message: 'Описание'
   reportmessage: 'Кратко укажите, как с вами связаться при уточнениях.'
@@ -3447,6 +3461,7 @@ storeedit:
       Однако у вас широкие права как у члена команды координации заведений.
 
       '
+    kam: ''
   milestone:
     dropped: '{user} больше не в команде'
     statuschanged: 'Изменение статуса {date}'
@@ -4030,6 +4045,9 @@ help:
       title: ''
       md: ''
     achievements:
+      md: ''
+      title: ''
+    store_chain_info:
       md: ''
       title: ''
   helpTitle: ''
