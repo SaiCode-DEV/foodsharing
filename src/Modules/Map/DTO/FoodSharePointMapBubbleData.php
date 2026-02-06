@@ -2,55 +2,55 @@
 
 declare(strict_types=1);
 
-namespace Foodsharing\RestApi\Models\Map;
+namespace Foodsharing\Modules\Map\DTO;
 
 use Foodsharing\Modules\FoodSharePoint\DTO\FoodSharePoint;
 use OpenApi\Attributes as OA;
 
 #[OA\Schema]
-class FoodSharePointBubbleData
+class FoodSharePointMapBubbleData
 {
     #[OA\Property(
         description: 'The name of the Foodsharepoint',
         type: 'string',
         example: 'Demo Foodsharepoint'
     )]
-    public readonly string $name;
+    public string $name;
 
     #[OA\Property(
         description: 'Detailed description of the Foodsharepoint',
         type: 'string',
         example: 'This meeting is for demonstration purposes only. There is nothing to get here.'
     )]
-    public readonly string $description;
+    public string $description;
 
     #[OA\Property(
         description: 'The street with house number where the point is located',
         type: 'string',
         example: 'Examplestreet 25'
     )]
-    public readonly string $street;
+    public string $street;
 
     #[OA\Property(
         description: 'The Zip Code',
         type: 'string',
         example: '12345'
     )]
-    public readonly string $zipCode;
+    public string $zipCode;
 
     #[OA\Property(
         description: 'The place where the point is located',
         type: 'string',
         example: 'Sample town'
     )]
-    public readonly string $city;
+    public string $city;
 
     #[OA\Property(
         description: 'Path of the header picture of the point or null',
         type: 'string',
         example: '/img/foodSharePointHead.jpg'
     )]
-    public readonly ?string $picture;
+    public ?string $picture;
 
     public function __construct(FoodSharePoint $foodSharePoint)
     {

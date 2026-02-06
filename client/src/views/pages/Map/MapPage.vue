@@ -23,7 +23,7 @@
     <AddressSearchField @change="useAddress" />
 
     <basket-bubble ref="basketBubble" />
-    <community-bubble ref="communityBubble" />
+    <region-bubble ref="regionBubble" />
     <store-bubble ref="storeBubble" />
     <food-share-point-bubble ref="foodSharePointBubble" />
     <event-bubble ref="eventBubble" />
@@ -43,7 +43,7 @@ import { getMarkers, MAP_CONSTANTS, MARKER_TYPES } from '@/stores/map'
 import { objectMap } from '@/utils'
 import { hideLoader, showLoader } from '@/script'
 import BasketBubble from '@php/Modules/Map/components/BasketBubble.vue'
-import CommunityBubble from '@php/Modules/Map/components/CommunityBubble.vue'
+import RegionBubble from '@php/Modules/Map/components/RegionBubble.vue'
 import StoreBubble from '@php/Modules/Map/components/StoreBubble.vue'
 import FoodSharePointBubble from '@php/Modules/Map/components/FoodSharePointBubble.vue'
 import EventBubble from '@php/Modules/Map/components/EventBubble.vue'
@@ -63,7 +63,7 @@ export default {
     LeafletMap,
     Vue2LeafletMarkerCluster,
     BasketBubble,
-    CommunityBubble,
+    RegionBubble,
     StoreBubble,
     FoodSharePointBubble,
     EventBubble,
@@ -98,7 +98,7 @@ export default {
           type: null,
         },
         users: {
-          region: this.ambassadorRegions?.[0]?.id,
+          regionId: this.ambassadorRegions?.[0]?.id,
           activity: 'month',
           role: 'foodsaver',
           member: 'homeregion',
@@ -108,7 +108,7 @@ export default {
   },
   computed: {
     visibleTypes () {
-      const types = [MARKER_TYPES.baskets.name, MARKER_TYPES.foodsharepoints.name, MARKER_TYPES.communities.name, MARKER_TYPES.events.name]
+      const types = [MARKER_TYPES.baskets.name, MARKER_TYPES.foodSharePoints.name, MARKER_TYPES.regions.name, MARKER_TYPES.events.name]
       if (this.maySeeStores) {
         types.push(MARKER_TYPES.stores.name)
       }
@@ -126,7 +126,7 @@ export default {
   },
   created () {
     // Restore the selected marker types from the local storage
-    this.storage = new Storage('map')
+    this.storage = new Storage('map-v2')
     this.selectedTypes = this.storage.get('selectedTypes', this.selectedTypes)
 
     // Additionally load marker types given in loadMarkers prop
@@ -210,14 +210,14 @@ export default {
         case MARKER_TYPES.baskets.name:
           this.$refs.basketBubble.show(id)
           break
-        case MARKER_TYPES.foodsharepoints.name:
+        case MARKER_TYPES.foodSharePoints.name:
           this.$refs.foodSharePointBubble.show(id)
           break
         case MARKER_TYPES.stores.name:
           this.$refs.storeBubble.show(id)
           break
-        case MARKER_TYPES.communities.name:
-          this.$refs.communityBubble.show(id)
+        case MARKER_TYPES.regions.name:
+          this.$refs.regionBubble.show(id)
           break
         case MARKER_TYPES.users.name:
           this.$refs.userBubble.show(id)

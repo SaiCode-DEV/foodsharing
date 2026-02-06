@@ -8,7 +8,7 @@
     >
       <b-select
         id="region-select"
-        :value="props.selectedSpecifiers.region"
+        :value="props.selectedSpecifiers.regionId"
         class="w-100 map-legend-font-size"
         size="sm"
         :options="regions.map(region => ({ text: region.name, value: region.id }))"

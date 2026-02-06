@@ -61,10 +61,10 @@ class MapApiCest
         $I->sendGet('api/map/markers/baskets');
         $I->seeResponseCodeIs(HttpCode::OK);
 
-        $I->sendGet('api/map/markers/foodsharepoints');
+        $I->sendGet('api/map/markers/food-share-points');
         $I->seeResponseCodeIs(HttpCode::OK);
 
-        $I->sendGet('api/map/markers/communities');
+        $I->sendGet('api/map/markers/regions');
         $I->seeResponseCodeIs(HttpCode::OK);
     }
 
@@ -121,7 +121,7 @@ class MapApiCest
     final public function canFetchRegionBubble(ApiTester $I): void
     {
         $I->updateInDatabase('fs_region_pin', ['status' => RegionPinStatus::ACTIVE], ['region_id' => $this->region['id']]);
-        $I->sendGet('api/map/regions/' . $this->region['id']);
+        $I->sendGet('api/map/markers/regions/' . $this->region['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson([
@@ -131,33 +131,33 @@ class MapApiCest
 
     final public function canNotFetchDescriptionOfInvalidRegion(ApiTester $I): void
     {
-        $I->sendGet('api/map/regions/999999');
+        $I->sendGet('api/map/markers/regions/999999');
         $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
     }
 
     final public function canNotFetchDescriptionOfInactiveMarker(ApiTester $I): void
     {
         $I->updateInDatabase('fs_region_pin', ['status' => RegionPinStatus::INACTIVE], ['region_id' => $this->region['id']]);
-        $I->sendGet('api/map/regions/' . $this->region['id']);
+        $I->sendGet('api/map/markers/regions/' . $this->region['id']);
         $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
     }
 
     public function canFetchFoodSharePointWithoutLogin(ApiTester $I)
     {
-        $I->sendGet('api/map/foodSharePoint/' . $this->foodSharePoint['id']);
+        $I->sendGet('api/map/markers/food-share-points/' . $this->foodSharePoint['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
     }
 
     public function canNotFetchFoodSharePointWithoutLogin(ApiTester $I)
     {
-        $I->sendGet('api/map/foodSharePoint/' . ($this->foodSharePoint['id'] + 1));
+        $I->sendGet('api/map/markers/food-share-points/' . ($this->foodSharePoint['id'] + 1));
         $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
     }
 
     final public function canFetchBasketBubble(ApiTester $I)
     {
         $I->login($this->user['email']);
-        $I->sendGet('api/map/baskets/' . $this->basket['id']);
+        $I->sendGet('api/map/markers/baskets/' . $this->basket['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson([
@@ -172,13 +172,13 @@ class MapApiCest
 
     final public function canNotFetchBubbleOfInvalidBasket(ApiTester $I)
     {
-        $I->sendGet('api/map/baskets/999999');
+        $I->sendGet('api/map/markers/baskets/999999');
         $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
     }
 
     final public function canOnlySeeBasketDetailsWhenLoggedIn(ApiTester $I)
     {
-        $I->sendGet('api/map/baskets/' . $this->basket['id']);
+        $I->sendGet('api/map/markers/baskets/' . $this->basket['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $I->cantSeeResponseContainsJson([
@@ -202,7 +202,7 @@ class MapApiCest
     final public function canFetchStoreBubble(ApiTester $I)
     {
         $I->login($this->user['email']);
-        $I->sendGet('api/map/stores/' . $this->stores[0]['id']);
+        $I->sendGet('api/map/markers/stores/' . $this->stores[0]['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson([
@@ -217,7 +217,7 @@ class MapApiCest
     final public function canFetchStoreBubbleGiving(ApiTester $I)
     {
         $I->login($this->user['email']);
-        $I->sendGet('api/map/stores/' . $this->stores[1]['id']);
+        $I->sendGet('api/map/markers/stores/' . $this->stores[1]['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson([
@@ -232,7 +232,7 @@ class MapApiCest
     final public function canFetchStoreBubbleOrga(ApiTester $I)
     {
         $I->login($this->user['email']);
-        $I->sendGet('api/map/stores/' . $this->stores[2]['id']);
+        $I->sendGet('api/map/markers/stores/' . $this->stores[2]['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson([
@@ -246,14 +246,14 @@ class MapApiCest
 
     final public function canNotFetchStoreBubbleWithoutLogin(ApiTester $I)
     {
-        $I->sendGet('api/map/stores/' . $this->stores[0]['id']);
+        $I->sendGet('api/map/markers/stores/' . $this->stores[0]['id']);
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
     }
 
     final public function canNotFetchStoreOfNonexistingStore(ApiTester $I)
     {
         $I->login($this->user['email']);
-        $I->sendGet('api/map/stores/9999999');
+        $I->sendGet('api/map/markers/stores/9999999');
         $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
     }
 }

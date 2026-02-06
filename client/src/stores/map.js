@@ -17,8 +17,8 @@ export const MAP_CONSTANTS = Object.freeze({
 export const MARKER_TYPES = Object.freeze({
   baskets: { name: 'baskets', label: 'terminology.baskets', icon: 'shopping-basket', color: 'green' },
   stores: { name: 'stores', label: 'menu.entry.stores', icon: 'map-marker-alt', color: 'darkred' },
-  foodsharepoints: { name: 'foodsharepoints', label: 'terminology.fsp', icon: 'recycle', color: 'beige' },
-  communities: { name: 'communities', label: 'menu.entry.regionalgroups', icon: 'users', color: 'blue' },
+  foodSharePoints: { name: 'foodSharePoints', label: 'terminology.fsp', icon: 'recycle', color: 'beige' },
+  regions: { name: 'regions', label: 'menu.entry.regionalgroups', icon: 'users', color: 'blue' },
   users: { name: 'users', label: 'terminology.users', icon: 'user', color: 'darkpurple' },
   events: { name: 'events', label: 'map.events.title', icon: 'calendar', color: 'orange' },
   // Special types for store categories

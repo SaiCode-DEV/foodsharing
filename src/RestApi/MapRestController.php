@@ -2,7 +2,6 @@
 
 namespace Foodsharing\RestApi;
 
-use Exception;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Categories\StoreCategoryType;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionPinStatus;
@@ -12,7 +11,9 @@ use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\FoodSharePoint\FoodSharePointGateway;
 use Foodsharing\Modules\Map\DTO\BasketBubbleData;
 use Foodsharing\Modules\Map\DTO\EventMapBubbleData;
-use Foodsharing\Modules\Map\DTO\MapMarkerType;
+use Foodsharing\Modules\Map\DTO\FoodSharePointMapBubbleData;
+use Foodsharing\Modules\Map\DTO\MapMarker;
+use Foodsharing\Modules\Map\DTO\RegionMapBubbleData;
 use Foodsharing\Modules\Map\DTO\StoreMapBubbleData;
 use Foodsharing\Modules\Map\DTO\StoreMarkerHelpType;
 use Foodsharing\Modules\Map\DTO\StoreMarkerScopeType;
@@ -28,19 +29,17 @@ use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\EventPermissions;
 use Foodsharing\Permissions\RegionPermissions;
-use Foodsharing\RestApi\Models\Map\FoodSharePointBubbleData;
-use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
-use Symfony\Component\HttpFoundation\Request;
+use OpenApi\Attributes\JsonContent;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
-use ValueError;
 
+#[OA\Tag('map')]
 class MapRestController extends AbstractFoodsharingRestController
 {
     public function __construct(
@@ -58,75 +57,111 @@ class MapRestController extends AbstractFoodsharingRestController
     ) {
     }
 
-    /**
-     * Returns the coordinates of all baskets.
-     */
-    #[OA\Tag('map')]
-    #[Rest\Get(path: 'map/markers/{markerType}', requirements: ['markerType' => '[a-z]+'])]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Successful')]
-    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
-    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
-    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid request parameters')]
-    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Marker type not found')]
-    public function getMapMarkers(string $markerType, Request $request): Response
+    /* Endpoints for getting MapMarker lists */
+
+    #[OA\Get(summary: 'Returns all basket markers.')]
+    #[Route('map/markers/baskets', methods: ['GET'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new JsonContent(
+        type: 'array', items: new OA\Items(ref: new Model(type: MapMarker::class))
+    ))]
+    public function getBasketMarkers(): Response
     {
-        $markerType = MapMarkerType::tryFrom($markerType);
-        $queryParams = $request->query->all();
-        switch ($markerType) {
-            case MapMarkerType::BASKETS:
-                return $this->respondOK($this->mapGateway->getBasketMarkers());
-            case MapMarkerType::FOOD_SHARE_POINTS:
-                return $this->respondOK($this->mapGateway->getFoodSharePointMarkers());
-            case MapMarkerType::COMMUNITIES:
-                return $this->respondOK($this->mapGateway->getCommunityMarkers());
-            case MapMarkerType::STORES:
-                $this->assertLoggedIn();
+        $baskets = $this->mapGateway->getBasketMarkers();
 
-                try {
-                    $status = StoreMarkerStatusType::from($queryParams['status'] ?? 'all');
-                    $help = StoreMarkerHelpType::from($queryParams['help'] ?? 'all');
-                    $scope = StoreMarkerScopeType::from($queryParams['scope'] ?? 'all');
-                    $type = null;
-                    if (isset($queryParams['type']) && $queryParams['type'] !== '' && $queryParams['type'] !== 'null') {
-                        $type = StoreCategoryType::tryFrom($queryParams['type']);
-                    }
-                } catch (ValueError $ex) {
-                    throw new BadRequestHttpException('Invalid store marker query parameters: ' . $ex->getMessage());
-                }
-
-                return $this->respondOK($this->storeGateway->getStoreMarkers($this->session->id(), $status, $help, $scope, $type));
-            case MapMarkerType::USERS:
-                $this->assertLoggedIn();
-
-                try {
-                    $regionId = intval($queryParams['region']);
-                    $role = UserMarkerRoleType::from($queryParams['role'] ?? 'all');
-                    $activity = UserMarkerActivityType::from($queryParams['activity'] ?? 'all');
-                    $member = UserMarkerMemberType::from($queryParams['member'] ?? 'all');
-                } catch (Exception) {
-                    throw new BadRequestHttpException('Invalid user marker query parameters');
-                }
-
-                if (!$this->regionPermissions->mayAccessUserMapMarkersForRegion($regionId)) {
-                    throw new AccessDeniedHttpException('You do not have permission to access user markers for this region.');
-                }
-
-                return $this->respondOK($this->foodsaverGateway->getUserMarkers($regionId, $role, $activity, $member));
-            case MapMarkerType::EVENTS:
-                return $this->respondOK($this->mapGateway->getEventMarkers());
-            default:
-                throw new NotFoundHttpException('Marker type not found');
-        }
+        return $this->respondOK($baskets);
     }
 
-    /**
-     * Returns the data for the bubble of a community marker on the map.
-     */
-    #[OA\Tag('map')]
-    #[Rest\Get(path: 'map/regions/{regionId}')]
-    #[Rest\QueryParam(name: 'regionId', requirements: '\d+', description: 'Region for which to return the description', nullable: true)]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Successful')]
-    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'The region does not exist or does not have a community description.')]
+    #[OA\Get(summary: 'Returns all food share point markers.')]
+    #[Route('map/markers/food-share-points', methods: ['GET'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new JsonContent(
+        type: 'array', items: new OA\Items(ref: new Model(type: MapMarker::class))
+    ))]
+    public function getFoodSharePointMarkers(): Response
+    {
+        $foodSharePoints = $this->mapGateway->getFoodSharePointMarkers();
+
+        return $this->respondOK($foodSharePoints);
+    }
+
+    #[OA\Get(summary: 'Returns all region markers.')]
+    #[Route('map/markers/regions', methods: ['GET'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new JsonContent(
+        type: 'array', items: new OA\Items(ref: new Model(type: MapMarker::class))
+    ))]
+    public function getRegionMarkers(): Response
+    {
+        $regions = $this->mapGateway->getRegionMarkers();
+
+        return $this->respondOK($regions);
+    }
+
+    #[OA\Get(summary: 'Returns all store markers.')]
+    #[Route('map/markers/stores', methods: ['GET'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new JsonContent(
+        type: 'array', items: new OA\Items(ref: new Model(type: MapMarker::class))
+    ))]
+    public function getStoreMarkers(
+        #[MapQueryParameter] ?StoreMarkerStatusType $status,
+        #[MapQueryParameter] ?StoreMarkerHelpType $help,
+        #[MapQueryParameter] ?StoreMarkerScopeType $scope,
+        #[MapQueryParameter] ?StoreCategoryType $type = null,
+    ): Response {
+        $this->assertLoggedIn();
+        $markers = $this->storeGateway->getStoreMarkers(
+            $this->session->id(),
+            $status ?? StoreMarkerStatusType::ALL,
+            $help ?? StoreMarkerHelpType::ALL,
+            $scope ?? StoreMarkerScopeType::ALL,
+            $type
+        );
+
+        return $this->respondOK($markers);
+    }
+
+    #[OA\Get(summary: 'Returns all user markers.')]
+    #[Route('map/markers/users', methods: ['GET'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new JsonContent(
+        type: 'array', items: new OA\Items(ref: new Model(type: MapMarker::class))
+    ))]
+    public function getUserMarkers(
+        #[MapQueryParameter] int $regionId,
+        #[MapQueryParameter] ?UserMarkerRoleType $role,
+        #[MapQueryParameter] ?UserMarkerActivityType $activity,
+        #[MapQueryParameter] ?UserMarkerMemberType $member,
+    ): Response {
+        $this->assertLoggedIn();
+        if (!$this->regionPermissions->mayAccessUserMapMarkersForRegion($regionId)) {
+            throw new AccessDeniedHttpException('You do not have permission to access user markers for this region.');
+        }
+
+        $markers = $this->foodsaverGateway->getUserMarkers(
+            $regionId,
+            $role ?? UserMarkerRoleType::ALL,
+            $activity ?? UserMarkerActivityType::ALL,
+            $member ?? UserMarkerMemberType::ALL
+        );
+
+        return $this->respondOK($markers);
+    }
+
+    #[OA\Get(summary: 'Returns of all event markers.')]
+    #[Route('map/markers/events', methods: ['GET'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new JsonContent(
+        type: 'array', items: new OA\Items(ref: new Model(type: MapMarker::class))
+    ))]
+    public function getEventMarkers(): Response
+    {
+        $events = $this->mapGateway->getEventMarkers();
+
+        return $this->respondOK($events);
+    }
+
+    /* Endpoints for getting BubbleData details */
+
+    #[OA\Get(summary: 'Returns details on a region marker')]
+    #[Route('map/markers/regions/{regionId}', methods: ['GET'], requirements: ['regionId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: RegionMapBubbleData::class))]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'The region does not exist or does not have a region pin.')]
     public function getRegionBubble(int $regionId): Response
     {
         $region = $this->regionGateway->getRegion($regionId);
@@ -135,47 +170,32 @@ class MapRestController extends AbstractFoodsharingRestController
             throw new NotFoundHttpException('region does not exist or its pin is not active');
         }
 
-        return $this->handleView($this->view([
-            'id' => $region['id'],
-            'name' => $region['name'],
-            'description' => $pin->description,
-        ], Response::HTTP_OK));
+        return $this->respondOK(RegionMapBubbleData::create(
+            $region['id'],
+            $region['name'],
+            $pin->description
+        ));
     }
 
-    /**
-     * Returns the data for a FoodSharePoint.
-     */
-    #[OA\Tag('map')]
-    #[Rest\Get(path: 'map/foodSharePoint/{foodSharePointId}')]
-    #[OA\Response(
-        response: Response::HTTP_OK,
-        description: 'Successful',
-        content: new Model(type: FoodSharePointBubbleData::class)
-    )]
-    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'The Foodsharepoint does not exist')]
+    #[OA\Get(summary: 'Returns details on a food share point marker')]
+    #[Route('map/markers/food-share-points/{foodSharePointId}', methods: ['GET'], requirements: ['foodSharePointId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: FoodSharePointMapBubbleData::class))]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'The food share point does not exist')]
     public function getFoodSharePoint(int $foodSharePointId): Response
     {
         $foodSharePoint = $this->foodSharePointGateway->getFoodSharePoint($foodSharePointId);
 
         if (is_null($foodSharePoint)) {
-            throw new NotFoundHttpException('The Foodsharepoint does not exist');
+            throw new NotFoundHttpException('The food share point does not exist');
         }
 
-        return $this->handleView($this->view(new FoodSharePointBubbleData($foodSharePoint), Response::HTTP_OK));
+        return $this->respondOK(new FoodSharePointMapBubbleData($foodSharePoint));
     }
 
-    /**
-     * Returns the data for the bubble of a basket marker on the map.
-     */
-    #[OA\Tag('map')]
-    #[Rest\Get(path: 'map/baskets/{basketId}')]
-    #[OA\Response(
-        response: Response::HTTP_OK,
-        description: 'Successful',
-        content: new Model(type: BasketBubbleData::class)
-    )]
+    #[OA\Get(summary: 'Returns details on a basket marker')]
+    #[Route('map/markers/baskets/{basketId}', methods: ['GET'], requirements: ['basketId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: BasketBubbleData::class))]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'The basket does not exist')]
-    #[Rest\QueryParam(name: 'basketId', requirements: '\d+', description: 'Basket for which to return data', nullable: false)]
     public function getBasketBubble(int $basketId): Response
     {
         $basket = $this->mapGateway->getBasketBubbleData($basketId, $this->session->mayRole());
@@ -183,46 +203,35 @@ class MapRestController extends AbstractFoodsharingRestController
             throw new NotFoundHttpException('basket does not exist');
         }
 
-        return $this->handleView($this->view($basket, 200));
+        return $this->respondOK($basket);
     }
 
-    #[OA\Get(summary: 'Returns the data for the bubble of a store marker on the map.')]
-    #[OA\Tag('map')]
-    #[Rest\Get(path: 'map/stores/{storeId}')]
-    #[OA\Response(
-        response: Response::HTTP_OK,
-        description: 'Successful',
-        content: new Model(type: StoreMapBubbleData::class)
-    )]
-    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA\Get(summary: 'Returns details on a store marker')]
+    #[Route('map/markers/stores/{storeId}', methods: ['GET'], requirements: ['storeId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: StoreMapBubbleData::class))]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'The store does not exist')]
-    #[Rest\QueryParam(name: 'storeId', requirements: '\d+', description: 'Store for which to return data', nullable: false)]
     public function getStoreBubble(int $storeId): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
 
         $store = $this->mapTransactions->getStoreMapData($storeId);
 
-        return $this->handleView($this->view($store, 200));
+        return $this->respondOK($store);
     }
 
-    #[OA\Get(summary: 'Returns the data for the bubble of a event on the map.')]
-    #[OA\Tag('map')]
-    #[Rest\Get(path: 'map/event/{eventId}')]
-    #[OA\Response(
-        response: Response::HTTP_OK,
-        description: 'Successful',
-        content: new Model(type: StoreMapBubbleData::class)
-    )]
-    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'The event is not accessible')]
-    #[Rest\QueryParam(name: 'eventId', requirements: Requirement::POSITIVE_INT, description: 'Store for which to return data', nullable: false)]
+    #[OA\Get(summary: 'Returns details on a event marker')]
+    #[Route('map/markers/events/{eventId}', methods: ['GET'], requirements: ['eventId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: EventMapBubbleData::class))]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'The event does not exist')]
     public function getEventBubble(int $eventId): Response
     {
         $event = $this->eventGateway->getEvent($eventId);
+        if (empty($event)) {
+            throw new NotFoundHttpException('event does not exist');
+        }
         if (!$this->eventPermissions->maySeeEvent($event)) {
-            throw new AccessDeniedHttpException('');
+            throw new AccessDeniedHttpException('Not permitted');
         }
 
         $event = EventMapBubbleData::fromEvent($event);
@@ -230,17 +239,10 @@ class MapRestController extends AbstractFoodsharingRestController
         return $this->respondOK($event);
     }
 
-    #[OA\Get(summary: 'Returns the data for the bubble of a user marker on the map.')]
-    #[OA\Tag('map')]
-    #[Rest\Get(path: 'map/user/{userId}')]
-    #[OA\Response(
-        response: Response::HTTP_OK,
-        description: 'Successful',
-        content: new Model(type: UserMapBubbleData::class)
-    )]
+    #[OA\Get(summary: 'Returns details on a user marker')]
+    #[Route('map/markers/users/{userId}', methods: ['GET'], requirements: ['userId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: UserMapBubbleData::class))]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'The user does not exist')]
-    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
-    #[Rest\QueryParam(name: 'userId', requirements: Requirement::POSITIVE_INT, description: 'User for which to return data', nullable: false)]
     public function getUserBubble(int $userId): Response
     {
         $this->assertLoggedIn();

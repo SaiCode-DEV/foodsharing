@@ -19,14 +19,14 @@
           <LMarker
             v-if="location"
             :lat-lng="location"
-            :icon="icons.communities"
+            :icon="icons.regions"
           />
           <LMarker
             v-for="fsp in foodSharePoints"
             :key="fsp.id"
             :name="fsp.name"
             :lat-lng="fsp"
-            :icon="icons.foodsharepoints"
+            :icon="icons.foodSharePoints"
             @click="showFoodSharePoint(fsp.id)"
           >
             <LTooltip :options="{ direction: 'bottom' }">
@@ -56,7 +56,7 @@
       <LeafletLocationPicker
         :zoom="6"
         :coordinates="editLocation"
-        :icon="icons.communities"
+        :icon="icons.regions"
         :marker-draggable="true"
         @coordinates-changed="newLocation => Object.assign(editLocation, newLocation)"
       />
@@ -151,7 +151,7 @@ export default {
       return !this.location || this.location.lat !== this.editLocation.lat || this.location.lon !== this.editLocation.lon
     },
     largeMapLink () {
-      return this.$url('map', { center: this.center, zoom: this.zoom, markers: ['communities', 'foodsharepoints'] })
+      return this.$url('map', { center: this.center, zoom: this.zoom, markers: ['regions', 'foodSharePoints'] })
     },
   },
   methods: {

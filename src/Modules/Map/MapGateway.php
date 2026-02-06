@@ -29,6 +29,9 @@ class MapGateway extends BaseGateway
         return $this->db->fetchByCriteria('fs_fairteiler', ['lat', 'lon'], ['id' => $foodSharePointId]);
     }
 
+    /**
+     * @return MapMarker[]
+     */
     public function getBasketMarkers(): array
     {
         $markers = $this->db->fetchAll('SELECT
@@ -49,7 +52,7 @@ class MapGateway extends BaseGateway
         return array_map(fn ($marker) => MapMarker::create($marker['id'], $marker['name'], $marker['lat'], $marker['lon']), $markers);
     }
 
-    public function getCommunityMarkers(): array
+    public function getRegionMarkers(): array
     {
         $markers = $this->db->fetchAll("SELECT
                 r.id, p.lat, p.lon, r.name

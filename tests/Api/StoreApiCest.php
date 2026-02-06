@@ -29,7 +29,7 @@ class StoreApiCest
     private array $teamConversation;
     private array $springerConversation;
 
-    private const string API_MAP_STORES = 'api/map/stores';
+    private const string API_MAP_STORES = 'api/map/markers/stores';
     private const string API_STORES = 'api/stores';
     private const string API_REGIONS = 'api/region';
     private const string EMAIL = 'email';

@@ -142,8 +142,8 @@ export default {
 
     &.baskets { --type-color: var(--fs-color-type-baskets); }
     &.stores { --type-color: var(--fs-color-type-stores); }
-    &.foodsharepoints { --type-color: var(--fs-color-type-foodsharepoints); }
-    &.communities { --type-color: var(--fs-color-type-communities); }
+    &.foodSharePoints { --type-color: var(--fs-color-type-foodSharePoints); }
+    &.regions { --type-color: var(--fs-color-type-regions); }
     &.users { --type-color: var(--fs-color-type-users); }
     &.events { --type-color: var(--fs-color-type-events); }
 

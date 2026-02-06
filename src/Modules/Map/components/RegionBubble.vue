@@ -1,5 +1,5 @@
 <template>
-  <map-popup id="communityBubbleModal" :is-loading="loading">
+  <map-popup id="regionBubbleModal" :is-loading="loading">
     <template #popup-header>
       <h3>{{ name }}</h3>
     </template>
@@ -14,7 +14,7 @@
         class="btn btn-primary"
         type="button"
         :href="$url('publicRegion', id)"
-        v-text="$t('map.community.go')"
+        v-text="$t('map.region.go')"
       />
     </template>
   </map-popup>
@@ -22,7 +22,7 @@
 
 <script>
 import Markdown from '@/components/Markdown/Markdown'
-import { getCommunityBubbleContent } from '@/api/map'
+import { getRegionBubbleContent } from '@/api/map'
 import MapBubbleMixin from './MapBubbleMixin'
 
 export default {
@@ -36,8 +36,8 @@ export default {
   methods: {
     async show (regionId) {
       await this.timedFetchAction(
-        getCommunityBubbleContent(regionId),
-        'communityBubbleModal',
+        getRegionBubbleContent(regionId),
+        'regionBubbleModal',
         (data) => { Object.assign(this, data) },
       )
     },

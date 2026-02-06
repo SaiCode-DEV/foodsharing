@@ -2099,7 +2099,7 @@ map:
         label: 'Bezirk'
   foodsharepoint:
     go: "Zum Fairteiler"
-  community:
+  region:
     go: "Zur Bezirksseite"
   events:
     title: "Veranstaltungen"
