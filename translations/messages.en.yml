@@ -1286,11 +1286,11 @@ pickup:
   kick_message_placeholder: Optionally add information here …
   really_leave_date_title: Sign out for {date}?
   signout_info: All your pick-up dates will be deleted.
-  take_empty_slot: sign up here
+  take_empty_slot: Sign me up here
   delete_not_empty: At the moment there are still foodsavers enrolled. You can 
     only delete this pick-up date once all slots are empty.
   to_be_confirmed: This slot still has to be confirmed by a store coordinator.
-  delete_title: Delete slot
+  delete_title: Delete these slots
   join_agree: yes, sign up
   join_cancel: rather not
   really_join_date: Do you really want to sign up for {date}?
@@ -1580,6 +1580,8 @@ login:
     success: If this email address exists and has not yet been verified, a new 
       email will be sent.
   error_not_activated: Unfortunately, your email address is not yet activated.
+  passkey_cancelled: Login with passkey was cancelled.
+  passkey_not_found: No passkey for this account is available on this device.
 salutation:
   "3": Dear
   "2": Dear
@@ -1741,6 +1743,10 @@ bell:
     many: '{count} new resources'
   delete_store_title: Store deleted
   delete_store: '{name} was deleted'
+  store_added_to_chain_title: '{chain}: Store was added'
+  store_added_to_chain: Store "{store}" is now part of the chain.
+  chain_info_updated_title: Chain {chain} was updated
+  chain_info_updated: '{store} is part of the chain.'
 reports:
   time: Time
   reason: Reason
@@ -2639,7 +2645,7 @@ store:
   member: Member
   isAppliedForTeam: Request
   jumping: Standby
-  particularities_chain: Particularities of the chain
+  particularities_chain: Notes about the chain
   enter_date: Enter a single slot
   delete_date: Delete a single slot
   enter_date_description: After you have selected the date, time and number of 
@@ -2669,15 +2675,15 @@ store:
       14: '{actor} has confirmed the slot request from {target} on {date}.'
       3: '{actor} has accepted the request to join the team from {target}.'
       4: '{actor} has added {target} manually.'
-      11: '{actor} signed up on {date}.'
+      11: '{actor} signed up for a slot on {date}.'
       7: '{actor} has removed {target} from the team.'
-      13: '{actor} has signed {target} out for {date}.'
-      13_with_reason: '{actor} has signed out {target} for {date} with the following
-        message'
+      13: '{actor} has signed out {target} of a slot on {date}.'
+      13_with_reason: '{actor} has signed out {target} of a slot on {date} with the
+        following message'
       8: '{actor} has left the team.'
       16: '{actor} has withdrawn the request to join the team.'
       10: '{actor} removed {target} as store coordinator.'
-      12: '{actor} signed out for {date}.'
+      12: '{actor} signed out of a slot on {date}.'
       2: '{actor} has rejected the request to join the team from {target}.'
       5: '{actor} has put {target} on the list of standby foodsavers.'
       9: '{actor} enlisted {target} as store coordinator.'
@@ -2753,9 +2759,11 @@ store:
       information except the event log will be deleted. Please only delete 
       stores that no longer exist or have been entered twice. Companies that 
       have cancelled a partnership should remain listed. Only stores where no 
-      pick-ups have ever taken place and whose team chats have been unused for 
-      at least three months can be deleted.
+      slots have ever existed and whose team chats have been unused for at least
+      three months can be deleted.
   my_last_slot: My last activity
+  chain_has_kams: 'Responsible for the chain:'
+  part_of_chain: 'Part of the chain:'
 navi:
   google_maps: "Google Maps"
   waze: "Waze"
@@ -2980,6 +2988,9 @@ storeedit:
     coordinator: "You are not responsible for this store.\nHowever, as part of the
       store management team you have extensive rights.\n"
     leave_myself: Yourself
+    kam: |
+      You are not responsible for this store.
+      You have, however, restricted access due to being KAM of the store chain.
   add-new: Add new store
   milestone:
     dropped: '{user} is not part of the team anymore'
@@ -4535,6 +4546,9 @@ help:
 
         - **Overwrite:** The sticker cannot be received multiple times at the same time. If the sticker is awarded again, the current award replaces or extends the previous one. This is used, for example, for hygiene training. Those who renew the training simply have their sticker extended. Select *Overwrite* if the sticker is to mark a current, unique status.
         - **Multiple assignments:** Multiple assignments are possible at the same time. Stickers assigned multiple times are grouped together in the profile, but all relevant information is accessible. This could be used, for example, to document introductory pickups, of which several are necessary. Select *Multiple assignments* if each individual assignment is important and must remain traceable.
+    store_chain_info:
+      md: |
+        This store is part of a [store chain](https://wiki.foodsharing.de/Betrieb#Betriebskette). Each chain has responsible [KAMs](https://wiki.foodsharing.de/Key_Account_Manager_(KAM)) who are allowed to see the team and the pick-up slots of this store.
   tooltip: Show help
   helpTitle: 'Help: {title}'
 team_page:

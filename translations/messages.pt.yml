@@ -3,7 +3,7 @@ add: adicionar
 nachname: Sobrenome
 message: Mensagem
 address: Morada
-edit: Editar
+edit: editar
 desc: Descrição
 description: Descrição
 plz: Código postal
@@ -47,7 +47,7 @@ store:
     application-message: Mensagem de candidatura
     application-placeholder: Gostaria de ajudar na esta equipa porque …
     hygieneRequired: É necessária uma formação válida em higiene para desta 
-      empresa.
+      loja.
     hygieneMissing: Esse está a faltar actualmente. Responda ao questionário de 
       higiene agora para poderia candidatar a esta equipa.
     distance_short:
@@ -73,15 +73,15 @@ store:
       link: Entrar no distrito
     requireVerification:
       text: Não podes candidatar-te neste momento, pois ainda não estás 
-        verificado. Esta empresa aceita atualmente apenas candidaturas de 
-        Foodsaver verificados. Primeiro, faz as tuas recolhas de teste ou 
-        contacta os teus embaixadores ou a equipa de boas-vindas para seres 
-        verificado. Podes encontrar estes contactos no fórum do teu distrito, na
-        barra lateral esquerda.
+        verificado. Esta loja aceita atualmente apenas candidaturas de Foodsaver
+        verificados. Primeiro, faz as tuas recolhas de teste ou contacta os teus
+        embaixadores ou a equipa de boas-vindas para seres verificado. Podes 
+        encontrar estes contactos no fórum do teu distrito, na barra lateral 
+        esquerda.
       link: Abrir fórum do distrito de origem
     requirePhone:
       text: Não podes candidatar-te neste momento, pois ainda não introduziste 
-        um número de telefone no teu perfil. Esta empresa só aceita candidaturas
+        um número de telefone no teu perfil. Esta loja só aceita candidaturas 
         dos salvadores alimentares com pelo menos um número de telefone 
         registado. Introduz um número de telefone no teu perfil para te poderes 
         candidatar.
@@ -92,8 +92,8 @@ store:
       time: A data da candidatura
       fullName: O teu nome completo ({first_name} {last_name})
       verified: O teu estado da verificação ({status})
-      distance: A distância entre a tua residência e a empresa ({distance})
-      storeList: A lista das tuas empresas
+      distance: A distância entre a tua residência e a loja ({distance})
+      storeList: A lista das tuas lojas
       text: A tua mensagem de candidatura
     applicationMessageTooShort: A tua mensagem de candidatura é curta demais.
     alerts:
@@ -157,7 +157,7 @@ store:
     search: 'Mostrar ações selecionadas'
     selected_log_types: '{amount} tipos de ação selecionados'
     title: 'Protocolo da loja'
-    message_saved_info: A tua mensagem será guardada no registo de empresa.
+    message_saved_info: A tua mensagem será guardada no registo de loja.
   signInDateTime: 'Data de inscrição'
   sm:
     reloadPage: 'Recargar'
@@ -166,7 +166,7 @@ store:
     removeFromTeam: 'Remover da equipa'
     filterUnverified: 'Não verificados'
     filterManage: 'com questinário dos responsáveis pela cooperação'
-    promoteToManager: 'Assumir a responsabilidade por esta empresa'
+    promoteToManager: 'Assumir a responsabilidade por esta loja'
     promoteToManagerNotPossible: 'A pessoa não pode ser registada como responsável
       porque já existem três lideres de equipa ou porque a pessoa ainda não passou
       no questinário correspondente.'
@@ -185,7 +185,7 @@ store:
       pickup: ordenada pela última recolha
       distance: Ordenado por distância
     userHasPickupsWarning: '{name} ainda está registado para {occupiedSlots} assentos
-      nesta empresa. Estes assentos ficarão livres. Deseja continuar?'
+      nesta loja. Estes assentos ficarão livres. Deseja continuar?'
     inviteMember: Convidar na equipa
     demoteAsManagerConfirm: Quer mesmo abdicar da tua responsabilidade pela este
       cooperação?
@@ -197,7 +197,7 @@ store:
   fetchCount: 'Recolhido aqui {count} vezes.'
   of_that: 'deles'
   requests: 'Consultas abertas ({count})'
-  error: 'Não foi possível aceder à empresa.'
+  error: 'Não foi possível aceder à loja.'
   leaveinfo: 'Aqui pode fornecer informações aos recolheros que desejam candidatar-se
     à equipa.'
   prefetchfour: '4 semanas'
@@ -218,21 +218,21 @@ store:
   managing: 'Responsabilidade de cooperação'
   prefetchthree: '3 semanas'
   springer_conversation_name: 'Substituto [name]'
-  isManager: 'Responsável de esta empresa.'
+  isManager: 'Responsável de esta loja.'
   prefetchtwo: '2 semanas'
   particularities: 'Procedimento e instruções'
   noPickup: 'Nunca recolheu nada aqui.'
   tooltip_red: 'Assentos disponíveis hoje e amanha'
   active: 'Activo'
   one_active: 'Activo'
-  not-in-team: 'Ainda não estás na equipa desta empresa.'
+  not-in-team: 'Ainda não estás na equipa desta loja.'
   unverified_members: 'não verificados'
-  allStoresOfRegion: 'Todas as empresas do distrito'
+  allStoresOfRegion: 'Todas as lojas do distrito'
   willgetcontacted: 'Atualmente, está na lista dos substitutos. Entraremos em contacto
     consigo assim que precisarmos de ajuda.'
   slot_state: 'Estado de assento'
   delete_date_description: 'Caso utilize intervalos regulares (recorrentes semanalmente
-    de forma automática) na tua empresa e deseje evitar que uma data específica seja
+    de forma automática) na tua loja e deseje evitar que uma data específica seja
     criada (por exemplo, um feriado), pode fazê-lo especificando a data e a hora com
     esta função. Caso deseje apagar intervalos que já estão visíveis, pode fazê-lo
     diretamente com um clique no intervalo, desde que ninguém tenha sido inserido.'
@@ -241,54 +241,54 @@ store:
   days_before: 'há'
   tooltip_orange: 'Assentos disponíveis nos próximos tres dias'
   attribution: 'Atribuição'
-  useRegionPickupRules: 'Esta é uma empresa muito popular. Além das regras internas
-    da empresa, aplicam-se as seguintes restrições às inscrições:'
+  useRegionPickupRules: 'Esta é uma loja muito popular. Além das regras internas da
+    empresa, aplicam-se as seguintes restrições às inscrições:'
   short_tooltip_red: 'Assentos disponíveis hoje e amanha'
   regionPickupRulesInactive: 'As regras adicionais do distrito para os assentos não
     estão ativas'
   maxchar: '(máx. 180 caracteres)'
   short_tooltip_orange: 'Assentos disponíveis em 3 dias'
-  regionPickupRules: 'Regra adicional para empresas populares'
-  tooltip_jumping: 'Tu é o substituto por está empresa'
+  regionPickupRules: 'Regra adicional para lojas populares'
+  tooltip_jumping: 'É o substituto por está loja'
   member: 'Membro'
   tooltip_managing: 'Tu és responsável por esta cooperação'
-  addNewStoresButton: 'Adicionar nova empresa'
+  addNewStoresButton: 'Adicionar nova loja'
   enternumber: 'Ainda tens de selectionar o número de assentos.'
   nodetails: 'Não indique aqui horários exatos para o assento.'
   teamName: '(storeTitle) equipe'
   enter_date: 'Inscrever um assento individual'
-  ownStores: 'Empresas próprias'
+  ownStores: 'Lojas próprias'
   mayManage: 'Aprovou o exame de lideres de equipas.'
   go: 'Para a equipa'
-  bread: 'Todas as empresas'
+  bread: 'Todas as lojas'
   particularities_chain: 'Instruções da cadeia'
   appliedFor: 'Solicitação realizada'
   filter: 'Filtrar por …'
   regionPickupRuleLong: 'No prazo de {regionPickupRuleTimespan} dias antes e depois
     da data de recolha desejada, não podem ter sido registadas mais de {regionPickupRuleLimit}
-    assentos em empresas populares. Podem ser realizadas no máximo {regionPickupRuleLimitDay}
-    recolhas por dia nessas empresas. {regionPickupRuleInactive} horas antes da recolha,
+    assentos em lojas populares. Podem ser realizadas no máximo {regionPickupRuleLimitDay}
+    recolhas por dia nessas lojas. {regionPickupRuleInactive} horas antes da recolha,
     esta regra deixa de ser aplicável.'
   isJumper: 'Está en la lista dos substitutos.'
   nodeclaration: 'Não especificado'
   important: 'Importante:'
-  nochains: 'Por favor, contacte apenas empresas geridas pelos proprietários com,
-    no máximo, três filiais, nunca contacte filiais de uma cadeia maior! Respeite
-    as regras da cadeia de empresas!'
+  nochains: 'Por favor, contacte apenas lojas geridas pelos proprietários com, no
+    máximo, três filiais, nunca contacte filiais de uma cadeia maior! Respeite as
+    regras de cadeias comerciais!'
   enter_date_description: 'Depois de selecionar a data, a hora e o número, pode definir
     horários únicos para este compromisso. Se desejar criar horários regulares (recorrentes
-    automaticamente todas as semanas), utilize o menu "configurações da empresa".'
+    automaticamente todas as semanas), utilize o menu "configurações da loja".'
   tooltip_yellow: 'Assentos disponíveis nos próximos cinco dias'
   joinDate: 'Na equipa desde {data}'
   peoplecame: 'Muitas vezes já aconteceu de pessoas irem à loja sem aviso prévio.'
   may_referred_to_in_public: 'Esta cooperação pode ser mencionada publicamente.'
-  noStores: 'Ainda não há empresas inscritas'
+  noStores: 'Ainda não há lojas inscritas'
   short_tooltip_yellow: 'Assentos disponíveis em cinco dias'
   info_container: 'Informações'
   not_verified: 'Não está verificado. Portanto, ainda não pode ver os assentos nem
     os números de telefone dos membros da equipa.'
   unverified_member: 'não verificado'
-  all_of_my_stores: 'Todas as minhas empresas'
+  all_of_my_stores: 'Todas as minhas lojas'
   delete_date: 'Apagar assento individual'
   unknownDate: 'desconhecido'
   average_collection_quantity: 'Quantidade por pessoa'
@@ -296,11 +296,11 @@ store:
   lastPickupShort: 'última vez {date}'
   pickup_slot_unavailable: 'Este assento está mais distante no futuro do que os tues
     lideres de equipa pretendiam. Por isso, tente novamente mais tarde.'
-  smneeded: 'Para criar uma empresa, tens de ser o/a lider de equipas.'
+  smneeded: 'Para criar uma loja, tens de ser o/a lider de equipas.'
   invitations: Convites abertos ({count})
-  deactivatedRegion: A lista de empresas ainda não pode ser apresentada para 
-    países e continentes.
-  storeFrom: Empresa de {name}
+  deactivatedRegion: A lista de lojas ainda não pode ser apresentada para países
+    e continentes.
+  storeFrom: Loja de {name}
   lastPickupTitle: Última Assento aqui
   slotsCurrentlyOccupied: Assentos atualmente ocupados
   invited: Convidado
@@ -313,13 +313,13 @@ store:
       um convite para aderir à equipa, que têm de aceitar antes de se tornarem 
       membros. Podes retirar esses convites a qualquer momento.
     accept: Aceptar convite
-    invited_info: Foi convidado para esta empresa. Pode juntar-se à equipa 
+    invited_info: Foi convidado para esta loja. Pode juntar-se à equipa 
       simplesmente aceitando o convite.
     decline: Recusar
     invited_by: Convidado por
   no_chain_choosen: Nenhuma cadeia foi selecionada
   chain_search_picker:
-    modal_title: Selecione a cadeia da empresa
+    modal_title: Selecione a cadeia comercial
     search_input: Procurar pelo nome da cadeia
   passport_expired: O teu cartão de foodsharing expirou. Contacta os teus 
     embaixadores para o renovar. Por isso, já não podes registar-te aqui.
@@ -328,15 +328,14 @@ store:
     validade, não poderás mais te registar aqui.
   to_map: Mostrar no mapa
   delete:
-    button: Apagar empresa
-    sure: Queres mesmo apagar esta empresa? Esta ação não pode ser revertida! 
-      Todos os membros serão removidos da empresa e todas as informações 
-      específicas da empresa, exceto o registo da empresa, serão eliminadas. Por
-      favor, apagine apenas empresas que realmente já não existem ou que foram 
-      registadas duas vezes. As empresas que cancelaram uma cooperação devem 
-      permanecer registadas. Só é possível apagar empresas que nunca tiveram 
-      assentos e cujos chats de equipa não tenham sido utilizados durante pelo 
-      menos 3 meses.
+    button: Apagar loja
+    sure: Queres mesmo apagar esta loja? Esta ação não pode ser revertida! Todos
+      os membros serão removidos da loja e todas as informações específicas da 
+      loja, exceto o registo da loja, serão eliminadas. Por favor, apagine 
+      apenas lojas que realmente já não existem ou que foram registadas duas 
+      vezes. As lojas que cancelaram uma cooperação devem permanecer registadas.
+      Só é possível apagar lojas que nunca tiveram assentos e cujos chats de 
+      equipa não tenham sido utilizados durante pelo menos 3 meses.
   my_last_slot: O meu assento último
   chain_has_kams: 'Responsável pra esta cadeia:'
   part_of_chain: 'Faz parte da cadeia:'
@@ -455,7 +454,7 @@ bell:
   poll_started: A Votação "{title}" teve início.
   poll_ending_soon_title: A Votação termina em breve
   poll_ending_soon: A Votação termina em breve e ainda não votaste.
-  store_wall_post_title: Empresa {name}
+  store_wall_post_title: Loja {name}
   store_change_regular_pickup_times:
     one: Os assentos foram coregadas
     many: Os assentos foram coregados
@@ -473,7 +472,7 @@ bell:
   forum_not_activated_thread_title: Tema em fórum moderado
   post_hidden_title: Publicação oculta por {user}
   post_hidden: A tua publicação sobre {title} no fórum {forum} foi ocultada
-  delete_store_title: Empresa apagada
+  delete_store_title: Loja apagada
   delete_store: '{name} foi apagado'
   store_invitation_accepted_title: Convite aceite ({store})
   store_invitation_accepted:
@@ -492,7 +491,7 @@ bell:
   mark_as:
     read: Marcar como lido
     unread: Marcar como no lido
-  store_added_to_chain_title: '{chain}: empresa adicionada'
+  store_added_to_chain_title: '{chain}: loja adicionada'
   store_added_to_chain: A loja «{store}» agora faz parte da cadeia.
   chain_info_updated_title: Cadeia {chain} atualizada
   chain_info_updated: '{store} faz parte da cadeia.'
@@ -609,17 +608,17 @@ dashboard:
     polls: 'Votações'
     pending: 'Consultas feitas em'
     no-stores: 'Ainda não faz parte de nenhuma equipa corporativa.'
-    stores: 'As tuas empresas'
+    stores: 'As tuas lojas'
     buddies: 'Pessoas que conheces'
     baskets: 'cestas alimentar'
     events: 'Eventos'
     groups: 'Os tues grupos'
-    jumping_stores: 'As tuas empresas substitutas'
+    jumping_stores: 'As tuas lojas substitutas'
     managing_stores: 'As tuas responsabilidades corporativas'
     pickups: Assentos registados
     pickupOptions: Opções de inscrição
   greeting_short: 'Olá {name}!'
-  source_store: 'Empresas {0}'
+  source_store: 'Lojas {0}'
   release:
     for_news_from_it: 'Se houver perguntas ou desafios, consulte primeiro'
     for_support: 'Caso contrário, podem entrar em contacto connosco através do seguinte
@@ -642,7 +641,7 @@ dashboard:
   no_more_updates_event: 'Sem mais datas'
   settings_tooltip: 'Configurações gerais'
   no_updates: 'Sem atualizações'
-  no_more_updates_store: 'Sem mais informações sobre empresas'
+  no_more_updates_store: 'Sem mais informações sobre as lojas'
   full_subline: 'Recolheste **{pickups} ** vezes alimentos e com isso salvaste **{weight} kg**.
     O tue distrito de origem é **{region}**.'
   no_more_updates_foodsharepoint: 'Não há mais mensagens do cantinho solidário'
@@ -679,12 +678,12 @@ storeview:
   want_to_fetch: 'Gostaria de ajudar esta equipa.'
   source_data: 'Datos de base'
   public_and_statistics: 'Estatísticas & relações públicas'
-  team: 'Equipa de empresa'
+  team: 'Equipa de loja'
   cooperation_status: 'Estado de cooperação'
   invalid_field: 'Teor inválido no campo do formulário. Não é possível guardar a alteração.'
   public_time_in_the_morning: 'de manhã'
   cooperation: 'Cooperação desde {startTime}.'
-  store: 'Empresa'
+  store: 'Loja'
   public_time_in_the_evening: 'à noite'
   info: 'Informações'
   visible_for_public: 'Este texto é visível para todos os foodsavers.'
@@ -694,7 +693,7 @@ storeview:
     name: 'Nome e apelido'
   status_notes: 'Notas de estado'
   select_related_region: 'Seleção do distrito competente'
-  visible_for_team: 'Este texto é visível para a equipa de empresa.'
+  visible_for_team: 'Este texto é visível para a equipa de loja.'
   public_time_at_night: 'à noite'
   no_permission_to_view: 'Visível apenas pelos lideres de equipas.'
   status: 'Situação actual'
@@ -702,7 +701,7 @@ storeview:
   managers: 'Lideres de equipa'
   common: 'Geral'
   pickupCount: 'Assentos'
-  team_info_distance: 'Distância aérea para a empresa:'
+  team_info_distance: 'Distância aérea para a loja:'
   publicity_and_sticker_options:
     no: Não
     yes: Sim
@@ -710,9 +709,9 @@ storeview:
   choose_chain: Escolha uma cadeia
   public_info:
     error_message: Texto é demasiado longo (max. {count} caracteres)
-    label: Informações públicos sobre a empresa
+    label: Informações públicos sobre a loja
     available_count: Número de caracteres disponíveis
-  show_settings: Configurações de empresa
+  show_settings: Configurações de loja
   team_info_active: 'Membros ativos da equipa:'
   team_info_jumper: 'Reserva:'
 calendar:
@@ -753,22 +752,22 @@ poll:
   submit_vote: 'Votar'
   allowed_voters: 'Direito a voto'
   edit:
-    title: ''
-    submit: ''
-    submit_question: ''
+    title: 'Editar votação'
+    submit: 'Guardar votação'
+    submit_question: 'Queres mesmo guardar as alterações na votação?'
   in_future: 'ainda não foi iniciado'
   in_past: 'terminado'
   results:
-    average: ''
-    sum: ''
-    percentage_of_votes: ''
-    number_of_votes: ''
-    option_text: ''
-    votes: ''
+    average: 'Valor médio'
+    sum: 'Total'
+    percentage_of_votes: 'Participação eleitoral'
+    number_of_votes: 'Votos expressos'
+    option_text: 'Opção'
+    votes: 'Votos'
     standardDeviation: Desvio padrão
     standardDeviationShort: σ
     sumShort: ∑
-    averageShort: ''
+    averageShort: 'Ø'
   new_poll:
     type: 'Modo de votação'
     name_required: 'Por favor, escreva um nome.'
@@ -800,18 +799,19 @@ poll:
     de voto retroativamente.'
   type_description_0: 'Selecionar (apenas uma opção pode ser selecionada)'
   type_description_1: 'Assinale (pode selecionar várias opções)'
-  may_not_edit: ''
-  hint_random_order: ''
+  may_not_edit: 'Não tens permissão para editar esta votação ou o prazo para edição
+    já acabou.'
+  hint_random_order: 'A ordem das opções disponíveis a seguir foi selecionada aleatoriamente.'
   ended_at: 'foi até'
   type_description_2: 'Opções de votação: a favor / abstenção / contra'
   begins_at: 'Início'
   error_cannot_vote: 'Não pode participar nesta votação'
   cancel:
-    title: ''
-    question: ''
-  may_not_yet_vote: ''
+    title: 'Cancelar votação'
+    question: 'Queres mesmo cancelar esta votação? Isso não pode ser revertido.'
+  may_not_yet_vote: 'Essa votação ainda não foi iniciada.'
   not_available: 'Esta votação não existe ou não tem acesso a ela.'
-  eligible_votes_count: ''
+  eligible_votes_count: 'Número de pessoas com direito a voto'
   already_voted: 'Já participaste nesta votação'
   submit_vote_warning: 'Atenção: a votação é anónima e não é possível alterar a tua
     seleção após votar.'
@@ -822,7 +822,8 @@ poll:
     tooltip_positive: 'Aprovação'
     tooltip_neutral: 'Abstenção'
     tooltip_negative: 'Contra'
-  submit_vote_question: ''
+  submit_vote_question: 'Votar agora mesmo? A tua seleção não poderá ser alterada
+    depois.'
   vote_success: 'Votaste com sucesso.'
   scope_description_3: 'Todos os embaixadores do distrito'
   scope_description_4: 'Todos os salvadores alimentares verificados com o distrito
@@ -830,14 +831,15 @@ poll:
   scope_description_0: 'Todos os salvadores alimentares verificados e não verificados
     do distrito/grupo'
   scope_description_2: 'Todos os lideres de equipas do distrito que atualmente são
-    responsáveis por uma equipa empresal'
+    responsáveis por uma equipa de loja'
   type: 'Tipo de votação'
-  hint_sorted_order: ''
-  title: ''
+  hint_sorted_order: 'A ordem das opções disponíveis para escolha é fixa e igual para
+    todos os votantes.'
+  title: 'Votação {name}'
 pickuplist:
   month_tab: 'Mes'
   error_whileSending: 'Erro ao enviar a mensagem'
-  NumberOfStores_table_header: 'Número de empresas'
+  NumberOfStores_table_header: 'Número de lojas'
   error_loadingPickup: 'Falha ao carregar de assentos: '
   NumberOfSlots_table_header: 'Número dos assentos'
   error_changeSlotCount: 'Falha ao alterar o número de assentos: '
@@ -992,7 +994,7 @@ menu:
     baskets: 'Cestas alimentar'
     workingGroupEdit: 'Gerir grupo'
     background: 'Contexto'
-    stores: 'Empresas'
+    stores: 'Lojas'
     mailbox: 'Conta de e-mail'
     fs: 'Foodsaver'
     talksandworkshops: 'Palestras e workshops'
@@ -1010,8 +1012,8 @@ menu:
     selfservice: 'Autoserviço'
     forum: 'Fórum'
     your_groups: 'Os tues grupos'
-    other_stores: 'Outras empresas'
-    your_stores: 'As tuas empresas'
+    other_stores: 'Outras lojas'
+    your_stores: 'As tuas lojas'
     helpneeded: 'Procuram-se ajudantes urgente'
     forcompanies: 'Pra empresas'
     team: 'Equipa'
@@ -1129,12 +1131,12 @@ profile:
       de origem do salvador alimentar. Pode abordar o assunto numa reunião de grupo
       ou no fórum, para que seja eleita uma equipa de mediação local.'
   notFound: 'Este perfil de utilizador(a) não existe ou já não existe'
-  choosestore: 'Selecione a empresa em questão'
+  choosestore: 'Selecione a loja em questão'
   report:
     oldReportButtonTextPart2: 'Se necessário, contacte o grupo da denúncias local
       do teu distrito.'
     noshow: 'A pessoa não veio'
-    doesNotAffectStore: 'Não diz respeito a nenhuma empresa ou a outra empresa'
+    doesNotAffectStore: 'Não diz respeito a nenhuma empresa ou a outra loja'
     arbAdminAgainstRepAdmin: 'É administrador do órgão de arbitragem e pretende comunicar
       um administrador para o processamento de notificações. De momento, isso não
       é tecnicamente possível. Pode, a qualquer momento, enviar uma notificação por
@@ -1191,12 +1193,12 @@ profile:
     confirmDelete: Deseja mesmo apagar esta denúncia?
     report_b1_0: Chegou tarde para a recolha (B01-1)
     report_b1_1: Não compareceu para recolher (B01-2)
-    report_b1_2: Levou animais para a empresa sem autorização (B01-3)
+    report_b1_2: Levou animais para a loja sem autorização (B01-3)
     report_b1_3: Levou crianças para o local de trabalho sem autorização (B01-4)
     report_b1_4: Não tinha consigo o seu cartão de foodsharing (B01-5)
     report_b2: Realizou uma recolha fora dos horários estabelecidos sem acordo 
-      prévio com o responsável de empresa (B02)
-    report_b3_0: Não entrou/saiu da empresa em conjunto com outros participantes
+      prévio com o responsável de loja (B02)
+    report_b3_0: Não entrou/saiu da loja em conjunto com outros participantes 
       (B03-1)
     report_b3_1: A recolha não foi realizada sem discussão ou disputa (B03-2)
     report_b4_0: Nem todos os alimentos ainda comestíveis foram levados (B04-1)
@@ -1206,7 +1208,7 @@ profile:
       loja (B06-1)
     report_b6_1: O local de recolha não foi deixado em boas condições (B06-2)
     report_b7: O tempo de espera da operação não foi respeitado (B07)
-    report_b8: Foi desagradável com os funcionários da empresa (B08)
+    report_b8: Foi desagradável com os funcionários da loja (B08)
     report_b9: Foram feitos comentários inadequados sobre a quantidade, o tipo e
       a utilização dos alimentos salvados (B09)
     report_b10: Vende alimentos salvados (B10)
@@ -1316,7 +1318,7 @@ profile:
     notes: 'Notas'
     history: 'Histórico dos cartões de membro'
     violations: 'Denúncias'
-    storelist: 'Empresas ({count})'
+    storelist: 'Lojas ({count})'
     remove_buddy: Não me lembro mais de {name}
     quizSessionHistory: Tentativas de quiz
   notes:
@@ -1345,22 +1347,22 @@ profile:
     workgroups_member: em conjunto nos seguintes grupos de trabalho
     no_common_workgroups: em nenhum grupo de trabalho comum
     home_region_from: Distrito de origem
-    kam_for: 'Responsável pela coordenação das seguintes cadeias lojas:'
+    kam_for: 'Responsável pela coordenação das seguintes cadeias comerciais:'
   tab_navigation:
     profile: Perfil
     pickups: Assentos
     commitment_statistics: Estatísticas de participação
-    stores: Empresas ({count})
+    stores: Lojas ({count})
     notes: Notas ({count})
   stores:
     search_placeholder: Buscar por nome
-    store_table: Lista de empresas
+    store_table: Lista de lojas
     memberState:
       filterAll: todos
       filterRequested: Solicitação enviada
       filterInvitations: Convidado
       filterActive: membro
-      filterManage: Responsável por empresas
+      filterManage: Responsável por lojas
       filterJumper: Suplente
   sleeping_info_from_until: tem um dorminhoco de {from} até {until}
   choosereasonnostore: Não se aplica a nenhuma loja
@@ -1474,7 +1476,7 @@ group:
     tooltip_function_9: 'Os administradores deste grupo de trabalho podem editar a
       descrição do grupo local para o mapa.'
     tooltip_function_4: 'Os administradores deste grupo de trabalho podem ver e editar
-      empresas no distrito'
+      lojas no distrito'
     moderation: 'Moderação'
     pr: 'Relações públicas'
     fsmanagement: 'Administração'
@@ -1506,7 +1508,7 @@ group:
       solidário justos'
     mediation: 'Mediação'
     arbitration: 'Comissão de arbitragem'
-    stores_coordination: Empresas
+    stores_coordination: Lojas
     election: Eleições
     none: Não é um grupo de trabalho GOALS
     tooltip_function_12: Os administradores deste grupo de trabalho são 
@@ -1758,7 +1760,7 @@ pickup:
   overview:
     tab:
       options:
-        empty: 'Atualmente, não há assentos disponíveis nas suas empresas.'
+        empty: 'Atualmente, não há assentos disponíveis nas tuas lojas.'
         name: 'Opções de insção'
         tooltip:
           own: 'Assentos futuros para os quais ainda te podes inscrever'
@@ -1784,7 +1786,7 @@ pickup:
     cols:
       time: 'Tempo'
       slots: 'Assentos'
-      store: 'Empresa'
+      store: 'Loja'
     allLoaded: 'Já estão apresentadas todas as entradas.'
     menu:
       signOffAll: 'Remover de todos'
@@ -1824,19 +1826,19 @@ pickup:
       <br>
 
       Por favor, envia <strong>apenas o número necessário de pessoas para recolher
-      a encomenda</strong> à empresa.
+      a encomenda</strong> à loja.
 
       Um número excessivo de pessoas para recolher a encomenda já levou, em muitas
       ocasiões, ao fim de cooperação.
 
       <br>
 
-      Verifica com a empresa o número máximo de pessoas que podem recolher a encomenda.
+      Verifica com a loja o número máximo de pessoas que podem recolher a encomenda.
 
       Os ajudantes adicionais necessários podem esperar com reboques de bicicleta
       ou similares
 
-      fora do alcance auditivo e visual da empresa.
+      fora do alcance auditivo e visual da loja.
 
       '
     slot_titel: 'Assentos'
@@ -1877,7 +1879,7 @@ pickup:
   really_leave_date: 'És responsável por essa recolha. Por favor, providencie mesmo
     um substituto.'
   to_be_confirmed: 'Este assento ainda tem de ser confirmada por um responsável desta
-    empresa.'
+    loja.'
   delete_title: 'Apagar esses assentos'
   signout_info: 'As tuas recolhas pendentes serão eliminadas.'
   leave_team_message_template: '{data}, não posso recolhê-lo afinal e, por isso, cancelei
@@ -1906,12 +1908,13 @@ pickup:
   slots: Assentos
 error:
   mail_bounce:
-    title: ''
-    description: ''
-    link_2: ''
-    link_1: ''
+    title: 'Endereço de e-mail bloqueado!'
+    description: 'O teu endereço de e-mail está bloqueado para e-mails e comunicações
+      do foodsharing.'
+    link_2: 'Preciso de ajuda'
+    link_1: 'Alterar endereço de e-mail'
   missing_geolocation:
-    title: ''
+    title: 'Não foi indicado nenhum endereço válido'
     description: ''
     link: ''
   missing_user_avatar:
@@ -1923,10 +1926,11 @@ error:
     description: ''
     link: ''
   mail_activation:
-    description: ''
-    title: ''
-    link_1: ''
-    link_2: ''
+    description: 'A utilização do site só é possível com um endereço de e-mail confirmado.
+      Confirma o teu endereço de e-mail clicando no link do e-mail de ativação.'
+    title: 'Endereço de e-mail não confirmado!'
+    link_1: 'Pedir um novo e-mail de ativação'
+    link_2: 'Alterar endereço de e-mail'
   passport_is_invalid_soon:
     description: ''
     link: ''
@@ -1936,10 +1940,10 @@ error:
     link: ''
     description: ''
   page:
-    back_home: ''
-    not_found: ''
-    internal_server_error: ''
-    other: ''
+    back_home: 'Voltar à página inicial'
+    not_found: 'A página não foi encontrada.'
+    internal_server_error: 'Ocorreu um erro interno no servidor.'
+    other: 'Ocorreu um erro desconecido.'
   passport_is_invalid:
     description: ''
     title: ''
@@ -2065,7 +2069,7 @@ search:
   placeholder: ''
   user_search:
     placeholder: ''
-  informations: 'Podes procuro por pessoas, grupos, empresas, distritos, bate-papos,
+  informations: 'Podes procuro por pessoas, grupos, lojas, distritos, bate-papos,
     mensagens do fórum e cantinhos solidário.'
   noresults: ''
   too_short: ''
@@ -2341,8 +2345,7 @@ chat:
   start_of_conversation: 'A conversa começou em:'
   unknown_username: 'Nome desconecido'
   search: 'Procurar'
-  open_multi_chat: Escrever mensagem em grupo para todos os responsáveis de 
-    empresa
+  open_multi_chat: Escrever mensagem em grupo para todos os responsáveis de loja
   mark_as:
     read: Marcar como lido
     unread: Marcar como não lido
@@ -2360,30 +2363,30 @@ error_permissions: 'Infelizmente, nao tens as permissões necessárias para este
 storeedit:
   team:
     leave_myself: 'tu mesmo'
-    cannot-leave: 'És responsável por esta empresa, por isso não podes deixá-la.'
-    orga: 'És não responsável por esta empresa.
+    cannot-leave: 'És responsável por esta loja, por isso não podes deixá-la.'
+    orga: 'És não responsável por esta loja.
 
       Mas tens amplos direitos como o parte da equipa de organizadora global.
 
       '
-    unmanaged: 'Atualmente, não há nenhum responsável nesta empresa.
+    unmanaged: 'Atualmente, não há nenhum responsável nesta loja.
 
-      Por favor, adicione até três pessoas responsáveis por esta empresa no futuro.
+      Por favor, adicione até três pessoas responsáveis por esta loja no futuro.
 
       '
     bread: 'Editar equipa'
-    leave: 'Remover esta empresa'
-    need-sm: 'Deve haver pelo menos uma pessoa responsável por esta empresa.'
+    leave: 'Remover esta loja'
+    need-sm: 'Deve haver pelo menos uma pessoa responsável por esta loja.'
     note: 'Nota:'
     empty: 'O equipa não deve estar vazio'
     foodsaver: 'Foodsaver'
     max-sm: 'Por favor selecionar no máximo três pessoas como lider de equipa'
-    amb: 'És não responsável por esta empresa.
+    amb: 'És não responsável por esta loja.
 
       Mas tens amplos direitos como o embaixador(-a).
 
       '
-    coordinator: 'És não responsável por esta empresa.
+    coordinator: 'És não responsável por esta loja.
 
       Mas tens amplos direitos como parte da equipa de coordenação da cooperação.
 
@@ -2410,104 +2413,110 @@ storeedit:
     accepted: '{user} agora faz parte da equipa'
     dropped: '{user} não mais faz parte da equipa'
     statuschanged: 'Estado alterado em {date}'
-    created: '{user} registou a empresa em {date}'
+    created: '{user} registou a loja em {date}'
   bread: 'Editar cooperação'
   add-new: 'Organizar nova loja'
-  not-in-region: 'Só podes criar empresas em distritos onde estás membro.'
-  add_success: 'A empresa colaboradora foi registada'
+  not-in-region: 'Só podes criar lojas em distritos onde estás membro.'
+  add_success: 'A loja de cooperação foi registada'
   actions: 'Opções'
-  store_name_placeholder: Nome de empresa
+  store_name_placeholder: Nome da loja
   name_error: O nome deve ter pelo menos três caracteres.
 chain:
-  new: ''
+  new: 'Registar nova cadeia'
   error:
-    create: ''
-    edit: ''
-    notfs: ''
+    create: 'Não foi possível criar a cadeia ({error}).'
+    edit: 'Não foi possível editar a cadeia ({error}).'
+    notfs: 'salvador alimentarPara ver esta lista, tens de ser um salvador alimentar.'
   columns:
-    kams: ''
-    stores: ''
-    name: ''
-    headquarters: ''
-    estimatedStoreCount: ''
-    notes: ''
-    status: ''
-    actions: ''
+    kams: 'Gestores de contas importantes (KAMs)'
+    stores: 'criado'
+    name: 'Nome'
+    headquarters: 'central'
+    estimatedStoreCount: 'filiais'
+    notes: 'Informações adicionais'
+    status: 'Estado'
+    actions: 'Ações'
   inputmodal:
     inputs:
       press:
-        description: ''
-        label: ''
+        description: 'Permitir a menção pública da cooperação'
+        label: 'Imprensa'
       thread:
-        invalidfeedback: ''
-        description: ''
-        placeholder: ''
-        label: ''
+        invalidfeedback: 'Precisa do ID do tópico ou do link.'
+        description: 'Procure o tópico no fórum digitando pelo menos 3 caracteres.'
+        placeholder: 'Buscar nome do tópico'
+        label: 'Tópico do fórum'
       kam:
-        invalidfeedback: ''
-        description: ''
-        label: ''
+        invalidfeedback: 'Entrada inválida. Precisa de um ou mais IDs de utilizador.'
+        description: 'IDs de utilizador dos gestores de contas importantes, separados
+          por vírgulas, se necessário.'
+        label: 'KAMs'
       headquarters:
         placeholder:
-          city: ''
-          country: ''
-          zip: ''
-        label: ''
+          city: 'Cidade'
+          country: 'País'
+          zip: 'CEP'
+        label: 'central'
       notes:
-        label: ''
-        invalidfeedback: ''
-        description: ''
+        label: 'Notas'
+        invalidfeedback: 'As notas não podem ter mais de 200 caracteres.'
+        description: 'Informações que aparecem na visão geral da cadeia.'
+        default: Negociações em andamento
       estimatedStoreCount:
-        description: ''
-        label: ''
-        invalidfeedback: ''
+        description: 'Número total de lojas da cadeia'
+        label: 'filiais'
+        invalidfeedback: 'Só dá para usar números inteiros.'
       details:
-        label: ''
-        description: ''
+        label: 'Informações para lojas'
+        description: 'Informações que aparecem nas páginas de lojas que fazem parte
+          da cadeia.'
+        default: A abordagem da loja não é permitida, pois não há aprovação para
+          essa cadeia.
       status:
-        label: ''
+        label: 'Estado'
       name:
-        invalidfeedback: ''
-        label: ''
-        placeholder: ''
+        invalidfeedback: 'O nome não pode ficar em branco'
+        label: 'Name'
+        placeholder: 'Nome de cadeia'
     title:
-      edit: ''
-      new: ''
-    ok: ''
-    cancel: ''
+      edit: 'Editar cadeia'
+      new: 'Criar cadeia'
+    ok: 'Guardar'
+    cancel: 'Cancelar'
   errorCodes:
-    EMPTY_COUNTRY: ''
-    EMPTY_CITY: ''
-    EMPTY_NAME: ''
-    INVALID_STORECHAIN_ID: ''
-    WRONG_FORUM: ''
-    KEY_ACCOUNT_MANAGER_MISSING_ACHIEVEMENT: ''
-    KEY_ACCOUNT_MANAGER_ID_NOT_EXISTS: ''
-    INVALID_STATUS: ''
-    EMPTY_ZIP: ''
-    THREAD_ID_NOT_EXISTS: ''
+    EMPTY_COUNTRY: 'O espaço para o pai está vazio'
+    EMPTY_CITY: 'O espaço para a cidade está vazio'
+    EMPTY_NAME: 'O espaço para o nome está vazio'
+    INVALID_STORECHAIN_ID: 'O ID da cadeia não é válido'
+    WRONG_FORUM: 'O tópico do fórum não faz parte do grupo de trabalho "cadeias comerciais"'
+    KEY_ACCOUNT_MANAGER_MISSING_ACHIEVEMENT: 'O gestor de contas importantes não fez
+      a formação para KAMs.'
+    KEY_ACCOUNT_MANAGER_ID_NOT_EXISTS: 'Gestor de contas importantes (KAM) não existe'
+    INVALID_STATUS: 'O espaço para o estado está vazio'
+    EMPTY_ZIP: 'O espaço para o código postal está vazio'
+    THREAD_ID_NOT_EXISTS: 'O tópico do fórum não existe'
   detailsmodal:
-    nostores: ''
-    title: ''
-    stores: ''
+    nostores: 'Sem lojas'
+    title: 'Lojas de cadeia {chain}'
+    stores: 'Lojas:'
   tooltips:
-    modificationDate: ''
-    options: ''
+    modificationDate: 'Última edição'
+    options: 'Opções'
   bread:
-    list: ''
-    workinggroup: ''
-  pagetitle: ''
-  allowpress: ''
+    list: 'Visão geral'
+    workinggroup: 'Cadeias comerciais'
+  pagetitle: 'Cadeias comerciais'
+  allowpress: 'Menção pública permitida.'
   status:
-    filterplaceholder: ''
-    notcooperating: ''
-    cooperating: ''
-    negotiating: ''
+    filterplaceholder: 'Estado'
+    notcooperating: 'Não coopera'
+    cooperating: 'cooperando'
+    negotiating: 'Em negociação'
   options:
-    showstores: ''
-    edit: ''
-  filterplaceholder: ''
-  listheader: ''
+    showstores: 'Mostrar lojas'
+    edit: 'Editar'
+  filterplaceholder: 'Nome / Endereço / ID KAM'
+  listheader: 'Cadeias comerciais'
 recipients:
   newsletter: 'Todos os assinantes do boletim informativo (pelo menos Foodsaver)'
   permission: 'Não está autorizado a enviar e-mails em massa'
@@ -3041,7 +3050,7 @@ terminology:
     m: 'Administrador global'
   n_cooperating_stores: '{count} cooperações em curso'
   options: 'Opções'
-  stores: 'Empresas'
+  stores: 'Cooperações'
   buddies: 'Conhecidos:as'
   wall: 'Pinboard'
   fsps: 'Cantinho solidário'
@@ -3065,12 +3074,12 @@ terminology:
   n_home_regions: '{count} com distrito principal'
   homepage: 'Página inicial'
   arbitrationAdmins: 'Comissão de arbitragem'
-  storesAdmins: 'Equipe de coordenação de empresas'
+  storesAdmins: 'Equipe de coordenação de lojas'
   n_ambassadors: '{count} embassadors'
-  n_stores: '{count} empresas'
+  n_stores: '{count} cooperações'
   subgroups: 'Subgrupos'
   threads: 'Assuntos'
-  store: 'Empresa'
+  store: 'Loja'
   basket: 'Cesta de comida'
   region: 'Distrito'
   no: Não
@@ -3323,7 +3332,7 @@ legal:
     this_gets_deleted_friendlist: 'A tua lista de amigos é removida.'
     legal_1: 'Nosso atual contrato de proteção de dados'
     this_doesnt_get_deleted_address: 'A tua endereço'
-    this_gets_deleted_stores: 'As empresas das quais fizeste parte.'
+    this_gets_deleted_stores: 'As lojas das quais fizeste parte.'
     this_gets_deleted_main: 'As seguintes informações serão eliminadas de você e não
       podem ser restauradas:'
     this_gets_deleted_trustbananas: 'As bananas que recebeste serão removidas.'
@@ -3339,82 +3348,146 @@ legal:
   show_changes: Mostrar alterações
 request_time: 'Hora de início:'
 startpage:
-  join_welcome: ''
+  join_welcome: 'Que bom que queres participar no foodsharing!'
   near_you:
     text2:
-      part2: ''
-      part3: ''
-      part1: ''
+      part2: 'Cestas alimentares'
+      part3: '– assim, podes oferecer os teus alimentos que sobraram e pegar alimentos
+        de outras pessoas.'
+      part1: 'Também há'
     text3:
-      part1: ''
-      part2: ''
+      part1: 'A comunidade está organizada em distritos.'
+      part2: 'Encontre distritos na tua área'
     text1:
-      part2: ''
-      part1: ''
-      part3: ''
-      part5: ''
+      part2: 'mapa'
+      part1: 'Na'
+      part3: 'encontras'
+      part5: ', são estantes ou frigoríficos onde podes recolher ou entregar alimentos
+        gratuitamente.'
       part4: 'Cantinho solidário'
-    title: ''
+    title: 'Perto de ti'
   call_to_action:
-    title: ''
-    text: ''
+    title: 'Participe'
+    text: 'Começámos em 2012 e agora somos um movimento internacional com mais de
+      500 000 utilizadores na Alemanha, Áustria, Suíça e outros países europeus.'
   how_we_work:
-    title: ''
-    text: ''
+    title: 'assim funciona'
+    text: 'Tudo isso é feito de forma voluntária e gratuita, independente e sem publicidade.
+      A plataforma é o coração
+
+      da nossa comunidade. Aqui, a gente se conecta e coordena localmente e em toda
+      a Europa. O site e a aplicação beta são
+
+      de código aberto e dependem do empenho e da paixão de muitas pessoas. Como pode
+      participar na área de TI?
+
+      '
   demands:
-    title: ''
-    text: ''
-    image_alt: ''
+    title: 'Exigências'
+    text: 'Para reduzir o desperdício de alimentos de forma eficaz, é preciso mais
+      do que só salvar as sobras
+
+      das lojas ou educar os consumidores. Em vez disso, é preciso que haja mudanças
+      políticas:
+
+      precisamos de metas de redução obrigatórias para o desperdício ao longo de toda
+      a cadeia de valor.
+
+      Também é preciso repensar e flexibilizar as normas comerciais atuais, além de
+      fortalecer as organizações que
+
+      resgatam alimentos ou oferecem educação sobre alimentação.
+
+      '
+    image_alt: 'Alimentos salvos, como pão, frutas e legumes, estão espalhados numa
+      lona ao ar livre. No fundo, dá para ver pessoas e bicicletas.'
   member:
-    text: ''
-    title: ''
-  welcome_text: ''
+    text: 'Partilha a tua comida que sobra com a comunidade foodsharing ou salva comida
+      de lojas.'
+    title: 'Como um membro'
+  welcome_text: 'Bem-vindo ao foodsharing'
   store:
-    title: ''
-    text: 'Trabalhas num supermercado, restaurante, cantina, ...? Regista a tua empresa
+    title: 'como a loja'
+    text: 'Trabalhas num supermercado, restaurante, cantina, ...? Regista a tua loja
       e salvo alimentos.'
-  slogan_2: ''
-  makeproposals: ''
-  respect: ''
-  join: ''
-  etiquette: ''
+  slogan_2: 'coletivo, sustentável e valorizador'
+  makeproposals: 'Dá sugestões'
+  respect: 'Porque os alimentos mantêm-nos vivos, devemos tratá-los com respeito.
+    Para que tudo funcione da melhor forma, ao longo dos anos definimos algumas regras
+    de conduta. Partilhar alimentos com outras pessoas é algo muito humano, mas também
+    de grande responsabilidade. Basicamente, vale sempre a regra: «Não partilhe com
+    outros nada que você mesmo não comeria». Por favor, leia agora as regras de etiqueta
+    do foodsharing!'
+  join: 'Participar'
+  etiquette: 'Etiqueta do foodsharing'
   donate:
-    title: ''
-    link: ''
-    text: ''
-  slogan_1: ''
+    title: 'Fazer doações'
+    link: 'Apoiar o foodsharing'
+    text: "A gente tenta conseguir patrocínios para todas as despesas. Mas, às vezes,
+      isso não dá certo ou não é suficiente,\n tipo nas despesas para financiar eventos,
+      consultoria jurídica ou seguros.\nA gente agradece muito qualquer apoio.\n"
+  slogan_1: 'Juntos, valorizando os alimentos'
   registernow: 'Regista-te agora'
-  this_is_how_it_works: ''
-  beresponsible: ''
-  telltruth: ''
-  more_infos: ''
-  slogan_3: ''
-  bedependable: ''
+  this_is_how_it_works: 'Como funciona'
+  beresponsible: 'Seja responsável'
+  telltruth: 'Todos nós que criámos o foodsharing e gerimos o site levamos o nosso
+    trabalho muito a sério. Seguimos várias leis e regras. Por favor, sê sincero ao
+    preencher os teus dados e em todas as outras contribuições que fizeres na plataforma,
+    como cestas de alimentos e publicações no fórum.'
+  more_infos: 'Saiba mais'
+  slogan_3: 'O foodsharing é e vai continuar a ser de graça.'
+  bedependable: 'Seja confiável'
   towns:
-    text: ''
-    title: ''
+    text: "As cidades participantes diferem entre si, dependendo se ainda estão em
+      fase de desenvolvimento ou se já\nforam distinguidas como a cidade de foodsharing.
+      Este último é o caso quando, além de uma equipa local de foodsharing,\nexiste
+      também uma declaração de motivação assinada pela administração municipal como
+      símbolo da parceria entre \no foodsharing e as autoridades públicas.\n"
+    title: 'Ciudades de foodsharing'
   dependability: 'Em muitos locais existem “Cantinhos solidário” onde a alimentos
     são partilhados. Podem encontrar-se aí ou noutros locais neutros para partilhar.
     Se quiser dar ou receber comida, por favor seja fiável e pontual, não abandonar
     ninguém.'
-  call_to_action_button: ''
-  forstores: ''
-  honest: ''
+  call_to_action_button: 'Participar agora'
+  forstores: 'Pra empresas e lojas'
+  honest: 'Sê sincero'
   vision:
-    title: ''
-    text: ''
+    title: 'Visão'
+    text: 'Somos um movimento ambiental e educativo que combate o uso descuidado dos
+      recursos e promove um sistema alimentar sustentável. O nosso objetivo a longo
+      prazo é pôr fim ao desperdício de alimentos ainda próprios para consumo. Para
+      isso, atuamos a nível local: salvamos alimentos em residências particulares
+      e lojas, dialogamos com decisores políticos e levamos a nossa visão à sociedade.'
   register: 'Al final de esta página puedes registar te para partilhar alimentos como
     outros pessoas.'
   private:
-    title: ''
-    text: ''
-  proposals: ''
-  together: ''
-  responsibility: ''
-  notallowed: ''
-  join_rules: ''
-  followrules: ''
-  followrules_title: ''
+    title: 'em privado'
+    text: 'Combate o desperdício alimentar na tua casa. Nós informamos em feiras e
+      eventos.'
+  proposals: 'Queremos evoluir, melhorar cada vez mais. Para isso, precisamos das
+    vossas boas ideias e sugestões. Enviem-nas para [info@foodsharing.de](mailto:info@foodsharing.de)'
+  together: 'Junto com foodsharing, podes ajudar a garantir que alimentos descartados
+    e invendáveis tenham um uso útil, em vez de serem jogados fora. Mais informações
+    sobre isso encontras [aqui](/fuer-unternehmen).'
+  responsibility: 'Um terço de todos os alimentos acaba no lixo. Isso tem de acabar
+    de uma vez por todas. Não queremos mais deitar nada fora! Queremos lidar com os
+    alimentos de forma responsável e estamos felizes por te ter connosco.'
+  notallowed: 'A partilha de medicamentos (incluindo remédios homeopáticos) não é
+    permitida no foodsharing. Também não dá para trocar ou partilhar roupas, cosméticos,
+    produtos químicos domésticos, brinquedos e outros produtos não alimentares através
+    do foodsharing. A plataforma foodsharing reserva-se o direito de eliminar essas
+    ofertas.'
+  join_rules: 'Participar – As nossas regras'
+  followrules: 'Queremos deixar bem claro que, por motivos legais, só podemos oferecer
+    e partilhar certos alimentos e outros produtos sob certas condições. Isso vale
+    especialmente para alimentos que estragam fácil, como peixe cru, carne crua, pratos
+    com ovos crus e alimentos preparados. Em geral, prestamos muita atenção para garantir
+    que os alimentos ainda estejam bons para comer. Todos os detalhes podem ser encontrados
+    nas [regras de higiene do foodsharing](https://wiki.foodsharing.de/Hygieneregeln).
+    Também há informações no [guia](https://wiki.foodsharing.de/Hygiene-Ratgeber_für_Lebensmittel).
+
+    '
+  followrules_title: 'Respeite as regras e o guia para a partilha de alimentos'
 region:
   bread: 'Administrar distritos'
   noParent: 'Sem distrito principal'
@@ -3440,11 +3513,11 @@ region:
   edit: 'Editar distrito'
   cancel: 'Não, afinal não'
   still_contains_elements: 'O distrito não pode ser apagado porque ainda contém sub-regiões,
-    empresas ou cantinhos solidário.'
+    lojas ou cantinhos solidário.'
   edit_success: 'O distrito foi guardado.'
   restricted: 'Infelizmente, não tens autorização para visualizar esses dados.'
   store_managers_cannot_leave: 'Não podes sair do distrito, pois ainda és responsável
-    por pelo menos uma empresa lá.'
+    por pelo menos uma loja lá.'
   save: 'Sim, guardar'
   mail:
     name-info: 'Atenção, não altere arbitrariamente! Certifique-se também de que este
@@ -3806,13 +3879,13 @@ genderlist:
 position: 'Posição em foodsharing (público)'
 logincontrol:
   bread: 'Cancelar a inscrição no boletim informativo'
-  success: ''
-  nomorenewsletter: ''
+  success: 'Sucesso!'
+  nomorenewsletter: 'Não vais receber mais newsletters nossas'
   title: 'Cancelar a inscrição no boletim informativo'
 reports:
   no_reports_fallback: 'Ainda não há denúncias disponíveis'
   time: 'Tempo'
-  store: 'Empresa associada'
+  store: 'Loja associada'
   report_id: 'ID de dunúncia'
   reportmessage: 'Indique como podemos entrar em contacto consigo caso tenhamos mais
     perguntas.'
@@ -3851,8 +3924,8 @@ notifications:
   info: Informação
   pickupReminder:
     title: Recordações para os assentos não ocupados
-    description: Receba e-mails que o alertam quando os assentos nas empresas 
-      que gere ainda não estiverem atribuídos no dia seguinte.
+    description: Receba e-mails que o alertam quando os assentos nas lojas que 
+      gere ainda não estiverem atribuídos no dia seguinte.
   save_success: ''
   pushModal:
     ok: ''
@@ -3895,12 +3968,12 @@ button:
   yes_save: sim, guardar
 about_me_intern: 'Descrição rápida'
 storestatus:
-  "3a": 'A empresa está disposta para fazer doações. :-)'
-  "3": 'A empresa está disposta a cooperar'
+  "3a": 'A loja está disposta para fazer doações. :-)'
+  "3": 'A loja está disposta a cooperar'
   "1": 'Ainda não há contacto'
-  "7": 'A empresa já não existe'
-  "6": 'A empresa já faz doações pra o banco alimentar, etc., e não deita nada fora'
-  "5a": 'A empresa já faz doações'
+  "7": 'A loja já não existe'
+  "6": 'A loja já faz doações pra o banco alimentar, etc., e não deita nada fora'
+  "5a": 'A loja já faz doações'
   "5": 'colabora connosco'
   "0": 'Estado incerto'
   "4": 'Não quer cooperar'
@@ -3936,7 +4009,7 @@ stats:
     foodsaver: 'salvadores alimentares trabalham voluntariamente por um mundo sem
       desperdício de alimentos.'
     baskets: 'cestas alimentar foram colocadas online.'
-    cooperations: 'empresas cooperam continuamente e com satisfação connosco.'
+    cooperations: 'Lojas cooperam continuamente e com satisfação connosco.'
   leader:
     regions: 'Distritos mais ativos'
     users: 'Salvadores alimentares mais ativos'
@@ -3948,10 +4021,10 @@ stats:
     by_weight: por peso
     by_count: por número
 numbers:
-  decimal_separator: ''
-  million_abbreviation: ''
-  thousands_separator: ''
-  billion_abbreviation: ''
+  decimal_separator: '.'
+  million_abbreviation: ' Mio.'
+  thousands_separator: ','
+  billion_abbreviation: ' Mil milhões'
 fp: 'Pontos de erro'
 fspmanagers: 'Pessoas de contacto para o cantinho solidário'
 storelist:
@@ -3960,7 +4033,7 @@ storelist:
   added: 'Registado'
   inprogress: 'As negociações estão em curso'
   nocontact: 'Ainda há não contacto'
-  managing: 'Empresas pelas quais é responsável'
+  managing: 'Lojas pelas quais é responsável'
   region: 'Distrito'
   memberState: 'Estado de membro'
   nowaste: 'Não deite nada fora'
@@ -3970,11 +4043,11 @@ storelist:
   entered: 'Registado:'
   cooperating: 'Em cooperação'
   city: 'Local'
-  others: 'Outras empresas de {região}'
+  others: 'Outras lojas de {região}'
   notcooperating: 'Não quer cooperar'
   map: 'Mapa'
   addressdata: 'Direção'
-  fetching: 'Empresas onde recolhes alimentos'
+  fetching: 'Lojas onde recolhes alimentos'
   actions: Ações
 activitypost:
   quickreply_button: 'Envia agora<br>ou <code class="key">pressionar a <code class="key">tecla
@@ -3984,34 +4057,33 @@ activitypost:
     uma nova linea.'
   response: 'responder'
   Response: 'Respostas'
-addreaction: ''
+addreaction: 'Adicionar uma reação'
 regionOptions:
   success: 'Opções guardadas com sucesso'
   regionPickupInactiveHours: 'Quantas horas antes da recolha a regra deixa de ser
     aplicada?'
   header_page: 'Configuração para {bezirk}'
-  regionPickupLimitNumber: 'Número máximo dos assentos permitidos dos empresas "sultanas"
-    populares no período selecionado'
-  regionPickupRuleActiveStoreList: 'Lista das empresas do distrito que são consideradas
-    para a regra das sultanas. Todos os assentos das empresas listadas são somadas
-    e consideradas para a regra.'
+  regionPickupLimitNumber: 'Número máximo dos assentos permitidos dos lojas populares
+    no período selecionado'
+  regionPickupRuleActiveStoreList: 'Lista de empresas populares do distrito. Todos
+    os assentos das empresas listadas são somadas e consideradas para a regra.'
   enableMediationButton: 'Ativar o formulário de mediação nas páginas de perfil dos
     comensais habituais do distrito'
   enableReportButton: 'Ativar formulário de denúncia nas páginas de perfil dos salvadores
     alimentares habitual do distrito'
   regionPickupTimespan: 'Período de tempo (dias antes e depois da data do assento
     desejado) ao qual a regra das sultanas se aplica'
-  regionPickupRuleActive: 'Ative a seguinte regra distrital para os assentos de empresas
-    das "sultanas" populares:'
+  regionPickupRuleActive: 'Ative a seguinte regra distrital para os assentos de lojas
+    populares:'
   save: 'Guardar opções'
-  regionPickupLimitDayNumber: 'Número máximo dos assentos permitidos dos empresas
-    das "sultanas" populares num dia'
+  regionPickupLimitDayNumber: 'Número máximo dos assentos permitidos de lojas populares
+    num dia'
   regionReportReasonSimple: motivos da denúncia simplificados
   regionReportReasonCategoryB: motivos da denúncia adicionais - B) comportamento
     durante as recolhas
   regionReportReasonOther: Permitir «Outros» como motivo da denúncia
-  noPickupRuleActiveStores: Atualmente, a regra das sultanas não está ativada 
-    para nenhuma empresa no distrito.
+  noPickupRuleActiveStores: Atualmente, a regra de lojas populares não está 
+    ativada para nenhuma empresa no distrito.
   enableAddressChangeNotification: Notificação aos embaixadores e 
     administradores em caso de mudança de endereço de um salvador de alimentos 
     deste distrito como distrito de origem
@@ -4053,7 +4125,7 @@ gender:
   d: 'Ambos ou outro'
   m: 'Homem'
   f: 'Mulher'
-kette_id: 'Cadeia de empresa'
+kette_id: 'Cadeia comercial'
 no: 'Não'
 info: 'Informações'
 addresspicker:
@@ -4119,11 +4191,13 @@ picture_upload_widget:
 team:
   current: 'Equipa'
 language_chooser:
-  translation_help: ''
-  title: ''
-  translation_help_info_text: ''
-  choose_button: ''
-  content: ''
+  translation_help: 'Falas ainda outras línguas? A gente da foodsharing está sempre
+    à procura de pessoas para ajudar com traduções'
+  title: 'Selecionar língua'
+  translation_help_info_text: 'Este link leva ao portal de tradução. Registre-se lá
+    e clique no ícone do lápis para começar'
+  choose_button: 'Atualizar'
+  content: 'Por favor, selecione uma língua'
 prefetchtime: 'Com quantas semanas de antecipação podem os salvadores alimentares
   registar-se utilizando as assentos gerados automaticamente?'
 ueberzeugungsarbeit: 'Foi fácil convencer os responsáveis a cooperar com o foodsharing?'
@@ -4154,10 +4228,10 @@ betrieb_status_id: 'Status'
 lebensmittel: 'Quais os alimentos o que levado?'
 notice: 'Nota!'
 usersearch:
-  search_tag: ''
-  no_tag_preset: ''
-  select_tag: ''
-contentmanagement: ''
+  search_tag: 'Selecionar utilizador'
+  no_tag_preset: 'Utilizador não encontrado'
+  select_tag: 'Buscar utilizador pelo nome'
+contentmanagement: 'Gestão de conteúdos'
 statistics:
   num_fetches: 'em {count} operações de resgate'
   kg_food_saved: '{count} kg alimentos salvos'
@@ -4167,7 +4241,7 @@ statistics:
     pickupsLastMonth: Salvamentos dos alimentos
     savedFoodKgLastMonth: Alimentos salvos
     activeHomeRegionFoodsavers: Foodsavers ativos
-    activeCoorporations: Cooperações ativas com empresas
+    activeCoorporations: cooperações com lojas ativas
   lastMonth: Estatísticas dos últimos 30 dias
   food_saved: Alimentos recuperados
 body: 'Mensagem'
@@ -4175,7 +4249,7 @@ photo: 'Fotografia'
 really_delete: 'Apagar a sério?'
 map:
   title: 'Mapa'
-  donates: 'A empresa faz doações'
+  donates: 'A loja faz doações'
   foodsharepoint:
     go: Para o cantinho solidário
   filters:
@@ -4194,7 +4268,7 @@ map:
         label: Pertença
         all: Todos
         region: Só os meus distritos
-        member: Só as minhas empresas
+        member: Só as minhas lojas
       type:
         label: Tipo
         "null": Todos
@@ -4236,7 +4310,7 @@ filter_by: 'Filtrar por'
 push_notifications:
   test_notification_body: 'Ótimo, parece que funcionou :)'
   test_notification_title: 'Notificações push ativadas'
-savewithus: ''
+savewithus: 'Ajude a salvar!'
 bezirk_id: 'Para qual região o artigo é relevante?'
 sidenav:
   yourgroups: 'Os teus grupos'
@@ -4266,7 +4340,7 @@ rolle: 'Função do utilizador'
 regions: 'Distritos'
 text: 'texto'
 use_region_pickup_rule: 'A regra distrital das SULTANAS deve ser aplicada os assentos
-  nesta empresa?'
+  nesta loja?'
 teaser: 'Teaser'
 presse: 'A empresa/loja/clube está disponível para ser mencionada na imprensa e em
   foodsharing.de?'
@@ -4276,7 +4350,7 @@ answers: 'Quais respostas é certamento?'
 time: 'horas'
 duration: 'Tempo para responder'
 day: 'dia'
-ansprechpartner: 'Pessoa de contacto na empresa (Gerente de filial, etc.)'
+ansprechpartner: 'Pessoa de contacto na loja (Gerente de filial, etc.)'
 validation:
   phone_number_invalid: O número de telefone é inválido (por exemplo, falta o 
     indicativo do país, é demasiado curto, demasiado longo ou contém caracteres 
@@ -4403,8 +4477,8 @@ help:
       title: ''
     hygieneRequirement:
       md: |
-        Para trabalhar em algumas empresas, os salvadores alimentares devem ter formação em higiene alimentar. Quando esta função está ativada para uma empresa, tem as seguintes implicações:
-        1. Os salvadores alimentar sem formação válida em higiene não podem candidatar-se à equipa da empresa.
+        Para trabalhar em algumas lojas, os salvadores alimentares devem ter formação em higiene alimentar. Quando esta função está ativada para uma loja, tem as seguintes implicações:
+        1. Os salvadores alimentar sem formação válida em higiene não podem candidatar-se à equipa da loja.
         2. Os salvadores alimentar que já fazem parte da equipa só podem inscrever-se em assentos cuja formação em higiene ainda seja válida.
 
         Em ambos os casos, é exibida uma nota explicando que falta a formação em higiene para esta ação. Além disso, a formação em higiene está diretamente ligada em cada caso.
@@ -4438,7 +4512,7 @@ help:
     pickupOptions:
       title: ''
       md: 'A secção *Possibilidades de inscrição* mostra-lhe uma visão geral de todos
-        os turnos assentos nas tuas empresas, para os quais ainda se procuram salvadores
+        os turnos assentos nas tuas lojas, para os quais ainda se procuram salvadores
         alimentares. Através do menu de opções, pode ajustar a visualização às suas
         necessidades:
 
@@ -4449,9 +4523,9 @@ help:
 
 
         **Visualização para líderes de equipas:** Os lideres de equipas garantem que
-        todos os assentos nas tuas empresas decorram de forma fiável. Se fores um
-        lider, podes restringir a visualização às empresas pelas quais és responsável.
-        Assim, é mais fácil manter uma visão geral.
+        todos os assentos nas tuas lojas decorram de forma fiável. Se fores um lider,
+        podes restringir a visualização às lojas pelas quais és responsável. Assim,
+        é mais fácil manter uma visão geral.
 
         **Agrupado por dias:** Nesta apresentação, as suas opções de inscrição são
         agrupadas por dias e apresentadas de forma um pouco mais compacta. Especialmente
@@ -4499,7 +4573,7 @@ help:
     profileCommitmentsStat:
       title: ''
       md: 'é visível a partir da função de lider de equipas. É restrita ao distrito
-        comum ou às empresas comuns.'
+        comum ou às lojas comuns.'
     pollScopes:
       md: ''
       title: ''
@@ -4524,6 +4598,9 @@ help:
     achievements:
       md: ''
       title: ''
+    store_chain_info:
+      md: |
+        Esta loja faz parte de uma [cadeia comercial](https://wiki.foodsharing.de/Betrieb#Betriebskette). Todas as cadeias comerciais têm [KAMs](https://wiki.foodsharing.de/Key_Account_Manager_(KAM)) responsáveis, que podem ver a equipa, a carga de trabalho e o número de assentos para recolha nesta loja.
   helpTitle: ''
   tooltip: ''
 test:
@@ -4542,13 +4619,13 @@ sort:
 required_messages:
   kick_from_store_team:
     main: Foste removido da equipa da empresa [{store}](/store/{storeId}). 
-      Assim, já não podes inscrever-te para os assentos nesta empresa.
+      Assim, já não podes inscrever-te para os assentos nesta loja.
     footer: ''
-    really: 'Quer mesmo remover {name} da equipa desta empresa?'
+    really: 'Quer mesmo remover {name} da equipa desta loja?'
   move_to_standby_team:
-    main: Foste colocado na lista de substitutos da empresa 
+    main: Foste colocado na lista de substitutos da loja 
       [{store}](/store/{storeId}). Atualmente, não podes inscrever-te para os 
-      assentos nesta empresa nem ler o chat geral do grupo.
+      assentos nesta loja nem ler o chat geral do grupo.
     footer: ''
     really: ''
   demote_store_manager:
@@ -4841,12 +4918,12 @@ feedback:
   capture_screenshot: ''
 theme_switcher:
   theme:
-    system: ''
-    light: ''
-    dark: ''
-  choose_button: ''
-  content: ''
-  title: ''
+    system: 'Sistema'
+    light: 'Claro'
+    dark: 'Oscuro'
+  choose_button: 'OK'
+  content: 'Selecione um design'
+  title: 'Escolher design'
 network_errors:
   csrf_token_invalid:
     title: ''

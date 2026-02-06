@@ -3345,7 +3345,7 @@ buddy:
   none: 'Jeszcze nie ma znajomych'
 error:
   mail_bounce:
-    title: ''
+    title: 'Zablokowany adres email!'
     description: ''
     link_2: ''
     link_1: ''
@@ -3370,10 +3370,10 @@ error:
     description: ''
     link: ''
   page:
-    back_home: ''
+    back_home: 'Powrót do strony startowej'
     not_found: ''
-    internal_server_error: ''
-    other: ''
+    internal_server_error: 'Wystąpił wewnętrzny błąd serwera.'
+    other: 'Wystąpił nieznany błąd.'
   mail_activation:
     description: ''
     title: ''
@@ -3668,7 +3668,7 @@ chain:
   new: ''
   error:
     create: ''
-    edit: ''
+    edit: 'Nie można edytować sieci ({error}).'
     notfs: ''
   columns:
     kams: ''
@@ -3683,7 +3683,7 @@ chain:
     inputs:
       press:
         description: ''
-        label: ''
+        label: 'prasa'
       thread:
         invalidfeedback: ''
         description: ''
@@ -3695,32 +3695,32 @@ chain:
         label: ''
       headquarters:
         placeholder:
-          city: ''
-          country: ''
-          zip: ''
-        label: ''
+          city: 'miasto'
+          country: 'państwo'
+          zip: 'kod pocztowy'
+        label: 'centrala'
       notes:
-        label: ''
-        invalidfeedback: ''
+        label: 'notatki'
+        invalidfeedback: 'Notatki nie mogą być dłuższe niż 200 znaków.'
         description: ''
       estimatedStoreCount:
-        description: ''
-        label: ''
+        description: 'Całkowita liczba filii sieci'
+        label: 'filie'
         invalidfeedback: ''
       details:
         label: ''
         description: ''
       status:
-        label: ''
+        label: 'status'
       name:
         invalidfeedback: ''
         label: ''
-        placeholder: ''
+        placeholder: 'nazwa sieci'
     title:
       edit: ''
       new: ''
-    ok: ''
-    cancel: ''
+    ok: 'Zapisz'
+    cancel: 'Anuluj'
   errorCodes:
     EMPTY_COUNTRY: 'Pole "państwo" nie może być puste'
     KEY_ACCOUNT_MANAGER_MISSING_ACHIEVEMENT: ''
@@ -3747,7 +3747,7 @@ chain:
   status:
     filterplaceholder: ''
     notcooperating: ''
-    cooperating: ''
+    cooperating: 'współpracuje'
     negotiating: ''
   options:
     showstores: ''
