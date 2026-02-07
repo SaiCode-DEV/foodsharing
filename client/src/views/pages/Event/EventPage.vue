@@ -7,6 +7,7 @@
         :border="true"
         :may-edit="mayEdit"
         :invite-count="currentAttendees?.inviteCount"
+        :answer-count="answerCount"
         :status="inviteStatus"
         @update:status="updateSelfInAttendees"
       />
@@ -61,6 +62,7 @@ export default {
   data () {
     return {
       currentAttendees: this.attendees,
+      oldStatus: this.inviteStatus,
     }
   },
   computed: {
@@ -70,6 +72,9 @@ export default {
         { href: this.$url('events', this.event.regionId), text: this.$t('events.bread') },
         { text: this.event.name },
       ]
+    },
+    answerCount () {
+      return this.currentAttendees ? this.currentAttendees.accepted.length + this.currentAttendees.maybe.length + this.currentAttendees.declined : 0
     },
     isLoggedIn () {
       return userStore.isLoggedIn
@@ -88,11 +93,18 @@ export default {
       }
       this.currentAttendees.maybe = this.currentAttendees.maybe.filter(user => user.id !== self.id)
       this.currentAttendees.accepted = this.currentAttendees.accepted.filter(user => user.id !== self.id)
+      if (this.oldStatus === EventInvitationResponse.EVENT_INVITATION_RESPONSE_NO && newStatus !== EventInvitationResponse.EVENT_INVITATION_RESPONSE_NO) {
+        this.currentAttendees.declined--
+      } else if (this.oldStatus !== EventInvitationResponse.EVENT_INVITATION_RESPONSE_NO && newStatus === EventInvitationResponse.EVENT_INVITATION_RESPONSE_NO) {
+        this.currentAttendees.declined++
+      }
       if (newStatus === EventInvitationResponse.EVENT_INVITATION_RESPONSE_YES) {
         this.currentAttendees.accepted.push(self)
       } else if (newStatus === EventInvitationResponse.EVENT_INVITATION_RESPONSE_MAYBE) {
         this.currentAttendees.maybe.push(self)
       }
+
+      this.oldStatus = newStatus
     },
   },
 }

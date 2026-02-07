@@ -27,7 +27,7 @@
           <div v-if="event.regionName" class="flex-md-shrink-0">
             <a :href="$url('events', event.regionId)">{{ event.regionName }}</a>
             <span v-if="inviteCount">
-              ({{ $t('events.invitedCount', { count: inviteCount }) }})
+              ({{ $t('events.invitedCount', { total: inviteCount, answers: answerCount }) }})
             </span>
           </div>
           <div
@@ -82,6 +82,7 @@ export default {
   props: {
     event: { type: Object, required: true },
     inviteCount: { type: Number, default: 0 },
+    answerCount: { type: Number, default: 0 },
     mayEdit: { type: Boolean, default: false },
     status: { type: Number, default: 0 },
     border: { type: Boolean, default: false },
@@ -119,10 +120,17 @@ export default {
         })
       }
     },
+    canStillJoin: function () {
+      // Joining is possible until 24h after the event end date
+      const now = new Date()
+      const cutoff = new Date(this.endDate)
+      cutoff.setHours(cutoff.getHours() + 24)
+      return cutoff > now
+    },
   },
   methods: {
     statusAvailable: function () {
-      return this.currentStatus >= 0
+      return this.currentStatus >= 0 && this.canStillJoin
     },
     statusVariant: function (s) {
       if (s === this.currentStatus) {

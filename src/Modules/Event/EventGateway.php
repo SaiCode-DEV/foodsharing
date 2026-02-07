@@ -79,12 +79,15 @@ class EventGateway extends BaseGateway
         $out = [
             'accepted' => [],
             'maybe' => [],
+            'declined' => 0,
         ];
         foreach ($invites as $invite) {
             if ($invite['status'] == InvitationStatus::ACCEPTED->value) {
                 $out['accepted'][] = $invite;
             } elseif ($invite['status'] == InvitationStatus::MAYBE->value) {
                 $out['maybe'][] = $invite;
+            } elseif ($invite['status'] == InvitationStatus::WONT_JOIN->value) {
+                ++$out['declined'];
             }
         }
 
@@ -217,13 +220,6 @@ class EventGateway extends BaseGateway
 
     public function setInviteStatus(int $eventId, int $foodsaverId, InvitationStatus $status): int
     {
-        if ($status === InvitationStatus::INVITED) {
-            return $this->db->delete('fs_foodsaver_has_event', [
-                'event_id' => $eventId,
-                'foodsaver_id' => $foodsaverId,
-            ]);
-        }
-
         return $this->db->insertOrUpdate('fs_foodsaver_has_event', [
             'event_id' => $eventId,
             'foodsaver_id' => $foodsaverId,

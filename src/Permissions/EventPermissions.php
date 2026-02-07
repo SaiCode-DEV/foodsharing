@@ -40,6 +40,11 @@ final readonly class EventPermissions
 
     public function mayJoinEvent(Event $event): bool
     {
+        // Joining events is only possible until 24h after the event end date
+        if ($event->endDate < new \DateTime() || $event->endDate->diff(new \DateTime())->h > 24) {
+            return false;
+        }
+
         return $this->maySeeEvent($event);
     }
 

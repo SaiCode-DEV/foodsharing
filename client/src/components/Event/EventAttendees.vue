@@ -3,7 +3,7 @@
     :title="$t('events.attendees')"
   >
     <div
-      v-if="!displayedGroups.length"
+      v-if="!displayedGroups.length && attendees.declined === 0"
       class="list-group-item"
       v-text="$t('events.noneAccepted')"
     />
@@ -25,6 +25,12 @@
           v-text="$t('events.morePeople', { count: attendees[group].length - 40})"
         />
       </div>
+    </div>
+    <div
+      v-if="attendees.declined > 0"
+      class="list-group-item"
+    >
+      <b v-text="$t(`events.declinedCount`, { count: attendees.declined })" />
     </div>
   </Container>
 </template>

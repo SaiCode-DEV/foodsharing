@@ -1611,9 +1611,10 @@ events:
   notFound: "Dieses Event existiert nicht oder es kann nicht darauf zugegriffen werden."
   acceptedCount: "{count} sind dabei"
   maybeCount: "{count} kommen vielleicht"
-  invitedCount: "{count} Einladungen"
+  declinedCount: "{count} haben abgesagt"
+  invitedCount: "{answers} von {total} Einladungen beantwortet"
   morePeople: "… und {count} weitere"
-  noneAccepted: "Bislang haben keine Personen für diese Veranstaltung zugesagt."
+  noneAccepted: "Bislang haben keine Personen auf diese Einladung geantwortet"
   button:
     change: "Antwort ändern"
     yes: "Bin dabei"
