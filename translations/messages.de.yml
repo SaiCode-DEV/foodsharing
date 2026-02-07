@@ -741,10 +741,10 @@ terminology:
     report: "Meldungsansicht (LMG)"
     arbitration: "Meldungsansicht (LS)"
     orga: "Meldungsansicht (Orga)"
-  fsp: "Fairteiler" #also in MapView
+  fsp: "Fairteiler"
   fsps: "Fairteiler"
   basket: "Essenskorb"
-  baskets: "Essenskörbe" #also in MapView
+  baskets: "Essenskörbe"
   community: "Ortsgruppe {name}"
   groups: "Arbeitsgruppen"
   group: "Arbeitsgruppe"
@@ -946,7 +946,7 @@ storeview:
   choose_chain: "Wähle eine Kette"
 
 store:
-  bread: "Alle Betriebe" #also in MapView
+  bread: "Alle Betriebe"
   requests: "Offene Anfragen ({count})"
   invitations: "Offene Einladungen ({count})"
   chat:
@@ -1258,9 +1258,9 @@ storeedit:
     status: "Status" #also in QuizView
   fetch:
     teamStatus: "Teamstatus"
-    teamStatus0: "Dieses Team ist geschlossen und sucht zurzeit keine weiteren Helfer:innen"
-    teamStatus1: "Es werden noch Helfer:innen gesucht"
-    teamStatus2: "Es werden dringend noch Helfer:innen gesucht"
+    teamStatus0: "Dieser Betrieb nimmt zurzeit keine Bewerbungen an"
+    teamStatus1: "Das Team ist offen für Bewerbungen von Foodsaver:innen"
+    teamStatus2: "Es wird dringend Unterstützung gesucht"
     hygieneRequirement: "Hygieneanforderungen"
     hygieneRequired: "Eintragung nur mit gültiger Hygieneschulung erlauben"
     applicationRequirements: "Bewerbungsanforderungen"
@@ -2061,7 +2061,7 @@ content:
 
 map:
   title: "Karte"
-  donates: "Betrieb spendet" #MapView
+  donates: "Betrieb spendet"
   filters:
     stores:
       status:
@@ -2070,10 +2070,10 @@ map:
         cooperating: "Kooperiert"
         not-cooperating: "Kooperiert nicht"
       help:
-        label: "Helfer:innen"
+        label: "Teamstatus"
         all: "Egal"
-        open: "Gesucht"
-        searching: "Dringend gesucht"
+        open: "Offen"
+        searching: "Sucht Unterstützung"
       scope:
         label: "Zugehörigkeit"
         all: "Alle"
@@ -2981,7 +2981,7 @@ menu:
     press: "Presse"
     forcompanies: "Für Unternehmen"
     imprint: "Impressum"
-    regionalgroups: "Ortsgruppen" #also in MapView
+    regionalgroups: "Ortsgruppen"
     forum: "Forum"
     BOTforum: "Botschafter:innen-Forum"
     wall: "Pinnwand"
@@ -3002,11 +3002,11 @@ menu:
     transparency: "Transparenz"
     dataprivacy: "Datenschutz"
     release-notes: "Was ist neu?"
-    stores: "Betriebe" #also in MapView
+    stores: "Betriebe"
     security: "Security"
-    helpwanted: "Helfer:innen gesucht" #MapView
-    helpneeded: "Helfer:innen dringend gesucht" #MapView
-    other_stores: "Andere Betriebe" #MapView
+    helpwanted: "Team ist offen"
+    helpneeded: "Unterstützung dringend gesucht"
+    other_stores: "Andere Betriebe"
     fs: "Foodsaver"
     ids: "Ausweise"
     joinregion: "Einem Bezirk beitreten"
