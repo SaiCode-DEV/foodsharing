@@ -63,7 +63,8 @@ class StoreGateway extends BaseGateway
     }
 
     /**
-     * Return all identifiers for stores of a store chain.
+     * Return a list identifiers for stores of a store chain, optionally paginated. Returns all identifiers of the
+     * chain if no pagination is given.
      *
      * @return MinimalStoreIdentifier[]
      *

@@ -9,13 +9,11 @@ use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\DBConstants\Achievement\AchievementIDs;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
-use Foodsharing\Modules\Core\Pagination;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Region\ForumGateway;
 use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Modules\Store\StoreTransactions;
 use Foodsharing\Modules\StoreChain\DTO\StoreChainData;
-use Foodsharing\Modules\StoreChain\DTO\StoreChainForChainList;
 
 class StoreChainTransactions
 {
@@ -28,18 +26,6 @@ class StoreChainTransactions
         private readonly BellGateway $bellGateway,
         private readonly StoreGateway $storeGateway,
     ) {
-    }
-
-    /**
-     * @return StoreChainForChainList[]
-     *
-     * @throws Exception
-     */
-    public function getStoreChains(?int $id = null, ?Pagination $pagination = null): array
-    {
-        $results = $this->storeChainGateway->getStoreChains($id, $pagination);
-
-        return $results;
     }
 
     /**

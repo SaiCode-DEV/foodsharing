@@ -8,6 +8,7 @@ use Foodsharing\Modules\Core\Pagination;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\StoreChain\DTO\StoreChainData;
 use Foodsharing\Modules\StoreChain\DTO\StoreChainForChainList;
+use UnexpectedValueException;
 
 class StoreChainGateway extends BaseGateway
 {
@@ -87,17 +88,40 @@ class StoreChainGateway extends BaseGateway
     }
 
     /**
-     * @return StoreChainForChainList[]
+     * Returns a single store chain.
      *
+     * @throws UnexpectedValueException if the chain does not exist
+     */
+    public function getStoreChain(int $id): StoreChainForChainList
+    {
+        $chain = $this->db->fetch('SELECT
+				c.*,
+				COUNT(s.`id`) AS stores,
+                ht.`bezirk_id` AS forum_region_id
+			FROM `fs_chain` c
+			LEFT OUTER JOIN `fs_betrieb` s ON s.`kette_id` = c.`id`
+            LEFT OUTER JOIN `fs_bezirk_has_theme` ht ON ht.`theme_id` = c.`forum_thread`
+			WHERE c.`id` = :chainId
+			GROUP BY c.`id`
+            ORDER BY c.id
+		', [':chainId' => $id]);
+        if (empty($chain)) {
+            throw new UnexpectedValueException('Requested store chain not found.');
+        }
+        $chain['kams'] = $this->getStoreChainKeyAccountManagers($id);
+        $chain['id'] = $id;
+
+        return StoreChainForChainList::createFromArray($chain);
+    }
+
+    /**
+     * Returns the list of all store chains, optionally paginated. Returns all stores if no pagination is given.
+     *
+     * @return StoreChainForChainList[]
      * @throws Exception
      */
-    public function getStoreChains(?int $id = null, ?Pagination $pagination = null): array
+    public function getStoreChains(?Pagination $pagination = null): array
     {
-        $where = '';
-        if (!is_null($id)) {
-            $where = 'WHERE c.`id` = :chainId';
-        }
-
         $data = $this->db->fetchAll('SELECT
 				c.*,
 				COUNT(s.`id`) AS stores,
@@ -105,11 +129,10 @@ class StoreChainGateway extends BaseGateway
 			FROM `fs_chain` c
 			LEFT OUTER JOIN `fs_betrieb` s ON s.`kette_id` = c.`id`
             LEFT OUTER JOIN `fs_bezirk_has_theme` ht ON ht.`theme_id` = c.`forum_thread`
-			' . $where . '
 			GROUP BY c.`id`
             ORDER BY c.id
 		' . $this->buildPaginationSqlLimit($pagination),
-            $this->addPaginationSqlLimitParameters($pagination, !is_null($id) ? ['chainId' => $id] : []));
+            $this->addPaginationSqlLimitParameters($pagination, []));
 
         $chains = [];
         foreach ($data as $chain) {
@@ -141,7 +164,7 @@ class StoreChainGateway extends BaseGateway
     /**
      * @throws Exception
      */
-    public function chainExists($chainId): bool
+    public function chainExists(int $chainId): bool
     {
         return $this->db->exists('fs_chain', ['id' => $chainId]);
     }

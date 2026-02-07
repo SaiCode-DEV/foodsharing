@@ -6,25 +6,27 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\Pagination;
 use Foodsharing\Modules\Store\DTO\MinimalStoreIdentifier;
 use Foodsharing\Modules\Store\StoreGateway;
-use Foodsharing\Modules\StoreChain\DTO\StoreChain;
 use Foodsharing\Modules\StoreChain\DTO\StoreChainData;
 use Foodsharing\Modules\StoreChain\DTO\StoreChainForChainList;
 use Foodsharing\Modules\StoreChain\StoreChainGateway;
 use Foodsharing\Modules\StoreChain\StoreChainTransactionException;
 use Foodsharing\Modules\StoreChain\StoreChainTransactions;
 use Foodsharing\Permissions\StoreChainPermissions;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use OpenApi\Annotations as OA;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Validator\ConstraintViolationListInterface;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Requirement\Requirement;
+use UnexpectedValueException;
 
+#[OA\Tag('chain')]
+#[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+#[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Missing permissions')]
 class StoreChainRestController extends AbstractFoodsharingRestController
 {
     public function __construct(
@@ -37,183 +39,105 @@ class StoreChainRestController extends AbstractFoodsharingRestController
         parent::__construct($this->session);
     }
 
-    /**
-     * Returns the list of store chains.
-     *
-     * @OA\Tag(name="chain")
-     * @OA\Response(
-     * 		response="200",
-     * 		description="Success.",
-     *      @OA\JsonContent(
-     *        type="array",
-     *        @OA\Items(ref=@Model(type=StoreChainForChainList::class))
-     *      )
-     * )
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Response(response="403", description="Insufficient permissions")
-     */
-    #[Rest\Get('chains')]
-    #[Rest\QueryParam(name: 'pageSize', description: 'Count of chains on page', requirements: '\d+', default: 0, strict: true)]
-    #[Rest\QueryParam(name: 'offset', description: 'Offset of items', requirements: '\d+', default: 0, strict: true)]
-    public function getStoreChains(ParamFetcher $paramFetcher): Response
+    #[OA\Get(summary: 'Returns the list of store chains')]
+    #[Route('chains', methods: ['GET'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
+        ref: new Model(type: StoreChainForChainList::class)
+    ))]
+    public function getStoreChains(#[MapQueryParameter] ?int $limit, #[MapQueryParameter] ?int $offset): Response
     {
         $this->assertLoggedIn();
         if (!$this->permissions->maySeeChainList()) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Missing permissions');
         }
 
-        $pagination = new Pagination();
-        $pagination->limit = $paramFetcher->get('pageSize');
-        $pagination->offset = $paramFetcher->get('offset');
+        $pagination = (!is_null($limit) && $limit > 0) ? Pagination::create($limit, $offset) : null;
 
-        return $this->respondOk($this->transactions->getStoreChains(null, $pagination));
+        return $this->respondOK($this->gateway->getStoreChains($pagination));
     }
 
-    /**
-     * Returns a specific store chain.
-     *
-     * @OA\Tag(name="chain")
-     * @OA\Response(
-     * 		response="200",
-     * 		description="Success.",
-     *      @Model(type=StoreChainForChainList::class)
-     * )
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Response(response="403", description="Insufficient permissions")
-     */
-    #[Rest\Get('chains/{chainId}', requirements: ['chainId' => '\d+'])]
+    #[OA\Get(summary: 'Returns a specific store chain')]
+    #[Route('chains/{chainId}', requirements: ['chainId' => Requirement::POSITIVE_INT], methods: ['GET'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
+        ref: new Model(type: StoreChainForChainList::class)
+    ))]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Store chain does not exist')]
     public function getStoreChain(int $chainId): Response
     {
         $this->assertLoggedIn();
         if (!$this->permissions->maySeeChainList()) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Missing permissions');
         }
 
-        $chain = $this->transactions->getStoreChains($chainId);
-        if (empty($chain)) {
+        try {
+            $chain = $this->gateway->getStoreChain($chainId);
+        } catch (UnexpectedValueException $e) {
             throw new NotFoundHttpException('Requested store chain not found.');
         }
 
-        return $this->respondOK($chain[0]);
+        return $this->respondOK($chain);
     }
 
-    /**
-     * Creates a new store.
-     * The name must not be empty. All other parameters are
-     * optional. Returns the created store chain.
-     *
-     * @OA\Tag(name="chain")
-     * @OA\RequestBody(@Model(type=StoreChain::class))
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Response(response="403", description="Insufficient permissions")
-     */
-    #[Rest\Post('chains')]
-    #[ParamConverter('storeChainData', converter: 'fos_rest.request_body')]
-    public function createChain(StoreChainData $storeChainData, ConstraintViolationListInterface $validationErrors): Response
+    #[OA\Post(
+        description: 'The name must not be empty. All other parameters are optional. Returns the created store chain.',
+        summary: 'Creates a new store'
+    )]
+    #[Route('chains', methods: ['POST'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    public function createChain(#[MapRequestPayload] StoreChainData $storeChainData): Response
     {
         $this->assertLoggedIn();
         if (!$this->permissions->mayCreateChain()) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Missing permissions');
         }
 
-        $this->throwBadRequestExceptionOnError($validationErrors);
         try {
             $id = $this->transactions->addStoreChain($storeChainData);
         } catch (StoreChainTransactionException $ex) {
             throw new BadRequestException($ex->getMessage());
         }
 
-        return $this->respondOK($this->gateway->getStoreChains($id)[0]);
+        return $this->respondOK($this->gateway->getStoreChain($id));
     }
 
-    /**
-     * Updates a store chain.
-     *
-     * @OA\Tag(name="chain")
-     * @OA\RequestBody(@Model(type=StoreChainData::class))
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Response(response="403", description="Insufficient permissions")
-     * @OA\Response(response="404", description="Chain does not exist")
-     */
-    #[Rest\Patch('chains/{chainId}', requirements: ['chainId' => '\d+'])]
-    #[ParamConverter('storeChainData', converter: 'fos_rest.request_body')]
-    public function updateChain($chainId, StoreChainData $storeChainData, ConstraintViolationListInterface $validationErrors): Response
+    #[OA\Patch(summary: 'Updates a store chain')]
+    #[Route('chains/{chainId}', requirements: ['chainId' => Requirement::POSITIVE_INT], methods: ['PATCH'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Store chain does not exist')]
+    public function updateChain($chainId, #[MapRequestPayload] StoreChainData $storeChainData): Response
     {
         $this->assertLoggedIn();
         if (!$this->gateway->chainExists($chainId)) {
             throw new NotFoundHttpException('chain does not exist');
         }
         if (!$this->permissions->mayEditChain($chainId)) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Missing permissions');
         }
 
-        $this->throwBadRequestExceptionOnError($validationErrors);
+        $updateKams = $this->permissions->mayEditKams($chainId);
+        $this->transactions->updateStoreChain($chainId, $storeChainData, $updateKams);
 
-        if (!$this->gateway->chainExists($chainId)) {
-            throw new NotFoundHttpException('Chain does not exists');
-        }
-
-        try {
-            $updateKams = $this->permissions->mayEditKams($chainId);
-            $this->transactions->updateStoreChain($chainId, $storeChainData, $updateKams);
-
-            return $this->respondOK($this->gateway->getStoreChains($chainId)[0]);
-        } catch (StoreChainTransactionException $ex) {
-            throw new BadRequestException($ex->getMessage());
-        }
+        return $this->respondOK($this->gateway->getStoreChain($chainId));
     }
 
-    /**
-     * Returns the list of stores that are part of a given chain.
-     *
-     * @OA\Tag(name="chain")
-     * @OA\Response(
-     * 		response="200",
-     * 		description="Success.",
-     *      @OA\JsonContent(
-     *        type="array",
-     *        @OA\Items(ref=@Model(type=MinimalStoreIdentifier::class))
-     *      )
-     * )
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Response(response="403", description="Insufficient permissions")
-     */
-    #[Rest\QueryParam(name: 'pageSize', description: 'Count of chains on page', requirements: '\d+', default: 0, strict: true)]
-    #[Rest\QueryParam(name: 'offset', description: 'Offset of items', requirements: '\d+', default: 0, strict: true)]
-    #[Rest\Get('chains/{chainId}/stores', requirements: ['chainId' => '\d+'])]
-    public function getChainStores(int $chainId, ParamFetcher $paramFetcher): Response
+    #[OA\Get(summary: 'Returns the list of stores that are part of a given chain')]
+    #[Route('chains/{chainId}/stores', requirements: ['chainId' => Requirement::POSITIVE_INT], methods: ['GET'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
+        ref: new Model(type: MinimalStoreIdentifier::class)
+    ))]
+    public function getChainStores(int $chainId, #[MapQueryParameter] ?int $limit, #[MapQueryParameter] ?int $offset): Response
     {
         $this->assertLoggedIn();
         if (!$this->permissions->maySeeChainStores($chainId)) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Missing permissions');
         }
 
         if (!$this->gateway->chainExists($chainId)) {
             throw new NotFoundHttpException('Chain does not exists');
         }
 
-        $pagination = new Pagination();
-        $pagination->limit = $paramFetcher->get('pageSize');
-        $pagination->offset = $paramFetcher->get('offset');
+        $pagination = (!is_null($limit) && $limit > 0) ? Pagination::create($limit, $offset) : null;
 
         return $this->respondOK($this->storeGateway->findAllStoresOfStoreChain($chainId, $pagination));
-    }
-
-    /**
-     * Check if a Constraint violation is found and if it exist it throws an BadRequestExeption.
-     *
-     * @param ConstraintViolationListInterface $errors Validation result
-     *
-     * @throws BadRequestHttpException if violation is detected
-     */
-    private function throwBadRequestExceptionOnError(ConstraintViolationListInterface $errors): void
-    {
-        if ($errors->count() > 0) {
-            $firstError = $errors->get(0);
-            $relevantErrorContent = ['field' => $firstError->getPropertyPath(), 'message' => $firstError->getMessage()];
-            throw new BadRequestHttpException(json_encode($relevantErrorContent));
-        }
     }
 }
