@@ -1834,6 +1834,12 @@ foodsaver:
   kicked: ''
   about_me_public: ''
   bread: ''
+  delete_account_password_verify: ''
+  delete_account_totp_hint: ''
+  delete_own_account_failed_totp_hint: ''
+  delete_description_other: ''
+  delete_own_account_failed: ''
+  delete_description_own: ''
 storeedit:
   name_error: ''
   team:
@@ -2892,6 +2898,7 @@ terminology:
   mobile_phone: ''
   received: ''
   region: ''
+  attention: ''
 navi:
   here: ''
   google_maps: ''
@@ -3209,6 +3216,7 @@ events:
   attendees: ''
   bread: ''
   add_new_event: ''
+  declinedCount: ''
 wall:
   delete_confirmation:
     title: ''
@@ -3705,6 +3713,8 @@ map:
   events:
     go: ''
     title: ''
+  region:
+    go: ''
 title: ''
 genderlist:
   gender_female: ''

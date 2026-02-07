@@ -92,6 +92,7 @@ terminology:
   phone: ''
   mobile_phone: ''
   received: ''
+  attention: ''
 statistics:
   num_fetches: ''
   kg_food_saved: ''
@@ -2171,6 +2172,7 @@ events:
   public_info: ''
   online_info: ''
   attendees: ''
+  declinedCount: ''
 recipients:
   bread: ''
   prepare: ''
@@ -2472,6 +2474,12 @@ foodsaver:
   bread: ''
   delete_account: ''
   delete_account_reason: ''
+  delete_account_password_verify: ''
+  delete_account_totp_hint: ''
+  delete_own_account_failed_totp_hint: ''
+  delete_description_other: ''
+  delete_own_account_failed: ''
+  delete_description_own: ''
 content:
   bread: ''
   public: ''
@@ -2551,6 +2559,8 @@ map:
   events:
     go: ''
     title: ''
+  region:
+    go: ''
 mailbox:
   trash: ''
   empty: ''

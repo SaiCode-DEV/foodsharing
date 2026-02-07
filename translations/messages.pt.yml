@@ -1761,6 +1761,10 @@ foodsaver:
     Não será possível recuperar a tua conta depois disso. Caso a pessoa queira 
     voltar a participar no foodsharing mais tarde, terá de criar uma nova conta 
     e candidatar-se novamente a lojas, grupos de trabalho, etc.
+  delete_account_password_verify: ''
+  delete_account_totp_hint: ''
+  delete_own_account_failed_totp_hint: ''
+  delete_own_account_failed: ''
 pickup:
   no_slots_available: 'Não há assentos disponíveis'
   history:
@@ -3783,6 +3787,7 @@ events:
   public_info: Este evento é público, todos podem aceder ao mesmo. Os 
     comentários e a lista de participantes só são visíveis para utilizadores 
     registados.
+  declinedCount: ''
 month:
   "3": 'Março'
   "1": 'Janeiro'
@@ -4327,6 +4332,8 @@ map:
     go: Para o evento
   users:
     go: Para o perfil
+  region:
+    go: ''
 list:
   filter_for: 'Filtrar por …'
 public_time: 'Hora do dia aproximada por dos assentos'

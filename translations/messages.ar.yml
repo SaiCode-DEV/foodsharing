@@ -528,6 +528,7 @@ terminology:
   phone: ''
   mobile_phone: ''
   received: ''
+  attention: ''
 store:
   sm:
     demoteAsManager: ''
@@ -1745,6 +1746,12 @@ foodsaver:
   delete_account_now: ''
   mailchange_error: ''
   delete_account_reason: ''
+  delete_account_password_verify: ''
+  delete_account_totp_hint: ''
+  delete_own_account_failed_totp_hint: ''
+  delete_description_other: ''
+  delete_own_account_failed: ''
+  delete_description_own: ''
 profile:
   infos:
     buddycount_known: ''
@@ -2697,6 +2704,8 @@ map:
   events:
     go: ''
     title: ''
+  region:
+    go: ''
 blog:
   read: ''
   last-editor: ''
@@ -3012,6 +3021,7 @@ events:
   public_info: ''
   online_info: ''
   attendees: ''
+  declinedCount: ''
 team:
   current: ''
 personal_data:

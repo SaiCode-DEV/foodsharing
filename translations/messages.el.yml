@@ -1000,6 +1000,7 @@ terminology:
   phone: ''
   mobile_phone: ''
   received: ''
+  attention: ''
 fsp:
   yours: ''
   noManager: ''
@@ -1500,6 +1501,7 @@ events:
   public_info: ''
   online_info: ''
   attendees: ''
+  declinedCount: ''
 mailbox:
   member: ''
   already_exists: ''
@@ -2517,6 +2519,12 @@ foodsaver:
   kicked: ''
   restricted: ''
   delete_account_reason: ''
+  delete_account_password_verify: ''
+  delete_account_totp_hint: ''
+  delete_own_account_failed_totp_hint: ''
+  delete_description_other: ''
+  delete_own_account_failed: ''
+  delete_description_own: ''
 content:
   name: ''
   bread: ''
@@ -3253,6 +3261,8 @@ map:
   events:
     go: ''
     title: ''
+  region:
+    go: ''
 blog:
   go: ''
   permissions:

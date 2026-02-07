@@ -969,6 +969,7 @@ terminology:
     arbitration: ''
   users: ''
   received: ''
+  attention: ''
 store:
   bread: ''
   error: ''
@@ -1444,6 +1445,7 @@ events:
   public_info: ''
   online_info: ''
   attendees: ''
+  declinedCount: ''
 recipients:
   variables: ''
   history: ''
@@ -2841,6 +2843,12 @@ foodsaver:
   about_me_public: ''
   restricted: ''
   delete_account_reason: ''
+  delete_account_password_verify: ''
+  delete_account_totp_hint: ''
+  delete_own_account_failed_totp_hint: ''
+  delete_description_other: ''
+  delete_own_account_failed: ''
+  delete_description_own: ''
 push_notifications:
   test_notification_body: ''
   test_notification_title: ''
@@ -3057,6 +3065,8 @@ map:
   events:
     go: ''
     title: ''
+  region:
+    go: ''
 password:
   reset: ''
   insertmail: ''

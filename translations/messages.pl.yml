@@ -2069,6 +2069,7 @@ events:
     lista uczestniczących są widoczne tylko dla zarejestrowanych 
     użytkowników/czek.
   description: Opis
+  declinedCount: ''
 recipients:
   recipients: Odbiorcy
   all: Wszyscy/tkie Foodsaverzy/ki na świecie
@@ -2418,6 +2419,12 @@ foodsaver:
   about_me_intern: ''
   delete_own_account: ''
   about_me_public: ''
+  delete_account_password_verify: ''
+  delete_account_totp_hint: ''
+  delete_own_account_failed_totp_hint: ''
+  delete_description_other: ''
+  delete_own_account_failed: ''
+  delete_description_own: ''
 content:
   bread: Wszystkie strony
   public: Strony publiczne
@@ -2497,6 +2504,8 @@ map:
     go: Do profilu
   title: 'Mapa'
   donates: ''
+  region:
+    go: ''
 mailbox:
   mails: Maile
   mail: Mail

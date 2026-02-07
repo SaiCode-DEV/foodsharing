@@ -895,6 +895,12 @@ foodsaver:
   delete_account_sure_reason: 'Le compte doit-il vraiment être supprimé ? Raison :
     {reason}'
   delete_account_reason: Motif de la suppression du compte
+  delete_account_password_verify: ''
+  delete_account_totp_hint: ''
+  delete_own_account_failed_totp_hint: ''
+  delete_description_other: ''
+  delete_own_account_failed: ''
+  delete_description_own: ''
 recipients:
   done: Tous les courriels ont été envoyés
   status: 'Envoyer des courriels … (adresse électronique actuelle : {current})'
@@ -1179,6 +1185,7 @@ terminology:
   users: Utilisateurs
   resourcesAdmins: Équipe de la mosaïque de ressources
   giving: ''
+  attention: ''
 register:
   activation_success: <strong>Activation réussie.</strong> Connecte-toi 
     maintenant avec ton adresse courriel et le mot de passe que tu as choisi.
@@ -2394,6 +2401,7 @@ events:
   public_info: Cet événement est public et tout le monde peut y accéder. Les 
     commentaires et la liste des participant(e)s ne sont visibles que par les 
     utilisateurs enregistrés.
+  declinedCount: ''
 wall:
   error-create: Ta contribution sur ce mur n’a pas pu être sauvegardée.
   created: Parfait ! Ta contribution sur ce mur a été enregistrée.
@@ -2810,6 +2818,8 @@ map:
     title: Événements
   users:
     go: Voir le profil
+  region:
+    go: ''
 content:
   changelog: Changelog actuel
   empty: Aucune page existante.

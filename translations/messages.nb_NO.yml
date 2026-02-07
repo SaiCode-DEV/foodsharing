@@ -1499,6 +1499,8 @@ map:
     go: til arrangementet
   users:
     go: Se profil
+  region:
+    go: ''
 content:
   content: innhold
   bread: alle sider
@@ -1574,6 +1576,12 @@ foodsaver:
     alle på internett.\n"
   delete_account_sure_reason: 'Vil du virkelig slette kontoen? Årsak: {reason}'
   delete_account_reason: Årsak til sletting av kontoen
+  delete_account_password_verify: ''
+  delete_account_totp_hint: ''
+  delete_own_account_failed_totp_hint: ''
+  delete_description_other: ''
+  delete_own_account_failed: ''
+  delete_description_own: ''
 ageBandList:
   NumberOfAgeband: nummer
   ageBand: Aldersgruppe
@@ -2458,6 +2466,7 @@ events:
     for telefon- eller onlinekonferanser, kan du velge alternativet *«Annet»*.\n"
   public_info: Denne begivenheten er offentlig og alle kan få tilgang til den. 
     Kommentarer og deltakerlisten er kun synlig for registrerte brukere.
+  declinedCount: ''
 chat:
   conversations: Samtaler
   notification_unnamed_conversation: '{foodsaver} skrev til deg.'
@@ -3339,6 +3348,7 @@ terminology:
   users: Brukere
   resourcesAdmins: Ressursmosaikkteamet
   giving: ''
+  attention: ''
 gender:
   d: mangfoldig
   f: Fru

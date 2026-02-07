@@ -1113,6 +1113,7 @@ events:
     select the option *“Other ”*.\n"
   public_info: This event is public and open to everyone. Comments and the 
     participant list are visible only to registered users.
+  declinedCount: ''
 forum:
   threads: Threads
   quickreply:
@@ -1533,6 +1534,7 @@ terminology:
   users: Users
   resourcesAdmins: Resource Mosaic Team
   giving: Donation
+  attention: ''
 login:
   pwreset:
     bread: Reset password
@@ -2364,6 +2366,8 @@ map:
     go: more about this event
   users:
     go: See profile
+  region:
+    go: ''
 content:
   content: Content
   name: Unique name
@@ -2440,6 +2444,12 @@ foodsaver:
   edit_failure: Nothing was changed or changes were not saved
   delete_account_sure_reason: "Do you really want to delete the account? Reason: {reason}"
   delete_account_reason: Reason for account deletion
+  delete_account_password_verify: ''
+  delete_account_totp_hint: ''
+  delete_own_account_failed_totp_hint: ''
+  delete_description_other: ''
+  delete_own_account_failed: ''
+  delete_description_own: ''
 store:
   addNewStoresButton: Add new store
   allStoresOfRegion: All stores in the region

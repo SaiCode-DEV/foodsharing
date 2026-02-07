@@ -614,6 +614,12 @@ foodsaver:
   title: 'Фудсейверы'
   actions: 'Действия'
   delete_account_reason: ''
+  delete_account_password_verify: ''
+  delete_account_totp_hint: ''
+  delete_own_account_failed_totp_hint: ''
+  delete_description_other: ''
+  delete_own_account_failed: ''
+  delete_description_own: ''
 mailbox:
   mail: 'Почта'
   signature: 'Сообщение от {date}'
@@ -1878,6 +1884,7 @@ terminology:
   phone: ''
   mobile_phone: ''
   received: ''
+  attention: ''
 storeview:
   common: 'Общее'
   visible_for_public: 'Этот текст виден всем Foodsaver(ам), напр., на карте.'
@@ -2590,6 +2597,7 @@ events:
   public_info: ''
   online_info: ''
   attendees: ''
+  declinedCount: ''
 recipients:
   orga_team: 'глобальная оргкоманда (админы сайта)'
   test_email_sent: 'Письмо отправлено.'
@@ -3213,6 +3221,8 @@ map:
   events:
     go: ''
     title: ''
+  region:
+    go: ''
 language_chooser:
   title: 'Выбор языка'
   content: 'Пожалуйста, выберите язык'

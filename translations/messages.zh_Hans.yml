@@ -988,6 +988,7 @@ terminology:
   phone: ''
   mobile_phone: ''
   received: ''
+  attention: ''
 yes: ''
 delete: ''
 select: ''
@@ -1164,6 +1165,7 @@ events:
   public_info: ''
   online_info: ''
   attendees: ''
+  declinedCount: ''
 month:
   "5": ''
   "7": ''
@@ -1241,6 +1243,12 @@ foodsaver:
   edit_failure: ''
   restricted: ''
   delete_account_reason: ''
+  delete_account_password_verify: ''
+  delete_account_totp_hint: ''
+  delete_own_account_failed_totp_hint: ''
+  delete_description_other: ''
+  delete_own_account_failed: ''
+  delete_description_own: ''
 mailbox:
   sent: ''
   refresh: ''
@@ -3002,6 +3010,8 @@ map:
   events:
     go: ''
     title: ''
+  region:
+    go: ''
 gender:
   f: ''
   d: ''

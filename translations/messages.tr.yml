@@ -1796,6 +1796,7 @@ events:
     kullanmak istiyorsanız lütfen *“Diğer”* seçeneğini seçin.\n"
   public_info: Bu etkinlik herkese açıktır ve herkes erişebilir. Yorumlar ve 
     katılımcı listesi sadece kayıtlı kullanıcılar tarafından görülebilmektedir.
+  declinedCount: ''
 recipients:
   orga_team: Ülke çapındaki organizasyon ekibi
   all_no_botschafter: Elçileri olmayan tüm Foodsaverlar
@@ -1879,6 +1880,12 @@ foodsaver:
   kicked: Foodsaver kaldırıldı
   bread: Tüm Foodsaverlar
   delete_account_reason: Hesabın silinme nedeni
+  delete_account_password_verify: ''
+  delete_account_totp_hint: ''
+  delete_own_account_failed_totp_hint: ''
+  delete_description_other: ''
+  delete_own_account_failed: ''
+  delete_description_own: ''
 content:
   empty: Şu ana kadar herhangi bir sayfa girilmedi.
   delete: "{name}'i gerçekten silmek istiyor musunuz?"
@@ -3158,6 +3165,8 @@ map:
     go: Etkinliğe git
   users:
     go: ''
+  region:
+    go: ''
 buddy:
   request_sent: İstek gönderildi.
   request_accepted: Artık birbirinizi tanıyorsunuz.
@@ -3328,6 +3337,7 @@ terminology:
   users: Kullanıcılar
   resourcesAdmins: Kaynak Mozaik Ekibi
   giving: ''
+  attention: ''
 legal:
   if_delete:
     this_doesnt_get_deleted: 'Aşağıdaki bilgiler artık aktif sistemde mevcut değildir,

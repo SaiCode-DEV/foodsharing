@@ -1059,6 +1059,7 @@ events:
   public_info: ''
   online_info: ''
   attendees: ''
+  declinedCount: ''
 recipients:
   all: ''
   active_ambassadors: ''
@@ -2018,6 +2019,12 @@ foodsaver:
   about_me_intern: ''
   restricted: ''
   delete_account_reason: ''
+  delete_account_password_verify: ''
+  delete_account_totp_hint: ''
+  delete_own_account_failed_totp_hint: ''
+  delete_description_other: ''
+  delete_own_account_failed: ''
+  delete_description_own: ''
 navigation:
   styleguide: ''
   whats_new: ''
@@ -2338,6 +2345,7 @@ terminology:
   phone: ''
   mobile_phone: ''
   received: ''
+  attention: ''
 delete: ''
 fsp:
   description: ''
@@ -3297,6 +3305,8 @@ map:
   events:
     go: ''
     title: ''
+  region:
+    go: ''
 buddy:
   request_sent: ''
   request_accepted: ''

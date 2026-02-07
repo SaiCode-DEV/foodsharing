@@ -792,6 +792,7 @@ events:
   attendees: 'பங்கேற்பாளர்: உள்ளே'
   public_info: 'இந்த நிகழ்வு பொது, எல்லோரும் அதை அணுகலாம். கருத்துகள் மற்றும் பங்கேற்பாளர்கள்:
     உள் பட்டியல் பதிவுசெய்யப்பட்ட பயனர்களுக்கு மட்டுமே: உள்ளே தெரியும்.'
+  declinedCount: ''
 recipients:
   orga_team: உலகளாவிய அமைப்பு குழு (பக்கத்தின் நிர்வாகிகள்)
   storemanagers_and_ambs: 'அனைத்து செயல்பாட்டு மேலாளர்கள் மற்றும் தூதர்கள்: உள்ளே'
@@ -1156,6 +1157,12 @@ foodsaver:
     summary: '{count} ஃபுட்சேவர்: {பிராந்தியத்தில் இன்னன்'
     inactive: 'கடந்த 6 மாதங்களில் அவை செயலில் இல்லை:'
   kicked: 'ஃபுட்சேவர்: இன் அகற்றப்பட்டது'
+  delete_account_password_verify: ''
+  delete_account_totp_hint: ''
+  delete_own_account_failed_totp_hint: ''
+  delete_description_other: ''
+  delete_own_account_failed: ''
+  delete_description_own: ''
 content:
   empty: இதுவரை எந்த பக்கமும் உள்ளிடப்படவில்லை.
   communities:
@@ -1242,6 +1249,8 @@ map:
     title: நிகழ்வுகள்
     go: நிகழ்வுக்கு
   users:
+    go: ''
+  region:
     go: ''
 mailbox:
   empty: இந்த அஞ்சல் பெட்டியில் இதுவரை செய்திகள் இல்லை
@@ -4169,6 +4178,7 @@ terminology:
   sent: அனுப்பப்பட்டது
   giving: ''
   resourcesAdmins: ''
+  attention: ''
 statistics:
   num_fetches: '{count} மீட்பு நடவடிக்கைகளில்'
   food_saved: உணவு காப்பாற்றப்பட்டது

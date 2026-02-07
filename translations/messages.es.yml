@@ -563,6 +563,7 @@ terminology:
   users: Usuarios
   giving: ''
   resourcesAdmins: ''
+  attention: ''
 groups:
   empty: Aún no estás en ningún grupo de trabajo
 position: Puesto en foodsharing (público)
@@ -1960,6 +1961,12 @@ foodsaver:
 
     '
   delete_account_reason: Motivo de la eliminación de la cuenta
+  delete_account_password_verify: ''
+  delete_account_totp_hint: ''
+  delete_own_account_failed_totp_hint: ''
+  delete_description_other: ''
+  delete_own_account_failed: ''
+  delete_description_own: ''
 profile:
   mail_bounce:
     warning_4: 'este artículo de soporte.'
@@ -2838,6 +2845,7 @@ events:
   public_info: Este evento es público y todos pueden acceder a él. Los 
     comentarios y la lista de participantes sólo son visibles para usuari@s 
     registrados.
+  declinedCount: ''
 recipients:
   orga_team: 'Equipo organizacional global'
   newsletter: 'Todos los suscriptores del boletín (al menos rescatista)'
@@ -4114,6 +4122,8 @@ map:
     title: Eventos
   users:
     go: Ver perfil
+  region:
+    go: ''
 addreaction: 'Añadir una reacción'
 numbers:
   decimal_separator: '.'

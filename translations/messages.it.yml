@@ -492,6 +492,7 @@ terminology:
   received: Ricevuto
   giving: ''
   resourcesAdmins: ''
+  attention: ''
 register:
   woman: femmina
   signup_newsletter: Vorrei ricevere la newsletter di foodsharing circa una 
@@ -1562,6 +1563,12 @@ foodsaver:
   delete_account_sure_reason: 'L''account dovrebbe davvero essere cancellato? Motivo:
     {reason}'
   delete_account_reason: ''
+  delete_account_password_verify: ''
+  delete_account_totp_hint: ''
+  delete_own_account_failed_totp_hint: ''
+  delete_description_other: ''
+  delete_own_account_failed: ''
+  delete_description_own: ''
 reports:
   reason: Motivo
   message: Descrizione
@@ -1817,6 +1824,7 @@ events:
   location: Posizione
   public_info: ''
   online_info: ''
+  declinedCount: ''
 wall:
   error-delete: Non è possibile rimuovere questo post.
   info-logging: Si nota pregho, che per evitare conflitti, il contenuto e la 
@@ -3179,6 +3187,8 @@ map:
   users:
     go: Vedi profilo
   foodsharepoint:
+    go: ''
+  region:
     go: ''
 push_notifications:
   test_notification_body: Ottimo, sembra che abbia funzionato :)
