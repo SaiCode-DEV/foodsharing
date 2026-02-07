@@ -579,6 +579,18 @@ class StoreGateway extends BaseGateway
         return $this->db->exists('fs_chain', ['id' => $id]);
     }
 
+    /**
+     * Returns the store chain id for a given store, or null if the store is not
+     * part of a store chain.
+     *
+     * @return int|null The store chain id or null if the store is not part of a store chain
+     * @throws DatabaseNoValueFoundException if the store does not exist
+     */
+    public function getStoreChainId(int $storeId): ?int
+    {
+        return $this->db->fetchValueByCriteria('fs_betrieb', 'kette_id', ['id' => $storeId]);
+    }
+
     public function getStoreTeam($storeId, array $membershipStatuses = [MembershipStatus::MEMBER], bool $includeDistance = false, GeoLocation $storePosition = null): array
     {
         $params = [

@@ -504,10 +504,13 @@ class StorePermissions
     {
         if (is_null($chainId) || $chainId === -1) {
             try {
-                $chainId = $this->storeGateway->getStore($storeId, true)->chain->id;
-            } catch (\Exception) {
+                $chainId = $this->storeGateway->getStoreChainId($storeId);
+            } catch (\Throwable) {
                 return false;
             }
+        }
+        if (is_null($chainId)) {
+            return false;
         }
 
         return $this->storeChainGateway->isUserKeyAccountManager($chainId, $this->session->id());
