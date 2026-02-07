@@ -122,7 +122,7 @@ store:
         a seguinte mensagem'
       8: '{actor} deixou a equipa.'
       16: '{actor} retirou o pedido de filiação.'
-      10: '{actor} demitiu {target} do apagar de lider de equipa.'
+      10: '{actor} demitiu {target} do excluir de lider de equipa.'
       12: '{actor} descreu-se para o assento no dia {date}.'
       2: '{actor} rejeitou o pedido de afiliação de {target}.'
       5: '{actor} colocou {target} na lista de substitutos.'
@@ -148,7 +148,7 @@ store:
       5: 'Passar Foodsaver para a lista de substitutos'
       13: 'Ser cancelado do assento'
       11: 'Inscrever pela o assento'
-      15: 'Apagar a entrada de pinboard'
+      15: 'Excluir a entrada de pinboard'
       17: Convidar Foodsaver para a equipa
       18: Retirar convites de equipa
       19: Aceptar convites de equipa
@@ -234,7 +234,7 @@ store:
   delete_date_description: 'Caso utilize intervalos regulares (recorrentes semanalmente
     de forma automática) na tua loja e deseje evitar que uma data específica seja
     criada (por exemplo, um feriado), pode fazê-lo especificando a data e a hora com
-    esta função. Caso deseje apagar intervalos que já estão visíveis, pode fazê-lo
+    esta função. Caso deseje excluir intervalos que já estão visíveis, pode fazê-lo
     diretamente com um clique no intervalo, desde que ninguém tenha sido inserido.'
   complete: 'base de dados completa'
   address: 'Endereço'
@@ -289,7 +289,7 @@ store:
     os números de telefone dos membros da equipa.'
   unverified_member: 'não verificado'
   all_of_my_stores: 'Todas as minhas lojas'
-  delete_date: 'Apagar assento individual'
+  delete_date: 'Excluir assento individual'
   unknownDate: 'desconhecido'
   average_collection_quantity: 'Quantidade por pessoa'
   team_conversation_name: 'Equipa {name}'
@@ -328,14 +328,15 @@ store:
     validade, não poderás mais te registar aqui.
   to_map: Mostrar no mapa
   delete:
-    button: Apagar loja
-    sure: Queres mesmo apagar esta loja? Esta ação não pode ser revertida! Todos
-      os membros serão removidos da loja e todas as informações específicas da 
-      loja, exceto o registo da loja, serão eliminadas. Por favor, apagine 
-      apenas lojas que realmente já não existem ou que foram registadas duas 
-      vezes. As lojas que cancelaram uma cooperação devem permanecer registadas.
-      Só é possível apagar lojas que nunca tiveram assentos e cujos chats de 
-      equipa não tenham sido utilizados durante pelo menos 3 meses.
+    button: Excluir loja
+    sure: Queres mesmo excluir esta loja? Esta ação não pode ser revertida! 
+      Todos os membros serão removidos da loja e todas as informações 
+      específicas da loja, exceto o registo da loja, serão eliminadas. Por 
+      favor, apagine apenas lojas que realmente já não existem ou que foram 
+      registadas duas vezes. As lojas que cancelaram uma cooperação devem 
+      permanecer registadas. Só é possível excluir lojas que nunca tiveram 
+      assentos e cujos chats de equipa não tenham sido utilizados durante pelo 
+      menos 3 meses.
   my_last_slot: O meu assento último
   chain_has_kams: 'Responsável pra esta cadeia:'
   part_of_chain: 'Faz parte da cadeia:'
@@ -472,8 +473,8 @@ bell:
   forum_not_activated_thread_title: Tema em fórum moderado
   post_hidden_title: Publicação oculta por {user}
   post_hidden: A tua publicação sobre {title} no fórum {forum} foi ocultada
-  delete_store_title: Loja apagada
-  delete_store: '{name} foi apagado'
+  delete_store_title: Loja excluido
+  delete_store: '{name} foi excluido'
   store_invitation_accepted_title: Convite aceite ({store})
   store_invitation_accepted:
     one: '{user} juntou-se da equipa de {store}'
@@ -638,7 +639,7 @@ dashboard:
   foodsaver_amount: 'Recolheste alimentos <b>{pickups} vezes</b> e, com isso, salvaste
     <b>{weight} kg</b>.'
   invitation: 'Foste convidado(a)'
-  no_more_updates_event: 'Sem mais datas'
+  no_more_updates_event: 'Não há mais eventos'
   settings_tooltip: 'Configurações gerais'
   no_updates: 'Sem atualizações'
   no_more_updates_store: 'Sem mais informações sobre as lojas'
@@ -848,7 +849,7 @@ pickuplist:
   unclear: 'Estado purco claro'
   tooslow: 'Infelizmente, o registo não funcionou. Provavelmente porque outra pessoa
     foi mais rápida.'
-  NumberOfAppointments_table_header: 'Número de prazos'
+  NumberOfAppointments_table_header: 'Número de eventos'
   day_tab: 'Dia'
   error_leave: 'Falha ao sair: '
   error_kick: 'Falha ao eliminação: '
@@ -858,7 +859,7 @@ pickuplist:
   NumberOfFoodSavers_table_header: 'Número de salvadores alimentares'
   error_confirm: 'Falha na confirmação: '
   really_delete_last_slot:
-    title: Apagar o assento último?
+    title: Excluir o assento último?
     body: Quer mesmo cancelar o assento último ? A marcação será completamente 
       removida.
 basket:
@@ -919,7 +920,7 @@ basket:
   add: 'Criar uma cesta alimentar'
   not-allowed: 'Não tens permissão pra editar esta cesta alimentar.'
   not_found: 'A cesta alimentar já não existe.'
-  delete: 'Apagar a cesta alimentar'
+  delete: 'Excluir a cesta alimentar'
   requests: 'Solicitações ({count})'
   request_close: 'Fechar solicitação'
   withdraw_request: 'Cancelar a solicitação'
@@ -956,8 +957,8 @@ basket:
       Então clique em [**Participar**](/content?sub=joininfo) para começar ou crie a tua própria cesta alimentar.
     map: No nosso mapa, poderá encontrar outras cestas alimentar na tua área.
   delete_confirmation:
-    text: Queres mesmo apagar esta cesta alimentar?
-    title: Apagar o cesto alimentar realmente?
+    text: Queres mesmo excluir esta cesta alimentar?
+    title: Excluir cesta alimentar?
   modal_error:
     no_contact: Selecione uma opção para solicitar o cesta alimentar.
     no_phone: Por favor, insira um número de telefone.
@@ -978,7 +979,7 @@ menu:
     refresh: 'Atualizar'
     wall: 'Pinboard'
     chainList: 'Visão geral das cadeias'
-    helpwanted: 'Procuram-se ajudantes'
+    helpwanted: 'Equipe está aberta'
     contact: 'Contacto'
     group_overview: 'Visão geral dos grupos de trabalho globais'
     dataprivacy: 'Proteção de dados'
@@ -988,7 +989,7 @@ menu:
     fsfestival: 'Festival de foodsharing'
     administration: 'Administração'
     demands: 'Cobranças'
-    delete_read: 'Apagar todos os lidos'
+    delete_read: 'Excluir todos os lidos'
     friendcircle: 'Círculo de amigos'
     joinregion: 'Entrar para um distrito'
     baskets: 'Cestas alimentar'
@@ -1005,7 +1006,7 @@ menu:
     donations: 'Fazer doações'
     all_messages: 'Todos mensagems'
     activities: 'Ações'
-    events: 'Datas'
+    events: 'Eventos'
     support: 'Ajuda e suporte'
     BOTforum: 'Fórum dos embaixadores'
     fundamentals: 'Princípios'
@@ -1014,7 +1015,7 @@ menu:
     your_groups: 'Os tues grupos'
     other_stores: 'Outras lojas'
     your_stores: 'As tuas lojas'
-    helpneeded: 'Procuram-se ajudantes urgente'
+    helpneeded: 'Procura-se apoio urgente'
     forcompanies: 'Pra empresas'
     team: 'Equipa'
     your_baskets: 'As tuas cestas alimentar'
@@ -1034,8 +1035,8 @@ menu:
     public: Página pública do distrito
   bell:
     delete_read_confirmation:
-      text: 'Queres mesmo apagar {count} sinos lidos?'
-      title: 'Apagar notificações?'
+      text: 'Queres mesmo excluir {count} sinos lidos?'
+      title: 'Excluir notificações?'
 date:
   tomorrow: 'amanha'
   yesterday: 'ontem'
@@ -1107,7 +1108,7 @@ login:
   passkey_not_found: Não há chave de acesso disponível para essa conta neste 
     aparelho.
 profile:
-  alldatesdeleted: 'Todas as datas foram apagadas'
+  alldatesdeleted: 'Todos os eventos foram excluido'
   infos:
     fsMail: 'Caixa de correio interna'
     title: 'informação'
@@ -1190,13 +1191,13 @@ profile:
       arbitrationGroup: 'Esta denúncia será enviada ao órgão de arbitragem, uma vez
         que uma das pessoas envolvidas é membro do grupo local de denúncias. Também
         pode contactar o órgão de arbitragem através do seguinte endereço de e-mail:'
-    confirmDelete: Deseja mesmo apagar esta denúncia?
+    confirmDelete: Deseja mesmo excluir esta denúncia?
     report_b1_0: Chegou tarde para a recolha (B01-1)
     report_b1_1: Não compareceu para recolher (B01-2)
     report_b1_2: Levou animais para a loja sem autorização (B01-3)
     report_b1_3: Levou crianças para o local de trabalho sem autorização (B01-4)
     report_b1_4: Não tinha consigo o seu cartão de foodsharing (B01-5)
-    report_b2: Realizou uma recolha fora dos horários estabelecidos sem acordo 
+    report_b2: Realizou uma recolha fora dos eventos estabelecidos sem acordo 
       prévio com o responsável de loja (B02)
     report_b3_0: Não entrou/saiu da loja em conjunto com outros participantes 
       (B03-1)
@@ -1310,7 +1311,7 @@ profile:
     textMayNot: 'e, por isso, não está autorizado a aceitar alimentos em nome de foodsharing.'
     may: 'ativo'
   pinboard: 'Atualizações de estado de {name}'
-  cantdeleteall: 'Não podes apagar todos os prazos!'
+  cantdeleteall: 'Não podes excluir todos os eventos!'
   online: '{name} está online.'
   nav:
     verificationHistory: 'Histórico de verificação'
@@ -1333,7 +1334,7 @@ profile:
   about_me_intern: 'Sobre si mesmo'
   sleeping: 'tem um dorminhoco por tempo indeterminado'
   reportRequest: 'Enviar denúncia'
-  cantdeletethis: 'Não é possível apagar citas individuais!'
+  cantdeletethis: 'Não é possível excluir eventos individuais!'
   homeDistrictHistory:
     changed: registado
     by: de
@@ -1383,7 +1384,7 @@ mailbox:
   not-allowed: 'Não tens a autorização necessária para fazer isso.'
   conformation_modal:
     title: 'Confirmação'
-    message: 'Tem a certeza de que deseja apagar o e-mail?'
+    message: 'Tem a certeza de que deseja excluir o e-mail?'
   mark_as_unread: 'Marcar e-mail como não lido'
   fromto: 'De/Para'
   mark_all: 'Marcar todos'
@@ -1547,8 +1548,8 @@ group:
     add_member: 'incluir na equipa'
     remove_admin_text: 'Tem a certeza de que pretende remover {name} ({id}) como administrador?'
     remove_admin_title: 'Remover como administrador'
-    remove_title: 'Apagar membro'
-    remove_text_group: 'Queres mesmo apagar {name} ({id}) do grupo de trabalho?'
+    remove_title: 'Excluir membro'
+    remove_text_group: 'Queres mesmo excluir {name} ({id}) do grupo de trabalho?'
     admin_mode_off: 'Voltar à vista normal'
     set_admin_text: 'Quer mesmo adicionar {name} ({id}) como administrador?'
     set_ambassador_title: 'Atribuir como embaixador(-a)'
@@ -1557,7 +1558,7 @@ group:
     remove_ambassador_title: 'Remover como embaixador(-a)'
     set_ambassador_text: 'Quer mesmo adicionar {name} ({id}) como embaixador(-a)?'
     not_verified: 'Não verificado'
-    remove_text_region: 'Queres mesmo apagar {name} ({id}) do distrito?'
+    remove_text_region: 'Queres mesmo excluir {name} ({id}) do distrito?'
     default:
       lastname: Sobrenome
       title: Standard
@@ -1665,7 +1666,7 @@ group:
   mail_link_title:
     region: 'Caixa postal do distrito'
     workgroup: 'Caixa postal do grupo de trabalho'
-  delete_group_sure: 'Queres realmente apagar o grupo/distrito {groupName}?'
+  delete_group_sure: 'Queres realmente excluir o grupo/distrito {groupName}?'
   filter_by_last_activity: 'Não ativo há meses'
   image: 'Imagem de capa para %name%'
   show-all: 'Mostrar todo'
@@ -1706,7 +1707,7 @@ group:
   filter_placeholder: Filtrar grupos por nomes
   confirm_decline: Queres mesmo recusar esta candidatura?
 foodsaver:
-  delete_account_sure: 'Tem a certeza de que deseja apagar a tua conta?'
+  delete_account_sure: 'Tem a certeza de que deseja excluir a tua conta?'
   list:
     summary: '{count} Foodsaver em {region}'
     inactive: ', quem não esteve ativo nos últimos 6 meses:'
@@ -1729,21 +1730,21 @@ foodsaver:
   editName: 'Editar {name}'
   mailchange_error: 'A ativação do teu novo endereço de correio electrónico falhou.
     Por favor, tente novamente.'
-  delete_account_now: 'Apagar conta agora'
+  delete_account_now: 'Excluir conta agora'
   restricted: 'Infelizmente, não tem permissão para visualizar estes dados.'
   edit_failure: 'Nada foi alterado ou as alterações não foram guardadas'
   profileBack: 'Voltar ao perfil'
-  delete_account: 'Apagar conta'
+  delete_account: 'Excluir conta'
   about_me_intern: 'Fica exibido na tua página de perfil e visível a todos na comunidade
     foodsharing.
 
     '
-  delete_own_account: 'Está prestes a apagar a tua conta. Tem a certeza absoluta?'
+  delete_own_account: 'Está prestes a excluir a tua conta. Tem a certeza absoluta?'
   actions: 'Ações'
   title: 'Foodsaver'
   edit: 'Editar os salvadores alimentares'
-  delete_account_sure_reason: 'Tem a certeza de que deseja apagar a tua conta? Motivo:
-    {reason}'
+  delete_account_sure_reason: 'Tem a certeza de que deseja excluir a tua conta de
+    utilizador? Motivo: {reason}'
   url_error: 'Parece haver algo de errado com o URL da sua página inicial'
   kicked: 'O/A Foodsaver foi removido/a'
   about_me_public: 'Se exibido/a a todas as pessoas listadas em [página da equipa
@@ -1751,7 +1752,15 @@ foodsaver:
 
     '
   bread: 'Todos os Foodsaver'
-  delete_account_reason: Motivo da eliminação do perfil
+  delete_account_reason: Motivo da exclusão do perfil
+  delete_description_own: A exclusão da tua conta de utilizador é irrevogável. 
+    Não será possível recuperar a tua conta depois disso. Se mais tarde quiseres
+    voltar a participar no foodsharing, terás de criar uma nova conta e 
+    candidatar-te novamente a lojas, grupos de trabalho, etc.
+  delete_description_other: A exclusão da tua conta de utilizador é irrevogável.
+    Não será possível recuperar a tua conta depois disso. Caso a pessoa queira 
+    voltar a participar no foodsharing mais tarde, terá de criar uma nova conta 
+    e candidatar-se novamente a lojas, grupos de trabalho, etc.
 pickup:
   no_slots_available: 'Não há assentos disponíveis'
   history:
@@ -1802,7 +1811,7 @@ pickup:
       confirmed: 'Confirmada'
       pending: 'Não confirmada'
     freeSlots: '{slots} disponíveis'
-  really_delete_date: 'Deseja mesmo apagar o assento de {date}?'
+  really_delete_date: 'Deseja mesmo excluir o assento de {date}?'
   add_onetime_pickup: 'Insira assento único'
   description_modal_text: 'Introduza uma nova descrição:'
   edit_description: 'Editar Descrição'
@@ -1880,7 +1889,7 @@ pickup:
     um substituto.'
   to_be_confirmed: 'Este assento ainda tem de ser confirmada por um responsável desta
     loja.'
-  delete_title: 'Apagar esses assentos'
+  delete_title: 'Excluir esses assentos'
   signout_info: 'As tuas recolhas pendentes serão eliminadas.'
   leave_team_message_template: '{data}, não posso recolhê-lo afinal e, por isso, cancelei
     a minha inscrição novamente. …'
@@ -1971,7 +1980,7 @@ fsp:
   location: 'código postal / local'
   followers: 'Partilhadores alimentar interessados'
   addError: 'Não foi possível registar o cantinho solidário. Preencheu tudo corretamente?'
-  rejectConfirm: 'Atenção, se apagar o cantinho solidário, já não pode anular esta
+  rejectConfirm: 'Atenção, se excluir o cantinho solidário, já não pode anular esta
     ação. Queres mesmo continuar?'
   reject: 'Recusar o cantinho solidário'
   add: 'Registar o cantinho solidário'
@@ -1993,7 +2002,7 @@ fsp:
   addSuccess: 'O cantinho solidário foi registado com sucesso'
   edit: 'Editar o cantinho solidário'
   inRegion: 'Tudos cantinhos solidário no (region)'
-  delete: 'Apagar o cantinho solidário'
+  delete: 'Excluir o cantinho solidário'
   addedBy: 'Adicionado por'
   summaryRegion: 'Há {count} cantinho/s solidário em (region) e todos subdistritos'
   twig:
@@ -2005,8 +2014,8 @@ fsp:
   unfollow: 'Pare seguir de cantinho solidário'
   followName: 'Siga o cantinho solidário (name)'
   editName: 'Editar o cantinho solidário „{name}“'
-  deleteConfirm: 'Queres mesmo apagar este cantinho solidário?'
-  deleteSuccess: 'O cantinho solidário foi apagado'
+  deleteConfirm: 'Queres mesmo excluir este cantinho solidário?'
+  deleteSuccess: 'O cantinho solidário foi excluido'
   onlySuggested: Este cantinho solidário foi sugerido mas ainda não foi lançado.
     Neste estado, não é apresentado assim aos outros utilizadores.
   form_validation:
@@ -2122,7 +2131,7 @@ quiz:
         fp: 'Pontos da falha:'
       title: Editar pergunta
       confirmDelete:
-        title: Queres mesmo apagar esta pergunta?
+        title: Queres mesmo excluir esta pergunta?
     answer:
       input:
         text:
@@ -2288,7 +2297,7 @@ quiz:
     add: acrescentar uma pergunta
     add_answer: acrescentar resposta
     show_comments: mostrar comentários
-    delete: apagar pergunta
+    delete: Excluir pergunta
     edit: editar esta pregunta
   sessionStatus:
     0: Atualmente em execução
@@ -2308,11 +2317,11 @@ quiz:
     incorrecta
   answer_options:
     edit: editar resposta
-    delete: apagar resposta
+    delete: Excluir resposta
   confirmDelete:
-    question: Queres mesmo apagar esta pergunta?
-    answer: Queres mesmo apagar esta resposta?
-    session: Queres mesmo apagar esta sessão de quiz?
+    question: Queres mesmo excluir esta pergunta?
+    answer: Queres mesmo excluir esta resposta?
+    session: Queres mesmo excluir esta sessão de quiz?
   questions_section:
     title: Perguntas do questinário ({count})
   editable_tooltip: Podes editar este questinário.
@@ -2357,7 +2366,7 @@ chat:
   reply: Responder
   rename: Renomear conversa
   rename_placeholder: Nome da conversa...
-  rename_empty_hint: Deixe o espaço em branco pra apagar o nome.
+  rename_empty_hint: Deixe o espaço em branco pra excluir o nome.
   show_participants: Mostrar participantes
   participants: Parcipiciantes
   error:
@@ -2402,9 +2411,9 @@ storeedit:
   store:
     status: 'Estado'
   fetch:
-    teamStatus1: 'Precisa-se de ajudantes'
-    teamStatus0: 'Esta equipa está fechado e atualmente não procura mais ajudantes'
-    teamStatus2: 'Precisa-se de ajudantes urgente'
+    teamStatus1: 'A equipa está aberta a candidaturas novas de salvadores alimentares'
+    teamStatus0: 'Esta loja não está a aceitar candidaturas novas neste momento'
+    teamStatus2: 'Precisa-se de apoio urgente'
     teamStatus: 'Estado da equipa'
     hygieneRequirement: Requisitos de higiene
     hygieneRequired: Permitir a inscrição apenas com formação válida em higiene
@@ -2607,9 +2616,9 @@ settings:
       neste momento.'
   calendar:
     delete_token:
-      button: 'Apagar token'
+      button: 'Excluir token'
       message: 'Todos os links de calendário criados até agora serão invalidados.
-        Queres mesmo apagar o token?'
+        Queres mesmo excluir o token?'
     export: 'Exportar calendário'
     menu: 'Calendário'
     export_tooltip: 'Pode subscrever as tuas datas de recolha com um programa de calendário
@@ -2626,28 +2635,28 @@ settings:
       button: Gerar URL de calendário
     download: Descarregar calendário
     info: |
-      Aqui podes associar os teus compromissos de foodsharing a um programa de calendário à tua escolha. Assim, todos os tues assentos e/ou compromissos podem ser automaticamente inseridos no teu calendário.
+      Aqui podes associar os teus eventos de foodsharing a um programa de calendário à tua escolha. Assim, todos os tues assentos e/ou eventos podem ser automaticamente inseridos no teu calendário.
 
-      **Mantenha os links do calendário em segredo.** Eles contêm um *token* que permite aceder aos dados dos tues assentos sem necessidade de palavra-passe. Pode apagar o teu token atual a qualquer momento, tornando inválidos os links do calendário criados anteriormente.
+      **Mantenha os links do calendário em segredo.** Eles contêm um *token* que permite aceder aos dados dos tues assentos sem necessidade de palavra-passe. Pode excluir o teu token atual a qualquer momento, tornando inválidos os links do calendário criados anteriormente.
 
-      O teu programa de calendário deve **sincronizar** este calendário regularmente. Só assim os novos assentos aparecerão e os compromissos cancelados deixarão de aparecer. Se, em vez disso, descarregares o teu calendário atual, este conterá apenas os teus compromissos atuais e não será atualizado automaticamente.
+      O teu programa de calendário deve **sincronizar** este calendário regularmente. Só assim os novos assentos aparecerão e os eventos cancelados deixarão de aparecer. Se, em vez disso, descarregares o teu calendário atual, este conterá apenas os teus eventos atuais e não será atualizado automaticamente.
       Encontras mais informações [aqui no Wiki]({calendarUrl})
     pickup:
       label: É necessário incluir assentos , por exemplo para recolhas?
       "true": Sim, mostrar os meus assentos no calendário
       "false": Não, não mostrar os assentos no calendário
     event:
-      label: Que datas dos teus distritos e grupos de trabalho devem ser 
+      label: Que eventos dos teus distritos e grupos de trabalho devem ser 
         incluídas?
-      all: Todas as datas
-      invitations: Datas em que não cancelei
-      maybe: Datas em que indiquei que (talvez) estaria presente
-      accepted: Datas em que indiquei que estaria presente
+      all: Todos os eventos
+      invitations: Eventos em que não cancelei
+      maybe: Eventos em que indiquei que (talvez) estaria presente
+      accepted: Eventos em que indiquei que estaria presente
       none: Nenhuma
     history:
-      label: As datas das últimas duas semanas devem ser incluídas?
-      "true": Sim, mostrar os meus datas anteriores no calendário
-      "false": Não, não mostrar datas passadas no calendário
+      label: Os eventos das últimas duas semanas devem ser incluídas?
+      "true": Sim, mostrar os meus eventos anteriores no calendário
+      "false": Não, não mostrar eventos passadas no calendário
     protocol: Qual protocolo o teu programa de calendário usa?
     formatting:
       label: Como devem ser formatadas as descrições dos compromissos?
@@ -2655,7 +2664,7 @@ settings:
       alt: Texto com HTML como representação alternativa
       text: Apenas texto
     reminders:
-      label: Queres que sejam definidos lembretes para os teus compromissos?
+      label: Queres que sejam definidos lembretes para os teus eventos?
       15_minutes: 15 minutos antes
       30_minutes: 30 minutos antes
       1_hour: 1 hora antes
@@ -2784,7 +2793,7 @@ settings:
   no_rights: Não está autorizado a alterar a configuração do perfil.
   edit_other: Editar configurações do perfil de {name}
   profile: Configurações de perfil
-  delete_profile: Apagar este perfil
+  delete_profile: Excluir este perfil
   address:
     title: Selecionar endereço
     choose: Aceitar endereço
@@ -2810,7 +2819,7 @@ settings:
       webauthn_not_supported: O WebAuthn não é suportado neste navegador
       operation_aborted: A operação foi cancelada
       registration_failed: 'Falha no registo da chave de segurança: {error}'
-      deletion_failed: Não foi possível apagar a chave de segurança
+      deletion_failed: Não foi possível excluir a chave de segurança
       rename_failed: Não foi possível renomear a chave de segurança
     passkeys_section: Chave de segurança
     security_keys: Chaves de segurança (Passkeys)
@@ -2826,7 +2835,7 @@ settings:
     created: Criado
     last_used: Última utilizado
     never_used: Nunca utilizado
-    delete: Apagar
+    delete: Excluir
     rename: Renomear
     device_name_placeholder: por exemplo iPhone, YubiKey, Laptop
     other_domain_info: Esta chave de segurança foi registada em {domain} e não 
@@ -2843,11 +2852,11 @@ settings:
       cancel: Cancelar
       register: Registar
     delete_modal:
-      title: Apagar chave de segurança
-      confirmation: Tem a certeza de que deseja apagar esta chave de segurança?
+      title: Excluir chave de segurança
+      confirmation: Tem a certeza de que deseja excluir esta chave de segurança?
       device_name: Aparelho
       cancel: Cancelar
-      delete: Apagar
+      delete: Excluir
     rename_modal:
       title: Renomear chave de segurança
       new_name_label: Novo nome
@@ -3065,7 +3074,7 @@ terminology:
   message: 'Mensagem'
   boardAdmins: 'conselho administrativo'
   fspAdmins: 'Equipa de cantinho solidário'
-  events: 'Datas'
+  events: 'Eventos'
   group: 'Grupo de trabalho'
   welcomeAdmins: 'Equipa de boas-vindas'
   reports:
@@ -3102,6 +3111,7 @@ terminology:
   sent: Enviados
   resourcesAdmins: Equipa do mosaico dos recursos
   giving: Entrega
+  attention: Atenção
 timepicker:
   labelCloseButton: 'Fechar'
   labelMinutes: 'minutos'
@@ -3271,23 +3281,23 @@ blog:
   permissions:
     edit: 'Não podes editar este artigo'
     new: 'Não é permitido criar artigos'
-    delete: 'Não podes apagar este artigo'
+    delete: 'Não podes excluir este artigo'
   new: 'Escrever um novo artigo'
   failure:
     new: 'Não foi possível criar o artigo'
     edit: 'Não foi possível guardar o artigo'
-    delete: 'Não foi possível apagar o artigo'
+    delete: 'Não foi possível excluir o artigo'
   author: 'Escrito por'
   success:
     edit: 'O artigo foi guartado'
-    delete: 'Artigo apagado'
+    delete: 'Artigo excluido'
     new: 'O artigo foi criado'
   edit: 'Editar um publicação do blogue'
   manage: 'Gerir entradas de blogue'
   newTitle: 'Niovo artigo para {region}'
   all: 'Todas as publicações do blogue'
   actions: 'Açioes'
-  delete: 'Apagar artigo'
+  delete: 'Excluir artigo'
   header: 'Notícias do mundo foodsharing'
   read: 'seguir lendo'
   empty: 'Ainda não há nenhuma publicações.'
@@ -3299,7 +3309,7 @@ blog:
     "1": 'publicado'
     "0": 'inativo'
   last-editor: 'Última edição por'
-  confirmDelete: 'Realmente deveria apagar {nome} de forma permanente?'
+  confirmDelete: 'Realmente deveria excluir {nome} de forma permanentemente?'
   title: 'Artigos de blogue'
   bread: 'Blogue'
   teaser: Visão prévia do texto
@@ -3322,7 +3332,7 @@ globals:
     users: 'Pessoas'
     regions_menu: 'Menu do distrito'
     mails: 'E-Mails'
-    events: 'Datas'
+    events: 'Eventos'
     workingGroups: 'Grupos'
     groups_menu: 'Menu do grupo'
     polls: 'Votações'
@@ -3348,8 +3358,8 @@ legal:
     legal_1: 'Nosso atual contrato de proteção de dados'
     this_doesnt_get_deleted_address: 'A tua endereço'
     this_gets_deleted_stores: 'As lojas das quais fizeste parte.'
-    this_gets_deleted_main: 'As seguintes informações serão eliminadas de você e não
-      podem ser restauradas:'
+    this_gets_deleted_main: 'As seguintes informações serão permanentemente excluido
+      por ti:'
     this_gets_deleted_trustbananas: 'As bananas que recebeste serão removidas.'
     this_gets_deleted_quiz: 'Todos os teus questinários são removidos.'
     this_doesnt_get_deleted_history: 'História da tua verificação'
@@ -3527,7 +3537,7 @@ region:
     part_of_town: Bairro
   edit: 'Editar distrito'
   cancel: 'Não, afinal não'
-  still_contains_elements: 'O distrito não pode ser apagado porque ainda contém sub-regiões,
+  still_contains_elements: 'O distrito não pode ser excluido porque ainda contém sub-regiões,
     lojas ou cantinhos solidário.'
   edit_success: 'O distrito foi guardado.'
   restricted: 'Infelizmente, não tens autorização para visualizar esses dados.'
@@ -3544,21 +3554,21 @@ region:
     o distrito.'
   change: 'Alterar distrito'
   created: '{region} foi criado'
-  delete: 'Apagar distrito'
+  delete: 'Excluir distrito'
   public:
     map:
       missing: Este distrito não é atualmente exibido no mapa e não tem 
         cantinhos solidário que podem ser exibidos aqui. Tem autorização para 
         colocar um pin de distrito agora.
       set_pin: Marcar o pin do distrito no mapa
-      hide_pin: Apagar o pin do distrito
+      hide_pin: Excluir o pin do distrito
       edit_pin: Editar o pin do distrito
       confirm_discard_changes: Tens a certeza de que deseja descartar as 
         alterações feitas no pin do distrito?
       confirm_save_changes: Queres guardar as tuas alterações no pin do 
         distrito? O novo pin ficará visível publicamente na página do distrito e
         no mapa.
-      confirm_remove: Queres mesmo apagar o pin do distrito? Este distrito 
+      confirm_remove: Queres mesmo excluir o pin do distrito? Este distrito 
         deixará de ser apresentado no mapa.
     children: Distritos em {name} ({count})
     join: Entrar no distrito
@@ -3602,7 +3612,7 @@ region:
   confirm:
     edit: Tem a certeza de que deseja salvar as alterações no distrito {name}?
     create: Tem a certeza de que deseja criar um novo distrito {name}?
-    delete: Tem a certeza de que deseja apagar o distrito {name}?
+    delete: Tem a certeza de que deseja excluir o distrito {name}?
   name: Nome
   parent: Distrito parental
   master: Distrito principal
@@ -3647,7 +3657,7 @@ content:
   empty: 'Até agora, nenhuma página foi inserida.'
   last_modified: 'Últimas alterações'
   edit: 'Editar página'
-  delete_tooltip: 'Apagar página'
+  delete_tooltip: 'Excluir página'
   delete_success: 'Página foi eliminada'
   changelog: 'Registo de alterações atual'
   edit_success: 'A página foi guardada.'
@@ -3743,17 +3753,17 @@ events:
   acceptedCount: '{count} participam'
   edit: 'Editar evento'
   edited: 'O evento foi alterado com sucesso.'
-  past: 'Datas pasadas'
-  invitedCount: '{count} convites'
+  past: 'Eventos pasados'
+  invitedCount: '{answers} de {total} convites respondidos'
   duration: 'Duração: {duration}'
   morePeople: '… e {count} outros'
   rsvp:
     yes: 'Muito obrigado por teres aceitado o convite.'
     no: 'Status do convite alterado: agora não participas.'
     maybe: 'Que bom que talvez esteja participar!'
-  bread: 'Datas'
+  bread: 'Eventos'
   add_new_event: 'Adicionar um novo evento'
-  noneAccepted: Até agora, ninguém confirmou a participação neste evento.
+  noneAccepted: Até agora, ninguém respondeu a este convite
   location: Localização
   meeting:
     past: Este evento foi realizado online.
@@ -3819,7 +3829,7 @@ forum:
     with_mail: 'Tópico aberto e todos informados por e-mail'
     open: 'Reabrir o tópico'
     closed: 'Tópico fechado'
-    delete: 'Apagar tópico'
+    delete: 'Excluir tópico'
     close: 'Fechar o tópico'
     title: 'Titulo'
     bottom: Visibilidade reduzida
@@ -3828,7 +3838,7 @@ forum:
       eliminada. Em vez disso, foi selecionada o próximo publicação.
   post:
     body: 'Mensagem'
-    delete: 'Apagar publicação'
+    delete: 'Excluir publicação'
     hide: Ocultar publicação
     giveHideReason: Por favor, indique por que motivo pretende ocultar esta 
       publicação.
@@ -3956,7 +3966,7 @@ notifications:
 are_you_sure: 'Estás a certeza?'
 button:
   save: 'Salvar'
-  permadelete: 'Apagar irrevogavelmente'
+  permadelete: 'Excluir permanentemente'
   create: 'Criar'
   change_picture: 'Alterar imagem'
   edit: 'Editar'
@@ -3970,7 +3980,7 @@ button:
   apply: 'Assumir'
   upload: 'Carregar'
   cancel: 'Cancelar'
-  delete: 'Apagar'
+  delete: 'Excluir'
   answer: 'Respostar'
   close: Fechar
   countdown_clickable: Clicável em {countdown} segundos
@@ -4175,10 +4185,10 @@ wall:
   info-somebody-else: 'Como tem autorização para administrar esta equipa, pode remover
     esta entrada, se necessário.'
   confirm-deletion: 'A seguinte publicação do {name} deve mesmo ser removida do pinboard?'
-  delete: 'Apagar a contribuição'
+  delete: 'Excluir a contribuição'
   delete_confirmation:
-    text: Quer mesmo apagar esta entrada de {author}?
-    title: Apagar uma publicação no pinboard?
+    text: Quer mesmo excluir esta entrada de {author}?
+    title: Excluir uma publicação no pinboard?
 betrieb_kategorie_id: 'Categoria'
 success: 'Completado com sucesso'
 buddy:
@@ -4240,7 +4250,7 @@ back: 'Para trás'
 first_post: 'Primeira entrada no pinboard'
 fsp_bezirk_id: 'Em qual distrito está localizado o cantinho solidário?'
 about_me_public: 'Descrição rápida publica'
-delete: 'apagar'
+delete: 'Excluir'
 betrieb_status_id: 'Status'
 lebensmittel: 'Quais os alimentos o que levado?'
 notice: 'Nota!'
@@ -4263,7 +4273,7 @@ statistics:
   food_saved: Alimentos recuperados
 body: 'Mensagem'
 photo: 'Fotografia'
-really_delete: 'Apagar a sério?'
+really_delete: 'Excluir a sério?'
 map:
   title: 'Mapa'
   donates: 'A loja faz doações'
@@ -4277,10 +4287,10 @@ map:
         cooperating: Coopera
         not-cooperating: Não coopera
       help:
-        label: Colaboradores
+        label: Estado da equipa
         all: Não importa
-        open: Buscado
-        searching: Buscado urgente
+        open: Aberto
+        searching: Procura-se apoio
       scope:
         label: Pertença
         all: Todos

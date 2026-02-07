@@ -495,10 +495,10 @@ settings:
     password_placeholder: Twoje obecne hasło
     password_required: Musisz podać hasło
     cancel: Anuluj
-    intro: ''
+    intro: 'Tu możesz zmienić ustawienia uwierzytelnienia dwuskładnikowego.'
     num_backup_codes: ''
-    title: ''
-    enable_button: ''
+    title: 'uwierzytelnienie dwuskładnikowe'
+    enable_button: 'aktywuj uwierzytelnienie dwuskładnikowe'
   two_fa_enable:
     tabs:
       qr_code: Skanuj kod QR
@@ -538,7 +538,7 @@ settings:
     further_info: ''
     password_info: ''
     success: ''
-    title: ''
+    title: 'aktywuj uwierzytelnienie dwuskładnikowe'
   two_fa_disable:
     deactivate: Deaktywuj
     confirm_text: ''
@@ -933,7 +933,8 @@ login:
     mismatch: Niestety, hasła się nie pokrywają.
     request_new: Zażądaj nowego hasła
     invalidCode: ''
-    token_invalid: ''
+    token_invalid: 'Podany kod uwierzytelnienia dwuskładnikowego jest nieważny. Proszę,
+      spróbuj ponownie.'
   steady_login: Pozostań stale zalogowany/a
   resend_verification:
     email_invalid: Podaj adres email
@@ -948,7 +949,7 @@ login:
     success: Jeśli ten adres email istnieje i jeszcze nie został zweryfikowany, 
       zostanie wysłany nowy email.
   or: albo
-  error_not_activated: ''
+  error_not_activated: 'Niestety, twój adres email jeszcze nie jest aktywowany.'
   error_no_auth: ''
   2fa: ''
   passkey_btn: ''
@@ -1011,9 +1012,11 @@ register:
   requiredFields: Pole wymagane
   email_required: Adres email jest wymagany
   email_invalid: Ten adres email jest nieważny bądź już używany
-  login_phone_info: ''
+  login_phone_info: 'Może być pomocne, aby udostępnić twój numer telefonu innym foodsharer(k)om'
   error_birthdate: ''
-  join_success_message: ''
+  join_success_message: 'Pomyślnie zakończyłeś/aś twoją rejestrację na foodsharingu.
+    Zanim będziesz mógł/mogła zalogować się przez swój email i hasło, musisz potwierdzić
+    swój adres email. Wysłaliśmy ci maila z linkiem do potwierdzenia na twój adres.'
   select_your_gender: ''
   birthdate_hint: ''
 gender:
@@ -1093,19 +1096,19 @@ terminology:
     f: ''
     m: ''
   n_cooperating_stores: ''
-  resourcesAdmins: ''
+  resourcesAdmins: 'Team mozaiki zasobów'
   stores: ''
-  wall: ''
+  wall: 'Tablica'
   reports:
     report: ''
     orga: ''
     arbitration: ''
-  fsManagementAdmins: ''
-  boardAdmins: ''
+  fsManagementAdmins: 'administracja'
+  boardAdmins: 'Zarząd'
   pickup: ''
-  fspAdmins: ''
+  fspAdmins: 'Team jadłodzielni'
   welcomeAdmins: ''
-  groups: ''
+  groups: 'Zespoły'
   moderationAdmins: ''
   community: ''
   n_home_regions: ''
@@ -1114,6 +1117,7 @@ terminology:
   n_stores: ''
   store: ''
   basket: ''
+  attention: Uwaga
 resource_mosaic:
   privacy_notice:
     ok: Zgadzam się
@@ -1369,7 +1373,7 @@ storeview:
   source_data: ''
   public_and_statistics: ''
   team: ''
-  invalid_field: ''
+  invalid_field: 'Nieważna treść pola. Zmiany nie mogą zostać zapisane.'
   team_info_jumper: ''
   store: ''
   show_settings: ''
@@ -1379,7 +1383,7 @@ storeview:
   no_permission_to_view: ''
   pickupWeight: ''
   managers: ''
-  pickupCount: ''
+  pickupCount: 'Sloty'
 store:
   team_container: Team
   member: Członek
@@ -2266,11 +2270,11 @@ bell:
   foodsaver_verified: ''
   store_new: ''
   betrieb_fetch: ''
-  store_wallpost: ''
+  store_wallpost: 'Nowy wpis na tablicy.'
   new_foodsaver: ''
   store_wall_post:
-    many: ''
-    one: ''
+    many: '{count} nowe/ych wpisy/ów na tablicy'
+    one: 'Wpis na tablicy od {user}'
   new_foodsaver_needs_introduction: ''
   poll_ending_soon: ''
   fs_sleepmode_title: ''
@@ -2282,11 +2286,11 @@ bell:
   forum_new_thread_title: ''
   new_report_title: ''
   poll_started: ''
-  store_request_imposed: ''
+  store_request_imposed: 'Dodano cię do teamu.'
   store_request_accept_wait: ''
   store_request_deny: ''
   chain_info_updated_title: ''
-  chain_info_updated: ''
+  chain_info_updated: '{store} jest częścią sieci.'
   store_added_to_chain_title: ''
   store_added_to_chain: ''
 list:
