@@ -11,26 +11,28 @@ use Foodsharing\Modules\Quiz\DTO\Question;
 use Foodsharing\Modules\Quiz\DTO\Quiz;
 use Foodsharing\Modules\Quiz\DTO\QuizSession;
 use Foodsharing\Modules\Quiz\DTO\QuizStatus;
+use Foodsharing\Modules\Quiz\DTO\SelectedAnswers;
 use Foodsharing\Modules\Quiz\QuizGateway;
 use Foodsharing\Modules\Quiz\QuizSessionGateway;
 use Foodsharing\Modules\Quiz\QuizTransactions;
+use Foodsharing\Modules\Store\DTO\CommonLabel;
 use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\QuizPermissions;
-use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Requirement\Requirement;
 
 #[OA\Tag(name: 'quiz')]
-#[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Missing permissions')]
+#[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
+#[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Missing permissions.')]
 #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid request')]
 #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Not found')]
 final class QuizRestController extends AbstractFoodsharingRestController
@@ -47,7 +49,8 @@ final class QuizRestController extends AbstractFoodsharingRestController
 
     // Answering quizzes:
 
-    #[Rest\Post('user/current/quizsessions/{quizId}/start', requirements: ['quizId' => '\d+'])]
+    #[OA\Post(summary: 'Starts a new quiz session')]
+    #[Route('users/current/quiz-sessions/{quizId}', methods: ['POST'], requirements: ['quizId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.')]
     public function startQuizSession(
         int $quizId,
@@ -57,11 +60,11 @@ final class QuizRestController extends AbstractFoodsharingRestController
         $quiz = $this->getQuizSanityChecked($quizId);
         if ($isTest) {
             if (!$this->quizPermissions->mayReadQuiz(QuizID::from($quiz->id))) {
-                throw new UnauthorizedHttpException('', 'You are not permitted to test this quiz.');
+                throw new AccessDeniedHttpException('You are not permitted to test this quiz.');
             }
         } else {
             if (!$this->quizPermissions->mayTryQuiz(QuizID::tryFrom($quiz->id))) {
-                throw new UnauthorizedHttpException('', 'You are not permitted to try this quiz.');
+                throw new AccessDeniedHttpException('You are not permitted to try this quiz.');
             }
             $this->assertSessionRunning($quizId, false);
             $status = $this->quizTransactions->getQuizStatus(QuizID::from($quizId), $this->session->id());
@@ -79,7 +82,8 @@ final class QuizRestController extends AbstractFoodsharingRestController
         return $this->respondOK();
     }
 
-    #[Rest\Get('user/current/quizsessions/{quizId}/status', requirements: ['quizId' => '\d+'])]
+    #[OA\Get(summary: 'Returns the status of the users current quiz progress')]
+    #[Route('users/current/quiz-sessions/{quizId}/status', methods: ['GET'], requirements: ['quizId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new Model(type: QuizStatus::class))]
     public function getQuizStatus(int $quizId, #[MapQueryParameter] bool $isTest = false): Response
     {
@@ -89,7 +93,8 @@ final class QuizRestController extends AbstractFoodsharingRestController
         return $this->respondOK($status);
     }
 
-    #[Rest\Get('user/current/quizsessions/{quizId}/question', requirements: ['quizId' => '\d+'])]
+    #[OA\Get(summary: 'Returns the next question of the quiz for the currently answering user.')]
+    #[Route('users/current/quiz-sessions/{quizId}/question', methods: ['GET'], requirements: ['quizId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new Model(type: ActiveQuestion::class))]
     public function getNextQuestion(int $quizId, #[MapQueryParameter] bool $isTest = false): Response
     {
@@ -101,14 +106,13 @@ final class QuizRestController extends AbstractFoodsharingRestController
         return $this->respondOK($nextQuestion);
     }
 
-    #[Rest\Post('user/current/quizsessions/{quizId}/answer', requirements: ['quizId' => '\d+'])]
-    #[OA\RequestBody(content: new OA\JsonContent(type: 'array', items: new OA\Items(type: 'integer')))]
-    #[ParamConverter('answerIds', class: 'array<integer>', converter: 'fos_rest.request_body')]
+    #[OA\Post(summary: 'Answer the current quiz question')]
+    #[Route('users/current/quiz-sessions/{quizId}/answer', methods: ['POST'], requirements: ['quizId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new OA\JsonContent(type: 'object', properties: [
         new OA\Property(property: 'solution', type: 'array', items: new OA\Items(ref: new Model(type: Answer::class))),
         new OA\Property(property: 'timedOut', type: 'boolean', description: 'Whether the answer was given in time.'),
     ]))]
-    public function answerNextQuestion(int $quizId, array $answerIds, #[MapQueryParameter] bool $isTest = false): Response
+    public function answerNextQuestion(int $quizId, #[MapRequestPayload] SelectedAnswers $answers, #[MapQueryParameter] bool $isTest = false): Response
     {
         $this->getQuizSanityChecked($quizId);
         $session = $this->assertSessionRunning($quizId, isTest: $isTest);
@@ -117,16 +121,17 @@ final class QuizRestController extends AbstractFoodsharingRestController
         //Also allow ansering null (meaning question was not answered in time)
         $question = $session->questions[$session->questionsAnswered];
         $possibleAnswerIds = array_column($question['answers'], 'id');
-        if (!in_array(null, $answerIds) && !empty(array_diff($answerIds, $possibleAnswerIds))) {
+        if (!is_null($answers->ids) && !empty(array_diff($answers->ids, $possibleAnswerIds))) {
             throw new BadRequestHttpException('Invalid answerId given.');
         }
 
-        $solutions = $this->quizTransactions->answerQuestion($session, $answerIds);
+        $solutions = $this->quizTransactions->answerQuestion($session, $answers->ids);
 
         return $this->respondOK($solutions);
     }
 
-    #[Rest\Get('user/current/quizsessions/{quizId}/results', requirements: ['quizId' => '\d+'])]
+    #[OA\Get(summary: 'Returns the results of the last time the current user finished the quiz')]
+    #[Route('users/current/quiz-sessions/{quizId}/results', methods: ['GET'], requirements: ['quizId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new Model(type: QuizSession::class))]
     public function getQuizResults(int $quizId, #[MapQueryParameter] bool $isTest = false): Response
     {
@@ -141,7 +146,8 @@ final class QuizRestController extends AbstractFoodsharingRestController
         return $this->respondOK($session);
     }
 
-    #[Rest\Post('user/current/quizsessions/{quizId}/confirm', requirements: ['quizId' => '\d+'])]
+    #[OA\Post(summary: 'Confirm the finalization of a passed quiz')]
+    #[Route('users/current/quiz-sessions/{quizId}/confirmation', methods: ['POST'], requirements: ['quizId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.')]
     public function confirmQuiz(int $quizId): Response
     {
@@ -173,33 +179,35 @@ final class QuizRestController extends AbstractFoodsharingRestController
 
     // Session management (Orga)
 
-    #[Rest\Get('quiz/sessions/{foodsaverId}', requirements: ['foodsaverId' => '\d+'])]
+    #[OA\Get(summary: 'Returns a users quiz sessions')]
+    #[Route('users/{userId}/quiz-sessions', methods: ['GET'], requirements: ['userId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new OA\JsonContent(
         type: 'array', items: new OA\Items(type: 'object', properties: [
-            new OA\Property(property: 'quiz', ref: new Model(type: Quiz::class)),
+            new OA\Property(property: 'quiz', ref: new Model(type: CommonLabel::class)),
             new OA\Property(property: 'sessions', type: 'array', items: new OA\Items(
                 ref: new Model(type: QuizSession::class)
             )),
         ])
     ))]
-    public function getQuizSessions(int $foodsaverId)
+    public function getQuizSessions(int $userId)
     {
         $this->assertLoggedIn();
         if (!$this->profilePermissions->maySeeQuizSessions()) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Not permitted');
         }
-        $sessions = $this->quizSessionGateway->getUserSessionsGroupedByQuiz($foodsaverId);
+        $sessions = $this->quizSessionGateway->getUserSessionsGroupedByQuiz($userId);
 
         return $this->respondOK($sessions);
     }
 
-    #[Rest\Delete('quiz/session/{sessionId}', requirements: ['sessionId' => '\d+'])]
+    #[OA\Delete(summary: 'Deletes a quiz session')]
+    #[Route('quiz-session/{sessionId}', methods: ['DELETE'], requirements: ['sessionId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.')]
     public function deleteQuizSession(int $sessionId)
     {
         $this->assertLoggedIn();
         if (!$this->profilePermissions->mayDeleteQuizSessions()) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Not permitted');
         }
         $this->quizSessionGateway->deleteSession($sessionId);
 
@@ -208,73 +216,74 @@ final class QuizRestController extends AbstractFoodsharingRestController
 
     // Editing quizzes:
 
-    #[Rest\Get('quiz/{quizId}', requirements: ['quizId' => '\d+'])]
+    #[OA\Get(summary: 'Returns the details of a quiz')]
+    #[Route('quizzes/{quizId}', methods: ['GET'], requirements: ['quizId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: Quiz::class))]
     public function getQuizDetails(int $quizId): Response
     {
         return $this->respondOK($this->getQuizSanityChecked($quizId));
     }
 
-    #[Rest\Patch('quiz/{quizId}', requirements: ['quizId' => '\d+'])]
-    #[OA\RequestBody(content: new Model(type: Quiz::class))]
-    #[ParamConverter('quiz', class: Quiz::class, converter: 'fos_rest.request_body')]
+    #[OA\Patch(summary: 'Changes the properties of a quiz')]
+    #[Route('quizzes/{quizId}', methods: ['PATCH'], requirements: ['quizId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
-    public function updateQuiz(int $quizId, Quiz $quiz, ValidatorInterface $validator): Response
+    public function updateQuiz(int $quizId, #[MapRequestPayload] Quiz $quiz): Response
     {
-        $this->assertQuizAccess($quizId);
         $this->getQuizSanityChecked($quizId);
-        $this->assertThereAreNoValidationErrors($validator, $quiz);
+        $this->assertQuizAccess($quizId);
         $quiz->id = $quizId;
         $this->quizGateway->updateQuiz($quiz);
 
         return $this->respondOK();
     }
 
-    #[OA\Tag(name: 'quiz', description: 'Get all questions of a quiz')]
-    #[Rest\Get('quiz/{quizId}/questions', requirements: ['quizId' => '\d+'])]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: Question::class))]
+    #[OA\Get(summary: 'Returns all questions of a quiz including answers')]
+    #[Route('quizzes/{quizId}/questions', methods: ['GET'], requirements: ['quizId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
+        type: 'array', items: new OA\Items(ref: new Model(type: Question::class))
+    ))]
     public function getQuestions(int $quizId): Response
     {
-        $this->assertQuizAccess($quizId, false);
         $this->getQuizSanityChecked($quizId);
+        $this->assertQuizAccess($quizId, false);
         $questions = $this->quizTransactions->listQuestions($quizId);
 
-        return $this->handleView($this->view($questions, 200));
+        return $this->respondOK($questions);
     }
 
-    #[Rest\Post('quiz/{quizId}/questions', requirements: ['quizId' => '\d+'])]
-    #[OA\RequestBody(content: new Model(type: Question::class))]
-    #[ParamConverter('question', class: Question::class, converter: 'fos_rest.request_body')]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success',
-        content: new OA\JsonContent(type: 'integer', description: 'Id of the created question'))]
-    public function addQuestion(int $quizId, Question $question, ValidatorInterface $validator): Response
+    #[OA\Post(summary: 'Adds a new question to a quiz')]
+    #[Route('quizzes/{quizId}/questions', methods: ['POST'], requirements: ['quizId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(type: 'object', properties: [
+        new OA\Property(property: 'id', type: 'integer', description: 'Id of the newly created question')
+    ]))]
+    public function addQuestion(int $quizId, #[MapRequestPayload] Question $question): Response
     {
-        $this->assertQuizAccess($quizId);
         $this->getQuizSanityChecked($quizId);
-        $this->assertThereAreNoValidationErrors($validator, $question);
+        $this->assertQuizAccess($quizId);
 
-        return $this->respondOK($this->quizGateway->addQuestion($quizId, $question));
+        $questionId = $this->quizGateway->addQuestion($quizId, $question);
+
+        return $this->respondOK(['id' => $questionId]);
     }
 
-    #[Rest\Patch('quiz/{quizId}/questions/{questionId}', requirements: ['quizId' => '\d+', 'questionId' => '\d+'])]
-    #[OA\RequestBody(content: new Model(type: Question::class))]
-    #[ParamConverter('question', class: Question::class, converter: 'fos_rest.request_body')]
+    #[OA\Patch(summary: 'Updates a quiz question')]
+    #[Route('quizzes/{quizId}/questions/{questionId}', methods: ['PATCH'], requirements: ['quizId' => Requirement::POSITIVE_INT, 'questionId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
-    public function updateQuestion(int $quizId, int $questionId, Question $question, ValidatorInterface $validator): Response
+    public function updateQuestion(int $quizId, int $questionId, #[MapRequestPayload] Question $question): Response
     {
         $this->assertQuizAccess($quizId);
         if ($quizId != $this->quizGateway->getQuizIdFromQuestionId($questionId)) {
             throw new NotFoundHttpException('Invalid id given.');
         }
         $this->getQuestionSanityChecked($questionId);
-        $this->assertThereAreNoValidationErrors($validator, $question);
         $question->id = $questionId;
         $this->quizGateway->updateQuestion($question);
 
         return $this->respondOK();
     }
 
-    #[Rest\Delete('quiz/{quizId}/questions/{questionId}', requirements: ['quizId' => '\d+', 'questionId' => '\d+'])]
+    #[OA\Delete(summary: 'Removes a quiz question')]
+    #[Route('quizzes/{quizId}/questions/{questionId}', methods: ['DELETE'], requirements: ['quizId' => Requirement::POSITIVE_INT, 'questionId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     public function deleteQuestions(int $quizId, int $questionId): Response
     {
@@ -288,43 +297,42 @@ final class QuizRestController extends AbstractFoodsharingRestController
         return $this->respondOK();
     }
 
-    #[Rest\Post('quiz/{quizId}/questions/{questionId}/answers', requirements: ['quizId' => '\d+', 'questionId' => '\d+'])]
-    #[OA\RequestBody(content: new Model(type: Answer::class))]
-    #[ParamConverter('answer', class: Answer::class, converter: 'fos_rest.request_body')]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success',
-        content: new OA\JsonContent(type: 'integer', description: 'Id of the created answer'))]
-    public function addAnswer(int $quizId, int $questionId, Answer $answer, ValidatorInterface $validator): Response
+    #[OA\Post(summary: 'Adds a new answer to a question')]
+    #[Route('quizzes/{quizId}/questions/{questionId}/answers', methods: ['POST'], requirements: ['quizId' => Requirement::POSITIVE_INT, 'questionId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(type: 'object', properties: [
+        new OA\Property(property: 'id', type: 'integer', description: 'Id of the newly created answer')
+    ]))]
+    public function addAnswer(int $quizId, int $questionId, #[MapRequestPayload] Answer $answer): Response
     {
         $this->assertQuizAccess($quizId);
         if ($quizId != $this->quizGateway->getQuizIdFromQuestionId($questionId)) {
             throw new NotFoundHttpException('Invalid id given.');
         }
-        $this->assertQuizAccess($this->quizGateway->getQuizIdFromQuestionId($questionId));
         $this->getQuestionSanityChecked($questionId);
-        $this->assertThereAreNoValidationErrors($validator, $answer);
 
-        return $this->respondOK($this->quizGateway->addAnswer($questionId, $answer));
+        $answerId = $this->quizGateway->addAnswer($questionId, $answer);
+
+        return $this->respondOK(['id' => $answerId]);
     }
 
-    #[Rest\Patch('quiz/{quizId}/questions/{questionId}/answers/{answerId}', requirements: ['quizId' => '\d+', 'questionId' => '\d+', 'answerId' => '\d+'])]
-    #[OA\RequestBody(content: new Model(type: Answer::class))]
-    #[ParamConverter('answer', class: Answer::class, converter: 'fos_rest.request_body')]
+    #[OA\Patch(summary: 'Updates an answer')]
+    #[Route('quizzes/{quizId}/questions/{questionId}/answers/{answerId}', methods: ['PATCH'], requirements: ['quizId' => Requirement::POSITIVE_INT, 'questionId' => Requirement::POSITIVE_INT, 'answerId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
-    public function updateAnswer(int $quizId, int $questionId, int $answerId, Answer $answer, ValidatorInterface $validator): Response
+    public function updateAnswer(int $quizId, int $questionId, int $answerId, #[MapRequestPayload] Answer $answer): Response
     {
         $this->assertQuizAccess($quizId);
         if ($questionId != $this->quizGateway->getQuestionIdFromAnswerId($answerId) || $quizId != $this->quizGateway->getQuizIdFromQuestionId($questionId)) {
             throw new NotFoundHttpException('Invalid id given.');
         }
         $this->getAnswerSanityChecked($answerId);
-        $this->assertThereAreNoValidationErrors($validator, $answer);
         $answer->id = $answerId;
         $this->quizGateway->updateAnswer($answer);
 
         return $this->respondOK();
     }
 
-    #[Rest\Delete('quiz/{quizId}/questions/{questionId}/answers/{answerId}', requirements: ['quizId' => '\d+', 'questionId' => '\d+', 'answerId' => '\d+'])]
+    #[OA\Delete(summary: 'Removes an answer')]
+    #[Route('quizzes/{quizId}/questions/{questionId}/answers/{answerId}', methods: ['DELETE'], requirements: ['quizId' => Requirement::POSITIVE_INT, 'questionId' => Requirement::POSITIVE_INT, 'answerId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     public function deleteAnswer(int $quizId, int $questionId, int $answerId): Response
     {
@@ -373,11 +381,12 @@ final class QuizRestController extends AbstractFoodsharingRestController
 
     private function assertQuizAccess(int $quizId, bool $edit = true): void
     {
+        $this->assertLoggedIn();
         $quizId = QuizID::tryFrom($quizId);
         if ($edit && !$this->quizPermissions->mayEditQuiz($quizId)) {
-            throw new UnauthorizedHttpException('', 'You are not permitted to edit this quiz');
+            throw new AccessDeniedHttpException('You are not permitted to edit this quiz');
         } elseif (!$edit && !$this->quizPermissions->mayReadQuiz($quizId)) {
-            throw new UnauthorizedHttpException('', 'You are not permitted to access this quiz\'s data.');
+            throw new AccessDeniedHttpException('You are not permitted to access this quiz\'s data.');
         }
     }
 }

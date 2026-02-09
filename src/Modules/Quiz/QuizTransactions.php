@@ -370,19 +370,16 @@ class QuizTransactions
      *
      * @return array<string, mixed>
      */
-    public function answerQuestion(QuizSession $session, array $answerIds): array
+    public function answerQuestion(QuizSession $session, ?array $answerIds): array
     {
         $question = $session->questions[$session->questionsAnswered];
-        $questionAnswered = true;
+        $questionAnswered = !is_null($answerIds);
 
         if ($session->startTime) {
             $questionAge = time() - $session->startTime->getTimestamp();
             if ($questionAge >= (int)$question['durationInSeconds'] + $this::NETWORK_BUFFER_TIME_IN_SECONDS) {
                 $questionAnswered = false;
             }
-        }
-        if (in_array(null, $answerIds)) {
-            $questionAnswered = false;
         }
 
         $session->startTime = null;

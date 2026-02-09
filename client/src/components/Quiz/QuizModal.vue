@@ -174,7 +174,7 @@ export default {
       window.clearTimeout(this.timeOutTimer)
       let selected = Object.entries(this.selectedAnswers).filter(a => a[1])
       if (selected.length === 0) { // Question was not answered at all
-        selected = [null]
+        selected = null
       } else { // Question was answered
         selected = selected.filter(a => a[0] !== 'none').map(a => +a[0])
       }

@@ -32,8 +32,8 @@ class QuizApiCest
     }
 
     /**
-     * @example{ "method": "Post", "url": "/api/user/current/quizsessions/1/start" }
-     * @example{ "method": "Get", "url": "/api/user/current/quizsessions/1/status" }
+     * @example{ "method": "Post", "url": "/api/users/current/quiz-sessions/1" }
+     * @example{ "method": "Get", "url": "/api/users/current/quiz-sessions/1/status" }
      */
     public function cannotUseLoggedOut(ApiTester $I, Example $example): void
     {
@@ -44,7 +44,7 @@ class QuizApiCest
     public function cannotUseInvalidQuizId(ApiTester $I): void
     {
         $I->login($this->foodsharer['email']);
-        $I->sendPost('/api/user/current/quizsessions/10/start');
+        $I->sendPost('/api/users/current/quiz-sessions/10');
         $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
     }
 
@@ -55,7 +55,7 @@ class QuizApiCest
     public function canStartQuiz(ApiTester $I, Example $example): void
     {
         $I->login($this->foodsharer['email']);
-        $I->sendPost('/api/user/current/quizsessions/1/start' . ($example['isTimed'] ? '?isTimed=1' : ''));
+        $I->sendPost('/api/users/current/quiz-sessions/1' . ($example['isTimed'] ? '?isTimed=1' : ''));
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeInDatabase('fs_quiz_session', [
             'foodsaver_id' => $this->foodsharer['id'],
@@ -72,7 +72,7 @@ class QuizApiCest
     public function canStartTimedQuizOnlyTimed(ApiTester $I, Example $example): void
     {
         $I->login($this->foodsaver['email']);
-        $I->sendPost('/api/user/current/quizsessions/2/start' . ($example['isTimed'] ? '?isTimed=1' : ''));
+        $I->sendPost('/api/users/current/quiz-sessions/2' . ($example['isTimed'] ? '?isTimed=1' : ''));
         if ($example['isTimed']) {
             $I->seeResponseCodeIs(HttpCode::OK);
         } else {
@@ -83,8 +83,8 @@ class QuizApiCest
     public function cannotStartQuizBeforeUnlocked(ApiTester $I): void
     {
         $I->login($this->foodsharer['email']);
-        $I->sendPost('/api/user/current/quizsessions/2/start');
-        $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
+        $I->sendPost('/api/users/current/quiz-sessions/2');
+        $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
         $I->dontSeeInDatabase('fs_quiz_session', [
             'quiz_id' => 1,
             'status' => SessionStatus::RUNNING->value,
@@ -106,12 +106,12 @@ class QuizApiCest
         $I->login($this->foodsharer['email']);
 
         // Status
-        $I->sendGet('/api/user/current/quizsessions/1/status');
+        $I->sendGet('/api/users/current/quiz-sessions/1/status');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson(json_decode((string)$example['json'], true));
 
         // Results
-        $I->sendGet('/api/user/current/quizsessions/1/results');
+        $I->sendGet('/api/users/current/quiz-sessions/1/results');
         if ($example['mayResults']) {
             $I->seeResponseCodeIs(HttpCode::OK);
         } else {
@@ -119,7 +119,7 @@ class QuizApiCest
         }
 
         // Start
-        $I->sendPost('/api/user/current/quizsessions/1/start');
+        $I->sendPost('/api/users/current/quiz-sessions/1');
         if ($example['mayStart']) {
             $I->seeResponseCodeIs(HttpCode::OK);
         } else {
@@ -145,12 +145,12 @@ class QuizApiCest
         $I->login($this->foodsaver['email']);
 
         // Status
-        $I->sendGet('/api/user/current/quizsessions/4/status');
+        $I->sendGet('/api/users/current/quiz-sessions/4/status');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson(json_decode((string)$example['json'], true));
 
         // Start
-        $I->sendPost('/api/user/current/quizsessions/4/start?isTimed=1');
+        $I->sendPost('/api/users/current/quiz-sessions/4?isTimed=1');
         if ($example['mayStart']) {
             $I->seeResponseCodeIs(HttpCode::OK);
         } else {
@@ -161,8 +161,8 @@ class QuizApiCest
     public function canGetQuestionWithoutSolutions(ApiTester $I): void
     {
         $I->login($this->foodsharer['email']);
-        $I->sendPost('/api/user/current/quizsessions/1/start');
-        $I->sendGet('/api/user/current/quizsessions/1/question');
+        $I->sendPost('/api/users/current/quiz-sessions/1');
+        $I->sendGet('/api/users/current/quiz-sessions/1/question');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson(['question' => [], 'timedOut' => false]);
         $I->seeResponseJsonMatchesJsonPath('question.answers[0].id');
@@ -177,13 +177,13 @@ class QuizApiCest
     public function canGetNextQuestionMultipleTimes(ApiTester $I, Example $example): void
     {
         $I->login($this->foodsharer['email']);
-        $I->sendPost('/api/user/current/quizsessions/1/start' . ($example['isTimed'] ? '?isTimed=1' : ''));
-        $I->sendGet('/api/user/current/quizsessions/1/question');
+        $I->sendPost('/api/users/current/quiz-sessions/1' . ($example['isTimed'] ? '?isTimed=1' : ''));
+        $I->sendGet('/api/users/current/quiz-sessions/1/question');
         $I->seeResponseCodeIs(HttpCode::OK);
         $questionId = $I->grabDataFromResponseByJsonPath('question.id')[0];
 
         $I->updateInDatabase('fs_quiz_session', ['time_start' => Carbon::now()->subSeconds(10)], ['foodsaver_id' => $this->foodsharer['id'], 'quiz_id' => 1]);
-        $I->sendGet('/api/user/current/quizsessions/1/question');
+        $I->sendGet('/api/users/current/quiz-sessions/1/question');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson(['question' => ['id' => $questionId], 'timedOut' => false]);
         if ($example['isTimed']) {
@@ -199,13 +199,13 @@ class QuizApiCest
     public function canGetNextQuestionAfterWaiting(ApiTester $I, Example $example): void
     {
         $I->login($this->foodsharer['email']);
-        $I->sendPost('/api/user/current/quizsessions/1/start' . ($example['isTimed'] ? '?isTimed=1' : ''));
-        $I->sendGet('/api/user/current/quizsessions/1/question');
+        $I->sendPost('/api/users/current/quiz-sessions/1' . ($example['isTimed'] ? '?isTimed=1' : ''));
+        $I->sendGet('/api/users/current/quiz-sessions/1/question');
         $I->seeResponseCodeIs(HttpCode::OK);
         $questionId = $I->grabDataFromResponseByJsonPath('question.id')[0];
 
         $I->updateInDatabase('fs_quiz_session', ['time_start' => Carbon::now()->subSeconds(500)], ['foodsaver_id' => $this->foodsharer['id'], 'quiz_id' => 1]);
-        $I->sendGet('/api/user/current/quizsessions/1/question');
+        $I->sendGet('/api/users/current/quiz-sessions/1/question');
         $I->seeResponseCodeIs(HttpCode::OK);
         if ($example['isTimed']) {
             $I->seeResponseContainsJson(['timedOut' => true]);
@@ -218,19 +218,19 @@ class QuizApiCest
     public function cannotGetNextQuestionWithoutRunningSession(ApiTester $I): void
     {
         $I->login($this->foodsharer['email']);
-        $I->sendGet('/api/user/current/quizsessions/1/question');
+        $I->sendGet('/api/users/current/quiz-sessions/1/question');
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
     }
 
     public function cannotGetLastQuestionAfterTimeout(ApiTester $I): void
     {
         $I->login($this->foodsharer['email']);
-        $I->sendPost('/api/user/current/quizsessions/1/start?isTimed=1');
+        $I->sendPost('/api/users/current/quiz-sessions/1?isTimed=1');
         $I->updateInDatabase('fs_quiz_session',
             ['time_start' => Carbon::now()->subSeconds(500), 'quiz_index' => 2, 'quiz_result' => '[]'],
             ['foodsaver_id' => $this->foodsharer['id'], 'quiz_id' => 1],
         );
-        $I->sendGet('/api/user/current/quizsessions/1/question');
+        $I->sendGet('/api/users/current/quiz-sessions/1/question');
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
         $I->seeInDatabase('fs_quiz_session', [
             'foodsaver_id' => $this->foodsharer['id'],
@@ -242,14 +242,14 @@ class QuizApiCest
     /**
      * @example{ "answers": "[]", "timedOut": false }
      * @example{ "answers": "useIds", "timedOut": false }
-     * @example{ "answers": "[null]", "timedOut": true }
+     * @example{ "answers": "null", "timedOut": true }
      */
     public function canAnswerQuestion(ApiTester $I, Example $example): void
     {
         $I->login($this->foodsharer['email']);
-        $I->sendPost('/api/user/current/quizsessions/1/start');
+        $I->sendPost('/api/users/current/quiz-sessions/1');
         if ($example['answers'] === 'useIds') {
-            $I->sendGet('/api/user/current/quizsessions/1/question');
+            $I->sendGet('/api/users/current/quiz-sessions/1/question');
             $answers = [
                 $I->grabDataFromResponseByJsonPath('question.answers[0].id')[0],
                 $I->grabDataFromResponseByJsonPath('question.answers[1].id')[0],
@@ -258,7 +258,7 @@ class QuizApiCest
             $answers = json_decode((string)$example['answers'], true);
         }
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('/api/user/current/quizsessions/1/answer', $answers);
+        $I->sendPost('/api/users/current/quiz-sessions/1/answer', ['ids' => $answers]);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseJsonMatchesJsonPath('solution[0].id');
         $I->seeResponseJsonMatchesJsonPath('solution[0].explanation');
@@ -270,20 +270,20 @@ class QuizApiCest
     {
         $I->login($this->foodsharer['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('/api/user/current/quizsessions/1/answer', []);
+        $I->sendPost('/api/users/current/quiz-sessions/1/answer', ['ids' => []]);
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
     }
 
     public function canFinishSessionByAnsweringLastQuestion(ApiTester $I): void
     {
         $I->login($this->foodsharer['email']);
-        $I->sendPost('/api/user/current/quizsessions/1/start?isTimed=1');
+        $I->sendPost('/api/users/current/quiz-sessions/1?isTimed=1');
         $I->updateInDatabase('fs_quiz_session',
             ['quiz_index' => 2, 'quiz_result' => '[]'],
             ['foodsaver_id' => $this->foodsharer['id'], 'quiz_id' => 1],
         );
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('/api/user/current/quizsessions/1/answer', []);
+        $I->sendPost('/api/users/current/quiz-sessions/1/answer', ['ids' => []]);
         $I->seeResponseCodeIs(HttpCode::OK);
         $status = $I->grabFromDatabase('fs_quiz_session', 'status', [
             'foodsaver_id' => $this->foodsharer['id'],
@@ -295,13 +295,13 @@ class QuizApiCest
     public function cannotAnswerTimedOutQuestion(ApiTester $I): void
     {
         $I->login($this->foodsharer['email']);
-        $I->sendPost('/api/user/current/quizsessions/1/start?isTimed=1');
+        $I->sendPost('/api/users/current/quiz-sessions/1?isTimed=1');
         $I->updateInDatabase('fs_quiz_session',
             ['time_start' => Carbon::now()->subSeconds(500)],
             ['foodsaver_id' => $this->foodsharer['id'], 'quiz_id' => 1],
         );
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('/api/user/current/quizsessions/1/answer', []);
+        $I->sendPost('/api/users/current/quiz-sessions/1/answer', ['ids' => []]);
         $I->seeResponseCodeIs(HttpCode::OK);
         // See result includes solution
         $I->seeResponseJsonMatchesJsonPath('solution[0].id');
@@ -321,7 +321,7 @@ class QuizApiCest
         $I->haveInDatabase('fs_quiz_session', ['foodsaver_id' => $this->foodsharer['id'], 'quiz_id' => 1, 'status' => SessionStatus::PASSED->value]);
         $I->login($this->foodsharer['email']);
         $I->dontSeeInDatabase('fs_foodsaver', ['id' => $this->foodsharer['id'], 'rolle' => Role::FOODSAVER->value]);
-        $I->sendPost('/api/user/current/quizsessions/1/confirm');
+        $I->sendPost('/api/users/current/quiz-sessions/1/confirmation');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeInDatabase('fs_foodsaver', ['id' => $this->foodsharer['id'], 'rolle' => Role::FOODSAVER->value]);
     }
@@ -332,20 +332,20 @@ class QuizApiCest
 
         $I->haveInDatabase('fs_quiz_session', ['foodsaver_id' => $storeManager['id'], 'quiz_id' => 3, 'status' => SessionStatus::PASSED->value]);
         $I->login($storeManager['email']);
-        $I->sendPost('/api/user/current/quizsessions/3/confirm');
+        $I->sendPost('/api/users/current/quiz-sessions/3/confirmation');
         $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
     }
 
     public function cannotConfirmUnpassedQuiz(ApiTester $I)
     {
         $I->login($this->foodsharer['email']);
-        $I->sendPost('/api/user/current/quizsessions/1/confirm');
+        $I->sendPost('/api/users/current/quiz-sessions/1/confirmation');
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
         $I->haveInDatabase('fs_quiz_session', ['foodsaver_id' => $this->foodsharer['id'], 'quiz_id' => 1, 'status' => SessionStatus::FAILED->value, 'time_end' => Carbon::now()->subDay()]);
-        $I->sendPost('/api/user/current/quizsessions/1/confirm');
+        $I->sendPost('/api/users/current/quiz-sessions/1/confirmation');
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
         $I->haveInDatabase('fs_quiz_session', ['foodsaver_id' => $this->foodsharer['id'], 'quiz_id' => 1, 'status' => SessionStatus::PASSED->value, 'time_end' => Carbon::now()]);
-        $I->sendPost('/api/user/current/quizsessions/1/confirm');
+        $I->sendPost('/api/users/current/quiz-sessions/1/confirmation');
         $I->seeResponseCodeIs(HttpCode::OK);
     }
 

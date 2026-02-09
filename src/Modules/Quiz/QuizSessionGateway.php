@@ -6,6 +6,7 @@ use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\DBConstants\Quiz\QuizID;
 use Foodsharing\Modules\Core\DBConstants\Quiz\SessionStatus;
 use Foodsharing\Modules\Quiz\DTO\QuizSession;
+use Foodsharing\Modules\Store\DTO\CommonLabel;
 
 class QuizSessionGateway extends BaseGateway
 {
@@ -64,7 +65,7 @@ class QuizSessionGateway extends BaseGateway
             $group = &$groups[$session['quiz_id']];
             if (empty($group)) {
                 $group = [
-                    'quiz' => ['id' => $session['quiz_id'], 'name' => $session['quiz_name']],
+                    'quiz' => new CommonLabel($session['quiz_id'], $session['quiz_name']),
                     'sessions' => []
                 ];
             }
