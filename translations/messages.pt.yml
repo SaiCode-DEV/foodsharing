@@ -497,7 +497,7 @@ bell:
   chain_info_updated_title: Cadeia {chain} atualizada
   chain_info_updated: '{store} faz parte da cadeia.'
 email_template:
-  login: 'Fazer login para responder'
+  login: 'Iniciar sessão para responder'
   reply: 'Responder'
   foodbasket_request: 'A tua cesta alimentar foi solicitada por %SENDER%'
   in: 'em'
@@ -790,7 +790,7 @@ poll:
     submit_question: 'A votação pode ser alterada até ao seu início. Quer mesmo criá-la
       agora?'
     option: 'Opção'
-    missing_fields: 'Todos os espaços precisam ser preenchidos'
+    missing_fields: 'Todos os campos devem ser preenchidos'
     shuffle_options: 'Mostrar opções ao votar em ordem aleatória'
     submit: 'Salvar votação'
   time_period: 'Período'
@@ -990,7 +990,7 @@ menu:
     administration: 'Administração'
     demands: 'Cobranças'
     delete_read: 'Excluir todos os lidos'
-    friendcircle: 'Círculo de amigos'
+    friendcircle: 'Círculo de conhecidos'
     joinregion: 'Entrar para um distrito'
     baskets: 'Cestas alimentar'
     workingGroupEdit: 'Gerir grupo'
@@ -1062,7 +1062,7 @@ login:
       requeira uma nova palavra-passe.'
     wrongMail: 'Infelizmente não encontramos este endereço de e-mail. Tenta novamente.'
     tooShort: 'A palavra-passe escolhida é demasiado curta.'
-    success: 'A tua palavra-passe foi alterada com sucesso. Já podes entrar.'
+    success: 'A tua palavra-passe foi alterada com sucesso. Já podes iniciar sessão.'
     bread: 'Redefinir palavra-passe'
     mismatch: 'Desculpe, as palavras-passe não correspondem.'
     mailSent: 'Tudo bem, foi-te mandado um link por e-mail para alterar a palavra-passe.
@@ -1078,22 +1078,22 @@ login:
   error_no_auth: 'Infelizmente não encontramos este endereço de e-mail ou palavra-passe.
     Tenta novamente. Talvez o teu segundo fator também esteja errado, caso estejas
     a usar um.'
-  submit_btn: 'Entrar'
-  login_button_label: 'Entrar'
+  submit_btn: 'Iniciar sessão'
+  login_button_label: 'Iniciar sessão'
   password: 'palavra-passe'
   email_address: 'Endereço electrónico'
-  logout: 'Sair'
+  logout: 'Terminar sessão'
   save_password: 'Salvar a palavra-passe'
   error_no_email: 'Digite o seu endereço de e-mail.'
-  topbar: 'Fazer login'
+  topbar: 'Iniciar sessão'
   error_no_password: 'Digite a sua palavra-passe.'
   2fa: Autenticação de dois fatores (2FA)
   resend_verification:
     email_invalid: Por favor, introduza um endereço de e-mail
     title: Confirmação do endereço de e-mail
-    hint1: Pra fazer login, o teu endereço de e-mail deve estar confirmado. Se 
-      foi redirecionado para esta página a partir do login, significa que o teu 
-      endereço de e-mail ainda não foi confirmado. Com este formulário, pode 
+    hint1: Pra iniciar sessão, o teu endereço de e-mail deve estar confirmado. 
+      Se foi redirecionado para esta página a partir do login, significa que o 
+      teu endereço de e-mail ainda não foi confirmado. Com este formulário, pode
       solicitar o envio de um novo e-mail com um link de ativação.
     hint2: Caso não receba nenhum e-mail, entre em contacto com o 
       [suporte](/support).
@@ -1103,7 +1103,7 @@ login:
   error_not_activated: Infelizmente, o teu endereço de e-mail ainda não foi 
     ativado.
   or: ou
-  passkey_btn: Fazer login com Passkey
+  passkey_btn: Iniciar sessão com Passkey
   passkey_cancelled: O login com a chave de acesso foi cancelado.
   passkey_not_found: Não há chave de acesso disponível para essa conta neste 
     aparelho.
@@ -1113,7 +1113,7 @@ profile:
     fsMail: 'Caixa de correio interna'
     title: 'informação'
     registrationDate: 'Data de registo'
-    buddies: 'amigos'
+    buddies: 'conhecidos'
     never: 'Nunca'
     lastActivity: 'Atividade última'
     fetchrate: 'Quota de recolhas'
@@ -1761,10 +1761,16 @@ foodsaver:
     Não será possível recuperar a tua conta depois disso. Caso a pessoa queira 
     voltar a participar no foodsharing mais tarde, terá de criar uma nova conta 
     e candidatar-se novamente a lojas, grupos de trabalho, etc.
-  delete_account_password_verify: ''
-  delete_account_totp_hint: ''
-  delete_own_account_failed_totp_hint: ''
-  delete_own_account_failed: ''
+  delete_account_password_verify: 'Por favor, introduza aqui a tua palavra-passe atual
+    para confirmar o teu pedido de exclusão.'
+  delete_account_totp_hint: 'Por favor, tenha em atenção que só poderá excluir a tua
+    conta se a autenticação de dois fatores estiver desativada. Esta opção pode ser
+    definida nas configurações da tua conta, em «Segurança da conta», e serve para
+    proteger contra a exclusão indevida caso a tua palavra-passe seja conhecida (ou
+    salva) por outras pessoas.'
+  delete_own_account_failed_totp_hint: 'Não foi possível excluir a tua conta de utilizador.'
+  delete_own_account_failed: 'Não foi possível excluir a tua conta de utilizador.
+    A palavra-passe introduzida está incorreta. Tenta novamente, se necessário.'
 pickup:
   no_slots_available: 'Não há assentos disponíveis'
   history:
@@ -1859,10 +1865,10 @@ pickup:
     added: 'O assento foi reservado.'
     description_titel: 'Descrição'
     slotscount: '{count} pessoas a recolher'
-  leave: 'Retirar'
+  leave: 'Remover'
   kick_message: 'Cancelámos a tua inscrição na recolha da {storeName} em {date}.'
   team_message_success: 'A mensagem foi enviada com sucesso para a equipa'
-  join_title_date: 'Tem a certeza?'
+  join_title_date: 'Certo?'
   really_leave_date_title: 'Retirar a inscrição para {date}?'
   slot_add: 'Adicionar um assento'
   kick_message_placeholder: 'Opcionalmente, adicione informações aqui…'
@@ -2061,27 +2067,27 @@ search:
     from: 'de'
     mail:
       mail_name: '{name} <{mail}>'
-      from_to_many: ''
-      attachment_tooltip: ''
-      sent_tooltip: ''
-      recieved_tooltip: ''
-      from_to: ''
+      from_to_many: 'De {from} a {to} e a {other}'
+      attachment_tooltip: 'Este e-mail foi enviado com um anexo.'
+      sent_tooltip: 'Enviaste este e-mail.'
+      recieved_tooltip: 'Este e-mail foi enviado para ti.'
+      from_to: 'De {from} a {to}'
     time_relation:
       present_since: 'Começar'
       past: 'Finalizado'
       future: 'Começa'
       present_until: 'Finaliza'
     poll:
-      not_eligible: ''
-      can_vote: ''
-      has_voted: ''
+      not_eligible: 'Não tens direito a voto'
+      can_vote: 'Ainda podes votar'
+      has_voted: 'Já votaste'
     event:
       invitation_tooltip:
-        3: ''
-        1: ''
-        0: ''
-        2: ''
-      location_online: ''
+        3: 'Não estás presente nesta sessão.'
+        1: 'Vais estar presente nesta sessão.'
+        0: 'Não indicaste se estarás presente nesta sessão.'
+        2: 'Talvez estejas presente nessa sessão.'
+      location_online: 'Online'
   title: 'Buscar'
   placeholder: 'Iniciar busca agora …'
   user_search:
@@ -2098,8 +2104,8 @@ search:
   maxresults: 'O número de resultados mostrados é limitado. Tenta usar um termo de
     pesquisa mais específico.'
   scope:
-    global: ''
-    local: ''
+    global: 'Busca global'
+    local: 'Busca personalizada'
   thread-body-only: 'Apenas o texto das publicações é pesquisado, não os títulos.'
 quiz:
   question: 'Pergunta'
@@ -2156,9 +2162,9 @@ quiz:
           placeholder: Nome do questinário
         allowUntimed: Permitir a edição sem limite de tempo
       htmlWarning: '**Atenção:** A formatação da descrição foi alterada. O que vê
-        no campo de introdução de texto está formatado com HTML. Por favor, ajuste
-        a descrição e utilize Markdown em vez disso. Utilize a função de pré-visualização
-        do campo de entrada para se certificar de que a formatação foi ajustada corretamente.'
+        no campo de texto está formatado com HTML. Por favor, ajuste a descrição e
+        utilize Markdown em vez disso. Utilize a função de pré-visualização do campo
+        de entrada para se certificar de que a formatação foi ajustada corretamente.'
       title: editar questinário
   startmodal:
     infos:
@@ -2204,8 +2210,8 @@ quiz:
     privacyNotice:
       hygiene: Se passar neste concurso questinario, ficará registado que o fez 
         e ser-lhe-á atribuído um autocolante de higiene. Os responsáveis pela 
-        higiene e lideres de equipas podem verificar se tem um autocolante de 
-        higiene válido.
+        higiene e lideres de equipas podem verificar se tem um selo de higiene 
+        válido.
     title: Notas ao questionário
   comment:
     sent: Comentário enviado.
@@ -2228,7 +2234,7 @@ quiz:
       questionário. Esperemos que tenha aproveitado o tempo para se familiarizar
       melhor com o conteúdo.
     willExpire: Mas a validade da tua tentativa de concurso questinario termina 
-      dentro de {expirationTime} dias. Por isso, podes atualizar agora os seus 
+      dentro de {expirationTime} dias. Por isso, podes atualizar agora os teus 
       conhecimentos nesta área e fazer novamente este teste.
     disqualifiedAfter: Tens apenas uma última tentativa para passar este 
       questionário! Se falhares agora, serás permanentemente desqualificado 
@@ -2370,7 +2376,7 @@ chat:
   reply: Responder
   rename: Renomear conversa
   rename_placeholder: Nome da conversa...
-  rename_empty_hint: Deixe o espaço em branco pra excluir o nome.
+  rename_empty_hint: Deixe o campo em branco pra excluir o nome.
   show_participants: Mostrar participantes
   participants: Parcipiciantes
   error:
@@ -2502,16 +2508,16 @@ chain:
     ok: 'Salvar'
     cancel: 'Cancelar'
   errorCodes:
-    EMPTY_COUNTRY: 'O espaço para o pai está vazio'
-    EMPTY_CITY: 'O espaço para a cidade está vazio'
-    EMPTY_NAME: 'O espaço para o nome está vazio'
+    EMPTY_COUNTRY: 'O campo para o pai está vazio'
+    EMPTY_CITY: 'O campo para a cidade está vazio'
+    EMPTY_NAME: 'O campo para o nome está vazio'
     INVALID_STORECHAIN_ID: 'O ID da cadeia não é válido'
     WRONG_FORUM: 'O tópico do fórum não faz parte do grupo de trabalho "cadeias comerciais"'
     KEY_ACCOUNT_MANAGER_MISSING_ACHIEVEMENT: 'O gestor de contas importantes não fez
       a formação para KAMs.'
     KEY_ACCOUNT_MANAGER_ID_NOT_EXISTS: 'Gestor de contas importantes (KAM) não existe'
-    INVALID_STATUS: 'O espaço para o estado está vazio'
-    EMPTY_ZIP: 'O espaço para o código postal está vazio'
+    INVALID_STATUS: 'O campo para o estado está vazio'
+    EMPTY_ZIP: 'O campo para o código postal está vazio'
     THREAD_ID_NOT_EXISTS: 'O tópico do fórum não existe'
   detailsmodal:
     nostores: 'Sem lojas'
@@ -2942,8 +2948,8 @@ settings:
       test_instruction: Abra a tua aplicação de autenticação e introduza o 
         código de 6 dígitos atual para garantir que tudo está a funcionar 
         corretamente.
-      logout_notice: 'Nota: Após ativar a autenticação de dois fatores, terá de iniciar
-        o login novamente.'
+      logout_notice: 'Nota: Após ativar a autenticação de dois fatores, terá de iiniciar
+        sessão novamente.'
     generated_code_label: Código gerado
     password_info: Para fazer alterações, é sempre necessário introduzir a tua 
       palavra-passe. Isto impede que outra pessoa que utilize o teu computador 
@@ -3107,8 +3113,8 @@ terminology:
   hygiene_training: Formação de higiene
   pickup: Recolha
   users: utilizadores
-  achievement: Etiquetas
-  achievements: Etiquetas
+  achievement: Selos
+  achievements: Selos
   landline: Número de telefone fixo
   mobile_phone: Número de telemóvel
   received: recebido
@@ -3240,40 +3246,41 @@ register:
   firstname_maxLength: O primeiro nome pode ter no máximo 30 caracteres
 thread:
   options:
-    rename: ''
-    unlock: ''
+    rename: 'Editar titulo'
+    unlock: 'Abrir tópico'
     pin: 'Fixar a publicação'
     lock: 'Fechar tópico'
-    unpin: ''
-    hideHidden: ''
-    priority: ''
-    showHidden: ''
+    unpin: 'Desafixar'
+    hideHidden: 'Não mostrar ocultados'
+    priority: 'Ajustar prioridade de visualização'
+    showHidden: 'Mostrar postagems ocultos'
   rename:
     description_modal_text: 'Insira um novo título para esta publicação:'
-    placeholder: ''
-    max_length_info: ''
-    edit_description: ''
+    placeholder: 'Título'
+    max_length_info: 'Comprimento máximo do título atingido (260 caracteres)'
+    edit_description: 'Editar título'
   post:
     options:
-      copy_source: ''
-      copy_direct_link: ''
-      restore: ''
-    copy_source_success: ''
+      copy_source: 'Copiar código-fonte'
+      copy_direct_link: 'Copiar link direto'
+      restore: 'Restaurar …'
+    copy_source_success: 'Código-fonte copiado!'
     quote_button: 'Ao clicar, insere o texto da publicação (se necessário, abreviado)
       na resposta. Se pressionar [Shift] ao mesmo tempo, todo o texto será inserido.'
-    linked_post: ''
-    copy_direct_link_success: ''
-    quote_post_wrote: ''
+    linked_post: 'Publicação vinculada'
+    copy_direct_link_success: 'Link direto copiado!'
+    quote_post_wrote: 'escreveu em'
   priorityModal:
-    higher: ''
+    higher: 'em alto'
     text: 'Prioridade de exibição desta publicação:'
-    lower: ''
-    title: ''
-    normal: ''
+    lower: 'em baixo'
+    title: 'justar prioridade de visualização'
+    normal: 'normal'
   hiddenPostsInfo:
-    cannotSee: ''
-    toggle: ''
-    includesHidden: ''
+    cannotSee: 'Não é possível ver o conteúdo das publicações ocultadas, mas pode
+      ver por que motivo e por quem foram ocultadas.'
+    toggle: 'Mostrar publicações ocultas'
+    includesHidden: 'Neste tópico, as publicações foram ocultadas pelos moderadores.'
 base:
   whatfor: 'No foodsharing, podes doar os teus alimentos ainda aproveitáveis a instituições
     sociais ou a outras pessoas'
@@ -3320,11 +3327,11 @@ blog:
 globals:
   type:
     threads: 'Tópicos'
-    buddies: 'Amigos'
+    buddies: 'Conhecidos'
     regions: 'Distritos'
     stores: 'Lojas'
     my_mailboxes: 'As minhas caixas de correio'
-    my_buddies: 'Os meus amigos'
+    my_buddies: 'Os meus conhecidos'
     my_stores: 'As minhas lojas'
     my_regions: 'Os meus distritos'
     chats: 'Chats'
@@ -3358,7 +3365,7 @@ legal:
       b) DSGVO:'
     this_gets_deleted_verify: 'A sua verificação será removida.'
     this_doesnt_get_deleted_name: 'O teu nome'
-    this_gets_deleted_friendlist: 'A tua lista de amigos é removida.'
+    this_gets_deleted_friendlist: 'A tua lista de conhecidos é removida.'
     legal_1: 'Nosso atual contrato de proteção de dados'
     this_doesnt_get_deleted_address: 'A tua endereço'
     this_gets_deleted_stores: 'As lojas das quais fizeste parte.'
@@ -3787,7 +3794,7 @@ events:
   public_info: Este evento é público, todos podem aceder ao mesmo. Os 
     comentários e a lista de participantes só são visíveis para utilizadores 
     registados.
-  declinedCount: ''
+  declinedCount: '{count} cancelaram'
 month:
   "3": 'Março'
   "1": 'Janeiro'
@@ -3928,28 +3935,29 @@ reports:
   reported: Pessoa denúnciada
 notifications:
   newsletter:
-    description: ''
-    title: ''
+    description: 'Receba aproximadamente uma vez por mês informações atualizadas sobre
+      foodsharing por e-mail.'
+    title: 'Boletim informativo'
   foodSharePoints:
     title: 'Cantinho solidário'
     description: 'Receber uma notificação de novas mensagens nos pinboards do cantinho
       solidário que segues.'
   groups:
-    title: ''
-  checkbox_push: ''
-  checkbox_disabled: ''
+    title: 'Grupos de trabalho'
+  checkbox_push: 'Push'
+  checkbox_disabled: 'Desativado'
   regions:
-    title: ''
+    title: 'Distritos'
   chat:
     description: 'Receba uma notificação quando tiver novas mensagens de chat, mesmo
       que não esteja conectado.'
     title: 'Mensagems de chat'
   threads:
-    title: ''
-  config_button: ''
+    title: 'Tópicos de fórum'
+  config_button: 'configurar por separado'
   success: 'Sucesso'
-  checkbox_email: ''
-  checkbox_bell: ''
+  checkbox_email: 'E-Mail'
+  checkbox_bell: 'Sinal'
   warning: Aviso
   error: Ero
   info: Informação
@@ -3957,17 +3965,30 @@ notifications:
     title: Recordações para os assentos não ocupados
     description: Receba e-mails que o alertam quando os assentos nas lojas que 
       gere ainda não estiverem atribuídos no dia seguinte.
-  save_success: ''
+  save_success: 'Salvado com sucesso'
   pushModal:
-    ok: ''
-    cancel: ''
-    dontAskAgain: ''
-    title: ''
-    content: ''
+    ok: 'Receber notificações push'
+    cancel: 'Não ativar'
+    dontAskAgain: 'Não pergunte novamente'
+    title: 'Receber notificações push?'
+    content: 'Para receber mais rapidamente as notificações quando outros salvadores
+      de alimentos lhe enviam mensagens, pode ativar as notificações push neste dispositivo!
+
+
+      Nas tuas [configurações de notificações](/?page=settings&sub=info), podes desativar
+      essas notificações a qualquer momento.
+
+      '
   mention:
-    description: ''
-    title: ''
-  safari_add_to_home_screen: ''
+    description: 'Sê notificado quando alguém te mencionar no fórum.'
+    title: 'Notificações em caso de menções'
+  safari_add_to_home_screen: 'Para receber notificações push no iPhone ou iPad, toque
+    em {icon} e, em seguida, em «Adicionar ao ecrã inicial».
+
+    Na app, pode ativar as notificações push. (é necessário, pelo menos, o iOS 16.4)
+
+
+    *Encontre mais informações aqui* https://support.foodsharing.network/kb/de-de/3/10'
 are_you_sure: 'Estás a certeza?'
 button:
   save: 'Salvar'
@@ -4011,20 +4032,25 @@ storestatus:
   "2": 'As negociações estão em curso'
 markdown_input:
   tooltip:
-    orderedList: ''
-    preview: ''
-    quote: ''
-    unorderedList: ''
-    italic: ''
-    code: ''
-    strikethrough: ''
-    bold: ''
-    hrule: ''
-    link: ''
-    heading: ''
-    image: ''
-    mention: ''
-  empty_preview_placeholder: ''
+    orderedList: 'lista numerada'
+    preview: 'pré-visualização'
+    quote: 'cita'
+    unorderedList: 'lista com vinhetas'
+    italic: 'cursivo'
+    code: 'código'
+    strikethrough: 'riscado'
+    bold: 'negrito'
+    hrule: 'linha divisória horizontal'
+    link: 'link'
+    heading: 'cabeçalho'
+    image: 'anexar imagens'
+    mention: 'mencionar usuário'
+  empty_preview_placeholder: 'Esta é a pré-visualização da formatação. O texto será
+    apresentado aqui exatamente como será depois.
+
+    ---
+
+    *Ainda não digitou nenhum texto que possa ser apresentado aqui.*'
 salutation:
   "3": 'Querido/a'
   "1": 'Caro'
@@ -4333,7 +4359,7 @@ map:
   users:
     go: Para o perfil
   region:
-    go: ''
+    go: 'Para a página do distrito'
 list:
   filter_for: 'Filtrar por …'
 public_time: 'Hora do dia aproximada por dos assentos'
@@ -4441,28 +4467,29 @@ error_base64_image: Não é permitido inserir imagens através de drag & drop.
 support_page:
   attachment:
     browse: Revisar
-    max_size: ''
-    placeholder: ''
-    drop_placeholder: ''
+    max_size: 'Anexos (máximo de 10, cada um com 5 MB por ficheiro)'
+    placeholder: 'Selecionar ficheiro'
+    drop_placeholder: 'Colocar ficheiro aqui'
   info_teaser: O nosso formulário de suporte está à tua disposição para questões
     relacionadas com o funcionamento da plataforma, questões técnicas ou 
     mensagens de erro. Após o envio, é criado automaticamente um ticket no nosso
     sistema. A equipa de suporte voluntária tratará das suas questões. Para 
     melhor responder a problemas técnicos, inclua na sua questão o navegador e o
     sistema operativo que utiliza.
-  subject: ''
-  body: ''
-  title: ''
-  validation_firstName: ''
-  email: ''
-  validation_body: ''
-  validation_subject: ''
-  validation_email: ''
-  new_request: ''
-  success: ''
-  notification_name: ''
-  your_name: ''
-  firstName: ''
+  subject: 'Assunto'
+  body: 'Mensagem'
+  title: 'Formulário de soporte'
+  validation_firstName: 'O nome próprio está vazio'
+  email: 'O teu endereço de e-mail'
+  validation_body: 'O mensagem está vazio'
+  validation_subject: 'O assunto está vazio'
+  validation_email: 'Endereço de e-mail inválido'
+  new_request: 'Novo pedido'
+  success: 'A tua mensagem foi enviada com sucesso.'
+  notification_name: 'Como tens sessão iniciada, o teu nome e a tua ID do foodsharing
+    também serão enviados.'
+  your_name: 'O teu nome'
+  firstName: 'Nome próprio'
 help:
   key:
     publicEvent:
@@ -4473,7 +4500,7 @@ help:
         No entanto, o mural e a lista de participantes só estão acessíveis aos utilizadores
         registados.\nRegiste um evento como público se quiser convidar pessoas de
         fora da sua comunidade local de foodsharing e se todos puderem participar.\n"
-      title: ''
+      title: 'Eventos públicos'
     reportReasons:
       title: Formulário de denúncias
       md: "Através do formulário de denúncias, os salvadores alimentares podem denunciar
@@ -4502,11 +4529,11 @@ help:
         (Infelizmente, até agora só em alemão)\n"
     achievementDuplicateMode:
       md: |
-        Os stickers podem servir como marcação em situações muito diferentes. Por isso, é possível definir se o sticker pode ser atribuído várias vezes ao mesmo tempo à mesma pessoa.
+        Os selos podem servir como marcação em situações muito diferentes. Por isso, é possível definir se o selo pode ser atribuído várias vezes ao mesmo tempo à mesma pessoa.
 
-        - **Sobrescrever:** Não é possível receber o autocolante várias vezes ao mesmo tempo. Se o autocolante for atribuído novamente, a atribuição atual substitui ou prolonga a anterior. Isto é utilizado, por exemplo, para a formação em higiene. Quem renova a formação, o seu autocolante é simplesmente prolongado. Selecione *Sobrescrever* se o autocolante tiver de marcar um estado atual e inequívoco.
-        - **Atribuir várias vezes:** É possível atribuir várias vezes ao mesmo tempo. Os autocolantes atribuídos várias vezes são apresentados agrupados no perfil, mas todas as informações correspondentes estão acessíveis. Isto pode ser utilizado, por exemplo, para documentar recolhas de amostras, das quais são necessárias várias. Selecione *Atribuir várias vezes* se cada atribuição individual for importante e tiver de permanecer rastreável.
-      title: ''
+        - **Sobrescrever:** Não é possível receber o selo várias vezes ao mesmo tempo. Se o selo for atribuído novamente, a atribuição atual substitui ou prolonga a anterior. Isto é utilizado, por exemplo, para a formação em higiene. Quem renova a formação, o seu selo é simplesmente prolongado. Selecione *Sobrescrever* se o selo tiver de marcar um estado atual e inequívoco.
+        - **Atribuir várias vezes:** É possível atribuir várias vezes ao mesmo tempo. Os selos atribuídos várias vezes são apresentados agrupados no perfil, mas todas as informações correspondentes estão acessíveis. Isto pode ser utilizado, por exemplo, para documentar recolhas de amostras, das quais são necessárias várias. Selecione *Atribuir várias vezes* se cada atribuição individual for importante e tiver de permanecer rastreável.
+      title: 'Atribuição múltipla de selos'
     hygieneRequirement:
       md: |
         Para trabalhar em algumas lojas, os salvadores alimentares devem ter formação em higiene alimentar. Quando esta função está ativada para uma loja, tem as seguintes implicações:
@@ -4517,27 +4544,50 @@ help:
 
         ---
 
-        Importante: esta função baseia-se apenas nos autocolantes de higiene próprios da foodsharing. Nem os certificados de higiene de fornecedores externos (como, por exemplo, Metro) carregados no perfil, nem os cursos de higiene adquiridos noutro local são tecnicamente considerados.
-      title: ''
+        Importante: esta função baseia-se apenas nos selos de higiene próprios da foodsharing. Nem os certificados de higiene de fornecedores externos (como, por exemplo, Metro) carregados no perfil, nem os cursos de higiene adquiridos noutro local são tecnicamente considerados.
+      title: 'Requisitos de higiene para lojas'
     achievementVisibility:
       md: |
-        A visibilidade de um autocolante determina quem pode ver se o autocolante foi atribuído a alguém. Estão disponíveis as seguintes opções:
+        A visibilidade de um selo determina quem pode ver se o selo foi atribuído a alguém. Estão disponíveis as seguintes opções:
 
-        - **Oculto:** o autocolante só é visível para utilizadores com direitos de organização.
+        - **Oculto:** o selo só é visível para utilizadores com direitos de organização.
         oculto: «Não é exibido a ninguém»
-        - **Privado:** Apenas a própria pessoa em questão, bem como os administradores e embaixadores da área de validade especificada, podem ver o autocolante.
-        - **Apenas lideres de equipas:** O autocolante é exibido à própria pessoa, bem como a todos os lideres de equipas na área selecionada.
-        - **Na área de validade:** O autocolante é visível para todos os utilizadores que são membros do distrito especificado.
-        - **Global:** O autocolante é visível para todos os utilizadores registados.
+        - **Privado:** Apenas a própria pessoa em questão, bem como os administradores e embaixadores da área de validade especificada, podem ver o selo.
+        - **Apenas lideres de equipas:** O selo é exibido à própria pessoa, bem como a todos os lideres de equipas na área selecionada.
+        - **Na área de validade:** O selo é visível para todos os utilizadores que são membros do distrito especificado.
+        - **Global:** O selo é visível para todos os utilizadores registados.
 
         Considere sempre até que ponto a visibilidade pode ser restringida para não tornar desnecessariamente visíveis informações pessoais. O nível de visibilidade pode ser ajustado posteriormente.
-      title: ''
+      title: 'Visibilidade de selos'
     commons_resources:
-      title: ''
-      md: ''
+      title: 'Recursos comuns'
+      md: 'Alguns recursos não pertencem a uma única pessoa, mas à comunidade.
+
+
+        ##### Quais são alguns exemplos de recursos comunitários?
+
+        Os recursos comunitários são geralmente **objetos**, **informações** ou **contatos**.
+        Pode ser um banner do foodsharing do distrito, um arquivo de fotos na nuvem
+        ou o contato de pessoas de contato externas. Como os recursos comunitários
+        não são da responsabilidade de uma única pessoa, deve-se inserir um contato
+        na descrição do recurso, se necessário.
+
+
+        ##### Quem gere os recursos comunitários?
+
+        Nos grupos de trabalho, todos os administradores podem criar, editar e eliminar
+        recursos comunitários. Nos distritos, os embaixadores têm inicialmente essa
+        autorização. Se existir um grupo de trabalho de recursos, a autorização pertence
+        aos administradores desse grupo de trabalho.
+
+        '
     basket:
-      title: ''
-      md: ''
+      title: 'Cestas alimentares'
+      md: 'As cestas alimentares são oferecidos por utilizadores que desejam distribuir
+        alimentos (muitas vezes recuperados) **gratuitamente**. Os utilizadores registados
+        podem solicitar um cesta alimentar para o recolher.
+
+        '
     storeLog:
       md: 'O registo de loja é uma forma de acompanhar as atividades numa loja. Pode
         ajudar a resolver conflitos ou corrigir erros acidentais.
@@ -4570,9 +4620,9 @@ help:
         resultados sejam exibidos.
 
         '
-      title: ''
+      title: 'Registo da loja'
     pickupOptions:
-      title: ''
+      title: 'Possibilidades de inscrição'
       md: 'A secção *Possibilidades de inscrição* mostra-lhe uma visão geral de todos
         os turnos assentos nas tuas lojas, para os quais ainda se procuram salvadores
         alimentares. Através do menu de opções, pode ajustar a visualização às suas
@@ -4596,7 +4646,7 @@ help:
 
         '
     resource_mosaic:
-      title: ''
+      title: 'Mosaico de recursos'
       md: "A ideia\nAo salvar alimentos, todos nós partilhamos de forma muito eficaz
         o nosso tempo, capacidade de transporte e experiência. Mas, para dar novos
         impulsos a um sistema alimentar sustentável e fortalecer o movimento de partilha
@@ -4627,29 +4677,104 @@ help:
         resultados, por exemplo, por «alegria com as solicitações», atualidade das
         entradas ou simplesmente aleatoriamente.\n"
     threadPriority:
-      md: ''
-      title: ''
+      md: 'Os tópicos são listados por ordem de prioridade de exibição. Os tópicos
+        com a mesma prioridade são ordenados pela data da última atividade.
+
+        ---
+
+        Os tópicos fixados têm prioridade 1, enquanto os tópicos normais têm prioridade
+        0. Para ordenar os tópicos exibidos com mais precisão, também pode definir
+        valores mais altos aqui, para que os tópicos fiquem sempre no topo, independentemente
+        da data da alteração.
+
+        Os tópicos com prioridade -1 são exibidos abaixo de todos os outros tópicos.
+
+        '
+      title: 'Prioridade de exibição nos fóruns'
     similar_resources:
-      title: ''
-      md: ''
+      title: 'Recursos semelhantes'
+      md: 'Como recursos semelhantes, serão apresentados até 10 recursos adicionais
+        para os quais foram introduzidas as **mesmas categorias**.'
     profileCommitmentsStat:
-      title: ''
+      title: 'Estatísticas de participação'
       md: 'é visível a partir da função de lider de equipas. É restrita ao distrito
         comum ou às lojas comuns.'
     pollScopes:
-      md: ''
-      title: ''
+      md: 'Ao criar uma votação, podes selecionar entre diferentes grupos de pessoas
+        que terão direito a voto.
+
+        Para todas as opções de votação, aplica-se o seguinte:
+
+        - Não só todos os saladores alimentares do distrito/grupo podem votar, mas
+        também os subdistritos.
+
+        - O número de salvadores alimentares com direito a voto está indicado entre
+        parênteses atrás da opção de seleção.
+
+        - Assim que a votação for criada, os eleitores serão determinados. Tem direito
+        a voto quem, no momento em que a votação for criada, pertencer ao grupo de
+        pessoas correspondente.
+
+        '
+      title: 'Direito de voto'
     polls:
-      title: ''
-      md: ''
+      title: 'Votações'
+      md: 'Com a ajuda do módulo de votação, é possível realizar eleições, sondagens
+        e outras votações de forma anónima e simples diretamente na plataforma foodsharing.
+        Encontra instruções detalhadas em https://wiki.foodsharing.de/Abstimmungs-Modul
+
+        '
     achievementIcon:
-      title: ''
-      md: ''
+      title: 'Icones para selos'
+      md: 'Cada selo tem um ícone, ou seja, um pequeno gráfico que mostra à primeira
+        vista do que se trata. Encontra uma lista dos ícones disponíveis em https://fontawesome.com/v5/search?o=r&m=free&s=solid.
+
+
+        No campo de entrada, deve introduzir o nome do ícone que pretende utilizar,
+        por exemplo, «*walking*» ou «*shopping-cart*».
+
+        Pode verificar se a sua entrada está correta através da pré-visualização.
+
+        Se não introduzir nenhum ícone, será utilizado automaticamente o ícone padrão
+        para selos «*tag*».
+
+        '
     moderatorForumHide:
-      title: ''
-      md: ''
+      title: 'Ocultar em fóruns por os moderadores'
+      md: '###### Quem é moderador?
+
+        Os moderadores de um grupo ou distrito são normalmente os administradores
+        ou embaixadores. Se houver um GOALS-AG *Moderação* num distrito, os administradores
+        desse grupo assumem o papel de moderadores.
+
+        ---
+
+        ###### Ocultar em fóruns
+
+        Quando esta opção está ativada, os moderadores podem ocultar todas as publicações
+        no fórum, não apenas as suas próprias. Para isso, eles devem indicar o motivo
+        pelo qual desejam ocultar uma publicação ou um tópico inteiro. Depois disso,
+        a publicação permanece acessível aos moderadores por mais três meses e pode
+        ser restaurada durante esse período. Outros utilizadores (sem direitos organizacionais)
+        não terão mais acesso a ela. Após esses três meses, uma publicação ocultada
+        não poderá mais ser restaurada e será definitivamente excluída do banco de
+        dados.
+
+        ---
+
+        ###### Onde esta opção pode ser usada?
+
+        Em grupos de denúncias locais e instâncias de arbitragem (GOALS AGs), esta
+        função é necessária por motivos de proteção de dados.
+
+        Outros grupos de trabalho podem votar internamente a favor da autorização
+        dos administradores para ocultar publicações e enviar um link para a votação
+        bem-sucedida para ags.bezirke@foodsharing.network. Esta opção não está prevista
+        para distritos locais.
+
+        '
     my_resources:
-      title: ''
+      title: 'Recursos próprios'
       md: 'Nesta secção, podes gerir os teus próprios recursos; criar novos recursos,
         editar, eliminar ou simplesmente ver o que estás a partilhar atualmente.
 
@@ -4679,20 +4804,52 @@ help:
 
         '
     masterRegion:
-      title: ''
-      md: ''
+      title: 'Distrito principal'
+      md: 'Caso os distritos tenham um distrito mestre, todos os membros do distrito
+        serão automaticamente incluídos no distrito mestre. Em muitos casos, faz sentido
+        escolher o distrito pai como mestre, mas também são possíveis outras aplicações.
+        Caso o distrito mestre não seja o distrito pai, os utilizadores do distrito
+        **não** serão automaticamente incluídos no distrito pai.
+
+
+        Caso não deseje que os utilizadores sejam automaticamente incluídos noutro
+        distrito, defina o mestre como raiz.
+
+        ---
+
+        A inclusão no distrito mestre ocorre uma vez por noite. Portanto, as alterações
+        não ocorrem imediatamente.
+
+        '
     change_verified_data:
-      title: ''
-      md: ''
+      title: 'Solicitar alteração de dados verificados'
+      md: 'Para atuar como o salvador alimentar, é importante que os dados no seu
+        perfil estejam corretos. Antes de poder salvar alimentos, eles serão comparados
+        com o teu documento de identidade pelos embaixadores. Portanto, não é possível
+        alterar simplesmente o seu nome e data de nascimento.
+
+        ---
+
+        Caso seja necessário alterar um desses campos, pode entrar em contacto com
+        um embaixador do seu distrito. Ele poderá fazer a alteração por si. Para saber
+        quem é o embaixador do teu distrito, consulte o [fórum do distrito]({link})
+        na barra lateral esquerda.
+
+        '
     achievements:
-      md: ''
-      title: ''
+      md: 'O sistema de selos pode ser utilizado para marcar características específicas
+        do utilizador, como, por exemplo, a participação em determinados cursos de
+        formação. Os selos podem ter uma validade ilimitada ou uma data de validade
+        a partir da qual deixam de ser válidos.
+
+        '
+      title: 'Selos'
     store_chain_info:
       md: |
         Esta loja faz parte de uma [cadeia comercial](https://wiki.foodsharing.de/Betrieb#Betriebskette). Todas as cadeias comerciais têm [KAMs](https://wiki.foodsharing.de/Key_Account_Manager_(KAM)) responsáveis, que podem ver a equipa, a carga de trabalho e o número de assentos para recolha nesta loja.
-      title: ''
-  helpTitle: ''
-  tooltip: ''
+      title: 'Filials de cadeias'
+  helpTitle: 'Ajuda: {title}'
+  tooltip: 'Mostrar a ajuda'
 test:
   vars: O meu nome é [NAME] e tenho [AGE] anos
   plain: ''
@@ -4701,214 +4858,242 @@ totp_code: Introduza o código de dois fatores gerado ou um dos códigos de
 sort:
   options:
     name: Nome
-    updated_at: ''
-    date: ''
-    relevance: ''
-    created_at: ''
-  sort_by: ''
+    updated_at: 'Data de atualização'
+    date: 'Data'
+    relevance: 'Relevância'
+    created_at: 'Data de criação'
+  sort_by: 'Ordenar por '
 required_messages:
   kick_from_store_team:
     main: Foste removido da equipa da empresa [{store}](/store/{storeId}). 
       Assim, já não podes inscrever-te para os assentos nesta loja.
-    footer: ''
+    footer: 'Muitas saudações'
     really: 'Quer mesmo remover {name} da equipa desta loja?'
   move_to_standby_team:
     main: Foste colocado na lista de substitutos da loja 
       [{store}](/store/{storeId}). Atualmente, não podes inscrever-te para os 
       assentos nesta loja nem ler o chat geral do grupo.
-    footer: ''
+    footer: 'Muitas saudações'
     really: 'Queres mesmo tirar {name} da equipa ativa e colocá-lo na lista de substitutos?'
   demote_store_manager:
     really: 'Quer mesmo retirar a responsabilidade de {name} como líder da equipa?'
-    footer: ''
+    footer: 'Muitas saudações'
     main: 'Eu removi-te como líder da equipa da loja [{store}](/store/{storeId}).'
-  placeholder: ''
+  placeholder: 'Opcional: adicionar informações aqui…'
   decline_store_application:
-    footer: ''
-    main: ''
-    really: ''
+    footer: 'Muitas saudações'
+    main: 'A tua candidatura à loja {store} foi rejeitada.'
+    really: 'Tens a certeza de que queres rejeitar a candidatura da equipa de {name}?'
   verify:
-    main: ''
-    really_multiple: ''
-    really: ''
-    footer: ''
-  sure_title: ''
-  message_info: ''
-  name_placeholder: ''
+    main: 'Confirmámos que és um(a) salvador(a) alimentar!'
+    really_multiple: 'Queres mesmo verificar {count} utilizadores? Por favor, certifica-te
+      de que todas as {count} pessoas cumprem todos os [requisitos para salvadores
+      alimentares verificados](https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver).'
+    really: 'Queres mesmo verificar {name}? Por favor, certifica-te de que {name}
+      cumpre todos os [requisitos para salvadores alimentares verificados](https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver).'
+    footer: 'Muitas saudações, os teus embaixadores'
+  sure_title: 'Tem a certeza?'
+  message_info: '{name} receberia a seguinte mensagem:'
+  name_placeholder: '<Nome>'
   save_message: 'Salvar minha mensagem para a próxima vez'
-  message_info_multiple: ''
+  message_info_multiple: 'Cada pessoa receberia a seguinte mensagem:'
 resource_mosaic:
   search_placeholder: Busca por recursos, partilhadores alimentar ou ID de 
     membros
-  commons_resources_in: ''
+  commons_resources_in: 'Recursos comunitários de {groupName}'
   editModal:
-    openness: ''
+    openness: 'Em que condições se pode usar o recurso?'
     description_warning:
-      none: ''
-      short: ''
-      title: ''
+      none: 'Não colocaste nenhuma descrição para o teu recurso. Tens a certeza de
+        que os outros utilizadores vão entender do que se trata o teu recurso para
+        que possam perguntar-te especificamente sobre ele?'
+      short: 'A descrição deste recurso é um pouco curta. Tem a certeza de que os
+        outros utilizadores vão entender do que se trata o teu recurso, para que possam
+        perguntar sobre ele?'
+      title: 'Verificar a descrição'
     name:
-      placeholder: ''
-      label: ''
-      max_length: ''
+      placeholder: 'O recurso...'
+      label: 'Nome do recurso'
+      max_length: 'Comprimento máximo atingido. Podes indicar os restantes detalhes
+        na descrição.'
     categories:
-      placeholder: ''
-      label: ''
-    is_restricted_to_region: ''
-    is_private: ''
+      placeholder: 'Selecionar categorias...'
+      label: 'Categorias'
+    is_restricted_to_region: 'Limitar por distrito ou grupo'
+    is_private: 'Mostrar só para conhecidos'
     description:
-      placeholder: ''
-      placeholder_commons: ''
-      label: ''
+      placeholder: 'Mais informações para que os outros possam imaginar exatamente
+        como tu podes ajudar. Também podes enviar fotos.'
+      placeholder_commons: 'Mais informações para que os outros saibam exatamente
+        para que serve este recurso. Lembre-se de incluir informações sobre como o
+        recurso pode ser pedido.'
+      label: 'Descrição'
   privacy_notice:
-    title: ''
-    text: ''
-    ok: ''
-  favorite: ''
+    title: 'Aviso de privacidade'
+    text: 'Quando introduz recursos, eles são guardados no servidor e ficam visíveis
+      para outros utilizadores nos teus grupos de trabalho e distritos (exceto estados
+      federais, países e Europa). Podes editar e eliminar os teus recursos a qualquer
+      momento. Além disso, podes limitar a visibilidade dos teus recursos, de modo
+      que apenas os teus conhecidos tenham acesso a eles.'
+    ok: 'Concordo'
+  favorite: 'Favorito'
   filter:
-    favorites: ''
-    active: ''
-    home_region: ''
-  my_resources: ''
-  resource_not_found_warning: ''
+    favorites: 'Apenas favoritos'
+    active: 'Apenas utilizadores ativos/as'
+    home_region: 'Apenas distrito de origem'
+  my_resources: 'Meus recursos'
+  resource_not_found_warning: 'O recurso ligado não foi encontrado. Ele foi excluído,
+    o dono não faz mais parte deste distrito ou grupo, ou o teu link está errado.'
   message_modal:
-    intro: ''
-    request_for: ''
-    request_sent: ''
-    placeholder: ''
-    polite_info: ''
-    title: ''
-  no_commons_resources: ''
+    intro: 'Envie uma mensagem ao {owner} sobre este recurso:'
+    request_for: 'Pedido sobre o seu recurso'
+    request_sent: 'O teu pedido foi enviado.'
+    placeholder: 'Estou interessado no teu recurso porque...'
+    polite_info: 'Lembre-se: ninguém é obrigado a partilhar um recurso consigo. Por
+      favor, faça os seus pedidos de forma que a outra pessoa possa sempre dizer não
+      sem se sentir mal.'
+    title: 'Pedir recurso “{name}”'
+  no_commons_resources: 'Ainda não há recursos comunitários registados em {groupName}.
+    Tens a autorização necessária para mudar isso!'
   openness:
-    level_3: ''
-    level_4: ''
-    title: ''
-    level_5: ''
-    level_1: ''
-    level_2: ''
-  is_commons: ''
+    level_3: 'Para boas razões'
+    level_4: 'É mais aberto'
+    title: 'Apreciação dos pedidos'
+    level_5: 'Sempre com prazer'
+    level_1: 'Só quando for importante'
+    level_2: 'Um pouco reservado'
+  is_commons: 'Este recurso não pertence a uma única pessoa, mas é um bem comum'
   order:
-    sort_age: ''
-    sort_openness: ''
-    shuffle: ''
-  my_resources_in: ''
+    sort_age: 'Ordem: Mais recentes primeiro'
+    sort_openness: 'Ordem: Mais apreciadas primeiro'
+    shuffle: 'Ordem: aleatória'
+  my_resources_in: 'Meus recursos em {groupName}'
   list_status:
-    none_in_region: ''
-    filter: ''
-    none_in_filter: ''
-    total: ''
-  add_commons: ''
-  confirm_delete: ''
+    none_in_region: 'Ainda não há recursos aqui. Insira teus próprios recursos ou
+      convide outras pessoas para fazer o mesmo!'
+    filter: 'A tua pesquisa encontrou {count} recursos:'
+    none_in_filter: 'Infelizmente, não há nenhum recurso que corresponda à tua busca.'
+    total: 'Na {região}, há um total de {count} recursos registados:'
+  add_commons: 'Inscrever novo recurso comunitário'
+  confirm_delete: 'Queres mesmo excluir este recurso?'
   other_resources:
-    commons: ''
-    own: ''
-    similar: ''
-    new: ''
-    other: ''
-  has_resources_elsewhere: ''
-  edit: ''
-  categories_filter_placeholder: ''
-  request_header: ''
-  favorite_tooltip: ''
-  max_resources: ''
-  no_own_resources: ''
-  message: ''
-  title: ''
-  is_private_hint: ''
-  add: ''
+    commons: 'Mais recursos comunitários'
+    own: 'Meus outros recursos'
+    similar: 'Recursos similares'
+    new: 'Todos os novos recursos deste distrito'
+    other: 'Mais recursos de {user}'
+  has_resources_elsewhere: 'Dos teus recursos, {count} estão limitados a outros distritos
+    ou grupos de trabalho e não são visíveis em {groupName}.'
+  edit: 'Editar recurso'
+  categories_filter_placeholder: 'Filtrar por categorias...'
+  request_header: 'Pedido sobre o teu recurso'
+  favorite_tooltip: 'Marcaste este recurso como favorito'
+  max_resources: 'Para manter o mosaico de recursos organizado, cada um pode inserir
+    no máximo {max} recursos.'
+  no_own_resources: 'Ainda não indicaste nenhum recurso. Podes agora introduzir determinadas
+    competências, objetos ou relações para os tornar visíveis na comunidade.'
+  message: 'Enviar mensagem'
+  title: 'Mosaico de recursos'
+  is_private_hint: 'Este recurso só aparece para os teus conhecidos.'
+  add: 'Inscrever um novo recurso'
 categories:
   title:
-    resource: ''
-    store: ''
-  confirm_delete: ''
+    resource: 'Categorias de recursos'
+    store: 'Categorias de lojas'
+  confirm_delete: 'Deseja mesmo excluir a categoria {name}?'
   types:
-    0: ''
-    2: ''
-    1: ''
-    "null": ''
-  empty: ''
+    0: 'Recolha'
+    2: 'Orga'
+    1: 'Entrega'
+    "null": 'Não atribuído'
+  empty: 'Até agora, nenhuma categoria foi inserida'
   confirm_delete_hint:
-    store: ''
-    resource: ''
-  new: ''
-  delete: ''
-  edit: ''
+    store: 'Ainda existem {count} lojas atribuídos a esta categoria. Ao continuar,
+      estas lojas deixarão de ter categoria.'
+    resource: 'Ainda existem {count} recursos atribuídos a esta categoria. Ao continuar,
+      estes recursos deixarão de ter categoria.'
+  new: 'Inscrever nova categoria'
+  delete: 'Excluir categoria'
+  edit: 'Editar categoria'
   columns:
-    name: ''
-    type: ''
-    id: ''
-    usage_count: ''
-    number_of_stores: ''
-  merge_hint: ''
-  merge: ''
-  merge_title: ''
+    name: 'Nome'
+    type: 'Tipo'
+    id: 'ID'
+    usage_count: 'Número de utilizações'
+    number_of_stores: 'Lojas na categoria'
+  merge_hint: 'Selecione outra categoria com a qual «{name}» deve ser combinada. Todas
+    as entradas atribuídas à categoria «{name}» serão então atribuídas a esta categoria.'
+  merge: 'juntar com outro'
+  merge_title: 'Juntar categorias'
 petition:
   progressText:
-    2000: ''
-    Infinity: ''
-    8000: ''
-    20000: ''
-    25000: ''
-    30000: ''
-    500: ''
-    15000: ''
-  daysLeft: ''
-  link: ''
+    2000: 'A petição está a ganhar força! Com o teu apoio, vamos avançar ainda mais!'
+    Infinity: 'Objetivo alcançado! A nossa petição vai ser debatida no Bundestag.
+      Agora é hora de fortalecer ainda mais a nossa causa!'
+    8000: 'Começámos com força! Junta-te a nós e vamos mais longe!'
+    20000: 'Já temos metade das assinaturas necessárias! Juntos conseguimos!'
+    25000: 'Já temos dois terços das assinaturas necessárias! Juntos conseguimos!'
+    30000: 'Quase lá – falta só um pedacinho! Junta-te à petição agora!'
+    500: 'Vamos lá! Seja um dos primeiros a assinar esta petição!'
+    15000: 'Estamos quase na metade do caminho! Com a tua ajuda, seguimos em frente!'
+  daysLeft: '{daysLeft} dias restantes'
+  link: 'Aceder à petição'
 achievements:
   visibility_type_explanation:
-    scope: ''
+    scope: 'É exibido a todos os utilizadores de {scope}.'
     store_managers: 'É exibido para a própria pessoa e para todos os lideres de equipas
       em {scope}'
-    private: ''
-    hidden: ''
-    global: ''
-  inRegion: ''
-  add: ''
+    private: 'É exibido apenas para a própria pessoa e para os administradores ou
+      embaixadores do {scope}'
+    hidden: 'Não é exibido a ninguém'
+    global: 'É exibido a todos os utilizadores'
+  inRegion: 'Selos em {region} ({count})'
+  add: 'Adicionar selo'
   visibility_type:
-    private: ''
-    scope: ''
-    global: ''
+    private: 'Privado'
+    scope: 'No distrito'
+    global: 'global'
     store_managers: 'Só lideres de equipas'
-    hidden: ''
+    hidden: 'Escondido'
   validity:
-    days: ''
-    indefiniteShort: ''
-    indefinite: ''
+    days: 'Válido por {validityInDaysAfterAssignment} dias após a atribuição.'
+    indefiniteShort: 'ilimitado'
+    indefinite: 'Válido por tempo indeterminado após a atribuição.'
   duplicate_mode:
-    override: ''
-    multiple: ''
-  validUntil: ''
-  edit: ''
+    override: 'Sobrescrever'
+    multiple: 'Atribuído múltiplas vezes'
+  validUntil: 'Válido até'
+  edit: 'Editar selo: {name}'
   editor:
-    name: ''
-    preview: ''
-    description: ''
-    visibility_type: ''
-    validityInDaysAfterAssignment: ''
-    duplicate_mode: ''
-    icon: ''
-  notAwarded: ''
-  awardedNoReviewer: ''
-  reviewer: ''
+    name: 'Nome'
+    preview: 'Prévia'
+    description: 'Descrição'
+    visibility_type: 'Visibilidade'
+    validityInDaysAfterAssignment: 'Validade após a adjudicação em dias'
+    duplicate_mode: 'Tratamento de múltiplas atribuições'
+    icon: 'Icone'
+  notAwarded: 'Este selo não está atribuído a ninguém neste momento.'
+  awardedNoReviewer: 'Automaticamente'
+  reviewer: 'por'
   duplicate_mode_explanation:
-    multiple: ''
-  awardedTo: ''
-  new: ''
+    multiple: 'Atribuição múltipla permitida'
+  awardedTo: 'para'
+  new: 'Selo novo'
   inThis:
-    region: ''
-    group: ''
-  scope: ''
-  editTitle: ''
-  revokeConfirmation: ''
-  noneInThisRegion: ''
-  editDetails: ''
-  revoke: ''
-  deleteConfirmation: ''
-  findUser: ''
-  editAwarded: ''
-  notice: ''
-  award: ''
-  awarded: ''
+    region: 'Os seguintes selos podem ser atribuídas neste distrito:'
+    group: 'Os seguintes selos podem ser atribuídas neste grupo de trabalho:'
+  scope: 'Âmbito de validade'
+  editTitle: 'Editar selo'
+  revokeConfirmation: 'Queres mesmo retirar este selo do {name}?'
+  noneInThisRegion: 'Ainda não há selos neste distrito.'
+  editDetails: 'Ajustar detalhes'
+  revoke: 'Retirar'
+  deleteConfirmation: 'Tem certeza de que deseja excluir este selo?'
+  findUser: 'Buscar usuário'
+  editAwarded: 'Personalizar selo {Conquista} para {utilizador}'
+  notice: 'Comentário'
+  award: 'Dar selo'
+  awarded: 'Conceder'
 oauth:
   error:
     invalid_client: ''
@@ -4977,37 +5162,47 @@ oauth:
       md: ''
   title: ''
 contact_page:
-  title: ''
+  title: 'Contacto e suporte'
   regions:
-    link: ''
-    title: ''
-    text: ''
-  description: ''
+    link: 'Pra a visão geral'
+    title: 'Grupos locais'
+    text: 'Caso tenhas alguma questão sobre um distrito, entra em contacto diretamente
+      com os responsáveis pelo mesmo.'
+  description: 'Entre em contacto connosco através de uma das seguintes opções:'
   common:
     modal:
-      title: ''
-      text: ''
-    link: ''
-    title: ''
-    text: ''
+      title: 'Manda um e-mail'
+      text: 'Manda-nos um e-mail para [{common_mail}](mailto:{common_mail}) (ou [{common_mail_ch}](mailto:{common_mail_ch})
+        para a Suíça).'
+    link: 'Manda um e-mail'
+    title: 'Para questões organizacionais'
+    text: 'Teremos todo o prazer em encaminhar-te para as pessoas certas, inclusive
+      nos distritos de foodsharing.'
   support:
-    title: ''
-    link: ''
-    text: ''
-  bread: ''
+    title: 'Ajuda sobre o site ou a tua conta'
+    link: 'Portal de soporte'
+    text: 'Aqui você encontra a nossa base de conhecimento sobre temas frequentes
+      ou atuais. Se não encontrar o que procura, pode criar um ticket de suporte (link
+      no canto superior direito).'
+  bread: 'Contacto e suporte'
 feedback:
   error:
-    screenshot: ''
-    invalid_file: ''
-    message_short: ''
-    no_sentry: ''
-  button: ''
-  privacy: ''
-  success: ''
-  title: ''
-  name_sent: ''
-  no_support: ''
-  capture_screenshot: ''
+    screenshot: 'Falha na captura de ecrã automática. Mas podes adicionar uma imagem
+      manualmente ao teu feedback.'
+    invalid_file: 'Ficheiro inválido. Por favor, carregue apenas imagens.'
+    message_short: 'A tua mensagem é muito curta. Por favor, dá mais informações.'
+    no_sentry: 'Ocorreu um erro com o Sentry. Por favor, tenta mais tarde.'
+  button: 'Feedback beta'
+  privacy: 'A tua mensagem vai ser enviada para os programadores voluntários da plataforma
+    foodsharing. Todas as informações do formulário, assim como as imagens anexadas,
+    vão ficar visíveis para eles. Por favor, certifica-te de que as capturas de ecrã
+    não têm dados pessoais de outros utilizadores que não possas partilhar.'
+  success: 'Obrigado! A tua mensagem de feedback foi enviada.'
+  title: 'Formulário de feedback beta'
+  name_sent: 'O teu nome e a tua ID de foodsharing serão enviados junto.'
+  no_support: 'Este formulário é só para **feedback**. Caso precises de ajuda ou tenhas
+    alguma dúvida, usa o [formulário de suporte](/support).'
+  capture_screenshot: 'Capturar ecrã'
 theme_switcher:
   theme:
     system: 'Sistema'
@@ -5022,18 +5217,34 @@ network_errors:
     text: ''
 team_page:
   alumni_member:
-    title: ''
-    text: ''
+    title: 'Antigos pessoas'
+    text: 'Juntos, olhamos para trás e vemos uma história de sucesso do foodsharing.
+      Gostaríamos de aproveitar esta oportunidade para agradecer a todas as pessoas
+      que contribuíram para isso, trabalhando em tempo integral como voluntários ou
+      dedicando grande parte do seu tempo à equipa organizadora ou à direção!
+
+      '
   board_member:
-    title: ''
-    text: ''
+    title: 'Direção'
+    text: 'A direção da foodsharing e. V. coordena as atividades, conecta a Alemanha,
+      a Áustria e a Suíça como utilizadores da plataforma foodsharing.de e é responsável
+      por assuntos suprarregionais. A direção trabalha em equipa, em estreita colaboração
+      e principalmente online, para tratar de todas as questões da grande comunidade
+      foodsharing e de entidades externas. Além disso, a direção dedica-se extensivamente
+      ao desenvolvimento organizacional e à dimensão política do desperdício alimentar.
+
+      '
   it_member:
-    title: ''
-    text: ''
+    title: 'Equipa de TI'
+    text: 'O foodsharing só é possível graças ao empenho de milhares de voluntários!
+      Aqui apresentamos algumas pessoas que coordenam grupos de trabalho inter-regionais,
+      desenvolvem o site ou assumem outras tarefas importantes para todo o foodsharing:
+
+      '
 donation_banner:
-  action_button: ''
-  amount: ''
-  info_button: ''
+  action_button: 'Doe aqui!'
+  amount: 'Total de doações'
+  info_button: 'Pra onde vai a minha doação?'
 debug:
   title: ''
   info: ''

@@ -650,7 +650,9 @@ settings:
     phone: 'Twój numer telefonu stacjonarnego'
     no_address: 'Jeszcze nie podano adresu'
     current_address: 'Aktualny adres'
-  chatmail: ''
+  chatmail: "Jeśli otrzymasz wewnętrzną wiadomość na stronie głównej foodsharingu,\
+    \ \nale chwilowo nie jesteś zalogowany/a, możesz otrzymać powiadomienie mailem.\
+    \ \nCzy tego chcesz?\n"
   newsletter: ''
   change_data_info:
     verified: ''
@@ -1927,7 +1929,7 @@ forum:
     all_hidden: ''
     subscriptions:
       subscribed: ''
-      subscribe: ''
+      subscribe: 'Subskrybuj'
     with_mail: ''
     bottom: ''
   mail_confirmation:
@@ -1992,14 +1994,14 @@ wall:
     zarejestrowana treść i osoba wykonująca tę akcję.
   error-delete: Nie możesz usunąć tego postu.
   delete_confirmation:
-    title: ''
-    text: ''
-  name: ''
-  placeholder: ''
-  error-create: ''
-  created: ''
+    title: 'Usunąć wpis na tablicy?'
+    text: 'Czy na pewno chcesz usunąć ten wpis od {author}?'
+  name: 'Tablica'
+  placeholder: 'Napisz nowy wpis na tablicy …'
+  error-create: 'Twój wpis na tablicy nie mógł zostać zapisany.'
+  created: 'Świetnie, twój wpis na tablicy został zapisany.'
   info-somebody-else: ''
-  confirm-deletion: ''
+  confirm-deletion: 'Czy na pewno chcesz usunąć następujący wpis na tablicy od {name}?'
 events:
   bread: Eventy
   past: Minione eventy
@@ -2421,9 +2423,10 @@ foodsaver:
   about_me_public: ''
   delete_account_password_verify: ''
   delete_account_totp_hint: ''
-  delete_own_account_failed_totp_hint: ''
+  delete_own_account_failed_totp_hint: 'Nie można było usunąć twojego konta.'
   delete_description_other: ''
-  delete_own_account_failed: ''
+  delete_own_account_failed: 'Twoje konto użytkownika nie mogło zostać usunięte. Wprowadzono
+    nieprawidłowe hasło. W razie potrzeby spróbuj ponownie.'
   delete_description_own: ''
 content:
   bread: Wszystkie strony
@@ -2445,7 +2448,7 @@ content:
     text: ''
   title: 'Tytuł'
   error_loading: 'Nie można było załadować treści'
-  name: ''
+  name: 'Jednoznaczna nazwa'
   empty: 'Jeszcze nie wprowadzono żadnej strony.'
   last_modified: 'Ostatnio edytowany'
   edit_raw: ''
@@ -2462,8 +2465,8 @@ map:
       help:
         all: obojętnie
         label: ''
-        searching: ''
-        open: ''
+        searching: 'szuka wsparcia'
+        open: 'otwarty'
       scope:
         label: Przynależność
         all: wszystkie
@@ -3538,7 +3541,7 @@ error_permissions: ''
 oauth:
   error:
     invalid_client: ''
-    unknown_error: ''
+    unknown_error: 'Wystąpił nieznany błąd. Spróbuj ponownie później.'
     invalid_scope: ''
     region_requirement_not_met: ''
   remember:
@@ -3548,9 +3551,9 @@ oauth:
     deny: ''
     authorize: ''
   admin:
-    public: ''
+    public: 'publiczny'
     active: ''
-    type: ''
+    type: 'Typ'
     update_success: ''
     regions: ''
     delete_error: ''
@@ -3590,7 +3593,7 @@ oauth:
     redirect_notice: ''
   scopes:
     openid:
-      title: ''
+      title: 'Potwierdź swoją tożsamość'
     regions:
       title: ''
       md: ''
