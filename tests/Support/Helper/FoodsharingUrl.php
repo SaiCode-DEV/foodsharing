@@ -99,6 +99,6 @@ class FoodsharingUrl extends Db
 
     public function apiReportListForRegion($regionId): string
     {
-        return 'api/report/region/' . (int)$regionId;
+        return 'api/regions/' . (int)$regionId . '/reports';
     }
 }

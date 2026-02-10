@@ -15,26 +15,26 @@
         @row-clicked="toggleDetails"
       >
         <template #cell(time)="row">
-          <Time :time="row.item.time" :muted="false" />
+          <Time :time="row.item.reportedAt" :muted="false" />
         </template>
-        <template #cell(fs_name)="row">
-          <Avatar :user="{ avatar: row.item.fs_photo, name: row.item.fs_name, id: row.item.fs_id}" />
-          <a v-if="row.item.fs_name" :href="$url('profile', row.item.fs_id)">{{ row.item.fs_name }} {{ row.item.fs_nachname }}</a>
+        <template #cell(reported)="row">
+          <Avatar :user="row.item.reported" />
+          <a v-if="row.item.reported.name" :href="$url('profile', row.item.reported.id)">{{ row.item.reported.name }}</a>
           <span v-else v-text="$t('forum.deleted_user')" />
           <i
-            v-if="row.item.fs_name"
-            v-b-tooltip="row.item.fs_email"
+            v-if="row.item.reported.mail"
+            v-b-tooltip="row.item.reported.mail"
             class="fas fa-envelope ml-1"
-            @click.stop="copyToClipboard(row.item.fs_email)"
+            @click.stop="copyToClipboard(row.item.reported.mail)"
           />
         </template>
-        <template #cell(rp_name)="row">
-          <Avatar :user="{ avatar: row.item.rp_photo, name: row.item.rp_name, id: row.item.rp_id}" />
-          <a :href="$url('profile', row.item.rp_id)">{{ row.item.rp_name }} {{ row.item.rp_nachname }}</a>
+        <template #cell(reporter)="row">
+          <Avatar :user="row.item.reporter" />
+          <a :href="$url('profile', row.item.reporter.id)">{{ row.item.reporter.name }}</a>
           <i
-            v-b-tooltip="row.item.rp_email"
+            v-b-tooltip="row.item.reporter.mail"
             class="fas fa-envelope ml-1"
-            @click.stop="copyToClipboard(row.item.rp_email)"
+            @click.stop="copyToClipboard(row.item.reporter.mail)"
           />
         </template>
 
@@ -45,18 +45,18 @@
         <template #row-details="row">
           <div class="report">
             <p><strong>{{ $t('reports.report_id') }}</strong>: {{ row.item.id }}</p>
-            <p><strong>{{ $t('reports.time') }}</strong>: {{ row.item.time }}</p>
-            <p v-if="row.item.betrieb_id !== 0">
-              <strong>{{ $t('reports.store') }}</strong>: <a :href="`/?page=fsbetrieb&id=${row.item.betrieb_id}`">
-                {{ row.item.betrieb_name }}</a> ({{ row.item.betrieb_id }})
+            <p><strong>{{ $t('reports.time') }}</strong>: {{ dateFormatter.dateTime(row.item.reportedAt) }}</p>
+            <p v-if="row.item.store">
+              <strong>{{ $t('reports.store') }}</strong>: <a :href="$url('store', row.item.store.id)">
+                {{ row.item.store.name }}</a> ({{ row.item.store.id }})
             </p>
             <p v-else>
               <strong>{{ $t('reports.store') }}</strong>: -
             </p>
-            <p><strong>{{ $t('reports.reported') }}</strong>: {{ row.item.fs_name }} {{ row.item.fs_nachname }} ({{ row.item.fs_id }}), {{ row.item.fs_email }}</p>
-            <p><strong>{{ $t('reports.reporter') }}</strong>: {{ row.item.rp_name }} {{ row.item.rp_nachname }} ({{ row.item.rp_id }}), {{ row.item.rp_email }}</p>
-            <p><strong>{{ $t('reports.reason') }}</strong>: {{ row.item.tvalue }}</p>
-            <p><strong>{{ $t('reports.message') }}</strong>: {{ row.item.msg }}</p>
+            <p><strong>{{ $t('reports.reported') }}</strong>: {{ row.item.reported.name }} ({{ row.item.reported.id }}), {{ row.item.reported.mail }}</p>
+            <p><strong>{{ $t('reports.reporter') }}</strong>: {{ row.item.reporter.name }} ({{ row.item.reporter.id }}), {{ row.item.reporter.mail }}</p>
+            <p><strong>{{ $t('reports.reason') }}</strong>: {{ row.item.reason }}</p>
+            <p><strong>{{ $t('reports.message') }}</strong>: {{ row.item.message }}</p>
           </div>
         </template>
       </b-table>
@@ -83,6 +83,7 @@ import Time from '@/components/Time.vue'
 import CopyToClipboardMixin from '@/mixins/CopyToClipboardMixin.js'
 import OverflowMenu from '@/components/OverflowMenu.vue'
 import { useUserStore } from '@/stores/user'
+import dateFormatter from '@/helper/date-formatter'
 
 const userStore = useUserStore()
 
@@ -95,6 +96,7 @@ export default {
   setup () {
     return {
       userStore,
+      dateFormatter,
     }
   },
   data () {
@@ -104,9 +106,9 @@ export default {
       fields: [
         { key: 'id', label: this.$t('reports.id') },
         { key: 'time', label: this.$t('reports.time'), sortable: true },
-        { key: 'fs_name', label: this.$t('reports.reported'), sortable: true },
-        { key: 'rp_name', label: this.$t('reports.reporter'), sortable: true },
-        { key: 'tvalue', label: this.$t('reports.reason') },
+        { key: 'reported', label: this.$t('reports.reported'), sortable: true },
+        { key: 'reporter', label: this.$t('reports.reporter'), sortable: true },
+        { key: 'reason', label: this.$t('reports.reason') },
         { key: 'actions', label: '' },
       ],
     }

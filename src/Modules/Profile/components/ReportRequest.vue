@@ -227,14 +227,13 @@ export default {
   },
   methods: {
     async trySendReport () {
-      const reportReasonText = this.reportReasonOptions.find(reportReasonOptions => reportReasonOptions.value === this.reportReason)
       const message = this.reportText.trim()
       if (!message) return
       if (this.doesNotAffectStore) {
         this.storeList = null
       }
       try {
-        await addReport(this.reportedId, this.reporterId, this.reportReason, reportReasonText.text, message, this.storeList)
+        await addReport(this.reportedId, this.reportReason, message, this.storeList)
         pulseInfo(i18n('profile.report.sent'))
         this.reportReason = null
         this.storeList = null

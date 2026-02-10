@@ -2,26 +2,31 @@
 
 namespace Foodsharing\Modules\Report;
 
+use Carbon\Carbon;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\DBConstants\Report\ReportType;
+use Foodsharing\Modules\Report\DTO\AddReportData;
+use Foodsharing\Modules\Report\DTO\ProfileWithMail;
+use Foodsharing\Modules\Report\DTO\ReportForListView;
+use Foodsharing\Modules\Store\DTO\MinimalStoreIdentifier;
 
 class ReportGateway extends BaseGateway
 {
-    public function addBetriebReport($reportedId, $reporterId, ReportType $reporttype, $reasonId, $reason, $message, $storeId = 0): int
+    public function addBetriebReport(int $reportedId, int $reporterId, AddReportData $reportData, string $reasonName): int
     {
         return $this->db->insert(
             'fs_report',
             [
-                'foodsaver_id' => (int)$reportedId,
-                'reporter_id' => (int)$reporterId,
-                'reporttype' => $reporttype->value,
-                'report_reason_id' => (int)$reasonId,
-                'betrieb_id' => (int)$storeId,
+                'foodsaver_id' => $reportedId,
+                'reporter_id' => $reporterId,
+                'reporttype' => ReportType::LOCAL->value,
+                'report_reason_id' => $reportData->reason->value,
+                'betrieb_id' => $reportData->storeId ?? 0,
                 'time' => date('Y-m-d H:i:s'),
                 'committed' => 0,
-                'msg' => strip_tags((string)$message),
-                'tvalue' => strip_tags((string)$reason),
+                'msg' => strip_tags($reportData->message),
+                'tvalue' => strip_tags($reasonName),
             ]
         );
     }
@@ -43,13 +48,13 @@ class ReportGateway extends BaseGateway
 
                 'fs.id AS fs_id',
                 'fs.name AS fs_name',
-                'fs.nachname AS fs_nachname',
+                'fs.nachname AS fs_last_name',
                 'fs.photo AS fs_photo',
                 'fs.email AS fs_email',
 
                 'rp.id AS rp_id',
                 'rp.name AS rp_name',
-                'rp.nachname AS rp_nachname',
+                'rp.nachname AS rp_last_name',
                 'rp.photo AS rp_photo',
                 'rp.email AS rp_email',
                 'b.name AS b_name')
@@ -60,14 +65,22 @@ class ReportGateway extends BaseGateway
             ->orderBy('r.time', 'DESC');
     }
 
+    /**
+     * @return ReportForListView[]
+     */
     public function getReportsByUser(int $userId): array
     {
         $query = $this->reportSelectDbal();
         $query->andWhere($query->expr()->eq('r.foodsaver_id', (string)$userId));
 
-        return $query->fetchAllAssociative();
+        $reports = $query->fetchAllAssociative();
+
+        return array_map(fn ($report) => $this->createReportForListView($report), $reports);
     }
 
+    /**
+     * @return ReportForListView[]
+     */
     public function getReportsByReporteeRegions(int $regionId, ?array $excludeReportsWithUsers, ?array $onlyReportsWithUsers = null)
     {
         $query = $this->reportSelectDbal();
@@ -88,7 +101,9 @@ class ReportGateway extends BaseGateway
         // restrict access only to new reports to avoid social conflicts from old entries
         $query->andWhere('time >= \'2021-01-01\'');
 
-        return $query->fetchAllAssociative();
+        $reports = $query->fetchAllAssociative();
+
+        return array_map(fn ($report) => $this->createReportForListView($report), $reports);
     }
 
     public function getReportAffiliation(int $reportId): array
@@ -104,5 +119,19 @@ class ReportGateway extends BaseGateway
     public function deleteReport(int $reportId): void
     {
         $this->db->delete('fs_report', ['id' => $reportId]);
+    }
+
+    private function createReportForListView(array $report): ReportForListView
+    {
+        $reportForListView = new ReportForListView();
+        $reportForListView->id = $report['id'];
+        $reportForListView->message = $report['msg'];
+        $reportForListView->reason = $report['tvalue'];
+        $reportForListView->reportedAt = Carbon::parse($report['time']);
+        $reportForListView->store = $report['betrieb_id'] ? MinimalStoreIdentifier::createFromArray($report, 'betrieb_') : null;
+        $reportForListView->reporter = new ProfileWithMail($report, 'rp_');
+        $reportForListView->reported = new ProfileWithMail($report, 'fs_');
+
+        return $reportForListView;
     }
 }
