@@ -12,8 +12,8 @@
     "typeRoots": ["./node_modules/@types"],
     "outDir": "dist"
   },
-  "files": [
-    "src/index.ts",
+   "include": [
+    "src/**/*.ts",
     "test.ts"
   ]
 }

@@ -87,7 +87,7 @@ services:
     image: registry.gitlab.com/foodsharing-dev/images/node:latest
     working_dir: /app/websocket
     restart: on-failure:5
-    command: sh -c "yarn && yarn nodemon src/index.ts"
+    command: sh -c "yarn && yarn dev"
     depends_on:
       - redis
     environment:

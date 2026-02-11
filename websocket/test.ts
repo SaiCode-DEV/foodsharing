@@ -17,7 +17,12 @@ const redisClient = new Tedis({
 });
 
 // Start the server in a child process ...
-const server = spawn('ts-node', ['src/index.ts'], { stdio: 'inherit' });
+const server = spawn(
+  process.execPath,
+  ['node_modules/.bin/tsx', 'src/index.ts'],
+  { stdio: 'inherit' }
+);
+
 
 // ... kill it after the tests are done
 test.onFinish(() => {
