@@ -361,6 +361,13 @@ export default {
           }
         })
 
+        this.getMessageTextComponent().addEventListener('keydown', (event) => {
+          if (event.key === 'Escape') {
+            // Hide the event from VAC, which wants to delete the current text.
+            event.stopImmediatePropagation()
+          }
+        }, true)
+
         if (this.popupMode) {
           this.getMessageTextComponent().focus()
         }
