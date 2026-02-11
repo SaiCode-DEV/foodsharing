@@ -758,7 +758,7 @@ profile:
     fetch_count: picked up
     bananas: Bananas
     weight_unit: kg
-    give_count: ''
+    give_count: 'Delivered'
     slots: 'Slots'
     engagement_count: 'Committed'
   infos:
@@ -1113,7 +1113,7 @@ events:
     select the option *“Other ”*.\n"
   public_info: This event is public and open to everyone. Comments and the 
     participant list are visible only to registered users.
-  declinedCount: ''
+  declinedCount: '{count} people canceled'
 forum:
   threads: Threads
   quickreply:
@@ -1223,9 +1223,9 @@ calendar:
       freeSlots: '{count} slots are still free'
       foodsavers: 'Registered Foodsavers: '
       name:
-        giving: ''
-        orga: ''
-        pickup: ''
+        giving: '{store} Delivery'
+        orga: '{store} Slot'
+        pickup: '{store} pick-up'
     event:
       statusUnspecified: You have not stated whether you would like to 
         participate in this event. You can do so on the linked page.
@@ -1534,7 +1534,7 @@ terminology:
   users: Users
   resourcesAdmins: Resource Mosaic Team
   giving: Donation
-  attention: ''
+  attention: 'Attention'
 login:
   pwreset:
     bread: Reset password
@@ -2335,10 +2335,10 @@ map:
         label: Belonging
       type:
         label: 'Type'
-        2: ''
+        2: 'Orga store'
         "null": 'All'
-        1: ''
-        0: ''
+        1: 'Delivery store'
+        0: 'pickup store'
     users:
       role:
         label: Role
@@ -2367,7 +2367,7 @@ map:
   users:
     go: See profile
   region:
-    go: ''
+    go: 'To the region page'
 content:
   content: Content
   name: Unique name
@@ -2444,12 +2444,22 @@ foodsaver:
   edit_failure: Nothing was changed or changes were not saved
   delete_account_sure_reason: "Do you really want to delete the account? Reason: {reason}"
   delete_account_reason: Reason for account deletion
-  delete_account_password_verify: ''
-  delete_account_totp_hint: ''
-  delete_own_account_failed_totp_hint: ''
-  delete_description_other: ''
-  delete_own_account_failed: ''
-  delete_description_own: ''
+  delete_account_password_verify: 'Please enter your current password here to confirm
+    your deletion request.'
+  delete_account_totp_hint: 'Please note that you can only delete your account if
+    two-factor authentication is disabled. This can be done in your account settings
+    under “Account Security” and serves to protect against unauthorized deletion if
+    your password is known (or stored).'
+  delete_own_account_failed_totp_hint: 'Your user account could not be deleted.'
+  delete_description_other: 'Deleting user accounts is irreversible. It is not possible
+    to restore the account afterwards. If the person wants to rejoin foodsharing later,
+    they must create a new account and reapply for stores, working groups, etc.'
+  delete_own_account_failed: 'Your user account could not be deleted. The password
+    you entered was incorrect. Please try again if necessary.'
+  delete_description_own: 'Deleting your user account is irreversible. It will not
+    be possible to restore your account afterwards. If you want to rejoin foodsharing
+    later, you will have to create a new account and reapply for stores, working groups,
+    etc.'
 store:
   addNewStoresButton: Add new store
   allStoresOfRegion: All stores in the region
@@ -3453,7 +3463,7 @@ dashboard:
     for_news_from_it: If there are any questions or challenges, first look at
     for_support: Otherwise you can contact us at
     for_release_notes: You can find the most important changes at
-  general-dates: ''
+  general-dates: 'Next booked slots'
 right: Score
 ansprechpartner: Store contact person (store manager, etc.)
 stats:
@@ -4024,12 +4034,13 @@ chain:
         label: Notes
         invalidfeedback: Notes must not be longer than 200 chars.
         description: Notes that are displayed in the chain list.
-        default: ''
+        default: 'Negotiations ongoing'
       details:
         label: Store info
         description: Information text that gets displayed on the store pages of 
           stores belonging to this chain.
-        default: ''
+        default: 'The store must not be acquired, because there is no "go" for the
+          regarding store chain available.'
     cancel: Cancel
     ok: Save
   detailsmodal:
@@ -4563,7 +4574,7 @@ help:
     store_chain_info:
       md: |
         This store is part of a [store chain](https://wiki.foodsharing.de/Betrieb#Betriebskette). Each chain has responsible [KAMs](https://wiki.foodsharing.de/Key_Account_Manager_(KAM)) who are allowed to see the team and the pick-up slots of this store.
-      title: ''
+      title: 'chain store'
   tooltip: Show help
   helpTitle: 'Help: {title}'
 team_page:
@@ -4820,9 +4831,9 @@ categories:
       resources will lose this category.
   new: Add new category
   types:
-    0: ''
+    0: 'pick-up'
     2: 'Organisation'
-    1: ''
+    1: 'Delivery'
     "null": 'Not categorised'
 resource_mosaic:
   title: Resource Mosaic

@@ -1106,7 +1106,7 @@ login:
   passkey_btn: Iniciar sessão com Passkey
   passkey_cancelled: O login com a chave de acesso foi cancelado.
   passkey_not_found: Não há chave de acesso disponível para essa conta neste 
-    aparelho.
+    dispositivo.
 profile:
   alldatesdeleted: 'Todos os eventos foram excluido'
   infos:
@@ -2684,12 +2684,12 @@ settings:
       1_day: 1 dia antes
   email: 'E-mail & palavra-passe'
   push:
-    info-off: 'As notificações push do foodsharing estão ativadas neste aparelho.
+    info-off: 'As notificações push do foodsharing estão ativadas neste dispositivo.
 
       Caso desative as notificações push, as mensagens de chat deixarão de ser enviadas
-      diretamente para o teu aparelho.
+      diretamente para o teu dispositivo.
 
-      O teu aparelho deixará de mostrar notificações quando não estiver ligado,
+      O teu dispositivo deixará de mostrar notificações quando não estiver ligado,
 
       nem reagirá com um som ou vibração.
 
@@ -2708,13 +2708,13 @@ settings:
     title: 'Notificações push'
     not-supported: 'Infelizmente, o teu navegador não suporte notificações push.'
     disable: 'Desativar notificações push'
-    info-on: 'Quando ativares as notificações push para este aparelho,
+    info-on: 'Quando ativares as notificações push para este dispositivo,
 
-      as mensagens de chat serão enviadas diretamente para o teu telemóvel,
+      as mensagens de chat serão enviadas diretamente para o teu dispositivo,
 
       mesmo que não estejas logado.
 
-      O teu aparelho exibirá uma notificação correspondente
+      O teu dispositivo exibirá uma notificação correspondente
 
       ou reagirá com um som ou vibração.
 
@@ -2834,7 +2834,7 @@ settings:
     passkeys_section: Chave de segurança
     security_keys: Chaves de segurança (Passkeys)
     security_keys_description: As chaves de segurança permitem um login seguro e
-      sem palavra-passe no teu aparelho.
+      sem palavra-passe no teu dispositivo.
     passkeys_info: As chaves de segurança permitem um login seguro e sem 
       palavra-passe.
     passkeys_not_supported: O teu navegador não suporta chaves de segurança 
@@ -2855,7 +2855,7 @@ settings:
       foodsharing.network, etc.
     register_modal:
       title: Registar nova chave de segurança
-      device_name_label: Nome do aparelho
+      device_name_label: Nome do dispositivo
       device_name_placeholder: por exemplo Phone, YubiKey, Laptop
       device_name_description: Insira um nome para identificar esta chave de 
         segurança
@@ -2864,13 +2864,13 @@ settings:
     delete_modal:
       title: Excluir chave de segurança
       confirmation: Tem a certeza de que deseja excluir esta chave de segurança?
-      device_name: Aparelho
+      device_name: Dispositivo
       cancel: Cancelar
       delete: Excluir
     rename_modal:
       title: Renomear chave de segurança
       new_name_label: Novo nome
-      new_name_placeholder: Novo nome de aparelho
+      new_name_placeholder: Novo nome do dispositivo
       cancel: Cancelar
       save: Salvar
     passkey_registered: Chave de segurança registada com sucesso
@@ -2916,7 +2916,7 @@ settings:
     apps:
       title: Apps de autenticação recomendadas
       description: 'Escolha uma das seguintes aplicações de autenticação gratuitas
-        e de código aberto para o teu aparelho:'
+        e de código aberto para o teu dispositivo:'
       info: Também é possível utilizar aqui uma aplicação de autenticação já 
         utilizada para outros serviços. Se ainda não tiver uma, instale primeiro
         uma aplicação antes de continuar.
@@ -4852,7 +4852,7 @@ help:
   tooltip: 'Mostrar a ajuda'
 test:
   vars: O meu nome é [NAME] e tenho [AGE] anos
-  plain: ''
+  plain: 'Esta é uma tradução'
 totp_code: Introduza o código de dois fatores gerado ou um dos códigos de 
   backup.
 sort:
@@ -5096,71 +5096,75 @@ achievements:
   awarded: 'Conceder'
 oauth:
   error:
-    invalid_client: ''
-    unknown_error: ''
-    invalid_scope: ''
-    region_requirement_not_met: ''
+    invalid_client: 'Falha na verificação do cliente.'
+    unknown_error: 'Ocorreu um erro desconhecido. Por favor, tenta novamente mais
+      tarde.'
+    invalid_scope: 'As autorizações solicitadas são inválidas.'
+    region_requirement_not_met: 'Não cumpres os requisitos para aceder a {clientName}.'
   remember:
-    title: ''
-    md: ''
+    title: 'Lembrar este acesso'
+    md: 'No futuro, não confirmar mais o acesso para {clientName} todas as vezes.'
   action:
-    deny: ''
-    authorize: ''
+    deny: 'Recusar acesso'
+    authorize: 'Permitir acesso'
   admin:
-    public: ''
-    active: ''
-    type: ''
-    update_success: ''
-    regions: ''
-    delete_error: ''
-    redirect_uris_help: ''
-    confirm_delete: ''
-    confidential_client: ''
-    regenerate_secret: ''
-    create_success: ''
-    region_restriction_tooltip: ''
-    redirect_uris: ''
-    grant_types: ''
-    required_regions_help: ''
-    required_regions: ''
-    name: ''
-    confidential: ''
-    delete_warning: ''
-    title: ''
-    restrictions: ''
-    secret_save_warning: ''
+    public: 'Público'
+    active: 'Ativo'
+    type: 'Tipo'
+    update_success: 'Client atualizado com sucesso'
+    regions: 'Distritos'
+    delete_error: 'Erro ao excluir'
+    redirect_uris_help: 'URLs de callback válidas após a autorização (uma por linha)'
+    confirm_delete: 'Excluir cliente?'
+    confidential_client: 'Cliente confidencial (ex.: aplicação de servidor)'
+    regenerate_secret: 'Gerar novo client secret'
+    create_success: 'Client criado com sucesso'
+    region_restriction_tooltip: 'Só os membros de certos distritos podem se autorizar'
+    redirect_uris: 'Redirect-URIs'
+    grant_types: 'Grant Types'
+    required_regions_help: 'Opcional: restringir o acesso a utilizadores que sejam
+      membros de pelo menos um destes distritos'
+    required_regions: 'Distritos necessários'
+    name: 'Nome'
+    confidential: 'Confidencial'
+    delete_warning: 'Quer mesmo excluir o cliente ‘{name}’? Não dá para recuperar
+      essa ação.'
+    title: 'Gestão de clientes OAuth'
+    restrictions: 'Restrições'
+    secret_save_warning: 'Por favor, salva este secret agora. Ele não vai ser mostrado
+      de novo!'
     confidential_help: 'Os clientes confidenciais podem salvar um segredo com segurança.
       Os clientes públicos (por exemplo, navegadores ou aplicativos móveis) não podem
       fazer isso.'
-    regenerate_secret_warning: ''
-    edit_client: ''
-    scopes: ''
-    delete_success: ''
-    no_region_restriction: ''
-    create_client: ''
-    load_error: ''
+    regenerate_secret_warning: 'O secret antigo ficará inválido!'
+    edit_client: 'Editar cliente'
+    scopes: 'Áreas'
+    delete_success: 'Client excluido com successo'
+    no_region_restriction: 'Sem restrições'
+    create_client: 'Criar novo cliente'
+    load_error: 'Erro ao carregar os clientes'
     save_error: 'Erro ao salvar'
-    secret_generated: ''
-    actions: ''
-    confirm_save_secret: ''
-    identifier: ''
-    no_restrictions: ''
+    secret_generated: 'Client secret gerado'
+    actions: 'Ações'
+    confirm_save_secret: 'Guardei o secret'
+    identifier: 'ID de cliente'
+    no_restrictions: 'Nenhuma'
   authorize:
-    title: ''
-    requested_permissions: ''
-    redirect_notice: ''
+    title: '{clientName} quer aceder à tua conta'
+    requested_permissions: 'Permissões solicitadas:'
+    redirect_notice: 'Após a autorização, serás redirecionado para {redirectUrl}.'
   scopes:
     openid:
-      title: ''
+      title: 'Confirmar a tua identidade'
     regions:
-      title: ''
-      md: ''
+      title: 'Acessar as suas afiliações'
+      md: 'Acesse uma lista dos distritos e grupos de trabalho dos quais faz parte.'
     email:
-      title: ''
+      title: 'Acessar o teu endereço de e-mail'
     profile:
-      title: ''
-      md: ''
-  title: ''
+      title: 'Acessar os dados do teu perfil'
+      md: 'Acesso ao teu nome, foto de perfil e outros dados do perfil.'
+  title: 'Autorização via OAuth'
 contact_page:
   title: 'Contacto e suporte'
   regions:
@@ -5213,8 +5217,8 @@ theme_switcher:
   title: 'Escolher design'
 network_errors:
   csrf_token_invalid:
-    title: ''
-    text: ''
+    title: 'Sessão expirada'
+    text: 'A tua sessão expirou. Por favor, recarrega a página e tenta novamente.'
 team_page:
   alumni_member:
     title: 'Antigos pessoas'
@@ -5246,5 +5250,6 @@ donation_banner:
   amount: 'Total de doações'
   info_button: 'Pra onde vai a minha doação?'
 debug:
-  title: ''
-  info: ''
+  title: 'Página de Debug'
+  info: 'Esta é uma página de depuração para fins de teste. Se não sabes o que faz
+    um botão, simplesmente não cliques 😉'

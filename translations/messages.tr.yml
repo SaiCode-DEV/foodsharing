@@ -126,7 +126,8 @@ begin: İşbirliğinin başlangıcı
 besonderheiten: Prosedür ve Notlar
 fax: Faks
 lebensmittel: Hangi yiyecekler alınabilir?
-abholmenge: Kurtarma başına yaklaşık kaç kilogram alınabilir?
+abholmenge: Her bir kişi için, teslim alma veya bırakma işleminde yaklaşık 
+  olarak kaç kilogram yük bekleniyor?
 ueberzeugungsarbeit: Yetkiliyi foodsharing ile işbirliği yapmaya ikna etmek 
   kolay mıydı?
 presse: Şirket/Mağaza/Dernek basında ve foodsharing ismini vermeye hazır mı?
@@ -443,7 +444,8 @@ group:
     open: Herkes başvuru yapmadan katılabilir.
     member_since_weeks: Bir başvuranın orada kaç hafta olması gerekirdi?
     requires_properties: Belirli güven puanlarını yerine getiren herkes.
-    fetch_count: Başvuru sahibi kaç tane kurtarma yapmış olmalıdır?
+    fetch_count: Bir kişi daha önce kaç adet teslim alma/teslim 
+      etme/organizasyon işlemini tamamlamış olmalıdır?
     banana_count_errors:
       max: 'Lütfen {{ limit }} güven fidanından fazlasını beklemeyin.'
       min: 'Hiç kimse {{ limit }} güven fidanından daha azına sahip olamaz.'
@@ -1084,7 +1086,12 @@ storeedit:
       kapsamlı haklarınız var.\n"
     orga: "Bu işletmeden siz sorumlu değilsiniz.\nAncak, küresel organizasyon ekibinin
       bir parçası olarak geniş kapsamlı haklara sahipsiniz.\n"
-    kam: ''
+    kam: 'Bu işlemden siz sorumlu değilsiniz.
+
+      Ancak, ilgili zincirde bir KAM (Anahtar Müşteri Yöneticisi) olarak sınırlı erişiminiz
+      bulunmaktadır.
+
+      '
   actions: Opsiyonlar
   bread: İşletmeyi düzenle
   not-in-region: Sadece üye olduğunuz bölgelerde işletme açabilirsiniz.
@@ -1097,10 +1104,11 @@ storeedit:
     hygieneRequirement: Hijyen gereksinimleri
     hygieneRequired: Gıda alım işlemine yalnızca geçerli hijyen eğitimi ile izin
       verin
-    phoneRequirement: ''
-    applicationRequirements: ''
-    applyTextRequired: ''
-    verifiedRequired: ''
+    phoneRequirement: 'Yalnızca kayıtlı telefon numarası olan foodsaverların hesaplarına
+      izin verin'
+    applicationRequirements: 'Başvuru şartları'
+    applyTextRequired: 'Başvurular için metin girişi gereklidir'
+    verifiedRequired: 'Yalnızca onaylı foodsaverlara izin verin'
   add_success: İşbirliği yapan işletme kaydedildi
   unsuccess: Değişiklikler kaydedilemedi. {error}
   store:
@@ -1286,19 +1294,20 @@ store:
         numarası ekleyin.
       link: ''
     alerts:
-      many_more: ''
-      many_less: ''
-      one_more: ''
-      one_less: ''
+      many_more: '{count} tane daha ipucu göster'
+      many_less: '{count} ipucunu gizle'
+      one_more: 'Başka bir ipucu göster'
+      one_less: 'Bir ipucunu sakla'
     applicationSummary:
-      distance: ''
-      storeList: ''
-      verified: ''
-      text: ''
-      intro: ''
-      fullName: ''
-      time: ''
-    applicationMessageTooShort: ''
+      distance: 'İkametgahınızdan işletmeye olan mesafe ({distance})'
+      storeList: 'İşletmelerinizin listesi'
+      verified: 'Onaylanma durumunuz ({status})'
+      text: 'Başvuru mesajın'
+      intro: 'Başvurunuzu gönderdiğinizde, işletme yöneticileri aşağıdaki bilgileri
+        görecektir:'
+      fullName: 'Tam adınız ({first_name} {last_name})'
+      time: 'Başvurunun zamanlaması'
+    applicationMessageTooShort: 'Başvuru mesajınız çok kısa.'
   filter: …göre filtrele…
   important: 'Önemli:'
   prefetchtwo: 2 Hafta
@@ -1498,8 +1507,13 @@ store:
     yaptıramayacaksınız.
   my_last_slot: ''
   delete:
-    button: ''
-    sure: ''
+    button: 'İşletmeyi sil'
+    sure: 'Bu işletmeyi silmek istediğinizden emin misiniz? Bu işlem geri alınamaz!
+      Tüm üyeler işletmeden kaldırılacak ve işletme günlüğü hariç tüm işletmeye özgü
+      bilgiler silinecektir. Lütfen yalnızca artık mevcut olmayan veya iki kez girilmiş
+      işletmeleri silin. İş birliğini reddeden işletmeler listede kalmalıdır. Yalnızca
+      hiç boş yeri olmayan ve ekip sohbetleri en az üç aydır etkin olmayan işletmeler
+      silinebilir.'
   part_of_chain: ''
   chain_has_kams: ''
 polls:
@@ -2505,8 +2519,8 @@ settings:
   photo:
     title: Senin Fotoğrafın
     info: "Profil fotoğrafında yüzünüz <a href=\"{link_photo}\">tanımlanabilir</a>
-      olmalıdır,\nFoodsharing <a href=\"{link_id}\">ID</a> için kullanıldığından,\n\
-      \ daha sonra <a href=\"{link_fs}\">Foodsaver</a> olunca işletmelerden gıda alımı
+      olmalıdır,\nfoodsharing <a href=\"{link_id}\">ID</a> için kullanıldığından,\n\
+      \ daha sonra <a href=\"{link_fs}\">foodsaver</a> olunca işletmelerden gıda alımı
       yapıcaksınız.\n"
   general:
     phone: Sabit hat numaranız
@@ -3241,8 +3255,8 @@ login:
     submit: Gönder
     success: Bu e-posta adresi mevcutsa ve henüz doğrulanmamışsa, yeni bir 
       e-posta gönderilecektir.
-  passkey_cancelled: ''
-  passkey_not_found: ''
+  passkey_cancelled: 'Parola kullanarak giriş yapma işlemi iptal edildi.'
+  passkey_not_found: 'Bu cihazda bu hesap için parola mevcut değil.'
 terminology:
   foodsaver:
     d: Foodsaver
@@ -3336,8 +3350,8 @@ terminology:
   received: Kalmış
   users: Kullanıcılar
   resourcesAdmins: Kaynak Mozaik Ekibi
-  giving: ''
-  attention: ''
+  giving: 'Gönderim'
+  attention: 'Dikkat'
 legal:
   if_delete:
     this_doesnt_get_deleted: 'Aşağıdaki bilgiler artık aktif sistemde mevcut değildir,
@@ -3578,7 +3592,7 @@ formatting:
 time: Saat
 kette_id: İşletme Zinciri
 betrieb_status_id: Statü
-public_time: Ortalama alım saati
+public_time: Alım saati çin yaklaşık zaman dilimi
 sticker: İşletme/Mağaza/Dernek vs. girişe veya görülebilecek başka bir yere 
   çıkartma yapıştırmak istiyor mu?
 prefetchtime: Foodsaverlar, otomatik slotu kullanarak kaç hafta önceden kayıt 
@@ -3730,11 +3744,11 @@ pickup:
     olarak kaydolun.
   may_enter: Bu alım tarihinde boş bir Slot mevcut.
   confirmed: Alım tarihi onaylandı.
-  slots: ''
-  chat: ''
+  slots: 'Slotlar'
+  chat: 'Slot Sohbetini Başlat'
   passport_expired:
-    short: ''
-    long: ''
+    short: 'Kimlik kartının süresi dolmuş'
+    long: 'Kimliğiniz şu anda geçerli değil'
 calendar:
   export:
     pickup:
@@ -3745,7 +3759,7 @@ calendar:
       name:
         giving: ''
         orga: ''
-        pickup: ''
+        pickup: '{store} Gıda Alımı'
     event:
       linkTitle: Foodsharing etkinliği
       statusUnspecified: Bu randevuya katılıp katılmayacağınızı henüz 
@@ -3787,7 +3801,7 @@ genderlist:
 filterlist:
   some_in_all: ({all}'dan {some})
   filter_for_name_id: İsim veya İD
-use_region_pickup_rule: 'Bu işletmede ki kurtarma işleminde bölge adalet kuralı geçerli
+use_region_pickup_rule: 'Bu işletmede, kurtarma işleminde bölge adalet kuralı geçerli
   olmalı mı?'
 navigation:
   styleguide: 'Stil rehberi'

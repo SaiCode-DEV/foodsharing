@@ -724,7 +724,7 @@ group:
       zdobyłeś/aś? \nJeśli tak, gdzie lub jakie?\n"
     how_much_time: Ile godzin tygodniowo masz czas i chęć poświęcić się temu?
     summary: '{name} chce dołączyć do zespołu {group}.'
-    deny: ''
+    deny: 'Odrzuć'
   actions:
     edit: Edytuj grupę
     join: Dołącz do tej grupy
@@ -1145,22 +1145,24 @@ resource_mosaic:
     openness: ''
     description_warning:
       none: ''
-      short: ''
-      title: ''
+      short: 'Opis tego zasobu jest dosyć krótki. Jesteś pewny/a, że inni/e użytkownicy/czki
+        będą mogli/ły zrozumieć, o co chodzi w tym zasobie, aby konkretnie cię o to
+        zapytać?'
+      title: 'Sprawdź opis'
     name:
       placeholder: ''
       label: ''
       max_length: ''
     categories:
-      placeholder: ''
-      label: ''
+      placeholder: 'Wybierz kategorię ...'
+      label: 'Kategorie'
     is_restricted_to_region: ''
     is_private: ''
     description:
       placeholder: ''
       placeholder_commons: ''
-      label: ''
-  favorite: ''
+      label: 'Opis'
+  favorite: 'Ulubione'
   resource_not_found_warning: ''
   message_modal:
     intro: ''
@@ -1172,32 +1174,33 @@ resource_mosaic:
   search_placeholder: ''
   no_commons_resources: ''
   openness:
-    level_3: ''
+    level_3: 'Dla dobrych celów'
     level_4: ''
     title: ''
     level_5: ''
-    level_1: ''
+    level_1: 'Tylko jeśli ważne'
     level_2: ''
   is_commons: ''
   order:
-    sort_age: ''
+    sort_age: 'Kolejność: od najnowszych'
     sort_openness: ''
-    shuffle: ''
+    shuffle: 'Kolejność: losowo'
   my_resources_in: ''
   list_status:
-    none_in_region: ''
+    none_in_region: 'Jeszcze nie wprowadzono żadnych zasobów. Wprowadź swoje własne
+      zasoby lub zaproś do tego innych!'
     filter: ''
     none_in_filter: ''
-    total: ''
+    total: 'W {region} jest wprowadzonych łącznie {count} zasobów:'
   add_commons: ''
-  confirm_delete: ''
+  confirm_delete: 'Czy na pewno chcesz usunąć ten zasób?'
   has_resources_elsewhere: ''
   request_header: ''
   favorite_tooltip: ''
   max_resources: ''
   no_own_resources: ''
-  message: ''
-  is_private_hint: ''
+  message: 'Napisz wiadomość'
+  is_private_hint: 'Ten zasób jest widoczny tylko dla znajomych.'
 required_messages:
   kick_from_store_team:
     footer: Pozdrawiam
@@ -1548,7 +1551,7 @@ store:
       2: ''
       18: ''
       7: 'usunięcie foodsaverów/ek z teamu'
-      14: ''
+      14: 'Potwierdzenie slotu'
       1: ''
       16: ''
       4: ''
@@ -1559,7 +1562,7 @@ store:
       5: ''
       13: ''
       11: ''
-      15: ''
+      15: 'Usunięcie wpisu na tablicy'
     log_types_placeholder: 'Wybierz typy akcji do wyświetlenia'
     message_saved_info: ''
     selected_log_types: 'wybrano {amount} typów akcji'
@@ -1590,7 +1593,7 @@ store:
     none: 'Żaden problem, od razu byli zachwyceni!'
     final: ''
   mayAmb: ''
-  my_last_slot: ''
+  my_last_slot: 'Mój ostatni slot'
   isAppliedForTeam: ''
   locked: ''
   lastPickup: ''
@@ -1643,10 +1646,10 @@ store:
   all_of_my_stores: ''
   delete_date: 'Usuń pojedynczy slot'
   slotsCurrentlyOccupied: ''
-  average_collection_quantity: ''
+  average_collection_quantity: 'Ilość na osobę'
   pickup_slot_unavailable: ''
   smneeded: ''
-  part_of_chain: ''
+  part_of_chain: 'Należy do sieci:'
   chain_has_kams: ''
 navi:
   google_maps: Google maps
@@ -1810,28 +1813,28 @@ pickup:
   signout_sure: Czy na pewno chcesz opuścić ten team?
   kick_message_placeholder: Opcjonalnie dodaj informacje tutaj …
   description_modal_text: 'Podaj nowy opis:'
-  no_slots_available: ''
+  no_slots_available: 'Brak dostępnych slotów'
   history:
-    search: ''
-    title: ''
+    search: 'Pokaż sloty'
+    title: 'Historia slotów'
   really_delete_date: 'Czy na pewno chcesz usunąć slot {date}?'
-  edit_recurring_pickups: ''
+  edit_recurring_pickups: 'Edytuj serię slotów'
   kick: ''
   kick_message_footer: ''
   really_kick_user_info: ''
   leave: ''
   kick_message: ''
   really_leave_date_title: ''
-  slot_add: ''
+  slot_add: 'Dodaj slot'
   slots: 'Sloty'
   delete_not_empty: ''
   same_day_hint: ''
   team_message_send_and_leave: ''
-  slot_remove: ''
+  slot_remove: 'Usuń slot'
   chat: ''
   really_join_date: ''
   may_enter: ''
-  confirmed: ''
+  confirmed: 'Slot jest potwierdzony.'
   region_pickup_rule_failed: ''
   confirm: 'Potwierdź'
   call: 'Zadzwoń'
@@ -3548,8 +3551,8 @@ oauth:
     title: ''
     md: ''
   action:
-    deny: ''
-    authorize: ''
+    deny: 'Zabroń dostępu'
+    authorize: 'Udziel dostępu'
   admin:
     public: 'publiczny'
     active: ''
