@@ -24,7 +24,7 @@ class BellGatewayTest extends Unit
         $this->faker = Factory::create('de_DE');
     }
 
-    public function testAddBell(): void
+    public function addBellForUsers(): void
     {
         $user1 = $this->tester->createFoodsaver();
         $user2 = $this->tester->createFoodsaver();
@@ -37,14 +37,7 @@ class BellGatewayTest extends Unit
             '',
             true,
         );
-        /* addBell accepts different inputs: $id, [$id, $id], [['id' => $id]] */
-        $this->gateway->addBell([$user1, $user2], $bellData);
-        $bellId = $this->tester->grabFromDatabase('fs_bell', 'id', ['name' => $bellData->title, 'body' => $bellData->body]);
-        $this->tester->seeInDatabase('fs_foodsaver_has_bell', ['foodsaver_id' => $user1['id'], 'bell_id' => $bellId, 'seen' => 0]);
-        $this->tester->seeInDatabase('fs_foodsaver_has_bell', ['foodsaver_id' => $user2['id'], 'bell_id' => $bellId, 'seen' => 0]);
-
-        $bellData->title = 'second bell title';
-        $this->gateway->addBell([$user1, $user2], $bellData);
+        $this->gateway->addBellForUsers([$user1['id'], $user2['id']], $bellData);
         $bellId = $this->tester->grabFromDatabase('fs_bell', 'id', ['name' => $bellData->title, 'body' => $bellData->body]);
         $this->tester->seeInDatabase('fs_foodsaver_has_bell', ['foodsaver_id' => $user1['id'], 'bell_id' => $bellId, 'seen' => 0]);
         $this->tester->seeInDatabase('fs_foodsaver_has_bell', ['foodsaver_id' => $user2['id'], 'bell_id' => $bellId, 'seen' => 0]);
@@ -182,7 +175,7 @@ class BellGatewayTest extends Unit
             $closable = false,
         );
 
-        $this->gateway->addBell([$user1, $user2], $bellData);
+        $this->gateway->addBellForUsers([$user1['id'], $user2['id']], $bellData);
         $bellId = $this->tester->grabFromDatabase('fs_bell', 'id', ['name' => $bellData->title, 'body' => $bellData->body]);
 
         $updatedData = [
@@ -215,7 +208,7 @@ class BellGatewayTest extends Unit
             $closable = false,
         );
 
-        $this->gateway->addBell([$user1, $user2], $bellData);
+        $this->gateway->addBellForUsers([$user1['id'], $user2['id']], $bellData);
         $bellId = $this->tester->grabFromDatabase('fs_bell', 'id', ['name' => $bellData->title, 'body' => $bellData->body]);
 
         $this->gateway->setReadStatus([$bellId], $user1['id'], 1);

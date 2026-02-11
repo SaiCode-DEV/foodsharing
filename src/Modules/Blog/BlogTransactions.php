@@ -56,7 +56,7 @@ class BlogTransactions
             'teaser' => $this->sanitizer->tt($post->teaser, 100),
             'title' => $post->title
         ], BellType::createIdentifier(BellType::NEW_BLOG_POST, $postId));
-        $this->bellGateway->addBell($foodsaver, $bellData);
+        $this->bellGateway->addBellForUsers(array_keys($foodsaver), $bellData);
 
         return $postId;
     }

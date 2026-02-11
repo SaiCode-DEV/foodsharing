@@ -83,18 +83,6 @@ class BellGateway extends BaseGateway
     }
 
     /**
-     * @deprecated please use typed method `addBellForUsers()` instead
-     */
-    public function addBell($foodsavers, Bell $bellData): void
-    {
-        if (!is_array($foodsavers)) {
-            $foodsavers = [$foodsavers];
-        }
-        $userIds = array_map(fn ($fs) => is_array($fs) ? $fs['id'] : $fs, $foodsavers);
-        $this->addBellForUsers($userIds, $bellData);
-    }
-
-    /**
      * @param array $data - the data to be updated. $data['var'] and data['attr'] must not be serialized.
      */
     public function updateBell(int $bellId, array $data, bool $setUnseen = false, bool $updateClients = true): void
@@ -318,11 +306,13 @@ class BellGateway extends BaseGateway
                 }
             }
 
+            $bellAttributes = unserialize($row['attr'], ['allowed_classes' => false]) ?: [];
+
             $bellDTO->id = $row['id'];
             $bellDTO->key = $row['body'];
             $bellDTO->title = $row['name'];
             $bellDTO->payload = unserialize($row['vars'], ['allowed_classes' => false]) ?: [];
-            $bellDTO->href = unserialize($row['attr'], ['allowed_classes' => false])['href'];
+            $bellDTO->href = $bellAttributes['href'] ?? null;
             $bellDTO->icon = $this->isIconCssIdentifier($row['icon']) ? $row['icon'] : null;
             $bellDTO->image = $this->isImagePath($row['icon']) ? $row['icon'] : null;
             $bellDTO->createdAt = new Carbon($row['time']);

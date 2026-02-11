@@ -35,7 +35,7 @@ class BellTransactions
                 $href = unserialize($group['attr'])['href'];
             }
             $bell = $this->createGroupedBell($baseBell, $entityId, $count, $href, $pluralIcon);
-            $this->bellGateway->addBell($group['foodsaverIds'], $bell);
+            $this->bellGateway->addBellForUsers($group['foodsaverIds'], $bell);
         }
     }
 
@@ -59,7 +59,7 @@ class BellTransactions
                     $count = ($vars['count'] ?? 1) - 1;
                     if ($count > 0) {
                         $bell = $this->createGroupedBell($baseBell, $bellEntityId, $count, null, $pluralIcon);
-                        $this->bellGateway->addBell($group['foodsaverIds'], $bell);
+                        $this->bellGateway->addBellForUsers($group['foodsaverIds'], $bell);
                     }
                 }
             }

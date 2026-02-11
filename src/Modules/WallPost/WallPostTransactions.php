@@ -157,7 +157,7 @@ class WallPostTransactions
                     'store_wall_post_title',
                     'store_wall_post',
                     'fas fa-thumbtack',
-                    ['href' => '/?page=fsbetrieb&id=' . $targetId],
+                    ['href' => '/store/' . $targetId],
                     ['name' => $this->storeGateway->getStoreName($targetId)],
                     BellType::createIdentifier(BellType::STORE_WALL_POST, $targetId)
                 );

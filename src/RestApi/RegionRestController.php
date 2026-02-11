@@ -121,7 +121,7 @@ class RegionRestController extends AbstractFoodsharingRestController
             BellType::createIdentifier(BellType::NEW_FOODSAVER_IN_REGION, $sessionId),
             true
         );
-        $this->bellGateway->addBell($welcomeBellRecipients, $bellData);
+        $this->bellGateway->addBellForUsers(array_column($welcomeBellRecipients, 'id'), $bellData);
 
         return $this->handleView($this->view([], 200));
     }

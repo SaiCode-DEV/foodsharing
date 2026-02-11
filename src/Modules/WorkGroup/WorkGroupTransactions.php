@@ -96,11 +96,11 @@ class WorkGroupTransactions
     {
         $adminIds = $this->workGroupGateway->getGroupAdminIds($group['id']);
         $bellData = Bell::create('workinggroup_new_request_title', 'workinggroup_new_request', 'fas fa-user-plus', [
-            'href' => '/regions/' . $group['id'] . '/applications/' . $userId
+            'href' => '/region?bid=' . $group['id'] . '&sub=applications&userId=' . $userId
         ], [
             'name' => $group['name']
         ], BellType::createIdentifier(BellType::WORKING_GROUP_NEW_APPLICATION, $group['id'], $userId));
-        $this->bellGateway->addBell($adminIds, $bellData);
+        $this->bellGateway->addBellForUsers($adminIds, $bellData);
     }
 
     public function updateGroup(int $groupId, EditWorkGroupData $groupData): void

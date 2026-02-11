@@ -664,7 +664,7 @@ class SettingsTransactions
             BellType::createIdentifier(BellType::ADDRESS_CHANGE, $userId)
         );
 
-        $this->bellGateway->addBell($ambassadorIds, $bellData);
+        $this->bellGateway->addBellForUsers($ambassadorIds, $bellData);
     }
 
     private function getNextTargetRole(): Role

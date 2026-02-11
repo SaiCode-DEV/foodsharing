@@ -77,7 +77,7 @@ class VerificationRestController extends AbstractFoodsharingRestController
             'foodsaver_verified_title',
             'foodsaver_verified',
             'fas fa-camera',
-            ['href' => null],
+            ['href' => '/user/current/settings?sub=passport'],
             ['user' => $this->session->user('name')],
             BellType::createIdentifier(BellType::FOODSAVER_VERIFIED, $userId)
         );

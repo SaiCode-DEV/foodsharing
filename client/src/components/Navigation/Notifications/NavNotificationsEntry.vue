@@ -3,7 +3,7 @@
     <a
       class="dropdown-header dropdown-item d-flex justify-content-between align-items-center gap"
       :class="classes"
-      :href="isTranslationFailed ? '#' : bell.href"
+      :href="isTranslationFailed || !bell.href ? '#' : bell.href"
       @click="handleClick"
       @auxclick="handleAuxClick"
     >
@@ -129,7 +129,9 @@ export default {
         // eslint-disable-next-line vue/custom-event-name-casing
         this.$root.$emit('bv::show::modal', this.translationFailedModalId)
       } else {
-        location.href = this.bell.href
+        if (this.bell.href) {
+          location.href = this.bell.href
+        }
       }
     },
     handleAuxClick (evt) {

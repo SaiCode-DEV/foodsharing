@@ -200,14 +200,14 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
                 'betrieb_fetch_title',
                 'betrieb_fetch',
                 'fas fa-user-clock',
-                ['href' => '/?page=fsbetrieb&id=' . $storeId],
+                ['href' => '/store/' . $storeId],
                 $messageVars,
                 $messageIdentifier,
                 false,
                 $messageExpiration,
                 $messageTimestamp
             );
-            $this->bellGateway->addBell($this->getResponsibleFoodsaverIds($storeId), $bellData);
+            $this->bellGateway->addBellForUsers($this->getResponsibleFoodsaverIds($storeId), $bellData);
         }
     }
 

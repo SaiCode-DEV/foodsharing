@@ -44,7 +44,7 @@ class BuddyTransactions
     public function sendBuddyRequest(int $userId): void
     {
         $this->buddyGateway->buddyRequest($userId, $this->session->id());
-        $this->bellGateway->addBell($userId, Bell::create(
+        $this->bellGateway->addBellForUsers([$userId], Bell::create(
             'buddy_request_title',
             'buddy_request',
             $this->session->user('photo') ?? '',

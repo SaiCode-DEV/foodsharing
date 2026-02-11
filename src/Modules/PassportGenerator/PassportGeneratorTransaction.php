@@ -355,7 +355,7 @@ class PassportGeneratorTransaction
                 ['user' => $this->session->user('name')],
                 BellType::createIdentifier(BellType::PASS_CREATED_OR_RENEWED, $userId)
             );
-            $this->bellGateway->addBell($userId, $bellData);
+            $this->bellGateway->addBellForUsers([$userId], $bellData);
 
             $passportMailLink = 'https://foodsharing.de' . $passportGenLink;
             $fs = $this->foodsaverGateway->getFoodsaver($userId);

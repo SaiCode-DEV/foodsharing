@@ -19,7 +19,7 @@ class BellForList
     public string $title;
 
     #[OA\Property(example: 'event_post_title', description: 'The destination of the bell when clicked on')]
-    public string $href;
+    public ?string $href;
 
     #[OA\Property(type: 'object', description: 'The variables used in the translations', additionalProperties: new OA\AdditionalProperties())]
     public array $payload;

@@ -328,12 +328,12 @@ class StoreTransactions
         $foodsaver = $this->foodsaverGateway->getFoodsaversByRegion($createStore->regionId);
 
         $bellData = Bell::create('store_new_title', 'store_new', 'fas fa-store-alt', [
-            'href' => '/?page=fsbetrieb&id=' . $storeId
+            'href' => '/store/' . $storeId
         ], [
             'user' => $authorName,
             'name' => $createStore->name
         ], BellType::createIdentifier(BellType::NEW_STORE, $storeId));
-        $this->bellGateway->addBell(
+        $this->bellGateway->addBellForUsers(
             array_map(
                 fn (Profile $f) => $f->id,
                 $foodsaver
@@ -1109,7 +1109,7 @@ class StoreTransactions
             'user' => $this->session->user('name'),
             'name' => $storeName,
         ], $bellId);
-        $this->bellGateway->addBell([$userId], $bellData);
+        $this->bellGateway->addBellForUsers([$userId], $bellData);
     }
 
     public function triggerBellForRegularPickupChanged(int $storeId)
@@ -1118,7 +1118,7 @@ class StoreTransactions
         $teamWithoutPostAuthor = array_diff($teamIds, [$this->session->id()]);
 
         $baseBell = Bell::create('store_cr_times_title', 'store_change_regular_pickup_times', 'fas fa-user-clock', [
-            'href' => '/?page=fsbetrieb&id=' . $storeId,
+            'href' => '/store/' . $storeId,
         ], [
             'user' => $this->session->user('name'),
             'name' => $this->storeGateway->getStoreName($storeId),
@@ -1188,7 +1188,7 @@ class StoreTransactions
             ['name' => $storeName],
             BellType::createIdentifier(BellType::DELETE_STORE, $storeId),
         );
-        $this->bellGateway->addBell($teamIds, $bellData);
+        $this->bellGateway->addBellForUsers($teamIds, $bellData);
 
         // Delete the store before the chats due to foreign keys
         $this->storeGateway->deleteStore($storeId);

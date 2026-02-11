@@ -412,7 +412,7 @@ class FoodSharePointGateway extends BaseGateway
             BellType::createIdentifier(BellType::NEW_FOOD_SHARE_POINT, $foodSharePointId),
             false
         );
-        $this->bellGateway->addBell($fspBellRecipients, $bellData);
+        $this->bellGateway->addBellForUsers($fspBellRecipients, $bellData);
     }
 
     private function removeBellNotificationForNewFoodSharePoint(int $foodSharePointId): void

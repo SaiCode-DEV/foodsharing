@@ -42,7 +42,7 @@ class BellTransactionsTest extends Unit
             true,
         );
         // - User is linked with bell
-        $this->bellGateway->addBell([$user1['id']], $bellData);
+        $this->bellGateway->addBellForUsers([$user1['id']], $bellData);
 
         // ## when
         $this->bellTransactions->removeGroupedBellEvent([$user1['id']], $bellData, 1);

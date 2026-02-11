@@ -127,7 +127,7 @@ class ForumTransactions
             ],
             BellType::createIdentifier(BellType::FORUM_POST_HIDDEN, $postId)
         );
-        $this->bellGateway->addBell($authorId, $bell);
+        $this->bellGateway->addBellForUsers([$authorId], $bell);
 
         $this->bellTransactions->removeGroupedBellEvent(...$this->getGroupedBellEventData($threadId, $postId, $moderatorId));
         $this->forumGateway->hidePost($postId, $moderatorId, $reason);
@@ -220,10 +220,11 @@ class ForumTransactions
             $moderators = $this->foodsaverGateway->getAdminsOrAmbassadors($moderationGroup);
         }
         if ($moderators) {
+            $pathForThread = $this->url($region['id'], false, $threadId);
+
             // send notification e-mail
-            $link = BASE_URL . $this->url($region['id'], false, $threadId);
             $data = [
-                'link' => $link,
+                'link' => BASE_URL . $pathForThread,
                 'thread' => $thread->title,
                 'post' => $this->sanitizerService->markdownToHtml($rawPostBody),
                 'poster' => $posterName,
@@ -238,7 +239,7 @@ class ForumTransactions
                 'forum_not_activated_thread_title',
                 'forum_not_activated_thread',
                 'fas fa-comments',
-                ['href' => $link],
+                ['href' => $pathForThread],
                 [
                     'user' => $this->session->user('name'),
                     'forum' => $region['name'],
@@ -247,7 +248,7 @@ class ForumTransactions
                 BellType::createIdentifier(BellType::NOT_ACTIVATED_FORUM_THREAD, $threadId),
                 false,
             );
-            $this->bellGateway->addBell(array_column($moderators, 'id'), $bellData);
+            $this->bellGateway->addBellForUsers(array_column($moderators, 'id'), $bellData);
         }
     }
 
@@ -305,7 +306,7 @@ class ForumTransactions
             BellType::createIdentifier(BellType::NEW_FORUM_THREAD, $threadId)
         );
 
-        $this->bellGateway->addBell($recipients, $bell);
+        $this->bellGateway->addBellForUsers($recipients, $bell);
     }
 
     public function addReaction($fsId, $postId, $key): void

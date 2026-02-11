@@ -31,7 +31,7 @@ class BananaTransactions
             ['name' => $this->foodsaverGateway->getFoodsaverName($senderId)],
             BellType::createIdentifier(BellType::BANANA, $recipientId, $senderId)
         );
-        $this->bellGateway->addBell($recipientId, $bell);
+        $this->bellGateway->addBellForUsers([$recipientId], $bell);
 
         return $this->bananaGateway->getBanana($recipientId, $senderId);
     }
