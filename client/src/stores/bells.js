@@ -21,6 +21,9 @@ export const store = reactiveStore.$data
 export const getters = {
   get: () => store.bells,
   getUnreadCount: () => {
+    if (!Array.isArray(store.bells)) {
+      return { count: 0, maybeMore: false }
+    }
     const count = store.bells.filter(b => !b.isRead).length
     const maybeMore = !(count < store.bells.length || getters.getAreAllLoaded())
     return { count, maybeMore }
@@ -38,7 +41,7 @@ export const mutations = {
         await setCache(cacheRequestName, store.bells)
         store.finishedFirstLoad = true
       } else {
-        store.bells = await getCache(cacheRequestName)
+        store.bells = await getCache(cacheRequestName) || []
         store.limit = Math.max(pageSize, Math.ceil(store.bells.length / pageSize) * pageSize)
         store.finishedFirstLoad = true
       }
