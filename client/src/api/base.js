@@ -124,7 +124,6 @@ api.interceptors.response.use(null, async error => {
 
   // first check for known errors. if so, show network_errors.<code>.title/text
   for (const knownError of KNOWN_ERRORS) {
-    console.log(knownError, error.response?.data, error.response?.status)
     if (error.response?.status === knownError.code &&
         error.response?.data?.message === knownError.message) {
       showKnownError(knownError.translationKey, knownError.icon)
