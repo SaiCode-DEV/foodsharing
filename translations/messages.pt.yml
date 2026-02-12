@@ -82,9 +82,8 @@ store:
     requirePhone:
       text: Não podes candidatar-te neste momento, pois ainda não introduziste 
         um número de telefone no teu perfil. Esta loja só aceita candidaturas 
-        dos salvadores alimentares com pelo menos um número de telefone 
-        registado. Introduz um número de telefone no teu perfil para te poderes 
-        candidatar.
+        dos Foodsaver com pelo menos um número de telefone registado. Introduz 
+        um número de telefone no teu perfil para te poderes candidatar.
       link: Editar o perfil
     applicationSummary:
       intro: 'Quando enviares a tua candidatura, os lideres de equipa verão as seguintes
@@ -541,10 +540,10 @@ email_template:
       multiple: 'Datas disponíveis para recolha na %COUNT% lojas!'
       single: 'Datas disponíveis para recolha na %EMPRESA%!'
     settings_link: 'Para as configurações de notificação'
-    part2: 'Por favor, procure o mais rápido possível salvadores alimentares para
-      que todas as recolhas possam ser feitas. Se não conseguir mobilizar ninguém,
-      seria bom se pudesse assumir as recolhas em aberto. Se isso não for possível,
-      por favor, cancele as datas correspondentes com antecedência junto da loja.'
+    part2: 'Por favor, procure o mais rápido possível Foodsaver para que todas as
+      recolhas possam ser feitas. Se não conseguir mobilizar ninguém, seria bom se
+      pudesse assumir as recolhas em aberto. Se isso não for possível, por favor,
+      cancele as datas correspondentes com antecedência junto da loja.'
     part1: 'A tarefa dos líderes de equipa é garantir que as recolhas sejam realizadas
       conforme previsto. Infelizmente, nem todos os seus negócios registaram poupadores
       de alimentos suficientes para as recolhas nos próximos dois dias:'
@@ -725,7 +724,7 @@ calendar:
     pickup:
       description: 'Assento de foodsharing em <a href="{url}">{store}</a>'
       unconfirmed: 'não confirmado'
-      foodsavers: 'Salvadores alimentares registados: '
+      foodsavers: 'Foodsaver registados: '
       freeSlots: '{count} assentos ainda disponíveis'
       name:
         pickup: '{store} recolha'
@@ -818,7 +817,7 @@ poll:
     seleção após votar.'
   untraceable: 'A informação sobre como votaste em cada opção não pode ser rastreada
     e, por isso, não pode ser mostrada aqui.'
-  scope_description_1: 'Todos os salvadores alimentares verificados do distrito/grupo'
+  scope_description_1: 'Todos os Foodsaver verificados do distrito/grupo'
   type_2:
     tooltip_positive: 'Aprovação'
     tooltip_neutral: 'Abstenção'
@@ -827,10 +826,9 @@ poll:
     depois.'
   vote_success: 'Votaste com sucesso.'
   scope_description_3: 'Todos os embaixadores do distrito'
-  scope_description_4: 'Todos os salvadores alimentares verificados com o distrito
-    de origem da votação'
-  scope_description_0: 'Todos os salvadores alimentares verificados e não verificados
-    do distrito/grupo'
+  scope_description_4: 'Todos os Foodsaver verificados com o distrito de origem da
+    votação'
+  scope_description_0: 'Todos os Foodsaver verificados e não verificados do distrito/grupo'
   scope_description_2: 'Todos os lideres de equipas do distrito que atualmente são
     responsáveis por uma equipa de loja'
   type: 'Tipo de votação'
@@ -856,7 +854,7 @@ pickuplist:
   tryagain: 'Tente novamente após recarregar a página, se necessário.'
   time_table_header: 'Periodo'
   year_tab: 'Ano'
-  NumberOfFoodSavers_table_header: 'Número de salvadores alimentares'
+  NumberOfFoodSavers_table_header: 'Número de Foodsaver'
   error_confirm: 'Falha na confirmação: '
   really_delete_last_slot:
     title: Excluir o assento último?
@@ -1129,8 +1127,8 @@ profile:
       Podes contactar o grupo de trabalho de mediação local através do seguinte endereço
       de e-mail:'
     no_group: 'Infelizmente, ainda não existe um grupo de mediação local para o distrito
-      de origem do salvador alimentar. Pode abordar o assunto numa reunião de grupo
-      ou no fórum, para que seja eleita uma equipa de mediação local.'
+      de origem do Foodsaver. Pode abordar o assunto numa reunião de grupo ou no fórum,
+      para que seja eleita uma equipa de mediação local.'
   notFound: 'Este perfil de utilizador(a) não existe ou já não existe'
   choosestore: 'Selecione a loja em questão'
   report:
@@ -1172,7 +1170,7 @@ profile:
     title: 'Denúncia sobre {name}'
     kindofreport: 'Por favor selecione o tipo de denúncia'
     noReportGroup: 'Não é possível utilizar o suporte técnico do sistema de denúncias,
-      pois este não está ativado para o distrito do salvador dos alimentos.'
+      pois este não está ativado para o distrito do Foodsaver.'
     oldReportButtonTextPart1: 'Atualmente, as violações das regras não são comunicadas
       neste local.'
     reportedAdminNoArbitration: 'Não pode denunciar {name}, pois ele/ela é administrador/a
@@ -1483,8 +1481,8 @@ group:
     fsmanagement: 'Administração'
     title: 'Missão do grupo de trabalho'
     tooltip_function_5: 'Os administradores deste grupo de trabalho podem ver denúncias
-      sobre os salvadores alimentares no distrito. Não são apresentados denúncias
-      em que os administradores estejam envolvidos! O conselho de arbitragem recebe-os.'
+      sobre os Foodsaver no distrito. Não são apresentados denúncias em que os administradores
+      estejam envolvidos! O conselho de arbitragem recebe-os.'
     tooltip_function_10: 'Os administradores deste grupo de trabalho podem desbloquear
       mensagens em fóruns moderados. Caso esta opção esteja activada para o distrito,
       podem também ocultar mensagens no fórum.'
@@ -1742,7 +1740,7 @@ foodsaver:
   delete_own_account: 'Está prestes a excluir a tua conta. Tem a certeza absoluta?'
   actions: 'Ações'
   title: 'Foodsaver'
-  edit: 'Editar os salvadores alimentares'
+  edit: 'Editar os Foodsaver'
   delete_account_sure_reason: 'Tem a certeza de que deseja excluir a tua conta de
     utilizador? Motivo: {reason}'
   url_error: 'Parece haver algo de errado com o URL da sua página inicial'
@@ -2421,7 +2419,7 @@ storeedit:
   store:
     status: 'Estado'
   fetch:
-    teamStatus1: 'A equipa está aberta a candidaturas novas de salvadores alimentares'
+    teamStatus1: 'A equipa está aberta a candidaturas novas de Foodsaver'
     teamStatus0: 'Esta loja não está a aceitar candidaturas novas neste momento'
     teamStatus2: 'Precisa-se de apoio urgente'
     teamStatus: 'Estado da equipa'
@@ -2429,9 +2427,8 @@ storeedit:
     hygieneRequired: Permitir a inscrição apenas com formação válida em higiene
     applyTextRequired: É necessário introduzir um texto para candidaturas
     applicationRequirements: Critérios de candidatura
-    verifiedRequired: Permitir apenas salvadores alimentares verificados
-    phoneRequirement: Permitir apenas salvadores alimentares com número de 
-      telefone registado
+    verifiedRequired: Permitir apenas Foodsaver verificados
+    phoneRequirement: Permitir apenas Foodsaver com número de telefone registado
   unsuccess: 'As alterações não puderam ser aplicadas. {error}'
   milestone:
     accepted: '{user} agora faz parte da equipa'
@@ -2450,7 +2447,7 @@ chain:
   error:
     create: 'Não foi possível criar a cadeia ({error}).'
     edit: 'Não foi possível editar a cadeia ({error}).'
-    notfs: 'salvador alimentarPara ver esta lista, tens de ser um salvador alimentar.'
+    notfs: 'Para ver esta lista, tens de ser um Foodsaver.'
   columns:
     kams: 'Gestores de contas importantes (KAMs)'
     stores: 'criado'
@@ -2726,8 +2723,8 @@ settings:
       no seu telemóvel e, em caso de necessidade, apresentá-lo. Caso não possua um
       smartphone ou, por qualquer outro motivo, necessite de um cartão convencional,
       entre em contacto com os embaixadores locais.'
-    non_verified_text: 'Ainda não estás verificado. Apenas os salvadores alimentares
-      verificados podem descarregar o cartão de membro.'
+    non_verified_text: 'Ainda não estás verificado. Apenas os Foodsaver verificados
+      podem descarregar o cartão de membro.'
     renew: Renovar o cartão
     passport_not_activated: O teu cartão de membro ainda não foi ativado.
     ask_your_ambassadors: Para isso, contacte os seus embaixadores.
@@ -2751,8 +2748,8 @@ settings:
       pois será utilizado para o <a href="{link_id}">cartão de membro do foodsharing</a>,
       caso
 
-      mais tarde te tornes um <a href="{link_fs}">salvador(a) alimentar</a> e salves
-      alimentos em lojas.
+      mais tarde te tornes um <a href="{link_fs}">Foodsaver</a> e salves alimentos
+      em lojas.
 
       '
     title: 'A tua foto'
@@ -2808,7 +2805,7 @@ settings:
     title: Selecionar endereço
     choose: Aceitar endereço
   quiz:
-    1: Quiz para te tornar um(a) salvador(a) alimentar
+    1: Quiz para te tornar um Foodsaver
     2: Quiz para te tornar um(a) lider de equipas
     3: Quiz para te tornar um(a) embaixador(a)
   account_security:
@@ -3043,11 +3040,11 @@ terminology:
   role:
     "4": 'Administrador(a) global'
     "2": 'Lider de equipa'
-    "1": 'Salvador/a dos alimentos'
+    "1": 'Foodsaver'
     "0": 'partilhador(a) alimentar'
     "3": 'Embaixador(-a)'
   statistic: 'Estatísticas'
-  n_foodsaver: '{count} salvadores alimentares'
+  n_foodsaver: '{count} Foodsaver'
   admins: 'Administradores/as'
   baskets: 'Cestas de comida'
   foodsharer:
@@ -3063,9 +3060,9 @@ terminology:
   n_sleeping: '{count} dorminhocos'
   votingAdmins: 'Equipa de votação'
   foodsaver:
-    d: 'Salvador/a dos alimentos'
-    f: 'Salvadora dos alimentos'
-    m: 'Salvador dos alimentos'
+    d: 'Foodsaver'
+    f: 'Foodsaver'
+    m: 'Foodsaver'
   regions: 'Distritos'
   previous_pickups: 'Assentos aqui'
   orga:
@@ -3149,12 +3146,12 @@ join_region:
   description: 'Podes entrar no teu primeiro distrito clicando a partir do teu continente
     até ao teu distrito. Se não encontrares um distrito para ti, escolhe um nível
     acima ou entra no distrito mais próximo. Se não tiveres a possibilidade de te
-    formar como salvador alimentar na tua área, podes pensar em criar o teu próprio
-    distrito. Nesse caso, lê atentamente o Wiki e, em particular, o [artigo sobre
-    como criar ou reativar distritos]({href}). Se quiseres registar o distrito ou
-    tiveres perguntas específicas que o Wiki não responda, envia-nos [um e-mail]({mail}).
-    Não somos o ponto de contacto central para perguntas gerais, mas podemos ajudar-te
-    com perguntas sobre distritos.'
+    formar como Foodsaver na tua área, podes pensar em criar o teu próprio distrito.
+    Nesse caso, lê atentamente o Wiki e, em particular, o [artigo sobre como criar
+    ou reativar distritos]({href}). Se quiseres registar o distrito ou tiveres perguntas
+    específicas que o Wiki não responda, envia-nos [um e-mail]({mail}). Não somos
+    o ponto de contacto central para perguntas gerais, mas podemos ajudar-te com perguntas
+    sobre distritos.'
 polls:
   ended: 'Votações passadas'
   ongoing: 'Votações em curso'
@@ -3530,8 +3527,8 @@ region:
   forum-redirect: 'Não existe o pinboard para regiões. Foi redirecionado para o fórum.'
   hull:
     closure: 'Ingrese {region} como maestro para todos os distritos secundários'
-    parent-info: 'Todos os salvadores alimentares são automaticamente incluídos no
-      distrito principal, desde que tenha sido indicado um'
+    parent-info: 'Todos os Foodsaver são automaticamente incluídos no distrito principal,
+      desde que tenha sido indicado um'
     parent: 'Distrito maestro'
     start: 'Iniciar atualização do mestre'
     title: 'Atualização mestre'
@@ -3905,11 +3902,11 @@ genderlist:
   number_table_header: 'Número'
   gender_male: 'masculino'
   gender_home_district_table_caption: 'Distribuição da característica «género» entre
-    todos os salvadores alimentares de distrito de origem'
+    todos os Foodsaver de distrito de origem'
   header_for_district: 'Distribuição por género em {bezirk}'
   gender_not_selected: 'não selecionado'
   gender_district_table_caption: 'Distribuição da característica «género» entre todos
-    os salvadores alimentares no distrito'
+    os Foodsaver no distrito'
   home_district_tab: 'Distrito de origem'
   gender_table_header: 'Género'
   gender_divers: 'vários'
@@ -3971,8 +3968,8 @@ notifications:
     cancel: 'Não ativar'
     dontAskAgain: 'Não pergunte novamente'
     title: 'Receber notificações push?'
-    content: 'Para receber mais rapidamente as notificações quando outros salvadores
-      de alimentos lhe enviam mensagens, pode ativar as notificações push neste dispositivo!
+    content: 'Para receber mais rapidamente as notificações quando outros Foodsaver
+      lhe enviam mensagens, pode ativar as notificações push neste dispositivo!
 
 
       Nas tuas [configurações de notificações](/?page=settings&sub=info), podes desativar
@@ -4058,18 +4055,18 @@ salutation:
   "2": 'Querida'
 stats:
   total:
-    pickups: 'missões que os nossos salvadores alimentares já completaram.'
+    pickups: 'missões que os nossos Foodsaver já completaram.'
     weight: 'Alimentos salvos com sucesso do lixo.'
     fsp: 'Os cantinhos solidário são utilizados para trocar alimentos.'
     foodsharer: 'pessoas que partilham alimentos estão registadas no "foodsharing"
       e interessadas no nosso trabalho.'
-    foodsaver: 'salvadores alimentares trabalham voluntariamente por um mundo sem
-      desperdício de alimentos.'
+    foodsaver: 'Foodsaver trabalham voluntariamente por um mundo sem desperdício de
+      alimentos.'
     baskets: 'cestas alimentar foram colocadas online.'
     cooperations: 'Lojas cooperam continuamente e com satisfação connosco.'
   leader:
     regions: 'Distritos mais ativos'
-    users: 'Salvadores alimentares mais ativos'
+    users: 'Foodsaver mais ativos'
   avg:
     baskets: 'cestas alimentar são colocadas online em media por semana.'
     pickups: 'missões ocorrem atualmente em média por dia.'
@@ -4126,8 +4123,8 @@ regionOptions:
     os assentos das empresas listadas são somadas e consideradas para a regra.'
   enableMediationButton: 'Ativar o formulário de mediação nas páginas de perfil dos
     comensais habituais do distrito'
-  enableReportButton: 'Ativar formulário de denúncia nas páginas de perfil dos salvadores
-    alimentares habitual do distrito'
+  enableReportButton: 'Ativar formulário de denúncia nas páginas de perfil dos Foodsaver
+    habitual do distrito'
   regionPickupTimespan: 'Período de tempo (dias antes e depois da data do assento
     desejado) ao qual a regra das sultanas se aplica'
   regionPickupRuleActive: 'Ative a seguinte regra distrital para os assentos de lojas
@@ -4142,8 +4139,8 @@ regionOptions:
   noPickupRuleActiveStores: Atualmente, a regra de lojas populares não está 
     ativada para nenhuma empresa no distrito.
   enableAddressChangeNotification: Notificação aos embaixadores e 
-    administradores em caso de mudança de endereço de um salvador de alimentos 
-    deste distrito como distrito de origem
+    administradores em caso de mudança de endereço de um Foodsaver deste 
+    distrito como distrito de origem
 ort: 'Cidade/Comunidade'
 releases:
   "2023-09": 'Versão “Jaca” 🍈 (Setembro de 2023)'
@@ -4177,7 +4174,7 @@ information:
 wikilink: 'Link com mais informações'
 memberlist:
   header_for_district: 'Resgatadores alimentar em distrito (bezirk}'
-  header_for_workgroup: 'Salvadores alimentares no grupo de trabalho {distrito}'
+  header_for_workgroup: 'Foodsaver no grupo de trabalho {distrito}'
 ui: {}
 gender:
   d: 'Ambos ou outro'
@@ -4256,8 +4253,8 @@ language_chooser:
     e clique no ícone do lápis para começar'
   choose_button: 'Atualizar'
   content: 'Por favor, selecione uma língua'
-prefetchtime: 'Com quantas semanas de antecipação podem os salvadores alimentares
-  registar-se utilizando as assentos gerados automaticamente?'
+prefetchtime: 'Com quantas semanas de antecipação podem os Foodsaver registar-se utilizando
+  as assentos gerados automaticamente?'
 ueberzeugungsarbeit: 'Foi fácil convencer os responsáveis a cooperar com o foodsharing?'
 ageBandList:
   ageBand: 'Grupos etários'
@@ -4337,7 +4334,7 @@ map:
       role:
         label: Função
         all: Todos
-        foodsaver: Salvadores alimentares verificados
+        foodsaver: Foodsaver verificados
         store-manager: Lider de equipa
       activity:
         label: Último login
@@ -4503,14 +4500,13 @@ help:
       title: 'Eventos públicos'
     reportReasons:
       title: Formulário de denúncias
-      md: "Através do formulário de denúncias, os salvadores alimentares podem denunciar
-        diretamente as violações das regras. Ao ativá-lo, as pessoas responsáveis
-        pelas denúncias recebem notificações rápidas e fáceis sobre as notificações
-        enviadas dessa forma.\n---\nO grupo de denúncias local do distrito pode definir
-        quais motivos de notificação são exibidos no formulário de notificação.\n\
-        É possível escolher entre motivos de denúncia simplificados e detalhados.
-        Os motivos de denúncia detalhados incluem todas as regras listadas [aqui no
-        Wiki em B](https://wiki.foodsharing.de/Verhaltensregeln#B.29_Verhalten_bei_Abholungen)
+      md: "Através do formulário de denúncias, os Foodsaver podem denunciar diretamente
+        as violações das regras. Ao ativá-lo, as pessoas responsáveis pelas denúncias
+        recebem notificações rápidas e fáceis sobre as notificações enviadas dessa
+        forma.\n---\nO grupo de denúncias local do distrito pode definir quais motivos
+        de notificação são exibidos no formulário de notificação.\nÉ possível escolher
+        entre motivos de denúncia simplificados e detalhados. Os motivos de denúncia
+        detalhados incluem todas as regras listadas [aqui no Wiki em B](https://wiki.foodsharing.de/Verhaltensregeln#B.29_Verhalten_bei_Abholungen)
         (Infelizmente, até agora só em alemão)\nAlém disso, é possível selecionar
         se a opção «Outros» deve ser listada como outro motivo de notificação.\n---\n\
         Recomendações sobre a configuração podem ser enviadas ao grupo de denúncias
@@ -4536,9 +4532,9 @@ help:
       title: 'Atribuição múltipla de selos'
     hygieneRequirement:
       md: |
-        Para trabalhar em algumas lojas, os salvadores alimentares devem ter formação em higiene alimentar. Quando esta função está ativada para uma loja, tem as seguintes implicações:
-        1. Os salvadores alimentar sem formação válida em higiene não podem candidatar-se à equipa da loja.
-        2. Os salvadores alimentar que já fazem parte da equipa só podem inscrever-se em assentos cuja formação em higiene ainda seja válida.
+        Para trabalhar em algumas lojas, os Foodsaver devem ter formação em higiene alimentar. Quando esta função está ativada para uma loja, tem as seguintes implicações:
+        1. Os Foodsaver sem formação válida em higiene não podem candidatar-se à equipa da loja.
+        2. Os Foodsaver que já fazem parte da equipa só podem inscrever-se em assentos cuja formação em higiene ainda seja válida.
 
         Em ambos os casos, é exibida uma nota explicando que falta a formação em higiene para esta ação. Além disso, a formação em higiene está diretamente ligada em cada caso.
 
@@ -4608,8 +4604,8 @@ help:
 
         ###### Acesso
 
-        Apenas quem também pode administrar a loja tem acesso a isso. Para salvadores
-        alimentares e substitutos normais, o registo de loja não é visível.
+        Apenas quem também pode administrar a loja tem acesso a isso. Para Foodsaver
+        e substitutos normais, o registo de loja não é visível.
 
         ---
 
@@ -4624,9 +4620,8 @@ help:
     pickupOptions:
       title: 'Possibilidades de inscrição'
       md: 'A secção *Possibilidades de inscrição* mostra-lhe uma visão geral de todos
-        os turnos assentos nas tuas lojas, para os quais ainda se procuram salvadores
-        alimentares. Através do menu de opções, pode ajustar a visualização às suas
-        necessidades:
+        os turnos assentos nas tuas lojas, para os quais ainda se procuram Foodsaver.
+        Através do menu de opções, pode ajustar a visualização às suas necessidades:
 
 
         **Assentos inscritos:** Para que possa planear melhor os teus turnos, também
@@ -4670,12 +4665,12 @@ help:
         diretamente por determinados **termos**.\n- **Apenas utilizadores ativos**
         oculta os recursos de utilizadores que não iniciaram sessão nos últimos 30
         dias ou que estão atualmente dorminhocos.\n- No mosaico de recursos, são exibidos
-        os recursos de todos os salvadores alimentares do grupo. Nos distritos, também
-        podes restringir a visualização aos utilizadores cujo **distrito principal**
-        é o distrito em questão.\n- Se tiver marcado recursos como **favoritos**,
-        pode visualizar apenas esses recursos.\n\nAlém disso, pode **ordenar** os
-        resultados, por exemplo, por «alegria com as solicitações», atualidade das
-        entradas ou simplesmente aleatoriamente.\n"
+        os recursos de todos os Foodsaver do grupo. Nos distritos, também podes restringir
+        a visualização aos utilizadores cujo **distrito principal** é o distrito em
+        questão.\n- Se tiver marcado recursos como **favoritos**, pode visualizar
+        apenas esses recursos.\n\nAlém disso, pode **ordenar** os resultados, por
+        exemplo, por «alegria com as solicitações», atualidade das entradas ou simplesmente
+        aleatoriamente.\n"
     threadPriority:
       md: 'Os tópicos são listados por ordem de prioridade de exibição. Os tópicos
         com a mesma prioridade são ordenados pela data da última atividade.
@@ -4708,8 +4703,8 @@ help:
         - Não só todos os saladores alimentares do distrito/grupo podem votar, mas
         também os subdistritos.
 
-        - O número de salvadores alimentares com direito a voto está indicado entre
-        parênteses atrás da opção de seleção.
+        - O número de Foodsaver com direito a voto está indicado entre parênteses
+        atrás da opção de seleção.
 
         - Assim que a votação for criada, os eleitores serão determinados. Tem direito
         a voto quem, no momento em que a votação for criada, pertencer ao grupo de
@@ -4800,7 +4795,7 @@ help:
         Os recursos ficam visíveis dentro dos teus distritos e grupos de trabalho.
         Mas isso não vale para distritos muito grandes, como estados ou províncias,
         onde não tem um mosaico de recursos disponível. Também podes limitar a visibilidade
-        de cada recurso aos salvadores alimentares que conheces.
+        de cada recurso aos Foodsaver que conheces.
 
         '
     masterRegion:
@@ -4823,10 +4818,10 @@ help:
         '
     change_verified_data:
       title: 'Solicitar alteração de dados verificados'
-      md: 'Para atuar como o salvador alimentar, é importante que os dados no seu
-        perfil estejam corretos. Antes de poder salvar alimentos, eles serão comparados
-        com o teu documento de identidade pelos embaixadores. Portanto, não é possível
-        alterar simplesmente o seu nome e data de nascimento.
+      md: 'Para atuar como o Foodsaver, é importante que os dados no seu perfil estejam
+        corretos. Antes de poder salvar alimentos, eles serão comparados com o teu
+        documento de identidade pelos embaixadores. Portanto, não é possível alterar
+        simplesmente o seu nome e data de nascimento.
 
         ---
 
@@ -4885,12 +4880,12 @@ required_messages:
     main: 'A tua candidatura à loja {store} foi rejeitada.'
     really: 'Tens a certeza de que queres rejeitar a candidatura da equipa de {name}?'
   verify:
-    main: 'Confirmámos que és um(a) salvador(a) alimentar!'
+    main: 'Confirmámos que és um Foodsaver!'
     really_multiple: 'Queres mesmo verificar {count} utilizadores? Por favor, certifica-te
-      de que todas as {count} pessoas cumprem todos os [requisitos para salvadores
-      alimentares verificados](https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver).'
+      de que todas as {count} pessoas cumprem todos os [requisitos para Foodsaver
+      verificados](https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver).'
     really: 'Queres mesmo verificar {name}? Por favor, certifica-te de que {name}
-      cumpre todos os [requisitos para salvadores alimentares verificados](https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver).'
+      cumpre todos os [requisitos para Foodsaver verificados](https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver).'
     footer: 'Muitas saudações, os teus embaixadores'
   sure_title: 'Tem a certeza?'
   message_info: '{name} receberia a seguinte mensagem:'

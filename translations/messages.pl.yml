@@ -374,13 +374,13 @@ settings:
       6_hours: 6 godzin przed
       12_hours: 12 godzin przed
       1_day: 1 dzień przed
-      30_minutes: ''
-      label: ''
-      1_hour: ''
-      15_minutes: ''
+      30_minutes: '30 minut wcześniej'
+      label: 'Ustawić przypomnienia do twoich terminów?'
+      1_hour: '1 godzinę wcześniej'
+      15_minutes: '15 minut wcześniej'
     formatting:
       html: HTML
-      label: ''
+      label: 'Jak mają być sformatowane opisy eventów?'
       text: 'tylko tekst'
       alt: ''
     history:
@@ -656,7 +656,7 @@ settings:
   newsletter: ''
   change_data_info:
     verified: ''
-    general: ''
+    general: 'Tu możesz dostować swoje dane profilowe.'
 bcard:
   title: Generator wizytówek
   card: Twoja foodsharing-wizytówka
@@ -1472,7 +1472,7 @@ store:
     verified: Użytkownik/czka jest zweryfikowany/a
     hygieneMissing: Tego warunku jeszcze nie spełniasz. Weź teraz udział w 
       quizie higieny, aby móc się zgłosić do tego teamu.
-    title: ''
+    title: 'Zapytania do {storeTitle}'
     needsStoreRegion:
       link: ''
       text: ''
@@ -1529,7 +1529,7 @@ store:
       6: '{actor} dodał/a {target} do aktywnego teamu.'
       1: ''
       18: ''
-      14: ''
+      14: '{actor} potwierdził/a slot {target} {date}.'
       3: ''
       4: '{actor} dodał/a {target} ręcznie.'
       11: ''
@@ -1541,7 +1541,7 @@ store:
       2: ''
       5: ''
       9: ''
-      15: ''
+      15: '{actor} usunął/ęła wpis na tablicy od {target} z dnia {date}.'
     type:
       8: Opuszczenie teamu
       17: zaproszenie Foodsaverów/ek do teamu
@@ -1549,14 +1549,14 @@ store:
       20: odrzucenie zaproszeń do teamu
       3: ''
       2: ''
-      18: ''
+      18: 'cofnięcie zaproszenia do teamu'
       7: 'usunięcie foodsaverów/ek z teamu'
       14: 'Potwierdzenie slotu'
       1: ''
       16: ''
-      4: ''
+      4: 'Przyjęcie foodsaverów/ek do teamu bez zapytania'
       10: ''
-      6: ''
+      6: 'Przyjęcie foodsaverów/ek do aktywnego teamu'
       12: ''
       9: ''
       5: ''
@@ -1605,17 +1605,17 @@ store:
   not-in-team: ''
   allStoresOfRegion: ''
   willgetcontacted: ''
-  slot_state: ''
+  slot_state: 'status slotu'
   delete_date_description: ''
   tooltip_orange: ''
   attribution: ''
   useRegionPickupRules: ''
-  short_tooltip_red: ''
+  short_tooltip_red: 'Wolne sloty dziś lub jutro'
   regionPickupRulesInactive: ''
   delete:
     button: ''
     sure: ''
-  short_tooltip_orange: ''
+  short_tooltip_orange: 'Wolne sloty w ciągu najbliższych 3 dni'
   regionPickupRules: ''
   tooltip_jumping: ''
   tooltip_managing: ''
@@ -1641,8 +1641,9 @@ store:
   peoplecame: ''
   may_referred_to_in_public: ''
   noStores: ''
-  short_tooltip_yellow: ''
-  not_verified: ''
+  short_tooltip_yellow: 'Wolne sloty w ciągu najbliższych 5 dni'
+  not_verified: 'Nie jesteś zweryfikowany/a. Dlatego nie możesz zobaczyć slotów ani
+    numerów telefonów członków teamu.'
   all_of_my_stores: ''
   delete_date: 'Usuń pojedynczy slot'
   slotsCurrentlyOccupied: ''
@@ -1650,7 +1651,7 @@ store:
   pickup_slot_unavailable: ''
   smneeded: ''
   part_of_chain: 'Należy do sieci:'
-  chain_has_kams: ''
+  chain_has_kams: 'Odpowiedzialny/a za sieć:'
 navi:
   google_maps: Google maps
   waze: Waze
@@ -2106,7 +2107,7 @@ recipients:
   done: Wysłano wszystkie maile
   empty-region: ''
   region-hint: ''
-  variables: ''
+  variables: 'Forma grzecznościowa'
   orga_team: ''
   bread: ''
   choose: ''
@@ -2337,7 +2338,7 @@ pickuplist:
   tooslow: ''
   NumberOfAppointments_table_header: ''
   really_delete_last_slot:
-    body: ''
+    body: 'Na pewno chcesz usunąć ostatni slot? Ten termin będzie wtedy zupełnie usunięty.'
     title: 'Usunąć ostatni slot?'
 error_ajax: |
   Niestety, to nie wyszło.
@@ -2637,7 +2638,7 @@ profile:
       confirm_title: 'Usuń banana zaufania'
       successful: 'Usunięto banana!'
       confirm_message: 'Czy na pewno chcesz usunąć tego banana?'
-    sent: ''
+    sent: 'Wysłano banana!'
     undo: 'Nie można zmienić bananów zaufania.'
     vouch: ''
     alreadyGiven: '{name} już otrzymał/a banana od ciebie.'
