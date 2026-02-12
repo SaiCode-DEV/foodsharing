@@ -49,7 +49,8 @@ class Mem
     public function queueWork($data, bool $highPriority = false)
     {
         if (MEM_ENABLED) {
-            $e = serialize(['data' => $data]);
+            // TODO: the 'type' can be removed after release P
+            $e = serialize(['type' => 'email', 'data' => $data]);
             $this->ensureConnected();
 
             if ($highPriority) {
