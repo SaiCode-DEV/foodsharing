@@ -52,6 +52,7 @@ export default {
         { value: 'fr', text: 'Français' },
         { value: 'it', text: 'Italiano' },
         { value: 'nb_NO', text: 'Norsk (Bokmål)' },
+        { value: 'pt', text: 'Português' },
         { value: 'ta', text: 'தமிழ் (Tamil)' },
         { value: 'tr', text: 'Türkçe' },
       ],
