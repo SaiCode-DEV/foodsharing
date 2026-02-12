@@ -105,9 +105,9 @@ class VotingApiCest
         ]);
 
         $I->login($this->userFoodsaver['email']);
-        $I->sendPUT(self::POLLS_API . '/' . $this->poll['id'] . '/vote', ['options' => [$choice => 1]]);
+        $I->sendPOST(self::POLLS_API . '/' . $this->poll['id'] . '/vote', ['options' => [$choice => 1]]);
         $I->seeResponseCodeIs(Http::OK);
-        $I->sendPUT(self::POLLS_API . '/' . $this->poll['id'] . '/vote', ['options' => [$choice => 1]]);
+        $I->sendPOST(self::POLLS_API . '/' . $this->poll['id'] . '/vote', ['options' => [$choice => 1]]);
         $I->seeResponseCodeIs(Http::FORBIDDEN);
 
         $I->seeInDatabase('fs_poll_option_has_value', [
@@ -131,7 +131,7 @@ class VotingApiCest
         $user = $I->createFoodsaver(null, ['bezirk_id' => $region['id']]);
 
         $I->login($user['email']);
-        $I->sendPUT(self::POLLS_API . '/' . $this->poll['id'] . '/vote', ['options' => [0 => 1]]);
+        $I->sendPOST(self::POLLS_API . '/' . $this->poll['id'] . '/vote', ['options' => [0 => 1]]);
         $I->seeResponseCodeIs(Http::FORBIDDEN);
 
         $I->seeInDatabase('fs_poll_option_has_value', [
@@ -152,7 +152,7 @@ class VotingApiCest
             'end' => (new DateTime('now - 1 day'))->format('Y-m-d H:i:s')
         ]);
 
-        $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
+        $I->sendPOST(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => [0 => 1]
         ]);
         $I->seeResponseCodeIs(Http::FORBIDDEN);
@@ -163,7 +163,7 @@ class VotingApiCest
             'start' => (new DateTime('now + 1 day'))->format('Y-m-d H:i:s')
         ]);
 
-        $I->sendPUT(self::POLLS_API . '/' . $poll2['id'] . '/vote', [
+        $I->sendPOST(self::POLLS_API . '/' . $poll2['id'] . '/vote', [
             'options' => [0 => 1]
         ]);
         $I->seeResponseCodeIs(Http::FORBIDDEN);
@@ -176,19 +176,19 @@ class VotingApiCest
 
         // vote with different numbers of options
         $I->login($this->userFoodsaver['email']);
-        $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
+        $I->sendPOST(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => [0 => 1, 1 => 0, 2 => 1]
         ]);
         $I->seeStatusCodeIs([Http::BAD_REQUEST, Http::UNPROCESSABLE_ENTITY]);
-        $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
+        $I->sendPOST(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => []
         ]);
         $I->seeStatusCodeIs([Http::BAD_REQUEST, Http::UNPROCESSABLE_ENTITY]);
-        $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
+        $I->sendPOST(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => [1 => 0]
         ]);
         $I->seeStatusCodeIs([Http::BAD_REQUEST, Http::UNPROCESSABLE_ENTITY]);
-        $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
+        $I->sendPOST(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => [1 => 1]
         ]);
         $I->seeResponseCodeIs(Http::OK);
@@ -201,19 +201,19 @@ class VotingApiCest
 
         // vote with different numbers of options
         $I->login($this->userFoodsaver['email']);
-        $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
+        $I->sendPOST(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => [0 => 1, 1 => 0]
         ]);
         $I->seeStatusCodeIs([Http::BAD_REQUEST, Http::UNPROCESSABLE_ENTITY]);
-        $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
+        $I->sendPOST(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => [0 => 1, 1 => 0, 2 => 1, 3 => 0, 4 => 1, 5 => 0]
         ]);
         $I->seeStatusCodeIs([Http::BAD_REQUEST, Http::UNPROCESSABLE_ENTITY]);
-        $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
+        $I->sendPOST(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => []
         ]);
         $I->seeStatusCodeIs([Http::BAD_REQUEST, Http::UNPROCESSABLE_ENTITY]);
-        $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
+        $I->sendPOST(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => [1 => 1, 2 => 1]
         ]);
         $I->seeResponseCodeIs(Http::OK);
@@ -226,19 +226,19 @@ class VotingApiCest
 
         // vote with different numbers of options
         $I->login($this->userFoodsaver['email']);
-        $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
+        $I->sendPOST(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => [0 => 1, 1 => 0]
         ]);
         $I->seeStatusCodeIs([Http::BAD_REQUEST, Http::UNPROCESSABLE_ENTITY]);
-        $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
+        $I->sendPOST(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => [0 => 1, 1 => 0, 2 => 1, 3 => 0, 4 => 1, 5 => 0]
         ]);
         $I->seeStatusCodeIs([Http::BAD_REQUEST, Http::UNPROCESSABLE_ENTITY]);
-        $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
+        $I->sendPOST(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => []
         ]);
         $I->seeStatusCodeIs([Http::BAD_REQUEST, Http::UNPROCESSABLE_ENTITY]);
-        $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
+        $I->sendPOST(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => [0 => 0, 1 => 1, 2 => -1, 3 => 0]
         ]);
         $I->seeResponseCodeIs(Http::OK);
@@ -251,23 +251,23 @@ class VotingApiCest
 
         // vote with different numbers of options
         $I->login($this->userFoodsaver['email']);
-        $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
+        $I->sendPOST(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => [0 => 1, 1 => 0]
         ]);
         $I->seeStatusCodeIs([Http::BAD_REQUEST, Http::UNPROCESSABLE_ENTITY]);
-        $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
+        $I->sendPOST(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => [0 => 1, 1 => 0, 2 => 1, 3 => 0, 4 => 1, 5 => 0]
         ]);
         $I->seeStatusCodeIs([Http::BAD_REQUEST, Http::UNPROCESSABLE_ENTITY]);
-        $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
+        $I->sendPOST(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => []
         ]);
         $I->seeStatusCodeIs([Http::BAD_REQUEST, Http::UNPROCESSABLE_ENTITY]);
-        $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
+        $I->sendPOST(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => [0 => 0, 1 => -5, 2 => -1, 3 => 0]
         ]);
         $I->seeStatusCodeIs([Http::BAD_REQUEST, Http::UNPROCESSABLE_ENTITY]);
-        $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
+        $I->sendPOST(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => [0 => 0, 1 => 1, 2 => -1, 3 => 0]
         ]);
         $I->seeResponseCodeIs(Http::OK);
@@ -438,7 +438,7 @@ class VotingApiCest
     private function testCanVote(ApiTester $I, array $poll, array $user, bool $canVote = true): void
     {
         $I->login($user['email']);
-        $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
+        $I->sendPOST(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => [0 => 0, 1 => 0, 2 => 0, 3 => 0]
         ]);
         $I->seeResponseCodeIs($canVote ? Http::OK : Http::FORBIDDEN);

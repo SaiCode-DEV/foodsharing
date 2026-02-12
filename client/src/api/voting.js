@@ -1,4 +1,4 @@
-import { get, patch, post, put, remove } from './base'
+import { get, patch, post, remove } from './base'
 
 export async function getPoll (pollId) {
   return get(`/polls/${pollId}`)
@@ -9,7 +9,7 @@ export async function listPolls (groupId) {
 }
 
 export async function listCurrentPolls () {
-  return get('/user/current/polls')
+  return get('/users/current/polls')
 }
 
 export function createPoll (regionId, name, description, startDate, endDate, scope, type, options, shuffleOptions, notifyVoters) {
@@ -41,7 +41,7 @@ export async function deletePoll (pollId) {
 }
 
 export async function vote (pollId, options) {
-  return put(`/polls/${pollId}/vote`, {
+  return post(`/polls/${pollId}/vote`, {
     options,
   })
 }

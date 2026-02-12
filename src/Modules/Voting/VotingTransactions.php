@@ -13,7 +13,9 @@ use Foodsharing\Modules\Core\DBConstants\Voting\VotingType;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Modules\Voting\DTO\Poll;
+use Foodsharing\Modules\Voting\DTO\PollOption;
 use Foodsharing\Permissions\VotingPermissions;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class VotingTransactions
 {
@@ -281,5 +283,41 @@ class VotingTransactions
         }
 
         return $usersPerScope;
+    }
+
+    /**
+     * Parses poll options from a request and returns them as {@see PollOption} objects. Throws exceptions if
+     * the list is empty or if any option does not have a valid text.
+     *
+     * @param string[] $data
+     * @return PollOption[]
+     * @throws BadRequestHttpException if at least one of the options is empty or if not all options are unique
+     */
+    public function parseOptions(array $data): array
+    {
+        $options = array_map(function ($x) {
+            $o = new PollOption();
+            $o->text = trim($x);
+
+            return $o;
+        }, $data);
+        if (empty($options)) {
+            throw new BadRequestHttpException('poll does not have any options');
+        }
+
+        // check that no option text is empty
+        foreach ($options as $option) {
+            if (empty($option->text)) {
+                throw new BadRequestHttpException('option text must not be empty');
+            }
+        }
+
+        // check that no two option texts are equal
+        $texts = array_map(fn ($o) => $o->text, $options);
+        if (sizeof(array_unique($texts)) != sizeof($texts)) {
+            throw new BadRequestHttpException('poll options must not have the same text');
+        }
+
+        return $options;
     }
 }
