@@ -640,7 +640,7 @@ class SettingsTransactions
             return;
         }
 
-        $ambassadorIds = $this->foodsaverGateway->getAdminsOrAmbassadors($regionId);
+        $ambassadorIds = $this->foodsaverGateway->getRegionAmbassadorIds($regionId);
         if (empty($ambassadorIds)) {
             return;
         }
