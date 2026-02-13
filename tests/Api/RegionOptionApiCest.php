@@ -53,9 +53,8 @@ class RegionOptionApiCest
     public function addRegionOption(ApiTester $I): void
     {
         $I->login($this->userBot[self::EMAIL]);
-        $I->sendPOST('api/region/' . $this->region['id'] . '/options', ['enableReportButton' => true, 'selectedReportReasonOptions' => 1, 'enableReportReasonOther' => true, 'enableMediationButton' => true, 'regionPickupRuleActive' => true, 'regionPickupRuleTimespan' => 7, 'regionPickupRuleLimit' => 4, 'regionPickupRuleLimitDay' => 2, 'regionPickupRuleInactive' => 12]);
+        $I->sendPatch('api/regions/' . $this->region['id'] . '/options', ['isReportButtonEnabled' => true, 'selectedReportReasonOptions' => 1, 'isReportReasonOtherEnabled' => true, 'isMediationButtonEnabled' => true, 'isRegionPickupRuleActive' => true, 'regionPickupRuleTimespanDays' => 7, 'regionPickupRuleLimitNumber' => 4, 'regionPickupRuleLimitDayNumber' => 2, 'regionPickupRuleInactiveHours' => 12]);
         $I->seeResponseCodeIs(Http::OK);
-        $I->seeResponseIsJson();
         $I->seeInDatabase('fs_region_options', [
             'region_id' => $this->region['id'],
             'option_type' => RegionOptionType::ENABLE_REPORT_BUTTON,
@@ -106,7 +105,7 @@ class RegionOptionApiCest
     public function canFetchRegionOptions(ApiTester $I): void
     {
         $I->login($this->userBot[self::EMAIL]);
-        $I->sendGET('api/region/' . $this->region['id'] . '/options');
+        $I->sendGET('api/regions/' . $this->region['id'] . '/options');
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseIsJson();
 

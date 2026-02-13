@@ -89,7 +89,7 @@ import { objectMap } from '@/utils'
 import ContainerButton from '@/components/Container/ContainerButton.vue'
 import OverflowMenu from '@/components/OverflowMenu.vue'
 import LeafletLocationPicker from '@/components/map/LeafletLocationPicker.vue'
-import { setRegionPin } from '@/api/regions'
+import { setPublicRegionData } from '@/api/regions'
 import { useRegionStore } from '@/stores/regions'
 import { pulseError } from '@/script'
 import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
@@ -180,7 +180,7 @@ export default {
         })) return
         this.loading = true
         try {
-          await setRegionPin(this.regionId, Object.assign({ status: 1 }, this.editLocation))
+          await setPublicRegionData(this.regionId, { showPin: true, location: this.editLocation })
           await regionStore.fetchPublicRegionData(this.regionId, true)
           this.$emit('update:location', this.editLocation)
           this.center = Object.assign({}, this.editLocation)
@@ -197,7 +197,7 @@ export default {
       })) return
       this.loading = true
       try {
-        await setRegionPin(this.regionId, { status: 0 })
+        await setPublicRegionData(this.regionId, { showPin: false })
         await regionStore.fetchPublicRegionData(this.regionId, true)
         this.$emit('update:location', null)
       } catch (e) {

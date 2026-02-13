@@ -70,7 +70,7 @@ class CreateStoreData
     {
         $store = new Store();
         $store->name = $this->name;
-        $store->region = MinimalRegionIdentifier::createMinimalRegionIdentifier($this->regionId);
+        $store->region = new MinimalRegionIdentifier($this->regionId);
         $store->location = $this->location;
         $store->address->street = $this->street;
         $store->address->postalCode = $this->zipCode;

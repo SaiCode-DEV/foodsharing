@@ -10,17 +10,11 @@ use Foodsharing\Modules\Mailbox\DTO\Region;
 class HierachicalRegion extends Region
 {
     public array $children = [];
-    public bool $hasAmbassador;
 
-    public static function createHierachicalRegion(int $id, int $parentId, string $name, string $emailAddress, bool $hasAmbassador): HierachicalRegion
-    {
-        $region = new HierachicalRegion();
-        $region->id = $id;
-        $region->name = $name;
-        $region->parentId = $parentId;
-        $region->emailAddress = $emailAddress;
-        $region->hasAmbassador = $hasAmbassador;
-
-        return $region;
+    public function __construct(
+        int $id, string $name, int $parentId, int $type, string $emailAddress,
+        public bool $hasAmbassador,
+    ) {
+        parent::__construct($id, $name, $parentId, $type, $emailAddress);
     }
 }

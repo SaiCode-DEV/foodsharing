@@ -11,14 +11,18 @@ use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Region\ApplyType;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
+use Foodsharing\Modules\Core\DBConstants\Region\RegionPinStatus;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Region\DTO\BasicRegionStatistics;
 use Foodsharing\Modules\Region\DTO\HierachicalRegion;
 use Foodsharing\Modules\Region\DTO\MinimalRegionIdentifier;
 use Foodsharing\Modules\Region\DTO\PublicRegionData;
+use Foodsharing\Modules\Region\DTO\PublicRegionPatch;
+use Foodsharing\Modules\Region\DTO\RegionForTreeNavigation;
 use Foodsharing\Modules\Region\DTO\RegionOptions;
 use Foodsharing\Modules\Region\DTO\RegionPickupsPerDate;
 use Foodsharing\Modules\Region\DTO\RegionPin;
+use Foodsharing\Modules\Region\DTO\RegionWithMembership;
 use Foodsharing\RestApi\Models\Region\RegionForAdministration;
 use InvalidArgumentException;
 
@@ -48,14 +52,17 @@ class RegionGateway extends BaseGateway
         return $this->db->fetchAllValues($stm);
     }
 
-    public function getRegionByParent(int $parentId, bool $includeWorkgroups = false): array
+    /**
+     * @return RegionForTreeNavigation[]
+     */
+    public function getRegionsByParent(int $parentId, bool $includeWorkgroups = false): array
     {
         $typeClause = 'AND `type` != ' . UnitType::WORKING_GROUP;
         if ($includeWorkgroups) {
             $typeClause = '';
         }
 
-        return $this->db->fetchAll("SELECT
+        $regions = $this->db->fetchAll("SELECT
 				`id`,
 				`name`,
 				`has_children` as hasChildren,
@@ -71,6 +78,8 @@ class RegionGateway extends BaseGateway
                 ':workingGroupType' => UnitType::WORKING_GROUP,
             ]
         );
+
+        return array_map(fn ($r) => new RegionForTreeNavigation($r['id'], $r['name'], $r['hasChildren'], $r['type']), $regions);
     }
 
     public function listIdsForFoodsaverWithDescendants(?int $foodsaverId): array
@@ -525,28 +534,26 @@ class RegionGateway extends BaseGateway
 
     /**
      * Updates the given values of a region's map marker.
-     *
-     * @param int $status see {@link RegionPinStatus}
      */
-    public function setRegionPin(?int $regionId, ?string $lat, ?string $lon, ?string $desc, ?int $status): void
+    public function setRegionPin(?int $regionId, PublicRegionPatch $publicRegionPatch): void
     {
-        if (!is_null($lat)) {
+        if (!is_null($publicRegionPatch->location)) {
             $this->db->insertOrUpdate('fs_region_pin', [
                 'region_id' => $regionId,
-                'lat' => $lat,
-                'lon' => $lon,
+                'lat' => $publicRegionPatch->location->lat,
+                'lon' => $publicRegionPatch->location->lon,
             ]);
         }
-        if (!is_null($desc)) {
+        if (!is_null($publicRegionPatch->showPin)) {
             $this->db->insertOrUpdate('fs_region_pin', [
                 'region_id' => $regionId,
-                'desc' => $desc,
+                'status' => $publicRegionPatch->showPin ? RegionPinStatus::ACTIVE : RegionPinStatus::INACTIVE,
             ]);
         }
-        if (!is_null($status)) {
+        if (!is_null($publicRegionPatch->description)) {
             $this->db->insertOrUpdate('fs_region_pin', [
                 'region_id' => $regionId,
-                'status' => $status,
+                'desc' => $publicRegionPatch->description,
             ]);
         }
     }
@@ -581,6 +588,7 @@ class RegionGateway extends BaseGateway
         $data = $this->db->fetchAll("SELECT
                 region.name,
                 region.id,
+                region.type,
                 region.parent_id AS parentId,
                 mailbox.name AS email,
                 NOT ISNULL(ambassador.foodsaver_id) AS hasAmbassador
@@ -598,10 +606,11 @@ class RegionGateway extends BaseGateway
         ]);
 
         return array_map(function ($data) {
-            return HierachicalRegion::createHierachicalRegion(
+            return new HierachicalRegion(
                 $data['id'],
-                $data['parentId'],
                 $data['name'],
+                $data['parentId'],
+                $data['type'],
                 $data['email'],
                 $data['hasAmbassador']
             );
@@ -725,15 +734,16 @@ class RegionGateway extends BaseGateway
             ORDER BY depth DESC
         ', ['id' => $regionId]);
 
-        return array_map(fn ($region) => MinimalRegionIdentifier::createMinimalRegionIdentifier($region['id'], $region['name']), $ancestors);
+        return array_map(fn ($region) => new MinimalRegionIdentifier($region['id'], $region['name']), $ancestors);
     }
 
     /**
      * Returns all ancestors of a region, inlcuding information about whether the given user is member of that region.
+     * @return RegionWithMembership[]
      */
     public function getRegionAncestorMemberships(int $regionId, int $foodsaverId): array
     {
-        return $this->db->fetchAll('SELECT
+        $regions = $this->db->fetchAll('SELECT
                 r.id, r.name, r.type, m.active IS NOT NULL AS is_member
             FROM fs_bezirk_closure c
             JOIN fs_bezirk r ON r.id = c.ancestor_id
@@ -741,6 +751,11 @@ class RegionGateway extends BaseGateway
             WHERE c.bezirk_id = :regionId AND c.ancestor_id != 0
             ORDER BY depth ASC
         ', ['regionId' => $regionId, 'foodsaverId' => $foodsaverId]);
+
+        return array_map(
+            fn ($region) => new RegionWithMembership($region['id'], $region['name'], $region['isMember'], $region['type']),
+            $regions,
+        );
     }
 
     public function getRegionChildren(int $regionId): array
@@ -753,7 +768,7 @@ class RegionGateway extends BaseGateway
             ORDER BY r.name ASC
         ', ['id' => $regionId, 'workingGroupType' => UnitType::WORKING_GROUP]);
 
-        return array_map(fn ($region) => MinimalRegionIdentifier::createMinimalRegionIdentifier($region['id'], $region['name']), $children);
+        return array_map(fn ($region) => new MinimalRegionIdentifier($region['id'], $region['name']), $children);
     }
 
     /**

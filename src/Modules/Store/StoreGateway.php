@@ -24,6 +24,7 @@ use Foodsharing\Modules\Map\DTO\StoreMarkerHelpType;
 use Foodsharing\Modules\Map\DTO\StoreMarkerScopeType;
 use Foodsharing\Modules\Map\DTO\StoreMarkerStatusType;
 use Foodsharing\Modules\Region\RegionGateway;
+use Foodsharing\Modules\Store\DTO\CommonLabel;
 use Foodsharing\Modules\Store\DTO\MinimalStoreIdentifier;
 use Foodsharing\Modules\Store\DTO\Store;
 use Foodsharing\Modules\Store\DTO\StoreApplication;
@@ -1101,9 +1102,12 @@ class StoreGateway extends BaseGateway
         return $logEntries;
     }
 
+    /**
+     * @return CommonLabel[]
+     */
     public function listRegionStoresActivePickupRule(int $regionId): array
     {
-        return $this->db->fetchAll(
+        $stores = $this->db->fetchAll(
             'select  id as storeId,
         				   name as storeName
 					from fs_betrieb b
@@ -1111,6 +1115,8 @@ class StoreGateway extends BaseGateway
 					  and b.use_region_pickup_rule',
             [':regionId' => $regionId]
         );
+
+        return array_map(fn ($store) => new CommonLabel($store['id'], $store['name']), $stores);
     }
 
     /**

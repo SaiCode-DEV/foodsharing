@@ -1,86 +1,86 @@
-import { get, patch, post, remove } from './base'
+import { get, patch, post, put, remove } from './base'
 
 export function joinRegion (regionId) {
-  return post(`/region/${regionId}/join`)
+  return put(`/regions/${regionId}/users/current`)
 }
 
 export function leaveRegion (regionId) {
-  return post(`/region/${regionId}/leave`)
+  return remove(`/regions/${regionId}/users/current`)
 }
 
-export function setRegionOptions (regionId, enableReportButton, enableMediationButton, regionPickupRuleActive, regionPickupRuleTimespan, regionPickupRuleLimit, regionPickupRuleLimitDay, regionPickupRuleInactive, selectedReportReasonOptions, enableReportReasonOther, enableAddressChangeNotification) {
-  return post(`/region/${regionId}/options`, {
-    enableReportButton,
-    enableMediationButton,
-    regionPickupRuleActive,
-    regionPickupRuleTimespan,
-    regionPickupRuleLimit,
-    regionPickupRuleLimitDay,
-    regionPickupRuleInactive,
+export function setRegionOptions (regionId, isReportButtonEnabled, isMediationButtonEnabled, isRegionPickupRuleActive, regionPickupRuleTimespanDays, regionPickupRuleLimitNumber, regionPickupRuleLimitDayNumber, regionPickupRuleInactiveHours, selectedReportReasonOptions, isReportReasonOtherEnabled, isAddressChangeNotificationEnabled) {
+  return patch(`/regions/${regionId}/options`, {
+    isReportButtonEnabled,
+    isMediationButtonEnabled,
+    isRegionPickupRuleActive,
+    regionPickupRuleTimespanDays,
+    regionPickupRuleLimitNumber,
+    regionPickupRuleLimitDayNumber,
+    regionPickupRuleInactiveHours,
     selectedReportReasonOptions,
-    enableReportReasonOther,
-    enableAddressChangeNotification,
+    isReportReasonOtherEnabled,
+    isAddressChangeNotificationEnabled,
   })
 }
 
 export function getRegionOptions (regionId) {
-  return get(`/region/${regionId}/options`)
+  return get(`/regions/${regionId}/options`)
 }
 
 export function getRegionOptionPermissions (regionId) {
-  return get(`/region/${regionId}/options/permissions`)
+  return get(`/regions/${regionId}/options/permissions`)
 }
 
-export function setRegionPin (regionId, { lat, lon, desc, status }) {
-  return post(`/region/${regionId}/pin`, { lat, lon, desc, status })
+export function setPublicRegionData (regionId, { location, description, showPin }) {
+  return patch(`/regions/${regionId}/public`, { location, description, showPin })
 }
 
 export function listRegionChildren (regionId, includeWorkingGroups) {
-  return get(`/region/${regionId}/children${includeWorkingGroups ? '?includeWorkingGroups' : ''}`)
+  return get(`/regions/${regionId}/children${includeWorkingGroups ? '?includeWorkingGroups=1' : ''}`)
 }
 
 export function listRegionMembers (regionId) {
-  return get(`/region/${regionId}/members`)
+  return get(`/regions/${regionId}/users`)
 }
 
 export function listRegionStores (regionId) {
   return get(`/region/${regionId}/stores`)
 }
 
-export function removeMember (regionId, memberId) {
-  return remove(`/region/${regionId}/members/${memberId}`)
+export function removeMember (regionId, userId) {
+  return remove(`/regions/${regionId}/users/${userId}`)
 }
 
-export function removeAdminOrAmbassador (regionId, memberId) {
-  return remove(`/region/${regionId}/members/${memberId}/admin`)
+export function removeAdminOrAmbassador (regionId, userId) {
+  return remove(`/regions/${regionId}/users/${userId}/admin`)
 }
 
-export function setAdminOrAmbassador (regionId, memberId) {
-  return post(`/region/${regionId}/members/${memberId}/admin`)
+export function setAdminOrAmbassador (regionId, userId) {
+  return post(`/regions/${regionId}/users/${userId}/admin`)
 }
 
 export function getRegionData (regionId) {
-  return get(`/region/${regionId}`)
+  return get(`/regions/${regionId}`)
 }
 
 export function patchRegion (region) {
-  return patch(`/region/${region.id}`, region)
+  return patch(`/regions/${region.id}`, region)
 }
 
 export async function createRegion (region) {
-  return (await post('/region', region)).regionId
+  return (await post('/regions', region)).regionId
 }
 
 export async function getRegionMemberPermissions (regionId) {
-  return await get(`/region/${regionId}/members/permissions`)
+  return await get(`/regions/${regionId}/users/permissions`)
 }
 
 export async function getPublicRegionData (regionId) {
-  return await get(`/region/${regionId}/public`)
+  return await get(`/regions/${regionId}/public`)
 }
 export async function getRegionMenu (regionId) {
-  return await get(`/region/${regionId}/menu`, { disableLoginRedirect: true })
+  return await get(`/regions/${regionId}/menu`, { disableLoginRedirect: true })
 }
 export async function getInaccessibleRegionRedirects (regionId) {
-  return await get(`/region/${regionId}/redirects`, { disableLoginRedirect: true })
+  return await get(`/regions/${regionId}/redirects`, { disableLoginRedirect: true })
 }

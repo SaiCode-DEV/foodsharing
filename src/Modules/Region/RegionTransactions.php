@@ -15,7 +15,9 @@ use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Mailbox\MailboxGateway;
 use Foodsharing\Modules\Region\DTO\HierachicalRegion;
 use Foodsharing\Modules\Region\DTO\PublicRegionData;
+use Foodsharing\Modules\Region\DTO\RegionOptionsPatch;
 use Foodsharing\Modules\Region\DTO\RegionPickupStatistics;
+use Foodsharing\Modules\Region\DTO\RegionWithMembership;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Modules\Unit\DTO\UserUnit;
 use Foodsharing\Modules\Unit\UnitGateway;
@@ -301,12 +303,13 @@ class RegionTransactions
     /**
      * Returns all ancestors of a region, including information about whether the given user is member of that region.
      * The last element of the list is the first region that isn't a group or that the user is a member in.
+     * @return RegionWithMembership[]
      */
     public function getInaccessibleRegionRedirects(int $deniedRegionId, int $foodsaverId): array
     {
         $ancestors = $this->regionGateway->getRegionAncestorMemberships($deniedRegionId, $foodsaverId);
         for ($i = 0; $i < count($ancestors); ++$i) {
-            if ($ancestors[$i]['type'] !== UnitType::WORKING_GROUP || $ancestors[$i]['is_member']) {
+            if ($ancestors[$i]->type !== UnitType::WORKING_GROUP || $ancestors[$i]->isMember) {
                 return array_slice($ancestors, 0, $i + 1);
             }
         }
@@ -334,5 +337,31 @@ class RegionTransactions
         }
 
         return $responsibleUsers;
+    }
+
+    public function patchRegionOptions(int $regionId, RegionOptionsPatch $options): void
+    {
+        if ($this->regionPermissions->maySetRegionOptionsReportButtons($regionId)) {
+            $this->patchOptionsValue(RegionOptionType::ENABLE_REPORT_BUTTON, $options->isReportButtonEnabled, $regionId);
+            $this->patchOptionsValue(RegionOptionType::ENABLE_MEDIATION_BUTTON, $options->isMediationButtonEnabled, $regionId);
+            $this->patchOptionsValue(RegionOptionType::NOTIFY_ADDRESS_CHANGE, $options->isAddressChangeNotificationEnabled, $regionId);
+            $this->patchOptionsValue(RegionOptionType::REPORT_REASON_OPTIONS, $options->selectedReportReasonOptions, $regionId);
+            $this->patchOptionsValue(RegionOptionType::REPORT_REASON_OTHER, $options->isReportReasonOtherEnabled, $regionId);
+        }
+
+        if ($this->regionPermissions->maySetRegionOptionsRegionPickupRule($regionId)) {
+            $this->patchOptionsValue(RegionOptionType::REGION_PICKUP_RULE_ACTIVE, $options->isRegionPickupRuleActive, $regionId);
+            $this->patchOptionsValue(RegionOptionType::REGION_PICKUP_RULE_TIMESPAN_DAYS, $options->regionPickupRuleTimespanDays, $regionId);
+            $this->patchOptionsValue(RegionOptionType::REGION_PICKUP_RULE_LIMIT_NUMBER, $options->regionPickupRuleLimitNumber, $regionId);
+            $this->patchOptionsValue(RegionOptionType::REGION_PICKUP_RULE_LIMIT_DAY_NUMBER, $options->regionPickupRuleLimitDayNumber, $regionId);
+            $this->patchOptionsValue(RegionOptionType::REGION_PICKUP_RULE_INACTIVE_HOURS, $options->regionPickupRuleInactiveHours, $regionId);
+        }
+    }
+
+    private function patchOptionsValue(int $regionOptionType, mixed $value, int $regionId): void
+    {
+        if (!is_null($value)) {
+            $this->regionGateway->setRegionOption($regionId, $regionOptionType, strval(intval($value)));
+        }
     }
 }

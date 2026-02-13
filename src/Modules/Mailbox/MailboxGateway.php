@@ -86,10 +86,10 @@ class MailboxGateway extends BaseGateway
         );
 
         return array_map(function ($region) {
-            return Region::createRegion(
+            return new Region(
                 $region['id'],
-                $region['parent_id'],
                 $region['name'],
+                $region['parent_id'],
                 $region['type'],
                 $region['email'],
                 $region['email_name']

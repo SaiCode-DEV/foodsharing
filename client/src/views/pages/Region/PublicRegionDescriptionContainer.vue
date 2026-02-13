@@ -50,7 +50,7 @@ import Markdown from '@/components/Markdown/Markdown.vue'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 import ContainerButton from '@/components/Container/ContainerButton.vue'
 import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
-import { setRegionPin } from '@/api/regions'
+import { setPublicRegionData } from '@/api/regions'
 import { pulseError } from '@/script'
 import { useRegionStore } from '@/stores/regions'
 import OverflowMenu from '@/components/OverflowMenu.vue'
@@ -105,7 +105,7 @@ export default {
         })) return
         this.loading = true
         try {
-          await setRegionPin(this.regionId, { desc: this.editDescription })
+          await setPublicRegionData(this.regionId, { description: this.editDescription })
           await regionStore.fetchPublicRegionData(this.regionId, true)
           this.$emit('update:description', this.editDescription)
         } catch (e) {

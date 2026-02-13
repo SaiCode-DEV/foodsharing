@@ -683,7 +683,7 @@ class StoreApiCest
 
         $storeInfo = [
             'name' => 'Store Name',
-            'location' => ['lat' => 123.01, 'lon' => 4.190000],
+            'location' => ['lat' => 12.01, 'lon' => 4.190000],
             'street' => 'Mühlbachweg 122',
             'zipCode' => '12234',
             'city' => 'Karlsruhe',
@@ -712,7 +712,7 @@ class StoreApiCest
 
         $storeInfo = [
             'name' => 'Store Name',
-            'location' => ['lat' => 123.01, 'lon' => 4.190000],
+            'location' => ['lat' => 12.01, 'lon' => 4.190000],
             'street' => 'Mühlbachweg 122',
             'zipCode' => '12234',
             'city' => 'Karlsruhe',

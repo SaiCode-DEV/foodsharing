@@ -2,58 +2,53 @@
 
 namespace Foodsharing\RestApi;
 
-use Exception;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
-use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
-use Foodsharing\Modules\Core\DBConstants\Region\RegionPinStatus;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
+use Foodsharing\Modules\Foodsaver\UnitMember;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\DTO\PublicRegionData;
+use Foodsharing\Modules\Region\DTO\PublicRegionPatch;
+use Foodsharing\Modules\Region\DTO\RegionForTreeNavigation;
+use Foodsharing\Modules\Region\DTO\RegionOptions;
+use Foodsharing\Modules\Region\DTO\RegionOptionsPatch;
+use Foodsharing\Modules\Region\DTO\RegionWithMembership;
 use Foodsharing\Modules\Region\ForumFollowerGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Region\RegionTransactions;
 use Foodsharing\Modules\Settings\SettingsGateway;
+use Foodsharing\Modules\Store\DTO\CommonLabel;
 use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
-use Foodsharing\Modules\Unit\DTO\UserUnit;
 use Foodsharing\Modules\WorkGroup\WorkGroupTransactions;
 use Foodsharing\Permissions\RegionPermissions;
 use Foodsharing\Permissions\WorkGroupPermissions;
 use Foodsharing\RestApi\Models\Region\RegionForAdministration;
-use Foodsharing\RestApi\Models\Region\UserRegionModel;
 use Foodsharing\Utility\ImageHelper;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use OpenApi\Annotations as OA;
-use OpenApi\Attributes as OA2;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-#[OA2\Tag(name: 'region')]
+#[OA\Tag(name: 'region')]
+#[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Login required')]
+#[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
+#[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Requested region does not exist')]
 class RegionRestController extends AbstractFoodsharingRestController
 {
-    // literal constants
-    private const string LAT = 'lat';
-    private const string LON = 'lon';
-    private const string DESC = 'desc';
-    private const string STATUS = 'status';
-
     public function __construct(
         private readonly SettingsGateway $settingsGateway,
         private readonly BellGateway $bellGateway,
@@ -67,20 +62,21 @@ class RegionRestController extends AbstractFoodsharingRestController
         private readonly WorkGroupPermissions $workGroupPermissions,
         private readonly WorkGroupTransactions $workGroupTransactions,
         private readonly EventGateway $eventGateway,
-        protected Session $session,
-        protected readonly CurrentUserUnitsInterface $currentUserUnits,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
         private readonly ForumFollowerGateway $forumFollowerGateway,
+        protected Session $session,
     ) {
     }
 
-    #[OA2\Post(description: 'Calling the endpoint with a region in which the user is already a member has no effect.')]
-    #[Rest\Post('region/{regionId}/join', requirements: ['regionId' => '\d+'])]
+    #[OA\Put(summary: 'Join a region.')]
+    #[Route('regions/{regionId}/users/current', methods: ['PUT'], requirements: ['regionId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     public function joinRegion(int $regionId): Response
     {
+        $this->assertLoggedIn();
+        $region = $this->assertRegionExists($regionId);
+
         $sessionId = $this->session->id();
-        if ($sessionId === null) {
-            throw new UnauthorizedHttpException('');
-        }
 
         // If the user is already in the region, there is nothing to do
         if (in_array($regionId, $this->currentUserUnits->listRegionIDs())) {
@@ -89,10 +85,10 @@ class RegionRestController extends AbstractFoodsharingRestController
 
         $region = $this->regionGateway->getRegion($regionId);
         if (!$region) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException('Region not found');
         }
         if (!$this->regionPermissions->mayJoinRegion($regionId)) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Not permitted');
         }
 
         $this->regionGateway->linkBezirk($sessionId, $regionId);
@@ -108,6 +104,7 @@ class RegionRestController extends AbstractFoodsharingRestController
         } else {
             $welcomeBellRecipients = $this->foodsaverGateway->getAdminsOrAmbassadors($regionId);
         }
+        $welcomeBellRecipients = array_column($welcomeBellRecipients, 'id');
 
         $bellData = Bell::create(
             'new_foodsaver_title',
@@ -119,180 +116,76 @@ class RegionRestController extends AbstractFoodsharingRestController
                 'bezirk' => $region['name']
             ],
             BellType::createIdentifier(BellType::NEW_FOODSAVER_IN_REGION, $sessionId),
-            true
         );
-        $this->bellGateway->addBellForUsers(array_column($welcomeBellRecipients, 'id'), $bellData);
+        $this->bellGateway->addBellForUsers($welcomeBellRecipients, $bellData);
 
-        return $this->handleView($this->view([], 200));
+        return $this->respondOK();
     }
 
-    /**
-     * Returns a list of all region of the user.
-     *
-     * @OA\Tag(name="my")
-     * @OA\Response(
-     * 		response="200",
-     * 		description="Success returns list of related regions of user",
-     *      @OA\JsonContent(
-     *        type="array",
-     *        @OA\Items(ref=@Model(type=UserRegionModel::class))
-     *      )
-     * )
-     * @OA\Response(response="401", description="Not logged in.")
-     */
-    #[Rest\Get('user/current/regions')]
-    public function listMyRegion(): Response
-    {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('');
-        }
-        $fsId = $this->session->id();
-
-        $regions = $this->regionTransactions->getUserRegions($fsId);
-
-        $rspRegions = array_map(fn (UserUnit $region): UserRegionModel => UserRegionModel::createFrom($region), $regions);
-
-        return $this->handleView($this->view($rspRegions, 200));
-    }
-
-    /**
-     * Removes the current user from a region. Returns 403 if not logged in, 400 if the region does not exist, 409 if
-     * the user is still an active store manager in the region, or 200 if the user was removed from the region or was
-     * not a member of that region. That means that after a 200 result the user will definitely not be a member of that
-     * region anymore.
-     *
-     * @OA\Parameter(name="regionId", in="path", @OA\Schema(type="integer"), description="which region or group to leave")
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="400", description="Region or group does not exist")
-     * @OA\Response(response="403", description="Insufficient permissions")
-     * @OA\Response(response="409", description="User is still an active manager in the region")
-     */
-    #[Rest\Post('region/{regionId}/leave', requirements: ['regionId' => '\d+'])]
+    #[OA\Post(summary: 'Removes the current user from a region.')]
+    #[Route('regions/{regionId}/users/current', methods: ['DELETE'], requirements: ['regionId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_CONFLICT, description: 'Still an active store manager in that region')]
     public function leaveRegion(int $regionId): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('');
-        }
-        /** @var int $sessionId */
-        $sessionId = $this->session->id();
-        if (empty($this->regionGateway->getRegion($regionId))) {
-            throw new BadRequestHttpException('region does not exist or is root region.');
-        }
+        $this->assertLoggedIn();
+        $this->assertRegionExists($regionId);
 
         if (in_array($this->session->id(), $this->storeGateway->getStoreManagersOf($regionId))) {
-            throw new ConflictHttpException('still an active store manager in that region');
+            throw new ConflictHttpException('Still an active store manager in that region');
         }
 
-        $this->eventGateway->deleteInvitesForFoodSaver($regionId, $sessionId);
-        $this->foodsaverGateway->deleteFromRegion($regionId, $sessionId, $sessionId);
+        $userId = $this->session->id();
+        $this->eventGateway->deleteInvitesForFoodSaver($regionId, $userId);
+        $this->foodsaverGateway->deleteFromRegion($regionId, $userId, $userId);
 
-        return $this->handleView($this->view([], 200));
+        return $this->respondOK();
     }
 
-    /**
-     * Sets the options for region.
-     *
-     * @OA\Parameter(name="regionId", in="path", @OA\Schema(type="integer"), description="which region to set options for")
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Response(response="403", description="Insufficient permissions")
-     */
-    #[Rest\Post('region/{regionId}/options', requirements: ['regionId' => '\d+'])]
-    #[Rest\RequestParam(name: 'enableReportButton')]
-    #[Rest\RequestParam(name: 'enableMediationButton')]
-    #[Rest\RequestParam(name: 'regionPickupRuleActive')]
-    #[Rest\RequestParam(name: 'regionPickupRuleTimespan')]
-    #[Rest\RequestParam(name: 'regionPickupRuleLimit')]
-    #[Rest\RequestParam(name: 'regionPickupRuleLimitDay')]
-    #[Rest\RequestParam(name: 'regionPickupRuleInactive')]
-    #[Rest\RequestParam(name: 'selectedReportReasonOptions')]
-    #[Rest\RequestParam(name: 'enableReportReasonOther')]
-    #[Rest\RequestParam(name: 'enableAddressChangeNotification', nullable: true)]
-    public function setRegionOptions(ParamFetcher $paramFetcher, int $regionId): Response
+    #[OA\Patch(summary: 'Sets the options for region.')]
+    #[Route('regions/{regionId}/options', methods: ['PATCH'], requirements: ['regionId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    public function setRegionOptions(int $regionId, #[MapRequestPayload] RegionOptionsPatch $options): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
+        $this->assertRegionExists($regionId);
+
         if (!$this->regionPermissions->maySetRegionOptionsReportButtons($regionId) && !$this->regionPermissions->maySetRegionOptionsRegionPickupRule($regionId)) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Not permitted');
         }
+        $this->regionTransactions->patchRegionOptions($regionId, $options);
 
-        $params = $paramFetcher->all();
-        if ($this->regionPermissions->maySetRegionOptionsReportButtons($regionId)) {
-            if (isset($params['enableReportButton'])) {
-                $this->regionGateway->setRegionOption($regionId, RegionOptionType::ENABLE_REPORT_BUTTON, strval(intval($params['enableReportButton'])));
-            }
-            if (isset($params['enableMediationButton'])) {
-                $this->regionGateway->setRegionOption($regionId, RegionOptionType::ENABLE_MEDIATION_BUTTON, strval(intval($params['enableMediationButton'])));
-            }
-            if (isset($params['enableAddressChangeNotification'])) {
-                $this->regionGateway->setRegionOption($regionId, RegionOptionType::NOTIFY_ADDRESS_CHANGE, strval(intval($params['enableAddressChangeNotification'])));
-            }
-            if (isset($params['selectedReportReasonOptions'])) {
-                $this->regionGateway->setRegionOption($regionId, RegionOptionType::REPORT_REASON_OPTIONS, strval(intval($params['selectedReportReasonOptions'])));
-            }
-            if (isset($params['enableReportReasonOther'])) {
-                $this->regionGateway->setRegionOption($regionId, RegionOptionType::REPORT_REASON_OTHER, strval(intval($params['enableReportReasonOther'])));
-            }
-        }
-
-        if ($this->regionPermissions->maySetRegionOptionsRegionPickupRule($regionId)) {
-            if (isset($params['regionPickupRuleActive'])) {
-                $this->regionGateway->setRegionOption($regionId, RegionOptionType::REGION_PICKUP_RULE_ACTIVE, strval(intval($params['regionPickupRuleActive'])));
-            }
-            if (isset($params['regionPickupRuleTimespan'])) {
-                $this->regionGateway->setRegionOption($regionId, RegionOptionType::REGION_PICKUP_RULE_TIMESPAN_DAYS, strval(intval($params['regionPickupRuleTimespan'])));
-            }
-            if (isset($params['regionPickupRuleLimit'])) {
-                $this->regionGateway->setRegionOption($regionId, RegionOptionType::REGION_PICKUP_RULE_LIMIT_NUMBER, strval(intval($params['regionPickupRuleLimit'])));
-            }
-            if (isset($params['regionPickupRuleLimitDay'])) {
-                $this->regionGateway->setRegionOption($regionId, RegionOptionType::REGION_PICKUP_RULE_LIMIT_DAY_NUMBER, strval(intval($params['regionPickupRuleLimitDay'])));
-            }
-            if (isset($params['regionPickupRuleInactive'])) {
-                $this->regionGateway->setRegionOption($regionId, RegionOptionType::REGION_PICKUP_RULE_INACTIVE_HOURS, strval(intval($params['regionPickupRuleInactive'])));
-            }
-        }
-
-        return $this->handleView($this->view([], 200));
+        return $this->respondOK();
     }
 
-    /**
-     * Returns the region options for a specific region.
-     *
-     * @OA\Parameter(name="regionId", in="path", @OA\Schema(type="integer"), description="ID of the region")
-     * @OA\Response(response="200", description="Success", @OA\Schema(type="array", @OA\Items(
-     *     @OA\Property(property="regionPickupRuleActive", type="boolean"),
-     *     @OA\Property(property="regionPickupRuleTimespan", type="integer"),
-     *     @OA\Property(property="regionPickupRuleLimit", type="integer"),
-     *     @OA\Property(property="regionPickupRuleLimitDay", type="integer"),
-     *     @OA\Property(property="regionPickupRuleInactive", type="integer"),
-     * )))
-     * @OA\Response(response="401", description="Not logged in")
-     *
-     * @throws Exception
-     */
-    #[Rest\Get('region/{regionId}/options', requirements: ['regionId' => '\d+'])]
+    #[OA\Get(summary: 'Returns the region options for a specific region.')]
+    #[Route('regions/{regionId}/options', methods: ['GET'], requirements: ['regionId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: RegionOptions::class))]
     public function getRegionOptions(int $regionId): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
 
         $options = $this->regionGateway->getRegionOptions($regionId);
 
-        return $this->handleView($this->view($options, 200));
+        if (is_null($options)) {
+            throw new NotFoundHttpException('Region does not exist');
+        }
+
+        return $this->respondOK($options);
     }
 
-    #[OA2\Get(summary: "Returns the user's permissions for setting the region options.")]
-    #[Route('region/{regionId}/options/permissions', requirements: ['regionId' => '\d+'], methods: ['GET'])]
-    #[OA2\Response(response: Response::HTTP_OK, description: 'success')]
-    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA\Get(summary: "Returns the user's permissions for setting the region options.")]
+    #[Route('regions/{regionId}/options/permissions', requirements: ['regionId' => Requirement::POSITIVE_INT], methods: ['GET'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(type: 'object', properties: [
+        new OA\Property(property: 'maySetRegionOptionsReportButtons', type: 'boolean'),
+        new OA\Property(property: 'maySetRegionOptionsRegionPickupRule', type: 'boolean'),
+        new OA\Property(property: 'regionPickupRuleActiveStoreList', type: 'array', items: new OA\Items(ref: new Model(type: CommonLabel::class))
+        ),
+    ]))]
     public function getRegionOptionPermissions(int $regionId): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
+        $this->assertRegionExists($regionId);
 
         $permissions = [
             'maySetRegionOptionsReportButtons' => $this->regionPermissions->maySetRegionOptionsReportButtons($regionId),
@@ -303,86 +196,56 @@ class RegionRestController extends AbstractFoodsharingRestController
         return $this->respondOK($permissions);
     }
 
-    private function isValidNumber($value, float $lowerBound, float $upperBound): bool
-    {
-        return !is_null($value) && !is_nan($value)
-            && ($lowerBound <= $value) && ($upperBound >= $value);
-    }
-
-    /**
-     * Sets the pin for region.
-     *
-     * @OA\Parameter(name="regionId", in="path", @OA\Schema(type="integer"), description="which region to set pin for")
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Response(response="403", description="Insufficient permissions")
-     */
-    #[Rest\Post('region/{regionId}/pin', requirements: ['regionId' => Requirement::POSITIVE_INT])]
-    #[Rest\RequestParam(name: 'lat', nullable: true)]
-    #[Rest\RequestParam(name: 'lon', nullable: true)]
-    #[Rest\RequestParam(name: 'desc', nullable: true)]
-    #[Rest\RequestParam(name: 'status', requirements: Requirement::DIGITS, nullable: true)]
-    public function setRegionPin(ParamFetcher $paramFetcher, int $regionId): Response
+    #[OA\Patch(summary: 'Sets the public data for a region.')]
+    #[Route('regions/{regionId}/public', methods: ['PATCH'], requirements: ['regionId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    public function setPublicRegionData(int $regionId, #[MapRequestPayload] PublicRegionPatch $publicRegionPatch): Response
     {
         $this->assertLoggedIn();
+        $this->assertRegionExists($regionId);
 
-        if ($regionId < 0 || !$this->regionPermissions->maySetRegionPin($regionId)) {
-            throw new AccessDeniedHttpException();
+        if (!$this->regionPermissions->maySetRegionPin($regionId)) {
+            throw new AccessDeniedHttpException('Not permitted');
         }
 
-        $lat = $paramFetcher->get(self::LAT) ?? null;
-        $lon = $paramFetcher->get(self::LON) ?? null;
-        $desc = $paramFetcher->get(self::DESC) ?? null;
-        $status = $paramFetcher->get(self::STATUS) ?? null;
-        if ((!is_null($lat) || !is_null($lon)) && (!$this->isValidNumber($lat, -90.0, 90.0) || !$this->isValidNumber($lon, -180.0, 180.0))) {
-            throw new BadRequestHttpException('Invalid Latitude or Longitude');
-        }
-        if (!is_null($status) && !RegionPinStatus::isValid($status)) {
-            throw new BadRequestHttpException('Invalid status');
-        }
-
-        $this->regionGateway->setRegionPin($regionId, $lat, $lon, $desc, $status);
+        $this->regionGateway->setRegionPin($regionId, $publicRegionPatch);
 
         return $this->respondOK();
     }
 
-    #[OA2\Get(
+    #[OA\Get(
         summary: 'Returns a list of all subregions including working groups of a region.',
         description: 'The result is empty if the region does not exist.'
     )]
-    #[OA2\Parameter(name: 'regionId', in: 'path', schema: new OA2\Schema(type: 'integer'), description: 'ID of the region or 0 for the root region')]
-    #[OA2\Response(response: Response::HTTP_OK, description: 'success')]
-    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
-    #[Rest\Get('region/{regionId}/children', requirements: ['regionId' => '\d+'])]
-    #[Rest\QueryParam(name: 'includeWorkingGroups', nullable: true)]
-    public function listRegionChildren(int $regionId, ParamFetcher $paramFetcher): Response
+    #[Route('regions/{regionId}/children', methods: ['GET'], requirements: ['regionId' => Requirement::DIGITS])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(type: 'array',
+        items: new OA\Items(ref: new Model(type: RegionForTreeNavigation::class))
+    ))]
+    public function listRegionChildren(int $regionId, #[MapQueryParameter] ?bool $includeWorkingGroups): Response
+    {
+        $this->assertLoggedIn();
+        $includeWorkingGroups ??= false;
+
+        if ($includeWorkingGroups && !$this->regionPermissions->mayAccessWorkingGroupList($regionId)) {
+            throw new AccessDeniedHttpException('Not permitted');
+        }
+
+        $children = $this->regionGateway->getRegionsByParent($regionId, $includeWorkingGroups);
+
+        return $this->respondOK($children);
+    }
+
+    #[OA\Get(summary: 'Returns a list of all members for a region.')]
+    #[Route('regions/{regionId}/users', methods: ['GET'], requirements: ['regionId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(type: 'array',
+        items: new OA\Items(ref: new Model(type: UnitMember::class))
+    ))]
+    public function listMembers(int $regionId): Response
     {
         $this->assertLoggedIn();
 
-        $includeWorkingGroups = !is_null($paramFetcher->get('includeWorkingGroups'));
-        if ($includeWorkingGroups && !$this->regionPermissions->mayAccessWorkingGroupList($regionId)) {
-            throw new UnauthorizedHttpException('');
-        }
-
-        $children = $this->regionGateway->getRegionByParent($regionId, $includeWorkingGroups);
-
-        return $this->handleView($this->view($children, Response::HTTP_OK));
-    }
-
-    #[OA2\Get(summary: 'Returns a list of all members for a region.')]
-    #[OA2\Parameter(name: 'regionId', in: 'path', schema: new OA2\Schema(type: 'integer'), description: 'ID of the region or 0 for the root region')]
-    #[OA2\Response(response: Response::HTTP_OK, description: 'success')]
-    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
-    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
-    #[Rest\Get('region/{regionId}/members', requirements: ['regionId' => '\d+'])]
-    public function listMembers(int $regionId): Response
-    {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('');
-        }
-
         if (!$this->regionPermissions->maySeeRegionMembers($regionId)) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Not permitted');
         }
 
         $region = $this->regionGateway->getRegion($regionId);
@@ -391,143 +254,103 @@ class RegionRestController extends AbstractFoodsharingRestController
         } else {
             $maySeeDetails = $this->regionPermissions->mayHandleFoodsaverRegionMenu($regionId);
         }
-        $response = $this->foodsaverGateway->listActiveFoodsaversByRegion($regionId, $maySeeDetails);
+        $members = $this->foodsaverGateway->listActiveFoodsaversByRegion($regionId, $maySeeDetails);
 
-        return $this->handleView($this->view($response, 200));
+        return $this->respondOK($members);
     }
 
-    #[OA2\Get(
+    #[OA\Delete(
         summary: 'Removes a member from a region or working group.',
         description: 'If the user was not a member of the region/group, nothing happens.'
     )]
-    #[OA2\Parameter(name: 'regionId', in: 'path', schema: new OA2\Schema(type: 'integer'), description: 'ID of the region or 0 for the root region')]
-    #[OA2\Response(response: Response::HTTP_OK, description: 'success')]
-    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
-    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
-    #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'Region not found')]
-    #[Rest\Delete('region/{regionId}/members/{memberId}', requirements: ['regionId' => '\d+', 'memberId' => '\d+'])]
-    public function removeMember(int $regionId, int $memberId): Response
+    #[Route('regions/{regionId}/users/{userId}', methods: ['DELETE'], requirements: ['regionId' => Requirement::POSITIVE_INT, 'userId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    public function removeMember(int $regionId, int $userId): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('');
-        }
-
-        $region = $this->regionGateway->getRegion($regionId);
-
-        if (empty($region)) {
-            throw new NotFoundHttpException();
-        }
+        $this->assertLoggedIn();
+        $region = $this->assertRegionExists($regionId);
 
         if (UnitType::isGroup($region['type'])) {
             if (!$this->workGroupPermissions->mayEdit($region)) {
-                throw new AccessDeniedHttpException();
+                throw new AccessDeniedHttpException('Not permitted');
             }
-            $this->regionGateway->removeRegionAdmin($regionId, $memberId);
-            $this->workGroupTransactions->removeMemberFromGroup($regionId, $memberId);
+            $this->regionGateway->removeRegionAdmin($regionId, $userId);
+            $this->workGroupTransactions->removeMemberFromGroup($regionId, $userId);
         } else {
             if (!$this->regionPermissions->mayDeleteFoodsaverFromRegion($regionId)) {
-                throw new AccessDeniedHttpException();
+                throw new AccessDeniedHttpException('Not permitted');
             }
-            $this->foodsaverGateway->deleteFromRegion($regionId, $memberId, $this->session->id());
+            $this->foodsaverGateway->deleteFromRegion($regionId, $userId, $this->session->id());
         }
 
-        return $this->handleView($this->view([], 200));
+        return $this->respondOK();
     }
 
-    /**
-     * Sets an user as Admin / Ambassador of a region / workgroup.
-     *
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Response(response="403", description="Insufficient permissions")
-     * @OA\Response(response="404", description="Region not found")
-     */
-    #[Rest\Post('region/{regionId}/members/{memberId}/admin', requirements: ['regionId' => '\d+', 'memberId' => '\d+'])]
-    public function setAdminOrAmbassador(int $regionId, int $memberId): Response
+    #[OA\Put(summary: 'Sets an user as Admin / Ambassador of a region / workgroup.')]
+    #[Route('regions/{regionId}/users/{userId}/admin', methods: ['PUT'], requirements: ['regionId' => Requirement::POSITIVE_INT, 'userId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    public function setAdminOrAmbassador(int $regionId, int $userId): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('');
-        }
-
-        $region = $this->regionGateway->getRegion($regionId);
-
-        if (empty($region)) {
-            throw new NotFoundHttpException();
-        }
+        $this->assertLoggedIn();
+        $region = $this->assertRegionExists($regionId);
 
         if (UnitType::isGroup($region['type'])) {
             if (!$this->workGroupPermissions->mayEdit($region)) {
-                throw new AccessDeniedHttpException();
+                throw new AccessDeniedHttpException('Not permitted');
             }
         } else {
             if (!$this->regionPermissions->maySetRegionAdmin()) {
-                throw new AccessDeniedHttpException();
+                throw new AccessDeniedHttpException('Not permitted');
             }
-            $memberRole = $this->foodsaverGateway->getRole($memberId);
+            $memberRole = $this->foodsaverGateway->getRole($userId);
             if ($memberRole && $memberRole->isLower(Role::AMBASSADOR)) {
-                throw new AccessDeniedHttpException();
+                throw new AccessDeniedHttpException('The user is not permitted not be ambassador');
             }
         }
 
-        $this->regionGateway->setRegionAdmin($regionId, $memberId);
+        $this->regionGateway->setRegionAdmin($regionId, $userId);
 
-        return $this->handleView($this->view([], 200));
+        return $this->respondOK();
     }
 
-    /**
-     * Sets an user as Admin / Ambassador of a region / workgroup.
-     *
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Response(response="403", description="Insufficient permissions")
-     * @OA\Response(response="404", description="Region not found")
-     */
-    #[Rest\Delete('region/{regionId}/members/{memberId}/admin', requirements: ['regionId' => '\d+', 'memberId' => '\d+'])]
-    public function removeAdminOrAmbassador(int $regionId, int $memberId): Response
+    #[OA\Delete(summary: 'Removes a user as Admin / Ambassador of a region / workgroup.')]
+    #[Route('regions/{regionId}/users/{userId}/admin', methods: ['DELETE'], requirements: ['regionId' => Requirement::POSITIVE_INT, 'userId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    public function removeAdminOrAmbassador(int $regionId, int $userId): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('');
-        }
-
-        $region = $this->regionGateway->getRegion($regionId);
-
-        if (empty($region)) {
-            throw new NotFoundHttpException();
-        }
+        $this->assertLoggedIn();
+        $region = $this->assertRegionExists($regionId);
 
         if (UnitType::isGroup($region['type'])) {
             if (!$this->workGroupPermissions->mayEdit($region)) {
-                throw new AccessDeniedHttpException();
+                throw new AccessDeniedHttpException('Not permitted');
             }
         } else {
             if (!$this->regionPermissions->mayRemoveRegionAdmin()) {
-                throw new AccessDeniedHttpException();
+                throw new AccessDeniedHttpException('Not permitted');
             }
-            $member_role = $this->foodsaverGateway->getRole($memberId);
-            if ($member_role && $member_role->isLower(Role::AMBASSADOR)) {
-                throw new AccessDeniedHttpException();
-            }
-            $this->forumFollowerGateway->deleteForumSubscription($regionId, $memberId, 1);
+            $this->forumFollowerGateway->deleteForumSubscription($regionId, $userId, 1);
         }
 
-        $this->regionGateway->removeRegionAdmin($regionId, $memberId);
+        $this->regionGateway->removeRegionAdmin($regionId, $userId);
 
-        return $this->handleView($this->view([], 200));
+        return $this->respondOK();
     }
 
-    #[OA2\Get(summary: 'Returns the permissions that this user has concerning administration of the members in the region.')]
-    #[OA2\Parameter(name: 'regionId', description: 'ID of the region', in: 'path', schema: new OA2\Schema(type: 'integer'))]
-    #[OA2\Response(response: Response::HTTP_OK, description: 'success')]
-    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
-    #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'Region not found')]
-    #[Rest\Get('region/{regionId}/members/permissions', requirements: ['regionId' => '\d+'])]
+    #[OA\Get(summary: 'Returns the permissions that this user has concerning administration of the members in the region.')]
+    #[Route('regions/{regionId}/users/permissions', methods: ['GET'], requirements: ['regionId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(type: 'object', properties: [
+        new OA\Property(property: 'mayEditMembers', type: 'boolean'),
+        new OA\Property(property: 'maySetAdminOrAmbassador', type: 'boolean'),
+        new OA\Property(property: 'mayRemoveAdminOrAmbassador', type: 'boolean'),
+    ]))]
     public function getRegionMemberPermissions(int $regionId): Response
     {
         $this->assertLoggedIn();
 
         $region = $this->regionGateway->getRegionDetails($regionId);
         if (empty($region)) {
-            throw new NotFoundHttpException('region does not exist');
+            throw new NotFoundHttpException('Region does not exist');
         }
 
         if ($region['type'] === UnitType::WORKING_GROUP) {
@@ -549,42 +372,32 @@ class RegionRestController extends AbstractFoodsharingRestController
         return $this->respondOK($permissions);
     }
 
-    #[OA2\Get(summary: 'Returns the properties of a specific region.')]
-    #[OA2\Parameter(name: 'regionId', in: 'path', schema: new OA2\Schema(type: 'integer'), description: 'ID of the region or 0 for the root region')]
-    #[OA2\Response(response: Response::HTTP_OK, description: 'success')]
-    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
-    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
-    #[Rest\Get('region/{regionId}', requirements: ['regionId' => '\d+'])]
+    #[OA\Get(summary: 'Returns the properties of a specific region.')]
+    #[Route('regions/{regionId}', methods: ['GET'], requirements: ['regionId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: RegionForAdministration::class))]
     public function getRegion(int $regionId): Response
     {
+        $this->assertLoggedIn();
         if (!$this->regionPermissions->mayAdministrateRegions()) {
-            throw new AccessDeniedHttpException('');
+            throw new AccessDeniedHttpException('Not permitted');
         }
 
         $region = $this->regionTransactions->getRegionForEditing($regionId);
 
-        return $this->handleView($this->view($region, 200));
+        return $this->respondOK($region);
     }
 
-    #[OA2\Get(summary: 'Edits the region using the given data.')]
-    #[OA2\Parameter(name: 'regionId', in: 'path', schema: new OA2\Schema(type: 'integer'), description: 'ID of the region')]
-    #[OA2\Response(response: Response::HTTP_OK, description: 'success')]
-    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
-    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
-    #[Rest\Patch('region/{regionId}', requirements: ['regionId' => '\d+'])]
-    #[ParamConverter(data: 'region', class: RegionForAdministration::class, converter: 'fos_rest.request_body')]
-    public function editRegion(int $regionId, RegionForAdministration $region, ValidatorInterface $validator)
+    #[OA\Patch(summary: 'Edits the region using the given data.')]
+    #[Route('regions/{regionId}', methods: ['PATCH'], requirements: ['regionId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    public function editRegion(int $regionId, #[MapRequestPayload] RegionForAdministration $region)
     {
+        $this->assertLoggedIn();
         if (!$this->regionPermissions->mayAdministrateRegions()) {
-            throw new AccessDeniedHttpException('');
+            throw new AccessDeniedHttpException('Not permitted');
         }
         $region->name = trim($region->name);
 
-        $errors = $validator->validate($region);
-        if ($errors->count() > 0) {
-            $firstError = $errors->get(0);
-            throw new BadRequestHttpException(json_encode(['field' => $firstError->getPropertyPath(), 'message' => $firstError->getMessage()]));
-        }
         $region->id = $regionId;
 
         if ($region->type !== UnitType::WORKING_GROUP && $region->workgroupFunction) {
@@ -599,26 +412,22 @@ class RegionRestController extends AbstractFoodsharingRestController
 
         $this->regionTransactions->editRegion($region);
 
-        return $this->handleView($this->view($region, 200));
+        return $this->respondOK();
     }
 
-    #[OA2\Post(summary: 'Adds a region using the given data.')]
-    #[OA2\Response(response: Response::HTTP_OK, description: 'success', content: new OA2\JsonContent(type: 'object', properties: [
-        new OA2\Property(property: 'regionId', type: 'integer', description: 'The id of the newly created region')
+    #[OA\Post(summary: 'Adds a region using the given data.')]
+    #[Route('regions', methods: ['POST'], requirements: ['regionId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(type: 'object', properties: [
+        new OA\Property(property: 'regionId', type: 'integer', description: 'The id of the newly created region')
     ]))]
-    #[OA2\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid data')]
-    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
-    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
-    #[Rest\Post('region', requirements: ['regionId' => '\d+'])]
-    #[ParamConverter(data: 'region', class: RegionForAdministration::class, converter: 'fos_rest.request_body')]
-    public function addRegion(RegionForAdministration $region, ValidatorInterface $validator)
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid data')]
+    public function addRegion(#[MapRequestPayload] RegionForAdministration $region)
     {
+        $this->assertLoggedIn();
         if (!$this->regionPermissions->mayAdministrateRegions()) {
-            throw new AccessDeniedHttpException('');
+            throw new AccessDeniedHttpException('Not permitted');
         }
         $region->name = trim($region->name);
-
-        $this->assertThereAreNoValidationErrors($validator, $region);
 
         if ($region->type !== UnitType::WORKING_GROUP && $region->workgroupFunction) {
             throw new BadRequestHttpException('Only Working groups can have a workgroup function.');
@@ -634,10 +443,10 @@ class RegionRestController extends AbstractFoodsharingRestController
         return $this->respondOK(['regionId' => $regionId]);
     }
 
-    #[OA2\Get(summary: 'Returns the public region data.')]
-    #[OA2\Response(response: Response::HTTP_OK, description: 'success', content: new Model(type: PublicRegionData::class))]
-    #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'Region does not exist')]
-    #[Route('/region/{regionId}/public', requirements: ['regionId' => Requirement::POSITIVE_INT], methods: ['GET'])]
+    #[OA\Get(summary: 'Returns the public region data.')]
+    #[Route('regions/{regionId}/public', requirements: ['regionId' => Requirement::POSITIVE_INT], methods: ['GET'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: PublicRegionData::class))]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Unavailable for working groups')]
     public function getPublicRegionData(int $regionId)
     {
         $publicRegionData = $this->regionTransactions->getPublicRegionData($regionId);
@@ -651,10 +460,11 @@ class RegionRestController extends AbstractFoodsharingRestController
         return $this->respondOK($publicRegionData);
     }
 
-    #[OA2\Get(summary: 'Returns the region menu data.')]
-    #[OA2\Response(response: Response::HTTP_OK, description: 'success')]
-    #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'Region does not exist')]
-    #[Route('/region/{regionId}/menu', requirements: ['regionId' => Requirement::POSITIVE_INT], methods: ['GET'])]
+    #[OA\Get(summary: 'Returns the region menu data.')]
+    #[Route('regions/{regionId}/menu', requirements: ['regionId' => Requirement::POSITIVE_INT], methods: ['GET'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(type: 'object',
+        description: 'The data required to display the region or working group menu.', // TODO change to DTO
+    ))]
     public function getRegionMenu(int $regionId)
     {
         $this->assertLoggedIn();
@@ -667,10 +477,9 @@ class RegionRestController extends AbstractFoodsharingRestController
         return $this->respondOK($menu);
     }
 
-    #[OA2\Get(summary: 'Returns all ancestors of a region until the first accessible one (region or group with membership)')]
-    #[OA2\Response(response: Response::HTTP_OK, description: 'success')]
-    #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'Region does not exist')]
-    #[Route('/region/{regionId}/redirects', requirements: ['regionId' => Requirement::POSITIVE_INT], methods: ['GET'])]
+    #[OA\Get(summary: 'Returns all ancestors of a region until the first accessible one (region or group with membership)')]
+    #[Route('regions/{regionId}/redirects', requirements: ['regionId' => Requirement::POSITIVE_INT], methods: ['GET'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: RegionWithMembership::class))]
     public function getInaccessibleRegionRedirects(int $regionId)
     {
         $this->assertLoggedIn();
@@ -681,5 +490,15 @@ class RegionRestController extends AbstractFoodsharingRestController
         }
 
         return $this->respondOK($redirects);
+    }
+
+    private function assertRegionExists(int $regionId): array
+    {
+        $region = $this->regionGateway->getRegion($regionId);
+        if (!$region) {
+            throw new NotFoundHttpException('Region does not exist');
+        }
+
+        return $region;
     }
 }

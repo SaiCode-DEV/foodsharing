@@ -71,7 +71,7 @@ class WorkingGroupApiCest
     public function canRemoveMembersFromWorkingGroups(ApiTester $I): void
     {
         $I->login($this->userOrga['email']);
-        $I->sendDelete('api/region/' . $this->workingGroup['id'] . '/members/' . $this->user['id']);
+        $I->sendDelete('api/regions/' . $this->workingGroup['id'] . '/users/' . $this->user['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
     }
 
@@ -227,9 +227,7 @@ class WorkingGroupApiCest
         $I->login($this->user['email']);
 
         // Verify user is not yet member of the test region
-        $I->sendGET('api/user/current/regions');
-        $I->seeResponseCodeIs(HttpCode::OK);
-        $I->dontSeeResponseContainsJson(['id' => $this->testRegion['id']]);
+        $I->dontSeeInDatabase('fs_foodsaver_has_bezirk', ['foodsaver_id' => $this->user['id'], 'bezirk_id' => $this->testRegion['id']]);
 
         // Apply for working group that has the test region as parent
         $I->haveHttpHeader('Content-Type', 'application/json');
@@ -238,9 +236,7 @@ class WorkingGroupApiCest
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Verify user is still NOT member of the test region
-        $I->sendGET('api/user/current/regions');
-        $I->seeResponseCodeIs(HttpCode::OK);
-        $I->dontSeeResponseContainsJson(['id' => $this->testRegion['id']]);
+        $I->dontSeeInDatabase('fs_foodsaver_has_bezirk', ['foodsaver_id' => $this->user['id'], 'bezirk_id' => $this->testRegion['id']]);
 
         // Accept user into working group
         $I->login($this->userAdmin['email']);
@@ -248,10 +244,7 @@ class WorkingGroupApiCest
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Verify user is now member of the test region
-        $I->login($this->user['email']);
-        $I->sendGET('api/user/current/regions');
-        $I->seeResponseCodeIs(HttpCode::OK);
-        $I->seeResponseContainsJson(['id' => $this->testRegion['id']]);
+        $I->seeInDatabase('fs_foodsaver_has_bezirk', ['foodsaver_id' => $this->user['id'], 'bezirk_id' => $this->testRegion['id']]);
     }
 
     public function canApplyForWorkingGroupInWorkingGroup(ApiTester $I): void
@@ -263,9 +256,7 @@ class WorkingGroupApiCest
         $I->login($this->user['email']);
 
         // Verify user is NOT member of the test working group
-        $I->sendGET('api/user/current/regions');
-        $I->seeResponseCodeIs(HttpCode::OK);
-        $I->dontSeeResponseContainsJson(['id' => $this->workingGroup['id']]);
+        $I->dontSeeInDatabase('fs_foodsaver_has_bezirk', ['foodsaver_id' => $this->user['id'], 'bezirk_id' => $this->workingGroup['id']]);
 
         // Apply for working group that has the test working group as parent
         $I->haveHttpHeader('Content-Type', 'application/json');
@@ -274,9 +265,7 @@ class WorkingGroupApiCest
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Verify user is still NOT member of the test working group
-        $I->sendGET('api/user/current/regions');
-        $I->seeResponseCodeIs(HttpCode::OK);
-        $I->dontSeeResponseContainsJson(['id' => $this->workingGroup['id']]);
+        $I->dontSeeInDatabase('fs_foodsaver_has_bezirk', ['foodsaver_id' => $this->user['id'], 'bezirk_id' => $this->workingGroup['id']]);
 
         // Accept user into working group
         $I->login($this->userAdmin['email']);
@@ -284,10 +273,7 @@ class WorkingGroupApiCest
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Verify user is still NOT member of the test region
-        $I->login($this->user['email']);
-        $I->sendGET('api/user/current/regions');
-        $I->seeResponseCodeIs(HttpCode::OK);
-        $I->dontSeeResponseContainsJson(['id' => $this->testRegion['id']]);
+        $I->dontSeeInDatabase('fs_foodsaver_has_bezirk', ['foodsaver_id' => $this->user['id'], 'bezirk_id' => $this->testRegion['id']]);
     }
 
     /**
