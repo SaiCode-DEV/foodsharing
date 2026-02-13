@@ -1196,7 +1196,7 @@ store:
 storeview:
   want_to_fetch: Vorrei aiutare in questo team.
   specials: Istruzioni e procedura
-  managers: Foodsaver responsabile
+  managers: Responsabile
   status: Stato attuale
   public_time_at_night: di notte
   public_time_in_the_evening: a sera

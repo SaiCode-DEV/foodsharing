@@ -1592,7 +1592,7 @@ store:
     some: ''
     none: 'Żaden problem, od razu byli zachwyceni!'
     final: ''
-  mayAmb: ''
+  mayAmb: 'Zdał/a quiz na ambasadora/kę.'
   my_last_slot: 'Mój ostatni slot'
   isAppliedForTeam: ''
   locked: ''
@@ -1754,13 +1754,13 @@ pickup:
         tooltip:
           other: ''
           own: ''
-        name: ''
+        name: 'Wprowadzone sloty'
         empty: ''
       history:
         tooltip:
           own: ''
           other: ''
-        name: ''
+        name: 'Historia slotów'
         empty: ''
     modals:
       signOffAll:
@@ -1770,7 +1770,7 @@ pickup:
         title: ''
         message: ''
     allLoaded: ''
-    header: ''
+    header: 'Sloty'
   leave_pickup_ok: Już mam zastępstwo
   leave_pickup_message_team: Powiadom team
   leave_team_message_title: Wiadomość do teamu
@@ -1797,11 +1797,11 @@ pickup:
     description_titel: Opis
     disable_auto_slot_titel: Deaktywacja
     disable_auto_slot: ''
-    bread: ''
+    bread: 'Edytuj sloty'
     many-people: ''
-    slot_titel: ''
+    slot_titel: 'Sloty'
     slotcount: ''
-    added: ''
+    added: 'Wprowadzono slot.'
     slotscount: ''
   passport_expired:
     short: Legitymacja nieważna

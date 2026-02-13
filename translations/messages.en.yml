@@ -13,7 +13,8 @@ group:
     requires_properties: Anyone who meets certain criteria.
     everybody: Everybody can apply.
     open: Anyone can join directly.
-    fetch_count: How many pick-ups does an applicant need to have done?
+    fetch_count: How many pick-up/delivery/orga slots does an applicant need to 
+      have done?
     banana_count: How many trust bananas must an applicant have?
     banana_count_errors:
       min: Nobody should have less than {{ limit }} trust bananas.
@@ -3023,9 +3024,8 @@ storeedit:
   fetch:
     teamStatus: team status
     teamStatus2: Helpers are strongly needed
-    teamStatus1: Helpers are needed
-    teamStatus0: This team is full and presently does not search for more 
-      helpers
+    teamStatus1: The team is open for applications from foodsavers
+    teamStatus0: This store  is currently not accepting applications.
     hygieneRequirement: Hygiene requirements
     hygieneRequired: Registrations are only permitted with valid hygiene 
       training
@@ -3048,8 +3048,7 @@ legal:
   legal_agreement: Legal agreement
   if_delete:
     legal_1: our current privacy policy
-    this_gets_deleted_main: 'The following information will be deleted from you and
-      cannot be recovered:'
+    this_gets_deleted_main: 'The following information will be deleted permanently:'
     this_gets_deleted_stores: Stores you had joined.
     this_gets_deleted_quiz: All your quizzes will be removed.
     this_gets_deleted_trustbananas: Bananas you received from others will be 
