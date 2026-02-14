@@ -23,8 +23,8 @@ store:
     distance:
       unknown: Não foi introduzido nenhum local de residência válido
       close: O local de residência fica a menos de 500 m de distância
-      normal: Mora a cerca de {distance} km de distância
-    title: 'Solicitações para {storeTitle}'
+      normal: Mora a cerca de {distance} km
+    title: 'Solicitações sobre {storeTitle}'
     to-team: 'adicionar à equipa'
     withdrawn: 'A solicitação foi retirada com sucesso.'
     to-nowhere: 'recusar'
@@ -162,7 +162,7 @@ store:
     reloadPage: 'Recargar'
     demoteAsManager: 'Retirar a responsabilidade'
     filterAll: 'Membros'
-    removeFromTeam: 'Remover da equipa'
+    removeFromTeam: 'Sair desta equipa'
     filterUnverified: 'Não verificados'
     filterManage: 'com questinário dos responsáveis pela cooperação'
     promoteToManager: 'Assumir a responsabilidade por esta loja'
@@ -174,7 +174,7 @@ store:
     filterSleeping: 'Dorminhoco'
     filterJumper: 'Substitutos'
     filterQuizSM: 'Questinário aprovado para responsáveis por equipas'
-    reallyRemove: 'Quer mesmo remover {name} da equipa da loja?'
+    reallyRemove: 'Quer mesmo remover {name} da equipa?'
     makeJumper: 'Na lista de substitutos'
     reloadRequired: 'Para atualizar as informações do equipa:'
     makeRegularTeamMember: 'Adicionar na equipa'
@@ -205,15 +205,15 @@ store:
     some: 'Depois de um pouco de persuasão, eles concordaram em participar.'
     none: 'Não houve nenhum problema, eles ficaram entusiasmados imediatamente!'
     final: 'No início não parecia promissor, mas depois entraram em contacto.'
-  mayAmb: 'Aprovou o questionário dos embaixadores.'
+  mayAmb: 'Aprovou o questionário de embaixadores.'
   chat:
     jumper: 'Mensagem para substitutos'
-    team: 'Mensagem para a equipe'
+    team: 'Mensagem para a equipa'
     managers: Mensagem para os responsáveis da equipa
   isAppliedForTeam: 'Solicitação'
   locked: 'Não pode editar esta loja.'
   lastPickup: 'Última Assento {date}'
-  team_container: 'Equipe'
+  team_container: 'Equipa'
   managing: 'Responsabilidade da equipa'
   prefetchthree: '3 semanas'
   springer_conversation_name: 'Substituto [name]'
@@ -254,7 +254,7 @@ store:
   addNewStoresButton: 'Adicionar nova loja'
   enternumber: 'Ainda tens de selectionar o número de assentos.'
   nodetails: 'Não indique aqui horários exatos para o assento.'
-  teamName: '(storeTitle) equipe'
+  teamName: '(storeTitle) equipa'
   enter_date: 'Inscrever um assento individual'
   ownStores: 'Lojas próprias'
   mayManage: 'Aprovou o exame de responsáveis por equipas.'
@@ -293,7 +293,7 @@ store:
   average_collection_quantity: 'Quantidade por pessoa'
   team_conversation_name: 'Equipa {name}'
   lastPickupShort: 'última vez {date}'
-  pickup_slot_unavailable: 'Este assento está mais distante no futuro do que os tues
+  pickup_slot_unavailable: 'Este assento está mais distante no futuro do que os teus
     responsáveis da equipa pretendiam. Por isso, tente novamente mais tarde.'
   smneeded: 'Para criar uma loja, tens de ser um responsável por equipas.'
   invitations: Convites abertos ({count})
@@ -321,9 +321,10 @@ store:
     modal_title: Selecione a cadeia comercial
     search_input: Procurar pelo nome da cadeia
   passport_expired: O teu cartão de foodsharing expirou. Contacta os teus 
-    embaixadores para o renovar. Por isso, já não podes registar-te aqui.
+    embaixadores para fazer a renovação. Por isso, já não podes registar-te 
+    aqui.
   passport_expires_soon: O teu cartão de foodsharing é válido por mais {days} 
-    dias! Contacta os teus embaixadores para renová-lo. Após o prazo de 
+    dias! Contacta os teus embaixadores para fazer a renovação. Após o prazo de 
     validade, não poderás mais te registar aqui.
   to_map: Mostrar no mapa
   delete:
@@ -413,7 +414,7 @@ bell:
   no_bells: 'Não tem notificações.'
   new_report_title: 'Denúncia nova sobre {name}'
   forum_announcement_title: 'Aviso importante: {title}'
-  store_request_accept: 'Foste aceito na equipa.'
+  store_request_accept: 'Foste aceite na equipa.'
   banana_given_title: 'Nova banana da confiança'
   passgen_failed: 'Carregue uma foto e funcionará.'
   store_request_imposed: 'Foste adicionado à equipa.'
@@ -482,7 +483,7 @@ bell:
   store_invitation_declined:
     one: '{user} não quer juntar-se à {store}'
     many: '{count} utilizadores não querem juntar-se ao {store}'
-  new_forum_thread_title: Novo tópico em {fórum}
+  new_forum_thread_title: Novo tópico em {forum}
   new_forum_thread: '{author}: {title}'
   new_resource_title: '{região}: Novos recursos'
   new_resource:
@@ -504,7 +505,7 @@ email_template:
     unsubscribe: 'Não queres receber mais a newsletter?'
     linktext: 'Clique aqui para cancelar a subscrição.'
   request_from: 'Pedido de'
-  foodsharepoint: '-- cantinho solidário'
+  foodsharepoint: '-- Cantinho solidário'
   to: 'a'
   dont_respond:
     notification: 'notificaçães'
@@ -600,10 +601,10 @@ dashboard:
     ack: 'Li o aviso, não mostrar mais'
   empty_section: 'Ainda não tens {type}'
   homeRegion: 'A tua distrito de origem é {region}.'
-  source_foodsharepoint: 'Cantinho solidário {0}'
+  source_foodsharepoint: 'Cantinho solidários {0}'
   foodsharer: 'Divirta-se a salvar!'
   my:
-    regions: 'Os tues distritos'
+    regions: 'Os teus distritos'
     users: 'Foodsavers'
     polls: 'Votações'
     pending: 'Consultas feitas em'
@@ -612,7 +613,7 @@ dashboard:
     buddies: 'Pessoas que conheces'
     baskets: 'Cestas alimentares'
     events: 'Eventos'
-    groups: 'Os tues grupos'
+    groups: 'Os teus grupos'
     jumping_stores: 'As tuas lojas substitutas'
     managing_stores: 'As tuas responsabilidades por equipas'
     pickups: Assentos registados
@@ -629,7 +630,7 @@ dashboard:
     sua página inicial.'
   source_forum: 'Fórum {0}'
   save_selection: 'Salvar configurações'
-  updates_title_all: 'Resumo das atualizações'
+  updates_title_all: 'Resumo de atualizações'
   no_more_updates_forum: 'Não há mais entradas no fórum'
   chooseHomeRegion: 'Por favor, selecione um distrito de origem.'
   deleted_user: 'Utilizador(a) desconectado(a)'
@@ -637,13 +638,13 @@ dashboard:
   source_forum_bot: 'Fórum de Embaixadores {0}'
   foodsaver_amount: 'Recolheste alimentos <b>{pickups} vezes</b> e, com isso, salvaste
     <b>{weight} kg</b>.'
-  invitation: 'Foste convidado(a)'
+  invitation: 'Recebeste um convite'
   no_more_updates_event: 'Não há mais eventos'
   settings_tooltip: 'Configurações gerais'
   no_updates: 'Sem atualizações'
   no_more_updates_store: 'Sem mais informações sobre as lojas'
   full_subline: 'Recolheste **{pickups} vezes** alimentos e com isso salvaste **{weight} kg**.
-    O tue distrito de origem é **{region}**.'
+    O teu distrito de origem é **{region}**.'
   no_more_updates_foodsharepoint: 'Não há mais mensagens do cantinho solidário'
   activation_mail_sent: 'Link de ativação enviado – verifique os teus e-mails'
   no_more_updates_all: 'foi isso!'
@@ -652,11 +653,11 @@ dashboard:
   no_more_updates_friendWall: 'Não há mais relatórios de estado'
   event: 'Próximo evento'
   source_friendWall_own: 'O teu pinboard'
-  updates_title_some: 'Resumo das atualizações ({0})'
+  updates_title_some: 'Resumo de atualizações ({0})'
   activation_mail_failure: 'Não foi possível enviar um novo link de ativação'
   settings: 'Configurações'
   no_more_updates_mailbox: 'Não mais e-mails'
-  invitationCount: 'Foste convidado(a) ({count})'
+  invitationCount: 'Recebeste convites {count})'
   title: 'Painel de controlo'
   polls: 'As tuas votações em curso'
   source_event: 'Cita {0}'
@@ -711,7 +712,7 @@ storeview:
     error_message: Texto é demasiado longo (max. {count} caracteres)
     label: Informações públicos sobre a loja
     available_count: Número de caracteres disponíveis
-  show_settings: Configurações de loja
+  show_settings: Configurações da loja
   team_info_active: 'Membros ativos da equipa:'
   team_info_jumper: 'Substitutos:'
 calendar:
@@ -901,7 +902,7 @@ basket:
     nope: 'Não, a cesta alimentar não foi recolhido como combinado.'
     finished: 'Obrigado, o processo está finalizado.'
   request-fs: 'Solicitar uma cesta alimentar na nossa página web foodsharing'
-  new: 'Cesta alimentar novo'
+  new: 'Novo cesta alimentar'
   publish_error: 'Ocorreu um erro. Não foi possível publicar a cesta alimentar.'
   mapsearch: 'Busca de endereço …'
   no_requests: 'Até agora, sem solicitações'
@@ -951,7 +952,7 @@ basket:
 
       É possível que já tenha sido recolhido ou removido pelo fornecedor.
     register: |
-      Ainda não está registado como foodsharer?
+      Ainda não está registado como Foodsharer?
       Então clique em [**Participar**](/content?sub=joininfo) para começar ou crie a tua própria cesta alimentar.
     map: No nosso mapa, poderá encontrar outras cestas alimentares na tua área.
   delete_confirmation:
@@ -966,7 +967,7 @@ menu:
     statistics: 'Estatística'
     imprint: 'Aviso legal'
     notifications: 'Notificações'
-    language: 'Selecionar a tua língua'
+    language: 'Selecionar idioma'
     members: 'Membros'
     load_more: 'Leia mais'
     academy: 'Academia'
@@ -977,7 +978,7 @@ menu:
     refresh: 'Atualizar'
     wall: 'Pinboard'
     chainList: 'Visão geral das cadeias'
-    helpwanted: 'Equipe está aberta'
+    helpwanted: 'Equipa está aberta'
     contact: 'Contacto'
     group_overview: 'Visão geral dos grupos de trabalho globais'
     dataprivacy: 'Proteção de dados'
@@ -1010,7 +1011,7 @@ menu:
     fundamentals: 'Princípios'
     selfservice: 'Autoserviço'
     forum: 'Fórum'
-    your_groups: 'Os tues grupos'
+    your_groups: 'Os teus grupos'
     other_stores: 'Outras lojas'
     your_stores: 'As tuas lojas'
     helpneeded: 'Procura-se apoio urgente'
@@ -1342,11 +1343,11 @@ profile:
       esta plataforma.'
     ambassador_for: para
     foodSaver_in_region: registados nos distritos
-    workgroups_admin: Envolve-se como pessoa de contacto para os grupos
+    workgroups_admin: envolve-se como pessoa de contacto para os grupos
     workgroups_member: em conjunto nos seguintes grupos de trabalho
     no_common_workgroups: em nenhum grupo de trabalho comum
     home_region_from: Distrito de origem
-    kam_for: 'Responsável pela coordenação das seguintes cadeias comerciais:'
+    kam_for: 'responsável pela coordenação das seguintes cadeias comerciais:'
   tab_navigation:
     profile: Perfil
     pickups: Assentos
@@ -1371,7 +1372,7 @@ profile:
     guardar informações adicionais sobre o perfil, como, por exemplo, a 
     realização de uma formação em higiene. Em vez disso, podem ser utilizados 
     grupos de trabalho para guardar informações adicionais sobre perfis. Mais 
-    informações sobre este assunto no [Fórum dos Embaixadores]({url})
+    informações sobre este assunto no [Fórum de Embaixadores]({url})
 mailbox:
   search: 'Revisar'
   claim: 'foodsharing.de - usar sem desperdiçar'
@@ -1541,7 +1542,7 @@ group:
   member_list:
     set_admin_title: 'Atribuir como administrador'
     remove_ambassador_text: 'Tem a certeza de que pretende remover {name} ({id}) como
-      embaixador(-a)?'
+      embaixador(a)?'
     is_verified: 'Verificado'
     add_member: 'incluir na equipa'
     remove_admin_text: 'Tem a certeza de que pretende remover {name} ({id}) como administrador?'
@@ -1550,11 +1551,11 @@ group:
     remove_text_group: 'Queres mesmo excluir {name} ({id}) do grupo de trabalho?'
     admin_mode_off: 'Voltar à vista normal'
     set_admin_text: 'Quer mesmo adicionar {name} ({id}) como administrador?'
-    set_ambassador_title: 'Atribuir como embaixador(-a)'
+    set_ambassador_title: 'Atribuir como embaixador(a)'
     admin_mode_on: 'Ativar a vista do administrador'
     is_home_region: 'Distrito de origem'
-    remove_ambassador_title: 'Remover como embaixador(-a)'
-    set_ambassador_text: 'Quer mesmo adicionar {name} ({id}) como embaixador(-a)?'
+    remove_ambassador_title: 'Remover como embaixador(a)'
+    set_ambassador_text: 'Quer mesmo adicionar {name} ({id}) como embaixador(a)?'
     not_verified: 'Não verificado'
     remove_text_region: 'Queres mesmo excluir {name} ({id}) do distrito?'
     default:
@@ -1972,8 +1973,8 @@ error:
 fsp:
   info:
     mail: 'Notificação por campainha e e-mail'
-    manager: 'É responsavel para este cantinho solidário e portanto obrigado conseguinte,
-      a receber as actualizações.'
+    manager: 'És responsável por este cantinho solidário e, portanto, obrigado(a)
+      a receber as atualizações.'
     none: 'não mais'
     descSettings: 'Segues os todos informações do cantinho solidário “{nome}”. Como
       gostaria de receber estas notificações?'
@@ -2000,30 +2001,30 @@ fsp:
   noManager: 'Deve haver pelo menos uma pessoa responsável por este cantinho solidário.'
   street: 'Endereço'
   editSuccess: 'Cantinho solidário foi editado com sucesso'
-  summary: 'Há {count} cantinho/s solidário em todos os distritos onde está ativo'
+  summary: 'Há {count} cantinho/s solidário/s em todos os distritos onde está ativo'
   acceptName: 'desbloquear {name}'
   follow: 'Siga este cantinho solidário'
-  none: 'Ainda não registados cantinhos solidário'
+  none: 'Ainda não há cantinhos solidários registados'
   yours: 'Cantinhos solidário nos vossos distritos'
-  acceptSuccess: 'O Cantinho solidário esta ativo agora'
+  acceptSuccess: 'O cantinho solidário esta ativo agora'
   new: 'Novo cantinho solidário'
   addSuccess: 'O cantinho solidário foi registado com sucesso'
-  edit: 'Editar o cantinho solidário'
-  inRegion: 'Tudos cantinhos solidário no (region)'
-  delete: 'Excluir o cantinho solidário'
+  edit: 'Editar cantinho solidário'
+  inRegion: 'Tudos os cantinhos solidários no (region)'
+  delete: 'Excluir cantinho solidário'
   addedBy: 'Adicionado por'
-  summaryRegion: 'Há {count} cantinho/s solidário em (region) e todos subdistritos'
+  summaryRegion: 'Há {count} cantinho/s solidário/s em (region) e todos subdistritos'
   twig:
-    n_in_region: '{count} cantinho/s solidário em {name}'
-  publicwall: 'Tenha em atenção que as tuas publicações no pinboard de cantinho solidário
+    n_in_region: '{count} cantinho/s solidário/s em {name}'
+  publicwall: 'Tenha em atenção que as tuas publicações no pinboard do cantinho solidário
     são visíveis publicamente.'
   suggestSuccess: 'O cantinho solidário foi proposto e está agora a ser revisto pelo
     o pessoa responsável.'
   unfollow: 'Pare seguir de cantinho solidário'
   followName: 'Siga o cantinho solidário (name)'
-  editName: 'Editar o cantinho solidário „{name}“'
+  editName: 'Editar cantinho solidário „{name}“'
   deleteConfirm: 'Queres mesmo excluir este cantinho solidário?'
-  deleteSuccess: 'O cantinho solidário foi excluido'
+  deleteSuccess: 'Cantinho solidário foi excluido'
   onlySuggested: Este cantinho solidário foi sugerido mas ainda não foi lançado.
     Neste estado, não é apresentado assim aos outros utilizadores.
   form_validation:
@@ -2405,7 +2406,7 @@ storeedit:
     max-sm: 'Por favor, selecione no máximo três pessoas como responsáveis da equipa'
     amb: 'És não responsável por esta loja.
 
-      Mas tens amplos direitos como o embaixador(-a).
+      Mas tens amplos direitos como o embaixador(a).
 
       '
     coordinator: 'És não responsável por esta loja.
@@ -2579,7 +2580,7 @@ recipients:
     <p>{ANREDE} {NAME} resulta, por exemplo, em: «Caro Pedro»
 
     '
-  all_no_botschafter: 'Todos Foodsavers menos os embaixadóres'
+  all_no_botschafter: 'Todos Foodsavers menos os embaixadores'
   recipients: 'Destinatários'
   all: 'Todos os Foodsavers em todo o mundo'
   prepare: 'Preparação para envio'
@@ -2601,7 +2602,7 @@ settings:
       ou mesmo se, por vezes, fazes assentos.
 
       '
-    saved: 'As configurações foram gravadas'
+    saved: 'As configurações foram salvas'
     missing-date: 'Por favor, introduza uma data inicial e uma data final para o período.'
     none: 'Sou ativo e totalmente envolvido'
     header: 'Modo dorminhoco'
@@ -2643,7 +2644,7 @@ settings:
       button: Gerar URL de calendário
     download: Descarregar calendário
     info: |
-      Aqui podes associar os teus eventos de foodsharing a um programa de calendário à tua escolha. Assim, todos os tues assentos e/ou eventos podem ser automaticamente inseridos no teu calendário.
+      Aqui podes associar os teus eventos de foodsharing a um programa de calendário à tua escolha. Assim, todos os teus assentos e/ou eventos podem ser automaticamente inseridos no teu calendário.
 
       **Mantenha os links do calendário em segredo.** Eles contêm um *token* que permite aceder aos dados dos tues assentos sem necessidade de palavra-passe. Pode excluir o teu token atual a qualquer momento, tornando inválidos os links do calendário criados anteriormente.
 
@@ -2728,7 +2729,7 @@ settings:
       podem descarregar o cartão de membro.'
     renew: Renovar o cartão
     passport_not_activated: O teu cartão de membro ainda não foi ativado.
-    ask_your_ambassadors: Para isso, contacte os seus embaixadores.
+    ask_your_ambassadors: Para isso, contacte os teus embaixadores.
     passport_is_valid_until: O teu cartão de menbro é válido por mais **{days}**
       dias ou até **{date}**.
     passport_is_invalid: O teu cartão de membro já não é válido.
@@ -2775,7 +2776,7 @@ settings:
     Gostaria de receber esses e-mails?
 
     '
-  header: 'Configurações do perfil'
+  header: 'Configurações de perfil'
   account: 'Opções de conta'
   password_change:
     wrong_password: Palavra-passe anterior incorreta
@@ -2800,7 +2801,7 @@ settings:
     success: A tua palavra-passe foi alterada com sucesso
   no_rights: Não está autorizado a alterar a configuração do perfil.
   edit_other: Editar configurações do perfil de {name}
-  profile: Configurações de perfil
+  profile: Configurações do perfil
   delete_profile: Excluir este perfil
   address:
     title: Selecionar endereço
@@ -3020,7 +3021,7 @@ settings:
   change_data_info:
     general: Aqui podes alterar os dados do teu perfil.
     verified: Não podes editar o teu nome e data de nascimento. Mas podes pedir 
-      a um embaixador(a) para alterar esses dados por ti.
+      a um embaixador para alterar esses dados por ti.
   general:
     phone: O teu número de telefone fixo
     current_address: Endereço atual
@@ -3032,18 +3033,18 @@ terminology:
     d: 'Responsável por equipa'
     f: 'Responsável por equipa'
   ambassador:
-    m: 'Embasador'
-    d: 'Embasador/a'
-    f: 'Embasadora'
+    m: 'Embaixador'
+    d: 'Embaixadore'
+    f: 'Embaixadora'
   ambassadors: 'Embaixadores'
   mediationAdmins: 'Equipa de mediação'
-  ambassador_forum: 'Forum dos embaixadores'
+  ambassador_forum: 'Forum de embaixadores'
   role:
     "4": 'Administrador(a) global'
     "2": 'Responsável por equipa'
     "1": 'Foodsaver'
     "0": 'partilhador(a) alimentar'
-    "3": 'Embaixador(-a)'
+    "3": 'Embaixador(a)'
   statistic: 'Estatísticas'
   n_foodsaver: '{count} Foodsavers'
   admins: 'Administradores/as'
@@ -3054,7 +3055,7 @@ terminology:
     d: 'Partilhador(a) alimentar'
   no_pickups: 'nenhum'
   homeRegion: 'Distrito de origem'
-  prAdmins: 'Equipe de relações públicas'
+  prAdmins: 'Equipa de relações públicas'
   mailboxes: 'Caixas de correio eletrónico'
   polls: 'Votações'
   profile_picture: 'Foto de perfil'
@@ -3075,7 +3076,7 @@ terminology:
   stores: 'Cooperações'
   buddies: 'Conhecidos:as'
   wall: 'Pinboard'
-  fsps: 'Cantinho solidário'
+  fsps: 'Cantinhos solidários'
   fsp: 'Cantinho solidário'
   fsManagementAdmins: 'Equipa de administração'
   forum: 'Fórum'
@@ -3096,13 +3097,13 @@ terminology:
   n_home_regions: '{count} com distrito principal'
   homepage: 'Página inicial'
   arbitrationAdmins: 'Comissão de arbitragem'
-  storesAdmins: 'Equipe de coordenação de lojas'
-  n_ambassadors: '{count} embassadors'
+  storesAdmins: 'Equipa de coordenação de lojas'
+  n_ambassadors: '{count} embaixadores'
   n_stores: '{count} cooperações'
   subgroups: 'Subgrupos'
   threads: 'Assuntos'
   store: 'Loja'
-  basket: 'Cesta de comida'
+  basket: 'Cesta alimentar'
   region: 'Distrito'
   no: Não
   yes: Sim
@@ -3334,10 +3335,10 @@ globals:
     my_regions: 'Os meus distritos'
     chats: 'Chats'
     mailboxes: 'Caixas de correio'
-    my_foodshare_points: 'Os meus cantinhos solidário'
+    my_foodshare_points: 'Os meus cantinhos solidários'
     my_persons: 'As minhas pessoas'
     my_groups: 'Os meus grupos'
-    foodSharePoints: Cantinho solidário
+    foodSharePoints: Cantinhos solidários
     users: 'Pessoas'
     regions_menu: 'Menu do distrito'
     mails: 'E-Mails'
@@ -3398,7 +3399,7 @@ startpage:
       part3: 'encontras'
       part5: ', são estantes ou frigoríficos onde podes recolher ou entregar alimentos
         gratuitamente.'
-      part4: 'Cantinho solidário'
+      part4: 'Cantinhos solidários'
     title: 'Perto de ti'
   call_to_action:
     title: 'Participe'
@@ -3478,7 +3479,7 @@ startpage:
       também uma declaração de motivação assinada pela administração municipal como
       símbolo da parceria entre \no foodsharing e as autoridades públicas.\n"
     title: 'Ciudades de foodsharing'
-  dependability: 'Em muitos locais existem “Cantinhos solidário” onde a alimentos
+  dependability: 'Em muitos locais existem “cantinhos solidários” onde a alimentos
     são partilhados. Podem encontrar-se aí ou noutros locais neutros para partilhar.
     Se quiser dar ou receber comida, por favor seja fiável e pontual, não abandonar
     ninguém.'
@@ -3547,7 +3548,7 @@ region:
   edit: 'Editar distrito'
   cancel: 'Não, afinal não'
   still_contains_elements: 'O distrito não pode ser excluido porque ainda contém sub-regiões,
-    lojas ou cantinhos solidário.'
+    lojas ou cantinhos solidários.'
   edit_success: 'O distrito foi guardado.'
   restricted: 'Infelizmente, não tens autorização para visualizar esses dados.'
   store_managers_cannot_leave: 'Não podes sair do distrito, pois ainda és responsável
@@ -3567,7 +3568,7 @@ region:
   public:
     map:
       missing: Este distrito não é atualmente exibido no mapa e não tem 
-        cantinhos solidário que podem ser exibidos aqui. Tem autorização para 
+        cantinhos solidários que podem ser exibidos aqui. Tem autorização para 
         colocar um pin de distrito agora.
       set_pin: Marcar o pin do distrito no mapa
       hide_pin: Excluir o pin do distrito
@@ -3937,9 +3938,9 @@ notifications:
       foodsharing por e-mail.'
     title: 'Boletim informativo'
   foodSharePoints:
-    title: 'Cantinho solidário'
-    description: 'Receber uma notificação de novas mensagens nos pinboards do cantinho
-      solidário que segues.'
+    title: 'Cantinho solidários'
+    description: 'Receber uma notificação de novas mensagens nos pinboards dos cantinhos
+      solidários que segues.'
   groups:
     title: 'Grupos de trabalho'
   checkbox_push: 'Push'
@@ -4058,7 +4059,7 @@ stats:
   total:
     pickups: 'missões que os nossos Foodsavers já completaram.'
     weight: 'Alimentos salvos com sucesso do lixo.'
-    fsp: 'Os cantinhos solidário são utilizados para trocar alimentos.'
+    fsp: 'Os cantinhos solidários são utilizados para trocar alimentos.'
     foodsharer: 'pessoas que partilham alimentos estão registadas no "foodsharing"
       e interessadas no nosso trabalho.'
     foodsaver: 'Foodsavers trabalham voluntariamente por um mundo sem desperdício
@@ -4292,7 +4293,7 @@ statistics:
   num_fetches: 'em {count} operações de resgate'
   kg_food_saved: '{count} kg alimentos salvos'
   region_public:
-    activeFoodSharePoints: Cantinho solidário ativo
+    activeFoodSharePoints: Cantinhos solidários ativo
     foodBasketsLastMonth: cestas alimentares distribuídas
     pickupsLastMonth: Salvamentos dos alimentos
     savedFoodKgLastMonth: Alimentos salvos
