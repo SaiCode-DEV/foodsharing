@@ -62,7 +62,7 @@ class ForumApiCest
 
         // Send post
         $I->login($this->user1['email']);
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test bell']);
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/posts', ['body' => 'Test bell']);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect E-Mail receive
@@ -86,7 +86,7 @@ class ForumApiCest
         $I->seeResponseEquals('[]');
 
         // Register user with bell
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/bell');
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/follow/bell');
         $I->seeResponseCodeIs(HttpCode::OK);
 
         $I->sendGet('api/notifications/forum');
@@ -101,7 +101,7 @@ class ForumApiCest
         $I->assertFalse($j['subscriptionsStatus']['isMailSubscribed']);
 
         $I->login($this->user1['email']);
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test bell']);
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/posts', ['body' => 'Test bell']);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect E-Mail receive
@@ -126,10 +126,10 @@ class ForumApiCest
         $I->seeResponseContainsJson([]);
 
         // Register user with bell
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/bell');
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/follow/bell');
         $I->seeResponseCodeIs(HttpCode::OK);
 
-        $I->sendDELETE('api/forum/thread/' . $this->thread['id'] . '/follow/email');
+        $I->sendDELETE('api/forum/threads/' . $this->thread['id'] . '/follow/email');
         $I->seeResponseCodeIs(HttpCode::OK);
 
         $I->sendGet('api/notifications/forum');
@@ -144,7 +144,7 @@ class ForumApiCest
         $I->assertFalse($j['subscriptionsStatus']['isMailSubscribed']);
 
         $I->login($this->user1['email']);
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test bell']);
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/posts', ['body' => 'Test bell']);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect E-Mail receive
@@ -165,11 +165,11 @@ class ForumApiCest
         $I->login($this->user['email']);
 
         // Register user with bell
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/bell');
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/follow/bell');
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Unfollow thread by bell
-        $I->sendDELETE('api/forum/thread/' . $this->thread['id'] . '/follow/bell');
+        $I->sendDELETE('api/forum/threads/' . $this->thread['id'] . '/follow/bell');
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect no registrated notifications
@@ -186,7 +186,7 @@ class ForumApiCest
 
         // Send test mail
         $I->login($this->user1['email']);
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect no E-Mail receive
@@ -209,9 +209,9 @@ class ForumApiCest
         $I->seeResponseContainsJson([]);
 
         // Register user with only email
-        $I->sendDELETE('api/forum/thread/' . $this->thread['id'] . '/follow/bell');
+        $I->sendDELETE('api/forum/threads/' . $this->thread['id'] . '/follow/bell');
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/email');
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/follow/email');
         $I->seeResponseCodeIs(HttpCode::OK);
 
         $I->sendGet('api/notifications/forum');
@@ -230,7 +230,7 @@ class ForumApiCest
         $I->assertTrue($j['subscriptionsStatus']['isMailSubscribed']);
 
         $I->login($this->user1['email']);
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect E-Mail receive
@@ -258,7 +258,7 @@ class ForumApiCest
         $I->seeResponseContainsJson([]);
 
         // Register user with E-Mail
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/email');
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/follow/email');
         $I->seeResponseCodeIs(HttpCode::OK);
 
         $I->sendGet('api/notifications/forum');
@@ -277,7 +277,7 @@ class ForumApiCest
         $I->assertTrue($j['subscriptionsStatus']['isMailSubscribed']);
 
         $I->login($this->user1['email']);
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect E-Mail receive
@@ -305,11 +305,11 @@ class ForumApiCest
         $I->assertCount(0, $bells); // -> Broken still reported
 
         // Register user with E-Mail
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/email');
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/follow/email');
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Unfollow thread by e-mail
-        $I->sendDELETE('api/forum/thread/' . $this->thread['id'] . '/follow/email');
+        $I->sendDELETE('api/forum/threads/' . $this->thread['id'] . '/follow/email');
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect no registrated notifications
@@ -327,7 +327,7 @@ class ForumApiCest
 
         // Send test mail
         $I->login($this->user1['email']);
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect no E-Mail receive
@@ -359,9 +359,9 @@ class ForumApiCest
         $I->assertFalse($j['subscriptionsStatus']['isMailSubscribed']);
 
         // Register user with bell
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/bell'); // not working (Supports only E-Mail)
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/follow/bell'); // not working (Supports only E-Mail)
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/email');
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/follow/email');
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect registrated notification for E-Mail and Bell
@@ -382,7 +382,7 @@ class ForumApiCest
 
         // Expect Bell notification information
         $I->login($this->user1['email']);
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect E-Mail receive
@@ -405,15 +405,15 @@ class ForumApiCest
         $I->login($this->user['email']);
 
         // Register user with bell and email
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/bell');
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/follow/bell');
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/email');
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/follow/email');
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Unfollow thread by e-mail
-        $I->sendDELETE('api/forum/thread/' . $this->thread['id'] . '/follow/email');
+        $I->sendDELETE('api/forum/threads/' . $this->thread['id'] . '/follow/email');
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->sendDELETE('api/forum/thread/' . $this->thread['id'] . '/follow/bell');
+        $I->sendDELETE('api/forum/threads/' . $this->thread['id'] . '/follow/bell');
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect no registrated notifications
@@ -431,7 +431,7 @@ class ForumApiCest
 
         // Send test mail
         $I->login($this->user1['email']);
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect no E-Mail receive
@@ -473,7 +473,7 @@ class ForumApiCest
 
         // Send post
         $I->login($this->user1['email']);
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect E-Mail receive
@@ -498,9 +498,9 @@ class ForumApiCest
 
         // Register user with bell and email
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/bell');
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/follow/bell');
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/email');
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/follow/email');
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Register user with bell
@@ -526,7 +526,7 @@ class ForumApiCest
 
         // Send post
         $I->login($this->user1['email']);
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect E-Mail receive
@@ -572,7 +572,7 @@ class ForumApiCest
 
         // Send post
         $I->login($this->user1['email']);
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect E-Mail receive
@@ -597,9 +597,9 @@ class ForumApiCest
 
         // Register user with bell and email
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/bell');
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/follow/bell');
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/email');
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/follow/email');
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Remove mail subscription
@@ -621,7 +621,7 @@ class ForumApiCest
 
         // Send post
         $I->login($this->user1['email']);
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect E-Mail receive
@@ -643,9 +643,9 @@ class ForumApiCest
 
         // Register user with bell and email
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/bell');
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/follow/bell');
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/follow/email');
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/follow/email');
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Unfollow thread by e-mail
@@ -669,7 +669,7 @@ class ForumApiCest
 
         // Send test mail
         $I->login($this->user1['email']);
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/posts', ['body' => 'Test email']);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect no E-Mail receive
@@ -692,15 +692,15 @@ class ForumApiCest
         $I->login($this->user1['email']);
 
         // Unfollow thread by e-mail
-        $I->sendDELETE('api/forum/thread/' . $this->thread['id'] . '/follow/email');
+        $I->sendDELETE('api/forum/threads/' . $this->thread['id'] . '/follow/email');
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->sendDELETE('api/forum/thread/' . $this->thread['id'] . '/follow/bell'); // not working (Supports only E-Mail)
+        $I->sendDELETE('api/forum/threads/' . $this->thread['id'] . '/follow/bell'); // not working (Supports only E-Mail)
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // default behavior of mention
         // Send test mail
         $I->login($this->user['email']);
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => '1 Test email @' . $this->user1['id']]);
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/posts', ['body' => '1 Test email @' . $this->user1['id']]);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect no E-Mail receive
@@ -727,7 +727,7 @@ class ForumApiCest
 
         // Send test mail
         $I->login($this->user['email']);
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => '2 Test email @' . $this->user1['id']]);
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/posts', ['body' => '2 Test email @' . $this->user1['id']]);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect no E-Mail receive
@@ -754,7 +754,7 @@ class ForumApiCest
 
         // Send test mail
         $I->login($this->user['email']);
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', ['body' => '3 Test email @' . $this->user1['id']]);
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/posts', ['body' => '3 Test email @' . $this->user1['id']]);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect no E-Mail receive
@@ -771,7 +771,7 @@ class ForumApiCest
     final public function deleteNonExistingForumPostIs404(ApiTester $I): void
     {
         $I->login($this->user['email']);
-        $I->sendDELETE('api/forum/post/9999999');
+        $I->sendDELETE('api/forum/posts/9999999');
         $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
         $I->seeResponseIsJson();
     }
@@ -779,16 +779,15 @@ class ForumApiCest
     final public function deleteOwnPostSucceeds(ApiTester $I): void
     {
         $I->login($this->user['email']);
-        $I->sendDELETE('api/forum/post/' . $this->thread['post']['id']);
+        $I->sendDELETE('api/forum/posts/' . $this->thread['post']['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->seeResponseIsJson();
     }
 
     final public function deleteForeignPostFails403(ApiTester $I): void
     {
         $foreigner = $I->createFoodsaver();
         $I->login($foreigner['email']);
-        $I->sendDELETE('api/forum/post/' . $this->thread['post']['id']);
+        $I->sendDELETE('api/forum/posts/' . $this->thread['post']['id']);
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
         $I->seeResponseIsJson();
     }
@@ -796,7 +795,7 @@ class ForumApiCest
     final public function MentionedSameUserMultiplyTimes(ApiTester $I): void
     {
         $I->login($this->user['email']);
-        $threadPath = 'api/forum/thread/' . $this->thread['id'];
+        $threadPath = 'api/forum/threads/' . $this->thread['id'];
 
         $body = 'Besprechung, @' . $this->user1['id'] .
             ' übernimmt du verifizieren @' . $this->user2['id'] . ' und @' . $this->user3['id'] . ' für @' . $this->user2['id'] .
@@ -823,7 +822,7 @@ class ForumApiCest
     {
         $I->login($this->user['email']);
         $body = 'I am so 😂 for you! ' . $this->faker->text(50);
-        $I->sendPOST('api/forum/thread/' . $this->thread['id'] . '/posts', [
+        $I->sendPOST('api/forum/threads/' . $this->thread['id'] . '/posts', [
             'body' => $body
         ]);
         $I->seeResponseCodeIs(HttpCode::OK);
@@ -847,7 +846,7 @@ class ForumApiCest
 
         $inactiveThread = $I->addForumThread($moderatedRegion['id'], $this->user['id'], false, ['active' => false]);
         $I->login($this->ambassador['email']);
-        $I->sendDELETE('api/forum/thread/' . $inactiveThread['id']);
+        $I->sendDELETE('api/forum/threads/' . $inactiveThread['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         $I->dontSeeInDatabase('fs_theme', ['id' => $inactiveThread['id']]);
@@ -859,10 +858,10 @@ class ForumApiCest
     final public function canNotDeleteActiveThread(ApiTester $I): void
     {
         $I->login($this->ambassador['email']);
-        $I->sendPatch('api/forum/thread/' . $this->thread['id'], [
+        $I->sendPatch('api/forum/threads/' . $this->thread['id'], [
             'isActive' => true
         ]);
-        $I->sendDELETE('api/forum/thread/' . $this->thread['id']);
+        $I->sendDELETE('api/forum/threads/' . $this->thread['id']);
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
     }
 
@@ -870,7 +869,7 @@ class ForumApiCest
     {
         $orga = $I->createOrga();
         $I->login($orga['email']);
-        $I->sendPatch('api/forum/thread/' . $this->thread['id'], [
+        $I->sendPatch('api/forum/threads/' . $this->thread['id'], [
             'status' => 1
         ]);
         $I->seeResponseCodeIs(HttpCode::OK);
@@ -879,7 +878,7 @@ class ForumApiCest
             'status' => 1
         ]);
 
-        $I->sendPatch('api/forum/thread/' . $this->thread['id'], [
+        $I->sendPatch('api/forum/threads/' . $this->thread['id'], [
             'status' => 0
         ]);
         $I->seeResponseCodeIs(HttpCode::OK);
@@ -892,7 +891,7 @@ class ForumApiCest
     final public function canNotCloseThreadsAsFoodsaver(ApiTester $I): void
     {
         $I->login($this->user['email']);
-        $I->sendPatch('api/forum/thread/' . $this->thread['id'], [
+        $I->sendPatch('api/forum/threads/' . $this->thread['id'], [
             'status' => 1
         ]);
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
@@ -907,7 +906,7 @@ class ForumApiCest
         $I->updateInDatabase('fs_theme', ['status' => 1], ['id' => $this->thread['id']]);
 
         $I->login($this->user['email']);
-        $I->sendPost('api/forum/thread/' . $this->thread['id'] . '/posts', [
+        $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/posts', [
             'body' => $this->faker->text(100)
         ]);
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
@@ -920,10 +919,10 @@ class ForumApiCest
         $I->addRegionAdmin($moderatedRegion['id'], $this->ambassador['id']);
         $I->login($this->user['email']);
         $title = $this->faker->text(16);
-        $I->sendPost('api/forum/' . $moderatedRegion['id'] . '/0', [
+        $I->sendPost('api/regions/' . $moderatedRegion['id'] . '/forum/threads', [
             'title' => $title,
             'body' => $this->faker->text(100),
-            'sendMail' => false
+            'sendMail' => 0
         ]);
         $I->seeResponseCodeIs(HttpCode::OK);
 
@@ -949,14 +948,13 @@ class ForumApiCest
         $I->addRegionAdmin($moderatedRegion['id'], $this->ambassador['id']);
         $I->login($this->user['email']);
         $title = $this->faker->text(16);
-        $I->sendPost('api/forum/' . $moderatedRegion['id'] . '/0', [
+        $I->sendPost('api/regions/' . $moderatedRegion['id'] . '/forum/threads', [
             'title' => $title,
             'body' => $this->faker->text(100),
-            'sendMail' => false
+            'sendMail' => 0
         ]);
         $I->seeResponseCodeIs(HttpCode::OK);
-        $respo = json_decode($I->grabResponse(), true);
-        $threadId = $respo['id'];
+        $threadId = $I->grabFromDatabase('fs_theme', 'id', ['name' => $title]);
 
         $I->login($this->ambassador['email']);
         $I->sendGET('api/bells');
@@ -967,7 +965,7 @@ class ForumApiCest
 
         $I->login($this->ambassador['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/forum/thread/' . $threadId, ['isActive' => true]);
+        $I->sendPatch('api/forum/threads/' . $threadId, ['isActive' => true]);
 
         $I->seeInDatabase('fs_theme', ['foodsaver_id' => $this->user['id'], 'name' => $title, 'active' => 1]);
 
@@ -992,14 +990,13 @@ class ForumApiCest
 
         $I->login($this->user['email']);
         $title = $this->faker->text(16);
-        $I->sendPost('api/forum/' . $moderatedRegion['id'] . '/0', [
+        $I->sendPost('api/regions/' . $moderatedRegion['id'] . '/forum/threads', [
             'title' => $title,
             'body' => $this->faker->text(100),
-            'sendMail' => false
+            'sendMail' => 0
         ]);
         $I->seeResponseCodeIs(HttpCode::OK);
-        $respo = json_decode($I->grabResponse(), true);
-        $threadId = $respo['id'];
+        $threadId = $I->grabFromDatabase('fs_theme', 'id', ['name' => $title]);
 
         // Before activation: follower should not receive a bell
         $I->login($this->user1['email']);
@@ -1011,7 +1008,7 @@ class ForumApiCest
         // Activate thread as ambassador
         $I->login($this->ambassador['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/forum/thread/' . $threadId, ['isActive' => true]);
+        $I->sendPatch('api/forum/threads/' . $threadId, ['isActive' => true]);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // After activation: follower should receive a new thread bell
@@ -1036,14 +1033,12 @@ class ForumApiCest
 
         $I->login($this->user['email']);
         $title = $this->faker->text(16);
-        $I->sendPost('api/forum/' . $nonModeratedRegion['id'] . '/0', [
+        $I->sendPost('api/regions/' . $nonModeratedRegion['id'] . '/forum/threads', [
             'title' => $title,
             'body' => $this->faker->text(100),
-            'sendMail' => false
+            'sendMail' => 0
         ]);
         $I->seeResponseCodeIs(HttpCode::OK);
-        $respo = json_decode($I->grabResponse(), true);
-        $threadId = $respo['id'];
 
         // Immediately after creation (non-moderated) follower should receive a new thread bell
         $I->login($this->user1['email']);
@@ -1063,30 +1058,29 @@ class ForumApiCest
         $I->addRegionAdmin($moderatedRegion['id'], $this->ambassador['id']);
         $I->login($this->user['email']);
         $title = $this->faker->text(16);
-        $I->sendPost('api/forum/' . $moderatedRegion['id'] . '/0', [
+        $I->sendPost('api/regions/' . $moderatedRegion['id'] . '/forum/threads', [
             'title' => $title,
             'body' => $this->faker->text(100),
-            'sendMail' => false
+            'sendMail' => 0
         ]);
         $I->seeResponseCodeIs(HttpCode::OK);
-        $respo = json_decode($I->grabResponse(), true);
-        $threadId = $respo['id'];
+        $threadId = $I->grabFromDatabase('fs_theme', 'id', ['name' => $title]);
 
         $I->login($this->ambassador['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/forum/thread/' . $threadId, ['isActive' => false]);
+        $I->sendPatch('api/forum/threads/' . $threadId, ['isActive' => false]);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/forum/thread/' . $threadId, ['isActive' => 'aaa']);
+        $I->sendPatch('api/forum/threads/' . $threadId, ['isActive' => 'aaa']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/forum/thread/' . $threadId, ['isActive' => 1]);
+        $I->sendPatch('api/forum/threads/' . $threadId, ['isActive' => 1]);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/forum/thread/' . $threadId, []);
+        $I->sendPatch('api/forum/threads/' . $threadId, []);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/forum/thread/' . $threadId, ['isActive' => null]);
+        $I->sendPatch('api/forum/threads/' . $threadId, ['isActive' => null]);
         $I->seeInDatabase('fs_theme', ['foodsaver_id' => $this->user['id'], 'name' => $title, 'active' => 0]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/forum/thread/' . $threadId, ['isActive' => true]);
+        $I->sendPatch('api/forum/threads/' . $threadId, ['isActive' => true]);
         $I->seeInDatabase('fs_theme', ['foodsaver_id' => $this->user['id'], 'name' => $title, 'active' => 1]);
     }
 }

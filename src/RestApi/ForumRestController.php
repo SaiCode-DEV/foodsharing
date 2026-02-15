@@ -14,17 +14,18 @@ use Foodsharing\Modules\Region\RegionTransactions;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Modules\WallPost\EmojiList;
 use Foodsharing\Permissions\ForumPermissions;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Request\ParamFetcher;
+use Foodsharing\RestApi\Models\Forum\CreatePostData;
+use Foodsharing\RestApi\Models\Forum\CreateThreadData;
+use Foodsharing\RestApi\Models\Forum\PatchPostData;
+use Foodsharing\RestApi\Models\Forum\PatchThreadData;
 use Nelmio\ApiDocBundle\Attribute\Model;
-use OpenApi\Annotations as OA1;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 
@@ -105,7 +106,7 @@ class ForumRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Get(summary: 'Returns a forum thread including all posts')]
-    #[Route('forum/threads/{threadId}', methods: ['GET'], requirements: ['threadId' => '\d+'])]
+    #[Route('forum/threads/{threadId}', methods: ['GET'], requirements: ['threadId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: ForumThread::class))]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted to access this thread')]
     public function getThread(int $threadId): Response
@@ -121,95 +122,68 @@ class ForumRestController extends AbstractFoodsharingRestController
         return $this->respondOK($thread);
     }
 
-    /**
-     * Create a thread inside a forum.
-     *
-     * @OA1\Response(response="200", description="success")
-     * @OA1\Response(response="403", description="Insufficient permissions")
-     */
-    #[Route('forum/{forumId}/{forumSubId}', methods: ['POST'], requirements: ['forumId' => '\d+', 'forumSubId' => '\d'])]
-    #[Rest\RequestParam(name: 'title', description: 'title of thread')]
-    #[Rest\RequestParam(name: 'body', description: 'post message')]
-    #[Rest\RequestParam(name: 'sendMail', description: 'false or true value - send a notification mail for all forum user')]
-    public function createThread(int $forumId, int $forumSubId, ParamFetcher $paramFetcher): Response
-    {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
-        if (!$this->forumPermissions->mayAccessForum($forumId, $forumSubId)) {
-            throw new AccessDeniedHttpException();
+    #[OA\Post(summary: 'Create a thread inside a forum.')]
+    #[Route('regions/{regionId}/forum/threads', methods: ['POST'], requirements: ['forumId' => Requirement::POSITIVE_INT, 'forumSubId' => Requirement::DIGITS])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
+    public function createThread(
+        int $regionId,
+        #[MapQueryParameter] ?int $subforumId,
+        #[MapRequestPayload] CreateThreadData $thread
+    ): Response {
+        $this->assertLoggedIn();
+        $subforumId ??= 0;
+        if (!$this->forumPermissions->mayAccessForum($regionId, $subforumId)) {
+            throw new AccessDeniedHttpException('Not permitted to access this forum');
         }
 
-        $body = trim($paramFetcher->get('body'));
-        $title = trim($paramFetcher->get('title'));
-        $sendMail = $paramFetcher->get('sendMail') ?? false;
-        $regionDetails = $this->regionTransactions->getRegionDetails($forumId);
-        $postActiveWithoutModeration = ($this->session->isVerified() && !$regionDetails['moderated']) || $this->currentUserUnits->isAmbassadorForRegion([$forumId]);
+        $regionDetails = $this->regionTransactions->getRegionDetails($regionId);
+        $postActiveWithoutModeration = ($this->session->isVerified() && !$regionDetails['moderated']) || $this->currentUserUnits->isAmbassadorForRegion([$regionId]);
 
-        $threadId = $this->forumTransactions->createThread($this->session->id(), $title, $body, $regionDetails, $forumSubId, $postActiveWithoutModeration, $sendMail);
+        $this->forumTransactions->createThread($this->session->id(), $thread, $regionDetails, $subforumId === 1, $postActiveWithoutModeration);
 
-        return $this->getThread($threadId);
+        return $this->respondOK();
     }
 
-    /**
-     * Change attributes for a thread: Stickiness, activate thread, status.
-     *
-     * @OA1\Response(response="200", description="success")
-     * @OA1\Response(response="403", description="Insufficient permissions")
-     */
-    #[Route('forum/thread/{threadId}', methods: ['PATCH'], requirements: ['threadId' => '\d+'])]
-    #[Rest\RequestParam(name: 'stickiness', nullable: true, default: null, description: 'should thread be pinned to the top of forum?')]
-    #[Rest\RequestParam(name: 'isActive', nullable: true, default: null, description: 'should a thread in a moderated forum be activated?')]
-    #[Rest\RequestParam(name: 'status', nullable: true, default: null, description: 'if the thread is open or closed')]
-    #[Rest\RequestParam(name: 'title', nullable: true, default: null, description: 'the title of the thread')]
-    public function patchThread(int $threadId, ParamFetcher $paramFetcher): Response
+    #[OA\Patch(summary: 'Change attributes for a thread: Stickiness, activate thread, status.')]
+    #[Route('forum/threads/{threadId}', methods: ['PATCH'], requirements: ['threadId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
+    public function patchThread(int $threadId, #[MapRequestPayload] PatchThreadData $patchData): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
 
-        $mayModerate = $this->forumPermissions->mayModerate($threadId);
-
-        $stickiness = $paramFetcher->get('stickiness');
-        if (!is_null($stickiness)) {
-            if (!$mayModerate) {
-                throw new AccessDeniedHttpException();
-            }
-            if (is_int($stickiness)) {
-                $this->forumGateway->setStickiness($threadId, $stickiness);
-            }
-        }
-        $isActive = $paramFetcher->get('isActive');
-        if ($isActive === true) {
-            if (!$mayModerate) {
-                throw new AccessDeniedHttpException();
-            }
+        if (!is_null($patchData->stickiness)) {
             if (!$this->forumPermissions->mayModerate($threadId)) {
-                throw new AccessDeniedHttpException();
+                throw new AccessDeniedHttpException('Not permitted');
+            }
+            $this->forumGateway->setStickiness($threadId, $patchData->stickiness);
+        }
+        if ($patchData->isActive === true) {
+            if (!$this->forumPermissions->mayModerate($threadId)) {
+                throw new AccessDeniedHttpException('Not permitted');
             }
             $this->forumTransactions->activateThread($threadId);
         }
-        $status = $paramFetcher->get('status');
-        if (!is_null($status)) {
-            if (!$mayModerate) {
-                throw new AccessDeniedHttpException();
+        if (!is_null($patchData->status)) {
+            if (!$this->forumPermissions->mayModerate($threadId)) {
+                throw new AccessDeniedHttpException('Not permitted');
             }
-            $this->forumGateway->setThreadStatus($threadId, intval($status));
+            $this->forumGateway->setThreadStatus($threadId, $patchData->status);
         }
 
-        $title = $paramFetcher->get('title');
-        if (!is_null($title)) {
+        if (!is_null($patchData->title)) {
             if (!$this->forumPermissions->mayRename($threadId)) {
-                throw new AccessDeniedHttpException();
+                throw new AccessDeniedHttpException('Not permitted');
             }
-            $this->forumGateway->setThreadTitle($threadId, trim($title));
+            $this->forumGateway->setThreadTitle($threadId, trim($patchData->title));
         }
 
-        return $this->getThread($threadId);
+        return $this->respondOK();
     }
 
     #[OA\Delete(summary: 'Deletes a non-activated forum thread')]
-    #[Route('forum/thread/{threadId}', methods: ['DELETE'], requirements: ['postId' => Requirement::POSITIVE_INT])]
+    #[Route('forum/threads/{threadId}', methods: ['DELETE'], requirements: ['postId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Thread does not exist')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
@@ -231,173 +205,139 @@ class ForumRestController extends AbstractFoodsharingRestController
         return $this->respondOK();
     }
 
-    /**
-     * request email notifications for activities in at thread.
-     *
-     * @OA1\Response(response="200", description="success")
-     * @OA1\Response(response="403", description="Insufficient permissions")
-     */
-    #[Route('forum/thread/{threadId}/follow/email', methods: ['POST'], requirements: ['threadId' => '\d+'])]
+    #[OA\Post(summary: 'Request email notifications for activities in at thread.')]
+    #[Route('forum/threads/{threadId}/follow/email', methods: ['POST'], requirements: ['threadId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
     public function followThreadByEmail(int $threadId): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
         if (!$this->forumPermissions->mayAccessThread($threadId)) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Not permitted');
         }
         $this->forumFollowerGateway->followThreadByEmail($this->session->id(), $threadId);
 
-        return $this->handleView($this->view([]));
+        return $this->respondOK();
     }
 
-    /**
-     * request bell notifications for activities in a thread.
-     *
-     * @OA1\Response(response="200", description="success")
-     * @OA1\Response(response="403", description="Insufficient permissions")
-     */
-    #[Route('forum/thread/{threadId}/follow/bell', methods: ['POST'], requirements: ['threadId' => '\d+'])]
+    #[OA\Post(summary: 'Request bell notifications for activities in a thread.')]
+    #[Route('forum/threads/{threadId}/follow/bell', methods: ['POST'], requirements: ['threadId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
     public function followThreadByBell(int $threadId): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
         if (!$this->forumPermissions->mayAccessThread($threadId)) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Not permitted');
         }
 
         $this->forumFollowerGateway->followThreadByBell($this->session->id(), $threadId);
 
-        return $this->handleView($this->view([]));
+        return $this->respondOK();
     }
 
-    /**
-     * Remove email notifications for activities in a thread.
-     *
-     * @OA1\Response(response="200", description="success")
-     * @OA1\Response(response="403", description="Insufficient permissions")
-     */
-    #[Route('forum/thread/{threadId}/follow/email', methods: ['DELETE'], requirements: ['threadId' => '\d+'])]
+    #[OA\Delete(summary: 'Removes email notifications for activities in a thread.')]
+    #[Route('forum/threads/{threadId}/follow/email', methods: ['DELETE'], requirements: ['threadId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
     public function unfollowThreadByEmail(int $threadId): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
         if (!$this->forumPermissions->mayAccessThread($threadId)) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Not permitted');
         }
 
         $this->forumFollowerGateway->unfollowThreadByEmail($this->session->id(), $threadId);
 
-        return $this->handleView($this->view([]));
+        return $this->respondOK();
     }
 
-    /**
-     * Remove bell notifications for activities in a thread.
-     *
-     * @OA1\Response(response="200", description="success")
-     * @OA1\Response(response="403", description="Insufficient permissions")
-     */
-    #[Route('forum/thread/{threadId}/follow/bell', methods: ['DELETE'], requirements: ['threadId' => '\d+'])]
+    #[OA\Delete(summary: 'Removes bell notifications for activities in a thread.')]
+    #[Route('forum/threads/{threadId}/follow/bell', methods: ['DELETE'], requirements: ['threadId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
     public function unfollowThreadByBell(int $threadId): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
         if (!$this->forumPermissions->mayAccessThread($threadId)) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Not permitted');
         }
 
         $this->forumFollowerGateway->unfollowThreadByBell($this->session->id(), $threadId);
 
-        return $this->handleView($this->view([]));
+        return $this->respondOK();
     }
 
     // *** POST MANAGEMENT *** //
     // (the following endpoints are for handling post related actions)
 
-    /**
-     * Create a post inside a thread.
-     *
-     * @OA1\Response(response="200", description="success")
-     * @OA1\Response(response="403", description="Insufficient permissions")
-     */
-    #[Route('forum/thread/{threadId}/posts', methods: ['POST'], requirements: ['threadId' => '\d+'])]
-    #[Rest\RequestParam(name: 'body', description: 'post message')]
-    public function createPost(int $threadId, ParamFetcher $paramFetcher): Response
-    {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
-        if (!$this->forumPermissions->mayPostToThread($threadId)) {
-            throw new AccessDeniedHttpException();
-        }
-
-        $body = trim($paramFetcher->get('body'));
-        $this->forumTransactions->addPostToThread($this->session->id(), $threadId, $body);
-
-        return $this->handleView($this->view([], Response::HTTP_OK));
-    }
-
-    /**
-     * Delete a forum post.
-     *
-     * @OA1\Response(response="200", description="success")
-     * @OA1\Response(response="403", description="Insufficient permissions")
-     * @OA1\Response(response="404", description="Post does not exist")
-     */
-    #[Route('forum/post/{postId}', methods: ['DELETE'], requirements: ['postId' => '\d+'])]
-    public function deletePost(int $postId): Response
-    {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
-
-        $post = $this->forumGateway->getPost($postId);
-        if (!$post) {
-            throw new NotFoundHttpException();
-        }
-        if (!$this->forumPermissions->mayDeletePost($post['author_id'])) {
-            throw new AccessDeniedHttpException();
-        }
-
-        $this->forumTransactions->deletePostFromThread($postId, $this->session->id());
-
-        return $this->handleView($this->view([]));
-    }
-
-    #[OA\Patch(summary: 'Hide a forum post.')]
-    #[Route('forum/post/{postId}/hide', methods: ['PATCH'], requirements: ['postId' => Requirement::POSITIVE_INT])]
+    #[OA\Post(summary: 'Creates a post inside a thread.')]
+    #[Route('forum/threads/{threadId}/posts', methods: ['POST'], requirements: ['threadId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
-    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Post is already hidden.')]
-    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
+    public function createPost(int $threadId, #[MapRequestPayload] CreatePostData $post): Response
+    {
+        $this->assertLoggedIn();
+        if (!$this->forumPermissions->mayPostToThread($threadId)) {
+            throw new AccessDeniedHttpException('Not permitted');
+        }
+
+        $this->forumTransactions->addPostToThread($this->session->id(), $threadId, trim($post->body));
+
+        return $this->respondOK();
+    }
+
+    #[OA\Delete(summary: 'Deletes a forum post.')]
+    #[Route('forum/posts/{postId}', methods: ['DELETE'], requirements: ['postId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Post does not exist')]
-    #[Rest\RequestParam(name: 'reason', description: 'hiding reason', requirements: '..{0,255}')]
-    public function hidePost(int $postId, ParamFetcher $paramFetcher): Response
+    public function deletePost(int $postId): Response
     {
         $this->assertLoggedIn();
 
         $post = $this->forumGateway->getPost($postId);
         if (!$post) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException('Post not found');
+        }
+        if (!$this->forumPermissions->mayDeletePost($post['author_id'])) {
+            throw new AccessDeniedHttpException('Not permitted');
+        }
+
+        $this->forumTransactions->deletePostFromThread($postId, $this->session->id());
+
+        return $this->respondOK();
+    }
+
+    #[OA\Patch(summary: 'Hide a forum post.')]
+    #[Route('forum/posts/{postId}/hidden', methods: ['PATCH'], requirements: ['postId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Post is already hidden.')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Post does not exist')]
+    public function hidePost(int $postId, #[MapRequestPayload] PatchPostData $patchPostData): Response
+    {
+        $this->assertLoggedIn();
+
+        $post = $this->forumGateway->getPost($postId);
+        if (!$post) {
+            throw new NotFoundHttpException('Post not found');
         }
         if (!$this->forumPermissions->mayHidePost($postId)) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Not permitted');
         }
-        $reason = $paramFetcher->get('reason');
 
         if ($this->forumGateway->isPostHidden($postId)) {
-            throw new BadRequestHttpException();
+            throw new BadRequestHttpException('Post is hidden');
         }
 
-        $this->forumTransactions->hidePost($postId, $this->session->id(), $reason);
+        $this->forumTransactions->hidePost($postId, $this->session->id(), trim($patchPostData->reason));
 
         return $this->respondOK();
     }
 
     #[OA\Delete(summary: 'Restore a hidden forum post')]
-    #[Route('forum/post/{postId}/hide', methods: ['DELETE'], requirements: ['postId' => Requirement::POSITIVE_INT])]
+    #[Route('forum/posts/{postId}/hidden', methods: ['DELETE'], requirements: ['postId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'success')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Post is not hidden.')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
@@ -408,14 +348,14 @@ class ForumRestController extends AbstractFoodsharingRestController
 
         $post = $this->forumGateway->getPost($postId);
         if (!$post) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException('Post not found');
         }
         if (!$this->forumPermissions->mayRestorePost($postId)) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Not permitted');
         }
 
         if (!$this->forumTransactions->restorePost($postId)) {
-            throw new BadRequestHttpException();
+            throw new BadRequestHttpException('Post is not hidden');
         }
 
         return $this->respondOK();
@@ -424,61 +364,51 @@ class ForumRestController extends AbstractFoodsharingRestController
     // *** REACTION MANAGEMENT *** //
     // (the following endpoints are for handling reaction related actions)
 
-    /**
-     * Adds an emoji reaction to a post. An emoji is an arbitrary string but needs to be supported by the frontend.
-     *
-     * @OA1\Response(response="200", description="success")
-     * @OA1\Response(response="403", description="Insufficient permissions")
-     * @OA1\Response(response="404", description="Post does not exist")
-     */
-    #[Route('forum/post/{postId}/reaction/{emoji}', methods: ['POST'], requirements: ['postId' => '\d+', 'emoji' => '\w+'])]
+    #[OA\Post(summary: 'Adds an emoji reaction to a post. An emoji is an arbitrary string but needs to be supported by the frontend.')]
+    #[Route('forum/posts/{postId}/reactions/{emoji}', methods: ['POST'], requirements: ['postId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Post does not exist')]
     public function addReaction(int $postId, string $emoji): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
         EmojiList::assertIsValidEmoji($emoji);
 
         $threadId = $this->forumGateway->getThreadForPost($postId);
 
         if (is_null($threadId)) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException('Thread not found');
         }
         if (!$this->forumPermissions->mayAccessThread($threadId)) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Not permitted');
         }
 
         $this->forumTransactions->addReaction($this->session->id(), $postId, $emoji);
 
-        return $this->handleView($this->view([]));
+        return $this->respondOK();
     }
 
-    /**
-     * Remove an emoji reaction the logged in user has given from a post.
-     *
-     * @OA1\Response(response="200", description="Success")
-     * @OA1\Response(response="403", description="Insufficient permissions")
-     * @OA1\Response(response="404", description="Post does not exist")
-     */
-    #[Route('forum/post/{postId}/reaction/{emoji}', methods: ['DELETE'], requirements: ['postId' => '\d+', 'emoji' => '\w+'])]
+    #[OA\Delete(summary: 'Remove an emoji reaction the logged in user has given from a post.')]
+    #[Route('forum/posts/{postId}/reactions/{emoji}', methods: ['DELETE'], requirements: ['postId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Post does not exist')]
     public function deleteReaction(int $postId, string $emoji): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
         EmojiList::assertIsValidEmoji($emoji);
 
         $threadId = $this->forumGateway->getThreadForPost($postId);
 
         if (is_null($threadId)) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException('Thread not found');
         }
         if (!$this->forumPermissions->mayAccessThread($threadId)) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException('Not permitted');
         }
 
         $this->forumTransactions->removeReaction($this->session->id(), $postId, $emoji);
 
-        return $this->handleView($this->view([]));
+        return $this->respondOK();
     }
 }

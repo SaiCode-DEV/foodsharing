@@ -1630,7 +1630,7 @@ class Foodsharing {
         ?.value ?? "";
 
     const response = await page.request.post(
-      `api/forum/${forumId}/${forumSubId}`,
+      `api/regions/${forumId}/forum/threads?subforumId=${forumSubId}`,
       {
         data: {
           title,

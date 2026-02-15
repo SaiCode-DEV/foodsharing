@@ -21,6 +21,7 @@ use Foodsharing\Modules\Region\Exceptions\NoVisiblePostException;
 use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\ForumPermissions;
+use Foodsharing\RestApi\Models\Forum\CreateThreadData;
 use Foodsharing\RestApi\Models\Notifications\Thread;
 use Foodsharing\Utility\EmailHelper;
 use Foodsharing\Utility\FlashMessageHelper;
@@ -160,22 +161,25 @@ class ForumTransactions
         return [$followerIds, $baseBell, $postId, 'fas fa-comments'];
     }
 
-    public function createThread($fsId, $title, $body, $region, $ambassadorForum, $isActive, $sendMail)
+    public function createThread(int $fsId, CreateThreadData $thread, array $region, bool $ambassadorForum, bool $isActive)
     {
-        $threadId = $this->forumGateway->addThread($fsId, $region['id'], $title, $body, $isActive, $ambassadorForum);
+        $thread->title = trim($thread->title);
+        $thread->body = trim($thread->body);
+
+        $threadId = $this->forumGateway->addThread($fsId, $region['id'], $thread->title, $thread->body, $isActive, $ambassadorForum);
         if (!$isActive) {
-            $this->notifyAdminsModeratedThread($region, $threadId, $body);
+            $this->notifyAdminsModeratedThread($region, $threadId, $thread->body);
         } else {
-            if ($sendMail) {
+            if ($thread->sendMail) {
                 $this->notifyMembersOfForumAboutNewThreadViaMail($region, $threadId, $ambassadorForum);
             } else {
                 $this->flashMessageHelper->info($this->translator->trans('forum.thread.no_mail'));
             }
 
-            $this->notifyActiveFollowersOfForumAboutNewThreadViaBell($region, $threadId, $ambassadorForum, $title);
+            $this->notifyActiveFollowersOfForumAboutNewThreadViaBell($region, $threadId, $ambassadorForum, $thread->title);
         }
 
-        $this->sendNotificationsToMentionedUsers($threadId, null, $body);
+        $this->sendNotificationsToMentionedUsers($threadId, null, $thread->body);
 
         return $threadId;
     }

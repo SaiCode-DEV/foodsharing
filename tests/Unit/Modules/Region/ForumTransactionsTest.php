@@ -18,6 +18,7 @@ use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\ForumPermissions;
+use Foodsharing\RestApi\Models\Forum\CreateThreadData;
 use Foodsharing\Utility\EmailHelper;
 use Foodsharing\Utility\FlashMessageHelper;
 use Foodsharing\Utility\Sanitizer;
@@ -90,11 +91,13 @@ class ForumTransactionsTest extends Unit
 
     public function testMentionedUsersOnceGetBellForCreateThread(): void
     {
-        $body = 'Besprechung, @' . $this->user1['id'] .
-           ' übernimmt du verifizieren @' . $this->user2['id'] . ' und @' . $this->user3['id'] . ' für @' . $this->user2['id'] .
-           ' eine Einführungsabholung durchführen. ';
         $this->bellGateway->expects($this->once())->method('addBellForUsers')->with(
             $this->equalTo([$this->user1['id'], $this->user2['id'], $this->user3['id']]), $this->anything());
-        $this->transaction->createThread($this->user1['id'], 'Title', $body, $this->region, false, false, false);
+        $thread = new CreateThreadData();
+        $thread->title = 'Title';
+        $thread->body = 'Besprechung, @' . $this->user1['id'] .
+            ' übernimmt du verifizieren @' . $this->user2['id'] . ' und @' . $this->user3['id'] . ' für @' . $this->user2['id'] .
+            ' eine Einführungsabholung durchführen. ';
+        $this->transaction->createThread($this->user1['id'], $thread, $this->region, false, false);
     }
 }
