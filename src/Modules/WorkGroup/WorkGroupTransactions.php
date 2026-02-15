@@ -6,6 +6,7 @@ use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
+use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Group\GroupGateway;
 use Foodsharing\Modules\Region\ForumFollowerGateway;
 use Foodsharing\Modules\Uploads\UploadsGateway;
@@ -23,6 +24,7 @@ class WorkGroupTransactions
         private readonly UploadsGateway $uploadsGateway,
         private readonly BellGateway $bellGateway,
         private readonly GroupGateway $groupGateway,
+        private readonly FoodsaverGateway $foodsaverGateway,
         private readonly EmailHelper $emailHelper,
         private readonly TranslatorInterface $translator
     ) {
@@ -37,6 +39,7 @@ class WorkGroupTransactions
     {
         $this->forumFollowerGateway->deleteForumSubscription($groupId, $memberId);
         $this->workGroupGateway->removeFromGroup($groupId, $memberId);
+        $this->foodsaverGateway->revokeOAuthRefreshTokens($memberId);
     }
 
     public function sendMailToGroup(string $groupName, SendMailData $data, string $username, int $userId, array $recipients, string $userMail): void

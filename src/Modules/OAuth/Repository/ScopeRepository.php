@@ -76,7 +76,7 @@ class ScopeRepository implements ScopeRepositoryInterface
         return match ($identifier) {
             'profile' => ['name', 'given_name', 'family_name', 'picture', 'locale'],
             'email' => ['email', 'email_verified'],
-            'regions' => ['regions'],
+            'regions' => ['region_ids', 'region_ambassador'],
             default => []
         };
     }

@@ -91,6 +91,7 @@ final class AddOauthTables extends AbstractMigration
             ->addColumn('revoked', 'boolean', ['default' => false])
             ->addColumn('created_at', 'datetime', ['null' => false])
             ->addIndex(['access_token_identifier'], ['name' => 'idx_oauth_refresh_tokens_access_token'])
+            ->addIndex(['revoked'], ['name' => 'idx_oauth_refresh_tokens_revoked'])
             ->addForeignKey('access_token_identifier', 'oauth_access_tokens', 'identifier', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
             ->create();
     }

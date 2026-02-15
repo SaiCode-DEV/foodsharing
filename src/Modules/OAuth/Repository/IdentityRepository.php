@@ -51,6 +51,23 @@ class IdentityRepository implements IdentityProviderInterface
             $claims['picture'] = BASE_URL . '/images/profile/' . $user['photo'];
         }
 
+        // Add region information (will be filtered by ClaimExtractor based on scopes)
+        $regions = $this->db->fetchAll(
+            'SELECT DISTINCT b.id FROM fs_foodsaver_has_bezirk fb 
+             JOIN fs_bezirk b ON fb.bezirk_id = b.id 
+             WHERE fb.foodsaver_id = :userId AND fb.active = 1',
+            [':userId' => $identifier]
+        );
+        $claims['region_ids'] = array_map(fn ($r) => (string)$r['id'], $regions);
+
+        // Add regions where user is ambassador
+        $ambassadorRegions = $this->db->fetchAll(
+            'SELECT DISTINCT bezirk_id FROM fs_botschafter 
+             WHERE foodsaver_id = :userId',
+            [':userId' => $identifier]
+        );
+        $claims['region_ambassador'] = array_map(fn ($r) => (string)$r['bezirk_id'], $ambassadorRegions);
+
         $userEntity->setClaims($claims);
 
         return $userEntity;

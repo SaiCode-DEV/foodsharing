@@ -93,6 +93,9 @@ class RegionRestController extends AbstractFoodsharingRestController
 
         $this->regionGateway->linkBezirk($sessionId, $regionId);
 
+        // Revoke OAuth refresh tokens to force fresh region claims on next refresh
+        $this->foodsaverGateway->revokeOAuthRefreshTokens($sessionId);
+
         if (!$this->currentUserUnits->getCurrentRegionId()) {
             $this->settingsGateway->logChangedSetting($sessionId, ['bezirk_id' => 0], ['bezirk_id' => $regionId], ['bezirk_id']);
             $this->foodsaverGateway->updateProfile($sessionId, ['bezirk_id' => $regionId]);
@@ -310,6 +313,9 @@ class RegionRestController extends AbstractFoodsharingRestController
 
         $this->regionGateway->setRegionAdmin($regionId, $userId);
 
+        // Revoke OAuth refresh tokens to force fresh region claims on next refresh
+        $this->foodsaverGateway->revokeOAuthRefreshTokens($userId);
+
         return $this->respondOK();
     }
 
@@ -333,6 +339,9 @@ class RegionRestController extends AbstractFoodsharingRestController
         }
 
         $this->regionGateway->removeRegionAdmin($regionId, $userId);
+
+        // Revoke OAuth refresh tokens to force fresh region claims on next refresh
+        $this->foodsaverGateway->revokeOAuthRefreshTokens($userId);
 
         return $this->respondOK();
     }
@@ -453,7 +462,7 @@ class RegionRestController extends AbstractFoodsharingRestController
         if (empty($publicRegionData)) {
             throw new NotFoundHttpException('Region does not exist');
         }
-        if ($publicRegionData->type === UnitType::WORKING_GROUP) {
+        if ($publicRegionData->type === UnitType::WORKING_GROUP && !$this->regionPermissions->mayViewPublicWorkgroupInfo()) {
             throw new BadRequestHttpException('Unavailable for working groups');
         }
 

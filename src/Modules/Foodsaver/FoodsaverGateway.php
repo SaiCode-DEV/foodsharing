@@ -821,6 +821,9 @@ class FoodsaverGateway extends BaseGateway
 
         $this->forumFollowerGateway->deleteForumSubscription($regionId, $fsId);
 
+        // Revoke OAuth refresh tokens to force fresh region claims on next refresh
+        $this->revokeOAuthRefreshTokens($fsId);
+
         $mainRegion_id = $this->db->fetchValueByCriteria('fs_foodsaver', 'bezirk_id', ['id' => $fsId]);
         if ($mainRegion_id === $regionId) {
             $this->db->update('fs_foodsaver', [
@@ -843,6 +846,25 @@ class FoodsaverGateway extends BaseGateway
                 $this->changeUserVerification($fsId, $actorId, false);
             }
         }
+    }
+
+    /**
+     * Revokes all OAuth refresh tokens for a user.
+     * This forces the user to get fresh access tokens with updated claims (e.g., regions)
+     * on their next token refresh. Access tokens remain valid until expiration (1 hour).
+     */
+    public function revokeOAuthRefreshTokens(int $userId): void
+    {
+        $this->db->execute(
+            '
+            UPDATE oauth_refresh_tokens rt
+            INNER JOIN oauth_access_tokens at ON rt.access_token_identifier = at.identifier
+            SET rt.revoked = 1
+            WHERE rt.revoked = 0
+              AND at.user_identifier = :userId
+            ',
+            [':userId' => (string)$userId]
+        );
     }
 
     public function riseRole(int $fsId, Role $newRoleId): void

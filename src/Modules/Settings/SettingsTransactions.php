@@ -458,6 +458,9 @@ class SettingsTransactions
         }
 
         $this->loginGateway->setPassword($this->session->id(), $request->newPassword);
+
+        // Revoke OAuth refresh tokens to prevent issuing new access tokens via refresh
+        $this->foodsaverGateway->revokeOAuthRefreshTokens($this->session->id());
     }
 
     /**

@@ -190,14 +190,17 @@
                   class="d-flex justify-content-between align-items-center"
                 >
                   <span>{{ region.name }}</span>
-                  <b-button
-                    size="xs"
-                    variant="danger"
-                    class="ml-1 py-0 px-1"
-                    @click="removeRegion(region.id)"
-                  >
-                    <i class="fas fa-times" />
-                  </b-button>
+                  <div class="ml-2 d-flex align-items-center">
+                    <code class="text-muted">{{ region.id }}</code>
+                    <b-button
+                      size="xs"
+                      variant="danger"
+                      class="ml-1 py-0 px-1"
+                      @click="removeRegion(region.id)"
+                    >
+                      <i class="fas fa-times" />
+                    </b-button>
+                  </div>
                 </b-list-group-item>
               </b-list-group>
             </div>
@@ -248,7 +251,7 @@ import i18n from '@/helper/i18n'
 import { get, post, patch, remove } from '@/api/base'
 import { BAlert, BBadge, BButton, BForm, BFormCheckbox, BFormCheckboxGroup, BFormGroup, BFormInput, BFormTags, BModal, BTable } from 'bootstrap-vue'
 import RegionTree from '@/components/regiontree/RegionTree.vue'
-import { getRegionData } from '@/api/regions'
+import { getPublicRegionData } from '@/api/regions'
 
 // Multi-region selection logic
 const selectedRegion = ref(null)
@@ -390,7 +393,7 @@ async function editClient (client) {
   newSecret.value = null
   showModal.value = true
   selectedRegionsList.value = await Promise.all(client.required_region_ids.map(async (id) => {
-    const region = await getRegionData(id)
+    const region = await getPublicRegionData(id)
     return { id: region.id, name: region.name }
   }))
 }

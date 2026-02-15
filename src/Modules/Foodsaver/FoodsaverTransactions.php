@@ -96,6 +96,8 @@ class FoodsaverTransactions
 
         $this->deletePhoto($foodsaverId);
 
+        $this->foodsaverGateway->revokeOAuthRefreshTokens($foodsaverId);
+
         $this->settingsGateway->updateSleepMode($foodsaverId, SleepStatusRequest::create(SleepStatus::NONE));
 
         // delete the user

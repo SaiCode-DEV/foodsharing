@@ -24,6 +24,7 @@ use League\OAuth2\Server\Exception\OAuthServerException;
 use League\OAuth2\Server\Grant\RefreshTokenGrant;
 use League\OAuth2\Server\ResourceServer;
 use OpenIDConnectServer\ClaimExtractor;
+use OpenIDConnectServer\Entities\ClaimSetEntity;
 use Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface;
 use Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -34,6 +35,11 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class OAuthController extends FoodsharingController
 {
+    // Token TTL configuration
+    private const AUTH_CODE_TTL = 'PT10M';
+    private const ACCESS_TOKEN_TTL = 'PT1H';
+    private const REFRESH_TOKEN_TTL = 'P1M';
+
     private AuthorizationServer $server;
     private ResourceServer $resourceServer;
     private OAuthGateway $gateway;
@@ -73,7 +79,10 @@ class OAuthController extends FoodsharingController
         $encryptionKey = $this->getEncryptionKey();
 
         // Setup OpenID Connect response with ClaimExtractor
-        $claimExtractor = new ClaimExtractor();
+        // Add custom claim sets for our custom scopes
+        $claimExtractor = new ClaimExtractor([
+            new ClaimSetEntity('regions', ScopeRepository::getScopeClaims('regions'))
+        ]);
         $responseType = new OIDCBearerTokenResponse($identityRepository, $claimExtractor);
 
         // Setup private key with optional passphrase
@@ -95,26 +104,26 @@ class OAuthController extends FoodsharingController
             $responseType
         );
 
-        // Enable the authorization code grant with 10-minute auth code TTL and 1-hour access token TTL
+        // Enable the authorization code grant
         $grant = new OIDCAuthCodeGrant(
             $this->gateway,
             $authCodeRepository,
             $refreshTokenRepository,
-            new DateInterval('PT10M')
+            new DateInterval(self::AUTH_CODE_TTL)
         );
-        $grant->setRefreshTokenTTL(new DateInterval('P1M'));
+        $grant->setRefreshTokenTTL(new DateInterval(self::REFRESH_TOKEN_TTL));
 
         $this->server->enableGrantType(
             $grant,
-            new DateInterval('PT1H')
+            new DateInterval(self::ACCESS_TOKEN_TTL)
         );
 
         // Enable the refresh token grant
         $refreshTokenGrant = new RefreshTokenGrant($refreshTokenRepository);
-        $refreshTokenGrant->setRefreshTokenTTL(new DateInterval('P1M'));
+        $refreshTokenGrant->setRefreshTokenTTL(new DateInterval(self::REFRESH_TOKEN_TTL));
         $this->server->enableGrantType(
             $refreshTokenGrant,
-            new DateInterval('PT1H')
+            new DateInterval(self::ACCESS_TOKEN_TTL)
         );
 
         // Setup resource server for validating access tokens
@@ -129,9 +138,7 @@ class OAuthController extends FoodsharingController
     {
         // User must be logged in
         if (!$this->session->mayRole()) {
-            $this->session->set('login_redirect', $request->getUri());
-
-            return $this->redirectToRoute('login');
+            return $this->redirectToRoute('login', ['ref' => $request->getRequestUri()]);
         }
 
         try {

@@ -183,4 +183,9 @@ class RegionPermissions
 
         return UnitType::isAccessibleRegion($type) && $this->currentUserUnits->isAdminFor($regionId);
     }
+
+    public function mayViewPublicWorkgroupInfo(): bool
+    {
+        return $this->currentUserUnits->isAdminFor(RegionIDs::OAUTH_CLIENT_ADMINISTRATION_WORK_GROUP);
+    }
 }
