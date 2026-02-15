@@ -47,7 +47,7 @@ class Api extends Module
     {
         $rest = $this->getModule('REST');
         $rest->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
-        $rest->sendPOST('api/user/login', [
+        $rest->sendPOST('api/login', [
                 'email' => $email,
                 'password' => $pass
         ]);

@@ -27,7 +27,7 @@ class LoginApiCest
 
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-        $I->sendPOST('api/user/login', [
+        $I->sendPOST('api/login', [
             'email' => $user['email'],
             'password' => $pass
         ]);
@@ -49,7 +49,7 @@ class LoginApiCest
 
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-        $I->sendPOST('api/user/login', [
+        $I->sendPOST('api/login', [
             'email' => $user['email'],
             'password' => 'WROOOONG'
         ]);
@@ -64,7 +64,7 @@ class LoginApiCest
         $user = $I->createFoodsharer($pass, ['active' => 0]);
 
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
-        $I->sendPOST('api/user/login', [
+        $I->sendPOST('api/login', [
             'email' => $user['email'],
             'password' => $pass,
         ]);

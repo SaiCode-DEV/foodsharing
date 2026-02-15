@@ -41,7 +41,7 @@ class RemoveUserFromBounceListCest
 
         $I->login($this->foodsharer['email']);
 
-        $I->sendDelete('api/user/' . $fsId . '/emailbounce');
+        $I->sendDelete('api/users/' . $fsId . '/email-bounce');
         $I->seeResponseCodeIs(HttpCode::OK);
     }
 }

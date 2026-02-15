@@ -12,7 +12,7 @@ class LoginApiFuncCest
     {
         $pass = 'pw';
         $user = $I->createFoodsaver($pass);
-        $I->sendPOST('api/user/login', [
+        $I->sendPOST('api/login', [
             'email' => $user['email'],
             'password' => $pass
             ]);
@@ -27,7 +27,7 @@ class LoginApiFuncCest
     {
         $user['email'] = 'thissurelydoesnotexist@example.com';
         $pass = '123';
-        $I->sendPOST('api/user/login', [
+        $I->sendPOST('api/login', [
             'email' => $user['email'],
             'password' => $pass
         ]);
@@ -38,7 +38,7 @@ class LoginApiFuncCest
     {
         $pass = 'pw';
         $user = $I->createFoodsaver($pass);
-        $I->sendPOST('api/user/login', [
+        $I->sendPOST('api/login', [
             'email' => $user['email'],
             'password' => 'asdf'
         ]);

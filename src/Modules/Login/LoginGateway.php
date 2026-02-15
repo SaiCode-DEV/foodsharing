@@ -5,6 +5,7 @@ namespace Foodsharing\Modules\Login;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
+use Foodsharing\Modules\Profile\DTO\PasswordResetRequest;
 use Foodsharing\Modules\Register\DTO\RegisterData;
 use Foodsharing\Utility\EmailHelper;
 use RobThree\Auth\Providers\Qr\BaconQrCodeProvider;
@@ -130,7 +131,7 @@ class LoginGateway extends BaseGateway
                 'password' => strip_tags((string)$this->password_hash($data->password)),
                 'name' => strip_tags((string)$data->firstName),
                 'nachname' => strip_tags((string)$data->lastName),
-                'geb_datum' => $data->birthday,
+                'geb_datum' => $data->birthdate->format('Y-m-d'),
                 'handy' => strip_tags((string)$data->mobilePhone),
                 'newsletter' => (int)$data->subscribeNewsletter,
                 'geschlecht' => (int)$data->gender,
@@ -145,16 +146,16 @@ class LoginGateway extends BaseGateway
         return $this->db->exists('fs_pass_request', ['name' => strip_tags($key)]);
     }
 
-    public function newPassword(array $data): bool
+    public function newPassword(PasswordResetRequest $request): bool
     {
-        if (strlen((string)$data['pass1']) <= 4) {
+        if (strlen($request->password) <= 4) {
             return false;
         }
 
         $fsid = $this->db->fetchValueByCriteria(
             'fs_pass_request',
             'foodsaver_id',
-            ['name' => strip_tags((string)$data['reset-token'])]
+            ['name' => strip_tags($request->resetToken)]
         );
         if (!$fsid) {
             return false;
@@ -162,12 +163,12 @@ class LoginGateway extends BaseGateway
 
         // Check if user has 2FA enabled. If so, we accept the password change
         // request only if the TOTP code is correct
-        if ($this->hasTOTP($fsid, '') && (!isset($data['totp-code']) || !$this->checkTOTP($fsid, $data['totp-code']))) {
+        if ($this->hasTOTP($fsid, '') && (!isset($request->totpCode) || !$this->checkTOTP($fsid, $request->totpCode))) {
             throw new AccessDeniedHttpException('Invalid TOTP code');
         }
 
         $this->db->delete('fs_pass_request', ['foodsaver_id' => (int)$fsid]);
-        $this->setPassword((int)$fsid, (string)$data['pass1']);
+        $this->setPassword((int)$fsid, $request->password);
 
         return true;
     }

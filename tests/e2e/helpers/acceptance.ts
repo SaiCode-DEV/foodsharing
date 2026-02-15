@@ -59,7 +59,7 @@ export class AcceptanceHelper {
     }
 
     // Call login API directly
-    const response = await this.page.request.post("/api/user/login", {
+    const response = await this.page.request.post("/api/login", {
       data: {
         email,
         password,

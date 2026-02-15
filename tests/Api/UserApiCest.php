@@ -7,7 +7,6 @@ namespace Tests\Api;
 use Carbon\Carbon;
 use Codeception\Example;
 use Codeception\Util\HttpCode as Http;
-use Faker\Factory;
 use Tests\Support\ApiTester;
 
 /**
@@ -21,10 +20,9 @@ class UserApiCest
     private $user;
     private $userOrga;
     private $region;
-    private $faker;
 
     private const string EMAIL = 'email';
-    private const string API_USER = 'api/user';
+    private const string API_USER = 'api/users';
     private const string ID = 'id';
 
     public function _before(ApiTester $I): void
@@ -39,8 +37,6 @@ class UserApiCest
         $this->region = $I->createRegion(fillMailbox: false);
         $I->addRegionMember($this->region['id'], $this->user['id']);
         $I->addRegionMember($this->region['id'], $this->userOrga['id']);
-
-        $this->faker = Factory::create('de_DE');
     }
 
     public function getUser(ApiTester $I): void
@@ -76,270 +72,10 @@ class UserApiCest
         $I->login($this->user[self::EMAIL]);
 
         // see your own details
-        /* $I->sendGET(self::API_USER . '/' . $this->user[self::ID] . '/details');
-        $I->seeResponseCodeIs(Http::OK);
-        $I->seeResponseIsJson(); */
-
         $I->sendGET(self::API_USER . '/current/details');
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseIsJson();
     }
-
-    /**
-     * TODO: disabled because the /user/{id}/details endpoint is disabled.
-     *
-     * Do not see details of non-existing user.
-     */
-    /* public function getUserDetailsNoneExistingUser(ApiTester $I): void
-    {
-        $I->login($this->user[self::EMAIL]);
-
-        $I->sendGET(self::API_USER . '/999999999/details');
-        $I->seeResponseCodeIs(Http::NOT_FOUND);
-        $I->seeResponseIsJson();
-    } */
-
-    /**
-     * TODO: disabled because the /user/{id}/details endpoint is disabled.
-     *
-     * Check that only limited fields are returned for a none logged in user.
-     */
-    /* public function getUserDetailsNoUser(ApiTester $I): void
-    {
-        // no login
-
-        $I->sendGET(self::API_USER . '/' . $this->user[self::ID] . '/details');
-        $I->seeResponseCodeIs(Http::OK);
-        $I->seeResponseIsJson();
-        $I->seeResponseMatchesJsonType([
-            'id' => 'integer',
-            'firstname' => 'string:regex(~.?~)', // firstname is allowed only as 0 or 1 caracter
-            'isVerified' => 'boolean',
-            'regionId' => 'integer',
-            'regionName' => 'string'
-        ]);
-        $I->dontSeeResponseContains('lastname');
-        $I->dontSeeResponseContains('address');
-        $I->dontSeeResponseContains('city');
-        $I->dontSeeResponseContains('postcode');
-        $I->dontSeeResponseContains('email');
-        $I->dontSeeResponseContains('landline');
-        $I->dontSeeResponseContains('mobile');
-        $I->dontSeeResponseContains('birthday');
-        $I->dontSeeResponseContains('aboutMeIntern');
-        $I->dontSeeResponseContains('regions');
-        $I->dontSeeResponseContains('groups');
-
-        $I->dontSeeResponseContainsJson([
-            'stats' => [
-                'weight' => 'float|integer',
-                'count' => 'float|integer',
-            ]
-        ]);
-
-        $I->dontSeeResponseContainsJson([
-            'coordinates' => [
-                'lat',
-                'lon',
-            ]
-        ]);
-
-        $I->dontSeeResponseContainsJson([
-            'permissions' => [
-                'mayEditUserProfile' => false,
-                'mayAdministrateUserProfile' => false
-            ]
-        ]);
-    } */
-
-    /**
-     * TODO: disabled because the /user/{id}/details endpoint is disabled.
-     *
-     * Check that only allowed fields for another user are return in the response.
-     */
-    /* public function getUserDetailsOfOtherUser(ApiTester $I): void
-    {
-        $testUser = $I->createFoodsaver();
-        $I->login($this->user[self::EMAIL]);
-
-        $I->sendGET(self::API_USER . '/' . $testUser[self::ID] . '/details');
-        $I->seeResponseCodeIs(Http::OK);
-        $I->seeResponseIsJson();
-        $I->seeResponseMatchesJsonType([
-            'id' => 'integer',
-            'firstname' => 'string',
-            'lastname' => 'string',
-            'isVerified' => 'boolean',
-            'regionId' => 'integer',
-            'regionName' => 'string',
-            'aboutMePublic' => 'string|null',
-        ]);
-
-        $I->dontSeeResponseContains('address');
-        $I->dontSeeResponseContains('city');
-        $I->dontSeeResponseContains('postcode');
-        $I->dontSeeResponseContains('email');
-        $I->dontSeeResponseContains('landline');
-        $I->dontSeeResponseContains('mobile');
-        $I->dontSeeResponseContains('birthday');
-        $I->dontSeeResponseContains('aboutMeIntern');
-        $I->dontSeeResponseContains('regions');
-        $I->dontSeeResponseContains('groups');
-
-        $I->seeResponseMatchesJsonType([
-            'stats' => [
-                'weight' => 'string|float|integer',
-                'count' => 'string|float|integer',
-            ]
-        ]);
-
-        $I->dontSeeResponseContains('coordinates');
-
-        $I->seeResponseMatchesJsonType([
-            'permissions' => [
-                'mayEditUserProfile' => 'boolean',
-                'mayAdministrateUserProfile' => 'boolean'
-            ]
-        ]);
-    } */
-
-    /**
-     * TODO: disabled because the /user/{id}/details endpoint is disabled.
-     *
-     * Check that only allowed fields of the current user are returned in the response.
-     */
-    /* public function getUserDetailsFromCurrentUser(ApiTester $I): void
-    {
-        $I->login($this->user[self::EMAIL]);
-
-        $I->sendGET(self::API_USER . '/' . $this->user[self::ID] . '/details');
-        $I->seeResponseCodeIs(Http::OK);
-        $I->seeResponseIsJson();
-        $I->seeResponseMatchesJsonType([
-            'id' => 'integer',
-            'firstname' => 'string',
-            'lastname' => 'string',
-            'isVerified' => 'boolean',
-            'regionId' => 'integer',
-            'regionName' => 'string',
-            'address' => 'string',
-            'city' => 'string',
-            'postcode' => 'string|integer',
-            'email' => 'string:email',
-            'landline' => 'string|null',
-            'mobile' => 'string|null',
-            'birthday' => 'string|date',
-            'aboutMeIntern' => 'string|null',
-            'aboutMePublic' => 'string|null',
-            'gender' => 'integer',
-            'regions' => 'array',
-            'groups' => 'array'
-        ]);
-
-        $I->seeResponseMatchesJsonType([
-            'id' => 'integer',
-            'name' => 'string',
-            'classification' => 'integer',
-            'isResponsible' => 'boolean'
-        ], '$.regions.*');
-
-        $I->seeResponseMatchesJsonType([
-            'id' => 'integer',
-            'name' => 'string',
-            'isResponsible' => 'boolean'
-        ], '$.groups.*');
-
-        $I->seeResponseMatchesJsonType([
-            'stats' => [
-                'weight' => 'string|float|integer',
-                'count' => 'string|float|integer',
-            ]
-        ]);
-
-        $I->seeResponseMatchesJsonType([
-            'coordinates' => [
-                'lat' => 'string|float|integer',
-                'lon' => 'string|float|integer',
-            ]
-        ]);
-
-        $I->seeResponseMatchesJsonType([
-            'permissions' => [
-                'mayEditUserProfile' => 'boolean',
-                'mayAdministrateUserProfile' => 'boolean'
-            ]
-        ]);
-    } */
-
-    /**
-     * TODO: disabled because the /user/{id}/details endpoint is disabled.
-     *
-     * Check that all fields of a user are returned for an orga user.
-     */
-    /* public function getUserDetailsAsOrgaUser(ApiTester $I): void
-    {
-        $I->login($this->userOrga[self::EMAIL]);
-
-        $I->sendGET(self::API_USER . '/' . $this->user[self::ID] . '/details');
-        $I->seeResponseCodeIs(Http::OK);
-        $I->seeResponseIsJson();
-        $I->seeResponseMatchesJsonType([
-            'id' => 'integer',
-            'firstname' => 'string',
-            'lastname' => 'string',
-            'isVerified' => 'boolean',
-            'regionId' => 'integer',
-            'regionName' => 'string',
-            'address' => 'string',
-            'city' => 'string',
-            'postcode' => 'string|integer',
-            'email' => 'string:email',
-            'landline' => 'string|null',
-            'mobile' => 'string|null',
-            'birthday' => 'string|date',
-            'aboutMeIntern' => 'string|null',
-            'aboutMePublic' => 'string|null',
-            'role' => 'integer',
-            'position' => 'string|null',
-            'gender' => 'integer',
-            'regions' => 'array',
-            'groups' => 'array'
-        ]);
-
-        $I->seeResponseMatchesJsonType([
-            'id' => 'integer',
-            'name' => 'string',
-            'classification' => 'integer',
-            'isResponsible' => 'boolean'
-        ], '$.regions.*');
-
-        $I->seeResponseMatchesJsonType([
-            'id' => 'integer',
-            'name' => 'string',
-            'isResponsible' => 'boolean'
-        ], '$.groups.*');
-
-        $I->seeResponseMatchesJsonType([
-            'stats' => [
-                'weight' => 'string|float|integer',
-                'count' => 'string|float|integer',
-            ]
-        ]);
-
-        $I->seeResponseMatchesJsonType([
-            'coordinates' => [
-                'lat' => 'string|float|integer',
-                'lon' => 'string|float|integer',
-            ]
-        ]);
-
-        $I->seeResponseContainsJson([
-            'permissions' => [
-                'mayEditUserProfile' => true,
-                'mayAdministrateUserProfile' => true
-            ]
-        ]);
-    } */
 
     /**
      * @example["abcd@efgh.com"]
@@ -347,7 +83,7 @@ class UserApiCest
      */
     public function canUseEmailForRegistration(ApiTester $I, Example $example): void
     {
-        $I->sendPOST(self::API_USER . '/isvalidemail', ['email' => $example[0]]);
+        $I->sendPOST(self::API_USER . '/registration/email-checker', ['email' => $example[0]]);
         $I->seeResponseCodeIs(Http::OK);
     }
 
@@ -358,12 +94,8 @@ class UserApiCest
      */
     public function canNotUseInvalidMailForRegistration(ApiTester $I, Example $example): void
     {
-        $I->sendPOST(self::API_USER . '/isvalidemail', ['email' => $example[0]]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
-        $I->seeResponseIsJson();
-        $I->canSeeResponseContainsJson([
-            'message' => 'email is not valid'
-        ]);
+        $I->sendPOST(self::API_USER . '/registration/email-checker', ['email' => $example[0]]);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
     }
 
     /**
@@ -372,39 +104,39 @@ class UserApiCest
      */
     public function canNotUseFoodsharingEmailForRegistration(ApiTester $I, Example $example): void
     {
-        $I->sendPOST(self::API_USER . '/isvalidemail', ['email' => $example[0]]);
+        $I->sendPOST(self::API_USER . '/registration/email-checker', ['email' => $example[0]]);
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson([
-            'valid' => false
+            'isValid' => false
         ]);
     }
 
     public function canNotUseExistingEmailForRegistration(ApiTester $I): void
     {
         // already existing email
-        $I->sendPOST(self::API_USER . '/isvalidemail', ['email' => $this->user['email']]);
+        $I->sendPOST(self::API_USER . '/registration/email-checker', ['email' => $this->user['email']]);
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson([
-            'valid' => false
+            'isValid' => false
         ]);
 
         // not yet existing email
         $email = 'test123@somedomain.de';
-        $I->sendPOST(self::API_USER . '/isvalidemail', ['email' => $email]);
+        $I->sendPOST(self::API_USER . '/registration/email-checker', ['email' => $email]);
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson([
-            'valid' => true
+            'isValid' => true
         ]);
 
         $I->createFoodsharer(null, ['email' => $email]);
-        $I->sendPOST(self::API_USER . '/isvalidemail', ['email' => $email]);
+        $I->sendPOST(self::API_USER . '/registration/email-checker', ['email' => $email]);
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson([
-            'valid' => false
+            'isValid' => false
         ]);
     }
 
@@ -425,7 +157,7 @@ class UserApiCest
         // delete user
         $I->login($this->user[self::EMAIL]);
         $I->sendDELETE(self::API_USER . '/' . $this->user['id'], ['password' => 'password']);
-        $I->seeResponseCodeIs(Http::NO_CONTENT);
+        $I->seeResponseCodeIs(Http::OK);
 
         // check that the user is not in the team anymore and that no future slots are assigned to the user
         $I->dontSeeInDatabase('fs_betrieb_team', [
@@ -441,7 +173,7 @@ class UserApiCest
 
     public function canOnlyFetchAbbreviatedUserNamesWhenLoggedOut(ApiTester $I): void
     {
-        $I->sendGet(self::API_USER . '/names/' . $this->userOrga['id'] . '-' . $this->user['id']);
+        $I->sendGet(self::API_USER . '/' . $this->userOrga['id'] . '-' . $this->user['id'] . '/names');
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson([
             ['id' => $this->userOrga['id'], 'name' => substr($this->userOrga['name'], 0, 1) . '.'],
@@ -452,7 +184,7 @@ class UserApiCest
     public function canFetchUserNamesWhenLoggedIn(ApiTester $I): void
     {
         $I->login($this->user[self::EMAIL]);
-        $I->sendGet(self::API_USER . '/names/' . $this->userOrga['id'] . '-' . $this->user['id']);
+        $I->sendGet(self::API_USER . '/' . $this->userOrga['id'] . '-' . $this->user['id'] . '/names');
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson([
             ['id' => $this->userOrga['id'], 'name' => $this->userOrga['name']],

@@ -182,7 +182,7 @@ class SettingsApiCest
             'from' => $today->format('Y-m-d'),
             'to' => $tomorrow->format('Y-m-d'),
         ]);
-        $I->sendGET('/api/user/' . $user['id']);
+        $I->sendGET('/api/users/' . $user['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson(['isSleeping' => true]);
 
@@ -192,7 +192,7 @@ class SettingsApiCest
             'from' => $yesterday->format('Y-m-d'),
             'to' => $today->format('Y-m-d'),
         ]);
-        $I->sendGET('/api/user/' . $user['id']);
+        $I->sendGET('/api/users/' . $user['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson(['isSleeping' => true]);
 
@@ -202,7 +202,7 @@ class SettingsApiCest
             'from' => $today->format('Y-m-d'),
             'to' => $today->format('Y-m-d'),
         ]);
-        $I->sendGET('/api/user/' . $user['id']);
+        $I->sendGET('/api/users/' . $user['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson(['isSleeping' => true]);
 
@@ -212,7 +212,7 @@ class SettingsApiCest
             'from' => $yesterday->format('Y-m-d'),
             'to' => $yesterday->format('Y-m-d'),
         ]);
-        $I->sendGET('/api/user/' . $user['id']);
+        $I->sendGET('/api/users/' . $user['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson(['isSleeping' => false]);
     }
@@ -249,7 +249,7 @@ class SettingsApiCest
 
         $I->login($loginUser['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/user/' . $testUser['id'] . '/profile', [
+        $I->sendPatch('api/users/' . $testUser['id'] . '/profile', [
             'position' => $positionData,
             'aboutMePublic' => $aboutMePublicData
         ]);
@@ -302,7 +302,7 @@ class SettingsApiCest
 
         $I->login($loginUser['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/user/' . $testUser['id'] . '/profile', [
+        $I->sendPatch('api/users/' . $testUser['id'] . '/profile', [
             'phone' => $phoneData,
         ]);
         $I->seeResponseCodeIs(HttpCode::OK);
@@ -345,7 +345,7 @@ class SettingsApiCest
 
         $I->login($loginUser['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/user/' . $testUser['id'] . '/profile', [
+        $I->sendPatch('api/users/' . $testUser['id'] . '/profile', [
             'aboutMeInternal' => $aboutMe,
         ]);
         $I->seeResponseCodeIs(HttpCode::OK);
@@ -375,7 +375,7 @@ class SettingsApiCest
 
         $I->login($this->userOrga['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/user/' . $this->user['id'] . '/profile', [
+        $I->sendPatch('api/users/' . $this->user['id'] . '/profile', [
             'regionId' => $regionId
         ]);
 

@@ -1,7 +1,7 @@
 import { get, patch, post, remove } from './base'
 
 export function login (email, password, code, rememberMe) {
-  return post('/user/login', { email, password, code, remember_me: rememberMe }, {
+  return post('/login', { email, password, code, rememberMe }, {
     disableLoginRedirect: true,
     skipErrorNotificationFor: [403], // 403 = TOTP required
   })
@@ -12,39 +12,39 @@ export function getUser () {
 }
 
 export function getBasicUser (id) {
-  return get(`/user/${id}`)
+  return get(`/users/${id}`)
 }
 
 export function getDetails () {
-  return get('/user/current/details')
+  return get('/users/current/details')
 }
 
 export function deleteUser (id, reason, password = null) {
-  return remove(`/user/${id}`, {
+  return remove(`/users/${id}`, {
     reason,
     password,
   }, { skipErrorNotificationFor: [401] })
 }
 
 export function getUserNames (ids) {
-  return get(`/user/names/${ids.join('-')}`)
+  return get(`/users/${ids.join('-')}/names`)
 }
 
 export function registerUser (firstName, lastName, email, password, gender, birthdate, mobilePhone, subscribeNewsletter) {
-  return post('/user', {
-    firstname: firstName,
-    lastname: lastName,
+  return post('/users', {
+    firstName,
+    lastName,
     email,
     password,
     gender,
     birthdate,
     mobilePhone,
-    subscribeNewsletter,
+    subscribeNewsletter: !!subscribeNewsletter,
   })
 }
 
 export function patchUserProfile (userId, data) {
-  return patch(`/user/${userId}/profile`, data)
+  return patch(`/users/${userId}/profile`, data)
 }
 
 export function getUserProfileSettings (userId) {
@@ -52,7 +52,7 @@ export function getUserProfileSettings (userId) {
 }
 
 export function testRegisterEmail (email) {
-  return post('/user/isvalidemail', { email }, { skipErrorNotificationFor: [400] })
+  return post('/users/registration/email-checker', { email }, { skipErrorNotificationFor: [400] })
     .then(response => response)
     .catch(error => {
       if (error && error.response && error.response.status === 400) {
@@ -72,16 +72,16 @@ export function setSleepStatus (mode, from, to, message) {
 }
 
 export function requestPasswordReset (email) {
-  return post('/user/password-reset', { email }, {
+  return post('/users/password-reset', { email }, {
     disableLoginRedirect: true,
   })
 }
 
 export function resetPassword (resetToken, password, totpCode = null) {
-  return post('/user/password-reset/confirm', {
-    'reset-token': resetToken,
+  return post('/users/password-reset/confirmation', {
+    resetToken,
     password,
-    'totp-code': totpCode,
+    totpCode,
   }, {
     disableLoginRedirect: true,
     skipErrorNotificationFor: [400, 403],
@@ -89,7 +89,5 @@ export function resetPassword (resetToken, password, totpCode = null) {
 }
 
 export function validateResetToken (resetToken) {
-  return get(`/user/password-reset/validate?reset-token=${encodeURIComponent(resetToken)}`, {
-    disableLoginRedirect: true,
-  })
+  return get(`/users/password-reset/validation?token=${encodeURIComponent(resetToken)}`)
 }

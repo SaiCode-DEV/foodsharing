@@ -1,7 +1,7 @@
-import { patch, post } from './base'
+import { patch, post, put } from './base'
 
 export async function setProfilePhoto (uuid) {
-  return await patch('/user/photo', {
+  return await put('/users/current/photo', {
     uuid,
   })
 }

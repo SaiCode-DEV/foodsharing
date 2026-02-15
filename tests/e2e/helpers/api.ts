@@ -29,7 +29,7 @@ export class Api {
   }
 
   async login(email: string, pass: string = "password"): Promise<any> {
-    return await this.request.post("api/user/login", {
+    return await this.request.post("api/login", {
       form: {
         email,
         password: pass,

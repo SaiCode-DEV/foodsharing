@@ -155,8 +155,8 @@ async function update ($event) {
   isMailValidForRegistration.value = true
   isMailInvalid.value = false
   try {
-    const MailExist = await testRegisterEmail($event.target.value)
-    isMailValidForRegistration.value = MailExist.valid
+    const mailExist = await testRegisterEmail($event.target.value)
+    isMailValidForRegistration.value = mailExist.isValid
   } catch (err) {
     if (err.code && err.code === HTTP_RESPONSE.BAD_REQUEST) {
       isMailInvalid.value = true

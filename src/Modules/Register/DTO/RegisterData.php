@@ -4,51 +4,41 @@ namespace Foodsharing\Modules\Register\DTO;
 
 use DateTime;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Gender;
+use OpenApi\Attributes as OA;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class that represents the registration data for a new user from the registration form.
  */
 class RegisterData
 {
-    /**
-     * First name of the user. The database and all arrays fetched directly from the database refer to this
-     * as 'name'.
-     */
+    #[OA\Property(example: 'Melanie')]
+    #[Assert\NotBlank]
     public string $firstName;
 
-    /**
-     * Last name of the user. The database and all arrays fetched directly from the database refer to this
-     * as 'surname' or 'nachname'.
-     */
+    #[OA\Property(example: 'Musterfrau')]
+    #[Assert\NotBlank]
     public string $lastName;
 
-    /**
-     * Email address of the user.
-     */
+    #[OA\Property(example: 'melanie.musterfrau@example.com')]
+    #[Assert\NotBlank]
+    #[Assert\Email]
     public string $email;
 
-    /**
-     * Password of the user.
-     */
+    #[OA\Property(example: 'Password123!')]
+    #[Assert\NotBlank]
     public string $password;
 
-    /**
-     * Gender of the user. Should be one of the constants in {@see Gender}.
-     */
+    #[OA\Property(example: 2)]
+    #[Assert\NotBlank]
+    #[Assert\Choice(choices: [Gender::MALE, Gender::FEMALE, Gender::DIVERSE, Gender::NOT_SELECTED])]
     public int $gender;
 
-    /**
-     * Birthday of the user.
-     */
-    public DateTime $birthday;
+    public DateTime $birthdate;
 
-    /**
-     * Mobile phone number of the user.
-     */
+    #[OA\Property(example: '+491234567890')]
     public string $mobilePhone;
 
-    /**
-     * Whether the user is subscribing to the newsletter.
-     */
+    #[OA\Property(description: 'Whether the user wants to subscribe to the newsletter')]
     public bool $subscribeNewsletter;
 }
