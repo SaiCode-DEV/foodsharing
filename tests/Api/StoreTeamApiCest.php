@@ -107,7 +107,7 @@ class StoreTeamApiCest
         ]);
     }
 
-    public function canAcceptInvitation(ApiTester $I): void
+    public function canNotAcceptInvitationIncomplete(ApiTester $I): void
     {
         $I->haveInDatabase('fs_betrieb_team', [
             'betrieb_id' => $this->store['id'],
@@ -115,6 +115,41 @@ class StoreTeamApiCest
             'verantwortlich' => 0,
             'active' => MembershipStatus::INVITED,
         ]);
+        $I->login($this->user['email']);
+        $I->sendPatch(self::API_STORES . $this->store['id'] . '/invitations');
+        $I->seeResponseCodeIs(Http::FORBIDDEN);
+
+        $I->dontSeeInDatabase('fs_betrieb_team', [
+            'betrieb_id' => $this->store['id'],
+            'foodsaver_id' => $this->user['id'],
+            'verantwortlich' => 0,
+            'active' => MembershipStatus::MEMBER,
+        ]);
+    }
+
+    public function canAcceptInvitationComplete(ApiTester $I): void
+    {
+        $I->haveInDatabase('fs_betrieb_team', [
+            'betrieb_id' => $this->store['id'],
+            'foodsaver_id' => $this->user['id'],
+            'verantwortlich' => 0,
+            'active' => MembershipStatus::INVITED,
+        ]);
+
+        // Make sure profile is complete
+        $I->updateInDatabase('fs_foodsaver', [
+            'name' => 'User',
+            'nachname' => 'Test',
+            'geb_datum' => '2000-01-01',
+            'anschrift' => 'Musterstrasse 1',
+            'stadt' => 'Musterstadt',
+            'plz' => '12345',
+            'lat' => '48.123456',
+            'lon' => '11.123456',
+            'photo' => 'somephoto.jpg',
+            'verified' => 1,
+            ], ['id' => $this->user['id']]);
+
         $I->login($this->user['email']);
         $I->sendPatch(self::API_STORES . $this->store['id'] . '/invitations');
         $I->seeResponseCodeIs(Http::OK);

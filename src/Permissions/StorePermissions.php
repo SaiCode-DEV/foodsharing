@@ -80,42 +80,57 @@ class StorePermissions
 
     /**
      * Assumes that the given user is a foodsaver (i.e. can join store teams).
-     * Just the additional permissions for the given, specific store are checked.
+     * Just the additional permissions for the given, specific store are
+     * checked. Requirements for application are the same as those for sending a
+     * request, the only difference is that the store must allow invitations
+     * (but this is handled elsewhere).
      */
-    public function mayJoinStoreRequest(int $storeId): bool
+    public function mayJoinStore(int $storeId, bool $isInvited = false): bool
     {
-        $teamSearchStatus = $this->storeGateway->getStoreTeamStatus($storeId);
-
-        // store open?
-        if (!in_array($teamSearchStatus, [TeamSearchStatus::OPEN, TeamSearchStatus::OPEN_SEARCHING])) {
+        // isInvited: user must have status invited
+        // Request: user must not be member already (also not invited)
+        $teamStatus = $this->getCachedUserTeamStatus($storeId);
+        if (($isInvited && $teamStatus !== UserTeamStatus::Invited) ||
+            (!$isInvited && $teamStatus !== UserTeamStatus::NoMember)) {
             return false;
         }
 
-        if ($this->getCachedUserTeamStatus($storeId) !== UserTeamStatus::NoMember) {
-            return false;
+        // Store team must be open for requests for application (not for
+        // isInviteds)
+        if (!$isInvited) {
+            $teamSearchStatus = $this->storeGateway->getStoreTeamStatus($storeId);
+            if (!in_array($teamSearchStatus, [TeamSearchStatus::OPEN, TeamSearchStatus::OPEN_SEARCHING])) {
+                return false;
+            }
         }
 
+        // User must have a complete profile
         if (!$this->foodsaverGateway->isProfileComplete($this->session->id())) {
             return false;
         }
 
+        // User must have a home region
         if (!$this->foodsaverGateway->hasHomeRegion($this->session->id())) {
             return false;
         }
 
+        // User must be member of store region
         $storeRegionId = $this->getCachedStoreRegionId($storeId);
         if (!$this->regionGateway->hasMember($this->session->id(), $storeRegionId)) {
             return false;
         }
 
+        // Check store requirement for verification
         if ($this->storeGateway->getStoreRequiresVerification($storeId) && !$this->session->isVerified()) {
             return false;
         }
 
+        // Check store requirement for phone number
         if ($this->storeGateway->getStoreRequiresPhone($storeId) && !$this->foodsaverGateway->hasPhone($this->session->id())) {
             return false;
         }
 
+        // Check store requirement for hygiene certificate
         if (
             $this->storeGateway->getStoreRequiresHygiene($storeId) &&
             !$this->achievementGateway->hasAchievement($this->session->id(), AchievementIDs::HYGIENE_CERTIFICATE)

@@ -111,7 +111,7 @@
         </div>
       </div>
 
-      <div v-if="allStoreAlerts.length > 1" class="mt-1">
+      <div v-if="allStoreAlerts.length > 1 && (store?.maySendRequest || store?.mayAcceptInvitation)" class="mt-1">
         <a
           href="#"
           class="more-alerts-link"
@@ -128,7 +128,7 @@
         <i class="fas fa-hands-wash mr-2" />
         {{ $t('store.request.hygieneRequired') }}
       </b-alert>
-      <b-alert :show="store.isInvited" variant="success">
+      <b-alert :show="store.mayAcceptInvitation" variant="success">
         <i class="fas fa-user-check mr-2" />
         {{ $t('store.invitation.invited_info') }}
       </b-alert>
@@ -221,6 +221,7 @@
         <b-button
           v-if="store.isInvited"
           variant="success"
+          :disabled="!store.mayAcceptInvitation"
           @click="acceptInvitation"
         >
           {{ $t('store.invitation.accept') }}
@@ -283,7 +284,7 @@ export default {
         id: 'completeProfile',
         show: !this.store.hasCompleteProfile,
         icon: 'fas fa-id-card mr-2',
-        textKey: 'store.request.completeProfileRequired.text',
+        textKey: this.store.isInvited ? 'store.request.completeProfileRequired.invited' : 'store.request.completeProfileRequired.request',
         linkUrl: this.$url('settings'),
         linkTextKey: 'store.request.completeProfileRequired.link',
       })
@@ -293,7 +294,7 @@ export default {
         id: 'homeRegion',
         show: !this.store.hasHomeRegion,
         icon: 'fas fa-location-dot mr-2',
-        textKey: 'store.request.needsHomeRegion.text',
+        textKey: this.store.isInvited ? 'store.request.needsHomeRegion.invited' : 'store.request.needsHomeRegion.request',
         linkUrl: this.$url('dashboard'),
         linkTextKey: 'store.request.needsHomeRegion.link',
       })
@@ -303,7 +304,7 @@ export default {
         id: 'memberOfRegion',
         show: !this.store.isMemberOfRegion,
         icon: 'fas fa-location-pin mr-2',
-        textKey: 'store.request.needsStoreRegion.text',
+        textKey: this.store.isInvited ? 'store.request.needsStoreRegion.invited' : 'store.request.needsStoreRegion.request',
         textParams: { region: this.store.regionName },
         linkUrl: this.$url('publicRegion', this.store.regionId),
         linkTextKey: 'store.request.needsStoreRegion.link',
@@ -314,7 +315,7 @@ export default {
         id: 'requireVerification',
         show: this.store.requireVerification,
         icon: 'fas fa-user-xmark mr-2',
-        textKey: 'store.request.requireVerification.text',
+        textKey: this.store.isInvited ? 'store.request.requireVerification.invited' : 'store.request.requireVerification.request',
         linkUrl: this.$url('region_forum', userStore.getHomeRegion),
         linkTextKey: 'store.request.requireVerification.link',
       })
@@ -324,7 +325,7 @@ export default {
         id: 'requirePhone',
         show: this.store.requirePhone,
         icon: 'fas fa-phone-slash mr-2',
-        textKey: 'store.request.requirePhone.text',
+        textKey: this.store.isInvited ? 'store.request.requirePhone.invited' : 'store.request.requirePhone.request',
         linkUrl: this.$url('settings'),
         linkTextKey: 'store.request.requirePhone.link',
       })
@@ -334,9 +335,9 @@ export default {
         id: 'hygieneRequired',
         show: this.store.isHygieneRequired && this.isMissingHygieneCertificate,
         icon: 'fas fa-hands-wash mr-2',
-        textKey: 'store.request.hygieneRequired',
+        textKey: this.store.isInvited ? 'store.request.hygieneRequired.invited' : 'store.request.hygieneRequired.request',
         linkUrl: this.$url('settingsHygiene'),
-        linkTextKey: 'pickup.hygieneCertificateMissing.link',
+        linkTextKey: 'store.request.hygieneRequired.link',
       })
 
       return alerts.filter(a => a.show)

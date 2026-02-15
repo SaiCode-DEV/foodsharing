@@ -328,7 +328,7 @@ class StoreRestController extends AbstractFoodsharingRestController
         if (!$this->storeGateway->storeExists($storeId)) {
             throw new NotFoundHttpException('Store does not exist.');
         }
-        if (!$this->storePermissions->mayJoinStoreRequest($storeId)) {
+        if (!$this->storePermissions->mayJoinStore($storeId, false)) {
             throw new AccessDeniedHttpException();
         }
         if ($this->storeGateway->getUserTeamStatus($this->session->id(), $storeId) !== TeamMembershipStatus::NoMember) {
@@ -497,6 +497,12 @@ class StoreRestController extends AbstractFoodsharingRestController
         if ($this->storeGateway->getUserTeamStatus($this->session->id(), $storeId) !== TeamMembershipStatus::Invited) {
             throw new AccessDeniedHttpException('You are not invited to this store team.');
         }
+
+        // Check if user is allowed to accept the invitation
+        if (!$this->storePermissions->mayJoinStore($storeId, true)) {
+            throw new AccessDeniedHttpException('You are not allowed to accept the invitation due to missing requirements.');
+        }
+
         $this->storeTransactions->acceptStoreTeamInvitation($storeId, $this->session->id());
 
         return $this->respondOK();

@@ -1073,22 +1073,29 @@ store:
     confirm-no-location-ok: "Trotzdem bewerben"
     application-message: "Bewerbungsnachricht"
     application-placeholder: "Ich möchte gerne in diesem Team helfen, weil …"
-    hygieneRequired: "Für diesen Betrieb ist eine gültige Hygieneschulung nötig."
-    hygieneMissing: "Die fehlt dir aktuell. Führe jetzt das Hygienequiz durch, um dich für dieses Team bewerben zu können."
+    hygieneRequired:
+      request: "Für diesen Betrieb ist eine gültige Hygieneschulung nötig."
+      invited: "Du wurdest in diesen Betrieb eingeladen. Bevor du die Einladung annehmen kannst, musst du eine gültige Hygieneschulung nachweisen."
+      link: "Hygieneschulung absolvieren"
     completeProfileRequired:
-      text: "Du kannst dich aktuell nicht bewerben, da du noch nicht alle notwendigen Daten in deinem Profil hinterlegt hast. Du musst mindestens in den folgenden Feldern gültige Angaben eingegeben haben: Vorname, Nachname, Geburtsdatum, Aktuelle Adresse, Profilfoto. Bitte trage diese Daten nach. Danach kannst du erneut versuchen dich zu bewerben."
+      request: "Du kannst dich aktuell nicht bewerben, da du noch nicht alle notwendigen Daten in deinem Profil hinterlegt hast. Du musst mindestens in den folgenden Feldern gültige Angaben eingegeben haben: Vorname, Nachname, Geburtsdatum, Aktuelle Adresse, Profilfoto. Bitte trage diese Daten nach. Danach kannst du erneut versuchen dich zu bewerben."
+      invited: "Du wurdest in diesen Betrieb eingeladen. Bevor du die Einladung annehmen kannst, musst du zunächst alle notwendigen Daten in deinem Profil hinterlegen. Du musst mindestens in den folgenden Feldern gültige Angaben eingegeben haben: Vorname, Nachname, Geburtsdatum, Aktuelle Adresse, Profilfoto. Bitte trage diese Daten nach. Danach kannst du die Einladung annehmen."
       link: "Profil bearbeiten"
     needsHomeRegion:
-      text: "Du kannst dich aktuell nicht bewerben, da du noch keinen Stammbezirk ausgewählt hast. Wenn du einen Stammbezirk ausgewählt hast, kannst du erneut versuchen, dich zu bewerben."
+      request: "Du kannst dich aktuell nicht bewerben, da du noch keinen Stammbezirk ausgewählt hast. Wenn du einen Stammbezirk ausgewählt hast, kannst du erneut versuchen, dich zu bewerben."
+      invited: "Du wurdest in diesen Betrieb eingeladen. Bevor du die Einladung annehmen kannst, musst du einen Stammbezirk auswählen. Sobald du einen Stammbezirk ausgewählt hast, kannst du die Einladung annehmen."
       link: "Stammbezirk auswählen"
     needsStoreRegion:
-      text: "Du kannst dich aktuell nicht bewerben, da du noch nicht dem Betriebsbezirk {region} angehörst. Wenn du dem Bezirk {region} beigetreten bist, kannst du erneut versuchen, dich zu bewerben."
+      request: "Du kannst dich aktuell nicht bewerben, da du noch nicht dem Betriebsbezirk {region} angehörst. Wenn du dem Bezirk {region} beigetreten bist, kannst du erneut versuchen, dich zu bewerben."
+      invited: "Du wurdest in diesen Betrieb eingeladen. Bevor du die Einladung annehmen kannst, musst du dem Betriebsbezirk {region} angehören. Sobald du dem Bezirk {region} beigetreten bist, kannst du die Einladung annehmen."
       link: "Bezirk beitreten"
     requireVerification:
-      text: "Du kannst dich aktuell nicht bewerben, da du noch nicht verifiziert bist. Dieser Betrieb akzeptiert derzeit nur Bewerbungen von verifizierten Foodsaver:innen. Absolviere zunächst deine Probeabholungen bzw. kontaktiere deine Botschafter:innen oder das Begrüßungsteam, um dich verifizieren zu lassen. Du findest diese Ansprechpartner im Forum deines Bezirks in der linken Seitenleiste."
+      request: "Du kannst dich aktuell nicht bewerben, da du noch nicht verifiziert bist. Dieser Betrieb akzeptiert derzeit nur Bewerbungen von verifizierten Foodsaver:innen. Absolviere zunächst deine Probeabholungen bzw. kontaktiere deine Botschafter:innen oder das Begrüßungsteam, um dich verifizieren zu lassen. Du findest diese Ansprechpartner im Forum deines Bezirks in der linken Seitenleiste."
+      invited: "Du wurdest in diesen Betrieb eingeladen. Bevor du die Einladung annehmen kannst, musst du verifiziert sein. Dieser Betrieb akzeptiert derzeit nur verifizierte Foodsaver:innen. Absolviere zunächst deine Probeabholungen bzw. kontaktiere deine Botschafter:innen oder das Begrüßungsteam, um dich verifizieren zu lassen. Du findest diese Ansprechpartner im Forum deines Bezirks in der linken Seitenleiste."
       link: "Stammbezirk Forum öffnen"
     requirePhone:
-      text: "Du kannst dich aktuell nicht bewerben, da du noch keine Telefonnummer in deinem Profil hinterlegt hast. Dieser Betrieb akzeptiert derzeit nur Bewerbungen von Foodsaver:innen mit mindestens einer hinterlegten Telefonnummer. Bitte trage eine Telefonnummer in deinem Profil ein, um dich bewerben zu können."
+      request: "Du kannst dich aktuell nicht bewerben, da du noch keine Telefonnummer in deinem Profil hinterlegt hast. Dieser Betrieb akzeptiert derzeit nur Bewerbungen von Foodsaver:innen mit mindestens einer hinterlegten Telefonnummer. Bitte trage eine Telefonnummer in deinem Profil ein, um dich bewerben zu können."
+      invited: "Du wurdest in diesen Betrieb eingeladen. Bevor du die Einladung annehmen kannst, musst du eine Telefonnummer in deinem Profil hinterlegt haben. Dieser Betrieb akzeptiert derzeit nur Foodsaver:innen mit mindestens einer hinterlegten Telefonnummer. Bitte trage eine Telefonnummer in deinem Profil ein, um die Einladung annehmen zu können."
       link: "Profil bearbeiten"
     applicationSummary:
       intro: "Wenn du deine Bewerbung abschickst, sehen die Betriebsverantwortlichen folgende Angaben:"
@@ -1110,7 +1117,7 @@ store:
     withdraw: "Einladung zurückziehen"
     info: "Wenn du Foodsaver:innen ins Team einlädst, werden diese zum Schutz ihrer persönlichen Daten nicht direkt ins Betriebsteam aufgenommen. Sie erhalten eine Anfrage, ob sie dem Team beitreten wollen, die sie annehmen müssen, bevor sie Teil des Teams sind. Du kannst diese Einladungen jederzeit zurückziehen."
     accept: "Einladung annehmen"
-    invited_info: "Du wurdest in diesen Betrieb eingeladen. Du kannst dem Betriebsteam einfach beitreten, indem du die Einladung annimmst."
+    invited_info: "Du wurdest in diesen Betrieb eingeladen. Du kannst dem Betriebsteam beitreten, indem du die Einladung annimmst."
     decline: "Ablehnen"
     invited_by: "Eingeladen von"
   info_container: "Informationen"

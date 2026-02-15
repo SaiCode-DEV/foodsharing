@@ -88,7 +88,8 @@ class MapTransactions
         // add permissions
         $teamStatus = $this->storeGateway->getUserTeamStatus($this->session->id(), $storeId);
         $mapData->mayAccessStorePage = $this->storePermissions->mayAccessStore($store['id']);
-        $mapData->maySendRequest = $this->storePermissions->mayJoinStoreRequest($storeId);
+        $mapData->maySendRequest = $this->storePermissions->mayJoinStore($storeId, false);
+        $mapData->mayAcceptInvitation = $this->storePermissions->mayJoinStore($storeId, true);
         $mapData->mayWithdrawRequest = $mapData->teamSearchStatus != TeamSearchStatus::CLOSED && $teamStatus == TeamStatus::Applied;
 
         $mapData->categoryType = StoreCategoryType::tryFrom($store['categoryType']) ?? StoreCategoryType::PICKUP;

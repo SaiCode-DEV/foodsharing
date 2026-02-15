@@ -90,6 +90,11 @@ class StoreMapBubbleData
     public bool $maySendRequest = false;
 
     /**
+     * Whether the user is allowed to accept an invitation for joining the store team.
+     */
+    public bool $mayAcceptInvitation = false;
+
+    /**
      * Whether the user has sent a request for joining the store team and is allowed to withdraw it.
      */
     public bool $mayWithdrawRequest = false;
