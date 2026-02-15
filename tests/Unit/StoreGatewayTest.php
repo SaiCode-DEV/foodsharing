@@ -459,23 +459,23 @@ class StoreGatewayTest extends Unit
             ]
         );
         $this->assertEquals(4, count($result));
-        $this->assertEquals($expectation[0]['store_id'], $result[0]->store->id);
-        $this->assertEquals($expectation[0]['store_name'], $result[0]->store->name);
+        $this->assertEquals($expectation[0]['store_id'], $result[0]->id);
+        $this->assertEquals($expectation[0]['store_name'], $result[0]->name);
         $this->assertEquals($expectation[0]['managing'], $result[0]->isManaging);
         $this->assertEquals($expectation[0]['membership_status'], $result[0]->membershipStatus);
 
-        $this->assertEquals($expectation[1]['store_id'], $result[1]->store->id);
-        $this->assertEquals($expectation[1]['store_name'], $result[1]->store->name);
+        $this->assertEquals($expectation[1]['store_id'], $result[1]->id);
+        $this->assertEquals($expectation[1]['store_name'], $result[1]->name);
         $this->assertEquals($expectation[1]['managing'], $result[1]->isManaging);
         $this->assertEquals($expectation[1]['membership_status'], $result[1]->membershipStatus);
 
-        $this->assertEquals($expectation[2]['store_id'], $result[2]->store->id);
-        $this->assertEquals($expectation[2]['store_name'], $result[2]->store->name);
+        $this->assertEquals($expectation[2]['store_id'], $result[2]->id);
+        $this->assertEquals($expectation[2]['store_name'], $result[2]->name);
         $this->assertEquals($expectation[2]['managing'], $result[2]->isManaging);
         $this->assertEquals($expectation[2]['membership_status'], $result[2]->membershipStatus);
 
-        $this->assertEquals($expectation[3]['store_id'], $result[3]->store->id);
-        $this->assertEquals($expectation[3]['store_name'], $result[3]->store->name);
+        $this->assertEquals($expectation[3]['store_id'], $result[3]->id);
+        $this->assertEquals($expectation[3]['store_name'], $result[3]->name);
         $this->assertEquals($expectation[3]['managing'], $result[3]->isManaging);
         $this->assertEquals($expectation[3]['membership_status'], $result[3]->membershipStatus);
     }
@@ -504,8 +504,8 @@ class StoreGatewayTest extends Unit
             $this->foodsaver['id'], [CooperationStatus::DOES_NOT_WANT_TO_WORK_WITH_US]
         );
         $this->assertEquals(1, count($result));
-        $this->assertEquals($store5['id'], $result[0]->store->id);
-        $this->assertEquals($store5['name'], $result[0]->store->name);
+        $this->assertEquals($store5['id'], $result[0]->id);
+        $this->assertEquals($store5['name'], $result[0]->name);
         $this->assertFalse($result[0]->isManaging);
         $this->assertEquals(MembershipStatus::APPLIED_FOR_TEAM, $result[0]->membershipStatus);
     }

@@ -59,23 +59,21 @@ class StoreListInformation
      * Constructor to create it from a Store instance.
      *
      * @param Store $store Store from database
-     * @param bool $onlyId Fill only the Id into class
      */
-    public static function loadFrom(Store $store, bool $onlyId): StoreListInformation
+    public static function loadFrom(Store $store): StoreListInformation
     {
         $obj = new StoreListInformation();
         $obj->id = $store->id;
-        if (!$onlyId) {
-            $obj->name = $store->name;
-            $obj->cooperationStatus = $store->cooperationStatus;
-            $obj->location = $store->location;
-            $obj->region = new MinimalRegionIdentifier($store->region->id);
-            $obj->street = $store->address->street;
-            $obj->city = $store->address->city;
-            $obj->zipCode = $store->address->postalCode;
 
-            $obj->createdAt = $store->createdAt->format('Y-m-d');
-        }
+        $obj->name = $store->name;
+        $obj->cooperationStatus = $store->cooperationStatus;
+        $obj->location = $store->location;
+        $obj->region = $store->region;
+        $obj->street = $store->address->street;
+        $obj->city = $store->address->city;
+        $obj->zipCode = $store->address->postalCode;
+
+        $obj->createdAt = $store->createdAt->format('Y-m-d');
 
         return $obj;
     }

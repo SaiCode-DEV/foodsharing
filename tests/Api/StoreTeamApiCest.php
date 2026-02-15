@@ -193,7 +193,7 @@ class StoreTeamApiCest
         $I->addStoreTeam($this->store['id'], $this->manager2['id'], false, $example['isStandby']);
 
         $I->login($this->manager['email']);
-        $I->sendPATCH(self::API_STORES . $this->store['id'] . '/managers/' . $this->manager2['id']);
+        $I->sendPost(self::API_STORES . $this->store['id'] . '/managers/' . $this->manager2['id']);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb_team', [
@@ -209,7 +209,7 @@ class StoreTeamApiCest
         $I->addStoreTeam($this->store['id'], $this->user['id'], false, false);
 
         $I->login($this->manager['email']);
-        $I->sendPATCH(self::API_STORES . $this->store['id'] . '/managers/' . $this->user['id']);
+        $I->sendPost(self::API_STORES . $this->store['id'] . '/managers/' . $this->user['id']);
         $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->seeInDatabase('fs_betrieb_team', [
@@ -286,7 +286,7 @@ class StoreTeamApiCest
      * Ensure that only team members can see store details like members and pickups.
      * This aligns with the permissions of /stores/{storeId}/member.
      *
-     * @example [ "/member", "Not allowed to see store members." ]
+     * @example [ "/members", "Not allowed to see store members." ]
      * @example [ "/permissions", "Not allowed to see store permissions." ]
      * @example [ "/pickups", "You are not allowed to see pickups in this store." ]
      */
@@ -377,7 +377,7 @@ class StoreTeamApiCest
             $I->seeResponseContainsJson([
                 'isCoordinator' => true,
                 'isAmbassador' => false,
-                'isOrgUser' => false,
+                'isOrgaUser' => false,
                 'isJumper' => false,
                 'isManager' => false,
                 'maySeePickup' => true,

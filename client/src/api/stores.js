@@ -5,17 +5,17 @@ export async function getStoreMetadata (version, hasChains) {
 }
 
 export async function getStoreMember (storeId) {
-  return await get(`/stores/${storeId}/member`)
+  return await get(`/stores/${storeId}/members`)
 }
 export async function getStoreInformation (storeId) {
-  const result = await get(`/stores/${storeId}/information`)
+  const result = await get(`/stores/${storeId}/details`)
   result.chainId = result.chain ? result.chain.id : null
   result.categoryId = result.category ? result.category.id : null
   return result
 }
 
 export async function updateStore (store) {
-  await patch(`/stores/${store.id}/information`, store)
+  await patch(`/stores/${store.id}/details`, store)
 }
 
 function normalizeStoreWallPost (post) {
@@ -36,19 +36,19 @@ export async function writeStorePost (storeId, text) {
 }
 
 export async function setStoreTeamStatus (storeId, status) {
-  return patch(`/stores/${storeId}/information`, { teamStatus: status })
+  return patch(`/stores/${storeId}/details`, { teamStatus: status })
 }
 
 export async function deleteStorePost (storeId, postId) {
   return remove(`/stores/${storeId}/posts/${postId}`)
 }
 
-export function listStoresForUser (filterUnactiveStores = false, userId) {
-  return get(`/user/${userId}/stores?activeStores=${filterUnactiveStores ? 1 : 0}`)
+export function listStoresForUser (excludeInactive = false, userId) {
+  return get(`/users/${userId}/stores?excludeInactive=${excludeInactive}`)
 }
 
-export function listStoresDetailsForUser (expand, userId) {
-  return get(`/user/${userId}/stores/details`)
+export function listStoresDetailsForUser (userId) {
+  return get(`/users/${userId}/stores?format=location`)
 }
 export async function listStoreTeamMembershipRequests (storeId) {
   return get(`/stores/${storeId}/requests`)
@@ -67,7 +67,7 @@ export async function declineStoreRequest (storeId, userId, message) {
 }
 
 export async function promoteToStoreManager (storeId, userId) {
-  return patch(`/stores/${storeId}/managers/${userId}`)
+  return post(`/stores/${storeId}/managers/${userId}`)
 }
 
 export async function demoteAsStoreManager (storeId, userId, message) {
@@ -75,7 +75,7 @@ export async function demoteAsStoreManager (storeId, userId, message) {
 }
 
 export async function addStore (regionId, store, firstPost) {
-  return post(`/region/${regionId}/stores`, {
+  return post(`/regions/${regionId}/stores`, {
     store,
     firstPost,
   })

@@ -26,7 +26,7 @@ class CurrentUserApiCest
     private $storeWithJoinRequest;
 
     private const string EMAIL = 'email';
-    private const string API_USER = 'api/user';
+    private const string API_USER = 'api/users';
 
     public function _before(ApiTester $I): void
     {
@@ -66,7 +66,7 @@ class CurrentUserApiCest
     {
         $I->login($this->user[self::EMAIL]);
         $I->sendGet(self::API_USER . '/' . $this->user['id'] . '/stores');
-        $I->seeResponseCodeIs(Http::NO_CONTENT);
+        $I->seeResponseCodeIs(Http::OK);
     }
 
     private function assertArrayEquals(ApiTester $I, array $expect, array $actual, string $message = ''): void

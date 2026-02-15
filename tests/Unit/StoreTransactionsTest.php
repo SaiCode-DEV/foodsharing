@@ -14,6 +14,7 @@ use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Store\ConvinceStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\PublicTimes;
+use Foodsharing\Modules\Core\DBConstants\Store\StickerStatus;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Store\DTO\CreateStoreData;
@@ -50,27 +51,28 @@ class StoreTransactionsTest extends Unit
     {
         $storeInstance = $this->tester->createStore($this->regionId);
         try {
-            $this->transactions->getStore($storeInstance['id'] + 1, true, true);
+            $this->transactions->getStore($storeInstance['id'] + 1, true);
             $this->assertTrue(false, 'Expect thrown exception');
         } catch (DatabaseNoValueFoundException) {
             $this->assertTrue(true);
         }
     }
 
-    public function testGetStoreForWithoutStoreTeamOnlyData()
+    public function testGetStoreForWithSensitiveData()
     {
         $storeInstance = $this->tester->createStore($this->regionId);
-        $store = $this->transactions->getStore($storeInstance['id'], false, false);
-        $this->assertEquals(null, $store->description);
-        $this->assertEquals(null, $store->effort);
-        $this->assertEquals(null, $store->publicity);
-        $this->assertEquals(null, $store->options);
+        $store = $this->transactions->getStore($storeInstance['id'], true);
+        $this->assertEquals($storeInstance['ansprechpartner'], $store->contact->name);
+        $this->assertNotEquals(null, $store->updatedAt);
+        $this->assertEquals(ConvinceStatus::from($storeInstance['ueberzeugungsarbeit']), $store->effort);
+        $this->assertEquals(StickerStatus::from($storeInstance['sticker']), $store->showsSticker);
+        $this->assertIsArray($store->groceries);
     }
 
     public function testGetStoreForWithoutSensitiveData()
     {
         $storeInstance = $this->tester->createStore($this->regionId);
-        $store = $this->transactions->getStore($storeInstance['id'], true, false);
+        $store = $this->transactions->getStore($storeInstance['id'], false);
         $this->assertEquals(null, $store->contact);
         $this->assertEquals(null, $store->updatedAt);
         $this->assertEquals(null, $store->effort);
@@ -635,32 +637,6 @@ class StoreTransactionsTest extends Unit
         $this->assertEquals($this->transactions->getAvailablePickupStatus($store['id']), 0);
     }
 
-    public function testListStoresOfRegionWithoutExpendRegion(): void
-    {
-        $regionRelatedRegion = $this->tester->createRegion();
-        $this->tester->createStore($regionRelatedRegion['id']);
-        $this->tester->createStore($regionRelatedRegion['id']);
-
-        $regionTop = $this->tester->createRegion(null, ['type' => UnitType::CITY]);
-        $regionChild1 = $this->tester->createRegion(null, ['parent_id' => $regionTop['id'], 'type' => UnitType::PART_OF_TOWN]);
-        $store1 = $this->tester->createStore($regionChild1['id']);
-        $regionChild2 = $this->tester->createRegion(null, ['parent_id' => $regionTop['id'], 'type' => UnitType::PART_OF_TOWN]);
-        $store2 = $this->tester->createStore($regionChild2['id']);
-
-        $listOfStores = $this->transactions->listOverviewInformationsOfStoresInRegion($regionTop['id'], false);
-        $this->assertIsArray($listOfStores);
-        $this->assertEquals(2, count($listOfStores));
-        $this->assertContainsOnlyInstancesOf(StoreListInformation::class, $listOfStores);
-        $storeIds = array_map(fn ($store) => $store->id, $listOfStores);
-        $this->assertContainsEquals($store1['id'], $storeIds);
-        $this->assertContainsEquals($store2['id'], $storeIds);
-
-        foreach ($listOfStores as $store) {
-            $this->assertNull($store->name);
-            $this->assertNull($store->region);
-        }
-    }
-
     public function testListStoresOfRegionWithExpandRegion(): void
     {
         $regionRelatedRegion = $this->tester->createRegion();
@@ -703,15 +679,15 @@ class StoreTransactionsTest extends Unit
         $store_member = $this->tester->createStore($this->regionId, null, null, ['betrieb_status_id' => CooperationStatus::COOPERATION_ESTABLISHED->value]);
         $this->tester->addStoreTeam($store_member['id'], $this->foodsaver['id'], false);
 
-        $result = $this->transactions->listAllStoreStatusForFoodsaver($this->foodsaver['id']);
+        $result = $this->transactions->listStoresForUserAsMember($this->foodsaver['id'], false);
         $this->assertEquals(count($result), 2);
 
-        $this->assertEquals($result[0]->store->id, $store_coord['id']);
+        $this->assertEquals($result[0]->id, $store_coord['id']);
         $this->assertTrue($result[0]->isManaging);
         $this->assertEquals($result[0]->membershipStatus, 1);
         $this->assertEquals($result[0]->pickupStatus, 2);
 
-        $this->assertEquals($result[1]->store->id, $store_member['id']);
+        $this->assertEquals($result[1]->id, $store_member['id']);
         $this->assertFalse($result[1]->isManaging);
         $this->assertEquals($result[1]->membershipStatus, 1);
         $this->assertEquals($result[1]->pickupStatus, 0);

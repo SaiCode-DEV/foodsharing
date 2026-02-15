@@ -173,7 +173,7 @@ class UserApiCest
 
     public function canOnlyFetchAbbreviatedUserNamesWhenLoggedOut(ApiTester $I): void
     {
-        $I->sendGet(self::API_USER . '/' . $this->userOrga['id'] . '-' . $this->user['id'] . '/names');
+        $I->sendGet(self::API_USER . '/' . $this->userOrga['id'] . ',' . $this->user['id'] . '/names');
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson([
             ['id' => $this->userOrga['id'], 'name' => substr($this->userOrga['name'], 0, 1) . '.'],
@@ -184,7 +184,7 @@ class UserApiCest
     public function canFetchUserNamesWhenLoggedIn(ApiTester $I): void
     {
         $I->login($this->user[self::EMAIL]);
-        $I->sendGet(self::API_USER . '/' . $this->userOrga['id'] . '-' . $this->user['id'] . '/names');
+        $I->sendGet(self::API_USER . '/' . $this->userOrga['id'] . ',' . $this->user['id'] . '/names');
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson([
             ['id' => $this->userOrga['id'], 'name' => $this->userOrga['name']],

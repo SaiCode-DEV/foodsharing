@@ -43,8 +43,8 @@ export function listRegionMembers (regionId) {
   return get(`/regions/${regionId}/users`)
 }
 
-export function listRegionStores (regionId) {
-  return get(`/region/${regionId}/stores`)
+export async function listRegionStores (regionId) {
+  return get(`/regions/${regionId}/stores`)
 }
 
 export function removeMember (regionId, userId) {

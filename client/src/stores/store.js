@@ -67,7 +67,7 @@ export const useStoreStore = defineStore('store', {
   },
   actions: {
     async fetchStoresForRegion (regionId = this.regionId) {
-      const { stores } = await showError(() => listRegionStores(regionId))
+      const stores = await showError(() => listRegionStores(regionId))
       for (const store of stores) {
         store.oneOfPossibleMoreAnchestorRegion = regionId
       }
@@ -76,9 +76,9 @@ export const useStoreStore = defineStore('store', {
     },
     async fetchStoresForUser (userId) {
       if (!pendingFetchStoresForUser) {
-        pendingFetchStoresForUser = showError(() => listStoresDetailsForUser(false, userId))
+        pendingFetchStoresForUser = showError(() => listStoresDetailsForUser(userId))
       }
-      const { stores } = await pendingFetchStoresForUser
+      const stores = await pendingFetchStoresForUser
       this.addStores(stores)
       pendingFetchStoresForUser = null
     },

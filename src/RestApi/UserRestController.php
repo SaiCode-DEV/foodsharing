@@ -24,7 +24,7 @@ use Foodsharing\Modules\Store\DTO\CommonLabel;
 use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\UploadsPermissions;
 use Foodsharing\Utility\EmailHelper;
-use Foodsharing\Utility\Requirement as FSRequirement;
+use Foodsharing\Utility\Requirement as FsRequirement;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Request;
@@ -62,7 +62,7 @@ class UserRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Get(summary: 'Lists basic information for a user')]
-    #[Route('users/{userId}', methods: ['GET'], requirements: ['userId' => FSRequirement::USER_ID])]
+    #[Route('users/{userId}', methods: ['GET'], requirements: ['userId' => FsRequirement::USER_ID])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: Profile::class))]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'User with that id not found')]
@@ -200,7 +200,7 @@ class UserRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Delete(summary: 'Deletes a user account')]
-    #[Route('users/{userId}', methods: ['DELETE'], requirements: ['userId' => FSRequirement::USER_ID])]
+    #[Route('users/{userId}', methods: ['DELETE'], requirements: ['userId' => FsRequirement::USER_ID])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid input data')]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Password required when deleting own account')]
@@ -268,7 +268,7 @@ class UserRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Delete(summary: 'Removes the user from the email bounce list')]
-    #[Route('users/{userId}/email-bounce', methods: ['DELETE'], requirements: ['userId' => FSRequirement::USER_ID])]
+    #[Route('users/{userId}/email-bounce', methods: ['DELETE'], requirements: ['userId' => FsRequirement::USER_ID])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
@@ -286,13 +286,13 @@ class UserRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Get(summary: 'Gets the names of multiple users by their IDs')]
-    #[Route('users/{userIds}/names', methods: ['GET'], requirements: ['userIds' => '(\d+-)*\d+'])]
+    #[Route('users/{userIds}/names', methods: ['GET'], requirements: ['userIds' => FsRequirement::ID_LIST])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new OA\JsonContent(type: 'array',
         items: new OA\Items(ref: new Model(type: CommonLabel::class))
     ))]
     public function getUserNames(string $userIds)
     {
-        $userNames = $this->foodsaverGateway->getUserNames(explode('-', $userIds));
+        $userNames = $this->foodsaverGateway->getUserNames(explode(',', $userIds));
         if (!$this->session->id()) {
             // Abbreviate names when not logged in
             foreach ($userNames as &$user) {
@@ -306,7 +306,7 @@ class UserRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Patch(summary: 'Updates the user profile information.')]
-    #[Route('users/{userId}/profile', methods: ['PATCH'], requirements: ['userId' => FSRequirement::USER_ID])]
+    #[Route('users/{userId}/profile', methods: ['PATCH'], requirements: ['userId' => FsRequirement::USER_ID])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new Model(type: EditableProfileDTO::class))]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Bad Request.')]

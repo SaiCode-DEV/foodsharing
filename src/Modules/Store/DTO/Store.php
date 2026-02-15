@@ -232,7 +232,7 @@ class Store
         $obj = new Store();
         $obj->id = $queryResult['id'];
         $obj->name = $queryResult['name'];
-        $obj->region = new MinimalRegionIdentifier($queryResult['regionId']);
+        $obj->region = new MinimalRegionIdentifier($queryResult['regionId'], $queryResult['regionName'] ?? null);
 
         try {
             $obj->location = GeoLocation::createFromArray($queryResult);

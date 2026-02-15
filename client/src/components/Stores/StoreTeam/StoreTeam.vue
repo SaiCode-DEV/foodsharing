@@ -249,21 +249,21 @@ export default {
       const validPhoneNumber = phoneNumber.callableNumber(fs.handy || fs.telefon, true)
       return {
         id: fs.id,
-        isActive: fs.team_active === 1, // MembershipStatus::MEMBER
-        isJumper: fs.team_active === 2, // MembershipStatus::JUMPER
-        isManager: !!fs.verantwortlich,
-        isVerified: fs.verified === 1,
-        mayManage: fs.rolle >= 2, // Role::STORE_MANAGER
-        avatar: fs.photo,
-        isSleeping: fs.is_sleeping,
+        isActive: fs.membershipStatus === 1, // MembershipStatus::MEMBER
+        isJumper: fs.membershipStatus === 2, // MembershipStatus::JUMPER
+        isManager: fs.isResponsible,
+        isVerified: fs.isVerified,
+        mayManage: fs.role >= 2, // Role::STORE_MANAGER
+        avatar: fs.avatar,
+        isSleeping: fs.isSleeping,
         name: fs.name,
         firstName: fs.firstName,
         phoneNumber: validPhoneNumber,
         phoneNumberIsValid: !!validPhoneNumber,
-        joinDate: fs.add_date ? new Date(fs.add_date * 1000) : null, // unix time
-        lastPickup: fs.last_fetch ? new Date(fs.last_fetch * 1000) : null, // unix time
-        fetchCount: fs.stat_fetchcount,
-        hasHygieneCertificateUntil: fs.hygiene_certificate_until ? new Date(fs.hygiene_certificate_until) : null,
+        joinDate: fs.memberSince ? new Date(fs.memberSince) : null,
+        lastPickup: fs.lastFetch ? new Date(fs.lastFetch) : null,
+        fetchCount: fs.fetchCount,
+        hasHygieneCertificateUntil: fs.hygieneCertificateUntil ? new Date(fs.hygieneCertificateUntil) : null,
         distance: fs.distance ?? null,
       }
     },

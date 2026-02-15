@@ -9,50 +9,48 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
-use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
-use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\StoreLogAction;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\Profile;
-use Foodsharing\Modules\Group\GroupFunctionGateway;
-use Foodsharing\Modules\Message\MessageGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\DTO\CommonStoreMetadata;
 use Foodsharing\Modules\Store\DTO\PatchStore;
 use Foodsharing\Modules\Store\DTO\Store;
 use Foodsharing\Modules\Store\DTO\StoreApplicationMessage;
 use Foodsharing\Modules\Store\StoreGateway;
+use Foodsharing\Modules\Store\StoreListFormat;
 use Foodsharing\Modules\Store\StoreTransactionException;
 use Foodsharing\Modules\Store\StoreTransactions;
 use Foodsharing\Modules\Store\TeamStatus as TeamMembershipStatus;
-use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\StorePermissions;
 use Foodsharing\RestApi\Models\Store\CreateStoreModel;
 use Foodsharing\RestApi\Models\Store\MinimalStoreModel;
-use Foodsharing\RestApi\Models\Store\StorePaginationResult;
-use Foodsharing\RestApi\Models\Store\StoreStatusForMemberModel;
+use Foodsharing\Utility\Requirement as FsRequirement;
 use Foodsharing\Utility\TimeHelper;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use OpenApi\Annotations as OA;
-use OpenApi\Attributes as OA2;
+use OpenApi\Annotations as OAOld;
+use OpenApi\Attributes as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\RateLimiter\RateLimiterFactory;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+#[OA\Tag(name: 'stores')]
+#[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
 class StoreRestController extends AbstractFoodsharingRestController
 {
     // literal constants
@@ -65,32 +63,23 @@ class StoreRestController extends AbstractFoodsharingRestController
         private readonly StoreTransactions $storeTransactions,
         private readonly StorePermissions $storePermissions,
         private readonly RegionGateway $regionGateway,
-        private readonly GroupFunctionGateway $groupFunctionGateway,
         private readonly ProfilePermissions $profilePermissions,
-        private readonly CurrentUserUnitsInterface $currentUserUnits,
         private readonly RateLimiterFactory $locationChangeLimiterFactory,
-        private readonly MessageGateway $messageGateway,
         private readonly Mem $mem,
     ) {
     }
 
-    #[OA2\Tag(name: 'stores')]
-    #[OA2\Response(response: Response::HTTP_OK, description: 'Success.', content: new OA2\JsonContent(ref: new Model(type: CommonStoreMetadata::class))
-    )]
-    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
-    #[OA2\Response(response: Response::HTTP_NOT_MODIFIED, description: 'User has the current version')]
-    #[Rest\Get('stores/meta-data')]
-    #[Rest\QueryParam(name: 'version', requirements: Requirement::POSITIVE_INT, default: 0, description: 'The version of the cache that the user has saved locally')]
-    #[Rest\QueryParam(name: 'hasChains', requirements: '0|1', default: 0, description: 'Whether the user has cached store chains locally')]
-    public function getCommonStoreMetadata(ParamFetcher $paramFetcher): Response
+    #[OA\Get(summary: 'Get general store metadata')]
+    #[Route('stores/meta-data', methods: ['GET'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new Model(type: CommonStoreMetadata::class))]
+    #[OA\Response(response: Response::HTTP_NOT_MODIFIED, description: 'User has the current version')]
+    public function getCommonStoreMetadata(#[MapQueryParameter] ?int $version, #[MapQueryParameter] ?bool $hasChains): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
-        }
+        $this->assertLoggedIn();
 
-        $userVersion = (int)$paramFetcher->get('version');
+        $userVersion = $version ?? 0;
+        $hasChains ??= false;
         $currentVersion = (int)$this->mem->get(StoreTransactions::STORE_METADATA_VERSION_KEY);
-        $hasChains = (bool)$paramFetcher->get('hasChains');
         $shouldHaveChains = $this->storePermissions->mayListStores();
         if ($currentVersion === $userVersion && ($hasChains || !$shouldHaveChains)) {
             return $this->handleView($this->view(null, Response::HTTP_NOT_MODIFIED));
@@ -101,131 +90,84 @@ class StoreRestController extends AbstractFoodsharingRestController
         return $this->respondOK($metadata);
     }
 
-    /**
-     * Returns a list of stores where the user is a member of reduced store information.
-     *
-     * @OA\Tag(name="stores")
-     * @OA\Tag(name="user")
-     * @OA\Response(
-     *        response="200",
-     *        description="Success.",
-     *      @Model(type=StorePaginationResult::class)
-     * )
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Response(response="403", description="Forbidden to access store list")
-     *
-     * @throws Exception
-     */
-    #[Rest\Get('user/{userId}/stores/details')]
-    public function getStoresOfUser(int $userId): Response
+    #[OA\Get(summary: 'Get the stores where a user is member of')]
+    #[Route('users/{userId}/stores', requirements: ['userId' => FsRequirement::USER_ID], methods: ['GET'])]
+    public function getStoresOfUser(string $userId, #[MapQueryParameter] ?StoreListFormat $format, #[MapQueryParameter] ?bool $excludeInactive): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
-        }
+        $this->assertLoggedIn();
+        $userId = $this->resolveUserId($userId);
+        $format ??= StoreListFormat::FOR_MEMBER;
+        $excludeInactive ??= false;
 
-        if (!$this->storePermissions->mayListStores($userId)) {
+        if ($format === StoreListFormat::LOCATION && $excludeInactive) {
+            throw new BadRequestHttpException('cannot filter for inactive stores when format is location');
+        }
+        if (!$this->profilePermissions->maySeeStores($userId)) {
             throw new AccessDeniedHttpException('No permission see store list');
         }
 
-        $stores = $this->storeTransactions->listOverviewInformationsOfStoresFromUser($userId, true);
-        $result = new StorePaginationResult();
-        $result->total = count($stores);
-        $result->stores = $stores;
+        $stores = match ($format) {
+            StoreListFormat::FOR_MEMBER => $this->storeTransactions->listStoresForUserAsMember($userId, $excludeInactive),
+            StoreListFormat::LOCATION => $this->storeTransactions->listOverviewInformationsOfStoresFromUser($userId),
+        };
 
-        return $this->handleView($this->view($result, 200));
+        return $this->respondOK($stores);
     }
 
-    /**
-     * Provides store identifiers for stores of a region.
-     *
-     * @OA\Tag(name="stores")
-     * @OA\Tag(name="region")
-     * @OA\Response(
-     * 		response="200",
-     * 		description="Success.",
-     *      @Model(type=StorePaginationResult::class)
-     * )
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Response(response="403", description="Forbidden to access store list")
-     */
-    #[Rest\Get('region/{regionId}/stores', requirements: ['regionId' => '\d+'])]
+    #[OA\Get(summary: 'Get the stores of a region')]
+    #[Route('regions/{regionId}/stores', requirements: ['regionId' => Requirement::POSITIVE_INT], methods: ['GET'])]
     public function getStoresOfRegion(int $regionId): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
-        }
+        $this->assertLoggedIn();
 
         if (!$this->storePermissions->mayListStores()) {
             throw new AccessDeniedHttpException('No permission see store list');
         }
 
         /*
-         * @TODO: This deactivates store lists for Europe and countries because it needs to much memory on the server.
-         * Can be remove when there is pagination.
+         * TODO: This deactivates store lists for Europe and countries because it needs to much memory on the server.
+         * Can be removed when there is pagination.
+         * Just adding pagination is not the solution though, since the frontend uses the full list for frontend filtering.
+         * I wasted quite a bit of time until I realized that...
          * See also RegionPermissions:maySeeRegionMembers for the same problem with region members.
          */
         if (in_array($regionId, [RegionIDs::EUROPE, RegionIDs::GERMANY, RegionIDs::AUSTRIA, RegionIDs::SWITZERLAND])) {
             throw new AccessDeniedHttpException();
         }
 
-        $stores = $this->storeTransactions->listOverviewInformationsOfStoresInRegion($regionId, true);
-        $result = new StorePaginationResult();
-        $result->total = count($stores);
-        $result->stores = $stores;
+        $stores = $this->storeTransactions->listOverviewInformationsOfStoresInRegion($regionId);
 
-        return $this->handleView($this->view($result, 200));
+        return $this->respondOK($stores);
     }
 
-    /**
-     * Provides store information, contacts and options for a store id.
-     *
-     * Depending on the access permission some information are not provided.
-     *
-     * @OA\Tag(name="stores")
-     * @OA\Response(
-     * 		response=Response::HTTP_OK,
-     * 		description="Success.",
-     *      @Model(type=Store::class)
-     * )
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Response(response="403", description="Not allowed to see/list stores")
-     * @OA\Response(response="404", description="Store not found")
-     */
-    #[Rest\Get('/stores/{storeId}/information', requirements: ['storeId' => '\d+'])]
-    public function getStoreInformation(int $storeId)
+    #[OA\Get(summary: 'Get detailed information about a store')]
+    #[Route('/stores/{storeId}/details', methods: ['GET'], requirements: ['storeId' => Requirement::POSITIVE_INT])]
+    public function getStoreInformation(int $storeId): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
-        }
-
-        if (!$this->storePermissions->mayListStores()) {
-            throw new AccessDeniedHttpException('No permission see store list');
-        }
+        $this->assertLoggedIn();
 
         try {
-            $maySeeDetails = $this->storePermissions->mayAccessStore($storeId);
-            $maySeeSensitiveDetails = $this->storePermissions->mayEditStore($storeId);
+            $mayAccess = $this->storePermissions->mayAccessStore($storeId);
+        } catch (\Throwable) {
+            throw new NotFoundHttpException('Store not found');
+        }
+        if (!$mayAccess) {
+            throw new AccessDeniedHttpException('No permission see this stores information');
+        }
 
-            $result = $this->storeTransactions->getStore($storeId, $maySeeDetails, $maySeeSensitiveDetails);
+        $maySeeSensitiveDetails = $this->storePermissions->mayEditStore($storeId);
 
-            return $this->handleView($this->view($result, 200));
+        try {
+            $result = $this->storeTransactions->getStore($storeId, $maySeeSensitiveDetails);
         } catch (DatabaseNoValueFoundException) {
             throw new NotFoundHttpException('Store not found.');
         }
+
+        return $this->respondOK($result);
     }
 
-    /**
-     * Provides store members.
-     *
-     * Depending on the access permission some information are not provided.
-     *
-     * @OA\Tag(name="stores")
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Response(response="403", description="Not allowed to see/list stores")
-     * @OA\Response(response="404", description="Store not found")
-     */
-    #[Rest\Get('/stores/{storeId}/member', requirements: ['storeId' => '\d+'])]
+    #[OA\Get(summary: 'Get the members of a store team')]
+    #[Route('/stores/{storeId}/members', methods: ['GET'], requirements: ['storeId' => Requirement::POSITIVE_INT])]
     public function getStoreMembers(int $storeId): Response
     {
         $this->assertLoggedIn();
@@ -233,103 +175,36 @@ class StoreRestController extends AbstractFoodsharingRestController
         if (!$this->storeGateway->storeExists($storeId)) {
             throw new NotFoundHttpException('Store not found.');
         }
-
         if (!$this->storePermissions->mayAccessStore($storeId)) {
             throw new AccessDeniedHttpException('Not allowed to see store members.');
         }
 
-        try {
-            // controls sensitive details (e.g., phone numbers) even for members
-            $maySeeDetails = $this->storePermissions->maySeePhoneNumbers($storeId);
-            $maySeeDistance = $this->storePermissions->maySeeMemberDistance($storeId);
-            $result = $this->storeTransactions->getMyStoreTeam($storeId, $maySeeDetails, $maySeeDistance);
+        // controls sensitive details (e.g., phone numbers) even for members
+        $maySeeDetails = $this->storePermissions->maySeePhoneNumbers($storeId);
+        $maySeeDistance = $this->storePermissions->maySeeMemberDistance($storeId);
+        $members = $this->storeTransactions->getStoreTeamMembers($storeId, $maySeeDetails, $maySeeDistance);
 
-            return $this->respondOK($result);
-        } catch (DatabaseNoValueFoundException) {
-            throw new NotFoundHttpException('Store not found.');
-        }
+        return $this->respondOK($members);
     }
 
-    /**
-     * Provides store permissions.
-     **
-     * @OA\Tag(name="stores")
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Response(response="403", description="Not allowed to see/list stores")
-     * @OA\Response(response="404", description="Store not found")
-     */
-    #[Rest\Get('/stores/{storeId}/permissions', requirements: ['storeId' => '\d+'])]
+    #[OA\Get(summary: 'Get the permissions of the logged in user for a store')]
+    #[Route('/stores/{storeId}/permissions', methods: ['GET'], requirements: ['storeId' => Requirement::POSITIVE_INT])]
     public function getStorePermissions(int $storeId): Response
     {
-        // 401 if not logged in
         $this->assertLoggedIn();
-
-        // 404 if the store does not exist
         if (!$this->storeGateway->storeExists($storeId)) {
             throw new NotFoundHttpException('Store not found.');
         }
-
-        // 403 if logged in but not a member (aligns with /stores/{storeId}/member)
-        if (
-            !$this->storePermissions->mayAccessStore($storeId)) {
+        if (!$this->storePermissions->mayAccessStore($storeId)) {
             throw new AccessDeniedHttpException('Not allowed to see store permissions.');
         }
 
-        try {
-            $store = $this->storeGateway->getMyStore($this->session->id(), $storeId);
+        $permissions = $this->storeTransactions->getStorePermissions($storeId);
 
-            $teamConversationId = null;
-            if ($this->storePermissions->mayChatWithRegularTeam($store)
-                && $this->messageGateway->mayConversation($this->session->id(), $store['team_conversation_id'])) {
-                $teamConversationId = $store['team_conversation_id'];
-            }
-
-            $jumperConversationId = null;
-            if ($this->storePermissions->mayChatWithJumperWaitingTeam($store)
-                && $this->messageGateway->mayConversation($this->session->id(), $store['springer_conversation_id'])) {
-                $jumperConversationId = $store['springer_conversation_id'];
-            }
-
-            $isOrgUser = $this->session->mayRole(Role::ORGA);
-            $isAmbassador = false;
-            $isCoordinator = false;
-
-            if (!$isOrgUser) {
-                $storeGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($store['bezirk_id'], WorkgroupFunction::STORES_COORDINATION);
-                if (empty($storeGroup)) {
-                    if ($this->currentUserUnits->isAdminFor($store['bezirk_id'])) {
-                        $isAmbassador = true;
-                    }
-                } elseif ($this->currentUserUnits->isAdminFor($storeGroup)) {
-                    $isCoordinator = true;
-                }
-            }
-
-            $params = [
-                'isCoordinator' => $isCoordinator,
-                'isAmbassador' => $isAmbassador,
-                'isOrgUser' => $isOrgUser,
-                'isJumper' => $store['jumper'],
-                'isManager' => $store['verantwortlich'],
-                'isKam' => $this->storePermissions->isKamForStore($storeId, $store['kette_id']),
-                'maySeePickup' => $this->storePermissions->maySeePickups($storeId),
-                'teamConversationId' => $teamConversationId,
-                'jumperConversationId' => $jumperConversationId,
-                'mayEditStore' => $this->storePermissions->mayEditStore($storeId),
-                'mayLeaveStoreTeam' => $this->storePermissions->mayLeaveStoreTeam($storeId, $this->session->id()),
-                'storeId' => $storeId,
-                'maySeePickupHistory' => $this->storePermissions->maySeePickupHistory($storeId, $store['kette_id']),
-                'maySeeStoreLog' => $this->storePermissions->maySeeStoreLog($storeId),
-                'maySeePickups' => $this->storePermissions->maySeePickups($storeId) || $store['betrieb_status_id'] === CooperationStatus::COOPERATION_ESTABLISHED,
-                'mayDeleteStore' => $this->storePermissions->mayDeleteStore($storeId),
-            ];
-
-            return $this->respondOK($params);
-        } catch (DatabaseNoValueFoundException) {
-            throw new NotFoundHttpException('Store not found.');
-        }
+        return $this->respondOK($permissions);
     }
+
+    // REFACTORED ENDPOINTS UNTIL HERE. ALL METHODS BELOW STILL NEED TO BE REFACTORED AFTER !4808
 
     /**
      * Creates a new store.
@@ -342,18 +217,17 @@ class StoreRestController extends AbstractFoodsharingRestController
      *
      * After creation the platform informs all members of the related region about the new store.
      *
-     * @OA\Tag(name="stores")
-     * @OA\RequestBody(@Model(type=CreateStoreModel::class))
-     * @OA\Response(response=Response::HTTP_CREATED,
+     * @OAOld\RequestBody(@Model(type=CreateStoreModel::class))
+     * @OAOld\Response(response=Response::HTTP_CREATED,
      *    description="Created the new store and informed region members provides",
      *  @Model(type=MinimalStoreModel::class)
      * )
-     * @OA\Response(response=Response::HTTP_BAD_REQUEST, description="Invalid body data")
-     * @OA\Response(response=Response::HTTP_UNAUTHORIZED, description="Not logged in")
-     * @OA\Response(response=Response::HTTP_FORBIDDEN, description="No permission to create a store")
+     * @OAOld\Response(response=Response::HTTP_BAD_REQUEST, description="Invalid body data")
+     * @OAOld\Response(response=Response::HTTP_FORBIDDEN, description="No permission to create a store")
      * @throws StoreTransactionException
      */
-    #[Rest\Post('region/{regionId}/stores')]
+    #[OA\Post(summary: 'Create a new store')]
+    #[Route('regions/{regionId}/stores', methods: ['POST'], requirements: ['regionId' => Requirement::POSITIVE_INT])]
     #[ParamConverter('storeCreateInformation', converter: 'fos_rest.request_body')]
     public function addStore(int $regionId, CreateStoreModel $storeCreateInformation, ConstraintViolationListInterface $validationErrors): Response
     {
@@ -378,15 +252,14 @@ class StoreRestController extends AbstractFoodsharingRestController
     /**
      * Allows to patch the store with information like the store team status.
      *
-     * @OA\Tag(name="stores")
-     * @OA\RequestBody(@Model(type=PatchStore::class))
-     * @OA\Response(response=Response::HTTP_BAD_REQUEST, description="Invalid request data")
-     * @OA\Response(response=Response::HTTP_UNAUTHORIZED, description="Not logged in")
-     * @OA\Response(response=Response::HTTP_FORBIDDEN, description="No permission to update store")
-     * @OA\Response(response=Response::HTTP_NOT_FOUND, description="Store not found")
-     * @OA\Response(response=Response::HTTP_OK, description="Empty response on success")
+     * @OAOld\RequestBody(@Model(type=PatchStore::class))
+     * @OAOld\Response(response=Response::HTTP_BAD_REQUEST, description="Invalid request data")
+     * @OAOld\Response(response=Response::HTTP_FORBIDDEN, description="No permission to update store")
+     * @OAOld\Response(response=Response::HTTP_NOT_FOUND, description="Store not found")
+     * @OAOld\Response(response=Response::HTTP_OK, description="Empty response on success")
      */
-    #[Rest\Patch('stores/{storeId}/information', requirements: ['storeId' => '\d+'])]
+    #[OA\Patch(summary: 'Edit store details')]
+    #[Route('stores/{storeId}/details', methods: ['PATCH'], requirements: ['storeId' => Requirement::POSITIVE_INT])]
     #[ParamConverter('storeModel', converter: 'fos_rest.request_body')]
     public function editStore(int $storeId, PatchStore $storeModel, ConstraintViolationListInterface $validationErrors, Request $request)
     {
@@ -435,67 +308,18 @@ class StoreRestController extends AbstractFoodsharingRestController
         return $this->respondOK();
     }
 
-    #[OA2\Tag(name: 'stores')]
-    #[OA2\Tag(name: 'user')]
-    #[OA2\Parameter(
-        name: 'activeStores',
-        description: 'filter unactive stores (e.g. store that do not cooperate)?',
-        in: 'query',
-        required: false,
-        schema: new OA2\Schema(type: 'integer', enum: [0, 1])
-    )]
-    #[OA2\Response(
-        response: '200',
-        description: 'Success.',
-        content: new OA2\JsonContent(
-            type: 'array',
-            items: new OA2\Items(ref: new Model(type: StoreStatusForMemberModel::class))
-        )
-    )]
-    #[OA2\Response(response: Response::HTTP_NO_CONTENT, description: 'No foodsaver related stores found.')]
-    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
-    #[Rest\Get('user/{userId}/stores', requirements: ['userId' => '\d+'])]
-    #[Rest\Get('user/current/stores')]
-    #[Rest\QueryParam(name: 'activeStores')]
-    public function getListOfStoreStatusForUser(ParamFetcher $paramFetcher, ?string $userId = null): Response
-    {
-        $this->assertLoggedIn();
-
-        $targetUserId = $userId === null ? $this->session->id() : (int)$userId;
-
-        if (!$this->profilePermissions->maySeeStores($targetUserId)) {
-            throw new AccessDeniedHttpException('No permission see store list');
-        }
-
-        $activeStores = (bool)$paramFetcher->get('activeStores');
-
-        $listOfStoreStatus = $this->storeTransactions->listAllStoreStatusForFoodsaver($targetUserId, $activeStores);
-
-        if ($listOfStoreStatus === []) {
-            return $this->handleView($this->view([], Response::HTTP_NO_CONTENT));
-        }
-
-        $store_team_memberships = [];
-        foreach ($listOfStoreStatus as $storeStatus) {
-            $store_team_memberships[] = new StoreStatusForMemberModel($storeStatus);
-        }
-
-        return $this->respondOK($store_team_memberships);
-    }
-
     /**
      * Request to join a store team.
      *
-     * @OA\Parameter(name="storeId", in="path", @OA\Schema(type="integer"), description="for which store to apply")
-     * @OA\RequestBody(@Model(type=StoreApplicationMessage::class))
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Response(response="403", description="Insufficient permissions to be member of a store team")
-     * @OA\Response(response="404", description="Store does not exist")
-     * @OA\Response(response="422", description="Already applied or already member of this store team")
-     * @OA\Tag(name="stores")
+     * @OAOld\Parameter(name="storeId", in="path", @OAOld\Schema(type="integer"), description="for which store to apply")
+     * @OAOld\RequestBody(@Model(type=StoreApplicationMessage::class))
+     * @OAOld\Response(response="200", description="Success")
+     * @OAOld\Response(response="403", description="Insufficient permissions to be member of a store team")
+     * @OAOld\Response(response="404", description="Store does not exist")
+     * @OAOld\Response(response="422", description="Already applied or already member of this store team")
      */
-    #[Rest\Post('stores/{storeId}/requests')]
+    #[OA\Post(summary: 'Request to join a store team')]
+    #[Route('stores/{storeId}/requests', methods: ['POST'], requirements: ['storeId' => Requirement::POSITIVE_INT])]
     #[ParamConverter(data: 'message', converter: 'fos_rest.request_body')]
     public function requestStoreTeamMembership(int $storeId, StoreApplicationMessage $message, ValidatorInterface $validator): Response
     {
@@ -520,13 +344,12 @@ class StoreRestController extends AbstractFoodsharingRestController
     /**
      * Get applications to store team.
      *
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Response(response="403", description="Insufficient permissions")
-     * @OA\Response(response="404", description="Store does not exist")
-     * @OA\Tag(name="stores")
+     * @OAOld\Response(response="200", description="Success")
+     * @OAOld\Response(response="403", description="Insufficient permissions")
+     * @OAOld\Response(response="404", description="Store does not exist")
      */
-    #[Rest\Get('stores/{storeId}/requests')]
+    #[OA\Get(summary: 'Get the requests to a store team')]
+    #[Route('stores/{storeId}/requests', methods: ['GET'], requirements: ['storeId' => Requirement::POSITIVE_INT])]
     public function listStoreTeamMembershipRequests(int $storeId): Response
     {
         $userId = $this->session->id();
@@ -548,15 +371,16 @@ class StoreRestController extends AbstractFoodsharingRestController
     /**
      * Accepts a user's request for joining a store.
      *
-     * @OA\Parameter(name="storeId", in="path", @OA\Schema(type="integer"), description="for which store to accept a request")
-     * @OA\Parameter(name="userId", in="path", @OA\Schema(type="integer"), description="who should be accepted")
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Response(response="403", description="Insufficient permissions to accept requests")
-     * @OA\Response(response="404", description="Store or request does not exist")
-     * @OA\Tag(name="stores")
+     * @OAOld\Parameter(name="storeId", in="path", @OAOld\Schema(type="integer"), description="for which store to accept a request")
+     * @OAOld\Parameter(name="userId", in="path", @OAOld\Schema(type="integer"), description="who should be accepted")
+     * @OAOld\Response(response="200", description="Success")
+     * @OAOld\Response(response="403", description="Insufficient permissions to accept requests")
+     * @OAOld\Response(response="404", description="Store or request does not exist")
      */
-    #[Rest\Patch('stores/{storeId}/requests/{userId}')]
+    #[OA\Patch(summary: 'Accept a request to join a store team')]
+    #[Route('stores/{storeId}/requests/{userId}', methods: ['PATCH'], requirements: [
+        'storeId' => Requirement::POSITIVE_INT, 'userId' => Requirement::POSITIVE_INT
+    ])]
     #[Rest\RequestParam(name: 'moveToStandby', nullable: true, description: 'whether the new member should become part of the standby team instead of the regular team')]
     public function acceptStoreRequest(int $storeId, int $userId, ParamFetcher $paramFetcher): Response
     {
@@ -574,16 +398,17 @@ class StoreRestController extends AbstractFoodsharingRestController
     /**
      * Removes the user's own request or denies another user's request for a store.
      *
-     * @OA\Parameter(name="storeId", in="path", @OA\Schema(type="integer"), description="for which store to remove a request")
-     * @OA\Parameter(name="userId", in="path", @OA\Schema(type="integer"), description="whose request should be removed")
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Response(response="403", description="Insufficient permissions to remove the request")
-     * @OA\Response(response="404", description="Store or request does not exist")
-     * @OA\Tag(name="stores")
+     * @OAOld\Parameter(name="storeId", in="path", @OAOld\Schema(type="integer"), description="for which store to remove a request")
+     * @OAOld\Parameter(name="userId", in="path", @OAOld\Schema(type="integer"), description="whose request should be removed")
+     * @OAOld\Response(response="200", description="Success")
+     * @OAOld\Response(response="403", description="Insufficient permissions to remove the request")
+     * @OAOld\Response(response="404", description="Store or request does not exist")
      */
     #[Rest\RequestParam(name: 'message', nullable: true)]
-    #[Rest\Delete('stores/{storeId}/requests/{userId}')]
+    #[OA\Delete(summary: 'Decline a request to join a store team')]
+    #[Route('stores/{storeId}/requests/{userId}', methods: ['DELETE'], requirements: [
+        'storeId' => Requirement::POSITIVE_INT, 'userId' => Requirement::POSITIVE_INT
+    ])]
     public function declineStoreRequest(int $storeId, int $userId, ParamFetcher $paramFetcher): Response
     {
         $this->handleEditTeamExceptions($storeId, $userId, false, true);
@@ -612,9 +437,8 @@ class StoreRestController extends AbstractFoodsharingRestController
         return $this->handleView($this->view([], 200));
     }
 
-    #[OA2\Tag(name: 'stores')]
-    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
-    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted for this store')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted for this store')]
+    #[OA\Get(summary: 'Get the invitations to a store team')]
     #[Route('/stores/{storeId}/invitations', requirements: ['storeId' => Requirement::POSITIVE_INT], methods: ['GET'])]
     public function listStoreTeamInvitations(int $storeId): Response
     {
@@ -627,16 +451,17 @@ class StoreRestController extends AbstractFoodsharingRestController
     /**
      * Invites a user to the store team, without a request to join from that user.
      *
-     * @OA\Parameter(name="storeId", in="path", @OA\Schema(type="integer"), description="which store to manage")
-     * @OA\Parameter(name="userId", in="path", @OA\Schema(type="integer"), description="which user to add to the store team")
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Response(response="403", description="Insufficient permissions to manage this store team")
-     * @OA\Response(response="404", description="Store does not exist")
-     * @OA\Response(response="422", description="User is already, or cannot be, part of this store team")
-     * @OA\Tag(name="stores")
+     * @OAOld\Parameter(name="storeId", in="path", @OAOld\Schema(type="integer"), description="which store to manage")
+     * @OAOld\Parameter(name="userId", in="path", @OAOld\Schema(type="integer"), description="which user to add to the store team")
+     * @OAOld\Response(response="200", description="Success")
+     * @OAOld\Response(response="403", description="Insufficient permissions to manage this store team")
+     * @OAOld\Response(response="404", description="Store does not exist")
+     * @OAOld\Response(response="422", description="User is already, or cannot be, part of this store team")
      */
-    #[Route('stores/{storeId}/invitations/{userId}', methods: ['POST'])]
+    #[OA\Post(summary: 'Invite a user to a store team')]
+    #[Route('stores/{storeId}/invitations/{userId}', methods: ['POST'], requirements: [
+        'storeId' => Requirement::POSITIVE_INT, 'userId' => Requirement::POSITIVE_INT
+    ])]
     public function inviteStoreMember(int $storeId, int $userId): Response
     {
         $this->handleEditTeamExceptions($storeId, $userId, true);
@@ -650,13 +475,11 @@ class StoreRestController extends AbstractFoodsharingRestController
         return $this->respondOK($invitation);
     }
 
-    #[OA2\Tag(name: 'stores')]
-    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
-    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted for this store')]
-    #[Route('stores/{storeId}/invitations/{userId}', requirements: [
-        'storeId' => Requirement::POSITIVE_INT,
-        'userId' => Requirement::POSITIVE_INT,
-    ], methods: ['DELETE'])]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted for this store')]
+    #[OA\Delete(summary: 'Withdraw an invitation to a store team')]
+    #[Route('stores/{storeId}/invitations/{userId}', methods: ['DELETE'], requirements: [
+        'storeId' => Requirement::POSITIVE_INT, 'userId' => Requirement::POSITIVE_INT,
+    ])]
     public function withdrawStoreTeamInvitation(int $storeId, int $userId): Response
     {
         $this->handleEditTeamExceptions($storeId);
@@ -665,10 +488,9 @@ class StoreRestController extends AbstractFoodsharingRestController
         return $this->respondOK();
     }
 
-    #[OA2\Tag(name: 'stores')]
-    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
-    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Not invited to this store')]
-    #[Route('stores/{storeId}/invitations', requirements: ['storeId' => Requirement::POSITIVE_INT], methods: ['PATCH'])]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not invited to this store')]
+    #[OA\Patch(summary: 'Accept an invitation to a store team')]
+    #[Route('stores/{storeId}/invitations', methods: ['PATCH'], requirements: ['storeId' => Requirement::POSITIVE_INT])]
     public function acceptStoreTeamInvitation(int $storeId): Response
     {
         $this->assertLoggedIn();
@@ -680,10 +502,9 @@ class StoreRestController extends AbstractFoodsharingRestController
         return $this->respondOK();
     }
 
-    #[OA2\Tag(name: 'stores')]
-    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
-    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Not invited to this store')]
-    #[Route('stores/{storeId}/invitations', requirements: ['storeId' => Requirement::POSITIVE_INT], methods: ['DELETE'])]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not invited to this store')]
+    #[OA\Get(summary: 'Decline an invitation to a store team')]
+    #[Route('stores/{storeId}/invitations', methods: ['DELETE'], requirements: ['storeId' => Requirement::POSITIVE_INT])]
     public function declineStoreTeamInvitation(int $storeId): Response
     {
         $this->assertLoggedIn();
@@ -698,17 +519,18 @@ class StoreRestController extends AbstractFoodsharingRestController
     /**
      * Removes user from store team.
      *
-     * @OA\Parameter(name="storeId", in="path", @OA\Schema(type="integer"), description="which store to manage")
-     * @OA\Parameter(name="userId", in="path", @OA\Schema(type="integer"), description="which user to remove from the store team")
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Response(response="403", description="Insufficient permissions to manage this store team (if user is not yourself)")
-     * @OA\Response(response="404", description="Store does not exists or user is not a member of it")
-     * @OA\Response(response="422", description="User cannot currently leave this team")
-     * @OA\Tag(name="stores")
+     * @OAOld\Parameter(name="storeId", in="path", @OAOld\Schema(type="integer"), description="which store to manage")
+     * @OAOld\Parameter(name="userId", in="path", @OAOld\Schema(type="integer"), description="which user to remove from the store team")
+     * @OAOld\Response(response="200", description="Success")
+     * @OAOld\Response(response="403", description="Insufficient permissions to manage this store team (if user is not yourself)")
+     * @OAOld\Response(response="404", description="Store does not exists or user is not a member of it")
+     * @OAOld\Response(response="422", description="User cannot currently leave this team")
      */
     #[Rest\RequestParam(name: 'message', nullable: true)]
-    #[Rest\Delete('stores/{storeId}/members/{userId}')]
+    #[OA\Delete(summary: 'Remove a user from a store team')]
+    #[Route('stores/{storeId}/members/{userId}', methods: ['DELETE'], requirements: [
+        'storeId' => Requirement::POSITIVE_INT, 'userId' => Requirement::POSITIVE_INT
+    ])]
     public function removeStoreMember(int $storeId, int $userId, ParamFetcher $paramFetcher): Response
     {
         $this->handleEditTeamExceptions($storeId, $userId, false, true);
@@ -725,16 +547,17 @@ class StoreRestController extends AbstractFoodsharingRestController
     /**
      * Promotes a user to store manager.
      *
-     * @OA\Parameter(name="storeId", in="path", @OA\Schema(type="integer"), description="which store to manage")
-     * @OA\Parameter(name="userId", in="path", @OA\Schema(type="integer"), description="which user to add as manager")
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Response(response="403", description="Insufficient permissions to manage this store team")
-     * @OA\Response(response="404", description="Store does not exist")
-     * @OA\Response(response="422", description="User cannot become manager of this store")
-     * @OA\Tag(name="stores")
+     * @OAOld\Parameter(name="storeId", in="path", @OAOld\Schema(type="integer"), description="which store to manage")
+     * @OAOld\Parameter(name="userId", in="path", @OAOld\Schema(type="integer"), description="which user to add as manager")
+     * @OAOld\Response(response="200", description="Success")
+     * @OAOld\Response(response="403", description="Insufficient permissions to manage this store team")
+     * @OAOld\Response(response="404", description="Store does not exist")
+     * @OAOld\Response(response="422", description="User cannot become manager of this store")
      */
-    #[Rest\Patch('stores/{storeId}/managers/{userId}')]
+    #[OA\Post(summary: 'Make a user a store manager')]
+    #[Route('stores/{storeId}/managers/{userId}', methods: ['POST'], requirements: [
+        'storeId' => Requirement::POSITIVE_INT, 'userId' => Requirement::POSITIVE_INT
+    ])]
     public function addStoreManager(int $storeId, int $userId): Response
     {
         $this->handleEditTeamExceptions($storeId, $userId, true);
@@ -751,17 +574,18 @@ class StoreRestController extends AbstractFoodsharingRestController
     /**
      * Demotes a user from store manager to regular store team member.
      *
-     * @OA\Parameter(name="storeId", in="path", @OA\Schema(type="integer"), description="which store to manage")
-     * @OA\Parameter(name="userId", in="path", @OA\Schema(type="integer"), description="which user to remove as manager")
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Response(response="403", description="Insufficient permissions to manage this store team")
-     * @OA\Response(response="404", description="Store does not exists or user is not a member of it")
-     * @OA\Response(response="422", description="User cannot lose responsibility for this store")
-     * @OA\Tag(name="stores")
+     * @OAOld\Parameter(name="storeId", in="path", @OAOld\Schema(type="integer"), description="which store to manage")
+     * @OAOld\Parameter(name="userId", in="path", @OAOld\Schema(type="integer"), description="which user to remove as manager")
+     * @OAOld\Response(response="200", description="Success")
+     * @OAOld\Response(response="403", description="Insufficient permissions to manage this store team")
+     * @OAOld\Response(response="404", description="Store does not exists or user is not a member of it")
+     * @OAOld\Response(response="422", description="User cannot lose responsibility for this store")
      */
     #[Rest\RequestParam(name: 'message', nullable: true)]
-    #[Rest\Delete('stores/{storeId}/managers/{userId}')]
+    #[OA\Delete(summary: 'Demote a user from store manager to regular store team member')]
+    #[Route('stores/{storeId}/managers/{userId}', methods: ['DELETE'], requirements: [
+        'storeId' => Requirement::POSITIVE_INT, 'userId' => Requirement::POSITIVE_INT
+    ])]
     public function removeStoreManager(int $storeId, int $userId, ParamFetcher $paramFetcher): Response
     {
         $this->handleEditTeamExceptions($storeId, $userId);
@@ -783,16 +607,17 @@ class StoreRestController extends AbstractFoodsharingRestController
      * Moves a store-team member from the regular team to the standby team.
      * Will also succeed if the member was already part of the standby team.
      *
-     * @OA\Parameter(name="storeId", in="path", @OA\Schema(type="integer"), description="team of which store to manage")
-     * @OA\Parameter(name="userId", in="path", @OA\Schema(type="integer"), description="who should be moved to the standby team")
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Response(response="403", description="Insufficient permissions to manage this store team")
-     * @OA\Response(response="404", description="User is not a member of this store")
-     * @OA\Tag(name="stores")
+     * @OAOld\Parameter(name="storeId", in="path", @OAOld\Schema(type="integer"), description="team of which store to manage")
+     * @OAOld\Parameter(name="userId", in="path", @OAOld\Schema(type="integer"), description="who should be moved to the standby team")
+     * @OAOld\Response(response="200", description="Success")
+     * @OAOld\Response(response="403", description="Insufficient permissions to manage this store team")
+     * @OAOld\Response(response="404", description="User is not a member of this store")
      */
     #[Rest\RequestParam(name: 'message', nullable: true)]
-    #[Rest\Patch('stores/{storeId}/members/{userId}/standby')]
+    #[OA\Patch(summary: 'Move a store team member to the standby team')]
+    #[Route('stores/{storeId}/members/{userId}/standby', methods: ['PATCH'], requirements: [
+        'storeId' => Requirement::POSITIVE_INT, 'userId' => Requirement::POSITIVE_INT
+    ])]
     public function moveMemberToStandbyTeam(int $storeId, int $userId, ParamFetcher $paramFetcher): Response
     {
         if (!$this->session->id()) {
@@ -815,15 +640,16 @@ class StoreRestController extends AbstractFoodsharingRestController
      * Moves a store-team member from the standby team to the regular team.
      * Will also succeed if the member was already part of the regular team.
      *
-     * @OA\Parameter(name="storeId", in="path", @OA\Schema(type="integer"), description="team of which store to manage")
-     * @OA\Parameter(name="userId", in="path", @OA\Schema(type="integer"), description="who should be moved to the regular store team")
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Response(response="403", description="Insufficient permissions to manage this store team")
-     * @OA\Response(response="404", description="User is not a member of this store")
-     * @OA\Tag(name="stores")
+     * @OAOld\Parameter(name="storeId", in="path", @OAOld\Schema(type="integer"), description="team of which store to manage")
+     * @OAOld\Parameter(name="userId", in="path", @OAOld\Schema(type="integer"), description="who should be moved to the regular store team")
+     * @OAOld\Response(response="200", description="Success")
+     * @OAOld\Response(response="403", description="Insufficient permissions to manage this store team")
+     * @OAOld\Response(response="404", description="User is not a member of this store")
      */
-    #[Rest\Delete('stores/{storeId}/members/{userId}/standby')]
+    #[OA\Delete(summary: 'Move a store team member to the regular team')]
+    #[Route('stores/{storeId}/members/{userId}/standby', methods: ['DELETE'], requirements: [
+        'storeId' => Requirement::POSITIVE_INT, 'userId' => Requirement::POSITIVE_INT
+    ])]
     public function moveUserToRegularTeam(int $storeId, int $userId): Response
     {
         if (!$this->session->id()) {
@@ -846,13 +672,18 @@ class StoreRestController extends AbstractFoodsharingRestController
      * Returns an array of log entries with foodsaver and log information.
      * The log contains only entries from the past 7 days.
      *
-     * @OA\Parameter(name="storeId", in="path", @OA\Schema(type="integer"))
-     * @OA\Parameter(name="fromDate", in="path", @OA\Schema(type="string"), description="The fist date from which to include actions")
-     * @OA\Parameter(name="toDate", in="path", @OA\Schema(type="string"), description="The last date from which to include actions")
-     * @OA\Parameter(name="storeLogActionIds", in="path", @OA\Schema(type="string"), description="The ids of the actions, seperated by commas like: 1,2,3")
-     * @OA\Tag(name="stores")
+     * @OAOld\Parameter(name="storeId", in="path", @OAOld\Schema(type="integer"))
+     * @OAOld\Parameter(name="fromDate", in="path", @OAOld\Schema(type="string"), description="The fist date from which to include actions")
+     * @OAOld\Parameter(name="toDate", in="path", @OAOld\Schema(type="string"), description="The last date from which to include actions")
+     * @OAOld\Parameter(name="storeLogActionIds", in="path", @OAOld\Schema(type="string"), description="The ids of the actions, seperated by commas like: 1,2,3")
      */
-    #[Rest\Get('stores/{storeId}/log/{fromDate}/{toDate}/{storeLogActionIds}', requirements: ['storeId' => '\d+', 'fromDate' => '[^/]+', 'toDate' => '[^/]+', 'storeLogActionIds' => '(\d+,)*\d+'])]
+    #[OA\Get(summary: 'Get store log entries for the given time range and action types')]
+    #[Route('stores/{storeId}/log/{fromDate}/{toDate}/{storeLogActionIds}', methods: ['GET'], requirements: [
+        'storeId' => Requirement::POSITIVE_INT,
+        'fromDate' => FsRequirement::ISO_DATE_TIME,
+        'toDate' => FsRequirement::ISO_DATE_TIME,
+        'storeLogActionIds' => FsRequirement::ID_LIST,
+    ])]
     #[Rest\QueryParam(name: 'limit', requirements: '\d+', default: '100', description: 'How many bells to return.')]
     #[Rest\QueryParam(name: 'offset', requirements: '\d+', default: '0', description: 'Offset for returned bells.')]
     public function showStoreLogHistory(int $storeId, string $fromDate, string $toDate, string $storeLogActionIds, ParamFetcher $paramFetcher): Response
@@ -893,14 +724,13 @@ class StoreRestController extends AbstractFoodsharingRestController
      * Deletes a store.
      * Only allowed for stores that never had any pickup.
      *
-     * @OA\Parameter(name="storeId", in="path", @OA\Schema(type="integer"), description="the store to delete")
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Response(response="403", description="Insufficient permissions to delete this store team")
-     * @OA\Response(response="404", description="User is not a member of this store")
-     * @OA\Tag(name="stores")
+     * @OAOld\Parameter(name="storeId", in="path", @OAOld\Schema(type="integer"), description="the store to delete")
+     * @OAOld\Response(response="200", description="Success")
+     * @OAOld\Response(response="403", description="Insufficient permissions to delete this store team")
+     * @OAOld\Response(response="404", description="User is not a member of this store")
      */
-    #[Rest\Delete('stores/{storeId}')]
+    #[OA\Delete(summary: 'Delete a store')]
+    #[Route('stores/{storeId}', methods: ['DELETE'], requirements: ['storeId' => Requirement::POSITIVE_INT])]
     public function deleteStore(int $storeId): Response
     {
         $this->assertLoggedIn();

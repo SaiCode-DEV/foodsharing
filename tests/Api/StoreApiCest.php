@@ -31,7 +31,7 @@ class StoreApiCest
 
     private const string API_MAP_STORES = 'api/map/markers/stores';
     private const string API_STORES = 'api/stores';
-    private const string API_REGIONS = 'api/region';
+    private const string API_REGIONS = 'api/regions';
     private const string EMAIL = 'email';
     private const string ID = 'id';
 
@@ -70,42 +70,8 @@ class StoreApiCest
 
     public function canNotGetAccessToGetStoreAsUnknownUser(ApiTester $I)
     {
-        $I->sendGET(self::API_STORES . '/' . $this->store['id'] . '/information');
+        $I->sendGET(self::API_STORES . '/' . $this->store['id'] . '/details');
         $I->seeResponseCodeIs(Http::UNAUTHORIZED);
-    }
-
-    private function createGetStoreAsFoodsaverJson()
-    {
-        return [
-            'id' => $this->store['id'],
-            'name' => $this->store['name'],
-            'region' => [
-                'id' => $this->store['bezirk_id']
-            ],
-            'location' => [
-                'lon' => $this->store['lon'],
-                'lat' => $this->store['lat']
-            ],
-            'category' => [
-                'id' => $this->store['betrieb_kategorie_id']
-            ],
-            'cooperationStatus' => $this->store['betrieb_status_id'],
-            'teamStatus' => $this->store['team_status'],
-            'chain' => [
-                'id' => $this->store['kette_id']
-            ],
-            'publicInfo' => $this->store['public_info'],
-            'publicTime' => $this->store['public_time'],
-            'cooperationStart' => $this->store['begin'],
-            'calendarInterval' => $this->store['prefetchtime'],
-            'weight' => $this->store['abholmenge'],
-            'createdAt' => $this->store['added'],
-            'address' => [
-                'street' => $this->store['str'],
-                'city' => $this->store['stadt'],
-                'postalCode' => $this->store['plz']
-            ]
-        ];
     }
 
     private function createGetStoreAsFoodsaverJsonTypes()
@@ -206,36 +172,24 @@ class StoreApiCest
     public function getNotFoundToGetStoreInformation(ApiTester $I)
     {
         $I->login($this->user[self::EMAIL]);
-        $I->sendGET(self::API_STORES . '/' . $this->store['id'] + 1 . '/information');
+        $I->sendGET(self::API_STORES . '/' . $this->store['id'] + 1 . '/details');
         $I->seeResponseCodeIs(Http::NOT_FOUND);
     }
 
     public function getAccessToGetStoreInformationAsUnVerifiedFoodsaver(ApiTester $I)
     {
         $I->login($this->user[self::EMAIL]);
-        $I->sendGET(self::API_STORES . '/' . $this->store['id'] . '/information');
-        $I->seeResponseCodeIs(Http::OK);
-        $I->seeResponseIsJson();
-        $I->seeResponseContainsJson($this->createGetStoreAsFoodsaverJson());
-
-        $storeType = $this->createGetStoreAsFoodsaverJsonTypes();
-        $storeType = $this->createGetStoreAsTeamMemberJsonType($storeType, true);
-        $storeType = $this->createGetStoreAsStoreManagerJsonType($storeType, true);
-        $I->seeResponseMatchesJsonType($storeType);
-    }
-
-    public function getAccessToGetStoreInformationAsFoodsaver(ApiTester $I)
-    {
-        $this->getAccessToGetStoreInformationAsUnVerifiedFoodsaver($I);
+        $I->sendGET(self::API_STORES . '/' . $this->store['id'] . '/details');
+        $I->seeResponseCodeIs(Http::FORBIDDEN);
     }
 
     public function getAccessToGetStoreInformationAsStoreManager(ApiTester $I)
     {
         $I->login($this->manager[self::EMAIL]);
-        $I->sendGET(self::API_STORES . '/' . $this->store['id'] . '/information');
+        $I->sendGET(self::API_STORES . '/' . $this->store['id'] . '/details');
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson($this->createGetStoreAsFoodsaverJson());
+        $I->seeResponseContainsJson($this->createGetStoreAsStoreManagerJson());
 
         $storeType = $this->createGetStoreAsFoodsaverJsonTypes();
         $storeType = $this->createGetStoreAsTeamMemberJsonType($storeType, false);
@@ -248,7 +202,7 @@ class StoreApiCest
         $orga = $I->createOrga();
 
         $I->login($orga[self::EMAIL]);
-        $I->sendGET(self::API_STORES . '/' . $this->store['id'] . '/information');
+        $I->sendGET(self::API_STORES . '/' . $this->store['id'] . '/details');
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseIsJson();
         $json = $this->createGetStoreAsStoreManagerJson();
@@ -263,10 +217,9 @@ class StoreApiCest
     public function getAccessToGetStoreInformationAsTeamMember(ApiTester $I)
     {
         $I->login($this->teamMember[self::EMAIL]);
-        $I->sendGET(self::API_STORES . '/' . $this->store['id'] . '/information');
+        $I->sendGET(self::API_STORES . '/' . $this->store['id'] . '/details');
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson($this->createGetStoreAsFoodsaverJson());
         $I->seeResponseContainsJson($this->createGetStoreAsTeamMemberJson());
         $I->dontSeeResponseContainsJson($this->createGetStoreAsStoreManagerJson());
 
@@ -382,11 +335,11 @@ class StoreApiCest
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseIsJson();
 
-        $ids = $I->grabDataFromResponseByJsonPath('stores.*.id');
+        $ids = $I->grabDataFromResponseByJsonPath('$.*.id');
         $I->assertContains($store1[self::ID], $ids);
         $I->assertContains($store2[self::ID], $ids);
 
-        $names = $I->grabDataFromResponseByJsonPath('stores.*.name');
+        $names = $I->grabDataFromResponseByJsonPath('$.*.name');
         foreach ($names as $name) {
             $I->assertNotEmpty($name, 'Store name should not be empty');
         }
@@ -407,11 +360,11 @@ class StoreApiCest
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseIsJson();
 
-        $ids = $I->grabDataFromResponseByJsonPath('stores.*.id');
+        $ids = $I->grabDataFromResponseByJsonPath('$.*.id');
         $I->assertContains($store1[self::ID], $ids);
         $I->assertContains($store2[self::ID], $ids);
 
-        $names = $I->grabDataFromResponseByJsonPath('stores.*.name');
+        $names = $I->grabDataFromResponseByJsonPath('$.*.name');
         $I->assertContains($store1['name'], $names);
         $I->assertContains($store2['name'], $names);
     }
@@ -745,7 +698,7 @@ class StoreApiCest
     {
         $I->login($this->manager[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['name' => 'This is a nice store']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['name' => 'This is a nice store']);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -800,12 +753,12 @@ class StoreApiCest
 
         $I->login($this->foodsharer[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', [$example['field'] => $value]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', [$example['field'] => $value]);
         $I->seeResponseCodeIs(Http::FORBIDDEN);
 
         $I->login($this->teamMember[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', [$example['field'] => $value]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', [$example['field'] => $value]);
         $I->seeResponseCodeIs(Http::FORBIDDEN);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -817,7 +770,7 @@ class StoreApiCest
     {
         $I->login($this->user[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['groceries' => [1, 2, 3]]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['groceries' => [1, 2, 3]]);
         $I->seeResponseCodeIs(Http::FORBIDDEN);
 
         $I->assertEquals(0, $I->grabNumRecords('fs_betrieb_has_lebensmittel', ['betrieb_id' => $this->store[self::ID]]));
@@ -864,7 +817,7 @@ class StoreApiCest
         }
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', [$example['field'] => $value]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', [$example['field'] => $value]);
         $I->seeResponseCodeIs(Http::UNAUTHORIZED);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -876,7 +829,7 @@ class StoreApiCest
     {
         $I->login($this->manager[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['regionId' => $this->nextRegion['id']]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['regionId' => $this->nextRegion['id']]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -892,7 +845,7 @@ class StoreApiCest
     {
         $I->login($this->manager[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['address' => ['postalCode' => $example['value']]]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['address' => ['postalCode' => $example['value']]]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -905,7 +858,7 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['address' => ['postalCode' => '01234567890']]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['address' => ['postalCode' => '01234567890']]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -921,7 +874,7 @@ class StoreApiCest
     {
         $I->login($this->manager[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['address' => ['street' => $example['value']]]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['address' => ['street' => $example['value']]]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -933,7 +886,7 @@ class StoreApiCest
     {
         $I->login($this->manager[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['location' => ['lat' => 49.9]]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['location' => ['lat' => 49.9]]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -946,7 +899,7 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['location' => ['lat' => 'a123']]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['location' => ['lat' => 'a123']]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -958,7 +911,7 @@ class StoreApiCest
     {
         $I->login($this->manager[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['location' => ['lon' => 49.9]]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['location' => ['lon' => 49.9]]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -971,7 +924,7 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['location' => ['lon' => 'a123']]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['location' => ['lon' => 'a123']]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -983,7 +936,7 @@ class StoreApiCest
     {
         $I->login($this->manager[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['publicInfo' => 'Test']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['publicInfo' => 'Test']);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -997,11 +950,11 @@ class StoreApiCest
         $I->haveHttpHeader('Content-Type', 'application/json');
 
         // null
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['publicInfo' => null]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['publicInfo' => null]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         // too long
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['publicInfo' => implode('', array_fill(0, 521, '1'))]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['publicInfo' => implode('', array_fill(0, 521, '1'))]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1014,7 +967,7 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
 
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['publicInfo' => 'Wetten <script>alert()</script>des es geht']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['publicInfo' => 'Wetten <script>alert()</script>des es geht']);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1026,7 +979,7 @@ class StoreApiCest
     {
         $I->login($this->manager[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['publicTime' => 2]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['publicTime' => 2]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1039,23 +992,23 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['publicTime' => 'A']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['publicTime' => 'A']);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['publicTime' => 'hallo']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['publicTime' => 'hallo']);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['publicTime' => 'a2']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['publicTime' => 'a2']);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['publicTime' => 5]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['publicTime' => 5]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['publicTime' => implode('', array_fill(0, 201, '1'))]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['publicTime' => implode('', array_fill(0, 201, '1'))]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1069,7 +1022,7 @@ class StoreApiCest
         $I->haveInDatabase('fs_betrieb_kategorie', ['id' => 2, 'name' => 'Category', 'type' => 0]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['categoryId' => 2]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['categoryId' => 2]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1081,7 +1034,7 @@ class StoreApiCest
     {
         $I->login($this->manager[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['categoryId' => 200]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['categoryId' => 200]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1094,23 +1047,23 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['categoryId' => 'A']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['categoryId' => 'A']);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['categoryId' => 'hallo']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['categoryId' => 'hallo']);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['categoryId' => 'a2']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['categoryId' => 'a2']);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['categoryId' => 5]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['categoryId' => 5]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['categoryId' => implode('', array_fill(0, 201, '1'))]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['categoryId' => implode('', array_fill(0, 201, '1'))]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1124,7 +1077,7 @@ class StoreApiCest
         $I->haveInDatabase('fs_chain', ['id' => 4, 'name' => 'Chain']);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['chainId' => 4]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['chainId' => 4]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1136,7 +1089,7 @@ class StoreApiCest
     {
         $I->login($this->manager[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['chainId' => 200]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['chainId' => 200]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1149,15 +1102,15 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['chainId' => 'A']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['chainId' => 'A']);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['chainId' => 'hallo']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['chainId' => 'hallo']);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['chainId' => 'a2']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['chainId' => 'a2']);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1170,7 +1123,7 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['cooperationStatus' => 4]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['cooperationStatus' => 4]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1182,7 +1135,7 @@ class StoreApiCest
     {
         $I->login($this->manager[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['cooperationStatus' => 200]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['cooperationStatus' => 200]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1195,15 +1148,15 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['cooperationStatus' => 'A']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['cooperationStatus' => 'A']);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['cooperationStatus' => 'hallo']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['cooperationStatus' => 'hallo']);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['cooperationStatus' => 'a2']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['cooperationStatus' => 'a2']);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1216,7 +1169,7 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['description' => 'Store description']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['description' => 'Store description']);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1229,7 +1182,7 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['contact' => ['name' => 'Store contactName']]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['contact' => ['name' => 'Store contactName']]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1242,7 +1195,7 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['contact' => ['name' => implode('', array_fill(0, 60 + 1, '1'))]]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['contact' => ['name' => implode('', array_fill(0, 60 + 1, '1'))]]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1255,7 +1208,7 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['contact' => ['phone' => '+49 123 123456']]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['contact' => ['phone' => '+49 123 123456']]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1268,7 +1221,7 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['contact' => ['phone' => implode('', array_fill(0, 50 + 1, '1'))]]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['contact' => ['phone' => implode('', array_fill(0, 50 + 1, '1'))]]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1281,7 +1234,7 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['contact' => ['fax' => 'Store contactFax']]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['contact' => ['fax' => 'Store contactFax']]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1294,7 +1247,7 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['contact' => ['fax' => implode('', array_fill(0, 50 + 1, '1'))]]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['contact' => ['fax' => implode('', array_fill(0, 50 + 1, '1'))]]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1307,7 +1260,7 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['contact' => ['email' => 'Store contactEmail']]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['contact' => ['email' => 'Store contactEmail']]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1320,7 +1273,7 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['contact' => ['email' => implode('', array_fill(0, 60 + 1, '1'))]]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['contact' => ['email' => implode('', array_fill(0, 60 + 1, '1'))]]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1333,7 +1286,7 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['cooperationStart' => '2022-04-13']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['cooperationStart' => '2022-04-13']);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1346,23 +1299,23 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['cooperationStart' => '']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['cooperationStart' => '']);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['cooperationStart' => 'Hallo']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['cooperationStart' => 'Hallo']);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['cooperationStart' => '1-2-2']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['cooperationStart' => '1-2-2']);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['cooperationStart' => 'A1-A23-123']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['cooperationStart' => 'A1-A23-123']);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['cooperationStart' => '12.01.2022']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['cooperationStart' => '12.01.2022']);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1375,7 +1328,7 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['calendarInterval' => 604800]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['calendarInterval' => 604800]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1383,7 +1336,7 @@ class StoreApiCest
             'prefetchtime' => 604800]);
 
         // Used for store vacation when the store contains many automatic pickup roles
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['calendarInterval' => 0]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['calendarInterval' => 0]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1396,15 +1349,15 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['calendarInterval' => 10_000_000_001]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['calendarInterval' => 10_000_000_001]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['calendarInterval' => 'a']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['calendarInterval' => 'a']);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['calendarInterval' => '0.1']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['calendarInterval' => '0.1']);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1417,7 +1370,7 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['weight' => 1]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['weight' => 1]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1430,15 +1383,15 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['weight' => 9]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['weight' => 9]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['weight' => 'a']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['weight' => 'a']);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['weight' => '0.1']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['weight' => '0.1']);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
         $I->seeInDatabase('fs_betrieb', [
             'id' => $this->store[self::ID],
@@ -1449,17 +1402,17 @@ class StoreApiCest
     {
         $I->login($this->manager[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['teamStatus' => 2]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['teamStatus' => 2]);
         $I->seeResponseCodeIs(Http::OK);
         $I->seeInDatabase('fs_betrieb', ['id' => $this->store[self::ID], 'team_status' => 2]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['teamStatus' => 1]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['teamStatus' => 1]);
         $I->seeResponseCodeIs(Http::OK);
         $I->seeInDatabase('fs_betrieb', ['id' => $this->store[self::ID], 'team_status' => 1]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['teamStatus' => 0]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['teamStatus' => 0]);
         $I->seeResponseCodeIs(Http::OK);
         $I->seeInDatabase('fs_betrieb', ['id' => $this->store[self::ID], 'team_status' => 0]);
     }
@@ -1469,7 +1422,7 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['effort' => 4]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['effort' => 4]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1477,7 +1430,7 @@ class StoreApiCest
             'ueberzeugungsarbeit' => 4]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['effort' => 0]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['effort' => 0]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1490,7 +1443,7 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['effort' => 5]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['effort' => 5]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1503,7 +1456,7 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['options' => ['useRegionPickupRule' => true]]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['options' => ['useRegionPickupRule' => true]]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1516,15 +1469,15 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['options' => ['useRegionPickupRule' => 'A']]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['options' => ['useRegionPickupRule' => 'A']]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['options' => ['useRegionPickupRule' => 1]]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['options' => ['useRegionPickupRule' => 1]]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['options' => ['useRegionPickupRule' => 0]]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['options' => ['useRegionPickupRule' => 0]]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1537,7 +1490,7 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['showsSticker' => 1]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['showsSticker' => 1]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1545,7 +1498,7 @@ class StoreApiCest
             'sticker' => 1]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['showsSticker' => 0]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['showsSticker' => 0]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1558,7 +1511,7 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['showsSticker' => 'A']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['showsSticker' => 'A']);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1571,7 +1524,7 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['publicity' => 0]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['publicity' => 0]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1579,7 +1532,7 @@ class StoreApiCest
             'presse' => 0]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['publicity' => 1]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['publicity' => 1]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1592,15 +1545,15 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['publicity' => 3]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['publicity' => 3]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['publicity' => true]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['publicity' => true]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['publicity' => 'A']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['publicity' => 'A']);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1612,7 +1565,7 @@ class StoreApiCest
     {
         $I->login($this->manager[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] + 1 . '/information', ['teamStatus' => 2]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] + 1 . '/details', ['teamStatus' => 2]);
         $I->seeResponseCodeIs(Http::NOT_FOUND);
     }
 
@@ -1620,12 +1573,12 @@ class StoreApiCest
     {
         $I->login($this->manager[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['teamStatus' => 'a']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['teamStatus' => 'a']);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->login($this->manager[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['teamStatus' => 3]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['teamStatus' => 3]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
     }
 
@@ -1637,7 +1590,7 @@ class StoreApiCest
     {
         $I->login($this->manager[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['address' => ['city' => $example['value']]]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['address' => ['city' => $example['value']]]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1650,11 +1603,11 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['address' => 'notAObject']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['address' => 'notAObject']);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['address' => ['city' => 123]]); // Wrong type
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['address' => ['city' => 123]]); // Wrong type
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1665,7 +1618,7 @@ class StoreApiCest
     public function canNotPatchStoreCityAsUnknownUser(ApiTester $I): void
     {
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['address' => ['city' => 'This is a nice store']]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['address' => ['city' => 'This is a nice store']]);
         $I->seeResponseCodeIs(Http::UNAUTHORIZED);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1677,7 +1630,7 @@ class StoreApiCest
     {
         $I->login($this->manager[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['groceries' => [1, 2, 3]]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['groceries' => [1, 2, 3]]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->assertEquals(3, $I->grabNumRecords('fs_betrieb_has_lebensmittel', ['betrieb_id' => $this->store[self::ID]]));
@@ -1691,15 +1644,15 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['groceries' => 'String is invalid']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['groceries' => 'String is invalid']);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['groceries' => '123']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['groceries' => '123']);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['groceries' => '1, 2, 3']);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['groceries' => '1, 2, 3']);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->assertEquals(0, $I->grabNumRecords('fs_betrieb_has_lebensmittel', ['betrieb_id' => $this->store[self::ID]]));
@@ -1708,7 +1661,7 @@ class StoreApiCest
     public function canNotPatchStoreGroceriesAsUnknownUser(ApiTester $I): void
     {
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['address' => ['city' => 'This is a nice store']]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['address' => ['city' => 'This is a nice store']]);
         $I->seeResponseCodeIs(Http::UNAUTHORIZED);
 
         $I->assertEquals(0, $I->grabNumRecords('fs_betrieb_has_lebensmittel', ['betrieb_id' => $this->store[self::ID]]));
@@ -1820,7 +1773,7 @@ class StoreApiCest
         // Enforce verification for store application (temporarily log in as store manager)
         $I->login($this->manager[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store['id'] . '/information', ['isVerifiedRequired' => true]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store['id'] . '/details', ['isVerifiedRequired' => true]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1859,7 +1812,7 @@ class StoreApiCest
         // Enforce phone for store application (temporarily log in as store manager)
         $I->login($this->manager[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store['id'] . '/information', ['isPhoneRequired' => true]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store['id'] . '/details', ['isPhoneRequired' => true]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1901,7 +1854,7 @@ class StoreApiCest
         // in as store manager)
         $I->login($this->manager[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store['id'] . '/information', [
+        $I->sendPATCH(self::API_STORES . '/' . $this->store['id'] . '/details', [
             'isPhoneRequired' => true,
             'isVerifiedRequired' => true
         ]);

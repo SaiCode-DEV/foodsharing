@@ -592,7 +592,7 @@ class StoreGateway extends BaseGateway
         return $this->db->fetchValueByCriteria('fs_betrieb', 'kette_id', ['id' => $storeId]);
     }
 
-    public function getStoreTeam($storeId, array $membershipStatuses = [MembershipStatus::MEMBER], bool $includeDistance = false, GeoLocation $storePosition = null): array
+    public function getStoreTeam($storeId, array $membershipStatuses = [MembershipStatus::MEMBER], bool $includeDistance = false, ?GeoLocation $storePosition = null): array
     {
         $params = [
             AchievementIDs::HYGIENE_CERTIFICATE,
@@ -795,54 +795,42 @@ class StoreGateway extends BaseGateway
     }
 
     /**
-     * Returns a list with all store memberships of the foodsaver.
+     * Returns a list with all store memberships of the user.
      *
-     * @param int $fsId Foodsharer Id
-     * @param CooperationStatus[] $storeCooperationStates All store state should should be contained @see CooperationStatus
+     * @param CooperationStatus[]|null $storeCooperationStates store state to restict the results to, or null for no filtering
      *
      * @return StoreTeamMembership[] Returns a array of memberships
      */
-    public function listAllStoreTeamMembershipsForFoodsaver(int $fsId, array $storeCooperationStates = [])
+    public function listAllStoreTeamMembershipsForFoodsaver(int $userId, ?array $storeCooperationStates)
     {
-        if ($fsId == 0) {
-            return [];
-        }
-
-        $queryParams = [$fsId];
-        $query = '
-			SELECT 	b.id as store_id,
-					b.name as store_name,
-					bt.verantwortlich AS managing,
-					bt.active as membership_status,
-					k.type as categoryType
+        $queryParams = [$userId];
+        $query = 'SELECT
+                b.id, b.name,
+                bt.verantwortlich AS isManaging,
+                bt.active as membershipStatus,
+                k.type as categoryType
 			FROM fs_betrieb_team bt
-				INNER JOIN fs_betrieb b
-					ON bt.betrieb_id = b.id
-				LEFT JOIN fs_betrieb_kategorie k
-                    ON b.betrieb_kategorie_id = k.id
-			WHERE   bt.`foodsaver_id` = ?
-        ';
+            INNER JOIN fs_betrieb b ON bt.betrieb_id = b.id
+            LEFT JOIN fs_betrieb_kategorie k ON b.betrieb_kategorie_id = k.id
+			WHERE bt.`foodsaver_id` = ?';
 
-        if (!empty($storeCooperationStates)) {
-            $inPlaceHolder = implode(', ', array_fill(0, count($storeCooperationStates), '?'));
-            $query .= 'AND 	b.betrieb_status_id IN (' . $inPlaceHolder . ')
-			';
-            array_push($queryParams, array_map(
-                fn (CooperationStatus $state) => $state->value,
-                $storeCooperationStates
-            )
-            );
+        if (!is_null($storeCooperationStates)) {
+            $query .= ' AND b.betrieb_status_id IN (' . $this->db->generatePlaceholders(count($storeCooperationStates)) . ')';
+            array_push($queryParams, array_map(fn (CooperationStatus $state) => $state->value, $storeCooperationStates));
         }
-        $query .= 'ORDER BY bt.verantwortlich DESC, membership_status ASC, b.name ASC';
+        $query .= ' ORDER BY isManaging DESC, membershipStatus ASC, b.name ASC';
 
         $rows = $this->db->fetchAll($query, $queryParams);
 
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = StoreTeamMembership::createFromArray($row);
-        }
+        $stores = array_map(fn (array $row) => new StoreTeamMembership(
+            $row['id'],
+            $row['name'],
+            boolval($row['isManaging']),
+            $row['membershipStatus'],
+            is_null($row['categoryType']) ? StoreCategoryType::PICKUP : StoreCategoryType::from($row['categoryType']),
+        ), $rows);
 
-        return $results;
+        return $stores;
     }
 
     public function listStoreIds($fsId)
@@ -1043,12 +1031,12 @@ class StoreGateway extends BaseGateway
             $regionIds = array_merge($regionIds, $this->regionGateway->listIdsForDescendantsAndSelf($regionId));
         }
 
-        $placeholders = implode(',', array_fill(0, count($regionIds), '?'));
         $results = $this->db->fetchAll($this->sqlSelectStoreColumns() . '
             FROM fs_betrieb
             LEFT JOIN fs_betrieb_kategorie k ON
                 fs_betrieb.betrieb_kategorie_id = k.id
-            WHERE 	fs_betrieb.bezirk_id IN(' . $placeholders . ')
+            WHERE fs_betrieb.bezirk_id IN(' . $this->db->generatePlaceholders(count($regionIds)) . ')
+
 		', $regionIds);
 
         return array_map(fn ($store) => Store::createFromArray($store), $results);
@@ -1061,17 +1049,20 @@ class StoreGateway extends BaseGateway
      *
      * @throws Exception
      */
-    public function listStoresInFromUser(int $fs_id = null, array $cooperationStatus = []): array
+    public function listStoresInFromUser(int $userId): array
     {
-        $results = $this->db->fetchAll($this->sqlSelectStoreColumns() . '
+        $results = $this->db->fetchAll($this->sqlSelectStoreColumns() . ',
+                fs_bezirk.name AS regionName
             FROM fs_betrieb_team
             JOIN fs_betrieb ON
                 fs_betrieb.id = fs_betrieb_team.betrieb_id
             LEFT JOIN fs_betrieb_kategorie k ON
                 fs_betrieb.betrieb_kategorie_id = k.id
-            WHERE fs_betrieb_team.foodsaver_id = :fs_id
-    ', [
-                'fs_id' => $fs_id
+            JOIN fs_bezirk ON
+                fs_bezirk.id = fs_betrieb.bezirk_id
+            WHERE fs_betrieb_team.foodsaver_id = :userId
+        ', [
+                'userId' => $userId
         ]);
 
         return array_map(fn ($store) => Store::createFromArray($store), $results);

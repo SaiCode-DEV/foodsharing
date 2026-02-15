@@ -259,7 +259,7 @@ export default {
     loadRightsInfo () {
       if (this.permissions.isManager) return
       if (this.permissions.mayEditStore) {
-        if (this.permissions.isOrgUser) {
+        if (this.permissions.isOrgaUser) {
           pulseInfo(this.$t('storeedit.team.orga'))
         } else if (this.permissions.isCoordinator) {
           pulseInfo(this.$t('storeedit.team.coordinator'))
@@ -284,7 +284,7 @@ export default {
     },
     multiChat (userId) {
       if (!userId) return
-      const storeManagers = this.storeMember.filter(item => item.verantwortlich === 1).map(item => item.id)
+      const storeManagers = this.storeMember.filter(item => item.isResponsible).map(item => item.id)
       conversationStore.openMultiChat(storeManagers.concat(userId))
     },
   },

@@ -472,6 +472,7 @@ class StorePermissions
      */
     public function mayListStores(int $userId = null): bool
     {
+        // TODO remove usages, this is unsave!
         if ($userId == null) {
             $userId = $this->session->id();
         }

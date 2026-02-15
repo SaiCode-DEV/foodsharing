@@ -82,7 +82,7 @@ class ProfilePermissions
         }
 
         return
-            $this->session->id() == $fsId ||
+            $this->session->id() === $fsId ||
             $this->hasApplicant($fsId) ||
             $this->commonPermissions->mayAdministrateRegion($fsId);
     }

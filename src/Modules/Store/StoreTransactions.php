@@ -13,6 +13,8 @@ use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Categories\StoreCategoriesGateway;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
+use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
+use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Store\ConvinceStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\PublicityStatus;
@@ -27,6 +29,7 @@ use Foodsharing\Modules\Core\DTO\MinimalIdentifier;
 use Foodsharing\Modules\Core\DTO\PatchGeoLocation;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\Profile;
+use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Message\MessageGateway;
 use Foodsharing\Modules\Message\MessageTransactions;
 use Foodsharing\Modules\Region\DTO\MinimalRegionIdentifier;
@@ -44,10 +47,16 @@ use Foodsharing\Modules\Store\DTO\Store;
 use Foodsharing\Modules\Store\DTO\StoreChainInformation;
 use Foodsharing\Modules\Store\DTO\StoreInvitation;
 use Foodsharing\Modules\Store\DTO\StoreListInformation;
-use Foodsharing\Modules\Store\DTO\StoreStatusForMember;
+use Foodsharing\Modules\Store\DTO\StorePermissions as DTOStorePermissions;
+use Foodsharing\Modules\Store\DTO\StoreStandbyTeamMember;
+use Foodsharing\Modules\Store\DTO\StoreTeamMember;
+use Foodsharing\Modules\Store\DTO\StoreTeamMembershipWithPickupStatus;
+use Foodsharing\Modules\Store\DTO\StoreTeamMemberWithDistance;
 use Foodsharing\Modules\StoreChain\StoreChainGateway;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Modules\WallPost\DTO\WallPost;
 use Foodsharing\Modules\WallPost\WallPostGateway;
+use Foodsharing\Permissions\StorePermissions;
 use Foodsharing\Utility\WeightHelper;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
@@ -87,6 +96,9 @@ class StoreTransactions
         private readonly StoreChainGateway $storeChainGateway,
         private readonly WallPostGateway $wallPostGateway,
         private readonly MessageTransactions $messageTransactions,
+        private readonly StorePermissions $storePermissions,
+        private readonly GroupFunctionGateway $groupFunctionGateway,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
         private readonly Session $session,
         private readonly Mem $mem,
         private readonly CacheInterface $cache,
@@ -98,8 +110,9 @@ class StoreTransactions
      *
      * @param int $storeId the store
      * @param bool $includeUserDetails whether to include phone numbers and last fetch dates for the team members
+     * @return StoreStandbyTeamMember[] an array of team members with the provided level of detail
      */
-    public function getMyStoreTeam(int $storeId, bool $includeUserDetails, bool $includeDistance): array
+    public function getStoreTeamMembers(int $storeId, bool $includeUserDetails, bool $includeDistance): array
     {
         $location = null;
         if ($includeDistance) {
@@ -108,7 +121,7 @@ class StoreTransactions
         }
         $members = $this->storeGateway->getStoreTeam($storeId, [MembershipStatus::MEMBER, MembershipStatus::JUMPER], $includeDistance, $location);
 
-        return $this->getDisplayedStoreTeam($members, $includeUserDetails, $includeDistance);
+        return array_map(fn ($member) => $this->getStoreMemberDTO($member, $includeUserDetails, $includeDistance), $members);
     }
 
     /**
@@ -204,46 +217,43 @@ class StoreTransactions
      * This list of stores contains all stores from sub regions.
      *
      * @param int $regionId Region identifier
-     * @param bool $expand Expand information about store and region
      *
      * @return array<StoreListInformation> List of information
      *
      * @throws Exception
      */
-    public function listOverviewInformationsOfStoresInRegion(int $regionId, bool $expand): array
+    public function listOverviewInformationsOfStoresInRegion(int $regionId): array
     {
         $stores = $this->storeGateway->listStoresInRegion($regionId, true);
 
-        return $this->arrayMapStoreListInformation($stores, $expand);
+        return $this->arrayMapStoreListInformation($stores);
     }
 
     /**
      * Returns a list of stores where the user is a member of reduced store information.
      **
      * @param int $userId User identifier
-     * @param bool $expand Expand information about store and region
      *
-     * @return array<StoreListInformation> List of information
+     * @return StoreListInformation[] List of information
      *
      * @throws Exception
      */
-    public function listOverviewInformationsOfStoresFromUser(int $userId, bool $expand): array
+    public function listOverviewInformationsOfStoresFromUser(int $userId): array
     {
         $stores = $this->storeGateway->listStoresInFromUser($userId);
 
-        return $this->arrayMapStoreListInformation($stores, $expand);
+        return $this->arrayMapStoreListInformation($stores);
     }
 
-    private function arrayMapStoreListInformation(array $stores, bool $expand): array
+    private function arrayMapStoreListInformation(array $stores): array
     {
-        return array_map(function (Store $store) use ($expand) {
-            $requiredStoreInformation = StoreListInformation::loadFrom($store, !$expand);
-            if ($expand) {
-                $regionName = $this->regionGateway->getRegionName($store->region->id);
-                $requiredStoreInformation->region->name = $regionName;
+        return array_map(function (Store $store) {
+            $storeListEntry = StoreListInformation::loadFrom($store);
+            if (is_null($store->region->name)) {
+                $storeListEntry->region->name = $this->regionGateway->getRegionName($store->region->id);
             }
 
-            return $requiredStoreInformation;
+            return $storeListEntry;
         }, $stores);
     }
 
@@ -251,12 +261,11 @@ class StoreTransactions
      * Provides information about a store and reduce the information to essential parts.
      *
      * @param int $storeId Identifier of store
-     * @param bool $showDetails Leaves details about stores like description, effort, publicity and options in object
      * @param bool $showSensitiveDetails Leaves details about stores like contact, updatedAt, showsSticker and groceries in object
      *
      * @throws DatabaseNoValueFoundException Store not found
      */
-    public function getStore(int $storeId, bool $showDetails, bool $showSensitiveDetails): Store
+    public function getStore(int $storeId, bool $showSensitiveDetails): Store
     {
         $suppressLoadingGroceries = !$showSensitiveDetails;
         $dbResult = $this->storeGateway->getStore($storeId, $suppressLoadingGroceries);
@@ -267,13 +276,6 @@ class StoreTransactions
             $dbResult->chain->name = $chainDetails['name'];
             $dbResult->chain->information = $chainDetails['common_store_information'];
             $dbResult->chain->kams = $this->storeChainGateway->getStoreChainKeyAccountManagers($dbResult->chain->id);
-        }
-
-        if (!$showDetails) {
-            $dbResult->description = null;
-            $dbResult->effort = null;
-            $dbResult->publicity = null;
-            $dbResult->options = null;
         }
 
         if (!$showSensitiveDetails) {
@@ -763,29 +765,20 @@ class StoreTransactions
     }
 
     /**
-     * @return StoreStatusForMember[]
+     * @return StoreTeamMembershipWithPickupStatus[]
      */
-    public function listAllStoreStatusForFoodsaver(?int $foodsaverId, ?bool $activeStores = true): array
+    public function listStoresForUserAsMember(int $userId, bool $excludeInactive): array
     {
-        if ($foodsaverId === null) {
-            return [];
-        }
-        $results = $this->storeGateway->listAllStoreTeamMembershipsForFoodsaver($foodsaverId, $activeStores ? StoreTransactions::DEFAULT_USER_SHOWN_STORE_COOPERATION_STATE : []);
-        $storeTeamMemberships = [];
-        foreach ($results as $resultRow) {
-            $item = new StoreStatusForMember();
-            $item->store = $resultRow->store;
-            $item->isManaging = $resultRow->isManaging;
-            $item->membershipStatus = $resultRow->membershipStatus;
-            if ($item->membershipStatus == MembershipStatus::MEMBER) {
-                // add info about the next free pickup slot to the store
-                $item->pickupStatus = $this->getAvailablePickupStatus($item->store->id);
-            }
-            $item->categoryType = $resultRow->categoryType;
-            $storeTeamMemberships[] = $item;
-        }
+        $stores = $this->storeGateway->listAllStoreTeamMembershipsForFoodsaver(
+            $userId,
+            $excludeInactive ? StoreTransactions::DEFAULT_USER_SHOWN_STORE_COOPERATION_STATE : null
+        );
+        $stores = array_map(fn ($store) => new StoreTeamMembershipWithPickupStatus(
+            $store,
+            $store->membershipStatus === MembershipStatus::MEMBER ? $this->getAvailablePickupStatus($store->id) : null
+        ), $stores);
 
-        return $storeTeamMemberships;
+        return $stores;
     }
 
     public function requestStoreTeamMembership(int $storeId, int $userId, ?string $message): void
@@ -1202,34 +1195,93 @@ class StoreTransactions
      * Returns all team member of the store (active and waiting list) and makes sure that details like the phone
      * number are only included if allowed.
      *
-     * @param array $members the list of team members from the database
+     * Assumes that $includeDistance only is true if $includeUserDetails.
+     *
      * @param bool $includeUserDetails whether to include or omit phone numbers and last fetch date
      * @param bool $includeDistance whether to include or omit the distance information
      */
-    private function getDisplayedStoreTeam(array $members, bool $includeUserDetails, bool $includeDistance): array
+    private function getStoreMemberDTO(array $data, bool $includeUserDetails, bool $includeDistance): StoreStandbyTeamMember
     {
-        $allowedFields = [
-            // personal info
-            'id', 'name', 'firstName', 'photo', 'rolle', 'is_sleeping', 'verified', 'hygiene_certificate_until',
-            // team-related info
-            'verantwortlich', 'team_active', 'stat_fetchcount', 'add_date',
-        ];
-        if ($includeUserDetails) {
-            array_push($allowedFields, 'handy', 'telefon', 'last_fetch');
+        if (!$includeUserDetails) {
+            $member = new StoreStandbyTeamMember($data);
+        } elseif (!$includeDistance) {
+            $member = new StoreTeamMember($data);
         } else {
-            foreach ($members as &$member) {
-                if (isset($member['firstName'])) {
-                    $member['name'] = $member['firstName'];
-                }
-            }
+            $member = new StoreTeamMemberWithDistance($data);
         }
-        if ($includeDistance) {
-            array_push($allowedFields, 'distance');
+        $member->firstName = $data['firstName'];
+        $member->role = Role::from($data['rolle']);
+        $member->isVerified = boolval($data['verified']);
+        $member->hygieneCertificateUntil = $data['hygiene_certificate_until'] ? Carbon::parse($data['hygiene_certificate_until']) : null;
+        $member->isResponsible = boolval($data['verantwortlich']);
+        $member->membershipStatus = $data['team_active'];
+        $member->fetchCount = $data['stat_fetchcount'];
+        $member->memberSince = Carbon::parse($data['add_date']);
+
+        if ($member instanceof StoreTeamMember) {
+            $member->handy = $data['handy'];
+            $member->telefon = $data['telefon'];
+            $member->lastFetch = $data['last_fetch'] ? Carbon::parse($data['last_fetch']) : null;
+        } else {
+            $member->name = $member->firstName;
+        }
+        if ($member instanceof StoreTeamMemberWithDistance) {
+            $member->distanceInKm = $data['distance'];
         }
 
-        return array_map(
-            fn ($teamMember) => array_filter($teamMember, fn ($key) => in_array($key, $allowedFields), ARRAY_FILTER_USE_KEY),
-            $members
+        return $member;
+    }
+
+    public function getStorePermissions(int $storeId): DTOStorePermissions
+    {
+        $store = $this->storeGateway->getMyStore($this->session->id(), $storeId);
+
+        $teamConversationId = null;
+        if ($this->storePermissions->mayChatWithRegularTeam($store)
+            && $this->messageGateway->mayConversation($this->session->id(), $store['team_conversation_id'])) {
+            $teamConversationId = $store['team_conversation_id'];
+        }
+
+        $jumperConversationId = null;
+        if ($this->storePermissions->mayChatWithJumperWaitingTeam($store)
+            && $this->messageGateway->mayConversation($this->session->id(), $store['springer_conversation_id'])) {
+            $jumperConversationId = $store['springer_conversation_id'];
+        }
+
+        $isOrgaUser = $this->session->mayRole(Role::ORGA);
+        $isAmbassador = false;
+        $isCoordinator = false;
+
+        if (!$isOrgaUser) {
+            $storeGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($store['bezirk_id'], WorkgroupFunction::STORES_COORDINATION);
+            if (empty($storeGroup)) {
+                if ($this->currentUserUnits->isAdminFor($store['bezirk_id'])) {
+                    $isAmbassador = true;
+                }
+            } elseif ($this->currentUserUnits->isAdminFor($storeGroup)) {
+                $isCoordinator = true;
+            }
+        }
+
+        $permissions = new DTOStorePermissions(
+            storeId: $storeId,
+            isCoordinator: $isCoordinator,
+            isAmbassador: $isAmbassador,
+            isOrgaUser: $isOrgaUser,
+            isJumper: $store['jumper'],
+            isManager: $store['verantwortlich'],
+            isKam: $this->storePermissions->isKamForStore($storeId, $store['kette_id']),
+            maySeePickup: $this->storePermissions->maySeePickups($storeId),
+            mayEditStore: $this->storePermissions->mayEditStore($storeId),
+            mayLeaveStoreTeam: $this->storePermissions->mayLeaveStoreTeam($storeId, $this->session->id()),
+            maySeePickupHistory: $this->storePermissions->maySeePickupHistory($storeId, $store['kette_id']),
+            maySeeStoreLog: $this->storePermissions->maySeeStoreLog($storeId),
+            maySeePickups: $this->storePermissions->maySeePickups($storeId) || $store['betrieb_status_id'] === CooperationStatus::COOPERATION_ESTABLISHED,
+            mayDeleteStore: $this->storePermissions->mayDeleteStore($storeId),
+            teamConversationId: $teamConversationId,
+            jumperConversationId: $jumperConversationId,
         );
+
+        return $permissions;
     }
 }
