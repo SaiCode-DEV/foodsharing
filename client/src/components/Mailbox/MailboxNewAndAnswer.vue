@@ -334,7 +334,13 @@ export default {
             name: mailFromAndAddress,
             date: this.displayedMailDate,
           })
-          let replacedContent = this.email.body.replace(/\r\n/g, '\n').replace(/\r/g, '\n')
+          // decode HTML entities in the mail body (e.g. &gt; to >)
+          // The backend re-encodes the mail body to prevent XSS
+          const decoder = document.createElement('textarea')
+          decoder.innerHTML = this.email.body
+          const decodedContent = decoder.value
+
+          let replacedContent = decodedContent.replace(/\r\n/g, '\n').replace(/\r/g, '\n')
           replacedContent = replacedContent.split('\n').map(line => '> ' + line).join('\n')
 
           this.mailBody = '\n\n ---\n\n' + mailFromAndDate + ': \n\n' + replacedContent
