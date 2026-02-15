@@ -1456,12 +1456,10 @@ store:
     to-team: ''
     needsStoreRegion:
       link: ''
-      text: ''
     distance:
       close: ''
       normal: ''
       unknown: ''
-    hygieneMissing: ''
     distance_short:
       unknown: ''
       close: ''
@@ -1481,7 +1479,6 @@ store:
       time: ''
     requireVerification:
       link: ''
-      text: ''
     application-placeholder: ''
     withdrawn: ''
     to-nowhere: ''
@@ -1489,16 +1486,12 @@ store:
     unverified: ''
     requirePhone:
       link: ''
-      text: ''
     air_line: ''
     needsHomeRegion:
       link: ''
-      text: ''
     verified: ''
     confirm-far: ''
-    hygieneRequired: ''
     completeProfileRequired:
-      text: ''
       link: ''
     no-duplicate: ''
     request: ''

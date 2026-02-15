@@ -2873,17 +2873,12 @@ store:
       driftsansvarlige å avgjøre søknaden din.
     application-placeholder: Jeg vil gjerne hjelpe til i dette teamet fordi …
     application-message: Applikasjonsmelding
-    hygieneRequired: Gyldig hygienesertifikat kreves for avhenting fra dette 
-      selskapet.
-    hygieneMissing: Du mangler dette for øyeblikket. Fyll ut hygienequizen nå 
-      for å søke om dette teamet.
     distance_short:
       unknown: ingen gyldig adresse
       close: mindre enn 500 m
       normal: omtrent {distance} km
     needsStoreRegion:
       link: ''
-      text: ''
     alerts:
       many_more: ''
       many_less: ''
@@ -2899,15 +2894,11 @@ store:
       time: ''
     requireVerification:
       link: ''
-      text: ''
     requirePhone:
       link: ''
-      text: ''
     needsHomeRegion:
       link: ''
-      text: ''
     completeProfileRequired:
-      text: ''
       link: ''
     applicationMessageTooShort: ''
   team_conversation_name: '{name}-laget'

@@ -1254,44 +1254,19 @@ store:
       verebileceğinizden emin misiniz?
     application-placeholder: Bu ekibe yardımcı olmak istiyorum çünkü …
     application-message: Başvuru mesajı
-    hygieneMissing: 'Şu anda eksik olan şudur: Bu ekipte yer almak istiyorsan hemen
-      hijyen testini yapın.'
-    hygieneRequired: Bu işletmede alım yapmak için geçerli bir Hijyen 
-      Sertifikası gerekmektedir.
     distance_short:
       unknown: Geçerli adres yok
       close: 500 metreden az
       normal: Yaklaşık {distance}km
     completeProfileRequired:
-      text: 'Şu anda başvuru yapamazsınız çünkü profilinize gerekli tüm bilgileri
-        henüz girmediniz. En az aşağıdaki alanlara geçerli bilgiler girmeniz gerekmektedir:
-        ad, soyad, doğum tarihi, mevcut adres ve profil resmi. Lütfen bu bilgileri
-        girin. Bundan sonra tekrar başvuru yapmayı deneyebilirsiniz.'
       link: Profili düzenle
     needsHomeRegion:
-      text: Henüz ikamet ettiğiniz bölgeyi seçmediğiniz için şu anda başvuru 
-        yapamazsınız. İkamet ettiğiniz bölgeyi seçtikten sonra tekrar başvuru 
-        yapmayı deneyebilirsiniz.
       link: Ev bölgenizi seçin
     needsStoreRegion:
-      text: Şu anda başvuru yapamazsınız çünkü henüz {region} faaliyet 
-        bölgesinin üyesi değilsiniz. {region} bölgesine üye olduktan sonra 
-        tekrar başvuru yapmayı deneyebilirsiniz.
       link: Bu bölgeye katıl
     requireVerification:
-      text: Henüz doğrulanmadığınız için şu anda başvuru yapamazsınız. Bu 
-        işletme şu anda yalnızca doğrulanmış Foodsaver üyelerinden başvuru kabul
-        etmektedir. Lütfen önce deneme teslimatlarınızı tamamlayın veya 
-        doğrulanmak için temsilcilerinizle veya karşılama ekibiyle iletişime 
-        geçin. Bu iletişim bilgilerini sol kenar çubuğundaki bölgenizin 
-        forumunda bulabilirsiniz.
       link: Ana bölge forumunu açın
     requirePhone:
-      text: Şu anda başvuru yapamazsınız çünkü profilinize henüz bir telefon 
-        numarası eklemediniz. Bu işletme şu anda yalnızca en az bir telefon 
-        numarası kayıtlı olan gıda tasarrufu yapanlardan başvuru kabul 
-        etmektedir. Başvuru yapabilmek için lütfen profilinize bir telefon 
-        numarası ekleyin.
       link: ''
     alerts:
       many_more: '{count} tane daha ipucu göster'

@@ -914,12 +914,8 @@ store:
       ti contatteranno.
     unverified: L’utente non è verificato
     air_line: La distanza è indicata in linea d'aria.
-    hygieneRequired: Per i ritiri presso questa attività è richiesta una 
-      formazione valida in materia di igiene.
     application-message: Messaggio di candidatura
     application-placeholder: Vorrei aiutare in questo team perché …
-    hygieneMissing: Questo è quello che ti manca attualmente. Rispondi subito al
-      quiz sull'igiene per candidarti a questo team.
     confirm-far: Secondo il tuo indirizzo salvato, vivi molto lontano da questa 
       attività ({distance}). Sei sicuro di poter supportare il team qui 
       regolarmente e in modo affidabile?
@@ -929,7 +925,6 @@ store:
     confirm-no-location-ok: Candidati comunque
     needsStoreRegion:
       link: ''
-      text: ''
     distance:
       close: ''
       normal: ''
@@ -953,15 +948,11 @@ store:
       time: ''
     requireVerification:
       link: ''
-      text: ''
     requirePhone:
       link: ''
-      text: ''
     needsHomeRegion:
       link: ''
-      text: ''
     completeProfileRequired:
-      text: ''
       link: ''
     applicationMessageTooShort: ''
   sm:

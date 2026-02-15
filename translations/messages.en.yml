@@ -2493,43 +2493,19 @@ store:
       to decide on your application.
     application-placeholder: I would like to help in this team because …
     application-message: Application message
-    hygieneRequired: A valid hygiene qualification is required in order to carry
-      out activities at this facility.
-    hygieneMissing: However, you do not meet this requirement at the moment. 
-      Take the hygiene quiz now to apply for this team.
     distance_short:
       unknown: no valid residence
       close: less than 500 m
       normal: about {distance} km
     completeProfileRequired:
-      text: 'You cannot currently apply because you have not yet entered all the necessary
-        information in your profile. You must have entered valid information in at
-        least the following fields: first name, last name, date of birth, current
-        address, and profile picture. Please enter this information. After that, you
-        can try applying again.'
       link: Edit profile
     needsHomeRegion:
-      text: You cannot currently apply because you have not yet selected a home 
-        district. Once you have selected a home district, you can try applying 
-        again.
       link: Select home district
     needsStoreRegion:
-      text: You cannot currently apply because you are not yet a member of the 
-        {region} district to which the store belongs. Once you have joined the 
-        {region} district, you can try applying again.
       link: Join district
     requireVerification:
-      text: You cannot currently apply because you are not yet verified. This 
-        team is currently only accepting applications from verified Foodsavers. 
-        Please complete your introductory pickups first, or contact your 
-        ambassadors or the welcome team of your district to get verified. You 
-        can find these contacts in your district’s forum in the left sidebar.
       link: Open the forum of your main district
     requirePhone:
-      text: You cannot currently apply because you haven’t yet entered a phone 
-        number in your profile. This team is currently only accepting 
-        applications from Foodsavers who have at least one phone number on file.
-        Please add a phone number to your profile to be able to apply.
       link: Edit profile
     applicationSummary:
       intro: 'When you submit your application, the team managers will see the following

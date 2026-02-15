@@ -1379,17 +1379,12 @@ store:
       soutien régulier et fiable à l’équipe ?
     application-message: Avis de candidature
     application-placeholder: J’aimerais participer à cette équipe parce que …
-    hygieneRequired: Un certificat d’hygiène valable est nécessaire pour les 
-      collectes dans cette entreprise.
-    hygieneMissing: Il te manque actuellement. Réponds maintenant au quiz sur 
-      l’hygiène afin de pouvoir postuler pour cette équipe.
     distance_short:
       unknown: adresse non valide
       close: moins de 500 m
       normal: environ {distance} km
     needsStoreRegion:
       link: ''
-      text: ''
     alerts:
       many_more: ''
       many_less: ''
@@ -1405,15 +1400,11 @@ store:
       time: ''
     requireVerification:
       link: ''
-      text: ''
     requirePhone:
       link: ''
-      text: ''
     needsHomeRegion:
       link: ''
-      text: ''
     completeProfileRequired:
-      text: ''
       link: ''
     applicationMessageTooShort: ''
   sm:

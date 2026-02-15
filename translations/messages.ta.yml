@@ -153,12 +153,8 @@ store:
       டெபாசிட் செய்யவில்லை. உங்கள் விண்ணப்பத்தை நிறுவனத்திற்கு பொறுப்பானவர்கள் 
       தீர்மானிப்பதை எளிதாக்க வீட்டு முகவரியை உள்ளிடவும்.
     application-placeholder: நான் இந்த அணியில் உதவ விரும்புகிறேன், ஏனெனில் …
-    hygieneRequired: இந்த நிறுவனத்தில் தேர்வு செய்ய சரியான சுகாதார பயிற்சி தேவை.
-    hygieneMissing: நீங்கள் தற்போது அதைக் காணவில்லை. இப்போது நீங்கள் இந்த 
-      அணிக்கு விண்ணப்பிக்கக்கூடிய சுகாதார நொடி வினாவை மேற்கொள்ளுங்கள்.
     needsStoreRegion:
       link: ''
-      text: ''
     distance:
       close: ''
       normal: ''
@@ -182,15 +178,11 @@ store:
       time: ''
     requireVerification:
       link: ''
-      text: ''
     requirePhone:
       link: ''
-      text: ''
     needsHomeRegion:
       link: ''
-      text: ''
     completeProfileRequired:
-      text: ''
       link: ''
     applicationMessageTooShort: ''
   chain_search_picker:

@@ -1373,13 +1373,8 @@ store:
       la empresa la decisión sobre tu candidatura.
     application-message: Mensaje de aplicación
     application-placeholder: Me gustaría ayudar en este equipo porque …
-    hygieneRequired: Se requiere una formación válida en higiene para las 
-      recogidas de esta empresa.
-    hygieneMissing: Eso es lo que te estás perdiendo actualmente. Responda el 
-      cuestionario de higiene ahora para postularse para este equipo.
     needsStoreRegion:
       link: ''
-      text: ''
     distance:
       close: ''
       normal: ''
@@ -1403,15 +1398,11 @@ store:
       time: ''
     requireVerification:
       link: ''
-      text: ''
     requirePhone:
       link: ''
-      text: ''
     needsHomeRegion:
       link: ''
-      text: ''
     completeProfileRequired:
-      text: ''
       link: ''
     applicationMessageTooShort: ''
   all_of_my_stores: 'Todas mis empresas'

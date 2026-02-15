@@ -45,46 +45,64 @@ store:
       decisão sobre a sua candidatura.
     confirm-no-location-ok: Candidatar mesmo assim
     application-message: Mensagem de candidatura
-    application-placeholder: Gostaria de ajudar na esta equipa porque …
-    hygieneRequired: É necessária uma formação válida em higiene para desta 
-      loja.
-    hygieneMissing: Esse está a faltar actualmente. Responda ao questionário de 
-      higiene agora para poderia candidatar a esta equipa.
+    application-placeholder: Gostaria de ajudar nesta equipa porque …
     distance_short:
       unknown: Endereço inválido
       close: Menos de 500 m
       normal: Cerca de {distance} km
     completeProfileRequired:
-      text: 'Não é possível candidatar-se neste momento, pois ainda não preencheu
-        todos os dados necessários no seu perfil. Deve preencher, no mínimo, os seguintes
-        campos com informações válidas: nome, apelido, data de nascimento, endereço
-        atual, foto de perfil. Por favor, preencha esses dados. Depois, poderá tentar
-        candidatar-se novamente.'
       link: Editar perfil
+      request: 'Atualmente não podes candidatar-te, pois ainda não tens todos os dados
+        necessários no teu perfil. Deves preencher pelo menos os seguintes campos
+        com informações válidas: Nome, Apelido, Data de nascimento, Morada atual,
+        Fotografia de perfil. Depois de preencher estes dados, poderás tentar candidatar-te
+        novamente.'
+      invited: 'Foste convidado para esta loja. Antes de poderes aceitar o convite,
+        deves primeiro completar todos os dados necessários no teu perfil. Deves preencher
+        pelo menos os seguintes campos com informações válidas: Nome, Apelido, Data
+        de nascimento, Morada atual, Fotografia de perfil. Depois de completares estes
+        dados, poderás aceitar o convite.'
     needsHomeRegion:
-      text: Não é possível candidatar-se neste momento, pois ainda não 
-        selecionou um distrito principal. Depois de selecionar um distrito 
-        principal, poderá tentar candidatar-se novamente.
       link: Selecionar distrito principal
+      request: Atualmente não podes candidatar-te, pois ainda não escolheste o 
+        teu distrito de origem. Depois de selecionares o distrito de origem, 
+        poderás tentar candidatar-te novamente.
+      invited: Foste convidado para esta loja. Antes de poderes aceitar o 
+        convite, deves selecionar um distrito base. Assim que escolheres o 
+        distrito base, poderás aceitar o convite.
     needsStoreRegion:
-      text: Não pode candidatar-se neste momento, pois ainda não pertence ao 
-        distrito operacional {região}. Quando aderir ao distrito {região}, 
-        poderá tentar candidatar-se novamente.
       link: Entrar no distrito
+      request: Não podes candidatar-te neste momento, porque ainda não fazes 
+        parte do distrito desta loja {região}. Quando te juntares ao distrito 
+        {region}, podes tentar candidatar-te novamente.
+      invited: Foste convidado para esta loja. Antes de poderes aceitar o 
+        convite, deves pertencer ao distrito desta loja {region}. Assim que te 
+        inscreveres no distrito {region}, poderás aceitar o convite.
     requireVerification:
-      text: Não podes candidatar-te neste momento, pois ainda não estás 
-        verificado. Esta loja aceita atualmente apenas candidaturas dos 
-        Foodsavers verificados. Primeiro, faz as tuas recolhas de teste ou 
-        contacta os teus embaixadores ou a equipa de boas-vindas para seres 
-        verificado. Podes encontrar estes contactos no fórum do teu distrito, na
-        barra lateral esquerda.
       link: Abrir fórum do distrito de origem
+      request: Não podes candidatar-te neste momento, porque ainda não foste 
+        verificado. Esta loja só aceita candidaturas de Foodsavers verificados. 
+        Primeiro, realiza as tuas recolhas de teste ou contacta os teus 
+        embaixadores ou a equipa de boas-vindas para obteres a verificação. 
+        Podes encontrar estes contactos no fórum do teu distrito, na barra 
+        lateral esquerda.
+      invited: Foste convidado para esta loja. Antes de poderes aceitar o 
+        convite, tens de ser verificado. Atualmente, esta loja só aceita 
+        Foodsavers verificados. Primeiro, realiza as tuas recolhas de teste ou 
+        contacta os teus embaixadores ou a equipa de boas-vindas para obteres a 
+        verificação. Podes encontrar estes contactos no fórum do teu distrito, 
+        na barra lateral esquerda.
     requirePhone:
-      text: Não podes candidatar-te neste momento, pois ainda não introduziste 
-        um número de telefone no teu perfil. Esta loja só aceita candidaturas 
-        dos Foodsavers com pelo menos um número de telefone registado. Introduz 
-        um número de telefone no teu perfil para te poderes candidatar.
       link: Editar o perfil
+      request: Não podes candidatar-te neste momento, porque ainda não tens um 
+        número de telefone registado no teu perfil. Esta loja só aceita 
+        candidaturas de Foodsavers que tenham pelo menos um número de telefone 
+        registado. Por favor, adiciona um número de telefone no teu perfil para 
+        poderes candidatar-te.
+      invited: Foste convidado para esta loja. Antes de poderes aceitar o 
+        convite, tens de adicionar um número de telefone ao teu perfil. Esta 
+        loja só aceita Foodsavers com pelo menos um número de telefone 
+        registado. Depois de adicionares o número, poderás aceitar o convite.
     applicationSummary:
       intro: 'Quando enviares a tua candidatura, os responsáveis da equipa verão as
         seguintes informações:'
@@ -100,6 +118,11 @@ store:
       many_more: Mostrar {count} mais sugestões
       one_less: Ocultar uma indicação
       many_less: Ocultar {count} indicações
+    hygieneRequired:
+      request: Para esta loja, é necessária uma formação de higiene válida.
+      invited: Foste convidado para esta loja. Antes de aceitar o convite, deve 
+        comprovar que possui uma formação de higiene válida.
+      link: Faz a formação de higiene
   jumperSince: 'Substituto desde {date}'
   days: 'dias'
   team:
@@ -140,7 +163,7 @@ store:
       16: 'Retirar o pedido de affiliação'
       8: 'Abandonar a equipa'
       4: 'Adicionar Foodsavers ao equipa sem a solicitação'
-      10: 'Remover os responsáveis da equipa'
+      10: 'Remover como responsáveis da equipa'
       6: 'Adicionar Foodsavers ao equipa ativo'
       12: 'Cancelar para assento'
       9: 'Inscrever responsáveis da equipa'
@@ -161,18 +184,18 @@ store:
   sm:
     reloadPage: 'Recargar'
     demoteAsManager: 'Retirar a responsabilidade'
-    filterAll: 'Membros'
-    removeFromTeam: 'Sair desta equipa'
-    filterUnverified: 'Não verificados'
+    filterAll: 'membros'
+    removeFromTeam: 'sair desta equipa'
+    filterUnverified: 'não verificados'
     filterManage: 'com questinário dos responsáveis pela cooperação'
     promoteToManager: 'Assumir a responsabilidade por esta loja'
     promoteToManagerNotPossible: 'A pessoa não pode ser registada como responsável
       porque já existem três responsáveis da equipa ou porque a pessoa ainda não passou
       no questinário correspondente.'
-    filterActive: 'Ativos'
+    filterActive: 'ativos'
     searchPlaceholder: 'Nome ou ID'
-    filterSleeping: 'Dorminhoco'
-    filterJumper: 'Substitutos'
+    filterSleeping: 'dorminhocos'
+    filterJumper: 'substitutos'
     filterQuizSM: 'Questinário aprovado para responsáveis por equipas'
     reallyRemove: 'Quer mesmo remover {name} da equipa?'
     makeJumper: 'Na lista de substitutos'
@@ -182,7 +205,7 @@ store:
     sorting:
       default: Classificação standard
       pickup: ordenada pela última recolha
-      distance: Ordenado por distância
+      distance: ordenado por distância
     userHasPickupsWarning: '{name} ainda está registado para {occupiedSlots} assentos
       nesta loja. Estes assentos ficarão livres. Deseja continuar?'
     inviteMember: Convidar na equipa
@@ -207,14 +230,14 @@ store:
     final: 'No início não parecia promissor, mas depois entraram em contacto.'
   mayAmb: 'Aprovou o questionário de embaixadores.'
   chat:
-    jumper: 'Mensagem para substitutos'
-    team: 'Mensagem para a equipa'
-    managers: Mensagem para os responsáveis da equipa
+    jumper: 'Mensagem aos substitutos'
+    team: 'Mensagem á equipa'
+    managers: Mensagem aos responsáveis
   isAppliedForTeam: 'Solicitação'
   locked: 'Não pode editar esta loja.'
   lastPickup: 'Última Assento {date}'
   team_container: 'Equipa'
-  managing: 'Responsabilidade da equipa'
+  managing: 'Responsabilidade de equipa'
   prefetchthree: '3 semanas'
   springer_conversation_name: 'Substituto [name]'
   isManager: 'Responsável de esta loja.'
@@ -254,7 +277,7 @@ store:
   addNewStoresButton: 'Adicionar nova loja'
   enternumber: 'Ainda tens de selectionar o número de assentos.'
   nodetails: 'Não indique aqui horários exatos para o assento.'
-  teamName: '(storeTitle) equipa'
+  teamName: 'Equipa (storeTitle)'
   enter_date: 'Inscrever um assento individual'
   ownStores: 'Lojas próprias'
   mayManage: 'Aprovou o exame de responsáveis por equipas.'
@@ -312,8 +335,8 @@ store:
       um convite para aderir à equipa, que têm de aceitar antes de se tornarem 
       membros. Podes retirar esses convites a qualquer momento.
     accept: Aceptar convite
-    invited_info: Foi convidado para esta loja. Pode juntar-se à equipa 
-      simplesmente aceitando o convite.
+    invited_info: Foi convidado para esta loja. Aceite o convite para se juntar 
+      à equipa.
     decline: Recusar
     invited_by: Convidado por
   no_chain_choosen: Nenhuma cadeia foi selecionada
@@ -387,7 +410,7 @@ bell:
   new_foodsaver_verified: 'yá verificado - pode dar início'
   buddy_request: '{name} conhece-te.'
   poll_new_title: 'Nova votação'
-  banana_given: '{name} ofereceu-te uma banana da confiança.'
+  banana_given: '{name} ofereceu-te uma banana de reconhecimento.'
   foodsaver_verified: 'Faça o download do teu cartão de membro em …'
   store_new: '{name} foi registado'
   new_foodsaver_verified_title: '{name} é novo em {bezirk}'
@@ -415,7 +438,7 @@ bell:
   new_report_title: 'Denúncia nova sobre {name}'
   forum_announcement_title: 'Aviso importante: {title}'
   store_request_accept: 'Foste aceite na equipa.'
-  banana_given_title: 'Nova banana da confiança'
+  banana_given_title: 'Nova banana de reconhecimento'
   passgen_failed: 'Carregue uma foto e funcionará.'
   store_request_imposed: 'Foste adicionado à equipa.'
   store_request_accept_wait: 'Agora está na lista de espera/substitutos.'
@@ -676,7 +699,7 @@ storeview:
     multiply: '{weeks} semanas'
   public_time: 'Será recolhido {freq}. Nunca passar na loja sem acordo prévio!'
   specials: 'Características especiais'
-  want_to_fetch: 'Gostaria de ajudar esta equipa.'
+  want_to_fetch: 'Quero ajudar nesta equipa.'
   source_data: 'Datos de base'
   public_and_statistics: 'Estatísticas & relações públicas'
   team: 'Equipa de loja'
@@ -908,7 +931,7 @@ basket:
   no_requests: 'Até agora, sem solicitações'
   contact:
     call: 'por telefone'
-    write: 'por mensagem'
+    write: 'Por mensagem'
   login: 'Para obter informações detalhadas, é necessário estar logado. Ainda não
     está registado como o foodsharer? Então clique em **Participar** acima e comece
     agora mesmo.'
@@ -1015,7 +1038,7 @@ menu:
     other_stores: 'Outras lojas'
     your_stores: 'As tuas lojas'
     helpneeded: 'Procura-se apoio urgente'
-    forcompanies: 'Pra empresas'
+    forcompanies: 'Para empresas'
     team: 'Equipa'
     your_baskets: 'As tuas cestas alimentares'
     partners: 'Parceiros'
@@ -1231,19 +1254,20 @@ profile:
   deletesuccess: 'Cita individual eliminada'
   banana:
     remove:
-      confirm_title: 'Remover banana de confiança'
-      confirm_message: 'Queres mesmo remover esta banana da confiança?'
+      confirm_title: 'Remover banana de reconhecimento'
+      confirm_message: 'Queres mesmo remover esta banana de reconhecimento?'
       successful: A banana foi removida!
-    title: '{count} bananas de confiança'
+    title: '{count} bananas de reconhecimento'
     sent: 'A banana foi enviada!'
-    undo: 'As bananas de confiança não podem ser alteradas.'
-    vouch: 'Por isso, conceda a banana da confiança apenas a pessoas que conheça pessoalmente,
+    undo: 'As bananas de reconhecimento não podem ser alteradas.'
+    vouch: 'Por isso, conceda a banana de reconhecimento apenas a pessoas que conheça
+      pessoalmente,
 
       que cumpram as regras de conduta e o acordo legal
 
       e cuja fiabilidade e empenho possa garantir.
 
-      Nunca conceda bananas da confiança de ânimo leve!
+      Nunca conceda bananas de reconhecimento de ânimo leve!
 
       '
     alreadyGiven: '{name} já recebeu uma banana de ti.'
@@ -1256,11 +1280,11 @@ profile:
 
       '
     recieved_none:
-      other: '{name} ainda não recebeu nenhuma banana de confiança.'
-      you: Ainda não recebeste nenhuma banana de confiança.
+      other: '{name} ainda não recebeu nenhuma banana de reconhecimento.'
+      you: Ainda não recebeste nenhuma banana de reconhecimento.
     sent_none:
-      other: '{name} ainda não ofereceu nenhuma banana da confiança.'
-      you: Ainda não ofereceste nenhuma banana da confiança.
+      other: '{name} ainda não ofereceu nenhuma banana de reconhecimento.'
+      you: Ainda não ofereceste nenhuma banana de reconhecimento.
   stats:
     baskets: 'Cestas alimentares'
     weight: 'salvo'
@@ -1347,7 +1371,7 @@ profile:
     workgroups_member: em conjunto nos seguintes grupos de trabalho
     no_common_workgroups: em nenhum grupo de trabalho comum
     home_region_from: Distrito de origem
-    kam_for: 'responsável pela coordenação das seguintes cadeias comerciais:'
+    kam_for: 'Responsável pela coordenação das seguintes cadeias comerciais:'
   tab_navigation:
     profile: Perfil
     pickups: Assentos
@@ -1513,7 +1537,7 @@ group:
     none: Não é um grupo de trabalho GOALS
     tooltip_function_12: Os administradores deste grupo de trabalho são 
       apresentados na visão geral do distrito.
-    resources: Mosaico dos recursos
+    resources: Mosaico de recursos
     tooltip_function_13: Os administradores deste grupo de trabalho serão 
       informados sobre novos recursos através de campainha.
   application_from: 'de'
@@ -1544,7 +1568,7 @@ group:
     remove_ambassador_text: 'Tem a certeza de que pretende remover {name} ({id}) como
       embaixador(a)?'
     is_verified: 'Verificado'
-    add_member: 'incluir na equipa'
+    add_member: 'Incluir na equipa'
     remove_admin_text: 'Tem a certeza de que pretende remover {name} ({id}) como administrador?'
     remove_admin_title: 'Remover como administrador'
     remove_title: 'Excluir membro'
@@ -1642,22 +1666,22 @@ group:
       '
     admins: '{count} pessoas de contacto:'
     sent: 'A mensagem foi enviada com sucesso.'
-    send: 'Mandar a mensagem'
+    send: 'Mandar mensagem'
   application_requirements:
     banana_count_errors:
-      min: 'Ninguém deve ter menos do que {{ limit }} bananas de confiança.'
-      max: 'Por favor, não espere mais do que {{ limit }} bananas de confiança.'
+      min: 'Ninguém deve ter menos do que {{ limit }} bananas de reconhecimento.'
+      max: 'Por favor, não espere mais do que {{ limit }} bananas de reconhecimento.'
       not_in_range: '{{ limit }} Ninguém deve ter menos do que {{ min }} ou mais do
-        que {{ max }} bananas de confiança.'
+        que {{ max }} bananas de reconhecimento.'
     nobody: 'Ninguém (grupo fechado).'
     member_since_weeks: 'Quantas semanas são necessárias para um candidato estar registado
       na plataforma?'
     fetch_count: 'Quantos assentos de recolha/entrega/orga já deveriam ter sido efectuadas?'
-    banana_count: 'Quantas bananas de confiança devem estar presentes?'
+    banana_count: 'Quantas bananas de reconhecimento devem estar presentes?'
     not_fulfilled: 'Para candidatar-se a este grupo de trabalho, deve fazer parte
-      da foodsharing há %weeks% semanas, já ter recolhido %bananas% bananas de confiança
+      da foodsharing há %weeks% semanas, já ter recolhido %bananas% bananas de reconhecimento
       e ter participado em %fetches% dos assentos.'
-    requires_properties: 'Todos quantos preencham certos pontos de confiança.'
+    requires_properties: 'Todos quantos preencham certos pontos de reconhecimento.'
     requirements: 'Quem pode inscrever no neste grupo?'
     open: 'Todos pessoas podem participar sem se candidatarem.'
     everybody: 'Todos podem candidatar-se.'
@@ -1796,22 +1820,22 @@ pickup:
         empty: 'Ainda não foi inscrito nenhum assento.'
     modals:
       signOffAll:
-        title: 'Remover em todas os assentos?'
+        title: 'Cancelar todos os assentos?'
         message: 'Quer mesmo remover o utilizador de todos os assentos registados?'
       signOff:
-        title: 'Remover no assento?'
-        message: 'Deseja realmente remover a pessoa para este assento?'
+        title: 'Remover do assento?'
+        message: 'Quer mesmo remover o utilizador do assento?'
     cols:
       time: 'Tempo'
       slots: 'Assentos'
       store: 'Loja'
     allLoaded: 'Já estão apresentadas todas as entradas.'
     menu:
-      signOffAll: 'Remover de todos'
+      signOffAll: 'Cancelar tudo'
       refresh: 'Atualizar'
       registeredSwitch: 'Assentos inscritos'
       loadMore: 'Ver mais'
-      signOff: 'Remover'
+      signOff: 'Cancelar'
       managedOnlySwitch: Vista de responsável(e)
       useCondensedDesign: Agrupados por dias
     header: 'Assentos'
@@ -1864,9 +1888,9 @@ pickup:
     added: 'O assento foi reservado.'
     description_titel: 'Descrição'
     slotscount: '{count} pessoas a recolher'
-  leave: 'Remover'
+  leave: 'Cancelar'
   kick_message: 'Cancelámos a tua inscrição na recolha da {storeName} em {date}.'
-  team_message_success: 'A mensagem foi enviada com sucesso para a equipa'
+  team_message_success: 'A mensagem foi enviada com sucesso'
   join_title_date: 'Certo?'
   really_leave_date_title: 'Retirar a inscrição para {date}?'
   slot_add: 'Adicionar um assento'
@@ -1876,7 +1900,7 @@ pickup:
     cancelar este assento quando todas as inscrições forem canceladas.'
   same_day_hint: 'O evento a seguir ocorrerá no mesmo dia:'
   team_message_send_and_leave: 'Enviar e retirar a inscrição'
-  slot_remove: 'Remover um assento'
+  slot_remove: 'Cancelar um assento'
   description_max_length_info: 'Comprimento máximo da descrição alcançado (100 caracteres)'
   really_join_date: 'Gostaria de se inscrever de forma definitiva no dia {date}?'
   signout_history:
@@ -1903,7 +1927,7 @@ pickup:
   leave_team_message_template: '{data}, não posso recolhê-lo afinal e, por isso, cancelei
     a minha inscrição novamente. …'
   leave_pickup_message_team: 'Notificar a equipa'
-  leave_team_message_title: 'Mensagem para a equipa'
+  leave_team_message_title: 'Mensagem á equipa'
   signout_confirm: 'Tem a certeza?'
   take_empty_slot: 'Inscrever-me aqui'
   join_agree: 'Sim, inscrever vinculativo'
@@ -2062,7 +2086,7 @@ search:
     store:
       manager_tooltip: 'És responsável por esta loja'
       jumper_tooltip: 'Estás na lista de substitutos desta loja'
-      member_tooltip: 'És membro desta empresa'
+      member_tooltip: 'És membro desta equipa'
     from: 'de'
     mail:
       mail_name: '{name} <{mail}>'
@@ -2347,7 +2371,7 @@ chat:
   no_messages: 'Não há mensagems'
   empty: 'Ainda não há conversas'
   conversations: 'Conversas'
-  open_chat: 'Escrever um mensagem'
+  open_chat: 'Escrever uma mensagem'
   no_conversation: 'Nenhuma conversa selecionada'
   confirm_draft_discard: 'Mudas para uma nova conversa. O texto no campo de resposta
     será descartado.
@@ -2368,7 +2392,7 @@ chat:
   start_of_conversation: 'A conversa começou em:'
   unknown_username: 'Nome desconecido'
   search: 'Procurar'
-  open_multi_chat: Escrever mensagem em grupo para todos os responsáveis de loja
+  open_multi_chat: Mensagem para todos os responsáveis
   mark_as:
     read: Marcar como lido
     unread: Marcar como não lido
@@ -2380,8 +2404,8 @@ chat:
   participants: Parcipiciantes
   error:
     sending_message: O envio da mensagem falhou.
-    loading_conversation: Falha ao acessar a mensagem.
-    renaming_conversation: A renomeação da mensagem falhou.
+    loading_conversation: Falha ao acessar a conversa.
+    renaming_conversation: A renomeação da conversa falhou.
 error_permissions: 'Infelizmente, nao tens as permissões necessárias para este processo.'
 storeedit:
   team:
@@ -2398,7 +2422,7 @@ storeedit:
 
       '
     bread: 'Editar equipa'
-    leave: 'Remover esta loja'
+    leave: 'Sair desta equipa'
     need-sm: 'Deve haver pelo menos uma pessoa responsável por esta loja.'
     note: 'Nota:'
     empty: 'O equipa não deve estar vazio'
@@ -2519,7 +2543,7 @@ chain:
     EMPTY_ZIP: 'O campo para o código postal está vazio'
     THREAD_ID_NOT_EXISTS: 'O tópico do fórum não existe'
   detailsmodal:
-    nostores: 'Sem lojas'
+    nostores: 'sem lojas'
     title: 'Lojas de cadeia {chain}'
     stores: 'Lojas:'
   tooltips:
@@ -3082,7 +3106,7 @@ terminology:
   forum: 'Fórum'
   message: 'Mensagem'
   boardAdmins: 'conselho administrativo'
-  fspAdmins: 'Equipa de cantinho solidário'
+  fspAdmins: 'Equipa de cantinhos solidários'
   events: 'Eventos'
   group: 'Grupo de trabalho'
   welcomeAdmins: 'Equipa de boas-vindas'
@@ -3118,7 +3142,7 @@ terminology:
   mobile_phone: Número de telemóvel
   received: recebido
   sent: Enviados
-  resourcesAdmins: Equipa do mosaico dos recursos
+  resourcesAdmins: Equipa do mosaico de recursos
   giving: Entrega
   attention: Atenção
 timepicker:
@@ -3484,7 +3508,7 @@ startpage:
     Se quiser dar ou receber comida, por favor seja fiável e pontual, não abandonar
     ninguém.'
   call_to_action_button: 'Participar agora'
-  forstores: 'Pra empresas e lojas'
+  forstores: 'Para empresas e lojas'
   honest: 'Sê sincero'
   vision:
     title: 'Visão'
@@ -4121,8 +4145,8 @@ regionOptions:
   header_page: 'Configuração para {bezirk}'
   regionPickupLimitNumber: 'Número máximo dos assentos permitidos dos lojas populares
     no período selecionado'
-  regionPickupRuleActiveStoreList: 'Lista de empresas populares do distrito. Todos
-    os assentos das empresas listadas são somadas e consideradas para a regra.'
+  regionPickupRuleActiveStoreList: 'Lista de loojas populares do distrito. Todos os
+    assentos das empresas listadas são somadas e consideradas para a regra.'
   enableMediationButton: 'Ativar formulário de mediação nas páginas de perfil dos
     Foodsavers do distrito de origem'
   enableReportButton: 'Ativar formulário de denúncia nas páginas de perfil dos Foodsavers
@@ -4329,9 +4353,9 @@ map:
       type:
         label: Tipo
         "null": Todos
-        0: Lugar da recolha
-        1: Lugar da entrega
-        2: Lugar da organização
+        0: Ponto de recolha
+        1: Ponto de entrega
+        2: Equipa de organização
     users:
       role:
         label: Função
@@ -4862,8 +4886,8 @@ sort:
   sort_by: 'Ordenar por '
 required_messages:
   kick_from_store_team:
-    main: Foste removido da equipa da empresa [{store}](/store/{storeId}). 
-      Assim, já não podes inscrever-te para os assentos nesta loja.
+    main: Foste removido da equipa da loja [{store}](/store/{storeId}). Assim, 
+      já não podes inscrever-te para os assentos nesta loja.
     footer: 'Muitas saudações'
     really: 'Quer mesmo remover {name} da equipa desta loja?'
   move_to_standby_team:
@@ -4895,8 +4919,7 @@ required_messages:
   save_message: 'Salvar minha mensagem para a próxima vez'
   message_info_multiple: 'Cada pessoa receberia a seguinte mensagem:'
 resource_mosaic:
-  search_placeholder: Busca por recursos, partilhadores alimentar ou ID de 
-    membros
+  search_placeholder: Busca por recursos, Foodsharers ou ID de membros
   commons_resources_in: 'Recursos comunitários de {groupName}'
   editModal:
     openness: 'Em que condições se pode usar o recurso?'

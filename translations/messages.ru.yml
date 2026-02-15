@@ -1985,12 +1985,10 @@ store:
     air_line: 'Показанное расстояние — по прямой.'
     needsStoreRegion:
       link: ''
-      text: ''
     distance:
       close: ''
       normal: ''
       unknown: ''
-    hygieneMissing: ''
     distance_short:
       unknown: ''
       close: ''
@@ -2010,18 +2008,13 @@ store:
       time: ''
     requireVerification:
       link: ''
-      text: ''
     application-placeholder: ''
     requirePhone:
       link: ''
-      text: ''
     needsHomeRegion:
       link: ''
-      text: ''
     confirm-far: ''
-    hygieneRequired: ''
     completeProfileRequired:
-      text: ''
       link: ''
     application-message: ''
     applicationMessageTooShort: ''
