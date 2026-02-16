@@ -32,7 +32,7 @@
               @multi-chat="multiChat"
             />
             <Wall
-              v-if="viewIsMobile"
+              v-if="viewIsMobile && permissions.isJumper === false"
               target="store"
               :target-id="storeId"
             />
@@ -76,7 +76,7 @@
               :cooperation-start="storeInformation.cooperationStart"
             />
             <Wall
-              v-if="!viewIsMobile"
+              v-if="!viewIsMobile && permissions.isJumper === false"
               target="store"
               :target-id="storeId"
             />
