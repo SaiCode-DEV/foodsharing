@@ -100,7 +100,7 @@ dashboard:
   settings_tooltip: 'Configuración del panel'
   foodsaver_amount: 'Recogiste <b>{pickups} x</b> alimentos y salvado <b>{weight} kg</b>.'
   release:
-    for_news_from_it: Si tiene alguna pregunta o desafío, primero eche un
+    for_news_from_it: Si tiene alguna pregunta o desafío, primero eche un 
       vistazo a
     for_support: De lo contrario, puede contactarnos en
     for_release_notes: Puede encontrar los cambios más importantes en
@@ -149,7 +149,7 @@ search:
       present_since: Empezó
       present_until: Finalizó
     mail:
-      attachment_tooltip: Se ha enviado un archivo adjunto con este correo
+      attachment_tooltip: Se ha enviado un archivo adjunto con este correo 
         electrónico.
       from_to: De {from} a {to}
       from_to_many: De {from} a {to} y a {other}
@@ -167,7 +167,7 @@ search:
       can_vote: Aún puedes votar
       has_voted: Ya has votado
       not_eligible: No está acreditado para votar
-  maxresults: El número de resultados mostrados es limitado. Quizás utilice un
+  maxresults: El número de resultados mostrados es limitado. Quizás utilice un 
     término de búsqueda más específico.
   too_short: Por favor ingrese un término de búsqueda más largo.
   scope:
@@ -253,49 +253,49 @@ quiz:
   startmodal:
     title: Notas sobre el cuestionario
     infos:
-      real_life_examples: La mayoría de las preguntas se basan en casos reales
+      real_life_examples: La mayoría de las preguntas se basan en casos reales 
         de la vida de compartir los alimentos.
-      alone: El cuestionario debe ser completado por usted mismo y sin ayuda
-        externa. Si tiene dificultades lingüísticas o depende de un asistente,
-        otra persona puede ayudarle a entender las preguntas, pero usted debe
-        ser capaz de responderlas por sí mismo. Por lo tanto, busque un lugar
+      alone: El cuestionario debe ser completado por usted mismo y sin ayuda 
+        externa. Si tiene dificultades lingüísticas o depende de un asistente, 
+        otra persona puede ayudarle a entender las preguntas, pero usted debe 
+        ser capaz de responderlas por sí mismo. Por lo tanto, busque un lugar 
         tranquilo donde pueda completar el cuestionario sin ser molestado.
       read_carefully: Lea atentamente todas las preguntas y respuestas.
-      wiki: Por favor, no empiece el cuestionario al azar. Lee atentamente las
+      wiki: Por favor, no empiece el cuestionario al azar. Lee atentamente las 
         páginas de información listadas de antemano. Sin los conocimientos de la
         wiki, no aprobarás el cuestionario.
-      limited_tries: No puedes repetir el cuestionario tantas veces como
-        quieras. Después de tres intentos, tienes que tomarse un descanso de 30
-        días para estudiar, tras el cual sólo dispones de dos intentos más. Las
+      limited_tries: No puedes repetir el cuestionario tantas veces como 
+        quieras. Después de tres intentos, tienes que tomarse un descanso de 30 
+        días para estudiar, tras el cual sólo dispones de dos intentos más. Las 
         preguntas que se te plantean en cada intento son diferentes.
-      multiple_choice: Varias respuestas por pregunta pueden ser correctas, o
-        ninguna. Por lo tanto, decide para cada respuesta individualmente si es
+      multiple_choice: Varias respuestas por pregunta pueden ser correctas, o 
+        ninguna. Por lo tanto, decide para cada respuesta individualmente si es 
         correcta o incorrecta.
-      pause: Puedes pausar el cuestionario después de cada pregunta y continuar
+      pause: Puedes pausar el cuestionario después de cada pregunta y continuar 
         más tarde.
-      feedback: Al final del cuestionario, recibirá una evaluación inmediata de
-        si aprobó, qué errores cometió y dónde. Aquí podrá volver a leer los
+      feedback: Al final del cuestionario, recibirá una evaluación inmediata de 
+        si aprobó, qué errores cometió y dónde. Aquí podrá volver a leer los 
         motivos cuando lo desee.
-      comment: Después de responder cada pregunta, verá una evaluación
+      comment: Después de responder cada pregunta, verá una evaluación 
         intermedia con explicaciones para cada una de las opciones de respuesta.
-        Esto ayuda a comprender qué respuesta es correcta o incorrecta y por
-        qué. Para cada error, debes leer atentamente las explicaciones. Si algo
-        te parece ilógico, incomprensible o incluso incorrecto, deja un
-        comentario. Se le pueden asignar sus comentarios para brindarle
+        Esto ayuda a comprender qué respuesta es correcta o incorrecta y por 
+        qué. Para cada error, debes leer atentamente las explicaciones. Si algo 
+        te parece ilógico, incomprensible o incluso incorrecto, deja un 
+        comentario. Se le pueden asignar sus comentarios para brindarle 
         comentarios individuales.
-      unlimited_tries: Puede repetir este cuestionario tantas veces como quiera
-        y nunca será descalificado si suspende. Sin embargo, es posible que
+      unlimited_tries: Puede repetir este cuestionario tantas veces como quiera 
+        y nunca será descalificado si suspende. Sin embargo, es posible que 
         tenga que tomarse un descanso entre cada intento.
-      timed: El tiempo para responder a las preguntas es limitado. No deje que
-        esto le estrese. El tiempo se fija individualmente para cada pregunta,
+      timed: El tiempo para responder a las preguntas es limitado. No deje que 
+        esto le estrese. El tiempo se fija individualmente para cada pregunta, 
         de modo que tengas tiempo suficiente para responderla tranquilamente. Si
-        te quedas sin tiempo, házselo saber a los administradores del concurso
+        te quedas sin tiempo, házselo saber a los administradores del concurso 
         con un comentario.
     acceptPrivacyNotice: Estoy de acuerdo.
     privacyNotice:
-      hygiene: Si supera este cuestionario, quedará constancia de que lo ha
-        hecho y se le concederá un certificado de higiene. Los responsables de
-        higiene y operaciones podrán comprobar si tienes un certificado de
+      hygiene: Si supera este cuestionario, quedará constancia de que lo ha 
+        hecho y se le concederá un certificado de higiene. Los responsables de 
+        higiene y operaciones podrán comprobar si tienes un certificado de 
         higiene válido.
   answers:
     timedOut:
@@ -323,8 +323,8 @@ quiz:
     placeholder: Escribir comentario …
     send: enviar comentario
     sent: Comentario enviado.
-    info: Danos tu opinión sobre esta pregunta. ¿Era demasiado fácil, demasiado
-      difícil, incomprensible? ¿O algunas respuestas o explicaciones son
+    info: Danos tu opinión sobre esta pregunta. ¿Era demasiado fácil, demasiado 
+      difícil, incomprensible? ¿O algunas respuestas o explicaciones son 
       incorrectas?
     wallTitle: 'Comentarios a la pregunta #{id}'
     label: comenta la pregunta
@@ -334,11 +334,11 @@ quiz:
       1: ¡Felicidades!
       2: Por desgracia, no ha aprobado.
     points:
-      1: ¡Ha pasado con {failurePoints} de un máximo de
+      1: ¡Ha pasado con {failurePoints} de un máximo de 
         {maxFailurePointsToSucceed} puntos de fallo!
-      2: Tenías {failurePoints} puntos de fallo y habrías pasado con un máximo
+      2: Tenías {failurePoints} puntos de fallo y habrías pasado con un máximo 
         de {maxFailurePointsToSucceed}.
-    deleted: La evaluación exacta sólo se guarda quince días después del
+    deleted: La evaluación exacta sólo se guarda quince días después del 
       concurso y ya no está disponible.
   fp_badge:
     right: contestado correctamente
@@ -349,10 +349,10 @@ quiz:
   show_results: Ver los resultados del último intento
   key_facts:
     to_pass: 'Para pasar:'
-    untimed: Máximo {maxFailurePointsToSucceed} puntos de fallo en
-      {questionCountTimed} preguntas con o en {questionCountUntimed} preguntas
+    untimed: Máximo {maxFailurePointsToSucceed} puntos de fallo en 
+      {questionCountTimed} preguntas con o en {questionCountUntimed} preguntas 
       sin límite de tiempo
-    timed: Máximo {maxFailurePointsToSucceed} puntos de fallo en
+    timed: Máximo {maxFailurePointsToSucceed} puntos de fallo en 
       {questionCountTimed} preguntas con límite de tiempo
   questions_section:
     title: Preguntas del cuestionario ({count})
@@ -420,54 +420,54 @@ quiz:
     joke: '{failurePoints} Puntos de fallo (sin puntuación)'
   sessionStatus:
     0: en ejecución
-    1: Superado con {failurePoints} de un máximo de {maxFailurePointsToSucceed}
+    1: Superado con {failurePoints} de un máximo de {maxFailurePointsToSucceed} 
       puntos de fallo
-    2: Falló con {failurePoints} de {maxFailurePointsToSucceed} puntos de fallo
+    2: Falló con {failurePoints} de {maxFailurePointsToSucceed} puntos de fallo 
       como máximo
   confirm: Confirme el cuestionario y complete el proceso
-  fp_description: Total {PuntosFallo}, es decir, {perMistake} por respuesta
+  fp_description: Total {PuntosFallo}, es decir, {perMistake} por respuesta 
     incorrecta
-  confirmComment: ¿Quieres que tu comentario sea enviado a los administradores
+  confirmComment: ¿Quieres que tu comentario sea enviado a los administradores 
     de este cuestionario?
   confirmDashboardText: ¡Has superado un cuestionario que aún no has confirmado.
     [Haga clic aquí]({url}) para completar el proceso!
   test_results: Resultados de la prueba
   test: Cuestionarios de prueba
   stateBasedInfo:
-    neverTried: Nunca antes has realizado este cuestionario. Tómese el tiempo
-      para leer atentamente todos los artículos informativos enumerados para
+    neverTried: Nunca antes has realizado este cuestionario. Tómese el tiempo 
+      para leer atentamente todos los artículos informativos enumerados para 
       estar preparado para las preguntas.
-    running: Ya ha comenzado el cuestionario y ha respondido a
+    running: Ya ha comenzado el cuestionario y ha respondido a 
       {questionsAnswered} de {questionCount} preguntas hasta el momento.
     passed: Has superado esta prueba.
-    failed: Lamentablemente, no ha superado este cuestionario en su último
+    failed: Lamentablemente, no ha superado este cuestionario en su último 
       intento.
-    noWaitAfter: Eche otro vistazo a los artículos de información relevantes y
+    noWaitAfter: Eche otro vistazo a los artículos de información relevantes y 
       vuelva a intentarlo.
-    waitAfter: Si no apruebas en tu siguiente intento, deberás tomarte un
-      descanso del estudio durante {waitTimeAfterFailure} días. Asegúrate de
+    waitAfter: Si no apruebas en tu siguiente intento, deberás tomarte un 
+      descanso del estudio durante {waitTimeAfterFailure} días. Asegúrate de 
       leer los artículos informativos pertinentes para poder aprobar el examen.
-    pause: Has suspendido este examen varias veces. La fiabilidad, el
-      conocimiento de las normas y la profesionalidad son esenciales en el
-      foodsharing. Desgraciadamente, tus respuestas no transmiten esto por el
-      momento. Por lo tanto, se te concederá una pausas antes de que puedas
-      volver a intentar superar la prueba. Tu pausa terminará en
+    pause: Has suspendido este examen varias veces. La fiabilidad, el 
+      conocimiento de las normas y la profesionalidad son esenciales en el 
+      foodsharing. Desgraciadamente, tus respuestas no transmiten esto por el 
+      momento. Por lo tanto, se te concederá una pausas antes de que puedas 
+      volver a intentar superar la prueba. Tu pausa terminará en 
       {currentWaitTime} días.
-    pauseElapsed: Su pausa ha terminado. Ahora puede volver a hacer el
-      cuestionario. Esperamos que hayas aprovechado el tiempo para
+    pauseElapsed: Su pausa ha terminado. Ahora puede volver a hacer el 
+      cuestionario. Esperamos que hayas aprovechado el tiempo para 
       familiarizarte mejor con el contenido.
-    disqualifiedAfter: ¡Solo tienes un último intento para aprobar este
-      cuestionario! Si falla ahora, quedará descalificado permanentemente de
-      esta prueba. Por favor, participe únicamente si ha estudiado el contenido
+    disqualifiedAfter: ¡Solo tienes un último intento para aprobar este 
+      cuestionario! Si falla ahora, quedará descalificado permanentemente de 
+      esta prueba. Por favor, participe únicamente si ha estudiado el contenido 
       de la wiki en detalle.
-    disqualified: Desafortunadamente, usted está descalificado para este examen
+    disqualified: Desafortunadamente, usted está descalificado para este examen 
       porque no ha pasado demasiado a menudo.
     passedBefore: Ya has pasado esta prueba antes.
-    willExpire: Sin embargo, la validez de su intento de examen finaliza en
-      {expirationTime} días. Por lo tanto, puede refrescar sus conocimientos
+    willExpire: Sin embargo, la validez de su intento de examen finaliza en 
+      {expirationTime} días. Por lo tanto, puede refrescar sus conocimientos 
       sobre este tema ahora y volver a realizar este cuestionario.
     expired: Sin embargo, su último intento ya no es válido.
-  mandatory_question: Esta pregunta es obligatoria y se incluye en cada prueba
+  mandatory_question: Esta pregunta es obligatoria y se incluye en cada prueba 
     de la encuesta.
 terminology:
   foodsaver:
@@ -875,7 +875,7 @@ error:
   invalid_landline_phonenumber:
     link: Corrige el número del fijo
     title: Tu número de fijo no es correcto o tiene algún fallo.
-    description: Lamentablemente, el número del fijo está mal escrito o no se
+    description: Lamentablemente, el número del fijo está mal escrito o no se 
       puede llamar.
   passport_is_invalid:
     description: Póngase en contacto con sus embajadores para que lo renueven.
@@ -933,7 +933,7 @@ group:
     ability: ¿Qué habilidades tienes en esta área?
     experience: "¿Puedes aprovechar las experiencias que hayas adquirido en otros
       lugares?\nSi es así, ¿dónde o cuáles?\n"
-    how_much_time: ¿Cuántas horas a la semana tienes tiempo y ganas de
+    how_much_time: ¿Cuántas horas a la semana tienes tiempo y ganas de 
       dedicarle?
     error_missing_time: 'Error: no se ha seleccionado ninguna hora.'
     deny: ''
@@ -978,7 +978,7 @@ group:
       sobre l@s rescatistas de alimentos en el distrito. No se reportan denuncias
       que involucren a l@s administrador@s, estas son recibidas por la junta arbitral.'
     invalid: 'A un distrito no se le puede asignar una función de grupo de trabajo.'
-    tooltip_function_12: L@s administrador@s de este grupo de trabajo se
+    tooltip_function_12: L@s administrador@s de este grupo de trabajo se 
       muestran en la descripción general del distrito.
     election: Elecciones
     none: No es un grupo de trabajo GOALS
@@ -1036,7 +1036,7 @@ group:
       title: por defecto
     passports:
       title: Tarjetas de identificación y verificación
-      generate_button: Crear tarjeta(s) de membresía para la(s) persona(s)
+      generate_button: Crear tarjeta(s) de membresía para la(s) persona(s) 
         seleccionada(s)
       never_before: nunca
       created_at: Tarjeta creada el
@@ -1045,10 +1045,10 @@ group:
         verify: Para verificar
         unverify: Sin verificar
       verify:
-        do: ¿Realmente desea verificar {name} ({id}) (comparación de datos
+        do: ¿Realmente desea verificar {name} ({id}) (comparación de datos 
           realizada / ID comprobado, etc.)?
         undo: Sin verificar {name} ({id})
-        do_selected: ¿Realmente desea verificar todos los seleccionados
+        do_selected: ¿Realmente desea verificar todos los seleccionados 
           (comparación de datos realizada / identificación comprobada, etc.)?
       create_pdf: crear PDF
       verify_selected: verificar los marcados
@@ -1209,11 +1209,11 @@ register:
   select_your_gender: 'Para el saludo …'
   change-password: 'Ahora puedes cambiar tu contraseña.'
   confirmPassword_sameAsPassword: 'Ambas contraseñas ingresadas deben coincidir'
-  lastname_maxLength: El apellido sólo puede constar de un máximo de 30
+  lastname_maxLength: El apellido sólo puede constar de un máximo de 30 
     caracteres
-  firstname_maxLength: El nombre sólo puede constar de un máximo de 30
+  firstname_maxLength: El nombre sólo puede constar de un máximo de 30 
     caracteres
-  password_must_be_complex: La contraseña debe contener letras mayúsculas,
+  password_must_be_complex: La contraseña debe contener letras mayúsculas, 
     minúsculas y números
   password_must_be_trimmed: La contraseña no debe contener espacios al principio
     ni al final
@@ -1336,8 +1336,8 @@ store:
     filterActive: Activ@s
     filterSleeping: Dormilon@s
     filterManage: con examen de responsables de cooperación
-    promoteToManagerNotPossible: La persona no puede ser registrada como
-      responsable porque ya hay tres personas responsables de esta empresa o
+    promoteToManagerNotPossible: La persona no puede ser registrada como 
+      responsable porque ya hay tres personas responsables de esta empresa o 
       porque la persona aún no ha superado el examen correspondiente.
     sorting:
       default: Clasificación estándar
@@ -1347,7 +1347,7 @@ store:
       en esta empresa. Estas franjas horarias quedarán libres. ¿Deseas continuar?'
     filterNoHygiene: 'sin formación en higiene'
     inviteMember: Invitar al equipo
-    demoteAsManagerConfirm: ¿Realmente quieres renunciar a tu responsabilidad
+    demoteAsManagerConfirm: ¿Realmente quieres renunciar a tu responsabilidad 
       como líder de equipo?
   lastPickupShort: 'último el {date}'
   request:
@@ -1364,17 +1364,19 @@ store:
     withdrawn: 'La solicitud fue retirada con éxito.'
     unverified: Usuario no está verificad@
     air_line: La distancia indicada es en línea recta.
-    confirm-far: Según la dirección guardada, vives muy lejos de este
+    confirm-far: Según la dirección guardada, vives muy lejos de este 
       establecimiento ({distance}). ¿Estás seguro de que puedes apoyar al equipo
       de forma regular y confiable?
     confirm-no-location-ok: Aplicar de todos modos
-    confirm-no-location: No has introducido una dirección válida en tu perfil.
-      Por favor, introduzca una dirección para facilitar a los responsables de
+    confirm-no-location: No has introducido una dirección válida en tu perfil. 
+      Por favor, introduzca una dirección para facilitar a los responsables de 
       la empresa la decisión sobre tu candidatura.
     application-message: Mensaje de aplicación
     application-placeholder: Me gustaría ayudar en este equipo porque …
     needsStoreRegion:
       link: ''
+      request: ''
+      invited: ''
     distance:
       close: ''
       normal: ''
@@ -1398,13 +1400,25 @@ store:
       time: ''
     requireVerification:
       link: ''
+      request: ''
+      invited: ''
     requirePhone:
       link: ''
+      invited: ''
+      request: ''
     needsHomeRegion:
       link: ''
+      invited: ''
+      request: ''
     completeProfileRequired:
       link: ''
+      invited: ''
+      request: ''
     applicationMessageTooShort: ''
+    hygieneRequired:
+      request: ''
+      link: ''
+      invited: ''
   all_of_my_stores: 'Todas mis empresas'
   prefetchone: '1 semana'
   go: 'Al equipo'
@@ -1504,17 +1518,17 @@ store:
   jumping: Suplente
   isAppliedForTeam: Solicitud
   managing: Responsabilidad de cooperación
-  delete_date_description: Si utiliza ranuras regulares (semanalmente
-    recurrentes automáticamente) en su empresa y desea evitar que se cree una
-    fecha específica (por ejemplo, un día festivo), puede hacerlo especificando
-    la fecha y la hora con esta función. Si desea eliminar ranuras que ya están
+  delete_date_description: Si utiliza ranuras regulares (semanalmente 
+    recurrentes automáticamente) en su empresa y desea evitar que se cree una 
+    fecha específica (por ejemplo, un día festivo), puede hacerlo especificando 
+    la fecha y la hora con esta función. Si desea eliminar ranuras que ya están 
     visibles, puede hacerlo directamente haciendo clic en la ranura, siempre que
     no haya nadie ingresado.
-  enter_date_description: Después de haber seleccionado la fecha, la hora y la
-    cantidad de personas que recogerán, puede establecer ranuras una vez para
-    esta cita. Si desea crear ranuras regulares (semanalmente recurrentes
+  enter_date_description: Después de haber seleccionado la fecha, la hora y la 
+    cantidad de personas que recogerán, puede establecer ranuras una vez para 
+    esta cita. Si desea crear ranuras regulares (semanalmente recurrentes 
     automáticamente), utilice el menú “Ver información de la empresa”.
-  not_verified: No estás verificado. Por lo tanto, aún no puedes ver las fechas
+  not_verified: No estás verificado. Por lo tanto, aún no puedes ver las fechas 
     de recogida ni los números de teléfono de los miembros del equipo.
   log:
     search: Ver las acciones seleccionadas
@@ -1585,11 +1599,11 @@ store:
     decline: Rechazar
     invited_by: Invitado por
     title: Invitaciones para {storeTitle}
-    invited_info: Te han invitado a esta empresa. Puedes unirte al equipo
+    invited_info: Te han invitado a esta empresa. Puedes unirte al equipo 
       simplemente aceptando la invitación.
     info: Al invitar a personas que ahorran alimentos a unirse a tu equipo, para
       proteger sus datos personales, no se les añadirá directamente al equipo de
-      recogida. Recibirán una solicitud para unirse al equipo, que deberán
+      recogida. Recibirán una solicitud para unirse al equipo, que deberán 
       aceptar antes de formar parte del mismo. Puedes retirar estas invitaciones
       en cualquier momento.
   invitations: Invitaciones abiertas ({count})
@@ -1738,18 +1752,18 @@ pickup:
   edit_description: Editar Descripción
   description: Descripción
   description_optional: Descripción (opcional)
-  description_max_length_info: Longitud máxima de la descripción alcanzada (100
+  description_max_length_info: Longitud máxima de la descripción alcanzada (100 
     letras)
   hygieneCertificateMissing:
-    none: Actualmente no dispones de un certificado de higiene válido. Complete
-      el cuestionario de higiene ahora para poder registrarse para la
+    none: Actualmente no dispones de un certificado de higiene válido. Complete 
+      el cuestionario de higiene ahora para poder registrarse para la 
       recolección.
-    timeout: Su certificado de higiene caducará en el momento en que lo recoja.
-      Ahora vuelva a realizar el cuestionario de higiene para poder registrarse
+    timeout: Su certificado de higiene caducará en el momento en que lo recoja. 
+      Ahora vuelva a realizar el cuestionario de higiene para poder registrarse 
       para la recogida.
     link: Para formación en higiene
-  membershipMissing: No eres miembro de este equipo. Por lo tanto, no debes
-    registrarte para las recogidas. Si es necesario, regístrate primero como
+  membershipMissing: No eres miembro de este equipo. Por lo tanto, no debes 
+    registrarte para las recogidas. Si es necesario, regístrate primero como 
     miembro del equipo.
   may_enter: Todavía hay un lugar disponible para esta fecha de recogida.
   confirmed: La fecha de recogida está confirmada.
@@ -1862,7 +1876,7 @@ bell:
   internal_email_changed_title: '{address}'
   event_post_title: Fecha de {event} en {region}
   workinggroup_new_request_title: '{name}'
-  internal_email_changed: Tu dirección de correo electrónico personal ha sido
+  internal_email_changed: Tu dirección de correo electrónico personal ha sido 
     cambiada.
   forum_not_activated_thread: '{forum}'
   forum_not_activated_thread_title: Tema en foro moderado
@@ -2069,23 +2083,23 @@ profile:
     doesNotAffectStore: No afecta a ninguna empresa
     notes: Notas y decisiones
     confirmDelete: ¿Seguro que deseas eliminar este mensaje?
-    report_b1_4: No tenía su identificación de compartir alimentos con él
+    report_b1_4: No tenía su identificación de compartir alimentos con él 
       (B01-5)
-    report_b2: Realizó una recolección fuera de las fechas especificadas sin
+    report_b2: Realizó una recolección fuera de las fechas especificadas sin 
       consultar a los BV (B02)
     report_b3_0: Saliste o entraste de la empresa solo(B03-1)
-    report_b3_1: La recogida no se llevó a cabo sin discusión o con discusión
+    report_b3_1: La recogida no se llevó a cabo sin discusión o con discusión 
       (B03-2)
     report_b4_1: La comida no fue distribuida equitativamente (B04-2)
     report_b5: Han entrado personas no autorizadas a la empresa (B05)
-    report_b6_0: No se ha tenido en cuenta a los clientes ni a los empleados de
+    report_b6_0: No se ha tenido en cuenta a los clientes ni a los empleados de 
       la empresa (B06-1)
     report_b6_1: El lugar de recogida no se ha dejado en buen estado (B06-2)
     report_b8: Ha sido grosero con los empleados de la empresa (B08)
     report_b9: Se han formulado observaciones sobre la cantidad, la naturaleza y
       el uso de los alimentos rescatados (B09)
     report_b10: Vende alimentos rescatados (B10)
-    report_b12: A quienes recogían los alimentos no se les permitía decidir de
+    report_b12: A quienes recogían los alimentos no se les permitía decidir de 
       forma independiente a quién se los pasaría (B12)
     report_other: Mezcla
     report_b1_1: No se presentó a la recogida (B01-2)
@@ -2094,9 +2108,9 @@ profile:
     report_b1_3: Has llevado niños en la empresa sin permiso (B01-4)
     report_b4_0: No se llevaron todos los alimentos comestibles (B04-1)
     report_b7: Incumplimiento del período de espera de la explotación (B07)
-    report_b13: No se hicieron esfuerzos para consumir o distribuir los
+    report_b13: No se hicieron esfuerzos para consumir o distribuir los 
       alimentos rescatados (B13)
-    report_b11: Se utilizaron medios de transporte no ecológicos para la
+    report_b11: Se utilizaron medios de transporte no ecológicos para la 
       recogida (B11)
   history:
     noData: 'Datos no disponibles.'
@@ -2189,11 +2203,11 @@ profile:
   notFound: 'Este perfil de usuario no existe o ya no existe'
   mediationRequest: 'Solicitar mediación'
   reportRequest: 'Hacer una queja'
-  editNameInfo: Tenga en cuenta que los campos de nombre y apellidos sólo deben
-    utilizarse para el nombre de la persona. No utilice este campo para
-    almacenar más información sobre el perfil, como la organización de un curso
-    de formación sobre higiene. En su lugar, se pueden utilizar los grupos de
-    trabajo para almacenar más información sobre los perfiles. Encontrará más
+  editNameInfo: Tenga en cuenta que los campos de nombre y apellidos sólo deben 
+    utilizarse para el nombre de la persona. No utilice este campo para 
+    almacenar más información sobre el perfil, como la organización de un curso 
+    de formación sobre higiene. En su lugar, se pueden utilizar los grupos de 
+    trabajo para almacenar más información sobre los perfiles. Encontrará más 
     información al respecto en el foro [Ambassador:inside]({url})
   sections:
     home_region_from: Región de origen
@@ -2514,13 +2528,13 @@ chain:
     EMPTY_CITY: El campo Ciudad está vacío
     EMPTY_NAME: El campo Nombre está vacío
     INVALID_STORECHAIN_ID: El ID de la cadena no es válido
-    WRONG_FORUM: El hilo del foro no pertenece al grupo de trabajo de cadenas
+    WRONG_FORUM: El hilo del foro no pertenece al grupo de trabajo de cadenas 
       operativas
     KEY_ACCOUNT_MANAGER_ID_NOT_EXISTS: Key Account Manager no existe
     INVALID_STATUS: El campo de estado no es válido
     EMPTY_ZIP: El campo de código postal está vacío
     THREAD_ID_NOT_EXISTS: El hilo del foro no existe
-    KEY_ACCOUNT_MANAGER_MISSING_ACHIEVEMENT: La persona no ha completado la
+    KEY_ACCOUNT_MANAGER_MISSING_ACHIEVEMENT: La persona no ha completado la 
       formación para KAM.
 delete: 'Borrar'
 forum:
@@ -2567,14 +2581,14 @@ forum:
   post:
     delete: 'Eliminar mensaje'
     body: 'Mensaje'
-    moderator_info: Este tema está cerrado. Como moderador de este foro, aún
+    moderator_info: Este tema está cerrado. Como moderador de este foro, aún 
       puede escribir un mensaje. ¡Otros usuarios no pueden responder!
     hide: Ocultar contribución
     hideReasonPlaceholder: Escriba aquí su motivo …
     sureHide: ¿De verdad quieres ocultar este tema?
     giveHideReason: Indique por qué desea ocultar este mensaje.
-    hideInfo: Los mensajes ocultos ya no se muestran. Los moderadores pueden
-      restablecerlos en un plazo de tres meses antes de eliminarlos
+    hideInfo: Los mensajes ocultos ya no se muestran. Los moderadores pueden 
+      restablecerlos en un plazo de tres meses antes de eliminarlos 
       definitivamente. Durante este tiempo, los usuarios del foro pueden ver por
       qué se ocultó el mensaje, y los moderadores también pueden ver por quién.
     hiddenPost: Publicación oculta por [{moderatorName}]({moderatorUrl})
@@ -2588,9 +2602,9 @@ forum:
   deleted_user: usuario eliminad@
   mail_confirmation:
     title: ¿Realmente quiere enviar una notificación por correo electrónico?
-    text: ¿Realmente quieres que este nuevo post sea enviado por correo
-      electrónico a todos los miembros de este grupo o distrito? Solo debes
-      hacerlo si tu petición afecta a todos y es tan importante que todos
+    text: ¿Realmente quieres que este nuevo post sea enviado por correo 
+      electrónico a todos los miembros de este grupo o distrito? Solo debes 
+      hacerlo si tu petición afecta a todos y es tan importante que todos 
       deberían saberlo.
   go: al foro
   restore:
@@ -2608,10 +2622,10 @@ buddy:
     confirm_title: ¿Conoces a {name}?
     confirm_text: Si os etiquetáis mutuamente como amigos, las publicaciones del
       muro del perfil de la otra persona aparecerán en vuestra página de inicio.
-      También podréis encontraros más fácilmente mediante la función de
+      También podréis encontraros más fácilmente mediante la función de 
       búsqueda.
   remove:
-    confirm_text: ¿Quieres terminar con la relación? Las actualizaciones en los
+    confirm_text: ¿Quieres terminar con la relación? Las actualizaciones en los 
       tableros de tu perfil ya no se mostrarán en la página de inicio.
     confirm_title: ¿Dejar de conocer {name}?
   requests:
@@ -2682,7 +2696,7 @@ fsp:
     invalid: La entrada es incorrecta, por favor revisa tus entradas.
     required: '{name} es necesario.'
   followerCount: 'Usuarios interesados: {followerCount}'
-  onlySuggested: Este divisor justo ha sido propuesto pero aún no se ha
+  onlySuggested: Este divisor justo ha sido propuesto pero aún no se ha 
     publicado. En este estado no se mostrará a otros usuarios.
   createdAt: 'Inaugurado:'
 storeedit:
@@ -2821,7 +2835,7 @@ events:
     past: Este acto se celebró en línea.
     not_started: El acto aún no ha comenzado
     present: Este acto se celebra en línea. Puedes inscribirte ahora.
-    future: Este acto se celebrará en línea. En cuanto empiece, puede unirte a
+    future: Este acto se celebrará en línea. En cuanto empiece, puede unirte a 
       través del botón inferior.
   attendees: Participantes
   noneAccepted: Hasta el momento, ninguna persona ha confirmado su participación
@@ -2833,8 +2847,8 @@ events:
     programas adicionales, sólo un navegador de Internet razonablemente moderno. También
     es posible participar por teléfono.\n\nSi aún así desea utilizar otra plataforma
     para una conferencia telefónica o en linea, seleccione la opción *«Otros»*.\n"
-  public_info: Este evento es público y todos pueden acceder a él. Los
-    comentarios y la lista de participantes sólo son visibles para usuari@s
+  public_info: Este evento es público y todos pueden acceder a él. Los 
+    comentarios y la lista de participantes sólo son visibles para usuari@s 
     registrados.
   declinedCount: ''
 recipients:
@@ -2913,7 +2927,7 @@ regionOptions:
   regionReportReasonSimple: Motivos de notificación simplificados
   regionReportReasonCategoryB: 'Motivos de denuncia ampliados: Normas de conducta
     - B) Comportamiento durante los cobros'
-  noPickupRuleActiveStores: Actualmente, la regla de las pasas no está activada
+  noPickupRuleActiveStores: Actualmente, la regla de las pasas no está activada 
     para ningún negocio del distrito.
   enableAddressChangeNotification: ''
 mailbox:
@@ -2970,13 +2984,13 @@ mailbox:
   tag_recipient_hint: Destinatari@s (varios separad@s por punto y coma)
   mailsend_unsuccess: No se ha podido enviar el correo electrónico. {error}
   attachment:
-    not_found_explanation: El archivo adjunto no se pudo encontrar en el
+    not_found_explanation: El archivo adjunto no se pudo encontrar en el 
       servidor
     not_found: extraviado
     attach: Archivos adjuntos (máximo 10 archivos, 1,5 MB por archivo)
-    too_large_to_send: Algunos de los archivos eran demasiado grandes y no se
+    too_large_to_send: Algunos de los archivos eran demasiado grandes y no se 
       podían adjuntar.
-    too_many: Se han seleccionado demasiados archivos. Se puede adjuntar un
+    too_many: Se han seleccionado demasiados archivos. Se puede adjuntar un 
       máximo de 10 archivos al correo electrónico.
   move_to: Mover a
   close_edit_mode: Dejar de editar
@@ -2992,8 +3006,8 @@ mailbox:
   show_html_body: Ver como HTML
   mark_none: No marcar ninguno
   forward: Reenviar
-  forward_attachment_warning: Todavía no es posible reenviar archivos adjuntos.
-    Si desea reenviar el correo electrónico con archivos adjuntos, puede
+  forward_attachment_warning: Todavía no es posible reenviar archivos adjuntos. 
+    Si desea reenviar el correo electrónico con archivos adjuntos, puede 
     descargarlos y adjuntarlos al nuevo correo electrónico.
 settings:
   follow:
@@ -3047,7 +3061,7 @@ settings:
       button: 'eliminar token'
     menu: 'Calendario'
     export: Exportar calendario
-    export_tooltip: Puede ver sus fechas de recogida utilizando un programa de
+    export_tooltip: Puede ver sus fechas de recogida utilizando un programa de 
       calendario de su elección.
     download: Descargar el calendario
     generate_url:
@@ -3057,7 +3071,7 @@ settings:
       "true": Sí, mostrar mis recogidas en el calendario
       "false": No, no mostrar recogidas en el calendario
     event:
-      label: ¿Qué fechas de tus distritos y grupos de trabajo deberían
+      label: ¿Qué fechas de tus distritos y grupos de trabajo deberían 
         incluirse?
       all: Todas las citas
       invitations: Citas no canceladas
@@ -3126,7 +3140,7 @@ settings:
     status: Tu estado actual
     until: al
     from: Del
-    message: Aquí puedes dejar un breve mensaje de por qué no tienes tiempo
+    message: Aquí puedes dejar un breve mensaje de por qué no tienes tiempo 
       ahora.
   newsletter: 'Aproximadamente una vez al mes enviamos información actualizada
 
@@ -3168,12 +3182,12 @@ settings:
       name: Nombre
       role: Papel
       valid_start: Válido a partir de
-      generate_error: Se produjo un error al generar la tarjeta de membresía.
+      generate_error: Se produjo un error al generar la tarjeta de membresía. 
         Inténtelo de nuevo más tarde.
-    passport_not_activated: Su tarjeta de identificación aún no ha sido
+    passport_not_activated: Su tarjeta de identificación aún no ha sido 
       activada.
     ask_your_ambassadors: Póngase en contacto con sus embajadores al respecto.
-    passport_is_valid_until: Su pase es válido durante **{days}** días o hasta
+    passport_is_valid_until: Su pase es válido durante **{days}** días o hasta 
       **{date}**.
     passport_is_invalid: Su identificación ya no es válida.
     renew: ''
@@ -3200,7 +3214,7 @@ settings:
     3: Prueba de embajador
   change_data_info:
     general: Aquí puedes ajustar los datos de tu perfil.
-    verified: No puedes editar tu nombre ni fecha de nacimiento. Sin embargo,
+    verified: No puedes editar tu nombre ni fecha de nacimiento. Sin embargo, 
       puedes pedirle a un embajador que cambie esta información por ti.
   account_security:
     unnamed_passkey: ''
@@ -3427,26 +3441,26 @@ region:
   select: Seleccione el distrito para editar
   name: Nombre
   parent: Referencia a los padres
-  allow_hiding_in_forum: Permitir a los moderadores eliminar todos los mensajes
+  allow_hiding_in_forum: Permitir a los moderadores eliminar todos los mensajes 
     del foro
   public:
     join_name: '{name} se une'
     description: Acerca de este distrito
-    no_more_info: No hay más información disponible públicamente sobre este
+    no_more_info: No hay más información disponible públicamente sobre este 
       distrito.
     wall: Actualizaciones del distrito
     children: Distritos de {name} ({count})
     join: únete al distrito
-    confirm_entering: ¿Te gustaría unirte al distrito {name}? Los embajador@s
+    confirm_entering: ¿Te gustaría unirte al distrito {name}? Los embajador@s 
       allí tendrán entonces acceso a tu perfil.
     desc:
-      confirm_discard_changes: ¿Realmente quieres descartar tus cambios en la
+      confirm_discard_changes: ¿Realmente quieres descartar tus cambios en la 
         descripción del distrito?
       edit: Editar la descripción del distrito
-      confirm_save_changes: ¿Desea que se guarden los cambios realizados en la
+      confirm_save_changes: ¿Desea que se guarden los cambios realizados en la 
         descripción del distrito? La nueva descripción será visible públicamente
         en la página del distrito.
-      missing: Este distrito no tiene actualmente ningún texto de descripción.
+      missing: Este distrito no tiene actualmente ningún texto de descripción. 
         Ahora tiene autorización para escribir un texto descriptivo.
     leave: abandonar el distrito
     leave_name: Salir de {name}
@@ -3455,39 +3469,39 @@ region:
     map:
       set_pin: Establecer el pin del distrito en el mapa
       hide_pin: Quitar el pin del distrito
-      confirm_discard_changes: ¿Está seguro de que desea descartar los cambios
+      confirm_discard_changes: ¿Está seguro de que desea descartar los cambios 
         de pin de su distrito?
-      confirm_remove: ¿Estás seguro de que deseas eliminar el pin del distrito?
+      confirm_remove: ¿Estás seguro de que deseas eliminar el pin del distrito? 
         Este distrito ya no aparecerá en el mapa.
       edit_pin: Editar pin del distrito
-      confirm_save_changes: ¿Quieres guardar los cambios de tu pin de distrito?
+      confirm_save_changes: ¿Quieres guardar los cambios de tu pin de distrito? 
         El nuevo pin será visible públicamente en la página del distrito y en el
         mapa.
-      missing: Este distrito no aparece actualmente en el mapa y no tiene
-        despensas comunitarias que puedan mostrarse aquí. Ahora tiene
+      missing: Este distrito no aparece actualmente en el mapa y no tiene 
+        despensas comunitarias que puedan mostrarse aquí. Ahora tiene 
         autorización para fijar una chincheta de distrito.
     show_on_large_map: Ver en mapa grande
-    join_text: ¿Te gustaría activarte en {name}? ¡Entonces puedes unirte a este
+    join_text: ¿Te gustaría activarte en {name}? ¡Entonces puedes unirte a este 
       distrito!
-    confirm_leaving: ¿Quieres sumarte al distrito de {name}? Esto da a los
+    confirm_leaving: ¿Quieres sumarte al distrito de {name}? Esto da a los 
       embajadores acceso a su perfil.
     events:
       load_past: Mostrar eventos pasados
       no_future_events: 'Actualmente no hay eventos públicos listados en este distrito.
         Los siguientes eventos han tenido lugar en el pasado:'
       title: Eventos públicos
-    leave_text_region: ¿Ya no estás activo en {name} y te gustaría abandonar
+    leave_text_region: ¿Ya no estás activo en {name} y te gustaría abandonar 
       esta circunscripción?
-    leave_text_group: ¿Ya no estás activo en {name} y deseas abandonar este
+    leave_text_group: ¿Ya no estás activo en {name} y deseas abandonar este 
       grupo?
     leave_group: ''
   denied:
-    this_region: Intentaste acceder al contenido de este distrito. Sin embargo,
+    this_region: Intentaste acceder al contenido de este distrito. Sin embargo, 
       sólo los miembros del distrito tienen acceso a ella.
     subgroup_in: «{name}» es un subgrupo del grupo «{parent}».
     group_in_this_region: «{name}» es un grupo de este distrito.
     group_in_this_group: «{name}» es un subgrupo de este grupo.
-    some_group: Intentó acceder al contenido del grupo de trabajo «{name}». Sin
+    some_group: Intentó acceder al contenido del grupo de trabajo «{name}». Sin 
       embargo, sólo los miembros del grupo tienen acceso a él.
   not-existant: Este distrito o grupo de trabajo ya no existe.
 password:
@@ -3626,14 +3640,14 @@ content:
   delete_tooltip: Eliminar página
   communities:
     title: Grupos locales
-    text: El foodsharing crece día a día. Aquí encontrará siempre una lista
-      actualizada de todas las comunidades y regiones de foodsharing. Puede
-      obtener más información sobre cada distrito en la página pública del
-      distrito vinculada, o enviar un correo electrónico al distrito
+    text: El foodsharing crece día a día. Aquí encontrará siempre una lista 
+      actualizada de todas las comunidades y regiones de foodsharing. Puede 
+      obtener más información sobre cada distrito en la página pública del 
+      distrito vinculada, o enviar un correo electrónico al distrito 
       correspondiente directamente desde aquí haciendo clic en el icono.
-    searchInfo: Con Ctrl+F, la lista puede buscarse en muchos navegadores por
+    searchInfo: Con Ctrl+F, la lista puede buscarse en muchos navegadores por 
       país, ciudad, estado o barrio.
-    noAmbassador: Este distrito no cuenta actualmente con embajadores y, por
+    noAmbassador: Este distrito no cuenta actualmente con embajadores y, por 
       tanto, no puede ser contactado por correo electrónico. Póngase en contacto
       con un distrito vecino o con el distrito inmediatamente superior.
   edit_raw: Editar datos sin procesar
@@ -3748,9 +3762,9 @@ email_template:
     @foodsharing.network."
   confirm_BOT: '. Como eres embajador/moderador de %BEZIRK%, tienes que confirmarlo
     para que se publique.'
-  confirm_for_unverified: Este tema necesita ser confirmado porque fue creado
+  confirm_for_unverified: Este tema necesita ser confirmado porque fue creado 
     por una persona no verificada.
-  confirm_for_moderated_forum: Este tema necesita ser confirmado porque es un
+  confirm_for_moderated_forum: Este tema necesita ser confirmado porque es un 
     foro moderado.
   fetch_warning:
     empty_slots: '%COUNT% espacios de recogida desocupados'
@@ -3763,7 +3777,7 @@ email_template:
       se realicen según lo previsto. Lamentablemente, no todos sus negocios han registrado
       suficientes ahorradores de alimentos para las recolecciones en los próximos
       dos días:'
-    part2: Por favor, contacte a los encargados de la recogida de alimentos lo
+    part2: Por favor, contacte a los encargados de la recogida de alimentos lo 
       antes posible para que se puedan realizar todas las recogidas. Si no puede
       movilizar a nadie, le agradeceríamos que se hiciera cargo de las recogidas
       abiertas. Si esto no es posible, cancele las citas con el negocio lo antes
@@ -3944,10 +3958,10 @@ addresspicker:
   infobox: 'Introduzca la dirección en la barra de búsqueda o mueva la chincheta a
     la posición correcta en el mapa.'
   different_location: 'Corregir la descripción de la dirección'
-  different_location_warning: Asegúrese de que el pin esté en el lugar correcto
-    en el mapa de arriba. Por favor, cambie los campos completados
-    automáticamente (calle y número de casa, código postal y ciudad/municipio)
-    sólo si el valor ingresado automáticamente no es correcto. Esto puede
+  different_location_warning: Asegúrese de que el pin esté en el lugar correcto 
+    en el mapa de arriba. Por favor, cambie los campos completados 
+    automáticamente (calle y número de casa, código postal y ciudad/municipio) 
+    sólo si el valor ingresado automáticamente no es correcto. Esto puede 
     suceder, por ejemplo, después de cambiar el nombre de una calle.
 conference:
   join_title: 'Unirse a la conferencia'
@@ -4147,7 +4161,7 @@ upload:
   images: Subir imágenes
   invalid_image_files: '{count} los archivos seleccionados no son imágenes válidas:
     {fileNames}'
-  image-problem: Su archivo no parece estar bien, es mejor utilizar una imagen
+  image-problem: Su archivo no parece estar bien, es mejor utilizar una imagen 
     jpg normal
 public_time: 'Tiempo aproximado de recogida'
 answers: '¿Qué respuestas son correctas?'
@@ -4192,7 +4206,7 @@ notifications:
   save_success: Registro exitoso
   checkbox_bell: campana
   newsletter:
-    description: Reciba actualizaciones sobre cómo foodsharing por correo
+    description: Reciba actualizaciones sobre cómo foodsharing por correo 
       electrónico aproximadamente una vez al mes.
     title: Boletin informativo
   groups:
@@ -4209,11 +4223,11 @@ notifications:
   checkbox_email: correo electrónico
   foodSharePoints:
     title: Distribuidores
-    description: Reciba notificaciones de nuevos comentarios en los foros de
+    description: Reciba notificaciones de nuevos comentarios en los foros de 
       distribuidores que sigue.
   pickupReminder:
     title: Recordatorios de espacio libre
-    description: Recibe correos electrónicos que te avisan si las plazas en los
+    description: Recibe correos electrónicos que te avisan si las plazas en los 
       establecimientos que gestionas aún no están ocupadas al día siguiente.
   mention:
     title: Notificaciones de las menciones
@@ -4231,7 +4245,7 @@ notifications:
   info: Información
   warning: Advertencia
   error: Error
-  safari_add_to_home_screen: Para recibir notificaciones push en iOS, primero
+  safari_add_to_home_screen: Para recibir notificaciones push en iOS, primero 
     añade foodsharing a la pantalla de inicio.
 markdown_input:
   tooltip:
@@ -4280,7 +4294,7 @@ thread:
     linked_post: Publicación vinculada
     quote_post_wrote: escribió el
     quote_button: Haz clic para insertar el texto de la publicación del foro que
-      quieres citar (abreviado si es necesario) en la respuesta. Si mantienes
+      quieres citar (abreviado si es necesario) en la respuesta. Si mantienes 
       pulsada la tecla Mayús al mismo tiempo, insertarás el texto completo.
   priorityModal:
     title: Establecer la prioridad de visualización
@@ -4289,13 +4303,13 @@ thread:
     higher: Alta
     normal: Normal
   hiddenPostsInfo:
-    cannotSee: Aunque no puede ver el contenido de las publicaciones ocultas,
+    cannotSee: Aunque no puede ver el contenido de las publicaciones ocultas, 
       puede ver por qué y quién las ocultó.
     toggle: Mostrar publicaciones ocultas
     includesHidden: Los moderadores ocultaron las publicaciones de este tema.
 configure_columns: Configurar columnas
 save_state: Mantener filtros y clasificación
-save_state_description: Guarde los filtros usados y clasifique para futuras
+save_state_description: Guarde los filtros usados y clasifique para futuras 
   llamadas
 expand_all: Expandir todo
 collapse_all: Contraer todo
@@ -4345,7 +4359,7 @@ help:
         ocurre una vez cada noche. Los cambios no se producen inmediatamente.\n"
     profileCommitmentsStat:
       title: Estadísticas de participación
-      md: es visible desde el papel del responsable de la empresa. Se limita a
+      md: es visible desde el papel del responsable de la empresa. Se limita a 
         un distrito de domicilio común o a operaciones conjuntas.
     achievements:
       title: Etiquetas
@@ -4517,17 +4531,17 @@ no_automatic_delete: 'Si el último inicio de sesión fue hace más de cinco añ
 automatic_delete: '- el perfil debe ser eliminado.'
 automatic_not_delete: '- el perfil debe conservarse.'
 validation:
-  phone_number_invalid: El número de teléfono no es válido (por ejemplo, falta
-    el prefijo del país, es demasiado corto, demasiado largo o contiene
+  phone_number_invalid: El número de teléfono no es válido (por ejemplo, falta 
+    el prefijo del país, es demasiado corto, demasiado largo o contiene 
     caracteres no válidos)
 achievements:
   inThis:
     group: 'En este grupo de trabajo se podrán realizar las siguientes anotaciones:'
     region: 'En este distrito se pueden publicar las siguientes entradas:'
   validity:
-    days: Válido por {validityInDaysAfterAssignment} días después de la
+    days: Válido por {validityInDaysAfterAssignment} días después de la 
       asignación.
-    indefinite: Válido para cualquier período de tiempo después de la
+    indefinite: Válido para cualquier período de tiempo después de la 
       adjudicación.
     indefiniteShort: ilimitado
   awardedNoReviewer: Automáticamente
@@ -4585,7 +4599,7 @@ theme_switcher:
     system: Sistema
     light: Claro
     dark: Oscuro
-error_base64_image: No está permitido insertar imágenes mediante arrastrar y
+error_base64_image: No está permitido insertar imágenes mediante arrastrar y 
   soltar.
 support_page:
   title: Formulario de soporte
@@ -4601,11 +4615,11 @@ support_page:
   validation_body: Mensaje vacío
   success: Su mensaje se ha enviado correctamente.
   new_request: Nueva consulta
-  info_teaser: Nuestro formulario de asistencia está disponible para preguntas
-    sobre el uso de la plataforma, problemas técnicos o mensajes de error. Tras
-    enviar el formulario, se crea automáticamente un ticket en nuestro sistema.
-    El equipo de voluntarios se ocupará de su consulta. Para poder responder
-    mejor a los problemas técnicos, su consulta incluye también el navegador y
+  info_teaser: Nuestro formulario de asistencia está disponible para preguntas 
+    sobre el uso de la plataforma, problemas técnicos o mensajes de error. Tras 
+    enviar el formulario, se crea automáticamente un ticket en nuestro sistema. 
+    El equipo de voluntarios se ocupará de su consulta. Para poder responder 
+    mejor a los problemas técnicos, su consulta incluye también el navegador y 
     el sistema operativo que utiliza.
   attachment:
     drop_placeholder: Archivo aquí
@@ -4616,15 +4630,15 @@ support_page:
 petition:
   progressText:
     8000: ¡Hemos tenido un buen comienzo! ¡Ayúdanos a llegar aún más lejos!
-    15000: ¡La mitad del camino está a la vista! ¡Con tu apoyo, seguimos
+    15000: ¡La mitad del camino está a la vista! ¡Con tu apoyo, seguimos 
       avanzando!
     20000: ¡Ya tenemos la mitad de las firmas necesarias! ¡Juntos lo lograremos!
     30000: Casi llegamos - ¡solo un poco más! ¡Únete a la petición!
     2000: ¡La petición está en marcha! ¡Con tu apoyo ganaremos fuerza!
     500: ¡Vamos! ¡Sé uno de los primeros en firmar esta petición!
-    25000: ¡Ya tenemos dos tercios de las firmas necesarias! ¡Juntos lo
+    25000: ¡Ya tenemos dos tercios de las firmas necesarias! ¡Juntos lo 
       lograremos!
-    Infinity: ¡Objetivo alcanzado! Nuestra petición está siendo discutida en el
+    Infinity: ¡Objetivo alcanzado! Nuestra petición está siendo discutida en el 
       Bundestag, ¡y ahora se trata de fortalecer aún más nuestra causa!
   daysLeft: '{daysLeft} días restantes'
   link: Acerca de la petición
@@ -4637,19 +4651,19 @@ navi:
   komoot: Komoot
   here: HERE WeGo
   native: Aplicación nativa
-  gdpr_warning: Cuando navegas con {provider}, la dirección se transmite a su
+  gdpr_warning: Cuando navegas con {provider}, la dirección se transmite a su 
     servicio y eres redirigido a su sitio web. ¿Estás de acuerdo con esto?
   no_native_app: Este dispositivo no admite enlaces geográficos.
 required_messages:
   verify:
     footer: Saludos cordiales, sus embajador@s
     main: ¡Te hemos verificado como ahorrador de alimentos!
-    really: ¿Está seguro de que desea verificar {name}? Asegúrese de que {name}
-      cumpla con todos los [requisitos para Foodsavers
+    really: ¿Está seguro de que desea verificar {name}? Asegúrese de que {name} 
+      cumpla con todos los [requisitos para Foodsavers 
       verificados](https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver).
-    really_multiple: ¿Está seguro de que desea verificar {count} usuarios?
-      Asegúrese de que todas las {count} personas cumplan con todos los
-      [requisitos para los Foodsavers
+    really_multiple: ¿Está seguro de que desea verificar {count} usuarios? 
+      Asegúrese de que todas las {count} personas cumplan con todos los 
+      [requisitos para los Foodsavers 
       verificados](https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver).
   sure_title: ¿Segur@?
   message_info_multiple: 'Cada persona recibiría el siguiente mensaje:'
@@ -4659,49 +4673,49 @@ required_messages:
   message_info: '{name} recibiría el siguiente mensaje:'
   demote_store_manager:
     footer: Atentamente
-    really: ¿De verdad quieres quitarle a {name} su responsabilidad como líder
+    really: ¿De verdad quieres quitarle a {name} su responsabilidad como líder 
       del equipo?
-    main: Te he destituido como jefe de equipo de la empresa
+    main: Te he destituido como jefe de equipo de la empresa 
       [{store}](/store/{storeId}).
   decline_store_application:
     footer: Atentamente
-    really: ¿Estás seguro de que deseas rechazar la solicitud del equipo de
+    really: ¿Estás seguro de que deseas rechazar la solicitud del equipo de 
       {name}?
     main: Tu solicitud para unirte al equipo [{store}](/store/{storeId}) ha sido
       rechazada.
   kick_from_store_team:
     footer: Atentamente
     really: ¿Realmente quieres eliminar a {name} del equipo de esta empresa?
-    main: te han eliminado del equipo de [{store}](/store/{storeId}). Ya no
+    main: te han eliminado del equipo de [{store}](/store/{storeId}). Ya no 
       puedes registrarte para recolecciones en esta empresa.
   move_to_standby_team:
     footer: Atentamente
-    really: ¿Realmente quieres mover a {name} del equipo activo a la lista de
+    really: ¿Realmente quieres mover a {name} del equipo activo a la lista de 
       suplentes?
-    main: te han incluido en la lista de reserva en la empresa
-      [{store}](/store/{storeId}). Actualmente no puedes registrarte para
+    main: te han incluido en la lista de reserva en la empresa 
+      [{store}](/store/{storeId}). Actualmente no puedes registrarte para 
       recogidas en esta empresa ni leer el chat general del grupo.
 contact_page:
   common:
     modal:
-      text: Envíenos un correo electrónico a
-        [{common_mail}](mailto:{common_mail}) (o
+      text: Envíenos un correo electrónico a 
+        [{common_mail}](mailto:{common_mail}) (o 
         [{common_mail_ch}](mailto:{common_mail_ch}) para Suiza).
       title: Escribe un correo electrónico
     title: Para cuestiones organizativas
     link: Escribe un correo electrónico
-    text: Estaremos encantados de dirigirle a la persona de contacto adecuada,
+    text: Estaremos encantados de dirigirle a la persona de contacto adecuada, 
       también en los distritos.
   support:
     title: Ayuda con el sitio web o su cuenta
     link: Portal de soporte
-    text: Aquí encontrará nuestra base de datos de conocimientos sobre temas
-      frecuentes o actuales. Si no encuentras lo que buscas allí, no dudes en
+    text: Aquí encontrará nuestra base de datos de conocimientos sobre temas 
+      frecuentes o actuales. Si no encuentras lo que buscas allí, no dudes en 
       crear una solicitud como ticket (enlace arriba a la derecha).
   regions:
     title: Grupos locales
     link: a la vista general
-    text: Si tiene alguna pregunta sobre un distrito, comuníquese directamente
+    text: Si tiene alguna pregunta sobre un distrito, comuníquese directamente 
       con la persona de contacto del distrito.
   bread: Contacto y soporte
   description: 'Póngase en contacto con nosotros utilizando una de las siguientes
@@ -4712,30 +4726,30 @@ feedback:
   capture_screenshot: Tomar una captura de pantalla
   error:
     invalid_file: Archivo inválido. Por favor, sube solo imágenes.
-    message_short: Tu mensaje es demasiado corto. Proporcione más información,
+    message_short: Tu mensaje es demasiado corto. Proporcione más información, 
       por favor.
-    screenshot: La captura de pantalla automática ha fallado. Sin embargo,
+    screenshot: La captura de pantalla automática ha fallado. Sin embargo, 
       puedes añadir una imagen a tu comentario manualmente.
     no_sentry: Se produjo un error con Sentry. Por favor, inténtelo de nuevo más
       tarde.
   title: Comentario
-  privacy: Tu mensaje se enviará a los desarrolladores voluntarios de la
-    plataforma foodsharing. Todas las entradas del formulario, así como las
-    imágenes adjuntas, serán entonces visibles para ellos. Asegúrate de que las
-    capturas de pantalla no contengan datos personales de otros usuarios que no
+  privacy: Tu mensaje se enviará a los desarrolladores voluntarios de la 
+    plataforma foodsharing. Todas las entradas del formulario, así como las 
+    imágenes adjuntas, serán entonces visibles para ellos. Asegúrate de que las 
+    capturas de pantalla no contengan datos personales de otros usuarios que no 
     estés autorizado a transmitir.
   name_sent: También se enviarán tu nombre y tu ID de usuario.
   success: Tu comentario se ha enviado correctamente.
-  no_support: Este formulario es sólo para **comentarios**. Si necesita ayuda o
+  no_support: Este formulario es sólo para **comentarios**. Si necesita ayuda o 
     tiene alguna pregunta, utilice el [formulario de soporte](/support).
 net_errors:
-  SERVER_ERROR: Se ha producido un error interno del servidor. No se puede
+  SERVER_ERROR: Se ha producido un error interno del servidor. No se puede 
     procesar su solicitud en este momento.
-  BAD_REQUEST: La solicitud no es válida. Por favor, revise sus entradas para
+  BAD_REQUEST: La solicitud no es válida. Por favor, revise sus entradas para 
     comprobar que estén completas y sean verosímiles.
   NOT_FOUND: No se encontró la página solicitada.
   FORBIDDEN: No está autorizado para realizar esta acción.
-  ERR_BAD_RESPONSE: El servidor devolvió una respuesta no válida. Inténtelo de
+  ERR_BAD_RESPONSE: El servidor devolvió una respuesta no válida. Inténtelo de 
     nuevo.
   ERR_NETWORK: Hubo un problema de red. Por favor, revisa tu conexión a internet
     y vuelve a intentarlo.
@@ -4745,10 +4759,10 @@ net_errors:
     500: Error del servidor
     400: Solicitud incorrecta
   message: 'Mensaje de error: '
-  TOO_MANY_REQUESTS: Demasiadas solicitudes. Espere un momento y vuelva a
+  TOO_MANY_REQUESTS: Demasiadas solicitudes. Espere un momento y vuelva a 
     intentarlo.
   action_response: 'Solicitud y respuesta del servidor:'
-  ETIMEDOUT: La solicitud tardó demasiado. Por favor, revisa tu conexión a
+  ETIMEDOUT: La solicitud tardó demasiado. Por favor, revisa tu conexión a 
     internet y vuelve a intentarlo.
   ERR_NETWORK_CHANGED: Tu conexión a internet es inestable. Revisa tu conexión y
     vuelve a intentarlo.
@@ -4759,7 +4773,7 @@ test:
   plain: Esto es una traducción
   vars: Mi nombre es {NAME} y tengo {AGE} años
 debug:
-  info: Esta es una página de depuración. Si no sabes qué hace un botón,
+  info: Esta es una página de depuración. Si no sabes qué hace un botón, 
     simplemente no lo pulses 😉
   title: Página de depuración
 resource_mosaic:

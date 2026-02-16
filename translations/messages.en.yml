@@ -2325,10 +2325,10 @@ map:
         cooperating: cooperates
         not-cooperating: does not cooperate
       help:
-        label: Helpers
+        label: Team status
         all: no preference
-        open: searching
-        searching: searching urgently
+        open: open
+        searching: looking for support
       scope:
         all: all
         region: only my districts
@@ -2499,14 +2499,44 @@ store:
       normal: about {distance} km
     completeProfileRequired:
       link: Edit profile
+      invited: 'You were invited to this store. Before being able to accept the invitation
+        you need to provide all necessary information on your profile. At the minimum,
+        you need to fill out the following fields: first name, last name, date of
+        birth, current address, photo. Please enter these in your profile settings.
+        Then you can accept the invitation.'
+      request: 'You cannot apply because you have not yet provided all the necessary
+        information on your profile. At the minimum, you need to fill out the following
+        fields: first name, last name, date of birth, current address, photo. Please
+        enter these in your profile settings. Then you can apply again.'
     needsHomeRegion:
       link: Select home district
+      invited: You were invited to this store. Before being able to accept the 
+        invitation, you need to select a home region. After selecting one you 
+        can accept this invitation.
+      request: You cannot apply because you have not selected a home region. 
+        After selection one you can try again to apply.
     needsStoreRegion:
       link: Join district
+      request: You cannot apply because you are no member of the store's region 
+        {region}. When you joined the region, you can try again to apply.
+      invited: You were invited to this store. Before being able to accept the 
+        invitation, you need to be a member of the store's region {region}. Once
+        you joined the region, you can try again to apply.
     requireVerification:
       link: Open the forum of your main district
+      request: ''
+      invited: ''
     requirePhone:
       link: Edit profile
+      invited: You were invited to this store. Before being able to accept the 
+        invitation, you need to enter a phone number in your profile. This store
+        currently only accepts applications by foodsavers with at least one 
+        phone number. Please enter a phone number in your profile settings to be
+        able to apply.
+      request: You cannot apply because you have not entered a phone number in 
+        your profile. This store currently only accepts applications by 
+        foodsavers with at least one phone number. Please enter a phone number 
+        in your profile settings to be able to apply.
     applicationSummary:
       intro: 'When you submit your application, the team managers will see the following
         information:'
@@ -2523,6 +2553,10 @@ store:
       many_more: Show {count} more entries
       one_less: Hide an entry
       many_less: Hide {count} entries
+    hygieneRequired:
+      request: ''
+      link: ''
+      invited: ''
   sm:
     reallyRemove: Do you really want to remove {name} from the store team?
     removeFromTeam: Remove from the team
@@ -2734,8 +2768,8 @@ store:
   invitation:
     withdraw: Withdraw invitation
     accept: Accept invitation
-    invited_info: You have been invited to this team. You can join simply by 
-      accepting the invitation.
+    invited_info: You have been invited to this team. You can join by accepting 
+      the invitation.
     decline: Decline
     invited_by: Invited by
     title: Invitations for {storeTitle}
@@ -2999,9 +3033,9 @@ storeedit:
   unsuccess: "Unable to store change. {error}"
   fetch:
     teamStatus: team status
-    teamStatus2: Helpers are strongly needed
+    teamStatus2: Support is urgently needed
     teamStatus1: The team is open for applications from foodsavers
-    teamStatus0: This store  is currently not accepting applications.
+    teamStatus0: This store is currently not accepting applications.
     hygieneRequirement: Hygiene requirements
     hygieneRequired: Registrations are only permitted with valid hygiene 
       training

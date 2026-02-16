@@ -797,6 +797,8 @@ store:
     air_line: ''
     needsStoreRegion:
       link: ''
+      request: ''
+      invited: ''
     distance:
       close: ''
       normal: ''
@@ -820,18 +822,30 @@ store:
       time: ''
     requireVerification:
       link: ''
+      request: ''
+      invited: ''
     application-placeholder: ''
     requirePhone:
       link: ''
+      invited: ''
+      request: ''
     needsHomeRegion:
       link: ''
+      invited: ''
+      request: ''
     confirm-far: ''
     completeProfileRequired:
       link: ''
+      invited: ''
+      request: ''
     application-message: ''
     applicationMessageTooShort: ''
     confirm-no-location-ok: ''
     confirm-no-location: ''
+    hygieneRequired:
+      request: ''
+      link: ''
+      invited: ''
   filter: ''
   short_tooltip_red: ''
   pickup_slot_unavailable: ''

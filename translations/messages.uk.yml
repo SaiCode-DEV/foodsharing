@@ -1456,6 +1456,8 @@ store:
     to-team: ''
     needsStoreRegion:
       link: ''
+      request: ''
+      invited: ''
     distance:
       close: ''
       normal: ''
@@ -1479,6 +1481,8 @@ store:
       time: ''
     requireVerification:
       link: ''
+      request: ''
+      invited: ''
     application-placeholder: ''
     withdrawn: ''
     to-nowhere: ''
@@ -1486,13 +1490,19 @@ store:
     unverified: ''
     requirePhone:
       link: ''
+      invited: ''
+      request: ''
     air_line: ''
     needsHomeRegion:
       link: ''
+      invited: ''
+      request: ''
     verified: ''
     confirm-far: ''
     completeProfileRequired:
       link: ''
+      invited: ''
+      request: ''
     no-duplicate: ''
     request: ''
     to-jumper: ''
@@ -1501,6 +1511,10 @@ store:
     applicationMessageTooShort: ''
     confirm-no-location-ok: ''
     confirm-no-location: ''
+    hygieneRequired:
+      request: ''
+      link: ''
+      invited: ''
   log:
     message:
       6: ''

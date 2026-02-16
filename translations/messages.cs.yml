@@ -1020,6 +1020,8 @@ store:
     air_line: ''
     needsStoreRegion:
       link: ''
+      request: ''
+      invited: ''
     distance:
       close: ''
       normal: ''
@@ -1043,18 +1045,30 @@ store:
       time: ''
     requireVerification:
       link: ''
+      request: ''
+      invited: ''
     application-placeholder: ''
     requirePhone:
       link: ''
+      invited: ''
+      request: ''
     needsHomeRegion:
       link: ''
+      invited: ''
+      request: ''
     confirm-far: ''
     completeProfileRequired:
       link: ''
+      invited: ''
+      request: ''
     application-message: ''
     applicationMessageTooShort: ''
     confirm-no-location-ok: ''
     confirm-no-location: ''
+    hygieneRequired:
+      request: ''
+      link: ''
+      invited: ''
   important: ''
   nochains: ''
   all_of_my_stores: ''
@@ -3602,7 +3616,7 @@ usersearch:
   no_tag_preset: ''
   select_tag: ''
 validation:
-  phone_number_invalid: Telefonní číslo je neplatné (např. chybí kód země, je
+  phone_number_invalid: Telefonní číslo je neplatné (např. chybí kód země, je 
     příliš krátké, příliš dlouhé nebo obsahuje neplatné znaky)
 copied_to_clipboard: „{text}“ byl zkopírován do schránky.
 no_automatic_delete: 'Pokud k poslední činnosti došlo před více než pěti lety:'

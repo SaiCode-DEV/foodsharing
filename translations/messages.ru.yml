@@ -1985,6 +1985,8 @@ store:
     air_line: 'Показанное расстояние — по прямой.'
     needsStoreRegion:
       link: ''
+      request: ''
+      invited: ''
     distance:
       close: ''
       normal: ''
@@ -2008,18 +2010,30 @@ store:
       time: ''
     requireVerification:
       link: ''
+      request: ''
+      invited: ''
     application-placeholder: ''
     requirePhone:
       link: ''
+      invited: ''
+      request: ''
     needsHomeRegion:
       link: ''
+      invited: ''
+      request: ''
     confirm-far: ''
     completeProfileRequired:
       link: ''
+      invited: ''
+      request: ''
     application-message: ''
     applicationMessageTooShort: ''
     confirm-no-location-ok: ''
     confirm-no-location: ''
+    hygieneRequired:
+      request: ''
+      link: ''
+      invited: ''
   convince:
     none: 'Вовсе не проблема, они сразу же были в восторге!'
     some: 'После убеждения они согласились участвовать.'
@@ -3928,7 +3942,7 @@ usersearch:
   select_tag: 'Искать пользователя по имени'
 validation:
   phone_number_invalid: Номер телефона недействителен (например, отсутствует код
-    страны, он слишком короткий, слишком длинный или содержит недопустимые
+    страны, он слишком короткий, слишком длинный или содержит недопустимые 
     символы)
 navi:
   google_maps: Карты Google
