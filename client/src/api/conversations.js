@@ -6,8 +6,9 @@ export function getConversationList (limit = '', offset = '') {
   return get(`/conversations${queryString}`)
 }
 
-export function getConversation (conversationId) {
-  return get(`/conversations/${conversationId}`)
+export function getConversation (conversationId, markAsRead = false) {
+  const queryString = generateQueryString({ markAsRead: markAsRead ? 1 : 0 })
+  return get(`/conversations/${conversationId}${queryString}`)
 }
 
 export function getConversationIdForConversationWithUser (userId) {

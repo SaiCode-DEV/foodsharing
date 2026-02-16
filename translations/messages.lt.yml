@@ -50,15 +50,15 @@ lebensmittel: Kur maisto produktai yra pasiimami?
 begin: Pradėk bendradarbiavimą
 besonderheiten: Savybės
 public_time: Apytikslis maisto paėmimo laikas
-ueberzeugungsarbeit: Ar buvo lengva įtikinti atsakingus asmenis bendradarbiauti 
+ueberzeugungsarbeit: Ar buvo lengva įtikinti atsakingus asmenis bendradarbiauti
   su foodsharing?
-presse: Ar įmonė/parduotuvė/organizacija yra pasirengusi būti paminėta spaudoje 
+presse: Ar įmonė/parduotuvė/organizacija yra pasirengusi būti paminėta spaudoje
   ir foodsharing.de?
-prefetchtime: Kiek savaičių į priekį Foodsaveriai gali užsiregistruoti 
+prefetchtime: Kiek savaičių į priekį Foodsaveriai gali užsiregistruoti
   naudojantis automatiniu laikų pasirinkimu?
-abholmenge: Kiek kilogramų maisto kiekvienas asmuo apytiksliai pasiima per 
+abholmenge: Kiek kilogramų maisto kiekvienas asmuo apytiksliai pasiima per
   paėmimą?
-use_region_pickup_rule: Ar šiam verslui turėtų būti taikoma rajono ROSINEN 
+use_region_pickup_rule: Ar šiam verslui turėtų būti taikoma rajono ROSINEN
   taisyklė paėmimams?
 right: Įvertinimas
 position: Oficiali foodsharing vieta
@@ -92,73 +92,73 @@ quiz:
     title: Pastabos apie testą
     infos:
       pause: Testą galite pristabdyti po kiekvieno klausimo ir tęsti vėliau.
-      feedback: Testo pabaigoje gausite iš karto įvertinimą, kuriame bus 
-        nurodyta, ar išlaikėte ir kokias klaidas padarėte. Čia galite dar kartą 
+      feedback: Testo pabaigoje gausite iš karto įvertinimą, kuriame bus
+        nurodyta, ar išlaikėte ir kokias klaidas padarėte. Čia galite dar kartą
         perskaityti priežastis, kada jums patogu.
-      limited_tries: Testo negalima kartoti tiek kartų, kiek norite. Po trijų 
-        bandymų turite padaryti 30 dienų mokymosi pertrauką, po kurios galite 
-        bandyti tik dar du kartus. Kiekviename teste užduodami skirtingi 
+      limited_tries: Testo negalima kartoti tiek kartų, kiek norite. Po trijų
+        bandymų turite padaryti 30 dienų mokymosi pertrauką, po kurios galite
+        bandyti tik dar du kartus. Kiekviename teste užduodami skirtingi
         klausimai.
-      alone: Testą turite atlikti patys ir be jokios pašalinės pagalbos. Jei 
-        turite kalbos sunkumų arba jums reikia pagalbos, kitas asmuo, žinoma, 
-        gali padėti jums suprasti klausimus, Tačiau jūs turite mokėti į juos 
-        atsakyti patys. Todėl susiraskite ramią vietą, kurioje galėtumėte 
+      alone: Testą turite atlikti patys ir be jokios pašalinės pagalbos. Jei
+        turite kalbos sunkumų arba jums reikia pagalbos, kitas asmuo, žinoma,
+        gali padėti jums suprasti klausimus, Tačiau jūs turite mokėti į juos
+        atsakyti patys. Todėl susiraskite ramią vietą, kurioje galėtumėte
         netrukdomi atlikti testą.
-      multiple_choice: Į kiekvieną klausimą gali būti keli teisingi atsakymai 
-        arba nė vieno. Todėl kiekvieną atsakymą atskirai nuspręskite, ar jis 
+      multiple_choice: Į kiekvieną klausimą gali būti keli teisingi atsakymai
+        arba nė vieno. Todėl kiekvieną atsakymą atskirai nuspręskite, ar jis
         teisingas, ar neteisingas.
-      unlimited_tries: Šį testą galite kartoti tiek kartų, kiek norite, ir 
-        niekada nebūsite diskvalifikuoti už nesėkmingus bandymus. Tačiau tarp 
+      unlimited_tries: Šį testą galite kartoti tiek kartų, kiek norite, ir
+        niekada nebūsite diskvalifikuoti už nesėkmingus bandymus. Tačiau tarp
         bandymų gali tekti padaryti mokymosi pertrauką .
       read_carefully: Atidžiai perskaitykite visus klausimus ir atsakymus.
-      comment: Atsakę į kiekvieną klausimą, pamatysite tarpinį vertinimą su 
-        kiekvieno atsakymo varianto paaiškinimais. Tai padeda suprasti, kuris 
+      comment: Atsakę į kiekvieną klausimą, pamatysite tarpinį vertinimą su
+        kiekvieno atsakymo varianto paaiškinimais. Tai padeda suprasti, kuris
         atsakymas yra teisingas, o kuris – neteisingas ir kodėl. Prie kiekvienos
-        klaidos reikia atidžiai perskaityti paaiškinimus. Jei kas nors jums 
-        atrodo nelogiška, nesuprantama ar net neteisinga, palikite komentarą. 
-        Jūsų komentarai gali būti priskirti jums, kad galėtumėte gauti 
+        klaidos reikia atidžiai perskaityti paaiškinimus. Jei kas nors jums
+        atrodo nelogiška, nesuprantama ar net neteisinga, palikite komentarą.
+        Jūsų komentarai gali būti priskirti jums, kad galėtumėte gauti
         individualų atsiliepimą.
-      wiki: Prašau nepradėti testo spontaniškai. Prieš tai atidžiai 
-        perskaitykite informacinius puslapius. Be žinių iš Wiki neišlaikysite 
+      wiki: Prašau nepradėti testo spontaniškai. Prieš tai atidžiai
+        perskaitykite informacinius puslapius. Be žinių iš Wiki neišlaikysite
         testo.
-      real_life_examples: Dauguma klausimų yra pagrįsti tikrais atvejais iš 
+      real_life_examples: Dauguma klausimų yra pagrįsti tikrais atvejais iš
         gyvenimo dalijantis maistu.
-      timed: Laikas atsakyti į klausimus yra ribotas. Neleisk, kad taikeltų tau 
-        stresą. Laikas kiekvienam klausimui skiriamas individualiai, kad 
-        turėtumėte pakankamai laiko ramiai į jį atsakyti. Jei kada nors 
-        pritrūksite laiko, praneškite apie tai testo administratoriams 
+      timed: Laikas atsakyti į klausimus yra ribotas. Neleisk, kad taikeltų tau
+        stresą. Laikas kiekvienam klausimui skiriamas individualiai, kad
+        turėtumėte pakankamai laiko ramiai į jį atsakyti. Jei kada nors
+        pritrūksite laiko, praneškite apie tai testo administratoriams
         komentare.
     privacyNotice:
-      hygiene: Jei išlaikysite šį testą, bus užfiksuotas Jūsų sėkmės laikas ir 
-        Jums bus įteiktas higienos lipdukas. Higienos ir operacijų vadovai gali 
+      hygiene: Jei išlaikysite šį testą, bus užfiksuotas Jūsų sėkmės laikas ir
+        Jums bus įteiktas higienos lipdukas. Higienos ir operacijų vadovai gali
         patikrinti, ar turite galiojantį higienos lipduką.
     acceptPrivacyNotice: Sutinku.
   stateBasedInfo:
-    pauseElapsed: Jūsų mokymosi pertrauka baigėsi. Dabar galite vėl dalyvauti 
+    pauseElapsed: Jūsų mokymosi pertrauka baigėsi. Dabar galite vėl dalyvauti
       teste. Tikimės, kad per šį laiką gerai susipažinote su turiniu.
-    neverTried: Šio testo dar nesate užbaigę. Skirkite šiek tiek laiko atidžiai 
-      perskaityti visus pateiktus informacinius straipsnius, kad gerai 
+    neverTried: Šio testo dar nesate užbaigę. Skirkite šiek tiek laiko atidžiai
+      perskaityti visus pateiktus informacinius straipsnius, kad gerai
       pasiruoštum atsakyti į klausimus.
-    waitAfter: Jei kitą kartą neišlaikysite, turėsite daryti 
-      {waitTimeAfterFailure} dienų pertrauką mokymuisi. Būtinai peržiūrėkite 
+    waitAfter: Jei kitą kartą neišlaikysite, turėsite daryti
+      {waitTimeAfterFailure} dienų pertrauką mokymuisi. Būtinai peržiūrėkite
       atitinkamus informacinius straipsnius, kad galėtumėte išlaikyti testą.
-    running: Jūs jau pradėjotei testą ir iki šiol atsakėteį {questionsAnswered} 
+    running: Jūs jau pradėjotei testą ir iki šiol atsakėteį {questionsAnswered}
       iš {questionCount} klausimų.
     disqualifiedAfter: Jums liko tik paskutinis bandymas išlaikyti šį testą! Jei
-      dabar neišlaikysite, būsite visam laikui diskvalifikuotas iš šio testo. 
-      Prašome dalyvauti tik tada, kai išsamiai susipažinote su visais 
+      dabar neišlaikysite, būsite visam laikui diskvalifikuotas iš šio testo.
+      Prašome dalyvauti tik tada, kai išsamiai susipažinote su visais
       informacijos šaltiniais Wiki.
-    disqualified: Deja, Jūs esate diskvalifikuotas iš šio testo, nes per daug 
+    disqualified: Deja, Jūs esate diskvalifikuotas iš šio testo, nes per daug
       kartų jo neišlaikėte.
     passedBefore: Šį testą Jūs jau esate išlaikęs.
-    willExpire: Tačiau Jūsų išlaikyto testo galiojimas baigsis po 
-      {expirationTime} dienų. Todėl jau dabar galite atnaujinti savo žinias 
+    willExpire: Tačiau Jūsų išlaikyto testo galiojimas baigsis po
+      {expirationTime} dienų. Todėl jau dabar galite atnaujinti savo žinias
       šioje srityje ir vėl dalyvauti šiame teste.
     expired: Tačiau Jūsų paskutinis testo bandymas nebegalioja.
-    pause: Šio testo Jūs jau kelis kartus neišlaikėte. Patikimumas, taisyklių 
-      tvirtas išmanymas ir profesionalus elgesys foodsharing platformoje yra 
+    pause: Šio testo Jūs jau kelis kartus neišlaikėte. Patikimumas, taisyklių
+      tvirtas išmanymas ir profesionalus elgesys foodsharing platformoje yra
       būtini. Deja, Jūsų atsakymai šiuo metu to neparodo. Todėl gaunate mokymosi
-      pertrauką, kol vėl galėsite mėginti išlaikyti testą. Jūsų pertrauka 
+      pertrauką, kol vėl galėsite mėginti išlaikyti testą. Jūsų pertrauka
       baigsis po {currentWaitTime} dienų.
     passed: Jūs išlaikėte šį testą.
     failed: Paskutiniu bandymu, deja, šio testo neišlaikėte.
@@ -171,9 +171,9 @@ quiz:
     points:
       1: Jūs išlaikėte su {failurePoints} klaidų taškais iš maksimaliai leistinų
         {maxFailurePointsToSucceed}!
-      2: Jūs turėjote {failurePoints} klaidų taškų, o išlaikyti reikėjo ne 
+      2: Jūs turėjote {failurePoints} klaidų taškų, o išlaikyti reikėjo ne
         daugiau kaip {maxFailurePointsToSucceed}.
-    deleted: Tiksli testo įvertinimo ataskaita saugoma tik dvi savaites po 
+    deleted: Tiksli testo įvertinimo ataskaita saugoma tik dvi savaites po
       testo, todėl ji nebeprieinama.
   fp_badge:
     right: Atsakyta teisingai
@@ -186,7 +186,7 @@ quiz:
     toggle: Parašykite komentarą
     label: Komentuoti klausimą
     info: Pateik mums atsiliepimą apie šį klausimą. Ar jis buvo per lengvas, per
-      sunkus, neaiškus? O gal kai kurie atsakymai arba paaiškinimai yra 
+      sunkus, neaiškus? O gal kai kurie atsakymai arba paaiškinimai yra
       netikslūs?
     placeholder: Įveskite komentarą…
   question: Klausimai
@@ -227,17 +227,17 @@ quiz:
     delete: Ištrinti klausimą
     show_comments: Rodyti komentarus
   show_results: Peržiūrėti paskutinio bandymo rezultatus
-  mandatory_question: Šis klausimas yra privalomas ir įtrauktas į kiekvieną 
+  mandatory_question: Šis klausimas yra privalomas ir įtrauktas į kiekvieną
     testo bandymą.
-  fp_description: Iš viso {failurePoints}, t.y. {perMistake} už kiekvieną 
+  fp_description: Iš viso {failurePoints}, t.y. {perMistake} už kiekvieną
     neteisingą atsakymą
   timed_out: Į šį klausimą Jūs neatsakėte per nustatytą laiką.
   key_facts:
     to_pass: 'Norint išlaikyti:'
-    untimed: Daugiausia {maxFailurePointsToSucceed} klaidų taškų iš 
-      {questionCountTimed} klausimų su laiko apribojimu arba iš 
+    untimed: Daugiausia {maxFailurePointsToSucceed} klaidų taškų iš
+      {questionCountTimed} klausimų su laiko apribojimu arba iš
       {questionCountUntimed} klausimų be laiko apribojimo
-    timed: Daugiausia {maxFailurePointsToSucceed} klaidų taškų iš 
+    timed: Daugiausia {maxFailurePointsToSucceed} klaidų taškų iš
       {questionCountTimed} klausimų su laiko apribojimu
   timelimit: Laiko limitas
   timed_out_error: Laikas atsakyti į šį klausimą jau baigėsi.
@@ -291,18 +291,18 @@ quiz:
         answerRating: 'Rezultatas:'
   sessionStatus:
     0: Šiuo metu vyksta
-    1: Išlaikyta su {failurePoints} iš leidžiamų {maxFailurePointsToSucceed} 
+    1: Išlaikyta su {failurePoints} iš leidžiamų {maxFailurePointsToSucceed}
       klaidų taškų
-    2: Neišlaikyta – {failurePoints} iš leidžiamų {maxFailurePointsToSucceed} 
+    2: Neišlaikyta – {failurePoints} iš leidžiamų {maxFailurePointsToSucceed}
       klaidų taškų
   confirmDelete:
     question: Ar tikrai nori ištrinti šį klausimą?
     answer: Ar tikrai nori ištrinti šį atsakymą?
     session: Ar tikrai nori ištrinti šį testo seansą?
   confirm: Patvirtinti testą ir užbaigti procesą
-  confirmComment: Ar tavo komentaras turėtų būti išsiųstas šio testo 
+  confirmComment: Ar tavo komentaras turėtų būti išsiųstas šio testo
     administratoriams?
-  confirmDashboardText: Tu išlaikei testą, bet jo dar nepatvirtinai. Spustelėk 
+  confirmDashboardText: Tu išlaikei testą, bet jo dar nepatvirtinai. Spustelėk
     čia, kad užbaigtum procesą!
   test: Išbandyti testą
 fetchstate: Ar viskas pavyko gerai?
@@ -310,7 +310,7 @@ first_post: Pirmas įrašas
 bezirk_id: Kuriam regionui svarbus šis straipsnis?
 pass2: Pakartokite slaptažodį
 fax: Faksas
-sticker: Ar įmonė/parduotuvė/organizacija ir pan. yra pasiryžusi užklijuoti 
+sticker: Ar įmonė/parduotuvė/organizacija ir pan. yra pasiryžusi užklijuoti
   lipduką prie įėjimo arba kitur matomoje vietoje?
 text: Tekstas
 button:
@@ -356,7 +356,7 @@ upload:
   choose_file: Pasirinkti bylą
   new_file: Įkelti naują bylą
   crop_dialog_title: Apkirpti paveikslėlį
-  image-problem: Tavo byla, atrodo, yra netinkama – geriausia naudoti įprastą 
+  image-problem: Tavo byla, atrodo, yra netinkama – geriausia naudoti įprastą
     JPG paveikslėlį
   invalid_image_files: '{count} pasirinktos bylos paveikslėliai netinkami : {fileNames}'
 image: Paveikslėlis / Vaizdas
@@ -365,14 +365,14 @@ bcard:
   card: Jūsų „foodsharing“ vizitinė kortelė
   claim: Tiesiog sukurkite, atsispausdinkite ir išsikirpkite…
   for: '{role} {region} regionui'
-  desc: Pasirinkite, kuriam rajonui ar kokiam vaidmeniui norite sukurti savo 
+  desc: Pasirinkite, kuriam rajonui ar kokiam vaidmeniui norite sukurti savo
     vizitinę kortelę.
   error:
-    length: Jūsų adresas per ilgas. Adresas, pašto kodas ir miestas kartu gali 
+    length: Jūsų adresas per ilgas. Adresas, pašto kodas ir miestas kartu gali
       sudaryti ne daugiau kaip 49 simbolius.
-    phone: Norėdami sukurti vizitinę kortelę, turite nurodyti galiojantį 
+    phone: Norėdami sukurti vizitinę kortelę, turite nurodyti galiojantį
       telefono numerį.
-    verified: Turite būti patvirtintas, kad galėtumėte sukurti savo vizitinę 
+    verified: Turite būti patvirtintas, kad galėtumėte sukurti savo vizitinę
       kortelę.
   generate: Kurti vizitinę kortelę
   role: Vaidmuo / Rolė
@@ -2655,7 +2655,6 @@ chat:
   notification_named_conversation: ''
   new_messages: ''
   placeholder: ''
-  display_all_messages: ''
   select_recipients: ''
   empty_message: ''
   open_multi_chat: ''

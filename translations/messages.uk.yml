@@ -2452,7 +2452,6 @@ chat:
   notification_named_conversation: ''
   new_messages: ''
   placeholder: ''
-  display_all_messages: ''
   select_recipients: ''
   empty_message: ''
   open_multi_chat: ''

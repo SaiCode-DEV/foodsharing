@@ -3119,7 +3119,6 @@ chat:
   empty_message: ''
   notification_named_conversation: ''
   empty_recipients: ''
-  display_all_messages: ''
   search: ''
   placeholder: ''
   empty: ''

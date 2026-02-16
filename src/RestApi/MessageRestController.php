@@ -70,9 +70,6 @@ class MessageRestController extends AbstractFoodsharingRestController
             throw new AccessDeniedHttpException('Not permitted to access this conversation.');
         }
 
-        if ($olderThanId === null) {
-            $this->messageGateway->setReadStatus($conversationId, $this->session->id(), true);
-        }
         $limit ??= self::DEFAULT_MESSAGES_LIMIT;
 
         $messages = $this->messageGateway->getConversationMessages($conversationId, $limit, $olderThanId);
@@ -88,11 +85,18 @@ class MessageRestController extends AbstractFoodsharingRestController
         new OA\Property(property: 'profiles', type: 'array', items: new OA\Items(ref: new Model(type: Profile::class))),
     ]))]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted to access this conversation.')]
-    public function getConversation(int $conversationId, #[MapQueryParameter] ?int $limit): Response
-    {
+    public function getConversation(
+        int $conversationId,
+        #[MapQueryParameter] ?int $limit,
+        #[MapQueryParameter] ?bool $markAsRead,
+    ): Response {
         $this->assertLoggedIn();
         if (!$this->messageGateway->mayConversation($this->session->id(), $conversationId)) {
             throw new AccessDeniedHttpException('Not permitted to access this conversation.');
+        }
+
+        if ($markAsRead) {
+            $this->messageGateway->setReadStatus($conversationId, $this->session->id(), true);
         }
 
         $conversation = $this->messageTransactions->getConversationData($conversationId, $limit ?? self::DEFAULT_MESSAGES_LIMIT);

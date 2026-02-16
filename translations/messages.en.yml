@@ -3235,7 +3235,7 @@ chat:
   no_messages: No messages
   no_conversation: No conversation selected
   start_of_conversation: "Conversation started on:"
-  display_all_messages: "Display all messages"
+  open_full_view: "Open full view"
   unknown_username: unknown name
   show_participants: Show participants
   participants: Participants

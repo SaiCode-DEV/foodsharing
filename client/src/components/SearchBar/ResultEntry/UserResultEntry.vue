@@ -73,7 +73,7 @@ export default {
   methods: {
     openChat () {
       chat(this.user.id)
-      this.$emit('close')
+      this.$emit('close-without-returning-focus')
     },
   },
 }

@@ -1891,7 +1891,6 @@ timepicker:
   placeholder: ''
 chat:
   open_chat: ''
-  display_all_messages: ''
   empty: ''
   receivermissing: ''
   no_messages: ''

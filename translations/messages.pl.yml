@@ -57,7 +57,7 @@ questcount: Ile pytań ma zawierać egzamin?
 wikilink: Link z dodatkowymi informacjami
 filter_by: filtruj według
 save_state: Zachowaj filtry i sortowanie
-save_state_description: Zachowaj użyte filtry i sortowanie na przyszłe 
+save_state_description: Zachowaj użyte filtry i sortowanie na przyszłe
   odwiedziny
 configure_columns: Konfiguracja kolumn
 partner_foodsharing: Partnerzy foodsharingu
@@ -82,27 +82,27 @@ quiz:
     neutral: Odpowiedź neutralna - nie jest oceniana.
     false_false: Ta odpowiedź była błędna. Poprawnie to rozpoznałeś/aś.
   stateBasedInfo:
-    neverTried: Dotychczas jeszcze nie ukończyłeś/aś tego quizu. Najpierw 
-      poświęć trochę czasu, aby zapoznać się z wszystkimi wymienionymi 
+    neverTried: Dotychczas jeszcze nie ukończyłeś/aś tego quizu. Najpierw
+      poświęć trochę czasu, aby zapoznać się z wszystkimi wymienionymi
       informacjami i przygotować się na pytania.
-    running: Już rozpocząłeś/rozpoczęłaś quiz i odpowiedziałeś/aś na 
+    running: Już rozpocząłeś/rozpoczęłaś quiz i odpowiedziałeś/aś na
       {questionsAnswered} z {questionCount} pytań.
     passed: Już zdałeś/aś ten quiz.
     failed: Niestety, przy ostatniej próbie nie zdałeś/aś tego quizu.
     noWaitAfter: Jeszcze raz przejrzyj artykuły informacyjne i spróbuj ponownie.
-    disqualified: Niestety, zostałeś/aś zdyskwalifikowany/a z tego quizu, 
+    disqualified: Niestety, zostałeś/aś zdyskwalifikowany/a z tego quizu,
       ponieważ zbyt często go nie zdałeś/aś.
     passedBefore: Już zdałeś/aś ten quiz wcześniej.
-    willExpire: Ważność twojego quizu kończy się po {expirationTime} dniach. 
-      Dlatego możesz już teraz odświeżyć swoją wiedzę w tym zakresie i ponownie 
+    willExpire: Ważność twojego quizu kończy się po {expirationTime} dniach.
+      Dlatego możesz już teraz odświeżyć swoją wiedzę w tym zakresie i ponownie
       wziąć udział w tym quizie.
     disqualifiedAfter: Masz już tylko jedną ostatnią szansę, żeby zdać ten quiz!
-      Jeśli teraz nie zdasz, będziesz trwale zdyskwalifikowany/a z tego quizu. 
-      Bierz udział tylko pod warunkiem, że dokładnie przestudiowałeś/aś treści 
+      Jeśli teraz nie zdasz, będziesz trwale zdyskwalifikowany/a z tego quizu.
+      Bierz udział tylko pod warunkiem, że dokładnie przestudiowałeś/aś treści
       zawarte w wiki.
     expired: Jednakże twoja ostatnia próba tego quizu już jest nieważna.
-    pauseElapsed: Twoja przerwa na naukę się skończyła. Dlatego możesz ponownie 
-      przystąpić do quizu. Miejmy nadzieję, że wykorzystałeś/aś czas to lepiej 
+    pauseElapsed: Twoja przerwa na naukę się skończyła. Dlatego możesz ponownie
+      przystąpić do quizu. Miejmy nadzieję, że wykorzystałeś/aś czas to lepiej
       zaznajomić się z treściami.
     pause: ''
     waitAfter: ''
@@ -119,40 +119,40 @@ quiz:
   startmodal:
     title: Wskazówki do quizu
     infos:
-      wiki: Nie zaczynaj quizu na próbę. Najpierw przeczytaj dokładnie 
-        wymienione strony informacyjne. Bez wiedzy z Wiki nie uda ci się zdać 
+      wiki: Nie zaczynaj quizu na próbę. Najpierw przeczytaj dokładnie
+        wymienione strony informacyjne. Bez wiedzy z Wiki nie uda ci się zdać
         quizu.
       real_life_examples: Większość pytań opiera się na rzeczywistych sytuacjach
         z życia foodsharingu.
-      limited_tries: Nie możesz powtarzać quizu tak często, jak chcesz. Po 
-        trzech próbach musisz poświęcić 30 dni na naukę, następnie masz jeszcze 
+      limited_tries: Nie możesz powtarzać quizu tak często, jak chcesz. Po
+        trzech próbach musisz poświęcić 30 dni na naukę, następnie masz jeszcze
         tylko dwie próby. Pytania zadawane przy każdej próbie są inne.
       read_carefully: Przeczytaj uważnie wszystkie pytania i odpowiedzi.
-      multiple_choice: Może być kilka poprawnych odpowiedzi na dane pytanie - 
-        albo też żadna. Zdecyduj niezależnie dla każdej odpowiedzi, czy jest 
+      multiple_choice: Może być kilka poprawnych odpowiedzi na dane pytanie -
+        albo też żadna. Zdecyduj niezależnie dla każdej odpowiedzi, czy jest
         poprawna czy fałszywa.
       timed: Czas odpowiadania na pytania jest ograniczony. Nie stresuj się tym.
         Czas jest tak dostosowany do poszczególnych pytań, aby był wystarczający
-        do odpowiedzenia w spokoju na dane pytanie. Jeśli mimo to kiedyś 
-        zabraknie ci czasu, poinformuj administratorów/ki quizu  poprzez 
+        do odpowiedzenia w spokoju na dane pytanie. Jeśli mimo to kiedyś
+        zabraknie ci czasu, poinformuj administratorów/ki quizu  poprzez
         komentarz.
       pause: Możesz zastopować quiz po każdym pytaniu i kontynuować później.
-      feedback: Na koniec quizu otrzymasz bezpośrednio ocenę, czy zdałeś/aś i 
-        jakie popełniłeś/aś błędy. Możesz wtedy w spokoju przeczytać 
+      feedback: Na koniec quizu otrzymasz bezpośrednio ocenę, czy zdałeś/aś i
+        jakie popełniłeś/aś błędy. Możesz wtedy w spokoju przeczytać
         uzasadnienia.
-      unlimited_tries: Możesz powtarzać ten quiz dowolną liczbę razy i nie 
-        zostaniesz zdyskwalifikowany/a przez błędne próby. Jednakże, być może 
+      unlimited_tries: Możesz powtarzać ten quiz dowolną liczbę razy i nie
+        zostaniesz zdyskwalifikowany/a przez błędne próby. Jednakże, być może
         będziesz musiał/a zrobić przerwę na naukę między podejściami.
-      alone: Musisz zdać quiz samodzielnie i bez pomocy z zewnątrz. Jeśli masz 
-        problemy językowe albo potrzebujesz asystencji osobistej, oczywiście 
-        inna osoba może ci pomóc zrozumieć pytania; jednak musisz być w stanie 
-        samodzielnie na nie odpowiedzieć. Dlatego poszukaj spokojnego miejsca, 
+      alone: Musisz zdać quiz samodzielnie i bez pomocy z zewnątrz. Jeśli masz
+        problemy językowe albo potrzebujesz asystencji osobistej, oczywiście
+        inna osoba może ci pomóc zrozumieć pytania; jednak musisz być w stanie
+        samodzielnie na nie odpowiedzieć. Dlatego poszukaj spokojnego miejsca,
         gdzie możesz przeprowadzić quiz bez zakłóceń.
       comment: Po odpowiedzeniu na każde pytanie zobaczysz pośrednią ewaluację z
-        wyjaśnieniami do każdej możliwej odpowiedzi. To pomoże ci zrozumieć, 
-        która odpowiedź jest poprawna lub błędna, i dlaczego. Jeśli popełnisz 
-        błąd, powinieneś/powinnaś przeczytać dokładnie wyjaśnienia. Jeśli coś 
-        wydaje ci się nielogiczne, niezrozumiałe lub nawet błędne, zostaw 
+        wyjaśnieniami do każdej możliwej odpowiedzi. To pomoże ci zrozumieć,
+        która odpowiedź jest poprawna lub błędna, i dlaczego. Jeśli popełnisz
+        błąd, powinieneś/powinnaś przeczytać dokładnie wyjaśnienia. Jeśli coś
+        wydaje ci się nielogiczne, niezrozumiałe lub nawet błędne, zostaw
         komentarz. Twoje komentarze są przyporządkowane do ciebie, aby umożliwić
         indywidualną informację zwrotną.
     acceptPrivacyNotice: Zgadzam się.
@@ -186,9 +186,9 @@ quiz:
     question: Czy na pewno chcesz usunąć to pytanie?
     answer: Czy na pewno chcesz usunąć tę odpowiedź?
   confirm: Potwierdź quiz i zakończ proces
-  confirmComment: Czy wysłać twój komentarz do administratorów/administratorek 
+  confirmComment: Czy wysłać twój komentarz do administratorów/administratorek
     quizu?
-  confirmDashboardText: Zaliczyłeś/aś quiz, którego jeszcze nie 
+  confirmDashboardText: Zaliczyłeś/aś quiz, którego jeszcze nie
     potwierdziłeś/aś. [Kliknij tutaj]({url}), aby zakończyć proces!
   timedstart: Rozpocznij quiz z limitem czasu i {count} pytaniami
   results:
@@ -196,17 +196,17 @@ quiz:
       1: Gratulacje!
       2: Niestety, nie zdałeś/aś.
     points:
-      1: Zdałeś/aś z {failurePoints} z maksmalnie {maxFailurePointsToSucceed} 
+      1: Zdałeś/aś z {failurePoints} z maksmalnie {maxFailurePointsToSucceed}
         punktami ujemnymi!
-      2: Miałeś/aś {failurePoints} punktów ujemnych, a mógłbyś/mogłabyś zdać z 
+      2: Miałeś/aś {failurePoints} punktów ujemnych, a mógłbyś/mogłabyś zdać z
         maksymalnie {maxFailurePointsToSucceed} punktami ujemnymi.
-    deleted: Dokładna ocena będzie zachowana przez dwa tygodnie po quizie i 
+    deleted: Dokładna ocena będzie zachowana przez dwa tygodnie po quizie i
       później nie będzie dostępna.
   fp_badge:
     right: Odpowiedź poprawna
     wrong: '{userFailurePoints} błędy'
   timed_out: Nie odpowiedziałeś/aś na pytanie w wyznaczonym czasie.
-  timed_out_last: Niestety, nie odpowiedziałeś/aś na ostatnie pytanie w 
+  timed_out_last: Niestety, nie odpowiedziałeś/aś na ostatnie pytanie w
     wyznaczonym czasie.
   timed_out_error: Czas na odpowiedź na to pytanie już upłynął.
   show_results: Zobacz wyniki ostatniej próby
@@ -214,10 +214,10 @@ quiz:
   wikilink: Więcej informacji
   key_facts:
     to_pass: 'Aby zdać:'
-    untimed: Maksymalnie {maxFailurePointsToSucceed} punkty ujemne przy 
-      {questionCountTimed} pytaniach z limitem czasu lub {questionCountUntimed} 
+    untimed: Maksymalnie {maxFailurePointsToSucceed} punkty ujemne przy
+      {questionCountTimed} pytaniach z limitem czasu lub {questionCountUntimed}
       pytań bez limitu czasu
-    timed: Maksymalnie {maxFailurePointsToSucceed} punkty ujemne przy 
+    timed: Maksymalnie {maxFailurePointsToSucceed} punkty ujemne przy
       {questionCountTimed} pytaniach z limitem czasu
   general:
     title: Ogólne informacje
@@ -227,9 +227,9 @@ quiz:
   editable_tooltip: Możesz edytować ten quiz.
   timelimit: Limit czasu
   max_fp: Maksymalna liczba punktów ujemnych
-  mandatory_question: To pytanie jest obowiązkowe i zawarte w każdej próbie 
+  mandatory_question: To pytanie jest obowiązkowe i zawarte w każdej próbie
     quizu.
-  fp_description: Łącznie {failurePoints}, czyli {perMistake} za błędną 
+  fp_description: Łącznie {failurePoints}, czyli {perMistake} za błędną
     odpowiedź.
   editModal:
     quiz:
@@ -271,7 +271,7 @@ quiz:
         answerRating: 'Ocena:'
   test: Testuj quiz
   sessionStatus:
-    2: Niezdane z {failurePoints} z maksymalnie {maxFailurePointsToSucceed} 
+    2: Niezdane z {failurePoints} z maksymalnie {maxFailurePointsToSucceed}
       punktów ujemnych.
     1: ''
     0: ''
@@ -283,15 +283,15 @@ groups:
   empty: Nie jesteś jeszcze w żadnej grupie roboczej
 about_me_public: Krótki opis publiczny
 teaser: Kłopotliwe pytanie
-fspmanagers: Foodsavers, którzy są osobami kontaktowymi dla sprawiedliwego 
+fspmanagers: Foodsavers, którzy są osobami kontaktowymi dla sprawiedliwego
   dzielenia się
 kette_id: Łańcuch operacji
 ansprechpartner: Osoby kontaktowe w firmie (kierownicy oddziałów itp.)
 ueberzeugungsarbeit: Czy łatwo było przekonać osoby odpowiedzialne do współpracy
   w ramach foodsharingu?
-presse: Czy firma/sklep/stowarzyszenie wyraża zgodę na publikację w prasie i na 
+presse: Czy firma/sklep/stowarzyszenie wyraża zgodę na publikację w prasie i na
   stronie foodsharing.de?
-sticker: Czy firma/sklep/klub itp. jest skłonna umieścić naklejkę przy wejściu 
+sticker: Czy firma/sklep/klub itp. jest skłonna umieścić naklejkę przy wejściu
   lub w innym miejscu?
 use_region_pickup_rule: Czy przepisy okręgowe dotyczące odbioru zamówień powinny
   mieć zastosowanie także do tej firmy?
@@ -313,7 +313,7 @@ upload:
   choose_file: Wyślij plik
   new_file: Wyślij nowy plik
   crop_dialog_title: Przytnij obraz
-  image-problem: Twój plik wydaje się nie być w porządku, najlepiej wybierz 
+  image-problem: Twój plik wydaje się nie być w porządku, najlepiej wybierz
     zwykły obraz jpg
   invalid_image_files: ''
 button:
@@ -409,7 +409,7 @@ settings:
     2: ''
   sleep:
     status: Twój aktualny status
-    message: Tu możesz zostawić krótką wiadomość, dlaczego chwilowo nie masz 
+    message: Tu możesz zostawić krótką wiadomość, dlaczego chwilowo nie masz
       czasu.
     from: Od
     until: do
@@ -579,7 +579,7 @@ settings:
   password_change:
     new_password_placeholder: Minimum 8 znaków
     new_password_required: Hasło musi zawierać minimum 8 znaków
-    new_password_must_be_trimmed: Hasło nie może zaczynać się od lub kończyć na 
+    new_password_must_be_trimmed: Hasło nie może zaczynać się od lub kończyć na
       spacji
     new_password_must_be_complex: Nowe hasło musi zawierać wielkie i małe litery
       oraz cyfry
@@ -602,9 +602,9 @@ settings:
     non_verified_text: Nie jesteś jeszcze zweryfikowany/a. Tylko zweryfikowani/e
       foodsaverzy/ki mogą pobrać swoją legitymację.
     passport_not_activated: Twoja legitymacja jeszcze nie została aktywowana.
-    ask_your_ambassadors: Skontaktuj się w tej sprawie ze swoimi 
+    ask_your_ambassadors: Skontaktuj się w tej sprawie ze swoimi
       ambasador(k)ami.
-    passport_is_valid_until: Twoja legitymacja jest ważna jeszcze **{days}** 
+    passport_is_valid_until: Twoja legitymacja jest ważna jeszcze **{days}**
       dni, do **{date}**.
     passport_is_invalid: Twoja legitymacja jest już nieważna.
     button: Pobierz legitymację
@@ -616,7 +616,7 @@ settings:
       role: Rola
       valid_start: Ważny od
       valid_end: Ważny do
-      generate_error: Podczas generowania legitymacji wystąpił błąd. Proszę, 
+      generate_error: Podczas generowania legitymacji wystąpił błąd. Proszę,
         spróbuj ponownie później.
     verified_text: ''
   photo:
@@ -626,13 +626,13 @@ settings:
     title: Powiadomienia push
     not-supported: Twoja przeglądarka nie wspiera powiadomień push.
     denied: |
-      Odrzuciłe/aś otrzymywanie powiadomień push od strony foodsharing w twojej przeglądarce. 
+      Odrzuciłe/aś otrzymywanie powiadomień push od strony foodsharing w twojej przeglądarce.
       Jeśli chcesz otrzymywać powiadomienia push, zmień ustawienia przeglądarki dla strony foodsharing  i odśwież stronę.
     info-on: |
-      Jeśli aktywujesz powiadomienia push dla tego urządzenia, 
-      wiadomości z chatu będą w przyszłości dostarczane bezpośrednio do twojego urządzenia, 
+      Jeśli aktywujesz powiadomienia push dla tego urządzenia,
+      wiadomości z chatu będą w przyszłości dostarczane bezpośrednio do twojego urządzenia,
       nawet jeśli nie jesteś zalogowany/a.
-      Twoje urządzenie będzie wtedy pokazywać odpowiednie powiadomienie 
+      Twoje urządzenie będzie wtedy pokazywać odpowiednie powiadomienie
       i reagować dźwiękiem lub wibracją.
     enable: Aktywuj powiadomienia push
     success: Powiadomienia push aktywowane pomyślnie
@@ -663,7 +663,7 @@ bcard:
   for: '{rola} w/dla {region}'
   desc: Wybierz, dla którego okręgu i której roli chcesz wygenerować wizytówkę.
   error:
-    length: Twój adres jest za długi! Adres, kod pocztowy i miasto mogą mieć 
+    length: Twój adres jest za długi! Adres, kod pocztowy i miasto mogą mieć
       łącznie maksymalnie 49 znaków.
     phone: Musisz podać ważny numer telefonu, aby wygenerować wizytówkę.
     verified: Musisz być zweryfikowany, aby móc wygenerować wizytówkę.
@@ -778,7 +778,7 @@ group:
       max: Nie oczekuj więcej niż {{ limit }} bananów zaufania.
       not_in_range: '{{ limit }} Nikt nie powinien mieć mniej niż {{ min }} albo więcej
         niż {{ max }} bananów zaufania.'
-    member_since_weeks: Od ilu tygodni kandydat/ka powinien/na być aktywny/a w 
+    member_since_weeks: Od ilu tygodni kandydat/ka powinien/na być aktywny/a w
       foodsharingu?
     fetch_count: ''
     not_fulfilled: ''
@@ -815,10 +815,10 @@ group:
       active_or_renew_passport: aktywuj/przedłuż legitymację
       never_before: jeszcze nigdy
       verify:
-        do: Czy na pewno chcesz aktywować {name} ({id}) (porównanie danych 
+        do: Czy na pewno chcesz aktywować {name} ({id}) (porównanie danych
           osobistych/ kontrola dowodu tożsamości itd.)?
-        do_selected: Czy na pewno chcesz aktywować wszystkich/e zaznaczonych/e 
-          użytkowników/czki (porównanie danych osobistych/ kontrola dowodu 
+        do_selected: Czy na pewno chcesz aktywować wszystkich/e zaznaczonych/e
+          użytkowników/czki (porównanie danych osobistych/ kontrola dowodu
           tożsamości itd.)?
         undo: ''
       filter_options:
@@ -835,15 +835,15 @@ group:
       filter_selection: Pokaż tylko wybranych członków
     remove_admin_title: usuń jako administratora/kę
     remove_ambassador_title: usuń jako ambasadora/kę
-    remove_admin_text: Czy na pewno chcesz usunąć {name} ({id}) jako 
+    remove_admin_text: Czy na pewno chcesz usunąć {name} ({id}) jako
       administratora/kę?
-    remove_ambassador_text: Czy na pewno chcesz usunąć {name} ({id}) jako 
+    remove_ambassador_text: Czy na pewno chcesz usunąć {name} ({id}) jako
       ambasadora/kę?
     set_admin_title: Mianuj administratorem/ką
     set_ambassador_title: Mianuj ambasadorem/ką
-    set_admin_text: Czy na pewno chcesz mianować {name} ({id}) 
+    set_admin_text: Czy na pewno chcesz mianować {name} ({id})
       administratorem/ką?
-    set_ambassador_text: Czy na pewno chcesz mianować {name} ({id}) 
+    set_ambassador_text: Czy na pewno chcesz mianować {name} ({id})
       ambasadorem/ką?
     remove_title: Usuń członka
     add_member: Dodaj do teamu
@@ -859,15 +859,15 @@ group:
   application_from: przez
   really_quit_workgroup: Czy na pewno chcesz opuścić zespół {name}?
   unique_function:
-    tooltip_function_region331: Administratorzy/ki tego zespołu mogą wysyłać 
+    tooltip_function_region331: Administratorzy/ki tego zespołu mogą wysyłać
       newslettery
-    tooltip_function_region341: Administratorzy/ki tego zespołu mogą zarządzać 
+    tooltip_function_region341: Administratorzy/ki tego zespołu mogą zarządzać
       pytaniami quizu
-    tooltip_function_region1811: Administratorzy/ki tego zespołu mogą edytować 
+    tooltip_function_region1811: Administratorzy/ki tego zespołu mogą edytować
       strony "Partnerzy", "Kontakt" i "Team"
-    tooltip_function_region2287: Administratorzy/ki tego zespołu mogą edytować 
+    tooltip_function_region2287: Administratorzy/ki tego zespołu mogą edytować
       treści na stronie głównej
-    tooltip_function_region327: Administratorzy/ki tego zespołu mogą edytować 
+    tooltip_function_region327: Administratorzy/ki tego zespołu mogą edytować
       wpisy na blogu
     tooltip_function_region387: ''
     tooltip_function_region332: ''
@@ -894,7 +894,7 @@ legal:
     this_gets_deleted_main: 'Poniższe informacje będą przez ciebie usunięte i nie
       będą mogły zostać odzyskane:'
     this_gets_deleted_verify: Twoja weryfikacja będzie usunięta.
-    this_gets_deleted_trustbananas: Banany, które dostałeś/aś od innych, będą 
+    this_gets_deleted_trustbananas: Banany, które dostałeś/aś od innych, będą
       usunięte.
     this_doesnt_get_deleted_history: Historia twojej weryfikacji
     legal_2: ''
@@ -929,7 +929,7 @@ login:
       zalogować.
     mailSent: Świetnie, link do zmiany hasła został do ciebie wysłany mailem.
     tooShort: Niestety, twoje wybrane hasło jest za krótkie.
-    expired: Link jest nieważny. Prawdopodobnie czekałeś/aś trochę zbyt długo. 
+    expired: Link jest nieważny. Prawdopodobnie czekałeś/aś trochę zbyt długo.
       Proszę, zażądaj nowego hasła.
     error: Niestety, jest problem z twoimi danymi.
     mismatch: Niestety, hasła się nie pokrywają.
@@ -942,14 +942,14 @@ login:
   resend_verification:
     email_invalid: Podaj adres email
     title: Potwierdzenie adresu email
-    hint1: Twój adres email musi być potwierdzony, aby móc się zalogować. Jeśli 
-      zostałeś przekierowany/a do tej strony ze strony logowania, twój adres 
-      email jeszcze nie jest potwierdzony. Możesz użyć tego formularza, aby 
+    hint1: Twój adres email musi być potwierdzony, aby móc się zalogować. Jeśli
+      zostałeś przekierowany/a do tej strony ze strony logowania, twój adres
+      email jeszcze nie jest potwierdzony. Możesz użyć tego formularza, aby
       poprosić o nowy email zawierający link aktywacyjny.
-    hint2: Jeśli nie otrzymasz maila, skontaktuj się z naszym 
+    hint2: Jeśli nie otrzymasz maila, skontaktuj się z naszym
       [supportem](/support).
     submit: Wyślij
-    success: Jeśli ten adres email istnieje i jeszcze nie został zweryfikowany, 
+    success: Jeśli ten adres email istnieje i jeszcze nie został zweryfikowany,
       zostanie wysłany nowy email.
   or: albo
   error_not_activated: 'Niestety, twój adres email jeszcze nie jest aktywowany.'
@@ -973,9 +973,9 @@ register:
   login_passwd1: Hasło (minimum 8 znaków)
   password_required: Hasło jest wymagane
   password_minLength: Twoje hasło musi mieć minimum osiem znaków
-  password_must_be_complex: Twoje hasło musi zawierać minimum jedną wielką i 
+  password_must_be_complex: Twoje hasło musi zawierać minimum jedną wielką i
     małą literę oraz cyfry
-  password_must_be_trimmed: Hasło nie może zawierać spacji na początku lub na 
+  password_must_be_trimmed: Hasło nie może zawierać spacji na początku lub na
     końcu
   confirmPassword_required: Powtórz hasło dla potwierdzenia
   confirmPassword_sameAsPassword: Oba podane hasła muszą być zgodne
@@ -1001,11 +1001,11 @@ register:
   check_mail: Sprawdź swoją skrzynkę mailową, aby ukończyć rejestrację!
   error: Wystąpił błąd
   error_email_invalid: Ten adres email nie może być użyty
-  account-exists: Już jesteś zarejestrowany/a. Wyloguj się, jeśli chcesz się 
+  account-exists: Już jesteś zarejestrowany/a. Wyloguj się, jeśli chcesz się
     zarejestrować ponownie.
-  activation_success: <strong> Aktywacja przebiegła pomyślnie </strong> Teraz 
+  activation_success: <strong> Aktywacja przebiegła pomyślnie </strong> Teraz
     zaloguj się przy pomocy swojego adresu email i wybranego hasła.
-  activation_failed: <strong>Aktywacja nie przebiegła pomyślnie.</strong> Czy 
+  activation_failed: <strong>Aktywacja nie przebiegła pomyślnie.</strong> Czy
     podany link jest poprawny?
   change-password: Teraz możesz zmienić swoje hasło.
   pass1: Twoje żądane nowe hasło
@@ -1214,7 +1214,7 @@ required_messages:
     really: ''
   decline_store_application:
     really: Czy na pewno chcesz odrzucić zgłoszenie {name}?
-    main: Twoje zgłoszenie do Teamu [{store}](/store/{storeId}) zostało 
+    main: Twoje zgłoszenie do Teamu [{store}](/store/{storeId}) zostało
       odrzucone.
     footer: Pozdrawiam
   demote_store_manager:
@@ -1261,7 +1261,7 @@ net_errors:
   NOT_FOUND: Żądana strona nie została odnaleziona.
   ERR_NETWORK: Wystąpił problem z siecią. Sprawdź swoje połączenie internetowe i
     spróbuj ponownie.
-  ERR_NETWORK_CHANGED: Twoje połączenie internetowe jest niestabilne. Proszę 
+  ERR_NETWORK_CHANGED: Twoje połączenie internetowe jest niestabilne. Proszę
     sprawdź swoje połączenie i spróbuj ponownie.
   unknown: Wystąpił nieznany błąd. Spróbuj ponownie później.
   ETIMEDOUT: ''
@@ -1285,7 +1285,7 @@ fsp:
   description: Opis
   new: Nowa jadłodzielnia
   add: Dodaj jadłodzielnię
-  addError: Jadłodzielnia nie mogła zostać dodana. Czy poprawnie wszystko 
+  addError: Jadłodzielnia nie mogła zostać dodana. Czy poprawnie wszystko
     wypełniłeś/aś?
   addSuccess: Jadłodzielnia została pomyślnie dodana
   suggest: Zaproponuj jadłodzielnię
@@ -1302,9 +1302,9 @@ fsp:
   pic: Zdjęcie
   addedOn: Dodany
   addedBy: Dodany przez
-  descLabel: Wpisz tutaj podstawowe informacje o jadłodzielni, w szczególności 
+  descLabel: Wpisz tutaj podstawowe informacje o jadłodzielni, w szczególności
     kiedy jest dostępna/otwarta.
-  noManager: Co najmniej jedna osoba musi być odpowiedzialna za tę 
+  noManager: Co najmniej jedna osoba musi być odpowiedzialna za tę
     jadłodzielnię.
   delete: Usuń jadłodzielnię
   deleteConfirm: Czy na pewno chcesz usunąć tę jadłodzielnię?
@@ -1316,7 +1316,7 @@ fsp:
   twig:
     n_in_region: '{count} jadłodzielni w {name}'
   followerCount: 'Zainteresowani/e użytkownicy/czki: {followerCount}'
-  onlySuggested: Ta jadłodzielnia została zaproponowana, ale jeszcze nie jest 
+  onlySuggested: Ta jadłodzielnia została zaproponowana, ale jeszcze nie jest
     dopuszczona. W tym stanie nie będzie wyświetlana u innych użytkowników/czek.
   acceptName: akceptuj {name}
   rejectConfirm: Uwaga, jeśli usuniesz tę jadłodzielnię, nie możesz tego cofnąć.
@@ -1325,9 +1325,9 @@ fsp:
   info:
     from: Update'y od jadłodzielni „{name}“
     none: wcale
-    descSettings: Śledzisz wszystkie informacje z jadłodzielni ‘{name}’. W jaki 
+    descSettings: Śledzisz wszystkie informacje z jadłodzielni ‘{name}’. W jaki
       sposób chcesz otrzymywać te powiadomienia?
-    manager: Jesteś odpowiedzialny/a za tę jadłodzielnię i z tego względu 
+    manager: Jesteś odpowiedzialny/a za tę jadłodzielnię i z tego względu
       zobowiązany/a akceptować update'y.
     mail: ''
     descModal: ''
@@ -1567,8 +1567,8 @@ store:
     jumper: ''
     managers: ''
   no_chain_choosen: nie wybrano sieci
-  passport_expired: Twoja legitymacja już jest nieważna. Dlatego nie możesz się 
-    chwilowo tutaj zarejestrować. Skontaktuj się z twoimi ambasador(k)ami, aby 
+  passport_expired: Twoja legitymacja już jest nieważna. Dlatego nie możesz się
+    chwilowo tutaj zarejestrować. Skontaktuj się z twoimi ambasador(k)ami, aby
     odnowić swoją legitymację.
   important: 'Ważne:'
   invitations: Otwarte zaproszenia ({count})
@@ -1698,7 +1698,7 @@ storeedit:
     status: status
   fetch:
     teamStatus: status teamu
-    teamStatus0: Ten team jest zamknięty i aktualnie nie szuka więcej 
+    teamStatus0: Ten team jest zamknięty i aktualnie nie szuka więcej
       pomocników.
     teamStatus1: Pomocnicy potrzebni
     teamStatus2: Pomocnicy bardzo potrzebni
@@ -1899,9 +1899,9 @@ forum:
     hide: ukryj post
     giveHideReason: Podaj, dlaczego chcesz ukryć ten post.
     hideReasonPlaceholder: Podaj powód tutaj …
-    hideInfo: Ukryte posty nie będą więcej wyświetlane. Mogą zostać odtworzone 
-      przez moderatorów/ki w ciągu trzech miesięcy, zanim nie zostaną 
-      ostatecznie usunięte. W tym czasie użytkownicy/czki forum mogą zobaczyć, 
+    hideInfo: Ukryte posty nie będą więcej wyświetlane. Mogą zostać odtworzone
+      przez moderatorów/ki w ciągu trzech miesięcy, zanim nie zostaną
+      ostatecznie usunięte. W tym czasie użytkownicy/czki forum mogą zobaczyć,
       dlaczego post został ukryty, a moderatorzy/ki - także przez kogo.
     sureHide: Czy na pewno chcesz ukryć ten post?
     hiddenPost: Post ukryty przez [{moderatorName}]({moderatorUrl})
@@ -1964,7 +1964,6 @@ chat:
   no_messages: Brak wiadomości
   no_conversation: Nie wybrano konwersacji
   start_of_conversation: 'Konwersacja rozpoczęta:'
-  display_all_messages: Pokaż wszystkie wiadomości
   unknown_username: nieznane imię
   show_participants: Pokaż uczestników/czki
   participants: Uczestnicy/czki
@@ -1988,7 +1987,7 @@ chat:
 wall:
   see-more: Pokaż wszystkie posty
   delete: Usuń post
-  info-logging: Miej na uwadze, że aby uniknąć konfliktów, zostanie 
+  info-logging: Miej na uwadze, że aby uniknąć konfliktów, zostanie
     zarejestrowana treść i osoba wykonująca tę akcję.
   error-delete: Nie możesz usunąć tego postu.
   delete_confirmation:
@@ -2058,15 +2057,15 @@ events:
   meeting:
     past: Ten event odbył się online.
     present: Ten event odbywa się online. Możesz teraz dołącyć.
-    future: Ten event odbędzie się online. Jak tylko się rozpocznie, możesz 
+    future: Ten event odbędzie się online. Jak tylko się rozpocznie, możesz
       dołączyć przez poniższy przycisk.
     not_started: Ten event jeszcze się nie rozpoczął
   attendees: Uczestnicy/czki
   online_info: |
     Telekonferencje i spotkania online przebiegają najlepiej na naszym własnym serwerze [BigBlueButton](https://bigbluebutton.org). Na 10 minut przed rozpoczęciem eventu uczestnicy/czki mogą ze strony eventu łatwo dołączyć  do konferencji przez kliknięcie. Nie potrzeba do tego żadnych innych programów, tylko w miarę aktualna przeglądarka internetowa. Poza tym jest możliwość dołączenia przez telefon.
     Jeśli mimo to chcesz użyć innej platformy do telekonferencji lub spotkań online, wybierz opcję "inne".
-  public_info: Ten event jest publiczny i otwarty dla wszystkich. Komentarze i 
-    lista uczestniczących są widoczne tylko dla zarejestrowanych 
+  public_info: Ten event jest publiczny i otwarty dla wszystkich. Komentarze i
+    lista uczestniczących są widoczne tylko dla zarejestrowanych
     użytkowników/czek.
   description: Opis
   declinedCount: '{count} odmówiło'
@@ -2075,9 +2074,9 @@ recipients:
   all: Wszyscy/tkie Foodsaverzy/ki na świecie
   active_ambassadors: Wszyscy/tkie ambasadorzy/ki na świecie
   newsletter: Wszyscy/tkie abonenci/tki newslettera (przynajmniej foodsaver/ka)
-  newsletter_all: Wszyscy/tkie abonenci/tki newslettera (foodsharerzy/ki, 
+  newsletter_all: Wszyscy/tkie abonenci/tki newslettera (foodsharerzy/ki,
     foodsaver/ki, wszyscy)
-  newsletter_only_foodsharer: TYLKO foodsharerzy/ki spośród abonentów/tek 
+  newsletter_only_foodsharer: TYLKO foodsharerzy/ki spośród abonentów/tek
     newslettera
   all_no_botschafter: Wszyscy/tkie foodsaverzy/ki oprócz ambasadorów/ek
   send: Wyślij email
@@ -2085,7 +2084,7 @@ recipients:
   testmail: Wyślij testowy email
   test_email_sent: Email został wysłany.
   test_email_invalid: Coś się nie zgadza z adresem email.
-  doublecheck: Wszystko sprawdzone? Czy email ma zostać wysłany do wybranej 
+  doublecheck: Wszystko sprawdzone? Czy email ma zostać wysłany do wybranej
     grupy docelowej?
   sent: Email został pomyślnie wysłany do {count} adresatów
   history: Emaile wysłane przez ciebie
@@ -2116,8 +2115,8 @@ addresspicker:
     mapie.
   different_location_warning: Upewnij się, że pinezka na mapie jest na właściwej
     pozycji. Zmień dane w polach wypełnionych automatycznie (ulica i numer domu,
-    kod pocztowy i miasto/gmina) tylko wtedy, jeśli wartości wprowadzone 
-    automatycznie nie są poprawne. Może się to zdarzyć np. przy zmianie nazwy 
+    kod pocztowy i miasto/gmina) tylko wtedy, jeśli wartości wprowadzone
+    automatycznie nie są poprawne. Może się to zdarzyć np. przy zmianie nazwy
     ulicy.
   infobox_profile: ''
 date:
@@ -2167,7 +2166,7 @@ month:
 bell:
   no_bells: Aktualnie nie masz żadnych powiadomień.
   translation_failed:
-    md_support: Jeśli myślisz, że wystąpił błąd, zgłoś ten fakt do 
+    md_support: Jeśli myślisz, że wystąpił błąd, zgłoś ten fakt do
       [Support](/support)
     md: ''
     title: ''
@@ -2343,7 +2342,7 @@ reports:
   reason: powód
   id: ID
   time: czas
-  reportmessage: Podaj, jak można się z tobą skontaktować w razie dalszych 
+  reportmessage: Podaj, jak można się z tobą skontaktować w razie dalszych
     pytań.
   reports_region: ''
   reports_user: ''
@@ -2392,7 +2391,7 @@ foodsaver:
   delete_account_sure_reason: 'Czy na pewno chcesz usunąć swoje konto? Powód: {reason}'
   delete_account_now: Usuń konto teraz
   url_error: Coś się nie zgadza z twoim URL strony domowej
-  mailchange_error: Aktywacja twojego nowego adresu email nie powiodła się. 
+  mailchange_error: Aktywacja twojego nowego adresu email nie powiodła się.
     Spróbuj ponownie.
   manage:
     photo: Zdjęcie
@@ -2403,7 +2402,7 @@ foodsaver:
     orga: ''
     remove: ''
   upgrade:
-    ad_fs: Chcę przystąpić teraz do quizu dla foodsaverów/ek i zostać 
+    ad_fs: Chcę przystąpić teraz do quizu dla foodsaverów/ek i zostać
       foodsaverem/ką!
     FOODSAVER: Zostań foodsaverem/ką
     learning: ''
@@ -2544,7 +2543,7 @@ mailbox:
   create: Stwórz nową skrzynkę pocztową
   attachment:
     not_found: nie znaleziono
-    too_many: Wybrano za dużo plików. Do maila można dołączyć maksymalnie 10 
+    too_many: Wybrano za dużo plików. Do maila można dołączyć maksymalnie 10
       plików.
     attach: Załączniki (maksymalnie 10 plików, 1,5 MB / plik)
     not_found_explanation: 'Nie można znaleźć załącznika na serwerze'
@@ -2555,7 +2554,7 @@ mailbox:
   search: Szukaj
   add: Dodaj
   recipients: Za dużo odbiorców
-  ratelimit: Możesz wysyłać maksymalnie jednego maila co 15 sekund, poczekaj 
+  ratelimit: Możesz wysyłać maksymalnie jednego maila co 15 sekund, poczekaj
     chwilę…
   filetype: Ten typ pliku nie jest dozwolony
   filesize: Sorry, plik jest za duży.
@@ -2597,12 +2596,12 @@ profile:
     orga_rights: ''
     foodSaver_in_region: ''
   mail_bounce:
-    warning_1: Twój osobisty adres email {email} jest zablokowany dla maili i 
+    warning_1: Twój osobisty adres email {email} jest zablokowany dla maili i
       komunikacji z foodsharingu. Przez
     warning_2: zmianę adresu email
     warning_3: 'blokada będzie zniesiona. Dalsze informacje znajdziesz w '
     warning_4: tym artykule supportu.
-    warning_others: Adres email {email} tej osoby jest zablokowany dla maili i 
+    warning_others: Adres email {email} tej osoby jest zablokowany dla maili i
       komunikacji z foodsharingu. Przez ten przycisk możesz znieść blokadę.
     remove_button: ''
   commitments_stat:
@@ -2881,7 +2880,7 @@ basket:
     vegan: są wegańskie
     gf: są bez glutenu
     organic: ''
-  public-info: Opis, obrazek, miejsce przekazania i czas ważności są publicznie 
+  public-info: Opis, obrazek, miejsce przekazania i czas ważności są publicznie
     widoczne.
   no-desc: Podaj opis.
   use_home_address: Użyj adresu domowego

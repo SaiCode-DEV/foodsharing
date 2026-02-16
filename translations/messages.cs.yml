@@ -1329,7 +1329,6 @@ chat:
   empty_message: ''
   select_recipients: ''
   no_messages: ''
-  display_all_messages: ''
   empty: ''
   notification_unnamed_conversation: ''
   confirm_draft_discard: ''
@@ -3603,7 +3602,7 @@ usersearch:
   no_tag_preset: ''
   select_tag: ''
 validation:
-  phone_number_invalid: Telefonní číslo je neplatné (např. chybí kód země, je 
+  phone_number_invalid: Telefonní číslo je neplatné (např. chybí kód země, je
     příliš krátké, příliš dlouhé nebo obsahuje neplatné znaky)
 copied_to_clipboard: „{text}“ byl zkopírován do schránky.
 no_automatic_delete: 'Pokud k poslední činnosti došlo před více než pěti lety:'

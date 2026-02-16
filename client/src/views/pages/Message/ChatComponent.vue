@@ -13,6 +13,7 @@
     emojis-suggestion-enabled="true"
     show-files="false"
     user-tags-enabled="false"
+    textarea-auto-focus="false"
     :load-first-room="String(roomId !== null)"
     :single-room="popupMode"
     :text-messages="JSON.stringify(textMessages)"
@@ -115,6 +116,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    popupOpenedExplicitly: {
+      type: Boolean,
+      default: false,
+    },
     askForPushNotifications: { type: Boolean, default: false },
   },
   setup () {
@@ -205,7 +210,6 @@ export default {
     if (this.askForPushNotifications) {
       this.$refs.pushModal.maybeShow()
     }
-    this.registerMessageTextEvents()
 
     // Using global css is not possible anymore in web components
     const style = document.createElement('style')
@@ -289,6 +293,10 @@ export default {
       white-space: initial;
     }
 
+    .vac-room-badge {
+      display: none;
+    }
+
     .vac-message-wrapper .vac-message-container {
       padding-bottom: 0px !important;
     }
@@ -337,6 +345,11 @@ export default {
     }
     `
     this.$el.shadowRoot.appendChild(style)
+
+    await this.$nextTick()
+    this.registerMessageTextEvents()
+    this.registerMessageListEvents()
+    this.registerScrollEvents()
   },
   methods: {
     openChat (chatId) {
@@ -345,33 +358,120 @@ export default {
     getMessageTextComponent () {
       return this.$el.shadowRoot.querySelector('#roomTextarea')
     },
+    getMessageListComponent () {
+      return this.$el.shadowRoot.querySelector('#messages-list')
+    },
+    focusInput () {
+      const messageTextInput = this.getMessageTextComponent()
+      messageTextInput.focus()
+
+      // Convince caret to be actually rendered on firefox:
+      const len = messageTextInput.value ? messageTextInput.value.length : 0
+      messageTextInput.setSelectionRange(len, len)
+    },
+    // Mark all messages in the current conversation as read, but only if the client
+    // knows about unread messages. This avoids marking messages as read when
+    // the client has not received them yet.
+    async markMessagesAsRead () {
+      if ((conversationStore.conversations[this.roomId]?.unreadMessages ?? 0) !== 0) {
+        await conversationStore.setReadStatus(this.roomId, true)
+      }
+    },
+    isChatScrolledToBottom () {
+      const messageList = this.getMessageListComponent()
+      return messageList.scrollHeight - messageList.scrollTop - messageList.clientHeight <= 2 // rounding tolerance
+    },
     registerMessageTextEvents () {
-      setTimeout(() => {
-        // This timeout is required so that the chat component has initialized completely.
+      this.getMessageTextComponent().addEventListener('click', () => {
+        this.markMessagesAsRead()
+      })
 
-        this.getMessageTextComponent().addEventListener('click', async () => {
-          await conversationStore.setReadStatus(this.roomId, true)
-        })
-
-        this.getMessageTextComponent().addEventListener('input', async () => {
-          if (this.getMessageTextComponent().value !== '') {
-            this.storage.set(this.roomId, this.getMessageTextComponent().value)
-          } else {
-            this.storage.del(this.roomId)
-          }
-        })
-
-        this.getMessageTextComponent().addEventListener('keydown', (event) => {
-          if (event.key === 'Escape') {
-            // Hide the event from VAC, which wants to delete the current text.
-            event.stopImmediatePropagation()
-          }
-        }, true)
-
-        if (this.popupMode) {
-          this.getMessageTextComponent().focus()
+      this.getMessageTextComponent().addEventListener('input', () => {
+        if (this.getMessageTextComponent().value !== '') {
+          this.storage.set(this.roomId, this.getMessageTextComponent().value)
+        } else {
+          this.storage.del(this.roomId)
         }
-      }, 1)
+        this.markMessagesAsRead()
+      })
+
+      this.getMessageTextComponent().addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          // Hide the event from VAC, which wants to delete the current text.
+          event.stopImmediatePropagation()
+        }
+      }, true)
+    },
+    registerMessageListEvents () {
+      // Mark messages as read when the 'scroll to bottom' button is clicked
+      this.$el.shadowRoot.querySelector('.vac-col-messages').addEventListener('click', (event) => {
+        // Catch events on parent because the button only exists conditionally
+        if (event.target.closest('.vac-icon-scroll') !== null) {
+          this.markMessagesAsRead()
+        }
+      }, true)
+
+      this.getMessageListComponent().addEventListener('click', () => {
+        if (this.isChatScrolledToBottom()) {
+          this.markMessagesAsRead()
+        }
+      })
+    },
+    registerScrollEvents () {
+      // Detect user actions which will probably cause scrolling,
+      // then mark messages as read when user scrolls to bottom after such an action.
+      // This ignores VAC scrolling on page load or when new messages arrive.
+      const messageList = this.getMessageListComponent()
+
+      let lastWheelDownAction = null
+      messageList.addEventListener('wheel', (event) => {
+        if (event.deltaY > 0) { lastWheelDownAction = new Date() }
+      })
+
+      let lastKeyDownAction = null
+      messageList.tabIndex = 0 // Make message list focusable to receive keydown events when focused
+      messageList.addEventListener('keydown', (event) => {
+        if (['ArrowDown', 'PageDown', ' '].includes(event.key)) {
+          lastKeyDownAction = new Date()
+        }
+      })
+
+      let isDraggingScrollbar = false
+      messageList.addEventListener('mousedown', ({ offsetX }) => {
+        isDraggingScrollbar ||= offsetX < 0 || offsetX > messageList.clientWidth
+      })
+      messageList.addEventListener('mouseup', () => { isDraggingScrollbar = false })
+
+      let isTouchDragging = false
+      messageList.addEventListener('touchstart', () => { isTouchDragging = true })
+      messageList.addEventListener('touchend', () => { isTouchDragging = false })
+
+      let userScrollEnd = null
+      const startOrProlongUserScroll = () => { userScrollEnd = new Date(new Date().getTime() + 500) }
+      const userScrollActive = () => { return userScrollEnd && new Date() < userScrollEnd }
+
+      let wasScrolledUp = false
+      messageList.addEventListener('scroll', () => {
+        if (userScrollActive()) {
+          startOrProlongUserScroll()
+        } else {
+          const recentWheel = lastWheelDownAction && (new Date() - lastWheelDownAction) < 500
+          const recentKeydown = lastKeyDownAction && (new Date() - lastKeyDownAction) < 500
+          const scrollMayBeUserInitiated = recentWheel || recentKeydown || isTouchDragging || isDraggingScrollbar
+          if (scrollMayBeUserInitiated) { startOrProlongUserScroll() }
+        }
+
+        const scrolledToBottom = this.isChatScrolledToBottom()
+        if (userScrollActive() && wasScrolledUp && scrolledToBottom) {
+          this.markMessagesAsRead()
+        }
+        wasScrolledUp = !scrolledToBottom
+      })
+    },
+    handleUnMinimized () {
+      if (this.isChatScrolledToBottom()) {
+        this.markMessagesAsRead()
+      }
     },
     /**
      * This is triggered every time a room is opened. If the room is opened for the first time, the options param will hold reset: true.
@@ -385,15 +485,16 @@ export default {
       if (options?.reset) {
         this.roomChanging = true
         this.roomId = roomId
-        await conversationStore.setReadStatus(roomId, true)
         const storedChatText = this.storage.get(this.roomId)
         if (storedChatText) {
           this.setMessageText(storedChatText)
         }
       }
 
-      if (roomId !== NEW_CONVERSATION_ID) {
-        const conversation = await conversationStore.getConversation(roomId)
+      const isNewConversation = roomId === NEW_CONVERSATION_ID
+      if (!isNewConversation) {
+        const markAsRead = !!options?.reset && (this.popupMode ? this.popupOpenedExplicitly : true)
+        const conversation = await conversationStore.getConversation(roomId, markAsRead)
         if ((options?.reset && Object.keys(conversation.messages).length <= 1) || (!options?.reset)) {
           // Load only more messages when no messages have been loaded when opening the chat (Or a maximum of one message which was send when creating a new conversation).
           // or when the user scrolls up, so options.reset will be undefined
@@ -406,6 +507,10 @@ export default {
       setTimeout(() => {
         // This timeout is required so that the chat component works correctly.
         this.roomChanging = false
+
+        if (this.popupMode ? this.popupOpenedExplicitly : (options?.reset && !isNewConversation)) {
+          this.focusInput()
+        }
       }, 100)
     },
     getRoomName (conversation) {
@@ -579,7 +684,7 @@ export default {
       } else {
         await conversationStore.sendMessage(roomId, content)
       }
-      await conversationStore.setReadStatus(this.roomId, true)
+      this.markMessagesAsRead()
       this.storage.del(this.roomId)
     },
     /**

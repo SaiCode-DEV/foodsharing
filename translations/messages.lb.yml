@@ -2065,7 +2065,6 @@ chat:
   receivermissing: ''
   confirm_draft_discard: ''
   new_message: ''
-  display_all_messages: ''
   start_of_conversation: ''
   notification_named_conversation: ''
   no_messages: ''

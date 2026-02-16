@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="isLoggedIn"
+    v-if="isLoggedIn && !hideChatdock"
     class="chat-dock"
     aria-live="polite"
   >
@@ -14,7 +14,7 @@
         :key="box.id"
         class="chat-dock__box"
       >
-        <div class="chatboxhead ui-corner-top" @click="toggle(box)">
+        <div class="chatboxhead" @click="toggle(box)">
           <div class="chatboxtitle">
             <!-- If conversation has a title, show it -->
             <a
@@ -64,8 +64,19 @@
             <i v-else class="fas fa-fw fa-spinner fa-spin" />
           </div>
           <div class="chatboxoptions">
+            <div
+              v-if="unreadCount(box.id) !== 0"
+              class="chatbox-unread-count"
+            >
+              <b-badge
+                variant="info"
+                pill
+              >
+                {{ unreadCount(box.id) > 0 ? unreadCount(box.id) : '&nbsp;' }}
+              </b-badge>
+            </div>
             <OverflowMenu
-              icon="cog"
+              icon="ellipsis-v"
               variant="link"
               :float-right="false"
               :options="getMenuOptions(box)"
@@ -83,7 +94,12 @@
           </div>
         </div>
         <div class="chatboxcontent" :class="{ 'minimized': box.minimized }">
-          <ChatComponent :popup-mode="true" :chat-id="box.id" />
+          <ChatComponent
+            ref="chatComponent"
+            :popup-mode="true"
+            :popup-opened-explicitly="!box.restoringFromSave"
+            :chat-id="box.id"
+          />
         </div>
         <!-- Participants overlay for >4 members -->
         <b-modal
@@ -169,6 +185,8 @@ const userStore = useUserStore()
 const storage = new Storage('conversations')
 const boxes = ref([])
 const isLoggedIn = computed(() => userStore.isLoggedIn)
+const hideChatdock = computed(() => location.pathname === '/msg')
+const chatComponent = ref(null)
 
 // Rename dialog state
 const renameDialogVisible = ref(false)
@@ -178,24 +196,37 @@ const newTitle = ref('')
 function getMenuOptions (box) {
   return [
     {
-      textKey: 'menu.entry.all_messages',
+      textKey: 'chat.open_full_view',
+      icon: 'comments',
       href: url('conversations', box.id),
     },
     {
+      textKey: 'chat.mark_as.unread',
+      icon: 'eye-slash',
+      callback: (box) => conversationStore.setReadStatus(box.id, false),
+    },
+    {
       textKey: 'chat.rename',
+      icon: 'edit',
       hide: box.storeId,
       callback: (box) => rename(box.id),
     },
     {
       textKey: 'chat.show_participants',
+      icon: 'users',
       hide: box.participants.length <= 2,
       callback: (box) => { box.showMembersDialog = true },
     },
     {
       textKey: 'menu.entry.close_all_chats',
+      icon: 'times-circle',
       callback: closeAll,
     },
   ]
+}
+
+function unreadCount (conversationId) {
+  return conversationStore.conversations[conversationId]?.unreadMessages ?? 0
 }
 
 function persist () {
@@ -205,6 +236,15 @@ function persist () {
 }
 
 function toggle (box) {
+  if (box.minimized) {
+    // If un-minimizing, tell the chat component, which may mark messages as read
+    const chatComponentInstance = getComponentForConversation(box.id)
+    if (chatComponentInstance) {
+      setTimeout(() => {
+        chatComponentInstance.handleUnMinimized()
+      })
+    }
+  }
   box.minimized = !box.minimized
   persist()
 }
@@ -219,14 +259,22 @@ function closeAll () {
   persist()
 }
 
-async function ensureTitle (id) {
+function getBoxForConversation (conversationId) {
+  return boxes.value.find(b => b.id === conversationId)
+}
+
+function getComponentForConversation (conversationId) {
+  return chatComponent.value?.find(comp => comp.roomId === conversationId) || null
+}
+
+async function ensureTitle (id, markAsRead) {
   try {
-    const box = boxes.value.find(b => b.id === id)
+    const box = getBoxForConversation(id)
     if (!box) {
       return
     }
 
-    await conversationStore.loadConversation(id)
+    await conversationStore.loadConversation(id, markAsRead)
     const conv = conversationStore.conversations[id]
 
     if (conv.title) {
@@ -254,26 +302,43 @@ async function ensureTitle (id) {
 
 function openChatWithUser (userId, conversationId = null) {
   conversationStore.openChatWithUser(userId)
-  const box = boxes.value.find(b => b.id === conversationId)
+  const box = getBoxForConversation(conversationId)
   if (box) {
     box.showMembersDialog = false
   }
 }
 
-function openChat (id, min = false) {
-  if (boxes.value.some(b => b.id === id)) {
+function openChat (id, options = {}) {
+  const openedByUser = !options?.minimized && !options?.restoringFromSave
+
+  const existingBox = getBoxForConversation(id)
+  if (existingBox) {
+    if (!!options?.minimized !== existingBox.minimized) {
+      existingBox.minimized = !!options?.minimized
+    }
+    if (openedByUser) {
+      // Focus input if existing box is being opened
+      const chatComponentInstance = getComponentForConversation(id)
+      if (chatComponentInstance) {
+        setTimeout(async () => {
+          chatComponentInstance?.focusInput()
+          await chatComponentInstance?.markMessagesAsRead()
+        })
+      }
+    }
     return
   }
 
   boxes.value.unshift({
     id,
-    minimized: !!min,
+    minimized: !!options?.minimized,
     title: '',
     storeId: null,
     participants: [],
     showMembersDialog: false,
+    restoringFromSave: !!options?.restoringFromSave,
   })
-  ensureTitle(id)
+  ensureTitle(id, openedByUser)
   persist()
 }
 
@@ -305,16 +370,25 @@ function resetRenameDialog () {
   newTitle.value = ''
 }
 
+function loadSavedChats () {
+  const saved = storage.get('msg-chats')
+  if (saved && Array.isArray(saved)) {
+    // Reverse the array since openChat uses unshift
+    saved.reverse().forEach(s => openChat(s.id, { minimized: s.min, restoringFromSave: true }))
+  }
+}
+
 onMounted(() => {
+  if (hideChatdock.value) {
+    return
+  }
+
   // intercept store openChat for popups
   if (!isMob()) {
     conversationStore.messagePopupOpenChatListener = (id) => openChat(id)
   }
-  const saved = storage.get('msg-chats')
-  if (saved && Array.isArray(saved)) {
-    // Reverse the array since openChat uses unshift
-    saved.reverse().forEach(s => openChat(s.id, s.min))
-  }
+
+  loadSavedChats()
 })
 
 onUnmounted(() => {
@@ -350,6 +424,8 @@ watch(boxes, persist, { deep: true })
   pointer-events: auto; /* re-enable interaction inside boxes */
   bottom: 0;
   transition: bottom 0.3s ease;
+  border-radius: 6px 6px 0 0;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.15);
 }
 
 .chat-dock__box:has(.minimized) {
@@ -374,6 +450,9 @@ watch(boxes, persist, { deep: true })
 
 .chatboxhead {
   background-color: var(--fs-color-primary-300);
+  border-radius: 6px 6px 0 0;
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.15);
+  z-index: 1;
   padding: 0;
   color: var(--fs-color-primary-900);
   display: flex;
@@ -382,12 +461,13 @@ watch(boxes, persist, { deep: true })
   cursor: pointer;
   outline: 0;
   height: 32px;
-  position: relative
+  position: relative;
 }
 
 .chatboxoptions {
   position: absolute;
   right: 0;
+  bottom: 0;
   flex-shrink: 0;
   align-self: self-end;
   padding-left: 20px;
@@ -395,17 +475,35 @@ watch(boxes, persist, { deep: true })
   z-index: 1;
   overflow: visible;
   background: linear-gradient(to right, #0000 0%, var(--fs-color-primary-300) 8%);
+  border-radius: 0 6px 0 0;
   display: flex;
   align-items: center;
   gap: 2px;
 
+  ::v-deep > .btn {
+    padding: 0.25em;
+    padding-left: 0.1em;
+  }
+
   ::v-deep .overflow-menu .btn {
     color: var(--fs-color-primary-900);
+    padding: 0.25em 0.5em;
+  }
+}
+
+.chatbox-unread-count {
+  padding: 0.25em 0.5em;
+
+  .badge {
+    padding: 0.25em;
+    min-width: 1.5em;
+    min-height: 1.5em;
+    margin-bottom: 0.4em;
   }
 }
 
 .chatboxtitle {
-  padding: 7px;
+  padding: 6.5px;
   display: flex;
   flex-direction: row;
   float: left;
@@ -419,6 +517,7 @@ watch(boxes, persist, { deep: true })
   overflow: hidden;
   span {
     width: 10px;
+    vertical-align: middle;
   }
   a {
     color: currentColor !important;
@@ -437,6 +536,8 @@ watch(boxes, persist, { deep: true })
   font-size: 13px;
   color: var(--fs-color-dark);
   background-color: var(--fs-color-light);
+  border-right: 1px solid var(--fs-border-default);
+  border-left: 1px solid var(--fs-border-default);
 }
 
 .participants-grid {

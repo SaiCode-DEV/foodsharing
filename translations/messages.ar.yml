@@ -1475,7 +1475,6 @@ chat:
   confirm_draft_discard: ''
   search: ''
   start_of_conversation: ''
-  display_all_messages: ''
   no_messages: ''
   no_conversation: ''
   notification_named_conversation: ''

@@ -37,8 +37,8 @@ store:
     request: 'Aplicar para esta equipa'
     to-jumper: 'Lista de substitutos'
     withdraw: 'Cancelar minha solicitação'
-    confirm-far: De acordo com o endereço guardado, moras muito longe deste 
-      sítio ({distance}). Tens a certeza de que podes apoiar a equipa de forma 
+    confirm-far: De acordo com o endereço guardado, moras muito longe deste
+      sítio ({distance}). Tens a certeza de que podes apoiar a equipa de forma
       regular e fiável?
     confirm-no-location: Não inscreveu um endereço válido no seu perfil. Por 
       favor, insira um endereço para facilitar aos responsávis por equipas a 
@@ -330,9 +330,9 @@ store:
   invitation:
     title: Convites para {storeTitle}
     withdraw: Retirar convite
-    info: Quando convidas Foodsavers para a equipa, estes não são adicionados 
+    info: Quando convidas Foodsavers para a equipa, estes não são adicionados
       diretamente à equipa operacional, para proteger os dados pessoais. Recebem
-      um convite para aderir à equipa, que têm de aceitar antes de se tornarem 
+      um convite para aderir à equipa, que têm de aceitar antes de se tornarem
       membros. Podes retirar esses convites a qualquer momento.
     accept: Aceptar convite
     invited_info: Foi convidado para esta loja. Aceite o convite para se juntar 
@@ -352,13 +352,13 @@ store:
   to_map: Mostrar no mapa
   delete:
     button: Excluir loja
-    sure: Queres mesmo excluir esta loja? Esta ação não pode ser revertida! 
-      Todos os membros serão removidos da loja e todas as informações 
-      específicas da loja, exceto o registo da loja, serão eliminadas. Por 
-      favor, apagine apenas lojas que realmente já não existem ou que foram 
-      registadas duas vezes. As lojas que cancelaram uma cooperação devem 
-      permanecer registadas. Só é possível excluir lojas que nunca tiveram 
-      assentos e cujos chats de equipa não tenham sido utilizados durante pelo 
+    sure: Queres mesmo excluir esta loja? Esta ação não pode ser revertida!
+      Todos os membros serão removidos da loja e todas as informações
+      específicas da loja, exceto o registo da loja, serão eliminadas. Por
+      favor, apagine apenas lojas que realmente já não existem ou que foram
+      registadas duas vezes. As lojas que cancelaram uma cooperação devem
+      permanecer registadas. Só é possível excluir lojas que nunca tiveram
+      assentos e cujos chats de equipa não tenham sido utilizados durante pelo
       menos 3 meses.
   my_last_slot: O meu assento último
   chain_has_kams: 'Responsável pra esta cadeia:'
@@ -460,7 +460,7 @@ bell:
        Título: `{bellTitle}`
 
        Chave: `{bellKey}`
-    md_support: Caso considere que se trata de um erro, por favor, informe-nos 
+    md_support: Caso considere que se trata de um erro, por favor, informe-nos
       através do [Suporte](/support)
   event_post_title: Prazo {event} em {region}
   event_post:
@@ -771,7 +771,7 @@ calendar:
   placeholder: Selectionar uma data
   copiedUrl: URL de calendário copiáda!
 poll:
-  type_description_3: Seleção de avaliações com valores entre -3 (contra) e +3 
+  type_description_3: Seleção de avaliações com valores entre -3 (contra) e +3
     (aprovação)
   submit_vote: 'Votar'
   allowed_voters: 'Direito a voto'
@@ -882,7 +882,7 @@ pickuplist:
   error_confirm: 'Falha na confirmação: '
   really_delete_last_slot:
     title: Excluir o assento último?
-    body: Quer mesmo cancelar o assento último ? A marcação será completamente 
+    body: Quer mesmo cancelar o assento último ? A marcação será completamente
       removida.
 basket:
   my_list_empty: 'Não adicionaste nenhum cesta alimentar'
@@ -1089,7 +1089,7 @@ login:
     mismatch: 'Desculpe, as palavras-passe não correspondem.'
     mailSent: 'Tudo bem, foi-te mandado um link por e-mail para alterar a palavra-passe.
       O link é válido por 7 dias. Depois disso, terá de solicitar um novo link.'
-    invalidCode: O código introduzido não é válido. Por favor, tente novamente. 
+    invalidCode: O código introduzido não é válido. Por favor, tente novamente.
       Também pode utilizar códigos de segurança aqui.
     request_new: Solicitar nova palavra-passe
     token_invalid: O código de dois fatores introduzido não é válido. Por favor,
@@ -1113,21 +1113,21 @@ login:
   resend_verification:
     email_invalid: Por favor, introduza um endereço de e-mail
     title: Confirmação do endereço de e-mail
-    hint1: Pra iniciar sessão, o teu endereço de e-mail deve estar confirmado. 
-      Se foi redirecionado para esta página a partir do login, significa que o 
+    hint1: Pra iniciar sessão, o teu endereço de e-mail deve estar confirmado.
+      Se foi redirecionado para esta página a partir do login, significa que o
       teu endereço de e-mail ainda não foi confirmado. Com este formulário, pode
       solicitar o envio de um novo e-mail com um link de ativação.
-    hint2: Caso não receba nenhum e-mail, entre em contacto com o 
+    hint2: Caso não receba nenhum e-mail, entre em contacto com o
       [suporte](/support).
     submit: Enviar
-    success: Caso esse endereço de e-mail exista e ainda não tenha sido 
+    success: Caso esse endereço de e-mail exista e ainda não tenha sido
       verificado, será enviado um novo e-mail.
-  error_not_activated: Infelizmente, o teu endereço de e-mail ainda não foi 
+  error_not_activated: Infelizmente, o teu endereço de e-mail ainda não foi
     ativado.
   or: ou
   passkey_btn: Iniciar sessão com Passkey
   passkey_cancelled: O login com a chave de acesso foi cancelado.
-  passkey_not_found: Não há chave de acesso disponível para essa conta neste 
+  passkey_not_found: Não há chave de acesso disponível para essa conta neste
     dispositivo.
 profile:
   alldatesdeleted: 'Todos os eventos foram excluido'
@@ -1219,15 +1219,15 @@ profile:
     report_b1_2: Levou animais para a loja sem autorização (B01-3)
     report_b1_3: Levou crianças para o local de trabalho sem autorização (B01-4)
     report_b1_4: Não tinha consigo o seu cartão de foodsharing (B01-5)
-    report_b2: Realizou uma recolha fora dos eventos estabelecidos sem acordo 
+    report_b2: Realizou uma recolha fora dos eventos estabelecidos sem acordo
       prévio com o responsável de loja (B02)
-    report_b3_0: Não entrou/saiu da loja em conjunto com outros participantes 
+    report_b3_0: Não entrou/saiu da loja em conjunto com outros participantes
       (B03-1)
     report_b3_1: A recolha não foi realizada sem discussão ou disputa (B03-2)
     report_b4_0: Nem todos os alimentos ainda comestíveis foram levados (B04-1)
     report_b4_1: Os alimentos não foram distribuídos de forma justa (B04-2)
     report_b5: Pessoas não autorizadas entraram na loja (B05)
-    report_b6_0: Não foi tida em consideração a clientela e os funcionários da 
+    report_b6_0: Não foi tida em consideração a clientela e os funcionários da
       loja (B06-1)
     report_b6_1: O local de recolha não foi deixado em boas condições (B06-2)
     report_b7: O tempo de espera da operação não foi respeitado (B07)
@@ -1236,9 +1236,9 @@ profile:
       a utilização dos alimentos salvados (B09)
     report_b10: Vende alimentos salvados (B10)
     report_b11: Foram utilizados meios não ecológicos na recolha (B11)
-    report_b12: Não foi permitido aos responsáveis pela recolha decidir por 
+    report_b12: Não foi permitido aos responsáveis pela recolha decidir por
       conta própria a quem os alimentos seriam distribuídos (B12)
-    report_b13: Não foram envidados esforços para consumir/distribuir os 
+    report_b13: Não foram envidados esforços para consumir/distribuir os
       alimentos salvados (B13)
     report_other: Outros
     notes: Notas e decisões
@@ -1391,7 +1391,7 @@ profile:
   sleeping_info_from_until: tem um dorminhoco de {from} até {until}
   choosereasonnostore: Não se aplica a nenhuma loja
   chooseantherstore: Diz referência a uma loja não listada
-  editNameInfo: Tenha em atenção que os campos para nome e apelido devem ser 
+  editNameInfo: Tenha em atenção que os campos para nome e apelido devem ser
     utilizados exclusivamente para o nome da pessoa. Não utilize este campo para
     guardar informações adicionais sobre o perfil, como, por exemplo, a 
     realização de uma formação em higiene. Em vez disso, podem ser utilizados 
@@ -1440,9 +1440,9 @@ mailbox:
   attachment:
     not_found_explanation: 'O ficheiro anexado não foi encontrado no servidor'
     not_found: 'não encontrado'
-    too_large_to_send: Alguns dos ficheiros eram demasiado grandes e não foi 
+    too_large_to_send: Alguns dos ficheiros eram demasiado grandes e não foi
       possível anexá-los.
-    too_many: Foram selecionados demasiados ficheiros. É possível anexar um 
+    too_many: Foram selecionados demasiados ficheiros. É possível anexar um
       máximo de 10 ficheiros ao e-mail.
     attach: Anexos (máximo de 10 ficheiros, 1,5 MB por ficheiro)
   sender: 'Remetente'
@@ -1466,7 +1466,7 @@ mailbox:
   reply_all: Responder todos
   forward: Reenviar
   forward_attachment_warning: Até ao momento, não é possível reenviar anexos. Se
-    pretender reenviar o e-mail com anexos, pode descarregar os anexos e 
+    pretender reenviar o e-mail com anexos, pode descarregar os anexos e
     anexá-los ao novo e-mail.
   mark_none: Não marcar nenhum
   reply_header: '{name} escreveu em {date}'
@@ -1535,7 +1535,7 @@ group:
     stores_coordination: Lojas
     election: Eleições
     none: Não é um grupo de trabalho GOALS
-    tooltip_function_12: Os administradores deste grupo de trabalho são 
+    tooltip_function_12: Os administradores deste grupo de trabalho são
       apresentados na visão geral do distrito.
     resources: Mosaico de recursos
     tooltip_function_13: Os administradores deste grupo de trabalho serão 
@@ -1560,7 +1560,7 @@ group:
     error_missing_time: 'Erro: Não foi selecionada nenhuma hora.'
     link_description: 'Este link leva-o diretamente para a aplicação:'
     ability: Quais são as tuas competências neste área?
-    how_much_time: Quantas horas por semana tens tempo e motivação para dedicar 
+    how_much_time: Quantas horas por semana tens tempo e motivação para dedicar
       a este grupo?
     deny: Recursar
   member_list:
@@ -1587,14 +1587,14 @@ group:
       title: Standard
     passports:
       created_at: Cartão de identificação criado em
-      generate_button: Criar cartão(ões) de membro para a(s) pessoa(s) 
+      generate_button: Criar cartão(ões) de membro para a(s) pessoa(s)
         selecionada(s)
       never_before: nunca
       verify:
-        do: Queres mesmo verificar {name} ({id}) (comparação de dados efectuada 
+        do: Queres mesmo verificar {name} ({id}) (comparação de dados efectuada
           / cartão de identificação verificada, etc.)?
         undo: Cancelar a ativação de {name} ({id})
-        do_selected: Queres mesmo verificar todos os dados selecionados 
+        do_selected: Queres mesmo verificar todos os dados selecionados
           (comparação de dados efectuada/identificação verificada, etc.)?
       title: Cartões de identificação e verificação
       filter_options:
@@ -1638,7 +1638,7 @@ group:
       enviar boletins informativos'
     tooltip_function_region432: 'Os administradores deste grupo de trabalho podem
       ver as denúncias'
-    tooltip_function_region2296: Os administradores deste grupo de trabalho 
+    tooltip_function_region2296: Os administradores deste grupo de trabalho
       podem editar categorias de recursos e operações
   last_activity: 'Última atividade'
   edit:
@@ -1776,13 +1776,13 @@ foodsaver:
     '
   bread: 'Todos os Foodsavers'
   delete_account_reason: Motivo da exclusão do perfil
-  delete_description_own: A exclusão da tua conta de utilizador é irrevogável. 
+  delete_description_own: A exclusão da tua conta de utilizador é irrevogável.
     Não será possível recuperar a tua conta depois disso. Se mais tarde quiseres
-    voltar a participar no foodsharing, terás de criar uma nova conta e 
+    voltar a participar no foodsharing, terás de criar uma nova conta e
     candidatar-te novamente a lojas, grupos de trabalho, etc.
   delete_description_other: A exclusão da tua conta de utilizador é irrevogável.
-    Não será possível recuperar a tua conta depois disso. Caso a pessoa queira 
-    voltar a participar no foodsharing mais tarde, terá de criar uma nova conta 
+    Não será possível recuperar a tua conta depois disso. Caso a pessoa queira
+    voltar a participar no foodsharing mais tarde, terá de criar uma nova conta
     e candidatar-se novamente a lojas, grupos de trabalho, etc.
   delete_account_password_verify: 'Por favor, introduza aqui a tua palavra-passe atual
     para confirmar o teu pedido de exclusão.'
@@ -1936,7 +1936,7 @@ pickup:
     none: Atualmente, não tem um certificado de higiene válido. Preencha agora o
       questionário de higiene para podes inscrever-te.
     timeout: O seu certificado de higiene expirará no momento em que o recolher.
-      Agora, preencha novamente o questionário de higiene para podes 
+      Agora, preencha novamente o questionário de higiene para podes
       inscrever-te.
     link: Para formação em higiene
   membershipMissing: Não faz parte desta equipa. Por isso, não deve inscrever-se
@@ -2143,9 +2143,9 @@ quiz:
     points:
       2: Teve {failurePoints} pontos de erro e teria sido aprovado com um máximo
         de {maxFailurePointsToSucceed}.
-      1: Foi aprovado com {failurePoints} de um máximo de 
+      1: Foi aprovado com {failurePoints} de um máximo de
         {maxFailurePointsToSucceed} pontos de erro!
-    deleted: A pontuação exatamente feita só é guardada durante duas semanas 
+    deleted: A pontuação exatamente feita só é guardada durante duas semanas
       após o concurso questionário, pelo que já não está mais disponível.
   editModal:
     question:
@@ -2159,7 +2159,7 @@ quiz:
           label: 'Pergunta:'
         mandatory:
           label: Pergunta obrigatória?
-          text: Esta pergunta tem de ser incluída em todas as tentativas de 
+          text: Esta pergunta tem de ser incluída em todas as tentativas de
             realização do questinário
         fp: 'Pontos da falha:'
       title: Editar pergunta
@@ -2191,42 +2191,42 @@ quiz:
       title: editar questinário
   startmodal:
     infos:
-      unlimited_tries: Pode repetir este teste as vezes que quiser e nunca será 
-        desclassificado se falhar. No entanto, poderá ter de fazer uma pausa 
+      unlimited_tries: Pode repetir este teste as vezes que quiser e nunca será
+        desclassificado se falhar. No entanto, poderá ter de fazer uma pausa
         para estudar entre tentativas.
-      alone: O concurso questinario deve ser feito pelo próprio e sem ajuda 
-        externa. Se tiver dificuldades linguísticas ou estiver dependente de um 
-        assistente, é claro que outra pessoa o pode ajudar a compreender as 
-        perguntas; no entanto, deve ser capaz de responder sozinho. Por 
+      alone: O concurso questinario deve ser feito pelo próprio e sem ajuda
+        externa. Se tiver dificuldades linguísticas ou estiver dependente de um
+        assistente, é claro que outra pessoa o pode ajudar a compreender as
+        perguntas; no entanto, deve ser capaz de responder sozinho. Por
         conseguinte, procure um local sossegado onde possa fazer o teste sem ser
         incomodado.
-      multiple_choice: Podem ser dadas várias respostas corretas por pergunta - 
+      multiple_choice: Podem ser dadas várias respostas corretas por pergunta -
         ou nenhuma. Por conseguinte, decida, para cada resposta, se está correta
         ou incorrecta.
       timed: O tempo para responder às perguntas é limitado. Não se preocupe com
-        isso. O tempo é definido individualmente para cada pergunta, para que 
-        tenha tempo suficiente para responder à pergunta em paz. Se o tempo se 
+        isso. O tempo é definido individualmente para cada pergunta, para que
+        tenha tempo suficiente para responder à pergunta em paz. Se o tempo se
         esgotar, avise os administradores do quiz através de um comentário.
-      real_life_examples: A maioria das perguntas é baseada em casos reais da 
+      real_life_examples: A maioria das perguntas é baseada em casos reais da
         vida em Foodsharing.
-      limited_tries: Não pode repetir o teste as vezes que quiser. Após três 
-        tentativas, tem de fazer uma pausa de 30 dias para estudar, após o que 
-        só tem mais duas tentativas. As perguntas que lhe são colocadas em cada 
+      limited_tries: Não pode repetir o teste as vezes que quiser. Após três
+        tentativas, tem de fazer uma pausa de 30 dias para estudar, após o que
+        só tem mais duas tentativas. As perguntas que lhe são colocadas em cada
         tentativa são diferentes.
-      comment: Depois de responder a cada pergunta, verá uma avaliação 
-        intermédia com explicações para cada uma das respostas possíveis. Isto 
-        ajuda-o a compreender qual é a resposta correta ou incorrecta e porquê. 
-        Se cometeres um erro, deves ler as explicações com atenção. Se algo lhe 
-        parecer ilógico, incompreensível ou mesmo errado, deixe um comentário. 
-        Os seus comentários podem ser atribuídos a si para lhe dar um feedback 
+      comment: Depois de responder a cada pergunta, verá uma avaliação
+        intermédia com explicações para cada uma das respostas possíveis. Isto
+        ajuda-o a compreender qual é a resposta correta ou incorrecta e porquê.
+        Se cometeres um erro, deves ler as explicações com atenção. Se algo lhe
+        parecer ilógico, incompreensível ou mesmo errado, deixe um comentário.
+        Os seus comentários podem ser atribuídos a si para lhe dar um feedback
         personalizado.
-      pause: Pode fazer uma pausa no concurso questionário após cada pergunta e 
+      pause: Pode fazer uma pausa no concurso questionário após cada pergunta e
         continuar mais tarde.
       feedback: No final do teste, receberá uma avaliação direta sobre se passou
-        e quais os erros que cometeu. Aqui pode voltar a ler os motivos à 
+        e quais os erros que cometeu. Aqui pode voltar a ler os motivos à
         vontade.
-      wiki: Por favor não comece o teste ao acaso. Lê as páginas de informação 
-        listadas cuidadosamente antes de começares. Sem os conhecimentos da 
+      wiki: Por favor não comece o teste ao acaso. Lê as páginas de informação
+        listadas cuidadosamente antes de começares. Sem os conhecimentos da
         wiki, não passará no teste.
       read_carefully: Ler atentamente todas as perguntas e respostas.
     acceptPrivacyNotice: Concordo com isso.
@@ -2242,42 +2242,42 @@ quiz:
     toggle: Escrever um comentário
     wallTitle: 'Comentários à pergunta #{id}'
     placeholder: Entrar o comentário …
-    info: Diga-nos a tua opinião sobre esta pergunta. Foi demasiado fácil, 
-      demasiado difícil, incompreensível? Ou algumas respostas ou explicações 
+    info: Diga-nos a tua opinião sobre esta pergunta. Foi demasiado fácil,
+      demasiado difícil, incompreensível? Ou algumas respostas ou explicações
       estão incorrectas?
     send: Mandar o comentário
   stateBasedInfo:
-    pause: Já falhou este concurso questinario várias vezes. A fiabilidade, o 
-      conhecimento firme das regras e um comportamento profissional são 
-      essenciais na partilha de alimentos. Infelizmente, as tuas respostas não 
-      transmitem isso de momento. Por isso, terás de fazer uma pausa para 
-      estudar antes de tentares passar novamente o teste. O seu intervalo de 
+    pause: Já falhou este concurso questinario várias vezes. A fiabilidade, o
+      conhecimento firme das regras e um comportamento profissional são
+      essenciais na partilha de alimentos. Infelizmente, as tuas respostas não
+      transmitem isso de momento. Por isso, terás de fazer uma pausa para
+      estudar antes de tentares passar novamente o teste. O seu intervalo de
       estudo terminará dentro de {currentWaitTime} dias.
-    pauseElapsed: A tua pausa de estudo terminou. Agora pode voltar a fazer o 
+    pauseElapsed: A tua pausa de estudo terminou. Agora pode voltar a fazer o
       questionário. Esperemos que tenha aproveitado o tempo para se familiarizar
       melhor com o conteúdo.
-    willExpire: Mas a validade da tua tentativa de concurso questinario termina 
-      dentro de {expirationTime} dias. Por isso, podes atualizar agora os teus 
+    willExpire: Mas a validade da tua tentativa de concurso questinario termina
+      dentro de {expirationTime} dias. Por isso, podes atualizar agora os teus
       conhecimentos nesta área e fazer novamente este teste.
-    disqualifiedAfter: Tens apenas uma última tentativa para passar este 
-      questionário! Se falhares agora, serás permanentemente desqualificado 
-      deste teste. Por favor, participa apenas se já te tiveres familiarizado 
+    disqualifiedAfter: Tens apenas uma última tentativa para passar este
+      questionário! Se falhares agora, serás permanentemente desqualificado
+      deste teste. Por favor, participa apenas se já te tiveres familiarizado
       com o conteúdo da Wiki.
-    neverTried: Nunca antes há realizado este questionario. Tome o tempo para 
-      ler atentamente todos os artículos de informação enumerados para estar 
+    neverTried: Nunca antes há realizado este questionario. Tome o tempo para
+      ler atentamente todos os artículos de informação enumerados para estar
       preparado para as preguntas.
     passed: Passou neste concurso questinario.
-    noWaitAfter: Consulte novamente os artigos de informação relevantes e tente 
+    noWaitAfter: Consulte novamente os artigos de informação relevantes e tente
       de novo.
     waitAfter: Caso não passe na tua próxima tentativa, deve fazer uma pausa nos
       estudos durante {waitTimeAfterFailure} dias. Certifique-se de que lê todos
       os artigos de informação relevantes para poder passar no questinario.
-    disqualified: Infelizmente, está desqualificado para este questionário 
+    disqualified: Infelizmente, está desqualificado para este questionário
       porque já falhou demasiadas vezes.
     expired: Mas a última tentativa de fazer um teste já não é válida.
-    failed: Infelizmente, não passou neste concurso questinario na tua última 
+    failed: Infelizmente, não passou neste concurso questinario na tua última
       tentativa.
-    running: Já iniciou o questinario e respondeu a {questionsAnswered} de 
+    running: Já iniciou o questinario e respondeu a {questionsAnswered} de
       {questionCount} perguntas até agora.
     passedBefore: Já passou por este concurso questinario antes.
   button:
@@ -2313,11 +2313,11 @@ quiz:
   test_results: Resultados do ensaio de teste
   show_results: Ver os resultados da última tentativa
   key_facts:
-    untimed: Máximo de {maxFailurePointsToSucceed} pontos de falha em 
-      {questionCountTimed} perguntas com, ou {questionCountUntimed} perguntas 
+    untimed: Máximo de {maxFailurePointsToSucceed} pontos de falha em
+      {questionCountTimed} perguntas com, ou {questionCountUntimed} perguntas
       sem limite de tempo
     to_pass: 'Para passar:'
-    timed: Máximo {maxFailurePointsToSucceed} pontos de falha em 
+    timed: Máximo {maxFailurePointsToSucceed} pontos de falha em
       {questionCountTimed} perguntas com limite do tempo
   fp_badge:
     right: Respondido corretamente
@@ -2334,19 +2334,19 @@ quiz:
     edit: editar esta pregunta
   sessionStatus:
     0: Atualmente em execução
-    1: Aprovado com {failurePoints} de um máximo de {maxFailurePointsToSucceed} 
+    1: Aprovado com {failurePoints} de um máximo de {maxFailurePointsToSucceed}
       pontos da falha
-    2: Não aprovado com {failurePoints} de um máximo de 
+    2: Não aprovado com {failurePoints} de um máximo de
       {maxFailurePointsToSucceed} pontos da falha
   fp_options:
     default: '{failurePoints} pontos da falha'
     joke: '{failurePoints} puntos da falha (sem avaliação)'
     ko: '{failurePoints} pontos da falha (nocauteado)'
-  confirmComment: O teu comentário deve ser mandado para os administradores 
+  confirmComment: O teu comentário deve ser mandado para os administradores
     deste questionário?
-  mandatory_question: Esta pergunta é obrigatória e está incluída em cada 
+  mandatory_question: Esta pergunta é obrigatória e está incluída em cada
     questinário do inquérito.
-  fp_description: Total {PointsFailure}, ou seja, {perMistake} por resposta 
+  fp_description: Total {PointsFailure}, ou seja, {perMistake} por resposta
     incorrecta
   answer_options:
     edit: editar resposta
@@ -2360,7 +2360,7 @@ quiz:
   editable_tooltip: Podes editar este questinário.
   timelimit: Limite do tempo
   confirm: Confirmar o questionário e concluir o processo
-  confirmDashboardText: Passaste num questinário que ainda não foi confirmado. 
+  confirmDashboardText: Passaste num questinário que ainda não foi confirmado.
     [Clique aqui]({url}) para finalizar o processo!
   test: Teste do questionário
   max_fp: Pontos de erro possíveis
@@ -2384,7 +2384,6 @@ chat:
   notification_named_conversation: '{foodsaver} escreveu em {conversation}.'
   new_messages: 'Novos mensagems'
   placeholder: 'Escreva algo.'
-  display_all_messages: 'Mostrar todos os mensagems'
   select_recipients: 'Seleccionar destinatarios'
   empty_message: 'Primeiro tens de inserir uma mensagem.'
   empty_recipients: 'Tem de selecionar primeiro um ou mais destinatário.'
@@ -2679,7 +2678,7 @@ settings:
       "true": Sim, mostrar os meus assentos no calendário
       "false": Não, não mostrar os assentos no calendário
     event:
-      label: Que eventos dos teus distritos e grupos de trabalho devem ser 
+      label: Que eventos dos teus distritos e grupos de trabalho devem ser
         incluídas?
       all: Todos os eventos
       invitations: Eventos em que não cancelei
@@ -2765,7 +2764,7 @@ settings:
       role: Função
       valid_start: Válido a partir de
       valid_end: Válido até
-      generate_error: Ocorreu um erro ao gerar o cartão de membro. Por favor, 
+      generate_error: Ocorreu um erro ao gerar o cartão de membro. Por favor,
         tente novamente mais tarde.
   photo:
     info: 'O teu rosto deve ser <a href="{link_photo}">reconhecível</a> na foto do
@@ -2811,11 +2810,11 @@ settings:
     old_password_required: Tens de escrever a tua palavra-passe atual
     new_password_label: Nova pallavra-passe
     new_password_placeholder: Mínimo de 8 caracteres
-    new_password_required: A palavra-passe deve conter pelo menos oito 
+    new_password_required: A palavra-passe deve conter pelo menos oito
       caracteres
-    new_password_must_be_trimmed: A palavra-passe não pode começar ou terminar 
+    new_password_must_be_trimmed: A palavra-passe não pode começar ou terminar
       com espaços em branco
-    new_password_must_be_complex: A nova palavra-passe deve conter letras 
+    new_password_must_be_complex: A nova palavra-passe deve conter letras
       maiúsculas e minúsculas, bem como números
     confirm_password_label: Confirmar nova palavra-passe
     confirm_password_placeholder: Repita a palavra-passe
@@ -2843,7 +2842,7 @@ settings:
     mfa_enabled: Autenticação multifatorial ativada
     mfa_disabled: Autenticação multifatorial deativada
     authenticator_app: Aplicação autenticadora
-    authenticator_app_description: Use um aplicativo autenticador para obter 
+    authenticator_app_description: Use um aplicativo autenticador para obter
       segurança adicional ao iniciar a sessão.
     error:
       name_required: Por favor, insira um nome
@@ -2858,9 +2857,9 @@ settings:
     security_keys: Chaves de segurança (Passkeys)
     security_keys_description: As chaves de segurança permitem um login seguro e
       sem palavra-passe no teu dispositivo.
-    passkeys_info: As chaves de segurança permitem um login seguro e sem 
+    passkeys_info: As chaves de segurança permitem um login seguro e sem
       palavra-passe.
-    passkeys_not_supported: O teu navegador não suporta chaves de segurança 
+    passkeys_not_supported: O teu navegador não suporta chaves de segurança
       (WebAuthn).
     register_passkey: Registar nova chave de segurança
     no_passkeys: Ainda não há chaves de segurança registadas.
@@ -2871,16 +2870,16 @@ settings:
     delete: Excluir
     rename: Renomear
     device_name_placeholder: por exemplo iPhone, YubiKey, Laptop
-    other_domain_info: Esta chave de segurança foi registada em {domain} e não 
+    other_domain_info: Esta chave de segurança foi registada em {domain} e não
       pode ser utilizada no domínio atual.
-    domain_info: As chaves de segurança são específicas para cada domínio. Tens 
-      de registar separadamente a tua chave de segurança em foodsharing.de, 
+    domain_info: As chaves de segurança são específicas para cada domínio. Tens
+      de registar separadamente a tua chave de segurança em foodsharing.de,
       foodsharing.network, etc.
     register_modal:
       title: Registar nova chave de segurança
       device_name_label: Nome do dispositivo
       device_name_placeholder: por exemplo Phone, YubiKey, Laptop
-      device_name_description: Insira um nome para identificar esta chave de 
+      device_name_description: Insira um nome para identificar esta chave de
         segurança
       cancel: Cancelar
       register: Registar
@@ -2918,15 +2917,15 @@ settings:
     cancel: Cancelar
   two_fa_enable:
     title: Ativar autenticação de dois fatores
-    tutorial: A utilização da autenticação de dois fatores aumenta a segurança 
+    tutorial: A utilização da autenticação de dois fatores aumenta a segurança
       da tua conta de usuário. Com a autenticação de dois fatores ativada, terás
       de introduzir um código adicional à tua palavra-passe sempre que iniciares
-      um sessão. Podes obter esse código através de uma aplicação de 
-      autenticação. Além disso, ser-te-ão apresentados os chamados «códigos de 
-      backup», que deves guardar em local seguro para, em caso de emergência 
-      (por exemplo, perda do smartphone), continuares a ter acesso à tua conta 
+      um sessão. Podes obter esse código através de uma aplicação de
+      autenticação. Além disso, ser-te-ão apresentados os chamados «códigos de
+      backup», que deves guardar em local seguro para, em caso de emergência
+      (por exemplo, perda do smartphone), continuares a ter acesso à tua conta
       de usuario.
-    explanation: A autenticação de dois fatores é opcional, mas é recomendada 
+    explanation: A autenticação de dois fatores é opcional, mas é recomendada
       pelos principais especialistas em segurança sempre que possível.
     further_info: 'Mais informações sobre a autenticação de dois fatores podem encontrar-te,
       por exemplo, aqui: https://invoicexpress.com/blog/2fa-autenticacao-dois-fatores/
@@ -2940,7 +2939,7 @@ settings:
       title: Apps de autenticação recomendadas
       description: 'Escolha uma das seguintes aplicações de autenticação gratuitas
         e de código aberto para o teu dispositivo:'
-      info: Também é possível utilizar aqui uma aplicação de autenticação já 
+      info: Também é possível utilizar aqui uma aplicação de autenticação já
         utilizada para outros serviços. Se ainda não tiver uma, instale primeiro
         uma aplicação antes de continuar.
     qrcode:
@@ -2948,7 +2947,7 @@ settings:
       label: 'Digitalize este código QR com a tua aplicação de autenticação:'
       scan_instruction: Abra a tua aplicação de autenticação e adicione uma nova
         conta digitalizando este código QR.
-      multi_device: Pode utilizar este código para configurar quantos 
+      multi_device: Pode utilizar este código para configurar quantos
         dispositivos desejar.
     secret_label: 'Alternativamente, pode introduzir este código manualmente:'
     secret_toggle: Mostrar código (caso a digitalização QR não funcione)
@@ -2957,25 +2956,25 @@ settings:
       label: 'Caso perca o acesso ao teu dispositivo de autenticação de dois fatores
         (perda/roubo/danos), pode utilizar os seguintes códigos de backup, cada um
         deles válido uma única vez:'
-      info: Guarde estes códigos num local seguro. Qualquer pessoa que tenha 
+      info: Guarde estes códigos num local seguro. Qualquer pessoa que tenha
         acesso a estes códigos e conheça a tua palavra-passe pode iniciar sessão
         na tua conta de utilização.
-      save_instruction: Guarde esses códigos num local seguro (por exemplo, num 
+      save_instruction: Guarde esses códigos num local seguro (por exemplo, num
         gestor de palavras-passe ou em papel).
       confirmation: Guardei os códigos de backup em local seguro
       must_confirm: Tens de confirmar que guardou os códigos de backup
     confirm:
       title: Confirmar ativação
-      instruction: Para ativar a autenticação de dois fatores, insira aqui o 
+      instruction: Para ativar a autenticação de dois fatores, insira aqui o
         código gerado e a tua palavra-passe.
-      test_instruction: Abra a tua aplicação de autenticação e introduza o 
-        código de 6 dígitos atual para garantir que tudo está a funcionar 
+      test_instruction: Abra a tua aplicação de autenticação e introduza o
+        código de 6 dígitos atual para garantir que tudo está a funcionar
         corretamente.
       logout_notice: 'Nota: Após ativar a autenticação de dois fatores, terá de iiniciar
         sessão novamente.'
     generated_code_label: Código gerado
-    password_info: Para fazer alterações, é sempre necessário introduzir a tua 
-      palavra-passe. Isto impede que outra pessoa que utilize o teu computador 
+    password_info: Para fazer alterações, é sempre necessário introduzir a tua
+      palavra-passe. Isto impede que outra pessoa que utilize o teu computador
       ou smartphone possa alterar esta configuração crítica para a segurança.
     danger: 'Importante: caso perca o teu telemóvel ou ele seja roubado e não tenha
       acesso aos códigos de backup, não conseguirá iniciar sessão. Terá de contactar
@@ -2983,36 +2982,36 @@ settings:
     activate: Ativar
     next: Continuar
     success: A autenticação de dois fatores foi ativada com sucesso.
-    failed: Não foi possível ativar a autenticação de dois fatores, pois o 
+    failed: Não foi possível ativar a autenticação de dois fatores, pois o
       código ou a palavra-passe foram introduzidos incorretamente.
   two_fa_disable:
     title: Desativar a autenticação de dois fatores
-    warning: Caso desative a autenticação de dois fatores, a tua conta usuário 
-      ficará menos segura. Qualquer pessoa que conheça a tua palavra-passe ou 
-      tenha acesso aos seus e-mails (palavra-chave «Esqueci a minha 
-      palavra-passe») poderá aceder à tua conta usuário. Ao desativar a 
-      autenticação, os seus códigos de backup também serão invalidados. Terá de 
+    warning: Caso desative a autenticação de dois fatores, a tua conta usuário
+      ficará menos segura. Qualquer pessoa que conheça a tua palavra-passe ou
+      tenha acesso aos seus e-mails (palavra-chave «Esqueci a minha
+      palavra-passe») poderá aceder à tua conta usuário. Ao desativar a
+      autenticação, os seus códigos de backup também serão invalidados. Terá de
       iniciar sessão novamente.
     confirm_text: 'Para confirmar, introduza um código 2FA atual e a tua palavra-passe:'
     deactivate: Desativar
-    danger: Caso desative a autenticação de dois fatores, a tua conta usuário 
+    danger: Caso desative a autenticação de dois fatores, a tua conta usuário
       ficará menos segura.
     success: A autenticação de dois fatores foi desativada com sucesso.
-    failed: Não foi possível desativar a autenticação de dois fatores, pois o 
+    failed: Não foi possível desativar a autenticação de dois fatores, pois o
       código ou a palavra-passe foram introduzidos incorretamente.
-    admin_description: Deseja desativar a autenticação de dois fatores para 
-      {user}? Isso só faz sentido em casos excepcionais, por exemplo, caso o 
-      usuário não tenha mais acesso ao teu dispositivo de dois fatores e também 
+    admin_description: Deseja desativar a autenticação de dois fatores para
+      {user}? Isso só faz sentido em casos excepcionais, por exemplo, caso o
+      usuário não tenha mais acesso ao teu dispositivo de dois fatores e também
       tenha perdido os códigos de backup.
   email_change:
     title: Alterar endereço de e-mail
-    explanation: Aqui pode alterar o endereço de e-mail com o qual se registou. 
-      Após o envio, receberá um e-mail no teu endereço novo com um link para 
+    explanation: Aqui pode alterar o endereço de e-mail com o qual se registou.
+      Após o envio, receberá um e-mail no teu endereço novo com um link para
       confirmar o teu novo endereço.
-    explanation_other_user: Aqui pode alterar o endereço de e-mail com o qual 
-      este perfil foi registado. Após o envio, o utilizador receberá um e-mail 
+    explanation_other_user: Aqui pode alterar o endereço de e-mail com o qual
+      este perfil foi registado. Após o envio, o utilizador receberá um e-mail
       no endereço novo, contendo um link para confirmar o novo endereço.
-    explanation_password: Confirme a solicitação de alteração com a tua 
+    explanation_password: Confirme a solicitação de alteração com a tua
       palavra-passe atual
     new_email_label: Novo endereço de e-mail
     new_email_placeholder: a.tua.novo@email.pt
@@ -3026,16 +3025,16 @@ settings:
     question: 'Queremos mesmo alterar o teu endereço de e-mail para este:'
     question_other_user: 'Deve ser alterado o endereço de e-mail para este:'
     invalid: Há um problema com o endereço de e-mail introduzido
-    domain: Por favor, utilize um outro endereço de e-mail para poder recuperar 
+    domain: Por favor, utilize um outro endereço de e-mail para poder recuperar
       a sua palavra-passe a qualquer momento.
-    occupied: Não foi possível alterar o endereço de e-mail, pois ele já está a 
+    occupied: Não foi possível alterar o endereço de e-mail, pois ele já está a
       ser utilizado.
-    password_required: Tens de inscrever a tua palavra-passe para alterar o 
+    password_required: Tens de inscrever a tua palavra-passe para alterar o
       endereço de e-mail.
     wrong_password: A palavra-passe é incorreta.
-    insufficient_permission: Não tens autorização para alterar o endereço de 
+    insufficient_permission: Não tens autorização para alterar o endereço de
       e-mail deste perfil.
-    sent: Acesse agora tua nova caixa de correio eletrónico para confirmar o 
+    sent: Acesse agora tua nova caixa de correio eletrónico para confirmar o
       endereço.
     sent_other_user: Foi enviado um e-mail para o novo endereço para confirmar o
       endereço.
@@ -3262,7 +3261,7 @@ register:
   activation_success: '<strong>Ativação bem-sucedida.</strong> Faça login agora com
     o teu endereço de e-mail e a palavra-passe que escolheste.'
   lastname_maxLength: O teu apelido pode consistir em um máximo de 30 caracteres
-  password_must_be_complex: A palavra-passe deve conter no mínimo uma letra 
+  password_must_be_complex: A palavra-passe deve conter no mínimo uma letra
     maiúscula, uma letra minúscula e números
   password_must_be_trimmed: A palavra-passe não pode conter espaços no início ou
     no final
@@ -3597,12 +3596,12 @@ region:
       set_pin: Marcar o pin do distrito no mapa
       hide_pin: Excluir o pin do distrito
       edit_pin: Editar o pin do distrito
-      confirm_discard_changes: Tens a certeza de que deseja descartar as 
+      confirm_discard_changes: Tens a certeza de que deseja descartar as
         alterações feitas no pin do distrito?
-      confirm_save_changes: Queres guardar as tuas alterações no pin do 
+      confirm_save_changes: Queres guardar as tuas alterações no pin do
         distrito? O novo pin ficará visível publicamente na página do distrito e
         no mapa.
-      confirm_remove: Queres mesmo excluir o pin do distrito? Este distrito 
+      confirm_remove: Queres mesmo excluir o pin do distrito? Este distrito
         deixará de ser apresentado no mapa.
     children: Distritos em {name} ({count})
     join: Entrar no distrito
@@ -3611,14 +3610,14 @@ region:
     leave: Sair do distrito
     leave_group: Sair do grupo
     leave_name: Sair de {name}
-    leave_text_region: Já não estás ativo em {name} e desejas sair deste 
+    leave_text_region: Já não estás ativo em {name} e desejas sair deste
       distrito?
     leave_text_group: Já não estás ativo em {name} e desejas sair deste grupo?
     description: Informações sobre este distrito
-    no_more_info: Não há mais informações disponíveis publicamente sobre este 
+    no_more_info: Não há mais informações disponíveis publicamente sobre este
       distrito.
     wall: Atualidades do distrito
-    confirm_entering: Queres entrar para o distrito {name}? Os embaixadores 
+    confirm_entering: Queres entrar para o distrito {name}? Os embaixadores
       terão acesso ao teu perfil.
     confirm_leaving: Queres entrar para o distrito {name}? Os embaixadores terão
       acesso ao teu perfil.
@@ -3627,12 +3626,12 @@ region:
     discard_changes: Rejeitar alterações
     desc:
       edit: Editar a descrição do distrito
-      confirm_discard_changes: Tem a certeza de querer descartar as tuas 
+      confirm_discard_changes: Tem a certeza de querer descartar as tuas
         alterações na descrição do distrito?
-      confirm_save_changes: Queres guardar as alterações na descrição do 
-        distrito? A nova descrição vai ficar visível publicamente na página do 
+      confirm_save_changes: Queres guardar as alterações na descrição do
+        distrito? A nova descrição vai ficar visível publicamente na página do
         distrito.
-      missing: Este distrito não tem atualmente nenhum texto descritivo. Tens 
+      missing: Este distrito não tem atualmente nenhum texto descritivo. Tens
         permissão para escrever agora um texto descritivo.
     events:
       title: Eventos públicos
@@ -3651,10 +3650,10 @@ region:
   parent: Distrito parental
   master: Distrito principal
   mailbox: Nome da caixa eletrônica
-  allow_hiding_in_forum: Permitir que os moderadores apaguem publicações nos 
+  allow_hiding_in_forum: Permitir que os moderadores apaguem publicações nos
     fóruns
   denied:
-    this_region: Tentaste obter acesso ao conteúdo deste distrito. Entretanto, 
+    this_region: Tentaste obter acesso ao conteúdo deste distrito. Entretanto,
       apenas os membros do distrito têm acesso a ele.
     some_group: Tentaste obter acesso ao conteúdo do grupo de trabalho «{name}».
       Entretanto, apenas os membros do grupo têm acesso a esse conteúdo.
@@ -3676,7 +3675,7 @@ upload:
   images: Carregar imagems
   invalid_image_files: '{count} os ficheiros selecionados não são imagens válidas:
     {fileNames}'
-  image-problem: O teu ficheiro não está em ordem, é melhor utilizar uma imagem 
+  image-problem: O teu ficheiro não está em ordem, é melhor utilizar uma imagem
     jpg normal
 content:
   new_success: 'A página foi criada'
@@ -3700,15 +3699,15 @@ content:
   error: Não foi possível gravar a página
   communities:
     title: Grupos locais
-    text: O foodsharing cresce a cada dia. Aqui encontrará sempre uma lista 
-      atualizada de todas as comunidades e distritos do foodsharing. Pode obter 
-      mais informações sobre cada distrito na página pública do distrito, ou 
-      enviar um e-mail diretamente para o distrito correspondente clicando no 
+    text: O foodsharing cresce a cada dia. Aqui encontrará sempre uma lista
+      atualizada de todas as comunidades e distritos do foodsharing. Pode obter
+      mais informações sobre cada distrito na página pública do distrito, ou
+      enviar um e-mail diretamente para o distrito correspondente clicando no
       ícone.
-    searchInfo: Com Ctrl+F, é possível pesquisar a lista em muitos navegadores 
+    searchInfo: Com Ctrl+F, é possível pesquisar a lista em muitos navegadores
       por países, cidades, estados federais ou bairros.
-    noAmbassador: Este distrito não tem atualmente nenhum embaixador(a) e, por 
-      isso, não está disponível por e-mail. Entre em contacto com um distrito 
+    noAmbassador: Este distrito não tem atualmente nenhum embaixador(a) e, por
+      isso, não está disponível por e-mail. Entre em contacto com um distrito
       vizinho ou com o distrito imediatamente superior.
   error_loading: Não foi possível carregar o conteúdo
 conference:
@@ -3802,7 +3801,7 @@ events:
   meeting:
     past: Este evento foi realizado online.
     present: Este evento tem lugar online. Podes participar agora.
-    future: Este evento tem lugar online. Quando começar, pode participar 
+    future: Este evento tem lugar online. Quando começar, pode participar
       através do botão abaixo.
     not_started: Este evento ainda não começou
   attendees: Participantes
@@ -3814,8 +3813,8 @@ events:
     moderno. Também é possível participar por telefone.\n\nSe, mesmo assim, desejar
     utilizar outra plataforma para uma conferência telefónica ou online, selecione
     a opção *«Outros»*.\n"
-  public_info: Este evento é público, todos podem aceder ao mesmo. Os 
-    comentários e a lista de participantes só são visíveis para utilizadores 
+  public_info: Este evento é público, todos podem aceder ao mesmo. Os
+    comentários e a lista de participantes só são visíveis para utilizadores
     registados.
   declinedCount: '{count} cancelaram'
 month:
@@ -3869,25 +3868,25 @@ forum:
     title: 'Titulo'
     bottom: Visibilidade reduzida
     all_hidden: Todas as publicações neste tópico foram ocultadas.
-    post_not_found: A publicação ligada não foi encontrada, possivelmente foi 
+    post_not_found: A publicação ligada não foi encontrada, possivelmente foi
       eliminada. Em vez disso, foi selecionada o próximo publicação.
   post:
     body: 'Mensagem'
     delete: 'Excluir publicação'
     hide: Ocultar publicação
-    giveHideReason: Por favor, indique por que motivo pretende ocultar esta 
+    giveHideReason: Por favor, indique por que motivo pretende ocultar esta
       publicação.
     hideReasonPlaceholder: Escreva aqui o teu motivo…
-    hideInfo: As publicações ocultadas não são mais exibidas. Elas podem ser 
-      restauradas pelos moderadores dentro de três meses, antes de serem 
-      definitivamente excluídas. Durante esse período, os utilizadores do fórum 
-      podem ver por que a publicação foi ocultada e os moderadores também podem 
+    hideInfo: As publicações ocultadas não são mais exibidas. Elas podem ser
+      restauradas pelos moderadores dentro de três meses, antes de serem
+      definitivamente excluídas. Durante esse período, os utilizadores do fórum
+      podem ver por que a publicação foi ocultada e os moderadores também podem
       ver por quem.
     sureHide: Queres mesmo ocultar esta publicação?
     hiddenPost: Publicação ocultada por [{moderatorName}]({moderatorUrl})
     hiddenReason: 'Motivo: {reason}'
-    moderator_info: Este tópico está fechado. Como moderador deste fórum, pode 
-      mesmo assim escrever uma mensagem. Outros utilizadores não podem 
+    moderator_info: Este tópico está fechado. Como moderador deste fórum, pode
+      mesmo assim escrever uma mensagem. Outros utilizadores não podem
       responder!
   threads: 'Temas'
   sending_error: 'Ocorreu um erro ao envio'
@@ -3986,7 +3985,7 @@ notifications:
   info: Informação
   pickupReminder:
     title: Recordações para os assentos não ocupados
-    description: Receba e-mails que o alertam quando os assentos nas lojas que 
+    description: Receba e-mails que o alertam quando os assentos nas lojas que
       gere ainda não estiverem atribuídos no dia seguinte.
   save_success: 'Salvado com sucesso'
   pushModal:
@@ -4162,10 +4161,10 @@ regionOptions:
   regionReportReasonCategoryB: motivos da denúncia adicionais - B) comportamento
     durante as recolhas
   regionReportReasonOther: Permitir «Outros» como motivo da denúncia
-  noPickupRuleActiveStores: Atualmente, a regra de lojas populares não está 
+  noPickupRuleActiveStores: Atualmente, a regra de lojas populares não está
     ativada para nenhuma empresa no distrito.
-  enableAddressChangeNotification: Notificação aos embaixadores e 
-    administradores em caso de mudança de endereço de um Foodsaver deste 
+  enableAddressChangeNotification: Notificação aos embaixadores e
+    administradores em caso de mudança de endereço de um Foodsaver deste
     distrito como distrito de origem
 ort: 'Cidade/Comunidade'
 releases:
@@ -4220,9 +4219,9 @@ addresspicker:
     é legalmente necessário.'
   different_location: 'Corrigir a descrição do endereço'
   different_location_warning: Por favor verifique se o Pin está no lugar correto
-    na parte superior do cartão. Altere os campos preenchidos automaticamente 
-    (rua e número, código postal e cidade/município) apenas se o valor inserido 
-    automaticamente estiver incorreto. Isso pode ocorrer, por exemplo, após uma 
+    na parte superior do cartão. Altere os campos preenchidos automaticamente
+    (rua e número, código postal e cidade/município) apenas se o valor inserido
+    automaticamente estiver incorreto. Isso pode ocorrer, por exemplo, após uma
     alteração no nome de uma rua.
 filterlist:
   filter_for_name_id: 'Nome ou ID'
@@ -4249,8 +4248,8 @@ buddy:
   request_accepted: 'Agora vos conhecem.'
   request_sent: 'Solicitação enviada.'
   send:
-    confirm_text: Caso se marquem mutuamente como conhecidos, as publicações do 
-      mural do perfil da outra pessoa serão exibidas na vossa página inicial. 
+    confirm_text: Caso se marquem mutuamente como conhecidos, as publicações do
+      mural do perfil da outra pessoa serão exibidas na vossa página inicial.
       Além disso, será mais fácil encontrarem-se através da procura.
     confirm_title: 'Conheces a {name}?'
   remove:
@@ -4433,8 +4432,8 @@ duration: 'Tempo para responder'
 day: 'dia'
 ansprechpartner: 'Pessoa de contacto na loja (Gerente de filial, etc.)'
 validation:
-  phone_number_invalid: O número de telefone é inválido (por exemplo, falta o 
-    indicativo do país, é demasiado curto, demasiado longo ou contém caracteres 
+  phone_number_invalid: O número de telefone é inválido (por exemplo, falta o
+    indicativo do país, é demasiado curto, demasiado longo ou contém caracteres
     inválidos)
 navi:
   google_maps: Google Maps
@@ -4444,7 +4443,7 @@ navi:
   komoot: Komoot
   here: HERE WeGo
   native: Aplicação nativa
-  gdpr_warning: Quando navega com {provider}, o endereço é transmitido ao seu 
+  gdpr_warning: Quando navega com {provider}, o endereço é transmitido ao seu
     serviço e é redirecionado para o seu site. Concorda com isso?
   no_native_app: Este dispositivo não suporta geo-links.
 no_automatic_delete: 'Se o último registo tiver sido há mais de 5 anos:'
@@ -4453,7 +4452,7 @@ automatic_not_delete: '- o perfil quer ser mantido.'
 copied_to_clipboard: „{text}“ foi copiado para a área de transferência.
 save_state: Manter os filtros e o ordenação
 partner_foodsharing: Parceiro de Foodsharing
-save_state_description: Guardar os filtros aplicados e a ordenação para futuras 
+save_state_description: Guardar os filtros aplicados e a ordenação para futuras
   chamadas
 collapse_all: Fechar tudo
 configure_columns: Configurar mais tarde
@@ -4461,7 +4460,7 @@ expand_all: Expandir tudo
 net_errors:
   code: 'Código de erro: '
   NOT_FOUND: A página solicitada não foi encontrada.
-  SERVER_ERROR: Um erro de servidor interno ocorreu. Infelizmente, o seu pedido 
+  SERVER_ERROR: Um erro de servidor interno ocorreu. Infelizmente, o seu pedido
     nao pode ser processado.
   ETIMEDOUT: O pedido demorou demasiado tempo. Por favor, verifica a tua conexão
     de internet e tenta novamente.
@@ -4472,17 +4471,17 @@ net_errors:
     400: Solicitaçaõ incorreta
   message: 'Mensagem de erro: '
   action_response: 'Pedido e resposta do servidor:'
-  BAD_REQUEST: O pedido foi inválido. Por favor, verifica as tuas entradas para 
+  BAD_REQUEST: O pedido foi inválido. Por favor, verifica as tuas entradas para
     a integridade e plausibilidade.
-  TOO_MANY_REQUESTS: Demasiadas solicitações. Por favor, aguarde um momento e 
+  TOO_MANY_REQUESTS: Demasiadas solicitações. Por favor, aguarde um momento e
     tente novamente.
-  ECONNABORTED: A solicitação foi cancelada pelo teu browser. Por favor, tente 
+  ECONNABORTED: A solicitação foi cancelada pelo teu browser. Por favor, tente
     novamente.
   ERR_NETWORK: Houve um problema de Internet. Por favor, verifique a sua conexão
     e tente novamente.
-  ERR_NETWORK_CHANGED: A tua conexão com a Internet está instável. Verifica a 
+  ERR_NETWORK_CHANGED: A tua conexão com a Internet está instável. Verifica a
     tua conexão e tenta novamente.
-  ERR_BAD_RESPONSE: O servidor devolveu uma resposta inválida. Por favor, tente 
+  ERR_BAD_RESPONSE: O servidor devolveu uma resposta inválida. Por favor, tente
     novamente.
   ERR_CANCELED: A solicitação foi cancelada. Tente novamente, se necessário.
   unknown: Houve um erro desconhecido. Por favor, tente novamente mais tarde.
@@ -4494,9 +4493,9 @@ support_page:
     placeholder: 'Selecionar ficheiro'
     drop_placeholder: 'Colocar ficheiro aqui'
   info_teaser: O nosso formulário de suporte está à tua disposição para questões
-    relacionadas com o funcionamento da plataforma, questões técnicas ou 
+    relacionadas com o funcionamento da plataforma, questões técnicas ou
     mensagens de erro. Após o envio, é criado automaticamente um ticket no nosso
-    sistema. A equipa de suporte voluntária tratará das suas questões. Para 
+    sistema. A equipa de suporte voluntária tratará das suas questões. Para
     melhor responder a problemas técnicos, inclua na sua questão o navegador e o
     sistema operativo que utiliza.
   subject: 'Assunto'
@@ -4874,7 +4873,7 @@ help:
 test:
   vars: O meu nome é [NAME] e tenho [AGE] anos
   plain: 'Esta é uma tradução'
-totp_code: Introduza o código de dois fatores gerado ou um dos códigos de 
+totp_code: Introduza o código de dois fatores gerado ou um dos códigos de
   backup.
 sort:
   options:
@@ -4891,8 +4890,8 @@ required_messages:
     footer: 'Muitas saudações'
     really: 'Quer mesmo remover {name} da equipa desta loja?'
   move_to_standby_team:
-    main: Foste colocado na lista de substitutos da loja 
-      [{store}](/store/{storeId}). Atualmente, não podes inscrever-te para os 
+    main: Foste colocado na lista de substitutos da loja
+      [{store}](/store/{storeId}). Atualmente, não podes inscrever-te para os
       assentos nesta loja nem ler o chat geral do grupo.
     footer: 'Muitas saudações'
     really: 'Queres mesmo tirar {name} da equipa ativa e colocá-lo na lista de substitutos?'

@@ -22,6 +22,7 @@
         :key="entity.id"
         :[section.prop]="entity"
         @close="$emit('close')"
+        @close-without-returning-focus="$emit('close-without-returning-focus')"
       />
       <div
         v-if="hasMaxSearchResultCount[section.key] && expanded[section.key]"

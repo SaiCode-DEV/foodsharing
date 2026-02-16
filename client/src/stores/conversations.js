@@ -55,11 +55,10 @@ export default new Vue({
     },
     /**
      * Get conversation from store if exists else load from api
-     * @param Number conversationId Conversation ID
      */
-    async getConversation (conversationId) {
-      if (this.conversations[conversationId] === undefined) {
-        await this.loadConversation(conversationId)
+    async getConversation (conversationId, markAsRead = false) {
+      if (this.conversations[conversationId] === undefined || markAsRead) {
+        await this.loadConversation(conversationId, markAsRead)
       }
       return this.conversations[conversationId]
     },
@@ -75,10 +74,8 @@ export default new Vue({
         hasMoreMessages: storedConversation.hasMoreMessages,
       })
     },
-    async loadConversation (conversationId) {
-      /* always load conversation for proper read mark handling.
-      * Will still cache messages during store lifetime */
-      const response = await api.getConversation(conversationId)
+    async loadConversation (conversationId, markAsRead) {
+      const response = await api.getConversation(conversationId, markAsRead)
       ProfileStore.updateFrom(response.profiles)
       this.assignConversationToStore(response.conversation)
     },
@@ -101,13 +98,11 @@ export default new Vue({
      */
     async newMessageReceived (data) {
       const conversationId = data.cid
-      if (!(conversationId in this.conversations)) {
-        await this.loadConversation(conversationId)
-        /* likely, when loading the conversation after the push message appeared, we don't need to add the push message.
-        Still, I think it shouldn't harm...
-         */
+      if (conversationId in this.conversations) {
+        this.assignMessageToStore(conversationId, data.message)
+      } else {
+        await this.loadConversation(conversationId, false)
       }
-      this.assignMessageToStore(conversationId, data.message)
     },
     async assignMessageToStore (conversationId, message) {
       Vue.set(this.conversations[conversationId].messages, message.id, convertMessage(message))

@@ -1551,7 +1551,7 @@ chat:
   no_messages: "Keine Nachrichten"
   no_conversation: "Keine Unterhaltung ausgewählt"
   start_of_conversation: "Konversation gestartet am:"
-  display_all_messages: "Alle Nachrichten anzeigen"
+  open_full_view: "Vollansicht öffnen"
   unknown_username: "unbekannter Name"
   show_participants: "Teilnehmer:innen anzeigen"
   participants: "Teilnehmer:innen"

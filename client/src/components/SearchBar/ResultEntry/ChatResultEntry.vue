@@ -55,7 +55,7 @@ export default {
   methods: {
     openChat () {
       conversationStore.openChat(this.chat.id)
-      this.$emit('close-modal')
+      this.$emit('close-without-returning-focus')
     },
   },
 }

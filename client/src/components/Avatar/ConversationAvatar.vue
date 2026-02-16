@@ -85,4 +85,8 @@ export default {
     grid-row: span 2;
   }
 }
+
+.wrapper::v-deep .b-avatar-badge {
+  box-shadow: -.1em -.1em .5em .1em var(--fs-color-background);
+}
 </style>

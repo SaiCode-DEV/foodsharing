@@ -31,6 +31,7 @@
         :results="results"
         :is-loading="isLoading"
         @close="$refs.searchBarModal.hide"
+        @close-without-returning-focus="closeWithoutReturningFocusHandler"
       />
       <div v-else class="alert alert-info">
         <span v-text="$t('search.informations')" />
@@ -150,6 +151,12 @@ export default {
     shownHandler () {
       this.focusSearchbar()
       this.fetchIndex()
+    },
+    closeWithoutReturningFocusHandler () {
+      // Use toggle to pass a never-matching but truthy selector to prevent focus from
+      // returning to the search button.
+      // Selectors ':not(*)', ':root:not(:root)' etc. are nicer but 2-4 magnitudes slower
+      this.$refs.searchBarModal.toggle('#nonexistent-_-_-_-_')
     },
     focusSearchbar () {
       this.$refs.searchBar.focus()

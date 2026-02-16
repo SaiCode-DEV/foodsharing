@@ -195,8 +195,6 @@ class MessageTransactions
         $conversation->members = $this->messageGateway->getMembersForConversations([$conversationId])[$conversationId];
         $conversation->messages = $this->messageGateway->getConversationMessages($conversationId, $messagesLimit);
 
-        $this->messageGateway->setReadStatus($conversationId, $this->session->id(), true);
-
         return $conversation;
     }
 
