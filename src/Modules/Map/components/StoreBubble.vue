@@ -126,7 +126,7 @@
 
       <b-alert :show="store.isHygieneRequired && !isMissingHygieneCertificate" variant="success">
         <i class="fas fa-hands-wash mr-2" />
-        {{ $t('store.request.hygieneRequired') }}
+        {{ $t('store.request.hygieneRequired.request') }}
       </b-alert>
       <b-alert :show="store.mayAcceptInvitation" variant="success">
         <i class="fas fa-user-check mr-2" />
