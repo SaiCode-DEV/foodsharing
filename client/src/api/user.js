@@ -27,7 +27,7 @@ export function deleteUser (id, reason, password = null) {
 }
 
 export function getUserNames (ids) {
-  return get(`/users/names/${ids.join(',')}`)
+  return get(`/users/${ids.join(',')}/names`)
 }
 
 export function registerUser (firstName, lastName, email, password, gender, birthdate, mobilePhone, subscribeNewsletter) {
