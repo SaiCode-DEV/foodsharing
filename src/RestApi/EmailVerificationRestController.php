@@ -26,7 +26,7 @@ class EmailVerificationRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Put(summary: 'Sends a new verification email to a specified address if an account with that address exists and is not yet verified')]
-    #[Route('/email-verification', methods: ['PUT'])]
+    #[Route('email-verification', methods: ['PUT'])]
     #[OA\RequestBody(content: new Model(type: VerificationEmailRequest::class))]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     public function requestVerificationEmail(

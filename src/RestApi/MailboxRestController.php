@@ -33,10 +33,11 @@ class MailboxRestController extends AbstractFoodsharingRestController
         private readonly MailboxPermissions $mailboxPermissions,
         private readonly MailboxTransactions $mailboxTransactions,
     ) {
+        parent::__construct($session);
     }
 
     #[OA\Patch(summary: 'Changes properties of an email.')]
-    #[Route(path: 'mailboxes/mails/{mailId}', methods: ['PATCH'], requirements: ['mailId' => Requirement::POSITIVE_INT])]
+    #[Route('mailboxes/mails/{mailId}', methods: ['PATCH'], requirements: ['mailId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
     public function setEmailProperties(int $mailId, #[MapRequestPayload] PatchEmailModel $emailModel): Response
@@ -57,7 +58,7 @@ class MailboxRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Delete(summary: 'Moves an email to the trash folder or deletes it, if it is already in the trash.')]
-    #[Route(path: 'mailboxes/mails/{mailId}', methods: ['DELETE'], requirements: ['mailId' => Requirement::POSITIVE_INT])]
+    #[Route('mailboxes/mails/{mailId}', methods: ['DELETE'], requirements: ['mailId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
     public function deleteEmail(int $mailId): Response
@@ -79,7 +80,7 @@ class MailboxRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Get(summary: 'Returns the number of unread mails for the sending user.')]
-    #[Route(path: 'mailboxes/unread-count', methods: ['GET'])]
+    #[Route('mailboxes/unread-count', methods: ['GET'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new OA\JsonContent(type: 'object',
         properties: [new OA\Property(property: 'unreadCount', type: 'integer', description: 'Number of unread mails')]
     ))]
@@ -92,7 +93,7 @@ class MailboxRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Get(summary: 'Returns mails from a mailbox.')]
-    #[Route(path: 'mailboxes/{mailboxId}/folders/{folderId}/mails', methods: ['GET'], requirements: ['mailboxId' => Requirement::POSITIVE_INT, 'folderId' => Requirement::POSITIVE_INT])]
+    #[Route('mailboxes/{mailboxId}/folders/{folderId}/mails', methods: ['GET'], requirements: ['mailboxId' => Requirement::POSITIVE_INT, 'folderId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
         type: 'array',
         items: new OA\Items(ref: new Model(type: Email::class)))
@@ -113,7 +114,7 @@ class MailboxRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Get(summary: 'Return a mail from mailbox.')]
-    #[Route(path: 'mailboxes/mails/{mailId}', methods: ['GET'], requirements: ['mailId' => Requirement::POSITIVE_INT])]
+    #[Route('mailboxes/mails/{mailId}', methods: ['GET'], requirements: ['mailId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new Model(type: Email::class))]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
     public function getMail(int $mailId): Response
@@ -130,7 +131,7 @@ class MailboxRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Post(summary: 'Sends an email from a mailbox.')]
-    #[Route(path: 'mailboxes/{mailboxId}/mails', methods: ['POST'], requirements: ['mailboxId' => Requirement::POSITIVE_INT])]
+    #[Route('mailboxes/{mailboxId}/mails', methods: ['POST'], requirements: ['mailboxId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new Model(type: Email::class))]
     #[OA\Response(response: Response::HTTP_TOO_MANY_REQUESTS, description: 'Too many requests')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
@@ -162,7 +163,7 @@ class MailboxRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Get(summary: 'Returns all regions and their email addresses.')]
-    #[Route(path: 'regions/mailboxes', methods: ['GET'])]
+    #[Route('regions/mailboxes', methods: ['GET'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(type: 'array',
         items: new OA\Items(ref: new Model(type: Region::class)))
     )]

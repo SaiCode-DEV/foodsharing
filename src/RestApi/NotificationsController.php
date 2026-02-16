@@ -21,18 +21,14 @@ use Foodsharing\RestApi\Models\Notifications\Region;
 use Foodsharing\RestApi\Models\Notifications\Thread;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use OpenApi\Attributes\Items;
-use OpenApi\Attributes\JsonContent;
-use OpenApi\Attributes\Patch;
-use OpenApi\Attributes\RequestBody;
-use OpenApi\Attributes\Response;
-use OpenApi\Attributes\Tag;
+use OpenApi\Attributes as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+#[OA\Tag('notifications')]
 class NotificationsController extends AbstractFoodsharingRestController
 {
     public function __construct(
@@ -45,18 +41,18 @@ class NotificationsController extends AbstractFoodsharingRestController
         private readonly SettingsTransactions $settingsTransactions,
         private readonly FoodSharePointTransactions $foodSharePointTransactions,
         private readonly ForumTransactions $forumTransactions,
-        private readonly RegionTransactions $regionTransactions
+        private readonly RegionTransactions $regionTransactions,
     ) {
+        parent::__construct($session);
     }
 
     /**
      * Returns notifications for specific target parameter.
      */
-    #[Tag('notifications')]
     #[Rest\Get(path: 'notifications/{target}')]
-    #[Response(response: HttpResponse::HTTP_OK, description: 'Successful')]
-    #[Response(response: HttpResponse::HTTP_FORBIDDEN, description: 'Forbidden')]
-    #[Response(response: HttpResponse::HTTP_BAD_REQUEST, description: 'Target not found')]
+    #[OA\Response(response: HttpResponse::HTTP_OK, description: 'Successful')]
+    #[OA\Response(response: HttpResponse::HTTP_FORBIDDEN, description: 'Forbidden')]
+    #[OA\Response(response: HttpResponse::HTTP_BAD_REQUEST, description: 'Target not found')]
     public function getNotifications(string $target)
     {
         $this->assertLoggedIn();
@@ -78,11 +74,10 @@ class NotificationsController extends AbstractFoodsharingRestController
     /**
      * Update notification state for regions or working groups.
      */
-    #[Tag('notifications')]
     #[Rest\Patch(path: 'notifications/regions')]
-    #[Response(response: HttpResponse::HTTP_OK, description: 'Successful')]
-    #[Response(response: HttpResponse::HTTP_FORBIDDEN, description: 'Forbidden')]
-    #[RequestBody(content: new JsonContent(type: 'array', items: new Items(ref: new Model(type: Region::class))))]
+    #[OA\Response(response: HttpResponse::HTTP_OK, description: 'Successful')]
+    #[OA\Response(response: HttpResponse::HTTP_FORBIDDEN, description: 'Forbidden')]
+    #[OA\RequestBody(content: new OA\JsonContent(type: 'array', items: new OA\Items(ref: new Model(type: Region::class))))]
     #[ParamConverter(data: 'regions', class: 'array<Foodsharing\RestApi\Models\Notifications\Region>', converter: 'fos_rest.request_body')]
     public function updateRegionsAndWorkgroupsNotifications(array $regions, ValidatorInterface $validator): HttpResponse
     {
@@ -111,11 +106,10 @@ class NotificationsController extends AbstractFoodsharingRestController
     /**
      * Set or disable notification for forum threads.
      */
-    #[Tag('notifications')]
     #[Rest\Patch(path: 'notifications/forum')]
-    #[Response(response: HttpResponse::HTTP_OK, description: 'Successful')]
-    #[Response(response: HttpResponse::HTTP_FORBIDDEN, description: 'Forbidden')]
-    #[RequestBody(content: new JsonContent(type: 'array', items: new Items(ref: new Model(type: Thread::class))))]
+    #[OA\Response(response: HttpResponse::HTTP_OK, description: 'Successful')]
+    #[OA\Response(response: HttpResponse::HTTP_FORBIDDEN, description: 'Forbidden')]
+    #[OA\RequestBody(content: new OA\JsonContent(type: 'array', items: new OA\Items(ref: new Model(type: Thread::class))))]
     #[ParamConverter(data: 'threads', class: 'array<Foodsharing\RestApi\Models\Notifications\Thread>', converter: 'fos_rest.request_body')]
     public function setThreadsNotifications(array $threads, ValidatorInterface $validator): HttpResponse
     {
@@ -144,11 +138,10 @@ class NotificationsController extends AbstractFoodsharingRestController
     /**
      * Set or disable notification for foodSharePoints.
      */
-    #[Tag('notifications')]
     #[Rest\Patch(path: 'notifications/foodsharepoints')]
-    #[Response(response: HttpResponse::HTTP_OK, description: 'Successful')]
-    #[Response(response: HttpResponse::HTTP_FORBIDDEN, description: 'Forbidden')]
-    #[RequestBody(content: new JsonContent(type: 'array', items: new Items(ref: new Model(type: FoodSharePoint::class))))]
+    #[OA\Response(response: HttpResponse::HTTP_OK, description: 'Successful')]
+    #[OA\Response(response: HttpResponse::HTTP_FORBIDDEN, description: 'Forbidden')]
+    #[OA\RequestBody(content: new OA\JsonContent(type: 'array', items: new OA\Items(ref: new Model(type: FoodSharePoint::class))))]
     #[ParamConverter(data: 'foodSharePoints', class: 'array<Foodsharing\RestApi\Models\Notifications\FoodSharePoint>', converter: 'fos_rest.request_body')]
     public function setFoodSharePointNotifications(array $foodSharePoints, ValidatorInterface $validator): HttpResponse
     {
@@ -177,11 +170,10 @@ class NotificationsController extends AbstractFoodsharingRestController
     /**
      * Activate or disable the newsletter or mail notification for chat.
      */
-    #[Tag('notifications')]
     #[Rest\Patch(path: 'notifications/user')]
-    #[Response(response: HttpResponse::HTTP_OK, description: 'Successful')]
-    #[Response(response: HttpResponse::HTTP_FORBIDDEN, description: 'Forbidden')]
-    #[RequestBody(content: new Model(type: NewsletterChat::class))]
+    #[OA\Response(response: HttpResponse::HTTP_OK, description: 'Successful')]
+    #[OA\Response(response: HttpResponse::HTTP_FORBIDDEN, description: 'Forbidden')]
+    #[OA\RequestBody(content: new Model(type: NewsletterChat::class))]
     #[ParamConverter(data: 'newsletterChat', class: NewsletterChat::class, converter: 'fos_rest.request_body')]
     public function setUserNotification(NewsletterChat $newsletterChat, ValidatorInterface $validator): HttpResponse
     {
@@ -207,12 +199,11 @@ class NotificationsController extends AbstractFoodsharingRestController
         return $this->handleView($this->view([], HttpResponse::HTTP_OK));
     }
 
-    #[Tag('notifications')]
     #[Rest\Patch(path: 'notifications/pickupreminder')]
-    #[Patch(summary: 'Activate or pickup reminder mail.')]
-    #[Response(response: HttpResponse::HTTP_OK, description: 'Successful')]
-    #[Response(response: HttpResponse::HTTP_FORBIDDEN, description: 'Forbidden')]
-    #[RequestBody(content: new Model(type: PickupReminder::class))]
+    #[OA\Patch(summary: 'Activate or pickup reminder mail.')]
+    #[OA\Response(response: HttpResponse::HTTP_OK, description: 'Successful')]
+    #[OA\Response(response: HttpResponse::HTTP_FORBIDDEN, description: 'Forbidden')]
+    #[OA\RequestBody(content: new Model(type: PickupReminder::class))]
     #[ParamConverter(data: 'pickupReminder', class: PickupReminder::class, converter: 'fos_rest.request_body')]
     public function setPickupReminderNotification(PickupReminder $pickupReminder, ValidatorInterface $validator): HttpResponse
     {
@@ -224,12 +215,11 @@ class NotificationsController extends AbstractFoodsharingRestController
         return $this->respondOK($pickupReminder);
     }
 
-    #[Tag('notifications')]
     #[Rest\Patch(path: 'notifications/mention')]
-    #[Patch(summary: 'Activate or disable the mention notifications.')]
-    #[Response(response: HttpResponse::HTTP_OK, description: 'Successful')]
-    #[Response(response: HttpResponse::HTTP_FORBIDDEN, description: 'Forbidden')]
-    #[RequestBody(content: new Model(type: Mention::class))]
+    #[OA\Patch(summary: 'Activate or disable the mention notifications.')]
+    #[OA\Response(response: HttpResponse::HTTP_OK, description: 'Successful')]
+    #[OA\Response(response: HttpResponse::HTTP_FORBIDDEN, description: 'Forbidden')]
+    #[OA\RequestBody(content: new Model(type: Mention::class))]
     #[ParamConverter(data: 'mention', class: Mention::class, converter: 'fos_rest.request_body')]
     public function setMentionNotification(Mention $mention, ValidatorInterface $validator): HttpResponse
     {

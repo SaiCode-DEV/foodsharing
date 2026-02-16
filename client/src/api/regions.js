@@ -56,7 +56,7 @@ export function removeAdminOrAmbassador (regionId, userId) {
 }
 
 export function setAdminOrAmbassador (regionId, userId) {
-  return post(`/regions/${regionId}/users/${userId}/admin`)
+  return put(`/regions/${regionId}/users/${userId}/admin`)
 }
 
 export function getRegionData (regionId) {

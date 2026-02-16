@@ -117,25 +117,23 @@ final class PickupRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid request')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
-    public function editPickupSlot(int $storeId, DateTime $pickupDate, int $userId, #[MapQueryParameter] ?bool $isConfirmed): Response
+    public function editPickupSlot(int $storeId, DateTime $pickupDate, int $userId): Response
     {
         $this->assertLoggedIn();
 
-        if ($isConfirmed) {
-            if (!$this->storePermissions->mayConfirmPickup($storeId)) {
-                throw new AccessDeniedHttpException('Not permitted');
-            }
-            if (!$this->pickupGateway->confirmFetcher($userId, $storeId, $pickupDate)) {
-                throw new BadRequestHttpException('Could not confirm pickup slot.');
-            }
-            $this->storeGateway->addStoreLog(
-                $storeId,
-                $this->session->id(),
-                $userId,
-                $pickupDate,
-                StoreLogAction::SLOT_CONFIRMED
-            );
+        if (!$this->storePermissions->mayConfirmPickup($storeId)) {
+            throw new AccessDeniedHttpException('Not permitted');
         }
+        if (!$this->pickupGateway->confirmFetcher($userId, $storeId, $pickupDate)) {
+            throw new BadRequestHttpException('Could not confirm pickup slot.');
+        }
+        $this->storeGateway->addStoreLog(
+            $storeId,
+            $this->session->id(),
+            $userId,
+            $pickupDate,
+            StoreLogAction::SLOT_CONFIRMED
+        );
 
         return $this->respondOk();
     }

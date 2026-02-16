@@ -35,7 +35,7 @@ export async function leaveAllPickups (userId, message, sendKickMessage = false)
 
 export async function confirmPickup (storeId, pickupDate, userId) {
   const date = pickupDate.toISOString()
-  return patch(`/stores/${storeId}/pickups/${date}/users/${userId}`, { isConfirmed: true })
+  return patch(`/stores/${storeId}/pickups/${date}/users/${userId}`)
 }
 
 export async function checkPickupRuleStore (storeId, pickupDate) {

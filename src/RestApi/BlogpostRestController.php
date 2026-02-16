@@ -60,7 +60,7 @@ class BlogpostRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Patch(summary: 'Edit a specific blog post.')]
-    #[Route(path: 'blog/{blogId}', methods: ['PATCH'], requirements: ['blogId' => Requirement::POSITIVE_INT])]
+    #[Route('blog/{blogId}', methods: ['PATCH'], requirements: ['blogId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]

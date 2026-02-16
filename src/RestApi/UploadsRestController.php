@@ -48,7 +48,7 @@ class UploadsRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Tried resizing for a non-image file')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'UUID does not exist')]
-    #[Route('/uploads/{uuid}', requirements: ['uuid' => Requirement::UUID], methods: ['GET'])]
+    #[Route('uploads/{uuid}', requirements: ['uuid' => Requirement::UUID], methods: ['GET'])]
     public function getImage(string $uuid, #[MapQueryParameter] int $w = 0, #[MapQueryParameter] int $h = 0, #[MapQueryParameter] ?int $q = null): Response
     {
         $doResize = $h || $w;
@@ -101,7 +101,7 @@ class UploadsRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Tried resizing for a non-image file')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'UUID does not exist')]
-    #[Route('/uploads/{uuid}/metadata', requirements: ['uuid' => Requirement::UUID], methods: ['GET'])]
+    #[Route('uploads/{uuid}/metadata', requirements: ['uuid' => Requirement::UUID], methods: ['GET'])]
     public function getImageMetadata(string $uuid): Response
     {
         try {
@@ -127,7 +127,7 @@ class UploadsRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid data provided')]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'MIME type not allowed')]
-    #[Route('/uploads', methods: ['POST'])]
+    #[Route('uploads', methods: ['POST'])]
     public function uploadFile(#[MapRequestPayload] FileUpload $file, Request $request, RateLimiterFactory $loginLimiter): Response
     {
         $this->checkRateLimit($request, $loginLimiter);

@@ -5,16 +5,14 @@ namespace Foodsharing\RestApi;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\SupportPage\SupportPageTransactions;
 use Foodsharing\RestApi\Models\SupportPage\TicketModel;
-use OpenApi\Attributes\Post;
-use OpenApi\Attributes\Response;
-use OpenApi\Attributes\Tag;
+use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\RateLimiter\RateLimiterFactory;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Tag('support')]
+#[OA\Tag('support')]
 final class SupportPageRestController extends AbstractFoodsharingRestController
 {
     public function __construct(
@@ -24,10 +22,10 @@ final class SupportPageRestController extends AbstractFoodsharingRestController
         parent::__construct($this->session);
     }
 
-    #[Post(summary: 'Creates a new support ticket')]
-    #[Route('/support/ticket', methods: ['POST'])]
-    #[Response(response: HttpResponse::HTTP_OK, description: 'Successful')]
-    #[Response(response: HttpResponse::HTTP_SERVICE_UNAVAILABLE, description: 'Support API is not available')]
+    #[OA\Post(summary: 'Creates a new support ticket')]
+    #[Route('support/ticket', methods: ['POST'])]
+    #[OA\Response(response: HttpResponse::HTTP_OK, description: 'Successful')]
+    #[OA\Response(response: HttpResponse::HTTP_SERVICE_UNAVAILABLE, description: 'Support API is not available')]
     public function createTicket(
         #[MapRequestPayload] TicketModel $ticketModel,
         Request $request,

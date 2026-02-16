@@ -59,6 +59,7 @@ class UserRestController extends AbstractFoodsharingRestController
         private readonly SettingsTransactions $settingsTransactions,
         private readonly LogoutTransactions $logoutTransactions,
     ) {
+        parent::__construct($session);
     }
 
     #[OA\Get(summary: 'Lists basic information for a user')]
@@ -327,7 +328,7 @@ class UserRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Post(summary: 'Request a password reset by email')]
-    #[Route('/users/password-reset', methods: ['POST'])]
+    #[Route('users/password-reset', methods: ['POST'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid email address')]
     public function requestPasswordReset(#[MapRequestPayload] EmailAddress $email, Request $request, RateLimiterFactory $requestPasswordResetLimiter): Response
@@ -346,7 +347,7 @@ class UserRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Post(summary: 'Reset password using a reset token.')]
-    #[Route('/users/password-reset/confirmation', methods: ['POST'])]
+    #[Route('users/password-reset/confirmation', methods: ['POST'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid or expired reset token, invalid password or invalid TOTP code')]
     public function resetPassword(#[MapRequestPayload] PasswordResetRequest $passwordResetRequest): Response
@@ -370,7 +371,7 @@ class UserRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Get(summary: 'Validate a password reset token.')]
-    #[Route('/users/password-reset/validation', methods: ['GET'])]
+    #[Route('users/password-reset/validation', methods: ['GET'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(properties: [
         new OA\Property(property: 'isValid', type: 'boolean', description: 'Whether the reset token is valid')
     ]))]

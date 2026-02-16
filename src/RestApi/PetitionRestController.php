@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Foodsharing\RestApi;
 
+use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Development\FeatureToggles\DependencyInjection\FeatureToggleChecker;
 use Foodsharing\Modules\Development\FeatureToggles\Enums\FeatureToggleDefinitions;
 use Foodsharing\Modules\Petition\Query\BundestagPetitionDataQuery;
@@ -23,11 +24,13 @@ final class PetitionRestController extends AbstractFoodsharingRestController
         private readonly CacheInterface $cache,
         private readonly BundestagPetitionDataQuery $bundestagPetitionDataQuery,
         private readonly FeatureToggleChecker $featureToggleChecker,
+        protected Session $session,
     ) {
+        parent::__construct($session);
     }
 
     #[OA\Get(summary: 'Returns possibly cached information of foodsharing petition at bundestag.')]
-    #[Route(path: 'petition', methods: ['GET'])]
+    #[Route('petition', methods: ['GET'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(type: 'object', properties: [
         new OA\Property(property: 'href', type: 'string', description: 'Link to the petition page.'),
         new OA\Property(property: 'signatures', type: 'integer', description: 'Number of online signatures.'),

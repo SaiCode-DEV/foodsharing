@@ -40,7 +40,7 @@ class WallRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Get(summary: 'Get posts of a wall.')]
-    #[Route('/walls/{target}/{targetId}', requirements: ['target' => '\w+', 'targetId' => Requirement::POSITIVE_INT], methods: ['GET'])]
+    #[Route('walls/{target}/{targetId}', requirements: ['target' => '\w+', 'targetId' => Requirement::POSITIVE_INT], methods: ['GET'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(type: 'object', properties: [
         new OA\Property(property: 'posts', type: 'array', items: new OA\Items(ref: new Model(type: WallPost::class))),
         new OA\Property(property: 'mayPost', type: 'boolean', description: 'Whether the user is permitted to post to this wall'),
@@ -73,7 +73,7 @@ class WallRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Post(summary: 'Add a post to a wall.')]
-    #[Route('/walls/{target}/{targetId}', requirements: ['target' => '\w+', 'targetId' => Requirement::POSITIVE_INT], methods: ['POST'])]
+    #[Route('walls/{target}/{targetId}', requirements: ['target' => '\w+', 'targetId' => Requirement::POSITIVE_INT], methods: ['POST'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: WallPost::class))]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted to post to this wall or to use the upload UUIDs')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid post data')]
@@ -94,7 +94,7 @@ class WallRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Delete(summary: 'Delete a post from a wall.')]
-    #[Route('/walls/{target}/{targetId}/posts/{postId}', requirements: ['target' => '\w+', 'targetId' => Requirement::POSITIVE_INT, 'postId' => Requirement::POSITIVE_INT], methods: ['DELETE'])]
+    #[Route('walls/{target}/{targetId}/posts/{postId}', requirements: ['target' => '\w+', 'targetId' => Requirement::POSITIVE_INT, 'postId' => Requirement::POSITIVE_INT], methods: ['DELETE'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted to delete this post')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'The post does not exist')]
@@ -115,7 +115,7 @@ class WallRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Post(summary: 'Adds a reactions to a post.', description: 'The reaction type key can be any emoji name supported by the frontend.')]
-    #[Route('/walls/{target}/{targetId}/posts/{postId}/reactions/{key}', requirements: ['target' => '\w+', 'targetId' => Requirement::POSITIVE_INT, 'postId' => Requirement::POSITIVE_INT, 'key' => '\w+'], methods: ['POST'])]
+    #[Route('walls/{target}/{targetId}/posts/{postId}/reactions/{key}', requirements: ['target' => '\w+', 'targetId' => Requirement::POSITIVE_INT, 'postId' => Requirement::POSITIVE_INT, 'key' => '\w+'], methods: ['POST'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted to react on this post')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'The post does not exist')]
@@ -137,7 +137,7 @@ class WallRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Delete(summary: 'Removes one of your a reactions from a post.', description: 'The reaction type key can be any emoji name supported by the frontend.')]
-    #[Route('/walls/{target}/{targetId}/posts/{postId}/reactions/{reactionKey}', requirements: ['target' => '\w+', 'targetId' => Requirement::POSITIVE_INT, 'postId' => Requirement::POSITIVE_INT, 'reactionKey' => '\w+'], methods: ['DELETE'])]
+    #[Route('walls/{target}/{targetId}/posts/{postId}/reactions/{reactionKey}', requirements: ['target' => '\w+', 'targetId' => Requirement::POSITIVE_INT, 'postId' => Requirement::POSITIVE_INT, 'reactionKey' => '\w+'], methods: ['DELETE'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'The post does not exist')]
     public function deleteReaction(string $target, int $targetId, int $postId, string $reactionKey): Response

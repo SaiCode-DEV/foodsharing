@@ -30,7 +30,7 @@ class ActivityRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Get(summary: 'Returns the filters for all dashboard activities for the current user')]
-    #[Route(path: 'activities/filters', methods: ['GET'])]
+    #[Route('activities/filters', methods: ['GET'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
         ref: new Model(type: ActivityModel::class)
     ))]
@@ -44,7 +44,7 @@ class ActivityRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Patch(summary: 'Sets which dashboard activities should be deactivated for the current user.')]
-    #[Route(path: 'activities/filters', methods: ['PATCH'])]
+    #[Route('activities/filters', methods: ['PATCH'])]
     #[OA\RequestBody(content: new Model(type: ActivityFilterModel::class))]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Incomplete or incorrect request parameters')]
@@ -62,7 +62,7 @@ class ActivityRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Get(summary: 'Returns the updates to display on the dashboard')]
-    #[Route(path: 'activities/updates', methods: ['GET'])]
+    #[Route('activities/updates', methods: ['GET'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
         type: 'array',
         description: 'The list of achievements scoped to this region.',

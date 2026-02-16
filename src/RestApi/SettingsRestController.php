@@ -36,7 +36,7 @@ class SettingsRestController extends AbstractFoodsharingRestController
         summary: 'Sets the current users sleep mode.',
         description: 'For the temporary mode, both "from" and "to" need to be given. Both are assumed to be in the format "d.m.Y". For other modes the two fields will be ignored. Optionally, a message can be added.'
     )]
-    #[Route('/users/current/sleep-mode', methods: ['PATCH'])]
+    #[Route('users/current/sleep-mode', methods: ['PATCH'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid mode or parameters')]
     public function setSleepStatus(#[MapRequestPayload] SleepStatusRequest $request): Response
@@ -63,7 +63,7 @@ class SettingsRestController extends AbstractFoodsharingRestController
         out the confirmation email. Every user can change their own email address.
         Changing someone elses address requires certain permissions.'
     )]
-    #[Route('/users/{userId}/email', requirements: ['userId' => FSRequirement::USER_ID], methods: ['PATCH'])]
+    #[Route('users/{userId}/email', requirements: ['userId' => FSRequirement::USER_ID], methods: ['PATCH'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Empty or invalid parameters')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted or wrong password')]
@@ -82,7 +82,7 @@ class SettingsRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Patch(summary: 'Changes the user\'s password.')]
-    #[Route('/users/current/password', methods: ['PATCH'])]
+    #[Route('users/current/password', methods: ['PATCH'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'The new password is invalid')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'The old password is wrong')]
@@ -95,7 +95,7 @@ class SettingsRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Post(summary: 'Request 2FA secret, backup codes and QR code.')]
-    #[Route('/users/current/2fa', methods: ['POST'])]
+    #[Route('users/current/2fa', methods: ['POST'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: TOTPProposal::class))]
     public function generateTwoFA(): Response
     {
@@ -106,7 +106,7 @@ class SettingsRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Patch(summary: 'Edit 2FA settings.')]
-    #[Route('/users/{userId}/2fa', requirements: ['userId' => FSRequirement::USER_ID], methods: ['PATCH'])]
+    #[Route('users/{userId}/2fa', requirements: ['userId' => FSRequirement::USER_ID], methods: ['PATCH'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid parameters')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]

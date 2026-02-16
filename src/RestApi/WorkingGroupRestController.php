@@ -43,7 +43,7 @@ class WorkingGroupRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Group not found')]
-    #[Route('/groups/{groupId}/members/{memberId}', requirements: ['groupId' => Requirement::POSITIVE_INT, 'memberId' => Requirement::POSITIVE_INT], methods: ['POST'])]
+    #[Route('groups/{groupId}/members/{memberId}', requirements: ['groupId' => Requirement::POSITIVE_INT, 'memberId' => Requirement::POSITIVE_INT], methods: ['POST'])]
     public function addMember(int $groupId, int $memberId): Response
     {
         $this->assertLoggedIn();
@@ -78,7 +78,7 @@ class WorkingGroupRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Group not found')]
-    #[Route('/groups/{groupId}', requirements: ['groupId' => Requirement::POSITIVE_INT], methods: ['PATCH'])]
+    #[Route('groups/{groupId}', requirements: ['groupId' => Requirement::POSITIVE_INT], methods: ['PATCH'])]
     public function editWorkingGroup(int $groupId, #[MapRequestPayload] EditWorkGroupData $groupData): Response
     {
         $this->assertLoggedIn();
@@ -97,7 +97,7 @@ class WorkingGroupRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Post(summary: 'Sends a message to a group via email, including a custom message from the contact form.')]
-    #[Route('/groups/{groupId}/mail', methods: ['POST'])]
+    #[Route('groups/{groupId}/mail', methods: ['POST'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success, send will happen asynchroneously')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Group not found or group has no email address')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Malformed data')]
@@ -120,7 +120,7 @@ class WorkingGroupRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Post(summary: 'Requests to join a group and provides motivation, ability, experience, and selected time message for mail to group.')]
-    #[Route('/groups/{groupId}/applications', methods: ['POST'])]
+    #[Route('groups/{groupId}/applications', methods: ['POST'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not permitted to access these achievements')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Not permitted to access these achievements')]

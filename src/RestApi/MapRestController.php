@@ -31,7 +31,6 @@ use Foodsharing\Permissions\EventPermissions;
 use Foodsharing\Permissions\RegionPermissions;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
-use OpenApi\Attributes\JsonContent;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -55,13 +54,14 @@ class MapRestController extends AbstractFoodsharingRestController
         private readonly EventPermissions $eventPermissions,
         private readonly EventGateway $eventGateway,
     ) {
+        parent::__construct($session);
     }
 
     /* Endpoints for getting MapMarker lists */
 
     #[OA\Get(summary: 'Returns all basket markers.')]
     #[Route('map/markers/baskets', methods: ['GET'])]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new JsonContent(
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
         type: 'array', items: new OA\Items(ref: new Model(type: MapMarker::class))
     ))]
     public function getBasketMarkers(): Response
@@ -73,7 +73,7 @@ class MapRestController extends AbstractFoodsharingRestController
 
     #[OA\Get(summary: 'Returns all food share point markers.')]
     #[Route('map/markers/food-share-points', methods: ['GET'])]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new JsonContent(
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
         type: 'array', items: new OA\Items(ref: new Model(type: MapMarker::class))
     ))]
     public function getFoodSharePointMarkers(): Response
@@ -85,7 +85,7 @@ class MapRestController extends AbstractFoodsharingRestController
 
     #[OA\Get(summary: 'Returns all region markers.')]
     #[Route('map/markers/regions', methods: ['GET'])]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new JsonContent(
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
         type: 'array', items: new OA\Items(ref: new Model(type: MapMarker::class))
     ))]
     public function getRegionMarkers(): Response
@@ -97,7 +97,7 @@ class MapRestController extends AbstractFoodsharingRestController
 
     #[OA\Get(summary: 'Returns all store markers.')]
     #[Route('map/markers/stores', methods: ['GET'])]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new JsonContent(
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
         type: 'array', items: new OA\Items(ref: new Model(type: MapMarker::class))
     ))]
     public function getStoreMarkers(
@@ -120,7 +120,7 @@ class MapRestController extends AbstractFoodsharingRestController
 
     #[OA\Get(summary: 'Returns all user markers.')]
     #[Route('map/markers/users', methods: ['GET'])]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new JsonContent(
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
         type: 'array', items: new OA\Items(ref: new Model(type: MapMarker::class))
     ))]
     public function getUserMarkers(
@@ -146,7 +146,7 @@ class MapRestController extends AbstractFoodsharingRestController
 
     #[OA\Get(summary: 'Returns of all event markers.')]
     #[Route('map/markers/events', methods: ['GET'])]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new JsonContent(
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
         type: 'array', items: new OA\Items(ref: new Model(type: MapMarker::class))
     ))]
     public function getEventMarkers(): Response

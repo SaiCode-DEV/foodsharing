@@ -33,7 +33,7 @@ class CategoriesRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Get(summary: 'Returns all existing categories of the given type')]
-    #[Route(path: 'categories/{type}', methods: ['GET'], requirements: ['type' => '\w+'])]
+    #[Route('categories/{type}', methods: ['GET'], requirements: ['type' => '\w+'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
         type: 'array',
         items: new OA\Items(ref: new Model(type: Category::class))
@@ -48,7 +48,7 @@ class CategoriesRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Post(summary: 'Adds a category')]
-    #[Route(path: 'categories/{type}', methods: ['POST'], requirements: ['type' => '\w+'])]
+    #[Route('categories/{type}', methods: ['POST'], requirements: ['type' => '\w+'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
         ref: new Model(type: CategoryWithType::class)
     ))]

@@ -25,7 +25,7 @@ class PushNotificationSubscriptionRestController extends AbstractFoodsharingRest
     }
 
     #[OA\Get(summary: 'Returns information necessary for registering subscribing to push notifications with this handler')]
-    #[Route('/push-notification/{type}/server-information', methods: ['GET'], requirements: ['type' => '\w+'])]
+    #[Route('push-notification/{type}/server-information', methods: ['GET'], requirements: ['type' => '\w+'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Successful', content: new OA\JsonContent(type: 'object', properties: [
         new OA\Property(property: 'key', description: 'the public key to be used for subscribing, or null if not applicable', nullable: true, type: 'string')
     ]))]
@@ -40,7 +40,7 @@ class PushNotificationSubscriptionRestController extends AbstractFoodsharingRest
     }
 
     #[OA\Post(summary: 'Subscribes to push notifications with the specified handler')]
-    #[Route('/push-notification/{type}/subscription', methods: ['POST'], requirements: ['type' => '\w+'])]
+    #[Route('push-notification/{type}/subscription', methods: ['POST'], requirements: ['type' => '\w+'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Successful', content: new OA\JsonContent(type: 'object', properties: [
         new OA\Property(property: 'id', description: 'the ID of the created subscription', type: 'integer')
     ]))]
@@ -60,7 +60,7 @@ class PushNotificationSubscriptionRestController extends AbstractFoodsharingRest
     }
 
     #[OA\Delete(summary: 'Unsubscribes from push notifications with the specified handler')]
-    #[Route('/push-notification/{type}/subscription/{subscriptionId}', methods: ['DELETE'], requirements: ['type' => '\w+', 'subscriptionId' => Requirement::POSITIVE_INT])]
+    #[Route('push-notification/{type}/subscription/{subscriptionId}', methods: ['DELETE'], requirements: ['type' => '\w+', 'subscriptionId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Successful')]
     public function unsubscribe(string $type, int $subscriptionId): Response
     {

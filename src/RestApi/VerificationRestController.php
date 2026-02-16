@@ -53,7 +53,7 @@ class VerificationRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Post(summary: 'Changes verification status of one user to verified')]
-    #[Route('/users/{userId}/verifications', methods: ['POST'], requirements: ['userId' => Requirement::POSITIVE_INT])]
+    #[Route('users/{userId}/verifications', methods: ['POST'], requirements: ['userId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to verify this user.')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'User not found.')]
@@ -96,7 +96,7 @@ class VerificationRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Delete(summary: 'Changes verification status of one user to deverified')]
-    #[Route('/users/{userId}/verifications', methods: ['DELETE'], requirements: ['userId' => Requirement::POSITIVE_INT])]
+    #[Route('users/{userId}/verifications', methods: ['DELETE'], requirements: ['userId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Has future pickups.')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to deverify this user.')]
@@ -125,7 +125,7 @@ class VerificationRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Get(summary: 'Returns a users (de-)verification history')]
-    #[Route('/users/{userId}/verifications', methods: ['GET'], requirements: ['userId' => Requirement::POSITIVE_INT])]
+    #[Route('users/{userId}/verifications', methods: ['GET'], requirements: ['userId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(type: 'array',
         items: new OA\Items(ref: new Model(type: VerificationHistoryEntry::class))
     ))]
@@ -144,7 +144,7 @@ class VerificationRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Get(summary: 'Returns a users pass history')]
-    #[Route('/users/{userId}/pass-history', methods: ['GET'], requirements: ['userId' => Requirement::POSITIVE_INT])]
+    #[Route('users/{userId}/pass-history', methods: ['GET'], requirements: ['userId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(type: 'array',
         items: new OA\Items(ref: new Model(type: PassHistoryEntry::class))
     ))]
@@ -163,7 +163,7 @@ class VerificationRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Get(summary: 'Returns the current users foodsaver passport')]
-    #[Route('/users/current/passport', methods: ['GET'])]
+    #[Route('users/current/passport', methods: ['GET'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\MediaType(mediaType: 'application/pdf',
         schema: new OA\Schema(description: 'Passport as PDF-File', type: 'string', format: 'binary')
     ))]
@@ -185,7 +185,7 @@ class VerificationRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Post(summary: 'Create foodsaver passports for given users in region')]
-    #[Route('/regions/{regionId}/passports', methods: ['POST'])]
+    #[Route('regions/{regionId}/passports', methods: ['POST'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\MediaType(mediaType: 'application/pdf',
         schema: new OA\Schema(description: 'Passport as PDF-File', type: 'string', format: 'binary')
     ))]
@@ -223,7 +223,7 @@ class VerificationRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Get(summary: 'Returns the wallet URL for the current user')]
-    #[Route('/users/current/wallets/{walletType}', methods: ['GET'], requirements: ['walletType' => 'google|apple'])]
+    #[Route('users/current/wallets/{walletType}', methods: ['GET'], requirements: ['walletType' => 'google|apple'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(type: 'object', properties: [
         new OA\Property(property: 'url', type: 'string', example: 'https://pay.google.com/gp/v/save/eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ...')
     ]))]

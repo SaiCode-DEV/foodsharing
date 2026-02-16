@@ -67,6 +67,7 @@ class StoreRestController extends AbstractFoodsharingRestController
         private readonly RateLimiterFactory $locationChangeLimiterFactory,
         private readonly Mem $mem,
     ) {
+        parent::__construct($session);
     }
 
     #[OA\Get(summary: 'Get general store metadata')]
@@ -439,7 +440,7 @@ class StoreRestController extends AbstractFoodsharingRestController
 
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted for this store')]
     #[OA\Get(summary: 'Get the invitations to a store team')]
-    #[Route('/stores/{storeId}/invitations', requirements: ['storeId' => Requirement::POSITIVE_INT], methods: ['GET'])]
+    #[Route('stores/{storeId}/invitations', requirements: ['storeId' => Requirement::POSITIVE_INT], methods: ['GET'])]
     public function listStoreTeamInvitations(int $storeId): Response
     {
         $this->handleEditTeamExceptions($storeId);

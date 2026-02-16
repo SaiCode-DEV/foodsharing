@@ -23,7 +23,7 @@ final class OAuthAdminRestController extends AbstractFoodsharingRestController
         parent::__construct($session);
     }
 
-    #[Route(path: '/admin/oauthclients', methods: ['GET'])]
+    #[Route('admin/oauthclients', methods: ['GET'])]
     public function listClientsAction(): Response
     {
         $this->assertLoggedIn();
@@ -50,7 +50,7 @@ final class OAuthAdminRestController extends AbstractFoodsharingRestController
         return $this->respondOK($clients);
     }
 
-    #[Route(path: '/admin/oauthclients/{identifier}', methods: ['GET'])]
+    #[Route('admin/oauthclients/{identifier}', methods: ['GET'])]
     public function getClientAction(string $identifier): Response
     {
         $this->assertLoggedIn();
@@ -76,7 +76,7 @@ final class OAuthAdminRestController extends AbstractFoodsharingRestController
         return $this->respondOK($client);
     }
 
-    #[Route(path: '/admin/oauthclients', methods: ['POST'])]
+    #[Route('admin/oauthclients', methods: ['POST'])]
     public function createClientAction(): Response
     {
         $this->assertLoggedIn();
@@ -154,7 +154,7 @@ final class OAuthAdminRestController extends AbstractFoodsharingRestController
         return $this->handleView($this->view($response, Response::HTTP_CREATED));
     }
 
-    #[Route(path: '/admin/oauthclients/{identifier}', methods: ['PATCH'])]
+    #[Route('admin/oauthclients/{identifier}', methods: ['PATCH'])]
     public function updateClientAction(string $identifier): Response
     {
         $this->assertLoggedIn();
@@ -226,7 +226,7 @@ final class OAuthAdminRestController extends AbstractFoodsharingRestController
         return $this->respondOK($response);
     }
 
-    #[Route(path: '/admin/oauthclients/{identifier}', methods: ['DELETE'])]
+    #[Route('admin/oauthclients/{identifier}', methods: ['DELETE'])]
     public function deleteClientAction(string $identifier): Response
     {
         $this->assertLoggedIn();

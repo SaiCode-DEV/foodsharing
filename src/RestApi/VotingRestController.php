@@ -41,7 +41,7 @@ class VotingRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: Poll::class))]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permission to see the poll')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Poll does not exist.')]
-    #[Route('/polls/{pollId}', requirements: ['pollId' => Requirement::POSITIVE_INT], methods: ['GET'])]
+    #[Route('polls/{pollId}', requirements: ['pollId' => Requirement::POSITIVE_INT], methods: ['GET'])]
     #[OA\Get(summary: 'Returns the details of a poll.')]
     public function getPoll(int $pollId): Response
     {
@@ -62,7 +62,7 @@ class VotingRestController extends AbstractFoodsharingRestController
         items: new OA\Items(ref: new Model(type: PollForListView::class))
     ))]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permission to list polls in that group.')]
-    #[Route('/groups/{groupId}/polls', requirements: ['groupId' => Requirement::POSITIVE_INT], methods: ['GET'])]
+    #[Route('groups/{groupId}/polls', requirements: ['groupId' => Requirement::POSITIVE_INT], methods: ['GET'])]
     #[OA\Get(summary: 'Lists all polls in a region or working group.')]
     public function listPolls(int $groupId): Response
     {
@@ -80,7 +80,7 @@ class VotingRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(type: 'array',
         items: new OA\Items(ref: new Model(type: Poll::class))
     ))]
-    #[Route('/users/current/polls', methods: ['GET'])]
+    #[Route('users/current/polls', methods: ['GET'])]
     #[OA\Get(summary: 'Lists all polls the user is invited to.')]
     public function listCurrentPolls(): Response
     {
@@ -95,7 +95,7 @@ class VotingRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid options.')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to vote in that polls.')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Poll does not exist.')]
-    #[Route('/polls/{pollId}/vote', requirements: ['pollId' => Requirement::POSITIVE_INT], methods: ['POST'])]
+    #[Route('polls/{pollId}/vote', requirements: ['pollId' => Requirement::POSITIVE_INT], methods: ['POST'])]
     #[OA\Post(summary: 'Vote in a poll.', description: 'The request body needs to be a list mapping option indices to the vote values. Depending on the voting type, not all options might need to be included.')]
     public function vote(int $pollId, #[MapRequestPayload] VoteRequest $request): Response
     {
@@ -121,7 +121,7 @@ class VotingRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: Poll::class))]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid parameters.')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to create a poll in that region.')]
-    #[Route('/polls', methods: ['POST'])]
+    #[Route('polls', methods: ['POST'])]
     #[OA\Post(summary: 'Creates a new poll.', description: 'The poll and all its options will be assigned valid IDs and option indices by the server. Options must be passed as an array of strings for the options\' texts. The order of the options will be kept.')]
     public function createPoll(#[MapRequestPayload] CreatePollRequest $request): Response
     {
@@ -170,7 +170,7 @@ class VotingRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid parameters')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to edit that poll')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Poll does not exist')]
-    #[Route('/polls/{pollId}', requirements: ['pollId' => Requirement::POSITIVE_INT], methods: ['PATCH'])]
+    #[Route('polls/{pollId}', requirements: ['pollId' => Requirement::POSITIVE_INT], methods: ['PATCH'])]
     #[OA\Patch(summary: 'Updates an existing poll.', description: 'This can change a poll\'s title, description, and options. Updating is only possible before the voting phase starts')]
     public function editPoll(int $pollId, #[MapRequestPayload] EditPollRequest $request): Response
     {
@@ -204,7 +204,7 @@ class VotingRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to delete that poll.')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Poll does not exist.')]
-    #[Route('/polls/{pollId}', requirements: ['pollId' => Requirement::POSITIVE_INT], methods: ['DELETE'])]
+    #[Route('polls/{pollId}', requirements: ['pollId' => Requirement::POSITIVE_INT], methods: ['DELETE'])]
     #[OA\Delete(summary: 'Deletes a poll.')]
     public function deletePoll(int $pollId): Response
     {
