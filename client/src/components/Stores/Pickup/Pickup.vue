@@ -367,7 +367,7 @@ export default {
       return StoreData.getters.getStoreInformation().isHygieneRequired
     },
     hygieneCertificateUntil () {
-      return StoreData.getters.getStoreMember().find(member => member.id === this.user.id)?.hygiene_certificate_until ?? null
+      return StoreData.getters.getStoreMember().find(member => member.id === this.user.id)?.hygieneCertificateUntil ?? null
     },
     isMissingHygieneCertificate () {
       return this.isHygieneRequired && (
