@@ -1,0 +1,4 @@
+*.*
+!.gitignore
+!i18n-ally-custom-framework.yml
+!settings.json
