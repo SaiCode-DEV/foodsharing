@@ -26,8 +26,6 @@ class StoreApiCest
     private $region;
     private $otherRegion;
     private $nextRegion;
-    private array $teamConversation;
-    private array $springerConversation;
 
     private const string API_MAP_STORES = 'api/map/markers/stores';
     private const string API_STORES = 'api/stores';
@@ -39,7 +37,7 @@ class StoreApiCest
     {
         return ['store' => [
             'name' => 'Store Name', 'regionId' => $this->region['id'],
-            'location' => ['lat' => 123.01, 'lon' => 4.190000],
+            'location' => ['lat' => 50.01, 'lon' => 10.190000],
             'street' => 'Mühlbachweg 122',
             'zipCode' => '12234',
             'city' => 'Karlsruhe',
@@ -409,7 +407,7 @@ class StoreApiCest
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPOST(self::API_REGIONS . '/' . $this->region['id'] . '/stores', []);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
     }
 
     public function createStoreAsStoreManagerOfValidRegionButInvalidContent(ApiTester $I): void
@@ -429,74 +427,74 @@ class StoreApiCest
 
         // No store data
         $I->sendPOST($storeUri, ['firstPost' => null]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         // store is null
         $badStoreData = $goodStoreData;
         $badStoreData['store'] = null;
         $I->sendPOST($storeUri, $badStoreData);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         // store name is null
         $badStoreData = $goodStoreData;
         $badStoreData['store']['name'] = null;
         $I->sendPOST($storeUri, $badStoreData);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         // store name is empty
         $badStoreData = $goodStoreData;
         $badStoreData['store']['name'] = '';
         $I->sendPOST($storeUri, $badStoreData);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         // location is null
         $badStoreData = $goodStoreData;
         $badStoreData['store']['location'] = null;
         $I->sendPOST($storeUri, $badStoreData);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         // empty latitude
         $badStoreData = $goodStoreData;
         $badStoreData['store']['location']['lat'] = '';
         $I->sendPOST($storeUri, $badStoreData);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         // bad longitute
         $badStoreData = $goodStoreData;
         $badStoreData['store']['location']['lon'] = 'sw';
         $I->sendPOST($storeUri, $badStoreData);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         // missing street
         $badStoreData = $goodStoreData;
         unset($badStoreData['store']['street']);
         $I->sendPOST($storeUri, $badStoreData);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         // street is null
         $badStoreData = $goodStoreData;
         $badStoreData['store']['street'] = null;
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         // zipCode is null
         $badStoreData = $goodStoreData;
         $badStoreData['store']['zipCode'] = null;
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         // city is null
         $badStoreData = $goodStoreData;
         $badStoreData['store']['city'] = null;
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         // publicInfo is null
         $badStoreData = $goodStoreData;
         $badStoreData['store']['publicInfo'] = null;
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         // publicInfo is too long
         $badStoreData = $goodStoreData;
         $badStoreData['store']['publicInfo'] = implode('', array_fill(0, 521, '1'));
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
     }
 
     public function createStoreAsStoreManagerWithPublicInfoXssIsBadRequest(ApiTester $I): void
@@ -514,7 +512,7 @@ class StoreApiCest
         ];
         $I->sendPOST(self::API_REGIONS . '/' . $this->region['id'] . '/stores', [
             'store' => $storeInfo, 'firstPost' => null]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->dontSeeInDatabase('fs_betrieb', [
             'name' => $storeInfo['name'],
@@ -540,7 +538,7 @@ class StoreApiCest
         ];
         $I->sendPOST(self::API_REGIONS . '/' . $this->region['id'] . '/stores', [
             'store' => $storeInfo, 'firstPost' => null]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->dontSeeInDatabase('fs_betrieb', [
             'name' => $storeInfo['name'],
@@ -566,7 +564,7 @@ class StoreApiCest
         ];
         $I->sendPOST(self::API_REGIONS . '/' . $this->region['id'] . '/stores', [
             'store' => $storeInfo, 'firstPost' => null]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->dontSeeInDatabase('fs_betrieb', [
             'name' => $storeInfo['name'],
@@ -592,7 +590,7 @@ class StoreApiCest
         ];
         $I->sendPOST(self::API_REGIONS . '/' . $this->region['id'] . '/stores', [
             'store' => $storeInfo, 'firstPost' => null]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->dontSeeInDatabase('fs_betrieb', [
             'name' => $storeInfo['name'],
@@ -610,13 +608,40 @@ class StoreApiCest
 
         $storeInfo = [
             'name' => 'Store Name',
-            'location' => ['lat' => 123.01, 'lon' => 4.190000],
+            'location' => ['lat' => 50.01, 'lon' => 10.190000],
             'street' => 'Mühlbachweg 122',
             'zipCode' => '12234',
             'city' => 'Karlsruhe',
             'publicInfo' => 'Wetten des es geht'
         ];
         $I->sendPOST(self::API_REGIONS . '/' . $this->region['id'] + 10 . '/stores', [
+            'store' => $storeInfo, 'firstPost' => null]);
+        $I->seeResponseCodeIs(Http::FORBIDDEN);
+
+        $I->dontSeeInDatabase('fs_betrieb', [
+            'name' => $storeInfo['name'],
+            'bezirk_id' => $this->region['id'] + 10,
+            'str' => $storeInfo['street'],
+            'plz' => $storeInfo['zipCode'],
+            'stadt' => $storeInfo['city'],
+            'public_info' => $storeInfo['publicInfo']]);
+    }
+
+    public function createStoreAsStoreManagerForWorkingGroupIsForbidden(ApiTester $I): void
+    {
+        $I->login($this->manager['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $group = $I->createWorkingGroup('WG', ['parent_id' => $this->region['id']], fillMailbox: false);
+
+        $storeInfo = [
+            'name' => 'Store Name',
+            'location' => ['lat' => 50.01, 'lon' => 10.190000],
+            'street' => 'Mühlbachweg 122',
+            'zipCode' => '12234',
+            'city' => 'Karlsruhe',
+            'publicInfo' => 'Wetten des es geht'
+        ];
+        $I->sendPOST(self::API_REGIONS . '/' . $group['id'] . '/stores', [
             'store' => $storeInfo, 'firstPost' => null]);
         $I->seeResponseCodeIs(Http::FORBIDDEN);
 
@@ -644,7 +669,7 @@ class StoreApiCest
         ];
         $I->sendPOST(self::API_REGIONS . '/' . $this->region['id'] . '/stores', [
             'store' => $storeInfo, 'firstPost' => null]);
-        $I->seeResponseCodeIs(Http::CREATED);
+        $I->seeResponseCodeIs(Http::OK);
         $storeIds = $I->grabDataFromResponseByJsonPath('$.id');
         $I->assertEquals(1, count($storeIds));
 
@@ -673,7 +698,7 @@ class StoreApiCest
         ];
         $I->sendPOST(self::API_REGIONS . '/' . $this->region['id'] . '/stores', [
             'store' => $storeInfo, 'firstPost' => 'First post']);
-        $I->seeResponseCodeIs(Http::CREATED);
+        $I->seeResponseCodeIs(Http::OK);
         $storeIds = $I->grabDataFromResponseByJsonPath('$.id');
         $I->assertEquals(1, count($storeIds));
 
@@ -859,7 +884,7 @@ class StoreApiCest
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['address' => ['postalCode' => '01234567890']]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->seeInDatabase('fs_betrieb', [
             'id' => $this->store[self::ID],
@@ -900,7 +925,7 @@ class StoreApiCest
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['location' => ['lat' => 'a123']]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->seeInDatabase('fs_betrieb', [
             'id' => $this->store[self::ID],
@@ -925,7 +950,7 @@ class StoreApiCest
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['location' => ['lon' => 'a123']]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->seeInDatabase('fs_betrieb', [
             'id' => $this->store[self::ID],
@@ -955,7 +980,7 @@ class StoreApiCest
 
         // too long
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['publicInfo' => implode('', array_fill(0, 521, '1'))]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->seeInDatabase('fs_betrieb', [
             'id' => $this->store[self::ID],
@@ -968,7 +993,7 @@ class StoreApiCest
         $I->haveHttpHeader('Content-Type', 'application/json');
 
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['publicInfo' => 'Wetten <script>alert()</script>des es geht']);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->seeInDatabase('fs_betrieb', [
             'id' => $this->store[self::ID],
@@ -993,23 +1018,23 @@ class StoreApiCest
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['publicTime' => 'A']);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['publicTime' => 'hallo']);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['publicTime' => 'a2']);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['publicTime' => 5]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['publicTime' => implode('', array_fill(0, 201, '1'))]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->seeInDatabase('fs_betrieb', [
             'id' => $this->store[self::ID],
@@ -1048,15 +1073,15 @@ class StoreApiCest
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['categoryId' => 'A']);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['categoryId' => 'hallo']);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['categoryId' => 'a2']);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['categoryId' => 5]);
@@ -1103,15 +1128,15 @@ class StoreApiCest
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['chainId' => 'A']);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['chainId' => 'hallo']);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['chainId' => 'a2']);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->seeInDatabase('fs_betrieb', [
             'id' => $this->store[self::ID],
@@ -1149,15 +1174,15 @@ class StoreApiCest
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['cooperationStatus' => 'A']);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['cooperationStatus' => 'hallo']);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['cooperationStatus' => 'a2']);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->seeInDatabase('fs_betrieb', [
             'id' => $this->store[self::ID],
@@ -1196,7 +1221,7 @@ class StoreApiCest
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['contact' => ['name' => implode('', array_fill(0, 60 + 1, '1'))]]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->seeInDatabase('fs_betrieb', [
             'id' => $this->store[self::ID],
@@ -1222,7 +1247,7 @@ class StoreApiCest
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['contact' => ['phone' => implode('', array_fill(0, 50 + 1, '1'))]]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->seeInDatabase('fs_betrieb', [
             'id' => $this->store[self::ID],
@@ -1248,7 +1273,7 @@ class StoreApiCest
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['contact' => ['fax' => implode('', array_fill(0, 50 + 1, '1'))]]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->seeInDatabase('fs_betrieb', [
             'id' => $this->store[self::ID],
@@ -1274,7 +1299,7 @@ class StoreApiCest
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['contact' => ['email' => implode('', array_fill(0, 60 + 1, '1'))]]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->seeInDatabase('fs_betrieb', [
             'id' => $this->store[self::ID],
@@ -1304,19 +1329,19 @@ class StoreApiCest
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['cooperationStart' => 'Hallo']);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['cooperationStart' => '1-2-2']);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['cooperationStart' => 'A1-A23-123']);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['cooperationStart' => '12.01.2022']);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->seeInDatabase('fs_betrieb', [
             'id' => $this->store[self::ID],
@@ -1350,15 +1375,15 @@ class StoreApiCest
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['calendarInterval' => 10_000_000_001]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['calendarInterval' => 'a']);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['calendarInterval' => '0.1']);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->seeInDatabase('fs_betrieb', [
             'id' => $this->store[self::ID],
@@ -1384,15 +1409,15 @@ class StoreApiCest
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['weight' => 9]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['weight' => 'a']);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['weight' => '0.1']);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
         $I->seeInDatabase('fs_betrieb', [
             'id' => $this->store[self::ID],
             'abholmenge' => $this->store['abholmenge']]);
@@ -1444,7 +1469,7 @@ class StoreApiCest
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['effort' => 5]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->seeInDatabase('fs_betrieb', [
             'id' => $this->store[self::ID],
@@ -1470,15 +1495,15 @@ class StoreApiCest
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['options' => ['useRegionPickupRule' => 'A']]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['options' => ['useRegionPickupRule' => 1]]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['options' => ['useRegionPickupRule' => 0]]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->seeInDatabase('fs_betrieb', [
             'id' => $this->store[self::ID],
@@ -1512,7 +1537,7 @@ class StoreApiCest
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['showsSticker' => 'A']);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->seeInDatabase('fs_betrieb', [
             'id' => $this->store[self::ID],
@@ -1546,15 +1571,15 @@ class StoreApiCest
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['publicity' => 3]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['publicity' => true]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['publicity' => 'A']);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->seeInDatabase('fs_betrieb', [
             'id' => $this->store[self::ID],
@@ -1574,12 +1599,12 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['teamStatus' => 'a']);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->login($this->manager[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['teamStatus' => 3]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
     }
 
     /**
@@ -1608,7 +1633,7 @@ class StoreApiCest
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['address' => ['city' => 123]]); // Wrong type
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->seeInDatabase('fs_betrieb', [
             'id' => $this->store[self::ID],
@@ -1645,15 +1670,15 @@ class StoreApiCest
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['groceries' => 'String is invalid']);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['groceries' => '123']);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['groceries' => '1, 2, 3']);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
 
         $I->assertEquals(0, $I->grabNumRecords('fs_betrieb_has_lebensmittel', ['betrieb_id' => $this->store[self::ID]]));
     }

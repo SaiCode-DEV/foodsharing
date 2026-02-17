@@ -2,13 +2,13 @@
 
 namespace Foodsharing\RestApi;
 
+use DateTime;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Foodsaver\DTO\EventAgendaEntry;
 use Foodsharing\Modules\Foodsaver\DTO\PickupAgendaEntry;
 use Foodsharing\Modules\Foodsaver\FoodsaverTransactions;
 use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Utility\Requirement as FsRequirement;
-use Foodsharing\Utility\TimeHelper;
 use Nelmio\ApiDocBundle\Attribute\Model;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,7 +41,7 @@ final class FoodsaverRestController extends AbstractFoodsharingRestController
     ))]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid date')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
-    public function listSameDayAgenda(int $foodsaverId, string $date): Response
+    public function listSameDayAgenda(int $foodsaverId, DateTime $date): Response
     {
         $this->assertLoggedIn();
 
@@ -49,7 +49,7 @@ final class FoodsaverRestController extends AbstractFoodsharingRestController
             throw new AccessDeniedHttpException('Not permitted');
         }
 
-        $day = TimeHelper::parsePickupDate($date);
+        $day = $this->normalizeDateToServerTimezone($date);
         $agenda = $this->foodsaverTransactions->getAgenda($foodsaverId, $day);
 
         return $this->respondOK($agenda);

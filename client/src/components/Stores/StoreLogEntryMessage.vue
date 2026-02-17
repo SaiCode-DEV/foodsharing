@@ -15,12 +15,12 @@ export default {
   methods: {
     actionText (action) {
       const params = {
-        actor: this.userLinkHtml(action.acting_foodsaver),
-        target: this.userLinkHtml(action.affected_foodsaver),
-        date: this.$dateFormatter.format(action.date_reference),
+        actor: this.userLinkHtml(action.actor),
+        target: this.userLinkHtml(action.target),
+        date: this.$dateFormatter.format(action.dateReference),
       }
-      const reason = (action.reason && ACTION_TYPES_WITH_OPTIONAL_REASON.includes(action.action_id)) ? '_with_reason' : ''
-      return this.$t(`store.log.message.${action.action_id}${reason}`, params)
+      const reason = (action.reason && ACTION_TYPES_WITH_OPTIONAL_REASON.includes(action.actionType)) ? '_with_reason' : ''
+      return this.$t(`store.log.message.${action.actionType}${reason}`, params)
     },
     userLinkHtml (user) {
       if (!user?.id) return ''

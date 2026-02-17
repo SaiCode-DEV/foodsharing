@@ -42,7 +42,7 @@ test.describe("Store invitations", () => {
       (await page.context().cookies()).find((c) => c.name === "FS_CSRF_TOKEN")
         ?.value ?? "";
     const acceptResp = await page.request.patch(
-      `/api/stores/${store.id}/invitations`,
+      `/api/stores/${store.id}/invitations/current`,
       { headers: { "X-CSRF-Token": csrf2 } },
     );
 
@@ -79,7 +79,7 @@ test.describe("Store invitations", () => {
       (await page.context().cookies()).find((c) => c.name === "FS_CSRF_TOKEN")
         ?.value ?? "";
     const acceptResp = await page.request.patch(
-      `/api/stores/${store.id}/invitations`,
+      `/api/stores/${store.id}/invitations/current`,
       { headers: { "X-CSRF-Token": csrf2 } },
     );
 
@@ -128,7 +128,7 @@ test.describe("Store invitations", () => {
       (await page.context().cookies()).find((c) => c.name === "FS_CSRF_TOKEN")
         ?.value ?? "";
     const acceptResp = await page.request.patch(
-      `/api/stores/${store.id}/invitations`,
+      `/api/stores/${store.id}/invitations/current`,
       { headers: { "X-CSRF-Token": csrf2 } },
     );
 

@@ -2,10 +2,10 @@
 
 namespace Foodsharing\RestApi;
 
+use Carbon\Carbon;
+use DateTime;
 use Foodsharing\Lib\Session;
-use Foodsharing\Modules\Core\Pagination;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
-use FOS\RestBundle\Request\ParamFetcher;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -66,30 +66,6 @@ abstract class AbstractFoodsharingRestController extends AbstractFOSRestControll
         return $this->handleView($this->view($data, Response::HTTP_OK));
     }
 
-    protected function getPagination(ParamFetcher $paramFetcher, int $maxPageSize = 100): Pagination
-    {
-        $limit = $paramFetcher->get('limit');
-        $offset = $paramFetcher->get('offset');
-
-        foreach (['limit', 'offset'] as $param) {
-            if (!is_numeric(${$param})) {
-                throw new \InvalidArgumentException("The {$param} parameter must be a numeric value.");
-            }
-            ${$param} = intval(${$param});
-            if (${$param} < 0) {
-                throw new \InvalidArgumentException("The {$param} parameter must non be negative.");
-            }
-        }
-        if ($limit > $maxPageSize) {
-            throw new \InvalidArgumentException("The limit parameter must non be larger than {$maxPageSize}.");
-        }
-        $pagination = new Pagination();
-        $pagination->limit = $limit;
-        $pagination->offset = $offset;
-
-        return $pagination;
-    }
-
     protected function resolveUserId(string $userId): int
     {
         if ($userId === 'current') {
@@ -101,5 +77,13 @@ abstract class AbstractFoodsharingRestController extends AbstractFOSRestControll
         }
 
         return (int)$userId;
+    }
+
+    protected function normalizeDateToServerTimezone(DateTime $date): Carbon
+    {
+        $date = Carbon::instance($date);
+        $date->setTimezone('Europe/Berlin');
+
+        return $date;
     }
 }

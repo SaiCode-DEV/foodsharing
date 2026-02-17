@@ -80,63 +80,6 @@ class StoreTransactionsTest extends Unit
         $this->assertEquals(null, $store->groceries);
     }
 
-    public function testCreateStoreThrowsExceptionIfRegionIsWorkingGroup(): void
-    {
-        $storeCreator = $this->tester->createAmbassador();
-        $workingGroup = $this->tester->createWorkingGroup('TestWG');
-        $store = new CreateStoreData();
-        $store->name = 'A store throw exception';
-        $store->regionId = $workingGroup['id'];
-        $store->location->lat = 42.900;
-        $store->location->lon = 5.200;
-        $store->street = ' Langstr. 10';
-        $store->zipCode = '69132';
-        $store->city = 'Mühlhausen';
-        $store->publicInfo = 'Public info.';
-
-        $this->expectException(StoreTransactionException::class);
-        $this->expectExceptionMessage(StoreTransactionException::INVALID_REGION_TYPE);
-        $this->transactions->createStore($store, $storeCreator['id'], 'First post');
-
-        $this->tester->dontSeeInDatabase('fs_betrieb', [
-            'name' => $store->name,
-            'bezirk_id' => $store->regionId,
-            'lat' => $store->location->lat,
-            'lon' => $store->location->lon,
-            'str' => $store->street,
-            'plz' => $store->zipCode,
-            'stadt' => $store->city,
-            'public_info' => $store->publicInfo]);
-    }
-
-    public function testCreateStoreThrowsExceptionForInvalidRegion(): void
-    {
-        $storeCreator = $this->tester->createAmbassador();
-        $store = new CreateStoreData();
-        $store->name = 'A store throw exception';
-        $store->regionId = 1234;
-        $store->location->lat = 42.900;
-        $store->location->lon = 5.200;
-        $store->street = ' Langstr. 10';
-        $store->zipCode = '69132';
-        $store->city = 'Mühlhausen';
-        $store->publicInfo = 'Public info.';
-
-        $this->expectException(StoreTransactionException::class);
-        $this->expectExceptionMessage(StoreTransactionException::INVALID_REGION);
-        $this->transactions->createStore($store, $storeCreator['id'], 'First post');
-
-        $this->tester->dontSeeInDatabase('fs_betrieb', [
-            'name' => $store->name,
-            'bezirk_id' => $store->regionId,
-            'lat' => $store->location->lat,
-            'lon' => $store->location->lon,
-            'str' => $store->street,
-            'plz' => $store->zipCode,
-            'stadt' => $store->city,
-            'public_info' => $store->publicInfo]);
-    }
-
     public function testCreateStoreWithFirstPost(): void
     {
         $storeCreator = $this->tester->createAmbassador();

@@ -116,7 +116,7 @@ class StoreTeamApiCest
             'active' => MembershipStatus::INVITED,
         ]);
         $I->login($this->user['email']);
-        $I->sendPatch(self::API_STORES . $this->store['id'] . '/invitations');
+        $I->sendPatch(self::API_STORES . $this->store['id'] . '/invitations/current');
         $I->seeResponseCodeIs(Http::FORBIDDEN);
 
         $I->dontSeeInDatabase('fs_betrieb_team', [
@@ -151,7 +151,7 @@ class StoreTeamApiCest
             ], ['id' => $this->user['id']]);
 
         $I->login($this->user['email']);
-        $I->sendPatch(self::API_STORES . $this->store['id'] . '/invitations');
+        $I->sendPatch(self::API_STORES . $this->store['id'] . '/invitations/current');
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb_team', [
@@ -171,7 +171,7 @@ class StoreTeamApiCest
             'active' => MembershipStatus::INVITED,
         ]);
         $I->login($this->user['email']);
-        $I->sendDelete(self::API_STORES . $this->store['id'] . '/invitations');
+        $I->sendDelete(self::API_STORES . $this->store['id'] . '/invitations/current');
         $I->seeResponseCodeIs(Http::OK);
 
         $I->dontSeeInDatabase('fs_betrieb_team', [
@@ -191,7 +191,7 @@ class StoreTeamApiCest
         $I->addStoreTeam($this->store['id'], $this->user['id'], false, $example['isStandby']);
 
         $I->login($this->manager['email']);
-        $I->sendDELETE(self::API_STORES . $this->store['id'] . '/members/' . $this->user['id']);
+        $I->sendDELETE(self::API_STORES . $this->store['id'] . '/members/' . $this->user['id'], ['message' => null]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->dontSeeInDatabase('fs_betrieb_team', [
@@ -260,7 +260,7 @@ class StoreTeamApiCest
         $I->addStoreTeam($this->store['id'], $this->manager2['id'], true);
 
         $I->login($this->manager['email']);
-        $I->sendDELETE(self::API_STORES . $this->store['id'] . '/managers/' . $this->manager2['id']);
+        $I->sendDELETE(self::API_STORES . $this->store['id'] . '/managers/' . $this->manager2['id'], ['message' => null]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb_team', [
@@ -290,7 +290,7 @@ class StoreTeamApiCest
         $I->addStoreTeam($this->store['id'], $this->user['id'], false, false);
 
         $I->login($this->manager['email']);
-        $I->sendPATCH(self::API_STORES . $this->store['id'] . '/members/' . $this->user['id'] . '/standby');
+        $I->sendPATCH(self::API_STORES . $this->store['id'] . '/members/' . $this->user['id'] . '/standby', ['message' => null]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb_team', [

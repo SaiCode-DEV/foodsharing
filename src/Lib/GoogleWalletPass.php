@@ -44,7 +44,7 @@ class GoogleWalletPass
      * The Google API Client
      * https://github.com/google/google-api-php-client.
      */
-    public GoogleClient $client;
+    private GoogleClient $client;
 
     /**
      * Path to service account key file from Google Cloud Console.

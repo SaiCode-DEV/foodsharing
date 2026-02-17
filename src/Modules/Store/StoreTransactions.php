@@ -23,7 +23,6 @@ use Foodsharing\Modules\Core\DBConstants\Store\StickerStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\StoreLogAction;
 use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
-use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DBConstants\WallType;
 use Foodsharing\Modules\Core\DTO\MinimalIdentifier;
 use Foodsharing\Modules\Core\DTO\PatchGeoLocation;
@@ -44,6 +43,7 @@ use Foodsharing\Modules\Store\DTO\PatchContactData;
 use Foodsharing\Modules\Store\DTO\PatchStore;
 use Foodsharing\Modules\Store\DTO\PatchStoreOptionModel;
 use Foodsharing\Modules\Store\DTO\Store;
+use Foodsharing\Modules\Store\DTO\StoreApplication;
 use Foodsharing\Modules\Store\DTO\StoreChainInformation;
 use Foodsharing\Modules\Store\DTO\StoreInvitation;
 use Foodsharing\Modules\Store\DTO\StoreListInformation;
@@ -129,7 +129,7 @@ class StoreTransactions
      *
      * @param int $storeId  the ID of the store
      *
-     * @return array an array containing store requests
+     * @return StoreApplication[] an array containing store requests
      */
     public function getStoreApplications(int $storeId): array
     {
@@ -302,20 +302,9 @@ class StoreTransactions
      * @param CreateStoreData $createStore Initial required store information
      * @param int $authorFsId FoddsaverId of the store creator, it is used for conversation and information bell
      * @param string $firstStorePost First message on the store wall
-     *
-     * @throws StoreTransactionException When region is invalid or not a region (like workinggroups)
      */
     public function createStore(CreateStoreData $createStore, int $authorFsId, ?string $firstStorePost = null): int
     {
-        try {
-            $regionType = $this->regionGateway->getType($createStore->regionId);
-        } catch (Exception) {
-            throw new StoreTransactionException(StoreTransactionException::INVALID_REGION);
-        }
-        if (!UnitType::isAccessibleRegion($regionType)) {
-            throw new StoreTransactionException(StoreTransactionException::INVALID_REGION_TYPE);
-        }
-
         $storeTeamChatId = $this->messageGateway->createConversation([$authorFsId], true);
         $standbyTeamChatId = $this->messageGateway->createConversation([$authorFsId], true);
 

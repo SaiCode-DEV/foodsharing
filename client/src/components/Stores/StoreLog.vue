@@ -57,15 +57,15 @@
           class="store-log-entry d-flex"
         >
           <div class="avatar-time-line">
-            <Avatar
-              class="d-inline-block"
-              shape="round"
-              :user="action.acting_foodsaver"
-            />
+            <div class="d-inline-block">
+              <AvatarStack
+                :users="[action.actor, action.target].filter(Boolean)"
+              />
+            </div>
           </div>
           <span class="log-entry-content">
             <StoreLogEntryMessage :action="action" />
-            <small class="text-muted">({{ $dateFormatter.dateTime(action.performed_at, { weekday: false }) }})</small>
+            <small class="text-muted text-nowrap">({{ $dateFormatter.dateTime(action.performedAt, { weekday: false }) }})</small>
             <blockquote v-if="action.reason" v-text="action.reason" />
             <blockquote v-if="action.content">
               <Markdown :source="action.content" />
@@ -90,15 +90,15 @@ import Container from '@/components/Container/Container.vue'
 import DateRangePicker from '@/components/DateTime/DateRangePicker.vue'
 import Multiselect from 'vue-multiselect'
 import { getStoreLog } from '@/api/stores'
-import Avatar from '@/components/Avatar/Avatar.vue'
 import Markdown from '@/components/Markdown/Markdown.vue'
 import { pulseError } from '@/script'
 import StoreLogEntryMessage from './StoreLogEntryMessage.vue'
+import AvatarStack from '../Avatar/AvatarStack.vue'
 
 const NUMBER_OF_ACTION_TYPES = 20
 
 export default {
-  components: { Container, DateRangePicker, Multiselect, Avatar, Markdown, StoreLogEntryMessage },
+  components: { Container, DateRangePicker, Multiselect, AvatarStack, Markdown, StoreLogEntryMessage },
   props: {
     collapsedAtFirst: { type: Boolean, default: true },
     storeId: { type: Number, default: null },
@@ -182,7 +182,7 @@ export default {
 .store-log-entry:not(:last-child) .avatar-time-line::before{
   content: "";
   border-right: 2px solid var(--fs-border-default);
-  left: calc(50% - 1px);
+  left: 20.5px;
   height: 100%;
   display: inline-block;
   position: absolute;

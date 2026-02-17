@@ -23,7 +23,6 @@ use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\StorePermissions;
 use Foodsharing\RestApi\Models\Store\PickupLeaveMessageOptions;
 use Foodsharing\Utility\Requirement as FSRequirement;
-use Foodsharing\Utility\TimeHelper;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
@@ -59,6 +58,7 @@ final class PickupRestController extends AbstractFoodsharingRestController
     public function joinPickup(int $storeId, DateTime $pickupDate): Response
     {
         $this->assertLoggedIn();
+        $pickupDate = $this->normalizeDateToServerTimezone($pickupDate);
 
         $reason = '';
         if (!$this->storePermissions->mayDoPickup($storeId, $pickupDate, $reason)) {
@@ -66,7 +66,7 @@ final class PickupRestController extends AbstractFoodsharingRestController
         }
 
         try {
-            $isConfirmed = $this->storeTransactions->joinPickup($storeId, Carbon::instance($pickupDate), $this->session->id());
+            $isConfirmed = $this->storeTransactions->joinPickup($storeId, $pickupDate, $this->session->id());
         } catch (StoreTransactionException $ex) {
             throw new AccessDeniedHttpException($ex->getMessage(), $ex);
         }
@@ -81,6 +81,7 @@ final class PickupRestController extends AbstractFoodsharingRestController
     public function leavePickup(int $storeId, DateTime $pickupDate, int $userId, #[MapRequestPayload] PickupLeaveMessageOptions $leaveInformation): Response
     {
         $this->assertLoggedIn();
+        $pickupDate = $this->normalizeDateToServerTimezone($pickupDate);
         if (!$this->storePermissions->mayRemovePickupUser($storeId, $userId)) {
             throw new AccessDeniedHttpException('Not permitted');
         }
@@ -120,6 +121,7 @@ final class PickupRestController extends AbstractFoodsharingRestController
     public function editPickupSlot(int $storeId, DateTime $pickupDate, int $userId): Response
     {
         $this->assertLoggedIn();
+        $pickupDate = $this->normalizeDateToServerTimezone($pickupDate);
 
         if (!$this->storePermissions->mayConfirmPickup($storeId)) {
             throw new AccessDeniedHttpException('Not permitted');
@@ -195,6 +197,7 @@ final class PickupRestController extends AbstractFoodsharingRestController
     public function editPickup(int $storeId, DateTime $pickupDate, #[MapRequestPayload] EditPickupData $editPickupData): Response
     {
         $this->assertLoggedIn();
+        $pickupDate = $this->normalizeDateToServerTimezone($pickupDate);
 
         if (!$this->storePermissions->mayEditPickups($storeId)) {
             $existingStore = $this->storeGateway->storeExists($storeId);
@@ -281,15 +284,15 @@ final class PickupRestController extends AbstractFoodsharingRestController
         ])
     ))]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'No permission to access pickup history')]
-    public function listPickupHistory(int $storeId, Carbon $fromDate, Carbon $toDate): Response
+    public function listPickupHistory(int $storeId, DateTime $fromDate, DateTime $toDate): Response
     {
         $this->assertLoggedIn();
         if (!$this->storePermissions->maySeePickupHistory($storeId)) {
             throw new AccessDeniedHttpException('You are not allowed to see pickup history in this store.');
         }
 
-        $fromDate = $fromDate->min(Carbon::now());
-        $toDate = $toDate->min(Carbon::now());
+        $fromDate = $this->normalizeDateToServerTimezone($fromDate)->min(Carbon::now());
+        $toDate = $this->normalizeDateToServerTimezone($toDate)->min(Carbon::now());
 
         $pickups = $this->pickupGateway->getPickupHistory($storeId, $fromDate, $toDate);
         $pickups = $this->pickupTransactions->enrichPickupSlots([['occupiedSlots' => $pickups]], $storeId);
@@ -369,11 +372,11 @@ final class PickupRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(type: 'object', properties: [
         new OA\Property(property: 'isEligible', type: 'boolean'),
     ]))]
-    public function passesPickupRule(int $storeId, string $pickupDate): Response
+    public function passesPickupRule(int $storeId, DateTime $pickupDate): Response
     {
         $this->assertLoggedIn();
-        $date = TimeHelper::parsePickupDate($pickupDate);
-        $isEligible = $this->storeTransactions->checkPickupRule($storeId, $date, $this->session->id());
+        $pickupDate = $this->normalizeDateToServerTimezone($pickupDate);
+        $isEligible = $this->storeTransactions->checkPickupRule($storeId, $pickupDate, $this->session->id());
 
         return $this->respondOk(['isEligible' => $isEligible]);
     }

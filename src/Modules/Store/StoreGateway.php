@@ -19,6 +19,7 @@ use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Core\Pagination;
+use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Map\DTO\MapMarker;
 use Foodsharing\Modules\Map\DTO\StoreMarkerHelpType;
 use Foodsharing\Modules\Map\DTO\StoreMarkerScopeType;
@@ -29,6 +30,7 @@ use Foodsharing\Modules\Store\DTO\MinimalStoreIdentifier;
 use Foodsharing\Modules\Store\DTO\Store;
 use Foodsharing\Modules\Store\DTO\StoreApplication;
 use Foodsharing\Modules\Store\DTO\StoreInvitation;
+use Foodsharing\Modules\Store\DTO\StoreLogEntry;
 use Foodsharing\Modules\Store\DTO\StoreTeamMembership;
 
 class StoreGateway extends BaseGateway
@@ -1068,27 +1070,40 @@ class StoreGateway extends BaseGateway
         return array_map(fn ($store) => Store::createFromArray($store), $results);
     }
 
+    /** @return StoreLogEntry[] */
     public function getStoreLogsByActionType(int $storeId, array $storeActions, Carbon $fromDate, Carbon $toDate, Pagination $pagination): array
     {
         $logEntries = $this->db->fetchAll('SELECT
-				DATE_FORMAT(CONVERT_TZ(date_activity, "' . TIME_ZONE . '", "UTC"), "%Y-%m-%dT%TZ") as performed_at,
-				action as action_id,
-				fs_id_a as acting_foodsaver_id,
-				fs_id_p as affected_foodsaver_id,
-				DATE_FORMAT(CONVERT_TZ(date_reference, "' . TIME_ZONE . '", "UTC"), "%Y-%m-%dT%TZ") as date_reference,
-				content,
-				reason
-			FROM
-				fs_store_log
+				DATE_FORMAT(CONVERT_TZ(log.date_activity, "' . TIME_ZONE . '", "UTC"), "%Y-%m-%dT%TZ") as performed_at,
+				log.action,
+				actor.id AS actor_id, actor.name AS actor_name, actor.photo AS actor_photo,
+				target.id AS target_id, target.name AS target_name, target.photo AS target_photo,
+				DATE_FORMAT(CONVERT_TZ(log.date_reference, "' . TIME_ZONE . '", "UTC"), "%Y-%m-%dT%TZ") as date_reference,
+				log.content,
+				log.reason
+			FROM fs_store_log log
+            INNER JOIN fs_foodsaver actor ON log.fs_id_a = actor.id AND actor.deleted_at IS NULL
+            LEFT OUTER JOIN fs_foodsaver target ON log.fs_id_p = target.id AND target.deleted_at IS NULL
 			WHERE
 				store_id = ?
                 AND date_activity >= ?
                 AND date_activity <= ?
+                AND (log.fs_id_p IS NULL OR target.id IS NOT NULL)
                 AND action IN (' . $this->db->generatePlaceholders(count($storeActions)) . ')
             ORDER BY performed_at DESC
             LIMIT ?, ?
 		    ',
             [$storeId, $fromDate, $toDate, ...$storeActions, $pagination->offset, $pagination->limit]);
+
+        $logEntries = array_map(fn ($data) => new StoreLogEntry(
+            Carbon::parse($data['performed_at']),
+            $data['action'],
+            new Profile($data, 'actor_'),
+            Profile::tryFrom($data, 'target_'),
+            is_null($data['date_reference']) ? null : Carbon::parse($data['date_reference']),
+            $data['content'] ?: null,
+            $data['reason'] ?: null
+        ), $logEntries);
 
         return $logEntries;
     }

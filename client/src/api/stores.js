@@ -97,7 +97,7 @@ export async function getStoreLog (storeId, storeActionTypes, dateRange, offset 
   dateRange[0].setHours(0, 0, 0, 0)
   dateRange[1].setHours(24, 0, 0, 0)
   const [fromDate, toDate] = dateRange.map(date => date.toISOString())
-  return get(`/stores/${storeId}/log/${fromDate}/${toDate}/${storeActionTypes.join(',')}?offset=${offset}`)
+  return get(`/stores/${storeId}/log/${fromDate}/${toDate}/actions/${storeActionTypes.join(',')}?offset=${offset}`)
 }
 
 export async function getStorePermissions (storeId) {
@@ -118,8 +118,8 @@ export async function withdrawStoreTeamInvitation (storeId, userId) {
   return remove(`/stores/${storeId}/invitations/${userId}`)
 }
 export async function acceptInvitation (storeId) {
-  return patch(`/stores/${storeId}/invitations`)
+  return patch(`/stores/${storeId}/invitations/current`)
 }
 export async function declineInvitation (storeId) {
-  return remove(`/stores/${storeId}/invitations`)
+  return remove(`/stores/${storeId}/invitations/current`)
 }

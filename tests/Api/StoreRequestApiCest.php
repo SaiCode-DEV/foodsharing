@@ -96,7 +96,7 @@ class StoreRequestApiCest
 
         // reject request
         $I->login($this->manager['email']);
-        $I->sendDelete(self::API_STORES . '/' . $this->store['id'] . '/requests/' . $user2['id']);
+        $I->sendDelete(self::API_STORES . '/' . $this->store['id'] . '/requests/' . $user2['id'], ['message' => null]);
         $I->seeResponseCodeIs(Http::OK);
 
         // user should not be in store and in store's region
@@ -114,7 +114,7 @@ class StoreRequestApiCest
 
         // reject request
         $I->login($this->user['email']);
-        $I->sendDelete(self::API_STORES . '/' . $this->store['id'] . '/requests/' . $user2['id']);
+        $I->sendDelete(self::API_STORES . '/' . $this->store['id'] . '/requests/' . $user2['id'], ['message' => null]);
         $I->seeResponseCodeIs(Http::FORBIDDEN);
 
         // user's request should still be there
@@ -132,7 +132,7 @@ class StoreRequestApiCest
 
         // reject request
         $I->login($this->manager['email']);
-        $I->sendDelete(self::API_STORES . '/' . $this->store['id'] . '/requests/' . $user2['id']);
+        $I->sendDelete(self::API_STORES . '/' . $this->store['id'] . '/requests/' . $user2['id'], ['message' => null]);
         $I->seeResponseCodeIs(Http::NOT_FOUND);
 
         // user should not be in store
