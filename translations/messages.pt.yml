@@ -37,17 +37,17 @@ store:
     request: 'Aplicar para esta equipa'
     to-jumper: 'Lista de substitutos'
     withdraw: 'Cancelar minha solicitação'
-    confirm-far: De acordo com o endereço guardado, moras muito longe deste 
-      sítio ({distance}). Tens a certeza de que podes apoiar a equipa de forma 
-      regular e fiável?
-    confirm-no-location: Não inscreveu um endereço válido no seu perfil. Por 
-      favor, insira um endereço para facilitar aos responsávis por equipas a 
-      decisão sobre a sua candidatura.
+    confirm-far: De acordo com a morada guardada, moras muito longe deste sítio 
+      ({distance}). Tens a certeza de que podes apoiar a equipa de forma regular
+      e fiável?
+    confirm-no-location: Não inscreveste uma morada válida no teu perfil. Por 
+      favor, insere uma morada para facilitar aos responsáveis pelas equipas a 
+      decisão sobre a tua candidatura.
     confirm-no-location-ok: Candidatar mesmo assim
     application-message: Mensagem de candidatura
     application-placeholder: Gostaria de ajudar nesta equipa porque …
     distance_short:
-      unknown: Endereço inválido
+      unknown: A morada inserida é inválida
       close: Menos de 500 m
       normal: Cerca de {distance} km
     completeProfileRequired:
@@ -197,7 +197,7 @@ store:
     filterSleeping: 'dorminhocos'
     filterJumper: 'substitutos'
     filterQuizSM: 'Questinário aprovado para responsáveis por equipas'
-    reallyRemove: 'Quer mesmo remover {name} da equipa?'
+    reallyRemove: 'Desejas realmente remover {name} desta equipa da loja?'
     makeJumper: 'Na lista de substitutos'
     reloadRequired: 'Para atualizar as informações do equipa:'
     makeRegularTeamMember: 'Adicionar na equipa'
@@ -259,9 +259,9 @@ store:
     esta função. Caso deseje excluir intervalos que já estão visíveis, pode fazê-lo
     diretamente com um clique no intervalo, desde que ninguém tenha sido inserido.'
   complete: 'base de dados completa'
-  address: 'Endereço'
+  address: 'Morada'
   days_before: 'há'
-  tooltip_orange: 'Assentos disponíveis nos próximos tres dias'
+  tooltip_orange: 'Horários disponíveis nos próximos tres dias'
   attribution: 'Atribuição'
   useRegionPickupRules: 'Esta é uma loja muito popular. Além das regras internas da
     empresa, aplicam-se as seguintes restrições às inscrições:'
@@ -361,7 +361,7 @@ store:
       assentos e cujos chats de equipa não tenham sido utilizados durante pelo 
       menos 3 meses.
   my_last_slot: O meu assento último
-  chain_has_kams: 'Responsável pra esta cadeia:'
+  chain_has_kams: 'Responsável para esta cadeia:'
   part_of_chain: 'Faz parte da cadeia:'
 navigation:
   profil: 👋 Olá {name}!
@@ -402,7 +402,7 @@ bell:
   store_request_accept_wait_title: '{name}'
   forum_answer_title: '{forum}'
   buddy_request_title: 'Conheces {name}?'
-  store_new_request_title: 'Nova aplicação pra o equipa'
+  store_new_request_title: 'Nova aplicação para a equipa'
   forum_new_thread: 'de {user} no fórum {forum}'
   store_new_title: 'Nova loja'
   sharepoint_activate_title: 'Novo cantinho solidário em {bezirk}'
@@ -427,7 +427,7 @@ bell:
   foodsaver_verified_title: 'Estas verificado!'
   fs_sleepmode_title: 'Novo dorminhoco'
   forum_mention_title: '{user} mencionou-te ({forum})'
-  store_new_request: 'Aplicação pra {name}'
+  store_new_request: 'Aplicação para {name}'
   sharepoint_activate: '{name} foi internado'
   passgen_failed_title: 'Não foi possível criar o teu cartão de membro'
   fs_sleepmode: '{name} {nachname} agora está inactivo'
@@ -470,8 +470,8 @@ bell:
     one: '{teaser}'
     many: '{teaser}'
   new_store_request:
-    one: pra {name} por {user}
-    many: pra {name} por {count} utilizadores
+    one: para {name} por {user}
+    many: para {name} por {count} utilizadores
   store_invite_title: '{name}'
   store_invite: '{user} te convidou para te juntar à equipa.'
   poll_started_title: Votação iniciado
@@ -485,13 +485,13 @@ bell:
   new_quiz_comment:
     one: '{user}: {comment}'
     many: '{count} novos comentários'
-  foodsaver_adress_changed_title: '{name} alterou o endereço'
+  foodsaver_adress_changed_title: '{name} alterou a morada'
   foodsaver_adress_changed: Em caso de alterações frequentes, verifique.
   passport_created_or_renewed_title: O teu cartão do membro …
   passport_created_or_renewed: foi ativado ou prolongado!
   workinggroup_new_request: Nova candidatura para um grupo de trabalho
   internal_email_changed_title: '{address}'
-  internal_email_changed: O teu endereço de e-mail pessoal foi alterado.
+  internal_email_changed: A tua morada de e-mail pessoal foi alterado.
   forum_not_activated_thread: '{forum}'
   forum_not_activated_thread_title: Tema em fórum moderado
   post_hidden_title: Publicação oculta por {user}
@@ -532,13 +532,13 @@ email_template:
   to: 'a'
   dont_respond:
     notification: 'notificaçães'
-    noreply: 'Por favor, não responda a este e-mail. Esta mensagem foi enviada de
-      um endereço para o qual não existe a caixa de correio.'
+    noreply: 'Por favor, não respondas a este e-mail. Esta mensagem foi enviada de
+      uma morada para a qual não existe caixa de correio.'
     you_can: 'Podes configurar em'
     nomail: 'que e-mails recebes.'
     no_notification_link: 'Não quer mais receber este tipo de notificações?'
   from: '-- De '
-  unknown_email: 'Endereço de e-mail desconhecido'
+  unknown_email: 'Morada de e-mail desconhecida'
   impress:
     title: 'Aviso legal'
     address: "foodsharing e. V. \n Neven-DuMont-Str. 14 \n 50667 Köln \n\n Representado
@@ -548,7 +548,7 @@ email_template:
       de acordo com o § 18 MStV (Tratado sobre o Estado de Media):\n Anja Westermann"
     general_information_requirements: 'Informações de acordo com o § 5 da lei alemã
       «Telemediengesetz» (Lei dos meios de comunicação telemáticos)'
-  unknown_email2: "O endereço de e-mail %ADDRESS% não é conhecido. \nTenha em atenção
+  unknown_email2: "A morada de e-mail %ADDRESS% não é conhecida. \nTenha em atenção
     que os e-mails com cópia oculta para o domínio @foodsharing.network não podem
     ser entregues."
   confirm_topic: 'O tópico precisa de aprovação:'
@@ -645,12 +645,11 @@ dashboard:
   source_store: 'Lojas {0}'
   release:
     for_news_from_it: 'Se houver perguntas ou desafios, consulte primeiro'
-    for_support: 'Caso contrário, podem entrar em contacto connosco através do seguinte
-      endereço'
+    for_support: 'Caso contrário, podes contactar-nos através de'
     for_release_notes: 'As alterações mais importantes podem ser encontradas em'
   foodsharer_amount: 'Já salvaste {weight} kg!'
   activity_filter_info: 'Aqui pode definir quais atualizações devem ser exibidas na
-    sua página inicial.'
+    tua página inicial.'
   source_forum: 'Fórum {0}'
   save_selection: 'Salvar configurações'
   updates_title_all: 'Resumo de atualizações'
@@ -684,7 +683,7 @@ dashboard:
   title: 'Painel de controlo'
   polls: 'As tuas votações em curso'
   source_event: 'Evento {0}'
-  general-dates: Próximos assentos reservados
+  general-dates: Os teus próximos horários reservados
 storeview:
   groceries:
     select_tag: 'Selecione a categoria de alimentos'
@@ -810,7 +809,7 @@ poll:
     submit_success: 'A votação foi criada'
     start_date: 'Início da votação'
     description_required: 'Por favor, escreva uma descrição.'
-    submit_question: 'A votação pode ser alterada até ao seu início. Quer mesmo criá-la
+    submit_question: 'A votação pode ser alterada até ao teu início. Quer mesmo criá-la
       agora?'
     option: 'Opção'
     missing_fields: 'Todos os campos devem ser preenchidos'
@@ -936,11 +935,11 @@ basket:
     está registado como o foodsharer? Então clique em **Participar** acima e comece
     agora mesmo.'
   go-to-settings: 'para as configurações'
-  request_empty: 'O texto da sua solicitação não pode estar em branco.'
+  request_empty: 'O texto da tua solicitação não pode estar em branco.'
   request: 'Solicitar uma cesta alimentar'
   no_nearby: 'Não há cestas alimentares num raio de {radius} km'
   add: 'Criar uma cesta alimentar'
-  not-allowed: 'Não tens permissão pra editar esta cesta alimentar.'
+  not-allowed: 'Não tens permissão para editar esta cesta alimentar.'
   not_found: 'A cesta alimentar já não existe.'
   delete: 'Excluir a cesta alimentar'
   requests: 'Solicitações ({count})'
@@ -966,7 +965,7 @@ basket:
   all: 'Todas as cestas alimentares'
   on: 'Cesta alimentar de {platform}'
   go: 'para a cesta alimentar'
-  use_home_address: Utilizar o meu endereço residencial
+  use_home_address: Usar morada de residência
   contact_types: Formas de contacto
   until: 'Válido até:'
   error:
@@ -1082,7 +1081,7 @@ login:
     error: 'Desculpe, há um problema com os teus dados.'
     expired: 'O link não é válido. Provavelmente esperaste demasiado tempo. Por favor,
       requeira uma nova palavra-passe.'
-    wrongMail: 'Infelizmente não encontramos este endereço de e-mail. Tenta novamente.'
+    wrongMail: 'Infelizmente não encontramos esta morada de e-mail. Tenta novamente.'
     tooShort: 'A palavra-passe escolhida é demasiado curta.'
     success: 'A tua palavra-passe foi alterada com sucesso. Já podes iniciar sessão.'
     bread: 'Redefinir palavra-passe'
@@ -1097,32 +1096,32 @@ login:
   form_title: 'Bem-vindo de volta'
   steady_login: 'Ficar conectado'
   forgotten_password_label: 'Esqueceu a password?'
-  error_no_auth: 'Infelizmente não encontramos este endereço de e-mail ou palavra-passe.
-    Tenta novamente. Talvez o teu segundo fator também esteja errado, caso estejas
-    a usar um.'
+  error_no_auth: 'Infelizmente, não conseguimos encontrar esta morada de e-mail ou
+    palavra-passe. Tenta novamente. Talvez o teu segundo fator também esteja incorreto,
+    caso o estejas a usar.'
   submit_btn: 'Iniciar sessão'
   login_button_label: 'Iniciar sessão'
   password: 'palavra-passe'
-  email_address: 'Endereço electrónico'
+  email_address: 'Morada de e-mail'
   logout: 'Terminar sessão'
   save_password: 'Salvar a palavra-passe'
-  error_no_email: 'Digite o seu endereço de e-mail.'
+  error_no_email: 'Digite a tua morada de e-mail.'
   topbar: 'Iniciar sessão'
-  error_no_password: 'Digite a sua palavra-passe.'
+  error_no_password: 'Digite a tua palavra-passe.'
   2fa: Autenticação de dois fatores (2FA)
   resend_verification:
-    email_invalid: Por favor, introduza um endereço de e-mail
-    title: Confirmação do endereço de e-mail
-    hint1: Pra iniciar sessão, o teu endereço de e-mail deve estar confirmado. 
-      Se foi redirecionado para esta página a partir do login, significa que o 
-      teu endereço de e-mail ainda não foi confirmado. Com este formulário, pode
+    email_invalid: Por favor, introduza uma morada de e-mail
+    title: Confirmação da morada de e-mail
+    hint1: Para iniciar sessão, a tua morada de e-mail deve estar confirmada. Se
+      foste redirecionado para esta página a partir do login, significa que a 
+      tua morada de e-mail ainda não foi confirmada. Com este formulário, podes 
       solicitar o envio de um novo e-mail com um link de ativação.
     hint2: Caso não receba nenhum e-mail, entre em contacto com o 
       [suporte](/support).
     submit: Enviar
-    success: Caso esse endereço de e-mail exista e ainda não tenha sido 
-      verificado, será enviado um novo e-mail.
-  error_not_activated: Infelizmente, o teu endereço de e-mail ainda não foi 
+    success: Caso essa morada de e-mail exista e ainda não tenha sido 
+      verificada, será enviado um novo e-mail.
+  error_not_activated: Infelizmente, a tua morada de e-mail ainda não foi 
     ativado.
   or: ou
   passkey_btn: Iniciar sessão com Passkey
@@ -1142,13 +1141,13 @@ profile:
     buddycount_known: '{name} conhece {count} Foodsavers'
     foodsaverId: 'ID'
     buddycount_followed: '{name} conhecem {count} Foodsavers'
-    privateMail: 'Endereço de e-mail privado'
+    privateMail: 'Morada de e-mail privada'
   mediation:
     title: 'Solicitação de mediação para {name}'
-    info: 'Achamos fantástico que procures apoio para abordar o assunto com a pessoa
+    info: 'Achamos fantástico que busques apoio para abordar a situação com a pessoa
       em questão. A equipa de mediação pode atuar como mediadora e ajudar a garantir
       que as vossas conversas sejam conduzidas em pé de igualdade e com respeito mútuo.
-      Podes contactar o grupo de trabalho de mediação local através do seguinte endereço
+      Podes contactar o grupo de trabalho de mediação local através da seguinte morada
       de e-mail:'
     no_group: 'Infelizmente, ainda não existe um grupo de mediação local para o distrito
       de origem do Foodsaver. Pode abordar o assunto numa reunião de grupo ou no fórum,
@@ -1202,23 +1201,23 @@ profile:
       nesse grupo.'
     sells: 'Vende comida salvada'
     reporterHasNoReportGroup: 'Não pode utilizar o suporte técnico do sistema de denúncias,
-      pois não existe um grupo de denúncias local no seu distrito.'
+      pois não existe um grupo de denúncias local no teu distrito.'
     reporterAdminNoArbitration: 'És administrador do grupo local de denúncias e, como
       não existe um órgão arbitral local, não podes apresentar nenhuma denúncia.'
     cancellation: 'Cancelamentos frequentes de recolhas a curto prazo sem procura
       de substitutos'
     mail:
       reportGroup: 'Esta denúncia será enviada ao grupo de denúncias local. Também
-        pode contactar este grupo através do seguinte endereço de e-mail:'
+        pode contactar este grupo através da seguinte morada de e-mail:'
       arbitrationGroup: 'Esta denúncia será enviada ao órgão de arbitragem, uma vez
         que uma das pessoas envolvidas é membro do grupo local de denúncias. Também
-        pode contactar o órgão de arbitragem através do seguinte endereço de e-mail:'
+        podes contactar o órgão de arbitragem através da seguinte morada de e-mail:'
     confirmDelete: Deseja mesmo excluir esta denúncia?
     report_b1_0: Chegou tarde para a recolha (B01-1)
     report_b1_1: Não compareceu para recolher (B01-2)
     report_b1_2: Levou animais para a loja sem autorização (B01-3)
     report_b1_3: Levou crianças para o local de trabalho sem autorização (B01-4)
-    report_b1_4: Não tinha consigo o seu cartão de foodsharing (B01-5)
+    report_b1_4: Não tinha consigo o teu cartão de foodsharing (B01-5)
     report_b2: Realizou uma recolha fora dos eventos estabelecidos sem acordo 
       prévio com o responsável de loja (B02)
     report_b3_0: Não entrou/saiu da loja em conjunto com outros participantes 
@@ -1244,13 +1243,13 @@ profile:
     notes: Notas e decisões
   mail_bounce:
     remove_button: 'Remover da lista de rejeições'
-    warning_1: 'O teu endereço de e-mail pessoal {email} está bloqueado para comunicações
+    warning_1: 'A tua morada de e-mail pessoal {email} está bloqueada para comunicações
       e e-mails do foodsharing. Através do'
     warning_4: 'este artigo de suporte.'
-    warning_others: 'O endereço de e-mail {email} desta pessoa está bloqueado para
-      e-mails e comunicações do foodsharing. Pode remover o bloqueio através do botão.'
+    warning_others: 'A morada de e-mail {email} desta pessoa está bloqueada para e-mails
+      e comunicações do foodsharing. Pode remover o bloqueio através do botão.'
     warning_3: 'esse bloqueio será removido. Para obter mais informações, consulte '
-    warning_2: 'Alterar o endereço de e-mail'
+    warning_2: 'Alterar a morada de e-mail'
   deletesuccess: 'Evento individual excluido'
   banana:
     remove:
@@ -1470,15 +1469,15 @@ mailbox:
     anexá-los ao novo e-mail.
   mark_none: Não marcar nenhum
   reply_header: '{name} escreveu em {date}'
-  global_addressbook: Livro de endereços global
-  addressbook: Livro de endereços
-  search_name_email: Pesquisar por nome ou endereço de e-mail
+  global_addressbook: Livro de moradas global
+  addressbook: Livro de moradas
+  search_name_email: Pesquisar por nome ou morada de e-mail
   show_html_body: Ver como HTML
 bcard:
   error:
     phone: 'Deve ter introduzido um número de telefone válido para gerar o teu cartão
       de visita.'
-    length: 'O teu endereço é demasiado longo. O endereço, o código postal e a cidade
+    length: 'A tua morada é demasiado longa. A morada, o código postal e a cidade
       não podem ter mais de 49 caracteres.'
     verified: 'Tens de ser verificado para poderes gerar o teu cartão de visita.'
   generate: 'Criar um cartão de visita'
@@ -1655,15 +1654,9 @@ group:
   contact:
     title: 'Contactar {group}'
     empty: 'Escrita alguma coisa primeiro ;)'
-    disclaimer: 'Ao enviar uma mensagem para este grupo de trabalho
-
-      os administradores do grupo de trabalho verão o endereço de e-mail
-
-      com o qual está registado no foodsharing.
-
-      Uma cópia desta mensagem ser-lhe-á enviada por e-mail.
-
-      '
+    disclaimer: "Ao enviar uma mensagem para este grupo de trabalho, \nos administradores
+      do grupo de trabalho verão a morada de e-mail \ncom a qual está registado no
+      foodsharing. \nUma cópia desta mensagem será enviada para o teu e-mail.\n"
     admins: '{count} pessoas de contacto:'
     sent: 'A mensagem foi enviada com sucesso.'
     send: 'Mandar mensagem'
@@ -1751,8 +1744,8 @@ foodsaver:
     AMBASSADOR: Torne-se embaixador(a)
     pn: Sim, li e aceito a política de privacidade.
   editName: 'Editar {name}'
-  mailchange_error: 'A ativação do teu novo endereço de correio electrónico falhou.
-    Por favor, tente novamente.'
+  mailchange_error: 'A ativação da tua nova morada de e-mail falhou. Por favor, tente
+    novamente.'
   delete_account_now: 'Excluir conta agora'
   restricted: 'Infelizmente, não tem permissão para visualizar estes dados.'
   edit_failure: 'Nada foi alterado ou as alterações não foram guardadas'
@@ -1768,7 +1761,7 @@ foodsaver:
   edit: 'Editar os Foodsavers'
   delete_account_sure_reason: 'Tem a certeza de que deseja excluir a tua conta de
     utilizador? Motivo: {reason}'
-  url_error: 'Parece haver algo de errado com o URL da sua página inicial'
+  url_error: 'Parece haver algo de errado com o URL da tua página inicial'
   kicked: 'Foodsaver foi excluido'
   about_me_public: 'Se exibido/a a todas as pessoas listadas em [página da equipa
     e ex-funcionários](/team) e pode ser visto/a por todos no website.
@@ -1803,7 +1796,7 @@ pickup:
     tab:
       options:
         empty: 'Atualmente, não há assentos disponíveis nas tuas lojas.'
-        name: 'Opções de insção'
+        name: 'Assentos disponíveis para ti'
         tooltip:
           own: 'Assentos futuros para os quais ainda te podes inscrever'
       registered:
@@ -1935,7 +1928,7 @@ pickup:
   hygieneCertificateMissing:
     none: Atualmente, não tem um certificado de higiene válido. Preencha agora o
       questionário de higiene para podes inscrever-te.
-    timeout: O seu certificado de higiene expirará no momento em que o recolher.
+    timeout: O teu certificado de higiene expirará no momento em que o recolher.
       Agora, preencha novamente o questionário de higiene para podes 
       inscrever-te.
     link: Para formação em higiene
@@ -1950,16 +1943,16 @@ pickup:
   slots: Assentos
 error:
   mail_bounce:
-    title: 'Endereço de e-mail bloqueado!'
-    description: 'O teu endereço de e-mail está bloqueado para e-mails e comunicações
+    title: 'Morada de e-mail bloqueada!'
+    description: 'A tua morada de e-mail está bloqueada para e-mails e comunicações
       do foodsharing.'
     link_2: 'Preciso de ajuda'
-    link_1: 'Alterar endereço de e-mail'
+    link_1: 'Alterar morada de e-mail'
   missing_geolocation:
-    title: 'Não foi indicado nenhum endereço válido'
-    description: 'Por favor, verifica o teu endereço. Não foi possível determinar
-      as coordenadas.'
-    link: 'Para entrada o endereço'
+    title: 'Não foi indicada nenhuma morada válida'
+    description: 'Por favor, verifica a tua morada. Não foi possível determinar as
+      coordenadas.'
+    link: 'Para inserir a morada'
   missing_user_avatar:
     title: 'Ainda não carregaste uma foto de perfil.'
     link: 'Carregar uma foto de perfil agora'
@@ -1970,11 +1963,11 @@ error:
       receber chamadas.'
     link: 'Corrigir o número do telemóvel agora'
   mail_activation:
-    description: 'A utilização do site só é possível com um endereço de e-mail confirmado.
-      Confirma o teu endereço de e-mail clicando no link do e-mail de ativação.'
-    title: 'Endereço de e-mail não confirmado!'
+    description: 'A utilização do site só é possível com uma morada de e-mail confirmada.
+      Confirma a tua morada de e-mail clicando no link do e-mail de ativação.'
+    title: 'Morada de e-mail não confirmada!'
     link_1: 'Pedir um novo e-mail de ativação'
-    link_2: 'Alterar endereço de e-mail'
+    link_2: 'Alterar morada de e-mail'
   passport_is_invalid_soon:
     description: 'A tua cartão de membro ainda é válida por {days} dias. Entra em
       contacto com os teus embaixadores para a renovar.'
@@ -2011,7 +2004,7 @@ fsp:
   addedOn: 'Adicionado em'
   suggest: 'Sugerir novo cantinho'
   location: 'código postal / local'
-  followers: 'Partilhadores alimentar interessados'
+  followers: 'Foodsharers interessados'
   addError: 'Não foi possível registar o cantinho solidário. Preencheu tudo corretamente?'
   rejectConfirm: 'Atenção, se excluir o cantinho solidário, já não pode anular esta
     ação. Queres mesmo continuar?'
@@ -2021,9 +2014,9 @@ fsp:
   accept: 'Liberar o cantinho solidário'
   descLabel: 'Escreva aqui algumas informações básicas sobre o cantinho solidário,
     especialmente quando está acessível/aberto.'
-  address: 'Endereço'
+  address: 'Morada'
   noManager: 'Deve haver pelo menos uma pessoa responsável por este cantinho solidário.'
-  street: 'Endereço'
+  street: 'Morada'
   editSuccess: 'Cantinho solidário foi editado com sucesso'
   summary: 'Há {count} cantinho(s) solidário(s) em todos os distritos onde está ativo'
   acceptName: 'desbloquear {name}'
@@ -2117,7 +2110,7 @@ search:
     placeholder: 'Nome ou DNI'
   informations: 'Podes procuro por pessoas, grupos, lojas, distritos, chats, mensagens
     do fórum e cantinhos solidários.'
-  noresults: 'Nenhum resultado encontrado para a sua pesquisa'
+  noresults: 'Nenhum resultado encontrado para a tua pesquisa'
   too_short: 'Por favor, insira um termo de pesquisa mais longo.'
   forum:
     placeholder: 'Pesquisar neste fórum …'
@@ -2249,10 +2242,10 @@ quiz:
   stateBasedInfo:
     pause: Já falhou este concurso questinario várias vezes. A fiabilidade, o 
       conhecimento firme das regras e um comportamento profissional são 
-      essenciais na partilha de alimentos. Infelizmente, as tuas respostas não 
-      transmitem isso de momento. Por isso, terás de fazer uma pausa para 
-      estudar antes de tentares passar novamente o teste. O seu intervalo de 
-      estudo terminará dentro de {currentWaitTime} dias.
+      essenciais no foodsharing. Infelizmente, as tuas respostas não transmitem 
+      isso de momento. Por isso, terás de fazer uma pausa para estudar antes de 
+      tentares passar novamente o teste. O teu intervalo de estudo terminará 
+      dentro de {currentWaitTime} dias.
     pauseElapsed: A tua pausa de estudo terminou. Agora pode voltar a fazer o 
       questionário. Esperemos que tenha aproveitado o tempo para se familiarizar
       melhor com o conteúdo.
@@ -2365,7 +2358,7 @@ quiz:
   test: Teste do questionário
   max_fp: Pontos de erro possíveis
 chat:
-  incorrect_address: 'Este endereço de e-mail está incorreto'
+  incorrect_address: 'Esta morada de e-mail está incorreta'
   receivermissing: 'Deve especificar um destinatário'
   notification_unnamed_conversation: '{foodsaver} escreveu para ti.'
   no_messages: 'Não há mensagens'
@@ -2398,17 +2391,18 @@ chat:
   reply: Responder
   rename: Renomear conversa
   rename_placeholder: Nome da conversa...
-  rename_empty_hint: Deixe o campo em branco pra excluir o nome.
+  rename_empty_hint: Deixe o campo em branco para excluir o nome.
   show_participants: Mostrar participantes
   participants: Parcipiciantes
   error:
     sending_message: O envio da mensagem falhou.
     loading_conversation: Falha ao acessar a conversa.
     renaming_conversation: A renomeação da conversa falhou.
+  open_full_view: Abrir visualização completa
 error_permissions: 'Infelizmente, nao tens as permissões necessárias para este processo.'
 storeedit:
   team:
-    leave_myself: 'tu mesmo'
+    leave_myself: 'a si próprio'
     cannot-leave: 'És responsável por esta loja, por isso não podes deixá-la.'
     orga: 'És não responsável por esta loja.
 
@@ -2561,7 +2555,7 @@ chain:
   options:
     showstores: 'Mostrar lojas'
     edit: 'Editar'
-  filterplaceholder: 'Nome / Endereço / ID KAM'
+  filterplaceholder: 'nome / morada/ ID KAM'
   listheader: 'Cadeias comerciais'
 recipients:
   newsletter: 'Todos os assinantes do boletim informativo (pelo menos Foodsaver)'
@@ -2584,7 +2578,7 @@ recipients:
   variables: 'Tratamento pessoal'
   newsletter_all: 'Todos os assinantes do boletim informativo (Foodsharers, Foodsavers,
     todos)'
-  sent: 'O e-mail foi enviado com sucesso para {count} endereços de e-mail'
+  sent: 'O e-mail foi enviado com sucesso para {count} moradas de e-mail'
   test_email_sent: 'O e-mail foi enviado.'
   orga_team: 'Equipa organizadora global (administradores do site)'
   newsletter_only_foodsharer: 'SÓ aqueles que foodsharer entre todos os assinantes
@@ -2594,7 +2588,7 @@ recipients:
   continue: 'Continuar enviando'
   choose: 'Selecionar distritos manualmente'
   status: 'Enviar e-mails … (e-mail atual: {current})'
-  test_email_invalid: 'Há uma problema com o endereço de e-mail.'
+  test_email_invalid: 'Há uma problema com a morada de e-mail.'
   variable-info: 'Para personalizar o e-mail, pode inserir <strong>{NAME}</strong>
     em vez do nome
 
@@ -2638,7 +2632,7 @@ settings:
     temp: 'Não estou disponível durante o período seguinte'
     show: 'Ao usar essa função, você concorda que o teu estado,
 
-      a duração da tua ausência e a sua mensagem serão mostrados na tua página de
+      a duração da tua ausência e a tua mensagem serão mostrados na tua página de
       perfil
 
       e que um ícone de dorminhoco aparecerá na tua foto de perfil.
@@ -2745,7 +2739,7 @@ settings:
     menu: 'Cartão'
     button: 'Descarregar cartão de membro'
     verified_text: 'Este cartão é destinado ao uso em smartphones. Pode salvar o cartão
-      no seu telemóvel e, em caso de necessidade, apresentá-lo. Caso não possua um
+      no teu telemóvel e, em caso de necessidade, apresentá-lo. Caso não possua um
       smartphone ou, por qualquer outro motivo, necessite de um cartão convencional,
       entre em contacto com os embaixadores locais.'
     non_verified_text: 'Ainda não estás verificado. Apenas os Foodsavers verificados
@@ -2827,8 +2821,8 @@ settings:
   profile: Configurações do perfil
   delete_profile: Excluir este perfil
   address:
-    title: Selecionar endereço
-    choose: Aceitar endereço
+    title: Selecionar morada
+    choose: Utilizar morada
   quiz:
     1: Quiz para te tornar um Foodsaver
     2: Quiz para te tornar um responsável por equipas
@@ -2837,7 +2831,7 @@ settings:
     title: Segurança da conta de acesso
     email_password_section: E-mail e palavra-passe
     change_password: Alterar palavra-passe
-    change_email: Alterar endereço de e-mail
+    change_email: Alterar morada de e-mail
     mfa_section: Autenticação multifatoral
     mfa_enabled: Autenticação multifatorial ativada
     mfa_disabled: Autenticação multifatorial deativada
@@ -3004,42 +2998,42 @@ settings:
       usuário não tenha mais acesso ao teu dispositivo de dois fatores e também 
       tenha perdido os códigos de backup.
   email_change:
-    title: Alterar endereço de e-mail
-    explanation: Aqui pode alterar o endereço de e-mail com o qual se registou. 
-      Após o envio, receberá um e-mail no teu endereço novo com um link para 
-      confirmar o teu novo endereço.
-    explanation_other_user: Aqui pode alterar o endereço de e-mail com o qual 
+    title: Alterar morada de e-mail
+    explanation: Aqui podes alterar a morada de e-mail com a qual te registaste.
+      Após o envio, receberás um e-mail na tua nova morada com um link para 
+      confirmar a tua morada.
+    explanation_other_user: Aqui podes alterar a morada de e-mail com a qual 
       este perfil foi registado. Após o envio, o utilizador receberá um e-mail 
-      no endereço novo, contendo um link para confirmar o novo endereço.
+      na nova morada, contendo um link para confirmar a alteração.
     explanation_password: Confirme a solicitação de alteração com a tua 
       palavra-passe atual
-    new_email_label: Novo endereço de e-mail
+    new_email_label: Nova morada de e-mail
     new_email_placeholder: a.tua.novo@email.pt
-    confirm_email_label: Confirmar endereço de e-mail
+    confirm_email_label: Confirmar morada de e-mail
     confirm_email_placeholder: a.tua.novo@email.pt
     password_label: Palavra-passe atual
     password_placeholder: A tua palavra-passe
     cancel: Cancelar
     submit: Alterar e-mail
-    confirm_email_required: Os endereços de e-mail não correspondem
-    question: 'Queremos mesmo alterar o teu endereço de e-mail para este:'
-    question_other_user: 'Deve ser alterado o endereço de e-mail para este:'
-    invalid: Há um problema com o endereço de e-mail introduzido
-    domain: Por favor, utilize um outro endereço de e-mail para poder recuperar 
-      a sua palavra-passe a qualquer momento.
-    occupied: Não foi possível alterar o endereço de e-mail, pois ele já está a 
-      ser utilizado.
-    password_required: Tens de inscrever a tua palavra-passe para alterar o 
-      endereço de e-mail.
+    confirm_email_required: As moradas de e-mail não correspondem
+    question: 'Queremos mesmo alterar a tua morada de e-mail para esta:'
+    question_other_user: 'Deve ser alterada a morada de e-mail para esta:'
+    invalid: Há um problema com a morada de e-mail introduzida
+    domain: Por favor, utiliza outra morada de e-mail para poderes recuperar a 
+      tua palavra-passe a qualquer momento.
+    occupied: Não foi possível alterar a morada de e-mail, pois ela já está a 
+      ser utilizada.
+    password_required: Tens de inscrever a tua palavra-passe para alterar a 
+      morada de e-mail.
     wrong_password: A palavra-passe é incorreta.
-    insufficient_permission: Não tens autorização para alterar o endereço de 
+    insufficient_permission: Não tens autorização para alterar a morada de 
       e-mail deste perfil.
-    sent: Acesse agora tua nova caixa de correio eletrónico para confirmar o 
-      endereço.
-    sent_other_user: Foi enviado um e-mail para o novo endereço para confirmar o
-      endereço.
-    done: O teu endereço de e-mail foi alterado.
-    not_changed: O teu endereço de e-mail não foi alterado.
+    sent: Acesse agora tua nova caixa de correio eletrónico para confirmar a 
+      morada.
+    sent_other_user: Foi enviado um e-mail para a nova morada para confirmar a 
+      morada.
+    done: A tua morada de e-mail foi alterado.
+    not_changed: A tua morada de e-mail não foi alterada.
     dashboard_link: Continuar para o painel
   change_data_info:
     general: Aqui podes alterar os dados do teu perfil.
@@ -3047,8 +3041,8 @@ settings:
       a um embaixador para alterar esses dados por ti.
   general:
     phone: O teu número de telefone fixo
-    current_address: Endereço atual
-    no_address: Ainda não foi inserido nenhum endereço
+    current_address: Morada atual
+    no_address: Ainda não foi inserida nenhum morada
 terminology:
   reportAdmins: 'Equipa de processamento de denúncias'
   storemanager:
@@ -3066,16 +3060,16 @@ terminology:
     "4": 'Administrador(a) global'
     "2": 'Responsável por equipa'
     "1": 'Foodsaver'
-    "0": 'partilhador(a) alimentar'
+    "0": 'Foodsharer'
     "3": 'Embaixador(a)'
   statistic: 'Estatísticas'
   n_foodsaver: '{count} Foodsavers'
   admins: 'Administradores/as'
   baskets: 'Cestas alimentares'
   foodsharer:
-    f: 'Partilhadora alimentar'
-    m: 'Partilhador alimentar'
-    d: 'Partilhador(a) alimentar'
+    f: 'Foodsharer'
+    m: 'Foodsharer'
+    d: 'Foodsharer'
   no_pickups: 'nenhum'
   homeRegion: 'Distrito de origem'
   prAdmins: 'Equipa de relações públicas'
@@ -3202,12 +3196,12 @@ register:
   phone_example: 'Exemplo: +351 612 34 56 78'
   signup_newsletter: 'Gostaria de receber a newsletter do foodsharing aproximadamente
     uma vez por mês'
-  email_invalid: 'O endereço de e-mail é inválido ou já está a ser utilizado'
+  email_invalid: 'A morada de e-mail é inválida ou já está a ser utilizada'
   geb_datum: 'A tua dato dos anos'
   login_passwd2: 'Repetição da palavra-passe'
   mail_hint: 'Importante: Preste atenção à grafia correta!'
   login_phone_info: 'É Pode ser útil partilhar o teu número de telefone com outros
-    partilhadores alimentar'
+    Foodsharers'
   forgotten_password: 'Esqueceu a tua palavra-passe?'
   change-password: 'Agora podes alterar o teu palavra-passe.'
   title: 'Registo'
@@ -3217,7 +3211,7 @@ register:
   phone_not_valid: 'O número de telefone introduzido não é válido'
   account-exists: 'Já estás registado. Por favor, sai da tua conta se quiseres registar-te
     novamente.'
-  error_email_invalid: 'Este endereço electrónico não pode ser usado'
+  error_email_invalid: 'Esta morada de e-mail não pode ser usada'
   landline_example: 'Exemplo: +351 812 34 56 78'
   error_birthdate: 'Exemplo 25.03.2001 (DD.MM.JJJJJ). Por razões de proteção de dados
     e responsabilidade, tens que ter pelo menos 18 anos de idade para juntar-te a
@@ -3228,10 +3222,10 @@ register:
   finish: 'Enviar inscrição'
   topbar: 'Participar'
   join_success_message: 'Concluíste com sucesso o teu registo no foodsharing. Antes
-    de te poderes iniciar sessão com o teu e-mail e palavra-passe, tens de confirmar
-    o teu endereço de e-mail. Para tal, enviámos um e-mail com o link de confirmação
-    para o teu endereço.'
-  email_required: 'É precissário um endereço de e-mail'
+    de poderes iniciar sessão com o teu e-mail e palavra-passe, tens de confirmar
+    a tua morada de e-mail. Para tal, enviámos um e-mail com o link de confirmação
+    para a tua morada de e-mail.'
+  email_required: 'É necessário uma morada de e-mail'
   other: 'diverso'
   have_read_the_legal_stuff2: 'aqui'
   error: 'É ocorreu um erro'
@@ -3244,7 +3238,7 @@ register:
   register_button_label: 'Registar'
   firstname_required: 'Por favor, insira o teu primeiro nome'
   join_success: 'O teu registo foi bem-sucedido.'
-  login_location: 'O teu endereço'
+  login_location: 'A tua morada'
   firstname_minLength: 'O primeiro nome deve ter no mínimo dois caracteres'
   prev: 'para trás'
   select_your_gender: 'Para o saluto …'
@@ -3257,9 +3251,9 @@ register:
   birthdate_hint: 'Para mais informações, consulte a [Política de Privacidade]({url})
     no ponto 2d.'
   set-password: 'Criar uma nova palavra-passe'
-  login_email: 'Endereço de e-mail'
+  login_email: 'Morada de e-mail'
   activation_success: '<strong>Ativação bem-sucedida.</strong> Faça login agora com
-    o teu endereço de e-mail e a palavra-passe que escolheste.'
+    a tua morada de e-mail e a palavra-passe que escolheste.'
   lastname_maxLength: O teu apelido pode consistir em um máximo de 30 caracteres
   password_must_be_complex: A palavra-passe deve conter no mínimo uma letra 
     maiúscula, uma letra minúscula e números
@@ -3385,11 +3379,11 @@ legal:
     this_doesnt_get_deleted: 'As seguintes informações já não estão disponíveis no
       sistema activo, mas são arquivadas com base no artigo 17.o, n.o 3, pp. 1, lit.
       b) DSGVO:'
-    this_gets_deleted_verify: 'A sua verificação será removida.'
+    this_gets_deleted_verify: 'A tua verificação será removida.'
     this_doesnt_get_deleted_name: 'O teu nome'
     this_gets_deleted_friendlist: 'A tua lista de conhecidos é removida.'
     legal_1: 'Nosso atual contrato de proteção de dados'
-    this_doesnt_get_deleted_address: 'A tua endereço'
+    this_doesnt_get_deleted_address: 'A tua morada'
     this_gets_deleted_stores: 'As lojas das quais fizeste parte.'
     this_gets_deleted_main: 'As seguintes informações serão permanentemente excluido
       por ti:'
@@ -3516,8 +3510,7 @@ startpage:
       prazo é pôr fim ao desperdício de alimentos ainda próprios para consumo. Para
       isso, atuamos a nível local: salvamos alimentos em residências particulares
       e lojas, dialogamos com decisores políticos e levamos a nossa visão à sociedade.'
-  register: 'Al final de esta página puedes registar te para partilhar alimentos como
-    outros pessoas.'
+  register: 'No final desta página, podes registar-te como Foodsharer.'
   private:
     title: 'em privado'
     text: 'Combate o desperdício alimentar na tua casa. Nós informamos em feiras e
@@ -3578,8 +3571,8 @@ region:
     por pelo menos uma loja lá.'
   save: 'Sim, salvar'
   mail:
-    name-info: 'Atenção, não altere arbitrariamente! Certifique-se também de que este
-      endereço ainda não existe em «Administrar e-mails».'
+    name-info: 'Atenção, não alteres arbitrariamente! Certifica-te também de que esta
+      morada ainda não existe em «Administrar e-mails».'
     sender: 'Nome do remetente'
   none: 'Ainda não selecionou nenhum distrito'
   new: 'Novo distrito'
@@ -4046,7 +4039,7 @@ storestatus:
   "3": 'A loja está disposta a cooperar'
   "1": 'Ainda não há contacto'
   "7": 'A loja já não existe'
-  "6": 'A loja já faz doações pra o banco alimentar, etc., e não deita nada fora'
+  "6": 'A loja já faz doações para o banco alimentar, etc., e não deita nada fora'
   "5a": 'A loja já faz doações'
   "5": 'colabora connosco'
   "0": 'Estado incerto'
@@ -4083,8 +4076,8 @@ stats:
     pickups: 'missões que os nossos Foodsavers já completaram.'
     weight: 'Alimentos salvos com sucesso do lixo.'
     fsp: 'Os cantinhos solidários são utilizados para trocar alimentos.'
-    foodsharer: 'pessoas que partilham alimentos estão registadas no "foodsharing"
-      e interessadas no nosso trabalho.'
+    foodsharer: 'Foodsharers estão registados em "foodsharing" e interessados no nosso
+      trabalho.'
     foodsaver: 'Foodsavers trabalham voluntariamente por um mundo sem desperdício
       de alimentos.'
     baskets: 'cestas alimentares foram colocadas online.'
@@ -4163,9 +4156,8 @@ regionOptions:
   regionReportReasonOther: Permitir «Outros» como motivo da denúncia
   noPickupRuleActiveStores: Atualmente, a regra de lojas populares não está 
     ativada para nenhuma empresa no distrito.
-  enableAddressChangeNotification: Notificação aos embaixadores e 
-    administradores em caso de mudança de endereço de um Foodsaver deste 
-    distrito como distrito de origem
+  enableAddressChangeNotification: Notificar embaixadores e administradores 
+    sobre mudança de morada de um Foodsaver neste distrito de origem
 ort: 'Cidade/Comunidade'
 releases:
   "2023-09": 'Versão “Jaca” 🍈 (Setembro de 2023)'
@@ -4209,15 +4201,14 @@ kette_id: 'Cadeia comercial'
 no: 'Não'
 info: 'Informações'
 addresspicker:
-  infobox: 'Introduza o endereço na barra de pesquisa ou mova o marcador para a posição
+  infobox: 'Introduz a morada na barra de pesquisa ou move o marcador para a posição
     correta no mapa.'
   label: 'Pesquisa por morada/localização'
-  placeholder: 'Pesquisar o endereço …'
-  infobox_profile: 'Caso pretendas oferecer cestas alimentares através esta plataforma
-    como [Foodsharer](https://wiki.foodsharing.de/Foodsharer), é necessário indicar
-    o teu endereço. Para poder participar na recolha de alimentos como [Foodsaver](https://wiki.foodsharing.de/Foodsaver),
-    é legalmente necessário.'
-  different_location: 'Corrigir a descrição do endereço'
+  placeholder: 'Pesquisar a morada…'
+  infobox_profile: 'Caso pretendas oferecer cestas alimentares através desta plataforma
+    como Foodsharer, é necessário indicar a tua morada. Para poderes participar na
+    recolha de alimentos como Foodsaver, é legalmente obrigatório.'
+  different_location: 'Corrigir a descrição da morada'
   different_location_warning: Por favor verifique se o Pin está no lugar correto
     na parte superior do cartão. Altere os campos preenchidos automaticamente 
     (rua e número, código postal e cidade/município) apenas se o valor inserido 
@@ -4304,7 +4295,7 @@ first_post: 'Primeira publicação'
 fsp_bezirk_id: 'Em qual distrito está localizado o cantinho solidário?'
 about_me_public: 'Descrição rápida publica'
 delete: 'Excluir'
-betrieb_status_id: 'Status'
+betrieb_status_id: 'Estado'
 lebensmittel: 'Quais os alimentos o que levado?'
 notice: 'Nota!'
 usersearch:
@@ -4404,7 +4395,7 @@ nofp: 'Nemhum pontos de erro (pergunta de brincadeira)'
 select: 'Por favor selecionar'
 password:
   reset: 'Esqueceu a palavra-passe?'
-  insertmail: 'Escreva o teu endereço de e-mail para redefinir a tua palavra-passe.'
+  insertmail: 'Escreve a tua morada de e-mail para redefinir a tua palavra-passe.'
 pass2: 'Repetição da palavra-passe'
 personal_data:
   label: 'Contacto'
@@ -4443,8 +4434,8 @@ navi:
   komoot: Komoot
   here: HERE WeGo
   native: Aplicação nativa
-  gdpr_warning: Quando navega com {provider}, o endereço é transmitido ao seu 
-    serviço e é redirecionado para o seu site. Concorda com isso?
+  gdpr_warning: Quando navegas com {provider}, a tua morada é transmitida ao 
+    serviço e serás redirecionado para o site deles. Concordas com isso?
   no_native_app: Este dispositivo não suporta geo-links.
 no_automatic_delete: 'Se o último registo tiver sido há mais de 5 anos:'
 automatic_delete: '- o perfil quer ser eliminado.'
@@ -4460,7 +4451,7 @@ expand_all: Expandir tudo
 net_errors:
   code: 'Código de erro: '
   NOT_FOUND: A página solicitada não foi encontrada.
-  SERVER_ERROR: Um erro de servidor interno ocorreu. Infelizmente, o seu pedido 
+  SERVER_ERROR: Um erro de servidor interno ocorreu. Infelizmente, o teu pedido 
     nao pode ser processado.
   ETIMEDOUT: O pedido demorou demasiado tempo. Por favor, verifica a tua conexão
     de internet e tenta novamente.
@@ -4477,7 +4468,7 @@ net_errors:
     tente novamente.
   ECONNABORTED: A solicitação foi cancelada pelo teu browser. Por favor, tente 
     novamente.
-  ERR_NETWORK: Houve um problema de Internet. Por favor, verifique a sua conexão
+  ERR_NETWORK: Houve um problema de Internet. Por favor, verifique a tua conexão
     e tente novamente.
   ERR_NETWORK_CHANGED: A tua conexão com a Internet está instável. Verifica a 
     tua conexão e tenta novamente.
@@ -4495,17 +4486,17 @@ support_page:
   info_teaser: O nosso formulário de suporte está à tua disposição para questões
     relacionadas com o funcionamento da plataforma, questões técnicas ou 
     mensagens de erro. Após o envio, é criado automaticamente um ticket no nosso
-    sistema. A equipa de suporte voluntária tratará das suas questões. Para 
-    melhor responder a problemas técnicos, inclua na sua questão o navegador e o
+    sistema. A equipa de suporte voluntária tratará das tuas questões. Para 
+    melhor responder a problemas técnicos, inclua na tua questão o navegador e o
     sistema operativo que utiliza.
   subject: 'Assunto'
   body: 'Mensagem'
   title: 'Formulário de soporte'
   validation_firstName: 'O nome próprio está vazio'
-  email: 'O teu endereço de e-mail'
+  email: 'A tua morada de e-mail'
   validation_body: 'O mensagem está vazio'
   validation_subject: 'O assunto está vazio'
-  validation_email: 'Endereço de e-mail inválido'
+  validation_email: 'Morada de e-mail inválida'
   new_request: 'Novo pedido'
   success: 'A tua mensagem foi enviada com sucesso.'
   notification_name: 'Como tens sessão iniciada, o teu nome e a tua ID do foodsharing
@@ -4521,7 +4512,7 @@ help:
         estar registado na plataforma para ver o local do evento e as informações.
         No entanto, o mural e a lista de participantes só estão acessíveis aos utilizadores
         registados.\nRegiste um evento como público se quiser convidar pessoas de
-        fora da sua comunidade local de foodsharing e se todos puderem participar.\n"
+        fora da tua comunidade local de foodsharing e se todos puderem participar.\n"
       title: 'Eventos públicos'
     reportReasons:
       title: Formulário de denúncias
@@ -4552,7 +4543,7 @@ help:
       md: |
         Os selos podem servir como marcação em situações muito diferentes. Por isso, é possível definir se o selo pode ser atribuído várias vezes ao mesmo tempo à mesma pessoa.
 
-        - **Sobrescrever:** Não é possível receber o selo várias vezes ao mesmo tempo. Se o selo for atribuído novamente, a atribuição atual substitui ou prolonga a anterior. Isto é utilizado, por exemplo, para a formação em higiene. Quem renova a formação, o seu selo é simplesmente prolongado. Selecione *Sobrescrever* se o selo tiver de marcar um estado atual e inequívoco.
+        - **Sobrescrever:** Não é possível receber o selo várias vezes ao mesmo tempo. Se o selo for atribuído novamente, a atribuição atual substitui ou prolonga a anterior. Isto é utilizado, por exemplo, para a formação em higiene. Quem renova a formação, o teu selo é simplesmente prolongado. Selecione *Sobrescrever* se o selo tiver de marcar um estado atual e inequívoco.
         - **Atribuir várias vezes:** É possível atribuir várias vezes ao mesmo tempo. Os selos atribuídos várias vezes são apresentados agrupados no perfil, mas todas as informações correspondentes estão acessíveis. Isto pode ser utilizado, por exemplo, para documentar recolhas de amostras, das quais são necessárias várias. Selecione *Atribuir várias vezes* se cada atribuição individual for importante e tiver de permanecer rastreável.
       title: 'Atribuição múltipla de selos'
     hygieneRequirement:
@@ -4669,24 +4660,24 @@ help:
       title: 'Mosaico de recursos'
       md: "A ideia\nAo salvar alimentos, todos nós partilhamos de forma muito eficaz
         o nosso tempo, capacidade de transporte e experiência. Mas, para dar novos
-        impulsos a um sistema alimentar sustentável e fortalecer o movimento de partilha
-        de alimentos a longo prazo, é preciso mais do que apenas salvar. Cada um de
-        nós traz recursos diferentes, ou seja, *habilidades*, *objetos* ou *contatos*
-        que, por si só, muitas vezes ficam ocultos e sem uso. Juntos, porém, esses
-        recursos podem se tornar visíveis e utilizáveis – como peças individuais de
-        um mosaico que, juntas, formam uma grande imagem. O mosaico de recursos pode
-        tornar essa diversidade visível. Assim, cria espaço para novas ideias de projetos,
-        colaboração e apoio mútuo além da recuperação. \n\n##### A visão geral dos
-        recursos\nO coração do mosaico de recursos é a visão geral de todos os recursos
-        do distrito ou do grupo de trabalho. Pode simplesmente inspirar-se na diversidade
-        do seu grupo ou pesquisar recursos específicos. Podes clicar em qualquer recurso
+        impulsos a um sistema alimentar sustentável e fortalecer o movimento de foodsharing
+        a longo prazo, é preciso mais do que apenas salvar. Cada um de nós traz recursos
+        diferentes, ou seja, *habilidades*, *objetos* ou *contatos* que, por si só,
+        muitas vezes ficam ocultos e sem uso. Juntos, porém, esses recursos podem
+        se tornar visíveis e utilizáveis – como peças individuais de um mosaico que,
+        juntas, formam uma grande imagem. O mosaico de recursos pode tornar essa diversidade
+        visível. Assim, cria espaço para novas ideias de projetos, colaboração e apoio
+        mútuo além da recuperação. \n\n##### A visão geral dos recursos\nO coração
+        do mosaico de recursos é a visão geral de todos os recursos do distrito ou
+        do grupo de trabalho. Pode simplesmente inspirar-se na diversidade do teu
+        grupo ou pesquisar recursos específicos. Podes clicar em qualquer recurso
         para obter mais informações sobre ele. Também podes salvar recursos como favoritos
         para encontrá-los mais facilmente mais tarde. \nA cor de um recurso mostra
         o quanto a pessoa gosta de o partilhar: os recursos oferecidos com muito prazer
         aparecem em cores fortes e brilhantes, enquanto os recursos menos partilhados
         são apresentados em tons cinzentos.\n \n\n##### Pesquisar, filtrar e ordenar\n\
         Para encontrar rapidamente os recursos adequados, tem várias opções de filtragem
-        à sua disposição.\n- Pode filtrar por **categorias** específicas ou pesquisar
+        à tua disposição.\n- Pode filtrar por **categorias** específicas ou pesquisar
         diretamente por determinados **termos**.\n- **Apenas utilizadores ativos**
         oculta os recursos de utilizadores que não iniciaram sessão nos últimos 30
         dias ou que estão atualmente dorminhocos.\n- No mosaico de recursos, são exibidos
@@ -4753,7 +4744,7 @@ help:
         No campo de entrada, deve introduzir o nome do ícone que pretende utilizar,
         por exemplo, «*walking*» ou «*shopping-cart*».
 
-        Pode verificar se a sua entrada está correta através da pré-visualização.
+        Pode verificar se a tua entrada está correta através da pré-visualização.
 
         Se não introduzir nenhum ícone, será utilizado automaticamente o ícone padrão
         para selos «*tag*».
@@ -4843,15 +4834,15 @@ help:
         '
     change_verified_data:
       title: 'Solicitar alteração de dados verificados'
-      md: 'Para atuar como o Foodsaver, é importante que os dados no seu perfil estejam
+      md: 'Para atuar como o Foodsaver, é importante que os dados no teu perfil estejam
         corretos. Antes de poder salvar alimentos, eles serão comparados com o teu
         documento de identidade pelos embaixadores. Portanto, não é possível alterar
-        simplesmente o seu nome e data de nascimento.
+        simplesmente o teu nome e data de nascimento.
 
         ---
 
         Caso seja necessário alterar um desses campos, pode entrar em contacto com
-        um embaixador do seu distrito. Ele poderá fazer a alteração por si. Para saber
+        um embaixador do teu distrito. Ele poderá fazer a alteração por si. Para saber
         quem é o embaixador do teu distrito, consulte o [fórum do distrito]({link})
         na barra lateral esquerda.
 
@@ -4965,7 +4956,7 @@ resource_mosaic:
     o dono não faz mais parte deste distrito ou grupo, ou o teu link está errado.'
   message_modal:
     intro: 'Envie uma mensagem ao {owner} sobre este recurso:'
-    request_for: 'Pedido sobre o seu recurso'
+    request_for: 'Pedido sobre o teu recurso'
     request_sent: 'O teu pedido foi enviado.'
     placeholder: 'Estou interessado no teu recurso porque...'
     polite_info: 'Lembre-se: ninguém é obrigado a partilhar um recurso consigo. Por
@@ -5179,7 +5170,7 @@ oauth:
       title: 'Acessar as suas afiliações'
       md: 'Acesse uma lista dos distritos e grupos de trabalho dos quais faz parte.'
     email:
-      title: 'Acessar o teu endereço de e-mail'
+      title: 'Acessar a tua morada de e-mail'
     profile:
       title: 'Acessar os dados do teu perfil'
       md: 'Acesso ao teu nome, foto de perfil e outros dados do perfil.'
@@ -5187,7 +5178,7 @@ oauth:
 contact_page:
   title: 'Contacto e suporte'
   regions:
-    link: 'Pra a visão geral'
+    link: 'Para a visão geral'
     title: 'Grupos locais'
     text: 'Caso tenhas alguma questão sobre um distrito, entra em contacto diretamente
       com os responsáveis pelo mesmo.'
@@ -5244,7 +5235,7 @@ team_page:
     text: 'Juntos, olhamos para trás e vemos uma história de sucesso do foodsharing.
       Gostaríamos de aproveitar esta oportunidade para agradecer a todas as pessoas
       que contribuíram para isso, trabalhando em tempo integral como voluntários ou
-      dedicando grande parte do seu tempo à equipa organizadora ou à direção!
+      dedicando grande parte do teu tempo à equipa organizadora ou à direção!
 
       '
   board_member:
@@ -5267,7 +5258,7 @@ team_page:
 donation_banner:
   action_button: 'Doe aqui!'
   amount: 'Total de doações'
-  info_button: 'Pra onde vai a minha doação?'
+  info_button: 'Para onde vai a minha doação?'
 debug:
   title: 'Página de Debug'
   info: 'Esta é uma página de depuração para fins de teste. Se não sabes o que faz
