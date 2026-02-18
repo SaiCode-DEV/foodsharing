@@ -57,7 +57,7 @@ import { getImageMetadata } from '@/api/uploads'
 
 export default {
   props: {
-    image: { type: [String, Object], required: true },
+    image: { type: String, required: true },
     heightInPx: { type: Number, default: 150 },
     minWidthInPx: { type: Number, default: 75 },
     maxWidthInPx: { type: Number, default: 300 },
