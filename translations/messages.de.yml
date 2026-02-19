@@ -3082,6 +3082,7 @@ releases:
   "2020-05": "Release „Apfelsine“ (Mai 2020)"
 
 storestatus:
+  placeholder: "Status"
   "0": "Status unklar"
   "1": "Es besteht noch kein Kontakt"
   "2": "Verhandlungen laufen"
@@ -3109,6 +3110,7 @@ storelist:
  cooperating: "In Kooperation"
  notcooperating: "Will nicht kooperieren"
  nowaste: "Wirft nichts weg"
+ filter_placeholder: "Name/Adresse"
  emptyfilters: "Filter leeren"
  map: "Karte"
  managing: "Betriebe für die du verantwortlich bist"

@@ -27,7 +27,7 @@
                   v-model.trim="state.filterText"
                   type="text"
                   class="form-control form-control-sm"
-                  placeholder="Name/Adresse"
+                  :placeholder="$t('storelist.filter_placeholder')"
                 >
               </label>
             </div>
@@ -166,7 +166,7 @@ export default {
         filterStatus: null,
       },
       statusOptions: [
-        { value: null, text: 'Status' },
+        { value: null, text: this.$t('storestatus.placeholder') },
         { value: 1, text: this.$t('storestatus.1') }, // CooperationStatus::NO_CONTACT
         { value: 2, text: this.$t('storestatus.2') }, // CooperationStatus::IN_NEGOTIATION
         { value: 4, text: this.$t('storestatus.4') }, // CooperationStatus::DOES_NOT_WANT_TO_WORK_WITH_US
