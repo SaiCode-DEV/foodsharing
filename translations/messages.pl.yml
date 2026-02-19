@@ -463,7 +463,7 @@ settings:
       rename_failed: ''
       deletion_failed: ''
       registration_failed: ''
-      operation_aborted: ''
+      operation_aborted: 'Operacja przerwana'
     unnamed_passkey: ''
     security_keys_description: ''
     mfa_enabled: 'Uwierzytelnianie wieloskładnikowe aktywowane'
@@ -504,7 +504,7 @@ settings:
       qr_code: Skanuj kod QR
       confirm: Potwierdź aktywację
       backup_codes: ''
-      tutorial: ''
+      tutorial: 'Tutorial'
     qrcode:
       title: Skanuj kod QR
       scan_instruction: ''
@@ -518,11 +518,12 @@ settings:
       logout_notice: ''
     generated_code_label: Wygenerowany kod
     activate: Aktywuj
-    next: ''
+    next: 'Dalej'
     danger: ''
     explanation: ''
     secret_label: 'Alternatywnie możesz podać ten kod ręcznie:'
-    failed: ''
+    failed: 'Nie można było aktywować uwierzytelniania dwuskładnikowego, podano błędny
+      kod lub hasło.'
     apps:
       description: ''
       title: ''
@@ -537,17 +538,18 @@ settings:
       label: ''
     further_info: ''
     password_info: ''
-    success: ''
+    success: 'Pomyślnie aktywowano uwierzytelnianie dwuskładnikowe.'
     title: 'aktywuj uwierzytelnienie dwuskładnikowe'
   two_fa_disable:
     deactivate: Deaktywuj
     confirm_text: ''
-    danger: ''
+    danger: 'Jeśli deaktywujesz uwierzytelnianie dwuskładnikowe, twoje konto będzie
+      mniej bezpieczne.'
     admin_description: ''
     failed: ''
     warning: ''
-    title: ''
-    success: ''
+    title: 'Deaktywuj uwierzytelnianie dwuskładnikowe'
+    success: 'Pomyślnie deaktywowano uwierzytelnianie dwuskładnikowe.'
   email_change:
     title: Zmień adres email
     explanation_password: Potwierdź zmianę swoim aktualnym hasłem
@@ -1746,12 +1748,12 @@ pickup:
     freeSlots: '{slots} wolne'
     cols:
       time: Czas
-      slots: ''
+      slots: 'Sloty'
       store: ''
     status:
       pending: NIepotwierdzony
       confirmed: Potwierdzony
-      option: ''
+      option: 'Dostępny slot'
     tab:
       options:
         empty: ''
@@ -1870,11 +1872,11 @@ calendar:
     pickup:
       unconfirmed: niepotwierdzony
       foodsavers: ''
-      freeSlots: ''
-      description: ''
+      freeSlots: '{count} sloty/ów są/jest jeszcze wolne/ych.'
+      description: 'foodsharing-Slot w <a href="{url}">{store}</a>'
       name:
         giving: ''
-        orga: ''
+        orga: '{store} Slot'
         pickup: ''
     updated: '(ostatnia aktualizacja: {date})'
     event:
@@ -1940,7 +1942,7 @@ forum:
     too_big_to_mail: ''
     all_hidden: 'Wszystkie posty w tym wątku są ukryte.'
     subscriptions:
-      subscribed: ''
+      subscribed: 'subskrybowany'
       subscribe: 'Subskrybuj'
     with_mail: ''
     bottom: 'ograniczona widoczność'
@@ -1998,6 +2000,7 @@ chat:
   conversations: Konwersacje
   confirm_draft_discard: ''
   open_multi_chat: ''
+  open_full_view: Otwórz pełny widok
 wall:
   see-more: Pokaż wszystkie posty
   delete: Usuń post
@@ -2277,10 +2280,10 @@ bell:
   delete_store_title: ''
   store_new_request_title: ''
   store_new_title: ''
-  store_cr_times: ''
+  store_cr_times: 'Dostosowano sloty'
   store_change_regular_pickup_times:
-    many: ''
-    one: ''
+    many: 'Dostosowano sloty'
+    one: 'Dostosowano slot'
   foodsaver_verified: ''
   store_new: ''
   betrieb_fetch: ''
@@ -2341,7 +2344,7 @@ pickuplist:
   error_loadingPickup: 'Ładowanie slotów nie powiodło się: '
   NumberOfSlots_table_header: 'Liczba slotów'
   error_changeSlotCount: 'Zmiana liczby slotów nie powiodła się: '
-  header_for_district: ''
+  header_for_district: 'Podział slotów w {bezirk} '
   tooslow: ''
   NumberOfAppointments_table_header: ''
   really_delete_last_slot:

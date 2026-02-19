@@ -179,7 +179,7 @@ store:
     search: 'Mostrar ações selecionadas'
     selected_log_types: '{amount} tipos de ação selecionados'
     title: 'Protocolo de local'
-    message_saved_info: A tua mensagem será guardada no protocollo de local.
+    message_saved_info: A tua mensagem será guardada no registo de local.
   signInDateTime: 'Data de inscrição'
   sm:
     reloadPage: 'Recargar'
@@ -197,7 +197,7 @@ store:
     filterSleeping: 'dorminhocos'
     filterJumper: 'substitutos'
     filterQuizSM: 'Questinário aprovado para responsáveis por equipas'
-    reallyRemove: 'Desejas realmente remover {name} desta equipa do local?'
+    reallyRemove: 'Desejas realmente remover {name} desta equipa?'
     makeJumper: 'Na lista de substitutos'
     reloadRequired: 'Para atualizar as informações do equipa:'
     makeRegularTeamMember: 'Adicionar na equipa'
@@ -627,18 +627,18 @@ dashboard:
   source_foodsharepoint: 'Cantinhos alimentares {0}'
   foodsharer: 'Divirta-se a salvar!'
   my:
-    regions: 'Os teus distritos'
+    regions: 'Teus distritos'
     users: 'Foodsavers'
     polls: 'Votações'
     pending: 'Consultas feitas em'
     no-stores: 'Ainda não faz parte de nenhuma equipa corporativa.'
-    stores: 'Os teus locais'
+    stores: 'Teus locais'
     buddies: 'Pessoas que conheces'
     baskets: 'Cabazes alimentares'
     events: 'Os teus eventos'
-    groups: 'Os teus grupos'
-    jumping_stores: 'Os teus locais substitutos'
-    managing_stores: 'As tuas responsabilidades por equipas'
+    groups: 'Teus grupos'
+    jumping_stores: 'Teus locais substitutos'
+    managing_stores: 'Tuas responsabilidades por equipas'
     pickups: Lugares registados
     pickupOptions: Opções de inscrição
   greeting_short: 'Olá {name}!'
@@ -653,7 +653,7 @@ dashboard:
   source_forum: 'Fórum {0}'
   save_selection: 'Salvar configurações'
   updates_title_all: 'Resumo de atualizações'
-  no_more_updates_forum: 'Não há mais entradas no fórum'
+  no_more_updates_forum: 'Não há mais publicações no fórum'
   chooseHomeRegion: 'Por favor, selecione um distrito de origem.'
   deleted_user: 'Utilizador(a) desconectado(a)'
   source_friendWall: 'Mural de {0}'
@@ -683,7 +683,7 @@ dashboard:
   title: 'Painel de controlo'
   polls: 'As tuas votações em curso'
   source_event: 'Evento {0}'
-  general-dates: Os teus lugares reservados
+  general-dates: Teus lugares reservados
 storeview:
   groceries:
     select_tag: 'Selecione a categoria de alimentos'
@@ -938,7 +938,7 @@ basket:
   request_empty: 'O texto da tua solicitação não pode estar em branco.'
   request: 'Solicitar um cabaz alimentar'
   no_nearby: 'Não há cabazes alimentares num raio de {radius} km'
-  add: 'Criar uma cabaz alimentar'
+  add: 'Criar um cabaz alimentar'
   not-allowed: 'Não tens permissão para editar este cabaz alimentar.'
   not_found: 'O cabaz alimentar já não existe.'
   delete: 'Excluir o cabaz alimentar'
@@ -1033,9 +1033,9 @@ menu:
     fundamentals: 'Princípios'
     selfservice: 'Autoserviço'
     forum: 'Fórum'
-    your_groups: 'Os teus grupos'
+    your_groups: 'Teus grupos'
     other_stores: 'Outros locais'
-    your_stores: 'Os teus locais'
+    your_stores: 'Teus locais'
     helpneeded: 'procura-se apoio urgente'
     forcompanies: 'Para empresas'
     team: 'Equipa'
@@ -1101,7 +1101,7 @@ login:
     caso o estejas a usar.'
   submit_btn: 'Iniciar sessão'
   login_button_label: 'Iniciar sessão'
-  password: 'palavra-passe'
+  password: 'passe'
   email_address: 'Morada de e-mail'
   logout: 'Terminar sessão'
   save_password: 'Salvar a palavra-passe'
@@ -1171,7 +1171,7 @@ profile:
       isso não é tecnicamente possível. Pode enviar uma notificação por e-mail a qualquer
       momento para os responsáveis locais por este caso.'
     sent: 'A denúncia foi enviada'
-    inthisblog: 'nesta entrada do blogue'
+    inthisblog: 'nesta publicação do blogue'
     oldReportButtonTextPart3: 'Mais informações sobre o sistema da denúncia podem
       ser encontradas em'
     info: 'Para que a tua denúncia possa ser processada da melhor forma possível,
@@ -1354,7 +1354,7 @@ profile:
   mediationRequest: 'Solicitar mediação'
   go: 'Abrir perfil'
   about_me_intern: 'Sobre mim'
-  sleeping: 'tem um dorminhoco por tempo indeterminado'
+  sleeping: 'Tenho um dorminhoco por tempo indeterminado'
   reportRequest: 'Enviar denúncia'
   cantdeletethis: 'Não é possível excluir eventos individuais!'
   homeDistrictHistory:
@@ -1369,7 +1369,7 @@ profile:
     workgroups_admin: Envolvo-me como pessoa de contacto destes grupos
     workgroups_member: em conjunto nos seguintes grupos de trabalho
     no_common_workgroups: em nenhum grupo de trabalho comum
-    home_region_from: O meu distrito de origem
+    home_region_from: Meu distrito de origem
     kam_for: 'Responsável pela coordenação das seguintes cadeias comerciais:'
   tab_navigation:
     profile: Perfil
@@ -1387,7 +1387,7 @@ profile:
       filterActive: membro
       filterManage: Responsável por equipas
       filterJumper: Substituto
-  sleeping_info_from_until: tem um dorminhoco de {from} até {until}
+  sleeping_info_from_until: Tenho um dorminhoco de {from} até {until}
   choosereasonnostore: Não se aplica a nenhum local
   chooseantherstore: Refere-se a um local não listado
   editNameInfo: Tenha em atenção que os campos para nome e apelido devem ser 
@@ -1626,7 +1626,7 @@ group:
     tooltip_function_region332: 'Os membros deste grupo de trabalho têm acesso à lista
       de cadeias'
     tooltip_function_region327: 'Os administradores deste grupo de trabalho podem
-      editar as entradas do blogue'
+      editar as publicações do blogue'
     tooltip_function_region2287: 'Os administradores deste grupo de trabalho podem
       editar o conteúdo da página inicial'
     tooltip_function_region341: 'Os administradores deste grupo de trabalho podem
@@ -1892,7 +1892,7 @@ pickup:
     cancelar este lugar quando todas as inscrições forem canceladas.'
   same_day_hint: 'O evento a seguir ocorrerá no mesmo dia:'
   team_message_send_and_leave: 'Enviar e retirar a inscrição'
-  slot_remove: 'Cancelar um lugar'
+  slot_remove: 'Cancelar lugar'
   description_max_length_info: 'Comprimento máximo da descrição alcançado (100 caracteres)'
   really_join_date: 'Gostaria de se inscrever de forma definitiva no dia {date}?'
   signout_history:
@@ -1916,9 +1916,9 @@ pickup:
     local.'
   delete_title: 'Excluir esses lugares'
   signout_info: 'As tuas recolhas pendentes serão eliminadas.'
-  leave_team_message_template: '{data}, não posso recolhê-lo afinal e, por isso, cancelei
-    a minha inscrição novamente. …'
-  leave_pickup_message_team: 'Notificar a equipa'
+  leave_team_message_template: 'Infelizmente, não poderei participar no {data}, pelo
+    que terei de cancelar o meu lugar. …'
+  leave_pickup_message_team: 'Notificar equipa'
   leave_team_message_title: 'Mensagem á equipa'
   signout_confirm: 'Tem a certeza?'
   take_empty_slot: 'Inscrever-me aqui'
@@ -2667,7 +2667,7 @@ settings:
       O teu programa de calendário deve **sincronizar** este calendário regularmente. Só assim os novos lugares aparecerão e os eventos cancelados deixarão de aparecer. Se, em vez disso, descarregares o teu calendário atual, este conterá apenas os teus eventos atuais e não será atualizado automaticamente.
       Encontras mais informações [aqui no Wiki]({calendarUrl})
     pickup:
-      label: É necessário incluir lugares , por exemplo para recolhas?
+      label: É necessário incluir lugares , p. ex. para recolhas?
       "true": Sim, mostrar os meus lugares no calendário
       "false": Não, não mostrar os lugares no calendário
     event:
@@ -2862,7 +2862,7 @@ settings:
     never_used: Nunca utilizado
     delete: Excluir
     rename: Renomear
-    device_name_placeholder: por exemplo iPhone, YubiKey, Laptop
+    device_name_placeholder: p. ex. iPhone, YubiKey, Laptop
     other_domain_info: Esta chave de segurança foi registada em {domain} e não 
       pode ser utilizada no domínio atual.
     domain_info: As chaves de segurança são específicas para cada domínio. Tens 
@@ -2871,7 +2871,7 @@ settings:
     register_modal:
       title: Registar nova chave de segurança
       device_name_label: Nome do dispositivo
-      device_name_placeholder: por exemplo Phone, YubiKey, Laptop
+      device_name_placeholder: p. ex. Phone, YubiKey, Laptop
       device_name_description: Insira um nome para identificar esta chave de 
         segurança
       cancel: Cancelar
@@ -2902,9 +2902,9 @@ settings:
     disable_button: Desativar 2FA
     close: Fechar
     totp_token_label: Código
-    totp_token_placeholder: por exemplo 458324
+    totp_token_placeholder: p. ex. 458324
     totp_required: Tens de introduzir um código
-    password_label: Palavra-passe
+    password_label: passe
     password_placeholder: A tua palavra-passe atual
     password_required: Tens de introduzir a tua palavra-passe
     cancel: Cancelar
@@ -2915,14 +2915,12 @@ settings:
       de introduzir um código adicional à tua palavra-passe sempre que iniciares
       um sessão. Podes obter esse código através de uma aplicação de 
       autenticação. Além disso, ser-te-ão apresentados os chamados «códigos de 
-      backup», que deves guardar em local seguro para, em caso de emergência 
-      (por exemplo, perda do smartphone), continuares a ter acesso à tua conta 
-      de usuario.
+      backup», que deves guardar em local seguro para, em caso de emergência (p.
+      ex. perda do smartphone), continuares a ter acesso à tua conta de usuario.
     explanation: A autenticação de dois fatores é opcional, mas é recomendada 
       pelos principais especialistas em segurança sempre que possível.
     further_info: 'Mais informações sobre a autenticação de dois fatores podem encontrar-te,
-      por exemplo, aqui: https://invoicexpress.com/blog/2fa-autenticacao-dois-fatores/
-      .'
+      p.ex. aqui: https://invoicexpress.com/blog/2fa-autenticacao-dois-fatores/ .'
     tabs:
       tutorial: instruções
       qr_code: Digitalizar o código QR
@@ -2952,8 +2950,8 @@ settings:
       info: Guarde estes códigos num local seguro. Qualquer pessoa que tenha 
         acesso a estes códigos e conheça a tua palavra-passe pode iniciar sessão
         na tua conta de utilização.
-      save_instruction: Guarde esses códigos num local seguro (por exemplo, num 
-        gestor de palavras-passe ou em papel).
+      save_instruction: Guarde esses códigos num local seguro (p. ex. num gestor
+        de credenciais ou em papel).
       confirmation: Guardei os códigos de backup em local seguro
       must_confirm: Tens de confirmar que guardou os códigos de backup
     confirm:
@@ -2993,9 +2991,9 @@ settings:
     failed: Não foi possível desativar a autenticação de dois fatores, pois o 
       código ou a palavra-passe foram introduzidos incorretamente.
     admin_description: Deseja desativar a autenticação de dois fatores para 
-      {user}? Isso só faz sentido em casos excepcionais, por exemplo, caso o 
-      usuário não tenha mais acesso ao teu dispositivo de dois fatores e também 
-      tenha perdido os códigos de backup.
+      {user}? Isso só faz sentido em casos excepcionais, p. ex. caso o usuário 
+      não tenha mais acesso ao teu dispositivo de dois fatores e também tenha 
+      perdido os códigos de backup.
   email_change:
     title: Alterar morada de e-mail
     explanation: Aqui podes alterar a morada de e-mail com a qual te registaste.
@@ -3063,7 +3061,7 @@ terminology:
     "3": 'Embaixador(a)'
   statistic: 'Estatísticas'
   n_foodsaver: '{count} Foodsavers'
-  admins: 'Administradores/as'
+  admins: 'Administradores'
   baskets: 'Cabazes alimentares'
   foodsharer:
     f: 'Foodsharer'
@@ -3319,7 +3317,7 @@ blog:
     delete: 'Artigo excluido'
     new: 'O artigo foi criado'
   edit: 'Editar um publicação do blogue'
-  manage: 'Gerir entradas de blogue'
+  manage: 'Gerir publicações de blogue'
   newTitle: 'Niovo artigo para {region}'
   all: 'Todas as publicações do blogue'
   actions: 'Açioes'
@@ -3363,7 +3361,7 @@ globals:
     groups_menu: 'Menu do grupo'
     polls: 'Votações'
   save: 'Salvar'
-  show_more: 'Mostra mais'
+  show_more: 'Mostrar mais'
   close: 'Fechar'
   show_less: 'Mostrar menos'
   you: 'Tu'
@@ -3739,11 +3737,11 @@ events:
     multiday: 'O evento dura vários dias'
     online: 'por teleconferência ou online'
     date: 'Data'
-    regions: 'Os teus distritos'
+    regions: 'Teus distritos'
     title: 'Registar novo evento'
     who: 'Para que distrito ou grupo de trabalho o evento deve ser criado?'
     isPublic: 'O evento é publico'
-    groups: 'Os teus grupos de trabalho'
+    groups: 'Teus grupos de trabalho'
     offline: 'Totalmente normal na vida real'
     public: 'O evento é publico?'
     desc: 'Onde é o evento?'
@@ -4218,7 +4216,7 @@ filterlist:
   some_in_all: '({some} de {all})'
 wall:
   name: 'Mural'
-  placeholder: 'Criar nova entrada …'
+  placeholder: 'Criar nova publicação…'
   error-create: 'A tua publicaçãonão pôde ser guardada.'
   see-more: 'Ver todas as publicações'
   info-logging: 'Tenha em atenção que, para evitar conflitos, o conteúdo e a pessoa
@@ -4230,7 +4228,7 @@ wall:
   confirm-deletion: 'A seguinte publicação do {name} deve mesmo ser removida no mural?'
   delete: 'Excluir a contribuição'
   delete_confirmation:
-    text: Quer mesmo excluir esta entrada de {author}?
+    text: Quer mesmo excluir esta publicação de {author}?
     title: Excluir uma publicação no mural?
 betrieb_kategorie_id: 'Categoria'
 success: 'Completado com sucesso'
@@ -4383,11 +4381,11 @@ push_notifications:
 savewithus: 'Ajude a salvar!'
 bezirk_id: 'Para qual região o artigo é relevante?'
 sidenav:
-  yourgroups: 'Os teus grupos'
+  yourgroups: 'Teus grupos'
   localgroups: 'Grupos regionais'
   countryspecific: 'Grupos em todo o país'
   superregional: 'Suprarregional'
-  yourregions: 'Os teus distritos'
+  yourregions: 'Teus distritos'
 explanation: 'Explicação'
 status: 'Estado atual'
 nofp: 'Nemhum pontos de erro (pergunta de brincadeira)'
@@ -4600,8 +4598,8 @@ help:
 
         '
     storeLog:
-      md: 'O protocollo de local é uma forma de acompanhar as atividades num local.
-        Pode ajudar a resolver conflitos ou corrigir erros acidentais.
+      md: 'O registo de local é uma forma de acompanhar as atividades num local. Pode
+        ajudar a resolver conflitos ou corrigir erros acidentais.
 
         ---
 
@@ -4620,7 +4618,7 @@ help:
         ###### Acesso
 
         Apenas quem também pode administrar o local tem acesso a isso. Para Foodsaver
-        e substitutos normais, o protocollo de local não é visível.
+        e substitutos normais, o registo de local não é visível.
 
         ---
 
@@ -4631,7 +4629,7 @@ help:
         resultados sejam exibidos.
 
         '
-      title: 'Protocollo de local'
+      title: 'Registo de local'
     pickupOptions:
       title: 'Possibilidades de inscrição'
       md: 'A secção *Possibilidades de inscrição* mostra-lhe uma visão geral de todos
@@ -5125,7 +5123,7 @@ oauth:
     delete_error: 'Erro ao excluir'
     redirect_uris_help: 'URLs de callback válidas após a autorização (uma por linha)'
     confirm_delete: 'Excluir cliente?'
-    confidential_client: 'Cliente confidencial (ex.: aplicação de servidor)'
+    confidential_client: 'Cliente confidencial (p. ex. aplicação de servidor)'
     regenerate_secret: 'Gerar novo client secret'
     create_success: 'Client criado com sucesso'
     region_restriction_tooltip: 'Só os membros de certos distritos podem se autorizar'
@@ -5143,8 +5141,8 @@ oauth:
     secret_save_warning: 'Por favor, salva este secret agora. Ele não vai ser mostrado
       de novo!'
     confidential_help: 'Os clientes confidenciais podem salvar um segredo com segurança.
-      Os clientes públicos (por exemplo, navegadores ou aplicativos móveis) não podem
-      fazer isso.'
+      Os clientes públicos (p. ex. navegadores ou aplicativos móveis) não podem fazer
+      isso.'
     regenerate_secret_warning: 'O secret antigo ficará inválido!'
     edit_client: 'Editar cliente'
     scopes: 'Áreas'
