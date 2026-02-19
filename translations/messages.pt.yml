@@ -402,7 +402,7 @@ bell:
   store_request_accept_wait_title: '{name}'
   forum_answer_title: '{forum}'
   buddy_request_title: 'Conheces {name}?'
-  store_new_request_title: 'Nova aplicação para a equipa'
+  store_new_request_title: 'Nova solicitação para a equipa'
   forum_new_thread: 'de {user} no fórum {forum}'
   store_new_title: 'Novo local'
   sharepoint_activate_title: 'Novo cantinho alimentar em {bezirk}'
@@ -427,7 +427,7 @@ bell:
   foodsaver_verified_title: 'Estas verificado!'
   fs_sleepmode_title: 'Novo dorminhoco'
   forum_mention_title: '{user} mencionou-te ({forum})'
-  store_new_request: 'Aplicação para {name}'
+  store_new_request: 'Solicitação para {name}'
   sharepoint_activate: '{name} foi internado'
   passgen_failed_title: 'Não foi possível criar o teu cartão de membro'
   fs_sleepmode: '{name} {nachname} agora está inactivo'
@@ -4042,6 +4042,7 @@ storestatus:
   "0": 'Estado incerto'
   "4": 'Não quer cooperar'
   "2": 'As negociações estão em curso'
+  placeholder: Estado
 markdown_input:
   tooltip:
     orderedList: 'lista numerada'
@@ -4118,6 +4119,7 @@ storelist:
   addressdata: 'Direção'
   fetching: 'Lojas onde recolhes alimentos'
   actions: Ações
+  filter_placeholder: Nome/Morada
 activitypost:
   quickreply_button: 'Envia agora<br>ou <code class="key">pressionar a <code class="key">tecla
     enter.'
