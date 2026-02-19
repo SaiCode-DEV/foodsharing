@@ -44,7 +44,9 @@ plugins.push(
         const stats = compiler.getStats().toJson()
         const data = {}
         for (const [entryName, { assets }] of Object.entries(stats.entrypoints)) {
-          data[entryName] = assets.map(asset => join(stats.publicPath, asset.name))
+          data[entryName] = assets
+            .filter(asset => !/\.hot-update\.js(on)?$/i.test(asset.name))
+            .map(asset => join(stats.publicPath, asset.name))
         }
         // We do not emit the data like a proper plugin as we want to create the file when running the dev server too
         const json = `${JSON.stringify(data, null, 2)}`
@@ -92,8 +94,8 @@ module.exports = merge(webpackBase, {
       ? {
           filename: 'js/[name].js',
           chunkFilename: 'js/[chunkhash].js',
-          hotUpdateChunkFilename: '[id].[hash].hot-update.js',
-          hotUpdateMainFilename: '[hash].hot-update.json',
+          hotUpdateChunkFilename: 'hot/[id].[hash].hot-update.js',
+          hotUpdateMainFilename: 'hot/[hash].hot-update.json',
         }
       : {
           filename: 'js/[name].[fullhash].js',
