@@ -32,17 +32,19 @@ export class Database {
   ): Promise<boolean> {
     const conn = await this.connect();
 
-    const whereClauses = Object.entries(criteria)
+    const values: any[] = [];
+
+    const whereClauses = Object.entries(this.omitUndefined(criteria))
       .map(([key, value]) => {
         if (value === null) {
           return `\`${key}\` IS NULL`;
         }
+        values.push(value);
         return `\`${key}\` = ?`;
       })
       .join(" AND ");
 
     const query = `SELECT COUNT(*) as count FROM \`${table}\` WHERE ${whereClauses}`;
-    const values = Object.values(criteria).filter((value) => value !== null);
 
     const [rows] = await conn.execute(query, values);
     const count = (rows as any)[0].count;
@@ -68,7 +70,7 @@ export class Database {
     let values: any[] = [];
 
     if (criteria) {
-      whereClauses = Object.entries(criteria)
+      whereClauses = Object.entries(this.omitUndefined(criteria))
         .map(([key, value]) => {
           if (typeof value === "string" && value.includes("%")) {
             return `\`${key}\` LIKE ?`;
@@ -106,7 +108,7 @@ export class Database {
     let values: any[] = [];
 
     if (criteria) {
-      whereClauses = Object.entries(criteria)
+      whereClauses = Object.entries(this.omitUndefined(criteria))
         .map(([key, value]) => {
           if (typeof value === "string" && value.includes("%")) {
             return `\`${key}\` LIKE ?`;
@@ -161,5 +163,11 @@ export class Database {
     if (this.connection) {
       await this.connection.end();
     }
+  }
+
+  protected static omitUndefined<T extends object>(obj: T): Partial<T> {
+    return Object.fromEntries(
+      Object.entries(obj).filter(([, value]) => value !== undefined),
+    ) as Partial<T>;
   }
 }

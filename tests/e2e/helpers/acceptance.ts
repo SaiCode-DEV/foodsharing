@@ -115,17 +115,6 @@ export class AcceptanceHelper {
     );
     await this.page.waitForTimeout(1000);
   }
-
-  async clickChatSendButton() {
-    const mobileMenuButton = this.page.locator("button.navbar-toggler");
-
-    if (await mobileMenuButton.isVisible()) {
-      const lastSvgButton = this.page.locator(".vac-svg-button").last();
-      await lastSvgButton.click();
-    } else {
-      await this.page.press("#roomTextarea", "Enter");
-    }
-  }
 }
 
 // Define the custom fixtures

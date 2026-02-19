@@ -98,15 +98,15 @@ test.describe("Store invitations", () => {
 
     // Create invited user in the store's region with complete profile
     const invited = await foodsharing.createFoodsaver(null, {
-      name: 'User',
-      nachname: 'Test',
-      geb_datum: '2000-01-01',
-      anschrift: 'Musterstrasse 1',
-      stadt: 'Musterstadt',
-      plz: '12345',
-      lat: '48.123456',
-      lon: '11.123456',
-      photo: 'somephoto.jpg',
+      name: "User",
+      nachname: "Test",
+      geb_datum: "2000-01-01",
+      anschrift: "Musterstrasse 1",
+      stadt: "Musterstadt",
+      plz: "12345",
+      lat: "48.123456",
+      lon: "11.123456",
+      photo: "somephoto.jpg",
       verified: 1,
       bezirk_id: region.id,
     });

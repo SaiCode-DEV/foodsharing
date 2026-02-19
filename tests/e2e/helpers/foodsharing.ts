@@ -1291,6 +1291,7 @@ class Foodsharing {
     userId: number,
     conversationId: number,
     extraParams: any = {},
+    increaseUnreadCount: boolean = true,
   ): Promise<any> {
     const params = {
       foodsaver_id: userId,
@@ -1317,7 +1318,76 @@ class Foodsharing {
       ),
     );
 
+    if (increaseUnreadCount) {
+      const participants =
+        await this.getConversationParticipants(conversationId);
+      for (const participantId of participants) {
+        if (participantId !== userId) {
+          const currentUnread = await this.getUserConversationUnreadStatus(
+            participantId,
+            conversationId,
+          );
+          await this.setUserConversationUnreadStatus(
+            participantId,
+            conversationId,
+            Math.max(1, currentUnread + 1),
+          );
+        }
+      }
+    }
+
     return params;
+  }
+
+  async getConversationsIdsForUser(userId: number): Promise<any[]> {
+    const conversationIds = await Database.grabColumnFromDatabase(
+      "fs_foodsaver_has_conversation",
+      "conversation_id",
+      { foodsaver_id: userId },
+    );
+
+    return conversationIds;
+  }
+
+  async getConversationParticipants(conversationId: number): Promise<number[]> {
+    const results = await Database.grabColumnFromDatabase(
+      "fs_foodsaver_has_conversation",
+      "foodsaver_id",
+      { conversation_id: conversationId },
+    );
+    return results.map(Number);
+  }
+
+  async getUserConversationUnreadStatus(
+    userId: number,
+    conversationId: number,
+  ): Promise<number> {
+    const result = await Database.grabFromDatabase(
+      "fs_foodsaver_has_conversation",
+      "unread",
+      {
+        foodsaver_id: userId,
+        conversation_id: conversationId,
+      },
+    );
+    return result !== undefined ? Number(result) : null;
+  }
+
+  async setUserConversationUnreadStatus(
+    userId: number,
+    conversationId: number,
+    unread: number,
+  ): Promise<void> {
+    await Database.connect().then((conn) =>
+      conn.execute(
+        `
+        UPDATE fs_foodsaver_has_conversation
+        SET unread = ?
+        WHERE foodsaver_id = ? AND conversation_id = ?
+      `,
+        [unread, userId, conversationId],
+      ),
+    );
   }
 
   async createFoodSharePoint(

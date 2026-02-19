@@ -182,7 +182,7 @@ stages:
       command: ["bin/maildev", "--web", "1080", "--smtp", "1025"]
     - name: registry.gitlab.com/foodsharing-dev/images/node:latest
       alias: websocket
-      command: ["/bin/sh", "-c", 'rm $CI_PROJECT_DIR/code_updated; while [ ! -e $CI_PROJECT_DIR/code_updated ]; do sleep 1; done; cd /builds/foodsharing-dev/foodsharing/websocket && yarn ts-node src/index.ts 0.0.0.0']
+      command: ["/bin/sh", "-c", 'if [ -e "$CI_PROJECT_DIR/code_updated" ]; then rm "$CI_PROJECT_DIR/code_updated"; fi; while [ ! -e "$CI_PROJECT_DIR/code_updated" ]; do sleep 1; done; cd /builds/foodsharing-dev/foodsharing/websocket && yarn tsx src/index.ts 0.0.0.0']
     - name: registry.gitlab.com/foodsharing-dev/images/ci/nginx:latest
       alias: nginx
 
@@ -439,7 +439,7 @@ test:playwright:
       command: ["bin/maildev", "--web", "1080", "--smtp", "1025"]
     - name: registry.gitlab.com/foodsharing-dev/images/node:latest
       alias: websocket
-      command: ["/bin/sh", "-c", 'rm $CI_PROJECT_DIR/code_updated; while [ ! -e $CI_PROJECT_DIR/code_updated ]; do sleep 1; done; cd /builds/foodsharing-dev/foodsharing/websocket && yarn ts-node src/index.ts 0.0.0.0']
+      command: ["/bin/sh", "-c", 'if [ -e "$CI_PROJECT_DIR/code_updated" ]; then rm "$CI_PROJECT_DIR/code_updated"; fi; while [ ! -e "$CI_PROJECT_DIR/code_updated" ]; do sleep 1; done; cd /builds/foodsharing-dev/foodsharing/websocket && yarn tsx src/index.ts 0.0.0.0']
     - name: registry.gitlab.com/foodsharing-dev/images/ci/nginx:22
       alias: nginx
   script:

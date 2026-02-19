@@ -1,5 +1,6 @@
 import { defineConfig, devices } from "@playwright/test";
 import os from "os";
+import { Tags } from "helpers/tags";
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -58,14 +59,18 @@ export default defineConfig({
     {
       name: "Desktop Chrome",
       use: { ...devices["Desktop Chrome"] },
+      /* Skip mobile-only tests on desktop */
+      grepInvert: [new RegExp(Tags.MOBILE_ONLY)],
     },
     {
       name: "Desktop dark mode",
       use: { ...devices["Desktop Chrome"], colorScheme: "dark" },
+      grepInvert: [new RegExp(Tags.MOBILE_ONLY)],
     },
     {
       name: "Desktop Firefox",
       use: { ...devices["Desktop Firefox"] },
+      grepInvert: [new RegExp(Tags.MOBILE_ONLY)],
     },
     /* Disable webkit tests for now, as they are quite faulty
     {
@@ -77,6 +82,8 @@ export default defineConfig({
     {
       name: "Mobile Chrome",
       use: { ...devices["Pixel 7"] },
+      /* Skip desktop-only tests on mobile */
+      grepInvert: [new RegExp(Tags.DESKTOP_ONLY)],
     },
     /* Disable Mobile Safari tests for now, as they are quite faulty
     {
