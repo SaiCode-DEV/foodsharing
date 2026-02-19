@@ -3,7 +3,11 @@
     <b-container>
       <b-row>
         <b-col cols="12" xl="3">
-          <ProfileMenu :profile-menu="menu" :current-user-id="currentUserId" />
+          <ProfileMenu
+            :profile-menu="menu"
+            :current-user-id="currentUserId"
+            :is-verified="profileInfos.isVerified"
+          />
           <ProfileInfos :profile-infos="profileInfos" class="pt-2" />
         </b-col>
         <b-col cols="12" xl="9">

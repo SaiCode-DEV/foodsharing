@@ -16,9 +16,17 @@
     </div>
     <b-list-group>
       <b-list-group-item
-        class="list-group-item list-group-item-action text-center"
+        class="list-group-item text-center"
       >
-        <h3>{{ profileMenu.foodSaverName }}</h3>
+        <h3>
+          {{ profileMenu.foodSaverName }}
+          <i
+            id="profile-unverified-alert"
+            v-if="!isVerified"
+            v-b-tooltip="$t('store.isNotVerified')"
+            class="fas fa-user-slash"
+          />
+        </h3>
       </b-list-group-item>
       <b-list-group-item
         v-if="profileMenu.mayAdmin || profileMenu.fsId === profileMenu.fsIdSession"
@@ -44,7 +52,7 @@
         :disabled="loading"
         @click="sendBuddyRequest(profileMenu.fsId)"
       >
-        <i class="fas fa-user-friends fa-fw" /> {{ $t('profile.nav.buddy', { name: profileMenu.foodSaverName }) }}
+        <i class="fas fa-user-plus fa-fw" /> {{ $t('profile.nav.buddy', { name: profileMenu.foodSaverName }) }}
       </b-list-group-item>
       <b-list-group-item
         v-if="profileMenu.fsId !== profileMenu.fsIdSession && buddyType !== buddyTypes.NO_BUDDY"
@@ -53,7 +61,7 @@
         :disabled="loading"
         @click="removeBuddy(profileMenu.fsId)"
       >
-        <i class="fas fa-user-slash fa-fw" /> {{ $t('profile.nav.remove_buddy', { name: profileMenu.foodSaverName }) }}
+        <i class="fas fa-user-xmark fa-fw" /> {{ $t('profile.nav.remove_buddy', { name: profileMenu.foodSaverName }) }}
       </b-list-group-item>
       <b-list-group-item
         v-if="profileMenu.mayHistory"
@@ -190,6 +198,7 @@ const BUDDY_TYPES = Object.freeze({
 export default {
   components: { Avatar, ReportRequest, MediationRequest, ProfileHistoryModal, QuizSessionHistoryModal },
   props: {
+    isVerified: { type: Boolean, required: true },
     profileMenu: { type: Object, required: true },
     currentUserId: { type: Number, default: null },
   },
