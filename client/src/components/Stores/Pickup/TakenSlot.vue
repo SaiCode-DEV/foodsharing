@@ -221,7 +221,7 @@ export default {
     },
     pickupsCount () {
       const userItem = this.storeMember.find(item => item.id === this.profile.id)
-      const pickupsCount = userItem?.stat_fetchcount ?? null
+      const pickupsCount = userItem?.fetchCount ?? null
 
       if (pickupsCount === 0) {
         return this.$t('terminology.no_pickups')
@@ -233,7 +233,7 @@ export default {
       const storeLog = StoreData.getters.getFilteredStoreLog([STORE_LOG_ACTION.SIGN_UP_SLOT], this.profile.id)
       const filteredEntries = storeLog.filter(entry => {
         const thisDate = this.date.toISOString()
-        const entryDateReference = new Date(entry.date_reference).toISOString()
+        const entryDateReference = new Date(entry.dateReference).toISOString()
         return thisDate === entryDateReference
       })
 
@@ -241,7 +241,7 @@ export default {
       let oldestTimestamp = null
 
       filteredEntries.forEach(entry => {
-        const performedAtTimestamp = new Date(entry.performed_at).getTime()
+        const performedAtTimestamp = new Date(entry.performedAt).getTime()
 
         if (!oldestTimestamp || performedAtTimestamp >= oldestTimestamp) {
           oldestTimestamp = performedAtTimestamp
@@ -250,7 +250,7 @@ export default {
       })
 
       if (lastEntryWithOldestDate) {
-        return this.$dateFormatter.dateTime(new Date(lastEntryWithOldestDate.performed_at), { short: true })
+        return this.$dateFormatter.dateTime(new Date(lastEntryWithOldestDate.performedAt), { short: true })
       } else {
         return ''
       }

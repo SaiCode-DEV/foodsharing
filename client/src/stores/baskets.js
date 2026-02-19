@@ -83,7 +83,7 @@ export const useBasketStore = defineStore('basket', {
       }
     },
     async fetchAllCoordinates () {
-      this.allCoordinates = (await getMapMarkers(['baskets'], []))
+      this.allCoordinates = (await getMapMarkers('baskets', []))
     },
     getNearby (amount = 10) {
       return this.nearby?.slice?.(0, amount) ?? null

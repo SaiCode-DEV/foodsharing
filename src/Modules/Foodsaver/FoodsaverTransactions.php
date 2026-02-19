@@ -223,7 +223,7 @@ class FoodsaverTransactions
         $details->hasActiveEmail = $this->loginGateway->isActivated($userId);
 
         if ($details->permissions['mayEditUserProfile']) {
-            $details->coordinates = GeoLocation::createFromArray($data);
+            $details->coordinates = empty($data['lat']) || empty($data['lon']) ? null : GeoLocation::createFromArray($data);
             $details->address = $data['anschrift'];
             $details->city = $data['stadt'];
             $details->postcode = $data['plz'];
