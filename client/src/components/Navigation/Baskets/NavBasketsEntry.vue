@@ -52,7 +52,7 @@
         />
         <small>
           {{ entry.user.name }}
-          {{ $dateFormatter.relativeTime(entry.time) }}
+          {{ $dateFormatter.relativeTime(entry.requestedAt) }}
         </small>
       </div>
       <button

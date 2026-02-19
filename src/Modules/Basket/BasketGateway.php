@@ -100,7 +100,7 @@ class BasketGateway extends BaseGateway
     public function listRequests(int $basket_id): array
     {
         return $this->db->fetchAll('SELECT
-                UNIX_TIMESTAMP(a.time) AS time_ts,
+                a.time AS requestedAt,
                 fs.name AS fs_name,
                 fs.photo AS fs_photo,
                 fs.id AS fs_id,
@@ -294,7 +294,7 @@ class BasketGateway extends BaseGateway
     public function getBasketRequests(int $foodsaverId): array
     {
         $requests = $this->db->fetchAll('SELECT
-				UNIX_TIMESTAMP(a.time) AS time_ts,
+				a.time,
 				fs.name AS fs_name,
 				fs.photo AS fs_photo,
 				fs.id AS fs_id,
@@ -313,7 +313,7 @@ class BasketGateway extends BaseGateway
         ]);
 
         return array_map(function ($request) {
-            return BasketRequest::create($request['id'], new Profile($request, 'fs_'), $request['time_ts']);
+            return new BasketRequest($request['id'], new Profile($request, 'fs_'), Carbon::parse($request['time']));
         }, $requests);
     }
 

@@ -45,7 +45,7 @@
             <a href="#" @click="openChat(request.fs_id)">
               <span class="name">{{ request.fs_name }}</span>
               <Avatar :image="request.fs_photo" :size="50" />
-              <span class="time"> {{ $dateFormatter.dateTime(new Date(request.time_ts * 1000)) }}</span>
+              <span class="time"> {{ $dateFormatter.dateTime(new Date(request.requestedAt)) }}</span>
             </a>
           </li>
         </ul>
