@@ -9,6 +9,8 @@ use Codeception\Test\Unit;
 use DateTime;
 use DateTimeInterface;
 use Exception;
+use Faker\Factory;
+use Faker\Generator;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
@@ -22,6 +24,7 @@ use Tests\Support\UnitTester;
 class StoreGatewayTest extends Unit
 {
     protected UnitTester $tester;
+    private Generator $faker;
     private StoreGateway $gateway;
 
     private array $store;
@@ -57,6 +60,8 @@ class StoreGatewayTest extends Unit
 
     final public function _before(): void
     {
+        $this->faker = Factory::create('de_DE');
+
         $this->gateway = $this->tester->get(StoreGateway::class);
         $this->messageGateway = $this->tester->get(MessageGateway::class);
         $this->region = $this->tester->createRegion(fillMailbox: false);
@@ -508,5 +513,20 @@ class StoreGatewayTest extends Unit
         $this->assertEquals($store5['name'], $result[0]->name);
         $this->assertFalse($result[0]->isManaging);
         $this->assertEquals(MembershipStatus::APPLIED_FOR_TEAM, $result[0]->membershipStatus);
+    }
+
+    public function testListRegionStoresActivePickupRule(): void
+    {
+        $numStoresWithoutPickupRule = $this->faker->numberBetween(1, 4);
+        for ($i = 0; $i < $numStoresWithoutPickupRule; ++$i) {
+            $this->tester->createStore($this->region['id'], extra_params: ['use_region_pickup_rule' => 0]);
+        }
+        $numStoresWithPickupRule = $this->faker->numberBetween(1, 4);
+        for ($i = 0; $i < $numStoresWithPickupRule; ++$i) {
+            $this->tester->createStore($this->region['id'], extra_params: ['use_region_pickup_rule' => 1]);
+        }
+
+        $result = $this->gateway->listRegionStoresActivePickupRule($this->region['id']);
+        $this->assertCount($numStoresWithPickupRule, $result);
     }
 }

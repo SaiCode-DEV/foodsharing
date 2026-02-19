@@ -1113,14 +1113,10 @@ class StoreGateway extends BaseGateway
      */
     public function listRegionStoresActivePickupRule(int $regionId): array
     {
-        $stores = $this->db->fetchAll(
-            'select  id as storeId,
-        				   name as storeName
-					from fs_betrieb b
-					where b.bezirk_id = :regionId
-					  and b.use_region_pickup_rule',
-            [':regionId' => $regionId]
-        );
+        $stores = $this->db->fetchAllByCriteria('fs_betrieb', ['id', 'name'], [
+            'bezirk_id' => $regionId,
+            'use_region_pickup_rule' => 1
+        ]);
 
         return array_map(fn ($store) => new CommonLabel($store['id'], $store['name']), $stores);
     }

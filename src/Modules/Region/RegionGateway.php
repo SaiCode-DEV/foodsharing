@@ -753,7 +753,7 @@ class RegionGateway extends BaseGateway
         ', ['regionId' => $regionId, 'foodsaverId' => $foodsaverId]);
 
         return array_map(
-            fn ($region) => new RegionWithMembership($region['id'], $region['name'], $region['isMember'], $region['type']),
+            fn ($region) => new RegionWithMembership($region['id'], $region['name'], $region['is_member'], $region['type']),
             $regions,
         );
     }
