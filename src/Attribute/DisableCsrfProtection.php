@@ -1,11 +1,7 @@
 <?php
 
-namespace Foodsharing\Annotation;
+namespace Foodsharing\Attribute;
 
-/**
- * @Annotation
- * @Target({"METHOD"})
- */
 #[\Attribute(\Attribute::TARGET_METHOD)]
 class DisableCsrfProtection
 {

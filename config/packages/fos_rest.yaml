@@ -2,9 +2,7 @@ fos_rest:
   param_fetcher_listener: true
   body_listener: true
   body_converter:
-    enabled: true
-    validate: true
-    validation_errors_argument: validationErrors
+    enabled: false
   exception:
     serializer_error_renderer: true
     codes:

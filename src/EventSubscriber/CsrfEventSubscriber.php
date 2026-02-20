@@ -2,8 +2,7 @@
 
 namespace Foodsharing\EventSubscriber;
 
-use Doctrine\Common\Annotations\Reader;
-use Foodsharing\Annotation\DisableCsrfProtection;
+use Foodsharing\Attribute\DisableCsrfProtection;
 use Foodsharing\Lib\Session;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Exception\SuspiciousOperationException;
@@ -14,7 +13,6 @@ use Symfony\Component\HttpKernel\KernelEvents;
 class CsrfEventSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private readonly Reader $reader,
         private readonly Session $session
     ) {
     }
@@ -46,11 +44,9 @@ class CsrfEventSubscriber implements EventSubscriberInterface
         }
 
         $reflectionMethod = $reflectionObject->getMethod($methodName);
-        $methodAnnotation = $this->reader
-            ->getMethodAnnotation($reflectionMethod, DisableCsrfProtection::class);
+        $attributes = $reflectionMethod->getAttributes(DisableCsrfProtection::class);
 
-        if ($methodAnnotation) {
-            // CSRF Protection is disabled for this method
+        if (!empty($attributes)) {
             return;
         }
 

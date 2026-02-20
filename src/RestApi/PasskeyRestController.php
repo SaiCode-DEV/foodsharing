@@ -2,7 +2,7 @@
 
 namespace Foodsharing\RestApi;
 
-use Foodsharing\Annotation\DisableCsrfProtection;
+use Foodsharing\Attribute\DisableCsrfProtection;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Login\DTO\PasskeyAuthenticationRequest;

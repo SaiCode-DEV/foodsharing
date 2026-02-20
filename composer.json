@@ -69,7 +69,6 @@
     "nesbot/carbon": "~3.9.1",
     "pkpass/pkpass": "~2.3.2",
     "robthree/twofactorauth": "~3.0.2",
-    "sensio/framework-extra-bundle": "~6.2.10",
     "sentry/sentry-symfony": "~5.1.0",
     "setasign/fpdi": "~2.6.4",
     "steverhoades/oauth2-openid-connect-server": "~3.0",
