@@ -5,14 +5,16 @@
   >
     <template #title>
       <h5>
-        {{ $t('store.info_container') }} (
-        <i
-          v-b-tooltip="storeCategoryTypeStatus"
-          :class="['fas', storeCategoryTypeIcon]"
-          style="cursor: help;"
-        />
-        <span class="ml-1">{{ $t('map.filters.stores.type.' + categoryType) }}</span>
-        )
+        {{ $t('store.info_container') }}
+        <span class="text-nowrap">(
+          <i
+            v-b-tooltip="storeCategoryTypeStatus"
+            :class="['fas', storeCategoryTypeIcon]"
+            style="cursor: help;"
+          />
+          <span class="ml-1">{{ $t('map.filters.stores.type.' + categoryType) }}</span>
+          )
+        </span>
       </h5>
     </template>
     <div
