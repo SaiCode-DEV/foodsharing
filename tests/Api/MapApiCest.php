@@ -23,6 +23,7 @@ class MapApiCest
     private $basket;
     private $stores;
     private $categories;
+    private $closedStore;
 
     final public function _before(ApiTester $I): void
     {
@@ -52,6 +53,14 @@ class MapApiCest
         // Invalid store (no coordinates)
         $this->stores[] = $I->createStore($this->region['id'], null, null, ['lat' => null, 'lon' => null, 'team_status' => TeamSearchStatus::OPEN->value, 'betrieb_status_id' => CooperationStatus::COOPERATION_ESTABLISHED->value, 'betrieb_kategorie_id' => $this->categories[0]]);
 
+        // Create closed store (for testing status date display)
+        $this->closedStore = $I->createStore($this->region['id'], null, null, [
+            'lat' => 49.1,
+            'lon' => 5.2,
+            'betrieb_status_id' => CooperationStatus::PERMANENTLY_CLOSED->value,
+            'begin' => '2022-09-01',
+            'status_date' => '2025-12-01',
+        ]);
         $this->foodSharePoint = $I->createFoodSharePoint($this->user['id']);
         $this->basket = $I->createFoodbasket($this->user['id']);
     }
@@ -242,6 +251,26 @@ class MapApiCest
             'regionName' => $this->region['name'],
             'categoryType' => StoreCategoryType::ORGA->value,
         ]);
+    }
+
+    final public function closedStoreBubbleContainsStatusDate(ApiTester $I): void
+    {
+        $I->login($this->user['email']);
+        $I->sendGet('api/map/markers/stores/' . $this->closedStore['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson([
+            'id' => $this->closedStore['id'],
+            'cooperationStatus' => CooperationStatus::PERMANENTLY_CLOSED->value,
+        ]);
+
+        $cooperationStart = $I->grabDataFromResponseByJsonPath('$.cooperationStart')[0] ?? null;
+        $statusDate = $I->grabDataFromResponseByJsonPath('$.statusDate')[0] ?? null;
+
+        $I->assertIsString($cooperationStart);
+        $I->assertIsString($statusDate);
+        $I->assertStringStartsWith($this->closedStore['begin'], $cooperationStart);
+        $I->assertStringStartsWith($this->closedStore['status_date'], $statusDate);
     }
 
     final public function canNotFetchStoreBubbleWithoutLogin(ApiTester $I)

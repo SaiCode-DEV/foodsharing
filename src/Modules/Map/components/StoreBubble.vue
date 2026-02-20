@@ -9,8 +9,8 @@
         <div class="card-header">
           <div class="mb-2">
             <store-status-icon :cooperation-status="store.cooperationStatus" />
-            <span>{{ $t('storestatus.' + store.cooperationStatus) }}</span><span v-if="cooperationStartDate">
-              ({{ cooperationStartDate }})
+            <span>{{ $t('storestatus.' + store.cooperationStatus) }}</span><span v-if="statusOrStartDate">
+              ({{ statusOrStartDate }})
             </span>
           </div>
 
@@ -238,6 +238,7 @@ import { pulseError, pulseSuccess } from '@/script'
 import StoreStatusIcon from '../../Store/components/StoreStatusIcon'
 import Avatar from '@/components/Avatar/Avatar.vue'
 import { acceptInvitation, declineInvitation, declineStoreRequest, requestStoreTeamMembership } from '@/api/stores'
+import { COOPERATION_STATUS } from '@/stores/stores'
 import { useUserStore } from '@/stores/user'
 import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 import MapBubbleMixin from './MapBubbleMixin'
@@ -348,12 +349,16 @@ export default {
     hiddenAlertsCount () {
       return Math.max(0, this.allStoreAlerts.length - 1)
     },
-    cooperationStartDate () {
-      return this.store !== null && this.store.cooperationStart
-        ? this.$dateFormatter.format(this.store.cooperationStart, {
-          month: 'long',
-          year: 'numeric',
-        })
+    statusOrStartDate () {
+      if (this.store === null) {
+        return null
+      }
+      // For closed stores (cooperationStatus = 7), show the status date instead of cooperation start date
+      const date = this.store.cooperationStatus === COOPERATION_STATUS.PERMANENTLY_CLOSED && this.store.statusDate
+        ? this.store.statusDate
+        : this.store.cooperationStart
+      return date
+        ? this.$dateFormatter.format(date, { month: 'long', year: 'numeric' })
         : null
     },
     pickupTimeExplanation () {

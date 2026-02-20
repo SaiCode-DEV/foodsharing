@@ -52,6 +52,6 @@ class Api extends Module
                 'password' => $pass
         ]);
         // Re-apply CSRF header after login
-        $rest->haveHttpHeader('X-CSRF-Token', CSRF_TEST_TOKEN);
+        $rest->haveHttpHeader('X-CSRF-Token', \CSRF_TEST_TOKEN);
     }
 }

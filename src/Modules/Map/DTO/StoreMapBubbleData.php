@@ -60,6 +60,11 @@ class StoreMapBubbleData
     public ?DateTime $cooperationStart = null;
 
     /**
+     * The date of the last status change. This is relevant for stores that have been closed or changed their cooperation status.
+     */
+    public ?DateTime $statusDate = null;
+
+    /**
      * Any public information text that will be visible in the store's bubble on the map as well as on the store page.
      */
     public ?string $publicInformation = null;

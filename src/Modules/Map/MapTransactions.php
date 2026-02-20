@@ -80,6 +80,7 @@ class MapTransactions
         }
 
         $mapData->cooperationStart = $store['begin'] ? Carbon::createFromFormat('Y-m-d', $store['begin']) : null;
+        $mapData->statusDate = $store['status_date'] ? Carbon::createFromFormat('Y-m-d', $store['status_date']) : null;
         $mapData->publicInformation = $store['public_info'];
         $mapData->publicPickupTime = PublicTimes::tryFrom(intval($store['public_time'])) ?? PublicTimes::NOT_SET;
         $mapData->teamSearchStatus = TeamSearchStatus::tryFrom($store['team_status']) ?? TeamSearchStatus::CLOSED;
