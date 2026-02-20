@@ -21,11 +21,13 @@ use Foodsharing\Modules\Region\Exceptions\NoVisiblePostException;
 use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\ForumPermissions;
+use Foodsharing\RestApi\DTO\Notifications\NotificationSettingsPatch;
 use Foodsharing\RestApi\Models\Forum\CreateThreadData;
 use Foodsharing\RestApi\Models\Notifications\Thread;
 use Foodsharing\Utility\EmailHelper;
 use Foodsharing\Utility\FlashMessageHelper;
 use Foodsharing\Utility\Sanitizer;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ForumTransactions
@@ -330,26 +332,33 @@ class ForumTransactions
     }
 
     /**
-     * Updates the user's notification settings for a list of forum threads individually.
-     *
-     * @param Thread[] $threads
+     * Updates the user's thread notification settings.
+     * @throws AccessDeniedHttpException if the user is not permitted to access any of the referenced threads
      */
-    public function updateThreadNotifications(int $userId, array $threads): void
+    public function updateThreadsNotifications(int $userId, NotificationSettingsPatch $settings): void
     {
-        foreach ($threads as $thread) {
-            $threadIdsToUnfollow = [];
-
-            if ($thread->infotype == InfoType::NONE) {
-                $threadIdsToUnfollow[] = $thread->id;
-            }
-            $this->forumFollowerGateway->updateInfoType($userId, $thread->id, $thread->infotype);
+        // get current thread subscriptions for comparison and to reduce permission checks
+        $currentSubscriptions = $this->forumFollowerGateway->getThreadsNotificationSettings($userId);
+        $currentSubscriptionsIndex = [];
+        foreach ($currentSubscriptions as $currentSubscription) {
+            $currentSubscriptionsIndex[$currentSubscription->id] = $currentSubscription;
         }
 
-        if (!empty($threadIdsToUnfollow)) {
-            foreach ($threadIdsToUnfollow as $threadId) {
-                $this->forumFollowerGateway->unfollowThreadByEmail($userId, $threadId);
+        $changes = [];
+        foreach ($settings->notifications as $notificationUpdate) {
+            $currentState = $currentSubscriptionsIndex[$notificationUpdate->id] ?? null;
+            if ($currentState) {
+                $notificationUpdate->bell = $currentState->bell === $notificationUpdate->bell ? null : $notificationUpdate->bell;
+                $notificationUpdate->email = $currentState->email === $notificationUpdate->email ? null : $notificationUpdate->email;
+            } elseif (!$this->forumPermissions->mayAccessThread($notificationUpdate->id)) {
+                throw new AccessDeniedHttpException('Not permitted to access the thread with id ' . $notificationUpdate->id);
             }
+            if (is_null($notificationUpdate->bell) && is_null($notificationUpdate->email)) {
+                continue;
+            }
+            $changes[] = $notificationUpdate;
         }
+        $this->forumFollowerGateway->updateThreadsNotifications($userId, $changes);
     }
 
     public function restorePost(int $postId): bool

@@ -1,7 +1,7 @@
 import { get, patch } from './base'
 
 export function getFoodSharePointsNotification () {
-  return get('/notifications/foodsharepoints')
+  return get('/notifications/food-share-points')
 }
 
 export function listRegionsWithoutWorkingGroups () {
@@ -9,45 +9,34 @@ export function listRegionsWithoutWorkingGroups () {
 }
 
 export function getThreadsNotification () {
-  return get('/notifications/forum')
+  return get('/notifications/threads')
 }
 
-export function getUserNotification () {
-  return get('/notifications/user')
+export function getGeneralNotificationSettings () {
+  return get('/notifications')
 }
 
 export function listWorkingGroups () {
-  return get('/notifications/groups')
-}
-
-export function getPickupReminderNotification () {
-  return get('/notifications/pickupreminder')
-}
-
-export function getMentionNotification () {
-  return get('/notifications/mention')
+  return get('/notifications/regions?groups=true')
 }
 
 export function updateRegionsAndWorkgroupsNotification (regions) {
-  return patch('/notifications/regions', regions)
+  return patch('/notifications/regions', { notifications: regions })
 }
 
 export function setThreadsNotification (threads) {
-  return patch('/notifications/forum', threads)
+  return patch('/notifications/threads', { notifications: threads })
 }
 
 export function setFoodSharePointsNotification (foodSharePoints) {
-  return patch('/notifications/foodsharepoints', foodSharePoints)
+  return patch('/notifications/food-share-points', { notifications: foodSharePoints })
 }
 
-export function setPickupReminderNotification (sendMail) {
-  return patch('/notifications/pickupreminder', { sendMail })
-}
-
-export function setMentionNotification (mention) {
-  return patch('/notifications/mention', { mention })
-}
-
-export function setUserNotification (newsletter, chat) {
-  return patch('/notifications/user', { newsletter, chat })
+export function setGeneralNotificationSettings ({
+  emailOnChatMessage = null,
+  emailOnNewsletter = null,
+  emailOnStoreManagerPickupReminder = null,
+  bellOnMention = null,
+}) {
+  return patch('/notifications', { emailOnChatMessage, emailOnNewsletter, emailOnStoreManagerPickupReminder, bellOnMention })
 }

@@ -7,7 +7,7 @@ use Foodsharing\Modules\SupportPage\SupportPageTransactions;
 use Foodsharing\RestApi\Models\SupportPage\TicketModel;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response as HttpResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\RateLimiter\RateLimiterFactory;
 use Symfony\Component\Routing\Attribute\Route;
@@ -24,13 +24,13 @@ final class SupportPageRestController extends AbstractFoodsharingRestController
 
     #[OA\Post(summary: 'Creates a new support ticket')]
     #[Route('support/ticket', methods: ['POST'])]
-    #[OA\Response(response: HttpResponse::HTTP_OK, description: 'Successful')]
-    #[OA\Response(response: HttpResponse::HTTP_SERVICE_UNAVAILABLE, description: 'Support API is not available')]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Successful')]
+    #[OA\Response(response: Response::HTTP_SERVICE_UNAVAILABLE, description: 'Support API is not available')]
     public function createTicket(
         #[MapRequestPayload] TicketModel $ticketModel,
         Request $request,
         RateLimiterFactory $supportTicketLimiter
-    ): HttpResponse {
+    ): Response {
         $this->checkRateLimit($request, $supportTicketLimiter);
 
         $ticketId = $this->supportPageTransactions->createTicket($ticketModel);

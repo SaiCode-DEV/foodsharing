@@ -7,7 +7,6 @@ namespace Tests\Api;
 use Codeception\Util\HttpCode;
 use Exception;
 use Faker\Factory;
-use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Tests\Support\ApiTester;
 
@@ -49,7 +48,7 @@ class ForumApiCest
         $I->login($this->user['email']);
 
         // Expect no registrated notifications
-        $I->sendGet('api/notifications/forum');
+        $I->sendGet('api/notifications/threads');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseEquals('[]');
 
@@ -81,7 +80,7 @@ class ForumApiCest
         $I->login($this->user['email']);
 
         // Expect no registrated notifications
-        $I->sendGet('api/notifications/forum');
+        $I->sendGet('api/notifications/threads');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseEquals('[]');
 
@@ -89,9 +88,9 @@ class ForumApiCest
         $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/follow/bell');
         $I->seeResponseCodeIs(HttpCode::OK);
 
-        $I->sendGet('api/notifications/forum');
+        $I->sendGet('api/notifications/threads');
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->seeResponseEquals('[]');
+        $I->seeResponseContainsJson([['id' => $this->thread['id'], 'bell' => true, 'email' => false]]);
 
         $thread = $I->sendGet('/api/forum/threads/' . $this->thread['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
@@ -121,7 +120,7 @@ class ForumApiCest
     {
         $I->login($this->user['email']);
         // Expect no registrated notifications
-        $I->sendGet('api/notifications/forum');
+        $I->sendGet('api/notifications/threads');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson([]);
 
@@ -132,9 +131,9 @@ class ForumApiCest
         $I->sendDELETE('api/forum/threads/' . $this->thread['id'] . '/follow/email');
         $I->seeResponseCodeIs(HttpCode::OK);
 
-        $I->sendGet('api/notifications/forum');
+        $I->sendGet('api/notifications/threads');
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->seeResponseEquals('[]');
+        $I->seeResponseContainsJson([['id' => $this->thread['id'], 'bell' => true, 'email' => false]]);
 
         $thread = $I->sendGet('/api/forum/threads/' . $this->thread['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
@@ -173,7 +172,7 @@ class ForumApiCest
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect no registrated notifications
-        $I->sendGet('api/notifications/forum');
+        $I->sendGet('api/notifications/threads');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseEquals('[]');
 
@@ -204,7 +203,7 @@ class ForumApiCest
     {
         $I->login($this->user['email']);
         // Expect no registrated notifications
-        $I->sendGet('api/notifications/forum');
+        $I->sendGet('api/notifications/threads');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson([]);
 
@@ -214,13 +213,14 @@ class ForumApiCest
         $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/follow/email');
         $I->seeResponseCodeIs(HttpCode::OK);
 
-        $I->sendGet('api/notifications/forum');
+        $I->sendGet('api/notifications/threads');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson([[
             'id' => $this->thread['id'],
-            'theme_name' => $this->thread['name'],
-            'infotype' => InfoType::EMAIL,
-            'region_or_group_name' => $this->region['name']]]);
+            'name' => $this->thread['name'],
+            'email' => true,
+            'bell' => false,
+            'region' => ['id' => $this->region['id']]]]);
 
         $thread = $I->sendGet('/api/forum/threads/' . $this->thread['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
@@ -253,7 +253,7 @@ class ForumApiCest
         $I->login($this->user['email']);
 
         // Expect no registrated notifications
-        $I->sendGet('api/notifications/forum');
+        $I->sendGet('api/notifications/threads');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson([]);
 
@@ -261,13 +261,13 @@ class ForumApiCest
         $I->sendPost('api/forum/threads/' . $this->thread['id'] . '/follow/email');
         $I->seeResponseCodeIs(HttpCode::OK);
 
-        $I->sendGet('api/notifications/forum');
+        $I->sendGet('api/notifications/threads');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson([[
             'id' => $this->thread['id'],
-            'theme_name' => $this->thread['name'],
-            'infotype' => InfoType::EMAIL,
-            'region_or_group_name' => $this->region['name']]]);
+            'name' => $this->thread['name'],
+            'email' => true,
+            'region' => ['id' => $this->region['id']]]]);
 
         $thread = $I->sendGet('/api/forum/threads/' . $this->thread['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
@@ -313,10 +313,10 @@ class ForumApiCest
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect no registrated notifications
-        $I->sendGet('api/notifications/forum');
+        $I->sendGet('api/notifications/threads');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
-        $I->seeResponseEquals('[]');
+        $I->seeResponseContainsJson([['id' => $this->thread['id'], 'bell' => true, 'email' => false]]);
 
         $thread = $I->sendGet('/api/forum/threads/' . $this->thread['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
@@ -347,7 +347,7 @@ class ForumApiCest
     {
         $I->login($this->user['email']);
         // Expect no registrated notifications
-        $I->sendGet('api/notifications/forum');
+        $I->sendGet('api/notifications/threads');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson([]);
 
@@ -365,13 +365,13 @@ class ForumApiCest
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect registrated notification for E-Mail and Bell
-        $I->sendGet('api/notifications/forum');
+        $I->sendGet('api/notifications/threads');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson([[
             'id' => $this->thread['id'],
-            'theme_name' => $this->thread['name'],
-            'infotype' => InfoType::EMAIL,
-            'region_or_group_name' => $this->region['name']]]);
+            'name' => $this->thread['name'],
+            'email' => true,
+            'region' => ['id' => $this->region['id']]]]);
 
         $thread = $I->sendGet('/api/forum/threads/' . $this->thread['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
@@ -417,7 +417,7 @@ class ForumApiCest
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect no registrated notifications
-        $I->sendGet('api/notifications/forum');
+        $I->sendGet('api/notifications/threads');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $I->seeResponseEquals('[]');
@@ -450,26 +450,25 @@ class ForumApiCest
         $I->login($this->user['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
         // Expect no registrated notifications
-        $I->sendGet('api/notifications/forum');
+        $I->sendGet('api/notifications/threads');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseEquals('[]');
 
-        // Register user with bell
-        $I->sendPatch('api/notifications/forum', [['id' => $this->thread['id'], 'infotype' => InfoType::EMAIL]]);
+        $I->sendPatch('api/notifications/threads', ['notifications' => [['id' => $this->thread['id'], 'email' => true]]]);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect registrated notification for E-Mail and Bell
-        $I->sendGet('api/notifications/forum');
+        $I->sendGet('api/notifications/threads');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
-        $I->seeResponseEquals('[]');
+        $I->seeResponseContainsJson([['id' => $this->thread['id'], 'bell' => true, 'email' => true]]);
 
         $thread = $I->sendGet('/api/forum/threads/' . $this->thread['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $j = json_decode($thread, true);
-        $I->assertFalse($j['subscriptionsStatus']['isBellSubscribed']);
-        $I->assertFalse($j['subscriptionsStatus']['isMailSubscribed']);
+        $I->assertTrue($j['subscriptionsStatus']['isBellSubscribed']);
+        $I->assertTrue($j['subscriptionsStatus']['isMailSubscribed']);
 
         // Send post
         $I->login($this->user1['email']);
@@ -477,14 +476,14 @@ class ForumApiCest
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect E-Mail receive
-        $I->expectNumMails(0, 20);
+        $I->expectNumMails(1, 20);
 
         // Expect receive of bell
         $I->login($this->user['email']);
         $I->sendGET('api/bells');
         $I->seeResponseCodeIs(HttpCode::OK);
         $bells = json_decode($I->grabResponse(), true);
-        $I->assertCount(0, $bells);
+        $I->assertCount(1, $bells);
     }
 
     public function testSetForumNotificationForNewPostViaEMailByNotificationControllerN4(ApiTester $I)
@@ -492,7 +491,7 @@ class ForumApiCest
         $I->login($this->user['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
         // Expect no registrated notifications
-        $I->sendGet('api/notifications/forum');
+        $I->sendGet('api/notifications/threads');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseEquals('[]');
 
@@ -504,18 +503,18 @@ class ForumApiCest
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Register user with bell
-        $I->sendPatch('api/notifications/forum', [['id' => $this->thread['id'], 'infotype' => InfoType::EMAIL]]);
+        $I->sendPatch('api/notifications/threads', ['notifications' => [['id' => $this->thread['id'], 'email' => true]]]);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect registrated notification for E-Mail and Bell
-        $I->sendGet('api/notifications/forum');
+        $I->sendGet('api/notifications/threads');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson([[
            'id' => $this->thread['id'],
-           'theme_name' => $this->thread['name'],
-           'infotype' => InfoType::EMAIL,
-           'region_or_group_name' => $this->region['name']]]);
+           'name' => $this->thread['name'],
+           'email' => true,
+           'region' => ['id' => $this->region['id']]]]);
 
         $thread = $I->sendGet('/api/forum/threads/' . $this->thread['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
@@ -549,25 +548,25 @@ class ForumApiCest
         $I->login($this->user['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
         // Expect no registrated notifications
-        $I->sendGet('api/notifications/forum');
+        $I->sendGet('api/notifications/threads');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson([]);
 
         // Register user with bell
-        $I->sendPatch('api/notifications/forum', [['id' => $this->thread['id'], 'infotype' => InfoType::BELL]]);
+        $I->sendPatch('api/notifications/threads', ['notifications' => [['id' => $this->thread['id'], 'bell' => true]]]);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect registrated notification for E-Mail and Bell
-        $rsp = $I->sendGet('api/notifications/forum');
+        $rsp = $I->sendGet('api/notifications/threads');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
-        $I->seeResponseEquals('[]');
+        $I->seeResponseContainsJson([['id' => $this->thread['id'], 'bell' => true, 'email' => false]]);
 
         $thread = $I->sendGet('/api/forum/threads/' . $this->thread['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $j = json_decode($thread, true);
-        $I->assertFalse($j['subscriptionsStatus']['isBellSubscribed']);
+        $I->assertTrue($j['subscriptionsStatus']['isBellSubscribed']);
         $I->assertFalse($j['subscriptionsStatus']['isMailSubscribed']);
 
         // Send post
@@ -583,7 +582,7 @@ class ForumApiCest
         $I->sendGET('api/bells');
         $I->seeResponseCodeIs(HttpCode::OK);
         $bells = json_decode($I->grabResponse(), true);
-        $I->assertCount(0, $bells);
+        $I->assertCount(1, $bells);
     }
 
     public function testSetForumNotificationForNewPostViaBellByNotificationControllerN2(ApiTester $I)
@@ -591,7 +590,7 @@ class ForumApiCest
         $I->login($this->user['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
         // Expect no registrated notifications
-        $I->sendGet('api/notifications/forum');
+        $I->sendGet('api/notifications/threads');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson([]);
 
@@ -603,14 +602,14 @@ class ForumApiCest
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Remove mail subscription
-        $I->sendPatch('api/notifications/forum', [['id' => $this->thread['id'], 'infotype' => InfoType::NONE]]);
+        $I->sendPatch('api/notifications/threads', ['notifications' => [['id' => $this->thread['id'], 'email' => false]]]);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect registrated notification for E-Mail and Bell
-        $rsp = $I->sendGet('api/notifications/forum');
+        $rsp = $I->sendGet('api/notifications/threads');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
-        $I->seeResponseEquals('[]');
+        $I->seeResponseContainsJson(['id' => $this->thread['id'], 'email' => false]);
 
         $thread = $I->sendGet('/api/forum/threads/' . $this->thread['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
@@ -650,15 +649,15 @@ class ForumApiCest
 
         // Unfollow thread by e-mail
         // Register user with bell
-        $I->sendPatch('api/notifications/forum', [['id' => $this->thread['id'], 'infotype' => InfoType::NONE]]);
+        $I->sendPatch('api/notifications/threads', ['notifications' => [['id' => $this->thread['id'], 'email' => false]]]);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         // Expect no registrated notifications
-        $I->sendGet('api/notifications/forum');
+        $I->sendGet('api/notifications/threads');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
-        $I->seeResponseEquals('[]');
+        $I->seeResponseContainsJson([['id' => $this->thread['id'], 'email' => false, 'bell' => true]]);
 
         $thread = $I->sendGet('/api/forum/threads/' . $this->thread['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
@@ -718,7 +717,7 @@ class ForumApiCest
         $I->clearTable('fs_foodsaver_has_bell');
         $I->login($this->user1['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/notifications/mention', ['mention' => true]);
+        $I->sendPatch('api/notifications', ['bellOnMention' => true]);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeInDatabase('fs_foodsaver_has_options', [
             'foodsaver_id' => $this->user1['id'],
@@ -745,7 +744,7 @@ class ForumApiCest
         $I->clearTable('fs_foodsaver_has_bell');
         $I->login($this->user1['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/notifications/mention', ['mention' => false]);
+        $I->sendPatch('api/notifications', ['bellOnMention' => false]);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeInDatabase('fs_foodsaver_has_options', [
             'foodsaver_id' => $this->user1['id'],

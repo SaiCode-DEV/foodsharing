@@ -28,9 +28,11 @@ use Foodsharing\Permissions\ReportPermissions;
 use Foodsharing\Permissions\ResourcePermissions;
 use Foodsharing\Permissions\VotingPermissions;
 use Foodsharing\Permissions\WorkGroupPermissions;
+use Foodsharing\RestApi\DTO\Notifications\NotificationSettingsPatch;
 use Foodsharing\RestApi\Models\Notifications\Region;
 use Foodsharing\RestApi\Models\Region\RegionForAdministration;
 use InvalidArgumentException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class RegionTransactions
@@ -98,14 +100,20 @@ class RegionTransactions
     }
 
     /**
-     * Updates the user's notification setting for each region individually.
-     *
-     * @param Region[] $regions
+     * Updates the user's region notification settings.
+     * @throws AccessDeniedHttpException if the user is not allowed to access any of the regions
      */
-    public function updateRegionNotification(int $userId, array $regions): void
+    public function updateRegionNotification(int $userId, NotificationSettingsPatch $settings): void
     {
-        foreach ($regions as $region) {
-            $this->regionGateway->updateRegionNotification($userId, $region->id, $region->notifyByEmailAboutNewThreads);
+        foreach ($settings->notifications as $regionSetting) {
+            if (!$this->currentUserUnits->mayBezirk($regionSetting->id)) {
+                throw new AccessDeniedHttpException('Not permitted to access the region with id ' . $regionSetting->id);
+            }
+        }
+        foreach ($settings->notifications as $regionSetting) {
+            if (!is_null($regionSetting->bell) || !is_null($regionSetting->email)) {
+                $this->regionGateway->updateRegionNotification($userId, $regionSetting);
+            }
         }
     }
 

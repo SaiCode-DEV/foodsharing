@@ -12,7 +12,6 @@ use Foodsharing\Modules\Core\DBConstants\Foodsaver\UserOptionType;
 use Foodsharing\Modules\Core\DTO\Address;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Foodsaver\DTO\ReadableProfileSettings;
-use Foodsharing\RestApi\Models\Notifications\NewsletterChat;
 use Foodsharing\RestApi\Models\Settings\SleepStatusRequest;
 
 class SettingsGateway extends BaseGateway
@@ -40,16 +39,14 @@ class SettingsGateway extends BaseGateway
         }
     }
 
-    public function saveInfoSettings(int $fsId, NewsletterChat $newsletterChat): int
+    public function updateNewsletterSetting(int $userId, bool $sendNewsletter): void
     {
-        return $this->db->update(
-            'fs_foodsaver',
-            [
-                'newsletter' => $newsletterChat->newsletter,
-                'infomail_message' => $newsletterChat->chat
-            ],
-            ['id' => $fsId]
-        );
+        $this->db->update('fs_foodsaver', ['newsletter' => $sendNewsletter], ['id' => $userId]);
+    }
+
+    public function updateEmailOnChatMessageSetting(int $userId, bool $sendEmailOnChatMessage): void
+    {
+        $this->db->update('fs_foodsaver', ['infomail_message' => $sendEmailOnChatMessage], ['id' => $userId]);
     }
 
     /**

@@ -7,6 +7,9 @@ use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Info\FollowStatus;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Region\DTO\SubscriptionsStatus;
+use Foodsharing\Modules\Store\DTO\CommonLabel;
+use Foodsharing\RestApi\DTO\Notifications\NotificationSettingPatch;
+use Foodsharing\RestApi\DTO\Notifications\NotificationSettingWithRegion;
 
 class ForumFollowerGateway extends BaseGateway
 {
@@ -35,25 +38,27 @@ class ForumFollowerGateway extends BaseGateway
             ]);
     }
 
-    public function getEmailSubscribedThreadsForUser(int $fsId): array
+    /** @return NotificationSettingWithRegion[] */
+    public function getThreadsNotificationSettings(int $userId): array
     {
-        return $this->db->fetchAll('
-        SELECT
-            th.id,
-            th.name AS theme_name,
-            tf.infotype,
-            b.name AS region_or_group_name
+        $subscriptions = $this->db->fetchAll('SELECT
+                thread.id, thread.name,
+                follower.infotype, follower.bell_notification,
+                region.id AS regionId, region.name AS regionName
+            FROM `fs_theme_follower` follower
+            LEFT JOIN `fs_theme` thread ON follower.theme_id = thread.id
+            LEFT JOIN `fs_bezirk_has_theme` has_thread ON follower.theme_id = has_thread.theme_id
+            LEFT JOIN `fs_bezirk` region ON has_thread.bezirk_id = region.id
+            WHERE
+                follower.foodsaver_id = :userId
+                AND (follower.infotype = 1 OR follower.bell_notification = 1)
+        ', [':userId' => $userId]);
 
-        FROM
-            `fs_theme_follower` tf
-            LEFT JOIN `fs_theme` th ON tf.theme_id = th.id
-            LEFT JOIN `fs_bezirk_has_theme` bht ON tf.theme_id = bht.theme_id
-            LEFT JOIN `fs_bezirk` b ON bht.bezirk_id = b.id
-
-        WHERE
-            tf.foodsaver_id = :fsId
-            AND tf.infotype = 1
-    ', [':fsId' => $fsId]);
+        return array_map(fn ($subscription) => new NotificationSettingWithRegion(
+            $subscription['id'], $subscription['name'],
+            $subscription['bell_notification'], $subscription['infotype'],
+            new CommonLabel($subscription['regionId'], $subscription['regionName'])
+        ), $subscriptions);
     }
 
     public function getThreadSubscriptionsStatus(int $threadId, int $userId): SubscriptionsStatus
@@ -79,16 +84,33 @@ class ForumFollowerGateway extends BaseGateway
         );
     }
 
-    public function updateInfoType(int $fsId, int $threadId, int $infoType): int
+    /**
+     * @param NotificationSettingPatch[] $changes
+     */
+    public function updateThreadsNotifications(int $userId, array $changes): void
     {
-        return $this->db->update(
-            'fs_theme_follower',
-            ['infotype' => $infoType],
-            [
-                'foodsaver_id' => $fsId,
-                'theme_id' => $threadId,
-            ]
-        );
+        $valuesToUpdate = [];
+        $idsToRemove = [];
+        foreach ($changes as $change) {
+            if ($change->bell === false && $change->email === false) {
+                $idsToRemove[] = $change->id;
+                continue;
+            }
+            $update = ['foodsaver_id' => $userId, 'theme_id' => $change->id];
+            if (!is_null($change->bell)) {
+                $update['bell_notification'] = $change->bell;
+            }
+            if (!is_null($change->email)) {
+                $update['infotype'] = $change->email;
+            }
+            $valuesToUpdate[] = $update;
+        }
+        if (count($valuesToUpdate)) {
+            $this->db->insertOrUpdateMultiple('fs_theme_follower', $valuesToUpdate);
+        }
+        if (count($idsToRemove)) {
+            $this->db->delete('fs_theme_follower', ['foodsaver_id' => $userId, 'theme_id' => $idsToRemove]);
+        }
     }
 
     public function followThreadByBell(?int $fsId, int $threadId): int

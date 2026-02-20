@@ -20,6 +20,8 @@ use Foodsharing\Modules\FoodSharePoint\DTO\FoodSharePoint;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Map\DTO\MapMarker;
 use Foodsharing\Modules\Region\RegionGateway;
+use Foodsharing\RestApi\DTO\Notifications\NotificationSetting;
+use Foodsharing\RestApi\DTO\Notifications\NotificationSettingPatch;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointEditData;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointForCreation;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointForListView;
@@ -172,23 +174,22 @@ class FoodSharePointGateway extends BaseGateway
         }, $foodSharePoints);
     }
 
-    public function listFoodsaversFoodSharePoints(int $fsId): array
+    /** @return NotificationSetting[] */
+    public function getFoodSharePointsNotificationSettings(int $fsId): array
     {
-        return $this->db->fetchAll('
-			SELECT
-				ft.id,
-				ft.name,
-				ff.infotype,
-				ff.`type`
+        $subsciptions = $this->db->fetchAll('SELECT
+				ft.id, ft.name, ff.infotype
+			FROM `fs_fairteiler_follower` ff
+            LEFT JOIN `fs_fairteiler` ft ON ff.fairteiler_id = ft.id
+			WHERE ff.foodsaver_id = :userId
+		', [':userId' => $fsId]);
 
-			FROM
-				`fs_fairteiler_follower` ff
-				LEFT JOIN `fs_fairteiler` ft
-				ON ff.fairteiler_id = ft.id
-
-			WHERE
-				ff.foodsaver_id = :fsId
-		', [':fsId' => $fsId]);
+        return array_map(fn ($subscription) => new NotificationSetting(
+            $subscription['id'], $subscription['name'],
+            //InfoType::EMAIL is interpreted as bell AND email for food share points
+            $subscription['infotype'] === InfoType::EMAIL || $subscription['infotype'] === InfoType::BELL,
+            $subscription['infotype'] === InfoType::EMAIL
+        ), $subsciptions);
     }
 
     public function follow(int $foodsaverId, int $foodSharePointId, int $infoType): void
@@ -226,16 +227,31 @@ class FoodSharePointGateway extends BaseGateway
         );
     }
 
-    public function updateInfoType(int $fsId, int $foodSharePointId, int $infoType): int
+    /**
+     * @param NotificationSettingPatch[] $changes
+     */
+    public function updateFoodSharePointsNotifications(int $userId, array $changes): void
     {
-        return $this->db->update(
-            'fs_fairteiler_follower',
-            ['infotype' => $infoType],
-            [
-                'foodsaver_id' => $fsId,
-                'fairteiler_id' => $foodSharePointId
-            ]
-        );
+        $valuesToUpdate = [];
+        $idsToRemove = [];
+        foreach ($changes as $change) {
+            $update = ['foodsaver_id' => $userId, 'fairteiler_id' => $change->id];
+            if ($change->email) {
+                $update['infotype'] = InfoType::EMAIL;
+            } elseif ($change->bell) {
+                $update['infotype'] = InfoType::BELL;
+            } else {
+                $idsToRemove[] = $change->id;
+                continue;
+            }
+            $valuesToUpdate[] = $update;
+        }
+        if (count($valuesToUpdate)) {
+            $this->db->insertOrUpdateMultiple('fs_fairteiler_follower', $valuesToUpdate);
+        }
+        if (count($idsToRemove)) {
+            $this->db->delete('fs_fairteiler_follower', ['foodsaver_id' => $userId, 'fairteiler_id' => $idsToRemove]);
+        }
     }
 
     public function acceptFoodSharePoint(int $foodSharePointId): void

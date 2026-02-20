@@ -23,6 +23,8 @@ use Foodsharing\Modules\Region\DTO\RegionOptions;
 use Foodsharing\Modules\Region\DTO\RegionPickupsPerDate;
 use Foodsharing\Modules\Region\DTO\RegionPin;
 use Foodsharing\Modules\Region\DTO\RegionWithMembership;
+use Foodsharing\RestApi\DTO\Notifications\NotificationSetting;
+use Foodsharing\RestApi\DTO\Notifications\NotificationSettingPatch;
 use Foodsharing\RestApi\Models\Region\RegionForAdministration;
 use InvalidArgumentException;
 
@@ -188,41 +190,32 @@ class RegionGateway extends BaseGateway
         }
     }
 
-    public function listForFoodsaverExceptWorkingGroups(int $foodsaverId, bool $excludeWorkingGroups = true): array
+    /** @return NotificationSetting[] */
+    public function getRegionsNotificationSettings(int $userId, bool $useGroups): array
     {
-        $operator = $excludeWorkingGroups ? '!=' : '=';
+        $operator = $useGroups ? '=' : '!=';
 
-        $regions = $this->db->fetchAll('
-        SELECT
-            b.`id`,
-            b.`name`,
-            b.`teaser`,
-            b.`photo`,
-            hb.`notify_by_email_about_new_threads` as notifyByEmailAboutNewThreads
-
-        FROM
-            fs_bezirk b,
-            fs_foodsaver_has_bezirk hb
-
+        $regions = $this->db->fetchAll('SELECT
+                r.`id`, r.`name`,
+                hr.`notify_on_all_new_threads`,
+                hr.`notify_by_email_about_new_threads`
+        FROM fs_bezirk r
+        LEFT JOIN fs_foodsaver_has_bezirk hr ON hr.bezirk_id = r.id
         WHERE
-            hb.bezirk_id = b.id
-        AND
-            hb.`active` = 1
-
-        AND
-            hb.`foodsaver_id` = :foodsaverId
-
-        AND
-            b.`type` ' . $operator . ' :workGroupType
-
-        ORDER BY
-            b.`name`
-    ', [
-            ':foodsaverId' => $foodsaverId,
+            hr.`active` = 1
+            AND hr.`foodsaver_id` = :userId
+            AND r.`type` ' . $operator . ' :workGroupType
+        ORDER BY r.`name`
+        ', [
+            ':userId' => $userId,
             ':workGroupType' => UnitType::WORKING_GROUP
         ]);
 
-        return $regions;
+        return array_map(fn ($region) => new NotificationSetting(
+            $region['id'], $region['name'],
+            $region['notify_on_all_new_threads'],
+            $region['notify_by_email_about_new_threads']
+        ), $regions);
     }
 
     /**
@@ -570,16 +563,16 @@ class RegionGateway extends BaseGateway
         return $hasSubgroup;
     }
 
-    public function updateRegionNotification(int $foodsaverId, int $regionId, bool $notifyByEmail): void
+    public function updateRegionNotification(int $userId, NotificationSettingPatch $setting): void
     {
-        $this->db->update(
-            'fs_foodsaver_has_bezirk',
-            ['notify_by_email_about_new_threads' => $notifyByEmail ? 1 : 0],
-            [
-                'foodsaver_id' => $foodsaverId,
-                'bezirk_id' => $regionId,
-            ]
-        );
+        $values = [];
+        if (!is_null($setting->email)) {
+            $values['notify_by_email_about_new_threads'] = intval($setting->email);
+        }
+        if (!is_null($setting->bell)) {
+            $values['notify_on_all_new_threads'] = intval($setting->bell);
+        }
+        $this->db->update('fs_foodsaver_has_bezirk', $values, ['foodsaver_id' => $userId, 'bezirk_id' => $setting->id]);
     }
 
     public function getRegionsForCommunitiesContacts(): array

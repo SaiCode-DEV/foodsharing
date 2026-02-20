@@ -10,7 +10,6 @@ use Foodsharing\Modules\Store\DTO\CategoryWithType;
 use Foodsharing\Permissions\CategoriesPermissions;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -68,7 +67,6 @@ class CategoriesRestController extends AbstractFoodsharingRestController
 
     #[OA\Patch(summary: 'Changes a category')]
     #[Route('categories/{type}/{id}', methods: ['PATCH'], requirements: ['type' => '\w+', 'id' => Requirement::POSITIVE_INT])]
-    #[ParamConverter('category', converter: 'fos_rest.request_body')]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Category doesn\'t exist')]

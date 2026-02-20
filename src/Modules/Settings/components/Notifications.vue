@@ -113,11 +113,22 @@
             {{ foodSharePoint.name }}
           </b-col>
           <b-col cols="12" lg="6">
-            <b-form-radio-group
-              v-model="foodSharePoint.infotype"
-              :options="foodSharePointNotificationOptions"
-              :name="'radio-button-' + foodSharePoint.id"
-            />
+            <b-form-checkbox
+              v-model="foodSharePoint.bell"
+              size="sm"
+              class="d-inline-block"
+              @change="bell => foodSharePoint.email &&= bell"
+            >
+              {{ $t('notifications.checkbox_bell') }}
+            </b-form-checkbox>
+            <b-form-checkbox
+              v-model="foodSharePoint.email"
+              size="sm"
+              class="d-inline-block mr-2"
+              @change="email => foodSharePoint.bell ||= email"
+            >
+              {{ $t('notifications.checkbox_email') }}
+            </b-form-checkbox>
           </b-col>
         </b-row>
         <hr class="my-2"> <!-- Linie -->
@@ -145,9 +156,9 @@
         </b-col>
         <b-col cols="6" lg="2">
           <b-form-checkbox
-            v-model="isThreadsPointGlobalEmailNotificationActive"
+            v-model="isThreadsGlobalEmailNotificationActive"
             size="sm"
-            @change="toggleGlobalNotification('currentThreads', 'infotype', Number(isThreadsPointGlobalEmailNotificationActive))"
+            @change="toggleGlobalNotification('currentThreads', 'infotype', Number(isThreadsGlobalEmailNotificationActive))"
           >
             {{ $t('notifications.checkbox_email') }}
           </b-form-checkbox>
@@ -163,11 +174,11 @@
       >
         <b-row align-v="center">
           <b-col cols="12" lg="6">
-            {{ thread.region_or_group_name }} / {{ thread.theme_name }}
+            {{ thread.region.name }} / {{ thread.name }}
           </b-col>
           <b-col cols="12" lg="6">
             <b-form-radio-group
-              v-model="thread.infotype"
+              v-model="thread.email"
               :options="emailNotificationOptions"
               :name="'radio-button-' + thread.id"
             />
@@ -220,7 +231,7 @@
           </b-col>
           <b-col cols="12" lg="6">
             <b-form-radio-group
-              v-model="region.notifyByEmailAboutNewThreads"
+              v-model="region.email"
               :options="emailNotificationOptions"
               :name="'radio-button-' + region.id"
             />
@@ -273,7 +284,7 @@
           </b-col>
           <b-col cols="12" lg="6">
             <b-form-radio-group
-              v-model="group.notifyByEmailAboutNewThreads"
+              v-model="group.email"
               :options="emailNotificationOptions"
               :name="'radio-button-' + group.id"
             />
@@ -354,16 +365,12 @@ import {
   getFoodSharePointsNotification,
   listRegionsWithoutWorkingGroups,
   getThreadsNotification,
-  getUserNotification,
   listWorkingGroups,
   updateRegionsAndWorkgroupsNotification,
   setFoodSharePointsNotification,
   setThreadsNotification,
-  setUserNotification,
-  getPickupReminderNotification,
-  setPickupReminderNotification,
-  setMentionNotification,
-  getMentionNotification,
+  getGeneralNotificationSettings,
+  setGeneralNotificationSettings,
 } from '@/api/notifications'
 import Markdown from '@/components/Markdown/Markdown.vue'
 import LoadingOverlay from '@/components/LoadingOverlay.vue'
@@ -388,14 +395,9 @@ export default {
   },
   data () {
     return {
-      foodSharePointNotificationOptions: [
-        { value: 0, text: this.$t('notifications.checkbox_disabled') },
-        { value: 1, text: this.$t('notifications.checkbox_email') },
-        { value: 2, text: this.$t('notifications.checkbox_bell') },
-      ],
       emailNotificationOptions: [
-        { value: 0, text: this.$t('notifications.checkbox_disabled') },
-        { value: 1, text: this.$t('notifications.checkbox_email') },
+        { value: false, text: this.$t('notifications.checkbox_disabled') },
+        { value: true, text: this.$t('notifications.checkbox_email') },
       ],
       subscription: {},
       infoMailState: null,
@@ -414,28 +416,26 @@ export default {
       isFoodSharePointGlobalEmailNotificationActive: false,
       isRegionsPointGlobalEmailNotificationActive: false,
       isGroupsGlobalEmailNotificationActive: false,
-      isThreadsPointGlobalEmailNotificationActive: false,
+      isThreadsGlobalEmailNotificationActive: false,
       isFoodSharePointGlobalBellNotificationActive: false,
     }
   },
   async mounted () {
     await userStore.fetchDetails()
-    this.subscription = await getUserNotification()
-    this.newsletterState = this.convertNumberToBoolean(this.subscription.newsletter)
-    this.infoMailState = this.convertNumberToBoolean(this.subscription.infomail_message)
+    const generalNotificationSettings = await getGeneralNotificationSettings()
+    this.newsletterState = generalNotificationSettings.emailOnNewsletter
+    this.infoMailState = generalNotificationSettings.emailOnChatMessage
+    this.pickupReminderState = generalNotificationSettings.emailOnStoreManagerPickupReminder
+    this.mentionState = generalNotificationSettings.bellOnMention
     this.currentFoodSharePoints = await getFoodSharePointsNotification()
     this.currentThreads = await getThreadsNotification()
     this.currentRegions = await listRegionsWithoutWorkingGroups()
     this.currentGroups = await listWorkingGroups()
-    if (userStore.isStoreManager) {
-      this.pickupReminderState = this.convertNumberToBoolean(await getPickupReminderNotification())
-    }
-    this.mentionState = this.convertNumberToBoolean(await getMentionNotification())
-    this.isFoodSharePointGlobalEmailNotificationActive = this.currentFoodSharePoints.some(foodSharePoint => foodSharePoint.infotype === 1)
-    this.isRegionsPointGlobalEmailNotificationActive = this.currentRegions.some(region => region.notifyByEmailAboutNewThreads === 1)
-    this.isGroupsGlobalEmailNotificationActive = this.currentGroups.some(group => group.notifyByEmailAboutNewThreads === 1)
-    this.isThreadsPointGlobalEmailNotificationActive = this.currentThreads.some(threads => threads.infotype === 1)
-    this.isFoodSharePointGlobalBellNotificationActive = this.currentFoodSharePoints.some(foodSharePoint => foodSharePoint.infotype === 2)
+    this.isFoodSharePointGlobalEmailNotificationActive = !this.currentFoodSharePoints.some(foodSharePoint => !foodSharePoint.email)
+    this.isFoodSharePointGlobalBellNotificationActive = !this.currentFoodSharePoints.some(foodSharePoint => !foodSharePoint.bell)
+    this.isRegionsPointGlobalEmailNotificationActive = !this.currentRegions.some(region => !region.email)
+    this.isGroupsGlobalEmailNotificationActive = !this.currentGroups.some(group => !group.email)
+    this.isThreadsGlobalEmailNotificationActive = !this.currentThreads.some(threads => !threads.email)
 
     if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
       this.pushNotificationState = false
@@ -498,21 +498,17 @@ export default {
     },
     async updateNotificationSettings () {
       try {
-        const newsletter = this.convertBooleanToNumber(this.newsletterState)
-        const infoMailState = this.convertBooleanToNumber(this.infoMailState)
-        await setUserNotification(newsletter, infoMailState)
+        await setGeneralNotificationSettings({
+          emailOnChatMessage: this.infoMailState,
+          emailOnNewsletter: this.newsletterState,
+          emailOnStoreManagerPickupReminder: this.pickupReminderState,
+          bellOnMention: this.mentionState,
+        })
         await setFoodSharePointsNotification(this.currentFoodSharePoints)
-        await updateRegionsAndWorkgroupsNotification(this.currentRegions.map(region => {
-          return { id: region.id, notifyByEmailAboutNewThreads: region.notifyByEmailAboutNewThreads === 1 }
-        }))
-        await updateRegionsAndWorkgroupsNotification(this.currentGroups.map(group => {
-          return { id: group.id, notifyByEmailAboutNewThreads: group.notifyByEmailAboutNewThreads === 1 }
-        }))
-        await setThreadsNotification(this.currentThreads)
-        if (userStore.isStoreManager) {
-          await setPickupReminderNotification(this.pickupReminderState)
-        }
-        await setMentionNotification(this.mentionState)
+        await updateRegionsAndWorkgroupsNotification([...this.currentRegions, ...this.currentGroups].map(region => ({
+          id: region.id, email: region.email,
+        })))
+        await setThreadsNotification(this.currentThreads.map(thread => ({ id: thread.id, email: thread.email })))
         pulseSuccess(this.$t('notifications.save_success'))
       } catch {
         pulseError(this.$t('error_ajax'))

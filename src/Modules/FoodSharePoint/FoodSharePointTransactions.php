@@ -4,19 +4,19 @@ namespace Foodsharing\Modules\FoodSharePoint;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\FoodSharePoint\FollowerType;
-use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Uploads\UploadsGateway;
 use Foodsharing\Modules\Uploads\UploadsTransactions;
 use Foodsharing\Permissions\FoodSharePointPermissions;
+use Foodsharing\RestApi\DTO\Notifications\NotificationSettingsPatch;
 use Foodsharing\RestApi\Models\FoodSharePoint\AddFoodSharePointResponse;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointDetails;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointEditData;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointForCreation;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointPermission;
-use Foodsharing\RestApi\Models\Notifications\FoodSharePoint;
 use Foodsharing\Utility\EmailHelper;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class FoodSharePointTransactions
@@ -67,24 +67,23 @@ class FoodSharePointTransactions
     }
 
     /**
-     * Updates the user's notification settings for a list of food share points individually.
-     *
-     * @param FoodSharePoint[] $foodSharePoints
+     * Updates the user's notification settings for food share points.
+     * @throws BadRequestHttpException when trying to set an invalid notification pattern
      */
-    public function updateFoodSharePointNotifications(int $userId, array $foodSharePoints): void
+    public function updateFoodSharePointsNotifications(int $userId, NotificationSettingsPatch $settings): void
     {
-        foreach ($foodSharePoints as $foodSharePoint) {
-            $foodSharePointIdsToUnfollow = [];
-
-            if ($foodSharePoint->infotype == InfoType::NONE) {
-                $foodSharePointIdsToUnfollow[] = $foodSharePoint->id;
+        $changes = [];
+        foreach ($settings->notifications as $notificationUpdate) {
+            if ($notificationUpdate->bell === false && $notificationUpdate->email === true) {
+                throw new BadRequestHttpException('Currently not possible to have email notifications without bells.');
             }
-            $this->foodSharePointGateway->updateInfoType($userId, $foodSharePoint->id, $foodSharePoint->infotype);
+            if (is_null($notificationUpdate->bell) && is_null($notificationUpdate->email)) {
+                continue;
+            }
+            $changes[] = $notificationUpdate;
         }
 
-        if (!empty($foodSharePointIdsToUnfollow)) {
-            $this->foodSharePointGateway->unfollowFoodSharePoints($userId, $foodSharePointIdsToUnfollow);
-        }
+        $this->foodSharePointGateway->updateFoodSharePointsNotifications($userId, $changes);
     }
 
     /**
