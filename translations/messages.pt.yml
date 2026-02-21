@@ -134,18 +134,18 @@ store:
     message:
       6: '{actor} adicionou {target} à equipa.'
       1: '{actor} fez um pedido de adesão.'
-      14: '{actor} confirmou o lugar de {target} no dia {date}.'
+      14: '{actor} confirmou a vaga de {target} em {date}.'
       3: '{actor} aceitou o pedido de afiliação de {target}.'
       4: '{actor} adicionou {target} á equipa sem solicitar.'
-      11: '{actor} registou-se para o lugar no dia {date}.'
+      11: '{actor} registou-se para a vaga em {date}.'
       7: '{actor} eliminou {target} da equipa.'
-      13: '{actor} cancelau {target} para o lugar no dia {date}.'
-      13_with_reason: '{actor} cancelau {target} para o lugar no dia {date} com a
-        seguinte mensagem'
+      13: '{actor} cancelau {target} para a vaga em {date}.'
+      13_with_reason: '{actor} cancelau {target} para a vaga em {date} com a seguinte
+        mensagem'
       8: '{actor} deixou a equipa.'
       16: '{actor} retirou o pedido de filiação.'
       10: '{actor} demitiu {target} de responsável da equipa.'
-      12: '{actor} descreu-se para o lugar no dia {date}.'
+      12: '{actor} descreu-se para a vaga em {date}.'
       2: '{actor} rejeitou o pedido de afiliação de {target}.'
       5: '{actor} colocou {target} na lista de substitutos.'
       9: '{actor} designou {target} como responsável da equipa.'
@@ -158,18 +158,18 @@ store:
       3: 'Aceitar solicitações de adesão'
       2: 'Recursar solicitações de adesão'
       7: 'Remover Foodsavers da equipa'
-      14: 'Confirmar o lugar'
+      14: 'Confirmar a vaga'
       1: 'Fazer uma solicitação de adesão'
       16: 'Retirar o pedido de affiliação'
       8: 'Abandonar a equipa'
       4: 'Adicionar Foodsavers ao equipa sem a solicitação'
       10: 'Remover como responsáveis da equipa'
       6: 'Adicionar Foodsavers ao equipa ativo'
-      12: 'Cancelar o lugar'
+      12: 'Cancelar a vaga'
       9: 'Inscrever responsáveis da equipa'
       5: 'Passar Foodsavers para a lista de substitutos'
-      13: 'Ser cancelado do lugar'
-      11: 'Inscrever pelo lugar'
+      13: 'Ser cancelada da vaga'
+      11: 'Inscrever pela vaga'
       15: 'Excluir publicação'
       17: Convidar Foodsavers para a equipa
       18: Retirar convites de equipa
@@ -206,13 +206,13 @@ store:
       default: Classificação standard
       pickup: ordenada pela última recolha
       distance: ordenado por distância
-    userHasPickupsWarning: '{name} ainda está registado para {occupiedSlots} lugares
-      neste local. Estes lugares ficarão livres. Deseja continuar?'
+    userHasPickupsWarning: '{name} ainda está registada em {occupiedSlots} vagas neste
+      local. Estas vagas serão libertadas. Deseja continuar?'
     inviteMember: Convidar na equipa
     demoteAsManagerConfirm: Quer mesmo abdicar da tua responsabilidade pela esta
       equipa?
   prefetchone: '1 semana'
-  isNotVerified: 'Ainda não foi verificado.'
+  isNotVerified: 'Não está verificado'
   jumping: 'Substituto'
   may_not_referred_to_in_public: 'Por favor, não mencione esta cooperação publicamente,
     (seja em cabazes alimentares, nas redes sociais ou na imprensa).'
@@ -235,7 +235,7 @@ store:
     managers: Mensagem aos responsáveis
   isAppliedForTeam: 'Solicitação'
   locked: 'Não pode editar este local.'
-  lastPickup: 'Último lugar {date}'
+  lastPickup: 'Última vaga {date}'
   team_container: 'Equipa'
   managing: 'Responsabilidade de equipa'
   prefetchthree: '3 semanas'
@@ -244,7 +244,7 @@ store:
   prefetchtwo: '2 semanas'
   particularities: 'Procedimento e instruções'
   noPickup: 'Nunca recolheu nada aqui.'
-  tooltip_red: 'Lugares disponíveis hoje e amanha'
+  tooltip_red: 'Vagas disponíveis hoje e amanha'
   active: 'Activo'
   one_active: 'Activo'
   not-in-team: 'Ainda não estás na equipa deste local.'
@@ -252,7 +252,7 @@ store:
   allStoresOfRegion: 'Todos os locais do distrito'
   willgetcontacted: 'Atualmente, está na lista de substitutos. Entraremos em contacto
     consigo assim que precisarmos de ajuda.'
-  slot_state: 'Estado de lugar'
+  slot_state: 'Estado de vaga'
   delete_date_description: 'Caso utilize intervalos regulares (recorrentes semanalmente
     de forma automática) no teu local e deseje evitar que uma data específica seja
     criada (por exemplo, um feriado), pode fazê-lo especificando a data e a hora com
@@ -261,24 +261,24 @@ store:
   complete: 'base de dados completa'
   address: 'Morada'
   days_before: 'há'
-  tooltip_orange: 'Lugares disponíveis nos próximos tres dias'
+  tooltip_orange: 'Vagas disponíveis nos próximos tres dias'
   attribution: 'Atribuição'
   useRegionPickupRules: 'Este é um local muito popular. Para além das regras internas
     do local, aplicam-se as seguintes restrições às inscrições nos horários:'
-  short_tooltip_red: 'Lugares disponíveis hoje e amanha'
-  regionPickupRulesInactive: 'As regras adicionais do distrito para os lugares não
-    estão ativas'
+  short_tooltip_red: 'Vagas disponíveis hoje e amanha'
+  regionPickupRulesInactive: 'As regras adicionais do distrito para as vagas não estão
+    ativas'
   maxchar: '(máx. 180 caracteres)'
-  short_tooltip_orange: 'Lugares disponíveis em 3 dias'
+  short_tooltip_orange: 'Vagas disponíveis em 3 dias'
   regionPickupRules: 'Regra adicional para locais populares'
   tooltip_jumping: 'É o substituto por este local'
   member: 'Membro'
   tooltip_managing: 'Tu és responsável por esta cooperação'
   addNewStoresButton: 'Adicionar novo local'
-  enternumber: 'Ainda tens de selectionar o número de lugares.'
-  nodetails: 'Não indique aqui horários exatos para o lugar.'
+  enternumber: 'Ainda tens de selectionar o número de vagas.'
+  nodetails: 'Não indique aqui horários exatos para a vaga.'
   teamName: 'Equipa {storeTitle}'
-  enter_date: 'Inscrever um lugar individual'
+  enter_date: 'Inscrever uma vaga individual'
   ownStores: 'Locais próprios'
   mayManage: 'Aprovou o exame de responsáveis por equipas.'
   go: 'Para a equipa'
@@ -286,9 +286,9 @@ store:
   particularities_chain: 'Instruções da cadeia'
   appliedFor: 'Solicitação realizada'
   filter: 'Filtrar por …'
-  regionPickupRuleLong: 'No prazo de {regionPickupRuleTimespan} dias antes e depois
+  regionPickupRuleLong: 'No período de {regionPickupRuleTimespan} dias antes e depois
     da data de recolha desejada, não podem ter sido registadas mais de {regionPickupRuleLimit}
-    lugares em locais populares. Podem ser realizadas no máximo {regionPickupRuleLimitDay}
+    vagas em locais populares. Podem ser realizadas no máximo {regionPickupRuleLimitDay}
     recolhas por dia nesses locais. {regionPickupRuleInactive} horas antes da recolha,
     esta regra deixa de ser aplicável.'
   isJumper: 'Está en la lista dos substitutos.'
@@ -298,33 +298,33 @@ store:
     máximo, três filiais, nunca contacte filiais de uma cadeia maior! Respeite as
     regras de cadeias comerciais!'
   enter_date_description: 'Depois de selecionares a data, hora e quantidade, podes
-    criar um lugar único. Se desejares criar lugares regulares (recorrentes automaticamente
+    criar uma vaga único. Se desejares criar vagas regulares (recorrentes automaticamente
     todas as semanas), utiliza o menu "Configurações da local".'
-  tooltip_yellow: 'Lugares disponíveis nos próximos cinco dias'
+  tooltip_yellow: 'Vagas disponíveis nos próximos cinco dias'
   joinDate: 'Na equipa desde {data}'
   peoplecame: 'Muitas vezes já aconteceu de pessoas irem ao local sem avisar.'
   may_referred_to_in_public: 'Esta cooperação pode ser mencionada publicamente.'
   noStores: 'Ainda não há locais inscritos'
-  short_tooltip_yellow: 'Lugares disponíveis em cinco dias'
+  short_tooltip_yellow: 'Vagas disponíveis em cinco dias'
   info_container: 'Informações'
-  not_verified: 'Não está verificado. Portanto, ainda não pode ver os lugares nem
-    os números de telefone dos membros da equipa.'
+  not_verified: 'Não estás verificado. Por isso, ainda não pode ver as vagas nem os
+    números de telefone dos membros da equipa.'
   unverified_member: 'não verificado'
   all_of_my_stores: 'Todos os meus locais'
-  delete_date: 'Excluir lugar individual'
+  delete_date: 'Excluir vaga individual'
   unknownDate: 'desconhecido'
   average_collection_quantity: 'Quantidade por pessoa'
   team_conversation_name: 'Equipa {name}'
   lastPickupShort: 'última vez {date}'
-  pickup_slot_unavailable: 'Este lugar está mais distante no futuro do que os teus
+  pickup_slot_unavailable: 'Esta vaga está mais distante no futuro do que os teus
     responsáveis da equipa pretendiam. Por isso, tente novamente mais tarde.'
   smneeded: 'Para criar um local, tens de ser um responsável por equipas.'
   invitations: Convites abertos ({count})
   deactivatedRegion: A lista de locais ainda não pode ser apresentada para 
     países e continentes.
   storeFrom: Local de {name}
-  lastPickupTitle: Último lugar aqui
-  slotsCurrentlyOccupied: Lugares atualmente ocupados
+  lastPickupTitle: Última vaga aqui
+  slotsCurrentlyOccupied: Vagas atualmente ocupadas
   invited: Convidado
   may_referred_to_in_public_unclear: Ainda não esclarecido
   invitation:
@@ -357,10 +357,10 @@ store:
       específicas do local, exceto o registo do local, serão eliminadas. Por 
       favor, apagine apenas locais que realmente já não existem ou que foram 
       registados dois vezes. Os locais que cancelaram uma cooperação devem 
-      permanecer registados. Só é possível excluir lojas que nunca tiveram 
-      lugares e cujos chats de equipa não tenham sido utilizados durante pelo 
-      menos 3 meses.
-  my_last_slot: O meu lugar último
+      permanecer registados. Só é possível excluir lojas que nunca tiveram vagas
+      e cujos chats de equipa não tenham sido utilizados durante pelo menos 3 
+      meses.
+  my_last_slot: A minha última vaga
   chain_has_kams: 'Responsável para esta cadeia:'
   part_of_chain: 'Faz parte da cadeia:'
 navigation:
@@ -406,7 +406,7 @@ bell:
   forum_new_thread: 'de {user} no fórum {forum}'
   store_new_title: 'Novo local'
   sharepoint_activate_title: 'Novo cantinho alimentar em {bezirk}'
-  store_cr_times: 'Os lugares foram coregadas'
+  store_cr_times: 'As vagas foram coregadas'
   new_foodsaver_verified: 'yá verificado - pode dar início'
   buddy_request: '{name} conhece-te.'
   poll_new_title: 'Nova votação'
@@ -414,7 +414,7 @@ bell:
   foodsaver_verified: 'Faça o download do teu cartão de membro em …'
   store_new: '{name} foi registado'
   new_foodsaver_verified_title: '{name} é novo em {bezirk}'
-  betrieb_fetch: '{count} lugar(es) por confirmar'
+  betrieb_fetch: '{count} vaga(s) por confirmar'
   store_wallpost: 'Nova publicação no mural.'
   new_foodsaver: 'precisa recolhas introdutórias'
   forum_answer: '{user} te respondeu'
@@ -480,8 +480,8 @@ bell:
   poll_ending_soon: A Votação termina em breve e ainda não votaste.
   store_wall_post_title: Local {name}
   store_change_regular_pickup_times:
-    one: O lugar foi coregado
-    many: Os lugares foram coregados
+    one: A vaga foi coregada
+    many: Vagas foram coregadas
   new_quiz_comment:
     one: '{user}: {comment}'
     many: '{count} novos comentários'
@@ -558,10 +558,10 @@ email_template:
   information: 'Informação'
   confirm_link: 'quer enviar o tópico'
   fetch_warning:
-    empty_slots: '%COUNT% lugares disponíveis para recolha'
+    empty_slots: '%COUNT% vagas disponíveis para recolha'
     disable_warning: 'Desligar este aviso?'
     subject:
-      multiple: 'Lugares disponíveis no %COUNT% locais!'
+      multiple: 'Vagas disponíveis no %COUNT% locais!'
       single: 'Datas disponíveis para recolha na %EMPRESA%!'
     settings_link: 'Para as configurações de notificação'
     part2: 'Por favor, procure o mais rápido possível Foodsavers para que todas as
@@ -639,7 +639,7 @@ dashboard:
     groups: 'Teus grupos'
     jumping_stores: 'Teus locais substitutos'
     managing_stores: 'Tuas responsabilidades por equipas'
-    pickups: Lugares registados
+    pickups: Vagas registadas
     pickupOptions: Opções de inscrição
   greeting_short: 'Olá {name}!'
   source_store: 'Locais {0}'
@@ -683,10 +683,10 @@ dashboard:
   title: 'Painel de controlo'
   polls: 'As tuas votações em curso'
   source_event: 'Evento {0}'
-  general-dates: Teus lugares reservados
+  general-dates: Tuas próximas vagas
 storeview:
   groceries:
-    select_tag: 'Selecione a categoria de alimentos'
+    select_tag: 'Selecione a categoria(s)'
     no_tag_preset: 'Nenhuma categoria de alimentos disponível'
     search_tag: 'Pesquisar por categorias de alimentos'
     no_match: 'Nenhuma categoria de alimento correspondente encontrada'
@@ -723,7 +723,7 @@ storeview:
   pickupWeight: 'kg salvado'
   managers: 'Responsáveis de equipa'
   common: 'Geral'
-  pickupCount: 'Lugares'
+  pickupCount: 'Vagas'
   team_info_distance: 'Distância aérea para o local:'
   publicity_and_sticker_options:
     no: Não
@@ -745,14 +745,14 @@ calendar:
   labelSelected: 'Data selecionada'
   export:
     pickup:
-      description: 'Lugar de foodsharing em <a href="{url}">{store}</a>'
+      description: 'Vaga de foodsharing em <a href="{url}">{store}</a>'
       unconfirmed: 'não confirmado'
       foodsavers: 'Foodsavers registados: '
-      freeSlots: '{count} lugares ainda disponíveis'
+      freeSlots: '{count} vagas ainda estáo disponíveis'
       name:
         pickup: '{store} recolha'
         giving: '{store} entrega'
-        orga: '{store} lugar'
+        orga: '{store} vaga'
     event:
       description: 'Descrição'
       statusUnspecified: 'Ainda não indicou se irá participar neste evento. Pode fazer
@@ -862,10 +862,10 @@ pickuplist:
   month_tab: 'Mes'
   error_whileSending: 'Erro ao enviar a mensagem'
   NumberOfStores_table_header: 'Número de locais'
-  error_loadingPickup: 'Falha ao carregar de lugares: '
-  NumberOfSlots_table_header: 'Número dos lugares'
-  error_changeSlotCount: 'Falha ao alterar o número de lugares: '
-  header_for_district: 'Distribuição dos lugares em {bezirk} '
+  error_loadingPickup: 'Falha ao carregar de vagas: '
+  NumberOfSlots_table_header: 'Número das vagas'
+  error_changeSlotCount: 'Falha ao alterar o número de vagas: '
+  header_for_district: 'Distribuição das vagas em {bezirk} '
   week_tab: 'Semana'
   unclear: 'Estado purco claro'
   tooslow: 'Infelizmente, o registo não funcionou. Provavelmente porque outra pessoa
@@ -880,8 +880,8 @@ pickuplist:
   NumberOfFoodSavers_table_header: 'Número de Foodsavers'
   error_confirm: 'Falha na confirmação: '
   really_delete_last_slot:
-    title: Excluir o lugar último?
-    body: Quer mesmo cancelar o lugar último ? A marcação será completamente 
+    title: Excluir a última vaga?
+    body: Quer mesmo cancelar a última vaga? A marcação será completamente 
       removida.
 basket:
   my_list_empty: 'Não adicionaste nenhum cabaz alimentar'
@@ -1101,7 +1101,7 @@ login:
     caso o estejas a usar.'
   submit_btn: 'Iniciar sessão'
   login_button_label: 'Iniciar sessão'
-  password: 'passe'
+  password: 'palavra-passe'
   email_address: 'Morada de e-mail'
   logout: 'Terminar sessão'
   save_password: 'Salvar a palavra-passe'
@@ -1291,7 +1291,7 @@ profile:
     weight_unit: kg
     fetch_count: recolhido
     bananas: Bananas
-    slots: Lugares
+    slots: Vagas
     give_count: entregue
     engagement_count: engajado
   commitments_stat:
@@ -1373,7 +1373,7 @@ profile:
     kam_for: 'Responsável pela coordenação das seguintes cadeias comerciais:'
   tab_navigation:
     profile: Perfil
-    pickups: Lugares
+    pickups: Vagas
     commitment_statistics: Estatísticas de participação
     stores: Locais ({count})
     notes: Notas ({count})
@@ -1669,11 +1669,11 @@ group:
     nobody: 'Ninguém (grupo fechado).'
     member_since_weeks: 'Quantas semanas são necessárias para um candidato estar registado
       na plataforma?'
-    fetch_count: 'Quantos lugares de recolha/entrega/orga já deveriam ter sido efectuadas?'
+    fetch_count: 'Quantas vagas de recolha/entrega/orga já deveriam ter sido efectuadas?'
     banana_count: 'Quantas bananas de reconhecimento devem estar presentes?'
     not_fulfilled: 'Para candidatar-se a este grupo de trabalho, deve fazer parte
       da foodsharing há %weeks% semanas, já ter recolhido %bananas% bananas de reconhecimento
-      e ter participado em %fetches% dos lugares.'
+      e ter participado em %fetches% das vagas.'
     requires_properties: 'Todos quantos preencham certos pontos de reconhecimento.'
     requirements: 'Quem pode inscrever no neste grupo?'
     open: 'Todos pessoas podem participar sem se candidatarem.'
@@ -1788,61 +1788,61 @@ foodsaver:
   delete_own_account_failed: 'Não foi possível excluir a tua conta de utilizador.
     A palavra-passe introduzida está incorreta. Tenta novamente, se necessário.'
 pickup:
-  no_slots_available: 'Não há lugares disponíveis'
+  no_slots_available: 'Não há vagas disponíveis'
   history:
-    search: 'Mostrar lugares'
-    title: 'Histórico de lugares'
+    search: 'Mostrar vagas'
+    title: 'Histórico de vagas'
   overview:
     tab:
       options:
-        empty: 'Atualmente, não há lugares disponíveis nos teus locais.'
-        name: 'Lugares disponíveis'
+        empty: 'Atualmente, não há vagas disponíveis nos teus locais.'
+        name: 'Vagas disponíveis'
         tooltip:
-          own: 'Lugares futuros para os quais ainda te podes inscrever'
+          own: 'Vagas futuras para as quais ainda te podes inscrever'
       registered:
         tooltip:
-          other: 'Lugares futuros inscridos'
-          own: 'Lugares futuros para os quais se inscreveu'
-        name: 'Lugares inscritos'
-        empty: 'Atualmente, não há lugares inscridos.'
+          other: 'Vagas futuras inscritas'
+          own: 'Vagas futuras para as quais se inscreveu'
+        name: 'Vagas inscritas'
+        empty: 'Atualmente, não há vagas inscritas.'
       history:
         tooltip:
-          own: 'Lugares anteriores que ocupaste'
-          other: 'Lugares anteriores que ocupaste do mês passado'
-        name: 'Histórico de lugares'
-        empty: 'Ainda não foi inscrito nenhum lugar.'
+          own: 'Vagas anteriores que ocupaste'
+          other: 'Vagas anteriores que ocupaste no mês passado'
+        name: 'Histórico de vagas'
+        empty: 'Ainda não foi inscrita nenhuma vaga.'
     modals:
       signOffAll:
-        title: 'Cancelar todos os lugares?'
-        message: 'Quer mesmo remover o utilizador de todos os lugares registados?'
+        title: 'Cancelar todas as vagas?'
+        message: 'Quer mesmo remover o utilizador de todas as vagas registadas?'
       signOff:
-        title: 'Remover do lugar?'
-        message: 'Quer mesmo remover o utilizador do lugar?'
+        title: 'Remover da vaga?'
+        message: 'Quer mesmo remover o utilizador da vaga?'
     cols:
       time: 'Tempo'
-      slots: 'Lugares'
+      slots: 'Vagas'
       store: 'Local'
     allLoaded: 'Já estão apresentadas todas as entradas.'
     menu:
       signOffAll: 'Cancelar tudo'
       refresh: 'Atualizar'
-      registeredSwitch: 'Lugares inscritos'
+      registeredSwitch: 'Vagas inscritas'
       loadMore: 'Ver mais'
       signOff: 'Cancelar'
       managedOnlySwitch: Vista de responsável(e)
       useCondensedDesign: Agrupados por dias
-    header: 'Lugares'
+    header: 'Vagas'
     status:
-      option: 'Lugares vacante'
+      option: 'Vagas vacante'
       confirmed: 'Confirmada'
       pending: 'Não confirmada'
     freeSlots: '{slots} disponíveis'
-  really_delete_date: 'Deseja mesmo excluir o lugar de {date}?'
-  add_onetime_pickup: 'Insira lugar único'
+  really_delete_date: 'Deseja mesmo excluir a vaga em {date}?'
+  add_onetime_pickup: 'Insira vaga única'
   description_modal_text: 'Introduza uma nova descrição:'
   edit_description: 'Editar Descrição'
   description: 'Descrição'
-  edit_recurring_pickups: 'Editar série de lugares'
+  edit_recurring_pickups: 'Editar série de vagas'
   kick: 'Remover'
   kick_message_footer: 'Cumprimentos cordiais, os responsáveis da equipa'
   really_kick_user_info: 'Tem a certeza de que deseja cancelar a inscrição de {name}
@@ -1853,8 +1853,8 @@ pickup:
     '
   open_profile: 'Perfil de'
   edit:
-    disable_auto_slot: 'O lugar automático no futuro deverá ser desativado.'
-    bread: 'Editar horarios dos lugares'
+    disable_auto_slot: 'A vaga automática no futuro deverá ser desativada.'
+    bread: 'Editar horarios das vagas'
     disable_auto_slot_titel: 'Desativação'
     many-people: 'Indicaste mais de duas pessoas por este horário.
 
@@ -1875,9 +1875,9 @@ pickup:
       fora do alcance auditivo e visual do local.
 
       '
-    slot_titel: 'Lugares'
+    slot_titel: 'Vagas'
     slotcount: '1 pessoa a recolher'
-    added: 'O lugar foi reservado.'
+    added: 'Vaga foi reservada'
     description_titel: 'Descrição'
     slotscount: '{count} pessoas a recolher'
   leave: 'Cancelar'
@@ -1885,14 +1885,14 @@ pickup:
   team_message_success: 'A mensagem foi enviada com sucesso'
   join_title_date: 'Certo?'
   really_leave_date_title: 'Retirar a inscrição para {date}?'
-  slot_add: 'Adicionar um lugar'
+  slot_add: 'Adicionar uma vaga'
   kick_message_placeholder: 'Opcionalmente, adicione informações aqui…'
   description_optional: 'Descrição (opcional)'
   delete_not_empty: 'Atualmente, ainda há pessoas inscritas para recolha. Só poderá
-    cancelar este lugar quando todas as inscrições forem canceladas.'
+    cancelar esta vaga quando todas as inscrições forem canceladas.'
   same_day_hint: 'O evento a seguir ocorrerá no mesmo dia:'
   team_message_send_and_leave: 'Enviar e retirar a inscrição'
-  slot_remove: 'Cancelar lugar'
+  slot_remove: 'Cancelar vaga'
   description_max_length_info: 'Comprimento máximo da descrição alcançado (100 caracteres)'
   really_join_date: 'Gostaria de se inscrever de forma definitiva no dia {date}?'
   signout_history:
@@ -1912,12 +1912,12 @@ pickup:
   same_day_entry: '[{when}] h {name}'
   really_leave_date: 'És responsável por essa recolha. Por favor, providencie mesmo
     um substituto.'
-  to_be_confirmed: 'Este lugar ainda tem de ser confirmada por um responsável deste
+  to_be_confirmed: 'Esta vaga ainda tem de ser confirmada por um responsável deste
     local.'
-  delete_title: 'Excluir esses lugares'
+  delete_title: 'Excluir essas vagas'
   signout_info: 'As tuas recolhas pendentes serão eliminadas.'
-  leave_team_message_template: 'Infelizmente, não poderei participar no {data}, pelo
-    que terei de cancelar o meu lugar. …'
+  leave_team_message_template: 'Infelizmente, não poderei participar em {data}, pelo
+    que terei de cancelar a minha vaga. …'
   leave_pickup_message_team: 'Notificar equipa'
   leave_team_message_title: 'Mensagem á equipa'
   signout_confirm: 'Tem a certeza?'
@@ -1933,13 +1933,13 @@ pickup:
     link: Para formação em higiene
   membershipMissing: Não faz parte desta equipa. Por isso, não deve inscrever-se
     para as recolhas. Se necessário, inscreva-se primeiro como membro da equipa.
-  confirmed: O lugar está confirmado.
-  may_enter: Ainda há uma lugar disponível por ti no este horário.
+  confirmed: Vaga está confirmada
+  may_enter: Ainda há uma vaga disponível por ti neste horário.
   passport_expired:
     short: Cartão de membro expirado
     long: O teu cartão de membro já não é válido neste momento
-  chat: Iniciar um chat de lugar
-  slots: Lugares
+  chat: Abrir chat da vaga
+  slots: Vagas
 error:
   mail_bounce:
     title: 'Morada de e-mail bloqueada!'
@@ -2615,7 +2615,7 @@ settings:
 
       É útil saber se podes responder a mensagens
 
-      ou mesmo se, por vezes, fazes lugares.
+      ou mesmo se, por vezes, fazes vagas.
 
       '
     saved: 'As configurações foram salvas'
@@ -2660,16 +2660,16 @@ settings:
       button: Gerar URL de calendário
     download: Descarregar calendário
     info: |
-      Aqui podes associar os teus eventos de foodsharing a um programa de calendário à tua escolha. Assim, todos os teus lugares e/ou eventos podem ser automaticamente inseridos no teu calendário.
+      Aqui podes associar os teus eventos de foodsharing a um programa de calendário à tua escolha. Assim, todas as tuas vagas e/ou eventos serão automaticamente adicionados no teu calendário.
 
-      **Mantenha os links do calendário em segredo.** Eles contêm um *token* que permite aceder aos dados dos tues lugares sem necessidade de palavra-passe. Pode excluir o teu token atual a qualquer momento, tornando inválidos os links do calendário criados anteriormente.
+      **Mantém os links do calendário em segredo.** Eles contêm um *token* que permite aceder aos dados das tuas vagas sem necessidade de palavra-passe. Podes excluir o teu token atual a qualquer momento, tornando inválidos os links do calendário criados anteriormente.
 
-      O teu programa de calendário deve **sincronizar** este calendário regularmente. Só assim os novos lugares aparecerão e os eventos cancelados deixarão de aparecer. Se, em vez disso, descarregares o teu calendário atual, este conterá apenas os teus eventos atuais e não será atualizado automaticamente.
+      O teu programa de calendário deve **sincronizar** este calendário regularmente. Só assim as novas vagas aparecerão e os eventos cancelados deixarão de aparecer. Se, em vez disso, descarregares o teu calendário atual, este conterá apenas os teus eventos atuais e não será atualizado automaticamente.
       Encontras mais informações [aqui no Wiki]({calendarUrl})
     pickup:
-      label: É necessário incluir lugares , p. ex. para recolhas?
-      "true": Sim, mostrar os meus lugares no calendário
-      "false": Não, não mostrar os lugares no calendário
+      label: É necessário incluir vagas , p. ex. para recolhas?
+      "true": Sim, mostrar as minhas vagas no calendário
+      "false": Não, não mostrar vagas no calendário
     event:
       label: Que eventos dos teus distritos e grupos de trabalho devem ser 
         incluídas?
@@ -2741,8 +2741,8 @@ settings:
       no teu telemóvel e, em caso de necessidade, apresentá-lo. Caso não possua um
       smartphone ou, por qualquer outro motivo, necessite de um cartão convencional,
       entre em contacto com os embaixadores locais.'
-    non_verified_text: 'Ainda não estás verificado. Apenas os Foodsavers verificados
-      podem descarregar o cartão de membro.'
+    non_verified_text: 'Não estás verificado. Apenas os Foodsavers verificados podem
+      descarregar o cartão de membro.'
     renew: Renovar o cartão
     passport_not_activated: O teu cartão de membro ainda não foi ativado.
     ask_your_ambassadors: Para isso, contacte os teus embaixadores.
@@ -3080,7 +3080,7 @@ terminology:
     f: 'Foodsaver'
     m: 'Foodsaver'
   regions: 'Distritos'
-  previous_pickups: 'Lugares aqui'
+  previous_pickups: 'Vagas aqui'
   orga:
     d: 'Pessoa de administração global'
     f: 'Administradora global'
@@ -3153,7 +3153,7 @@ join_region:
   error:
     not_allowed: 'Não podes inscrever-te neste distrito.'
     is_country_2: 'Selecione uma cidade, região ou distrito!'
-    is_country_1: 'Este é un país.'
+    is_country_1: 'Este é um país.'
     is_big_city_2: 'Selecione uma cidade, região ou distrito!'
     is_state_2: 'Selecione uma cidade, região ou distrito!'
     is_big_city_1: 'Este é uma cidade grande.'
@@ -3974,8 +3974,8 @@ notifications:
   error: Ero
   info: Informação
   pickupReminder:
-    title: Recordações para os lugares não ocupados
-    description: Receba e-mails que o alertam quando os lugares nos locais que 
+    title: Recordações para as vagas não ocupados
+    description: Receba e-mails que o alertam quando as vagas nos locais que 
       gere ainda não estiverem atribuídos no dia seguinte.
   save_success: 'Salvado com sucesso'
   pushModal:
@@ -4134,21 +4134,21 @@ regionOptions:
   regionPickupInactiveHours: 'Quantas horas antes da recolha a regra deixa de ser
     aplicada?'
   header_page: 'Configuração para {bezirk}'
-  regionPickupLimitNumber: 'Número máximo dos lugares permitidos dos locais populares
+  regionPickupLimitNumber: 'Número máximo de vagas permitido nos locais populares
     no período selecionado'
-  regionPickupRuleActiveStoreList: 'Lista de locais populares do distrito. Todos os
-    lugares dos locais listadas são somadas e consideradas para a regra.'
+  regionPickupRuleActiveStoreList: 'Lista de locais populares do distrito. Todas as
+    vagas desses locais são somadas e consideradas para a regra.'
   enableMediationButton: 'Ativar formulário de mediação nas páginas de perfil dos
     Foodsavers do distrito de origem'
   enableReportButton: 'Ativar formulário de denúncia nas páginas de perfil dos Foodsavers
     habitual do distrito'
-  regionPickupTimespan: 'Período de tempo (dias antes e depois da data do lugar desejado)
+  regionPickupTimespan: 'Período de tempo (dias antes e depois da data da vaga desejada)
     ao qual a regra das sultanas se aplica'
-  regionPickupRuleActive: 'Ative a seguinte regra distrital para os lugares de locais
-    populares:'
+  regionPickupRuleActive: 'Ative a seguinte regra distrital para as vagas de locais
+    populares (SULTANAS):'
   save: 'Salvar opções'
-  regionPickupLimitDayNumber: 'Número máximo dos lugares permitidos de locais populares
-    num dia'
+  regionPickupLimitDayNumber: 'Número máximo das vagas permitidas de locais populares
+    numa dia'
   regionReportReasonSimple: motivos da denúncia simplificados
   regionReportReasonCategoryB: motivos da denúncia adicionais - B) comportamento
     durante as recolhas
@@ -4183,9 +4183,9 @@ information:
       a qualquer momento nas configurações.'
     title: 'Agora podes receber notificações instantâneas do foodsharing.'
   calendar_sync:
-    title: 'Conhece a sincronização do calendário para os teus lugares registados?'
+    title: 'Conhece a sincronização do calendário para os tuas vagas registadas?'
     link: 'Subscreve agora'
-    description: 'Assim, poderá ver os teus próximos lugares registados com um programa
+    description: 'Assim, podes ver as tuas próximas vagas registadas num programa
       de calendário à tua escolha.'
 wikilink: 'Link com mais informações'
 memberlist:
@@ -4208,11 +4208,11 @@ addresspicker:
     como Foodsharer, é necessário indicar a tua morada. Para poderes participar na
     recolha de alimentos como Foodsaver, é legalmente obrigatório.'
   different_location: 'Corrigir a descrição da morada'
-  different_location_warning: Por favor verifique se o Pin está no lugar correto
-    na parte superior do cartão. Altere os campos preenchidos automaticamente 
-    (rua e número, código postal e cidade/município) apenas se o valor inserido 
-    automaticamente estiver incorreto. Isso pode ocorrer, por exemplo, após uma 
-    alteração no nome de uma rua.
+  different_location_warning: Por favor, verifique se o Pin está corretamente 
+    posicionado na parte superior do cartão. Altere os campos preenchidos 
+    automaticamente (rua e número, código postal e cidade/município) apenas se 
+    os valores inseridos automaticamente estiverem incorretos. Isto pode 
+    ocorrer, por exemplo, após a alteração do nome de uma rua.
 filterlist:
   filter_for_name_id: 'Nome ou ID'
   some_in_all: '({some} de {all})'
@@ -4268,8 +4268,8 @@ language_chooser:
     e clique no ícone do lápis para começar'
   choose_button: 'Atualizar'
   content: 'Por favor, selecione uma língua'
-prefetchtime: 'Com quantas semanas de antecipação podem os Foodsavers registar-se
-  utilizando os lugares gerados automaticamente?'
+prefetchtime: 'Com quantas semanas de antecedência podem os Foodsavers registar-se
+  nas vagas geradas automaticamente?'
 ueberzeugungsarbeit: 'Foi fácil convencer os responsáveis a cooperar com o foodsharing?'
 ageBandList:
   ageBand: 'Grupos etários'
@@ -4374,7 +4374,7 @@ map:
     go: 'Para a página do distrito'
 list:
   filter_for: 'Filtrar por …'
-public_time: 'Hora do dia aproximada por dos lugares'
+public_time: 'Hora do dia aproximada da vaga'
 opt: 'Opções'
 filter_by: 'Filtrar por'
 push_notifications:
@@ -4409,8 +4409,8 @@ besonderheiten: 'Indicações'
 rolle: 'Função do utilizador'
 regions: 'Distritos'
 text: 'texto'
-use_region_pickup_rule: 'A regra distrital das SULTANAS deve ser aplicada os lugares
-  neste local?'
+use_region_pickup_rule: 'Aplicar a regra distrital para locais populares (regra SULTANAS)
+  às vagas deste local?'
 teaser: 'Teaser'
 presse: 'A empresa/loja/clube está disponível para ser mencionada na imprensa e em
   foodsharing.de?'
@@ -4549,7 +4549,7 @@ help:
       md: |
         Para trabalhar em algumas equipas, os Foodsavers devem ter formação em higiene alimentar. Quando esta função está ativada para uma equipa, tem as seguintes implicações:
         1. Os Foodsavers sem formação válida em higiene não podem candidatar-se à equipa da loja.
-        2. Os Foodsavers que já fazem parte da equipa só podem inscrever-se em lugares cuja formação em higiene ainda seja válida.
+        2. Os Foodsavers que já fazem parte da equipa só podem inscrever-se em vagas cuja formação em higiene ainda seja válida.
 
         Em ambos os casos, é exibida uma nota explicando que falta a formação em higiene para esta ação. Além disso, a formação em higiene está diretamente ligada em cada caso.
 
@@ -4634,25 +4634,25 @@ help:
       title: 'Registo de local'
     pickupOptions:
       title: 'Possibilidades de inscrição'
-      md: 'A secção *Possibilidades de inscrição* mostra-lhe uma visão geral de todos
-        os turnos lugares nos tuas locais, para os quais ainda se procuram Foodsavers.
-        Através do menu de opções, pode ajustar a visualização às suas necessidades:
+      md: 'A secção Possibilidades de inscrição dá-lhe uma visão geral de todas as
+        turnas vagas nos teus locais, para as quais ainda se procuram Foodsavers.
+        Através do menu de opções, podes ajustar a visualização às tuas necessidades:
 
 
-        **Lugares inscritos:** Para que possa planear melhor os teus turnos, também
-        pode visualizar os turnos nos quais já se inscreveu. Esses turnos são apresentados
-        em tons mais claros para que os possas identificar rapidamente.
+        **Vagas inscritas:** Para que possas planear melhor as tuas vagas, também
+        podes visualizar as vagas em que já te inscreveste. Estas vagas são apresentadas
+        em tons mais claros para que as possas identificar rapidamente.
 
 
         **Visualização para responsáveis por equipas:** Os responsáveis por equipas
-        garantem que todos os lugares nos tuas locais decorram de forma fiável. Se
-        fores um lider, podes restringir a visualização às locais pelos quais és responsável.
+        garantem que todas as vagas nos teus locais decorram de forma fiável. Se fores
+        líder, podes restringir a visualização aos locais pelos quais és responsável.
         Assim, é mais fácil manter uma visão geral.
 
-        **Agrupado por dias:** Nesta apresentação, as suas opções de inscrição são
-        agrupadas por dias e apresentadas de forma um pouco mais compacta. Especialmente
-        quando tem muitas opções de inscrição disponíveis por dia, isso facilita a
-        obtenção de uma visão geral.
+        **Agrupado por dias:** Nesta apresentação, as tuas opções de inscrição são
+        agrupadas por dia e apresentadas de forma mais compacta. Isto facilita a obtenção
+        de uma visão geral, especialmente quando há muitas opções de inscrição disponíveis
+        por dia.
 
         '
     resource_mosaic:
@@ -4856,7 +4856,7 @@ help:
       title: 'Selos'
     store_chain_info:
       md: |
-        Esta loja faz parte de uma [cadeia comercial](https://wiki.foodsharing.de/Betrieb#Betriebskette). Todas as cadeias comerciais têm [KAMs](https://wiki.foodsharing.de/Key_Account_Manager_(KAM)) responsáveis, que podem consultar a equipa, a carga de trabalho e o número de lugares disponíveis para recolha nesta loja.
+        Esta loja faz parte de uma [cadeia comercial](https://wiki.foodsharing.de/Betrieb#Betriebskette). Todas as cadeias comerciais têm [KAMs](https://wiki.foodsharing.de/Key_Account_Manager_(KAM)) responsáveis, que podem consultar a equipa, a carga de trabalho e o número de vagas disponíveis para recolha nesta loja.
       title: 'Filials de cadeias'
   helpTitle: 'Ajuda: {title}'
   tooltip: 'Mostrar a ajuda'
@@ -4876,13 +4876,13 @@ sort:
 required_messages:
   kick_from_store_team:
     main: Foste removido da equipa da loja [{store}](/store/{storeId}). Assim, 
-      já não podes inscrever-te para os lugares neste local.
+      já não podes inscrever-te para as vagas neste local.
     footer: 'Muitas saudações'
     really: 'Quer mesmo remover {name} da equipa deste local?'
   move_to_standby_team:
     main: Foste colocado na lista de substitutos da loja 
-      [{store}](/store/{storeId}). Atualmente, não podes inscrever-te para os 
-      lugares neste local nem ler o chat geral do grupo.
+      [{store}](/store/{storeId}). Atualmente, não podes inscrever-te para as 
+      vagas neste local nem ler o chat geral do grupo.
     footer: 'Muitas saudações'
     really: 'Queres mesmo tirar {name} da equipa ativa e colocá-lo na lista de substitutos?'
   demote_store_manager:
