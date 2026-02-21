@@ -29,7 +29,7 @@
         class="px-0 flex-basis-0"
         @click="activeFilter = button"
       >
-        <span class="fa-stack fa-1x">
+        <span class="fa-stack fa-1x reduced-width-stack">
           <i :class="`fas fa-${button.icon}`" />
           <i v-if="button.anti" class="fas fa-slash fa-stack-1x" />
         </span><br>
@@ -105,5 +105,8 @@ export default {
 <style scoped>
 .flex-basis-0 {
   flex-basis: 0 !important;
+}
+.reduced-width-stack {
+  width: 2em;
 }
 </style>
