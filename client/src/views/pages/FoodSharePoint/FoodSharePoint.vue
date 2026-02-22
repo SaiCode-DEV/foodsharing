@@ -64,7 +64,8 @@
         <div class="list-group-item d-flex justify-content-between">
           <div>
             {{ fsp.address.street }} <br>
-            {{ fsp.address.postalCode }} {{ fsp.address.city }} <br>
+            {{ fsp.address.postalCode }} {{ fsp.address.city }} <br><br>
+            <b>{{ $t('bezirk') }}:</b> <a :href="$url('publicRegion', fsp.regionId)" v-text="fsp.regionName" /><br><br>
             <a :href="$url('map', { foodSharePointId: id })">
               <i class="fas fa-map-marker-alt" />
               {{ $t('fsp.show_on_large_map') }}
