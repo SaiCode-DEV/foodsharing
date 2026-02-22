@@ -42,9 +42,9 @@ store:
       e fiável?
     confirm-no-location: Não inscreveste uma morada válida no teu perfil. Por 
       favor, insere uma morada para facilitar aos responsáveis pelas equipas a 
-      decisão sobre a tua candidatura.
+      decisão sobre a tua aplicação.
     confirm-no-location-ok: Candidatar mesmo assim
-    application-message: Mensagem de candidatura
+    application-message: Mensagem de aplicação
     application-placeholder: Gostaria de ajudar nesta equipa porque …
     distance_short:
       unknown: A morada inserida é inválida
@@ -81,7 +81,7 @@ store:
     requireVerification:
       link: Abrir fórum do distrito de origem
       request: Não podes candidatar-te neste momento, porque ainda não foste 
-        verificado. Este local só aceita candidaturas de Foodsavers verificados.
+        verificado. Este local só aceita aplicações de Foodsavers verificados. 
         Primeiro, realiza as tuas recolhas de teste ou contacta os teus 
         embaixadores ou a equipa de boas-vindas para obteres a verificação. 
         Podes encontrar estes contactos no fórum do teu distrito, na barra 
@@ -96,7 +96,7 @@ store:
       link: Editar o perfil
       request: Não podes candidatar-te neste momento, porque ainda não tens um 
         número de telefone registado no teu perfil. Este local só aceita 
-        candidaturas de Foodsavers que tenham pelo menos um número de telefone 
+        aplicações de Foodsavers que tenham pelo menos um número de telefone 
         registado. Por favor, adiciona um número de telefone no teu perfil para 
         poderes candidatar-te.
       invited: Foste convidado para este local. Antes de poderes aceitar o 
@@ -104,15 +104,15 @@ store:
         loja só aceita Foodsavers com pelo menos um número de telefone 
         registado. Depois de adicionares o número, poderás aceitar o convite.
     applicationSummary:
-      intro: 'Quando enviares a tua candidatura, os responsáveis da equipa verão as
+      intro: 'Quando enviares a tua aplicação, os responsáveis da equipa verão as
         seguintes informações:'
-      time: A data da candidatura
+      time: A hora da aplicação
       fullName: O teu nome completo ({first_name} {last_name})
       verified: O teu estado da verificação ({status})
       distance: Distância entre a tua residência e o local ({distance})
       storeList: A lista dos teus locais
-      text: A tua mensagem de candidatura
-    applicationMessageTooShort: A tua mensagem de candidatura é curta demais.
+      text: A tua aplicação
+    applicationMessageTooShort: A tua aplicação é curta demais.
     alerts:
       one_more: Mostrar mais uma sugestão
       many_more: Mostrar {count} mais sugestões
@@ -204,7 +204,7 @@ store:
     filterNoHygiene: 'sem formação em higiene'
     sorting:
       default: Classificação standard
-      pickup: ordenada pela última recolha
+      pickup: ordenada pela última vaga
       distance: ordenado por distância
     userHasPickupsWarning: '{name} ainda está registada em {occupiedSlots} vagas neste
       local. Estas vagas serão libertadas. Deseja continuar?'
@@ -242,7 +242,7 @@ store:
   springer_conversation_name: 'Substituto [name]'
   isManager: 'Responsável deste local.'
   prefetchtwo: '2 semanas'
-  particularities: 'Procedimento e instruções'
+  particularities: 'Como fazer'
   noPickup: 'Nunca recolheu nada aqui.'
   tooltip_red: 'Vagas disponíveis hoje e amanha'
   active: 'Activo'
@@ -310,7 +310,7 @@ store:
   not_verified: 'Não estás verificado. Por isso, ainda não pode ver as vagas nem os
     números de telefone dos membros da equipa.'
   unverified_member: 'não verificado'
-  all_of_my_stores: 'Todos os meus locais'
+  all_of_my_stores: 'Todos os teus locais'
   delete_date: 'Excluir vaga individual'
   unknownDate: 'desconhecido'
   average_collection_quantity: 'Quantidade por pessoa'
@@ -489,7 +489,7 @@ bell:
   foodsaver_adress_changed: Em caso de alterações frequentes, verifique.
   passport_created_or_renewed_title: O teu cartão do membro …
   passport_created_or_renewed: foi ativado ou prolongado!
-  workinggroup_new_request: Nova candidatura para um grupo de trabalho
+  workinggroup_new_request: Nova aplicação para um grupo de trabalho
   internal_email_changed_title: '{address}'
   internal_email_changed: A tua morada de e-mail pessoal foi alterado.
   forum_not_activated_thread: '{forum}'
@@ -1002,7 +1002,7 @@ menu:
     chainList: 'Visão geral das cadeias'
     helpwanted: 'Equipa está aberta'
     contact: 'Contacto'
-    group_overview: 'Visão geral dos grupos de trabalho globais'
+    group_overview: 'Todos grupos globais'
     dataprivacy: 'Proteção de dados'
     guide: 'Guia de higiene'
     conference: 'Conferência online'
@@ -1012,7 +1012,7 @@ menu:
     demands: 'Cobranças'
     delete_read: 'Excluir todos os lidos'
     friendcircle: 'Círculo de conhecidos'
-    joinregion: 'Entrar para um distrito'
+    joinregion: 'Juntar-te a um distrito'
     baskets: 'Cabazes alimentares'
     workingGroupEdit: 'Gerir grupo'
     background: 'Contexto'
@@ -1302,7 +1302,7 @@ profile:
     week_3: 'semana pasada'
     week_4: 'há duas semanas'
     categorieName: 'Categoria'
-    title: 'Estatísticas de participação'
+    title: 'Atividade'
     respActStores: 'Obrigado por coordenar {count} ativos '
     week_2: 'esta semana'
     pickupAmount: 'Quantidade'
@@ -1362,8 +1362,8 @@ profile:
     by: de
     previous: antes
   sections:
-    orga_rights: '##### tem, como organizador(a), [amplos direitos]({wikiurl}) na
-      esta plataforma.'
+    orga_rights: '##### tem, como organizador(a), [permissões alargadas]({wikiurl})
+      nesta plataforma.'
     ambassador_for: para
     foodSaver_in_region: Distritos onde estou registado
     workgroups_admin: Envolvo-me como pessoa de contacto destes grupos
@@ -1374,7 +1374,7 @@ profile:
   tab_navigation:
     profile: Perfil
     pickups: Vagas
-    commitment_statistics: Estatísticas de participação
+    commitment_statistics: Atividade
     stores: Locais ({count})
     notes: Notas ({count})
   stores:
@@ -1542,18 +1542,18 @@ group:
   application_from: 'de'
   apply:
     accept: 'Aceitar'
-    title: 'Candidatura para {group}'
+    title: 'Aplicação para {group}'
     motivation: 'Qual é a tua motivação para participar no {group}?'
-    send: 'Enviar candidatura'
+    send: 'Enviar aplicação'
     summary: '{name} gostaria de se juntar ao grupo de trabalho {group}.'
     time:
       "1": '1–2 horas'
       "5": '5 ou mais horas'
       "2": '2–3 horas'
       "3": '3–4 horas'
-    sent: 'A candidatura foi enviada.'
-    declined: 'Candidatura recheitado'
-    accepted: 'Candidatura aceite'
+    sent: 'A aplicação foi enviada.'
+    declined: 'Aplicação recheitado'
+    accepted: 'Aplicação aceite'
     experience: "Podes recorrer à experiências que tiveste noutras partes do grupo?\n\
       \ Caso afirmativo, onde e qual?\n"
     error_missing_time: 'Erro: Não foi selecionada nenhuma hora.'
@@ -1702,7 +1702,7 @@ group:
   no_groups: 'Aqui é ainda não grupos de trabalho'
   members: 'Miembros'
   subtitle: 'Aqui encontrará ajuda e muito para fazer …'
-  application_region: 'Candidatura de {group}'
+  application_region: 'Aplicação para {group}'
   really_quit_district: 'Quer mesmo deixar o destrito {name}?'
   entermotivation: 'Motivação:'
   title: 'Grupos de trabalho de foodsharing'
@@ -1721,7 +1721,7 @@ group:
   name: 'Nome'
   valid_until: Válido áte
   filter_placeholder: Filtrar grupos por nomes
-  confirm_decline: Queres mesmo recusar esta candidatura?
+  confirm_decline: Queres mesmo recusar esta aplicação?
 foodsaver:
   delete_account_sure: 'Tem a certeza de que deseja excluir a tua conta?'
   list:
@@ -2436,14 +2436,14 @@ storeedit:
   store:
     status: 'Estado'
   fetch:
-    teamStatus1: 'A equipa está aberta a candidaturas novas de Foodsavers'
-    teamStatus0: 'Este local não está a aceitar candidaturas novas neste momento'
+    teamStatus1: 'A equipa está aberta a aplicações novas de Foodsavers'
+    teamStatus0: 'Este local não está a aceitar aplicações novas neste momento'
     teamStatus2: 'Precisa-se de apoio urgente'
     teamStatus: 'Estado da equipa'
     hygieneRequirement: Requisitos de higiene
     hygieneRequired: Permitir a inscrição apenas com formação válida em higiene
-    applyTextRequired: É necessário introduzir um texto para candidaturas
-    applicationRequirements: Critérios de candidatura
+    applyTextRequired: É necessário introduzir um texto para aplicações
+    applicationRequirements: Critérios de aplicação
     verifiedRequired: Permitir apenas Foodsavers verificados
     phoneRequirement: Permitir apenas Foodsavers com número de telefone 
       registado
@@ -4706,7 +4706,7 @@ help:
       md: 'Como recursos semelhantes, serão apresentados até 10 recursos adicionais
         para os quais foram introduzidas as **mesmas categorias**.'
     profileCommitmentsStat:
-      title: 'Estatísticas de participação'
+      title: 'Atividade'
       md: 'é visível a partir da função de responsável por equipas. É restrita ao
         distrito comum ou às locais comuns.'
     pollScopes:
@@ -4892,8 +4892,8 @@ required_messages:
   placeholder: 'Opcional: adicionar informações aqui…'
   decline_store_application:
     footer: 'Muitas saudações'
-    main: 'A tua candidatura à local {store} foi rejeitada.'
-    really: 'Tens a certeza de que queres rejeitar a candidatura da equipa de {name}?'
+    main: 'A tua aplicação à local {store} foi rejeitada.'
+    really: 'Tens a certeza de que queres rejeitar a aplicação da equipa de {name}?'
   verify:
     main: 'Confirmámos que és um Foodsaver!'
     really_multiple: 'Queres mesmo verificar {count} utilizadores? Por favor, certifica-te

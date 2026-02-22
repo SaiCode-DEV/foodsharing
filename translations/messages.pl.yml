@@ -3403,10 +3403,10 @@ error:
   mail_bounce:
     title: 'Zablokowany adres email!'
     description: ''
-    link_2: ''
-    link_1: ''
+    link_2: 'Potrzebuję pomocy'
+    link_1: 'Zmień adres email'
   missing_geolocation:
-    title: ''
+    title: 'Nie podano ważnego adresu'
     description: ''
     link: ''
   missing_user_avatar:
@@ -3422,19 +3422,19 @@ error:
     link: ''
     description: ''
   invalid_mobile_phonenumber:
-    title: ''
+    title: 'Jest problem z twoim numerem telefonu komórkowego.'
     description: ''
-    link: ''
+    link: 'Popraw numer telefonu komórkowego teraz'
   page:
     back_home: 'Powrót do strony startowej'
-    not_found: ''
+    not_found: 'Nie można odnaleźć tej strony.'
     internal_server_error: 'Wystąpił wewnętrzny błąd serwera.'
     other: 'Wystąpił nieznany błąd.'
   mail_activation:
     description: ''
     title: ''
-    link_1: ''
-    link_2: ''
+    link_1: 'Zarządaj nowego maila aktywującego'
+    link_2: 'Zmień adres email'
   passport_is_invalid:
     description: 'Skontaktuj się ze swoimi ambasador(k)ami, żeby ją odnowić.'
     title: 'Twoja legitymacja jest już nieważna!'
@@ -3724,9 +3724,9 @@ region:
 chain:
   new: ''
   error:
-    create: ''
+    create: 'Nie można było utworzyć sieci ({error}).'
     edit: 'Nie można edytować sieci ({error}).'
-    notfs: ''
+    notfs: 'Aby wyświetlić tę listę musisz być foodsaverem/ką.'
   columns:
     kams: ''
     stores: ''
@@ -3742,14 +3742,14 @@ chain:
         description: ''
         label: 'prasa'
       thread:
-        invalidfeedback: ''
-        description: ''
-        placeholder: ''
-        label: ''
+        invalidfeedback: 'Potrzebne jest ID wątku albo link.'
+        description: 'Szukaj wątku na forum przez podanie co najmniej trzech znaków.'
+        placeholder: 'Szukaj nazwy wątku'
+        label: 'Wątek forum'
       kam:
-        invalidfeedback: ''
+        invalidfeedback: 'Podano błędne dane. Potrzebne jest jedno lub kilka ID użytkowników/czek.'
         description: ''
-        label: ''
+        label: 'KAM'
       headquarters:
         placeholder:
           city: 'miasto'
@@ -3760,11 +3760,11 @@ chain:
         label: 'notatki'
         invalidfeedback: 'Notatki nie mogą być dłuższe niż 200 znaków.'
         description: ''
-        default: ''
+        default: 'Trwają negocjacje'
       estimatedStoreCount:
         description: 'Całkowita liczba filii sieci'
         label: 'filie'
-        invalidfeedback: ''
+        invalidfeedback: 'Tylko liczby całkowite są dozwolone.'
       details:
         label: ''
         description: ''
@@ -3772,12 +3772,12 @@ chain:
       status:
         label: 'status'
       name:
-        invalidfeedback: ''
-        label: ''
+        invalidfeedback: 'Pole "nazwa" nie może być puste'
+        label: 'Nazwa'
         placeholder: 'nazwa sieci'
     title:
-      edit: ''
-      new: ''
+      edit: 'Edytuj sieć'
+      new: 'Utwórz sieć'
     ok: 'Zapisz'
     cancel: 'Anuluj'
   errorCodes:
@@ -3804,13 +3804,13 @@ chain:
   pagetitle: ''
   allowpress: ''
   status:
-    filterplaceholder: ''
-    notcooperating: ''
+    filterplaceholder: 'Status'
+    notcooperating: 'Nie współpracuje'
     cooperating: 'współpracuje'
-    negotiating: ''
+    negotiating: 'w trakcie negocjacji'
   options:
     showstores: ''
-    edit: ''
+    edit: 'Edytuj'
   filterplaceholder: ''
   listheader: ''
 globals:
