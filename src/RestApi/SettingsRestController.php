@@ -2,6 +2,7 @@
 
 namespace Foodsharing\RestApi;
 
+use Carbon\Carbon;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\SleepStatus;
 use Foodsharing\Modules\Foodsaver\DTO\ReadableProfileSettings;
@@ -47,8 +48,12 @@ class SettingsRestController extends AbstractFoodsharingRestController
             throw new BadRequestHttpException('invalid sleep status');
         }
 
-        // check if from and to are needed
-        if ($request->mode == SleepStatus::TEMP && ($request->from == null || $request->to == null)) {
+        // check if from and to are needed and if they are not older than today
+        if ($request->mode == SleepStatus::TEMP &&
+            ($request->from == null || $request->to == null
+                || Carbon::instance($request->from)->endOfDay()->isPast()
+                || Carbon::instance($request->to)->endOfDay()->isPast()
+                || $request->from > $request->to)) {
             throw new BadRequestHttpException('invalid dates');
         }
 

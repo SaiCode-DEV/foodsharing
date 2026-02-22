@@ -133,7 +133,10 @@ const startDate = ref(new Date())
 const isLoading = ref(false)
 
 function isSleepDateValid (date) {
-  return date !== null && !isNaN(Date.parse(date))
+  const parsed = Date.parse(date)
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  return date !== null && !isNaN(parsed) && parsed >= today
 }
 
 function isSleepStatusValid () {

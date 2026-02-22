@@ -3,6 +3,7 @@
 namespace Foodsharing\Permissions;
 
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Region\RegionGateway;
@@ -44,7 +45,7 @@ class ResourcePermissions
 
     public function mayDeleteResource(int $ownerId): bool
     {
-        return $this->session->id() === $ownerId;
+        return $this->session->id() === $ownerId || $this->session->mayRole(Role::ORGA);
     }
 
     public function mayEditResource(int $ownerId): bool

@@ -137,7 +137,7 @@
       </div>
       <template #modal-footer>
         <b-button
-          v-if="mayEditSelected"
+          v-if="mayDeleteSelected"
           variant="danger"
           @click="removeResource()"
         >
@@ -261,6 +261,10 @@ const mayEditSelected = computed(() =>
     props.selectedResource.regionId === props.groupId &&
     !props.selectedResource?.user
   ),
+)
+
+const mayDeleteSelected = computed(() =>
+  userStore.isOrga || mayEditSelected.value,
 )
 
 const similarResources = computed(() => {

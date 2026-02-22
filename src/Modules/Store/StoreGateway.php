@@ -1160,7 +1160,7 @@ class StoreGateway extends BaseGateway
 
         // Always have to do the join to be able to use the appropriate category
         // type icons on the map
-        $query .= ' INNER JOIN fs_betrieb_kategorie k ON b.betrieb_kategorie_id = k.id';
+        $query .= ' LEFT JOIN fs_betrieb_kategorie k ON b.betrieb_kategorie_id = k.id';
         if ($type !== null) {
             $conditions[] = 'k.type = :categoryType';
             $params[':categoryType'] = $type->value;

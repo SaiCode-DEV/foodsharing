@@ -132,16 +132,25 @@ class SettingsApiCest
         $I->updateInDatabase('fs_foodsaver', ['sleep_status' => SleepStatus::NONE], ['id' => $this->user['id']]);
 
         $I->login($this->user['email']);
-        $I->sendPATCH('api/users/current/sleep-mode', [
-            'mode' => SleepStatus::TEMP,
-            'from' => 'abcdefg',
-            'to' => Carbon::today()->addWeek()->format('d.m.Y')
-        ]);
-        $I->seeResponseCodeIs(HttpCode::UNPROCESSABLE_ENTITY);
-        $I->seeInDatabase('fs_foodsaver', [
-            'id' => $this->user['id'],
-            'sleep_status' => SleepStatus::NONE
-        ]);
+
+        $combinations = [
+            ['abcdefg', Carbon::today()->addWeek()->format('d.m.Y'), HttpCode::UNPROCESSABLE_ENTITY], // not a date
+            [Carbon::today()->subDay()->format('d.m.Y'), Carbon::today()->addWeek()->format('d.m.Y'), HttpCode::BAD_REQUEST], // start in the past
+            [Carbon::today()->addWeek()->format('d.m.Y'), Carbon::today()->subDay()->format('d.m.Y'), HttpCode::BAD_REQUEST], // end in the past
+            [Carbon::today()->addWeek()->format('d.m.Y'), Carbon::today()->addDay()->format('d.m.Y'), HttpCode::BAD_REQUEST], // end before start
+        ];
+        foreach ($combinations as $combination) {
+            $I->sendPATCH('api/users/current/sleep-mode', [
+                'mode' => SleepStatus::TEMP,
+                'from' => $combination[0],
+                'to' => $combination[1],
+            ]);
+            $I->seeResponseCodeIs($combination[2]);
+            $I->seeInDatabase('fs_foodsaver', [
+                'id' => $this->user['id'],
+                'sleep_status' => SleepStatus::NONE
+            ]);
+        }
     }
 
     /**
@@ -176,45 +185,23 @@ class SettingsApiCest
         $user = $I->createFoodsaver();
         $I->login($user['email']);
 
-        // Check on the day before sleep_until
-        $I->sendPATCH('api/users/current/sleep-mode', [
-            'mode' => SleepStatus::TEMP,
-            'from' => $today->format('Y-m-d'),
-            'to' => $tomorrow->format('Y-m-d'),
-        ]);
-        $I->sendGET('/api/users/' . $user['id']);
-        $I->seeResponseCodeIs(HttpCode::OK);
-        $I->seeResponseContainsJson(['isSleeping' => true]);
-
-        // Check on the same day as sleep_until
-        $I->sendPATCH('api/users/current/sleep-mode', [
-            'mode' => SleepStatus::TEMP,
-            'from' => $yesterday->format('Y-m-d'),
-            'to' => $today->format('Y-m-d'),
-        ]);
-        $I->sendGET('/api/users/' . $user['id']);
-        $I->seeResponseCodeIs(HttpCode::OK);
-        $I->seeResponseContainsJson(['isSleeping' => true]);
-
-        // Check on one-day sleeping
-        $I->sendPATCH('api/users/current/sleep-mode', [
-            'mode' => SleepStatus::TEMP,
-            'from' => $today->format('Y-m-d'),
-            'to' => $today->format('Y-m-d'),
-        ]);
-        $I->sendGET('/api/users/' . $user['id']);
-        $I->seeResponseCodeIs(HttpCode::OK);
-        $I->seeResponseContainsJson(['isSleeping' => true]);
-
-        // Check on the day after sleep_until
-        $I->sendPATCH('api/users/current/sleep-mode', [
-            'mode' => SleepStatus::TEMP,
-            'from' => $yesterday->format('Y-m-d'),
-            'to' => $yesterday->format('Y-m-d'),
-        ]);
-        $I->sendGET('/api/users/' . $user['id']);
-        $I->seeResponseCodeIs(HttpCode::OK);
-        $I->seeResponseContainsJson(['isSleeping' => false]);
+        $cases = [
+            [$today, $tomorrow, true],
+            [$yesterday, $today, true],
+            [$today, $today, true],
+            [$yesterday, $yesterday, false],
+            [$tomorrow, $tomorrow, false],
+        ];
+        foreach ($cases as [$fromDate, $toDate, $isSleeping]) {
+            $I->updateInDatabase('fs_foodsaver', [
+                'sleep_status' => SleepStatus::TEMP,
+                'sleep_from' => $fromDate->format('Y-m-d'),
+                'sleep_until' => $toDate->format('Y-m-d'),
+            ], ['id' => $user['id']]);
+            $I->sendGET('/api/users/' . $user['id']);
+            $I->seeResponseCodeIs(HttpCode::OK);
+            $I->seeResponseContainsJson(['isSleeping' => $isSleeping]);
+        }
     }
 
     /**
