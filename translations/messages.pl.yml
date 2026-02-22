@@ -1256,7 +1256,7 @@ net_errors:
   title:
     general: Błąd sieci
     500: Błąd serwera
-    400: ''
+    400: 'Błędne zapytanie'
   code: 'Kod błędu: '
   message: 'Komunikat błędu: '
   FORBIDDEN: Nie jesteś upoważniony/a do wykonania tej akcji.
@@ -1266,14 +1266,17 @@ net_errors:
   ERR_NETWORK_CHANGED: Twoje połączenie internetowe jest niestabilne. Proszę 
     sprawdź swoje połączenie i spróbuj ponownie.
   unknown: Wystąpił nieznany błąd. Spróbuj ponownie później.
-  ETIMEDOUT: ''
-  action_response: ''
-  SERVER_ERROR: ''
-  ERR_CANCELED: ''
-  BAD_REQUEST: ''
-  ECONNABORTED: ''
-  ERR_BAD_RESPONSE: ''
-  TOO_MANY_REQUESTS: ''
+  ETIMEDOUT: 'Żądanie trwało za długo. Sprawdź swoje połączenie internetowe i spróbuj
+    ponownie.'
+  action_response: 'Żądanie i odpowiedź serwera:'
+  SERVER_ERROR: 'Wystąpił wewnętrzny błąd serwera. Twoje żądanie niestety nie może
+    być obecnie rozpatrzone.'
+  ERR_CANCELED: 'Żądanie zostało anulowane. Spróbuj ponownie w razie potrzeby.'
+  BAD_REQUEST: 'Nieprawidłowe żądanie. Sprawdź, czy wprowadzone dane są kompletne
+    i wiarygodne.'
+  ECONNABORTED: 'Żądanie zostało przerwane przez twoją przeglądarkę. Spróbuj ponownie.'
+  ERR_BAD_RESPONSE: 'Serwer zwrócił nieprawidłową odpowiedź. Spróbuj ponownie.'
+  TOO_MANY_REQUESTS: 'Za dużo żądań. Poczekaj chwilę i spróbuj ponownie.'
 formatting:
   md: Do formatowania możesz użyć <a href="https://markdown.de/">Markdown</a>.
 fsp:
@@ -1379,7 +1382,7 @@ storeview:
   team_info_distance: ''
   public_time: ''
   specials: ''
-  source_data: ''
+  source_data: 'Dane źródłowe'
   public_and_statistics: ''
   team: ''
   invalid_field: 'Nieważna treść pola. Zmiany nie mogą zostać zapisane.'
@@ -1594,7 +1597,7 @@ store:
   jumping: ''
   may_not_referred_to_in_public: ''
   fetchCount: ''
-  requests: ''
+  requests: 'Otwarte zapytania ({count})'
   error: ''
   leaveinfo: 'Tu możesz podać trochę informacji dla foodsaverów/ek, którzy chcą się
     zgłosić do teamu.'
@@ -1605,7 +1608,7 @@ store:
     final: 'Najpierw nie wyglądało to dobrze, ale potem jednak się odezwali.'
   mayAmb: 'Zdał/a quiz na ambasadora/kę.'
   my_last_slot: 'Mój ostatni slot'
-  isAppliedForTeam: ''
+  isAppliedForTeam: 'Zapytanie'
   locked: ''
   lastPickup: ''
   managing: ''
@@ -2795,7 +2798,7 @@ profile:
     stores: ''
     profile: 'Profil'
   homeDistrictHistory:
-    previous: ''
+    previous: 'wcześniej'
     changed: ''
     by: 'od'
   pinboard: ''
@@ -3138,9 +3141,9 @@ poll:
     sum: 'Suma'
     percentage_of_votes: ''
     sumShort: '∑'
-    standardDeviationShort: ''
+    standardDeviationShort: 'σ'
     number_of_votes: ''
-    standardDeviation: ''
+    standardDeviation: 'odchylenie standardowe'
     option_text: 'Opcja'
     votes: ''
     averageShort: 'Ø'
@@ -3728,9 +3731,9 @@ chain:
     kams: ''
     stores: ''
     actions: ''
-    name: ''
+    name: 'Nazwa'
     headquarters: ''
-    estimatedStoreCount: ''
+    estimatedStoreCount: 'Filie'
     notes: ''
     status: 'Status'
   inputmodal:
@@ -3781,11 +3784,11 @@ chain:
     EMPTY_COUNTRY: 'Pole "państwo" nie może być puste'
     KEY_ACCOUNT_MANAGER_MISSING_ACHIEVEMENT: ''
     EMPTY_CITY: 'Pole "miasto" nie może być puste'
-    EMPTY_NAME: ''
+    EMPTY_NAME: 'Pole "nazwa" jest puste'
     INVALID_STORECHAIN_ID: ''
     WRONG_FORUM: ''
     KEY_ACCOUNT_MANAGER_ID_NOT_EXISTS: ''
-    INVALID_STATUS: ''
+    INVALID_STATUS: 'Pole "status" jest puste'
     EMPTY_ZIP: 'Pole "kod pocztowy" nie może być puste'
     THREAD_ID_NOT_EXISTS: ''
   detailsmodal:
@@ -3968,20 +3971,20 @@ startpage:
       part3: 'znajdziesz'
       part5: ', są to regały lub lodówki, gdzie możesz za darmo wziąć lub oddać żywność.'
       part4: 'jadłodzielnie'
-    title: ''
+    title: 'w twojej okolicy'
   demands:
     image_alt: ''
     title: ''
     text: ''
   call_to_action:
-    title: ''
+    title: 'Dołącz'
     text: ''
   how_we_work:
     title: ''
     text: ''
   member:
     text: ''
-    title: ''
+    title: 'jako członek'
   welcome_text: ''
   store:
     title: ''
@@ -4013,7 +4016,7 @@ startpage:
   forstores: ''
   honest: 'Bądź szczery/a'
   vision:
-    title: ''
+    title: 'Wizja'
     text: ''
   register: 'Na końcu tej strony możesz się zarejestrować jako foodsharer/ka.'
   private:
@@ -4190,7 +4193,7 @@ activitypost:
 addreaction: 'Dodaj reakcję'
 network_errors:
   csrf_token_invalid:
-    title: ''
+    title: 'Sesja wygasła'
     text: 'Twoja sesja wygasła. Odśwież stronę i spróbuj ponownie.'
 releases:
   "2023-09": 'Release „Jackfruit“ 🍈 (Wrzesień 2023)'
@@ -4227,7 +4230,8 @@ team_page:
   it_member:
     title: ''
     text: ''
-error_base64_image: ''
+error_base64_image: 'Dodawanie obrazów przez przeciągnięcie i upuszczenie nie jest
+  dozwolone.'
 donation_banner:
   action_button: ''
   amount: ''
@@ -4246,7 +4250,7 @@ debug:
 prefetchtime: ''
 usersearch:
   search_tag: ''
-  no_tag_preset: ''
+  no_tag_preset: 'Nie znaleziono użytkownika/czki'
   select_tag: ''
 contentmanagement: ''
 sidenav:

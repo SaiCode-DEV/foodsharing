@@ -382,7 +382,7 @@ navigation:
   groups: 'Grupos'
   news_from_it: 'Notícias e falhas'
   basket: 'Cabazes alimentares'
-  help_needed: 'Precisa de ajuda?'
+  help_needed: 'Precisas de ajuda?'
   toggle: 'Mostrar/ocultar navegação'
 bell:
   poll_new: '{title}'
@@ -638,7 +638,7 @@ dashboard:
     events: 'Os teus eventos'
     groups: 'Teus grupos'
     jumping_stores: 'Teus locais substitutos'
-    managing_stores: 'Tuas responsabilidades por equipas'
+    managing_stores: 'Equipas coordenadas'
     pickups: Vagas registadas
     pickupOptions: Opções de inscrição
   greeting_short: 'Olá {name}!'
@@ -1369,7 +1369,7 @@ profile:
     workgroups_admin: Envolvo-me como pessoa de contacto destes grupos
     workgroups_member: em conjunto nos seguintes grupos de trabalho
     no_common_workgroups: em nenhum grupo de trabalho comum
-    home_region_from: Meu distrito de origem
+    home_region_from: Distrito de origem
     kam_for: 'Responsável pela coordenação das seguintes cadeias comerciais:'
   tab_navigation:
     profile: Perfil
