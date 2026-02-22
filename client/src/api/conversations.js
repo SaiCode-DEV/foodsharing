@@ -30,7 +30,7 @@ export function sendMessage (conversationId, body) {
 
 export function renameConversation (conversationId, newName) {
   return patch(`/conversations/${conversationId}`, {
-    name: newName,
+    name: newName || null,
   })
 }
 

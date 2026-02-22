@@ -185,8 +185,7 @@ class MessageRestController extends AbstractFoodsharingRestController
             throw new BadRequestHttpException('Cannot rename a locked conversation.');
         }
 
-        $name = strip_tags($editChatData->name);
-        $this->messageGateway->renameConversation($conversationId, $name);
+        $this->messageGateway->renameConversation($conversationId, $editChatData->name);
 
         return $this->respondOK();
     }

@@ -358,6 +358,7 @@ async function saveRename () {
     const box = boxes.value.find(b => b.id === currentRenameBoxId.value)
     if (box) {
       box.title = newTitle.value.trim() || null
+      ensureTitle(box.id)
     }
   } catch (e) {
     console.error('Failed to rename conversation:', e)
