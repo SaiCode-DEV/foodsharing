@@ -121,8 +121,8 @@ export const getters = {
   },
   getFilteredStoreLog (actionIds, userId) {
     return store.log.filter(entry =>
-      actionIds.includes(entry.action_id) &&
-      (userId === entry.acting_foodsaver.id),
+      actionIds.includes(entry.actionType) &&
+      (userId === entry.actor.id),
     )
   },
 }
@@ -158,9 +158,15 @@ export const mutations = {
   async loadStoreInvitations (storeId) {
     store.invitations = await listStoreTeamInvitations(storeId)
   },
-  async loadStoreLog (storeId, calendarInterval) {
+  async loadPickupSignInDates (storeId, calendarInterval) {
     const actions = [STORE_LOG_ACTION.SIGN_UP_SLOT]
-    const intervalPerDays = calendarInterval / 3600 / 24
+    let intervalPerDays = calendarInterval / 3600 / 24
+
+    // If there are no regular pickups in this store, default to querying the
+    // last 30 days of log entries, to still show something in the log.
+    if (intervalPerDays <= 0) {
+      intervalPerDays = 30
+    }
 
     const fromDate = new Date()
     fromDate.setDate(fromDate.getDate() - intervalPerDays)
