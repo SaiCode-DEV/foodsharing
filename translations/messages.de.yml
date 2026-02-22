@@ -1023,7 +1023,7 @@ store:
   sm: # TODO Cleanup
     sorting:
       default: "Standard-Sortierung"
-      pickup: "Sortiert nach letzter Abholung"
+      pickup: "Sortiert nach letztem Slot"
       distance: "Sortiert nach Entfernung"
     filterAll: "Mitglieder"
     filterActive: "Aktive"
