@@ -115,9 +115,9 @@
     </div>
 
     <div v-if="aboutMeIntern">
-      <h4 class="mb-2 mt-4">
+      <h5 class="mb-2 mt-4">
         {{ $t('profile.about_me_intern') }}:
-      </h4>
+      </h5>
       <Markdown :source="aboutMeIntern" />
     </div>
     <BananaModal
