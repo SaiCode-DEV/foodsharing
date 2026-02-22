@@ -105,6 +105,11 @@ class RegionGateway extends BaseGateway
         return $this->db->exists('fs_foodsaver_has_bezirk', ['bezirk_id' => $regionId, 'foodsaver_id' => $foodsaverId, 'active' => 1]);
     }
 
+    public function hasAmbassador(int $userId, int $regionId): bool
+    {
+        return $this->db->exists('fs_botschafter', ['bezirk_id' => $regionId, 'foodsaver_id' => $userId]);
+    }
+
     /**
      * @return bool true when the given user is an admin/ambassador for the given group/region
      */

@@ -391,8 +391,11 @@ class ForumTransactions
         $regionId = $info['region_id'];
         $regionName = $this->regionGateway->getRegionName($regionId);
 
-        $notifiedUsers = array_filter($usersWithNotificationsTurnedOn, fn ($userId) => $this->regionGateway->hasMember($userId, $regionId));
-
+        if ($info['ambassador_forum']) {
+            $notifiedUsers = array_filter($usersWithNotificationsTurnedOn, fn ($userId) => $this->regionGateway->hasAmbassador($userId, $regionId));
+        } else {
+            $notifiedUsers = array_filter($usersWithNotificationsTurnedOn, fn ($userId) => $this->regionGateway->hasMember($userId, $regionId));
+        }
         if (empty($notifiedUsers)) {
             return;
         }
