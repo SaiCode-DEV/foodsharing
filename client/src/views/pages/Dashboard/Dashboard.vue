@@ -74,7 +74,7 @@
     >
       <div class="grid-item grid-item--left">
         <PickupContainer v-if="isFoodsaver && visible.pickups && (visible.stores && (state || !viewIsXL) || !visible.stores && hasPickups)" />
-        <PickupOptionsContainer v-if="isFoodsaver && visible.pickupOptions && (state || !viewIsXL)" />
+        <PickupOptionsContainer v-if="isFoodsaver && isVerified && visible.pickupOptions && (state || !viewIsXL)" />
         <BasketContainer v-if="visible.baskets" />
         <StoreContainer v-if="isFoodsaver && (state && visible.stores || !viewIsXL && visible.stores)" />
         <ManagingStoreContainer v-if="isFoodsaver && (state && visible.managing_stores || !viewIsXL && visible.managing_stores)" />
@@ -100,7 +100,7 @@
         class="grid-item grid-item--right"
       >
         <PickupContainer v-if="isFoodsaver && visible.pickups" />
-        <PickupOptionsContainer v-if="isFoodsaver && visible.pickupOptions" />
+        <PickupOptionsContainer v-if="isFoodsaver && isVerified && visible.pickupOptions" />
         <ManagingStoreContainer v-if="isFoodsaver && visible.managing_stores" />
         <JumpingStoreContainer v-if="isFoodsaver && visible.jumping_stores" />
         <StoreContainer v-if="isFoodsaver && visible.stores" />
@@ -201,6 +201,7 @@ export default {
   computed: {
     user: function () { return this.userStore.getUser },
     isFoodsaver: function () { return this.userStore.isFoodsaver },
+    isVerified: function () { return this.userStore.isVerified },
     hasStores: () => DataStores.getters.hasStores(),
     hasPickups: function () { return this.pickupStore.getRegistered },
     isStoresVisible () {

@@ -479,7 +479,7 @@ class StorePermissions
 
     public function maySeePickupOptions(): bool
     {
-        return $this->session->mayRole(Role::FOODSAVER);
+        return $this->session->isVerified() && $this->session->mayRole(Role::FOODSAVER);
     }
 
     /**
