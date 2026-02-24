@@ -14,7 +14,7 @@ use Foodsharing\Modules\Core\DBConstants\BasketRequests\Status as RequestStatus;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Message\MessageTransactions;
 use Foodsharing\Permissions\BasketPermissions;
-use Foodsharing\RestApi\DTO\RequiredMessage;
+use Foodsharing\RestApi\DTO\OptionalMessage;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
@@ -163,7 +163,7 @@ final class BasketRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: Basket::class))]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Basket not available')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Request was denied')]
-    public function requestBasket(int $basketId, #[MapRequestPayload] RequiredMessage $message): Response
+    public function requestBasket(int $basketId, #[MapRequestPayload] OptionalMessage $message): Response
     {
         $this->assertLoggedIn();
 
@@ -179,7 +179,9 @@ final class BasketRestController extends AbstractFoodsharingRestController
         }
 
         // Send the message to the creator
-        $this->messageTransactions->sendMessageToUser($basketCreatorId, $this->session->id(), trim($message->message), 'basket/request');
+        if ($message->message && trim($message->message)) {
+            $this->messageTransactions->sendMessageToUser($basketCreatorId, $this->session->id(), trim($message->message), 'basket/request');
+        }
         $this->basketGateway->setStatus($basketId, RequestStatus::REQUESTED_MESSAGE_UNREAD, $this->session->id());
 
         return $this->getBasket($basketId);
