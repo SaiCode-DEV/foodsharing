@@ -5,6 +5,7 @@
       :value="value"
       type="text"
       class="form-control"
+      :class="{ 'is-invalid': invalid }"
       :placeholder="$t(placeholder)"
       :aria-label="$t(placeholder)"
       autocomplete="one-time-code"
@@ -19,6 +20,7 @@ export default {
   props: {
     value: { type: String, required: true },
     placeholder: { type: String, default: 'settings.two_fa_manage.totp_token_placeholder' },
+    invalid: { type: Boolean, default: false },
   },
   data () {
     return {

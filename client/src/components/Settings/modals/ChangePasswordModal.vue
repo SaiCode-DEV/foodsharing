@@ -36,6 +36,25 @@
           {{ oldPasswordError }}
         </div>
       </b-form-group>
+      <b-form-group
+        v-if="userStore.getUserSettings?.twoFactorEnabled"
+        :label="$t('login.2fa')"
+        label-for="change-input-totp"
+      >
+        <totp-field
+          id="change-input-totp"
+          v-model="totp"
+          :invalid="v$.totp.$invalid && v$.totp.$dirty || !!oldPasswordError"
+          :disabled="isLoading"
+          @input="v$.totp.$touch()"
+        />
+        <div
+          v-if="v$.totp.$invalid && v$.totp.$dirty"
+          class="invalid-feedback d-block"
+        >
+          {{ $t('settings.two_fa_manage.totp_required') }}
+        </div>
+      </b-form-group>
 
       <b-form-group
         :label="$t('settings.password_change.new_password_label')"
@@ -63,6 +82,9 @@
             </li>
             <li v-if="v$.newPassword.isTrimmed.$invalid">
               {{ $t('settings.password_change.new_password_must_be_trimmed') }}
+            </li>
+            <li v-if="v$.newPassword.different.$invalid">
+              {{ $t('settings.password_change.new_password_must_be_different') }}
             </li>
           </ul>
         </div>
@@ -112,10 +134,12 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { pulseError, pulseInfo } from '@/script'
+import { useUserStore } from '@/stores/user'
 import { useVuelidate } from '@vuelidate/core'
 import { minLength, required, sameAs } from '@vuelidate/validators'
 import { requestPasswordChange } from '@/api/settings'
 import PasswordField from '@/components/Login/PasswordField.vue'
+import totpField from '@/components/Login/TOTPField.vue'
 import { HTTP_RESPONSE } from '@/consts'
 import i18n from '@/helper/i18n'
 
@@ -125,19 +149,23 @@ const oldPassword = ref('')
 const newPassword = ref('')
 const confirmNewPassword = ref('')
 const oldPasswordError = ref('')
+const totp = ref('')
+const userStore = useUserStore()
 
 const rules = computed(() => ({
   oldPassword: { required, minLength: minLength(1) },
   newPassword: {
     required,
     minLength: minLength(8),
+    different: (value) => value !== oldPassword.value,
     isTrimmed: (value) => value.length === value.trim().length,
     complexity: (value) => /[a-z]/.test(value) && /[A-Z]/.test(value) && /[0-9]/.test(value),
   },
   confirmNewPassword: { required, sameAs: sameAs(newPassword) },
+  totp: userStore.getUserSettings?.twoFactorEnabled ? { required, sixDigits: (value) => /^[0-9]{6}$/.test(value) } : {},
 }))
 
-const v$ = useVuelidate(rules, { oldPassword, newPassword, confirmNewPassword })
+const v$ = useVuelidate(rules, { oldPassword, newPassword, confirmNewPassword, totp })
 
 function show () {
   modal.value.show()
@@ -157,11 +185,12 @@ async function submitPassword () {
   oldPasswordError.value = ''
 
   try {
-    await requestPasswordChange(oldPassword.value, newPassword.value)
+    await requestPasswordChange(oldPassword.value, newPassword.value, totp.value)
     pulseInfo(i18n('settings.password_change.success'), { sticky: true })
     oldPassword.value = ''
     newPassword.value = ''
     confirmNewPassword.value = ''
+    totp.value = ''
     v$.value.$reset()
     modal.value.hide()
   } catch (e) {

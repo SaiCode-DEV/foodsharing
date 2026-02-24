@@ -1,9 +1,10 @@
+import { HTTP_RESPONSE } from '@/consts'
 import { get, patch, post, remove } from './base'
 
 export function login (email, password, code, rememberMe) {
   return post('/login', { email, password, code, rememberMe }, {
     disableLoginRedirect: true,
-    skipErrorNotificationFor: [403], // 403 = TOTP required
+    skipErrorNotificationFor: [HTTP_RESPONSE.FORBIDDEN], // 403 = TOTP required
   })
 }
 

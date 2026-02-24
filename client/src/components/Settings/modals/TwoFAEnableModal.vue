@@ -243,15 +243,6 @@
         </div>
 
         <b-alert
-          variant="info"
-          show
-          class="mt-3"
-        >
-          <i class="fas fa-info-circle mr-1" />
-          {{ $t('settings.two_fa_enable.confirm.logout_notice') }}
-        </b-alert>
-
-        <b-alert
           variant="danger"
           show
           class="mt-3"
@@ -415,8 +406,10 @@ async function handleOk (event) {
     isLoading.value = false
     // hide the modal explicitly and then redirect
     twoFactorEnableModal.value.hide()
-    userStore.fetchProfileSettings(true)
+    await userStore.fetchProfileSettings(true)
     pulseSuccess(i18n('settings.two_fa_enable.success'))
+    // Give the user a moment to see the success toast, then reload.
+    setTimeout(() => { window.location.reload() }, 2000)
   } catch (e) {
     let message = e.message
     if (e.code === HTTP_RESPONSE.FORBIDDEN) {

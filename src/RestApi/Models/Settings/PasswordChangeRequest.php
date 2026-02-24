@@ -7,4 +7,6 @@ class PasswordChangeRequest
     public string $oldPassword;
 
     public string $newPassword;
+
+    public ?string $totpCode = null;
 }

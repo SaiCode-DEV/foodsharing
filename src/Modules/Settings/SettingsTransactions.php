@@ -443,7 +443,7 @@ class SettingsTransactions
     {
         // check that the old password is correct
         $currentEmail = $this->foodsaverGateway->getEmailAddress($this->session->id());
-        if (!$this->loginGateway->checkClient($currentEmail, $request->oldPassword)) {
+        if (!$this->loginGateway->checkClient($currentEmail, $request->oldPassword, $request->totpCode)) {
             throw new AccessDeniedHttpException();
         }
 

@@ -83,7 +83,7 @@
         >
           <div>
             <span v-if="v$.totp && v$.totp.required.$invalid && !totpCode">
-              {{ $t('settings.2fa.totp_required') }}
+              {{ $t('settings.two_fa_manage.totp_required') }}
             </span>
           </div>
         </div>

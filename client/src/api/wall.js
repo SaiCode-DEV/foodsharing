@@ -1,3 +1,4 @@
+import { HTTP_RESPONSE } from '@/consts'
 import { get, post, remove } from './base'
 
 export function getWallPosts (target, targetId, limit, offset = 0) {
@@ -6,7 +7,7 @@ export function getWallPosts (target, targetId, limit, offset = 0) {
   // with 403 errors that we need to ignore here. See
   // https://beta.foodsharing.de/region?bid=741&sub=forum&tid=301732&pid=1788926
   // and my Dominik's reply to this for reference.
-  return get(`/walls/${target}/${targetId}?limit=${limit}&offset=${offset}`, { skipErrorNotificationFor: [403] })
+  return get(`/walls/${target}/${targetId}?limit=${limit}&offset=${offset}`, { skipErrorNotificationFor: [HTTP_RESPONSE.FORBIDDEN] })
 }
 
 export function addPost (target, targetId, body, pictures) {

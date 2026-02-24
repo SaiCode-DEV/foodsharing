@@ -89,8 +89,8 @@ class SettingsRestController extends AbstractFoodsharingRestController
     #[OA\Patch(summary: 'Changes the user\'s password.')]
     #[Route('users/current/password', methods: ['PATCH'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
-    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'The new password is invalid')]
-    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'The old password is wrong')]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'The new password is too short')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'The old password or second factor are wrong')]
     public function requestPasswordChange(#[MapRequestPayload] PasswordChangeRequest $request): Response
     {
         $this->assertLoggedIn();

@@ -120,8 +120,11 @@ async function save () {
   try {
     await set2FA(password.value, totp.value, false, targetUserId)
     isLoading.value = false
+    twoFactorDisableModal.value.hide()
+    await userStore.fetchProfileSettings(true)
     pulseSuccess(i18n('settings.two_fa_disable.success'))
-    userStore.fetchProfileSettings(true)
+    // Give the user a moment to see the success toast, then reload.
+    setTimeout(() => { window.location.reload() }, 2000)
   } catch (e) {
     let message = e.message
     if (e.code === HTTP_RESPONSE.FORBIDDEN) {

@@ -46,7 +46,7 @@
           <i class="fas fa-shield-alt mr-1" />
           {{ $t('login.2fa') }}
         </div>
-        <totp-field
+        <TOTPField
           id="testing-login-input-totp"
           ref="totp2"
           v-model="totp"
@@ -113,13 +113,13 @@ import { required, email } from '@vuelidate/validators'
 import { pulseError } from '@/script'
 import { HTTP_RESPONSE } from '@/consts'
 import PasswordField from '@/components/Login/PasswordField.vue'
-import totpField from '@/components/Login/TOTPField.vue'
+import TOTPField from '@/components/Login/TOTPField.vue'
 import { BROADCAST_TYPE, channel } from '@/broadcastChannel'
 import { startAuthentication } from '@simplewebauthn/browser'
 
 export default {
   name: 'MenuLogin',
-  components: { PasswordField, totpField },
+  components: { PasswordField, TOTPField },
   setup () {
     return {
       v$: useVuelidate(),
