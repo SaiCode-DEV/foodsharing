@@ -127,7 +127,7 @@ store:
   days: 'dias'
   team:
     no_record: 'Não foi encontrada nenhuma entrada.'
-    search_reset: 'Repor pesquisa'
+    search_reset: 'Limpar pesquisa'
     search_input: 'Pesquisar por nome / telefone'
     is_closed: 'O equipa está fechado'
   log:
@@ -178,7 +178,7 @@ store:
     log_types_placeholder: 'Selecione as ações que serão mostradas'
     search: 'Mostrar ações selecionadas'
     selected_log_types: '{amount} tipos de ação selecionados'
-    title: 'Protocolo de local'
+    title: 'Atividades do local'
     message_saved_info: A tua mensagem será guardada no registo de local.
   signInDateTime: 'Data de inscrição'
   sm:
@@ -244,7 +244,7 @@ store:
   prefetchtwo: '2 semanas'
   particularities: 'Como fazer'
   noPickup: 'Nunca recolheu nada aqui.'
-  tooltip_red: 'Vagas disponíveis hoje e amanha'
+  tooltip_red: 'Vagas disponíveis hoje ou amanhã'
   active: 'Activo'
   one_active: 'Activo'
   not-in-team: 'Ainda não estás na equipa deste local.'
@@ -265,7 +265,7 @@ store:
   attribution: 'Atribuição'
   useRegionPickupRules: 'Este é um local muito popular. Para além das regras internas
     do local, aplicam-se as seguintes restrições às inscrições nos horários:'
-  short_tooltip_red: 'Vagas disponíveis hoje e amanha'
+  short_tooltip_red: 'Vagas disponíveis hoje ou amanhã'
   regionPickupRulesInactive: 'As regras adicionais do distrito para as vagas não estão
     ativas'
   maxchar: '(máx. 180 caracteres)'
@@ -434,7 +434,7 @@ bell:
   forum_new_thread_title: 'Novo tópico: {title}'
   new_foodsaver_title: '{name} é novo em {bezirk}'
   workgroup_request_decline: 'Não foste aceite no grupo de trabalho.'
-  no_bells: 'Não tem notificações.'
+  no_bells: 'De momento, não tens notificações.'
   new_report_title: 'Denúncia nova sobre {name}'
   forum_announcement_title: 'Aviso importante: {title}'
   store_request_accept: 'Foste aceite na equipa.'
@@ -833,7 +833,7 @@ poll:
     title: 'Cancelar votação'
     question: 'Queres mesmo cancelar esta votação? Isso não pode ser revertido.'
   may_not_yet_vote: 'Essa votação ainda não foi iniciada.'
-  not_available: 'Esta votação não existe ou não tem acesso a ela.'
+  not_available: 'Esta votação não existe ou não tens acesso a ela.'
   eligible_votes_count: 'Número de pessoas com direito a voto'
   already_voted: 'Já participaste nesta votação'
   submit_vote_warning: 'Atenção: a votação é anónima e não é possível alterar a tua
@@ -1397,7 +1397,7 @@ profile:
     grupos de trabalho para guardar informações adicionais sobre perfis. Mais 
     informações sobre este assunto no [Fórum de Embaixadores]({url})
 mailbox:
-  search: 'Revisar'
+  search: 'Pesquisar'
   claim: 'foodsharing.de - usar sem desperdiçar'
   already_exists: 'Já existe uma caixa de correio com esse nome'
   ratelimit: 'Pode enviar no máximo um e-mail a cada 15 segundos. Aguarde um momento…'
@@ -1406,7 +1406,7 @@ mailbox:
   not-allowed: 'Não tens a autorização necessária para fazer isso.'
   conformation_modal:
     title: 'Confirmação'
-    message: 'Tem a certeza de que deseja excluir o e-mail?'
+    message: 'Tens a certeza de que deseja excluir o e-mail?'
   mark_as_unread: 'Marcar e-mail como não lido'
   fromto: 'De/Para'
   mark_all: 'Marcar todos'
@@ -1564,11 +1564,12 @@ group:
     deny: Recursar
   member_list:
     set_admin_title: 'Atribuir como administrador'
-    remove_ambassador_text: 'Tem a certeza de que pretende remover {name} ({id}) como
-      embaixador(a)?'
+    remove_ambassador_text: 'Tens a certeza de que pretende remover {name} ({id})
+      como embaixador(a)?'
     is_verified: 'Verificado'
     add_member: 'Incluir na equipa'
-    remove_admin_text: 'Tem a certeza de que pretende remover {name} ({id}) como administrador?'
+    remove_admin_text: 'Tens a certeza de que pretende remover {name} ({id}) como
+      administrador?'
     remove_admin_title: 'Remover como administrador'
     remove_title: 'Excluir membro'
     remove_text_group: 'Queres mesmo excluir {name} ({id}) do grupo de trabalho?'
@@ -1675,7 +1676,7 @@ group:
       da foodsharing há %weeks% semanas, já ter recolhido %bananas% bananas de reconhecimento
       e ter participado em %fetches% das vagas.'
     requires_properties: 'Todos quantos preencham certos pontos de reconhecimento.'
-    requirements: 'Quem pode inscrever no neste grupo?'
+    requirements: 'Quem pode inscrever-se neste grupo?'
     open: 'Todos pessoas podem participar sem se candidatarem.'
     everybody: 'Todos podem candidatar-se.'
   photo: 'Fotografía'
@@ -1723,7 +1724,7 @@ group:
   filter_placeholder: Filtrar grupos por nomes
   confirm_decline: Queres mesmo recusar esta aplicação?
 foodsaver:
-  delete_account_sure: 'Tem a certeza de que deseja excluir a tua conta?'
+  delete_account_sure: 'Tens a certeza de que deseja excluir a tua conta?'
   list:
     summary: '{count} Foodsavers em {region}'
     inactive: ', quem não esteve ativo nos últimos 6 meses:'
@@ -1747,7 +1748,7 @@ foodsaver:
   mailchange_error: 'A ativação da tua nova morada de e-mail falhou. Por favor, tente
     novamente.'
   delete_account_now: 'Excluir conta agora'
-  restricted: 'Infelizmente, não tem permissão para visualizar estes dados.'
+  restricted: 'Infelizmente, não tens permissão para visualizar estes dados.'
   edit_failure: 'Nada foi alterado ou as alterações não foram guardadas'
   profileBack: 'Voltar ao perfil'
   delete_account: 'Excluir conta'
@@ -1755,11 +1756,11 @@ foodsaver:
     foodsharing.
 
     '
-  delete_own_account: 'Está prestes a excluir a tua conta. Tem a certeza absoluta?'
+  delete_own_account: 'Está prestes a excluir a tua conta. Tens a certeza absoluta?'
   actions: 'Ações'
   title: 'Foodsavers'
   edit: 'Editar os Foodsavers'
-  delete_account_sure_reason: 'Tem a certeza de que deseja excluir a tua conta de
+  delete_account_sure_reason: 'Tens a certeza de que deseja excluir a tua conta de
     utilizador? Motivo: {reason}'
   url_error: 'Parece haver algo de errado com o URL da tua página inicial'
   kicked: 'Foodsaver foi excluido'
@@ -1845,7 +1846,7 @@ pickup:
   edit_recurring_pickups: 'Editar série de vagas'
   kick: 'Remover'
   kick_message_footer: 'Cumprimentos cordiais, os responsáveis da equipa'
-  really_kick_user_info: 'Tem a certeza de que deseja cancelar a inscrição de {name}
+  really_kick_user_info: 'Tens a certeza de que deseja cancelar a inscrição de {name}
     na recolha de {date}?
 
     {name} receberá a seguinte mensagem sobre isso:
@@ -1920,13 +1921,13 @@ pickup:
     que terei de cancelar a minha vaga. …'
   leave_pickup_message_team: 'Notificar equipa'
   leave_team_message_title: 'Mensagem á equipa'
-  signout_confirm: 'Tem a certeza?'
+  signout_confirm: 'Tens a certeza?'
   take_empty_slot: 'Inscrever-me aqui'
   join_agree: 'Sim, inscrever vinculativo'
   signout_sure: 'Queres mesmo deixar esta equipa?'
   hygieneCertificateMissing:
-    none: Atualmente, não tem um certificado de higiene válido. Preencha agora o
-      questionário de higiene para podes inscrever-te.
+    none: Atualmente, não tens um certificado de higiene válido. Preenche agora 
+      o questionário de higiene para te poderes inscrever.
     timeout: O teu certificado de higiene expirará no momento em que o recolher.
       Agora, preencha novamente o questionário de higiene para podes 
       inscrever-te.
@@ -2104,7 +2105,7 @@ search:
         2: 'Talvez estejas presente nessa sessão.'
       location_online: 'Online'
   title: 'Pesquisa'
-  placeholder: 'Iniciar pesquisa agora …'
+  placeholder: 'Iniciar pesquisa …'
   user_search:
     placeholder: 'Nome ou DNI'
   informations: 'Podes procuro por pessoas, grupos, locais, distritos, chats, mensagens
@@ -2183,15 +2184,14 @@ quiz:
       title: editar questinário
   startmodal:
     infos:
-      unlimited_tries: Pode repetir este teste as vezes que quiser e nunca será 
-        desclassificado se falhar. No entanto, poderá ter de fazer uma pausa 
-        para estudar entre tentativas.
-      alone: O concurso questinario deve ser feito pelo próprio e sem ajuda 
-        externa. Se tiver dificuldades linguísticas ou estiver dependente de um 
-        assistente, é claro que outra pessoa o pode ajudar a compreender as 
-        perguntas; no entanto, deve ser capaz de responder sozinho. Por 
-        conseguinte, procure um local sossegado onde possa fazer o teste sem ser
-        incomodado.
+      unlimited_tries: Podes repetir este teste quantas vezes quiseres e nunca 
+        serás desclassificado se falhares. No entanto, poderás ter de fazer uma 
+        pausa para estudar entre tentativas.
+      alone: O questionário do concurso deve ser feito pelo próprio e sem ajuda 
+        externa. Se tiver dificuldades linguísticas ou precisar de um 
+        assistente, outra pessoa pode ajudá-lo a compreender as perguntas; no 
+        entanto, deverá ser capaz de responder sozinho. Por isso, procure um 
+        local sossegado onde possa fazer o teste sem ser incomodado.
       multiple_choice: Podem ser dadas várias respostas corretas por pergunta - 
         ou nenhuma. Por conseguinte, decida, para cada resposta, se está correta
         ou incorrecta.
@@ -2201,8 +2201,8 @@ quiz:
         esgotar, avise os administradores do quiz através de um comentário.
       real_life_examples: A maioria das perguntas é baseada em casos reais da 
         vida em Foodsharing.
-      limited_tries: Não pode repetir o teste as vezes que quiser. Após três 
-        tentativas, tem de fazer uma pausa de 30 dias para estudar, após o que 
+      limited_tries: Não podes repetir o teste as vezes que quiser. Após três 
+        tentativas, tens de fazer uma pausa de 30 dias para estudar, após o que 
         só tem mais duas tentativas. As perguntas que lhe são colocadas em cada 
         tentativa são diferentes.
       comment: Depois de responder a cada pergunta, verá uma avaliação 
@@ -2212,10 +2212,10 @@ quiz:
         parecer ilógico, incompreensível ou mesmo errado, deixe um comentário. 
         Os seus comentários podem ser atribuídos a si para lhe dar um feedback 
         personalizado.
-      pause: Pode fazer uma pausa no concurso questionário após cada pergunta e 
+      pause: Podes fazer uma pausa no questionário a qualquer momento e 
         continuar mais tarde.
       feedback: No final do teste, receberá uma avaliação direta sobre se passou
-        e quais os erros que cometeu. Aqui pode voltar a ler os motivos à 
+        e quais os erros que cometeu. Aqui podes voltar a ler os motivos à 
         vontade.
       wiki: Por favor não comece o teste ao acaso. Lê as páginas de informação 
         listadas cuidadosamente antes de começares. Sem os conhecimentos da 
@@ -2224,9 +2224,9 @@ quiz:
     acceptPrivacyNotice: Concordo com isso.
     privacyNotice:
       hygiene: Se passar neste concurso questinario, ficará registado que o fez 
-        e ser-lhe-á atribuído um autocolante de higiene. Os responsáveis pela 
-        higiene e os responsáveis por equipas podem verificar se tem um selo de 
-        higiene válido.
+        e ser-lhe-á atribuído um selo de higiene. Os responsáveis pela higiene e
+        os responsáveis por equipas podem verificar se tens um selo de higiene 
+        válido.
     title: Notas ao questionário
   comment:
     sent: Comentário enviado.
@@ -2239,15 +2239,15 @@ quiz:
       estão incorrectas?
     send: Mandar o comentário
   stateBasedInfo:
-    pause: Já falhou este concurso questinario várias vezes. A fiabilidade, o 
-      conhecimento firme das regras e um comportamento profissional são 
-      essenciais no foodsharing. Infelizmente, as tuas respostas não transmitem 
-      isso de momento. Por isso, terás de fazer uma pausa para estudar antes de 
-      tentares passar novamente o teste. O teu intervalo de estudo terminará 
-      dentro de {currentWaitTime} dias.
-    pauseElapsed: A tua pausa de estudo terminou. Agora pode voltar a fazer o 
-      questionário. Esperemos que tenha aproveitado o tempo para se familiarizar
-      melhor com o conteúdo.
+    pause: Já falhaste este questionário várias vezes. A fiabilidade, o 
+      conhecimento sólido das regras e um comportamento profissional são 
+      essenciais no foodsharing. Infelizmente, as tuas respostas não demonstram 
+      isso neste momento. Por isso, terás de fazer uma pausa para estudar antes 
+      de voltares a tentar. O teu período de espera termina dentro de 
+      {currentWaitTime} dias.
+    pauseElapsed: A tua pausa de estudo terminou. Agora podes voltar a fazer o 
+      questionário. Esperamos que tenhas aproveitado o tempo para te 
+      familiarizares melhor com o conteúdo.
     willExpire: Mas a validade da tua tentativa de concurso questinario termina 
       dentro de {expirationTime} dias. Por isso, podes atualizar agora os teus 
       conhecimentos nesta área e fazer novamente este teste.
@@ -2378,7 +2378,7 @@ chat:
   placeholder: 'Escreva algo.'
   select_recipients: 'Seleccionar destinatarios'
   empty_message: 'Primeiro tens de inserir uma mensagem.'
-  empty_recipients: 'Tem de selecionar primeiro um ou mais destinatário.'
+  empty_recipients: 'Tens de selecionar primeiro um ou mais destinatários.'
   new_message: 'Novo mensagem'
   start_of_conversation: 'A conversa começou em:'
   unknown_username: 'Nome desconecido'
@@ -2442,7 +2442,7 @@ storeedit:
     teamStatus: 'Estado da equipa'
     hygieneRequirement: Requisitos de higiene
     hygieneRequired: Permitir a inscrição apenas com formação válida em higiene
-    applyTextRequired: É necessário introduzir um texto para aplicações
+    applyTextRequired: É necessário introduzir um texto para a aplicação
     applicationRequirements: Critérios de aplicação
     verifiedRequired: Permitir apenas Foodsavers verificados
     phoneRequirement: Permitir apenas Foodsavers com número de telefone 
@@ -2482,7 +2482,7 @@ chain:
         label: 'Imprensa'
       thread:
         invalidfeedback: 'Precisa do ID do tópico ou do link.'
-        description: 'Procure o tópico no fórum digitando pelo menos 3 caracteres.'
+        description: 'Pesquisar o tópico no fórum digitando pelo menos 3 caracteres.'
         placeholder: 'Pesquisar nome do tópico'
         label: 'Tópico do fórum'
       kam:
@@ -2878,7 +2878,8 @@ settings:
       register: Registar
     delete_modal:
       title: Excluir chave de segurança
-      confirmation: Tem a certeza de que deseja excluir esta chave de segurança?
+      confirmation: Tens a certeza de que deseja excluir esta chave de 
+        segurança?
       device_name: Dispositivo
       cancel: Cancelar
       delete: Excluir
@@ -3581,7 +3582,7 @@ region:
   public:
     map:
       missing: Este distrito não é atualmente exibido no mapa e não tem 
-        cantinhos alimentares que podem ser exibidos aqui. Tem autorização para 
+        cantinhos alimentares que podem ser exibidos aqui. Tens autorização para
         colocar um pin de distrito agora.
       set_pin: Marcar o pin do distrito no mapa
       hide_pin: Excluir o pin do distrito
@@ -3616,7 +3617,7 @@ region:
     discard_changes: Rejeitar alterações
     desc:
       edit: Editar a descrição do distrito
-      confirm_discard_changes: Tem a certeza de querer descartar as tuas 
+      confirm_discard_changes: Tens a certeza de querer descartar as tuas 
         alterações na descrição do distrito?
       confirm_save_changes: Queres guardar as alterações na descrição do 
         distrito? A nova descrição vai ficar visível publicamente na página do 
@@ -3633,9 +3634,9 @@ region:
   createNew: Criar um novo distrito
   root: Nemhum (Root)
   confirm:
-    edit: Tem a certeza de que deseja salvar as alterações no distrito {name}?
-    create: Tem a certeza de que deseja criar um novo distrito {name}?
-    delete: Tem a certeza de que deseja excluir o distrito {name}?
+    edit: Tens a certeza de que deseja salvar as alterações no distrito {name}?
+    create: Tens a certeza de que deseja criar um novo distrito {name}?
+    delete: Tens a certeza de que deseja excluir o distrito {name}?
   name: Nome
   parent: Distrito parental
   master: Distrito principal
@@ -3696,9 +3697,9 @@ content:
       ícone.
     searchInfo: Com Ctrl+F, é possível pesquisar a lista em muitos navegadores 
       por países, cidades, estados federais ou bairros.
-    noAmbassador: Este distrito não tem atualmente nenhum embaixador(a) e, por 
-      isso, não está disponível por e-mail. Entre em contacto com um distrito 
-      vizinho ou com o distrito imediatamente superior.
+    noAmbassador: Este distrito não tem atualmente nenhum(a) embaixador(a) e, 
+      por isso, não está disponível por e-mail. Entra em contacto com um 
+      distrito vizinho ou com o distrito imediatamente superior.
   error_loading: Não foi possível carregar o conteúdo
 conference:
   join_title: 'Entrar na conferência'
@@ -4027,7 +4028,7 @@ button:
   start: Vamos!
   prev: Para trás
   confirm: Confirmar
-  browse: Revistar
+  browse: Pesquisar
   filter_options: Opções do filtro
   yes_save: sim, salvar
 about_me_intern: 'Descrição rápida'
@@ -4225,7 +4226,7 @@ wall:
     responsável pela execução são registados.'
   created: 'Ótimo, a tua publicação foi guardada.'
   error-delete: 'Não podes remover esta entrada.'
-  info-somebody-else: 'Como tem autorização para administrar esta equipa, pode remover
+  info-somebody-else: 'Como tens autorização para administrar esta equipa, podes remover
     esta entrada, se necessário.'
   confirm-deletion: 'A seguinte publicação do {name} deve mesmo ser removida no mural?'
   delete: 'Excluir a contribuição'
@@ -4478,7 +4479,7 @@ net_errors:
 error_base64_image: Não é permitido inserir imagens através de drag & drop.
 support_page:
   attachment:
-    browse: Revisar
+    browse: Pesquisar
     max_size: 'Anexos (máximo de 10, cada um com 5 MB por ficheiro)'
     placeholder: 'Selecionar ficheiro'
     drop_placeholder: 'Colocar ficheiro aqui'
@@ -4531,11 +4532,11 @@ help:
     report:
       title: Processamento de denúncias
       md: "pessoas com este distrito de origem. No entanto, nem todas as mensagens
-        são exibidas:\n- Basicamente, não são exibidas mensagens nas quais você ou
-        os seus coadministradores da grupo de denúncias local ou comissão de arbitragem
-        estejam envolvidos.\n- Como administrador do comissão de arbitragem, só tem
-        acesso às mensagens nas quais os administradores do grupo de denúncias local
-        estão envolvidos.\n---\nPode ler aqui as instruções para editar uma mensagem:
+        são exibidas:\n- Basicamente, não são exibidas mensagens nas quais tu ou os
+        teus coadministradores do grupo local de denúncias ou da comissão de arbitragem
+        estejam envolvidos.\n- Como administrador(a) da comissão de arbitragem, só
+        tens acesso às mensagens nas quais os administradores do grupo local de denúncias
+        estão envolvidos.\n---\nPodes ler aqui as instruções para editar uma mensagem:
         [Editar uma mensagem](https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)\n\
         (Infelizmente, até agora só em alemão)\n"
     achievementDuplicateMode:
@@ -4675,7 +4676,7 @@ help:
         o quanto a pessoa gosta de o partilhar: os recursos oferecidos com muito prazer
         aparecem em cores fortes e brilhantes, enquanto os recursos menos partilhados
         são apresentados em tons cinzentos.\n \n\n##### Pesquisar, filtrar e ordenar\n\
-        Para encontrar rapidamente os recursos adequados, tem várias opções de filtragem
+        Para encontrar rapidamente os recursos adequados, tens várias opções de filtragem
         à tua disposição.\n- Pode filtrar por **categorias** específicas ou pesquisar
         diretamente por determinados **termos**.\n- **Apenas utilizadores ativos**
         oculta os recursos de utilizadores que não iniciaram sessão nos últimos 30
@@ -4721,9 +4722,8 @@ help:
         - O número de Foodsavers com direito a voto está indicado entre parênteses
         atrás da opção de seleção.
 
-        - Assim que a votação for criada, os eleitores serão determinados. Tem direito
-        a voto quem, no momento em que a votação for criada, pertencer ao grupo de
-        pessoas correspondente.
+        - Os eleitores serão determinados quando a votação for criada. Podem votar
+        todos os que pertençam ao grupo correspondente nessa altura.
 
         '
       title: 'Direito de voto'
@@ -4902,7 +4902,7 @@ required_messages:
     really: 'Queres mesmo verificar {name}? Por favor, certifica-te de que {name}
       cumpre todos os [requisitos para Foodsavers verificados](https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver).'
     footer: 'Muitas saudações, os teus embaixadores'
-  sure_title: 'Tem a certeza?'
+  sure_title: 'Tens a certeza?'
   message_info: '{name} receberia a seguinte mensagem:'
   name_placeholder: '<Nome>'
   save_message: 'Salvar minha mensagem para a próxima vez'
@@ -4916,7 +4916,7 @@ resource_mosaic:
       none: 'Não colocaste nenhuma descrição para o teu recurso. Tens a certeza de
         que os outros utilizadores vão entender do que se trata o teu recurso para
         que possam perguntar-te especificamente sobre ele?'
-      short: 'A descrição deste recurso é um pouco curta. Tem a certeza de que os
+      short: 'A descrição deste recurso é um pouco curta. Tens a certeza de que os
         outros utilizadores vão entender do que se trata o teu recurso, para que possam
         perguntar sobre ele?'
       title: 'Verificar a descrição'
@@ -5097,7 +5097,7 @@ achievements:
   noneInThisRegion: 'Ainda não há selos neste distrito.'
   editDetails: 'Ajustar detalhes'
   revoke: 'Retirar'
-  deleteConfirmation: 'Tem certeza de que deseja excluir este selo?'
+  deleteConfirmation: 'Tens a certeza de que queres excluir este selo?'
   findUser: 'Pesquisar usuário'
   editAwarded: 'Personalizar selo {Conquista} para {utilizador}'
   notice: 'Comentário'

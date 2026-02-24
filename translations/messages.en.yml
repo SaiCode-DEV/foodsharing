@@ -2590,7 +2590,7 @@ store:
       cooperation manager?
   address: Address
   may_referred_to_in_public: This store may be referred to in public.
-  isNotVerified: Is not yet verified.
+  isNotVerified: Is not verified.
   isManager: Responsible for this store.
   unknownDate: unknown
   team_conversation_name: Team {name}

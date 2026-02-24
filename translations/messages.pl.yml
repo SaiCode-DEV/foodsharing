@@ -1175,7 +1175,7 @@ resource_mosaic:
     placeholder: 'Interesuję się twoim zasobem, ponieważ ...'
     polite_info: ''
     title: 'Zapytaj o zasób "{name}"'
-  search_placeholder: ''
+  search_placeholder: 'Szukaj zasobów, foodsharerów/ek lin ID'
   no_commons_resources: ''
   openness:
     level_3: 'Dla dobrych celów'
@@ -1189,7 +1189,7 @@ resource_mosaic:
     sort_age: 'Kolejność: od najnowszych'
     sort_openness: ''
     shuffle: 'Kolejność: losowo'
-  my_resources_in: ''
+  my_resources_in: 'Moje zasoby w {groupName}'
   list_status:
     none_in_region: 'Jeszcze nie wprowadzono żadnych zasobów. Wprowadź swoje własne
       zasoby lub zaproś do tego innych!'
@@ -1225,15 +1225,15 @@ required_messages:
     main: ''
   placeholder: ''
   verify:
-    main: ''
+    main: 'Zweryfikowaliśmy cię jako foodsavera/kę!'
     really_multiple: ''
     really: ''
-    footer: ''
+    footer: 'Pozdrawiamy, twoi ambasadorzy/ki'
   sure_title: 'Jesteś pewny/a?'
-  message_info: ''
-  name_placeholder: ''
-  save_message: ''
-  message_info_multiple: ''
+  message_info: '{name} otrzyma następującą wiadomość:'
+  name_placeholder: '<Name>'
+  save_message: 'Zapisz moją wiadomość na następny raz'
+  message_info_multiple: 'Każda osoba otrzyma następującą wiadomość:'
 petition:
   daysLeft: Zostało {daysLeft} dni
   link: Do petycji
@@ -3605,7 +3605,7 @@ oauth:
     edit_client: 'Edytuj klienta'
     scopes: ''
     delete_success: ''
-    no_region_restriction: ''
+    no_region_restriction: 'Bez ograniczeń'
     create_client: 'Utwórz nowego klienta'
     load_error: ''
     save_error: 'Błąd przy zapisywaniu'
@@ -3616,7 +3616,7 @@ oauth:
     no_restrictions: 'Żadne'
   authorize:
     title: '{clientName} chce uzyskać dostęp do twojego konta'
-    requested_permissions: ''
+    requested_permissions: 'Zażądane uprawnienia:'
     redirect_notice: 'Po autoryzacji zostaniesz przekierowany/a do {redirectUrl}.'
   scopes:
     openid:
@@ -3627,8 +3627,9 @@ oauth:
     email:
       title: 'Dostęp do twojego adresu email'
     profile:
-      title: ''
-      md: ''
+      title: 'Dostęp do twoich danych profilowych'
+      md: 'Dostęp do twojego imienia, twojego zdjęcia profilowego i innych danych
+        profilowych.'
   title: 'Autoryzacja OAuth'
 region:
   denied:
@@ -3891,7 +3892,7 @@ support_page:
   validation_body: 'Wiadomość jest pusta'
   validation_subject: 'Temat jest pusty'
   validation_email: 'Nieprawidłowy adres email'
-  new_request: ''
+  new_request: 'Nowe zapytanie'
   success: ''
   notification_name: ''
   your_name: 'Twoje imię'
@@ -4048,7 +4049,7 @@ feedback:
     screenshot: ''
     invalid_file: 'Nieprawidłowy format pliku, załaduj tylko obrazy.'
     message_short: 'Twoja wiadomość jest za krótka. Podaj więcej informacji.'
-    no_sentry: ''
+    no_sentry: 'Wystąpił błąd przy wysyłaniu feedbacku. Spróbuj ponownie później.'
   button: 'Beta feedback'
   privacy: ''
   success: 'Pomyślnie przekazano twój feedback.'
