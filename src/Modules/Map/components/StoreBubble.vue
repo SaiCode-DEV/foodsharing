@@ -40,7 +40,7 @@
               <strong>{{ store.pickupCount }}</strong> {{ $t('storeview.pickupCount') }}
             </span>
             <br>
-            <span v-if="store.pickupWeightInKg > 0">
+            <span v-if="store.pickupWeightInKg > 0 && store.categoryType !== STORE_CATEGORY_ORGA">
               <strong>{{ store.pickupWeightInKg }}</strong> {{ $t('storeview.pickupWeight') }}
             </span>
           </div>
@@ -244,6 +244,7 @@ import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 import MapBubbleMixin from './MapBubbleMixin'
 import MapPopup from './MapPopup.vue'
 import Markdown from '@/components/Markdown/Markdown.vue'
+import { STORE_CATEGORY_ORGA } from '@/constants/storeCategoryTypes'
 
 const maxGoodDistanceInKm = 2
 const minBadDistanceInKm = 10
@@ -271,6 +272,7 @@ export default {
       applicationMessage: '',
       // expose the module-level constant to the template
       minApplicationMessageLength,
+      STORE_CATEGORY_ORGA,
       alertsExpanded: false,
     }
   },

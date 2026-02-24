@@ -21,8 +21,8 @@
         <h3>
           {{ profileMenu.foodSaverName }}
           <i
-            id="profile-unverified-alert"
             v-if="!isVerified"
+            id="profile-unverified-alert"
             v-b-tooltip="$t('store.isNotVerified')"
             class="fas fa-user-slash"
           />
