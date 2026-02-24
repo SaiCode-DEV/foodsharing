@@ -24,44 +24,45 @@
       </div>
     </div>
 
-    <div v-else-if="sortedTitleThreads.length > 0" class="found-threads mb-4">
+    <div v-else-if="props.titleThreads.length > 0" class="found-threads mb-4">
       <h3 class="dropdown-header">
         <i class="fas fa-heading" /> {{ $t('search.forum.found.title') }}
       </h3>
 
-      <div
-        v-for="groupData in sortedTitleThreads"
-        :key="'title-group-' + groupData.id"
-        class="thread-group"
+      <a
+        v-for="thread in props.titleThreads"
+        :key="'title-group-' + thread.id"
+        class="thread-group title-result d-block dropdown-item"
+        :href="$url('forumThread', thread.regionId, thread.id)"
       >
         <div class="thread-header">
           <h6 class="m-0 text-truncate d-inline">
             <i
-              v-if="groupData.threads[0].stickiness > 0"
+              v-if="thread.pinnedLevel > 0"
               v-b-tooltip.noninteractive="$t('search.results.thread.sticky_tooltip')"
               class="fas fa-thumbtack"
             />
             <i
-              v-else-if="groupData.threads[0].stickiness < 0"
+              v-else-if="thread.pinnedLevel < 0"
               v-b-tooltip.noninteractive="$t('search.results.thread.bottom_tooltip')"
               class="fas fa-sign-in-alt fa-rotate-90"
             />
             <i
-              v-if="groupData.threads[0].is_closed"
+              v-if="thread.isClosed"
               v-b-tooltip.noninteractive="$t('search.results.thread.closed_tooltip')"
-              :class="{'ml-1': groupData.threads[0].stickiness}"
+              :class="{'ml-1': thread.pinnedLevel}"
               class="fas fa-lock"
             />
-            {{ groupData.threads[0].name }}
+            {{ thread.name}}
           </h6>
           <small class="separate thread-metadata">
             <span>
               {{ $t('search.results.thread.last_post') }}
-              {{ $dateFormatter.relativeTime(new Date(groupData.threads[0].time)) }}
+              {{ $dateFormatter.relativeTime(new Date(thread.lastPostSentAt)) }}
             </span>
           </small>
         </div>
-      </div>
+      </a>
     </div>
 
     <!-- Body results section -->
@@ -114,7 +115,7 @@
           <small class="separate thread-metadata">
             <span>
               {{ $t('search.results.thread.last_post') }}
-              {{ $dateFormatter.relativeTime(new Date(groupData.threads[0].time)) }}
+              {{ $dateFormatter.relativeTime(new Date(groupData.threads[0].lastPostSentAt)) }}
             </span>
           </small>
         </div>
@@ -206,10 +207,6 @@ function groupAndSortThreads (threads) {
   return sortedGroups
 }
 
-const sortedTitleThreads = computed(() => {
-  return groupAndSortThreads(props.titleThreads)
-})
-
 const sortedBodyThreads = computed(() => {
   // Filter out threads that are already in title results
   const titleThreadIds = new Set(props.titleThreads.map(thread => thread.id))
@@ -259,12 +256,6 @@ function calculateBlendedScore (thread, matchCount = 1) {
   }
 }
 
-::v-deep .found-threads > .dropdown-item,
-::v-deep .found-threads > .dropdown-header {
-  padding-left: 0;
-  padding-right: 0;
-}
-
 .thread-group {
   margin-bottom: 1rem;
   border-left: 3px solid var(--fs-color-primary-alpha-20, rgba(121, 164, 48, 0.2));
@@ -285,4 +276,7 @@ function calculateBlendedScore (thread, matchCount = 1) {
   }
 }
 
+.title-result:hover {
+  background-color: var(--fs-color-gray-200);
+}
 </style>

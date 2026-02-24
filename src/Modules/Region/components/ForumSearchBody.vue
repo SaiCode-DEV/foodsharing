@@ -1,7 +1,7 @@
 <template>
   <a
-    :href="$url('forumThread', thread.region_id, thread.id, thread.postId)"
-    class="d-flex dropdown-item search-result"
+    :href="$url('forumThread', thread.regionId, thread.id, thread.postId)"
+    class="d-flex dropdown-item search-result px-0"
     tabindex="1"
   >
     <div class="text-truncate flex-grow-1">
