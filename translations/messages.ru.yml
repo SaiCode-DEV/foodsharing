@@ -970,7 +970,6 @@ settings:
       instruction: ''
       test_instruction: ''
       title: ''
-      logout_notice: ''
     next: ''
     qrcode:
       scan_instruction: ''
@@ -1914,7 +1913,6 @@ storeview:
   status_notes: 'Примечания к статусу'
   visible_for_team: 'Этот текст виден только команде заведения.'
   invalid_field: 'Недопустимое содержание поля. Изменение не может быть сохранено.'
-  pickupCount: 'Заборов'
   contact:
     name: 'Имя/Фамилия'
   management: 'Управление'

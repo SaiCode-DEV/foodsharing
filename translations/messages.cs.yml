@@ -265,7 +265,6 @@ settings:
       instruction: ''
       test_instruction: ''
       title: ''
-      logout_notice: ''
     next: ''
     qrcode:
       scan_instruction: ''
@@ -2709,7 +2708,6 @@ storeview:
   public_time_at_noon_or_afternoon: 'poledne/odpoledne'
   pickupWeight: ''
   status: ''
-  pickupCount: ''
   public_and_statistics: ''
   visible_for_public: ''
   invalid_field: ''

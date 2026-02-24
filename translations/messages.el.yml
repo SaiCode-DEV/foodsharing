@@ -1817,7 +1817,6 @@ settings:
       instruction: ''
       test_instruction: ''
       title: ''
-      logout_notice: ''
     next: ''
     qrcode:
       scan_instruction: ''
@@ -2118,7 +2117,6 @@ storeview:
     no_tag_preset: ''
   source_data: ''
   store: ''
-  pickupCount: ''
   specials: ''
   select_related_region: ''
   contact:

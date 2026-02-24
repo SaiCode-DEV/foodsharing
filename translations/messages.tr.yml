@@ -2657,7 +2657,6 @@ settings:
       instruction: ''
       test_instruction: ''
       title: ''
-      logout_notice: ''
     next: ''
     qrcode:
       scan_instruction: ''
@@ -3449,7 +3448,6 @@ storeview:
     name: Soy isim /Ön isim
   source_data: Temel veri
   info: Bilgiler
-  pickupCount: Alımlar
   cooperation_status: İşbirliği durumu
   public_time_at_noon_or_afternoon: öğlen/öğleden sonra
   managers: İşletme Sorumlusu

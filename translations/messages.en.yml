@@ -495,8 +495,6 @@ settings:
         code and your password here."
       test_instruction: "Open your authenticator app and enter the current 6-digit
         code to make sure everything works."
-      logout_notice: "Note: After activating two-factor authentication, you will need
-        to log in again."
     generated_code_label: "Generated code"
     password_info: "Entering your password is always required to make changes. This
       prevents someone else who is using your computer or mobile phone from changing
@@ -1419,7 +1417,6 @@ storeview:
   public_time: 'It will be picked up roughly {freq}. Please never go to the store
     without prior consultation!'
   pickupWeight: 'kg were saved'
-  pickupCount: 'Slots'
   status_notes: status notes
   team: Store team
   show_settings: Store settings

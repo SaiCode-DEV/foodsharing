@@ -1295,7 +1295,6 @@ storeview:
   cooperation_status: 'Estado de cooperación'
   status_notes: 'Notas de estado'
   no_permission_to_view: 'Sólo visible para l@s responsabl@s de la empresa.'
-  pickupCount: 'Recogidas'
   specials: 'Instrucciones y proceso'
   managers: 'Rescatistas responsables'
   visible_for_public: 'Este texto es visible para todos l@s rescatistas.'
@@ -3345,7 +3344,6 @@ settings:
       instruction: ''
       test_instruction: ''
       title: ''
-      logout_notice: ''
     next: ''
     qrcode:
       scan_instruction: ''

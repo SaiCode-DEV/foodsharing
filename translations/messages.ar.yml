@@ -1168,7 +1168,6 @@ settings:
       instruction: ''
       test_instruction: ''
       title: ''
-      logout_notice: ''
     next: ''
     qrcode:
       scan_instruction: ''
@@ -2888,7 +2887,6 @@ storeview:
   public_time_at_noon_or_afternoon: ''
   managers: ''
   specials: ''
-  pickupCount: ''
   public_time_at_night: ''
   cooperation_start: ''
   status: ''

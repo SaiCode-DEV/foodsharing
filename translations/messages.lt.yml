@@ -801,7 +801,6 @@ storeview:
   pickupWeight: ''
   managers: ''
   common: ''
-  pickupCount: ''
 menu:
   entry:
     options: ''
@@ -1224,7 +1223,6 @@ settings:
       instruction: ''
       test_instruction: ''
       title: ''
-      logout_notice: ''
     next: ''
     qrcode:
       scan_instruction: ''

@@ -1723,7 +1723,6 @@ storeview:
   status: ''
   status_notes: ''
   info: ''
-  pickupCount: ''
   pickupWeight: ''
   public_time_at_night: ''
   groceries:
@@ -2690,7 +2689,6 @@ settings:
       instruction: ''
       test_instruction: ''
       title: ''
-      logout_notice: ''
     next: ''
     qrcode:
       scan_instruction: ''

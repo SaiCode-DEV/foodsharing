@@ -723,7 +723,6 @@ storeview:
   pickupWeight: 'kg salvado'
   managers: 'Responsáveis de equipa'
   common: 'Geral'
-  pickupCount: 'Vagas'
   team_info_distance: 'Distância aérea para o local:'
   publicity_and_sticker_options:
     no: Não
@@ -2962,8 +2961,6 @@ settings:
       test_instruction: Abra a tua aplicação de autenticação e introduza o 
         código de 6 dígitos atual para garantir que tudo está a funcionar 
         corretamente.
-      logout_notice: 'Nota: Após ativar a autenticação de dois fatores, terá de iiniciar
-        sessão novamente.'
     generated_code_label: Código gerado
     password_info: Para fazer alterações, é sempre necessário introduzir a tua 
       palavra-passe. Isto impede que outra pessoa que utilize o teu computador 

@@ -673,7 +673,6 @@ settings:
       instruction: ''
       test_instruction: ''
       title: ''
-      logout_notice: ''
     next: ''
     qrcode:
       scan_instruction: ''
@@ -1678,7 +1677,6 @@ storeview:
   cooperation: Coopère depuis le {startTime}.
   pickupWeight: kg ont été sauvés
   store: Coopération
-  pickupCount: collectes
   info: Informations
   status_notes: Notes de statut
   common: Général

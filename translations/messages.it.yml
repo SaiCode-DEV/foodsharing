@@ -1213,7 +1213,6 @@ storeview:
   public_time: Il ritiro verrà effettuato verso {freq}. Si prega di non recarsi 
     mai al negozio senza previo accordo!
   pickupWeight: 'kg salvati'
-  pickupCount: Ritiri
   common: Generale
   visible_for_public: Questo testo è visibile ad ogni Foodsaver, ad esempio 
     sulla mappa.
@@ -3019,7 +3018,6 @@ settings:
       instruction: ''
       test_instruction: ''
       title: ''
-      logout_notice: ''
     next: ''
     qrcode:
       scan_instruction: ''

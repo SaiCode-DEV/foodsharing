@@ -32,7 +32,6 @@ storeview:
     பி.'
   team_info_active: 'அணியில் செயலில்:'
   team_info_jumper: 'ச்பிரிங்கர்:'
-  pickupCount: இடும்
   contact:
     name: பெயர் முதல் பெயர்
   management: நிர்வாகம்
@@ -1628,7 +1627,6 @@ settings:
       instruction: ''
       test_instruction: ''
       title: ''
-      logout_notice: ''
     next: ''
     qrcode:
       scan_instruction: ''

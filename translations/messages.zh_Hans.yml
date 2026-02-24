@@ -1057,7 +1057,6 @@ storeview:
     no_match: ''
     search_tag: ''
     no_tag_preset: ''
-  pickupCount: ''
   public_time: ''
   pickupWeight: ''
   info: ''
@@ -1557,7 +1556,6 @@ settings:
       instruction: ''
       test_instruction: ''
       title: ''
-      logout_notice: ''
     next: ''
     qrcode:
       scan_instruction: ''

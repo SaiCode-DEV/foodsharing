@@ -1872,7 +1872,6 @@ storeview:
   store: ''
   pickupWeight: ''
   cooperation_start: ''
-  pickupCount: ''
   status: ''
   invalid_field: ''
   groceries:
@@ -2875,7 +2874,6 @@ settings:
       instruction: ''
       test_instruction: ''
       title: ''
-      logout_notice: ''
     next: ''
     qrcode:
       scan_instruction: ''

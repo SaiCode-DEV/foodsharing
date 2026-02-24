@@ -1331,7 +1331,6 @@ settings:
       instruction: ''
       test_instruction: ''
       title: ''
-      logout_notice: ''
     next: ''
     qrcode:
       scan_instruction: ''
@@ -3128,7 +3127,6 @@ storeview:
     forhåndsavtale!
   want_to_fetch: Jeg ønsker å hjelpe i dette laget.
   specials: Instruksjoner og prosedyre
-  pickupCount: pickuper
   managers: Teamledere
   status_notes: Statusnotater
   common: Som regel
