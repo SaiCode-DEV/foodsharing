@@ -4,6 +4,7 @@ namespace Foodsharing\Modules\Profile;
 
 use Carbon\Carbon;
 use DateTimeZone;
+use Foodsharing\Modules\Categories\StoreCategoryType;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DBConstants\BasketRequests\Status as RequestStatus;
@@ -456,18 +457,21 @@ final class ProfileGateway extends BaseGateway
 					st.verantwortlich as isManager,
 					st.active,
 					s.betrieb_status_id as cooperationStatus,
-			        s.bezirk_id as regionId,
-			        b.name as regionName
+					s.bezirk_id as regionId,
+					b.name as regionName,
+					COALESCE(k.type, :pickup) AS categoryType
 
 			FROM             fs_betrieb_team st
 			LEFT OUTER JOIN  fs_betrieb s  ON  s.id = st.betrieb_id
 			LEFT OUTER JOIN  fs_bezirk b ON b.id = s.bezirk_id
+			LEFT OUTER JOIN  fs_betrieb_kategorie k ON k.id = s.betrieb_kategorie_id
 
 			WHERE  st.foodsaver_id = :fs_id
 
 			ORDER BY  st.verantwortlich DESC, st.active ASC, s.name ASC
 		', [
             ':fs_id' => $fsId,
+            ':pickup' => StoreCategoryType::PICKUP->value
         ]);
     }
 

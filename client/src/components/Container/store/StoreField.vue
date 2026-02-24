@@ -15,12 +15,6 @@
           class="fas text-muted"
           :class="storeCategoryTypeIcon"
           style="cursor: help;"
-        />&nbsp;
-        <i
-          v-if="entry.membershipStatus === 2"
-          v-b-tooltip="$t('store.tooltip_jumping')"
-          class="fas fa-people-carry text-muted"
-          style="cursor: help;"
         />
       </div>
     </div>

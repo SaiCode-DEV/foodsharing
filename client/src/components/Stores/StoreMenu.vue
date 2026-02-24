@@ -9,7 +9,7 @@
     <ContainerButton
       v-if="jumperConversationId != null"
       text-key="store.chat.jumper"
-      icon="fas fa-running"
+      icon="fas fa-people-carry"
       @click="openChat(jumperConversationId)"
     />
     <ContainerButton

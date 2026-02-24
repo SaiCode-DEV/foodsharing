@@ -19,7 +19,7 @@
         <i
           v-else-if="isJumper"
           v-b-tooltip.noninteractive="$t('search.results.store.jumper_tooltip')"
-          class="fas fa-running"
+          class="fas fa-people-carry"
         />
         {{ store.name }}
       </h6>

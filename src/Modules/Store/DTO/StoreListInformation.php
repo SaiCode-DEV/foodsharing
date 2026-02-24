@@ -2,6 +2,7 @@
 
 namespace Foodsharing\Modules\Store\DTO;
 
+use Foodsharing\Modules\Categories\StoreCategoryType;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Region\DTO\MinimalRegionIdentifier;
@@ -56,6 +57,11 @@ class StoreListInformation
     public ?string $createdAt = null;
 
     /**
+     * Category type of the store.
+     */
+    public ?StoreCategoryType $categoryType = null;
+
+    /**
      * Constructor to create it from a Store instance.
      *
      * @param Store $store Store from database
@@ -74,6 +80,8 @@ class StoreListInformation
         $obj->zipCode = $store->address->postalCode;
 
         $obj->createdAt = $store->createdAt->format('Y-m-d');
+
+        $obj->categoryType = $store->categoryType;
 
         return $obj;
     }

@@ -84,7 +84,7 @@ export default {
         { hide: !user.phoneNumberIsValid, icon: 'clone', textKey: 'pickup.copyNumber', callback: () => this.$emit('copy-phone', user.phoneNumber) },
         { icon: 'user', textKey: 'profile.go', href: this.$url('profile', user.id) },
         { hide: !this.mayEditStore || user.isActive, icon: 'clipboard-check', textKey: 'store.sm.makeRegularTeamMember', callback: () => this.$emit('toggle-standby', user) },
-        { hide: !this.mayEditStore || !user.isActive || user.isManager, icon: 'running', textKey: 'store.sm.makeJumper', callback: () => this.$emit('toggle-standby', user) },
+        { hide: !this.mayEditStore || !user.isActive || user.isManager, icon: 'people-carry', textKey: 'store.sm.makeJumper', callback: () => this.$emit('toggle-standby', user) },
         { hide: !this.mayEditStore || !this.mayBecomeManager(user), icon: 'cog', textKey: 'store.sm.promoteToManager', callback: () => this.$emit('promote', user) },
         { hide: !this.mayEditStore || !user.isManager, icon: 'cog', textKey: 'store.sm.demoteAsManager', callback: () => this.$emit('demote', user) },
         { hide: !this.mayRemoveFromStore(user), icon: 'user-times', textKey: 'store.sm.removeFromTeam', callback: () => this.$emit('remove', user) },

@@ -81,6 +81,7 @@
               </div>
             </template>
             <template #cell(name)="row">
+              <CategoryIcon :entry="row.item" />
               <a
                 :href="$url('store', row.item.id)"
                 class="ui-corner-all"
@@ -137,6 +138,7 @@ import {
   VBTooltip,
 } from 'bootstrap-vue'
 import StoreStatusIcon from './StoreStatusIcon.vue'
+import storeEntryMixin from '@/mixins/storeEntryMixin'
 import ConfigureableList from '@/components/ConfigureableList.vue'
 import BTableMobileFriendly from '@/components/BTableMobileFriendly.vue'
 import { useStoreStore } from '@/stores/store'
@@ -148,7 +150,26 @@ const storeStore = useStoreStore()
 const userStore = useUserStore()
 
 export default {
-  components: { BTableMobileFriendly, BFormSelect, StoreStatusIcon, ConfigureableList, NavigateWithSelector },
+  components: {
+    BTableMobileFriendly,
+    BFormSelect,
+    StoreStatusIcon,
+    ConfigureableList,
+    NavigateWithSelector,
+    CategoryIcon: {
+      mixins: [storeEntryMixin],
+      props: { entry: { type: Object, required: true } },
+      render (h) {
+        return h('i', {
+          class: ['fas', 'fa-fw', this.storeCategoryTypeIcon, 'text-muted', 'mr-1'],
+          directives: [
+            { name: 'b-tooltip', value: this.pickupStringStatus, modifiers: { hover: true } },
+          ],
+          style: { cursor: 'help' },
+        })
+      },
+    },
+  },
   directives: { VBTooltip },
   props: {
     stores: { type: Array, required: true },

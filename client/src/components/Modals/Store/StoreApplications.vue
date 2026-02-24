@@ -46,7 +46,7 @@
               variant="outline-primary"
               @click="acceptRequest(storeId, request.user.id, true, index)"
             >
-              <i class="fas fa-running" />
+              <i class="fas fa-people-carry" />
             </b-button>
             <b-button
               v-b-tooltip.hover="$t('store.request.to-nowhere')"

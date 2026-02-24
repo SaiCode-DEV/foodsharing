@@ -9,7 +9,7 @@
   >
     <template #badge>
       <span ref="badgeContent">
-        <i v-if="user.isJumper" class="fas fa-running" />
+        <i v-if="user.isJumper" class="fas fa-people-carry" />
         <i v-else-if="!user.isVerified" class="fas fa-user-slash" />
         <span v-else v-text="user.fetchCount" />
       </span>

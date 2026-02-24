@@ -37,7 +37,7 @@
 
           <div class="mt-2">
             <span v-if="store.pickupCount > 0">
-              <strong>{{ store.pickupCount }}</strong> {{ $t('storeview.pickupCount') }}
+              <strong>{{ store.pickupCount }}</strong> {{ $t('storeview.activityCount.' + store.categoryType) }}
             </span>
             <br>
             <span v-if="store.pickupWeightInKg > 0 && store.categoryType !== STORE_CATEGORY_ORGA">

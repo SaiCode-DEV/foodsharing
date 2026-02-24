@@ -35,6 +35,7 @@
         href="#"
         @click="filterToState(store.cooperationStatus)"
       ><StoreStatusIcon :cooperation-status="store.cooperationStatus" /></a>
+      <CategoryIcon :entry="store" />
       <a :href="$url('store', store.id)">
         {{ store.name }}
       </a>
@@ -71,10 +72,26 @@
 <script>
 import StoreStatusIcon from '../../Store/components/StoreStatusIcon.vue'
 import { COOPERATION_STATUS } from '@/stores/stores'
+import storeEntryMixin from '@/mixins/storeEntryMixin'
 import { PROFILE_STORE_TEAM_STATE } from '@/stores/profiles'
 
 export default {
-  components: { StoreStatusIcon },
+  components: {
+    StoreStatusIcon,
+    CategoryIcon: {
+      mixins: [storeEntryMixin],
+      props: { entry: { type: Object, required: true } },
+      render (h) {
+        return h('i', {
+          class: ['fas', 'fa-fw', this.storeCategoryTypeIcon, 'text-muted'],
+          directives: [
+            { name: 'b-tooltip', value: this.pickupStringStatus, modifiers: { hover: true } },
+          ],
+          style: { cursor: 'help' },
+        })
+      },
+    },
+  },
   props: {
     stores: { type: Array, default: () => { return [] } },
     userId: { type: Number, required: true },
@@ -85,7 +102,7 @@ export default {
         { tooltip: 'filterAll', state: null, icon: 'users' },
         { tooltip: 'filterManage', state: PROFILE_STORE_TEAM_STATE.MANAGE_ROLE, icon: 'fas fa-user-cog' },
         { tooltip: 'filterActive', state: PROFILE_STORE_TEAM_STATE.ACTIVE, icon: 'user' },
-        { tooltip: 'filterJumper', state: PROFILE_STORE_TEAM_STATE.JUMPER, icon: 'running' },
+        { tooltip: 'filterJumper', state: PROFILE_STORE_TEAM_STATE.JUMPER, icon: 'people-carry' },
         { tooltip: 'filterRequested', state: PROFILE_STORE_TEAM_STATE.REQUESTED, icon: 'fas fa-fw fa-question-circle' },
         { tooltip: 'filterInvitations', state: PROFILE_STORE_TEAM_STATE.INVITED, icon: 'fas fa-fw fa-clipboard-question' },
       ],
@@ -186,7 +203,7 @@ export default {
         iconClass = 'fas fa-user-cog'
         tooltipText = this.$t('store.isManager')
       } else if (store.active === PROFILE_STORE_TEAM_STATE.JUMPER) {
-        iconClass = 'fas fa-running'
+        iconClass = 'fas fa-people-carry'
         tooltipText = this.$t('store.isJumper')
       } else if (store.active === PROFILE_STORE_TEAM_STATE.ACTIVE) {
         iconClass = 'fas fa-user'

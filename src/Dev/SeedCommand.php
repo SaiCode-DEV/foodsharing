@@ -735,7 +735,7 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
         // create more stores and collect their ids in a list
         $this->output->writeln('Create some stores');
         $stores = [$store['id']];
-        foreach (range(1, 40) as $_) {
+        foreach (range(1, 60) as $_) {
             // TODO conversations are missing the other store members
             $extra_params = [];
             if (random_int(0, 1) == 1) {
@@ -743,8 +743,15 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
             }
 
             $store = $I->createStore($region1, null, null, $extra_params);
-            $I->addUserToConversation($userbot['id'], $store['team_conversation_id']);
-            $I->addUserToConversation($userbot['id'], $store['springer_conversation_id']);
+
+            // Add userbot randomly to stores as team member (50%), coordinator
+            // (10%) or jumper (10%), not added (30%)
+            $random = random_int(0, 10);
+            $isJumper = $random == 1;
+            $isCordinator = $random == 2;
+            if ($random <= 6) {
+                $I->addStoreTeam($store['id'], $userbot['id'], $isCordinator, $isJumper, true);
+            }
 
             foreach (range(0, 5) as $__) {
                 $I->addRecurringPickup($store['id']);

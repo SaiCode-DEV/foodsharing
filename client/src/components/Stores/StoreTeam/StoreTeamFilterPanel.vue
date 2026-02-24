@@ -49,7 +49,7 @@ export default {
     const filterButtons = [
       { tooltip: 'filterAll', state: null, icon: 'users', anti: false },
       { tooltip: 'filterActive', state: STORE_TEAM_STATE.ACTIVE, icon: 'user', anti: false },
-      { tooltip: 'filterJumper', state: STORE_TEAM_STATE.JUMPER, icon: 'running', anti: false },
+      { tooltip: 'filterJumper', state: STORE_TEAM_STATE.JUMPER, icon: 'people-carry', anti: false },
       { tooltip: 'filterSleeping', state: STORE_TEAM_STATE.SLEEPING, icon: 'bed', anti: false },
       { tooltip: 'filterUnverified', state: STORE_TEAM_STATE.UNVERIFIED, icon: 'user-alt-slash', anti: false },
       { tooltip: 'filterManage', state: STORE_TEAM_STATE.MANAGE_ROLE, icon: 'user-graduate', anti: false },

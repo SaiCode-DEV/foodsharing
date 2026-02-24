@@ -17,11 +17,12 @@ export default {
     },
     storeCategoryTypeIcon () {
       if (!this.entry) return 'fa-question-circle'
-      if (this.entry.categoryType === STORE_CATEGORY_PICKUP) {
+      const type = parseInt(this.entry?.categoryType, 10)
+      if (type === STORE_CATEGORY_PICKUP) {
         return 'fa-shopping-cart'
-      } else if (this.entry.categoryType === STORE_CATEGORY_GIVING) {
+      } else if (type === STORE_CATEGORY_GIVING) {
         return 'fa-hand-holding-hand'
-      } else if (this.entry.categoryType === STORE_CATEGORY_ORGA) {
+      } else if (type === STORE_CATEGORY_ORGA) {
         return 'fa-clipboard-list'
       } else {
         return 'fa-question-circle'
