@@ -1746,9 +1746,9 @@ pickup:
       signOffAll: Usuń wszędzie
       useCondensedDesign: Zgrupowane według dni
       loadMore: Załaduj więcej
-      registeredSwitch: ''
+      registeredSwitch: 'Zapisane sloty'
       managedOnlySwitch: ''
-      signOff: ''
+      signOff: 'Wypisz'
     freeSlots: '{slots} wolne'
     cols:
       time: Czas
@@ -1761,28 +1761,28 @@ pickup:
     tab:
       options:
         empty: ''
-        name: ''
+        name: 'Możliwości zapisu'
         tooltip:
-          own: ''
+          own: 'Przyszłe sloty, na które mógłbyś/mogłabyś się jeszcze zapisać'
       registered:
         tooltip:
           other: ''
-          own: ''
+          own: 'Przyszłe sloty, na które możesz się zapisać'
         name: 'Wprowadzone sloty'
-        empty: ''
+        empty: 'Chwilowo nie ma żadnych slotów.'
       history:
         tooltip:
-          own: ''
+          own: 'Ubiegłe sloty, w których uczestniczyłeś/aś'
           other: ''
         name: 'Historia slotów'
         empty: ''
     modals:
       signOffAll:
-        title: ''
+        title: 'Wypisz ze wszystkich slotów?'
         message: ''
       signOff:
-        title: ''
-        message: ''
+        title: 'Wypisz ze slotu?'
+        message: 'Czy na pewno chcesz wypisać tego/tę użytkownika/czkę z tego slotu?'
     allLoaded: ''
     header: 'Sloty'
   leave_pickup_ok: Już mam zastępstwo
@@ -1834,12 +1834,12 @@ pickup:
     title: 'Historia slotów'
   really_delete_date: 'Czy na pewno chcesz usunąć slot {date}?'
   edit_recurring_pickups: 'Edytuj serię slotów'
-  kick: ''
+  kick: 'Wypisz'
   kick_message_footer: ''
   really_kick_user_info: ''
-  leave: ''
+  leave: 'Opuść'
   kick_message: ''
-  really_leave_date_title: ''
+  really_leave_date_title: 'Wypisz się {date}?'
   slot_add: 'Dodaj slot'
   slots: 'Sloty'
   delete_not_empty: ''

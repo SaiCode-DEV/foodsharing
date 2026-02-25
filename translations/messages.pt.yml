@@ -736,6 +736,10 @@ storeview:
   show_settings: Configurações do local
   team_info_active: 'Membros ativos da equipa:'
   team_info_jumper: 'Substitutos:'
+  activityCount:
+    0: Recolhas
+    1: Entregas
+    2: Atividates
 calendar:
   locale: pt
   labelNextYear: 'O próximo ano'
