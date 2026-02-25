@@ -404,6 +404,9 @@ class StoreTransactions
         }
 
         if (!empty($storeChange->regionId)) {
+            if (!$this->regionGateway->getRegion($storeChange->regionId)) {
+                throw new StoreTransactionException(StoreTransactionException::INVALID_REGION);
+            }
             $changeInformation->informationChanged = true;
             $store->region = new MinimalRegionIdentifier($storeChange->regionId);
         }
