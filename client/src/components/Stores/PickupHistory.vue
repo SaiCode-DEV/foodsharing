@@ -33,6 +33,7 @@
           :key="`${pickupDate[0].storeId}-${pickupDate[0].date_ts}`"
           v-bind="pickupDate"
           :date="pickupDate[0].date"
+          :sign-up-date="pickupDate[0].signUpDate"
           :store-id="pickupDate[0].storeId"
           :store-title="pickupDate[0].storeTitle"
           :occupied-slots="pickupDate"

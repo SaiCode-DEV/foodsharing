@@ -5,7 +5,6 @@ import {
   getStoreInformation,
   getStorePermissions,
   listStoreTeamMembershipRequests,
-  getStoreLog,
   listStoreTeamInvitations,
 } from '@/api/stores'
 import { getRegionOptions } from '@/api/regions'
@@ -157,28 +156,6 @@ export const mutations = {
   },
   async loadStoreInvitations (storeId) {
     store.invitations = await listStoreTeamInvitations(storeId)
-  },
-  async loadPickupSignInDates (storeId, calendarInterval) {
-    const actions = [STORE_LOG_ACTION.SIGN_UP_SLOT]
-    let intervalPerDays = calendarInterval / 3600 / 24
-
-    // If there are no regular pickups in this store, default to querying the
-    // last 30 days of log entries, to still show something in the log.
-    if (intervalPerDays <= 0) {
-      intervalPerDays = 30
-    }
-
-    const fromDate = new Date()
-    fromDate.setDate(fromDate.getDate() - intervalPerDays)
-    const today = new Date()
-    today.setDate(today.getDate() + 1) // buffer to include everything from today
-
-    try {
-      store.log = await getStoreLog(storeId, actions, [fromDate, today])
-    } catch (error) {
-      console.error(error)
-      store.log = []
-    }
   },
 }
 

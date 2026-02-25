@@ -22,6 +22,7 @@ use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionPinStatus;
 use Foodsharing\Modules\Core\DBConstants\Report\ReportType;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
+use Foodsharing\Modules\Core\DBConstants\Store\StoreLogAction;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus as STATUS;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
@@ -565,6 +566,19 @@ class Foodsharing extends Db
             $id = $this->haveInDatabase('fs_abholer', $params);
             $params['id'] = $id;
         }
+
+        // Create corresponsing store log entry with a sign-in date
+        $twoWeeksBefore = 14 * 24 * 60;
+        $this->addStoreLog(
+            store_id: $store,
+            foodsaverId_a: $user,
+            foodsaverId_p: null,
+            action: StoreLogAction::SIGN_UP_SLOT,
+            extra_params: [
+                'date_reference' => $this->toDateTime($params['date']),
+                'date_activity' => Carbon::now()->subMinutes(random_int(1, $twoWeeksBefore))->toDateTimeString(),
+            ]
+        );
 
         return $params;
     }

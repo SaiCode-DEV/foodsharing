@@ -179,6 +179,31 @@ class PickupApiCest
                 ['isConfirmed' => true]
             ]
         ]);
+
+        $I->seeResponseIsValidOnJsonSchemaString(json_encode([
+            'type' => 'array',
+            'items' => [
+                'type' => 'object',
+                'properties' => [
+                    'date' => ['type' => 'string'],
+                    'totalSlots' => ['type' => 'integer'],
+                    'occupiedSlots' => [
+                        'type' => 'array',
+                        'items' => [
+                            'type' => 'object',
+                            'properties' => [
+                                'isConfirmed' => ['type' => 'boolean'],
+                                'signUpDate' => ['type' => 'string'] // not null
+                            ],
+                            'required' => ['isConfirmed', 'signUpDate']
+                        ]
+                    ],
+                    'isAvailable' => ['type' => 'boolean'],
+                    'description' => ['type' => ['string', 'null']]
+                ],
+                'required' => ['date', 'totalSlots', 'occupiedSlots', 'isAvailable']
+            ]
+        ]));
     }
 
     public function signupAsCoordinarIsPreconfirmed(ApiTester $I): void
@@ -286,16 +311,7 @@ class PickupApiCest
     public function testSinglePickupHistoryInListExistsAndIsValid(ApiTester $I): void
     {
         $refDate = Carbon::now()->subYears(3)->subHours(8)->minutes(0)->seconds(0)->microseconds(0);
-        $I->haveInDatabase('fs_abholer', [
-            'betrieb_id' => $this->store['id'],
-            'foodsaver_id' => $this->storeCoordinator['id'],
-            'date' => $refDate
-        ]);
-
-        $e = $I->grabFromDatabase('fs_abholer', 'date', [
-            'betrieb_id' => $this->store['id'],
-            'foodsaver_id' => $this->storeCoordinator['id']
-        ]);
+        $I->addCollector($this->storeCoordinator['id'], $this->store['id'], ['date' => $refDate, 'confirmed' => 0]);
 
         $startDate = $refDate->copy()->subYears(2);
         $endDate = $refDate->copy()->addYears(2);
@@ -311,6 +327,27 @@ class PickupApiCest
             'date_ts' => $refDate->timestamp,
             'confirmed' => 0
         ]]);
+
+        $I->seeResponseIsValidOnJsonSchemaString(json_encode([
+            'type' => 'array',
+            'items' => [
+                'type' => 'object',
+                'properties' => [
+                    'profile' => [
+                        'type' => 'object',
+                        'properties' => [
+                            'id' => ['type' => 'integer']
+                        ],
+                        'required' => ['id']
+                    ],
+                    'date' => ['type' => 'string'],
+                    'date_ts' => ['type' => 'integer'],
+                    'confirmed' => ['type' => 'integer'],
+                    'signUpDate' => ['type' => 'string'] // not null
+                ],
+                'required' => ['profile', 'date', 'date_ts', 'confirmed', 'signUpDate']
+            ]
+        ]));
     }
 
     public function cannotSignOutOfPastPickup(ApiTester $I): void

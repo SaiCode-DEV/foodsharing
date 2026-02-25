@@ -26,12 +26,18 @@ class PickupSignUp
      */
     public bool $isConfirmed;
 
-    public static function create(DateTime $date, int $foodsaverId, bool $isConfirmed)
+    /**
+     * Timestamp the foodsaver signed up for the pickup.
+     */
+    public ?DateTime $signUpDate = null;
+
+    public static function create(DateTime $date, int $foodsaverId, bool $isConfirmed, ?DateTime $signUpDate = null): self
     {
         $obj = new PickupSignUp();
         $obj->date = $date;
         $obj->foodsaverId = $foodsaverId;
         $obj->isConfirmed = $isConfirmed;
+        $obj->signUpDate = $signUpDate;
 
         return $obj;
     }

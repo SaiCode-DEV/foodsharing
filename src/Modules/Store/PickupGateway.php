@@ -13,6 +13,7 @@ use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
+use Foodsharing\Modules\Core\DBConstants\Store\StoreLogAction;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Core\Pagination;
 use Foodsharing\Modules\Foodsaver\DTO\PickupAgendaEntry;
@@ -255,20 +256,46 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
      */
     private function getPickupSignUpsForDateRange(int $storeId, DateTime $from, ?DateTime $to = null): array
     {
-        $condition = ['date >=' => $this->db->date($from), 'betrieb_id' => $storeId];
+        $parameters = [
+            ':storeId' => $storeId,
+            ':from' => $this->db->date($from),
+            ':signInAction' => StoreLogAction::SIGN_UP_SLOT,
+        ];
+
         if (!is_null($to)) {
-            $condition['date <='] = $this->db->date($to);
+            $parameters['to'] = $this->db->date($to);
         }
-        $result = $this->db->fetchAllByCriteria(
-            'fs_abholer',
-            ['foodsaver_id', 'date', 'confirmed'],
-            $condition
-        );
+
+        $result = $this->db->fetchAll('
+			SELECT	a.foodsaver_id AS foodsaverId,
+					a.confirmed,
+					a.date,
+					UNIX_TIMESTAMP(a.date) AS date_ts,
+					f.description,
+					l.date_activity AS signUpDate
+
+			FROM	fs_abholer a
+			LEFT OUTER JOIN fs_fetchdate f
+				ON f.betrieb_id = a.betrieb_id
+				AND f.time = a.date
+			LEFT OUTER JOIN fs_store_log l
+				ON l.store_id = a.betrieb_id
+				AND l.date_reference = a.date
+				AND l.fs_id_a = a.foodsaver_id
+				AND l.action = :signInAction
+
+			WHERE	a.betrieb_id = :storeId
+			AND     a.date >= :from
+			' . (!is_null($to) ? 'AND     a.date <= :to' : '') . '
+
+			ORDER BY a.date
+		', $parameters);
 
         return array_map(fn ($e) => PickupSignUp::create(
             DateTime::createFromFormat('Y-m-d H:i:s', $e['date'], new DateTimeZone('Europe/Berlin')),
-            $e['foodsaver_id'],
+            $e['foodsaverId'],
             boolval($e['confirmed']),
+            is_null($e['signUpDate']) ? null : DateTime::createFromFormat('Y-m-d H:i:s', $e['signUpDate'], new DateTimeZone('Europe/Berlin')),
         ), $result);
     }
 
@@ -279,11 +306,18 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
 					a.confirmed,
 					a.date,
 					UNIX_TIMESTAMP(a.date) AS date_ts,
-                    f.description
+					f.description,
+					l.date_activity AS signUpDate
 
 			FROM	fs_abholer a
-            LEFT OUTER JOIN fs_fetchdate f ON
-                f.betrieb_id = a.betrieb_id AND f.time = a.date
+			LEFT OUTER JOIN fs_fetchdate f
+				ON f.betrieb_id = a.betrieb_id
+				AND f.time = a.date
+			LEFT OUTER JOIN fs_store_log l
+				ON l.store_id = a.betrieb_id
+				AND l.date_reference = a.date
+				AND l.fs_id_a = a.foodsaver_id
+				AND l.action = :signInAction
 
 			WHERE	a.betrieb_id = :storeId
 			AND     a.date >= :from
@@ -294,6 +328,7 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
             ':storeId' => $storeId,
             ':from' => $this->db->date($from),
             ':to' => $this->db->date($to),
+            ':signInAction' => StoreLogAction::SIGN_UP_SLOT,
         ]);
     }
 
@@ -423,7 +458,7 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
                 if (empty(array_filter($onetimeSlots, fn ($e) => $date == $e->date))) {
                     /* only take this regular slot into account when there is no manual slot for the same time */
                     $occupiedSlots = array_map(
-                        fn ($e) => ['foodsaverId' => $e->foodsaverId, 'isConfirmed' => $e->isConfirmed],
+                        fn ($e) => ['foodsaverId' => $e->foodsaverId, 'isConfirmed' => $e->isConfirmed, 'signUpDate' => $e->signUpDate],
                         array_filter(
                             $signups,
                             fn ($e) => $date == $e->date
@@ -447,7 +482,7 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
         }
         foreach ($onetimeSlots as $slot) {
             $occupiedSlots = array_map(
-                fn ($e) => ['foodsaverId' => $e->foodsaverId, 'isConfirmed' => $e->isConfirmed],
+                fn ($e) => ['foodsaverId' => $e->foodsaverId, 'isConfirmed' => $e->isConfirmed, 'signUpDate' => $e->signUpDate],
                 array_filter(
                     $signups,
                     fn ($e) => $slot->date == $e->date

@@ -606,10 +606,7 @@ class StoreRestController extends AbstractFoodsharingRestController
         $toDate = $this->normalizeDateToServerTimezone($toDate);
 
         $storeLogActions = explode(',', $storeLogActionIds);
-        $onlyAskingForSlotSignUpTimes = count($storeLogActions) === 1 && $storeLogActions['0'] == StoreLogAction::SIGN_UP_SLOT;
-        if ($onlyAskingForSlotSignUpTimes
-            ? !$this->storePermissions->maySeePickupSlotDateTime($storeId)
-            : !$this->storePermissions->maySeeStoreLog($storeId)) {
+        if (!$this->storePermissions->maySeeStoreLog($storeId)) {
             throw new AccessDeniedHttpException('Not permitted');
         }
 

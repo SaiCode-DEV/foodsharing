@@ -70,6 +70,7 @@
             :key="`${slot.date}-${slot.profile.id}`"
             :profile="slot.profile"
             :confirmed="slot.isConfirmed"
+            :sign-up-date="new Date(slot.signUpDate)"
             :allow-leave="slot.profile.id == user.id && !isInPast"
             :allow-kick="(isCoordinator || mayEditStore) && !isInPast"
             :allow-confirm="(isCoordinator || mayEditStore)"

@@ -58,7 +58,7 @@
             <b>{{ $t('store.slot_state') }}:</b><br>
             {{ isConfirmedText }}
           </p>
-          <p v-if="signUpPerformedAtDateFormatted">
+          <p>
             <b>{{ $t('store.signInDateTime') }}</b>:<br>
             {{ signUpPerformedAtDateFormatted }}
           </p>
@@ -150,7 +150,7 @@ import Avatar from '@/components/Avatar/Avatar.vue'
 import PhoneNumbers from '@/helper/phone-numbers'
 import conversationStore from '@/stores/conversations'
 import { useUserStore } from '@/stores/user'
-import StoreData, { STORE_LOG_ACTION } from '@/stores/stores'
+import StoreData from '@/stores/stores'
 
 import { v4 as uuidv4 } from 'uuid'
 import { usePickupStore } from '@/stores/pickups'
@@ -163,6 +163,10 @@ export default {
     date: {
       type: Date,
       required: true,
+    },
+    signUpDate: {
+      type: Date,
+      default: null,
     },
     profile: {
       type: Object,
@@ -230,30 +234,10 @@ export default {
       }
     },
     signUpPerformedAtDateFormatted () {
-      const storeLog = StoreData.getters.getFilteredStoreLog([STORE_LOG_ACTION.SIGN_UP_SLOT], this.profile.id)
-      const filteredEntries = storeLog.filter(entry => {
-        const thisDate = this.date.toISOString()
-        const entryDateReference = new Date(entry.dateReference).toISOString()
-        return thisDate === entryDateReference
-      })
-
-      let lastEntryWithOldestDate = null
-      let oldestTimestamp = null
-
-      filteredEntries.forEach(entry => {
-        const performedAtTimestamp = new Date(entry.performedAt).getTime()
-
-        if (!oldestTimestamp || performedAtTimestamp >= oldestTimestamp) {
-          oldestTimestamp = performedAtTimestamp
-          lastEntryWithOldestDate = entry
-        }
-      })
-
-      if (lastEntryWithOldestDate) {
-        return this.$dateFormatter.dateTime(new Date(lastEntryWithOldestDate.performedAt), { short: true })
-      } else {
-        return ''
+      if (!this.signUpDate) {
+        return this.$t('store.unknownDate')
       }
+      return this.$dateFormatter.dateTime(this.signUpDate, { short: true })
     },
     storeMember () {
       return StoreData.getters.getStoreMember()

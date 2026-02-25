@@ -244,7 +244,6 @@ export default {
         const loading = []
         if (this.permissions.maySeePickups) {
           loading.push(this.pickupStore.fetchRegularPickup(this.storeId))
-          loading.push(StoreData.mutations.loadPickupSignInDates(this.storeId, this.storeInformation.calendarInterval))
         }
         loading.push(StoreData.mutations.loadGetRegionOptions(this.regionId))
         await Promise.all(loading)
