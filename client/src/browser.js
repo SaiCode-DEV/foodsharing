@@ -4,10 +4,6 @@ export function goTo (url) {
   }
 }
 
-export function isMob () {
-  return window.innerWidth < 900
-}
-
 const HTTP_GET_VARS = {}
 const strGET = document.location.search.substr(1, document.location.search.length)
 

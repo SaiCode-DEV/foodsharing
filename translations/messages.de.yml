@@ -1561,6 +1561,7 @@ chat:
   mark_as:
     read: "Als gelesen markieren"
     unread: "Als ungelesen markieren"
+  unread_messages: "Ungelesene Nachrichten"
   reply: "Antworten"
   error:
     sending_message: "Das Senden der Nachricht ist fehlgeschlagen."

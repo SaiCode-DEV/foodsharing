@@ -126,6 +126,7 @@
               :store-id="storeId"
               :store-title="storeInformation.name"
               :region-id="regionId"
+              @multi-chat="multiChat"
             />
           </div>
         </div>
@@ -281,6 +282,7 @@ export default {
       }
     },
     multiChat (userId) {
+      console.warn('StorePage::multiChat with userId', userId)
       if (!userId) return
       const storeManagers = this.storeMember.filter(item => item.isResponsible).map(item => item.id)
       conversationStore.openMultiChat(storeManagers.concat(userId))

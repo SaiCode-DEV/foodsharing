@@ -1,14 +1,19 @@
 <template>
   <b-dropdown
     v-if="showOverflowMenu"
+    v-b-tooltip.hover.noninteractive="title"
     no-caret
     right
     variant="none"
     class="overflow-menu"
     :class="[floatRight ? 'float-right' : '', `${variant}-variant`]"
+    :dropup="direction === 'up'"
+    :dropleft="direction === 'left'"
+    :dropright="direction === 'right'"
   >
     <template #button-content>
-      <i :class="`fas fa-${icon}`" />
+      <i :class="`fas fa-${icon}`" aria-hidden="true" />
+      <span class="sr-only">{{ title }}</span>
     </template>
     <b-dropdown-item
       v-for="(option, i) in activeOptions"
@@ -31,6 +36,8 @@ export default {
     floatRight: { type: Boolean, default: true },
     variant: { type: String, default: 'dark' },
     icon: { type: String, default: 'ellipsis-v' },
+    direction: { type: String, default: 'down' },
+    title: { type: String, default: null },
   },
   computed: {
     activeOptions () {

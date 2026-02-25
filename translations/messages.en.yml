@@ -3273,6 +3273,7 @@ chat:
   mark_as:
     read: Mark as read
     unread: Mark as unread
+  unread_messages: "Unread messages"
   reply: "Reply"
   open_multi_chat: Message the team leaders
   error:

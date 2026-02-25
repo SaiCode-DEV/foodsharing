@@ -27,29 +27,48 @@
     @open-failed-message="clickFailedMessage($event.detail[0])"
     @add-room="clickAddConversation"
   >
-    <div slot="room-header-info">
-      <ChatTitleComponent :conversation-id="isNewConversation ? null : roomId" />
-    </div>
+    <template v-if="!popupMode">
+      <div slot="room-header-info" class="room-header-info">
+        <ChatTitleComponent :conversation-id="isNewConversation ? null : roomId" />
+      </div>
 
-    <div
-      v-for="conv in getConversations"
-      :key="'room-list-avatar_' + conv.id"
-      :slot="'room-list-avatar_' + conv.id"
-      class="mr-2"
-    >
-      <ConversationAvatar :conversation="conv" />
-    </div>
+      <div slot="room-options" class="room-options">
+        <ChatUnreadIndicator
+          class="room-unread-count"
+          :unread="conversation?.unreadMessages"
+        />
+        <div>
+          <OverflowMenu
+            icon="ellipsis-v"
+            variant="link"
+            class="room-options-menu"
+            :title="$t('options')"
+            :float-right="false"
+            :options="menuOptions"
+          />
+        </div>
+      </div>
 
-    <div slot="messages-empty">
-      <SelectUsersComponent
-        v-if="isNewConversation"
-        id="select-users"
-        ref="select-users"
-        :select-users="newConversationSelectedUsers"
-        @selected-users-changed="newConversationSelectedUsersChanged"
-      />
-      <span v-else>{{ textMessages.MESSAGES_EMPTY }}</span>
-    </div>
+      <div
+        v-for="conv in getConversations"
+        :key="'room-list-avatar_' + conv.id"
+        :slot="'room-list-avatar_' + conv.id"
+        class="mr-2"
+      >
+        <ConversationAvatar :conversation="conv" />
+      </div>
+
+      <div slot="messages-empty">
+        <SelectUsersComponent
+          v-if="isNewConversation"
+          id="select-users"
+          ref="select-users"
+          :select-users="newConversationSelectedUsers"
+          @selected-users-changed="newConversationSelectedUsersChanged"
+        />
+        <span v-else>{{ textMessages.MESSAGES_EMPTY }}</span>
+      </div>
+    </template>
 
     <div
       v-for="msg in getMessages"
@@ -59,7 +78,10 @@
     >
       <Avatar :user="getUser(msg.senderId)" />
     </div>
+
     <PushNotificationModal v-if="askForPushNotifications" ref="pushModal" />
+    <RenameDialog ref="renameDialog" @save-rename="$emit('save-rename', $event)" />
+    <ParticipantsDialog ref="participantsDialog" />
   </vue-advanced-chat>
 </template>
 
@@ -80,6 +102,10 @@ import { useThemeStore } from '@/stores/theme'
 import SelectUsersComponent from './SelectUsersComponent.vue'
 import ChatTitleComponent from './ChatTitleComponent.vue'
 import PushNotificationModal from './PushNotificationModal.vue'
+import OverflowMenu from '@/components/OverflowMenu.vue'
+import ChatUnreadIndicator from '@/components/Chat/ChatUnreadIndicator.vue'
+import RenameDialog from '@/components/Chat/RenameDialog.vue'
+import ParticipantsDialog from '@/components/Chat/ParticipantsDialog.vue'
 
 register()
 
@@ -100,9 +126,13 @@ const NEW_CONVERSATION_ID = Number.MAX_SAFE_INTEGER
 export default {
   components: {
     Avatar,
+    RenameDialog,
+    ChatUnreadIndicator,
     ConversationAvatar,
     SelectUsersComponent,
     ChatTitleComponent,
+    OverflowMenu,
+    ParticipantsDialog,
     PushNotificationModal,
   },
   props: {
@@ -161,6 +191,9 @@ export default {
     }
   },
   computed: {
+    conversation () {
+      return conversationStore.conversations[this.roomId]
+    },
     isNewConversation () {
       return this.roomId === NEW_CONVERSATION_ID
     },
@@ -194,6 +227,31 @@ export default {
       } else {
         return customStyle.light
       }
+    },
+    canRenameConversation () {
+      return this.conversation && !this.conversation.storeId && this.conversation.id !== NEW_CONVERSATION_ID
+    },
+    menuOptions () {
+      return [
+        {
+          textKey: 'chat.mark_as.unread',
+          icon: 'eye-slash',
+          hide: (this.conversation?.unreadMessages ?? 0) !== 0,
+          callback: () => this.markMessagesAsUnread(),
+        },
+        {
+          textKey: 'chat.rename',
+          icon: 'edit',
+          hide: !this.canRenameConversation,
+          callback: () => this.showRenameDialog(),
+        },
+        {
+          textKey: 'chat.show_participants',
+          icon: 'users',
+          hide: this.conversation?.members.length <= 3,
+          callback: () => { this.showParticipantsDialog() },
+        },
+      ]
     },
   },
   watch: {
@@ -376,6 +434,12 @@ export default {
       if ((conversationStore.conversations[this.roomId]?.unreadMessages ?? 0) !== 0) {
         await conversationStore.setReadStatus(this.roomId, true)
       }
+    },
+    async markMessagesAsUnread () {
+      if (conversationStore.conversations[this.roomId]?.unreadMessages === 0) {
+        await conversationStore.setReadStatus(this.roomId, false)
+      }
+      document.activeElement.blur() // without this the entry is focused after clicking
     },
     isChatScrolledToBottom () {
       const messageList = this.getMessageListComponent()
@@ -579,6 +643,12 @@ export default {
       room.users.push(user)
       return room
     },
+    showRenameDialog () {
+      this.$refs.renameDialog?.open(this.conversation.id)
+    },
+    showParticipantsDialog () {
+      this.$refs.participantsDialog?.open(this.conversation.id)
+    },
     convertRooms (conversations) {
       const convs = Object.values(conversations)
 
@@ -714,16 +784,35 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 vue-advanced-chat {
   #select-users {
-
     position: absolute; // Otherwise the message scroll area has flickering at the bottom of the area when opening and closing user selection.
     width: calc(100% - 10px); // vac-messages-container has 5px padding, so remove 2*padding of width.
 
-    input {
+    ::v-deep input {
       min-width: unset;
     }
   }
+}
+
+.room-options {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 1.1em;
+}
+
+@media only screen and (min-width: 768px) {
+  // adjust spacing of badge/menu, VAC header padding differs on width
+  .room-unread-count {
+    margin-right: 6px;
+  }
+}
+
+.room-options-menu ::v-deep .btn {
+  margin-right: -0.25em;
+  margin-left: -0.35em;
+  font-size: 1.3em;
 }
 </style>

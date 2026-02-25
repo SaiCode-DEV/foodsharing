@@ -65,7 +65,11 @@ class ChatElementHelper {
   public readonly messageList: Locator;
   public readonly messages: Locator;
   public readonly currentMessage: Locator;
+  public readonly messageListSpinner: Locator;
   public readonly sendButton: Locator;
+  public readonly unread: Locator;
+  public readonly menuToggle: Locator;
+  public readonly menuItems: Locator;
 
   constructor(public readonly element: Locator) {
     this.textbox = element.locator(".vac-textarea");
@@ -76,16 +80,17 @@ class ChatElementHelper {
     this.currentMessage = element.locator(
       ".vac-message-card.vac-message-current",
     );
+    this.messageListSpinner = this.messageList.locator(
+      ".vac-loader-wrapper.vac-vontainer-center",
+    );
     this.sendButton = element.locator(
       ".vac-icon-textarea > .vac-svg-button:not(.vac-send-disabled)",
     );
-  }
-
-  async waitUntilLoaded() {
-    await this.messageList.waitFor({ state: "visible", timeout: 10000 });
-    await this.messageList
-      .locator(".vac-loader-wrapper.wac-vontainer-center")
-      .waitFor({ state: "hidden", timeout: 10000 });
+    this.unread = element.getByRole("status", { name: /ungelesen/i });
+    this.menuToggle = element.getByRole("button", { name: /Optionen/i });
+    this.menuItems = element
+      .getByRole("menu", { name: /Optionen/i })
+      .getByRole("menuitem");
   }
 
   async fillText(text: string) {
@@ -121,19 +126,6 @@ class ChatElementHelper {
     });
     await this.element.page().waitForTimeout(1000);
   }
-}
-
-export class PopupChatHelper extends ChatElementHelper {
-  public readonly unread: Locator;
-  public readonly menuToggle: Locator;
-  public readonly menuItems: Locator;
-
-  constructor(popupChat: Locator) {
-    super(popupChat);
-    this.unread = popupChat.locator(".chatbox-unread-count");
-    this.menuToggle = popupChat.locator(".overflow-menu .dropdown-toggle");
-    this.menuItems = popupChat.locator(".overflow-menu .dropdown-menu li");
-  }
 
   async openMenu() {
     if (!(await this.menuItems.first().isVisible())) {
@@ -149,19 +141,42 @@ export class PopupChatHelper extends ChatElementHelper {
   }
 }
 
+export class PopupChatHelper extends ChatElementHelper {
+  async waitUntilLoaded() {
+    await this.messageList.waitFor({ state: "visible", timeout: 10000 });
+    await this.messageListSpinner.waitFor({ state: "hidden", timeout: 10000 });
+  }
+}
+
 export class MessagePageHelper extends ChatElementHelper {
   public readonly roomList: Locator;
   public readonly roomListEntries: Locator;
+  public readonly roomListSpinner: Locator;
 
   constructor(protected readonly page: Page) {
     super(page.locator("main vue-advanced-chat"));
     this.roomList = this.element.locator(".vac-room-list");
     this.roomListEntries = this.roomList.locator(".vac-room-item");
+    this.roomListSpinner = this.roomList.locator(
+      ".vac-loader-wrapper.vac-vontainer-center",
+    );
   }
 
-  async goto(conversationId: number) {
-    await this.page.goto(`/msg?cid=${conversationId}`);
+  async goto(conversationId?: number) {
+    await this.page.goto(
+      `/msg${conversationId ? `?cid=${conversationId}` : ""}`,
+    );
     await this.waitUntilLoaded();
+  }
+
+  async waitUntilLoaded() {
+    await Promise.race([
+      this.roomList.waitFor({ state: "visible", timeout: 10000 }),
+      this.messageList.waitFor({ state: "visible", timeout: 10000 }),
+    ]);
+
+    await this.roomListSpinner.waitFor({ state: "hidden", timeout: 10000 });
+    await this.messageListSpinner.waitFor({ state: "hidden", timeout: 10000 });
   }
 
   async getRoomListEntryUnread(index: number = 0): Promise<Locator> {
@@ -201,7 +216,7 @@ export class ChatHelper extends ChatElementHelper {
 
   async waitForAllChatsToInitialize() {
     await expect(
-      this.page.locator(".vac-loader-wrapper.wac-vontainer-center"),
+      this.page.locator(".vac-loader-wrapper.vac-container-center"),
     ).toHaveCount(0, { timeout: 10000 });
   }
 

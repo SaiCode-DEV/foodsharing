@@ -42,13 +42,16 @@
         <i class="icon-subnav fas fa-comments" />
         {{ $t('menu.entry.all_messages') }}
       </a>
-      <div class="dropdown-item">
+      <div
+        v-if="mayUsePushNotifications"
+        class="dropdown-item dropdown-switch-item"
+      >
         <b-form-checkbox
-          v-if="mayUsePushNotifications"
           :checked="usePushNotifications"
           :disabled="pushNotificationsLoading"
           size="sm"
           switch
+          class="dropdown-switch-input"
           @change="updatePushNotifications"
         >
           <span class="small" v-text="$t('settings.push.title')" />
@@ -91,3 +94,12 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.dropdown-switch-item {
+  padding-block: 0.15em;
+}
+
+.dropdown-switch-input {
+  margin-left: -4.5px;
+}
+</style>

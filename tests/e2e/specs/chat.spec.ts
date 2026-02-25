@@ -125,8 +125,10 @@ test.describe("Chat", () => {
       await context2.close();
     });
 
-    test("message is pushed via websocket", async ({ acceptanceHelper }) => {
-      // View the other user's profile and start a chat
+    test("message delivery via websocket and status handling", async ({
+      acceptanceHelper,
+    }) => {
+      // User 1 starts a conversation with user 2
       await chatHelper.openChatFromProfilePage(foodsaver2.id);
       await acceptanceHelper.waitForActiveAPICalls();
       const conversationId = (
@@ -140,7 +142,7 @@ test.describe("Chat", () => {
         }),
       ).toBeTruthy();
 
-      // Write a message to them
+      // User 1 sends a message to user 2
       const chatTextForFoodsaver1 = "is anyone there?";
       await chatHelper.fillText(chatTextForFoodsaver1);
       await chatHelper.clickSend();
@@ -148,7 +150,7 @@ test.describe("Chat", () => {
         chatTextForFoodsaver1,
       );
 
-      // Message should be in the database and the conversation should be marked as unread for the other user
+      // Message should be in the database
       expect(
         await chatHelper.databaseHasMessage({
           conversationId,
@@ -156,6 +158,8 @@ test.describe("Chat", () => {
           body: chatTextForFoodsaver1,
         }),
       ).toBeTruthy();
+
+      // User 2 should have the conversation with an unread message
       expect(
         await chatHelper.databaseHasUserConversation({
           conversationId,
@@ -164,17 +168,17 @@ test.describe("Chat", () => {
         }),
       ).toBeTruthy();
 
-      // Check they have the notification badge on conversations icon
+      // User 2 sees the notification badge on the navbar
       await expect(chatHelper2.navConversations.unread).toContainText("1");
 
-      // Open the conversation list and open the new conversation
+      // User 2 opens the conversation list and open the new conversation
       await chatHelper2.navConversations.open();
       await expect(chatHelper2.navConversations.getEntryUnread()).toContainText(
         "1",
       );
       await chatHelper2.openChatFromNavConversations();
 
-      // Message should be marked as read after opening the conversation
+      // User 2 should have the conversation marked as read after opening
       await acceptanceHelper2.waitForActiveAPICalls();
       expect(
         await chatHelper.databaseHasUserConversation({
@@ -183,6 +187,47 @@ test.describe("Chat", () => {
           unread: 0,
         }),
       ).toBeTruthy();
+    });
+
+    test("message delivery via websocket to messages page", async ({
+      acceptanceHelper,
+    }) => {
+      // User 2 goes to the messages page
+      await chatHelper2.messagePage.goto();
+
+      // User 1 starts a conversation with user 2
+      await chatHelper.openChatFromProfilePage(foodsaver2.id);
+      await acceptanceHelper.waitForActiveAPICalls();
+
+      // User 1 sends a message to user 2
+      const chatTextForFoodsaver1 = "is anyone there?";
+      await chatHelper.fillText(chatTextForFoodsaver1);
+      await chatHelper.clickSend();
+      await expect(chatHelper.currentMessage).toContainText(
+        chatTextForFoodsaver1,
+      );
+
+      // User 2 sees the unread conversation in nav and room list
+      await expect(chatHelper2.navConversations.unread).toContainText("1");
+      await expect(chatHelper2.messagePage.roomListEntries).toHaveCount(1);
+      await expect(
+        chatHelper2.messagePage.roomListEntries.first(),
+      ).toContainText(chatTextForFoodsaver1);
+      await expect(
+        chatHelper2.messagePage.roomListEntries.first(),
+      ).toContainText(foodsaver1.name);
+      await expect(
+        await chatHelper2.messagePage.getRoomListEntryUnread(),
+      ).toContainText("1");
+
+      // User 2 opens the conversation
+      await chatHelper2.messagePage.roomListEntries.first().click();
+      await expect(chatHelper2.messagePage.textbox).toBeVisible();
+
+      // User 2 should have the conversation marked as read after opening
+      await acceptanceHelper2.waitForActiveAPICalls();
+      await expect(chatHelper2.messagePage.unread).toBeHidden();
+      await expect(chatHelper2.navConversations.getEntryUnread()).toBeHidden();
     });
 
     test("message via websocket stays unread when previously not loaded", async ({
@@ -397,8 +442,8 @@ test.describe("Chat", () => {
           await popupChat.waitForMessageListScroll();
           await expect(popupChat.unread).toBeHidden();
 
-          // Mark as unread again
-          await popupChat.markAsUnread();
+          // Mark as unread through the nav conversations menu
+          await chatHelper.toggleConversationUnreadViaNavConversations();
 
           // Minimize popup chat, it should still be unread
           const popupChatHead = popupChat.element.locator(".chatboxhead");
@@ -445,6 +490,7 @@ test.describe("Chat", () => {
         await expect(await messagePage.getRoomListEntryUnread()).toBeVisible();
       }
       await expect(chatHelper.navConversations.unread).toBeVisible();
+      await expect(messagePage.unread).toBeVisible();
       await acceptanceHelper.waitForActiveAPICalls();
       expect(
         await chatHelper.databaseHasUserConversation({
@@ -457,6 +503,7 @@ test.describe("Chat", () => {
       // Click the chat textbox to mark as read
       await messagePage.textbox.click();
       await expect(chatHelper.navConversations.unread).toBeHidden();
+      await expect(messagePage.unread).toBeHidden();
       await acceptanceHelper.waitForActiveAPICalls();
       expect(
         await chatHelper.databaseHasUserConversation({
@@ -467,13 +514,13 @@ test.describe("Chat", () => {
       ).toBeTruthy();
 
       // Mark as unread again
-      await chatHelper.toggleConversationUnreadViaNavConversations();
+      await messagePage.markAsUnread();
 
       // Click the messages area to mark as read
       await messagePage.messageList.click();
       await expect(chatHelper.navConversations.unread).toBeHidden();
 
-      // Mark as unread again
+      // Mark as unread through the nav conversations menu
       await chatHelper.toggleConversationUnreadViaNavConversations();
 
       if (isDesktop) {
@@ -482,7 +529,7 @@ test.describe("Chat", () => {
         await expect(chatHelper.navConversations.unread).toBeHidden();
 
         // Mark as unread again
-        await chatHelper.toggleConversationUnreadViaNavConversations();
+        await messagePage.markAsUnread();
       }
 
       // Scroll up, should stay unread

@@ -11,6 +11,7 @@ body {
 #main {
   flex: auto;
   overflow: hidden; // required that the chat window will not expand out off screen
+  margin-top: 1.25rem;
 
   .container, .row, .col {
     height: 100%;
@@ -21,7 +22,13 @@ body {
 @media (min-width: 576px) and (min-height: 576px)
 {
   #main  {
-    margin-top: 3rem;
-    margin-bottom: 3rem;
+    // This actually looks symmetrical due to spacing/shadows
+    margin-top: 1.5rem;
+    margin-bottom: 1.25rem;
+
+    .col {
+      padding-left: 15px !important;
+      padding-right: 15px !important;
+    }
   }
 }

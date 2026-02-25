@@ -1,6 +1,5 @@
 <template>
   <div
-    v-if="isLoggedIn && !hideChatdock"
     class="chat-dock"
     aria-live="polite"
   >
@@ -42,6 +41,7 @@
                   <b-avatar
                     :src="p.avatar"
                     :size="18"
+                    :variant="p.avatar ? 'light' : 'secondary'"
                     class="mr-1"
                   />
                   <span>{{ p.name }}</span>
@@ -55,6 +55,7 @@
                   :title="p.name"
                   :src="p.avatar"
                   :size="18"
+                  :variant="p.avatar ? 'light' : 'secondary'"
                   class="mr-1"
                   :href="$url('profile', p.id)"
                   @click.stop
@@ -64,25 +65,18 @@
             <i v-else class="fas fa-fw fa-spinner fa-spin" />
           </div>
           <div class="chatboxoptions">
-            <div
-              v-if="unreadCount(box.id) !== 0"
-              class="chatbox-unread-count"
-            >
-              <b-badge
-                variant="info"
-                pill
-              >
-                {{ unreadCount(box.id) > 0 ? unreadCount(box.id) : '&nbsp;' }}
-              </b-badge>
-            </div>
+            <ChatUnreadIndicator :unread="unreadCount(box.id)" />
             <OverflowMenu
               icon="ellipsis-v"
               variant="link"
+              :title="$t('options')"
               :float-right="false"
               :options="getMenuOptions(box)"
               :callback-args="[box]"
+              :direction="box.minimized ? 'up' : 'down'"
             />
             <b-button
+              v-b-tooltip.hover.noninteractive
               :title="$t('button.close')"
               href="#"
               variant="link"
@@ -99,99 +93,31 @@
             :popup-mode="true"
             :popup-opened-explicitly="!box.restoringFromSave"
             :chat-id="box.id"
+            @save-rename="applyNewName"
           />
         </div>
-        <!-- Participants overlay for >4 members -->
-        <b-modal
-          v-model="box.showMembersDialog"
-          :title="$t('chat.participants')"
-          size="lg"
-          ok-only
-          :ok-title="$t('button.close')"
-          scrollable
-        >
-          <div class="participants-grid">
-            <b-button
-              v-for="p in box.participants"
-              :key="p.id"
-              :href="$url('profile', p.id)"
-              variant="secondary"
-              class="participant-card d-flex flex-row justify-content-between align-items-center py-0"
-              @click.stop
-            >
-              <div>
-                <b-avatar
-                  :src="p.avatar"
-                  size="24"
-                  class="mr-2"
-                />
-                {{ p.name }}
-              </div>
-              <b-button
-                v-b-tooltip.hover="$t('chat.open_chat')"
-                variant="outline-success"
-                size="sm"
-                class="ml-2 my-1"
-                @click.prevent="openChatWithUser(p.id, box.id)"
-              >
-                <i class="fas fa-message" />
-              </b-button>
-            </b-button>
-          </div>
-        </b-modal>
       </div>
     </transition-group>
-    <b-modal
-      v-model="renameDialogVisible"
-      :title="$t('chat.rename')"
-      size="md"
-      :cancel-title="$t('button.cancel')"
-      :ok-title="$t('button.save')"
-      @ok="saveRename"
-      @hidden="resetRenameDialog"
-    >
-      <b-form-group
-        :label="$t('chat.rename')"
-        label-for="rename-input"
-      >
-        <small class="text-muted">
-          {{ $t('chat.rename_empty_hint') }}
-        </small>
-        <b-form-input
-          id="rename-input"
-          v-model="newTitle"
-          :placeholder="$t('chat.rename_placeholder')"
-          maxlength="50"
-          autofocus
-        />
-      </b-form-group>
-    </b-modal>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
 import ChatComponent from '@/views/pages/Message/ChatComponent.vue'
 import conversationStore from '@/stores/conversations'
 import Storage from '@/storage'
 import ProfileStore from '@/stores/profiles'
 import { useUserStore } from '@/stores/user'
-import { isMob, pulseError } from '@/script'
+import { pulseError } from '@/script'
 import i18n from '@/helper/i18n'
 import { url } from '@/helper/urls'
 import OverflowMenu from '@/components/OverflowMenu.vue'
+import ChatUnreadIndicator from '@/components/Chat/ChatUnreadIndicator.vue'
 
 const userStore = useUserStore()
 const storage = new Storage('conversations')
 const boxes = ref([])
-const isLoggedIn = computed(() => userStore.isLoggedIn)
-const hideChatdock = computed(() => location.pathname === '/msg')
 const chatComponent = ref(null)
-
-// Rename dialog state
-const renameDialogVisible = ref(false)
-const currentRenameBoxId = ref(null)
-const newTitle = ref('')
 
 function getMenuOptions (box) {
   return [
@@ -203,19 +129,20 @@ function getMenuOptions (box) {
     {
       textKey: 'chat.mark_as.unread',
       icon: 'eye-slash',
+      hide: unreadCount(box.id) !== 0,
       callback: (box) => conversationStore.setReadStatus(box.id, false),
     },
     {
       textKey: 'chat.rename',
       icon: 'edit',
       hide: box.storeId,
-      callback: (box) => rename(box.id),
+      callback: (box) => initiateRename(box.id),
     },
     {
       textKey: 'chat.show_participants',
       icon: 'users',
-      hide: box.participants.length <= 2,
-      callback: (box) => { box.showMembersDialog = true },
+      hide: box.participants.length <= 3,
+      callback: (box) => { getComponentForConversation(box.id)?.showParticipantsDialog() },
     },
     {
       textKey: 'menu.entry.close_all_chats',
@@ -300,14 +227,6 @@ async function ensureTitle (id, markAsRead) {
   }
 }
 
-function openChatWithUser (userId, conversationId = null) {
-  conversationStore.openChatWithUser(userId)
-  const box = getBoxForConversation(conversationId)
-  if (box) {
-    box.showMembersDialog = false
-  }
-}
-
 function openChat (id, options = {}) {
   const openedByUser = !options?.minimized && !options?.restoringFromSave
 
@@ -342,33 +261,20 @@ function openChat (id, options = {}) {
   persist()
 }
 
-function rename (id) {
-  const box = boxes.value.find(b => b.id === id)
+function initiateRename (id) {
+  const box = getBoxForConversation(id)
   if (!box) return
   if (box.storeId) return
 
-  currentRenameBoxId.value = id
-  newTitle.value = box.title || ''
-  renameDialogVisible.value = true
+  getComponentForConversation(id)?.showRenameDialog()
 }
 
-async function saveRename () {
-  try {
-    await conversationStore.renameConversation(currentRenameBoxId.value, newTitle.value.trim())
-    const box = boxes.value.find(b => b.id === currentRenameBoxId.value)
-    if (box) {
-      box.title = newTitle.value.trim() || null
-      ensureTitle(box.id)
-    }
-  } catch (e) {
-    console.error('Failed to rename conversation:', e)
-    pulseError(i18n('chat.error.renaming_conversation'))
+// Ideally this should be handled by reactivity
+async function applyNewName ({ conversationId, newTitle }) {
+  const box = getBoxForConversation(conversationId)
+  if (box) {
+    box.title = newTitle
   }
-}
-
-function resetRenameDialog () {
-  currentRenameBoxId.value = null
-  newTitle.value = ''
 }
 
 function loadSavedChats () {
@@ -380,14 +286,8 @@ function loadSavedChats () {
 }
 
 onMounted(() => {
-  if (hideChatdock.value) {
-    return
-  }
-
   // intercept store openChat for popups
-  if (!isMob()) {
-    conversationStore.messagePopupOpenChatListener = (id) => openChat(id)
-  }
+  conversationStore.messagePopupOpenChatListener = (id) => openChat(id)
 
   loadSavedChats()
 })
@@ -486,20 +386,13 @@ watch(boxes, persist, { deep: true })
     padding-left: 0.1em;
   }
 
-  ::v-deep .overflow-menu .btn {
-    color: var(--fs-color-primary-900);
-    padding: 0.25em 0.5em;
-  }
-}
+  ::v-deep .overflow-menu {
+    padding: 0.2em 0;
 
-.chatbox-unread-count {
-  padding: 0.25em 0.5em;
-
-  .badge {
-    padding: 0.25em;
-    min-width: 1.5em;
-    min-height: 1.5em;
-    margin-bottom: 0.4em;
+    .btn {
+      color: var(--fs-color-primary-900);
+      padding: 0.25em 0.5em;
+    }
   }
 }
 
@@ -537,25 +430,14 @@ watch(boxes, persist, { deep: true })
   font-size: 13px;
   color: var(--fs-color-dark);
   background-color: var(--fs-color-light);
-  border-right: 1px solid var(--fs-border-default);
-  border-left: 1px solid var(--fs-border-default);
-}
-
-.participants-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 10px;
-  .participant-card {
-    background-color: var(--fs-color-primary-200);
-    border: 0;
-    color: var(--fs-color-black);
-  }
+  border-right: 1px solid var(--fs-color-primary-300);
+  border-left: 1px solid var(--fs-color-primary-300);
 }
 
 .participants-item:not(:last-child) {
-    margin-right: 5px;
-    &::after {
-      content: ',';
-    }
+  margin-right: 5px;
+  &::after {
+    content: ',';
   }
+}
 </style>

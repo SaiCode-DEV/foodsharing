@@ -1,12 +1,12 @@
 /* eslint-disable eqeqeq,camelcase */
-import { GET, goTo, isMob } from '@/browser'
+import { GET, goTo } from '@/browser'
 import conversationStore from '@/stores/conversations'
 import { requestStoreTeamMembership, declineStoreRequest } from '@/api/stores'
 import i18n from '@/helper/i18n'
 import { HTTP_RESPONSE } from './consts'
 import Vue from 'vue'
 
-export { goTo, isMob, GET }
+export { goTo, GET }
 
 export function chat (fsid) {
   conversationStore.openChatWithUser(fsid)

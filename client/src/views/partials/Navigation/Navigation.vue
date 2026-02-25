@@ -32,7 +32,7 @@
     <ThemeSwitcherModal />
 
     <ConfirmationDialogue ref="confirmDialog" />
-    <ChatDock v-if="isLoggedIn" />
+    <ChatDock v-if="showChatDock" />
   </b-navbar>
 </template>
 
@@ -84,6 +84,10 @@ const confirmDialog = ref(null)
 const isLoggedIn = computed(() => userStore.isLoggedIn)
 const isFoodsaver = computed(() => userStore.isFoodsaver)
 const userId = computed(() => userStore.getUserId)
+
+// TODO: Decide how to handle this in the future! Emulating the old behavior for now
+const widthAllowsChatDock = computed(() => window.innerWidth >= 900)
+const showChatDock = computed(() => isLoggedIn.value && widthAllowsChatDock.value && !location.pathname.startsWith('/msg'))
 
 const { emitter } = useConfirmationDialogue()
 
