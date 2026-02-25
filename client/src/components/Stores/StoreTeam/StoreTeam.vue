@@ -136,7 +136,7 @@ export default {
     },
     hasMemberDistances () {
       if (!this.loaded) return false
-      return Number.isInteger(this.team?.[0]?.distance)
+      return Number.isInteger(this.team?.[0]?.distanceInKm)
     },
     sortingFunctions () {
       const sortingFunctions = [
@@ -242,7 +242,7 @@ export default {
       if (a.isManager !== b.isManager) return b.isManager - a.isManager
       // invalid addresses are sent as distance: -1, but should be sorted to the bottom.
       // 1 Mio km are always sufficient for that.
-      return ((a.distance < 0 ? 1e6 : a.distance) - (b.distance < 0 ? 1e6 : b.distance))
+      return ((a.distanceInKm < 0 ? 1e6 : a.distanceInKm) - (b.distanceInKm < 0 ? 1e6 : b.distanceInKm))
     },
     foodsaverData (fs) {
       const validPhoneNumber = phoneNumber.callableNumber(fs.handy || fs.telefon, true)
@@ -263,7 +263,7 @@ export default {
         lastPickup: fs.lastFetch ? new Date(fs.lastFetch) : null,
         fetchCount: fs.fetchCount,
         hasHygieneCertificateUntil: fs.hygieneCertificateUntil ? new Date(fs.hygieneCertificateUntil) : null,
-        distance: fs.distance ?? null,
+        distanceInKm: fs.distanceInKm ?? null,
       }
     },
     async removeFromTeam (user) {

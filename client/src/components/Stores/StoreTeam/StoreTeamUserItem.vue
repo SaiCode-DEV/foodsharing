@@ -19,8 +19,8 @@
         :icon="user.lastPickup ? 'fa-solid fa-fw fa-shopping-cart' : 'fa-solid fa-fw fa-user-plus'"
       />
       <small v-if="hasMemberDistances && sortingFunction && sortingFunction.displayInfo === 'distance'" class="d-block">
-        <i class="fas" :class="user.distance < 0 ? 'fa-exclamation-triangle' : 'fa-diamond-turn-right'" />
-        {{ formatDistance(user.distance) }}
+        <i class="fas" :class="user.distanceInKm < 0 ? 'fa-exclamation-triangle' : 'fa-diamond-turn-right'" />
+        {{ formatDistance(user.distanceInKm) }}
       </small>
     </div>
     <PhoneButton
