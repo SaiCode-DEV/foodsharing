@@ -1780,6 +1780,7 @@ settings:
     old_password_required: ''
     old_password_placeholder: ''
     new_password_label: ''
+    new_password_must_be_different: ''
   email_change:
     wrong_password: ''
     invalid: ''
@@ -2150,6 +2151,10 @@ storeview:
   choose_chain: ''
   team_info_jumper: ''
   show_settings: ''
+  activityCount:
+    0: ''
+    1: ''
+    2: ''
 storeedit:
   not-in-region: ''
   team:
@@ -2226,6 +2231,8 @@ chat:
   open_multi_chat: ''
   rename_placeholder: ''
   rename: ''
+  open_full_view: ''
+  unread_messages: ''
 wall:
   see-more: ''
   confirm-deletion: ''
@@ -2641,6 +2648,7 @@ storestatus:
   "2": ''
   "0": ''
   "5a": ''
+  placeholder: ''
 storelist:
   status: ''
   map: ''
@@ -2663,6 +2671,7 @@ storelist:
   inprogress: ''
   memberState: ''
   actions: ''
+  filter_placeholder: ''
 email_template:
   from: ''
   newsletter:

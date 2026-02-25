@@ -2223,6 +2223,7 @@ storestatus:
   "3a": İşletme bağış yapmaya hazır. :-)
   "3": İşletme işbirliği yapmaya hazır
   "0": Durum Belirsiz
+  placeholder: ''
 storelist:
   added: Kayıtlı
   managing: Sorumlu olduğunuz işletmeler
@@ -2245,6 +2246,7 @@ storelist:
   entered: 'Kayıtlı:'
   memberState: Üyelik durumu
   actions: Eylemler
+  filter_placeholder: ''
 blog:
   edit: Blog yazısını düzenle
   newTitle: '{region} için yeni yazı'
@@ -2620,6 +2622,7 @@ settings:
     old_password_required: ''
     old_password_placeholder: ''
     new_password_label: ''
+    new_password_must_be_different: ''
   email_change:
     wrong_password: ''
     invalid: ''
@@ -2808,6 +2811,8 @@ chat:
   rename_empty_hint: ''
   rename_placeholder: ''
   rename: ''
+  open_full_view: ''
+  unread_messages: ''
 push_notifications:
   test_notification_title: Push bildirimleri etkinleştirildi
   test_notification_body: Harika, bu işe yaramış gibi görünüyor :)
@@ -3493,6 +3498,10 @@ storeview:
     not_yet_clarified: Henüz açıklığa kavuşturulmadı
     yes: Evet
     no: Hayır
+  activityCount:
+    0: ''
+    1: ''
+    2: ''
 fsp:
   suggest: Gıda dağıtım noktası önerin
   accept: Gıda dağıtım noktasının kilidini aç

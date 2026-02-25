@@ -2401,6 +2401,7 @@ chat:
     loading_conversation: Falha ao acessar a conversa.
     renaming_conversation: A renomeação da conversa falhou.
   open_full_view: Abrir visualização completa
+  unread_messages: Mensagens não lidas
 error_permissions: 'Infelizmente, nao tens as permissões necessárias para este processo.'
 storeedit:
   team:
@@ -2818,6 +2819,8 @@ settings:
     cancel: Cancelar
     submit: Alterar palavra-passe
     success: A tua palavra-passe foi alterada com sucesso
+    new_password_must_be_different: A nova palavra-passe tem de ser diferente da
+      palavra-passe atual
   no_rights: Não está autorizado a alterar a configuração do perfil.
   edit_other: Editar configurações do perfil de {name}
   profile: Configurações do perfil
@@ -2907,7 +2910,7 @@ settings:
     close: Fechar
     totp_token_label: Código
     totp_token_placeholder: p. ex. 458324
-    totp_required: Tens de introduzir um código
+    totp_required: Tens de introduzir um código 2FA de seis dígitos
     password_label: passe
     password_placeholder: A tua palavra-passe atual
     password_required: Tens de introduzir a tua palavra-passe

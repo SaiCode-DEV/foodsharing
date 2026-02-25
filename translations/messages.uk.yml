@@ -366,6 +366,10 @@ storeview:
   pickupWeight: ''
   managers: ''
   common: ''
+  activityCount:
+    0: ''
+    1: ''
+    2: ''
 menu:
   entry:
     options: ''
@@ -942,6 +946,7 @@ settings:
     old_password_required: ''
     old_password_placeholder: ''
     new_password_label: ''
+    new_password_must_be_different: ''
   email_change:
     wrong_password: ''
     invalid: ''
@@ -2474,6 +2479,8 @@ chat:
   unknown_username: ''
   rename: ''
   search: ''
+  open_full_view: ''
+  unread_messages: ''
 error_permissions: ''
 oauth:
   error:
@@ -3753,6 +3760,7 @@ storestatus:
   "0": ''
   "4": ''
   "2": ''
+  placeholder: ''
 salutation:
   "3": ''
   "1": ''
@@ -3806,6 +3814,7 @@ storelist:
   map: ''
   addressdata: ''
   fetching: ''
+  filter_placeholder: ''
 validation:
   phone_number_invalid: ''
 message: ''

@@ -636,6 +636,7 @@ settings:
     old_password_required: ''
     old_password_placeholder: ''
     new_password_label: ''
+    new_password_must_be_different: ''
   email_change:
     wrong_password: ''
     invalid: ''
@@ -1717,6 +1718,10 @@ storeview:
     error_message: Texte trop long (max. {count} caractères)
     label: Infos publiques sur l’établissement
   team_info_distance: 'Distance à vol d’oiseau de l’établissement :'
+  activityCount:
+    0: ''
+    1: ''
+    2: ''
 day: Jour
 time: Heure
 select: Veuillez choisir
@@ -2457,6 +2462,8 @@ chat:
   open_multi_chat: ''
   rename_placeholder: ''
   rename: ''
+  open_full_view: ''
+  unread_messages: ''
 timepicker:
   labelNowButton: Maintenant
   labelCloseButton: Fermer
@@ -3144,6 +3151,7 @@ storelist:
   cooperating: coopère
   memberState: Statut de membre
   actions: Actions
+  filter_placeholder: ''
 storestatus:
   "7": L’établissement n’existe plus
   "6": Fait don de ses denrées alimentaires à la croix rouge, banques 
@@ -3156,6 +3164,7 @@ storestatus:
   "0": Statut ambigu
   "3a": L’établissement est prêt à faire des dons. :-)
   "5a": L’établissement fait déjà des dons
+  placeholder: ''
 releases:
   "2020-05": Version « Orange » (mai 2020)
   "2020-08": Version « Poire » (août 2020)

@@ -1131,6 +1131,7 @@ settings:
     old_password_required: ''
     old_password_placeholder: ''
     new_password_label: ''
+    new_password_must_be_different: ''
   email_change:
     wrong_password: ''
     invalid: ''
@@ -1513,6 +1514,8 @@ chat:
   open_multi_chat: ''
   rename_placeholder: ''
   rename: ''
+  open_full_view: ''
+  unread_messages: ''
 month:
   "4": ''
   short:
@@ -2068,6 +2071,7 @@ storelist:
   fetching: ''
   memberState: ''
   actions: ''
+  filter_placeholder: ''
 region:
   hull:
     confirm: ''
@@ -2930,6 +2934,10 @@ storeview:
   choose_chain: ''
   team_info_jumper: ''
   show_settings: ''
+  activityCount:
+    0: ''
+    1: ''
+    2: ''
 calendar:
   labelPrevMonth: ''
   labelCurrentMonth: ''
@@ -3043,6 +3051,7 @@ storestatus:
   "3": ''
   "4": ''
   "5a": ''
+  placeholder: ''
 stats:
   total:
     pickups: ''

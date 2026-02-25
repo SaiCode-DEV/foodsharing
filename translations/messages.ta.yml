@@ -52,6 +52,10 @@ storeview:
   public_time_in_the_evening: மாலை
   public_time_at_night: இரவில்
   status: தற்போதைய நிலை
+  activityCount:
+    0: ''
+    1: ''
+    2: ''
 store:
   bread: அனைத்து நிறுவனங்களும்
   requests: திறந்த விசாரணைகள் ({count})
@@ -704,6 +708,8 @@ chat:
   open_multi_chat: ''
   rename_placeholder: ''
   rename: ''
+  open_full_view: ''
+  unread_messages: ''
 wall:
   name: பின்போர்டு
   see-more: எல்லா இடுகைகளையும் காட்டு
@@ -1590,6 +1596,7 @@ settings:
     old_password_required: ''
     old_password_placeholder: ''
     new_password_label: ''
+    new_password_must_be_different: ''
   email_change:
     wrong_password: ''
     invalid: ''
@@ -4408,6 +4415,7 @@ storestatus:
   "5a": செயல்பாடு ஏற்கனவே நன்கொடை அளிக்கிறது
   "6": தஃபெல் போன்றவற்றுக்கு நன்கொடை அளித்து எதையும் தூக்கி எறியுங்கள்
   "7": செயல்பாடு இனி இல்லை
+  placeholder: ''
 storelist:
   entered: 'நுழைந்தது:'
   status: நிலை
@@ -4430,6 +4438,7 @@ storelist:
   others: '{பிராந்தியத்திலிருந்து பிற நிறுவனங்கள்'
   actions: செயல்கள்
   managing: நீங்கள் பொறுப்பான நிறுவனங்கள்
+  filter_placeholder: ''
 push_notifications:
   test_notification_title: புச் அறிவிப்புகள் செயல்படுத்தப்பட்டன
   test_notification_body: பெரியது, அது வேலை செய்ததாகத் தெரிகிறது :)

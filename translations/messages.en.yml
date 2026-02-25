@@ -631,6 +631,7 @@ settings:
     submit: "Change password"
     success: "Your password has been successfully changed"
     wrong_password: Incorrect previous password
+    new_password_must_be_different: ''
   change_data_info:
     general: Here you can adjust your profile data.
     verified: You can’t edit your name and date of birth. However, you can ask 
@@ -1428,6 +1429,10 @@ storeview:
     error_message: Text is too long (max. {count} characters)
     label: Public information about the store
     available_count: Available number of characters
+  activityCount:
+    0: ''
+    1: ''
+    2: ''
 day: Day
 time: Time
 select: Please select
@@ -2161,6 +2166,7 @@ storelist:
   entered: 'Created on:'
   memberState: Membership status
   actions: Actions
+  filter_placeholder: ''
 releases:
   "2020-08": "Release \"Pear\" (August 2020)"
   "2020-10": "Release \"Cranberry\" (October 2020)"
@@ -3554,6 +3560,7 @@ storestatus:
   "1": There is no contact yet
   "3a": Store is ready to donate. :-)
   "5a": Store donates already
+  placeholder: ''
 formatting:
   md: You can use <a 
     href="https://daringfireball.net/projects/markdown/syntax">Markdown</a> for 

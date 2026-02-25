@@ -1312,6 +1312,10 @@ storeview:
     not_yet_clarified: Sin aclarar
     no: No
     yes: Sí
+  activityCount:
+    0: ''
+    1: ''
+    2: ''
 store:
   tooltip_red: 'Recogidas vacantes hoy o mañana'
   tooltip_managing: 'Usted es responsable de esta cooperación'
@@ -3307,6 +3311,7 @@ settings:
     old_password_required: ''
     old_password_placeholder: ''
     new_password_label: ''
+    new_password_must_be_different: ''
   email_change:
     wrong_password: ''
     invalid: ''
@@ -3701,6 +3706,7 @@ storestatus:
   "3a": 'La empresa está dispuesta a cooperar. :-)'
   "1": 'Aún no hay contacto'
   "3": 'La empresa está dispuesta a cooperar'
+  placeholder: ''
 storelist:
   notcooperating: 'no quiere cooperar'
   map: 'Mapa'
@@ -3723,6 +3729,7 @@ storelist:
   addressdata: 'Dirección'
   memberState: Estado de miembro
   actions: Acciones
+  filter_placeholder: ''
 email_template:
   confirm_topic: 'El hilo necesita aprobación:'
   information: 'Información'
@@ -3834,6 +3841,8 @@ chat:
   open_multi_chat: ''
   rename_placeholder: ''
   rename: ''
+  open_full_view: ''
+  unread_messages: ''
 timepicker:
   labelIncrement: 'Aumentar'
   labelDecrement: 'Disminuir'

@@ -1294,6 +1294,7 @@ settings:
     old_password_required: ''
     old_password_placeholder: ''
     new_password_label: ''
+    new_password_must_be_different: ''
   email_change:
     wrong_password: ''
     invalid: ''
@@ -2303,6 +2304,7 @@ storelist:
   notcooperating: ønsker ikke å samarbeide
   memberState: medlemsstatus
   actions: Handlinger
+  filter_placeholder: ''
 footer:
   statistics: Statistikk
   blog: Blogg
@@ -2502,6 +2504,8 @@ chat:
   rename_empty_hint: ''
   rename_placeholder: ''
   rename: ''
+  open_full_view: ''
+  unread_messages: ''
 forum:
   thread:
     title: Tittel
@@ -3167,6 +3171,10 @@ storeview:
     not_yet_clarified: ennå ikke avklart
     yes: Ja
     no: Nei
+  activityCount:
+    0: ''
+    1: ''
+    2: ''
 fsp:
   info:
     none: ikke mer
@@ -3516,6 +3524,7 @@ storestatus:
   "6": Gi til matbank etc. eller ikke kast noe
   "5a": Selskapet donerer allerede
   "3a": Selskapet er villig til å donere. :-)
+  placeholder: ''
 ansprechpartner: Kontaktperson i bedriften
 password:
   reset: Glemt passordet?

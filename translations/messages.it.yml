@@ -1253,6 +1253,10 @@ storeview:
     error_message: Il testo è troppo lungo (max. {count} caratteri)
     label: Informazioni pubbliche sull'attività
     available_count: Numero di caratteri disponibili
+  activityCount:
+    0: ''
+    1: ''
+    2: ''
 startpage:
   towns:
     title: Città foodsharing
@@ -1882,6 +1886,8 @@ chat:
   open_multi_chat: ''
   rename_placeholder: ''
   rename: ''
+  open_full_view: ''
+  unread_messages: ''
 timepicker:
   labelNowButton: Adesso
   labelCloseButton: Chiudere
@@ -2981,6 +2987,7 @@ settings:
     old_password_required: ''
     old_password_placeholder: ''
     new_password_label: ''
+    new_password_must_be_different: ''
   email_change:
     wrong_password: ''
     invalid: ''
@@ -3217,6 +3224,7 @@ storelist:
   addressdata: Indirizzo
   memberState: Stato di membro
   actions: Azioni
+  filter_placeholder: ''
 storestatus:
   "7": L'agenzia non esiste più
   "5": collabora con noi
@@ -3228,6 +3236,7 @@ storestatus:
   "6": Dona a Tafel ecc. e non butta via niente
   "5a": 'L''azienda sta già donando'
   "3a": 'L''azienda è disposta a donare. :-)'
+  placeholder: ''
 footer:
   statistics: Statistiche
   blog: Blog

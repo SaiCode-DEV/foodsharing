@@ -388,10 +388,10 @@ settings:
       "true": ''
       label: ''
     pickup:
-      "true": ''
-      "false": ''
+      "true": 'Tak, pokaż moje sloty w kalendarzu'
+      "false": 'Nie, nie pokazuj slotów w kalendarzu'
       label: ''
-    protocol: ''
+    protocol: 'Jakiego protokołu używa twój program kalendarza?'
     export_tooltip: ''
     info: ''
   no_rights: Nie masz uprawnień, aby zmienić ustawienia profilu.
@@ -460,18 +460,18 @@ settings:
       name_required: Proszę podać nazwę
       operation_cancelled: ''
       authenticator_already_registered: ''
-      rename_failed: ''
-      deletion_failed: ''
-      registration_failed: ''
+      rename_failed: 'Nie można było zmienić nazwy klucza bezpieczeństwa'
+      deletion_failed: 'Nie można było usunąć klucza bezpieczeństwa'
+      registration_failed: 'Rejestracja klucza bezpieczeństwa nie powiodła się: {error}'
       operation_aborted: 'Operacja przerwana'
     unnamed_passkey: ''
     security_keys_description: ''
     mfa_enabled: 'Uwierzytelnianie wieloskładnikowe aktywowane'
     authenticator_app: ''
     passkeys_section: ''
-    passkey_deleted: ''
+    passkey_deleted: 'Pomyślnie usunięto klucz bezpieczeństwa'
     mfa_section: 'Uwierzytelnianie wieloskładnikowe'
-    passkey_renamed: ''
+    passkey_renamed: 'Pomyślnie zmieniono nazwę klucza bezpieczeństwa'
     register_passkey: ''
     passkeys_info: ''
     security_keys: ''
@@ -568,14 +568,14 @@ settings:
     dashboard_link: ''
     explanation: ''
     explanation_other_user: ''
-    domain: ''
+    domain: 'Użyj innego adresu email, aby zawsze mieć możliwość odzyskania hasła.'
     sent: 'Przejdź teraz do swojej nowej skrzynki mailowej, żeby potwierdzić adres
       email.'
     done: 'Twój adres email został zmieniony.'
     password_required: 'Musisz podać swoje hasło, aby zmienić adres email.'
-    occupied: ''
-    confirm_email_required: ''
-    insufficient_permission: ''
+    occupied: 'Nie można było zmienić adresu email, bo jest już używany.'
+    confirm_email_required: 'Adresy email nie zgadzają się'
+    insufficient_permission: 'Nie masz uprawnień, aby zmienić adres email w tym profilu.'
     question_other_user: 'Czy na pewno zmienić twój adres email na ten:'
   password_change:
     new_password_placeholder: Minimum 8 znaków
@@ -597,10 +597,11 @@ settings:
     wrong_password: 'Błędne aktualne hasło'
     explanation: 'Tu możesz zmienić swoje aktualne hasło'
     confirm_password_invalid: 'Hasła się nie zgadzają'
+    new_password_must_be_different: Nowe hasło musi być inne od poprzedniego
   passport:
     menu: legitymacja członkowska
     renew: Odnów legitymację
-    non_verified_text: Nie jesteś jeszcze zweryfikowany/a. Tylko zweryfikowani/e
+    non_verified_text: Nie jesteś zweryfikowany/a. Tylko zweryfikowani/e 
       foodsaverzy/ki mogą pobrać swoją legitymację.
     passport_not_activated: Twoja legitymacja jeszcze nie została aktywowana.
     ask_your_ambassadors: Skontaktuj się w tej sprawie ze swoimi 
@@ -1394,6 +1395,10 @@ storeview:
   no_permission_to_view: ''
   pickupWeight: ''
   managers: ''
+  activityCount:
+    0: ''
+    1: ''
+    2: ''
 store:
   team_container: Team
   member: Członek
@@ -2005,6 +2010,7 @@ chat:
   confirm_draft_discard: ''
   open_multi_chat: ''
   open_full_view: Otwórz pełny widok
+  unread_messages: ''
 wall:
   see-more: Pokaż wszystkie posty
   delete: Usuń post
@@ -2869,7 +2875,7 @@ dashboard:
   updates_title_all: ''
   no_more_updates_forum: ''
   chooseHomeRegion: ''
-  deleted_user: ''
+  deleted_user: 'usunięty/a użytkownik/czka'
   foodsaver_amount: ''
   no_more_updates_event: ''
   settings_tooltip: ''
@@ -2877,7 +2883,7 @@ dashboard:
   full_subline: ''
   no_more_updates_foodsharepoint: ''
   activation_mail_sent: ''
-  greeting: ''
+  greeting: 'Cześć {name}! Miło cię widzieć.'
   no_more_updates_friendWall: ''
   source_friendWall_own: ''
   updates_title_some: ''
@@ -4127,6 +4133,7 @@ storestatus:
   "0": 'Status niewyjaśniony'
   "4": 'Nie chce współpracować'
   "2": ''
+  placeholder: ''
 stats:
   total:
     pickups: ''
@@ -4173,6 +4180,7 @@ storelist:
   map: 'mapa'
   addressdata: 'Adres'
   fetching: ''
+  filter_placeholder: ''
 validation:
   phone_number_invalid: ''
 theme_switcher:

@@ -444,6 +444,7 @@ storelist:
   others: ''
   memberState: ''
   actions: ''
+  filter_placeholder: ''
 globals:
   type:
     my_regions: ''
@@ -1100,6 +1101,10 @@ storeview:
   choose_chain: ''
   team_info_jumper: ''
   show_settings: ''
+  activityCount:
+    0: ''
+    1: ''
+    2: ''
 events:
   create:
     public: ''
@@ -1519,6 +1524,7 @@ settings:
     old_password_required: ''
     old_password_placeholder: ''
     new_password_label: ''
+    new_password_must_be_different: ''
   email_change:
     wrong_password: ''
     invalid: ''
@@ -3154,6 +3160,8 @@ chat:
   open_multi_chat: ''
   rename_placeholder: ''
   rename: ''
+  open_full_view: ''
+  unread_messages: ''
 stats:
   avg:
     pickups: ''
@@ -3356,6 +3364,7 @@ storestatus:
   "4": ''
   "7": ''
   "3a": ''
+  placeholder: ''
 push_notifications:
   test_notification_body: ''
   test_notification_title: ''
