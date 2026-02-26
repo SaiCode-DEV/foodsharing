@@ -13,6 +13,7 @@ enum FeatureToggleDefinitions: string
 {
     case ACHIEVEMENT_SYSTEM = 'achievementSystem';
     case MAIL_SEARCH = 'mailSearch';
+    case FORUM_FULL_TEXT_SEARCH = 'forumFullTextSearch';
     case HYGIENE_QUIZ = 'hygieneQuiz';
     case PETITION_BANNER = 'petitionBanner';
 

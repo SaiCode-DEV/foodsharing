@@ -8,7 +8,9 @@ use Foodsharing\Modules\Development\FeatureToggles\DependencyInjection\FeatureTo
 use Foodsharing\Modules\Development\FeatureToggles\Enums\FeatureToggleDefinitions;
 use Foodsharing\Modules\Mailbox\MailboxGateway;
 use Foodsharing\Modules\Search\DTO\MixedSearchResult;
+use Foodsharing\Modules\Search\DTO\ThreadSearchResult;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
+use Foodsharing\Permissions\ForumPermissions;
 use Foodsharing\Permissions\SearchPermissions;
 
 class SearchTransactions
@@ -18,6 +20,7 @@ class SearchTransactions
         private readonly MailboxGateway $mailboxGateway,
         private readonly Session $session,
         private readonly SearchPermissions $searchPermissions,
+        private readonly ForumPermissions $forumPermissions,
         private readonly CurrentUserUnitsInterface $currentUserUnits,
         private readonly FeatureToggleChecker $featureToggleChecker,
     ) {
@@ -58,9 +61,12 @@ class SearchTransactions
         $result->chats = $this->searchGateway->searchChats($query, $foodsaverId);
         $result->timings['chats'] = microtime(true) - $start;
         $start = microtime(true);
-        $threads_by_title = $this->searchGateway->searchThreads($query, $foodsaverId);
-        $threads_by_body = $this->searchGateway->searchThreads($query, $foodsaverId, searchBody: true);
-        $result->threads = array_values(array_unique(array_merge($threads_by_title, $threads_by_body), SORT_REGULAR));
+        $threads = $this->searchGateway->searchThreads($query, $foodsaverId);
+        if ($this->featureToggleChecker->isFeatureToggleActive(FeatureToggleDefinitions::FORUM_FULL_TEXT_SEARCH->value)) {
+            $threads_by_body = $this->searchGateway->searchThreads($query, $foodsaverId, searchBody: true);
+            $threads = array_merge($threads, $threads_by_body);
+        }
+        $result->threads = array_values(array_unique($threads, SORT_REGULAR));
         $result->timings['threads'] = microtime(true) - $start;
         $start = microtime(true);
         $result->users = $this->searchGateway->searchUsers($query, $foodsaverId, $searchGlobal, $this->searchPermissions->maySearchByEmailAddress());
@@ -108,5 +114,18 @@ class SearchTransactions
         $result->polls = $this->searchGateway->getPollsForSearchIndex($foodsaverId);
 
         return $result;
+    }
+
+    /**
+     * @return ThreadSearchResult[]
+     */
+    public function searchThreads(string $query, int $regionId = 0, int $subforumId = 0, bool $searchBody = false): array
+    {
+        if ($searchBody && $this->featureToggleChecker->isFeatureToggleActive(FeatureToggleDefinitions::FORUM_FULL_TEXT_SEARCH->value)) {
+            $searchBody = false;
+        }
+        $disableRegionCheck = $this->forumPermissions->maySearchEveryForum();
+
+        return $this->searchGateway->searchThreads($query, $this->session->id(), $regionId, $subforumId, $disableRegionCheck, $searchBody);
     }
 }

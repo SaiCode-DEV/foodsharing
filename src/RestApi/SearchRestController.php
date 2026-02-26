@@ -12,9 +12,11 @@ use Foodsharing\Permissions\ForumPermissions;
 use Foodsharing\Permissions\SearchPermissions;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\RateLimiter\RateLimiterFactory;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 
@@ -64,7 +66,11 @@ class SearchRestController extends AbstractFoodsharingRestController
     public function search(
         #[MapQueryParameter('q', filter: \FILTER_VALIDATE_REGEXP, options: ['regexp' => '/^.+$/'])] string $query,
         #[MapQueryParameter] ?bool $global,
+        Request $request,
+        RateLimiterFactory $searchLimiter
     ): Response {
+        $this->checkRateLimit($request, $searchLimiter);
+
         $this->assertLoggedIn();
         $global ??= false;
 
@@ -95,7 +101,11 @@ class SearchRestController extends AbstractFoodsharingRestController
         #[MapQueryParameter('q', filter: \FILTER_VALIDATE_REGEXP, options: ['regexp' => '/^.+$/'])] string $query,
         #[MapQueryParameter('searchBody')] ?bool $searchBody,
         #[MapQueryParameter(options: ['min_range' => 0])] ?int $subforumId,
+        Request $request,
+        RateLimiterFactory $searchLimiter
     ): Response {
+        $this->checkRateLimit($request, $searchLimiter);
+
         $this->assertLoggedIn();
         $searchBody ??= false;
         $subforumId ??= 0;
@@ -103,8 +113,7 @@ class SearchRestController extends AbstractFoodsharingRestController
             throw new AccessDeniedHttpException('Insufficient permissions to search in that forum');
         }
 
-        $disableRegionCheck = $this->forumPermissions->maySearchEveryForum();
-        $results = $this->searchGateway->searchThreads($query, $this->session->id(), $regionId, $subforumId, $disableRegionCheck, $searchBody);
+        $results = $this->searchTransactions->searchThreads($query, $regionId, $subforumId, $searchBody);
 
         return $this->respondOK($results);
     }

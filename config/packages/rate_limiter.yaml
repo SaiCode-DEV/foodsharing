@@ -21,6 +21,10 @@ when@prod: &prod
         policy: 'token_bucket'
         limit: 5
         rate: { interval: '1 hour', amount: 1 }
+      search:
+        policy: 'token_bucket'
+        limit: 30
+        rate: { interval: '1 second', amount: 1 }
 
 when@dev: *prod
 
@@ -34,5 +38,8 @@ when@test:
         policy: 'no_limit'
         limit: 0
       requestPasswordReset:
+        policy: 'no_limit'
+        limit: 0
+      search:
         policy: 'no_limit'
         limit: 0
