@@ -117,7 +117,7 @@ class MapGateway extends BaseGateway
         }
 
         $pictureData = json_decode($basket['picture'] ?? '', true);
-        $picture = match ($pictureData) {
+        $picture = match (true) {
             is_array($pictureData) => $pictureData,
             is_null($pictureData) => [],
             default => [$pictureData],
