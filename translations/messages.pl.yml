@@ -439,8 +439,8 @@ settings:
       cancel: Anuluj
       register: Zarejestruj
       device_name_label: Nazwa urządzenia
-      title: ''
-      device_name_description: ''
+      title: 'Zarejestruj nowy klucz bezpieczeństwa'
+      device_name_description: 'Podaj nazwę, aby identyfikować ten klucz bezpieczeństwa'
     created: Utworzony
     device_name_placeholder: np. iPhone, YubiKey, Laptop
     delete_modal:
@@ -1140,7 +1140,7 @@ resource_mosaic:
     home_region: ''
   other_resources:
     other: Dalsze zasoby {user}
-    own: Twoje inne zasoby
+    own: Moje inne zasoby
     similar: Podobne zasoby
     commons: ''
     new: ''
@@ -1241,9 +1241,9 @@ petition:
     2000: ''
     Infinity: ''
     8000: ''
-    20000: ''
-    25000: ''
-    30000: ''
+    20000: 'Mamy już połowę potrzebnych podpisów! Razem damy radę!'
+    25000: 'Mamy już dwie trzecie potrzebnych podpisów! Razem damy radę!'
+    30000: 'Już prawie u celu - brakuje tylko kawałeczka! Dołącz do petycji teraz!'
     500: ''
     15000: ''
 notice: Uwaga!
@@ -3570,13 +3570,14 @@ search:
 error_permissions: ''
 oauth:
   error:
-    invalid_client: ''
+    invalid_client: 'Weryfikacja klienta nie powiodła się.'
     unknown_error: 'Wystąpił nieznany błąd. Spróbuj ponownie później.'
     invalid_scope: ''
-    region_requirement_not_met: ''
+    region_requirement_not_met: 'Nie spełniasz wymagań, aby uzyskać dostęp do {clientName}.'
   remember:
     title: 'Zapisz ten dostęp'
-    md: ''
+    md: 'W przyszłości nie wymagaj potwierdzenia dostępu dla {clientName} za każdym
+      razem.'
   action:
     deny: 'Zabroń dostępu'
     authorize: 'Udziel dostępu'
@@ -3584,14 +3585,14 @@ oauth:
     public: 'publiczny'
     active: 'Aktywny'
     type: 'Typ'
-    update_success: ''
+    update_success: 'Pomyślnie zaktualizowano klienta'
     regions: ''
     delete_error: 'Błąd przy usuwaniu'
     redirect_uris_help: ''
     confirm_delete: 'Usunąć klienta?'
     confidential_client: 'Poufny klient (np. aplikacja serwera)'
     regenerate_secret: ''
-    create_success: ''
+    create_success: 'Pomyślnie utworzono klienta'
     region_restriction_tooltip: ''
     redirect_uris: ''
     grant_types: ''
@@ -3608,10 +3609,10 @@ oauth:
     regenerate_secret_warning: ''
     edit_client: 'Edytuj klienta'
     scopes: ''
-    delete_success: ''
+    delete_success: 'Pomyślnie usunięto klienta'
     no_region_restriction: 'Bez ograniczeń'
     create_client: 'Utwórz nowego klienta'
-    load_error: ''
+    load_error: 'Błąd przy ładowaniu klienta'
     save_error: 'Błąd przy zapisywaniu'
     secret_generated: ''
     actions: 'Akcje'
@@ -4252,7 +4253,7 @@ language_chooser:
   choose_button: 'Aktualizuj'
   content: 'Proszę wybrać język'
 debug:
-  title: ''
+  title: 'Strona debug'
   info: ''
 prefetchtime: ''
 usersearch:
