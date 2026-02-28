@@ -1458,7 +1458,7 @@ mailbox:
   move_to: 'Mover para'
   recipients: 'Demasiados destinatários'
   create: 'Criar a nova caixa de correio'
-  subject: 'Asunto'
+  subject: 'Assunto'
   close_edit_mode: 'Parar de editar'
   signature: 'Mensagem de {date}'
   add: 'Adicionar'

@@ -315,7 +315,8 @@ upload:
   crop_dialog_title: Przytnij obraz
   image-problem: Twój plik wydaje się nie być w porządku, najlepiej wybierz 
     zwykły obraz jpg
-  invalid_image_files: ''
+  invalid_image_files: '{count} wybrane/ych pliki/ów nie są/jest ważnymi obrazami:
+    {fileNames}'
 button:
   save: Zapisz
   next: następny
@@ -343,7 +344,7 @@ button:
   browse: Przeglądaj
   yes_save: Tak, zapisz
   reset_default: Zresetuj standard
-  countdown_clickable: ''
+  countdown_clickable: 'Można kliknąć za {countdown} sekund'
 settings:
   calendar:
     program:
@@ -1413,7 +1414,7 @@ store:
   lastPickupShort: ostatnio {date}
   unknownDate: nieznany
   invited: zaproszony/a
-  isNotVerified: Jeszcze nie jest zweryfikowany/a.
+  isNotVerified: Nie jest zweryfikowany/a.
   particularities: Przebieg & wskazówki
   may_referred_to_in_public_unclear: jeszcze nie wyjaśniony
   address: Adres
@@ -1424,7 +1425,7 @@ store:
     sorting:
       default: Sortowanie standardowe
       distance: Sortowanie według odległości
-      pickup: ''
+      pickup: 'Sortuj według ostatniego slotu'
     filterAll: Członkowie
     filterActive: Aktywni
     filterUnverified: Niezweryfikowani
@@ -1484,7 +1485,7 @@ store:
     verified: Użytkownik/czka jest zweryfikowany/a
     title: 'Zapytania do {storeTitle}'
     needsStoreRegion:
-      link: ''
+      link: 'Dołącz do rejonu'
       request: ''
       invited: ''
     requireVerification:
@@ -1577,7 +1578,7 @@ store:
       12: 'Wypisanie się ze slotu'
       9: ''
       5: ''
-      13: ''
+      13: 'Zostanie wypisanym ze slotu'
       11: 'Zapisanie się na slot'
       15: 'Usunięcie wpisu na tablicy'
     log_types_placeholder: 'Wybierz typy akcji do wyświetlenia'
@@ -1596,7 +1597,7 @@ store:
   important: 'Ważne:'
   invitations: Otwarte zaproszenia ({count})
   jumperSince: ''
-  signInDateTime: ''
+  signInDateTime: 'Czas zapisu'
   jumping: ''
   may_not_referred_to_in_public: ''
   fetchCount: ''
@@ -1665,7 +1666,7 @@ store:
     numerów telefonów członków teamu.'
   all_of_my_stores: ''
   delete_date: 'Usuń pojedynczy slot'
-  slotsCurrentlyOccupied: ''
+  slotsCurrentlyOccupied: 'Obecnie zajęte sloty'
   average_collection_quantity: 'Ilość na osobę'
   pickup_slot_unavailable: ''
   smneeded: ''
@@ -1771,7 +1772,7 @@ pickup:
           own: 'Przyszłe sloty, na które mógłbyś/mogłabyś się jeszcze zapisać'
       registered:
         tooltip:
-          other: ''
+          other: 'Przyszłe zapisane sloty'
           own: 'Przyszłe sloty, na które możesz się zapisać'
         name: 'Wprowadzone sloty'
         empty: 'Chwilowo nie ma żadnych slotów.'
@@ -1803,7 +1804,7 @@ pickup:
   join_cancel: Jednak nie
   description_optional: Opis (opcjonalne)
   description_max_length_info: Osiągnięto maksymalną długość opisu (100 znaków)
-  add_onetime_pickup: Dodaj pojedynczy termin
+  add_onetime_pickup: Dodaj pojedynczy slot
   signout_history:
     reload: Odśwież
     signout_via_responsible_person:
@@ -1851,7 +1852,7 @@ pickup:
   same_day_hint: ''
   team_message_send_and_leave: 'Wyślij i wypisz'
   slot_remove: 'Usuń slot'
-  chat: ''
+  chat: 'Zacznij chat do slotu'
   really_join_date: 'Czy na pewno chcesz się wiążąco zapisać na {date}?'
   may_enter: 'Na ten slot jest jeszcze wolne miejsce dla ciebie.'
   confirmed: 'Slot jest potwierdzony.'
@@ -1880,7 +1881,7 @@ calendar:
   export:
     pickup:
       unconfirmed: niepotwierdzony
-      foodsavers: ''
+      foodsavers: 'Zapisani/e foodsaverzy/ki: '
       freeSlots: '{count} sloty/ów są/jest jeszcze wolne/ych.'
       description: 'foodsharing-Slot w <a href="{url}">{store}</a>'
       name:
@@ -2125,7 +2126,7 @@ recipients:
   status: 'Wysyłanie maili ... (aktualny adres: {current})'
   unknown: nieznany
   done: Wysłano wszystkie maile
-  empty-region: ''
+  empty-region: 'W wybranych rejonach nie ma jeszcze żadnych foodsaverów/ek'
   region-hint: ''
   variables: 'Forma grzecznościowa'
   orga_team: ''
@@ -2333,7 +2334,7 @@ genderlist:
   number_table_header: liczba/ilość
   header_for_district: Podział płci w {bezirk}
   gender_divers: inne
-  district_tab: ''
+  district_tab: 'Rejon'
   gender_home_district_table_caption: ''
   gender_district_table_caption: ''
   home_district_tab: ''
@@ -2386,7 +2387,7 @@ ageBandList:
   ageBand: Grupa wiekowa
   NumberOfAgeband: Ilość/liczba
   home_district_tab: ''
-  district_tab: ''
+  district_tab: 'Rejon'
 regionOptions:
   header_page: Opcje dla {bezirk}
   success: Pomyślnie zapisano opcje
@@ -2427,7 +2428,7 @@ foodsaver:
     last-activity: Ostatnia aktywność
     actions: Opcje
     orga: ''
-    remove: ''
+    remove: 'Usuń z okręgu'
   upgrade:
     ad_fs: Chcę przystąpić teraz do quizu dla foodsaverów/ek i zostać 
       foodsaverem/ką!
@@ -2496,7 +2497,7 @@ map:
       scope:
         label: Przynależność
         all: wszystkie
-        region: ''
+        region: 'Tylko moje okręgi'
         member: ''
       type:
         label: Typ
@@ -2523,7 +2524,7 @@ map:
         other: ''
         homeregion: ''
       region:
-        label: ''
+        label: 'Rejon'
   foodsharepoint:
     go: do jadłodzielni
   events:
