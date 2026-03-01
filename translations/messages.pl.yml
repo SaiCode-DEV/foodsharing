@@ -756,18 +756,23 @@ group:
     pr: ''
     tooltip_function_5: ''
     tooltip_function_10: ''
-    tooltip_function_1: ''
-    report: ''
+    tooltip_function_1: 'Administratorzy/ki tego zespołu otrzymują powiadomienia,
+      gdy nowi członkowie dołączają do rejonu'
+    report: 'Skargi'
     invalid: ''
-    tooltip_function_12: ''
-    tooltip_function_2: ''
-    tooltip_function_11: ''
+    tooltip_function_12: 'Administratorzy/ki tego zespołu są pokazywani na stronie
+      przeglądowej rejonu.'
+    tooltip_function_2: 'Administratorzy/ki tego zespołu mogą tworzyć głosowania dla
+      rejonu'
+    tooltip_function_11: 'Administratorzy/ki tego zespołu są pokazywani na stronie
+      przeglądowej rejonu.'
     tooltip_function_6: ''
     tooltip_function_7: ''
     tooltip_function_13: ''
-    none: ''
+    none: 'Nie ma zespołów GOALS'
     stores_coordination: ''
-    tooltip_function_3: ''
+    tooltip_function_3: 'Administratorzy tego zespołu mogą aktywować i edytować jadłodzielnie
+      w rejonie oraz usuwać posty na tablicy jadłodzielni'
     arbitration: ''
   application_requirements:
     requirements: Kto może dołączyć do tej grupy?
@@ -854,9 +859,9 @@ group:
     admin_mode_off: Powrót do widoku standardowego
     not_verified: niezweryfikowany
     all_roles: wszystkie role
-    remove_text_group: ''
+    remove_text_group: 'Czy na pewno chcesz usunąć {name} ({id}) z tego zespołu?'
     is_home_region: ''
-    remove_text_region: ''
+    remove_text_region: 'Czy na pewno chcesz usunąć {name} ({id}) z rejonu?'
   image: Obraz dla %name%
   show-all: Pokaż wszystko
   application_from: przez
@@ -873,12 +878,12 @@ group:
     tooltip_function_region327: Administratorzy/ki tego zespołu mogą edytować 
       wpisy na blogu
     tooltip_function_region387: ''
-    tooltip_function_region332: ''
-    tooltip_function_region432: ''
+    tooltip_function_region332: 'Członkowie tego zespołu mają dostęp do listy sieci'
+    tooltip_function_region432: 'Administratorzy/ki tego zespołu mogą przeglądać skargi'
     tooltip_function_region2296: ''
   confirm_decline: ''
   quitting_home_district_warning: ''
-  delete_group_sure: ''
+  delete_group_sure: 'Czy na pewno usunąć zespół/rejon {groupName}?'
   subtitle: ''
   title: ''
 test:
@@ -903,8 +908,8 @@ legal:
     legal_2: ''
     this_doesnt_get_deleted: ''
     this_gets_deleted_stores: ''
-  latest_change: ''
-  show_changes: ''
+  latest_change: 'Ostatnio zmieniony {date}'
+  show_changes: 'Pokaż zmiany'
   legal_agreement: ''
   privacy_notice: ''
 salutation:
@@ -957,7 +962,7 @@ login:
   or: albo
   error_not_activated: 'Niestety, twój adres email jeszcze nie jest aktywowany.'
   error_no_auth: ''
-  2fa: ''
+  2fa: 'Uwierzytelnianie dwuskładnikowe (2FA)'
   passkey_btn: 'Zaloguj się przez klucz dostępu'
   passkey_cancelled: ''
   passkey_not_found: ''
@@ -2304,9 +2309,9 @@ bell:
     many: '{count} nowe/ych wpisy/ów na tablicy'
     one: 'Wpis na tablicy od {user}'
   new_foodsaver_needs_introduction: ''
-  poll_ending_soon: ''
+  poll_ending_soon: 'Głosowanie "{title}" niedługo się kończy, a ty jeszcze nie zagłosowałeś/aś.'
   fs_sleepmode_title: ''
-  poll_ending_soon_title: ''
+  poll_ending_soon_title: 'Głosowanie niedługo się kończy'
   store_new_request: ''
   sharepoint_activate: ''
   store_wall_post_title: ''
@@ -2381,7 +2386,7 @@ reports:
   report_id: ''
 memberlist:
   header_for_workgroup: Foodsaverzy/ki w zespole {bezirk}
-  header_for_district: ''
+  header_for_district: 'Foodsaverzy/ki w rejonie {bezirk}'
 ageBandList:
   header_for_district: 'Grupy wiekowe w {bezirk} '
   ageBand: Grupa wiekowa
@@ -2836,12 +2841,12 @@ dashboard:
     events: Eventy
     users: Foodsaverzy/ki
     buddies: Osoby, które znasz
-    regions: ''
-    polls: ''
+    regions: 'Twoje rejony'
+    polls: 'Głosowania'
     pending: ''
     no-stores: ''
     pickups: ''
-    pickupOptions: ''
+    pickupOptions: 'Możliwości zapisu'
     stores: ''
     baskets: ''
     jumping_stores: ''
@@ -2858,7 +2863,7 @@ dashboard:
     reset: Resetuj
     grid_toggle:
       2_columns: Widok 2 kolumn
-      3_columns: ''
+      3_columns: 'Widok 3 kolumn'
   invitation: Zostałeś zaproszony/a
   invitationCount: Zostałeś zaproszony/a ({count})
   event: Następny event
@@ -2883,12 +2888,13 @@ dashboard:
   no_more_updates_store: ''
   full_subline: ''
   no_more_updates_foodsharepoint: ''
-  activation_mail_sent: ''
+  activation_mail_sent: 'Link do aktywacji został wysłany - proszę, sprawdź swoje
+    maile'
   greeting: 'Cześć {name}! Miło cię widzieć.'
   no_more_updates_friendWall: ''
-  source_friendWall_own: ''
+  source_friendWall_own: 'Twoja tablica'
   updates_title_some: ''
-  polls: ''
+  polls: 'Twoje aktualne głosowania'
   source_event: ''
 home:
   home: Home
@@ -2982,7 +2988,7 @@ basket:
   recent: ''
   image: ''
   n_requests: 'Dotychczasowe zapytania:'
-  description: ''
+  description: 'Opis'
   withdrawn_request: 'Cofnięto zapytanie'
   all: ''
   on: ''
@@ -3028,13 +3034,13 @@ menu:
     contact: 'Kontakt'
     group_overview: ''
     dataprivacy: ''
-    guide: ''
+    guide: 'Poradnik higieny'
     groups: 'Zespoły'
     fsfestival: 'festiwal foodsharingu'
     administration: 'Administracja'
     demands: 'Żądania'
     friendcircle: 'Krąg przyjaciół'
-    joinregion: ''
+    joinregion: 'Dołącz do rejonu'
     baskets: ''
     workingGroupEdit: 'Zarządzaj grupą'
     background: 'Tło'
@@ -3048,7 +3054,7 @@ menu:
     events: 'Eventy'
     BOTforum: 'Forum ambasadorów/ek'
     public: ''
-    selfservice: ''
+    selfservice: 'Samoobsługa'
     forum: 'Forum'
     your_groups: 'Twoje zespoły'
     other_stores: ''
@@ -3077,7 +3083,7 @@ footer:
   press: Prasa
   wiki: Wiki
   meta:
-    made_with: ''
+    made_with: 'stworzone z'
     it_devdocs: 'przez foodsharing IT'
     version: 'Wersja: {version}'
   partner_names:
@@ -3089,7 +3095,7 @@ footer:
   hosting:
     info: ''
     tooltip: ''
-  call_to_action: ''
+  call_to_action: 'Dołącz'
   guide: 'Poradnik higieny'
   donate:
     call_to: 'Chciał(a)byś wesprzeć foodsharing?'
@@ -3724,7 +3730,7 @@ region:
   new: ''
   root: 'Żaden (root)'
   no-huge: ''
-  change: ''
+  change: 'Zmień rejon'
   created: ''
   delete: ''
   mailbox: ''
@@ -4135,7 +4141,7 @@ storestatus:
   "0": 'Status niewyjaśniony'
   "4": 'Nie chce współpracować'
   "2": ''
-  placeholder: ''
+  placeholder: 'status'
 stats:
   total:
     pickups: ''
@@ -4167,7 +4173,7 @@ storelist:
   inprogress: ''
   nocontact: 'Jeszcze brak kontaktu'
   managing: ''
-  region: ''
+  region: 'rejon'
   memberState: 'Status członkowstwa'
   nowaste: 'niczego nie wyrzuca'
   name: 'Nazwa'
@@ -4269,7 +4275,7 @@ sidenav:
   countryspecific: ''
   superregional: 'Ponadregionalny'
 push_notifications:
-  test_notification_body: ''
+  test_notification_body: 'Super, wygląda na to, że się udało :)'
   test_notification_title: 'powiadomienia push aktywowane'
 savewithus: ''
 password:

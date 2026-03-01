@@ -3219,7 +3219,8 @@ register:
     e responsabilidade, tens que ter pelo menos 18 anos de idade para juntar-te a
     foodsharing.'
   login_name: 'O teu primeiro nome'
-  activation_failed: '<strong>A ativação falha</strong> O link introduzido está correto?'
+  activation_failed: '<strong>A ativação falhou.</strong> O link introduzido está
+    correto?'
   lastname_minLength: 'O apelido deve consistir em pelo menos dois caracteres'
   finish: 'Enviar inscrição'
   topbar: 'Participar'
