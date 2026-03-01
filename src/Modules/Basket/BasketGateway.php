@@ -277,14 +277,27 @@ class BasketGateway extends BaseGateway
             ':status' => BasketStatus::REQUESTED_MESSAGE_READ
         ]);
 
-        $picture = json_decode($baskets['picture'] ?? '', true);
+        return array_map(function ($data) {
+            /*
+             * Picture is either a JSON encoded array, an empty string, the '[]' string for an empty array, or null.
+             * All cases except the first set the DTO's value to null.
+             */
+            // TODO: replace empty strings with null as default value in the database
+            $picture = $data['picture'];
+            if (!is_null($picture)) {
+                $picture = json_decode($picture);
+                if (is_array($picture)) {
+                    $picture = count($picture) > 0 ? $picture[0] : null;
+                }
+            }
 
-        return array_map(fn ($data) => BasketForOwnerMenu::create(
-            $data['id'],
-            $data['description'],
-            is_array($picture) ? ($picture[0] ?? null) : $data['picture'],
-            new Carbon($data['time']),
-        ), $baskets);
+            return BasketForOwnerMenu::create(
+                $data['id'],
+                $data['description'],
+                $picture,
+                new Carbon($data['time']),
+            );
+        }, $baskets);
     }
 
     /**

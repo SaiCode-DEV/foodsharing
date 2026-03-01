@@ -254,18 +254,19 @@ final class RegionController extends FoodsharingController
             // (can only happen for groups that don't have a region parent until root)
             return $this->redirectToRoute('dashboard');
         }
-        if (end($redirects)['type'] === UnitType::WORKING_GROUP) {
+        $redirect = end($redirects);
+        if ($redirect->type === UnitType::WORKING_GROUP) {
             $extra = '';
-            if (end($redirects)['is_member'] !== 1) {
+            if ($redirect->isMember !== 1) {
                 // Do NOT include the "denied=" parameter if we redirected to
                 // the groups's wall page when we have access to it.
                 $extra = '&denied=' . $deniedRegionId;
             }
 
-            return $this->redirect('/region?bid=' . end($redirects)['id'] . $extra);
+            return $this->redirect('/region?bid=' . $redirect->id . $extra);
         }
 
-        return $this->redirect('/region/' . end($redirects)['id'] . '?denied=' . $deniedRegionId);
+        return $this->redirect('/region/' . $redirect->id . '?denied=' . $deniedRegionId);
     }
 
     /**

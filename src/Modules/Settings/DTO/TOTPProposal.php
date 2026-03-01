@@ -34,13 +34,4 @@ class TOTPProposal
         $this->qrCode = $qrCode;
         $this->backupCodes = $backupCodes;
     }
-
-    public static function tryFromArray(mixed $data): ?self
-    {
-        try {
-            return new self($data['reused'], $data['secret'], $data['qrCode'], $data['backupCodes']);
-        } catch (\Exception) {
-            return null;
-        }
-    }
 }

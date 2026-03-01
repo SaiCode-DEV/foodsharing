@@ -23,6 +23,7 @@ use Foodsharing\Modules\Settings\SettingsTransactions;
 use Foodsharing\Modules\Store\DTO\CommonLabel;
 use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\UploadsPermissions;
+use Foodsharing\RestApi\Models\UUID;
 use Foodsharing\Utility\EmailHelper;
 use Foodsharing\Utility\Requirement as FsRequirement;
 use Nelmio\ApiDocBundle\Annotation\Model;
@@ -252,20 +253,20 @@ class UserRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'File does not exist or is not a valid upload')]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
-    public function setProfilePicture(#[MapQueryParameter] string $uuid): Response
+    public function setProfilePicture(#[MapRequestPayload] UUID $uuid): Response
     {
         $this->assertLoggedIn();
 
         // check if the photo exists and was uploaded by this user
-        $uuid = trim($uuid);
-        if (!$this->uploadsPermissions->maySetUploadUsage($uuid)) {
+        $uuidString = trim($uuid->uuid);
+        if (!$this->uploadsPermissions->maySetUploadUsage($uuidString)) {
             throw new AccessDeniedHttpException('You do not have permission to use this file as profile photo');
         }
 
-        $this->foodsaverTransactions->updatePhoto($this->session->id(), $uuid);
+        $this->foodsaverTransactions->updatePhoto($this->session->id(), $uuidString);
         $this->session->refreshFromDatabase();
 
-        return $this->respondOK();
+        return $this->respondOK(['uuid' => $uuid]);
     }
 
     #[OA\Delete(summary: 'Removes the user from the email bounce list')]

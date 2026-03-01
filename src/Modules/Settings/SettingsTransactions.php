@@ -469,11 +469,13 @@ class SettingsTransactions
     public function generateTwoFA(): TOTPProposal
     {
         // First check if there is already an ongoing TOTP activation
-        $totpProposal = TOTPProposal::tryFromArray($this->session->get('totp_proposal'));
-        if (!is_null($totpProposal)) {
-            ++$totpProposal->reused;
-
-            return $totpProposal;
+        $proposal = $this->session->get('totp_proposal');
+        if (!empty($proposal)) {
+            try {
+                return new TOTPProposal($proposal['reused'] + 1, $proposal['secret'], $proposal['qrCode'], $proposal['backupCodes']);
+            } catch (Exception|\TypeError) {
+                // proposal is not a valid array or continues null values, continue
+            }
         }
 
         // Generate a new TOTP secret
@@ -509,7 +511,7 @@ class SettingsTransactions
         $this->session->set('totp_proposal', $totpProposal);
 
         // Return data array
-        return TOTPProposal::tryFromArray($totpProposal);
+        return new TOTPProposal(0, $secret, $qrCode, $backupCodes);
     }
 
     /**
