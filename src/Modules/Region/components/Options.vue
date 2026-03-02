@@ -108,10 +108,10 @@
       >
         <template #cell(storeName)="row">
           <a
-            :href="$url('store', row.item.storeId)"
+            :href="$url('store', row.item.id)"
             class="ui-corner-all"
           >
-            {{ row.value }}
+            {{ row.item.name }}
           </a>
         </template>
       </b-table>

@@ -292,13 +292,11 @@ export default {
       this.$refs.takenSlotModal.show()
     },
     getLastFetchDateFromUser (userId) {
-      const MILLISECONDS_PER_SECOND = 1000
       const userItem = this.storeMember.find(item => item.id === userId)
-      const lastFetchTimestamp = userItem?.last_fetch ?? null
+      const lastFetchTimestamp = userItem?.lastFetch ?? null
+      console.error(userItem?.lastFetch)
 
-      if (lastFetchTimestamp !== null) {
-        return new Date(lastFetchTimestamp * MILLISECONDS_PER_SECOND)
-      }
+      return (lastFetchTimestamp !== null) ? Date.parse(lastFetchTimestamp) : null
     },
     openChat () {
       this.$refs.takenSlotModal.hide()
