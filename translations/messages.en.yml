@@ -274,8 +274,8 @@ settings:
     full: I’m going to be away indefinitely
     info: "With the nightcap feature, you tell the community that you are currently
       out of town or don’t have time to save food right now for other reasons.\nIt
-      is helpful to know if you are able to respond to messages\nor even sometimes
-      make pick-ups.\n"
+      is helpful to know if you are able to respond to messages\nor even take slots
+      sometimes.\n"
     status: Your current status
     message: Here you can leave a short message why you don’t have time right 
       now.
@@ -323,23 +323,23 @@ settings:
       invitations: Appointments that I have not yet cancelled
       all: All appointments
     pickup:
-      label: Do you want to have pick-up dates included?
-      "true": Yes, show my pick-up slots in the calender
-      "false": No, don’t show my pick-up slots in the calendar
+      label: Do you want to have slot-dates (e.g. pick-ups) included?
+      "true": Yes, show my slots in the calender
+      "false": No, don’t show my slots in the calendar
     history:
       "false": No, do not show past events in the calendar
       label: Should past appointments from the last two weeks be included?
       "true": Yes, include past appointments
     protocol: Which protocol is your calendar software using?
     info: "Here, you can connect your foodsharing appointments with the calendar software
-      of your choice. That way, your pickup times and events will be entered into
-      your calendar.\n\n**Always keep your calendar links secret.** They contain a
-      *token*, which allows to access the data of your appointments without a password.
-      You can always delete your current token, which renders all your previous calendar
-      links invalid.\n\nYour calendar software needs to **synchronise** the data regulary,
-      so that new appointments show up and canceled events disappear. If you download
-      the calendar file instead, you will only see your current appointments and will
-      not receive automatic updates.\n\nYou can find more information about this [in
+      of your choice. That way, your slots and events will be entered into your calendar.\n\
+      \n**Always keep your calendar links secret.** They contain a *token*, which
+      allows to access your appointments without a password. You can always delete
+      your current token, which renders all your previous calendar links invalid.\n\
+      \nYour calendar software needs to **synchronise** the data regulary, so that
+      new appointments show up and canceled events disappear. If you download the
+      calendar file instead, you will only see your current appointments and will
+      not receive automatic updates.\nYou can find more information about this [in
       the Wiki]({calendarUrl}).\n"
     reminders:
       label: Should reminders be set for your appointments?
@@ -440,7 +440,7 @@ settings:
     # Common fields for 2FA dialogs
     totp_token_label: "Code"
     totp_token_placeholder: "e.g. 458324"
-    totp_required: "You must enter a code"
+    totp_required: "You have to enter a six-digits 2FA code"
     password_label: "Password"
     password_placeholder: "Your current password"
     password_required: "You must enter your password"
@@ -573,7 +573,7 @@ settings:
     saving movement in a newsletter.\nDo you want to receive these emails?\n"
   passport:
     menu: Membership card
-    non_verified_text: You are not yet verified. Only verified foodsavers are 
+    non_verified_text: You are not verified. Only verified foodsavers are 
       allowed to download their passport.
     button: Download passport
     verified_text: This badge is intended for use on smartphones. You can save 
@@ -631,7 +631,8 @@ settings:
     submit: "Change password"
     success: "Your password has been successfully changed"
     wrong_password: Incorrect previous password
-    new_password_must_be_different: ''
+    new_password_must_be_different: 'The new password has to be different to the old
+      one'
   change_data_info:
     general: Here you can adjust your profile data.
     verified: You can’t edit your name and date of birth. However, you can ask 
@@ -642,7 +643,7 @@ settings:
 menu:
   entry:
     activities: Activities
-    infos: Information
+    infos: Informations
     mark_as_read: Mark all as read
     all_messages: All messages
     close_all_chats: Close all chats
@@ -689,7 +690,7 @@ menu:
     stores: Stores
     other_stores: Other stores #MapView
     fs: Foodsaver
-    ids: Passports
+    ids: Cards
     joinregion: Join a district
     language: "Choose language"
 
@@ -700,13 +701,13 @@ menu:
     friendcircle: Circle of friends
     selfservice: Self service
     fundraising: Fundraising
-    helpwanted: Help wanted
+    helpwanted: Team is open
     helpneeded: Help wanted urgently
     group_overview: Overview of global working groups
     baskets: Food baskets
     chainList: Chain list
     security: Security
-    load_more: Load more
+    load_more: See more
     refresh: Refresh
     delete_read: Delete all read
     applications: Applications ({count})
@@ -755,7 +756,7 @@ profile:
     baskets: food baskets
     weight: saved
     posts: posts
-    fetch_count: picked up
+    fetch_count: Picked up
     bananas: Bananas
     weight_unit: kg
     give_count: 'Delivered'
@@ -944,7 +945,7 @@ profile:
     kam_for: 'Responsible for the coordination of the following corporate chains:'
   tab_navigation:
     profile: Profile
-    pickups: Pick-ups
+    pickups: slots
     notes: Notes ({count})
     commitment_statistics: Engagement statistics
     stores: Stores ({count})
@@ -1082,7 +1083,7 @@ events:
     yes: Thank you very much! You accepted the invitation.
     no: 'Invitation status changed: You will not participate now.'
   morePeople: … and {count} more
-  invitedCount: '{count} invitations'
+  invitedCount: '{answers} out of {total} invitations answered'
   maybeCount: '{count} may come'
   acceptedCount: '{count} take part'
   created: Event was created successfully.
@@ -1094,8 +1095,7 @@ events:
   duration: 'Duration: {duration}'
   span: '{from} until {until}'
   edit: Edit event
-  noneAccepted: So far, no persons have confirmed their participation in this 
-    event.
+  noneAccepted: No one has responded to this invitation yet
   meeting:
     past: This event took place online.
     present: This event takes place online. You can join now.
@@ -1219,7 +1219,7 @@ calendar:
   export:
     pickup:
       unconfirmed: not confirmed
-      description: 'Foodsharing pick-up at <a href="{url}">{store}</a>'
+      description: 'Foodsharing slot at <a href="{url}">{store}</a>'
       freeSlots: '{count} slots are still free'
       foodsavers: 'Registered Foodsavers: '
       name:
@@ -1250,8 +1250,8 @@ pickup:
   leave: Leave
   kick: Remove
   history:
-    title: Pick-up history
-    search: Show pick-ups
+    title: Slot history
+    search: Show slots
   signout_history:
     title: "Cancellation history for the last 7 days"
     reload: "Reload"
@@ -1265,14 +1265,14 @@ pickup:
   edit:
     slotscount: '{count} collectors'
     slotcount: 1 collector
-    bread: Edit pick-up dates
+    bread: Edit slot dates
     many-people: "You specified more than two foodsavers to pick up.\n<br>\nPlease
       <strong>only send as many foodsavers as necessary</strong> to the company.\n\
       \ Too many foodsavers have often led to the end of a cooperation.\n<br>\nClarify
       the maximum number of possible foodsavers with the company!\nAny additional
       helpers required can wait with bicycle trailers or the like\nout of sight of
       the store.\n"
-    added: Pick-up slot was added.
+    added: Slot was added.
     disable_auto_slot: Automatic slot in the future should be disabled.
     slot_titel: Slots
     disable_auto_slot_titel: Deactivation
@@ -1280,8 +1280,8 @@ pickup:
   slot_remove: Delete slot
   slot_add: Add slot
   no_slots_available: No pick-up slots available
-  add_onetime_pickup: Add single date
-  edit_recurring_pickups: Edit regular pick-up dates
+  add_onetime_pickup: Add single slot
+  edit_recurring_pickups: Edit regular slot dates
   really_delete_date: Do you really want to delete the slot on {date}?
   leave_team_message_template: '{date} I can’t pick up after all and have therefore
     signed out again. …'
@@ -1305,26 +1305,26 @@ pickup:
   same_day_entry: '[{when}] {name}'
   same_day_hint: 'The following will take place on the same day:'
   overview:
-    header: Pick-ups
+    header: Slots
     tab:
       registered:
-        name: Registered pick-up slots
+        name: Registered slots
         tooltip:
-          own: Future pick-ups, for which you signed up
-          other: Future pick-ups the user signed up for
-        empty: Currently, no pick-ups are registered.
+          own: Future slots, for which you signed up
+          other: Future slots the user signed up for
+        empty: Currently, no slots are registered.
       options:
-        name: Pickup options
+        name: Registration options
         tooltip:
-          own: Future pick-ups, for which you can sign up
+          own: Future slots, for which you can sign up
         empty: Currently there are no available pick-up slots in any of your 
           teams.
       history:
-        name: Pick-up history
+        name: Slot history
         tooltip:
-          own: Past pick-ups in which you participated
-          other: Pick-ups last month in which the user participated
-        empty: There have been no pick-ups yet.
+          own: Past slots in which you participated
+          other: Slots last month in which the user participated
+        empty: No one has signed up for a slot yet.
     cols:
       time: Date
       store: Store
@@ -1337,7 +1337,7 @@ pickup:
       refresh: Refresh
       signOffAll: Remove everywhere
       signOff: Remove
-      registeredSwitch: Show registered pick-ups
+      registeredSwitch: Show registered slots
       loadMore: Load more
       managedOnlySwitch: SM view
       useCondensedDesign: Grouped by days
@@ -1353,7 +1353,8 @@ pickup:
     allLoaded: All entries are shown.
     freeSlots: "{slots} free"
 
-  region_pickup_rule_failed: This entry does not comply with district rules
+  region_pickup_rule_failed: This registration does not comply with district 
+    rules
   description_optional: Description (optional)
   description_modal_text: 'Enter a new description for this event:'
   edit_description: Edit description
@@ -1430,9 +1431,9 @@ storeview:
     label: Public information about the store
     available_count: Available number of characters
   activityCount:
-    0: ''
-    1: ''
-    2: ''
+    0: 'pick-ups'
+    1: 'deliveries'
+    2: 'dates'
 day: Day
 time: Time
 select: Please select
@@ -1673,7 +1674,7 @@ bell:
       try to open the link on the Beta.\n\n Title: `{bellTitle}`\n\n Key: `{bellKey}`"
     md_support: If you think this is an error, please report it to 
       [support](/support)
-  passgen_failed_title: Your ID could not be created
+  passgen_failed_title: Your foodsharing-card could not be created
   passgen_failed: Please upload a photo! Then it will work.
   sharepoint_activate: '{name} has been listed'
   store_new: '{name} has been listed'
@@ -1687,7 +1688,7 @@ bell:
   new_quiz_comment_title: 'Comment on question #{questionId}'
   fs_sleepmode: '{name} {nachname} is now inactive'
   fs_sleepmode_title: New nightcap
-  store_cr_times: Pick-up slots have changed
+  store_cr_times: Slots have been changed
   store_new_request: Request for {name}
   forum_answer: '{user} responded to your comment'
   store_request_accept_wait: You were added to the list of standby foodsavers.
@@ -1712,8 +1713,8 @@ bell:
     many: for {name} from {count} users
   store_wall_post_title: Store {name}
   store_change_regular_pickup_times:
-    one: Pick-up slots have changed
-    many: Pick-up slots have changed
+    one: Slot has been changed
+    many: Slots slots have changed
   store_wall_post:
     one: Wall post from {user}
     many: '{count} new wall posts'
@@ -2166,7 +2167,7 @@ storelist:
   entered: 'Created on:'
   memberState: Membership status
   actions: Actions
-  filter_placeholder: ''
+  filter_placeholder: 'name/adress'
 releases:
   "2020-08": "Release \"Pear\" (August 2020)"
   "2020-10": "Release \"Cranberry\" (October 2020)"
@@ -2527,8 +2528,16 @@ store:
         you joined the region, you can try again to apply.
     requireVerification:
       link: Open the forum of your main district
-      request: ''
-      invited: ''
+      request: 'You cannot apply right now because you are not yet verified. This
+        store currently only accepts applications from verified Foodsavers. First,
+        complete your trial pick-ups or contact your ambassadors or the welcome team
+        to get verified. You can find these contacts in your district forum in the
+        left sidebar.'
+      invited: 'You have been invited to join this store. Before you can accept the
+        invitation, you have to be verified. This store currently only accepts verified
+        Foodsavers. First, complete your trial pick-ups or contact your ambassadors
+        or the welcome team to get verified. You can find these contacts in your district''s
+        forum in the left sidebar.'
     requirePhone:
       link: Edit profile
       invited: You were invited to this store. Before being able to accept the 
@@ -2557,9 +2566,11 @@ store:
       one_less: Hide an entry
       many_less: Hide {count} entries
     hygieneRequired:
-      request: ''
-      link: ''
-      invited: ''
+      request: 'Valid hygiene training is required for this store.'
+      link: 'Complete hygiene certification'
+      invited: 'You have been invited to join this store. Before you can accept the
+        invitation, you have to prove that you''ve completed a valid hygiene training
+        certificate.'
   sm:
     reallyRemove: Do you really want to remove {name} from the store team?
     removeFromTeam: Remove from the team
@@ -2582,7 +2593,7 @@ store:
     filterSleeping: nightcaps
     sorting:
       default: Default sorting
-      pickup: Sorted by last pick-up
+      pickup: Sorted by last slot
       distance: Sorted by distance
     userHasPickupsWarning: '{name} is currently registered for {occupiedSlots} slots
       at this facility. These slots will then become available. Do you still want
@@ -2945,7 +2956,8 @@ wall:
   delete: Delete post
   see-more: Show all posts
   name: Pinboard
-  info-somebody-else: As a Store Coordinator you can remove this entry.
+  info-somebody-else: As a Store Coordinator you can remove this registration, 
+    if necessary.
   confirm-deletion: Do you really want to delete the following pinboard post 
     from {name}?
   info-logging: Please note that to avoid conflicts, the content and the person 
@@ -3038,7 +3050,7 @@ storeedit:
     teamStatus: team status
     teamStatus2: Support is urgently needed
     teamStatus1: The team is open for applications from foodsavers
-    teamStatus0: This store is currently not accepting applications.
+    teamStatus0: This store is currently not accepting applications
     hygieneRequirement: Hygiene requirements
     hygieneRequired: Registrations are only permitted with valid hygiene 
       training
@@ -3223,7 +3235,7 @@ pickuplist:
   tryagain: Try again after reloading.
   tooslow: Unfortunately, the registration did not work. This is probably 
     because someone else was faster.
-  header_for_district: 'Allocation of pick-ups in {bezirk} '
+  header_for_district: 'Allocation of slots in {bezirk} '
   really_delete_last_slot:
     title: Remove last slot?
     body: Do you really want to delete the last slot? This will completely 
@@ -3326,9 +3338,9 @@ register:
   set-password: Set new password
   pass1: Your new desired password
   change-password: Now you can change your password.
-  activation_failed: <strong> Activation failed.</strong> Is the entered link 
+  activation_failed: <strong>Activation failed.</strong> Is the entered link 
     correct?
-  activation_success: <strong> Activation successful. </strong> Now log in with 
+  activation_success: <strong>Activation successful.</strong> Now log in with 
     your email address and your chosen password.
   account-exists: You’re already registered. Please log out if you want to 
     register again.
@@ -3415,8 +3427,8 @@ dashboard:
     buddies: People you know
     users: foodsavers
     polls: Polls
-    pickups: Pickup dates
-    pickupOptions: Pickup options
+    pickups: Registered slots
+    pickupOptions: Registration options
   options:
     hide:
       text: Change view
@@ -3560,7 +3572,7 @@ storestatus:
   "1": There is no contact yet
   "3a": Store is ready to donate. :-)
   "5a": Store donates already
-  placeholder: ''
+  placeholder: 'status'
 formatting:
   md: You can use <a 
     href="https://daringfireball.net/projects/markdown/syntax">Markdown</a> for 
@@ -3583,20 +3595,19 @@ regionOptions:
   save: Save options
   success: Options saved successfully
   header_page: Settings for {bezirk}
-  regionPickupInactiveHours: 'How many hours in advance should an entry be possible
-    if the maximum number in the corresponding period has already been reached or
-    exceeded?'
-  regionPickupLimitNumber: 'Indicate the maximum number of allowed CHERRY pick-ups
-    for the chosen period of time'
-  regionPickupLimitDayNumber: 'Indicate the maximum number of CHERRY pick-ups per
-    day'
+  regionPickupInactiveHours: 'How many hours in advance should an registration be
+    possible if the maximum number in the corresponding period has already been reached
+    or exceeded?'
+  regionPickupLimitNumber: 'Indicate the maximum number of allowed CHERRY slots for
+    the chosen period of time'
+  regionPickupLimitDayNumber: 'Indicate the maximum number of CHERRY slots per day'
   regionPickupTimespan: Please enter the time span (in days before and after the
-    desired pick-up date) in which the rule applies
+    desired slot date) in which the rule applies
   regionPickupRuleActiveStoreList: 'List of stores within the district that shall
-    be considered for the CHERRY rule. Note: pick-ups in all listed stores will be
-    added up and considered.'
-  regionPickupRuleActive: 'Activate the following district-wide rule for pick-ups
-    in CHERRY (Consummate, High-level, Exceptional and Really, Really Yielding) stores:'
+    be considered for the CHERRY rule. Note: slots in all listed stores will be added
+    up and considered.'
+  regionPickupRuleActive: 'Activate the following district-wide rule for slots in
+    CHERRY (Consummate, High-level, Exceptional and Really, Really Yielding) stores:'
   regionReportReasonSimple: Simplified report regions
   regionReportReasonOther: Allow “Other” as a report reason
   regionReportReasonCategoryB: 'Extended reasons for reporting: Rules of conduct —
@@ -4127,9 +4138,9 @@ information:
     description: If you no longer want to receive push notifications, you can 
       deactivate them at any time in the settings.
   calendar_sync:
-    title: "Do you know the calendar synchronization for your pick-ups?"
+    title: "Do you know the calendar synchronization for your slots?"
     link: "Subscribe now"
-    description: You can use it to see your upcoming pick-ups in a calendar 
+    description: You can use it to see your upcoming appointments in a calendar 
       software of your choice.
 globals:
   you: You
@@ -4463,7 +4474,7 @@ help:
     hygieneRequirement:
       title: Hygiene requirement for stores
       md: "Some companies require food savers to be trained in food hygiene in order
-        to be able to pick up food there. If this function is activated for a particular
+        to be able to join in there. If this function is activated for a particular
         store, this has the following consequences:\n1. Food savers without valid
         hygiene training cannot apply for the team.\n2. Food savers who are already
         part of the team can only register for slots if their hygiene training is
@@ -4478,11 +4489,11 @@ help:
       title: Request a change to verified data
       md: "To get involved as a foodsaver, it’s important that the information in
         your profile is correct. Before you can save food, the ambassadors will check
-        it against your ID. Therefore, you can’t simply change your name and date
-        of birth.\n---\nShould it happen that one of these fields needs to be changed,
-        you can contact an ambassador from your home district. They can make the necessary
-        changes for you. You can find out who the ambassadors are in your home district
-        in the [district forum]({link}) in the left sidebar.\n"
+        it against your foodsharing-card. Therefore, you can’t simply change your
+        name and date of birth.\n---\nShould it happen that one of these fields needs
+        to be changed, you can contact an ambassador from your home district. They
+        can make the necessary changes for you. You can find out who the ambassadors
+        are in your home district in the [district forum]({link}) in the left sidebar.\n"
     publicEvent:
       title: Public events
       md: "Events can be registered as public by the admins of a working group, the
@@ -4493,19 +4504,19 @@ help:
         as public if you want to invite people outside of your local food sharing
         community, and everyone is welcome to attend.\n"
     pickupOptions:
-      title: Pickup options
-      md: "The *Pickup options* section shows you an overview of all upcoming pickups
-        at your stores that are still looking for foodsavers. You can customize the
-        view to your needs using the options menu:\n\n**Registered pickups:** To help
-        you plan your pickups better, you can also view pickups for which you are
-        already registered. These pickups are displayed slightly paler so you can
-        recognize them at a glance.\n\n**Team manager view:** Team managers ensure
-        that all pickups at their businesses run reliably. If you are a Team manager,
-        you can limit the view to the stores for which you are responsible. This makes
-        it easier to keep track.\n\n**Grouped by day:** In this view, your pickup
+      title: Registration options
+      md: "The *registration options* section shows you an overview of all upcoming
+        slots at your stores that are still looking for foodsavers. You can customize
+        the view to your needs using the options menu:\n\n**Registered slots:** To
+        help you plan your slots better, you can also view pickups for which you are
+        already registered. These slots are displayed slightly paler so you can recognize
+        them at a glance.\n\n**Team manager view:** Team managers ensure that all
+        slots at their businesses run reliably. If you are a Team manager, you can
+        limit the view to the stores for which you are responsible. This makes it
+        easier to keep track.\n**Grouped by day:** In this view, your registration
         options are summarized by day and presented in a more compact format. This
-        makes it easier to get an overview, especially if you have many pickup options
-        available each day.\n"
+        makes it easier to get an overview, especially if you have many registration
+        options available each day.\n"
     resource_mosaic:
       title: Resource Mosaic
       md: "##### The idea\nWhile saving food we all try to efficiently use our time,
@@ -4755,7 +4766,7 @@ required_messages:
     really: Are you sure you want to remove {name} from this team?
     footer: Best regards
     main: you have been removed from the [{store}](/store/{storeId}) team. You 
-      can no longer sign in for pickups there.
+      can no longer sign in for slots there.
   decline_store_application:
     footer: Best regards
     really: Are you sure you want to reject {name}’s team application?
@@ -4766,7 +4777,7 @@ required_messages:
     really: Are you sure you want to move {name} from the active team to the 
       list of standby foodsavers?
     main: you have been put on the standby list at [{store}](/store/{storeId}). 
-      You can neither sign in for pickups here nor read the group chat.
+      You can neither sign in for slots here nor read the group chat.
   demote_store_manager:
     really: Are you sure you want to remove {name} as team manager?
     footer: Best regards

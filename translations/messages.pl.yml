@@ -469,13 +469,13 @@ settings:
     security_keys_description: ''
     mfa_enabled: 'Uwierzytelnianie wieloskładnikowe aktywowane'
     authenticator_app: ''
-    passkeys_section: ''
+    passkeys_section: 'Klucze bezpieczeństwa'
     passkey_deleted: 'Pomyślnie usunięto klucz bezpieczeństwa'
     mfa_section: 'Uwierzytelnianie wieloskładnikowe'
     passkey_renamed: 'Pomyślnie zmieniono nazwę klucza bezpieczeństwa'
     register_passkey: ''
     passkeys_info: ''
-    security_keys: ''
+    security_keys: 'Klucze bezpieczeństwa (Passkeys)'
     other_domain_info: ''
     authenticator_app_description: ''
     no_passkeys: ''
@@ -1786,11 +1786,12 @@ pickup:
           own: 'Ubiegłe sloty, w których uczestniczyłeś/aś'
           other: ''
         name: 'Historia slotów'
-        empty: ''
+        empty: 'Jeszcze nikt się nie zapisał na żaden slot.'
     modals:
       signOffAll:
         title: 'Wypisz ze wszystkich slotów?'
-        message: ''
+        message: 'Czy na pewno chcesz wypisać tego/tę użytkownika/czkę ze wszystkich
+          przyszłych slotów?'
       signOff:
         title: 'Wypisz ze slotu?'
         message: 'Czy na pewno chcesz wypisać tego/tę użytkownika/czkę z tego slotu?'
@@ -1959,7 +1960,7 @@ forum:
     subscriptions:
       subscribed: 'subskrybowany'
       subscribe: 'Subskrybuj'
-    with_mail: ''
+    with_mail: 'Temat otwarty i wszyscy zostali powiadomieni o tym mailem'
     bottom: 'ograniczona widoczność'
   mail_confirmation:
     title: Na pewno wysłać powiadomienie mailem?
@@ -1979,7 +1980,8 @@ forum:
   not_found: Ten wątek nie istnieje.
   options:
     bells_for_new_posts: ''
-  hold_back_for_moderation: ''
+  hold_back_for_moderation: 'Temat został zapisany i będzie opublikowany, gdy tylko
+    moderator/ka lub ambasador/ka go zaakceptuje.'
   inform_per_email: ''
 chat:
   empty: Nie ma jeszcze żadnych rozmów
@@ -2016,7 +2018,7 @@ chat:
   confirm_draft_discard: ''
   open_multi_chat: ''
   open_full_view: Otwórz pełny widok
-  unread_messages: ''
+  unread_messages: 'Nieprzeczytane wiadomości'
 wall:
   see-more: Pokaż wszystkie posty
   delete: Usuń post
@@ -2055,8 +2057,8 @@ events:
     locationOther: Gdzie odbędzie się ten event?
     fillCompletely: Proszę wypełnić do końca formularz.
     locationDetails: ''
-    regions: ''
-    who: ''
+    regions: 'Twoje rejony'
+    who: 'Dla jakiego rejonu albo zespołu ma być utworzony ten event?'
     groups: 'Twoje zespoły'
     offline: ''
   span: '{from} do {until}'
@@ -2136,7 +2138,7 @@ recipients:
   variables: 'Forma grzecznościowa'
   orga_team: ''
   bread: ''
-  choose: ''
+  choose: 'Wybierz ręcznie rejony'
   variable-info: ''
   storemanagers: ''
   storemanagers_and_ambs: ''
@@ -2294,7 +2296,7 @@ bell:
     one: '{user}: {comment}'
     many: '{count} nowych komentarzy'
   delete_store_title: ''
-  store_new_request_title: ''
+  store_new_request_title: 'Nowe zapytanie do teamu'
   store_new_title: ''
   store_cr_times: 'Dostosowano sloty'
   store_change_regular_pickup_times:
@@ -2312,16 +2314,16 @@ bell:
   poll_ending_soon: 'Głosowanie "{title}" niedługo się kończy, a ty jeszcze nie zagłosowałeś/aś.'
   fs_sleepmode_title: ''
   poll_ending_soon_title: 'Głosowanie niedługo się kończy'
-  store_new_request: ''
+  store_new_request: 'Zapytanie do {name}'
   sharepoint_activate: ''
   store_wall_post_title: ''
   fs_sleepmode: '{name} {nachname} jest teraz nieaktywny/a'
-  forum_new_thread_title: ''
-  new_report_title: ''
-  poll_started: ''
+  forum_new_thread_title: 'Nowy wpis: {title}'
+  new_report_title: 'Nowa skarga dotycząca {name}'
+  poll_started: 'Głosowanie "{title}" się rozpoczęło.'
   store_request_imposed: 'Dodano cię do teamu.'
   store_request_accept_wait: ''
-  store_request_deny: ''
+  store_request_deny: 'Odrzucono twoje zapytanie.'
   chain_info_updated_title: 'Zaktualizowano sieć {chain}'
   chain_info_updated: '{store} jest częścią sieci.'
   store_added_to_chain_title: ''
@@ -2377,13 +2379,13 @@ reports:
   time: czas
   reportmessage: Podaj, jak można się z tobą skontaktować w razie dalszych 
     pytań.
-  reports_region: ''
-  reports_user: ''
-  reported: ''
-  reporter: ''
-  no_reports_fallback: ''
+  reports_region: 'Skargi z {regionName}'
+  reports_user: 'Wszystkie skargi dotyczące {userName} ({userId})'
+  reported: 'Osoba, której dotyczy skarga'
+  reporter: 'Osoba składająca skargę'
+  no_reports_fallback: 'Jeszcze nie ma skarg'
   store: ''
-  report_id: ''
+  report_id: 'ID skargi'
 memberlist:
   header_for_workgroup: Foodsaverzy/ki w zespole {bezirk}
   header_for_district: 'Foodsaverzy/ki w rejonie {bezirk}'
@@ -2397,13 +2399,13 @@ regionOptions:
   header_page: Opcje dla {bezirk}
   success: Pomyślnie zapisano opcje
   save: Zapisz opcje
-  regionReportReasonSimple: ''
+  regionReportReasonSimple: 'Uproszczone powody skarg'
   regionPickupInactiveHours: ''
   regionPickupLimitNumber: ''
   regionReportReasonCategoryB: ''
   regionPickupRuleActiveStoreList: ''
   enableMediationButton: ''
-  regionReportReasonOther: ''
+  regionReportReasonOther: 'Pozwól na "inne" jako powód skargi'
   enableReportButton: ''
   regionPickupTimespan: ''
   noPickupRuleActiveStores: ''
