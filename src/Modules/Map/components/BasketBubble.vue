@@ -4,7 +4,7 @@
     ref="basketBubbleModal"
     :is-loading="loading"
   >
-    <div v-if="bubbleData.pictures?.length" class="mb-3">
+    <div v-if="bubbleData.pictures?.length" class="mb-3 content-block">
       <ResponsiveImage
         v-if="bubbleData.pictures.length === 1"
         :image="bubbleData.pictures[0]"
@@ -21,7 +21,7 @@
 
     <div
       v-if="userStore.isLoggedIn && bubbleData.createdAt"
-      class="mb-3"
+      class="mb-3 content-block"
     >
       <div
         class="mb-1 section-label"
@@ -31,13 +31,13 @@
       <div>{{ displayDate }}</div>
     </div>
 
-    <div
-      class="mb-1 section-label"
-    >
-      {{ $t('basket.description') }}
-    </div>
-    <div class="mb-3">
-      {{ bubbleData.description }}
+    <div class="mb-3 content-block">
+      <div
+        class="mb-1 section-label"
+      >
+        {{ $t('basket.description') }}
+      </div>
+      <div>{{ bubbleData.description }}</div>
     </div>
 
     <template #popup-header>
@@ -50,7 +50,7 @@
     </template>
     <template #popup-footer>
       <a
-        class="btn btn-primary mx-5"
+        class="btn btn-primary"
         type="button"
         :href="$url('basket', basketId)"
         v-text="$t('basket.go')"
@@ -102,5 +102,8 @@ defineExpose({
 .section-label {
   color: var(--fs-color-primary-500);
   font-weight: 500;
+}
+.content-block:last-child {
+  margin-bottom: 0 !important;
 }
 </style>

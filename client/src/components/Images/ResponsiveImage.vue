@@ -210,7 +210,6 @@ export default {
   background-position: center;
   border: 1px solid var(--fs-border-default);
   border-radius: var(--border-radius);
-  margin: 0.25em;
   background-size: v-bind('backgroundSizeToCover'); //like cover but animateable
   transition: background-size 0.3s ease;
   cursor: zoom-in;

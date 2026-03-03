@@ -5,15 +5,14 @@
     :is-loading="loading"
   >
     <div v-if="store">
-      <div class="card">
-        <div class="card-header">
-          <div class="mb-2">
-            <store-status-icon :cooperation-status="store.cooperationStatus" />
-            <span>{{ $t('storestatus.' + store.cooperationStatus) }}</span><span v-if="statusOrStartDate">
-              ({{ statusOrStartDate }})
-            </span>
-          </div>
-
+      <div class="card bg-light mb-3 content-block">
+        <div class="card-header py-2">
+          <store-status-icon :cooperation-status="store.cooperationStatus" />
+          <span>{{ $t('storestatus.' + store.cooperationStatus) }}</span><span v-if="statusOrStartDate">
+            ({{ statusOrStartDate }})
+          </span>
+        </div>
+        <div class="card-body">
           <div>
             {{ $t('map.filters.stores.type.label') }}:
             <strong>
@@ -35,27 +34,25 @@
           <div>{{ $t('storeview.team_info_active') }} <strong>{{ store.teamMemberCount }}</strong></div>
           <div>{{ $t('storeview.team_info_jumper') }} <strong>{{ store.standbyCount }}</strong></div>
 
-          <div class="mt-2">
-            <span v-if="store.pickupCount > 0">
+          <div v-if="store.pickupCount" class="mt-2">
+            <div v-if="store.pickupCount > 0">
               <strong>{{ store.pickupCount }}</strong> {{ $t('storeview.activityCount.' + store.categoryType) }}
-            </span>
-            <br>
-            <span v-if="store.pickupWeightInKg > 0 && store.categoryType !== STORE_CATEGORY_ORGA">
+            </div>
+            <div v-if="store.pickupWeightInKg > 0 && store.categoryType !== STORE_CATEGORY_ORGA">
               <strong>{{ store.pickupWeightInKg }}</strong> {{ $t('storeview.pickupWeight') }}
-            </span>
+            </div>
           </div>
 
           <div v-if="pickupTimeExplanation" class="mt-2">
             {{ $t('storeview.public_time', { freq: pickupTimeExplanation }) }}
           </div>
         </div>
-        <div class="card-footer text-muted" />
       </div>
 
-      <div v-if="store.managers.length > 0" class="card mt-3">
+      <div v-if="store.managers.length > 0" class="card bg-light mb-3 content-block">
         <div class="card-header">
           <div class="d-flex align-items-center justify-content-between">
-            <h5 class="card-title mb-0">
+            <h5 class="card-title">
               {{ $t('storeview.managers') }}
             </h5>
             <b-button
@@ -82,7 +79,7 @@
         </div>
       </div>
 
-      <div v-if="store.publicInformation" class="card mt-3">
+      <div v-if="store.publicInformation" class="card bg-light mb-3 content-block">
         <div class="card-header">
           <h5 class="card-title">
             {{ $t('storeview.info') }}
@@ -93,13 +90,21 @@
         </div>
       </div>
 
-      <b-alert show variant="info">
+      <b-alert
+        show
+        variant="info"
+        class="content-block"
+      >
         {{ $t(`storeedit.fetch.teamStatus${store.teamSearchStatus}`) }}
       </b-alert>
 
-      <div class="store-alerts">
+      <div v-if="allStoreAlerts.length" class="store-alerts mb-3 content-block">
         <div v-for="alert in filteredStoreAlerts" :key="alert.id">
-          <b-alert show variant="danger">
+          <b-alert
+            show
+            variant="danger"
+            class="my-2 content-block"
+          >
             <i :class="alert.icon" />
             {{ $t(alert.textKey, alert.textParams || {}) }}<br>
             <a
@@ -109,42 +114,47 @@
             />
           </b-alert>
         </div>
+
+        <div v-if="allStoreAlerts.length > 1 && (store?.maySendRequest || store?.mayAcceptInvitation)" class="mt-2">
+          <a
+            href="#"
+            class="text-danger"
+            @click.prevent="alertsExpanded = !alertsExpanded"
+          >
+            <span v-if="!alertsExpanded && hiddenAlertsCount === 1">{{ $t('store.request.alerts.one_more') }}</span>
+            <span v-else-if="!alertsExpanded && hiddenAlertsCount > 1">{{ $t('store.request.alerts.many_more', {count: hiddenAlertsCount}) }}</span>
+            <span v-else-if="hiddenAlertsCount === 1">{{ $t('store.request.alerts.one_less') }}</span>
+            <span v-else>{{ $t('store.request.alerts.many_less', {count: hiddenAlertsCount}) }}</span>
+            <i class="fas" :class="alertsExpanded ? 'fa-chevron-up' : 'fa-chevron-down'" />
+          </a>
+        </div>
       </div>
 
-      <div v-if="allStoreAlerts.length > 1 && (store?.maySendRequest || store?.mayAcceptInvitation)" class="mt-1">
-        <a
-          href="#"
-          class="more-alerts-link"
-          @click.prevent="alertsExpanded = !alertsExpanded"
-        >
-          <span v-if="!alertsExpanded && hiddenAlertsCount === 1">{{ $t('store.request.alerts.one_more') }}</span>
-          <span v-else-if="!alertsExpanded && hiddenAlertsCount > 1">{{ $t('store.request.alerts.many_more', {count: hiddenAlertsCount}) }}</span>
-          <span v-else-if="hiddenAlertsCount === 1">{{ $t('store.request.alerts.one_less') }}</span>
-          <span v-else>{{ $t('store.request.alerts.many_less', {count: hiddenAlertsCount}) }}</span>
-        </a>
-      </div>
-
-      <b-alert :show="store.isHygieneRequired && !isMissingHygieneCertificate" variant="success">
+      <b-alert
+        :show="store.isHygieneRequired && !isMissingHygieneCertificate"
+        variant="success"
+        class="content-block"
+      >
         <i class="fas fa-hands-wash mr-2" />
         {{ $t('store.request.hygieneRequired.request') }}
       </b-alert>
-      <b-alert :show="store.mayAcceptInvitation" variant="success">
+      <b-alert
+        :show="store.mayAcceptInvitation"
+        variant="success"
+        class="content-block"
+      >
         <i class="fas fa-user-check mr-2" />
         {{ $t('store.invitation.invited_info') }}
       </b-alert>
     </div>
 
-    <template #popup-header>
-      <h3 v-if="store">
-        {{ store.name }}
-      </h3>
-    </template>
-    <template #popup-footer>
-      <b-collapse
-        v-if="store?.maySendRequest"
-        :visible="isMessageInputVisible"
-        class="w-100"
-      >
+    <b-collapse
+      v-if="store?.maySendRequest"
+      :visible="isMessageInputVisible"
+      class="w-100"
+    >
+      <hr class="my-3">
+      <div class="rounded p-2 bg-light">
         <b-form-group
           class="mb-2"
           :label="$t('store.request.application-message')"
@@ -158,75 +168,52 @@
             {{ $t('store.request.applicationMessageTooShort') }}
           </b-form-invalid-feedback>
         </b-form-group>
-        <div class="card">
-          <div>
-            {{ $t('store.request.applicationSummary.intro') }}
-            <ul class="mt-1">
-              <li>
-                {{ $t('store.request.applicationSummary.time') }}
-              </li>
-              <li>
-                {{ $t('store.request.applicationSummary.fullName', { first_name: userStore.getUserFirstName, last_name: userStore.getUserLastName }) }}
-              </li>
-              <li>
-                {{ $t('store.request.applicationSummary.verified', { status: userStore.isVerified ? $t('group.member_list.is_verified') : $t('group.member_list.not_verified') }) }}
-              </li>
-              <li>
-                {{ $t('store.request.applicationSummary.distance', { distance: distanceDisplay }) }}
-              </li>
-              <li>
-                <a
-                  :href="$url('storeUserList', userStore.getUserId)"
-                  target="_blank"
-                  v-text="$t('store.request.applicationSummary.storeList')"
-                />
-              </li>
-              <li v-if="store.requireApplyText">
-                {{ $t('store.request.applicationSummary.text') }}
-              </li>
-            </ul>
-          </div>
+        <div>
+          {{ $t('store.request.applicationSummary.intro') }}
+          <ul class="mt-1 mb-0">
+            <li>
+              {{ $t('store.request.applicationSummary.time') }}
+            </li>
+            <li>
+              {{ $t('store.request.applicationSummary.fullName', { first_name: userStore.getUserFirstName, last_name: userStore.getUserLastName }) }}
+            </li>
+            <li>
+              {{ $t('store.request.applicationSummary.verified', { status: userStore.isVerified ? $t('group.member_list.is_verified') : $t('group.member_list.not_verified') }) }}
+            </li>
+            <li>
+              {{ $t('store.request.applicationSummary.distance', { distance: distanceDisplay }) }}
+            </li>
+            <li>
+              <a
+                :href="$url('storeUserList', userStore.getUserId)"
+                target="_blank"
+                v-text="$t('store.request.applicationSummary.storeList')"
+              />
+            </li>
+            <li v-if="store.requireApplyText">
+              {{ $t('store.request.applicationSummary.text') }}
+            </li>
+          </ul>
         </div>
-      </b-collapse>
-      <div v-if="store">
-        <b-button
-          v-if="store.mayAccessStorePage"
-          :href="$url('store', store.id)"
-          variant="success"
-        >
-          {{ $t('store.go') }}
-        </b-button>
-        <b-button
-          v-if="store.mayWithdrawRequest"
-          variant="success"
-          @click="withdrawRequest"
-        >
-          {{ $t('store.request.withdraw') }}
-        </b-button>
-        <b-button
-          v-if="store.maySendRequest"
-          :variant="isMessageInputVisible ? 'success' : 'outline-secondary'"
-          :disabled="isMessageInputVisible && !canSubmit"
-          @click="applyToStore"
-        >
-          {{ $t('store.request.request') }}
-        </b-button>
-        <b-button
-          v-if="store.isInvited"
-          variant="danger"
-          @click="declineInvitation"
-        >
-          {{ $t('store.invitation.decline') }}
-        </b-button>
-        <b-button
-          v-if="store.isInvited"
-          variant="success"
-          :disabled="!store.mayAcceptInvitation"
-          @click="acceptInvitation"
-        >
-          {{ $t('store.invitation.accept') }}
-        </b-button>
       </div>
+    </b-collapse>
+
+    <template #popup-header>
+      <h3 v-if="store">
+        {{ store.name }}
+      </h3>
+    </template>
+    <template #popup-footer>
+      <b-button
+        v-for="button in additionalButtons"
+        :key="button.text"
+        :variant="button.variant"
+        :href="button.href"
+        :disabled="button.disabled"
+        @click="button.onclick"
+      >
+        {{ button.text }}
+      </b-button>
     </template>
   </map-popup>
 </template>
@@ -409,10 +396,45 @@ export default {
       if (this.distanceInKm > minBadDistanceInKm) return 'bad-distance'
       return ''
     },
+    additionalButtons () {
+      return [
+        {
+          text: this.$t('store.go'),
+          show: this.store?.mayAccessStorePage,
+          variant: 'success',
+          href: this.$url('store', this.store?.id),
+        },
+        {
+          text: this.$t('store.request.withdraw'),
+          show: this.store?.mayWithdrawRequest,
+          variant: 'success',
+          onclick: () => this.withdrawRequest(),
+        },
+        {
+          text: this.$t('store.request.request'),
+          show: this.store?.maySendRequest,
+          variant: this.isMessageInputVisible ? 'success' : 'outline-secondary',
+          disabled: this.isMessageInputVisible && !this.canSubmit,
+          onclick: () => this.applyToStore(),
+        },
+        {
+          text: this.$t('store.invitation.decline'),
+          show: this.store?.isInvited,
+          variant: 'danger',
+          onclick: () => this.declineInvitation(),
+        },
+        {
+          text: this.$t('store.invitation.accept'),
+          show: this.store?.isInvited,
+          variant: 'success',
+          disabled: !this.store?.mayAcceptInvitation,
+          onclick: () => this.acceptInvitation(),
+        },
+      ].filter(button => button.show)
+    },
     showFooterCloseButton () {
-      /* The default close button in the footer is only shown if no other button is visible, so that the footer does not
-         become too crowded */
-      return !this.store || (!this.store.mayAccessStorePage && !this.store.maySendRequest && !this.store.mayWithdrawRequest)
+      // Hide the default close button in the footer if too many other buttons are visible
+      return this.additionalButtons.length <= 2
     },
     isMissingHygieneCertificate () {
       return this.store.isHygieneRequired && !this.store.hasHygieneCertificate
@@ -494,9 +516,7 @@ export default {
 .bad-distance {
   color: var(--fs-color-danger-500)
 }
-.more-alerts-link {
-  cursor: pointer;
-  color: var(--fs-color-link, #0d6efd);
-  text-decoration: underline;
+.content-block:last-child {
+  margin-bottom: 0 !important;
 }
 </style>

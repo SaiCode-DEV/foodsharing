@@ -8,17 +8,17 @@
     <template #popup-footer>
       <a
         v-if="!loading"
-        class="btn btn-primary mx-5"
+        class="btn btn-primary"
         type="button"
         :href="$url('foodsharepoint', id)"
         v-text="$t('map.foodsharepoint.go')"
       />
     </template>
 
-    <div v-if="picture">
-      <img class="picture" :src="picture">
+    <div v-if="picture" class="mb-3">
+      <img class="picture rounded" :src="picture">
     </div>
-    <div class="card my-3">
+    <div class="card">
       <Markdown :source="description" />
     </div>
   </map-popup>

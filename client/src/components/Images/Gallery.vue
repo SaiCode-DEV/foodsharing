@@ -7,7 +7,7 @@
     <div
       v-for="(image, i) of images"
       :key="i"
-      class="d-inline-block"
+      class="gallery-image d-inline-block"
       :draggable="allowReorder"
       :index="i"
       @dragstart="dragStart"
@@ -111,6 +111,13 @@ export default {
   background-color: var(--fs-color-gray-100);
   > :last-child {
     margin-right: 0.25em;
+  }
+}
+
+.gallery-image {
+  margin-right: 0.25em;
+  &:last-child {
+    margin-right: 0;
   }
 }
 </style>

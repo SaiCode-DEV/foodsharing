@@ -4,7 +4,7 @@
       <h3>{{ name }}</h3>
     </template>
 
-    <div class="card mb-3 rounded">
+    <div class="card rounded">
       <Markdown :source="description" />
     </div>
 

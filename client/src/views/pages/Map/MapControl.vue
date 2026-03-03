@@ -19,7 +19,7 @@
           <b-list-group-item
             v-for="markerType in visibleTypes"
             :key="markerType"
-            class="p-0 border-0"
+            class="map-control-item p-0 border-0 my-1"
           >
             <b-button
               :ref="`button-${markerType}`"
@@ -27,21 +27,31 @@
               :class="`${markerType} ${activeButtonClass(markerType)}`"
               @click="$emit('toggle-marker-type', markerType)"
             >
-              <i :class="`fas fa-${markerTypes[markerType].icon}`" />
+              <div class="legend-entry-icon">
+                <i :class="`fas fa-${markerTypes[markerType].icon}`" />
+              </div>
               {{ $t(markerTypes[markerType].label) }}
             </b-button>
 
-            <StoreSpecifierSelection
+            <div
               v-if="markerType === markerTypes.stores.name && selectedTypes.includes(markerType)"
-              :selected-specifiers="selectedSpecifiers[markerType]"
-              @update-specifier="(specifier, newValue) => $emit('update-marker-specifier', markerType, specifier, newValue)"
-            />
-            <UserSpecifierSelection
+              class="specifier-container bg-light rounded-bottom"
+            >
+              <StoreSpecifierSelection
+                :selected-specifiers="selectedSpecifiers[markerType]"
+                @update-specifier="(specifier, newValue) => $emit('update-marker-specifier', markerType, specifier, newValue)"
+              />
+            </div>
+            <div
               v-if="markerType === markerTypes.users.name && selectedTypes.includes(markerType)"
-              :selected-specifiers="selectedSpecifiers[markerType]"
-              :regions="ambassadorRegions"
-              @update-specifier="(specifier, newValue) => $emit('update-marker-specifier', markerType, specifier, newValue)"
-            />
+              class="specifier-container bg-light rounded-bottom"
+            >
+              <UserSpecifierSelection
+                :selected-specifiers="selectedSpecifiers[markerType]"
+                :regions="ambassadorRegions"
+                @update-specifier="(specifier, newValue) => $emit('update-marker-specifier', markerType, specifier, newValue)"
+              />
+            </div>
           </b-list-group-item>
         </b-list-group>
       </b-card-body>
@@ -89,9 +99,16 @@ export default {
   height: 0;
   margin: 0;
   position: absolute;
+  display: flex;
+  flex-direction: column;
   right: 16px;
   top: calc(var(--navbar-height) + 16px);
+  height: calc(100% - var(--navbar-height) - 16px - 2rem);
   z-index: 450;
+  pointer-events: none;
+  & > * {
+    pointer-events: all;
+  }
 
   > div {
     position: relative;
@@ -108,14 +125,16 @@ export default {
   align-items: center;
   background-color: var(--fs-color-secondary-500);
   border-color: transparent;
+  flex-shrink: 0;
 }
 
 #map-legend {
   --size: 2rem;
   transition: opacity 0.2s ease-in-out;
   background: var(--fs-color-white);
-  min-width: 280px;
+  min-width: 300px;
   top: 0.5em;
+  overflow-y: auto;
 
   &.collapsed {
     visibility: hidden;
@@ -123,16 +142,32 @@ export default {
     transition: visibility 0s 0.2s, opacity 0.2s ease-in-out;
   }
 
+  .map-control-item {
+    &:first-child {
+      margin-top: 0 !important;
+    }
+    &:last-child {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  .specifier-container {
+    --over-margin: 1em;
+    margin-top: calc(var(--over-margin) * -1);
+    padding-top: var(--over-margin);
+  }
+
   .map-legend-entry {
     display: flex;
     padding: 0.25rem 0.5rem;
-    margin: 0.25rem;
     align-items: center;
     min-height: calc(var(--size) * 1.5);
     border: 0;
     font-weight: 600;
     font-size: 1rem;
     background: transparent;
+    position: relative;
+    z-index: 2;
 
     color: var(--fs-color-primary-500);
 
@@ -151,38 +186,35 @@ export default {
       background-color: var(--fs-color-primary-100);
     }
 
+    .legend-entry-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: var(--size);
+      height: var(--size);
+      margin-right: .5rem;
+      border-radius: 50%;
+      background-color: var(--type-color);
+    }
+
     i {
       font-size: 1rem;
-      margin-left: .5rem;
-      margin-right: 1rem;
       position: relative;
       color: var(--fs-color-light);
       &::before {
         position: relative;
         z-index: 2;
       }
-      &::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: var(--size);
-        height: var(--size);
-        border-radius: 50%;
-        z-index: 1;
-        transform: translate(-50%, -50%);
-        background-color: var(--type-color);
-      }
     }
 
     &.active {
       color: var(--fs-color-light);
       background-color: var(--type-color);
+      .legend-entry-icon {
+        background-color: var(--fs-color-white);
+      }
       i {
         color: var(--type-color);
-        &::after {
-          background-color: var(--fs-color-white);
-        }
       }
     }
   }
@@ -195,6 +227,14 @@ export default {
 }
 
 .map-legend-selection {
-  margin-left: .5rem;
+  padding: 0.5rem 0.25rem 0 0.25rem;
+
+  .form-row {
+    margin-bottom: 0.25rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }
 </style>

@@ -32,7 +32,7 @@
     <template #modal-footer="{ hide }">
       <b-button
         v-if="showFooterCloseButton"
-        variant="primary"
+        variant="secondary"
         @click="hide('forget')"
       >
         {{ $t('globals.close') }}
