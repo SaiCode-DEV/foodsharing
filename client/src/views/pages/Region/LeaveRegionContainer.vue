@@ -79,7 +79,7 @@ export default {
       try {
         this.loading = true
         await leaveRegion(this.regionId)
-        const redirectLocation = location.href.substring(location.origin.length)
+        const redirectLocation = this.$url('publicRegion', this.regionId)
         location.href = this.$url('relogin_and_redirect_to_url', redirectLocation)
       } catch (err) {
         if (err.code && err.code === HTTP_RESPONSE.CONFLICT) {

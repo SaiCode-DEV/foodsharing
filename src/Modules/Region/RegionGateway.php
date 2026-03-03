@@ -568,6 +568,11 @@ class RegionGateway extends BaseGateway
         return $hasSubgroup;
     }
 
+    public function getMailboxId(int $regionId): ?int
+    {
+        return $this->db->fetchValueByCriteria('fs_bezirk', 'mailbox_id', ['id' => $regionId]);
+    }
+
     public function updateRegionNotification(int $userId, NotificationSettingPatch $setting): void
     {
         $values = [];
@@ -746,7 +751,7 @@ class RegionGateway extends BaseGateway
             FROM fs_bezirk_closure c
             JOIN fs_bezirk r ON r.id = c.ancestor_id
             LEFT OUTER JOIN fs_foodsaver_has_bezirk m ON m.foodsaver_id = :foodsaverId AND m.active = 1 AND m.bezirk_id = r.id
-            WHERE c.bezirk_id = :regionId AND c.ancestor_id != 0
+            WHERE c.bezirk_id = :regionId AND depth > 0 AND c.ancestor_id != 0
             ORDER BY depth ASC
         ', ['regionId' => $regionId, 'foodsaverId' => $foodsaverId]);
 

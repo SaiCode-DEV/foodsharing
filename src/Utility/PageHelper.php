@@ -238,13 +238,19 @@ final class PageHelper
                 $group['isReportAdmin'] = $this->reportPermissions->isReportAdmin($groupId);
                 $group['isArbitrationAdmin'] = $this->reportPermissions->isArbitrationAdmin($groupId);
                 $group['maySetRegionPin'] = $this->regionPermissions->maySetRegionPin($groupId);
-                $regions[] = $group;
             } else {
                 $group['isAdmin'] = $this->workGroupPermissions->mayEdit($group);
                 $group['hasSubgroups'] = $this->regionGateway->hasSubgroups($groupId);
                 if (RegionIDs::isChainsGroup($group['id'])) {
                     $group['isChainGroup'] = true;
                 }
+            }
+            if ($group['isAdmin']) {
+                $group['mailboxId'] = $this->regionGateway->getMailboxId($groupId);
+            }
+            if (UnitType::isRegion($groupType)) {
+                $regions[] = $group;
+            } else {
                 $workingGroups[] = $group;
             }
         }
