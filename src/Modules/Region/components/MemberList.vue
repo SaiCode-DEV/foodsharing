@@ -405,7 +405,7 @@ import { verifyUser, deverifyUser, createPassportAsAmbassador } from '@/api/veri
 import Container from '@/components/Container/Container.vue'
 import Avatar from '@/components/Avatar/Avatar.vue'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
-import { REGION_IDS } from '@/consts'
+import { HTTP_RESPONSE, REGION_IDS } from '@/consts'
 import RequiredMessageModal from '@/components/Modals/RequiredMessageModal.vue'
 import { PASSPORT_FILTER_OPTIONS, VERIFIED_FILTER_OPTIONS, useUserStore } from '@/stores/user'
 import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
@@ -862,8 +862,13 @@ export default {
         if (index >= 0) {
           regionStore.memberList.splice(index, 1)
         }
-      } catch (e) {
-        pulseError(i18n('error_unexpected'))
+      } catch (err) {
+        if (err.code && err.code === HTTP_RESPONSE.CONFLICT) {
+          pulseError(this.$t('region.conflict_store_member_or_manager_other'))
+        } else {
+          pulseError(this.$t('error_unexpected'))
+          throw err
+        }
       }
       this.isBusy = false
       hideLoader()

@@ -403,10 +403,19 @@ class StoreTransactions
             $store->name = $storeChange->name;
         }
 
-        if (!empty($storeChange->regionId)) {
+        if (!empty($storeChange->regionId) && $storeChange->regionId !== $store->region->id) {
             if (!$this->regionGateway->getRegion($storeChange->regionId)) {
                 throw new StoreTransactionException(StoreTransactionException::INVALID_REGION);
             }
+            // Prevent moving a store to another region when there are team
+            // members who are not members of the target region.
+            $missingMembers = $this->storeGateway->getStoreTeamMembersNotInRegion($store->id, $storeChange->regionId);
+            if (count($missingMembers) > 0) {
+                $missingMemberNames = array_map(fn ($member) => $member['name'] . ' (ID: ' . $member['id'] . ')', $missingMembers);
+                $message = $this->translator->trans('store.members_not_in_target_region', ['{names}' => implode(', ', $missingMemberNames)]);
+                throw new StoreTransactionException($message);
+            }
+
             $changeInformation->informationChanged = true;
             $store->region = new MinimalRegionIdentifier($storeChange->regionId);
         }

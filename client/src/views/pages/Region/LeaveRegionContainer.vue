@@ -83,7 +83,7 @@ export default {
         location.href = this.$url('relogin_and_redirect_to_url', redirectLocation)
       } catch (err) {
         if (err.code && err.code === HTTP_RESPONSE.CONFLICT) {
-          pulseError(this.$t('region.store_managers_cannot_leave'))
+          pulseError(this.$t('region.conflict_store_member_or_manager_self'))
         } else {
           pulseError(this.$t('error_unexpected'))
           throw err

@@ -398,6 +398,10 @@ settings:
       cancel: "Cancel"
       delete: "Delete"
 
+  # Store related translations
+  store:
+    members_not_in_target_region: 'There are team members which are not part of the target region: {names}'
+
     # Passkey Rename Modal
     rename_modal:
       title: "Rename Security Key"

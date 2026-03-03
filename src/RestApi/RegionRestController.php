@@ -125,20 +125,22 @@ class RegionRestController extends AbstractFoodsharingRestController
         return $this->respondOK();
     }
 
-    #[OA\Post(summary: 'Removes the current user from a region.')]
+    #[OA\Delete(summary: 'Removes the current user from a region.')]
     #[Route('regions/{regionId}/users/current', methods: ['DELETE'], requirements: ['regionId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
-    #[OA\Response(response: Response::HTTP_CONFLICT, description: 'Still an active store manager in that region')]
+    #[OA\Response(response: Response::HTTP_CONFLICT, description: 'Still a store member in that region')]
     public function leaveRegion(int $regionId): Response
     {
         $this->assertLoggedIn();
         $this->assertRegionExists($regionId);
 
-        if (in_array($this->session->id(), $this->storeGateway->getStoreManagersOf($regionId))) {
-            throw new ConflictHttpException('Still an active store manager in that region');
+        $userId = $this->session->id();
+        $storeMembership = $this->storeGateway->isStoreMemberInRegion($userId, $regionId);
+        if (count($storeMembership) > 0) {
+            $ids = implode(', ', $storeMembership);
+            throw new ConflictHttpException('still a store member in that region (store IDs: ' . $ids . ')');
         }
 
-        $userId = $this->session->id();
         $this->eventGateway->deleteInvitesForFoodSaver($regionId, $userId);
         $this->foodsaverGateway->deleteFromRegion($regionId, $userId, $userId);
 
@@ -268,6 +270,7 @@ class RegionRestController extends AbstractFoodsharingRestController
     )]
     #[Route('regions/{regionId}/users/{userId}', methods: ['DELETE'], requirements: ['regionId' => Requirement::POSITIVE_INT, 'userId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_CONFLICT, description: 'User is still a store member in that region')]
     public function removeMember(int $regionId, int $userId): Response
     {
         $this->assertLoggedIn();
@@ -283,6 +286,15 @@ class RegionRestController extends AbstractFoodsharingRestController
             if (!$this->regionPermissions->mayDeleteFoodsaverFromRegion($regionId)) {
                 throw new AccessDeniedHttpException('Not permitted');
             }
+
+            // Disallow removing users which are still store members in that
+            // region
+            $storeMembership = $this->storeGateway->isStoreMemberInRegion($userId, $regionId);
+            if (count($storeMembership) > 0) {
+                $ids = implode(', ', $storeMembership);
+                throw new ConflictHttpException('user is still a store member in that region (store IDs: ' . $ids . ')');
+            }
+
             $this->foodsaverGateway->deleteFromRegion($regionId, $userId, $this->session->id());
         }
 

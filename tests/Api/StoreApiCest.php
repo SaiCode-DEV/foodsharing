@@ -850,8 +850,21 @@ class StoreApiCest
             $example['dbField'] => $this->store[$example['dbField']]]);
     }
 
-    public function patchRegionAsStoreManagerOfRegions(ApiTester $I): void
+    public function cannotPatchRegionAsStoreManagerOfRegionsIfMembersAreNotPartOfNewRegion(ApiTester $I): void
     {
+        $I->login($this->manager[self::EMAIL]);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['regionId' => $this->nextRegion['id']]);
+        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+
+        $I->seeInDatabase('fs_betrieb', [
+            'id' => $this->store[self::ID],
+            'bezirk_id' => $this->region['id']]);
+    }
+
+    public function canPatchRegionAsStoreManagerOfRegionsIfMembersArePartOfNewRegion(ApiTester $I): void
+    {
+        $I->addRegionMember($this->nextRegion['id'], $this->teamMember[self::ID]);
         $I->login($this->manager[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/details', ['regionId' => $this->nextRegion['id']]);

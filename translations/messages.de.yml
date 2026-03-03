@@ -1049,6 +1049,7 @@ store:
     reloadRequired: "Zum Aktualisieren der Team-Infos:"
     reloadPage: "Neu laden"
     searchPlaceholder: "Name oder ID"
+  members_not_in_target_region: 'Es gibt Teammitglieder, die nicht Teil der Zielregion sind: {names}'
 
   request:
     request: "Für dieses Team bewerben"
@@ -3129,7 +3130,8 @@ push_notifications:
 region:
   change: "Bezirk ändern"
   no-huge: "Sorry, du kannst ein Land oder ein Bundesland nicht als Region auswählen."
-  store_managers_cannot_leave: "Du kannst den Bezirk nicht verlassen, da du dort noch für mindestens einen Betrieb verantwortlich bist."
+  conflict_store_member_or_manager_self: "Du kannst den Bezirk nicht verlassen, da du dort noch in mindestens einem Betrieb Mitglied bist."
+  conflict_store_member_or_manager_other: "Du kannst diese Person nicht aus dem Bezirk entfernen, da sie dort noch in mindestens einem Betrieb Mitglied ist."
   not-existant: "Dieser Bezirk oder diese Arbeitsgruppe existiert nicht mehr."
   restricted: "Du hast leider keine Berechtigung, diese Daten einzusehen."
   forum-redirect: "Für Regionen gibt es keine Pinnwand. Du wurdest zum Forum weitergeleitet."

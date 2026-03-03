@@ -1,3 +1,4 @@
+import { HTTP_RESPONSE } from '@/consts'
 import { get, patch, post, remove } from './base'
 
 export async function getStoreMetadata (version, hasChains) {
@@ -15,7 +16,7 @@ export async function getStoreInformation (storeId) {
 }
 
 export async function updateStore (store) {
-  await patch(`/stores/${store.id}/details`, store)
+  await patch(`/stores/${store.id}/details`, store, { skipErrorNotificationFor: [HTTP_RESPONSE.BAD_REQUEST] })
 }
 
 function normalizeStoreWallPost (post) {

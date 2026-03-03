@@ -643,6 +643,40 @@ class StoreGateway extends BaseGateway
         ", $params);
     }
 
+    /**
+     * Returns the store team members that are not members of the target region.
+     *
+     * @param int $storeId the store for which to check the team members
+     * @param int $regionId the target region to check the team members against
+     * @return array an array of team members that are not part of the target
+     * region, each entry contains the id and name of the foodsaver or an empty
+     * array if all team members are part of the target region
+     */
+    public function getStoreTeamMembersNotInRegion(int $storeId, int $regionId): array
+    {
+        return $this->db->fetchAll('
+            SELECT fs.id AS id,
+                   fs.name AS name,
+                   fs.nachname AS nachname
+            FROM `fs_betrieb_team` bt
+            INNER JOIN `fs_foodsaver` fs
+                ON fs.id = bt.foodsaver_id
+            WHERE bt.betrieb_id = :storeId
+                AND NOT EXISTS (
+                    SELECT 1 FROM `fs_foodsaver_has_bezirk` hb
+                    WHERE hb.foodsaver_id = fs.id
+                      AND hb.bezirk_id = :regionId
+                      AND hb.active = 1
+                )
+                AND bt.active IN (:member, :jumper)
+        ', [
+            ':storeId' => $storeId,
+            ':regionId' => $regionId,
+            ':member' => MembershipStatus::MEMBER,
+            ':jumper' => MembershipStatus::JUMPER
+        ]);
+    }
+
     public function isStoreTeamMemberOfStoreChainStore(int $fsId): bool
     {
         return $this->db->fetch('
@@ -793,6 +827,33 @@ class StoreGateway extends BaseGateway
             AND     fs.deleted_at IS NULL
         ', [
             ':regionId' => $regionId
+        ]);
+    }
+
+    /**
+     * Checks whether the given user is a member of any store in the given region.
+     *
+     * @param int $userId User ID to check
+     * @param int $regionId Region to check
+     *
+     * @return array Returns store IDs as an array (or empty array if the user
+     * is not a member of any store in the region)
+     */
+    public function isStoreMemberInRegion(int $userId, int $regionId): array
+    {
+        return $this->db->fetchAllValues('
+            SELECT bt.betrieb_id
+            FROM    `fs_bezirk_closure` c
+            INNER JOIN `fs_betrieb` b
+            ON c.bezirk_id = b.bezirk_id
+            INNER JOIN `fs_betrieb_team` bt
+            ON bt.betrieb_id = b.id
+
+            WHERE   c.ancestor_id = :regionId
+            AND     bt.foodsaver_id = :foodsaverId
+        ', [
+            ':regionId' => $regionId,
+            ':foodsaverId' => $userId
         ]);
     }
 

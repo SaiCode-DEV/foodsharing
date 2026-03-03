@@ -1,3 +1,4 @@
+import { HTTP_RESPONSE } from '@/consts'
 import { get, patch, post, put, remove } from './base'
 
 export function joinRegion (regionId) {
@@ -5,7 +6,7 @@ export function joinRegion (regionId) {
 }
 
 export function leaveRegion (regionId) {
-  return remove(`/regions/${regionId}/users/current`)
+  return remove(`/regions/${regionId}/users/current`, {}, { skipErrorNotificationFor: [HTTP_RESPONSE.CONFLICT] })
 }
 
 export function setRegionOptions (regionId, isReportButtonEnabled, isMediationButtonEnabled, isRegionPickupRuleActive, regionPickupRuleTimespanDays, regionPickupRuleLimitNumber, regionPickupRuleLimitDayNumber, regionPickupRuleInactiveHours, selectedReportReasonOptions, isReportReasonOtherEnabled, isAddressChangeNotificationEnabled) {
@@ -48,7 +49,7 @@ export async function listRegionStores (regionId) {
 }
 
 export function removeMember (regionId, userId) {
-  return remove(`/regions/${regionId}/users/${userId}`)
+  return remove(`/regions/${regionId}/users/${userId}`, {}, { skipErrorNotificationFor: [HTTP_RESPONSE.CONFLICT] })
 }
 
 export function removeAdminOrAmbassador (regionId, userId) {

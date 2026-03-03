@@ -139,7 +139,7 @@ class RegionApiCest
         $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
     }
 
-    public function canNotLeaveRegionIfActiveStoreManager(ApiTester $I): void
+    public function canNotLeaveRegionIfStoreManager(ApiTester $I): void
     {
         $store = $I->createStore($this->region['id']);
         $coordinator = $I->createStoreCoordinator();
@@ -147,6 +147,26 @@ class RegionApiCest
         $I->addStoreTeam($store['id'], $coordinator['id'], true, false, true);
 
         $I->login($coordinator['email']);
+        $I->sendDelete('api/regions/' . $this->region['id'] . '/users/current');
+        $I->seeResponseCodeIs(HttpCode::CONFLICT);
+    }
+
+    public function canNotLeaveRegionIfStoreMember(ApiTester $I): void
+    {
+        $store = $I->createStore($this->region['id']);
+        $I->addStoreTeam($store['id'], $this->user['id'], false, false, true);
+
+        $I->login($this->user['email']);
+        $I->sendDelete('api/regions/' . $this->region['id'] . '/users/current');
+        $I->seeResponseCodeIs(HttpCode::CONFLICT);
+    }
+
+    public function canNotLeaveRegionIfStoreJumper(ApiTester $I): void
+    {
+        $store = $I->createStore($this->region['id']);
+        $I->addStoreTeam($store['id'], $this->user['id'], false, true, true);
+
+        $I->login($this->user['email']);
         $I->sendDelete('api/regions/' . $this->region['id'] . '/users/current');
         $I->seeResponseCodeIs(HttpCode::CONFLICT);
     }
