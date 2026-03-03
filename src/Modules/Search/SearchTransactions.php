@@ -121,7 +121,7 @@ class SearchTransactions
      */
     public function searchThreads(string $query, int $regionId = 0, int $subforumId = 0, bool $searchBody = false): array
     {
-        if ($searchBody && $this->featureToggleChecker->isFeatureToggleActive(FeatureToggleDefinitions::FORUM_FULL_TEXT_SEARCH->value)) {
+        if ($searchBody && !$this->featureToggleChecker->isFeatureToggleActive(FeatureToggleDefinitions::FORUM_FULL_TEXT_SEARCH->value)) {
             $searchBody = false;
         }
         $disableRegionCheck = $this->forumPermissions->maySearchEveryForum();
