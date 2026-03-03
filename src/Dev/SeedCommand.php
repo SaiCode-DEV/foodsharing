@@ -14,6 +14,7 @@ use Foodsharing\Modules\Core\DBConstants\Store\StoreLogAction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DBConstants\Voting\VotingScope;
 use Foodsharing\Modules\Core\DBConstants\Voting\VotingType;
+use Foodsharing\Modules\Development\FeatureToggles\Enums\FeatureToggleDefinitions;
 use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -937,7 +938,10 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
      */
     private function activeFeatureToggles(): void
     {
-        $features = ['hygieneQuiz'];
+        $features = [
+            FeatureToggleDefinitions::HYGIENE_QUIZ->value,
+            FeatureToggleDefinitions::FORUM_FULL_TEXT_SEARCH->value
+        ];
         foreach ($features as $feature) {
             $this->output->writeln(' - ' . $feature);
             $this->helper->activateFeatureToggle($feature);

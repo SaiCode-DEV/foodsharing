@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Api;
 
 use Codeception\Util\HttpCode;
+use Foodsharing\Modules\Development\FeatureToggles\Enums\FeatureToggleDefinitions;
 use Tests\Support\ApiTester;
 
 /**
@@ -19,6 +20,7 @@ class ForumSearchCest
 
     public function _before(ApiTester $I): void
     {
+        $I->activateFeatureToggle(FeatureToggleDefinitions::FORUM_FULL_TEXT_SEARCH->value);
         $this->region = $I->createRegion();
         $this->user = $I->createFoodsaver(null, ['bezirk_id' => $this->region['id']]);
         $I->addRegionMember($this->region['id'], $this->user['id']);
