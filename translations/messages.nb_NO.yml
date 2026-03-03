@@ -388,8 +388,6 @@ region:
     inneholder underregioner, selskaper eller matdelingsskap.
   change: Endre distrikt
   edit: Redigere distriktet
-  store_managers_cannot_leave: Du kan ikke forlate distriktet da du fortsatt har
-    ansvar for minst ett selskap der.
   bread: Administrere distrikter
   noParent: Uten foreldredistrikter
   confirm:

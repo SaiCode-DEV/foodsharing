@@ -2107,7 +2107,6 @@ region:
   forum-redirect: ''
   none: ''
   save: ''
-  store_managers_cannot_leave: ''
   noParent: ''
   denied:
     group_in_this_group: ''

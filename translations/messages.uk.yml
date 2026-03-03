@@ -2641,7 +2641,6 @@ region:
   createNew: ''
   parent: ''
   restricted: ''
-  store_managers_cannot_leave: ''
   master: ''
   save: ''
   mail:

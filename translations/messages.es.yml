@@ -3420,8 +3420,6 @@ region:
   change: 'Cambiar distrito'
   noParent: 'Sin distrito principal'
   new: 'Nuevo distrito'
-  store_managers_cannot_leave: 'No puedes abandonar el distrito porque todavía eres
-    responsable de al menos una cooperación allí.'
   mail:
     name-info: '¡Cuidado, no lo cambies arbitrariamente! Asegúrese también de que
       esta dirección aún no exista en “Administrar buzones de correo”.'

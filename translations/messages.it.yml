@@ -3312,8 +3312,6 @@ region:
   forum-redirect: Non c'è una bacheca per le regioni. Sei stato reindirizzato al
     forum.
   restricted: Non hai il permesso di visualizzare questi dati.
-  store_managers_cannot_leave: Non puoi lasciare il distretto perché sei ancora 
-    responsabile di almeno un'operazione lì.
   no-huge: Spiacente, non puoi selezionare un paese o uno stato come regione.
   change: Cambiare distretto
   name: Nome

@@ -399,38 +399,6 @@ settings:
       delete: "Delete"
 
   # Store related translations
-  store:
-    members_not_in_target_region: 'There are team members which are not part of the target region: {names}'
-
-    # Passkey Rename Modal
-    rename_modal:
-      title: "Rename Security Key"
-      new_name_label: "New name"
-      new_name_placeholder: "New device name"
-      cancel: "Cancel"
-      save: "Save"
-
-    # Success messages
-    passkey_registered: "Security key successfully registered"
-    passkey_deleted: "Security key successfully deleted"
-    passkey_renamed: "Security key successfully renamed"
-
-    # Errors
-    error:
-      operation_cancelled: "Operation cancelled or timeout"
-      authenticator_already_registered: "This authenticator is already registered"
-      webauthn_not_supported: "WebAuthn is not supported in this browser"
-      operation_aborted: "Operation was aborted"
-      registration_failed: "Security key registration failed: {error}"
-      deletion_failed: "Could not delete security key"
-      rename_failed: "Could not rename security key"
-      name_required: "Please enter a name"
-
-  # 2FA Management
-    security_keys: Security keys (passkeys)
-    security_keys_description: Security keys enable secure, password-free login 
-      with your device.
-    device_name_placeholder: e. g. iPhone, YubiKey, laptop
   two_fa_manage:
     title: "Two-Factor Authentication"
     intro: "Here you can change the settings for two-factor authentication."
@@ -2077,8 +2045,6 @@ region:
   forum-redirect: For regions, there is no pinboard. You have been redirected to
     the forum.
   restricted: Unfortunately, you are not authorised to view this data.
-  store_managers_cannot_leave: You cannot leave the district as you are still 
-    Store Coordinator for one or more stores here.
   no-huge: Sorry, you cannot select a country or state as a region.
   change: Change district
   root: None (root)

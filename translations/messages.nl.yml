@@ -1496,7 +1496,6 @@ region:
   edit_success: ''
   no-huge: ''
   delete: ''
-  store_managers_cannot_leave: ''
   restricted: ''
   edit: ''
   forum-redirect: ''

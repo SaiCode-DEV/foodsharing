@@ -3570,8 +3570,6 @@ region:
     locais ou cantinhos alimentares.'
   edit_success: 'O distrito foi guardado.'
   restricted: 'Infelizmente, não tens autorização para visualizar esses dados.'
-  store_managers_cannot_leave: 'Não podes sair do distrito, pois ainda és responsável
-    por pelo menos um local lá.'
   save: 'Sim, salvar'
   mail:
     name-info: 'Atenção, não alteres arbitrariamente! Certifica-te também de que esta

@@ -2674,7 +2674,6 @@ region:
     name-info: ''
   cancel: ''
   edit_success: ''
-  store_managers_cannot_leave: ''
   delete: ''
   save: ''
   bread: ''

@@ -2250,7 +2250,6 @@ region:
   mail:
     sender: ''
     name-info: ''
-  store_managers_cannot_leave: ''
   forum-redirect: ''
   edit_success: ''
   change: ''

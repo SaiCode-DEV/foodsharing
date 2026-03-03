@@ -1648,8 +1648,6 @@ region:
   delete: Bölgeyi/İlçeyi sil
   none: Henüz bir Bölge seçilmedi
   edit_success: Bölge/Semt kaydedildi.
-  store_managers_cannot_leave: Bölgeden ayrılamazsınız çünkü oradaki en az bir 
-    şirketten hala sorumlusunuz.
   created: '{region} oluşturuldu'
   still_contains_elements: Hala alt bölgeler, alt bölgeler/semtler, işletmeler 
     veya gıda dağıtım noktaları içerdiğinden bölge silinemez.

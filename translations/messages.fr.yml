@@ -3479,8 +3479,6 @@ region:
   edit: modifier le secteur géographique
   new: nouveau secteur géographique
   bread: gérer le secteur géographique
-  store_managers_cannot_leave: Tu ne peux pas quitter ce district car tu es 
-    responsable d’au moins une coopération.
   no-huge: Tu ne peux pas choisir un pays ou un département comme secteur 
     géographique, désolé.
   change: changer de secteur géographique
