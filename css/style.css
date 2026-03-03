@@ -922,6 +922,9 @@ ul.bread li:before {
 
 ul.bread li.last {
   color: unset;
+  min-width: 5em;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
 }
 
 ul.bread li {

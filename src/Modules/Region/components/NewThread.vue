@@ -21,14 +21,14 @@
       />
 
       <div class="row mt-3">
-        <div v-if="!isModerated" class="col">
+        <div v-if="!isModerated" class="col d-flex align-items-center py-1">
           <input
             id="send_mail_button"
             v-model="sendMail"
             class="mr-2"
             type="checkbox"
           >
-          <label for="send_mail_button">{{ $t('forum.thread.delivery_mail') }}</label>
+          <label for="send_mail_button" class="mb-0">{{ $t('forum.thread.delivery_mail') }}</label>
         </div>
         <div class="col-auto">
           <button

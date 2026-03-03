@@ -3,8 +3,8 @@
     :class="{disabledLoading: isLoading}"
     class="bootstrap"
   >
-    <div class="rounded text-white bg-primary p-2">
-      <h4 :class="{'text-truncate': title.length > 150}">
+    <div class="d-flex rounded text-white bg-primary p-2">
+      <h4 class="flex-grow-1 wrap-before-overflow" :class="{'text-truncate': title.length > 150}">
         <b-skeleton v-if="isLoading" />
         <i
           v-if="stickiness < 0"
@@ -22,12 +22,11 @@
           :title="$t('forum.thread.sticky')"
         />
         {{ title }}
-
-        <OverflowMenu
-          variant="light"
-          :options="overflowMenuOptions"
-        />
       </h4>
+      <OverflowMenu
+        variant="light"
+        :options="overflowMenuOptions"
+      />
     </div>
 
     <SubscribeButton
@@ -529,5 +528,9 @@ export default {
 
 .text-strike {
   text-decoration: line-through;
+}
+
+.wrap-before-overflow {
+  overflow-wrap: anywhere;
 }
 </style>
