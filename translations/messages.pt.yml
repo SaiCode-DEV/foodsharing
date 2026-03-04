@@ -363,6 +363,8 @@ store:
   my_last_slot: A minha última vaga
   chain_has_kams: 'Responsável para esta cadeia:'
   part_of_chain: 'Faz parte da cadeia:'
+  members_not_in_target_region: 'Há membros da equipa que não fazem parte da região-alvo:
+    {names}'
 navigation:
   profil: 👋 Olá {name}!
   conversations: 'Mensagens'
@@ -3654,6 +3656,10 @@ region:
     subgroup_in: «{name}» é um subgrupo do grupo «{parent}».
     group_in_this_region: «{name}» é um grupo deste distrito.
     group_in_this_group: «{name}» é um subgrupo deste distrito.
+  conflict_store_member_or_manager_self: Não podes sair do distrito porque ainda
+    és membro de pelo menos um local nesse distrito.
+  conflict_store_member_or_manager_other: Não é possível remover essa pessoa do 
+    distrito, pois ela ainda é membro de pelo menos um local.
 upload:
   new_image: 'Carregar novo imagem'
   no_image: 'O ficheiro carregado não é uma fotografia. Por favor, selecione outro

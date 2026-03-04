@@ -965,7 +965,8 @@ login:
   2fa: 'Uwierzytelnianie dwuskładnikowe (2FA)'
   passkey_btn: 'Zaloguj się przez klucz dostępu'
   passkey_cancelled: ''
-  passkey_not_found: ''
+  passkey_not_found: 'Na tym urządzeniu nie ma dostępnego klucza dostępu dla tego
+    konta.'
 register:
   topbar: dołącz
   title: rejestracja
@@ -1090,12 +1091,12 @@ terminology:
   subgroups: Podgrupy
   hygiene_training: Szkolenie higieny
   group: zespół
-  reportAdmins: ''
+  reportAdmins: 'Team rozpatrujący skargi'
   storemanager:
     m: ''
     d: ''
     f: ''
-  mediationAdmins: ''
+  mediationAdmins: 'Team mediacji'
   giving: ''
   baskets: ''
   homeRegion: ''
@@ -1121,7 +1122,7 @@ terminology:
   fspAdmins: 'Team jadłodzielni'
   welcomeAdmins: ''
   groups: 'Zespoły'
-  moderationAdmins: ''
+  moderationAdmins: 'Team moderacji'
   community: ''
   n_home_regions: ''
   arbitrationAdmins: ''
@@ -1149,7 +1150,7 @@ resource_mosaic:
     own: Moje inne zasoby
     similar: Podobne zasoby
     commons: ''
-    new: ''
+    new: 'Wszystkie nowe zasoby w tym rejonie'
   commons_resources_in: ''
   editModal:
     openness: ''
@@ -1162,11 +1163,12 @@ resource_mosaic:
     name:
       placeholder: 'Zasób ...'
       label: 'Nazwa zasobu'
-      max_length: ''
+      max_length: 'Osiągnięto maksymalną długość. W opisie możesz podać wszystkie
+        dalsze szczegóły.'
     categories:
       placeholder: 'Wybierz kategorię ...'
       label: 'Kategorie'
-    is_restricted_to_region: ''
+    is_restricted_to_region: 'Ogranicz do rejonu lub zespołu'
     is_private: 'Pokaż tylko znajomym'
     description:
       placeholder: ''
@@ -1229,11 +1231,14 @@ required_messages:
     footer: Pozdrawiam
     really: ''
     main: ''
-  placeholder: ''
+  placeholder: 'Opcjonalnie dodaj informacje tutaj…'
   verify:
     main: 'Zweryfikowaliśmy cię jako foodsavera/kę!'
-    really_multiple: ''
-    really: ''
+    really_multiple: 'Na pewno chcesz zweryfikować {count} użytkowników/czek? Upewnij
+      się, że wszystkie/ich {count} osoby/osób spełnia/ją wszystkie [warunki dla zweryfikowanych
+      foodsaverów] (https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver).'
+    really: 'Na pewno chcesz zweryfikować {name}? Upewnij się, że {name} spełnia wszystkie
+      [warunki dla zweryfikowanych foodsaverów] (https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver).'
     footer: 'Pozdrawiamy, twoi ambasadorzy/ki'
   sure_title: 'Jesteś pewny/a?'
   message_info: '{name} otrzyma następującą wiadomość:'
@@ -3595,7 +3600,7 @@ oauth:
     active: 'Aktywny'
     type: 'Typ'
     update_success: 'Pomyślnie zaktualizowano klienta'
-    regions: ''
+    regions: 'Rejony'
     delete_error: 'Błąd przy usuwaniu'
     redirect_uris_help: ''
     confirm_delete: 'Usunąć klienta?'
@@ -3606,7 +3611,7 @@ oauth:
     redirect_uris: ''
     grant_types: ''
     required_regions_help: ''
-    required_regions: ''
+    required_regions: 'Wymagane rejony'
     name: 'Nazwa'
     confidential: 'Poufny'
     delete_warning: 'Czy na pewno chcesz usunąć klienta ''{name}''? Tej akcji nie
@@ -4059,7 +4064,8 @@ markdown_input:
   empty_preview_placeholder: ''
 feedback:
   error:
-    screenshot: ''
+    screenshot: 'Automatyczne wykonanie zrzutu ekranu nie powiodło się. Możesz jednak
+      ręcznie dodać obraz do twojego feedbacku.'
     invalid_file: 'Nieprawidłowy format pliku, załaduj tylko obrazy.'
     message_short: 'Twoja wiadomość jest za krótka. Podaj więcej informacji.'
     no_sentry: 'Wystąpił błąd przy wysyłaniu feedbacku. Spróbuj ponownie później.'

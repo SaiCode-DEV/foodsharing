@@ -399,6 +399,10 @@ settings:
       delete: "Delete"
 
   # Store related translations
+    security_keys: Security keys (passkeys)
+    security_keys_description: Security keys enable secure, passwordless login 
+      with your device.
+    device_name_placeholder: e. g. iPhone, YubiKey, Laptop
   two_fa_manage:
     title: "Two-Factor Authentication"
     intro: "Here you can change the settings for two-factor authentication."
