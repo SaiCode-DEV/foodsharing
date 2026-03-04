@@ -150,8 +150,8 @@
             :value="v$.description.$model"
             :state="v$.description.$error ? false : null"
             :placeholder="$t('poll.new_poll.description_placeholder')"
-            :draft-storage-id="'poll-description-' + region.id"
-            :region-id="region && region.id"
+            :draft-storage-id="'poll-description-' + pollRegionId"
+            :region-id="pollRegionId"
             @update:value="newValue => v$.description.$model = newValue"
           />
           <div
@@ -389,6 +389,9 @@ export default {
       // In edit mode, type might be undefined; fall back to stored poll.type
       const t = (this.poll && this.poll.type !== undefined) ? this.poll.type : this.type
       return (t === VOTING_TYPE.THUMB_VOTING || t === VOTING_TYPE.SCORE_VOTING) ? 1 : 2
+    },
+    pollRegionId () {
+      return this.poll?.regionId ?? this.region?.id
     },
   },
   watch: {

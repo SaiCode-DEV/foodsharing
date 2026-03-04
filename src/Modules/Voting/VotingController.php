@@ -44,7 +44,7 @@ class VotingController extends FoodsharingController
 
                 if (isset($sub) && $sub === 'edit') {
                     if ($this->votingPermissions->mayEditPoll($poll)) {
-                        $this->pageHelper->addContent($this->prepareVueComponent('edit-poll-form', 'editPollForm', [
+                        $this->pageHelper->addContent($this->prepareVueComponent('new-poll-form', 'NewPollForm', [
                             'poll' => $poll,
                         ]));
                     } else {
@@ -60,7 +60,7 @@ class VotingController extends FoodsharingController
                         $voteDateTime = null;
                     }
                     $mayEdit = $this->votingPermissions->mayEditPoll($poll);
-                    $this->pageHelper->addContent($this->prepareVueComponent('poll-overview', 'pollOverview', [
+                    $this->pageHelper->addContent($this->prepareVueComponent('poll-overview', 'PollOverview', [
                         'poll' => $poll,
                         'regionId' => $region['id'],
                         'regionName' => $region['name'],
@@ -79,7 +79,7 @@ class VotingController extends FoodsharingController
 
                 $usersPerScope = $this->votingTransactions->getScopeCounts($region['id'], UnitType::isGroup($region['type']));
 
-                $this->pageHelper->addContent($this->prepareVueComponent('new-poll-form', 'newPollForm', [
+                $this->pageHelper->addContent($this->prepareVueComponent('new-poll-form', 'NewPollForm', [
                     'region' => $region,
                     'isWorkGroup' => UnitType::isGroup($region['type']),
                     'usersPerScope' => $usersPerScope,
