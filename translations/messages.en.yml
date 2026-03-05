@@ -403,6 +403,24 @@ settings:
     security_keys_description: Security keys enable secure, passwordless login 
       with your device.
     device_name_placeholder: e. g. iPhone, YubiKey, Laptop
+    rename_modal:
+      title: Rename security key
+      new_name_label: New name
+      new_name_placeholder: New device name
+      cancel: Cancel
+      save: Save
+    passkey_registered: Security key registered successfully
+    passkey_deleted: Security key deleted successfully
+    passkey_renamed: Security key successfully renamed
+    error:
+      operation_cancelled: Operation cancelled or timeout
+      authenticator_already_registered: This authenticator is already registered
+      webauthn_not_supported: WebAuthn is not supported in this browser
+      operation_aborted: Process has been cancelled
+      registration_failed: 'Security key registration failed: {error}'
+      deletion_failed: Security key could not be deleted
+      rename_failed: Security key could not be renamed
+      name_required: Please enter a name
   two_fa_manage:
     title: "Two-Factor Authentication"
     intro: "Here you can change the settings for two-factor authentication."
@@ -2119,6 +2137,11 @@ region:
     group_in_this_region: “{name}” is a group of this district.
     group_in_this_group: “{name}” is a subgroup of this group.
   not-existant: This district or working group no longer exists.
+  conflict_store_member_or_manager_self: You are unable to leave the district 
+    because you are still a member of at least one store-team there.
+  conflict_store_member_or_manager_other: You are unable to remove this person 
+    from the district because he/she is still a member of at least one 
+    store-team there.
 storelist:
   others: More stores in {region}
   region: Region
@@ -2785,6 +2808,8 @@ store:
   my_last_slot: My last activity
   chain_has_kams: 'Responsible for the chain:'
   part_of_chain: 'Part of the chain:'
+  members_not_in_target_region: 'There are team members who are not part of the target
+    region: {names}'
 navi:
   google_maps: "Google Maps"
   waze: "Waze"

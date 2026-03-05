@@ -566,7 +566,7 @@ settings:
     invalid: 'Z podanym adresem email coś się nie zgadza'
     not_changed: 'Twój adres email nie został zmieniony.'
     sent_other_user: ''
-    dashboard_link: ''
+    dashboard_link: 'Dalej do panelu głównego'
     explanation: ''
     explanation_other_user: ''
     domain: 'Użyj innego adresu email, aby zawsze mieć możliwość odzyskania hasła.'
@@ -2634,7 +2634,7 @@ profile:
     home_region_from: ''
     kam_for: ''
     orga_rights: ''
-    foodSaver_in_region: ''
+    foodSaver_in_region: 'dołączył/a do rejonów'
   mail_bounce:
     warning_1: Twój osobisty adres email {email} jest zablokowany dla maili i 
       komunikacji z foodsharingu. Przez
@@ -2661,7 +2661,7 @@ profile:
     basketsSharedWeek: ''
     weekDesc: ''
     eventsCreatedWeek: 'Dzięki za utworzenie eventów {count} raz/y w tym tygodniu.'
-    districtName: ''
+    districtName: 'rejon'
     calenderWeek: ''
     basketsOfferedWeek: ''
   banana:
@@ -2704,7 +2704,7 @@ profile:
     verificationHistory: Historia weryfikacji
     notes: Notatki
     quizSessionHistory: ''
-    violations: ''
+    violations: 'Skargi'
     storelist: ''
   history:
     noActor: nieznany
@@ -2738,14 +2738,14 @@ profile:
     slots: 'sloty'
     engagement_count: ''
     fetch_count: ''
-    posts: ''
+    posts: 'posty/ów'
   about_me_intern: O mnie
   public:
     who: '{name} z {from}'
     mayNot: nieaktywny/a
     cta: 'Pełny profil {name} jest dostępny po rejestracji:'
     join: ''
-    login: ''
+    login: 'Do loginu'
     textMay: ''
     textMayNot: ''
     may: 'aktywny/a'
@@ -2777,7 +2777,7 @@ profile:
     info: ''
     report_b3_0: ''
     report_b8: ''
-    title: ''
+    title: 'Skarga dotycząca {name}'
     report_b1_1: ''
     mail:
       reportGroup: ''
@@ -2816,7 +2816,7 @@ profile:
     profile: 'Profil'
   homeDistrictHistory:
     previous: 'wcześniej'
-    changed: ''
+    changed: 'wprowadzony'
     by: 'od'
   pinboard: ''
   choosereasonnostore: ''
@@ -2824,7 +2824,7 @@ profile:
   mediationRequest: ''
   go: 'Przejdź do profilu'
   sleeping: ''
-  reportRequest: ''
+  reportRequest: 'Wyślij skargę'
   editNameInfo: ''
   cantdeletethis: ''
   chooseantherstore: ''

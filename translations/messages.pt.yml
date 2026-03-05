@@ -489,7 +489,7 @@ bell:
     many: '{count} novos comentários'
   foodsaver_adress_changed_title: '{name} alterou a morada'
   foodsaver_adress_changed: Em caso de alterações frequentes, verifique.
-  passport_created_or_renewed_title: O teu cartão do membro …
+  passport_created_or_renewed_title: O teu cartão de membro …
   passport_created_or_renewed: foi ativado ou prolongado!
   workinggroup_new_request: Nova aplicação para um grupo de trabalho
   internal_email_changed_title: '{address}'
@@ -2023,7 +2023,7 @@ fsp:
   noManager: 'Deve haver pelo menos uma pessoa responsável por este cantinho alimentar.'
   street: 'Morada'
   editSuccess: 'Cantinho alimentar foi editado com sucesso'
-  summary: 'Há {count} cantinho(s) alimentar(es) em todos os distritos onde está ativo'
+  summary: 'Há {count} cantinhos alimentares em todos os distritos onde está ativo'
   acceptName: 'desbloquear {name}'
   follow: 'Siga este cantinho alimentar'
   none: 'Ainda não há cantinhos alimentares registados'
@@ -2035,9 +2035,9 @@ fsp:
   inRegion: 'Tudos os cantinhos alimentares no {region}'
   delete: 'Excluir cantinho alimentar'
   addedBy: 'Adicionado por'
-  summaryRegion: 'Há {count} cantinho(s) alimentar(es) em {region} e todos subdistritos'
+  summaryRegion: 'Há {count} cantinhos alimentares em {region} e todos subdistritos'
   twig:
-    n_in_region: '{count} cantinho(s) alimentar(es) em {name}'
+    n_in_region: '{count} cantinhos alimentares em {name}'
   publicwall: 'Tenha em atenção que as tuas publicações no mural do cantinho alimentar
     são visíveis publicamente.'
   suggestSuccess: 'O cantinho alimentar foi proposto e está agora a ser revisto pelo
