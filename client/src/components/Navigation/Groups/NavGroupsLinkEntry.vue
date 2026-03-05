@@ -5,8 +5,8 @@
       :key="key"
       :href="formatLink(menu)"
       role="menuitem"
-      class="dropdown-item dropdown-action"
-      @click="onClick(menu)"
+      class="dropdown-item dropdown-action pointer-always"
+      @click="onClick(menu, $event)"
     >
       <i class="icon-subnav fas" :class="menu.icon" />
       {{ menu.text }}
@@ -108,22 +108,26 @@ export default {
   },
   methods: {
     formatLink (menu) {
-      if (!this.isLinkingSubpages && menu.subPage) {
-        /* Changing the sub page in Vue is only possible in the side menu, not in the dropdown or on the public region
-         page */
-        return '#'
-      }
       const id = menu.linkId ?? this.entry.id
-      return menu.href ? this.$url(menu.href, id, menu.special) : '#'
+      // If the entry has no href, we do not want any default link behavior
+      return menu.href ? this.$url(menu.href, id, menu.special) : undefined
     },
-    onClick (menu) {
+    onClick (menu, event) {
       if (menu.func) {
         menu.func()
       } else if (menu.subPage && !this.isLinkingSubpages) {
-        // If isLinkingSubpages is true, the link has an href attribute and the page will reload
+        // If isLinkingSubpages is false, handle via Vue and prevent the default link behavior
         this.$emit('change-page', menu.subPage)
+        event.preventDefault()
       }
+      // Else: If isLinkingSubpages is true, the link has an href attribute and the page will reload
     },
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.pointer-always {
+  cursor: pointer;
+}
+</style>

@@ -160,6 +160,7 @@ const urls = {
   workingGroups: (regionId = null) => regionId ? `/groups?p=${regionId}` : '/groups',
   achievements: (regionId) => `/region?bid=${regionId}&sub=achievements`,
   editAchievements: () => '/achievements',
+  chains: () => '/chain',
 
   // whats new & changelog
   changelog: () => '/content?sub=changelog',
@@ -206,7 +207,6 @@ const urls = {
   tafel_oesterreich: () => 'https://www.wienertafel.at',
   bmlfuw: () => 'https://www.bmlrt.gv.at',
   denns: () => 'https://www.denns-biomarkt.at',
-  chains: () => '/?page=chain',
 
   // Devdocs
   devdocs: () => 'https://devdocs.foodsharing.network',
