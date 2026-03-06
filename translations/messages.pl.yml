@@ -860,7 +860,7 @@ group:
     not_verified: niezweryfikowany
     all_roles: wszystkie role
     remove_text_group: 'Czy na pewno chcesz usunąć {name} ({id}) z tego zespołu?'
-    is_home_region: ''
+    is_home_region: 'Rejon macierzysty'
     remove_text_region: 'Czy na pewno chcesz usunąć {name} ({id}) z rejonu?'
   image: Obraz dla %name%
   show-all: Pokaż wszystko
@@ -964,7 +964,7 @@ login:
   error_no_auth: ''
   2fa: 'Uwierzytelnianie dwuskładnikowe (2FA)'
   passkey_btn: 'Zaloguj się przez klucz dostępu'
-  passkey_cancelled: ''
+  passkey_cancelled: 'Rejestracja przez passkey została przerwana.'
   passkey_not_found: 'Na tym urządzeniu nie ma dostępnego klucza dostępu dla tego
     konta.'
 register:
@@ -1098,11 +1098,11 @@ terminology:
     f: ''
   mediationAdmins: 'Team mediacji'
   giving: ''
-  baskets: ''
-  homeRegion: ''
+  baskets: 'Jadłokoszyki'
+  homeRegion: 'rejon macierzysty'
   prAdmins: ''
   n_sleeping: ''
-  votingAdmins: ''
+  votingAdmins: 'Team głosowań'
   previous_pickups: 'Sloty tutaj'
   orga:
     d: ''
@@ -1113,8 +1113,8 @@ terminology:
   stores: ''
   wall: 'Tablica'
   reports:
-    report: ''
-    orga: ''
+    report: 'Widok skarg (team rozpatrujący skargi)'
+    orga: 'Widok skarg (orga)'
     arbitration: ''
   fsManagementAdmins: 'administracja'
   boardAdmins: 'Zarząd'
@@ -1124,7 +1124,7 @@ terminology:
   groups: 'Zespoły'
   moderationAdmins: 'Team moderacji'
   community: ''
-  n_home_regions: ''
+  n_home_regions: '{count} z rejonem macierzystym'
   arbitrationAdmins: ''
   storesAdmins: ''
   n_stores: ''
@@ -1349,10 +1349,11 @@ fsp:
     descModal: ''
     bell: ''
   createdAt: 'Otwarte:'
-  summary: ''
+  summary: 'Jest/są {count} jadłodzielni/e w rejonach, w których jesteś aktywny/a'
   summaryRegion: ''
-  publicwall: ''
-  suggestSuccess: ''
+  publicwall: 'Pamiętaj, że posty na tablicy jadłodzielni są publicznie widoczne.'
+  suggestSuccess: 'Jadłodzielnia została zaproponowana i jest sprawdzana przez odpowiedzialne
+    osoby.'
 storeview:
   common: Ogólne informacje
   public_time_at_noon_or_afternoon: w południe/po południu
@@ -1401,7 +1402,7 @@ storeview:
   store: ''
   show_settings: ''
   status_notes: ''
-  select_related_region: ''
+  select_related_region: 'Wybór przyporządkowanego rejonu'
   visible_for_team: ''
   no_permission_to_view: ''
   pickupWeight: ''
@@ -1464,7 +1465,7 @@ store:
       fullName: Twoje pełne imię i nazwisko ({first_name} {last_name})
       distance: ''
       storeList: ''
-      text: ''
+      text: 'Twoja wiadomość aplikacyjna'
       intro: ''
     alerts:
       one_more: Pokaż kolejną wskazówkę
@@ -1502,7 +1503,7 @@ store:
       link: ''
       request: ''
       invited: ''
-    withdrawn: ''
+    withdrawn: 'Pomyślnie cofnięto zapytanie.'
     got-it: ''
     air_line: ''
     needsHomeRegion:
@@ -1510,16 +1511,16 @@ store:
       invited: ''
       request: ''
     confirm-far: ''
-    no-duplicate: ''
+    no-duplicate: 'Już jest jedno zapytanie.'
     to-jumper: ''
     application-message: ''
-    withdraw: ''
-    applicationMessageTooShort: ''
+    withdraw: 'Cofnij zapytanie'
+    applicationMessageTooShort: 'Twoja wiadomość aplikacyjna jest za krótka.'
     confirm-no-location-ok: ''
     confirm-no-location: ''
     hygieneRequired:
       request: ''
-      link: ''
+      link: 'Zdaj szkolenie z zasad higieny'
       invited: ''
   invitation:
     accept: Zaakceptuj zaproszenie
@@ -1563,7 +1564,7 @@ store:
       11: '{actor} zapisał/a się na slot {date}.'
       13: '{actor} wypisał/a {target} ze slotu {date}.'
       13_with_reason: '{actor} wypisał/a {target} ze slotu {date} z następującą wiadomością'
-      16: ''
+      16: '{actor} cofnął/ęła zapytanie o członkostwo.'
       10: ''
       12: '{actor} wypisał/a się ze slotu {date}.'
       2: ''
@@ -1624,12 +1625,12 @@ store:
   my_last_slot: 'Mój ostatni slot'
   isAppliedForTeam: 'Zapytanie'
   locked: ''
-  lastPickup: ''
+  lastPickup: 'Ostatnia aktywność {date}'
   managing: ''
   springer_conversation_name: ''
   isManager: ''
   noPickup: ''
-  tooltip_red: ''
+  tooltip_red: 'Wolne sloty dzisiaj lub jutro'
   not-in-team: ''
   allStoresOfRegion: ''
   willgetcontacted: ''
@@ -1639,12 +1640,12 @@ store:
   attribution: ''
   useRegionPickupRules: ''
   short_tooltip_red: 'Wolne sloty dziś lub jutro'
-  regionPickupRulesInactive: ''
+  regionPickupRulesInactive: 'Dodatkowe reguły dla slotów w tym rejonie nie są aktywne'
   delete:
     button: ''
     sure: ''
   short_tooltip_orange: 'Wolne sloty w ciągu najbliższych 3 dni'
-  regionPickupRules: ''
+  regionPickupRules: 'dodatkowa reguła rodzynkowa'
   tooltip_jumping: ''
   tooltip_managing: ''
   addNewStoresButton: ''
@@ -1653,7 +1654,7 @@ store:
   storeFrom: ''
   enter_date: 'Dodaj pojedynczy slot'
   ownStores: ''
-  lastPickupTitle: ''
+  lastPickupTitle: 'Ostatnia aktywność tutaj'
   mayManage: ''
   passport_expires_soon: 'Twoja legitymacja jest ważna jeszcze tylko {days} dni! Skontaktuj
     się ze swoimi ambasador(k)ami, aby ją przedłużyć. Po upływnie terminu ważności
@@ -1704,7 +1705,7 @@ statistics:
   region_public:
     activeHomeRegionFoodsavers: aktywni/e foodsaverzy/ki
     activeFoodSharePoints: aktywne jadłodzielnie
-    foodBasketsLastMonth: ''
+    foodBasketsLastMonth: 'rozdane/ych jadłokoszyki/ów'
     savedFoodKgLastMonth: ''
     activeCoorporations: ''
     pickupsLastMonth: ''
@@ -1750,7 +1751,7 @@ storeedit:
     dropped: '{user} już nie jest w teamie'
     created: ''
   store_name_placeholder: ''
-  unsuccess: ''
+  unsuccess: 'Nie można było zapisać zmian. {error}'
   bread: ''
   add-new: ''
   not-in-region: ''
@@ -1867,7 +1868,7 @@ pickup:
   really_join_date: 'Czy na pewno chcesz się wiążąco zapisać na {date}?'
   may_enter: 'Na ten slot jest jeszcze wolne miejsce dla ciebie.'
   confirmed: 'Slot jest potwierdzony.'
-  region_pickup_rule_failed: ''
+  region_pickup_rule_failed: 'Ten zapis nie spełnia reguł rejonu'
   confirm: 'Potwierdź'
   call: 'Zadzwoń'
   really_leave_date: ''
@@ -2415,7 +2416,7 @@ regionOptions:
   regionPickupTimespan: ''
   noPickupRuleActiveStores: ''
   regionPickupRuleActive: ''
-  regionPickupLimitDayNumber: ''
+  regionPickupLimitDayNumber: 'Maksymalna liczba rodzynkowych slotów na dzień'
   enableAddressChangeNotification: ''
 foodsaver:
   bread: Wszyscy foodsaverzy/ki

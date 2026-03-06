@@ -170,7 +170,7 @@ store:
       5: 'Passar Foodsavers para a lista de substitutos'
       13: 'Ser cancelada da vaga'
       11: 'Inscrever pela vaga'
-      15: 'Excluir publicação'
+      15: 'Eliminar publicação do mural'
       17: Convidar Foodsavers para a equipa
       18: Retirar convites de equipa
       19: Aceptar convites de equipa
@@ -256,8 +256,8 @@ store:
   delete_date_description: 'Caso utilize intervalos regulares (recorrentes semanalmente
     de forma automática) no teu local e deseje evitar que uma data específica seja
     criada (por exemplo, um feriado), pode fazê-lo especificando a data e a hora com
-    esta função. Caso deseje excluir intervalos que já estão visíveis, pode fazê-lo
-    diretamente com um clique no intervalo, desde que ninguém tenha sido inserido.'
+    esta função. Caso deseje apagar vagas que já estão visíveis, pode fazê-lo diretamente
+    com um clique no intervalo, desde que ninguém tenha sido inserido.'
   complete: 'base de dados completa'
   address: 'Morada'
   days_before: 'há'
@@ -311,7 +311,7 @@ store:
     números de telefone dos membros da equipa.'
   unverified_member: 'não verificado'
   all_of_my_stores: 'Todos os teus locais'
-  delete_date: 'Excluir vaga individual'
+  delete_date: 'Apagar vaga individual'
   unknownDate: 'desconhecido'
   average_collection_quantity: 'Quantidade por pessoa'
   team_conversation_name: 'Equipa {name}'
@@ -351,15 +351,15 @@ store:
     validade, não poderás mais te registar aqui.
   to_map: Mostrar no mapa
   delete:
-    button: Excluir local
-    sure: Queres mesmo excluir este local? Esta ação não pode ser revertida! 
+    button: Eliminar local
+    sure: Queres mesmo eliminar este local? Esta ação não pode ser revertida! 
       Todos os membros serão removidos do local e todas as informações 
-      específicas do local, exceto o registo do local, serão eliminadas. Por 
-      favor, apagine apenas locais que realmente já não existem ou que foram 
+      específicas do local, exceto o registo do local, serão apagadas. Por 
+      favor, elimine apenas locais que realmente já não existem ou que foram 
       registados dois vezes. Os locais que cancelaram uma cooperação devem 
-      permanecer registados. Só é possível excluir lojas que nunca tiveram vagas
-      e cujos chats de equipa não tenham sido utilizados durante pelo menos 3 
-      meses.
+      permanecer registados. Só é possível eliminar locais que nunca tiveram 
+      vagas e cujos chats de equipa não tenham sido utilizados durante pelo 
+      menos 3 meses.
   my_last_slot: A minha última vaga
   chain_has_kams: 'Responsável para esta cadeia:'
   part_of_chain: 'Faz parte da cadeia:'
@@ -614,11 +614,11 @@ dashboard:
   options:
     reset: 'Redefinir'
     grid_toggle:
-      3_columns: 'Mudar para a visualização em 3 colunas'
-      2_columns: 'Mudar para a visualização em 2 colunas'
+      3_columns: 'Mudar para a visualização de 3 colunas'
+      2_columns: 'Mudar para a visualização de 2 colunas'
     hide:
-      text: 'Gerir vista'
-      tooltip: 'Aqui pode ocultar e exibir áreas específicas no painel.'
+      text: 'Visualização'
+      tooltip: 'Aqui podes ocultar e mostrar áreas específicas do painel.'
   eventCount: 'Próximos eventos ({count})'
   quiz:
     read: 'continue lendo'
@@ -885,7 +885,7 @@ pickuplist:
   NumberOfFoodSavers_table_header: 'Número de Foodsavers'
   error_confirm: 'Falha na confirmação: '
   really_delete_last_slot:
-    title: Excluir a última vaga?
+    title: Apagar a última vaga?
     body: Quer mesmo cancelar a última vaga? A marcação será completamente 
       removida.
 basket:
@@ -946,7 +946,7 @@ basket:
   add: 'Criar um cabaz alimentar'
   not-allowed: 'Não tens permissão para editar este cabaz alimentar.'
   not_found: 'O cabaz alimentar já não existe.'
-  delete: 'Excluir o cabaz alimentar'
+  delete: 'Apagar o cabaz alimentar'
   requests: 'Solicitações ({count})'
   request_close: 'Fechar solicitação'
   withdraw_request: 'Cancelar a solicitação'
@@ -983,8 +983,8 @@ basket:
       Então clique em [**Participar**](/content?sub=joininfo) para começar ou cria o teu própria cabaz alimentar.
     map: No nosso mapa, poderá encontrar outros cabazes alimentares na tua área.
   delete_confirmation:
-    text: Queres mesmo excluir este cabaz alimentar?
-    title: Excluir cabaz alimentar?
+    text: Queres mesmo apagar este cabaz alimentar?
+    title: Apagar cabaz alimentar?
   modal_error:
     no_contact: Selecione uma opção para solicitar o cabaz alimentar.
     no_phone: Por favor, insira um número de telefone.
@@ -1015,7 +1015,7 @@ menu:
     fsfestival: 'Festival de foodsharing'
     administration: 'Administração'
     demands: 'Cobranças'
-    delete_read: 'Excluir todos os lidos'
+    delete_read: 'Apagar todos os lidos'
     friendcircle: 'Círculo de conhecidos'
     joinregion: 'Juntar-te a um distrito'
     baskets: 'Cabazes alimentares'
@@ -1061,8 +1061,8 @@ menu:
     public: Página pública do distrito
   bell:
     delete_read_confirmation:
-      text: 'Queres mesmo excluir {count} sinos lidos?'
-      title: 'Excluir notificações?'
+      text: 'Queres mesmo apagar {count} sinos lidos?'
+      title: 'Apagr notificações?'
 date:
   tomorrow: 'amanha'
   yesterday: 'ontem'
@@ -1217,7 +1217,7 @@ profile:
       arbitrationGroup: 'Esta denúncia será enviada ao órgão de arbitragem, uma vez
         que uma das pessoas envolvidas é membro do grupo local de denúncias. Também
         podes contactar o órgão de arbitragem através da seguinte morada de e-mail:'
-    confirmDelete: Deseja mesmo excluir esta denúncia?
+    confirmDelete: Deseja mesmo apagar esta denúncia?
     report_b1_0: Chegou tarde para a recolha (B01-1)
     report_b1_1: Não compareceu para recolher (B01-2)
     report_b1_2: Levou animais para o local sem autorização (B01-3)
@@ -1338,7 +1338,7 @@ profile:
     textMayNot: 'e, por isso, não está autorizado a aceitar alimentos em nome de foodsharing.'
     may: 'ativo'
   pinboard: 'Atualizações de estado de {name}'
-  cantdeleteall: 'Não podes excluir todos os eventos!'
+  cantdeleteall: 'Não podes apagar todos os eventos!'
   online: '{name} está online.'
   nav:
     verificationHistory: 'Histórico de verificação'
@@ -1361,7 +1361,7 @@ profile:
   about_me_intern: 'Sobre mim'
   sleeping: 'Tenho um dorminhoco por tempo indeterminado'
   reportRequest: 'Enviar denúncia'
-  cantdeletethis: 'Não é possível excluir eventos individuais!'
+  cantdeletethis: 'Não é possível apagar eventos individuais!'
   homeDistrictHistory:
     changed: registado
     by: de
@@ -1411,7 +1411,7 @@ mailbox:
   not-allowed: 'Não tens a autorização necessária para fazer isso.'
   conformation_modal:
     title: 'Confirmação'
-    message: 'Tens a certeza de que deseja excluir o e-mail?'
+    message: 'Tens a certeza de que deseja apagar o e-mail?'
   mark_as_unread: 'Marcar e-mail como não lido'
   fromto: 'De/Para'
   mark_all: 'Marcar todos'
@@ -1576,8 +1576,8 @@ group:
     remove_admin_text: 'Tens a certeza de que pretende remover {name} ({id}) como
       administrador?'
     remove_admin_title: 'Remover como administrador'
-    remove_title: 'Excluir membro'
-    remove_text_group: 'Queres mesmo excluir {name} ({id}) do grupo de trabalho?'
+    remove_title: 'Remover membro'
+    remove_text_group: 'Queres mesmo remover {name} ({id}) do grupo de trabalho?'
     admin_mode_off: 'Voltar à vista normal'
     set_admin_text: 'Quer mesmo adicionar {name} ({id}) como administrador?'
     set_ambassador_title: 'Atribuir como embaixador(a)'
@@ -1586,7 +1586,7 @@ group:
     remove_ambassador_title: 'Remover como embaixador(a)'
     set_ambassador_text: 'Quer mesmo adicionar {name} ({id}) como embaixador(a)?'
     not_verified: 'Não verificado'
-    remove_text_region: 'Queres mesmo excluir {name} ({id}) do distrito?'
+    remove_text_region: 'Queres mesmo remover {name} ({id}) do distrito?'
     default:
       lastname: Sobrenome
       title: Standard
@@ -1688,7 +1688,7 @@ group:
   mail_link_title:
     region: 'Caixa postal do distrito'
     workgroup: 'Caixa postal do grupo de trabalho'
-  delete_group_sure: 'Queres realmente excluir o grupo/distrito {groupName}?'
+  delete_group_sure: 'Queres realmente eliminar o grupo/distrito {groupName}?'
   filter_by_last_activity: 'Não ativo há meses'
   image: 'Imagem de capa para %name%'
   show-all: 'Mostrar todo'
@@ -1729,7 +1729,7 @@ group:
   filter_placeholder: Filtrar grupos por nomes
   confirm_decline: Queres mesmo recusar esta aplicação?
 foodsaver:
-  delete_account_sure: 'Tens a certeza de que deseja excluir a tua conta?'
+  delete_account_sure: 'Tens a certeza de que deseja eliminar a tua conta de utilizador?'
   list:
     summary: '{count} Foodsavers em {region}'
     inactive: ', quem não esteve ativo nos últimos 6 meses:'
@@ -1752,20 +1752,20 @@ foodsaver:
   editName: 'Editar {name}'
   mailchange_error: 'A ativação da tua nova morada de e-mail falhou. Por favor, tente
     novamente.'
-  delete_account_now: 'Excluir conta agora'
+  delete_account_now: 'Eliminar conta agora'
   restricted: 'Infelizmente, não tens permissão para visualizar estes dados.'
   edit_failure: 'Nada foi alterado ou as alterações não foram guardadas'
   profileBack: 'Voltar ao perfil'
-  delete_account: 'Excluir conta'
+  delete_account: 'Eliminar conta'
   about_me_intern: 'Fica exibido na tua página de perfil e visível a todos na comunidade
     foodsharing.
 
     '
-  delete_own_account: 'Está prestes a excluir a tua conta. Tens a certeza absoluta?'
+  delete_own_account: 'Está prestes a eliminar a tua conta. Tens a certeza absoluta?'
   actions: 'Ações'
   title: 'Foodsavers'
   edit: 'Editar os Foodsavers'
-  delete_account_sure_reason: 'Tens a certeza de que deseja excluir a tua conta de
+  delete_account_sure_reason: 'Tens a certeza de que deseja eliminar a tua conta de
     utilizador? Motivo: {reason}'
   url_error: 'Parece haver algo de errado com o URL da tua página inicial'
   kicked: 'Foodsaver foi excluido'
@@ -1785,13 +1785,13 @@ foodsaver:
     e candidatar-se novamente aos locais, grupos de trabalho, etc.
   delete_account_password_verify: 'Por favor, introduza aqui a tua palavra-passe atual
     para confirmar o teu pedido de exclusão.'
-  delete_account_totp_hint: 'Por favor, tenha em atenção que só poderá excluir a tua
-    conta se a autenticação de dois fatores estiver desativada. Esta opção pode ser
-    definida nas configurações da tua conta, em «Segurança da conta», e serve para
-    proteger contra a exclusão indevida caso a tua palavra-passe seja conhecida (ou
-    salva) por outras pessoas.'
-  delete_own_account_failed_totp_hint: 'Não foi possível excluir a tua conta de utilizador.'
-  delete_own_account_failed: 'Não foi possível excluir a tua conta de utilizador.
+  delete_account_totp_hint: 'Por favor, tenha em atenção que só poderá eliminar a
+    tua conta se a autenticação de dois fatores estiver desativada. Esta opção pode
+    ser definida nas configurações da tua conta, em «Segurança da conta», e serve
+    para proteger contra a eliminação indevida caso a tua palavra-passe seja conhecida
+    (ou guardada) por outras pessoas.'
+  delete_own_account_failed_totp_hint: 'Não foi possível eliminar a tua conta de utilizador.'
+  delete_own_account_failed: 'Não foi possível eliminar a tua conta de utilizador.
     A palavra-passe introduzida está incorreta. Tenta novamente, se necessário.'
 pickup:
   no_slots_available: 'Não há vagas disponíveis'
@@ -1843,7 +1843,7 @@ pickup:
       confirmed: 'Confirmada'
       pending: 'Não confirmada'
     freeSlots: '{slots} disponíveis'
-  really_delete_date: 'Deseja mesmo excluir a vaga em {date}?'
+  really_delete_date: 'Deseja mesmo apagar a vaga em {date}?'
   add_onetime_pickup: 'Insira vaga única'
   description_modal_text: 'Introduza uma nova descrição:'
   edit_description: 'Editar Descrição'
@@ -1920,7 +1920,7 @@ pickup:
     um substituto.'
   to_be_confirmed: 'Esta vaga ainda tem de ser confirmada por um responsável deste
     local.'
-  delete_title: 'Excluir essas vagas'
+  delete_title: 'Apagar essas vagas'
   signout_info: 'As tuas recolhas pendentes serão eliminadas.'
   leave_team_message_template: 'Infelizmente, não poderei participar em {data}, pelo
     que terei de cancelar a minha vaga. …'
@@ -2011,7 +2011,7 @@ fsp:
   location: 'código postal / local'
   followers: 'Foodsharers interessados'
   addError: 'Não foi possível registar o cantinho alimentar. Preencheu tudo corretamente?'
-  rejectConfirm: 'Atenção, se excluir o cantinho alimentar, já não pode anular esta
+  rejectConfirm: 'Atenção, se eliminar o cantinho alimentar, já não pode anular esta
     ação. Queres mesmo continuar?'
   reject: 'Recusar o cantinho alimentar'
   add: 'Registar o cantinho alimentar'
@@ -2033,7 +2033,7 @@ fsp:
   addSuccess: 'O cantinho alimentar foi registado com sucesso'
   edit: 'Editar cantinho alimentar'
   inRegion: 'Tudos os cantinhos alimentares no {region}'
-  delete: 'Excluir cantinho alimentar'
+  delete: 'Eliminar cantinho alimentar'
   addedBy: 'Adicionado por'
   summaryRegion: 'Há {count} cantinhos alimentares em {region} e todos subdistritos'
   twig:
@@ -2045,7 +2045,7 @@ fsp:
   unfollow: 'Deixar de seguir este cantinho alimentar'
   followName: 'Siga o cantinho alimentar {name}'
   editName: 'Editar cantinho alimentar „{name}“'
-  deleteConfirm: 'Queres mesmo excluir este cantinho alimentar?'
+  deleteConfirm: 'Queres mesmo eliminar este cantinho alimentar?'
   deleteSuccess: 'Cantinho alimentar foi excluido'
   onlySuggested: Este cantinho alimentar foi sugerido mas ainda não foi lançado.
     Neste estado, não é apresentado assim aos outros utilizadores.
@@ -2162,7 +2162,7 @@ quiz:
         fp: 'Pontos da falha:'
       title: Editar pergunta
       confirmDelete:
-        title: Queres mesmo excluir esta pergunta?
+        title: Queres mesmo eliminar esta pergunta?
     answer:
       input:
         text:
@@ -2327,7 +2327,7 @@ quiz:
     add: acrescentar uma pergunta
     add_answer: acrescentar resposta
     show_comments: mostrar comentários
-    delete: Excluir pergunta
+    delete: Eliminar pergunta
     edit: editar esta pregunta
   sessionStatus:
     0: Atualmente em execução
@@ -2347,11 +2347,11 @@ quiz:
     incorrecta
   answer_options:
     edit: editar resposta
-    delete: Excluir resposta
+    delete: Eliminar resposta
   confirmDelete:
-    question: Queres mesmo excluir esta pergunta?
-    answer: Queres mesmo excluir esta resposta?
-    session: Queres mesmo excluir esta sessão de quiz?
+    question: Queres mesmo eliminar esta pergunta?
+    answer: Queres mesmo eliminar esta resposta?
+    session: Queres mesmo apagar esta sessão de quiz?
   questions_section:
     title: Perguntas do questinário ({count})
   editable_tooltip: Podes editar este questinário.
@@ -2395,7 +2395,7 @@ chat:
   reply: Responder
   rename: Renomear conversa
   rename_placeholder: Nome da conversa...
-  rename_empty_hint: Deixe o campo em branco para excluir o nome.
+  rename_empty_hint: Deixe o campo vazio para repor o nome.
   show_participants: Mostrar participantes
   participants: Parcipiciantes
   error:
@@ -2647,9 +2647,9 @@ settings:
       neste momento.'
   calendar:
     delete_token:
-      button: 'Excluir token'
+      button: 'Eliminar token'
       message: 'Todos os links de calendário criados até agora serão invalidados.
-        Queres mesmo excluir o token?'
+        Queres mesmo eliminar o token?'
     export: 'Exportar calendário'
     menu: 'Calendário'
     export_tooltip: 'Pode subscrever as tuas datas de recolha com um programa de calendário
@@ -2668,7 +2668,7 @@ settings:
     info: |
       Aqui podes associar os teus eventos de foodsharing a um programa de calendário à tua escolha. Assim, todas as tuas vagas e/ou eventos serão automaticamente adicionados no teu calendário.
 
-      **Mantém os links do calendário em segredo.** Eles contêm um *token* que permite aceder aos dados das tuas vagas sem necessidade de palavra-passe. Podes excluir o teu token atual a qualquer momento, tornando inválidos os links do calendário criados anteriormente.
+      **Mantém os links do calendário em segredo.** Eles contêm um *token* que permite aceder aos dados das tuas vagas sem necessidade de palavra-passe. Podes eliminar o teu token atual a qualquer momento, tornando inválidos os links do calendário criados anteriormente.
 
       O teu programa de calendário deve **sincronizar** este calendário regularmente. Só assim as novas vagas aparecerão e os eventos cancelados deixarão de aparecer. Se, em vez disso, descarregares o teu calendário atual, este conterá apenas os teus eventos atuais e não será atualizado automaticamente.
       Encontras mais informações [aqui no Wiki]({calendarUrl})
@@ -2826,7 +2826,7 @@ settings:
   no_rights: Não está autorizado a alterar a configuração do perfil.
   edit_other: Editar configurações do perfil de {name}
   profile: Configurações do perfil
-  delete_profile: Excluir este perfil
+  delete_profile: Eliminar este perfil
   address:
     title: Selecionar morada
     choose: Utilizar morada
@@ -2852,7 +2852,7 @@ settings:
       webauthn_not_supported: O WebAuthn não é suportado neste navegador
       operation_aborted: A operação foi cancelada
       registration_failed: 'Falha no registo da chave de segurança: {error}'
-      deletion_failed: Não foi possível excluir a chave de segurança
+      deletion_failed: Não foi possível eliminar a chave de segurança
       rename_failed: Não foi possível renomear a chave de segurança
     passkeys_section: Chave de segurança
     security_keys: Chaves de segurança (Passkeys)
@@ -2868,7 +2868,7 @@ settings:
     created: Criado
     last_used: Última utilizado
     never_used: Nunca utilizado
-    delete: Excluir
+    delete: Eliminar
     rename: Renomear
     device_name_placeholder: p. ex. iPhone, YubiKey, Laptop
     other_domain_info: Esta chave de segurança foi registada em {domain} e não 
@@ -2885,12 +2885,12 @@ settings:
       cancel: Cancelar
       register: Registar
     delete_modal:
-      title: Excluir chave de segurança
-      confirmation: Tens a certeza de que deseja excluir esta chave de 
+      title: Eliminar chave de segurança
+      confirmation: Tens a certeza de que deseja eliminar esta chave de 
         segurança?
       device_name: Dispositivo
       cancel: Cancelar
-      delete: Excluir
+      delete: Eliminar
     rename_modal:
       title: Renomear chave de segurança
       new_name_label: Novo nome
@@ -3313,12 +3313,12 @@ blog:
   permissions:
     edit: 'Não podes editar este artigo'
     new: 'Não é permitido criar artigos'
-    delete: 'Não podes excluir este artigo'
+    delete: 'Não podes eliminar este artigo'
   new: 'Escrever um novo artigo'
   failure:
     new: 'Não foi possível criar o artigo'
     edit: 'Não foi possível guardar o artigo'
-    delete: 'Não foi possível excluir o artigo'
+    delete: 'Não foi possível eliminar o artigo'
   author: 'Escrito por'
   success:
     edit: 'O artigo foi guartado'
@@ -3329,7 +3329,7 @@ blog:
   newTitle: 'Niovo artigo para {region}'
   all: 'Todas as publicações do blogue'
   actions: 'Açioes'
-  delete: 'Excluir artigo'
+  delete: 'Eliminar artigo'
   header: 'Notícias do mundo foodsharing'
   read: 'seguir lendo'
   empty: 'Ainda não há nenhuma publicações.'
@@ -3341,7 +3341,7 @@ blog:
     "1": 'publicado'
     "0": 'inativo'
   last-editor: 'Última edição por'
-  confirmDelete: 'Realmente deveria excluir {nome} de forma permanentemente?'
+  confirmDelete: 'Realmente deveria eliminar {nome} de forma permanentemente?'
   title: 'Artigos de blogue'
   bread: 'Blogue'
   teaser: Visão prévia do texto
@@ -3531,7 +3531,7 @@ startpage:
   notallowed: 'A partilha de medicamentos (incluindo remédios homeopáticos) não é
     permitida no foodsharing. Também não dá para trocar ou partilhar roupas, cosméticos,
     produtos químicos domésticos, brinquedos e outros produtos não alimentares através
-    do foodsharing. A plataforma foodsharing reserva-se o direito de eliminar essas
+    do foodsharing. A plataforma foodsharing reserva-se o direito de apagar essas
     ofertas.'
   join_rules: 'Participar – As nossas regras'
   followrules: 'Queremos deixar bem claro que, por motivos legais, só podemos oferecer
@@ -3583,21 +3583,21 @@ region:
     o distrito.'
   change: 'Alterar distrito'
   created: '{region} foi criado'
-  delete: 'Excluir distrito'
+  delete: 'Eliminar distrito'
   public:
     map:
       missing: Este distrito não é atualmente exibido no mapa e não tem 
         cantinhos alimentares que podem ser exibidos aqui. Tens autorização para
         colocar um pin de distrito agora.
       set_pin: Marcar o pin do distrito no mapa
-      hide_pin: Excluir o pin do distrito
+      hide_pin: Remover o pin do distrito
       edit_pin: Editar o pin do distrito
       confirm_discard_changes: Tens a certeza de que deseja descartar as 
         alterações feitas no pin do distrito?
       confirm_save_changes: Queres guardar as tuas alterações no pin do 
         distrito? O novo pin ficará visível publicamente na página do distrito e
         no mapa.
-      confirm_remove: Queres mesmo excluir o pin do distrito? Este distrito 
+      confirm_remove: Queres mesmo remover o pin do distrito? Este distrito 
         deixará de ser apresentado no mapa.
     children: Distritos em {name} ({count})
     join: Entrar no distrito
@@ -3641,7 +3641,7 @@ region:
   confirm:
     edit: Tens a certeza de que deseja salvar as alterações no distrito {name}?
     create: Tens a certeza de que deseja criar um novo distrito {name}?
-    delete: Tens a certeza de que deseja excluir o distrito {name}?
+    delete: Tens a certeza de que deseja eliminar o distrito {name}?
   name: Nome
   parent: Distrito parental
   master: Distrito principal
@@ -3690,7 +3690,7 @@ content:
   empty: 'Até agora, nenhuma página foi inserida.'
   last_modified: 'Últimas alterações'
   edit: 'Editar página'
-  delete_tooltip: 'Excluir página'
+  delete_tooltip: 'Eliminar página'
   delete_success: 'Página foi eliminada'
   changelog: 'Registo de alterações atual'
   edit_success: 'A página foi guardada.'
@@ -3863,7 +3863,7 @@ forum:
     with_mail: 'Tópico aberto e todos informados por e-mail'
     open: 'Reabrir o tópico'
     closed: 'Tópico fechado'
-    delete: 'Excluir tópico'
+    delete: 'Eliminar tópico'
     close: 'Fechar o tópico'
     title: 'Titulo'
     bottom: Visibilidade reduzida
@@ -3872,7 +3872,7 @@ forum:
       eliminada. Em vez disso, foi selecionada o próximo publicação.
   post:
     body: 'Mensagem'
-    delete: 'Excluir publicação'
+    delete: 'Eliminar publicação'
     hide: Ocultar publicação
     giveHideReason: Por favor, indique por que motivo pretende ocultar esta 
       publicação.
@@ -4014,7 +4014,7 @@ notifications:
 are_you_sure: 'Estás a certeza?'
 button:
   save: 'Salvar'
-  permadelete: 'Excluir permanentemente'
+  permadelete: 'Eliminar permanentemente'
   create: 'Criar'
   change_picture: 'Alterar imagem'
   edit: 'Editar'
@@ -4028,7 +4028,7 @@ button:
   apply: 'Assumir'
   upload: 'Carregar'
   cancel: 'Cancelar'
-  delete: 'Excluir'
+  delete: 'Eliminar'
   answer: 'Respostar'
   close: Fechar
   countdown_clickable: Clicável em {countdown} segundos
@@ -4238,10 +4238,10 @@ wall:
   info-somebody-else: 'Como tens autorização para administrar esta equipa, podes remover
     esta entrada, se necessário.'
   confirm-deletion: 'A seguinte publicação do {name} deve mesmo ser removida no mural?'
-  delete: 'Excluir a contribuição'
+  delete: 'Eliminar entrada'
   delete_confirmation:
-    text: Quer mesmo excluir esta publicação de {author}?
-    title: Excluir uma publicação no mural?
+    text: Quer mesmo eliminar esta entrada de {author}?
+    title: Eliminar uma publicação do mural?
 betrieb_kategorie_id: 'Categoria'
 success: 'Completado com sucesso'
 buddy:
@@ -4303,7 +4303,7 @@ back: 'Para trás'
 first_post: 'Primeira publicação'
 fsp_bezirk_id: 'Em qual distrito está localizado o cantinho alimentar?'
 about_me_public: 'Descrição rápida publica'
-delete: 'Excluir'
+delete: 'Eliminar'
 betrieb_status_id: 'Estado'
 lebensmittel: 'Quais os alimentos o que levado?'
 notice: 'Nota!'
@@ -4326,7 +4326,7 @@ statistics:
   food_saved: Alimentos recuperados
 body: 'Mensagem'
 photo: 'Fotografia'
-really_delete: 'Excluir a sério?'
+really_delete: 'Remover a sério?'
 map:
   title: 'Mapa'
   donates: 'A loja faz doações'
@@ -4596,7 +4596,7 @@ help:
 
         ##### Quem gere os recursos comunitários?
 
-        Nos grupos de trabalho, todos os administradores podem criar, editar e eliminar
+        Nos grupos de trabalho, todos os administradores podem criar, editar e apagar
         recursos comunitários. Nos distritos, os embaixadores têm inicialmente essa
         autorização. Se existir um grupo de trabalho de recursos, a autorização pertence
         aos administradores desse grupo de trabalho.
@@ -4795,7 +4795,7 @@ help:
     my_resources:
       title: 'Recursos próprios'
       md: 'Nesta secção, podes gerir os teus próprios recursos; criar novos recursos,
-        editar, eliminar ou simplesmente ver o que estás a partilhar atualmente.
+        editar, apagar ou simplesmente ver o que estás a partilhar atualmente.
 
 
         ##### O que é um recurso?
@@ -4950,7 +4950,7 @@ resource_mosaic:
     title: 'Aviso de privacidade'
     text: 'Quando introduz recursos, eles são guardados no servidor e ficam visíveis
       para outros utilizadores nos teus grupos de trabalho e distritos (exceto estados
-      federais, países e Europa). Podes editar e eliminar os teus recursos a qualquer
+      federais, países e Europa). Podes editar e apagar os teus recursos a qualquer
       momento. Além disso, podes limitar a visibilidade dos teus recursos, de modo
       que apenas os teus conhecidos tenham acesso a eles.'
     ok: 'Concordo'
@@ -4993,7 +4993,7 @@ resource_mosaic:
     none_in_filter: 'Infelizmente, não há nenhum recurso que corresponda à tua pesquisa.'
     total: 'Na {região}, há um total de {count} recursos registados:'
   add_commons: 'Inscrever novo recurso comunitário'
-  confirm_delete: 'Queres mesmo excluir este recurso?'
+  confirm_delete: 'Queres mesmo apagar este recurso?'
   other_resources:
     commons: 'Mais recursos comunitários'
     own: 'Meus outros recursos'
@@ -5018,7 +5018,7 @@ categories:
   title:
     resource: 'Categorias de recursos'
     store: 'Categorias de locais'
-  confirm_delete: 'Deseja mesmo excluir a categoria {name}?'
+  confirm_delete: 'Deseja mesmo eliminar a categoria {name}?'
   types:
     0: 'Recolha'
     2: 'Orga'
@@ -5031,7 +5031,7 @@ categories:
     resource: 'Ainda existem {count} recursos atribuídos a esta categoria. Ao continuar,
       estes recursos deixarão de ter categoria.'
   new: 'Inscrever nova categoria'
-  delete: 'Excluir categoria'
+  delete: 'Eliminar categoria'
   edit: 'Editar categoria'
   columns:
     name: 'Nome'
@@ -5106,7 +5106,7 @@ achievements:
   noneInThisRegion: 'Ainda não há selos neste distrito.'
   editDetails: 'Ajustar detalhes'
   revoke: 'Retirar'
-  deleteConfirmation: 'Tens a certeza de que queres excluir este selo?'
+  deleteConfirmation: 'Tens a certeza de que queres eliminar este selo?'
   findUser: 'Pesquisar usuário'
   editAwarded: 'Personalizar selo {Conquista} para {utilizador}'
   notice: 'Comentário'
@@ -5131,9 +5131,9 @@ oauth:
     type: 'Tipo'
     update_success: 'Client atualizado com sucesso'
     regions: 'Distritos'
-    delete_error: 'Erro ao excluir'
+    delete_error: 'Erro ao eliminar'
     redirect_uris_help: 'URLs de callback válidas após a autorização (uma por linha)'
-    confirm_delete: 'Excluir cliente?'
+    confirm_delete: 'Eliminar cliente?'
     confidential_client: 'Cliente confidencial (p. ex. aplicação de servidor)'
     regenerate_secret: 'Gerar novo client secret'
     create_success: 'Client criado com sucesso'
@@ -5145,7 +5145,7 @@ oauth:
     required_regions: 'Distritos necessários'
     name: 'Nome'
     confidential: 'Confidencial'
-    delete_warning: 'Quer mesmo excluir o cliente ‘{name}’? Não dá para recuperar
+    delete_warning: 'Quer mesmo eliminar o cliente ‘{name}’? Não dá para recuperar
       essa ação.'
     title: 'Gestão de clientes OAuth'
     restrictions: 'Restrições'
