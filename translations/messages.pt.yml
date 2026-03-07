@@ -612,7 +612,7 @@ footer:
 dashboard:
   source_mailbox: '{0}'
   options:
-    reset: 'Redefinir'
+    reset: 'Repor'
     grid_toggle:
       3_columns: 'Mudar para a visualização de 3 colunas'
       2_columns: 'Mudar para a visualização de 2 colunas'
@@ -629,17 +629,17 @@ dashboard:
   source_foodsharepoint: 'Cantinhos alimentares {0}'
   foodsharer: 'Divirta-se a salvar!'
   my:
-    regions: 'Teus distritos'
+    regions: 'Distritos onde pertences'
     users: 'Foodsavers'
     polls: 'Votações'
     pending: 'Consultas feitas em'
     no-stores: 'Ainda não faz parte de nenhuma equipa corporativa.'
-    stores: 'Teus locais'
+    stores: 'Locais onde participas'
     buddies: 'Pessoas que conheces'
     baskets: 'Cabazes alimentares'
-    events: 'Os teus eventos'
-    groups: 'Teus grupos'
-    jumping_stores: 'Teus locais substitutos'
+    events: 'Teus eventos'
+    groups: 'Grupos onde participas'
+    jumping_stores: 'Locais onde és substituto'
     managing_stores: 'Equipas coordenadas'
     pickups: Vagas registadas
     pickupOptions: Opções de inscrição
@@ -1040,7 +1040,7 @@ menu:
     forum: 'Fórum'
     your_groups: 'Teus grupos'
     other_stores: 'Outros locais'
-    your_stores: 'Teus locais'
+    your_stores: 'Locais onde participas'
     helpneeded: 'procura-se apoio urgente'
     forcompanies: 'Para empresas'
     team: 'Equipa'

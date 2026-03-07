@@ -242,7 +242,10 @@ quiz:
         questionCountTimed: 'Liczba pytań:'
         allowUntimed: Pozwól na edycję bez limitu czasu
         questionCountUntimed: 'Liczba pytań bez limitu czasu:'
-      htmlWarning: ''
+      htmlWarning: '**Uwaga:** Zmieniono formatowanie opisu. To, co widzisz w polu
+        wprowadzania tekstu, jest w formacie HTML. Dostosuj opis i zamiast tego użyj
+        markdown. Użyj funkcji podglądu pola wprowadzania tekstu, aby upewnić się,
+        że poprawnie dostosowano formatowanie.'
     question:
       title: Edytuj pytanie
       input:
@@ -719,7 +722,7 @@ group:
     send: Wyślij zgłoszenie
     link_description: 'Ten link poprowadzi cię prosto do zgłoszenia:'
     sent: Zgłoszenie zostało wysłane.
-    accept: Akceptuj zgłoszenie
+    accept: Akceptuj
     accepted: Zgłoszenie zaakceptowane
     declined: Zgłoszenie odrzucone
     motivation: Jaka jest twoja motywacja, aby udzielać się w grupie {group}?
@@ -750,7 +753,8 @@ group:
     board: Zarząd
     title: Funkcja zespołu
     fsmanagement: Zarządzanie
-    restricted_workgroup_function: ''
+    restricted_workgroup_function: 'Ta funkcja zespołu może być edytowana tylko przez
+      międzyregionalny zespół "AG anlegen"'
     tooltip_function_9: ''
     tooltip_function_4: ''
     pr: ''
@@ -759,7 +763,7 @@ group:
     tooltip_function_1: 'Administratorzy/ki tego zespołu otrzymują powiadomienia,
       gdy nowi członkowie dołączają do rejonu'
     report: 'Skargi'
-    invalid: ''
+    invalid: 'Nie można przyporządkować funkcji zespołu do rejonu.'
     tooltip_function_12: 'Administratorzy/ki tego zespołu są pokazywani na stronie
       przeglądowej rejonu.'
     tooltip_function_2: 'Administratorzy/ki tego zespołu mogą tworzyć głosowania dla
@@ -881,11 +885,13 @@ group:
     tooltip_function_region332: 'Członkowie tego zespołu mają dostęp do listy sieci'
     tooltip_function_region432: 'Administratorzy/ki tego zespołu mogą przeglądać skargi'
     tooltip_function_region2296: ''
-  confirm_decline: ''
-  quitting_home_district_warning: ''
+  confirm_decline: 'Czy na pewno chcesz odrzucić to zgłoszenie?'
+  quitting_home_district_warning: 'Czy na pewno chcesz opuścić swój rejon macierzysty
+    {name}? Utracisz weryfikację i musisz później zgłosić się do teamu ambasadorów/ek
+    w twoim nowym rejonie macierzystym.'
   delete_group_sure: 'Czy na pewno usunąć zespół/rejon {groupName}?'
-  subtitle: ''
-  title: ''
+  subtitle: 'tu znajdziesz pomoc i wiele do zrobienia …'
+  title: 'zespoły foodsharingu'
 test:
   vars: Mam na imię {NAME} i mam {AGE} lat(a)
   plain: To jest tłumaczenie
@@ -899,8 +905,7 @@ legal:
     this_gets_deleted_friendlist: Twoja lista przyjaciół zostanie usunięta.
     this_doesnt_get_deleted_name: Twoje imię
     this_doesnt_get_deleted_address: Twój adres
-    this_gets_deleted_main: 'Poniższe informacje będą przez ciebie usunięte i nie
-      będą mogły zostać odzyskane:'
+    this_gets_deleted_main: 'Poniższe informacje będą przez ciebie ostatecznie usunięte:'
     this_gets_deleted_verify: Twoja weryfikacja będzie usunięta.
     this_gets_deleted_trustbananas: Banany, które dostałeś/aś od innych, będą 
       usunięte.
@@ -935,7 +940,8 @@ login:
       ponownie.
     success: Świetnie, twoje hasło zostało pomyślnie zmienione. Teraz możesz się
       zalogować.
-    mailSent: Świetnie, link do zmiany hasła został do ciebie wysłany mailem.
+    mailSent: Świetnie, link do zmiany hasła został do ciebie wysłany mailem. 
+      Link jest ważny 7 dni. Potem musisz zażądać nowego linku.
     tooShort: Niestety, twoje wybrane hasło jest za krótkie.
     expired: Link jest nieważny. Prawdopodobnie czekałeś/aś trochę zbyt długo. 
       Proszę, zażądaj nowego hasła.
@@ -1115,7 +1121,7 @@ terminology:
   reports:
     report: 'Widok skarg (team rozpatrujący skargi)'
     orga: 'Widok skarg (orga)'
-    arbitration: ''
+    arbitration: 'Widok skarg (rada arbitrażowa)'
   fsManagementAdmins: 'administracja'
   boardAdmins: 'Zarząd'
   pickup: ''
@@ -1125,11 +1131,11 @@ terminology:
   moderationAdmins: 'Team moderacji'
   community: ''
   n_home_regions: '{count} z rejonem macierzystym'
-  arbitrationAdmins: ''
+  arbitrationAdmins: 'rada arbitrażowa'
   storesAdmins: ''
   n_stores: ''
   store: ''
-  basket: ''
+  basket: 'Jadłokoszyk'
   attention: Uwaga
 resource_mosaic:
   privacy_notice:
@@ -1513,10 +1519,10 @@ store:
     confirm-far: ''
     no-duplicate: 'Już jest jedno zapytanie.'
     to-jumper: ''
-    application-message: ''
+    application-message: 'Wiadomość zgłoszeniowa'
     withdraw: 'Cofnij zapytanie'
     applicationMessageTooShort: 'Twoja wiadomość aplikacyjna jest za krótka.'
-    confirm-no-location-ok: ''
+    confirm-no-location-ok: 'Zgłoś się mimo to'
     confirm-no-location: ''
     hygieneRequired:
       request: ''
@@ -1636,7 +1642,7 @@ store:
   willgetcontacted: ''
   slot_state: 'status slotu'
   delete_date_description: ''
-  tooltip_orange: ''
+  tooltip_orange: 'Wolne sloty w ciągu następnych trzech dni'
   attribution: ''
   useRegionPickupRules: ''
   short_tooltip_red: 'Wolne sloty dziś lub jutro'
@@ -1661,13 +1667,13 @@ store:
     nie będziesz mógł/mogła się tutaj zapisywać.'
   bread: ''
   particularities_chain: ''
-  appliedFor: ''
+  appliedFor: 'Wysłano zgłoszenie'
   regionPickupRuleLong: ''
   isJumper: ''
   nodeclaration: 'Brak danych'
   nochains: ''
   enter_date_description: ''
-  tooltip_yellow: ''
+  tooltip_yellow: 'Wolne sloty w ciągu następnych pięciu dni'
   deactivatedRegion: ''
   peoplecame: 'Już się zdarzyło, że ludzie poszli do sklepu bez wcześniejszego  uzgodnienia.'
   may_referred_to_in_public: ''
