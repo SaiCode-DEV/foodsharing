@@ -613,7 +613,7 @@ class StoreTransactions
             throw new PickupValidationException(PickupValidationException::DESCRIPTION_OVERSIZED);
         }
 
-        $occupiedSlots = count($this->pickupGateway->getPickupSignUpsForDate($storeId, $pickup->date));
+        $occupiedSlots = count($this->pickupGateway->getSignedUpPickupsForDate($storeId, $pickup->date));
         if ($pickup->slots < $occupiedSlots) {
             throw new PickupValidationException(PickupValidationException::MORE_OCCUPIED_SLOTS);
         }

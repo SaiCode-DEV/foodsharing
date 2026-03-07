@@ -751,7 +751,7 @@ pickup:
   really_join_date: Vuoi registrarti vincolante per il ritiro il {date}?
   same_day_entry: '[{when} orario] {name}'
   same_day_hint: 'Ti sei registrato il {day} per i seguenti ritiri:'
-  join_title_date: Siccuro?
+  join_title: Siccuro?
   team_message_success: Il messaggio al team è stato inviato con successo
   team_message_send_and_leave: Invia e liberare lo slot
   leave_team_message_template: 'Salve, ho dovuto disdire per il seguente ritiro: {date}.
@@ -759,7 +759,7 @@ pickup:
   leave_team_message_title: Messaggio al team
   leave_pickup_message_team: Avvisa il team
   leave_pickup_ok: Ho già un sostituto
-  really_leave_date: Sei responsabile di questo ritiro. Si prega di organizzare 
+  really_leave: Sei responsabile di questo ritiro. Si prega di organizzare 
     autonomamente la propria sostituzione.
   kick_message_footer: Saluti, vostri responsabili delle agenzie
   kick_message_placeholder: Facoltativamente, aggiungi informazioni qui …

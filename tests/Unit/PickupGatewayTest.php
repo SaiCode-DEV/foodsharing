@@ -28,7 +28,7 @@ class PickupGatewayTest extends Unit
         $this->foodsaver = $this->tester->createFoodsaver();
     }
 
-    public function testgetPickupSignupsForDates(): void
+    public function testGetPickupSignupsForDates(): void
     {
         $date = '2018-07-18';
         $time = '16:40:00';
@@ -41,7 +41,7 @@ class PickupGatewayTest extends Unit
             ['time' => $time, 'dow' => $dow, 'fetcher' => $fetcher]
         );
         $this->gateway->addFetcher($fsid, $this->store['id'], new Carbon($datetime));
-        $fsList = $this->gateway->getPickupSignUpsForDate($this->store['id'], new Carbon($datetime));
+        $fsList = $this->gateway->getSignedUpPickupsForDate($this->store['id'], new Carbon($datetime));
 
         $this->assertEquals(1, count($fsList));
 

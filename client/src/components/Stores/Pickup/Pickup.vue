@@ -67,7 +67,7 @@
         <ul class="slots">
           <TakenSlot
             v-for="slot in occupiedSlots"
-            :key="`${slot.date}-${slot.profile.id}`"
+            :key="`${slot.signUpDate}-${slot.profile.id}`"
             :profile="slot.profile"
             :confirmed="slot.isConfirmed"
             :sign-up-date="new Date(slot.signUpDate)"
@@ -107,7 +107,7 @@
     <b-modal
       ref="modal_join"
       v-model="showJoinModal"
-      :title="$t('pickup.join_title_date', $dateFormatter.dateTime(date))"
+      :title="$t('pickup.join_title')"
       :cancel-title="$t('pickup.join_cancel')"
       :ok-title="$t('pickup.join_agree')"
       :ok-disabled="!loadedUserAgenda || !pickupRulePass || isMissingHygieneCertificate || !isTeamMember"
@@ -184,7 +184,7 @@
       @ok="$emit('leave', date)"
       @cancel="$refs.modal_team_message.show()"
     >
-      <p>{{ $t('pickup.really_leave_date', { date: $dateFormatter.dateTime(date) }) }}</p>
+      <p>{{ $t('pickup.really_leave') }}</p>
     </b-modal>
 
     <b-modal
@@ -259,7 +259,7 @@
       ok-only
       modal-class="bootstrap"
     >
-      <p>{{ $t('pickup.delete_not_empty', slotDate) }}</p>
+      <p>{{ $t('pickup.delete_not_empty') }}</p>
     </b-modal>
 
     <b-modal

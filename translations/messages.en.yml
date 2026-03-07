@@ -1254,7 +1254,7 @@ pickup:
     signout_via_responsible_person:
       via: "by"
       remove_reason: "(Reason: {reason})"
-  join_title_date: Sure?
+  join_title: Sure?
   team_message_send_and_leave: Send and leave
   edit:
     slotscount: '{count} collectors'
@@ -1279,7 +1279,7 @@ pickup:
   really_delete_date: Do you really want to delete the slot on {date}?
   leave_team_message_template: '{date} I can’t pick up after all and have therefore
     signed out again. …'
-  really_leave_date: You are responsible for this pick-up. Please arrange a 
+  really_leave: You are responsible for this pick-up. Please arrange a 
     replacement independently.
   kick_message_footer: Best wishes, your Store Coordinators
   kick_message_placeholder: Optionally add information here …

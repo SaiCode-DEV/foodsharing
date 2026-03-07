@@ -1739,7 +1739,7 @@ pickup:
   join_agree: 'Sí, por favor'
   take_empty_slot: 'Entre aquí'
   team_message_send_and_leave: 'enviar y darse de baja'
-  really_leave_date: 'Usted es responsable de esta recogida. Por favor, organice un
+  really_leave: 'Usted es responsable de esta recogida. Por favor, organice un
     reemplazo usted mismo.'
   signout_confirm: '¿Estas segur@?'
   leave_team_message_title: 'Mensaje al equipo'
@@ -1750,7 +1750,7 @@ pickup:
   kick_message_footer: 'Saludos cordiales, los responsables para la empresa'
   to_be_confirmed: 'Esta fecha de recogida aún debe ser confirmada por un responsable
     para esta empresa.'
-  join_title_date: '¿Segur@?'
+  join_title: '¿Segur@?'
   description_modal_text: 'Introduzca una nueva descripción para la recogida:'
   edit_description: Editar Descripción
   description: Descripción

@@ -2219,7 +2219,7 @@ pickup:
   join_agree: Oui, je m’oblige
   join_cancel: Finalement non
   really_join_date: T’obliges-tu vraiment à réaliser cette collecte le {date} ?
-  join_title_date: Sûr ?
+  join_title: Sûr ?
   team_message_success: Le message a été envoyé à l’équipe avec succès
   team_message_send_and_leave: Envoyer et se retirer de la collecte
   leave_team_message_template: '{date}, je ne peux pas venir et je me suis donc désinscrit.
@@ -2227,7 +2227,7 @@ pickup:
   leave_team_message_title: Envoyer un message à l’équipe
   leave_pickup_message_team: Notifier l’équipe
   leave_pickup_ok: J’ai déjà trouvé un·e remplaçant·e
-  really_leave_date: Tu es responsable de cette collecte, c’est ton rôle de 
+  really_leave: Tu es responsable de cette collecte, c’est ton rôle de 
     trouver un·e remplaçant·e.
   kick_message_footer: Amicalement, l’équipe des responsables coopération
   kick_message_placeholder: 'Informations complémentaires (optionnel) …'

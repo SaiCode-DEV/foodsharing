@@ -1889,7 +1889,7 @@ pickup:
   leave: 'Cancelar'
   kick_message: 'Cancelámos a tua inscrição na recolha da {storeName} em {date}.'
   team_message_success: 'A mensagem foi enviada com sucesso'
-  join_title_date: 'Certo?'
+  join_title: 'Certo?'
   really_leave_date_title: 'Retirar a inscrição para {date}?'
   slot_add: 'Adicionar uma vaga'
   kick_message_placeholder: 'Opcionalmente, adicione informações aqui…'
@@ -1916,7 +1916,7 @@ pickup:
   confirm: 'Confirmar'
   call: 'Ligar'
   same_day_entry: '[{when}] h {name}'
-  really_leave_date: 'És responsável por essa recolha. Por favor, providencie mesmo
+  really_leave: 'És responsável por essa recolha. Por favor, providencie mesmo
     um substituto.'
   to_be_confirmed: 'Esta vaga ainda tem de ser confirmada por um responsável deste
     local.'

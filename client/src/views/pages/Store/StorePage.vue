@@ -98,9 +98,9 @@
               :store-id="storeId"
               :region-pickup-rules="storeInformation.options.useRegionPickupRule"
               :region-pickup-rule-active="regionOptions.isRegionPickupRuleActive"
-              :region-pickup-rule-timespan="regionOptions.regionPickupRuleTimespan"
-              :region-pickup-rule-limit="regionOptions.regionPickupRuleLimit"
-              :region-pickup-rule-limit-day="regionOptions.regionPickupRuleLimitDay"
+              :region-pickup-rule-timespan="regionOptions.regionPickupRuleTimespanDays"
+              :region-pickup-rule-limit="regionOptions.regionPickupRuleLimitNumber"
+              :region-pickup-rule-limit-day="regionOptions.regionPickupRuleLimitDayNumber"
               :region-pickup-rule-inactive="regionOptions.regionPickupRuleInactiveHours"
               :category-type="storeInformation.categoryType"
             />

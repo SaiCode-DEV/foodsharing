@@ -3687,7 +3687,7 @@ pickup:
   copyNumber: Numarayı kopyala
   signout_sure: Bu ekipden ayrılmak istiyor musunuz?
   team_message_success: Ekibe mesaj başarıyla gönderildi
-  join_title_date: Emin misin?
+  join_title: Emin misin?
   same_day_hint: 'Aynı gün şunlar gerçekleşecektir:'
   join_agree: Evet, kesin yazılmak istiyorum
   kick: Çıkış yap
@@ -3717,7 +3717,7 @@ pickup:
   add_onetime_pickup: Ek tarih girin
   no_slots_available: Açık Slot yok
   leave: Çıkış yap
-  really_leave_date: Bu alımdan siz sorumlusunuz. Lütfen yerinize birilerini 
+  really_leave: Bu alımdan siz sorumlusunuz. Lütfen yerinize birilerini 
     ayarlayın.
   leave_pickup_ok: Yedek birini buldum bile
   description_optional: Açıklama (isteğe bağlı)

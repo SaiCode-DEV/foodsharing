@@ -2309,13 +2309,13 @@ pickup:
   really_kick_user_info: "Вы действительно хотите удалить {name} из выдачи {date}?\n\
     \ {name} получит следующее сообщение:\n"
   kick_message_placeholder: 'Дополнительно ввести информацию (необязательно)…'
-  really_leave_date: 'Вы отвечаете за эту выдачу. Пожалуйста, самостоятельно найдите
+  really_leave: 'Вы отвечаете за эту выдачу. Пожалуйста, самостоятельно найдите
     замену.'
   leave_pickup_ok: 'У меня уже есть замена'
   leave_team_message_title: 'Сообщение команде'
   team_message_send_and_leave: 'Отправить и выйти'
   team_message_success: 'Сообщение команде успешно отправлено'
-  join_title_date: 'Уверены?'
+  join_title: 'Уверены?'
   really_join_date: 'Вы хотите окончательно записаться на выдачу {date}?'
   take_empty_slot: 'Записаться сюда'
   delete_title: 'Удалить время выдачи'

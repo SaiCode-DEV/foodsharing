@@ -2650,7 +2650,7 @@ pickup:
   join_agree: ja, registrer deg
   join_cancel: helst ikke
   same_day_entry: '[{when}] {name}'
-  join_title_date: Sikker?
+  join_title: Sikker?
   signout_confirm: Er du sikker?
   call: Anrop
   confirm: Bekreft
@@ -2678,7 +2678,7 @@ pickup:
     \ {name} vil motta følgende melding om dette:\n"
   team_message_send_and_leave: Send og avslutt
   edit_recurring_pickups: Rediger avtaleserie
-  really_leave_date: Du er ansvarlig for denne hentingen. Vennligst ordne en 
+  really_leave: Du er ansvarlig for denne hentingen. Vennligst ordne en 
     erstatning for deg.
   delete_not_empty: Matreddere er foreløpig fortsatt tildelt. Du kan bare slette
     denne hentedatoen når alle har kansellert.

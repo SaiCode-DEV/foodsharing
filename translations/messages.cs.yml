@@ -554,7 +554,7 @@ pickup:
       option: ''
       confirmed: ''
     allLoaded: 'Všechny položky jsou již zobrazeny.'
-  join_title_date: ''
+  join_title: ''
   join_agree: ''
   slot_remove: ''
   edit:
@@ -591,7 +591,7 @@ pickup:
   delete_not_empty: ''
   call: ''
   leave: ''
-  really_leave_date: ''
+  really_leave: ''
   kick_message: ''
   really_leave_date_title: ''
   edit_recurring_pickups: ''

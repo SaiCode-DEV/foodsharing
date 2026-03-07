@@ -294,8 +294,6 @@ export default {
     getLastFetchDateFromUser (userId) {
       const userItem = this.storeMember.find(item => item.id === userId)
       const lastFetchTimestamp = userItem?.lastFetch ?? null
-      console.error(userItem?.lastFetch)
-
       return (lastFetchTimestamp !== null) ? Date.parse(lastFetchTimestamp) : null
     },
     openChat () {

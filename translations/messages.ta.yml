@@ -468,7 +468,7 @@ pickup:
   really_kick_user_info: "{name} இல் பிக் -up இலிருந்து {date} ஐ செய்ய விரும்புகிறீர்களா?\n\
     \ {பெயர் the பின்வரும் செய்தியைப் பெறும்:\n"
   kick_message_footer: அன்புடன், உங்கள் நிறுவன மேலாளர்கள்
-  really_leave_date: இந்த தேர்வுக்கு நீங்கள் பொறுப்பு. மாற்றீட்டை சுயாதீனமாக 
+  really_leave: இந்த தேர்வுக்கு நீங்கள் பொறுப்பு. மாற்றீட்டை சுயாதீனமாக 
     கவனித்துக் கொள்ளுங்கள்.
   leave_pickup_ok: எனக்கு ஏற்கனவே ஒரு மாற்று உள்ளது
   leave_pickup_message_team: அணிக்கு அறிவிக்கவும்
@@ -476,7 +476,7 @@ pickup:
   leave_team_message_template: '{date} வாட்ச் நான் அதை கவனித்துக்கொண்டேன். …'
   team_message_send_and_leave: அனுப்பி செய்யுங்கள்
   team_message_success: அணிக்கு செய்தி வெற்றிகரமாக அனுப்பப்பட்டது
-  join_title_date: பாதுகாப்பானதா?
+  join_title: பாதுகாப்பானதா?
   same_day_hint: 'அதே நாளில் பின்வருபவை நடைபெறும்:'
   region_pickup_rule_failed: இந்த நுழைவு மாவட்ட விதிகளை நிறைவு செய்யவில்லை
   same_day_entry: '[{when} கடிகாரம்] {name}'

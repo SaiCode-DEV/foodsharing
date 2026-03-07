@@ -1382,7 +1382,7 @@ pickup:
       slots: ''
       store: ''
   call: ''
-  really_leave_date: ''
+  really_leave: ''
   really_join_date: ''
   edit:
     added: ''
@@ -1415,7 +1415,7 @@ pickup:
   really_kick_user_info: ''
   take_empty_slot: ''
   team_message_send_and_leave: ''
-  join_title_date: ''
+  join_title: ''
   to_be_confirmed: ''
   add_onetime_pickup: ''
   team_message_success: ''

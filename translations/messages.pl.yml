@@ -1807,7 +1807,7 @@ pickup:
   leave_pickup_message_team: Powiadom team
   leave_team_message_title: Wiadomość do teamu
   team_message_success: Wiadomość do teamu została wysłana pomyślnie
-  join_title_date: Na pewno?
+  join_title: Na pewno?
   same_day_entry: '[{when}] {name}'
   hygieneCertificateMissing:
     link: Do quizu higieny
@@ -1871,7 +1871,7 @@ pickup:
   region_pickup_rule_failed: 'Ten zapis nie spełnia reguł rejonu'
   confirm: 'Potwierdź'
   call: 'Zadzwoń'
-  really_leave_date: ''
+  really_leave: ''
   to_be_confirmed: ''
   delete_title: 'usuń te sloty'
   signout_info: ''

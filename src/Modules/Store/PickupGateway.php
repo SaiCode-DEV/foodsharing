@@ -236,25 +236,25 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
     }
 
     /**
-     * Returns a list of pickup sign up for the store on the date.
+     * Returns a list of signed up pickups for the store on the date.
      *
      * @return PickupSignUp[]
      */
-    public function getPickupSignUpsForDate(int $storeId, DateTime $date): array
+    public function getSignedUpPickupsForDate(int $storeId, DateTime $date): array
     {
-        return $this->getPickupSignUpsForDateRange($storeId, $date, $date);
+        return $this->getSignedUpPickupsForDateRange($storeId, $date, $date);
     }
 
     /**
-     * Returns a list of all sign ups for pickups of the store in the date range.
+     * Returns a list of all signed up pickups for the store in the date range.
      *
      * @param $storeId Store of interest
-     * @param $from Start date for search of sign ups
-     * @param $to Last date which should be found for search of sign ups
+     * @param $from Start date for search of pickups
+     * @param $to Last date which should be found for search of pickups
      *
-     * @return PickupSignUp[] List of found signups
+     * @return PickupSignUp[] List of found pickups
      */
-    private function getPickupSignUpsForDateRange(int $storeId, DateTime $from, ?DateTime $to = null): array
+    private function getSignedUpPickupsForDateRange(int $storeId, DateTime $from, ?DateTime $to = null): array
     {
         $parameters = [
             ':storeId' => $storeId,
@@ -272,7 +272,7 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
 					a.date,
 					UNIX_TIMESTAMP(a.date) AS date_ts,
 					f.description,
-					l.date_activity AS signUpDate
+					MAX(l.date_activity) AS signUpDate
 
 			FROM	fs_abholer a
 			LEFT OUTER JOIN fs_fetchdate f
@@ -288,6 +288,7 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
 			AND     a.date >= :from
 			' . (!is_null($to) ? 'AND     a.date <= :to' : '') . '
 
+			GROUP BY a.foodsaver_id, a.date
 			ORDER BY a.date
 		', $parameters);
 
@@ -435,7 +436,7 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
         $regularSlots = $this->regularPickupGateway->getRegularPickup($storeId);
         $onetimeSlots = $this->getOnetimePickupsForRange($storeId, $from, $oneTimeSlotTo);
         $signupsTo = is_null($oneTimeSlotTo) ? null : max($to, $oneTimeSlotTo);
-        $signups = $this->getPickupSignUpsForDateRange($storeId, $from, $signupsTo);
+        $signups = $this->getSignedUpPickupsForDateRange($storeId, $from, $signupsTo);
 
         if ($intervalFuturePickupSignup->isEmpty()) {
             // No regular pickups. We have to manually set regularSlots to an
