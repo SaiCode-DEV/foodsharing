@@ -6,6 +6,7 @@ namespace Tests\Unit;
 
 use Carbon\Carbon;
 use Codeception\Test\Unit;
+use Foodsharing\Modules\Core\DBConstants\Store\StoreLogAction;
 use Foodsharing\Modules\Store\PickupGateway;
 use Foodsharing\Modules\Store\RegularPickupGateway;
 use Tests\Support\UnitTester;
@@ -41,13 +42,32 @@ class PickupGatewayTest extends Unit
             ['time' => $time, 'dow' => $dow, 'fetcher' => $fetcher]
         );
         $this->gateway->addFetcher($fsid, $this->store['id'], new Carbon($datetime));
+
         $fsList = $this->gateway->getSignedUpPickupsForDate($this->store['id'], new Carbon($datetime));
-
         $this->assertEquals(1, count($fsList));
-
         $this->assertEquals($fsid, $fsList[0]->foodsaverId);
         $this->assertEquals(new Carbon($datetime), $fsList[0]->date);
         $this->assertEquals(false, $fsList[0]->isConfirmed);
+
+        // Add another signup for the same pickup date, but with a later signup date (in the future)
+        $otherFoodsaver = $this->tester->createFoodsaver();
+        $laterSignupDate = (new Carbon($datetime))->addDay();
+        $this->tester->addPicker($this->store['id'], $otherFoodsaver['id'], ['date' => $datetime]);
+        $this->tester->addStoreLog(
+            $this->store['id'],
+            $otherFoodsaver['id'],
+            $otherFoodsaver['id'],
+            StoreLogAction::SIGN_UP_SLOT, [
+                'date_activity' => $laterSignupDate->format('Y-m-d H:i:s'),
+                'date_reference' => $datetime,
+            ],
+        );
+
+        // Check both are returned in the correct order
+        $fsList = $this->gateway->getSignedUpPickupsForDate($this->store['id'], new Carbon($datetime));
+        $this->assertEquals(2, count($fsList));
+        $this->assertEquals($fsid, $fsList[0]->foodsaverId);
+        $this->assertEquals($otherFoodsaver['id'], $fsList[1]->foodsaverId);
     }
 
     public function testGetIrregularPickupDate(): void
