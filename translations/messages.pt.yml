@@ -65,11 +65,11 @@ store:
     needsHomeRegion:
       link: Selecionar distrito principal
       request: Atualmente não podes candidatar-te, pois ainda não escolheste o 
-        teu distrito de origem. Depois de selecionares o distrito de origem, 
+        teu distrito principal. Depois de selecionares o distrito principal, 
         poderás tentar candidatar-te novamente.
       invited: Foste convidado para este local. Antes de poderes aceitar o 
-        convite, deves selecionar um distrito de origem. Assim que escolheres o 
-        distrito de origem, poderás aceitar o convite.
+        convite, deves selecionar um distrito principal. Assim que escolheres o 
+        distrito principal, poderás aceitar o convite.
     needsStoreRegion:
       link: Entrar no distrito
       request: Não podes candidatar-te neste momento, porque ainda não fazes 
@@ -79,7 +79,7 @@ store:
         convite, deves pertencer ao distrito deste local {region}. Assim que te 
         inscreveres no distrito {region}, poderás aceitar o convite.
     requireVerification:
-      link: Abrir fórum do distrito de origem
+      link: Abrir fórum do distrito principal
       request: Não podes candidatar-te neste momento, porque ainda não foste 
         verificado. Este local só aceita aplicações de Foodsavers verificados. 
         Primeiro, realiza as tuas recolhas de teste ou contacta os teus 
@@ -625,7 +625,7 @@ dashboard:
     go: 'Continuar para o questinario'
     ack: 'Li o aviso, não mostrar mais'
   empty_section: 'Ainda não tens {type}'
-  homeRegion: 'A tua distrito de origem é {region}.'
+  homeRegion: 'O teu distrito principal é {region}.'
   source_foodsharepoint: 'Cantinhos alimentares {0}'
   foodsharer: 'Divirta-se a salvar!'
   my:
@@ -640,7 +640,7 @@ dashboard:
     events: 'Teus eventos'
     groups: 'Grupos onde participas'
     jumping_stores: 'Locais onde és substituto'
-    managing_stores: 'Equipas coordenadas'
+    managing_stores: 'Locais onde és responsável'
     pickups: Vagas registadas
     pickupOptions: Opções de inscrição
   greeting_short: 'Olá {name}!'
@@ -656,19 +656,18 @@ dashboard:
   save_selection: 'Salvar configurações'
   updates_title_all: 'Resumo de atualizações'
   no_more_updates_forum: 'Não há mais publicações no fórum'
-  chooseHomeRegion: 'Por favor, selecione um distrito de origem.'
+  chooseHomeRegion: 'Por favor, selecione um distrito principal.'
   deleted_user: 'Utilizador(a) desconectado(a)'
   source_friendWall: 'Mural de {0}'
   source_forum_bot: 'Fórum de Embaixadores {0}'
-  foodsaver_amount: 'Recolheste alimentos <b>{pickups} vezes</b> e, com isso, salvaste
-    <b>{weight} kg</b>.'
+  foodsaver_amount: 'Recolheste alimentos <b>{pickups} vezes</b> e salvaste <b>{weight} kg</b>.'
   invitation: 'Recebeste um convite'
   no_more_updates_event: 'Não há mais eventos'
   settings_tooltip: 'Configurações gerais'
   no_updates: 'Sem atualizações'
   no_more_updates_store: 'Sem mais informações sobre os locais'
-  full_subline: 'Recolheste **{pickups} vezes** alimentos e com isso salvaste **{weight} kg**.
-    O teu distrito de origem é **{region}**.'
+  full_subline: 'Recolheste alimentos **{pickups} vezes** e salvaste **{weight} kg**.
+    O teu distrito principal é **{region}**.'
   no_more_updates_foodsharepoint: 'Não há mais mensagens do cantinho alimentar'
   activation_mail_sent: 'Link de ativação enviado – verifique os teus e-mails'
   no_more_updates_all: 'foi isso!'
@@ -683,7 +682,7 @@ dashboard:
   no_more_updates_mailbox: 'Não mais e-mails'
   invitationCount: 'Recebeste convites ({count})'
   title: 'Painel de controlo'
-  polls: 'As tuas votações em curso'
+  polls: 'Votações em curso'
   source_event: 'Evento {0}'
   general-dates: Tuas próximas vagas
 storeview:
@@ -854,7 +853,7 @@ poll:
     depois.'
   vote_success: 'Votaste com sucesso.'
   scope_description_3: 'Todos os embaixadores do distrito'
-  scope_description_4: 'Todos os Foodsavers verificados com o distrito de origem da
+  scope_description_4: 'Todos os Foodsavers verificados com o distrito principal da
     votação'
   scope_description_0: 'Todos os Foodsavers verificados e não verificados do distrito/grupo'
   scope_description_2: 'Todos os responsáveis das equipas do distrito que atualmente
@@ -1136,7 +1135,7 @@ login:
 profile:
   alldatesdeleted: 'Todos os eventos foram excluido'
   infos:
-    fsMail: 'Caixa de correio interna'
+    fsMail: 'E-mail interno'
     title: 'informação'
     registrationDate: 'Data de registo'
     buddies: 'Conhecidos'
@@ -1146,7 +1145,7 @@ profile:
     buddycount_known: '{name} conhece {count} Foodsavers'
     foodsaverId: 'ID'
     buddycount_followed: '{name} conhecem {count} Foodsavers'
-    privateMail: 'Morada de e-mail privada'
+    privateMail: 'E-mail privado'
   mediation:
     title: 'Solicitação de mediação para {name}'
     info: 'Achamos fantástico que busques apoio para abordar a situação com a pessoa
@@ -1155,7 +1154,7 @@ profile:
       Podes contactar o grupo de trabalho de mediação local através da seguinte morada
       de e-mail:'
     no_group: 'Infelizmente, ainda não existe um grupo de mediação local para o distrito
-      de origem do Foodsaver. Pode abordar o assunto numa reunião de grupo ou no fórum,
+      principal do Foodsaver. Pode abordar o assunto numa reunião de grupo ou no fórum,
       para que seja eleita uma equipa de mediação local.'
   notFound: 'Este perfil de utilizador(a) não existe ou já não existe'
   choosestore: 'Selecione o local em questão'
@@ -1374,7 +1373,7 @@ profile:
     workgroups_admin: Envolvo-me como pessoa de contacto destes grupos
     workgroups_member: em conjunto nos seguintes grupos de trabalho
     no_common_workgroups: em nenhum grupo de trabalho comum
-    home_region_from: Distrito de origem
+    home_region_from: Distrito principal
     kam_for: 'Responsável pela coordenação das seguintes cadeias comerciais:'
   tab_navigation:
     profile: Perfil
@@ -1582,7 +1581,7 @@ group:
     set_admin_text: 'Quer mesmo adicionar {name} ({id}) como administrador?'
     set_ambassador_title: 'Atribuir como embaixador(a)'
     admin_mode_on: 'Ativar a vista do administrador'
-    is_home_region: 'Distrito de origem'
+    is_home_region: 'Distrito principal'
     remove_ambassador_title: 'Remover como embaixador(a)'
     set_ambassador_text: 'Quer mesmo adicionar {name} ({id}) como embaixador(a)?'
     not_verified: 'Não verificado'
@@ -1651,9 +1650,9 @@ group:
     description_required: 'Por favor, introduza uma descrição.'
     name_required: 'Por favor, introduza um nome.'
     description_placeholder: 'Descrição do grupo de trabalho'
-  quitting_home_district_warning: 'Queres mesmo deixar o teu distrito de origem {name}?
+  quitting_home_district_warning: 'Queres mesmo deixar o teu distrito principal {name}?
     Vais perder a tua verificação e terás de te apresentar mais tarde à equipa de
-    embaixadores do teu novo distrito de origem.'
+    embaixadores do teu novo distrito principal.'
   applications_for: 'Aplicações para {name}'
   quit_name_workgroup: 'Deixar a equipa {name}'
   applications: 'Aplicações'
@@ -1916,8 +1915,8 @@ pickup:
   confirm: 'Confirmar'
   call: 'Ligar'
   same_day_entry: '[{when}] h {name}'
-  really_leave: 'És responsável por essa recolha. Por favor, providencie mesmo
-    um substituto.'
+  really_leave: 'És responsável por essa recolha. Por favor, providencie mesmo um
+    substituto.'
   to_be_confirmed: 'Esta vaga ainda tem de ser confirmada por um responsável deste
     local.'
   delete_title: 'Apagar essas vagas'
@@ -2061,7 +2060,7 @@ search:
   results:
     region:
       ambassador_tooltip: 'És o embaixador deste distrito'
-      home_region_tooltip: 'Este é o teu distrito de origem'
+      home_region_tooltip: 'Este é o teu distrito principal'
       member_tooltip: 'És membro deste distrito'
     working_group:
       member_tooltip: 'És o membro deste grupo de trabalho'
@@ -2078,7 +2077,7 @@ search:
       chat_with: 'Chat com {names}'
       chat_with_others: 'outros'
     user:
-      no_home_region: 'Não há distrito de origem'
+      no_home_region: 'Não há distrito principal'
       copied_id: 'ID de {name} copiado ({text})'
       copy_id: 'Copiar ID'
     store:
@@ -3075,7 +3074,7 @@ terminology:
     m: 'Foodsharer'
     d: 'Foodsharer'
   no_pickups: 'nenhum'
-  homeRegion: 'Distrito de origem'
+  homeRegion: 'Distrito principal'
   prAdmins: 'Equipa de relações públicas'
   mailboxes: 'Caixas de correio eletrónico'
   polls: 'Votações'
@@ -3927,12 +3926,12 @@ genderlist:
   number_table_header: 'Número'
   gender_male: 'masculino'
   gender_home_district_table_caption: 'Distribuição da característica «género» entre
-    todos os Foodsavers por distrito de origem'
+    todos os Foodsavers por distrito principal'
   header_for_district: 'Distribuição por género em {bezirk}'
   gender_not_selected: 'não selecionado'
   gender_district_table_caption: 'Distribuição da característica «género» entre todos
     os Foodsavers no distrito'
-  home_district_tab: 'Distrito de origem'
+  home_district_tab: 'Distrito principal'
   gender_table_header: 'Género'
   gender_divers: 'vários'
 position: 'Posição em foodsharing (público)'
@@ -4149,7 +4148,7 @@ regionOptions:
   regionPickupRuleActiveStoreList: 'Lista de locais populares do distrito. Todas as
     vagas desses locais são somadas e consideradas para a regra.'
   enableMediationButton: 'Ativar formulário de mediação nas páginas de perfil dos
-    Foodsavers do distrito de origem'
+    Foodsavers do distrito principal'
   enableReportButton: 'Ativar formulário de denúncia nas páginas de perfil dos Foodsavers
     habitual do distrito'
   regionPickupTimespan: 'Período de tempo (dias antes e depois da data da vaga desejada)
@@ -4166,7 +4165,7 @@ regionOptions:
   noPickupRuleActiveStores: Atualmente, a regra de locais populares não está 
     ativada para nenhum local no distrito.
   enableAddressChangeNotification: Notificar embaixadores e administradores 
-    sobre mudança de morada de um Foodsaver neste distrito de origem
+    sobre mudança de morada de um Foodsaver neste distrito principal
 ort: 'Cidade/Comunidade'
 releases:
   "2023-09": 'Versão “Jaca” 🍈 (Setembro de 2023)'
@@ -4371,7 +4370,7 @@ map:
       member:
         label: Pertença
         all: Todos
-        homeregion: Distrito de origem
+        homeregion: Distrito principal
         other: Segundo distrito
       region:
         label: Distrito
@@ -4540,13 +4539,13 @@ help:
         não são obrigados a seguir essas recomendações.\n"
     report:
       title: Processamento de denúncias
-      md: "pessoas com este distrito de origem. No entanto, nem todas as mensagens
-        são exibidas:\n- Basicamente, não são exibidas mensagens nas quais tu ou os
-        teus coadministradores do grupo local de denúncias ou da comissão de arbitragem
-        estejam envolvidos.\n- Como administrador(a) da comissão de arbitragem, só
-        tens acesso às mensagens nas quais os administradores do grupo local de denúncias
-        estão envolvidos.\n---\nPodes ler aqui as instruções para editar uma mensagem:
-        [Editar uma mensagem](https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)\n\
+      md: "Aqui são mostradas notificações relativas a pessoas deste distrito principal.
+        No entanto, nem todas as mensagens são exibidas:\n- Basicamente, não são exibidas
+        mensagens nas quais tu ou os teus coadministradores do grupo local de denúncias
+        ou da comissão de arbitragem estejam envolvidos.\n- Como administrador(a)
+        da comissão de arbitragem, só tens acesso às mensagens nas quais os administradores
+        do grupo local de denúncias estão envolvidos.\n---\nPodes ler aqui as instruções
+        para editar uma mensagem: [Editar uma mensagem](https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)\n\
         (Infelizmente, até agora só em alemão)\n"
     achievementDuplicateMode:
       md: |
@@ -4958,7 +4957,7 @@ resource_mosaic:
   filter:
     favorites: 'Apenas favoritos'
     active: 'Apenas utilizadores ativos/as'
-    home_region: 'Apenas distrito de origem'
+    home_region: 'Só distrito principal'
   my_resources: 'Meus recursos'
   resource_not_found_warning: 'O recurso ligado não foi encontrado. Ele foi excluído,
     o dono não faz mais parte deste distrito ou grupo, ou o teu link está errado.'
