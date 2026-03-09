@@ -158,7 +158,7 @@ export default {
         this.selectedTypes = [MARKER_TYPES.stores.name]
         this.$refs.storeBubble.show(this.selectedStoreId)
       } else if (this.selectedFoodSharePointId) {
-        this.selectedTypes = [MARKER_TYPES.foodsharepoints.name]
+        this.selectedTypes = [MARKER_TYPES.foodSharePoints.name]
       }
       this.currentCenter = this.center
       this.currentZoom = MAP_CONSTANTS.ZOOM_CITY
