@@ -637,12 +637,12 @@ dashboard:
     stores: 'Locais onde participas'
     buddies: 'Pessoas que conheces'
     baskets: 'Cabazes alimentares'
-    events: 'Teus eventos'
+    events: 'Próximos eventos'
     groups: 'Grupos onde participas'
     jumping_stores: 'Locais onde és substituto'
     managing_stores: 'Locais onde és responsável'
-    pickups: Vagas registadas
-    pickupOptions: Opções de inscrição
+    pickups: Tuas próximas vagas
+    pickupOptions: Vagas disponíveis
   greeting_short: 'Olá {name}!'
   source_store: 'Locais {0}'
   release:
@@ -671,7 +671,7 @@ dashboard:
   no_more_updates_foodsharepoint: 'Não há mais mensagens do cantinho alimentar'
   activation_mail_sent: 'Link de ativação enviado – verifique os teus e-mails'
   no_more_updates_all: 'foi isso!'
-  greeting: 'Olá, {name}! É um prazer ter-te aqui.'
+  greeting: 'Olá, {name}! Que bom ter-te aqui.'
   display_all: 'Todos'
   no_more_updates_friendWall: 'Não há mais relatórios de estado'
   event: 'Próximo evento'
@@ -1366,8 +1366,8 @@ profile:
     by: de
     previous: antes
   sections:
-    orga_rights: '##### tem, como organizador(a), [permissões alargadas]({wikiurl})
-      nesta plataforma.'
+    orga_rights: '##### tem, como pessoa da Orga, [permissões alargadas]({wikiurl})
+      na plataforma.'
     ambassador_for: para
     foodSaver_in_region: Distritos onde estou registado
     workgroups_admin: Envolvo-me como pessoa de contacto destes grupos
@@ -4643,9 +4643,9 @@ help:
       title: 'Registo de local'
     pickupOptions:
       title: 'Possibilidades de inscrição'
-      md: 'A secção Possibilidades de inscrição dá-lhe uma visão geral de todas as
-        turnas vagas nos teus locais, para as quais ainda se procuram Foodsavers.
-        Através do menu de opções, podes ajustar a visualização às tuas necessidades:
+      md: 'A secção "vagas disponíveis" dá-lhe uma visão geral de todas as turnas
+        vagas nos teus locais, para as quais ainda se procuram Foodsavers. Através
+        do menu de opções, podes ajustar a visualização às tuas necessidades:
 
 
         **Vagas inscritas:** Para que possas planear melhor as tuas vagas, também

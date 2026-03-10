@@ -950,7 +950,7 @@ profile:
       filterManage: Responsible
       filterAll: all
       filterRequested: Inquiry submitted
-      filterJumper: Jumper
+      filterJumper: Standby
       filterInvitations: Invited
     search_placeholder: Search by name
   sleeping_info_from_until: is inactive from {from} to {until}
@@ -1418,7 +1418,7 @@ storeview:
   show_settings: Store settings
   choose_chain: Choose a chain
   team_info_active: 'No of active foodsharers:'
-  team_info_jumper: 'Stand-bys:'
+  team_info_jumper: 'Standbys:'
   team_info_distance: 'Airline distance to the store:'
   public_info:
     error_message: Text is too long (max. {count} characters)
@@ -4376,9 +4376,9 @@ help:
         requests*” and “*Reject membership requests*”. If you now click on the “*Show
         selected actions*” button, you will be shown a history of the selected events.\n\
         \ ---\n###### Access\nOnly those who can manage the company have access to
-        it. The operating log is not visible to normal foodsavers and jumpers.\n---\n\
-        \ ###### Restrictions\nA maximum of 100 entries will be loaded. You may need
-        to limit the search period or the selected action types if not all results
+        it. The operating log is not visible to normal foodsavers and standbys.\n\
+        ---\n ###### Restrictions\nA maximum of 100 entries will be loaded. You may
+        need to limit the search period or the selected action types if not all results
         are displayed.\n"
     threadPriority:
       title: Thread priority

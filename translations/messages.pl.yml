@@ -476,14 +476,16 @@ settings:
     passkey_deleted: 'Pomyślnie usunięto klucz bezpieczeństwa'
     mfa_section: 'Uwierzytelnianie wieloskładnikowe'
     passkey_renamed: 'Pomyślnie zmieniono nazwę klucza bezpieczeństwa'
-    register_passkey: ''
-    passkeys_info: ''
+    register_passkey: 'Zarejestruj nowy klucz bezpieczeństwa'
+    passkeys_info: 'Klucze bezpieczeństwa (passkeys) umożliwiają bezpieczne logowanie
+      bez hasła.'
     security_keys: 'Klucze bezpieczeństwa (Passkeys)'
     other_domain_info: ''
     authenticator_app_description: ''
-    no_passkeys: ''
+    no_passkeys: 'Jeszcze nie zarejestrowano żadnego klucza bezpieczeństwa.'
     domain_info: ''
-    passkeys_not_supported: ''
+    passkeys_not_supported: 'Twoja przeglądarka nie wspiera kluczy bezpieczeństwa
+      (WebAuthn).'
     mfa_disabled: 'Uwierzytelnianie wieloskładnikowe deaktywowane'
     passkey_registered: ''
   two_fa_manage:
@@ -777,7 +779,7 @@ group:
     stores_coordination: ''
     tooltip_function_3: 'Administratorzy tego zespołu mogą aktywować i edytować jadłodzielnie
       w rejonie oraz usuwać posty na tablicy jadłodzielni'
-    arbitration: ''
+    arbitration: 'Rada arbitrażowa'
   application_requirements:
     requirements: Kto może dołączyć do tej grupy?
     nobody: Nikt (zamknięta grupa).
@@ -1356,7 +1358,7 @@ fsp:
     bell: ''
   createdAt: 'Otwarte:'
   summary: 'Jest/są {count} jadłodzielni/e w rejonach, w których jesteś aktywny/a'
-  summaryRegion: ''
+  summaryRegion: 'Jest/są {count} jadłodzielni/e w {region} i wszystkich podrejonach'
   publicwall: 'Pamiętaj, że posty na tablicy jadłodzielni są publicznie widoczne.'
   suggestSuccess: 'Jadłodzielnia została zaproponowana i jest sprawdzana przez odpowiedzialne
     osoby.'
@@ -1404,7 +1406,7 @@ storeview:
   public_and_statistics: ''
   team: ''
   invalid_field: 'Nieważna treść pola. Zmiany nie mogą zostać zapisane.'
-  team_info_jumper: ''
+  team_info_jumper: 'Rezerwowi:'
   store: ''
   show_settings: ''
   status_notes: ''
@@ -1567,7 +1569,7 @@ store:
       1: ''
       18: '{actor} cofnął/ęła zaproszenie do teamu dla {target}.'
       14: '{actor} potwierdził/a slot {target} {date}.'
-      3: ''
+      3: '{actor} zaakceptował/a prośbę o członkostwo od {target}.'
       4: '{actor} dodał/a {target} ręcznie.'
       11: '{actor} zapisał/a się na slot {date}.'
       13: '{actor} wypisał/a {target} ze slotu {date}.'
@@ -1575,7 +1577,7 @@ store:
       16: '{actor} cofnął/ęła zapytanie o członkostwo.'
       10: ''
       12: '{actor} wypisał/a się ze slotu {date}.'
-      2: ''
+      2: '{actor} odrzucił/a prośbę o członkostwo od {target}.'
       5: '{actor} umieścił/a {target} na liście rezerwowych.'
       9: ''
       15: '{actor} usunął/ęła wpis na tablicy od {target} z dnia {date}.'
@@ -2378,7 +2380,8 @@ pickuplist:
   NumberOfSlots_table_header: 'Liczba slotów'
   error_changeSlotCount: 'Zmiana liczby slotów nie powiodła się: '
   header_for_district: 'Podział slotów w {bezirk} '
-  tooslow: ''
+  tooslow: 'Zapisanie niestety się nie powiodło. Prawdopodobnie dlatego, że ktoś inny
+    był szybszy.'
   NumberOfAppointments_table_header: ''
   really_delete_last_slot:
     body: 'Na pewno chcesz usunąć ostatni slot? Ten termin będzie wtedy zupełnie usunięty.'
@@ -2549,8 +2552,8 @@ map:
       member:
         label: Członkostwo
         all: wszystkie
-        other: ''
-        homeregion: ''
+        other: 'Rejon drugorzędny'
+        homeregion: 'Rejon macierzysty'
       region:
         label: 'Rejon'
   foodsharepoint:
@@ -2563,7 +2566,7 @@ map:
   title: 'Mapa'
   donates: ''
   region:
-    go: ''
+    go: 'Do strony rejonu'
 mailbox:
   mails: Maile
   mail: Mail
