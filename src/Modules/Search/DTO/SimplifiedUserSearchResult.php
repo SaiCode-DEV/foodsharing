@@ -26,7 +26,7 @@ class SimplifiedUserSearchResult
     {
         $result = new SimplifiedUserSearchResult();
         $result->id = $user->id;
-        $name = empty($user->last_name) ? $user->name : "{$user->name} {$user->last_name}";
+        $name = empty($user->lastName) ? $user->name : "{$user->name} {$user->lastName}";
         $result->value = "{$name} ({$user->id})";
 
         return $result;

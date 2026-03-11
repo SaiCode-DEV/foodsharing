@@ -42,12 +42,12 @@ class SearchRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to search in that region')]
     public function listUserResults(
         #[MapQueryParameter('q', filter: \FILTER_VALIDATE_REGEXP, options: ['regexp' => '/^.+$/'])] string $query,
-        #[MapQueryParameter(options: ['min_range' => 1])] ?int $regionId,
+        #[MapQueryParameter(options: ['min_range' => 0])] ?int $regionId,
     ): Response {
         $this->assertLoggedIn();
         $maySearchByEmailAddress = $this->searchPermissions->maySearchByEmailAddress();
 
-        if (!$regionId) {
+        if ($regionId === null) {
             $users = $this->searchGateway->searchUsers($query, $this->session->id(), false, $maySearchByEmailAddress);
         } elseif (!$this->searchPermissions->maySearchInRegion($regionId)) {
             throw new AccessDeniedHttpException('insufficient permissions to search in that region');
