@@ -27,7 +27,7 @@
       :value.sync="description"
       input-name="basket-description-input"
       class="mb-3"
-      rows="3"
+      :rows="3"
     />
 
     <label>{{ $t('basket.contact_types') }}:</label>
@@ -167,10 +167,12 @@ export default {
       ...[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 30, 40, 50, 75, 100].map(weightInKg => ({ name: `${weightInKg} kg`, weightInGrams: weightInKg * 1000 })),
     ]
     if (!this.edit) {
+      // Init with user details will run asynchronously in the background
       this.initUsingUserDetails()
+      // Return default values for the form while user details are being fetched
       return Object.assign({}, { durationOptions, weights }, defaultBasketData)
     }
-    this.testHomeRegion()
+    this.initUsingExistingBasket()
     return {
       durationOptions,
       weights,
@@ -210,42 +212,45 @@ export default {
     async initUsingUserDetails () {
       await this.userStore.fetchDetails()
 
-      const u = (this.userStore && this.userStore.user) ? this.userStore.user : this.user
-      if (!u) {
+      if (!this.user) {
         this.phoneNumber = ''
         this.useHomeAddress = false
         return
       }
 
-      this.phoneNumber = u.mobile || u.landline || ''
+      this.phoneNumber = this.user.mobile || this.user.landline || ''
 
-      if (u.coordinates && (u.address || u.postcode)) {
+      if (this.user.coordinates && (this.user.address || this.user.postcode)) {
         this.useHomeAddress = true
-        this.location = Object.assign({}, u.coordinates || {})
+        this.location = Object.assign({}, this.user.coordinates || {})
         this.address = {
-          street: u.address || '',
-          zipCode: u.postcode || '',
-          city: u.city || this.address.city || '',
+          street: this.user.address || '',
+          zipCode: this.user.postcode || '',
+          city: this.user.city || this.address.city || '',
         }
       }
     },
 
-    async testHomeRegion () {
+    async initUsingExistingBasket () {
       await this.userStore.fetchDetails()
-      const u = (this.userStore && this.userStore.user) ? this.userStore.user : this.user
-      if (!u || !u.coordinates) return
 
-      if (!this.phoneNumber) this.phoneNumber = u.mobile || u.landline || ''
+      if (!this.user || !this.user.coordinates) return
 
-      this.useHomeAddress = this.hasValidHomeAddress &&
-    Math.abs(this.basket.location.lat - u.coordinates.lat) < 1e-5 &&
-    Math.abs(this.basket.location.lon - u.coordinates.lon) < 1e-5
+      if (!this.phoneNumber) {
+        this.phoneNumber = this.user.mobile || this.user.landline || ''
+      }
+
+      const maxDifferenceFromHomeLocation = Math.max(
+        Math.abs(this.basket.location.lat - this.user.coordinates.lat),
+        Math.abs(this.basket.location.lon - this.user.coordinates.lon),
+      )
+      this.useHomeAddress = this.hasValidHomeAddress && maxDifferenceFromHomeLocation < 1e-5
 
       if (this.useHomeAddress) {
         this.address = {
-          street: u.address || '',
-          zipCode: u.postcode || '',
-          city: u.city || this.address.city || '',
+          street: this.user.address || '',
+          zipCode: this.user.postcode || '',
+          city: this.user.city || this.address.city || '',
         }
       }
     },
