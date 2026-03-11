@@ -84,7 +84,7 @@ export default {
   },
   computed: {
     polls () {
-      return GroupsData.getters.getPolls(this.regionId)
+      return this.sortPolls(GroupsData.getters.getPolls(this.regionId))
     },
     ongoingPolls: function () {
       return this.polls.filter(p => !this.isPollInFuture(p) && !this.isPollInPast(p))
@@ -101,12 +101,7 @@ export default {
         filtered = filtered.filter(p => p.name.toLowerCase().indexOf(filterText) !== -1)
       }
 
-      return filtered.sort((a, b) => {
-        const aD = this.convertDate(a.endDate.date)
-        const bD = this.convertDate(b.endDate.date)
-        if (aD.getTime() === bD.getTime()) return 0
-        return aD > bD ? -1 : 1
-      })
+      return filtered
     },
     endedPollsPaginated: function () {
       return this.endedPolls.slice(
@@ -135,6 +130,10 @@ export default {
       }
 
       return date.getDate()
+    },
+    sortPolls (pollsToSort) {
+      // Return a sorted copy of the polls list, newest first
+      return pollsToSort.toSorted((a, b) => this.convertDate(b.endDate) - this.convertDate(a.endDate))
     },
   },
 }

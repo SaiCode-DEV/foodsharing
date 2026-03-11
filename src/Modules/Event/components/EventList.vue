@@ -73,7 +73,7 @@ export default {
   },
   computed: {
     events () {
-      return EventsData.getters.getEvents(this.regionId)
+      return this.sortEvents(EventsData.getters.getEvents(this.regionId))
     },
     currentEvents: function () {
       return this.events.filter(p => !this.isEventInPast(p))
@@ -87,12 +87,7 @@ export default {
         filtered = filtered.filter(p => p.name.toLowerCase().indexOf(filterText) !== -1)
       }
 
-      return filtered.sort((a, b) => {
-        const aDate = this.convertDate(a.startDate)
-        const bDate = this.convertDate(b.startDate)
-        if (aDate.getTime() === bDate.getTime()) return 0
-        return aDate < bDate ? 1 : -1
-      })
+      return filtered
     },
   },
   async created () {
@@ -105,6 +100,10 @@ export default {
     },
     convertDate (date) {
       return new Date(Date.parse(date))
+    },
+    sortEvents (eventsToSort) {
+      // Return a sorted copy of the events list, newest first
+      return eventsToSort.toSorted((a, b) => this.convertDate(b.endDate) - this.convertDate(a.endDate))
     },
   },
 }
