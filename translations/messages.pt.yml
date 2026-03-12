@@ -187,7 +187,7 @@ store:
     filterAll: 'membros'
     removeFromTeam: 'sair desta equipa'
     filterUnverified: 'não verificados'
-    filterManage: 'com teste dos responsáveis por cooperações'
+    filterManage: 'com teste aprovado para responsável de cooperações'
     promoteToManager: 'Assumir a responsabilidade por este local'
     promoteToManagerNotPossible: 'Não é possível registar esta pessoa como responsável,
       porque já existem três responsáveis por esta cooperação ou a pessoa ainda não
@@ -454,10 +454,10 @@ bell:
     one: Publicação do mural de {user}
     many: '{count} novas publicações no mural'
   translation_failed:
-    title: Sino desconhecido
-    key: Os sinos da versão beta não podem ser mostrados
+    title: Notificação desconhecida
+    key: Notificações da versão beta não podem ser mostrados
     md: |-
-      O sino contém um texto desconhecido. Provavelmente, isso se deve ao facto de o sino ter sido retirada da versão beta do site.
+      Esta notificação contém um texto desconhecido. Provavelmente, isso se deve ao facto de o sino ter sido retirada da versão beta do site.
 
        Título: `{bellTitle}`
 
@@ -1060,7 +1060,7 @@ menu:
     public: Página pública do distrito
   bell:
     delete_read_confirmation:
-      text: 'Queres mesmo apagar {count} sinos lidos?'
+      text: 'Queres mesmo apagar {count} notificações lidos?'
       title: 'Apagr notificações?'
 date:
   tomorrow: 'amanha'
@@ -1289,13 +1289,13 @@ profile:
       other: '{name} ainda não ofereceu nenhuma banana de reconhecimento.'
       you: Ainda não ofereceste nenhuma banana de reconhecimento.
   stats:
-    baskets: 'Cabazes'
-    weight: 'salvo'
-    posts: 'Publicações'
+    baskets: 'cabazes'
+    weight: 'salvos'
+    posts: 'publicações'
     weight_unit: kg
     fetch_count: recolhido
-    bananas: Bananas
-    slots: Vagas
+    bananas: bananas
+    slots: participações
     give_count: entregue
     engagement_count: engajado
   commitments_stat:
@@ -1542,7 +1542,7 @@ group:
       apresentados na visão geral do distrito.
     resources: Mosaico de recursos
     tooltip_function_13: Os administradores deste grupo de trabalho serão 
-      informados sobre novos recursos através de campainha.
+      informados sobre novos recursos através de notificações internas.
   application_from: 'de'
   apply:
     accept: 'Aceitar'
@@ -1841,7 +1841,7 @@ pickup:
       option: 'Vagas vacante'
       confirmed: 'Confirmada'
       pending: 'Não confirmada'
-    freeSlots: '{slots} disponíveis'
+    freeSlots: '{slots} por preencher'
   really_delete_date: 'Deseja mesmo apagar a vaga em {date}?'
   add_onetime_pickup: 'Insira vaga única'
   description_modal_text: 'Introduza uma nova descrição:'
@@ -1992,7 +1992,7 @@ error:
     link: 'Opções do perfil'
 fsp:
   info:
-    mail: 'Notificação por campainha e e-mail'
+    mail: 'Notificações internas e e-mail'
     manager: 'És responsável por este Fairteiler e, por isso, obrigado a receber as
       atualizações.'
     none: 'não mais'
@@ -2000,7 +2000,7 @@ fsp:
       gostaria de receber estas notificações?'
     descModal: 'Como gostaria de ser informado sobre atualizações (por exemplo, entregas
       de alimentos)?'
-    bell: 'apenas mensagens informativas internas (sinal)'
+    bell: 'só notificações internas'
     from: 'Atualização para o cantinho alimentar „{name}“'
   pic: 'Foto'
   description: 'Descrição'
@@ -2258,8 +2258,8 @@ quiz:
       Se falhares agora, serás permanentemente desqualificado deste teste. Por 
       favor, participa apenas se já te tiveres familiarizado com o conteúdo da 
       wiki.
-    neverTried: Nunca antes há realizado este questionario. Tome o tempo para 
-      ler atentamente todos os artículos de informação enumerados para estar 
+    neverTried: Nunca antes há realizado este teste. Tome o tempo para ler 
+      atentamente todos os artículos de informação enumerados para estar 
       preparado para as preguntas.
     passed: Passaste neste teste.
     noWaitAfter: Consulte novamente os artigos de informação relevantes e tente 
@@ -3890,7 +3890,7 @@ forum:
   follow:
     header: 'Notificação em novas casa de respostas:'
     email: 'por e-Mail'
-    bell: 'por campana'
+    bell: 'Na plataforma'
   from: 'de {name}'
   quickreply:
     error: 'A tua contribuição não pode ser guardada.'
@@ -3916,7 +3916,7 @@ forum:
     reason: 'Motivo: «{reason}»'
     title: Restaurar a publicação
   options:
-    bells_for_new_posts: Receber um sinal para novos tópicos
+    bells_for_new_posts: Notificações na plataforma de novos tópicos
 title: 'Titulo'
 genderlist:
   gender_female: 'femenino'
@@ -3976,7 +3976,7 @@ notifications:
   config_button: 'configurar por separado'
   success: 'Sucesso'
   checkbox_email: 'E-Mail'
-  checkbox_bell: 'Sinal'
+  checkbox_bell: 'Notificações internas'
   warning: Aviso
   error: Ero
   info: Informação

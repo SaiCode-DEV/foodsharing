@@ -3541,12 +3541,12 @@ achievements:
   award: ''
   awarded: ''
 search:
-  thread-title-only: ''
+  thread-title-only: 'Wyszukiwanie obejmuje tylko tytuły, nie treść wątków.'
   results:
     region:
-      ambassador_tooltip: ''
-      home_region_tooltip: ''
-      member_tooltip: ''
+      ambassador_tooltip: 'Jesteś ambasadorem/ką tego rejonu'
+      home_region_tooltip: 'To twój rejon macierzysty'
+      member_tooltip: 'Jesteś członkiem tego rejonu'
     mail:
       from_to_many: ''
       attachment_tooltip: ''
@@ -3555,10 +3555,10 @@ search:
       mail_name: ''
       from_to: ''
     time_relation:
-      present_since: ''
-      past: ''
-      future: ''
-      present_until: ''
+      present_since: 'Rozpoczęte'
+      past: 'Zakończone'
+      future: 'Rozpoczyna się'
+      present_until: 'Kończy się'
     working_group:
       member_tooltip: ''
       admin_tooltip: ''
@@ -3567,11 +3567,11 @@ search:
       can_vote: ''
       has_voted: ''
     thread:
-      closed_tooltip: ''
-      forum: ''
+      closed_tooltip: 'Temat jest zamknięty'
+      forum: 'Forum'
       sticky_tooltip: ''
-      ambassador_forum: ''
-      last_post: ''
+      ambassador_forum: 'Forum ambasadorów/ek'
+      last_post: 'ostatni post'
       bottom_tooltip: ''
     event:
       invitation_tooltip:
@@ -3580,19 +3580,19 @@ search:
         0: ''
         2: ''
       location_online: ''
-    in: ''
+    in: 'w'
     chat:
-      chat_with: ''
+      chat_with: 'Chat z {names}'
       chat_with_others: ''
     user:
       copied_id: ''
-      no_home_region: ''
+      no_home_region: 'bez rejonu macierzystego'
       copy_id: ''
     store:
       manager_tooltip: ''
       jumper_tooltip: ''
       member_tooltip: ''
-    from: ''
+    from: 'z'
   title: ''
   too_short: ''
   placeholder: ''
@@ -3602,14 +3602,14 @@ search:
       body: ''
       title: ''
   user_search:
-    placeholder: ''
+    placeholder: 'Imię lub ID'
   maxresults: ''
   informations: ''
-  noresults: ''
+  noresults: 'Nie znaleziono wyników'
   scope:
     global: ''
     local: ''
-  thread-body-only: ''
+  thread-body-only: 'Wyszukiwanie obejmuje tylko tekst w postach, nie tytuły.'
 error_permissions: ''
 oauth:
   error:
