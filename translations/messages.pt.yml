@@ -41,7 +41,7 @@ store:
       ({distance}). Tens a certeza de que podes apoiar a equipa de forma regular
       e fiável?
     confirm-no-location: Não inscreveste uma morada válida no teu perfil. Por 
-      favor, insere uma morada para facilitar aos responsáveis pelas equipas a 
+      favor, insere uma morada para facilitar aos responsáveis da cooperação a 
       decisão sobre a tua aplicação.
     confirm-no-location-ok: Candidatar mesmo assim
     application-message: Mensagem de aplicação
@@ -104,8 +104,8 @@ store:
         loja só aceita Foodsavers com pelo menos um número de telefone 
         registado. Depois de adicionares o número, poderás aceitar o convite.
     applicationSummary:
-      intro: 'Quando enviares a tua aplicação, os responsáveis da equipa verão as
-        seguintes informações:'
+      intro: 'Quando enviares a tua aplicação, os responsáveis da cooperação verão
+        as seguintes informações:'
       time: A hora da aplicação
       fullName: O teu nome completo ({first_name} {last_name})
       verified: O teu estado da verificação ({status})
@@ -144,11 +144,11 @@ store:
         mensagem'
       8: '{actor} deixou a equipa.'
       16: '{actor} retirou o pedido de filiação.'
-      10: '{actor} demitiu {target} de responsável da equipa.'
+      10: '{actor} removeu {target} como responsável da cooperação.'
       12: '{actor} descreu-se para a vaga em {date}.'
       2: '{actor} rejeitou o pedido de afiliação de {target}.'
       5: '{actor} colocou {target} na lista de substitutos.'
-      9: '{actor} designou {target} como responsável da equipa.'
+      9: '{actor} designou {target} como responsável da cooperação.'
       15: '{actor} eliminou a publicação do mural de {target} em {date}.'
       17: '{actor} convidou {target} para a equipa.'
       18: '{actor} retirou o convite à equipa para {target}.'
@@ -163,10 +163,10 @@ store:
       16: 'Retirar o pedido de affiliação'
       8: 'Abandonar a equipa'
       4: 'Adicionar Foodsavers ao equipa sem a solicitação'
-      10: 'Remover como responsáveis da equipa'
+      10: 'Remover responsáveis'
       6: 'Adicionar Foodsavers ao equipa ativo'
       12: 'Cancelar a vaga'
-      9: 'Inscrever responsáveis da equipa'
+      9: 'Inscrever responsáveis'
       5: 'Passar Foodsavers para a lista de substitutos'
       13: 'Ser cancelada da vaga'
       11: 'Inscrever pela vaga'
@@ -187,16 +187,16 @@ store:
     filterAll: 'membros'
     removeFromTeam: 'sair desta equipa'
     filterUnverified: 'não verificados'
-    filterManage: 'com questinário dos responsáveis pela cooperação'
+    filterManage: 'com teste dos responsáveis por cooperações'
     promoteToManager: 'Assumir a responsabilidade por este local'
-    promoteToManagerNotPossible: 'A pessoa não pode ser registada como responsável
-      porque já existem três responsáveis da equipa ou porque a pessoa ainda não passou
-      no questinário correspondente.'
+    promoteToManagerNotPossible: 'Não é possível registar esta pessoa como responsável,
+      porque já existem três responsáveis por esta cooperação ou a pessoa ainda não
+      passou no teste.'
     filterActive: 'ativos'
     searchPlaceholder: 'Nome ou ID'
     filterSleeping: 'dorminhocos'
     filterJumper: 'substitutos'
-    filterQuizSM: 'Questinário aprovado para responsáveis por equipas'
+    filterQuizSM: 'Aprovado no teste para responsáveis por cooperações'
     reallyRemove: 'Desejas realmente remover {name} desta equipa?'
     makeJumper: 'Na lista de substitutos'
     reloadRequired: 'Para atualizar as informações do equipa:'
@@ -228,7 +228,7 @@ store:
     some: 'Depois de um pouco de persuasão, eles concordaram em participar.'
     none: 'Não houve nenhum problema, eles ficaram entusiasmados imediatamente!'
     final: 'No início não parecia promissor, mas depois entraram em contacto.'
-  mayAmb: 'Aprovou o questionário de embaixadores.'
+  mayAmb: 'Aprovou o teste de embaixadores.'
   chat:
     jumper: 'Mensagem aos substitutos'
     team: 'Mensagem á equipa'
@@ -240,7 +240,7 @@ store:
   managing: 'Responsabilidade de equipa'
   prefetchthree: '3 semanas'
   springer_conversation_name: 'Substituto [name]'
-  isManager: 'Responsável deste local.'
+  isManager: 'Responsável deste cooperação.'
   prefetchtwo: '2 semanas'
   particularities: 'Como fazer'
   noPickup: 'Nunca recolheu nada aqui.'
@@ -280,7 +280,7 @@ store:
   teamName: 'Equipa {storeTitle}'
   enter_date: 'Inscrever uma vaga individual'
   ownStores: 'Locais próprios'
-  mayManage: 'Aprovou o exame de responsáveis por equipas.'
+  mayManage: 'Aprovou o exame de responsáveis por cooperações.'
   go: 'Para a equipa'
   bread: 'Todos os locais'
   particularities_chain: 'Instruções da cadeia'
@@ -317,8 +317,8 @@ store:
   team_conversation_name: 'Equipa {name}'
   lastPickupShort: 'última vez {date}'
   pickup_slot_unavailable: 'Esta vaga está mais distante no futuro do que os teus
-    responsáveis da equipa pretendiam. Por isso, tente novamente mais tarde.'
-  smneeded: 'Para criar um local, tens de ser um responsável por equipas.'
+    responsáveis da cooperação pretendiam. Por isso, tente novamente mais tarde.'
+  smneeded: 'Para criar um local, tens de ser um responsável por cooperações.'
   invitations: Convites abertos ({count})
   deactivatedRegion: A lista de locais ainda não pode ser apresentada para 
     países e continentes.
@@ -570,7 +570,7 @@ email_template:
       recolhas possam ser feitas. Se não conseguir mobilizar ninguém, seria bom se
       pudesse assumir as recolhas em aberto. Se isso não for possível, por favor,
       cancele as datas correspondentes com antecedência junto da loja.'
-    part1: 'A tarefa de responsáveis por equipas é garantir que as recolhas sejam
+    part1: 'A tarefa de responsáveis por cooperações é garantir que as recolhas sejam
       realizadas conforme previsto. Infelizmente, nem todos os seus negócios registaram
       Foodsavers suficientes para as recolhas nos próximos dois dias:'
   confirm_for_moderated_forum: 'O tópico precisa ser confirmado, pois se trata de
@@ -622,7 +622,7 @@ dashboard:
   eventCount: 'Próximos eventos ({count})'
   quiz:
     read: 'continue lendo'
-    go: 'Continuar para o questinario'
+    go: 'Continuar para o teste'
     ack: 'Li o aviso, não mostrar mais'
   empty_section: 'Ainda não tens {type}'
   homeRegion: 'O teu distrito principal é {region}.'
@@ -637,7 +637,7 @@ dashboard:
     stores: 'Locais onde participas'
     buddies: 'Pessoas que conheces'
     baskets: 'Cabazes alimentares'
-    events: 'Próximos eventos'
+    events: 'Eventos'
     groups: 'Grupos onde participas'
     jumping_stores: 'Locais onde és substituto'
     managing_stores: 'Locais onde és responsável'
@@ -719,10 +719,10 @@ storeview:
   select_related_region: 'Seleção do distrito competente'
   visible_for_team: 'Este texto é visível para a equipa de local.'
   public_time_at_night: 'à noite'
-  no_permission_to_view: 'Visível apenas pelos responsáveis por equipas.'
+  no_permission_to_view: 'Visível apenas pelos responsáveis de cooperação.'
   status: 'Situação actual'
   pickupWeight: 'kg salvado'
-  managers: 'Responsáveis de equipa'
+  managers: 'Responsáveis de cooperação'
   common: 'Geral'
   team_info_distance: 'Distância aérea para o local:'
   publicity_and_sticker_options:
@@ -856,7 +856,7 @@ poll:
   scope_description_4: 'Todos os Foodsavers verificados com o distrito principal da
     votação'
   scope_description_0: 'Todos os Foodsavers verificados e não verificados do distrito/grupo'
-  scope_description_2: 'Todos os responsáveis das equipas do distrito que atualmente
+  scope_description_2: 'Todos os responsáveis das cooperações do distrito que atualmente
     são responsáveis por uma equipa'
   type: 'Tipo de votação'
   hint_sorted_order: 'A ordem das opções disponíveis para escolha é fixa e igual para
@@ -1223,7 +1223,7 @@ profile:
     report_b1_3: Levou crianças para o local de trabalho sem autorização (B01-4)
     report_b1_4: Não tinha consigo o teu cartão de foodsharing (B01-5)
     report_b2: Realizou uma recolha fora dos eventos estabelecidos sem acordo 
-      prévio com o responsável da equipa (B02)
+      prévio com o responsável da cooperação (B02)
     report_b3_0: Não entrou/saiu do local em conjunto com outros participantes 
       (B03-1)
     report_b3_1: A recolha não foi realizada sem discussão ou disputa (B03-2)
@@ -1389,7 +1389,7 @@ profile:
       filterRequested: Solicitação enviada
       filterInvitations: Convidado
       filterActive: membro
-      filterManage: Responsável por equipas
+      filterManage: Responsável por cooperações
       filterJumper: Substituto
   sleeping_info_from_until: Tenho um dorminhoco de {from} até {until}
   choosereasonnostore: Não se aplica a nenhum local
@@ -1428,7 +1428,7 @@ mailbox:
   mark_as_read: 'Marcar e-mail como lido'
   actions: 'Opções'
   to: 'Para'
-  sm-quiz: 'Concurso questinario para responsáveis por equipas'
+  sm-quiz: 'Teste para responsáveis por cooperações'
   okay: 'O e-mail foi enviado com sucesso.'
   manage: 'Administrador de caixa de correio'
   trash: 'Cesto de papel'
@@ -1635,7 +1635,7 @@ group:
     tooltip_function_region2287: 'Os administradores deste grupo de trabalho podem
       editar o conteúdo da página inicial'
     tooltip_function_region341: 'Os administradores deste grupo de trabalho podem
-      gerir as perguntas do questionário'
+      gerir as perguntas do teste'
     tooltip_function_region1811: 'Os administradores deste grupo de trabalho podem
       editar as páginas “ Parceiros”, “Contactos” e “Equipa”'
     tooltip_function_region331: 'Os administradores deste grupo de trabalho podem
@@ -1742,10 +1742,10 @@ foodsaver:
     last-activity: 'Atividade mais recente'
   upgrade:
     learning: 'Assistir ao vídeo explicativo agora'
-    ad_fs: 'Quero fazer o questionário de Foodsaver agora e tornar-me Foodsaver!'
+    ad_fs: 'Quero fazer o teste de Foodsaver agora e tornar-me Foodsaver!'
     rv: 'Sim, li e consinto com o acordo legal.'
     FOODSAVER: Tornar-me Foodsaver
-    STORE_MANAGER: Torne-se responsável por equipas
+    STORE_MANAGER: Torne-se responsável por cooperações
     AMBASSADOR: Torne-se embaixador(a)
     pn: Sim, li e aceito a política de privacidade.
   editName: 'Editar {name}'
@@ -1834,7 +1834,7 @@ pickup:
       registeredSwitch: 'Vagas inscritas'
       loadMore: 'Ver mais'
       signOff: 'Cancelar'
-      managedOnlySwitch: Vista de responsável(e)
+      managedOnlySwitch: Vista de responsável
       useCondensedDesign: Agrupados por dias
     header: 'Vagas'
     status:
@@ -1849,7 +1849,7 @@ pickup:
   description: 'Descrição'
   edit_recurring_pickups: 'Editar série de vagas'
   kick: 'Remover'
-  kick_message_footer: 'Cumprimentos cordiais, os responsáveis da equipa'
+  kick_message_footer: 'Cumprimentos cordiais, os responsáveis da cooperação'
   really_kick_user_info: 'Tens a certeza de que deseja cancelar a inscrição de {name}
     na recolha de {date}?
 
@@ -1918,7 +1918,7 @@ pickup:
   really_leave: 'És responsável por essa recolha. Por favor, providencie mesmo um
     substituto.'
   to_be_confirmed: 'Esta vaga ainda tem de ser confirmada por um responsável deste
-    local.'
+    cooperação.'
   delete_title: 'Apagar essas vagas'
   signout_info: 'As tuas recolhas pendentes serão eliminadas.'
   leave_team_message_template: 'Infelizmente, não poderei participar em {data}, pelo
@@ -1931,10 +1931,9 @@ pickup:
   signout_sure: 'Queres mesmo deixar esta equipa?'
   hygieneCertificateMissing:
     none: Atualmente, não tens um certificado de higiene válido. Preenche agora 
-      o questionário de higiene para te poderes inscrever.
+      o teste de higiene para te poderes inscrever.
     timeout: O teu certificado de higiene expirará no momento em que o recolher.
-      Agora, preencha novamente o questionário de higiene para podes 
-      inscrever-te.
+      Agora, preencha novamente o teste de higiene para podes inscrever-te.
     link: Para formação em higiene
   membershipMissing: Não faz parte desta equipa. Por isso, não deve inscrever-se
     para as recolhas. Se necessário, inscreva-se primeiro como membro da equipa.
@@ -1994,8 +1993,8 @@ error:
 fsp:
   info:
     mail: 'Notificação por campainha e e-mail'
-    manager: 'És responsável por este cantinho alimentar e, portanto, obrigado(a)
-      a receber as atualizações.'
+    manager: 'És responsável por este Fairteiler e, por isso, obrigado a receber as
+      atualizações.'
     none: 'não mais'
     descSettings: 'Segues os todos informações do cantinho alimentar “{nome}”. Como
       gostaria de receber estas notificações?'
@@ -2081,7 +2080,7 @@ search:
       copied_id: 'ID de {name} copiado ({text})'
       copy_id: 'Copiar ID'
     store:
-      manager_tooltip: 'És responsável por este local'
+      manager_tooltip: 'És responsável por esta cooperação'
       jumper_tooltip: 'Estás na lista de substitutos deste local'
       member_tooltip: 'És membro desta equipa'
     from: 'de'
@@ -2129,10 +2128,10 @@ search:
   thread-body-only: 'Apenas o texto das publicações é pesquisado, não os títulos.'
 quiz:
   question: 'Pergunta'
-  timedstart: 'Iniciar um questionário com limite de tempo e {count} perguntas'
+  timedstart: 'Iniciar um teste com limite de tempo e {count} perguntas'
   wikilink: 'Mais informações'
-  continuenow: 'Continua a responder ao concurso questinario agora!'
-  regstart: 'Iniciar um questionário sem limite de tempo e {count} perguntas'
+  continuenow: 'Continua a responder ao teste agora!'
+  regstart: 'Iniciar um teste sem limite de tempo e {count} perguntas'
   results:
     title:
       1: Parabéns!
@@ -2142,8 +2141,8 @@ quiz:
         de {maxFailurePointsToSucceed}.
       1: Foi aprovado com {failurePoints} de um máximo de 
         {maxFailurePointsToSucceed} pontos de erro!
-    deleted: A pontuação exatamente feita só é guardada durante duas semanas 
-      após o concurso questionário, pelo que já não está mais disponível.
+    deleted: A avaliação detalhada só é guardada durante duas semanas após o 
+      teste e já não está disponível.
   editModal:
     question:
       input:
@@ -2152,12 +2151,12 @@ quiz:
           label: 'Link para o artigo correspondente:'
         duration: 'Tempo para responder:'
         text:
-          placeholder: Pergunta do questinário…
+          placeholder: Pergunta do teste…
           label: 'Pergunta:'
         mandatory:
           label: Pergunta obrigatória?
           text: Esta pergunta tem de ser incluída em todas as tentativas de 
-            realização do questinário
+            realização do teste
         fp: 'Pontos da falha:'
       title: Editar pergunta
       confirmDelete:
@@ -2179,23 +2178,23 @@ quiz:
         questionCountTimed: 'Número de perguntas a responder:'
         name:
           label: 'Nome:'
-          placeholder: Nome do questinário
+          placeholder: Nome do teste
         allowUntimed: Permitir a edição sem limite de tempo
       htmlWarning: '**Atenção:** A formatação da descrição foi alterada. O que vê
         no campo de texto está formatado com HTML. Por favor, ajuste a descrição e
         utilize Markdown em vez disso. Utilize a função de pré-visualização do campo
         de entrada para se certificar de que a formatação foi ajustada corretamente.'
-      title: editar questinário
+      title: Editar o teste
   startmodal:
     infos:
       unlimited_tries: Podes repetir este teste quantas vezes quiseres e nunca 
         serás desclassificado se falhares. No entanto, poderás ter de fazer uma 
         pausa para estudar entre tentativas.
-      alone: O questionário do concurso deve ser feito pelo próprio e sem ajuda 
-        externa. Se tiver dificuldades linguísticas ou precisar de um 
-        assistente, outra pessoa pode ajudá-lo a compreender as perguntas; no 
-        entanto, deverá ser capaz de responder sozinho. Por isso, procure um 
-        local sossegado onde possa fazer o teste sem ser incomodado.
+      alone: O teste deve ser feito pelo próprio e sem ajuda externa. Se tiver 
+        dificuldades linguísticas ou precisar de um assistente, outra pessoa 
+        pode ajudá-lo a compreender as perguntas; no entanto, deverá ser capaz 
+        de responder sozinho. Por isso, procure um local sossegado onde possa 
+        fazer o teste sem ser incomodado.
       multiple_choice: Podem ser dadas várias respostas corretas por pergunta - 
         ou nenhuma. Por conseguinte, decida, para cada resposta, se está correta
         ou incorrecta.
@@ -2216,22 +2215,22 @@ quiz:
         parecer ilógico, incompreensível ou mesmo errado, deixe um comentário. 
         Os seus comentários podem ser atribuídos a si para lhe dar um feedback 
         personalizado.
-      pause: Podes fazer uma pausa no questionário a qualquer momento e 
-        continuar mais tarde.
+      pause: Podes fazer uma pausa no teste a qualquer momento e continuar mais 
+        tarde.
       feedback: No final do teste, receberá uma avaliação direta sobre se passou
         e quais os erros que cometeu. Aqui podes voltar a ler os motivos à 
         vontade.
-      wiki: Por favor não comece o teste ao acaso. Lê as páginas de informação 
-        listadas cuidadosamente antes de começares. Sem os conhecimentos da 
-        wiki, não passará no teste.
+      wiki: Por favor não inicies o teste à sorte Lê as páginas de informação 
+        listadas com atenção antes de começares. Sem os conhecimentos da wiki, 
+        não conseguirás passar no teste.
       read_carefully: Ler atentamente todas as perguntas e respostas.
     acceptPrivacyNotice: Concordo com isso.
     privacyNotice:
-      hygiene: Se passar neste concurso questinario, ficará registado que o fez 
-        e ser-lhe-á atribuído um selo de higiene. Os responsáveis pela higiene e
-        os responsáveis por equipas podem verificar se tens um selo de higiene 
+      hygiene: Se passar neste teste, ficará registado que o fez e ser-lhe-á 
+        atribuído um selo de higiene. Os responsáveis pela higiene e os 
+        responsáveis por cooperações podem verificar se tens um selo de higiene 
         válido.
-    title: Notas ao questionário
+    title: Notas ao teste
   comment:
     sent: Comentário enviado.
     label: Comentário pergunta
@@ -2243,42 +2242,41 @@ quiz:
       estão incorrectas?
     send: Mandar o comentário
   stateBasedInfo:
-    pause: Já falhaste este questionário várias vezes. A fiabilidade, o 
-      conhecimento sólido das regras e um comportamento profissional são 
-      essenciais no foodsharing. Infelizmente, as tuas respostas não demonstram 
-      isso neste momento. Por isso, terás de fazer uma pausa para estudar antes 
-      de voltares a tentar. O teu período de espera termina dentro de 
-      {currentWaitTime} dias.
+    pause: Já falhaste este teste várias vezes. A fiabilidade, o conhecimento 
+      sólido das regras e um comportamento profissional são essenciais no 
+      foodsharing. Infelizmente, as tuas respostas não demonstram isso neste 
+      momento. Por isso, terás de fazer uma pausa para estudar antes de voltares
+      a tentar. O teu período de espera termina dentro de {currentWaitTime} 
+      dias.
     pauseElapsed: A tua pausa de estudo terminou. Agora podes voltar a fazer o 
-      questionário. Esperamos que tenhas aproveitado o tempo para te 
-      familiarizares melhor com o conteúdo.
-    willExpire: Mas a validade da tua tentativa de concurso questinario termina 
-      dentro de {expirationTime} dias. Por isso, podes atualizar agora os teus 
+      teste. Esperamos que tenhas aproveitado o tempo para te familiarizares 
+      melhor com o conteúdo.
+    willExpire: Mas a validade da tua tentativa de teste termina dentro de 
+      {expirationTime} dias. Por isso, podes atualizar agora os teus 
       conhecimentos nesta área e fazer novamente este teste.
-    disqualifiedAfter: Tens apenas uma última tentativa para passar este 
-      questionário! Se falhares agora, serás permanentemente desqualificado 
-      deste teste. Por favor, participa apenas se já te tiveres familiarizado 
-      com o conteúdo da Wiki.
+    disqualifiedAfter: Tens apenas uma última tentativa para passar este teste! 
+      Se falhares agora, serás permanentemente desqualificado deste teste. Por 
+      favor, participa apenas se já te tiveres familiarizado com o conteúdo da 
+      wiki.
     neverTried: Nunca antes há realizado este questionario. Tome o tempo para 
       ler atentamente todos os artículos de informação enumerados para estar 
       preparado para as preguntas.
-    passed: Passou neste concurso questinario.
+    passed: Passaste neste teste.
     noWaitAfter: Consulte novamente os artigos de informação relevantes e tente 
       de novo.
     waitAfter: Caso não passe na tua próxima tentativa, deve fazer uma pausa nos
       estudos durante {waitTimeAfterFailure} dias. Certifique-se de que lê todos
-      os artigos de informação relevantes para poder passar no questinario.
-    disqualified: Infelizmente, está desqualificado para este questionário 
-      porque já falhou demasiadas vezes.
+      os artigos de informação relevantes para poder passar no teste.
+    disqualified: Infelizmente, está desqualificado para este teste porque já 
+      falhou demasiadas vezes.
     expired: Mas a última tentativa de fazer um teste já não é válida.
-    failed: Infelizmente, não passou neste concurso questinario na tua última 
-      tentativa.
-    running: Já iniciou o questinario e respondeu a {questionsAnswered} de 
+    failed: Infelizmente, não passaste neste teste na tua última tentativa.
+    running: Já iniciou o teste e respondeu a {questionsAnswered} de 
       {questionCount} perguntas até agora.
-    passedBefore: Já passou por este concurso questinario antes.
+    passedBefore: Já passaste neste teste com sucesso.
   button:
     pause: Continuar mais tarde
-    finish: Concurso finalizar
+    finish: Finalizar teste
   answers:
     false_true: Esta resposta teria sido correta.
     short:
@@ -2295,13 +2293,13 @@ quiz:
     name: Respostas
     none_correct: Nenhuma resposta é correta.
     neutral: Resposta neutra - não é pontuada.
-  plural: Concursos questinario
+  plural: Testes
   title:
-    continue: '{Name} - Continuar o questinario!'
+    continue: '{Name} - Continuar o teste!'
     pause: Pausa de aprender ({name})
     disqualified: '{name} – Infelizmente desclassificado.'
     finished: '{name} – Passaste!'
-    start: '{name} – Fazer o concurso questinario agora!'
+    start: '{name} – Fazer o teste agora!'
   infomodal:
     title: Pergunta {index} no total de {questions}
   timed_out_last: Não respondeus a pergunta final dentro do tempo previsto.
@@ -2320,7 +2318,7 @@ quiz:
     wrong: '{userFailurePoints} Erro(s)'
   timed_out_error: O tempo para responder esta pergunta já expirou.
   general:
-    edit: Editar questionário
+    edit: Editar teste
     title: Informações general
   question_options:
     add: acrescentar uma pergunta
@@ -2338,10 +2336,10 @@ quiz:
     default: '{failurePoints} pontos da falha'
     joke: '{failurePoints} puntos da falha (sem avaliação)'
     ko: '{failurePoints} pontos da falha (nocauteado)'
-  confirmComment: O teu comentário deve ser mandado para os administradores 
-    deste questionário?
-  mandatory_question: Esta pergunta é obrigatória e está incluída em cada 
-    questinário do inquérito.
+  confirmComment: Queres que o teu comentário seja enviado aos administradores 
+    deste teste?
+  mandatory_question: Esta pergunta é obrigatória e está incluída em todas as 
+    tentativas do teste.
   fp_description: Total {PointsFailure}, ou seja, {perMistake} por resposta 
     incorrecta
   answer_options:
@@ -2352,13 +2350,13 @@ quiz:
     answer: Queres mesmo eliminar esta resposta?
     session: Queres mesmo apagar esta sessão de quiz?
   questions_section:
-    title: Perguntas do questinário ({count})
-  editable_tooltip: Podes editar este questinário.
+    title: Perguntas do teste ({count})
+  editable_tooltip: Podes editar este teste.
   timelimit: Limite do tempo
-  confirm: Confirmar o questionário e concluir o processo
-  confirmDashboardText: Passaste num questinário que ainda não foi confirmado. 
-    [Clique aqui]({url}) para finalizar o processo!
-  test: Teste do questionário
+  confirm: Confirmar o teste e concluir o processo
+  confirmDashboardText: Passaste num teste que ainda não foi confirmado. [Clique
+    aqui]({url}) para finalizar o processo!
+  test: Rever o teste
   max_fp: Pontos de erro possíveis
 chat:
   incorrect_address: 'Esta morada de e-mail está incorreta'
@@ -2407,32 +2405,32 @@ error_permissions: 'Infelizmente, nao tens as permissões necessárias para este
 storeedit:
   team:
     leave_myself: 'a si próprio'
-    cannot-leave: 'És responsável por este local, por isso não podes deixá-la.'
-    orga: 'És não responsável por este local.
+    cannot-leave: 'Ainda és responsável por este cooperação, por isso não podes deixá-la.'
+    orga: 'És não responsável por esta cooperação.
 
       Mas tens amplos direitos como o parte da equipa de organizadora global.
 
       '
-    unmanaged: 'Atualmente, não há nenhum responsável neste local.
+    unmanaged: 'Não há nenhum responsável nesta cooperação.
 
-      Por favor, adicione até três pessoas responsáveis por este local no futuro.
+      Por favor, adicione até três responsáveis por esta cooperação futuramente.
 
       '
     bread: 'Editar equipa'
     leave: 'Sair desta equipa'
-    need-sm: 'Deve haver pelo menos uma pessoa responsável por este local.'
+    need-sm: 'Deve haver pelo menos uma pessoa responsável por este cooperação.'
     note: 'Nota:'
     empty: 'O equipa não deve estar vazio'
     foodsaver: 'Foodsavers'
-    max-sm: 'Por favor, selecione no máximo três pessoas como responsáveis da equipa'
-    amb: 'És não responsável por este local.
+    max-sm: 'Por favor, selecione no máximo três pessoas como responsáveis da cooperação'
+    amb: 'És não responsável por esta cooperação.
 
       Mas tens amplos direitos como o embaixador(a).
 
       '
-    coordinator: 'És não responsável por este local.
+    coordinator: 'És não responsável por esta cooperação.
 
-      Mas tens amplos direitos como parte da equipa de coordenação da cooperação.
+      Mas tens amplos direitos como parte da equipa de coordenação do local.
 
       '
     kam: |
@@ -2605,12 +2603,12 @@ recipients:
   recipients: 'Destinatários'
   all: 'Todos os Foodsavers em todo o mundo'
   prepare: 'Preparação para envio'
-  storemanagers: 'Todos os responsáveis por equipas a nível mundial'
+  storemanagers: 'Todos os responsáveis por cooperações a nível mundial'
   body: 'Mensagem'
   send: 'Enviar o e-mail'
   active_ambassadors: 'Todos os embaixadores do país'
   doublecheck: 'Tudo verificado? O e-mail deve ser enviado ao público-alvo selecionado?'
-  storemanagers_and_ambs: 'Todos os responsáveis por equipas e embaixadores'
+  storemanagers_and_ambs: 'Todos os responsáveis por cooperações e embaixadores'
 settings:
   sleep:
     tooltip: '{name} está atualmente a fazer uma pausa e está em modo de dorminhoco'
@@ -2831,7 +2829,7 @@ settings:
     choose: Utilizar morada
   quiz:
     1: Quiz para te tornar um Foodsaver
-    2: Quiz para te tornar um responsável por equipas
+    2: Teste para te tornar um responsável por cooperações
     3: Quiz para te tornar um(a) embaixador(a)
   account_security:
     title: Segurança da conta de acesso
@@ -3049,9 +3047,9 @@ settings:
 terminology:
   reportAdmins: 'Equipa de processamento de denúncias'
   storemanager:
-    m: 'Responsável por equipas'
-    d: 'Responsável por equipa'
-    f: 'Responsável por equipa'
+    m: 'Responsável por cooperações'
+    d: 'Responsável por cooperações'
+    f: 'Responsável por cooperações'
   ambassador:
     m: 'Embaixador'
     d: 'Embaixadore'
@@ -3061,7 +3059,7 @@ terminology:
   ambassador_forum: 'Forum de embaixadores'
   role:
     "4": 'Pessoa de administração global'
-    "2": 'Responsável por equipa'
+    "2": 'Responsável por cooperações'
     "1": 'Foodsaver'
     "0": 'Foodsharer'
     "3": 'Embaixador(a)'
@@ -3392,10 +3390,10 @@ legal:
     this_gets_deleted_main: 'As seguintes informações serão permanentemente excluido
       por ti:'
     this_gets_deleted_trustbananas: 'As bananas que recebeste serão removidas.'
-    this_gets_deleted_quiz: 'Todos os teus questinários são removidos.'
+    this_gets_deleted_quiz: 'Todos os teus testes são removidos.'
     this_doesnt_get_deleted_history: 'História da tua verificação'
   legal_agreement: 'acordo legal'
-  privacy_notice: 'Instruções sobre proteção de dados para os responsáveis por equipas
+  privacy_notice: 'Instruções sobre proteção de dados para os responsáveis por cooperações
     e os embaixadores'
   privacy_policy: 'Política de privacidade'
   button:
@@ -3720,7 +3718,7 @@ conference:
 system_administration:
   regions: 'Administrar distritos'
   email: 'Enviar boletim informativo'
-  quiz: 'Administrar concurso questinario'
+  quiz: 'Administrar o teste'
   blog: 'Editar publicações do blogue'
   reports: 'Mostrar denúncias'
   content: 'Editar conteúdos'
@@ -4359,7 +4357,7 @@ map:
         label: Função
         all: Todos
         foodsaver: Foodsavers verificados
-        store-manager: Responsáveis por equipas
+        store-manager: Responsáveis por cooperações
       activity:
         label: Último login
         week: Última semana
@@ -4573,7 +4571,7 @@ help:
         - **Oculto:** o selo só é visível para utilizadores com direitos de organização.
         oculto: «Não é exibido a ninguém»
         - **Privado:** Apenas a própria pessoa em questão, bem como os administradores e embaixadores da área de validade especificada, podem ver o selo.
-        - **Apenas responsáveis das equipas:** O selo é exibido à própria pessoa, bem como a todos os responsáveis das equipas na área selecionada.
+        - **Apenas responsáveis das cooperações:** O selo é exibido à própria pessoa, bem como a todos os responsáveis das cooperações na área selecionada.
         - **Na área de validade:** O selo é visível para todos os utilizadores que são membros do distrito especificado.
         - **Global:** O selo é visível para todos os utilizadores registados.
 
@@ -4653,7 +4651,7 @@ help:
         em tons mais claros para que as possas identificar rapidamente.
 
 
-        **Visualização para responsáveis por equipas:** Os responsáveis por equipas
+        **Visualização para responsáveis por cooperações:** Os responsáveis por cooperações
         garantem que todas as vagas nos teus locais decorram de forma fiável. Se fores
         líder, podes restringir a visualização aos locais pelos quais és responsável.
         Assim, é mais fácil manter uma visão geral.
@@ -4716,8 +4714,8 @@ help:
         para os quais foram introduzidas as **mesmas categorias**.'
     profileCommitmentsStat:
       title: 'Atividade'
-      md: 'é visível a partir da função de responsável por equipas. É restrita ao
-        distrito comum ou às locais comuns.'
+      md: 'é visível a partir da função de responsável por cooperações. É restrita
+        ao distrito comum ou às locais comuns.'
     pollScopes:
       md: 'Ao criar uma votação, podes selecionar entre diferentes grupos de pessoas
         que terão direito a voto.
@@ -4896,7 +4894,7 @@ required_messages:
   demote_store_manager:
     really: 'Quer mesmo remover {name} da responsabilidade desta equipa?'
     footer: 'Muitas saudações'
-    main: 'Eu removi-te como responsável da equipa de [{store}](/store/{storeId}).'
+    main: 'Eu removi-te como responsável da cooperação de [{store}](/store/{storeId}).'
   placeholder: 'Opcional: adicionar informações aqui…'
   decline_store_application:
     footer: 'Muitas saudações'
@@ -5059,7 +5057,7 @@ achievements:
   visibility_type_explanation:
     scope: 'É exibido a todos os utilizadores de {scope}.'
     store_managers: 'É exibido para a própria pessoa e para todos os responsáveis
-      das equipas em {scope}'
+      das cooperações em {scope}'
     private: 'É exibido apenas para a própria pessoa e para os administradores ou
       embaixadores do {scope}'
     hidden: 'Não é exibido a ninguém'
@@ -5070,7 +5068,7 @@ achievements:
     private: 'Privado'
     scope: 'No distrito'
     global: 'global'
-    store_managers: 'Só responsáveis por equipas'
+    store_managers: 'Só responsáveis por cooperações'
     hidden: 'Escondido'
   validity:
     days: 'Válido por {validityInDaysAfterAssignment} dias após a atribuição.'
@@ -5187,8 +5185,8 @@ contact_page:
   regions:
     link: 'Para a visão geral'
     title: 'Grupos locais'
-    text: 'Caso tenhas alguma questão sobre um distrito, entra em contacto diretamente
-      com os responsáveis pelo mesmo.'
+    text: 'Se tiveres perguntas sobre um distrito, contacta diretamente as pessoas
+      de contacto do distrito.'
   description: 'Entre em contacto connosco através de uma das seguintes opções:'
   common:
     modal:

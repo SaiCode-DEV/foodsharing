@@ -451,14 +451,14 @@ settings:
       device_name: Urządzenie
       cancel: Anuluj
       delete: Usuń
-      confirmation: ''
-      title: ''
+      confirmation: 'Jesteś pewny/a, że chcesz usunąć ten klucz bezpieczeństwa?'
+      title: 'Usuń klucz bezpieczeństwa'
     rename_modal:
       new_name_label: Nowa nazwa
       new_name_placeholder: Nowa nazwa urządzenia
       cancel: Anuluj
       save: Zapisz
-      title: ''
+      title: 'Zmień nazwę klucza bezpieczeństwa'
     error:
       webauthn_not_supported: Ta przeglądarka nie wspiera WebAuthn
       name_required: Proszę podać nazwę
@@ -468,7 +468,7 @@ settings:
       deletion_failed: 'Nie można było usunąć klucza bezpieczeństwa'
       registration_failed: 'Rejestracja klucza bezpieczeństwa nie powiodła się: {error}'
       operation_aborted: 'Operacja przerwana'
-    unnamed_passkey: ''
+    unnamed_passkey: 'Nieznany klucz bezpieczeństwa'
     security_keys_description: ''
     mfa_enabled: 'Uwierzytelnianie wieloskładnikowe aktywowane'
     authenticator_app: ''
@@ -487,7 +487,7 @@ settings:
     passkeys_not_supported: 'Twoja przeglądarka nie wspiera kluczy bezpieczeństwa
       (WebAuthn).'
     mfa_disabled: 'Uwierzytelnianie wieloskładnikowe deaktywowane'
-    passkey_registered: ''
+    passkey_registered: 'Pomyślnie zarejestrowano klucz bezpieczeństwa'
   two_fa_manage:
     status_is: Aktualny status to
     active: Aktywny
@@ -547,7 +547,8 @@ settings:
     title: 'aktywuj uwierzytelnienie dwuskładnikowe'
   two_fa_disable:
     deactivate: Deaktywuj
-    confirm_text: ''
+    confirm_text: 'Dla potwierdzenia podaj aktualny kod uwierzytelniania dwuskładnikowego
+      i swoje hasło:'
     danger: 'Jeśli deaktywujesz uwierzytelnianie dwuskładnikowe, twoje konto będzie
       mniej bezpieczne.'
     admin_description: ''
@@ -663,7 +664,8 @@ settings:
     \ \nCzy tego chcesz?\n"
   newsletter: ''
   change_data_info:
-    verified: ''
+    verified: 'Nie możesz edytować swojego imienia i nazwiska oraz daty urodzenia.
+      Możesz jednak poprosić ambasadora/kę, aby zmienił/a te dane za ciebie.'
     general: 'Tu możesz dostować swoje dane profilowe.'
 bcard:
   title: Generator wizytówek
@@ -1566,7 +1568,7 @@ store:
       8: '{actor} opuścił/a team.'
       19: '{actor} zaakceptował/a zaproszenie do teamu.'
       6: '{actor} dodał/a {target} do aktywnego teamu.'
-      1: ''
+      1: '{actor} wysłał/a zapytanie o członkostwo.'
       18: '{actor} cofnął/ęła zaproszenie do teamu dla {target}.'
       14: '{actor} potwierdził/a slot {target} {date}.'
       3: '{actor} zaakceptował/a prośbę o członkostwo od {target}.'
@@ -1586,13 +1588,13 @@ store:
       17: zaproszenie Foodsaverów/ek do teamu
       19: akceptowanie zaproszeń do teamu
       20: odrzucenie zaproszeń do teamu
-      3: ''
-      2: ''
+      3: 'Zaakceptowanie zapytania o członkostwo'
+      2: 'Odrzucenie zapytania o członkostwo'
       18: 'cofnięcie zaproszenia do teamu'
       7: 'usunięcie foodsaverów/ek z teamu'
       14: 'Potwierdzenie slotu'
-      1: ''
-      16: ''
+      1: 'Wysłanie zapytania o członkostwo'
+      16: 'Cofnięcie zapytania o członkostwo'
       4: 'Przyjęcie foodsaverów/ek do teamu bez zapytania'
       10: ''
       6: 'Przyjęcie foodsaverów/ek do aktywnego teamu'
@@ -1942,7 +1944,7 @@ forum:
   follow:
     header: 'Powiadomienie przy nowych odpowiedziach:'
     email: przez email
-    bell: ''
+    bell: 'przez dzwonek'
   post:
     delete: usuń post
     hide: ukryj post
@@ -1968,11 +1970,16 @@ forum:
     closed: temat zamknięty
     navigate_to_newest_post: przejdź do najnowszego postu
     navigate_to_oldest_post: przejdź do pierwszego postu
-    inactive: ''
+    inactive: 'Ten temat jeszcze nie jest aktywny.
+
+      Tu możesz go aktywować i poinformować o tym foodsaverów/ki.
+
+      '
     sticky: ''
     stick: ''
     post_not_found: ''
-    too_big_to_mail: ''
+    too_big_to_mail: 'Nie wysłano żadnych maili do tego tematu, ponieważ odnosi się
+      on do kraju lub województwa.'
     all_hidden: 'Wszystkie posty w tym wątku są ukryte.'
     subscriptions:
       subscribed: 'subskrybowany'
@@ -1996,7 +2003,7 @@ forum:
     error: Nie można było zapisać postu.
   not_found: Ten wątek nie istnieje.
   options:
-    bells_for_new_posts: ''
+    bells_for_new_posts: 'Otrzymaj dzwonek przy nowych tematach'
   hold_back_for_moderation: 'Temat został zapisany i będzie opublikowany, gdy tylko
     moderator/ka lub ambasador/ka go zaakceptuje.'
   inform_per_email: ''
@@ -2221,8 +2228,8 @@ bell:
     md_support: Jeśli myślisz, że wystąpił błąd, zgłoś ten fakt do 
       [Support](/support)
     md: ''
-    title: ''
-    key: ''
+    title: 'Nieznany dzwonek'
+    key: 'Dzwonki z beta nie mogą być wyświetlane'
   forum_answer_title: '{forum}'
   forum_answer: '{user} odpowiedział/a na twój post'
   forum_post_title: '{title}'
@@ -2418,14 +2425,17 @@ regionOptions:
   success: Pomyślnie zapisano opcje
   save: Zapisz opcje
   regionReportReasonSimple: 'Uproszczone powody skarg'
-  regionPickupInactiveHours: ''
+  regionPickupInactiveHours: 'Na ile godzin wcześniej może być możliwe zapisanie się
+    nawet wtedy, gdy osiągnięto lub przekroczono już maksymalną liczbę w określonym
+    przedziale czasu?'
   regionPickupLimitNumber: 'Maksymalna liczba slotów-rodzynek w wybranym przedziale
     czasu'
   regionReportReasonCategoryB: ''
   regionPickupRuleActiveStoreList: ''
   enableMediationButton: ''
   regionReportReasonOther: 'Pozwól na "inne" jako powód skargi'
-  enableReportButton: ''
+  enableReportButton: 'Aktywuj formularz skarg na stronach profilowych foodsaverów/ek
+    z rejonu macierzystego'
   regionPickupTimespan: ''
   noPickupRuleActiveStores: ''
   regionPickupRuleActive: ''
@@ -2497,7 +2507,7 @@ content:
   content: Treść
   id: ID
   communities:
-    title: ''
+    title: 'Grupy lokalne'
     noAmbassador: 'Twój rejon aktualnie nie ma ambasadorów/ek i dlatego nie jest osiągalny
       przez e-mail. Skontaktuj się z którymś z sąsiadujących rejonów bądź z rejonem
       na wyższym poziomie.'
@@ -2650,7 +2660,7 @@ profile:
     workgroups_admin: jest osobą do kontaktu w następujących grupach
     workgroups_member: razem z tobą w następujących grupach
     no_common_workgroups: 'żadnych wspólnych zespołów'
-    home_region_from: ''
+    home_region_from: 'rejon macierzysty'
     kam_for: ''
     orga_rights: ''
     foodSaver_in_region: 'dołączył/a do rejonów'
@@ -2713,7 +2723,7 @@ profile:
       filterActive: Członek
       filterRequested: ''
       filterManage: ''
-      filterJumper: ''
+      filterJumper: 'Rezerwowy/a'
     store_table: ''
     search_placeholder: 'Szukaj według nazwy'
   nav:
@@ -2722,7 +2732,7 @@ profile:
     history: Historia legitymacji
     verificationHistory: Historia weryfikacji
     notes: Notatki
-    quizSessionHistory: ''
+    quizSessionHistory: 'Próby quizu'
     violations: 'Skargi'
     storelist: ''
   history:
@@ -2750,7 +2760,7 @@ profile:
     privateMail: 'Prywatny adres email'
   stats:
     bananas: Banany
-    baskets: ''
+    baskets: 'Jadłokoszyki'
     weight_unit: 'kg'
     weight: ''
     give_count: ''
@@ -2944,7 +2954,7 @@ basket:
     widoczne.
   no-desc: Podaj opis.
   use_home_address: Użyj adresu domowego
-  my_list_empty: ''
+  my_list_empty: 'Nie wprowadziłeś/aś żadnych jadłokoszyków'
   until: 'Ważny do:'
   not_active: ''
   valid:
@@ -2955,7 +2965,7 @@ basket:
     "2": 'dwa dni'
     "1": 'jeden dzień'
     "3": 'trzy dni'
-  all_map: ''
+  all_map: 'Wszystkie koszyki na mapie'
   error:
     map: ''
     register: ''
@@ -2963,7 +2973,7 @@ basket:
   request_denied: ''
   by: ''
   nearby-short: 'W pobliżu'
-  title: ''
+  title: 'Jadłokoszyki'
   not_withdrawn: ''
   updated: 'Aktualizowany:'
   modal_error:
@@ -2971,7 +2981,7 @@ basket:
     no_phone: 'Podaj numer telefonu.'
   contact_types: 'Możliwości kontaktu'
   date: 'Data utworzenia'
-  nearby: ''
+  nearby: 'Jadłokoszyki w pobliżu ciebie'
   publish: ''
   state:
     okay: ''
@@ -3011,12 +3021,12 @@ basket:
   published: ''
   edit: ''
   where: 'Gdzie?'
-  recent: ''
+  recent: 'Najnowsze jadłokoszyki'
   image: ''
   n_requests: 'Dotychczasowe zapytania:'
   description: 'Opis'
   withdrawn_request: 'Cofnięto zapytanie'
-  all: ''
+  all: 'Wszystkie jadłokoszyki'
   on: ''
   go: ''
 personal_data:
