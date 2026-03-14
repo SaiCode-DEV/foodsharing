@@ -666,8 +666,8 @@ dashboard:
   settings_tooltip: 'Configurações gerais'
   no_updates: 'Sem atualizações'
   no_more_updates_store: 'Sem mais informações sobre os locais'
-  full_subline: 'Recolheste alimentos **{pickups} vezes** e salvaste **{weight} kg**.
-    O teu distrito principal é **{region}**.'
+  full_subline: "Recolheste alimentos **{pickups} vezes** e salvaste **{weight} kg**.\
+    \ \nO teu distrito principal é **{region}**."
   no_more_updates_foodsharepoint: 'Não há mais mensagens do cantinho alimentar'
   activation_mail_sent: 'Link de ativação enviado – verifique os teus e-mails'
   no_more_updates_all: 'foi isso!'
@@ -1138,7 +1138,7 @@ profile:
     fsMail: 'E-mail interno'
     title: 'informação'
     registrationDate: 'Data de registo'
-    buddies: 'Conhecidos'
+    buddies: 'conhecidos'
     never: 'Nunca'
     lastActivity: 'Atividade última'
     fetchrate: 'Quota de recolhas'
@@ -1674,7 +1674,8 @@ group:
     nobody: 'Ninguém (grupo fechado).'
     member_since_weeks: 'Quantas semanas são necessárias para um candidato estar registado
       na plataforma?'
-    fetch_count: 'Quantas vagas de recolha/entrega/orga já deveriam ter sido efectuadas?'
+    fetch_count: 'Quantas participações em recolhas, entregas ou organização já deveriam
+      ter sido efetuadas?'
     banana_count: 'Quantas bananas de reconhecimento devem estar presentes?'
     not_fulfilled: 'Para candidatar-se a este grupo de trabalho, deve fazer parte
       da foodsharing há %weeks% semanas, já ter recolhido %bananas% bananas de reconhecimento
@@ -1812,8 +1813,8 @@ pickup:
         empty: 'Atualmente, não há vagas inscritas.'
       history:
         tooltip:
-          own: 'Vagas anteriores que ocupaste'
-          other: 'Vagas anteriores que ocupaste no mês passado'
+          own: 'Participações anteriores que ocupaste'
+          other: 'Participações anteriores que ocupaste no mês passado'
         name: 'Histórico de vagas'
         empty: 'Ainda não foi inscrita nenhuma vaga.'
     modals:
@@ -2618,7 +2619,7 @@ settings:
 
       É útil saber se podes responder a mensagens
 
-      ou mesmo se, por vezes, fazes vagas.
+      ou mesmo se, por vezes, fazes participações.
 
       '
     saved: 'As configurações foram salvas'
