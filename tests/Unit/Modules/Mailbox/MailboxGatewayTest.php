@@ -40,4 +40,31 @@ class MailboxGatewayTest extends Unit
         $noMailboxes = $this->gateway->getMailboxesWithUnreadCount([]);
         $this->tester->assertEquals(0, count($noMailboxes));
     }
+
+    public function testCreateMailboxNameAvoidingCollisions(): void
+    {
+        $testedNames = [
+            't.est',
+            't.est',
+            't.est',
+            't.estcase',
+            't.estcase',
+            't.estcase',
+            't.est',
+            't.est1_',
+            't.est1_',
+            't.est',
+        ];
+
+        $createdNames = [];
+        foreach ($testedNames as $name) {
+            $id = $this->gateway->createMailbox($name);
+            $mailboxName = $this->gateway->getMailboxname($id);
+            $createdNames[] = $mailboxName;
+        }
+
+        // A unique name shall be created for each tested name
+        $this->tester->assertEquals(count($testedNames), count($createdNames));
+        $this->tester->assertEquals(count($createdNames), count(array_unique($createdNames)));
+    }
 }

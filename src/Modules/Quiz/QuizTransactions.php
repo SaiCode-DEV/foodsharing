@@ -440,7 +440,10 @@ class QuizTransactions
             $mailboxName = preg_replace('/[^0-9a-z\.]/', '', $mailboxName) ?? '';
             $mailboxName = substr($mailboxName, 0, 25);
 
-            if ($mailboxName[0] === '.' || strlen($mailboxName) <= 3) {
+            // Replace trailing digit if found to avoid confusion with the numeric suffix collision avoidance later on
+            $mailboxName = preg_replace('/[0-9]$/', '_', $mailboxName);
+
+            if (strlen($mailboxName) <= 3 || $mailboxName[0] === '.') {
                 throw new BadRequestHttpException('Could not create a personal mailbox with name "' . $mailboxName . '"');
             }
 

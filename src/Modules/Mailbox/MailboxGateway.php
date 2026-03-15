@@ -9,7 +9,6 @@ use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Exception;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
-use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\Pagination;
 use Foodsharing\Modules\Mailbox\DTO\Mailbox;
 use Foodsharing\Modules\Mailbox\DTO\Region;
@@ -385,23 +384,38 @@ class MailboxGateway extends BaseGateway
      */
     public function createMailbox(string $name): int
     {
-        try {
-            /* Find the mailbox with the highest number. Order by length(name) is necessary to sort the rows by the
-            actual numerical value i.e 1,2,3,10 instead of 1,10,2,3. */
-            $lastMailboxStartingWithName = $this->db->fetchValue(
-                'SELECT name FROM fs_mailbox
-             WHERE name LIKE :name
-             ORDER BY length(name) DESC, name DESC
-             LIMIT 1', [
-                'name' => $name . '%'
-            ]);
-            $number = intval(substr($lastMailboxStartingWithName, strlen($name)));
-            $mailboxName = $name . ($number + 1);
-        } catch (DatabaseNoValueFoundException) {
-            // No mailbox with that name exists yet
+        /* Find the highest numeric suffix for mailboxes starting with the given name.
+        * For performance, narrow down the search space with LIKE first to names starting with the given name.
+        * (assuming the condition actually short-circuits)
+        * Then filter the remaining rows with RLIKE to only include those ending with numeric suffixes.
+        * Then cast suffixes to integers and find the MAX value.
+        */
+        $result = $this->db->fetch(
+            'SELECT
+                MAX(CAST(NULLIF(SUBSTRING(name, :suffix_pos), "") AS UNSIGNED)) AS max_suffix,
+                COUNT(*) AS count
+            FROM fs_mailbox
+            WHERE
+                name LIKE :name_prefix AND
+                name RLIKE :name_regex
+            ', [
+                'suffix_pos' => strlen($name) + 1,
+                'name_prefix' => preg_replace('/([%_])/', '\\\\$1', $name) . '%',
+                'name_regex' => '^' . preg_quote($name) . '\\d*$',
+            ],
+        );
+
+        if ($result['count'] === 0) {
+            // No mailbox with that name exists yet.
             $mailboxName = $name;
+        } else {
+            // One or more mailboxes with the same name exist, add suffix starting at 1.
+            // Suffix may be null if there is only one existing mailbox.
+            $number = (int)($result['max_suffix'] ?? 0);
+            $mailboxName = $name . ($number + 1);
         }
 
+        // strip_tags should never strip anything here, so should not cause collisions.
         return $this->db->insert('fs_mailbox', ['name' => strip_tags($mailboxName)]);
     }
 
