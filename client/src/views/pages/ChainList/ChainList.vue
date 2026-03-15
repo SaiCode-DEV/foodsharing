@@ -15,55 +15,78 @@
           :state.sync="state"
         >
           <template #head="{ showConfigurationDialog }">
-            <div class="form-row p-1 ">
-              <div class="col-2 text-center">
-                <label class=" col-form-label col-form-label-sm">
+            <div class="d-flex flex-wrap p-2 align-items-center gap-2">
+              <div class="d-flex align-items-center justify-items-between gap-2">
+                <label for="text-filter" class="flex-shrink-0 col-form-label col-form-label-sm">
                   {{ $t('store.filter') }}
                 </label>
-              </div>
-              <div class="col-4">
-                <label>
-                  <input
+                <b-input-group
+                  size="sm"
+                  class="w-auto"
+                >
+                  <b-form-input
+                    id="text-filter"
                     v-model.trim="state.filterText"
                     type="text"
-                    class="form-control form-control-sm"
+                    class="form-control flex-grow-1"
+                    size="sm"
                     :placeholder="$t('chain.filterplaceholder')"
                   >
-                </label>
+                    {{ $t('store.filter') }}
+                  </b-form-input>
+                  <b-input-group-append
+                    v-b-tooltip.hover
+                    :title="$t('button.clear_filter')"
+                  >
+                    <b-button
+                      variant="outline-primary"
+                      :disabled="state.filterText === ''"
+                      @click="state.filterText = ''"
+                    >
+                      <i class="fas fa-times" />
+                    </b-button>
+                  </b-input-group-append>
+                </b-input-group>
               </div>
-              <div class="col-3">
+              <b-input-group
+                size="sm"
+                class="w-auto"
+              >
                 <b-form-select
                   v-model="state.filterStatus"
                   :options="statusFilterOptions"
                 />
-              </div>
-              <div class="col">
-                <button
+                <b-input-group-append
                   v-b-tooltip.hover
-                  type="button"
-                  class="btn"
                   :title="$t('storelist.emptyfilters')"
-                  @click="clearFilter"
                 >
-                  <i class="fas fa-times" />
-                </button>
-              </div>
-              <div v-if="adminPermissions" class="col">
-                <b-button
-                  size="sm"
-                  variant="primary"
-                  @click="createChainModal"
-                >
-                  {{ $t('chain.new') }}
-                </b-button>
-              </div>
-              <button
+                  <b-button
+                    variant="outline-primary"
+                    :disabled="state.filterStatus === null"
+                    @click="clearFilter"
+                  >
+                    <i class="fas fa-times" />
+                  </b-button>
+                </b-input-group-append>
+              </b-input-group>
+              <b-button
                 type="button"
-                class="btn btn-sm ml-auto shadow-none"
+                size="sm"
+                variant="outline-primary"
+                class="ml-auto"
                 @click="showConfigurationDialog"
               >
                 <i class="fas fa-gear" />
-              </button>
+              </b-button>
+              <b-button
+                v-if="adminPermissions"
+                size="sm"
+                variant="primary"
+                class="flex-shrink-0"
+                @click="createChainModal"
+              >
+                {{ $t('chain.new') }}
+              </b-button>
             </div>
           </template>
           <b-table-mobile-friendly
@@ -216,7 +239,7 @@ export default {
         {
           key: 'status',
           label: this.$t('chain.columns.status'),
-          tdClass: 'status',
+          tdClass: 'status text-center',
           sortable: true,
           sortByFormatted: true,
           formatter: (value, key, item) => item.chain.status,
@@ -263,6 +286,7 @@ export default {
         {
           key: 'actions',
           label: this.$t('chain.columns.actions'),
+          tdClass: 'text-center',
         },
       ],
       statusOptions: [
@@ -320,7 +344,7 @@ export default {
         })
       }
       if (this.state.filterStatus !== null) {
-        chains = chains.filter(chain => chain.status === this.state.filterStatus)
+        chains = chains.filter(chain => chain.chain.status === this.state.filterStatus)
       }
       return chains.map(chainWithStoreCount => ({ ...chainWithStoreCount, id: chainWithStoreCount.chain.id }))
     },
@@ -407,7 +431,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .status {
   width: 0;
   text-align: center;

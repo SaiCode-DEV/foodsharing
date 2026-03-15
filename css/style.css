@@ -1051,3 +1051,13 @@ blockquote > p:last-child {
 .flex-shrink-fix {
   min-width: 0;
 }
+
+.gap-1 {
+  gap: 0.25rem;
+}
+.gap-2 {
+  gap: 0.5rem;
+}
+.gap-3 {
+  gap: 1rem;
+}
