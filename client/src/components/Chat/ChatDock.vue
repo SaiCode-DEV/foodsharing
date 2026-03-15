@@ -44,7 +44,7 @@
                     :variant="p.avatar ? 'light' : 'secondary'"
                     class="mr-1"
                   />
-                  <span>{{ p.name }}</span>
+                  <span>{{ p.name ?? $t('chat.unknown_username') }}</span>
                 </a>
               </template>
               <template v-else>
@@ -52,7 +52,7 @@
                   v-for="p in box.participants.slice(0, 20)"
                   :key="p.id"
                   v-b-tooltip.hover
-                  :title="p.name"
+                  :title="p.name ?? $t('chat.unknown_username')"
                   :src="p.avatar"
                   :size="18"
                   :variant="p.avatar ? 'light' : 'secondary'"

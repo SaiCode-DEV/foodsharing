@@ -10,8 +10,8 @@
     </component>
     <div class="images">
       <Avatar
-        v-for="member in members"
-        :key="member.id"
+        v-for="(member, i) in members"
+        :key="i"
         class="ml-1"
         :user="member"
         :size="24"
@@ -69,11 +69,13 @@ export default {
       }
 
       const conversation = await conversationStore.getConversation(this.conversationId)
-      const otherMembers = conversation.members.filter(m => m !== this.currentUserId).slice(0, LIMIT_DISPLAYED_USERS)
+      const otherMembers = conversation.members
+        .filter(m => m !== this.currentUserId)
+        .slice(0, LIMIT_DISPLAYED_USERS)
 
       this.members = otherMembers.map(member => ProfileStore.profiles[member])
 
-      this.title = conversation.title || this.members.map(member => member.name).join(', ')
+      this.title = conversation.title || this.members.map(member => member?.name ?? this.$t('chat.unknown_username')).join(', ')
       this.storeId = conversation.storeId
     },
   },

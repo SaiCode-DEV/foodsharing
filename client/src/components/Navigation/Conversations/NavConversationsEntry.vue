@@ -61,21 +61,16 @@ export default {
     title () {
       if (this.conversation.title) return this.conversation.title
       return this.filteredMemberList()
-        .map(m => {
-          if (profileStore.profiles[m]) {
-            return profileStore.profiles[m].name
-          } else {
-            return this.$t('chat.unknown_username')
-          }
-        })
+        .map(m => profileStore.profiles[m]?.name ?? this.$t('chat.unknown_username'))
         .join(', ')
     },
     loggedinUser () {
       return this.userStore.getUser
     },
     lastAuthorName () {
-      if (this.conversation.lastMessage.authorId === this.userStore.getUserId) return this.$t('globals.you')
-      return profileStore.profiles[this.conversation.lastMessage.authorId]?.name || this.$t('chat.unknown_username')
+      const lastAuthorId = this.conversation.lastMessage?.authorId
+      if (lastAuthorId === this.userStore.getUserId) return this.$t('globals.you')
+      return profileStore.profiles[lastAuthorId]?.name ?? this.$t('chat.unknown_username')
     },
   },
   methods: {

@@ -88,7 +88,7 @@ export default {
       if (typeof this.tooltip === 'string') {
         return this.tooltip
       } if (this.user) {
-        return this.user.name
+        return this.user?.name ?? this.$t('chat.unknown_username')
       }
       return ''
     },
