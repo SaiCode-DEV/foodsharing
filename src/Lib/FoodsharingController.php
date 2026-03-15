@@ -10,7 +10,6 @@ use Foodsharing\Utility\FlashMessageHelper;
 use Foodsharing\Utility\PageHelper;
 use Foodsharing\Utility\RouteHelper;
 use Foodsharing\Utility\WebpackHelper;
-use ReflectionClass;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -35,6 +34,7 @@ abstract class FoodsharingController extends AbstractController
     protected RouteHelper $routeHelper;
     protected TranslatorInterface $translator;
     protected CurrentUserUnitsInterface $currentUserUnits;
+    protected WebpackHelper $webpackHelper;
 
     /**
      * @throws \Exception if the inheriting class does not end with "Controller"
@@ -58,11 +58,7 @@ abstract class FoodsharingController extends AbstractController
         $this->routeHelper = $container->get(RouteHelper::class);
         $this->flashMessageHelper = $container->get(FlashMessageHelper::class);
         $this->translator = $container->get('translator'); // TODO TranslatorInterface is an alias
-        /** @var WebpackHelper $controlCommon */
-        $controlCommon = $container->get(WebpackHelper::class);
-
-        $reflection = new ReflectionClass($this);
-        $className = $reflection->getShortName();
+        $this->webpackHelper = $container->get(WebpackHelper::class);
 
         // $sub would be set up here.
         // as mentioned above, it and its behavior are not implemented
@@ -73,14 +69,11 @@ abstract class FoodsharingController extends AbstractController
          * Also, when porting an old "Control" to a new Symfony "Controller" class,
          * it makes it easy to have both working at the same time for comparisons.
          */
-        $pos = strpos($className, 'Controller');
-        if ($pos === false) {
-            throw new \Exception('Please rename the controller "' . $className . '" to end with "Controller".');
+        if (!str_ends_with($this::class, 'Controller')) {
+            throw new \Exception('Please rename the controller "' . $this::class . '" to end with "Controller".');
         }
 
-        // the module name is derived from the controller name and must match the directory it's in
-        $moduleName = substr($className, 0, $pos);
-        $controlCommon->prepareWebpackAssets($moduleName);
+        $this->webpackHelper->prepareWebpackAssets($this::class);
     }
 
     /**
@@ -98,6 +91,7 @@ abstract class FoodsharingController extends AbstractController
      */
     protected function renderGlobal(string $template = 'layouts/default.twig', array $data = []): Response
     {
+        $this->webpackHelper->finalizeWebpackAssets();
         $globalData = $this->pageHelper->generateAndGetGlobalViewData();
         $viewData = array_merge($globalData, $data);
 
@@ -106,6 +100,7 @@ abstract class FoodsharingController extends AbstractController
 
     protected function renderContent(string $template = 'layouts/default.twig', array $data = []): string
     {
+        $this->webpackHelper->finalizeWebpackAssets();
         $globalData = $this->pageHelper->generateAndGetGlobalViewData();
         $viewData = array_merge($globalData, $data);
 
@@ -119,6 +114,8 @@ abstract class FoodsharingController extends AbstractController
             // this call lacks data from PageHelper::generateAndGetGlobalViewData
             throw new \Exception("This render call is probably unported!\nMake sure to include PageHelper::generateAndGetGlobalViewData with your data!\n(Or use renderGlobal instead)");
         }
+
+        $this->webpackHelper->finalizeWebpackAssets();
 
         return parent::render($view, $parameters, $response);
     }

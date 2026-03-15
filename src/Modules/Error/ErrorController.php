@@ -16,11 +16,9 @@ class ErrorController extends FoodsharingController
         // inject a dummy value into the request so it does not fail
         $request->attributes->set('_route', 'Error');
 
-        if ($exception instanceof HttpException) {
-            $this->pageHelper->addContent($this->prepareVueComponent('errorbox', 'Error', [
-                'code' => $exception->getStatusCode()
-            ]));
-        }
+        $this->pageHelper->addContent($this->prepareVueComponent('errorbox', 'Error', [
+            'code' => $exception instanceof HttpException ? $exception->getStatusCode() : Response::HTTP_INTERNAL_SERVER_ERROR,
+        ]));
 
         return $this->renderGlobal();
     }

@@ -5,7 +5,6 @@ namespace Foodsharing\Modules\Voting;
 use Exception;
 use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
-use Foodsharing\Modules\Region\RegionController;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Permissions\VotingPermissions;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +18,6 @@ class VotingController extends FoodsharingController
         private readonly VotingPermissions $votingPermissions,
         private readonly VotingTransactions $votingTransactions,
         private readonly RegionGateway $regionGateway,
-        private readonly RegionController $regionController,
     ) {
         parent::__construct();
     }
@@ -34,7 +32,7 @@ class VotingController extends FoodsharingController
 
             if (isset($id) && ($poll = $this->votingTransactions->getPoll($id, true))) {
                 if (!$this->votingPermissions->maySeePoll($poll)) {
-                    return $this->regionController->missingMembershipRedirect($poll->regionId);
+                    return $this->redirect('/region/denied/' . $poll->regionId);
                 }
                 $region = $this->regionGateway->getRegion($poll->regionId);
                 $this->pageHelper->addBread($region['name'], '/region?bid=' . $region['id']);
