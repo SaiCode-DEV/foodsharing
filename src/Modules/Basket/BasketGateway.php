@@ -43,7 +43,7 @@ class BasketGateway extends BaseGateway
                 'lon' => $basket->lon,
                 'bezirk_id' => (int)$region_id,
                 'appost' => $appost,
-                'until' => date('Y-m-d H:i:s', time() + $basket->lifeTimeInDays * 24 * 60 * 60),
+                'until' => Carbon::now('Europe/Berlin')->addDays($basket->lifeTimeInDays)->endOfDay()
             ]
         );
     }
