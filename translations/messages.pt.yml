@@ -325,7 +325,7 @@ store:
   storeFrom: Local de {name}
   lastPickupTitle: Última vaga aqui
   slotsCurrentlyOccupied: Vagas atualmente ocupadas
-  invited: Convidado
+  invited: convidado
   may_referred_to_in_public_unclear: Ainda não esclarecido
   invitation:
     title: Convites para {storeTitle}
@@ -1139,7 +1139,7 @@ profile:
     title: 'informação'
     registrationDate: 'Data de registo'
     buddies: 'conhecidos'
-    never: 'Nunca'
+    never: 'nunca'
     lastActivity: 'Atividade última'
     fetchrate: 'Quota de recolhas'
     buddycount_known: '{name} conhece {count} Foodsavers'
@@ -1249,10 +1249,10 @@ profile:
     remove_button: 'Remover da lista de rejeições'
     warning_1: 'A tua morada de e-mail pessoal {email} está bloqueada para comunicações
       e e-mails do foodsharing. Através do'
-    warning_4: 'este artigo de suporte.'
+    warning_4: 'Este artigo de suporte.'
     warning_others: 'A morada de e-mail {email} desta pessoa está bloqueada para e-mails
       e comunicações do foodsharing. Pode remover o bloqueio através do botão.'
-    warning_3: 'esse bloqueio será removido. Para obter mais informações, consulte '
+    warning_3: 'Esse bloqueio será removido. Para obter mais informações, consulte '
     warning_2: 'Alterar a morada de e-mail'
   deletesuccess: 'Evento individual excluido'
   banana:
@@ -1277,7 +1277,7 @@ profile:
     give: 'Dê uma banana para {name}'
     messageTooShort: 'Por favor, insira um texto com pelo menos 100 caracteres sobre
       esta banana.'
-    placeholder: 'Mínimo de 100 caracteres…'
+    placeholder: 'mínimo de 100 caracteres…'
     details: 'Aqui podes descrever, em pelo menos 100 caracteres, porque gostarias
       de oferecer uma banana a {name}.
 
@@ -1324,8 +1324,8 @@ profile:
     actionBy: 'por'
     noData: 'Não há dados disponíveis.'
     noActor: 'desconocido'
-    wasVerified: 'Verificado'
-    lostVerification: 'Deverificado'
+    wasVerified: 'verificado'
+    lostVerification: 'deverificado'
   warning: 'Aviso'
   public:
     join: 'Registar e participar'
@@ -1342,23 +1342,23 @@ profile:
   nav:
     verificationHistory: 'Histórico de verificação'
     buddy: 'Conheço {name}'
-    notes: 'Notas'
+    notes: 'notas'
     history: 'Histórico dos cartões de membro'
-    violations: 'Denúncias'
-    storelist: 'Locais ({count})'
+    violations: 'denúncias'
+    storelist: 'locais ({count})'
     remove_buddy: Não me lembro mais de {name}
     quizSessionHistory: Tentativas de quiz
   notes:
     info: 'Por favor, utilize esta função com cuidado. Ela deve ajudar a tornar os
       processos visíveis, para nos poupar trabalho. Informações pessoais ou julgamentos
       sobre uma pessoa não têm lugar aqui. Mantenha-se objetivo.'
-    bread: 'Notas'
+    bread: 'notas'
     title: 'Notas sobre {name}'
   title: 'Perfil'
   mediationRequest: 'Solicitar mediação'
   go: 'Abrir perfil'
   about_me_intern: 'Sobre mim'
-  sleeping: 'Tenho um dorminhoco por tempo indeterminado'
+  sleeping: 'tenho um dorminhoco por tempo indeterminado'
   reportRequest: 'Enviar denúncia'
   cantdeletethis: 'Não é possível apagar eventos individuais!'
   homeDistrictHistory:
@@ -1371,27 +1371,27 @@ profile:
     ambassador_for: para
     foodSaver_in_region: Distritos onde estou registado
     workgroups_admin: Envolvo-me como pessoa de contacto destes grupos
-    workgroups_member: em conjunto nos seguintes grupos de trabalho
-    no_common_workgroups: em nenhum grupo de trabalho comum
+    workgroups_member: Em conjunto nos seguintes grupos de trabalho
+    no_common_workgroups: Em nenhum grupo de trabalho comum
     home_region_from: Distrito principal
     kam_for: 'Responsável pela coordenação das seguintes cadeias comerciais:'
   tab_navigation:
-    profile: Perfil
-    pickups: Vagas
-    commitment_statistics: Atividade
-    stores: Locais ({count})
-    notes: Notas ({count})
+    profile: perfil
+    pickups: vagas
+    commitment_statistics: atividade
+    stores: locais ({count})
+    notes: notas ({count})
   stores:
     search_placeholder: Pesquisar por nome
-    store_table: Lista de locais
+    store_table: lista de locais
     memberState:
       filterAll: todos
-      filterRequested: Solicitação enviada
-      filterInvitations: Convidado
+      filterRequested: solicitação enviada
+      filterInvitations: convidado
       filterActive: membro
-      filterManage: Responsável por cooperações
-      filterJumper: Substituto
-  sleeping_info_from_until: Tenho um dorminhoco de {from} até {until}
+      filterManage: responsável
+      filterJumper: substituto
+  sleeping_info_from_until: tenho um dorminhoco de {from} até {until}
   choosereasonnostore: Não se aplica a nenhum local
   chooseantherstore: Refere-se a um local não listado
   editNameInfo: Tenha em atenção que os campos para nome e apelido devem ser 
@@ -3093,7 +3093,7 @@ terminology:
   n_cooperating_stores: '{count} cooperações em curso'
   options: 'Opções'
   stores: 'Cooperações'
-  buddies: 'Conhecidos:as'
+  buddies: 'conhecidos'
   wall: 'Mural'
   fsps: 'Cantinhos alimentares'
   fsp: 'Cantinhos alimentares'
@@ -3346,7 +3346,7 @@ blog:
 globals:
   type:
     threads: 'Tópicos'
-    buddies: 'Conhecidos'
+    buddies: 'conhecidos'
     regions: 'Distritos'
     stores: 'Locais'
     my_mailboxes: 'As minhas caixas de correio'
