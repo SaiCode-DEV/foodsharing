@@ -53,7 +53,7 @@
               :class="{'ml-1': thread.pinnedLevel}"
               class="fas fa-lock"
             />
-            {{ thread.name}}
+            {{ thread.name }}
           </h6>
           <small class="separate thread-metadata">
             <span>

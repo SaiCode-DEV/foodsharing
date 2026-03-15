@@ -14,7 +14,7 @@
       class="form-control"
       :placeholder="$t(props.placeholder)"
       tabindex="1"
-      debounce="150"
+      :debounce="debounce"
       @update="newValue => $emit('update:query', newValue)"
     />
     <i
@@ -31,6 +31,7 @@ const props = defineProps({
   query: { type: String, default: '' },
   isLoading: { type: Boolean, default: false },
   placeholder: { type: String, default: 'search.placeholder' },
+  debounce: { type: Number, default: 150 },
 })
 
 const searchField = ref(null)

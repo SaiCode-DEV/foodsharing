@@ -12,6 +12,7 @@
         class="search-bar-header"
         :query.sync="query"
         :is-loading="isLoading"
+        :debounce="0"
       />
       <b-button
         v-if="maySearchGlobal"
@@ -69,6 +70,7 @@ const rateLimitInterval = 1000 * 60 * 5 // 5 minutes in milliseconds
 // results. This does not apply to tab naviagion and opening a link via Enter, since the right element will stay
 // selected.
 const accidentalClickPreventionThreshhold = 700 // milliseconds
+const backendDebounceThreshhold = 500 // milliseconds
 
 export default {
   components: { SearchResults, SearchBar },
@@ -89,6 +91,7 @@ export default {
       recentQueryChangesCount: 0,
       globalSearch: false,
       accidentalClickPrevention: false,
+      backendDebounce: null,
     }
   },
   computed: {
@@ -162,19 +165,23 @@ export default {
       this.$refs.searchBar.focus()
     },
     async fetch (strippedQuery) {
+      clearTimeout(this.backendDebounce)
       this.isLoading = true
       this.directSearchResults = undefined
-      const results = await search(strippedQuery, this.globalSearch)
-      if (strippedQuery !== this.strippedQuery) {
-        // query has changed, throw away this response
-        return false
-      }
-      this.directSearchResults = results
-      if (this.accidentalClickPrevention) {
+      this.backendDebounce = setTimeout(async () => {
+        const results = await search(strippedQuery, this.globalSearch)
+        if (strippedQuery !== this.strippedQuery) {
+          // query has changed, throw away this response
+          return
+        }
+        this.directSearchResults = results
+        this.isLoading = false
         clearTimeout(this.accidentalClickPrevention)
-      }
-      this.accidentalClickPrevention = setTimeout(() => { this.accidentalClickPrevention = false }, accidentalClickPreventionThreshhold)
-      this.isLoading = false
+        this.accidentalClickPrevention = setTimeout(
+          () => { this.accidentalClickPrevention = false },
+          accidentalClickPreventionThreshhold,
+        )
+      }, backendDebounceThreshhold)
     },
     async fetchIndex () {
       const cacheOutdated = await getCacheInterval(cacheRequestName, rateLimitInterval)
@@ -201,7 +208,6 @@ export default {
         this.fetch(this.strippedQuery)
         return
       }
-      clearTimeout(this.timeout)
       this.showResults = false
       this.isLoading = false
       this.directSearchResults = null
