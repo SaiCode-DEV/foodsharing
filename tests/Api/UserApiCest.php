@@ -151,6 +151,11 @@ class UserApiCest
 
         // delete user without password should fail
         $I->login($this->user[self::EMAIL]);
+        $I->sendDELETE(self::API_USER . '/' . $this->user['id']);
+        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
+
+        // delete user with wrong password should fail
+        $I->login($this->user[self::EMAIL]);
         $I->sendDELETE(self::API_USER . '/' . $this->user['id'], ['password' => '124']);
         $I->seeResponseCodeIs(Http::UNAUTHORIZED);
 
@@ -169,6 +174,19 @@ class UserApiCest
             'betrieb_id' => $store['id'],
             'date >' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
+    }
+
+    public function canOrgaDeleteUserWithoutPassword(ApiTester $I): void
+    {
+        // Orga can delete other user without password
+        $I->login($this->userOrga[self::EMAIL]);
+        $I->sendDELETE(self::API_USER . '/' . $this->user['id'], ['reason' => 'None shall pass!']);
+        $I->seeResponseCodeIs(Http::OK);
+
+        // Orga cannot delete themselves without password
+        $I->login($this->userOrga[self::EMAIL]);
+        $I->sendDELETE(self::API_USER . '/' . $this->userOrga['id'], ['reason' => 'Cat on keyboard']);
+        $I->seeResponseCodeIs(Http::BAD_REQUEST);
     }
 
     public function canOnlyFetchAbbreviatedUserNamesWhenLoggedOut(ApiTester $I): void
