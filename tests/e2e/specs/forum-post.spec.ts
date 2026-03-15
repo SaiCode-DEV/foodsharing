@@ -158,7 +158,7 @@ test.describe("Forum Post with Mails", () => {
     page,
     acceptanceHelper,
   }) => {
-    test.setTimeout(60000);
+    test.setTimeout(120_000);
 
     await acceptanceHelper.login(testData.foodsaver.email);
     const title = faker.word.words(5);

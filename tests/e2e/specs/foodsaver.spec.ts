@@ -37,8 +37,8 @@ test("Foodsaver can join another region", async ({
     .locator(".testing-region-join-select")
     .selectOption({ label: region.name });
   await page.click(".testing-region-join .btn.btn-primary");
-  await acceptanceHelper.waitForActiveAPICalls();
   await expect(page.locator(".regionTopClass")).toBeVisible();
+  await acceptanceHelper.waitForActiveAPICalls();
 
   expect(
     await Database.seeInDatabase("fs_foodsaver_has_bezirk", {

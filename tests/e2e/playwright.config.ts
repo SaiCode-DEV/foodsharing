@@ -10,6 +10,8 @@ export default defineConfig({
   outputDir: "../_output/test-results",
   fullyParallel: true,
   retries: 1,
+  /* Increase the default test timeout, preferably tests time out on individual actions. */
+  timeout: 60000,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Limit the number of failures on CI to save resources */

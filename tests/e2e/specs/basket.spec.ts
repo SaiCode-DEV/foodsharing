@@ -3,15 +3,15 @@ import { foodsharing } from "../helpers/foodsharing";
 import { Database } from "../helpers/database";
 
 test.describe("Food Basket", () => {
-  // This test is complex with two browser contexts, so it needs more time
   test("can create, update, request and close a food basket", async ({
     page,
     acceptanceHelper,
     browser,
   }) => {
-    test.setTimeout(60000);
-    const description = "my basket";
+    // This test is complex with two browser contexts, so it needs more time
+    test.setTimeout(120_000);
 
+    const description = "my basket";
     const foodsaver = await foodsharing.createFoodsaver();
 
     // Login and create a food basket

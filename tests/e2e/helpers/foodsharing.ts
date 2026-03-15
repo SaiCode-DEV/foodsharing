@@ -28,6 +28,12 @@ class UploadedFile {
   ) {}
 }
 
+interface EmailAddress {
+  host: string;
+  mailbox: string;
+  personal: string | null;
+}
+
 class Foodsharing {
   async clear(): Promise<void> {
     const regionsToKeep = [
@@ -137,7 +143,6 @@ class Foodsharing {
     }
 
     const params = {
-      email: faker.internet.email({ firstName, lastName }),
       bezirk_id: 0,
       name: firstName,
       nachname: lastName,
@@ -158,6 +163,7 @@ class Foodsharing {
       photo: pictureUrl,
       geschlecht: gender,
       ...extraParams,
+      id: null, // will be set after insertion
     };
 
     // Convert password to hash using ARGON2I
@@ -168,8 +174,47 @@ class Foodsharing {
     params.last_login = this.toDateTime(params.last_login);
     params.anmeldedatum = this.toDateTime(params.anmeldedatum);
 
-    // Insert into database
-    params.id = await Database.addToDatabase("fs_foodsaver", params);
+    if (extraParams.email) {
+      throw new Error(
+        "Email should not be provided in extraParams." +
+          " it is generated automatically to ensure uniqueness",
+      );
+    }
+
+    // Collision rate is ~1.1%
+    let emailAddress = faker.internet.email({ firstName, lastName });
+
+    // Ensure email is unique by modifying if necessary.
+    const maxAttempts = 42;
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+      try {
+        // Try to insert into database
+        params.email = emailAddress;
+        params.id = await Database.addToDatabase("fs_foodsaver", params);
+        break; // Insert successful, finish
+      } catch (error) {
+        if (Database.isDuplicateEntryError(error)) {
+          console.debug(
+            `User with email ${params.email} exists in database, retrying...`,
+          );
+
+          // Add a random character to the email username and try again
+          emailAddress = emailAddress.replace(
+            "@",
+            `${faker.string.alphanumeric(1)}@`,
+          );
+          continue;
+        }
+        // Other error, rethrow
+        throw error;
+      }
+    }
+
+    if (params.id === null) {
+      throw new Error(
+        `Failed to create unique email after ${maxAttempts} attempts!`,
+      );
+    }
 
     if (params.bezirk_id) {
       await this.addRegionMember(params.bezirk_id, params.id);
@@ -245,6 +290,8 @@ class Foodsharing {
     // Create mailbox and assign to user
     const mailbox = await this.createMailbox(
       coordinator.name[0].toLowerCase() + "." + coordinator.nachname,
+      true,
+      true,
     );
     await Database.connect().then((conn) =>
       conn.execute("UPDATE fs_foodsaver SET mailbox_id = ? WHERE id = ?", [
@@ -457,6 +504,7 @@ class Foodsharing {
   async createMailbox(
     name: string = null,
     fillMailbox: boolean = true,
+    avoidCollisions: boolean = false,
   ): Promise<any> {
     if (!name) {
       name = faker.internet.username();
@@ -470,14 +518,62 @@ class Foodsharing {
       }
       if (counter > 100) {
         throw new Error(
-          "Unable to generate unique mailbox name after 100 attempts",
+          "Unable to generate unique random mailbox name after 100 attempts",
         );
       }
     }
 
+    let mailboxId = null;
+    let mailboxName: string = name;
+    const maxAttempts = 42;
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+      if (avoidCollisions) {
+        // Imitate the strategy used in MailboxGateway::createMailbox()
+        const similarMailboxes: string[] =
+          await Database.grabColumnFromDatabase("fs_mailbox", "name", {
+            name: `${name.replace(/[%_]/g, "\\$&")}%`,
+          });
+        const mailboxesWithSameBaseName = similarMailboxes.filter(
+          (mb) =>
+            mb.startsWith(name) && mb.substring(name.length).match(/^\d*$/),
+        );
+        if (mailboxesWithSameBaseName.length > 0) {
+          const suffix =
+            Math.max(
+              ...mailboxesWithSameBaseName.map(
+                (mb) => parseInt(mb.substring(name.length)) || 0,
+              ),
+            ) + 1;
+          mailboxName = `${name}${suffix}`;
+        }
+      }
+
+      try {
+        mailboxId = await Database.addToDatabase("fs_mailbox", {
+          name: mailboxName,
+        });
+        break; // Insertion successful, exit loop
+      } catch (error) {
+        if (!Database.isDuplicateEntryError(error)) {
+          throw error; // Unknown error, rethrow
+        }
+        if (!avoidCollisions) {
+          break; // If not avoiding collisions, don't retry on duplicate entry
+        }
+        console.log(
+          `Mailbox with name ${mailboxName} already exists, retrying...`,
+        );
+      }
+    }
+
+    if (mailboxId === null) {
+      throw new Error(
+        `Failed to create unique mailbox after ${maxAttempts} attempts`,
+      );
+    }
     const mailbox = {
-      name,
-      id: await Database.addToDatabase("fs_mailbox", { name }),
+      id: mailboxId,
+      name: mailboxName,
     };
 
     if (fillMailbox) {
@@ -827,7 +923,7 @@ class Foodsharing {
       foodsaver_id: userId,
       status: 1,
       time: this.toDateTime(faker.date.recent()),
-      until: this.toDateTime(faker.date.future({ days: 14 })),
+      until: this.toDateTime(faker.date.soon({ days: 14 })),
       fetchtime: null,
       description: faker.lorem.paragraphs(2),
       picture: null,
@@ -1577,6 +1673,7 @@ class Foodsharing {
       msg: message ?? faker.lorem.paragraphs(2),
       tvalue: reason ?? faker.lorem.sentence(),
       committed: confirmed,
+      id: null, // will be set after insertion
     };
     params.id = await Database.addToDatabase("fs_report", params);
     return params;

@@ -355,8 +355,6 @@ test.describe("Two-Factor Authentication", () => {
   });
 
   test("password reset enforces TOTP", async ({ page, acceptanceHelper }) => {
-    test.setTimeout(60000); // Extended timeout for email operations
-
     const newPass = "yourNewPassword1234!";
 
     // Enable TOTP

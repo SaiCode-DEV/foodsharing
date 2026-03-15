@@ -193,21 +193,21 @@ test.describe("Notifications", () => {
 
     // Create 3 unread notifications
     await foodsharing.addBells([foodsaver], {
-      name: "notification_1",
-      body: "First notification",
-      vars: {},
+      name: "store_new_title",
+      body: "store_new",
+      vars: { name: "Store 1" },
       attr: { href: "/" },
     });
     await foodsharing.addBells([foodsaver], {
-      name: "notification_2",
-      body: "Second notification",
-      vars: {},
+      name: "store_new_title",
+      body: "store_new",
+      vars: { name: "Store 2" },
       attr: { href: "/" },
     });
     await foodsharing.addBells([foodsaver], {
-      name: "notification_3",
-      body: "Third notification",
-      vars: {},
+      name: "store_new_title",
+      body: "store_new",
+      vars: { name: "Store 3" },
       attr: { href: "/" },
     });
 

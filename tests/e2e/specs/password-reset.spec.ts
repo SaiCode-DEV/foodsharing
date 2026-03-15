@@ -7,8 +7,6 @@ import { url } from "@/helper/urls";
 
 test.describe("Password Reset", () => {
   test("user can reset password", async ({ page }) => {
-    test.setTimeout(30000); // Extend timeout for email operations
-
     const newPass = "TeST1234!";
     const user = await foodsharing.createFoodsaver();
 

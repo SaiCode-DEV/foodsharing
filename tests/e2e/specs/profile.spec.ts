@@ -39,7 +39,7 @@ test.describe("Profile", () => {
       timeout: 4000,
     });
     await page.click(`[data-testid="buddy-request-${buddy.id}"]`);
-    await page.getByRole("button", { name: "Ja" }).click();
+    await page.getByRole("button", { name: "Ja", exact: true }).click();
     await acceptanceHelper.waitForActiveAPICalls();
 
     // Open own profile and show buddies modal

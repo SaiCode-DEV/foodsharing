@@ -10,9 +10,6 @@ test.describe("Chat", () => {
   let foodsaver1: Awaited<ReturnType<typeof foodsharing.createFoodsaver>>;
   let foodsaver2: Awaited<ReturnType<typeof foodsharing.createFoodsaver>>;
 
-  // Increase the default timeout for all tests
-  test.describe.configure({ timeout: 60000 });
-
   test.beforeEach(async ({ page, acceptanceHelper }) => {
     chatHelper = new ChatHelper(page);
 

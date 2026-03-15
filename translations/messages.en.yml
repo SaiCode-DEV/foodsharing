@@ -4174,6 +4174,7 @@ globals:
   saved: Changes were saved
   save_changes: Save changes
   updated: 'Updated:'
+  loading: 'Loading...'
 bootstrap-datepicker:
   labelPrevDecade: Previous decade
   labelPrevYear: Previous year

@@ -30,7 +30,7 @@
     <div v-else class="py-3 px-4 text-center">
       <i class="fas fa-spinner fa-spin fa-2x" />
       <p class="mt-3">
-        {{ $t('loading') }}
+        {{ $t('globals.loading') }}
       </p>
     </div>
   </div>

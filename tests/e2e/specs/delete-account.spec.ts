@@ -7,7 +7,7 @@ test.describe("Delete Account", () => {
     page,
     acceptanceHelper,
   }) => {
-    test.setTimeout(120000); // Set timeout to 120 seconds
+    test.setTimeout(120_000);
 
     const foodsaver = await foodsharing.createFoodsaver();
 
@@ -67,7 +67,7 @@ test.describe("Delete Account", () => {
     page,
     acceptanceHelper,
   }) => {
-    test.setTimeout(120000); // Set timeout to 120 seconds
+    test.setTimeout(120_000);
 
     const foodsaver = await foodsharing.createFoodsaver();
 

@@ -4,6 +4,7 @@ import { Database } from "../helpers/database";
 import fs from "fs/promises";
 import { maildev } from "../helpers/maildev";
 import Role from "../helpers/constants/Foodsaver/Role";
+import { faker } from "@faker-js/faker/locale/de";
 
 test.describe("Settings", () => {
   test("can edit internal self description", async ({
@@ -422,7 +423,9 @@ test.describe("Settings", () => {
     acceptanceHelper,
   }) => {
     const pass = "testpass123!";
-    const newMail = "test@blaa.com";
+    const newMail = faker.internet.email({
+      lastName: `change${faker.string.alphanumeric(16)}`,
+    });
 
     const user = await foodsharing.createFoodsaver(pass);
 

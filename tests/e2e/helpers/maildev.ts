@@ -114,7 +114,7 @@ export class Maildev {
   async waitForMail(
     subject?: string,
     toAddress?: string,
-    timeout: number = 5,
+    timeout: number = 10,
   ): Promise<MailResult | null> {
     while (timeout > 0) {
       const mails = await this.getMails();

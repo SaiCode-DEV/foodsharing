@@ -47,8 +47,6 @@ test.describe("Quiz", () => {
         page,
         acceptanceHelper,
       }) => {
-        test.setTimeout(60000); // Extended timeout for quiz operations
-
         const user = userType === "foodsharer" ? foodsharer : foodsaver;
 
         // Login as the user

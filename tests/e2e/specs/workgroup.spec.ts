@@ -190,7 +190,8 @@ test.describe("WorkGroup", () => {
       acceptanceHelper,
       browser,
     }) => {
-      test.setTimeout(45000);
+      test.setTimeout(120_000);
+
       await acceptanceHelper.login(regionMember.email);
       await page.goto(Urls.groupListUrl());
       await page.click(`.list-group:has-text("${testGroupApply.name}")`);

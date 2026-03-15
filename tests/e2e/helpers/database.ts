@@ -138,25 +138,20 @@ export class Database {
     table: string,
     data: Record<string, any>,
   ): Promise<number> {
-    try {
-      const conn = await this.connect();
+    const conn = await this.connect();
 
-      const columns = Object.keys(data)
-        .map((c) => `\`${c}\``)
-        .join(", ");
-      const placeholders = Object.keys(data)
-        .map(() => "?")
-        .join(", ");
-      const values = Object.values(data);
+    const columns = Object.keys(data)
+      .map((c) => `\`${c}\``)
+      .join(", ");
+    const placeholders = Object.keys(data)
+      .map(() => "?")
+      .join(", ");
+    const values = Object.values(data);
 
-      const query = `INSERT INTO \`${table}\` (${columns}) VALUES (${placeholders})`;
-      const [result] = await conn.execute(query, values);
+    const query = `INSERT INTO \`${table}\` (${columns}) VALUES (${placeholders})`;
+    const [result] = await conn.execute(query, values);
 
-      return (result as any).insertId;
-    } catch (error) {
-      console.error(`Error addToDatabase ${table}: `, error.message);
-      throw error;
-    }
+    return (result as any).insertId;
   }
 
   static async cleanup() {
@@ -169,5 +164,9 @@ export class Database {
     return Object.fromEntries(
       Object.entries(obj).filter(([, value]) => value !== undefined),
     ) as Partial<T>;
+  }
+
+  static isDuplicateEntryError(error: any): boolean {
+    return error && error.code === "ER_DUP_ENTRY";
   }
 }

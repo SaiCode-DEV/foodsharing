@@ -3806,6 +3806,7 @@ globals:
   telephone_number: Telefonnummer
   saved: "Änderungen wurden gespeichert"
   updated: "Aktualisiert:"
+  loading: "Wird geladen..."
 
 search:
   title: Suche

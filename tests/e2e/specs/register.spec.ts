@@ -10,7 +10,7 @@ test.describe("Registration", () => {
 
   // Generate fresh test data for each test
   const getTestData = () => ({
-    email: `${faker.internet.username()}@test.com`,
+    email: `${faker.internet.username()}_${faker.string.alphanumeric(16)}@test.com`,
     password: "testPassword123",
     firstName: faker.person.firstName(),
     lastName: faker.person.lastName(),
