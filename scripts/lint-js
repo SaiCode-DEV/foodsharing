@@ -12,6 +12,5 @@ echo "Linting websocket js"
 run-in-container websocket yarn lint
 
 echo "Linting e2e tests"
-export FS_ENV=test
-run-in-container e2e yarn prettier
-run-in-container e2e yarn lint
+run-in-container client yarn prettier:e2e
+# FS_ENV=test run-in-container e2e yarn lint # done by client lint
