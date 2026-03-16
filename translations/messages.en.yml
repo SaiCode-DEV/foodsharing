@@ -3303,8 +3303,8 @@ error_base64_image: Inserting images via drag & drop is not permitted.
 register:
   confirmPassword_required: Please repeat the password for confirmation
   password_required: A password is required
-  login_passwd2: Password repeat
-  email_invalid: The e-mail address is either invalid or already in use
+  login_passwd2: Confirm password
+  email_invalid: The e-mail address is invalid
   email_required: An e-mail address is required
   login_email: E-mail address
   login_surname: Your surname
@@ -3315,7 +3315,7 @@ register:
   login_passwd1: Password (at least 8 symbols)
   register_button_label: Register
   topbar: Join
-  pass2: Password repetition
+  pass2: Confirm password
   other: other
   woman: female
   man: male
@@ -3349,10 +3349,9 @@ register:
   error_email_invalid: This email address cannot be used
   error: An error has occurred
   check_mail: Check your e-mail now to complete the registration!
-  join_success_message: You have successfully completed your registration at 
-    foodsharing. Before you can log in with your email address and password, you
-    need to confirm your email address. We have sent you an email with a 
-    confirmation link to this address.
+  join_success_message: You have successfully completed your registration on 
+    foodsharing. Now you are able to log in using your email address and 
+    password.
   have_read_the_legal_stuff2: noted
   phone_not_valid: The phone number you entered is not valid
   login_phone_info: It can be helpful to share your phone number with other food
@@ -3372,14 +3371,22 @@ register:
     beginning or end
   password_must_be_complex: The password must contain upper and lower case 
     letters and numbers
-  token_invalid_or_expired: The registration code is unknown or has expired. Please request a new one.
+  token_invalid_or_expired: The registration code is unknown or has expired. 
+    Please request a new one.
+  email_in_progress: A registration code has been already requested for this 
+    email address
+  join_initialised: Your registration has been started.
+  join_initialised_message: Before you may continue with registration, you need 
+    to confirm your email address. We have sent an email containing a 
+    confirmation link to your address.
+  invalid_token: The registration code is unknown
 duration: Time to answer
 explanation: Explanation
 fp: Failure points
 text: text
 besonderheiten: Procedure & instructions
 begin: Start of cooperation
-pass2: Repeat password
+pass2: Confirm password
 totp_code: Please enter either the generated two-factor authentication code or 
   one of the backup codes.
 pass1: Your new requested password

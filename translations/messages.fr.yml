@@ -2227,8 +2227,8 @@ pickup:
   leave_team_message_title: Envoyer un message à l’équipe
   leave_pickup_message_team: Notifier l’équipe
   leave_pickup_ok: J’ai déjà trouvé un·e remplaçant·e
-  really_leave: Tu es responsable de cette collecte, c’est ton rôle de 
-    trouver un·e remplaçant·e.
+  really_leave: Tu es responsable de cette collecte, c’est ton rôle de trouver 
+    un·e remplaçant·e.
   kick_message_footer: Amicalement, l’équipe des responsables coopération
   kick_message_placeholder: 'Informations complémentaires (optionnel) …'
   kick_message: Nous t’avons retiré de la collecte du {date} dans la coopération

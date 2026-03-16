@@ -493,7 +493,7 @@ bell:
   passport_created_or_renewed: foi ativado ou prolongado!
   workinggroup_new_request: Nova aplicação para um grupo de trabalho
   internal_email_changed_title: '{address}'
-  internal_email_changed: A tua morada de e-mail pessoal foi alterado.
+  internal_email_changed: O teu endereço de e-mail pessoal foi alterado.
   forum_not_activated_thread: '{forum}'
   forum_not_activated_thread_title: Tema em fórum moderado
   post_hidden_title: Publicação oculta por {user}
@@ -534,13 +534,14 @@ email_template:
   to: 'a'
   dont_respond:
     notification: 'notificaçães'
-    noreply: 'Por favor, não respondas a este e-mail. Esta mensagem foi enviada de
-      uma morada para a qual não existe caixa de correio.'
+    noreply: 'Por favor, não respondas a este e-mail. Esta mensagem foi enviada a
+      partir de um endereço utilizado apenas para envio de e-mails, não sendo possível
+      receber respostas neste endereço.'
     you_can: 'Podes configurar em'
     nomail: 'que e-mails recebes.'
     no_notification_link: 'Não quer mais receber este tipo de notificações?'
   from: '-- De '
-  unknown_email: 'Morada de e-mail desconhecida'
+  unknown_email: 'Endereço de e-mail desconhecida'
   impress:
     title: 'Aviso legal'
     address: "foodsharing e. V. \n Neven-DuMont-Str. 14 \n 50667 Köln \n\n Representado
@@ -550,7 +551,7 @@ email_template:
       de acordo com o § 18 MStV (Tratado sobre o Estado de Media):\n Anja Westermann"
     general_information_requirements: 'Informações de acordo com o § 5 da lei alemã
       «Telemediengesetz» (Lei dos meios de comunicação telemáticos)'
-  unknown_email2: "A morada de e-mail %ADDRESS% não é conhecida. \nTenha em atenção
+  unknown_email2: "O endereço de e-mail %ADDRESS% não é conhecido. \nTenha em atenção
     que os e-mails com cópia oculta para o domínio @foodsharing.network não podem
     ser entregues."
   confirm_topic: 'O tópico precisa de aprovação:'
@@ -1085,7 +1086,7 @@ login:
     error: 'Desculpe, há um problema com os teus dados.'
     expired: 'O link não é válido. Provavelmente esperaste demasiado tempo. Por favor,
       requeira uma nova palavra-passe.'
-    wrongMail: 'Infelizmente não encontramos esta morada de e-mail. Tenta novamente.'
+    wrongMail: 'Infelizmente não encontramos este endereço de e-mail. Tenta novamente.'
     tooShort: 'A palavra-passe escolhida é demasiado curta.'
     success: 'A tua palavra-passe foi alterada com sucesso. Já podes iniciar sessão.'
     bread: 'Redefinir palavra-passe'
@@ -1100,32 +1101,32 @@ login:
   form_title: 'Bem-vindo de volta'
   steady_login: 'Ficar conectado'
   forgotten_password_label: 'Esqueceu a password?'
-  error_no_auth: 'Infelizmente, não conseguimos encontrar esta morada de e-mail ou
-    palavra-passe. Tenta novamente. Talvez o teu segundo fator também esteja incorreto,
+  error_no_auth: 'Infelizmente, não conseguimos encontrar este endereço de e-mail
+    ou palavra-passe. Tenta novamente. Talvez o teu segundo fator também esteja incorreto,
     caso o estejas a usar.'
   submit_btn: 'Iniciar sessão'
   login_button_label: 'Iniciar sessão'
   password: 'palavra-passe'
-  email_address: 'Morada de e-mail'
+  email_address: 'Endereço de e-mail'
   logout: 'Terminar sessão'
   save_password: 'Salvar a palavra-passe'
-  error_no_email: 'Digite a tua morada de e-mail.'
+  error_no_email: 'Digite o teu endereço de e-mail.'
   topbar: 'Iniciar sessão'
   error_no_password: 'Digite a tua palavra-passe.'
   2fa: Autenticação de dois fatores (2FA)
   resend_verification:
-    email_invalid: Por favor, introduza uma morada de e-mail
-    title: Confirmação da morada de e-mail
-    hint1: Para iniciar sessão, a tua morada de e-mail deve estar confirmada. Se
-      foste redirecionado para esta página a partir do login, significa que a 
-      tua morada de e-mail ainda não foi confirmada. Com este formulário, podes 
-      solicitar o envio de um novo e-mail com um link de ativação.
+    email_invalid: Por favor, introduza um endereço de e-mail
+    title: Confirmação do endereço de e-mail
+    hint1: Para iniciar sessão, o teu endereço de e-mail deve estar confirmada. 
+      Se foste redirecionado para esta página a partir do login, significa que o
+      teu endereço de e-mail ainda não foi confirmada. Com este formulário, 
+      podes solicitar o envio de um novo e-mail com um link de ativação.
     hint2: Caso não receba nenhum e-mail, entre em contacto com o 
       [suporte](/support).
     submit: Enviar
-    success: Caso essa morada de e-mail exista e ainda não tenha sido 
-      verificada, será enviado um novo e-mail.
-  error_not_activated: Infelizmente, a tua morada de e-mail ainda não foi 
+    success: Caso esse endereço de e-mail existe e ainda não tenha sido 
+      verificado, será enviado um novo e-mail.
+  error_not_activated: Infelizmente, o teu endereço de e-mail ainda não foi 
     ativado.
   or: ou
   passkey_btn: Iniciar sessão com Passkey
@@ -1151,7 +1152,7 @@ profile:
     info: 'Achamos fantástico que busques apoio para abordar a situação com a pessoa
       em questão. A equipa de mediação pode atuar como mediadora e ajudar a garantir
       que as vossas conversas sejam conduzidas em pé de igualdade e com respeito mútuo.
-      Podes contactar o grupo de trabalho de mediação local através da seguinte morada
+      Podes contactar o grupo de trabalho de mediação local através do seguinte endereço
       de e-mail:'
     no_group: 'Infelizmente, ainda não existe um grupo de mediação local para o distrito
       principal do Foodsaver. Pode abordar o assunto numa reunião de grupo ou no fórum,
@@ -1212,10 +1213,10 @@ profile:
       de substitutos'
     mail:
       reportGroup: 'Esta denúncia será enviada ao grupo de denúncias local. Também
-        pode contactar este grupo através da seguinte morada de e-mail:'
+        pode contactar este grupo através do seguinte endereço de e-mail:'
       arbitrationGroup: 'Esta denúncia será enviada ao órgão de arbitragem, uma vez
         que uma das pessoas envolvidas é membro do grupo local de denúncias. Também
-        podes contactar o órgão de arbitragem através da seguinte morada de e-mail:'
+        podes contactar o órgão de arbitragem através do seguinte endereço de e-mail:'
     confirmDelete: Deseja mesmo apagar esta denúncia?
     report_b1_0: Chegou tarde para a recolha (B01-1)
     report_b1_1: Não compareceu para recolher (B01-2)
@@ -1247,13 +1248,13 @@ profile:
     notes: Notas e decisões
   mail_bounce:
     remove_button: 'Remover da lista de rejeições'
-    warning_1: 'A tua morada de e-mail pessoal {email} está bloqueada para comunicações
+    warning_1: 'O teu endereço de e-mail pessoal {email} está bloqueado para comunicações
       e e-mails do foodsharing. Através do'
     warning_4: 'Este artigo de suporte.'
-    warning_others: 'A morada de e-mail {email} desta pessoa está bloqueada para e-mails
-      e comunicações do foodsharing. Pode remover o bloqueio através do botão.'
+    warning_others: 'O endereço de e-mail {email} desta pessoa está bloqueado para
+      e-mails e comunicações do foodsharing. Pode remover o bloqueio através do botão.'
     warning_3: 'Esse bloqueio será removido. Para obter mais informações, consulte '
-    warning_2: 'Alterar a morada de e-mail'
+    warning_2: 'Alterar o endereço de e-mail'
   deletesuccess: 'Evento individual excluido'
   banana:
     remove:
@@ -1295,7 +1296,7 @@ profile:
     weight_unit: kg
     fetch_count: recolhido
     bananas: bananas
-    slots: participações
+    slots: ações feitas
     give_count: entregue
     engagement_count: engajado
   commitments_stat:
@@ -1376,10 +1377,10 @@ profile:
     home_region_from: Distrito principal
     kam_for: 'Responsável pela coordenação das seguintes cadeias comerciais:'
   tab_navigation:
-    profile: perfil
-    pickups: vagas
-    commitment_statistics: atividade
-    stores: locais ({count})
+    profile: Perfil
+    pickups: Vagas
+    commitment_statistics: Atividade
+    stores: Locais ({count})
     notes: notas ({count})
   stores:
     search_placeholder: Pesquisar por nome
@@ -1475,7 +1476,7 @@ mailbox:
   reply_header: '{name} escreveu em {date}'
   global_addressbook: Livro de moradas global
   addressbook: Livro de moradas
-  search_name_email: Pesquisar por nome ou morada de e-mail
+  search_name_email: Pesquisar por nome ou endereço de e-mail
   show_html_body: Ver como HTML
 bcard:
   error:
@@ -1660,8 +1661,8 @@ group:
     title: 'Contactar {group}'
     empty: 'Escrita alguma coisa primeiro ;)'
     disclaimer: "Ao enviar uma mensagem para este grupo de trabalho, \nos administradores
-      do grupo de trabalho verão a morada de e-mail \ncom a qual está registado no
-      foodsharing. \nUma cópia desta mensagem será enviada para o teu e-mail.\n"
+      do grupo de trabalho verão o endereço de e-mail \ncom a qual está registado
+      no foodsharing. \nUma cópia desta mensagem será enviada para o teu e-mail.\n"
     admins: '{count} pessoas de contacto:'
     sent: 'A mensagem foi enviada com sucesso.'
     send: 'Mandar mensagem'
@@ -1674,8 +1675,8 @@ group:
     nobody: 'Ninguém (grupo fechado).'
     member_since_weeks: 'Quantas semanas são necessárias para um candidato estar registado
       na plataforma?'
-    fetch_count: 'Quantas participações em recolhas, entregas ou organização já deveriam
-      ter sido efetuadas?'
+    fetch_count: 'Quantas ações de recolhas, entregas ou organização já deveriam ter
+      sido efetuadas?'
     banana_count: 'Quantas bananas de reconhecimento devem estar presentes?'
     not_fulfilled: 'Para candidatar-se a este grupo de trabalho, deve fazer parte
       da foodsharing há %weeks% semanas, já ter recolhido %bananas% bananas de reconhecimento
@@ -1750,8 +1751,8 @@ foodsaver:
     AMBASSADOR: Torne-se embaixador(a)
     pn: Sim, li e aceito a política de privacidade.
   editName: 'Editar {name}'
-  mailchange_error: 'A ativação da tua nova morada de e-mail falhou. Por favor, tente
-    novamente.'
+  mailchange_error: 'A ativação do teu nova endereço de e-mail falhou. Por favor,
+    tente novamente.'
   delete_account_now: 'Eliminar conta agora'
   restricted: 'Infelizmente, não tens permissão para visualizar estes dados.'
   edit_failure: 'Nada foi alterado ou as alterações não foram guardadas'
@@ -1813,8 +1814,8 @@ pickup:
         empty: 'Atualmente, não há vagas inscritas.'
       history:
         tooltip:
-          own: 'Participações anteriores que ocupaste'
-          other: 'Participações anteriores que ocupaste no mês passado'
+          own: 'Ações anteriores que ocupaste'
+          other: 'Ações anteriores que ocupaste no mês passado'
         name: 'Histórico de vagas'
         empty: 'Ainda não foi inscrita nenhuma vaga.'
     modals:
@@ -1922,8 +1923,9 @@ pickup:
     cooperação.'
   delete_title: 'Apagar essas vagas'
   signout_info: 'As tuas recolhas pendentes serão eliminadas.'
-  leave_team_message_template: 'Infelizmente, não poderei participar em {date}, pelo
-    que terei de cancelar a minha vaga. Por favor, inscrevam-se …'
+  leave_team_message_template: "Querida equipa, \ninfelizmente, não poderei participar
+    em {date}, pelo que terei de cancelar a minha vaga. \nPor favor, inscrevam-se
+    …"
   leave_pickup_message_team: 'Notificar equipa'
   leave_team_message_title: 'Mensagem á equipa'
   signout_confirm: 'Tens a certeza?'
@@ -1947,11 +1949,11 @@ pickup:
   slots: Vagas
 error:
   mail_bounce:
-    title: 'Morada de e-mail bloqueada!'
-    description: 'A tua morada de e-mail está bloqueada para e-mails e comunicações
+    title: 'Endereço de e-mail bloqueado!'
+    description: 'O teu endereço de e-mail está bloqueado para e-mails e comunicações
       do foodsharing.'
     link_2: 'Preciso de ajuda'
-    link_1: 'Alterar morada de e-mail'
+    link_1: 'Alterar endereço de e-mail'
   missing_geolocation:
     title: 'Não foi indicada nenhuma morada válida'
     description: 'Por favor, verifica a tua morada. Não foi possível determinar as
@@ -1967,11 +1969,11 @@ error:
       receber chamadas.'
     link: 'Corrigir o número do telemóvel agora'
   mail_activation:
-    description: 'A utilização do site só é possível com uma morada de e-mail confirmada.
-      Confirma a tua morada de e-mail clicando no link do e-mail de ativação.'
-    title: 'Morada de e-mail não confirmada!'
+    description: 'A utilização do site só é possível com um endereço de e-mail confirmado.
+      Confirma o teu endereço de e-mail clicando no link do e-mail de ativação.'
+    title: 'Endereço de e-mail não confirmado!'
     link_1: 'Pedir um novo e-mail de ativação'
-    link_2: 'Alterar morada de e-mail'
+    link_2: 'Alterar endereço de e-mail'
   passport_is_invalid_soon:
     description: 'A tua cartão de membro ainda é válida por {days} dias. Entra em
       contacto com os teus embaixadores para a renovar.'
@@ -2360,7 +2362,7 @@ quiz:
   test: Rever o teste
   max_fp: Pontos de erro possíveis
 chat:
-  incorrect_address: 'Esta morada de e-mail está incorreta'
+  incorrect_address: 'Este endereço de e-mail está incorreto'
   receivermissing: 'Deve especificar um destinatário'
   notification_unnamed_conversation: '{foodsaver} escreveu para ti.'
   no_messages: 'Não há mensagens'
@@ -2581,7 +2583,7 @@ recipients:
   variables: 'Tratamento pessoal'
   newsletter_all: 'Todos os assinantes do boletim informativo (Foodsharers, Foodsavers,
     todos)'
-  sent: 'O e-mail foi enviado com sucesso para {count} moradas de e-mail'
+  sent: 'O e-mail foi enviado com sucesso para {count} endereços de e-mail'
   test_email_sent: 'O e-mail foi enviado.'
   orga_team: 'Equipa organizadora global (administradores do site)'
   newsletter_only_foodsharer: 'SÓ aqueles que foodsharer entre todos os assinantes
@@ -2591,7 +2593,7 @@ recipients:
   continue: 'Continuar enviando'
   choose: 'Selecionar distritos manualmente'
   status: 'Enviar e-mails … (e-mail atual: {current})'
-  test_email_invalid: 'Há uma problema com a morada de e-mail.'
+  test_email_invalid: 'Há uma problema com o endereço de e-mail.'
   variable-info: 'Para personalizar o e-mail, pode inserir <strong>{NAME}</strong>
     em vez do nome
 
@@ -2836,7 +2838,7 @@ settings:
     title: Segurança da conta de acesso
     email_password_section: E-mail e palavra-passe
     change_password: Alterar palavra-passe
-    change_email: Alterar morada de e-mail
+    change_email: Alterar endereço de e-mail
     mfa_section: Autenticação multifatoral
     mfa_enabled: Autenticação multifatorial ativada
     mfa_disabled: Autenticação multifatorial deativada
@@ -3000,42 +3002,42 @@ settings:
       não tenha mais acesso ao teu dispositivo de dois fatores e também tenha 
       perdido os códigos de backup.
   email_change:
-    title: Alterar morada de e-mail
-    explanation: Aqui podes alterar a morada de e-mail com a qual te registaste.
-      Após o envio, receberás um e-mail na tua nova morada com um link para 
-      confirmar a tua morada.
-    explanation_other_user: Aqui podes alterar a morada de e-mail com a qual 
+    title: Alterar endereço de e-mail
+    explanation: Aqui podes alterar o endereço de e-mail com a qual te 
+      registaste. Após o envio, receberás um e-mail no teu novo endereço com um 
+      link para confirmar o teu endereço.
+    explanation_other_user: Aqui podes alterar o endereço de e-mail com a qual 
       este perfil foi registado. Após o envio, o utilizador receberá um e-mail 
-      na nova morada, contendo um link para confirmar a alteração.
+      no novo endereço, contendo um link para confirmar a alteração.
     explanation_password: Confirme a solicitação de alteração com a tua 
       palavra-passe atual
-    new_email_label: Nova morada de e-mail
+    new_email_label: Novo endereço de e-mail
     new_email_placeholder: a.tua.novo@email.pt
-    confirm_email_label: Confirmar morada de e-mail
+    confirm_email_label: Confirmar endereço de e-mail
     confirm_email_placeholder: a.tua.novo@email.pt
     password_label: Palavra-passe atual
     password_placeholder: A tua palavra-passe
     cancel: Cancelar
     submit: Alterar e-mail
-    confirm_email_required: As moradas de e-mail não correspondem
-    question: 'Queremos mesmo alterar a tua morada de e-mail para esta:'
-    question_other_user: 'Deve ser alterada a morada de e-mail para esta:'
-    invalid: Há um problema com a morada de e-mail introduzida
-    domain: Por favor, utiliza outra morada de e-mail para poderes recuperar a 
+    confirm_email_required: Os endereços de e-mail não correspondem
+    question: 'Queremos mesmo alterar o teu endereço de e-mail para esta:'
+    question_other_user: 'Deve ser alterado o endereço de e-mail para este:'
+    invalid: Há um problema com o endereço de e-mail introduzido
+    domain: Por favor, utiliza outro endereço de e-mail para poderes recuperar a
       tua palavra-passe a qualquer momento.
-    occupied: Não foi possível alterar a morada de e-mail, pois ela já está a 
-      ser utilizada.
-    password_required: Tens de inscrever a tua palavra-passe para alterar a 
-      morada de e-mail.
+    occupied: Não foi possível alterar o endereço de e-mail, pois ele já está a 
+      ser utilizado.
+    password_required: Tens de inscrever a tua palavra-passe para alterar o 
+      endereço de e-mail.
     wrong_password: A palavra-passe é incorreta.
-    insufficient_permission: Não tens autorização para alterar a morada de 
+    insufficient_permission: Não tens autorização para alterar o endereço de 
       e-mail deste perfil.
-    sent: Acesse agora tua nova caixa de correio eletrónico para confirmar a 
-      morada.
-    sent_other_user: Foi enviado um e-mail para a nova morada para confirmar a 
-      morada.
-    done: A tua morada de e-mail foi alterado.
-    not_changed: A tua morada de e-mail não foi alterada.
+    sent: Acesse agora tua nova caixa de correio eletrónico para confirmar o 
+      endereço.
+    sent_other_user: Foi enviado um e-mail para a novo endereço para confirmar o
+      endereço.
+    done: O teu endereço de e-mail foi alterado.
+    not_changed: O teu endereço de e-mail não foi alterada.
     dashboard_link: Continuar para o painel
   change_data_info:
     general: Aqui podes alterar os dados do teu perfil.
@@ -3198,9 +3200,9 @@ register:
   phone_example: 'Exemplo: +351 612 34 56 78'
   signup_newsletter: 'Gostaria de receber a newsletter do foodsharing aproximadamente
     uma vez por mês'
-  email_invalid: 'A morada de e-mail é inválida ou já está a ser utilizada'
+  email_invalid: 'O endereço de e-mail é inválida'
   geb_datum: 'A tua dato dos anos'
-  login_passwd2: 'Repetição da palavra-passe'
+  login_passwd2: 'Confirmar palavra-passe'
   mail_hint: 'Importante: Preste atenção à grafia correta!'
   login_phone_info: 'É Pode ser útil partilhar o teu número de telefone com outros
     Foodsharers'
@@ -3213,7 +3215,7 @@ register:
   phone_not_valid: 'O número de telefone introduzido não é válido'
   account-exists: 'Já estás registado. Por favor, sai da tua conta se quiseres registar-te
     novamente.'
-  error_email_invalid: 'Esta morada de e-mail não pode ser usada'
+  error_email_invalid: 'Este endereço de e-mail não pode ser usada'
   landline_example: 'Exemplo: +351 812 34 56 78'
   error_birthdate: 'Exemplo 25.03.2001 (DD.MM.JJJJJ). Por razões de proteção de dados
     e responsabilidade, tens que ter pelo menos 18 anos de idade para juntar-te a
@@ -3224,11 +3226,9 @@ register:
   lastname_minLength: 'O apelido deve consistir em pelo menos dois caracteres'
   finish: 'Enviar inscrição'
   topbar: 'Participar'
-  join_success_message: 'Concluíste com sucesso o teu registo no foodsharing. Antes
-    de poderes iniciar sessão com o teu e-mail e palavra-passe, tens de confirmar
-    a tua morada de e-mail. Para tal, enviámos um e-mail com o link de confirmação
-    para a tua morada de e-mail.'
-  email_required: 'É necessário uma morada de e-mail'
+  join_success_message: 'Concluíste com sucesso o teu registo no foodsharing. Agora
+    podes iniciar sessão com o teu endereço de e-mail e a tua palavra-passe.'
+  email_required: 'É necessário um endereço de e-mail'
   other: 'diverso'
   have_read_the_legal_stuff2: 'aqui'
   error: 'É ocorreu um erro'
@@ -3250,19 +3250,28 @@ register:
   lastname_required: 'Por favor, insira o teu sobrenome'
   login_surname: 'O teu sobrenome'
   pass1: 'A tua nova palavra-passe desejada'
-  pass2: 'Repetição da palavra-passe'
+  pass2: 'Confirmar palavra-passe'
   birthdate_hint: 'Para mais informações, consulte a [Política de Privacidade]({url})
     no ponto 2d.'
   set-password: 'Criar uma nova palavra-passe'
-  login_email: 'Morada de e-mail'
+  login_email: 'Endereço de e-mail'
   activation_success: '<strong>Ativação bem-sucedida.</strong> Faça login agora com
-    a tua morada de e-mail e a palavra-passe que escolheste.'
+    o teu endereço de e-mail e a palavra-passe que escolheste.'
   lastname_maxLength: O teu apelido pode consistir em um máximo de 30 caracteres
   password_must_be_complex: A palavra-passe deve conter no mínimo uma letra 
     maiúscula, uma letra minúscula e números
   password_must_be_trimmed: A palavra-passe não pode conter espaços no início ou
     no final
   firstname_maxLength: O primeiro nome pode ter no máximo 30 caracteres
+  email_in_progress: Já foi solicitado recentemente um código de registo para 
+    este endereço de e-mail
+  join_initialised: O teu registo foi iniciado.
+  join_initialised_message: Antes podes continuar o teu registo, tens de 
+    confirmar o teu endereço de e-Mail. Para isso mandamos um e-mail para o teu 
+    endereço.
+  invalid_token: O código de registo não é conhecido
+  token_invalid_or_expired: O código de registo não é conecido ou expirou. Pede 
+    um novo código para te registar.
 thread:
   options:
     rename: 'Editar titulo'
@@ -3573,8 +3582,8 @@ region:
   restricted: 'Infelizmente, não tens autorização para visualizar esses dados.'
   save: 'Sim, salvar'
   mail:
-    name-info: 'Atenção, não alteres arbitrariamente! Certifica-te também de que esta
-      morada ainda não existe em «Administrar e-mails».'
+    name-info: 'Atenção, não alteres arbitrariamente! Certifica-te também de que este
+      endereço ainda não existe em «Administrar e-mails».'
     sender: 'Nome do remetente'
   none: 'Ainda não selecionou nenhum distrito'
   new: 'Novo distrito'
@@ -4403,8 +4412,8 @@ nofp: 'Nemhum pontos de erro (pergunta de brincadeira)'
 select: 'Por favor selecionar'
 password:
   reset: 'Esqueceu a palavra-passe?'
-  insertmail: 'Escreve a tua morada de e-mail para redefinir a tua palavra-passe.'
-pass2: 'Repetição da palavra-passe'
+  insertmail: 'Escreve o teu endereço de e-mail para redefinir a tua palavra-passe.'
+pass2: 'Confirmar palavra-passe'
 personal_data:
   label: 'Contacto'
   mobile: 'Número de telemóvel'
@@ -4501,10 +4510,10 @@ support_page:
   body: 'Mensagem'
   title: 'Formulário de soporte'
   validation_firstName: 'O nome próprio está vazio'
-  email: 'A tua morada de e-mail'
+  email: 'O teu endereço de e-mail'
   validation_body: 'O mensagem está vazio'
   validation_subject: 'O assunto está vazio'
-  validation_email: 'Morada de e-mail inválida'
+  validation_email: 'Endereço de e-mail inválido'
   new_request: 'Novo pedido'
   success: 'A tua mensagem foi enviada com sucesso.'
   notification_name: 'Como tens sessão iniciada, o teu nome e a tua ID do foodsharing
@@ -5177,7 +5186,7 @@ oauth:
       title: 'Acessar as suas afiliações'
       md: 'Acesse uma lista dos distritos e grupos de trabalho dos quais faz parte.'
     email:
-      title: 'Acessar a tua morada de e-mail'
+      title: 'Acessar o teu endereço de e-mail'
     profile:
       title: 'Acessar os dados do teu perfil'
       md: 'Acesso ao teu nome, foto de perfil e outros dados do perfil.'

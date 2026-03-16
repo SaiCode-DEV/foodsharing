@@ -1739,8 +1739,8 @@ pickup:
   join_agree: 'Sí, por favor'
   take_empty_slot: 'Entre aquí'
   team_message_send_and_leave: 'enviar y darse de baja'
-  really_leave: 'Usted es responsable de esta recogida. Por favor, organice un
-    reemplazo usted mismo.'
+  really_leave: 'Usted es responsable de esta recogida. Por favor, organice un reemplazo
+    usted mismo.'
   signout_confirm: '¿Estas segur@?'
   leave_team_message_title: 'Mensaje al equipo'
   open_profile: 'Perfil de'
