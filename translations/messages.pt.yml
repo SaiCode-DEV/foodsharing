@@ -301,7 +301,7 @@ store:
     criar uma vaga único. Se desejares criar vagas regulares (recorrentes automaticamente
     todas as semanas), utiliza o menu "Configurações da local".'
   tooltip_yellow: 'Vagas disponíveis nos próximos cinco dias'
-  joinDate: 'Na equipa desde {data}'
+  joinDate: 'Na equipa desde {date}'
   peoplecame: 'Muitas vezes já aconteceu de pessoas irem ao local sem avisar.'
   may_referred_to_in_public: 'Esta cooperação pode ser mencionada publicamente.'
   noStores: 'Ainda não há locais inscritos'
@@ -1922,8 +1922,8 @@ pickup:
     cooperação.'
   delete_title: 'Apagar essas vagas'
   signout_info: 'As tuas recolhas pendentes serão eliminadas.'
-  leave_team_message_template: 'Infelizmente, não poderei participar em {data}, pelo
-    que terei de cancelar a minha vaga. …'
+  leave_team_message_template: 'Infelizmente, não poderei participar em {date}, pelo
+    que terei de cancelar a minha vaga. Por favor, inscrevam-se …'
   leave_pickup_message_team: 'Notificar equipa'
   leave_team_message_title: 'Mensagem á equipa'
   signout_confirm: 'Tens a certeza?'
@@ -3376,6 +3376,7 @@ globals:
   save_changes: 'Salvar as alterações'
   telephone_number: 'Número de telefóno'
   updated: 'Atualizado:'
+  loading: A carregar…
 legal:
   if_delete:
     legal_2: 'Mais informações sobre os períodos de depósito (página em alemão)'
