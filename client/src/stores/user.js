@@ -18,6 +18,7 @@ export const useUserStore = defineStore('user', {
     user: serverData.user,
     permissions: serverData.permissions,
     fetching: {},
+    clearingForLogout: false,
   }),
   getters: {
     isLoadingFinished: (state) => Object.keys(state.details || {}).length > 0,
@@ -84,6 +85,7 @@ export const useUserStore = defineStore('user', {
   },
   actions: {
     async fetchDetails (force = false) {
+      if (this.clearingForLogout) return
       if ('details' in this.fetching) return this.fetching.details
       let resolver
       this.fetching.details = new Promise(resolve => { resolver = resolve })
@@ -102,6 +104,7 @@ export const useUserStore = defineStore('user', {
       resolver()
     },
     async fetchProfileSettings (force = false) {
+      if (this.clearingForLogout) return
       if ('profileSettings' in this.fetching) return this.fetching.settings
       let resolver
       this.fetching.settings = new Promise(resolve => { resolver = resolve })
@@ -121,6 +124,7 @@ export const useUserStore = defineStore('user', {
       return this.settings
     },
     async fetchMailUnreadCount () {
+      if (this.clearingForLogout) return
       const cacheRequestName = 'mailUnreadCount'
       try {
         if (await getCacheInterval(cacheRequestName, mailUnreadCountRateLimitInterval)) {
@@ -132,6 +136,17 @@ export const useUserStore = defineStore('user', {
       } catch (e) {
         console.error('Error fetching mail unread count:', e)
       }
+    },
+    clearForLogout () {
+      // Prevent refetching data while logging out
+      this.clearingForLogout = true
+
+      // Clear persisted state
+      this.mailUnreadCount = 0
+      this.details = {}
+
+      // Flush immediately before the page navigates away
+      this.$persist()
     },
   },
   persist: {

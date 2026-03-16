@@ -3,7 +3,7 @@
     class="nav-user is-open-on-mobile"
     :title="$t('navigation.profil', {name: getUserFirstName})"
     direction="right"
-    :badge="userStore.getMailUnreadCount"
+    :badge="hasMailBox ? userStore.getMailUnreadCount : null"
   >
     <template #icon>
       <Avatar
@@ -130,6 +130,7 @@ export default {
         const storage = new Storage('conversations')
         storage.del('msg-chats')
       } catch {}
+      this.userStore.clearForLogout()
       await clearCaches()
       channel.postMessage({ type: BROADCAST_TYPE.LOGOUT })
       window.location.href = this.$url('logout')

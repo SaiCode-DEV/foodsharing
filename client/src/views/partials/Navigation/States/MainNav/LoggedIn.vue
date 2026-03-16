@@ -16,7 +16,7 @@
     <b-navbar-toggle target="nav-collapse">
       <template #default="{ expanded }">
         <span
-          v-if="getMailUnreadCount"
+          v-if="hasMailBox && getMailUnreadCount"
           class="badge badge-danger"
           :class="{
             'onlyNine': String(getMailUnreadCount).length === 1,
