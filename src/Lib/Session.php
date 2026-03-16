@@ -399,7 +399,7 @@ class Session
 
         $fs = $this->foodsaverGateway->getFoodsaverDetails($fs_id);
         if (!$fs) {
-            throw new Exception('Foodsaver details not found in database.');
+            throw new Exception('Foodsaver details not found in database: ' . $fs_id);
         }
 
         // Store CSRF tokens before clearing session
