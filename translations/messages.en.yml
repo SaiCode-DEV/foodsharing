@@ -3372,6 +3372,7 @@ register:
     beginning or end
   password_must_be_complex: The password must contain upper and lower case 
     letters and numbers
+  token_invalid_or_expired: The registration code is unknown or has expired. Please request a new one.
 duration: Time to answer
 explanation: Explanation
 fp: Failure points

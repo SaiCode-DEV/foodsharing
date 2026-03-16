@@ -1006,8 +1006,8 @@ class FoodsaverGateway extends BaseGateway
     {
         $data = $this->db->fetchByCriteria(
             'fs_foodsaver',
-            ['id', 'name', 'nachname', 'email', 'photo'],
-            ['email' => trim($email), 'deleted_at' => null]
+            ['id', 'name', 'nachname', 'geschlecht'],
+            ['email' => trim($email)]
         );
 
         return $data ?: null;

@@ -1,9 +1,7 @@
 <template>
   <form class="my-1">
-    <div class="col-sm-auto">
-      <label>{{ $t('register.geb_datum') }}<sup><i class="fas fa-asterisk" /></sup></label>
-    </div>
     <div class="mt-2 col-sm-auto">
+      <label for="register-birthdate-input">{{ $t('register.geb_datum') }}<sup><i class="fas fa-asterisk" /></sup></label>
       <b-form-input
         id="register-birthdate-input"
         v-model="dateString"

@@ -1,9 +1,7 @@
 <template>
   <form class="my-1">
     <div class="col-sm-auto">
-      <label>{{ $t('terminology.mobile_phone') }}</label>
-    </div>
-    <div class="col-sm-auto">
+      <label for="mobile">{{ $t('terminology.mobile_phone') }}</label>
       <PhoneNumberInput
         input-name="mobile"
         :input-value="mobile"

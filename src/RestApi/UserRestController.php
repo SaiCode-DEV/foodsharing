@@ -135,22 +135,24 @@ class UserRestController extends AbstractFoodsharingRestController
         return $this->respondOK();
     }
 
-    #[OA\Post(summary: 'Tests if an email address is valid for registration')]
-    #[Route('users/registration/email-checker', methods: ['POST'])]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(properties: [
-        new OA\Property(property: 'isValid', type: 'boolean', description: 'Whether the email is valid for registration')
-    ]))]
+    #[OA\Post(summary: 'Initialises the registration of a new user.')]
+    #[Route('users/registration', methods: ['POST'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Email is malformed or from a blacklisted domain')]
-    public function testRegisterEmail(#[MapRequestPayload] EmailAddress $email): Response
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'There is an ongoing registration process with that e-mail address')]
+    public function initialiseRegistration(#[MapRequestPayload] EmailAddress $email): Response
     {
         if (
             !$this->emailHelper->validEmail($email->email)
             || $this->foodsaverGateway->emailDomainIsBlacklisted($email->email)
+            || $this->emailHelper->isFoodsharingEmailAddress($email->email)
         ) {
             throw new BadRequestHttpException('email is malformed or from a blacklisted domain');
         }
 
-        return $this->respondOK(['isValid' => $this->isEmailValidForRegistration($email->email)]);
+        $this->registerTransactions->addRegistrationAttempt($email->email);
+
+        return $this->respondOK();
     }
 
     #[OA\Post(summary: 'Registers a new user')]
@@ -161,15 +163,6 @@ class UserRestController extends AbstractFoodsharingRestController
     {
         $registerData->firstName = trim(strip_tags($registerData->firstName));
         $registerData->lastName = trim(strip_tags($registerData->lastName));
-
-        $registerData->email = trim($registerData->email);
-        if (
-            !$this->emailHelper->validEmail($registerData->email)
-            || !$this->isEmailValidForRegistration($registerData->email)
-            || $this->foodsaverGateway->emailDomainIsBlacklisted($registerData->email)
-        ) {
-            throw new BadRequestHttpException('email is not valid or already used');
-        }
 
         $registerData->password = trim($registerData->password);
         if (strlen($registerData->password) < SettingsTransactions::MIN_PASSWORD_LENGTH) {
@@ -193,12 +186,6 @@ class UserRestController extends AbstractFoodsharingRestController
         } catch (Exception $e) {
             throw new HttpException(500, 'could not register user', $e);
         }
-    }
-
-    private function isEmailValidForRegistration(string $email): bool
-    {
-        return !$this->emailHelper->isFoodsharingEmailAddress($email)
-            && !$this->foodsaverGateway->emailExists($email);
     }
 
     #[OA\Delete(summary: 'Deletes a user account')]

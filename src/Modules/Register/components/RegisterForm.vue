@@ -4,14 +4,12 @@
       {{ $t('register.title') }} ({{ page }} / 6)
     </div>
     <div :class="{disabledLoading: isLoading, 'card-body': true}">
-      <RegisterMailAndPassword
+      <RegisterPassword
         v-if="page === 1"
         id="step1"
-        :email.sync="email"
         :password.sync="password"
         @next="next()"
       />
-
       <RegisterName
         v-else-if="page === 2"
         id="step2"
@@ -58,7 +56,7 @@
 import { registerUser } from '@/api/user'
 import { pulseSuccess, pulseError } from '@/script'
 import i18n from '@/helper/i18n'
-import RegisterMailAndPassword from './RegisterMailAndPassword'
+import RegisterPassword from './RegisterPassword.vue'
 import RegisterName from './RegisterName'
 import RegisterBirthdate from './RegisterBirthdate'
 import RegisterMobilephone from './RegisterMobilephone'
@@ -67,19 +65,21 @@ import RegisterSuccess from './RegisterSuccess'
 
 export default {
   components: {
-    RegisterMailAndPassword,
+    RegisterPassword,
     RegisterName,
     RegisterBirthdate,
     RegisterMobilephone,
     RegisterLegalAgreement,
     RegisterSuccess,
   },
+  props: {
+    token: { type: String, required: true },
+  },
   data () {
     return {
       page: 1,
       isLoading: false,
       password: '',
-      email: '',
       firstname: '',
       lastname: '',
       gender: null,
@@ -110,7 +110,7 @@ export default {
       this.isLoading = true
 
       try {
-        await registerUser(this.firstname, this.lastname, this.email, this.password, this.gender, this.birthdate.toISOString().substring(0, 10),
+        await registerUser(this.firstname, this.lastname, this.token, this.password, this.gender, this.birthdate,
           this.mobile, this.subscribeNewsletter ? 1 : 0)
         this.page = 6
         pulseSuccess(i18n('register.join_success'))

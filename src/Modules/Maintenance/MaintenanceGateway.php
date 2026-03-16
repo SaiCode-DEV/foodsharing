@@ -307,4 +307,15 @@ class MaintenanceGateway extends BaseGateway
         } while ($inserted > 0);
         $this->db->commit();
     }
+
+    /**
+     * Deletes all outdated registration attempts.
+     * Returns the number of deleted entries.
+     */
+    public function deleteOldRegistrationAttempts(): int
+    {
+        return $this->db->delete('fs_registration_attempt', [
+            'valid_until <' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+    }
 }

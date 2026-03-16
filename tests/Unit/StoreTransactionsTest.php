@@ -463,9 +463,9 @@ class StoreTransactionsTest extends Unit
 
         $this->expectException(StoreTransactionException::class);
 
-        $this->transactions->joinPickup($store['id'], $pickup, $this->foodsaver['id'], $this->foodsaver['id']);
+        $this->transactions->joinPickup($store['id'], $pickup, $this->foodsaver['id']);
 
-        $this->assertFalse($this->transactions->joinPickup($store['id'], $pickup->sub('1 week'), $this->foodsaver['id'], $this->foodsaver['id']));
+        $this->assertFalse($this->transactions->joinPickup($store['id'], $pickup->sub('1 week'), $this->foodsaver['id']));
     }
 
     public function testUserCanSignupForManualFarInTheFuturePickups(): void

@@ -197,7 +197,8 @@ class SettingsTransactions
     {
         return $this->emailHelper->validEmail($address)
             && !$this->emailHelper->isFoodsharingEmailAddress($address)
-            && !$this->foodsaverGateway->emailExists($address);
+            && !$this->foodsaverGateway->emailExists($address)
+            && !$this->foodsaverGateway->emailDomainIsBlacklisted($address);
     }
 
     public function abortEMailChange(string $token)

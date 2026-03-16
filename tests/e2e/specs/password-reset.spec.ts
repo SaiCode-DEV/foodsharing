@@ -59,15 +59,15 @@ test.describe("Password Reset", () => {
     // First attempt with mismatched passwords
     await page.getByPlaceholder("Passwort (mindestens 8").click();
     await page.getByPlaceholder("Passwort (mindestens 8").fill(newPass);
-    await page.getByPlaceholder("Passwortwiederholung").click();
-    await page.getByPlaceholder("Passwortwiederholung").fill("INVALID");
+    await page.getByPlaceholder("Passwort bestätigen").click();
+    await page.getByPlaceholder("Passwort bestätigen").fill("INVALID");
     await expect(page.getByText("Beide eingegebenen Passwörter")).toBeVisible();
 
     // Second attempt with matching passwords
     await page.getByPlaceholder("Passwort (mindestens 8").click();
     await page.getByPlaceholder("Passwort (mindestens 8").fill(newPass);
-    await page.getByPlaceholder("Passwortwiederholung").click();
-    await page.getByPlaceholder("Passwortwiederholung").fill(newPass);
+    await page.getByPlaceholder("Passwort bestätigen").click();
+    await page.getByPlaceholder("Passwort bestätigen").fill(newPass);
     await page.getByRole("button", { name: "Speichern" }).click();
 
     // Wait for success message to appear first

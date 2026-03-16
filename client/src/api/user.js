@@ -31,14 +31,14 @@ export function getUserNames (ids) {
   return get(`/users/${ids.join(',')}/names`)
 }
 
-export function registerUser (firstName, lastName, email, password, gender, birthdate, mobilePhone, subscribeNewsletter) {
+export function registerUser (firstName, lastName, token, password, gender, birthdate, mobilePhone, subscribeNewsletter) {
   return post('/users', {
     firstName,
     lastName,
-    email,
+    token,
     password,
     gender,
-    birthdate,
+    birthdate: birthdate.toISOString().substring(0, 10),
     mobilePhone,
     subscribeNewsletter: !!subscribeNewsletter,
   })
@@ -52,15 +52,8 @@ export function getUserProfileSettings (userId) {
   return get(`/users/${userId}/profile-settings`)
 }
 
-export function testRegisterEmail (email) {
-  return post('/users/registration/email-checker', { email }, { skipErrorNotificationFor: [400] })
-    .then(response => response)
-    .catch(error => {
-      if (error && error.response && error.response.status === 400) {
-        return { valid: false, error: error.response.data }
-      }
-      throw error
-    })
+export function initialiseRegistration (email) {
+  return post('/users/registration', { email }, { skipErrorNotificationFor: [400, 403] })
 }
 
 export function setSleepStatus (mode, from, to, message) {

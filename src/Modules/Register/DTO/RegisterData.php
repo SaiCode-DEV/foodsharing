@@ -20,10 +20,9 @@ class RegisterData
     #[Assert\NotBlank]
     public string $lastName;
 
-    #[OA\Property(example: 'melanie.musterfrau@example.com')]
+    #[OA\Property(description: 'The token that was created in the first step of the registration process', example: '0123456789')]
     #[Assert\NotBlank]
-    #[Assert\Email]
-    public string $email;
+    public string $token;
 
     #[OA\Property(example: 'Password123!')]
     #[Assert\NotBlank]

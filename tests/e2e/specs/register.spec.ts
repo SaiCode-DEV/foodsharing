@@ -2,10 +2,123 @@ import { test, expect } from "../helpers/acceptance";
 import { fakerDE as faker } from "@faker-js/faker";
 import { foodsharing } from "../helpers/foodsharing";
 import { Database } from "../helpers/database";
+import { maildev } from "helpers/maildev";
+import type { Locator, Page } from "@playwright/test";
+
+class RegistrationPage {
+  public readonly formArea: Locator;
+  public readonly nextStepButton: Locator;
+  public readonly email: Locator;
+  public readonly password: Locator;
+  public readonly firstName: Locator;
+  public readonly lastName: Locator;
+  public readonly confirmPassword: Locator;
+  public readonly birthdate: Locator;
+  public readonly mobileNumber: Locator;
+
+  constructor(private page: Page) {
+    this.formArea = page.locator("main .card");
+    this.nextStepButton = this.formArea.getByRole("button", { name: "weiter" });
+    this.email = this.formArea.getByRole("textbox", { name: "E-Mail-Adresse" });
+    this.password = this.formArea
+      .getByRole("textbox", { name: "Passwort" })
+      .nth(0);
+    this.firstName = this.formArea.getByRole("textbox", { name: "Vorname" });
+    this.lastName = this.formArea.getByRole("textbox", { name: "Nachname" });
+    this.confirmPassword = this.formArea.getByRole("textbox", {
+      name: "Passwort bestätigen",
+    });
+    this.birthdate = this.formArea.getByLabel("Geburtsdatum");
+    this.mobileNumber = this.formArea.getByLabel("Handynummer");
+  }
+
+  async openForm() {
+    await this.page.goto("/");
+    // Check if mobile menu button is visible and click it if it is
+    const mobileMenuButton = this.page.locator("button.navbar-toggler");
+    if (await mobileMenuButton.isVisible()) {
+      await mobileMenuButton.click();
+    }
+    await this.page
+      .getByRole("navigation")
+      .getByRole("link", { name: "Mitmachen" })
+      .click();
+    await this.page.getByText("Jetzt registrieren").click();
+  }
+
+  async nextStep() {
+    await this.nextStepButton.click();
+  }
+
+  async expectStep(step: number) {
+    await expect(
+      this.formArea.getByText(`Registrierung (${step} / 6)`),
+    ).toBeVisible();
+  }
+
+  async getMailedTokenLink(emailAddress: string): Promise<string> {
+    const tokenMail = await maildev.waitForMail(
+      "Registrierung bei foodsharing",
+      emailAddress,
+      10000,
+    );
+    const tokenLink = tokenMail.findLink("register-continue");
+    expect(tokenLink).toBeTruthy();
+
+    return tokenLink;
+  }
+
+  async validateTokenLink(tokenLink: string): Promise<string> {
+    const url = new URL(
+      tokenLink,
+      await this.page.evaluate(() => window.location.origin),
+    );
+    expect(url.pathname).toBe("/register-continue");
+    const token = url.searchParams.get("token");
+    expect(token).toMatch(/^[a-zA-Z0-9-_]{30,}$/);
+    return token;
+  }
+
+  // "männlich" | "weiblich" | "divers"
+  async selectGender(gender: string) {
+    await this.formArea.getByText(gender).click();
+  }
+
+  async togglePrivacyPolicy() {
+    await this.formArea
+      .locator("label span")
+      .filter({ hasText: "Datenschutzerklärung" })
+      .click({ position: { x: 5, y: 5 } });
+  }
+
+  async toggleLegalAgreement() {
+    await this.formArea
+      .locator("label span")
+      .filter({ hasText: "Rechtsvereinbarung" })
+      .click({ position: { x: 5, y: 5 } });
+  }
+
+  async toggleNewsletterSubscription() {
+    await this.formArea
+      .locator("label")
+      .filter({ hasText: "Newsletter" })
+      .click();
+  }
+}
 
 test.describe("Registration", () => {
+  let registrationPage: RegistrationPage;
+
+  test.describe.configure({ timeout: 60000 });
+
+  const blacklistedDomain = "bad.com";
+
   test.beforeAll(async () => {
-    await foodsharing.createBlacklistedEmailAddress();
+    await foodsharing.createBlacklistedEmailAddress(blacklistedDomain);
+  });
+
+  test.beforeEach(async ({ page }) => {
+    registrationPage = new RegistrationPage(page);
   });
 
   // Generate fresh test data for each test
@@ -14,181 +127,219 @@ test.describe("Registration", () => {
     password: "testPassword123",
     firstName: faker.person.firstName(),
     lastName: faker.person.lastName(),
+    gender: "divers",
+    genderCode: 3,
     birthdate: "1983-08-27",
     mobileNumber: "177 3231323",
     countryCode: "+49",
+    newsletter: true,
   });
 
-  async function openRegistrationForm(page) {
-    await page.goto("/");
-    // Check if mobile menu button is visible and click it if it is
-    const mobileMenuButton = page.locator("button.navbar-toggler");
-    if (await mobileMenuButton.isVisible()) {
-      await mobileMenuButton.click();
-      // Wait for mobile menu animation
-      await page.waitForTimeout(300);
-    }
-    await page.click(".testing-register-link");
-    await page.click("text=Jetzt registrieren");
+  const testExamples = [
+    getTestData(),
+    {
+      ...getTestData(),
+      gender: "weiblich",
+      genderCode: 2,
+      mobileNumber: null,
+      newsletter: false,
+    },
+  ];
+  for (const [index, testData] of testExamples.entries()) {
+    test(`can register new user with dataset ${index + 1}`, async ({
+      page,
+    }) => {
+      await registrationPage.openForm();
+      const formArea = registrationPage.formArea;
+
+      // Step 0: Request registration token for email address
+      await expect(formArea.getByText("Registrierung")).toBeVisible();
+      await registrationPage.email.fill(testData.email);
+      await registrationPage.nextStep();
+      await expect(
+        formArea.getByText(/Bestätigungslink.*gesendet/),
+      ).toBeVisible();
+      const tokenLink = await registrationPage.getMailedTokenLink(
+        testData.email,
+      );
+      await registrationPage.validateTokenLink(tokenLink);
+
+      // Step 1: Password
+      await page.goto(tokenLink);
+      await registrationPage.expectStep(1);
+      await registrationPage.password.fill(testData.password);
+      await expect(registrationPage.nextStepButton).toBeDisabled();
+      await registrationPage.confirmPassword.fill(testData.password);
+      await registrationPage.nextStep();
+
+      // Step 2: Personal Details
+      await registrationPage.expectStep(2);
+      await registrationPage.selectGender(testData.gender);
+      await registrationPage.firstName.fill(testData.firstName);
+      await registrationPage.lastName.fill(testData.lastName);
+      await registrationPage.nextStep();
+
+      // Step 3: Birthdate
+      await registrationPage.expectStep(3);
+      await registrationPage.birthdate.fill(testData.birthdate);
+      await registrationPage.nextStep();
+
+      // Step 4: Mobile number
+      await registrationPage.expectStep(4);
+      if (testData.mobileNumber) {
+        await registrationPage.mobileNumber.fill(testData.mobileNumber);
+      }
+      await registrationPage.nextStep();
+
+      // Step 5: Legal agreements
+      await registrationPage.expectStep(5);
+      await registrationPage.togglePrivacyPolicy();
+      await registrationPage.toggleLegalAgreement();
+      if (testData.newsletter) {
+        await registrationPage.toggleNewsletterSubscription();
+      }
+      await formArea
+        .getByRole("button", { name: "Anmeldung absenden" })
+        .click();
+
+      // Verify registration succeeded
+      await registrationPage.expectStep(6);
+      await expect(
+        formArea.getByText(
+          "Du hast die Anmeldung bei foodsharing erfolgreich abgeschlossen",
+        ),
+      ).toBeVisible();
+
+      // Verify database entry
+      const fsParams = {
+        email: testData.email,
+        name: testData.firstName,
+        nachname: testData.lastName,
+        geschlecht: testData.genderCode,
+        geb_datum: testData.birthdate,
+        handy: testData.mobileNumber
+          ? `${testData.countryCode} ${testData.mobileNumber}`
+          : "",
+        newsletter: testData.newsletter ? 1 : 0,
+        active: 1,
+        quiz_rolle: 0,
+      };
+      await expect(
+        Database.seeInDatabase("fs_foodsaver", fsParams),
+      ).resolves.toBeTruthy();
+
+      // Try to log in with the new user
+      await formArea.getByRole("button", { name: "Einloggen" }).click();
+      await page.waitForURL("/login");
+      await page
+        .getByRole("textbox", { name: "E-Mail-Adresse" })
+        .fill(testData.email);
+      await page
+        .getByRole("textbox", { name: "Passwort" })
+        .fill(testData.password);
+      await page
+        .getByRole("main")
+        .getByRole("button", { name: "Einloggen", exact: true })
+        .click();
+      await expect(
+        page.getByRole("main").getByText(`Hallo ${testData.firstName}`).first(),
+      ).toBeVisible();
+    });
   }
 
-  test("can register new user with newsletter", async ({ page }) => {
-    const testData = getTestData();
-    await openRegistrationForm(page);
-    // Step 1: Email & Password
-    await page.waitForSelector("#step1");
-    await page.fill("#email", testData.email);
-    await page.fill("#password > input:nth-child(1)", testData.password);
-    await page.fill("#confirmPassword > input:nth-child(1)", testData.password);
-    // Wait for email validation to complete
-    await page.waitForTimeout(350);
-    await page.waitForSelector('button:text("weiter"):not([disabled])');
-    await page.click("text=weiter");
+  test("cannot register with invalid or blacklisted email", async () => {
+    await registrationPage.openForm();
 
-    // Step 2: Personal Details
-    await page.waitForSelector("#step2");
-    await page.click('label[for="genderWoman"]');
-    await page.fill("#firstname", testData.firstName);
-    await page.fill("#lastname", testData.lastName);
-    await page.click("text=weiter");
+    // Invalid email address
+    await registrationPage.email.fill(`test@test`);
+    await expect(registrationPage.nextStepButton).toBeDisabled();
 
-    // Step 3: Birthdate
-    await page.waitForSelector("#step3");
-    await page.fill("#register-birthdate-input", testData.birthdate);
-    await page.click("text=weiter");
-
-    // Step 4: Mobile number
-    await page.waitForSelector("#step4");
-    await page.fill("input[class=vti__input]", testData.mobileNumber);
-    await page.click("text=weiter");
-
-    // Step 5: Legal agreements
-    await page.waitForSelector("#step5");
-    await page.evaluate(() => {
-      document.querySelector<HTMLElement>("#acceptGdpr")?.click();
-      document.querySelector<HTMLElement>("#acceptLegal")?.click();
-      document.querySelector<HTMLElement>("#subscribeNewsletter")?.click();
-    });
-    await page.click("text=Anmeldung absenden");
-
-    // Verify registration succeeded
-    await page.waitForSelector("#step6");
+    // Internal email address
+    await registrationPage.email.fill(`test@foodsharing.de`);
+    await registrationPage.nextStep();
     await expect(
-      page.locator(
-        "text=Du hast die Anmeldung bei foodsharing erfolgreich abgeschlossen",
+      registrationPage.formArea.getByText(
+        "Adresse kann nicht verwendet werden",
       ),
     ).toBeVisible();
 
-    // Verify database entry - updated to use foodsharing helper
-    const fsParams = {
-      email: testData.email,
-      name: testData.firstName,
-      nachname: testData.lastName,
-      newsletter: 1,
-      handy: "+49 " + testData.mobileNumber,
-    };
+    // Blacklisted email address
+    await registrationPage.email.fill(`test@${blacklistedDomain}`);
+    await registrationPage.nextStep();
     await expect(
-      Database.seeInDatabase("fs_foodsaver", fsParams),
-    ).resolves.toBeTruthy();
-  });
-
-  test("can register new user without newsletter", async ({ page }) => {
-    const testData = getTestData();
-    await openRegistrationForm(page);
-    // Step 1: Email & Password
-    await page.waitForSelector("#step1");
-    await page.fill("#email", "      " + testData.email);
-    await page.fill("#password > input:nth-child(1)", testData.password);
-    await page.fill("#confirmPassword > input:nth-child(1)", testData.password);
-    // Wait for email validation to complete
-    await page.waitForTimeout(350);
-    await page.waitForSelector('button:text("weiter"):not([disabled])');
-    await page.click("text=weiter");
-
-    // Step 2: Personal Details
-    await page.waitForSelector("#step2");
-    await page.click('label[for="genderWoman"]');
-    await page.fill("#firstname", testData.firstName);
-    await page.fill("#lastname", testData.lastName);
-    await page.click("text=weiter");
-
-    // Step 3: Birthdate
-    await page.waitForSelector("#step3");
-    await page.fill("#register-birthdate-input", testData.birthdate);
-    await page.click("text=weiter");
-
-    // Step 4: Mobile number
-    await page.waitForSelector("#step4");
-    await page.fill("input[class=vti__input]", testData.mobileNumber);
-    await page.click("text=weiter");
-
-    // Step 5: Legal agreements (without newsletter)
-    await page.waitForSelector("#step5");
-    await page.evaluate(() => {
-      document.querySelector<HTMLElement>("#acceptGdpr")?.click();
-      document.querySelector<HTMLElement>("#acceptLegal")?.click();
-    });
-    await page.click("text=Anmeldung absenden");
-
-    // Verify registration succeeded
-    await page.waitForSelector("#step6");
-    await expect(
-      page.locator(
-        "text=Du hast die Anmeldung bei foodsharing erfolgreich abgeschlossen",
-      ),
-    ).toBeVisible();
-
-    // Verify database entry - updated to use foodsharing helper
-    const fsParams = {
-      email: testData.email,
-      name: testData.firstName,
-      nachname: testData.lastName,
-      newsletter: 0,
-      handy: testData.countryCode + " " + testData.mobileNumber,
-    };
-    await expect(
-      Database.seeInDatabase("fs_foodsaver", fsParams),
-    ).resolves.toBeTruthy();
-  });
-
-  test("cannot register with blacklisted email", async ({ page }) => {
-    const testData = getTestData();
-    // Use foodsharing helper to get blacklisted domain
-    const blacklistedEmail = await Database.grabFromDatabase(
-      "fs_email_blacklist",
-      "email",
-      { email: "bad.com" },
-    );
-
-    await openRegistrationForm(page);
-
-    await page.waitForSelector("#step1");
-    await page.fill("#email", `test@${blacklistedEmail}`);
-    await page.fill("#password > input:nth-child(1)", testData.password);
-    await page.fill("#confirmPassword > input:nth-child(1)", testData.password);
-    // Wait for email validation to complete
-    await page.waitForTimeout(350);
-
-    await expect(
-      page.locator(
-        "text=Die E-Mail-Adresse ist entweder ungültig oder wird bereits verwendet",
+      registrationPage.formArea.getByText(
+        "Adresse kann nicht verwendet werden",
       ),
     ).toBeVisible();
   });
 
   test("cannot register with too simple password", async ({ page }) => {
     const testData = getTestData();
-    await openRegistrationForm(page);
+    await registrationPage.openForm();
 
-    await page.waitForSelector("#step1");
-    await page.fill("#email", testData.email);
-    await page.fill("#password > input:nth-child(1)", "abcabcabc");
-    await page.fill("#confirmPassword > input:nth-child(1)", "abcabcabc");
+    // Step 0: Request registration token for email address
+    await registrationPage.email.fill(testData.email);
+    await registrationPage.nextStep();
+    const tokenLink = await registrationPage.getMailedTokenLink(testData.email);
 
-    await expect(
-      page.locator(
-        "text=Das Passwort muss mindestens jeweils einen Groß- und Kleinbuchstaben sowie Zahlen beinhalten",
-      ),
-    ).toBeVisible();
+    // Step 1: Password
+    await page.goto(tokenLink);
+    await registrationPage.expectStep(1);
+
+    for (const passwordTestCase of [
+      {
+        password: "password",
+        lengthOk: true,
+        complexityOk: false,
+        trimOk: true,
+      },
+      {
+        password: "12345678",
+        lengthOk: true,
+        complexityOk: false,
+        trimOk: true,
+      },
+      { password: "abc", lengthOk: false, complexityOk: false, trimOk: true },
+      { password: "Aa1", lengthOk: false, complexityOk: true, trimOk: true },
+      {
+        password: "   Aa1   ",
+        lengthOk: true,
+        complexityOk: true,
+        trimOk: false,
+      },
+      {
+        password: "FoOdShArIn9",
+        lengthOk: true,
+        complexityOk: true,
+        trimOk: true,
+      },
+    ]) {
+      await registrationPage.password.fill(passwordTestCase.password);
+      await registrationPage.confirmPassword.fill(passwordTestCase.password);
+
+      const errors = {
+        "muss mindestens aus acht Zeichen bestehen": !passwordTestCase.lengthOk,
+        "muss mindestens jeweils einen Groß- und Kleinbuchstaben sowie Zahlen beinhalten":
+          !passwordTestCase.complexityOk,
+        "darf keine Leerzeichen am Anfang oder Ende enthalten":
+          !passwordTestCase.trimOk,
+      };
+      for (const [errorText, shouldBeVisible] of Object.entries(errors)) {
+        const errorLocator = registrationPage.formArea.locator(
+          `text=Das Passwort ${errorText}`,
+        );
+        if (shouldBeVisible) {
+          await expect(errorLocator).toBeVisible();
+        } else {
+          await expect(errorLocator).toBeHidden();
+        }
+      }
+
+      if (Object.values(errors).some((v) => v)) {
+        await expect(registrationPage.nextStepButton).toBeDisabled();
+      } else {
+        await expect(registrationPage.nextStepButton).toBeEnabled();
+      }
+    }
   });
 });

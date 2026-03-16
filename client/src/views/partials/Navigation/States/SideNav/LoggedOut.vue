@@ -8,7 +8,6 @@
       <Link
         :href="$url('joininfo')"
         :title="$t('register.topbar')"
-        class="testing-register-link"
       />
       <NavLogin />
     </ul>

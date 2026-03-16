@@ -93,3 +93,5 @@ define('APPLE_WALLET_PASS_TYPE_ID', 'pass.de.foodsharing.passport');
 define('OAUTH_PRIVATE_KEY_PATH', __DIR__ . '/keys/oauth-private.key');
 define('OAUTH_PUBLIC_KEY_PATH', __DIR__ . '/keys/oauth-public.key');
 define('OAUTH_ENCRYPTION_KEY_PATH', __DIR__ . '/keys/oauth-encryption.key');
+
+define('REGISTRATION_ATTEMPT_VALIDITY_HOURS', 3);

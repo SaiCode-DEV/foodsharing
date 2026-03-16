@@ -1,9 +1,7 @@
 <template>
   <form class="my-1">
     <div class="col-sm-auto">
-      <label>{{ $t('register.select_your_gender') }}<sup><i class="fas fa-asterisk" /></sup></label>
-    </div>
-    <div class="col-sm-auto">
+      <label for="genderRadioGroup">{{ $t('register.select_your_gender') }}<sup><i class="fas fa-asterisk" /></sup></label>
       <b-form-group id="genderFormGroup">
         <b-form-radio-group
           id="genderRadioGroup"

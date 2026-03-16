@@ -115,6 +115,8 @@ class MaintenanceService
          * Delete hidden forum posts
          */
         $this->deleteHiddenForumPosts();
+
+        $this->deleteOldRegistrationAttempts();
     }
 
     public function deleteInactiveUsers(bool $dryRun = false, int $maximum = MAX_DELETE_OLD_ACCOUNTS_PER_DAY): void
@@ -398,6 +400,13 @@ class MaintenanceService
     {
         ConsoleHelper::info('deleting old password reset requests...');
         $count = $this->maintenanceGateway->deleteOldPassRequests();
+        ConsoleHelper::success($count . ' entries deleted');
+    }
+
+    private function deleteOldRegistrationAttempts(): void
+    {
+        ConsoleHelper::info('deleting old registration attempts...');
+        $count = $this->maintenanceGateway->deleteOldRegistrationAttempts();
         ConsoleHelper::success($count . ' entries deleted');
     }
 }

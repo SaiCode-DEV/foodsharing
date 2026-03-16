@@ -120,14 +120,14 @@ class LoginGateway extends BaseGateway
         return $this->db->update('fs_foodsaver', ['active' => 1], ['email' => strip_tags($email), 'token' => strip_tags($token)]) > 0;
     }
 
-    public function insertNewUser(RegisterData $data, string $token): int
+    public function insertNewUser(RegisterData $data, string $email): int
     {
         return $this->db->insert(
             'fs_foodsaver',
             [
                 'rolle' => 0,
-                'active' => 0,
-                'email' => strip_tags((string)$data->email),
+                'active' => 1,
+                'email' => strip_tags($email),
                 'password' => strip_tags((string)$this->password_hash($data->password)),
                 'name' => strip_tags((string)$data->firstName),
                 'nachname' => strip_tags((string)$data->lastName),
@@ -136,7 +136,7 @@ class LoginGateway extends BaseGateway
                 'newsletter' => (int)$data->subscribeNewsletter,
                 'geschlecht' => (int)$data->gender,
                 'anmeldedatum' => $this->db->now(),
-                'token' => strip_tags($token),
+                'token' => '',
             ]
         );
     }

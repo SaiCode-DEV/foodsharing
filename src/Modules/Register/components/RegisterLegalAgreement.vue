@@ -6,12 +6,15 @@
       name="acceptGdpr"
       @change="emit('update:acceptGdpr', $event)"
     >
-      {{ $t('register.have_read_the_legal_stuff1') }}
-      <a
-        :href="$url('dataprivacy')"
-        target="_blank"
-        rel="noopener noreferrer nofollow"
-      >{{ $t('legal.privacy_policy') }}</a> {{ $t('register.have_read_the_legal_stuff2') }}
+      <span>
+        {{ $t('register.have_read_the_legal_stuff1') }}
+        <a
+          :href="$url('dataprivacy')"
+          target="_blank"
+          rel="noopener noreferrer nofollow"
+        >{{ $t('legal.privacy_policy') }}</a>
+        {{ $t('register.have_read_the_legal_stuff2') }}
+      </span>
     </b-form-checkbox>
     <b-form-checkbox
       id="acceptLegal"
@@ -19,12 +22,15 @@
       name="acceptLegal"
       @input="emit('update:acceptLegal', $event)"
     >
-      {{ $t('register.have_read_the_legal_stuff1') }}
-      <a
-        :href="$url('wiki_legal_agreement')"
-        target="_blank"
-        rel="noopener noreferrer nofollow"
-      >{{ $t('legal.legal_agreement') }}</a> {{ $t('register.have_read_the_legal_stuff2') }}
+      <span>
+        {{ $t('register.have_read_the_legal_stuff1') }}
+        <a
+          :href="$url('wiki_legal_agreement')"
+          target="_blank"
+          rel="noopener noreferrer nofollow"
+        >{{ $t('legal.legal_agreement') }}</a>
+        {{ $t('register.have_read_the_legal_stuff2') }}
+      </span>
     </b-form-checkbox>
     <b-form-checkbox
       id="subscribeNewsletter"

@@ -76,7 +76,7 @@ fspmanagers: "Foodsaver:innen, die Ansprechpersonen für den Fairteiler sind"
 # FORM DATA KEYS: LoginView
 # --
 pass1: "Dein gewünschtes neues Passwort"
-pass2: "Passwortwiederholung"
+pass2: "Passwort bestätigen"
 totp_code: "Bitte gib entweder den generierten Zwei-Faktor Code oder einen der Backup-Codes ein."
 #
 # FORM DATA KEYS: StoreView (betrieb_form)
@@ -626,9 +626,10 @@ register:
   birthdate_hint: "Nähere Informationen findest du in der [Datenschutzerklärung]({url}) unter Punkt 2d, „Anmeldung als Foodsharer:in bzw. Foodsaver:in“."
   login_email: "E-Mail-Adresse"
   email_required: "Eine E-Mail-Adresse wird benötigt"
-  email_invalid: "Die E-Mail-Adresse ist entweder ungültig oder wird bereits verwendet"
+  email_invalid: "Die E-Mail-Adresse ist ungültig"
+  email_in_progress: "Für diese E-Mail-Adresse wurde vor kurzem bereits ein Registrierungscode angefordert"
   login_passwd1: "Passwort (mindestens 8 Zeichen)"
-  login_passwd2: "Passwortwiederholung"
+  login_passwd2: "Passwort bestätigen"
   password_required: "Es wird ein Passwort benötigt"
   password_minLength: "Das Passwort muss mindestens aus acht Zeichen bestehen"
   password_must_be_complex: "Das Passwort muss mindestens jeweils einen Groß- und Kleinbuchstaben sowie Zahlen beinhalten"
@@ -655,8 +656,10 @@ register:
   prev: "zurück"
   next: "weiter"
   finish: "Anmeldung absenden"
+  join_initialised: "Deine Registrierung wurde begonnen."
+  join_initialised_message: "Bevor du die Registrierung fortsetzen kannst, musst du deine E-Mail-Adresse bestätigen. Wir haben dazu eine E-Mail mit dem Bestätigungslink an deine Adresse gesendet."
   join_success: "Deine Registrierung war erfolgreich."
-  join_success_message: "Du hast die Anmeldung bei foodsharing erfolgreich abgeschlossen. Bevor du dich nun mit deiner E-Mail und deinem Passwort einloggen kannst, musst du deine E-Mail-Adresse bestätigen. Wir haben dazu eine E-Mail mit dem Bestätigungslink an deine Adresse gesendet."
+  join_success_message: "Du hast die Anmeldung bei foodsharing erfolgreich abgeschlossen. Du kannst dich nun mit deiner E-Mail-Adresse und deinem Passwort einloggen."
   join_error: "Deine Registrierung war nicht erfolgreich."
   check_mail: "Schau jetzt in dein E-Mail-Postfach, um die Anmeldung abzuschließen!"
   select_your_gender: "Für die Anrede …"
@@ -671,9 +674,11 @@ register:
   activation_failed: "<strong>Aktivierung fehlgeschlagen.</strong> Ist der eingegebene Link auch korrekt?"
   change-password: "Jetzt kannst du dein Passwort ändern."
   pass1: "Dein neues gewünschtes Passwort"
-  pass2: "Passwortwiederholung"
+  pass2: "Passwort bestätigen"
   set-password: "Neues Passwort setzen"
   signup_newsletter: "Ich möchte ca. 1x im Monat den foodsharing-Newsletter erhalten"
+  invalid_token: "Der Registrierungscode ist nicht bekannt"
+  token_invalid_or_expired: "Der Registrierungscode ist nicht bekannt oder abgelaufen. Bitte beantrage einen neuen Code, um dich zu registrieren."
 
 gender:
   m: "Mann"

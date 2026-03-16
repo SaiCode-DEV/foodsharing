@@ -83,8 +83,9 @@ class UserApiCest
      */
     public function canUseEmailForRegistration(ApiTester $I, Example $example): void
     {
-        $I->sendPOST(self::API_USER . '/registration/email-checker', ['email' => $example[0]]);
+        $I->sendPOST(self::API_USER . '/registration', ['email' => $example[0]]);
         $I->seeResponseCodeIs(Http::OK);
+        $I->seeInDatabase('fs_registration_attempt', ['email' => $example[0], 'token !=' => null]);
     }
 
     /**
@@ -94,7 +95,7 @@ class UserApiCest
      */
     public function canNotUseInvalidMailForRegistration(ApiTester $I, Example $example): void
     {
-        $I->sendPOST(self::API_USER . '/registration/email-checker', ['email' => $example[0]]);
+        $I->sendPOST(self::API_USER . '/registration', ['email' => $example[0]]);
         $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
     }
 
@@ -104,40 +105,36 @@ class UserApiCest
      */
     public function canNotUseFoodsharingEmailForRegistration(ApiTester $I, Example $example): void
     {
-        $I->sendPOST(self::API_USER . '/registration/email-checker', ['email' => $example[0]]);
-        $I->seeResponseCodeIs(Http::OK);
+        $I->sendPOST(self::API_USER . '/registration', ['email' => $example[0]]);
+        $I->seeResponseCodeIs(Http::BAD_REQUEST);
         $I->seeResponseIsJson();
-        $I->canSeeResponseContainsJson([
-            'isValid' => false
-        ]);
+        $I->canSeeResponseContains('blacklisted domain');
     }
 
-    public function canNotUseExistingEmailForRegistration(ApiTester $I): void
+    public function canReRequestRegistrationForExistingEmail(ApiTester $I): void
     {
         // already existing email
-        $I->sendPOST(self::API_USER . '/registration/email-checker', ['email' => $this->user['email']]);
+        $I->sendPOST(self::API_USER . '/registration', ['email' => $this->user['email']]);
         $I->seeResponseCodeIs(Http::OK);
-        $I->seeResponseIsJson();
-        $I->canSeeResponseContainsJson([
-            'isValid' => false
-        ]);
+        $I->seeResponseEquals('');
+        $I->seeInDatabase('fs_registration_attempt', ['email' => $this->user['email'], 'token' => null]);
+    }
 
+    public function canNotSpamRegistrationAttempts(ApiTester $I): void
+    {
         // not yet existing email
         $email = 'test123@somedomain.de';
-        $I->sendPOST(self::API_USER . '/registration/email-checker', ['email' => $email]);
+        $I->sendPOST(self::API_USER . '/registration', ['email' => $email]);
         $I->seeResponseCodeIs(Http::OK);
-        $I->seeResponseIsJson();
-        $I->canSeeResponseContainsJson([
-            'isValid' => true
-        ]);
+        $I->seeResponseEquals('');
 
+        // try to immediately request another registration for the same email
         $I->createFoodsharer(null, ['email' => $email]);
-        $I->sendPOST(self::API_USER . '/registration/email-checker', ['email' => $email]);
-        $I->seeResponseCodeIs(Http::OK);
+        $I->sendPOST(self::API_USER . '/registration', ['email' => $email]);
+        $I->seeResponseCodeIs(Http::FORBIDDEN);
         $I->seeResponseIsJson();
-        $I->canSeeResponseContainsJson([
-            'isValid' => false
-        ]);
+        $I->canSeeResponseContains('Registration attempt in progress');
+        $I->seeNumRecords(1, 'fs_registration_attempt', ['email' => $email]);
     }
 
     public function canDeleteUser(ApiTester $I): void
