@@ -1505,6 +1505,7 @@ store:
       silinebilir.'
   part_of_chain: ''
   chain_has_kams: ''
+  members_not_in_target_region: ''
 polls:
   title: Başlık
   new_poll: Yeni Anket oluştur
@@ -1725,6 +1726,8 @@ region:
     group_in_this_group: “{name}” bu grubun bir alt grubudur.
     some_group: '"{name}" çalışma grubundan içeriğe erişmeye çalıştınız. Ancak buna
       yalnızca grup üyeleri erişebiliyor.'
+  conflict_store_member_or_manager_other: ''
+  conflict_store_member_or_manager_self: ''
 events:
   duration: 'Süre: {duration}'
   create:
@@ -3439,6 +3442,11 @@ register:
   password_must_be_complex: Şifre en az bir büyük harf, bir küçük harf ve rakam 
     içermelidir
   password_must_be_trimmed: Şifrenin başında veya sonunda boşluk olmamalı
+  token_invalid_or_expired: ''
+  invalid_token: ''
+  join_initialised: ''
+  join_initialised_message: ''
+  email_in_progress: ''
 gender:
   f: Kadın
   d: Her ikisi veya diğer
@@ -3946,6 +3954,7 @@ globals:
   save_changes: Değişiklikleri kaydet
   saved: Değişiklikler kaydedildi
   updated: 'Güncellendi:'
+  loading: ''
 search:
   placeholder: 'Şimdi aramaya başlayın …'
   informations: 'Kişileri, grupları, işletmeleri, semtleri, sohbetleri, forum gönderilerini

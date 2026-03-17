@@ -1710,6 +1710,7 @@ store:
   smneeded: ''
   part_of_chain: ''
   chain_has_kams: ''
+  members_not_in_target_region: ''
 email_template:
   login: ''
   fetch_warning:
@@ -2654,6 +2655,8 @@ region:
   created: ''
   delete: ''
   mailbox: ''
+  conflict_store_member_or_manager_other: ''
+  conflict_store_member_or_manager_self: ''
 chain:
   new: ''
   error:
@@ -2779,6 +2782,7 @@ globals:
   telephone_number: ''
   updated: ''
   select: ''
+  loading: ''
 recipients:
   newsletter: ''
   permission: ''
@@ -3119,6 +3123,11 @@ register:
   login_email: ''
   firstname_maxLength: ''
   activation_success: ''
+  token_invalid_or_expired: ''
+  invalid_token: ''
+  join_initialised: ''
+  join_initialised_message: ''
+  email_in_progress: ''
 polls:
   score:
     disapproval: ''

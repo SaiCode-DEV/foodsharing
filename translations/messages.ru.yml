@@ -319,6 +319,8 @@ region:
   master: ''
   root: ''
   mailbox: ''
+  conflict_store_member_or_manager_other: ''
+  conflict_store_member_or_manager_self: ''
 stats:
   total:
     weight: 'Продуктов успешно спасено от выбрасывания.'
@@ -1784,6 +1786,7 @@ globals:
   save_changes: ''
   telephone_number: ''
   updated: ''
+  loading: ''
 activitypost:
   write: 'Напишите ответ…'
   quickreply_button: 'Отправить сейчас<br>или нажмите <code class="key">Enter</code>.'
@@ -2226,6 +2229,7 @@ store:
   slotsCurrentlyOccupied: ''
   part_of_chain: ''
   chain_has_kams: ''
+  members_not_in_target_region: ''
 pickup:
   same_day_entry: '[{when} ч] {name}'
   join_agree: 'Да, обязующе записаться'
@@ -2940,6 +2944,11 @@ register:
   lastname_maxLength: ''
   password_must_be_trimmed: ''
   firstname_maxLength: ''
+  token_invalid_or_expired: ''
+  invalid_token: ''
+  join_initialised: ''
+  join_initialised_message: ''
+  email_in_progress: ''
 formatting:
   md: 'Для форматирования вы можете использовать <a href="https://markdown.de/">Markdown</a>.'
 bell:

@@ -376,6 +376,8 @@ region:
   master: ''
   root: ''
   mailbox: ''
+  conflict_store_member_or_manager_other: ''
+  conflict_store_member_or_manager_self: ''
 poll:
   error_cannot_vote: ''
   new_poll:
@@ -905,6 +907,11 @@ register:
   lastname_maxLength: ''
   password_must_be_trimmed: ''
   firstname_maxLength: ''
+  token_invalid_or_expired: ''
+  invalid_token: ''
+  join_initialised: ''
+  join_initialised_message: ''
+  email_in_progress: ''
 terminology:
   ambassadors: ''
   wall: ''
@@ -1321,6 +1328,7 @@ store:
   slotsCurrentlyOccupied: ''
   part_of_chain: ''
   chain_has_kams: ''
+  members_not_in_target_region: ''
 pickup:
   kick: ''
   confirm: ''
@@ -2836,6 +2844,7 @@ globals:
   save_changes: ''
   telephone_number: ''
   updated: ''
+  loading: ''
 search:
   noresults: ''
   thread-title-only: ''

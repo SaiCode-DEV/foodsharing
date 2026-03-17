@@ -563,6 +563,11 @@ register:
     minuscole e numeri
   password_must_be_trimmed: La password non deve contenere spazi né all’inizio 
     né alla fine
+  token_invalid_or_expired: ''
+  invalid_token: ''
+  join_initialised: ''
+  join_initialised_message: ''
+  email_in_progress: ''
 gender:
   d: Entrambi o qualcos'altro
   f: Donna
@@ -1198,6 +1203,7 @@ store:
   passport_expires_soon: ''
   part_of_chain: ''
   chain_has_kams: ''
+  members_not_in_target_region: ''
 storeview:
   want_to_fetch: Vorrei aiutare in questo team.
   specials: Istruzioni e procedura
@@ -3368,6 +3374,8 @@ region:
   parent: ''
   root: ''
   mailbox: ''
+  conflict_store_member_or_manager_other: ''
+  conflict_store_member_or_manager_self: ''
 polls:
   future: Votazioni futuri
   ended: Votazioni passati
@@ -3831,6 +3839,7 @@ globals:
   updated: 'Aggiornato:'
   saved: Le modifiche sono state salvate
   save_changes: ''
+  loading: ''
 activitypost:
   response: 'risposta'
   quickreply_info: '<code class="key">Maiusc + Invio</code> per aggiungere una nuova

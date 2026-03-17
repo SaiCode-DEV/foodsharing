@@ -875,6 +875,11 @@ register:
     konci
   lastname_maxLength: ''
   firstname_maxLength: ''
+  token_invalid_or_expired: ''
+  invalid_token: ''
+  join_initialised: ''
+  join_initialised_message: ''
+  email_in_progress: ''
 terminology:
   events: 'Termíny'
   role:
@@ -1235,6 +1240,7 @@ store:
   slotsCurrentlyOccupied: ''
   part_of_chain: ''
   chain_has_kams: ''
+  members_not_in_target_region: ''
 storeedit:
   team:
     bread: ''
@@ -2318,6 +2324,8 @@ region:
   master: ''
   root: ''
   mailbox: ''
+  conflict_store_member_or_manager_other: ''
+  conflict_store_member_or_manager_self: ''
 poll:
   begins_at: ''
   scope_description_1: ''
@@ -2694,6 +2702,7 @@ globals:
   save_changes: ''
   telephone_number: ''
   updated: ''
+  loading: ''
 activitypost:
   write: ''
   quickreply_button: ''

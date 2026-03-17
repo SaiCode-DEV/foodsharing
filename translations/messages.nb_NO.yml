@@ -468,6 +468,8 @@ region:
       «{name}». Det er imidlertid bare medlemmer av gruppen som har tilgang til 
       den.
   not-existant: Dette distriktet eller arbeidsgruppen eksisterer ikke lenger.
+  conflict_store_member_or_manager_other: ''
+  conflict_store_member_or_manager_self: ''
 menu:
   entry:
     donations: Donasjoner
@@ -1868,6 +1870,11 @@ register:
     eller slutten
   password_must_be_complex: Passordet må inneholde store og små bokstaver og 
     tall
+  token_invalid_or_expired: ''
+  invalid_token: ''
+  join_initialised: ''
+  join_initialised_message: ''
+  email_in_progress: ''
 login:
   pwreset:
     bread: Tilbakestille passord
@@ -3115,6 +3122,7 @@ store:
     sure: ''
   part_of_chain: ''
   chain_has_kams: ''
+  members_not_in_target_region: ''
 storeview:
   status: Nåværende status
   public_time_at_night: om natten
@@ -3898,6 +3906,7 @@ globals:
   save_changes: Lagre endringer
   saved: Endringene er lagret
   updated: 'Oppdatert:'
+  loading: ''
 savewithus: Spar hos oss!
 logincontrol:
   title: Avslutt abonnement på nyhetsbrev

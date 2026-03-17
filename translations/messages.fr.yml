@@ -1257,6 +1257,11 @@ register:
     début ou à la fin
   password_must_be_complex: Le mot de passe doit contenir des lettres majuscules
     et minuscules ainsi que des chiffres
+  token_invalid_or_expired: ''
+  invalid_token: ''
+  join_initialised: ''
+  join_initialised_message: ''
+  email_in_progress: ''
 login:
   pwreset:
     mailSent: Très bien, un lien t’a été envoyé par courriel pour modifier ton 
@@ -1664,6 +1669,7 @@ store:
     sure: ''
   part_of_chain: ''
   chain_has_kams: ''
+  members_not_in_target_region: ''
 storeview:
   want_to_fetch: J’aimerais m’engager dans cette équipe.
   specials: Procédure & instructions
@@ -3562,6 +3568,8 @@ region:
     group_in_this_group: « {name} » est un sous-groupe de ce groupe.
     some_group: Tu as essayé d’accéder au contenu du groupe de travail 
       « {name} ». Cependant, seuls les membres du groupe y ont accès.
+  conflict_store_member_or_manager_other: ''
+  conflict_store_member_or_manager_self: ''
 polls:
   future: Votes futurs
   ended: Votes passés
@@ -3984,6 +3992,7 @@ globals:
   save_changes: Enregistrer les modifications
   saved: Les modifications ont été enregistrées
   updated: 'Mis à jour :'
+  loading: ''
 navigation:
   system_administration: Administration du système
   help_needed: Besoin d’aide ?

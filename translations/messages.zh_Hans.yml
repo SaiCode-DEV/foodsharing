@@ -202,6 +202,11 @@ register:
   lastname_maxLength: ''
   password_must_be_trimmed: ''
   firstname_maxLength: ''
+  token_invalid_or_expired: ''
+  invalid_token: ''
+  join_initialised: ''
+  join_initialised_message: ''
+  email_in_progress: ''
 pickup:
   overview:
     header: ''
@@ -478,6 +483,7 @@ globals:
   save_changes: ''
   telephone_number: ''
   updated: ''
+  loading: ''
 betrieb_kategorie_id: ''
 betrieb_status_id: ''
 lebensmittel: ''
@@ -2268,6 +2274,7 @@ store:
   slotsCurrentlyOccupied: ''
   part_of_chain: ''
   chain_has_kams: ''
+  members_not_in_target_region: ''
 storeedit:
   team:
     bread: ''
@@ -2739,6 +2746,8 @@ region:
   master: ''
   root: ''
   mailbox: ''
+  conflict_store_member_or_manager_other: ''
+  conflict_store_member_or_manager_self: ''
 blog:
   empty: ''
   newTitle: ''

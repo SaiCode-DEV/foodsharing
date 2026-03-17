@@ -1217,6 +1217,11 @@ register:
     minúsculas y números
   password_must_be_trimmed: La contraseña no debe contener espacios al principio
     ni al final
+  token_invalid_or_expired: ''
+  invalid_token: ''
+  join_initialised: ''
+  join_initialised_message: ''
+  email_in_progress: ''
 button:
   rotate_right: 'rotar las agujas del reloj'
   save: 'ahorrar'
@@ -1619,6 +1624,7 @@ store:
   passport_expires_soon: ''
   part_of_chain: ''
   chain_has_kams: ''
+  members_not_in_target_region: ''
 pickup:
   overview:
     status:
@@ -3505,6 +3511,8 @@ region:
     some_group: Intentó acceder al contenido del grupo de trabajo «{name}». Sin 
       embargo, sólo los miembros del grupo tienen acceso a él.
   not-existant: Este distrito o grupo de trabajo ya no existe.
+  conflict_store_member_or_manager_other: ''
+  conflict_store_member_or_manager_self: ''
 password:
   insertmail: 'Ingrese su correo electrónico para restablecer su contraseña.'
   reset: '¿Has olvidado tu contraseña?'
@@ -3560,6 +3568,7 @@ globals:
   save_changes: Guardar los cambios
   saved: Los cambios se han guardado
   updated: 'Actualizado:'
+  loading: ''
 legal:
   privacy_policy: 'Política de privacidad'
   if_delete:

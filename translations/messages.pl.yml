@@ -1042,6 +1042,11 @@ register:
   select_your_gender: 'Forma grzecznościowa …'
   birthdate_hint: 'Więcej informacji możesz znaleźć w [polityce prywatności]({url}),
     w punkcie 2d, "Rejestracja jako foodsharer/ka lub foodsaver/ka".'
+  token_invalid_or_expired: ''
+  invalid_token: ''
+  join_initialised: ''
+  join_initialised_message: ''
+  email_in_progress: ''
 gender:
   m: mężczyzna
   f: kobieta
@@ -1696,6 +1701,7 @@ store:
   smneeded: ''
   part_of_chain: 'Należy do sieci:'
   chain_has_kams: 'Odpowiedzialny/a za sieć:'
+  members_not_in_target_region: ''
 navi:
   google_maps: Google maps
   waze: Waze
@@ -3775,6 +3781,8 @@ region:
   created: ''
   delete: 'Usuń rejon'
   mailbox: 'Nazwa skrzynki pocztowej'
+  conflict_store_member_or_manager_other: ''
+  conflict_store_member_or_manager_self: ''
 chain:
   new: ''
   error:
@@ -3900,6 +3908,7 @@ globals:
   telephone_number: ''
   updated: ''
   select: ''
+  loading: ''
 polls:
   score:
     disapproval: ''

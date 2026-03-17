@@ -406,6 +406,7 @@ store:
     இனி இங்கு பதிவு செய்ய முடியாது.'
   part_of_chain: 'சங்கிலிக்கு சொந்தமானது:'
   chain_has_kams: 'சங்கிலிக்கு பொறுப்பு:'
+  members_not_in_target_region: ''
 storeedit:
   bread: செயல்பாட்டைத் திருத்து
   add-new: புதிய செயல்பாட்டை உருவாக்கவும்
@@ -2455,6 +2456,8 @@ region:
     subgroup_in: '"{name}" என்பது "{parent}" குழுவின் துணைக்குழு.'
     group_in_this_region: '"{name}" என்பது இந்த மாவட்டத்தின் ஒரு குழு.'
     group_in_this_group: '"{name}" என்பது இந்த குழுவின் துணைக்குழு.'
+  conflict_store_member_or_manager_other: ''
+  conflict_store_member_or_manager_self: ''
 blog:
   header: உணவு பகிர்வு உலகில் இருந்து செய்தி
   newTitle: '{region}'
@@ -3068,6 +3071,7 @@ globals:
   show_more: மேலும் காட்டு
   you: Of
   updated: 'புதுப்பிக்கப்பட்டது:'
+  loading: ''
 search:
   title: தேடல்
   noresults: எந்த முடிவுகளையும் காண முடியவில்லை
@@ -4307,6 +4311,11 @@ register:
     எழுத்துக்கள் மற்றும் எண்கள் இருக்க வேண்டும்
   password_must_be_trimmed: கடவுச்சொல்லில் துவக்கம் அல்லது முடிவில் இடம் 
     இருக்கக்கூடாது
+  token_invalid_or_expired: ''
+  invalid_token: ''
+  join_initialised: ''
+  join_initialised_message: ''
+  email_in_progress: ''
 terminology:
   forum: மன்றம்
   events: கால
