@@ -531,18 +531,25 @@ class PickupApiCest
 
     public function listSameDayAgenda(ApiTester $I)
     {
+        $agendaDate = Carbon::now();
+        if ($agendaDate->hour >= 23) {
+            // Fix edge case when test runs around midnight
+            $agendaDate->addDay()->hours(10);
+        }
+        $agendaDate->minutes(0)->seconds(0)->microseconds(0);
+
         // Add past pickup
-        $past_pickupDate = Carbon::now()->subMinutes(10)->second(0)->microseconds(0);
+        $past_pickupDate = $agendaDate->copy()->subMinutes(2);
         $I->addPickup($this->store['id'], ['time' => $past_pickupDate, 'fetchercount' => 3]);
         $I->addPicker($this->store['id'], $this->user['id'], ['date' => $past_pickupDate]);
 
         // Add future pickup
-        $pickupDate = $past_pickupDate->copy()->addMinutes(3);
+        $pickupDate = $agendaDate->copy()->addMinutes(3);
         $I->addPickup($this->store['id'], ['time' => $pickupDate, 'fetchercount' => 1]);
         $I->addPicker($this->store['id'], $this->user['id'], ['date' => $pickupDate]);
 
-        // Create a future event for the current user
-        $eventDate = $pickupDate->copy()->addMinutes(1);
+        // Create a same-day future event for the current user
+        $eventDate = $agendaDate->copy()->addMinutes(5);
         $eventParams = [
             'name' => 'Test Event',
             'start' => $eventDate->toIso8601String(),
@@ -554,7 +561,7 @@ class PickupApiCest
         ]);
 
         // Create a past event for the current user
-        $past_eventDate = $pickupDate->copy()->subDays(1);
+        $past_eventDate = $agendaDate->copy()->subDays(1)->subMinutes(7);
         $past_eventParams = [
             'name' => 'Past Event',
             'start' => $past_eventDate->toIso8601String(),
@@ -566,7 +573,7 @@ class PickupApiCest
         ]);
 
         // Create a future event on another day != pickup day
-        $future_eventDate = $pickupDate->copy()->addDays(1);
+        $future_eventDate = $agendaDate->copy()->addDays(1)->addMinutes(11);
         $future_eventParams = [
             'name' => 'Future Event',
             'start' => $future_eventDate->toIso8601String(),
@@ -577,12 +584,11 @@ class PickupApiCest
             'status' => InvitationStatus::ACCEPTED->value
         ]);
 
-        // Create a future event for the current user
-        $multi_eventDate = $pickupDate->copy()->subDays(3);
+        // Create a currently ongoing event for the current user
         $multi_eventParams = [
             'name' => 'Test multi_Event',
-            'start' => $multi_eventDate->toIso8601String(),
-            'end' => $multi_eventDate->addDays(5)->toIso8601String(),
+            'start' => $agendaDate->copy()->subDays(3)->subMinutes(13)->toIso8601String(),
+            'end' => $agendaDate->copy()->addDays(3)->addMinutes(17)->toIso8601String(),
         ];
         $multi_event = $I->createEvents($this->region['id'], $this->user['id'], $multi_eventParams);
         $I->addEventInvitation($multi_event['id'], $this->user['id'], [
@@ -590,14 +596,14 @@ class PickupApiCest
         ]);
 
         $I->login($this->user['email']);
-        $I->sendGET('api/users/' . $this->user['id'] . '/agenda/' . $pickupDate->toISOString());
+        $I->sendGET('api/users/' . $this->user['id'] . '/agenda/' . $agendaDate->toISOString());
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson([
+            ['type' => 'event', 'id' => $multi_event['id'], 'name' => $multi_eventParams['name'], 'status' => 'invited', 'date' => $multi_eventParams['start'], 'end' => $multi_eventParams['end']],
             ['type' => 'store', 'id' => $this->store['id'], 'name' => $this->store['name'], 'isConfirmed' => true, 'date' => $past_pickupDate->toIso8601String()],
             ['type' => 'store', 'id' => $this->store['id'], 'name' => $this->store['name'], 'isConfirmed' => true, 'date' => $pickupDate->toIso8601String()],
             ['type' => 'event', 'id' => $event['id'], 'name' => $eventParams['name'], 'status' => 'accepted', 'date' => $eventParams['start'], 'end' => $eventParams['end']],
-            ['type' => 'event', 'id' => $multi_event['id'], 'name' => $multi_eventParams['name'], 'status' => 'invited', 'date' => $multi_eventParams['start'], 'end' => $multi_eventParams['end']],
         ]);
 
         $I->dontSeeResponseContainsJson(['type' => 'event', 'id' => $past_event['id'], 'name' => $past_eventParams['name'], 'status' => 'maybe', 'date' => $past_eventParams['start']]);

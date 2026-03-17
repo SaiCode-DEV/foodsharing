@@ -129,7 +129,7 @@ class UploadsApiCest
         // get a random email from the user's mailbox
         $mailboxId = $I->grabFromDatabase('fs_foodsaver', 'mailbox_id', ['id' => $userId]);
         $emails = $I->grabEntriesFromDatabase('fs_mailbox_message', ['mailbox_id' => $mailboxId]);
-        $emailId = $emails[random_int(0, sizeof($emails))]['id'];
+        $emailId = $emails[random_int(0, count($emails) - 1)]['id'];
 
         // and mark it file as an the attachment of this email
         $I->updateInDatabase('uploads', ['used_in' => UploadUsage::EMAIL_ATTACHMENT->value, 'usage_id' => $emailId], ['uuid' => $uuid]);
