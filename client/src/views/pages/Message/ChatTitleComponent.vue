@@ -73,9 +73,12 @@ export default {
         .filter(m => m !== this.currentUserId)
         .slice(0, LIMIT_DISPLAYED_USERS)
 
-      this.members = otherMembers.map(member => ProfileStore.profiles[member])
+      this.members = otherMembers.map(member => ProfileStore.profiles[member] ?? {
+        id: member,
+        name: this.$t('chat.unknown_username'),
+      })
 
-      this.title = conversation.title || this.members.map(member => member?.name ?? this.$t('chat.unknown_username')).join(', ')
+      this.title = conversation.title || this.members.map(member => member.name).join(', ')
       this.storeId = conversation.storeId
     },
   },

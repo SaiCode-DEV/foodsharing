@@ -71,7 +71,8 @@ export default {
 
       if (image?.startsWith('/api/uploads/')) {
         return image + `?w=${Math.ceil(this.size)}&h=${Math.ceil(this.size)}` // path for pictures uploaded with the new API
-      } if (image && !image?.endsWith('avatar.png')) {
+      }
+      if (image && !image?.endsWith('avatar.png')) {
         return '/images/' + prefix + image // backward compatible path for old pictures
       }
       return '/img/' + prefix + 'avatar.png'
@@ -79,7 +80,8 @@ export default {
     computedHref () {
       if (typeof this.href === 'string') {
         return this.href
-      } if (this.user?.id) {
+      }
+      if (this.user?.id) {
         return this.$url('profile', this.user.id)
       }
       return ''
@@ -87,8 +89,9 @@ export default {
     computedTooltip () {
       if (typeof this.tooltip === 'string') {
         return this.tooltip
-      } if (this.user) {
-        return this.user?.name ?? this.$t('chat.unknown_username')
+      }
+      if (this.user) {
+        return this.user?.name
       }
       return ''
     },
