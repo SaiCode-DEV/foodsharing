@@ -1,7 +1,6 @@
 const webpackConfig = require('./webpack.config')
 
 const host = process.env.HOST || 'localhost'
-const target = process.env.PROXY_TARGET || 'http://localhost:8082'
 
 module.exports = {
   ...webpackConfig,
@@ -26,14 +25,5 @@ module.exports = {
         port: 18090, // see docker/docker-compose.dev.yml
       },
     },
-    proxy: [
-      {
-        context: (pathname, req) => !pathname.startsWith('/ws'),
-        target,
-        changeOrigin: false,
-        xfwd: true,
-        ws: true,
-      },
-    ],
   },
 }

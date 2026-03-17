@@ -54,7 +54,6 @@ services:
       - ../:/app:delegated
     environment:
       - HOST=0.0.0.0 #https://github.com/webpack/webpack-dev-server/issues/416
-      - PROXY_TARGET=http://nginx
       - NPM_CONFIG_CACHE=/tmp/.npm-cache
     expose:
       - 8082

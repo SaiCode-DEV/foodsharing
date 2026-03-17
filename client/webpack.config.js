@@ -10,7 +10,6 @@ const clientRoot = path.resolve(__dirname)
 const { join, dirname } = require('path')
 const glob = require('glob')
 const { InjectManifest } = require('workbox-webpack-plugin')
-const webpack = require('webpack')
 
 const dev = process.env.NODE_ENV !== 'production'
 
@@ -29,10 +28,6 @@ if (!dev) {
       logLevel: 'info',
     }),
   )
-}
-
-if (dev) {
-  plugins.push(new webpack.HotModuleReplacementPlugin())
 }
 
 plugins.push(
@@ -84,7 +79,6 @@ module.exports = merge(webpackBase, {
   mode: dev ? 'development' : 'production',
   devtool: dev ? 'eval-cheap-module-source-map' : 'source-map',
   stats: 'minimal',
-  watch: dev,
   watchOptions: {
     ignored: '**/node_modules',
   },
@@ -92,14 +86,14 @@ module.exports = merge(webpackBase, {
     path: assetsPath,
     ...(dev
       ? {
-          filename: 'js/[name].js',
-          chunkFilename: 'js/[chunkhash].js',
-          hotUpdateChunkFilename: 'hot/[id].[hash].hot-update.js',
-          hotUpdateMainFilename: 'hot/[hash].hot-update.json',
+          filename: 'js/[name].[contenthash].js',
+          // chunkFilename: 'js/[chunkhash].js', // will be derived from filename
+          hotUpdateMainFilename: 'hot/[runtime].[fullhash].hot-update.json',
+          hotUpdateChunkFilename: 'hot/[id].[fullhash].hot-update.js',
         }
       : {
           filename: 'js/[name].[fullhash].js',
-          chunkFilename: 'js/[id].[chunkhash].js',
+          // chunkFilename: 'js/[id].[chunkhash].js', // will be derived from filename
         }),
     publicPath: '/assets/',
     globalObject: 'self',
@@ -160,7 +154,10 @@ module.exports = merge(webpackBase, {
       }),
     ],
     moduleIds: 'deterministic',
-    runtimeChunk: 'single',
+    // Avoid a single shared runtime chunk in development —
+    // it can cause HMR runtime mismatches when multiple updates
+    // are written/read from disk. Use a shared runtime in production.
+    runtimeChunk: dev ? false : 'single',
     splitChunks: {
       chunks: 'all',
       maxInitialRequests: 10,

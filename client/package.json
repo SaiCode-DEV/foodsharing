@@ -15,7 +15,7 @@
     "prettier:e2e:fix": "cd .. && prettier 'tests/e2e/**/*.ts' --write --list-different",
     "clean-assets": "shx rm -rf ../assets/*",
     "build": "yarn clean-assets && NODE_ENV=production webpack --progress --no-watch",
-    "dev": "yarn clean-assets && webpack serve --config serve.config.js --hot --progress",
+    "dev": "yarn clean-assets && webpack serve --config serve.config.js --progress",
     "test": "node test"
   },
   "dependencies": {
