@@ -3477,7 +3477,7 @@ error:
     title: 'Ważność twojej legitymacji niedługo się kończy!'
   invalid_landline_phonenumber:
     title: ''
-    link: ''
+    link: 'Popraw numer stacjonarny teraz'
     description: ''
   invalid_mobile_phonenumber:
     title: 'Jest problem z twoim numerem telefonu komórkowego.'
@@ -3784,7 +3784,7 @@ region:
   conflict_store_member_or_manager_other: ''
   conflict_store_member_or_manager_self: ''
 chain:
-  new: ''
+  new: 'Utwórz nową sieć'
   error:
     create: 'Nie można było utworzyć sieci ({error}).'
     edit: 'Nie można edytować sieci ({error}).'
@@ -3792,9 +3792,9 @@ chain:
   columns:
     kams: ''
     stores: ''
-    actions: ''
+    actions: 'Akcje'
     name: 'Nazwa'
-    headquarters: ''
+    headquarters: 'centrala'
     estimatedStoreCount: 'Filie'
     notes: ''
     status: 'Status'
@@ -3852,14 +3852,14 @@ chain:
     KEY_ACCOUNT_MANAGER_ID_NOT_EXISTS: ''
     INVALID_STATUS: 'Pole "status" jest puste'
     EMPTY_ZIP: 'Pole "kod pocztowy" nie może być puste'
-    THREAD_ID_NOT_EXISTS: ''
+    THREAD_ID_NOT_EXISTS: 'Wątek w forum nie istnieje'
   detailsmodal:
     nostores: ''
     title: ''
     stores: ''
   tooltips:
     modificationDate: ''
-    options: ''
+    options: 'Opcje'
   bread:
     list: ''
     workinggroup: ''
@@ -4022,12 +4022,12 @@ startpage:
   join_welcome: ''
   near_you:
     text2:
-      part2: ''
+      part2: 'jadłokoszyki'
       part3: ''
       part1: ''
     text3:
       part1: ''
-      part2: ''
+      part2: 'Znajdź rejony w twojej okolicy'
     text1:
       part2: 'mapie'
       part1: 'Na'
@@ -4037,13 +4037,13 @@ startpage:
     title: 'w twojej okolicy'
   demands:
     image_alt: ''
-    title: ''
+    title: 'Żądania'
     text: ''
   call_to_action:
     title: 'Dołącz'
     text: ''
   how_we_work:
-    title: ''
+    title: 'Tak to działa'
     text: ''
   member:
     text: ''
@@ -4177,10 +4177,10 @@ navigation:
   basket: ''
   help_needed: 'Potrzebna pomoc?'
 logincontrol:
-  bread: ''
+  bread: 'Wypisz się z newslettera'
   success: 'Sukces!'
-  nomorenewsletter: ''
-  title: ''
+  nomorenewsletter: 'Już nie będziesz otrzymywać od nas newslettera'
+  title: 'Wypisz się z newslettera'
 storestatus:
   "3a": ''
   "3": ''
@@ -4213,9 +4213,9 @@ stats:
     pickups: ''
   title: 'Całkowita statystyka'
 numbers:
-  decimal_separator: ''
+  decimal_separator: ','
   million_abbreviation: ''
-  thousands_separator: ''
+  thousands_separator: ','
   billion_abbreviation: ''
 storelist:
   status: 'Status'
@@ -4317,7 +4317,7 @@ prefetchtime: ''
 usersearch:
   search_tag: ''
   no_tag_preset: 'Nie znaleziono użytkownika/czki'
-  select_tag: ''
+  select_tag: 'Szukaj użytkowników według imienia'
 contentmanagement: ''
 sidenav:
   yourregions: ''

@@ -210,7 +210,7 @@ store:
       local. Estas vagas serão libertadas. Deseja continuar?'
     inviteMember: Convidar na equipa
     demoteAsManagerConfirm: Quer mesmo abdicar da tua responsabilidade pela esta
-      equipa?
+      cooperação?
   prefetchone: '1 semana'
   isNotVerified: 'Não está verificado'
   jumping: 'Substituto'
@@ -237,7 +237,7 @@ store:
   locked: 'Não pode editar este local.'
   lastPickup: 'Última vaga {date}'
   team_container: 'Equipa'
-  managing: 'Responsabilidade de equipa'
+  managing: 'Responsabilidade de cooperação'
   prefetchthree: '3 semanas'
   springer_conversation_name: 'Substituto [name]'
   isManager: 'Responsável deste cooperação.'
@@ -857,8 +857,7 @@ poll:
   scope_description_4: 'Todos os Foodsavers verificados com o distrito principal da
     votação'
   scope_description_0: 'Todos os Foodsavers verificados e não verificados do distrito/grupo'
-  scope_description_2: 'Todos os responsáveis das cooperações do distrito que atualmente
-    são responsáveis por uma equipa'
+  scope_description_2: 'Todos os responsáveis por uma cooperação no distrito'
   type: 'Tipo de votação'
   hint_sorted_order: 'A ordem das opções disponíveis para escolha é fixa e igual para
     todos os votantes.'
@@ -4903,7 +4902,7 @@ required_messages:
     footer: 'Muitas saudações'
     really: 'Queres mesmo tirar {name} da equipa ativa e colocá-lo na lista de substitutos?'
   demote_store_manager:
-    really: 'Quer mesmo remover {name} da responsabilidade desta equipa?'
+    really: 'Queres mesmo remover {name} da responsabilidade desta cooperação?'
     footer: 'Muitas saudações'
     main: 'Eu removi-te como responsável da cooperação de [{store}](/store/{storeId}).'
   placeholder: 'Opcional: adicionar informações aqui…'
