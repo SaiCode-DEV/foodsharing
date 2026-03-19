@@ -48,6 +48,7 @@
     "ext-redis": "*",
     "ext-simplexml": "*",
     "ext-zlib": "*",
+    "adnanhussainturki/listmonk-php": "^0.1.0",
     "bacon/bacon-qr-code": "~3.0.3",
     "ddeboer/imap": "~1.21.0",
     "doctrine/doctrine-bundle": "~2.14.1",

@@ -4,6 +4,7 @@ namespace Foodsharing\Modules\Register;
 
 use Carbon\Carbon;
 use Exception;
+use Foodsharing\Lib\ListmonkClient;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Legal\LegalGateway;
 use Foodsharing\Modules\Login\LoginGateway;
@@ -24,6 +25,7 @@ class RegisterTransactions
         private readonly LegalGateway $legalGateway,
         private readonly RegisterGateway $registerGateway,
         private readonly FoodsaverGateway $foodsaverGateway,
+        private readonly ListmonkClient $listmonkClient,
     ) {
     }
 
@@ -98,6 +100,14 @@ class RegisterTransactions
         ], false, true);
 
         $this->legalGateway->agreeToPrivacyPolicy($id);
+
+        /*
+         * Add the email address to Listmonk if the user wants to subscribe to the newsletter. The subscription is not
+         * yet active. It will be activated after the email address was verified.
+         */
+        if ($data->subscribeNewsletter) {
+            $this->listmonkClient->addSubscriber($email, $data->firstName);
+        }
 
         // Delete the token so that the registration can not be reattempted with the now useless token
         $this->registerGateway->deleteRegistrationAttempt($data->token);

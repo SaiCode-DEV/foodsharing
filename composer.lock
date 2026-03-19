@@ -4,8 +4,48 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5b049311f196a12e2d34aa6f81bf6eeb",
+    "content-hash": "6704a54bfb066ef3305875f9bc103e87",
     "packages": [
+        {
+            "name": "adnanhussainturki/listmonk-php",
+            "version": "0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/AdnanHussainTurki/listmonk-php.git",
+                "reference": "0d43700377dfe5eac43f4f6751e83b42e85b5400"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/AdnanHussainTurki/listmonk-php/zipball/0d43700377dfe5eac43f4f6751e83b42e85b5400",
+                "reference": "0d43700377dfe5eac43f4f6751e83b42e85b5400",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "AdnanHussainTurki\\ListMonk\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Adnan Hussain Turki",
+                    "email": "adnanhussainturki@gmail.com"
+                }
+            ],
+            "description": "Package aims to ease up the API calls to a listmonk API from PHP based application",
+            "support": {
+                "issues": "https://github.com/AdnanHussainTurki/listmonk-php/issues",
+                "source": "https://github.com/AdnanHussainTurki/listmonk-php/tree/0.1"
+            },
+            "time": "2023-11-12T00:45:46+00:00"
+        },
         {
             "name": "bacon/bacon-qr-code",
             "version": "v3.0.3",

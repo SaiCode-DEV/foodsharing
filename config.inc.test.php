@@ -75,6 +75,11 @@ define('TWINGLE_URL', 'https://spenden.twingle.de/status/E4yxc5T7YJh7nZvL93Yu7Pl
 
 define('MAX_DELETE_OLD_ACCOUNTS_PER_DAY', 100);
 
+define('LISTMONK_URL', 'http://listmonk:9000');
+define('LISTMONK_USER', 'subscriber-sync');
+define('LISTMONK_LIST_ID', 1);
+define('LISTMONK_TOKEN', '');
+
 define('WALLET_LABEL', 'foodsharing');
 define('GOOGLE_WALLET_KEY_PATH', __DIR__ . '/keys/google.json');
 // If GOOGLE_WALLET_ISSUER_ID is a empty string, then the Google Wallet is deactivated in the backend.

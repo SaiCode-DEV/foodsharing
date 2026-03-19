@@ -4,6 +4,7 @@ namespace Foodsharing\Modules\Foodsaver;
 
 use Carbon\Carbon;
 use DateTime;
+use Foodsharing\Lib\ListmonkClient;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Basket\BasketGateway;
 use Foodsharing\Modules\Core\DBConstants\CategoryType;
@@ -74,7 +75,8 @@ class FoodsaverTransactions
         private readonly SearchPermissions $searchPermissions,
         private readonly CategoriesPermissions $categoriesPermissions,
         private readonly LoginGateway $loginGateway,
-        private readonly Session $session
+        private readonly Session $session,
+        private readonly ListmonkClient $listmonkClient,
     ) {
     }
 
@@ -87,7 +89,7 @@ class FoodsaverTransactions
         return $this->foodsaverGateway->downgradePermanently($fsId);
     }
 
-    public function deleteFoodsaver(int $foodsaverId, ?int $deletingUserId, ?string $reason): void
+    public function deleteFoodsaver(int $foodsaverId, ?int $deletingUserId, ?string $reason, bool $unsubscribeNewsletter = false): void
     {
         // set all active baskets of the user to deleted
         $this->basketGateway->removeActiveUserBaskets($foodsaverId);
@@ -99,6 +101,12 @@ class FoodsaverTransactions
         $this->foodsaverGateway->revokeOAuthRefreshTokens($foodsaverId);
 
         $this->settingsGateway->updateSleepMode($foodsaverId, SleepStatusRequest::create(SleepStatus::NONE));
+
+        // Unsubscribe from the newsletter, if requested
+        if ($unsubscribeNewsletter && $foodsaverId === $this->session->id()) {
+            $email = $this->foodsaverGateway->getEmailAddress($foodsaverId);
+            $this->listmonkClient->removeSubscriber($email);
+        }
 
         // delete the user
         $this->foodsaverGateway->deleteFoodsaver($foodsaverId, $deletingUserId, $reason);

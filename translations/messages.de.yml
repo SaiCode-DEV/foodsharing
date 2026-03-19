@@ -567,6 +567,7 @@ legal:
     this_doesnt_get_deleted_name: "Dein Name"
     this_doesnt_get_deleted_address: "Deine Adresse"
     this_doesnt_get_deleted_history: "Historie deiner Verifizierung"
+    unsubscribe_newsletter: "Auch vom Foodsharing-Newsletter abmelden, falls ein Abo besteht. Dies kann auch später geändert werden auf:"
   legal_agreement: "Rechtsvereinbarung"
   latest_change: "Zuletzt geändert am {date}"
   show_changes: "Änderungen anzeigen" 

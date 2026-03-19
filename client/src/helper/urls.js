@@ -232,6 +232,9 @@ const urls = {
   tiktok_at: () => 'https://www.tiktok.com/@foodsharing.de', // GERMAN VERSION
   whatsapp_de: () => 'https://whatsapp.com/channel/0029VaerhFPADTOAPGeJQ71R',
   whatsapp_at: () => 'https://whatsapp.com/channel/0029VaerhFPADTOAPGeJQ71R',
+
+  // Newsletter
+  newsletter: () => 'https://listmonk.foodsharing.network',
 }
 
 const url = (key, ...params) => {

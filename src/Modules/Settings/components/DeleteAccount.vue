@@ -73,6 +73,15 @@
         :rows="3"
       />
     </b-form-group>
+    <b-form-group
+      label-for="unsubscribeNewsletter"
+    >
+      <b-form-checkbox id="unsubscribeNewsletter" v-model="unsubscribeNewsletter">
+        <p>
+          {{ $t('legal.if_delete.unsubscribe_newsletter') }} <a :href="$url('newsletter')">{{ $url('newsletter') }}</a>
+        </p>
+      </b-form-checkbox>
+    </b-form-group>
     {{ $t('legal.if_delete.this_gets_deleted_main') }}
     <ul>
       <li>{{ $t('legal.if_delete.this_gets_deleted_stores') }}</li>
@@ -127,6 +136,7 @@ export default {
       password: '',
       countdownValue: 0,
       intervalId: null,
+      unsubscribeNewsletter: false,
     }
   },
   computed: {
@@ -158,7 +168,7 @@ export default {
 
       // perform deletion; keep modal open on failure
       try {
-        await deleteUser(this.userId, this.reason, this.password)
+        await deleteUser(this.userId, this.reason, this.unsubscribeNewsletter, this.password)
         pulseSuccess(i18n('success'))
         // close modal and navigate on success
         this.showPasswordModal = false

@@ -13,4 +13,7 @@ class DeleteProfileRequest
 
     #[OA\Property(example: 'Password123!')]
     public ?string $password = null;
+
+    #[OA\Property]
+    public bool $unsubscribeNewsletter = false;
 }

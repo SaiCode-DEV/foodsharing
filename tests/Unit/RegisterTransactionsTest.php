@@ -7,6 +7,7 @@ namespace Tests\Unit;
 use Codeception\Test\Unit;
 use Faker\Factory;
 use Faker\Generator;
+use Foodsharing\Lib\ListmonkClient;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Legal\LegalGateway;
 use Foodsharing\Modules\Login\LoginGateway;
@@ -38,6 +39,7 @@ class RegisterTransactionsTest extends Unit
             $this->createMock(LegalGateway::class),
             $this->registerGateway,
             $this->foodsaverGateway,
+            $this->tester->get(ListmonkClient::class),
         );
     }
 
