@@ -14,8 +14,8 @@ use Foodsharing\Modules\WorkGroup\WorkGroupGateway;
 use Foodsharing\Permissions\ForumPermissions;
 use Foodsharing\Permissions\RegionPermissions;
 use Foodsharing\Permissions\WorkGroupPermissions;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 
@@ -120,13 +120,17 @@ final class RegionController extends FoodsharingController
     }
 
     #[Route('/region', name: 'region')]
-    public function index(Request $request): Response
-    {
+    public function index(
+        #[MapQueryParameter] ?int $bid = null,
+        #[MapQueryParameter] ?string $sub = null,
+        #[MapQueryParameter] ?int $tid = null,
+        #[MapQueryParameter] ?bool $newthread = null,
+    ): Response {
         if (!$this->session->mayRole()) {
             $this->routeHelper->goLoginAndExit();
         }
 
-        $region_id = $request->query->getInt('bid', $this->currentUserUnits->getCurrentRegionId() ?? 0);
+        $region_id = $bid ?? $this->currentUserUnits->getCurrentRegionId() ?? 0;
 
         $region = $this->regionGateway->getRegionDetails($region_id);
 
@@ -151,46 +155,46 @@ final class RegionController extends FoodsharingController
         }
         $this->pageHelper->addBread($region['name'], '/region?bid=' . $region_id);
 
-        switch ($request->query->get('sub')) {
+        switch ($sub) {
             case 'botforum':
                 if (!$this->forumPermissions->mayAccessAmbassadorBoard($region_id)) {
                     return $this->redirect($this->forumTransactions->url($region_id, false));
                 }
 
-                return $this->forum($request, $region, true);
+                return $this->forum($region, $sub, $tid, $newthread, true);
             case 'forum':
-                return $this->forum($request, $region, false);
+                return $this->forum($region, $sub, $tid, $newthread, false);
             case 'wall':
                 if (!UnitType::isGroup($region['type'])) {
                     $this->flashMessageHelper->info($this->translator->trans('region.forum-redirect'));
 
                     return $this->redirect('/region?bid=' . $region_id . '&sub=forum');
                 } else {
-                    return $this->wall($request, $region);
+                    return $this->wall($region, $sub);
                 }
                 // no break
             case 'fairteiler':
-                return $this->foodSharePoint($request, $region);
+                return $this->foodSharePoint($region, $sub);
             case 'events':
-                return $this->events($request, $region);
+                return $this->events($region, $sub);
             case 'applications':
-                return $this->applications($request, $region);
+                return $this->applications($region, $sub);
             case 'members':
-                return $this->members($request, $region);
+                return $this->members($region, $sub);
             case 'statistic':
-                return $this->statistic($request, $region);
+                return $this->statistic($region, $sub);
             case 'polls':
-                return $this->polls($request, $region);
+                return $this->polls($region, $sub);
             case 'options':
-                return $this->options($request, $region);
+                return $this->options($region, $sub);
             case 'pin':
                 return $this->redirect('/region/' . $region_id);
             case 'achievements':
-                return $this->achievements($request, $region);
+                return $this->achievements($region, $sub);
             case 'resources':
-                return $this->resources($request, $region);
+                return $this->resources($region, $sub);
             case 'edit':
-                return $this->editRegion($request, $region);
+                return $this->editRegion($region, $sub);
             default:
                 if (UnitType::isGroup($region['type'])) {
                     return $this->redirect('/region?bid=' . $region_id . '&sub=wall');
@@ -285,35 +289,28 @@ final class RegionController extends FoodsharingController
         return $this->redirect($path);
     }
 
-    private function wall(Request $request, array $region): Response
+    private function wall(array $region, string $sub): Response
     {
         $this->pageHelper->addBread($this->translator->trans('terminology.wall'), '/region?bid=' . $region['id'] . '&sub=wall');
-        $sub = $request->query->get('sub');
-        $params = $this->convertDataToObject($region, $sub, null);
-        $this->pageHelper->addContent($this->prepareVueComponent('region-page', 'RegionPage', $params));
 
-        return $this->renderGlobal();
+        return $this->renderRegionPage($region, $sub);
     }
 
-    private function foodSharePoint(Request $request, array $region): Response
+    private function foodSharePoint(array $region, string $sub): Response
     {
         $this->pageHelper->addBread($this->translator->trans('terminology.fsp'), '/region?bid=' . $region['id'] . '&sub=fairteiler');
         $this->pageHelper->addTitle($this->translator->trans('terminology.fsp'));
-        $sub = $request->query->get('sub');
-        $params = $this->convertDataToObject($region, $sub, []);
-        $this->pageHelper->addContent($this->prepareVueComponent('region-page', 'RegionPage', $params));
 
-        return $this->renderGlobal();
+        return $this->renderRegionPage($region, $sub);
     }
 
-    private function forum(Request $request, $region, $ambassadorForum): Response
+    private function forum(array $region, string $sub, ?int $threadId, ?bool $newthread, bool $ambassadorForum): Response
     {
-        $sub = $request->query->get('sub');
         $trans = $this->translator->trans(($ambassadorForum) ? 'terminology.ambassador_forum' : 'terminology.forum');
         $this->pageHelper->addBread($trans, $this->forumTransactions->url($region['id'], $ambassadorForum));
         $this->pageHelper->addTitle($trans);
 
-        if ($threadId = $request->query->getInt('tid')) {
+        if ($threadId) {
             $thread = $this->forumGateway->getThreadInfo($threadId);
             if (empty($thread)) {
                 $this->flashMessageHelper->error($this->translator->trans('forum.not_found'));
@@ -322,121 +319,84 @@ final class RegionController extends FoodsharingController
             }
             $this->pageHelper->addBread($thread['title'], $this->forumTransactions->url($region['id'], $ambassadorForum, $threadId));
             $this->pageHelper->addTitle($thread['title']);
-        } elseif ($request->query->has('newthread')) {
+        } elseif ($newthread) {
             $this->pageHelper->addTitle($this->translator->trans('forum.new_thread'));
         }
 
-        $params = $this->convertDataToObject($region, $sub, []);
-
-        $this->pageHelper->addContent($this->prepareVueComponent('region-page', 'RegionPage', $params));
-
-        return $this->renderGlobal();
+        return $this->renderRegionPage($region, $sub);
     }
 
-    private function events(Request $request, $region): Response
+    private function events(array $region, string $sub): Response
     {
         $this->pageHelper->addBread($this->translator->trans('events.bread'), '/region?bid=' . $region['id'] . '&sub=events');
         $this->pageHelper->addTitle($this->translator->trans('events.bread'));
-        $sub = $request->query->get('sub');
-        $params = $this->convertDataToObject($region, $sub, null);
-        $this->pageHelper->addContent($this->prepareVueComponent('region-page', 'RegionPage', $params));
 
-        return $this->renderGlobal();
+        return $this->renderRegionPage($region, $sub);
     }
 
-    private function applications(Request $request, $region): Response
+    private function applications(array $region, string $sub): Response
     {
         $this->pageHelper->addBread($this->translator->trans('group.applications'), '/region?bid=' . $region['id'] . '&sub=events');
         $this->pageHelper->addTitle($this->translator->trans('group.applications_for', ['%name%' => $region['name']]));
-        $sub = $request->query->get('sub');
 
-        $params = $this->convertDataToObject($region, $sub, null);
-
-        $this->pageHelper->addContent($this->prepareVueComponent('region-page', 'RegionPage', $params));
-
-        return $this->renderGlobal();
+        return $this->renderRegionPage($region, $sub);
     }
 
-    private function members(Request $request, array $region): Response
+    private function members(array $region, string $sub): Response
     {
         $this->pageHelper->addBread($this->translator->trans('group.members'), '/region?bid=' . $region['id'] . '&sub=members');
         $this->pageHelper->addTitle($this->translator->trans('group.members'));
-        $sub = $request->query->get('sub');
 
-        $params = $this->convertDataToObject($region, $sub, []);
-
-        $this->pageHelper->addContent($this->prepareVueComponent('region-page', 'RegionPage', $params));
-
-        return $this->renderGlobal();
+        return $this->renderRegionPage($region, $sub);
     }
 
-    private function statistic(Request $request, array $region): Response
+    private function statistic(array $region, string $sub): Response
     {
         $this->pageHelper->addBread(
             $this->translator->trans('terminology.statistic'),
             '/region?bid=' . $region['id'] . '&sub=statistic'
         );
         $this->pageHelper->addTitle($this->translator->trans('terminology.statistic'));
-        $sub = $request->query->get('sub');
 
-        $params = $this->convertDataToObject($region, $sub, []);
-
-        $this->pageHelper->addContent($this->prepareVueComponent('region-page', 'RegionPage', $params));
-
-        return $this->renderGlobal();
+        return $this->renderRegionPage($region, $sub);
     }
 
-    private function polls(Request $request, array $region): Response
+    private function polls(array $region, string $sub): Response
     {
         $this->pageHelper->addBread($this->translator->trans('terminology.polls'), '/region?bid=' . $region['id'] . '&sub=polls');
         $this->pageHelper->addTitle($this->translator->trans('terminology.polls'));
 
-        $params = $this->convertDataToObject($region, $request->query->get('sub'), []);
-        $this->pageHelper->addContent($this->prepareVueComponent('region-page', 'RegionPage', $params));
-
-        return $this->renderGlobal();
+        return $this->renderRegionPage($region, $sub);
     }
 
     /**
      * @throws Exception
      */
-    private function options(Request $request, array $region): Response
+    private function options(array $region, string $sub): Response
     {
         $this->pageHelper->addBread($this->translator->trans('terminology.options'), '/region?bid=' . $region['id'] . '&sub=options');
         $this->pageHelper->addTitle($this->translator->trans('terminology.options'));
 
-        $params = $this->convertDataToObject($region, $request->query->get('sub'), []);
-
-        $this->pageHelper->addContent($this->prepareVueComponent('region-page', 'RegionPage', $params));
-
-        return $this->renderGlobal();
+        return $this->renderRegionPage($region, $sub);
     }
 
-    private function achievements(Request $request, array $region): Response
+    private function achievements(array $region, string $sub): Response
     {
         $this->pageHelper->addBread($this->translator->trans('terminology.achievements'), '/region?bid=' . $region['id'] . '&sub=achievements');
         $this->pageHelper->addTitle($this->translator->trans('terminology.achievements'));
 
-        $params = $this->convertDataToObject($region, $request->query->get('sub'), []);
-
-        $this->pageHelper->addContent($this->prepareVueComponent('region-page', 'RegionPage', $params));
-
-        return $this->renderGlobal();
+        return $this->renderRegionPage($region, $sub);
     }
 
-    private function resources(Request $request, array $region): Response
+    private function resources(array $region, string $sub): Response
     {
         $this->pageHelper->addBread($this->translator->trans('resource_mosaic.title'), '/region?bid=' . $region['id'] . '&sub=resources');
         $this->pageHelper->addTitle($this->translator->trans('resource_mosaic.title'));
 
-        $params = $this->convertDataToObject($region, $request->query->get('sub'), []);
-
-        $this->pageHelper->addContent($this->prepareVueComponent('region-page', 'RegionPage', $params));
-
-        return $this->renderGlobal();
+        return $this->renderRegionPage($region, $sub);
     }
 
-    private function editRegion(Request $request, array $region): Response
+    private function editRegion(array $region, string $sub): Response
     {
         $group = $this->workGroupGateway->getGroup($region['id']);
         if (!$group) {
@@ -449,11 +409,22 @@ final class RegionController extends FoodsharingController
         $this->pageHelper->addBread($translation, '/groups?sub=edit&id=' . (int)$group['id']);
         $this->pageHelper->addTitle($translation);
 
-        $group['photo'] = $this->fixPhotoPath($group['photo']);
-        $params = $this->convertDataToObject($region, $request->query->get('sub'), [
-            'group' => $group,
-        ]);
+        return $this->renderRegionPage($region, $sub);
+    }
 
+    private function renderRegionPage(array $region, string $sub): Response
+    {
+        $extraParams = [];
+
+        // The user can switch between subpages in Vue,
+        // so must send need all props data we might need for this region.
+        $group = $this->workGroupGateway->getGroup($region['id']);
+        if ($group && $group['type'] === UnitType::WORKING_GROUP && $this->workGroupPermissions->mayEdit($group)) {
+            $extraParams['group'] = $group;
+            $extraParams['group']['photo'] = $this->fixPhotoPath($group['photo']);
+        }
+
+        $params = $this->convertDataToObject($region, $sub, $extraParams);
         $this->pageHelper->addContent($this->prepareVueComponent('region-page', 'RegionPage', $params));
 
         return $this->renderGlobal();
