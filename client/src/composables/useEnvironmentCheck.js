@@ -2,6 +2,7 @@ export function useEnvironmentCheck () {
   const isTest = window.location.port === '8080'
   const isDev = window.location.hostname.includes('localhost')
   const isBeta = window.location.hostname.includes('beta.foodsharing')
+  const isProd = window.location.hostname.includes('foodsharing') && !window.location.hostname.includes('beta')
   const isDotAt = window.location.hostname.includes('foodsharing.at')
   const isChrome = navigator.userAgent.includes('Chrome')
   const isSafari = !isChrome && navigator.userAgent.includes('Safari')
@@ -11,6 +12,7 @@ export function useEnvironmentCheck () {
     isTest,
     isDev,
     isBeta,
+    isProd,
     isDotAt,
     isChrome,
     isSafari,
