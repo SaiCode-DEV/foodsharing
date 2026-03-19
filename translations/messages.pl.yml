@@ -3276,8 +3276,8 @@ categories:
     store: ''
     resource: ''
   new: ''
-  delete: ''
-  edit: ''
+  delete: 'Usuń kategorię'
+  edit: 'Edytuj kategorię'
   columns:
     name: ''
     type: ''
@@ -3290,10 +3290,10 @@ categories:
 help:
   key:
     commons_resources:
-      title: ''
+      title: 'Wspólne zasoby'
       md: ''
     basket:
-      title: ''
+      title: 'Jadłokoszyki'
       md: ''
     storeLog:
       md: ''
@@ -3302,40 +3302,40 @@ help:
       title: ''
       md: ''
     pickupOptions:
-      title: ''
+      title: 'Opcje zapisu'
       md: ''
     resource_mosaic:
-      title: ''
+      title: 'Mozaika zasobów'
       md: ''
     threadPriority:
       md: ''
       title: ''
     similar_resources:
-      title: ''
+      title: 'Podobne zasoby'
       md: ''
     profileCommitmentsStat:
-      title: ''
+      title: 'Statystyka zaangażowania'
       md: ''
     pollScopes:
       md: ''
-      title: ''
+      title: 'Prawo do głosowania'
     polls:
-      title: ''
+      title: 'Głosowania'
       md: ''
     publicEvent:
-      title: ''
+      title: 'Publiczne eventy'
       md: ''
     reportReasons:
-      title: ''
+      title: 'Formularz skarg'
       md: ''
     achievementIcon:
-      title: ''
+      title: 'Ikony do stickerów'
       md: ''
     moderatorForumHide:
       title: ''
       md: ''
     my_resources:
-      title: ''
+      title: 'Własne zasoby'
       md: ''
     report:
       title: ''
@@ -3350,11 +3350,11 @@ help:
       title: ''
       md: ''
     achievementVisibility:
-      title: ''
+      title: 'Widzialność stickerów'
       md: ''
     achievements:
       md: ''
-      title: ''
+      title: 'Stickery'
     store_chain_info:
       md: ''
       title: ''
@@ -4294,7 +4294,7 @@ team_page:
     title: ''
     text: ''
   it_member:
-    title: ''
+    title: 'Team IT'
     text: ''
 error_base64_image: 'Dodawanie obrazów przez przeciągnięcie i upuszczenie nie jest
   dozwolone.'
