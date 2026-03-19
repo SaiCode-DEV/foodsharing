@@ -541,4 +541,67 @@ test.describe("Forum Post without Mail", () => {
     await acceptanceHelper.waitForPageBody();
     await expect(page.locator(".forum_threads")).not.toContainText(title);
   });
+
+  test("Edit post", async ({ page, acceptanceHelper }) => {
+    const title = `Editing test ${faker.word.words(3)}`;
+    const originalBody = `Original ${faker.word.words(5)}`;
+    const editedBody = `Edited ${faker.word.words(5)}`;
+    await acceptanceHelper.login(testData.foodsaver.email);
+
+    // Create a post
+    await foodsharing.createForumThread({
+      forumId: testData.testBezirk.id,
+      title,
+      body: originalBody,
+      page,
+    });
+    await acceptanceHelper.waitForActiveAPICalls();
+
+    // Navigate to the new thread
+    await page.goto(`/region?bid=${testData.testBezirk.id}&sub=forum`);
+    await acceptanceHelper.waitForPageBody();
+    await expect(page.locator("body")).toContainText(title);
+    await page.click(".forum_threads a");
+    await acceptanceHelper.waitForPageBody();
+
+    // Verify original content is visible
+    await expect(page.locator("body")).toContainText(originalBody);
+    await expect(page.locator("body")).not.toContainText(editedBody);
+
+    // Click the edit button
+    await page.waitForSelector('a[title="Beitrag bearbeiten"]');
+    await page.click('a[title="Beitrag bearbeiten"]');
+    await page.waitForSelector(".modal-dialog textarea", { state: "visible" });
+
+    // Fill in new content
+    await page.fill(".modal-dialog textarea", editedBody);
+
+    // Replace text into the Markdown textarea and save
+    await page.waitForSelector(".modal-dialog .md-text-area", {
+      state: "visible",
+    });
+    const textarea = page.locator(".modal-dialog .md-text-area").first();
+    await textarea.click();
+    await page.keyboard.press("Control+A");
+    await page.keyboard.type(editedBody);
+    await page.getByRole("button", { name: "Speichern" }).click();
+    await page.waitForSelector("text=Beitrag wurde erfolgreich bearbeitet.", {
+      timeout: 5000,
+    });
+    await acceptanceHelper.waitForActiveAPICalls();
+
+    // Wait for UI to reflect the edited content
+    await acceptanceHelper.waitForActiveAPICalls();
+    await expect(page.locator("body")).toContainText(editedBody);
+    await expect(page.locator("body")).not.toContainText(originalBody);
+
+    // Verify in database that the post was really updated
+    const postElemId = await page.locator(".thread").first().getAttribute("id");
+    const postId = Number(postElemId?.replace("post-", ""));
+    const dbBody = await Database.grabFromDatabase("fs_theme_post", "body", {
+      id: postId,
+    });
+    expect(dbBody).toContain(editedBody);
+    expect(dbBody).not.toContain(originalBody);
+  });
 });

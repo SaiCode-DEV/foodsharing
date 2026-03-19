@@ -15,6 +15,8 @@ class ForumPost
     public Profile $author;
     public ?HiddenPostInfo $hidden;
 
+    public ?DateTime $lastEditedAt = null;
+
     /** @var array<string, Profile[]> */
     public array $reactions = [];
 
@@ -27,6 +29,7 @@ class ForumPost
         $result->createdAt = new DateTime($data['time']);
         $result->author = new Profile($data, 'author_');
         $result->hidden = HiddenPostInfo::tryCreateFromArray($data);
+        $result->lastEditedAt = empty($data['last_edited_at']) ? null : new DateTime($data['last_edited_at']);
 
         return $result;
     }

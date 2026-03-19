@@ -89,6 +89,7 @@
           :created-at="new Date(post.createdAt)"
           :may-reply="isOpen"
           :is-linked="linkedPost == post.id"
+          :edit-remaining-seconds="post.id === lastPostId ? editRemainingSeconds : 0"
           @delete="deletePost(post)"
           @hide="hidePost(post.id, $event)"
           @reaction-add="key => addReaction(post.id, key)"
@@ -96,6 +97,7 @@
           @reply="reply(post, true)"
           @reply-full="reply(post, false)"
           @restore="restorePost(post.id)"
+          @edit="openEditModal(post)"
         />
       </div>
     </div>
@@ -192,6 +194,36 @@
       />
     </b-modal>
 
+    <b-modal
+      v-if="editingPost"
+      ref="editModal"
+      centered
+      :title="$t('forum.post.edit')"
+      :cancel-title="$t('button.cancel')"
+      :ok-title="$t('button.save')"
+      :ok-disabled="editRemainingSeconds <= 0"
+      @ok="submitEdit"
+      @hidden="closeEditModal"
+    >
+      <div class="mb-2 text-muted small">
+        <span v-if="editRemainingSeconds > 0">
+          <i class="far fa-clock mr-1" />
+          {{ $t('forum.post.edit_time_remaining', { time: formatRemaining(editRemainingSeconds) }) }}
+        </span>
+        <span v-else class="text-danger">
+          {{ $t(editConflict ? 'forum.post.edit_conflict' : 'forum.post.edit_expired') }}
+        </span>
+      </div>
+      <MarkdownInput
+        :value="editText"
+        :rows="6"
+        @update:value="newValue => editText = newValue"
+      />
+      <div class="mt-2 text-muted small">
+        {{ $t('forum.post.edit_mentions_note') }}
+      </div>
+    </b-modal>
+
     <JumpScrollButton
       element-id="posts-wrapper"
     />
@@ -204,7 +236,7 @@ import * as api from '@/api/forum'
 import { GET } from '@/browser'
 import { HTTP_RESPONSE } from '@/consts'
 import OverflowMenu from '@/components/OverflowMenu.vue'
-import { pulseError, pulseWarning } from '@/script'
+import { pulseError, pulseWarning, pulseSuccess } from '@/script'
 import { useUserStore } from '@/stores/user'
 import JumpScrollButton from '@/components/JumpScrollButton.vue'
 import SubscribeButton from './SubscribeButton.vue'
@@ -215,11 +247,12 @@ import HiddenPostsAlert from './HiddenPostsAlert'
 import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/antd.css'
 import Info from '@/components/Help/Info.vue'
+import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 
 const userStore = useUserStore()
 
 export default {
-  components: { ThreadForm, ThreadPost, OverflowMenu, JumpScrollButton, SubscribeButton, HiddenPostsAlert, VueSlider, Info },
+  components: { ThreadForm, ThreadPost, OverflowMenu, JumpScrollButton, SubscribeButton, HiddenPostsAlert, VueSlider, Info, MarkdownInput },
   props: {
     id: {
       type: Number,
@@ -251,6 +284,13 @@ export default {
       isLoading: false,
       loadingPosts: [],
       errorMessage: null,
+      lastPostId: null,
+      editRemainingSeconds: 0,
+      editTimeout: null,
+      editCountdown: null,
+      editingPost: null,
+      editText: '',
+      editConflict: false,
       newTitle: '',
       newPriority: 0,
       linkedPost: null,
@@ -299,6 +339,10 @@ export default {
       this.linkedPost = pid
       this.scrollToPost(this.posts.find(post => post.id >= this.linkedPost), this.linkedPost)
     }
+  },
+  beforeDestroy () {
+    clearTimeout(this.editTimeout)
+    clearInterval(this.editCountdown)
   },
   methods: {
     getPostLink (postId) {
@@ -349,6 +393,7 @@ export default {
           regionId: res.regionId,
           regionSubId: res.subforumId,
           posts: res.posts,
+          lastPostId: res.lastPostId,
           stickiness: res.pinnedLevel,
           isActive: res.isActive,
           mayModerate: res.permissions.mayModerate,
@@ -359,6 +404,7 @@ export default {
           status: +res.isLocked,
           creatorId: res.creatorId,
         })
+        this.computeEditRemaining()
         this.isLoading = false
       } catch (err) {
         if (!isDeleteAction) {
@@ -368,6 +414,74 @@ export default {
           // In this case the last post was deleted.
           window.location = this.$url('forum', this.regionId)
         }
+      }
+    },
+    computeEditRemaining () {
+      clearTimeout(this.editTimeout)
+      const editableWindow = 600 // seconds
+      const lastPost = this.posts?.find(p => p.id === this.lastPostId)
+      if (lastPost && String(this.userId) === String(lastPost.author?.id)) {
+        const created = new Date(lastPost.createdAt).getTime()
+        this.editRemainingSeconds = Math.max(0, editableWindow - Math.floor((Date.now() - created) / 1000))
+      } else {
+        this.editRemainingSeconds = 0
+      }
+      if (this.editRemainingSeconds > 0) {
+        this.editTimeout = setTimeout(() => { this.editRemainingSeconds = 0 }, this.editRemainingSeconds * 1000)
+      }
+    },
+    openEditModal (post) {
+      this.editingPost = post
+      this.editText = post.body || ''
+      // Recalculate from actual post creation time so reopening the modal always shows the correct value
+      const editableWindow = 600
+      const created = new Date(post.createdAt).getTime()
+      this.editRemainingSeconds = Math.max(0, editableWindow - Math.floor((Date.now() - created) / 1000))
+      this.editConflict = false
+      this.$nextTick(() => this.$refs.editModal.show())
+      this.editCountdown = setInterval(() => {
+        this.editRemainingSeconds = Math.max(0, this.editRemainingSeconds - 1)
+        if (this.editRemainingSeconds === 0) {
+          clearInterval(this.editCountdown)
+          this.editCountdown = null
+        }
+      }, 1000)
+    },
+    closeEditModal () {
+      clearInterval(this.editCountdown)
+      this.editCountdown = null
+    },
+    formatRemaining (seconds) {
+      if (!seconds || seconds <= 0) return '00:00'
+      const m = Math.floor(seconds / 60)
+      const s = Math.floor(seconds % 60)
+      return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
+    },
+    async submitEdit (evt) {
+      evt?.preventDefault()
+      try {
+        await api.editPost(this.editingPost.id, this.editText.trim())
+        pulseSuccess(this.$t('forum.post.edit_success'))
+        this.$refs.editModal.hide()
+        await this.reload()
+      } catch (err) {
+        const serverMsg = err?.jsonContent?.error || err?.jsonContent?.message
+        if (serverMsg === 'Edit window expired for this post') {
+          pulseError(this.$t('forum.post.edit_expired'))
+        } else if (serverMsg === 'Cannot edit as another post was added meanwhile') {
+          pulseError(this.$t('forum.post.edit_conflict'))
+          this.editConflict = true
+          this.editRemainingSeconds = 0
+          clearInterval(this.editCountdown)
+          this.editCountdown = null
+        } else if (serverMsg === 'Thread not found') {
+          pulseError(this.$t('forum.post.edit_thread_not_found'))
+        } else if (serverMsg === 'Post not found') {
+          pulseError(this.$t('forum.post.edit_post_not_found'))
+        } else {
+          pulseError(this.$t('error_unexpected') + (serverMsg ? `: ${serverMsg}` : ''))
+        }
+        console.error(err)
       }
     },
     async updateStickiness (targetState) {

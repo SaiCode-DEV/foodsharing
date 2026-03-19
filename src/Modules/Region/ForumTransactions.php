@@ -2,6 +2,7 @@
 
 namespace Foodsharing\Modules\Region;
 
+use DateTime;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\Modules\Bell\BellTransactions;
@@ -27,11 +28,16 @@ use Foodsharing\RestApi\Models\Notifications\Thread;
 use Foodsharing\Utility\EmailHelper;
 use Foodsharing\Utility\FlashMessageHelper;
 use Foodsharing\Utility\Sanitizer;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ForumTransactions
 {
+    private const int EDIT_POST_TIME_LIMIT_SECONDS = 600; // 10 minutes
+
     public function __construct(
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly ForumGateway $forumGateway,
@@ -329,6 +335,39 @@ class ForumTransactions
             throw new \InvalidArgumentException();
         }
         $this->forumGateway->removeReaction($postId, $fsId, $key);
+    }
+
+    public function editPost(int $postId, string $body): void
+    {
+        $post = $this->forumGateway->getPost($postId);
+        if (empty($post)) {
+            throw new NotFoundHttpException('Post not found');
+        }
+        if ($post['author_id'] !== $this->session->id()) {
+            throw new AccessDeniedHttpException('You do not have permission to edit this post');
+        }
+
+        $created = new DateTime($post['time']);
+        $now = new DateTime();
+        $elapsed = $now->getTimestamp() - $created->getTimestamp();
+        if ($elapsed > self::EDIT_POST_TIME_LIMIT_SECONDS) {
+            throw new BadRequestException('Edit window expired for this post');
+        }
+
+        $threadId = $this->forumGateway->getThreadForPost($postId);
+        if (is_null($threadId)) {
+            throw new NotFoundHttpException('Thread not found');
+        }
+
+        $thread = $this->forumGateway->getThread($threadId);
+
+        // disallow edit if another post was added meanwhile
+        if ($thread->lastPostId !== $postId) {
+            throw new ConflictHttpException('Cannot edit as another post was added meanwhile');
+        }
+
+        $this->forumGateway->updatePost($postId, $body);
+        $this->sendNotificationsToMentionedUsers($threadId, $postId, $body);
     }
 
     /**

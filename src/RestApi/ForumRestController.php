@@ -16,6 +16,7 @@ use Foodsharing\Modules\WallPost\EmojiList;
 use Foodsharing\Permissions\ForumPermissions;
 use Foodsharing\RestApi\Models\Forum\CreatePostData;
 use Foodsharing\RestApi\Models\Forum\CreateThreadData;
+use Foodsharing\RestApi\Models\Forum\EditPostData;
 use Foodsharing\RestApi\Models\Forum\PatchPostData;
 use Foodsharing\RestApi\Models\Forum\PatchThreadData;
 use Nelmio\ApiDocBundle\Attribute\Model;
@@ -305,6 +306,22 @@ class ForumRestController extends AbstractFoodsharingRestController
         }
 
         $this->forumTransactions->deletePostFromThread($postId, $this->session->id());
+
+        return $this->respondOK();
+    }
+
+    #[OA\Patch(summary: 'Edit a forum post (author only, within allowed time)')]
+    #[Route('forum/posts/{postId}', methods: ['PATCH'], requirements: ['postId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Edit not allowed (time limit exceeded)')]
+    #[OA\Response(response: Response::HTTP_CONFLICT, description: 'Another post was added to the thread meanwhile')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Post or thread does not exist')]
+    public function editPost(int $postId, #[MapRequestPayload] EditPostData $patchData): Response
+    {
+        $this->assertLoggedIn();
+
+        $this->forumTransactions->editPost($postId, trim($patchData->body));
 
         return $this->respondOK();
     }

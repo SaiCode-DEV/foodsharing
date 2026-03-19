@@ -202,6 +202,7 @@ class ForumGateway extends BaseGateway
                 fs.is_sleeping AS author_is_sleeping,
                 p.body AS body,
                 p.`time`,
+                p.`last_edited_at`,
                 p.id,
                 UNIX_TIMESTAMP(p.`time`) AS time_ts,
                 p.hidden_reason,
@@ -335,6 +336,14 @@ class ForumGateway extends BaseGateway
             'hidden_by' => null,
             'hidden_reason' => null,
         ], ['id' => $postId]) > 0;
+    }
+
+    public function updatePost(int $postId, string $body): void
+    {
+        $this->db->update('fs_theme_post', [
+            'body' => $body,
+            'last_edited_at' => $this->db->now(),
+        ], ['id' => $postId]);
     }
 
     public function isPostHidden(int $postId): bool

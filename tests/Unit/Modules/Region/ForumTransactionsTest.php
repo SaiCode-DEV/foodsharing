@@ -22,6 +22,10 @@ use Foodsharing\RestApi\Models\Forum\CreateThreadData;
 use Foodsharing\Utility\EmailHelper;
 use Foodsharing\Utility\FlashMessageHelper;
 use Foodsharing\Utility\Sanitizer;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Tests\Support\UnitTester;
 
@@ -99,5 +103,93 @@ class ForumTransactionsTest extends Unit
             ' übernimmt du verifizieren @' . $this->user2['id'] . ' und @' . $this->user3['id'] . ' für @' . $this->user2['id'] .
             ' eine Einführungsabholung durchführen. ';
         $this->transaction->createThread($this->user1['id'], $thread, $this->region, false, false);
+    }
+
+    public function testEditPostByAuthorWithinWindowUpdatesPost(): void
+    {
+        $thread = $this->tester->addForumThread($this->region['id'], $this->user['id'], false, ['time' => (new \DateTime())->format('Y-m-d H:i:s')]);
+        $post = $thread['post'];
+
+        // simulate logged in author without calling Session::login (avoid PHP session conflicts)
+        $this->setSessionUserId($this->user['id']);
+
+        $this->transaction->editPost($post['id'], 'Updated body by author');
+
+        $dbPost = $this->forumGateway->getPost($post['id']);
+        $this->assertEquals('Updated body by author', $dbPost['body']);
+        $this->assertNotEmpty($dbPost['last_edited_at']);
+    }
+
+    public function testEditForeignPostThrows403(): void
+    {
+        $thread = $this->tester->addForumThread($this->region['id'], $this->user['id'], false, ['time' => (new \DateTime())->format('Y-m-d H:i:s')]);
+        $post = $thread['post'];
+        $this->expectException(AccessDeniedHttpException::class);
+
+        // simulate another user logged in safely
+        $this->setSessionUserId($this->user1['id']);
+
+        $this->transaction->editPost($post['id'], 'Malicious edit');
+    }
+
+    public function testEditConflictWhenNewPostExists(): void
+    {
+        $thread = $this->tester->addForumThread($this->region['id'], $this->user['id'], false, ['time' => (new \DateTime())->format('Y-m-d H:i:s')]);
+        $post = $thread['post'];
+
+        // another user adds a new post
+        $this->tester->addForumThreadPost($thread['id'], $this->user1['id'], ['body' => 'A reply']);
+
+        $this->expectException(ConflictHttpException::class);
+        $this->expectExceptionMessage('Cannot edit as another post was added meanwhile');
+
+        // original author tries to edit
+        $this->setSessionUserId($this->user['id']);
+        $this->transaction->editPost($post['id'], 'Late edit');
+    }
+
+    public function testEditExpiredWindowThrows(): void
+    {
+        $thread = $this->tester->addForumThread($this->region['id'], $this->user['id'], false, ['time' => (new \DateTime())->format('Y-m-d H:i:s')]);
+        $post = $thread['post'];
+
+        // set post time to 605 seconds ago
+        $old = (new \DateTime())->sub(new \DateInterval('PT605S'))->format('Y-m-d H:i:s');
+        $this->tester->updateInDatabase('fs_theme_post', ['time' => $old], ['id' => $post['id']]);
+
+        $this->expectException(BadRequestException::class);
+        $this->expectExceptionMessage('Edit window expired for this post');
+
+        $this->setSessionUserId($this->user['id']);
+        $this->transaction->editPost($post['id'], 'Too late edit');
+    }
+
+    public function testEditNonExistingPostThrows(): void
+    {
+        $this->expectException(NotFoundHttpException::class);
+        $this->expectExceptionMessage('Post not found');
+
+        $this->setSessionUserId($this->user['id']);
+        $this->transaction->editPost(999999, 'Edit non-existing post');
+    }
+
+    private function setSessionUserId(int $id): void
+    {
+        $session = $this->session;
+
+        $storage = new \Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage();
+        $sf = new \Symfony\Component\HttpFoundation\Session\Session($storage);
+        $sf->start();
+
+        $ref = new \ReflectionClass($session);
+        $prop = $ref->getProperty('symfonySession');
+        $prop->setAccessible(true);
+        $prop->setValue($session, $sf);
+
+        $propInit = $ref->getProperty('initialized');
+        $propInit->setAccessible(true);
+        $propInit->setValue($session, true);
+
+        $session->set('userId', $id);
     }
 }

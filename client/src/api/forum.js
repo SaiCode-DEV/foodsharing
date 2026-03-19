@@ -1,3 +1,4 @@
+import { HTTP_RESPONSE } from '@/consts'
 import { get, post, patch, remove, put } from './base'
 
 // *** FORUM MANAGEMENT *** //
@@ -78,6 +79,10 @@ export function createPost (threadId, body) {
 
 export function deletePost (postId) {
   return remove(`/forum/posts/${postId}`)
+}
+
+export function editPost (postId, body) {
+  return patch(`/forum/posts/${postId}`, { body }, { skipErrorNotificationFor: [HTTP_RESPONSE.CONFLICT, HTTP_RESPONSE.BAD_REQUEST] })
 }
 
 export function hidePost (postId, reason) {

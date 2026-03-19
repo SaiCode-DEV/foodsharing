@@ -34,8 +34,15 @@
         </span>
         <Time
           :time="post.createdAt"
+          :tooltip_template="$t('forum.post.createdAtTooltip')"
           class="text-right"
         />
+        <span v-if="post.lastEditedAt" class="ml-2 text-muted small">
+          • <i
+            v-b-tooltip="editedAtTooltip"
+            class="fa fa-edit"
+          /> {{ $t('forum.post.edited') }}
+        </span>
         <OverflowMenu :options="overflowMenuOptions" />
       </div>
       <div v-if="!post.hidden" class="d-flex m-2">
@@ -68,8 +75,10 @@
           :may-delete="mayDelete || isMe"
           :may-reply="mayReply"
           :may-hide="mayHide"
+          :may-edit="isMe && editRemainingSeconds > 0"
           @delete="$emit('delete')"
           @hide="$emit('hide', $event)"
+          @edit="$emit('edit')"
           @reaction-add="key => $emit('reaction-add', key)"
           @reaction-remove="key => $emit('reaction-remove', key)"
           @reply="$emit('reply', post.body)"
@@ -125,6 +134,7 @@ export default {
   props: {
     post: { type: Object, required: true },
     userId: { type: Number, required: true },
+    editRemainingSeconds: { type: Number, default: 0 },
     deepLink: { type: String, default: '' },
     reactions: { type: Object, default: () => ({}) },
     mayHide: { type: Boolean, default: false },
@@ -139,7 +149,12 @@ export default {
   }),
   computed: {
     isMe () {
-      return this.userId === this.post.author.id
+      // Optional chaining handles the dummy post during optimistic creation (no author.id yet).
+      return this.userId === this.post.author?.id
+    },
+    editedAtTooltip () {
+      if (!this.post.lastEditedAt) return null
+      return this.$t('forum.post.editedAtTooltip').replace('{date}', new Date(this.post.lastEditedAt).toLocaleString())
     },
     overflowMenuOptions () {
       return [

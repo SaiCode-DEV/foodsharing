@@ -27,6 +27,15 @@
       <i class="fas fa-eye-slash" />
     </a>
     <a
+      v-if="mayEdit"
+      v-b-tooltip.hover
+      :title="$t('forum.post.edit')"
+      class="btn btn-sm btn-primary ml-2"
+      @click="$emit('edit')"
+    >
+      <i class="fas fa-edit" />
+    </a>
+    <a
       v-if="mayDelete"
       v-b-tooltip.hover
       :title="$t('forum.post.delete')"
@@ -90,6 +99,7 @@ export default {
      * Whether the user can write a reply. This is disabled in closed threads.
      */
     mayReply: { type: Boolean, default: true },
+    mayEdit: { type: Boolean, default: false },
   },
   data () {
     return {
