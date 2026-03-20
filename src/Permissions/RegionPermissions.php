@@ -98,6 +98,11 @@ class RegionPermissions
         return $this->currentUserUnits->isAmbassadorForRegion([$regionId], $includeGroups, false);
     }
 
+    public function maySetRegionOptionsUserRelated(int $regionId): bool
+    {
+        return $this->currentUserUnits->isAmbassadorForRegion([$regionId], false, false);
+    }
+
     public function maySetRegionOptionsReportButtons(int $regionId): bool
     {
         return $this->hasFunctionGroupPermissionForRegion(WorkgroupFunction::REPORT, $regionId);

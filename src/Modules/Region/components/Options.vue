@@ -1,130 +1,176 @@
 <template>
-  <Container :title="$t('regionOptions.header_page', { bezirk: regionName })">
-    <div class="list-group-item">
-      <b-form-checkbox
-        v-model="isReportButtonEnabled"
-        :disabled="!maySetReport"
-      >
-        {{ $t('regionOptions.enableReportButton') }}
-        <Info info-key="reportReasons" />
-      </b-form-checkbox>
-      <div class="mb-2 mx-4">
-        <b-form-group>
-          <b-form-radio-group
-            v-model="selectedReportReasonOptions"
-            :options="reportReasonOptionsRadio"
-            name="radio-options-slots"
-            stacked
-            :disabled="!isReportButtonEnabled || !maySetReport"
-          />
-        </b-form-group>
+  <div>
+    <Container
+      :title="$t('regionOptions.userRelated.heading', { bezirk: regionName })"
+      :tooltip-key="$t('regionOptions.userRelated.info')"
+    >
+      <div class="list-group-item">
         <b-form-checkbox
-          v-model="isReportReasonOtherEnabled"
-          :disabled="!isReportButtonEnabled || !maySetReport"
+          v-model="isAddressChangeNotificationEnabled"
+          :disabled="!mayEditUserRelated"
         >
-          {{ $t('regionOptions.regionReportReasonOther') }}
+          {{ $t('regionOptions.enableAddressChangeNotification') }}
         </b-form-checkbox>
       </div>
-      <b-form-checkbox
-        v-model="isMediationButtonEnabled"
-        :disabled="!maySetReport"
-      >
-        {{ $t('regionOptions.enableMediationButton') }}
-      </b-form-checkbox>
-      <b-form-checkbox
-        v-model="isAddressChangeNotificationEnabled"
-        :disabled="!maySetReport"
-      >
-        {{ $t('regionOptions.enableAddressChangeNotification') }}
-      </b-form-checkbox>
-    </div>
-    <div class="list-group-item">
-      <b-form-checkbox
-        id="activeRegionPickupRule"
-        v-model="isRegionPickupRuleActive"
-        class="mt-1"
-        :disabled="!maySetRule"
-      >
-        {{ $t('regionOptions.regionPickupRuleActive') }}
-      </b-form-checkbox>
-      <b-row class="my-1">
-        <b-col>
-          <label>{{ $t('regionOptions.regionPickupTimespan') }}: {{ regionPickupRuleTimespanDays }}</label>
-          <b-form-input
-            v-model="regionPickupRuleTimespanDays"
-            type="range"
-            min="1"
-            max="31"
-            :disabled="!maySetRule || !isRegionPickupRuleActive"
-          />
-        </b-col>
-      </b-row>
-      <b-row class="my-1">
-        <b-col>
-          <label>{{ $t('regionOptions.regionPickupLimitNumber') }}: {{ regionPickupRuleLimitNumber }} </label>
-          <b-form-input
-            v-model="regionPickupRuleLimitNumber"
-            type="range"
-            min="1"
-            max="14"
-            :disabled="!maySetRule || !isRegionPickupRuleActive"
-            @change="onChangeMax()"
-          />
-        </b-col>
-      </b-row>
-      <b-row class="my-1">
-        <b-col>
-          <label>{{ $t('regionOptions.regionPickupLimitDayNumber') }}: {{ regionPickupRuleLimitDayNumber }}</label>
-          <b-form-input
-            v-model="regionPickupRuleLimitDayNumber"
-            type="range"
-            min="1"
-            :max="rangeDayLimit"
-            :disabled="!maySetRule || !isRegionPickupRuleActive"
-          />
-        </b-col>
-      </b-row>
-      <b-row class="my-1">
-        <b-col>
-          <label>{{ $t('regionOptions.regionPickupInactiveHours') }}:</label>
-        </b-col>
-        <b-col>
-          <b-form-select
-            v-model="regionPickupRuleInactiveHours"
-            :options="optionsIgnoreRuleHours"
-            :disabled="!maySetRule || !isRegionPickupRuleActive"
-          />
-        </b-col>
-      </b-row>
-      <b-table
-        v-if="regionPickupRuleActiveStoreList && regionPickupRuleActiveStoreList.length > 0"
-        :fields="fields"
-        :items="regionPickupRuleActiveStoreList"
-        :sort-by="sortBy"
-        striped
-        hover
-        small
-        caption-top
-      >
-        <template #cell(storeName)="row">
-          <a
-            :href="$url('store', row.item.id)"
-            class="ui-corner-all"
+      <ContainerButton
+        v-if="mayEditUserRelated"
+        text-key="regionOptions.save"
+        variant="secondary"
+        @click="trySendOptions"
+      />
+    </Container>
+
+    <Container
+      :title="$t('regionOptions.pickuprule.heading', { bezirk: regionName })"
+      :tooltip-key="$t('regionOptions.pickuprule.info')"
+    >
+      <div class="list-group-item">
+        <b-form-checkbox
+          id="activeRegionPickupRule"
+          v-model="isRegionPickupRuleActive"
+          class="mt-1"
+          :disabled="!mayEditPickupRule"
+        >
+          {{ $t('regionOptions.regionPickupRuleActive') }}
+        </b-form-checkbox>
+      </div>
+      <div class="list-group-item">
+        <b-row class="my-1">
+          <b-col>
+            <label :class="{disabled: disablePickupRuleSettings}">
+              {{ $t('regionOptions.regionPickupTimespan') }}: {{ regionPickupRuleTimespanDays }}
+            </label>
+            <b-form-input
+              v-model="regionPickupRuleTimespanDays"
+              type="range"
+              min="1"
+              max="31"
+              :disabled="disablePickupRuleSettings"
+            />
+          </b-col>
+        </b-row>
+        <b-row class="my-1">
+          <b-col>
+            <label :class="{disabled: disablePickupRuleSettings}">
+              {{ $t('regionOptions.regionPickupLimitNumber') }}: {{ regionPickupRuleLimitNumber }}
+            </label>
+            <b-form-input
+              v-model="regionPickupRuleLimitNumber"
+              type="range"
+              min="1"
+              max="14"
+              :disabled="disablePickupRuleSettings"
+              @change="onChangeMax()"
+            />
+          </b-col>
+        </b-row>
+        <b-row class="my-1">
+          <b-col>
+            <label :class="{disabled: disablePickupRuleSettings}">
+              {{ $t('regionOptions.regionPickupLimitDayNumber') }}: {{ regionPickupRuleLimitDayNumber }}
+            </label>
+            <b-form-input
+              v-model="regionPickupRuleLimitDayNumber"
+              type="range"
+              min="1"
+              :max="rangeDayLimit"
+              :disabled="disablePickupRuleSettings"
+            />
+          </b-col>
+        </b-row>
+        <b-row class="mt-1">
+          <b-col>
+            <label :class="{disabled: disablePickupRuleSettings}">
+              {{ $t('regionOptions.regionPickupInactiveHours') }}:
+            </label>
+          </b-col>
+          <b-col>
+            <b-form-select
+              v-model="regionPickupRuleInactiveHours"
+              :options="optionsIgnoreRuleHours"
+              :disabled="disablePickupRuleSettings"
+            />
+          </b-col>
+        </b-row>
+      </div>
+      <div class="list-group-item">
+        <b-table
+          v-if="regionPickupRuleActiveStoreList && regionPickupRuleActiveStoreList.length > 0"
+          :fields="fields"
+          :items="regionPickupRuleActiveStoreList"
+          :sort-by="sortBy"
+          striped
+          hover
+          small
+          caption-top
+        >
+          <template #cell(storeName)="row">
+            <a
+              :href="$url('store', row.item.id)"
+              class="ui-corner-all"
+            >
+              {{ row.item.name }}
+            </a>
+          </template>
+        </b-table>
+        <span v-else v-text="$t('regionOptions.noPickupRuleActiveStores')" />
+      </div>
+      <ContainerButton
+        v-if="mayEditPickupRule"
+        text-key="regionOptions.save"
+        variant="secondary"
+        @click="trySendOptions"
+      />
+    </Container>
+
+    <Container
+      :title="$t('regionOptions.reporting.heading', { bezirk: regionName })"
+      :tooltip-key="$t('regionOptions.reporting.info')"
+    >
+      <div class="list-group-item">
+        <b-form-checkbox
+          v-model="isReportButtonEnabled"
+          :disabled="!mayEditReporting"
+        >
+          {{ $t('regionOptions.enableReportButton') }}
+          <Info info-key="reportReasons" />
+        </b-form-checkbox>
+        <div class="ml-4">
+          <b-form-group>
+            <b-form-radio-group
+              v-model="selectedReportReasonOptions"
+              :options="reportReasonOptionsRadio"
+              name="radio-options-slots"
+              stacked
+              :disabled="disableReportReasonSettings"
+            />
+          </b-form-group>
+          <b-form-checkbox
+            v-model="isReportReasonOtherEnabled"
+            :disabled="disableReportReasonSettings"
           >
-            {{ row.item.name }}
-          </a>
-        </template>
-      </b-table>
-      <span v-else v-text="$t('regionOptions.noPickupRuleActiveStores')" />
-    </div>
-    <ContainerButton
-      v-if="maySetReport || maySetRule"
-      text-key="regionOptions.save"
-      variant="secondary"
-      @click="trySendOptions"
-    />
-  </Container>
+            {{ $t('regionOptions.regionReportReasonOther') }}
+          </b-form-checkbox>
+        </div>
+      </div>
+      <div class="list-group-item">
+        <b-form-checkbox
+          v-model="isMediationButtonEnabled"
+          :disabled="!mayEditReporting"
+        >
+          {{ $t('regionOptions.enableMediationButton') }}
+        </b-form-checkbox>
+      </div>
+      <ContainerButton
+        v-if="mayEditReporting"
+        text-key="regionOptions.save"
+        variant="secondary"
+        @click="trySendOptions"
+      />
+    </Container>
+  </div>
 </template>
+
 <script>
 import { getRegionOptionPermissions, getRegionOptions, setRegionOptions } from '@/api/regions'
 import { hideLoader, pulseError, pulseInfo, showLoader } from '@/script'
@@ -140,8 +186,9 @@ export default {
   },
   data () {
     return {
-      maySetReport: false,
-      maySetRule: false,
+      mayEditReporting: false,
+      mayEditPickupRule: false,
+      mayEditUserRelated: false,
       regionPickupRuleActiveStoreList: null,
       isReportButtonEnabled: false,
       isMediationButtonEnabled: false,
@@ -178,6 +225,17 @@ export default {
       ],
     }
   },
+  computed: {
+    mayEdit () {
+      return this.mayEditReporting || this.mayEditPickupRule || this.mayEditUserRelated
+    },
+    disablePickupRuleSettings () {
+      return !this.mayEditPickupRule || !this.isRegionPickupRuleActive
+    },
+    disableReportReasonSettings () {
+      return !this.mayEditReporting || !this.isReportButtonEnabled
+    },
+  },
   async mounted () {
     showLoader()
     try {
@@ -185,8 +243,10 @@ export default {
         Object.assign(this, response)
       })
       const permissions = getRegionOptionPermissions(this.regionId).then(permissions => {
-        this.maySetReport = permissions.maySetRegionOptionsReportButtons
-        this.maySetRule = permissions.maySetRegionOptionsRegionPickupRule
+        this.mayEditReporting = permissions.maySetRegionOptionsReportButtons
+        this.mayEditPickupRule = permissions.maySetRegionOptionsRegionPickupRule
+        this.mayEditUserRelated = permissions.maySetRegionOptionsUserRelated
+
         this.regionPickupRuleActiveStoreList = permissions.regionPickupRuleActiveStoreList
       })
       await Promise.all([response, permissions])
@@ -228,3 +288,12 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+label.disabled {
+  color: #6c757d;
+}
+label:last-child {
+  margin-bottom: 0;
+}
+</style>

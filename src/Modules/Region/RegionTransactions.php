@@ -347,14 +347,26 @@ class RegionTransactions
         return $responsibleUsers;
     }
 
+    public function getRegionOptionPermissions(int $regionId): array
+    {
+        return [
+            'maySetRegionOptionsReportButtons' => $this->regionPermissions->maySetRegionOptionsReportButtons($regionId),
+            'maySetRegionOptionsRegionPickupRule' => $this->regionPermissions->maySetRegionOptionsRegionPickupRule($regionId),
+            'maySetRegionOptionsUserRelated' => $this->regionPermissions->maySetRegionOptionsUserRelated($regionId),
+        ];
+    }
+
     public function patchRegionOptions(int $regionId, RegionOptionsPatch $options): void
     {
         if ($this->regionPermissions->maySetRegionOptionsReportButtons($regionId)) {
             $this->patchOptionsValue(RegionOptionType::ENABLE_REPORT_BUTTON, $options->isReportButtonEnabled, $regionId);
             $this->patchOptionsValue(RegionOptionType::ENABLE_MEDIATION_BUTTON, $options->isMediationButtonEnabled, $regionId);
-            $this->patchOptionsValue(RegionOptionType::NOTIFY_ADDRESS_CHANGE, $options->isAddressChangeNotificationEnabled, $regionId);
             $this->patchOptionsValue(RegionOptionType::REPORT_REASON_OPTIONS, $options->selectedReportReasonOptions, $regionId);
             $this->patchOptionsValue(RegionOptionType::REPORT_REASON_OTHER, $options->isReportReasonOtherEnabled, $regionId);
+        }
+
+        if ($this->regionPermissions->maySetRegionOptionsUserRelated($regionId)) {
+            $this->patchOptionsValue(RegionOptionType::NOTIFY_ADDRESS_CHANGE, $options->isAddressChangeNotificationEnabled, $regionId);
         }
 
         if ($this->regionPermissions->maySetRegionOptionsRegionPickupRule($regionId)) {

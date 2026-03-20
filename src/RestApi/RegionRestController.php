@@ -155,7 +155,8 @@ class RegionRestController extends AbstractFoodsharingRestController
         $this->assertLoggedIn();
         $this->assertRegionExists($regionId);
 
-        if (!$this->regionPermissions->maySetRegionOptionsReportButtons($regionId) && !$this->regionPermissions->maySetRegionOptionsRegionPickupRule($regionId)) {
+        $permissions = $this->regionTransactions->getRegionOptionPermissions($regionId);
+        if (!array_any($permissions, fn ($permission) => $permission === true)) {
             throw new AccessDeniedHttpException('Not permitted');
         }
         $this->regionTransactions->patchRegionOptions($regionId, $options);
@@ -184,6 +185,7 @@ class RegionRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(type: 'object', properties: [
         new OA\Property(property: 'maySetRegionOptionsReportButtons', type: 'boolean'),
         new OA\Property(property: 'maySetRegionOptionsRegionPickupRule', type: 'boolean'),
+        new OA\Property(property: 'maySetRegionOptionsUserRelated', type: 'boolean'),
         new OA\Property(property: 'regionPickupRuleActiveStoreList', type: 'array', items: new OA\Items(ref: new Model(type: CommonLabel::class))
         ),
     ]))]
@@ -192,11 +194,8 @@ class RegionRestController extends AbstractFoodsharingRestController
         $this->assertLoggedIn();
         $this->assertRegionExists($regionId);
 
-        $permissions = [
-            'maySetRegionOptionsReportButtons' => $this->regionPermissions->maySetRegionOptionsReportButtons($regionId),
-            'maySetRegionOptionsRegionPickupRule' => $this->regionPermissions->maySetRegionOptionsRegionPickupRule($regionId),
-            'regionPickupRuleActiveStoreList' => $this->storeGateway->listRegionStoresActivePickupRule($regionId),
-        ];
+        $permissions = $this->regionTransactions->getRegionOptionPermissions($regionId);
+        $permissions['regionPickupRuleActiveStoreList'] = $this->storeGateway->listRegionStoresActivePickupRule($regionId);
 
         return $this->respondOK($permissions);
     }

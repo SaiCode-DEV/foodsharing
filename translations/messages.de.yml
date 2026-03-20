@@ -570,7 +570,7 @@ legal:
     unsubscribe_newsletter: "Auch vom Foodsharing-Newsletter abmelden, falls ein Abo besteht. Dies kann auch später geändert werden auf:"
   legal_agreement: "Rechtsvereinbarung"
   latest_change: "Zuletzt geändert am {date}"
-  show_changes: "Änderungen anzeigen" 
+  show_changes: "Änderungen anzeigen"
 
 salutation:
   "0": "Liebe:r"
@@ -1997,6 +1997,15 @@ ageBandList:
 
 regionOptions:
   header_page: "Optionen für {bezirk}"
+  userRelated:
+    heading: "Optionen zur Nutzerverwaltung"
+    info: "Änderbar durch Botschafter:innen des Bezirks"
+  pickuprule:
+    heading: "Optionen zur Rosinenregel"
+    info: "Änderbar durch Admins der AG Betriebskoordination (falls vorhanden) oder Botschafter:innen des Bezirks"
+  reporting:
+    heading: "Optionen zum Meldungssystem"
+    info: "Änderbar durch Admins der lokalen Meldungsgruppe (falls vorhanden) oder Botschafter:innen des Bezirks"
   success: "Optionen erfolgreich gespeichert"
   save: "Optionen speichern"
   enableReportButton: "Meldungsformular auf Profilseiten der Stammfoodsaver:innen des Bezirks aktivieren"
@@ -2011,7 +2020,7 @@ regionOptions:
   regionPickupInactiveHours: "Wie viele Stunden vorher soll eine Eintragung auch möglich sein, wenn die maximale Anzahl im entsprechenden Zeitraum bereits erreicht oder überschritten ist?"
   regionPickupRuleActiveStoreList: "Liste der Betriebe im Bezirk, die für die Rosinen-Regel berücksichtigt werden. Alle Slots der aufgelisteten Betriebe werden zusammengezählt und für die Regel berücksichtigt."
   noPickupRuleActiveStores: "Aktuell ist die Rosinen-Regel für keinen Betrieb im Bezirk aktiviert."
-  enableAddressChangeNotification: "Benachrichtigung an Botschafter:innen und Admins bei Adressänderung eines:r Stammfoodsaver:in des Bezirks"
+  enableAddressChangeNotification: "Benachrichtigung an Botschafter:innen bei Adressänderung eines:r Stammfoodsaver:in des Bezirks"
 
 foodsaver:
   bread: "Alle Foodsaver"
