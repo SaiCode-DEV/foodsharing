@@ -42,15 +42,18 @@ const query = ref(props.initialQuery)
 async function fetchSuggestions (input) {
   query.value = input
   autocompleteLoading.value++
-  const locations = await fetchAutocomplete(input)
-  autocompleteLoading.value--
-  if (input !== query.value) return // discard outdated queries
-  suggestions.value = []
-  if (!locations?.length) return
-  if (locations.length === 1) {
-    emit('change', locations[0])
+  try {
+    const locations = await fetchAutocomplete(input)
+    if (input !== query.value) return // discard outdated queries
+    suggestions.value = []
+    if (!locations?.length) return
+    if (locations.length === 1) {
+      emit('change', locations[0])
+    }
+    suggestions.value = locations
+  } finally {
+    autocompleteLoading.value--
   }
-  suggestions.value = locations
 }
 
 function selectSuggestion (suggestion) {

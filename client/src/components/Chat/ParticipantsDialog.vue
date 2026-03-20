@@ -63,7 +63,6 @@ const participants = computed(() => {
 
 function open (conversationId) {
   conversation.value = conversationStore.conversations[conversationId]
-  console.warn('Opening participants dialog for conversation', conversationId, { ...conversation.value })
   if (!conversation.value) {
     console.error('Conversation not found:', conversationId)
     return

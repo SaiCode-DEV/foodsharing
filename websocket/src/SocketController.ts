@@ -24,9 +24,13 @@ export class SocketController {
 
     @OnSocketEvent('disconnect')
     onDisconnect (socket: Socket): void {
-        const sessionId = this.readSessionId(socket);
-        this.connectionRegistry.removeRegistration(sessionId, socket.id);
         this.connectionRegistry.numConnections--;
+        try {
+            const sessionId = this.readSessionId(socket);
+            this.connectionRegistry.removeRegistration(sessionId, socket.id);
+        } catch {
+            // Socket had no valid session cookie and was never registered — nothing to clean up
+        }
     }
 
     @OnSocketEvent('visibilitychange')

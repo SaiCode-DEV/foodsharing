@@ -184,12 +184,15 @@ export default {
           await regionStore.fetchPublicRegionData(this.regionId, true)
           this.$emit('update:location', this.editLocation)
           this.center = Object.assign({}, this.editLocation)
+          this.editMode = false
         } catch (e) {
           pulseError(this.$t('error_unexpected'))
+        } finally {
+          this.loading = false
         }
+        return
       }
       this.editMode = false
-      this.loading = false
     },
     async remove () {
       if (!await this.confirmationDialogue('region.public.map.confirm_remove', {

@@ -51,7 +51,7 @@ export default {
       this.$emit(this.isExpanded ? 'show' : 'hide')
       this.isAnimationRunning = true
       await new Promise(resolve => window.setTimeout(resolve, 500))
-      this.isAnimationRunning = true
+      this.isAnimationRunning = false
       this.$emit(this.isExpanded ? 'shown' : 'hidden')
     },
     resizeHandler () {

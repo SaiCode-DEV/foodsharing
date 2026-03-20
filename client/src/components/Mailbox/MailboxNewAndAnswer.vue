@@ -374,7 +374,6 @@ export default {
         if (this.isValidEmail(email)) {
           this.emailTo.push(email)
         } else {
-          console.log('Ungültige E-Mail-Adresse:', email)
           invalidEmails.push(email)
         }
       })

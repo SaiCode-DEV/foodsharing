@@ -110,7 +110,7 @@ export default {
   },
   methods: {
     toggleExpanded (key) {
-      this.expanded[key] = !this.expanded[key]
+      this.$set(this.expanded, key, !this.expanded[key])
     },
     async setFocusAfterButtonPress (key) {
       if (this.expanded[key]) document.getElementById(`${key}-${MAX_DISPLAYED_RESULTS_REDUCED}`).focus()

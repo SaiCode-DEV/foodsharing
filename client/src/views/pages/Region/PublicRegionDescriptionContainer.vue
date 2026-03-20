@@ -108,12 +108,15 @@ export default {
           await setPublicRegionData(this.regionId, { description: this.editDescription })
           await regionStore.fetchPublicRegionData(this.regionId, true)
           this.$emit('update:description', this.editDescription)
+          this.editMode = false
         } catch (e) {
           pulseError(this.$t('error_unexpected'))
+        } finally {
+          this.loading = false
         }
+        return
       }
       this.editMode = false
-      this.loading = false
     },
   },
 }

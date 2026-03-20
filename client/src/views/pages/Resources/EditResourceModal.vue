@@ -190,7 +190,7 @@ async function okHandler (event) {
       emit('update:selected-resource', updatedResource)
     })
   } else {
-    const newResource = resourceStore.addResource(resource, isCommonsResource.value)
+    const newResource = await resourceStore.addResource(resource, isCommonsResource.value)
     navigateToResourceLocation(newResource)
   }
   modal.value.hide()

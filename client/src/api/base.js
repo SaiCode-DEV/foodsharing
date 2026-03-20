@@ -42,7 +42,7 @@ const showNetworkError = (key, error) => {
   const message = error.message ?? 'N/A'
   const path = error?.config?.url ?? 'N/A'
   const action = (error?.config?.method ?? '').toUpperCase()
-  let pre = action + ' ' + path + '\n' + JSON.stringify(error.response?.data) || 'N/A'
+  let pre = action + ' ' + path + '\n' + (JSON.stringify(error.response?.data) ?? 'N/A')
   const text = i18n('net_errors.' + key)
   const details = i18n('net_errors.code') + code + '\n' + i18n('net_errors.message') + message + '\n' + i18n('net_errors.action_response')
   console.error(text, error)

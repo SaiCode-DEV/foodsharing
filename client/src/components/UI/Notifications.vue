@@ -50,7 +50,7 @@ grid-template-columns: max-content auto max-content max-content;
     position: relative;
 
     background: var(--fs-color-primary-200);
-    border-inline-start-width: 8px solid var(--fs-color-primary-300);
+    border-inline-start: 8px solid var(--fs-color-primary-300);
     // types (green, amber, red)
     &.info {
         background: var(--fs-color-info-200);

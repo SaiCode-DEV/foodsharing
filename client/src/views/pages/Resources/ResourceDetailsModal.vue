@@ -96,7 +96,7 @@
           </p>
           <p v-if="props.selectedResource.regionId">
             <i class="fas fa-location-pin-lock" />
-            <b>Eingeschränkt auf: </b>
+            <b>{{ $t('resource_mosaic.restricted_to') }} </b>
             <a :href="url('resources', region.id)">{{ region.name }}</a>
           </p>
           <Gallery :images="props.selectedResource.images" :height-in-px="100" />

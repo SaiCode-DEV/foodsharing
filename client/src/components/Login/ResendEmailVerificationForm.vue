@@ -77,10 +77,11 @@ async function submit () {
   try {
     await requestVerificationEmail(formData.value.email)
     formData.value.email = ''
+    pulseSuccess(i18n('login.resend_verification.success'))
   } catch (error) {
     pulseError(i18n('error_unexpected'))
+  } finally {
+    isLoading.value = false
   }
-  pulseSuccess(i18n('login.resend_verification.success'))
-  isLoading.value = false
 }
 </script>

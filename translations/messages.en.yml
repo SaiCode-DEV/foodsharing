@@ -4913,6 +4913,7 @@ resource_mosaic:
         you specific questions about it?
     is_restricted_to_region: Restrict to region or group
   is_private_hint: This resource will only be shown to friends.
+  restricted_to: "Restricted to:"
   confirm_delete: Do you really want to delete this resource?
   no_own_resources: You haven’t specified any resources yet. You can now enter 
     specific skills, items, or relationships to make them visible to the 

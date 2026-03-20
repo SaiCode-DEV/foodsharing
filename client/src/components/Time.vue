@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { ref, defineProps, onMounted, computed, watch } from 'vue'
+import { ref, defineProps, onMounted, onUnmounted, computed, watch } from 'vue'
 import dateFormatter from '@/helper/date-formatter'
 import { captureError } from '@/sentry'
 
@@ -86,6 +86,10 @@ watch(() => props.time, () => {
 onMounted(() => {
   parseTime(props.time)
   update()
+})
+
+onUnmounted(() => {
+  window.clearTimeout(timeout)
 })
 </script>
 

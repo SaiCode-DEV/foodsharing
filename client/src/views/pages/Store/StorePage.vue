@@ -281,7 +281,6 @@ export default {
       }
     },
     multiChat (userId) {
-      console.warn('StorePage::multiChat with userId', userId)
       if (!userId) return
       const storeManagers = this.storeMember.filter(item => item.isResponsible).map(item => item.id)
       conversationStore.openMultiChat(storeManagers.concat(userId))

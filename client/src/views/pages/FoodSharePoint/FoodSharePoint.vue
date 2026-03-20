@@ -192,23 +192,32 @@ export default {
     },
     async follow () {
       this.operationLoading = true
-      await followFoodSharePoint(this.id, this.sendMail)
-      this.permissions.isFollower = true
-      this.fsp.followerCount++
-      this.operationLoading = false
+      try {
+        await followFoodSharePoint(this.id, this.sendMail)
+        this.permissions.isFollower = true
+        this.fsp.followerCount++
+      } finally {
+        this.operationLoading = false
+      }
     },
     async unfollow () {
       this.operationLoading = true
-      await unfollowFoodSharePoint(this.id)
-      this.permissions.isFollower = false
-      this.fsp.followerCount--
-      this.operationLoading = false
+      try {
+        await unfollowFoodSharePoint(this.id)
+        this.permissions.isFollower = false
+        this.fsp.followerCount--
+      } finally {
+        this.operationLoading = false
+      }
     },
     async accept () {
       this.operationLoading = true
-      await acceptFoodSharePoint(this.id)
-      this.fsp.status = 1
-      this.operationLoading = false
+      try {
+        await acceptFoodSharePoint(this.id)
+        this.fsp.status = 1
+      } finally {
+        this.operationLoading = false
+      }
     },
   },
 }

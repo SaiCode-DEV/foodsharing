@@ -95,7 +95,7 @@ export default {
       return this.$dateFormatter.isTomorrow(this.endDate)
     },
     dateTooltip () {
-      return `${this.$dateFormatter.dateTime(this.endDate)} (${this.$dateFormatter.relativeTime(this.endDate)}`
+      return `${this.$dateFormatter.dateTime(this.endDate)} (${this.$dateFormatter.relativeTime(this.endDate)})`
     },
     displayedDay () {
       return this.$dateFormatter.format(this.endDate, {

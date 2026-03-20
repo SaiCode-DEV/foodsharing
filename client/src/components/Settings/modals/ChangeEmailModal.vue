@@ -24,10 +24,10 @@
           @input="v$.email.$touch()"
         />
         <div v-if="v$.email.$invalid && v$.email.$dirty" class="invalid-feedback d-block">
-          <span v-if="v$.email.email">
+          <span v-if="v$.email.email.$invalid">
             {{ $t('settings.email_change.invalid') }}
           </span>
-          <span v-else-if="v$.email.notFoodsharingAddress">
+          <span v-else-if="v$.email.notFoodsharingAddress.$invalid">
             {{ $t('settings.email_change.domain') }}
           </span>
         </div>

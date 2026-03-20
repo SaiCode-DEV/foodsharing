@@ -71,7 +71,7 @@ export default {
   watch: {
     storeInvitations: {
       handler (newInvitations) {
-        if (newInvitations <= 0) {
+        if (newInvitations.length <= 0) {
           this.$bvModal.hide('invitations')
         }
         this.invitations = newInvitations

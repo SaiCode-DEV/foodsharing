@@ -42,7 +42,7 @@ export const useUserStore = defineStore('user', {
     hasHomeRegion: (state) => state.user?.homeRegionId > 0,
     getHomeRegion: (state) => state.user?.homeRegionId,
     getHomeRegionName: (state) => state.details?.regionName,
-    hasCalendarToken: (state) => state.user?.hasCalendarToken !== null || false,
+    hasCalendarToken: (state) => state.user?.hasCalendarToken !== null && state.user?.hasCalendarToken !== undefined,
     hasMailBox: (state) => state.user?.hasMailbox || false,
     getMailUnreadCount: (state) => {
       if (state.mailUnreadCount > 0) {
@@ -105,9 +105,9 @@ export const useUserStore = defineStore('user', {
     },
     async fetchProfileSettings (force = false) {
       if (this.clearingForLogout) return
-      if ('profileSettings' in this.fetching) return this.fetching.settings
+      if ('profileSettings' in this.fetching) return this.fetching.profileSettings
       let resolver
-      this.fetching.settings = new Promise(resolve => { resolver = resolve })
+      this.fetching.profileSettings = new Promise(resolve => { resolver = resolve })
       const cacheRequestName = 'profileSettings'
       try {
         if (force || await getCacheInterval(cacheRequestName, userprofileSettingsRateLimitInterval)) {
@@ -119,7 +119,7 @@ export const useUserStore = defineStore('user', {
       } catch (e) {
         console.error('Error fetching profile settings:', e)
       }
-      delete this.fetching.settings
+      delete this.fetching.profileSettings
       resolver()
       return this.settings
     },

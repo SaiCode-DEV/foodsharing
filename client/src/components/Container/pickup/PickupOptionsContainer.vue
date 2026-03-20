@@ -183,6 +183,7 @@ onMounted(async () => {
 
 onUnmounted(() => {
   stopAutoRefresh()
+  window.clearTimeout(timeoutId)
 })
 
 </script>

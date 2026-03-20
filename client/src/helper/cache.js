@@ -92,8 +92,8 @@ export async function invalidateCache (cacheRequestName) {
   const lastFetchTimeRequestName = `${cacheRequestNameWithSlash}`
   try {
     const cache = await caches.open(cacheName)
-    cache.delete(cacheRequestNameWithSlash)
-    cache.delete(lastFetchTimeRequestName + '_lastFetchTime')
+    await cache.delete(cacheRequestNameWithSlash)
+    await cache.delete(lastFetchTimeRequestName + '_lastFetchTime')
     console.debug(`Invalidated cache ${key}`)
   } catch (error) {
     console.error(`Error while invalidating cache ${cacheRequestName}:`, error)

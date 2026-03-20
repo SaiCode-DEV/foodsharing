@@ -338,7 +338,7 @@ export default {
         const searchTerms = filterText.split(/[^a-zA-Z0-9]+/).filter(term => term)
         chains = chains.filter(chain => {
           return searchKeys.some(key => {
-            const value = chain.chain[key]?.toLowerCase()
+            const value = chain.chain[key]?.toLowerCase() ?? ''
             return searchTerms.every(term => value.includes(term))
           }) || chain.chain.kams.find(kam => kam.id === parseInt(filterText))
         })

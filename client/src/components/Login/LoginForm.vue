@@ -23,8 +23,8 @@
           v-if="v$.email.$invalid"
           class="invalid-feedback"
         >
-          <span v-if="!v$.email.required">{{ $t('register.email_required') }}</span>
-          <span v-else-if="!v$.email.email">{{ $t('register.email_invalid') }}</span>
+          <span v-if="v$.email.required.$invalid">{{ $t('register.email_required') }}</span>
+          <span v-else-if="v$.email.email.$invalid">{{ $t('register.email_invalid') }}</span>
         </div>
       </label>
       <label class="d-block">
@@ -184,7 +184,6 @@ export default {
           pulseError(this.$t('login.error_no_auth'))
         } else if (err.code && err.code === HTTP_RESPONSE.FORBIDDEN) {
           // Un-hide and focus TOTP field
-          console.log('TOTP required')
           this.$refs.totp1.hidden = false
           this.$refs.totp2.$el.hidden = false
           this.$refs.totp2.focus()

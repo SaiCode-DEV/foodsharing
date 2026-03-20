@@ -206,9 +206,7 @@ export default {
     window.addEventListener('beforeunload', this.unsavedChangesPrompt)
   },
   destroyed () {
-    if (this.store) {
-      window.removeEventListener('beforeunload', this.unsavedChangesPrompt)
-    }
+    window.removeEventListener('beforeunload', this.unsavedChangesPrompt)
   },
   methods: {
     showConfigurationDialog () {

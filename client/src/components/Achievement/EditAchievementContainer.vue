@@ -114,7 +114,7 @@ export default {
   },
   data () {
     return {
-      editedAchievement: this.achievement,
+      editedAchievement: this.achievement ? Object.assign({}, this.achievement) : null,
       isIconValid: null,
     }
   },

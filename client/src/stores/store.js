@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { getStoreMetadata, listStoresDetailsForUser, listStoresForUser } from '@/api/stores'
 import { pulseError } from '@/script'
+import i18n from '@/helper/i18n'
 import { listRegionStores } from '@/api/regions'
 import { getCache, setCache } from '@/helper/cache'
 import { HTTP_RESPONSE } from '@/consts'
@@ -16,7 +17,7 @@ const CACHES = {
 
 function showError (callback) {
   return callback().catch(error => {
-    pulseError(this.$t('error_unexpected'))
+    pulseError(i18n('error_unexpected'))
     throw error
   })
 }

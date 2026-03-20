@@ -164,9 +164,6 @@ export default {
       },
     }
   },
-  computed: {
-    console: () => console,
-  },
   watch: {
     loadedPickups: {
       handler (newValue) {

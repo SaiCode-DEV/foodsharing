@@ -178,8 +178,11 @@ export default {
 
     // Load and draw all markers that are initially selected
     showLoader()
-    await Promise.all(this.selectedTypes.map(name => this.drawMarkerLayer(name)))
-    hideLoader()
+    try {
+      await Promise.all(this.selectedTypes.map(name => this.drawMarkerLayer(name)))
+    } finally {
+      hideLoader()
+    }
   },
   methods: {
     /**

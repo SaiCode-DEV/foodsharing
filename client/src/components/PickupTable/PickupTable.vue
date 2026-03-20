@@ -188,6 +188,9 @@ export default {
     window.addEventListener('resize', this.resizeHandler)
     this.resizeHandler()
   },
+  beforeDestroy () {
+    window.removeEventListener('resize', this.resizeHandler)
+  },
   methods: {
     /**
      * Method handling the table sorting.

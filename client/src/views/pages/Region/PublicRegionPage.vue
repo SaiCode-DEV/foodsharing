@@ -141,6 +141,7 @@ export default {
   },
   async created () {
     this.regionData = await regionStore.fetchPublicRegionData(this.id)
+    if (!this.regionData) return
     document.title += ' | ' + this.regionData.name
     if (this.regionData.email) {
       // move to the text-based url without reload if the email is set

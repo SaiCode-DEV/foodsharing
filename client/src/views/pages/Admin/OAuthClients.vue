@@ -340,6 +340,7 @@ function addSelectedRegion () {
 function removeRegion (id) {
   if (!formData.value.required_region_ids) return
   formData.value.required_region_ids = formData.value.required_region_ids.filter(rid => rid !== id)
+  selectedRegionsList.value = selectedRegionsList.value.filter(region => region.id !== id)
 }
 
 function getEmptyFormData () {
@@ -392,7 +393,7 @@ async function editClient (client) {
   }
   newSecret.value = null
   showModal.value = true
-  selectedRegionsList.value = await Promise.all(client.required_region_ids.map(async (id) => {
+  selectedRegionsList.value = await Promise.all((client.required_region_ids ?? []).map(async (id) => {
     const region = await getPublicRegionData(id)
     return { id: region.id, name: region.name }
   }))

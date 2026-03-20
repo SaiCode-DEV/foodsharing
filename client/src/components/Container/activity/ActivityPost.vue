@@ -248,7 +248,7 @@ export default {
       this.quickreplyValue += '\n'
     },
     formatReplyBody () {
-      const date = this.$dateFormatter.format(this.dateObject, {
+      const date = this.$dateFormatter.format(this.time, {
         day: 'numeric',
         month: 'numeric',
         year: 'numeric',

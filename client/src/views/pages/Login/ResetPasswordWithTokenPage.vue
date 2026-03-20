@@ -61,8 +61,11 @@ async function validateKey () {
     return
   }
 
-  resetTokenValid.value = await validateResetToken(resetToken.value)
-  isLoading.value = false
+  try {
+    resetTokenValid.value = await validateResetToken(resetToken.value)
+  } finally {
+    isLoading.value = false
+  }
 }
 
 function goToForgotPassword () {

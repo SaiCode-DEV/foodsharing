@@ -34,8 +34,8 @@
             v-if="v$.email.$invalid && v$.email.$dirty"
             class="invalid-feedback"
           >
-            <span v-if="!v$.email.required">{{ $t('register.email_required') }}</span>
-            <span v-else-if="!v$.email.email">{{ $t('register.email_invalid') }}</span>
+            <span v-if="v$.email.required.$invalid">{{ $t('register.email_required') }}</span>
+            <span v-else-if="v$.email.email.$invalid">{{ $t('register.email_invalid') }}</span>
           </div>
         </label>
 

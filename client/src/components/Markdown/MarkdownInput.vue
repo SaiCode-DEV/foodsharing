@@ -182,10 +182,9 @@ export default {
   },
   methods: {
     saveInputToLocalStorage (value) {
-      if (!this.draftStorageId) { console.log('No draftStorageId provided, skipping localStorage save.'); return }
+      if (!this.draftStorageId) return
       const storageKey = 'markdown-input-' + this.draftStorageId
       localStorage.setItem(storageKey, value)
-      console.log('Saved to localStorage:', storageKey, value)
     },
     loadInputFromLocalStorage () {
       if (!this.draftStorageId) return
@@ -199,7 +198,6 @@ export default {
       if (!this.draftStorageId) return
       const storageKey = 'markdown-input-' + this.draftStorageId
       localStorage.removeItem(storageKey)
-      console.log('Cleared from localStorage:', storageKey)
     },
     getBaseTextArea () {
       return this.$refs.input?.$refs?.input ?? this.$refs.input?.querySelector('textarea')

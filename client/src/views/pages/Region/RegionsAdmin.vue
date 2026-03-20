@@ -219,7 +219,7 @@ export default {
       } catch (e) {
         // Simply show the error to the user. Since only orgas use this, this should be user friendly enough.
         pulseError(e?.jsonContent?.message ?? this.$t('error_unexpected'))
-        this.fetchRegionData(this.region.id)
+        this.fetchRegionData({ states: { id: this.region.id } })
       }
     },
     prepareNewRegion () {

@@ -7,7 +7,7 @@
       <Link
         v-if="isFoodsaver"
         icon="fa-search"
-        title="Suche"
+        :title="$t('search.title')"
         modal="searchBarModal"
       />
       <NavConversations v-if="!viewIsMobile" />
@@ -57,6 +57,9 @@ export default {
   },
   mounted () {
     window.addEventListener('keypress', this.openSearchViaKeyCombinationHandler)
+  },
+  beforeDestroy () {
+    window.removeEventListener('keypress', this.openSearchViaKeyCombinationHandler)
   },
   methods: {
     openSearchViaKeyCombinationHandler (event) {

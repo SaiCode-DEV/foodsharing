@@ -25,7 +25,7 @@
       <EventAttendees :attendees="currentAttendees" />
     </template>
 
-    <Container :title="'Beschreibung'" wrap-content>
+    <Container :title="$t('description')" wrap-content>
       <Markdown :source="event.description" />
     </Container>
 

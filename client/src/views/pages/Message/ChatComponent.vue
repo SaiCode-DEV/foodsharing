@@ -744,7 +744,6 @@ export default {
      * Will be called when clicked on the failure icon next to a message
      */
     async clickFailedMessage ({ roomId, message }) {
-      console.error('clickFailedMessage', roomId, message)
       await conversationStore.resendFailedMessage(roomId, message.indexId)
     },
     /**

@@ -4472,6 +4472,7 @@ resource_mosaic:
       none: "Du hast keine Beschreibung für deine Ressource angegeben. Bist du sicher, dass andere Nutzer:innen verstehen können, worum es bei deiner Ressource geht, damit sie dich gezielt danach fragen können?"
   is_private_hint: "Diese Resource wird nur Bekannten angezeigt."
   is_commons: "Diese Ressource gehört nicht einer einzelnen Person, sondern ist ein Gemeingut"
+  restricted_to: "Eingeschränkt auf:"
   confirm_delete: "Möchtest du diese Resource wirklich löschen?"
   no_own_resources: "Du hast noch keine Ressourcen angegeben. Du kannst jetzt bestimmte Fähigkeiten, Gegenstände oder Beziehungen eintragen, um sie in der Community sichtbar zu machen."
 

@@ -89,11 +89,11 @@ export default {
       }
     },
     findDropZone (element) {
-      while (!element.parentElement.classList.contains('drag-drop-container')) {
+      if (!element) return undefined
+      while (element.parentElement && !element.parentElement.classList.contains('drag-drop-container')) {
         element = element.parentElement
-        if (element.parentElement === null) return undefined
       }
-      return element
+      return element.parentElement ? element : undefined
     },
     getLilSiblingsCount (element) {
       let i = 0

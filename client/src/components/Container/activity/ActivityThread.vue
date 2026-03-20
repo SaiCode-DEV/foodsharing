@@ -7,7 +7,7 @@
       v-bind="post"
     />
     <button
-      v-if="!loading && !end && showActivePosts !== 0"
+      v-if="!loading && !end && showActivePosts.length !== 0"
       class="list-group-item small activity-item list-group-item-secondary list-group-item-action font-weight-bold text-center"
       @click="fetchUpdates"
       v-text="$t('globals.show_more')"
@@ -87,8 +87,7 @@ export default {
           this.end = true
         }
       } catch (e) {
-        this.page--
-        console.log(e)
+        console.error(e)
       } finally {
         this.loading = false
       }

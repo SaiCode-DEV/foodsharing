@@ -40,7 +40,7 @@ export default {
       if (dates[0] === dates[1]) {
         dates[1] = ''
       }
-      const range = `${dates[0]} ${times[0]} bis ${dates[1]} ${times[1]}`
+      const range = `${dates[0]} ${times[0]} – ${dates[1]} ${times[1]}`
       const relativeTime = this.$dateFormatter.relativeTime((start > now) ? start : end)
       let relation = ''
       if (start > now) {

@@ -101,7 +101,7 @@ const title = computed(() => {
   }
 })
 
-const selectedRegionId = ref(props.regionId || regionStore.regions[0].id)
+const selectedRegionId = ref(props.regionId || regionStore.regions[0]?.id)
 
 const formData = ref({
   title: '',
@@ -138,16 +138,19 @@ function onFileChange (file) {
   formData.value.picture = file.url
 }
 
-onMounted(() => {
+onMounted(async () => {
   if (isNewBlog.value) {
     return
   }
   // Load blogpost data
   showLoader()
-  getBlogpost(props.blogId).then((response) => {
-    formData.value = response
+  try {
+    formData.value = await getBlogpost(props.blogId)
+  } catch (error) {
+    pulseError(i18n('error_unexpected'))
+  } finally {
     hideLoader()
-  })
+  }
 })
 </script>
 <style scoped>
