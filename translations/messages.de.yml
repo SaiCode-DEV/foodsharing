@@ -962,6 +962,7 @@ store:
     team: "Nachricht ans Team"
     jumper: "Nachricht an Springer"
     managers: "Nachricht an Betriebsverantwortliche"
+    managers_preface: "Anfrage an die Betriebsverantwortlichen von [{store}]({storeUrl}):"
   not-in-team: "Du bist noch nicht im Team dieses Betriebs."
   pickup_slot_unavailable: "Dieser Slot liegt weiter in der Zukunft als von deinen Betriebsverantwortlichen vorgesehen ist. Versuche es also bitte zu einem späteren Zeitpunkt erneut."
   all_of_my_stores: "Alle meine Betriebe"
@@ -1361,6 +1362,7 @@ pickup:
       via: "durch"
       remove_reason: "(Grund: {reason})"
   chat: "Slot-Chat starten"
+  chat_preface: "{date} bei [{store}]({storeUrl}):"
   edit:
     bread: "Slots bearbeiten"
     slot_titel: "Slots"

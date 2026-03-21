@@ -15,6 +15,8 @@ export default new Vue({
   data: {
     hasMoreConversations: true, // if all conversations have been loaded
     conversations: {},
+    // pending preface texts for conversations opened programmatically
+    pendingPreface: {},
     failureMessageId: -1, // unique message id for failed message sending. Always negative
     messagePageOpenChatListener: null, // the message page can register a listener to be called when a chat should be opened
     messagePopupOpenChatListener: null, // On the Desktop page, the popup chat can register a listener to be called when a chat should be opened
@@ -152,10 +154,10 @@ export default new Vue({
       const conversationId = response.conversation.id
       return conversationId
     },
-    async openMultiChat (participantIds) {
+    async openMultiChat (participantIds, preface = null) {
       const uniqueParticipantIds = Array.from(new Set(participantIds)) // remove duplicates
       const conversationId = await this.createConversation(uniqueParticipantIds)
-      this.openChat(conversationId)
+      this.openChat(conversationId, preface)
     },
     async resendFailedMessage (conversationId, failureMessageId) {
       const message = this.conversations[conversationId].messages[failureMessageId]
@@ -163,7 +165,14 @@ export default new Vue({
       this.assignMessageToStore(conversationId, sentMessage)
       Vue.delete(this.conversations[conversationId].messages, failureMessageId)
     },
-    openChat (conversationId) {
+    openChat (conversationId, preface = null) {
+      if (preface) {
+        this.pendingPreface[String(conversationId)] = preface
+        // Persist transient preface to sessionStorage so it survives full-page
+        // navigations (mobile opens /msg?cid=...), then the chat UI can read
+        // it.
+        sessionStorage.setItem(`fs_pending_preface:${conversationId}`, JSON.stringify(preface))
+      }
       if (this.messagePageOpenChatListener) {
         this.messagePageOpenChatListener(conversationId)
       } else if (this.messagePopupOpenChatListener) {
@@ -172,9 +181,24 @@ export default new Vue({
         goTo(urls.conversations(conversationId))
       }
     },
-    async openChatWithUser (userId) {
+    async openChatWithUser (userId, preface = null) {
       const conversation = await api.getConversationIdForConversationWithUser(userId)
-      this.openChat(conversation.id)
+      this.openChat(conversation.id, preface)
+    },
+    popPreface (conversationId) {
+      const key = String(conversationId)
+      const val = this.pendingPreface[key] || null
+      if (val) { delete this.pendingPreface[key] }
+      if (val) return val
+
+      const sessionKey = `fs_pending_preface:${conversationId}`
+      const sessionVal = sessionStorage.getItem(sessionKey)
+      if (sessionVal) {
+        sessionStorage.removeItem(sessionKey)
+        try { return JSON.parse(sessionVal) } catch { return null }
+      }
+
+      return null
     },
     async renameConversation (conversationId, newName) {
       await api.renameConversation(conversationId, newName)

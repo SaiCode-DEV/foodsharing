@@ -504,7 +504,12 @@ export default {
     },
     openManagerChat () {
       const storeManagers = this.store.managers.map(item => item.id)
-      conversationStore.openMultiChat(storeManagers.concat(this.userId))
+      const storeUrl = this.$url('store', this.storeId)
+      const preface = {
+        content: this.$t('store.chat.managers_preface', { store: this.storeInformation.name, storeUrl }),
+        username: this.storeInformation.name,
+      }
+      conversationStore.openMultiChat(storeManagers.concat(this.userId), preface)
     },
   },
 }

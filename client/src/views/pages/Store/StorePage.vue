@@ -283,7 +283,12 @@ export default {
     multiChat (userId) {
       if (!userId) return
       const storeManagers = this.storeMember.filter(item => item.isResponsible).map(item => item.id)
-      conversationStore.openMultiChat(storeManagers.concat(userId))
+      const storeUrl = this.$url('store', this.storeId)
+      const preface = {
+        content: this.$t('store.chat.managers_preface', { store: this.storeInformation.name, storeUrl }),
+        username: this.storeInformation.name,
+      }
+      conversationStore.openMultiChat(storeManagers.concat(userId), preface)
     },
   },
 }

@@ -132,7 +132,7 @@ import Container from '@/components/Container/Container.vue'
 import storeEntryMixin from '@/mixins/storeEntryMixin'
 import { STORE_PUBLICITY_AND_STICKER_OPTIONS } from '@/stores/stores'
 import { useStoreStore } from '@/stores/store'
-import { STORE_CATEGORY_PICKUP } from '@/constants/storeCategoryTypes'
+import { STORE_CATEGORY_PICKUP, STORE_CATEGORY_GIVING } from '@/constants/storeCategoryTypes'
 import NavigateWithSelector from '@/components/UI/NavigateWithSelector.vue'
 import AvatarStack from '../Avatar/AvatarStack.vue'
 import Info from '../Help/Info.vue'
@@ -234,6 +234,7 @@ export default {
       return { categoryType: this.categoryType }
     },
     STORE_CATEGORY_PICKUP: () => STORE_CATEGORY_PICKUP,
+    STORE_CATEGORY_GIVING: () => STORE_CATEGORY_GIVING,
     pressInfo () {
       switch (this.press) {
         case STORE_PUBLICITY_AND_STICKER_OPTIONS.YES:

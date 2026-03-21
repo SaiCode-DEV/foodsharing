@@ -76,6 +76,7 @@
             :allow-confirm="(isCoordinator || mayEditStore)"
             :allow-chat="slot.profile.id !== user.id"
             :date="date"
+            :store-name="storeTitle"
             @leave="$refs.modal_leave.show()"
             @kick="activeSlot = slot, $refs.modal_kick.show()"
             @confirm="$emit('confirm', {date: date, fsId: slot.profile.id})"
@@ -409,7 +410,12 @@ export default {
       this.loadedPickupRule = true
     },
     openMultiChat () {
-      conversationStore.openMultiChat(this.occupiedSlots.map(slot => slot.profile.id))
+      const storeUrl = this.$url('store', this.storeId)
+      const preface = {
+        content: this.$t('pickup.chat_preface', { date: this.$dateFormatter.dateTime(this.date, { short: true }), store: this.storeTitle, storeUrl }),
+        username: this.storeTitle,
+      }
+      conversationStore.openMultiChat(this.occupiedSlots.map(slot => slot.profile.id), preface)
     },
     agendaStatusIcon (item) {
       if (item.type === 'store') {

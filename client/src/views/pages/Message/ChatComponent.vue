@@ -552,6 +552,12 @@ export default {
         const storedChatText = this.storage.get(this.roomId)
         if (storedChatText) {
           this.setMessageText(storedChatText)
+        } else {
+          // If a preface was provided when opening this chat, show it in the reply box
+          const preface = conversationStore.popPreface(roomId)
+          if (preface) {
+            setTimeout(() => this.setReplyPreface(preface), 0)
+          }
         }
       }
 
@@ -694,6 +700,41 @@ export default {
     },
     fetchMoreRooms () {
       conversationStore.loadConversations()
+    },
+    /**
+     * Trigger the vue-advanced-chat reply/quote UI for the given preface.
+     * initReplyMessage lives on the Room sub-component (not on the ChatWindow
+     * custom element root), so we traverse the VNode tree to find it.
+     */
+    setReplyPreface (preface) {
+      const chatWindowInst = this.$el._instance
+      if (!chatWindowInst) return
+
+      const findByData = (vnode, key) => {
+        if (!vnode) return null
+        if (vnode.component) {
+          if (vnode.component.data && key in vnode.component.data) return vnode.component
+          const found = findByData(vnode.component.subTree, key)
+          if (found) return found
+        }
+        const children = [
+          ...(Array.isArray(vnode.children) ? vnode.children : []),
+          ...(vnode.dynamicChildren || []),
+        ]
+        for (const c of children) {
+          if (c && typeof c === 'object') {
+            const found = findByData(c, key)
+            if (found) return found
+          }
+        }
+        return null
+      }
+
+      const roomInst = findByData(chatWindowInst.subTree, 'initReplyMessage')
+      if (roomInst) {
+        roomInst.data.initReplyMessage = { _id: 'preface', content: preface.content, username: preface.username }
+        setTimeout(() => { roomInst.data.initReplyMessage = null }, 0)
+      }
     },
     setMessageText (text) {
       setTimeout(() => {
