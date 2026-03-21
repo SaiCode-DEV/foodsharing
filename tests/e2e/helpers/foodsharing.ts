@@ -7,6 +7,7 @@ import fs from "fs";
 import { v4 as uuidv4 } from "uuid";
 import { mkdirp } from "mkdirp";
 import { serialize } from "php-serialize";
+import { isValidPhoneNumber } from "libphonenumber-js";
 
 // Import enums from separate files
 import Role from "./constants/Foodsaver/Role";
@@ -142,6 +143,19 @@ class Foodsharing {
       delete extraParams.skip_quiz_creation;
     }
 
+    // Faker generates some (~1.4%) phone numbers that are invalid according to libphonenumber-js.
+    // Try to generate a valid one, so tests with validating phone number form fields do not fail.
+    let phoneNumber: string = null;
+    for (let i = 0; i < 100; i++) {
+      phoneNumber = faker.phone.number({ style: "international" });
+      if (isValidPhoneNumber(phoneNumber)) {
+        break;
+      }
+    }
+    if (!phoneNumber) {
+      throw new Error("Failed to generate valid phone number");
+    }
+
     const params = {
       bezirk_id: 0,
       name: firstName,
@@ -157,7 +171,7 @@ class Foodsharing {
       geb_datum: faker.date.birthdate({ min: 18, max: 80, mode: "age" }),
       last_login: faker.date.recent({ days: 365 }),
       anschrift: faker.location.street(),
-      handy: faker.phone.number({ style: "international" }),
+      handy: phoneNumber,
       active: 1,
       token: faker.string.uuid(),
       photo: pictureUrl,

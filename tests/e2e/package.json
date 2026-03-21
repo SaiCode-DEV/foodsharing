@@ -8,6 +8,7 @@
     "@playwright/test": "^1.57.0",
     "@types/node": "^22.13.13",
     "husky": "^8.0.0",
+    "libphonenumber-js": "^1.12.40",
     "typescript": "~5.9.3"
   },
   "dependencies": {

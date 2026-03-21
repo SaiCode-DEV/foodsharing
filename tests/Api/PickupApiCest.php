@@ -535,7 +535,11 @@ class PickupApiCest
         if ($agendaDate->hour >= 23) {
             // Fix edge case when test runs around midnight
             $agendaDate->addDay()->hours(10);
+        } else {
+            // Go to the next full hour so time is never in the past after truncation
+            $agendaDate->addHour();
         }
+        // Truncate to get clean time with recognizable offsets
         $agendaDate->minutes(0)->seconds(0)->microseconds(0);
 
         // Add past pickup

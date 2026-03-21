@@ -109,9 +109,10 @@ test.describe("FoodSharePoint", () => {
     await page.waitForSelector(
       "text=Schreibe hier ein paar grundsätzliche Infos über den Fairteiler",
     );
-    await page.waitForSelector(
-      "text=insbesondere wann er zugänglich/geöffnet ist",
-    );
+
+    // Wait for the form to be populated with the fetched foodsharepoint data before making changes
+    await expect(page.locator('#description-md')).not.toBeEmpty();
+
     await page.fill("#description-md", "The BEST fairshare point!");
 
     const ui = new FoodsharingUI(page);
