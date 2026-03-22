@@ -26,17 +26,17 @@ store:
       normal: Mora a cerca de {distance} km
     title: 'Solicitações sobre {storeTitle}'
     to-team: 'adicionar à equipa'
-    withdrawn: 'A solicitação foi retirada com sucesso.'
+    withdrawn: 'O pedido foi retirada com sucesso.'
     to-nowhere: 'recusar'
-    got-it: 'Os responsáveis foram informados do teu solicitação e entrarão em contacto
+    got-it: 'Os responsáveis foram informados do teu pedido e entrarão em contacto
       consigo.'
     unverified: 'O utilizador não está verificado'
     air_line: 'A distância indicada é em linha reta.'
     verified: 'O Utilisador está verificado'
-    no-duplicate: 'Já existe uma solicitação.'
+    no-duplicate: 'Já existe um pedido.'
     request: 'Aplicar para esta equipa'
     to-jumper: 'Lista de substitutos'
-    withdraw: 'Cancelar minha solicitação'
+    withdraw: 'Cancelar meu pedido'
     confirm-far: De acordo com a morada guardada, moras muito longe deste sítio 
       ({distance}). Tens a certeza de que podes apoiar a equipa de forma regular
       e fiável?
@@ -159,10 +159,10 @@ store:
       2: 'Recursar solicitações de adesão'
       7: 'Remover Foodsavers da equipa'
       14: 'Confirmar a vaga'
-      1: 'Fazer uma solicitação de adesão'
+      1: 'Enviar um pedido de adesão'
       16: 'Retirar o pedido de affiliação'
       8: 'Abandonar a equipa'
-      4: 'Adicionar Foodsavers ao equipa sem a solicitação'
+      4: 'Adicionar Foodsavers ao equipa sem o pedido'
       10: 'Remover responsáveis'
       6: 'Adicionar Foodsavers ao equipa ativo'
       12: 'Cancelar a vaga'
@@ -233,7 +233,8 @@ store:
     jumper: 'Mensagem aos substitutos'
     team: 'Mensagem á equipa'
     managers: Mensagem aos responsáveis
-  isAppliedForTeam: 'Solicitação'
+    managers_preface: 'Chat com os responsáveis do [{store}]({storeUrl}):'
+  isAppliedForTeam: 'Pedido'
   locked: 'Não pode editar este local.'
   lastPickup: 'Última vaga {date}'
   team_container: 'Equipa'
@@ -284,7 +285,7 @@ store:
   go: 'Para a equipa'
   bread: 'Todos os locais'
   particularities_chain: 'Instruções da cadeia'
-  appliedFor: 'Solicitação realizada'
+  appliedFor: 'Pedido realizado'
   filter: 'Filtrar por …'
   regionPickupRuleLong: 'No período de {regionPickupRuleTimespan} dias antes e depois
     da data de recolha desejada, não podem ter sido registadas mais de {regionPickupRuleLimit}
@@ -404,7 +405,7 @@ bell:
   store_request_accept_wait_title: '{name}'
   forum_answer_title: '{forum}'
   buddy_request_title: 'Conheces {name}?'
-  store_new_request_title: 'Nova solicitação para a equipa'
+  store_new_request_title: 'Pedido novo à equipa'
   forum_new_thread: 'de {user} no fórum {forum}'
   store_new_title: 'Novo local'
   sharepoint_activate_title: 'Novo cantinho alimentar em {bezirk}'
@@ -429,7 +430,7 @@ bell:
   foodsaver_verified_title: 'Estas verificado!'
   fs_sleepmode_title: 'Novo dorminhoco'
   forum_mention_title: '{user} mencionou-te ({forum})'
-  store_new_request: 'Solicitação para {name}'
+  store_new_request: 'Pedido para {name}'
   sharepoint_activate: '{name} foi internado'
   passgen_failed_title: 'Não foi possível criar o teu cartão de membro'
   fs_sleepmode: '{name} {nachname} agora está inactivo'
@@ -447,7 +448,7 @@ bell:
   workgroup_request_accept: 'Foi aceite no grupo de trabalho.'
   forum_mention: 'no tópico «{title}» do fórum {forum}'
   new_foodsaver_needs_verification: 'precisa ser verificado'
-  store_request_deny: 'A tua solicitação foi rejeitada.'
+  store_request_deny: 'O teu pedido foi rejeitada.'
   new_quiz_comment_title: 'Comentário sobre a pergunta #{questionId}'
   workinggroup_new_request_title: '{name}'
   store_wall_post:
@@ -899,7 +900,7 @@ basket:
     "3": 'tres dias'
     "5": cinco días
   all_map: 'Todos os cabazes no mapa'
-  request_denied: 'A tua solicitação foi recusada pelo fornecedor do cabaz alimentar.'
+  request_denied: 'O teu pedido foi recusado pelo fornecedor do cabaz alimentar.'
   is:
     vegan: 'produtos são veganos'
     gf: 'produtos são sem gluten'
@@ -924,7 +925,7 @@ basket:
   state:
     okay: 'Sim, o cabaz alimentar foi recolhado.'
     gone: 'Os alimentos foram recolhidos por uma outra pessoa.'
-    deny: 'Quero recusar este solicitação.'
+    deny: 'Quero recusar este pedido.'
     nope: 'Não, o cabaz alimentar não foi recolhido como combinado.'
     finished: 'Obrigado, o processo está finalizado.'
   request-fs: 'Solicitar um cabaz alimentar através da nossa página web do Foodsharing'
@@ -939,7 +940,7 @@ basket:
     está registado como o foodsharer? Então clique em **Participar** acima e comece
     agora mesmo.'
   go-to-settings: 'para as configurações'
-  request_empty: 'O texto da tua solicitação não pode estar em branco.'
+  request_empty: 'O texto do teu pedido não pode estar em branco.'
   request: 'Solicitar um cabaz alimentar'
   no_nearby: 'Não há cabazes alimentares num raio de {radius} km'
   add: 'Criar um cabaz alimentar'
@@ -947,11 +948,11 @@ basket:
   not_found: 'O cabaz alimentar já não existe.'
   delete: 'Apagar o cabaz alimentar'
   requests: 'Solicitações ({count})'
-  request_close: 'Fechar solicitação'
-  withdraw_request: 'Cancelar a solicitação'
-  change-state: 'Concluir a solicitação do cabaz alimentar de {name}'
-  sent_request: 'A solicitação foi enviada'
-  send_request: 'Enviar solicitação'
+  request_close: 'Finalizar o pedido do cabaz alimentar'
+  withdraw_request: 'Cancelar pedido'
+  change-state: 'Concluir o pedido do cabaz alimentar de {name}'
+  sent_request: 'O pedido foi enviado'
+  send_request: 'Enviar pedido'
   created: 'Publicado:'
   requested_by: 'solicitado por {name}'
   provider: 'Fornecedor'
@@ -965,7 +966,7 @@ basket:
   image: 'Adicione uma foto ao cabaz alimentar.'
   n_requests: 'Solicitações até agora:'
   description: 'Descrição'
-  withdrawn_request: 'A solicitação foi cancelada'
+  withdrawn_request: 'O pedido foi cancelado'
   all: 'Todos os cabazes alimentares'
   on: 'Cabaz alimentar de {platform}'
   go: 'para a cabaz alimentar'
@@ -1147,7 +1148,7 @@ profile:
     buddycount_followed: '{name} conhecem {count} Foodsavers'
     privateMail: 'E-mail privado'
   mediation:
-    title: 'Solicitação de mediação para {name}'
+    title: 'Pedido de mediação para {name}'
     info: 'Achamos fantástico que busques apoio para abordar a situação com a pessoa
       em questão. A equipa de mediação pode atuar como mediadora e ajudar a garantir
       que as vossas conversas sejam conduzidas em pé de igualdade e com respeito mútuo.
@@ -1386,7 +1387,7 @@ profile:
     store_table: lista de locais
     memberState:
       filterAll: todos
-      filterRequested: solicitação enviada
+      filterRequested: Pedido enviado
       filterInvitations: convidado
       filterActive: membro
       filterManage: responsável
@@ -1946,6 +1947,7 @@ pickup:
     long: O teu cartão de membro já não é válido neste momento
   chat: Abrir chat da vaga
   slots: Vagas
+  chat_preface: '{date} no [{store}]({storeUrl}):'
 error:
   mail_bounce:
     title: 'Endereço de e-mail bloqueado!'
@@ -3008,8 +3010,8 @@ settings:
     explanation_other_user: Aqui podes alterar o endereço de e-mail com a qual 
       este perfil foi registado. Após o envio, o utilizador receberá um e-mail 
       no novo endereço, contendo um link para confirmar a alteração.
-    explanation_password: Confirme a solicitação de alteração com a tua 
-      palavra-passe atual
+    explanation_password: Confirme o pedido de alteração com a tua palavra-passe
+      atual
     new_email_label: Novo endereço de e-mail
     new_email_placeholder: a.tua.novo@email.pt
     confirm_email_label: Confirmar endereço de e-mail
@@ -3402,6 +3404,8 @@ legal:
     this_gets_deleted_trustbananas: 'As bananas que recebeste serão removidas.'
     this_gets_deleted_quiz: 'Todos os teus testes são removidos.'
     this_doesnt_get_deleted_history: 'História da tua verificação'
+    unsubscribe_newsletter: 'Cancela também a newsletter do Foodsharing, se estiveres
+      subscrito. Podes alterar esta opção mais tarde em:'
   legal_agreement: 'acordo legal'
   privacy_notice: 'Instruções sobre proteção de dados para os responsáveis por cooperações
     e os embaixadores'
@@ -3895,6 +3899,22 @@ forum:
     moderator_info: Este tópico está fechado. Como moderador deste fórum, pode 
       mesmo assim escrever uma mensagem. Outros utilizadores não podem 
       responder!
+    edit: Editar publicação
+    edit_success: A publicação foi alterada com sucesso.
+    edit_time_remaining: Podes editar esta publicação durante mais {time} ou, no
+      máximo, até à próxima publicação neste tópico.
+    edit_mentions_note: 'Nota: As novas menções que adicionares durante a edição não
+      irão gerar novas notificações (sinos).'
+    createdAtTooltip: Criado em {date}
+    edited: editado
+    editedAtTooltip: Última edição em {date}
+    edit_expired: Não podes editar esta publicação, pois o tempo de edição já 
+      expirou.
+    edit_conflict: Já não podes editar esta publicação, porque já foi criada 
+      outra neste tópico.
+    edit_thread_not_found: Já não podes editar esta publicação, porque o tópico 
+      associado já não existe.
+    edit_post_not_found: Já não podes editar esta publicação, porque não existe.
   threads: 'Temas'
   sending_error: 'Ocorreu um erro ao envio'
   follow:
@@ -4172,8 +4192,19 @@ regionOptions:
   regionReportReasonOther: Permitir «Outros» como motivo da denúncia
   noPickupRuleActiveStores: Atualmente, a regra de locais populares não está 
     ativada para nenhum local no distrito.
-  enableAddressChangeNotification: Notificar embaixadores e administradores 
-    sobre mudança de morada de um Foodsaver neste distrito principal
+  enableAddressChangeNotification: Notificar embaixadores sobre a mudança de 
+    morada de um Foodsaver neste distrito principal
+  userRelated:
+    heading: Gestão de utilizadores
+    info: Os embaixadores do distrito podem alterar
+  pickuprule:
+    heading: Gerir regra de sultanas
+    info: Administradores da AG de Coordenação de locais (se houver) ou 
+      embaixadores do distrito podem editar
+  reporting:
+    heading: Gerir sistema de notificações
+    info: Administradores do grupo de notificações local (se houver) ou 
+      embaixadores do distrito podem editar
 ort: 'Cidade/Comunidade'
 releases:
   "2023-09": 'Versão “Jaca” 🍈 (Setembro de 2023)'
@@ -4253,7 +4284,7 @@ betrieb_kategorie_id: 'Categoria'
 success: 'Completado com sucesso'
 buddy:
   request_accepted: 'Agora vos conhecem.'
-  request_sent: 'Solicitação enviada.'
+  request_sent: 'Pedido enviado.'
   send:
     confirm_text: Caso se marquem mutuamente como conhecidos, as publicações do 
       mural do perfil da outra pessoa serão exibidas na vossa página inicial. 
@@ -4482,7 +4513,7 @@ net_errors:
     a integridade e plausibilidade.
   TOO_MANY_REQUESTS: Demasiadas solicitações. Por favor, aguarde um momento e 
     tente novamente.
-  ECONNABORTED: A solicitação foi cancelada pelo teu browser. Por favor, tente 
+  ECONNABORTED: O pedido foi cancelado pelo teu navegador. Por favor, tente 
     novamente.
   ERR_NETWORK: Houve um problema de Internet. Por favor, verifique a tua conexão
     e tente novamente.
@@ -4490,7 +4521,7 @@ net_errors:
     tua conexão e tenta novamente.
   ERR_BAD_RESPONSE: O servidor devolveu uma resposta inválida. Por favor, tente 
     novamente.
-  ERR_CANCELED: A solicitação foi cancelada. Tente novamente, se necessário.
+  ERR_CANCELED: O pedido foi cancelado. Tente novamente, se necessário.
   unknown: Houve um erro desconhecido. Por favor, tente novamente mais tarde.
 error_base64_image: Não é permitido inserir imagens através de drag & drop.
 support_page:
@@ -5021,6 +5052,7 @@ resource_mosaic:
   title: 'Mosaico de recursos'
   is_private_hint: 'Este recurso só aparece para os teus conhecidos.'
   add: 'Inscrever um novo recurso'
+  restricted_to: 'Limitado a:'
 categories:
   title:
     resource: 'Categorias de recursos'

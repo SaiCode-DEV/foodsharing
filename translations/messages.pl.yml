@@ -1042,7 +1042,8 @@ register:
   select_your_gender: 'Forma grzecznościowa …'
   birthdate_hint: 'Więcej informacji możesz znaleźć w [polityce prywatności]({url}),
     w punkcie 2d, "Rejestracja jako foodsharer/ka lub foodsaver/ka".'
-  token_invalid_or_expired: ''
+  token_invalid_or_expired: 'Kod rejestracji jest nieznany albo utracił ważność. Zażądaj
+    nowego kodu, aby się zarejestrować.'
   invalid_token: ''
   join_initialised: ''
   join_initialised_message: ''
@@ -1138,7 +1139,7 @@ terminology:
   welcomeAdmins: ''
   groups: 'Zespoły'
   moderationAdmins: 'Team moderacji'
-  community: ''
+  community: 'Grupa lokalna {name}'
   n_home_regions: '{count} z rejonem macierzystym'
   arbitrationAdmins: 'rada arbitrażowa'
   storesAdmins: ''
@@ -1360,9 +1361,9 @@ fsp:
       sposób chcesz otrzymywać te powiadomienia?
     manager: Jesteś odpowiedzialny/a za tę jadłodzielnię i z tego względu 
       zobowiązany/a akceptować update'y.
-    mail: ''
+    mail: 'Dzwonek i powiadomienie mailem'
     descModal: ''
-    bell: ''
+    bell: 'tylko powiadomienia wewnętrzne (dzwonek)'
   createdAt: 'Otwarte:'
   summary: 'Jest/są {count} jadłodzielni/e w rejonach, w których jesteś aktywny/a'
   summaryRegion: 'Jest/są {count} jadłodzielni/e w {region} i wszystkich podrejonach'
@@ -1389,7 +1390,7 @@ storeview:
   calendar_interval:
     single: 1 tydzień
     multiply: '{weeks} Tygodni(e)'
-    not_set: ''
+    not_set: 'Nie wybrano przedziału czasu'
   choose_chain: Wybierz sieć
   info: Informacje
   team_info_active: 'Aktywni/e w teamie:'
@@ -1678,7 +1679,7 @@ store:
     się ze swoimi ambasador(k)ami, aby ją przedłużyć. Po upływnie terminu ważności
     nie będziesz mógł/mogła się tutaj zapisywać.'
   bread: ''
-  particularities_chain: ''
+  particularities_chain: 'Uwagi o sieci'
   appliedFor: 'Wysłano zgłoszenie'
   regionPickupRuleLong: ''
   isJumper: 'Jest na liście rezerwowych.'
@@ -1754,8 +1755,7 @@ storeedit:
     status: status
   fetch:
     teamStatus: status teamu
-    teamStatus0: Ten team jest zamknięty i aktualnie nie szuka więcej 
-      pomocników.
+    teamStatus0: Ten team aktualnie nie przyjmuje zgłoszeń
     teamStatus1: Team jest otwarty na zgłoszenia od foodsaverów/ek
     teamStatus2: Pilnie potrzebne wsparcie
     verifiedRequired: Dopuść tylko zweryfikowanych/e foodsaverów/ki
@@ -1965,6 +1965,18 @@ forum:
     hiddenReason: 'Uzasadnienie: {reason}'
     body: Wiadomość
     moderator_info: ''
+    edit: Edytuj post
+    edit_success: Pomyślnie edytowano post.
+    edit_time_remaining: Możesz edytować ten post jeszcze przez {time} bądź 
+      dopóki nie pojawi się nowy post w tym wątku.
+    createdAtTooltip: Utworzony {date}
+    edited: edytowano
+    editedAtTooltip: Ostatnio edytowano {date}
+    edit_expired: Już nie możesz edytować tego postu, bo czas edycji upłynął.
+    edit_thread_not_found: Już nie możesz edytować tego postu, bo 
+      przyporządkowany mu temat (już) nie istnieje.
+    edit_post_not_found: Już nie możesz edytować tego postu, bo on (już) nie 
+      istnieje.
   thread:
     delivery_mail: Aktywuj wysyłanie maili
     no_mail: Temat został otwarty bez wysyłania maili
@@ -2233,7 +2245,8 @@ bell:
   translation_failed:
     md_support: Jeśli myślisz, że wystąpił błąd, zgłoś ten fakt do 
       [Support](/support)
-    md: ''
+    md: "Dzwonek zawiera nieznany tekst. Prawdopodobnie dlatego, że ten dzwonek pochodzi
+      z wersji beta.\n\n\n\n Tytuł: `{bellTitle}`\n\n\n\n Klucz: `{bellKey}`"
     title: 'Nieznany dzwonek'
     key: 'Dzwonki z beta nie mogą być wyświetlane'
   forum_answer_title: '{forum}'
@@ -2447,6 +2460,12 @@ regionOptions:
   regionPickupRuleActive: ''
   regionPickupLimitDayNumber: 'Maksymalna liczba rodzynkowych slotów na dzień'
   enableAddressChangeNotification: ''
+  userRelated:
+    info: Może być zmienione przez ambasadorów/ki rejonu
+  pickuprule:
+    heading: Opcje reguły rodzynkowej
+  reporting:
+    heading: Opcje systemu skarg
 foodsaver:
   bread: Wszyscy foodsaverzy/ki
   title: Foodsaver
@@ -3263,7 +3282,7 @@ poll:
   type: ''
 categories:
   title:
-    resource: ''
+    resource: 'Kategorie zasobów'
     store: ''
   confirm_delete: ''
   types:
@@ -3271,7 +3290,7 @@ categories:
     2: ''
     1: ''
     "null": ''
-  empty: ''
+  empty: 'Jeszcze nie wprowadzono żadnej kategorii'
   confirm_delete_hint:
     store: ''
     resource: ''
@@ -3466,17 +3485,17 @@ error:
   missing_geolocation:
     title: 'Nie podano ważnego adresu'
     description: ''
-    link: ''
+    link: 'Do wprowadania adresu'
   missing_user_avatar:
-    title: ''
-    link: ''
+    title: 'Nie załadowałeś/aś jeszcze zdjęcia profilowego.'
+    link: 'Załaduj zdjęcie profilowe teraz'
     description: ''
   passport_is_invalid_soon:
     description: ''
     link: 'Ustawienia profilu'
     title: 'Ważność twojej legitymacji niedługo się kończy!'
   invalid_landline_phonenumber:
-    title: ''
+    title: 'Wystąpił błąd z twoim numerem stacjonarnym.'
     link: 'Popraw numer stacjonarny teraz'
     description: ''
   invalid_mobile_phonenumber:
@@ -3490,7 +3509,7 @@ error:
     other: 'Wystąpił nieznany błąd.'
   mail_activation:
     description: ''
-    title: ''
+    title: 'Adres email nie jest potwierdzony!'
     link_1: 'Zarządaj nowego maila aktywującego'
     link_2: 'Zmień adres email'
   passport_is_invalid:
@@ -3790,13 +3809,13 @@ chain:
     edit: 'Nie można edytować sieci ({error}).'
     notfs: 'Aby wyświetlić tę listę musisz być foodsaverem/ką.'
   columns:
-    kams: ''
-    stores: ''
+    kams: 'KAM'
+    stores: 'utworzono'
     actions: 'Akcje'
     name: 'Nazwa'
     headquarters: 'centrala'
     estimatedStoreCount: 'Filie'
-    notes: ''
+    notes: 'Uwagi'
     status: 'Status'
   inputmodal:
     inputs:
@@ -3844,12 +3863,13 @@ chain:
     cancel: 'Anuluj'
   errorCodes:
     EMPTY_COUNTRY: 'Pole "państwo" nie może być puste'
-    KEY_ACCOUNT_MANAGER_MISSING_ACHIEVEMENT: ''
+    KEY_ACCOUNT_MANAGER_MISSING_ACHIEVEMENT: 'Key-Account-Manager/ka nie zaliczyła
+      szkolenia dla KAMów.'
     EMPTY_CITY: 'Pole "miasto" nie może być puste'
     EMPTY_NAME: 'Pole "nazwa" jest puste'
     INVALID_STORECHAIN_ID: ''
     WRONG_FORUM: ''
-    KEY_ACCOUNT_MANAGER_ID_NOT_EXISTS: ''
+    KEY_ACCOUNT_MANAGER_ID_NOT_EXISTS: 'Key-Account-Manager/ka nie istnieje'
     INVALID_STATUS: 'Pole "status" jest puste'
     EMPTY_ZIP: 'Pole "kod pocztowy" nie może być puste'
     THREAD_ID_NOT_EXISTS: 'Wątek w forum nie istnieje'
@@ -3858,7 +3878,7 @@ chain:
     title: ''
     stores: ''
   tooltips:
-    modificationDate: ''
+    modificationDate: 'Ostatnio edytowano'
     options: 'Opcje'
   bread:
     list: ''
@@ -3873,8 +3893,8 @@ chain:
   options:
     showstores: ''
     edit: 'Edytuj'
-  filterplaceholder: ''
-  listheader: ''
+  filterplaceholder: 'Nazwa / adres / KAM ID'
+  listheader: 'Sieci'
 globals:
   saved: 'Zapisano zmiany'
   type:
@@ -4062,7 +4082,9 @@ startpage:
   donate:
     title: ''
     link: 'wspieraj foodsharing'
-    text: ''
+    text: "Próbujemy znaleźć sponsorów na wszelkie wydatki. W niektórych przypadkach
+      jednak nie udaje nam się to, bądź nie w całości, \nnp. przy nakładach na finansowanie
+      eventów, poradnictwo prawne lub ubezpieczenia.\nCieszy nas każde wsparcie.\n"
   slogan_1: ''
   registernow: 'Zarejestruj się teraz'
   this_is_how_it_works: 'Tak to działa'
@@ -4283,7 +4305,7 @@ information:
     description: ''
     title: ''
   calendar_sync:
-    title: ''
+    title: 'Znasz synchronizację kalendarza do twoich slotów?'
     link: ''
     description: ''
 team_page:
@@ -4315,7 +4337,7 @@ debug:
   info: ''
 prefetchtime: ''
 usersearch:
-  search_tag: ''
+  search_tag: 'wybierz użytkowników'
   no_tag_preset: 'Nie znaleziono użytkownika/czki'
   select_tag: 'Szukaj użytkowników według imienia'
 contentmanagement: ''
