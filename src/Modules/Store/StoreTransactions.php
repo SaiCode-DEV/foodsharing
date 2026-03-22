@@ -1217,7 +1217,15 @@ class StoreTransactions
         $member->isResponsible = boolval($data['verantwortlich']);
         $member->membershipStatus = $data['team_active'];
         $member->fetchCount = $data['stat_fetchcount'];
-        $member->memberSince = Carbon::parse($data['add_date']);
+
+        try {
+            // stat_add_date can be null for historical reasons.
+            // Carbon::make passes through null values and throws for invalid,
+            // so the end result is a valid DateTime or null.
+            $member->memberSince = Carbon::make($data['stat_add_date']);
+        } catch (Exception) {
+            $member->memberSince = null;
+        }
 
         if ($member instanceof StoreTeamMember) {
             $member->handy = $data['handy'];

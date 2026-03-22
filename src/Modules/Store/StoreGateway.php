@@ -1033,11 +1033,22 @@ class StoreGateway extends BaseGateway
      */
     public function addStoreManager(int $storeId, int $userId): int
     {
+        // If the user is already in the team, keep the original add date (or null), otherwise set it to now
+        try {
+            $addDate = $this->db->fetchValueByCriteria('fs_betrieb_team', 'stat_add_date', [
+                'betrieb_id' => $storeId,
+                'foodsaver_id' => $userId,
+            ]);
+        } catch (DatabaseNoValueFoundException) {
+            $addDate = $this->db->now();
+        }
+
         return $this->db->insertOrUpdate('fs_betrieb_team', [
             'betrieb_id' => $storeId,
             'foodsaver_id' => $userId,
             'verantwortlich' => 1,
             'active' => MembershipStatus::MEMBER,
+            'stat_add_date' => $addDate,
         ]);
     }
 

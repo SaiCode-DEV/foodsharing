@@ -994,6 +994,7 @@ store:
   error: "Betrieb konnte nicht geladen werden."
   teamName: "{storeTitle}-Team"
   joinDate: "Im Team seit {date}"
+  joinDateUnknown: "Im Team seit: Unbekannt"
   jumperSince: "Springer seit {date}"
   lastPickupTitle: "Letzter Termin hier"
   lastPickup: "Letzter Termin {date}"

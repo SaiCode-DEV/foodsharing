@@ -20,5 +20,5 @@ class StoreStandbyTeamMember extends Profile
     public bool $isResponsible;
     public int $membershipStatus;
     public int $fetchCount;
-    public DateTime $memberSince;
+    public ?DateTime $memberSince;
 }

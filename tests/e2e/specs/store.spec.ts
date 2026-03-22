@@ -2,6 +2,7 @@ import { test, expect } from "../helpers/acceptance";
 import { foodsharing } from "../helpers/foodsharing";
 import { Database } from "../helpers/database";
 import MembershipStatus from "../helpers/constants/Store/MembershipStatus";
+import { faker } from "@faker-js/faker/locale/de";
 
 test.describe("Store", () => {
   let region: Awaited<ReturnType<typeof foodsharing.createRegion>>;
@@ -470,5 +471,48 @@ test.describe("Store", () => {
     await expect(page.locator(".log-entry-content")).toHaveCount(0);
 
     await acceptanceHelper.logMeOut();
+  });
+
+  test("Create a store", async ({ page, acceptanceHelper }) => {
+    const newStoreName = "New " + faker.company.name();
+    const newWallpost = "This is a test wallpost.";
+    const newStoreDescription = "This is a test store.";
+
+    // Go to the store creation page
+    await acceptanceHelper.login(storeManager.email);
+    await page.goto(`/region/${region.id}/stores`);
+    await page.getByRole("link", { name: "Neuen Betrieb eintragen" }).click();
+
+    // Enter store name
+    await page.getByPlaceholder("Name des Betriebs").fill(newStoreName);
+    await expect(page.getByRole("textbox").first()).toBeVisible();
+    await expect(page.locator("input[disabled]")).toHaveValue(region.name);
+    await page.getByRole("button", { name: "Weiter", exact: true }).click();
+
+    // Enter store description
+    await page.getByPlaceholder("Neuen Pinnwandeintrag").fill(newWallpost);
+    await page.getByRole("textbox", { name: "Öffentliche Infos zum Betrieb" }).fill(newStoreDescription);
+    await page.getByRole("button", { name: "Weiter", exact: true }).click();
+
+    // Enter store location by dragging the map marker slightly to fill in an address
+    const markerElement = page.locator(".leaflet-marker-draggable");
+    await expect(markerElement).toBeVisible();
+    const marker = await markerElement.boundingBox();
+    await page.mouse.move(marker.x + marker.width / 2, marker.y + marker.height / 2);
+    await page.mouse.down();
+    await page.mouse.move(marker.x + marker.width / 2 + 10, marker.y + marker.height / 2 + 10);
+    await page.mouse.up();
+    await expect(page.getByRole("textbox", { name: "Straße und Hausnummer" })).not.toBeEmpty();
+    await page.getByRole("button", { name: "Anlegen", exact: true }).click();
+
+    // Check the client redirects to the new store page and shows the correct info
+    await acceptanceHelper.waitForActiveAPICalls();
+    await expect(page).toHaveURL(/\/store\/\d+$/);
+    await expect(page.getByRole("heading", { name: newStoreName })).toBeVisible();
+    await expect(page.getByText(newWallpost)).toBeVisible();
+    await expect(page.getByText("Betriebseinstellungen")).toBeVisible();
+    await expect(page.getByText(storeManager.handy)).toBeVisible();
+    await expect(page.locator(".store-member .time")).toBeVisible();
+    await expect(page.locator(".store-member .time")).toContainText(/heute|gestern/);
   });
 });

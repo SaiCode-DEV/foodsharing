@@ -11,9 +11,10 @@
         <span>{{ user.phoneNumber }}</span><br>
       </div>
       <Time
-        v-if="(user.lastPickup ?? user.joinDate) && (!sortingFunction || sortingFunction.displayInfo === 'times')"
+        v-if="!sortingFunction || sortingFunction.displayInfo === 'times'"
         :tooltip="timeTooltip(user)"
         :time="user.lastPickup ?? user.joinDate"
+        :fallback="$t('store.unknownDate')"
         :muted="false"
         :date-only="true"
         :icon="user.lastPickup ? 'fa-solid fa-fw fa-shopping-cart' : 'fa-solid fa-fw fa-user-plus'"
@@ -65,10 +66,15 @@ export default {
   methods: {
     chat,
     timeTooltip (user) {
-      const title = ['joinDate', 'lastPickup']
-        .filter(key => user[key])
-        .map(key => this.$t(`store.${key}`, { date: this.$dateFormatter.dateBasic(user[key]) }))
-        .join('<br>')
+      const tooltipLines = [
+        user.joinDate
+          ? this.$t('store.joinDate', { date: this.$dateFormatter.dateBasic(user.joinDate) })
+          : this.$t('store.joinDateUnknown'),
+        user.lastPickup
+          ? this.$t('store.lastPickup', { date: this.$dateFormatter.dateBasic(user.lastPickup) })
+          : null,
+      ].filter(Boolean)
+      const title = tooltipLines.join('<br>')
       return { title, html: true, customClass: 'small', placement: 'bottom' }
     },
     formatDistance (distance) {

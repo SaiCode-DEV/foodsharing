@@ -529,4 +529,43 @@ class StoreGatewayTest extends Unit
         $result = $this->gateway->listRegionStoresActivePickupRule($this->region['id']);
         $this->assertCount($numStoresWithPickupRule, $result);
     }
+
+    public function testAddManagerSetsJoinDate(): void
+    {
+        // Add non-team-member as manager directly, ensure join date is set
+        $this->gateway->addStoreManager($this->store['id'], $this->foodsaver['id']);
+        $this->tester->seeInDatabase('fs_betrieb_team', [
+            'betrieb_id' => $this->store['id'],
+            'foodsaver_id' => $this->foodsaver['id'],
+            'verantwortlich' => 1,
+            'stat_add_date !=' => null,
+        ]);
+
+        // Move join date to the past
+        $pastAddDate = (new DateTime('-3 day'))->format('Y-m-d');
+        $this->tester->updateInDatabase('fs_betrieb_team', [
+            'stat_add_date' => $pastAddDate
+        ], [
+            'betrieb_id' => $this->store['id'],
+            'foodsaver_id' => $this->foodsaver['id'],
+        ]);
+
+        // Demote manager to normal team member
+        $this->gateway->removeStoreManager($this->store['id'], $this->foodsaver['id']);
+        $this->tester->seeInDatabase('fs_betrieb_team', [
+            'betrieb_id' => $this->store['id'],
+            'foodsaver_id' => $this->foodsaver['id'],
+            'verantwortlich' => 0,
+            'stat_add_date' => $pastAddDate,
+        ]);
+
+        // Make manager again to ensure that the original join date is not updated
+        $this->gateway->addStoreManager($this->store['id'], $this->foodsaver['id']);
+        $this->tester->seeInDatabase('fs_betrieb_team', [
+            'betrieb_id' => $this->store['id'],
+            'foodsaver_id' => $this->foodsaver['id'],
+            'verantwortlich' => 1,
+            'stat_add_date' => $pastAddDate,
+        ]);
+    }
 }

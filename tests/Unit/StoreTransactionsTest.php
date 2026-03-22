@@ -118,7 +118,9 @@ class StoreTransactionsTest extends Unit
             'betrieb_id' => $dbStoreId,
             'foodsaver_id' => $storeCreator['id'],
             'verantwortlich' => 1,
-            'active' => MembershipStatus::MEMBER]);
+            'active' => MembershipStatus::MEMBER,
+            'stat_add_date !=' => null,
+        ]);
 
         // Check existing conversation
         $this->tester->seeInDatabase('fs_conversation', ['locked' => 1, 'id' => $teamConversation, 'name' => 'Team ' . $store->name]);

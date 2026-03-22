@@ -6,7 +6,7 @@
     class="my-3"
   >
     <MarkdownInput
-      ref="md-input"
+      input-name="publicInfo"
       variant="outline-primary"
       :rows="2"
       :conceal-toolbar="true"
