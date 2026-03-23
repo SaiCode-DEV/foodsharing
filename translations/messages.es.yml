@@ -2324,7 +2324,6 @@ basket:
   change-state: 'Cerrar solicitud de {name}'
   created: 'Publicado:'
   all_map: 'Todas las cestas de comida en el mapa'
-  recent: 'Nuevas cestas de comida'
   go: 'a la cesta de comida'
   requests: 'Solicitudes ({count})'
   login: 'Debes iniciar sesión para obtener información detallada.

@@ -170,7 +170,6 @@ basket:
   not_withdrawn: 'Не удалось отозвать запрос на корзину: '
   title: 'Корзины'
   description: 'Описание'
-  recent: 'Недавние корзины'
   go: 'к корзине'
   by: 'Корзина от {name}'
   withdrawn_request: 'Запрос отозван'

@@ -233,7 +233,7 @@ store:
     jumper: 'Mensagem aos substitutos'
     team: 'Mensagem á equipa'
     managers: Mensagem aos responsáveis
-    managers_preface: 'Chat com os responsáveis do [{store}]({storeUrl}):'
+    managers_preface: 'Chat com responsáveis de [{store}]({storeUrl}):'
   isAppliedForTeam: 'Pedido'
   locked: 'Não pode editar este local.'
   lastPickup: 'Última vaga {date}'
@@ -366,6 +366,7 @@ store:
   part_of_chain: 'Faz parte da cadeia:'
   members_not_in_target_region: 'Há membros da equipa que não fazem parte da região-alvo:
     {names}'
+  joinDateUnknown: 'Na equipa desde: desconhecido'
 navigation:
   profil: 👋 Olá {name}!
   conversations: 'Mensagens'
@@ -962,7 +963,6 @@ basket:
   edit: 'Editar a cabaz alimentar'
   no-desc: 'Por favor, escreva uma descrição.'
   where: 'Onde?'
-  recent: 'Cabazes alimentares mais novos'
   image: 'Adicione uma foto ao cabaz alimentar.'
   n_requests: 'Solicitações até agora:'
   description: 'Descrição'

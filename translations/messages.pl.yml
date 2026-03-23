@@ -3051,7 +3051,6 @@ basket:
   published: 'Dziękujemy, jadłokoszyk został opublikowany.'
   edit: 'Edytuj jadłokoszyk'
   where: 'Gdzie?'
-  recent: 'Najnowsze jadłokoszyki'
   image: 'Dodaj zdjęcie do jadłokoszyka.'
   n_requests: 'Dotychczasowe zapytania:'
   description: 'Opis'

@@ -768,7 +768,6 @@ dashboard:
 basket:
   all: ''
   all_map: ''
-  recent: ''
   nearby-short: ''
   no_nearby: ''
   publish: ''

@@ -2244,7 +2244,6 @@ basket:
   nearby: Food baskets nearby
   no_nearby: There are no food baskets within {radius} kilometers
 
-  recent: Newest food baskets
   all: All food baskets
   title: Food baskets
   all_map: All food baskets on the map

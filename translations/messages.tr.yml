@@ -2059,7 +2059,6 @@ basket:
   date: Giriş tarihi
   created: 'Yayınlandı:'
   my_list_empty: Herhangi bir yiyecek sepeti girmediniz
-  recent: En yeni yemek sepetleri
   no_nearby: '{radius} kilometre yakınında yiyecek sepeti yok'
   publish: Yemek sepeti yayınla
   edit: Yemek sepetini düzenle

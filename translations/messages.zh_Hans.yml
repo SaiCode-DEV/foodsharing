@@ -2642,7 +2642,6 @@ basket:
   no_nearby: ''
   go: ''
   all: ''
-  recent: ''
   until: ''
   error:
     map: ''

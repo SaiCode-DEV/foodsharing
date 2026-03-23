@@ -2102,7 +2102,6 @@ basket:
   not_found: ''
   not_active: ''
   mapsearch: ''
-  recent: ''
   all: ''
   go: ''
   send_request: ''
