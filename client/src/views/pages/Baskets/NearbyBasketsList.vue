@@ -7,7 +7,7 @@
     <h5 class="mb-3">
       {{ $t('basket.nearby-short') }}
     </h5>
-    <b-list-group>
+    <b-list-group v-if="userHasLocation">
       <b-list-group-item
         v-for="basket in baskets"
         :key="basket.id"
@@ -27,6 +27,13 @@
         <span class="clear" />
       </b-list-group-item>
     </b-list-group>
+    <b-alert
+      v-else
+      variant="info"
+      show
+    >
+      {{ $t('basket.nearby_requires_location') }}
+    </b-alert>
     <div id="go-to-map-button">
       <a class="button" :href="$url('map', { markers: 'baskets' })">{{ $t('basket.all_map') }}</a>
     </div>
@@ -35,7 +42,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, defineEmits } from 'vue'
+import { computed, ref, onMounted, defineEmits } from 'vue'
 import { useUserStore } from '@/stores/user.js'
 import { useBasketStore } from '@/stores/baskets'
 import BasketBubble from '@php/Modules/Map/components/BasketBubble.vue'
@@ -65,7 +72,13 @@ function formattedDistance (basket) {
   }
 }
 
+const userHasLocation = computed(() => {
+  return !!userStore.hasLocations
+})
+
 onMounted(async () => {
+  if (!userHasLocation.value) return
+
   baskets.value = await basketStore.fetchNearby(userStore.getLocations)
 })
 
