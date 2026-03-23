@@ -1155,6 +1155,23 @@ forum:
     sureHide: Are you sure you want to hide this post?
     hiddenPost: Post hidden by [{moderatorName}]({moderatorUrl})
     hiddenReason: 'Reason: {reason}'
+    edit: Edit post
+    edit_success: Post has been successfully edited.
+    edit_time_remaining: You may edit this post until {time} or until the next 
+      post in this thread, whichever comes first.
+    edit_mentions_note: 'Note: New mentions you add when editing do not trigger new
+      notifications (bells).'
+    createdAtTooltip: Created at {date}
+    edited: edited
+    editedAtTooltip: Last edited at {date}
+    edit_expired: You may no longer edit this post, because the editing period 
+      has already expired.
+    edit_conflict: You may no longer edit this post, because another post has 
+      already been created in this thread.
+    edit_thread_not_found: You may no longer edit this post, because the 
+      associated topic no longer exists.
+    edit_post_not_found: You are unable to edit this post because it no longer 
+      exists.
   from: From {name}
   sending_error: An error occured during sending
   no_threads: No threads yet
@@ -1371,6 +1388,7 @@ pickup:
     long: Your membership card will no longer be valid at this time
   chat: Start pickup chat
   slots: Slots
+  chat_preface: '{date} at [{store}]({storeUrl}):'
 storeview:
   cooperation: Cooperation since {startTime}.
   cooperation_start: "Cooperation since"
@@ -2314,6 +2332,8 @@ basket:
     text: Do you really want to delete this food basket?
     title: Delete the food basket?
   until: 'Valid until:'
+  nearby_requires_location: To see food baskets nearby, you need to add a 
+    location to your profile.
 map:
   title: Map
   donates: company donates
@@ -2613,6 +2633,7 @@ store:
     team: Message to the team
     jumper: Message to standby foodsavers
     managers: Message the team leaders
+    managers_preface: 'Chat with the store managers at [{store}]({storeUrl}):'
   error: Store could not be loaded.
   noStores: There are no stores yet
   may_not_referred_to_in_public: Please do not refer to this store in public 
@@ -2809,6 +2830,7 @@ store:
   part_of_chain: 'Part of the chain:'
   members_not_in_target_region: 'There are team members who are not part of the target
     region: {names}'
+  joinDateUnknown: 'Part of the team since: Unknown'
 navi:
   google_maps: "Google Maps"
   waze: "Waze"
@@ -3085,6 +3107,8 @@ legal:
       the active system, but is archived separately based on Article 17 paragraph
       3 sentence 1 letter b GDPR:'
     legal_2: Laws on retention periods (page in German)
+    unsubscribe_newsletter: 'Please also unsubscribe the Foodsharing newsletter if
+      you have a subscription. You can change this later at:'
   latest_change: Last modified on {date}
   show_changes: Show changes
 answers: Which answers are correct?
@@ -3622,6 +3646,17 @@ regionOptions:
     company in the district.
   enableAddressChangeNotification: Notify ambassadors when foodsavers change 
     their address to a location within this district
+  userRelated:
+    heading: Options for user management
+    info: May be edited by district ambassadors
+  pickuprule:
+    heading: Options for the cherry-picking rule
+    info: May be edited by administrators of the Store Coordination Working 
+      Group (if applicable) or district ambassadors
+  reporting:
+    heading: Options for the reporting system
+    info: May be edited by administrators of the Local Working Group for 
+      Reporting (if applicable) or by district ambassadors
 list:
   filter_for: filter for …
 startpage:

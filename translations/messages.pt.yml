@@ -233,7 +233,7 @@ store:
     jumper: 'Mensagem aos substitutos'
     team: 'Mensagem á equipa'
     managers: Mensagem aos responsáveis
-    managers_preface: 'Chat com responsáveis de [{store}]({storeUrl}):'
+    managers_preface: 'Chat com os responsáveis de [{store}]({storeUrl}):'
   isAppliedForTeam: 'Pedido'
   locked: 'Não pode editar este local.'
   lastPickup: 'Última vaga {date}'
@@ -988,6 +988,8 @@ basket:
   modal_error:
     no_contact: Selecione uma opção para solicitar o cabaz alimentar.
     no_phone: Por favor, insira um número de telefone.
+  nearby_requires_location: Para veres cestas alimentares perto de ti, tens de 
+    indicar uma localização no teu perfil.
 menu:
   entry:
     options: 'Opções'
@@ -1311,8 +1313,8 @@ profile:
     respActStores: 'Obrigado por coordenar {count} ativos '
     week_2: 'esta semana'
     pickupAmount: 'Quantidade'
-    securePickupWeek: 'Obrigado pelas {count} vezes em que nos ajudou em cima da hora
-      e garantiu as recolhas!'
+    securePickupWeek: 'Obrigado! Ajudaste-nos {count} vez(es) em cima da hora e trataste
+      das tarefas pendentes!'
     week_1: 'próxima semana'
     basketsSharedWeek: 'Os cabazes alimentares foram partilhados com {count} pessoa(s). '
     weekDesc: 'Semana {week} do calendário, de {weekStart} a {weekEnd}'
