@@ -1185,11 +1185,13 @@ class StoreTransactions
         $this->bellGateway->addBellForUsers($teamIds, $bellData);
 
         // Delete the store before the chats due to foreign keys
+        $teamConversationId = $this->storeGateway->getBetriebConversation($storeId, false);
+        $standbyConversationId = $this->storeGateway->getBetriebConversation($storeId, true);
         $this->storeGateway->deleteStore($storeId);
 
         //Clean store chats
-        $this->messageGateway->deleteConversation($this->storeGateway->getBetriebConversation($storeId, false));
-        $this->messageGateway->deleteConversation($this->storeGateway->getBetriebConversation($storeId, true));
+        $this->messageGateway->deleteConversation($teamConversationId);
+        $this->messageGateway->deleteConversation($standbyConversationId);
     }
 
     /**
