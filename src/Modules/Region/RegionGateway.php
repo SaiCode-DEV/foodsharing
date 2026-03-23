@@ -744,14 +744,15 @@ class RegionGateway extends BaseGateway
      * Returns all ancestors of a region, inlcuding information about whether the given user is member of that region.
      * @return RegionWithMembership[]
      */
-    public function getRegionAncestorMemberships(int $regionId, int $foodsaverId): array
+    public function getRegionAncestorMemberships(int $regionId, int $foodsaverId, bool $includeSelf = false): array
     {
+        $depthCondition = $includeSelf ? '' : ' AND c.depth > 0';
         $regions = $this->db->fetchAll('SELECT
                 r.id, r.name, r.type, m.active IS NOT NULL AS is_member
             FROM fs_bezirk_closure c
             JOIN fs_bezirk r ON r.id = c.ancestor_id
             LEFT OUTER JOIN fs_foodsaver_has_bezirk m ON m.foodsaver_id = :foodsaverId AND m.active = 1 AND m.bezirk_id = r.id
-            WHERE c.bezirk_id = :regionId AND depth > 0 AND c.ancestor_id != 0
+            WHERE c.bezirk_id = :regionId' . $depthCondition . ' AND c.ancestor_id != 0
             ORDER BY depth ASC
         ', ['regionId' => $regionId, 'foodsaverId' => $foodsaverId]);
 

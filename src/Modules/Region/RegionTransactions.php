@@ -313,9 +313,9 @@ class RegionTransactions
      * The last element of the list is the first region that isn't a group or that the user is a member in.
      * @return RegionWithMembership[]
      */
-    public function getInaccessibleRegionRedirects(int $deniedRegionId, int $foodsaverId): array
+    public function getInaccessibleRegionRedirects(int $deniedRegionId, int $foodsaverId, bool $includeDeniedRegion = false): array
     {
-        $ancestors = $this->regionGateway->getRegionAncestorMemberships($deniedRegionId, $foodsaverId);
+        $ancestors = $this->regionGateway->getRegionAncestorMemberships($deniedRegionId, $foodsaverId, $includeDeniedRegion);
         for ($i = 0; $i < count($ancestors); ++$i) {
             if ($ancestors[$i]->type !== UnitType::WORKING_GROUP || $ancestors[$i]->isMember) {
                 return array_slice($ancestors, 0, $i + 1);

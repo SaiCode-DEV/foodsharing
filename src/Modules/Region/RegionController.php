@@ -210,6 +210,10 @@ final class RegionController extends FoodsharingController
         try {
             $type = $this->regionGateway->getType($id);
             if ($type === UnitType::WORKING_GROUP) {
+                if ($this->currentUserUnits->mayBezirk($id)) {
+                    return $this->redirect('/region?bid=' . $id . '&sub=wall');
+                }
+
                 return $this->missingMembershipRedirect($id);
             }
         } catch (\Throwable $th) {
@@ -252,24 +256,34 @@ final class RegionController extends FoodsharingController
     #[Route(path: '/region/denied/{deniedRegionId}', name: 'regionDenied', requirements: ['deniedRegionId' => Requirement::POSITIVE_INT])]
     public function missingMembershipRedirect(int $deniedRegionId): Response
     {
+        $deniedRegionType = $this->regionGateway->getType($deniedRegionId);
+
+        // For denied regions, always redirect to their public region page.
+        if (UnitType::isRegion($deniedRegionType)) {
+            return $this->redirect('/region/' . $deniedRegionId . '?denied=' . $deniedRegionId);
+        }
+
         $redirects = $this->regionTransactions->getInaccessibleRegionRedirects($deniedRegionId, $this->session->id() ?? 0);
+        // In case there is no ancestor the user has access to, redirect to start page.
+        // (can only happen for groups that don't have a region parent until root)
         if (empty($redirects)) {
-            // in case there is no ancestor the user has access to, redirect to start page
-            // (can only happen for groups that don't have a region parent until root)
+            $this->flashMessageHelper->error($this->translator->trans('region.denied.some_group', [
+                'name' => $this->regionGateway->getRegionName($deniedRegionId),
+            ]));
+
             return $this->redirectToRoute('dashboard');
         }
+        // Last redirect should be either a group where user is a member, or a region
         $redirect = end($redirects);
-        if ($redirect->type === UnitType::WORKING_GROUP) {
-            $extra = '';
-            if ($redirect->isMember !== 1) {
-                // Do NOT include the "denied=" parameter if we redirected to
-                // the groups's wall page when we have access to it.
-                $extra = '&denied=' . $deniedRegionId;
-            }
 
-            return $this->redirect('/region?bid=' . $redirect->id . $extra);
+        // If User is member of the direct parent region/group of the denied group, show it's groups page.
+        if ((UnitType::isGroup($deniedRegionType) && $redirect->isMember) &&
+            $redirect->id === $this->regionGateway->getParentId($deniedRegionId)
+        ) {
+            return $this->redirect('/groups?p=' . $redirect->id . '&denied=' . $deniedRegionId);
         }
 
+        // Otherwise, go to the public region page and explain the denial.
         return $this->redirect('/region/' . $redirect->id . '?denied=' . $deniedRegionId);
     }
 

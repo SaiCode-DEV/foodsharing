@@ -504,7 +504,7 @@ class RegionRestController extends AbstractFoodsharingRestController
     {
         $this->assertLoggedIn();
 
-        $redirects = $this->regionTransactions->getInaccessibleRegionRedirects($regionId, $this->session->id());
+        $redirects = $this->regionTransactions->getInaccessibleRegionRedirects($regionId, $this->session->id(), true);
         if (empty($redirects)) {
             throw new NotFoundHttpException('Region does not exist');
         }
