@@ -112,7 +112,11 @@ class EventGateway extends BaseGateway
         $statuses = array_map(fn ($status) => $status->value, $statuses);
 
         $dateFilter = '';
-        $params = ['fs_id' => $userId, 'buffer' => $pastEventsBufferInDays];
+        $params = [
+            'fs_id' => $userId,
+            'buffer' => $pastEventsBufferInDays,
+            'status_invited' => InvitationStatus::INVITED->value,
+        ];
         if ($date_only !== null) {
             // Include events that start, end, or span the $date_only day
             $dateFilter = 'AND DATE(e.start) <= :date_only AND DATE(e.end) >= :date_only';
@@ -129,19 +133,22 @@ class EventGateway extends BaseGateway
 			r.name AS regionName,
 			UNIX_TIMESTAMP(e.start) AS start_ts,
 			UNIX_TIMESTAMP(e.end) AS end_ts,
-			CAST(IFNULL(fhe.status, ' . InvitationStatus::INVITED->value . ') AS INTEGER) AS status,
+			CAST(IFNULL(fhe.status, :status_invited) AS INTEGER) AS status,
 			l.street,
 			l.zip,
 			l.city
 		FROM fs_event e
 		JOIN fs_foodsaver_has_bezirk fhb ON e.bezirk_id = fhb.bezirk_id AND fhb.active = 1
-        LEFT OUTER JOIN fs_foodsaver_has_event fhe ON e.id = fhe.event_id AND fhe.foodsaver_id = fhb.foodsaver_id
+		LEFT OUTER JOIN fs_foodsaver_has_event fhe ON e.id = fhe.event_id AND fhe.foodsaver_id = :fs_id
 		LEFT JOIN fs_location l ON e.location_id = l.id
 		LEFT JOIN fs_bezirk r ON e.bezirk_id = r.id
 		WHERE
-			fhb.foodsaver_id = :fs_id
+			(
+				fhb.foodsaver_id = :fs_id
+				OR (e.is_public AND fhe.event_id IS NOT NULL)
+			)
 			AND e.end > DATE_SUB(NOW(), INTERVAL :buffer DAY)
-			AND IFNULL(fhe.status, ' . InvitationStatus::INVITED->value . ') IN (' . implode(',', $statuses) . ')
+			AND IFNULL(fhe.status, :status_invited) IN (' . implode(',', $statuses) . ')
 			' . $dateFilter . '
 		ORDER BY e.start
 		', $params);

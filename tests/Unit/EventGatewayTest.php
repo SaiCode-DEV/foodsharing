@@ -13,6 +13,7 @@ use Foodsharing\Modules\Core\DTO\Address;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Event\DTO\Event;
 use Foodsharing\Modules\Event\EventGateway;
+use Foodsharing\Modules\Event\InvitationStatus;
 use Foodsharing\Modules\Region\RegionGateway;
 use Tests\Support\UnitTester;
 
@@ -85,7 +86,7 @@ class EventGatewayTest extends Unit
         ]);
     }
 
-    public function testListEvents(): void
+    public function testListEventsForRegion(): void
     {
         $dateFormat = 'Y-m-d H:i';
 
@@ -140,5 +141,84 @@ class EventGatewayTest extends Unit
         foreach ($events as $eventData) {
             $this->assertNotEmpty(array_filter($listedEvents, fn ($listedEvent) => $listedEvent->name == $eventData['name']));
         }
+    }
+
+    public function testGetEventsByStatus(): void
+    {
+        $otherUser = $this->tester->createFoodsaver();
+        $this->tester->addRegionMember($this->region['id'], $otherUser['id']);
+
+        $otherRegion = $this->tester->createRegion('OtherRegionForEvents', fillMailbox: false);
+        $this->tester->addRegionMember($otherRegion['id'], $otherUser['id']);
+
+        $start = new DateTime('+1 day');
+        $end = new DateTime('+1 day +2 hours');
+
+        $createEvent = fn (int $regionId, bool $isPublic, string $name): int => $this->gateway->addEvent(
+            $otherUser['id'],
+            Event::createFromArray([
+                'bezirk_id' => $regionId,
+                'region_name' => 'test-region',
+                'name' => $name,
+                'start' => $start->format('Y-m-d H:i:s'),
+                'end' => $end->format('Y-m-d H:i:s'),
+                'description' => 'test',
+                'online' => EventType::ONLINE->value,
+                'is_public' => $isPublic,
+            ]),
+            null
+        );
+
+        $expectedEvents = [];
+
+        // Local events in the user's region ----------------------------------
+        $eventLocalAccepted = $createEvent($this->region['id'], false, 'local, accepted');
+        $this->tester->addEventInvitation($eventLocalAccepted, $this->foodsaver['id'], [
+            'status' => InvitationStatus::ACCEPTED->value,
+        ]);
+        $expectedEvents[] = $eventLocalAccepted;
+
+        $eventLocalInvited = $createEvent($this->region['id'], false, 'local, invited');
+        $this->tester->addEventInvitation($eventLocalInvited, $this->foodsaver['id'], [
+            'status' => InvitationStatus::INVITED->value,
+        ]);
+
+        $eventLocalOtherAccepted = $createEvent($this->region['id'], false, 'local, other user accepted');
+        $this->tester->addEventInvitation($eventLocalOtherAccepted, $otherUser['id'], [
+            'status' => InvitationStatus::ACCEPTED->value,
+        ]);
+
+        // Public events in the user's region ---------------------------------
+        $eventPublicLocalAccepted = $createEvent($this->region['id'], true, 'Public local region, accepted');
+        $this->tester->addEventInvitation($eventPublicLocalAccepted, $this->foodsaver['id'], [
+            'status' => InvitationStatus::ACCEPTED->value,
+        ]);
+        $expectedEvents[] = $eventPublicLocalAccepted;
+
+        $createEvent($this->region['id'], true, 'public local region, NOT accepted by anyone');
+
+        $eventPublicLocalOtherAccepted = $createEvent($this->region['id'], true, 'public, local region, other user accepted');
+        $this->tester->addEventInvitation($eventPublicLocalOtherAccepted, $otherUser['id'], [
+            'status' => InvitationStatus::ACCEPTED->value,
+        ]);
+
+        // Public events in a non-member region -------------------------------
+        $eventPublicAccepted = $createEvent($otherRegion['id'], true, 'Public other region, accepted');
+        $this->tester->addEventInvitation($eventPublicAccepted, $this->foodsaver['id'], [
+            'status' => InvitationStatus::ACCEPTED->value,
+        ]);
+        $expectedEvents[] = $eventPublicAccepted;
+
+        $createEvent($otherRegion['id'], true, 'public other region, NOT accepted by anyone');
+
+        $eventPublicOtherAccepted = $createEvent($otherRegion['id'], true, 'public, other region, other user accepted');
+        $this->tester->addEventInvitation($eventPublicOtherAccepted, $otherUser['id'], [
+            'status' => InvitationStatus::ACCEPTED->value,
+        ]);
+
+        $events = $this->gateway->getEventsByStatus($this->foodsaver['id'], [InvitationStatus::ACCEPTED]);
+        $eventIds = array_column($events, 'id');
+
+        $this->assertEquals(asort($expectedEvents), asort($eventIds));
     }
 }
