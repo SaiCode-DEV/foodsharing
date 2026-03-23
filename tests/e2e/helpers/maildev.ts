@@ -108,15 +108,18 @@ export class Maildev {
    * Wait for a mail to arrive and return it wrapped in a MailResult.
    * @param subject Optional subject string to match the mail subject.
    * @param toAddress Optional recipient email address to filter by.
-   * @param timeout Number of seconds to wait (default 5)
+   * @param timeout Number of milliseconds to wait (default 10000 ms). Checks every second.
    * @returns A MailResult object with helper methods, or null if not found within timeout
    */
   async waitForMail(
     subject?: string,
     toAddress?: string,
-    timeout: number = 10,
+    timeout: number = 10000,
   ): Promise<MailResult | null> {
-    while (timeout > 0) {
+    const checkInterval = 1000; // Check every second
+    const deadline = Date.now() + Math.max(0, timeout);
+
+    do {
       const mails = await this.getMails();
 
       const found = mails.find((mail: any) => {
@@ -141,9 +144,13 @@ export class Maildev {
 
       if (found) return new MailResult(found, this);
 
-      timeout--;
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-    }
+      const remainingTime = deadline - Date.now();
+      if (remainingTime <= 0) break;
+
+      await new Promise((resolve) =>
+        setTimeout(resolve, Math.min(checkInterval, remainingTime)),
+      );
+    } while (true);
 
     return null;
   }

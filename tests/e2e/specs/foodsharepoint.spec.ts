@@ -111,7 +111,7 @@ test.describe("FoodSharePoint", () => {
     );
 
     // Wait for the form to be populated with the fetched foodsharepoint data before making changes
-    await expect(page.locator('#description-md')).not.toBeEmpty();
+    await expect(page.locator("#description-md")).not.toBeEmpty();
 
     await page.fill("#description-md", "The BEST fairshare point!");
 

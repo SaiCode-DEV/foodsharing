@@ -450,10 +450,10 @@ class StoreTransactionsTest extends Unit
     public function testUserCanOnlySignupForNotTooMuchInTheFuturePickups(): void
     {
         $interval = CarbonInterval::weeks(3);
-        $store = $this->tester->createStore($this->regionId, null, null, ['prefetchtime' => $interval->totalSeconds - 360]);
+        $store = $this->tester->createStore($this->regionId, null, null, ['prefetchtime' => $interval->totalSeconds]);
 
         /* that pickup is now at least some minutes too much in the future to sign up */
-        $pickup = Carbon::tomorrow()->add($interval)->microseconds(0);
+        $pickup = Carbon::now()->add($interval)->addMinutes(90)->microseconds(0);
 
         /* use recurring pickup here because signing up for single pickups should work indefinitely */
         $fetcher = 1;
@@ -466,8 +466,6 @@ class StoreTransactionsTest extends Unit
         $this->expectException(StoreTransactionException::class);
 
         $this->transactions->joinPickup($store['id'], $pickup, $this->foodsaver['id']);
-
-        $this->assertFalse($this->transactions->joinPickup($store['id'], $pickup->sub('1 week'), $this->foodsaver['id']));
     }
 
     public function testUserCanSignupForManualFarInTheFuturePickups(): void

@@ -491,28 +491,42 @@ test.describe("Store", () => {
 
     // Enter store description
     await page.getByPlaceholder("Neuen Pinnwandeintrag").fill(newWallpost);
-    await page.getByRole("textbox", { name: "Öffentliche Infos zum Betrieb" }).fill(newStoreDescription);
+    await page
+      .getByRole("textbox", { name: "Öffentliche Infos zum Betrieb" })
+      .fill(newStoreDescription);
     await page.getByRole("button", { name: "Weiter", exact: true }).click();
 
     // Enter store location by dragging the map marker slightly to fill in an address
     const markerElement = page.locator(".leaflet-marker-draggable");
     await expect(markerElement).toBeVisible();
     const marker = await markerElement.boundingBox();
-    await page.mouse.move(marker.x + marker.width / 2, marker.y + marker.height / 2);
+    await page.mouse.move(
+      marker.x + marker.width / 2,
+      marker.y + marker.height / 2,
+    );
     await page.mouse.down();
-    await page.mouse.move(marker.x + marker.width / 2 + 10, marker.y + marker.height / 2 + 10);
+    await page.mouse.move(
+      marker.x + marker.width / 2 + 10,
+      marker.y + marker.height / 2 + 10,
+    );
     await page.mouse.up();
-    await expect(page.getByRole("textbox", { name: "Straße und Hausnummer" })).not.toBeEmpty();
+    await expect(
+      page.getByRole("textbox", { name: "Straße und Hausnummer" }),
+    ).not.toBeEmpty();
     await page.getByRole("button", { name: "Anlegen", exact: true }).click();
 
     // Check the client redirects to the new store page and shows the correct info
     await acceptanceHelper.waitForActiveAPICalls();
     await expect(page).toHaveURL(/\/store\/\d+$/);
-    await expect(page.getByRole("heading", { name: newStoreName })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: newStoreName }),
+    ).toBeVisible();
     await expect(page.getByText(newWallpost)).toBeVisible();
     await expect(page.getByText("Betriebseinstellungen")).toBeVisible();
     await expect(page.getByText(storeManager.handy)).toBeVisible();
     await expect(page.locator(".store-member .time")).toBeVisible();
-    await expect(page.locator(".store-member .time")).toContainText(/heute|gestern/);
+    await expect(page.locator(".store-member .time")).toContainText(
+      /heute|gestern/,
+    );
   });
 });

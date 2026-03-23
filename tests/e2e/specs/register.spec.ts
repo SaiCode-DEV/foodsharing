@@ -228,6 +228,8 @@ test.describe("Registration", () => {
         Database.seeInDatabase("fs_foodsaver", fsParams),
       ).resolves.toBeTruthy();
 
+      expect(await maildev.waitForMail("Schön, dass Du jetzt dabei bist!", testData.email)).not.toBeNull();
+
       // Try to log in with the new user
       await formArea.getByRole("button", { name: "Einloggen" }).click();
       await page.waitForURL("/login");
