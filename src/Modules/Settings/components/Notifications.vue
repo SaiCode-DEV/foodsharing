@@ -294,27 +294,6 @@
       </div>
     </div>
 
-    <div class="pt-2 pb-2">
-      <h4>{{ $t('notifications.newsletter.title') }}</h4>
-      <b-row>
-        <b-col
-          cols="8"
-          lg="5"
-        >
-          {{ $t('notifications.newsletter.description') }}
-        </b-col>
-        <b-col cols="4" lg="6">
-          <b-form-checkbox
-            v-model="newsletterState "
-            name="newsletter"
-            size="sm"
-          >
-            {{ $t('notifications.checkbox_email') }}
-          </b-form-checkbox>
-        </b-col>
-      </b-row>
-    </div>
-
     <div v-if="userStore.isStoreManager" class="pt-2 pb-2">
       <h4>{{ $t('notifications.pickupReminder.title') }}</h4>
       <b-row>
@@ -350,6 +329,46 @@
       </b-row>
     </div>
 
+    <div class="pt-2 pb-2">
+      <h4>{{ $t('notifications.newsletter.title') }}</h4>
+      <b-row>
+        <b-col
+          cols="8"
+          lg="5"
+        >
+          {{ $t('notifications.newsletter.description') }}
+        </b-col>
+        <b-col cols="4" lg="6">
+          <b-button
+            v-b-modal.newsletterSettingsModal
+            size="sm"
+          >
+            {{ $t('notifications.newsletter.settings') }}...
+          </b-button>
+        </b-col>
+      </b-row>
+      <b-modal
+        id="newsletterSettingsModal"
+        ref="newsletterSettingsModal"
+        centered
+        :title="$t('notifications.newsletter.settings')"
+        :ok-title="$t('button.save')"
+        :cancel-title="$t('button.cancel')"
+        @show="loadNewsletterSettings"
+        @ok="saveNewsletterSettings"
+      >
+        <div v-if="isNewsletterSubscribed === null">
+          <b-skeleton />
+        </div>
+        <div v-else>
+          <p v-text="$t('notifications.newsletter.description')" />
+          <b-form-checkbox v-model="editedNewletterSubscription">
+            {{ $t('notifications.newsletter.checkbox') }}
+          </b-form-checkbox>
+        </div>
+      </b-modal>
+    </div>
+
     <b-button
       size="sm"
       variant="primary"
@@ -371,6 +390,8 @@ import {
   setThreadsNotification,
   getGeneralNotificationSettings,
   setGeneralNotificationSettings,
+  getNewsletterNotificationSettings,
+  setNewsletterNotificationSettings,
 } from '@/api/notifications'
 import Markdown from '@/components/Markdown/Markdown.vue'
 import LoadingOverlay from '@/components/LoadingOverlay.vue'
@@ -379,6 +400,7 @@ import PushNotificationMixin from '@/mixins/PushNotificationMixin.js'
 import { subscribeForPushNotifications, unsubscribeFromPushNotifications } from '@/pushNotifications'
 import { useUserStore } from '@/stores/user'
 import { useEnvironmentCheck } from '@/composables/useEnvironmentCheck'
+import { HTTP_RESPONSE } from '@/consts'
 
 const userStore = useUserStore()
 
@@ -401,7 +423,6 @@ export default {
       ],
       subscription: {},
       infoMailState: null,
-      newsletterState: false,
       pickupReminderState: true,
       mentionState: true,
       currentFoodSharePoints: [],
@@ -418,12 +439,13 @@ export default {
       isGroupsGlobalEmailNotificationActive: false,
       isThreadsGlobalEmailNotificationActive: false,
       isFoodSharePointGlobalBellNotificationActive: false,
+      isNewsletterSubscribed: null,
+      editedNewletterSubscription: null,
     }
   },
   async mounted () {
     await userStore.fetchDetails()
     const generalNotificationSettings = await getGeneralNotificationSettings()
-    this.newsletterState = generalNotificationSettings.emailOnNewsletter
     this.infoMailState = generalNotificationSettings.emailOnChatMessage
     this.pickupReminderState = generalNotificationSettings.emailOnStoreManagerPickupReminder
     this.mentionState = generalNotificationSettings.bellOnMention
@@ -500,7 +522,6 @@ export default {
       try {
         await setGeneralNotificationSettings({
           emailOnChatMessage: this.infoMailState,
-          emailOnNewsletter: this.newsletterState,
           emailOnStoreManagerPickupReminder: this.pickupReminderState,
           bellOnMention: this.mentionState,
         })
@@ -519,6 +540,30 @@ export default {
     },
     convertNumberToBoolean (value) {
       return Boolean(Number(value))
+    },
+    async loadNewsletterSettings () {
+      if (this.isNewsletterSubscribed === null) {
+        try {
+          this.isNewsletterSubscribed = (await getNewsletterNotificationSettings()).isNewsletterSubscribed
+        } catch (e) {
+          if (e.code === HTTP_RESPONSE.SERVICE_UNAVAILABLE) {
+            pulseError(this.$t('notifications.newsletter.unavailable_error'))
+            this.$refs.newsletterSettingsModal.hide()
+          }
+        }
+      }
+      this.editedNewletterSubscription = this.isNewsletterSubscribed
+    },
+    async saveNewsletterSettings () {
+      if (this.isNewsletterSubscribed !== this.editedNewletterSubscription) {
+        try {
+          await setNewsletterNotificationSettings(this.editedNewletterSubscription)
+          this.isNewsletterSubscribed = this.editedNewletterSubscription
+          pulseSuccess(this.$t('notifications.newsletter.patch_success'))
+        } catch (e) {
+          pulseError(this.$t('notifications.newsletter.patch_error'))
+        }
+      }
     },
   },
 }

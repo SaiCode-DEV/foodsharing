@@ -18,6 +18,7 @@ use Foodsharing\Modules\Profile\DTO\EmailAddress;
 use Foodsharing\Modules\Profile\DTO\PasswordResetRequest;
 use Foodsharing\Modules\Profile\ProfileTransactions;
 use Foodsharing\Modules\Register\DTO\RegisterData;
+use Foodsharing\Modules\Register\DTO\RegisterResult;
 use Foodsharing\Modules\Register\RegisterTransactions;
 use Foodsharing\Modules\Settings\SettingsTransactions;
 use Foodsharing\Modules\Store\DTO\CommonLabel;
@@ -157,7 +158,7 @@ class UserRestController extends AbstractFoodsharingRestController
 
     #[OA\Post(summary: 'Registers a new user')]
     #[Route('users', methods: ['POST'])]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: RegisterResult::class))]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid input data')]
     public function registerUser(#[MapRequestPayload] RegisterData $registerData): Response
     {
@@ -180,9 +181,9 @@ class UserRestController extends AbstractFoodsharingRestController
 
         try {
             // register user and send out registration email
-            $this->registerTransactions->registerUser($registerData);
+            $result = $this->registerTransactions->registerUser($registerData);
 
-            return $this->respondOK();
+            return $this->respondOK($result);
         } catch (Exception $e) {
             throw new HttpException(500, 'could not register user', $e);
         }

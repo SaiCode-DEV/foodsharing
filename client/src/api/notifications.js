@@ -1,3 +1,4 @@
+import { HTTP_RESPONSE } from '@/consts'
 import { get, patch } from './base'
 
 export function getFoodSharePointsNotification () {
@@ -14,6 +15,12 @@ export function getThreadsNotification () {
 
 export function getGeneralNotificationSettings () {
   return get('/notifications')
+}
+
+export function getNewsletterNotificationSettings () {
+  return get('/notifications/newsletter', {
+    skipErrorNotificationFor: [HTTP_RESPONSE.SERVICE_UNAVAILABLE], // 503 = Newsletter-Server not available
+  })
 }
 
 export function listWorkingGroups () {
@@ -34,9 +41,12 @@ export function setFoodSharePointsNotification (foodSharePoints) {
 
 export function setGeneralNotificationSettings ({
   emailOnChatMessage = null,
-  emailOnNewsletter = null,
   emailOnStoreManagerPickupReminder = null,
   bellOnMention = null,
 }) {
-  return patch('/notifications', { emailOnChatMessage, emailOnNewsletter, emailOnStoreManagerPickupReminder, bellOnMention })
+  return patch('/notifications', { emailOnChatMessage, emailOnStoreManagerPickupReminder, bellOnMention })
+}
+
+export function setNewsletterNotificationSettings (isNewsletterSubscribed) {
+  return patch('/notifications/newsletter', { isNewsletterSubscribed })
 }

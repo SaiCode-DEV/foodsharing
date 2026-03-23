@@ -39,11 +39,6 @@ class SettingsGateway extends BaseGateway
         }
     }
 
-    public function updateNewsletterSetting(int $userId, bool $sendNewsletter): void
-    {
-        $this->db->update('fs_foodsaver', ['newsletter' => $sendNewsletter], ['id' => $userId]);
-    }
-
     public function updateEmailOnChatMessageSetting(int $userId, bool $sendEmailOnChatMessage): void
     {
         $this->db->update('fs_foodsaver', ['infomail_message' => $sendEmailOnChatMessage], ['id' => $userId]);

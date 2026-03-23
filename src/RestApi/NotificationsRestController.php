@@ -2,6 +2,7 @@
 
 namespace Foodsharing\RestApi;
 
+use Foodsharing\Lib\ListmonkClient;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\UserOptionType;
@@ -15,14 +16,17 @@ use Foodsharing\Modules\Region\RegionTransactions;
 use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Modules\Settings\SettingsTransactions;
 use Foodsharing\RestApi\DTO\Notifications\GeneralNotificationSettings;
+use Foodsharing\RestApi\DTO\Notifications\NewsletterNotificationSettings;
 use Foodsharing\RestApi\DTO\Notifications\NotificationSetting;
 use Foodsharing\RestApi\DTO\Notifications\NotificationSettingsPatch;
 use Foodsharing\RestApi\DTO\Notifications\NotificationSettingWithRegion;
 use Nelmio\ApiDocBundle\Attribute\Model;
 use OpenApi\Attributes as OA;
+use RuntimeException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
+use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[OA\Tag('notifications')]
@@ -40,6 +44,7 @@ class NotificationsRestController extends AbstractFoodsharingRestController
         private readonly FoodSharePointTransactions $foodSharePointTransactions,
         private readonly ForumTransactions $forumTransactions,
         private readonly RegionTransactions $regionTransactions,
+        private readonly ListmonkClient $listmonkClient,
     ) {
         parent::__construct($session);
     }
@@ -54,7 +59,6 @@ class NotificationsRestController extends AbstractFoodsharingRestController
         $settings = new GeneralNotificationSettings();
         $subscriptions = $this->foodsaverGateway->getSubscriptions($this->session->id());
         $settings->emailOnChatMessage = boolval($subscriptions['infomail_message']);
-        $settings->emailOnNewsletter = boolval($subscriptions['newsletter']);
         $settings->bellOnMention = !$this->settingsTransactions->getOption(UserOptionType::DISABLE_MENTION_NOTIFICATION);
         if ($this->session->mayRole(Role::STORE_MANAGER)) {
             $settings->emailOnStoreManagerPickupReminder = !$this->settingsTransactions->getOption(UserOptionType::DISABLE_PICKUP_REMINDER);
@@ -72,9 +76,6 @@ class NotificationsRestController extends AbstractFoodsharingRestController
 
         if (!is_null($settings->emailOnChatMessage)) {
             $this->settingsGateway->updateEmailOnChatMessageSetting($this->session->id(), $settings->emailOnChatMessage);
-        }
-        if (!is_null($settings->emailOnNewsletter)) {
-            $this->settingsGateway->updateNewsletterSetting($this->session->id(), $settings->emailOnNewsletter);
         }
         if (!is_null($settings->bellOnMention)) {
             $this->settingsTransactions->setOption(UserOptionType::DISABLE_MENTION_NOTIFICATION, intval(!$settings->bellOnMention));
@@ -164,6 +165,48 @@ class NotificationsRestController extends AbstractFoodsharingRestController
         $this->assertLoggedIn();
 
         $this->regionTransactions->updateRegionNotification($this->session->id(), $settings);
+
+        return $this->respondOK();
+    }
+
+    #[OA\Get(summary: 'Get the newsletter notification settings')]
+    #[Route('notifications/newsletter', methods: ['GET'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: NewsletterNotificationSettings::class))]
+    #[OA\Response(response: Response::HTTP_SERVICE_UNAVAILABLE, description: 'Newsletter-Server unavailable')]
+    public function getNewsletterNotificationSettings()
+    {
+        $this->assertLoggedIn();
+
+        $emailAddress = $this->foodsaverGateway->getEmailAddress($this->session->id());
+        try {
+            $isNewsletterSubscribed = $this->listmonkClient->hasSubscribed($emailAddress);
+        } catch (RuntimeException) {
+            throw new ServiceUnavailableHttpException(null, 'Newsletter server currently unavailable');
+        }
+
+        return $this->respondOK(['isNewsletterSubscribed' => $isNewsletterSubscribed]);
+    }
+
+    #[OA\Patch(summary: 'Update the newsletter notification settings')]
+    #[Route('notifications/newsletter', methods: ['PATCH'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
+    #[OA\Response(response: Response::HTTP_SERVICE_UNAVAILABLE, description: 'Newsletter-Server unavailable')]
+    public function patchNewsletterNotificationSettings(#[MapRequestPayload] NewsletterNotificationSettings $settings)
+    {
+        $this->assertLoggedIn();
+
+        $emailAddress = $this->foodsaverGateway->getEmailAddress($this->session->id());
+        try {
+            if ($settings->isNewsletterSubscribed) {
+                $name = $this->foodsaverGateway->getFoodsaverName($this->session->id());
+                $this->listmonkClient->addSubscriber($emailAddress, $name);
+            } else {
+                $this->listmonkClient->removeSubscriber($emailAddress);
+            }
+        } catch (RuntimeException) {
+            throw new ServiceUnavailableHttpException(null, 'Newsletter server currently unavailable');
+        }
 
         return $this->respondOK();
     }

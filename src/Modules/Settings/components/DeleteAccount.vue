@@ -62,6 +62,31 @@
         </div>
       </template>
     </b-modal>
+
+    <h5>{{ $t('legal.if_delete.this_gets_deleted_main') }}</h5>
+    <ul>
+      <li>{{ $t('legal.if_delete.this_gets_deleted_stores') }}</li>
+      <li>{{ $t('legal.if_delete.this_gets_deleted_quiz') }}</li>
+      <li>{{ $t('legal.if_delete.this_gets_deleted_verify') }}</li>
+      <li>{{ $t('legal.if_delete.this_gets_deleted_friendlist') }}</li>
+      <li>{{ $t('legal.if_delete.this_gets_deleted_trustbananas') }}</li>
+    </ul>
+
+    <h5>{{ $t('legal.if_delete.this_doesnt_get_deleted') }}</h5>
+    <ul>
+      <li>{{ $t('legal.if_delete.this_doesnt_get_deleted_name') }}</li>
+      <li>{{ $t('legal.if_delete.this_doesnt_get_deleted_address') }}</li>
+      <li>{{ $t('legal.if_delete.this_doesnt_get_deleted_history') }}</li>
+    </ul>
+
+    <h5>{{ $t('legal.if_delete.legal_more_info') }}</h5>
+    <ul>
+      <li><a href="/?page=legal">{{ $t('legal.if_delete.legal_1') }}</a></li>
+      <li><a href="https://www.dsgvo.tools/aufbewahrungsfristen">{{ $t('legal.if_delete.legal_2') }}</a></li>
+    </ul>
+
+    <hr class="my-3">
+
     <b-form-group
       v-if="!isMe"
       label-for="reason"
@@ -77,31 +102,9 @@
       label-for="unsubscribeNewsletter"
     >
       <b-form-checkbox id="unsubscribeNewsletter" v-model="unsubscribeNewsletter">
-        <p>
-          {{ $t('legal.if_delete.unsubscribe_newsletter') }} <a :href="$url('newsletter')">{{ $url('newsletter') }}</a>
-        </p>
+        {{ $t('legal.if_delete.unsubscribe_newsletter') }}
       </b-form-checkbox>
     </b-form-group>
-    {{ $t('legal.if_delete.this_gets_deleted_main') }}
-    <ul>
-      <li>{{ $t('legal.if_delete.this_gets_deleted_stores') }}</li>
-      <li>{{ $t('legal.if_delete.this_gets_deleted_quiz') }}</li>
-      <li>{{ $t('legal.if_delete.this_gets_deleted_verify') }}</li>
-      <li>{{ $t('legal.if_delete.this_gets_deleted_friendlist') }}</li>
-      <li>{{ $t('legal.if_delete.this_gets_deleted_trustbananas') }}</li>
-    </ul>
-    {{ $t('legal.if_delete.this_doesnt_get_deleted') }}
-    <ul>
-      <li>{{ $t('legal.if_delete.this_doesnt_get_deleted_name') }}</li>
-      <li>{{ $t('legal.if_delete.this_doesnt_get_deleted_address') }}</li>
-      <li>{{ $t('legal.if_delete.this_doesnt_get_deleted_history') }}</li>
-    </ul>
-    <ul>
-      <li><a href="/?page=legal">{{ $t('legal.if_delete.legal_1') }}</a></li>
-      <li><a href="https://www.dsgvo.tools/aufbewahrungsfristen">{{ $t('legal.if_delete.legal_2') }}</a></li>
-    </ul>
-
-    <hr class="my-4">
 
     <b-button
       id="delete-account"
@@ -225,5 +228,9 @@ export default {
   color: var(--fs-color-danger-500);
   height: 0;
   text-align: center;
+}
+
+h5 {
+  margin-bottom: 0.5rem;
 }
 </style>

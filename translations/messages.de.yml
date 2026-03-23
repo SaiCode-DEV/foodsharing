@@ -555,6 +555,7 @@ legal:
   button:
     agree: "Akzeptieren"
   if_delete:
+    legal_more_info: "Weiterführende Informationen"
     legal_1: "Unsere derzeitige Datenschutzvereinbarung"
     legal_2: "Weitere Informationen zu den Aufbewahrungsfristen (Seite auf Deutsch)"
     this_gets_deleted_main: "Folgende Informationen werden von dir endgültig gelöscht:"
@@ -563,11 +564,11 @@ legal:
     this_gets_deleted_verify: "Deine Verifizierung wird entfernt."
     this_gets_deleted_friendlist: "Deine Freundesliste wird entfernt."
     this_gets_deleted_trustbananas: "Bananen, die du erhalten hast, werden entfernt."
-    this_doesnt_get_deleted: "Folgende Informationen sind nicht mehr im aktiven System verfügbar, werden aber seperat archiviert auf Grund von Artikel 17 Abs. 3 S. 1 lit. b DSGVO:"
+    this_doesnt_get_deleted: "Folgende Informationen sind nicht mehr im aktiven System verfügbar, werden aber separat archiviert auf Grund von Artikel 17 Abs. 3 S. 1 lit. b DSGVO:"
     this_doesnt_get_deleted_name: "Dein Name"
     this_doesnt_get_deleted_address: "Deine Adresse"
     this_doesnt_get_deleted_history: "Historie deiner Verifizierung"
-    unsubscribe_newsletter: "Auch vom Foodsharing-Newsletter abmelden, falls ein Abo besteht. Dies kann auch später geändert werden auf:"
+    unsubscribe_newsletter: "Auch vom Foodsharing-Newsletter abmelden, falls ein Abo besteht. Dies kannst du auch später über den Link in der Newsletter-E-Mail machen."
   legal_agreement: "Rechtsvereinbarung"
   latest_change: "Zuletzt geändert am {date}"
   show_changes: "Änderungen anzeigen"
@@ -661,6 +662,7 @@ register:
   join_initialised_message: "Bevor du die Registrierung fortsetzen kannst, musst du deine E-Mail-Adresse bestätigen. Wir haben dazu eine E-Mail mit dem Bestätigungslink an deine Adresse gesendet."
   join_success: "Deine Registrierung war erfolgreich."
   join_success_message: "Du hast die Anmeldung bei foodsharing erfolgreich abgeschlossen. Du kannst dich nun mit deiner E-Mail-Adresse und deinem Passwort einloggen."
+  join_newsletter_failed: "Bei der Anmeldung zum Newsletter ist leider ein Fehler aufgetreten. Du kannst dich jederzeit in deinem Profil für den Newsletter anmelden."
   join_error: "Deine Registrierung war nicht erfolgreich."
   check_mail: "Schau jetzt in dein E-Mail-Postfach, um die Anmeldung abzuschließen!"
   select_your_gender: "Für die Anrede …"
@@ -3959,6 +3961,11 @@ notifications:
   newsletter:
     title: 'Newsletter'
     description: 'Erhalte ca. 1x monatlich aktuelle Informationen rund um foodsharing per E-Mail.'
+    settings: 'Newsletter-Einstellungen'
+    checkbox: 'Newsletter erhalten'
+    patch_error: 'Einstellungen konnten nicht gespeichert werden.'
+    patch_success: 'Newsletter-Einstellung gespeichert.'
+    unavailable_error: 'Der Newsletter-Server ist aktuell nicht erreichbar. Bitte versuche es später erneut.'
   pickupReminder:
     title: 'Erinnerungen für unbelegte Slots'
     description: 'Erhalte E-Mails, die dich warnen, wenn Slots in von dir verwalteten Betrieben am nächsten Tag noch nicht vergeben sind.'

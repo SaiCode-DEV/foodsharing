@@ -14,8 +14,9 @@ use RuntimeException;
  * e-mail address as a unique identifier.
  *
  * For this class to work, the PHP constants LISTMONK_URL, LISTMONK_USER, LISTMONK_LIST_ID, and LISTMONK_TOKEN need to
- * be defined. If those are not configured most functions in this class do nothing. If it is configured but Listmonk
- * cannot be reached, the functions will throw a RuntimeException.
+ * be defined. If those are not configured most functions in this class do nothing. All functions throw a
+ * RuntimeException if PHP is not configured to connect to listmonk, i.e. if it should not be available, or if Listmonk
+ * cannot be reached even though it should be available.
  *
  * For now, this class only cares about exactly on of the lists, which is defined by LISTMONK_LIST_ID. This means that
  * from the point of view of this class, a user from the main foodsharing database has subscribed to the newsletter if
@@ -46,12 +47,13 @@ class ListmonkClient
      *
      * @param string $name the user name
      * @param string $emailAddress unique email address of the subscriber
-     * @throws RuntimeException if Listmonk is not running or if its API returns an error
+     * @throws RuntimeException if PHP is not configured to connect to Listmonk, Listmonk is not running or if its API
+     *                          returns an error
      */
     public function addSubscriber(string $emailAddress, string $name): void
     {
         if (!$this->isConfigured()) {
-            return;
+            throw new RuntimeException('not configured');
         }
 
         try {
@@ -78,12 +80,13 @@ class ListmonkClient
      * Removes the email address as a subscriber from Listmonk. If the subscriber does not exists, nothing happens.
      *
      * @param string $emailAddress unique email address of the subscriber
-     * @throws RuntimeException
+     * @throws RuntimeException if PHP is not configured to connect to Listmonk, Listmonk is not running or if its API
+     *                           returns an error
      */
     public function removeSubscriber(string $emailAddress): void
     {
         if (!$this->isConfigured()) {
-            return;
+            throw new RuntimeException('not configured');
         }
 
         $id = $this->findSubscriber($emailAddress);
@@ -109,11 +112,13 @@ class ListmonkClient
      *
      * @param string $emailAddress unique email address of the subscriber
      * @return bool if the user with the e-mail address has an active subscription to the newsletter list
+     * @throws RuntimeException if PHP is not configured to connect to Listmonk, Listmonk is not running or if its API
+     *                           returns an error
      */
     public function hasSubscribed(string $emailAddress): bool
     {
         if (!$this->isConfigured()) {
-            return false;
+            throw new RuntimeException('not configured');
         }
 
         $id = $this->findSubscriber($emailAddress);

@@ -210,6 +210,15 @@ test.describe("Registration", () => {
         ),
       ).toBeVisible();
 
+      // Check newsletter subscription failure message is shown, because listmonk is not running in the test environment
+      expect(
+        await formArea
+          .getByText(
+            "Anmeldung zum Newsletter ist leider ein Fehler aufgetreten",
+          )
+          .isVisible(),
+      ).toBe(testData.newsletter);
+
       // Verify database entry
       const fsParams = {
         email: testData.email,

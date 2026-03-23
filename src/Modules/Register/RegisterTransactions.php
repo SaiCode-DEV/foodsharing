@@ -9,6 +9,7 @@ use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Legal\LegalGateway;
 use Foodsharing\Modules\Login\LoginGateway;
 use Foodsharing\Modules\Register\DTO\RegisterData;
+use Foodsharing\Modules\Register\DTO\RegisterResult;
 use Foodsharing\Utility\EmailHelper;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -68,13 +69,11 @@ class RegisterTransactions
     }
 
     /**
-     * Registers a user, sends out the registration email, and returns the user's Id.
-     *
-     * @return int the user Id
+     * Registers a user, sends out the registration email, and optionally subscribes them to the newsletter.
      *
      * @throws Exception if the database insert fails
      */
-    public function registerUser(RegisterData $data): int
+    public function registerUser(RegisterData $data): RegisterResult
     {
         // Validate the token
         $email = $this->registerGateway->getEmailForToken(trim($data->token));
@@ -87,6 +86,8 @@ class RegisterTransactions
         if ($pwCheck !== null) {
             throw new BadRequestHttpException($pwCheck);
         }
+
+        $result = new RegisterResult();
 
         $id = $this->loginGateway->insertNewUser($data, $email);
         if (!$id) {
@@ -106,12 +107,16 @@ class RegisterTransactions
          * yet active. It will be activated after the email address was verified.
          */
         if ($data->subscribeNewsletter) {
-            $this->listmonkClient->addSubscriber($email, $data->firstName);
+            try {
+                $this->listmonkClient->addSubscriber($email, $data->firstName);
+            } catch (Exception) {
+                $result->hasNewsletterSubscriptionFailed = true;
+            }
         }
 
         // Delete the token so that the registration can not be reattempted with the now useless token
         $this->registerGateway->deleteRegistrationAttempt($data->token);
 
-        return $id;
+        return $result;
     }
 }

@@ -46,6 +46,7 @@
       <RegisterSuccess
         v-if="page === 6"
         id="step6"
+        :newsletter-subscription-failed="newsletterSubscriptionFailed"
         @load-login="loadLogin()"
       />
     </div>
@@ -88,6 +89,7 @@ export default {
       subscribeNewsletter: false,
       acceptGdpr: false,
       acceptedLegal: false,
+      newsletterSubscriptionFailed: true,
     }
   },
   methods: {
@@ -110,8 +112,9 @@ export default {
       this.isLoading = true
 
       try {
-        await registerUser(this.firstname, this.lastname, this.token, this.password, this.gender, this.birthdate,
+        const registerResult = await registerUser(this.firstname, this.lastname, this.token, this.password, this.gender, this.birthdate,
           this.mobile, this.subscribeNewsletter ? 1 : 0)
+        this.newsletterSubscriptionFailed = registerResult.hasNewsletterSubscriptionFailed
         this.page = 6
         pulseSuccess(i18n('register.join_success'))
       } catch (err) {

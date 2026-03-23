@@ -974,7 +974,6 @@ class FoodsaverGateway extends BaseGateway
             'fs_foodsaver',
             [
                 'infomail_message',
-                'newsletter'
             ],
             ['id' => $fsId]
         );
