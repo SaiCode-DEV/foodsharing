@@ -308,7 +308,7 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
 					a.date,
 					UNIX_TIMESTAMP(a.date) AS date_ts,
 					f.description,
-					l.date_activity AS signUpDate
+					MAX(l.date_activity) AS signUpDate
 
 			FROM	fs_abholer a
 			LEFT OUTER JOIN fs_fetchdate f
@@ -324,7 +324,8 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
 			AND     a.date >= :from
 			AND     a.date <= :to
 
-			ORDER BY a.date
+			GROUP BY a.foodsaver_id, a.date
+			ORDER BY a.date, l.date_activity
 		', [
             ':storeId' => $storeId,
             ':from' => $this->db->date($from),

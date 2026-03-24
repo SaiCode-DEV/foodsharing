@@ -101,4 +101,48 @@ class PickupGatewayTest extends Unit
 
         $this->tester->dontSeeInDatabase('fs_bell', ['identifier' => 'store-fetch-unconfirmed-' . $this->store['id']]);
     }
+
+    public function testGetPickupHistory(): void
+    {
+        $pickupDate = Carbon::now()->subDays(14)->setHour(12)->setMinute(0)->setSecond(0)->setMicrosecond(0);
+        $firstSignupDate = $pickupDate->copy()->subHours(6);
+        $leaveDate = $pickupDate->copy()->subHours(5);
+        $secondSignupDate = $pickupDate->copy()->subHours(4);
+
+        // Create a pickup in the past
+        $this->tester->addPickup($this->store['id'], ['time' => $pickupDate]);
+
+        // Sign up for it with a store log entry
+        $this->gateway->addFetcher($this->foodsaver['id'], $this->store['id'], $pickupDate);
+        $this->tester->addStoreLog($this->store['id'], $this->foodsaver['id'], null, StoreLogAction::SIGN_UP_SLOT, [
+            'date_reference' => $pickupDate,
+            'date_activity' => $firstSignupDate,
+        ]);
+
+        // Leave it with a store log entry
+        $this->gateway->removeFetcher($this->foodsaver['id'], $this->store['id'], $pickupDate);
+        $this->tester->addStoreLog($this->store['id'], $this->foodsaver['id'], null, StoreLogAction::SIGN_OUT_SLOT, [
+            'date_reference' => $pickupDate,
+            'date_activity' => $leaveDate,
+        ]);
+
+        // Sign up for it again with another store log entry
+        $this->gateway->addFetcher($this->foodsaver['id'], $this->store['id'], $pickupDate);
+        $this->tester->addStoreLog($this->store['id'], $this->foodsaver['id'], null, StoreLogAction::SIGN_UP_SLOT, [
+            'date_reference' => $pickupDate,
+            'date_activity' => $secondSignupDate,
+        ]);
+
+        $history = $this->gateway->getPickupHistory(
+            $this->store['id'],
+            $pickupDate->copy()->subDay(),
+            $pickupDate->copy()->addDay()
+        );
+
+        // Only the last signup should be returned
+        $this->assertCount(1, $history);
+        $this->assertEquals($this->foodsaver['id'], $history[0]['foodsaverId']);
+        $this->assertEquals($pickupDate->format('Y-m-d H:i:s'), $history[0]['date']);
+        $this->assertEquals($secondSignupDate->format('Y-m-d H:i:s'), $history[0]['signUpDate']);
+    }
 }
