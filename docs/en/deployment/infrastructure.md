@@ -163,11 +163,11 @@ At the stats command the pickup stats are renewed.
 Then foodsharing accounts not used for 5 years are deleted. 
 Further files older than 2 days are deleted from the tmp folder.
 
-### Zammad
+### Zammad (Support platform)
 See [the Zammad subpage](../zammad.md).
 
-### Keila
-See [the Keila subpage](../keila.md).
+### Listmonk (Newsletter tool)
+See [the Listmonk subpage](../listmonk.md).
 
 ## Deployment
 The Application is deployed with [deployer](https://deployer.org/) from the GitLab CI.
