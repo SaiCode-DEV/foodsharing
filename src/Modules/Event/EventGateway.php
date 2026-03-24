@@ -138,13 +138,18 @@ class EventGateway extends BaseGateway
 			l.zip,
 			l.city
 		FROM fs_event e
-		JOIN fs_foodsaver_has_bezirk fhb ON e.bezirk_id = fhb.bezirk_id AND fhb.active = 1
 		LEFT OUTER JOIN fs_foodsaver_has_event fhe ON e.id = fhe.event_id AND fhe.foodsaver_id = :fs_id
 		LEFT JOIN fs_location l ON e.location_id = l.id
 		LEFT JOIN fs_bezirk r ON e.bezirk_id = r.id
 		WHERE
 			(
-				fhb.foodsaver_id = :fs_id
+                EXISTS (
+                    SELECT 1
+                    FROM fs_foodsaver_has_bezirk fhb
+                    WHERE fhb.bezirk_id = e.bezirk_id
+                        AND fhb.foodsaver_id = :fs_id
+                        AND fhb.active = 1
+                )
 				OR (e.is_public AND fhe.event_id IS NOT NULL)
 			)
 			AND e.end > DATE_SUB(NOW(), INTERVAL :buffer DAY)

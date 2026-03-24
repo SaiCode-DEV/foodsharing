@@ -219,6 +219,12 @@ class EventGatewayTest extends Unit
         $events = $this->gateway->getEventsByStatus($this->foodsaver['id'], [InvitationStatus::ACCEPTED]);
         $eventIds = array_column($events, 'id');
 
-        $this->assertEquals(asort($expectedEvents), asort($eventIds));
+        sort($expectedEvents);
+        sort($eventIds);
+
+        $this->assertSame($expectedEvents, $eventIds);
+
+        // Just to make sure: Duplicates should never be returned.
+        $this->assertEquals(count($eventIds), count(array_unique($eventIds)));
     }
 }
