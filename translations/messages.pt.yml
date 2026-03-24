@@ -1302,7 +1302,7 @@ profile:
     give_count: entregue
     engagement_count: engajado
   commitments_stat:
-    eventsParticipatedWeek: 'Obrigado por participar {count} vezes nos eventos desta
+    eventsParticipatedWeek: 'Obrigado pelas {count} participações em eventos desta
       semana. Tempo total: {hour}:{minute} '
     pickupCount: 'Frequência'
     week_0: 'em duas semanas'
@@ -1310,19 +1310,19 @@ profile:
     week_4: 'há duas semanas'
     categorieName: 'Categoria'
     title: 'Atividade'
-    respActStores: 'Obrigado por coordenar {count} ativos '
+    respActStores: 'Obrigado por coordenar {count} locais ativos '
     week_2: 'esta semana'
     pickupAmount: 'Quantidade'
-    securePickupWeek: 'Obrigado! Ajudaste-nos {count} vez(es) em cima da hora e trataste
+    securePickupWeek: 'Obrigado pelas {count} participações espontâneas e por tratares
       das tarefas pendentes!'
     week_1: 'próxima semana'
     basketsSharedWeek: 'Os cabazes alimentares foram partilhados com {count} pessoa(s). '
     weekDesc: 'Semana {week} do calendário, de {weekStart} a {weekEnd}'
-    eventsCreatedWeek: 'Obrigado por criar {count} eventos esta semana.'
+    eventsCreatedWeek: 'Obrigado por criares {count} agendamentos esta semana.'
     districtName: 'Distrito'
     calenderWeek: 'sem.'
-    basketsOfferedWeek: 'Obrigado pelos {count} cabazes alimentares oferecidas esta
-      semana. No total, foram distribuídos {weight} kg.'
+    basketsOfferedWeek: 'Obrigado pela tua contribuição com {count} cabazes alimentares
+      esta semana. No total, foram distribuídos {weight} kg.'
   history:
     actionBy: 'por'
     noData: 'Não há dados disponíveis.'
@@ -3275,6 +3275,8 @@ register:
   invalid_token: O código de registo não é conhecido
   token_invalid_or_expired: O código de registo não é conecido ou expirou. Pede 
     um novo código para te registar.
+  join_newsletter_failed: Ocorreu um erro ao subscrever o newsletter. Podes 
+    inscrever-te a qualquer momento no teu perfil.
 thread:
   options:
     rename: 'Editar titulo'
@@ -3392,9 +3394,9 @@ globals:
 legal:
   if_delete:
     legal_2: 'Mais informações sobre os períodos de depósito (página em alemão)'
-    this_doesnt_get_deleted: 'As seguintes informações já não estão disponíveis no
-      sistema activo, mas são arquivadas com base no artigo 17.o, n.o 3, pp. 1, lit.
-      b) DSGVO:'
+    this_doesnt_get_deleted: 'As informações seguintes já não se encontram disponíveis
+      no sistema ativo, mas são arquivadas separadamente, nos termos do artigo 17.º,
+      n.º 3, alínea b), do RGPD:'
     this_gets_deleted_verify: 'A tua verificação será removida.'
     this_doesnt_get_deleted_name: 'O teu nome'
     this_gets_deleted_friendlist: 'A tua lista de conhecidos é removida.'
@@ -3407,7 +3409,8 @@ legal:
     this_gets_deleted_quiz: 'Todos os teus testes são removidos.'
     this_doesnt_get_deleted_history: 'História da tua verificação'
     unsubscribe_newsletter: 'Cancela também a newsletter do Foodsharing, se estiveres
-      subscrito. Podes alterar esta opção mais tarde em:'
+      subscrito. Podes fazer isso mais tarde através do link no e-mail do newsletter.'
+    legal_more_info: Mais informações
   legal_agreement: 'acordo legal'
   privacy_notice: 'Instruções sobre proteção de dados para os responsáveis por cooperações
     e os embaixadores'
@@ -3989,6 +3992,12 @@ notifications:
     description: 'Receba aproximadamente uma vez por mês informações atualizadas sobre
       foodsharing por e-mail.'
     title: 'Boletim informativo'
+    settings: Definições de newsletter
+    checkbox: Receber o newsletter
+    patch_error: Não foi possível guardar as definições.
+    patch_success: Definição do newsletter guardada.
+    unavailable_error: O servidor do newsletter não está disponível neste 
+      momento. Por favor, tenta novamente mais tarde.
   foodSharePoints:
     title: 'Cantinhos alimentares'
     description: 'Receber notificações sobre novas mensagens nos murais dos cantinhos

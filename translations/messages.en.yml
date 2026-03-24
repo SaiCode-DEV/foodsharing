@@ -3108,7 +3108,9 @@ legal:
       3 sentence 1 letter b GDPR:'
     legal_2: Laws on retention periods (page in German)
     unsubscribe_newsletter: 'Please also unsubscribe the Foodsharing newsletter if
-      you have a subscription. You can change this later at:'
+      you have a subscription. You can also do this later via the link in the newsletter
+      email.'
+    legal_more_info: Further informations
   latest_change: Last modified on {date}
   show_changes: Show changes
 answers: Which answers are correct?
@@ -3403,6 +3405,9 @@ register:
     to confirm your email address. We have sent an email containing a 
     confirmation link to your address.
   invalid_token: The registration code is unknown
+  join_newsletter_failed: An error occurred when you tried to subscribe to the 
+    newsletter. You can subscribe to the newsletter at any time via your 
+    profile.
 duration: Time to answer
 explanation: Explanation
 fp: Failure points
@@ -4313,6 +4318,12 @@ notifications:
     title: Newsletter
     description: Receive new information about foodsharing via E-Mail about once
       per month.
+    settings: Newsletter settings
+    checkbox: Receive newsletter
+    patch_error: The settings could not be saved.
+    patch_success: Newsletter settings saved.
+    unavailable_error: The newsletter server is temporarily unavailable. Please 
+      try again later.
   checkbox_email: E-Mail
   checkbox_push: Push
   checkbox_bell: Bell

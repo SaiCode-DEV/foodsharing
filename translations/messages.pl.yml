@@ -37,7 +37,7 @@ copied_to_clipboard: '"{tekst}" został skopiowany do schowka.'
 fetchstate: Czy wszystko poszło dobrze?
 lifetime: Jak długo ma być ważny twój koszyk żywności?
 position: Pozycja w foodsharingu (publiczne)
-pass2: Powtórz hasło
+pass2: Potwierdź hasło
 betrieb_kategorie_id: Kategoria
 betrieb_status_id: Status
 fax: Fax
@@ -280,7 +280,7 @@ quiz:
     0: ''
 request_time: 'Czas zapytania:'
 pass1: Twoje żądane nowe hasło
-public_time: Szacunkowy czas odbioru
+public_time: Szacunkowy czas slotu
 right: Wartość
 groups:
   empty: Nie jesteś jeszcze w żadnej grupie roboczej
@@ -296,7 +296,7 @@ presse: Czy firma/sklep/stowarzyszenie wyraża zgodę na publikację w prasie i 
   stronie foodsharing.de?
 sticker: Czy firma/sklep/klub itp. jest skłonna umieścić naklejkę przy wejściu 
   lub w innym miejscu?
-use_region_pickup_rule: Czy przepisy okręgowe dotyczące odbioru zamówień powinny
+use_region_pickup_rule: Czy przepisy rejonu dotyczące odbioru zamówień powinny 
   mieć zastosowanie także do tej firmy?
 expand_all: rozłóż wszystko
 collapse_all: wszystko zwinąć
@@ -776,7 +776,8 @@ group:
       przeglądowej rejonu.'
     tooltip_function_6: ''
     tooltip_function_7: ''
-    tooltip_function_13: ''
+    tooltip_function_13: 'Administratorzy/ki tego zespoły otrzymują powiadomienia
+      przez dzwonek o nowych zasobach.'
     none: 'Nie ma zespołów GOALS'
     stores_coordination: ''
     tooltip_function_3: 'Administratorzy tego zespołu mogą aktywować i edytować jadłodzielnie
@@ -917,6 +918,7 @@ legal:
     legal_2: ''
     this_doesnt_get_deleted: ''
     this_gets_deleted_stores: ''
+    legal_more_info: Dalsze informacje
   latest_change: 'Ostatnio zmieniony {date}'
   show_changes: 'Pokaż zmiany'
   legal_agreement: ''
@@ -982,13 +984,13 @@ register:
   title: rejestracja
   register_button_label: rejestracja
   login_email: Adres email
-  login_passwd2: Powtórz hasło
+  login_passwd2: Potwierdź hasło
   prev: powrót
   next: następny
   woman: kobieta
   man: mężczyzna
   other: inne
-  pass2: powtórz hasło
+  pass2: Potwierdź hasło
   login_passwd1: Hasło (minimum 8 znaków)
   password_required: Hasło jest wymagane
   password_minLength: Twoje hasło musi mieć minimum osiem znaków
@@ -1033,7 +1035,7 @@ register:
   mail_hint: 'Ważne: uważaj na poprawną pisownię!'
   requiredFields: Pole wymagane
   email_required: Adres email jest wymagany
-  email_invalid: Ten adres email jest nieważny bądź już używany
+  email_invalid: Ten adres email jest nieważny
   login_phone_info: 'Może być pomocne, aby udostępnić twój numer telefonu innym foodsharer(k)om'
   error_birthdate: ''
   join_success_message: 'Pomyślnie zakończyłeś/aś twoją rejestrację na foodsharingu.
@@ -1044,8 +1046,8 @@ register:
     w punkcie 2d, "Rejestracja jako foodsharer/ka lub foodsaver/ka".'
   token_invalid_or_expired: 'Kod rejestracji jest nieznany albo utracił ważność. Zażądaj
     nowego kodu, aby się zarejestrować.'
-  invalid_token: ''
-  join_initialised: ''
+  invalid_token: 'Nieznany kod rejestracji'
+  join_initialised: 'Rozpoczęła się twoja rejestracja.'
   join_initialised_message: ''
   email_in_progress: ''
 gender:
@@ -1160,14 +1162,14 @@ resource_mosaic:
   filter:
     active: Tylko aktywni/e użytkownicy/czki
     favorites: Tylko ulubione
-    home_region: ''
+    home_region: 'Tylko rejon macierzysty'
   other_resources:
     other: Dalsze zasoby {user}
     own: Moje inne zasoby
     similar: Podobne zasoby
-    commons: ''
+    commons: 'Dalsze wspólne zasoby'
     new: 'Wszystkie nowe zasoby w tym rejonie'
-  commons_resources_in: ''
+  commons_resources_in: 'Wspólne zasoby z {groupName}'
   editModal:
     openness: ''
     description_warning:
@@ -1200,7 +1202,8 @@ resource_mosaic:
     polite_info: ''
     title: 'Zapytaj o zasób "{name}"'
   search_placeholder: 'Szukaj zasobów, foodsharerów/ek lin ID'
-  no_commons_resources: ''
+  no_commons_resources: 'W {groupName} nie wprowadzono jeszcze żadnych wspólnych zasobów.
+    Masz potrzebne uprawnienia, aby to zmienić!'
   openness:
     level_3: 'Dla dobrych celów'
     level_4: 'raczej otwarty'
@@ -1208,7 +1211,7 @@ resource_mosaic:
     level_5: 'zawsze chętnie'
     level_1: 'Tylko jeśli ważne'
     level_2: ''
-  is_commons: ''
+  is_commons: 'Ten zasób nie należy do jednej osoby, tylko jest dobrem wspólnym'
   order:
     sort_age: 'Kolejność: od najnowszych'
     sort_openness: ''
@@ -1217,10 +1220,10 @@ resource_mosaic:
   list_status:
     none_in_region: 'Jeszcze nie wprowadzono żadnych zasobów. Wprowadź swoje własne
       zasoby lub zaproś do tego innych!'
-    filter: ''
+    filter: 'Do twojego wyszukiwania pasują/e {count} zasoby/ów:'
     none_in_filter: 'Niestety, żadne zasoby nie pasują do twojego wyszukiwania.'
     total: 'W {region} jest wprowadzonych łącznie {count} zasobów:'
-  add_commons: ''
+  add_commons: 'Wprowadź nowy wspólny zasób'
   confirm_delete: 'Czy na pewno chcesz usunąć ten zasób?'
   has_resources_elsewhere: ''
   request_header: 'Zapytanie do twojego zasobu'
@@ -1229,6 +1232,7 @@ resource_mosaic:
   no_own_resources: ''
   message: 'Napisz wiadomość'
   is_private_hint: 'Ten zasób jest widoczny tylko dla znajomych.'
+  restricted_to: 'Ograniczone do:'
 required_messages:
   kick_from_store_team:
     footer: Pozdrawiam
@@ -3665,8 +3669,8 @@ oauth:
     confidential_client: 'Poufny klient (np. aplikacja serwera)'
     regenerate_secret: ''
     create_success: 'Pomyślnie utworzono klienta'
-    region_restriction_tooltip: ''
-    redirect_uris: ''
+    region_restriction_tooltip: 'Tylko członkowie wybranych rejonów mogą się autoryzować'
+    redirect_uris: 'Redirect URIs'
     grant_types: ''
     required_regions_help: ''
     required_regions: 'Wymagane rejony'
