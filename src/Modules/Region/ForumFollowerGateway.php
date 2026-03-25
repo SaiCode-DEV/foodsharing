@@ -54,6 +54,9 @@ class ForumFollowerGateway extends BaseGateway
                 AND (follower.infotype = 1 OR follower.bell_notification = 1)
         ', [':userId' => $userId]);
 
+        // Filter out orphaned subscriptions where the thread or region no longer exists
+        $subscriptions = array_filter($subscriptions, fn ($s) => $s['id'] !== null && $s['regionId'] !== null);
+
         return array_map(fn ($subscription) => new NotificationSettingWithRegion(
             $subscription['id'], $subscription['name'],
             $subscription['bell_notification'], $subscription['infotype'],
