@@ -62,16 +62,21 @@ class ActivityUpdateMailbox
 
         $update->time = $time;
 
-        $update->desc = $desc;
-        $update->title = $subject;
+        $update->desc = self::sanitizeUtf8($desc);
+        $update->title = self::sanitizeUtf8($subject);
 
         $update->source = $mailbox_name;
         $update->mailboxId = $mailboxId;
 
         $update->entityId = $emailId;
 
-        $update->senderEmail = $sender_email;
+        $update->senderEmail = self::sanitizeUtf8($sender_email);
 
         return $update;
+    }
+
+    private static function sanitizeUtf8(string $value): string
+    {
+        return mb_convert_encoding($value, 'UTF-8', 'UTF-8');
     }
 }

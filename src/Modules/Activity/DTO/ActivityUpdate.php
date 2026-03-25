@@ -97,19 +97,28 @@ class ActivityUpdate
 
         $item->type = $type;
         $item->time = Carbon::createFromTimestamp($time, new DateTimeZone('Europe/Berlin'));
-        $item->title = $title;
-        $item->desc = $desc;
-        $item->source = $source;
+        $item->title = self::sanitizeUtf8($title);
+        $item->desc = self::sanitizeUtf8($desc);
+        $item->source = self::sanitizeUtf8($source);
         $item->sourceSuffix = $sourceSuffix;
         $item->icon = $icon;
         $item->gallery = $gallery;
         $item->fsId = $fsId;
-        $item->fsName = $fsName;
+        $item->fsName = self::sanitizeUtf8($fsName);
         $item->entityId = $entityId;
         $item->regionId = $regionId;
         $item->forumPost = $forumPost;
         $item->forumType = $forumType;
 
         return $item;
+    }
+
+    private static function sanitizeUtf8(?string $value): ?string
+    {
+        if ($value === null) {
+            return null;
+        }
+
+        return mb_convert_encoding($value, 'UTF-8', 'UTF-8');
     }
 }
