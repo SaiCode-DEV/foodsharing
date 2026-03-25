@@ -37,6 +37,7 @@
     "libphonenumber-js": "~1.12.23",
     "liquor-tree": "0.2.70",
     "markdown-it": "~12.3.2",
+    "object.groupby": "^1.0.3",
     "pinia": "~2.3.0",
     "pinia-plugin-persistedstate": "~4.0.1",
     "relative-time-format": "~1.1.11",

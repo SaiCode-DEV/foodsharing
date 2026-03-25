@@ -1,4 +1,5 @@
 import 'whatwg-fetch'
+import 'object.groupby/auto'
 import '@/sentry'
 
 import '@/style'
