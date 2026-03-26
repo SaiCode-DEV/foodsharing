@@ -5,7 +5,7 @@
     ref="map"
     :style="mapStyle"
     :zoom="zoom"
-    :center="[center.lat, center.lon]"
+    :center="safeCenter"
     :bounds="bounds"
     @ready="resetMap"
     @update:zoom="$emit('update:zoom', $event.valueOf())"
@@ -66,6 +66,14 @@ export default {
     useVectorMap () {
       // return isWebGLSupported()
       return false
+    },
+    safeCenter () {
+      const lat = this.center?.lat
+      const lon = this.center?.lon
+      if (typeof lat === 'number' && typeof lon === 'number' && isFinite(lat) && isFinite(lon)) {
+        return [lat, lon]
+      }
+      return [MAP_CONSTANTS.CENTER_GERMANY_LAT, MAP_CONSTANTS.CENTER_GERMANY_LON]
     },
     mapStyle () {
       return `height: ${this.height}`
