@@ -446,7 +446,7 @@ bell:
   passgen_failed: 'Carregue uma foto e funcionará.'
   store_request_imposed: 'Foste adicionado à equipa.'
   store_request_accept_wait: 'Agora está na lista de espera/substitutos.'
-  workgroup_request_accept: 'Foi aceite no grupo de trabalho.'
+  workgroup_request_accept: 'Foste aceite no grupo de trabalho.'
   forum_mention: 'no tópico «{title}» do fórum {forum}'
   new_foodsaver_needs_verification: 'precisa ser verificado'
   store_request_deny: 'O teu pedido foi rejeitada.'
@@ -4766,8 +4766,8 @@ help:
         para os quais foram introduzidas as **mesmas categorias**.'
     profileCommitmentsStat:
       title: 'Atividade'
-      md: 'é visível a partir da função de responsável por cooperações. É restrita
-        ao distrito comum ou às locais comuns.'
+      md: 'é visível para responsáveis por cooperações. Está restrita ao distrito
+        comum ou aos locais comuns.'
     pollScopes:
       md: 'Ao criar uma votação, podes selecionar entre diferentes grupos de pessoas
         que terão direito a voto.
