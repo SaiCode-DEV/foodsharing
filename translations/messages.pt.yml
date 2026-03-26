@@ -620,7 +620,7 @@ dashboard:
       3_columns: 'Mudar para a visualização de 3 colunas'
       2_columns: 'Mudar para a visualização de 2 colunas'
     hide:
-      text: 'Visualização'
+      text: 'Ajustar visualização'
       tooltip: 'Aqui podes ocultar e mostrar áreas específicas do painel.'
   eventCount: 'Próximos eventos ({count})'
   quiz:
@@ -1303,7 +1303,9 @@ profile:
     engagement_count: engajado
   commitments_stat:
     eventsParticipatedWeek: 'Obrigado pelas {count} participações em eventos desta
-      semana. Tempo total: {hour}:{minute} '
+      semana.
+
+      Tempo total: {hour}:{minute} '
     pickupCount: 'Frequência'
     week_0: 'em duas semanas'
     week_3: 'semana pasada'
