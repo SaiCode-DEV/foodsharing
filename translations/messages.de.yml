@@ -783,6 +783,7 @@ terminology:
   received: "Erhaltene"
   sent: "Gesendete"
   attention: "Achtung"
+  newsletter: "Newsletter"
 
 statistics:
   lastMonth: "Statistiken der letzten 30 Tage"

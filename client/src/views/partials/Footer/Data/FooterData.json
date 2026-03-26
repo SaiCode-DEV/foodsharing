@@ -25,6 +25,10 @@
       {
         "url": "press",
         "title": "menu.entry.press"
+      },
+      {
+        "url": "newsletter",
+        "title": "terminology.newsletter"
       }
     ]
   },
