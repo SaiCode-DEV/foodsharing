@@ -44,6 +44,7 @@ use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
@@ -625,12 +626,17 @@ class StoreRestController extends AbstractFoodsharingRestController
     #[Route('stores/{storeId}', methods: ['DELETE'], requirements: ['storeId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to delete this store')]
+    #[OA\Response(response: Response::HTTP_CONFLICT, description: 'Preconditions not met for deleting this store')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Store not found')]
     public function deleteStore(int $storeId): Response
     {
         $this->assertLoggedIn();
         if (!$this->storePermissions->mayDeleteStore($storeId)) {
             throw new AccessDeniedHttpException('Not permitted');
+        }
+
+        if (!$this->storePermissions->mayStoreBeDeleted($storeId)) {
+            throw new ConflictHttpException('Preconditions not met for deletion');
         }
 
         $this->storeTransactions->deleteStore($storeId);

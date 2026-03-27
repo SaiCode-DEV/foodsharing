@@ -106,7 +106,7 @@ export async function getStorePermissions (storeId) {
 }
 
 export async function deleteStore (storeId) {
-  return remove(`/stores/${storeId}`)
+  return remove(`/stores/${storeId}`, {}, { skipErrorNotificationFor: [HTTP_RESPONSE.CONFLICT] })
 }
 
 export async function listStoreTeamInvitations (storeId) {

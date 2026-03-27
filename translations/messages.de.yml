@@ -1144,6 +1144,7 @@ store:
   delete:
     button: "Betrieb löschen"
     sure: "Möchtest du diesen Betrieb wirklich löschen? Dieser Vorgang kann nicht rückgängig gemacht werden! Alle Mitglieder werden aus dem Betrieb entfernt und alle betriebsspezifischen Informationen außer dem Betriebsprotokoll werden gelöscht. Bitte lösche nur Betriebe, die tatsächlich nicht mehr existieren oder doppelt eingetragen wurden. Betriebe, die einer Kooperation abgesagt haben, sollten eingetragen bleiben. Es können nur Betriebe gelöscht werden, in denen es nie Slots gab, und deren Team-Chats für mindestens 3 Monate ungenutzt waren."
+    conditions_not_met: "Der Betrieb konnte nicht gelöscht werden, da die notwendigen Bedingungen nicht erfüllt sind."
 
 #
 # Store and StoreUser

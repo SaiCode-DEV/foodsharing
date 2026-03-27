@@ -16,7 +16,7 @@
       <b-button class="cancel-button" @click="cancel()">
         {{ currentOptions.cancelTitle }}
       </b-button>
-      <div>
+      <div class="position-relative">
         <b-button
           :disabled="countdown > 0"
           :variant="currentOptions.okVariant"
@@ -108,9 +108,11 @@ defineExpose({
 <style scoped>
 .confirm-countdown {
   display: block;
+  position: absolute;
+  width: max-content;
+  right: 0;
   font-size: 80%;
   color: var(--fs-color-danger-500);
-  height: 0;
   text-align: center;
 }
 </style>

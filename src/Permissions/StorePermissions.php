@@ -513,7 +513,7 @@ class StorePermissions
 
     public function mayDeleteStore($storeId): bool
     {
-        return $this->mayEditStore($storeId) && $this->mayStoreBeDeleted($storeId);
+        return $this->mayEditStore($storeId);
     }
 
     public function isKamForStore(int $storeId, ?int $chainId = -1): bool

@@ -43,6 +43,7 @@ import { deleteStore, removeStoreMember } from '@/api/stores'
 import Container from '@/components/Container/Container.vue'
 import ContainerButton from '@/components/Container/ContainerButton.vue'
 import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
+import { HTTP_RESPONSE } from '@/consts'
 
 export default {
   components: { Container, ContainerButton },
@@ -112,7 +113,11 @@ export default {
         await deleteStore(this.storeId)
         window.location.href = this.$url('dashboard')
       } catch (e) {
-        pulseError(this.$t('error_unexpected'))
+        if (e.code && e.code === HTTP_RESPONSE.CONFLICT) {
+          pulseError(this.$t('store.delete.conditions_not_met'))
+        } else {
+          pulseError(this.$t('error_unexpected'))
+        }
       }
     },
   },
