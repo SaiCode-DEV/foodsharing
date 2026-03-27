@@ -30,10 +30,18 @@ class ExceptionEventSubscriber implements EventSubscriberInterface
         $exception = $event->getThrowable();
         if (str_starts_with($uri, '/api')) {
             $statusCode = $exception instanceof HttpException ? $exception->getStatusCode() : 500;
-            $event->setResponse(new JsonResponse([
-                'message' => $exception->getMessage(),
+            $message = $exception->getMessage();
+            $response = new JsonResponse([
+                'message' => $message,
                 'code' => $statusCode,
-            ], $statusCode));
+            ], $statusCode);
+            $response->setEncodingOptions(
+                $response->getEncodingOptions()
+                | JSON_UNESCAPED_UNICODE
+                | JSON_PARTIAL_OUTPUT_ON_ERROR
+                | JSON_INVALID_UTF8_SUBSTITUTE
+            );
+            $event->setResponse($response);
         }
     }
 }
