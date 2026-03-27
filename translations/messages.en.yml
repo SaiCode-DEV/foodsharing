@@ -4769,6 +4769,8 @@ feedback:
   title: "Beta Feedback Form"
   button: "Beta feedback"
   capture_screenshot: "Capture screenshot"
+  screenshot_not_supported: "Your browser does not support automatic screenshots.
+    You can manually add an image to your feedback."
   name_sent: "Your Name and ID will be sent with the feedback."
   success: "Your feedback has been successfully submitted."
   no_support: "This form is for **feedback** only. If you need help or have questions,

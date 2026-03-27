@@ -4400,6 +4400,7 @@ feedback:
   title: "Beta Feedback-Formular"
   button: "Beta Feedback"
   capture_screenshot: "Screenshot aufnehmen"
+  screenshot_not_supported: "Automatischer Screenshot wird von deinem Browser nicht unterstützt. Du kannst deinem Feedback manuell ein Bild hinzufügen."
   name_sent: "Dein Name und deine ID werden mitgesendet."
   success: "Dein Feedback wurde erfolgreich übermittelt."
   no_support: "Dieses Formular ist nur für **Feedback** gedacht. Wenn du Hilfe benötigst oder Fragen hast, nutze bitte das [Support-Formular](/support)."

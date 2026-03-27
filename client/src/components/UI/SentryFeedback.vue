@@ -66,13 +66,23 @@
 
         <b-form-group>
           <b-button
+            v-if="screenshotSupported"
             variant="secondary"
             block
             :disabled="!!currentFile"
+            class="mb-2"
             @click="captureScreenshot"
           >
             {{ i18n('feedback.capture_screenshot') }}
           </b-button>
+          <b-alert
+            v-else
+            variant="secondary"
+            show
+            class="mb-2"
+          >
+            {{ i18n('feedback.screenshot_not_supported') }}
+          </b-alert>
 
           <FileInput
             :value="currentFile?.file"
@@ -92,7 +102,9 @@
               {{ i18n('button.delete') }}
             </b-button>
           </div>
+        </b-form-group>
 
+        <b-form-group>
           <b-form-checkbox
             v-model="feedback.privacyAccepted"
             :class="{'is-invalid': v$.privacyAccepted.$error}"
@@ -154,6 +166,9 @@ const isFormValid = computed(() => {
          !v$.value.email.$invalid &&
          !v$.value.message.$invalid &&
          feedback.value.privacyAccepted
+})
+const screenshotSupported = computed(() => {
+  return !!(navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia)
 })
 
 function onShow () {
@@ -305,11 +320,15 @@ onUnmounted(() => {
       border: 1px solid var(--fs-color-primary-300);
     }
   }
+
+  .form-group:last-of-type {
+    margin-bottom: 0;
+  }
 }
 
 .screenshot-preview {
   max-width: 300px;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 
   img {
     border: 1px solid var(--fs-color-primary-300);

@@ -145,21 +145,25 @@ function removeFile (index) {
 </script>
 <style lang="scss">
 .custom-files{
+  display: block;
   height: unset;
   input {
+    position: absolute;
     height: unset;
   }
   label.custom-file-label{
+    display: block;
+    position: relative;
     height: unset;
     width: 100%;
-    position: relative;
+    margin-bottom: 0;
     background-color: var(--fs-color-background);
-  &::after {
-    height: unset;
-    background-color: var(--fs-color-elevated);
-    color: var(--fs-color-text);
+    &::after {
+      height: unset;
+      background-color: var(--fs-color-elevated);
+      color: var(--fs-color-text);
+    }
   }
-}
 }
 .form-file-text {
   display: flex !important;
