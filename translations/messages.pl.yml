@@ -1049,7 +1049,7 @@ register:
   invalid_token: 'Nieznany kod rejestracji'
   join_initialised: 'Rozpoczęła się twoja rejestracja.'
   join_initialised_message: ''
-  email_in_progress: ''
+  email_in_progress: 'Dla tego adresu email już zażądano niedawno kodu rejestracji'
 gender:
   m: mężczyzna
   f: kobieta
@@ -3004,14 +3004,14 @@ basket:
       Być może już został odebrany lub usunięty przez osobę oferującą.
 
       '
-  request_denied: ''
+  request_denied: 'Twoje zapytanie zostało odrzucone przez osobę oferującą jadłokoszyk.'
   by: 'Jadłokoszyk od {name}'
   nearby-short: 'W pobliżu'
   title: 'Jadłokoszyki'
   not_withdrawn: 'Nie można było cofnąć zapytania o jadłokoszyk: '
   updated: 'Aktualizowany:'
   modal_error:
-    no_contact: ''
+    no_contact: 'Wybierz możliwość, jak można zapytać o jadłokoszyk.'
     no_phone: 'Podaj numer telefonu.'
   contact_types: 'Możliwości kontaktu'
   date: 'Data utworzenia'
@@ -3134,13 +3134,13 @@ menu:
     your_account: 'Twoje konto'
     fscities: 'miasta foodsharing'
     education: 'Edukacja'
-    regionalgroups: ''
+    regionalgroups: 'Grupy lokalne'
     messages: 'Wiadomości'
     aboutUs: 'O nas'
   bell:
     delete_read_confirmation:
       title: Usunąć powiadomienia?
-      text: ''
+      text: 'Czy na pewno chcesz usunąć {count} przeczytane/ych dzwonki/ów?'
 footer:
   about_us: O nas
   team: Team
@@ -3168,7 +3168,7 @@ footer:
   guide: 'Poradnik higieny'
   donate:
     call_to: 'Chciał(a)byś wesprzeć foodsharing?'
-    cta: ''
+    cta: 'Przekaż darowiznę teraz'
   statistics: 'Statystyka'
   dataprivacy: 'Prywatność'
   infosCompany: 'dla przedsiębiorstw'
@@ -3208,13 +3208,13 @@ thread:
     toggle: ''
     includesHidden: ''
 poll:
-  submit_vote: ''
-  allowed_voters: ''
+  submit_vote: 'Zagłosuj'
+  allowed_voters: 'uprawniony/a do głosowania'
   edit:
     title: ''
     submit: ''
     submit_question: ''
-  in_future: ''
+  in_future: 'jeszcze nie rozpoczęte'
   in_past: ''
   results:
     average: 'średnia'
@@ -3230,26 +3230,26 @@ poll:
   new_poll:
     type: ''
     name_required: 'Proszę podać nazwę.'
-    name: ''
-    scope: ''
+    name: 'Nazwa głosowania'
+    scope: 'Kto może głosować?'
     time: 'Czas'
     option_texts_required: 'Podaj jednoznaczny tekst do każdej opcji.'
     start_date_required: ''
     description: 'Opis'
     options: 'Opcje, które mają być możliwe do wyboru.'
     end_date_required: ''
-    end_date: ''
-    title: ''
-    description_placeholder: ''
-    submit_success: ''
-    start_date: ''
-    description_required: ''
+    end_date: 'Koniec głosowania'
+    title: 'Nowe głosowanie'
+    description_placeholder: 'Co to za głosowanie?'
+    submit_success: 'Utworzono głosowanie'
+    start_date: 'Początek głosowania'
+    description_required: 'Podaj opis.'
     submit_question: ''
     option: 'Opcja'
     missing_fields: 'Wszystkie pola muszą być wypełnione'
     shuffle_options: ''
-    submit: ''
-  time_period: ''
+    submit: 'Zapisz głosowanie'
+  time_period: 'Przedział czasu'
   may_not_vote: ''
   type_description_0: ''
   type_description_1: ''
@@ -3258,7 +3258,7 @@ poll:
   ended_at: ''
   type_description_2: 'Możliwość wyboru między zgodą / wstrzymaniem się / odrzuceniem'
   begins_at: 'Początek'
-  error_cannot_vote: ''
+  error_cannot_vote: 'Nie możesz uczestniczyć z tym głosowaniu'
   type_description_3: ''
   cancel:
     title: ''
@@ -3267,22 +3267,23 @@ poll:
   not_available: ''
   eligible_votes_count: ''
   already_voted: ''
-  submit_vote_warning: ''
+  submit_vote_warning: 'Uwaga: głosowanie jest anonimowe i po głosowaniu nie możesz
+    już zmienić swojego wyboru.'
   untraceable: ''
-  scope_description_1: ''
+  scope_description_1: 'Wszyscy zweryfikowani foodsaverzy z rejonu / zespołu'
   type_2:
     tooltip_positive: 'Zgoda'
     tooltip_neutral: 'Wstrzymanie się'
     tooltip_negative: 'Odrzucenie'
   submit_vote_question: ''
-  vote_success: ''
-  scope_description_3: ''
+  vote_success: 'Pomyślnie zagłosowałeś/aś.'
+  scope_description_3: 'Wszyscy/tkie ambasadorzy/ki z rejonu'
   scope_description_4: ''
   hint_sorted_order: ''
   scope_description_0: ''
   title: ''
   scope_description_2: ''
-  type: ''
+  type: 'Rodzaj głosowania'
 categories:
   title:
     resource: 'Kategorie zasobów'
@@ -3723,7 +3724,8 @@ region:
     description: 'O rejonie'
     desc:
       missing: ''
-      confirm_discard_changes: ''
+      confirm_discard_changes: 'Czy na pewno chcesz odrzucić swoje zmiany w opisie
+        rejonu?'
       confirm_save_changes: ''
       edit: 'Edytuj opis rejonu'
     discard_changes: 'Odrzuć zmiany'
@@ -3768,7 +3770,7 @@ region:
     country: 'państwo'
     federal_state: 'Województwo'
     part_of_town: 'Dzielnica'
-  forum-redirect: ''
+  forum-redirect: 'Nie ma tablicy dla rejonów. Zostałeś/aś przekierowany/a do forum.'
   name: 'Nazwa'
   confirm:
     edit: 'Jesteś pewny/a, że chcesz zapisać zmiany w rejonie {name}?'
@@ -3800,7 +3802,7 @@ region:
   root: 'Żaden (root)'
   no-huge: ''
   change: 'Zmień rejon'
-  created: ''
+  created: 'utworzono {region}'
   delete: 'Usuń rejon'
   mailbox: 'Nazwa skrzynki pocztowej'
   conflict_store_member_or_manager_other: ''
@@ -4264,7 +4266,7 @@ storelist:
   map: 'mapa'
   addressdata: 'Adres'
   fetching: ''
-  filter_placeholder: ''
+  filter_placeholder: 'Nazwa/adres'
 validation:
   phone_number_invalid: ''
 theme_switcher:

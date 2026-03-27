@@ -1551,6 +1551,7 @@ terminology:
   resourcesAdmins: Resource Mosaic Team
   giving: Donation
   attention: 'Attention'
+  newsletter: Newsletter
 login:
   pwreset:
     bread: Reset password

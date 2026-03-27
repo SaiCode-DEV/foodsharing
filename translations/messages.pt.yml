@@ -1303,9 +1303,7 @@ profile:
     engagement_count: engajado
   commitments_stat:
     eventsParticipatedWeek: 'Obrigado pelas {count} participações em eventos desta
-      semana.
-
-      Tempo total: {hour}:{minute} '
+      semana. Tempo total: {hour}:{minute} '
     pickupCount: 'Frequência'
     week_0: 'em duas semanas'
     week_3: 'semana pasada'
@@ -3147,6 +3145,7 @@ terminology:
   resourcesAdmins: Equipa do mosaico de recursos
   giving: Entrega
   attention: Atenção
+  newsletter: newsletter
 timepicker:
   labelCloseButton: 'Fechar'
   labelMinutes: 'minutos'
