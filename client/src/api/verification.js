@@ -1,3 +1,4 @@
+import { HTTP_RESPONSE } from '@/consts'
 import { post, get, remove } from './base'
 
 export async function verifyUser (userId, message) {
@@ -5,7 +6,9 @@ export async function verifyUser (userId, message) {
 }
 
 export async function deverifyUser (userId) {
-  return remove(`/users/${userId}/verifications`)
+  return remove(`/users/${userId}/verifications`, {}, {
+    skipErrorNotificationFor: [HTTP_RESPONSE.BAD_REQUEST],
+  })
 }
 
 export async function getVerificationHistory (userId) {

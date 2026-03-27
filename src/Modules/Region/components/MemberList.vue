@@ -785,7 +785,8 @@ export default {
         }
         if (!await this.confirmationDialogue('group.member_list.passports.verify.undo', dialogueOptions)) return
       }
-      await this.updateVerificationStatusFromUser(isVerified, memberId, message)
+      const success = await this.updateVerificationStatusFromUser(isVerified, memberId, message)
+      if (!success) return
       const index = regionStore.memberList.findIndex(member => member.id === memberId)
       if (index >= 0) {
         regionStore.memberList[index].isVerified = isVerified
@@ -892,20 +893,30 @@ export default {
       this.isBusy = false
       hideLoader()
     },
-    async updateVerificationStatusFromUser (isVerified, userId, message) {
+    async updateVerificationStatusFromUser (doVerify, userId, message) {
       showLoader()
+      let success = false
       this.isBusy = true
       try {
-        if (isVerified) {
+        if (doVerify) {
           await verifyUser(userId, message)
         } else {
           await deverifyUser(userId)
         }
+        success = true
       } catch (e) {
-        pulseError(i18n('error_unexpected'))
+        if (!doVerify && e.code && e.code === HTTP_RESPONSE.BAD_REQUEST) {
+          pulseError(this.$t('group.member_list.passports.unverify_error_slots', {
+            name: regionStore.memberList.find(m => m.id === userId)?.name ?? userId,
+            id: userId,
+          }))
+        } else {
+          pulseError(i18n('error_unexpected'))
+        }
       }
       this.isBusy = false
       hideLoader()
+      return success
     },
     clearSelected () {
       this.passportMember = []
@@ -931,8 +942,10 @@ export default {
       // verify all affected members
       try {
         for (const member of unverifiedSelectedMembers) {
-          await this.updateVerificationStatusFromUser(true, member.id, message)
-          member.isVerified = true
+          const success = await this.updateVerificationStatusFromUser(true, member.id, message)
+          if (success) {
+            member.isVerified = true
+          }
         }
       } catch (e) {
         pulseError(i18n('error_unexpected'))

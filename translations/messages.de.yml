@@ -539,6 +539,7 @@ group:
         do: "Möchtest du {name} ({id}) wirklich freischalten (Datenabgleich erfolgt / Ausweis kontrolliert etc.)?"
         do_selected: "Möchtest du alle ausgewählten wirklich freischalten (Datenabgleich erfolgt / Ausweis kontrolliert etc.)?"
         undo: "Freischaltung von {name} ({id}) aufheben"
+      unverify_error_slots: "Entverifizieren von {name} ({id}) nicht möglich, da die Person noch in Slots eingetragen ist. Bitte entferne die Person zuerst aus den Slots."
       filter_options:
         all: "alle"
         no_filter: "kein Filter"
