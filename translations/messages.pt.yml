@@ -1625,6 +1625,9 @@ group:
       active_or_renew_passport: Ativar / prolongar o cartão de foodsharing
       inform_user: com notificação
       filter_status: Só mostrar o estado
+      unverify_error_slots: Não é possível cancelar a verificação de {name} 
+        ({id}), porque a pessoa ainda está registada nas vagas. Por favor, 
+        remova-a primeiro das vagas.
     all_roles: Todas as funções
   quit_name_district: 'Deixar o distrito {name}'
   motivation: 'Texto motivacional'
@@ -5276,6 +5279,8 @@ feedback:
   no_support: 'Este formulário é só para **feedback**. Caso precises de ajuda ou tenhas
     alguma dúvida, usa o [formulário de suporte](/support).'
   capture_screenshot: 'Capturar ecrã'
+  screenshot_not_supported: O teu navegador não suporta a captura de ecrã 
+    automática. Podes anexar uma imagem manualmente ao feedback.
 theme_switcher:
   theme:
     system: 'Sistema'

@@ -220,6 +220,9 @@ group:
       already_verified: All selected users were already verified
       inform_user: with notification
       filter_status: Filter status
+      unverify_error_slots: De-verification of {name} ({id}) is not possible 
+        because the person is still listed in slots. Please remove the person 
+        from the slots first.
     all_roles: all roles
   application_from: by
   entermotivation: 'Motivation:'
