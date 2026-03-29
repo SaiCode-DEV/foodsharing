@@ -2829,6 +2829,8 @@ store:
       have cancelled a partnership should remain listed. Only stores where no 
       slots have ever existed and whose team chats have been unused for at least
       three months can be deleted.
+    conditions_not_met: The store could not be deleted because necessary 
+      conditions are not fulfilled.
   my_last_slot: My last activity
   chain_has_kams: 'Responsible for the chain:'
   part_of_chain: 'Part of the chain:'

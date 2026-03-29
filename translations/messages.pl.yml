@@ -386,7 +386,7 @@ settings:
       html: HTML
       label: 'Jak mają być sformatowane opisy eventów?'
       text: 'tylko tekst'
-      alt: ''
+      alt: 'Tekst w HTML jako alternatywa'
     history:
       "false": ''
       "true": ''
@@ -486,7 +486,9 @@ settings:
     authenticator_app_description: 'Użyj aplikacji uwierzytelniającej dla dodatkowego
       bezpieczeństwa przy logowaniu.'
     no_passkeys: 'Jeszcze nie zarejestrowano żadnego klucza bezpieczeństwa.'
-    domain_info: ''
+    domain_info: 'Klucze bezpieczeństwa są specyficzne dla domeny. Musisz zarejestrować
+      swój klucz bezpieczeństwa oddzielnie na foodsharing.de, foodsharing.network
+      itd.'
     passkeys_not_supported: 'Twoja przeglądarka nie wspiera kluczy bezpieczeństwa
       (WebAuthn).'
     mfa_disabled: 'Uwierzytelnianie wieloskładnikowe deaktywowane'
@@ -506,27 +508,28 @@ settings:
     password_required: Musisz podać hasło
     cancel: Anuluj
     intro: 'Tu możesz zmienić ustawienia uwierzytelnienia dwuskładnikowego.'
-    num_backup_codes: ''
+    num_backup_codes: 'Liczba pozostałych kodów backup'
     title: 'uwierzytelnienie dwuskładnikowe'
     enable_button: 'aktywuj uwierzytelnienie dwuskładnikowe'
   two_fa_enable:
     tabs:
       qr_code: Skanuj kod QR
       confirm: Potwierdź aktywację
-      backup_codes: ''
+      backup_codes: 'Kody backup'
       tutorial: 'Tutorial'
     qrcode:
       title: Skanuj kod QR
       scan_instruction: 'Otwórz swoją aplikację uwierzytelniającą i dodaj nowe konto
         przez zeskanowanie tego kodu QR.'
-      multi_device: ''
+      multi_device: 'Możesz użyć tego kodu, aby skonfigurować dowolną liczbę urządzeń.'
       label: 'Zeskanuj ten kod QR swoją aplikacją uwierzytelniającą:'
     secret_toggle: Pokaż kod (jeśli kod QR nie działa)
     confirm:
       title: Potwierdź aktywację
       instruction: 'Do aktywacji uwierzytelniania dwuskładnikowego podaj tutaj wygenerowany
         kod oraz swoje hasło.'
-      test_instruction: ''
+      test_instruction: 'Otwórz swoją aplikację uwierzytelniającą i podaj aktualny
+        sześciocyfrowy kod, aby upewnić się, że wszystko działa.'
     generated_code_label: Wygenerowany kod
     activate: Aktywuj
     next: 'Dalej'
@@ -536,17 +539,21 @@ settings:
     failed: 'Nie można było aktywować uwierzytelniania dwuskładnikowego, podano błędny
       kod lub hasło.'
     apps:
-      description: ''
+      description: 'Wybierz jedną z następujących bezpłatnych aplikacji uwierzytelniających
+        open-source dla twojego urządzenia:'
       title: 'Polecane aplikacje uwierzytelniające'
       info: ''
     tutorial: ''
     backup_codes:
-      info: ''
-      save_instruction: ''
-      title: ''
-      confirmation: ''
-      must_confirm: ''
-      label: ''
+      info: 'Zachowaj te kody w bezpiecznym miejscu. Każdy, kto ma dostęp do tych
+        kodów i zna twoje hasło, może się zalogować na twoje konto.'
+      save_instruction: 'Zapisz teraz te kody w bezpiecznym miejscu (np. w menedżerze
+        haseł lub na papierze).'
+      title: 'Zapisz kody backup'
+      confirmation: 'Zapisałem/am bezpiecznie kody backup'
+      must_confirm: 'Musisz potwierdzić, że zapisałeś/aś bezpiecznie kody backup'
+      label: 'W razie, gdybyś utracił/a dostęp to urządzenia dwuskładnikowego (zgubienie/kradzież/uszkodzenie),
+        możesz użyć następujących jednorazowych kodów backup:'
     further_info: ''
     password_info: ''
     success: 'Pomyślnie aktywowano uwierzytelnianie dwuskładnikowe.'
@@ -558,7 +565,8 @@ settings:
     danger: 'Jeśli deaktywujesz uwierzytelnianie dwuskładnikowe, twoje konto będzie
       mniej bezpieczne.'
     admin_description: ''
-    failed: ''
+    failed: 'Nie można było deaktywować uwierzytelniania dwuskładnikowego, podano
+      błędny kod lub hasło.'
     warning: ''
     title: 'Deaktywuj uwierzytelnianie dwuskładnikowe'
     success: 'Pomyślnie deaktywowano uwierzytelnianie dwuskładnikowe.'
@@ -2724,7 +2732,7 @@ profile:
     week_4: ''
     respActStores: ''
     securePickupWeek: ''
-    basketsSharedWeek: ''
+    basketsSharedWeek: 'Podzielono się jadłokoszykami z {count} osobami. '
     weekDesc: ''
     eventsCreatedWeek: 'Dzięki za utworzenie eventów {count} raz/y w tym tygodniu.'
     districtName: 'rejon'
