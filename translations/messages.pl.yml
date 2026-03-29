@@ -357,7 +357,7 @@ settings:
       other: Coś innego
       outlook: 'Microsoft Outlook'
       google: 'kalendarz Google'
-      label: ''
+      label: 'Jakiego programu kalendarza używasz?'
     menu: Kalendarz
     export: Eksportuj kalendarz
     delete_token:
@@ -462,16 +462,17 @@ settings:
     error:
       webauthn_not_supported: Ta przeglądarka nie wspiera WebAuthn
       name_required: Proszę podać nazwę
-      operation_cancelled: ''
-      authenticator_already_registered: ''
+      operation_cancelled: 'Proces przerwany lub przekroczenie czasu'
+      authenticator_already_registered: 'Ta autoryzacja już jest zarejestrowana'
       rename_failed: 'Nie można było zmienić nazwy klucza bezpieczeństwa'
       deletion_failed: 'Nie można było usunąć klucza bezpieczeństwa'
       registration_failed: 'Rejestracja klucza bezpieczeństwa nie powiodła się: {error}'
       operation_aborted: 'Operacja przerwana'
     unnamed_passkey: 'Nieznany klucz bezpieczeństwa'
-    security_keys_description: ''
+    security_keys_description: 'Klucze bezpieczeństwa umożliwiają bezpieczne logowanie
+      bez hasła na twoim urządzeniu.'
     mfa_enabled: 'Uwierzytelnianie wieloskładnikowe aktywowane'
-    authenticator_app: ''
+    authenticator_app: 'aplikacja uwierzytelniająca'
     passkeys_section: 'Klucze bezpieczeństwa'
     passkey_deleted: 'Pomyślnie usunięto klucz bezpieczeństwa'
     mfa_section: 'Uwierzytelnianie wieloskładnikowe'
@@ -480,8 +481,10 @@ settings:
     passkeys_info: 'Klucze bezpieczeństwa (passkeys) umożliwiają bezpieczne logowanie
       bez hasła.'
     security_keys: 'Klucze bezpieczeństwa (Passkeys)'
-    other_domain_info: ''
-    authenticator_app_description: ''
+    other_domain_info: 'Ten klucz bezpieczeństwa został zarejestrowany na {domain}
+      i nie może być użyty na aktualnej domenie.'
+    authenticator_app_description: 'Użyj aplikacji uwierzytelniającej dla dodatkowego
+      bezpieczeństwa przy logowaniu.'
     no_passkeys: 'Jeszcze nie zarejestrowano żadnego klucza bezpieczeństwa.'
     domain_info: ''
     passkeys_not_supported: 'Twoja przeglądarka nie wspiera kluczy bezpieczeństwa
@@ -496,7 +499,8 @@ settings:
     close: Zamknij
     totp_token_label: Kod
     totp_token_placeholder: np. 458324
-    totp_required: Musisz podać kod
+    totp_required: Musisz podać sześciocyfrowy kod uwierzytelniania 
+      dwuskładnikowego
     password_label: Hasło
     password_placeholder: Twoje obecne hasło
     password_required: Musisz podać hasło
@@ -513,13 +517,15 @@ settings:
       tutorial: 'Tutorial'
     qrcode:
       title: Skanuj kod QR
-      scan_instruction: ''
+      scan_instruction: 'Otwórz swoją aplikację uwierzytelniającą i dodaj nowe konto
+        przez zeskanowanie tego kodu QR.'
       multi_device: ''
-      label: ''
+      label: 'Zeskanuj ten kod QR swoją aplikacją uwierzytelniającą:'
     secret_toggle: Pokaż kod (jeśli kod QR nie działa)
     confirm:
       title: Potwierdź aktywację
-      instruction: ''
+      instruction: 'Do aktywacji uwierzytelniania dwuskładnikowego podaj tutaj wygenerowany
+        kod oraz swoje hasło.'
       test_instruction: ''
     generated_code_label: Wygenerowany kod
     activate: Aktywuj
@@ -531,7 +537,7 @@ settings:
       kod lub hasło.'
     apps:
       description: ''
-      title: ''
+      title: 'Polecane aplikacje uwierzytelniające'
       info: ''
     tutorial: ''
     backup_codes:
@@ -571,7 +577,7 @@ settings:
     wrong_password: Wprowadzono błędne hasło.
     invalid: 'Z podanym adresem email coś się nie zgadza'
     not_changed: 'Twój adres email nie został zmieniony.'
-    sent_other_user: ''
+    sent_other_user: 'Wysłano maila z linkiem potwierdzającym na nowy adres.'
     dashboard_link: 'Dalej do panelu głównego'
     explanation: ''
     explanation_other_user: ''
@@ -2455,7 +2461,8 @@ regionOptions:
     czasu'
   regionReportReasonCategoryB: ''
   regionPickupRuleActiveStoreList: ''
-  enableMediationButton: ''
+  enableMediationButton: 'Aktywuj formularz skarg na stronie profilowej foodsaverów/ek
+    z rejonu macierzystego'
   regionReportReasonOther: 'Pozwól na "inne" jako powód skargi'
   enableReportButton: 'Aktywuj formularz skarg na stronach profilowych foodsaverów/ek
     z rejonu macierzystego'
@@ -2463,7 +2470,8 @@ regionOptions:
   noPickupRuleActiveStores: ''
   regionPickupRuleActive: ''
   regionPickupLimitDayNumber: 'Maksymalna liczba rodzynkowych slotów na dzień'
-  enableAddressChangeNotification: ''
+  enableAddressChangeNotification: 'Powiadomienie dla ambasadorów/ek przy zmianie
+    adresu foodsavera/ki z rejonu macierzystego'
   userRelated:
     info: Może być zmienione przez ambasadorów/ki rejonu
   pickuprule:
@@ -2550,7 +2558,7 @@ content:
   last_modified: 'Ostatnio edytowany'
   edit_raw: ''
   delete_tooltip: 'Usuń stronę'
-  changelog: ''
+  changelog: 'Aktualny changelog'
 map:
   filters:
     stores:
