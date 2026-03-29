@@ -1,12 +1,16 @@
 <template>
   <div>
-    <div v-if="userProfileSettings === undefined || userProfileSettings.length <= 0">
+    <div v-if="isLoading" class="text-center p-4">
+      <b-spinner />
+    </div>
+
+    <div v-else-if="!profileData || Object.keys(profileData).length === 0">
       <b-alert show variant="warning">
         <h4>{{ $t('settings.no_rights') }}</h4>
       </b-alert>
     </div>
 
-    <TabbedPage v-else-if="profileData">
+    <TabbedPage v-else>
       <template #top>
         <b-alert
           v-if="!isMe && profileData"
@@ -28,11 +32,11 @@
         <Notifications />
       </ResponsiveTab>
       <ResponsiveTab
-        v-if="isMe && isFoodsaver && userStore.settings.businessCardData !== undefined"
+        v-if="isMe && isFoodsaver && profileData?.businessCardData !== undefined"
         :title="$t('settings.businesscard')"
         :active="subPage === SUB_PAGE.BUSINESS_CARD"
       >
-        <BusinessCard :business-card-data="userStore.settings.businessCardData" />
+        <BusinessCard :business-card-data="profileData?.businessCardData" />
       </ResponsiveTab>
       <ResponsiveTab
         v-if="isMe"
@@ -49,15 +53,12 @@
         <Passport />
       </ResponsiveTab>
       <ResponsiveTab
-        v-if="isMe && userStore.settings.sleepingData !== undefined"
+        v-if="isMe && profileData?.sleepingData !== undefined"
         :title="$t('settings.sleep.title')"
         :active="subPage === SUB_PAGE.SLEEPING"
       >
         <SleepingMode
-          :sleep-status="userStore.settings.sleepingData.sleep_status"
-          :sleep-from="userStore.settings.sleepingData.sleep_from"
-          :sleep-until="userStore.settings.sleepingData.sleep_until"
-          :sleep-message="userStore.settings.sleepingData.sleep_msg"
+          :sleep-data="profileData?.sleepingData"
         />
       </ResponsiveTab>
       <ResponsiveTab
@@ -72,7 +73,7 @@
         :title="getQuizTranslation"
         :active="subPage === SUB_PAGE.QUIZ"
       >
-        <Quiz :quiz-id="userStore.settings.targetRole" />
+        <Quiz :quiz-id="profileData?.targetRole" />
       </ResponsiveTab>
       <ResponsiveTab
         v-if="isMe"
@@ -90,10 +91,6 @@
         <DeleteAccount :user-id="userId" :profile-data="profileData" />
       </ResponsiveTab>
     </TabbedPage>
-
-    <div v-else class="text-center p-4">
-      <b-spinner />
-    </div>
   </div>
 </template>
 
@@ -121,25 +118,32 @@ defineProps({
 
 const userStore = useUserStore()
 const userId = ref(null)
-const profileData = ref(null)
+const otherUserProfileData = ref(null)
+const isLoading = ref(false)
 
-const getQuizTranslation = computed(() => {
-  if (userStore.settings.targetRole !== null) {
-    return i18n?.('settings.quiz.' + userStore.settings.targetRole) ?? ''
+const isMe = computed(() => userStore.getUserId === userId.value)
+const isFoodsaver = computed(() => userStore.isFoodsaver)
+const isOrgaUser = computed(() => userStore.isOrga)
+const profileData = computed(() => {
+  if (userId.value === null) return null
+  if (isMe.value) return userStore.getUserSettings
+  if (Object.keys(otherUserProfileData.value ?? {}).length > 0) {
+    return otherUserProfileData.value
   }
   return null
 })
 
-const sessionUserId = computed(() => userStore.getUserId)
-const userProfileSettings = computed(() => userStore.getUserSettings)
-const isMe = computed(() => sessionUserId.value === userId.value)
-const isFoodsaver = computed(() => userStore.isFoodsaver)
-const isOrgaUser = computed(() => userStore.isOrga)
+const targetRole = computed(() => profileData.value?.targetRole ?? null)
 const showQuiz = computed(() => {
-  // userStore.settings.targetRole can be undefined before the data was loaded
-  if (userStore.settings.targetRole == null) return false
-  if (userStore.settings.targetRole === 3) return /show-bot-quiz/.test(location.search)
+  if (targetRole.value === null) return false
+  if (targetRole.value === 3) return /show-bot-quiz/.test(location.search)
   return true
+})
+const getQuizTranslation = computed(() => {
+  if (targetRole.value !== null) {
+    return i18n?.('settings.quiz.' + targetRole.value) ?? ''
+  }
+  return null
 })
 
 onMounted(async () => {
@@ -147,12 +151,18 @@ onMounted(async () => {
   userId.value = match ? Number(match[1]) : undefined
 
   // Load profile data
+  isLoading.value = true
   if (isMe.value) {
     await userStore.fetchProfileSettings()
-    profileData.value = userStore.settings
   } else {
-    profileData.value = await getUserProfileSettings(userId.value)
+    try {
+      otherUserProfileData.value = await getUserProfileSettings(userId.value)
+    } catch (error) {
+      console.error('Error fetching other user profile data:', error)
+      otherUserProfileData.value = {}
+    }
   }
+  isLoading.value = false
 })
 </script>
 

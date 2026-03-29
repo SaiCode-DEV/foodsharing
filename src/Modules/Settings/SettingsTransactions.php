@@ -2,6 +2,7 @@
 
 namespace Foodsharing\Modules\Settings;
 
+use Carbon\Carbon;
 use Exception;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Bell\BellGateway;
@@ -11,6 +12,7 @@ use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\ChangeHistoryKey;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
+use Foodsharing\Modules\Core\DBConstants\Foodsaver\SleepStatus;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\UserOptionType;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
@@ -28,6 +30,7 @@ use Foodsharing\Modules\Unit\UnitGateway;
 use Foodsharing\Permissions\SettingsPermissions;
 use Foodsharing\RestApi\Models\Settings\EmailChangeRequest;
 use Foodsharing\RestApi\Models\Settings\PasswordChangeRequest;
+use Foodsharing\RestApi\Models\Settings\SleepStatusRequest;
 use Foodsharing\Utility\EmailHelper;
 use RobThree\Auth\Providers\Qr\BaconQrCodeProvider;
 use RobThree\Auth\TwoFactorAuth;
@@ -589,6 +592,58 @@ class SettingsTransactions
         // Disable 2FA for this user by setting the secret and backup codes
         $this->loginGateway->setTOTPSecret($targetUserId, null);
         $this->loginGateway->setBackupCodes($targetUserId, []);
+    }
+
+    public function updateSleepMode(SleepStatusRequest $sleepRequest)
+    {
+        if ($sleepRequest->mode == SleepStatus::NONE) {
+            return $this->settingsGateway->updateSleepMode($this->session->id(), $sleepRequest->mode);
+        }
+
+        $currentSleepData = $this->settingsGateway->getSleepData($this->session->id());
+        $isCurrentlySleeping = $currentSleepData['sleep_status'] !== SleepStatus::NONE;
+
+        if ($sleepRequest->mode == SleepStatus::FULL) {
+            // If already asleep, extend the duration to infinity, otherwise start sleeping now
+            $sleepStartDate = $isCurrentlySleeping ? $currentSleepData['sleep_from'] : Carbon::today();
+
+            return $this->settingsGateway->updateSleepMode(
+                $this->session->id(),
+                $sleepRequest->mode,
+                $sleepStartDate,
+                null,
+                $sleepRequest->message,
+            );
+        }
+
+        if ($sleepRequest->from == null || $sleepRequest->to == null) {
+            throw new BadRequestHttpException('from and to are required for temporary sleep mode');
+        }
+        try {
+            $fromDate = Carbon::make($sleepRequest->from)?->setTime(0, 0, 0, 0);
+            $untilDate = Carbon::make($sleepRequest->to)?->setTime(0, 0, 0, 0);
+        } catch (Exception) {
+            throw new BadRequestHttpException('invalid date format');
+        }
+
+        // Check that the start date is either not in the past or is the current sleep start date
+        $currentSleepFrom = Carbon::make($currentSleepData['sleep_from']);
+        if ($fromDate->endOfDay()->isPast() && !($isCurrentlySleeping && $fromDate->isSameDay($currentSleepFrom))) {
+            throw new BadRequestHttpException('start date must stay the same or not be in the past');
+        }
+
+        // End date must be in the future and not before the start date
+        if ($untilDate->endOfDay()->isPast() || $untilDate->lessThan($fromDate)) {
+            throw new BadRequestHttpException('end date must not be in the past');
+        }
+
+        return $this->settingsGateway->updateSleepMode(
+            $this->session->id(),
+            $sleepRequest->mode,
+            $fromDate,
+            $untilDate,
+            $sleepRequest->message,
+        );
     }
 
     /**

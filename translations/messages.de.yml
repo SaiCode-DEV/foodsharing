@@ -2278,13 +2278,16 @@ settings:
       Mit der Nutzung dieser Funktion erklärst du dich damit einverstanden, dass dein Status,
       deine Abwesenheitsdauer und deine Nachricht auf deiner Profilseite angezeigt werden
       und ein Schlafmützensymbol auf deinem Profilbild erscheint.
-    missing-date: "Bitte gib für einen Zeitraum sowohl ein Anfangs-, als auch ein Enddatum ein."
+    missing-date: "Bitte gib ein Anfangs- und Enddatum ein."
     none: "Ich bin aktiv und voll dabei"
     temp: "Ich bin für folgenden Zeitraum nicht verfügbar"
     full: "Ich tauche erstmal auf unbestimmte Zeit ab"
     range: "Gib an, für welchen Zeitraum du in etwa nicht zur Verfügung stehen wirst:"
     saved: "Die Einstellungen wurden gespeichert"
     tooltip: "{name} nimmt sich gerade eine Auszeit und ist im Schlafmützen-Modus"
+    start_date_invalid: "Das Startdatum darf nicht in der Vergangenheit liegen."
+    start_date_same_or_future: "Das Startdatum darf nicht in der Vergangenheit liegen, außer du bearbeitest eine laufende Schlafmütze."
+    end_date_invalid: "Das Enddatum darf nicht vor dem Startdatum liegen."
   email: "E-Mail & Passwort"
   account_security:
     title: "Kontosicherheit"

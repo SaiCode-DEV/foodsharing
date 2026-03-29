@@ -43,7 +43,6 @@ use Foodsharing\Permissions\SearchPermissions;
 use Foodsharing\Permissions\StorePermissions;
 use Foodsharing\RestApi\Models\Group\UserGroupModel;
 use Foodsharing\RestApi\Models\Region\UserRegionModel;
-use Foodsharing\RestApi\Models\Settings\SleepStatusRequest;
 use Foodsharing\Utility\TimeHelper;
 
 class FoodsaverTransactions
@@ -100,7 +99,7 @@ class FoodsaverTransactions
 
         $this->foodsaverGateway->revokeOAuthRefreshTokens($foodsaverId);
 
-        $this->settingsGateway->updateSleepMode($foodsaverId, SleepStatusRequest::create(SleepStatus::NONE));
+        $this->settingsGateway->updateSleepMode($foodsaverId, SleepStatus::NONE);
 
         // Unsubscribe from the newsletter, if requested
         if ($unsubscribeNewsletter && $foodsaverId === $this->session->id()) {

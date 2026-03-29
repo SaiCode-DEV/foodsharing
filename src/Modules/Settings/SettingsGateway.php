@@ -4,6 +4,7 @@ namespace Foodsharing\Modules\Settings;
 
 use Carbon\Carbon;
 use DateTime;
+use DateTimeInterface;
 use DateTimeZone;
 use Exception;
 use Foodsharing\Modules\Core\BaseGateway;
@@ -12,7 +13,6 @@ use Foodsharing\Modules\Core\DBConstants\Foodsaver\UserOptionType;
 use Foodsharing\Modules\Core\DTO\Address;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Foodsaver\DTO\ReadableProfileSettings;
-use Foodsharing\RestApi\Models\Settings\SleepStatusRequest;
 
 class SettingsGateway extends BaseGateway
 {
@@ -67,18 +67,15 @@ class SettingsGateway extends BaseGateway
         );
     }
 
-    public function updateSleepMode(int $fsId, SleepStatusRequest $request): int
+    public function updateSleepMode(int $fsId, int $mode, ?DateTimeInterface $from = null, ?DateTimeInterface $until = null, ?string $message = null): int
     {
-        $from = $request->from ?: null;
-        $to = $request->to ?: null;
-
         return $this->db->update(
             'fs_foodsaver',
             [
-                'sleep_status' => $request->mode,
+                'sleep_status' => $mode,
                 'sleep_from' => $from ? $from->format('Y-m-d H:i:s') : null,
-                'sleep_until' => $to ? $to->format('Y-m-d H:i:s') : null,
-                'sleep_msg' => $request->message ? strip_tags($request->message) : null
+                'sleep_until' => $until ? $until->format('Y-m-d H:i:s') : null,
+                'sleep_msg' => $message ? strip_tags($message) : null
             ],
             ['id' => $fsId]
         );

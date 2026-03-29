@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="alert alert-secondary"
+      class="alert alert-info"
       role="alert"
     >
       {{ $t('settings.sleep.info') }}
@@ -15,7 +15,7 @@
 
     <div
       v-if="currentSleepStatus === SLEEP_STATUS.TEMP"
-      class="pt-4"
+      class="mt-3"
     >
       <label>{{ $t('settings.sleep.range') }}</label>
       <b-row>
@@ -23,54 +23,92 @@
           cols="12"
           lg="6"
         >
-          <label>{{ $t('settings.sleep.from') }}</label>
-          <b-form-datepicker
-            v-model="currentSleepFrom"
-            :min="new Date()"
-            v-bind="labelsCalendar || {}"
-            :locale="locale"
-            :state="isSleepDateValid(currentSleepFrom)"
-            class="mb-2"
-          />
+          <b-form-group
+            :label="$t('settings.sleep.from')"
+            label-for="sleep-from"
+            class="mb-0"
+          >
+            <b-form-datepicker
+              v-model="currentSleepFrom"
+              :date-disabled-fn="(_, date) => !isDateValidForSleepFrom(date)"
+              v-bind="labelsCalendar || {}"
+              :locale="locale"
+              :state="!v$.currentSleepFromDate.$error"
+              @hidden="v$.currentSleepFromDate.$touch"
+            />
+            <div
+              v-if="v$.currentSleepFromDate.$error"
+              class="invalid-feedback d-block"
+            >
+              <div v-if="v$.currentSleepFromDate.required.$invalid">
+                {{ $t('settings.sleep.missing-date') }}
+              </div>
+              <div v-else-if="activeSleepFromDate">
+                {{ $t('settings.sleep.start_date_same_or_future') }}
+              </div>
+              <div v-else>
+                {{ $t('settings.sleep.start_date_invalid') }}
+              </div>
+            </div>
+          </b-form-group>
         </b-col>
         <b-col
           cols="12"
           lg="6"
         >
-          <label>{{ $t('settings.sleep.until') }}</label>
-          <b-form-datepicker
-            v-model="currentSleepUntil"
-            v-bind="labelsCalendar || {}"
-            :min="new Date(currentSleepFrom) > new Date() ? new Date(currentSleepFrom) : new Date()"
-            :locale="locale"
-            :state="isSleepDateValid(currentSleepUntil)"
-            class="mb-2"
-          />
+          <b-form-group
+            :label="$t('settings.sleep.until')"
+            label-for="sleep-until"
+            class="mb-0"
+          >
+            <b-form-datepicker
+              id="sleep-until"
+              v-model="currentSleepUntil"
+              v-bind="labelsCalendar || {}"
+              :min="earliestAllowedSleepUntilDate"
+              :state="!v$.currentSleepUntilDate.$error"
+              :locale="locale"
+              @hidden="v$.currentSleepUntilDate.$touch"
+            />
+            <div
+              v-if="v$.currentSleepUntilDate.$error"
+              class="invalid-feedback d-block"
+            >
+              <div v-if="v$.currentSleepUntilDate.required.$invalid">
+                {{ $t('settings.sleep.missing-date') }}
+              </div>
+              <div v-else>
+                {{ $t('settings.sleep.end_date_invalid') }}
+              </div>
+            </div>
+          </b-form-group>
         </b-col>
       </b-row>
     </div>
 
     <div
       v-if="currentSleepStatus > SLEEP_STATUS.NONE"
-      class="pt-4"
+      class="mt-3"
     >
       <b-form-group
-        :description="$t('settings.sleep.message')"
         :label="$t('settings.sleep.message')"
-        label-for="textarea"
-        class="my-3"
+        label-for="sleep-message"
       >
         <b-form-textarea
-          id="textarea"
+          id="sleep-message"
           v-model="currentSleepMessage"
           rows="3"
           max-rows="6"
           :maxlength="maxlengthSleepingMessage"
+          :state="!v$.currentSleepMessage.$invalid"
         />
-        <span>{{ $t('storeview.public_info.available_count') }}: {{ maxlengthSleepingMessage - (currentSleepMessage ? currentSleepMessage.length : 0) }}</span>
+        <small :class="v$.currentSleepMessage.$invalid ? 'invalid-feedback' : 'text-muted'">
+          {{ sleepMessageLengthInfo }}
+        </small>
       </b-form-group>
     </div>
-    <div class="pt-4">
+
+    <div class="mt-3">
       <div
         class="alert alert-warning"
         role="alert"
@@ -80,7 +118,7 @@
     </div>
 
     <b-button
-      :disabled="!sendButtonIsValid() || isLoading"
+      :disabled="isLoading || v$.$invalid"
       variant="primary"
       @click="trySetSleepStatus"
     >
@@ -90,17 +128,17 @@
 </template>
 
 <script setup>
-import { defineProps, ref } from 'vue'
+import { defineProps, ref, computed, watch } from 'vue'
+import { useVuelidate } from '@vuelidate/core'
+import { required, requiredIf, minValue, maxValue, maxLength } from '@vuelidate/validators'
 import { setSleepStatus } from '@/api/user'
 import i18n, { locale } from '@/helper/i18n'
 import { pulseError, pulseSuccess } from '@/script'
 import { SLEEP_STATUS, useUserStore } from '@/stores/user'
+import dateFormatter from '@/helper/date-formatter'
 
 const props = defineProps({
-  sleepStatus: { type: Number, required: true },
-  sleepFrom: { type: String, default: null },
-  sleepUntil: { type: String, default: null },
-  sleepMessage: { type: String, default: '' },
+  sleepData: { type: Object, required: true },
 })
 
 const labelsCalendar = {
@@ -124,77 +162,89 @@ const sleepingOptions = [
 ]
 
 const maxlengthSleepingMessage = 5000
+const startOfToday = new Date()
+startOfToday.setHours(0, 0, 0, 0)
 
-const currentSleepStatus = ref(props.sleepStatus)
-const currentSleepFrom = ref(props.sleepFrom)
-const currentSleepUntil = ref(props.sleepUntil)
-const currentSleepMessage = ref(props.sleepMessage)
-const startDate = ref(new Date())
 const isLoading = ref(false)
+const currentSleepStatus = ref(props.sleepData?.sleep_status)
+const currentSleepFrom = ref(props.sleepData?.sleep_from)
+const currentSleepUntil = ref(props.sleepData?.sleep_until)
+const currentSleepMessage = ref(props.sleepData?.sleep_msg)
 
-function isSleepDateValid (date) {
-  const parsed = Date.parse(date)
-  const today = new Date()
-  today.setHours(0, 0, 0, 0)
-  return date !== null && !isNaN(parsed) && parsed >= today
-}
+watch(() => props.sleepData, (newSleepData) => {
+  currentSleepStatus.value = newSleepData?.sleep_status
+  currentSleepFrom.value = newSleepData?.sleep_from
+  currentSleepUntil.value = newSleepData?.sleep_until
+  currentSleepMessage.value = newSleepData?.sleep_msg
+})
 
-function isSleepStatusValid () {
-  return currentSleepStatus.value >= 0 && currentSleepStatus.value <= 2
-}
+const activeSleepFromDate = computed(() => props.sleepData?.sleep_from)
+const currentSleepFromDate = computed(() => currentSleepFrom.value ? new Date(currentSleepFrom.value) : null)
+const currentSleepUntilDate = computed(() => currentSleepUntil.value ? new Date(currentSleepUntil.value) : null)
 
-function sendButtonIsValid () {
-  switch (currentSleepStatus.value) {
-    case SLEEP_STATUS.NONE:
-      return isSleepStatusValid()
-    case SLEEP_STATUS.TEMP:
-      return isSleepStatusValid && isSleepDateValid(currentSleepFrom.value) && isSleepDateValid(currentSleepUntil.value)
-    case SLEEP_STATUS.FULL:
-      return isSleepDateValid(startDate.value) && isSleepStatusValid
-    default:
-      return false
+const earliestAllowedSleepUntilDate = computed(() => {
+  return currentSleepFromDate.value > startOfToday ? currentSleepFromDate.value : startOfToday
+})
+
+const rules = computed(() => {
+  const areDatesRequired = currentSleepStatus.value === SLEEP_STATUS.TEMP
+  return {
+    currentSleepStatus: {
+      required,
+      minValue: minValue(SLEEP_STATUS.NONE),
+      maxValue: maxValue(SLEEP_STATUS.FULL),
+    },
+    currentSleepFromDate: {
+      required: requiredIf(areDatesRequired),
+      dateValid: areDatesRequired ? isDateValidForSleepFrom : () => true,
+    },
+    currentSleepUntilDate: {
+      required: requiredIf(areDatesRequired),
+      minValue: areDatesRequired ? minValue(earliestAllowedSleepUntilDate.value) : () => true,
+    },
+    currentSleepMessage: {
+      maxLength: maxLength(maxlengthSleepingMessage),
+    },
   }
+})
+const v$ = useVuelidate(rules, {
+  currentSleepStatus,
+  currentSleepFromDate,
+  currentSleepUntilDate,
+  currentSleepMessage,
+})
+
+const sleepMessageLengthInfo = computed(() => {
+  const characterCount = currentSleepMessage.value ? currentSleepMessage.value.length : 0
+  const remaining = maxlengthSleepingMessage - characterCount
+  return i18n('storeview.public_info.available_count') + ': ' + remaining
+})
+
+function isDateValidForSleepFrom (date) {
+  return date >= startOfToday || dateFormatter.isSame(date, activeSleepFromDate.value)
 }
 
 async function trySetSleepStatus () {
   isLoading.value = true
 
+  const status = currentSleepStatus.value
   const sendingData = {
-    status: null,
-    from: null,
-    until: null,
-    message: null,
-  }
-
-  switch (currentSleepStatus.value) {
-    case SLEEP_STATUS.NONE:
-      sendingData.status = currentSleepStatus.value
-      break
-    case SLEEP_STATUS.TEMP:
-      sendingData.status = currentSleepStatus.value
-      sendingData.from = currentSleepFrom.value
-      sendingData.until = currentSleepUntil.value
-      sendingData.message = currentSleepMessage.value
-      break
-    case SLEEP_STATUS.FULL:
-      sendingData.status = currentSleepStatus.value
-      sendingData.from = startDate.value
-      sendingData.message = currentSleepMessage.value
-      break
-    default:
-      return false
+    status,
+    from: status === SLEEP_STATUS.TEMP ? currentSleepFrom.value : null,
+    until: status === SLEEP_STATUS.TEMP ? currentSleepUntil.value : null,
+    message: status !== SLEEP_STATUS.NONE ? currentSleepMessage.value : null,
   }
 
   try {
     await setSleepStatus(sendingData.status, sendingData.from, sendingData.until, sendingData.message)
     pulseSuccess(i18n('success'))
+
+    // Update user store
+    const userStore = useUserStore()
+    await userStore.fetchProfileSettings(true /* force */)
   } catch (e) {
     pulseError(i18n('error_unexpected'))
   }
-
-  // Update user store
-  const userStore = useUserStore()
-  await userStore.fetchDetails(true /* force */)
 
   isLoading.value = false
 }

@@ -6,7 +6,7 @@
       <slot name="top" />
 
       <!-- Show list of tabs -->
-      <div v-if="activeTabIndex === null">
+      <div v-if="activeTabIndex === null || !tabs[activeTabIndex]">
         <b-list-group>
           <b-list-group-item
             v-for="(tab, index) in tabs"
@@ -61,7 +61,7 @@
             :key="index"
             button
             :active="activeTabIndex === index"
-            @click="activeTabIndex = index"
+            @click="selectTab(index)"
           >
             {{ tab.title }}
           </b-list-group-item>
@@ -103,34 +103,57 @@ const slots = useSlots()
 const isMobile = ref(false)
 const activeTabIndex = ref(null)
 
-const tabs = computed(() => {
+function collectTabVnodes () {
   const defaultSlot = slots.default?.() || []
+  const tabVnodes = defaultSlot.filter(vnode => {
+    // Vue 2 uses tag property with format "vue-component-{id}-{ComponentName}"
+    const tag = vnode.tag || ''
 
-  return defaultSlot
-    .filter(vnode => {
-      // Vue 2 uses tag property with format "vue-component-{id}-{ComponentName}"
-      const tag = vnode.tag || ''
+    return tag.includes('ResponsiveTab') || tag.includes('BTab')
+  })
 
-      return tag.includes('ResponsiveTab') || tag.includes('BTab')
-    })
+  // Ensure titles are unique to avoid issues with dynamic content and reactivity
+  const seenTitles = new Set(tabVnodes.map(v => getPropsFromVNode(v).title))
+  if (seenTitles.size !== tabVnodes.length) {
+    throw new Error('Duplicate tab title detected. Tab titles must be unique!')
+  }
+
+  return tabVnodes
+}
+
+function getPropsFromVNode (vnode) {
+  return vnode.componentOptions?.propsData || vnode.data?.attrs || {}
+}
+
+const tabs = computed(() => {
+  return collectTabVnodes()
     .map(vnode => {
       // In Vue 2, props are in componentOptions.propsData
-      const propsData = vnode.componentOptions?.propsData || vnode.data?.attrs || {}
-      const children = vnode.componentOptions?.children || []
+      // In Vue 3, props are in data.attrs
+      const tabProps = getPropsFromVNode(vnode)
 
-      // Create a render function that returns the children
-      const renderFn = (h) => {
-        if (children.length === 1) {
-          return children[0]
+      // Create a render function that returns the children of this tab
+      const tabContentRenderFn = (h) => {
+        // Resolve the current tab children each time the tab is rendered.
+        // Otherwise, slot changes (components or props) won't be reflected in the tab content.
+        const currentTabVnode = collectTabVnodes().find(v => {
+          const props = getPropsFromVNode(v)
+          return props.title === tabProps.title
+        })
+
+        const tabChildren = currentTabVnode?.componentOptions?.children || []
+
+        if (tabChildren.length === 1) {
+          return tabChildren[0]
         }
-        return h('div', children)
+        return h('div', tabChildren)
       }
 
       return {
-        title: propsData.title || '',
-        active: propsData.active || false,
-        renderFn,
-        props: propsData,
+        title: tabProps.title || '',
+        active: tabProps.active || false,
+        renderFn: tabContentRenderFn,
+        props: tabProps,
       }
     })
 })
@@ -141,23 +164,24 @@ const currentTabTitle = computed(() => {
 
 const checkMobile = () => {
   isMobile.value = window.innerWidth <= props.mobileBreakpoint
+  if (!isMobile.value && activeTabIndex.value === null) {
+    // If switching to desktop view, default to first tab if no tab is active
+    activeTabIndex.value = 0
+  }
 }
 
 const selectTab = (index) => {
   activeTabIndex.value = index
-  window.scrollTo(0, 0)
+  if (isMobile.value) {
+    window.scrollTo(0, 0)
+  }
   emit('tab-change', index)
 }
 
+// Override active tab if initialTab prop changes
 watch(() => props.initialTab, (newTab) => {
   if (newTab !== null && newTab !== undefined) {
     activeTabIndex.value = newTab
-  }
-}, { immediate: true })
-
-watch(activeTabIndex, (newIndex) => {
-  if (newIndex !== null && newIndex >= 0) {
-    emit('tab-change', newIndex)
   }
 })
 
@@ -166,12 +190,18 @@ onMounted(() => {
   window.addEventListener('resize', checkMobile)
 
   // Set initial active tab
-  const initialActiveIndex = tabs.value.findIndex(tab => tab.active)
-  if (initialActiveIndex >= 0) {
-    activeTabIndex.value = initialActiveIndex
-  } else if (tabs.value.length > 0) {
-    // Default to first tab on desktop, null (list view) on mobile
-    activeTabIndex.value = isMobile.value ? null : 0
+  if (props.initialTab !== null && props.initialTab !== undefined) {
+    // First, initialTab prop takes precedence if set
+    activeTabIndex.value = props.initialTab
+  } else {
+    // Next, check if there is a tab with the "active" prop
+    const initialActiveIndex = tabs.value.findIndex(tab => tab.active)
+    if (initialActiveIndex >= 0) {
+      activeTabIndex.value = initialActiveIndex
+    } else {
+      // Default to first tab on desktop, null (list view) on mobile
+      activeTabIndex.value = isMobile.value ? null : 0
+    }
   }
 })
 

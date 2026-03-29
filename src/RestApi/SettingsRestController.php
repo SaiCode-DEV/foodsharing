@@ -2,12 +2,10 @@
 
 namespace Foodsharing\RestApi;
 
-use Carbon\Carbon;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\SleepStatus;
 use Foodsharing\Modules\Foodsaver\DTO\ReadableProfileSettings;
 use Foodsharing\Modules\Settings\DTO\TOTPProposal;
-use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Modules\Settings\SettingsTransactions;
 use Foodsharing\RestApi\Models\Settings\EmailChangeRequest;
 use Foodsharing\RestApi\Models\Settings\PasswordChangeRequest;
@@ -26,7 +24,6 @@ use Symfony\Component\Routing\Attribute\Route;
 class SettingsRestController extends AbstractFoodsharingRestController
 {
     public function __construct(
-        private readonly SettingsGateway $settingsGateway,
         private readonly SettingsTransactions $settingsTransactions,
         protected Session $session
     ) {
@@ -48,16 +45,7 @@ class SettingsRestController extends AbstractFoodsharingRestController
             throw new BadRequestHttpException('invalid sleep status');
         }
 
-        // check if from and to are needed and if they are not older than today
-        if ($request->mode == SleepStatus::TEMP &&
-            ($request->from == null || $request->to == null
-                || Carbon::instance($request->from)->endOfDay()->isPast()
-                || Carbon::instance($request->to)->endOfDay()->isPast()
-                || $request->from > $request->to)) {
-            throw new BadRequestHttpException('invalid dates');
-        }
-
-        $this->settingsGateway->updateSleepMode($this->session->id(), $request);
+        $this->settingsTransactions->updateSleepMode($request);
 
         return $this->respondOK();
     }
