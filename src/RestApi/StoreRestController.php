@@ -631,7 +631,7 @@ class StoreRestController extends AbstractFoodsharingRestController
     public function deleteStore(int $storeId): Response
     {
         $this->assertLoggedIn();
-        if (!$this->storePermissions->mayDeleteStore($storeId)) {
+        if (!$this->storePermissions->mayEditStore($storeId)) {
             throw new AccessDeniedHttpException('Not permitted');
         }
 

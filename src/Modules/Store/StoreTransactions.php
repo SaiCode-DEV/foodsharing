@@ -1288,7 +1288,7 @@ class StoreTransactions
             maySeePickupHistory: $this->storePermissions->maySeePickupHistory($storeId, $store['kette_id']),
             maySeeStoreLog: $this->storePermissions->maySeeStoreLog($storeId),
             maySeePickups: $this->storePermissions->maySeePickups($storeId) || $store['betrieb_status_id'] === CooperationStatus::COOPERATION_ESTABLISHED,
-            mayDeleteStore: $this->storePermissions->mayDeleteStore($storeId),
+            mayDeleteStore: $this->storePermissions->mayEditStore($storeId) && $this->storePermissions->mayStoreBeDeleted($storeId),
             teamConversationId: $teamConversationId,
             jumperConversationId: $jumperConversationId,
         );

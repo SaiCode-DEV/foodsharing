@@ -511,11 +511,6 @@ class StorePermissions
         return $latestMessageDate < $threeMonthsAgo;
     }
 
-    public function mayDeleteStore($storeId): bool
-    {
-        return $this->mayEditStore($storeId);
-    }
-
     public function isKamForStore(int $storeId, ?int $chainId = -1): bool
     {
         if (is_null($chainId) || $chainId === -1) {
