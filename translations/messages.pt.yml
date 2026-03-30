@@ -361,6 +361,8 @@ store:
       permanecer registados. Só é possível eliminar locais que nunca tiveram 
       vagas e cujos chats de equipa não tenham sido utilizados durante pelo 
       menos 3 meses.
+    conditions_not_met: O local não pode ser cancelado porque as condições 
+      necessárias não foram cumpridas.
   my_last_slot: A minha última vaga
   chain_has_kams: 'Responsável para esta cadeia:'
   part_of_chain: 'Faz parte da cadeia:'
@@ -1361,7 +1363,7 @@ profile:
   mediationRequest: 'Solicitar mediação'
   go: 'Abrir perfil'
   about_me_intern: 'Sobre mim'
-  sleeping: 'tenho um dorminhoco por tempo indeterminado'
+  sleeping: 'tem um dorminhoco por tempo indeterminado'
   reportRequest: 'Enviar denúncia'
   cantdeletethis: 'Não é possível apagar eventos individuais!'
   homeDistrictHistory:
@@ -1394,7 +1396,7 @@ profile:
       filterActive: membro
       filterManage: responsável
       filterJumper: substituto
-  sleeping_info_from_until: tenho um dorminhoco de {from} até {until}
+  sleeping_info_from_until: tem um dorminhoco de {from} até {until}
   choosereasonnostore: Não se aplica a nenhum local
   chooseantherstore: Refere-se a um local não listado
   editNameInfo: Tenha em atenção que os campos para nome e apelido devem ser 
@@ -2641,16 +2643,16 @@ settings:
     from: 'De'
     full: 'Vou estar fora por tempo indeterminado'
     temp: 'Não estou disponível durante o período seguinte'
-    show: 'Ao usar essa função, você concorda que o teu estado,
-
-      a duração da tua ausência e a tua mensagem serão mostrados na tua página de
-      perfil
-
-      e que um ícone de dorminhoco aparecerá na tua foto de perfil.
+    show: 'Ao ativar esta função, o teu estado, a duração da ausência e a mensagem
+      aparecerão no teu perfil, com um ícone de dorminhoco na tua foto.
 
       '
     message: 'Aqui podes deixar uma breve mensagem explicando porque não tens tempo
       neste momento.'
+    start_date_invalid: A data de início não pode ser no passado.
+    start_date_same_or_future: A data de início não pode ser no passado - a 
+      menos que se trate de um dorminhoco ativo.
+    end_date_invalid: A data de término não pode ser anterior à data de início.
   calendar:
     delete_token:
       button: 'Eliminar token'

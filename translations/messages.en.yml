@@ -284,6 +284,10 @@ settings:
       now.
     from: From
     until: until
+    start_date_invalid: The start date cannot be in the past.
+    start_date_same_or_future: The start date cannot be in the past, unless you 
+      are editing an ongoing nightcap.
+    end_date_invalid: The end date cannot be earlier than the start date.
   account: Account options
   businesscard: Personal business card
   photo:
