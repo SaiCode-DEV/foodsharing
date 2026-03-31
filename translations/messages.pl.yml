@@ -104,7 +104,11 @@ quiz:
     pauseElapsed: Twoja przerwa na naukę się skończyła. Dlatego możesz ponownie 
       przystąpić do quizu. Miejmy nadzieję, że wykorzystałeś/aś czas to lepiej 
       zaznajomić się z treściami.
-    pause: ''
+    pause: 'Kilka razy nie zdałeś/aś tego quizu. Niezawodność, pewne opanowanie reguł
+      i profesjonalna postawa są niezbędne na foodsharingu. Na bazie twoich odpowiedzi
+      chwilowo niestety nie sprawiasz takiego wrażenia. Dlatego otrzymujesz przerwę
+      na naukę, zanim będziesz mógł/mogła ponownie spróbować zdać quiz. Twoja przerwa
+      na naukę kończy się za {count} dni.'
     waitAfter: ''
   regstart: Rozpocznij quiz bez limitu czasu i {count} pytań
   button:
@@ -276,7 +280,8 @@ quiz:
   sessionStatus:
     2: Niezdane z {failurePoints} z maksymalnie {maxFailurePointsToSucceed} 
       punktów ujemnych.
-    1: ''
+    1: 'Zdane z {failurePoints} z maksymalnie {maxFailurePointsToSucceed} punktów
+      ujemnych.'
     0: ''
 request_time: 'Czas zapytania:'
 pass1: Twoje żądane nowe hasło
@@ -428,6 +433,8 @@ settings:
     title: ''
     full: ''
     show: ''
+    start_date_invalid: Data początkowa nie może być w przeszłości.
+    end_date_invalid: Data końcowa nie może być przed datą początkową.
   email: Adres email & hasło
   account_security:
     title: Bezpieczeństwo konta
@@ -775,8 +782,10 @@ group:
       międzyregionalny zespół "AG anlegen"'
     tooltip_function_9: ''
     tooltip_function_4: ''
-    pr: ''
-    tooltip_function_5: ''
+    pr: 'Public relations'
+    tooltip_function_5: 'Administratorzy/ki tego zespołu mogą widzieć skargi o foodsaver(k)ach
+      w rejonie. Nie są pokazywane skargi, które są powiązane z administrator(k)ami!
+      Te skargi otrzymuje rada arbitrażowa.'
     tooltip_function_10: ''
     tooltip_function_1: 'Administratorzy/ki tego zespołu otrzymują powiadomienia,
       gdy nowi członkowie dołączają do rejonu'
@@ -789,7 +798,9 @@ group:
     tooltip_function_11: 'Administratorzy/ki tego zespołu są pokazywani na stronie
       przeglądowej rejonu.'
     tooltip_function_6: ''
-    tooltip_function_7: ''
+    tooltip_function_7: 'Administratorzy/ki tego zespołu otrzymują skargi z udziałem
+      zespołu rozpatrującego skargi. Nie są pokazywane skargi powiązane z administrator(k)ami!
+      Te skargi otrzymuje zespół rozpatrujący skargi'
     tooltip_function_13: 'Administratorzy/ki tego zespoły otrzymują powiadomienia
       przez dzwonek o nowych zasobach.'
     none: 'Nie ma zespołów GOALS'
@@ -1053,8 +1064,7 @@ register:
   login_phone_info: 'Może być pomocne, aby udostępnić twój numer telefonu innym foodsharer(k)om'
   error_birthdate: ''
   join_success_message: 'Pomyślnie zakończyłeś/aś twoją rejestrację na foodsharingu.
-    Zanim będziesz mógł/mogła zalogować się przez swój email i hasło, musisz potwierdzić
-    swój adres email. Wysłaliśmy ci maila z linkiem do potwierdzenia na twój adres.'
+    Teraz możesz się zalogować przez swój email i hasło.'
   select_your_gender: 'Forma grzecznościowa …'
   birthdate_hint: 'Więcej informacji możesz znaleźć w [polityce prywatności]({url}),
     w punkcie 2d, "Rejestracja jako foodsharer/ka lub foodsaver/ka".'
@@ -1062,8 +1072,11 @@ register:
     nowego kodu, aby się zarejestrować.'
   invalid_token: 'Nieznany kod rejestracji'
   join_initialised: 'Rozpoczęła się twoja rejestracja.'
-  join_initialised_message: ''
+  join_initialised_message: 'Aby kontynuować rejestrację, musisz potwierdzić twój
+    adres email. Wysłaliśmy ci maila z linkiem potwierdzającym na twój adres.'
   email_in_progress: 'Dla tego adresu email już zażądano niedawno kodu rejestracji'
+  join_newsletter_failed: Wystąpił błąd przy subskrypcji newslettera. Możesz 
+    subskrybować newsletter w dowolnym czasie na swoim profilu.
 gender:
   m: mężczyzna
   f: kobieta
@@ -1132,7 +1145,7 @@ terminology:
   giving: ''
   baskets: 'Jadłokoszyki'
   homeRegion: 'rejon macierzysty'
-  prAdmins: ''
+  prAdmins: 'Team public relations'
   n_sleeping: ''
   votingAdmins: 'Team głosowań'
   previous_pickups: 'Sloty tutaj'
@@ -1780,7 +1793,7 @@ storeedit:
     phoneRequirement: Dopuść tylko foodsaverów/ki z ważnym numerem telefonu
     hygieneRequirement: Wymagania higieniczne
     applicationRequirements: 'Wymagania zgłoszeniowe'
-    hygieneRequired: ''
+    hygieneRequired: 'Pozwól na zapisanie tylko z ważnym szkoleniem z zasad higieny'
     applyTextRequired: 'Wymagane podanie tekstu do zgłoszenia'
   milestone:
     statuschanged: Status zmieniony {date}
@@ -1849,7 +1862,8 @@ pickup:
   hygieneCertificateMissing:
     link: Do quizu higieny
     timeout: ''
-    none: ''
+    none: 'Aktualnie nie masz ważnego szkolenia z zasad higieny. Przeprowadź teraz
+      quiz dotyczący zasad higieny, aby móc się zapisać.'
   join_cancel: Jednak nie
   description_optional: Opis (opcjonalne)
   description_max_length_info: Osiągnięto maksymalną długość opisu (100 znaków)
@@ -1931,17 +1945,18 @@ calendar:
     pickup:
       unconfirmed: niepotwierdzony
       foodsavers: 'Zapisani/e foodsaverzy/ki: '
-      freeSlots: '{count} sloty/ów są/jest jeszcze wolne/ych.'
+      freeSlots: '{count} sloty/ów są/jest jeszcze wolne/ych'
       description: 'foodsharing-Slot w <a href="{url}">{store}</a>'
       name:
-        giving: ''
+        giving: '{store} darowizna'
         orga: '{store} Slot'
         pickup: ''
     updated: '(ostatnia aktualizacja: {date})'
     event:
       linkTitle: Event foodsharingu
       description: Opis
-      statusUnspecified: ''
+      statusUnspecified: 'Jeszcze nie podałeś/aś, czy weźmiesz udział w tym evencie.
+        Możesz to zrobić na stronie, do której prowadzi podany link.'
   labelPrevYear: poprzedni rok
   labelPrevMonth: poprzedni miesiąc
   labelCurrentMonth: obecny miesiąc
@@ -1982,7 +1997,8 @@ forum:
     hiddenPost: Post ukryty przez [{moderatorName}]({moderatorUrl})
     hiddenReason: 'Uzasadnienie: {reason}'
     body: Wiadomość
-    moderator_info: ''
+    moderator_info: 'Ten temat jest zamknięty. Jako moderator/ka tego forum możesz
+      mimo to napisać wiadomość. Inni/e użytkownicy/czki nie mogą odpowiadać!'
     edit: Edytuj post
     edit_success: Pomyślnie edytowano post.
     edit_time_remaining: Możesz edytować ten post jeszcze przez {time} bądź 
@@ -2024,7 +2040,10 @@ forum:
     bottom: 'ograniczona widoczność'
   mail_confirmation:
     title: Na pewno wysłać powiadomienie mailem?
-    text: ''
+    text: 'Czy na pewno chcesz, aby wysłać ten nowy post jako mail do wszystkich członków
+      tego zespołu lub rejonu? Powinienieś/Powinnaś to zrobić tylko wtedy, gdy ta
+      sprawa dotyczy wszystkich i jest tak ważna, że wszyscy powinni zostać o tym
+      powiadomieni.'
   go: Do forum
   restore:
     really: Czy na pewno chcesz odtworzyć ten post?
@@ -2042,7 +2061,9 @@ forum:
     bells_for_new_posts: 'Otrzymaj dzwonek przy nowych tematach'
   hold_back_for_moderation: 'Temat został zapisany i będzie opublikowany, gdy tylko
     moderator/ka lub ambasador/ka go zaakceptuje.'
-  inform_per_email: ''
+  inform_per_email: 'Powiadom wszystkich członków forum aktywnych w czasie ostatnich
+    sześciu miesięcy o utworzeniu tego nowego tematu przez email, możliwe tylko w
+    niemoderowanych forach'
 chat:
   empty: Nie ma jeszcze żadnych rozmów
   placeholder: Napisz coś.
@@ -2116,11 +2137,11 @@ events:
     other: inne
     locationOther: Gdzie odbędzie się ten event?
     fillCompletely: Proszę wypełnić do końca formularz.
-    locationDetails: ''
+    locationDetails: 'Szczegóły adresu (numer pomieszczenia itd.)'
     regions: 'Twoje rejony'
     who: 'Dla jakiego rejonu albo zespołu ma być utworzony ten event?'
     groups: 'Twoje zespoły'
-    offline: ''
+    offline: 'Całkiem normalnie w prawdziwym życiu'
   span: '{from} do {until}'
   duration: 'Czas trwania: {duration}'
   mumble:
@@ -2132,9 +2153,9 @@ events:
   notFound: Ten event nie istnieje albo nie masz do niego dostępu.
   acceptedCount: '{count} uczestniczy'
   maybeCount: '{count} być może przyjdzie'
-  invitedCount: '{count} zaproszenia'
+  invitedCount: 'odpowiedziano na {answers} z {total} zaproszeń'
   morePeople: … i jeszcze {count}
-  noneAccepted: Jak dotąd nikt nie potwierdził uczestnictwa w tym evencie.
+  noneAccepted: Jak dotąd nikt nie odpowiedział na to zaproszenie
   button:
     change: Zmień odpowiedź
     yes: Dołączę
@@ -2376,7 +2397,7 @@ bell:
   fs_sleepmode_title: ''
   poll_ending_soon_title: 'Głosowanie niedługo się kończy'
   store_new_request: 'Zapytanie do {name}'
-  sharepoint_activate: ''
+  sharepoint_activate: 'wprowadzono {name}'
   store_wall_post_title: ''
   fs_sleepmode: '{name} {nachname} jest teraz nieaktywny/a'
   forum_new_thread_title: 'Nowy wpis: {title}'
@@ -2474,7 +2495,8 @@ regionOptions:
   regionReportReasonOther: 'Pozwól na "inne" jako powód skargi'
   enableReportButton: 'Aktywuj formularz skarg na stronach profilowych foodsaverów/ek
     z rejonu macierzystego'
-  regionPickupTimespan: ''
+  regionPickupTimespan: 'Przedział czasu (dni przed i po wybranym slocie), którego
+    dotyczy reguła rodzynkowa'
   noPickupRuleActiveStores: ''
   regionPickupRuleActive: ''
   regionPickupLimitDayNumber: 'Maksymalna liczba rodzynkowych slotów na dzień'
@@ -2482,10 +2504,13 @@ regionOptions:
     adresu foodsavera/ki z rejonu macierzystego'
   userRelated:
     info: Może być zmienione przez ambasadorów/ki rejonu
+    heading: opcje do administrowania użytkowni(cz)kami
   pickuprule:
     heading: Opcje reguły rodzynkowej
   reporting:
     heading: Opcje systemu skarg
+    info: Może być zmienione przez administratorów/ki lokalnego zespołu 
+      rozpatrującego skargi (jeśli istnieje) lub ambasadorów/ki rejonu
 foodsaver:
   bread: Wszyscy foodsaverzy/ki
   title: Foodsaver
@@ -2564,7 +2589,7 @@ content:
   name: 'Jednoznaczna nazwa'
   empty: 'Jeszcze nie wprowadzono żadnej strony.'
   last_modified: 'Ostatnio edytowany'
-  edit_raw: ''
+  edit_raw: 'Edytuj dane pierwotne'
   delete_tooltip: 'Usuń stronę'
   changelog: 'Aktualny changelog'
 map:
@@ -2934,7 +2959,7 @@ dashboard:
     pickups: ''
     pickupOptions: 'Możliwości zapisu'
     stores: ''
-    baskets: ''
+    baskets: 'Jadłokoszyki'
     jumping_stores: ''
     managing_stores: ''
   source_forum_bot: Forum ambasadorów/ek {0}
