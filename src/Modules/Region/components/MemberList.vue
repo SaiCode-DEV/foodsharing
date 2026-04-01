@@ -301,27 +301,17 @@
           </a>
         </template>
         <template #cell(lastPassDate)="row">
-          {{ row.item.lastPassDate === null ? $t('group.member_list.passports.never_before') : $dateFormatter.format(row.item.lastPassDate, {
-            day: 'numeric',
-            month: 'numeric',
-            year: 'numeric',
-          }) }}
+          {{
+            row.item.lastPassDate === null ? $t('group.member_list.passports.never_before') : $dateFormatter.dateBasic(row.item.lastPassDate)
+          }}
         </template>
         <template #cell(passUntilValid)="row">
           {{
-            row.item.lastPassDate === null ? '' : $dateFormatter.format(passportValidUntilDate(row.item.lastPassDate), {
-              day: 'numeric',
-              month: 'numeric',
-              year: 'numeric',
-            })
+            row.item.lastPassDate === null ? '' : $dateFormatter.dateBasic(passportValidUntilDate(row.item.lastPassDate))
           }}
         </template>
         <template #cell(lastActivity)="row">
-          {{ $dateFormatter.format(row.item.lastActivity, {
-            day: 'numeric',
-            month: 'numeric',
-            year: 'numeric',
-          }) }}
+          {{ $dateFormatter.dateBasic(row.item.lastActivity) }}
         </template>
         <template #cell(role)="row">
           {{ $t('terminology.role.' + row.item.role) }}

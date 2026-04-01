@@ -81,11 +81,7 @@ const isNotSetLastPassDate = computed(() => {
 const passportValidMessage = computed(() => {
   return i18n('settings.passport.passport_is_valid_until', {
     days: userStore.details.lastPassUntilValidInDays,
-    date: dateFormatter.format(userStore.details.lastPassUntilValid, {
-      day: 'numeric',
-      month: 'numeric',
-      year: 'numeric',
-    }),
+    date: dateFormatter.dateBasic(userStore.details.lastPassUntilValid),
   })
 })
 </script>

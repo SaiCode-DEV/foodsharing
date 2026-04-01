@@ -109,10 +109,7 @@ export default {
     },
     displayedEnd () {
       if (this.$dateFormatter.isSame(this.endDate, this.startDate)) {
-        return this.$dateFormatter.format(this.endDate, {
-          hour: 'numeric',
-          minute: 'numeric',
-        })
+        return this.$dateFormatter.time(this.endDate)
       } else {
         return this.$dateFormatter.format(this.endDate, {
           day: 'numeric',

@@ -401,18 +401,19 @@ export default {
 
   /**
    * Shows the time in a human readable format
-   * - `00:00:00` based on the users locale
-
-  * @param {Date} date a date to format
+   * - `00:00` or `00:00:00`
+   * - based on the users locale
+   *
+   * @param {Date} date a date to format
    * @param {Object} options options for the formatter
-   * @param {Boolean} options.isShown a trigger to get the dateTime string or null
+   * @param {Boolean} options.showSeconds whether to include seconds in the result
    * @returns {string|null} the date time or null if the date is null
    */
-  time (date = new Date()) {
+  time (date = new Date(), { showSeconds = false } = {}) {
     const options = {
       hour: '2-digit',
       minute: '2-digit',
-      second: '2-digit',
+      second: showSeconds ? '2-digit' : undefined,
     }
     return new Date(date).toLocaleTimeString(locale, options)
   },
@@ -422,8 +423,6 @@ export default {
    * - `05.07.2022` based on the users locale
    *
    * @param {Date} date a date to format
-   * @param {Object} options options for the formatter
-   * @param {Boolean} options.isShown a trigger to get the dateTime string or null
    * @returns {string|null} the date time or null if the date is null
    */
   dateBasic (date = new Date()) {

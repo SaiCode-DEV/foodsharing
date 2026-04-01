@@ -94,8 +94,8 @@
         <span v-if="sleepingInformation.sleepStatus === SLEEP_STATUS.TEMP">
           {{
             $t('profile.sleeping_info_from_until', {
-              from: $dateFormatter.format(new Date(sleepingInformation.sleepFrom * 1000), { day: '2-digit', month: '2-digit', year: 'numeric' }),
-              until: $dateFormatter.format(new Date(sleepingInformation.sleepUntil * 1000), { day: '2-digit', month: '2-digit', year: 'numeric' })
+              from: $dateFormatter.dateBasic(new Date(sleepingInformation.sleepFrom * 1000)),
+              until: $dateFormatter.dateBasic(new Date(sleepingInformation.sleepUntil * 1000))
             })
           }}
         </span>

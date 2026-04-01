@@ -72,11 +72,7 @@
               </a>
             </template>
             <template #cell(date)="row">
-              {{ $dateFormatter.format(row.item.time, {
-                day: 'numeric',
-                month: 'numeric',
-                year: 'numeric',
-              }) }}
+              {{ $dateFormatter.dateBasic(row.item.time) }}
             </template>
             <template #cell(attachments)="row">
               <i
