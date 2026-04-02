@@ -81,7 +81,7 @@
               />
             </template>
           </b-table>
-          <div class="text-center mt-3">
+          <div class="text-center mb-2">
             <small v-if="noMorePages">
               {{ $t('pickup.overview.allLoaded') }}
             </small>
@@ -97,7 +97,7 @@
             </b-button>
           </div>
         </div>
-        <div v-else>
+        <div v-else class="m-3 text-center">
           {{ $t('mailbox.empty') }}
         </div>
         <div v-if="emailId" class="border p-2" />

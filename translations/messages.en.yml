@@ -1017,12 +1017,13 @@ mailbox:
   mark_all: Select all
   tag_recipient_hint: Recipients (separated by semicolon)
   attachment:
+    attachments: Attachments
+    limits: maximum {count} files and {size} per file
     not_found_explanation: The attachment could not be found on the server
     not_found: not found
-    attach: Attachments (maximum 10 files and 1.5 MB per file)
     too_large_to_send: Some of the files were too large and could not be 
       attached.
-    too_many: Too many files have been selected. A maximum of 10 files can be 
+    too_many: Too many files have been selected. A maximum of {count} files can be 
       attached to the e-mail.
   move_to: Move to
   close_edit_mode: Stop editing

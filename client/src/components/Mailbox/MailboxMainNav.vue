@@ -1,117 +1,114 @@
 <template>
   <div>
     <div class="border">
-      <b-row class="p-2">
-        <b-col cols="8">
-          <b-button
-            v-if="page === MAILBOX_PAGE.READ_EMAIL || page === MAILBOX_PAGE.EMAIL_LIST"
-            v-b-tooltip.hover
-            :title="$t('mailbox.delete')"
-            size="sm"
-            variant="outline-primary"
-            :disabled="areMailsNotSelected && page === MAILBOX_PAGE.EMAIL_LIST"
-            @click="showModalToDeleteEmail"
-          >
-            <i class="fas fa-trash-alt" />
-          </b-button>
-          <b-dropdown
-            v-if="page === MAILBOX_PAGE.READ_EMAIL"
-            id="dropdown-reply"
-            :text="$t('mailbox.reply.short')"
-            class="m-md-2"
-            size="sm"
-            variant="outline-primary"
-            split
-            :disabled="!isValidSender"
+      <div class="d-flex flex-wrap gap-1 p-2">
+        <b-button
+          v-if="page === MAILBOX_PAGE.READ_EMAIL || page === MAILBOX_PAGE.EMAIL_LIST"
+          v-b-tooltip.hover
+          :title="$t('mailbox.delete')"
+          size="sm"
+          variant="outline-primary"
+          :disabled="areMailsNotSelected && page === MAILBOX_PAGE.EMAIL_LIST"
+          @click="showModalToDeleteEmail"
+        >
+          <i class="fas fa-trash-alt" />
+        </b-button>
+        <b-dropdown
+          v-if="page === MAILBOX_PAGE.READ_EMAIL"
+          id="dropdown-reply"
+          :text="$t('mailbox.reply.short')"
+          class="m-md-2"
+          size="sm"
+          variant="outline-primary"
+          split
+          :disabled="!isValidSender"
+          @click="showMailPage(MAIL_COMPOSITION_MODE.ANSWER)"
+        >
+          <b-dropdown-item
             @click="showMailPage(MAIL_COMPOSITION_MODE.ANSWER)"
           >
-            <b-dropdown-item
-              @click="showMailPage(MAIL_COMPOSITION_MODE.ANSWER)"
-            >
-              {{ $t('mailbox.reply.short') }}
-            </b-dropdown-item>
-            <b-dropdown-item
-              @click="showMailPage(MAIL_COMPOSITION_MODE.ANSWER_ALL)"
-            >
-              {{ $t('mailbox.reply_all') }}
-            </b-dropdown-item>
-          </b-dropdown>
-          <b-button
-            v-if="page === MAILBOX_PAGE.READ_EMAIL"
-            v-b-tooltip.hover
-            class="mr-md-2"
-            size="sm"
-            variant="outline-primary"
-            @click="showMailPage(MAIL_COMPOSITION_MODE.FORWARD)"
+            {{ $t('mailbox.reply.short') }}
+          </b-dropdown-item>
+          <b-dropdown-item
+            @click="showMailPage(MAIL_COMPOSITION_MODE.ANSWER_ALL)"
           >
-            <i class="fas fa-share" /> {{ $t('mailbox.forward') }}
-          </b-button>
-          <b-button
-            v-if="page === MAILBOX_PAGE.EMAIL_LIST"
-            v-b-tooltip.hover
-            :title="getTranslationForReadOrUnReadState"
-            size="sm"
-            variant="outline-primary"
-            :disabled="areMailsNotSelected"
-            @click="mailboxViewToggleReadStateForMails"
-          >
-            <i :class="readOrUnreadIconClass" />
-          </b-button>
-          <b-button
-            v-if="page === MAILBOX_PAGE.READ_EMAIL"
-            v-b-tooltip.hover
-            :title="getTranslationForReadOrUnReadState"
-            size="sm"
-            variant="outline-primary"
-            @click="mailboxSingleEmailViewToggleEmailState"
-          >
-            <i :class="readOrUnreadIconClass" />
-          </b-button>
-          <b-button
-            v-if="page === MAILBOX_PAGE.EMAIL_LIST && !isSelected"
-            size="sm"
-            variant="outline-primary"
-            @click="mailboxViewSelectAllRows"
-          >
-            {{ $t('mailbox.mark_all') }}
-          </b-button>
-          <b-button
-            v-else-if="page === MAILBOX_PAGE.EMAIL_LIST"
-            size="sm"
-            variant="outline-primary"
-            @click="mailboxViewClearSelected"
-          >
-            {{ $t('mailbox.mark_none') }}
-          </b-button>
-          <b-dropdown
-            v-if="page === MAILBOX_PAGE.READ_EMAIL || page === MAILBOX_PAGE.EMAIL_LIST"
-            id="dropdown-move-to"
-            :text="$t('mailbox.move_to')"
-            class="m-md-2 pt-2 pt-md-0"
-            size="sm"
-            variant="outline-primary"
-            :disabled="areMailsNotSelected && page === MAILBOX_PAGE.EMAIL_LIST"
-          >
-            <b-dropdown-item
-              @click="moveEmail"
-            >
-              {{ getMovedToFolderTranslation() }}
-            </b-dropdown-item>
-          </b-dropdown>
-        </b-col>
-        <b-col
-          cols="4"
-          class="text-right"
+            {{ $t('mailbox.reply_all') }}
+          </b-dropdown-item>
+        </b-dropdown>
+        <b-button
+          v-if="page === MAILBOX_PAGE.READ_EMAIL"
+          v-b-tooltip.hover
+          class="mr-md-2"
+          size="sm"
+          variant="outline-primary"
+          @click="showMailPage(MAIL_COMPOSITION_MODE.FORWARD)"
         >
-          <b-button
-            size="sm"
-            variant="primary"
-            @click="showMailPage(MAIL_COMPOSITION_MODE.NEW)"
+          <i class="fas fa-share" /> {{ $t('mailbox.forward') }}
+        </b-button>
+        <b-button
+          v-if="page === MAILBOX_PAGE.EMAIL_LIST"
+          v-b-tooltip.hover
+          :title="getTranslationForReadOrUnReadState"
+          size="sm"
+          variant="outline-primary"
+          :disabled="areMailsNotSelected"
+          @click="mailboxViewToggleReadStateForMails"
+        >
+          <i :class="readOrUnreadIconClass" />
+        </b-button>
+        <b-button
+          v-if="page === MAILBOX_PAGE.READ_EMAIL"
+          v-b-tooltip.hover
+          :title="getTranslationForReadOrUnReadState"
+          size="sm"
+          variant="outline-primary"
+          @click="mailboxSingleEmailViewToggleEmailState"
+        >
+          <i :class="readOrUnreadIconClass" />
+        </b-button>
+        <b-button
+          v-if="page === MAILBOX_PAGE.EMAIL_LIST && !isSelected"
+          size="sm"
+          variant="outline-primary"
+          @click="mailboxViewSelectAllRows"
+        >
+          {{ $t('mailbox.mark_all') }}
+        </b-button>
+        <b-button
+          v-else-if="page === MAILBOX_PAGE.EMAIL_LIST"
+          size="sm"
+          variant="outline-primary"
+          @click="mailboxViewClearSelected"
+        >
+          {{ $t('mailbox.mark_none') }}
+        </b-button>
+        <b-dropdown
+          v-if="page === MAILBOX_PAGE.READ_EMAIL || page === MAILBOX_PAGE.EMAIL_LIST"
+          id="dropdown-move-to"
+          :text="$t('mailbox.move_to')"
+          class=""
+          size="sm"
+          variant="outline-primary"
+          :disabled="areMailsNotSelected && page === MAILBOX_PAGE.EMAIL_LIST"
+        >
+          <b-dropdown-item
+            v-for="moveTarget in moveToTargets"
+            :key="moveTarget.folder"
+            @click="moveEmail(moveTarget.folder)"
           >
-            {{ $t('mailbox.write') }}
-          </b-button>
-        </b-col>
-      </b-row>
+            {{ moveTarget.translation }}
+          </b-dropdown-item>
+        </b-dropdown>
+        <!-- <div class="w-0 flex-grow-1" /> -->
+        <b-button
+          size="sm"
+          variant="primary"
+          class="ml-auto"
+          @click="showMailPage(MAIL_COMPOSITION_MODE.NEW)"
+        >
+          {{ $t('mailbox.write') }}
+        </b-button>
+      </div>
     </div>
     <b-modal
       v-model="showEmailDeletionConfirmationModal"
@@ -166,20 +163,22 @@ export default {
     isValidSender () {
       return this.selectedEmail.from.address?.length > 0
     },
+    moveToTargets () {
+      const folders = []
+      if (this.folderType === MAILBOX_FOLDER.TRASH) {
+        folders.push({ folder: MAILBOX_FOLDER.INBOX, translation: this.$t('mailbox.inbox') })
+        folders.push({ folder: MAILBOX_FOLDER.SENT, translation: this.$t('mailbox.sent') })
+      } else {
+        folders.push({ folder: MAILBOX_FOLDER.TRASH, translation: this.$t('mailbox.trash') })
+      }
+      return folders
+    },
   },
   created () {
     this.MAILBOX_PAGE = MAILBOX_PAGE
     this.MAIL_COMPOSITION_MODE = MAIL_COMPOSITION_MODE
   },
   methods: {
-    getMovedToFolderTranslation () {
-      const translations = {
-        [MAILBOX_FOLDER.INBOX]: this.$t('mailbox.trash'),
-        [MAILBOX_FOLDER.SENT]: this.$t('mailbox.trash'),
-        [MAILBOX_FOLDER.TRASH]: this.$t('mailbox.inbox'),
-      }
-      return translations[this.folderType]
-    },
     showMailPage (compositionMode) {
       store.setCompositionMode(compositionMode)
       store.setPage(MAILBOX_PAGE.NEW_EMAIL)
@@ -208,14 +207,8 @@ export default {
     cancelEmailDeletion () {
       this.showEmailDeletionConfirmationModal = false
     },
-    moveEmail () {
-      const folderMappings = {
-        [MAILBOX_FOLDER.INBOX]: MAILBOX_FOLDER.TRASH,
-        [MAILBOX_FOLDER.SENT]: MAILBOX_FOLDER.TRASH,
-        [MAILBOX_FOLDER.TRASH]: MAILBOX_FOLDER.INBOX,
-      }
-      const newFolder = folderMappings[this.folderType]
-      this.$emit('try-move-email', newFolder)
+    moveEmail (targetFolder) {
+      this.$emit('try-move-email', targetFolder)
       store.setPage(MAILBOX_PAGE.EMAIL_LIST)
     },
   },

@@ -128,7 +128,7 @@ function updateAttachmentFiles (input) {
 
   if (combinedFiles.length > props.maxFiles) {
     combinedFiles = combinedFiles.slice(-props.maxFiles)
-    pulseError(i18n('mailbox.attachment.too_many'))
+    pulseError(i18n('mailbox.attachment.too_many', { count: props.maxFiles }))
   }
 
   internalFiles.value = combinedFiles

@@ -14,6 +14,7 @@
         <b-col
           cols="12"
           md="2"
+          class="my-2"
         >
           {{ $t('mailbox.sender') }}
         </b-col>
@@ -36,10 +37,12 @@
           </div>
         </b-col>
       </b-row>
+
       <b-row class="p-2">
         <b-col
           cols="12"
           md="2"
+          class="my-2"
         >
           {{ $t('mailbox.recipient') }}
         </b-col>
@@ -52,7 +55,6 @@
             no-outer-focus
             :limit="100"
             size="sm"
-            class="mb-2"
             no-add-on-enter
             seperator=""
           >
@@ -124,6 +126,7 @@
         <b-col
           cols="12"
           md="2"
+          class="my-2"
         >
           {{ $t('mailbox.subject') }}
         </b-col>
@@ -138,10 +141,17 @@
       </b-row>
 
       <b-row class="p-2">
-        <b-col md="2">
-          {{ $t('mailbox.attachment.attach') }}
+        <b-col
+          cols="12"
+          md="2"
+          class="my-2"
+        >
+          {{ $t('mailbox.attachment.attachments') }}
         </b-col>
-        <b-col md="10">
+        <b-col
+          cols="12"
+          md="10"
+        >
           <b-alert
             v-if="showForwardAttachmentWarning"
             variant="danger"
@@ -149,13 +159,17 @@
           >
             {{ $t('mailbox.forward_attachment_warning') }}
           </b-alert>
-          <div class="flex-container">
+          <div class="flex-container flex-column gap-1">
             <FileInput
               :value="attachmentFilesObjects"
               :disabled="isBusy || !mayAttachMoreFiles"
               :max-files="MAX_NUMBER_OF_EMAIL_ATTACHMENTS"
+              :max-file-size="MAX_UPLOAD_FILE_SIZE"
               @update:value="storeFiles"
             />
+            <small>
+              {{ attachmentLimitInfo }}
+            </small>
           </div>
         </b-col>
       </b-row>
@@ -203,6 +217,8 @@ import i18n from '@/helper/i18n'
 import { store, MAILBOX_PAGE, MAIL_COMPOSITION_MODE, MAX_NUMBER_OF_EMAIL_ATTACHMENTS } from '@/stores/mailbox'
 import AddressBook from '@/components/Mailbox/AddressBook'
 import FileUpload from '@/mixins/FileUpload'
+import { MAX_UPLOAD_FILE_SIZE } from '@/consts'
+import { formatFileSize } from '@/helper/number-formatting'
 
 export default {
   components: { Container, AddressBook, FileInput },
@@ -221,6 +237,7 @@ export default {
       isMobile: false,
       currentEmailInput: '',
       MAX_NUMBER_OF_EMAIL_ATTACHMENTS,
+      MAX_UPLOAD_FILE_SIZE,
     }
   },
   computed: {
@@ -276,6 +293,12 @@ export default {
     },
     mayAttachMoreFiles () {
       return this.attachmentFilesObjects.length < MAX_NUMBER_OF_EMAIL_ATTACHMENTS
+    },
+    attachmentLimitInfo () {
+      return this.$t('mailbox.attachment.limits', {
+        count: MAX_NUMBER_OF_EMAIL_ATTACHMENTS,
+        size: formatFileSize(MAX_UPLOAD_FILE_SIZE),
+      })
     },
   },
   watch: {

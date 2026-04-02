@@ -114,6 +114,7 @@ import { hideLoader, pulseError, showLoader } from '@/script'
 import i18n from '@/helper/i18n'
 import { MAILBOX_PAGE, store } from '@/stores/mailbox'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
+import { formatFileSize } from '@/helper/number-formatting'
 
 export default {
   components: { Container, MailboxMainNav, MailboxFooterNav },
@@ -223,14 +224,7 @@ export default {
       store.setPage(MAILBOX_PAGE.EMAIL_LIST)
     },
     formatFileSize (bytes) {
-      const units = ['B', 'kB', 'MB']
-      let u = 0
-      while (Math.round(Math.abs(bytes) * 10) / 10 >= 1024 && u < units.length - 1) {
-        bytes /= 1024
-        u++
-      }
-
-      return bytes.toFixed(1) + ' ' + units[u]
+      return formatFileSize(bytes)
     },
     addLineBreaks (text) {
       return text ? text.replace(/\\n|\n/g, '<br>') : ''

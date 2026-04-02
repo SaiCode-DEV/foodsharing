@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row p-3">
-      <div class="col col-12 col-sm-3">
+      <div class="col col-12 col-sm-4 col-lg-3">
         <Container
           :tag="$t('mailbox.title')"
           :title="$t('mailbox.title')"
@@ -9,7 +9,7 @@
           @show-full-list="showFullList"
           @reduce-list="reduceList"
         >
-          <div class="card bg-white">
+          <div class="card bg-white p-1">
             <MailboxFolder
               v-for="mailbox in sortedMailboxes"
               :key="mailbox.id"
@@ -24,7 +24,7 @@
           </div>
         </Container>
       </div>
-      <div class="col-12 col-sm-9">
+      <div class="col-12 col-sm-8 col-lg-9">
         <MailboxView
           v-if="page === MAILBOX_PAGE.EMAIL_LIST"
           :selected-email-id.sync="selectedEmailId"

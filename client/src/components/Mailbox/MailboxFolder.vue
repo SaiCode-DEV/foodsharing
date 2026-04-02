@@ -1,15 +1,17 @@
 <template>
   <div
-    class="mailbox-content my-2 "
+    class="mailbox-content p-2"
     :class="mailboxClass"
   >
     <div
       v-b-tooltip.hover.right
       :title="fullName"
-      class="d-inline-block pr-2"
+      class="d-inline-flex align-items-center gap-2 mw-100"
     >
       <i class="fas fa-inbox" />
-      {{ mailboxName }}
+      <div class="font-weight-bold text-truncate">
+        {{ mailboxName }}
+      </div>
       <b-badge
         v-if="unreadCount"
         pill
@@ -19,7 +21,7 @@
       </b-badge>
     </div>
 
-    <div class="ml-4">
+    <div class="text-center">
       <b-link
         :class="folderClassInbox"
         @click.prevent="setMailboxIdAndFolder(MAILBOX_FOLDER.INBOX)"

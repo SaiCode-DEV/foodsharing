@@ -18,7 +18,7 @@
           :status="-1"
         />
       </div>
-      <div class="card mb-3">
+      <div class="card mt-3">
         <div class="card-header text-white bg-primary">
           {{ $t('events.past') }}
         </div>

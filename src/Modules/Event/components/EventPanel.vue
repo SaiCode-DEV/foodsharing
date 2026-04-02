@@ -1,5 +1,5 @@
 <template>
-  <div class="event-panel bootstrap mb-3">
+  <div class="event-panel bootstrap">
     <b-card :class="{ border }">
       <b-media no-body class="d-flex w-100">
         <b-media-aside
