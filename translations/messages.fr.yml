@@ -827,7 +827,6 @@ mailbox:
   attachment:
     not_found_explanation: Le fichier joint n’est plus trouvé sur le serveur
     not_found: pas trouvé
-    attach: Pièces jointes (maximum 10 fichiers, 1,5 Mo par fichier)
     too_large_to_send: Certains fichiers étaient trop volumineux et ne pouvaient
       pas être joints.
     too_many: Trop de fichiers ont été sélectionnés. Un maximum de 10 fichiers 

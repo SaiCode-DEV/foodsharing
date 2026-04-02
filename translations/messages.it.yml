@@ -3129,7 +3129,6 @@ mailbox:
     not_found: non trovato
     too_large_to_send: Alcuni file erano troppo grandi e non potevano essere 
       allegati.
-    attach: Allegati (massimo 10 file, 1,5 MB per file)
     too_many: Sono stati selezionati troppi file. All’e-mail è possibile 
       allegare un massimo di 10 file.
   move_to: Sposta in

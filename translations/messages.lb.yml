@@ -2631,7 +2631,6 @@ mailbox:
     not_found_explanation: ''
     not_found: ''
     too_many: ''
-    attach: ''
     too_large_to_send: ''
   move_to: ''
   close_edit_mode: ''

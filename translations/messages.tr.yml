@@ -1973,7 +1973,6 @@ mailbox:
   attachment:
     not_found_explanation: Ekli dosya artık sunucuda bulunamadı
     not_found: bulunamadı
-    attach: Ekler (Dosya başına maksimum 1,5 MB)
     too_large_to_send: Dosyalardan bazıları çok büyüktü ve eklenemedi.
     too_many: Çok fazla dosya seçildi. E-postaya en fazla 10 dosya eklenebilir.
   move_to: Taşınmak

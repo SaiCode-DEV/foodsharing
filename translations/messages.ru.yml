@@ -674,7 +674,6 @@ mailbox:
     not_found_explanation: 'Прикреплённый файл не найден на сервере'
     not_found: 'не найдено'
     too_many: ''
-    attach: ''
     too_large_to_send: ''
   move_to: 'Переместить в'
   close_edit_mode: 'Завершить редактирование'

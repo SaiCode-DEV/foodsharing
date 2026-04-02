@@ -1528,7 +1528,6 @@ mailbox:
   hostinfo: ''
   attachment:
     too_many: ''
-    attach: ''
     not_found_explanation: ''
     too_large_to_send: ''
     not_found: ''

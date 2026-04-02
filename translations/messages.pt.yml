@@ -1452,7 +1452,6 @@ mailbox:
       possível anexá-los.
     too_many: Foram selecionados demasiados ficheiros. É possível anexar um 
       máximo de 10 ficheiros ao e-mail.
-    attach: Anexos (máximo de 10 ficheiros, 1,5 MB por ficheiro)
   sender: 'Remetente'
   inbox: 'Caixa de entrada'
   from: 'De'

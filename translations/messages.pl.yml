@@ -2684,7 +2684,6 @@ mailbox:
     not_found: nie znaleziono
     too_many: Wybrano za dużo plików. Do maila można dołączyć maksymalnie 10 
       plików.
-    attach: Załączniki (maksymalnie 10 plików, 1,5 MB / plik)
     not_found_explanation: 'Nie można znaleźć załącznika na serwerze'
     too_large_to_send: 'Niektóre pliki były za duże i nie mogły zostać dołączone.'
   conformation_modal:
@@ -2954,9 +2953,9 @@ dashboard:
     buddies: Osoby, które znasz
     regions: 'Twoje rejony'
     polls: 'Głosowania'
-    pending: ''
+    pending: 'Wysłano zapytanie do'
     no-stores: ''
-    pickups: ''
+    pickups: 'Zarejestrowane sloty'
     pickupOptions: 'Możliwości zapisu'
     stores: ''
     baskets: 'Jadłokoszyki'
@@ -2966,7 +2965,7 @@ dashboard:
   release:
     for_support: Poza tym możesz się z nami skontaktować pod
     for_news_from_it: ''
-    for_release_notes: ''
+    for_release_notes: 'Najważniejsze zmiany znajdziecie na'
   options:
     hide:
       text: Zmień widok
@@ -2983,22 +2982,23 @@ dashboard:
     read: Czytaj dalej
     go: Przejdź do quizu
     ack: ''
-  homeRegion: ''
+  homeRegion: 'Twój rejon macierzysty to {region}.'
   foodsharer: ''
   source_store: ''
   foodsharer_amount: ''
-  activity_filter_info: ''
-  general-dates: ''
+  activity_filter_info: 'Tu możesz ustawić, jakie aktualizacje mają być wyświetlane
+    na twojej stronie startowej.'
+  general-dates: 'Następne zarejestrowane sloty'
   updates_title_all: 'Przegląd nowości'
-  no_more_updates_forum: ''
-  chooseHomeRegion: ''
+  no_more_updates_forum: 'Nie ma więcej wpisów na forum'
+  chooseHomeRegion: 'Wybierz rejon macierzysty.'
   deleted_user: 'usunięty/a użytkownik/czka'
   foodsaver_amount: ''
   no_more_updates_event: ''
   settings_tooltip: 'Ustawienia przeglądu'
   no_more_updates_store: ''
   full_subline: ''
-  no_more_updates_foodsharepoint: ''
+  no_more_updates_foodsharepoint: 'Nie ma więcej postów z jadłodzielni'
   activation_mail_sent: 'Link do aktywacji został wysłany - proszę, sprawdź swoje
     maile'
   greeting: 'Cześć {name}! Miło cię widzieć.'
@@ -3068,11 +3068,11 @@ basket:
     gone: ''
     deny: 'Chcę odrzucić to zapytanie.'
     nope: 'Nie, nie odebrano jadłokoszyka zgodnie z umową.'
-    finished: ''
+    finished: 'Dziękujemy, proces jest zakończony.'
   delete_confirmation:
     text: 'Czy na pewno chcesz usunąć ten jadłokoszyk?'
     title: 'Usunąć jadłokoszyk?'
-  request-fs: ''
+  request-fs: 'Zapytaj o jadłokoszyk na naszej stronie głównej foodsharingu'
   new: 'Nowy jadłokoszyk'
   publish_error: 'Wystąpił błąd. Nie można było opublikować jadłokoszyka.'
   mapsearch: 'Szukaj adresu  …'
@@ -3084,7 +3084,7 @@ basket:
   go-to-settings: 'do ustawień'
   request_empty: 'Tekst zapytania nie może być pusty.'
   request: 'Zapytaj o jadłokoszyk'
-  no_nearby: ''
+  no_nearby: 'Nie ma jadłokoszyków w promieniu {radius} km'
   add: 'Utwórz jadłokoszyk'
   not-allowed: 'Nie masz uprawnień, aby edytować ten jadłokoszyk.'
   not_found: 'Jadłokoszyk już nie istnieje.'
@@ -3096,8 +3096,8 @@ basket:
   sent_request: 'Wysłano zapytanie'
   send_request: 'Wyślij zapytanie'
   created: 'Opublikowany:'
-  requested_by: ''
-  provider: ''
+  requested_by: 'zapytanie od {name}'
+  provider: 'Osoba oferująca'
   published: 'Dziękujemy, jadłokoszyk został opublikowany.'
   edit: 'Edytuj jadłokoszyk'
   where: 'Gdzie?'
@@ -3107,7 +3107,9 @@ basket:
   withdrawn_request: 'Cofnięto zapytanie'
   all: 'Wszystkie jadłokoszyki'
   on: 'Jadłokoszyk od {platform}'
-  go: ''
+  go: 'do jadłokoszyka'
+  nearby_requires_location: Musisz podać lokalizację w swoim profilu, aby 
+    widzieć jadłokoszyki w pobliżu.
 personal_data:
   label: Kontakt
   mobile: Numer telefonu komórkowego
@@ -3168,7 +3170,7 @@ menu:
     all_messages: 'Wszystkie wiadomości'
     events: 'Eventy'
     BOTforum: 'Forum ambasadorów/ek'
-    public: ''
+    public: 'Publiczna strona rejonu'
     selfservice: 'Samoobsługa'
     forum: 'Forum'
     your_groups: 'Twoje zespoły'
@@ -3261,7 +3263,7 @@ poll:
     submit: ''
     submit_question: ''
   in_future: 'jeszcze nie rozpoczęte'
-  in_past: ''
+  in_past: 'zakończone'
   results:
     average: 'średnia'
     sum: 'Suma'
@@ -3274,7 +3276,7 @@ poll:
     votes: ''
     averageShort: 'Ø'
   new_poll:
-    type: ''
+    type: 'Typ głosowania'
     name_required: 'Proszę podać nazwę.'
     name: 'Nazwa głosowania'
     scope: 'Kto może głosować?'
@@ -3297,7 +3299,7 @@ poll:
     submit: 'Zapisz głosowanie'
   time_period: 'Przedział czasu'
   may_not_vote: ''
-  type_description_0: ''
+  type_description_0: 'Wybór (można wybrać tylko jedną opcję)'
   type_description_1: ''
   may_not_edit: ''
   hint_random_order: ''
@@ -3326,7 +3328,8 @@ poll:
   scope_description_3: 'Wszyscy/tkie ambasadorzy/ki z rejonu'
   scope_description_4: ''
   hint_sorted_order: ''
-  scope_description_0: ''
+  scope_description_0: 'Wszyscy zweryfikowani/e i niezweryfikowani/e foodsaverzy/ki
+    z rejonu/zespołu'
   title: ''
   scope_description_2: ''
   type: 'Rodzaj głosowania'
@@ -3442,31 +3445,31 @@ email_template:
     part1: ''
   reply: 'Odpowiedz'
   confirm_for_moderated_forum: ''
-  foodbasket_request: ''
+  foodbasket_request: '%SENDER% zapytał/a o twój jadłokoszyk'
   in: ''
   newsletter:
     unsubscribe: 'Czy już nie chcesz otrzymywać newslettera?'
-    linktext: ''
-  request_from: ''
+    linktext: 'Kliknij tutaj, aby zakończyć subskrypcję.'
+  request_from: 'Zapytanie od'
   foodsharepoint: '-- jadłodzielnia'
-  to: ''
+  to: 'dla'
   confirm_for_unverified: 'Temat musi zostać potwierdzony, gdyż utworzyła go niezweryfikowana
     osoba.'
   dont_respond:
     notification: 'powiadomienia'
     noreply: 'Proszę nie odpowiadać na ten email. Ta wiadomość została wysłana z adresu,
       który nie jest przyporządkowany żadnej skrzynce pocztowej.'
-    you_can: ''
-    nomail: ''
+    you_can: 'Możesz pod'
+    nomail: 'ustawić, jakie maile otrzymujesz.'
     no_notification_link: 'Nie chcesz już otrzymywać tego typu powiadomień?'
   from: '-- od '
-  unknown_email: ''
+  unknown_email: 'Nieznany adres email'
   impress:
     title: ''
     address: ''
     general_information_requirements: ''
   unknown_email2: ''
-  confirm_topic: ''
+  confirm_topic: 'Temat musi zostać potwierdzony:'
   warning: 'Uwaga'
   confirm_BOT: ''
   information: 'Informacja'
@@ -3761,8 +3764,8 @@ oauth:
   title: 'Autoryzacja OAuth'
 region:
   denied:
-    group_in_this_group: ''
-    subgroup_in: ''
+    group_in_this_group: '„{name}“ jest podzespołem tego zespołu.'
+    subgroup_in: '„{name}“ jest podzespołem zespołu „{parent}“.'
     this_region: ''
     group_in_this_region: '„{name}“ jest zespołem w tym rejonie.'
     some_group: ''
@@ -3779,10 +3782,12 @@ region:
     map:
       set_pin: 'Umieść pinezkę rejonu na mapie'
       missing: ''
-      confirm_save_changes: ''
-      confirm_discard_changes: ''
+      confirm_save_changes: 'Zapisać twoje zmiany na pinezce rejonu? Nowa pinezka
+        będzie wtedy publicznie widoczna na stronie rejonu i mapie.'
+      confirm_discard_changes: 'Na pewno chcesz odrzucić swoje zmiany w pinezce rejonu?'
       hide_pin: 'Usuń pinezkę rejonu'
-      confirm_remove: ''
+      confirm_remove: 'Na pewno chcesz usunąć pinezkę rejonu? Nie będzie już wtedy
+        widać tego rejonu na mapie.'
       edit_pin: 'Edytuj pinezkę rejonu'
     join: 'Dołącz do rejonu'
     continue_editing: 'Kontynuuj edycję'
@@ -3799,10 +3804,11 @@ region:
       load_past: 'Pokaż minione eventy'
     confirm_entering: 'Chcesz dołączyć do rejonu {name}? Ambasadorzy/ki będą mieli/miały
       wtedy dostęp do twojego profilu.'
-    confirm_leaving: ''
+    confirm_leaving: 'Na pewno chcesz dołączyć do rejonu {name}? Ambasadorzy/ki uzyskają
+      wtedy dostęp do twojego profilu.'
     wall: 'Nowości z rejonu'
     children: 'Rejony w {name} ({count})'
-    no_more_info: ''
+    no_more_info: 'Nie ma żadnych publicznie dostępnych informacji o tym rejonie.'
   bread: 'Edytuj rejony'
   not-existant: 'Ten rejon lub zespół już nie istnieje.'
   noParent: ''
@@ -3824,11 +3830,12 @@ region:
     create: 'Jesteś pewny/a, że chcesz utworzyć nowy rejon {rejon}?'
   hull:
     closure: ''
-    parent-info: ''
-    parent: ''
-    start: ''
-    title: ''
-    confirm: ''
+    parent-info: 'Wszyscy/tkie foodsaverzy/ki są automatycznie w Master-rejonie, o
+      ile jakiś podano'
+    parent: 'Master-rejon'
+    start: 'Zacznij master-aktualizację'
+    title: 'Master-aktualizacja'
+    confirm: 'Na pewno rozpocząć master-aktualizację?'
   allow_hiding_in_forum: 'Pozwól moderator(k)om usuwać posty na forum'
   edit: 'Edytuj rejon'
   cancel: 'Nie, jednak nie'
@@ -3838,7 +3845,7 @@ region:
   createNew: 'Utwórz nowy rejon'
   parent: ''
   restricted: 'Niestety nie masz uprawnień, aby mieć wgląd w te dane.'
-  master: ''
+  master: 'Master-rejon'
   save: 'Tak, zapisz'
   mail:
     name-info: ''
@@ -4270,13 +4277,13 @@ stats:
   total:
     pickups: ''
     weight: ''
-    fsp: ''
+    fsp: 'Jadłodzielnie używane do dzielenia się żywnością.'
     foodsharer: ''
     foodsaver: ''
-    baskets: ''
+    baskets: 'jadłokoszyki łącznie opublikowane online.'
     cooperations: ''
   leader:
-    regions: ''
+    regions: 'Najbardziej aktywne rejony'
     users: 'Najbardziej aktywni/e foodsaverzy/ki'
   sort:
     by_count: 'według liczby'
@@ -4394,7 +4401,7 @@ usersearch:
 contentmanagement: ''
 sidenav:
   yourregions: ''
-  yourgroups: ''
+  yourgroups: 'Twoje zespoły'
   localgroups: ''
   countryspecific: ''
   superregional: 'Ponadregionalny'
