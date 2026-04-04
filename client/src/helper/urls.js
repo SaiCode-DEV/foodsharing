@@ -234,7 +234,7 @@ const urls = {
   whatsapp_at: () => 'https://whatsapp.com/channel/0029VaerhFPADTOAPGeJQ71R',
 
   // Newsletter
-  newsletter: () => 'https://listmonk.foodsharing.network',
+  newsletter: () => 'https://listmonk.foodsharing.network/subscription/form',
 }
 
 const url = (key, ...params) => {
