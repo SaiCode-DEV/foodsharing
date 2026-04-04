@@ -1,33 +1,38 @@
 <template>
-  <div v-if="!isSet || isNew" class="releasefield">
+  <div v-if="show" class="releasefield">
     <i class="releasefield__icon fas fa-magic" />
-    <div class="releasefield__content">
-      <div class="releasefield__content-wrapper">
+    <div class="mr-auto">
+      <div>
         <h4
           v-if="ReleaseData.version"
-          class="releasefield__title"
+          class="mt-0 mb-1"
           v-text="$t(`releases.${ReleaseData.version}`)"
         />
+        <h6 class="mt-3 mb-2">
+          {{ ReleaseData.teaser }}
+        </h6>
       </div>
-      <div class="releasefield__links">
-        {{ ReleaseData.teaser }}
+      <div>
         {{ $t('dashboard.release.for_release_notes') }}
         <a
-          class="releasefield__link"
+          class="release-link"
           :href="$url('release_notes')"
           v-text="$t('menu.entry.release-notes')"
-        /><br>
+        />
+        <br>
+
         {{ $t('dashboard.release.for_news_from_it') }}
         <a
-          class="releasefield__link"
+          class="release-link"
           :href="$url('newsFromIT')"
           target="_blank"
           v-text="$t('navigation.news_from_it')"
         />
         <br>
+
         {{ $t('dashboard.release.for_support') }}
         <a
-          class="releasefield__link"
+          class="release-link"
           :href="$url('contact')"
           v-text="$t('navigation.contact')"
         />
@@ -48,39 +53,32 @@ export default {
     return {
       ReleaseData,
       tag: 'release_notes',
+      show: true,
     }
-  },
-  computed: {
-    isSet () {
-      return localStorage.getItem(this.tag)
-    },
-
-    isNew () {
-      return ReleaseData.version !== localStorage.getItem(this.tag)
-    },
   },
   created () {
-    if (this.isNew) {
-      localStorage.removeItem(this.tag)
-    }
-  },
-  mounted () {
-    if (this.isSet && !this.isNew) {
-      this.remove()
+    if (this.isSeen() || !this.isRecent()) {
+      this.show = false
     }
   },
   methods: {
+    isSeen () {
+      const seenVersion = localStorage.getItem(this.tag)
+      return seenVersion && seenVersion === ReleaseData.version
+    },
     setSeen () {
       localStorage.setItem(this.tag, ReleaseData.version)
     },
-    close () {
-      this.setSeen()
-      this.remove()
+    isRecent () {
+      const releaseDate = new Date(ReleaseData.time)
+      const releaseAgeInSeconds = (new Date() - releaseDate) / 1000
+      const releaseAgeInDays = releaseAgeInSeconds / (60 * 60 * 24)
+      const releaseAgeInWeeks = releaseAgeInDays / 7
+      return releaseAgeInWeeks < 4
     },
-    remove () {
-      this.$emit('close')
-      this.$destroy()
-      this.$el.parentNode.removeChild(this.$el)
+    close () {
+      this.show = false
+      this.setSeen()
     },
   },
 }
@@ -108,16 +106,7 @@ export default {
   text-align: center;
 }
 
-.releasefield__content {
-  margin-right: auto;
-}
-
-.releasefield__title {
-  margin-top: 0;
-  margin-bottom: .25rem;
-}
-
-.releasefield__link {
+.release-link {
   @extend .btn;
   @extend .btn-sm;
 
@@ -126,8 +115,12 @@ export default {
 
   font-weight: 600;
 
+  vertical-align: baseline;
+  margin-top: 0.25rem;
+  margin-right: .25rem;
+
   &:not(:last-child) {
-    margin-right: .5rem;
+    margin-bottom: 0.25rem;
   }
 
   &:hover {
