@@ -2,6 +2,7 @@
 <template>
   <div class="my-2 position-relative location-search">
     <SearchBar
+      :input-id="props.inputId"
       :query="query"
       :is-loading="autocompleteLoading > 0"
       placeholder="addresspicker.placeholder"
@@ -28,6 +29,7 @@ import { defineProps, defineEmits, ref, defineExpose } from 'vue'
 import SearchBar from '../SearchBar/ResultEntry/SearchBar.vue'
 
 const props = defineProps({
+  inputId: { type: String, default: null },
   disabled: { type: Boolean, default: false },
   placeholder: { type: String, default: '' },
   initialQuery: { type: String, default: '' },

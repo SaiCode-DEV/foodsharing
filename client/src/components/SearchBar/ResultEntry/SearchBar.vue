@@ -1,13 +1,14 @@
 <template>
   <div class="search-bar-wrapper">
     <label
+      v-if="!props.inputId"
       class="sr-only"
       for="searchField"
       v-text="$t(props.placeholder)"
     />
     <i class="icon fas" :class="props.isLoading ? 'fa-spinner fa-spin' : 'fa-search'" />
     <b-form-input
-      id="searchField"
+      :id="props.inputId || 'searchField'"
       ref="searchField"
       :value="props.query"
       type="text"
@@ -28,6 +29,7 @@
 import { defineProps, ref, defineExpose } from 'vue'
 
 const props = defineProps({
+  inputId: { type: String, default: null },
   query: { type: String, default: '' },
   isLoading: { type: Boolean, default: false },
   placeholder: { type: String, default: 'search.placeholder' },

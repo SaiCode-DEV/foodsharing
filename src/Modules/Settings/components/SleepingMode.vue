@@ -7,8 +7,9 @@
       {{ $t('settings.sleep.info') }}
     </div>
 
-    <label>{{ $t('settings.sleep.status') }}</label>
+    <label for="sleep-status">{{ $t('settings.sleep.status') }}</label>
     <b-form-select
+      id="sleep-status"
       v-model="currentSleepStatus"
       :options="sleepingOptions"
     />
@@ -17,7 +18,7 @@
       v-if="currentSleepStatus === SLEEP_STATUS.TEMP"
       class="mt-3"
     >
-      <label>{{ $t('settings.sleep.range') }}</label>
+      <label for="sleep-from">{{ $t('settings.sleep.range') }}</label>
       <b-row>
         <b-col
           cols="12"
@@ -29,6 +30,7 @@
             class="mb-0"
           >
             <b-form-datepicker
+              id="sleep-from"
               v-model="currentSleepFrom"
               :date-disabled-fn="(_, date) => !isDateValidForSleepFrom(date)"
               v-bind="labelsCalendar || {}"

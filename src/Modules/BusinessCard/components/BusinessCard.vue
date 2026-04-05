@@ -5,8 +5,9 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label>{{ $t('bcard.role') }}:</label>
+          <label for="role-select">{{ $t('bcard.role') }}:</label>
           <select
+            id="role-select"
             v-model="selectedRole"
             required
           >
@@ -23,8 +24,9 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label>{{ $t('bcard.region') }}:</label>
+          <label for="region-select">{{ $t('bcard.region') }}:</label>
           <select
+            id="region-select"
             v-model="selectedRegion"
             :disabled="selectedRole.length === 0"
           >

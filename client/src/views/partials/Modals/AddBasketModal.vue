@@ -91,9 +91,10 @@
 
     <b-form-group
       :label="$t('address') + ':'"
-      label-for="location-input"
+      label-for="use-home-address"
     >
       <b-form-checkbox
+        id="use-home-address"
         v-model="useHomeAddress"
         inline
         switch

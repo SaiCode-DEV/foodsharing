@@ -7,6 +7,7 @@
     </div>
     <AddressSearchField
       ref="addressSearch"
+      :input-id="props.inputId"
       :initial-query="initialQuery"
       @change="useAddress"
     />
@@ -101,6 +102,7 @@ import AddressSearchField from './AddressSearchField.vue'
 L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa'
 
 const props = defineProps({
+  inputId: { type: String, default: null },
   zoom: { type: Number, required: true },
   coordinates: { type: Object, required: true },
   postalCode: { type: String, default: '' },

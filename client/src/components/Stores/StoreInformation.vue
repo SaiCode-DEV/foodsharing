@@ -99,22 +99,30 @@
             label-for="chainId"
             class="bootstrap input-wrapper"
           >
-            {{ getChainTextById }}
-            <b-button
-              variant="primary"
-              class="ml-4"
-              :disabled="!editMode"
-              @click="openChainSearchPicker"
-            >
-              {{ $t('storeview.choose_chain') }}
-            </b-button>
+            <b-input-group>
+              <b-form-input
+                id="chainId"
+                :value="getChainTextById"
+                :readonly="true"
+                class="text-truncate"
+              />
+              <template #append>
+                <b-button
+                  variant="primary"
+                  :disabled="!editMode"
+                  @click="openChainSearchPicker"
+                >
+                  {{ $t('storeview.choose_chain') }}
+                </b-button>
+              </template>
+            </b-input-group>
           </b-form-group>
           <b-form-group
             :label="$t('address')"
             label-for="location"
           >
             <LeafletLocationSearch
-              id="location"
+              input-id="location"
               :zoom="17"
               :coordinates="store.location"
               :street="store.address.street"
@@ -138,6 +146,7 @@
           >
             <b-input-group>
               <b-form-input
+                id="region"
                 :value="store.region.name"
                 type="text"
                 :disabled="true"
@@ -258,7 +267,7 @@
         :title="$t('storeview.team')"
       >
         <b-card-text>
-          <b-form-group :label="$t('storeedit.fetch.teamStatus')">
+          <b-form-group :label="$t('storeedit.fetch.teamStatus')" label-for="teamStatus">
             <b-form-select
               id="teamStatus"
               v-model="store.teamStatus"
@@ -299,7 +308,7 @@
             label-for="description"
           >
             <MarkdownInput
-              id="description"
+              input-name="description"
               :rows="5"
               :value="store.description"
               :disabled="!editMode"
@@ -359,7 +368,6 @@
 
           <b-form-group
             :label="$t('storeview.groceries.label')"
-            label-for="tags-with-dropdown"
           >
             <small
               v-if="store.groceries === null"
@@ -368,7 +376,6 @@
             </small>
             <b-form-tags
               v-if="store.groceries !== null"
-              id="tags-with-dropdown"
               v-model="storeFoodNames"
               :disabled="!editMode"
               n-outer-focus
