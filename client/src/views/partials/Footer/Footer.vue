@@ -1,14 +1,14 @@
 <template>
   <footer class="bg-white">
     <div class="container py-5">
-      <h2>{{ $t(partnerData.title) }}</h2>
       <b-row>
         <b-col
           sm="6"
           cols="12"
           class="h-100 mb-sm-0"
         >
-          <div class="d-flex flex-wrap">
+          <h2>{{ $t(partnerData.title) }}</h2>
+          <div class="d-flex flex-wrap" :class="{'with-info': hasPartnersWithInfo}">
             <a
               v-for="(item) in partnerData.items"
               :key="item.infosCompany"
@@ -25,11 +25,13 @@
                 :src="themeStore.isDark && item.imgDark ? item.imgDark : item.img"
                 loading="lazy"
               >
-              <p
-                v-if="item.info"
-                class="text-muted mb-0"
-                v-text="$t(item.info)"
-              />
+              <div class="h-0 position-relative">
+                <p
+                  v-if="item.info"
+                  class="partner-info text-muted"
+                  v-text="$t(item.info)"
+                />
+              </div>
             </a>
           </div>
         </b-col>
@@ -39,7 +41,7 @@
         >
           <h2>{{ $t('footer.donate.call_to') }}</h2>
           <a
-            class="alert alert-secondary d-flex align-items-center"
+            class="alert alert-secondary d-flex align-items-center mt-3"
             :href="$url('donations')"
           >
             <i class="icon icon--big fas fa-hands-helping mr-3" />
@@ -182,6 +184,9 @@ export default {
     partnerData () {
       return this.isDotAt ? PartnerData.at : PartnerData.de
     },
+    hasPartnersWithInfo () {
+      return this.partnerData.items.some(item => item.info)
+    },
   },
 }
 </script>
@@ -201,8 +206,9 @@ export default {
     color: var(--fs-color-secondary-600);
   }
 }
+
 .partner {
-  margin: .5rem;
+  margin: .75rem;
   display: inline-block;
   min-width: 75px;
 
@@ -227,6 +233,17 @@ export default {
   &:first-child {
     margin-left: 0;
   }
+
+  .partner-info {
+    position: absolute;
+    top: 0.5rem;
+    line-height: 1.2em;
+  }
+}
+
+.with-info {
+  position: relative;
+  padding-bottom: 2rem;
 }
 
 ul {
