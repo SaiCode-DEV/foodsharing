@@ -35,7 +35,7 @@ import { LMap, LTileLayer } from 'vue2-leaflet'
 import 'leaflet/dist/leaflet.css'
 import { MAP_ATTRIBUTION } from '@/consts'
 // import { isWebGLSupported } from '@/utils'
-import { getMapRasterTilesUrl } from '@/mapUtils'
+import { getCoordinateOrSafeDefaultForMap, getMapRasterTilesUrl } from '@/mapUtils'
 import { MAP_CONSTANTS } from '@/stores/map'
 
 // window.mapboxgl = mapboxgl // mapbox-gl-leaflet expects this to be global
@@ -68,12 +68,8 @@ export default {
       return false
     },
     safeCenter () {
-      const lat = this.center?.lat
-      const lon = this.center?.lon
-      if (typeof lat === 'number' && typeof lon === 'number' && isFinite(lat) && isFinite(lon)) {
-        return [lat, lon]
-      }
-      return [MAP_CONSTANTS.CENTER_GERMANY_LAT, MAP_CONSTANTS.CENTER_GERMANY_LON]
+      const safeCoordinate = getCoordinateOrSafeDefaultForMap(this.center)
+      return [safeCoordinate.lat, safeCoordinate.lon]
     },
     mapStyle () {
       return `height: ${this.height}`

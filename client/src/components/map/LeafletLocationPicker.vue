@@ -4,12 +4,12 @@
   <LeafletMap
     ref="leafletMap"
     :zoom="zoom"
-    :center="coordinates"
+    :center="safeCenter"
     :bounds="bounds"
   >
     <LMarker
       ref="marker"
-      :lat-lng="coordinates"
+      :lat-lng="safeCenter"
       :icon="icon"
       :draggable="markerDraggable"
       @dragend="onMarkerDragEnd"
@@ -20,6 +20,7 @@
 <script>
 import LeafletMap from './LeafletMap'
 import { LMarker } from 'vue2-leaflet'
+import { getCoordinateOrSafeDefaultForMap } from '@/mapUtils'
 
 export default {
   name: 'LeafletLocationPicker',
@@ -30,6 +31,11 @@ export default {
     bounds: { type: Array, default: null },
     icon: { type: Object, required: true },
     markerDraggable: { type: Boolean, default: false },
+  },
+  computed: {
+    safeCenter () {
+      return getCoordinateOrSafeDefaultForMap(this.coordinates)
+    },
   },
   methods: {
     /**

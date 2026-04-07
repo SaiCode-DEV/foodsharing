@@ -259,6 +259,7 @@ import { required, minLength, maxLength } from '@vuelidate/validators'
 import { pulseError, pulseSuccess } from '@/script'
 import Info from '@/components/Help/Info.vue'
 import i18n from '@/helper/i18n'
+import { isValidMapCoordinate } from '@/mapUtils'
 
 const props = defineProps({
   profileData: { type: Object, default: null },
@@ -267,7 +268,9 @@ const props = defineProps({
 const userStore = useUserStore()
 
 const randomSuffix = Date.now()
-const zoom = 17
+
+// Start zoomed in if a valid coordinate is available, otherwise start zoomed out.
+const zoom = isValidMapCoordinate(props.profileData?.coordinate) ? 17 : 5
 
 const settings = ref({
   id: null,

@@ -136,6 +136,7 @@ import { toISOStringWithTimezone } from '@/helper/date-formatter'
 import { EVENT_TYPE } from '@/consts'
 import { MARKER_TYPES } from '@/stores/map'
 import Info from '../Help/Info.vue'
+import { isValidMapCoordinate } from '@/mapUtils'
 
 const userStore = useUserStore()
 const regionStore = useRegionStore()
@@ -195,7 +196,9 @@ export default {
     MARKER_TYPES: () => MARKER_TYPES,
     groups: () => DataGroups.getters.get(),
     regions: () => regionStore.regions,
-    location: () => userStore.getLocations,
+    location () {
+      return isValidMapCoordinate(this.event.location) ? this.event.location : userStore.getLocations
+    },
     mayChangeEventPublicState () {
       const region = this.regions.find(region => region.id === this.event.regionId)
       if (region) return region?.maySetRegionPin
