@@ -9,19 +9,8 @@ export function leaveRegion (regionId) {
   return remove(`/regions/${regionId}/users/current`, {}, { skipErrorNotificationFor: [HTTP_RESPONSE.CONFLICT] })
 }
 
-export function setRegionOptions (regionId, isReportButtonEnabled, isMediationButtonEnabled, isRegionPickupRuleActive, regionPickupRuleTimespanDays, regionPickupRuleLimitNumber, regionPickupRuleLimitDayNumber, regionPickupRuleInactiveHours, selectedReportReasonOptions, isReportReasonOtherEnabled, isAddressChangeNotificationEnabled) {
-  return patch(`/regions/${regionId}/options`, {
-    isReportButtonEnabled,
-    isMediationButtonEnabled,
-    isRegionPickupRuleActive,
-    regionPickupRuleTimespanDays,
-    regionPickupRuleLimitNumber,
-    regionPickupRuleLimitDayNumber,
-    regionPickupRuleInactiveHours,
-    selectedReportReasonOptions,
-    isReportReasonOtherEnabled,
-    isAddressChangeNotificationEnabled,
-  })
+export function setRegionOptions (regionId, optionsToPatch) {
+  return patch(`/regions/${regionId}/options`, optionsToPatch)
 }
 
 export function getRegionOptions (regionId) {

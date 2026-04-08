@@ -17,7 +17,6 @@
           v-if="page === MAILBOX_PAGE.READ_EMAIL"
           id="dropdown-reply"
           :text="$t('mailbox.reply.short')"
-          class="m-md-2"
           size="sm"
           variant="outline-primary"
           split
@@ -38,7 +37,6 @@
         <b-button
           v-if="page === MAILBOX_PAGE.READ_EMAIL"
           v-b-tooltip.hover
-          class="mr-md-2"
           size="sm"
           variant="outline-primary"
           @click="showMailPage(MAIL_COMPOSITION_MODE.FORWARD)"

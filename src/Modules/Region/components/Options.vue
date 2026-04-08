@@ -16,7 +16,7 @@
         v-if="mayEditUserRelated"
         text-key="regionOptions.save"
         variant="secondary"
-        @click="trySendOptions"
+        @click="saveUserRelatedOptions"
       />
     </Container>
 
@@ -119,7 +119,7 @@
         v-if="mayEditPickupRule"
         text-key="regionOptions.save"
         variant="secondary"
-        @click="trySendOptions"
+        @click="savePickupRuleOptions"
       />
     </Container>
 
@@ -165,7 +165,7 @@
         v-if="mayEditReporting"
         text-key="regionOptions.save"
         variant="secondary"
-        @click="trySendOptions"
+        @click="saveReportingOptions"
       />
     </Container>
   </div>
@@ -262,21 +262,34 @@ export default {
       }
       this.rangeDayLimit = this.regionPickupRuleLimitNumber
     },
-    async trySendOptions () {
+    async saveUserRelatedOptions () {
+      this.trySendOptions({
+        isAddressChangeNotificationEnabled: this.isAddressChangeNotificationEnabled,
+      })
+    },
+    async savePickupRuleOptions () {
+      this.trySendOptions({
+        isRegionPickupRuleActive: this.isRegionPickupRuleActive,
+        regionPickupRuleTimespanDays: this.regionPickupRuleTimespanDays,
+        regionPickupRuleLimitNumber: this.regionPickupRuleLimitNumber,
+        regionPickupRuleLimitDayNumber: this.regionPickupRuleLimitDayNumber,
+        regionPickupRuleInactiveHours: this.regionPickupRuleInactiveHours,
+      })
+    },
+    async saveReportingOptions () {
+      this.trySendOptions({
+        isReportButtonEnabled: this.isReportButtonEnabled,
+        isMediationButtonEnabled: this.isMediationButtonEnabled,
+        selectedReportReasonOptions: this.selectedReportReasonOptions,
+        isReportReasonOtherEnabled: this.isReportReasonOtherEnabled,
+      })
+    },
+    async trySendOptions (optionsToSave) {
       showLoader()
       try {
         await setRegionOptions(
           this.regionId,
-          this.isReportButtonEnabled,
-          this.isMediationButtonEnabled,
-          this.isRegionPickupRuleActive,
-          this.regionPickupRuleTimespanDays,
-          this.regionPickupRuleLimitNumber,
-          this.regionPickupRuleLimitDayNumber,
-          this.regionPickupRuleInactiveHours,
-          this.selectedReportReasonOptions,
-          this.isReportReasonOtherEnabled,
-          this.isAddressChangeNotificationEnabled,
+          optionsToSave,
         )
         pulseInfo(this.$t('regionOptions.success'))
       } catch (err) {

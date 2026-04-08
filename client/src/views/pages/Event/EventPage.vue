@@ -9,6 +9,7 @@
         :invite-count="currentAttendees?.inviteCount"
         :answer-count="answerCount"
         :status="inviteStatus"
+        class="mb-3"
         @update:status="updateSelfInAttendees"
       />
       <b-alert :show="event.isPublic" variant="info">

@@ -91,7 +91,7 @@ class MapTransactions
         $mapData->mayAccessStorePage = $this->storePermissions->mayAccessStore($store['id']);
         $mapData->maySendRequest = $this->storePermissions->mayJoinStore($storeId, false);
         $mapData->mayAcceptInvitation = $this->storePermissions->mayJoinStore($storeId, true);
-        $mapData->mayWithdrawRequest = $mapData->teamSearchStatus != TeamSearchStatus::CLOSED && $teamStatus == TeamStatus::Applied;
+        $mapData->mayWithdrawRequest = $teamStatus === TeamStatus::Applied;
 
         $mapData->categoryType = StoreCategoryType::tryFrom($store['categoryType']) ?? StoreCategoryType::PICKUP;
         $mapData->isInvited = $teamStatus === TeamStatus::Invited;

@@ -75,7 +75,7 @@ export default {
         await setLocale(this.language)
         setTimeout(() => {
           window.location.reload()
-        }, 25)
+        }, 250)
       } catch (e) {
         pulseError(this.$t('error_unexpected'))
       }

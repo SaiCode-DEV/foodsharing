@@ -630,8 +630,8 @@ export default {
       room.users = []
       const user = {
         _id: this.userStore.getUserId,
-        username: ProfileStore.profiles[this.userStore.getUserId].name,
-        avatar: ProfileStore.profiles[this.userStore.getUserId].avatar,
+        username: this.userStore.getUserFirstName,
+        avatar: this.userStore.getAvatar,
         status: {
         },
       }

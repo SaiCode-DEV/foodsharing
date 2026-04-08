@@ -210,7 +210,7 @@
         :variant="button.variant"
         :href="button.href"
         :disabled="button.disabled"
-        @click="button.onclick"
+        @click="button.onclick?.($event)"
       >
         {{ button.text }}
       </b-button>
@@ -407,7 +407,7 @@ export default {
         {
           text: this.$t('store.request.withdraw'),
           show: this.store?.mayWithdrawRequest,
-          variant: 'success',
+          variant: 'warning',
           onclick: () => this.withdrawRequest(),
         },
         {
@@ -454,6 +454,14 @@ export default {
         (data) => { this.store = data },
       )
     },
+    async refreshStoreBubbleData () {
+      if (!this.storeId) return
+      try {
+        this.store = await getStoreBubbleContent(this.storeId)
+      } catch (e) {
+        pulseError(this.$t('error_unexpected'))
+      }
+    },
     async sendRequest () {
       try {
         let dialogueOptions = {
@@ -471,9 +479,8 @@ export default {
         }
         if (this.distanceInKm > minBadDistanceInKm && !await this.confirmationDialogue('store.request.confirm-far', dialogueOptions)) return
         await requestStoreTeamMembership(this.store.id, this.applicationMessage || null)
-        this.store.maySendRequest = false
-        this.store.mayWithdrawRequest = true
         pulseSuccess(this.$t('store.request.got-it'))
+        await this.refreshStoreBubbleData()
       } catch (e) {
         pulseError(this.$t('error_unexpected'))
       }
@@ -481,9 +488,8 @@ export default {
     async withdrawRequest () {
       try {
         await declineStoreRequest(this.store.id, this.userId)
-        this.store.maySendRequest = true
-        this.store.mayWithdrawRequest = false
         pulseSuccess(this.$t('store.request.withdrawn'))
+        await this.refreshStoreBubbleData()
       } catch (e) {
         pulseError(this.$t('error_unexpected'))
       }
@@ -500,14 +506,14 @@ export default {
     },
     async declineInvitation () {
       await declineInvitation(this.storeId)
-      this.store.isInvited = false
+      await this.refreshStoreBubbleData()
     },
     openManagerChat () {
       const storeManagers = this.store.managers.map(item => item.id)
       const storeUrl = this.$url('store', this.storeId)
       const preface = {
-        content: this.$t('store.chat.managers_preface', { store: this.storeInformation.name, storeUrl }),
-        username: this.storeInformation.name,
+        content: this.$t('store.chat.managers_preface', { store: this.store.name, storeUrl }),
+        username: this.store.name,
       }
       conversationStore.openMultiChat(storeManagers.concat(this.userId), preface)
     },
