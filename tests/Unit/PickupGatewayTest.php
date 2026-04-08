@@ -37,11 +37,20 @@ class PickupGatewayTest extends Unit
         $dow = 3; /* above date is a wednesday */
         $fetcher = 2;
         $fsid = $this->foodsaver['id'];
+        $signupDate = (new Carbon($datetime))->subDays(3);
+
+        $addStorelog = function (int $userId, int $action, Carbon $activityDate) use ($datetime) {
+            $this->tester->addStoreLog($this->store['id'], $userId, $userId, $action, [
+                'date_activity' => $activityDate->format('Y-m-d H:i:s'),
+                'date_reference' => $datetime,
+            ]);
+        };
 
         $this->tester->addRecurringPickup($this->store['id'],
             ['time' => $time, 'dow' => $dow, 'fetcher' => $fetcher]
         );
         $this->gateway->addFetcher($fsid, $this->store['id'], new Carbon($datetime));
+        $addStorelog($fsid, StoreLogAction::SIGN_UP_SLOT, $signupDate);
 
         $fsList = $this->gateway->getSignedUpPickupsForDate($this->store['id'], new Carbon($datetime));
         $this->assertEquals(1, count($fsList));
@@ -49,21 +58,21 @@ class PickupGatewayTest extends Unit
         $this->assertEquals(new Carbon($datetime), $fsList[0]->date);
         $this->assertEquals(false, $fsList[0]->isConfirmed);
 
-        // Add another signup for the same pickup date, but with a later signup date (in the future)
+        // Create a second user, who will also sign up for the same pickup.
         $otherFoodsaver = $this->tester->createFoodsaver();
-        $laterSignupDate = (new Carbon($datetime))->addDay();
-        $this->tester->addPicker($this->store['id'], $otherFoodsaver['id'], ['date' => $datetime]);
-        $this->tester->addStoreLog(
-            $this->store['id'],
-            $otherFoodsaver['id'],
-            $otherFoodsaver['id'],
-            StoreLogAction::SIGN_UP_SLOT, [
-                'date_activity' => $laterSignupDate->format('Y-m-d H:i:s'),
-                'date_reference' => $datetime,
-            ],
-        );
 
-        // Check both are returned in the correct order
+        // Add a previous signup for the second user to the storelog, with an earlier signup date.
+        // This simulates the case where the user first signed up for the pickup, then canceled it.
+        $earlierSignupDate = $signupDate->copy()->subDay();
+        $addStorelog($otherFoodsaver['id'], StoreLogAction::SIGN_UP_SLOT, $earlierSignupDate);
+        $addStorelog($otherFoodsaver['id'], StoreLogAction::SIGN_OUT_SLOT, $earlierSignupDate->copy()->addHour());
+
+        // Add a signup for the second user with a later signup date.
+        $laterSignupDate = $signupDate->copy()->addDay();
+        $this->tester->addPicker($this->store['id'], $otherFoodsaver['id'], ['date' => $datetime]);
+        $addStorelog($otherFoodsaver['id'], StoreLogAction::SIGN_UP_SLOT, $laterSignupDate);
+
+        // Check both current signups are returned in the correct order.
         $fsList = $this->gateway->getSignedUpPickupsForDate($this->store['id'], new Carbon($datetime));
         $this->assertEquals(2, count($fsList));
         $this->assertEquals($fsid, $fsList[0]->foodsaverId);

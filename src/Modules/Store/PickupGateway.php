@@ -289,7 +289,7 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
 			' . (!is_null($to) ? 'AND     a.date <= :to' : '') . '
 
 			GROUP BY a.foodsaver_id, a.date
-			ORDER BY a.date, l.date_activity
+			ORDER BY a.date ASC, l.date_activity DESC
 		', $parameters);
 
         return array_map(fn ($e) => PickupSignUp::create(
