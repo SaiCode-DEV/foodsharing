@@ -376,8 +376,8 @@ settings:
       all: ''
       invitations: ''
       label: ''
-      maybe: ''
-      accepted: ''
+      maybe: 'Eventy, przy których podałem/am, że (być może) będę uczestniczyć'
+      accepted: 'Eventy, przy których podałem/am, że będę uczestniczyć'
     reminders:
       3_hours: 3 godziny przed
       6_hours: 6 godzin przed
@@ -393,8 +393,8 @@ settings:
       text: 'tylko tekst'
       alt: 'Tekst w HTML jako alternatywa'
     history:
-      "false": ''
-      "true": ''
+      "false": 'Nie, nie pokazuj minionych eventów w kalendarzu'
+      "true": 'Tak, pokaż minione eventy'
       label: ''
     pickup:
       "true": 'Tak, pokaż moje sloty w kalendarzu'
@@ -427,7 +427,7 @@ settings:
     saved: Zapisano ustawienia
     tooltip: ''
     info: ''
-    missing-date: ''
+    missing-date: 'Podaj datę początkową i końcową.'
     none: ''
     header: ''
     title: ''
@@ -562,7 +562,9 @@ settings:
       label: 'W razie, gdybyś utracił/a dostęp to urządzenia dwuskładnikowego (zgubienie/kradzież/uszkodzenie),
         możesz użyć następujących jednorazowych kodów backup:'
     further_info: ''
-    password_info: ''
+    password_info: 'Do zmiany zawsze jest wymagane podanie hasła. W ten sposób ktoś
+      inny, kto używa twojego komputera lub telefonu komórkowego, nie może zmienić
+      tego krytycznego dla bezpieczeństwa ustawienia.'
     success: 'Pomyślnie aktywowano uwierzytelnianie dwuskładnikowe.'
     title: 'aktywuj uwierzytelnienie dwuskładnikowe'
   two_fa_disable:
@@ -673,7 +675,7 @@ settings:
   follow:
     none: Nie informuj mnie mailem o nowych postach.
     mail: 'Tak, chcę być informowany/a o nowych postach mailowo.'
-    thread: ''
+    thread: 'Być na bieżąco z tematem forum „{thread}“?'
   businesscard: Osobista wizytówka
   account: Opcje konta
   general:
@@ -2682,8 +2684,8 @@ mailbox:
   create: Stwórz nową skrzynkę pocztową
   attachment:
     not_found: nie znaleziono
-    too_many: Wybrano za dużo plików. Do maila można dołączyć maksymalnie 10 
-      plików.
+    too_many: Wybrano za dużo plików. Do maila można dołączyć maksymalnie 
+      {count} pliki/ów.
     not_found_explanation: 'Nie można znaleźć załącznika na serwerze'
     too_large_to_send: 'Niektóre pliki były za duże i nie mogły zostać dołączone.'
   conformation_modal:
@@ -3259,8 +3261,8 @@ poll:
   submit_vote: 'Zagłosuj'
   allowed_voters: 'uprawniony/a do głosowania'
   edit:
-    title: ''
-    submit: ''
+    title: 'Edytuj głosowanie'
+    submit: 'Zapisz głosowanie'
     submit_question: ''
   in_future: 'jeszcze nie rozpoczęte'
   in_past: 'zakończone'
@@ -3309,7 +3311,7 @@ poll:
   error_cannot_vote: 'Nie możesz uczestniczyć z tym głosowaniu'
   type_description_3: ''
   cancel:
-    title: ''
+    title: 'Anuluj głosowanie'
     question: ''
   may_not_yet_vote: ''
   not_available: ''
@@ -3330,7 +3332,7 @@ poll:
   hint_sorted_order: ''
   scope_description_0: 'Wszyscy zweryfikowani/e i niezweryfikowani/e foodsaverzy/ki
     z rejonu/zespołu'
-  title: ''
+  title: 'Głosowanie: {name}'
   scope_description_2: ''
   type: 'Rodzaj głosowania'
 categories:
@@ -4097,12 +4099,12 @@ blog:
   title: 'Posty na blogu'
   bread: 'Blog'
 startpage:
-  join_welcome: ''
+  join_welcome: 'Fajnie, że chcesz dołączyć do foodsharingu!'
   near_you:
     text2:
       part2: 'jadłokoszyki'
       part3: ''
-      part1: ''
+      part1: 'Poza tym są'
     text3:
       part1: ''
       part2: 'Znajdź rejony w twojej okolicy'
@@ -4126,7 +4128,7 @@ startpage:
   member:
     text: ''
     title: 'jako członek'
-  welcome_text: ''
+  welcome_text: 'Witamy na foodsharingu'
   store:
     title: ''
     text: ''
@@ -4138,7 +4140,7 @@ startpage:
   join: 'Dołącz'
   etiquette: 'etykieta foosharingu'
   donate:
-    title: ''
+    title: 'Przekaż darowiznę'
     link: 'wspieraj foodsharing'
     text: "Próbujemy znaleźć sponsorów na wszelkie wydatki. W niektórych przypadkach
       jednak nie udaje nam się to, bądź nie w całości, \nnp. przy nakładach na finansowanie
@@ -4155,7 +4157,7 @@ startpage:
     text: ''
     title: 'miasta foodsharingu'
   dependability: ''
-  call_to_action_button: ''
+  call_to_action_button: 'Dołącz teraz'
   forstores: ''
   honest: 'Bądź szczery/a'
   vision:
@@ -4361,7 +4363,7 @@ information:
   push:
     link: 'Do ustawień'
     description: ''
-    title: ''
+    title: 'Teraz możesz otrzymywać powiadomienia push od foodsharingu.'
   calendar_sync:
     title: 'Znasz synchronizację kalendarza do twoich slotów?'
     link: ''
@@ -4398,7 +4400,7 @@ usersearch:
   search_tag: 'wybierz użytkowników'
   no_tag_preset: 'Nie znaleziono użytkownika/czki'
   select_tag: 'Szukaj użytkowników według imienia'
-contentmanagement: ''
+contentmanagement: 'Zarządzanie treściami'
 sidenav:
   yourregions: ''
   yourgroups: 'Twoje zespoły'

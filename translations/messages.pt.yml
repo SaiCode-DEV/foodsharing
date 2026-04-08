@@ -1844,8 +1844,8 @@ pickup:
       registeredSwitch: 'Vagas inscritas'
       loadMore: 'Ver mais'
       signOff: 'Cancelar'
-      managedOnlySwitch: Vista de responsável
-      useCondensedDesign: Agrupados por dias
+      managedOnlySwitch: Vista para responsáveis
+      useCondensedDesign: Agrupado por dias
     header: 'Vagas'
     status:
       option: 'Vagas vacante'
@@ -1931,9 +1931,7 @@ pickup:
     cooperação.'
   delete_title: 'Apagar essas vagas'
   signout_info: 'As tuas recolhas pendentes serão eliminadas.'
-  leave_team_message_template: "Querida equipa, \ninfelizmente, não poderei participar
-    em {date}, pelo que terei de cancelar a minha vaga. \nPor favor, inscrevam-se
-    …"
+  leave_team_message_template: "Cancelei a minha inscrição às {date}…"
   leave_pickup_message_team: 'Notificar equipa'
   leave_team_message_title: 'Mensagem á equipa'
   signout_confirm: 'Tens a certeza?'
