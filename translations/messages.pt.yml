@@ -35,7 +35,7 @@ store:
     verified: 'O Utilisador está verificado'
     no-duplicate: 'Já existe um pedido.'
     request: 'Aplicar para esta equipa'
-    to-jumper: 'Lista de substitutos'
+    to-jumper: 'Lista de suplentes'
     withdraw: 'Cancelar meu pedido'
     confirm-far: De acordo com a morada guardada, moras muito longe deste sítio 
       ({distance}). Tens a certeza de que podes apoiar a equipa de forma regular
@@ -128,7 +128,7 @@ store:
   team:
     no_record: 'Não foi encontrada nenhuma entrada.'
     search_reset: 'Limpar pesquisa'
-    search_input: 'Pesquisar por nome / telefone'
+    search_input: 'Pesquisar por nome ou telefone'
     is_closed: 'O equipa está fechado'
   log:
     message:
@@ -147,7 +147,7 @@ store:
       10: '{actor} removeu {target} como responsável da cooperação.'
       12: '{actor} descreu-se para a vaga em {date}.'
       2: '{actor} rejeitou o pedido de afiliação de {target}.'
-      5: '{actor} colocou {target} na lista de substitutos.'
+      5: '{actor} colocou {target} na lista de suplentes.'
       9: '{actor} designou {target} como responsável da cooperação.'
       15: '{actor} eliminou a publicação do mural de {target} em {date}.'
       17: '{actor} convidou {target} para a equipa.'
@@ -167,7 +167,7 @@ store:
       6: 'Adicionar Foodsavers ao equipa ativo'
       12: 'Cancelar a vaga'
       9: 'Inscrever responsáveis'
-      5: 'Passar Foodsavers para a lista de substitutos'
+      5: 'Passar Foodsavers para a lista de suplentes'
       13: 'Ser cancelada da vaga'
       11: 'Inscrever pela vaga'
       15: 'Eliminar publicação do mural'
@@ -178,7 +178,7 @@ store:
     log_types_placeholder: 'Selecione as ações que serão mostradas'
     search: 'Mostrar ações selecionadas'
     selected_log_types: '{amount} tipos de ação selecionados'
-    title: 'Atividades do local'
+    title: 'Atividades neste local'
     message_saved_info: A tua mensagem será guardada no registo de local.
   signInDateTime: 'Data de inscrição'
   sm:
@@ -195,30 +195,30 @@ store:
     filterActive: 'ativos'
     searchPlaceholder: 'Nome ou ID'
     filterSleeping: 'dorminhocos'
-    filterJumper: 'substitutos'
+    filterJumper: 'suplentes'
     filterQuizSM: 'Aprovado no teste para responsáveis por cooperações'
     reallyRemove: 'Desejas realmente remover {name} desta equipa?'
-    makeJumper: 'Na lista de substitutos'
+    makeJumper: 'Na lista de suplentes'
     reloadRequired: 'Para atualizar as informações do equipa:'
     makeRegularTeamMember: 'Adicionar na equipa'
     filterNoHygiene: 'sem formação em higiene'
     sorting:
-      default: Classificação standard
+      default: Classificação padrão
       pickup: ordenada pela última vaga
       distance: ordenado por distância
     userHasPickupsWarning: '{name} ainda está registada em {occupiedSlots} vagas neste
       local. Estas vagas serão libertadas. Deseja continuar?'
-    inviteMember: Convidar na equipa
+    inviteMember: Convidar para a equipa
     demoteAsManagerConfirm: Quer mesmo abdicar da tua responsabilidade pela esta
       cooperação?
   prefetchone: '1 semana'
   isNotVerified: 'Não está verificado'
   jumping: 'Substituto'
-  may_not_referred_to_in_public: 'Por favor, não mencione esta cooperação publicamente,
+  may_not_referred_to_in_public: 'Por favor, não mencione esta cooperação em público,
     (seja em cabazes alimentares, nas redes sociais ou na imprensa).'
   fetchCount: 'Recolhido aqui {count} vezes.'
   of_that: 'deles'
-  requests: 'Consultas abertas ({count})'
+  requests: 'Pedidos em aberto ({count})'
   error: 'Não foi possível aceder à local.'
   leaveinfo: 'Aqui pode fornecer informações aos recolheros que desejam candidatar-se
     à equipa.'
@@ -230,8 +230,8 @@ store:
     final: 'No início não parecia promissor, mas depois entraram em contacto.'
   mayAmb: 'Aprovou o teste de embaixadores.'
   chat:
-    jumper: 'Mensagem aos substitutos'
-    team: 'Mensagem á equipa'
+    jumper: 'Mensagem aos suplentes'
+    team: 'Mensagem à equipa'
     managers: Mensagem aos responsáveis
     managers_preface: 'Chat com os responsáveis de [{store}]({storeUrl}):'
   isAppliedForTeam: 'Pedido'
@@ -251,7 +251,7 @@ store:
   not-in-team: 'Ainda não estás na equipa deste local.'
   unverified_members: 'não verificados'
   allStoresOfRegion: 'Todos os locais do distrito'
-  willgetcontacted: 'Atualmente, está na lista de substitutos. Entraremos em contacto
+  willgetcontacted: 'Atualmente, está na lista de suplentes. Entraremos em contacto
     consigo assim que precisarmos de ajuda.'
   slot_state: 'Estado de vaga'
   delete_date_description: 'Caso utilize intervalos regulares (recorrentes semanalmente
@@ -263,7 +263,7 @@ store:
   address: 'Morada'
   days_before: 'há'
   tooltip_orange: 'Vagas disponíveis nos próximos tres dias'
-  attribution: 'Atribuição'
+  attribution: 'Nome da organização'
   useRegionPickupRules: 'Este é um local muito popular. Para além das regras internas
     do local, aplicam-se as seguintes restrições às inscrições nos horários:'
   short_tooltip_red: 'Vagas disponíveis hoje ou amanhã'
@@ -288,11 +288,11 @@ store:
   appliedFor: 'Pedido realizado'
   filter: 'Filtrar por …'
   regionPickupRuleLong: 'No período de {regionPickupRuleTimespan} dias antes e depois
-    da data de recolha desejada, não podem ter sido registadas mais de {regionPickupRuleLimit}
+    da data de recolha desejada, não podem ser registadas mais de {regionPickupRuleLimit}
     vagas em locais populares. Podem ser realizadas no máximo {regionPickupRuleLimitDay}
     recolhas por dia nesses locais. {regionPickupRuleInactive} horas antes da recolha,
     esta regra deixa de ser aplicável.'
-  isJumper: 'Está en la lista dos substitutos.'
+  isJumper: 'Está en la lista dos suplentes.'
   nodeclaration: 'Não especificado'
   important: 'Importante:'
   nochains: 'Por favor, contacte apenas lojas geridas pelos proprietários com, no
@@ -381,7 +381,7 @@ navigation:
   promotion: 'Na área de TI? Precisamos de ti!'
   notifications: 'Notificaçães'
   stores: 'Locais'
-  system_administration: 'Administração de sistema'
+  system_administration: 'Administração do sistema'
   styleguide: 'Guia de estilo'
   wiki: 'Wiki'
   map: 'Mapa'
@@ -447,7 +447,7 @@ bell:
   banana_given_title: 'Nova banana de reconhecimento'
   passgen_failed: 'Carregue uma foto e funcionará.'
   store_request_imposed: 'Foste adicionado à equipa.'
-  store_request_accept_wait: 'Agora está na lista de espera/substitutos.'
+  store_request_accept_wait: 'Agora está na lista de espera/suplentes.'
   workgroup_request_accept: 'Foste aceite no grupo de trabalho.'
   forum_mention: 'no tópico «{title}» do fórum {forum}'
   new_foodsaver_needs_verification: 'precisa ser verificado'
@@ -646,7 +646,7 @@ dashboard:
     groups: 'Grupos onde participas'
     jumping_stores: 'Locais onde és substituto'
     managing_stores: 'Locais onde és responsável'
-    pickups: Tuas próximas vagas
+    pickups: Vagas registadas
     pickupOptions: Vagas disponíveis
   greeting_short: 'Olá {name}!'
   source_store: 'Locais {0}'
@@ -665,14 +665,15 @@ dashboard:
   deleted_user: 'Utilizador(a) desconectado(a)'
   source_friendWall: 'Mural de {0}'
   source_forum_bot: 'Fórum de Embaixadores {0}'
-  foodsaver_amount: 'Recolheste alimentos <b>{pickups} vezes</b> e salvaste <b>{weight} kg</b>.'
+  foodsaver_amount: 'Recolheste alimentos <b>{pickups} vezes</b> e salvaste <b>{weight} kg</b>
+    de alimentos.'
   invitation: 'Recebeste um convite'
   no_more_updates_event: 'Não há mais eventos'
   settings_tooltip: 'Configurações gerais'
   no_updates: 'Sem atualizações'
   no_more_updates_store: 'Sem mais informações sobre os locais'
-  full_subline: "Recolheste alimentos **{pickups} vezes** e salvaste **{weight} kg**.\
-    \ \nO teu distrito principal é **{region}**."
+  full_subline: "Recolheste alimentos **{pickups} vezes** e salvaste **{weight} kg**
+    de alimentos. \nO teu distrito principal é **{region}**."
   no_more_updates_foodsharepoint: 'Não há mais mensagens do cantinho alimentar'
   activation_mail_sent: 'Link de ativação enviado – verifique os teus e-mails'
   no_more_updates_all: 'foi isso!'
@@ -689,7 +690,7 @@ dashboard:
   title: 'Painel de controlo'
   polls: 'Votações em curso'
   source_event: 'Evento {0}'
-  general-dates: Tuas próximas vagas
+  general-dates: Próximas vagas registadas
 storeview:
   groceries:
     select_tag: 'Selecione a categoria(s)'
@@ -741,7 +742,7 @@ storeview:
     available_count: Número de caracteres disponíveis
   show_settings: Configurações do local
   team_info_active: 'Membros ativos da equipa:'
-  team_info_jumper: 'Substitutos:'
+  team_info_jumper: 'Suplentes:'
   activityCount:
     0: Recolhas
     1: Entregas
@@ -851,9 +852,9 @@ poll:
     e, por isso, não pode ser mostrada aqui.'
   scope_description_1: 'Todos os Foodsavers verificados do distrito/grupo'
   type_2:
-    tooltip_positive: 'Aprovação'
-    tooltip_neutral: 'Abstenção'
-    tooltip_negative: 'Contra'
+    tooltip_positive: 'a favor'
+    tooltip_neutral: 'abstenção'
+    tooltip_negative: 'contra'
   submit_vote_question: 'Votar agora mesmo? A tua seleção não poderá ser alterada
     depois.'
   vote_success: 'Votaste com sucesso.'
@@ -1213,8 +1214,8 @@ profile:
       pois não existe um grupo de denúncias local no teu distrito.'
     reporterAdminNoArbitration: 'És administrador do grupo local de denúncias e, como
       não existe um órgão arbitral local, não podes apresentar nenhuma denúncia.'
-    cancellation: 'Cancelamentos frequentes de recolhas a curto prazo sem procura
-      de substitutos'
+    cancellation: 'Cancelamentos frequentes de recolhas em cima da hora sem procurar
+      suplente'
     mail:
       reportGroup: 'Esta denúncia será enviada ao grupo de denúncias local. Também
         pode contactar este grupo através do seguinte endereço de e-mail:'
@@ -1933,7 +1934,7 @@ pickup:
   signout_info: 'As tuas recolhas pendentes serão eliminadas.'
   leave_team_message_template: "Cancelei a minha inscrição às {date}…"
   leave_pickup_message_team: 'Notificar equipa'
-  leave_team_message_title: 'Mensagem á equipa'
+  leave_team_message_title: 'Mensagem à equipa'
   signout_confirm: 'Tens a certeza?'
   take_empty_slot: 'Inscrever-me aqui'
   join_agree: 'Sim, inscrever vinculativo'
@@ -2091,7 +2092,7 @@ search:
       copy_id: 'Copiar ID'
     store:
       manager_tooltip: 'És responsável por esta cooperação'
-      jumper_tooltip: 'Estás na lista de substitutos deste local'
+      jumper_tooltip: 'Estás na lista de suplentes deste local'
       member_tooltip: 'És membro desta equipa'
     from: 'de'
     mail:
@@ -2115,7 +2116,7 @@ search:
         3: 'Não estás presente nesta sessão.'
         1: 'Vais estar presente nesta sessão.'
         0: 'Não indicaste se estarás presente nesta sessão.'
-        2: 'Talvez estejas presente nessa sessão.'
+        2: 'Pode ser que estejas nesta sessão.'
       location_online: 'Online'
   title: 'Pesquisa'
   placeholder: 'Iniciar pesquisa …'
@@ -3196,8 +3197,8 @@ polls:
   future: 'Votações futuras'
   title: 'Título'
   score:
-    disapproval: 'Contra'
-    approval: 'Autorização'
+    disapproval: 'contra'
+    approval: 'a favor'
     neutral: 'Neutro'
   badge:
     vote_now: 'Votar agora'
@@ -3784,7 +3785,7 @@ events:
     locationOther: Onde é que o evento estar?
     fillCompletely: Preencher completamente o formulário.
   notFound: 'Este evento não existe ou não está acessível.'
-  maybeCount: '{count} talvez venham'
+  maybeCount: '{count} em dúvida'
   description: 'Descrição'
   mumble:
     guide: 'Instruções: <strong><a href="https://wiki.foodsharing.de/Mumble">wiki.foodsharing.de/Mumble</a></strong>'
@@ -3793,15 +3794,15 @@ events:
     title: 'Evento online (Mumble)'
   button:
     change: 'Alterar resposta'
-    no: 'Não posso participar'
-    maybe: 'Talvez'
-    yes: 'Vou participar'
+    no: 'Não vou'
+    maybe: 'Em dúvida'
+    yes: 'Vou'
   goto: 'Para a data marcada'
   add_event: 'Novo evento'
   menu:
     yes: 'Aceite o convite'
     no: 'Não posso'
-    maybe: 'Talvez posso'
+    maybe: 'Em dúvida'
   span: '{from} até {until}'
   created: 'O evento foi registado com sucesso.'
   acceptedCount: '{count} participam'
@@ -3814,7 +3815,7 @@ events:
   rsvp:
     yes: 'Muito obrigado por teres aceitado o convite.'
     no: 'Status do convite alterado: agora não participas.'
-    maybe: 'Que bom que talvez esteja participar!'
+    maybe: 'Que bom que talvez participes!'
   bread: 'Eventos'
   add_new_event: 'Adicionar um novo evento'
   noneAccepted: Até agora, ninguém respondeu a este convite
@@ -4406,9 +4407,9 @@ map:
       type:
         label: Tipo
         "null": Todos
-        0: Local de recolha
-        1: Local de entrega
-        2: Local organizativo
+        0: local de recolha
+        1: local de entrega
+        2: local organizativo
     users:
       role:
         label: Função
@@ -4684,7 +4685,7 @@ help:
         ###### Acesso
 
         Apenas quem também pode administrar o local tem acesso a isso. Para Foodsaver
-        e substitutos normais, o registo de local não é visível.
+        e suplentes normais, o registo de local não é visível.
 
         ---
 
@@ -4943,11 +4944,11 @@ required_messages:
     footer: 'Muitas saudações'
     really: 'Quer mesmo remover {name} da equipa deste local?'
   move_to_standby_team:
-    main: Foste colocado na lista de substitutos da loja 
+    main: Foste colocado na lista de suplentes da loja 
       [{store}](/store/{storeId}). Atualmente, não podes inscrever-te para as 
       vagas neste local nem ler o chat geral do grupo.
     footer: 'Muitas saudações'
-    really: 'Queres mesmo tirar {name} da equipa ativa e colocá-lo na lista de substitutos?'
+    really: 'Queres mesmo tirar {name} da equipa ativa e colocá-lo na lista de suplentes?'
   demote_store_manager:
     really: 'Queres mesmo remover {name} da responsabilidade desta cooperação?'
     footer: 'Muitas saudações'

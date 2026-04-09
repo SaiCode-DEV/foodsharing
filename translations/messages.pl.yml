@@ -948,7 +948,7 @@ legal:
     legal_more_info: Dalsze informacje
   latest_change: 'Ostatnio zmieniony {date}'
   show_changes: 'Pokaż zmiany'
-  legal_agreement: ''
+  legal_agreement: 'Umowa prawna'
   privacy_notice: ''
 salutation:
   "0": Drogi/a
@@ -990,7 +990,7 @@ login:
     email_invalid: Podaj adres email
     title: Potwierdzenie adresu email
     hint1: Twój adres email musi być potwierdzony, aby móc się zalogować. Jeśli 
-      zostałeś przekierowany/a do tej strony ze strony logowania, twój adres 
+      zostałeś/aś przekierowany/a do tej strony ze strony logowania, twój adres 
       email jeszcze nie jest potwierdzony. Możesz użyć tego formularza, aby 
       poprosić o nowy email zawierający link aktywacyjny.
     hint2: Jeśli nie otrzymasz maila, skontaktuj się z naszym 
@@ -1178,6 +1178,7 @@ terminology:
   store: ''
   basket: 'Jadłokoszyk'
   attention: Uwaga
+  newsletter: Newsletter
 resource_mosaic:
   privacy_notice:
     ok: Zgadzam się
@@ -1536,7 +1537,11 @@ store:
     completeProfileRequired:
       link: Edytuj profil
       invited: ''
-      request: ''
+      request: 'Aktualnie nie możesz wysyłać zgłoszeń, bo nie podałeś/aś jeszcze wszystkich
+        wymaganych danych w swoim profilu. Musisz podać ważne dane przynajmniej w
+        następujących polach: imię, nazwisko, data urodzenia, aktualny adres, zdjęcie
+        profilowe. Proszę, uzupełnij te dane. Potem możesz ponownie spróbować wysłać
+        zgłoszenie.'
     requirePhone:
       link: Edytuj profil
       invited: ''
@@ -1736,6 +1741,7 @@ store:
   part_of_chain: 'Należy do sieci:'
   chain_has_kams: 'Odpowiedzialny/a za sieć:'
   members_not_in_target_region: ''
+  joinDateUnknown: 'W teamie od: nieznane'
 navi:
   google_maps: Google maps
   waze: Waze
@@ -2763,7 +2769,8 @@ profile:
     eventsCreatedWeek: 'Dzięki za utworzenie eventów {count} raz/y w tym tygodniu.'
     districtName: 'rejon'
     calenderWeek: ''
-    basketsOfferedWeek: ''
+    basketsOfferedWeek: 'Dziękujemy za oferowanie jadłokoszyków {count} raz/y. Łącznie
+      podzielono się {weight} kg.'
   banana:
     title: '{count} bananów zaufania'
     recieved_none:
@@ -2792,7 +2799,7 @@ profile:
       filterAll: wszystkie
       filterInvitations: Zaproszony/a
       filterActive: Członek
-      filterRequested: ''
+      filterRequested: 'Wysłano zapytanie'
       filterManage: ''
       filterJumper: 'Rezerwowy/a'
     store_table: ''
@@ -2863,7 +2870,7 @@ profile:
     arbAdminAgainstRepAdmin: ''
     confirmDelete: 'Czy na pewno usunąć tę skargę?'
     oldReportButton: 'Zgłoś skargę'
-    send: ''
+    send: 'Wyślij skargę'
     report_b3_1: ''
     report_b1_3: ''
     report_b6_0: ''
@@ -2905,7 +2912,7 @@ profile:
   alldatesdeleted: Wszystkie daty zostały usunięte
   cantdeleteall: Nie możesz usunąć wszystkich dat!
   mediation:
-    title: ''
+    title: 'Zapytanie o mediację dla {name}'
     info: ''
     no_group: ''
   notFound: 'Tego profilu użytkownika/czki (już) nie ma'
@@ -2926,7 +2933,7 @@ profile:
   pinboard: ''
   choosereasonnostore: ''
   title: 'Profil'
-  mediationRequest: ''
+  mediationRequest: 'Zapytaj o mediację'
   go: 'Przejdź do profilu'
   sleeping: ''
   reportRequest: 'Wyślij skargę'
@@ -3165,7 +3172,7 @@ menu:
     background: 'Tło'
     stores: ''
     mailbox: 'skrzynka pocztowa'
-    talksandworkshops: ''
+    talksandworkshops: 'Wykłady i warsztaty'
     politics: 'Polityka'
     pastcampaigns: 'Minione kampanie'
     press: 'prasa'
@@ -3446,7 +3453,8 @@ email_template:
     part2: ''
     part1: ''
   reply: 'Odpowiedz'
-  confirm_for_moderated_forum: ''
+  confirm_for_moderated_forum: 'Temat musi zostać potwierdzony, bo jest to moderowane
+    forum.'
   foodbasket_request: '%SENDER% zapytał/a o twój jadłokoszyk'
   in: ''
   newsletter:
@@ -3467,7 +3475,7 @@ email_template:
   from: '-- od '
   unknown_email: 'Nieznany adres email'
   impress:
-    title: ''
+    title: 'stopka redakcyjna'
     address: ''
     general_information_requirements: ''
   unknown_email2: ''
@@ -3695,7 +3703,7 @@ search:
     global: 'Szukanie globalne'
     local: ''
   thread-body-only: 'Wyszukiwanie obejmuje tylko tekst w postach, nie tytuły.'
-error_permissions: ''
+error_permissions: 'Niestety, nie masz wymaganych uprawnień do tego procesu.'
 oauth:
   error:
     invalid_client: 'Weryfikacja klienta nie powiodła się.'
@@ -3855,7 +3863,7 @@ region:
   none: 'Jeszcze nie wybrano rejonu'
   new: 'Nowy rejon'
   root: 'Żaden (root)'
-  no-huge: ''
+  no-huge: 'Sorry, nie możesz wybrać kraju lub województwa jako rejon.'
   change: 'Zmień rejon'
   created: 'utworzono {region}'
   delete: 'Usuń rejon'
@@ -4402,10 +4410,10 @@ usersearch:
   select_tag: 'Szukaj użytkowników według imienia'
 contentmanagement: 'Zarządzanie treściami'
 sidenav:
-  yourregions: ''
+  yourregions: 'Twoje rejony'
   yourgroups: 'Twoje zespoły'
-  localgroups: ''
-  countryspecific: ''
+  localgroups: 'Zespoły regionalne'
+  countryspecific: 'Zespoły krajowe'
   superregional: 'Ponadregionalny'
 push_notifications:
   test_notification_body: 'Super, wygląda na to, że się udało :)'
