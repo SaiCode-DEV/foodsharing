@@ -20,8 +20,8 @@ class RegionPin extends GeoLocation
         $pin = new RegionPin();
         $pin->description = $data['desc'];
         $pin->status = $data['status'];
-        $pin->lat = $data['lat'];
-        $pin->lon = $data['lon'];
+        $pin->lat = floatval($data['lat']);
+        $pin->lon = floatval($data['lon']);
 
         return $pin;
     }

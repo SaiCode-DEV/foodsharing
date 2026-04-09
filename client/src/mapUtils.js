@@ -34,9 +34,16 @@ export function getMapRasterTilesUrl () {
  * @returns {boolean} True if the coordinate is valid, false otherwise.
  */
 export function isValidMapCoordinate (coordinate) {
-  const lat = coordinate?.lat
-  const lon = coordinate?.lon
-  return typeof lat === 'number' && typeof lon === 'number' && isFinite(lat) && isFinite(lon)
+  if (!coordinate || typeof coordinate !== 'object' || Array.isArray(coordinate)) return false
+
+  const lat = Number(coordinate.lat)
+  const lon = Number(coordinate.lon)
+
+  if (!Number.isFinite(lat) || !Number.isFinite(lon)) return false
+  if (lat < -90 || lat > 90) return false
+  if (lon < -180 || lon > 180) return false
+
+  return true
 }
 
 /**
@@ -46,7 +53,7 @@ export function isValidMapCoordinate (coordinate) {
  */
 export function getCoordinateOrSafeDefaultForMap (coordinate) {
   if (isValidMapCoordinate(coordinate)) {
-    return coordinate
+    return { lat: Number(coordinate.lat), lon: Number(coordinate.lon) }
   }
   return { lat: MAP_CONSTANTS.CENTER_GERMANY_LAT, lon: MAP_CONSTANTS.CENTER_GERMANY_LON }
 }

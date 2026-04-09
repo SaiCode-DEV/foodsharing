@@ -7,6 +7,7 @@ use DateTimeZone;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionPinStatus;
+use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Map\DTO\BasketBubbleData;
 use Foodsharing\Modules\Map\DTO\MapMarker;
@@ -19,14 +20,18 @@ class MapGateway extends BaseGateway
         parent::__construct($db);
     }
 
-    public function getStoreLocation(int $storeId): array
+    public function getStoreLocation(int $storeId): ?GeoLocation
     {
-        return $this->db->fetchByCriteria('fs_betrieb', ['lat', 'lon'], ['id' => $storeId]);
+        $location = $this->db->fetchByCriteria('fs_betrieb', ['lat', 'lon'], ['id' => $storeId]);
+
+        return GeoLocation::createFromArray($location, false);
     }
 
-    public function getFoodSharePointLocation(int $foodSharePointId): array
+    public function getFoodSharePointLocation(int $foodSharePointId): ?GeoLocation
     {
-        return $this->db->fetchByCriteria('fs_fairteiler', ['lat', 'lon'], ['id' => $foodSharePointId]);
+        $location = $this->db->fetchByCriteria('fs_fairteiler', ['lat', 'lon'], ['id' => $foodSharePointId]);
+
+        return GeoLocation::createFromArray($location, false);
     }
 
     /**
