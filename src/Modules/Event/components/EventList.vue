@@ -103,7 +103,7 @@ export default {
     },
     sortEvents (eventsToSort) {
       // Return a sorted copy of the events list, newest first
-      return eventsToSort.toSorted((a, b) => this.convertDate(b.endDate) - this.convertDate(a.endDate))
+      return eventsToSort.slice().sort((a, b) => this.convertDate(b.endDate) - this.convertDate(a.endDate))
     },
   },
 }

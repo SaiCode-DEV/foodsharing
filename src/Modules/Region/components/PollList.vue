@@ -133,7 +133,7 @@ export default {
     },
     sortPolls (pollsToSort) {
       // Return a sorted copy of the polls list, newest first
-      return pollsToSort.toSorted((a, b) => this.convertDate(b.endDate) - this.convertDate(a.endDate))
+      return pollsToSort.slice().sort((a, b) => this.convertDate(b.endDate) - this.convertDate(a.endDate))
     },
   },
 }
