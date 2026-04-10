@@ -239,9 +239,9 @@ class Store
         } catch (InvalidArgumentException) {
             $obj->location = new GeoLocation();
         }
-        $obj->address->street = $queryResult['street'];
-        $obj->address->postalCode = $queryResult['zipCode'];
-        $obj->address->city = $queryResult['city'];
+        $obj->address->street = $queryResult['street'] ?? '';
+        $obj->address->postalCode = $queryResult['zipCode'] ?? '';
+        $obj->address->city = $queryResult['city'] ?? '';
 
         $obj->publicInfo = $queryResult['public_info'] ?? '';
         $obj->publicTime = PublicTimes::tryFrom($queryResult['public_time']);

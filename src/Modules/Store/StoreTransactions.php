@@ -563,9 +563,9 @@ class StoreTransactions
         }
 
         if (!is_null($storeChange->address)) {
-            $storeChange->address->city = !is_null($storeChange->address->city) ? mb_trim($storeChange->address->city) : null;
-            $storeChange->address->street = !is_null($storeChange->address->street) ? mb_trim($storeChange->address->street) : null;
-            $storeChange->address->postalCode = !is_null($storeChange->address->postalCode) ? mb_trim($storeChange->address->postalCode) : null;
+            $storeChange->address->city = !is_null($storeChange->address->city) ? mb_trim($storeChange->address->city) : '';
+            $storeChange->address->street = !is_null($storeChange->address->street) ? mb_trim($storeChange->address->street) : '';
+            $storeChange->address->postalCode = !is_null($storeChange->address->postalCode) ? mb_trim($storeChange->address->postalCode) : '';
             $changed = PatchAddress::apply($storeChange->address, $store->address);
             if ($changed) {
                 $changeInformation->informationChanged = true;

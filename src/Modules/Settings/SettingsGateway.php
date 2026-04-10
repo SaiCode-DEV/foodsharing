@@ -280,9 +280,9 @@ class SettingsGateway extends BaseGateway
         $address = null;
         if (!empty($data['lat']) && !empty($data['lon'])) {
             $address = new Address();
-            $address->postalCode = $data['plz'];
-            $address->street = $data['anschrift'];
-            $address->city = $data['stadt'];
+            $address->postalCode = $data['plz'] ?? '';
+            $address->street = $data['anschrift'] ?? '';
+            $address->city = $data['stadt'] ?? '';
         }
 
         $coordinate = null;
