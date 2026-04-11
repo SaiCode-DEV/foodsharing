@@ -95,14 +95,14 @@ store:
     requirePhone:
       link: Editar o perfil
       request: Não podes candidatar-te neste momento, porque ainda não tens um 
-        número de telefone registado no teu perfil. Este local só aceita 
+        número de telefone inscrito no teu perfil. Este local só aceita 
         aplicações de Foodsavers que tenham pelo menos um número de telefone 
         registado. Por favor, adiciona um número de telefone no teu perfil para 
         poderes candidatar-te.
       invited: Foste convidado para este local. Antes de poderes aceitar o 
         convite, tens de adicionar um número de telefone ao teu perfil. Esta 
-        loja só aceita Foodsavers com pelo menos um número de telefone 
-        registado. Depois de adicionares o número, poderás aceitar o convite.
+        loja só aceita Foodsavers com pelo menos um número de telefone inscrito.
+        Depois de adicionares o número, poderás aceitar o convite.
     applicationSummary:
       intro: 'Quando enviares a tua aplicação, os responsáveis da cooperação verão
         as seguintes informações:'
@@ -123,7 +123,7 @@ store:
       invited: Foste convidado para este local. Antes de aceitar o convite, deve
         comprovar que possui uma formação de higiene válida.
       link: Faz a formação de higiene
-  jumperSince: 'Substituto desde {date}'
+  jumperSince: 'Suplente desde {date}'
   days: 'dias'
   team:
     no_record: 'Não foi encontrada nenhuma entrada.'
@@ -175,7 +175,7 @@ store:
       18: Retirar convites de equipa
       19: Aceptar convites de equipa
       20: Recusar convites de equipa
-    log_types_placeholder: 'Selecione as ações que serão mostradas'
+    log_types_placeholder: 'Seleciona as ações a mostrar'
     search: 'Mostrar ações selecionadas'
     selected_log_types: '{amount} tipos de ação selecionados'
     title: 'Atividades neste local'
@@ -206,15 +206,15 @@ store:
       default: Classificação padrão
       pickup: ordenada pela última vaga
       distance: ordenado por distância
-    userHasPickupsWarning: '{name} ainda está registada em {occupiedSlots} vagas neste
+    userHasPickupsWarning: '{name} ainda está inscrita em {occupiedSlots} vagas neste
       local. Estas vagas serão libertadas. Deseja continuar?'
     inviteMember: Convidar para a equipa
     demoteAsManagerConfirm: Quer mesmo abdicar da tua responsabilidade pela esta
       cooperação?
   prefetchone: '1 semana'
   isNotVerified: 'Não está verificado'
-  jumping: 'Substituto'
-  may_not_referred_to_in_public: 'Por favor, não mencione esta cooperação em público,
+  jumping: 'Suplente'
+  may_not_referred_to_in_public: 'Por favor, não menciones esta cooperação em público,
     (seja em cabazes alimentares, nas redes sociais ou na imprensa).'
   fetchCount: 'Recolhido aqui {count} vezes.'
   of_that: 'deles'
@@ -240,7 +240,7 @@ store:
   team_container: 'Equipa'
   managing: 'Responsabilidade de cooperação'
   prefetchthree: '3 semanas'
-  springer_conversation_name: 'Substituto [name]'
+  springer_conversation_name: 'Suplente [name]'
   isManager: 'Responsável deste cooperação.'
   prefetchtwo: '2 semanas'
   particularities: 'Como fazer'
@@ -272,7 +272,7 @@ store:
   maxchar: '(máx. 180 caracteres)'
   short_tooltip_orange: 'Vagas disponíveis em 3 dias'
   regionPickupRules: 'Regra adicional para locais populares'
-  tooltip_jumping: 'É o substituto por este local'
+  tooltip_jumping: 'É o suplente por este local'
   member: 'Membro'
   tooltip_managing: 'Tu és responsável por esta cooperação'
   addNewStoresButton: 'Adicionar novo local'
@@ -288,10 +288,10 @@ store:
   appliedFor: 'Pedido realizado'
   filter: 'Filtrar por …'
   regionPickupRuleLong: 'No período de {regionPickupRuleTimespan} dias antes e depois
-    da data de recolha desejada, não podem ser registadas mais de {regionPickupRuleLimit}
-    vagas em locais populares. Podem ser realizadas no máximo {regionPickupRuleLimitDay}
-    recolhas por dia nesses locais. {regionPickupRuleInactive} horas antes da recolha,
-    esta regra deixa de ser aplicável.'
+    da data de recolha desejada, não podes inscrever-te em mais de {regionPickupRuleLimit}
+    vagas em locais populares. Podes fazer no máximo {regionPickupRuleLimitDay} recolhas
+    por dia nesses locais. {regionPickupRuleInactive} horas antes da recolha, esta
+    regra deixa de se aplicar.'
   isJumper: 'Está en la lista dos suplentes.'
   nodeclaration: 'Não especificado'
   important: 'Importante:'
@@ -357,7 +357,7 @@ store:
       Todos os membros serão removidos do local e todas as informações 
       específicas do local, exceto o registo do local, serão apagadas. Por 
       favor, elimine apenas locais que realmente já não existem ou que foram 
-      registados dois vezes. Os locais que cancelaram uma cooperação devem 
+      inscritos dois vezes. Os locais que cancelaram uma cooperação devem 
       permanecer registados. Só é possível eliminar locais que nunca tiveram 
       vagas e cujos chats de equipa não tenham sido utilizados durante pelo 
       menos 3 meses.
@@ -411,14 +411,14 @@ bell:
   store_new_request_title: 'Pedido novo à equipa'
   forum_new_thread: 'de {user} no fórum {forum}'
   store_new_title: 'Novo local'
-  sharepoint_activate_title: 'Novo cantinho alimentar em {bezirk}'
+  sharepoint_activate_title: 'Novo cantinho de partilha em {bezirk}'
   store_cr_times: 'As vagas foram coregadas'
   new_foodsaver_verified: 'yá verificado - pode dar início'
   buddy_request: '{name} conhece-te.'
   poll_new_title: 'Nova votação'
   banana_given: '{name} ofereceu-te uma banana de reconhecimento.'
   foodsaver_verified: 'Faça o download do teu cartão de membro em …'
-  store_new: '{name} foi registado'
+  store_new: '{name} foi inscrito'
   new_foodsaver_verified_title: '{name} é novo em {bezirk}'
   betrieb_fetch: '{count} vaga(s) por confirmar'
   store_wallpost: 'Nova publicação no mural.'
@@ -534,7 +534,7 @@ email_template:
     unsubscribe: 'Não queres receber mais a newsletter?'
     linktext: 'Clique aqui para cancelar a subscrição.'
   request_from: 'Pedido de'
-  foodsharepoint: '-- Cantinho alimentar'
+  foodsharepoint: '-- Cantinho de partilha'
   to: 'a'
   dont_respond:
     notification: 'notificaçães'
@@ -631,7 +631,7 @@ dashboard:
     ack: 'Li o aviso, não mostrar mais'
   empty_section: 'Ainda não tens {type}'
   homeRegion: 'O teu distrito principal é {region}.'
-  source_foodsharepoint: 'Cantinhos alimentares {0}'
+  source_foodsharepoint: 'Cantinhos de partilha {0}'
   foodsharer: 'Divirta-se a salvar!'
   my:
     regions: 'Distritos onde pertences'
@@ -644,9 +644,9 @@ dashboard:
     baskets: 'Cabazes alimentares'
     events: 'Eventos'
     groups: 'Grupos onde participas'
-    jumping_stores: 'Locais onde és substituto'
+    jumping_stores: 'Locais onde és suplente'
     managing_stores: 'Locais onde és responsável'
-    pickups: Vagas registadas
+    pickups: Vagas inscritas
     pickupOptions: Vagas disponíveis
   greeting_short: 'Olá {name}!'
   source_store: 'Locais {0}'
@@ -659,22 +659,22 @@ dashboard:
     tua página inicial.'
   source_forum: 'Fórum {0}'
   save_selection: 'Salvar configurações'
-  updates_title_all: 'Resumo de atualizações'
+  updates_title_all: 'Atualizações'
   no_more_updates_forum: 'Não há mais publicações no fórum'
   chooseHomeRegion: 'Por favor, selecione um distrito principal.'
   deleted_user: 'Utilizador(a) desconectado(a)'
   source_friendWall: 'Mural de {0}'
   source_forum_bot: 'Fórum de Embaixadores {0}'
-  foodsaver_amount: 'Recolheste alimentos <b>{pickups} vezes</b> e salvaste <b>{weight} kg</b>
-    de alimentos.'
+  foodsaver_amount: 'Recolheste comida <b>{pickups} vezes</b> e salvaste <b>{weight}
+    kg</b> de comida que iria para o lixo.'
   invitation: 'Recebeste um convite'
   no_more_updates_event: 'Não há mais eventos'
   settings_tooltip: 'Configurações gerais'
   no_updates: 'Sem atualizações'
   no_more_updates_store: 'Sem mais informações sobre os locais'
-  full_subline: "Recolheste alimentos **{pickups} vezes** e salvaste **{weight} kg**
-    de alimentos. \nO teu distrito principal é **{region}**."
-  no_more_updates_foodsharepoint: 'Não há mais mensagens do cantinho alimentar'
+  full_subline: "Recolheste comida <b>{pickups} vezes</b> e salvaste <b>{weight} kg</b>
+    de comida que iria para o lixo.\nO teu distrito principal é **{region}**."
+  no_more_updates_foodsharepoint: 'Não há mais mensagens do cantinho de partilha'
   activation_mail_sent: 'Link de ativação enviado – verifique os teus e-mails'
   no_more_updates_all: 'foi isso!'
   greeting: 'Olá, {name}! Que bom ter-te aqui.'
@@ -682,7 +682,7 @@ dashboard:
   no_more_updates_friendWall: 'Não há mais relatórios de estado'
   event: 'Próximo evento'
   source_friendWall_own: 'O teu mural'
-  updates_title_some: 'Resumo de atualizações ({0})'
+  updates_title_some: 'Atualizações ({0})'
   activation_mail_failure: 'Não foi possível enviar um novo link de ativação'
   settings: 'Configurações'
   no_more_updates_mailbox: 'Não mais e-mails'
@@ -690,14 +690,14 @@ dashboard:
   title: 'Painel de controlo'
   polls: 'Votações em curso'
   source_event: 'Evento {0}'
-  general-dates: Próximas vagas registadas
+  general-dates: Próximas vagas
 storeview:
   groceries:
     select_tag: 'Selecione a categoria(s)'
-    no_tag_preset: 'Nenhuma categoria de alimentos disponível'
-    search_tag: 'Pesquisar por categorias de alimentos'
+    no_tag_preset: 'Nenhuma categoria de comida disponível'
+    search_tag: 'Pesquisar por categorias de comida'
     no_match: 'Nenhuma categoria de alimento correspondente encontrada'
-    label: 'Que alimentos podem ser recolhidos?'
+    label: 'Que tipo de comida pode ser recolhida?'
   public_time_at_noon_or_afternoon: 'dia/noite'
   calendar_interval:
     single: '1 semana'
@@ -757,7 +757,7 @@ calendar:
     pickup:
       description: 'Vaga de foodsharing em <a href="{url}">{store}</a>'
       unconfirmed: 'não confirmado'
-      foodsavers: 'Foodsavers registados: '
+      foodsavers: 'Foodsavers inscritos: '
       freeSlots: '{count} vagas ainda estáo disponíveis'
       name:
         pickup: '{store} recolha'
@@ -928,7 +928,7 @@ basket:
   publish: 'Publicar a cabaz alimentar'
   state:
     okay: 'Sim, o cabaz alimentar foi recolhado.'
-    gone: 'Os alimentos foram recolhidos por uma outra pessoa.'
+    gone: 'A comida foi recolhida por outra pessoa.'
     deny: 'Quero recusar este pedido.'
     nope: 'Não, o cabaz alimentar não foi recolhido como combinado.'
     finished: 'Obrigado, o processo está finalizado.'
@@ -1339,8 +1339,8 @@ profile:
     cta: 'O perfil completo de {name} está disponível após o registo:'
     who: '{name} de {from}'
     login: 'Para fazer login'
-    textMay: 'e, por isso, pode receber alimentos em nome de foodsharing.'
-    textMayNot: 'e, por isso, não está autorizado a aceitar alimentos em nome de foodsharing.'
+    textMay: 'e, por isso, pode receber comida em nome de foodsharing.'
+    textMayNot: 'e, por isso, não está autorizado a aceitar comida em nome de foodsharing.'
     may: 'ativo'
   pinboard: 'Atualizações de estado de {name}'
   cantdeleteall: 'Não podes apagar todos os eventos!'
@@ -1368,14 +1368,14 @@ profile:
   reportRequest: 'Enviar denúncia'
   cantdeletethis: 'Não é possível apagar eventos individuais!'
   homeDistrictHistory:
-    changed: registado
+    changed: inscrito
     by: de
     previous: antes
   sections:
     orga_rights: '##### tem, como pessoa da Orga, [permissões alargadas]({wikiurl})
       na plataforma.'
     ambassador_for: para
-    foodSaver_in_region: Distritos onde estou registado
+    foodSaver_in_region: Distritos onde estou inscrito
     workgroups_admin: Envolvo-me como pessoa de contacto destes grupos
     workgroups_member: Em conjunto nos seguintes grupos de trabalho
     no_common_workgroups: Em nenhum grupo de trabalho comum
@@ -1396,7 +1396,7 @@ profile:
       filterInvitations: convidado
       filterActive: membro
       filterManage: responsável
-      filterJumper: substituto
+      filterJumper: suplente
   sleeping_info_from_until: Tenho um dorminhoco de {from} até {until}
   choosereasonnostore: Não se aplica a nenhum local
   chooseantherstore: Refere-se a um local não listado
@@ -1521,7 +1521,7 @@ group:
     tooltip_function_10: 'Os administradores deste grupo de trabalho podem desbloquear
       mensagens em fóruns moderados. Caso esta opção esteja activada para o distrito,
       podem também ocultar mensagens no fórum.'
-    fsp: 'Cantinho alimentar'
+    fsp: 'Cantinho de partilha'
     tooltip_function_1: 'Os administradores deste grupo de trabalho são notificados
       dos novos membros do distrito'
     report: 'Denúncias'
@@ -1538,7 +1538,7 @@ group:
     welcome: 'Saudação'
     board: 'Junta'
     tooltip_function_3: 'Os administradores deste grupo de trabalho podem ativar e
-      editar os cantinhos alimentares do distrito e remover contribuições de cantinho
+      editar os cantinhos de partilha do distrito e remover contribuições de cantinho
       alimentar justos'
     mediation: 'Mediação'
     arbitration: 'Comissão de arbitragem'
@@ -1630,7 +1630,7 @@ group:
       inform_user: com notificação
       filter_status: Só mostrar o estado
       unverify_error_slots: Não é possível cancelar a verificação de {name} 
-        ({id}), porque a pessoa ainda está registada nas vagas. Por favor, 
+        ({id}), porque a pessoa ainda está inscrita nas vagas. Por favor, 
         remova-a primeiro das vagas.
     all_roles: Todas as funções
   quit_name_district: 'Deixar o distrito {name}'
@@ -1682,7 +1682,7 @@ group:
       not_in_range: '{{ limit }} Ninguém deve ter menos do que {{ min }} ou mais do
         que {{ max }} bananas de reconhecimento.'
     nobody: 'Ninguém (grupo fechado).'
-    member_since_weeks: 'Quantas semanas são necessárias para um candidato estar registado
+    member_since_weeks: 'Quantas semanas são necessárias para um candidato estar inscrito
       na plataforma?'
     fetch_count: 'Quantas ações de recolhas, entregas ou organização já deveriam ter
       sido efetuadas?'
@@ -1830,7 +1830,7 @@ pickup:
     modals:
       signOffAll:
         title: 'Cancelar todas as vagas?'
-        message: 'Quer mesmo remover o utilizador de todas as vagas registadas?'
+        message: 'Quer mesmo remover o utilizador de todas as vagas inscritas?'
       signOff:
         title: 'Remover da vaga?'
         message: 'Quer mesmo remover o utilizador da vaga?'
@@ -1920,14 +1920,14 @@ pickup:
     no_signouts_found: 'Não foram encontradas cancelamentos.'
     title: 'Histórico de cancelamentos dos últimos 7 dias'
   region_pickup_rule_failed: 'A tua inscrição não cumpre as regras do distrito'
-  leave_pickup_ok: 'Já tenho um substituto'
+  leave_pickup_ok: 'Já tenho um suplente'
   join_cancel: 'Ah, pela não'
   copyNumber: 'Copiar número'
   confirm: 'Confirmar'
   call: 'Ligar'
   same_day_entry: '[{when}] h {name}'
   really_leave: 'És responsável por essa recolha. Por favor, providencie mesmo um
-    substituto.'
+    suplente.'
   to_be_confirmed: 'Esta vaga ainda tem de ser confirmada por um responsável deste
     cooperação.'
   delete_title: 'Apagar essas vagas'
@@ -2007,57 +2007,57 @@ fsp:
     manager: 'És responsável por este Fairteiler e, por isso, obrigado a receber as
       atualizações.'
     none: 'não mais'
-    descSettings: 'Segues os todos informações do cantinho alimentar “{nome}”. Como
+    descSettings: 'Segues os todos informações do cantinho de partilha “{nome}”. Como
       gostaria de receber estas notificações?'
     descModal: 'Como gostaria de ser informado sobre atualizações (por exemplo, entregas
-      de alimentos)?'
+      de comida)?'
     bell: 'só notificações internas'
-    from: 'Atualização para o cantinho alimentar „{name}“'
+    from: 'Atualização para o cantinho de partilha „{name}“'
   pic: 'Foto'
   description: 'Descrição'
   addedOn: 'Adicionado em'
   suggest: 'Sugerir novo cantinho'
   location: 'código postal / local'
   followers: 'Foodsharers interessados'
-  addError: 'Não foi possível registar o cantinho alimentar. Preencheu tudo corretamente?'
-  rejectConfirm: 'Atenção, se eliminar o cantinho alimentar, já não pode anular esta
-    ação. Queres mesmo continuar?'
-  reject: 'Recusar o cantinho alimentar'
-  add: 'Registar o cantinho alimentar'
+  addError: 'Não foi possível registar o cantinho de partilha. Preencheu tudo corretamente?'
+  rejectConfirm: 'Atenção, se eliminar o cantinho de partilha, já não pode anular
+    esta ação. Queres mesmo continuar?'
+  reject: 'Recusar o cantinho de partilha'
+  add: 'Registar o cantinho de partilha'
   managers: 'Pessoas de contacto'
-  accept: 'Liberar o cantinho alimentar'
-  descLabel: 'Escreva aqui algumas informações básicas sobre o cantinho alimentar,
+  accept: 'Liberar o cantinho de partilha'
+  descLabel: 'Escreva aqui algumas informações básicas sobre o cantinho de partilha,
     especialmente quando está acessível/aberto.'
   address: 'Morada'
-  noManager: 'Deve haver pelo menos uma pessoa responsável por este cantinho alimentar.'
+  noManager: 'Deve haver pelo menos uma pessoa responsável por este cantinho de partilha.'
   street: 'Morada'
-  editSuccess: 'Cantinho alimentar foi editado com sucesso'
-  summary: 'Há {count} cantinhos alimentares em todos os distritos onde está ativo'
+  editSuccess: 'Cantinho de partilha foi editado com sucesso'
+  summary: 'Há {count} cantinhos de partilha em todos os distritos onde está ativo'
   acceptName: 'desbloquear {name}'
-  follow: 'Siga este cantinho alimentar'
-  none: 'Ainda não há cantinhos alimentares registados'
-  yours: 'Cantinhos alimentares nos vossos distritos'
-  acceptSuccess: 'O cantinho alimentar esta ativo agora'
-  new: 'Novo cantinho alimentar'
-  addSuccess: 'O cantinho alimentar foi registado com sucesso'
-  edit: 'Editar cantinho alimentar'
-  inRegion: 'Tudos os cantinhos alimentares no {region}'
-  delete: 'Eliminar cantinho alimentar'
+  follow: 'Siga este cantinho de partilha'
+  none: 'Ainda não há cantinhos de partilha inscritos'
+  yours: 'Cantinhos de partilha nos vossos distritos'
+  acceptSuccess: 'O cantinho de partilha esta ativo agora'
+  new: 'Novo cantinho de partilha'
+  addSuccess: 'O cantinho de partilha foi inscrito com sucesso'
+  edit: 'Editar cantinho de partilha'
+  inRegion: 'Tudos os cantinhos de partilha no {region}'
+  delete: 'Eliminar cantinho de partilha'
   addedBy: 'Adicionado por'
-  summaryRegion: 'Há {count} cantinhos alimentares em {region} e todos subdistritos'
+  summaryRegion: 'Há {count} cantinhos de partilha em {region} e todos subdistritos'
   twig:
-    n_in_region: '{count} cantinhos alimentares em {name}'
-  publicwall: 'Tenha em atenção que as tuas publicações no mural do cantinho alimentar
+    n_in_region: '{count} cantinhos de partilha em {name}'
+  publicwall: 'Tenha em atenção que as tuas publicações no mural do cantinho de partilha
     são visíveis publicamente.'
-  suggestSuccess: 'O cantinho alimentar foi proposto e está agora a ser revisto pelo
-    o pessoa responsável.'
-  unfollow: 'Deixar de seguir este cantinho alimentar'
-  followName: 'Siga o cantinho alimentar {name}'
-  editName: 'Editar cantinho alimentar „{name}“'
-  deleteConfirm: 'Queres mesmo eliminar este cantinho alimentar?'
-  deleteSuccess: 'Cantinho alimentar foi excluido'
-  onlySuggested: Este cantinho alimentar foi sugerido mas ainda não foi lançado.
-    Neste estado, não é apresentado assim aos outros utilizadores.
+  suggestSuccess: 'O cantinho de partilha foi proposto e está agora a ser revisto
+    pelo o pessoa responsável.'
+  unfollow: 'Deixar de seguir este cantinho de partilha'
+  followName: 'Siga o cantinho de partilha {name}'
+  editName: 'Editar cantinho de partilha „{name}“'
+  deleteConfirm: 'Queres mesmo eliminar este cantinho de partilha?'
+  deleteSuccess: 'Cantinho de partilha foi excluido'
+  onlySuggested: Este cantinho de partilha foi sugerido mas ainda não foi 
+    lançado. Neste estado, não é apresentado assim aos outros utilizadores.
   form_validation:
     invalid: A entrada é inválida. Por favor, verifica as tuas entradas.
     required: '{name} é necesário.'
@@ -2123,7 +2123,7 @@ search:
   user_search:
     placeholder: 'Nome ou DNI'
   informations: 'Podes procuro por pessoas, grupos, locais, distritos, chats, mensagens
-    do fórum e cantinhos alimentares.'
+    do fórum e cantinhos de partilha.'
   noresults: 'Nenhum resultado encontrado para a tua pesquisa'
   too_short: 'Por favor, insira um termo de pesquisa mais longo.'
   forum:
@@ -2291,7 +2291,7 @@ quiz:
   answers:
     false_true: Esta resposta teria sido correta.
     short:
-      2: Neutro
+      2: neutro
       0: Erado
       1: Certo
     false_false: Esta resposta era erado. É isso mesmo.
@@ -2459,8 +2459,7 @@ storeedit:
     applyTextRequired: É necessário introduzir um texto para a aplicação
     applicationRequirements: Critérios de aplicação
     verifiedRequired: Permitir apenas Foodsavers verificados
-    phoneRequirement: Permitir apenas Foodsavers com número de telefone 
-      registado
+    phoneRequirement: Permitir apenas Foodsavers com número de telefone inscrito
   unsuccess: 'As alterações não puderam ser aplicadas. {error}'
   milestone:
     accepted: '{user} agora faz parte da equipa'
@@ -2468,9 +2467,9 @@ storeedit:
     statuschanged: 'Estado alterado em {date}'
     created: '{user} registou o local em {date}'
   bread: 'Editar cooperação'
-  add-new: 'Criar novo local'
+  add-new: 'Criar local'
   not-in-region: 'Só podes criar locais em distritos onde estás membro.'
-  add_success: 'O local de cooperação foi registada'
+  add_success: 'O local de cooperação foi inscrito'
   actions: 'Opções'
   store_name_placeholder: Nome do local
   name_error: O nome deve ter pelo menos três caracteres.
@@ -2625,7 +2624,7 @@ settings:
     tooltip: '{name} está atualmente a fazer uma pausa e está em modo de dorminhoco'
     info: 'Com a função «dorminhoco», podes informar a comunidade que estás de viagem
 
-      ou que, por outros motivos, não tens tempo para salvar alimentos.
+      ou que, por outros motivos, não tens tempo para salvar comida.
 
       É útil saber se podes responder a mensagens
 
@@ -2780,8 +2779,8 @@ settings:
       pois será utilizado para o <a href="{link_id}">cartão de membro do foodsharing</a>,
       caso
 
-      mais tarde te tornes um <a href="{link_fs}">Foodsaver</a> e salves alimentos
-      em lojas.
+      mais tarde te tornes um <a href="{link_fs}">Foodsaver</a> e salves comida em
+      lojas.
 
       '
     title: 'A tua foto'
@@ -2801,7 +2800,7 @@ settings:
   businesscard: 'cartão de visita pessoal'
   newsletter: 'Aproximadamente uma vez por mês, enviamos informações atualizadas
 
-    sobre o movimento de resgate de alimentos em uma newsletter.
+    sobre o movimento de resgate de comidas em uma newsletter.
 
     Gostaria de receber esses e-mails?
 
@@ -3105,13 +3104,13 @@ terminology:
   stores: 'Cooperações'
   buddies: 'conhecidos'
   wall: 'Mural'
-  fsps: 'Cantinhos alimentares'
-  fsp: 'Cantinhos alimentares'
+  fsps: 'Cantinhos de partilha'
+  fsp: 'Cantinhos de partilha'
   fsManagementAdmins: 'Equipa de administração'
   forum: 'Fórum'
   message: 'Mensagem'
   boardAdmins: 'conselho administrativo'
-  fspAdmins: 'Equipa de cantinhos alimentares'
+  fspAdmins: 'Equipa de cantinhos de partilha'
   events: 'Eventos'
   group: 'Grupo de trabalho'
   welcomeAdmins: 'Equipa de boas-vindas'
@@ -3199,7 +3198,7 @@ polls:
   score:
     disapproval: 'contra'
     approval: 'a favor'
-    neutral: 'Neutro'
+    neutral: 'neutro'
   badge:
     vote_now: 'Votar agora'
     already_voted: 'Já votado'
@@ -3375,10 +3374,10 @@ globals:
     my_regions: 'Os meus distritos'
     chats: 'Chats'
     mailboxes: 'Caixas de correio'
-    my_foodshare_points: 'Os meus cantinhos alimentares'
+    my_foodshare_points: 'Os meus cantinhos de partilha'
     my_persons: 'As minhas pessoas'
     my_groups: 'Os meus grupos'
-    foodSharePoints: Cantinhos alimentares
+    foodSharePoints: Cantinhos de partilha
     users: 'Pessoas'
     regions_menu: 'Menu do distrito'
     mails: 'E-Mails'
@@ -3431,7 +3430,7 @@ startpage:
   near_you:
     text2:
       part2: 'Cabazes alimentares'
-      part3: '– assim, podes oferecer os teus alimentos que sobraram e pegar alimentos
+      part3: '– assim, podes oferecer os teus alimentos que sobraram e pegar comida
         de outras pessoas.'
       part1: 'Também há'
     text3:
@@ -3441,9 +3440,9 @@ startpage:
       part2: 'mapa'
       part1: 'Na'
       part3: 'encontras'
-      part5: ', são estantes ou frigoríficos onde podes recolher ou entregar alimentos
+      part5: ', são estantes ou frigoríficos onde podes recolher ou entregar comida
         gratuitamente.'
-      part4: 'Cantinhos alimentares'
+      part4: 'Cantinhos de partilha'
     title: 'Perto de ti'
   call_to_action:
     title: 'Participe'
@@ -3463,8 +3462,8 @@ startpage:
       '
   demands:
     title: 'Exigências'
-    text: 'Para reduzir o desperdício de alimentos de forma eficaz, é preciso mais
-      do que só salvar as sobras
+    text: 'Para reduzir o desperdício de comida de forma eficaz, é preciso mais do
+      que só salvar as sobras
 
       das lojas ou educar os consumidores. Em vez disso, é preciso que haja mudanças
       políticas:
@@ -3475,11 +3474,11 @@ startpage:
       Também é preciso repensar e flexibilizar as normas comerciais atuais, além de
       fortalecer as organizações que
 
-      resgatam alimentos ou oferecem educação sobre alimentação.
+      resgatam comida ou oferecem educação sobre alimentação.
 
       '
-    image_alt: 'Alimentos salvos, como pão, frutas e legumes, estão espalhados numa
-      lona ao ar livre. No fundo, dá para ver pessoas e bicicletas.'
+    image_alt: 'Comida salva, como pão, frutas e legumes, estão espalhados numa lona
+      ao ar livre. No fundo, dá para ver pessoas e bicicletas.'
   member:
     text: 'Partilha a tua comida que sobra com a comunidade foodsharing ou salva comida
       de lojas.'
@@ -3488,12 +3487,12 @@ startpage:
   store:
     title: 'como a loja'
     text: 'Trabalhas num supermercado, restaurante, cantina, ...? Regista a tua loja
-      e salvo alimentos.'
+      e salva comida.'
   slogan_2: 'coletivo, sustentável e valorizador'
   makeproposals: 'Dá sugestões'
   respect: 'Porque os alimentos mantêm-nos vivos, devemos tratá-los com respeito.
     Para que tudo funcione da melhor forma, ao longo dos anos definimos algumas regras
-    de conduta. Partilhar alimentos com outras pessoas é algo muito humano, mas também
+    de conduta. Partilhar comida com outras pessoas é algo muito humano, mas também
     de grande responsabilidade. Basicamente, vale sempre a regra: «Não partilhe com
     outros nada que você mesmo não comeria». Por favor, leia agora as regras de etiqueta
     do foodsharing!'
@@ -3505,7 +3504,7 @@ startpage:
     text: "A gente tenta conseguir patrocínios para todas as despesas. Mas, às vezes,
       isso não dá certo ou não é suficiente,\n tipo nas despesas para financiar eventos,
       consultoria jurídica ou seguros.\nA gente agradece muito qualquer apoio.\n"
-  slogan_1: 'Juntos, valorizando os alimentos'
+  slogan_1: 'Juntos, a valorizar a comida'
   registernow: 'Regista-te agora'
   this_is_how_it_works: 'Como funciona'
   beresponsible: 'Seja responsável'
@@ -3523,7 +3522,7 @@ startpage:
       também uma declaração de motivação assinada pela administração municipal como
       símbolo da parceria entre \no foodsharing e as autoridades públicas.\n"
     title: 'Ciudades de foodsharing'
-  dependability: 'Em muitos locais existem “cantinhos alimentares” onde a alimentos
+  dependability: 'Em muitos locais existem “cantinhos de partilha” onde a alimentos
     são partilhados. Podem encontrar-se aí ou noutros locais neutros para partilhar.
     Se quiser dar ou receber comida, por favor seja fiável e pontual, não abandonar
     ninguém.'
@@ -3544,12 +3543,12 @@ startpage:
       eventos.'
   proposals: 'Queremos evoluir, melhorar cada vez mais. Para isso, precisamos das
     vossas boas ideias e sugestões. Enviem-nas para [info@foodsharing.de](mailto:info@foodsharing.de)'
-  together: 'Junto com foodsharing, podes ajudar a garantir que alimentos descartados
-    e invendáveis tenham um uso útil, em vez de serem jogados fora. Mais informações
-    sobre isso encontras [aqui](/fuer-unternehmen).'
-  responsibility: 'Um terço de todos os alimentos acaba no lixo. Isso tem de acabar
-    de uma vez por todas. Não queremos mais deitar nada fora! Queremos lidar com os
-    alimentos de forma responsável e estamos felizes por te ter connosco.'
+  together: 'Com o foodsharing, podes ajudar a dar um novo uso à comida descartada
+    e não vendável, evitando que vá para o lixo. Mais informações sobre isso encontras
+    [aqui](/fuer-unternehmen).'
+  responsibility: 'Um terço da comida vai parar ao lixo. Isso tem de acabar de uma
+    vez por todas. Não queremos mais deitar nada fora! Queremos cuidar da comida de
+    forma responsável e estamos felizes por te ter connosco.'
   notallowed: 'A partilha de medicamentos (incluindo remédios homeopáticos) não é
     permitida no foodsharing. Também não dá para trocar ou partilhar roupas, cosméticos,
     produtos químicos domésticos, brinquedos e outros produtos não alimentares através
@@ -3565,7 +3564,7 @@ startpage:
     Também há informações no [guia](https://wiki.foodsharing.de/Hygiene-Ratgeber_für_Lebensmittel).
 
     '
-  followrules_title: 'Respeite as regras e o guia para a partilha de alimentos'
+  followrules_title: 'Respeite as regras e o guia para a partilha de comida'
 region:
   bread: 'Administrar distritos'
   noParent: 'Sem distrito principal'
@@ -3591,7 +3590,7 @@ region:
   edit: 'Editar distrito'
   cancel: 'Não, afinal não'
   still_contains_elements: 'O distrito não pode ser excluido porque ainda contém sub-regiões,
-    locais ou cantinhos alimentares.'
+    locais ou cantinhos de partilha.'
   edit_success: 'O distrito foi guardado.'
   restricted: 'Infelizmente, não tens autorização para visualizar esses dados.'
   save: 'Sim, salvar'
@@ -3609,7 +3608,7 @@ region:
   public:
     map:
       missing: Este distrito não é atualmente exibido no mapa e não tem 
-        cantinhos alimentares que podem ser exibidos aqui. Tens autorização para
+        cantinhos de partilha que podem ser exibidos aqui. Tens autorização para
         colocar um pin de distrito agora.
       set_pin: Marcar o pin do distrito no mapa
       hide_pin: Remover o pin do distrito
@@ -3630,7 +3629,7 @@ region:
     leave_name: Sair de {name}
     leave_text_region: Já não estás ativo em {name} e desejas sair deste 
       distrito?
-    leave_text_group: Já não estás ativo em {name} e desejas sair deste grupo?
+    leave_text_group: Já não estás ativo no grupo {name} e queres sair?
     description: Informações sobre este distrito
     no_more_info: Não há mais informações disponíveis publicamente sobre este 
       distrito.
@@ -3654,7 +3653,7 @@ region:
     events:
       title: Eventos públicos
       load_past: Mostrar eventos pasados
-      no_future_events: 'Atualmente, não há eventos públicos registados neste distrito.
+      no_future_events: 'Atualmente, não há eventos públicos inscritos neste distrito.
         Os seguintes eventos ocorreram no passado:'
   not-existant: Este distrito ou grupo de trabalho já não existe.
   select: Selecionar distrito para edição
@@ -3703,7 +3702,7 @@ content:
   new_success: 'A página foi criada'
   public: 'Páginas públicas'
   actions: 'Ações'
-  new: 'Criar nova página'
+  new: 'Criar página'
   id: 'ID'
   title: 'Titulo'
   delete: 'Quer mesmo remover {name}?'
@@ -3785,7 +3784,7 @@ events:
     locationOther: Onde é que o evento estar?
     fillCompletely: Preencher completamente o formulário.
   notFound: 'Este evento não existe ou não está acessível.'
-  maybeCount: '{count} em dúvida'
+  maybeCount: '{count} talvez'
   description: 'Descrição'
   mumble:
     guide: 'Instruções: <strong><a href="https://wiki.foodsharing.de/Mumble">wiki.foodsharing.de/Mumble</a></strong>'
@@ -3795,16 +3794,16 @@ events:
   button:
     change: 'Alterar resposta'
     no: 'Não vou'
-    maybe: 'Em dúvida'
+    maybe: 'Talvez'
     yes: 'Vou'
   goto: 'Para a data marcada'
   add_event: 'Novo evento'
   menu:
     yes: 'Aceite o convite'
     no: 'Não posso'
-    maybe: 'Em dúvida'
+    maybe: 'Talvez vá'
   span: '{from} até {until}'
-  created: 'O evento foi registado com sucesso.'
+  created: 'O evento foi inscrito com sucesso.'
   acceptedCount: '{count} participam'
   edit: 'Editar evento'
   edited: 'O evento foi alterado com sucesso.'
@@ -4005,9 +4004,9 @@ notifications:
     unavailable_error: O servidor do newsletter não está disponível neste 
       momento. Por favor, tenta novamente mais tarde.
   foodSharePoints:
-    title: 'Cantinhos alimentares'
+    title: 'Cantinhos de partilha'
     description: 'Receber notificações sobre novas mensagens nos murais dos cantinhos
-      alimentares que segues.'
+      de partilha que segues.'
   groups:
     title: 'Grupos de trabalho'
   checkbox_push: 'Push'
@@ -4126,12 +4125,12 @@ salutation:
 stats:
   total:
     pickups: 'missões que os nossos Foodsavers já completaram.'
-    weight: 'Alimentos salvos com sucesso do lixo.'
-    fsp: 'Os cantinhos alimentares são utilizados para trocar alimentos.'
+    weight: 'Comida salva com sucesso do lixo.'
+    fsp: 'Os cantinhos de partilha são utilizados para trocar comidas.'
     foodsharer: 'Foodsharers estão registados em "foodsharing" e interessados no nosso
       trabalho.'
     foodsaver: 'Foodsavers trabalham voluntariamente por um mundo sem desperdício
-      de alimentos.'
+      de comida.'
     baskets: 'cabazes alimentares foram colocadas online.'
     cooperations: 'Lojas cooperam continuamente e com satisfação connosco.'
   leader:
@@ -4150,11 +4149,11 @@ numbers:
   thousands_separator: ','
   billion_abbreviation: ' Mil milhões'
 fp: 'Pontos de erro'
-fspmanagers: 'Pessoas de contacto para o cantinho alimentar'
+fspmanagers: 'Pessoas de contacto para o cantinho de partilha'
 storelist:
   status: 'Estado'
   emptyfilters: 'Vaziar o filtro'
-  added: 'Registado'
+  added: 'Inscrito'
   inprogress: 'As negociações estão em curso'
   nocontact: 'Ainda há não contacto'
   managing: 'Locais pelos quais é responsável'
@@ -4164,14 +4163,14 @@ storelist:
   name: 'Nome'
   address: 'Rua'
   zipcode: 'Código postal'
-  entered: 'Registado:'
+  entered: 'Inscrito:'
   cooperating: 'Em cooperação'
   city: 'Localidade'
   others: 'Outros locais de {região}'
   notcooperating: 'Não quer cooperar'
   map: 'Mapa'
   addressdata: 'Direção'
-  fetching: 'Lojas onde recolhes alimentos'
+  fetching: 'Lojas onde recolhes comida'
   actions: Ações
   filter_placeholder: Nome/Morada
 activitypost:
@@ -4248,10 +4247,10 @@ information:
       a qualquer momento nas configurações.'
     title: 'Agora podes receber notificações instantâneas do foodsharing.'
   calendar_sync:
-    title: 'Conhece a sincronização do calendário para os tuas vagas registadas?'
+    title: 'Conhece a sincronização do calendário para os tuas vagas inscritas?'
     link: 'Subscreve agora'
-    description: 'Assim, podes ver as tuas próximas vagas registadas num programa
-      de calendário à tua escolha.'
+    description: 'Assim, podes ver as tuas próximas vagas num programa de calendário
+      à tua escolha.'
 wikilink: 'Link com mais informações'
 memberlist:
   header_for_district: 'Foodsavers em distrito {bezirk}'
@@ -4271,7 +4270,7 @@ addresspicker:
   placeholder: 'Pesquisar a morada…'
   infobox_profile: 'Caso pretendas oferecer cabazes alimentares através desta plataforma
     como Foodsharer, é necessário indicar a tua morada. Para poderes participar na
-    recolha de alimentos como Foodsaver, é legalmente obrigatório.'
+    recolha de comida como Foodsaver, é legalmente obrigatório.'
   different_location: 'Corrigir a descrição da morada'
   different_location_warning: Por favor, verifique se o Pin está corretamente 
     posicionado na parte superior do cartão. Altere os campos preenchidos 
@@ -4283,7 +4282,7 @@ filterlist:
   some_in_all: '({some} de {all})'
 wall:
   name: 'Mural'
-  placeholder: 'Criar nova publicação…'
+  placeholder: 'Criar publicação…'
   error-create: 'A tua publicaçãonão pôde ser guardada.'
   see-more: 'Ver todas as publicações'
   info-logging: 'Tenha em atenção que, para evitar conflitos, o conteúdo e a pessoa
@@ -4350,17 +4349,17 @@ home:
 image: 'Imagem'
 validate:
   required: '{it} não pode estar vazio'
-lifetime: 'Por quanto tempo debecer de validade do cabaz dos alimentos?'
+lifetime: 'Por quanto tempo debecer de validade do cabaz alimentar?'
 sticker: 'A empresa/loja/clube, etc. está disponível para afixar um autocolante na
   entrada ou noutro local?'
 error_unexpected: 'Houve um erro'
 back: 'Para trás'
 first_post: 'Primeira publicação'
-fsp_bezirk_id: 'Em qual distrito está localizado o cantinho alimentar?'
+fsp_bezirk_id: 'Em qual distrito está localizado o cantinho de partilha?'
 about_me_public: 'Descrição rápida publica'
 delete: 'Eliminar'
 betrieb_status_id: 'Estado'
-lebensmittel: 'Quais os alimentos o que levado?'
+lebensmittel: 'Que comida posso levar?'
 notice: 'Nota!'
 usersearch:
   search_tag: 'Selecionar utilizador'
@@ -4369,16 +4368,16 @@ usersearch:
 contentmanagement: 'Gestão de conteúdos'
 statistics:
   num_fetches: 'em {count} operações de resgate'
-  kg_food_saved: '{count} kg alimentos salvos'
+  kg_food_saved: '{count} kg comida salva'
   region_public:
-    activeFoodSharePoints: Cantinhos alimentares ativo
+    activeFoodSharePoints: Cantinhos de partilha ativos
     foodBasketsLastMonth: cabazes alimentares distribuídas
-    pickupsLastMonth: Salvamentos dos alimentos
-    savedFoodKgLastMonth: Alimentos salvos
+    pickupsLastMonth: Resgates de comida
+    savedFoodKgLastMonth: Comida salva
     activeHomeRegionFoodsavers: Foodsavers ativos
     activeCoorporations: cooperações com locais ativos
   lastMonth: Estatísticas dos últimos 30 dias
-  food_saved: Alimentos recuperados
+  food_saved: Comida salva
 body: 'Mensagem'
 photo: 'Fotografia'
 really_delete: 'Remover a sério?'
@@ -4386,7 +4385,7 @@ map:
   title: 'Mapa'
   donates: 'A loja faz doações'
   foodsharepoint:
-    go: Para o cantinho alimentar
+    go: Para o cantinho de partilha
   filters:
     stores:
       status:
@@ -4660,7 +4659,7 @@ help:
     basket:
       title: 'Cabazes alimentares'
       md: 'Os cabazes alimentares são oferecidos por utilizadores que desejam distribuir
-        alimentos (muitas vezes recuperados) **gratuitamente**. Os utilizadores registados
+        comida (muitas vezes recuperados) **gratuitamente**. Os utilizadores registados
         podem solicitar um cabaz alimentar para o recolher.
 
         '
@@ -4722,8 +4721,8 @@ help:
         '
     resource_mosaic:
       title: 'Mosaico de recursos'
-      md: "A ideia\nAo salvar alimentos, todos nós partilhamos de forma muito eficaz
-        o nosso tempo, capacidade de transporte e experiência. Mas, para dar novos
+      md: "A ideia\nAo salvar comida, usamos de forma muito eficiente o nosso tempo,
+        a nossa capacidade de transporte e a nossa experiência. Mas, para dar novos
         impulsos a um sistema alimentar sustentável e fortalecer o movimento de foodsharing
         a longo prazo, é preciso mais do que apenas salvar. Cada um de nós traz recursos
         diferentes, ou seja, *habilidades*, *objetos* ou *contatos* que, por si só,
@@ -4849,8 +4848,8 @@ help:
         '
     my_resources:
       title: 'Recursos próprios'
-      md: 'Nesta secção, podes gerir os teus próprios recursos; criar novos recursos,
-        editar, apagar ou simplesmente ver o que estás a partilhar atualmente.
+      md: 'Nesta secção, podes gerir os teus próprios recursos; criar recursos, editar,
+        apagar ou simplesmente ver o que estás a partilhar atualmente.
 
 
         ##### O que é um recurso?
@@ -4898,9 +4897,9 @@ help:
     change_verified_data:
       title: 'Solicitar alteração de dados verificados'
       md: 'Para atuar como o Foodsaver, é importante que os dados no teu perfil estejam
-        corretos. Antes de poder salvar alimentos, eles serão comparados com o teu
-        documento de identidade pelos embaixadores. Portanto, não é possível alterar
-        simplesmente o teu nome e data de nascimento.
+        corretos. Antes de poder salvar comida, eles serão comparados com o teu documento
+        de identidade pelos embaixadores. Portanto, não é possível alterar simplesmente
+        o teu nome e data de nascimento.
 
         ---
 
@@ -5026,7 +5025,7 @@ resource_mosaic:
       favor, faça os seus pedidos de forma que a outra pessoa possa sempre dizer não
       sem se sentir mal.'
     title: 'Pedir recurso “{name}”'
-  no_commons_resources: 'Ainda não há recursos comunitários registados em {groupName}.
+  no_commons_resources: 'Ainda não há recursos comunitários inscritos em {groupName}.
     Tens a autorização necessária para mudar isso!'
   openness:
     level_3: 'Para boas razões'
@@ -5046,7 +5045,7 @@ resource_mosaic:
       convide outras pessoas para fazer o mesmo!'
     filter: 'A tua pesquisa encontrou {count} recursos:'
     none_in_filter: 'Infelizmente, não há nenhum recurso que corresponda à tua pesquisa.'
-    total: 'Na {região}, há um total de {count} recursos registados:'
+    total: 'Na {região}, há um total de {count} recursos inscritos:'
   add_commons: 'Inscrever novo recurso comunitário'
   confirm_delete: 'Queres mesmo apagar este recurso?'
   other_resources:
@@ -5215,7 +5214,7 @@ oauth:
     scopes: 'Áreas'
     delete_success: 'Client excluido com successo'
     no_region_restriction: 'Sem restrições'
-    create_client: 'Criar novo cliente'
+    create_client: 'Criar cliente'
     load_error: 'Erro ao carregar os clientes'
     save_error: 'Erro ao salvar'
     secret_generated: 'Client secret gerado'

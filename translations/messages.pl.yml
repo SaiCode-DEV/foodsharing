@@ -2694,6 +2694,8 @@ mailbox:
       {count} pliki/ów.
     not_found_explanation: 'Nie można znaleźć załącznika na serwerze'
     too_large_to_send: 'Niektóre pliki były za duże i nie mogły zostać dołączone.'
+    attachments: Załączniki
+    limits: maksymalnie {count} pliki/ów i {size} na plik
   conformation_modal:
     title: Potwierdzenie
     message: Jesteś pewny/a, że chcesz usunąć ten mail?
@@ -3146,14 +3148,14 @@ menu:
     donations: Darowizny
     language: Wybierz język
     options: Opcje
-    imprint: ''
+    imprint: 'stopka redakcyjna'
     notifications: 'Powiadomienia'
     applications: 'Zgłoszenia ({count})'
     members: 'Członkowie'
     load_more: 'Załaduj więcej'
     academy: 'Akademia'
     close_all_chats: 'Zamknij wszystkie chaty'
-    transparency: ''
+    transparency: 'przejrzystość'
     wall: 'Tablica'
     chainList: 'Lista sieci'
     helpwanted: 'Team jest otwarty'
@@ -3270,19 +3272,19 @@ poll:
   edit:
     title: 'Edytuj głosowanie'
     submit: 'Zapisz głosowanie'
-    submit_question: ''
+    submit_question: 'Na pewno chcesz zapisać zmiany w głosowaniu?'
   in_future: 'jeszcze nie rozpoczęte'
   in_past: 'zakończone'
   results:
     average: 'średnia'
     sum: 'Suma'
-    percentage_of_votes: ''
+    percentage_of_votes: 'Frekwencja'
     sumShort: '∑'
     standardDeviationShort: 'σ'
-    number_of_votes: ''
+    number_of_votes: 'Oddane głosy'
     standardDeviation: 'odchylenie standardowe'
     option_text: 'Opcja'
-    votes: ''
+    votes: 'Głosy'
     averageShort: 'Ø'
   new_poll:
     type: 'Typ głosowania'
@@ -3291,17 +3293,20 @@ poll:
     scope: 'Kto może głosować?'
     time: 'Czas'
     option_texts_required: 'Podaj jednoznaczny tekst do każdej opcji.'
-    start_date_required: ''
+    start_date_required: 'Wybierz czas rozpoczęcia głosowania. Musi być to co najmniej
+      godzinę w przyszłości.'
     description: 'Opis'
     options: 'Opcje, które mają być możliwe do wyboru.'
-    end_date_required: ''
+    end_date_required: 'Wybierz czas zakończenia głosowania, który jest po czasie
+      rozpoczęcia.'
     end_date: 'Koniec głosowania'
     title: 'Nowe głosowanie'
     description_placeholder: 'Co to za głosowanie?'
     submit_success: 'Utworzono głosowanie'
     start_date: 'Początek głosowania'
     description_required: 'Podaj opis.'
-    submit_question: ''
+    submit_question: 'Można edytować głosowanie do momentu startu. Na pewno chcesz
+      je utworzyć teraz?'
     option: 'Opcja'
     missing_fields: 'Wszystkie pola muszą być wypełnione'
     shuffle_options: ''
@@ -3312,7 +3317,7 @@ poll:
   type_description_1: ''
   may_not_edit: ''
   hint_random_order: ''
-  ended_at: ''
+  ended_at: 'skończyło się'
   type_description_2: 'Możliwość wyboru między zgodą / wstrzymaniem się / odrzuceniem'
   begins_at: 'Początek'
   error_cannot_vote: 'Nie możesz uczestniczyć z tym głosowaniu'
@@ -3320,10 +3325,10 @@ poll:
   cancel:
     title: 'Anuluj głosowanie'
     question: ''
-  may_not_yet_vote: ''
-  not_available: ''
-  eligible_votes_count: ''
-  already_voted: ''
+  may_not_yet_vote: 'To głosowanie jeszcze się nie zaczęło.'
+  not_available: 'To głosowanie nie istnieje lub nie masz do niego dostępu.'
+  eligible_votes_count: 'Liczba uprawnionych do głosowania'
+  already_voted: 'Już uczestniczyłeś/aś w tym głosowaniu'
   submit_vote_warning: 'Uwaga: głosowanie jest anonimowe i po głosowaniu nie możesz
     już zmienić swojego wyboru.'
   untraceable: ''
@@ -3332,10 +3337,12 @@ poll:
     tooltip_positive: 'Zgoda'
     tooltip_neutral: 'Wstrzymanie się'
     tooltip_negative: 'Odrzucenie'
-  submit_vote_question: ''
+  submit_vote_question: 'Na pewno zagłosować teraz? Nie możesz potem zmienić swojego
+    wyboru.'
   vote_success: 'Pomyślnie zagłosowałeś/aś.'
   scope_description_3: 'Wszyscy/tkie ambasadorzy/ki z rejonu'
-  scope_description_4: ''
+  scope_description_4: 'Wszyscy/tkie zweryfikowani/e foodsaverzy/ki z rejonem macierzystym
+    głosowania'
   hint_sorted_order: ''
   scope_description_0: 'Wszyscy zweryfikowani/e i niezweryfikowani/e foodsaverzy/ki
     z rejonu/zespołu'
@@ -3456,7 +3463,7 @@ email_template:
   confirm_for_moderated_forum: 'Temat musi zostać potwierdzony, bo jest to moderowane
     forum.'
   foodbasket_request: '%SENDER% zapytał/a o twój jadłokoszyk'
-  in: ''
+  in: 'w'
   newsletter:
     unsubscribe: 'Czy już nie chcesz otrzymywać newslettera?'
     linktext: 'Kliknij tutaj, aby zakończyć subskrypcję.'
@@ -3478,7 +3485,9 @@ email_template:
     title: 'stopka redakcyjna'
     address: ''
     general_information_requirements: ''
-  unknown_email2: ''
+  unknown_email2: 'Adres email %ADDRESS% jest nieznany.
+
+    Weź pod uwagę, że nie można dostarczać maili bcc na domenę @foodsharing.network.'
   confirm_topic: 'Temat musi zostać potwierdzony:'
   warning: 'Uwaga'
   confirm_BOT: ''
@@ -3776,13 +3785,16 @@ region:
   denied:
     group_in_this_group: '„{name}“ jest podzespołem tego zespołu.'
     subgroup_in: '„{name}“ jest podzespołem zespołu „{parent}“.'
-    this_region: ''
+    this_region: 'Próbowałeś/aś uzyskać dostęp do treści tego rejonu. Jednakże, tylko
+      członkowie rejonu mają dostęp do tego.'
     group_in_this_region: '„{name}“ jest zespołem w tym rejonie.'
-    some_group: ''
+    some_group: 'Próbowałeś/aś uzyskać dostęp do treści zespołu „{name}“. Jednakże,
+      tylko członkowie zespołu mają dostęp do tego.'
   public:
     description: 'O rejonie'
     desc:
-      missing: ''
+      missing: 'Ten rejon nie ma aktualnie tekstu opisowego. Masz uprawnienia, aby
+        napisać teraz tekst opisowy.'
       confirm_discard_changes: 'Czy na pewno chcesz odrzucić swoje zmiany w opisie
         rejonu?'
       confirm_save_changes: ''
@@ -3810,7 +3822,8 @@ region:
     join_text: 'Chcesz być aktywny/a w {name}? To możesz dołączyć do tego rejonu!'
     events:
       title: 'Publiczne eventy'
-      no_future_events: ''
+      no_future_events: 'Aktualnie nie ma wprowadzonych żadnych publicznych eventów
+        w tym rejonie. Następujące eventy wydarzyły się w przeszłości:'
       load_past: 'Pokaż minione eventy'
     confirm_entering: 'Chcesz dołączyć do rejonu {name}? Ambasadorzy/ki będą mieli/miały
       wtedy dostęp do twojego profilu.'
@@ -4012,7 +4025,7 @@ polls:
     not_eligible: 'Bez prawa głosu'
   hint: ''
   new_poll: 'Utwórz nowe głosowanie'
-  hint_2: ''
+  hint_2: 'Wskazówki do używania głosowań znajdziesz w wiki'
   until: 'Możliwe do {until}'
   future: 'Przyszłe głosowania'
   title: 'Tytuł'
