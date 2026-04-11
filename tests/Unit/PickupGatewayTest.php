@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit;
 
 use Carbon\Carbon;
+use Codeception\Attribute\Examples;
 use Codeception\Test\Unit;
 use Foodsharing\Modules\Core\DBConstants\Store\StoreLogAction;
 use Foodsharing\Modules\Store\PickupGateway;
@@ -29,7 +30,9 @@ class PickupGatewayTest extends Unit
         $this->foodsaver = $this->tester->createFoodsaver();
     }
 
-    public function testGetPickupSignupsForDates(): void
+    #[Examples(false)]
+    #[Examples(true)]
+    public function testGetPickupSignupsForDates(bool $createPreviousSignup): void
     {
         $date = '2018-07-18';
         $time = '16:40:00';
@@ -61,11 +64,13 @@ class PickupGatewayTest extends Unit
         // Create a second user, who will also sign up for the same pickup.
         $otherFoodsaver = $this->tester->createFoodsaver();
 
-        // Add a previous signup for the second user to the storelog, with an earlier signup date.
-        // This simulates the case where the user first signed up for the pickup, then canceled it.
-        $earlierSignupDate = $signupDate->copy()->subDay();
-        $addStorelog($otherFoodsaver['id'], StoreLogAction::SIGN_UP_SLOT, $earlierSignupDate);
-        $addStorelog($otherFoodsaver['id'], StoreLogAction::SIGN_OUT_SLOT, $earlierSignupDate->copy()->addHour());
+        if ($createPreviousSignup) {
+            // Add a previous signup for the second user to the storelog, with an earlier signup date.
+            // This simulates the case where the user first signed up for the pickup, then canceled it.
+            $earlierSignupDate = $signupDate->copy()->subDay();
+            $addStorelog($otherFoodsaver['id'], StoreLogAction::SIGN_UP_SLOT, $earlierSignupDate);
+            $addStorelog($otherFoodsaver['id'], StoreLogAction::SIGN_OUT_SLOT, $earlierSignupDate->copy()->addHour());
+        }
 
         // Add a signup for the second user with a later signup date.
         $laterSignupDate = $signupDate->copy()->addDay();
