@@ -37,11 +37,12 @@
           :tooltip_template="$t('forum.post.createdAtTooltip')"
           class="text-right"
         />
-        <span v-if="post.lastEditedAt" class="ml-2 text-muted small">
-          • <i
-            v-b-tooltip="editedAtTooltip"
-            class="fa fa-edit"
-          /> {{ $t('forum.post.edited') }}
+        <span
+          v-if="post.lastEditedAt"
+          v-b-tooltip="editedAtTooltip"
+          class="ml-2 text-muted small"
+        >
+          • <i class="fa fa-edit" /> {{ $t('forum.post.edited') }}
         </span>
         <OverflowMenu :options="overflowMenuOptions" />
       </div>
@@ -126,6 +127,7 @@ import CopyToClipboardMixin from '@/mixins/CopyToClipboardMixin'
 import Markdown from '@/components/Markdown/Markdown.vue'
 import OverflowMenu from '@/components/OverflowMenu.vue'
 import Time from '@/components/Time.vue'
+import dateFormatter from '@/helper/date-formatter'
 import { pulseSuccess } from '@/script'
 
 export default {
@@ -154,7 +156,7 @@ export default {
     },
     editedAtTooltip () {
       if (!this.post.lastEditedAt) return null
-      return this.$t('forum.post.editedAtTooltip').replace('{date}', new Date(this.post.lastEditedAt).toLocaleString())
+      return this.$t('forum.post.editedAtTooltip').replace('{date}', dateFormatter.dateTime(this.post.lastEditedAt))
     },
     overflowMenuOptions () {
       return [
