@@ -85,6 +85,9 @@ export default {
   border-width: 0.5rem;
   font-weight: bolder;
 
+  // Paprika
+  &[data-id="2026-04"] { border-color: #7cb342; }
+
   // Olive
   &[data-id="2025-08"] { border-color: #c0ca33; }
 
