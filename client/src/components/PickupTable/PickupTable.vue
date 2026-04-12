@@ -186,10 +186,16 @@ export default {
   },
   mounted () {
     window.addEventListener('resize', this.resizeHandler)
-    this.resizeHandler()
+
+    if (typeof IntersectionObserver !== 'undefined') {
+      // Measure the width when the component becomes visible, before that the width of this hidden tab is 0.
+      this._observer = new IntersectionObserver(this.detectIntersection)
+      this._observer.observe(this.$el)
+    }
   },
   beforeDestroy () {
     window.removeEventListener('resize', this.resizeHandler)
+    this._observer?.disconnect()
   },
   methods: {
     /**
@@ -252,6 +258,15 @@ export default {
      */
     resizeHandler () {
       this.offsetWidth = this.$refs.table.$el.clientWidth
+    },
+    /**
+     * Detect when the component becomes visible (and thus has a width), to trigger the initial resize.
+     */
+    detectIntersection (entries) {
+      if (entries.some(entry => entry.isIntersecting)) {
+        this._observer?.disconnect()
+        this.resizeHandler()
+      }
     },
   },
 }

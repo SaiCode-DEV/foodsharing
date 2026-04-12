@@ -4,7 +4,6 @@
     <div
       v-if="overflowingSlotsCount"
       ref="hidden"
-      v-b-tooltip="''"
       class="hidden-users"
     >
       <span v-text="`+${overflowingSlotsCount}`" />
@@ -12,6 +11,7 @@
         v-if="showOverflowTooltip && $refs.hidden"
         :target="$refs.hidden"
         triggers="hover"
+        boundary="viewport"
       >
         <span v-for="(user, index) in hiddenUsers" :key="user.id">
           <span v-if="index != 0">, </span>
