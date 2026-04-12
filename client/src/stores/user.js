@@ -42,7 +42,7 @@ export const useUserStore = defineStore('user', {
     hasHomeRegion: (state) => state.user?.homeRegionId > 0,
     getHomeRegion: (state) => state.user?.homeRegionId,
     getHomeRegionName: (state) => state.details?.regionName,
-    hasCalendarToken: (state) => state.user?.hasCalendarToken !== null && state.user?.hasCalendarToken !== undefined,
+    hasCalendarToken: (state) => state.details?.hasCalendarToken,
     hasMailBox: (state) => state.user?.hasMailbox || false,
     getMailUnreadCount: (state) => {
       if (state.mailUnreadCount > 0) {

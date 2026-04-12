@@ -4,7 +4,7 @@ export async function getApiToken () {
   return await get('/calendar/token', { skipErrorNotificationFor: [404] })
     .then(response => response.token)
     .catch(error => {
-      if (error?.response?.status === 404) {
+      if (error.code === 404) {
         return null
       }
       throw error
@@ -12,7 +12,7 @@ export async function getApiToken () {
 }
 
 export async function createApiToken () {
-  return await put('/calendar/token')
+  return await put('/calendar/token').then(response => response.token)
 }
 
 export async function removeApiToken () {
