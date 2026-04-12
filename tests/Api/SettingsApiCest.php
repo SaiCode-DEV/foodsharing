@@ -98,6 +98,61 @@ class SettingsApiCest
         ]);
     }
 
+    public function canSetFullSleepModeIdempotently(ApiTester $I): void
+    {
+        $sleepFrom = Carbon::today()->subWeek()->format('Y-m-d');
+        $I->updateInDatabase('fs_foodsaver', [
+            'sleep_status' => SleepStatus::FULL,
+            'sleep_from' => $sleepFrom,
+        ], [
+            'id' => $this->user['id'],
+        ]);
+
+        // setting full sleep mode again should not change anything or cause an error
+        $I->login($this->user['email']);
+        $I->sendPATCH('api/users/current/sleep-mode', ['mode' => SleepStatus::FULL]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeInDatabase('fs_foodsaver', [
+            'id' => $this->user['id'],
+            'sleep_status' => SleepStatus::FULL,
+            'sleep_from' => $sleepFrom,
+        ]);
+    }
+
+    public function canExtendActiveSleepStatus(ApiTester $I): void
+    {
+        $sleepStart = Carbon::today()->subWeek();
+        $I->updateInDatabase('fs_foodsaver', [
+            'sleep_status' => SleepStatus::TEMP,
+            'sleep_from' => $sleepStart->format('Y-m-d'),
+            'sleep_until' => Carbon::today()->addWeek()->format('Y-m-d'),
+        ], ['id' => $this->user['id']]);
+
+        $newSleepUntil = Carbon::today()->addWeeks(2);
+        $I->login($this->user['email']);
+        $I->sendPATCH('api/users/current/sleep-mode', [
+            'mode' => SleepStatus::TEMP,
+            'from' => $sleepStart->format('Y-m-d'),
+            'to' => $newSleepUntil->format('Y-m-d')
+        ]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeInDatabase('fs_foodsaver', [
+            'id' => $this->user['id'],
+            'sleep_status' => SleepStatus::TEMP,
+            'sleep_from' => $sleepStart->format('Y-m-d'),
+            'sleep_until' => $newSleepUntil->format('Y-m-d'),
+        ]);
+
+        $I->login($this->user['email']);
+        $I->sendPATCH('api/users/current/sleep-mode', ['mode' => SleepStatus::FULL]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeInDatabase('fs_foodsaver', [
+            'id' => $this->user['id'],
+            'sleep_status' => SleepStatus::FULL,
+            'sleep_from' => $sleepStart->format('Y-m-d'),
+        ]);
+    }
+
     public function cannotSetTemporarySleepStatusWithoutLimits(ApiTester $I): void
     {
         $I->updateInDatabase('fs_foodsaver', ['sleep_status' => SleepStatus::NONE], ['id' => $this->user['id']]);
@@ -106,7 +161,7 @@ class SettingsApiCest
         $I->login($this->user['email']);
         $I->sendPATCH('api/users/current/sleep-mode', [
             'mode' => SleepStatus::TEMP,
-            'to' => Carbon::today()->addWeek()->format('d.m.Y')
+            'to' => Carbon::today()->addWeek()->format('Y-m-d')
         ]);
         $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
         $I->seeInDatabase('fs_foodsaver', [
@@ -118,7 +173,7 @@ class SettingsApiCest
         $I->login($this->user['email']);
         $I->sendPATCH('api/users/current/sleep-mode', [
             'mode' => SleepStatus::TEMP,
-            'from' => Carbon::today()->addDay()->format('d.m.Y'),
+            'from' => Carbon::today()->addDay()->format('Y-m-d'),
         ]);
         $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
         $I->seeInDatabase('fs_foodsaver', [
@@ -134,10 +189,10 @@ class SettingsApiCest
         $I->login($this->user['email']);
 
         $combinations = [
-            ['abcdefg', Carbon::today()->addWeek()->format('d.m.Y'), HttpCode::UNPROCESSABLE_ENTITY], // not a date
-            [Carbon::today()->subDay()->format('d.m.Y'), Carbon::today()->addWeek()->format('d.m.Y'), HttpCode::BAD_REQUEST], // start in the past
-            [Carbon::today()->addWeek()->format('d.m.Y'), Carbon::today()->subDay()->format('d.m.Y'), HttpCode::BAD_REQUEST], // end in the past
-            [Carbon::today()->addWeek()->format('d.m.Y'), Carbon::today()->addDay()->format('d.m.Y'), HttpCode::BAD_REQUEST], // end before start
+            ['abcdefg', Carbon::today()->addWeek()->format('Y-m-d'), HttpCode::UNPROCESSABLE_ENTITY], // not a date
+            [Carbon::today()->subDay()->format('Y-m-d'), Carbon::today()->addWeek()->format('Y-m-d'), HttpCode::BAD_REQUEST], // start in the past
+            [Carbon::today()->subWeek()->format('Y-m-d'), Carbon::today()->subDay()->format('Y-m-d'), HttpCode::BAD_REQUEST], // end in the past
+            [Carbon::today()->addWeek()->format('Y-m-d'), Carbon::today()->addDay()->format('Y-m-d'), HttpCode::BAD_REQUEST], // end before start
         ];
         foreach ($combinations as $combination) {
             $I->sendPATCH('api/users/current/sleep-mode', [

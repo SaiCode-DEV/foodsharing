@@ -605,7 +605,10 @@ class SettingsTransactions
 
         if ($sleepRequest->mode == SleepStatus::FULL) {
             // If already asleep, extend the duration to infinity, otherwise start sleeping now
-            $sleepStartDate = $isCurrentlySleeping ? $currentSleepData['sleep_from'] : Carbon::today();
+            $sleepStartDate = Carbon::today();
+            if ($isCurrentlySleeping) {
+                $sleepStartDate = Carbon::parse($currentSleepData['sleep_from']);
+            }
 
             return $this->settingsGateway->updateSleepMode(
                 $this->session->id(),
@@ -619,12 +622,9 @@ class SettingsTransactions
         if ($sleepRequest->from == null || $sleepRequest->to == null) {
             throw new BadRequestHttpException('from and to are required for temporary sleep mode');
         }
-        try {
-            $fromDate = Carbon::make($sleepRequest->from)?->setTime(0, 0, 0, 0);
-            $untilDate = Carbon::make($sleepRequest->to)?->setTime(0, 0, 0, 0);
-        } catch (Exception) {
-            throw new BadRequestHttpException('invalid date format');
-        }
+        // Convert to Carbon instances and truncate time
+        $fromDate = Carbon::createFromInterface($sleepRequest->from)->setTime(0, 0, 0, 0);
+        $untilDate = Carbon::createFromInterface($sleepRequest->to)->setTime(0, 0, 0, 0);
 
         // Check that the start date is either not in the past or is the current sleep start date
         $currentSleepFrom = Carbon::make($currentSleepData['sleep_from']);

@@ -32,7 +32,7 @@ class SettingsRestController extends AbstractFoodsharingRestController
 
     #[OA\Patch(
         summary: 'Sets the current users sleep mode.',
-        description: 'For the temporary mode, both "from" and "to" need to be given. Both are assumed to be in the format "d.m.Y". For other modes the two fields will be ignored. Optionally, a message can be added.'
+        description: 'For the temporary mode, both "from" and "to" need to be given in the format "Y-m-d". For other modes, the two fields will be ignored. Optionally, a message can be added.'
     )]
     #[Route('users/current/sleep-mode', methods: ['PATCH'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
