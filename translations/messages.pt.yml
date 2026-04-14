@@ -655,34 +655,35 @@ dashboard:
     for_support: 'Caso contrário, podes contactar-nos através de'
     for_release_notes: 'As alterações mais importantes podem ser encontradas em'
   foodsharer_amount: 'Já salvaste {weight} kg!'
-  activity_filter_info: 'Aqui pode definir quais atualizações devem ser exibidas na
-    tua página inicial.'
+  activity_filter_info: 'Aqui pode definir quais novidades devem ser exibidas na tua
+    página inicial.'
   source_forum: 'Fórum {0}'
   save_selection: 'Salvar configurações'
-  updates_title_all: 'Atualizações'
+  updates_title_all: 'Novidades'
   no_more_updates_forum: 'Não há mais publicações no fórum'
   chooseHomeRegion: 'Por favor, selecione um distrito principal.'
   deleted_user: 'Utilizador(a) desconectado(a)'
   source_friendWall: 'Mural de {0}'
   source_forum_bot: 'Fórum de Embaixadores {0}'
-  foodsaver_amount: 'Recolheste comida <b>{pickups} vezes</b> e salvaste <b>{weight}
-    kg</b> de comida que iria para o lixo.'
+  foodsaver_amount: 'Já contribuíste <b>{pickups} vezes</b> contra o desperdício alimentar
+    e ajudaste a salvar <b>{weight} kg</b> de comida do lixo.'
   invitation: 'Recebeste um convite'
   no_more_updates_event: 'Não há mais eventos'
   settings_tooltip: 'Configurações gerais'
-  no_updates: 'Sem atualizações'
-  no_more_updates_store: 'Sem mais informações sobre os locais'
-  full_subline: "Recolheste comida <b>{pickups} vezes</b> e salvaste <b>{weight} kg</b>
-    de comida que iria para o lixo.\nO teu distrito principal é **{region}**."
-  no_more_updates_foodsharepoint: 'Não há mais mensagens do cantinho de partilha'
+  no_updates: 'Sem novidades'
+  no_more_updates_store: 'Sem mais novidades sobre os locais'
+  full_subline: "Já contribuíste **{pickups} vezes** contra o desperdício alimentar
+    e ajudaste a salvar **{weight} kg** de comida do lixo.\nO teu distrito principal
+    é **{region}**."
+  no_more_updates_foodsharepoint: 'Não há mais publicações do cantinho de partilha'
   activation_mail_sent: 'Link de ativação enviado – verifique os teus e-mails'
   no_more_updates_all: 'foi isso!'
   greeting: 'Olá, {name}! Que bom ter-te aqui.'
   display_all: 'Todos'
-  no_more_updates_friendWall: 'Não há mais relatórios de estado'
+  no_more_updates_friendWall: 'Não há mais novidades'
   event: 'Próximo evento'
   source_friendWall_own: 'O teu mural'
-  updates_title_some: 'Atualizações ({0})'
+  updates_title_some: 'Novidades ({0})'
   activation_mail_failure: 'Não foi possível enviar um novo link de ativação'
   settings: 'Configurações'
   no_more_updates_mailbox: 'Não mais e-mails'
@@ -1342,7 +1343,7 @@ profile:
     textMay: 'e, por isso, pode receber comida em nome de foodsharing.'
     textMayNot: 'e, por isso, não está autorizado a aceitar comida em nome de foodsharing.'
     may: 'ativo'
-  pinboard: 'Atualizações de estado de {name}'
+  pinboard: 'Novidade de {name}'
   cantdeleteall: 'Não podes apagar todos os eventos!'
   online: '{name} está online.'
   nav:
@@ -2005,14 +2006,14 @@ fsp:
   info:
     mail: 'Notificações internas e e-mail'
     manager: 'És responsável por este Fairteiler e, por isso, obrigado a receber as
-      atualizações.'
+      novidades.'
     none: 'não mais'
     descSettings: 'Segues os todos informações do cantinho de partilha “{nome}”. Como
       gostaria de receber estas notificações?'
-    descModal: 'Como gostaria de ser informado sobre atualizações (por exemplo, entregas
+    descModal: 'Como gostaria de ser informado sobre novidades (por exemplo, entregas
       de comida)?'
     bell: 'só notificações internas'
-    from: 'Atualização para o cantinho de partilha „{name}“'
+    from: 'Novidade para o cantinho de partilha „{name}“'
   pic: 'Foto'
   description: 'Descrição'
   addedOn: 'Adicionado em'
@@ -3055,7 +3056,7 @@ settings:
     current_address: Morada atual
     no_address: Ainda não foi inserida nenhum morada
 terminology:
-  reportAdmins: 'Equipa de processamento de denúncias'
+  reportAdmins: 'Equipa de denúncias'
   storemanager:
     m: 'Responsável por cooperações'
     d: 'Responsável por cooperações'
@@ -3633,7 +3634,7 @@ region:
     description: Informações sobre este distrito
     no_more_info: Não há mais informações disponíveis publicamente sobre este 
       distrito.
-    wall: Atualidades do distrito
+    wall: Novidades do distrito
     confirm_entering: Queres entrar para o distrito {name}? Os embaixadores 
       terão acesso ao teu perfil.
     confirm_leaving: Queres entrar para o distrito {name}? Os embaixadores terão
@@ -4223,21 +4224,22 @@ regionOptions:
       embaixadores do distrito podem editar
 ort: 'Cidade/Comunidade'
 releases:
-  "2023-09": 'Versão “Jaca” 🍈 (Setembro de 2023)'
-  "2022-12": 'Versão „Gelado“ 🍨 (Decembro 2022)'
-  "2021-03": 'Versão „Morango“ 🍓 (Märço 2021)'
-  "2020-08": 'Versão “Pera” (Agosto 2020)'
-  "2021-09": 'Versão „Figo“ 🥧 (Setembro 2021)'
-  "2020-12": 'Versão „Fruta do dragão“ (Dezembro 2020)'
-  "2020-10": 'Versão „Cranberry“ (Outubro 2020)'
-  "2022-05": 'Versão „Mirtilo“ 🍇 (Maio 2022)'
-  "2022-01": 'Versão „Toranja“ 🍋 (Janeiro 2022)'
-  "2020-05": 'Versão “Naranja” (Mayo 2020)'
-  "2025-08": Versão «Oliva» 🫒 (Agosto de 2025)
-  "2024-12": Versão “Nektarina” 🍑 (Dezembro de 2024)
-  "2024-08": Versão «Tangerina» 🍊 (Agosto de 2024)
-  "2024-04": Versão «Pretzel» 🥨 (Abril de 2024)
-  "2024-01": Versão "Kiwi" 🥝 (Janeiro de 2024)
+  "2023-09": 'Versão „Jackfrucht“ 🍈 (setembro de 2023)'
+  "2022-12": 'Versão „Icecream“ 🍨 (decembro de 2022)'
+  "2021-03": 'Versão „Erdbeere“ 🍓 (märço de 2021)'
+  "2020-08": 'Versão “Birne” (agosto de 2020)'
+  "2021-09": 'Versão „Feige“ 🥧 (setembro de 2021)'
+  "2020-12": 'Versão „Drachenfrucht“ (dezembro de 2020)'
+  "2020-10": 'Versão „Cranberry“ (outubro de 2020)'
+  "2022-05": 'Versão „Heidelbeere“ 🍇 (maio de 2022)'
+  "2022-01": 'Versão „Grapefruit“ 🍋 (janeiro de 2022)'
+  "2020-05": 'Versão „Apfelsine“ (mayo de 2020)'
+  "2025-08": Versão „Olive“ 🫒 (agosto de 2025)
+  "2024-12": Versão „Nektarine” 🍑 (dezembro de 2024)
+  "2024-08": Versão „Mandarine“ 🍊 (agosto de 2024)
+  "2024-04": Versão „Laugenbrezel" 🥨 (abril de 2024)
+  "2024-01": Versão „Kiwi" 🥝 (janeiro de 2024)
+  "2026-04": Versão „Paprika“ 🫑 (abril de2026)
 error_ajax: "Infelizmente, isso não funcionou. \nTalvez a tua conexão com internet
   não funcione neste momento. \nRecarrega a pagina e tenta novamente.\n"
 information:
@@ -4307,8 +4309,8 @@ buddy:
       Além disso, será mais fácil encontrarem-se através da pesquisa.
     confirm_title: 'Conheces a {name}?'
   remove:
-    confirm_text: 'Queres terminar a amizade? As atualizações nos vossos painéis de
-      perfil deixarão de ser exibidas na página inicial.'
+    confirm_text: 'Queres terminar a amizade? As novidadess nos vossos murals de perfil
+      deixarão de ser exibidas na página inicial.'
     confirm_title: 'Terminar a amizade com {name}?'
   requests:
     mine: 'As minhas solicitações'
@@ -4593,7 +4595,7 @@ help:
         são exclusivamente dos administradores do grupo de notificação local, que
         não são obrigados a seguir essas recomendações.\n"
     report:
-      title: Processamento de denúncias
+      title: Tratar denúncias
       md: "Aqui são mostradas notificações relativas a pessoas deste distrito principal.
         No entanto, nem todas as mensagens são exibidas:\n- Basicamente, não são exibidas
         mensagens nas quais tu ou os teus coadministradores do grupo local de denúncias

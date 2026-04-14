@@ -642,6 +642,7 @@ basket:
     map: ''
     register: ''
     taken: ''
+  nearby_requires_location: ''
 team:
   current: Team
 home:
@@ -1130,6 +1131,9 @@ settings:
       for øyeblikket.
     from: Fra
     until: til
+    start_date_same_or_future: ''
+    end_date_invalid: ''
+    start_date_invalid: ''
   header: Profilinnstillinger
   follow:
     thread: Bli varslet når det er noe nytt om «{thread}»?
@@ -1430,6 +1434,8 @@ mailbox:
     too_large_to_send: Noen av filene var for store og kunne ikke legges ved.
     too_many: For mange filer ble valgt. Maksimalt 10 filer kan legges ved 
       e-posten.
+    limits: ''
+    attachments: ''
   add: Legg til
   mark_as_read: Merk e-post som lest
   unknown_sender: Ukjent avsender
@@ -1873,6 +1879,7 @@ register:
   join_initialised: ''
   join_initialised_message: ''
   email_in_progress: ''
+  join_newsletter_failed: ''
 login:
   pwreset:
     bread: Tilbakestille passord
@@ -1942,6 +1949,8 @@ legal:
       aktive systemet, men arkiveres separat på grunn av artikkel 17 paragraf 3 setning
       1 bokstav b GDPR:'
     legal_2: Lover om oppbevaringsperioder (side på tysk)
+    unsubscribe_newsletter: ''
+    legal_more_info: ''
   button:
     agree: Akseptere
   latest_change: ''
@@ -2131,6 +2140,7 @@ group:
       already_verified: Alle valgte brukere er allerede verifisert
       inform_user: med varsel
       filter_status: Vis bare status
+      unverify_error_slots: ''
     all_roles: alle roller
   subtitle: her kan du finne hjelp og mye å gjøre …
   member_count:
@@ -2551,6 +2561,17 @@ forum:
     sureHide: Vil du virkelig skjule dette innlegget?
     hiddenPost: Innlegg skjult av [{moderatorName}]({moderatorUrl})
     hiddenReason: 'Årsak: {reason}'
+    edited: ''
+    editedAtTooltip: ''
+    edit_post_not_found: ''
+    edit_conflict: ''
+    edit_mentions_note: ''
+    createdAtTooltip: ''
+    edit: ''
+    edit_expired: ''
+    edit_time_remaining: ''
+    edit_success: ''
+    edit_thread_not_found: ''
   threads: Tråder
   from: Fra {name}
   new_thread: Lag ny tråd
@@ -2766,6 +2787,7 @@ pickup:
     long: Medlemskortet ditt er ikke lenger gyldig for øyeblikket
   slots: ''
   chat: ''
+  chat_preface: ''
 storeedit:
   fetch:
     teamStatus: lagstatus
@@ -2931,6 +2953,7 @@ store:
     team: Melding til laget
     jumper: Melding til hopperne
     managers: Melding til teamledere
+    managers_preface: ''
   not-in-team: Du er ennå ikke i teamet til dette selskapet.
   noPickup: Har aldri tatt opp her.
   fetchCount: Hentet her {count} ganger.
@@ -3118,9 +3141,11 @@ store:
   delete:
     button: ''
     sure: ''
+    conditions_not_met: ''
   part_of_chain: ''
   chain_has_kams: ''
   members_not_in_target_region: ''
+  joinDateUnknown: ''
 storeview:
   status: Nåværende status
   public_time_at_night: om natten
@@ -3363,6 +3388,7 @@ terminology:
   resourcesAdmins: Ressursmosaikkteamet
   giving: ''
   attention: ''
+  newsletter: ''
 gender:
   d: mangfoldig
   f: Fru
@@ -3446,6 +3472,15 @@ regionOptions:
     aktivert for populære virksomheter i distriktet.
   enableAddressChangeNotification: Varsel til ambassadører og administratorer 
     ved adresseendring for en fast matsparer i distriktet
+  reporting:
+    heading: ''
+    info: ''
+  pickuprule:
+    heading: ''
+    info: ''
+  userRelated:
+    info: ''
+    heading: ''
 list:
   filter_for: Filtrer etter …
 parent_id: Foreldredistriktet
@@ -3487,6 +3522,7 @@ releases:
   "2024-08": Versjon «Mandarin» 🍊 (august 2024)
   "2024-12": Versjon «Nektarin» 🍑 (desember 2024)
   "2025-08": Versjon «Oliven» 🫒 (august 2025)
+  "2026-04": ''
 push_notifications:
   test_notification_title: Push-varsler er aktivert
   test_notification_body: Flott, det ser ut til å ha fungert :)
@@ -4057,6 +4093,11 @@ notifications:
     title: Nyhetsbrev
     description: Få den nyeste informasjonen om foodsharing på e-post ca. 1 gang
       i måneden.
+    patch_error: ''
+    unavailable_error: ''
+    patch_success: ''
+    checkbox: ''
+    settings: ''
   checkbox_email: E-post
   save_success: Lagret
   config_button: konfigurere individuelt
@@ -4555,6 +4596,7 @@ feedback:
     bilder, vil da være synlige for deg. Sørg for at skjermbilder ikke 
     inneholder personlig informasjon om andre brukere som du ikke har tillatelse
     til å dele.
+  screenshot_not_supported: ''
 net_errors:
   FORBIDDEN: Du er ikke autorisert til å utføre denne handlingen.
   title:
@@ -4706,6 +4748,7 @@ resource_mosaic:
   my_resources_in: ''
   add_commons: ''
   has_resources_elsewhere: ''
+  restricted_to: ''
 debug:
   title: Feilsøkingsside
   info: Dette er en feilsøkingsside for feilsøkingsformål. Hvis du ikke vet hva 

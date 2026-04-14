@@ -434,6 +434,7 @@ group:
       filter_status: ''
       created_at: ''
       title: ''
+      unverify_error_slots: ''
     set_admin_title: ''
     remove_ambassador_text: ''
     default:
@@ -748,6 +749,7 @@ basket:
   all: ''
   on: ''
   go: ''
+  nearby_requires_location: ''
 storeview:
   groceries:
     select_tag: ''
@@ -1171,6 +1173,9 @@ settings:
     temp: ''
     show: ''
     message: ''
+    start_date_same_or_future: ''
+    end_date_invalid: ''
+    start_date_invalid: ''
   password_change:
     submit: ''
     success: ''
@@ -1531,6 +1536,8 @@ mailbox:
     not_found_explanation: ''
     too_large_to_send: ''
     not_found: ''
+    limits: ''
+    attachments: ''
   search_name_email: ''
   reply:
     full: ''
@@ -1852,6 +1859,7 @@ store:
     jumper: ''
     managers: ''
     team: ''
+    managers_preface: ''
   isAppliedForTeam: ''
   locked: ''
   lastPickup: ''
@@ -1884,6 +1892,7 @@ store:
   delete:
     button: ''
     sure: ''
+    conditions_not_met: ''
   may_referred_to_in_public_unclear: ''
   maxchar: ''
   short_tooltip_orange: ''
@@ -1940,6 +1949,7 @@ store:
   part_of_chain: ''
   chain_has_kams: ''
   members_not_in_target_region: ''
+  joinDateUnknown: ''
 email_template:
   login: ''
   fetch_warning:
@@ -1985,6 +1995,11 @@ notifications:
   newsletter:
     description: ''
     title: ''
+    patch_error: ''
+    unavailable_error: ''
+    patch_success: ''
+    checkbox: ''
+    settings: ''
   foodSharePoints:
     title: ''
     description: ''
@@ -2212,6 +2227,7 @@ resource_mosaic:
   title: ''
   is_private_hint: ''
   add: ''
+  restricted_to: ''
 pickup:
   no_slots_available: ''
   history:
@@ -2334,6 +2350,7 @@ pickup:
   take_empty_slot: ''
   join_agree: ''
   signout_sure: ''
+  chat_preface: ''
 error:
   mail_bounce:
     title: ''
@@ -2497,6 +2514,17 @@ forum:
     delete: ''
     giveHideReason: ''
     moderator_info: ''
+    edited: ''
+    editedAtTooltip: ''
+    edit_post_not_found: ''
+    edit_conflict: ''
+    edit_mentions_note: ''
+    createdAtTooltip: ''
+    edit: ''
+    edit_expired: ''
+    edit_time_remaining: ''
+    edit_success: ''
+    edit_thread_not_found: ''
   not_found: ''
   thread:
     no_mail: ''
@@ -2766,6 +2794,15 @@ regionOptions:
   save: ''
   regionPickupLimitDayNumber: ''
   enableAddressChangeNotification: ''
+  reporting:
+    heading: ''
+    info: ''
+  pickuprule:
+    heading: ''
+    info: ''
+  userRelated:
+    info: ''
+    heading: ''
 region:
   denied:
     group_in_this_group: ''
@@ -3114,6 +3151,7 @@ terminology:
   received: ''
   region: ''
   attention: ''
+  newsletter: ''
 navi:
   here: ''
   google_maps: ''
@@ -3328,6 +3366,7 @@ register:
   join_initialised: ''
   join_initialised_message: ''
   email_in_progress: ''
+  join_newsletter_failed: ''
 polls:
   score:
     disapproval: ''
@@ -3758,6 +3797,7 @@ feedback:
   name_sent: ''
   no_support: ''
   capture_screenshot: ''
+  screenshot_not_supported: ''
 conference:
   join_title: ''
   confirm_info: ''
@@ -3828,6 +3868,8 @@ legal:
     this_gets_deleted_trustbananas: ''
     this_gets_deleted_quiz: ''
     this_doesnt_get_deleted_history: ''
+    unsubscribe_newsletter: ''
+    legal_more_info: ''
   latest_change: ''
   show_changes: ''
   legal_agreement: ''
@@ -4035,6 +4077,7 @@ releases:
   "2024-01": ''
   "2025-08": ''
   "2020-05": ''
+  "2026-04": ''
 error_ajax: ''
 information:
   push:

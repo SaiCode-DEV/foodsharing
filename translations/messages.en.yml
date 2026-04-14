@@ -1023,8 +1023,8 @@ mailbox:
     not_found: not found
     too_large_to_send: Some of the files were too large and could not be 
       attached.
-    too_many: Too many files have been selected. A maximum of {count} files can be 
-      attached to the e-mail.
+    too_many: Too many files have been selected. A maximum of {count} files can 
+      be attached to the e-mail.
   move_to: Move to
   close_edit_mode: Stop editing
   add: Add
@@ -2193,22 +2193,23 @@ storelist:
   actions: Actions
   filter_placeholder: 'name/adress'
 releases:
-  "2020-08": "Release \"Pear\" (August 2020)"
-  "2020-10": "Release \"Cranberry\" (October 2020)"
-  "2020-12": "Release \"Dragonfruit\" (December 2020)"
-  "2020-05": "Release \"Orange\" (May 2020)"
-  "2021-03": "Release \"strawberry\" 🍓 (March 2021)"
-  "2021-09": "Release \"fig\" 🥧 (September 2021)"
-  "2022-01": "Release \"Grapefruit\" 🍋 (January 2022)"
-  "2022-05": "Release \"Blueberry\" 🍇 (May 2022)"
-  "2022-12": "Release \"Icecream\" 🍨 (December 2022)"
-  "2023-09": "Release \"Jackfruit\" 🍈 (September 2023)"
-  "2024-01": "Release \"Kiwi\" 🍈 (January 2024)"
+  "2020-08": "Release „Pear\" (August 2020)"
+  "2020-10": "Release „Cranberry\" (October 2020)"
+  "2020-12": "Release „Dragonfruit\" (December 2020)"
+  "2020-05": "Release „Orange\" (May 2020)"
+  "2021-03": "Release „Strawberry\" 🍓 (March 2021)"
+  "2021-09": "Release „Fig\" 🥧 (September 2021)"
+  "2022-01": "Release „Grapefruit\" 🍋 (January 2022)"
+  "2022-05": "Release „Blueberry\" 🍇 (May 2022)"
+  "2022-12": "Release „Icecream\" 🍨 (December 2022)"
+  "2023-09": "Release „Jackfruit\" 🍈 (September 2023)"
+  "2024-01": "Release „Kiwi\" 🍈 (January 2024)"
 
-  "2024-04": Release “Laugenbrezel” 🥨 (April 2024)
-  "2024-08": Release “Mandarin” 🍊 (August 2024)
-  "2024-12": Release “Nectarine” 🍑 (December 2024)
-  "2025-08": Release “Olive” 🫒 (August 2025)
+  "2024-04": Release„Laugenbrezel” 🥨 (April 2024)
+  "2024-08": Release „Mandarin” 🍊 (August 2024)
+  "2024-12": Release „Nectarine” 🍑 (December 2024)
+  "2025-08": Release „Olive” 🫒 (August 2025)
+  "2026-04": Release „Pepper“ 🫑 (April 2026)
 footer:
   donate:
     cta: Donate now

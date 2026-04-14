@@ -230,6 +230,7 @@ group:
       already_verified: Tous les utilisateurs sélectionnés ont déjà été vérifiés
       inform_user: avec notification
       filter_status: Afficher seulement le status
+      unverify_error_slots: ''
     default:
       lastname: Nom de famille
       title: Défaut
@@ -490,6 +491,9 @@ settings:
     message: Ici, vous pouvez laisser un court message pourquoi vous n’avez pas 
       le temps en ce moment.
     status: Votre statut actuel
+    start_date_same_or_future: ''
+    end_date_invalid: ''
+    start_date_invalid: ''
   account: Options du compte
   businesscard: Cartes de visite personnelles
   chatmail: "Lorsque tu reçois un message ou une notification interne à foodsharing
@@ -831,6 +835,8 @@ mailbox:
       pas être joints.
     too_many: Trop de fichiers ont été sélectionnés. Un maximum de 10 fichiers 
       peuvent être joints à l’e-mail.
+    limits: ''
+    attachments: ''
   move_to: déménager à
   close_edit_mode: Arrêter de modifier
   add: Ajouter
@@ -1003,6 +1009,17 @@ forum:
       définitivement supprimées. Pendant cette période, les utilisateurs du 
       forum peuvent voir pourquoi le message a été masqué, et les modérateurs 
       peuvent voir qui l’a masqué.
+    edited: ''
+    editedAtTooltip: ''
+    edit_post_not_found: ''
+    edit_conflict: ''
+    edit_mentions_note: ''
+    createdAtTooltip: ''
+    edit: ''
+    edit_expired: ''
+    edit_time_remaining: ''
+    edit_success: ''
+    edit_thread_not_found: ''
   threads: Discussions
   new_thread: Ouvrir une nouvelle discussion
   from: de {name}
@@ -1185,6 +1202,7 @@ terminology:
   resourcesAdmins: Équipe de la mosaïque de ressources
   giving: ''
   attention: ''
+  newsletter: ''
 register:
   activation_success: <strong>Activation réussie.</strong> Connecte-toi 
     maintenant avec ton adresse courriel et le mot de passe que tu as choisi.
@@ -1261,6 +1279,7 @@ register:
   join_initialised: ''
   join_initialised_message: ''
   email_in_progress: ''
+  join_newsletter_failed: ''
 login:
   pwreset:
     mailSent: Très bien, un lien t’a été envoyé par courriel pour modifier ton 
@@ -1332,6 +1351,8 @@ legal:
     this_gets_deleted_quiz: Tous tes quiz seront supprimés.
     this_gets_deleted_trustbananas: Les bananes-confiance que tu as reçues sont 
       supprimées.
+    unsubscribe_newsletter: ''
+    legal_more_info: ''
   button:
     agree: Accepter
   latest_change: Dernière modification le {date}
@@ -1355,6 +1376,7 @@ store:
     team: Message à l’équipe
     jumper: Message aux remplaçant·e·s
     managers: ''
+    managers_preface: ''
   bread: Toutes les coopérations
   request:
     to-nowhere: Refuser
@@ -1666,9 +1688,11 @@ store:
   delete:
     button: ''
     sure: ''
+    conditions_not_met: ''
   part_of_chain: ''
   chain_has_kams: ''
   members_not_in_target_region: ''
+  joinDateUnknown: ''
 storeview:
   want_to_fetch: J’aimerais m’engager dans cette équipe.
   specials: Procédure & instructions
@@ -2338,6 +2362,7 @@ pickup:
   passport_expired:
     short: ''
     long: ''
+  chat_preface: ''
 events:
   bread: Évènements
   past: Évènements passés
@@ -2668,6 +2693,7 @@ basket:
     text: Tu veux vraiment effacer ce panier solidaire ?
     title: Supprimer le panier solidaire ?
   until: 'Valable jusqu’au :'
+  nearby_requires_location: ''
 formatting:
   md: Tu peux utiliser Markdown pour formater <a 
     href="https://www.markdownguide.org/">Markdown</a> à utiliser.
@@ -2909,6 +2935,15 @@ regionOptions:
     particulièrement populaires n’est activée pour aucune coopération dans le 
     district.
   enableAddressChangeNotification: ''
+  reporting:
+    heading: ''
+    info: ''
+  pickuprule:
+    heading: ''
+    info: ''
+  userRelated:
+    info: ''
+    heading: ''
 ageBandList:
   NumberOfAgeband: Nombre
   ageBand: Groupe d’âge
@@ -3185,6 +3220,7 @@ releases:
   "2024-08": Version « Mandarine » 🍊 (août 2024)
   "2024-12": Version « Nectarine » 🍑 (décembre 2024)
   "2025-08": Version « Olive » 🫒 (août 2025)
+  "2026-04": ''
 startpage:
   donate:
     text: "Nous nous efforçons de faire parrainer toutes nos dépenses. Cependant,
@@ -4215,6 +4251,11 @@ notifications:
     title: Bulletin
     description: Recevez des informations actualisées sur foodsharing par e-mail
       environ une fois par mois.
+    patch_error: ''
+    unavailable_error: ''
+    patch_success: ''
+    checkbox: ''
+    settings: ''
   checkbox_push: Push
   foodSharePoints:
     title: Frigos solidaires
@@ -4754,6 +4795,7 @@ feedback:
     d’écran ne contiennent pas de données personnelles d’autres utilisateurs que
     tu n’es pas autorisé(e) à partager.
   title: Beta Feedback
+  screenshot_not_supported: ''
 net_errors:
   code: 'Code d’erreur : '
   message: 'Message d’erreur : '
@@ -4864,6 +4906,7 @@ resource_mosaic:
   title: ''
   is_private_hint: ''
   add: ''
+  restricted_to: ''
 test:
   vars: Je m’appelle {NAME} et j’ai {AGE} ans
   plain: Ceci est une traduction

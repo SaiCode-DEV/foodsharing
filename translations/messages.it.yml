@@ -217,6 +217,7 @@ group:
       already_verified: Tutti gli utenti selezionati sono già stati attivati
       inform_user: con notifica
       filter_status: ''
+      unverify_error_slots: ''
     all_roles: Tutti i ruoli
     default:
       lastname: Cognome
@@ -493,6 +494,7 @@ terminology:
   giving: ''
   resourcesAdmins: ''
   attention: ''
+  newsletter: ''
 register:
   woman: femmina
   signup_newsletter: Vorrei ricevere la newsletter di foodsharing circa una 
@@ -568,6 +570,7 @@ register:
   join_initialised: ''
   join_initialised_message: ''
   email_in_progress: ''
+  join_newsletter_failed: ''
 gender:
   d: Entrambi o qualcos'altro
   f: Donna
@@ -642,6 +645,8 @@ legal:
     this_gets_deleted_verify: La tua verifica sarà rimossa.
     legal_2: Ulteriori informazioni sui periodi di conservazione (pagina in 
       tedesco)
+    unsubscribe_newsletter: ''
+    legal_more_info: ''
   button:
     agree: Accettare
   latest_change: ''
@@ -856,6 +861,7 @@ pickup:
   passport_expired:
     short: ''
     long: ''
+  chat_preface: ''
 storeedit:
   milestone:
     statuschanged: Cambio di stato il {date}
@@ -1020,6 +1026,7 @@ store:
     team: Messaggio al team
     jumper: messaggio ai intervenisti
     managers: ''
+    managers_preface: ''
   isManager: Responsabile di questa agenzia.
   lastPickupShort: ultimo {data}
   lastPickup: 'Ultimo ritiro {date}'
@@ -1199,11 +1206,13 @@ store:
   delete:
     button: ''
     sure: ''
+    conditions_not_met: ''
   passport_expired: ''
   passport_expires_soon: ''
   part_of_chain: ''
   chain_has_kams: ''
   members_not_in_target_region: ''
+  joinDateUnknown: ''
 storeview:
   want_to_fetch: Vorrei aiutare in questo team.
   specials: Istruzioni e procedura
@@ -1749,6 +1758,17 @@ forum:
     sureHide: Vuoi davvero nascondere questo post?
     hiddenReason: 'Motivo: {reason}'
     hiddenPost: Post nascosto da [{moderatorName}]({moderatorUrl})
+    edited: ''
+    editedAtTooltip: ''
+    edit_post_not_found: ''
+    edit_conflict: ''
+    edit_mentions_note: ''
+    createdAtTooltip: ''
+    edit: ''
+    edit_expired: ''
+    edit_time_remaining: ''
+    edit_success: ''
+    edit_thread_not_found: ''
   new_thread: Scrivi su un nuovo tema
   threads: Temi
   from: Di {name}
@@ -2127,6 +2147,15 @@ regionOptions:
   regionReportReasonOther: ''
   noPickupRuleActiveStores: ''
   enableAddressChangeNotification: ''
+  reporting:
+    heading: ''
+    info: ''
+  pickuprule:
+    heading: ''
+    info: ''
+  userRelated:
+    info: ''
+    heading: ''
 ageBandList:
   NumberOfAgeband: Numero
   ageBand: Fascia di età
@@ -2350,6 +2379,7 @@ basket:
     map: ''
     register: ''
     taken: ''
+  nearby_requires_location: ''
 team:
   current: Team
 home:
@@ -2849,6 +2879,9 @@ settings:
     from: Da
     message: Qui puoi lasciare un breve messaggio spiegando perché non hai tempo
       in questo momento.
+    start_date_same_or_future: ''
+    end_date_invalid: ''
+    start_date_invalid: ''
   account: Opzioni del conto
   businesscard: Biglietto da visita personale
   chatmail: "Se ricevi un messaggio interno sulla homepage di foodsharing,\nma non
@@ -3131,6 +3164,8 @@ mailbox:
       allegati.
     too_many: Sono stati selezionati troppi file. All’e-mail è possibile 
       allegare un massimo di 10 file.
+    limits: ''
+    attachments: ''
   move_to: Sposta in
   close_edit_mode: Termina la modifica
   add: Aggiungi
@@ -3498,6 +3533,7 @@ releases:
   "2024-08": Versione “Mandarino” 🍊 (agosto 2024)
   "2024-12": Versione “Nettarina” 🍑 (dicembre 2024)
   "2025-08": Versione “Olive” 🫒 (agosto 2025)
+  "2026-04": ''
 base:
   jsrequired: Sfortunatamente, qui non funziona nulla senza JavaScript.
   slogan: Condividere il cibo invece di buttarlo via – foodsharing
@@ -4027,6 +4063,11 @@ notifications:
     description: Ricevi via e-mail le ultime informazioni sul foodsharing circa 
       una volta al mese.
     title: Newsletter
+    patch_error: ''
+    unavailable_error: ''
+    patch_success: ''
+    checkbox: ''
+    settings: ''
   foodSharePoints:
     title: Punto di condivisione
     description: Ricevi una notifica in caso di nuovi post sulle bacheche dei 
@@ -4321,6 +4362,7 @@ feedback:
   success: ''
   name_sent: ''
   no_support: ''
+  screenshot_not_supported: ''
 required_messages:
   decline_store_application:
     footer: Distinti saluti
@@ -4541,6 +4583,7 @@ resource_mosaic:
   title: ''
   is_private_hint: ''
   add: ''
+  restricted_to: ''
 oauth:
   error:
     invalid_client: ''

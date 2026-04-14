@@ -634,6 +634,7 @@ group:
       already_verified: Seçilen tüm kullanıcılar zaten doğrulandı
       inform_user: Bildirimle
       filter_status: Yalnızca durumu göster
+      unverify_error_slots: ''
     all_roles: Tüm Roller
   show-all: Hepsini göster
   delete_group_sure: '{groupName} çalışma grubunu/bölgesini silmek istediğinizden
@@ -1173,6 +1174,15 @@ regionOptions:
     - B) Gıda kurtarma sırasındaki davranışlar'
   regionReportReasonOther: Raporlama nedeni olarak “Diğer”e izin ver
   enableAddressChangeNotification: ''
+  reporting:
+    heading: ''
+    info: ''
+  pickuprule:
+    heading: ''
+    info: ''
+  userRelated:
+    info: ''
+    heading: ''
 validate:
   required: '{it} boş kalamaz'
 select: Lütfen seçiniz
@@ -1376,6 +1386,7 @@ store:
     jumper: Yedek listesinde olanlara mesaj
     team: Ekibe mesaj
     managers: İşletme yöneticilerine mesaj
+    managers_preface: ''
   lastPickupShort: en son {date}
   noPickup: Buradan hiç almadı.
   isJumper: Yedek listesinde.
@@ -1503,9 +1514,11 @@ store:
       işletmeleri silin. İş birliğini reddeden işletmeler listede kalmalıdır. Yalnızca
       hiç boş yeri olmayan ve ekip sohbetleri en az üç aydır etkin olmayan işletmeler
       silinebilir.'
+    conditions_not_met: ''
   part_of_chain: ''
   chain_has_kams: ''
   members_not_in_target_region: ''
+  joinDateUnknown: ''
 polls:
   title: Başlık
   new_poll: Yeni Anket oluştur
@@ -1975,6 +1988,8 @@ mailbox:
     not_found: bulunamadı
     too_large_to_send: Dosyalardan bazıları çok büyüktü ve eklenemedi.
     too_many: Çok fazla dosya seçildi. E-postaya en fazla 10 dosya eklenebilir.
+    limits: ''
+    attachments: ''
   move_to: Taşınmak
   close_edit_mode: Düzenlemeyi durdur
   add: Ekle
@@ -2088,6 +2103,7 @@ basket:
     map: ''
     register: ''
     taken: ''
+  nearby_requires_location: ''
 menu:
   entry:
     joinregion: Bir bölgeye katılın
@@ -2211,6 +2227,7 @@ releases:
   "2024-08": Release „Mandarine“🍊 (Ağustos 2024)
   "2024-12": Sürümü “Nektarin” 🍑 (Aralık 2024)
   "2025-08": Zeytin versiyonu 🫒 (Ağustos 2025)
+  "2026-04": ''
 storestatus:
   "5": bizimle işbirliği halinde
   "2": Görüşmeler devam ediyor_
@@ -2389,6 +2406,9 @@ settings:
     from: den
     until: kadar
     status: Şu anki durumunuz
+    start_date_same_or_future: ''
+    end_date_invalid: ''
+    start_date_invalid: ''
   follow:
     thread: '“{thread}” forum konusundan haberdar olmak ister misiniz?'
     mail: Evet, yeni yazılardan e-posta ile haberdar olmak istiyorum.
@@ -2757,6 +2777,17 @@ forum:
       kimler tarafından gizlendiğini görebilir.
     hiddenPost: Gönderi [{moderatorName}]({moderatorUrl}) tarafından gizlendi
     hiddenReason: 'Sebep: {reason}'
+    edited: ''
+    editedAtTooltip: ''
+    edit_post_not_found: ''
+    edit_conflict: ''
+    edit_mentions_note: ''
+    createdAtTooltip: ''
+    edit: ''
+    edit_expired: ''
+    edit_time_remaining: ''
+    edit_success: ''
+    edit_thread_not_found: ''
   new_thread: Yeni bir konu oluştur
   deleted_user: Silinmiş üye
   not_found: Bu konu mevcut değil.
@@ -3343,6 +3374,7 @@ terminology:
   resourcesAdmins: Kaynak Mozaik Ekibi
   giving: 'Gönderim'
   attention: 'Dikkat'
+  newsletter: ''
 legal:
   if_delete:
     this_doesnt_get_deleted: 'Aşağıdaki bilgiler artık aktif sistemde mevcut değildir,
@@ -3359,6 +3391,8 @@ legal:
     this_doesnt_get_deleted_name: Adınız
     this_doesnt_get_deleted_address: Adresiniz
     this_gets_deleted_trustbananas: 'Verdiğiniz fidanlar, kaldırılacaktır.'
+    unsubscribe_newsletter: ''
+    legal_more_info: ''
   legal_agreement: Yasal anlaşma
   privacy_notice: İşletme Sorumluları ve Elçiler için Gizlilik Politikası
   privacy_policy: Veri Koruma Beyannamesi
@@ -3445,6 +3479,7 @@ register:
   join_initialised: ''
   join_initialised_message: ''
   email_in_progress: ''
+  join_newsletter_failed: ''
 gender:
   f: Kadın
   d: Her ikisi veya diğer
@@ -3748,6 +3783,7 @@ pickup:
   passport_expired:
     short: 'Kimlik kartının süresi dolmuş'
     long: 'Kimliğiniz şu anda geçerli değil'
+  chat_preface: ''
 calendar:
   export:
     pickup:
@@ -4114,6 +4150,11 @@ notifications:
     title: E-Bülten
     description: Yaklaşık ayda bir kez e-postayla gıda paylaşımına ilişkin 
       güncel bilgiler alın.
+    patch_error: ''
+    unavailable_error: ''
+    patch_success: ''
+    checkbox: ''
+    settings: ''
   checkbox_email: E-Posta Adresi
   checkbox_push: Push
   groups:
@@ -4686,6 +4727,7 @@ feedback:
     yetkiniz olmayan diğer kullanıcılara ait kişisel bilgileri içermediğinden 
     emin olun.
   success: Geri bildiriminiz başarıyla iletildi.
+  screenshot_not_supported: ''
 categories:
   columns:
     id: ID
@@ -4794,6 +4836,7 @@ resource_mosaic:
   title: ''
   is_private_hint: ''
   add: ''
+  restricted_to: ''
 oauth:
   error:
     invalid_client: ''

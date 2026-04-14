@@ -93,6 +93,7 @@ terminology:
   mobile_phone: ''
   received: ''
   attention: ''
+  newsletter: ''
 statistics:
   num_fetches: ''
   kg_food_saved: ''
@@ -255,6 +256,7 @@ store:
     jumper: ''
     team: ''
     managers: ''
+    managers_preface: ''
   team:
     no_record: ''
     search_reset: ''
@@ -357,6 +359,7 @@ store:
   delete:
     button: ''
     sure: ''
+    conditions_not_met: ''
   may_referred_to_in_public_unclear: ''
   storeFrom: ''
   invitations: ''
@@ -372,6 +375,7 @@ store:
   part_of_chain: ''
   chain_has_kams: ''
   members_not_in_target_region: ''
+  joinDateUnknown: ''
 pickup:
   signout_history:
     no_signouts_found: ''
@@ -494,6 +498,7 @@ pickup:
   passport_expired:
     short: ''
     long: ''
+  chat_preface: ''
 profile:
   mail_bounce:
     warning_others: ''
@@ -856,6 +861,7 @@ basket:
   delete_confirmation:
     text: ''
     title: ''
+  nearby_requires_location: ''
 menu:
   entry:
     contact: ''
@@ -978,6 +984,7 @@ releases:
   "2024-12": ''
   "2024-01": ''
   "2025-08": ''
+  "2026-04": ''
 storestatus:
   "3": ''
   "3a": ''
@@ -1654,6 +1661,7 @@ group:
       filter_status: ''
       created_at: ''
       title: ''
+      unverify_error_slots: ''
     default:
       lastname: ''
       title: ''
@@ -1693,6 +1701,8 @@ legal:
     this_gets_deleted_verify: ''
     this_gets_deleted_friendlist: ''
     this_doesnt_get_deleted: ''
+    unsubscribe_newsletter: ''
+    legal_more_info: ''
   legal_agreement: ''
   privacy_notice: ''
   privacy_policy: ''
@@ -1806,6 +1816,7 @@ register:
   join_initialised: ''
   join_initialised_message: ''
   email_in_progress: ''
+  join_newsletter_failed: ''
 error_ajax: ''
 delete: ''
 notice: ''
@@ -2059,6 +2070,17 @@ forum:
     hiddenPost: ''
     giveHideReason: ''
     moderator_info: ''
+    edited: ''
+    editedAtTooltip: ''
+    edit_post_not_found: ''
+    edit_conflict: ''
+    edit_mentions_note: ''
+    createdAtTooltip: ''
+    edit: ''
+    edit_expired: ''
+    edit_time_remaining: ''
+    edit_success: ''
+    edit_thread_not_found: ''
   inform_per_email: ''
   new_thread: ''
   hold_back_for_moderation: ''
@@ -2452,6 +2474,15 @@ regionOptions:
   regionReportReasonOther: ''
   noPickupRuleActiveStores: ''
   enableAddressChangeNotification: ''
+  reporting:
+    heading: ''
+    info: ''
+  pickuprule:
+    heading: ''
+    info: ''
+  userRelated:
+    info: ''
+    heading: ''
 foodsaver:
   url_error: ''
   manage:
@@ -2632,6 +2663,8 @@ mailbox:
     not_found: ''
     too_many: ''
     too_large_to_send: ''
+    limits: ''
+    attachments: ''
   move_to: ''
   close_edit_mode: ''
   add: ''
@@ -2671,6 +2704,9 @@ settings:
     until: ''
     from: ''
     message: ''
+    start_date_same_or_future: ''
+    end_date_invalid: ''
+    start_date_invalid: ''
   calendar:
     menu: ''
     delete_token:
@@ -3571,6 +3607,11 @@ notifications:
   newsletter:
     description: ''
     title: ''
+    patch_error: ''
+    unavailable_error: ''
+    patch_success: ''
+    checkbox: ''
+    settings: ''
   foodSharePoints:
     title: ''
     description: ''
@@ -3815,6 +3856,7 @@ resource_mosaic:
   title: ''
   is_private_hint: ''
   add: ''
+  restricted_to: ''
 achievements:
   visibility_type_explanation:
     scope: ''
@@ -4025,6 +4067,7 @@ feedback:
   name_sent: ''
   no_support: ''
   capture_screenshot: ''
+  screenshot_not_supported: ''
 sort:
   sort_by: ''
   options:

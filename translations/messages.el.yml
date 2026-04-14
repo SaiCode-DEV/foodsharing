@@ -285,6 +285,7 @@ basket:
   delete_confirmation:
     text: ''
     title: ''
+  nearby_requires_location: ''
 region:
   no-huge: ''
   new: ''
@@ -758,6 +759,7 @@ group:
       filter_status: ''
       created_at: ''
       title: ''
+      unverify_error_slots: ''
     default:
       lastname: ''
       title: ''
@@ -911,6 +913,7 @@ register:
   join_initialised: ''
   join_initialised_message: ''
   email_in_progress: ''
+  join_newsletter_failed: ''
 terminology:
   ambassadors: ''
   wall: ''
@@ -1006,6 +1009,7 @@ terminology:
   mobile_phone: ''
   received: ''
   attention: ''
+  newsletter: ''
 fsp:
   yours: ''
   noManager: ''
@@ -1133,6 +1137,7 @@ store:
     team: ''
     jumper: ''
     managers: ''
+    managers_preface: ''
   address: ''
   mayAmb: ''
   attribution: ''
@@ -1313,6 +1318,7 @@ store:
   delete:
     button: ''
     sure: ''
+    conditions_not_met: ''
   may_referred_to_in_public_unclear: ''
   storeFrom: ''
   invitations: ''
@@ -1328,6 +1334,7 @@ store:
   part_of_chain: ''
   chain_has_kams: ''
   members_not_in_target_region: ''
+  joinDateUnknown: ''
 pickup:
   kick: ''
   confirm: ''
@@ -1450,6 +1457,7 @@ pickup:
   passport_expired:
     short: ''
     long: ''
+  chat_preface: ''
 events:
   invitedCount: ''
   create:
@@ -1569,6 +1577,8 @@ mailbox:
     not_found: ''
     too_many: ''
     too_large_to_send: ''
+    limits: ''
+    attachments: ''
   move_to: ''
   close_edit_mode: ''
   add: ''
@@ -1611,6 +1621,9 @@ settings:
     until: ''
     from: ''
     message: ''
+    start_date_same_or_future: ''
+    end_date_invalid: ''
+    start_date_invalid: ''
   calendar:
     delete_token:
       message: ''
@@ -2973,6 +2986,17 @@ forum:
     hiddenPost: ''
     giveHideReason: ''
     moderator_info: ''
+    edited: ''
+    editedAtTooltip: ''
+    edit_post_not_found: ''
+    edit_conflict: ''
+    edit_mentions_note: ''
+    createdAtTooltip: ''
+    edit: ''
+    edit_expired: ''
+    edit_time_remaining: ''
+    edit_success: ''
+    edit_thread_not_found: ''
   quickreply:
     error: ''
     success: ''
@@ -3044,6 +3068,7 @@ releases:
   "2024-12": ''
   "2024-01": ''
   "2025-08": ''
+  "2026-04": ''
 stats:
   total:
     foodsharer: ''
@@ -3176,6 +3201,8 @@ legal:
     this_doesnt_get_deleted_history: ''
     this_gets_deleted_verify: ''
     this_gets_deleted_main: ''
+    unsubscribe_newsletter: ''
+    legal_more_info: ''
   legal_agreement: ''
   privacy_notice: ''
   privacy_policy: ''
@@ -3344,6 +3371,15 @@ regionOptions:
   regionReportReasonOther: ''
   noPickupRuleActiveStores: ''
   enableAddressChangeNotification: ''
+  reporting:
+    heading: ''
+    info: ''
+  pickuprule:
+    heading: ''
+    info: ''
+  userRelated:
+    info: ''
+    heading: ''
 navigation:
   stores: ''
   map: ''
@@ -3570,6 +3606,11 @@ notifications:
   newsletter:
     description: ''
     title: ''
+    patch_error: ''
+    unavailable_error: ''
+    patch_success: ''
+    checkbox: ''
+    settings: ''
   foodSharePoints:
     title: ''
     description: ''
@@ -3827,6 +3868,7 @@ resource_mosaic:
   title: ''
   is_private_hint: ''
   add: ''
+  restricted_to: ''
 achievements:
   visibility_type_explanation:
     scope: ''
@@ -4027,6 +4069,7 @@ feedback:
   name_sent: ''
   no_support: ''
   capture_screenshot: ''
+  screenshot_not_supported: ''
 sort:
   sort_by: ''
   options:

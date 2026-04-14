@@ -326,6 +326,7 @@ store:
     team: அணிக்கு செய்தி
     jumper: ச்பிரிங்கிற்கு செய்தி
     managers: 'நடவடிக்கைகளுக்கு பொறுப்பானவர்களுக்கு செய்தி'
+    managers_preface: ''
   tooltip_yellow: அடுத்த ஐந்து நாட்களில் ச்லாட்டுகள் திறக்கப்படும்
   tooltip_orange: அடுத்த மூன்று நாட்களில் ச்லாட்டுகள் திறக்கப்படும்
   short_tooltip_yellow: 5 நாட்களில் ச்லாட்டுகளைத் திறக்கவும்
@@ -399,6 +400,7 @@ store:
       ஒத்துழைப்பை மறுத்த நிறுவனங்கள் தொடர்ந்து பதிவு செய்யப்பட வேண்டும். இதுவரை ச்லாட்டுகள்
       இல்லாத மற்றும் குறைந்தபட்சம் 3 மாதங்களாக குழு அரட்டைகள் பயன்படுத்தப்படாத நிறுவனங்களை
       மட்டுமே நீக்க முடியும்.'
+    conditions_not_met: ''
   passport_expired: 'உங்கள் அடையாளம் காலாவதியாகிவிட்டது. அதைப் புதுப்பிக்க உங்கள்
     தூதர்களைத் தொடர்பு கொள்ளவும். எனவே இனி இங்கு பதிவு செய்ய முடியாது.'
   passport_expires_soon: 'உங்கள் அடையாளம் இன்னும் {days} நாட்களுக்கு செல்லுபடியாகும்!
@@ -407,6 +409,7 @@ store:
   part_of_chain: 'சங்கிலிக்கு சொந்தமானது:'
   chain_has_kams: 'சங்கிலிக்கு பொறுப்பு:'
   members_not_in_target_region: ''
+  joinDateUnknown: ''
 storeedit:
   bread: செயல்பாட்டைத் திருத்து
   add-new: புதிய செயல்பாட்டை உருவாக்கவும்
@@ -595,6 +598,7 @@ pickup:
   passport_expired:
     short: 'அடையாளம் காலாவதியானது'
     long: 'இந்த நேரத்தில் உங்கள் அடையாளம் செல்லுபடியாகாது'
+  chat_preface: ''
 calendar:
   labelSelected: தேர்ந்தெடுக்கப்பட்ட தேதி
   labelNoDateSelected: தேதியைத் தேர்ந்தெடுக்கவும்
@@ -665,6 +669,17 @@ forum:
       பயனர்கள் பார்க்கலாம்: மன்றத்திற்குள், ஏன் பங்களிப்பு மறைக்கப்பட்டது, மெடேட்டர்:
       உள்ளே யாராலும்.'
     hiddenReason: 'காரணம்: {reason}'
+    edited: ''
+    editedAtTooltip: ''
+    edit_post_not_found: ''
+    edit_conflict: ''
+    edit_mentions_note: ''
+    createdAtTooltip: ''
+    edit: ''
+    edit_expired: ''
+    edit_time_remaining: ''
+    edit_success: ''
+    edit_thread_not_found: ''
   thread:
     delivery_mail: அஞ்சல் விநியோகத்தை செயல்படுத்தவும்
     with_mail: தலைப்பு திறக்கப்பட்டு அனைத்தும் மின்னஞ்சல் மூலம் 
@@ -1170,6 +1185,15 @@ regionOptions:
     எடுத்துக்கொள்ளப்படுகின்றன.
   enableAddressChangeNotification: 'மாவட்டத்தில் வழக்கமான உணவு சேமிப்பாளரின் முகவரி
     மாறும்போது தூதர்கள் மற்றும் நிர்வாகிகளுக்கு அறிவிப்பு'
+  reporting:
+    heading: ''
+    info: ''
+  pickuprule:
+    heading: ''
+    info: ''
+  userRelated:
+    info: ''
+    heading: ''
 foodsaver:
   bread: அனைத்து உணவுகள்
   title: உணவு
@@ -1337,6 +1361,8 @@ mailbox:
     too_large_to_send: சில கோப்புகள் மிகப் பெரியவை, அவற்றை இணைக்க முடியாது.
     too_many: அதிகமான கோப்புகள் தேர்ந்தெடுக்கப்பட்டன. மின்னஞ்சலுடன் அதிகபட்சம் 
       10 கோப்புகளை இணைக்க முடியும்.
+    limits: ''
+    attachments: ''
   conformation_modal:
     title: உறுதிப்படுத்தல்
     message: மின்னஞ்சலை நீக்க விரும்புகிறீர்களா?
@@ -1418,6 +1444,9 @@ settings:
     range: 'நீங்கள் கிடைக்காத காலத்தை உள்ளிடவும்:'
     saved: அமைப்புகள் சேமிக்கப்பட்டன
     tooltip: '{name} ஒரு இடைவெளி எடுத்து தூக்க தொப்பி பயன்முறையில் உள்ளது'
+    start_date_same_or_future: ''
+    end_date_invalid: ''
+    start_date_invalid: ''
   passport:
     passport_not_activated: உங்கள் ஐடி இன்னும் செயல்படுத்தப்படவில்லை.
     passport_is_invalid: உங்கள் ஐடி இனி செல்லுபடியாகாது.
@@ -2218,6 +2247,7 @@ basket:
       வழங்குநரால் இது ஏற்கனவே எடுக்கப்பட்டிருக்கலாம் அல்லது அகற்றப்பட்டிருக்கலாம்.
 
       '
+  nearby_requires_location: ''
 menu:
   entry:
     events: கால
@@ -2341,6 +2371,7 @@ releases:
   "2020-12": '"டிராகன் பழம்" (டிசம்பர் 2020) வெளியீடு'
   "2020-08": '"பேரிக்காய்" (ஆகச்ட் 2020) வெளியீடு'
   "2025-08": வெளியீடு „ஆலிவ்“ 🫒 (ஏப்ரல் / மாய் 2025)
+  "2026-04": ''
 region:
   change: மாவட்டத்தை மாற்றவும்
   new: புதிய மாவட்டம்
@@ -3178,6 +3209,11 @@ notifications:
     title: செய்திமடல்
     description: மின்னஞ்சல் மூலம் உணவு பகிர்வு பற்றிய 1x மாதாந்திர தகவல்களைப் 
       பெறுங்கள்.
+    patch_error: ''
+    unavailable_error: ''
+    patch_success: ''
+    checkbox: ''
+    settings: ''
   checkbox_email: மின்னஞ்சல்
   checkbox_bell: மணி
   checkbox_disabled: செயலிழக்கச் செய்தது
@@ -4036,6 +4072,7 @@ group:
       already_verified: 'தேர்ந்தெடுக்கப்பட்ட அனைத்து பயனர்களும்: உள்ளே ஏற்கனவே சரிபார்க்கப்பட்டது'
       inform_user: அறிவிப்புடன்
       filter_status: 'நிலையை மட்டும் காட்டு'
+      unverify_error_slots: ''
     remove_ambassador_title: 'ஒரு தூதராக: கையில்'
     remove_admin_text: நிர்வாகியாக ({name}) செய்ய விரும்புகிறீர்களா?
     remove_ambassador_text: நீங்கள் ஒரு தூதராக {name} ({id}) செய்ய 
@@ -4170,6 +4207,8 @@ legal:
     this_doesnt_get_deleted_name: உங்கள் பெயர்
     this_doesnt_get_deleted_address: உங்கள் முகவரி
     this_doesnt_get_deleted_history: உங்கள் சரிபார்ப்பின் வரலாறு
+    unsubscribe_newsletter: ''
+    legal_more_info: ''
   privacy_notice: தரவு பாதுகாப்பு கொள்கை
   button:
     agree: ஏற்றுக்கொள்
@@ -4314,6 +4353,7 @@ register:
   join_initialised: ''
   join_initialised_message: ''
   email_in_progress: ''
+  join_newsletter_failed: ''
 terminology:
   forum: மன்றம்
   events: கால
@@ -4409,6 +4449,7 @@ terminology:
   giving: 'வரிவிதிப்பு'
   resourcesAdmins: 'வள மொசைக் குழு'
   attention: 'இடர்'
+  newsletter: ''
 statistics:
   num_fetches: '{count} மீட்பு நடவடிக்கைகளில்'
   food_saved: உணவு காப்பாற்றப்பட்டது
@@ -4866,6 +4907,7 @@ feedback:
       கருத்துக்கு ஒரு படத்தை கைமுறையாக சேர்க்கலாம்.
     invalid_file: தவறான கோப்பு. படங்களை மட்டும் பதிவேற்றவும்.
     message_short: உங்கள் செய்தி மிகக் குறைவு. மேலும் தகவல்களைக் குறிப்பிடவும்.
+  screenshot_not_supported: ''
 required_messages:
   sure_title: நீங்கள் உறுதியாக இருக்கிறீர்களா?
   message_info: '{பெயர் the பின்வரும் செய்தியைப் பெறும்:'
@@ -5031,6 +5073,7 @@ resource_mosaic:
   title: 'வள மொசைக்'
   is_private_hint: 'இந்த சான்று நண்பர்களுக்கு மட்டுமே காட்டப்படும்.'
   add: 'புதிய ஆதாரத்தை உள்ளிடவும்'
+  restricted_to: ''
 oauth:
   error:
     invalid_client: 'வாங்கி சரிபார்ப்பு தோல்வியடைந்தது.'

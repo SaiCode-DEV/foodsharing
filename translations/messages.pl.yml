@@ -1,5 +1,5 @@
 add: dodać
-nachname: Nazwiski
+nachname: Nazwisko
 message: Wiadomość
 address: Adres
 edit: edytować
@@ -435,6 +435,7 @@ settings:
     show: ''
     start_date_invalid: Data początkowa nie może być w przeszłości.
     end_date_invalid: Data końcowa nie może być przed datą początkową.
+    start_date_same_or_future: ''
   email: Adres email & hasło
   account_security:
     title: Bezpieczeństwo konta
@@ -596,7 +597,9 @@ settings:
     not_changed: 'Twój adres email nie został zmieniony.'
     sent_other_user: 'Wysłano maila z linkiem potwierdzającym na nowy adres.'
     dashboard_link: 'Dalej do panelu głównego'
-    explanation: ''
+    explanation: 'Tu możesz zmienić adres email, z którym się zarejestrowałeś/aś.
+      Po wysłaniu otrzymasz maila na nowy adres, w którym jest link do potwierdzenia
+      nowego adresu.'
     explanation_other_user: ''
     domain: 'Użyj innego adresu email, aby zawsze mieć możliwość odzyskania hasła.'
     sent: 'Przejdź teraz do swojej nowej skrzynki mailowej, żeby potwierdzić adres
@@ -703,7 +706,7 @@ bcard:
   generate: Stwórz wizytówkę
   role: Rola
   region: Region
-  claim: ''
+  claim: 'Łatwo wygeneruj, wydrukuj i wytnij tutaj…'
 group:
   name: Imię
   userId: ID
@@ -825,7 +828,9 @@ group:
     member_since_weeks: Od ilu tygodni kandydat/ka powinien/na być aktywny/a w 
       foodsharingu?
     fetch_count: ''
-    not_fulfilled: ''
+    not_fulfilled: 'Aby zgłosić się do tego zespołu, musisz być członkiem foodsharingu
+      od %weeks% tygodni, zebrać już %bananas% banany/ów zaufania i uczestniczyć w
+      %fetches% slotach.'
   members: Członkowie
   administrators: Administratorzy/ki grupy
   member_count:
@@ -877,6 +882,7 @@ group:
       show_only_member_after: Pokaż tylko członków po/według
       filter_status: Pokaż tylko status
       filter_selection: Pokaż tylko wybranych członków
+      unverify_error_slots: ''
     remove_admin_title: usuń jako administratora/kę
     remove_ambassador_title: usuń jako ambasadora/kę
     remove_admin_text: Czy na pewno chcesz usunąć {name} ({id}) jako 
@@ -946,6 +952,7 @@ legal:
     this_doesnt_get_deleted: ''
     this_gets_deleted_stores: ''
     legal_more_info: Dalsze informacje
+    unsubscribe_newsletter: ''
   latest_change: 'Ostatnio zmieniony {date}'
   show_changes: 'Pokaż zmiany'
   legal_agreement: 'Umowa prawna'
@@ -1107,7 +1114,7 @@ terminology:
     "0": Foodsharer:ka
     "1": Foodsaver:ka
     "3": Ambasador:ka
-    "4": ''
+    "4": 'Orga-człowiek'
     "2": ''
   ambassadors: Ambasadorowie/ki
   ambassador_forum: Forum ambasadorów/ek
@@ -1152,9 +1159,9 @@ terminology:
   votingAdmins: 'Team głosowań'
   previous_pickups: 'Sloty tutaj'
   orga:
-    d: ''
-    f: ''
-    m: ''
+    d: 'Orga-człowiek'
+    f: 'Orga-człowiek'
+    m: 'Orga-człowiek'
   n_cooperating_stores: ''
   resourcesAdmins: 'Team mozaiki zasobów'
   stores: ''
@@ -1443,7 +1450,7 @@ storeview:
   management: Zarządzanie
   team_info_distance: ''
   public_time: ''
-  specials: ''
+  specials: 'Instrukcje i procedura'
   source_data: 'Dane źródłowe'
   public_and_statistics: ''
   team: ''
@@ -1559,7 +1566,7 @@ store:
       invited: ''
     withdrawn: 'Pomyślnie cofnięto zapytanie.'
     got-it: ''
-    air_line: ''
+    air_line: 'Pokazywana jest odległość w linii prostej.'
     needsHomeRegion:
       link: 'Wybierz rejon macierzysty'
       invited: ''
@@ -1657,6 +1664,7 @@ store:
     team: Wiadomość do teamu
     jumper: 'Wiadomość do rezerwowych'
     managers: ''
+    managers_preface: ''
   no_chain_choosen: nie wybrano sieci
   passport_expired: Twoja legitymacja już jest nieważna. Dlatego nie możesz się 
     chwilowo tutaj zarejestrować. Skontaktuj się z twoimi ambasador(k)ami, aby 
@@ -1701,6 +1709,7 @@ store:
   delete:
     button: ''
     sure: ''
+    conditions_not_met: ''
   short_tooltip_orange: 'Wolne sloty w ciągu najbliższych 3 dni'
   regionPickupRules: 'dodatkowa reguła rodzynkowa'
   tooltip_jumping: ''
@@ -1859,7 +1868,7 @@ pickup:
       signOff:
         title: 'Wypisz ze slotu?'
         message: 'Czy na pewno chcesz wypisać tego/tę użytkownika/czkę z tego slotu?'
-    allLoaded: ''
+    allLoaded: 'Już pokazano wszystkie wpisy.'
     header: 'Sloty'
   leave_pickup_ok: Już mam zastępstwo
   leave_pickup_message_team: Powiadom team
@@ -1920,7 +1929,7 @@ pickup:
   slot_add: 'Dodaj slot'
   slots: 'Sloty'
   delete_not_empty: ''
-  same_day_hint: ''
+  same_day_hint: 'Następujące wydarzenia odbędą się tego samego dnia:'
   team_message_send_and_leave: 'Wyślij i wypisz'
   slot_remove: 'Usuń slot'
   chat: 'Zacznij chat do slotu'
@@ -1938,6 +1947,7 @@ pickup:
   membershipMissing: ''
   take_empty_slot: 'Zapisz się tutaj'
   join_agree: 'Tak, zapisz się wiążąco'
+  chat_preface: ''
 calendar:
   locale: pl
   labelNextYear: Przyszły rok
@@ -1987,7 +1997,7 @@ forum:
   deleted_user: usunięty/a użytkownik/czka
   from: od {name}
   threads: tematy
-  new_thread: rozpocznij nowy temat
+  new_thread: Rozpocznij nowy temat
   follow:
     header: 'Powiadomienie przy nowych odpowiedziach:'
     email: przez email
@@ -2019,6 +2029,8 @@ forum:
       przyporządkowany mu temat (już) nie istnieje.
     edit_post_not_found: Już nie możesz edytować tego postu, bo on (już) nie 
       istnieje.
+    edit_conflict: ''
+    edit_mentions_note: ''
   thread:
     delivery_mail: Aktywuj wysyłanie maili
     no_mail: Temat został otwarty bez wysyłania maili
@@ -2515,6 +2527,7 @@ regionOptions:
     heading: opcje do administrowania użytkowni(cz)kami
   pickuprule:
     heading: Opcje reguły rodzynkowej
+    info: ''
   reporting:
     heading: Opcje systemu skarg
     info: Może być zmienione przez administratorów/ki lokalnego zespołu 
@@ -2764,7 +2777,7 @@ profile:
     pickupCount: ''
     week_0: ''
     week_4: ''
-    respActStores: ''
+    respActStores: 'Dziękujemy za koordynację {count} aktywnych '
     securePickupWeek: ''
     basketsSharedWeek: 'Podzielono się jadłokoszykami z {count} osobami. '
     weekDesc: ''
@@ -2774,7 +2787,7 @@ profile:
     basketsOfferedWeek: 'Dziękujemy za oferowanie jadłokoszyków {count} raz/y. Łącznie
       podzielono się {weight} kg.'
   banana:
-    title: '{count} bananów zaufania'
+    title: '{count} banan/y/ów zaufania'
     recieved_none:
       other: '{name} jeszcze nie otrzymał/a bananów zaufania.'
       you: Jeszcze nie otrzymałeś/aś bananów zaufania.
@@ -2853,7 +2866,7 @@ profile:
     who: '{name} z {from}'
     mayNot: nieaktywny/a
     cta: 'Pełny profil {name} jest dostępny po rejestracji:'
-    join: ''
+    join: 'Zarejestruj się i dołącz'
     login: 'Do loginu'
     textMay: ''
     textMayNot: ''
@@ -3233,11 +3246,11 @@ footer:
   infosCompany: 'dla przedsiębiorstw'
 thread:
   priorityModal:
-    higher: ''
+    higher: 'całkiem na górze'
     text: ''
-    lower: ''
+    lower: 'całkiem na dole'
     title: ''
-    normal: ''
+    normal: 'normalnie'
   options:
     rename: ''
     unlock: ''
@@ -3249,23 +3262,23 @@ thread:
     showHidden: ''
   post:
     options:
-      copy_direct_link: ''
+      copy_direct_link: 'kopiuj bezpośredni link'
       restore: ''
-      copy_source: ''
+      copy_source: 'kopiuj tekst źródłowy'
     quote_button: ''
-    linked_post: ''
-    copy_direct_link_success: ''
-    quote_post_wrote: ''
-    copy_source_success: ''
+    linked_post: 'Podlinkowany post'
+    copy_direct_link_success: 'Skopiowano bezpośredni link!'
+    quote_post_wrote: 'napisał/a'
+    copy_source_success: 'Skopiowano tekst źródłowy!'
   rename:
-    description_modal_text: ''
-    placeholder: ''
-    max_length_info: ''
-    edit_description: ''
+    description_modal_text: 'Podaj nowy tytuł do tego wątku:'
+    placeholder: 'Tytuł'
+    max_length_info: 'Osiągnięto maksymalną długość tytułu (260 znaków)'
+    edit_description: 'Edytuj tytuł'
   hiddenPostsInfo:
     cannotSee: ''
-    toggle: ''
-    includesHidden: ''
+    toggle: 'Pokaż ukryte posty'
+    includesHidden: 'W tym wątku moderatorzy/ki ukryli/ły niektóre posty.'
 poll:
   submit_vote: 'Zagłosuj'
   allowed_voters: 'uprawniony/a do głosowania'
@@ -3498,8 +3511,13 @@ notifications:
   newsletter:
     description: ''
     title: ''
+    patch_error: ''
+    unavailable_error: ''
+    patch_success: ''
+    checkbox: ''
+    settings: ''
   foodSharePoints:
-    title: ''
+    title: 'Jadłodzielnie'
     description: ''
   pushModal:
     ok: ''
@@ -3510,9 +3528,9 @@ notifications:
   groups:
     title: ''
   checkbox_push: ''
-  info: ''
-  warning: ''
-  error: ''
+  info: 'Info'
+  warning: 'Uwaga'
+  error: 'Błąd'
   mention:
     description: ''
     title: ''
@@ -3521,7 +3539,7 @@ notifications:
     title: ''
   chat:
     description: ''
-    title: ''
+    title: 'Wiadomości chatu'
   pickupReminder:
     title: ''
     description: ''
@@ -3529,7 +3547,7 @@ notifications:
   threads:
     title: ''
   config_button: ''
-  success: ''
+  success: 'Sukces'
   checkbox_email: ''
   checkbox_bell: ''
 buddy:
@@ -3551,17 +3569,17 @@ buddy:
 error:
   mail_bounce:
     title: 'Zablokowany adres email!'
-    description: ''
+    description: 'Twój adres email jest zablokowany dla maili i komunikacji z foodsharingu.'
     link_2: 'Potrzebuję pomocy'
     link_1: 'Zmień adres email'
   missing_geolocation:
     title: 'Nie podano ważnego adresu'
-    description: ''
+    description: 'Sprawdź swój adres. Nie można było ustalić współrzędnych.'
     link: 'Do wprowadania adresu'
   missing_user_avatar:
     title: 'Nie załadowałeś/aś jeszcze zdjęcia profilowego.'
     link: 'Załaduj zdjęcie profilowe teraz'
-    description: ''
+    description: 'Pokaż członkom foodsharingu, kim jesteś!'
   passport_is_invalid_soon:
     description: ''
     link: 'Ustawienia profilu'
@@ -3569,10 +3587,12 @@ error:
   invalid_landline_phonenumber:
     title: 'Wystąpił błąd z twoim numerem stacjonarnym.'
     link: 'Popraw numer stacjonarny teraz'
-    description: ''
+    description: 'Twój numer telefonu stacjonarnego jest w formacie, na który nie
+      można zadzwonić.'
   invalid_mobile_phonenumber:
     title: 'Jest problem z twoim numerem telefonu komórkowego.'
-    description: ''
+    description: 'Twój numer telefonu komórkowego jest w formacie, na który nie można
+      zadzwonić.'
     link: 'Popraw numer telefonu komórkowego teraz'
   page:
     back_home: 'Powrót do strony startowej'
@@ -3580,7 +3600,8 @@ error:
     internal_server_error: 'Wystąpił wewnętrzny błąd serwera.'
     other: 'Wystąpił nieznany błąd.'
   mail_activation:
-    description: ''
+    description: 'Używanie strony internetowej jest możliwe tylko z potwierdzonym
+      adresem email. Potwierdź swój adres email przez kliknięcie w link w mailu aktywującym.'
     title: 'Adres email nie jest potwierdzony!'
     link_1: 'Zarządaj nowego maila aktywującego'
     link_2: 'Zmień adres email'
@@ -3674,12 +3695,12 @@ search:
       sticky_tooltip: ''
       ambassador_forum: 'Forum ambasadorów/ek'
       last_post: 'ostatni post'
-      bottom_tooltip: ''
+      bottom_tooltip: 'Temat ma ograniczoną widoczność'
     event:
       invitation_tooltip:
         3: 'Nie uczestniczysz w tym evencie.'
         1: 'Nie uczestniczysz w tym evencie.'
-        0: ''
+        0: 'Nie podałeś/aśm czy będziesz uczestniczyć w tym evencie.'
         2: 'Być może uczestniczysz w tym evencie.'
       location_online: 'Online'
     in: 'w'
@@ -3696,7 +3717,7 @@ search:
       member_tooltip: ''
     from: 'z'
   title: 'Szukaj'
-  too_short: ''
+  too_short: 'Podaj dłuższe wyrażenie do wyszukiwania.'
   placeholder: 'Szukaj teraz …'
   forum:
     placeholder: 'Szukaj w tym forum …'
@@ -4038,7 +4059,7 @@ join_region:
     not_allowed: 'Nie możesz dołączyć to tego rejonu.'
     is_state_2: 'Wybierz miasto, region lub rejon!'
     is_big_city_1: ''
-    is_state_1: ''
+    is_state_1: 'To jest województwo. Wybierz miasto, region lub rejon!'
   description: ''
 support_page:
   subject: 'Temat'
@@ -4195,19 +4216,19 @@ startpage:
   join_rules: ''
 markdown_input:
   tooltip:
-    image: ''
-    orderedList: ''
-    preview: ''
-    quote: ''
-    unorderedList: ''
-    italic: ''
-    code: ''
-    strikethrough: ''
-    mention: ''
-    bold: ''
-    hrule: ''
-    link: ''
-    heading: ''
+    image: 'załącz obrazy'
+    orderedList: 'lista numerowana'
+    preview: 'podgląd'
+    quote: 'cytat'
+    unorderedList: 'lista'
+    italic: 'kursywa'
+    code: 'kod'
+    strikethrough: 'przekreślenie'
+    mention: 'wspomnij użytkownika/czkę'
+    bold: 'pogrubienie'
+    hrule: 'pozioma linia podziału'
+    link: 'link'
+    heading: 'nagłówek'
   empty_preview_placeholder: ''
 feedback:
   error:
@@ -4223,6 +4244,7 @@ feedback:
   name_sent: ''
   no_support: ''
   capture_screenshot: 'Zrób screenshot'
+  screenshot_not_supported: ''
 conference:
   join_title: 'Dołącz do konferencji online'
   confirm_info: ''
@@ -4231,7 +4253,7 @@ system_administration:
   regions: 'Zarządzaj rejonami'
   email: 'Wyślij newsletter'
   quiz: 'Zarządzaj quizem'
-  resource_categories: ''
+  resource_categories: 'Edytuj kategorie zasobów'
   store_categories: ''
   blog: 'Edytuj posty na blogu'
   reports: 'Pokaż skargi'
@@ -4239,27 +4261,27 @@ system_administration:
 sort:
   sort_by: 'Sortuj według '
   options:
-    updated_at: ''
-    name: ''
-    date: ''
-    relevance: ''
-    created_at: ''
+    updated_at: 'Data aktualizacji'
+    name: 'Nazwa'
+    date: 'Data'
+    relevance: 'Znaczenie'
+    created_at: 'Data utworzenia'
 bootstrap-datepicker:
-  labelCalendar: ''
-  labelCurrentMonth: ''
-  labelPrevYear: ''
+  labelCalendar: 'Kalendarz'
+  labelCurrentMonth: 'Bieżący miesiąc'
+  labelPrevYear: 'Poprzedni rok'
   labelHelp: ''
-  labelNav: ''
-  labelNextMonth: ''
-  labelPrevMonth: ''
-  labelNoDateSelected: ''
-  labelNextYear: ''
-  labelToday: ''
-  labelNextDecade: ''
-  labelSelected: ''
-  labelPrevDecade: ''
+  labelNav: 'Nawigacja kalendarza'
+  labelNextMonth: 'Przyszły miesiąc'
+  labelPrevMonth: 'Poprzedni miesiąc'
+  labelNoDateSelected: 'Nie wybrano daty'
+  labelNextYear: 'Przyszły rok'
+  labelToday: 'Dzisiaj'
+  labelNextDecade: 'Przyszła dekada'
+  labelSelected: 'Wybrana data'
+  labelPrevDecade: 'Poprzednia dekada'
 navigation:
-  toggle: ''
+  toggle: 'Pokaż/ukryj nawigację'
   conversations: 'Wiadomości'
   help: 'Pomoc'
   regions: 'Rejony'
@@ -4271,12 +4293,12 @@ navigation:
   notifications: 'Powiadomienia'
   stores: ''
   system_administration: 'Administracja systemu'
-  styleguide: ''
+  styleguide: 'Style guide'
   wiki: 'Wiki'
   map: 'Mapa'
   groups: 'Zespoły'
   profil: '👋 Cześć {name}!'
-  news_from_it: ''
+  news_from_it: 'Nowości & zakłócenia'
   basket: 'Jadłokoszyki'
   help_needed: 'Potrzebna pomoc?'
 logincontrol:
@@ -4354,11 +4376,11 @@ theme_switcher:
   content: 'Proszę wybrać design'
   title: 'Wybierz design'
 activitypost:
-  quickreply_button: ''
-  write: ''
+  quickreply_button: 'Wyślij teraz<br>lub naciśnij<code class="key">Enter</code>.'
+  write: 'Napisz odpowiedź …'
   quickreply_info: ''
-  response: ''
-  Response: ''
+  response: 'odpowiedz'
+  Response: 'Odpowiedz'
 addreaction: 'Dodaj reakcję'
 network_errors:
   csrf_token_invalid:
@@ -4380,6 +4402,7 @@ releases:
   "2024-01": 'Release „Kiwi“ 🥝 (Styczeń 2024)'
   "2025-08": 'Release „Oliwka“ 🫒 (Sierpień 2025)'
   "2020-05": 'Release "Pomarańcza" (Maj 2020)'
+  "2026-04": ''
 information:
   push:
     link: 'Do ustawień'
@@ -4387,7 +4410,7 @@ information:
     title: 'Teraz możesz otrzymywać powiadomienia push od foodsharingu.'
   calendar_sync:
     title: 'Znasz synchronizację kalendarza do twoich slotów?'
-    link: ''
+    link: 'Subskrybuj teraz'
     description: ''
 team_page:
   alumni_member:
@@ -4402,8 +4425,8 @@ team_page:
 error_base64_image: 'Dodawanie obrazów przez przeciągnięcie i upuszczenie nie jest
   dozwolone.'
 donation_banner:
-  action_button: ''
-  amount: ''
+  action_button: 'Przekaż darowiznę tutaj!'
+  amount: 'Stan darowizn'
   info_button: ''
 totp_code: ''
 language_chooser:
@@ -4435,4 +4458,4 @@ savewithus: ''
 password:
   reset: 'Zapomniałeś/aś hasła?'
   insertmail: 'Podaj swój adres email, aby zresetować hasło.'
-parent_id: ''
+parent_id: 'Rejon nadrzędny'
