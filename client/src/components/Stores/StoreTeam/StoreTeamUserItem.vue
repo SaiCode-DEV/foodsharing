@@ -8,7 +8,7 @@
     <div class="flex-grow-1 px-1 small">
       <b>{{ user.name }}</b><br>
       <div v-if="user.phoneNumber">
-        <span>{{ user.phoneNumber }}</span><br>
+        <span class="small">{{ user.phoneNumber }}</span><br>
       </div>
       <Time
         v-if="!sortingFunction || sortingFunction.displayInfo === 'times'"
