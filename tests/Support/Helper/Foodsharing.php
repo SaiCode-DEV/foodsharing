@@ -1091,6 +1091,17 @@ class Foodsharing extends Db
         return $post;
     }
 
+    public function addGroupWallPost($userId, $regionId, $extra_params = []): array
+    {
+        $post = $this->createWallpost($userId, $extra_params);
+        $this->haveInDatabase('fs_bezirk_has_wallpost', [
+            'bezirk_id' => $regionId,
+            'wallpost_id' => $post['id'],
+        ]);
+
+        return $post;
+    }
+
     public function createWallpost($user, $extra_params = []): array
     {
         $params = array_merge([

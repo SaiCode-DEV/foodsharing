@@ -49,6 +49,22 @@ class GroupGateway extends BaseGateway
             ['parent_id' => 0],
             ['parent_id' => $groupId]
         );
+        $this->db->execute('
+            DELETE t FROM fs_theme t
+            JOIN fs_bezirk_has_theme ht
+			ON ht.theme_id = t.id
+            WHERE ht.bezirk_id = :regionId
+		', [
+            ':regionId' => $groupId,
+        ]);
+        $this->db->execute('
+            DELETE p FROM fs_wallpost p
+            JOIN fs_bezirk_has_wallpost hp
+			ON hp.wallpost_id = p.id
+            WHERE hp.bezirk_id = :regionId
+		', [
+            ':regionId' => $groupId,
+        ]);
 
         $this->db->delete('fs_bezirk', ['id' => $groupId]);
 

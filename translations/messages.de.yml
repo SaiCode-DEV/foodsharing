@@ -3207,7 +3207,7 @@ region:
   confirm:
     edit: "Sicher, dass du die Änderungen am Bezirk {name} speichern möchtest?"
     create: "Sicher, dass du den Bezik {name} neu anlegen möchtest?"
-    delete: "Sicher, dass du Bezirk {name} löschen möchtest?"
+    delete: "Sicher, dass du Bezirk {name} löschen möchtest? Hierdurch werden alle Daten des Bezirks endgültig gelöscht: Forum, Termine, Abstimmungen, Pinnwandeinträge, Sticker & Bezirks-Ressourcen."
   save: "Ja, speichern"
   cancel: "Nein, doch nicht"
   edit_success: "Bezirk wurde gespeichert."
