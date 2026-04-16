@@ -274,10 +274,7 @@ export default {
     getLastFetchDate () {
       const userItem = this.storeMember.find(item => item.id === this.userId)
       if (userItem) {
-        const MILLISECONDS_PER_SECOND = 1000
-        // Multiplication by 1000 used in this context to convert a Unix timestamp from seconds to milliseconds.
-        // JavaScript expects Unix timestamps in milliseconds, while it comes from databases in seconds.
-        this.lastFetchDate = userItem?.last_fetch ? new Date(userItem.last_fetch * MILLISECONDS_PER_SECOND) : null
+        this.lastFetchDate = userItem?.lastFetch ? new Date(userItem.lastFetch) : null
       }
     },
     multiChat (userId) {
