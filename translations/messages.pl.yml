@@ -2910,7 +2910,8 @@ profile:
         z uczestniczących osób jest członkiem lokalnego zespołu rozpatrującego skargi.
         Możesz skontaktować się z radą arbitrażową także przez poniższy adres email:'
     kindofreport: 'Wybierz rodzaj skargi'
-    noReportGroup: ''
+    noReportGroup: 'Nie możesz użyć wsparcia technicznego do systemu skarg, bo nie
+      jest aktywowane w rejonie foodsavera/ki.'
     oldReportButtonTextPart1: ''
     reportedAdminNoArbitration: ''
     report_b2: ''
@@ -2918,7 +2919,8 @@ profile:
     report_b5: ''
     report_b9: ''
     report_b1_4: 'Nie miał/a przy sobie legitymacji foodsharingu (B01-5)'
-    reporterHasNoReportGroup: ''
+    reporterHasNoReportGroup: 'Nie możesz użyć wsparcia technicznego do systemu skarg,
+      bo w twoim rejonie nie ma lokalnego zespołu rozpatrującego skargi.'
     reporterAdminNoArbitration: ''
     report_b1_0: ''
     report_b6_1: ''
@@ -2945,7 +2947,7 @@ profile:
     previous: 'wcześniej'
     changed: 'wprowadzony'
     by: 'od'
-  pinboard: ''
+  pinboard: 'Aktualizacje statusu od {name}'
   choosereasonnostore: ''
   title: 'Profil'
   mediationRequest: 'Zapytaj o mediację'
@@ -2988,7 +2990,7 @@ dashboard:
   source_forum_bot: Forum ambasadorów/ek {0}
   release:
     for_support: Poza tym możesz się z nami skontaktować pod
-    for_news_from_it: ''
+    for_news_from_it: 'W razie pytań lub trudności, najpierw zobacz'
     for_release_notes: 'Najważniejsze zmiany znajdziecie na'
   options:
     hide:
@@ -3026,7 +3028,7 @@ dashboard:
   activation_mail_sent: 'Link do aktywacji został wysłany - proszę, sprawdź swoje
     maile'
   greeting: 'Cześć {name}! Miło cię widzieć.'
-  no_more_updates_friendWall: ''
+  no_more_updates_friendWall: 'Nie ma więcej aktualizacji statusu'
   source_friendWall_own: 'Twoja tablica'
   updates_title_some: 'Przegląd nowości ({0})'
   polls: 'Twoje aktualne głosowania'
@@ -3510,15 +3512,16 @@ notifications:
   save_success: ''
   newsletter:
     description: ''
-    title: ''
+    title: 'Newsletter'
     patch_error: ''
     unavailable_error: ''
     patch_success: ''
     checkbox: ''
-    settings: ''
+    settings: 'Ustawienia newslettera'
   foodSharePoints:
     title: 'Jadłodzielnie'
-    description: ''
+    description: 'Otrzymaj powiadomienie przy nowych wpisach na tablicy jadłodzielni,
+      które śledzisz.'
   pushModal:
     ok: ''
     cancel: ''
@@ -3526,7 +3529,7 @@ notifications:
     title: ''
     content: ''
   groups:
-    title: ''
+    title: 'Zespoły'
   checkbox_push: ''
   info: 'Info'
   warning: 'Uwaga'
@@ -3536,16 +3539,17 @@ notifications:
     title: ''
   checkbox_disabled: ''
   regions:
-    title: ''
+    title: 'Rejony'
   chat:
-    description: ''
+    description: 'Otrzymaj powiadomienie przy nowych wiadomościach chatu także, gdy
+      nie jesteś zalogowany/a.'
     title: 'Wiadomości chatu'
   pickupReminder:
     title: ''
     description: ''
   safari_add_to_home_screen: ''
   threads:
-    title: ''
+    title: 'Wątki forum'
   config_button: ''
   success: 'Sukces'
   checkbox_email: ''
@@ -3855,7 +3859,7 @@ region:
     no_more_info: 'Nie ma żadnych publicznie dostępnych informacji o tym rejonie.'
   bread: 'Edytuj rejony'
   not-existant: 'Ten rejon lub zespół już nie istnieje.'
-  noParent: ''
+  noParent: 'Bez rejonu nadrzędnego'
   type:
     working_group: 'zespół'
     title: 'Typ rejonu'
@@ -3873,7 +3877,7 @@ region:
     delete: 'Jesteś pewny/a, że chcesz usunąć rejon {name}?'
     create: 'Jesteś pewny/a, że chcesz utworzyć nowy rejon {rejon}?'
   hull:
-    closure: ''
+    closure: 'Ustaw {region} jako master dla wszystkich rejonów podrzędnych'
     parent-info: 'Wszyscy/tkie foodsaverzy/ki są automatycznie w Master-rejonie, o
       ile jakiś podano'
     parent: 'Master-rejon'
@@ -3887,7 +3891,7 @@ region:
   edit_success: 'Zapisano rejon.'
   select: 'Wybierz rejon do edycji'
   createNew: 'Utwórz nowy rejon'
-  parent: ''
+  parent: 'Rejon nadrzędny'
   restricted: 'Niestety nie masz uprawnień, aby mieć wgląd w te dane.'
   master: 'Master-rejon'
   save: 'Tak, zapisz'
@@ -4103,7 +4107,7 @@ contact_page:
 base:
   whatfor: ''
   slogan: ''
-  jsrequired: ''
+  jsrequired: 'Niestety, nic tu nie działa bez JavaScript.'
   keywords: ''
 blog:
   permissions:
@@ -4129,7 +4133,7 @@ blog:
   delete: 'usuń post'
   header: 'Nowinki ze świata foodsharingu'
   read: 'czytaj dalej'
-  empty: ''
+  empty: 'Jeszcze nie ma żadnych wpisów.'
   publish-info: ''
   content: 'Treść'
   go: 'Przejdź do bloga'
@@ -4402,7 +4406,7 @@ releases:
   "2024-01": 'Release „Kiwi“ 🥝 (Styczeń 2024)'
   "2025-08": 'Release „Oliwka“ 🫒 (Sierpień 2025)'
   "2020-05": 'Release "Pomarańcza" (Maj 2020)'
-  "2026-04": ''
+  "2026-04": 'Release "Papryka" 🫑 (kwiecień 2026)'
 information:
   push:
     link: 'Do ustawień'

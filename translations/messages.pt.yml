@@ -417,7 +417,7 @@ bell:
   buddy_request: '{name} conhece-te.'
   poll_new_title: 'Nova votação'
   banana_given: '{name} ofereceu-te uma banana de reconhecimento.'
-  foodsaver_verified: 'Faça o download do teu cartão de membro em …'
+  foodsaver_verified: 'Faça o download do teu cartão de foodsharing em …'
   store_new: '{name} foi inscrito'
   new_foodsaver_verified_title: '{name} é novo em {bezirk}'
   betrieb_fetch: '{count} vaga(s) por confirmar'
@@ -435,7 +435,7 @@ bell:
   forum_mention_title: '{user} mencionou-te ({forum})'
   store_new_request: 'Pedido para {name}'
   sharepoint_activate: '{name} foi internado'
-  passgen_failed_title: 'Não foi possível criar o teu cartão de membro'
+  passgen_failed_title: 'Não foi possível criar o teu cartão de foodsharing'
   fs_sleepmode: '{name} {nachname} agora está inactivo'
   forum_new_thread_title: 'Novo tópico: {title}'
   new_foodsaver_title: '{name} é novo em {bezirk}'
@@ -493,7 +493,7 @@ bell:
     many: '{count} novos comentários'
   foodsaver_adress_changed_title: '{name} alterou a morada'
   foodsaver_adress_changed: Em caso de alterações frequentes, verifique.
-  passport_created_or_renewed_title: O teu cartão de membro …
+  passport_created_or_renewed_title: O teu cartão de foodsharing …
   passport_created_or_renewed: foi ativado ou prolongado!
   workinggroup_new_request: Nova aplicação para um grupo de trabalho
   internal_email_changed_title: '{address}'
@@ -1952,7 +1952,7 @@ pickup:
   may_enter: Ainda há uma vaga disponível por ti neste horário.
   passport_expired:
     short: Cartão de membro expirado
-    long: O teu cartão de membro já não é válido neste momento
+    long: O teu cartão de foodsharing já não é válido neste momento
   chat: Abrir chat da vaga
   slots: Vagas
   chat_preface: '{date} no [{store}]({storeUrl}):'
@@ -1987,7 +1987,7 @@ error:
     description: 'A tua cartão de membro ainda é válida por {days} dias. Entra em
       contacto com os teus embaixadores para a renovar.'
     link: 'Ajustes do perfil'
-    title: 'O teu cartão de membro vai expirar em breve!'
+    title: 'O teu cartão de foodsharing vai expirar em breve!'
   invalid_landline_phonenumber:
     title: 'Tem um problema com o teu número de telefone fixo.'
     link: 'Corrigir o número de telefone fixo agora'
@@ -2749,7 +2749,7 @@ settings:
 
       '
   passport:
-    menu: 'Cartão'
+    menu: 'Cartão de foodsharing'
     button: 'Descarregar cartão de membro'
     verified_text: 'Este cartão é destinado ao uso em smartphones. Pode salvar o cartão
       no teu telemóvel e, em caso de necessidade, apresentá-lo. Caso não possua um
@@ -2758,11 +2758,11 @@ settings:
     non_verified_text: 'Não estás verificado. Apenas os Foodsavers verificados podem
       descarregar o cartão de membro.'
     renew: Renovar o cartão
-    passport_not_activated: O teu cartão de membro ainda não foi ativado.
+    passport_not_activated: O teu cartão de foodsharing ainda não foi ativado.
     ask_your_ambassadors: Para isso, contacte os teus embaixadores.
-    passport_is_valid_until: O teu cartão de menbro é válido por mais **{days}**
-      dias ou até **{date}**.
-    passport_is_invalid: O teu cartão de membro já não é válido.
+    passport_is_valid_until: O teu cartão é válido por mais **{days}** dias ou 
+      até **{date}**.
+    passport_is_invalid: O teu cartão de foodsharing já não é válido.
     add_to_wallet:
       google: Adicionar ao Google Wallet
       apple: Adicionar ao Apple Wallet

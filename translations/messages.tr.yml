@@ -90,7 +90,7 @@ geschlecht: Cinsiyet
 teaser: Tanıtım
 bezirk_id: Bu ürün hangi bölge için geçerlidir?
 opt: Opsiyonlar
-pass2: Şifre tekrarı
+pass2: Şifreyi onayla
 bezirk: Bölge
 rolle: Kullanıcı Rolü
 title: Ana Başlık
@@ -454,7 +454,7 @@ group:
     banana_count: 'Bir başvuru sahibinin kaç tane güven fidanına ihtiyacı var?'
     not_fulfilled: 'Bu çalışma grubuna başvurmak için, %weeks% hafta boyunca yiyecek
       paylaşımında bulunmanız, zaten %bananas% güven fidanı toplamış olmanız ve %fetches%
-      yiyecek kurtarmada yer almış olmanız gerekir.'
+      yiyecek Slotda yer almış olmanız gerekir.'
   image: '%name% için kapak fotoğrafı'
   function:
     fsp: Gıda Dağıtım Noktası
@@ -634,7 +634,9 @@ group:
       already_verified: Seçilen tüm kullanıcılar zaten doğrulandı
       inform_user: Bildirimle
       filter_status: Yalnızca durumu göster
-      unverify_error_slots: ''
+      unverify_error_slots: '{name} ({id}) adlı kişinin doğrulamasının kaldırılması
+        mümkün değil çünkü kişi hala listede yer alıyor. Lütfen önce kişiyi listeden
+        kaldırın.'
     all_roles: Tüm Roller
   show-all: Hepsini göster
   delete_group_sure: '{groupName} çalışma grubunu/bölgesini silmek istediğinizden
@@ -1157,7 +1159,7 @@ regionOptions:
     sayısını girin
   regionPickupTimespan: Lütfen düzenlemenin geçerli olduğu süreyi gün olarak 
     belirtiniz
-  regionPickupLimitDayNumber: Lütfen BİR GÜN için toplam maksimum alım sayısını 
+  regionPickupLimitDayNumber: Lütfen bir gün çin toplam maksimum alım sayısını 
     girin
   regionPickupInactiveHours: Lütfen düzenlemenin artık geçerli olmayacağı bir 
     alımdan önceki saat sayısını girin?
@@ -1802,7 +1804,7 @@ events:
     past: Bu etkinlik çevrimiçi olarak gerçekleşti.
     future: Bu etkinlik çevrimiçi olarak gerçekleşir.Başladıktan sonra aşağıdaki
       düğmeyi kullanarak katılabilirsiniz.
-  noneAccepted: Şu ana kadar hiç kimse bu etkinliğe katılımını onaylamadı.
+  noneAccepted: Şu ana kadar hiç kimse bu etkinliğe katılımını onaylamadı
   attendees: Katılımcılar
   online_info: "foodsharing kaynaklanan telefon ve çevrimiçi konferanslar en iyi şekilde
     kendi [BigBlueButton](https://bigbluebutton.org) sunucumuz aracılığıyla gerçekleştirilir.
@@ -2529,7 +2531,7 @@ settings:
   photo:
     title: Senin Fotoğrafın
     info: "Profil fotoğrafında yüzünüz <a href=\"{link_photo}\">tanımlanabilir</a>
-      olmalıdır,\nfoodsharing <a href=\"{link_id}\">ID</a> için kullanıldığından,\n\
+      olmalıdır,\nfoodsharing <a href=\"{link_id}\">Kimlik</a> için kullanıldığından,\n\
       \ daha sonra <a href=\"{link_fs}\">foodsaver</a> olunca işletmelerden gıda alımı
       yapıcaksınız.\n"
   general:
@@ -3357,7 +3359,7 @@ terminology:
     orga: Şikayet panosu (Orga)
     report: Şikayet panosu(LMG)
   n_home_regions: İşte {count} kişilik ana bölge
-  previous_pickups: Teslimat burada
+  previous_pickups: Slotlar burada
   no_pickups: yok
   electionAdmins: Seçimler
   no: Hayır
@@ -3374,25 +3376,24 @@ terminology:
   resourcesAdmins: Kaynak Mozaik Ekibi
   giving: 'Gönderim'
   attention: 'Dikkat'
-  newsletter: ''
+  newsletter: 'Bülten'
 legal:
   if_delete:
     this_doesnt_get_deleted: 'Aşağıdaki bilgiler artık aktif sistemde mevcut değildir,
-      ancak Madde 17 Paragraf 3 Cümle 1 Mektup b GDPR uyarınca ayrı olarak arşivlenir:'
+      ancak Madde 17 Paragraf 3 Cümle 1 Mektup b GDPR uyarınca, ayrı olarak arşivlenir:'
     legal_1: mevcut gizlilik politikamız
     this_gets_deleted_friendlist: Arkadaş listeniz kaldırılacak.
     this_gets_deleted_quiz: Foodsaver testiniz kaldırılacak.
     this_doesnt_get_deleted_history: Onaylanma geçmişiniz
     legal_2: Saklama sürelerine ilişkin kanunlar (sayfa almanca)
-    this_gets_deleted_main: 'Aşağıdaki bilgileri siliyorsun ve bundan sonra eski haline
-      getirelemez:'
+    this_gets_deleted_main: 'Aşağıdaki bilgiler hesabınızdan kalıcı olarak silinecektir:'
     this_gets_deleted_stores: Katıldığınız işletmeler.
     this_gets_deleted_verify: Onaylanmanız kaldırılacak.
     this_doesnt_get_deleted_name: Adınız
     this_doesnt_get_deleted_address: Adresiniz
     this_gets_deleted_trustbananas: 'Verdiğiniz fidanlar, kaldırılacaktır.'
     unsubscribe_newsletter: ''
-    legal_more_info: ''
+    legal_more_info: 'Daha fazla bilgi'
   legal_agreement: Yasal anlaşma
   privacy_notice: İşletme Sorumluları ve Elçiler için Gizlilik Politikası
   privacy_policy: Veri Koruma Beyannamesi
@@ -3459,7 +3460,7 @@ register:
     nedenleriyle, foodsharing'e katılmak için en az 18 yaşında olmalısınız.
   account-exists: Zaten kayıtlısınız. Tekrar kaydolmak istiyorsanız lütfen 
     oturumu kapatın.
-  pass2: Şifre tekrarı
+  pass2: Şifreyi onaylayın
   signup_newsletter: Ayda yaklaşık bir kez foodsharing bültenini almak istiyorum
   email_required: Bir e-posta adresi gerekli
   login_name: Ön Adınız
@@ -3474,12 +3475,14 @@ register:
   password_must_be_complex: Şifre en az bir büyük harf, bir küçük harf ve rakam 
     içermelidir
   password_must_be_trimmed: Şifrenin başında veya sonunda boşluk olmamalı
-  token_invalid_or_expired: ''
-  invalid_token: ''
+  token_invalid_or_expired: 'Kayıt kodu bilinmiyor veya süresi dolmuş. Kayıt olmak
+    için lütfen yeni bir kod talep edin.'
+  invalid_token: 'Kayıt kodu bilinmiyor'
   join_initialised: ''
   join_initialised_message: ''
   email_in_progress: ''
-  join_newsletter_failed: ''
+  join_newsletter_failed: 'Maalesef, bültene abone olurken bir hata oluştu. Bültene
+    dilediğiniz zaman profilinizden abone olabilirsiniz.'
 gender:
   f: Kadın
   d: Her ikisi veya diğer
@@ -3495,7 +3498,7 @@ storeview:
   cooperation_status: İşbirliği durumu
   public_time_at_noon_or_afternoon: öğlen/öğleden sonra
   managers: İşletme Sorumlusu
-  team: Kurtarma Ekibi
+  team: İşletme Ekibi
   public_and_statistics: İstatistik ve Halkla İlişkiler
   no_permission_to_view: Sadece işletme sorumluları tarafından görülebilir.
   groceries:
@@ -3540,7 +3543,7 @@ storeview:
   activityCount:
     0: ''
     1: ''
-    2: ''
+    2: 'Randevular'
 fsp:
   suggest: Gıda dağıtım noktası önerin
   accept: Gıda dağıtım noktasının kilidini aç
