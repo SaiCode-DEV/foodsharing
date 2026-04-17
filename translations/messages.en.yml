@@ -2087,7 +2087,9 @@ region:
   confirm:
     edit: Are you sure you want to save the changes to the district {name} ?
     create: Are you sure you want to create the disctrict {name}?
-    delete: Are you sure you want to delete district {name}?
+    delete: 'Are you sure you want to delete district {name}? This will permanently
+      delete all district data: forum, events, polls, wall posts, stickers, and district
+      resources.'
   none: No district chosen yet
   new: New district
   bread: Manage districts

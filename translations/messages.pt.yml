@@ -363,7 +363,7 @@ store:
       menos 3 meses.
     conditions_not_met: O local não pode ser cancelado porque as condições 
       necessárias não foram cumpridas.
-  my_last_slot: A minha última vaga
+  my_last_slot: A minha vaga mais recente
   chain_has_kams: 'Responsável para esta cadeia:'
   part_of_chain: 'Faz parte da cadeia:'
   members_not_in_target_region: 'Há membros da equipa que não fazem parte da região-alvo:
@@ -1798,7 +1798,7 @@ foodsaver:
     para confirmar o teu pedido de exclusão.'
   delete_account_totp_hint: 'Por favor, tenha em atenção que só poderá eliminar a
     tua conta se a autenticação de dois fatores estiver desativada. Esta opção pode
-    ser definida nas configurações da tua conta, em «Segurança da conta», e serve
+    ser definida nas configurações da tua conta, em "Segurança da conta", e serve
     para proteger contra a eliminação indevida caso a tua palavra-passe seja conhecida
     (ou guardada) por outras pessoas.'
   delete_own_account_failed_totp_hint: 'Não foi possível eliminar a tua conta de utilizador.'
@@ -2843,7 +2843,7 @@ settings:
     2: Teste para te tornar um responsável por cooperações
     3: Quiz para te tornar um(a) embaixador(a)
   account_security:
-    title: Segurança da conta de acesso
+    title: Segurança da conta
     email_password_section: E-mail e palavra-passe
     change_password: Alterar palavra-passe
     change_email: Alterar endereço de e-mail
@@ -3663,7 +3663,9 @@ region:
   confirm:
     edit: Tens a certeza de que deseja salvar as alterações no distrito {name}?
     create: Tens a certeza de que deseja criar um novo distrito {name}?
-    delete: Tens a certeza de que deseja eliminar o distrito {name}?
+    delete: 'Tens a certeza de que deseja eliminar o distrito {name}? Isto irá apagar
+      definitivamente todos os dados do distrito: fórum, eventos, votações, publicações
+      no mural, selos e recursos do distrito.'
   name: Nome
   parent: Distrito parental
   master: Distrito principal
@@ -4239,7 +4241,7 @@ releases:
   "2024-08": Versão „Mandarine“ 🍊 (agosto de 2024)
   "2024-04": Versão „Laugenbrezel" 🥨 (abril de 2024)
   "2024-01": Versão „Kiwi" 🥝 (janeiro de 2024)
-  "2026-04": Versão „Paprika“ 🫑 (abril de2026)
+  "2026-04": Versão „Paprika“ 🫑 (abril de 2026)
 error_ajax: "Infelizmente, isso não funcionou. \nTalvez a tua conexão com internet
   não funcione neste momento. \nRecarrega a pagina e tenta novamente.\n"
 information:

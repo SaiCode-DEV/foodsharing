@@ -2882,7 +2882,10 @@ profile:
       rozpatrującego skargi w waszym rejonie.'
     noshow: ''
     doesNotAffectStore: ''
-    arbAdminAgainstRepAdmin: ''
+    arbAdminAgainstRepAdmin: 'Jesteś administratorem/ką rady arbitrażowej i chcesz
+      zgłosić skargę przeciwko administratorowi/ce zespołu rozpatrującego skargi.
+      Na ten moment nie jest to technicznie wspierane. Możesz zawsze wysłać skargę
+      mailem do lokalnie odpowiedzialnych za was osób w tym przypadku.'
     confirmDelete: 'Czy na pewno usunąć tę skargę?'
     oldReportButton: 'Zgłoś skargę'
     send: 'Wyślij skargę'
@@ -2893,7 +2896,10 @@ profile:
     report_b7: ''
     report_b4_1: ''
     report_b1_2: ''
-    repAdminAgainstArbAdmin: ''
+    repAdminAgainstArbAdmin: 'Jesteś administratorem/ką zespołu rozpatrującego skargi
+      i chcesz zgłosić skargę przeciwko administratorowi/ce rady arbitrażowej. Na
+      ten moment nie jest to technicznie wspierane. Możesz zawsze wysłać skargę mailem
+      do lokalnie odpowiedzialnych za was osób w tym przypadku.'
     sent: 'Wysłano skargę'
     report_b4_0: ''
     oldReportButtonTextPart3: 'Więcej informacji o systemie skarg znajdziecie'
@@ -2912,8 +2918,11 @@ profile:
     kindofreport: 'Wybierz rodzaj skargi'
     noReportGroup: 'Nie możesz użyć wsparcia technicznego do systemu skarg, bo nie
       jest aktywowane w rejonie foodsavera/ki.'
-    oldReportButtonTextPart1: ''
-    reportedAdminNoArbitration: ''
+    oldReportButtonTextPart1: 'Aktualnie nie zgłasza się tutaj skarg dotyczących złamania
+      reguł.'
+    reportedAdminNoArbitration: 'Nie możesz zgłosić skargi przeciwko {name}, ponieważ
+      jest administratorem/ką lokalnego zespołu rozpatrującego skargi w tym rejonie
+      i nie ma tam rady arbitrażowej.'
     report_b2: ''
     sells: ''
     report_b5: ''
@@ -2921,7 +2930,8 @@ profile:
     report_b1_4: 'Nie miał/a przy sobie legitymacji foodsharingu (B01-5)'
     reporterHasNoReportGroup: 'Nie możesz użyć wsparcia technicznego do systemu skarg,
       bo w twoim rejonie nie ma lokalnego zespołu rozpatrującego skargi.'
-    reporterAdminNoArbitration: ''
+    reporterAdminNoArbitration: 'Jesteś administratorem/ką lokalnego zespołu rozpatrującego
+      skargi i ponieważ nie ma lokalnej rady arbitrażowej, nie możesz zgłosić skargi.'
     report_b1_0: ''
     report_b6_1: ''
     cancellation: ''
@@ -2935,7 +2945,7 @@ profile:
   notFound: 'Tego profilu użytkownika/czki (już) nie ma'
   choosestore: ''
   deletesuccess: ''
-  sleeping_info_from_until: ''
+  sleeping_info_from_until: 'jest uśpiony/a od {from} do {until}'
   warning: 'Uwaga'
   tab_navigation:
     pickups: 'Sloty'
@@ -3254,14 +3264,14 @@ thread:
     title: ''
     normal: 'normalnie'
   options:
-    rename: ''
-    unlock: ''
+    rename: 'Edytuj tytuł'
+    unlock: 'Otwórz temat'
     pin: ''
-    lock: ''
+    lock: 'Zamknij temat'
     unpin: ''
-    hideHidden: ''
+    hideHidden: 'Nie pokazuj ukrytych postów'
     priority: ''
-    showHidden: ''
+    showHidden: 'Pokaż ukryte posty'
   post:
     options:
       copy_direct_link: 'kopiuj bezpośredni link'
@@ -3339,7 +3349,7 @@ poll:
   type_description_3: ''
   cancel:
     title: 'Anuluj głosowanie'
-    question: ''
+    question: 'Na pewno chcesz przerwać to głosowanie? Nie można tego cofnąć.'
   may_not_yet_vote: 'To głosowanie jeszcze się nie zaczęło.'
   not_available: 'To głosowanie nie istnieje lub nie masz do niego dostępu.'
   eligible_votes_count: 'Liczba uprawnionych do głosowania'
@@ -3511,12 +3521,13 @@ email_template:
 notifications:
   save_success: ''
   newsletter:
-    description: ''
+    description: 'Otrzymuj ok. 1x w miesiącu aktualne informacje o foodsharingu mailem.'
     title: 'Newsletter'
-    patch_error: ''
-    unavailable_error: ''
-    patch_success: ''
-    checkbox: ''
+    patch_error: 'Nie można było zapisać ustawień.'
+    unavailable_error: 'Serwer newslettera jest aktualnie nieosiągalny. Spróbuj ponownie
+      później.'
+    patch_success: 'Zapisano ustawienia newslettera.'
+    checkbox: 'Otrzymuj newsletter'
     settings: 'Ustawienia newslettera'
   foodSharePoints:
     title: 'Jadłodzielnie'
@@ -3635,7 +3646,7 @@ achievements:
   duplicate_mode:
     override: ''
     multiple: ''
-  validUntil: ''
+  validUntil: 'ważny do'
   edit: ''
   editor:
     name: ''
@@ -3646,8 +3657,8 @@ achievements:
     duplicate_mode: ''
     icon: ''
   notAwarded: ''
-  awardedNoReviewer: ''
-  reviewer: ''
+  awardedNoReviewer: 'automatycznie'
+  reviewer: 'od'
   duplicate_mode_explanation:
     multiple: ''
   awardedTo: ''
@@ -3659,12 +3670,12 @@ achievements:
   editTitle: ''
   revokeConfirmation: ''
   noneInThisRegion: ''
-  editDetails: ''
+  editDetails: 'Edytuj szczegóły'
   revoke: ''
   deleteConfirmation: ''
-  findUser: ''
+  findUser: 'Szukaj użytkownika/czki'
   editAwarded: ''
-  notice: ''
+  notice: 'uwaga'
   award: ''
   awarded: ''
 search:
@@ -4167,7 +4178,9 @@ startpage:
     text: ''
   call_to_action:
     title: 'Dołącz'
-    text: ''
+    text: 'Powstaliśmy w 2012 roku, obecnie jesteśmy międzynarodowym ruchem z ponad
+      500.000 użytkowników/czek w Niemczech, Austrii, Szwajcarii i innych europejskich
+      krajach.'
   how_we_work:
     title: 'Tak to działa'
     text: ''
@@ -4179,7 +4192,7 @@ startpage:
     title: ''
     text: ''
   slogan_2: ''
-  makeproposals: ''
+  makeproposals: 'Składaj propozycje'
   followrules: ''
   respect: ''
   followrules_title: ''
@@ -4195,10 +4208,13 @@ startpage:
   registernow: 'Zarejestruj się teraz'
   this_is_how_it_works: 'Tak to działa'
   beresponsible: 'Bądź odpowiedzialny/a'
-  telltruth: ''
+  telltruth: 'My wszyscy, którzy opracowaliśmy foodsharing i prowadzimy stronę internetową,
+    bierzemy nasze zadanie bardzo na poważnie. Przestrzegamy szeregu przepisów i warunków.
+    Ty też bądź uczciwy/a przy wypełnianiu swoich danych i przy całym wkładzie, jaki
+    wnosisz na platformie, np. jadłokoszyki, posty na forum.'
   more_infos: 'Dowiedz się więcej'
-  slogan_3: ''
-  bedependable: ''
+  slogan_3: 'foodsharing jest i zostanie bezpłatny.'
+  bedependable: 'Bądź niezawodny/a'
   towns:
     text: ''
     title: 'miasta foodsharingu'
@@ -4213,11 +4229,12 @@ startpage:
   private:
     title: 'prywatnie'
     text: ''
-  proposals: ''
+  proposals: 'Chcemy rozwijać się dalej, stawać się coraz lepszymi. Do tego potrzebujemy
+    was z wieloma dobrymi pomysłami i radami. Wyślijcie nam je na adres [info@foodsharing.de](mailto:info@foodsharing.de)'
   together: ''
   responsibility: ''
   notallowed: ''
-  join_rules: ''
+  join_rules: 'Dołącz - nasze reguły'
 markdown_input:
   tooltip:
     image: 'załącz obrazy'
@@ -4274,7 +4291,7 @@ bootstrap-datepicker:
   labelCalendar: 'Kalendarz'
   labelCurrentMonth: 'Bieżący miesiąc'
   labelPrevYear: 'Poprzedni rok'
-  labelHelp: ''
+  labelHelp: 'Nawiguj w kalendarzu klawiszami strzałek'
   labelNav: 'Nawigacja kalendarza'
   labelNextMonth: 'Przyszły miesiąc'
   labelPrevMonth: 'Poprzedni miesiąc'
@@ -4343,9 +4360,9 @@ stats:
   title: 'Całkowita statystyka'
 numbers:
   decimal_separator: ','
-  million_abbreviation: ''
+  million_abbreviation: ' mln'
   thousands_separator: ','
-  billion_abbreviation: ''
+  billion_abbreviation: ' mrd'
 storelist:
   status: 'Status'
   emptyfilters: 'wyczyść filtry'
@@ -4415,7 +4432,7 @@ information:
   calendar_sync:
     title: 'Znasz synchronizację kalendarza do twoich slotów?'
     link: 'Subskrybuj teraz'
-    description: ''
+    description: 'Możesz zobaczyć swoje przyszłe sloty w wybranym programie kalendarza.'
 team_page:
   alumni_member:
     title: ''
@@ -4432,7 +4449,8 @@ donation_banner:
   action_button: 'Przekaż darowiznę tutaj!'
   amount: 'Stan darowizn'
   info_button: ''
-totp_code: ''
+totp_code: 'Podaj albo wygenerowany kod uwierzytelniania dwuskładnikowego, albo jeden
+  z kodów backup.'
 language_chooser:
   translation_help: ''
   title: 'Wybierz język'
