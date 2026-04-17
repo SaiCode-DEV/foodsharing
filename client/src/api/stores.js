@@ -60,7 +60,7 @@ export async function requestStoreTeamMembership (storeId, message = null) {
 }
 
 export async function acceptStoreRequest (storeId, userId, moveToStandby) {
-  return patch(`/stores/${storeId}/requests/${userId}`, { moveToStandby })
+  return patch(`/stores/${storeId}/requests/${userId}?moveToStandby=${moveToStandby}`)
 }
 
 export async function declineStoreRequest (storeId, userId, message) {
