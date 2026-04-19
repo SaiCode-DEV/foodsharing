@@ -1492,12 +1492,12 @@ bcard:
     length: 'A tua morada é demasiado longa. A morada, o código postal e a cidade
       não podem ter mais de 49 caracteres.'
     verified: 'Tens de ser verificado para poderes gerar o teu cartão de visita.'
-  generate: 'Criar um cartão de visita'
+  generate: 'Criar cartões de visita'
   for: '{role} para {region}'
-  claim: 'Simplesmente gerar, imprimir e cortar aqui …'
+  claim: 'Gera, imprime e recorta aqui …'
   card: 'O teu cartão de visita de foodsharing'
-  desc: 'Selecione aqui para qual distrito ou função pretende criar o teu cartão de
-    visita.'
+  desc: 'Seleciona aqui o distrito e a função para os quais queres criar o teu cartão
+    de visita.'
   title: 'Gerador de cartão de visita'
   role: 'Função'
   region: Região
@@ -2798,7 +2798,7 @@ settings:
     '
   title: 'Configurações'
   notifications: 'Notificações'
-  businesscard: 'cartão de visita pessoal'
+  businesscard: 'Cartão de visita pessoal'
   newsletter: 'Aproximadamente uma vez por mês, enviamos informações atualizadas
 
     sobre o movimento de resgate de comidas em uma newsletter.

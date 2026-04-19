@@ -2235,9 +2235,15 @@ recipients:
   unknown: nieznany
   done: Wysłano wszystkie maile
   empty-region: 'W wybranych rejonach nie ma jeszcze żadnych foodsaverów/ek'
-  region-hint: ''
+  region-hint: '<strong>Uwaga:</strong>
+
+    Aby zaznaczyć podrzędne rejony, musisz najpierw otworzyć folder.
+
+    Nie są wysyłane maile do wszystkich niewidocznych rejonów.
+
+    '
   variables: 'Forma grzecznościowa'
-  orga_team: ''
+  orga_team: 'globalny orga-team (administracja strony)'
   bread: ''
   choose: 'Wybierz ręcznie rejony'
   variable-info: ''
@@ -2776,7 +2782,7 @@ profile:
     week_3: Ubiegły tydzień
     pickupCount: ''
     week_0: ''
-    week_4: ''
+    week_4: 'Jeszcze poprzedni tydzień'
     respActStores: 'Dziękujemy za koordynację {count} aktywnych '
     securePickupWeek: ''
     basketsSharedWeek: 'Podzielono się jadłokoszykami z {count} osobami. '
@@ -3334,14 +3340,15 @@ poll:
       je utworzyć teraz?'
     option: 'Opcja'
     missing_fields: 'Wszystkie pola muszą być wypełnione'
-    shuffle_options: ''
+    shuffle_options: 'Pokaż opcje w przypadkowej kolejności podczas głosowania'
     submit: 'Zapisz głosowanie'
   time_period: 'Przedział czasu'
   may_not_vote: ''
   type_description_0: 'Wybór (można wybrać tylko jedną opcję)'
-  type_description_1: ''
-  may_not_edit: ''
-  hint_random_order: ''
+  type_description_1: 'Wielokrotny wybór (można wybrać kilka opcji)'
+  may_not_edit: 'Nie masz uprawnień do edytowania tego głosowania bądź czas na edycję
+    upłynął.'
+  hint_random_order: 'Kolejność następujących opcji do wyboru jest przypadkowa.'
   ended_at: 'skończyło się'
   type_description_2: 'Możliwość wyboru między zgodą / wstrzymaniem się / odrzuceniem'
   begins_at: 'Początek'
@@ -3368,7 +3375,8 @@ poll:
   scope_description_3: 'Wszyscy/tkie ambasadorzy/ki z rejonu'
   scope_description_4: 'Wszyscy/tkie zweryfikowani/e foodsaverzy/ki z rejonem macierzystym
     głosowania'
-  hint_sorted_order: ''
+  hint_sorted_order: 'Kolejność następujących opcji do wyboru jest ustalona i taka
+    sama dla wszystkich głosujących.'
   scope_description_0: 'Wszyscy zweryfikowani/e i niezweryfikowani/e foodsaverzy/ki
     z rejonu/zespołu'
   title: 'Głosowanie: {name}'
@@ -3634,11 +3642,11 @@ achievements:
   inRegion: ''
   add: ''
   visibility_type:
-    private: ''
+    private: 'Prywatny'
     scope: ''
     global: ''
     store_managers: ''
-    hidden: ''
+    hidden: 'Ukryty'
   validity:
     days: ''
     indefiniteShort: ''
@@ -3650,11 +3658,11 @@ achievements:
   edit: ''
   editor:
     name: ''
-    preview: ''
+    preview: 'Podgląd'
     description: ''
-    visibility_type: ''
+    visibility_type: 'Widoczność'
     validityInDaysAfterAssignment: ''
-    duplicate_mode: ''
+    duplicate_mode: 'Postępowanie z wielokrotnym przyznaniem'
     icon: ''
   notAwarded: ''
   awardedNoReviewer: 'automatycznie'
@@ -3667,12 +3675,12 @@ achievements:
     region: ''
     group: ''
   scope: ''
-  editTitle: ''
+  editTitle: 'Edytuj sticker'
   revokeConfirmation: ''
-  noneInThisRegion: ''
+  noneInThisRegion: 'W tym rejonie nie wprowadzono żadnych stickerów.'
   editDetails: 'Edytuj szczegóły'
   revoke: ''
-  deleteConfirmation: ''
+  deleteConfirmation: 'Czy na pewno chcesz usunąć ten sticker?'
   findUser: 'Szukaj użytkownika/czki'
   editAwarded: ''
   notice: 'uwaga'
