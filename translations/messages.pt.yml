@@ -779,7 +779,7 @@ calendar:
   labelPrevYear: 'O ano pasado'
   labelResetButton: Anular seleção
   placeholder: Selectionar uma data
-  copiedUrl: URL de calendário copiáda!
+  copiedUrl: URL do calendário copiáda!
 poll:
   type_description_3: Seleção de avaliações com valores entre -3 (contra) e +3 
     (aprovação)
@@ -1494,7 +1494,7 @@ bcard:
     verified: 'Tens de ser verificado para poderes gerar o teu cartão de visita.'
   generate: 'Criar cartões de visita'
   for: '{role} para {region}'
-  claim: 'Gera, imprime e recorta aqui …'
+  claim: 'Gera aqui — depois imprime e recorta …'
   card: 'O teu cartão de visita de foodsharing'
   desc: 'Seleciona aqui o distrito e a função para os quais queres criar o teu cartão
     de visita.'
@@ -1951,7 +1951,7 @@ pickup:
   confirmed: Vaga está confirmada
   may_enter: Ainda há uma vaga disponível por ti neste horário.
   passport_expired:
-    short: Cartão de membro expirado
+    short: Cartão de foodsharing expirado
     long: O teu cartão de foodsharing já não é válido neste momento
   chat: Abrir chat da vaga
   slots: Vagas
@@ -1984,8 +1984,8 @@ error:
     link_1: 'Pedir um novo e-mail de ativação'
     link_2: 'Alterar endereço de e-mail'
   passport_is_invalid_soon:
-    description: 'A tua cartão de membro ainda é válida por {days} dias. Entra em
-      contacto com os teus embaixadores para a renovar.'
+    description: 'A tua cartão de foodsharing ainda é válida por {days} dias. Entra
+      em contacto com os teus embaixadores para a renovar.'
     link: 'Ajustes do perfil'
     title: 'O teu cartão de foodsharing vai expirar em breve!'
   invalid_landline_phonenumber:
@@ -2000,7 +2000,7 @@ error:
     other: 'Ocorreu um erro desconecido.'
   passport_is_invalid:
     description: 'Entre em contato com os teus embaixadores para uma renovação.'
-    title: 'A tua cartão de membro já não é válida!'
+    title: 'A tua cartão de foodsharing já não é válida!'
     link: 'Opções do perfil'
 fsp:
   info:
@@ -2663,15 +2663,15 @@ settings:
     export_tooltip: 'Pode subscrever as tuas datas de recolha com um programa de calendário
       à tua escolha.'
     program:
-      apple: Apple Calendário
+      apple: Apple calendário
       label: Que programa de calendário usas?
-      google: O calendário de Google
+      google: Google calendário
       outlook: Microsoft Outlook
       thunderbird: Mozilla Thunderbird
       etar: Etar
       other: Outra coisa
     generate_url:
-      button: Gerar URL de calendário
+      button: Gerar URL do calendário
     download: Descarregar calendário
     info: |
       Aqui podes associar os teus eventos de foodsharing a um programa de calendário à tua escolha. Assim, todas as tuas vagas e/ou eventos serão automaticamente adicionados no teu calendário.
@@ -2750,13 +2750,13 @@ settings:
       '
   passport:
     menu: 'Cartão de foodsharing'
-    button: 'Descarregar cartão de membro'
+    button: 'Descarregar cartão de foodsharing'
     verified_text: 'Este cartão é destinado ao uso em smartphones. Pode salvar o cartão
       no teu telemóvel e, em caso de necessidade, apresentá-lo. Caso não possua um
       smartphone ou, por qualquer outro motivo, necessite de um cartão convencional,
       entre em contacto com os embaixadores locais.'
     non_verified_text: 'Não estás verificado. Apenas os Foodsavers verificados podem
-      descarregar o cartão de membro.'
+      descarregar o cartão de foodsharing.'
     renew: Renovar o cartão
     passport_not_activated: O teu cartão de foodsharing ainda não foi ativado.
     ask_your_ambassadors: Para isso, contacte os teus embaixadores.
@@ -2771,13 +2771,13 @@ settings:
       role: Função
       valid_start: Válido a partir de
       valid_end: Válido até
-      generate_error: Ocorreu um erro ao gerar o cartão de membro. Por favor, 
-        tente novamente mais tarde.
+      generate_error: Ocorreu um erro ao gerar o cartão de foodsharing. Por 
+        favor, tente novamente mais tarde.
   photo:
     info: 'O teu rosto deve ser <a href="{link_photo}">reconhecível</a> na foto do
       perfil,
 
-      pois será utilizado para o <a href="{link_id}">cartão de membro do foodsharing</a>,
+      pois será utilizado para o <a href="{link_id}">cartão de foodsharing do foodsharing</a>,
       caso
 
       mais tarde te tornes um <a href="{link_fs}">Foodsaver</a> e salves comida em
@@ -4251,7 +4251,7 @@ information:
       a qualquer momento nas configurações.'
     title: 'Agora podes receber notificações instantâneas do foodsharing.'
   calendar_sync:
-    title: 'Conhece a sincronização do calendário para os tuas vagas inscritas?'
+    title: 'Conheces a sincronização do calendário para as tuas vagas inscritas?'
     link: 'Subscreve agora'
     description: 'Assim, podes ver as tuas próximas vagas num programa de calendário
       à tua escolha.'

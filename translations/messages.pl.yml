@@ -109,7 +109,9 @@ quiz:
       chwilowo niestety nie sprawiasz takiego wrażenia. Dlatego otrzymujesz przerwę
       na naukę, zanim będziesz mógł/mogła ponownie spróbować zdać quiz. Twoja przerwa
       na naukę kończy się za {count} dni.'
-    waitAfter: ''
+    waitAfter: 'Jeśli nie zdasz przy następnej próbie, musisz zrobić przerwę na naukę
+      przez {waitTimeAfterFailure} dzień/dni. Koniecznie przeanalizuj odpowiednie
+      artykuły informacyjne, abyś mógł/mogła zdać quiz.'
   regstart: Rozpocznij quiz bez limitu czasu i {count} pytań
   button:
     pause: Kontynuuj później
@@ -171,7 +173,8 @@ quiz:
     sent: Komentarz wysłany.
     wallTitle: 'Komentarze do pytania #{id}'
     label: Skomentuj pytanie
-    info: ''
+    info: 'Prześlij nam swój feedback do tego pytania. Było za łatwe, za trudne, niezrozumiałe?
+      Albo są poszczególne odpowiedzi bądź wyjaśnienia niepoprawne?'
   question_options:
     add: Dodaj pytanie
     edit: Edytuj pytanie
@@ -208,7 +211,7 @@ quiz:
       później nie będzie dostępna.
   fp_badge:
     right: Odpowiedź poprawna
-    wrong: '{userFailurePoints} błędy'
+    wrong: '{userFailurePoints} błędy/ów'
   timed_out: Nie odpowiedziałeś/aś na pytanie w wyznaczonym czasie.
   timed_out_last: Niestety, nie odpowiedziałeś/aś na ostatnie pytanie w 
     wyznaczonym czasie.
@@ -327,7 +330,7 @@ upload:
     {fileNames}'
 button:
   save: Zapisz
-  next: następny
+  next: Dalej
   change_picture: Zmień obraz
   attach_image: Dodaj obraz (format png lub jpg)
   rotate_right: obróć zgodnie z ruchem wskazówek zegara
@@ -785,13 +788,16 @@ group:
     fsmanagement: Zarządzanie
     restricted_workgroup_function: 'Ta funkcja zespołu może być edytowana tylko przez
       międzyregionalny zespół "AG anlegen"'
-    tooltip_function_9: ''
+    tooltip_function_9: 'Administratorzy/ki tego zespołu mogą edytować opis grupy
+      lokalnej na mapie.'
     tooltip_function_4: ''
     pr: 'Public relations'
     tooltip_function_5: 'Administratorzy/ki tego zespołu mogą widzieć skargi o foodsaver(k)ach
       w rejonie. Nie są pokazywane skargi, które są powiązane z administrator(k)ami!
       Te skargi otrzymuje rada arbitrażowa.'
-    tooltip_function_10: ''
+    tooltip_function_10: 'Administratorzy/ki tego zespołu mogą akceptować posty w
+      moderowanych forach. Jeśli ta opcja jest aktywowana w rejonie, mogą też ukrywać
+      posty na forum.'
     tooltip_function_1: 'Administratorzy/ki tego zespołu otrzymują powiadomienia,
       gdy nowi członkowie dołączają do rejonu'
     report: 'Skargi'
@@ -800,9 +806,10 @@ group:
       przeglądowej rejonu.'
     tooltip_function_2: 'Administratorzy/ki tego zespołu mogą tworzyć głosowania dla
       rejonu'
-    tooltip_function_11: 'Administratorzy/ki tego zespołu są pokazywani na stronie
+    tooltip_function_11: 'Administratorzy/ki tego zespołu są pokazywani/e na stronie
       przeglądowej rejonu.'
-    tooltip_function_6: ''
+    tooltip_function_6: 'Adres email tego zespołu jest wyświetlany na przycisku "Zapytaj
+      o mediację". Administratorzy/ki nie mają żadnych szczególnych uprawnień.'
     tooltip_function_7: 'Administratorzy/ki tego zespołu otrzymują skargi z udziałem
       zespołu rozpatrującego skargi. Nie są pokazywane skargi powiązane z administrator(k)ami!
       Te skargi otrzymuje zespół rozpatrujący skargi'
@@ -952,7 +959,8 @@ legal:
     this_doesnt_get_deleted: ''
     this_gets_deleted_stores: ''
     legal_more_info: Dalsze informacje
-    unsubscribe_newsletter: ''
+    unsubscribe_newsletter: 'Wypisz się także z newslettera foodsharingu, o ile masz
+      subskrybcję. Możesz to też zrobić później przez link w mailu z newsletterem.'
   latest_change: 'Ostatnio zmieniony {date}'
   show_changes: 'Pokaż zmiany'
   legal_agreement: 'Umowa prawna'
@@ -1007,7 +1015,9 @@ login:
       zostanie wysłany nowy email.
   or: albo
   error_not_activated: 'Niestety, twój adres email jeszcze nie jest aktywowany.'
-  error_no_auth: ''
+  error_no_auth: 'Niestety, nie możemy znaleźć tego adresu email lub hasła, proszę
+    spróbować ponownie. Ewentualnie drugi składnik uwierzytelniający może być błędny,
+    jeśli tego używasz.'
   2fa: 'Uwierzytelnianie dwuskładnikowe (2FA)'
   passkey_btn: 'Zaloguj się przez klucz dostępu'
   passkey_cancelled: 'Rejestracja przez passkey została przerwana.'
@@ -1155,7 +1165,7 @@ terminology:
   baskets: 'Jadłokoszyki'
   homeRegion: 'rejon macierzysty'
   prAdmins: 'Team public relations'
-  n_sleeping: ''
+  n_sleeping: '{count} uśpionych'
   votingAdmins: 'Team głosowań'
   previous_pickups: 'Sloty tutaj'
   orga:
@@ -1510,14 +1520,14 @@ store:
     promoteToManager: ''
     userHasPickupsWarning: ''
     promoteToManagerNotPossible: ''
-    filterSleeping: ''
+    filterSleeping: 'uśpiony/a'
     filterJumper: 'Rezerwowy/a'
     filterQuizSM: ''
     reallyRemove: ''
     makeJumper: 'Na listę rezerwowych'
   request:
     applicationSummary:
-      verified: Status weryfikacji ({status})
+      verified: Twój status weryfikacji ({status})
       time: Czas zgłoszenia
       fullName: Twoje pełne imię i nazwisko ({first_name} {last_name})
       distance: ''
@@ -3276,7 +3286,7 @@ thread:
     lock: 'Zamknij temat'
     unpin: ''
     hideHidden: 'Nie pokazuj ukrytych postów'
-    priority: ''
+    priority: 'Dostosuj priorytet wyświetlania'
     showHidden: 'Pokaż ukryte posty'
   post:
     options:
@@ -3542,10 +3552,10 @@ notifications:
     description: 'Otrzymaj powiadomienie przy nowych wpisach na tablicy jadłodzielni,
       które śledzisz.'
   pushModal:
-    ok: ''
-    cancel: ''
-    dontAskAgain: ''
-    title: ''
+    ok: 'Otrzymuj powiadomienia push'
+    cancel: 'Nie aktywuj'
+    dontAskAgain: 'Nie pytaj ponownie'
+    title: 'Otrzymuj powiadomienia push?'
     content: ''
   groups:
     title: 'Zespoły'
@@ -3569,7 +3579,7 @@ notifications:
   safari_add_to_home_screen: ''
   threads:
     title: 'Wątki forum'
-  config_button: ''
+  config_button: 'konfiguruj pojedynczo'
   success: 'Sukces'
   checkbox_email: ''
   checkbox_bell: ''
@@ -4469,7 +4479,8 @@ language_chooser:
 debug:
   title: 'Strona debug'
   info: ''
-prefetchtime: ''
+prefetchtime: 'Na ile tygodni wcześniej foodsaverzy/ki mogą się zapisywać przez automatyczne
+  sloty?'
 usersearch:
   search_tag: 'wybierz użytkowników'
   no_tag_preset: 'Nie znaleziono użytkownika/czki'
