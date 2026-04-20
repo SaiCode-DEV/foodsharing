@@ -157,7 +157,7 @@ The command `bin/console foodsharing:process-bounce-emails` is running all 30 Mi
 Bounce mails are fetched and used to mark the addresses in the database.
 
 ### daily tasks
-The command `bin/console foodsharing:daily-cronjob`, `bin/console foodsharing:stats` and `bin/console foodsharing:deleteOldAccounts` are running every night.
+The commands `bin/console foodsharing:maintenance:*` and `bin/console foodsharing:stats` are running every night.
 At the cronjob the sleeping hats are renewed, notification mails for empty pickup slots are send, some special groups are renewed.
 At the stats command the pickup stats are renewed.
 Then foodsharing accounts not used for 5 years are deleted. 

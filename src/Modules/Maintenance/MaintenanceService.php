@@ -36,89 +36,9 @@ class MaintenanceService
     ) {
     }
 
-    public function daily(): void
-    {
-        /*
-         * delete users that have been inactive for > 5 years
-         */
-        $this->deleteInactiveUsers();
-
-        /*
-         * warn store manager if there are no fetching people
-         */
-        $this->storeTriggerPickupWarnings();
-
-        /*
-         * delete unused images
-         */
-        $this->deleteImages();
-        $this->deleteUnusedImages();
-
-        /*
-         * Delete old password reset requests
-         */
-        $this->deleteOldPassRequests();
-
-        /*
-         * deactivate too old food baskets
-         */
-        $this->deactivateBaskets();
-
-        /*
-         * Update Bezirk closure table
-         *
-         * it gets crashed by some updates sometimes, workaround: Rebuild every day
-         */
-        $this->rebuildRegionClosure();
-
-        /*
-         * Master Bezirk Update
-         *
-         * we have master bezirk that mean any user hierarchical under this bezirk have to be also in master self
-         */
-        $this->masterBezirkUpdate();
-
-        /*
-         * Delete old blocked ips
-         */
-        $this->deleteOldIpBlocks();
-
-        /*
-         * There may be some groups where people should automatically be added
-         * (e.g. Hamburgs BIEB group)
-         */
-        $this->updateSpecialGroupMemberships();
-
-        /*
-         * updates outdated bells with passed expiration date
-         */
-        $this->bellUpdateTrigger->triggerUpdate();
-
-        /*
-         * removing questions and results from finished quiz sessions older than 2 weeks
-         */
-        $this->cleanOldQuizSessionData();
-
-        /*
-         * Deleting test quiz sessions older than a day
-         */
-        $this->deleteTestQuizSessions();
-
-        /*
-         * Remove failed and unprocessed E-Mais form IMAP folder
-         */
-        if (getenv('FS_ENV') !== 'dev') {
-            $this->deleteImapFolderMails();
-        }
-
-        /*
-         * Delete hidden forum posts
-         */
-        $this->deleteHiddenForumPosts();
-
-        $this->deleteOldRegistrationAttempts();
-    }
-
+    /**
+     * Deletes users that have been inactive for more than 5 years.
+     */
     public function deleteInactiveUsers(bool $dryRun = false, int $maximum = MAX_DELETE_OLD_ACCOUNTS_PER_DAY): void
     {
         if ($maximum < 0) {
@@ -159,18 +79,28 @@ class MaintenanceService
         foreach (IMAP as $imap) {
             $deleted = $this->imapFolderCleanupHelper->cleanupFolder($imap['host'], $imap['user'], $imap['password'], IMAP_FAILED_BOX, $deleteDelayDays);
             ConsoleHelper::info($deleted . ' E-Mails deleted from ' . $imap['host'] . ' ' . IMAP_FAILED_BOX);
+            $deleted = $this->imapFolderCleanupHelper->cleanupFolder($imap['host'], $imap['user'], $imap['password'], BOUNCE_IMAP_UNPROCESSED_BOX, $deleteDelayDays);
+            ConsoleHelper::info($deleted . ' E-Mails deleted from ' . $imap['host'] . ' ' . BOUNCE_IMAP_UNPROCESSED_BOX);
         }
         ConsoleHelper::success('All folders processed');
     }
 
-    private function rebuildRegionClosure(): void
+    /**
+     * Updates the region closure table, which lists all parents for each region.
+     */
+    public function rebuildRegionClosure(): void
     {
         ConsoleHelper::info('rebuilding region closure...');
         $this->maintenanceGateway->recreateClosure();
         ConsoleHelper::success('OK');
     }
 
-    private function updateSpecialGroupMemberships(): void
+    /**
+     * Adds some store managers and ambassadors to specific groups.
+     *
+     * TODO: this could use cleaner code and should not contain hard-coded user IDs
+     */
+    public function updateSpecialGroupMemberships(): void
     {
         ConsoleHelper::info('updating HH bieb austausch');
         $hh_biebs = $this->storeGateway->getStoreManagersOf(31);
@@ -268,7 +198,10 @@ class MaintenanceService
         ConsoleHelper::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
     }
 
-    private function deactivateBaskets(): void
+    /**
+     * Deactivates expired food baskets.
+     */
+    public function deactivateBaskets(): void
     {
         $basketIds = $this->maintenanceGateway->listOldBaskets();
         foreach ($basketIds as $basketId) {
@@ -277,7 +210,7 @@ class MaintenanceService
         ConsoleHelper::info(count($basketIds) . ' old foodbaskets deactivated');
     }
 
-    private function deleteImages(): void
+    public function deleteImages(): void
     {
         @unlink('images/.jpg');
         @unlink('images/.png');
@@ -328,14 +261,14 @@ class MaintenanceService
         }
     }
 
-    private function deleteUnusedImages(): void
+    /**
+     * Deletes all files that were uploaded after release "Laugenbrezel" (when usage types were introduced) and up
+     * to two days ago, which do not have a usage type yet. If a file was uploaded but a usage type was not set, it
+     * can be safely deleted. The offset of two days is used to make sure that there was enough time for the user to
+     * set the file's usage.
+     */
+    public function deleteUnusedImages(): void
     {
-        /*
-         * Delete all files that were uploaded after release "Laugenbrezel" (when usage types were introduced) and up
-         * to two days ago, which do not have a usage type yet. If a file was uploaded but a usage type was not set, it
-         * can be safely deleted. The offset of two days is used to make sure that there was enough time for the user to
-         * set the file's usage.
-         */
         $fromDate = Carbon::parse('2024-05-08 00:00:00');
         $toDate = Carbon::now()->subDays(2);
 
@@ -347,14 +280,21 @@ class MaintenanceService
         ConsoleHelper::success(sizeof($uuids) . ' files deleted');
     }
 
-    private function masterBezirkUpdate(): void
+    /**
+     * If a region is a master region, it means that all users which are members of regions hierarchical under this
+     * region must also be in the master region. This function makes sure that they are.
+     */
+    public function masterBezirkUpdate(): void
     {
         ConsoleHelper::info('master bezirk update');
         $this->maintenanceGateway->masterRegionUpdate();
         ConsoleHelper::success('OK');
     }
 
-    private function storeTriggerPickupWarnings(): void
+    /**
+     * Sends warning e-mails to store managers if there are free slots in their stores.
+     */
+    public function storeTriggerPickupWarnings(): void
     {
         try {
             $statistics = $this->storeMaintenanceTransactions->triggerFetchWarningNotification();
@@ -368,45 +308,61 @@ class MaintenanceService
         }
     }
 
-    private function deleteOldIpBlocks(): void
+    public function deleteOldIpBlocks(): void
     {
         ConsoleHelper::info('deleting old blocked IPs...');
         $count = $this->maintenanceGateway->deleteOldIpBlocks();
         ConsoleHelper::success($count . ' entries deleted');
     }
 
-    private function cleanOldQuizSessionData(): void
+    /**
+     * Removes questions and results from finished quiz sessions older than 2 weeks.
+     */
+    public function cleanOldQuizSessionData(): void
     {
         ConsoleHelper::info('reducing data from finished quiz sessions...');
         $count = $this->maintenanceGateway->cleanOldQuizSessionData();
         ConsoleHelper::success($count . ' sessions updated');
     }
 
-    private function deleteTestQuizSessions(): void
+    /**
+     * Deletes test quiz sessions that are older than a day.
+     */
+    public function deleteTestQuizSessions(): void
     {
         ConsoleHelper::info('deleting test quiz sessions...');
         $count = $this->maintenanceGateway->deleteTestQuizSessions();
         ConsoleHelper::success($count . ' sessions deleted');
     }
 
-    private function deleteHiddenForumPosts(): void
+    public function deleteHiddenForumPosts(): void
     {
         ConsoleHelper::info('deleting hidden forum posts...');
         $count = $this->maintenanceGateway->deleteHiddenForumPosts($this->forumTransactions);
         ConsoleHelper::success($count . ' posts deleted');
     }
 
-    private function deleteOldPassRequests(): void
+    /**
+     * Delete old requests for resetting the password.
+     */
+    public function deleteOldPassRequests(): void
     {
         ConsoleHelper::info('deleting old password reset requests...');
         $count = $this->maintenanceGateway->deleteOldPassRequests();
         ConsoleHelper::success($count . ' entries deleted');
     }
 
-    private function deleteOldRegistrationAttempts(): void
+    public function deleteOldRegistrationAttempts(): void
     {
         ConsoleHelper::info('deleting old registration attempts...');
         $count = $this->maintenanceGateway->deleteOldRegistrationAttempts();
         ConsoleHelper::success($count . ' entries deleted');
+    }
+
+    public function triggerBellUpdates(): void
+    {
+        ConsoleHelper::info('Updating old bells...');
+        $this->bellUpdateTrigger->triggerUpdate();
+        ConsoleHelper::success('OK');
     }
 }

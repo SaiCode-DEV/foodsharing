@@ -75,7 +75,11 @@ class MaintenanceCest
         $I->am('Cron');
         $I->wantTo('see that maintenance jobs do execute');
         $I->amInPath('');
-        $I->runShellCommand('bin/console foodsharing:daily-cronjob');
+        $I->runShellCommand('bin/console foodsharing:foodsharing:maintenance:regions');
+        $I->runShellCommand('bin/console foodsharing:foodsharing:maintenance:bells');
+        $I->runShellCommand('bin/console foodsharing:foodsharing:maintenance:stores');
+        $I->runShellCommand('bin/console foodsharing:foodsharing:maintenance:cleanup1');
+        $I->runShellCommand('bin/console foodsharing:foodsharing:maintenance:cleanup2');
 
         $I->seeInShellOutput('send 1 warnings...');
         $I->seeInShellOutput('updating Wien BIEB group');

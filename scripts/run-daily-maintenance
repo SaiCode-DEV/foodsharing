@@ -5,8 +5,14 @@ dir=$(dirname "$0")
 # shellcheck source=./__common.sh
 source "$dir"/__common.sh
 
+log-header "Running daily maintenance"
+exec-in-container app bin/console foodsharing:maintenance:regions
+exec-in-container app bin/console foodsharing:maintenance:bells
+exec-in-container app bin/console foodsharing:maintenance:stores
+exec-in-container app bin/console foodsharing:maintenance:cleanup1
+exec-in-container app bin/console foodsharing:maintenance:cleanup2
+
 log-header "Calculating stats"
-exec-in-container app bin/console foodsharing:daily-cronjob
 exec-in-container app bin/console foodsharing:stats
 
 log-header "All done"
