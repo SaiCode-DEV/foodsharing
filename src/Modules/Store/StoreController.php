@@ -36,7 +36,7 @@ class StoreController extends FoodsharingController
         }
 
         if ($action === 'new') {
-            return $this->redirectToRoute('store_new');
+            return $this->redirectToRoute('store_new', ['regionId' => $regionId]);
         }
 
         return $this->redirect('/');
