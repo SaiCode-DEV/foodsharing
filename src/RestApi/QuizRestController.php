@@ -201,7 +201,7 @@ final class QuizRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Delete(summary: 'Deletes a quiz session')]
-    #[Route('quiz-session/{sessionId}', methods: ['DELETE'], requirements: ['sessionId' => Requirement::POSITIVE_INT])]
+    #[Route('quiz-sessions/{sessionId}', methods: ['DELETE'], requirements: ['sessionId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.')]
     public function deleteQuizSession(int $sessionId)
     {

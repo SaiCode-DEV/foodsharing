@@ -17,14 +17,16 @@ use Tests\Support\ApiTester;
  */
 class QuizApiCest
 {
-    private $foodsharer;
-    private $foodsaver;
-    private $foodsaverQuiz;
+    private array $foodsharer;
+    private array $foodsaver;
+    private array $orga;
+    private array $foodsaverQuiz;
 
     public function _before(ApiTester $I): void
     {
         $this->foodsharer = $I->createFoodsharer(null, ['skip_quiz_creation' => true]);
         $this->foodsaver = $I->createFoodsaver(null, ['skip_quiz_creation' => true]);
+        $this->orga = $I->createOrga(null, false, ['skip_quiz_creation' => true]);
         $this->foodsaverQuiz = $I->createQuiz(1, 3);
         $I->createQuiz(2, 3);
         $I->createQuiz(3, 3);
@@ -347,6 +349,34 @@ class QuizApiCest
         $I->haveInDatabase('fs_quiz_session', ['foodsaver_id' => $this->foodsharer['id'], 'quiz_id' => 1, 'status' => SessionStatus::PASSED->value, 'time_end' => Carbon::now()]);
         $I->sendPost('/api/users/current/quiz-sessions/1/confirmation');
         $I->seeResponseCodeIs(HttpCode::OK);
+    }
+
+    public function userCannotDeleteQuizSession(ApiTester $I): void
+    {
+        $I->createQuizTry($this->foodsharer['id'], QuizID::FOODSAVER->value, SessionStatus::PASSED->value);
+        $quizSessionId = $I->grabFromDatabase('fs_quiz_session', 'id', [
+            'foodsaver_id' => $this->foodsaver['id'],
+            'quiz_id' => QuizID::FOODSAVER->value
+        ]);
+
+        $I->login($this->foodsaver['email']);
+        $I->sendDelete('/api/quiz-sessions/' . $quizSessionId);
+        $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
+        $I->seeInDatabase('fs_quiz_session', ['id' => $quizSessionId]);
+    }
+
+    public function orgaCanDeleteQuizSession(ApiTester $I): void
+    {
+        $I->createQuizTry($this->foodsharer['id'], QuizID::FOODSAVER->value, SessionStatus::PASSED->value);
+        $quizSessionId = $I->grabFromDatabase('fs_quiz_session', 'id', [
+            'foodsaver_id' => $this->foodsaver['id'],
+            'quiz_id' => QuizID::FOODSAVER->value
+        ]);
+
+        $I->login($this->orga['email']);
+        $I->sendDelete('/api/quiz-sessions/' . $quizSessionId);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->dontSeeInDatabase('fs_quiz_session', ['id' => $quizSessionId]);
     }
 
     /**
