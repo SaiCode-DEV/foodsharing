@@ -201,7 +201,7 @@ class StorePermissions
     public function mayReadStoreWall(int $storeId): bool
     {
         $fsId = $this->session->id();
-        if (!$fsId) {
+        if (!$fsId || !$this->session->isVerified()) {
             return false;
         }
 
