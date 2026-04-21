@@ -3396,12 +3396,12 @@ categories:
   title:
     resource: 'Kategorie zasobów'
     store: ''
-  confirm_delete: ''
+  confirm_delete: 'Na pewno usunąć kategorię {name}?'
   types:
     0: ''
-    2: ''
+    2: 'Organizacja'
     1: ''
-    "null": ''
+    "null": 'Nieprzyporządkowane'
   empty: 'Jeszcze nie wprowadzono żadnej kategorii'
   confirm_delete_hint:
     store: ''
@@ -3410,14 +3410,14 @@ categories:
   delete: 'Usuń kategorię'
   edit: 'Edytuj kategorię'
   columns:
-    name: ''
-    type: ''
-    id: ''
+    name: 'Imię'
+    type: 'Typ'
+    id: 'ID'
     usage_count: ''
     number_of_stores: ''
   merge_hint: ''
   merge: ''
-  merge_title: ''
+  merge_title: 'Połącz kategorie'
 help:
   key:
     commons_resources:
@@ -3463,19 +3463,19 @@ help:
       title: 'Ikony do stickerów'
       md: ''
     moderatorForumHide:
-      title: ''
+      title: 'Ukrywanie na forum przez moderatorów/ki'
       md: ''
     my_resources:
       title: 'Własne zasoby'
       md: ''
     report:
-      title: ''
+      title: 'Rozpatrywanie skarg'
       md: ''
     achievementDuplicateMode:
-      title: ''
+      title: 'Wielokrotne przyznawanie stickerów'
       md: ''
     masterRegion:
-      title: ''
+      title: 'Master-rejon'
       md: ''
     change_verified_data:
       title: ''
@@ -3489,8 +3489,8 @@ help:
     store_chain_info:
       md: ''
       title: ''
-  helpTitle: ''
-  tooltip: ''
+  helpTitle: 'Pomoc: {title}'
+  tooltip: 'Pokaż pomoc'
 email_template:
   login: 'Zaloguj się, aby odpowiedzieć'
   fetch_warning:
@@ -3647,14 +3647,14 @@ achievements:
     scope: ''
     store_managers: ''
     private: ''
-    hidden: ''
-    global: ''
-  inRegion: ''
-  add: ''
+    hidden: 'Nie jest wyświetlany nikomu'
+    global: 'Jest widoczny dla wszystkich użytkowników/czek'
+  inRegion: 'Stickery w {region} ({count})'
+  add: 'Dodaj sticker'
   visibility_type:
     private: 'Prywatny'
-    scope: ''
-    global: ''
+    scope: 'W rejonie'
+    global: 'Globalny'
     store_managers: ''
     hidden: 'Ukryty'
   validity:
@@ -3662,25 +3662,25 @@ achievements:
     indefiniteShort: ''
     indefinite: ''
   duplicate_mode:
-    override: ''
-    multiple: ''
+    override: 'Nadpisz'
+    multiple: 'Przyznaj wielokrotnie'
   validUntil: 'ważny do'
-  edit: ''
+  edit: 'Edytuj sticker: {name}'
   editor:
-    name: ''
+    name: 'Nazwa'
     preview: 'Podgląd'
-    description: ''
+    description: 'Opis'
     visibility_type: 'Widoczność'
-    validityInDaysAfterAssignment: ''
+    validityInDaysAfterAssignment: 'Ważność od przyznania w dniach'
     duplicate_mode: 'Postępowanie z wielokrotnym przyznaniem'
-    icon: ''
-  notAwarded: ''
+    icon: 'Ikona'
+  notAwarded: 'Aktualnie nie przyznano nikomu tego stickera.'
   awardedNoReviewer: 'automatycznie'
   reviewer: 'od'
   duplicate_mode_explanation:
-    multiple: ''
+    multiple: 'Możliwe przyznawanie wielokrotne'
   awardedTo: ''
-  new: ''
+  new: 'Nowy sticker'
   inThis:
     region: ''
     group: ''
@@ -4405,7 +4405,8 @@ storelist:
   fetching: ''
   filter_placeholder: 'Nazwa/adres'
 validation:
-  phone_number_invalid: ''
+  phone_number_invalid: 'Numer telefonu jest nieważny (np. brakuje + 48, jest za krótki,
+    za długi lub zawiera niedozwolone znaki)'
 theme_switcher:
   theme:
     system: 'System'
@@ -4456,7 +4457,7 @@ team_page:
     title: ''
     text: ''
   board_member:
-    title: ''
+    title: 'Zarząd'
     text: ''
   it_member:
     title: 'Team IT'

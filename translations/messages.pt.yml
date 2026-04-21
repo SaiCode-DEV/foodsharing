@@ -665,16 +665,15 @@ dashboard:
   deleted_user: 'Utilizador(a) desconectado(a)'
   source_friendWall: 'Mural de {0}'
   source_forum_bot: 'Fórum de Embaixadores {0}'
-  foodsaver_amount: 'Já contribuíste <b>{pickups} vezes</b> contra o desperdício alimentar
-    e ajudaste a salvar <b>{weight} kg</b> de comida do lixo.'
+  foodsaver_amount: 'Já recolheste comida <b>{pickups} vezes</b> e, com isso, salvaste
+    <b>{weight} kg</b> que teriam ido para o lixo.'
   invitation: 'Recebeste um convite'
   no_more_updates_event: 'Não há mais eventos'
   settings_tooltip: 'Configurações gerais'
   no_updates: 'Sem novidades'
   no_more_updates_store: 'Sem mais novidades sobre os locais'
-  full_subline: "Já contribuíste **{pickups} vezes** contra o desperdício alimentar
-    e ajudaste a salvar **{weight} kg** de comida do lixo.\nO teu distrito principal
-    é **{region}**."
+  full_subline: "Já recolheste comida **{pickups} vezes** e, com isso, salvaste **{weight}
+    kg** que teriam ido para o lixo.\nO teu distrito principal é **{region}**."
   no_more_updates_foodsharepoint: 'Não há mais publicações do cantinho de partilha'
   activation_mail_sent: 'Link de ativação enviado – verifique os teus e-mails'
   no_more_updates_all: 'foi isso!'
@@ -1300,11 +1299,11 @@ profile:
     weight: 'salvos'
     posts: 'publicações'
     weight_unit: kg
-    fetch_count: recolhido
+    fetch_count: Recolhido
     bananas: bananas
     slots: ações feitas
-    give_count: entregue
-    engagement_count: engajado
+    give_count: Entregue
+    engagement_count: Engajado
   commitments_stat:
     eventsParticipatedWeek: 'Obrigado pelas {count} participações em eventos desta
       semana. Tempo total: {hour}:{minute} '
@@ -1496,7 +1495,7 @@ bcard:
   for: '{role} para {region}'
   claim: 'Gera aqui — depois imprime e recorta …'
   card: 'O teu cartão de visita de foodsharing'
-  desc: 'Seleciona aqui o distrito e a função para os quais queres criar o teu cartão
+  desc: 'Seleciona aqui a função e a região para os quais queres criar o teu cartão
     de visita.'
   title: 'Gerador de cartão de visita'
   role: 'Função'
