@@ -81,57 +81,56 @@ class StatsGateway extends BaseGateway
      */
     public function updateFoodsaverStats(): void
     {
-        $this->db->execute('CREATE TEMPORARY TABLE _fetches
+        $this->db->execute('UPDATE fs_foodsaver fs
+			LEFT OUTER JOIN (
 				SELECT
-					a.foodsaver_id AS id,
-					SUM(w.weight) AS weight,
-					COUNT(a.foodsaver_id) AS fetches,
-					k.type AS ktype
-				FROM fs_abholer a
-				LEFT OUTER JOIN fs_betrieb b ON
-					a.betrieb_id = b.id
-				LEFT OUTER JOIN fs_fetchweight w ON
-					b.abholmenge = w.id
-				LEFT OUTER JOIN fs_betrieb_kategorie k ON
-					b.betrieb_kategorie_id = k.id
-				WHERE a.date < NOW()
-				GROUP BY a.foodsaver_id, k.type;
-			UPDATE fs_foodsaver fs
+					store_fetches.foodsaver_id AS id,
+					SUM(CASE WHEN k.type = 0 OR k.type IS NULL THEN store_fetches.fetches ELSE 0 END) AS fetchcount,
+					SUM(CASE WHEN k.type = 0 OR k.type IS NULL THEN store_fetches.fetches * IFNULL(w.weight, 0) ELSE 0 END) AS fetchweight,
+					SUM(CASE WHEN k.type = 1 THEN store_fetches.fetches ELSE 0 END) AS givecount,
+					SUM(CASE WHEN k.type = 2 THEN store_fetches.fetches ELSE 0 END) AS engagecount
+				FROM (
+					SELECT
+						foodsaver_id,
+						betrieb_id,
+						COUNT(*) AS fetches
+					FROM fs_abholer FORCE INDEX (foodsaver_id)
+					WHERE date < NOW()
+					GROUP BY foodsaver_id, betrieb_id
+				) AS store_fetches
+				INNER JOIN fs_betrieb b ON b.id = store_fetches.betrieb_id
+				LEFT OUTER JOIN fs_fetchweight w ON w.id = b.abholmenge
+				LEFT OUTER JOIN fs_betrieb_kategorie k ON k.id = b.betrieb_kategorie_id
+				GROUP BY store_fetches.foodsaver_id
+			) AS fetches ON fetches.id = fs.id
 			LEFT OUTER JOIN (
-				SELECT foodsaver_id AS id, COUNT(id) AS posts FROM (
-					SELECT foodsaver_id, id FROM fs_theme_post
-					UNION
-					SELECT foodsaver_id, id FROM fs_wallpost
-				) AS posts
-				GROUP by foodsaver_id
-			) as posts ON posts.id = fs.id
+				SELECT foodsaver_id AS id, COUNT(*) AS posts
+				FROM fs_theme_post
+				GROUP BY foodsaver_id
+			) AS theme_posts ON theme_posts.id = fs.id
 			LEFT OUTER JOIN (
-				SELECT foodsaver_id AS id, COUNT(foodsaver_id) AS bananas
+				SELECT foodsaver_id AS id, COUNT(*) AS posts
+				FROM fs_wallpost
+				GROUP BY foodsaver_id
+			) AS wall_posts ON wall_posts.id = fs.id
+			LEFT OUTER JOIN (
+				SELECT foodsaver_id AS id, COUNT(*) AS bananas
 				FROM fs_rating
 				GROUP BY foodsaver_id
-			) as bananas ON bananas.id = fs.id
+			) AS bananas ON bananas.id = fs.id
 			LEFT OUTER JOIN (
-				SELECT foodsaver_id AS id, COUNT(foodsaver_id) AS buddies
+				SELECT foodsaver_id AS id, SUM(confirmed) AS buddies
 				FROM fs_buddy
-				WHERE confirmed = 1
 				GROUP BY foodsaver_id
-			) as buddies ON buddies.id = fs.id
-			LEFT OUTER JOIN (
-				SELECT foodsaver_id AS id, COUNT(foodsaver_id) AS missed
-				FROM fs_report
-				WHERE `reporttype` = 1 AND committed = 1 AND tvalue like \'%Ist gar nicht zum Abholen gekommen%\'
-				GROUP BY foodsaver_id
-			) as missed ON missed.id = fs.id
+			) AS buddies ON buddies.id = fs.id
 			SET
-				fs.stat_fetchcount = IFNULL((SELECT SUM(fetches) FROM _fetches f WHERE f.ktype = 0 AND f.id = fs.id), 0),
-				fs.stat_fetchweight = IFNULL((SELECT SUM(weight) FROM _fetches f WHERE f.ktype = 0 AND f.id = fs.id), 0),
-				fs.stat_givecount = IFNULL((SELECT SUM(fetches) FROM _fetches f WHERE f.ktype = 1 AND f.id = fs.id), 0),
-				fs.stat_engagecount = IFNULL((SELECT SUM(fetches) FROM _fetches f WHERE f.ktype = 2 AND f.id = fs.id), 0),
-				fs.stat_postcount = IFNULL(posts.posts, 0),
+				fs.stat_fetchcount = IFNULL(fetches.fetchcount, 0),
+				fs.stat_fetchweight = IFNULL(fetches.fetchweight, 0),
+				fs.stat_givecount = IFNULL(fetches.givecount, 0),
+				fs.stat_engagecount = IFNULL(fetches.engagecount, 0),
+				fs.stat_postcount = IFNULL(theme_posts.posts, 0) + IFNULL(wall_posts.posts, 0),
 				fs.stat_bananacount = IFNULL(bananas.bananas, 0),
-				fs.stat_buddycount = IFNULL(buddies.buddies, 0),
-				fs.stat_fetchrate = IFNULL(ROUND(100 - IFNULL(missed.missed, 0) / IFNULL((SELECT SUM(fetches) FROM _fetches f WHERE ktype = 0 AND f.id = fs.id), 0) * 100, 2), 100);
-			DROP TEMPORARY TABLE IF EXISTS _fetches;
+				fs.stat_buddycount = IFNULL(buddies.buddies, 0)
 		');
     }
 

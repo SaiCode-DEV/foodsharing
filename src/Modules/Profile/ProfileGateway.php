@@ -61,7 +61,6 @@ final class ProfileGateway extends BaseGateway
 					fs.stat_rating,
 					fs.stat_postcount,
 					fs.stat_buddycount,
-					fs.stat_fetchrate,
 					fs.stat_bananacount,
 					fs.verified,
 					fs.anmeldedatum,
