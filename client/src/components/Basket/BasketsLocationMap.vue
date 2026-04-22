@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, defineExpose } from 'vue'
+import { onMounted, ref, defineExpose, nextTick } from 'vue'
 import { useUserStore } from '@/stores/user.js'
 import { MAP_CONSTANTS } from '@/stores/map'
 import L from 'leaflet'
@@ -59,9 +59,10 @@ const baskets = ref([])
 const icon = L.AwesomeMarkers.icon({ icon: 'shopping-basket', markerColor: 'green' })
 
 onMounted(async () => {
-  if (userStore.getLocations.lat !== 0 && userStore.getLocations.lon !== 0) {
-    currentCenter.value = userStore.getLocations
+  if (userStore.hasLocations) {
     currentZoom.value = MAP_CONSTANTS.ZOOM_CITY
+    await nextTick()
+    updateMapCenter(userStore.getLocations)
   }
   await basketStore.fetchAllCoordinates()
   baskets.value = basketStore.getAllBasketCoordinates
