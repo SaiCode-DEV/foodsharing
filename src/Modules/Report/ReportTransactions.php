@@ -53,7 +53,7 @@ class ReportTransactions
                 $regionArbitrationGroupId = $this->groupFunctionGateway->getRegionFunctionGroupId($reportedFs['bezirk_id'], WorkgroupFunction::ARBITRATION);
                 $reportBellRecipients = $this->groupFunctionGateway->getFsAdminIdsFromGroup($regionArbitrationGroupId);
             }
-            $this->bellGateway->addBellForUsers(array_column($reportBellRecipients, 'id'), $bellData);
+            $this->bellGateway->addBellForUsers($reportBellRecipients, $bellData);
         }
     }
 
