@@ -939,7 +939,7 @@ basket:
   no_requests: 'Até agora, sem solicitações'
   contact:
     call: 'por telefone'
-    write: 'Por mensagem'
+    write: 'por mensagem'
   login: 'Para obter informações detalhadas, é necessário estar logado. Ainda não
     está registado como o foodsharer? Então clique em **Participar** acima e comece
     agora mesmo.'
@@ -1046,7 +1046,7 @@ menu:
     your_groups: 'Teus grupos'
     other_stores: 'Outros locais'
     your_stores: 'Locais onde participas'
-    helpneeded: 'procura-se apoio urgente'
+    helpneeded: 'Procura-se apoio urgente'
     forcompanies: 'Para empresas'
     team: 'Equipa'
     your_baskets: 'Os teus cabazes alimentares'
@@ -2749,7 +2749,7 @@ settings:
       '
   passport:
     menu: 'Cartão de foodsharing'
-    button: 'Descarregar cartão de foodsharing'
+    button: 'Descarregar cartão'
     verified_text: 'Este cartão é destinado ao uso em smartphones. Pode salvar o cartão
       no teu telemóvel e, em caso de necessidade, apresentá-lo. Caso não possua um
       smartphone ou, por qualquer outro motivo, necessite de um cartão convencional,
@@ -3370,8 +3370,8 @@ globals:
     stores: 'Locais'
     my_mailboxes: 'As minhas caixas de correio'
     my_buddies: 'Os meus conhecidos'
-    my_stores: 'Os meus locais'
-    my_regions: 'Os meus distritos'
+    my_stores: 'Meus locais'
+    my_regions: 'Meus distritos'
     chats: 'Chats'
     mailboxes: 'Caixas de correio'
     my_foodshare_points: 'Os meus cantinhos de partilha'
@@ -4149,7 +4149,7 @@ numbers:
   decimal_separator: '.'
   million_abbreviation: ' Mio.'
   thousands_separator: ','
-  billion_abbreviation: ' Mil milhões'
+  billion_abbreviation: ' mil milhões'
 fp: 'Pontos de erro'
 fspmanagers: 'Pessoas de contacto para o cantinho de partilha'
 storelist:
@@ -4393,29 +4393,29 @@ map:
     stores:
       status:
         label: Estado
-        all: Todos
-        cooperating: Coopera
-        not-cooperating: Não coopera
+        all: todos
+        cooperating: coopera
+        not-cooperating: não coopera
       help:
         label: Estado da equipa
-        all: Não importa
+        all: todos
         open: Aberto
-        searching: procura-se apoio
+        searching: Procura-se apoio
       scope:
-        label: Pertença
-        all: Todos
-        region: Só os meus distritos
-        member: Só as minhas locais
+        label: Âmbito
+        all: todos
+        region: meus distritos
+        member: minhas locais
       type:
         label: Tipo
-        "null": Todos
+        "null": todos
         0: local de recolha
         1: local de entrega
         2: local organizativo
     users:
       role:
         label: Função
-        all: Todos
+        all: todos
         foodsaver: Foodsavers verificados
         store-manager: Responsáveis por cooperações
       activity:
@@ -4424,10 +4424,10 @@ map:
         month: Último mes
         3months: Últimos 3 meses
         6months: Últimos 6 meses
-        all: No importa
+        all: todos
       member:
-        label: Pertença
-        all: Todos
+        label: Âmbito
+        all: todos
         homeregion: Distrito principal
         other: Segundo distrito
       region:
