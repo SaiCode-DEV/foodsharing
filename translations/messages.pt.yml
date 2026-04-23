@@ -218,7 +218,7 @@ store:
     (seja em cabazes alimentares, nas redes sociais ou na imprensa).'
   fetchCount: 'Recolhido aqui {count} vezes.'
   of_that: 'deles'
-  requests: 'Pedidos em aberto ({count})'
+  requests: 'Pedidos abertos ({count})'
   error: 'Não foi possível aceder à local.'
   leaveinfo: 'Aqui pode fornecer informações aos recolheros que desejam candidatar-se
     à equipa.'
@@ -1493,13 +1493,13 @@ bcard:
     verified: 'Tens de ser verificado para poderes gerar o teu cartão de visita.'
   generate: 'Criar cartões de visita'
   for: '{role} para {region}'
-  claim: 'Gera aqui — depois imprime e recorta …'
+  claim: 'Gera aqui — depois imprime e recorta.'
   card: 'O teu cartão de visita de foodsharing'
-  desc: 'Seleciona aqui a função e a região para os quais queres criar o teu cartão
+  desc: 'Seleciona aqui a função e o distrito para os quais queres criar o teu cartão
     de visita.'
   title: 'Gerador de cartão de visita'
   role: 'Função'
-  region: Região
+  region: Distrito
 formatting:
   md: 'Pode utilizar <a href="https://markdown.de/">Markdown</a> para formatação.'
 group:
@@ -4399,8 +4399,8 @@ map:
       help:
         label: Estado da equipa
         all: todos
-        open: Aberto
-        searching: Procura-se apoio
+        open: aberto
+        searching: procura-se apoio
       scope:
         label: Âmbito
         all: todos

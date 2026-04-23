@@ -3275,23 +3275,23 @@ footer:
 thread:
   priorityModal:
     higher: 'całkiem na górze'
-    text: ''
+    text: 'Priorytet wyświetlania tego tematu:'
     lower: 'całkiem na dole'
-    title: ''
+    title: 'Dopasuj priorytet wyświetlania'
     normal: 'normalnie'
   options:
     rename: 'Edytuj tytuł'
     unlock: 'Otwórz temat'
-    pin: ''
+    pin: 'Przypnij temat'
     lock: 'Zamknij temat'
-    unpin: ''
+    unpin: 'Nie przypinaj więcej'
     hideHidden: 'Nie pokazuj ukrytych postów'
     priority: 'Dostosuj priorytet wyświetlania'
     showHidden: 'Pokaż ukryte posty'
   post:
     options:
       copy_direct_link: 'kopiuj bezpośredni link'
-      restore: ''
+      restore: 'Odtwórz …'
       copy_source: 'kopiuj tekst źródłowy'
     quote_button: ''
     linked_post: 'Podlinkowany post'
@@ -3304,7 +3304,8 @@ thread:
     max_length_info: 'Osiągnięto maksymalną długość tytułu (260 znaków)'
     edit_description: 'Edytuj tytuł'
   hiddenPostsInfo:
-    cannotSee: ''
+    cannotSee: 'Nie możesz wprawdzie zobaczyć treści ukrytych postów, ale możesz zobaczyć,
+      dlaczego i przez kogo posty zostały ukryte.'
     toggle: 'Pokaż ukryte posty'
     includesHidden: 'W tym wątku moderatorzy/ki ukryli/ły niektóre posty.'
 poll:
@@ -3537,7 +3538,7 @@ email_template:
   information: 'Informacja'
   confirm_link: 'chciał(a)by opublikować temat'
 notifications:
-  save_success: ''
+  save_success: 'Pomyślnie zapisano'
   newsletter:
     description: 'Otrzymuj ok. 1x w miesiącu aktualne informacje o foodsharingu mailem.'
     title: 'Newsletter'
@@ -3559,14 +3560,14 @@ notifications:
     content: ''
   groups:
     title: 'Zespoły'
-  checkbox_push: ''
+  checkbox_push: 'Push'
   info: 'Info'
   warning: 'Uwaga'
   error: 'Błąd'
   mention:
-    description: ''
-    title: ''
-  checkbox_disabled: ''
+    description: 'Otrzymaj powiadomienie, gdy ktoś wspomni o tobie na forum.'
+    title: 'Powiadomienia przy wzmiankach'
+  checkbox_disabled: 'Deaktywowane'
   regions:
     title: 'Rejony'
   chat:
@@ -3581,8 +3582,8 @@ notifications:
     title: 'Wątki forum'
   config_button: 'konfiguruj pojedynczo'
   success: 'Sukces'
-  checkbox_email: ''
-  checkbox_bell: ''
+  checkbox_email: 'E-Mail'
+  checkbox_bell: 'Dzwonek'
 buddy:
   send:
     confirm_text: ''
@@ -3614,7 +3615,8 @@ error:
     link: 'Załaduj zdjęcie profilowe teraz'
     description: 'Pokaż członkom foodsharingu, kim jesteś!'
   passport_is_invalid_soon:
-    description: ''
+    description: 'Twoja legitymacja jest ważna jeszcze {days} dni. Zwróć się do swoich
+      ambasadorów/ek, aby ją przedłużyć.'
     link: 'Ustawienia profilu'
     title: 'Ważność twojej legitymacji niedługo się kończy!'
   invalid_landline_phonenumber:
@@ -3658,9 +3660,9 @@ achievements:
     store_managers: ''
     hidden: 'Ukryty'
   validity:
-    days: ''
-    indefiniteShort: ''
-    indefinite: ''
+    days: 'Ważny przez {validityInDaysAfterAssignment} dni od przyznania.'
+    indefiniteShort: 'nieograniczenie'
+    indefinite: 'Nieograniczona ważność od przyznania.'
   duplicate_mode:
     override: 'Nadpisz'
     multiple: 'Przyznaj wielokrotnie'
@@ -3679,11 +3681,11 @@ achievements:
   reviewer: 'od'
   duplicate_mode_explanation:
     multiple: 'Możliwe przyznawanie wielokrotne'
-  awardedTo: ''
+  awardedTo: 'do'
   new: 'Nowy sticker'
   inThis:
-    region: ''
-    group: ''
+    region: 'Następujące stickery mogą być przyznawane w tym rejonie:'
+    group: 'Następujące stickery mogą być przyznawane w tym zespole:'
   scope: ''
   editTitle: 'Edytuj sticker'
   revokeConfirmation: ''
@@ -3694,8 +3696,8 @@ achievements:
   findUser: 'Szukaj użytkownika/czki'
   editAwarded: ''
   notice: 'uwaga'
-  award: ''
-  awarded: ''
+  award: 'Przyznaj sticker'
+  awarded: 'przyznany'
 search:
   thread-title-only: 'Wyszukiwanie obejmuje tylko tytuły, nie treść wątków.'
   results:
@@ -3725,7 +3727,7 @@ search:
     thread:
       closed_tooltip: 'Temat jest zamknięty'
       forum: 'Forum'
-      sticky_tooltip: ''
+      sticky_tooltip: 'Temat jest przypięty'
       ambassador_forum: 'Forum ambasadorów/ek'
       last_post: 'ostatni post'
       bottom_tooltip: 'Temat ma ograniczoną widoczność'
@@ -3759,12 +3761,13 @@ search:
       title: ''
   user_search:
     placeholder: 'Imię lub ID'
-  maxresults: ''
+  maxresults: 'Liczba wyświetlanych wyników wyszukiwania jest ograniczona. Ewentualnie
+    użyj bardziej specyficznego pojęcia do wyszukiwania.'
   informations: ''
   noresults: 'Nie znaleziono wyników'
   scope:
     global: 'Szukanie globalne'
-    local: ''
+    local: 'Wyszukiwanie dostosowane do użytkownika'
   thread-body-only: 'Wyszukiwanie obejmuje tylko tekst w postach, nie tytuły.'
 error_permissions: 'Niestety, nie masz wymaganych uprawnień do tego procesu.'
 oauth:
@@ -4016,7 +4019,7 @@ chain:
     modificationDate: 'Ostatnio edytowano'
     options: 'Opcje'
   bread:
-    list: ''
+    list: 'Przegląd'
     workinggroup: ''
   pagetitle: ''
   allowpress: ''
@@ -4091,7 +4094,7 @@ join_region:
     is_big_city_2: 'Wybierz miasto, region lub rejon!'
     not_allowed: 'Nie możesz dołączyć to tego rejonu.'
     is_state_2: 'Wybierz miasto, region lub rejon!'
-    is_big_city_1: ''
+    is_big_city_1: 'To jest duże miasto.'
     is_state_1: 'To jest województwo. Wybierz miasto, region lub rejon!'
   description: ''
 support_page:
@@ -4418,7 +4421,7 @@ theme_switcher:
 activitypost:
   quickreply_button: 'Wyślij teraz<br>lub naciśnij<code class="key">Enter</code>.'
   write: 'Napisz odpowiedź …'
-  quickreply_info: ''
+  quickreply_info: '<code class="key">Shift + Enter</code> aby dodać nowy wiersz.'
   response: 'odpowiedz'
   Response: 'Odpowiedz'
 addreaction: 'Dodaj reakcję'
@@ -4446,7 +4449,8 @@ releases:
 information:
   push:
     link: 'Do ustawień'
-    description: ''
+    description: 'Jeśli nie chcesz już otrzymywać powiadomień push, możesz je deaktywować
+      w ustawieniach w dowolnym czasie.'
     title: 'Teraz możesz otrzymywać powiadomienia push od foodsharingu.'
   calendar_sync:
     title: 'Znasz synchronizację kalendarza do twoich slotów?'
@@ -4467,11 +4471,12 @@ error_base64_image: 'Dodawanie obrazów przez przeciągnięcie i upuszczenie nie
 donation_banner:
   action_button: 'Przekaż darowiznę tutaj!'
   amount: 'Stan darowizn'
-  info_button: ''
+  info_button: 'Dokąd idzie moja darowizna?'
 totp_code: 'Podaj albo wygenerowany kod uwierzytelniania dwuskładnikowego, albo jeden
   z kodów backup.'
 language_chooser:
-  translation_help: ''
+  translation_help: 'Znasz jeszcze inne języki? Na foodsharingu zawsze szukamy pomocy
+    przy tłumaczeniach'
   title: 'Wybierz język'
   translation_help_info_text: 'Ten link prowadzi do portalu tłumaczeń. Zarejestruj
     się tam i kliknij na długopis, aby rozpocząć'
