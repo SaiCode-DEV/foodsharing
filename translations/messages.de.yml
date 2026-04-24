@@ -1671,6 +1671,7 @@ events:
     present: "Diese Veranstaltung findet online statt. Du kannst jetzt beitreten."
     future: "Diese Veranstaltung findet online statt. Sobald sie beginnt, kannst du über den Button unten beitreten."
     not_started: "Dieser Termin hat noch nicht begonnen"
+    join: "Beitreten"
   attendees: "Teilnehmer:innen"
   online_info: |
     Telefon- und Onlinekonferenzen von foodsharing laufen am besten über unseren eigenen [BigBlueButton](https://bigbluebutton.org)-Server. Ab 10 Minuten vor Beginn des Termins können Nutzer:innen ganz leicht mit einem Klick von der Terminseite der Konferenz beitreten. Dafür sind keine weiteren Programme notwendig, sondern nur ein halbwegs moderner Internet-Browser. Außerdem ist es auch möglich, per Telefon beizutreten.

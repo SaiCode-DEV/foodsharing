@@ -41,7 +41,7 @@
         class="list-group-item small list-group-item-secondary list-group-item-action list-group-item-action-toggle font-weight-bold text-center"
         :disabled="!mayEnter"
         @click="joinMeeting"
-        v-text="'Beitreten'"
+        v-text="$t('events.meeting.join')"
       />
     </div>
   </Container>
