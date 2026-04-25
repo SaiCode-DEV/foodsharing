@@ -6,63 +6,44 @@ namespace Tests\Unit\Modules\Donation\Query;
 
 use Codeception\Test\Unit;
 use Foodsharing\Modules\Donation\Query\TwingleDonationDataQuery;
-use PHPUnit\Framework\MockObject\Exception;
-use PHPUnit\Framework\MockObject\MockObject;
+use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 use Tests\Support\UnitTester;
 
 class DonationTwingleDataQueryTest extends Unit
 {
-    protected ?MockObject $httpClient = null;
-    protected UnitTester $unitTester;
+    protected UnitTester $tester;
     private TwingleDonationDataQuery $twingleDonationDataQuery;
 
-    /**
-     * @throws Exception
-     */
-    #[\Override]
-    public function setUp(): void
+    public function _before(): void
     {
-        $this->httpClient = $this->createMock(HttpClientInterface::class);
-        $this->twingleDonationDataQuery = new TwingleDonationDataQuery('', httpClient: $this->httpClient);
+        $httpClient = $this->tester->get(HttpClientInterface::class);
+        $this->twingleDonationDataQuery = new TwingleDonationDataQuery(httpClient: $httpClient);
     }
 
     /**
      * @throws TransportExceptionInterface
-     * @throws Exception
      * @throws ServerExceptionInterface
      * @throws RedirectionExceptionInterface
      * @throws DecodingExceptionInterface
      * @throws ClientExceptionInterface
      */
-    public function testOne()
+    public function testProjectStatus()
     {
-        $responseData = [
-            'amount' => 29810,
-            'donators' => 899,
-            'percentage' => 29.81,
-            'target' => 100000,
-            'allow_more' => false,
-        ];
-
-        $responseMock = $this->createMock(ResponseInterface::class);
-        $responseMock->expects($this->once())
-            ->method('toArray')
-            ->willReturn($responseData);
-
-        $this->httpClient->expects($this->once())
-            ->method('request')
-            ->willReturn($responseMock);
-
-        $twingleData = $this->twingleDonationDataQuery->execute();
+        $twingleData = $this->twingleDonationDataQuery->getProjectStatus(123);
 
         $this->assertIsArray($twingleData);
-        $this->assertEquals($responseData, $twingleData);
+        $this->assertArrayHasKey('percentage', $twingleData);
+    }
+
+    public function testExceptionForInvalidProject()
+    {
+        $this->expectException(ServiceUnavailableHttpException::class);
+        $this->twingleDonationDataQuery->getProjectStatus(0);
     }
 }

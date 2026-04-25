@@ -7,6 +7,8 @@ use Codeception\Command\Shared\ConfigTrait;
 use Codeception\CustomCommandInterface;
 use Codeception\Lib\Di;
 use Codeception\Lib\ModuleContainer;
+use Foodsharing\Modules\Core\DBConstants\Configuration\ConfigurationCategory;
+use Foodsharing\Modules\Core\DBConstants\Configuration\ConfigurationKey;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
@@ -930,6 +932,10 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
 
         $this->output->writeln(' - mailbox added');
 
+        $this->output->writeln('Inserting configuration values');
+        $this->insertConfigurationValues($I);
+        $this->output->writeln('done');
+
         $I->_getDbh()->commit();
     }
 
@@ -1057,6 +1063,28 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
                     rand(1, 5),
                 );
             }
+        }
+    }
+
+    private function insertConfigurationValues(Foodsharing $I): void
+    {
+        $donation = [
+            ConfigurationKey::DONATION_CAMPAIGN_ID->value => '12573',
+            ConfigurationKey::DONATION_FRIENDSHIP_CIRCLE_ID->value => '398',
+            ConfigurationKey::DONATION_MODAL_ID->value => '12573',
+            ConfigurationKey::DONATION_ONE_TIME_DONATION_ID->value => '384',
+            ConfigurationKey::DONATION_SHOW_CAMPAIGN_CARD->value => '1',
+            ConfigurationKey::DONATION_SHOW_DONATION_MODAL->value => '0',
+            ConfigurationKey::DONATION_SHOW_CAMPAIGN_PART_1->value => '1',
+            ConfigurationKey::DONATION_SHOW_CAMPAIGN_PART_2->value => '1',
+            ConfigurationKey::DONATION_SHOW_CAMPAIGN_GALLERY->value => '1',
+            ConfigurationKey::DONATION_IFRAME_CAMPAIGN_URL->value => 'https://spenden.twingle.de/embed/foodsharing-e-v/spendenkampagne-ueberregionale-arbeit/tw65a581c764fa1/widget',
+            ConfigurationKey::DONATION_IFRAME_FRIENDSHIP_CIRCLE_URL->value => 'https://spenden.twingle.de/embed/foodsharing-e-v/freundeskreis/tw5ba5f44dcb36f/widget',
+            ConfigurationKey::DONATION_IFRAME_ONE_TIME_URL->value => 'https://spenden.twingle.de/embed/foodsharing-e-v/einmal-spenden/tw5ba1eb3588eb2/widget',
+            ConfigurationKey::DONATION_IFRAME_SELF_SERVICE_URL->value => 'https://spenden.twingle.de/selfservice/dEUvRHVpeG5VVEtNOWRPdTFuS0F2QT09'
+        ];
+        foreach ($donation as $key => $value) {
+            $I->haveInDatabase('configuration', ['key' => $key, 'value' => $value, 'category' => ConfigurationCategory::DONATION->value]);
         }
     }
 

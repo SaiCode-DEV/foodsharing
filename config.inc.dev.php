@@ -66,7 +66,9 @@ define('GEOAPIFY_API_KEY', 'b4e6bf0dbc48447fb4ee29d77c08eb09');
 // Test key for firebase cloud messaging
 define('FCM_KEY', '');
 
-define('TWINGLE_URL', 'https://spenden.twingle.de/status/E4yxc5T7YJh7nZvL93Yu7PlUzwCMjD2p80u8YK0Vgyw');
+define('TWINGLE_ORGANIZATION_ID', 178);
+define('TWINGLE_ACCESS_CODE', 'placeholder');
+define('TWINGLE_PROJECT_STATUS_API', 'http://nginx:8080/mock/twingle/{projectId}/projectstatus');
 
 define('MAX_DELETE_OLD_ACCOUNTS_PER_DAY', 100);
 
