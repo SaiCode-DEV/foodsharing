@@ -1274,7 +1274,7 @@ resource_mosaic:
   confirm_delete: 'Czy na pewno chcesz usunąć ten zasób?'
   has_resources_elsewhere: ''
   request_header: 'Zapytanie do twojego zasobu'
-  favorite_tooltip: ''
+  favorite_tooltip: 'Dodałeś/aś ten zasób do ulubionych'
   max_resources: ''
   no_own_resources: ''
   message: 'Napisz wiadomość'
@@ -3406,18 +3406,19 @@ categories:
   empty: 'Jeszcze nie wprowadzono żadnej kategorii'
   confirm_delete_hint:
     store: ''
-    resource: ''
-  new: ''
+    resource: 'Jeszcze {count} zasoby/ów są/jest przyporządkowane/ych tej kategorii.
+      Te zasoby utracą tę kategorię.'
+  new: 'Wprowadź nową kategorię'
   delete: 'Usuń kategorię'
   edit: 'Edytuj kategorię'
   columns:
     name: 'Imię'
     type: 'Typ'
     id: 'ID'
-    usage_count: ''
+    usage_count: 'Liczba użyć'
     number_of_stores: ''
   merge_hint: ''
-  merge: ''
+  merge: 'Połącz z inną kategorią'
   merge_title: 'Połącz kategorie'
 help:
   key:
@@ -3479,7 +3480,7 @@ help:
       title: 'Master-rejon'
       md: ''
     change_verified_data:
-      title: ''
+      title: 'Zażądaj zmiany zweryfikowanych danych'
       md: ''
     achievementVisibility:
       title: 'Widzialność stickerów'
@@ -3797,7 +3798,7 @@ oauth:
     create_success: 'Pomyślnie utworzono klienta'
     region_restriction_tooltip: 'Tylko członkowie wybranych rejonów mogą się autoryzować'
     redirect_uris: 'Redirect URIs'
-    grant_types: ''
+    grant_types: 'Typy grantów'
     required_regions_help: ''
     required_regions: 'Wymagane rejony'
     name: 'Nazwa'
@@ -4118,24 +4119,24 @@ support_page:
   your_name: 'Twoje imię'
   firstName: ''
 contact_page:
-  title: ''
+  title: 'Kontakt & Support'
   regions:
     link: ''
     title: ''
     text: ''
-  description: ''
+  description: 'Skontaktuj się z nami przez jedną z następujących możliwości kontaktu:'
   common:
     modal:
-      title: ''
+      title: 'Napisz email'
       text: ''
-    link: ''
-    title: ''
+    link: 'Napisz email'
+    title: 'Do spraw organizacyjnych'
     text: ''
   support:
     title: ''
     link: ''
     text: ''
-  bread: ''
+  bread: 'Kontakt & Support'
 base:
   whatfor: ''
   slogan: ''

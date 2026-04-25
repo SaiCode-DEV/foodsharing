@@ -1392,7 +1392,7 @@ profile:
     store_table: lista de locais
     memberState:
       filterAll: todos
-      filterRequested: Pedido enviado
+      filterRequested: pedido enviado
       filterInvitations: convidado
       filterActive: membro
       filterManage: responsável
