@@ -285,7 +285,7 @@ quiz:
       punktów ujemnych.
     1: 'Zdane z {failurePoints} z maksymalnie {maxFailurePointsToSucceed} punktów
       ujemnych.'
-    0: ''
+    0: 'aktualnie uruchomiony'
 request_time: 'Czas zapytania:'
 pass1: Twoje żądane nowe hasło
 public_time: Szacunkowy czas slotu
@@ -859,7 +859,7 @@ group:
     passports:
       button:
         verify: weryfikować
-        unverify: ''
+        unverify: 'Cofnij weryfikację'
       title: Legitymacje i weryfikacja
       created_at: Legitymacja utworzona
       generate_button: Stwórz legitymację/e dla wybranej/ych osoby/osób
@@ -876,7 +876,7 @@ group:
         do_selected: Czy na pewno chcesz aktywować wszystkich/e zaznaczonych/e 
           użytkowników/czki (porównanie danych osobistych/ kontrola dowodu 
           tożsamości itd.)?
-        undo: ''
+        undo: 'Cofnij weryfikację {name} ({id})'
       filter_options:
         invalid_passport: legitymacja nieważna
         verified: zweryfikowany/a
@@ -889,7 +889,8 @@ group:
       show_only_member_after: Pokaż tylko członków po/według
       filter_status: Pokaż tylko status
       filter_selection: Pokaż tylko wybranych członków
-      unverify_error_slots: ''
+      unverify_error_slots: 'Cofnięcie weryfikacji {name} ({id}) jest niemożliwe,
+        bo ta osoba jest jeszcze zapisana na sloty. Najpierw usuń tę osobę ze slotów.'
     remove_admin_title: usuń jako administratora/kę
     remove_ambassador_title: usuń jako ambasadora/kę
     remove_admin_text: Czy na pewno chcesz usunąć {name} ({id}) jako 
@@ -955,7 +956,7 @@ legal:
     this_gets_deleted_trustbananas: Banany, które dostałeś/aś od innych, będą 
       usunięte.
     this_doesnt_get_deleted_history: Historia twojej weryfikacji
-    legal_2: ''
+    legal_2: 'Dodatkowe informacje o okresach przechowywania (strona po niemiecku)'
     this_doesnt_get_deleted: ''
     this_gets_deleted_stores: ''
     legal_more_info: Dalsze informacje
@@ -1161,7 +1162,7 @@ terminology:
     d: ''
     f: ''
   mediationAdmins: 'Team mediacji'
-  giving: ''
+  giving: 'Darowizna'
   baskets: 'Jadłokoszyki'
   homeRegion: 'rejon macierzysty'
   prAdmins: 'Team public relations'
@@ -1172,7 +1173,7 @@ terminology:
     d: 'Orga-człowiek'
     f: 'Orga-człowiek'
     m: 'Orga-człowiek'
-  n_cooperating_stores: ''
+  n_cooperating_stores: '{count} działające/ych kooperacje/i'
   resourcesAdmins: 'Team mozaiki zasobów'
   stores: ''
   wall: 'Tablica'
@@ -1182,9 +1183,9 @@ terminology:
     arbitration: 'Widok skarg (rada arbitrażowa)'
   fsManagementAdmins: 'administracja'
   boardAdmins: 'Zarząd'
-  pickup: ''
+  pickup: 'Odbiór'
   fspAdmins: 'Team jadłodzielni'
-  welcomeAdmins: ''
+  welcomeAdmins: 'Zespół powitalny'
   groups: 'Zespoły'
   moderationAdmins: 'Team moderacji'
   community: 'Grupa lokalna {name}'
@@ -1395,7 +1396,7 @@ fsp:
   form_validation:
     required: '{name} jest wymagane.'
     min_length: '{name} musi zawierać co najmniej {length} znaków.'
-    invalid: ''
+    invalid: 'Podano błędne dane. Proszę sprawdzić wprowadzone dane.'
   twig:
     n_in_region: '{count} jadłodzielni w {name}'
   followerCount: 'Zainteresowani/e użytkownicy/czki: {followerCount}'
@@ -1459,7 +1460,7 @@ storeview:
   public_time_in_the_morning: rano
   management: Zarządzanie
   team_info_distance: ''
-  public_time: ''
+  public_time: 'Odbiór około {freq}. Nigdy nie idź do sklepu bez uprzedniego ustalenia!'
   specials: 'Instrukcje i procedura'
   source_data: 'Dane źródłowe'
   public_and_statistics: ''
@@ -1468,15 +1469,15 @@ storeview:
   team_info_jumper: 'Rezerwowi:'
   store: ''
   show_settings: ''
-  status_notes: ''
+  status_notes: 'Notatki statusu'
   select_related_region: 'Wybór przyporządkowanego rejonu'
   visible_for_team: ''
   no_permission_to_view: ''
   pickupWeight: ''
   managers: ''
   activityCount:
-    0: ''
-    1: ''
+    0: 'Odbiory'
+    1: 'Darowizny'
     2: ''
 store:
   team_container: Team
@@ -1685,7 +1686,7 @@ store:
   signInDateTime: 'Czas zapisu'
   jumping: 'Rezerwowy/a'
   may_not_referred_to_in_public: ''
-  fetchCount: ''
+  fetchCount: 'Wykonał/a tu {count}× odbiory/ów.'
   requests: 'Otwarte zapytania ({count})'
   error: ''
   leaveinfo: 'Tu możesz podać trochę informacji dla foodsaverów/ek, którzy chcą się
@@ -1703,7 +1704,7 @@ store:
   managing: ''
   springer_conversation_name: 'Rezerwowy/a {name}'
   isManager: ''
-  noPickup: ''
+  noPickup: 'Jeszcze nie wykonał/a tu żadnego odbioru.'
   tooltip_red: 'Wolne sloty dzisiaj lub jutro'
   not-in-team: ''
   allStoresOfRegion: ''
@@ -4114,10 +4115,10 @@ support_page:
   validation_subject: 'Temat jest pusty'
   validation_email: 'Nieprawidłowy adres email'
   new_request: 'Nowe zapytanie'
-  success: ''
+  success: 'Pomyślnie przekazano twoją wiadomość.'
   notification_name: ''
   your_name: 'Twoje imię'
-  firstName: ''
+  firstName: 'Imię'
 contact_page:
   title: 'Kontakt & Support'
   regions:

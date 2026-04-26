@@ -3827,6 +3827,7 @@ events:
     future: Este evento tem lugar online. Quando começar, pode participar 
       através do botão abaixo.
     not_started: Este evento ainda não começou
+    join: Entrar
   attendees: Participantes
   online_info: "As conferências telefónicas e online do foodsharing funcionam melhor
     através do nosso próprio servidor [BigBlueButton](https://bigbluebutton.org).

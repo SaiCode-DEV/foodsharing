@@ -1104,6 +1104,7 @@ events:
     future: This event will take place online. As soon as it starts, you can 
       join via the button below.
     not_started: This event has not yet started
+    join: Join
   attendees: Attendees
   location: Location
   online_info: "Telephone and online conferences from foodsharing run best via our
@@ -3732,7 +3733,7 @@ startpage:
       That’s why we are active on the ground: We save food in private households and
       businesses — collectively, sustainably and respectfully. We are in dialogue
       with politicians and carry our vision out into the world."
-  call_to_action_button: Join
+  call_to_action_button: Join now
   welcome_text: Welcome to foodsharing
   towns:
     title: foodsharing cities
