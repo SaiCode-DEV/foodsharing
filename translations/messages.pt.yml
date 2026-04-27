@@ -774,7 +774,7 @@ calendar:
   labelPrevMonth: 'Mes pasado'
   labelCalendar: 'Calendário'
   labelNoDateSelected: 'Selecionar data'
-  labelToday: 'Hoje'
+  labelToday: 'hoje'
   labelPrevYear: 'O ano pasado'
   labelResetButton: Anular seleção
   placeholder: Selectionar uma data
@@ -1078,12 +1078,12 @@ date:
   today: 'hoje'
   from: 'de'
   saturday: 'Sabado'
-  -- Tomorrow: 'Amanha'
+  -- Tomorrow: 'amanha'
   time: '{time} h'
   wednesday: 'Quarta-feira'
   clock: 'h'
   friday: 'Sexta-feira'
-  Today: 'Hoje'
+  Today: 'hoje'
   sunday: 'Domingo'
   -- Yesterday: 'Ontem'
 login:
@@ -3761,7 +3761,7 @@ bootstrap-datepicker:
   labelPrevMonth: 'mês anterior'
   labelNoDateSelected: 'Nenhuma data selecionada'
   labelNextYear: 'próximo ano'
-  labelToday: 'Hoje'
+  labelToday: 'hoje'
   labelNextDecade: 'próximo década'
   labelSelected: 'Data selecionada'
   labelPrevDecade: 'década anterior'

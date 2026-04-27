@@ -927,7 +927,8 @@ group:
       treści na stronie głównej
     tooltip_function_region327: Administratorzy/ki tego zespołu mogą edytować 
       wpisy na blogu
-    tooltip_function_region387: ''
+    tooltip_function_region387: 'Administratorzy/ki tego zespołu mogą usuwać wpisy
+      z listy odrzuconych adresów e-mail'
     tooltip_function_region332: 'Członkowie tego zespołu mają dostęp do listy sieci'
     tooltip_function_region432: 'Administratorzy/ki tego zespołu mogą przeglądać skargi'
     tooltip_function_region2296: ''
@@ -1463,7 +1464,7 @@ storeview:
   public_time: 'Odbiór około {freq}. Nigdy nie idź do sklepu bez uprzedniego ustalenia!'
   specials: 'Instrukcje i procedura'
   source_data: 'Dane źródłowe'
-  public_and_statistics: ''
+  public_and_statistics: 'Statystyka & public relations'
   team: ''
   invalid_field: 'Nieważna treść pola. Zmiany nie mogą zostać zapisane.'
   team_info_jumper: 'Rezerwowi:'
@@ -1693,7 +1694,7 @@ store:
     zgłosić do teamu.'
   convince:
     much: 'Trudne negocjacje, ale w końcu się zgodzili.'
-    some: ''
+    some: 'Po działaniach perswazyjnych zgodzili się na uczestnictwo.'
     none: 'Żaden problem, od razu byli zachwyceni!'
     final: 'Najpierw nie wyglądało to dobrze, ale potem jednak się odezwali.'
   mayAmb: 'Zdał/a quiz na ambasadora/kę.'
@@ -1713,7 +1714,7 @@ store:
   slot_state: 'status slotu'
   delete_date_description: ''
   tooltip_orange: 'Wolne sloty w ciągu następnych trzech dni'
-  attribution: ''
+  attribution: 'Ujawnienie nazwy własnej'
   useRegionPickupRules: ''
   short_tooltip_red: 'Wolne sloty dziś lub jutro'
   regionPickupRulesInactive: 'Dodatkowe reguły dla slotów w tym rejonie nie są aktywne'
@@ -1760,7 +1761,8 @@ store:
   smneeded: ''
   part_of_chain: 'Należy do sieci:'
   chain_has_kams: 'Odpowiedzialny/a za sieć:'
-  members_not_in_target_region: ''
+  members_not_in_target_region: 'Istnieją członkowie teamu, którzy nie są częścią
+    regionu docelowego: {names}'
   joinDateUnknown: 'W teamie od: nieznane'
 navi:
   google_maps: Google maps
@@ -1771,7 +1773,8 @@ navi:
   here: HERE WeGo
   no_native_app: Geo linki nie są wspierane przez to urządzenie.
   native: native app
-  gdpr_warning: ''
+  gdpr_warning: 'Jeśli nawigujesz z {provider}, adres będzie udostępniony tej usłudze
+    i zostaniesz przekierowany/a na ich stronę. Zgadzasz się?'
 really_delete: Na pewno usunąć?
 yes: Tak
 no: Nie
@@ -1889,7 +1892,8 @@ pickup:
   same_day_entry: '[{when}] {name}'
   hygieneCertificateMissing:
     link: Do quizu higieny
-    timeout: ''
+    timeout: 'Do czasu odbioru skończy się ważność twojego szkolenia z zasad higieny.
+      Przystąp teraz ponownie do testu dotyczącego zasad higieny, aby móc się zapisać.'
     none: 'Aktualnie nie masz ważnego szkolenia z zasad higieny. Przeprowadź teraz
       quiz dotyczący zasad higieny, aby móc się zapisać.'
   join_cancel: Jednak nie
@@ -1901,7 +1905,7 @@ pickup:
     signout_via_responsible_person:
       via: przez
       remove_reason: '(Powód: {reason})'
-    slot: ''
+    slot: 'Odbiór'
     no_signouts_found: 'Nie znaleziono żadnych wypisów.'
     title: 'Historia wypisanych foodsaverów/ek w ciągu ostatnich 7 dni'
   edit:
@@ -1911,9 +1915,9 @@ pickup:
     bread: 'Edytuj sloty'
     many-people: ''
     slot_titel: 'Sloty'
-    slotcount: ''
+    slotcount: '1 osoba odbierająca'
     added: 'Wprowadzono slot.'
-    slotscount: ''
+    slotscount: '{count} osoby/osób odbierające/ych'
   passport_expired:
     short: Legitymacja nieważna
     long: Twoja legitymacja wtedy nie będzie już ważna
@@ -1933,13 +1937,18 @@ pickup:
   edit_recurring_pickups: 'Edytuj serię slotów'
   kick: 'Wypisz'
   kick_message_footer: ''
-  really_kick_user_info: ''
+  really_kick_user_info: 'Czy na pewno chcesz wypisać {name} z odbioru dnia {date}?
+
+    {name} otrzyma następującą wiadomość:
+
+    '
   leave: 'Opuść'
-  kick_message: ''
+  kick_message: 'wypisaliśmy/łyśmy cię z odbioru w {storeName} dnia {date}.'
   really_leave_date_title: 'Wypisz się {date}?'
   slot_add: 'Dodaj slot'
   slots: 'Sloty'
-  delete_not_empty: ''
+  delete_not_empty: 'Aktualnie są jeszcze zapisani/e odbierający/e. Możesz usunąć
+    ten slot, dopiero gdy wszyscy będą wypisani.'
   same_day_hint: 'Następujące wydarzenia odbędą się tego samego dnia:'
   team_message_send_and_leave: 'Wyślij i wypisz'
   slot_remove: 'Usuń slot'
@@ -1950,15 +1959,15 @@ pickup:
   region_pickup_rule_failed: 'Ten zapis nie spełnia reguł rejonu'
   confirm: 'Potwierdź'
   call: 'Zadzwoń'
-  really_leave: ''
+  really_leave: 'Jesteś odpowiedzialny/a za ten odbiór. Zorganizuj samodzielnie zastępstwo.'
   to_be_confirmed: ''
   delete_title: 'usuń te sloty'
-  signout_info: ''
-  leave_team_message_template: ''
+  signout_info: 'Twoje nadchodzące odbiory zostaną usunięte.'
+  leave_team_message_template: 'wypisałem/am się z odbioru {date}. …'
   membershipMissing: ''
   take_empty_slot: 'Zapisz się tutaj'
   join_agree: 'Tak, zapisz się wiążąco'
-  chat_preface: ''
+  chat_preface: '{date} w [{store}]({storeUrl}):'
 calendar:
   locale: pl
   labelNextYear: Przyszły rok
