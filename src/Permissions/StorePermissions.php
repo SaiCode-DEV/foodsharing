@@ -201,7 +201,7 @@ class StorePermissions
     public function mayReadStoreWall(int $storeId): bool
     {
         $fsId = $this->session->id();
-        if (!$fsId || !$this->session->isVerified()) {
+        if (!$fsId) {
             return false;
         }
 
@@ -410,7 +410,7 @@ class StorePermissions
 
     public function maySeePhoneNumbers(int $storeId): bool
     {
-        return $this->mayReadStoreWall($storeId);
+        return $this->session->isVerified() && $this->mayReadStoreWall($storeId);
     }
 
     public function maySeeMemberDistance(int $storeId): bool
