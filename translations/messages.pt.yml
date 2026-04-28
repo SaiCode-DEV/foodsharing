@@ -631,7 +631,7 @@ dashboard:
     ack: 'Li o aviso, não mostrar mais'
   empty_section: 'Ainda não tens {type}'
   homeRegion: 'O teu distrito principal é {region}.'
-  source_foodsharepoint: 'Cantinhos de partilha {0}'
+  source_foodsharepoint: 'Cantinhos da partilha {0}'
   foodsharer: 'Divirta-se a salvar!'
   my:
     regions: 'Distritos onde pertences'
@@ -769,7 +769,7 @@ calendar:
         essa indicação na página indicada.'
       linkTitle: 'Evento foodsharing'
     updated: '(Última atualização: {date})'
-  labelCurrentMonth: 'Mes atual'
+  labelCurrentMonth: 'mes atual'
   labelHelp: 'A navegação também é possível com as teclas de seta'
   labelPrevMonth: 'Mes pasado'
   labelCalendar: 'Calendário'
@@ -1074,7 +1074,7 @@ date:
   thursday: 'Quinta-feira'
   monday: 'Segunda-feira'
   tuesday: 'Terça-feira'
-  to: 'até'
+  to: 'a'
   today: 'hoje'
   from: 'de'
   saturday: 'Sabado'
@@ -1397,7 +1397,7 @@ profile:
       filterActive: membro
       filterManage: responsável
       filterJumper: suplente
-  sleeping_info_from_until: Tenho um dorminhoco de {from} até {until}
+  sleeping_info_from_until: Tenho um dorminhoco de {from} a {until}
   choosereasonnostore: Não se aplica a nenhum local
   chooseantherstore: Refere-se a um local não listado
   editNameInfo: Tenha em atenção que os campos para nome e apelido devem ser 
@@ -1538,7 +1538,7 @@ group:
     welcome: 'Saudação'
     board: 'Junta'
     tooltip_function_3: 'Os administradores deste grupo de trabalho podem ativar e
-      editar os cantinhos de partilha do distrito e remover contribuições de cantinho
+      editar os cantinhos da partilha do distrito e remover contribuições de cantinho
       alimentar justos'
     mediation: 'Mediação'
     arbitration: 'Comissão de arbitragem'
@@ -1735,7 +1735,7 @@ group:
     other: '{count} administradores'
     one: Um administrador
   name: 'Nome'
-  valid_until: Válido áte
+  valid_until: Válido até
   filter_placeholder: Filtrar grupos por nomes
   confirm_decline: Queres mesmo recusar esta aplicação?
 foodsaver:
@@ -2032,21 +2032,21 @@ fsp:
   noManager: 'Deve haver pelo menos uma pessoa responsável por este cantinho de partilha.'
   street: 'Morada'
   editSuccess: 'Cantinho de partilha foi editado com sucesso'
-  summary: 'Há {count} cantinhos de partilha em todos os distritos onde está ativo'
+  summary: 'Há {count} cantinhos da partilha em todos os distritos onde está ativo'
   acceptName: 'desbloquear {name}'
   follow: 'Siga este cantinho de partilha'
-  none: 'Ainda não há cantinhos de partilha inscritos'
-  yours: 'Cantinhos de partilha nos vossos distritos'
+  none: 'Ainda não há cantinhos da partilha inscritos'
+  yours: 'Cantinhos da partilha nos vossos distritos'
   acceptSuccess: 'O cantinho de partilha esta ativo agora'
   new: 'Novo cantinho de partilha'
   addSuccess: 'O cantinho de partilha foi inscrito com sucesso'
   edit: 'Editar cantinho de partilha'
-  inRegion: 'Tudos os cantinhos de partilha no {region}'
+  inRegion: 'Tudos os cantinhos da partilha no {region}'
   delete: 'Eliminar cantinho de partilha'
   addedBy: 'Adicionado por'
-  summaryRegion: 'Há {count} cantinhos de partilha em {region} e todos subdistritos'
+  summaryRegion: 'Há {count} cantinhos da partilha em {region} e todos subdistritos'
   twig:
-    n_in_region: '{count} cantinhos de partilha em {name}'
+    n_in_region: '{count} cantinhos da partilha em {name}'
   publicwall: 'Tenha em atenção que as tuas publicações no mural do cantinho de partilha
     são visíveis publicamente.'
   suggestSuccess: 'O cantinho de partilha foi proposto e está agora a ser revisto
@@ -2123,7 +2123,7 @@ search:
   user_search:
     placeholder: 'Nome ou DNI'
   informations: 'Podes procuro por pessoas, grupos, locais, distritos, chats, mensagens
-    do fórum e cantinhos de partilha.'
+    do fórum e cantinhos da partilha.'
   noresults: 'Nenhum resultado encontrado para a tua pesquisa'
   too_short: 'Por favor, insira um termo de pesquisa mais longo.'
   forum:
@@ -2638,7 +2638,7 @@ settings:
     status: 'Tu estado atual'
     range: 'Indique por quanto tempo aproximadamente não estará disponível:'
     title: 'Dorminhoco'
-    until: 'até'
+    until: 'a'
     from: 'De'
     full: 'Vou estar fora por tempo indeterminado'
     temp: 'Não estou disponível durante o período seguinte'
@@ -3104,13 +3104,13 @@ terminology:
   stores: 'Cooperações'
   buddies: 'conhecidos'
   wall: 'Mural'
-  fsps: 'Cantinhos de partilha'
-  fsp: 'Cantinhos de partilha'
+  fsps: 'Cantinhos da partilha'
+  fsp: 'Cantinhos da partilha'
   fsManagementAdmins: 'Equipa de administração'
   forum: 'Fórum'
   message: 'Mensagem'
   boardAdmins: 'conselho administrativo'
-  fspAdmins: 'Equipa de cantinhos de partilha'
+  fspAdmins: 'Equipa de cantinhos da partilha'
   events: 'Eventos'
   group: 'Grupo de trabalho'
   welcomeAdmins: 'Equipa de boas-vindas'
@@ -3155,14 +3155,14 @@ timepicker:
   labelMinutes: 'minutos'
   labelDecrement: 'Diminuir'
   labelSelected: 'Hora seleccionada'
-  labelNoTimeSelected: 'Não há hora selecionada'
+  labelNoTimeSelected: 'Hora não definida'
   labelSeconds: 'segundos'
   labelIncrement: 'Aumentar'
   labelHours: 'horas'
   labelNowButton: 'Agora'
   placeholder: Introduza a hora
   from: de
-  to: até
+  to: a
 join_region:
   headline: 'Seleciona o distrito onde queres atuar.'
   error:
@@ -3374,10 +3374,10 @@ globals:
     my_regions: 'Meus distritos'
     chats: 'Chats'
     mailboxes: 'Caixas de correio'
-    my_foodshare_points: 'Os meus cantinhos de partilha'
+    my_foodshare_points: 'Os meus cantinhos da partilha'
     my_persons: 'As minhas pessoas'
     my_groups: 'Os meus grupos'
-    foodSharePoints: Cantinhos de partilha
+    foodSharePoints: Cantinhos da partilha
     users: 'Pessoas'
     regions_menu: 'Menu do distrito'
     mails: 'E-Mails'
@@ -3442,7 +3442,7 @@ startpage:
       part3: 'encontras'
       part5: ', são estantes ou frigoríficos onde podes recolher ou entregar comida
         gratuitamente.'
-      part4: 'Cantinhos de partilha'
+      part4: 'Cantinhos da partilha'
     title: 'Perto de ti'
   call_to_action:
     title: 'Participe'
@@ -3522,7 +3522,7 @@ startpage:
       também uma declaração de motivação assinada pela administração municipal como
       símbolo da parceria entre \no foodsharing e as autoridades públicas.\n"
     title: 'Ciudades de foodsharing'
-  dependability: 'Em muitos locais existem “cantinhos de partilha” onde a alimentos
+  dependability: 'Em muitos locais existem “cantinhos da partilha” onde a alimentos
     são partilhados. Podem encontrar-se aí ou noutros locais neutros para partilhar.
     Se quiser dar ou receber comida, por favor seja fiável e pontual, não abandonar
     ninguém.'
@@ -3590,7 +3590,7 @@ region:
   edit: 'Editar distrito'
   cancel: 'Não, afinal não'
   still_contains_elements: 'O distrito não pode ser excluido porque ainda contém sub-regiões,
-    locais ou cantinhos de partilha.'
+    locais ou cantinhos da partilha.'
   edit_success: 'O distrito foi guardado.'
   restricted: 'Infelizmente, não tens autorização para visualizar esses dados.'
   save: 'Sim, salvar'
@@ -3608,7 +3608,7 @@ region:
   public:
     map:
       missing: Este distrito não é atualmente exibido no mapa e não tem 
-        cantinhos de partilha que podem ser exibidos aqui. Tens autorização para
+        cantinhos da partilha que podem ser exibidos aqui. Tens autorização para
         colocar um pin de distrito agora.
       set_pin: Marcar o pin do distrito no mapa
       hide_pin: Remover o pin do distrito
@@ -3795,16 +3795,16 @@ events:
     title: 'Evento online (Mumble)'
   button:
     change: 'Alterar resposta'
-    no: 'Não vou'
-    maybe: 'Talvez'
-    yes: 'Vou'
+    no: 'não vou'
+    maybe: 'talvez'
+    yes: 'vou'
   goto: 'Para a data marcada'
   add_event: 'Novo evento'
   menu:
     yes: 'Aceite o convite'
     no: 'Não posso'
     maybe: 'Talvez vá'
-  span: '{from} até {until}'
+  span: '{from} a {until}'
   created: 'O evento foi inscrito com sucesso.'
   acceptedCount: '{count} participam'
   edit: 'Editar evento'
@@ -4007,9 +4007,9 @@ notifications:
     unavailable_error: O servidor do newsletter não está disponível neste 
       momento. Por favor, tenta novamente mais tarde.
   foodSharePoints:
-    title: 'Cantinhos de partilha'
+    title: 'Cantinhos da partilha'
     description: 'Receber notificações sobre novas mensagens nos murais dos cantinhos
-      de partilha que segues.'
+      da partilha que segues.'
   groups:
     title: 'Grupos de trabalho'
   checkbox_push: 'Push'
@@ -4129,7 +4129,7 @@ stats:
   total:
     pickups: 'missões que os nossos Foodsavers já completaram.'
     weight: 'Comida salva com sucesso do lixo.'
-    fsp: 'Os cantinhos de partilha são utilizados para trocar comidas.'
+    fsp: 'Os cantinhos da partilha são utilizados para trocar comidas.'
     foodsharer: 'Foodsharers estão registados em "foodsharing" e interessados no nosso
       trabalho.'
     foodsaver: 'Foodsavers trabalham voluntariamente por um mundo sem desperdício
@@ -4374,7 +4374,7 @@ statistics:
   num_fetches: 'em {count} operações de resgate'
   kg_food_saved: '{count} kg comida salva'
   region_public:
-    activeFoodSharePoints: Cantinhos de partilha ativos
+    activeFoodSharePoints: Cantinhos da partilha ativos
     foodBasketsLastMonth: cabazes alimentares distribuídas
     pickupsLastMonth: Resgates de comida
     savedFoodKgLastMonth: Comida salva
@@ -4495,7 +4495,7 @@ validation:
     inválidos)
 navi:
   google_maps: Google Maps
-  apple_maps: Apple Maps
+  apple_maps: Apple maps
   waze: Waze
   osmand: OsmAnd
   komoot: Komoot
@@ -4668,35 +4668,37 @@ help:
 
         '
     storeLog:
-      md: 'O registo de local é uma forma de acompanhar as atividades num local. Pode
-        ajudar a resolver conflitos ou corrigir erros acidentais.
+      md: 'O registo de local permite acompanhar as atividades num local. Pode ajudar
+        a esclarecer conflitos ou corrigir erros ocasionais.
 
         ---
 
         ###### Exemplo
 
-        Digamos que queiras saber quem foi adicionado à equipa nas últimas 3 semanas
-        e por quem. Então, podes definir o período usando as datas de início e fim
-        nos dois campos de data. Em seguida, podes selecionar todos os tipos de ações
-        relevantes no menu suspenso. Neste caso, por exemplo, «*Fazer pedidos de adesão*»,
-        «*Aceitar pedidos de adesão*» e «*Recusar pedidos de adesão*». Agora, se clicar
-        no botão «*Mostrar ações selecionadas*», será exibido um histórico dos eventos
-        selecionados.
+        Imagina que queres saber quem foi adicionado à equipa nas últimas 3 semanas
+        e por quem.
+
+        Podes definir o período usando as datas de início e fim nos campos de data.
+        Depois, seleciona os tipos de ação relevantes no menu suspenso — por exemplo:
+        «Fazer pedidos de adesão», «Aceitar pedidos de adesão» e «Recusar pedidos
+        de adesão».
+
+        Ao clicares em «Mostrar ações selecionadas», vais ver um histórico com os
+        eventos correspondentes.
 
         ---
 
         ###### Acesso
 
-        Apenas quem também pode administrar o local tem acesso a isso. Para Foodsaver
-        e suplentes normais, o registo de local não é visível.
+        Só quem pode administrar o local tem acesso a esta função. Para foodsavers
+        e suplentes, o registo de local não é visível.
 
         ---
 
         ###### Restrições
 
-        São carregadas no máximo 100 entradas. Se necessário, pode ter de restringir
-        o período de pesquisa ou os tipos de ação selecionados, caso nem todos os
-        resultados sejam exibidos.
+        São carregadas no máximo 100 entradas. Se não aparecerem todos os resultados,
+        pode ser necessário limitar o período de pesquisa ou os tipos de ação selecionados.
 
         '
       title: 'Registo de local'
