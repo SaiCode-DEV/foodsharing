@@ -80,21 +80,6 @@ export default {
         })
       }
 
-      // TODO: this can be removed as soon as login without activation is not possible anymore
-      if (!this.userStore.hasActiveEmail) {
-        list.push({
-          field: 'mail_activation',
-          links: [{
-            text: 'error.mail_activation.link_1',
-            urlShorthand: 'resendActivationMail',
-          },
-          {
-            text: 'error.mail_activation.link_2',
-            urlShorthand: 'settingsChangeEmail',
-          }],
-        })
-      }
-
       if (this.userStore.hasBouncingEmail) {
         list.push({
           field: 'mail_bounce',

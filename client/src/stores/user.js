@@ -63,14 +63,11 @@ export const useUserStore = defineStore('user', {
         'editQuiz',
         'handleReports',
         'editContent',
-        'administrateNewsletterEmail',
         'administrateRegions',
         'editAchievements',
       ].includes(key) && value)
     },
     hasBouncingEmail: () => false,
-    // TODO: this can be removed as soon as login without activation is not possible anymore
-    hasActiveEmail: (state) => state.details?.hasActiveEmail ?? true,
     hadPassport () {
       if (!this.isLoadingFinished) return null
       return this.details?.lastPassUntilValid !== null

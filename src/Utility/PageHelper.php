@@ -15,7 +15,6 @@ use Foodsharing\Permissions\BlogPermissions;
 use Foodsharing\Permissions\CategoriesPermissions;
 use Foodsharing\Permissions\ContentPermissions;
 use Foodsharing\Permissions\MailboxPermissions;
-use Foodsharing\Permissions\NewsletterEmailPermissions;
 use Foodsharing\Permissions\OAuthPermissions;
 use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\QuizPermissions;
@@ -61,7 +60,6 @@ final class PageHelper
         private readonly ContentPermissions $contentPermissions,
         private readonly BlogPermissions $blogPermissions,
         private readonly RegionPermissions $regionPermissions,
-        private readonly NewsletterEmailPermissions $newsletterEmailPermissions,
         private readonly WorkGroupPermissions $workGroupPermissions,
         private readonly ProfilePermissions $profilePermissions,
         private readonly CategoriesPermissions $categoriesPermissions,
@@ -209,7 +207,6 @@ final class PageHelper
             'handleReports' => $this->reportPermissions->mayHandleReports(),
             'addStore' => $this->storePermissions->mayCreateStore(),
             'editContent' => $this->contentPermissions->mayEditContent(),
-            'administrateNewsletterEmail' => $this->newsletterEmailPermissions->mayAdministrateNewsletterEmail(),
             'administrateRegions' => $this->regionPermissions->mayAdministrateRegions(),
             'editStoreCategories' => $this->categoriesPermissions->mayEditCategories(CategoryType::STORE),
             'editResourceCategories' => $this->categoriesPermissions->mayEditCategories(CategoryType::RESOURCE),

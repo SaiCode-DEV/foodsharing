@@ -12,7 +12,6 @@ class RegionIDs
     final public const int FOODSHARING_ON_FESTIVALS = 1432;
 
     // workgroups with special permissions:
-    final public const int NEWSLETTER_WORK_GROUP = 331;
     final public const int QUIZ_AND_REGISTRATION_WORK_GROUP = 341;
     final public const int QUIZ_GROUP_FR = 6045;
     final public const int NEW_QUIZZES_WORK_GROUP = 1063;
@@ -69,7 +68,7 @@ class RegionIDs
     public static function hasSpecialPermission(int $regionId): bool
     {
         return in_array($regionId, [
-            self::NEWSLETTER_WORK_GROUP, self::QUIZ_AND_REGISTRATION_WORK_GROUP,
+            self::QUIZ_AND_REGISTRATION_WORK_GROUP,
             self::PR_PARTNER_AND_TEAM_WORK_GROUP, self::PR_START_PAGE,
             self::IT_SUPPORT_GROUP, self::EDITORIAL_GROUP, self::STORE_CHAIN_GROUP,
             self::PRODUCT_TEAM

@@ -18,7 +18,6 @@ use Foodsharing\Modules\Event\InvitationStatus;
 use Foodsharing\Modules\Foodsaver\DTO\AgendaEntry;
 use Foodsharing\Modules\Foodsaver\DTO\EventAgendaEntry;
 use Foodsharing\Modules\Foodsaver\DTO\ProfileDetails;
-use Foodsharing\Modules\Login\LoginGateway;
 use Foodsharing\Modules\PassportGenerator\PassportGeneratorTransaction;
 use Foodsharing\Modules\Profile\ProfileGateway;
 use Foodsharing\Modules\Quiz\QuizSessionGateway;
@@ -34,7 +33,6 @@ use Foodsharing\Modules\Uploads\UploadsTransactions;
 use Foodsharing\Permissions\BlogPermissions;
 use Foodsharing\Permissions\CategoriesPermissions;
 use Foodsharing\Permissions\ContentPermissions;
-use Foodsharing\Permissions\NewsletterEmailPermissions;
 use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\QuizPermissions;
 use Foodsharing\Permissions\RegionPermissions;
@@ -69,11 +67,9 @@ class FoodsaverTransactions
         private readonly ReportPermissions $reportPermissions,
         private readonly StorePermissions $storePermissions,
         private readonly ContentPermissions $contentPermissions,
-        private readonly NewsletterEmailPermissions $newsletterEmailPermissions,
         private readonly RegionPermissions $regionPermissions,
         private readonly SearchPermissions $searchPermissions,
         private readonly CategoriesPermissions $categoriesPermissions,
-        private readonly LoginGateway $loginGateway,
         private readonly Session $session,
         private readonly ListmonkClient $listmonkClient,
     ) {
@@ -219,15 +215,11 @@ class FoodsaverTransactions
             'handleReports' => $this->reportPermissions->mayHandleReports(),
             'addStore' => $this->storePermissions->mayCreateStore(),
             'editContent' => $this->contentPermissions->mayEditContent(),
-            'administrateNewsletterEmail' => $this->newsletterEmailPermissions->mayAdministrateNewsletterEmail(),
             'administrateRegions' => $this->regionPermissions->mayAdministrateRegions(),
             'maySearchGlobal' => $this->searchPermissions->maySearchGlobal(),
             'editStoreCategories' => $this->categoriesPermissions->mayEditCategories(CategoryType::STORE),
             'editResourceCategories' => $this->categoriesPermissions->mayEditCategories(CategoryType::RESOURCE),
         ];
-
-        //TODO: this can be removed as soon as the login is not possible without email activation
-        $details->hasActiveEmail = $this->loginGateway->isActivated($userId);
 
         if ($details->permissions['mayEditUserProfile']) {
             $details->coordinates = empty($data['lat']) || empty($data['lon']) ? null : GeoLocation::createFromArray($data);

@@ -64,9 +64,6 @@ class ProfileDetails
 
     public array $permissions = [];
 
-    #[OA\Property(description: 'Has an active email/login activated')]
-    public bool $hasActiveEmail;
-
     public ?GeoLocation $coordinates = null;
 
     public ?string $address = null;

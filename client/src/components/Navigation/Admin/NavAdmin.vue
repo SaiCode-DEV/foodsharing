@@ -39,16 +39,6 @@
       >
         <i class="icon-subnav fas fa-key" /> {{ $t('oauth.admin.title') }}
       </a>
-      <!--
-      <a
-        v-if="permissions.administrateNewsletterEmail"
-        :href="$url('email')"
-        role="menuitem"
-        class="dropdown-item dropdown-action"
-      >
-        <i class="icon-subnav fas fa-envelope" /> {{ $t('system_administration.email') }}
-      </a>
-      -->
       <a
         v-if="permissions.editContent"
         :href="$url('contentEdit')"

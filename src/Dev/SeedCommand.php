@@ -348,7 +348,6 @@ class SeedCommand extends Command implements CustomCommandInterface
         $I->createWorkingGroup('Support', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::IT_SUPPORT_GROUP]);
         $I->createWorkingGroup('Öffentlichkeitsarbeit - Partner + Teamseite', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::PR_PARTNER_AND_TEAM_WORK_GROUP]);
         $I->createWorkingGroup('Öffentlichkeitsarbeit - Startseite', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::PR_START_PAGE]);
-        $I->createWorkingGroup('Newsletter', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::NEWSLETTER_WORK_GROUP]);
         $I->createWorkingGroup('Orgarechte-Koordination', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::ORGA_COORDINATION_GROUP]);
         $I->createWorkingGroup('Redaktion', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::EDITORIAL_GROUP]);
         $I->createWorkingGroup('foodsharing Vereins-Vorstände', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::BOARD_ADMIN_GROUP]);
@@ -535,7 +534,6 @@ class SeedCommand extends Command implements CustomCommandInterface
         $I->addRegionMember(RegionIDs::IT_SUPPORT_GROUP, $userStoreManager2['id']);
         $I->addRegionAdmin(RegionIDs::IT_SUPPORT_GROUP, $userorga['id']);
         $I->addRegionMember(RegionIDs::IT_SUPPORT_GROUP, $userorga['id']);
-        $I->addRegionAdmin(RegionIDs::NEWSLETTER_WORK_GROUP, $user2['id']);
         $I->addRegionAdmin(RegionIDs::EDITORIAL_GROUP, $userbot['id']);
         $I->addRegionAdmin(RegionIDs::STORE_CHAIN_GROUP, $userbot['id']);
         $I->addRegionAdmin(RegionIDs::HYGIENE_GROUP, $userbot['id']);

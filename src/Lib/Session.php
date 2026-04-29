@@ -444,12 +444,6 @@ class Session
             'verified' => (int)$fs['verified'],
             'id' => $fs['id'],
         ]);
-        /* TODO: This 'client' value is necessary because sessions are shared between beta and production. It can be
-         remove after Release P, after which only 'user' is necessary. */
-        $this->set('client', [
-            'verified' => (int)$fs['verified'],
-        ]);
-
         $this->set('login', true);
 
         // Force immediate write to Redis to prevent race conditions

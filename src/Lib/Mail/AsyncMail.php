@@ -89,6 +89,6 @@ class AsyncMail
 
     public function send()
     {
-        $this->mem->queueWork($this->toArray(), $this->highPriority);
+        $this->mem->enqueueEmail($this->toArray(), $this->highPriority);
     }
 }

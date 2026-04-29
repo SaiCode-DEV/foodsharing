@@ -486,7 +486,6 @@ group:
     tooltip_function_13: "Administrator:innen dieser Arbeitsgruppe werden per Glocke über neue Ressourcen informiert."
     none: "Keine GOALS-AG"
   unique_function:
-    tooltip_function_region331: "Administrator:innen dieser Arbeitsgruppe können Newsletter versenden"
     tooltip_function_region341: "Administrator:innen dieser Arbeitsgruppe können die Quizfragen verwalten"
     tooltip_function_region1811: "Administrator:innen dieser Arbeitsgruppe können die Seiten „Partner“, „Kontakt“ und „Team“ bearbeiten"
     tooltip_function_region2287: "Administrator:innen dieser Arbeitsgruppe können die Inhalte der Startseite bearbeiten"
@@ -1678,48 +1677,6 @@ events:
 
     Solltest du trotzdem eine andere Plattform für eine Telefon- oder Onlinekonferenz nutzen wollen, wähle bitte die Option *„Sonstiges“* aus.
   public_info: "Diese Veranstaltung ist öffentlich, alle können darauf zugreifen. Kommentare und die Teilnehmer:innenliste sind nur für angemeldete Nutzer:innen sichtbar."
-
-recipients:
-  bread: "Newsletter-Verteiler"
-  prepare: "Vorbereiten zum Versand"
-  recipients: "Empfänger:innen"
-  all: "Alle Foodsaver:innen weltweit"
-  active_ambassadors: "Alle Botschafter:innen bundesweit"
-  orga_team: "globales Orgateam (Admins der Seite)"
-  newsletter: "Alle Newsletter-Abonnent:innen (mindestens Foodsaver:in)"
-  newsletter_all: "Alle Newsletter-Abonnent:innen (Foodsharer:innen, Foodsaver:innen, alle)"
-  newsletter_only_foodsharer: "NUR die Foodsharer:innen unter allen Newsletter-Abonnent:innen"
-  all_no_botschafter: "Alle Foodsaver:innen ohne Botschafter:innen"
-  storemanagers: "Alle Betriebsverantwortlichen weltweit"
-  storemanagers_and_ambs: "Alle Betriebsverantwortlichen und Botschafter:innen"
-  choose: "Bezirke einzeln auswählen"
-  manual: "Manuelle Eingabe"
-  region-hint: |
-    <strong>Hinweis:</strong>
-    Um untergeordnete Bezirke zu markieren, musst du den Ordner erst öffnen.
-    In alle nicht sichtbaren Bezirke werden keine E-Mails versendet.
-  empty-region: "In den ausgewählten Bezirken gibt es noch keine Foodsaver:innen"
-  body: "Nachricht"
-  send: "E-Mail senden"
-  confirm: "E-Mail senden?"
-  testmail: "Test-Mail senden"
-  test_email_sent: "E-Mail wurde versendet."
-  test_email_invalid: "Mit der E-Mail-Adresse stimmt etwas nicht."
-  variables: "Persönliche Anrede"
-  variable-info: |
-    Um die E-Mail persönlicher zu gestalten, kannst du <strong>{NAME}</strong> anstelle des Namens einfügen
-    und <strong>{ANREDE}</strong> für die Anrede verwenden.
-    <p>{ANREDE} {NAME} ergibt beispielsweise: „Lieber Peter“
-  doublecheck: "Alles überprüft? Soll die E-Mail an die gewählte Zielgruppe gesendet werden?"
-  sent: "Die E-Mail wurde erfolgreich an {count} E-Mail-Adressen gesendet"
-  history: "Von dir gesendete E-Mails"
-  pending: "Es sind noch {count} E-Mails zu versenden"
-  continue: "Mit dem Senden weitermachen"
-  abort: "Versand abbrechen"
-  permission: "Du bist nicht berechtigt, E-Mails zu versenden"
-  status: "Versende E-Mails … (aktuelle E-Mail-Adresse: {current})"
-  unknown: "unbekannt"
-  done: "Es wurden alle E-Mails verschickt"
 
 addresspicker:
   label: "Adress-/Standort-Suche"
@@ -3729,11 +3686,6 @@ error:
     description: "Deine E-Mail-Adresse ist für foodsharing-Mails und -Kommunikation gesperrt."
     link_1: "E-Mail-Adresse ändern"
     link_2: "Ich benötige Hilfe"
-  mail_activation:
-    title: "E-Mail-Adresse nicht bestätigt!"
-    description: "Die Benutzung der Webseite ist nur noch mit bestätigter E-Mail-Adresse möglich. Bitte bestätige deine E-Mail-Adresse, indem du auf den Link in der Aktivierungsmail klickst."
-    link_1: "Eine neue Aktivierungsmail anfordern"
-    link_2: "E-Mail-Adresse ändern"
   missing_geolocation:
     title: "Keine gültige Adresse eingegeben"
     description: "Bitte überprüfe deine Adresse. Die Koordinaten konnten nicht ermittelt werden."

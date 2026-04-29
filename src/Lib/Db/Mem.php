@@ -43,14 +43,11 @@ class Mem
     /**
      * Enqueue an email to be processed by the mailqueuerunner.
      * Counterpart of the asynchronous queue runner in OutgoingMailsService.
-     *
-     * TODO: rename this function to make it clear that this is only for emails
      */
-    public function queueWork($data, bool $highPriority = false)
+    public function enqueueEmail($data, bool $highPriority = false)
     {
         if (MEM_ENABLED) {
-            // TODO: the 'type' can be removed after release P
-            $e = serialize(['type' => 'email', 'data' => $data]);
+            $e = serialize(['data' => $data]);
             $this->ensureConnected();
 
             if ($highPriority) {
