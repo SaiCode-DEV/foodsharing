@@ -2160,8 +2160,6 @@ group:
     {name}? Du mister bekreftelsen og må kontakte ambassadørteamet til ditt nye 
     hjemdistrikt senere.
   unique_function:
-    tooltip_function_region331: Administratorer for denne arbeidsgruppen kan 
-      sende nyhetsbrev
     tooltip_function_region341: Administratorer av denne arbeidsgruppen kan 
       administrere quizspørsmål
     tooltip_function_region2287: Administratorer for denne arbeidsgruppen kan 
@@ -2368,44 +2366,6 @@ date:
   from: fra
   time: '{time}'
   clock:  
-recipients:
-  unknown: ukjent
-  confirm: Send e-post?
-  send: Send e-post
-  body: Melding
-  manual: Manuell inngang
-  recipients: Mottakere
-  bread: E-postliste for nyhetsbrev
-  newsletter_all: Alle nyhetsbrevabonnenter (matdelere, matreddere, alle)
-  all: Alle matreddere over hele verden
-  all_no_botschafter: Alle matreddere uten ambassadører
-  prepare: Forberede for sending
-  testmail: Send test-e-post
-  test_email_sent: E-post har blitt sendt.
-  test_email_invalid: Noe er galt med e-postadressen.
-  variables: Personlig hilsen
-  doublecheck: Alt sjekket? Skal e-posten sendes til den valgte målgruppen?
-  sent: E-posten ble sendt til {count} e-postadresser
-  history: E-poster du har sendt
-  newsletter_only_foodsharer: KUN matdelerne blant alle nyhetsbrevabonnenter
-  continue: Fortsett å sende
-  abort: Kanseller frakt
-  done: Alle e-poster er sendt
-  status: 'Sender e-poster … (nåværende adresse: {current})'
-  storemanagers: Alle samarbeidsoffiserer over hele verden
-  storemanagers_and_ambs: Alle samarbeidsoffiserer og ambassadører
-  choose: Velg distrikter individuelt
-  empty-region: Det er fortsatt ingen matreddere i de utvalgte distriktene
-  pending: Det er {count} e-poster igjen å sende
-  permission: Du har ikke tillatelse til å sende e-post
-  region-hint: "<strong>Merk:</strong>\nFor å markere underordnede distrikter må du
-    først åpne mappen.\nDet sendes ingen e-post til noen usynlige distrikter.\n"
-  orga_team: Globalt organisasjonsteam
-  active_ambassadors: Alle ambassadører over hele landet
-  newsletter: Alle nyhetsbrevabonnenter (minst matredder)
-  variable-info: "For å gjøre e-posten mer personlig kan du sette inn <strong>{NAME}</strong>
-    i stedet for navnet\nog <strong>{ANREDE}</strong> for hilsenen.\n<p>{ANREDE} {NAME}
-    resulterer for eksempel i «Kjære Emil»\n"
 events:
   morePeople: … og {count} til
   invitedCount: '{count} invitasjoner'
@@ -3867,13 +3827,6 @@ error:
     title: Blokkert e-postadresse!
     description: E-postadressen din er blokkert fra e-post og kommunikasjon med 
       matdeling.
-  mail_activation:
-    link_2: Endre e-postadresse
-    title: E-postadresse er ikke bekreftet!
-    description: Bruk av nettstedet er kun mulig med en bekreftet e-postadresse.
-      Vennligst bekreft e-postadressen din ved å klikke på lenken i 
-      aktiverings-e-posten.
-    link_1: Be om en ny aktiverings-e-post
   invalid_mobile_phonenumber:
     description: Dessverre er mobilnummeret i et format som ikke kan ringes.
     link: Korriger mobilnummeret ditt nå

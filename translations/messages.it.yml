@@ -53,8 +53,6 @@ group:
       possono visualizzare le segnalazioni
     tooltip_function_region341: Gli amministratori di questo gruppo di lavoro 
       possono gestire le domande del quiz
-    tooltip_function_region331: Gli amministratori di questo gruppo di lavoro 
-      possono inviare newsletter
     tooltip_function_region387: Gli amministratori di questo gruppo possono 
       rimuovere le voci dall'elenco di rimbalzo delle e-mail
     tooltip_function_region327: Gli amministratori di questo gruppo di lavoro 
@@ -1660,47 +1658,6 @@ addresspicker:
   placeholder: Cerca l’indirizzo …
   different_location: 'Descrizione corretta dell’indirizzo'
   different_location_warning: ''
-recipients:
-  done: Tutte le e-mail sono state inviate
-  unknown: sconosciuto
-  status: 'Invio delle e-mail … (indirizzo e-mail attuale: {current})'
-  permission: Non sei autorizzato/a a inviare e-mail
-  abort: annulla l'invio
-  continue: invia
-  pending: Ci sono ancora {count} e-mail da inviare
-  history: E-mail inviate da te
-  sent: L'e-mail è stata inviata con successo a {count} indirizzi e-mail
-  doublecheck: Tutto controllato? L'e-mail deve essere inviata al gruppo di 
-    destinazione selezionato?
-  variable-info: "Per rendere l’e-mail più personale, puoi inserire <strong>{NAME}</strong>
-    al posto del nome.\ne usa <strong>{ANREDE}</strong> per il saluto.\nPer esempio,
-    <p>{ANREDE} {NAME} risulta in «Caro Giovanni».\n"
-  test_email_invalid: C'è qualcosa di sbagliato nell'indirizzo e-mail.
-  test_email_sent: L'e-mail è stata inviata.
-  testmail: Invia l'e-mail di prova
-  confirm: Inviare l'e-mail?
-  body: Messaggio
-  send: Invia l'e-mail
-  empty-region: Non ci sono ancora foodsaver nei distretti scelti
-  region-hint: "<strong>Nota:</strong>\nPer contrassegnare i distretti subordinati,
-    devi prima aprire la cartella.\nNon vengono inviate e-mail a distretti invisibili.\n"
-  manual: Inserimento manuale
-  choose: Selezionare i distretti individualmente
-  storemanagers_and_ambs: Tutti i responsablili e ambasciatori
-  storemanagers: tutti i responsabili di agenzie nel mondo
-  all_no_botschafter: Tutti Foodsaver senza Ambasciatore
-  orga_team: Team organizzatori globale
-  active_ambassadors: Tutti gli ambasciatori nazionali
-  all: Tutti i Foodsaver nel mondo
-  recipients: Destinatario
-  prepare: Preparare per spedire
-  newsletter_all: Tutti gli abbonati alle Newsletter (Foodsharer, Foodsaver, 
-    tutti)
-  newsletter: Tutti gli abbonati alla Newsletter (almeno Foodsaver)
-  bread: Mailing-list delle Newsletter
-  newsletter_only_foodsharer: SOLO i Foodsharer tra tutti gli abbonati alla 
-    Newsletter
-  variables: Saluto personale
 forum:
   thread:
     with_mail: L'argomento è stato aperto e tutti ne sono stati informati 
@@ -3811,13 +3768,6 @@ error:
     link: 'Carica subito la tua immagine del profilo'
     title: 'Non hai ancora caricato un''immagine del profilo.'
     description: 'Mostra ai membri di Foodsharing chi sei!'
-  mail_activation:
-    title: 'Indirizzo e-mail non confermato!'
-    link_2: 'Cambia indirizzo email'
-    link_1: 'Richiedi una nuova email di attivazione'
-    description: 'L’utilizzo del sito web è possibile solo con un indirizzo email
-      confermato. Conferma il tuo indirizzo e-mail facendo clic sul collegamento nell’e-mail
-      di attivazione.'
   missing_geolocation:
     title: 'Nessun indirizzo valido inserito'
     description: 'Per favore controlla il tuo indirizzo. Non è stato possibile determinare

@@ -856,13 +856,6 @@ error:
       electrónicos y comunicaciones de foodsharing.'
     title: '¡Dirección de correo electrónico bloqueada!'
     link_1: 'Cambiar dirección de correo electrónico'
-  mail_activation:
-    link_1: 'Solicite un nuevo correo electrónico de activación'
-    title: '¡Dirección de correo electrónico no confirmada!'
-    description: 'El uso del sitio web solo es posible con una dirección de correo
-      electrónico confirmada. Confirme su dirección de correo electrónico haciendo
-      clic en el enlace del correo electrónico de activación.'
-    link_2: 'Cambiar dirección de correo electrónico'
   missing_geolocation:
     description: 'Por favor verifique su dirección. No se pudieron determinar las
       coordenadas.'
@@ -1091,8 +1084,6 @@ group:
       a la lista de cadenas'
     tooltip_function_region327: 'L@s administrador@s de este grupo de trabajo pueden
       editar entradas de blog'
-    tooltip_function_region331: 'L@s administrador@s de este grupo de trabajo pueden
-      enviar boletines'
     tooltip_function_region2296: ''
   description: 'Descripción'
   application_region: 'Solicitud de {group}'
@@ -2878,57 +2869,6 @@ events:
     comentarios y la lista de participantes sólo son visibles para usuari@s 
     registrados.
   declinedCount: ''
-recipients:
-  orga_team: 'Equipo organizacional global'
-  newsletter: 'Todos los suscriptores del boletín (al menos rescatista)'
-  newsletter_all: 'Todos los suscriptores del boletín (compater@s, rescatistas, todos)'
-  test_email_sent: 'Se envió el correo electrónico.'
-  test_email_invalid: 'Algo anda mal con la dirección de correo electrónico.'
-  variables: 'Saludo personal'
-  history: 'Correos electrónicos enviados por usted'
-  permission: 'No estás autorizado a enviar correos electrónicos masivos'
-  abort: 'Anular el envío'
-  status: 'Enviar correos electrónicos … (dirección de correo electrónico actual:
-    {current})'
-  send: 'Enviar correo electrónico'
-  doublecheck: '¿Todo comprobado? ¿Debe enviarse el correo electrónico al grupo objetivo
-    seleccionado?'
-  body: 'Mensaje'
-  active_ambassadors: 'Todas l@s embajador@s en el país'
-  manual: 'Entrada manual'
-  empty-region: 'No hay rescatistas en los distritos seleccionados'
-  all_no_botschafter: 'Tod@s l@s rescatistas sin embajador@s'
-  pending: 'Todavía quedan {count} correos electrónicos por enviar'
-  prepare: 'Prepararse para el envío'
-  newsletter_only_foodsharer: 'SOLO los que foodsharer entre todos los suscriptores
-    del boletín'
-  testmail: 'Enviar correo electrónico de prueba'
-  variable-info: 'Para que el correo electrónico sea más personal, puede insertar
-    <strong>{NAME}</strong> en lugar del nombre
-
-    y utilizar <strong>{ANREDE}</strong> para el saludo.
-
-    <p>{ANREDE} {NAME} da como resultado, por ejemplo: “Querido Peter”
-
-    '
-  confirm: '¿Enviar correo electrónico?'
-  done: 'Todos los correos electrónicos han sido enviados'
-  region-hint: '<strong>Nota:</strong>
-
-    Para marcar distritos subordinados, primero debe abrir la carpeta.
-
-    No se enviarán correos electrónicos a ningún distrito que no sea visible.
-
-    '
-  storemanagers: 'Tod@s l@s responsables de cooperaciones a nivel mundial'
-  continue: 'Continuar enviando'
-  recipients: 'Destinatari@s'
-  sent: 'El mensaje se envió correctamente a {count} direcciones de correo electrónico'
-  bread: 'Lista de distribución del boletín'
-  storemanagers_and_ambs: 'Tod@s l@s responsables de cooperaciones y embajador@s'
-  choose: 'Seleccionar distritos manualmente'
-  all: 'Todos l@s rescatistas del mundo'
-  unknown: 'desconocido'
 regionOptions:
   enableMediationButton: 'Activar el formulario de mediación en las páginas de perfil
     de los comensales habituales del distrito'

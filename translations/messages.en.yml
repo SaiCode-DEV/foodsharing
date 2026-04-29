@@ -153,8 +153,6 @@ group:
       pages ‘Partner’, ‘Contact’ and ‘Team’
     tooltip_function_region341: Administrators of this work group can manage the
       quiz questions
-    tooltip_function_region331: Administrators of this work group can send 
-      newsletters
     tooltip_function_region387: "Administrators of this group can remove entries from
       the e-mail bounce list"
     tooltip_function_region327: Administrators of this workgroup can edit blog 
@@ -1793,46 +1791,6 @@ reports:
   reports_user: All complaints about {userName} ({userId})
   id: ID
   reporter: Reporting person
-recipients:
-  done: All e-mails have been sent
-  unknown: unknown
-  abort: Abort sending
-  continue: Continue sending
-  pending: There are {count} e-mails left to sent
-  history: E-mails sent by you
-  sent: The e-mail was successfully sent to {count} addresses
-  send: Send e-mail
-  status: 'Sending e-mails … (current address: {current})'
-  permission: You do not have permission to send e-mails
-  body: Message
-  recipients: Recipients
-  test_email_invalid: Something is wrong with the e-mail address.
-  test_email_sent: E-mail was sent.
-  testmail: Send test e-mail
-  confirm: Send e-mail?
-  storemanagers_and_ambs: All Store Coordinators + ambassadors
-  storemanagers: All Store Coordinators worldwide
-  all_no_botschafter: All foodsavers without ambassadors
-  active_ambassadors: All ambassadors country-wide
-  all: All foodsavers worldwide
-  prepare: Prepare for sending
-  empty-region: There are no foodsavers in the selected districts
-  choose: Select districts manually
-  region-hint: "<strong>Note:</strong>\nTo mark subordinate districts, you have to
-    open the folder first.\nNo e-mails are sent to any of the invisible districts.\n"
-  doublecheck: Everything checked? Should the email be sent to the selected 
-    target group?
-  variable-info: "To make the e-mail more personal, you can insert <strong>{NAME}</strong>
-    instead of the name\nand use <strong>{ANREDE}</strong> for the salutation.\n<p>For
-    example, {ANREDE} {NAME} results in “Dear Peter”\n"
-  variables: Salutation
-  manual: Manual input
-  newsletter_only_foodsharer: ONLY the foodsharers among all newsletter 
-    subscribers
-  newsletter_all: All newsletter subscribers (foodsharer, foodsaver, all)
-  newsletter: All newsletter subscribers (at least foodsaver)
-  orga_team: global orga-team
-  bread: Newsletter mailing list
 poll:
   time_period: Time period
   results:
@@ -4157,13 +4115,6 @@ error:
     description: "Your email address is blocked for foodsharing emails and communication."
     link_1: "Change email address"
     link_2: "I need help"
-  mail_activation:
-    title: "Email address not confirmed!"
-    description: "The website will only be available with a confirmed email address.
-      Please confirm your email address by clicking on the link in the activation
-      email."
-    link_1: "Request a new activation email"
-    link_2: "Change email address"
   invalid_mobile_phonenumber:
     title: There is a problem with your mobile phone number.
     link: Correct your mobile phone number now

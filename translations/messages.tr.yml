@@ -570,8 +570,6 @@ group:
       görüntüleyebilir
     tooltip_function_region327: Bu çalışma grubunun yöneticileri blog 
       girişlerini düzenleyebilir
-    tooltip_function_region331: Bu çalışma grubunun yöneticileri haber 
-      bültenleri gönderebilir
     tooltip_function_region387: Bu çalışma grubunun yöneticileri, e-posta geri 
       dönen listesinden girişleri kaldırabilir
     tooltip_function_region2296: Bu çalışma grubunun yöneticileri kaynak ve 
@@ -778,12 +776,6 @@ bell:
   store_added_to_chain_title: ''
   store_added_to_chain: ''
 error:
-  mail_activation:
-    link_2: E-Posta adresini değiştirin
-    description: 'Web sitesi yalnızca doğrulanmış bir e-posta adresiyle kullanılabilir.
-      Lütfen aktivasyon e-postasındaki bağlantıya tıklayarak e-posta adresinizi doğrulayın.'
-    link_1: 'Yeni bir etkinleştirme e-postası isteyin'
-    title: 'E-posta adresi doğrulanmadı!'
   mail_bounce:
     link_2: 'Yardıma ihtiyacım var'
     link_1: 'E-posta adresini değiştir'
@@ -1816,46 +1808,6 @@ events:
   public_info: Bu etkinlik herkese açıktır ve herkes erişebilir. Yorumlar ve 
     katılımcı listesi sadece kayıtlı kullanıcılar tarafından görülebilmektedir.
   declinedCount: ''
-recipients:
-  orga_team: Ülke çapındaki organizasyon ekibi
-  all_no_botschafter: Elçileri olmayan tüm Foodsaverlar
-  manual: Manuel giriş
-  region-hint: "<strong>Not:</strong>\nAlt bölgeleri işaretlemek için önce klasörü
-    açmanız gerekir.\nGörünmeyen ilçelere e-posta gönderilmemektedir.\n"
-  permission: E-posta gönderme izniniz yok
-  status: 'E-postaları gönder … (mevcut e-posta adresi: {current})'
-  body: Mesaj
-  confirm: Eposta gönder?
-  test_email_sent: E-Posta gönderildi.
-  history: Gönderdiğiniz e-postalar
-  continue: Göndermeye devam et
-  done: Tüm e-postalar gönderildi
-  storemanagers: Dünya çapındaki tüm işletme yöneticileri
-  bread: Bülten dağıtım listesi
-  prepare: Sevkiyat için hazırla
-  recipients: Alıcı
-  active_ambassadors: Ülke çapındaki tüm Elçiler
-  send: E-posta gönder
-  testmail: Test E-Postası gönder
-  test_email_invalid: E-posta adresinde bir sorun var.
-  doublecheck: Her şey kontrol edildi mi? E-posta seçilen hedef gruba 
-    gönderilsin mi?
-  sent: E-posta başarıyla {count} e-posta adresine gönderildi
-  abort: Gönderimi iptal et
-  unknown: bilinmeyen
-  newsletter: Tüm haber bülteni aboneleri (en azından Foodsaverlar)
-  pending: Hâlâ gönderilecek {count} e-posta var
-  all: Dünya çapındaki tüm Foodsaver'lar
-  newsletter_all: Tüm haber bülteni aboneleri (Foodsharer, Foodsaver, herkes)
-  choose: İlçeleri tek tek seçin
-  storemanagers_and_ambs: Tüm işletme yöneticileri ve elçiler
-  empty-region: Seçilen semtlerde henüz Foodsaver yok
-  newsletter_only_foodsharer: YALNIZCA tüm haber bülteni aboneleri arasında 
-    Foodsharer olanlar
-  variables: Kişisel hitap
-  variable-info: "E-postayı daha kişisel hale getirmek için adın yerine <strong>{NAME}</strong>
-    ekleyebilirsiniz\nve selamlama için <strong>{ANREDE}</strong> kullanın.\n<p>{ANREDE}
-    {NAME} şu şekilde sonuçlanır: “Sevgili Mete”\n"
 foodsaver:
   list:
     summary: '{region}''de ki Foodsaver {count}'

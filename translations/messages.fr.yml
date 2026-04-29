@@ -84,8 +84,6 @@ group:
       modifier les pages « partenaires », « contact » et « équipe »
     tooltip_function_region341: Les admins de ce groupe peuvent modifier les 
       questions liées aux quiz
-    tooltip_function_region331: Les admins de ce groupe peuvent envoyer des 
-      lettres d’information
     tooltip_function_region387: Les admins de ce groupe de travail peuvent 
       retirer des entrées dans la liste de diffusion
     tooltip_function_region327: Les admins de ce groupe de travail peuvent 
@@ -906,50 +904,6 @@ foodsaver:
   delete_description_other: ''
   delete_own_account_failed: ''
   delete_description_own: ''
-recipients:
-  done: Tous les courriels ont été envoyés
-  status: 'Envoyer des courriels … (adresse électronique actuelle : {current})'
-  permission: Tu n’as pas le droit d’envoyer des courriels
-  pending: Il reste encore {count} courriels à envoyer
-  history: Courriels envoyés par toi
-  sent: Le courriel a bien été envoyé à {count} adresses électroniques
-  test_email_invalid: Il y a un problème avec l’adresse courriel.
-  test_email_sent: Le courriel a été envoyé.
-  testmail: Envoyer un courriel de test
-  confirm: Envoyer le courriel ?
-  send: Envoyer le courriel
-  doublecheck: Tout est vérifié ? Le courriel doit-il être envoyé au groupe 
-    cible sélectionné ?
-  variable-info: "Pour rendre le courriel plus personnel, tu peux insérer <strong>{NAME}</strong>
-    au lieu du nom\net utiliser <strong>{ANREDE}</strong> pour la salutation.\n<p>{ANREDE}
-    {NAME} donne par exemple : « Cher Peter »\n"
-  unknown: inconnu
-  abort: Annuler l’envoi
-  continue: Continuer l’envoi
-  variables: Salutation personnelle
-  body: Message
-  empty-region: Il n’y a encore aucun(e) collecteur·ice dans les secteurs 
-    géographiques choisis
-  region-hint: "<strong>Remarque :</strong>\nPour marquer les sous-secteurs, ouvre
-    le dossier en premier.\nAucun courriel ne sera envoyé aux secteurs géographiques
-    qui ne sont pas visibles.\n"
-  manual: Saisie manuelle
-  choose: Choisir les secteurs géographiques séparément
-  storemanagers_and_ambs: Tous les responsables coopération et 
-    ambassadeur·rice·s
-  storemanagers: Tous les responsables coopération (international)
-  all_no_botschafter: Tous les Foodsavers sans ambassadeur·rice·s
-  newsletter_only_foodsharer: SEULEMENT les Foodsharer abonnés à la lettre 
-    d’information
-  newsletter_all: Tous les abonnés à la lettre d’information (Foodsharer, 
-    Foodsaver, tous)
-  newsletter: Tous les abonnés à la lettre d’information (au min. Foodsaver)
-  orga_team: Équipe Organisation
-  active_ambassadors: Tous les ambassadeur·rice·s (national)
-  all: Tous les Foodsaver (international)
-  recipients: Destinataires
-  prepare: Préparer pour l’envoi
-  bread: Distributeur de lettre d’information
 forum:
   inform_per_email: Informer tous les membres du forum actifs au cours des six 
     derniers mois de la création de ce nouveau sujet par courriel, uniquement 
@@ -4060,13 +4014,6 @@ information:
       désactiver à tout moment dans les paramètres.
     link: Vers les préférences
 error:
-  mail_activation:
-    title: Adresse électronique non confirmée !
-    link_1: Demander un nouveau courriel d’activation
-    description: L’utilisation du site web n’est désormais possible qu’avec une 
-      adresse e-mail confirmée. Merci de confirmer ton adresse e-mail en 
-      cliquant sur le lien figurant dans l’e-mail d’activation.
-    link_2: Modifier le courriel
   missing_geolocation:
     title: Aucune adresse valide n’a été saisie
     description: Merci de vérifier ton adresse. Les coordonnées n’ont pas pu 

@@ -658,7 +658,7 @@ dashboard:
   activity_filter_info: 'Aqui pode definir quais novidades devem ser exibidas na tua
     página inicial.'
   source_forum: 'Fórum {0}'
-  save_selection: 'Salvar configurações'
+  save_selection: 'Guardar configurações'
   updates_title_all: 'Novidades'
   no_more_updates_forum: 'Não há mais publicações no fórum'
   chooseHomeRegion: 'Por favor, selecione um distrito principal.'
@@ -786,8 +786,8 @@ poll:
   allowed_voters: 'Direito a voto'
   edit:
     title: 'Editar votação'
-    submit: 'Salvar votação'
-    submit_question: 'Queres mesmo salvar as alterações na votação?'
+    submit: 'Guardar votação'
+    submit_question: 'Queres mesmo guardar as alterações na votação?'
   in_future: 'ainda não foi iniciado'
   in_past: 'terminado'
   results:
@@ -824,7 +824,7 @@ poll:
     option: 'Opção'
     missing_fields: 'Todos os campos devem ser preenchidos'
     shuffle_options: 'Mostrar opções ao votar em ordem aleatória'
-    submit: 'Salvar votação'
+    submit: 'Guardar votação'
   time_period: 'Período'
   may_not_vote: 'Não podes votar nesta votação. Quando ela foi criada, não fazias
     parte do grupo com direito a voto. Mesmo que, durante o período de votação, venhas
@@ -1114,7 +1114,7 @@ login:
   password: 'palavra-passe'
   email_address: 'Endereço de e-mail'
   logout: 'Terminar sessão'
-  save_password: 'Salvar a palavra-passe'
+  save_password: 'Guardar a palavra-passe'
   error_no_email: 'Digite o teu endereço de e-mail.'
   topbar: 'Iniciar sessão'
   error_no_password: 'Digite a tua palavra-passe.'
@@ -1648,8 +1648,6 @@ group:
       gerir as perguntas do teste'
     tooltip_function_region1811: 'Os administradores deste grupo de trabalho podem
       editar as páginas “ Parceiros”, “Contactos” e “Equipa”'
-    tooltip_function_region331: 'Os administradores deste grupo de trabalho podem
-      enviar boletins informativos'
     tooltip_function_region432: 'Os administradores deste grupo de trabalho podem
       ver as denúncias'
     tooltip_function_region2296: Os administradores deste grupo de trabalho 
@@ -1704,7 +1702,7 @@ group:
   show-all: 'Mostrar todo'
   actions:
     go: 'Ao grupo'
-    save: 'Salvar alterações'
+    save: 'Guardar alterações'
     contact: 'Contacto este grupo'
     join: 'Participe neste grupo de trabalho'
     apply: 'Aplicar para este grupo de trabalho'
@@ -1856,7 +1854,7 @@ pickup:
   really_delete_date: 'Deseja mesmo apagar a vaga em {date}?'
   add_onetime_pickup: 'Insira vaga única'
   description_modal_text: 'Introduza uma nova descrição:'
-  edit_description: 'Editar Descrição'
+  edit_description: 'Editar descrição'
   description: 'Descrição'
   edit_recurring_pickups: 'Editar série de vagas'
   kick: 'Remover'
@@ -1976,12 +1974,6 @@ error:
     description: 'Infelizmente, o teu número de telemóvel tem um formato que não permite
       receber chamadas.'
     link: 'Corrigir o número do telemóvel agora'
-  mail_activation:
-    description: 'A utilização do site só é possível com um endereço de e-mail confirmado.
-      Confirma o teu endereço de e-mail clicando no link do e-mail de ativação.'
-    title: 'Endereço de e-mail não confirmado!'
-    link_1: 'Pedir um novo e-mail de ativação'
-    link_2: 'Alterar endereço de e-mail'
   passport_is_invalid_soon:
     description: 'A tua cartão de foodsharing ainda é válida por {days} dias. Entra
       em contacto com os teus embaixadores para a renovar.'
@@ -2533,7 +2525,7 @@ chain:
     title:
       edit: 'Editar cadeia'
       new: 'Criar cadeia'
-    ok: 'Salvar'
+    ok: 'Guardar'
     cancel: 'Cancelar'
   errorCodes:
     EMPTY_COUNTRY: 'O campo para o pai está vazio'
@@ -2569,56 +2561,6 @@ chain:
     edit: 'Editar'
   filterplaceholder: 'nome / morada/ ID KAM'
   listheader: 'Cadeias comerciais'
-recipients:
-  newsletter: 'Todos os assinantes do boletim informativo (pelo menos Foodsaver)'
-  permission: 'Não está autorizado a enviar e-mails em massa'
-  testmail: 'Enviar o e-mail de teste'
-  pending: 'Ainda faltam enviar {count} e-mails'
-  manual: 'Entrada manual'
-  history: 'E-mails enviados por ti'
-  empty-region: 'Ainda não há Foodsavers nos distritos selecionados'
-  done: 'Todos os e-mails são enviados'
-  confirm: 'Enviar o e-Mail?'
-  unknown: 'desconocido'
-  region-hint: '<strong>Observação:</strong>
-
-    Para marcar distritos subordinados, primeiro tem de abrir a pasta.
-
-    Não serão enviados e-mails para nenhum distrito não visível.
-
-    '
-  variables: 'Tratamento pessoal'
-  newsletter_all: 'Todos os assinantes do boletim informativo (Foodsharers, Foodsavers,
-    todos)'
-  sent: 'O e-mail foi enviado com sucesso para {count} endereços de e-mail'
-  test_email_sent: 'O e-mail foi enviado.'
-  orga_team: 'Equipa organizadora global (administradores do site)'
-  newsletter_only_foodsharer: 'SÓ aqueles que foodsharer entre todos os assinantes
-    da newsletter'
-  bread: 'Distribuição da newsletter'
-  abort: 'Cancelar o envio'
-  continue: 'Continuar enviando'
-  choose: 'Selecionar distritos manualmente'
-  status: 'Enviar e-mails … (e-mail atual: {current})'
-  test_email_invalid: 'Há uma problema com o endereço de e-mail.'
-  variable-info: 'Para personalizar o e-mail, pode inserir <strong>{NAME}</strong>
-    em vez do nome
-
-    e usar <strong>{ANREDE}</strong> para a saudação.
-
-    <p>{ANREDE} {NAME} resulta, por exemplo, em: «Caro Pedro»
-
-    '
-  all_no_botschafter: 'Todos Foodsavers menos os embaixadores'
-  recipients: 'Destinatários'
-  all: 'Todos os Foodsavers em todo o mundo'
-  prepare: 'Preparação para envio'
-  storemanagers: 'Todos os responsáveis por cooperações a nível mundial'
-  body: 'Mensagem'
-  send: 'Enviar o e-mail'
-  active_ambassadors: 'Todos os embaixadores do país'
-  doublecheck: 'Tudo verificado? O e-mail deve ser enviado ao público-alvo selecionado?'
-  storemanagers_and_ambs: 'Todos os responsáveis por cooperações e embaixadores'
 settings:
   sleep:
     tooltip: '{name} está atualmente a fazer uma pausa e está em modo de dorminhoco'
@@ -2903,7 +2845,7 @@ settings:
       new_name_label: Novo nome
       new_name_placeholder: Novo nome do dispositivo
       cancel: Cancelar
-      save: Salvar
+      save: Guardar
     passkey_registered: Chave de segurança registada com sucesso
     passkey_deleted: Chave de segurança eliminada com sucesso
     passkey_renamed: Chave de segurança renomeada com sucesso
@@ -3385,14 +3327,14 @@ globals:
     workingGroups: 'Grupos'
     groups_menu: 'Menu do grupo'
     polls: 'Votações'
-  save: 'Salvar'
+  save: 'Guardar'
   show_more: 'Mostrar mais'
   close: 'Fechar'
   show_less: 'Mostrar menos'
   you: 'Tu'
   select: 'Por favor, selecione …'
   saved: 'As alterações foram salvas'
-  save_changes: 'Salvar as alterações'
+  save_changes: 'Guardar as alterações'
   telephone_number: 'Número de telefóno'
   updated: 'Atualizado:'
   loading: A carregar…
@@ -3660,7 +3602,7 @@ region:
   createNew: Criar um novo distrito
   root: Nemhum (Root)
   confirm:
-    edit: Tens a certeza de que deseja salvar as alterações no distrito {name}?
+    edit: Tens a certeza de que deseja guardar as alterações no distrito {name}?
     create: Tens a certeza de que deseja criar um novo distrito {name}?
     delete: 'Tens a certeza de que deseja eliminar o distrito {name}? Isto irá apagar
       definitivamente todos os dados do distrito: fórum, eventos, votações, publicações
@@ -3989,7 +3931,7 @@ reports:
   reportmessage: 'Indique como podemos entrar em contacto consigo caso tenhamos mais
     perguntas.'
   reason: 'motivo'
-  message: 'descrição'
+  message: 'Descrição'
   reports_region: Denúncias de {regionName}
   reports_user: Todas as denúncias sobre {userName} ({userId})
   id: ID
@@ -4059,7 +4001,7 @@ notifications:
     *Encontre mais informações aqui* https://support.foodsharing.network/kb/de-de/3/10'
 are_you_sure: 'Estás a certeza?'
 button:
-  save: 'Salvar'
+  save: 'Guardar'
   permadelete: 'Eliminar permanentemente'
   create: 'Criar'
   change_picture: 'Alterar imagem'
@@ -4085,7 +4027,7 @@ button:
   confirm: Confirmar
   browse: Pesquisar
   filter_options: Opções do filtro
-  yes_save: sim, salvar
+  yes_save: Sim, guardar
 about_me_intern: 'Descrição rápida'
 storestatus:
   "3a": 'A loja está disposto para fazer doações. :-)'
@@ -4202,7 +4144,7 @@ regionOptions:
     ao qual a regra das sultanas se aplica'
   regionPickupRuleActive: 'Ative a seguinte regra distrital para as vagas de locais
     populares (SULTANAS):'
-  save: 'Salvar opções'
+  save: 'Guardar opções'
   regionPickupLimitDayNumber: 'Número máximo das vagas permitidas de locais populares
     numa dia'
   regionReportReasonSimple: motivos da denúncia simplificados
@@ -4974,7 +4916,7 @@ required_messages:
   sure_title: 'Tens a certeza?'
   message_info: '{name} receberia a seguinte mensagem:'
   name_placeholder: '<Nome>'
-  save_message: 'Salvar minha mensagem para a próxima vez'
+  save_message: 'Guardar a minha mensagem para a próxima vez'
   message_info_multiple: 'Cada pessoa receberia a seguinte mensagem:'
 resource_mosaic:
   search_placeholder: Pesquisar por recursos, Foodsharers ou ID de membros
@@ -5212,7 +5154,7 @@ oauth:
     restrictions: 'Restrições'
     secret_save_warning: 'Por favor, salva este secret agora. Ele não vai ser mostrado
       de novo!'
-    confidential_help: 'Os clientes confidenciais podem salvar um segredo com segurança.
+    confidential_help: 'Os clientes confidenciais podem guardar um segredo com segurança.
       Os clientes públicos (p. ex. navegadores ou aplicativos móveis) não podem fazer
       isso.'
     regenerate_secret_warning: 'O secret antigo ficará inválido!'
@@ -5222,7 +5164,7 @@ oauth:
     no_region_restriction: 'Sem restrições'
     create_client: 'Criar cliente'
     load_error: 'Erro ao carregar os clientes'
-    save_error: 'Erro ao salvar'
+    save_error: 'Erro ao guardar'
     secret_generated: 'Client secret gerado'
     actions: 'Ações'
     confirm_save_secret: 'Guardei o secret'

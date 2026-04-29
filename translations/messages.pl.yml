@@ -919,8 +919,6 @@ group:
   application_from: przez
   really_quit_workgroup: Czy na pewno chcesz opuścić zespół {name}?
   unique_function:
-    tooltip_function_region331: Administratorzy/ki tego zespołu mogą wysyłać 
-      newslettery
     tooltip_function_region341: Administratorzy/ki tego zespołu mogą zarządzać 
       pytaniami quizu
     tooltip_function_region1811: Administratorzy/ki tego zespołu mogą edytować 
@@ -2227,50 +2225,6 @@ events:
     użytkowników/czek.
   description: Opis
   declinedCount: '{count} odmówiło'
-recipients:
-  recipients: Odbiorcy
-  all: Wszyscy/tkie Foodsaverzy/ki na świecie
-  active_ambassadors: Wszyscy/tkie ambasadorzy/ki na świecie
-  newsletter: Wszyscy/tkie abonenci/tki newslettera (przynajmniej foodsaver/ka)
-  newsletter_all: Wszyscy/tkie abonenci/tki newslettera (foodsharerzy/ki, 
-    foodsaver/ki, wszyscy)
-  newsletter_only_foodsharer: TYLKO foodsharerzy/ki spośród abonentów/tek 
-    newslettera
-  all_no_botschafter: Wszyscy/tkie foodsaverzy/ki oprócz ambasadorów/ek
-  send: Wyślij email
-  confirm: Wysłać email?
-  testmail: Wyślij testowy email
-  test_email_sent: Email został wysłany.
-  test_email_invalid: Coś się nie zgadza z adresem email.
-  doublecheck: Wszystko sprawdzone? Czy email ma zostać wysłany do wybranej 
-    grupy docelowej?
-  sent: Email został pomyślnie wysłany do {count} adresatów
-  history: Emaile wysłane przez ciebie
-  pending: Zostało jeszcze {count} maili do wysłania
-  prepare: Przygotuj do wysłania
-  manual: Wprowadzanie ręczne
-  body: Wiadomość
-  continue: Kontynuuj wysyłanie
-  abort: Zatrzymaj wysyłanie
-  permission: Nie jesteś uprawniony/a do wysyłania maili
-  status: 'Wysyłanie maili ... (aktualny adres: {current})'
-  unknown: nieznany
-  done: Wysłano wszystkie maile
-  empty-region: 'W wybranych rejonach nie ma jeszcze żadnych foodsaverów/ek'
-  region-hint: '<strong>Uwaga:</strong>
-
-    Aby zaznaczyć podrzędne rejony, musisz najpierw otworzyć folder.
-
-    Nie są wysyłane maile do wszystkich niewidocznych rejonów.
-
-    '
-  variables: 'Forma grzecznościowa'
-  orga_team: 'globalny orga-team (administracja strony)'
-  bread: ''
-  choose: 'Wybierz ręcznie rejony'
-  variable-info: ''
-  storemanagers: ''
-  storemanagers_and_ambs: ''
 addresspicker:
   different_location: Popraw opis adresu
   label: Szukaj adresu/lokalizacji
@@ -3589,7 +3543,7 @@ notifications:
       nie jesteś zalogowany/a.'
     title: 'Wiadomości chatu'
   pickupReminder:
-    title: ''
+    title: 'Przypomnienia o nieobsadzonych slotach'
     description: ''
   safari_add_to_home_screen: ''
   threads:
@@ -3648,12 +3602,6 @@ error:
     not_found: 'Nie można odnaleźć tej strony.'
     internal_server_error: 'Wystąpił wewnętrzny błąd serwera.'
     other: 'Wystąpił nieznany błąd.'
-  mail_activation:
-    description: 'Używanie strony internetowej jest możliwe tylko z potwierdzonym
-      adresem email. Potwierdź swój adres email przez kliknięcie w link w mailu aktywującym.'
-    title: 'Adres email nie jest potwierdzony!'
-    link_1: 'Zarządaj nowego maila aktywującego'
-    link_2: 'Zmień adres email'
   passport_is_invalid:
     description: 'Skontaktuj się ze swoimi ambasador(k)ami, żeby ją odnowić.'
     title: 'Twoja legitymacja jest już nieważna!'
@@ -3771,8 +3719,8 @@ search:
   forum:
     placeholder: 'Szukaj w tym forum …'
     found:
-      body: ''
-      title: ''
+      body: 'Wyniki w treści'
+      title: 'Wyniki w tytule'
   user_search:
     placeholder: 'Imię lub ID'
   maxresults: 'Liczba wyświetlanych wyników wyszukiwania jest ograniczona. Ewentualnie
@@ -3788,7 +3736,7 @@ oauth:
   error:
     invalid_client: 'Weryfikacja klienta nie powiodła się.'
     unknown_error: 'Wystąpił nieznany błąd. Spróbuj ponownie później.'
-    invalid_scope: ''
+    invalid_scope: 'Zażądano nieważnych uprawnień.'
     region_requirement_not_met: 'Nie spełniasz wymagań, aby uzyskać dostęp do {clientName}.'
   remember:
     title: 'Zapisz ten dostęp'
@@ -3807,12 +3755,13 @@ oauth:
     redirect_uris_help: ''
     confirm_delete: 'Usunąć klienta?'
     confidential_client: 'Poufny klient (np. aplikacja serwera)'
-    regenerate_secret: ''
+    regenerate_secret: 'Utwórz nowy klucz tajny klienta'
     create_success: 'Pomyślnie utworzono klienta'
     region_restriction_tooltip: 'Tylko członkowie wybranych rejonów mogą się autoryzować'
     redirect_uris: 'Redirect URIs'
     grant_types: 'Typy grantów'
-    required_regions_help: ''
+    required_regions_help: 'Opcjonalnie: ogranicz dostęp do użytkowników/czek, którzy/re
+      są członkami co najmniej jednego z tych rejonów'
     required_regions: 'Wymagane rejony'
     name: 'Nazwa'
     confidential: 'Poufny'
@@ -3820,17 +3769,18 @@ oauth:
       można cofnąć.'
     title: 'Zarządzanie klientem OAuth'
     restrictions: 'Ograniczenia'
-    secret_save_warning: ''
+    secret_save_warning: 'Zapisz teraz ten tajny klucz. Nie będzie on wyświetlany
+      ponownie!'
     confidential_help: ''
-    regenerate_secret_warning: ''
+    regenerate_secret_warning: 'Stary klucz tajny klienta będzie nieważny!'
     edit_client: 'Edytuj klienta'
-    scopes: ''
+    scopes: 'Obszary'
     delete_success: 'Pomyślnie usunięto klienta'
     no_region_restriction: 'Bez ograniczeń'
     create_client: 'Utwórz nowego klienta'
     load_error: 'Błąd przy ładowaniu klienta'
     save_error: 'Błąd przy zapisywaniu'
-    secret_generated: ''
+    secret_generated: 'Wygenerowano klucz tajny klienta'
     actions: 'Akcje'
     confirm_save_secret: 'Zapisałem/am tajny klucz klienta'
     identifier: 'ID klienta'
@@ -3844,7 +3794,7 @@ oauth:
       title: 'Potwierdź swoją tożsamość'
     regions:
       title: 'Uzyskać dostęp do twojego członkostwa'
-      md: ''
+      md: 'Dostęp do listy rejonów i zespołów, których członkiem jesteś.'
     email:
       title: 'Dostęp do twojego adresu email'
     profile:
