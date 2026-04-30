@@ -12,7 +12,7 @@
         class="w-100 map-legend-font-size"
         size="sm"
         :options="regions.map(region => ({ text: region.name, value: region.id }))"
-        @change="newValue => $emit('update-specifier', 'region', newValue)"
+        @change="newValue => $emit('update-specifier', 'regionId', newValue)"
       />
     </b-form-group>
     <b-form-group

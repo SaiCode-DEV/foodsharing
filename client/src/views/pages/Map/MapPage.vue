@@ -126,7 +126,7 @@ export default {
   },
   created () {
     // Restore the selected marker types from the local storage
-    this.storage = new Storage('map-v2')
+    this.storage = new Storage('map-v3')
     this.selectedTypes = this.storage.get('selectedTypes', this.selectedTypes)
 
     // Additionally load marker types given in loadMarkers prop
