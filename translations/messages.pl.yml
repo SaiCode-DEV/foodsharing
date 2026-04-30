@@ -403,9 +403,10 @@ settings:
     pickup:
       "true": 'Tak, pokaż moje sloty w kalendarzu'
       "false": 'Nie, nie pokazuj slotów w kalendarzu'
-      label: ''
+      label: 'Czy mają być zawarte sloty, np. odbiory?'
     protocol: 'Jakiego protokołu używa twój program kalendarza?'
-    export_tooltip: ''
+    export_tooltip: 'Możesz wyświetlać swoje terminy odbiorów w wybranym programie
+      kalendarza.'
     info: ''
   no_rights: Nie masz uprawnień, aby zmienić ustawienia profilu.
   edit_other: Zmień ustawienia profilu {name}
@@ -1274,7 +1275,8 @@ resource_mosaic:
     total: 'W {region} jest wprowadzonych łącznie {count} zasobów:'
   add_commons: 'Wprowadź nowy wspólny zasób'
   confirm_delete: 'Czy na pewno chcesz usunąć ten zasób?'
-  has_resources_elsewhere: ''
+  has_resources_elsewhere: 'Z twoich zasobów {count} są/jest ograniczone/ych do innych
+    rejonów lub zespołów i niewidoczne/ych w {groupName}.'
   request_header: 'Zapytanie do twojego zasobu'
   favorite_tooltip: 'Dodałeś/aś ten zasób do ulubionych'
   max_resources: ''
@@ -2746,7 +2748,7 @@ profile:
     warning_4: tym artykule supportu.
     warning_others: Adres email {email} tej osoby jest zablokowany dla maili i 
       komunikacji z foodsharingu. Przez ten przycisk możesz znieść blokadę.
-    remove_button: ''
+    remove_button: 'Usuń z listy odrzuconych adresów e-mail'
   commitments_stat:
     title: Statystyka zaangażowania
     eventsParticipatedWeek: 'Dziękujemy za uczestnictwo w {count} eventach w tym tygodniu.
@@ -3384,7 +3386,9 @@ categories:
     id: 'ID'
     usage_count: 'Liczba użyć'
     number_of_stores: ''
-  merge_hint: ''
+  merge_hint: 'Wybierz inną kategorię, która ma być połączona z "{name}". Wszystkie
+    wpisy, które są przyporządkowane kategorii "{name}", będą później przyporządkowane
+    tej kategorii.'
   merge: 'Połącz z inną kategorią'
   merge_title: 'Połącz kategorie'
 help:
@@ -3409,10 +3413,11 @@ help:
       md: ''
     threadPriority:
       md: ''
-      title: ''
+      title: 'Priorytet wyświetlania na forum'
     similar_resources:
       title: 'Podobne zasoby'
-      md: ''
+      md: 'Jako podobne zasoby jest pokazywanych maksymalnie 10 dalszych zasobów,
+        dla których wprowadzono te same kategorie.'
     profileCommitmentsStat:
       title: 'Statystyka zaangażowania'
       md: ''
@@ -3466,9 +3471,9 @@ email_template:
     disable_warning: 'Wyłączyć te ostrzeżenia?'
     subject:
       multiple: ''
-      single: ''
+      single: 'Wolne terminy odbioru w %BETRIEB%!'
     settings_link: 'Przejdź do ustawień powiadomień'
-    empty_slots: ''
+    empty_slots: '%COUNT% nieobsadzone/ych sloty/ów odbioru'
     part2: ''
     part1: ''
   reply: 'Odpowiedz'
@@ -3557,7 +3562,8 @@ buddy:
     confirm_text: ''
     confirm_title: 'Znasz {name}?'
   remove:
-    confirm_text: ''
+    confirm_text: 'Na pewno chcesz zakończyć znajomość? Nie będą wam wtedy więcej
+      wyświetlane aktualizacje waszych tablic profilowych na stronie startowej.'
     confirm_title: 'Zakończyć znajomość z {name}?'
   requests:
     mine: 'Moje zapytania'
@@ -3608,7 +3614,7 @@ error:
     link: 'Ustawienia profilu'
 achievements:
   visibility_type_explanation:
-    scope: ''
+    scope: 'Widoczny dla wszystkich użytkowników/czek z {scope}.'
     store_managers: ''
     private: ''
     hidden: 'Nie jest wyświetlany nikomu'
@@ -3650,13 +3656,13 @@ achievements:
     group: 'Następujące stickery mogą być przyznawane w tym zespole:'
   scope: ''
   editTitle: 'Edytuj sticker'
-  revokeConfirmation: ''
+  revokeConfirmation: 'Na pewno chcesz unieważnić ten sticker u {name}?'
   noneInThisRegion: 'W tym rejonie nie wprowadzono żadnych stickerów.'
   editDetails: 'Edytuj szczegóły'
-  revoke: ''
+  revoke: 'Unieważnij'
   deleteConfirmation: 'Czy na pewno chcesz usunąć ten sticker?'
   findUser: 'Szukaj użytkownika/czki'
-  editAwarded: ''
+  editAwarded: 'Dostosuj sticker {achievement} dla {user}'
   notice: 'uwaga'
   award: 'Przyznaj sticker'
   awarded: 'przyznany'
@@ -4044,7 +4050,8 @@ polls:
     vote_now: 'Zagłosuj teraz'
     already_voted: 'Już zagłosowane'
     not_eligible: 'Bez prawa głosu'
-  hint: ''
+  hint: 'Moduł głosowań może być testowany w międzyregionalnym zespole "Głosowania
+    - test".'
   new_poll: 'Utwórz nowe głosowanie'
   hint_2: 'Wskazówki do używania głosowań znajdziesz w wiki'
   until: 'Możliwe do {until}'
@@ -4086,7 +4093,8 @@ contact_page:
   regions:
     link: 'do strony przeglądowej'
     title: 'Grupy lokalne'
-    text: ''
+    text: 'Jeśli masz pytania do jakiegoś rejonu, zwróć się bezpośrednio do osób kontaktowych
+      w tym rejonie.'
   description: 'Skontaktuj się z nami przez jedną z następujących możliwości kontaktu:'
   common:
     modal:
@@ -4248,7 +4256,7 @@ feedback:
   privacy: ''
   success: 'Pomyślnie przekazano twój feedback.'
   title: 'Beta formularz feedback'
-  name_sent: ''
+  name_sent: 'Twoje imię i ID będą wysłane razem z feedbackiem.'
   no_support: ''
   capture_screenshot: 'Zrób screenshot'
   screenshot_not_supported: ''
@@ -4296,7 +4304,7 @@ navigation:
   search: 'Szukaj'
   contact: 'Kontakt & support'
   whats_new: 'Co nowego?'
-  promotion: ''
+  promotion: 'W IT? Potrzebujemy cię!'
   notifications: 'Powiadomienia'
   stores: ''
   system_administration: 'Administracja systemu'
@@ -4449,7 +4457,8 @@ language_chooser:
   content: 'Proszę wybrać język'
 debug:
   title: 'Strona debug'
-  info: ''
+  info: 'To jest strona debug do debuggingu. Jeśli nie wiesz, jak działa jakiś przycisk,
+    po prostu nan niego nie klikaj😉'
 prefetchtime: 'Na ile tygodni wcześniej foodsaverzy/ki mogą się zapisywać przez automatyczne
   sloty?'
 usersearch:
