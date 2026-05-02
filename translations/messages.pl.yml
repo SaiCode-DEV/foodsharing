@@ -1272,14 +1272,15 @@ resource_mosaic:
       zasoby lub zaproś do tego innych!'
     filter: 'Do twojego wyszukiwania pasują/e {count} zasoby/ów:'
     none_in_filter: 'Niestety, żadne zasoby nie pasują do twojego wyszukiwania.'
-    total: 'W {region} jest wprowadzonych łącznie {count} zasobów:'
+    total: 'W {region} są/jest wprowadzone/ych łącznie {count} zasoby/ów:'
   add_commons: 'Wprowadź nowy wspólny zasób'
   confirm_delete: 'Czy na pewno chcesz usunąć ten zasób?'
   has_resources_elsewhere: 'Z twoich zasobów {count} są/jest ograniczone/ych do innych
     rejonów lub zespołów i niewidoczne/ych w {groupName}.'
   request_header: 'Zapytanie do twojego zasobu'
   favorite_tooltip: 'Dodałeś/aś ten zasób do ulubionych'
-  max_resources: ''
+  max_resources: 'Aby zachować przejrzystość mozaiki zasobów, każdy może wprowadzić
+    maksymalnie {max} zasobów.'
   no_own_resources: ''
   message: 'Napisz wiadomość'
   is_private_hint: 'Ten zasób jest widoczny tylko dla znajomych.'
@@ -1326,7 +1327,7 @@ petition:
     20000: 'Mamy już połowę potrzebnych podpisów! Razem damy radę!'
     25000: 'Mamy już dwie trzecie potrzebnych podpisów! Razem damy radę!'
     30000: 'Już prawie u celu - brakuje tylko kawałeczka! Dołącz do petycji teraz!'
-    500: ''
+    500: 'Zaczyna się! Bądź jednym z pierwszych, którzy podpiszą tę petycję!'
     15000: ''
 notice: Uwaga!
 validate:
@@ -3262,7 +3263,8 @@ thread:
       copy_direct_link: 'kopiuj bezpośredni link'
       restore: 'Odtwórz …'
       copy_source: 'kopiuj tekst źródłowy'
-    quote_button: ''
+    quote_button: 'Przy kliknięciu dodaje tekst postu (ewentualnie skrócony) do odpowiedzi.
+      Jeśli jednocześnie jest wciśnięty [Shift], zostanie dodany cały tekst.'
     linked_post: 'Podlinkowany post'
     copy_direct_link_success: 'Skopiowano bezpośredni link!'
     quote_post_wrote: 'napisał/a'
@@ -3530,7 +3532,13 @@ notifications:
     cancel: 'Nie aktywuj'
     dontAskAgain: 'Nie pytaj ponownie'
     title: 'Otrzymuj powiadomienia push?'
-    content: ''
+    content: 'Aby szybciej dowiadywać się, że inni/e foodsaverzy/ki wysłali/ły ci
+      wiadomość możesz aktywować powiadomienia push na tym urządzeniu.
+
+      W swoich [ustawieniach powiadomień](/?page=settings&sub=info) możesz w dowolnym
+      czasie znowu wyłączyć te powiadomienia.
+
+      '
   groups:
     title: 'Zespoły'
   checkbox_push: 'Push'
@@ -3654,7 +3662,7 @@ achievements:
   inThis:
     region: 'Następujące stickery mogą być przyznawane w tym rejonie:'
     group: 'Następujące stickery mogą być przyznawane w tym zespole:'
-  scope: ''
+  scope: 'Obszar ważności'
   editTitle: 'Edytuj sticker'
   revokeConfirmation: 'Na pewno chcesz unieważnić ten sticker u {name}?'
   noneInThisRegion: 'W tym rejonie nie wprowadzono żadnych stickerów.'
@@ -4073,11 +4081,11 @@ support_page:
   attachment:
     max_size: 'Załączniki (maksymalnie 10, 5 MB na plik)'
     placeholder: 'Wybierz plik'
-    drop_placeholder: ''
+    drop_placeholder: 'Upuść plik tutaj'
     browse: 'Przeglądaj'
   info_teaser: ''
   body: 'Wiadomość'
-  title: ''
+  title: 'Formularz supportu'
   validation_firstName: 'Imię jest puste'
   email: 'Twój adres email'
   validation_body: 'Wiadomość jest pusta'
@@ -4085,7 +4093,8 @@ support_page:
   validation_email: 'Nieprawidłowy adres email'
   new_request: 'Nowe zapytanie'
   success: 'Pomyślnie przekazano twoją wiadomość.'
-  notification_name: ''
+  notification_name: 'Ponieważ jesteś zalogowany/a, zostanie przekazane też twoje
+    imię i foodsharing-ID.'
   your_name: 'Twoje imię'
   firstName: 'Imię'
 contact_page:
@@ -4244,7 +4253,13 @@ markdown_input:
     hrule: 'pozioma linia podziału'
     link: 'link'
     heading: 'nagłówek'
-  empty_preview_placeholder: ''
+  empty_preview_placeholder: 'To jest podgląd formatowania. Tekst będzie tutaj tak
+    sformatowany, jak będzie też później wyświetlany.
+
+    ---
+
+
+    *Jeszcze nie podałeś/aś żadnego tekstu, który można tu wyświetlić.*'
 feedback:
   error:
     screenshot: 'Automatyczne wykonanie zrzutu ekranu nie powiodło się. Możesz jednak

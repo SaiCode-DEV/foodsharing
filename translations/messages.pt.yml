@@ -1538,8 +1538,8 @@ group:
     welcome: 'Saudação'
     board: 'Junta'
     tooltip_function_3: 'Os administradores deste grupo de trabalho podem ativar e
-      editar os cantinhos da partilha do distrito e remover contribuições de cantinho
-      alimentar justos'
+      editar os cantinhos da partilha do distrito e remover publicações de cantinhos
+      da partilha'
     mediation: 'Mediação'
     arbitration: 'Comissão de arbitragem'
     stores_coordination: Locais
@@ -4070,7 +4070,7 @@ salutation:
 stats:
   total:
     pickups: 'missões que os nossos Foodsavers já completaram.'
-    weight: 'Comida salva com sucesso do lixo.'
+    weight: 'comida salva com sucesso do lixo.'
     fsp: 'Os cantinhos da partilha são utilizados para trocar comidas.'
     foodsharer: 'Foodsharers estão registados em "foodsharing" e interessados no nosso
       trabalho.'
@@ -4316,14 +4316,14 @@ statistics:
   num_fetches: 'em {count} operações de resgate'
   kg_food_saved: '{count} kg comida salva'
   region_public:
-    activeFoodSharePoints: Cantinhos da partilha ativos
+    activeFoodSharePoints: cantinhos da partilha ativos
     foodBasketsLastMonth: cabazes alimentares distribuídas
-    pickupsLastMonth: Resgates de comida
-    savedFoodKgLastMonth: Comida salva
-    activeHomeRegionFoodsavers: Foodsavers ativos
+    pickupsLastMonth: vezes comida salva
+    savedFoodKgLastMonth: comida salva
+    activeHomeRegionFoodsavers: Foodsaver ativos
     activeCoorporations: cooperações com locais ativos
   lastMonth: Estatísticas dos últimos 30 dias
-  food_saved: Comida salva
+  food_saved: comida salva
 body: 'Mensagem'
 photo: 'Fotografia'
 really_delete: 'Remover a sério?'

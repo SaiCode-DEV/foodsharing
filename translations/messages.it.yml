@@ -16,14 +16,14 @@ group:
     motivation: Qual è la motivazione che ti spinge a partecipare al gruppo 
       {group}?
     summary: '{name} vorrebbe unirsi al gruppo di lavoro {group}.'
-    accept: Accettare candidatura
+    accept: Accetta
     link_description: 'Questo collegamento ti porterà direttamente all’applicazione:'
     ability: Quali competenze avete in questo settore?
     experience: "Nel gruppo puoi attingere ad esperienze che hai acquisito altrove?\n\
       \ Se sì, dove o quali?\n"
     how_much_time: Quante ore alla settimana hai tempo e voglia di dedicarci?
     error_missing_time: 'Errore: non è stato selezionato alcun orario.'
-    deny: ''
+    deny: 'Rifiuta'
   contact:
     send: Invia messaggio
     admins: '{count} referenti:'
@@ -108,8 +108,9 @@ group:
       visualizzati nella visione d’insieme dei distretti.
     stores_coordination: Negozi
     none: Nessun gruppo di lavoro GOALS
-    resources: ''
-    tooltip_function_13: ''
+    resources: 'Mosaico delle risorse'
+    tooltip_function_13: 'Gli amministratori di questo gruppo di lavoro riceveranno
+      una notifica tramite campanella quando verranno aggiunte nuove risorse.'
   delete_group_sure: Vuoi davvero eliminare il gruppo di lavoro/distretto 
     {groupName}?
   quitting_home_district_warning: Vuoi davvero lasciare il tuo distretto di 
@@ -144,9 +145,9 @@ group:
   administrators: Amministratori del gruppo
   members: Membri
   application_requirements:
-    not_fulfilled: Per candidarti a questo gruppo di lavoro, devi aver 
-      collaborato con Foodsharing per %weeks% settimane, aver già raccolto 
-      %bananas% banane fiducia e aver già preso parte a %fetches% raccolte.
+    not_fulfilled: Per candidarti a questo gruppo di lavoro, devi essere 
+      iscritto da %weeks% settimane, aver già raccolto %bananas% banane fiducia 
+      e aver già preso parte a %fetches% raccolte.
     member_since_weeks: Da quante settimane deve essere iscritto/a un/a 
       candidato/a?
     banana_count_errors:
@@ -155,7 +156,8 @@ group:
       not_in_range: Nessuno dovrebbe avere meno di {{ min }} o più di {{ max }} 
         fiducia nelle banane.
     banana_count: Di quante banane fiducia ha bisogno un/a candidato/a?
-    fetch_count: Quanti ritiri deve aver effettuato un/a candidato/a?
+    fetch_count: Quanti ritiri/consegne/orga-slots deve aver effettuato un/a 
+      candidato/a?
     open: Chiunque può aderire senza presentare domanda.
     everybody: Tutti possono candidarsi.
     requires_properties: Chiunque soddisfi determinati requisiti di fiducia.
@@ -207,15 +209,17 @@ group:
         no_passport: nessuna tessera associativa
         invalid_passport: tessera associativa non valida
         with_passport: con tessera associativa
-        all: ''
-        unverified: ''
-        verified: ''
+        all: 'tutti'
+        unverified: 'non verificato'
+        verified: 'verificato'
       title: Tessere associative e verifica
       generate_button: Crea tessere associative per le persone contrassegnate
       already_verified: Tutti gli utenti selezionati sono già stati attivati
       inform_user: con notifica
       filter_status: ''
-      unverify_error_slots: ''
+      unverify_error_slots: 'Non è possibile annullare la verifica di {name} ({id})
+        poiché la persona è ancora registrata negli slot. Si prega di rimuoverla prima
+        dagli slot.'
     all_roles: Tutti i ruoli
     default:
       lastname: Cognome
@@ -233,7 +237,7 @@ group:
   filter_by_last_activity: Non attivo da mesi
   filter_placeholder: Filtrare i gruppi per nome
   valid_until: Valido fino al
-  confirm_decline: ''
+  confirm_decline: 'Vuoi davvero rifiutare questa candidatura?'
 bcard:
   error:
     verified: Devi essere verificato per poter generare il tuo biglietto da 
@@ -280,7 +284,7 @@ button:
   confirm: Conferma
   start: Iniziamo!
   browse: Sfogliare
-  yes_save: ''
+  yes_save: 'Sì, salva'
 upload:
   crop_dialog_title: Ritaglia l'immagine
   new_file: Carica un nuovo file
@@ -309,8 +313,8 @@ explanation: Spiegazione
 fp: Punti di errore
 text: Testo
 right: Valutazione
-abholmenge: Approssimativamente, quanti chilogrammi di cibo vengono prelevati 
-  ogni persona per ogni ritiro?
+abholmenge: Approssimativamente, quanti chilogrammi si prevede di trasportare 
+  per persona durante ogni ritiro o consegna?
 prefetchtime: Con quante settimane di anticipo può un foodsaver registrarsi 
   utilizzando gli slot automatici?
 sticker: L'attività/il negozio/l' associazione ecc. è disposta ad esporre un 
@@ -319,7 +323,7 @@ presse: L'azienda / negozio / associazione è disposta ad essere menzionata sull
   stampa e sul nostro sito web?
 ueberzeugungsarbeit: È stato facile convincere una persona responsabile a 
   collaborare con foodsharing?
-public_time: Orario approssimativo per la raccolta
+public_time: Orario approssimativo degli slots
 besonderheiten: Istruzioni e procedura
 begin: Inizio della collaborazione
 lebensmittel: Quali alimenti possono essere raccolti?
@@ -392,9 +396,9 @@ statistics:
     savedFoodKgLastMonth: di cibo risparmiati
     pickupsLastMonth: ritiri di cibo
     foodBasketsLastMonth: cesti alimentari distribuiti
-    activeHomeRegionFoodsavers: ''
-    activeCoorporations: ''
-    activeFoodSharePoints: ''
+    activeHomeRegionFoodsavers: 'foodsavers attivi'
+    activeCoorporations: 'collaborazioni operative attive'
+    activeFoodSharePoints: 'distributori attivi'
   food_saved: di cibo risparmiati
   lastMonth: Statistiche degli ultimi 30 giorni
 terminology:
@@ -422,8 +426,8 @@ terminology:
   fsp: Punto di condivisione
   reports:
     orga: Visualizzazione messaggi (organizzazione)
-    report: ''
-    arbitration: ''
+    report: 'Visualizzazione del report (team di elaborazione report)'
+    arbitration: 'Visualizzazione dei messaggi (commissione arbitrale)'
   statistic: Statistiche
   wall: Bacheca
   moderationAdmins: Team moderazione
@@ -476,7 +480,7 @@ terminology:
   fsps: 'Punti di condivisione'
   n_home_regions: '{count} con il distretto di residenza'
   no_pickups: 'nessuna'
-  previous_pickups: 'Collezioni qui'
+  previous_pickups: 'Slot qui'
   electionAdmins: Elezioni
   no: No
   yes: Sì
@@ -489,10 +493,10 @@ terminology:
   hygiene_training: Formazione sull'igiene
   sent: Inviati
   received: Ricevuto
-  giving: ''
-  resourcesAdmins: ''
-  attention: ''
-  newsletter: ''
+  giving: 'Donazione'
+  resourcesAdmins: 'Team del mosaico delle risorse'
+  attention: 'Attenzione'
+  newsletter: 'Newsletter'
 register:
   woman: femmina
   signup_newsletter: Vorrei ricevere la newsletter di foodsharing circa una 
@@ -503,7 +507,7 @@ register:
   change-password: Adesso puoi cambiare il tuo password.
   activation_failed: <strong>Attivazione non riuscita.</strong> Il link inserito
     è corretto?
-  activation_success: <strong> Attivazione riuscita. </strong> Ora accedi con il
+  activation_success: <strong>Attivazione riuscita.</strong> Ora accedi con il 
     tuo indirizzo e-mail e la password scelti.
   account-exists: Sei già registrato/a. Esci se desideri registrarti di nuovo.
   error_birthdate: Esempio 25/03/2001 (GG.MM.AAAA). Per motivi di protezione dei
@@ -563,12 +567,18 @@ register:
     minuscole e numeri
   password_must_be_trimmed: La password non deve contenere spazi né all’inizio 
     né alla fine
-  token_invalid_or_expired: ''
-  invalid_token: ''
-  join_initialised: ''
-  join_initialised_message: ''
-  email_in_progress: ''
-  join_newsletter_failed: ''
+  token_invalid_or_expired: 'Il codice di registrazione è sconosciuto o scaduto. Richiedi
+    un nuovo codice per registrarti.'
+  invalid_token: 'Il codice di registrazione è sconosciuto'
+  join_initialised: 'La tua registrazione è iniziata.'
+  join_initialised_message: 'Prima di poter proseguire con la registrazione, devi
+    confermare il tuo indirizzo e-mail. A tal fine, ti abbiamo inviato un''e-mail
+    contenente il link di conferma.'
+  email_in_progress: 'Per questo indirizzo e-mail è già stato richiesto un codice
+    di registrazione di recente'
+  join_newsletter_failed: 'Purtroppo si è verificato un errore durante l''iscrizione
+    alla newsletter. Puoi iscriverti alla newsletter in qualsiasi momento accedendo
+    al tuo profilo.'
 gender:
   d: Entrambi o qualcos'altro
   f: Donna
@@ -577,22 +587,25 @@ login:
   pwreset:
     mismatch: Siamo spiacenti, le password non corrispondono.
     error: Siamo spiacenti, c'è un problema con i tuoi dati.
-    expired: Scusa, hai aspettato un po' troppo. Si prega di richiedere 
-      nuovamente una nuova password.
+    expired: Il link non è valido. Probabilmente hai aspettato un po' troppo. Ti
+      preghiamo di richiedere nuovamente una nuova password.
     tooShort: Siamo spiacenti, la password scelta è troppo corta.
     success: Ottimo, la tua password è stata modificata con successo. Ora puoi 
       accedere.
-    mailSent: Bene, ti è stato inviato un link tramite e-mail per modificare la 
-      password.
+    mailSent: Bene! Hai ricevuto un link via email per cambiare la password. Il 
+      link è valido per 7 giorni. Dopodiché, dovrai richiederne uno nuovo.
     wrongMail: Purtroppo non riusciamo a trovare questo indirizzo e-mail, per 
       favore riprova.
     bread: Reimposta la password
-    request_new: ''
-    invalidCode: ''
-    token_invalid: ''
+    request_new: 'Richiedi una nuova password'
+    invalidCode: 'Il codice inserito non è valido. Riprova. Puoi anche utilizzare
+      i codici di backup.'
+    token_invalid: 'Il codice di autenticazione a due fattori inserito non è valido.
+      Riprova.'
   logout: Logout
-  error_no_auth: Purtroppo non riusciamo a trovare questo indirizzo e-mail o 
-    password, per favore riprova.
+  error_no_auth: Purtroppo non riusciamo a trovare questo indirizzo email o 
+    questa password. Riprova. È possibile che anche l'autenticazione a due 
+    fattori sia errata, se la utilizzi.
   error_no_password: Per favore inserisci la tua password.
   error_no_email: Inserisci il tuo indirizzo e-mail.
   save_password: Salva la password
@@ -604,19 +617,24 @@ login:
   topbar: Accedi
   submit_btn: Accedi
   steady_login: Resta connesso
-  or: ''
+  or: 'oppure'
   resend_verification:
-    success: ''
-    email_invalid: ''
-    hint2: ''
-    title: ''
-    submit: ''
-    hint1: ''
-  error_not_activated: ''
-  2fa: ''
-  passkey_btn: ''
-  passkey_cancelled: ''
-  passkey_not_found: ''
+    success: 'Se questo indirizzo email esiste ma non è ancora stato verificato, verrà
+      inviata una nuova email.'
+    email_invalid: 'Inserisci un indirizzo email'
+    hint2: 'Se non ricevi un''e-mail, contatta l''assistenza clienti [Support](/support).'
+    title: 'Conferma dell''indirizzo e-mail'
+    submit: 'Invia'
+    hint1: 'Per accedere è necessario verificare il tuo indirizzo email. Se sei stato
+      reindirizzato a questa pagina dalla pagina di accesso, il tuo indirizzo email
+      non è ancora verificato. Puoi utilizzare questo modulo per richiedere l''invio
+      di una nuova email contenente un link di attivazione.'
+  error_not_activated: 'Purtroppo il tuo indirizzo e-mail non è ancora stato attivato.'
+  2fa: 'Autenticazione a due fattori (2FA)'
+  passkey_btn: 'Accedi con Passkey'
+  passkey_cancelled: 'Il tentativo di accesso tramite passkey è stato annullato.'
+  passkey_not_found: 'Su questo dispositivo non è disponibile alcuna passkey per questo
+    account.'
 salutation:
   "3": Cara/o
   "2": Cara
@@ -631,8 +649,7 @@ legal:
     this_doesnt_get_deleted_address: Il tuo indirizzo
     this_gets_deleted_trustbananas: Le banane che hai ricevuto verranno rimosse.
     this_doesnt_get_deleted_name: Il tuo nome
-    this_gets_deleted_main: 'Le seguenti informazioni saranno eliminate dal vostro
-      account e non potranno essere ripristinate:'
+    this_gets_deleted_main: 'Le seguenti informazioni saranno definitivamente cancellate:'
     this_doesnt_get_deleted: "Le seguenti informazioni non sono più disponibili nel
       sistema attivo, ma vengono archiviate separatamente sulla base dell'Articolo
       17 Paragrafo 3 Frase 1 Lettera b GDPR:"
@@ -643,12 +660,14 @@ legal:
     this_gets_deleted_verify: La tua verifica sarà rimossa.
     legal_2: Ulteriori informazioni sui periodi di conservazione (pagina in 
       tedesco)
-    unsubscribe_newsletter: ''
-    legal_more_info: ''
+    unsubscribe_newsletter: 'Se sei iscritto alla newsletter di Foodsharing, puoi
+      anche annullare l''iscrizione. Puoi farlo anche in seguito tramite il link presente
+      nell''email della newsletter.'
+    legal_more_info: 'Ulteriori informazioni'
   button:
     agree: Accettare
-  latest_change: ''
-  show_changes: ''
+  latest_change: 'Ultimo aggiornamento il {date}'
+  show_changes: 'Mostra modifiche'
 fsp:
   followName: Seguire il punto di condivisione {name}
   follow: Segui questo punto di condivisione
@@ -717,7 +736,7 @@ fsp:
   onlySuggested: Questo Punto di condivisione è stato proposto ma non ancora 
     approvato. In questo stato, non verrà visualizzato dagli altri utenti.
 formatting:
-  md: Puoi utilizzare <a href="https://markdown.de/">Markdown </a> per la 
+  md: Puoi utilizzare <a href="https://markdown.de/">Markdown</a> per la 
     formattazione.
 day: Giorno
 time: Orario
@@ -726,8 +745,8 @@ pickup:
   confirm: confermare
   call: chiamare
   edit:
-    bread: modificare gli orari di ritiro
-    added: Data di ritiro è stata inserita.
+    bread: Modifica slot
+    added: Slot aggiunto.
     many-people: "Hai specificato più di due persone per il ritiro.\n<br>\nSi prega
       di <strong> inviare all'azienda solo il numero di foodsavers necessari per il
       ritiro </strong>.\nTroppi foodsavers hanno spesso portato la fine di una collaborazione.\n\
@@ -741,24 +760,25 @@ pickup:
     slot_titel: Slot
     description_titel: Descrizione
   history:
-    search: mostrare il ritiro
-    title: Storia di ritiri
+    search: Mostra slot
+    title: Cronologia dei ritiri
   slot_remove: Rimuovi slot
   slot_add: Aggiungi uno slot
-  add_onetime_pickup: Immettere una data aggiuntiva
-  edit_recurring_pickups: Elaborare i tempi di ritiro regolari
-  to_be_confirmed: Questa data di ritiro deve essere confermata da una persona 
-    responsabile di questa agenzia.
-  delete_not_empty: Attualmente ancora sono registratidei Foodsaver. Puoi 
-    eliminare questa data di ritiro solo quando tutti hanno annullato.
-  really_delete_date: Vuoi davvero eliminare il ritiro in data {date}?
-  delete_title: Eliminare la data di ritiro
-  take_empty_slot: Registrarti qui
+  add_onetime_pickup: Aggiungi slot singolo
+  edit_recurring_pickups: Modifica slot ricorrenti
+  to_be_confirmed: Questo slot deve ancora essere confermato da un responsabile 
+    di questa azienda.
+  delete_not_empty: Al momento ci sono ancora persone registrate per il ritiro. 
+    Potrai cancellare questa fascia oraria solo quando tutte le registrazioni 
+    saranno state cancellate.
+  really_delete_date: Vuoi davvero eliminare lo slot in data {date}?
+  delete_title: Elimina questi slot
+  take_empty_slot: Registrami qui
   join_agree: Sì, vincolante inserire
   join_cancel: piuttosto no
-  really_join_date: Vuoi registrarti vincolante per il ritiro il {date}?
+  really_join_date: Desideri registrarti per {date}?
   same_day_entry: '[{when} orario] {name}'
-  same_day_hint: 'Ti sei registrato il {day} per i seguenti ritiri:'
+  same_day_hint: 'Le seguenti attività si svolgeranno lo stesso giorno:'
   join_title: Siccuro?
   team_message_success: Il messaggio al team è stato inviato con successo
   team_message_send_and_leave: Invia e liberare lo slot
@@ -794,18 +814,18 @@ pickup:
     tab:
       registered:
         tooltip:
-          other: 'Ritiri futuri a cui l''utente si è iscritto'
-          own: 'Ritiri futuri, ai quali ti sei iscritto'
-        name: 'Slot di ritiro registrati'
-        empty: 'Al momento non ci sono ritiri registrati.'
+          other: 'Slot futuri a cui l''utente è registrato'
+          own: 'Slot futuri a cui sei registrato/a'
+        name: 'Slot registrati'
+        empty: 'Al momento non sono presenti slot.'
       options:
-        name: 'Opzioni di ritiro'
+        name: 'Opzioni di registrazione'
         tooltip:
-          own: 'Date di ritiro future per le quali potresti ancora registrarti'
+          own: 'Slot futuri a cui è ancora possibile registrarsi'
         empty: 'Al momento non ci sono slot di ritiro disponibili in nessuna delle
           tue aziende.'
       history:
-        name: 'Cronologia dei ritiri'
+        name: 'Cronologia degli slot'
         tooltip:
           own: 'Ritiri passati a cui hai partecipato'
           other: 'Ritiri dell''ultimo mese a cui hai partecipato'
@@ -819,7 +839,7 @@ pickup:
       slots: 'Slot'
       time: 'Data'
     freeSlots: '{slots} liberi'
-    header: 'Date di ritiro'
+    header: 'Slot'
     modals:
       signOff:
         message: 'Vuoi davvero rimuovere l’utente da questo slot?'
@@ -838,27 +858,27 @@ pickup:
     allLoaded: 'Tutte le voci sono già visualizzate.'
   region_pickup_rule_failed: 'Questa voce non è conforme alle regole del distretto'
   no_slots_available: 'Nessuno slot disponibile'
-  description_modal_text: 'Inserisci una nuova descrizione per il ritiro:'
+  description_modal_text: 'Inserisci una nuova descrizione:'
   edit_description: Modifica descrizione
   description: Descrizione
   description_optional: Descrizione (facoltativa)
   description_max_length_info: Raggiunta la lunghezza massima della descrizione 
     (100 caratteri)
   hygieneCertificateMissing:
-    none: Al momento non hai alcuna formazione valida sull'igiene. Completa 
-      subito il quiz sull'igiene per poterti registrare a questi ritiri.
+    none: Al momento non hai un certificato di formazione in materia di igiene 
+      valido. Compila subito il quiz sull'igiene per poterti registrare.
     link: Fai l'esame di igiene
-    timeout: La tua formazione sull'igiene scadrà al momento del ritiro. 
-      Completa nuovamente il quiz sull'igiene per poterti registrare per il 
+    timeout: Il corso di formazione sull'igiene scade prima della data del 
+      ritiro. Completa nuovamente il quiz sull'igiene per registrarti a questo 
       ritiro.
-  may_enter: C’è un posto disponibile per te in questa data di ritiro.
-  confirmed: La data del ritiro è confermata.
+  may_enter: In questo slot c'è ancora un posto libero per te.
+  confirmed: Lo slot è stato confermato.
   slots: ''
   chat: ''
   membershipMissing: ''
   passport_expired:
-    short: ''
-    long: ''
+    short: 'Tesserino scaduto'
+    long: 'Il tuo tesserino non è più valido'
   chat_preface: ''
 storeedit:
   milestone:
@@ -867,12 +887,12 @@ storeedit:
     accepted: '{user} ora fa parte del team'
     created: "{user} ha inserito l'attività il {date}"
   fetch:
-    teamStatus2: Gli aiutanti sono urgentemente necessari
-    teamStatus1: Gli aiutanti sono ancora desiderati
+    teamStatus2: Si cerca urgentemente aiuto
+    teamStatus1: Il team è aperto alle candidature dei Foodsavers
     teamStatus: stato del team
-    teamStatus0: Questo team è chiuso e al momento non cerca altri aiutanti
-    hygieneRequired: Consentire la raccolta solo a chi ha una formazione valida 
-      in materia di igiene
+    teamStatus0: Al momento questa azienda non accetta candidature
+    hygieneRequired: L'iscrizione è consentita solo a coloro che hanno 
+      frequentato un corso di formazione in igiene valido
     hygieneRequirement: Requisiti di igiene
     phoneRequirement: ''
     applicationRequirements: ''
@@ -933,17 +953,21 @@ store:
       responsabili operativi in merito alla tua candidatura.
     confirm-no-location-ok: Candidati comunque
     needsStoreRegion:
-      link: ''
-      request: ''
-      invited: ''
+      link: 'Unisciti al distretto'
+      request: 'Al momento non puoi candidarti, poiché non fai ancora parte del distretto
+        operativo {region}. Una volta entrato a far parte del distretto {region},
+        potrai riprovare a candidarti.'
+      invited: 'Hai ricevuto un invito a unirti a questa azienda. Prima di poter accettare
+        l''invito, devi essere membro del distretto {region}. Una volta entrato a
+        far parte del distretto {region}, potrai accettare l''invito.'
     distance:
-      close: ''
-      normal: ''
-      unknown: ''
+      close: 'Abita a meno di 500 metri di distanza'
+      normal: 'Abita a circa {distance} km di distanza'
+      unknown: 'Non è stato inserito un domicilio valido'
     distance_short:
-      unknown: ''
-      close: ''
-      normal: ''
+      unknown: 'Indirizzo non valido'
+      close: 'Meno di 500 metri'
+      normal: 'Circa {distance} km'
     alerts:
       many_more: ''
       many_less: ''
@@ -958,26 +982,56 @@ store:
       fullName: ''
       time: ''
     requireVerification:
-      link: ''
-      request: ''
-      invited: ''
+      link: 'Apri il forum del distretto di appartenenza'
+      request: 'Al momento non puoi candidarti perché non sei ancora verificato. Questa
+        attività accetta candidature solo da Foodsaver verificati. Completa prima
+        i ritiri di prova oppure contatta i tuoi ambasciatori o il team di benvenuto
+        per completare la verifica. Puoi trovare questi contatti nel forum del tuo
+        distretto, nella barra laterale sinistra.'
+      invited: 'Hai ricevuto un invito da questa attività. Prima di poter accettare
+        l''invito, devi completare la verifica. Attualmente, questa attività accetta
+        solo Foodsaver verificati. Per prima cosa, completa i ritiri di prova oppure
+        contatta i tuoi ambasciatori o il team di benvenuto per completare la verifica.
+        Puoi trovare questi contatti nel forum del tuo distretto, nella barra laterale
+        sinistra.'
     requirePhone:
-      link: ''
-      invited: ''
-      request: ''
+      link: 'Modifica profilo'
+      invited: 'Hai ricevuto un invito da questa azienda. Prima di poter accettare
+        l''invito, devi aver inserito un numero di telefono nel tuo profilo. Questa
+        azienda accetta attualmente solo Foodsaver con almeno un numero di telefono
+        registrato. Inserisci un numero di telefono nel tuo profilo per poter accettare
+        l''invito.'
+      request: 'Al momento non puoi candidarti perché non hai ancora inserito un numero
+        di telefono nel tuo profilo. Questa attività accetta candidature solo da coloro
+        che hanno almeno un numero di telefono registrato. Aggiungi un numero di telefono
+        al tuo profilo per poter presentare la candidatura.'
     needsHomeRegion:
-      link: ''
-      invited: ''
-      request: ''
+      link: 'Seleziona il distretto di appartenenza'
+      invited: 'Hai ricevuto un invito da questa azienda. Prima di poter accettare
+        l''invito, devi selezionare un distretto di appartenenza. Una volta selezionato
+        il distretto di appartenenza, potrai accettare l''invito.'
+      request: 'Al momento non puoi candidarti perché non hai ancora selezionato un
+        distretto di appartenenza. Una volta selezionato il distretto di appartenenza,
+        potrai riprovare a candidarti.'
     completeProfileRequired:
-      link: ''
-      invited: ''
-      request: ''
+      link: 'Modifica profilo'
+      invited: 'Hai ricevuto un invito da questa azienda. Prima di poter accettare
+        l''invito, devi inserire tutte le informazioni necessarie nel tuo profilo.
+        Devi aver inserito dati validi almeno nei seguenti campi: nome, cognome, data
+        di nascita, indirizzo attuale e immagine del profilo. Dopodiché, potrai accettare
+        l''invito.'
+      request: 'Al momento non puoi candidarti perché non hai ancora inserito tutti
+        i dati necessari nel tuo profilo. Devi aver inserito dati validi almeno nei
+        seguenti campi: nome, cognome, data di nascita, indirizzo attuale, foto del
+        profilo. Ti preghiamo di inserire questi dati. Dopodiché potrai riprovare
+        a candidarti.'
     applicationMessageTooShort: ''
     hygieneRequired:
-      request: ''
-      link: ''
-      invited: ''
+      request: 'Per svolgere questa attività è necessario aver seguito un corso di
+        formazione in materia di igiene.'
+      link: 'Formazione completa in igiene'
+      invited: 'Sei stato invitato in questa azienda. Prima di poter accettare l''invito,
+        devi dimostrare di aver completato un corso di formazione in materia di igiene.'
   sm:
     removeFromTeam: Rimuovare dal team
     filterUnverified: Non verificate
@@ -1000,34 +1054,35 @@ store:
     filterSleeping: Dormiglione
     sorting:
       default: Ordinamento standard
-      pickup: Ordina per ultimo ritiro
-      distance: ''
+      pickup: Ordina per ultimo slot
+      distance: 'Ordinati per distanza'
     filterNoHygiene: 'senza formazione sull’igiene'
-    userHasPickupsWarning: '{name} è ancora registrato per i ritiri di {occupiedSlots}
-      presso questa attività. Questi slot ritorneranno liberi. Vuoi ancora procedere?'
+    userHasPickupsWarning: '{name} è ancora registrato in {occupiedSlots} slot di
+      questa azienda. Questi slot ritorneranno liberi. Desideri comunque procedere?'
     inviteMember: Invita alla squadra
-    demoteAsManagerConfirm: ''
+    demoteAsManagerConfirm: 'Vuoi davvero rinunciare alla tua responsabilità di responsabile
+      delle operazioni?'
   days_before: prima
   days: giorni
   address: Indirizzo
-  average_collection_quantity: Quantità di ritiro per persona
+  average_collection_quantity: Quantità per persona
   particularities: Procedura e istruzioni
-  isNotVerified: Non è stato ancora verificato.
+  isNotVerified: Non verificato.
   unknownDate: sconosciuto
   tooltip_managing: Sei responsabile di questa agenzia
-  tooltip_red: Raccolte aperte oggi o domani
-  tooltip_orange: Raccolte aperte nei prossimi tre giorni
-  tooltip_yellow: Raccolte aperte nei prossimi cinque giorni
+  tooltip_red: Slot disponibili oggi o domani
+  tooltip_orange: Slot disponibili nei prossimi tre giorni
+  tooltip_yellow: Slot disponibili nei prossimi cinque giorni
   all_of_my_stores: Tutte le mie agenzie
   not-in-team: Non sei ancora nel team di questa azienda.
   chat:
     team: Messaggio al team
     jumper: messaggio ai intervenisti
-    managers: ''
-    managers_preface: ''
+    managers: 'Messaggio ai responsabili dei team'
+    managers_preface: 'Richiesta ai responsabili operativi di [{store}]({storeUrl}):'
   isManager: Responsabile di questa agenzia.
   lastPickupShort: ultimo {data}
-  lastPickup: 'Ultimo ritiro {date}'
+  lastPickup: 'Ultimo appuntamento {date}'
   jumperSince: 'Jolly dal {date}'
   joinDate: 'Nel team da: {data}'
   teamName: '{storeTitle}-Team'
@@ -1056,22 +1111,21 @@ store:
     search_reset: Reimposta ricerca
     search_input: Cerca per nome / numero di telefono
     is_closed: Il team è chiuso
-  short_tooltip_orange: Ritiri aperti in 3 giorni
-  short_tooltip_red: Ritiri aperti oggi o domani
-  regionPickupRulesInactive: Le regole distrettuali aggiuntive per i ritiri non 
-    sono attive
-  short_tooltip_yellow: Ritiri aperti in 5 giorni
+  short_tooltip_orange: Slot disponibili tra 3 giorni
+  short_tooltip_red: Slot disponibili oggi o domani
+  regionPickupRulesInactive: Le regole distrettuali aggiuntive relative agli 
+    slot non sono attive
+  short_tooltip_yellow: Slot disponibili tra 5 giorni
   tooltip_jumping: Sei un joker in questa attività
   maxchar: (max. 180 caratteri)
   important: 'Importante:'
   leaveinfo: Qui puoi fornire alcune informazioni ai/alle foodsaver che 
     desiderano candidarsi per il team.
   filter: Filtrare per …
-  enternumber: È comunque necessario selezionare il numero di persone da 
-    ritirare.
+  enternumber: Devi ancora selezionare il numero di slot.
   willgetcontacted: Al momento sei nell'elenco dei foodsavers in attesa. Non 
     appena ci sarà bisogno di aiuto, sarei contattat.
-  nodetails: Non indicare qui gli orari esatti di ritiro.
+  nodetails: Non indicare qui gli orari esatti degli slot di ritiro.
   ownStores: Aziende proprie
   regionPickupRuleLong: Non è possibile registrare più di 
     {regionPickupRuleLimit} ritiri da aziende famose entro 
@@ -1086,8 +1140,8 @@ store:
   prefetchfour: '4 settimane'
   locked: 'Non puoi modificare questa azienda.'
   prefetchtwo: '2 settimane'
-  useRegionPickupRules: 'Questa è un’azienda RASMR. Oltre alle regole per questo negozio,
-    si applica la seguente regola RASMR a livello distrettuale:'
+  useRegionPickupRules: 'Questa è un’azienda RASMR. Oltre alle regole di questa azienda,
+    per gli slot si applica la seguente regola di equità:'
   nochains: 'Ti preghiamo di rivolgerti solo ad aziende gestite dal proprietario con
     un massimo di tre filiali, non rivolgerti mai alle filiali di una catena più grande!
     Rispetta le regole della catena!'
@@ -1115,8 +1169,8 @@ store:
     visibili, puoi farlo direttamente facendo clic sullo slot, a condizione che 
     non sia già registrato alcun foodsaver.
   member: Membro
-  enter_date: Inserisci un'unica data di ritiro
-  particularities_chain: Particolarità della catena
+  enter_date: Inserisci un singolo slot
+  particularities_chain: Note sulla catena
   enter_date_description: Dopo aver selezionato la data, l'ora e il numero di 
     persone per il ritiro, puoi impostare gli slot una volta per questo 
     appuntamento. Se desideri creare slot di ritiro ricorrenti (in automatico 
@@ -1125,7 +1179,7 @@ store:
   not_verified: Non sei verificato. Pertanto non puoi visualizzare gli slot o i 
     numeri di telefono dei membri del team.
   unverified_member: non verificato
-  delete_date: Elimina una singola data di ritiro
+  delete_date: Elimina slot individuale
   log:
     type:
       3: richieste di adesione accettate
@@ -1136,13 +1190,13 @@ store:
       4: membri aggiunti senza richiesta
       6: spostato nel team attivo
       9: impostato come coordinatore del negozio
-      14: 'Confermare la fascia oraria di ritiro'
+      14: 'Conferma lo slot'
       16: 'Ritirare la domanda di adesione'
       10: 'Segnalazione dei responsabile dell’attività'
-      12: 'Firma per il ritiro'
+      12: 'Annulla iscrizione per lo slot'
       5: 'Aggiungi foodsavers all''elenco Jolly'
-      13: 'Essere consegnati per il ritiro'
-      11: 'Inserire per il ritiro'
+      13: 'Rimosso dallo slot'
+      11: 'Registrati per lo slot'
       15: 'Cancellare una voce della bacheca'
       18: ''
       19: ''
@@ -1160,14 +1214,14 @@ store:
       8: '{actor} ha lasciato il team.'
       5: "{actor} ha inserito {target} nell'elenco Jolly."
       1: '{actor} ha inviato una richiesta di adesione.'
-      14: '{attore} ha confermato lo slot di ritiro di {target} del {data}.'
-      11: '{actor} si è iscrittǝ al ritiro il {date}.'
-      13: '{actor} ha annullato l''iscrizione a {target} per il ritiro del {date}.'
-      13_with_reason: '{actor} ha annullato l''iscrizione a {target} per il ritiro
-        del {date} con il seguente messaggio'
+      14: '{attore} ha confermato lo slot da {target} del {data}.'
+      11: '{actor} si è registrato/a ad uno slot il {date}.'
+      13: '{actor} ha si è rimosso/a da {target} per lo slot del {date}.'
+      13_with_reason: '{actor} ha si è rimosso/a da {target} per lo slot del {date}
+        con il seguente messaggio'
       16: '{actor} ha ritirato la richiesta di adesione.'
       10: '{actor} ha sostituito {target} come responsabile dell’attività.'
-      12: '{actor} ha firmato per il ritiro il {date}.'
+      12: '{actor} si è rimosso/a da uno slot il {date}.'
       2: '{actor} ha rifiutato la richiesta di adesione di {target}.'
       9: '{actor} ha inserito {target} come responsabile dell’attività.'
       15: '{actor} ha eliminato il post in bacheca di {target} del {date}.'
@@ -1179,7 +1233,7 @@ store:
       operazioni.
   signInDateTime: 'Data di ingresso'
   slot_state: 'Stato dello slot'
-  lastPickupTitle: Ultimo recupero qui
+  lastPickupTitle: Ultimo appuntamento qui
   deactivatedRegion: Al momento non è possibile visualizzare l’elenco delle 
     aziende per interi paesi e continenti.
   to_map: Mostra sulla mappa
@@ -1200,17 +1254,18 @@ store:
     invited_info: ''
   invitations: Inviti aperti ({count})
   invited: Invitato
-  my_last_slot: ''
+  my_last_slot: 'Il mio ultimo slot'
   delete:
     button: ''
     sure: ''
     conditions_not_met: ''
   passport_expired: ''
   passport_expires_soon: ''
-  part_of_chain: ''
-  chain_has_kams: ''
-  members_not_in_target_region: ''
-  joinDateUnknown: ''
+  part_of_chain: 'Parte della catena:'
+  chain_has_kams: 'Responsabile della catena:'
+  members_not_in_target_region: 'Ci sono membri del team che non fanno parte della
+    regione di destinazione: {names}'
+  joinDateUnknown: 'Nel team dal: sconosciuto'
 storeview:
   want_to_fetch: Vorrei aiutare in questo team.
   specials: Istruzioni e procedura
@@ -1239,7 +1294,7 @@ storeview:
   select_related_region: Selezione del distretto responsabile
   cooperation_start: Cooperazione da
   status_notes: Note di stato
-  team: Squadra di ritiro
+  team: Team dell'azienda
   public_and_statistics: Statistiche e relazioni pubbliche
   no_permission_to_view: Visibile solo ai responsabili degli store.
   groceries:
@@ -1269,7 +1324,7 @@ storeview:
   activityCount:
     0: ''
     1: ''
-    2: ''
+    2: 'Appuntamenti'
 startpage:
   towns:
     title: Città foodsharing
@@ -1768,8 +1823,7 @@ events:
   notFound: Questo evento non esiste o non è possibile accedervi.
   goto: All'appuntamento
   mumble:
-    guide: 'Istruzioni: <strong><a href="https://wiki.foodsharing.de/Mumble">wiki.foodsharing.de/Mumble
-      </a></strong>'
+    guide: 'Istruzioni: <strong><a href="https://wiki.foodsharing.de/Mumble">wiki.foodsharing.de/Mumble</a></strong>'
     location: 'Il nostro server Mumble: <br> <strong> mumble.foodsharing.de </strong>'
     text: Conduciamo conferenze vocali online con <em>Mumble</em>.
     title: Appuntamento online (Mumble)
@@ -1804,8 +1858,7 @@ events:
   bread: Appuntamento
   past: Appuntamenti passati
   attendees: Partecipanti
-  noneAccepted: Finora nessuna persona ha confermato la propria partecipazione a
-    questo evento.
+  noneAccepted: Finora nessuno ha risposto a questo invito
   meeting:
     past: Questo evento si è svolto online.
     present: Questo evento si svolge online. Puoi iscriverti ora.
@@ -2287,8 +2340,9 @@ basket:
   request_close: Chiudere richiesta per cesto di cibo
   requested_by: richiesto da {name}
   no_requests: Nessuna richiesta finora
-  login: "Per informazioni dettagliate devi essere loggato.\nNon sei ancora registrato
-    come Foodsharer?\nPoi clicca su <b>partecipare</b> qui sopra e inizia subito.\n"
+  login: "Per informazioni dettagliate devi aver effettuato l'accesso. Non sei ancora
+    registrato come Foodsharer? Allora clicca su <b>Iscriviti</b> qui sopra e inizia
+    subito."
   requests: Richieste ({count})
   provider: Fornitore
   where: Dove?
@@ -2520,9 +2574,12 @@ profile:
     oldReportButton: Segnala una violazione delle regole
     sent: Raporto é stato inviato
     send: Invia segnalazione
-    info: "Si prega di includere la data, il luogo e l’ora dell’incidente. Indica
-      se hai già parlato direttamente con la persona e hai potuto chiarire la questione.
-      Si prega di indicare il modo migliore per contattarvi in caso di domande.\n"
+    info: "Per consentire una gestione ottimale della tua segnalazione, ti preghiamo
+      di includere le seguenti informazioni:\n- data, ora e luogo dell'accaduto,\n\
+      - cosa hai già fatto, ad esempio se hai già parlato direttamente con la persona
+      interessata e sei riuscito a chiarire la situazione,\n- come puoi essere contattato
+      nel caso di ulteriori domande.\n\nPuoi trovare il [Codice di condotta nella
+      Wiki](https://wiki.foodsharing.de/Verhaltensregeln).\n"
     title: Rapporto su {name}
     cancellation: 'Frequenti cancellazioni di ritiri con breve preavviso senza trovare
       un sostituto'
@@ -2807,9 +2864,9 @@ settings:
     info: ''
   photo:
     info: "Il tuo viso dovrebbe essere <a href=\"{link_photo}\">riconoscibile</a>
-      nella tua foto del profilo,\nperché sarà usato per il foodsharing<a href=\"\
-      {link_id}\">pass</a> quando\npoi diventare un <a href=\"{link_fs}\">foodsaver</a>
-      e salvare il cibo dalle agenzie.\n"
+      nella foto del profilo,\nperché verrà utilizzato per il <a href=\"{link_id}\"\
+      >tesserino</a> di foodsharing quando\ndiventerai un <a href=\"{link_fs}\">foodsaver</a>
+      e ritirerai il cibo dalle le aziende.\n"
     title: La tua foto
   email: E-mail e password
   sleep:
@@ -4611,7 +4668,8 @@ network_errors:
   csrf_token_invalid:
     title: ''
     text: ''
-totp_code: ''
+totp_code: 'Inserisci il codice di autenticazione a due fattori generato oppure uno
+  dei codici di backup.'
 debug:
   title: ''
   info: ''
