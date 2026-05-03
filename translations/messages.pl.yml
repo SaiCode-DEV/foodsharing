@@ -14,7 +14,7 @@ picture: Zdjęcie
 fs_id: foodsharing-ID
 lat: szerokość geograficzna
 lon: długość geograficzna
-bezirk: Region
+bezirk: Rejon
 active: aktywowany
 body: Wiadomość
 status: aktualny status
@@ -188,7 +188,7 @@ quiz:
   fp_options:
     default: '{failurePoints} punkty ujemne'
     joke: '{failurePoints} punkty ujemne (bez oceny)'
-    ko: ''
+    ko: '{failurePoints} punkty/ów ujemne/ych (dyskwalifikacja)'
   confirmDelete:
     session: Czy na pewno chcesz usunąć tę sesję quizu?
     question: Czy na pewno chcesz usunąć to pytanie?
@@ -889,7 +889,7 @@ group:
         no_passport: bez legitymacji
         all: wszystkie
       execute: Wykonaj akcję
-      show_only_member_after: Pokaż tylko członków po/według
+      show_only_member_after: Pokaż tylko członków według
       filter_status: Pokaż tylko status
       filter_selection: Pokaż tylko wybranych członków
       unverify_error_slots: 'Cofnięcie weryfikacji {name} ({id}) jest niemożliwe,
@@ -1084,7 +1084,9 @@ register:
   email_required: Adres email jest wymagany
   email_invalid: Ten adres email jest nieważny
   login_phone_info: 'Może być pomocne, aby udostępnić twój numer telefonu innym foodsharer(k)om'
-  error_birthdate: ''
+  error_birthdate: 'Przykładowo 25.03.2001 (DD.MM.RRRR). Ze względu na ochronę danych
+    i odpowiedzialność prawną, musisz mieć co najmniej 18 lat, aby uczestniczyć w
+    foodsharingu.'
   join_success_message: 'Pomyślnie zakończyłeś/aś twoją rejestrację na foodsharingu.
     Teraz możesz się zalogować przez swój email i hasło.'
   select_your_gender: 'Forma grzecznościowa …'
@@ -1138,7 +1140,7 @@ terminology:
   fsps: Jadłodzielnie
   settings: Ustawienia
   mailboxes: Skrzynki mailowe
-  n_foodsaver: '{count} Foodsaverzy/ki'
+  n_foodsaver: '{count} Foodsaverzy/ki/ów/ek'
   n_ambassadors: '{count} Ambasadorowie/ki'
   profile_picture: Zdjęcie profilowe
   region: Rejon
@@ -1202,8 +1204,12 @@ terminology:
 resource_mosaic:
   privacy_notice:
     ok: Zgadzam się
-    title: ''
-    text: ''
+    title: 'Informacja o ochronie danych'
+    text: 'Kiedy wprowadzisz zasoby, będą one zapisane na serwerze i widoczne dla
+      innych użytkowników/czek w twoich zespołach i regionach ( z wyłączeniem województw,
+      państw i Europy). Możesz w dowolnym czasie edytować i usuwać swoje zasoby. Poza
+      tym możesz ograniczyć widoczność swoich zasobów, przez co tylko twoi znajomi
+      będą mieć do nich dostęp.'
   title: Mozaika zasobów
   my_resources: Moje zasoby
   add: Dodaj nowe zasoby
@@ -1243,7 +1249,9 @@ resource_mosaic:
       placeholder_commons: ''
       label: 'Opis'
   favorite: 'Ulubione'
-  resource_not_found_warning: ''
+  resource_not_found_warning: 'Nie znaleziono podlinkowanego zasobu. Albo został usunięty,
+    jego właściciel/ka już nie jest członkiem tego rejonu lub zespołu, albo twój link
+    był błędny.'
   message_modal:
     intro: 'Wyślij {owner} wiadomość do tego zasobu:'
     request_for: 'Zapytanie do twojego zasobu'
@@ -2888,7 +2896,20 @@ profile:
     sent: 'Wysłano skargę'
     report_b4_0: ''
     oldReportButtonTextPart3: 'Więcej informacji o systemie skarg znajdziecie'
-    info: ''
+    info: 'Abyśmy mogli jak najlepiej rozpatrzyć twoją skargę, powinna ona zawierać
+      następujące informacje:
+
+      - data, godzina i miejsce zdarzenia,
+
+      - jakie kroki do tej pory podjąłęś/podjęłaś, czyli np. czy już rozmawiałeś/aś
+      bezpośrednio z tą osobą i czy udało się wyjaśnić sprawę,
+
+      - jak można się najlepiej z tobą skontaktować w razie dalszych pytań.
+
+
+      Tu znajdziesz [zasady postępowania w wiki](https://wiki.foodsharing.de/Verhaltensregeln).
+
+      '
     report_b3_0: ''
     report_b8: ''
     title: 'Skarga dotycząca {name}'
@@ -2926,7 +2947,9 @@ profile:
   mediation:
     title: 'Zapytanie o mediację dla {name}'
     info: ''
-    no_group: ''
+    no_group: 'Niestety, w rejonie macierzystym tego/j foodsavera/ki nie ma jeszcze
+      lokalnego zespołu mediacji. Możesz zaproponować na spotkaniu grupowym albo na
+      forum, aby wybrać lokalny zespół mediacji.'
   notFound: 'Tego profilu użytkownika/czki (już) nie ma'
   choosestore: ''
   deletesuccess: ''
@@ -3102,7 +3125,9 @@ basket:
   contact:
     call: 'Przez telefon'
     write: 'Przez wiadomość'
-  login: ''
+  login: 'Musisz być zalogowany/a, żeby zobaczyć szczegółowe informacje. Jeszcze nie
+    jesteś zarejestrowany/a jako foodsharer/ka? To kliknij na górze **Dołącz** i zacznij
+    od razu.'
   go-to-settings: 'do ustawień'
   request_empty: 'Tekst zapytania nie może być pusty.'
   request: 'Zapytaj o jadłokoszyk'
@@ -3428,7 +3453,11 @@ help:
       title: 'Prawo do głosowania'
     polls:
       title: 'Głosowania'
-      md: ''
+      md: 'Przy pomocy modułu głosowań można przeprowadzać wybory, ankiety i inne
+        głosowania anonimowo i po prostu bezpośrednio na platformie foodsharingu.
+        Szczegółowe instrukcje znajdziesz pod adresem https://wiki.foodsharing.de/Abstimmungs-Modul
+
+        '
     publicEvent:
       title: 'Publiczne eventy'
       md: ''
@@ -3460,7 +3489,11 @@ help:
       title: 'Widzialność stickerów'
       md: ''
     achievements:
-      md: ''
+      md: 'System stickerów można używać, aby oznaczać specyficzne dla użytkownika/czki
+        właściwości, jak na przykład uczestnictwo w określonych szkoleniach. Stickery
+        mogą mieć nieograniczoną ważność lub konkretną datę ważności.
+
+        '
       title: 'Stickery'
     store_chain_info:
       md: ''
@@ -3558,7 +3591,13 @@ notifications:
   pickupReminder:
     title: 'Przypomnienia o nieobsadzonych slotach'
     description: ''
-  safari_add_to_home_screen: ''
+  safari_add_to_home_screen: 'Aby otrzymywać powiadomienia push na iPhone lub iPad,
+    kliknij {icon}, a potem "Do ekranu startowego".
+
+    W aplikacji możesz wtedy aktywować powiadomienia push (wymagany minimum iOS 16.4).
+
+
+    *Dalsze informacje znajdziesz tutaj* https://support.foodsharing.network/kb/de-de/3/10'
   threads:
     title: 'Wątki forum'
   config_button: 'konfiguruj pojedynczo'
@@ -3624,7 +3663,8 @@ achievements:
   visibility_type_explanation:
     scope: 'Widoczny dla wszystkich użytkowników/czek z {scope}.'
     store_managers: ''
-    private: ''
+    private: 'Jest wyświetlany tylko tej osobie i administrator(k)om lub ambasador(k)om
+      {scope}'
     hidden: 'Nie jest wyświetlany nikomu'
     global: 'Jest widoczny dla wszystkich użytkowników/czek'
   inRegion: 'Stickery w {region} ({count})'
@@ -3766,7 +3806,8 @@ oauth:
     update_success: 'Pomyślnie zaktualizowano klienta'
     regions: 'Rejony'
     delete_error: 'Błąd przy usuwaniu'
-    redirect_uris_help: ''
+    redirect_uris_help: 'Prawidłowe adresy URL wywołań zwrotnych po autoryzacji (jeden
+      w wierszu)'
     confirm_delete: 'Usunąć klienta?'
     confidential_client: 'Poufny klient (np. aplikacja serwera)'
     regenerate_secret: 'Utwórz nowy klucz tajny klienta'
@@ -3832,13 +3873,16 @@ region:
         napisać teraz tekst opisowy.'
       confirm_discard_changes: 'Czy na pewno chcesz odrzucić swoje zmiany w opisie
         rejonu?'
-      confirm_save_changes: ''
+      confirm_save_changes: 'Czy zapisać twoje zmiany w opisie rejonu? Nowy opis zostanie
+        wtedy opublikowany na stronie rejonu.'
       edit: 'Edytuj opis rejonu'
     discard_changes: 'Odrzuć zmiany'
     leave_text_group: 'Już nie jesteś aktywny/a w {name} i chcesz opuścić ten zespół?'
     map:
       set_pin: 'Umieść pinezkę rejonu na mapie'
-      missing: ''
+      missing: 'Ten rejon nie jest aktualnie wyświetlany na mapie i nie ma też żadnych
+        jadłodzielni, które mogłyby być tu wyświetlane. Masz uprawnienia, aby ustawić
+        teraz pinezkę rejonu.'
       confirm_save_changes: 'Zapisać twoje zmiany na pinezce rejonu? Nowa pinezka
         będzie wtedy publicznie widoczna na stronie rejonu i mapie.'
       confirm_discard_changes: 'Na pewno chcesz odrzucić swoje zmiany w pinezce rejonu?'
@@ -3884,7 +3928,9 @@ region:
   name: 'Nazwa'
   confirm:
     edit: 'Jesteś pewny/a, że chcesz zapisać zmiany w rejonie {name}?'
-    delete: 'Jesteś pewny/a, że chcesz usunąć rejon {name}?'
+    delete: 'Jesteś pewny/a, że chcesz usunąć rejon {name}? Przez to zostaną nieodwracalnie
+      usunięte wszystkie dane rejonu: forum, eventy, głosowania, wpisy na tablicy,
+      stickery & zasoby w rejonie.'
     create: 'Jesteś pewny/a, że chcesz utworzyć nowy rejon {rejon}?'
   hull:
     closure: 'Ustaw {region} jako master dla wszystkich rejonów podrzędnych'
@@ -4141,14 +4187,14 @@ blog:
   edit: 'Edytuj artykuł na blogu'
   manage: 'Zarządzaj postami na blogu'
   newTitle: 'Nowy artykuł dla {region}'
-  teaser: ''
+  teaser: 'Podgląd tekstu'
   all: 'Wszystkie posty na blogu'
   actions: 'Akcje'
   delete: 'usuń post'
   header: 'Nowinki ze świata foodsharingu'
   read: 'czytaj dalej'
   empty: 'Jeszcze nie ma żadnych wpisów.'
-  publish-info: ''
+  publish-info: 'Status opublikowania artykułu można dostosować na stronie przeglądowej.'
   content: 'Treść'
   go: 'Przejdź do bloga'
   status:
@@ -4277,7 +4323,10 @@ feedback:
   screenshot_not_supported: ''
 conference:
   join_title: 'Dołącz do konferencji online'
-  confirm_info: ''
+  confirm_info: 'Tu możesz dołączyć do konferencji online dla wybranego zespołu. Konferencja
+    online otwiera BigBlueButton w nowym oknie. Uwaga: konferencje online są obsługiwane
+    przez serwer konferencji kolektywu living utopia. Zostaniesz tam automatycznie
+    zalogowany/a ze swoim podanym na foodsharingu imieniem, ID i awatarem.'
   join: 'Dołącz do konferencji online'
 system_administration:
   regions: 'Zarządzaj rejonami'

@@ -30,8 +30,8 @@ quiz:
       input:
         allowUntimed: ''
         name:
-          label: ''
-          placeholder: ''
+          label: 'Naam:'
+          placeholder: 'Naam van de quiz'
         maxFp: ''
         questionCountTimed: ''
         questionCountUntimed: ''
@@ -41,8 +41,8 @@ quiz:
       title: ''
       input:
         text:
-          placeholder: ''
-          label: ''
+          placeholder: 'Antwoord …'
+          label: 'Antwoord:'
         explanation:
           placeholder: ''
           label: ''
@@ -162,8 +162,8 @@ quiz:
   confirmDashboardText: ''
   show_results: ''
   fp_badge:
-    right: ''
-    wrong: ''
+    right: 'Juist beantwoord'
+    wrong: '{userFailurePoints} fout'
   editable_tooltip: ''
   answer_options:
     edit: ''
@@ -230,10 +230,10 @@ group:
     motivation: ''
     accepted: ''
     time:
-      "3": ''
-      "5": ''
-      "1": ''
-      "2": ''
+      "3": '3-4 uur'
+      "5": '5 uur of meer'
+      "1": '1-2 uur'
+      "2": '2-3 uur'
     summary: ''
     accept: ''
     title: ''
@@ -3451,7 +3451,7 @@ button:
   start: ''
   reset_default: ''
   prev: ''
-  countdown_clickable: ''
+  countdown_clickable: 'Binnen {countdown} seconden klikbaar'
   filter_options: ''
   yes_save: ''
   confirm: ''
