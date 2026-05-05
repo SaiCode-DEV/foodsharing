@@ -1296,12 +1296,12 @@ profile:
       you: Ainda não ofereceste nenhuma banana de reconhecimento.
   stats:
     baskets: 'cabazes'
-    weight: 'salvos'
+    weight: 'comida salva'
     posts: 'publicações'
     weight_unit: kg
     fetch_count: Recolhido
     bananas: bananas
-    slots: ações feitas
+    slots: ações
     give_count: Entregue
     engagement_count: Engajado
   commitments_stat:
@@ -1376,7 +1376,7 @@ profile:
       na plataforma.'
     ambassador_for: para
     foodSaver_in_region: Distritos onde estou inscrito
-    workgroups_admin: Envolvo-me como pessoa de contacto destes grupos
+    workgroups_admin: Coordeno estes grupos e sou pessoa de contacto
     workgroups_member: Em conjunto nos seguintes grupos de trabalho
     no_common_workgroups: Em nenhum grupo de trabalho comum
     home_region_from: Distrito principal

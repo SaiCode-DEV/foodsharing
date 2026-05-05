@@ -434,7 +434,7 @@ settings:
     info: ''
     missing-date: 'Podaj datę początkową i końcową.'
     none: ''
-    header: ''
+    header: 'Funkcja uśpienia'
     title: ''
     full: ''
     show: ''
@@ -1268,7 +1268,7 @@ resource_mosaic:
     title: ''
     level_5: 'zawsze chętnie'
     level_1: 'Tylko jeśli ważne'
-    level_2: ''
+    level_2: 'Raczej zachowawczo'
   is_commons: 'Ten zasób nie należy do jednej osoby, tylko jest dobrem wspólnym'
   order:
     sort_age: 'Kolejność: od najnowszych'
@@ -1329,7 +1329,7 @@ petition:
   daysLeft: Zostało {daysLeft} dni
   link: Do petycji
   progressText:
-    2000: ''
+    2000: 'Petycja się rozkręca! Z twoim wsparciem nabierzemy rozpędu!'
     Infinity: ''
     8000: ''
     20000: 'Mamy już połowę potrzebnych podpisów! Razem damy radę!'
@@ -2227,6 +2227,7 @@ events:
     future: Ten event odbędzie się online. Jak tylko się rozpocznie, możesz 
       dołączyć przez poniższy przycisk.
     not_started: Ten event jeszcze się nie rozpoczął
+    join: Dołącz
   attendees: Uczestnicy/czki
   online_info: |
     Telekonferencje i spotkania online przebiegają najlepiej na naszym własnym serwerze [BigBlueButton](https://bigbluebutton.org). Na 10 minut przed rozpoczęciem eventu uczestnicy/czki mogą ze strony eventu łatwo dołączyć  do konferencji przez kliknięcie. Nie potrzeba do tego żadnych innych programów, tylko w miarę aktualna przeglądarka internetowa. Poza tym jest możliwość dołączenia przez telefon.
@@ -2773,10 +2774,10 @@ profile:
     respActStores: 'Dziękujemy za koordynację {count} aktywnych '
     securePickupWeek: ''
     basketsSharedWeek: 'Podzielono się jadłokoszykami z {count} osobami. '
-    weekDesc: ''
+    weekDesc: 'Tydzień {week} w roku, od {weekStart} do {weekEnd}'
     eventsCreatedWeek: 'Dzięki za utworzenie eventów {count} raz/y w tym tygodniu.'
     districtName: 'rejon'
-    calenderWeek: ''
+    calenderWeek: 'Tydzień'
     basketsOfferedWeek: 'Dziękujemy za oferowanie jadłokoszyków {count} raz/y. Łącznie
       podzielono się {weight} kg.'
   banana:
@@ -3016,8 +3017,8 @@ dashboard:
       tooltip: ''
     reset: Resetuj
     grid_toggle:
-      2_columns: Widok 2 kolumn
-      3_columns: 'Widok 3 kolumn'
+      2_columns: Przejdź do widoku dwóch kolumn
+      3_columns: 'Przejdź do widoku trzech kolumn'
   invitation: Zostałeś zaproszony/a
   invitationCount: Zostałeś zaproszony/a ({count})
   event: Następny event
@@ -3025,7 +3026,7 @@ dashboard:
   quiz:
     read: Czytaj dalej
     go: Przejdź do quizu
-    ack: ''
+    ack: 'Przeczytałem/am tę informację, nie pokazuj więcej'
   homeRegion: 'Twój rejon macierzysty to {region}.'
   foodsharer: ''
   source_store: ''
@@ -3253,7 +3254,7 @@ footer:
   partner_names:
     lebensministerium: ''
     denns: 'Denn’s Biomarkt'
-    tafel_oesterreich: ''
+    tafel_oesterreich: 'Bank żywności Austrii'
   infosDeveloper: ''
   blog: 'Blog'
   hosting:
@@ -3466,7 +3467,19 @@ help:
       md: ''
     achievementIcon:
       title: 'Ikony do stickerów'
-      md: ''
+      md: 'Każdy sticker ma ikonę, czyli małą grafikę, która na pierwszy rzut oka
+        ma ilustrować, o co chodzi. Listę dostępnych ikon znajdziesz pod: https://fontawesome.com/v5/search?o=r&m=free&s=solid.
+
+
+        W polu wprowadzania musisz podać nazwę ikony, której chcesz użyć, czyli np.
+        „*walking*“ lub „*shopping-cart*“.
+
+        Przy pomocy podglądu możesz sprawdzić, czy twoje wprowadzone dane zadziałały.
+
+        Jeśli nie podasz żadnej ikony, zostanie automatycznie użyta standardowa ikona
+        dla stickerów „*tag*“.
+
+        '
     moderatorForumHide:
       title: 'Ukrywanie na forum przez moderatorów/ki'
       md: ''
@@ -3475,7 +3488,21 @@ help:
       md: ''
     report:
       title: 'Rozpatrywanie skarg'
-      md: ''
+      md: 'Tu są pokazywane skargi, które dotyczą osób z tego rejonu macierzystego.
+        Jednakże nie zobaczysz wszystkich skarg:
+
+        - z zasady nie są pokazywane skargi, które dotyczą ciebie albo twoich współadministratorów/ek
+        z LZRS lub LRA.
+
+        - jako administrator/ka LRA masz dostęp tylko do skarg, które dotyczą administratorów/ek
+        LZRS.
+
+        ---
+
+        Wskazówki do rozpatrywania skargi możecie przeczytać tutaj:  [Rozpatrywanie
+        skargi](https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)
+
+        '
     achievementDuplicateMode:
       title: 'Wielokrotne przyznawanie stickerów'
       md: ''
@@ -3982,7 +4009,7 @@ chain:
   inputmodal:
     inputs:
       press:
-        description: ''
+        description: 'Pozwól na upublicznienie nazwy współpracującej sieci'
         label: 'prasa'
       thread:
         invalidfeedback: 'Potrzebne jest ID wątku albo link.'
@@ -4046,7 +4073,7 @@ chain:
     list: 'Przegląd'
     workinggroup: ''
   pagetitle: ''
-  allowpress: ''
+  allowpress: 'Zgoda na upublicznienie nazwy.'
   status:
     filterplaceholder: 'Status'
     notcooperating: 'Nie współpracuje'
@@ -4158,7 +4185,8 @@ contact_page:
         [{common_mail_ch}](mailto:{common_mail_ch}) dla Szwajcarii).'
     link: 'Napisz email'
     title: 'Do spraw organizacyjnych'
-    text: ''
+    text: 'Chętnie skierujemy cię do odpowiednich osób kontaktowych - także w rejonach
+      foodsharingu.'
   support:
     title: 'Pomoc dotycząca strony internetowej lub twojego konta'
     link: 'Portal supportu'
@@ -4212,7 +4240,7 @@ startpage:
       part3: ''
       part1: 'Poza tym są'
     text3:
-      part1: ''
+      part1: 'Społeczność jest zorganizowana w rejonach.'
       part2: 'Znajdź rejony w twojej okolicy'
     text1:
       part2: 'mapie'
@@ -4232,7 +4260,16 @@ startpage:
       krajach.'
   how_we_work:
     title: 'Tak to działa'
-    text: ''
+    text: 'To wszystko powstaje w ramach wolontariatu i bezpłatnie, niezależnie i
+      bez reklam. Platforma jest sercem
+
+      naszej społeczności. Tutaj nawiązujemy kontakty i koordynujemy działania lokalnie
+      i w całej Europie. Strona internetowa i aplikacja Beta
+
+      są open source i bazują na zaangażowaniu i pasji wielu osób. Jak możesz dołączyć
+      do IT?
+
+      '
   member:
     text: ''
     title: 'jako członek'
@@ -4318,9 +4355,11 @@ feedback:
   success: 'Pomyślnie przekazano twój feedback.'
   title: 'Beta formularz feedback'
   name_sent: 'Twoje imię i ID będą wysłane razem z feedbackiem.'
-  no_support: ''
+  no_support: 'Ten formularz jest przeznaczony tylko do **feedbacku**. Jeśli potrzebujesz
+    pomocy albo masz pytania, użyj [formularza supportu](/support).'
   capture_screenshot: 'Zrób screenshot'
-  screenshot_not_supported: ''
+  screenshot_not_supported: 'Twoja przeglądarka nie wspiera automatycznych zrzutów
+    ekranu. Możesz ręcznie dodać obraz do twojego feedbacku.'
 conference:
   join_title: 'Dołącz do konferencji online'
   confirm_info: 'Tu możesz dołączyć do konferencji online dla wybranego zespołu. Konferencja
@@ -4495,7 +4534,7 @@ information:
     description: 'Możesz zobaczyć swoje przyszłe sloty w wybranym programie kalendarza.'
 team_page:
   alumni_member:
-    title: ''
+    title: 'Dawni członkowie'
     text: ''
   board_member:
     title: 'Zarząd'
