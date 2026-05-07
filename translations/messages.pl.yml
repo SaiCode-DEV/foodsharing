@@ -1975,7 +1975,9 @@ pickup:
   delete_title: 'usuń te sloty'
   signout_info: 'Twoje nadchodzące odbiory zostaną usunięte.'
   leave_team_message_template: 'wypisałem/am się z odbioru {date}. …'
-  membershipMissing: ''
+  membershipMissing: 'Nie jesteś członkiem tego teamu. Dlatego nie powinieneś/powinnaś
+    się zapisywać na odbiory. W razie wątpliwości zarejestruj się najpierw jako członek
+    teamu.'
   take_empty_slot: 'Zapisz się tutaj'
   join_agree: 'Tak, zapisz się wiążąco'
   chat_preface: '{date} w [{store}]({storeUrl}):'
@@ -2727,7 +2729,7 @@ mailbox:
   write: Nowy mail
   claim: ''
   not-allowed: 'Nie masz potrzebnych uprawnień, żeby to zrobić.'
-  name: ''
+  name: 'Wyświetlana nazwa'
   forward_attachment_warning: 'Aktualnie nie można przekazywać dalej załączników.
     Jeśli chcesz przekazać dalej maila z załącznikami, możesz pobrać załączniki i
     dołączyć je do nowego maila.'
@@ -3562,14 +3564,19 @@ email_template:
   unknown_email: 'Nieznany adres email'
   impress:
     title: 'stopka redakcyjna'
-    address: ''
-    general_information_requirements: ''
+    address: "foodsharing e. V. \n\n Neven-DuMont-Str. 14 \n\n 50667 Köln \n\n\n\n\
+      \ Reprezentowany przez:\n\n Anja Westermann \n\n Kontakt:\n\n E-Mail: info@foodsharing.de\
+      \ \n\n\n\n Wpis w rejestrze:\n\n Wpis w rejestrze stowarzyszeń\n\n Sąd rejestrowy:
+      Sąd lokalny Köln\n\n Numer rejestru: VR 17439\n\n\n\n Odpowiedzialność za treść
+      według § 18 MStV:\n\n Anja Westermann"
+    general_information_requirements: 'Dane według § 5 Telemediengesetz'
   unknown_email2: 'Adres email %ADDRESS% jest nieznany.
 
     Weź pod uwagę, że nie można dostarczać maili bcc na domenę @foodsharing.network.'
   confirm_topic: 'Temat musi zostać potwierdzony:'
   warning: 'Uwaga'
-  confirm_BOT: ''
+  confirm_BOT: 'Ponieważ jesteś ambasadorem/ką lub moderatorem/ką dla %BEZIRK%, musisz
+    go potwierdzić, zanim zostanie opublikowany.'
   information: 'Informacja'
   confirm_link: 'chciał(a)by opublikować temat'
 notifications:
@@ -3979,7 +3986,8 @@ region:
   master: 'Master-rejon'
   save: 'Tak, zapisz'
   mail:
-    name-info: ''
+    name-info: 'Uwaga, nie zmieniać dowolnie! Uważaj też na to, że ten adres jeszcze
+      nie widnieje w zarządzaniu skrzynkami pocztowymi.'
     sender: 'Imię nadawcy'
   none: 'Jeszcze nie wybrano rejonu'
   new: 'Nowy rejon'
@@ -4441,7 +4449,8 @@ stats:
     pickups: ''
     weight: ''
     fsp: 'Jadłodzielnie używane do dzielenia się żywnością.'
-    foodsharer: ''
+    foodsharer: 'Foodsharerzy/ów/ki/ek są/jest obecnie zarejesterowani/e/ych na foodsharingu
+      i interesują/e się naszą pracą.'
     foodsaver: ''
     baskets: 'jadłokoszyki łącznie opublikowane online.'
     cooperations: ''
@@ -4452,7 +4461,7 @@ stats:
     by_count: 'według liczby'
     by_weight: 'Według wagi'
   avg:
-    baskets: ''
+    baskets: 'jadłokoszyki/ów są/jest średnio wstawiane/ych online w ciągu tygodnia.'
     pickups: ''
   title: 'Całkowita statystyka'
 numbers:

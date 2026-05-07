@@ -1296,7 +1296,7 @@ profile:
       you: Ainda não ofereceste nenhuma banana de reconhecimento.
   stats:
     baskets: 'cabazes'
-    weight: 'comida salva'
+    weight: 'salvos'
     posts: 'publicações'
     weight_unit: kg
     fetch_count: Recolhido
@@ -1375,8 +1375,8 @@ profile:
     orga_rights: '##### tem, como pessoa da Orga, [permissões alargadas]({wikiurl})
       na plataforma.'
     ambassador_for: para
-    foodSaver_in_region: Distritos onde estou inscrito
-    workgroups_admin: Coordeno estes grupos e sou pessoa de contacto
+    foodSaver_in_region: 'Distritos onde estou inscrito:'
+    workgroups_admin: 'Coordeno estes grupos e sou pessoa de contacto:'
     workgroups_member: Em conjunto nos seguintes grupos de trabalho
     no_common_workgroups: Em nenhum grupo de trabalho comum
     home_region_from: Distrito principal
@@ -4314,12 +4314,12 @@ usersearch:
 contentmanagement: 'Gestão de conteúdos'
 statistics:
   num_fetches: 'em {count} operações de resgate'
-  kg_food_saved: '{count} kg comida salva'
+  kg_food_saved: '{count} kg salvos'
   region_public:
     activeFoodSharePoints: cantinhos da partilha ativos
     foodBasketsLastMonth: cabazes alimentares distribuídas
     pickupsLastMonth: vezes comida salva
-    savedFoodKgLastMonth: comida salva
+    savedFoodKgLastMonth: salvos
     activeHomeRegionFoodsavers: Foodsaver ativos
     activeCoorporations: cooperações com locais ativos
   lastMonth: Estatísticas dos últimos 30 dias
