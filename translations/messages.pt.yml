@@ -4610,7 +4610,7 @@ help:
 
         '
     storeLog:
-      md: 'O registo de local permite acompanhar as atividades num local. Pode ajudar
+      md: 'O registo de local permite acompanhar as atividades do local. Pode ajudar
         a esclarecer conflitos ou corrigir erros ocasionais.
 
         ---
@@ -4620,10 +4620,10 @@ help:
         Imagina que queres saber quem foi adicionado à equipa nas últimas 3 semanas
         e por quem.
 
-        Podes definir o período usando as datas de início e fim nos campos de data.
-        Depois, seleciona os tipos de ação relevantes no menu suspenso — por exemplo:
-        «Fazer pedidos de adesão», «Aceitar pedidos de adesão» e «Recusar pedidos
-        de adesão».
+        Podes definir o período usando as datas de início e fim nos campos de data
+        correspondente. Depois, seleciona os tipos de ação relevantes no menu suspenso
+        — por exemplo: «Fazer pedidos de adesão», «Aceitar pedidos de adesão» e «Recusar
+        pedidos de adesão».
 
         Ao clicares em «Mostrar ações selecionadas», vais ver um histórico com os
         eventos correspondentes.

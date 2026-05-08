@@ -959,7 +959,9 @@ legal:
       usunięte.
     this_doesnt_get_deleted_history: Historia twojej weryfikacji
     legal_2: 'Dodatkowe informacje o okresach przechowywania (strona po niemiecku)'
-    this_doesnt_get_deleted: ''
+    this_doesnt_get_deleted: 'Następujące informacje już nie są dostępne w aktywnym
+      systemie, ale są zarchiwizowane oddzielnie na podstawie Art. 17 ust. 3 lit.
+      b RODO:'
     this_gets_deleted_stores: ''
     legal_more_info: Dalsze informacje
     unsubscribe_newsletter: 'Wypisz się także z newslettera foodsharingu, o ile masz
@@ -1878,7 +1880,7 @@ pickup:
           other: 'Przyszłe zapisane sloty'
           own: 'Przyszłe sloty, na które możesz się zapisać'
         name: 'Wprowadzone sloty'
-        empty: 'Chwilowo nie ma żadnych slotów.'
+        empty: 'Chwilowo nie wprowadzono żadnych slotów.'
       history:
         tooltip:
           own: 'Ubiegłe sloty, w których uczestniczyłeś/aś'
@@ -2001,7 +2003,7 @@ calendar:
       name:
         giving: '{store} darowizna'
         orga: '{store} Slot'
-        pickup: ''
+        pickup: '{store} odbiór'
     updated: '(ostatnia aktualizacja: {date})'
     event:
       linkTitle: Event foodsharingu
@@ -2012,7 +2014,7 @@ calendar:
   labelPrevMonth: poprzedni miesiąc
   labelCurrentMonth: obecny miesiąc
   labelNextMonth: przyszły miesiąc
-  labelResetButton: ''
+  labelResetButton: 'Odznacz'
 timepicker:
   labelHours: godziny
   labelMinutes: minuty
@@ -2149,7 +2151,14 @@ chat:
   incorrect_address: Ten adres email nie jest poprawny
   empty_message: Najpierw musisz napisać wiadomość.
   conversations: Konwersacje
-  confirm_draft_discard: ''
+  confirm_draft_discard: 'Przechodzisz do nowej konwersacji. Tekst w polu odpowiedzi
+    zostanie przy tym odrzucony.
+
+
+    Jeśli przerwiesz ten dialog, twoja wersja robocza zostanie przeniesiona do nowej
+    konwersacji.
+
+    '
   open_multi_chat: ''
   open_full_view: Otwórz pełny widok
   unread_messages: 'Nieprzeczytane wiadomości'
@@ -2352,7 +2361,7 @@ bell:
   new_forum_thread: '{author}: {title}'
   new_resource:
     one: 'Od {user}: „{title}“'
-    many: '{count} nowych zasobów'
+    many: '{count} nowe/ych zasoby/ów'
   mark_as:
     read: Oznacz jako przeczytane
     unread: Oznacz jako nieprzeczytane
@@ -2392,7 +2401,7 @@ bell:
   new_quiz_comment_title: 'Komentarz do pytania #{questionId}'
   new_quiz_comment:
     one: '{user}: {comment}'
-    many: '{count} nowych komentarzy'
+    many: '{count} nowe/ych komentarze/y'
   delete_store_title: ''
   store_new_request_title: 'Nowe zapytanie do teamu'
   store_new_title: ''
@@ -2401,8 +2410,8 @@ bell:
     many: 'Dostosowano sloty'
     one: 'Dostosowano slot'
   foodsaver_verified: ''
-  store_new: ''
-  betrieb_fetch: ''
+  store_new: 'Wprowadzono {name}'
+  betrieb_fetch: '{count} niepotwierdzone/ych terminy/ów odbioru'
   store_wallpost: 'Nowy wpis na tablicy.'
   new_foodsaver: ''
   store_wall_post:
@@ -2410,7 +2419,7 @@ bell:
     one: 'Wpis na tablicy od {user}'
   new_foodsaver_needs_introduction: ''
   poll_ending_soon: 'Głosowanie "{title}" niedługo się kończy, a ty jeszcze nie zagłosowałeś/aś.'
-  fs_sleepmode_title: ''
+  fs_sleepmode_title: 'Nowa osoba w trybie uśpienia'
   poll_ending_soon_title: 'Głosowanie niedługo się kończy'
   store_new_request: 'Zapytanie do {name}'
   sharepoint_activate: 'wprowadzono {name}'
