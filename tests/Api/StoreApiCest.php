@@ -48,9 +48,9 @@ class StoreApiCest
 
     public function _before(ApiTester $I): void
     {
-        $this->region = $I->createRegion(fillMailbox: false);
-        $this->nextRegion = $I->createRegion(fillMailbox: false);
-        $this->otherRegion = $I->createRegion(fillMailbox: false);
+        $this->region = $I->createRegion();
+        $this->nextRegion = $I->createRegion();
+        $this->otherRegion = $I->createRegion();
         $I->haveInDatabase('fs_chain', ['id' => 40, 'name' => 'Chain']);
         $I->haveInDatabase('fs_betrieb_kategorie', ['id' => 20, 'name' => 'Category', 'type' => 0]);
         $this->foodsharer = $I->createFoodsharer(null, ['verified' => 0]);
@@ -269,7 +269,7 @@ class StoreApiCest
 
     public function canAnonymUserNotAccessToGetListOfStoresInRegion(ApiTester $I): void
     {
-        $regionRelatedRegion = $I->createRegion(fillMailbox: false);
+        $regionRelatedRegion = $I->createRegion();
 
         $I->sendGET(self::API_REGIONS . '/' . $regionRelatedRegion['id'] . '/stores');
         $I->seeResponseCodeIs(Http::UNAUTHORIZED);
@@ -283,7 +283,7 @@ class StoreApiCest
 
     public function foodsharerCanNotAccessToGetListOfStoresInRegion(ApiTester $I): void
     {
-        $regionRelatedRegion = $I->createRegion(fillMailbox: false);
+        $regionRelatedRegion = $I->createRegion();
 
         $I->login($this->foodsharer[self::EMAIL]);
         $I->sendGET(self::API_REGIONS . '/' . $regionRelatedRegion['id'] . '/stores');
@@ -292,7 +292,7 @@ class StoreApiCest
 
     public function unverifiedFoodsaverCanAccessToGetListOfStoresInRegion(ApiTester $I): void
     {
-        $regionRelatedRegion = $I->createRegion(fillMailbox: false);
+        $regionRelatedRegion = $I->createRegion();
 
         $I->login($this->unverifiedUser[self::EMAIL]);
         $I->sendGET(self::API_REGIONS . '/' . $regionRelatedRegion['id'] . '/stores');
@@ -301,7 +301,7 @@ class StoreApiCest
 
     public function verifiedFoodsaverCanAccessToGetListOfStoresInRegion(ApiTester $I): void
     {
-        $regionRelatedRegion = $I->createRegion(fillMailbox: false);
+        $regionRelatedRegion = $I->createRegion();
 
         $I->login($this->user[self::EMAIL]);
         $I->sendGET(self::API_REGIONS . '/' . $regionRelatedRegion['id'] . '/stores');
@@ -310,7 +310,7 @@ class StoreApiCest
 
     public function foodsaverWithRegionRelationCanAccessToGetListOfStoresInRegion(ApiTester $I): void
     {
-        $regionRelatedRegion = $I->createRegion(fillMailbox: false);
+        $regionRelatedRegion = $I->createRegion();
         $I->addRegionMember($regionRelatedRegion['id'], $this->user['id'], true);
 
         $I->login($this->user[self::EMAIL]);

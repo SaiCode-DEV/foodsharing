@@ -42,9 +42,9 @@ class StatisticsGatewayTest extends Unit
         $this->dateInterval4M = (new DateTime())->sub(new DateInterval('P4M'))->format('Y-m-d');
 
         $this->gateway = $this->tester->get(StatisticsGateway::class);
-        $this->regionOne = $this->tester->createRegion(fillMailbox: false);
-        $this->regionTwo = $this->tester->createRegion(fillMailbox: false);
-        $this->regionThree = $this->tester->createRegion(fillMailbox: false);
+        $this->regionOne = $this->tester->createRegion();
+        $this->regionTwo = $this->tester->createRegion();
+        $this->regionThree = $this->tester->createRegion();
         $this->storeOne = $this->tester->createStore($this->regionOne['id']);
         $this->storeTwo = $this->tester->createStore($this->regionTwo['id']);
         $this->storeThree = $this->tester->createStore($this->regionThree['id']);

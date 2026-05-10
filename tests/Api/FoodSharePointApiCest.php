@@ -32,7 +32,7 @@ class FoodSharePointApiCest
         $this->faker = Factory::create('de_DE');
 
         $this->user = $I->createFoodsaver();
-        $this->region = $I->createRegion(fillMailbox: false);
+        $this->region = $I->createRegion();
         $I->addRegionMember($this->region['id'], $this->user['id']);
 
         $this->userAmbassador = $I->createAmbassador();

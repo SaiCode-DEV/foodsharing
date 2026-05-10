@@ -43,7 +43,7 @@ class StoreTransactionsTest extends Unit
         $this->gateway = $this->tester->get(PickupGateway::class);
         $this->faker = Factory::create('de_DE');
         $this->foodsaver = $this->tester->createFoodsaver();
-        $this->regionId = $this->tester->createRegion(fillMailbox: false)['id'];
+        $this->regionId = $this->tester->createRegion()['id'];
         $this->tester->addRegionMember($this->regionId, $this->foodsaver['id']);
     }
 

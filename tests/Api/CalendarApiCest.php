@@ -22,7 +22,7 @@ class CalendarApiCest
 
     public function _before(ApiTester $I): void
     {
-        $this->region = $I->createRegion(fillMailbox: false);
+        $this->region = $I->createRegion();
 
         $this->user = $I->createFoodsharer();
         $I->addRegionMember($this->region['id'], $this->user['id']);

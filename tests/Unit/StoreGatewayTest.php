@@ -64,7 +64,7 @@ class StoreGatewayTest extends Unit
 
         $this->gateway = $this->tester->get(StoreGateway::class);
         $this->messageGateway = $this->tester->get(MessageGateway::class);
-        $this->region = $this->tester->createRegion(fillMailbox: false);
+        $this->region = $this->tester->createRegion();
         $this->store = $this->tester->createStore($this->region['id']);
         $this->foodsaver = $this->tester->createFoodsaver();
     }

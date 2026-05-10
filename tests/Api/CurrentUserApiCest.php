@@ -33,7 +33,7 @@ class CurrentUserApiCest
         $this->user = $I->createFoodsaver();
         $this->userOrga = $I->createOrga();
 
-        $this->region_1 = $I->createRegion(fillMailbox: false);
+        $this->region_1 = $I->createRegion();
 
         $this->faker = Factory::create('de_DE');
     }
@@ -52,12 +52,12 @@ class CurrentUserApiCest
         $this->storeWithJoinRequest = $I->createStore($this->region_1['id'], null, null, ['betrieb_status_id' => CooperationStatus::COOPERATION_ESTABLISHED->value]);
         $I->addStoreTeam($this->storeWithJoinRequest['id'], $this->user['id'], false, false, false);
 
-        $this->region_2 = $I->createRegion(fillMailbox: false);
+        $this->region_2 = $I->createRegion();
         $this->r2_storeAsMember = $I->createStore($this->region_2['id'], null, null, ['betrieb_status_id' => CooperationStatus::COOPERATION_ESTABLISHED->value]);
         $I->addStoreTeam($this->r2_storeAsMember['id'], $this->user['id'], false);
 
         $this->user_2 = $I->createFoodsaver();
-        $this->region_2 = $I->createRegion(fillMailbox: false);
+        $this->region_2 = $I->createRegion();
         $this->r2_u2_storeAsMember = $I->createStore($this->region_2['id'], null, null, ['betrieb_status_id' => CooperationStatus::COOPERATION_ESTABLISHED->value]);
         $I->addStoreTeam($this->r2_u2_storeAsMember['id'], $this->user_2['id'], false);
     }

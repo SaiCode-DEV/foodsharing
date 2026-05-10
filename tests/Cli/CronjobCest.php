@@ -15,7 +15,7 @@ class CronjobCest
 
     public function _before(CliTester $I): void
     {
-        $this->region = $I->createRegion(fillMailbox: false);
+        $this->region = $I->createRegion();
         $this->userFoodsaver = $I->createFoodsaver(null, ['bezirk_id' => $this->region['id']]);
         $this->createTestPolls($I);
     }

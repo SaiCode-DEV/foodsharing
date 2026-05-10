@@ -838,7 +838,7 @@ class Foodsharing extends Db
         $this->haveInDatabase('fs_buddy', ['foodsaver_id' => $user1, 'buddy_id' => $user2, 'confirmed' => $confirmedInt]);
     }
 
-    public function createRegion($name = null, $extra_params = [], bool $fillMailbox = true)
+    public function createRegion($name = null, $extra_params = [], bool $fillMailbox = false)
     {
         if ($name == null) {
             $name = $this->faker->lastName() . '-region';

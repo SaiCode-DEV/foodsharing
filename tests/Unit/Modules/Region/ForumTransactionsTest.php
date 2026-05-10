@@ -86,7 +86,7 @@ class ForumTransactionsTest extends Unit
         $this->user2 = $this->tester->createFoodsaver();
         $this->user3 = $this->tester->createFoodsaver();
 
-        $this->region = $this->tester->createRegion(fillMailbox: false);
+        $this->region = $this->tester->createRegion();
         $this->tester->addRegionMember($this->region['id'], $this->user['id']);
         $this->tester->addRegionMember($this->region['id'], $this->user1['id']);
         $this->tester->addRegionMember($this->region['id'], $this->user2['id']);

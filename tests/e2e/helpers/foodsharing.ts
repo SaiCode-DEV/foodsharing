@@ -659,7 +659,7 @@ class Foodsharing {
   async createRegion(
     name: string = null,
     extraParams: any = {},
-    fillMailbox: boolean = true,
+    fillMailbox: boolean = false,
   ): Promise<any> {
     if (!name) {
       name = faker.person.lastName() + "-region";

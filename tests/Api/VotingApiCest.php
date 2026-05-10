@@ -37,7 +37,7 @@ class VotingApiCest
     {
         $this->faker = Factory::create('de_DE');
 
-        $this->region = $I->createRegion(fillMailbox: false);
+        $this->region = $I->createRegion();
         $this->userFoodsaverUnverified = $I->createFoodsaver(null, ['bezirk_id' => $this->region['id'], 'verified' => 0]);
         $this->userFoodsaver = $I->createFoodsaver(null, ['bezirk_id' => $this->region['id']]);
 
@@ -49,7 +49,7 @@ class VotingApiCest
         $I->addStoreTeam($store['id'], $this->userStoreManager['id'], true);
 
         // Create a voting group and make userFoodsaver admin of that group
-        $group = $I->createWorkingGroup('Abstimmung', ['parent_id' => $this->region['id']], fillMailbox: false);
+        $group = $I->createWorkingGroup('Abstimmung', ['parent_id' => $this->region['id']]);
         $I->haveInDatabase('fs_region_function', [
                 'region_id' => $group['id'],
                 'function_id' => WorkgroupFunction::VOTING,
@@ -127,7 +127,7 @@ class VotingApiCest
             'value' => 1
         ]);
 
-        $region = $I->createRegion(fillMailbox: false);
+        $region = $I->createRegion();
         $user = $I->createFoodsaver(null, ['bezirk_id' => $region['id']]);
 
         $I->login($user['email']);

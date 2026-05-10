@@ -25,7 +25,7 @@ class StatisticApiCest
         $birthday = new DateTime();
         $birthday = $birthday->sub(DateInterval::createFromDateString('19 year'));
 
-        $this->region = $I->createRegion(fillMailbox: false);
+        $this->region = $I->createRegion();
         $this->foodsaver = $I->createFoodsaver(
             extra_params: [
                 'bezirk_id' => $this->region['id'],

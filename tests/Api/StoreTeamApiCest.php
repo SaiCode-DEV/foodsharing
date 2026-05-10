@@ -29,8 +29,8 @@ class StoreTeamApiCest
 
     public function _before(ApiTester $I): void
     {
-        $this->region = $I->createRegion(fillMailbox: false);
-        $I->createRegion(fillMailbox: false);
+        $this->region = $I->createRegion();
+        $I->createRegion();
         $this->store = $I->createStore($this->region['id']);
         $this->user = $I->createFoodsaver(null, ['bezirk_id' => $this->region['id']]);
         $this->user2 = $I->createFoodsaver(null, ['bezirk_id' => $this->region['id']]);

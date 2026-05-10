@@ -32,7 +32,7 @@ class ForumApiCest
         $this->user2 = $I->createFoodsaver();
         $this->user3 = $I->createFoodsaver();
 
-        $this->region = $I->createRegion(fillMailbox: false);
+        $this->region = $I->createRegion();
         $I->addRegionMember($this->region['id'], $this->user['id']);
         $I->addRegionMember($this->region['id'], $this->user1['id']);
         $I->addRegionMember($this->region['id'], $this->user2['id']);

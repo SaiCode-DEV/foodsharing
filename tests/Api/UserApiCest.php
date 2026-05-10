@@ -34,7 +34,7 @@ class UserApiCest
         $I->addRegionMember($group['id'], $this->user['id']);
         $I->addRegionMember($group['id'], $this->userOrga['id']);
 
-        $this->region = $I->createRegion(fillMailbox: false);
+        $this->region = $I->createRegion();
         $I->addRegionMember($this->region['id'], $this->user['id']);
         $I->addRegionMember($this->region['id'], $this->userOrga['id']);
     }

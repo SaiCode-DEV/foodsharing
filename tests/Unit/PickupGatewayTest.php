@@ -25,7 +25,7 @@ class PickupGatewayTest extends Unit
     {
         $this->regularPickupGateway = $this->tester->get(RegularPickupGateway::class);
         $this->gateway = $this->tester->get(PickupGateway::class);
-        $this->region = $this->tester->createRegion(fillMailbox: false);
+        $this->region = $this->tester->createRegion();
         $this->store = $this->tester->createStore($this->region['id']);
         $this->foodsaver = $this->tester->createFoodsaver();
     }

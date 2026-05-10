@@ -27,7 +27,7 @@ class ReportApiCest
     public function _before(ApiTester $I): void
     {
         //Create regions
-        $this->parentRegion = $I->createRegion(fillMailbox: false);
+        $this->parentRegion = $I->createRegion();
         $this->region = $I->createRegion(null, ['parent_id' => $this->parentRegion['id']], false);
         $this->subRegion = $I->createRegion(null, ['parent_id' => $this->region['id']], false);
 

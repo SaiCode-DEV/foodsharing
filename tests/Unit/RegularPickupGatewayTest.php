@@ -20,7 +20,7 @@ class RegularPickupGatewayTest extends Unit
     public function _before()
     {
         $this->gateway = $this->tester->get(RegularPickupGateway::class);
-        $this->region = $this->tester->createRegion(fillMailbox: false);
+        $this->region = $this->tester->createRegion();
         $this->store = $this->tester->createStore($this->region['id']);
     }
 

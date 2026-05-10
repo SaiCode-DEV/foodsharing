@@ -49,7 +49,7 @@ class AchievementGatewayTest extends Unit
 
     private function initRegions(): void
     {
-        $this->region = $this->tester->createRegion('Parent', fillMailbox: false);
+        $this->region = $this->tester->createRegion('Parent');
         $this->childRegion = $this->tester->createRegion('Child', ['parent_id' => $this->region['id']], false);
         $this->tester->addRegionMember($this->region['id'], $this->user['id']);
         $this->tester->addRegionMember($this->childRegion['id'], $this->user['id']);
