@@ -407,7 +407,13 @@ class QuizTransactions
                 // no break
             case QuizID::FOODSAVER->value:
                 $this->foodsaverGateway->riseRole($foodsaverId, Role::from($quizId));
+
+                // Update session data of current session to reflect the new
+                // role
                 $this->session->refreshFromDatabase();
+                // Invalidate all sessions of this user except the current one,
+                // to apply the new role
+                $this->session->invalidateAllSessionsForUser($foodsaverId, true);
 
                 return true;
             default:

@@ -130,6 +130,60 @@ class Mem
         return $this->cache->sRem(join(':', ['php', 'user', $fs_id, 'sessions']), $session_id);
     }
 
+    /**
+     * Invalidate all Redis-backed sessions for a given user.
+     *
+     * Deletes `fs_sess:<id>` keys and removes them from the
+     * `php:user:<id>:sessions` set.
+     *
+     * @param int $userId foodsaver id
+     * @param bool $exceptCurrentSession if true, the current session will not
+     * be invalidated (if it belongs to the user)
+     */
+    public function invalidateSessionsForUser(int $userId, bool $exceptCurrentSession): void
+    {
+        try {
+            $this->ensureConnected();
+            $userKey = join(':', ['php', 'user', $userId, 'sessions']);
+            $sessionIds = $this->cache->sMembers($userKey);
+            if (!empty($sessionIds)) {
+                foreach ($sessionIds as $sid) {
+                    if ($exceptCurrentSession && session_id() === $sid) {
+                        continue;
+                    }
+                    $this->cache->del('fs_sess:' . $sid);
+                    $this->cache->sRem($userKey, $sid);
+                }
+            }
+        } catch (\Throwable $e) {
+            // Don't throw on Redis errors
+        }
+    }
+
+    /**
+     * Invalidate a specific field in all Redis-backed sessions for a given user.
+     *
+     * Deletes the field from `fs_sess:<id>` keys for all sessions of the user.
+     *
+     * @param int $userId foodsaver id
+     * @param string $field the session field to delete
+     */
+    public function clearSessionFieldForUser(int $userId, string $field): void
+    {
+        try {
+            $this->ensureConnected();
+            $userKey = join(':', ['php', 'user', $userId, 'sessions']);
+            $sessionIds = $this->cache->sMembers($userKey);
+            if (!empty($sessionIds)) {
+                foreach ($sessionIds as $sid) {
+                    $this->cache->hDel('fs_sess:' . $sid, $field);
+                }
+            }
+        } catch (\Throwable $e) {
+            // Don't throw on Redis errors
+        }
+    }
+
     public function getPageCache($fsId)
     {
         return $this->get('pc-' . $_SERVER['REQUEST_URI'] . ':' . $fsId);

@@ -101,6 +101,10 @@ class RegionRestController extends AbstractFoodsharingRestController
             $this->foodsaverGateway->updateProfile($sessionId, ['bezirk_id' => $regionId]);
         }
 
+        // Clear cached units information in session so the user's
+        // regions/home-region are reloaded on next access
+        $this->currentUserUnits->clearUnitsInformation();
+
         $regionWelcomeGroupId = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::WELCOME);
         if ($regionWelcomeGroupId) {
             $welcomeBellRecipients = $this->foodsaverGateway->getAdminsOrAmbassadors($regionWelcomeGroupId);
@@ -142,7 +146,14 @@ class RegionRestController extends AbstractFoodsharingRestController
         }
 
         $this->eventGateway->deleteInvitesForFoodSaver($regionId, $userId);
-        $this->foodsaverGateway->deleteFromRegion($regionId, $userId, $userId);
+        if ($this->foodsaverGateway->deleteFromRegion($regionId, $userId, $userId)) {
+            // Verification status might have changed
+            $this->session->invalidateAllSessionsForUser($userId);
+        }
+
+        // Clear cached units information in session so the user's regions/home-region
+        // are reloaded on next access.
+        $this->currentUserUnits->clearUnitsInformation();
 
         return $this->respondOK();
     }
@@ -294,7 +305,10 @@ class RegionRestController extends AbstractFoodsharingRestController
                 throw new ConflictHttpException('user is still a store member in that region (store IDs: ' . $ids . ')');
             }
 
-            $this->foodsaverGateway->deleteFromRegion($regionId, $userId, $this->session->id());
+            if ($this->foodsaverGateway->deleteFromRegion($regionId, $userId, $this->session->id())) {
+                // Verification status might have changed
+                $this->session->invalidateAllSessionsForUser($userId);
+            }
         }
 
         return $this->respondOK();

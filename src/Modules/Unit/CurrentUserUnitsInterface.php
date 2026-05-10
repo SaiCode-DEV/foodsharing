@@ -75,4 +75,9 @@ interface CurrentUserUnitsInterface
      * @return bool true if current user is ambassador
      */
     public function isAmbassadorForRegion($regionIds, $include_groups = true, $include_parent_regions = false): bool;
+
+    /**
+     * Clears the cached units information in session so the user's regions/home-region are reloaded on next access.
+     */
+    public function clearUnitsInformation(): void;
 }

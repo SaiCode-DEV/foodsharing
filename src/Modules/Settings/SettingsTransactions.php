@@ -323,6 +323,10 @@ class SettingsTransactions
             if ($addressChanged) {
                 $this->notifyAmbassadorsAboutAddressChange($userId, $currentUserProfile, $editableProfileDTO);
             }
+            // If role changed, invalidate sessions to pick up the new role
+            if ($editableProfileDTO->role !== null) {
+                $this->session->invalidateAllSessionsForUser($userId);
+            }
         }
 
         return $isUpdated;
@@ -445,8 +449,10 @@ class SettingsTransactions
      */
     public function requestPasswordChange(PasswordChangeRequest $request): void
     {
+        $userId = $this->session->id();
+
         // check that the old password is correct
-        $currentEmail = $this->foodsaverGateway->getEmailAddress($this->session->id());
+        $currentEmail = $this->foodsaverGateway->getEmailAddress($userId);
         if (!$this->loginGateway->checkClient($currentEmail, $request->oldPassword, $request->totpCode)) {
             throw new AccessDeniedHttpException();
         }
@@ -461,10 +467,16 @@ class SettingsTransactions
             throw new BadRequestHttpException('New password must be different from the old password');
         }
 
-        $this->loginGateway->setPassword($this->session->id(), $request->newPassword);
+        $this->loginGateway->setPassword($userId, $request->newPassword);
+
+        // Invalidate all sessions of this user and log out the current session.
+        // This ensures that all active sessions are terminated after a password
+        // change and gives users an (indirect) method to force-logout from
+        // lost/stolen devices.
+        $this->session->invalidateAllSessionsForUser($userId);
 
         // Revoke OAuth refresh tokens to prevent issuing new access tokens via refresh
-        $this->foodsaverGateway->revokeOAuthRefreshTokens($this->session->id());
+        $this->foodsaverGateway->revokeOAuthRefreshTokens($userId);
     }
 
     /**

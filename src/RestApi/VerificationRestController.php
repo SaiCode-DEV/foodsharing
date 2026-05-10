@@ -7,6 +7,7 @@ use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
+use Foodsharing\Modules\Foodsaver\FoodsaverTransactions;
 use Foodsharing\Modules\Message\MessageTransactions;
 use Foodsharing\Modules\PassportGenerator\PassportGeneratorTransaction;
 use Foodsharing\Modules\Profile\DTO\PassHistoryEntry;
@@ -39,6 +40,7 @@ class VerificationRestController extends AbstractFoodsharingRestController
     public function __construct(
         private readonly BellGateway $bellGateway,
         private readonly FoodsaverGateway $foodsaverGateway,
+        private readonly FoodsaverTransactions $foodsaverTransactions,
         private readonly ProfileGateway $profileGateway,
         private readonly PickupGateway $pickupGateway,
         private readonly ProfilePermissions $profilePermissions,
@@ -70,7 +72,7 @@ class VerificationRestController extends AbstractFoodsharingRestController
             throw new UnprocessableEntityHttpException('User is already verified');
         }
 
-        $this->foodsaverGateway->changeUserVerification($userId, $this->session->id(), true);
+        $this->foodsaverTransactions->changeUserVerification($userId, $this->session->id(), true);
         $this->bellGateway->delBellsByIdentifier(BellType::createIdentifier(BellType::NEW_FOODSAVER_IN_REGION, $userId));
 
         $bellData = Bell::create(
@@ -119,7 +121,7 @@ class VerificationRestController extends AbstractFoodsharingRestController
             throw new BadRequestHttpException('This user must not be signed up for any future pickups.');
         }
 
-        $this->foodsaverGateway->changeUserVerification($userId, $this->session->id(), false);
+        $this->foodsaverTransactions->changeUserVerification($userId, $this->session->id(), false);
 
         return $this->respondOK();
     }

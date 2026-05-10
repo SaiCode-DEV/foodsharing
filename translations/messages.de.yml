@@ -2426,7 +2426,7 @@ settings:
   # Change Password
   password_change:
     title: "Passwort ändern"
-    explanation: "Hier kannst du dein aktuelles Passwort ändern"
+    explanation: "Hier kannst du dein aktuelles Passwort ändern. Bitte beachte, dass bei erfolgreicher Änderung des Passworts aus Sicherheitsgründen auch alle anderen aktiven Logins (z.B. auf anderen Geräten) ebenfalls abgemeldet werden und du dich mit dem neuen Passwort erneut einloggen musst."
     old_password_label: "Bisheriges Passwort"
     old_password_placeholder: "Dein aktuelles Passwort"
     old_password_required: "Du musst dein bisheriges Passwort eingeben"

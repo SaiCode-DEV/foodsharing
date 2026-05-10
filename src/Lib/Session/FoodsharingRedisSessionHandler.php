@@ -13,8 +13,9 @@ class FoodsharingRedisSessionHandler extends AbstractSessionHandler
     private Mem $mem;
     private string $prefix;
     private int $ttl;
+    private const PREFIX = 'fs_sess:';
 
-    public function __construct(Mem $mem, int $ttl = 86400, string $prefix = 'fs_sess:')
+    public function __construct(Mem $mem, int $ttl = 86400, string $prefix = self::PREFIX)
     {
         $this->mem = $mem;
         $this->mem->ensureConnected(); // Make sure Redis is connected

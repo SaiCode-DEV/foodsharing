@@ -193,6 +193,11 @@ async function submitPassword () {
     totp.value = ''
     v$.value.$reset()
     modal.value.hide()
+    // After a slight delay, we reload the page so the user needs to re-login
+    // with the new password
+    setTimeout(() => {
+      window.location.reload()
+    }, 3000)
   } catch (e) {
     if (e.code === HTTP_RESPONSE.FORBIDDEN) {
       oldPasswordError.value = i18n('settings.password_change.wrong_password')

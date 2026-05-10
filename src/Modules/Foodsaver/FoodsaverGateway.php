@@ -808,13 +808,14 @@ class FoodsaverGateway extends BaseGateway
      * @param int $regionId regionId that foodsaverid is being deleted from
      * @param int|null $fsId foodsaverid that is being deleted from a region
      * @param int $actorId foodsaverid that is performing the action (either self or ambassador)
+     * @return bool true if the foodsaver removed himself from his home region and got unverified
      *
      * @throws Exception
      */
-    public function deleteFromRegion(int $regionId, ?int $fsId, int $actorId): void
+    public function deleteFromRegion(int $regionId, ?int $fsId, int $actorId): bool
     {
         if ($fsId === null) {
-            return;
+            return false;
         }
         $this->db->delete('fs_botschafter', ['bezirk_id' => $regionId, 'foodsaver_id' => $fsId]);
         $this->db->delete('fs_foodsaver_has_bezirk', ['bezirk_id' => $regionId, 'foodsaver_id' => $fsId]);
@@ -844,8 +845,12 @@ class FoodsaverGateway extends BaseGateway
             );
             if ($fsId === $actorId) {
                 $this->changeUserVerification($fsId, $actorId, false);
+
+                return true;
             }
         }
+
+        return false;
     }
 
     /**

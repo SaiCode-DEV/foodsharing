@@ -696,4 +696,37 @@ class Session
             $this->set(self::LAST_ACTIVITY, $today);
         }
     }
+
+    /**
+     * Invalidate all Redis-backed sessions for a given user.
+     *
+     * This is a thin wrapper around FoodsharingRedisSessionHandler::invalidateSessionsForUser
+     * so other services that have access to the Session object can request session
+     * invalidation without directly instantiating Redis helpers.
+     */
+    public function invalidateAllSessionsForUser(int $userId, bool $exceptCurrentSession = false): void
+    {
+        try {
+            $this->mem->invalidateSessionsForUser($userId, $exceptCurrentSession);
+        } catch (\Throwable $e) {
+            // Do not throw on Redis errors
+        }
+    }
+
+    /**
+     * Invalidate a specific field in all Redis-backed sessions for a given user.
+     *
+     * Deletes the field from `fs_sess:<id>` keys for all sessions of the user.
+     *
+     * @param int $userId foodsaver id
+     * @param string $field the session field to delete
+     */
+    public function clearSessionFieldForUser(int $userId, string $field): void
+    {
+        try {
+            $this->mem->clearSessionFieldForUser($userId, $field);
+        } catch (\Throwable $e) {
+            // Do not throw on Redis errors
+        }
+    }
 }

@@ -81,7 +81,23 @@ class FoodsaverTransactions
 
         $this->storeTransactions->leaveAllStoreTeams($fsId);
 
-        return $this->foodsaverGateway->downgradePermanently($fsId);
+        return $this->downgradePermanently($fsId);
+    }
+
+    public function changeUserVerification(int $userId, int $actorId, bool $newStatus): void
+    {
+        $this->foodsaverGateway->changeUserVerification($userId, $actorId, $newStatus);
+        $this->session->invalidateAllSessionsForUser($userId);
+    }
+
+    public function downgradePermanently(int $fsId): int
+    {
+        $rows = $this->foodsaverGateway->downgradePermanently($fsId);
+        if ($rows > 0) {
+            $this->session->invalidateAllSessionsForUser($fsId);
+        }
+
+        return $rows;
     }
 
     public function deleteFoodsaver(int $foodsaverId, ?int $deletingUserId, ?string $reason, bool $unsubscribeNewsletter = false): void

@@ -215,4 +215,13 @@ class CurrentUserUnitsSessionTransactions implements CurrentUserUnitsInterface
 
         return false;
     }
+
+    /**
+     * Clears the cached units information in all sessions of this user so
+     * regions/home-region are reloaded on next access.
+     */
+    public function clearUnitsInformation(): void
+    {
+        $this->session->clearSessionFieldForUser($this->session->id(), CurrentUserUnitsSessionTransactions::SESSION_FIELD_NAME);
+    }
 }

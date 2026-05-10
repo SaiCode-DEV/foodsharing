@@ -626,4 +626,43 @@ class SettingsApiCest
             $I->dontSeeInDatabase('fs_mailchange', ['foodsaver_id' => $this->user['id'], 'newmail' => $newEmail]);
         }
     }
+
+    public function passwordChangeInvalidatesAllSessions(ApiTester $I): void
+    {
+        $mem = new \Foodsharing\Lib\Db\Mem();
+        $mem->ensureConnected();
+
+        $foodsaver = $I->createFoodsaver('oldpassword');
+
+        // Ensure no pre-existing sessions, then create multiple auxiliary
+        // sessions for the same user in Redis
+        $mem->invalidateSessionsForUser($foodsaver['id'], false);
+
+        // Create three independent sessions for the same user in Redis to
+        // simulate multiple logged-in devices or browsers
+        for ($i = 0; $i < 3; ++$i) {
+            $sessionId = 'test-sess-' . bin2hex(random_bytes(6));
+            $mem->userAddSession($foodsaver['id'], $sessionId);
+            $mem->cache->set('fs_sess:' . $sessionId, 'dummy');
+        }
+
+        // Verify that the three auxiliary sessions were created successfully
+        $I->assertCount(3, $mem->cache->sMembers('php:user:' . $foodsaver['id'] . ':sessions'));
+
+        // Perform a login to create a fourth session for the user, which will
+        // be the one used for the password change request
+        $I->login($foodsaver['email'], 'oldpassword');
+        $I->assertCount(4, $mem->cache->sMembers('php:user:' . $foodsaver['id'] . ':sessions'));
+
+        // Perform password change via API
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/users/current/password', [
+            'oldPassword' => 'oldpassword',
+            'newPassword' => 'abcdefghijABC123'
+        ]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // All sessions should have been removed
+        $I->assertEmpty($mem->cache->sMembers('php:user:' . $foodsaver['id'] . ':sessions'));
+    }
 }
