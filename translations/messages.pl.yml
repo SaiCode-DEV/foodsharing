@@ -1035,7 +1035,7 @@ register:
   login_email: Adres email
   login_passwd2: Potwierdź hasło
   prev: powrót
-  next: następny
+  next: dalej
   woman: kobieta
   man: mężczyzna
   other: inne
@@ -1333,7 +1333,7 @@ petition:
   progressText:
     2000: 'Petycja się rozkręca! Z twoim wsparciem nabierzemy rozpędu!'
     Infinity: ''
-    8000: ''
+    8000: 'Dobrze zaczęliśmy! Pomóż, abyśmy zaszli jeszcze dalej!'
     20000: 'Mamy już połowę potrzebnych podpisów! Razem damy radę!'
     25000: 'Mamy już dwie trzecie potrzebnych podpisów! Razem damy radę!'
     30000: 'Już prawie u celu - brakuje tylko kawałeczka! Dołącz do petycji teraz!'
@@ -1428,7 +1428,7 @@ fsp:
     manager: Jesteś odpowiedzialny/a za tę jadłodzielnię i z tego względu 
       zobowiązany/a akceptować update'y.
     mail: 'Dzwonek i powiadomienie mailem'
-    descModal: ''
+    descModal: 'Jak chcesz być informowany/a o nowościach (np. dostawy żywności)?'
     bell: 'tylko powiadomienia wewnętrzne (dzwonek)'
   createdAt: 'Otwarte:'
   summary: 'Jest/są {count} jadłodzielni/e w rejonach, w których jesteś aktywny/a'
@@ -1492,7 +1492,7 @@ storeview:
   activityCount:
     0: 'Odbiory'
     1: 'Darowizny'
-    2: ''
+    2: 'eventy'
 store:
   team_container: Team
   member: Członek
@@ -1860,7 +1860,7 @@ pickup:
       registeredSwitch: 'Zapisane sloty'
       managedOnlySwitch: ''
       signOff: 'Wypisz'
-    freeSlots: '{slots} wolne'
+    freeSlots: '{slots} wolne/ych'
     cols:
       time: Czas
       slots: 'Sloty'
@@ -1884,7 +1884,7 @@ pickup:
       history:
         tooltip:
           own: 'Ubiegłe sloty, w których uczestniczyłeś/aś'
-          other: ''
+          other: 'Sloty w minionym miesiącu, w których wzięto udział'
         name: 'Historia slotów'
         empty: 'Jeszcze nikt się nie zapisał na żaden slot.'
     modals:
@@ -2064,8 +2064,10 @@ forum:
       przyporządkowany mu temat (już) nie istnieje.
     edit_post_not_found: Już nie możesz edytować tego postu, bo on (już) nie 
       istnieje.
-    edit_conflict: ''
-    edit_mentions_note: ''
+    edit_conflict: 'Nie możesz więcej edytować tego postu, bo już napisano dalszy
+      post w tym temacie.'
+    edit_mentions_note: 'Uwaga: nowe wzmianki, które dodasz przy edycji, nie wygenerują
+      nowych powiadomień (dzwonków).'
   thread:
     delivery_mail: Aktywuj wysyłanie maili
     no_mail: Temat został otwarty bez wysyłania maili
@@ -2082,9 +2084,10 @@ forum:
       Tu możesz go aktywować i poinformować o tym foodsaverów/ki.
 
       '
-    sticky: ''
-    stick: ''
-    post_not_found: ''
+    sticky: 'przypięty temat'
+    stick: 'Przyklej temat'
+    post_not_found: 'Nie znaleziono podlinkowanego postu, być może został usunięty.
+      Zamiast tego wybrano następny post pod podlinkowaną wiadomością.'
     too_big_to_mail: 'Nie wysłano żadnych maili do tego tematu, ponieważ odnosi się
       on do kraju lub województwa.'
     all_hidden: 'Wszystkie posty w tym wątku są ukryte.'
@@ -2409,15 +2412,15 @@ bell:
   store_change_regular_pickup_times:
     many: 'Dostosowano sloty'
     one: 'Dostosowano slot'
-  foodsaver_verified: ''
+  foodsaver_verified: 'Wyświetl swoją legitymację pod …'
   store_new: 'Wprowadzono {name}'
   betrieb_fetch: '{count} niepotwierdzone/ych terminy/ów odbioru'
   store_wallpost: 'Nowy wpis na tablicy.'
-  new_foodsaver: ''
+  new_foodsaver: 'Potrzebuje wprowadzenia do odbiorów'
   store_wall_post:
     many: '{count} nowe/ych wpisy/ów na tablicy'
     one: 'Wpis na tablicy od {user}'
-  new_foodsaver_needs_introduction: ''
+  new_foodsaver_needs_introduction: 'Potrzebuje wprowadzenia do odbiorów'
   poll_ending_soon: 'Głosowanie "{title}" niedługo się kończy, a ty jeszcze nie zagłosowałeś/aś.'
   fs_sleepmode_title: 'Nowa osoba w trybie uśpienia'
   poll_ending_soon_title: 'Głosowanie niedługo się kończy'
@@ -2449,7 +2452,8 @@ genderlist:
   header_for_district: Podział płci w {bezirk}
   gender_divers: inne
   district_tab: 'Rejon'
-  gender_home_district_table_caption: ''
+  gender_home_district_table_caption: 'Rozkład foodsaverów/ek z rejonu macierzystego
+    według płci'
   gender_district_table_caption: ''
   home_district_tab: 'rejon macierzysty'
 pickuplist:
@@ -2779,8 +2783,8 @@ profile:
     week_1: Przyszły tydzień
     week_2: Obecny tydzień
     week_3: Ubiegły tydzień
-    pickupCount: ''
-    week_0: ''
+    pickupCount: 'Częstotliwość'
+    week_0: 'Jeszcze następny tydzień'
     week_4: 'Jeszcze poprzedni tydzień'
     respActStores: 'Dziękujemy za koordynację {count} aktywnych '
     securePickupWeek: ''
@@ -3025,7 +3029,7 @@ dashboard:
   options:
     hide:
       text: Zmień widok
-      tooltip: ''
+      tooltip: 'Tu możesz odkryć i ukryć wybrane obszary na tablicy.'
     reset: Resetuj
     grid_toggle:
       2_columns: Przejdź do widoku dwóch kolumn
@@ -3800,7 +3804,7 @@ search:
     in: 'w'
     chat:
       chat_with: 'Chat z {names}'
-      chat_with_others: ''
+      chat_with_others: 'inni/ych'
     user:
       copied_id: 'Skopiowano Foodsaver-ID {name} ({text})'
       no_home_region: 'bez rejonu macierzystego'
