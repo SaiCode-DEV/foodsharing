@@ -11,6 +11,7 @@ The following chapters help you to understand the development tools and required
 
 Phinx is a migration tool for databases and helps to update and to maintain the database schema.
 Each change in database schema is described by a migration file. On execution of this changeset can be rolled out to the database and in case of problems is a roll-back possible. A roll-back needs to be implemented and can not be done on each change, e. g. removing a column.
+Migrations should only modify the database structure, not add any content. Adding data to the tables is done by the [seed script](seed-overview.md).
 
 #### Steps to generate modification changeset
 

@@ -89,3 +89,8 @@ There you can directly look at and manipulate the data in the database
 which can be necessary or very useful for manual testing and troubleshooting.
 
 MailDev is also included: [localhost:18084](localhost:18084). There you can read all e-mails that you write via the front end.
+
+## Seed data for tests
+
+There is also a second seed script designated for the tests. You can find it in `/src/Dev/TestSeedCommand.php`. It
+generates the minimal data that is required by most tests, like some of the base regions.

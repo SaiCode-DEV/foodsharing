@@ -9,6 +9,7 @@ use Codeception\Lib\Di;
 use Codeception\Lib\ModuleContainer;
 use Foodsharing\Modules\Core\DBConstants\Configuration\ConfigurationCategory;
 use Foodsharing\Modules\Core\DBConstants\Configuration\ConfigurationKey;
+use Foodsharing\Modules\Core\DBConstants\Region\ApplyType;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
@@ -17,14 +18,13 @@ use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DBConstants\Voting\VotingScope;
 use Foodsharing\Modules\Core\DBConstants\Voting\VotingType;
 use Foodsharing\Modules\Development\FeatureToggles\Enums\FeatureToggleDefinitions;
-use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Tests\Support\Helper\Foodsharing;
 
 // this is Codeception specific, so we can't use the regular AsCommand attribute
-class SeedCommand extends Command implements CustomCommandInterface
+class SeedCommand extends AbstractSeedCommand implements CustomCommandInterface
 {
     use ConfigTrait;
     protected static $defaultDescription = 'Seed the dev db.';
@@ -316,10 +316,17 @@ class SeedCommand extends Command implements CustomCommandInterface
 
         // Create base regions
         $this->output->writeln('Create base regions');
-        $I->createRegion('Foodsharing auf Festivals', ['id' => RegionIDs::FOODSHARING_ON_FESTIVALS, 'parent_id' => RegionIDs::ROOT, 'type' => UnitType::CITY, 'has_children' => 0], fillMailbox: true);
-        $regionEurope = $I->createRegion('Europa', ['id' => RegionIDs::EUROPE, 'parent_id' => RegionIDs::ROOT, 'type' => UnitType::COUNTRY, 'has_children' => 1], fillMailbox: true);
+        $I->createRootRegion();
+        $I->createRegion('Foodsharing auf Festivals', ['id' => RegionIDs::FOODSHARING_ON_FESTIVALS, 'parent_id' => RegionIDs::ROOT, 'type' => UnitType::CITY, 'has_children' => 0]);
+        $I->createRegion('Arbeitsgruppen Überregional', ['id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'parent_id' => RegionIDs::ROOT, 'type' => UnitType::BIG_CITY, 'master' => 392, 'mailbox_id' => 32678, 'email_name' => 'Foodsharing Arbeitsgruppen Überregional', 'stat_last_update' => '2020-05-24 02:17:57', 'stat_fetchweight' => '5176.00', 'stat_fetchcount' => '208', 'stat_postcount' => '53969', 'stat_betriebcount' => '1', 'stat_korpcount' => '0', 'stat_botcount' => '1', 'stat_fscount' => '3360']);
+        $I->createWorkingGroup('Vereinsvorstand', ['id' => RegionIDs::TEAM_BOARD_MEMBER, 'parent_id' => RegionIDs::ROOT, 'teaser' => '.', 'master' => RegionIDs::TEAM_BOARD_MEMBER, 'mailbox_id' => 26644, 'name' => 'Vereinsvorstand', 'email_name' => 'Foodsharing Vereinsvorstand', 'apply_type' => ApplyType::NOBODY, 'moderated' => true]);
+        $I->createWorkingGroup('Orgateam Archiv', ['id' => RegionIDs::ORGA_TEAM_ARCHIVE, 'parent_id' => RegionIDs::ROOT, 'teaser' => 'Das Forum des alten Orgateams', 'mailbox_id' => 528, 'email_name' => 'Foodsharing Orgateam', 'apply_type' => ApplyType::NOBODY, 'moderated' => true]);
+        $I->createWorkingGroup('Aktive (Überregional)', ['id' => RegionIDs::TEAM_ADMINISTRATION_MEMBER, 'parent_id' => RegionIDs::ORGA_TEAM_ARCHIVE, 'teaser' => 'Wer hier in der Gruppe aufgelistet wird, erscheint auch auf der Teamseite. Ist bisher eine stille Gruppe.', 'mailbox_id' => 30176, 'email_name' => 'Foodsharing Aktive']);
+        $I->createWorkingGroup('Ehemalige (Vorstand und Orgateam)', ['id' => RegionIDs::TEAM_ALUMNI_MEMBER, 'parent_id' => RegionIDs::ORGA_TEAM_ARCHIVE, 'teaser' => 'x', 'mailbox_id' => 30177, 'email_name' => 'Foodsharing Ehemalige', 'apply_type' => ApplyType::NOBODY]);
+
+        $regionEurope = $I->createRegion('Europa', ['id' => RegionIDs::EUROPE, 'parent_id' => RegionIDs::ROOT, 'type' => UnitType::COUNTRY, 'has_children' => 1, 'email' => 'europa', 'email_name' => 'Foodsharing Europa', 'stat_last_update' => '2020-05-24 02:18:15', 'stat_fetchweight' => '33829400.50', 'stat_fetchcount' => '2116647', 'stat_postcount' => '1733615', 'stat_betriebcount' => '23002', 'stat_korpcount' => '7031', 'stat_botcount' => '1004', 'stat_fscount' => '74600', 'stat_fairteilercount' => '891'], fillMailbox: true);
         $regionGermany = $I->createRegion('Deutschland', ['id' => RegionIDs::GERMANY, 'parent_id' => $regionEurope['id'], 'type' => UnitType::COUNTRY, 'has_children' => 1], fillMailbox: true);
-        $I->createRegion('Schweiz', ['id' => RegionIDs::SWITZERLAND, 'parent_id' => $regionEurope['id'], 'type' => UnitType::COUNTRY, 'has_children' => 1], fillMailbox: true);
+        $I->createRegion('Schweiz', ['id' => RegionIDs::SWITZERLAND, 'parent_id' => $regionEurope['id'], 'type' => UnitType::COUNTRY, 'has_children' => 1]);
         $regionLowerSaxony = $I->createRegion('Niedersachsen', ['parent_id' => $regionGermany['id'], 'type' => UnitType::FEDERAL_STATE, 'has_children' => 1], fillMailbox: true);
         $regionOne = $I->createRegion('Göttingen', [
             'parent_id' => $regionLowerSaxony['id'],
@@ -369,6 +376,14 @@ class SeedCommand extends Command implements CustomCommandInterface
         $I->createWorkingGroup('Moderation-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::MODERATION_TEAM_ADMIN_GROUP]);
         $I->createWorkingGroup('Produktteam', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::PRODUCT_TEAM]);
         $I->createWorkingGroup('Oauth Client Administration', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::OAUTH_CLIENT_ADMINISTRATION_WORK_GROUP]);
+        $I->createWorkingGroup('Anmeldevorgang & Quiz', ['id' => RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP,
+            'parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS,
+            'teaser' => 'Wir beschäftigen uns mit dem derzeit so nötig zu überarbeitenden Anmeldevorgang und Quiz, mit dem man sich für den Status des Foodsavers, Filialverantwortlichen oder gar den der BotschafterInnen qualifizieren kann.\n\nWenn Du Dich schon sehr mit der Lebensmittelrettung auskennst, sie schon anderen gekonnt vermitteln kannst, sowie Lust hast, dir kreative Fragen auszudenken und dir Gedanken zur Anmeldung zu machen, bist du hier herzlich willkommen!\n\nAchtung=> Für NACHRICHTEN an die Gruppe=>\nVerwende möglichst die Emailadresse, bitte!\nWenn du den Button \'Gruppe kontaktieren\' verwendest, dann schreibe bitte eine Emailadresse von dir dazu (oder deine Foodsaver-ID).\nWir können sonst nicht antworten, da uns Absender*in und Emailadresse leider nicht automatisch angezeigt werden!\n\n(*) Die Administratoren dieser Gruppe haben Zugriff auf das Quiz, die Quizkommentare und die Quizauswertungen.(341, QUIZ_AND_REGISTRATION_WORK_GROUP)',
+            'desc' => 'Wir besch&auml;ftigen uns mit dem derzeit so n&ouml;tig zu &uuml;berarbeitenden Anmeldevorgang, dem auch demn&auml;chst ein Quiz anschlie&szlig;bar sein soll, mit dem man sich f&uuml;r den Status des Foodsavers, Filialverantwortlichen oder gar der BotschafterInnen qualifiziert.',
+            'master' => RegionIDs::GLOBAL_WORKING_GROUPS,
+            'mailbox_id' => 19708,
+            'email_name' => 'Foodsharing Anmeldevorgang  Quiz',
+        ]);
         $I->createWorkingGroup('Quizfragen', ['parent_id' => RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP, 'id' => RegionIDs::NEW_QUIZZES_WORK_GROUP]);
 
         $I->createRegion('Stadtteil von Göttingen', ['type' => UnitType::PART_OF_TOWN, 'parent_id' => $region1], fillMailbox: true);
@@ -930,6 +945,14 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
 
         $this->output->writeln(' - mailbox added');
 
+        $this->output->writeln('Inserting fetch weight values');
+        $this->insertFetchWeightValues($I);
+        $this->output->writeln('');
+
+        $this->output->writeln('Adding content');
+        $this->createContent($I);
+        $this->output->writeln('');
+
         $this->output->writeln('Inserting configuration values');
         $this->insertConfigurationValues($I);
         $this->output->writeln('done');
@@ -1084,27 +1107,5 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
         foreach ($donation as $key => $value) {
             $I->haveInDatabase('configuration', ['key' => $key, 'value' => $value, 'category' => ConfigurationCategory::DONATION->value]);
         }
-    }
-
-    /**
-     * Loads JSON data from the file and returns it as an array.
-     *
-     * @param string $filename the file path relative to this file
-     * @param bool $isAssociative if the data is supposed to be loaded as an associative array
-     * @throws RuntimeException if the file does not exist or if the JSON data is invalid
-     */
-    private function loadJsonFromFile(string $filename, bool $isAssociative = true): array
-    {
-        $file = 'src/Dev/' . $filename;
-        if (!file_exists($file)) {
-            throw new RuntimeException("File {$file} not found");
-        }
-
-        $data = json_decode(file_get_contents($file), $isAssociative);
-        if (is_null($data)) {
-            throw new RuntimeException("JSON data from file {$file} could not be decoded");
-        }
-
-        return $data;
     }
 }

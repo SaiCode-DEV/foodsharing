@@ -24,6 +24,9 @@ if ! is-environment-ready; then
     log-header "Running migrations"
     migratedb
     
+    log-header "Running seed script"
+    exec-in-container app vendor/bin/codecept foodsharing:test-seed
+    
     log-header "Create DB dump file for codeception"
     sql_dump_to_file dump.sql
     
@@ -38,6 +41,9 @@ if ! sql-query mysql 'use foodsharing'; then
     
     log-header "Running migrations"
     migratedb
+    
+    log-header "Running seed script"
+    exec-in-container app vendor/bin/codecept foodsharing:test-seed
     
     log-header "Create DB dump file for codeception"
     sql_dump_to_file dump.sql

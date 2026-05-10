@@ -281,6 +281,7 @@ class SettingsApiCest
         $testUser = $testUsers[$example['testUser']];
 
         if ($example['isOnTeamPage']) {
+            $I->createRegion('Vereinsvorstand', ['id' => RegionIDs::TEAM_BOARD_MEMBER]);
             $I->addRegionMember(RegionIDs::TEAM_BOARD_MEMBER, $testUser['id']);
         }
 
@@ -597,7 +598,7 @@ class SettingsApiCest
         if ($example['loginUser'] == 3) {
             // Create an orga user who is also admin of the support group
             $loginUser = $I->createOrga();
-            $I->createWorkingGroup('Support', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::IT_SUPPORT_GROUP]);
+            $I->createWorkingGroup('Support', ['id' => RegionIDs::IT_SUPPORT_GROUP]);
             $I->addRegionMember(RegionIDs::IT_SUPPORT_GROUP, $loginUser['id']);
             $I->addRegionAdmin(RegionIDs::IT_SUPPORT_GROUP, $loginUser['id']);
         } else {

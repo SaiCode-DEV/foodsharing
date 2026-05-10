@@ -31,8 +31,8 @@ class AchievementApiCest
         $this->user = $this->tester->createFoodsaver();
         $this->admin = $this->tester->createAmbassador();
 
-        $this->region = $this->tester->createRegion('region', ['parent_id' => 0]);
-        $createWGGroup = $this->tester->createRegion('region', ['id' => RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP]);
+        $this->region = $this->tester->createRegion('region', ['parent_id' => 0], fillMailbox: false);
+        $createWGGroup = $this->tester->createRegion('region', ['id' => RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP], fillMailbox: false);
         $this->tester->addRegionMember($this->region['id'], $this->user['id']);
         $this->tester->addRegionMember($this->region['id'], $this->admin['id']);
         $this->tester->addRegionAdmin($this->region['id'], $this->admin['id']);

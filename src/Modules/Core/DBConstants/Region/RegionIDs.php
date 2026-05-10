@@ -56,6 +56,7 @@ class RegionIDs
     final public const int TEAM_ALUMNI_MEMBER = 1564;
     final public const int TEAM_ADMINISTRATION_MEMBER = 1565;
     final public const int WORKGROUP_ADMIN_CREATION_GROUP = 1701;
+    final public const int ORGA_TEAM_ARCHIVE = 258;
 
     // Testregions
     final public const int TESTREGION_MASTER = 260;

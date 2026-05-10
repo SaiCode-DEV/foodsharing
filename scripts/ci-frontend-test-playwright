@@ -36,6 +36,7 @@ log-header "Initializing database"
 DB_START=$SECONDS
 mariadb -u root -proot -hdb --execute="drop database if exists foodsharing; create database foodsharing"
 vendor/bin/phinx migrate
+vendor/bin/codecept foodsharing:test-seed
 echo "✓ Database ready (${SECONDS}s elapsed)"
 
 # Wait for assets

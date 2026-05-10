@@ -49,21 +49,9 @@ class Foodsharing extends Db
         /* This method should clear the database back to a state that seed data can be inserted again without fucking something up.
         It is okay to destroy user generated data and it is okay to fail when the user changed things. Actually, the suggested way is
         to reseed the database in case any modification to static data could have happened */
-        $regionsToKeep = implode(',', [
-            RegionIDs::ROOT,
-            258, // Orgateam Archiv, apparently was a parent of some stuff
-            RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP,
-            RegionIDs::GLOBAL_WORKING_GROUPS,
-            RegionIDs::TEAM_BOARD_MEMBER,
-            RegionIDs::TEAM_ALUMNI_MEMBER,
-            RegionIDs::TEAM_ADMINISTRATION_MEMBER,
-        ]);
+        $this->_getDriver()->executeQuery('SET foreign_key_checks=0', []);
 
         $tablesToSkip = implode(',', [
-            "'fs_bezirk'",
-            "'fs_content'",
-            "'fs_fetchweight'",
-            "'fs_bezirk_closure'",
             "'phinxlog'"
         ]);
 
@@ -81,15 +69,7 @@ class Foodsharing extends Db
             $this->_getDriver()->executeQuery('DELETE FROM ' . $table, []);
         }
 
-        // delete from fs_bezirk but keep certain regions
-        $this->_getDriver()->executeQuery('
-			DELETE FROM fs_bezirk WHERE id NOT IN(' . $regionsToKeep . ') and type = 7;
-			DELETE FROM fs_bezirk WHERE id NOT IN(' . $regionsToKeep . ') and id in (SELECT bez.id as id FROM `fs_bezirk` bez
-						left outer join fs_bezirk par on  bez.id = par.parent_id
-						where par.parent_id is null
-						order by bez.id);
-			DELETE FROM fs_bezirk WHERE id NOT IN(' . $regionsToKeep . ');
-		', []);
+        $this->_getDriver()->executeQuery('SET foreign_key_checks=1', []);
     }
 
     public function clearTable($table): void
@@ -871,6 +851,23 @@ class Foodsharing extends Db
         return $v;
     }
 
+    public function createRootRegion(): array
+    {
+        // Workaround: codeception ignores the id 0 when adding the row. Instead, we change it to 0 afterwards.
+        $root = $this->createRegion('fs_bezirk', [
+            'id' => RegionIDs::ROOT,
+            'parent_id' => null,
+            'type' => UnitType::UNDEFINED,
+            'teaser' => 'Root',
+            'desc' => 'Root',
+            'mailbox_id' => 0,
+            'email_name' => ''
+        ]);
+        $this->updateInDatabase('fs_bezirk', ['id' => RegionIDs::ROOT], ['id' => $root['id']]);
+
+        return $root;
+    }
+
     public function addRegionAdmin($region_id, $fs_id): void
     {
         $v = [
@@ -1449,7 +1446,7 @@ class Foodsharing extends Db
         $this->haveInDatabase('fs_region_options', ['region_id' => $region, 'option_type' => RegionOptionType::REGION_PICKUP_RULE_INACTIVE_HOURS, 'option_value' => $ignoreHours]);
     }
 
-    public function createContent(): array
+    public function createContent(array $data = []): array
     {
         $title = $this->faker->title;
         $content = [
@@ -1458,6 +1455,7 @@ class Foodsharing extends Db
             'body' => $this->faker->text,
             'last_mod' => $this->faker->dateTimeBetween('-5 years', '-5 days')->format('Y-m-d H:i:s'),
         ];
+        $content = array_merge($content, $data);
 
         $id = $this->haveInDatabase('fs_content', $content);
         $content['id'] = $id;

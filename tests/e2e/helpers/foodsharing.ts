@@ -37,21 +37,7 @@ interface EmailAddress {
 
 class Foodsharing {
   async clear(): Promise<void> {
-    const regionsToKeep = [
-      RegionIDs.ROOT,
-      258, // Orgateam Archive
-      RegionIDs.QUIZ_AND_REGISTRATION_WORK_GROUP,
-      RegionIDs.GLOBAL_WORKING_GROUPS,
-      RegionIDs.TEAM_BOARD_MEMBER,
-      RegionIDs.TEAM_ALUMNI_MEMBER,
-      RegionIDs.TEAM_ADMINISTRATION_MEMBER,
-    ].join(",");
-
     const tablesToSkip = [
-      "fs_bezirk",
-      "fs_content",
-      "fs_fetchweight",
-      "fs_bezirk_closure",
       "phinxlog",
     ]
       .map((t) => `'${t}'`)
@@ -72,17 +58,6 @@ class Foodsharing {
     for (const table of tables as any[]) {
       await conn.execute(`DELETE FROM ${table.TABLE_NAME}`);
     }
-
-    // Clear regions except protected ones
-    await conn.execute(`
-      DELETE FROM fs_bezirk WHERE id NOT IN(${regionsToKeep}) and type = 7;
-      DELETE FROM fs_bezirk WHERE id NOT IN(${regionsToKeep}) and id in (
-        SELECT bez.id FROM fs_bezirk bez
-        left outer join fs_bezirk par on bez.id = par.parent_id
-        where par.parent_id is null
-      );
-      DELETE FROM fs_bezirk WHERE id NOT IN(${regionsToKeep});
-    `);
   }
 
   /**

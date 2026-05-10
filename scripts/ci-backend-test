@@ -30,6 +30,7 @@ log-header "Initializing database"
 SECONDS=0
 mariadb -u root -proot -hdb --execute="drop database if exists foodsharing; create database foodsharing"
 vendor/bin/phinx migrate
+vendor/bin/codecept foodsharing:test-seed
 echo $SECONDS seconds elapsed
 
 log-header "Starting mail queue worker"

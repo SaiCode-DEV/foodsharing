@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit;
 
 use Codeception\Test\Unit;
+use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Region\RegionGateway;
 use Tests\Support\UnitTester;
 
@@ -64,6 +65,6 @@ class RegionGatewayTest extends Unit
     public function testListRegionsIncludingParents(): void
     {
         $regions = $this->gateway->listRegionsIncludingParents([$this->childRegion['id']]);
-        $this->assertEquals([$this->region['id'], $this->childRegion['id']], $regions);
+        $this->assertEquals([RegionIDs::ROOT, RegionIDs::EUROPE, $this->region['id'], $this->childRegion['id']], $regions);
     }
 }

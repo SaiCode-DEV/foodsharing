@@ -23,7 +23,7 @@ settings:
 bootstrap: _bootstrap.php
 extensions:
     enabled: [Codeception\Extension\RunFailed]
-    commands: [Foodsharing\Dev\SeedCommand]
+    commands: [Foodsharing\Dev\SeedCommand, Foodsharing\Dev\TestSeedCommand]
 modules:
     enabled:
         - Db:
