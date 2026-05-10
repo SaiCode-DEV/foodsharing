@@ -1229,9 +1229,10 @@ resource_mosaic:
     new: 'Wszystkie nowe zasoby w tym rejonie'
   commons_resources_in: 'Wspólne zasoby z {groupName}'
   editModal:
-    openness: ''
+    openness: 'Jak chętnie można zapytać o ten zasób?'
     description_warning:
-      none: ''
+      none: 'Nie podałeś/aś opisu swojego zasobu. Jesteś pewny/a, że inni/e użytkownicy/czki
+        zrozumieją, o co chodzi w twoim zasobie, aby konkretnie cię o niego zapytać?'
       short: 'Opis tego zasobu jest dosyć krótki. Jesteś pewny/a, że inni/e użytkownicy/czki
         będą mogli/ły zrozumieć, o co chodzi w tym zasobie, aby konkretnie cię o to
         zapytać?'
@@ -1247,8 +1248,11 @@ resource_mosaic:
     is_restricted_to_region: 'Ogranicz do rejonu lub zespołu'
     is_private: 'Pokaż tylko znajomym'
     description:
-      placeholder: ''
-      placeholder_commons: ''
+      placeholder: 'Dalsze informacje, aby inni mogli sobie dokładnie wyobrazić, jak
+        chcesz pomóc. Możesz też dołączyć obrazy.'
+      placeholder_commons: 'Dalsze informacje, aby inni dokładnie wiedzieli, do czego
+        jest przydatny ten zasób. Pamiętaj, aby zamieścić informacje, jak chętnie
+        można zapytać o ten zasób.'
       label: 'Opis'
   favorite: 'Ulubione'
   resource_not_found_warning: 'Nie znaleziono podlinkowanego zasobu. Albo został usunięty,
@@ -1259,7 +1263,9 @@ resource_mosaic:
     request_for: 'Zapytanie do twojego zasobu'
     request_sent: 'Twoje zapytanie zostało wysłane.'
     placeholder: 'Interesuję się twoim zasobem, ponieważ ...'
-    polite_info: ''
+    polite_info: 'Pamiętaj: nikt nie jest zmuszony, aby dzielić się z tobą zasobem.
+      Formułuj swoje zapytania w taki sposób, że druga osoba zawsze może powiedzieć
+      "nie", bez wyrzutów sumienia.'
     title: 'Zapytaj o zasób "{name}"'
   search_placeholder: 'Szukaj zasobów, foodsharerów/ek lin ID'
   no_commons_resources: 'W {groupName} nie wprowadzono jeszcze żadnych wspólnych zasobów.
@@ -1267,14 +1273,14 @@ resource_mosaic:
   openness:
     level_3: 'Dla dobrych celów'
     level_4: 'raczej otwarty'
-    title: ''
+    title: 'Radość z zapytań'
     level_5: 'zawsze chętnie'
     level_1: 'Tylko jeśli ważne'
     level_2: 'Raczej zachowawczo'
   is_commons: 'Ten zasób nie należy do jednej osoby, tylko jest dobrem wspólnym'
   order:
     sort_age: 'Kolejność: od najnowszych'
-    sort_openness: ''
+    sort_openness: 'Sortowanie: według radości z zapytań'
     shuffle: 'Kolejność: losowo'
   my_resources_in: 'Moje zasoby w {groupName}'
   list_status:
@@ -1291,7 +1297,8 @@ resource_mosaic:
   favorite_tooltip: 'Dodałeś/aś ten zasób do ulubionych'
   max_resources: 'Aby zachować przejrzystość mozaiki zasobów, każdy może wprowadzić
     maksymalnie {max} zasobów.'
-  no_own_resources: ''
+  no_own_resources: 'Jeszcze nie podałeś/aś żadnego zasobu. Teraz możesz wprowadzić
+    przedmioty lub relacje, aby uczynić je widocznymi w społeczności.'
   message: 'Napisz wiadomość'
   is_private_hint: 'Ten zasób jest widoczny tylko dla znajomych.'
   restricted_to: 'Ograniczone do:'
@@ -2563,14 +2570,14 @@ foodsaver:
     role: Rola
     last-activity: Ostatnia aktywność
     actions: Opcje
-    orga: ''
+    orga: 'jest w globalnym orga-teamie'
     remove: 'Usuń z okręgu'
   upgrade:
     ad_fs: Chcę przystąpić teraz do quizu dla foodsaverów/ek i zostać 
       foodsaverem/ką!
     FOODSAVER: Zostań foodsaverem/ką
     learning: ''
-    pn: ''
+    pn: 'Tak, przeczytałem/am pouczenie o ochronie danych i akceptuję je.'
     STORE_MANAGER: ''
     rv: ''
     AMBASSADOR: 'Zostań ambasadorem/ką'
@@ -3476,7 +3483,13 @@ help:
         '
     publicEvent:
       title: 'Publiczne eventy'
-      md: ''
+      md: "Administratorzy/ki wybranego zespołu albo GOALS-zespołu public relations
+        bądź ambasadorzy/ki mogą wprowadzać eventy publiczne. Eventy publiczne są
+        dostępne dla wszystkich. Nie trzeba być zarejestrowanym na platformie, aby
+        zobaczyć miejsce wydarzenia i informacje. Jednakże tablica i lista uczestniczących
+        są widoczne tylko dla zalogowanych użytkowników/czek. \nWprowadź event publiczny,
+        jeśli chcesz zaprosić też osoby spoza lokalnej społeczności foodsharingu i
+        wszyscy mogą przyjść.\n"
     reportReasons:
       title: 'Formularz skarg'
       md: ''
@@ -3500,7 +3513,37 @@ help:
       md: ''
     my_resources:
       title: 'Własne zasoby'
-      md: ''
+      md: 'W tym obszarze możesz zarządzać swoimi własnymi zasobami; wprowadzić nowy
+        zasób,  edytować, usuwać lub po prostu zobaczyć, czym aktualnie się dzielisz.
+
+
+        ##### Czym jest zasób?
+
+
+        Zasobem może być wszystko, co możesz wnieść do społeczności foodsharingu.
+        Mogą to być **umiejętności**, np. gotowanie lub programowanie, **przedmioty,**
+        które jesteś gotowy/a pożyczyć, np. rower towarowy lub kuchenka mobilna, bądź
+        też **kontakty** z innymi inicjatywami, instytucjami, mediami itd.
+
+
+        ##### Nic nie musisz, wszystko możesz
+
+
+        Nikt nie jest zmuszony do wprowadzania zasobów, i tylko dlatego, że wprowadziłeś/aś
+        jakiś konkretny zasób, nie oznacza, że *musisz* go udostępnić do konkretnych
+        aktywności. Dużo bardziej chodzi o to, aby dzielić się tym, co *chętnie chciał(a)być
+        wnieść*.
+
+
+        ##### Kto widzi moje zasoby?
+
+
+        Zasoby są widoczne w obrębie twoich rejonów i zespołów. Wyłączone z tego są
+        jednak bardzo duże rejony typu państwo lub województwo, w których mozaika
+        zasobów nie jest dostępna. Możesz też ograniczyć widoczność pojedynczych zasobów
+        do foodsaverów/ek, których/e znasz.
+
+        '
     report:
       title: 'Rozpatrywanie skarg'
       md: 'Tu są pokazywane skargi, które dotyczą osób z tego rejonu macierzystego.
@@ -3873,7 +3916,9 @@ oauth:
     restrictions: 'Ograniczenia'
     secret_save_warning: 'Zapisz teraz ten tajny klucz. Nie będzie on wyświetlany
       ponownie!'
-    confidential_help: ''
+    confidential_help: 'Klienci poufni mają możliwość bezpiecznego przechowywania
+      klucza klienta. Klienci publiczni (np. przeglądarki lub aplikacje mobilne) nie
+      mają takiej możliwości.'
     regenerate_secret_warning: 'Stary klucz tajny klienta będzie nieważny!'
     edit_client: 'Edytuj klienta'
     scopes: 'Obszary'
@@ -4563,7 +4608,11 @@ team_page:
     text: ''
   it_member:
     title: 'Team IT'
-    text: ''
+    text: 'foodsharing działa tylko dzięki zaangażowaniu tysięcy wolontariuszy/ek!
+      Tutaj przedstawiają się niektóre osoby, które koordynują zespoły międzyregionalne,
+      rozwijają stronę internetową lub wykonują inne ważne zadania dla całego foodsharingu.
+
+      '
 error_base64_image: 'Dodawanie obrazów przez przeciągnięcie i upuszczenie nie jest
   dozwolone.'
 donation_banner:
