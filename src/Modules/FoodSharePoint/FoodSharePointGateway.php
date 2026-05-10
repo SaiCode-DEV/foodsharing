@@ -146,7 +146,7 @@ class FoodSharePointGateway extends BaseGateway
 			WHERE `bezirk_id` IN( ' . implode(',', $regionIds) . ' )
 			    AND	`status` = :activeStatus
 			ORDER BY `name`',
-            [':activeStatus' => ActivationStatus::ACTIVE->value],
+            [':activeStatus' => ActivationStatus::ACTIVE],
         );
 
         return array_map(fn ($fsp) => FoodSharePointForListView::create(

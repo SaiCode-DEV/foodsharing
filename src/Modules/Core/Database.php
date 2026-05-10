@@ -9,6 +9,10 @@ use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Result;
+use InvalidArgumentException;
+use ReflectionEnum;
+use ReflectionException;
+use UnitEnum;
 
 class Database
 {
@@ -370,7 +374,7 @@ class Database
     public function update(string $table, array $data, array $criteria = []): int
     {
         if (empty($data)) {
-            throw new \InvalidArgumentException("Query update can't be prepared without data.");
+            throw new InvalidArgumentException("Query update can't be prepared without data.");
         }
 
         $set = [];
@@ -652,6 +656,10 @@ class Database
                 $type = ParameterType::INTEGER;
             } elseif (is_int($value)) {
                 $type = ParameterType::INTEGER;
+            } elseif ($value instanceof UnitEnum) {
+                $type = $this->getBackingTypeOfEnumValue($value);
+                // @phpstan-ignore property.notFound
+                $value = $value->value;
             } else {
                 $type = ParameterType::STRING;
             }
@@ -809,5 +817,29 @@ class Database
             '<',
             '>',
         ];
+    }
+
+    /**
+     * Assuming that value is an instance of an enum class, this returns the DBAL parameter type that corresponds to the
+     * enum's backing type and should be used for the value in the query.
+     *
+     * @param mixed $value an entry of any enum
+     * @return ParameterType the type that should be used
+     * @throws InvalidArgumentException if there is no matching parameter type for the enum's backing type
+     */
+    private function getBackingTypeOfEnumValue(mixed $value): ParameterType
+    {
+        try {
+            $enumClass = get_class($value);
+            $backingType = (new ReflectionEnum($enumClass))->getBackingType();
+
+            return match ($backingType->getName()) {
+                'int' => ParameterType::INTEGER,
+                'string' => ParameterType::STRING,
+                default => throw new InvalidArgumentException('Unexpected enum type of class ' . $enumClass . '. Use the enum\'s value function instead.'),
+            };
+        } catch (ReflectionException $e) {
+            throw new InvalidArgumentException('Unexpected enum type of class ' . $enumClass . '. Use the enum\'s value function instead.', previous: $e);
+        }
     }
 }

@@ -1206,7 +1206,7 @@ class StoreGateway extends BaseGateway
             'b.lon != ""',
             'b.betrieb_status_id != :deletedStatus',
         ];
-        $params = [':deletedStatus' => CooperationStatus::PERMANENTLY_CLOSED->value];
+        $params = [':deletedStatus' => CooperationStatus::PERMANENTLY_CLOSED];
 
         if ($scope === StoreMarkerScopeType::MEMBER) {
             $query .= ' INNER JOIN fs_betrieb_team t ON b.id = t.betrieb_id';
@@ -1222,12 +1222,12 @@ class StoreGateway extends BaseGateway
         if ($status !== StoreMarkerStatusType::ALL) {
             $operator = $status === StoreMarkerStatusType::COOPERATING ? '=' : '!=';
             $conditions[] = "b.betrieb_status_id {$operator} :cooperatingStatus";
-            $params[':cooperatingStatus'] = CooperationStatus::COOPERATION_ESTABLISHED->value;
+            $params[':cooperatingStatus'] = CooperationStatus::COOPERATION_ESTABLISHED;
         }
 
         if ($help !== StoreMarkerHelpType::ALL) {
             $conditions[] = 'b.team_status >= :searchStatus';
-            $params[':searchStatus'] = $help === StoreMarkerHelpType::OPEN ? TeamSearchStatus::OPEN->value : TeamSearchStatus::OPEN_SEARCHING->value;
+            $params[':searchStatus'] = $help === StoreMarkerHelpType::OPEN ? TeamSearchStatus::OPEN : TeamSearchStatus::OPEN_SEARCHING;
         }
 
         // Always have to do the join to be able to use the appropriate category
@@ -1235,7 +1235,7 @@ class StoreGateway extends BaseGateway
         $query .= ' LEFT JOIN fs_betrieb_kategorie k ON b.betrieb_kategorie_id = k.id';
         if ($type !== null) {
             $conditions[] = 'k.type = :categoryType';
-            $params[':categoryType'] = $type->value;
+            $params[':categoryType'] = $type;
         }
 
         $query .= ' WHERE ' . implode(' AND ', $conditions);

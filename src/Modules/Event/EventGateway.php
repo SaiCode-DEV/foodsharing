@@ -74,7 +74,7 @@ class EventGateway extends BaseGateway
 			AND
 				fhe.event_id = :eventId
                 AND fhe.status != :invitedStatus
-		', [':eventId' => $eventId, ':invitedStatus' => InvitationStatus::INVITED->value]);
+		', [':eventId' => $eventId, ':invitedStatus' => InvitationStatus::INVITED]);
 
         $out = [
             'accepted' => [],
