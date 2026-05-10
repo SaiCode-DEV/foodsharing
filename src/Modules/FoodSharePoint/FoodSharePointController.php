@@ -38,6 +38,12 @@ class FoodSharePointController extends FoodsharingController
     #[Route('/fairteiler/{id}/edit', name: 'fairteiler_edit', requirements: ['id' => Requirement::DIGITS])]
     public function edit(int $id): Response
     {
+        $foodSharePoint = $this->foodSharePointGateway->getFoodSharePoint($id);
+        if (empty($foodSharePoint)
+            || !$this->foodSharePointPermissions->mayEdit($foodSharePoint->regionId, $id)) {
+            return $this->redirectToRoute('fairteiler_id', ['id' => $id]);
+        }
+
         $this->pageHelper->addContent($this->prepareVueComponent(
             'food-share-point-add-or-edit',
             'FoodSharePointAddOrEdit',
