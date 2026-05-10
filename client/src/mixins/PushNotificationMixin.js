@@ -46,7 +46,13 @@ export default {
           pulseSuccess(this.$t('settings.push.disabled'))
         }
       } catch (error) {
-        pulseError(this.$t('error_ajax'))
+        if (error instanceof DOMException && error.name === 'NotAllowedError') {
+          pulseError(this.$t('settings.push.error.permission_denied'))
+        } else if (error instanceof DOMException && error.name === 'AbortError') {
+          pulseError(this.$t('settings.push.error.service_blocked'))
+        } else {
+          pulseError(this.$t('error_ajax'))
+        }
         throw error
       } finally {
         await this.updateNotificationStatus()

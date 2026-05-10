@@ -2550,6 +2550,9 @@ settings:
       und reagiert auch nicht mehr mit einem Ton oder einer Vibration.
     disable: "Push-Benachrichtigungen deaktivieren"
     disabled: "Push-Benachrichtigungen erfolgreich deaktiviert"
+    error:
+      permission_denied: "Push-Benachrichtigungen wurden von deinem Browser blockiert. Bitte erlaube Benachrichtigungen für diese Seite in deinen Browser-Einstellungen und lade die Seite neu."
+      service_blocked: "Der Push-Dienst konnte nicht erreicht werden. Dein Browser blockiert möglicherweise den Push-Dienst von Google. In Brave: Einstellungen → Datenschutz → 'Google-Dienste für Push-Nachrichten verwenden'."
   change_data_info:
     general: Hier kannst du deine Profildaten anpassen.
     verified: Deinen Namen und Geburtsdatum kannst du nicht bearbeiten. Du kannst aber eine:n Botschafter:in bitten, diese Daten für dich zu ändern.
