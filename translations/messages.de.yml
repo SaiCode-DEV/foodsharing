@@ -3723,6 +3723,10 @@ information:
     title: "Kennst du die Kalender-Synchronisation für deine Slots?"
     description: "Damit kannst du deine nächsten Slots mit einem Kalenderprogramm deiner Wahl sehen."
     link: "Jetzt abonnieren"
+  next: "Nächste Information"
+  previous: "Vorherige Information"
+  hide: "Information ausblenden"
+  current_index: "Information {current} von {total}"
 
 system_administration:
   regions: "Bezirke verwalten"

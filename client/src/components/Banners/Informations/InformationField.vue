@@ -1,38 +1,69 @@
 <template>
-  <div v-if="!isSet" class="informationfield">
+  <div class="informationfield">
     <i
       v-if="entry.icon"
-      class="informationfield__icon fas"
+      class="information-icon mr-3 fas"
       :class="entry.icon"
     />
-    <div class="informationfield__content">
-      <div class="informationfield__content-wrapper">
+    <div class="d-flex flex-column flex-grow-1">
+      <div class="d-flex flex-row align-items-start justify-content-between">
         <h4
-          class="informationfield__title"
+          class="mt-0 mb-1"
           v-text="$t(`information.${entry.field}.title`)"
         />
-        <p
-          class="informationfield__description"
-          v-text="$t(`information.${entry.field}.description`)"
-        />
+        <button
+          v-b-tooltip="$t('information.hide')"
+          type="button"
+          :aria-label="$t('information.hide')"
+          class="icon-button"
+          @click="$emit('close')"
+        >
+          <i class="fas fa-times" />
+        </button>
       </div>
-      <div
-        v-if="entry.links.length > 0"
-        class="informationfield__links"
-      >
+      <p
+        class="mb-2"
+        v-text="$t(`information.${entry.field}.description`)"
+      />
+      <div class="d-flex flex-wrap gap-2">
         <a
           v-for="(link, key) in entry.links"
           :key="key"
-          class="informationfield__link"
+          class="information-link"
           :href="link.urlShortHand ? $url(link.urlShortHand) : link.href"
           v-text="$t(link.text)"
         />
+        <div
+          v-if="entryCount > 1"
+          class="d-flex flex-row align-items-baseline ml-auto align-self-end"
+        >
+          <button
+            type="button"
+            :aria-label="$t('information.previous')"
+            class="icon-button"
+            @click="$emit('prev')"
+          >
+            <i class="fas fa-chevron-left" />
+          </button>
+          <div class="px-2">
+            <span aria-hidden="true">
+              {{ activeIndex + 1 }}&#x202F;/&#x202F;{{ entryCount }}
+            </span>
+            <span class="sr-only">
+              {{ $t('information.current_index', { current: activeIndex + 1, total: entryCount }) }}
+            </span>
+          </div>
+          <button
+            type="button"
+            :aria-label="$t('information.next')"
+            class="icon-button"
+            @click="$emit('next')"
+          >
+            <i class="fas fa-chevron-right" />
+          </button>
+        </div>
       </div>
     </div>
-    <i
-      class="informationfield__close fas fa-times"
-      @click.prevent="close"
-    />
   </div>
 </template>
 
@@ -47,39 +78,16 @@ export default {
         links: [],
       }),
     },
-  },
-  data () {
-    return {}
-  },
-  computed: {
-    tag () {
-      return this.entry.field
+    activeIndex: {
+      type: Number,
+      default: 0,
     },
-    isSet () {
-      return JSON.parse(localStorage.getItem(this.tag)) || false
+    entryCount: {
+      type: Number,
+      default: 1,
     },
   },
-  async created () {
-    if (this.isSet) {
-      this.close()
-    }
-  },
-  methods: {
-    setSeen () {
-      localStorage.setItem(this.tag, JSON.stringify(true))
-    },
-    close () {
-      this.setSeen()
-      this.remove()
-    },
-    remove () {
-      this.$emit('close')
-      this.$destroy()
-      if (this.$el && this.$el?.parentNode) {
-        this.$el.parentNode.removeChild(this.$el)
-      }
-    },
-  },
+  emits: ['close', 'prev', 'next'],
 }
 </script>
 
@@ -97,30 +105,14 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 0;
 }
 
-.informationfield__content {
-  margin-right: auto;
-}
-
-.informationfield__icon {
+.information-icon {
   font-size: 3rem;
-  margin-right: 1rem;
 }
 
-.informationfield__title {
-  margin-top: 0;
-  margin-bottom: .25rem;
-}
-
-.informationfield__description {
-  margin-bottom: .5rem;
-  a {
-    text-decoration: underline;
-  }
-}
-
-.informationfield__link {
+.information-link {
   @extend .btn;
   @extend .btn-sm;
 
@@ -129,18 +121,16 @@ export default {
 
   font-weight: 600;
 
-  &:not(:last-child) {
-    margin-right: .5rem;
-  }
-
   &:hover {
     color: var(--fs-color-info-100);
     background-color: var(--fs-color-info-600);
   }
 }
 
-.informationfield__close  {
-  cursor: pointer;
-  align-self: flex-start;
+.icon-button {
+  padding: 0.25rem;
+  margin: -0.25rem;
+  background: transparent;
+  border: none;
 }
 </style>
