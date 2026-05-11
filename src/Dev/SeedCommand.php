@@ -318,13 +318,13 @@ class SeedCommand extends AbstractSeedCommand implements CustomCommandInterface
         $this->output->writeln('Create base regions');
         $I->createRootRegion();
         $I->createRegion('Foodsharing auf Festivals', ['id' => RegionIDs::FOODSHARING_ON_FESTIVALS, 'parent_id' => RegionIDs::ROOT, 'type' => UnitType::CITY, 'has_children' => 0]);
-        $I->createRegion('Arbeitsgruppen Überregional', ['id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'parent_id' => RegionIDs::ROOT, 'type' => UnitType::BIG_CITY, 'master' => 392, 'mailbox_id' => 32678, 'email_name' => 'Foodsharing Arbeitsgruppen Überregional', 'stat_last_update' => '2020-05-24 02:17:57', 'stat_fetchweight' => '5176.00', 'stat_fetchcount' => '208', 'stat_postcount' => '53969', 'stat_betriebcount' => '1', 'stat_korpcount' => '0', 'stat_botcount' => '1', 'stat_fscount' => '3360']);
-        $I->createWorkingGroup('Vereinsvorstand', ['id' => RegionIDs::TEAM_BOARD_MEMBER, 'parent_id' => RegionIDs::ROOT, 'teaser' => '.', 'master' => RegionIDs::TEAM_BOARD_MEMBER, 'mailbox_id' => 26644, 'name' => 'Vereinsvorstand', 'email_name' => 'Foodsharing Vereinsvorstand', 'apply_type' => ApplyType::NOBODY, 'moderated' => true]);
-        $I->createWorkingGroup('Orgateam Archiv', ['id' => RegionIDs::ORGA_TEAM_ARCHIVE, 'parent_id' => RegionIDs::ROOT, 'teaser' => 'Das Forum des alten Orgateams', 'mailbox_id' => 528, 'email_name' => 'Foodsharing Orgateam', 'apply_type' => ApplyType::NOBODY, 'moderated' => true]);
-        $I->createWorkingGroup('Aktive (Überregional)', ['id' => RegionIDs::TEAM_ADMINISTRATION_MEMBER, 'parent_id' => RegionIDs::ORGA_TEAM_ARCHIVE, 'teaser' => 'Wer hier in der Gruppe aufgelistet wird, erscheint auch auf der Teamseite. Ist bisher eine stille Gruppe.', 'mailbox_id' => 30176, 'email_name' => 'Foodsharing Aktive']);
-        $I->createWorkingGroup('Ehemalige (Vorstand und Orgateam)', ['id' => RegionIDs::TEAM_ALUMNI_MEMBER, 'parent_id' => RegionIDs::ORGA_TEAM_ARCHIVE, 'teaser' => 'x', 'mailbox_id' => 30177, 'email_name' => 'Foodsharing Ehemalige', 'apply_type' => ApplyType::NOBODY]);
+        $I->createRegion('Arbeitsgruppen Überregional', ['id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'parent_id' => RegionIDs::ROOT, 'type' => UnitType::BIG_CITY, 'master' => 392, 'mailbox_id' => 32678, 'email' => 'arbeitsgruppen.ueberregional', 'email_name' => 'Foodsharing Arbeitsgruppen Überregional', 'stat_last_update' => '2020-05-24 02:17:57', 'stat_fetchweight' => '5176.00', 'stat_fetchcount' => '208', 'stat_postcount' => '53969', 'stat_betriebcount' => '1', 'stat_korpcount' => '0', 'stat_botcount' => '1', 'stat_fscount' => '3360']);
+        $I->createWorkingGroup('Vereinsvorstand', ['id' => RegionIDs::TEAM_BOARD_MEMBER, 'parent_id' => RegionIDs::ROOT, 'teaser' => '.', 'master' => RegionIDs::TEAM_BOARD_MEMBER, 'mailbox_id' => 26644, 'email' => 'vereinsvorstand', 'name' => 'Vereinsvorstand', 'email_name' => 'Foodsharing Vereinsvorstand', 'apply_type' => ApplyType::NOBODY, 'moderated' => true]);
+        $I->createWorkingGroup('Orgateam Archiv', ['id' => RegionIDs::ORGA_TEAM_ARCHIVE, 'parent_id' => RegionIDs::ROOT, 'teaser' => 'Das Forum des alten Orgateams', 'mailbox_id' => 528, 'email' => 'orgateam.archiv', 'email_name' => 'Foodsharing Orgateam', 'apply_type' => ApplyType::NOBODY, 'moderated' => true]);
+        $I->createWorkingGroup('Aktive (Überregional)', ['id' => RegionIDs::TEAM_ADMINISTRATION_MEMBER, 'parent_id' => RegionIDs::ORGA_TEAM_ARCHIVE, 'teaser' => 'Wer hier in der Gruppe aufgelistet wird, erscheint auch auf der Teamseite. Ist bisher eine stille Gruppe.', 'mailbox_id' => 30176, 'email' => 'aktive', 'email_name' => 'Foodsharing Aktive']);
+        $I->createWorkingGroup('Ehemalige (Vorstand und Orgateam)', ['id' => RegionIDs::TEAM_ALUMNI_MEMBER, 'parent_id' => RegionIDs::ORGA_TEAM_ARCHIVE, 'teaser' => 'x', 'mailbox_id' => 30177, 'email' => 'ehemalige', 'email_name' => 'Foodsharing Ehemalige', 'apply_type' => ApplyType::NOBODY]);
 
-        $regionEurope = $I->createRegion('Europa', ['id' => RegionIDs::EUROPE, 'parent_id' => RegionIDs::ROOT, 'type' => UnitType::COUNTRY, 'has_children' => 1, 'email' => 'europa', 'email_name' => 'Foodsharing Europa', 'stat_last_update' => '2020-05-24 02:18:15', 'stat_fetchweight' => '33829400.50', 'stat_fetchcount' => '2116647', 'stat_postcount' => '1733615', 'stat_betriebcount' => '23002', 'stat_korpcount' => '7031', 'stat_botcount' => '1004', 'stat_fscount' => '74600', 'stat_fairteilercount' => '891'], fillMailbox: true);
+        $regionEurope = $I->createRegion('Europa', ['id' => RegionIDs::EUROPE, 'parent_id' => RegionIDs::ROOT, 'type' => UnitType::COUNTRY, 'has_children' => 1, 'mailbox_id' => 25467, 'email' => 'europa', 'email_name' => 'Foodsharing Europa', 'stat_last_update' => '2020-05-24 02:18:15', 'stat_fetchweight' => '33829400.50', 'stat_fetchcount' => '2116647', 'stat_postcount' => '1733615', 'stat_betriebcount' => '23002', 'stat_korpcount' => '7031', 'stat_botcount' => '1004', 'stat_fscount' => '74600', 'stat_fairteilercount' => '891'], fillMailbox: true);
         $regionGermany = $I->createRegion('Deutschland', ['id' => RegionIDs::GERMANY, 'parent_id' => $regionEurope['id'], 'type' => UnitType::COUNTRY, 'has_children' => 1], fillMailbox: true);
         $I->createRegion('Schweiz', ['id' => RegionIDs::SWITZERLAND, 'parent_id' => $regionEurope['id'], 'type' => UnitType::COUNTRY, 'has_children' => 1]);
         $regionLowerSaxony = $I->createRegion('Niedersachsen', ['parent_id' => $regionGermany['id'], 'type' => UnitType::FEDERAL_STATE, 'has_children' => 1], fillMailbox: true);
@@ -382,6 +382,7 @@ class SeedCommand extends AbstractSeedCommand implements CustomCommandInterface
             'desc' => 'Wir besch&auml;ftigen uns mit dem derzeit so n&ouml;tig zu &uuml;berarbeitenden Anmeldevorgang, dem auch demn&auml;chst ein Quiz anschlie&szlig;bar sein soll, mit dem man sich f&uuml;r den Status des Foodsavers, Filialverantwortlichen oder gar der BotschafterInnen qualifiziert.',
             'master' => RegionIDs::GLOBAL_WORKING_GROUPS,
             'mailbox_id' => 19708,
+            'email' => 'anmeldevorgang.quiz',
             'email_name' => 'Foodsharing Anmeldevorgang  Quiz',
         ]);
         $I->createWorkingGroup('Quizfragen', ['parent_id' => RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP, 'id' => RegionIDs::NEW_QUIZZES_WORK_GROUP]);
@@ -932,18 +933,6 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
         $this->output->writeln('Enable feature toggles');
         $this->activeFeatureToggles();
         $this->output->writeln('done');
-
-        $this->output->writeln('Fix missing bits');
-        // Add mailboxes with the correct mailbox IDs (as defined in initial_migration.php line 6727 onwards)
-        $I->createMailbox('arbeitsgruppen.ueberregional', true, false, 32678);
-        $I->createMailbox('orgateam.archiv', true, false, 528);
-        $I->createMailbox('europa', true, false, 25467);
-        $I->createMailbox('vereinsvorstand', true, false, 26644);
-        $I->createMailbox('ehemalige', true, false, 30177);
-        $I->createMailbox('aktive', true, false, 30176);
-        $I->createMailbox('anmeldevorgang.quiz', true, false, 19708);
-
-        $this->output->writeln(' - mailbox added');
 
         $this->output->writeln('Inserting fetch weight values');
         $this->insertFetchWeightValues($I);

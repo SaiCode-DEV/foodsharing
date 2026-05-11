@@ -828,7 +828,8 @@ class Foodsharing extends Db
             [
                 'parent_id' => RegionIDs::EUROPE,
                 'name' => $name,
-                'type' => UnitType::PART_OF_TOWN
+                'type' => UnitType::PART_OF_TOWN,
+                'mailbox_id' => -1
             ],
             $extra_params
         );
@@ -836,9 +837,9 @@ class Foodsharing extends Db
         unset($v['email']);
         $v['id'] = $this->haveInDatabase('fs_bezirk', $v);
         if (!$email) {
-            $mailbox = $this->createMailbox('region-' . $v['id'], $fillMailbox);
+            $mailbox = $this->createMailbox('region-' . $v['id'], $fillMailbox, forced_id: $v['mailbox_id']);
         } else {
-            $mailbox = $this->createMailbox($email, $fillMailbox);
+            $mailbox = $this->createMailbox($email, $fillMailbox, forced_id: $v['mailbox_id']);
         }
 
         $this->updateInDatabase('fs_bezirk', ['mailbox_id' => $mailbox['id']], ['id' => $v['id']]);
