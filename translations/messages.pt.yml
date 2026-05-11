@@ -2689,6 +2689,14 @@ settings:
       ou reagirá com um som ou vibração.
 
       '
+    error:
+      permission_denied: As notificações push foram bloqueadas pelo teu 
+        navegador. Permite as notificações para esta página nas definições do 
+        navegador e atualiza a página.
+      service_blocked: Não foi possível aceder ao serviço Push. O teu navegador 
+        pode estar a bloquear o serviço Push da Google. Dependendo do navegador 
+        que utilizas, poderás encontrar a opção «Utilizar os serviços da Google 
+        para notificações push» (ou semelhante) em «Opções → Privacidade».
   passport:
     menu: 'Cartão de foodsharing'
     button: 'Descarregar cartão'
@@ -2752,7 +2760,10 @@ settings:
   password_change:
     wrong_password: Palavra-passe anterior incorreta
     title: Alterar palavra-passe
-    explanation: Aqui podes alterar a tua palavra-passe atual
+    explanation: Aqui podes alterar a tua palavra-passe atual. Por motivos de 
+      segurança, após a alteração bem-sucedida da palavra-passe, todas as outras
+      sessões ativas (por exemplo, noutros dispositivos) serão encerradas e 
+      terás de iniciar sessão novamente com a nova palavra-passe.
     old_password_label: Palavra-passe anterior
     old_password_placeholder: A tua palavra-passe atual
     old_password_required: Tens de escrever a tua palavra-passe atual

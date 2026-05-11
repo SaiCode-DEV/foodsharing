@@ -258,8 +258,12 @@ settings:
     success: Push notifications enabled successfully
     enable: Enable push notifications
     error:
-      permission_denied: "Push notifications were blocked by your browser. Please allow notifications for this site in your browser settings and reload the page."
-      service_blocked: "The push service could not be reached. Your browser may be blocking Google's push service. In Brave, check Settings → Privacy → 'Use Google services for push messaging'."
+      permission_denied: "Push notifications were blocked by your browser. Please
+        allow notifications for this site in your browser settings and reload the
+        page."
+      service_blocked: "The push service could not be reached. Your browser may be
+        blocking Google's push service. In Brave, check Settings → Privacy → 'Use
+        Google services for push messaging'."
   title: Settings
   notifications: Notifications
   email: E-mail address & password
