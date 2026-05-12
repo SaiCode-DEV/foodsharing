@@ -4208,6 +4208,10 @@ information:
     link: 'Subscreve agora'
     description: 'Assim, podes ver as tuas próximas vagas num programa de calendário
       à tua escolha.'
+  next: Próxima informação
+  previous: Informação anterior
+  hide: Ocultar informação
+  current_index: Informação {current} de {total}
 wikilink: 'Link com mais informações'
 memberlist:
   header_for_district: 'Foodsavers em distrito {bezirk}'

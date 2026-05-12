@@ -620,7 +620,10 @@ settings:
   # Change Password
   password_change:
     title: "Change Password"
-    explanation: "You can change your current password here"
+    explanation: "You can change your current password here. Please note that if your
+      password is changed successfully, all other active logins (for example on other
+      devices) will also be logged out for security reasons, and you will need to
+      sign in again using your new password."
     old_password_label: "Current password"
     old_password_placeholder: "Your current password"
     old_password_required: "You must enter your current password"
@@ -4161,6 +4164,10 @@ information:
     link: "Subscribe now"
     description: You can use it to see your upcoming appointments in a calendar 
       software of your choice.
+  next: Next information
+  previous: Previous information
+  hide: Hide information
+  current_index: Information {current} of {total}
 globals:
   you: You
   type:

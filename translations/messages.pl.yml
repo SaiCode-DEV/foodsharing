@@ -2872,10 +2872,10 @@ profile:
     baskets: 'Jadłokoszyki'
     weight_unit: 'kg'
     weight: ''
-    give_count: ''
+    give_count: 'przekazane/ych darowizn/y'
     slots: 'sloty'
     engagement_count: ''
-    fetch_count: ''
+    fetch_count: 'wykonane/ych odbiory/ów'
     posts: 'posty/ów'
   about_me_intern: O mnie
   public:
@@ -2993,7 +2993,7 @@ profile:
   title: 'Profil'
   mediationRequest: 'Zapytaj o mediację'
   go: 'Przejdź do profilu'
-  sleeping: ''
+  sleeping: 'jest w trybie uśpienia na czas nieokreślony'
   reportRequest: 'Wyślij skargę'
   editNameInfo: ''
   cantdeletethis: ''
@@ -3280,8 +3280,8 @@ footer:
   infosDeveloper: ''
   blog: 'Blog'
   hosting:
-    info: ''
-    tooltip: ''
+    info: 'hostowany neutralnie pod względem emisji CO₂'
+    tooltip: 'hostowany neutralnie pod względem emisji CO₂ na manitu'
   call_to_action: 'Dołącz'
   guide: 'Poradnik higieny'
   donate:
@@ -3393,7 +3393,8 @@ poll:
   already_voted: 'Już uczestniczyłeś/aś w tym głosowaniu'
   submit_vote_warning: 'Uwaga: głosowanie jest anonimowe i po głosowaniu nie możesz
     już zmienić swojego wyboru.'
-  untraceable: ''
+  untraceable: 'Informacja, na którą opcję zagłosowałeś/aś, nie daje się wyśledzić
+    wstecz i dlatego nie można jej tutaj wyświetlić.'
   scope_description_1: 'Wszyscy zweryfikowani foodsaverzy z rejonu / zespołu'
   type_2:
     tooltip_positive: 'Zgoda'
@@ -3696,7 +3697,9 @@ notifications:
   checkbox_bell: 'Dzwonek'
 buddy:
   send:
-    confirm_text: ''
+    confirm_text: 'Jeśli oznaczycie się wzajemnie jako znajomi, będą wam wyświetlane
+      na stronie startowej posty z tablicy profilowej drugiej osoby. Poza tym możecie
+      się łatwiej znaleźć przez wyszukiwarkę.'
     confirm_title: 'Znasz {name}?'
   remove:
     confirm_text: 'Na pewno chcesz zakończyć znajomość? Nie będą wam wtedy więcej
@@ -4495,7 +4498,7 @@ storestatus:
   "3": ''
   "1": 'Jeszcze nie nawiązano kontaktu'
   "7": ''
-  "6": ''
+  "6": 'Przekazuje darowizny do banku żywności itp. i niczego nie wyrzuca'
   "5a": ''
   "5": 'współpracuje z nami'
   "0": 'Status niewyjaśniony'
@@ -4599,6 +4602,9 @@ information:
     title: 'Znasz synchronizację kalendarza do twoich slotów?'
     link: 'Subskrybuj teraz'
     description: 'Możesz zobaczyć swoje przyszłe sloty w wybranym programie kalendarza.'
+  next: Następna informacja
+  previous: Poprzednia informacja
+  hide: Ukryj informację
 team_page:
   alumni_member:
     title: 'Dawni członkowie'
