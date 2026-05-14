@@ -4122,11 +4122,6 @@ numbers:
   thousands_separator: ','
   million_abbreviation: ' Mio.'
   billion_abbreviation: ' Mil millones.'
-logincontrol:
-  title: 'Darse de baja del boletín'
-  nomorenewsletter: 'Ya no recibirás más boletines informativos nuestros'
-  bread: 'Darse de baja del boletín'
-  success: '¡Éxito!'
 notice: '¡Una noticia!'
 error_permissions: 'Lamentablemente, no tienes los permisos necesarios para este proceso.'
 push_notifications:

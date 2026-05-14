@@ -4516,11 +4516,6 @@ navigation:
   news_from_it: 'Nowości & zakłócenia'
   basket: 'Jadłokoszyki'
   help_needed: 'Potrzebna pomoc?'
-logincontrol:
-  bread: 'Wypisz się z newslettera'
-  success: 'Sukces!'
-  nomorenewsletter: 'Już nie będziesz otrzymywać od nas newslettera'
-  title: 'Wypisz się z newslettera'
 storestatus:
   "3a": ''
   "3": ''

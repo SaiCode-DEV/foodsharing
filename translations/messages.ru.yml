@@ -105,11 +105,6 @@ numbers:
   thousands_separator: '.'
   million_abbreviation: ' млн.'
   billion_abbreviation: ' млрд.'
-logincontrol:
-  success: Успех!
-  title: 'Отписка от рассылки'
-  bread: 'Отписка от рассылки'
-  nomorenewsletter: 'Вы больше не будете получать наши рассылки'
 basket:
   on: ''
   requests: 'Запросы ({count})'

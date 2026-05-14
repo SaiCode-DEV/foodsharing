@@ -1556,11 +1556,6 @@ blog:
   content: ''
   newTitle: ''
   teaser: ''
-logincontrol:
-  nomorenewsletter: ''
-  title: ''
-  success: ''
-  bread: ''
 chain:
   inputmodal:
     inputs:

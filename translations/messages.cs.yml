@@ -3089,11 +3089,6 @@ language_chooser:
   translation_help: ''
   translation_help_info_text: ''
   choose_button: ''
-logincontrol:
-  success: ''
-  bread: ''
-  title: ''
-  nomorenewsletter: ''
 releases:
   "2020-10": ''
   "2020-12": ''

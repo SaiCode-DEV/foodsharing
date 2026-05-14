@@ -3747,11 +3747,6 @@ genderlist:
   gender_table_header: ''
   gender_divers: ''
 position: ''
-logincontrol:
-  bread: ''
-  success: ''
-  nomorenewsletter: ''
-  title: ''
 automatic_delete: ''
 are_you_sure: ''
 copied_to_clipboard: ''

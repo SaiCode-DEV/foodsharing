@@ -3929,11 +3929,6 @@ genderlist:
   gender_table_header: 'Género'
   gender_divers: 'vários'
 position: 'Posição em foodsharing (público)'
-logincontrol:
-  bread: 'Cancelar a inscrição no boletim informativo'
-  success: 'Sucesso!'
-  nomorenewsletter: 'Não vais receber mais newsletters nossas'
-  title: 'Cancelar a inscrição no boletim informativo'
 reports:
   no_reports_fallback: 'Ainda não há denúncias disponíveis'
   time: 'Tempo'

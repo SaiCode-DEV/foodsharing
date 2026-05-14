@@ -3962,11 +3962,6 @@ information:
     description: 'Consulta le date dei tuoi prossimi ritiri utilizzando un software
       di calendario a tua scelta.'
     title: 'Conosci la sincronizzazione del calendario per i tuoi ritiri?'
-logincontrol:
-  nomorenewsletter: 'Ora non riceverai più le nostre newsletter'
-  bread: 'Disiscriviti dalla newsletter'
-  title: 'Cancellazione newsletter'
-  success: 'Successo!'
 chain:
   inputmodal:
     inputs:

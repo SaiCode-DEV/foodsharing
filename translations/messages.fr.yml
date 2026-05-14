@@ -3681,11 +3681,6 @@ activitypost:
   response: répondre
   Response: Réponses
 contentmanagement: Gestion du contenu
-logincontrol:
-  success: Réussite !
-  title: Désinscription à la lettre d’information
-  bread: Désinscription à la lettre d’information
-  nomorenewsletter: Tu ne recevras plus de lettre d’information de notre part
 addreaction: Ajouter une réaction
 savewithus: Aidez-nous !
 nofp: pas de point d’erreur (question blague)

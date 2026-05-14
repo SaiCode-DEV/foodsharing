@@ -4044,11 +4044,6 @@ team:
   current: 'Ekip'
 home:
   home: 'Ana Sayfa'
-logincontrol:
-  bread: 'Bülten Aboneliğinden Çık'
-  success: 'Başarı!'
-  title: 'Bülten Aboneliğinden Çık'
-  nomorenewsletter: 'Bizden artık başka haber bülteni almayacaksınız'
 system_administration:
   email: 'Haber bülteni gönder'
   blog: 'Blog yazılarını düzenle'

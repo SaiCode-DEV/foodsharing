@@ -4004,11 +4004,6 @@ quiz:
     attempt.
 nofp: no error points (not a serious question)
 request_time: 'Time of request:'
-logincontrol:
-  nomorenewsletter: You won’t receive newletters from us anymore
-  success: Success!
-  title: Newsletter sign-out
-  bread: Newsletter unsubscription
 addreaction: Add a reaction
 contentmanagement: Content management
 activitypost:

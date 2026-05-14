@@ -3895,11 +3895,6 @@ globals:
   updated: 'Oppdatert:'
   loading: ''
 savewithus: Spar hos oss!
-logincontrol:
-  title: Avslutt abonnement på nyhetsbrev
-  nomorenewsletter: Du vil ikke lenger motta flere nyhetsbrev fra oss
-  bread: Avslutt abonnement på nyhetsbrev
-  success: Suksess!
 numbers:
   decimal_separator: ','
   million_abbreviation: ' mio.'

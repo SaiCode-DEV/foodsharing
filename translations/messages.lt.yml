@@ -3929,11 +3929,6 @@ genderlist:
   home_district_tab: ''
   gender_table_header: ''
   gender_divers: ''
-logincontrol:
-  bread: ''
-  success: ''
-  nomorenewsletter: ''
-  title: ''
 are_you_sure: ''
 storestatus:
   "3a": ''

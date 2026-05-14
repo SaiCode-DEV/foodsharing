@@ -3299,11 +3299,6 @@ activitypost:
   quickreply_info: ''
   response: ''
   quickreply_button: ''
-logincontrol:
-  nomorenewsletter: ''
-  bread: ''
-  success: ''
-  title: ''
 salutation:
   "1": ''
   "2": ''

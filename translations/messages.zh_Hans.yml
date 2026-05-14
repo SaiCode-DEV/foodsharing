@@ -3393,11 +3393,6 @@ memberlist:
   header_for_district: ''
   header_for_workgroup: ''
 savewithus: ''
-logincontrol:
-  bread: ''
-  nomorenewsletter: ''
-  title: ''
-  success: ''
 activitypost:
   quickreply_button: ''
   quickreply_info: ''
