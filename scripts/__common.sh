@@ -122,7 +122,6 @@ function migratedb() {
   echo "Migrating database for $FS_ENV"
   local container=${1:-app}
   exec-in-container "$container" vendor/bin/phinx migrate
-  exec-in-container "$container" bin/console maintenance:recreateGroupStructure
 }
 
 function wait-for-mariadb() {

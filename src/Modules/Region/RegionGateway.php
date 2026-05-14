@@ -84,19 +84,6 @@ class RegionGateway extends BaseGateway
         return array_map(fn ($r) => new RegionForTreeNavigation($r['id'], $r['name'], $r['hasChildren'], $r['type']), $regions);
     }
 
-    public function listIdsForFoodsaverWithDescendants(?int $foodsaverId): array
-    {
-        if ($foodsaverId === null) {
-            return [];
-        }
-        $bezirk_ids = [];
-        foreach ($this->listForFoodsaver($foodsaverId) as $bezirk) {
-            $bezirk_ids += $this->listIdsForDescendantsAndSelf($bezirk['id']);
-        }
-
-        return $bezirk_ids;
-    }
-
     /**
      * @return bool true when the given user is active (an accepted member) in the given region
      */

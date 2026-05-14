@@ -12,7 +12,6 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\RateLimiter\RateLimiterFactory;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * General class that contains common functions for all REST controllers.
@@ -43,21 +42,6 @@ abstract class AbstractFoodsharingRestController extends AbstractFOSRestControll
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('', 'Not logged in');
-        }
-    }
-
-    /**
-     * @deprecated This method is deprecated. Use DTOs and #[MapRequestPayload] instead.
-     */
-    protected function assertThereAreNoValidationErrors(ValidatorInterface $validator, mixed $object): void
-    {
-        $errors = $validator->validate($object);
-        if ($errors->count() > 0) {
-            $errors = array_map(
-                fn ($error) => ['parameter' => $error->getPropertyPath(), 'error' => $error->getMessage()],
-                iterator_to_array($errors)
-            );
-            throw new BadRequestHttpException(json_encode($errors));
         }
     }
 

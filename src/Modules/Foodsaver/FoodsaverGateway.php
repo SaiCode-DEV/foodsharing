@@ -778,19 +778,6 @@ class FoodsaverGateway extends BaseGateway
     }
 
     /**
-     * @deprecated Replaced by SettingsTransactions.getOption()
-     */
-    public function getOption(int $fsId): array
-    {
-        $option = $this->db->fetchValueByCriteria('fs_foodsaver', 'option', ['id' => $fsId]);
-        if (!empty($option) && $option != '') {
-            return unserialize($option);
-        } else {
-            return [];
-        }
-    }
-
-    /**
      * @throws Exception
      */
     public function emailDomainIsBlacklisted(string $email): bool

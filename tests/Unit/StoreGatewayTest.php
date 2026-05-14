@@ -325,36 +325,6 @@ class StoreGatewayTest extends Unit
         $this->assertNotContainsEquals($store4['id'], $storeIds);
     }
 
-    /**
-     * @throws Exception
-     */
-    public function testListStoresForFoodsaver(): void
-    {
-        $this->assertEquals(
-            [
-                'verantwortlich' => [],
-                'team' => [],
-                'waitspringer' => [],
-                'requested' => [],
-                'sonstige' => [$this->storeData()],
-            ],
-            $this->gateway->getMyStores($this->foodsaver['id'], $this->region['id'])
-        );
-
-        $this->tester->addStoreTeam($this->store['id'], $this->foodsaver['id']);
-
-        $this->assertEquals(
-            [
-                'verantwortlich' => [],
-                'team' => [$this->storeData('team')],
-                'waitspringer' => [],
-                'requested' => [],
-                'sonstige' => [],
-            ],
-            $this->gateway->getMyStores($this->foodsaver['id'], $this->region['id'])
-        );
-    }
-
     public function testUpdateStoreRegion(): void
     {
         $newRegion = $this->tester->createRegion();

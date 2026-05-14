@@ -27,7 +27,7 @@ class ForumFollowerGateway extends BaseGateway
                 fs.geschlecht,
                 fs.email
 			FROM fs_foodsaver fs
-            JOIN fs_theme_follower tf ON tf.foodsaver_id = fs.id 
+            JOIN fs_theme_follower tf ON tf.foodsaver_id = fs.id
 			WHERE tf.theme_id = :threadId
 			AND tf.foodsaver_id != :authorId
 			AND fs.deleted_at IS NULL
@@ -187,20 +187,6 @@ class ForumFollowerGateway extends BaseGateway
 
             $this->db->execute($query);
         }
-    }
-
-    /**
-     * Recreates the default behaviour of pre may 2020 release by adding bell notifications for everybody who did not set/disable
-     * email notifications for a certain thread.
-     *
-     * @return int number of inserted entries
-     */
-    public function createFollowerEntriesForExistingThreads(): int
-    {
-        $query = 'INSERT IGNORE INTO fs_theme_follower (foodsaver_id, theme_id, infotype, bell_notification)
-				SELECT foodsaver_id, theme_id, 0, 1 FROM fs_theme_post';
-
-        return $this->db->execute($query)->rowCount();
     }
 
     /**

@@ -18,7 +18,6 @@ use Foodsharing\RestApi\Models\Passport\CreateRegionPassportModel;
 use Foodsharing\Utility\EmailHelper;
 use Foodsharing\Utility\FlashMessageHelper;
 use Foodsharing\Utility\TimeHelper;
-use Foodsharing\Utility\TranslationHelper;
 use setasign\Fpdi\Tcpdf\Fpdi;
 use stdClass;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -36,7 +35,6 @@ class PassportGeneratorTransaction
         private readonly Session $session,
         private readonly UploadsTransactions $uploadsTransactions,
         protected FlashMessageHelper $flashMessageHelper,
-        protected TranslationHelper $translationHelper,
         protected TranslatorInterface $translator,
         private readonly UrlGeneratorInterface $router,
         #[Autowire(param: 'kernel.project_dir')]

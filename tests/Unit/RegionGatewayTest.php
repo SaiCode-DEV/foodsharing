@@ -28,13 +28,6 @@ class RegionGatewayTest extends Unit
         $this->childChildRegion = $this->tester->createRegion('Human', ['parent_id' => $this->childRegion['id']]);
     }
 
-    public function testGetAllRegions(): void
-    {
-        $regions = $this->gateway->listIdsForFoodsaverWithDescendants($this->foodsaver['id']);
-        $this->assertEquals(3, count($regions));
-        $this->assertEquals([$this->region['id'], $this->childRegion['id'], $this->childChildRegion['id']], $regions);
-    }
-
     public function testGetRegions(): void
     {
         $regions = $this->gateway->listForFoodsaver($this->foodsaver['id']);
