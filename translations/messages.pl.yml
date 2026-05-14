@@ -430,17 +430,24 @@ settings:
     temp: Jestem niedostępny/a w następującym czasie
     range: 'Podaj, jak długo będziesz niedostępny/a:'
     saved: Zapisano ustawienia
-    tooltip: ''
-    info: ''
+    tooltip: '{name} aktualnie ma przerwę i jest w trybie uśpienia'
+    info: 'tryb uśpienia
+
+      '
     missing-date: 'Podaj datę początkową i końcową.'
-    none: ''
+    none: 'Jestem aktywny/a i w pełni gotowy/a do działania'
     header: 'Funkcja uśpienia'
-    title: ''
-    full: ''
-    show: ''
+    title: 'Tryb uśpienia'
+    full: 'Na razie znikam na nieokreślony czas'
+    show: 'Używając tej funkcji, wyrażasz zgodę na to, że twój status, czas nieobecności
+      i twoja wiadomość będą wyświetlane na twojej stronie profilowej i na twoim zdjęciu
+      profilowym pojawi się symbol czapki nocnej.
+
+      '
     start_date_invalid: Data początkowa nie może być w przeszłości.
     end_date_invalid: Data końcowa nie może być przed datą początkową.
-    start_date_same_or_future: ''
+    start_date_same_or_future: 'Data początkowa nie może być w przeszłości, chyba
+      że edytujesz bieżący tryb uśpienia.'
   email: Adres email & hasło
   account_security:
     title: Bezpieczeństwo konta
@@ -458,7 +465,7 @@ settings:
       device_name_label: Nazwa urządzenia
       title: 'Zarejestruj nowy klucz bezpieczeństwa'
       device_name_description: 'Podaj nazwę, aby identyfikować ten klucz bezpieczeństwa'
-    created: Utworzony
+    created: Utworzono
     device_name_placeholder: np. iPhone, YubiKey, Laptop
     delete_modal:
       device_name: Urządzenie
@@ -546,7 +553,9 @@ settings:
     generated_code_label: Wygenerowany kod
     activate: Aktywuj
     next: 'Dalej'
-    danger: ''
+    danger: 'Ważne: jeśli zgubisz telefon lub zostanie on skradziony i nie będziesz
+      mieć dostępu do kodów back-up, nie będziesz mógł/mogła się zalogować. Wtedy
+      musisz skontaktować się z supportem, aby odzyskać dostęp do swojego konta.'
     explanation: ''
     secret_label: 'Alternatywnie możesz podać ten kod ręcznie:'
     failed: 'Nie można było aktywować uwierzytelniania dwuskładnikowego, podano błędny
@@ -567,7 +576,8 @@ settings:
       must_confirm: 'Musisz potwierdzić, że zapisałeś/aś bezpiecznie kody backup'
       label: 'W razie, gdybyś utracił/a dostęp to urządzenia dwuskładnikowego (zgubienie/kradzież/uszkodzenie),
         możesz użyć następujących jednorazowych kodów backup:'
-    further_info: ''
+    further_info: 'Dalsze informacje o uwierzytelnianiu dwuskładnikowym oraz krótki
+      filmik instruktażowy znajdziesz np. [na stronie BSI](https://www.bsi.bund.de/dok/509176).'
     password_info: 'Do zmiany zawsze jest wymagane podanie hasła. W ten sposób ktoś
       inny, kto używa twojego komputera lub telefonu komórkowego, nie może zmienić
       tego krytycznego dla bezpieczeństwa ustawienia.'
@@ -633,7 +643,10 @@ settings:
     submit: Zmień hasło
     success: Twoje hasło zostało pomyślnie zmienione
     wrong_password: 'Błędne aktualne hasło'
-    explanation: 'Tu możesz zmienić swoje aktualne hasło'
+    explanation: 'Tu możesz zmienić swoje aktualne hasło. Miej na uwadze, że przy
+      pomyślnej zmianie hasła z powodów bezpieczeństwa zostaniesz wylogowany/a też
+      ze wszystkich innych aktywnych sesji (np.na innych urządzeniach) i będziesz
+      musiał/a się ponownie zalogować przez nowe hasło.'
     confirm_password_invalid: 'Hasła się nie zgadzają'
     new_password_must_be_different: Nowe hasło musi być inne od poprzedniego
   passport:
@@ -679,6 +692,10 @@ settings:
     disable: Deaktywuj powiadomienia push
     disabled: Powiadomienia push deaktywowane pomyślnie
     info-off: ''
+    error:
+      permission_denied: Twoja przeglądarka zablokowała powiadomienia push. 
+        Pozwól na powiadomienia od tej strony w ustawieniach twojej przeglądarki
+        i odśwież stronę.
   notifications: Powiadomienia
   follow:
     none: Nie informuj mnie mailem o nowych postach.
@@ -1310,7 +1327,7 @@ required_messages:
   move_to_standby_team:
     footer: Pozdrawiam
     main: ''
-    really: ''
+    really: 'Czy na pewno chcesz przenieść {name} z aktywnego teamu na listę rezerwowych?'
   decline_store_application:
     really: Czy na pewno chcesz odrzucić zgłoszenie {name}?
     main: Twoje zgłoszenie do Teamu [{store}](/store/{storeId}) zostało 
@@ -1335,7 +1352,7 @@ required_messages:
   save_message: 'Zapisz moją wiadomość na następny raz'
   message_info_multiple: 'Każda osoba otrzyma następującą wiadomość:'
 petition:
-  daysLeft: Zostało {daysLeft} dni
+  daysLeft: Zostały/o {daysLeft} dni
   link: Do petycji
   progressText:
     2000: 'Petycja się rozkręca! Z twoim wsparciem nabierzemy rozpędu!'
@@ -1345,7 +1362,7 @@ petition:
     25000: 'Mamy już dwie trzecie potrzebnych podpisów! Razem damy radę!'
     30000: 'Już prawie u celu - brakuje tylko kawałeczka! Dołącz do petycji teraz!'
     500: 'Zaczyna się! Bądź jednym z pierwszych, którzy podpiszą tę petycję!'
-    15000: ''
+    15000: 'Widać połowę! Z twoim wsparciem zajdziemy jeszcze dalej!'
 notice: Uwaga!
 validate:
   required: '{it} nie może być puste'
@@ -2461,7 +2478,8 @@ genderlist:
   district_tab: 'Rejon'
   gender_home_district_table_caption: 'Rozkład foodsaverów/ek z rejonu macierzystego
     według płci'
-  gender_district_table_caption: ''
+  gender_district_table_caption: 'Rozkład wszystkich foodsaverów/ek w rejonie według
+    płci'
   home_district_tab: 'rejon macierzysty'
 pickuplist:
   day_tab: Dzień
@@ -2524,7 +2542,8 @@ regionOptions:
     przedziale czasu?'
   regionPickupLimitNumber: 'Maksymalna liczba slotów-rodzynek w wybranym przedziale
     czasu'
-  regionReportReasonCategoryB: ''
+  regionReportReasonCategoryB: 'Rozszerzone powody skarg: zasady postępowania - B)
+    zachowanie podczas odbiorów'
   regionPickupRuleActiveStoreList: ''
   enableMediationButton: 'Aktywuj formularz skarg na stronie profilowej foodsaverów/ek
     z rejonu macierzystego'
@@ -2576,10 +2595,10 @@ foodsaver:
     ad_fs: Chcę przystąpić teraz do quizu dla foodsaverów/ek i zostać 
       foodsaverem/ką!
     FOODSAVER: Zostań foodsaverem/ką
-    learning: ''
+    learning: 'Obejrzyj teraz filmik instruktażowy'
     pn: 'Tak, przeczytałem/am pouczenie o ochronie danych i akceptuję je.'
     STORE_MANAGER: ''
-    rv: ''
+    rv: 'Tak, przeczytałem/am umowę prawną i akceptuję ją.'
     AMBASSADOR: 'Zostań ambasadorem/ką'
   kicked: Usunięto foodsavera/kę
   list:
@@ -2591,10 +2610,16 @@ foodsaver:
 
     '
   delete_own_account: 'Właśnie usuwasz swoje konto. Jesteś całkowicie pewny/a?'
-  about_me_public: ''
+  about_me_public: 'będzie wyświetlane dla wszystkich osób wymienionych na [stronie
+    teamu i dawnych członków](/team) i wszyscy na stronie mogą to tam zobaczyć.
+
+    '
   delete_account_password_verify: 'Dla potwierdzenia twojego żądania usunięcia konta
     podaj tutaj swoje aktualne hasło.'
-  delete_account_totp_hint: ''
+  delete_account_totp_hint: 'Miej na uwadze, że możesz usunąć swoje konto tylko wtedy,
+    kiedy uwierzytelnianie dwuskładnikowe jest deaktywowane. Można to zrobić w ustawieniach
+    konta pod "bezpieczeństwo konta" i służy to ochronie przed nieautoryzowanym usunięciem
+    przy znajomości (lub zapisaniu) twojego hasła.'
   delete_own_account_failed_totp_hint: 'Nie można było usunąć twojego konta.'
   delete_description_other: ''
   delete_own_account_failed: 'Twoje konto użytkownika nie mogło zostać usunięte. Wprowadzono
@@ -2620,7 +2645,10 @@ content:
       na wyższym poziomie.'
     searchInfo: 'Używając Ctrl+F możesz szukać na liście krajów, miast, województw
       lub dzielnic w wielu przeglądarkach.'
-    text: ''
+    text: 'foodsharing codziennie rośnie. Tutaj zawsze znajdziesz aktualną listę wszystkich
+      społeczności i rejonów foodsharingu. Możesz uzyskać więcej informacji o każdym
+      rejonie na podlinkowanej publicznej stronie rejonu albo wysłać stąd bezpośrednio
+      email do wybranego rejonu.'
   title: 'Tytuł'
   error_loading: 'Nie można było załadować treści'
   name: 'Jednoznaczna nazwa'
