@@ -3,7 +3,6 @@
 namespace Foodsharing\Modules\Login;
 
 use Foodsharing\Lib\FoodsharingController;
-use Foodsharing\Modules\Settings\SettingsGateway;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -12,7 +11,6 @@ class LoginController extends FoodsharingController
 {
     public function __construct(
         private readonly LoginGateway $loginGateway,
-        private readonly SettingsGateway $settingsGateway,
         private readonly LoginService $loginService
     ) {
         parent::__construct();
@@ -32,7 +30,6 @@ class LoginController extends FoodsharingController
 
         // not logged in here
         return match ($sub) {
-            'unsubscribe' => $this->unsubscribe($request),
             'resendActivationMail' => $this->resendActivationMail(),
             'activate' => $this->activate($request),
             default => $this->loginPage(),
@@ -69,25 +66,6 @@ class LoginController extends FoodsharingController
     private function loginPage(): Response
     {
         $this->pageHelper->addContent($this->prepareVueComponent('login-page', 'LoginPage'));
-
-        return $this->renderGlobal();
-    }
-
-    private function unsubscribe(Request $request): Response
-    {
-        $this->pageHelper->addTitle($this->translator->trans('logincontrol.title'));
-        $this->pageHelper->addBread($this->translator->trans('logincontrol.bread'));
-
-        if (!$request->query->has('e')) {
-            return $this->renderGlobal();
-        }
-
-        $email = $request->query->get('e');
-        $token = $request->query->get('t');
-        if ($this->emailHelper->validEmail($email)) {
-            $this->settingsGateway->unsubscribeNewsletter($email, $token);
-            $this->pageHelper->addContent($this->v_utils->v_info($this->translator->trans('logincontrol.nomorenewsletter'), $this->translator->trans('logincontrol.success')));
-        }
 
         return $this->renderGlobal();
     }

@@ -43,7 +43,6 @@ $I->seeInDatabase('fs_foodsaver', [
     'email' => $email,
     'name' => $first_name,
     'nachname' => $last_name,
-    'newsletter' => 1,
     'geb_datum' => $birthdate,
 //	'anschrift' => 'Kantstraße 5a',
 //	'plz' => '12345'

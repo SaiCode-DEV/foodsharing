@@ -173,7 +173,6 @@ class Foodsharing extends Db
             'token' => uniqid('', true),
             'photo' => $pictureUrl,
             'geschlecht' => $gender,
-            'newsletter' => random_int(0, 1),
         ], $extra_params);
         unset($params['image']);
         $params['password'] = password_hash((string)$pass, PASSWORD_ARGON2I, [

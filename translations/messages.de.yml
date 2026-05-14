@@ -3567,12 +3567,6 @@ startpage:
 contentmanagement: "Inhaltsverwaltung" #contentControl
 
 savewithus: "Rette mit!"
-logincontrol:
-  title: "Newsletter-Abmeldung"
-  bread: "Newsletter-Abmeldung"
-  nomorenewsletter: "Du wirst nun keine weiteren Newsletter von uns erhalten"
-  success: "Erfolg!"
-
 addreaction: "Eine Reaktion hinzufügen" # Threadpostaction
 
 numbers:

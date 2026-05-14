@@ -229,7 +229,6 @@ test.describe("Registration", () => {
         handy: testData.mobileNumber
           ? `${testData.countryCode} ${testData.mobileNumber}`
           : "",
-        newsletter: testData.newsletter ? 1 : 0,
         active: 1,
         quiz_rolle: 0,
       };

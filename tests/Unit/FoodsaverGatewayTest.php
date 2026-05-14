@@ -22,13 +22,13 @@ class FoodsaverGatewayTest extends Unit
     {
         $this->gateway = $this->tester->get(FoodsaverGateway::class);
 
-        $this->foodsharer = $this->tester->createFoodsharer(null, ['newsletter' => 1]);
-        $this->foodsaver = $this->tester->createFoodsaver(null, ['newsletter' => 1]);
+        $this->foodsharer = $this->tester->createFoodsharer(null);
+        $this->foodsaver = $this->tester->createFoodsaver(null);
 
         $this->region = $this->tester->createRegion('TestRegion');
         $regionId = $this->region['id'];
-        $this->regionMember = $this->tester->createFoodsaver(null, ['bezirk_id' => $regionId, 'newsletter' => 0]);
-        $this->regionAdmin = $this->tester->createAmbassador(null, ['bezirk_id' => $regionId, 'newsletter' => 0]);
+        $this->regionMember = $this->tester->createFoodsaver(null, ['bezirk_id' => $regionId]);
+        $this->regionAdmin = $this->tester->createAmbassador(null, ['bezirk_id' => $regionId]);
         $this->tester->addRegionAdmin($regionId, $this->regionAdmin['id']);
     }
 

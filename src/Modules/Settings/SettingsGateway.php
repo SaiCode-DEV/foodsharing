@@ -44,15 +44,6 @@ class SettingsGateway extends BaseGateway
         $this->db->update('fs_foodsaver', ['infomail_message' => $sendEmailOnChatMessage], ['id' => $userId]);
     }
 
-    /**
-     * Deactivates the newsletter for the user with the given email address. This is also requires the user's token. The
-     * function does nothing, if the email address does not exist or if the token is wrong.
-     */
-    public function unsubscribeNewsletter(string $email, string $token): void
-    {
-        $this->db->update('fs_foodsaver', ['newsletter' => 0], ['email' => $email, 'token' => $token]);
-    }
-
     public function getSleepData(int $fsId): array
     {
         return $this->db->fetchByCriteria(

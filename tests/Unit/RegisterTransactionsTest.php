@@ -76,7 +76,6 @@ class RegisterTransactionsTest extends Unit
             'nachname' => null,
             'geb_datum' => null,
             'handy' => null,
-            'newsletter' => 0,
             'geschlecht' => 0,
             'anmeldedatum' => null,
             'token' => '',

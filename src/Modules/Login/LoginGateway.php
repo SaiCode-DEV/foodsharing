@@ -133,7 +133,6 @@ class LoginGateway extends BaseGateway
                 'nachname' => strip_tags((string)$data->lastName),
                 'geb_datum' => $data->birthdate->format('Y-m-d'),
                 'handy' => strip_tags((string)$data->mobilePhone),
-                'newsletter' => (int)$data->subscribeNewsletter,
                 'geschlecht' => (int)$data->gender,
                 'anmeldedatum' => $this->db->now(),
                 'token' => '',
