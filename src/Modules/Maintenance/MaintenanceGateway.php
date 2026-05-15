@@ -318,4 +318,44 @@ class MaintenanceGateway extends BaseGateway
             'valid_until <' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
     }
+
+    /**
+     * Deletes expired and revoked OAuth tokens and auth codes.
+     * This includes:
+     * - Expired/revoked access tokens (cascades to refresh tokens)
+     * - Expired/revoked authorization codes
+     * - Revoked user consents.
+     */
+    public function deleteExpiredOAuthTokens(): int
+    {
+        $now = Carbon::now()->format('Y-m-d H:i:s');
+        $deletedCount = 0;
+
+        // Delete expired access tokens (also deletes cascaded refresh tokens)
+        $deletedCount += $this->db->delete('oauth_access_tokens', [
+            'expires_at <' => $now,
+        ]);
+
+        // Delete revoked access tokens
+        $deletedCount += $this->db->delete('oauth_access_tokens', [
+            'revoked' => 1,
+        ]);
+
+        // Delete expired authorization codes
+        $deletedCount += $this->db->delete('oauth_auth_codes', [
+            'expires_at <' => $now,
+        ]);
+
+        // Delete revoked authorization codes
+        $deletedCount += $this->db->delete('oauth_auth_codes', [
+            'revoked' => 1,
+        ]);
+
+        // Delete revoked user consents
+        $deletedCount += $this->db->delete('oauth_user_consents', [
+            'revoked_at IS NOT' => null,
+        ]);
+
+        return $deletedCount;
+    }
 }

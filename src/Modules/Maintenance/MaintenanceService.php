@@ -365,4 +365,14 @@ class MaintenanceService
         $this->bellUpdateTrigger->triggerUpdate();
         ConsoleHelper::success('OK');
     }
+
+    /**
+     * Deletes expired and revoked OAuth tokens, authorization codes, and user consents.
+     */
+    public function deleteExpiredOAuthTokens(): void
+    {
+        ConsoleHelper::info('cleaning up expired OAuth tokens...');
+        $count = $this->maintenanceGateway->deleteExpiredOAuthTokens();
+        ConsoleHelper::success($count . ' OAuth entries deleted');
+    }
 }
