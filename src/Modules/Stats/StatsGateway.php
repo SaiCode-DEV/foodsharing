@@ -2,8 +2,12 @@
 
 namespace Foodsharing\Modules\Stats;
 
+use Carbon\Carbon;
+use DateTimeZone;
+use Foodsharing\Modules\Configuration\ConfigurationGateway;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
+use Foodsharing\Modules\Core\DBConstants\Configuration\ConfigurationKey;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 
@@ -61,48 +65,26 @@ use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
  */
 class StatsGateway extends BaseGateway
 {
-    public function __construct(Database $db)
-    {
+    public function __construct(
+        Database $db,
+        private readonly ConfigurationGateway $configurationGateway,
+    ) {
         parent::__construct($db);
     }
 
     /**
      * Update the user stats for every foodsaver.
      *
-     * This includes:
-     *  - number of pickups
-     *  - total weight
+     * This includes all statistics which are re-calculated every time:
      *  - number of posts
      *  - number of bananas recived
      *  - number of buddies (with accepted request)
-     *  - rate of successful fetches
      *
      * @throws \Exception
      */
     public function updateFoodsaverStats(): void
     {
         $this->db->execute('UPDATE fs_foodsaver fs
-			LEFT OUTER JOIN (
-				SELECT
-					store_fetches.foodsaver_id AS id,
-					SUM(CASE WHEN k.type = 0 OR k.type IS NULL THEN store_fetches.fetches ELSE 0 END) AS fetchcount,
-					SUM(CASE WHEN k.type = 0 OR k.type IS NULL THEN store_fetches.fetches * IFNULL(w.weight, 0) ELSE 0 END) AS fetchweight,
-					SUM(CASE WHEN k.type = 1 THEN store_fetches.fetches ELSE 0 END) AS givecount,
-					SUM(CASE WHEN k.type = 2 THEN store_fetches.fetches ELSE 0 END) AS engagecount
-				FROM (
-					SELECT
-						foodsaver_id,
-						betrieb_id,
-						COUNT(*) AS fetches
-					FROM fs_abholer FORCE INDEX (foodsaver_id)
-					WHERE date < NOW()
-					GROUP BY foodsaver_id, betrieb_id
-				) AS store_fetches
-				INNER JOIN fs_betrieb b ON b.id = store_fetches.betrieb_id
-				LEFT OUTER JOIN fs_fetchweight w ON w.id = b.abholmenge
-				LEFT OUTER JOIN fs_betrieb_kategorie k ON k.id = b.betrieb_kategorie_id
-				GROUP BY store_fetches.foodsaver_id
-			) AS fetches ON fetches.id = fs.id
 			LEFT OUTER JOIN (
 				SELECT foodsaver_id AS id, COUNT(*) AS posts
 				FROM fs_theme_post
@@ -124,14 +106,69 @@ class StatsGateway extends BaseGateway
 				GROUP BY foodsaver_id
 			) AS buddies ON buddies.id = fs.id
 			SET
-				fs.stat_fetchcount = IFNULL(fetches.fetchcount, 0),
-				fs.stat_fetchweight = IFNULL(fetches.fetchweight, 0),
-				fs.stat_givecount = IFNULL(fetches.givecount, 0),
-				fs.stat_engagecount = IFNULL(fetches.engagecount, 0),
 				fs.stat_postcount = IFNULL(theme_posts.posts, 0) + IFNULL(wall_posts.posts, 0),
 				fs.stat_bananacount = IFNULL(bananas.bananas, 0),
 				fs.stat_buddycount = IFNULL(buddies.buddies, 0)
 		');
+    }
+
+    /**
+     * Updates the user stats for every foodsaver.
+     *
+     * This includes all statistics which are added to the existing statistics values:
+     *  - number of pickups
+     *  - total weight
+     *
+     * @param bool $recalculateFully If true, the statistics will be recalculated from all dates. Else they will be
+     *                               calculated incrementally using only the dates since the last calculation.
+     * @throws \Exception
+     */
+    public function updateFoodsaverIterativeStats(bool $recalculateFully = false): void
+    {
+        $intervalEnd = Carbon::now(new DateTimeZone('Europe/Berlin'));
+        $params = [
+            ':to' => $intervalEnd->format('Y-m-d H:i:s')
+        ];
+
+        $columns = ['fetchcount', 'fetchweight', 'givecount', 'engagecount'];
+        if ($recalculateFully) {
+            $timeCondition = '';
+            $columns = array_map(fn ($col) => "fs.stat_$col = IFNULL(fetches.$col, 0)", $columns);
+        } else {
+            $timeCondition = 'AND date > :from';
+            $intervalStart = $this->configurationGateway->getEntry(ConfigurationKey::STATISTICS_FOODSAVER_LAST_UPDATE->value);
+            $intervalStart = Carbon::parse($intervalStart, new DateTimeZone('Europe/Berlin'));
+            $params[':from'] = $intervalStart->format('Y-m-d H:i:s');
+            $columns = array_map(fn ($col) => "fs.stat_$col = fs.stat_$col + IFNULL(fetches.$col, 0)", $columns);
+        }
+
+        $this->db->beginTransaction();
+        $this->db->execute('UPDATE fs_foodsaver fs
+			LEFT OUTER JOIN (
+				SELECT
+					store_fetches.foodsaver_id AS id,
+					SUM(CASE WHEN k.type = 0 OR k.type IS NULL THEN store_fetches.fetches ELSE 0 END) AS fetchcount,
+					SUM(CASE WHEN k.type = 0 OR k.type IS NULL THEN store_fetches.fetches * IFNULL(w.weight, 0) ELSE 0 END) AS fetchweight,
+					SUM(CASE WHEN k.type = 1 THEN store_fetches.fetches ELSE 0 END) AS givecount,
+					SUM(CASE WHEN k.type = 2 THEN store_fetches.fetches ELSE 0 END) AS engagecount
+				FROM (
+					SELECT
+						foodsaver_id,
+						betrieb_id,
+						COUNT(*) AS fetches
+					FROM fs_abholer FORCE INDEX (foodsaver_id)
+					WHERE date < :to ' . $timeCondition . '
+					GROUP BY foodsaver_id, betrieb_id
+				) AS store_fetches
+				INNER JOIN fs_betrieb b ON b.id = store_fetches.betrieb_id
+				LEFT OUTER JOIN fs_fetchweight w ON w.id = b.abholmenge
+				LEFT OUTER JOIN fs_betrieb_kategorie k ON k.id = b.betrieb_kategorie_id
+				GROUP BY store_fetches.foodsaver_id
+			) AS fetches ON fetches.id = fs.id
+			SET ' . join(', ', $columns),
+            $params);
+        $this->configurationGateway->addOrUpdateEntry(ConfigurationKey::STATISTICS_FOODSAVER_LAST_UPDATE->value, $intervalEnd->toISOString());
+        $this->db->commit();
     }
 
     /**

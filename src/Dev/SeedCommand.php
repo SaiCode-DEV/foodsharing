@@ -1096,5 +1096,8 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
         foreach ($donation as $key => $value) {
             $I->haveInDatabase('configuration', ['key' => $key, 'value' => $value, 'category' => ConfigurationCategory::DONATION->value]);
         }
+
+        // Last calculation of the user statistics: 1 o'clock last night
+        $I->haveInDatabase('configuration', ['key' => ConfigurationKey::STATISTICS_FOODSAVER_LAST_UPDATE->value, 'value' => Carbon::today()->addHour()]);
     }
 }

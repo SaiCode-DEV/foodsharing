@@ -13,6 +13,6 @@ exec-in-container app bin/console foodsharing:maintenance:cleanup1
 exec-in-container app bin/console foodsharing:maintenance:cleanup2
 
 log-header "Calculating stats"
-exec-in-container app bin/console foodsharing:stats
+exec-in-container app bin/console foodsharing:stats "$@"
 
 log-header "All done"
