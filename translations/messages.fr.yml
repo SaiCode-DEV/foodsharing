@@ -45,7 +45,7 @@ group:
     motivation: Quelle est ta motivation pour participer au groupe {group} ?
     summary: '{name} souhaite participer au groupe de travail {group].'
     title: Demandes pour {group}
-    accept: Accepter la candidature
+    accept: Accepter
     link_description: 'Ce lien te permet d’accéder directement à l’application :'
     how_much_time: Combien d’heures par semaine as-tu le temps et l’envie d’y 
       consacrer ?
@@ -510,8 +510,8 @@ settings:
       demandé. Si tu n’as pas de smartphone ou si tu as besoin d’une pièce 
       d’identité traditionnelle pour une autre raison, adresse-toi à tes 
       ambassadeur·rice·s.
-    non_verified_text: Vous n’êtes pas encore vérifié. Seuls les Foodsavers 
-      vérifiés peuvent être téléchargés à partir du badge.
+    non_verified_text: Vous n’êtes pas vérifié. Seuls les Foodsavers vérifiés 
+      peuvent être téléchargés à partir du badge.
     add_to_wallet:
       google: Ajouter à Google Wallet
       apple: Ajouter à Apple Wallet
@@ -1291,8 +1291,8 @@ legal:
   if_delete:
     legal_1: Notre politique de confidentialité actuelle
     legal_2: Lois sur les délais de conservation (page en allemand)
-    this_gets_deleted_main: 'Les informations suivantes seront supprimées par toi
-      et ne pourront pas être récupérées :'
+    this_gets_deleted_main: 'Les informations suivantes seront définitivement supprimées
+      par toi :'
     this_gets_deleted_stores: Coopérations auxquelles tu avais adhéré.
     this_doesnt_get_deleted: 'Les informations suivantes ne sont plus disponibles
       dans le système actif, mais sont archivées séparément sur la base du article
@@ -2001,7 +2001,7 @@ profile:
     posts: posts
     baskets: paniers repas
     weight: sauvés
-    fetch_count: collectes
+    fetch_count: Collectes
     bananas: Bananes
     weight_unit: kg
     give_count: ''

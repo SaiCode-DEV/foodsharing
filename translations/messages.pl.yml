@@ -371,7 +371,8 @@ settings:
     export: Eksportuj kalendarz
     delete_token:
       button: Usuń token
-      message: ''
+      message: 'Wszystkie dotąd utworzone linki kalendarza będą przez to nieważne.
+        Na pewno chcesz usunąć ten token?'
     generate_url:
       button: Generuj URL kalendarza
     download: Pobierz kalendarz
@@ -564,8 +565,15 @@ settings:
       description: 'Wybierz jedną z następujących bezpłatnych aplikacji uwierzytelniających
         open-source dla twojego urządzenia:'
       title: 'Polecane aplikacje uwierzytelniające'
-      info: ''
-    tutorial: ''
+      info: 'Można tutaj też używać aplikacji uwierzytelniającej już używanej do innych
+        usług. Jeśli jeszcze nie masz żadnej aplikacji, najpierw ją zainstaluj, zanim
+        przejdziesz dalej.'
+    tutorial: 'Używanie uwierzytelniania dwuskładnikowego zwiększa bezpieczeństwo
+      twojego konta. Po aktywowaniu uwierzytelniania dwuskładnikowego będziesz musiał/a
+      podczas każdego logowania oprócz podania hasła wprowadzić dodatkowy kod. Ten
+      kod możesz uzyskać przez aplikację uwierzytelniającą. Dodatkowo będą ci pokazywane
+      tzw. "kody backup", które powinieneś/powinnaś przechowywać bezpiecznie, aby
+      w razie wypadku (np. przy utracie telefonu) wciąż mieć dostęp do swojego konta.'
     backup_codes:
       info: 'Zachowaj te kody w bezpiecznym miejscu. Każdy, kto ma dostęp do tych
         kodów i zna twoje hasło, może się zalogować na twoje konto.'
@@ -589,10 +597,17 @@ settings:
       i swoje hasło:'
     danger: 'Jeśli deaktywujesz uwierzytelnianie dwuskładnikowe, twoje konto będzie
       mniej bezpieczne.'
-    admin_description: ''
+    admin_description: 'Czy na pewno chcesz deaktywować uwierzytelnianie dwuskładnikowe
+      dla {user}? To ma sens tylko w wyjątkowych przypadkach, np. kiedy użytkownik/czka
+      nie ma już dostępu do swojego urządzenia drugiego składnika i stracił/a też
+      kody backup.'
     failed: 'Nie można było deaktywować uwierzytelniania dwuskładnikowego, podano
       błędny kod lub hasło.'
-    warning: ''
+    warning: 'Jeśli deaktywujesz uwierzytelnianie dwuskładnikowe, twoje konto będzie
+      mniej bezpieczne. Każdy, kto zna twoje hasło lub może czytać twoje maile (słowo-klucz
+      "zapomniałeś/aś hasła"), będzie mógł też uzyskać dostęp do twojego konta. W
+      skutek deaktywacji twoje kody backup będą unieważnione. Później będziesz musiał/a
+      się ponownie zalogować.'
     title: 'Deaktywuj uwierzytelnianie dwuskładnikowe'
     success: 'Pomyślnie deaktywowano uwierzytelnianie dwuskładnikowe.'
   email_change:
@@ -615,7 +630,9 @@ settings:
     explanation: 'Tu możesz zmienić adres email, z którym się zarejestrowałeś/aś.
       Po wysłaniu otrzymasz maila na nowy adres, w którym jest link do potwierdzenia
       nowego adresu.'
-    explanation_other_user: ''
+    explanation_other_user: 'Tu możesz zmienić adres email, przy pomocy którego zarejestrowano
+      ten profil. Po wysłaniu użytkownik/czka otrzyma maila na nowy adres, w którym
+      jest link do potwierdzenia nowego adresu.'
     domain: 'Użyj innego adresu email, aby zawsze mieć możliwość odzyskania hasła.'
     sent: 'Przejdź teraz do swojej nowej skrzynki mailowej, żeby potwierdzić adres
       email.'
@@ -2881,7 +2898,9 @@ profile:
   notes:
     bread: notatki
     title: Notatki o {name}
-    info: ''
+    info: 'Używaj tej funkcji rozważnie. Ma ona pomóc, aby procesy były dla nas widoczne
+      i oszczędzać nam pracy. Nie ma tutaj miejsca na sprawy osobiste lub wartościowanie
+      osoby. Trzymaj się faktów.'
   online: '{name} jest online.'
   infos:
     title: Informacje
@@ -2891,7 +2910,7 @@ profile:
     never: 'Jeszcze nigdy'
     lastActivity: 'Ostatnia aktywność'
     fetchrate: ''
-    buddycount_known: '{name} zna {count} foodsaverów/ek'
+    buddycount_known: '{name} zna {count} foodsaverów/ki/ek'
     foodsaverId: 'ID'
     buddycount_followed: '{name} jest znany/a przez {count} foodsaverów/ek'
     privateMail: 'Prywatny adres email'
@@ -2902,7 +2921,7 @@ profile:
     weight: ''
     give_count: 'przekazane/ych darowizn/y'
     slots: 'sloty'
-    engagement_count: ''
+    engagement_count: 'zaangażowanie'
     fetch_count: 'wykonane/ych odbiory/ów'
     posts: 'posty/ów'
   about_me_intern: O mnie
@@ -2920,11 +2939,11 @@ profile:
     report_other: Inne
     late: Spóźnił/a się
     notes: Notatki i decyzje
-    report_b11: ''
+    report_b11: 'Użyto nieekologicznych środków przy odbiorze (B11)'
     report_b10: ''
     oldReportButtonTextPart2: 'W razie potrzeby zwróćcie się do lokalnego zespołu
       rozpatrującego skargi w waszym rejonie.'
-    noshow: ''
+    noshow: 'Nie pojawił/a się na odbiorze'
     doesNotAffectStore: ''
     arbAdminAgainstRepAdmin: 'Jesteś administratorem/ką rady arbitrażowej i chcesz
       zgłosić skargę przeciwko administratorowi/ce zespołu rozpatrującego skargi.
@@ -2933,7 +2952,7 @@ profile:
     confirmDelete: 'Czy na pewno usunąć tę skargę?'
     oldReportButton: 'Zgłoś skargę'
     send: 'Wyślij skargę'
-    report_b3_1: ''
+    report_b3_1: 'Nie wykonał/a odbioru bez kłótni lub dyskusji (B03-2)'
     report_b1_3: ''
     report_b6_0: ''
     report_b12: ''
@@ -2942,8 +2961,8 @@ profile:
     report_b1_2: ''
     repAdminAgainstArbAdmin: 'Jesteś administratorem/ką zespołu rozpatrującego skargi
       i chcesz zgłosić skargę przeciwko administratorowi/ce rady arbitrażowej. Na
-      ten moment nie jest to technicznie wspierane. Możesz zawsze wysłać skargę mailem
-      do lokalnie odpowiedzialnych za was osób w tym przypadku.'
+      ten moment nie ma technicznego wsparcia dla tej opcji. Możesz zawsze wysłać
+      skargę mailem do osób w tym przypadku lokalnie odpowiedzialnych za was.'
     sent: 'Wysłano skargę'
     report_b4_0: ''
     oldReportButtonTextPart3: 'Więcej informacji o systemie skarg znajdziecie'
@@ -2964,7 +2983,7 @@ profile:
     report_b3_0: ''
     report_b8: ''
     title: 'Skarga dotycząca {name}'
-    report_b1_1: ''
+    report_b1_1: 'Nie pojawił/a się na odbiorze (B01-2)'
     mail:
       reportGroup: 'Skarga zostanie przekazana lokalnemu zespołowi rozpatrującemu
         skargi. Możesz skontaktować się z tym zespołem także przez poniższy adres
@@ -2989,21 +3008,25 @@ profile:
       bo w twoim rejonie nie ma lokalnego zespołu rozpatrującego skargi.'
     reporterAdminNoArbitration: 'Jesteś administratorem/ką lokalnego zespołu rozpatrującego
       skargi i ponieważ nie ma lokalnej rady arbitrażowej, nie możesz zgłosić skargi.'
-    report_b1_0: ''
-    report_b6_1: ''
-    cancellation: ''
+    report_b1_0: 'Spóźnił/a się na odbiór (B01-1)'
+    report_b6_1: 'Nie pozostawiono miejsca odbioru w uporządkowanym stanie (B06-2)'
+    cancellation: 'Częste krótkoterminowe odwoływanie odbiorów bez szukania zastępstwa'
     report_b13: ''
   alldatesdeleted: Wszystkie daty zostały usunięte
   cantdeleteall: Nie możesz usunąć wszystkich dat!
   mediation:
     title: 'Zapytanie o mediację dla {name}'
-    info: ''
+    info: 'Uważamy, że to świetnie, że szukasz wsparcia, aby porozmawiać o tej sprawie
+      z daną osobą. Team mediacji może przy tym wystąpić jako instancja pośrednicząca
+      i pomóc, aby wasze rozmowy były prowadzone na równi i ze wzajemnym szacunkiem.
+      Możesz skontaktować się z lokalnym zespołem mediacji pod następującym adresem
+      email:'
     no_group: 'Niestety, w rejonie macierzystym tego/j foodsavera/ki nie ma jeszcze
       lokalnego zespołu mediacji. Możesz zaproponować na spotkaniu grupowym albo na
       forum, aby wybrać lokalny zespół mediacji.'
   notFound: 'Tego profilu użytkownika/czki (już) nie ma'
   choosestore: ''
-  deletesuccess: ''
+  deletesuccess: 'Usunięto pojedynczy slot odbioru'
   sleeping_info_from_until: 'jest uśpiony/a od {from} do {until}'
   warning: 'Uwaga'
   tab_navigation:
@@ -3024,7 +3047,7 @@ profile:
   sleeping: 'jest w trybie uśpienia na czas nieokreślony'
   reportRequest: 'Wyślij skargę'
   editNameInfo: ''
-  cantdeletethis: ''
+  cantdeletethis: 'Nie możesz usuwać pojedynczych slotów!'
   chooseantherstore: ''
 dashboard:
   title: Dashboard
