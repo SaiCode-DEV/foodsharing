@@ -6,19 +6,13 @@
         "Additional for the development of new API or backend parts, the module table usage (extracted from PHP codebase)",
         "below provides helpful information. The provided information may help to find already existing queries, gateways,",
         "and/or the best location for a new query/function.",
-        ""
+        "",
+        "Open todos are listed in https://gitlab.com/foodsharing-dev/foodsharing/-/work_items/2524"
     ],
     "tables": [
         {
             "identifier": "fs_abholer",
             "description": "Stores filled pickup slots, describes by who fetches when, where and if confirmed, needed to generate statistics (count, but not weight).",
-            "todos": [
-                "Have deleted entries from *fs_foodsaver* and *fs_betrieb* reappear.",
-                "Hide deleted fs_betrieb on existing map",
-                "Don't care about that in existing code. Used to show pickup history, but broken old entries seem fine.",
-                "Document: Add to database as comment (1: Confirmed, 0: Not confirmed)",
-                "Clarify: Why is this an integer and not a boolean?"
-            ],
             "columns": {
                 "foodsaver_id": {
                     "weakForeignKey": {
@@ -39,15 +33,7 @@
         },
         {
             "identifier": "fs_abholzeiten",
-            "description": "Contains information about regurlary reoccuring pickup slots.",
-            "todos": [
-                "Document: Add to database as column (Dow) comment: Day of week (1=Monday, 0=Sunday)",
-                "Document: Add to database as column (Time) comment: When on the day the pickup is",
-                "Document: Add to database as column (Fetcher) comment: Number of slots (>= 0, >= 1 enforced by frontend)",
-                "Clarify: Where are additional single pickup slots are stored?",
-                "Remove all non-existent references to *fs_betrieb*, add `ON DELETE CASCADE`.",
-                "Add foreign key relationship to *fs_betrieb* Reasoning: The data only affects future pickups that will not occur in case a store is removed."
-            ],
+            "description": "Contains information about regurlary occuring pickup slots.",
             "columns": {
                 "betrieb_id": {
                     "weakForeignKey": {
@@ -69,10 +55,6 @@
         {
             "identifier": "fs_apitoken",
             "description": "User tokens for ICS/ICAL/WebCal access to calendar of future events/pickups.",
-            "todos": [
-                "Remove tokens for not existing users",
-                "add foreign key relationship to *fs_foodsaver* as well as `ON DELETE CASCADE`."
-            ],
             "columns": {
                 "foodsaver_id": {
                     "description": "Owner of the token and identifier for the calendar"
@@ -84,16 +66,13 @@
         },
         {
             "identifier": "fs_bezirk",
-            "description": "Stores districts as well as workinggroups (differentiated by type column) (referred to as 'group' or 'district' in this document)",
-            "todos": [
-                "Remove unused columns email_pass, conversation_id",
-                "Clarify: Field description",
-                "Clarify: Extract typs from `src\\Modules\\Core\\DBConstants\\Region\\Type`",
-                "Cöarify: Use of moderated? $region['moderated'] || in_array($region['type'], [Type::BIG_CITY, Type::FEDERAL_STATE, Type::COUNTRY]);"
-            ],
+            "description": "Stores districts as well as working groups (differentiated by type column) (referred to as 'group' or 'district' in this document)",
             "columns": {
                 "has_children": {
                     "description": "Is set when ID is set in parent_id of other row"
+                },
+                "type": {
+                    "description": "@Unit::UnitType"
                 },
                 "mailbox_id": {
                     "description": "Id of user related mailbox",
@@ -116,10 +95,6 @@
         {
             "identifier": "fs_foodsaver_has_bezirk",
             "description": "Describes which foodsaver is in which group/district/workgroups and regions membership",
-            "todos": [
-                "Remove broken data",
-                "Add foreign key relationships to *fs_foodsaver* and *fs_bezirk*"
-            ],
             "columns": {
                 "added": {
                     "description": "Date of insert"
@@ -134,20 +109,11 @@
         },
         {
             "identifier": "fs_theme",
-            "description": "Threads in the forum.",
-            "todos": [
-                "nothing as threads from deleted users should be kept"
-            ]
+            "description": "Threads in the forum."
         },
         {
             "identifier": "fs_foodsaver",
-            "description": "Describes the user in the foodsharing system. Therefore it contains profile, role and statistics.",
-            "todos": [
-                "bezirk_id ('home district') is 0 for a lot of users. Should be NULL. As we don't need this soon in new backend, care later.",
-                "Document: Add to database as column (deleted_at) comment: `deleted_at`: deletion day of account, if `NULL`, account is active",
-                "Clarify: Is it possible that a community member is in the role ogra or site_admin and not part of the orga team?",
-                "Drop unused columns from database and remove rests from codebase"
-            ],
+            "description": "Describes the user in the foodsharing system. It contains profile, role and statistics.",
             "columns": {
                 "active": {
                     "description": "E-Mail activation after registration is completed (True: E-Mail is verified, False: verification e-mail feedback is pending)"
@@ -305,23 +271,7 @@
         },
         {
             "identifier": "fs_basket",
-            "description": "Lists all foodbaskets.",
-            "todos": [
-                "Check code to never display foodbaskets from removed users except to admins.",
-                "Clarify: Meaning of status == Basket::Status",
-                "Clarify: Meaning of fs_id",
-                "Clarify: Meaning of appost",
-                "Clarify: Meaning of contact_type",
-                "Clarify: Meaning of location_type",
-                "Clarify: Meaning of weight unit",
-                "Clarify: Meaning of picture",
-                "Clarify: Meaning of time",
-                "Clarify: Meaning of update",
-                "Clarify: Meaning of until",
-                "Clarify: Meaning of fetchtime",
-                "Clarify: Owner of tel",
-                "Clarify: Owner of handy"
-            ],
+            "description": "Lists all food baskets.",
             "columns": {
                 "foodsaver_id": {
                     "weakForeignKey": {
@@ -387,16 +337,7 @@
         },
         {
             "identifier": "fs_betrieb_team",
-            "description": "Defines foodsaver team embers with pickup store provided food and statistic.",
-            "todos": [
-                "Have deleted entries from *fs_foodsaver* and *fs_betrieb* reappear.",
-                "Clarify: Describe the meaning of APPLIED_FOR_TEAM and jumber",
-                "Clarify: Could a managing/verantworktlicher can pick up from a store?",
-                "Clarify: What are Biebs? StoreGateway::getBiebsForStore()",
-                "Clarify: Why does the table contains a id, is the foodsaver_id and betrieb_id not unique enought",
-                "Clarify: Why are stats directly part table?",
-                "Clarify: Is it possible to be black listed for a store or a team?"
-            ],
+            "description": "Assigns team members to stores including their statistics.",
             "columns": {
                 "foodsaver_id": {
                     "weakForeignKey": {
@@ -423,154 +364,80 @@
         },
         {
             "identifier": "fs_usernotes_has_wallpost",
-            "description": "connects organotes on users with wallposts",
-            "todos": [
-                "recreate missing users",
-                "remove broken entries (for wallposts)"
-            ]
+            "description": "Relates wallposts to user profiles, which describes the orga notes on user profiles"
         },
         {
             "identifier": "fs_theme_post",
-            "description": "Stores posts in themes",
-            "todos": [
-                "Recreate users",
-                "Remove broken data (for themes, not users)",
-                "Add FK to themes"
-            ]
+            "description": "Stores posts in forum threads"
         },
         {
             "identifier": "fs_theme_follower",
-            "description": "stores who follows themes",
-            "todos": [
-                "remove broken data (as follower information is irrelevant for broken XY)",
-                "Add FK"
-            ]
+            "description": "Stores who follows threads"
         },
         {
             "identifier": "fs_stat_abholmengen",
-            "description": "Stores statistics per store (maybe broken implementation?)",
-            "todos": [
-                "add FK to store"
-            ]
+            "description": "Stores statistics per store (unused)"
         },
         {
             "identifier": "fs_rating",
-            "description": "Stores trust bananas",
-            "todos": [
-                "remove broken data (as we don't want to have trust bananas from/for deleted users)",
-                "Add FK"
-            ]
+            "description": "Stores trust bananas"
         },
         {
             "identifier": "fs_quiz_session",
-            "description": "Each try (by users) of a quiz (session)",
-            "todos": [
-                "remove broken data"
-            ]
+            "description": "Each try (by users) of a quiz (session)"
         },
         {
             "identifier": "fs_question_has_wallpost",
-            "description": "Relates wallposts to questions",
-            "todos": [
-                "remove broken data",
-                "FK to *fs_question*, *fs_wallpost*, `ON DELETE CASCADE`"
-            ]
+            "description": "Relates wallposts to quiz questions"
         },
         {
             "identifier": "fs_question_has_quiz",
-            "description": "Relates questions <-> quiz",
-            "todos": [
-                "remove broken data",
-                "FK to *fs_quiz*, *fs_question*, `ON DELETE CASCADE`"
-            ]
+            "description": "Relates quiz questions to the quiz"
         },
         {
             "identifier": "fs_question",
-            "description": "Questions (for quiz)"
+            "description": "Quiz questions"
         },
         {
             "identifier": "fs_pass_request",
-            "description": "Password change/forgot requestsRelates questions <-> quiz",
-            "todos": [
-                "remove broken/old data",
-                "FK for foodsaver_id, `ON DELETE CASCADE`"
-            ]
+            "description": "Stores requests to reset the password"
         },
         {
             "identifier": "fs_pass_gen",
-            "description": "Logs which ID cards have been generated",
-            "todos": [
-                "remove broken data (foodsaver_id), readd missing (bot_id)",
-                "FK for foodsaver_id, `ON DELETE CASCADE`",
-                "handle emtpy users correctly (bot_id)"
-            ]
+            "description": "Logs which ID cards have been generated"
         },
         {
             "identifier": "fs_msg",
-            "description": "Conversation messages",
-            "todos": [
-                "Remove broken data (conversations), readd missing users",
-                "FK on *fs_conversation*, `ON DELETE CASCADE`"
-            ]
-        },
-        {
-            "identifier": "fs_message_tpl",
-            "description": "Email templates",
-            "todos": [
-                "language switcher implementation is unused and broken"
-            ]
+            "description": "Chat messages"
         },
         {
             "identifier": "fs_mailchange",
-            "description": "Requests to change the emailaddress",
-            "todos": [
-                "Remove broken / old data",
-                "FK on *fs_foodsaver*, `ON DELETE CASCADE`",
-                "There is a recent entry with foodsaver_id = 0. How did that get here?"
-            ]
+            "description": "Requests to change the emailaddress"
         },
         {
             "identifier": "fs_mailbox_message",
-            "description": "emails",
-            "todos": [
-                "remove brokendata",
-                "FK on *fs_mailbox*, `ON DELETE CASCADE`"
-            ]
+            "description": "E-mails"
         },
         {
             "identifier": "fs_mailbox",
-            "description": "Stores mailbox names (for email mailboxes)"
+            "description": "Stores mailbox names (for email mailboxes)",
+            "columns": {
+                "folder": {
+                    "description": "@Mailbox::MailboxFolder"
+                }
+            }
         },
         {
             "identifier": "fs_mailbox_member",
-            "description": "Maps additional mailbox access for users (e.g. granting custom mailboxes or group ones)",
-            "todos": [
-                "Remove brokendata",
-                "FK on *fs_mailbox*, *fs_mailbox_member*, `ON DELETE CASCADE`"
-            ]
-        },
-        {
-            "identifier": "fs_foodsaver_has_fetchdate",
-            "description": "Empty table",
-            "todos": [
-                "Delete"
-            ]
+            "description": "Maps additional mailbox access for users (e.g. granting custom mailboxes or group ones)"
         },
         {
             "identifier": "fs_foodsaver_has_wallpost",
-            "description": "Wallposts on user profile",
-            "todos": [
-                "Remove broken data",
-                "FK on *fs_foodsaver*, *fs_wallpost*, `ON DELETE CASCADE`"
-            ]
+            "description": "Wallposts on user profile"
         },
         {
-            "identifier": "fs_fsreport_has_wallpost",
-            "description": "Stores notes on abuse reports",
-            "todos": [
-                "remove broken data",
-                "FK on *fs_report*, *fs_wallpost*, `ON DELETE CASCADE`"
-            ]
+            "identifier": "fs_fsreports_has_wallpost",
+            "description": "Stores notes on abuse reports"
         },
         {
             "identifier": "fs_kette",
@@ -578,77 +445,44 @@
         },
         {
             "identifier": "fs_lebensmittel",
-            "description": "Store different kinds of food to be linked with individual stores. Only ever implemented as setter, don't care for now."
+            "description": "Different kinds of food to be linked with individual stores. Only ever implemented as setter, don't care for now."
         },
         {
             "identifier": "fs_foodsaver_archive",
-            "description": "Archive table to hold removed users for admin purposes",
-            "todos": [
-                "Move to fs_foodsaver_archive3",
-                "Recreate with same structure as fs_foodsaver"
-            ]
+            "description": "Archive table to hold removed users for admin purposes"
         },
         {
             "identifier": "fs_foodsaver_change_history",
-            "description": "Logs all changes to personal data in foodsaver  table",
-            "todos": [
-                "Do not use indices as this should persist deletions (as one reason for it was to be able to detect abuse)"
-            ]
+            "description": "Logs all changes to personal data in foodsaver table"
         },
         {
             "identifier": "fs_foodsaver_has_bell",
-            "description": "Stores bell <-> user relationship",
-            "todos": [
-                "Remove broken data",
-                "Add foreign key relationships to *fs_foodsaver* and *fs_bell*"
-            ]
+            "description": "Relates bells to their owner"
         },
         {
             "identifier": "fs_foodsaver_has_contact",
-            "description": "Relates contacts (email addresses, see above) to users",
-            "todos": [
-                "Remove broken data",
-                "Add FK to *fs_foodsaver*, *fs_contact*"
-            ]
+            "description": "Relates contacts (email addresses, see above) to users"
         },
         {
             "identifier": "fs_foodsaver_has_conversation",
-            "description": "Relates conversations to foodsavers. Care: It is also used to look up conversations by user",
-            "todos": [
-                "Reinsert missing foodsaver, add FK to *fs_conversation* (not to user)",
-                "Fix code to handle deleted users correctly"
-            ]
+            "description": "Relates conversations to foodsavers. Care: It is also used to look up conversations by user"
         },
         {
             "identifier": "fs_foodsaver_has_event",
-            "description": "Relates users to events.",
-            "todos": [
-                "Remove broken data",
-                "FK on *fs_foodsaver*, *fs_event*, `ON DELETE CASCADE`"
-            ]
-        },
-        {
-            "identifier": "fs_foodsaver_has_fairteiler",
-            "description": "Empty table",
-            "todos": [
-                "Delete"
-            ]
+            "description": "Relates users to events."
         },
         {
             "identifier": "fs_botschafter",
-            "description": "Notes the ambassador/admin attribute on a group membership.",
-            "todos": [
-                "remove broken entries",
-                "add foreign key relationships on *fs_bezirk* and *fs_foodsaver*"
-            ]
+            "description": "Notes the ambassador/admin attribute on a group membership."
         },
         {
             "identifier": "fs_buddy",
             "description": "'I know XY' connection/friendship relation.",
-            "todos": [
-                "investigate, why there are lots of '0' entries remove broken entries",
-                "add foreign key relationships on *fs_foodsaver* with `ON DELETE CASCADE` trigger"
-            ]
+            "columns": {
+                "confirmed": {
+                    "description": "@Buddy::BuddyId"
+                }
+            }
         },
         {
             "identifier": "fs_contact",
@@ -656,119 +490,72 @@
         },
         {
             "identifier": "fs_content",
-            "description": "'Mini-CMS' content table that is used to generate some pages as well as sections on some pages."
+            "description": "'Mini-CMS' content table that is used to generate some pages as well as sections on some pages.",
+            "columns": {
+                "id": {
+                    "description": "@Content::ContentId"
+                }
+            }
         },
         {
             "identifier": "fs_conversation",
-            "description": "Conversation table",
-            "todos": [
-                "get rid of API module",
-                "switch over to foodsharing-API backend to get rid of denormalized columns.",
-                "By that, also stop htmlentities encoding. On the decoding side, implement time aware message body decoders.",
-                "Denormalized fields usage: listConversations (member, last)",
-                "remove last_foodsaver_id (unused, easy)",
-                "remove heartbeat code (that is not used since we have socket.io)"
-            ]
+            "description": "Chat conversations"
         },
         {
             "identifier": "fs_email_blacklist",
-            "description": "Contains email addresses that are not allowed to signup (needs database admin to maintain)"
-        },
-        {
-            "identifier": "fs_email_status",
-            "description": "Mass mailer status table (per-recipient status)",
-            "todos": [
-                "remove broken entries",
-                "add foreign key relationships to *fs_foodsaver* and *fs_email* with `ON DELETE CASCADE`"
-            ]
+            "description": "Contains email addresses that are not allowed to sign up"
         },
         {
             "identifier": "fs_event",
             "description": "Contains all events",
-            "todos": [
-                "Regain missing users",
-                "Check code fetching events to properly handle deleted users",
-                "remove broken entries for fs_bezirk by setting them NULL",
-                "add foreign key relationship to *fs_bezirk* (on delete set NULL)",
-                "add foreign key relationship to *fs_location* (nullable)"
-            ]
+            "columns": {
+                "online": {
+                    "description": "@Event::EventType"
+                }
+            }
         },
         {
             "identifier": "fs_event_has_wallpost",
-            "description": "Links wallposts on event (only communication channel for an event)",
-            "todos": [
-                "Remove broken entries",
-                "add foreign key relationships to *fs_event* and *fs_wallpost*, `ON DELETE CASCADE`"
-            ]
+            "description": "Links wallposts to events (only communication channel for an event)"
         },
         {
             "identifier": "fs_fairteiler",
-            "description": "Lists fair share points",
-            "todos": [
-                "Null broken entries (should still be listable in map)",
-                "add foreign key relationship to *fs_bezirk*"
-            ]
+            "description": "Lists food share points",
+            "columns": {
+                "status": {
+                    "description": "@FoodSharePoint::ActivationStatus"
+                }
+            }
         },
         {
             "identifier": "fs_fairteiler_follower",
             "description": "Links follower/responsible to food share points",
-            "todos": [
-                "Remove broken entries",
-                "add foreign key relationships to *fs_foodsaver* and *fs_fairteiler* with `ON DELETE CASCADE`"
-            ]
+            "columns": {
+                "type": {
+                    "description": "@FoodSharePoint::FollowerType"
+                }
+            }
         },
         {
             "identifier": "fs_fairteiler_has_wallpost",
-            "description": "Links wallposts to fair share points",
-            "todos": [
-                "Remove broken entries",
-                "add foreign key relationship to *fs_fairteiler*, *fs_wallpost* with `ON DELETE CASCADE`",
-                "check code that handles wallpost display to see how NULL foodsavers are handled.",
-                "Reasoning: Keep wallposts from deleted users."
-            ]
-        },
-        {
-            "identifier": "fs_faq",
-            "description": "Questions and answers"
-        },
-        {
-            "identifier": "fs_faq_category"
+            "description": "Links wallposts to food share points"
         },
         {
             "identifier": "fs_fetchdate",
-            "description": "Stores non-recurring pickup slots (just the slot, no fetcher information)",
-            "todos": [
-                "reinsert missing stores"
-            ]
-        },
-        {
-            "identifier": "fs_application_has_wallpost",
-            "description": "Link table between applications (for groups) and the wallposts. *Design broken*: Links foodsaver ids to the wallposts, e.g. all applications a foodsaver does to somewhere",
-            "todos": [
-                "Remove entries for non-existing users",
-                "add `ON DELETE CASCADE` to *fs_foodsaver*.",
-                "Remove entries for non-existing wallposts",
-                "add `ON DELETE CASCADE` to *fs_wallpost*",
-                "Reasoning: Applications texts for deleted users are not useful anymore"
-            ]
+            "description": "Stores non-recurring pickup slots (just the slot, no fetcher information)"
         },
         {
             "identifier": "fs_basket_anfrage",
             "description": "Lists foodbasket requests.",
-            "todos": [
-                "Remove entries for non-existing users",
-                "add `ON DELETE CASCADE` to *fs_foodsaver*.",
-                "Remove entries for non-existing baskets",
-                "add `ON DELETE CASCADE` to *fs_basket*.",
-                "Reasoning: Requests for non existant users do not need to be kept, basket FK is purely defensive."
-            ]
+            "columns": {
+                "status": {
+                    "description": "@RequestsBasket::Status"
+                }
+            }
         },
         {
             "identifier": "fs_basket_has_art",
-            "description": "Combines foodbaskets with different types of food. *Unused*: Has to be entered but is never evaluated.",
-            "todos": [
-                "remove in code (in future), leave database as is (for now)"
-            ]
+            "description": "Combines foodbaskets with different types of food. *Unused*: Has to be entered but is never evaluated."
         },
         {
             "identifier": "fs_basket_has_types",
@@ -776,16 +563,16 @@
         },
         {
             "identifier": "fs_bell",
-            "description": "Stores arbitrary notifications"
+            "description": "Stores arbitrary notifications",
+            "columns": {
+                "identifier": {
+                    "description": "@Bell::Type"
+                }
+            }
         },
         {
             "identifier": "fs_betrieb",
             "description": "Stores stores.",
-            "todos": [
-                "Conversation 108242 and 108243 missing (store 1, 2) (fixed, inserted)",
-                "Link `bezirk_id` to *fs_bezirk*",
-                "Care about kette_id, betrieb_kategorie_id (fixed with issue #862)"
-            ],
             "columns": {
                 "kette_id": {
                     "weakForeignKey": {
@@ -830,25 +617,15 @@
         },
         {
             "identifier": "fs_betrieb_notiz",
-            "description": "Stores wallposts on stores (independent of wallpost system)",
-            "todos": [
-                "Have deleted entries from *fs_foodsaver* and *fs_betrieb* reappear."
-            ]
+            "description": "Stores wallposts on stores (independent of wallpost system)"
         },
         {
             "identifier": "fs_bezirk_has_theme",
-            "description": "Forum: Relates threads to groups.",
-            "todos": [
-                "remove broken entries",
-                "add foreign key relationsips on *fs_theme* and *fs_bezirk* with `ON DELETE CASCADE` trigger."
-            ]
+            "description": "Forum: Relates threads to groups."
         },
         {
             "identifier": "fs_bezirk_has_wallpost",
-            "todos": [
-                "remove broken entries",
-                "add foreign key relationships on *fs_bezirk* and *fs_wallpost* with `ON DELETE CASCADE` trigger."
-            ]
+            "description": "Relates wallposts to groups. Only relevant for working groups, not for regions."
         },
         {
             "identifier": "fs_blog_entry",
@@ -856,10 +633,7 @@
         },
         {
             "identifier": "fs_answer",
-            "description": "Stores answers to quiz.",
-            "todos": [
-                "Add foreign key relationship to *fs_question* as well as `ON DELETE CASCADE`. Reasoning: Answers to removed questions are not needed, existing quiz sessions get a copy in `fs_quiz_session.quiz_result`."
-            ]
+            "description": "Stores answers to quizzes"
         }
     ]
 }

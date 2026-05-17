@@ -97,7 +97,7 @@ Date documentation script extracts out of the running database instance all info
 The script can be executed as developer by the following command:
 
 ```bash
-$> ./scripts/build-db-documentation
+$> ./scripts/db-docs-build
 ```
 
 > If `ERROR: No container found for docs` is shown then bring the dev environment up via `scripts/start`
