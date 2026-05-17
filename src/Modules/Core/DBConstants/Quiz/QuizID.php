@@ -16,4 +16,5 @@ enum QuizID: int
     case FOODSAVER_FR = 5;
     case FOODSHARER = 6;
     case SAVING_FOOD = 7;
+    case REPORTS = 8;
 }

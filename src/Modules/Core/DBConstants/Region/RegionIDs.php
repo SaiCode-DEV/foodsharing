@@ -30,6 +30,7 @@ class RegionIDs
     final public const int STORE_CHAIN_GROUP_AUSTRIA = 858;
     final public const int HYGIENE_GROUP = 1686;
     final public const int POLITICAL_CAMPAIGNS = 1880;
+    final public const int VUM_SUBGROUP_REPORTS_QUIZ = 6822;
 
     // region and ambassador groups
     final public const int EUROPE_BOT_GROUP = 881;

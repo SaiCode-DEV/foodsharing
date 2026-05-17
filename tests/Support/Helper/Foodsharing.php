@@ -254,6 +254,9 @@ class Foodsharing extends Db
         } elseif ($quizId === QuizID::SAVING_FOOD->value) {
             $params['name'] = 'Quiz fürs Lebensmittelretten';
             $params['desc'] = 'Werde Lebensmittelretter:in mit diesem Quiz!';
+        } elseif ($quizId === QuizID::REPORTS->value) {
+            $params['name'] = 'Quiz für Meldungsbearbeitung';
+            $params['desc'] = 'Quiz für Meldungsbearbeitung';
         }
         $params['desc'] .= ' ' . $this->faker->realTextBetween(200, 500);
         $params['id'] = $this->haveInDatabase('fs_quiz', $params);

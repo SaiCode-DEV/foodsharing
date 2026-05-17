@@ -33,7 +33,7 @@ class QuizController extends FoodsharingController
 
     #[Route('/quiz', name: 'quiz.redirect')]
     #[Route('/quiz/edit', name: 'quiz.edit.redirect')]
-    public function redirectToSecific(): Response
+    public function redirectToSpecific(): Response
     {
         if (!$this->permissions->maySeeEditQuizPage()) {
             return $this->redirect('/');

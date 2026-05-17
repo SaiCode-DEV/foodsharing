@@ -424,16 +424,16 @@ class QuizApiCest
      * 8: passed second time and waited 700 days (almost expired again)
      * 9: passed second time and waited 800 days (expired again)
      */
-    private function createScenarioForHygieneQuizStatus(ApiTester $I, int $scenarioId, int $foodsaverId)
+    private function createScenarioForHygieneQuizStatus(ApiTester $I, int $scenarioId, int $foodsaverId): void
     {
         $quizRepeatTimeInDays = 365;
         $quizId = QuizID::HYGIENE->value;
         if ($scenarioId === 1) {
-            return $I->haveInDatabase('fs_quiz_session', ['foodsaver_id' => $foodsaverId, 'quiz_id' => $quizId, 'status' => SessionStatus::RUNNING->value, 'quest_count' => 3, 'quiz_index' => 1]);
+            $I->haveInDatabase('fs_quiz_session', ['foodsaver_id' => $foodsaverId, 'quiz_id' => $quizId, 'status' => SessionStatus::RUNNING->value, 'quest_count' => 3, 'quiz_index' => 1]);
         } if ($scenarioId >= 2) {
             $I->haveInDatabase('fs_quiz_session', ['foodsaver_id' => $foodsaverId, 'quiz_id' => $quizId, 'status' => SessionStatus::PASSED->value, 'time_end' => Carbon::now()]);
         } if ($scenarioId === 3) {
-            return $I->updateInDatabase('fs_quiz_session', ['time_end' => Carbon::now()->subDays($quizRepeatTimeInDays - 30)], ['foodsaver_id' => $foodsaverId, 'quiz_id' => $quizId]);
+            $I->updateInDatabase('fs_quiz_session', ['time_end' => Carbon::now()->subDays($quizRepeatTimeInDays - 30)], ['foodsaver_id' => $foodsaverId, 'quiz_id' => $quizId]);
         } if ($scenarioId >= 4) {
             $I->updateInDatabase('fs_quiz_session', ['time_end' => Carbon::now()->subDays($quizRepeatTimeInDays * 2)], ['foodsaver_id' => $foodsaverId, 'quiz_id' => $quizId]);
         } if ($scenarioId >= 5) {

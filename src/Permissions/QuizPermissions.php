@@ -29,6 +29,7 @@ final readonly class QuizPermissions
             QuizID::HYGIENE => RegionIDs::HYGIENE_GROUP,
             QuizID::FOODSAVER_FR => RegionIDs::QUIZ_GROUP_FR,
             QuizID::FOODSHARER, QuizID::SAVING_FOOD => RegionIDs::NEW_QUIZZES_WORK_GROUP,
+            QuizID::REPORTS => RegionIDs::VUM_SUBGROUP_REPORTS_QUIZ,
         };
     }
 
@@ -37,7 +38,8 @@ final readonly class QuizPermissions
         return $this->session->mayRole(Role::ORGA) ||
             $this->currentUserUnits->isAdminFor(RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP) ||
             $this->currentUserUnits->mayBezirk(RegionIDs::HYGIENE_GROUP) ||
-            $this->currentUserUnits->mayBezirk(RegionIDs::NEW_QUIZZES_WORK_GROUP);
+            $this->currentUserUnits->mayBezirk(RegionIDs::NEW_QUIZZES_WORK_GROUP) ||
+            $this->currentUserUnits->mayBezirk(RegionIDs::VUM_SUBGROUP_REPORTS_QUIZ);
     }
 
     /**
