@@ -352,9 +352,7 @@ class MaintenanceGateway extends BaseGateway
         ]);
 
         // Delete revoked user consents
-        $deletedCount += $this->db->delete('oauth_user_consents', [
-            'revoked_at IS NOT' => null,
-        ]);
+        $deletedCount += $this->db->execute('DELETE FROM oauth_user_consents WHERE revoked_at IS NOT NULL')->rowCount();
 
         return $deletedCount;
     }
