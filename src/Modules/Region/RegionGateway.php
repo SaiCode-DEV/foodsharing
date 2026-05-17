@@ -49,7 +49,7 @@ class RegionGateway extends BaseGateway
 
     public function listRegionsIncludingParents(array $regionId): array
     {
-        $stm = 'SELECT DISTINCT ancestor_id FROM `fs_bezirk_closure` WHERE bezirk_id IN (' . implode(',', array_map('intval', $regionId)) . ')';
+        $stm = 'SELECT DISTINCT ancestor_id FROM `fs_bezirk_closure` WHERE bezirk_id IN (' . implode(',', array_map('intval', $regionId)) . ') ORDER BY depth DESC';
 
         return $this->db->fetchAllValues($stm);
     }

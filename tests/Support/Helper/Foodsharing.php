@@ -846,10 +846,16 @@ class Foodsharing extends Db
 
         $this->updateInDatabase('fs_bezirk', ['mailbox_id' => $mailbox['id']], ['id' => $v['id']]);
         /* Add to closure table for hierarchies */
-        $this->_getDriver()->executeQuery('INSERT INTO `fs_bezirk_closure`
-		(ancestor_id, bezirk_id, depth)
-		SELECT t.ancestor_id, ?, t.depth+1 FROM `fs_bezirk_closure` AS t WHERE t.bezirk_id = ?
-		UNION ALL SELECT ?, ?, 0', [$v['id'], $v['parent_id'], $v['id'], $v['id']]);
+        if ($v['parent_id'] == RegionIDs::ROOT) {
+            // Root does not have an entry in fs_bezirk_closure. Its children needs to be handled differently.
+            $this->haveInDatabase('fs_bezirk_closure', ['bezirk_id' => $v['id'], 'ancestor_id' => $v['id'], 'depth' => 0]);
+            $this->haveInDatabase('fs_bezirk_closure', ['bezirk_id' => $v['id'], 'ancestor_id' => $v['parent_id'], 'depth' => 1]);
+        } else {
+            $this->_getDriver()->executeQuery('INSERT INTO `fs_bezirk_closure`
+		    (ancestor_id, bezirk_id, depth)
+		    SELECT t.ancestor_id, ?, t.depth+1 FROM `fs_bezirk_closure` AS t WHERE t.bezirk_id = ?
+		    UNION ALL SELECT ?, ?, 0', [$v['id'], $v['parent_id'], $v['id'], $v['id']]);
+        }
 
         return $v;
     }
@@ -862,6 +868,7 @@ class Foodsharing extends Db
         // Workaround: codeception ignores the id 0 when adding the row. Instead, we change it to 0 afterwards.
         $data = [
             'id' => RegionIDs::ROOT,
+            'name' => '',
             'parent_id' => null,
             'type' => UnitType::UNDEFINED,
             'teaser' => 'Root',
