@@ -290,7 +290,7 @@ class MaintenanceGateway extends BaseGateway
         $this->db->execute('DELETE FROM fs_bezirk_closure');
         $this->db->execute('
             INSERT INTO fs_bezirk_closure (bezirk_id, ancestor_id, depth)
-            SELECT a.id, a.id, 0 FROM fs_bezirk AS a WHERE a.parent_id > 0'
+            SELECT a.id, a.id, 0 FROM fs_bezirk AS a WHERE a.parent_id IS NOT NULL'
         );
         $depth = 0;
         do {
