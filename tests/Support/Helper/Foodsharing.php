@@ -854,10 +854,13 @@ class Foodsharing extends Db
         return $v;
     }
 
+    /**
+     * Creates and returns the root for the region tree. It does not have a parent or a mailbox.
+     */
     public function createRootRegion(): array
     {
         // Workaround: codeception ignores the id 0 when adding the row. Instead, we change it to 0 afterwards.
-        $root = $this->createRegion('fs_bezirk', [
+        $data = [
             'id' => RegionIDs::ROOT,
             'parent_id' => null,
             'type' => UnitType::UNDEFINED,
@@ -865,10 +868,11 @@ class Foodsharing extends Db
             'desc' => 'Root',
             'mailbox_id' => 0,
             'email_name' => ''
-        ]);
-        $this->updateInDatabase('fs_bezirk', ['id' => RegionIDs::ROOT], ['id' => $root['id']]);
+        ];
+        $rootId = $this->haveInDatabase('fs_bezirk', $data);
+        $this->updateInDatabase('fs_bezirk', ['id' => RegionIDs::ROOT], ['id' => $rootId]);
 
-        return $root;
+        return $data;
     }
 
     public function addRegionAdmin($region_id, $fs_id): void
