@@ -2498,6 +2498,7 @@ settings:
       "true": "Ja, meine vergangenen Termine im Kalender anzeigen"
       "false": "Nein, keine vergangenen Termine im Kalender anzeigen"
     program:
+      select: "Kalenderprogramm auswählen"
       label: "Welches Kalenderprogramm nutzt du?"
       google: "Google calendar"
       outlook: "Microsoft Outlook"
@@ -2505,6 +2506,9 @@ settings:
       apple: "Apple-Kalender"
       etar: "Etar"
       other: "Etwas anderes"
+    validation:
+      select_program: "Bitte wähle ein Kalenderprogramm aus."
+      not_empty: "Der Kalender sollte nicht leer sein. Bitte wähle wenigstens eine Option für Slots oder Termine aus."
     protocol: "Welches Protokoll nutzt dein Kalenderprogramm?"
     formatting:
       label: "Wie sollen Terminbeschreibungen formatiert werden?"

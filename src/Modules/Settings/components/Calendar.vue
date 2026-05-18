@@ -14,7 +14,11 @@
         <b-form-select v-model="includeHistory" :options="historyOptions" />
       </b-form-group>
       <b-form-group :label="$t('settings.calendar.program.label')">
-        <b-form-select v-model="selectedProgram" :options="programOptions" />
+        <b-form-select v-model="selectedProgram" :options="programOptions">
+          <template #first>
+            <b-form-select-option :value="null" disabled>{{ $t('settings.calendar.program.select') }}</b-form-select-option>
+          </template>
+        </b-form-select>
       </b-form-group>
       <div v-if="selectedProgram === 'other'" class="ml-4">
         <b-form-group :label="$t('settings.calendar.protocol')">
@@ -31,7 +35,7 @@
     <b-button-toolbar>
       <b-dropdown
         split
-        variant="success"
+        variant="primary"
         right
         :text="$t('settings.calendar.generate_url.button')"
         :disabled="disableGenerating"
@@ -49,6 +53,10 @@
         {{ $t('settings.calendar.delete_token.button') }}
       </b-button>
     </b-button-toolbar>
+    <div v-if="disableGenerating" class="invalid-feedback mt-0">
+      <span v-if="!selectedProgram" v-text="$t('settings.calendar.validation.select_program')" />
+      <span v-if="!this.includePickups && this.includeEvents === 'none'" v-text="$t('settings.calendar.validation.not_empty')" />
+    </div>
   </div>
 </template>
 <script>
