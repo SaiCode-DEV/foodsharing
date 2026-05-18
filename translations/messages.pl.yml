@@ -3046,7 +3046,11 @@ profile:
   go: 'Przejdź do profilu'
   sleeping: 'jest w trybie uśpienia na czas nieokreślony'
   reportRequest: 'Wyślij skargę'
-  editNameInfo: ''
+  editNameInfo: 'Miej na uwadze, że pola "imię" i "nazwisko" powinny być przeznaczone
+    wyłącznie na imię i nazwisko danej osoby. Nie używaj tego pola do zapisywania
+    dalszych informacji o profilu jak np. ukończenie szkolenia z zasad higieny. Zamiast
+    tego można użyć zespołów, aby przechowywać dodatkowe informacje o profilach. Więcej
+    informacji o tym na [forum ambasadorów/ek] ({url})'
   cantdeletethis: 'Nie możesz usuwać pojedynczych slotów!'
   chooseantherstore: ''
 dashboard:
@@ -3136,13 +3140,13 @@ basket:
     pet: karma dla zwierząt
     bread: 'Pieczywo'
     greens: 'owoce i warzywa'
-    prepared: ''
+    prepared: 'Przygotowane potrawy'
     dry: 'Produkty sypkie'
   is:
     veggie: są wegetariańskie
     vegan: są wegańskie
     gf: są bez glutenu
-    organic: ''
+    organic: 'są bio'
   public-info: Opis, obrazek, miejsce przekazania i czas ważności są publicznie 
     widoczne.
   no-desc: Podaj opis.
@@ -3325,10 +3329,11 @@ footer:
     it_devdocs: 'przez foodsharing IT'
     version: 'Wersja: {version}'
   partner_names:
-    lebensministerium: ''
+    lebensministerium: 'Federalne Ministerstwo Rolnictwa, Leśnictwa, Regionów i Gospodarki
+      Wodnej'
     denns: 'Denn’s Biomarkt'
     tafel_oesterreich: 'Bank żywności Austrii'
-  infosDeveloper: ''
+  infosDeveloper: 'dla IT-deweloperów/ek'
   blog: 'Blog'
   hosting:
     info: 'hostowany neutralnie pod względem emisji CO₂'
@@ -3424,7 +3429,10 @@ poll:
     shuffle_options: 'Pokaż opcje w przypadkowej kolejności podczas głosowania'
     submit: 'Zapisz głosowanie'
   time_period: 'Przedział czasu'
-  may_not_vote: ''
+  may_not_vote: 'Nie możesz zagłosować w tym głosowaniu. Z momencie, kiedy utworzono
+    to głosowanie, nie należałeś/aś do grupy uprawnionej do głosowania. Nawet jeśli
+    w czasie trwania głosowania spełniasz kryteria uprawniające cię do głosowania,
+    nie jest możliwe otrzymanie prawa głosu z mocą wsteczną.'
   type_description_0: 'Wybór (można wybrać tylko jedną opcję)'
   type_description_1: 'Wielokrotny wybór (można wybrać kilka opcji)'
   may_not_edit: 'Nie masz uprawnień do edytowania tego głosowania bądź czas na edycję
@@ -3434,7 +3442,8 @@ poll:
   type_description_2: 'Możliwość wyboru między zgodą / wstrzymaniem się / odrzuceniem'
   begins_at: 'Początek'
   error_cannot_vote: 'Nie możesz uczestniczyć z tym głosowaniu'
-  type_description_3: ''
+  type_description_3: 'Głosowanie punktowe z wartościami między -3 (odrzucenie) i
+    +3 (zgoda)'
   cancel:
     title: 'Anuluj głosowanie'
     question: 'Na pewno chcesz przerwać to głosowanie? Nie można tego cofnąć.'
@@ -3514,7 +3523,13 @@ help:
       title: 'Mozaika zasobów'
       md: ''
     threadPriority:
-      md: ''
+      md: "Tematy są umieszczone na liście według priorytetu wyświetlania. Tematy
+        z tym samym priorytetem są sortowane według czasu ostatniej aktywności. \n\
+        ---\nPrzypięte wątki mają priorytet 1, normalne wątki mają priorytet 0. Aby
+        móc dokładniej sortować wyświetlane tematy, możesz tutaj też ustawiać wyższe
+        wartości, aby tematy pojawiały się zawsze na samej górze niezależnie od daty
+        ostatniej edycji. \nWątki z priorytetem -1 są wyświetlane pod wszystkimi innymi
+        wątkami.\n"
       title: 'Priorytet wyświetlania na forum'
     similar_resources:
       title: 'Podobne zasoby'
@@ -4422,7 +4437,10 @@ startpage:
   slogan_3: 'foodsharing jest i zostanie bezpłatny.'
   bedependable: 'Bądź niezawodny/a'
   towns:
-    text: ''
+    text: "Uczestniczące miasta różnią się tym, czy są jeszcze w drodze albo czy już\
+      \ \nzostały wyróżnione jako miasta foodsharingu. To drugie zachodzi, gdy oprócz
+      lokalnego teamu foodsharingu \nwładze miasta podpisały deklarację motywacyjną
+      jako symbol partnerstwa między\nfoodsharingiem i sektorem publicznym.\n"
     title: 'miasta foodsharingu'
   dependability: ''
   call_to_action_button: 'Dołącz teraz'
@@ -4439,7 +4457,10 @@ startpage:
     was z wieloma dobrymi pomysłami i radami. Wyślijcie nam je na adres [info@foodsharing.de](mailto:info@foodsharing.de)'
   together: ''
   responsibility: ''
-  notallowed: ''
+  notallowed: 'Przekazywanie dalej lekarstw (także środków homeopatycznych) jest wyłączone
+    z foodsharingu. Nie można także poprzez foodsharing wymieniać się lub dzielić
+    się odzieżą, kosmetykami, chemią gospodarczą, zabawkami i innymi produktami niespożywczymi.
+    Platforma foodsharing zastrzega sobie prawo do usuwania takich ofert.'
   join_rules: 'Dołącz - nasze reguły'
 markdown_input:
   tooltip:
