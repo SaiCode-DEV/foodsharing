@@ -3539,7 +3539,13 @@ help:
       title: 'Statystyka zaangażowania'
       md: ''
     pollScopes:
-      md: ''
+      md: "Przy tworzeniu głosowania możesz wybrać różne grupy osób, które są uprawnione
+        do głosowania. \nPrzy wszystkich możliwościach wyboru obowiązuje:\n- Mogą
+        głosować nie tylko wszyscy/tkie foodsaverzy/ki z rejonu/zespołu, ale także
+        rejony podrzędne.\n- Liczba uprawnionych do głosowania foodsaverów/ek jest
+        w nawiasie za możliwością wyboru\n- Jak tylko utworzone zostanie głosowanie,
+        następuje ustalenie uprawnionych do głosowania. Uprawniony/a do głosowania
+        jest ten/ta, kto należy do danej grupy osób w momencie utworzenia głosowania.\n"
       title: 'Prawo do głosowania'
     polls:
       title: 'Głosowania'
@@ -3633,7 +3639,22 @@ help:
       md: ''
     masterRegion:
       title: 'Master-rejon'
-      md: ''
+      md: 'Jeśli rejony mają master-rejon, wszyscy członkowie tego rejonu są też automatycznie
+        włączeni do master-rejonu. W wielu przypadkach jest sensowne, wybrać rejon
+        nadrzędny jako master, ale inne zastosowania też są możliwe. Jeśli master-rejon
+        nie jest rejonem nadrzędnym, użytkownicy/czki rejonu **nie** zostaną automatycznie
+        włączeni/one do rejonu nadrzędnego.
+
+
+        Jeśli nie chcesz, aby użytkownicy/czki zostali/ły automatycznie włączeni/one
+        do innego rejonu, ustaw master na root.
+
+        ---
+
+        Włączenie do master-rejonu następuje jednorazowo każdej nocy. Zmiany nie następują
+        tutaj natychmiastowo.
+
+        '
     change_verified_data:
       title: 'Zażądaj zmiany zweryfikowanych danych'
       md: ''
@@ -4283,7 +4304,16 @@ join_region:
     is_state_2: 'Wybierz miasto, region lub rejon!'
     is_big_city_1: 'To jest duże miasto.'
     is_state_1: 'To jest województwo. Wybierz miasto, region lub rejon!'
-  description: ''
+  description: 'Możesz dołączyć do swojego pierwszego rejonu przez klikanie krok po
+    kroku, zaczynając od kontynentu aż do twojego rejonu. Jeśli nie znajdziesz żadnego
+    pasującego do ciebie rejonu, wybierz jeden poziom wyżej albo dołącz do najbliżej
+    położonego rejonu. Jeśli nie masz możliwości, aby kształcić się na foodsavera/kę
+    w swojej okolicy, możesz się zastanowić nad założeniem własnego rejonu. W tym
+    przypadku przeczytaj dokładnie Wiki, a w szczególności [artykuł o tworzeniu lub
+    reaktywacji rejonów]({href}). Jeśli chcesz zlecić wprowadzenie rejonu albo masz
+    konkretne pytania, na które nie ma odpowiedzi w Wiki, napisz do nas [maila]({mail}).
+    Nie jesteśmy centralną instancją dla ogólnych pytań, ale chętnie możemy ci pomóc
+    w kwestiach dotyczących rejonów.'
 support_page:
   subject: 'Temat'
   attachment:
@@ -4325,7 +4355,9 @@ contact_page:
   support:
     title: 'Pomoc dotycząca strony internetowej lub twojego konta'
     link: 'Portal supportu'
-    text: ''
+    text: 'Tu znajdziesz naszą bazę wiedzy o często zadawanych pytaniach i aktualnych
+      tematach. Jeśli nie znajdziesz tutaj tego, czego szukasz, możesz utworzyć zapytanie
+      jako ticket (link na górze po prawej stronie).'
   bread: 'Kontakt & Support'
 base:
   whatfor: ''
@@ -4672,10 +4704,16 @@ information:
   next: Następna informacja
   previous: Poprzednia informacja
   hide: Ukryj informację
+  current_index: Informacja {current} z {total}
 team_page:
   alumni_member:
     title: 'Dawni członkowie'
-    text: ''
+    text: 'Wspólnie spoglądamy wstecz na pełną sukcesów historię powstania foodsharingu.
+      Chcemy w tym miejscu podziękować wszystkim osobom, które w tym uczestniczyły
+      poprzez aktywność na rzecz teamu organizacyjnego lub zarządu po części w ramach
+      wolontariatu w pełnym wymiarze godzin albo w bardzo dużym stopniu!
+
+      '
   board_member:
     title: 'Zarząd'
     text: ''

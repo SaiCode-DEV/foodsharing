@@ -326,6 +326,7 @@ settings:
       google: Google calendar
       apple: Apple Calendar
       etar: Etar
+      select: Select calendar software
     event:
       maybe: Events that I indicated I will / may attend
       accepted: Events that I have indicated I will attend
@@ -362,6 +363,10 @@ settings:
       6_hours: 6 hours before
       12_hours: 12 hours before
       1_day: 1 day before
+    validation:
+      select_program: Please select a calendar software.
+      not_empty: The calendar should not be empty. Please select at least one 
+        option for slots or events.
   account_security:
     title: "Account Security"
     # Main page
