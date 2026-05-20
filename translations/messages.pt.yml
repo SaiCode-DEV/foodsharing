@@ -63,12 +63,12 @@ store:
         de nascimento, Morada atual, Fotografia de perfil. Depois de completares estes
         dados, poderás aceitar o convite.'
     needsHomeRegion:
-      link: Selecionar distrito principal
+      link: Escolher distrito principal
       request: Atualmente não podes candidatar-te, pois ainda não escolheste o 
-        teu distrito principal. Depois de selecionares o distrito principal, 
+        teu distrito principal. Depois de escolheres o distrito principal, 
         poderás tentar candidatar-te novamente.
       invited: Foste convidado para este local. Antes de poderes aceitar o 
-        convite, deves selecionar um distrito principal. Assim que escolheres o 
+        convite, deves escolher um distrito principal. Assim que escolheres o 
         distrito principal, poderás aceitar o convite.
     needsStoreRegion:
       link: Entrar no distrito
@@ -298,9 +298,9 @@ store:
   nochains: 'Por favor, contacte apenas lojas geridas pelos proprietários com, no
     máximo, três filiais, nunca contacte filiais de uma cadeia maior! Respeite as
     regras de cadeias comerciais!'
-  enter_date_description: 'Depois de selecionares a data, hora e quantidade, podes
-    criar uma vaga único. Se desejares criar vagas regulares (recorrentes automaticamente
-    todas as semanas), utiliza o menu "Configurações da local".'
+  enter_date_description: 'Depois de escolheres a data, a hora e a quantidade, podes
+    criar uma vaga única. Se desejares criar vagas regulares (recorrentes automaticamente
+    todas as semanas), utiliza o menu "Configurações do local“.'
   tooltip_yellow: 'Vagas disponíveis nos próximos cinco dias'
   joinDate: 'Na equipa desde {date}'
   peoplecame: 'Muitas vezes já aconteceu de pessoas irem ao local sem avisar.'
@@ -340,9 +340,9 @@ store:
       à equipa.
     decline: Recusar
     invited_by: Convidado por
-  no_chain_choosen: Nenhuma cadeia foi selecionada
+  no_chain_choosen: Nenhuma cadeia foi escolhada
   chain_search_picker:
-    modal_title: Selecione a cadeia comercial
+    modal_title: Escolhe a cadeia comercial
     search_input: Pesquisar pelo nome da cadeia
   passport_expired: O teu cartão de foodsharing expirou. Contacta os teus 
     embaixadores para fazer a renovação. Por isso, já não podes registar-te 
@@ -752,7 +752,7 @@ calendar:
   labelNextYear: 'O próximo ano'
   labelNav: 'Navegação de calendário'
   labelNextMonth: 'O próximo mes'
-  labelSelected: 'Data selecionada'
+  labelSelected: 'Data escolhada'
   export:
     pickup:
       description: 'Vaga de foodsharing em <a href="{url}">{store}</a>'
@@ -773,7 +773,7 @@ calendar:
   labelHelp: 'A navegação também é possível com as teclas de seta'
   labelPrevMonth: 'Mes pasado'
   labelCalendar: 'Calendário'
-  labelNoDateSelected: 'Selecionar data'
+  labelNoDateSelected: 'Escolher data'
   labelToday: 'hoje'
   labelPrevYear: 'O ano pasado'
   labelResetButton: Anular seleção
@@ -999,7 +999,7 @@ menu:
     statistics: 'Estatística'
     imprint: 'Aviso legal'
     notifications: 'Notificações'
-    language: 'Selecionar idioma'
+    language: 'Escolher idioma'
     members: 'Membros'
     load_more: 'Leia mais'
     academy: 'Academia'
@@ -1495,7 +1495,7 @@ bcard:
   for: '{role} para {region}'
   claim: 'Gera aqui — depois imprime e recorta.'
   card: 'O teu cartão de visita de foodsharing'
-  desc: 'Seleciona aqui a função e o distrito para os quais queres criar o teu cartão
+  desc: 'Escolhe aqui a função e o distrito para os quais queres criar o teu cartão
     de visita.'
   title: 'Gerador de cartão de visita'
   role: 'Função'
@@ -1598,8 +1598,7 @@ group:
       title: Standard
     passports:
       created_at: Cartão de identificação criado em
-      generate_button: Criar cartão(ões) de membro para a(s) pessoa(s) 
-        selecionada(s)
+      generate_button: Criar cartões de membro para as pessoas selecionadas
       never_before: nunca
       verify:
         do: Queres mesmo verificar {name} ({id}) (comparação de dados efectuada 
@@ -2383,7 +2382,7 @@ chat:
   placeholder: 'Escreva algo.'
   select_recipients: 'Seleccionar destinatarios'
   empty_message: 'Primeiro tens de inserir uma mensagem.'
-  empty_recipients: 'Tens de selecionar primeiro um ou mais destinatários.'
+  empty_recipients: 'Tens de escolher primeiro um ou mais destinatários.'
   new_message: 'Novo mensagem'
   start_of_conversation: 'A conversa começou em:'
   unknown_username: 'Nome desconecido'
@@ -2425,7 +2424,7 @@ storeedit:
     note: 'Nota:'
     empty: 'O equipa não deve estar vazio'
     foodsaver: 'Foodsavers'
-    max-sm: 'Por favor, selecione no máximo três pessoas como responsáveis da cooperação'
+    max-sm: 'Por favor, escolhe no máximo três pessoas como responsáveis da cooperação'
     amb: 'És não responsável por esta cooperação.
 
       Mas tens amplos direitos como o embaixador(a).
@@ -2611,6 +2610,7 @@ settings:
       thunderbird: Mozilla Thunderbird
       etar: Etar
       other: Outra coisa
+      select: Escolher aplicação de calendário
     generate_url:
       button: Gerar URL do calendário
     download: Descarregar calendário
@@ -2652,6 +2652,10 @@ settings:
       6_hours: 6 horas antes
       12_hours: 12 horas antes
       1_day: 1 dia antes
+    validation:
+      select_program: Por favor, escolhe uma aplicação de calendário.
+      not_empty: O calendário não deve estar vazio. Por favor, escolhe pelo 
+        menos uma opção para vagas ou eventos.
   email: 'E-mail & palavra-passe'
   push:
     info-off: 'As notificações push do foodsharing estão ativadas neste dispositivo.
@@ -2788,7 +2792,7 @@ settings:
   profile: Configurações do perfil
   delete_profile: Eliminar este perfil
   address:
-    title: Selecionar morada
+    title: Escolher morada
     choose: Utilizar morada
   quiz:
     1: Quiz para te tornar um Foodsaver
@@ -3117,7 +3121,7 @@ timepicker:
   from: de
   to: a
 join_region:
-  headline: 'Seleciona o distrito onde queres atuar.'
+  headline: 'Escolhe o distrito onde queres atuar.'
   error:
     not_allowed: 'Não podes inscrever-te neste distrito.'
     is_country_2: 'Selecione uma cidade, região ou distrito!'
@@ -3638,13 +3642,13 @@ region:
     distrito, pois ela ainda é membro de pelo menos um local.
 upload:
   new_image: 'Carregar novo imagem'
-  no_image: 'O ficheiro carregado não é uma fotografia. Por favor, selecione outro
+  no_image: 'O ficheiro carregado não é uma fotografia. Por favor, selecionar outro
     ficheiro.'
   image: 'Carregar imagem'
   choose_file: 'Carregar ficheiro'
   no_image_yet: 'Ainda não foi carregada nenhuma imagem'
   preview_image: 'Previsão'
-  no_image_chosen: 'Ainda não foi selecionado qualquer ficheiro'
+  no_image_chosen: 'Ainda não foi selecionado nenhum ficheiro'
   file: 'Carregar ficheiro'
   crop_dialog_title: 'Recortar a imagem'
   new_file: 'Carregar novo ficheiro'
@@ -3690,7 +3694,7 @@ conference:
   join_title: 'Entrar na conferência'
   join: 'Entrar na conferência'
   confirm_info: 'Aqui pode participar numa conferência de video online para o grupo
-    selecionado. A conferência de video online abre o BigBlueButton numa nova janela.
+    escolhado. A conferência de video online abre o BigBlueButton numa nova janela.
     Nota: as conferências de video online são realizadas através do servidor de conferências
     do coletivo "living utopia". Será automaticamente conectado com o teu nome, ID
     de membro e avatar inseridos no foodsharing.'
@@ -3845,8 +3849,8 @@ forum:
     title: 'Titulo'
     bottom: Visibilidade reduzida
     all_hidden: Todas as publicações neste tópico foram ocultadas.
-    post_not_found: A publicação ligada não foi encontrada, possivelmente foi 
-      eliminada. Em vez disso, foi selecionada o próximo publicação.
+    post_not_found: A publicação associada não foi encontrada, possivelmente foi
+      eliminada. Em vez disso, foi escolhida a publicação seguinte.
   post:
     body: 'Mensagem'
     delete: 'Eliminar publicação'
@@ -4139,7 +4143,7 @@ regionOptions:
     aplicada?'
   header_page: 'Configuração para {bezirk}'
   regionPickupLimitNumber: 'Número máximo de vagas permitido nos locais populares
-    no período selecionado'
+    no período escolhado'
   regionPickupRuleActiveStoreList: 'Lista de locais populares do distrito. Todas as
     vagas desses locais são somadas e consideradas para a regra.'
   enableMediationButton: 'Ativar formulário de mediação nas páginas de perfil dos
@@ -4276,18 +4280,18 @@ buddy:
 right: 'Avaliação'
 begin: 'Início da cooperação'
 picture_upload_widget:
-  choose_picture: 'Selecionar uma imagem do computador.'
+  choose_picture: 'Escolher uma imagem do computador.'
   picture_upload: 'Carregar fotografia'
 team:
   current: 'Equipa'
 language_chooser:
   translation_help: 'Falas ainda outras línguas? A gente da foodsharing está sempre
     à procura de pessoas para ajudar com traduções'
-  title: 'Selecionar língua'
+  title: 'Escolher idioma'
   translation_help_info_text: 'Este link leva ao portal de tradução. Registre-se lá
     e clique no ícone do lápis para começar'
   choose_button: 'Atualizar'
-  content: 'Por favor, selecione uma língua'
+  content: 'Por favor, escolhe uma idioma'
 prefetchtime: 'Com quantas semanas de antecedência podem os Foodsavers registar-se
   nas vagas geradas automaticamente?'
 ueberzeugungsarbeit: 'Foi fácil convencer os responsáveis a cooperar com o foodsharing?'
@@ -4318,7 +4322,7 @@ betrieb_status_id: 'Estado'
 lebensmittel: 'Que comida posso levar?'
 notice: 'Nota!'
 usersearch:
-  search_tag: 'Selecionar utilizador'
+  search_tag: 'Escolhe utilizador'
   no_tag_preset: 'Utilizador não encontrado'
   select_tag: 'Pesquisar utilizador pelo nome'
 contentmanagement: 'Gestão de conteúdos'
@@ -5052,7 +5056,7 @@ categories:
     id: 'ID'
     usage_count: 'Número de utilizações'
     number_of_stores: 'Local na categoria'
-  merge_hint: 'Selecione outra categoria com a qual «{name}» deve ser combinada. Todas
+  merge_hint: 'Escolhe outra categoria com a qual «{name}» deve ser combinada. Todas
     as entradas atribuídas à categoria «{name}» serão então atribuídas a esta categoria.'
   merge: 'juntar com outro'
   merge_title: 'Juntar categorias'
@@ -5246,8 +5250,8 @@ theme_switcher:
     light: 'Claro'
     dark: 'Oscuro'
   choose_button: 'OK'
-  content: 'Selecione um design'
-  title: 'Selecionar design'
+  content: 'Por favor escolhe um design'
+  title: 'Escolher design'
 network_errors:
   csrf_token_invalid:
     title: 'Sessão expirada'

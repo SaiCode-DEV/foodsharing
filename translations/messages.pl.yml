@@ -367,6 +367,7 @@ settings:
       outlook: 'Microsoft Outlook'
       google: 'kalendarz Google'
       label: 'Jakiego programu kalendarza używasz?'
+      select: Wybierz program kalendarza
     menu: Kalendarz
     export: Eksportuj kalendarz
     delete_token:
@@ -409,6 +410,10 @@ settings:
     export_tooltip: 'Możesz wyświetlać swoje terminy odbiorów w wybranym programie
       kalendarza.'
     info: ''
+    validation:
+      select_program: Wybierz program kalendarza.
+      not_empty: Kalendarz nie może być pusty. Wybierz przynajmniej jedną opcję,
+        sloty lub eventy.
   no_rights: Nie masz uprawnień, aby zmienić ustawienia profilu.
   edit_other: Zmień ustawienia profilu {name}
   title: Ustawienia
@@ -1528,7 +1533,7 @@ storeview:
   select_related_region: 'Wybór przyporządkowanego rejonu'
   visible_for_team: ''
   no_permission_to_view: ''
-  pickupWeight: ''
+  pickupWeight: 'uratowane kg'
   managers: ''
   activityCount:
     0: 'Odbiory'
@@ -1842,12 +1847,12 @@ statistics:
     activeHomeRegionFoodsavers: aktywni/e foodsaverzy/ki
     activeFoodSharePoints: aktywne jadłodzielnie
     foodBasketsLastMonth: 'rozdane/ych jadłokoszyki/ów'
-    savedFoodKgLastMonth: ''
+    savedFoodKgLastMonth: 'Uratowanej żywności'
     activeCoorporations: ''
-    pickupsLastMonth: ''
-  food_saved: ''
-  num_fetches: ''
-  kg_food_saved: ''
+    pickupsLastMonth: 'Odbiory/ów uratowanej żywności'
+  food_saved: 'uratowanej żywności'
+  num_fetches: 'w {count} akcjach'
+  kg_food_saved: 'uratowano {count} kg żywności'
 are_you_sure: Jesteś pewny/a?
 storeedit:
   name_error: Nazwa musi zawierać co najmniej trzy znaki.
@@ -2303,7 +2308,9 @@ addresspicker:
     kod pocztowy i miasto/gmina) tylko wtedy, jeśli wartości wprowadzone 
     automatycznie nie są poprawne. Może się to zdarzyć np. przy zmianie nazwy 
     ulicy.
-  infobox_profile: ''
+  infobox_profile: '[Foodsharerzy/ki](https://wiki.foodsharing.de/Foodsharer) potrzebują
+    adresu, uaby oferować jadłokoszyki na stronie internetowej. Adres jest niezbędny,
+    aby móc uczestniczyć w odbiorach uratowanej żywności jako [Foodsaver/ka](https://wiki.foodsharing.de/Foodsaver).'
 date:
   time: godzina {time}
   clock: godzina
@@ -3509,7 +3516,11 @@ help:
       md: ''
     basket:
       title: 'Jadłokoszyki'
-      md: ''
+      md: 'Użytkownicy/czki, którzy/e chcą **bezpłatnie** oddać (często uratowaną)
+        żywność, oferują jadłokoszyki. Zarejestrowani/e użytkownicy/czki mogą zapytać
+        o jadłokoszyk, aby go odebrać.
+
+        '
     storeLog:
       md: ''
       title: ''
