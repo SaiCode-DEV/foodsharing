@@ -411,7 +411,7 @@ bell:
   store_new_request_title: 'Pedido novo à equipa'
   forum_new_thread: 'de {user} no fórum {forum}'
   store_new_title: 'Novo local'
-  sharepoint_activate_title: 'Novo cantinho de partilha em {bezirk}'
+  sharepoint_activate_title: 'Novo cantinho da partilha em {bezirk}'
   store_cr_times: 'As vagas foram coregadas'
   new_foodsaver_verified: 'yá verificado - pode dar início'
   buddy_request: '{name} conhece-te.'
@@ -534,7 +534,7 @@ email_template:
     unsubscribe: 'Não queres receber mais a newsletter?'
     linktext: 'Clique aqui para cancelar a subscrição.'
   request_from: 'Pedido de'
-  foodsharepoint: '-- Cantinho de partilha'
+  foodsharepoint: '-- Cantinho da partilha'
   to: 'a'
   dont_respond:
     notification: 'notificaçães'
@@ -674,7 +674,7 @@ dashboard:
   no_more_updates_store: 'Sem mais novidades sobre os locais'
   full_subline: "Já recolheste comida **{pickups} vezes** e, com isso, salvaste **{weight}
     kg** que teriam ido para o lixo.\nO teu distrito principal é **{region}**."
-  no_more_updates_foodsharepoint: 'Não há mais publicações do cantinho de partilha'
+  no_more_updates_foodsharepoint: 'Não há mais publicações do cantinho da partilha'
   activation_mail_sent: 'Link de ativação enviado – verifique os teus e-mails'
   no_more_updates_all: 'foi isso!'
   greeting: 'Olá, {name}! Que bom ter-te aqui.'
@@ -904,7 +904,8 @@ basket:
     "3": 'tres dias'
     "5": cinco días
   all_map: 'Todos os cabazes no mapa'
-  request_denied: 'O teu pedido foi recusado pelo fornecedor do cabaz alimentar.'
+  request_denied: 'O teu pedido não foi aceite pela pessoa responsável pelo cabaz
+    alimentar.'
   is:
     vegan: 'produtos são veganos'
     gf: 'produtos são sem gluten'
@@ -959,13 +960,13 @@ basket:
   send_request: 'Enviar pedido'
   created: 'Publicado:'
   requested_by: 'solicitado por {name}'
-  provider: 'Fornecedor'
+  provider: 'Responsável pelo cabaz'
   published: 'Obrigado, o cabaz alimentar foi publicado.'
   public-info: 'A descrição, a imagem, o local de entrega e o período estão visíveis
     ao público.'
   edit: 'Editar a cabaz alimentar'
   no-desc: 'Por favor, escreva uma descrição.'
-  where: 'Onde?'
+  where: 'Onde fica?'
   image: 'Adicione uma foto ao cabaz alimentar.'
   n_requests: 'Solicitações até agora:'
   description: 'Descrição'
@@ -980,7 +981,7 @@ basket:
     taken: |
       **Infelizmente, este cabaz alimentar já não está disponível.**
 
-      É possível que já tenha sido recolhido ou removido pelo fornecedor.
+      É possível que já tenha sido recolhido ou retirado pela pessoa responsável.
     register: |
       Ainda não está registado como Foodsharer?
       Então clique em [**Participar**](/content?sub=joininfo) para começar ou cria o teu própria cabaz alimentar.
@@ -1521,7 +1522,7 @@ group:
     tooltip_function_10: 'Os administradores deste grupo de trabalho podem desbloquear
       mensagens em fóruns moderados. Caso esta opção esteja activada para o distrito,
       podem também ocultar mensagens no fórum.'
-    fsp: 'Cantinho de partilha'
+    fsp: 'Cantinho da partilha'
     tooltip_function_1: 'Os administradores deste grupo de trabalho são notificados
       dos novos membros do distrito'
     report: 'Denúncias'
@@ -1998,56 +1999,56 @@ fsp:
     manager: 'És responsável por este Fairteiler e, por isso, obrigado a receber as
       novidades.'
     none: 'não mais'
-    descSettings: 'Segues os todos informações do cantinho de partilha “{nome}”. Como
+    descSettings: 'Segues os todos informações do cantinho da partilha “{nome}”. Como
       gostaria de receber estas notificações?'
     descModal: 'Como gostaria de ser informado sobre novidades (por exemplo, entregas
       de comida)?'
     bell: 'só notificações internas'
-    from: 'Novidade para o cantinho de partilha „{name}“'
+    from: 'Novidade para o cantinho da partilha „{name}“'
   pic: 'Foto'
   description: 'Descrição'
   addedOn: 'Adicionado em'
   suggest: 'Sugerir novo cantinho'
   location: 'código postal / local'
   followers: 'Foodsharers interessados'
-  addError: 'Não foi possível registar o cantinho de partilha. Preencheu tudo corretamente?'
-  rejectConfirm: 'Atenção, se eliminar o cantinho de partilha, já não pode anular
+  addError: 'Não foi possível registar o cantinho da partilha. Preencheu tudo corretamente?'
+  rejectConfirm: 'Atenção, se eliminar o cantinho da partilha, já não pode anular
     esta ação. Queres mesmo continuar?'
-  reject: 'Recusar o cantinho de partilha'
-  add: 'Registar o cantinho de partilha'
+  reject: 'Recusar o cantinho da partilha'
+  add: 'Registar o cantinho da partilha'
   managers: 'Pessoas de contacto'
-  accept: 'Liberar o cantinho de partilha'
-  descLabel: 'Escreva aqui algumas informações básicas sobre o cantinho de partilha,
+  accept: 'Liberar o cantinho da partilha'
+  descLabel: 'Escreva aqui algumas informações básicas sobre o cantinho da partilha,
     especialmente quando está acessível/aberto.'
   address: 'Morada'
-  noManager: 'Deve haver pelo menos uma pessoa responsável por este cantinho de partilha.'
+  noManager: 'Deve haver pelo menos uma pessoa responsável por este cantinho da partilha.'
   street: 'Morada'
-  editSuccess: 'Cantinho de partilha foi editado com sucesso'
+  editSuccess: 'Cantinho da partilha foi editado com sucesso'
   summary: 'Há {count} cantinhos da partilha em todos os distritos onde está ativo'
   acceptName: 'desbloquear {name}'
-  follow: 'Siga este cantinho de partilha'
+  follow: 'Siga este cantinho da partilha'
   none: 'Ainda não há cantinhos da partilha inscritos'
   yours: 'Cantinhos da partilha nos vossos distritos'
-  acceptSuccess: 'O cantinho de partilha esta ativo agora'
-  new: 'Novo cantinho de partilha'
-  addSuccess: 'O cantinho de partilha foi inscrito com sucesso'
-  edit: 'Editar cantinho de partilha'
+  acceptSuccess: 'O cantinho da partilha esta ativo agora'
+  new: 'Novo cantinho da partilha'
+  addSuccess: 'O cantinho da partilha foi inscrito com sucesso'
+  edit: 'Editar cantinho da partilha'
   inRegion: 'Tudos os cantinhos da partilha no {region}'
-  delete: 'Eliminar cantinho de partilha'
+  delete: 'Eliminar cantinho da partilha'
   addedBy: 'Adicionado por'
   summaryRegion: 'Há {count} cantinhos da partilha em {region} e todos subdistritos'
   twig:
     n_in_region: '{count} cantinhos da partilha em {name}'
-  publicwall: 'Tenha em atenção que as tuas publicações no mural do cantinho de partilha
+  publicwall: 'Tenha em atenção que as tuas publicações no mural do cantinho da partilha
     são visíveis publicamente.'
-  suggestSuccess: 'O cantinho de partilha foi proposto e está agora a ser revisto
+  suggestSuccess: 'O cantinho da partilha foi proposto e está agora a ser revisto
     pelo o pessoa responsável.'
-  unfollow: 'Deixar de seguir este cantinho de partilha'
-  followName: 'Siga o cantinho de partilha {name}'
-  editName: 'Editar cantinho de partilha „{name}“'
-  deleteConfirm: 'Queres mesmo eliminar este cantinho de partilha?'
-  deleteSuccess: 'Cantinho de partilha foi excluido'
-  onlySuggested: Este cantinho de partilha foi sugerido mas ainda não foi 
+  unfollow: 'Deixar de seguir este cantinho da partilha'
+  followName: 'Siga o cantinho da partilha {name}'
+  editName: 'Editar cantinho da partilha „{name}“'
+  deleteConfirm: 'Queres mesmo eliminar este cantinho da partilha?'
+  deleteSuccess: 'Cantinho da partilha foi excluido'
+  onlySuggested: Este cantinho da partilha foi sugerido mas ainda não foi 
     lançado. Neste estado, não é apresentado assim aos outros utilizadores.
   form_validation:
     invalid: A entrada é inválida. Por favor, verifica as tuas entradas.
@@ -4104,7 +4105,7 @@ numbers:
   thousands_separator: ','
   billion_abbreviation: ' mil milhões'
 fp: 'Pontos de erro'
-fspmanagers: 'Pessoas de contacto para o cantinho de partilha'
+fspmanagers: 'Pessoas de contacto para o cantinho da partilha'
 storelist:
   status: 'Estado'
   emptyfilters: 'Vaziar o filtro'
@@ -4315,7 +4316,7 @@ sticker: 'A empresa/loja/clube, etc. está disponível para afixar um autocolant
 error_unexpected: 'Houve um erro'
 back: 'Para trás'
 first_post: 'Primeira publicação'
-fsp_bezirk_id: 'Em qual distrito está localizado o cantinho de partilha?'
+fsp_bezirk_id: 'Em qual distrito está localizado o cantinho da partilha?'
 about_me_public: 'Descrição rápida publica'
 delete: 'Eliminar'
 betrieb_status_id: 'Estado'
@@ -4345,7 +4346,7 @@ map:
   title: 'Mapa'
   donates: 'A loja faz doações'
   foodsharepoint:
-    go: Para o cantinho de partilha
+    go: Para o cantinho da partilha
   filters:
     stores:
       status:
@@ -4579,7 +4580,7 @@ help:
 
         ---
 
-        Importante: esta função baseia-se apenas nos selos de higiene próprios da foodsharing. Nem os certificados de higiene de fornecedores externos (como, por exemplo, Metro) carregados no perfil, nem os cursos de higiene adquiridos noutro local são tecnicamente considerados.
+        Importante: esta função considera apenas os selos de higiene da foodsharing. Certificados externos carregados no perfil (por exemplo, da Metro) e cursos de higiene realizados noutro local não são tecnicamente considerados.
       title: 'Requisitos de higiene para lojas'
     achievementVisibility:
       md: |

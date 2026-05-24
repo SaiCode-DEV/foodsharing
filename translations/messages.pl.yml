@@ -164,7 +164,9 @@ quiz:
         indywidualną informację zwrotną.
     acceptPrivacyNotice: Zgadzam się.
     privacyNotice:
-      hygiene: ''
+      hygiene: 'Jeśli zdasz ten quiz, data zaliczenia quizu będzie zanotowana i otrzymasz
+        sticker higieny. Osoby odpowiedzialne za zasady higieny i koordynatorzy/ki
+        punktów mogą zobaczyć, czy masz ważny sticker higieny.'
   infomodal:
     title: Pytanie {index} z {questions}
   comment:
@@ -305,8 +307,8 @@ presse: Czy firma/sklep/stowarzyszenie wyraża zgodę na publikację w prasie i 
   stronie foodsharing.de?
 sticker: Czy firma/sklep/klub itp. jest skłonna umieścić naklejkę przy wejściu 
   lub w innym miejscu?
-use_region_pickup_rule: Czy przepisy rejonu dotyczące odbioru zamówień powinny 
-  mieć zastosowanie także do tej firmy?
+use_region_pickup_rule: Czy w tym punkcie ma obowiązywać reguła rodzynkowa dla 
+  danego rejonu?
 expand_all: rozłóż wszystko
 collapse_all: wszystko zwinąć
 image: Obraz
@@ -379,9 +381,9 @@ settings:
     download: Pobierz kalendarz
     event:
       none: żadne
-      all: ''
-      invitations: ''
-      label: ''
+      all: 'Wszystkie eventy'
+      invitations: 'Eventy, przy których nie odmówiłem/am'
+      label: 'Jakie eventy z twoich rejonów i zespołów mają być zawarte?'
       maybe: 'Eventy, przy których podałem/am, że (być może) będę uczestniczyć'
       accepted: 'Eventy, przy których podałem/am, że będę uczestniczyć'
     reminders:
@@ -409,7 +411,25 @@ settings:
     protocol: 'Jakiego protokołu używa twój program kalendarza?'
     export_tooltip: 'Możesz wyświetlać swoje terminy odbiorów w wybranym programie
       kalendarza.'
-    info: ''
+    info: 'Tu możesz połączyć swoje terminy na foodsharingu z wybranym programem kalendarza.
+      W ten sposób wszystkie twoje sloty i/lub eventy mogą być automatycznie wprowadzone
+      do twojego kalendarza.
+
+
+      **Utrzymuj linki do kalendarzy w ścisłej tajemnicy.** Zawierają one *token*,
+      z którym można bez hasła uzyskać dostęp do danych twoich slotów. Możesz w dowolnym
+      czasie usunąć swój aktualny token, przez co wcześniej utworzone linki kalendarza
+      będą unieważnione.
+
+
+      Twój program kalendarza musi regularnie **synchronizować** ten kalendarz. Tylko
+      wtedy będą pojawiać się nowe sloty, a odmówione terminy będą znikać. Jeśli zamiast
+      tego pobierzesz swój aktualny kalendarz, będzie on zawierał tylko twoje aktualne
+      terminy i nie będzie automatycznie aktualizowany.
+
+      Więcej informacji znajdziesz [tutaj w Wiki]({calendarUrl})
+
+      '
     validation:
       select_program: Wybierz program kalendarza.
       not_empty: Kalendarz nie może być pusty. Wybierz przynajmniej jedną opcję,
@@ -693,7 +713,10 @@ settings:
       valid_end: Ważny do
       generate_error: Podczas generowania legitymacji wystąpił błąd. Proszę, 
         spróbuj ponownie później.
-    verified_text: ''
+    verified_text: 'Ta legitymacja jest przeznaczona do użytku na smartfonie. Możesz
+      ją sobie tam zapisać i okazać w razie potrzeby. Jeśli nie masz smartfona albo
+      z innego powodu potrzebujesz jeszcze tradycyjnej legitymacji, zwróć się do lokalnych
+      ambasadorów/ek.'
   photo:
     title: twoje zdjęcie
     info: ''
@@ -732,7 +755,13 @@ settings:
   chatmail: "Jeśli otrzymasz wewnętrzną wiadomość na stronie głównej foodsharingu,\
     \ \nale chwilowo nie jesteś zalogowany/a, możesz otrzymać powiadomienie mailem.\
     \ \nCzy tego chcesz?\n"
-  newsletter: ''
+  newsletter: 'Około 1x w miesiącu wysyłamy aktualnie informacje
+
+    o ruchu na rzecz ratowania żywności w formie newslettera.
+
+    Chcesz otrzymywać te maile?
+
+    '
   change_data_info:
     verified: 'Nie możesz edytować swojego imienia i nazwiska oraz daty urodzenia.
       Możesz jednak poprosić ambasadora/kę, aby zmienił/a te dane za ciebie.'
@@ -831,7 +860,8 @@ group:
       międzyregionalny zespół "AG anlegen"'
     tooltip_function_9: 'Administratorzy/ki tego zespołu mogą edytować opis grupy
       lokalnej na mapie.'
-    tooltip_function_4: ''
+    tooltip_function_4: 'Administratorzy/ki tego zespołu mają wgląd w punkty w rejonie
+      i mogą je edytować'
     pr: 'Public relations'
     tooltip_function_5: 'Administratorzy/ki tego zespołu mogą widzieć skargi o foodsaver(k)ach
       w rejonie. Nie są pokazywane skargi, które są powiązane z administrator(k)ami!
@@ -857,7 +887,7 @@ group:
     tooltip_function_13: 'Administratorzy/ki tego zespoły otrzymują powiadomienia
       przez dzwonek o nowych zasobach.'
     none: 'Nie ma zespołów GOALS'
-    stores_coordination: ''
+    stores_coordination: 'Punkty'
     tooltip_function_3: 'Administratorzy tego zespołu mogą aktywować i edytować jadłodzielnie
       w rejonie oraz usuwać posty na tablicy jadłodzielni'
     arbitration: 'Rada arbitrażowa'
@@ -971,7 +1001,8 @@ group:
       z listy odrzuconych adresów e-mail'
     tooltip_function_region332: 'Członkowie tego zespołu mają dostęp do listy sieci'
     tooltip_function_region432: 'Administratorzy/ki tego zespołu mogą przeglądać skargi'
-    tooltip_function_region2296: ''
+    tooltip_function_region2296: 'Administratorzy/ki tego zespołu mogą edytować kategorie
+      zasobów i punktów'
   confirm_decline: 'Czy na pewno chcesz odrzucić to zgłoszenie?'
   quitting_home_district_warning: 'Czy na pewno chcesz opuścić swój rejon macierzysty
     {name}? Utracisz weryfikację i musisz później zgłosić się do teamu ambasadorów/ek
@@ -1001,7 +1032,7 @@ legal:
     this_doesnt_get_deleted: 'Następujące informacje już nie są dostępne w aktywnym
       systemie, ale są zarchiwizowane oddzielnie na podstawie Art. 17 ust. 3 lit.
       b RODO:'
-    this_gets_deleted_stores: ''
+    this_gets_deleted_stores: 'Punkty, do których dołączyłeś/aś.'
     legal_more_info: Dalsze informacje
     unsubscribe_newsletter: 'Wypisz się także z newslettera foodsharingu, o ile masz
       subskrybcję. Możesz to też zrobić później przez link w mailu z newsletterem.'
@@ -1171,7 +1202,7 @@ terminology:
     "1": Foodsaver:ka
     "3": Ambasador:ka
     "4": 'Orga-człowiek'
-    "2": ''
+    "2": 'Koordynator/ka punktu'
   ambassadors: Ambasadorowie/ki
   ambassador_forum: Forum ambasadorów/ek
   admins: Administratorzy/ki
@@ -1203,9 +1234,9 @@ terminology:
   group: zespół
   reportAdmins: 'Team rozpatrujący skargi'
   storemanager:
-    m: ''
-    d: ''
-    f: ''
+    m: 'Koordynator punktu'
+    d: 'Koordynator/ka punktu'
+    f: 'Koordynatorzy/ki punktu'
   mediationAdmins: 'Team mediacji'
   giving: 'Darowizna'
   baskets: 'Jadłokoszyki'
@@ -1220,7 +1251,7 @@ terminology:
     m: 'Orga-człowiek'
   n_cooperating_stores: '{count} działające/ych kooperacje/i'
   resourcesAdmins: 'Team mozaiki zasobów'
-  stores: ''
+  stores: 'Punkty'
   wall: 'Tablica'
   reports:
     report: 'Widok skarg (team rozpatrujący skargi)'
@@ -1237,8 +1268,8 @@ terminology:
   n_home_regions: '{count} z rejonem macierzystym'
   arbitrationAdmins: 'rada arbitrażowa'
   storesAdmins: ''
-  n_stores: ''
-  store: ''
+  n_stores: '{count} punkty/ów'
+  store: 'Punkt'
   basket: 'Jadłokoszyk'
   attention: Uwaga
   newsletter: Newsletter
@@ -1378,7 +1409,8 @@ petition:
   link: Do petycji
   progressText:
     2000: 'Petycja się rozkręca! Z twoim wsparciem nabierzemy rozpędu!'
-    Infinity: ''
+    Infinity: 'Cel osiągnięty! Nasza petycja będzie omawiana w niemieckim parlamencie.
+      Teraz chodzi o to, aby jeszcze wzmocnić naszą intencję!'
     8000: 'Dobrze zaczęliśmy! Pomóż, abyśmy zaszli jeszcze dalej!'
     20000: 'Mamy już połowę potrzebnych podpisów! Razem damy radę!'
     25000: 'Mamy już dwie trzecie potrzebnych podpisów! Razem damy radę!'
@@ -1512,33 +1544,33 @@ storeview:
   public_info:
     error_message: Tekst jest za długi (max. {count} znaki/ów)
     available_count: Dostępna liczba znaków
-    label: ''
+    label: 'Publiczne informacje o punkcie'
   visible_for_public: Ten tekst jest widoczny dla wszystkich foodsaverów/ek, np.
     na mapie.
   contact:
     name: Imię/Nazwisko
   public_time_in_the_morning: rano
   management: Zarządzanie
-  team_info_distance: ''
+  team_info_distance: 'Odległość od punktu w linii prostej:'
   public_time: 'Odbiór około {freq}. Nigdy nie idź do sklepu bez uprzedniego ustalenia!'
   specials: 'Instrukcje i procedura'
   source_data: 'Dane źródłowe'
   public_and_statistics: 'Statystyka & public relations'
-  team: ''
+  team: 'Team punktu'
   invalid_field: 'Nieważna treść pola. Zmiany nie mogą zostać zapisane.'
   team_info_jumper: 'Rezerwowi:'
-  store: ''
-  show_settings: ''
+  store: 'Punkt'
+  show_settings: 'Ustawienia punktu'
   status_notes: 'Notatki statusu'
   select_related_region: 'Wybór przyporządkowanego rejonu'
-  visible_for_team: ''
-  no_permission_to_view: ''
+  visible_for_team: 'Ten tekst jest widoczny tylko dla teamu danego punktu.'
+  no_permission_to_view: 'Widoczne tylko dla koordynatorów/ek punktu.'
   pickupWeight: 'uratowane kg'
-  managers: ''
+  managers: 'Koordynatorzy/ki punktu'
   activityCount:
     0: 'Odbiory'
     1: 'Darowizny'
-    2: 'eventy'
+    2: 'Odbiory'
 store:
   team_container: Team
   member: Członek
@@ -1577,13 +1609,13 @@ store:
     reloadRequired: 'Do aktualizacji informacji o teamie:'
     demoteAsManagerConfirm: ''
     demoteAsManager: ''
-    filterManage: ''
+    filterManage: 'Z quizem dla koordynatorów/ek punktu'
     promoteToManager: ''
     userHasPickupsWarning: ''
     promoteToManagerNotPossible: ''
     filterSleeping: 'uśpiony/a'
     filterJumper: 'Rezerwowy/a'
-    filterQuizSM: ''
+    filterQuizSM: 'Zdany quiz dla koordynatorów/ek punktu'
     reallyRemove: ''
     makeJumper: 'Na listę rezerwowych'
   request:
@@ -1599,7 +1631,7 @@ store:
       one_more: Pokaż kolejną wskazówkę
       many_more: Pokaż {count} kolejne wpisy
       one_less: Ukryj wpis
-      many_less: Ukryj {count} wpisów
+      many_less: Ukryj {count} wpisy/ów
     unverified: Użytkownik/czka nie jest zweryfikowany/a
     to-team: dodaj do teamu
     to-nowhere: odrzuć
@@ -1734,8 +1766,8 @@ store:
   chat:
     team: Wiadomość do teamu
     jumper: 'Wiadomość do rezerwowych'
-    managers: ''
-    managers_preface: ''
+    managers: 'Wiadomość do koordynatorów/ek punktu'
+    managers_preface: 'Zapytanie do koordynatorów/ek punktu [{store}]({storeUrl}):'
   no_chain_choosen: nie wybrano sieci
   passport_expired: Twoja legitymacja już jest nieważna. Dlatego nie możesz się 
     chwilowo tutaj zarejestrować. Skontaktuj się z twoimi ambasador(k)ami, aby 
@@ -1763,10 +1795,10 @@ store:
   lastPickup: 'Ostatnia aktywność {date}'
   managing: ''
   springer_conversation_name: 'Rezerwowy/a {name}'
-  isManager: ''
+  isManager: 'Odpowiedzialny/a za ten punkt.'
   noPickup: 'Jeszcze nie wykonał/a tu żadnego odbioru.'
   tooltip_red: 'Wolne sloty dzisiaj lub jutro'
-  not-in-team: ''
+  not-in-team: 'Jeszcze nie jesteś w teamie tego punktu.'
   allStoresOfRegion: ''
   willgetcontacted: 'Aktualnie jesteś na liście rezerwowych. Zostaniesz poinformowany/a,
     kiedy pomoc będzie potrzebna.'
@@ -1792,11 +1824,11 @@ store:
   enter_date: 'Dodaj pojedynczy slot'
   ownStores: ''
   lastPickupTitle: 'Ostatnia aktywność tutaj'
-  mayManage: ''
+  mayManage: 'Zdał/a quiz dla koordynatorów/ek punktu.'
   passport_expires_soon: 'Twoja legitymacja jest ważna jeszcze tylko {days} dni! Skontaktuj
     się ze swoimi ambasador(k)ami, aby ją przedłużyć. Po upływnie terminu ważności
     nie będziesz mógł/mogła się tutaj zapisywać.'
-  bread: ''
+  bread: 'Wszystkie punkty'
   particularities_chain: 'Uwagi o sieci'
   appliedFor: 'Wysłano zgłoszenie'
   regionPickupRuleLong: ''
@@ -1848,7 +1880,7 @@ statistics:
     activeFoodSharePoints: aktywne jadłodzielnie
     foodBasketsLastMonth: 'rozdane/ych jadłokoszyki/ów'
     savedFoodKgLastMonth: 'Uratowanej żywności'
-    activeCoorporations: ''
+    activeCoorporations: 'aktywne/ych kooperacje/i'
     pickupsLastMonth: 'Odbiory/ów uratowanej żywności'
   food_saved: 'uratowanej żywności'
   num_fetches: 'w {count} akcjach'
@@ -1868,7 +1900,7 @@ storeedit:
     leave: ''
     need-sm: ''
     empty: 'Team nie może być pusty'
-    max-sm: ''
+    max-sm: 'Wybierz maksymalnie trzech/trzy koordynatorów/ki'
     amb: ''
     coordinator: ''
     kam: ''
@@ -1995,7 +2027,7 @@ pickup:
   really_delete_date: 'Czy na pewno chcesz usunąć slot {date}?'
   edit_recurring_pickups: 'Edytuj serię slotów'
   kick: 'Wypisz'
-  kick_message_footer: ''
+  kick_message_footer: 'Pozdrowienia, twoi/je koordynatorzy/ki punktu'
   really_kick_user_info: 'Czy na pewno chcesz wypisać {name} z odbioru dnia {date}?
 
     {name} otrzyma następującą wiadomość:
@@ -2019,7 +2051,7 @@ pickup:
   confirm: 'Potwierdź'
   call: 'Zadzwoń'
   really_leave: 'Jesteś odpowiedzialny/a za ten odbiór. Zorganizuj samodzielnie zastępstwo.'
-  to_be_confirmed: ''
+  to_be_confirmed: 'Koordynator/ka tego punktu musi jeszcze potwierdzić ten slot.'
   delete_title: 'usuń te sloty'
   signout_info: 'Twoje nadchodzące odbiory zostaną usunięte.'
   leave_team_message_template: 'wypisałem/am się z odbioru {date}. …'
@@ -2822,7 +2854,8 @@ profile:
     no_common_workgroups: 'żadnych wspólnych zespołów'
     home_region_from: 'rejon macierzysty'
     kam_for: ''
-    orga_rights: ''
+    orga_rights: '##### ma jako orga-człowiek [rozszerzone uprawnienia]({wikiurl})
+      na platformie.'
     foodSaver_in_region: 'dołączył/a do rejonów'
   mail_bounce:
     warning_1: Twój osobisty adres email {email} jest zablokowany dla maili i 
@@ -4332,7 +4365,12 @@ support_page:
     placeholder: 'Wybierz plik'
     drop_placeholder: 'Upuść plik tutaj'
     browse: 'Przeglądaj'
-  info_teaser: ''
+  info_teaser: 'Nasz formularz supportu jest do twojej dyspozycji w przypadku pytań
+    o obsługę platformy, sprawy techniczne lub komunikaty o błędzie. Po wysłaniu zostanie
+    automatycznie utworzony ticket w naszym systemie. Wolontariusze/ki z teamu supportu
+    zajmą się twoimi zapytaniami. Aby lepiej odpowiadać na problemy techniczne, w
+    twoim zapytaniu będzie zawarte, jakiej przeglądarki i jakiego systemu operacyjnego
+    używasz.'
   body: 'Wiadomość'
   title: 'Formularz supportu'
   validation_firstName: 'Imię jest puste'
@@ -4371,7 +4409,8 @@ contact_page:
       jako ticket (link na górze po prawej stronie).'
   bread: 'Kontakt & Support'
 base:
-  whatfor: ''
+  whatfor: 'Na foodsharing.de możesz przekazywać instytucjom społecznym lub innym
+    osobom swoją żywność przed zepsuciem'
   slogan: ''
   jsrequired: 'Niestety, nic tu nie działa bez JavaScript.'
   keywords: ''
@@ -4428,7 +4467,8 @@ startpage:
       part4: 'jadłodzielnie'
     title: 'w twojej okolicy'
   demands:
-    image_alt: ''
+    image_alt: 'Uratowana żywność, np. chleb, owoce i warzywa leżą na plandece na
+      świeżym powietrzu. W tle widać ludzi i rowery.'
     title: 'Żądania'
     text: ''
   call_to_action:
@@ -4458,8 +4498,12 @@ startpage:
   slogan_2: ''
   makeproposals: 'Składaj propozycje'
   followrules: ''
-  respect: ''
-  followrules_title: ''
+  respect: 'Ponieważ produkty żywnościowe są nam niezbędne do życia, chcemy również
+    traktować je z szacunkiem. Aby wszystko u nas przebiegało optymalnie, zdefiniowaliśmy
+    na przestrzeni lat kilka zasad postępowania. Przekazywanie żywności innym to bardzo
+    ludzka, ale też odpowiedzialna sprawa. Zasadniczo zawsze obowiązuje: "Nie przekazuj
+    innym niczego, czego sam nie chciał(a)byś zjeść". Przeczytaj teraz etykietę foodsharingu!'
+  followrules_title: 'Przestrzegaj reguł i poradnika przekazywania żywności'
   join: 'Dołącz'
   etiquette: 'etykieta foosharingu'
   donate:
@@ -4498,8 +4542,12 @@ startpage:
     text: ''
   proposals: 'Chcemy rozwijać się dalej, stawać się coraz lepszymi. Do tego potrzebujemy
     was z wieloma dobrymi pomysłami i radami. Wyślijcie nam je na adres [info@foodsharing.de](mailto:info@foodsharing.de)'
-  together: ''
-  responsibility: ''
+  together: 'Razem z foodsharingiem mogą Państwo działać na rzecz tego, że wycofana
+    i niesprzedana żywność znajdzie pożyteczne zastosowanie, zamiast zostać wyrzucona.
+    Więcej informacji znajdą Państwo [tutaj](/fuer-unternehmen).'
+  responsibility: 'Jedna trzecia produkowanej żywności ląduje w śmieciach. Z tym musi
+    być koniec. Nie chcemy nic więcej wyrzucać! Chcemy traktować żywność odpowiedzialnie
+    i cieszymy się, że do nas dołączysz.'
   notallowed: 'Przekazywanie dalej lekarstw (także środków homeopatycznych) jest wyłączone
     z foodsharingu. Nie można także poprzez foodsharing wymieniać się lub dzielić
     się odzieżą, kosmetykami, chemią gospodarczą, zabawkami i innymi produktami niespożywczymi.
@@ -4535,7 +4583,10 @@ feedback:
     message_short: 'Twoja wiadomość jest za krótka. Podaj więcej informacji.'
     no_sentry: 'Wystąpił błąd przy wysyłaniu feedbacku. Spróbuj ponownie później.'
   button: 'Beta feedback'
-  privacy: ''
+  privacy: 'Twoja wiadomość zostanie przekazana wolontariusz(k)om-developer(k)om platformy
+    foodsharingu. Wszystkie dane z formularza oraz załączone obrazy, będą wtedy dla
+    nich widoczne. Upewnij się, że na zrzutach ekranu nie ma żadnych danych osobowych
+    innych użytkowników/czek, których nie masz prawa przekazywać dalej.'
   success: 'Pomyślnie przekazano twój feedback.'
   title: 'Beta formularz feedback'
   name_sent: 'Twoje imię i ID będą wysłane razem z feedbackiem.'
@@ -4617,12 +4668,13 @@ storestatus:
   placeholder: 'status'
 stats:
   total:
-    pickups: ''
+    pickups: 'akcje/i ratowania żywności wykonali/ły nasi/sze foodsaverzy/ki.'
     weight: ''
     fsp: 'Jadłodzielnie używane do dzielenia się żywnością.'
     foodsharer: 'Foodsharerzy/ów/ki/ek są/jest obecnie zarejesterowani/e/ych na foodsharingu
       i interesują/e się naszą pracą.'
-    foodsaver: ''
+    foodsaver: 'Foodsaverzy/ki/ów/ek angażuje się w ramach wolontariatu na rzecz świata
+      bez marnowania żywności.'
     baskets: 'jadłokoszyki łącznie opublikowane online.'
     cooperations: ''
   leader:
@@ -4633,7 +4685,7 @@ stats:
     by_weight: 'Według wagi'
   avg:
     baskets: 'jadłokoszyki/ów są/jest średnio wstawiane/ych online w ciągu tygodnia.'
-    pickups: ''
+    pickups: 'aktualnie wykonywane/ych akcje/i ratowania żywności średnio na dzień.'
   title: 'Całkowita statystyka'
 numbers:
   decimal_separator: ','
