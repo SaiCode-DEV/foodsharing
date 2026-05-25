@@ -1057,12 +1057,16 @@ settings:
       thunderbird: ''
       label: ''
       other: ''
+      select: ''
     export: ''
     menu: ''
     protocol: ''
     download: ''
     export_tooltip: ''
     info: ''
+    validation:
+      not_empty: ''
+      select_program: ''
   passport:
     wallet:
       valid_end: ''
@@ -1280,6 +1284,9 @@ settings:
     not-supported: ''
     disable: ''
     info-on: ''
+    error:
+      service_blocked: ''
+      permission_denied: ''
   general:
     phone: ''
     no_address: ''
@@ -3403,6 +3410,7 @@ events:
     future: ''
     not_started: ''
     past: ''
+    join: ''
   button:
     change: ''
     no: ''
@@ -4042,6 +4050,10 @@ information:
     title: ''
     link: ''
     description: ''
+  previous: ''
+  next: ''
+  current_index: ''
+  hide: ''
 memberlist:
   header_for_district: ''
   header_for_workgroup: ''

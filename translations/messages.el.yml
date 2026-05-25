@@ -1512,6 +1512,7 @@ events:
     future: ''
     not_started: ''
     past: ''
+    join: ''
   location: ''
   public_info: ''
   online_info: ''
@@ -1598,6 +1599,9 @@ settings:
     info-off: ''
     disable: ''
     disabled: ''
+    error:
+      service_blocked: ''
+      permission_denied: ''
   title: ''
   sleep:
     info: ''
@@ -1664,9 +1668,13 @@ settings:
       thunderbird: ''
       label: ''
       other: ''
+      select: ''
     protocol: ''
     download: ''
     info: ''
+    validation:
+      not_empty: ''
+      select_program: ''
   photo:
     title: ''
     info: ''
@@ -3097,6 +3105,10 @@ information:
     link: ''
     title: ''
     description: ''
+  previous: ''
+  next: ''
+  current_index: ''
+  hide: ''
 calendar:
   labelSelected: ''
   locale: 'el'

@@ -2855,6 +2855,7 @@ events:
     present: Este acto se celebra en línea. Puedes inscribirte ahora.
     future: Este acto se celebrará en línea. En cuanto empiece, puede unirte a 
       través del botón inferior.
+    join: ''
   attendees: Participantes
   noneAccepted: Hasta el momento, ninguna persona ha confirmado su participación
     en este acto.
@@ -3030,6 +3031,9 @@ settings:
       ni responderá con un sonido o vibración.
 
       '
+    error:
+      service_blocked: ''
+      permission_denied: ''
   email: 'Correo electrónico y contraseña'
   calendar:
     delete_token:
@@ -3067,6 +3071,7 @@ settings:
       label: ¿Qué programa de calendario utilizas?
       apple: Apple Calendario
       etar: ''
+      select: ''
     formatting:
       label: ¿Qué formato deben tener las descripciones de los nombramientos?
       html: HTML
@@ -3093,6 +3098,9 @@ settings:
       15_minutes: ''
       6_hours: ''
       3_hours: ''
+    validation:
+      not_empty: ''
+      select_program: ''
   sleep:
     none: 'Soy activo y totalmente involucrado'
     range: 'Indique cuánto tiempo no estará disponible:'
@@ -3853,6 +3861,10 @@ information:
     description: 'Esto le permite ver sus próximas fechas de recogida utilizando un
       programa de calendario de su elección.'
     title: '¿Conoces la sincronización del calendario para tus recogidas?'
+  previous: ''
+  next: ''
+  current_index: ''
+  hide: ''
 login:
   steady_login: 'Mantente conectad@ permanentemente'
   error_no_email: 'Ingrese su dirección de correo electrónico.'

@@ -1065,6 +1065,7 @@ settings:
       other: En annen
       apple: Apple Kalender
       etar: Etar
+      select: ''
     generate_url:
       button: Generer en kalender-URL
     download: Last ned kalenderen
@@ -1107,6 +1108,9 @@ settings:
       6_hours: 6 timer før
       12_hours: 12 timer før
       1_day: 1 dag før
+    validation:
+      not_empty: ''
+      select_program: ''
   notifications: Varsler
   title: Innstillinger
   account: Kontoalternativer
@@ -1160,6 +1164,9 @@ settings:
       bli levert direkte til enheten din i fremtiden,\nselv om du ikke er pålogget.\n\
       \ Enheten din vil da vise et tilsvarende varsel\nhenholdsvis reagerer med en
       lyd eller en vibrasjon.\n"
+    error:
+      service_blocked: ''
+      permission_denied: ''
   businesscard: Personlig visittkort
   chatmail: "Hvis du mottar en intern melding på foodsharing, men du er\nikke pålogget
     for øyeblikket, kan vi informere deg via e-post.\nVil du det?\n"
@@ -2431,6 +2438,7 @@ events:
     future: Dette arrangementet vil finne sted på nettet. Så snart det starter, 
       kan du bli med via knappen nedenfor.
     not_started: Dette arrangementet har ennå ikke startet
+    join: ''
   attendees: Deltakere
   online_info: "Telefon- og nettkonferanser fra foodsharing kjører best via vår egen
     [BigBlueButton](https://bigbluebutton.org)-server. Fra 10 minutter før møtestart
@@ -3790,6 +3798,10 @@ information:
     description: Hvis du ikke lenger ønsker å motta push-varsler, kan du når som
       helst deaktivere dem i innstillingene.
     title: Du kan nå motta push-varsler fra foodsharing.
+  previous: ''
+  next: ''
+  current_index: ''
+  hide: ''
 system_administration:
   email: Send nyhetsbrev
   content: Administrer innhold

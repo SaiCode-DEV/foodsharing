@@ -398,6 +398,7 @@ settings:
       label: Quel programme de calendrier utilises-tu ?
       apple: Apple Calendrier
       etar: ''
+      select: ''
     formatting:
       label: Comment formater les descriptions ?
       html: HTML
@@ -441,6 +442,9 @@ settings:
       15_minutes: ''
       6_hours: ''
       3_hours: ''
+    validation:
+      not_empty: ''
+      select_program: ''
   push:
     disabled: Les notifications push on été désactivées
     disable: Désactiver les notifications push
@@ -459,6 +463,9 @@ settings:
       ton moteur de recherche \net recharge la page.\n"
     not-supported: Ton moteur de recherche n’accepte pas les notifications push.
     title: Notifications Push
+    error:
+      service_blocked: ''
+      permission_denied: ''
   photo:
     title: Ta photo
     info: "Ton visage doit être absolument <a href=\"{link_photo}\">reconnaissable</a>sur
@@ -2378,6 +2385,7 @@ events:
     future: Cet événement se déroule en ligne. Dès que l’événement commencera, 
       tu pourras y adhérer en cliquant sur le bouton ci-dessous.
     not_started: Cet événement n’a pas encore commencé
+    join: ''
   noneAccepted: Jusqu’à présent, aucune personne n’a confirmé sa participation à
     cet événement.
   location: Emplacement
@@ -4008,6 +4016,10 @@ information:
     description: Si tu ne veux plus recevoir de notifications push, tu peux les 
       désactiver à tout moment dans les paramètres.
     link: Vers les préférences
+  previous: ''
+  next: ''
+  current_index: ''
+  hide: ''
 error:
   missing_geolocation:
     title: Aucune adresse valide n’a été saisie

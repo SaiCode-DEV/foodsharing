@@ -772,6 +772,7 @@ settings:
       thunderbird: ''
       label: ''
       other: ''
+      select: ''
     reminders:
       12_hours: ''
       30_minutes: ''
@@ -806,6 +807,9 @@ settings:
     protocol: ''
     download: ''
     info: ''
+    validation:
+      not_empty: ''
+      select_program: ''
   email: 'E-mail и пароль'
   photo:
     info: 'На профильном фото ваше лицо должно быть <a href="{link_photo}">узнаваемо</a>,
@@ -837,6 +841,9 @@ settings:
 
       '
     disable: 'Отключить push-уведомления'
+    error:
+      service_blocked: ''
+      permission_denied: ''
   newsletter: 'Примерно раз в месяц мы отправляем новости о движении по спасению еды
     в рассылке. Хотите получать такие письма?
 
@@ -2626,6 +2633,7 @@ events:
     future: ''
     not_started: ''
     past: ''
+    join: ''
   location: ''
   public_info: ''
   online_info: ''
@@ -3540,6 +3548,10 @@ information:
     description: 'Если вы больше не хотите получать push-уведомления, вы можете отключить
       их в настройках в любое время.'
     link: 'К настройкам'
+  previous: ''
+  next: ''
+  current_index: ''
+  hide: ''
 success: 'Успешно завершено'
 notice: 'Внимание!'
 select: 'Пожалуйста, выберите'

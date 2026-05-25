@@ -1062,6 +1062,7 @@ events:
     future: ''
     not_started: ''
     past: ''
+    join: ''
   location: ''
   public_info: ''
   online_info: ''
@@ -2446,6 +2447,7 @@ settings:
       thunderbird: ''
       label: ''
       other: ''
+      select: ''
     reminders:
       12_hours: ''
       30_minutes: ''
@@ -2480,6 +2482,9 @@ settings:
     protocol: ''
     download: ''
     info: ''
+    validation:
+      not_empty: ''
+      select_program: ''
   push:
     disabled: ''
     success: ''
@@ -2490,6 +2495,9 @@ settings:
     title: ''
     info-on: ''
     disable: ''
+    error:
+      service_blocked: ''
+      permission_denied: ''
   sleep:
     range: ''
     saved: ''
@@ -3159,6 +3167,10 @@ information:
     title: ''
     description: ''
     link: ''
+  previous: ''
+  next: ''
+  current_index: ''
+  hide: ''
 join_region:
   error:
     not_allowed: ''

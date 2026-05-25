@@ -1796,6 +1796,7 @@ events:
     past: Bu etkinlik çevrimiçi olarak gerçekleşti.
     future: Bu etkinlik çevrimiçi olarak gerçekleşir.Başladıktan sonra aşağıdaki
       düğmeyi kullanarak katılabilirsiniz.
+    join: ''
   noneAccepted: Şu ana kadar hiç kimse bu etkinliğe katılımını onaylamadı
   attendees: Katılımcılar
   online_info: "foodsharing kaynaklanan telefon ve çevrimiçi konferanslar en iyi şekilde
@@ -2387,6 +2388,7 @@ settings:
       label: Hangi takvim programını kullanıyorsunuz?
       apple: Apple Takvim
       etar: ''
+      select: ''
     formatting:
       alt: Alternatif bir temsil olarak HTML içeren metin
       label: Randevu açıklamaları nasıl biçimlendirilmelidir?
@@ -2428,6 +2430,9 @@ settings:
       15_minutes: ''
       6_hours: ''
       3_hours: ''
+    validation:
+      not_empty: ''
+      select_program: ''
   title: Ayarlar_
   passport:
     menu: Kimlik Kartı
@@ -2476,6 +2481,9 @@ settings:
       dışı bırakırsanız, gelecekte sohbet mesajları devre dışı bırakılır\nve artık
       doğrudan cihazınıza teslim edilmez.\nGiriş yapmadıysanız, cihazınız artık bildirim
       göstermeyecek\nve artık bir ton veya titreşimle yanıt vermeyecektir.\n"
+    error:
+      service_blocked: ''
+      permission_denied: ''
   chatmail: "Foodsharing ana sayfasında dahili bir mesaj alırsanız,\nve o anda giriş
     yapmadıysanız, e-posta ile bilgilendirilebilirsiniz.\nBunu istiyor musunuz?\n"
   newsletter: "Yaklaşık ayda 1x yiyecek kurtarımı hakkında \ngünceli bilgileri bir
@@ -4040,6 +4048,10 @@ information:
       görmenizi sağlar.'
     link: 'Şimdi abone ol'
     title: 'Alımlarınız için takvim senkronizasyonunu biliyor musunuz?'
+  previous: ''
+  next: ''
+  current_index: ''
+  hide: ''
 team:
   current: 'Ekip'
 home:

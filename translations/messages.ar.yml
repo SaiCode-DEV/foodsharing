@@ -1001,9 +1001,13 @@ settings:
       thunderbird: ''
       label: ''
       other: ''
+      select: ''
     protocol: ''
     download: ''
     info: ''
+    validation:
+      not_empty: ''
+      select_program: ''
   photo:
     title: ''
     info: ''
@@ -1017,6 +1021,9 @@ settings:
     denied: ''
     not-supported: ''
     info-on: ''
+    error:
+      service_blocked: ''
+      permission_denied: ''
   follow:
     mail: ''
     none: ''
@@ -2213,6 +2220,10 @@ information:
     link: ''
     description: ''
     title: ''
+  previous: ''
+  next: ''
+  current_index: ''
+  hide: ''
 system_administration:
   regions: ''
   quiz: ''
@@ -3069,6 +3080,7 @@ events:
     future: ''
     not_started: ''
     past: ''
+    join: ''
   location: ''
   public_info: ''
   online_info: ''

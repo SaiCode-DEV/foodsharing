@@ -1865,6 +1865,7 @@ events:
     not_started: Questo appuntamento non è ancora iniziato
     future: Questo evento si svolgerà online. Non appena inizierà, potrai 
       iscriverti utilizzando il pulsante qui sotto.
+    join: ''
   location: Posizione
   public_info: ''
   online_info: ''
@@ -2810,6 +2811,9 @@ settings:
       del tuo browser\ne ricarica la pagina.\n"
     not-supported: Il tuo browser non supporta le notifiche push.
     title: Notifiche push
+    error:
+      service_blocked: ''
+      permission_denied: ''
   calendar:
     delete_token:
       message: Questo invaliderà il link precedente. Vuoi davvero cancellare il 
@@ -2827,6 +2831,7 @@ settings:
       label: Quale programma di calendario usi?
       apple: Apple Calendario
       etar: ''
+      select: ''
     formatting:
       html: HTML
       text: Solo testo
@@ -2862,6 +2867,9 @@ settings:
       6_hours: ''
       3_hours: ''
     info: ''
+    validation:
+      not_empty: ''
+      select_program: ''
   photo:
     info: "Il tuo viso dovrebbe essere <a href=\"{link_photo}\">riconoscibile</a>
       nella foto del profilo,\nperché verrà utilizzato per il <a href=\"{link_id}\"\
@@ -3962,6 +3970,10 @@ information:
     description: 'Consulta le date dei tuoi prossimi ritiri utilizzando un software
       di calendario a tua scelta.'
     title: 'Conosci la sincronizzazione del calendario per i tuoi ritiri?'
+  previous: ''
+  next: ''
+  current_index: ''
+  hide: ''
 chain:
   inputmodal:
     inputs:

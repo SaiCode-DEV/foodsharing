@@ -31,6 +31,9 @@ settings:
     info-on: ''
     enable: ''
     denied: ''
+    error:
+      service_blocked: ''
+      permission_denied: ''
   calendar:
     delete_token:
       button: ''
@@ -77,9 +80,13 @@ settings:
       thunderbird: ''
       label: ''
       other: ''
+      select: ''
     protocol: ''
     download: ''
     info: ''
+    validation:
+      not_empty: ''
+      select_program: ''
   photo:
     title: ''
     info: ''
@@ -1472,6 +1479,7 @@ events:
     future: ''
     not_started: ''
     past: ''
+    join: ''
   location: ''
   public_info: ''
   online_info: ''
@@ -3120,6 +3128,10 @@ information:
     title: ''
     description: ''
     link: ''
+  previous: ''
+  next: ''
+  current_index: ''
+  hide: ''
 bootstrap-datepicker:
   labelSelected: ''
   labelNextMonth: ''

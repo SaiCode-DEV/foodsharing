@@ -741,6 +741,7 @@ settings:
       permission_denied: Twoja przeglądarka zablokowała powiadomienia push. 
         Pozwól na powiadomienia od tej strony w ustawieniach twojej przeglądarki
         i odśwież stronę.
+      service_blocked: ''
   notifications: Powiadomienia
   follow:
     none: Nie informuj mnie mailem o nowych postach.

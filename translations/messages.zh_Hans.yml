@@ -1141,6 +1141,7 @@ events:
     future: ''
     not_started: ''
     past: ''
+    join: ''
   location: ''
   public_info: ''
   online_info: ''
@@ -1346,9 +1347,13 @@ settings:
       thunderbird: ''
       label: ''
       other: ''
+      select: ''
     protocol: ''
     download: ''
     info: ''
+    validation:
+      not_empty: ''
+      select_program: ''
   push:
     disable: ''
     not-supported: ''
@@ -1359,6 +1364,9 @@ settings:
     title: ''
     info-off: ''
     disabled: ''
+    error:
+      service_blocked: ''
+      permission_denied: ''
   account: ''
   sleep:
     range: ''
@@ -3205,6 +3213,10 @@ information:
     title: ''
     link: ''
     description: ''
+  previous: ''
+  next: ''
+  current_index: ''
+  hide: ''
 wall:
   delete: ''
   info-somebody-else: ''
