@@ -1895,11 +1895,16 @@ storeedit:
     foodsaver: Foodsaver
     leave_myself: Ciebie samego/samą
     note: 'Uwaga:'
-    cannot-leave: ''
+    cannot-leave: 'Jesteś odpowiedzialny/a za ten punkt i dlatego nie możesz go opuścić.'
     orga: ''
-    unmanaged: ''
-    leave: ''
-    need-sm: ''
+    unmanaged: 'W tym punkcie nie ma aktualnie żadnych koordynatorów/ek.
+
+      Dodaj maksymalnie trzech/trzy koordynatorów/ki, którzy/e będą się w przyszłości
+      opiekować tym punktem.
+
+      '
+    leave: 'Opuść punkt'
+    need-sm: 'Potrzebna jest co najmniej jedna osoba odpowiedzialna za punkt.'
     empty: 'Team nie może być pusty'
     max-sm: 'Wybierz maksymalnie trzech/trzy koordynatorów/ki'
     amb: ''
@@ -1922,13 +1927,13 @@ storeedit:
     statuschanged: Status zmieniony {date}
     accepted: '{user} jest teraz w teamie'
     dropped: '{user} już nie jest w teamie'
-    created: ''
+    created: '{user} wprowadził/a punkt dnia {date}'
   store_name_placeholder: ''
   unsuccess: 'Nie można było zapisać zmian. {error}'
   bread: ''
   add-new: ''
   not-in-region: ''
-  add_success: ''
+  add_success: 'Wprowadzono współpracujący punkt'
 pickup:
   overview:
     menu:
@@ -1937,20 +1942,20 @@ pickup:
       useCondensedDesign: Zgrupowane według dni
       loadMore: Załaduj więcej
       registeredSwitch: 'Zapisane sloty'
-      managedOnlySwitch: ''
+      managedOnlySwitch: 'Widok koordynatorów/ek punktu'
       signOff: 'Wypisz'
     freeSlots: '{slots} wolne/ych'
     cols:
       time: Czas
       slots: 'Sloty'
-      store: ''
+      store: 'Punkt'
     status:
       pending: NIepotwierdzony
       confirmed: Potwierdzony
       option: 'Dostępny slot'
     tab:
       options:
-        empty: ''
+        empty: 'Chwilowo nie ma wolnych slotów w twoich punktach.'
         name: 'Możliwości zapisu'
         tooltip:
           own: 'Przyszłe sloty, na które mógłbyś/mogłabyś się jeszcze zapisać'
@@ -2743,7 +2748,7 @@ map:
         label: rola
         all: wszystkie
         foodsaver: zweryfikowani/e foodsaverzy/ki
-        store-manager: ''
+        store-manager: 'Koordynatorzy/ki punktu'
       activity:
         label: ostatni login
         week: poprzedni tydzień
@@ -2839,7 +2844,7 @@ mailbox:
     Jeśli chcesz przekazać dalej maila z załącznikami, możesz pobrać załączniki i
     dołączyć je do nowego maila.'
   global_addressbook: 'globalna książka adresowa'
-  sm-quiz: ''
+  sm-quiz: 'Quiz dla koordynatorów/ek punktu'
   manage: 'Manager skrzynki pocztowej'
   not-available: 'Musisz być {role}, aby mieć dostęp do skrzynek pocztowych.
 
