@@ -1608,16 +1608,18 @@ store:
     reloadPage: Załaduj ponownie
     searchPlaceholder: Imię lub ID
     reloadRequired: 'Do aktualizacji informacji o teamie:'
-    demoteAsManagerConfirm: ''
-    demoteAsManager: ''
+    demoteAsManagerConfirm: 'Czy na pewno chcesz zrzec się swojej odpowiedzialności
+      jako koordynator/ka punktu?'
+    demoteAsManager: 'Odbierz odpowiedzialność'
     filterManage: 'Z quizem dla koordynatorów/ek punktu'
-    promoteToManager: ''
-    userHasPickupsWarning: ''
+    promoteToManager: 'Uczyń odpowiedzialnym'
+    userHasPickupsWarning: '{name} jest zapisany/a jeszcze na {occupiedSlots} slot/y/ów
+      w tym punkcie. Te sloty będą wtedy wolne. Chcesz mimo to kontynuować?'
     promoteToManagerNotPossible: ''
     filterSleeping: 'uśpiony/a'
     filterJumper: 'Rezerwowy/a'
     filterQuizSM: 'Zdany quiz dla koordynatorów/ek punktu'
-    reallyRemove: ''
+    reallyRemove: 'Czy na pewno chcesz usunąć {name} z teamu tego punktu?'
     makeJumper: 'Na listę rezerwowych'
   request:
     applicationSummary:
@@ -1669,7 +1671,8 @@ store:
       request: ''
       invited: ''
     withdrawn: 'Pomyślnie cofnięto zapytanie.'
-    got-it: ''
+    got-it: 'Osoby odpowiedzialne zostały poinformowane o twoim zapytaniu i skontaktują
+      się z tobą.'
     air_line: 'Pokazywana jest odległość w linii prostej.'
     needsHomeRegion:
       link: 'Wybierz rejon macierzysty'
@@ -1732,11 +1735,11 @@ store:
       13: '{actor} wypisał/a {target} ze slotu {date}.'
       13_with_reason: '{actor} wypisał/a {target} ze slotu {date} z następującą wiadomością'
       16: '{actor} cofnął/ęła zapytanie o członkostwo.'
-      10: ''
+      10: '{actor} usunął/ęła {target} jako koordynatora/kę punktu.'
       12: '{actor} wypisał/a się ze slotu {date}.'
       2: '{actor} odrzucił/a prośbę o członkostwo od {target}.'
       5: '{actor} umieścił/a {target} na liście rezerwowych.'
-      9: ''
+      9: '{actor} wprowadził/a {target} jako koordynatora/kę punktu.'
       15: '{actor} usunął/ęła wpis na tablicy od {target} z dnia {date}.'
     type:
       8: Opuszczenie teamu
@@ -1751,18 +1754,18 @@ store:
       1: 'Wysłanie zapytania o członkostwo'
       16: 'Cofnięcie zapytania o członkostwo'
       4: 'Przyjęcie foodsaverów/ek do teamu bez zapytania'
-      10: ''
+      10: 'Usunięcie koordynatora/ki punktu'
       6: 'Przyjęcie foodsaverów/ek do aktywnego teamu'
       12: 'Wypisanie się ze slotu'
-      9: ''
+      9: 'Wprowadzenie koordynatora/ki punktu'
       5: 'Dodanie foodsaverów/ek na listę rezerwowych'
       13: 'Zostanie wypisanym ze slotu'
       11: 'Zapisanie się na slot'
       15: 'Usunięcie wpisu na tablicy'
     log_types_placeholder: 'Wybierz typy akcji do wyświetlenia'
-    message_saved_info: ''
+    message_saved_info: 'Twoja wiadomość zostanie zapisana w protokole punktu.'
     selected_log_types: 'wybrano {amount} typów akcji'
-    title: ''
+    title: 'Protokół punktu'
   to_map: Pokaż na mapie
   chat:
     team: Wiadomość do teamu
@@ -1781,7 +1784,7 @@ store:
   may_not_referred_to_in_public: ''
   fetchCount: 'Wykonał/a tu {count}× odbiory/ów.'
   requests: 'Otwarte zapytania ({count})'
-  error: ''
+  error: 'Nie można było załadować punktu.'
   leaveinfo: 'Tu możesz podać trochę informacji dla foodsaverów/ek, którzy chcą się
     zgłosić do teamu.'
   convince:
@@ -1838,7 +1841,7 @@ store:
   nochains: ''
   enter_date_description: ''
   tooltip_yellow: 'Wolne sloty w ciągu następnych pięciu dni'
-  deactivatedRegion: ''
+  deactivatedRegion: 'Nie można aktualnie wyświetlić listy punktów dla państw i kontynentów.'
   peoplecame: 'Już się zdarzyło, że ludzie poszli do sklepu bez wcześniejszego  uzgodnienia.'
   may_referred_to_in_public: ''
   noStores: 'Jeszcze nie wprowadzono żadnych punktów'
@@ -1929,10 +1932,10 @@ storeedit:
     accepted: '{user} jest teraz w teamie'
     dropped: '{user} już nie jest w teamie'
     created: '{user} wprowadził/a punkt dnia {date}'
-  store_name_placeholder: ''
+  store_name_placeholder: 'Nazwa punktu'
   unsuccess: 'Nie można było zapisać zmian. {error}'
-  bread: ''
-  add-new: ''
+  bread: 'Edytuj punkt'
+  add-new: 'Dodaj nowy punkt'
   not-in-region: ''
   add_success: 'Wprowadzono współpracujący punkt'
 pickup:
@@ -2557,7 +2560,7 @@ pickuplist:
   error_confirm: 'Potwierdzenie nie powiodło się: '
   error_whileSending: Błąd przy wysyłaniu wiadomości
   unclear: Status niejasny
-  NumberOfStores_table_header: ''
+  NumberOfStores_table_header: 'Liczba punktów'
   error_loadingPickup: 'Ładowanie slotów nie powiodło się: '
   NumberOfSlots_table_header: 'Liczba slotów'
   error_changeSlotCount: 'Zmiana liczby slotów nie powiodła się: '
@@ -2660,7 +2663,7 @@ foodsaver:
     FOODSAVER: Zostań foodsaverem/ką
     learning: 'Obejrzyj teraz filmik instruktażowy'
     pn: 'Tak, przeczytałem/am pouczenie o ochronie danych i akceptuję je.'
-    STORE_MANAGER: ''
+    STORE_MANAGER: 'Zostań koordynatorem/ką punktu'
     rv: 'Tak, przeczytałem/am umowę prawną i akceptuję ją.'
     AMBASSADOR: 'Zostań ambasadorem/ką'
   kicked: Usunięto foodsavera/kę
@@ -2737,13 +2740,13 @@ map:
         label: Przynależność
         all: wszystkie
         region: 'Tylko moje okręgi'
-        member: ''
+        member: 'Tylko moje punkty'
       type:
         label: Typ
-        2: ''
+        2: 'Punkt organizacyjny'
         "null": 'wszystkie'
-        1: ''
-        0: ''
+        1: 'Punkt dostaw'
+        0: 'Punkt odbioru'
     users:
       role:
         label: rola
@@ -2772,7 +2775,7 @@ map:
   users:
     go: Do profilu
   title: 'Mapa'
-  donates: ''
+  donates: 'Punkt przekazuje darowizny'
   region:
     go: 'Do strony rejonu'
 mailbox:
