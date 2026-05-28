@@ -16,7 +16,9 @@
       <b-form-group :label="$t('settings.calendar.program.label')">
         <b-form-select v-model="selectedProgram" :options="programOptions">
           <template #first>
-            <b-form-select-option :value="null" disabled>{{ $t('settings.calendar.program.select') }}</b-form-select-option>
+            <b-form-select-option :value="null" disabled>
+              {{ $t('settings.calendar.program.select') }}
+            </b-form-select-option>
           </template>
         </b-form-select>
       </b-form-group>
@@ -55,7 +57,7 @@
     </b-button-toolbar>
     <div v-if="disableGenerating" class="invalid-feedback mt-0">
       <span v-if="!selectedProgram" v-text="$t('settings.calendar.validation.select_program')" />
-      <span v-if="!this.includePickups && this.includeEvents === 'none'" v-text="$t('settings.calendar.validation.not_empty')" />
+      <span v-if="!includePickups && includeEvents === 'none'" v-text="$t('settings.calendar.validation.not_empty')" />
     </div>
   </div>
 </template>

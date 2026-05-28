@@ -37,11 +37,7 @@ interface EmailAddress {
 
 class Foodsharing {
   async clear(): Promise<void> {
-    const tablesToSkip = [
-      "phinxlog",
-    ]
-      .map((t) => `'${t}'`)
-      .join(",");
+    const tablesToSkip = ["phinxlog"].map((t) => `'${t}'`).join(",");
 
     const conn = await Database.connect();
 
