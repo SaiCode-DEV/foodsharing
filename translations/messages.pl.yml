@@ -1626,10 +1626,11 @@ store:
       verified: Twój status weryfikacji ({status})
       time: Czas zgłoszenia
       fullName: Twoje pełne imię i nazwisko ({first_name} {last_name})
-      distance: ''
-      storeList: ''
+      distance: 'Odległość twojego miejsca zamieszkania od punktu ({distance})'
+      storeList: 'Listę twoich punktów'
       text: 'Twoja wiadomość aplikacyjna'
-      intro: ''
+      intro: 'Kiedy wyślesz swoje zgłoszenie, koordynatorzy/ki punktu widzą następujące
+        dane:'
     alerts:
       one_more: Pokaż kolejną wskazówkę
       many_more: Pokaż {count} kolejne wpisy
@@ -1657,8 +1658,15 @@ store:
         zgłoszenie.'
     requirePhone:
       link: Edytuj profil
-      invited: ''
-      request: ''
+      invited: 'Otrzymałeś/aś zaproszenie do tego punktu. Zanim będziesz mógł/mogła
+        zaakceptować zaproszenie, musisz podać numeru telefonu w swoim profilu. Ten
+        punkt akceptuje chwilowo tylko zgłoszenia od foodsaverów/ek z co najmniej
+        jednym podanym numerem telefonu. Podaj numer telefonu w swoim profilu, aby
+        móc zaakceptować zaproszenie.'
+      request: 'Aktualnie nie możesz wysyłać zapytań, bo jeszcze nie podałeś/aś numeru
+        telefonu w swoim profilu. Ten punkt akceptuje chwilowo tylko zgłoszenia od
+        foodsaverów/ek z co najmniej jednym podanym numerem telefonu. Podaj numer
+        telefonu w swoim profilu, aby móc wysłać zgłoszenie.'
     request: Zgłoś się do tego teamu
     verified: Użytkownik/czka jest zweryfikowany/a
     title: 'Zapytania do {storeTitle}'
@@ -1814,7 +1822,7 @@ store:
   short_tooltip_red: 'Wolne sloty dziś lub jutro'
   regionPickupRulesInactive: 'Dodatkowe reguły dla slotów w tym rejonie nie są aktywne'
   delete:
-    button: ''
+    button: 'Usuń punkt'
     sure: ''
     conditions_not_met: ''
   short_tooltip_orange: 'Wolne sloty w ciągu najbliższych 3 dni'
@@ -1900,7 +1908,11 @@ storeedit:
     leave_myself: Ciebie samego/samą
     note: 'Uwaga:'
     cannot-leave: 'Jesteś odpowiedzialny/a za ten punkt i dlatego nie możesz go opuścić.'
-    orga: ''
+    orga: 'Nie jesteś odpowiedzialny/a za ten punkt.
+
+      Masz jednak rozszerzone uprawnienia jako część globalnego teamu organizacyjnego.
+
+      '
     unmanaged: 'W tym punkcie nie ma aktualnie żadnych koordynatorów/ek.
 
       Dodaj maksymalnie trzech/trzy koordynatorów/ki, którzy/e będą się w przyszłości
@@ -1911,8 +1923,16 @@ storeedit:
     need-sm: 'Potrzebna jest co najmniej jedna osoba odpowiedzialna za punkt.'
     empty: 'Team nie może być pusty'
     max-sm: 'Wybierz maksymalnie trzech/trzy koordynatorów/ki'
-    amb: ''
-    coordinator: ''
+    amb: 'Nie jesteś odpowiedzialny/a za ten punkt.
+
+      Masz jednak rozszerzone uprawnienia jako ambasador/ka.
+
+      '
+    coordinator: 'Nie jesteś odpowiedzialny/a za ten punkt.
+
+      Masz jednak rozszerzone uprawnienia jako część teamu koordynacji punktów.
+
+      '
     kam: ''
   store:
     status: status
@@ -1936,7 +1956,7 @@ storeedit:
   unsuccess: 'Nie można było zapisać zmian. {error}'
   bread: 'Edytuj punkt'
   add-new: 'Dodaj nowy punkt'
-  not-in-region: ''
+  not-in-region: 'Możesz dodawać punkty tylko w rejonach, których jesteś członkiem.'
   add_success: 'Wprowadzono współpracujący punkt'
 pickup:
   overview:
@@ -2495,9 +2515,9 @@ bell:
   new_quiz_comment:
     one: '{user}: {comment}'
     many: '{count} nowe/ych komentarze/y'
-  delete_store_title: ''
+  delete_store_title: 'Usunięto punkt'
   store_new_request_title: 'Nowe zapytanie do teamu'
-  store_new_title: ''
+  store_new_title: 'Nowy punkt'
   store_cr_times: 'Dostosowano sloty'
   store_change_regular_pickup_times:
     many: 'Dostosowano sloty'
@@ -2516,7 +2536,7 @@ bell:
   poll_ending_soon_title: 'Głosowanie niedługo się kończy'
   store_new_request: 'Zapytanie do {name}'
   sharepoint_activate: 'wprowadzono {name}'
-  store_wall_post_title: ''
+  store_wall_post_title: 'Punkt {name}'
   fs_sleepmode: '{name} {nachname} jest teraz nieaktywny/a'
   forum_new_thread_title: 'Nowy wpis: {title}'
   new_report_title: 'Nowa skarga dotycząca {name}'
@@ -2527,7 +2547,7 @@ bell:
   chain_info_updated_title: 'Zaktualizowano sieć {chain}'
   chain_info_updated: '{store} jest częścią sieci.'
   store_added_to_chain_title: ''
-  store_added_to_chain: ''
+  store_added_to_chain: 'Punkt „{store}“ jest teraz częścią sieci.'
 list:
   filter_for: Filtruj według …
 filterlist:
@@ -2926,9 +2946,9 @@ profile:
       filterInvitations: Zaproszony/a
       filterActive: Członek
       filterRequested: 'Wysłano zapytanie'
-      filterManage: ''
+      filterManage: 'Odpowiedzialny/a'
       filterJumper: 'Rezerwowy/a'
-    store_table: ''
+    store_table: 'Tabela punktów'
     search_placeholder: 'Szukaj według nazwy'
   nav:
     buddy: Znam {name}
@@ -2938,7 +2958,7 @@ profile:
     notes: Notatki
     quizSessionHistory: 'Próby quizu'
     violations: 'Skargi'
-    storelist: ''
+    storelist: 'Punkty ({count})'
   history:
     noActor: nieznany
     noData: Brak dostępnych danych.
@@ -2994,7 +3014,7 @@ profile:
     oldReportButtonTextPart2: 'W razie potrzeby zwróćcie się do lokalnego zespołu
       rozpatrującego skargi w waszym rejonie.'
     noshow: 'Nie pojawił/a się na odbiorze'
-    doesNotAffectStore: ''
+    doesNotAffectStore: 'Dotyczy innego lub żadnego punktu'
     arbAdminAgainstRepAdmin: 'Jesteś administratorem/ką rady arbitrażowej i chcesz
       zgłosić skargę przeciwko administratorowi/ce zespołu rozpatrującego skargi.
       Na ten moment nie jest to technicznie wspierane. Możesz zawsze wysłać skargę
@@ -3003,12 +3023,12 @@ profile:
     oldReportButton: 'Zgłoś skargę'
     send: 'Wyślij skargę'
     report_b3_1: 'Nie wykonał/a odbioru bez kłótni lub dyskusji (B03-2)'
-    report_b1_3: ''
+    report_b1_3: 'Bez pozwolenia wziął/ęła dzieci do punktu (B01-4)'
     report_b6_0: ''
     report_b12: ''
     report_b7: ''
     report_b4_1: ''
-    report_b1_2: ''
+    report_b1_2: 'Bez pozwolenia wziął/ęła zwierzęta do punktu (B01-3)'
     repAdminAgainstArbAdmin: 'Jesteś administratorem/ką zespołu rozpatrującego skargi
       i chcesz zgłosić skargę przeciwko administratorowi/ce rady arbitrażowej. Na
       ten moment nie ma technicznego wsparcia dla tej opcji. Możesz zawsze wysłać
@@ -3083,7 +3103,7 @@ profile:
     pickups: 'Sloty'
     notes: 'Notatki ({count})'
     commitment_statistics: 'Statystyka zaangażowania'
-    stores: ''
+    stores: 'Punkty ({count})'
     profile: 'Profil'
   homeDistrictHistory:
     previous: 'wcześniej'
