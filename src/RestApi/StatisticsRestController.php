@@ -45,7 +45,7 @@ class StatisticsRestController extends AbstractFoodsharingRestController
 
     #[OA\Get(
         description: 'If home region is set only the home region of foodsavers from this regionId are considered.',
-        summary: 'Returns the gender distribution from a region.'
+        summary: 'Returns the gender distribution from a region'
     )]
     #[Route('regions/{regionId}/statistics/gender', requirements: ['regionId' => Requirement::POSITIVE_INT], methods: ['GET'])]
     #[OA\Response(
@@ -71,7 +71,7 @@ class StatisticsRestController extends AbstractFoodsharingRestController
 
     #[OA\Get(
         description: 'If home region is set only the home region of foodsavers from this regionId are considered.',
-        summary: 'Returns the age band distribution from a region.',
+        summary: 'Returns the age band distribution from a region',
     )]
     #[Route('regions/{regionId}/statistics/age-band', requirements: ['regionId' => Requirement::POSITIVE_INT], methods: ['GET'])]
     #[OA\Response(
@@ -95,7 +95,7 @@ class StatisticsRestController extends AbstractFoodsharingRestController
         return $this->respondOK($result);
     }
 
-    #[OA\Get(summary: 'Returns the age band distribution from a region.')]
+    #[OA\Get(summary: 'Returns the pickup statistics of a region')]
     #[Route('regions/{regionId}/statistics/pickups', requirements: ['regionId' => Requirement::POSITIVE_INT], methods: ['GET'])]
     #[OA\Response(
         response: Response::HTTP_OK,
@@ -121,7 +121,7 @@ class StatisticsRestController extends AbstractFoodsharingRestController
         return $this->respondOK($result);
     }
 
-    #[OA\Get(summary: 'Returns the age band distribution from a region.')]
+    #[OA\Get(summary: 'Returns general foosharing statistics')]
     #[Route('statistics', methods: ['GET'])]
     #[OA\Response(
         response: Response::HTTP_OK,
