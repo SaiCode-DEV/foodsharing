@@ -446,7 +446,7 @@ settings:
   quiz:
     1: Quiz dla foodsaverów/ek
     3: Quiz dla ambasadorów/ek
-    2: ''
+    2: 'Quiz dla koordynatorów/ek punktu'
   sleep:
     status: Twój aktualny status
     message: Tu możesz zostawić krótką wiadomość, dlaczego chwilowo nie masz 
@@ -2638,7 +2638,8 @@ regionOptions:
     z rejonu macierzystego'
   regionPickupTimespan: 'Przedział czasu (dni przed i po wybranym slocie), którego
     dotyczy reguła rodzynkowa'
-  noPickupRuleActiveStores: ''
+  noPickupRuleActiveStores: 'Aktualnie reguła rodzynkowa nie jest aktywowana w żadnym
+    punkcie rejonu.'
   regionPickupRuleActive: ''
   regionPickupLimitDayNumber: 'Maksymalna liczba rodzynkowych slotów na dzień'
   enableAddressChangeNotification: 'Powiadomienie dla ambasadorów/ek przy zmianie
@@ -2883,7 +2884,7 @@ profile:
     workgroups_member: razem z tobą w następujących grupach
     no_common_workgroups: 'żadnych wspólnych zespołów'
     home_region_from: 'rejon macierzysty'
-    kam_for: ''
+    kam_for: 'Odpowiedzialny/a za koordynację następujących sieci punktów:'
     orga_rights: '##### ma jako orga-człowiek [rozszerzone uprawnienia]({wikiurl})
       na platformie.'
     foodSaver_in_region: 'dołączył/a do rejonów'
@@ -3027,14 +3028,14 @@ profile:
     report_b6_0: ''
     report_b12: ''
     report_b7: ''
-    report_b4_1: ''
+    report_b4_1: 'Nie rozdzielono żywności sprawiedliwie (B04-2)'
     report_b1_2: 'Bez pozwolenia wziął/ęła zwierzęta do punktu (B01-3)'
     repAdminAgainstArbAdmin: 'Jesteś administratorem/ką zespołu rozpatrującego skargi
       i chcesz zgłosić skargę przeciwko administratorowi/ce rady arbitrażowej. Na
       ten moment nie ma technicznego wsparcia dla tej opcji. Możesz zawsze wysłać
       skargę mailem do osób w tym przypadku lokalnie odpowiedzialnych za was.'
     sent: 'Wysłano skargę'
-    report_b4_0: ''
+    report_b4_0: 'Nie wzięto całej przydatnej do spożycia żywności (B04-1)'
     oldReportButtonTextPart3: 'Więcej informacji o systemie skarg znajdziecie'
     info: 'Abyśmy mogli jak najlepiej rozpatrzyć twoją skargę, powinna ona zawierać
       następujące informacje:
@@ -3070,8 +3071,8 @@ profile:
       jest administratorem/ką lokalnego zespołu rozpatrującego skargi w tym rejonie
       i nie ma tam rady arbitrażowej.'
     report_b2: ''
-    sells: ''
-    report_b5: ''
+    sells: 'Sprzedaje uratowane produkty żywnościowe'
+    report_b5: 'Nieuprawnione osoby weszły do punktu (B05)'
     report_b9: ''
     report_b1_4: 'Nie miał/a przy sobie legitymacji foodsharingu (B01-5)'
     reporterHasNoReportGroup: 'Nie możesz użyć wsparcia technicznego do systemu skarg,
@@ -3081,7 +3082,8 @@ profile:
     report_b1_0: 'Spóźnił/a się na odbiór (B01-1)'
     report_b6_1: 'Nie pozostawiono miejsca odbioru w uporządkowanym stanie (B06-2)'
     cancellation: 'Częste krótkoterminowe odwoływanie odbiorów bez szukania zastępstwa'
-    report_b13: ''
+    report_b13: 'Nie postarano się, aby wykorzystać / rozdać uratowane produkty żywnościowe
+      (B13)'
   alldatesdeleted: Wszystkie daty zostały usunięte
   cantdeleteall: Nie możesz usunąć wszystkich dat!
   mediation:
@@ -3095,7 +3097,7 @@ profile:
       lokalnego zespołu mediacji. Możesz zaproponować na spotkaniu grupowym albo na
       forum, aby wybrać lokalny zespół mediacji.'
   notFound: 'Tego profilu użytkownika/czki (już) nie ma'
-  choosestore: ''
+  choosestore: 'Wybierz punkt, którego to dotyczy'
   deletesuccess: 'Usunięto pojedynczy slot odbioru'
   sleeping_info_from_until: 'jest uśpiony/a od {from} do {until}'
   warning: 'Uwaga'
@@ -3110,7 +3112,7 @@ profile:
     changed: 'wprowadzony'
     by: 'od'
   pinboard: 'Aktualizacje statusu od {name}'
-  choosereasonnostore: ''
+  choosereasonnostore: 'Nie dotyczy żadnego punktu'
   title: 'Profil'
   mediationRequest: 'Zapytaj o mediację'
   go: 'Przejdź do profilu'
@@ -3122,7 +3124,7 @@ profile:
     tego można użyć zespołów, aby przechowywać dodatkowe informacje o profilach. Więcej
     informacji o tym na [forum ambasadorów/ek] ({url})'
   cantdeletethis: 'Nie możesz usuwać pojedynczych slotów!'
-  chooseantherstore: ''
+  chooseantherstore: 'Dotyczy punktu, który nie jest tu wymieniony'
 dashboard:
   title: Dashboard
   display_all: Wszystkie
@@ -3146,13 +3148,13 @@ dashboard:
     regions: 'Twoje rejony'
     polls: 'Głosowania'
     pending: 'Wysłano zapytanie do'
-    no-stores: ''
+    no-stores: 'Nie jesteś teraz w żadnym teamie punktu.'
     pickups: 'Zarejestrowane sloty'
     pickupOptions: 'Możliwości zapisu'
-    stores: ''
+    stores: 'Twoje punkty'
     baskets: 'Jadłokoszyki'
-    jumping_stores: ''
-    managing_stores: ''
+    jumping_stores: 'Punkty, w których jesteś na liście rezerwowych'
+    managing_stores: 'Twoje koordynacje punktów'
   source_forum_bot: Forum ambasadorów/ek {0}
   release:
     for_support: Poza tym możesz się z nami skontaktować pod
@@ -3176,7 +3178,7 @@ dashboard:
     ack: 'Przeczytałem/am tę informację, nie pokazuj więcej'
   homeRegion: 'Twój rejon macierzysty to {region}.'
   foodsharer: ''
-  source_store: ''
+  source_store: 'Punkty {0}'
   foodsharer_amount: ''
   activity_filter_info: 'Tu możesz ustawić, jakie aktualizacje mają być wyświetlane
     na twojej stronie startowej.'
@@ -3188,7 +3190,7 @@ dashboard:
   foodsaver_amount: ''
   no_more_updates_event: ''
   settings_tooltip: 'Ustawienia przeglądu'
-  no_more_updates_store: ''
+  no_more_updates_store: 'Nie ma więcej informacji z punktów'
   full_subline: ''
   no_more_updates_foodsharepoint: 'Nie ma więcej postów z jadłodzielni'
   activation_mail_sent: 'Link do aktywacji został wysłany - proszę, sprawdź swoje
@@ -4266,7 +4268,7 @@ chain:
         label: 'filie'
         invalidfeedback: 'Tylko liczby całkowite są dozwolone.'
       details:
-        label: ''
+        label: 'Info dla punktów'
         description: ''
         default: ''
       status:
@@ -4310,7 +4312,7 @@ chain:
     cooperating: 'współpracuje'
     negotiating: 'w trakcie negocjacji'
   options:
-    showstores: ''
+    showstores: 'Pokaż punkty'
     edit: 'Edytuj'
   filterplaceholder: 'Nazwa / adres / KAM ID'
   listheader: 'Sieci'
