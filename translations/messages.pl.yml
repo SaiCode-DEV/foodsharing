@@ -1706,7 +1706,10 @@ store:
     invited_by: Zaproszony/a przez
     withdraw: Cofnij zaproszenie
     title: Zaproszenia do {storeTitle}
-    info: ''
+    info: 'Kiedy zapraszasz foodsaverów/ki do teamu, z uwagi na ochronę ich danych
+      osobowych nie zostaną oni/e bezpośrednio dodani/e do teamu punktu. Otrzymują
+      zapytanie, czy chcą dołączyć do tego teamu, które muszą zaakceptować, zanim
+      zostaną częścią teamu. Możesz w dowolnym momencie cofnąć te zaproszenia.'
     invited_info: 'Zostałeś/aś zaproszony/a do tego teamu. Możesz dołączyć przez zaakceptowanie
       zaproszenia.'
   info_container: Informacje
@@ -1803,7 +1806,7 @@ store:
   mayAmb: 'Zdał/a quiz na ambasadora/kę.'
   my_last_slot: 'Mój ostatni slot'
   isAppliedForTeam: 'Zapytanie'
-  locked: ''
+  locked: 'Nie możesz edytować tego punktu.'
   lastPickup: 'Ostatnia aktywność {date}'
   managing: 'Odpowiedzialność za punkt'
   springer_conversation_name: 'Rezerwowy/a {name}'
@@ -1824,7 +1827,7 @@ store:
   delete:
     button: 'Usuń punkt'
     sure: ''
-    conditions_not_met: ''
+    conditions_not_met: 'Nie można usunąć punktu, bo wymagane warunki nie są spełnione.'
   short_tooltip_orange: 'Wolne sloty w ciągu najbliższych 3 dni'
   regionPickupRules: 'dodatkowa reguła rodzynkowa'
   tooltip_jumping: 'Jesteś na liście rezerwowych tego punktu'
@@ -1862,7 +1865,7 @@ store:
   average_collection_quantity: 'Ilość na osobę'
   pickup_slot_unavailable: 'Ten slot jest w dalszej przyszłości niż przewidzieli/ały
     to koordynatorzy/ki punktu. Spróbuj ponownie później.'
-  smneeded: ''
+  smneeded: 'Aby utworzyć punkt, musisz być koordynatorem/ką punktu.'
   part_of_chain: 'Należy do sieci:'
   chain_has_kams: 'Odpowiedzialny/a za sieć:'
   members_not_in_target_region: 'Istnieją członkowie teamu, którzy nie są częścią
@@ -1933,7 +1936,11 @@ storeedit:
       Masz jednak rozszerzone uprawnienia jako część teamu koordynacji punktów.
 
       '
-    kam: ''
+    kam: 'Nie jesteś odpowiedzialny/a za ten punkt.
+
+      Masz jednak ograniczony dostęp jako KAM danej sieci.
+
+      '
   store:
     status: status
   fetch:
@@ -3358,7 +3365,7 @@ menu:
     baskets: 'Jadłokoszyki'
     workingGroupEdit: 'Zarządzaj grupą'
     background: 'Tło'
-    stores: ''
+    stores: 'Punkty'
     mailbox: 'skrzynka pocztowa'
     talksandworkshops: 'Wykłady i warsztaty'
     politics: 'Polityka'
@@ -3371,8 +3378,8 @@ menu:
     selfservice: 'Samoobsługa'
     forum: 'Forum'
     your_groups: 'Twoje zespoły'
-    other_stores: ''
-    your_stores: ''
+    other_stores: 'Inne punkty'
+    your_stores: 'Twoje punkty'
     helpneeded: 'Pilnie poszukiwane wsparcie'
     forcompanies: 'dla przedsiębiorstw'
     your_baskets: 'Twoje jadłokoszyki'
@@ -3548,7 +3555,7 @@ poll:
 categories:
   title:
     resource: 'Kategorie zasobów'
-    store: ''
+    store: 'Kategorie punktów'
   confirm_delete: 'Na pewno usunąć kategorię {name}?'
   types:
     0: 'Odbiór'
@@ -3746,7 +3753,7 @@ help:
       title: 'Stickery'
     store_chain_info:
       md: ''
-      title: ''
+      title: 'Punkty sieciowe'
   helpTitle: 'Pomoc: {title}'
   tooltip: 'Pokaż pomoc'
 email_template:
@@ -3754,7 +3761,7 @@ email_template:
   fetch_warning:
     disable_warning: 'Wyłączyć te ostrzeżenia?'
     subject:
-      multiple: ''
+      multiple: 'Otwarte terminy odbioru w %COUNT% punktach!'
       single: 'Wolne terminy odbioru w %BETRIEB%!'
     settings_link: 'Przejdź do ustawień powiadomień'
     empty_slots: '%COUNT% nieobsadzone/ych sloty/ów odbioru'
@@ -4687,8 +4694,8 @@ navigation:
   basket: 'Jadłokoszyki'
   help_needed: 'Potrzebna pomoc?'
 storestatus:
-  "3a": ''
-  "3": ''
+  "3a": 'Punkt jest gotowy do przekazywania darowizn :-)'
+  "3": 'Punkt jest gotowy do współpracy'
   "1": 'Jeszcze nie nawiązano kontaktu'
   "7": ''
   "6": 'Przekazuje darowizny do banku żywności itp. i niczego nie wyrzuca'
@@ -4740,12 +4747,12 @@ storelist:
   entered: 'Utworzony:'
   cooperating: 'współpracuje'
   city: 'Miejscowość'
-  others: ''
+  others: 'Inne punkty z {region}'
   notcooperating: 'nie chce współpracować'
   actions: 'akcje'
   map: 'mapa'
   addressdata: 'Adres'
-  fetching: ''
+  fetching: 'Punkty, w których odbierasz produkty żywnościowe'
   filter_placeholder: 'Nazwa/adres'
 validation:
   phone_number_invalid: 'Numer telefonu jest nieważny (np. brakuje + 48, jest za krótki,
