@@ -1615,7 +1615,9 @@ store:
     promoteToManager: 'Uczyń odpowiedzialnym'
     userHasPickupsWarning: '{name} jest zapisany/a jeszcze na {occupiedSlots} slot/y/ów
       w tym punkcie. Te sloty będą wtedy wolne. Chcesz mimo to kontynuować?'
-    promoteToManagerNotPossible: ''
+    promoteToManagerNotPossible: 'Nie można uczynić tej osoby odpowiedzialną, bo jest/są
+      już trzech/trzy koordynatorów/ki albo osoba nie zdała jeszcze quizu koordynatorów/ek
+      punktu.'
     filterSleeping: 'uśpiony/a'
     filterJumper: 'Rezerwowy/a'
     filterQuizSM: 'Zdany quiz dla koordynatorów/ek punktu'
@@ -1695,7 +1697,8 @@ store:
     withdraw: 'Cofnij zapytanie'
     applicationMessageTooShort: 'Twoja wiadomość aplikacyjna jest za krótka.'
     confirm-no-location-ok: 'Zgłoś się mimo to'
-    confirm-no-location: ''
+    confirm-no-location: 'Nie podałeś/aś ważnego adresu w swoim profilu. Podaj adres
+      domowy, aby ułatwić koordynator(k)om punktu podjęcie decyzji o twoim zgłoszeniu.'
     hygieneRequired:
       request: ''
       link: 'Zdaj szkolenie z zasad higieny'
@@ -3018,7 +3021,7 @@ profile:
     late: Spóźnił/a się
     notes: Notatki i decyzje
     report_b11: 'Użyto nieekologicznych środków przy odbiorze (B11)'
-    report_b10: ''
+    report_b10: 'Sprzedaje uratowane produkty żywnościowe (B10)'
     oldReportButtonTextPart2: 'W razie potrzeby zwróćcie się do lokalnego zespołu
       rozpatrującego skargi w waszym rejonie.'
     noshow: 'Nie pojawił/a się na odbiorze'
@@ -3034,7 +3037,7 @@ profile:
     report_b1_3: 'Bez pozwolenia wziął/ęła dzieci do punktu (B01-4)'
     report_b6_0: ''
     report_b12: ''
-    report_b7: ''
+    report_b7: 'Nie zachowano czasu oczekiwania punktu (B07)'
     report_b4_1: 'Nie rozdzielono żywności sprawiedliwie (B04-2)'
     report_b1_2: 'Bez pozwolenia wziął/ęła zwierzęta do punktu (B01-3)'
     repAdminAgainstArbAdmin: 'Jesteś administratorem/ką zespołu rozpatrującego skargi
@@ -3058,8 +3061,9 @@ profile:
       Tu znajdziesz [zasady postępowania w wiki](https://wiki.foodsharing.de/Verhaltensregeln).
 
       '
-    report_b3_0: ''
-    report_b8: ''
+    report_b3_0: 'Nie wszedł/weszła do punktu lub nie opuścił/a punktu razem ze wszystkimi
+      (B03-1)'
+    report_b8: 'Był/a nieuprzejmy/a wobec pracowników/czek punktu (B08)'
     title: 'Skarga dotycząca {name}'
     report_b1_1: 'Nie pojawił/a się na odbiorze (B01-2)'
     mail:
@@ -3077,7 +3081,8 @@ profile:
     reportedAdminNoArbitration: 'Nie możesz zgłosić skargi przeciwko {name}, ponieważ
       jest administratorem/ką lokalnego zespołu rozpatrującego skargi w tym rejonie
       i nie ma tam rady arbitrażowej.'
-    report_b2: ''
+    report_b2: 'Przeprowadził/a odbiór poza wyznaczonymi terminami bez uzgodnienia
+      z koordynator(k)ami punktu (B02)'
     sells: 'Sprzedaje uratowane produkty żywnościowe'
     report_b5: 'Nieuprawnione osoby weszły do punktu (B05)'
     report_b9: ''
@@ -3186,7 +3191,7 @@ dashboard:
   homeRegion: 'Twój rejon macierzysty to {region}.'
   foodsharer: ''
   source_store: 'Punkty {0}'
-  foodsharer_amount: ''
+  foodsharer_amount: 'Uratowałeś/aś już {weight} kg żywności!'
   activity_filter_info: 'Tu możesz ustawić, jakie aktualizacje mają być wyświetlane
     na twojej stronie startowej.'
   general-dates: 'Następne zarejestrowane sloty'
@@ -3194,11 +3199,13 @@ dashboard:
   no_more_updates_forum: 'Nie ma więcej wpisów na forum'
   chooseHomeRegion: 'Wybierz rejon macierzysty.'
   deleted_user: 'usunięty/a użytkownik/czka'
-  foodsaver_amount: ''
+  foodsaver_amount: 'Wykonałeś/aś <b>{pickups}  x</b> odbiory/ów żywności i uratowałeś/aś
+    <b>{weight}  kg</b>.'
   no_more_updates_event: ''
   settings_tooltip: 'Ustawienia przeglądu'
   no_more_updates_store: 'Nie ma więcej informacji z punktów'
-  full_subline: ''
+  full_subline: 'Wykonałeś/aś **{pickups} x** odbiory/ów żywności i uratowałeś/aś
+    **{weight} kg**. Twój rejon macierzysty to **{region}**.'
   no_more_updates_foodsharepoint: 'Nie ma więcej postów z jadłodzielni'
   activation_mail_sent: 'Link do aktywacji został wysłany - proszę, sprawdź swoje
     maile'
@@ -3267,7 +3274,7 @@ basket:
   publish: 'Opublikuj jadłokoszyk'
   state:
     okay: 'Tak, jadłokoszyk został odebrany.'
-    gone: ''
+    gone: 'Ktoś inny odebrał produkty żywnościowe.'
     deny: 'Chcę odrzucić to zapytanie.'
     nope: 'Nie, nie odebrano jadłokoszyka zgodnie z umową.'
     finished: 'Dziękujemy, proces jest zakończony.'
@@ -3620,7 +3627,8 @@ help:
         dla których wprowadzono te same kategorie.'
     profileCommitmentsStat:
       title: 'Statystyka zaangażowania'
-      md: ''
+      md: 'jest widoczny od roli koordynatora/ki punktu. Widoczność jest ograniczona
+        do wspólnego rejonu macierzystego lub wspólnych punktów.'
     pollScopes:
       md: "Przy tworzeniu głosowania możesz wybrać różne grupy osób, które są uprawnione
         do głosowania. \nPrzy wszystkich możliwościach wyboru obowiązuje:\n- Mogą
@@ -4208,7 +4216,8 @@ region:
   allow_hiding_in_forum: 'Pozwól moderator(k)om usuwać posty na forum'
   edit: 'Edytuj rejon'
   cancel: 'Nie, jednak nie'
-  still_contains_elements: ''
+  still_contains_elements: 'Nie można usunąć rejonu, bo zawiera on jeszcze podrejony,
+    punkty lub jadłodzielnie.'
   edit_success: 'Zapisano rejon.'
   select: 'Wybierz rejon do edycji'
   createNew: 'Utwórz nowy rejon'
@@ -4228,8 +4237,10 @@ region:
   created: 'utworzono {region}'
   delete: 'Usuń rejon'
   mailbox: 'Nazwa skrzynki pocztowej'
-  conflict_store_member_or_manager_other: ''
-  conflict_store_member_or_manager_self: ''
+  conflict_store_member_or_manager_other: 'Nie możesz usunąć tej osoby z rejonu, bo
+    jest ona tam jeszcze członkiem przynajmniej jednego punktu.'
+  conflict_store_member_or_manager_self: 'Nie możesz opuścić tego rejonu, bo jesteś
+    tam jeszcze członkiem przynajmniej jednego punktu.'
 chain:
   new: 'Utwórz nową sieć'
   error:
@@ -4311,7 +4322,7 @@ chain:
   bread:
     list: 'Przegląd'
     workinggroup: ''
-  pagetitle: ''
+  pagetitle: 'Sieci punktów'
   allowpress: 'Zgoda na upublicznienie nazwy.'
   status:
     filterplaceholder: 'Status'
@@ -4646,7 +4657,7 @@ system_administration:
   email: 'Wyślij newsletter'
   quiz: 'Zarządzaj quizem'
   resource_categories: 'Edytuj kategorie zasobów'
-  store_categories: ''
+  store_categories: 'Edytuj kategorie punktów'
   blog: 'Edytuj posty na blogu'
   reports: 'Pokaż skargi'
   content: 'Edytuj treści'
@@ -4683,7 +4694,7 @@ navigation:
   whats_new: 'Co nowego?'
   promotion: 'W IT? Potrzebujemy cię!'
   notifications: 'Powiadomienia'
-  stores: ''
+  stores: 'Punkty'
   system_administration: 'Administracja systemu'
   styleguide: 'Style guide'
   wiki: 'Wiki'
@@ -4697,9 +4708,9 @@ storestatus:
   "3a": 'Punkt jest gotowy do przekazywania darowizn :-)'
   "3": 'Punkt jest gotowy do współpracy'
   "1": 'Jeszcze nie nawiązano kontaktu'
-  "7": ''
+  "7": 'Punkt już nie istnieje'
   "6": 'Przekazuje darowizny do banku żywności itp. i niczego nie wyrzuca'
-  "5a": ''
+  "5a": 'Punkt już przekazuje darowizny'
   "5": 'współpracuje z nami'
   "0": 'Status niewyjaśniony'
   "4": 'Nie chce współpracować'
@@ -4737,7 +4748,7 @@ storelist:
   added: 'Utworzony'
   inprogress: 'trwają negocjacje'
   nocontact: 'Jeszcze brak kontaktu'
-  managing: ''
+  managing: 'Punkty, za które jesteś odpowiedzialny/a'
   region: 'rejon'
   memberState: 'Status członkowstwa'
   nowaste: 'niczego nie wyrzuca'
