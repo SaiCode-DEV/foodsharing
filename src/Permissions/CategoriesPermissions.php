@@ -20,6 +20,8 @@ class CategoriesPermissions
                 return $this->currentUserUnits->isAdminFor(RegionIDs::PRODUCT_TEAM);
             case CategoryType::RESOURCE:
                 return $this->currentUserUnits->isAdminFor(RegionIDs::PRODUCT_TEAM);
+            case CategoryType::GROUP:
+                return $this->currentUserUnits->isAdminFor(RegionIDs::PRODUCT_TEAM);
             default:
                 return false;
         }

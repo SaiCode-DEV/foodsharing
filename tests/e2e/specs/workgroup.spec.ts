@@ -151,8 +151,9 @@ test.describe("WorkGroup", () => {
   }) => {
     await acceptanceHelper.login(regionMember.email);
     await page.goto(Urls.groupListUrl());
-    await page.click(`.list-group:has-text("${globalTestGroup.name}")`);
-    await page.click("text=Dieser Arbeitsgruppe beitreten");
+    await page.click(`.list-group-item:has-text("${globalTestGroup.name}")`);
+    await page.click(".btn:has-text('Beitreten')");
+    await page.click(".btn:has-text('Ja')");
     await page.waitForSelector('h5:has-text("Pinnwand")');
     await page.goto(Urls.forumUrl(globalTestGroup.id));
     await expect(page.locator("body")).toContainText(globalTestGroup.name);
@@ -194,14 +195,11 @@ test.describe("WorkGroup", () => {
 
       await acceptanceHelper.login(regionMember.email);
       await page.goto(Urls.groupListUrl());
-      await page.click(`.list-group:has-text("${testGroupApply.name}")`);
-      await page.waitForSelector("text=Arbeitsgruppe bewerben");
-      await page.click("text=Für diese Arbeitsgruppe bewerben");
-      await page.waitForSelector("#input-motivation");
-      await page.fill("#input-motivation", "My Motivation");
-      await page.fill("#input-ability", "My Skillz");
-      await page.fill("#input-experience", "My Experience");
-      await page.selectOption("#input-time", "1–2 Stunden");
+      await page.click(`.list-group-item:has-text("${testGroupApply.name}")`);
+      await page.waitForSelector("text=Bewerben...");
+      await page.click("text=Bewerben...");
+      await page.waitForSelector("#input-application");
+      await page.fill("#input-application", "My Application");
       await page.getByRole("button", { name: "Senden" }).click();
       await acceptanceHelper.waitForActiveAPICalls();
 

@@ -2,14 +2,21 @@
 
 namespace Foodsharing\Modules\WorkGroup;
 
+use Carbon\Carbon;
+use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
+use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
+use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Group\GroupGateway;
 use Foodsharing\Modules\Region\ForumFollowerGateway;
 use Foodsharing\Modules\Uploads\UploadsGateway;
+use Foodsharing\Modules\WorkGroup\DTO\SubGroupEntry;
+use Foodsharing\Modules\WorkGroup\DTO\WorkingGroupForListView;
+use Foodsharing\Permissions\WorkGroupPermissions;
 use Foodsharing\RestApi\DTO\SendGroupRequestData;
 use Foodsharing\RestApi\DTO\SendMailData;
 use Foodsharing\RestApi\Models\Group\EditWorkGroupData;
@@ -25,8 +32,10 @@ class WorkGroupTransactions
         private readonly BellGateway $bellGateway,
         private readonly GroupGateway $groupGateway,
         private readonly FoodsaverGateway $foodsaverGateway,
+        private readonly WorkGroupPermissions $workGroupPermissions,
         private readonly EmailHelper $emailHelper,
-        private readonly TranslatorInterface $translator
+        private readonly TranslatorInterface $translator,
+        private readonly Session $session,
     ) {
     }
 
@@ -54,14 +63,9 @@ class WorkGroupTransactions
 
     public function requestToGroup(int $groupId, int $userId, SendGroupRequestData $data): void
     {
-        $content = [
-            $this->translator->trans('group.entermotivation') . "\n===========\n" . trim($data->motivation),
-            $this->translator->trans('group.enterskills') . "\n============\n" . trim($data->ability),
-            $this->translator->trans('group.enterxp') . "\n==========\n" . trim($data->experience),
-            $this->translator->trans('group.entertime') . "\n=====\n" . $data->selectedTime,
-        ];
+        $application = trim($data->application);
 
-        $this->workGroupGateway->groupApply($groupId, $userId, implode("\n\n", $content));
+        $this->workGroupGateway->groupApply($groupId, $userId, $application);
         $groupMail = $this->groupGateway->getGroupMailName($groupId);
         $group = $this->workGroupGateway->getGroup($groupId);
 
@@ -80,7 +84,7 @@ class WorkGroupTransactions
                 nl2br($this->translator->trans('group.apply.summary', [
                         '{name}' => $userWithMail['name'],
                         '{group}' => $group['name'],
-                    ]) . "\n\n" . implode("\n\n", $content) . "\n\n"
+                    ]) . "\n\n" . $application . "\n\n"
                     . $this->translator->trans('group.apply.link_description')
                     . ' <a href="' . $link . '">' . $link . '</a>')
             );
@@ -108,11 +112,74 @@ class WorkGroupTransactions
 
     public function updateGroup(int $groupId, EditWorkGroupData $groupData): void
     {
+        // Delete the old photo if it was replaced or removed
+        $group = $this->workGroupGateway->getGroup($groupId);
+        if (!empty($group['photo']) && $group['photo'] !== $groupData->photo) {
+            $oldPhoto = substr($group['photo'], 13);
+            $this->uploadsGateway->deleteUpload($oldPhoto);
+        }
+
         $this->workGroupGateway->updateGroup($groupId, $groupData);
 
         if (!empty($groupData->photo)) {
             $uuid = substr($groupData->photo, 13);
             $this->uploadsGateway->setUsage([$uuid], UploadUsage::WORKING_GROUP_TITLE, $groupId);
         }
+    }
+
+    public function listGroupsInRegion(int $regionId): array
+    {
+        ['groups' => $groupsData, 'subGroups' => $subGroups, 'admins' => $admins] = $this->workGroupGateway->fetchDataForGroupList($regionId, $this->session->id());
+
+        // Combine groups with their respective subgroups and admins.
+        // This is necessary because the data is fetched in separate queries for better performance.
+        $groupsById = [];
+        foreach ($groupsData as &$group) {
+            $group['subGroups'] = [];
+            $group['admins'] = [];
+            $groupsById[$group['id']] = &$group;
+        }
+        foreach ($subGroups as $subGroup) {
+            $groupsById[$subGroup['groupId']]['subGroups'][] = $subGroup;
+        }
+        foreach ($admins as $admin) {
+            $groupsById[$admin['groupId']]['admins'][] = $admin;
+        }
+
+        // Map the combined data to the DTO for the API response.
+        $groups = array_map(function ($data) use ($regionId) {
+            $group = new WorkingGroupForListView();
+            $group->id = $data['id'];
+            $group->name = $data['name'];
+            $group->description = $data['teaser'];
+            $group->categoryId = $data['category_id'];
+            $group->memberCount = $data['memberCount'];
+            $group->hasAppliedFor = $data['active'] === 0; // 0 meaning the user applied
+            $group->groupFunctionType = $data['function_id'];
+            $group->email = $data['email'];
+            $group->image = empty($data['photo']) ? null : $data['photo'];
+            $group->latestActivity = is_null($data['latest_activity']) ? null : Carbon::parse($data['latest_activity']);
+            $group->admins = array_map(fn ($admin) => new Profile($admin), $data['admins']);
+            $group->subGroups = array_map(function ($subGroupData) {
+                $subGroup = new SubGroupEntry();
+                $subGroup->id = $subGroupData['id'];
+                $subGroup->name = $subGroupData['name'];
+                $subGroup->email = $subGroupData['email'];
+                $subGroup->latestActivity = is_null($subGroupData['latest_activity']) ? null : Carbon::parse($subGroupData['latest_activity']);
+
+                return $subGroup;
+            }, $data['subGroups']);
+
+            $applyType = $data['apply_type'];
+            $group->mayApply = $this->workGroupPermissions->mayApply($group->id, $regionId, $applyType, $group->hasAppliedFor);
+            $group->mayJoin = $this->workGroupPermissions->mayJoin($group->id, $regionId, $applyType);
+            $group->mayAccess = $this->workGroupPermissions->mayAccess($group->id, $regionId);
+            $group->hasSpecialPermissions = RegionIDs::hasSpecialPermission($group->id);
+            $group->applicationPrompt = $group->mayApply ? $data['application_prompt'] : null;
+
+            return $group;
+        }, array_values($groupsById));
+
+        return $groups;
     }
 }

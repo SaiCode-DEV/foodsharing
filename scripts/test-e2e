@@ -44,7 +44,7 @@ if [[ "${1:-}" == "debug" || "${1:-}" == "interactive" ]]; then
 fi
 
 # Normal test execution mode
-param="$*"
+param=("$@")
 
 echo "🚀 Starting services..."
 "$dir"/docker-compose up -d db nginx websocket
@@ -59,13 +59,13 @@ echo "📦 Installing dependencies..."
 "$dir"/docker-compose exec e2e yarn install --frozen-lockfile
 
 echo ""
-log-header "Running tests${param:+ ($param)}"
+log-header "Running tests $*"
 echo ""
 
 "$dir"/docker-compose exec \
     -e DB_HOST="db" \
     -e DB_PORT="3306" \
-    e2e yarn test $param
+    e2e yarn test "${param[@]}"
 
 test_exit_code=$?
 

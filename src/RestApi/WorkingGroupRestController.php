@@ -3,6 +3,7 @@
 namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Region\RegionGateway;
@@ -54,19 +55,14 @@ class WorkingGroupRestController extends AbstractFoodsharingRestController
         }
 
         if (!$this->workGroupPermissions->mayEdit($group)
-            && !($memberId == $this->session->id() && $this->workGroupPermissions->mayJoin($group))) {
+            && !($memberId == $this->session->id() && $this->workGroupPermissions->mayJoin($groupId, $group['parent_id'], $group['apply_type']))) {
             throw new AccessDeniedHttpException('Not permitted');
         }
 
         $this->workGroupGateway->addToGroup($groupId, $memberId);
 
-        // Add user to parent region if not already a member and if parent
-        // region is not a working group itself (this is not wanted)
         $parentId = $group['parent_id'];
-        $parentIsWorkingGroup = $this->workGroupGateway->regionIsWorkingGroup($parentId);
-        if (!$parentIsWorkingGroup && !$this->regionGateway->hasMember($memberId, $parentId)) {
-            // the parent region is a real region (not a working group) -> make
-            // user a member of the parent region
+        if ($parentId === RegionIDs::GLOBAL_WORKING_GROUPS && !$this->regionGateway->hasMember($memberId, $parentId)) {
             $this->regionGateway->addMember($memberId, $parentId);
         }
 
@@ -119,12 +115,12 @@ class WorkingGroupRestController extends AbstractFoodsharingRestController
         return $this->respondOK();
     }
 
-    #[OA\Post(summary: 'Requests to join a group and provides motivation, ability, experience, and selected time message for mail to group.')]
+    #[OA\Post(summary: 'Requests to join a group.')]
     #[Route('groups/{groupId}/applications', methods: ['POST'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
-    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not permitted to access these achievements')]
-    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Not permitted to access these achievements')]
-    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Malformed data')]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Group not found')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted to join this group')]
     public function sendGroupRequest(int $groupId, #[MapRequestPayload] SendGroupRequestData $sendGroupRequestData): Response
     {
         $this->assertLoggedIn();
@@ -132,6 +128,10 @@ class WorkingGroupRestController extends AbstractFoodsharingRestController
         $group = $this->workGroupGateway->getGroup($groupId);
         if (!$group) {
             throw new NotFoundHttpException('Group does not exist');
+        }
+        $hasApplied = $this->workGroupGateway->hasApplied($groupId, $this->session->id());
+        if (!$this->workGroupPermissions->mayApply($groupId, $group['parent_id'], $group['apply_type'], $hasApplied)) {
+            throw new AccessDeniedHttpException('Not permitted to join this group');
         }
 
         $this->groupTransactions->requestToGroup(
@@ -141,5 +141,20 @@ class WorkingGroupRestController extends AbstractFoodsharingRestController
         );
 
         return $this->respondOK();
+    }
+
+    #[OA\Get(summary: 'Returns the list of working groups in a group or region.')]
+    #[Route('/regions/{regionId}/groups', methods: ['GET'], requirements: ['regionId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    public function listGroupsInRegion(int $regionId): Response
+    {
+        $this->assertLoggedIn();
+        if (!$this->workGroupPermissions->mayAccessGroupList($regionId)) {
+            throw new AccessDeniedHttpException('Not permitted');
+        }
+
+        $groups = $this->groupTransactions->listGroupsInRegion($regionId);
+
+        return $this->respondOK($groups);
     }
 }

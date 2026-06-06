@@ -28,6 +28,12 @@ class CategoriesController extends FoodsharingController
         return $this->index(CategoryType::RESOURCE);
     }
 
+    #[Route(path: '/categories/group', name: 'group_categories')]
+    public function groupCategoriesPage(): Response
+    {
+        return $this->index(CategoryType::GROUP);
+    }
+
     public function index(CategoryType $type): Response
     {
         if (!$this->session->mayRole()) {

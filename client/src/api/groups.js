@@ -8,15 +8,14 @@ export function addMember (groupId, memberId) {
   return post(`/groups/${groupId}/members/${memberId}`)
 }
 
-export function updateGroup (groupId, name, description, photo, applyType, requiredBananas, requiredPickups, requiredWeeks) {
+export function updateGroup (groupId, name, description, photo, applyType, applicationPrompt, groupCategory) {
   return patch(`/groups/${groupId}`, {
     name,
     description,
     photo,
     applyType,
-    requiredBananas,
-    requiredPickups,
-    requiredWeeks,
+    applicationPrompt: applicationPrompt || null,
+    groupCategory,
   })
 }
 
@@ -26,15 +25,14 @@ export function sendMail (groupId, message) {
   })
 }
 
-export function sendRequest (groupId, motivation, ability, experience, selectedTime) {
-  return post(`/groups/${groupId}/applications`, {
-    motivation,
-    ability,
-    experience,
-    selectedTime,
-  })
+export function sendRequest (groupId, application) {
+  return post(`/groups/${groupId}/applications`, { application })
 }
 
 export function listPolls (groupId) {
   return get(`/groups/${groupId}/polls`)
+}
+
+export function listGroups (regionId) {
+  return get(`/regions/${regionId}/groups`)
 }

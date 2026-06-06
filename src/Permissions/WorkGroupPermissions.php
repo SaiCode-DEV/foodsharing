@@ -5,6 +5,7 @@ namespace Foodsharing\Permissions;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\ApplyType;
+use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
@@ -44,59 +45,48 @@ class WorkGroupPermissions
         return false;
     }
 
-    public function mayAccess(array $group): bool
+    public function mayAccess(int $groupId, int $parentId): bool
     {
-        // Workgroup members
-        $regionId = $group['id'];
-        if ($this->currentUserUnits->mayBezirk($regionId)) {
+        if ($this->session->mayRole(Role::ORGA)) {
             return true;
         }
-        $groupFunction = $this->groupFunctionGateway->getRegionGroupFunctionId($group['id'], $group['parent_id']);
-        if (!is_null($groupFunction) && WorkgroupFunction::isRestrictedWorkgroupFunction($groupFunction)) {
-            return false;
+        if (isset($this->currentUserUnits->getRegions()[$groupId])) {
+            return true;
         }
 
         return false;
     }
 
-    public function mayApply(array $group, array $applications, array $stats): bool
+    public function mayApply(int $groupId, int $parentId, int $applyType, bool $hasApplied): bool
     {
-        $regionId = $group['id'];
-        if (isset($this->currentUserUnits->getRegions()[$regionId])) {
-            return false; // may not apply if already a member
+        if ($hasApplied || isset($this->currentUserUnits->getRegions()[$groupId])) {
+            return false; // may not apply if already applied or member
         }
-        if (in_array($regionId, $applications)) {
-            return false; // may not apply if already applied
-        }
-        if ($group['apply_type'] == ApplyType::EVERYBODY) {
-            return true;
-        }
-        if ($group['apply_type'] == ApplyType::REQUIRES_PROPERTIES) {
-            return $this->fulfillApplicationRequirements($group, $stats);
+        if ($this->mayAccessGroupList($parentId)) {
+            return $applyType === ApplyType::EVERYBODY;
         }
 
         return false;
     }
 
-    public function mayJoin(array $group): bool
+    public function mayJoin(int $groupId, int $parentId, int $applyType): bool
     {
-        $regionId = $group['id'];
-        if (isset($this->currentUserUnits->getRegions()[$regionId])) {
-            return false; // may not join if already a member
+        if (isset($this->currentUserUnits->getRegions()[$groupId])) {
+            return false; // may not apply if already member
+        }
+        if ($this->mayAccessGroupList($parentId)) {
+            return $applyType === ApplyType::OPEN;
         }
 
-        return $group['apply_type'] == ApplyType::OPEN;
+        return false;
     }
 
-    public function fulfillApplicationRequirements(array $group, array $stats): bool
+    public function mayAccessGroupList(int $regionId): bool
     {
-        if ($group['apply_type'] !== ApplyType::REQUIRES_PROPERTIES) {
+        if ($regionId === RegionIDs::GLOBAL_WORKING_GROUPS) {
             return true;
         }
 
-        return
-            $stats['bananacount'] >= $group['banana_count']
-            && $stats['fetchcount'] >= $group['fetch_count']
-            && $stats['weeks'] >= $group['week_num'];
+        return $this->currentUserUnits->mayBezirk($regionId);
     }
 }

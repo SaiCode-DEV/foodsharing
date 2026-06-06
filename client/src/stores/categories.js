@@ -4,6 +4,7 @@ import { getCategories, editCategory, addCategory, removeCategory, mergeCategori
 export const store = Vue.observable({
   store: [],
   resource: [],
+  group: [],
 })
 
 export const getters = {

@@ -306,6 +306,7 @@ upload:
   crop_dialog_title: "Bild ausschneiden"
   image-problem: "Deine Datei scheint nicht in Ordnung zu sein, nimm am besten ein normales jpg-Bild"
   invalid_image_files: "{count} ausgewählte Dateien sind keine gültigen Bilder: {fileNames}"
+  remove_image: "Bild entfernen"
 
 button:
   save: "Speichern"
@@ -355,21 +356,18 @@ group:
   name: "Name"
   userId: "ID"
   description: "Beschreibung"
-  photo: "Foto"
+  photo: "Gruppenbild"
   last_activity: "Letzte Aktivität"
   valid_until: "Gültig bis"
   filter_by_last_activity: "Nicht aktiv in Monaten"
   role_name: "Rolle"
   applications: "Bewerbungen"
   applications_for: "Bewerbungen für {name}"
+  application_prompt: "Hinweise zur Bewerbung. Welche Fragen sollen Bewerber:innen beantworten?"
   confirm_decline: "Möchtest du diese Bewerbung wirklich ablehnen?"
   application_region: "Bewerbung für {group}"
   application_from: "von"
   motivation: "Motivationstext"
-  entermotivation: "Motivation:" #in WorkGroupXhr
-  enterskills: "Fähigkeiten:" #in WorkGroupXhr
-  enterxp: "Erfahrung:" #in WorkGroupXhr
-  entertime: "Zeit:" #in WorkGroupXhr
   edit:
     title: "{group} bearbeiten"
     name_required: "Bitte gib einen Namen ein."
@@ -393,18 +391,11 @@ group:
     title: "Bewerbung für {group}"
     summary: "{name} möchte gerne in der Arbeitsgruppe {group} mitmachen."
     link_description: "Über diesen Link kommst du direkt zur Bewerbung:"
-    motivation: "Was ist deine Motivation, in der Gruppe {group} mitzuwirken?"
-    ability: "Welche Fähigkeiten hast du in diesem Bereich?"
-    experience: |
-      Kannst du in der Gruppe auf Erfahrungen, die du woanders gesammelt hast, zurückgreifen?
-      Wenn ja, wo beziehungsweise welche?
-    how_much_time: "Wie viele Stunden hast du pro Woche Zeit und Lust dafür aufzuwenden?"
-    error_missing_time: "Fehler: Keine Zeit wurde gewählt."
-    time:
-      "1": "1–2 Stunden"
-      "2": "2–3 Stunden"
-      "3": "3–4 Stunden"
-      "5": "5 oder mehr Stunden"
+    application_hint: "Bewirb dich jetzt auf die Mitarbeit in der Gruppe \"{group}\". Beantworte dazu bitte die folgenden Fragen. Deinen Text erhalen die Administrator:innen der AG."
+    default_prompt: |
+      - Was ist deine Motivation?
+      - Welche Fähigkeiten und Erfahrungen bringst du mit?
+      - Und in welchem Umfang möchtest du dich in der Gruppe einbringen?
     send: "Bewerbung absenden"
     sent: "Bewerbung wurde abgeschickt."
     deny: "Ablehnen"
@@ -414,17 +405,8 @@ group:
   application_requirements:
     requirements: "Wer kann sich für diese Gruppe eintragen?"
     nobody: "Niemand (geschlossene Gruppe)."
-    requires_properties: "Alle, die bestimmte Vertrauenspunkte erfüllen."
     everybody: "Jede:r darf sich bewerben."
     open: "Jede:r kann sich ohne Bewerbung einklinken."
-    fetch_count: "Wie viele Abholungen/Abgaben/Orga-Slots sollte man bereits gemacht haben?"
-    banana_count: "Wie viele Vertrauensbananen müssen vorhanden sein?"
-    banana_count_errors:
-      min: "Niemand soll weniger als {{ limit }} Vertrauensbananen haben."
-      max: "Bitte erwarte nicht mehr als {{ limit }} Vertrauensbananen."
-      not_in_range: "{{ limit }} Niemand sollte weniger als {{ min }} oder mehr als {{ max }} Vertrauensbananen haben."
-    member_since_weeks: "Seit wie vielen Wochen sollten die Bewerber:innen schon bei foodsharing sein?"
-    not_fulfilled: "Um dich für diese Arbeitsgruppe zu bewerben, musst du seit %weeks% Wochen bei foodsharing sein, schon %bananas% Vertrauensbananen gesammelt und schon %fetches% Slots wahrgenommen haben."
   members: "Mitglieder"
   administrators: "Gruppen-Admins"
   title: "foodsharing-Arbeitsgruppen"
@@ -440,12 +422,12 @@ group:
   image: "Titelbild für %name%"
   already_applied: "Für diese Gruppe hast du dich bereits beworben."
   actions:
-    contact: "Gruppe kontaktieren"
-    edit: "Gruppe bearbeiten"
+    contact: "Kontaktieren"
     go: "Zur Gruppe"
-    apply: "Für diese Arbeitsgruppe bewerben"
-    join: "Dieser Arbeitsgruppe beitreten"
+    apply: "Bewerben..."
+    join: "Beitreten"
     save: "Änderungen speichern"
+  join_confirmation: "Willst du jetzt der Gruppe {name} beitreten?"
   filter_placeholder: "Gruppen nach Name filtern"
   no_groups: "Hier gibt es noch keine Arbeitsgruppen"
   quit_name_workgroup: "Team {name} verlassen"
@@ -472,18 +454,19 @@ group:
     resources: "Ressourcen-Mosaik"
     invalid: "Ein Bezirk kann nicht mit einer Arbeitsgruppenfunktion versehen werden."
     restricted_workgroup_function: 'Diese Arbeitsgruppenfunktion kann nur von der überregionalen Arbeitsgruppe „AG anlegen“ bearbeitet werden'
-    tooltip_function_1: "Administrator:innen dieser Arbeitsgruppe werden bei neuen Mitgliedern im Bezirk benachrichtigt"
-    tooltip_function_2: "Administrator:innen dieser Arbeitsgruppe können Abstimmungen für den Bezirk anlegen"
-    tooltip_function_3: "Administrator:innen dieser Arbeitsgruppe können Fairteiler des Bezirks freischalten und bearbeiten sowie Fairteilerbeiträge entfernen"
-    tooltip_function_4: "Administrator:innen dieser Arbeitsgruppe können Betriebe im Bezirk einsehen und bearbeiten"
-    tooltip_function_5: "Administrator:innen dieser Arbeitsgruppe können Meldungen über Foodsaver:innen im Bezirk sehen. Es werden keine Meldungen angezeigt, an denen die Administrator:innen beteiligt sind! Diese erhält die Schiedsstelle."
-    tooltip_function_6: "Die E-Mail-Adresse dieser Arbeitsgruppe wird beim „Mediation anfragen“-Knopf angezeigt. Die Administrator:innen haben keine besonderen Berechtigungen."
-    tooltip_function_7: "Administrator:innen dieser Arbeitsgruppe bekommen Meldungen mit Beteiligung des Meldungsteams angezeigt. Es werden keine Meldungen angezeigt, an denen die Administrator:innen beteiligt sind! Diese erhält das Meldungsteam"
-    tooltip_function_9: "Administrator:innen dieser Arbeitsgruppe können die Ortsgruppenbeschreibung für die Karte bearbeiten."
-    tooltip_function_10: "Administrator:innen dieser Arbeitsgruppe können in moderierten Foren Beiträge freischalten. Wenn die Option für den Bezirk aktiviert ist, können sie auch Beiträge im Forum ausblenden."
-    tooltip_function_11: "Administrator:innen dieser Arbeitsgruppe werden in der Bezirksübersicht angezeigt."
-    tooltip_function_12: "Administrator:innen dieser Arbeitsgruppe werden in der Bezirksübersicht angezeigt."
-    tooltip_function_13: "Administrator:innen dieser Arbeitsgruppe werden per Glocke über neue Ressourcen informiert."
+    function_type_info:
+      1: "Administrator:innen dieser Arbeitsgruppe werden bei neuen Mitgliedern im Bezirk benachrichtigt"
+      2: "Administrator:innen dieser Arbeitsgruppe können Abstimmungen für den Bezirk anlegen"
+      3: "Administrator:innen dieser Arbeitsgruppe können Fairteiler des Bezirks freischalten und bearbeiten sowie Fairteilerbeiträge entfernen"
+      4: "Administrator:innen dieser Arbeitsgruppe können Betriebe im Bezirk einsehen und bearbeiten"
+      5: "Administrator:innen dieser Arbeitsgruppe können Meldungen über Foodsaver:innen im Bezirk sehen. Es werden keine Meldungen angezeigt, an denen die Administrator:innen beteiligt sind! Diese erhält die Schiedsstelle."
+      6: "Die E-Mail-Adresse dieser Arbeitsgruppe wird beim „Mediation anfragen“-Knopf angezeigt. Die Administrator:innen haben keine besonderen Berechtigungen."
+      7: "Administrator:innen dieser Arbeitsgruppe bekommen Meldungen mit Beteiligung des Meldungsteams angezeigt. Es werden keine Meldungen angezeigt, an denen die Administrator:innen beteiligt sind! Diese erhält das Meldungsteam"
+      9: "Administrator:innen dieser Arbeitsgruppe können die Ortsgruppenbeschreibung für die Karte bearbeiten."
+      10: "Administrator:innen dieser Arbeitsgruppe können in moderierten Foren Beiträge freischalten. Wenn die Option für den Bezirk aktiviert ist, können sie auch Beiträge im Forum ausblenden."
+      11: "Administrator:innen dieser Arbeitsgruppe werden in der Bezirksübersicht angezeigt."
+      12: "Administrator:innen dieser Arbeitsgruppe werden in der Bezirksübersicht angezeigt."
+      13: "Administrator:innen dieser Arbeitsgruppe werden per Glocke über neue Ressourcen informiert."
     none: "Keine GOALS-AG"
   unique_function:
     tooltip_function_region341: "Administrator:innen dieser Arbeitsgruppe können die Quizfragen verwalten"
@@ -548,6 +531,50 @@ group:
         verified: "verifiziert"
         unverified: "nicht verifiziert"
     all_roles: "Alle Rollen"
+  membership_status:
+    can_apply: "Bewerbung"
+    applied: "Beworben"
+    open: "Offen"
+    admin: "Admin"
+    member: "Mitglied"
+    closed: "Geschlossen"
+  badge:
+    inactive: "inaktiv"
+    function_group: "GOALS"
+    special_permissions: "Sonderrechte"
+  subgroups: "Untergruppen"
+  sorting_scheme:
+    name: "Name"
+    activity: "Letzte Aktivität"
+    membership: "Mitgliedschaft"
+    category: "Gruppentyp"
+  list_headers:
+    default: "Arbeitsgruppen in {region}"
+    inactive: "Inaktive Gruppen"
+    category:
+      default: "Weitere Gruppen"
+      development: "Gestaltungs-Gruppen"
+      exchange: "Austausch-Gruppen"
+      administrative: "Verwaltungs-Gruppen"
+      project: "Projekt-Gruppen"
+      archived: "Archivierte Gruppen"
+    membership:
+      admin: "Gruppen, die du administrierst"
+      member: "Deine Gruppen"
+      open: "Offene Gruppen"
+      can_apply: "Gruppen, bei denen du dich bewerben kannst"
+      applied: "Gruppen, bei denen du dich beworben hast"
+      closed: "Geschlossene Gruppen"
+    search_results: "Suchergebnisse"
+  category:
+    default: "Kein Gruppentyp ausgewählt"
+    development: "Gestaltungs-Gruppe"
+    exchange: "Austausch-Gruppe"
+    administrative: "Verwaltungs-Gruppe"
+    project: "Projekt-Gruppe"
+    archived: "Archivierte Gruppe"
+
+    
 
 legal:
   privacy_policy: "Datenschutzerklärung"
@@ -3293,8 +3320,6 @@ password:
   insertmail: "Gib deine E-Mail-Adresse ein, um dein Passwort zurückzusetzen."
 
 sidenav:
-  superregional: "Überregional"
-  localgroups: "Regionale Gruppen"
   yourregions: "Deine Bezirke"
   yourgroups: "Deine Gruppen"
   countryspecific: "Landesweite Gruppen"
@@ -4273,6 +4298,29 @@ help:
       title: "Kettenbetriebe"
       md: |
         Dieser Betrieb gehört zu einer [Betriebskette](https://wiki.foodsharing.de/Betrieb#Betriebskette). Für alle Betriebsketten gibt es verantwortliche [KAMs](https://wiki.foodsharing.de/Key_Account_Manager_(KAM)), die die Möglichkeit haben in diesem Betrieb das Team sowie die Auslastung und Anzahl der Abholslots einzusehen.
+    group_category:
+      title: "Gruppentypen"
+      md: |
+        Gruppen können von ihren Administrator:innen einem von 5 Typen zugeordnet werden. Diese unterscheiden sich in erheblich in ihrer Arbeitsweise und Zielen:
+
+        ###### Gestaltungs-Gruppen
+        Gestaltungs-Gruppen arbeiten aktiv an einem bestimmten Thema. Sie sind langfristig aktiv und treffen selbstständig Entscheidungen in ihrem Zuständigkeitsbereich.
+        ###### Austausch-Gruppen
+        In diesen Gruppen steht der reine Austauschrunden zu einem bestimmten Thema im Fordergrund. Hier werden also keine Entscheidungen getroffen. Die Mailadresse der Gruppe dient für Nicht-Mitglieder auch als Anlaufstelle für Fragen zum entsprechenden Thema. 
+        ###### Verwaltungs-Gruppen
+        Verwaltungs-Gruppen wurden für dauerhafte Aufgaben (z.B. die Moderation eines Forums) eingerichtet und erarbeiten dabei keine neuen Inhalte. Oft haben die Admins oder Mitglieder besondere Berechtigungen, die an die Mitgliedschaft in der Gruppe geknüpft sind, um diese Aufgaben übernehmen zu können.
+        ###### Projekt-Gruppen
+        Projekt-Gruppen arbeiten an einem zeitlich begrenzten Projekt, das thematisch in keine der Gestaltungs-Gruppen passt oder AG-übergreifend ist. Nach Abschluss des Projekts werden Projekt-Gruppen in der Regel archiviert. 
+        ###### Archivierte Gruppen
+        Gruppen, die nicht mehr aktiv sind, sollten archiviert werden. Auf diese Weise bleibt die Gruppenliste übersichtlich, da archivierte Gruppen gesondert am Ende dargestellt werden. So können sie nicht mit aktiven Gruppen verwechselt werden, währen die Inhalte der Gruppe erhalten und zugänglich bleiben.
+    archived_groups:
+      title: "Archivierte Gruppen"
+      md: |
+        Gruppen, die nicht mehr aktiv sind, können archiviert werden. Auf diese Weise bleibt die Gruppenliste übersichtlich, da archivierte Gruppen gesondert am Ende dargestellt werden. So können sie nicht mit aktiven Gruppen verwechselt werden, währen die Inhalte der Gruppe erhalten und zugänglich bleiben.
+    inactive_groups:
+      title: "Inaktive Gruppen"
+      md: |
+        Eine Gruppe wird als inaktiv markiert, sobald es länger als 6 Monate keinen neuen Post in ihrem Forum gab.
 
 team_page:
   board_member:
@@ -4306,6 +4354,7 @@ categories:
   title:
     store: 'Betriebskategorien'
     resource: 'Ressourcenkategorien'
+    group: 'Gruppenkategorien'
   empty: 'Bisher wurde keine Kategorie eingetragen'
   edit: 'Kategorie bearbeiten'
   delete: 'Kategorie löschen'
@@ -4316,6 +4365,7 @@ categories:
   confirm_delete_hint:
     store: 'Es sind noch {count} Betriebe dieser Kategorie zugeordnet. Diese Betriebe werden danach keine Kategorie mehr haben.'
     resource: 'Es sind noch {count} Ressourcen dieser Kategorie zugeordnet. Diese Ressourcen werden diese Kategorie verlieren.'
+    group: 'Es sind {count} Gruppen dieser Kategorie zugeordnet. Diese Gruppen werden danach keine Kategorie mehr haben.'
   new: 'Neue Kategorie eintragen'
 
 

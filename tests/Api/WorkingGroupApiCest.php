@@ -18,97 +18,106 @@ use Tests\Support\ApiTester;
 class WorkingGroupApiCest
 {
     private Generator $faker;
-    private $workingGroup;
-    private $workingGroup2;
-    private $workingGroup3;
-    private $foodsharer;
-    private $user;
-    private $userAdmin;
-    private $userOrga;
-    private $testRegion;
+    private array $globalWorkingGroup;
+    private array $regionalWorkingGroup;
+    private array $subWorkingGroup;
+    private array $foodsharer;
+    private array $user;
+    private array $userAdmin;
+    private array $userOrga;
+    private array $testRegion;
 
     public function _before(ApiTester $I): void
     {
         $this->faker = Factory::create('de_DE');
 
-        $this->workingGroup = $I->createWorkingGroup('test', ['apply_type' => ApplyType::EVERYBODY]);
-        $this->foodsharer = $I->createFoodsharer();
+        $this->testRegion = $I->createRegion('test region');
+        $this->regionalWorkingGroup = $I->createWorkingGroup('test AG in test region', ['parent_id' => $this->testRegion['id'], 'apply_type' => ApplyType::EVERYBODY]);
+        $this->globalWorkingGroup = $I->createWorkingGroup('test', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'apply_type' => ApplyType::EVERYBODY]);
+        $this->subWorkingGroup = $I->createWorkingGroup('test AG in test AG', ['parent_id' => $this->globalWorkingGroup['id'], 'apply_type' => ApplyType::EVERYBODY]);
+
         $this->user = $I->createFoodsaver();
-        $I->addRegionMember(RegionIDs::GLOBAL_WORKING_GROUPS, $this->user['id']);
         $this->userAdmin = $I->createFoodsaver();
-        $I->addRegionMember(RegionIDs::GLOBAL_WORKING_GROUPS, $this->userAdmin['id']);
-        $I->addRegionMember($this->workingGroup['id'], $this->userAdmin['id']);
-        $I->addRegionAdmin($this->workingGroup['id'], $this->userAdmin['id']);
         $this->userOrga = $I->createOrga();
 
-        $this->testRegion = $I->createRegion('test region');
-        $this->workingGroup2 = $I->createWorkingGroup('test AG in test region', ['parent_id' => $this->testRegion['id'], 'apply_type' => ApplyType::EVERYBODY]);
-        $I->addRegionAdmin($this->workingGroup2['id'], $this->userAdmin['id']);
-        $this->workingGroup3 = $I->createWorkingGroup('test AG in test AG', ['parent_id' => $this->workingGroup['id'], 'apply_type' => ApplyType::EVERYBODY]);
-        $I->addRegionAdmin($this->workingGroup3['id'], $this->userAdmin['id']);
+        $I->addRegionMember($this->globalWorkingGroup['id'], $this->userAdmin['id']);
+        $I->addRegionAdmin($this->globalWorkingGroup['id'], $this->userAdmin['id']);
+        $I->addRegionMember($this->regionalWorkingGroup['id'], $this->userAdmin['id']);
+        $I->addRegionAdmin($this->regionalWorkingGroup['id'], $this->userAdmin['id']);
+        $I->addRegionMember($this->subWorkingGroup['id'], $this->userAdmin['id']);
+        $I->addRegionAdmin($this->subWorkingGroup['id'], $this->userAdmin['id']);
     }
 
-    public function canNotAddMembersToWorkingGroupsWithoutLogin(ApiTester $I): void
+    /**
+     * Tests I want:
+     *
+     * - Can Join global and regional open working group
+     * - Can not join sub working group if not member of parent working group
+     * - Can not join closed working group
+     * - Can send mail to group as any user
+     * - Can apply for global and regional working group only if group is apply=everybody and user is member of the region
+     * - Can apply for sub working group only if user is member of the parent working group and group is apply=everybody
+     */
+    public function addingMembersToWorkingGroupsRequiresAdmin(ApiTester $I): void
     {
-        $I->sendPOST('api/groups/' . $this->workingGroup['id'] . '/members/' . $this->foodsharer['id']);
+        $I->sendPOST('api/groups/' . $this->globalWorkingGroup['id'] . '/members/' . $this->user['id']);
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
+
+        $I->login($this->user['email']);
+        $I->sendPOST('api/groups/' . $this->globalWorkingGroup['id'] . '/members/' . $this->user['id']);
+        $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
+
+        $I->login($this->userAdmin['email']);
+        $I->sendPOST('api/groups/' . $this->globalWorkingGroup['id'] . '/members/' . $this->user['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeInDatabase('fs_foodsaver_has_bezirk', ['bezirk_id' => $this->globalWorkingGroup['id'], 'foodsaver_id' => $this->user['id']]);
+
+        $I->login($this->user['email']);
+        $I->sendPOST('api/groups/' . $this->globalWorkingGroup['id'] . '/members/' . $this->userOrga['id']);
+        $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
+
+        $I->login($this->userAdmin['email']);
+        $I->sendDelete('api/regions/' . $this->globalWorkingGroup['id'] . '/users/' . $this->user['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
     }
 
-    public function canNooAddMembersToInvalidWorkingGroups(ApiTester $I): void
+    public function canNotAddMembersToInvalidWorkingGroups(ApiTester $I): void
     {
         $I->login($this->userAdmin['email']);
-        $I->sendPOST('api/groups/' . $this->workingGroup['id'] + 11 . '/members/' . $this->user['id']);
+        $I->sendPOST('api/groups/' . $this->globalWorkingGroup['id'] + 11 . '/members/' . $this->user['id']);
         $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
     }
 
-    public function canAddMembersToWorkingGroups(ApiTester $I): void
-    {
-        $I->login($this->userOrga['email']);
-        $I->sendPOST('api/groups/' . $this->workingGroup['id'] . '/members/' . $this->user['id']);
-        $I->seeResponseCodeIs(HttpCode::OK);
-    }
-
-    public function canRemoveMembersFromWorkingGroups(ApiTester $I): void
-    {
-        $I->login($this->userOrga['email']);
-        $I->sendDelete('api/regions/' . $this->workingGroup['id'] . '/users/' . $this->user['id']);
-        $I->seeResponseCodeIs(HttpCode::OK);
-    }
-
-    public function canJoinOpenWorkingGroup(ApiTester $I): void
-    {
-        $workingGroupOpen = $I->createWorkingGroup('test open', ['apply_type' => ApplyType::OPEN]);
-
-        $I->login($this->user['email']);
-        $I->sendPOST('api/groups/' . $workingGroupOpen['id'] . '/members/' . $this->user['id']);
-        $I->seeResponseCodeIs(HttpCode::OK);
-    }
-
-    public function canNotJoinClosedWorkingGroup(ApiTester $I): void
+    public function canOnlyJoinOpenWorkingGroup(ApiTester $I): void
     {
         $I->login($this->user['email']);
-        $I->sendPOST('api/groups/' . $this->workingGroup['id'] . '/members/' . $this->user['id']);
+        $I->sendPOST('api/groups/' . $this->globalWorkingGroup['id'] . '/members/' . $this->user['id']);
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
+
+        $I->updateInDatabase('fs_bezirk', ['apply_type' => ApplyType::OPEN], ['id' => $this->globalWorkingGroup['id']]);
+
+        $I->sendPOST('api/groups/' . $this->globalWorkingGroup['id'] . '/members/' . $this->user['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
     }
 
-    public function canNotEditWorkingGroup(ApiTester $I): void
+    public function canNotEditWorkingGroupInvalidly(ApiTester $I): void
     {
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/groups/' . $this->workingGroup['id'], $this->createFakeGroupData());
+        $I->sendPatch('api/groups/' . $this->globalWorkingGroup['id'], $this->createFakeGroupData());
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
-        $I->seeInDatabase('fs_bezirk', ['id' => $this->workingGroup['id'], 'teaser' => $this->workingGroup['teaser']]);
+        $I->seeInDatabase('fs_bezirk', ['id' => $this->globalWorkingGroup['id'], 'teaser' => $this->globalWorkingGroup['teaser']]);
 
         $I->login($this->user['email']);
+        $I->addRegionMember($this->globalWorkingGroup['id'], $this->user['id']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/groups/' . $this->workingGroup['id'], $this->createFakeGroupData());
+        $I->sendPatch('api/groups/' . $this->globalWorkingGroup['id'], $this->createFakeGroupData());
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
-        $I->seeInDatabase('fs_bezirk', ['id' => $this->workingGroup['id'], 'teaser' => $this->workingGroup['teaser']]);
+        $I->seeInDatabase('fs_bezirk', ['id' => $this->globalWorkingGroup['id'], 'teaser' => $this->globalWorkingGroup['teaser']]);
 
         // Can not edit not existing group
-        $newData = $this->createFakeGroupData();
         $I->login($this->userOrga['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/groups/' . $this->workingGroup['id'] + 11, $newData);
+        $I->sendPatch('api/groups/' . $this->globalWorkingGroup['id'] + 11, $this->createFakeGroupData());
         $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
 
         // Can not edit group with invalid data
@@ -117,7 +126,7 @@ class WorkingGroupApiCest
 
         $I->login($this->userOrga['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/groups/' . $this->workingGroup['id'], $newData);
+        $I->sendPatch('api/groups/' . $this->globalWorkingGroup['id'], $newData);
         $I->seeResponseCodeIs(HttpCode::UNPROCESSABLE_ENTITY);
     }
 
@@ -125,55 +134,46 @@ class WorkingGroupApiCest
      * @example["userAdmin"]
      * @example["userOrga"]
      */
-    public function canEditWorkingGroupAsOrgaAndAdmin(ApiTester $I, Example $example): void
+    public function canEditWorkingGroup(ApiTester $I, Example $example): void
     {
         $newData = $this->createFakeGroupData();
         $I->login($this->{$example[0]}['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPatch('api/groups/' . $this->workingGroup['id'], $newData);
+        $I->sendPatch('api/groups/' . $this->globalWorkingGroup['id'], $newData);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeInDatabase('fs_bezirk', array_merge(
-            ['id' => $this->workingGroup['id']],
+            ['id' => $this->globalWorkingGroup['id']],
             $this->mapApiFormatToDatabase($newData)
         ));
     }
 
-    /**
-     * @example["user"]
-     * @example["userAdmin"]
-     * @example["userOrga"]
-     */
-    public function sendMailToGroup(ApiTester $I, Example $example): void
+    public function sendMailToGroup(ApiTester $I): void
     {
         $I->deleteAllMails();
 
         $validMessage = '{ "message": "ThisIsATestMessage"}';
         $invalidMessage = '';
-        // Test unauthorized
-        $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/groups/' . $this->workingGroup['id'] . '/mail', $invalidMessage);
-        $I->seeResponseCodeIs(HttpCode::UNPROCESSABLE_ENTITY);
 
         // Test unauthorized
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/groups/null/mail', $invalidMessage);
-        $I->seeResponseCodeIs(HttpCode::UNPROCESSABLE_ENTITY);
-
-        // Test unauthorized
-        $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/groups/' . $this->workingGroup['id'] . '/mail', $validMessage);
+        $I->sendPost('api/groups/' . $this->globalWorkingGroup['id'] . '/mail', $validMessage);
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
 
-        $I->login($this->{$example[0]}['email']);
+        $I->login($this->user['email']);
 
         // Test Invalid Group
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/groups/' . $this->workingGroup['id'] + 100 . '/mail', $validMessage);
+        $I->sendPost('api/groups/' . $this->globalWorkingGroup['id'] + 100 . '/mail', $validMessage);
         $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
+
+        // Test invalid message
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPost('api/groups/' . $this->globalWorkingGroup['id'] . '/mail', $invalidMessage);
+        $I->seeResponseCodeIs(HttpCode::UNPROCESSABLE_ENTITY);
 
         // Send valid mail
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/groups/' . $this->workingGroup['id'] . '/mail', $validMessage);
+        $I->sendPost('api/groups/' . $this->globalWorkingGroup['id'] . '/mail', $validMessage);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         $I->expectNumMails(1, 10);
@@ -181,99 +181,86 @@ class WorkingGroupApiCest
         $mail = $mails[0];
 
         $I->assertStringContainsString('ThisIsATestMessage', $mail->html);
-        $I->assertStringContainsString($this->{$example[0]}['name'], $mail->subject);
-        $I->assertContainsEquals($this->{$example[0]}['email'], array_map(fn ($value): string => $value->address, $mail->to));
-        $I->assertContainsEquals('region-' . $this->workingGroup['id'] . '@foodsharing.network', array_map(fn ($value): string => $value->address, $mail->to));
-        $I->assertContainsEquals($this->{$example[0]}['email'], array_map(fn ($value): string => $value->address, $mail->replyTo));
+        $I->assertStringContainsString($this->user['name'], $mail->subject);
+        $I->assertContainsEquals($this->user['email'], array_map(fn ($value): string => $value->address, $mail->to));
+        $I->assertContainsEquals('region-' . $this->globalWorkingGroup['id'] . '@foodsharing.network', array_map(fn ($value): string => $value->address, $mail->to));
+        $I->assertContainsEquals($this->user['email'], array_map(fn ($value): string => $value->address, $mail->replyTo));
     }
 
     public function sendGroupRequest(ApiTester $I): void
     {
-        $validRequest = '{ "motivation": "ThisIsATestMessage", "ability": "", "experience": "", "selectedTime": 1}';
-        $invalidMessage = '{ "motivation": "ThisIsATestMessage", "ability": "", "experience": "", "selectedTime": "a"}';
+        $validRequest = '{ "application": "ThisIsATestMessage" }';
+        $invalidMessage = '{ "motivation": "ThisIsATestMessage", "ability": "", "experience": "", "selectedTime": 1 }';
+
         // Test unauthorized
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/groups/' . $this->workingGroup['id'] . '/applications', $validRequest);
+        $I->sendPost('api/groups/' . $this->globalWorkingGroup['id'] . '/applications', $validRequest);
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
 
         $I->login($this->user['email']);
 
         // Test wrong content
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/groups/' . $this->workingGroup['id'] . '/applications', $invalidMessage);
-        $I->seeResponseCodeIs(HttpCode::UNPROCESSABLE_ENTITY);
-
-        // Test wrong content
-        $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/groups/null/applications', $invalidMessage);
+        $I->sendPost('api/groups/' . $this->globalWorkingGroup['id'] . '/applications', $invalidMessage);
         $I->seeResponseCodeIs(HttpCode::UNPROCESSABLE_ENTITY);
 
         // Test Invalid Group
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/groups/' . $this->workingGroup['id'] + 100 . '/applications', $validRequest);
+        $I->sendPost('api/groups/' . $this->globalWorkingGroup['id'] + 100 . '/applications', $validRequest);
         $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
 
         // Test send request
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/groups/' . $this->workingGroup['id'] . '/applications', $validRequest);
+        $I->sendPost('api/groups/' . $this->globalWorkingGroup['id'] . '/applications', $validRequest);
         $I->seeResponseCodeIs(HttpCode::OK);
     }
 
-    public function canApplyForWorkingGroupInRegion(ApiTester $I): void
+    public function canApplyToCorrectGroups(ApiTester $I): void
     {
-        // We want users to be added to the parenting regions if this is NOT a
-        // working groups. Otherwise, they'd later be added over night
-        // automatically but won't have access until then
         $I->login($this->user['email']);
-
-        // Verify user is not yet member of the test region
-        $I->dontSeeInDatabase('fs_foodsaver_has_bezirk', ['foodsaver_id' => $this->user['id'], 'bezirk_id' => $this->testRegion['id']]);
-
-        // Apply for working group that has the test region as parent
+        $validRequest = ['application' => 'ThisIsATestMessage'];
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $validRequest = ['motivation' => 'ThisIsATestMessage', 'ability' => '', 'experience' => '', 'selectedTime' => 1];
-        $I->sendPost('api/groups/' . $this->workingGroup2['id'] . '/applications', $validRequest);
+        $I->sendPost('api/groups/' . $this->globalWorkingGroup['id'] . '/applications', $validRequest);
         $I->seeResponseCodeIs(HttpCode::OK);
 
-        // Verify user is still NOT member of the test region
-        $I->dontSeeInDatabase('fs_foodsaver_has_bezirk', ['foodsaver_id' => $this->user['id'], 'bezirk_id' => $this->testRegion['id']]);
+        $I->sendPost('api/groups/' . $this->regionalWorkingGroup['id'] . '/applications', $validRequest);
+        $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
 
-        // Accept user into working group
+        $I->sendPost('api/groups/' . $this->subWorkingGroup['id'] . '/applications', $validRequest);
+        $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
+
         $I->login($this->userAdmin['email']);
-        $I->sendPOST('api/groups/' . $this->workingGroup2['id'] . '/members/' . $this->user['id']);
+        $I->sendPOST('api/groups/' . $this->globalWorkingGroup['id'] . '/members/' . $this->user['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->addRegionMember($this->testRegion['id'], $this->user['id']);
+
+        $I->login($this->user['email']);
+        $I->sendPost('api/groups/' . $this->regionalWorkingGroup['id'] . '/applications', $validRequest);
         $I->seeResponseCodeIs(HttpCode::OK);
 
-        // Verify user is now member of the test region
-        $I->seeInDatabase('fs_foodsaver_has_bezirk', ['foodsaver_id' => $this->user['id'], 'bezirk_id' => $this->testRegion['id']]);
+        $I->login($this->user['email']);
+        $I->sendPost('api/groups/' . $this->subWorkingGroup['id'] . '/applications', $validRequest);
+        $I->seeResponseCodeIs(HttpCode::OK);
     }
 
-    public function canApplyForWorkingGroupInWorkingGroup(ApiTester $I): void
+    public function usersDontGetAutoAddedToParentRegions(ApiTester $I): void
     {
-        // We don't want users to be added to the parenting regions if this IS a
-        // working group. Users will still need to apply separately for the
-        // underlying working group if they want to become member here (real
-        // life example: AG Betriebsketten and its children)
-        $I->login($this->user['email']);
-
-        // Verify user is NOT member of the test working group
-        $I->dontSeeInDatabase('fs_foodsaver_has_bezirk', ['foodsaver_id' => $this->user['id'], 'bezirk_id' => $this->workingGroup['id']]);
-
-        // Apply for working group that has the test working group as parent
-        $I->haveHttpHeader('Content-Type', 'application/json');
-        $validRequest = ['motivation' => 'ThisIsATestMessage', 'ability' => '', 'experience' => '', 'selectedTime' => 1];
-        $I->sendPost('api/groups/' . $this->workingGroup3['id'] . '/applications', $validRequest);
-        $I->seeResponseCodeIs(HttpCode::OK);
-
-        // Verify user is still NOT member of the test working group
-        $I->dontSeeInDatabase('fs_foodsaver_has_bezirk', ['foodsaver_id' => $this->user['id'], 'bezirk_id' => $this->workingGroup['id']]);
-
-        // Accept user into working group
+        // Add user into working group where he is not in the parent group / region
         $I->login($this->userAdmin['email']);
-        $I->sendPOST('api/groups/' . $this->workingGroup['id'] . '/members/' . $this->user['id']);
+        $I->sendPOST('api/groups/' . $this->subWorkingGroup['id'] . '/members/' . $this->user['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
 
-        // Verify user is still NOT member of the test region
+        $I->sendPOST('api/groups/' . $this->regionalWorkingGroup['id'] . '/members/' . $this->user['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Verify user is still NOT member of the global working group and test region
+        $I->dontSeeInDatabase('fs_foodsaver_has_bezirk', ['foodsaver_id' => $this->user['id'], 'bezirk_id' => $this->globalWorkingGroup['id']]);
         $I->dontSeeInDatabase('fs_foodsaver_has_bezirk', ['foodsaver_id' => $this->user['id'], 'bezirk_id' => $this->testRegion['id']]);
+
+        // User does get added to global working groups region though when added to a global working group
+        $I->sendPOST('api/groups/' . $this->globalWorkingGroup['id'] . '/members/' . $this->user['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeInDatabase('fs_foodsaver_has_bezirk', ['foodsaver_id' => $this->user['id'], 'bezirk_id' => RegionIDs::GLOBAL_WORKING_GROUPS]);
     }
 
     /**
@@ -286,9 +273,6 @@ class WorkingGroupApiCest
             'teaser' => $group['description'],
             'photo' => $group['photo'] ?? '',
             'apply_type' => $group['applyType'],
-            'banana_count' => $group['requiredBananas'],
-            'fetch_count' => $group['requiredPickups'],
-            'week_num' => $group['requiredWeeks'],
         ];
     }
 
@@ -298,10 +282,7 @@ class WorkingGroupApiCest
             'name' => $this->faker->name(),
             'description' => $this->faker->realText(),
             'photo' => null,
-            'applyType' => random_int(ApplyType::NOBODY, ApplyType::OPEN),
-            'requiredBananas' => random_int(0, 10),
-            'requiredPickups' => random_int(0, 100),
-            'requiredWeeks' => random_int(0, 52),
+            'applyType' => [ApplyType::NOBODY, ApplyType::OPEN, ApplyType::EVERYBODY][random_int(0, 2)],
         ];
     }
 }

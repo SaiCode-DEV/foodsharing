@@ -12,7 +12,9 @@ class ApplyType
 {
     /* no one can apply for this working group */
     final public const int NOBODY = 0;
-    /* special requirements have to be fullfilled in order to apply */
+    /**
+     * @deprecated functionality removed
+     */
     final public const int REQUIRES_PROPERTIES = 1;
     /* everybody can apply for this working group */
     final public const int EVERYBODY = 2; // default

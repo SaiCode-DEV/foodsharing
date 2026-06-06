@@ -50,7 +50,22 @@
           :is-image="true"
           :img-width="600"
           :img-height="400"
+          show-clear-button
           @change="onPhotoChange"
+        />
+      </b-form-group>
+
+      <b-form-group
+        class="mb-4"
+      >
+        <template #label>
+          {{ $t('group.sorting_scheme.category') }}
+          <Info info-key="group_category" />
+        </template>
+        <b-form-select
+          id="input-group-category"
+          v-model="groupCategory"
+          :options="groupCategoryOptions"
         />
       </b-form-group>
 
@@ -66,44 +81,18 @@
       </b-form-group>
 
       <b-form-group
-        v-if="applyDetailsVisible"
-        :label="$t('group.application_requirements.banana_count')"
+        v-if="apply_type === 2"
+        :label="$t('group.application_prompt')"
         class="mb-4"
       >
-        <b-form-spinbutton
-          id="input-required-bananas"
-          v-model="required_bananas"
-          min="0"
-          max="20"
-          inline
-        />
-      </b-form-group>
-
-      <b-form-group
-        v-if="applyDetailsVisible"
-        :label="$t('group.application_requirements.fetch_count')"
-        class="mb-4"
-      >
-        <b-form-spinbutton
-          id="input-required-pickups"
-          v-model="required_pickups"
-          min="0"
-          max="100"
-          inline
-        />
-      </b-form-group>
-
-      <b-form-group
-        v-if="applyDetailsVisible"
-        :label="$t('group.application_requirements.member_since_weeks')"
-        class="mb-4"
-      >
-        <b-form-spinbutton
-          id="input-required-weeks"
-          v-model="required_weeks"
-          min="0"
-          max="52"
-          inline
+        <MarkdownInput
+          id="input-application-prompt"
+          :value.sync="applicationPrompt"
+          variant="outline-primary"
+          :rows="3"
+          :conceal-toolbar="true"
+          :region-id="group.id"
+          :placeholder="$t('group.apply.default_prompt')"
         />
       </b-form-group>
     </b-form>
@@ -132,9 +121,11 @@ import { hideLoader, pulseError, pulseSuccess, showLoader } from '@/script'
 import { updateGroup } from '@/api/groups'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 import Container from '@/components/Container/Container.vue'
+import Info from '../Help/Info.vue'
+import { GROUP_CATEGORY } from '@/stores/groups'
 
 export default {
-  components: { Container, MarkdownInput, FileUpload },
+  components: { Container, MarkdownInput, FileUpload, Info },
   props: {
     group: { type: Object, required: true },
   },
@@ -149,23 +140,19 @@ export default {
       description: this.group.teaser,
       photo: this.group.photo,
       apply_type: this.group.apply_type,
+      groupCategory: this.group.category_id,
       apply_type_options: [
         { value: 0, text: i18n('group.application_requirements.nobody') },
-        { value: 1, text: i18n('group.application_requirements.requires_properties') },
         { value: 2, text: i18n('group.application_requirements.everybody') },
         { value: 3, text: i18n('group.application_requirements.open') },
       ],
-      required_bananas: this.group.banana_count,
-      required_pickups: this.group.fetch_count,
-      required_weeks: this.group.week_num,
+      groupCategoryOptions: Object.entries(GROUP_CATEGORY).map(([key, category]) => ({ value: category.id, text: i18n('group.category.' + key.toLowerCase()) })),
+      applicationPrompt: this.group.application_prompt || '',
     }
   },
   computed: {
     validFileName () {
       return this.photo !== undefined && this.photo.startsWith('workgroup') ? '/img/' + this.photo : this.photo
-    },
-    applyDetailsVisible () {
-      return this.apply_type === 1
     },
   },
   validations: {
@@ -174,13 +161,12 @@ export default {
   },
   methods: {
     onPhotoChange (file) {
-      this.photo = file.url
+      this.photo = file?.url
     },
     async submit () {
       showLoader()
       try {
-        await updateGroup(this.group.id, this.name, this.description, this.photo, this.apply_type, this.required_bananas,
-          this.required_pickups, this.required_weeks)
+        await updateGroup(this.group.id, this.name, this.description, this.photo, this.apply_type, this.applicationPrompt, this.groupCategory)
         pulseSuccess(i18n('globals.saved'))
       } catch (e) {
         pulseError(i18n('error_unexpected'))

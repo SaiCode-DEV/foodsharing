@@ -30,36 +30,8 @@ class EditWorkGroupData
      */
     #[Assert\Type('integer')]
     #[Assert\Range(min: 0, max: 3)]
+    #[Assert\NotEqualTo(value: ApplyType::REQUIRES_PROPERTIES, message: 'This application type is deprecated and not allowed to be set anymore.')]
     public int $applyType = ApplyType::NOBODY;
-
-    /**
-     * If the apply type is REQUIRES_PROPERTIES, a foodsaver must have this many bananas before being allowed to apply
-     * for this group.
-     *
-     * @OA\Property(example=0)
-     */
-    #[Assert\Type('integer')]
-    #[Assert\Range(min: 0, max: 20, notInRangeMessage: 'group.application_requirements.banana_count_errors.not_in_range')]
-    public int $requiredBananas = 0;
-
-    /**
-     * If the apply type is REQUIRES_PROPERTIES, a foodsaver must have been to this many pickups before being allowed
-     * to apply for this group.
-     *
-     * @OA\Property(example=0)
-     */
-    #[Assert\Type('integer')]
-    #[Assert\Range(min: 0, max: 100)]
-    public int $requiredPickups = 0;
-
-    /**
-     * If the apply type is REQUIRES_PROPERTIES, a foodsaver must have been registered this many weeks before being
-     * allowed to apply for this group.
-     *
-     * @OA\Property(example=0)
-     */
-    #[Assert\Range(min: 0, max: 52)]
-    public int $requiredWeeks = 0;
 
     /**
      * Filename of the working group's photo.
@@ -67,4 +39,20 @@ class EditWorkGroupData
      * @OA\Property(example="test.jpg")
      */
     public ?string $photo = null;
+
+    /**
+     * The prompt for applications to the group.
+     *
+     * @OA\Property(example="Please describe why you want to join this group.")
+     */
+    #[Assert\NotBlank(allowNull: true)]
+    public ?string $applicationPrompt = null;
+
+    /**
+     * The working group's category.
+     *
+     * @OA\Property(example=1)
+     */
+    #[Assert\Type('integer')]
+    public ?int $groupCategory = null;
 }

@@ -13,6 +13,7 @@ class CategoriesTransactions
         private readonly StoreTransactions $storeTransactions,
         private readonly StoreCategoriesGateway $storeCategoriesGateway,
         private readonly ResourceCategoriesGateway $resourceCategoriesGateway,
+        private readonly GroupCategoriesGateway $groupCategoriesGateway,
     ) {
     }
 
@@ -28,6 +29,7 @@ class CategoriesTransactions
         return match ($type) {
             CategoryType::STORE => $this->storeCategoriesGateway,
             CategoryType::RESOURCE => $this->resourceCategoriesGateway,
+            CategoryType::GROUP => $this->groupCategoriesGateway,
         };
     }
 }

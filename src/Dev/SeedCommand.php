@@ -10,6 +10,7 @@ use Codeception\Lib\ModuleContainer;
 use Foodsharing\Modules\Core\DBConstants\Configuration\ConfigurationCategory;
 use Foodsharing\Modules\Core\DBConstants\Configuration\ConfigurationKey;
 use Foodsharing\Modules\Core\DBConstants\Region\ApplyType;
+use Foodsharing\Modules\Core\DBConstants\Region\GroupCategory;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
@@ -187,19 +188,19 @@ class SeedCommand extends AbstractSeedCommand implements CustomCommandInterface
         $password = 'user';
 
         $workgroups = [
-            ['name' => 'Begrüßung', 'function' => WorkgroupFunction::WELCOME, 'key' => 'welcome'],
-            ['name' => 'Abstimmungen', 'function' => WorkgroupFunction::VOTING, 'key' => 'voting', 'addAdminsToRegion' => RegionIDs::VOTING_ADMIN_GROUP],
-            ['name' => 'Fairteiler', 'function' => WorkgroupFunction::FSP, 'key' => 'fsp'],
-            ['name' => 'Betriebskoordination', 'function' => WorkgroupFunction::STORES_COORDINATION, 'key' => 'stores'],
-            ['name' => 'Meldungsbearbeitung', 'function' => WorkgroupFunction::REPORT, 'key' => 'report'],
-            ['name' => 'Mediation', 'function' => WorkgroupFunction::MEDIATION, 'key' => 'mediation'],
-            ['name' => 'Schiedsstelle', 'function' => WorkgroupFunction::ARBITRATION, 'key' => 'arbitration'],
-            ['name' => 'Verwaltung', 'function' => WorkgroupFunction::FSMANAGEMENT, 'key' => 'fsManagement'],
-            ['name' => 'Öffentlichkeitsarbeit', 'function' => WorkgroupFunction::PR, 'key' => 'pr'],
-            ['name' => 'Moderation', 'function' => WorkgroupFunction::MODERATION, 'key' => 'moderation'],
-            ['name' => 'Vorstand', 'function' => WorkgroupFunction::BOARD, 'key' => 'board'],
-            ['name' => 'Wahlen', 'function' => WorkgroupFunction::ELECTION, 'key' => 'election', 'addAdminsToRegion' => RegionIDs::ELECTION_ADMIN_GROUP],
-            ['name' => 'Ressourcen', 'function' => WorkgroupFunction::RESOURCES, 'key' => 'resources'],
+            ['name' => 'Begrüßung', 'function' => WorkgroupFunction::WELCOME, 'key' => 'welcome', 'category' => GroupCategory::ADMINISTRATIVE->value],
+            ['name' => 'Abstimmungen', 'function' => WorkgroupFunction::VOTING, 'key' => 'voting', 'addAdminsToRegion' => RegionIDs::VOTING_ADMIN_GROUP, 'category' => GroupCategory::ADMINISTRATIVE->value],
+            ['name' => 'Fairteiler', 'function' => WorkgroupFunction::FSP, 'key' => 'fsp', 'category' => GroupCategory::DEVELOPMENT->value, 'apply_type' => ApplyType::OPEN],
+            ['name' => 'Betriebskoordination', 'function' => WorkgroupFunction::STORES_COORDINATION, 'key' => 'stores', 'category' => GroupCategory::DEVELOPMENT->value],
+            ['name' => 'Meldungsbearbeitung', 'function' => WorkgroupFunction::REPORT, 'key' => 'report', 'category' => GroupCategory::ADMINISTRATIVE->value, 'apply_type' => ApplyType::NOBODY],
+            ['name' => 'Mediation', 'function' => WorkgroupFunction::MEDIATION, 'key' => 'mediation', 'category' => GroupCategory::ADMINISTRATIVE->value],
+            ['name' => 'Schiedsstelle', 'function' => WorkgroupFunction::ARBITRATION, 'key' => 'arbitration', 'category' => GroupCategory::ADMINISTRATIVE->value, 'apply_type' => ApplyType::NOBODY],
+            ['name' => 'Verwaltung', 'function' => WorkgroupFunction::FSMANAGEMENT, 'key' => 'fsManagement', 'category' => GroupCategory::ADMINISTRATIVE->value],
+            ['name' => 'Öffentlichkeitsarbeit', 'function' => WorkgroupFunction::PR, 'key' => 'pr', 'category' => GroupCategory::DEVELOPMENT->value, 'apply_type' => ApplyType::OPEN],
+            ['name' => 'Moderation', 'function' => WorkgroupFunction::MODERATION, 'key' => 'moderation', 'category' => GroupCategory::ADMINISTRATIVE->value],
+            ['name' => 'Vorstand', 'function' => WorkgroupFunction::BOARD, 'key' => 'board', 'category' => GroupCategory::ADMINISTRATIVE->value, 'apply_type' => ApplyType::NOBODY],
+            ['name' => 'Wahlen', 'function' => WorkgroupFunction::ELECTION, 'key' => 'election', 'addAdminsToRegion' => RegionIDs::ELECTION_ADMIN_GROUP, 'category' => GroupCategory::ADMINISTRATIVE->value],
+            ['name' => 'Ressourcen', 'function' => WorkgroupFunction::RESOURCES, 'key' => 'resources', 'category' => GroupCategory::DEVELOPMENT->value, 'apply_type' => ApplyType::OPEN],
         ];
 
         foreach ($workgroups as $idx => $wg) {
@@ -207,6 +208,9 @@ class SeedCommand extends AbstractSeedCommand implements CustomCommandInterface
                 'parent_id' => $region1,
                 'email' => preg_replace(['/ä/', '/ö/', '/ü/', '/ß/'], ['ae', 'oe', 'ue', 'ss'], strtolower($wg['name'])) . '.goettingen',
                 'teaser' => 'Hier ist die AG ' . $wg['name'] . ' für unseren Bezirk',
+                'category_id' => $wg['category'],
+                'apply_type' => $wg['apply_type'] ?? ApplyType::EVERYBODY,
+                'include_thread' => $adminOfAll['id'],
             ]);
             $I->haveInDatabase('fs_region_function', [
                 'region_id' => $group['id'],
@@ -232,6 +236,7 @@ class SeedCommand extends AbstractSeedCommand implements CustomCommandInterface
                     $this->{$wg['key'] . 'Admins'}[] = $user['id'];
                 }
             }
+            $I->addRegionMember($group['id'], $adminOfAll['id']);
             $I->addRegionAdmin($group['id'], $adminOfAll['id']);
             $this->progressBar($idx + 1, count($workgroups));
         }
@@ -314,6 +319,9 @@ class SeedCommand extends AbstractSeedCommand implements CustomCommandInterface
         $I->_getDbh()->beginTransaction();
         $I->_getDriver()->executeQuery('SET FOREIGN_KEY_CHECKS=1;', []);
 
+        // Create group categories:
+        $this->createGroupCategories();
+
         // Create base regions
         $this->output->writeln('Create base regions');
         $I->createRootRegion();
@@ -337,7 +345,6 @@ class SeedCommand extends AbstractSeedCommand implements CustomCommandInterface
         $region1 = $regionOne['id'];
         $regionTwo = $I->createRegion('Entenhausen', ['parent_id' => $regionLowerSaxony['id'], 'type' => UnitType::CITY, 'has_children' => 1], fillMailbox: true);
         $region2 = $regionTwo['id'];
-        $regionOneWorkGroup = $I->createWorkingGroup('Schnippelparty Göttingen', ['parent_id' => $regionOne['id']]);
         $region_vorstand = RegionIDs::TEAM_BOARD_MEMBER;
         $ag_aktive = RegionIDs::TEAM_ADMINISTRATION_MEMBER;
         $ag_testimonials = RegionIDs::TEAM_BOARD_MEMBER;
@@ -350,47 +357,7 @@ class SeedCommand extends AbstractSeedCommand implements CustomCommandInterface
 
         $this->output->writeln('Create working groups');
         $password = 'user';
-        $region1WorkGroup = $regionOneWorkGroup['id']; // workgroup 'Schnippelparty Göttingen' from 'Göttingen'
-        $I->createWorkingGroup('AG Anlegen', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP]);
-        $I->createWorkingGroup('Support', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::IT_SUPPORT_GROUP]);
-        $I->createWorkingGroup('Öffentlichkeitsarbeit - Partner + Teamseite', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::PR_PARTNER_AND_TEAM_WORK_GROUP]);
-        $I->createWorkingGroup('Öffentlichkeitsarbeit - Startseite', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::PR_START_PAGE]);
-        $I->createWorkingGroup('Orgarechte-Koordination', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::ORGA_COORDINATION_GROUP]);
-        $I->createWorkingGroup('Redaktion', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::EDITORIAL_GROUP]);
-        $I->createWorkingGroup('foodsharing Vereins-Vorstände', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::BOARD_ADMIN_GROUP]);
-        $I->createWorkingGroup('Begrüßungsteam Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::WELCOME_TEAM_ADMIN_GROUP]);
-        $I->createWorkingGroup('Abstimmungs-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::VOTING_ADMIN_GROUP]);
-        $I->createWorkingGroup('Wahlen-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::ELECTION_ADMIN_GROUP]);
-        $I->createWorkingGroup('Fairteiler-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::FSP_TEAM_ADMIN_GROUP]);
-        $I->createWorkingGroup('Betriebskoordination-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::STORE_COORDINATION_TEAM_ADMIN_GROUP]);
-        $I->createWorkingGroup('AG Betriebsketten', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::STORE_CHAIN_GROUP]);
-        $I->createWorkingGroup('Betriebsketten Schweiz', ['parent_id' => RegionIDs::SWITZERLAND, 'id' => RegionIDs::STORE_CHAIN_GROUP_SWITZERLAND]);
-        $I->createWorkingGroup('Hygiene', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::HYGIENE_GROUP]);
-        $I->createWorkingGroup('PolKa', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::POLITICAL_CAMPAIGNS]);
-        $I->createWorkingGroup('Quiz FR', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::QUIZ_GROUP_FR]); // actually in france, but for the seed data it's here...
-        $I->createWorkingGroup('Meldungen-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::REPORT_TEAM_ADMIN_GROUP]);
-        $I->createWorkingGroup('Mediation-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::MEDIATION_TEAM_ADMIN_GROUP]);
-        $I->createWorkingGroup('Schiedsstelle-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::ARBITRATION_TEAM_ADMIN_GROUP]);
-        $I->createWorkingGroup('Verwaltung-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::FSMANAGEMENT_TEAM_ADMIN_GROUP]);
-        $I->createWorkingGroup('Öffentlichkeitsarbeit-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::PR_TEAM_ADMIN_GROUP]);
-        $I->createWorkingGroup('Moderation-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::MODERATION_TEAM_ADMIN_GROUP]);
-        $I->createWorkingGroup('Produktteam', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::PRODUCT_TEAM]);
-        $I->createWorkingGroup('Oauth Client Administration', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::OAUTH_CLIENT_ADMINISTRATION_WORK_GROUP]);
-        $I->createWorkingGroup('Anmeldevorgang & Quiz', ['id' => RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP,
-            'parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS,
-            'teaser' => 'Wir beschäftigen uns mit dem derzeit so nötig zu überarbeitenden Anmeldevorgang und Quiz, mit dem man sich für den Status des Foodsavers, Filialverantwortlichen oder gar den der BotschafterInnen qualifizieren kann.\n\nWenn Du Dich schon sehr mit der Lebensmittelrettung auskennst, sie schon anderen gekonnt vermitteln kannst, sowie Lust hast, dir kreative Fragen auszudenken und dir Gedanken zur Anmeldung zu machen, bist du hier herzlich willkommen!\n\nAchtung=> Für NACHRICHTEN an die Gruppe=>\nVerwende möglichst die Emailadresse, bitte!\nWenn du den Button \'Gruppe kontaktieren\' verwendest, dann schreibe bitte eine Emailadresse von dir dazu (oder deine Foodsaver-ID).\nWir können sonst nicht antworten, da uns Absender*in und Emailadresse leider nicht automatisch angezeigt werden!\n\n(*) Die Administratoren dieser Gruppe haben Zugriff auf das Quiz, die Quizkommentare und die Quizauswertungen.(341, QUIZ_AND_REGISTRATION_WORK_GROUP)',
-            'desc' => 'Wir besch&auml;ftigen uns mit dem derzeit so n&ouml;tig zu &uuml;berarbeitenden Anmeldevorgang, dem auch demn&auml;chst ein Quiz anschlie&szlig;bar sein soll, mit dem man sich f&uuml;r den Status des Foodsavers, Filialverantwortlichen oder gar der BotschafterInnen qualifiziert.',
-            'master' => RegionIDs::GLOBAL_WORKING_GROUPS,
-            'mailbox_id' => 19708,
-            'email' => 'anmeldevorgang.quiz',
-            'email_name' => 'Foodsharing Anmeldevorgang  Quiz',
-        ]);
-        $I->createWorkingGroup('Quizfragen', ['parent_id' => RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP, 'id' => RegionIDs::NEW_QUIZZES_WORK_GROUP]);
-
         $I->createRegion('Stadtteil von Göttingen', ['type' => UnitType::PART_OF_TOWN, 'parent_id' => $region1], fillMailbox: true);
-
-        $this->output->writeln('Create achievements');
-        $this->createAchievements($I);
 
         $this->output->writeln('Create store categories:');
         $I->createStoreCategories();
@@ -490,13 +457,9 @@ class SeedCommand extends AbstractSeedCommand implements CustomCommandInterface
 
         $userorgaWG = $I->createOrga($password, false, ['email' => 'userorgaWG@example.com', 'name' => 'OrgaWG', 'bezirk_id' => $region1, 'id' => RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP, 'image' => true]);
         $this->writeUser($I, $userorgaWG, $password, 'orga');
-        $I->addRegionAdmin(RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP, $userorgaWG['id']);
-        $I->addRegionMember(RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP, $userorgaWG['id']);
 
         $userAuth = $I->createStoreCoordinator($password, ['email' => 'userauth@example.com', 'name' => 'OAuth', 'bezirk_id' => $region1, 'image' => true]);
         $this->writeUser($I, $userAuth, $password, 'store coordinator - OAUTH User');
-        $I->addRegionAdmin(RegionIDs::OAUTH_CLIENT_ADMINISTRATION_WORK_GROUP, $userAuth['id']);
-        $I->addRegionMember(RegionIDs::OAUTH_CLIENT_ADMINISTRATION_WORK_GROUP, $userAuth['id']);
 
         $this->output->writeln('- done');
 
@@ -508,6 +471,41 @@ class SeedCommand extends AbstractSeedCommand implements CustomCommandInterface
         $I->addBuddy($userbot['id'], $userorgaWG['id'], false);
         // Create buddy request from userbotregion2 to userbot
         $I->addBuddy($userbotregion2['id'], $userbot['id'], false);
+
+        $this->output->writeln('Create global working groups:');
+        $I->createWorkingGroup('AG Anlegen', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP, 'category_id' => GroupCategory::ADMINISTRATIVE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
+        $I->createWorkingGroup('Support', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::IT_SUPPORT_GROUP, 'category_id' => GroupCategory::ADMINISTRATIVE->value, 'include_thread' => $userbot['id']]);
+        $I->createWorkingGroup('Öffentlichkeitsarbeit - Partner + Teamseite', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::PR_PARTNER_AND_TEAM_WORK_GROUP, 'category_id' => GroupCategory::ADMINISTRATIVE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
+        $I->createWorkingGroup('Öffentlichkeitsarbeit - Startseite', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::PR_START_PAGE, 'category_id' => GroupCategory::ADMINISTRATIVE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
+        $I->createWorkingGroup('Orgarechte-Koordination', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::ORGA_COORDINATION_GROUP, 'category_id' => GroupCategory::ADMINISTRATIVE->value, 'include_thread' => $userbot['id']]);
+        $I->createWorkingGroup('Redaktion', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::EDITORIAL_GROUP, 'category_id' => GroupCategory::ADMINISTRATIVE->value, 'include_thread' => $userbot['id']]);
+        $I->createWorkingGroup('foodsharing Vereins-Vorstände', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::BOARD_ADMIN_GROUP, 'category_id' => GroupCategory::ADMINISTRATIVE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
+        $I->createWorkingGroup('Begrüßungsteam Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::WELCOME_TEAM_ADMIN_GROUP, 'category_id' => GroupCategory::EXCHANGE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
+        $I->createWorkingGroup('Abstimmungs-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::VOTING_ADMIN_GROUP, 'category_id' => GroupCategory::EXCHANGE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
+        $I->createWorkingGroup('Wahlen-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::ELECTION_ADMIN_GROUP, 'category_id' => GroupCategory::EXCHANGE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
+        $I->createWorkingGroup('Fairteiler-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::FSP_TEAM_ADMIN_GROUP, 'category_id' => GroupCategory::EXCHANGE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
+        $I->createWorkingGroup('Betriebskoordination-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::STORE_COORDINATION_TEAM_ADMIN_GROUP, 'category_id' => GroupCategory::EXCHANGE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
+        $I->createWorkingGroup('AG Betriebsketten', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::STORE_CHAIN_GROUP, 'category_id' => GroupCategory::DEVELOPMENT->value, 'include_thread' => $userbot['id']]);
+        $I->createWorkingGroup('Betriebsketten Schweiz', ['parent_id' => RegionIDs::SWITZERLAND, 'id' => RegionIDs::STORE_CHAIN_GROUP_SWITZERLAND, 'category_id' => GroupCategory::DEVELOPMENT->value, 'include_thread' => $userbot['id']]);
+        $I->createWorkingGroup('Hygiene', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::HYGIENE_GROUP, 'category_id' => GroupCategory::DEVELOPMENT->value, 'include_thread' => $userbot['id']]);
+        $I->createWorkingGroup('PolKa', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::POLITICAL_CAMPAIGNS, 'category_id' => GroupCategory::DEVELOPMENT->value, 'include_thread' => $userbot['id']]);
+        $I->createWorkingGroup('Quiz FR', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::QUIZ_GROUP_FR, 'category_id' => GroupCategory::DEVELOPMENT->value, 'include_thread' => $userbot['id']]); // actually in france, but for the seed data it's here...
+        $I->createWorkingGroup('Meldungen-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::REPORT_TEAM_ADMIN_GROUP, 'category_id' => GroupCategory::EXCHANGE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
+        $I->createWorkingGroup('Mediation-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::MEDIATION_TEAM_ADMIN_GROUP, 'category_id' => GroupCategory::EXCHANGE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
+        $I->createWorkingGroup('Schiedsstelle-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::ARBITRATION_TEAM_ADMIN_GROUP, 'category_id' => GroupCategory::EXCHANGE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
+        $I->createWorkingGroup('Verwaltung-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::FSMANAGEMENT_TEAM_ADMIN_GROUP, 'category_id' => GroupCategory::EXCHANGE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
+        $I->createWorkingGroup('Öffentlichkeitsarbeit-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::PR_TEAM_ADMIN_GROUP, 'category_id' => GroupCategory::EXCHANGE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
+        $I->createWorkingGroup('Moderation-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::MODERATION_TEAM_ADMIN_GROUP, 'category_id' => GroupCategory::EXCHANGE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
+        $I->createWorkingGroup('Produktteam', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::PRODUCT_TEAM, 'apply_type' => ApplyType::OPEN, 'include_thread' => $userbot['id']]);
+        $I->createWorkingGroup('Oauth Client Administration', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::OAUTH_CLIENT_ADMINISTRATION_WORK_GROUP, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
+        $I->createWorkingGroup('Anmeldevorgang und Quiz', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP, 'include_thread' => $userbot['id']]);
+        $I->createWorkingGroup('Quizfragen', ['parent_id' => RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP, 'id' => RegionIDs::NEW_QUIZZES_WORK_GROUP, 'include_thread' => $userbot['id']]);
+        $I->createWorkingGroup('Tag der Lebensmittelrettung ' . date('Y'), ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'category_id' => GroupCategory::PROJECT->value, 'apply_type' => ApplyType::OPEN, 'include_thread' => $userbot['id']]);
+        $I->createWorkingGroup('Tag der Lebensmittelrettung ' . (date('Y') - 1), ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'category_id' => GroupCategory::ARCHIVED->value, 'apply_type' => ApplyType::OPEN, 'include_thread' => $userbot['id']]);
+        $regionOneWorkGroup = $I->createWorkingGroup('Schnippelparty Göttingen', ['parent_id' => $regionOne['id'], 'include_thread' => $userbot['id']]);
+
+        $this->output->writeln('Create achievements');
+        $this->createAchievements($I);
 
         // Add users to region
         $this->output->writeln('- add users to region');
@@ -556,6 +554,11 @@ class SeedCommand extends AbstractSeedCommand implements CustomCommandInterface
         $I->addRegionAdmin(RegionIDs::POLITICAL_CAMPAIGNS, $userbot['id']);
         $I->addRegionAdmin(RegionIDs::PRODUCT_TEAM, $userbot['id']);
         $I->addRegionAdmin(RegionIDs::PRODUCT_TEAM, $userorga['id']);
+
+        $I->addRegionAdmin(RegionIDs::OAUTH_CLIENT_ADMINISTRATION_WORK_GROUP, $userAuth['id']);
+        $I->addRegionMember(RegionIDs::OAUTH_CLIENT_ADMINISTRATION_WORK_GROUP, $userAuth['id']);
+        $I->addRegionAdmin(RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP, $userorgaWG['id']);
+        $I->addRegionMember(RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP, $userorgaWG['id']);
 
         // Make ambassador responsible for all work groups in the region
         $this->output->writeln('- make ambassador responsible for all work groups');
@@ -740,7 +743,7 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
         // but only the ones we generated above
         $i = 0;
         foreach ($randomFsList as $random_user) {
-            $I->addRegionMember($region1WorkGroup, $random_user);
+            $I->addRegionMember($regionOneWorkGroup['id'], $random_user);
             $this->progressBar(++$i, $count);
         }
         $this->output->writeln('');
@@ -1041,6 +1044,14 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
             $write = sprintf("\033[0G\033[2K[%'={$percentage}s>%-{$left}s] {$steps} / {$total} ($percentage%%)", '', '');
             $this->output->write($write);
             $lastUpdate = $currentTime;
+        }
+    }
+
+    private function createGroupCategories(): void
+    {
+        $categoriesData = $this->loadJsonFromFile('groupCategories.json');
+        foreach ($categoriesData as $id => $name) {
+            $this->helper->addGroupCategory($name, $id + 1);
         }
     }
 

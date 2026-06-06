@@ -21,18 +21,28 @@
           />
         </div>
       </div>
-      <div class="mr-auto">
-        <div v-if="!filename" class="text-muted">
+      <div class="mr-auto mt-2">
+        <div v-if="!filename" class="text-muted mb-2">
           {{ $t('upload.no_image_yet') }}
         </div>
-        <button
-          class="btn btn-sm btn-primary mt-2"
+        <b-button
+          size="sm"
+          variant="primary"
           :class="{'disabledLoading': isLoading}"
           @click.prevent="openUploadDialog"
         >
           <span v-if="filename">{{ $t('upload.new_image') }}</span>
           <span v-else>{{ $t('upload.image') }}</span>
-        </button>
+        </b-button>
+        <b-button
+          v-if="filename && showClearButton"
+          variant="danger"
+          size="sm"
+          :class="{'disabledLoading': isLoading}"
+          @click.prevent="removeImage"
+        >
+          {{ $t('upload.remove_image') }}
+        </b-button>
       </div>
     </div>
     <div v-else>
@@ -86,30 +96,14 @@ export default {
     'b-modal': BModal,
     VueCroppie,
   },
-  directives: {
-    'b-modal': VBModal,
-  },
+  directives: { 'b-modal': VBModal },
   props: {
-    filename: {
-      type: String,
-      default: null,
-    },
-    isImage: {
-      type: Boolean,
-      default: false,
-    },
-    imgHeight: {
-      type: Number,
-      default: 0,
-    },
-    imgWidth: {
-      type: Number,
-      default: 0,
-    },
-    enableResize: {
-      type: Boolean,
-      default: false,
-    },
+    filename: { type: String, default: null },
+    isImage: { type: Boolean, default: false },
+    imgHeight: { type: Number, default: 0 },
+    imgWidth: { type: Number, default: 0 },
+    enableResize: { type: Boolean, default: false },
+    showClearButton: { type: Boolean, default: false },
   },
   data () {
     return {
@@ -197,6 +191,12 @@ export default {
       }, (output) => {
         this.uploadFile(this.newFilename, output.split('base64,')[1])
       })
+    },
+    removeImage () {
+      if (this.isLoading) return
+      this.resetFileInput(this.$refs.uploadElement)
+      this.newFilename = null
+      this.$emit('change', null)
     },
   },
 }
