@@ -195,29 +195,20 @@ class WorkGroupGateway extends BaseGateway
         $groups = $this->db->fetchAll('SELECT
                 g.id, g.name, g.apply_type, g.application_prompt, g.photo, g.teaser, g.category_id,
                 mail.name AS email,
-                COUNT(member.foodsaver_id) AS memberCount,
+                (SELECT COUNT(*) FROM `fs_foodsaver_has_bezirk` member WHERE member.bezirk_id = g.id AND member.active = 1) AS memberCount,
                 this_member.active, -- may be unnecessary, depending on whether the session includes applications
-                func.function_id,
-                la_post.time AS latest_activity
+                (SELECT function_id FROM `fs_region_function` WHERE region_id = g.id LIMIT 1) AS function_id,
+                (
+                    SELECT MAX(la_post.time)
+                    FROM fs_bezirk_has_theme ht
+                    JOIN fs_theme t ON t.id = ht.theme_id
+                    JOIN fs_theme_post la_post ON la_post.id = t.last_post_id
+                    WHERE ht.bezirk_id = g.id
+                ) AS latest_activity
             FROM `fs_bezirk` g
             INNER JOIN `fs_mailbox` mail ON g.`mailbox_id` = mail.`id`
-            LEFT OUTER JOIN `fs_foodsaver_has_bezirk` member ON g.id = member.bezirk_id AND member.active = 1
             LEFT OUTER JOIN `fs_foodsaver_has_bezirk` this_member ON g.id = this_member.bezirk_id AND this_member.foodsaver_id = :userId
-            LEFT OUTER JOIN `fs_region_function` func ON g.id = func.region_id
-            LEFT OUTER JOIN (
-                SELECT 
-                    ht.bezirk_id,
-                    MAX(t.last_post_id) AS last_post_id
-                FROM fs_bezirk_has_theme ht
-                JOIN fs_theme t ON t.id = ht.theme_id
-                GROUP BY ht.bezirk_id
-            ) x 
-                ON x.bezirk_id = g.id
-            LEFT OUTER JOIN fs_theme_post la_post 
-                ON la_post.id = x.last_post_id
-
-            WHERE g.`parent_id` = :parentId AND g.`type` = :groupType
-            GROUP BY g.id', [
+            WHERE g.`parent_id` = :parentId AND g.`type` = :groupType', [
             'userId' => $userId,
             'parentId' => $regionId,
             'groupType' => UnitType::WORKING_GROUP
@@ -227,19 +218,16 @@ class WorkGroupGateway extends BaseGateway
                 g.id AS groupId,
                 sub.id, sub.name,
                 mail.name AS email,
-                la_post.time AS latest_activity
+                (
+                    SELECT MAX(la_post.time)
+                    FROM fs_bezirk_has_theme ht
+                    JOIN fs_theme t ON t.id = ht.theme_id
+                    JOIN fs_theme_post la_post ON la_post.id = t.last_post_id
+                    WHERE ht.bezirk_id = sub.id
+                ) AS latest_activity
             FROM `fs_bezirk` g
             INNER JOIN `fs_bezirk` sub ON sub.`parent_id` = g.`id`
             INNER JOIN `fs_mailbox` mail ON sub.mailbox_id = mail.id
-            LEFT OUTER JOIN (
-                SELECT 
-                    ht.bezirk_id,
-                    MAX(t.last_post_id) AS last_post_id
-                FROM fs_bezirk_has_theme ht
-                JOIN fs_theme t ON t.id = ht.theme_id
-                GROUP BY ht.bezirk_id
-            ) x ON x.bezirk_id = sub.id
-            LEFT OUTER JOIN fs_theme_post la_post ON la_post.id = x.last_post_id
             WHERE g.`parent_id` = :parentId AND g.`type` = :groupType', [
             'parentId' => $regionId,
             'groupType' => UnitType::WORKING_GROUP
