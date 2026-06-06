@@ -14,45 +14,19 @@ group:
   administrators: Administrateur·rice·s du groupe
   members: Membres
   application_requirements:
-    member_since_weeks: Depuis combien de semaines un·e candidat·e doit-il/elle 
-      être inscrit·e sur la plateforme ?
-    fetch_count: Combien de collectes les collecteur·rice·s doivent avoir 
-      effectuées ?
     open: Tout le monde peut rejoindre directement.
     everybody: Tout le monde peut postuler.
-    requires_properties: Toute personne répondant à certains critères.
     nobody: Personne (groupe fermé).
     requirements: Qui peut entrer dans ce groupe ?
-    not_fulfilled: Pour candidater à ce groupe de travail, tu dois être 
-      inscrit·e depuis %weeks% semaines sur foodsharing, avoir %bananas% de 
-      bananes-confiance et avoir réalisé %fetches% de collectes.
-    banana_count_errors:
-      max: Ne t’attends pas à recevoir plus de {{ limit }} bananes-confiance.
-      min: Personne ne peut avoir moins de {{ limit }} bananes-confiance.
-      not_in_range: '{{ limit }} Personne n’aurait dû recevoir moins de {{ min }}
-        ou plus de {{ max }} bananes de confiance.'
-    banana_count: De combien de bananes-confiance un membre a-t-il besoin ?
   apply:
     declined: Demande refusée
     accepted: Demande acceptée
     sent: La demande a bien été envoyée.
     send: Envoyer la demande
-    time:
-      "5": 5 heures ou plus
-      "3": 3–4 heures
-      "2": 2–3 heures
-      "1": 1–2 heures
-    motivation: Quelle est ta motivation pour participer au groupe {group} ?
     summary: '{name} souhaite participer au groupe de travail {group].'
     title: Demandes pour {group}
     accept: Accepter
     link_description: 'Ce lien te permet d’accéder directement à l’application :'
-    how_much_time: Combien d’heures par semaine as-tu le temps et l’envie d’y 
-      consacrer ?
-    ability: Quelles sont tes compétences dans ce domaine ?
-    experience: "Peux-tu te référer à des expériences acquises ailleurs dans le groupe ?\n\
-      \ Si oui, où et lesquels ?\n"
-    error_missing_time: 'Erreur : aucune heure n’a été choisie.'
     deny: ''
   contact:
     sent: Le message a bien été envoyé.
@@ -93,31 +67,7 @@ group:
     tooltip_function_region2296: Les admins de ce groupe de travail peuvent 
       modifier les catégories de ressources et de coopérations
   function:
-    tooltip_function_10: Les admins de ce groupe peuvent accepter des 
-      contributions dans les forums déjà modérés. Si l’option est activée pour 
-      le district, ils peuvent également masquer des messages dans le forum.
-    tooltip_function_9: Les administrateur·rice·s de ce groupe de travail 
-      peuvent modifier la description du groupe local pour la carte.
-    tooltip_function_7: Les admins de ce groupe de travail reçoivent les 
-      plaintes dont le groupe de plaintes fait l’objet. Les plaintes concernant 
-      les admins restent invisibles et seront directement envoyés au groupe en 
-      charge des plaintes
-    tooltip_function_6: L’adresse courriel de ce groupe de travail est liée à la
-      fonction « demander une médiation ». Les admins n’ont pas d’autorisations 
-      spéciales.
-    tooltip_function_5: Les admins de ce groupe de travail peuvent voir les 
-      plaintes dans le district. Les plaintes concernant les admins restent 
-      invisibles et seront directement envoyés à la commission d’arbitrage.
-    tooltip_function_4: Les admins de ce groupe de travail peuvent voir et 
-      modifier les coopérations du district
     fsp: "Frigo solidaire"
-    tooltip_function_3: Les admins de ce groupe de travail peuvent activer les 
-      frigos solidaires de ce secteur géographique ainsi que modifier et retirer
-      les contributions des membres sur la page du frigo solidaire
-    tooltip_function_2: Les admins de ce groupe de travail peuvent instaurer des
-      votes pour le district
-    tooltip_function_1: Les admins de ce groupe de travail seront notifiés aux 
-      membres du district
     restricted_workgroup_function: Cette fonction de groupe ne peut être 
       modifiée que par les membres du groupe de travail interrégional « AG 
       anlegen »
@@ -132,16 +82,11 @@ group:
     voting: Vote
     welcome: Souhaits de bienvenue
     title: Fonction des groupes de travail
-    tooltip_function_11: Les administrateur·rice·s de ce groupe de travail sont 
-      affiché·e·s dans la vue d’ensemble du district.
     board: Comité
-    tooltip_function_12: Les administrateur·rice·s de ce groupe de travail sont 
-      affiché·e·s dans l’aperçu du district.
     election: Élections
     stores_coordination: Établissements
     none: Aucun groupe de travail GOALS
     resources: Mosaïque de ressources
-    tooltip_function_13: ''
   delete_group_sure: Le groupe de travail/le district {groupName} doit-il 
     réellement être supprimé ?
   quitting_home_district_warning: Souhaites-tu vraiment quitter ton district 
@@ -157,7 +102,6 @@ group:
     join: Adhérer à ce groupe de travail
     apply: Candidater pour ce groupe de travail
     go: Aller sur le groupe
-    edit: Modifier le groupe
     contact: Contacter le groupe
     save: Enregistrer les modifications
   already_applied: Tu as déjà candidaté pour ce groupe.
@@ -235,14 +179,10 @@ group:
     all_roles: tous les rôles
   last_activity: Dernière activité
   role_name: Rôle
-  entertime: 'Temps :'
   application_region: 'Candidature pour {group}'
   filter_by_last_activity: Inactif en mois
   application_from: de
   motivation: Texte de motivation
-  entermotivation: 'Motivation :'
-  enterxp: 'Expérience :'
-  enterskills: 'Compétences :'
   userId: ID
   filter_placeholder: filtrer les groupes par nom
   valid_until: valable jusqu’au
@@ -3620,8 +3560,6 @@ base:
 sidenav:
   yourgroups: Tes groupes
   countryspecific: Groupes nationaux
-  localgroups: Groupes régionaux
-  superregional: Suprarégional
   yourregions: Tes districts
 password:
   insertmail: Entre l’adresse courriel avec laquelle tu t’es enregistré·e sur le

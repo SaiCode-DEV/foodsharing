@@ -409,52 +409,26 @@ picture_upload_widget:
 group:
   actions:
     go: Gruba git
-    edit: Grubu düzenle
     save: Değişiklikleri Kaydet
     join: Bu çalışma grubuna katılın
     contact: Grup ile iletişime geç
     apply: Bu çalışma grubuna başvur
   description: Açıklama
   apply:
-    motivation: '{group} grubuna katılma motivasyonunuz nedir?'
     title: '{group} için başvuru'
     summary: '{name} {group} grubuna katılmak istiyor.'
-    time:
-      "5": 5 Saat veya daha fazla
-      "1": 1-2 Saat
-      "2": 2-3 Saat
-      "3": 3-4 Saat
     send: Başvurunuzu gönderin
     sent: Başvuru gönderildi.
     accept: Kabul et
     accepted: Başvuru kabul edildi
     declined: Başvuru reddedildi
     link_description: 'Bu bağlantı sizi doğrudan uygulamaya yönlendirecektir:'
-    ability: Bu alanda sahip olduğunuz beceriler nelerdir?
-    experience: "Grupta başka yerlerde edindiğiniz deneyimlerden faydalanabilir misiniz?\n\
-      \ Eğer öyleyse, nerede veya hangileri?\n"
-    how_much_time: Haftada kaç saatinizi buna ayırmaya zamanınız ve isteğiniz 
-      var?
-    error_missing_time: 'Hata: Zaman seçilmedi.'
     deny: Reddet
   application_requirements:
     everybody: Herkes başvurabilir.
     nobody: Kimse (kapalı grup).
     requirements: Bu ekibe kim giriş yapabilir?
     open: Herkes başvuru yapmadan katılabilir.
-    member_since_weeks: Bir başvuranın orada kaç hafta olması gerekirdi?
-    requires_properties: Belirli güven puanlarını yerine getiren herkes.
-    fetch_count: Bir kişi daha önce kaç adet teslim alma/teslim 
-      etme/organizasyon işlemini tamamlamış olmalıdır?
-    banana_count_errors:
-      max: 'Lütfen {{ limit }} güven fidanından fazlasını beklemeyin.'
-      min: 'Hiç kimse {{ limit }} güven fidanından daha azına sahip olamaz.'
-      not_in_range: "{{ limit }} Hiç kimse {{ min }}'dan az veya {{ max }}'dan fazla
-        güven fidanına sahip olmamalıdır."
-    banana_count: 'Bir başvuru sahibinin kaç tane güven fidanına ihtiyacı var?'
-    not_fulfilled: 'Bu çalışma grubuna başvurmak için, %weeks% hafta boyunca yiyecek
-      paylaşımında bulunmanız, zaten %bananas% güven fidanı toplamış olmanız ve %fetches%
-      yiyecek Slotda yer almış olmanız gerekir.'
   image: '%name% için kapak fotoğrafı'
   function:
     fsp: Gıda Dağıtım Noktası
@@ -467,43 +441,14 @@ group:
     arbitration: Tahkim Kurulu
     fsmanagement: Yönetim
     pr: Halkla İlişkiler
-    tooltip_function_6: Bu çalışma grubunun e-posta adresi "Arabuluculuk iste" 
-      düğmesinde görüntülenir. Yöneticilerin özel izinleri yoktur.
-    tooltip_function_7: Bu çalışma grubunun yöneticilerine, raporlama ekibini 
-      içeren raporlar gösterilir. Yöneticileri içeren hiçbir mesaj 
-      görüntülenmez! Bu tür mesajları Raporlama ekibi alır
-    tooltip_function_9: Bu çalışma grubunun yöneticileri, harita için yerel grup
-      açıklamasını düzenleyebilir.
-    tooltip_function_10: Bu çalışma grubunun yöneticileri, denetlenen 
-      forumlardaki katkıları etkinleştirebilir. Seçenek bölge için 
-      etkinleştirilirse forumdaki gönderileri de gizleyebilirler.
-    tooltip_function_3: Bu çalışma grubunun yöneticileri, bölgede ki dağıtım 
-      noktalarını açabilir, düzenleyebilir veya bununla ilgili paylaşımları 
-      kaldırabilirler
-    tooltip_function_11: Bu çalışma grubunun yöneticileri, bölge genel 
-      görünümünde görüntülenir.
-    tooltip_function_4: Bu çalışma grubunun yöneticileri, bölgedeki işletmeleri 
-      görüntüleyebilir ve düzenleyebilirler
-    tooltip_function_5: Bu çalışma grubunun yöneticileri, bölgedeki 
-      Foodsaverlarla ilgili raporları görebilirler. Yöneticileri içeren hiçbir 
-      mesaj görüntülenmez! Bunu ancak Tahkim kurulu görebilir.
     title: Çalışma grubunun işlevi
-    tooltip_function_1: Bu çalışma grubunun yöneticileri, ilçedeki yeni üyeler 
-      hakkında bilgilendirilecektir
     welcome: Selamlama
     restricted_workgroup_function: Bu çalışma grubu fonksiyonu, yalnızca 
       bölgeler üstü çalışma grubu "AG anlegen" üzerinden düzenlenebilir
-    tooltip_function_2: Bu çalışma grubunun yöneticileri, bölge için oylama 
-      oluşturabilir
     election: Seçimler
-    tooltip_function_12: Bu çalışma grubunun yöneticileri bölge genel 
-      görünümünde görüntülenir.
     stores_coordination: İşletmeler
     none: GOALS-AG yok
     resources: Kaynak Mozaiği
-    tooltip_function_13: Bu çalışma grubunun yöneticilerine yeni kaynaklar 
-      hakkında zil sesi aracılığıyla bildirimde bulunulacaktır.
-  entermotivation: 'Motivasyon:'
   mail_link_title:
     region: Bölge Posta Kutusu
     workgroup: Çalışma grubunun posta kutusu
@@ -521,9 +466,6 @@ group:
     empty: Hadi önce bir şeyler yaz ;)
     send: Mesaj gönder
     sent: Mesaj başarıyla gönderildi.
-  enterskills: 'Yetenekler:'
-  enterxp: 'Deneyim:'
-  entertime: 'Zaman:'
   photo: Fotoğraf
   no_groups: Burada henüz çalışma grubu yok
   name: İsim
@@ -2261,9 +2203,7 @@ conference:
     living utopia Kollektivs konferans sunucusu aracılığıyla gerçekleştirilir. Foodsharing'e
     girdiğiniz adınız, kimliğiniz ve avatarınızla otomatik olarak oturum açacaksınız."
 sidenav:
-  localgroups: Bölgesel Gruplar
   yourgroups: Gruplarınız
-  superregional: Bölgeler üstü
   countryspecific: Ülkeye Özgü Gruplar
   yourregions: Senin Bölgelerin
 email_template:

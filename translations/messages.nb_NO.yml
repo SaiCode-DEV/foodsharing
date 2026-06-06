@@ -1978,47 +1978,17 @@ group:
     invalid: En gruppefunksjon kan ikke tilordnes til en region.
     restricted_workgroup_function: Denne arbeidsgruppefunksjonen kan kun 
       behandles av den nasjonale arbeidsgruppen „Lag arbeidsgrupper“
-    tooltip_function_9: Administratorer for denne arbeidsgruppen kan redigere 
-      den lokale gruppebeskrivelsen for kartet.
-    tooltip_function_4: Administratorer av denne arbeidsgruppen kan se og 
-      redigere selskaper i distriktet
-    tooltip_function_10: Administratorer av denne arbeidsgruppen kan aktivere 
-      innlegg i modererte fora. Hvis distriktsalternativet er aktivert, kan 
-      administratorer også skjule foruminnlegg.
-    tooltip_function_1: Administratorer i denne arbeidsgruppen vil bli varslet 
-      om nye medlemmer i distriktet
-    tooltip_function_2: Administratorer for denne arbeidsgruppen kan opprette 
-      stemmer for distriktet
-    tooltip_function_3: Administratorer av denne arbeidsgruppen kan aktivere og 
-      redigere distriktets matdelingsskap og fjerne innlegg fra 
-      matdelingsskapsidene
-    tooltip_function_5: Administratorer for denne arbeidsgruppen kan se 
-      meldinger om matreddere i distriktet. Det vises ingen meldinger der 
-      administratorene er involvert, disse sendes til voldgiftsnemnda.
-    tooltip_function_6: E-postadressen til denne arbeidsgruppen vises under 
-      knappen «Be om mekling». Administratorene har ingen spesielle rettigheter.
-    tooltip_function_7: Administratorer for denne arbeidsgruppen får vist 
-      rapporter med deltakelse av lokale krenkelsesgruppen. Det vises ingen 
-      rapporter som administratorene er involvert i, disse sendes til 
-      krenkelsesgruppen
     board: Borde
-    tooltip_function_11: Administratorer for denne arbeidsgruppen vises i 
-      distriktsoversikten.
-    tooltip_function_12: Administratorer for denne arbeidsgruppen vises i 
-      distriktsoversikten.
     election: Valg
     none: Ikke en GOALS-arbeidsgruppe
     stores_coordination: Bedrifter
     resources: Ressursmosaikk
-    tooltip_function_13: Administratorer av denne arbeidsgruppen vil bli varslet
-      om nye ressurser via en bjelle.
   quit: Forlate
   quit_name_district: Forlate distriktet {name}
   quit_name_workgroup: Forlate team {name}
   actions:
     join: Ta del i denne gruppen
     go: Besøk gruppeside
-    edit: Rediger gruppe
     contact: Kontakt gruppe
     apply: Søk til denne arbeidsgruppen
     save: Lagre endringer
@@ -2026,26 +1996,14 @@ group:
   administrators: Gruppeadministratorer
   members: Medlemmer
   apply:
-    time:
-      "5": 5 timer eller mer
-      "3": 3-4 timer
-      "2": 2-3 timer
-      "1": 1-2 timer
     send: Send søknad
     declined: Søknad avslått
     accepted: Søknad godkjent
     sent: Søknad sendt.
     title: Søknad for {group}
     summary: '{name} vil gjerne bli en del av arbeidsgruppe {group}.'
-    motivation: Hva er din motivasjon for å delta i gruppen {group}?
     accept: Godta søknaden
     link_description: 'Denne lenken tar deg direkte til applikasjonen:'
-    ability: Hvilke ferdigheter har du på dette området?
-    experience: "Kan du trekke på erfaringer du har gjort andre steder i gruppen?\n\
-      \ I så fall hvor og hvilke?\n"
-    how_much_time: Hvor mange timer i uken har du tid og lyst til å bruke til 
-      det?
-    error_missing_time: 'Feil: Ingen tid er valgt.'
     deny: ''
   contact:
     send: Sende melding
@@ -2065,20 +2023,8 @@ group:
   application_requirements:
     open: Alle kan ta del direkte.
     everybody: Alle kan søke.
-    requires_properties: Alle som oppfyller visse kriterier.
     nobody: Ingen (lukket gruppe).
     requirements: Hvem kan ta del i denne gruppen?
-    fetch_count: Hvor mange hentinger må en søker ha gjort?
-    banana_count_errors:
-      min: Ingen kan ha færre enn {{ limit }} tillitsbananer.
-      max: Ikke forvent mer enn {{ limit }} tillitsbananer.
-      not_in_range: '{{ limit }} Ingen bør ha mindre enn {{ min }} eller mer enn {{
-        max }} trust bananer.'
-    member_since_weeks: Hvor mange uker burde en søker vært hos oss?
-    banana_count: Hvor mange tillitsbananer må en søker ha?
-    not_fulfilled: For å søke på denne arbeidsgruppen må du ha vært med 
-      foodsharing i %weeks% uker, allerede ha samlet %bananas% tilitsbananer og 
-      allerede ha deltatt i %fetches% innsamlinger.
   edit:
     title: Rediger {group}
     name_required: Vennligst skriv inn et navn.
@@ -2183,12 +2129,8 @@ group:
       til kjedelisten
     tooltip_function_region2296: Administratorer av denne arbeidsgruppen kan 
       redigere ressurs- og driftskategorier
-  entertime: 'Tilgjengelig tid:'
   application_region: 'Søknad for {group}'
   motivation: Motivasjonstekst
-  entermotivation: 'Motivasjon:'
-  enterskills: 'Ferdigheter:'
-  enterxp: 'Erfaring:'
   application_from: fra
   last_activity: Siste aktivitet
   filter_by_last_activity: Ikke aktiv på måneder
@@ -3402,9 +3344,7 @@ wall:
     text: Er du sikker på at du vil slette denne oppføringen fra {author}?
     title: Vil du slette veggoppføringen?
 sidenav:
-  localgroups: Regionale grupper
   yourgroups: Dine grupper
-  superregional: Supraregional
   countryspecific: Landsspesifikke grupper
   yourregions: Distriktene dine
 formatting:

@@ -1508,71 +1508,31 @@ group:
     voting: 'Votação'
     restricted_workgroup_function: 'Esta função de grupo de trabalho só pode ser editada
       pelo grupo de trabalho suprarregional “Criar grupo de trabalho”'
-    tooltip_function_9: 'Os administradores deste grupo de trabalho podem editar a
-      descrição do grupo local para o mapa.'
-    tooltip_function_4: 'Os administradores deste grupo de trabalho podem ver e editar
-      locais no distrito'
     moderation: 'Moderação'
     pr: 'Relações públicas'
     fsmanagement: 'Administração'
     title: 'Missão do grupo de trabalho'
-    tooltip_function_5: 'Os administradores deste grupo de trabalho podem ver denúncias
-      sobre os Foodsavers no distrito. Não são apresentados denúncias em que os administradores
-      estejam envolvidos! O conselho de arbitragem recebe-os.'
-    tooltip_function_10: 'Os administradores deste grupo de trabalho podem desbloquear
-      mensagens em fóruns moderados. Caso esta opção esteja activada para o distrito,
-      podem também ocultar mensagens no fórum.'
     fsp: 'Cantinho da partilha'
-    tooltip_function_1: 'Os administradores deste grupo de trabalho são notificados
-      dos novos membros do distrito'
     report: 'Denúncias'
     invalid: 'Um distrito não pode ser afetado a uma função de grupo de trabalho.'
-    tooltip_function_2: 'Os administradores deste grupo de trabalho podem criar votações
-      para o distrito'
-    tooltip_function_11: 'Os administradores deste grupo de trabalho são apresentados
-      na visão geral do distrito.'
-    tooltip_function_6: 'O e-mail deste grupo de trabalho é apresentado no botão “Pedir
-      mediação”. Os administradores não têm autorizações especiais.'
-    tooltip_function_7: 'Os administradores deste grupo de trabalho são mostradas
-      as denúncias que envolvem a equipa de denúncia. Não são apresentadas denúncias
-      que os administradores estejam envolvidos! A equipa da queixa recebe estas'
     welcome: 'Saudação'
     board: 'Junta'
-    tooltip_function_3: 'Os administradores deste grupo de trabalho podem ativar e
-      editar os cantinhos da partilha do distrito e remover publicações de cantinhos
-      da partilha'
     mediation: 'Mediação'
     arbitration: 'Comissão de arbitragem'
     stores_coordination: Locais
     election: Eleições
     none: Não é um grupo de trabalho GOALS
-    tooltip_function_12: Os administradores deste grupo de trabalho são 
-      apresentados na visão geral do distrito.
     resources: Mosaico de recursos
-    tooltip_function_13: Os administradores deste grupo de trabalho serão 
-      informados sobre novos recursos através de notificações internas.
   application_from: 'de'
   apply:
     accept: 'Aceitar'
     title: 'Aplicação para {group}'
-    motivation: 'Qual é a tua motivação para participar no {group}?'
     send: 'Enviar aplicação'
     summary: '{name} gostaria de se juntar ao grupo de trabalho {group}.'
-    time:
-      "1": '1–2 horas'
-      "5": '5 ou mais horas'
-      "2": '2–3 horas'
-      "3": '3–4 horas'
     sent: 'A aplicação foi enviada.'
     declined: 'Aplicação recheitado'
     accepted: 'Aplicação aceite'
-    experience: "Podes recorrer à experiências que tiveste noutras partes do grupo?\n\
-      \ Caso afirmativo, onde e qual?\n"
-    error_missing_time: 'Erro: Não foi selecionada nenhuma hora.'
     link_description: 'Este link leva-o diretamente para a aplicação:'
-    ability: Quais são as tuas competências neste área?
-    how_much_time: Quantas horas por semana tens tempo e motivação para dedicar 
-      a este grupo?
     deny: Recursar
   member_list:
     set_admin_title: 'Atribuir como administrador'
@@ -1674,21 +1634,7 @@ group:
     sent: 'A mensagem foi enviada com sucesso.'
     send: 'Mandar mensagem'
   application_requirements:
-    banana_count_errors:
-      min: 'Ninguém deve ter menos do que {{ limit }} bananas de reconhecimento.'
-      max: 'Por favor, não espere mais do que {{ limit }} bananas de reconhecimento.'
-      not_in_range: '{{ limit }} Ninguém deve ter menos do que {{ min }} ou mais do
-        que {{ max }} bananas de reconhecimento.'
     nobody: 'Ninguém (grupo fechado).'
-    member_since_weeks: 'Quantas semanas são necessárias para um candidato estar inscrito
-      na plataforma?'
-    fetch_count: 'Quantas ações de recolhas, entregas ou organização já deveriam ter
-      sido efetuadas?'
-    banana_count: 'Quantas bananas de reconhecimento devem estar presentes?'
-    not_fulfilled: 'Para candidatar-se a este grupo de trabalho, deve fazer parte
-      da foodsharing há %weeks% semanas, já ter recolhido %bananas% bananas de reconhecimento
-      e ter participado em %fetches% das vagas.'
-    requires_properties: 'Todos quantos preencham certos pontos de reconhecimento.'
     requirements: 'Quem pode inscrever-se neste grupo?'
     open: 'Todos pessoas podem participar sem se candidatarem.'
     everybody: 'Todos podem candidatar-se.'
@@ -1706,26 +1652,21 @@ group:
     contact: 'Contacto este grupo'
     join: 'Participe neste grupo de trabalho'
     apply: 'Aplicar para este grupo de trabalho'
-    edit: 'Editar grupo'
   member_count:
     zero: Sem membros
     one: Um membro em total
     other: '{count} membros em total'
-  enterxp: 'Experiência:'
   quit: 'Sair'
   no_groups: 'Aqui é ainda não grupos de trabalho'
   members: 'Miembros'
   subtitle: 'Aqui encontrará ajuda e muito para fazer …'
   application_region: 'Aplicação para {group}'
   really_quit_district: 'Quer mesmo deixar o destrito {name}?'
-  entermotivation: 'Motivação:'
   title: 'Grupos de trabalho de foodsharing'
   already_applied: 'Já candidatou para este grupo.'
   administrators: 'Administradores de grupo'
-  enterskills: 'Competências:'
   really_quit_workgroup: 'Quer mesmo deixar o grupo de trabalho {name}?'
   description: 'Descrição'
-  entertime: 'Tiempo:'
   role_name: 'Função'
   userId: 'ID'
   admin_count:
@@ -4409,9 +4350,7 @@ savewithus: 'Ajude a salvar!'
 bezirk_id: 'Para qual região o artigo é relevante?'
 sidenav:
   yourgroups: 'Teus grupos'
-  localgroups: 'Grupos regionais'
   countryspecific: 'Grupos em todo o país'
-  superregional: 'Suprarregional'
   yourregions: 'Teus distritos'
 explanation: 'Explicação'
 status: 'Estado atual'

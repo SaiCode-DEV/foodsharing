@@ -8,21 +8,9 @@ group:
     accepted: Domanda accettata
     sent: La candidatura è stata inviata.
     send: Inviare la candidatura
-    time:
-      "5": 5 o più ore
-      "3": 3-4 ore
-      "2": 2-3 ore
-      "1": 1-2 ore
-    motivation: Qual è la motivazione che ti spinge a partecipare al gruppo 
-      {group}?
     summary: '{name} vorrebbe unirsi al gruppo di lavoro {group}.'
     accept: Accetta
     link_description: 'Questo collegamento ti porterà direttamente all’applicazione:'
-    ability: Quali competenze avete in questo settore?
-    experience: "Nel gruppo puoi attingere ad esperienze che hai acquisito altrove?\n\
-      \ Se sì, dove o quali?\n"
-    how_much_time: Quante ore alla settimana hai tempo e voglia di dedicarci?
-    error_missing_time: 'Errore: non è stato selezionato alcun orario.'
     deny: 'Rifiuta'
   contact:
     send: Invia messaggio
@@ -61,19 +49,6 @@ group:
       accesso all'elenco delle catene
     tooltip_function_region2296: ''
   function:
-    tooltip_function_7: Gli amministratori di questo gruppo di lavoro 
-      visualizzano le segnalazioni che coinvolgono il team segnalazioni. Non 
-      verrà visualizzata alcuna segnalazione che coinvolga gli amministratori! 
-      Le riceverà il team segnalazioni
-    tooltip_function_9: Gli amministratori di questo gruppo di lavoro possono 
-      modificare la descrizione del gruppo locale sulla mappa.
-    tooltip_function_6: L'indirizzo e-mail di questo gruppo di lavoro viene 
-      visualizzato sotto il pulsante «Richiedi mediazione». Gli amministratori 
-      non hanno permessi speciali.
-    tooltip_function_2: Gli amministratori di questo gruppo di lavoro possono 
-      creare votazioni per il distretto
-    tooltip_function_1: Gli amministratori di questo gruppo di lavoro verranno 
-      notificati della presenza di nuovi membri nel distretto
     restricted_workgroup_function: Questa funzione del gruppo di lavoro può 
       essere modificata solo dal gruppo di lavoro nazionale «Crea gruppo di 
       lavoro»
@@ -89,28 +64,11 @@ group:
     voting: Sondaggio
     welcome: Benvenuto
     title: Funzione del gruppo di lavoro
-    tooltip_function_5: Gli amministratori di questo gruppo di lavoro possono 
-      visualizzare le segnalazioni sui Foodsaver nel distretto. Non verrano 
-      mostrate segnalazioni riguardanti gli amministratori stessi! Il collegio 
-      arbitrale riceverà quest'ultime.
-    tooltip_function_4: Gli amministratori di questo gruppo di lavoro possono 
-      visualizzare e modificare le aziende del distretto
-    tooltip_function_3: Gli amministratori di questo gruppo di lavoro possono 
-      attivare e modificare i frigo solidali del distretto così come rimuoverne 
-      i contributi
-    tooltip_function_10: Gli amministratori di questo gruppo di lavoro possono 
-      attivare contributi nei forum moderati.
     board: Consiglio di amministrazione
-    tooltip_function_11: Gli amministratorə di questo gruppo di lavoro sono 
-      visualizzati nella visione d’insieme dei distretti.
     election: Elezioni
-    tooltip_function_12: Gli amministratorə di questo gruppo di lavoro sono 
-      visualizzati nella visione d’insieme dei distretti.
     stores_coordination: Negozi
     none: Nessun gruppo di lavoro GOALS
     resources: 'Mosaico delle risorse'
-    tooltip_function_13: 'Gli amministratori di questo gruppo di lavoro riceveranno
-      una notifica tramite campanella quando verranno aggiunte nuove risorse.'
   delete_group_sure: Vuoi davvero eliminare il gruppo di lavoro/distretto 
     {groupName}?
   quitting_home_district_warning: Vuoi davvero lasciare il tuo distretto di 
@@ -127,7 +85,6 @@ group:
     join: Unisciti a questo gruppo di lavoro
     apply: Candidati a questo gruppo di lavoro
     go: Visita la pagina del gruppo
-    edit: Modifica gruppo
     contact: Contatti del gruppo
     save: Salvare le modifiche
   already_applied: Hai già fatto domanda per questo gruppo.
@@ -145,22 +102,8 @@ group:
   administrators: Amministratori del gruppo
   members: Membri
   application_requirements:
-    not_fulfilled: Per candidarti a questo gruppo di lavoro, devi essere 
-      iscritto da %weeks% settimane, aver già raccolto %bananas% banane fiducia 
-      e aver già preso parte a %fetches% raccolte.
-    member_since_weeks: Da quante settimane deve essere iscritto/a un/a 
-      candidato/a?
-    banana_count_errors:
-      max: Per favore, non aspettarti più di {{ limit }} banane fiducia.
-      min: Nessuno può avere meno di {{ limit }} banane fiduciarie.
-      not_in_range: Nessuno dovrebbe avere meno di {{ min }} o più di {{ max }} 
-        fiducia nelle banane.
-    banana_count: Di quante banane fiducia ha bisogno un/a candidato/a?
-    fetch_count: Quanti ritiri/consegne/orga-slots deve aver effettuato un/a 
-      candidato/a?
     open: Chiunque può aderire senza presentare domanda.
     everybody: Tutti possono candidarsi.
-    requires_properties: Chiunque soddisfi determinati requisiti di fiducia.
     nobody: Nessuno (gruppo chiuso).
     requirements: Chi può iscriversi a questo gruppo?
   member_list:
@@ -226,10 +169,6 @@ group:
       title: Standard
   application_region: 'Candidatura per {group}'
   motivation: Testo motivazionale
-  entermotivation: 'Motivazione:'
-  enterskills: 'Capacità:'
-  enterxp: 'Esperienza:'
-  entertime: 'Tempo:'
   application_from: di
   last_activity: Ultima attività
   userId: ID
@@ -3566,8 +3505,6 @@ base:
 sidenav:
   yourgroups: Tuoi gruppi
   countryspecific: Gruppi specifici per paese
-  localgroups: Gruppi regionali
-  superregional: Sovraregionale
   yourregions: Le tue aree
 password:
   insertmail: Inserisci il tuo indirizzo e-mail per reimpostare la tua password.

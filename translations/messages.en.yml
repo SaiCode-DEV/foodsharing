@@ -1,7 +1,7 @@
 group:
   name: Name
   description: Description
-  photo: photo
+  photo: Group photo
   applications: Applications
   applications_for: Applications for {name}
   mail_link_title:
@@ -10,22 +10,8 @@ group:
   application_requirements:
     requirements: Who can enter this group?
     nobody: Nobody (closed group).
-    requires_properties: Anyone who meets certain criteria.
     everybody: Everybody can apply.
     open: Anyone can join directly.
-    fetch_count: How many pick-up/delivery/orga slots does an applicant need to 
-      have done?
-    banana_count: How many trust bananas must an applicant have?
-    banana_count_errors:
-      min: Nobody should have less than {{ limit }} trust bananas.
-      max: Please do not expect more than {{ limit }} trust bananas.
-      not_in_range: "Nobody should have less than {{ min }} or more than {{ max }}
-        trust bananas."
-    member_since_weeks: For how many weeks should applicants have been active at
-      foodsharing?
-    not_fulfilled: To apply for this group, you have to be registered for at 
-      least %weeks% weeks, have %bananas% trust bananas and helped %fetches% 
-      times picking up food.
   members: Members
   administrators: Group administrators
   title: foodsharing working groups
@@ -41,11 +27,10 @@ group:
   image: image for %name%
   already_applied: You already applied for this group.
   actions:
-    contact: Contact group
-    edit: Edit group
+    contact: Contact
     go: Visit group page
-    apply: Apply for this group
-    join: Join this group
+    apply: Apply...
+    join: Join
     save: Save changes
   no_groups: No groups exist in this category
   quit: Leave
@@ -67,61 +52,28 @@ group:
     invalid: A group function cannot be assigned to a region.
     restricted_workgroup_function: This working group function can only be 
       edited by the transregional group ‘AG anlegen’
-    tooltip_function_10: Administrators of this work group can approve posts in 
-      moderated forums. If the option is enabled for the district, they can also
-      hide posts in the forum.
-    tooltip_function_9: Administrators of this working group can edit the 
-      description of the local group in the map.
-    tooltip_function_6: The e-mail address of this work group is shown at the 
-      ‘Request mediation’ button. The administrators have no special 
-      permissions.
-    tooltip_function_5: Administrators of this work group can see messages about
-      foodsaver in the region. No messages are shown in which the administrators
-      are involved! These are received by the arbitration body.
-    tooltip_function_4: Administrators of this work group can view and edit 
-      stores in the district
-    tooltip_function_3: Administrators of this working group can activate and 
-      edit food share points of the district as well as remove food share point 
-      contributions
-    tooltip_function_1: Administrators of this working group will be notified 
-      when new members join the district
-    tooltip_function_2: Administrators of this work group can create votes for 
-      the district
-    tooltip_function_7: Administrators of this working group receive reports 
-      with the participation of the reporting team. No reports are displayed in 
-      which the administrators are involved; the reporting team receives them
-    tooltip_function_11: Administrators of this group are shown in the region’s 
-      overview.
-    tooltip_function_12: Administrators of this working group are displayed in 
-      the district overview.
     election: Election
     stores_coordination: Stores
     none: Not a GOALS working group
     resources: Resource Mosaic
-    tooltip_function_13: Administrators of this working group will be notified 
-      of new resources via a bell.
+    function_type_info:
+      1: Administrators of this group will be notified about new members in the 
+        region
+      2: Administrators of this group can create polls in the region
   apply:
     sent: The application was sent.
     send: Send application
-    time:
-      "5": 5 or more hours
-      "3": 3–4 hours
-      "2": 2–3 hours
-      "1": 1–2 hours
     declined: Application rejected
     accepted: Application accepted
     title: Application for {group}
-    motivation: What is your motivation to participate in the group {group}?
     summary: '{name} would like to participate in the {group} working group.'
     accept: Accept
     link_description: 'This link will take you directly to the application:'
-    ability: What skills do you have in this area?
-    experience: "Can you draw on experiences in the group that you have gained elsewhere?\n\
-      \ If so, where or which ones?\n"
-    how_much_time: How many hours a week do you have the time and inclination to
-      spend on this?
-    error_missing_time: 'Error: no time has been selected.'
     deny: Reject
+    default_prompt: |
+      - What is your motivation?
+      - What skills and experience do you have?
+      - How much would you like to contribute to the group?
   show-all: Show all
   really_quit_district: Do you really want to leave the region {name}?
   really_quit_workgroup: Do you really want to leave the working group {name}?
@@ -155,8 +107,8 @@ group:
       quiz questions
     tooltip_function_region387: "Administrators of this group can remove entries from
       the e-mail bounce list"
-    tooltip_function_region327: Administrators of this workgroup can edit blog 
-      entries
+    tooltip_function_region327: Administrators of this working group can edit 
+      blog entries
     tooltip_function_region332: Members of this group can access the store chain
       list
     tooltip_function_region2296: Administrators of this working group can edit 
@@ -223,11 +175,7 @@ group:
         from the slots first.
     all_roles: all roles
   application_from: by
-  entermotivation: 'Motivation:'
-  enterskills: 'Skills:'
-  entertime: 'Available Time:'
   application_region: 'Application for {group}'
-  enterxp: 'Experience:'
   motivation: motivation text
   last_activity: Last activity
   filter_by_last_activity: No activity in months
@@ -236,6 +184,33 @@ group:
   filter_placeholder: Filter groups by name
   valid_until: valid until
   confirm_decline: Are you sure you want to reject this application?
+  application_prompt: Hint for applications. Which questions should applicants 
+    answer?
+  join_confirmation: Do you want to join the group {name} now?
+  membership_status:
+    member: Member
+    closed: Closed
+  badge:
+    inactive: inactive
+    function_group: GOALS
+    special_permissions: Special permissions
+  subgroups: Subgroups
+  sorting_scheme:
+    name: Name
+    activity: Last activity
+    membership: Membership
+    category: Group type
+  list_headers:
+    inactive: Inactive groups
+    membership:
+      member: Your groups
+      open: Open groups
+      can_apply: Groups for which you can apply
+      applied: Groups for which you have applied
+      closed: Closed groups
+    search_results: Search results
+  category:
+    default: No group type selected
 settings:
   header: Profile settings
   push:
@@ -1975,9 +1950,7 @@ email_template:
       manner.
 sidenav:
   yourgroups: Your groups
-  localgroups: Regional groups
   countryspecific: Country-specific groups
-  superregional: Supraregional
   yourregions: Your regions
 password:
   reset: Forgot your password?
@@ -2990,6 +2963,7 @@ upload:
   image-problem: Your file doesn’t seem to be OK, it’s best to use a normal jpg 
     image
   invalid_image_files: '{count} selected files are not valid images: {fileNames}'
+  remove_image: Remove image
 photo: Photo
 status: Current status
 title: Title
@@ -4633,6 +4607,12 @@ help:
       md: |
         This store is part of a [store chain](https://wiki.foodsharing.de/Betrieb#Betriebskette). Each chain has responsible [KAMs](https://wiki.foodsharing.de/Key_Account_Manager_(KAM)) who are allowed to see the team and the pick-up slots of this store.
       title: 'chain store'
+    group_category:
+      title: Types of groups
+    archived_groups:
+      title: Archived groups
+    inactive_groups:
+      title: Inactive groups
   tooltip: Show help
   helpTitle: 'Help: {title}'
 team_page:

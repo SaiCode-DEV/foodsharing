@@ -911,76 +911,35 @@ right: 'clasificación'
 group:
   apply:
     accept: 'aceptar solicitud'
-    time:
-      "2": '2–3 horas'
-      "5": '5 o más horas'
-      "1": '1–2 horas'
-      "3": '3–4 horas'
     declined: 'Solicitud rechazada'
     title: 'Solicitud para el grupo “{group}”'
     summary: 'A {name} le gustaría unirse al grupo de trabajo “{group}”.'
     send: 'enviar solicitud'
     sent: 'La solicitud fue enviada.'
     accepted: 'solicitud aceptada'
-    motivation: '¿Cuál es tu motivación para unirte al grupo “{group}”?'
     link_description: 'Este enlace te llevará directamente a la aplicación:'
-    ability: ¿Qué habilidades tienes en esta área?
-    experience: "¿Puedes aprovechar las experiencias que hayas adquirido en otros
-      lugares?\nSi es así, ¿dónde o cuáles?\n"
-    how_much_time: ¿Cuántas horas a la semana tienes tiempo y ganas de 
-      dedicarle?
-    error_missing_time: 'Error: no se ha seleccionado ninguna hora.'
     deny: ''
   show-all: 'mostrar todo'
   function:
     pr: 'Relación pública'
-    tooltip_function_9: 'L@s administrador@s de este grupo de trabajo pueden editar
-      la descripción del grupo local para el mapa.'
-    tooltip_function_2: 'L@s administrador@s de este grupo de trabajo pueden crear
-      votos para el distrito'
-    tooltip_function_7: 'L@s administrador@s de este grupo de trabajo reciben quejas
-      que involucran al equipo de quejas. No se muestran quejas que involucren a l@s
-      administrador@s, estas son recibidas por el equipo de quejas'
     arbitration: 'junta de arbitraje'
     fsmanagement: 'Gestión'
     fsp: 'Distribuidor'
     report: 'Quejas'
     restricted_workgroup_function: 'Esta función del grupo de trabajo sólo puede ser
       editada por el grupo de trabajo supraregional “Crear AG”'
-    tooltip_function_6: 'La dirección de correo electrónico de este grupo de trabajo
-      se muestra debajo del botón “Solicitar mediación”. L@s administrador@s no tienen
-      permisos especiales.'
-    tooltip_function_1: 'L@s administrador@s de este grupo de trabajo reciben una
-      notificación cuando nuevos miembros se unen al distrito'
     title: 'Función del grupo de trabajo'
     welcome: 'Saludo'
-    tooltip_function_3: 'L@s administrador@s de este grupo de trabajo pueden desbloquear
-      y editar distribuidores de distrito y eliminar comentarios en las páginas de
-      los distribuidores'
     board: 'Junta'
-    tooltip_function_11: 'L@s administrador@s de este grupo de trabajo se muestran
-      en la descripción general del distrito.'
-    tooltip_function_10: 'L@s administrador@s de este grupo de trabajo pueden desbloquear
-      mensajes en foros moderados. Si la opción está activada para el distrito, también
-      pueden ocultar mensajes en el foro.'
     voting: 'Votación'
     mediation: 'Mediación'
     moderation: 'Moderación'
-    tooltip_function_4: 'L@s administrador@s de este grupo de trabajo pueden ver y
-      editar empresas en el distrito'
-    tooltip_function_5: 'L@s administrador@s de este grupo de trabajo pueden ver quejas
-      sobre l@s rescatistas de alimentos en el distrito. No se reportan denuncias
-      que involucren a l@s administrador@s, estas son recibidas por la junta arbitral.'
     invalid: 'A un distrito no se le puede asignar una función de grupo de trabajo.'
-    tooltip_function_12: L@s administrador@s de este grupo de trabajo se 
-      muestran en la descripción general del distrito.
     election: Elecciones
     none: No es un grupo de trabajo GOALS
     stores_coordination: Empresas
     resources: ''
-    tooltip_function_13: ''
   actions:
-    edit: 'Editar grupo'
     join: 'Unase a este grupo'
     go: 'al grupo'
     contact: 'Contacta con el grupo'
@@ -989,20 +948,7 @@ group:
   application_requirements:
     requirements: '¿Quién puede entrar en este grupo?'
     everybody: 'Todos pueden postularse.'
-    banana_count: '¿Cuántos fideos de fidelidad debe tener un solicitante?'
-    member_since_weeks: '¿Cuántas semanas necesita un solicitante para estar registrado
-      en la plataforma?'
-    banana_count_errors:
-      max: 'No espere más de {{ limit }} fideos de fidelidad.'
-      min: 'Nadie debería tener menos de {{ limit }} fideos de fidelidad.'
-      not_in_range: '{{ limit }} Nadie debe tener menos de {{ min }} o más de {{ max
-        }} bananas de confianza.'
-    not_fulfilled: 'Para postularse para este grupo de trabajo, debes haber sido parte
-      de foodsharing durante %weeks% semanas, haber recolectado ya %bananas% fideos
-      de fidelidad y haber participado en %fetches% recogidas.'
-    requires_properties: 'Cualquiera que cumpla ciertos puntos de confianza.'
     nobody: 'Nadie (grupo cerrado).'
-    fetch_count: '¿Cuántas recogidas debe haber realizado un solicitante?'
     open: 'Cualquiera puede unirse directamente.'
   member_list:
     is_verified: 'verificad@'
@@ -1092,14 +1038,12 @@ group:
   photo: 'Fotografía'
   application_from: 'de'
   motivation: 'Texto motivacional'
-  entermotivation: 'Motivación:'
   mail_link_title:
     workgroup: 'Buzón de grupo de trabajo'
     region: 'Buzón de distrito'
   title: 'grupos de trabajo de foodsharing'
   image: 'Foto de portada de %name%'
   userId: 'ID'
-  entertime: 'Tiempo:'
   last_activity: 'Última actividad'
   members: 'Miembros'
   applications: 'Aplicaciones'
@@ -1126,7 +1070,6 @@ group:
     zero: sin miembros
     one: un miembro en total
     other: '{count} miembros en total'
-  enterskills: 'Habilidades:'
   quit_name_workgroup: 'Dejar el equipo {name}'
   delete_group_sure: '¿Realmente desea eliminar el grupo/el distrito {groupName}?'
   subtitle: 'Aquí encontrarás ayuda y mucho que hacer …'
@@ -1135,7 +1078,6 @@ group:
     one: Un administrador
     other: '{count} administradores'
   filter_by_last_activity: 'No activo en meses'
-  enterxp: 'Experiencia:'
   quit_name_district: 'Abandonar el distrito {name}'
   role_name: 'Role'
   filter_placeholder: Filtrar grupos por nombre
@@ -3845,10 +3787,8 @@ timepicker:
   to: a
   placeholder: Introduzca la hora
 sidenav:
-  superregional: 'Suprarregional'
   countryspecific: 'Grupos específicos de países'
   yourgroups: 'Tus grupos'
-  localgroups: 'Grupos regionales'
   yourregions: Tus distritos
 information:
   push:

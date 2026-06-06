@@ -794,10 +794,6 @@ group:
   applications_for: Zgłoszenia do {name}
   application_region: Zgłoszenia do {group}
   motivation: Tekst motywacyjny
-  entermotivation: 'Motywacja:'
-  enterskills: 'Umiejętności:'
-  enterxp: 'Doświadczenie:'
-  entertime: 'Czas:'
   edit:
     title: Edytuj {group}
     name_required: Podaj nazwę.
@@ -816,27 +812,15 @@ group:
       Przy wysyłaniu wiadomości do tego zespołu, wszyscy/tkie administratorzy/ki będą widzieć twój adres email, który podałeś w twoim profilu foodsharingu. Kopia wiadomości zostanie ci przesłana mailem.
   apply:
     title: Zgłoszenie do {group}
-    ability: Jakie masz umiejętności w tym zakresie?
-    error_missing_time: 'Błąd: nie wybrano czasu.'
-    time:
-      "1": 1-2 godziny
-      "2": 2-3 godziny
-      "3": 3-4 godziny
-      "5": 5 lub więcej godzin
     send: Wyślij zgłoszenie
     link_description: 'Ten link poprowadzi cię prosto do zgłoszenia:'
     sent: Zgłoszenie zostało wysłane.
     accept: Akceptuj
     accepted: Zgłoszenie zaakceptowane
     declined: Zgłoszenie odrzucone
-    motivation: Jaka jest twoja motywacja, aby udzielać się w grupie {group}?
-    experience: "Czy możesz w tej grupie wykorzystać doświadczenia, które gdzieś indziej
-      zdobyłeś/aś? \nJeśli tak, gdzie lub jakie?\n"
-    how_much_time: Ile godzin tygodniowo masz czas i chęć poświęcić się temu?
     summary: '{name} chce dołączyć do zespołu {group}.'
     deny: 'Odrzuć'
   actions:
-    edit: Edytuj grupę
     join: Dołącz do tej grupy
     save: Zapisz zmiany
     contact: Skontaktuj się z grupą
@@ -859,58 +843,17 @@ group:
     fsmanagement: Zarządzanie
     restricted_workgroup_function: 'Ta funkcja zespołu może być edytowana tylko przez
       międzyregionalny zespół "AG anlegen"'
-    tooltip_function_9: 'Administratorzy/ki tego zespołu mogą edytować opis grupy
-      lokalnej na mapie.'
-    tooltip_function_4: 'Administratorzy/ki tego zespołu mają wgląd w punkty w rejonie
-      i mogą je edytować'
     pr: 'Public relations'
-    tooltip_function_5: 'Administratorzy/ki tego zespołu mogą widzieć skargi o foodsaver(k)ach
-      w rejonie. Nie są pokazywane skargi, które są powiązane z administrator(k)ami!
-      Te skargi otrzymuje rada arbitrażowa.'
-    tooltip_function_10: 'Administratorzy/ki tego zespołu mogą akceptować posty w
-      moderowanych forach. Jeśli ta opcja jest aktywowana w rejonie, mogą też ukrywać
-      posty na forum.'
-    tooltip_function_1: 'Administratorzy/ki tego zespołu otrzymują powiadomienia,
-      gdy nowi członkowie dołączają do rejonu'
     report: 'Skargi'
     invalid: 'Nie można przyporządkować funkcji zespołu do rejonu.'
-    tooltip_function_12: 'Administratorzy/ki tego zespołu są pokazywani na stronie
-      przeglądowej rejonu.'
-    tooltip_function_2: 'Administratorzy/ki tego zespołu mogą tworzyć głosowania dla
-      rejonu'
-    tooltip_function_11: 'Administratorzy/ki tego zespołu są pokazywani/e na stronie
-      przeglądowej rejonu.'
-    tooltip_function_6: 'Adres email tego zespołu jest wyświetlany na przycisku "Zapytaj
-      o mediację". Administratorzy/ki nie mają żadnych szczególnych uprawnień.'
-    tooltip_function_7: 'Administratorzy/ki tego zespołu otrzymują skargi z udziałem
-      zespołu rozpatrującego skargi. Nie są pokazywane skargi powiązane z administrator(k)ami!
-      Te skargi otrzymuje zespół rozpatrujący skargi'
-    tooltip_function_13: 'Administratorzy/ki tego zespoły otrzymują powiadomienia
-      przez dzwonek o nowych zasobach.'
     none: 'Nie ma zespołów GOALS'
     stores_coordination: 'Punkty'
-    tooltip_function_3: 'Administratorzy tego zespołu mogą aktywować i edytować jadłodzielnie
-      w rejonie oraz usuwać posty na tablicy jadłodzielni'
     arbitration: 'Rada arbitrażowa'
   application_requirements:
     requirements: Kto może dołączyć do tej grupy?
     nobody: Nikt (zamknięta grupa).
-    requires_properties: Każdy, kto spełnia podane kryteria.
     everybody: Każdy może się zgłosić.
     open: Każdy/a może dołączyć bezpośrednio.
-    banana_count: Ile bananów zaufania musi mieć kandydat/ka?
-    banana_count_errors:
-      min: Nikt nie powinien mieć mniej niż {{ limit }} bananów zaufania.
-      max: Nie oczekuj więcej niż {{ limit }} bananów zaufania.
-      not_in_range: '{{ limit }} Nikt nie powinien mieć mniej niż {{ min }} albo więcej
-        niż {{ max }} bananów zaufania.'
-    member_since_weeks: Od ilu tygodni kandydat/ka powinien/na być aktywny/a w 
-      foodsharingu?
-    fetch_count: 'Ile odbiorów/darowizn/orga-slotów powinna wykonać zgłaszająca się
-      osoba?'
-    not_fulfilled: 'Aby zgłosić się do tego zespołu, musisz być członkiem foodsharingu
-      od %weeks% tygodni, zebrać już %bananas% banany/ów zaufania i uczestniczyć w
-      %fetches% slotach.'
   members: Członkowie
   administrators: Administratorzy/ki grupy
   member_count:
@@ -1674,8 +1617,12 @@ store:
     title: 'Zapytania do {storeTitle}'
     needsStoreRegion:
       link: 'Dołącz do rejonu'
-      request: ''
-      invited: ''
+      request: 'Aktualnie nie możesz wysłać zgłoszenia, bo nie jesteś jeszcze członkiem
+        rejonu punktu {region}. Kiedy dołączysz do rejonu {region}, możesz ponownie
+        spróbować wysłać zgłoszenie.'
+      invited: 'Zostałeś/aś zaproszony/a do tego punktu. Zanim będziesz mógł/mogła
+        zaakceptować zaproszenie, musisz zostać członkiem rejonu punktu {region}.
+        Jak tylko dołączysz do rejonu {region}, możesz zaakceptować zaproszenie.'
     requireVerification:
       link: 'Otwórz forum rejonu macierzystego'
       request: ''
@@ -2044,7 +1991,12 @@ pickup:
     disable_auto_slot_titel: Deaktywacja
     disable_auto_slot: 'Automatyczny slot w przyszłości zostanie deaktywowany.'
     bread: 'Edytuj sloty'
-    many-people: ''
+    many-people: "Podałeś/aś więcej niż dwie osoby do odbioru. \n<br>\nWyślij <strong>tylko
+      tyle osób odbierających, ile jest potrzebnych</strong> w tym punkcie.\nZbyt
+      wiele osób odbierających spowodowało już często zakończenie współpracy.\n<br>\n\
+      Uzgodnij z punktem maksymalną możliwą liczbę osób odbierających.\nDodatkowo
+      potrzebni/e pomocnicy/czki mogą czekać z przyczepkami rowerowymi lub czymś podobnym\n\
+      z dala od oczu i uszu obsługi punktu.\n"
     slot_titel: 'Sloty'
     slotcount: '1 osoba odbierająca'
     added: 'Wprowadzono slot.'
@@ -2280,7 +2232,7 @@ chat:
     konwersacji.
 
     '
-  open_multi_chat: ''
+  open_multi_chat: 'Napisz wiadomość do koordynatorów/ek punktu'
   open_full_view: Otwórz pełny widok
   unread_messages: 'Nieprzeczytane wiadomości'
 wall:
@@ -2296,7 +2248,8 @@ wall:
   placeholder: 'Napisz nowy wpis na tablicy …'
   error-create: 'Twój wpis na tablicy nie mógł zostać zapisany.'
   created: 'Świetnie, twój wpis na tablicy został zapisany.'
-  info-somebody-else: ''
+  info-somebody-else: 'Ponieważ masz uprawnienia do administrowania tego punktu, możesz
+    w razie potrzeby usunąć ten wpis.'
   confirm-deletion: 'Czy na pewno chcesz usunąć następujący wpis na tablicy od {name}?'
 events:
   bread: Eventy
@@ -3557,7 +3510,8 @@ poll:
   scope_description_0: 'Wszyscy zweryfikowani/e i niezweryfikowani/e foodsaverzy/ki
     z rejonu/zespołu'
   title: 'Głosowanie: {name}'
-  scope_description_2: ''
+  scope_description_2: 'Wszyscy/tkie koordynatorzy/ki punktów z rejonu, którzy/e są
+    aktualnie odpowiedzialni/e za jakiś punkt'
   type: 'Rodzaj głosowania'
 categories:
   title:
@@ -3602,7 +3556,7 @@ help:
         '
     storeLog:
       md: ''
-      title: ''
+      title: 'Protokół punktu'
     hygieneRequirement:
       title: ''
       md: ''
@@ -3773,8 +3727,14 @@ email_template:
       single: 'Wolne terminy odbioru w %BETRIEB%!'
     settings_link: 'Przejdź do ustawień powiadomień'
     empty_slots: '%COUNT% nieobsadzone/ych sloty/ów odbioru'
-    part2: ''
-    part1: ''
+    part2: 'Postaraj się tak szybko jak to możliwe znaleźć foodsaverów/ki, aby wszystkie
+      odbiory mogły się odbyć. Jeśli nie będziesz mógł/mogła nikogo zmobilizować,
+      byłoby dobrze, abyś przejął/ęła otwarte odbiory. Jeśli nie jest to dla ciebie
+      możliwe, odwołaj zawczasu te terminy w punkcie.'
+    part1: 'Zadaniem koordynatorów/ek punktu jest zapewnienie, że odbiory odbywają
+      się zgodnie z planem. Niestety, jeszcze nie we wszystkich twoich punktach zapisało
+      się wystarczająco dużo foodsaverów/ek na odbiory w ciągu najbliższych dwóch
+      dni:'
   reply: 'Odpowiedz'
   confirm_for_moderated_forum: 'Temat musi zostać potwierdzony, bo jest to moderowane
     forum.'
@@ -3944,7 +3904,7 @@ achievements:
     private: 'Prywatny'
     scope: 'W rejonie'
     global: 'Globalny'
-    store_managers: ''
+    store_managers: 'Tylko koordynatorzy/ki punktu'
     hidden: 'Ukryty'
   validity:
     days: 'Ważny przez {validityInDaysAfterAssignment} dni od przyznania.'
@@ -4034,9 +3994,9 @@ search:
       no_home_region: 'bez rejonu macierzystego'
       copy_id: 'kopiuj ID'
     store:
-      manager_tooltip: ''
-      jumper_tooltip: ''
-      member_tooltip: ''
+      manager_tooltip: 'Jesteś odpowiedzialny/a za ten punkt'
+      jumper_tooltip: 'Jesteś na liście rezerwowych tego punktu'
+      member_tooltip: 'Jesteś członkiem teamu tego punktu'
     from: 'z'
   title: 'Szukaj'
   too_short: 'Podaj dłuższe wyrażenie do wyszukiwania.'
@@ -4050,7 +4010,8 @@ search:
     placeholder: 'Imię lub ID'
   maxresults: 'Liczba wyświetlanych wyników wyszukiwania jest ograniczona. Ewentualnie
     użyj bardziej specyficznego pojęcia do wyszukiwania.'
-  informations: ''
+  informations: 'Możesz szukać osób, grup, punktów, rejonów, czatów, wpisów na forum
+    i jadłodzielni.'
   noresults: 'Nie znaleziono wyników'
   scope:
     global: 'Szukanie globalne'
@@ -4719,14 +4680,14 @@ storestatus:
 stats:
   total:
     pickups: 'akcje/i ratowania żywności wykonali/ły nasi/sze foodsaverzy/ki.'
-    weight: ''
+    weight: 'żywności pomyślnie uratowanej przed śmietnikiem.'
     fsp: 'Jadłodzielnie używane do dzielenia się żywnością.'
     foodsharer: 'Foodsharerzy/ów/ki/ek są/jest obecnie zarejesterowani/e/ych na foodsharingu
       i interesują/e się naszą pracą.'
     foodsaver: 'Foodsaverzy/ki/ów/ek angażuje się w ramach wolontariatu na rzecz świata
       bez marnowania żywności.'
     baskets: 'jadłokoszyki łącznie opublikowane online.'
-    cooperations: ''
+    cooperations: 'punkty/ów nieprzerwanie i z zadowoleniem współpracują/e z nami.'
   leader:
     regions: 'Najbardziej aktywne rejony'
     users: 'Najbardziej aktywni/e foodsaverzy/ki'
@@ -4867,9 +4828,7 @@ contentmanagement: 'Zarządzanie treściami'
 sidenav:
   yourregions: 'Twoje rejony'
   yourgroups: 'Twoje zespoły'
-  localgroups: 'Zespoły regionalne'
   countryspecific: 'Zespoły krajowe'
-  superregional: 'Ponadregionalny'
 push_notifications:
   test_notification_body: 'Super, wygląda na to, że się udało :)'
   test_notification_title: 'powiadomienia push aktywowane'
