@@ -32,78 +32,62 @@ class MoveUploadsCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $oldFormats = ['', '130_q_', '50_q_', 'med_q_', 'mini_q_', 'thumb_', 'thumb_crop_', 'q_'];
-
         $isDryRun = $input->getOption('dry');
 
-        // fetch all wall posts from the database
-        // Old format: {"image":[{"file":"abc.jpg"},{"file":"def.png"}]}
-        // New format: {"images":["\/api\/uploads\/{uuid}","\/api\/uploads\/{uuid}"]}
+        // fetch all group pictures from the database
         $entriesWithPicture = $this->db->fetchAll('
 			SELECT
 				`id`,
-				`foodsaver_id`,
-				`attach`
+				`photo`
 			FROM
-				`fs_wallpost`
+				`fs_bezirk`
 			WHERE
-			    attach IS NOT NULL AND attach <> "" AND attach NOT LIKE "%images%"'
+			    photo IS NOT NULL AND photo <> "" AND photo NOT LIKE "/api/uploads%"',
         );
 
-        // move all pictures from the old directory and update the database entries
-        $movedEntries = 0;
-        $movedFiles = 0;
+        // sort by old or new picture path
         $invalidEntries = [];
+
+        // move all pictures from the old directory and update the database entries
+        $movedFiles = 0;
         foreach ($entriesWithPicture as $entry) {
-            $output->writeln('Moving ' . $entry['id']);
-            $files = json_decode($entry['attach'], true)['image'];
-            $files = array_column($files, 'file');
+            $uuid = null;
+            $source = null;
+            if (str_starts_with($entry['photo'], '/images/photo') || str_starts_with($entry['photo'], '/images/workgroup')) {
+                $source = $entry['photo'];
+            } elseif (str_starts_with($entry['photo'], 'photo/') || str_starts_with($entry['photo'], 'workgroup/')) {
+                $source = '/images/' . $entry['photo'];
+            } else {
+                $invalidEntries[] = $entry;
+            }
 
-            $uuids = [];
-            try {
-                // Copy all files to the API
-                foreach ($files as $file) {
-                    $output->writeln('  moving ' . $file);
-
+            if (!is_null($source)) {
+                try {
+                    $output->writeln('moving ' . $entry['id'] . ', ' . $source);
                     if (!$isDryRun) {
-                        $uuid = $this->copyFileToNewAPI('images/wallpost/' . $file, $entry['foodsaver_id']);
-                        $uuids[] = $uuid;
+                        $uuid = $this->copyFileToNewAPI($source, $entry['id']);
+                        $this->db->update('fs_bezirk', ['photo' => '/api/uploads/' . $uuid], ['id' => $entry['id']]);
                     }
                     ++$movedFiles;
-                }
-
-                // If everything was successful, delete the old files and update the database entry
-                if (!$isDryRun) {
-                    foreach ($files as $file) {
-                        foreach ($oldFormats as $format) {
-                            @unlink('./images/wallpost' . $format . $file);
-                        }
+                } catch (Throwable $t) {
+                    // If anything went wrong, reset everything: delete the database entry and the destination file, set
+                    // the entry's picture to the previous value
+                    if (!empty($uuid)) {
+                        $this->uploadsGateway->deleteUpload($uuid);
+                        @unlink($this->uploadsTransactions->generateFilePath($uuid));
+                        $this->db->update('fs_bezirk', ['photo' => $source], ['id' => $entry['id']]);
                     }
 
-                    $newPaths = array_map(fn ($uuid) => '/api/uploads/' . $uuid, $uuids);
-                    $attach = json_encode(['images' => $newPaths]);
-                    $this->db->update('fs_wallpost', ['attach' => $attach], ['id' => $entry['id']]);
+                    $output->writeln($t->getMessage());
+                    $invalidEntries[] = $entry;
                 }
-                ++$movedEntries;
-            } catch (Throwable $t) {
-                // If anything went wrong, reset everything: delete the database entries and the destination files, set
-                // the entry's picture to the previous value
-                foreach ($uuids as $uuid) {
-                    $this->uploadsGateway->deleteUpload($uuid);
-                    @unlink($this->uploadsTransactions->generateFilePath($uuid));
-                }
-                $this->db->update('fs_wallpost', ['attach' => $entry['attach']], ['id' => $entry['id']]);
-
-                $output->writeln($t->getMessage());
-                $invalidEntries[] = $entry;
             }
         }
 
         // print statistics
-        $output->writeln('Einträge gelesen: ' . count($entriesWithPicture));
-        $output->writeln("{$movedEntries} Einträge bearbeitet, {$movedFiles} Dateien verschoben");
+        $output->writeln("{$movedFiles} Dateien verschoben");
         if (sizeof($invalidEntries) > 0) {
-            $output->writeln(count($invalidEntries) . ' Einträge die nicht korrigiert werden konnten: '
+            $output->writeln(sizeof($invalidEntries) . ' Einträge die nicht korrigiert werden konnten: '
                 . json_encode(array_column($invalidEntries, 'id')));
         }
 

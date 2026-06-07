@@ -36,38 +36,33 @@ class TagUploadsCommand extends Command
         $entriesWithValidPictures = $this->db->fetchAll('
 			SELECT
 				`id`,
-				`foodsaver_id`,
-				`attach`
+				`photo`
 			FROM
-				`fs_wallpost`
+				`fs_bezirk`
 			WHERE
-			    attach IS NOT NULL AND attach <> "" AND attach LIKE "%images%"'
+			    photo LIKE "/api/uploads%"'
         );
 
-        $invalidEntries = [];
-        $taggedEntries = 0;
+        $invalidPictures = [];
         $taggedFiles = 0;
         foreach ($entriesWithValidPictures as $entry) {
             try {
-                $files = json_decode($entry['attach'], true)['images'];
-                $uuids = array_map(fn ($file) => substr($file, 13), $files);
                 if (!$isDryRun) {
-                    $this->uploadsGateway->setUsage($uuids, UploadUsage::WALL_POST, $entry['id']);
+                    $uuid = substr((string)$entry['photo'], 13);
+                    $this->uploadsGateway->setUsage([$uuid], UploadUsage::WORKING_GROUP_TITLE, $entry['id']);
                 }
-                $taggedFiles += count($files);
-                ++$taggedEntries;
+                ++$taggedFiles;
             } catch (Throwable $t) {
                 $output->writeln($t);
-                $invalidEntries[] = $entry;
+                $invalidPictures[] = $entry;
             }
         }
 
         // print statistics
-        $output->writeln('Einträge gelesen: ' . count($entriesWithValidPictures));
-        $output->writeln("{$taggedEntries} Einträge bearbeitet, {$taggedFiles} Dateien markiert");
-        if (sizeof($invalidEntries) > 0) {
-            $output->writeln(sizeof($invalidEntries) . ' Einträge die nicht markiert werden konnten: '
-                . json_encode(array_column($invalidEntries, 'id')));
+        $output->writeln("{$taggedFiles} Dateien markiert");
+        if (sizeof($invalidPictures) > 0) {
+            $output->writeln(sizeof($invalidPictures) . ' Einträge die nicht korrigiert werden konnten: '
+                . json_encode(array_column($invalidPictures, 'id')));
         }
 
         return 0;
