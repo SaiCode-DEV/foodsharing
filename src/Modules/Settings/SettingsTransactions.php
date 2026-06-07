@@ -313,8 +313,6 @@ class SettingsTransactions
             }
         }
 
-        $this->downgradeProfile($userId, $currentUserProfile['rolle'], $editableProfileDTO);
-
         $oldData = $this->foodsaverGateway->getFoodsaver($userId);
         $isUpdated = (bool)$this->foodsaverGateway->updateFoodsaver($userId, $editableProfileDTO);
         if ($isUpdated) {
@@ -328,6 +326,7 @@ class SettingsTransactions
                 $this->session->invalidateAllSessionsForUser($userId);
             }
         }
+        $this->downgradeProfile($userId, $currentUserProfile['rolle'], $editableProfileDTO);
 
         return $isUpdated;
     }

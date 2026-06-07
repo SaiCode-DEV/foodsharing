@@ -920,6 +920,7 @@ class FoodsaverGateway extends BaseGateway
         $this->db->delete('fs_foodsaver_has_bell', ['foodsaver_id' => $fsId]);
         $this->db->delete('fs_foodsaver_has_bezirk', ['foodsaver_id' => $fsId]);
         $this->db->delete('fs_botschafter', ['foodsaver_id' => $fsId]);
+        $this->db->delete('fs_theme_follower', ['foodsaver_id' => $fsId]);
 
         $fsUpdateData['rolle'] = Role::FOODSHARER->value;
         $fsUpdateData['bezirk_id'] = 0;

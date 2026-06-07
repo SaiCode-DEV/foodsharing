@@ -46,7 +46,7 @@ class QuizTransactions
     public function startQuizSession(Quiz $quiz, bool $isTimed, bool $isTest): void
     {
         if ($isTest) {
-            $this->quizSessionGateway->deleteTestSessions(QuizID::from($quiz->id), $this->session->id());
+            $this->quizSessionGateway->deleteUserSessions(QuizID::from($quiz->id), $this->session->id(), true);
         }
         $questionCount = $isTimed ? $quiz->questionCountTimed : $quiz->questionCountUntimed;
         $questions = $this->getFairQuestions($questionCount, $quiz->id);

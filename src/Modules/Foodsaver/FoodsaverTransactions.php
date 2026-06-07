@@ -10,6 +10,7 @@ use Foodsharing\Modules\Basket\BasketGateway;
 use Foodsharing\Modules\Core\DBConstants\CategoryType;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\SleepStatus;
+use Foodsharing\Modules\Core\DBConstants\Quiz\QuizID;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
@@ -77,6 +78,9 @@ class FoodsaverTransactions
 
     public function downgradeAndBlockForQuizPermanently(int $fsId): int
     {
+        foreach (QuizID::quizzesForRoles() as $quizId) {
+            $this->quizSessionGateway->deleteUserSessions($quizId, $fsId, false);
+        }
         $this->quizSessionGateway->blockUserForQuiz($fsId, Role::FOODSAVER->value);
 
         $this->storeTransactions->leaveAllStoreTeams($fsId);

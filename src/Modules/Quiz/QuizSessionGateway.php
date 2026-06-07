@@ -132,13 +132,16 @@ class QuizSessionGateway extends BaseGateway
         $this->db->delete('fs_quiz_session', ['id' => $sessionId]);
     }
 
-    public function deleteTestSessions(QuizID $quizId, int $userId): void
+    public function deleteUserSessions(QuizID $quizId, int $userId, bool $onlyTestSessions): void
     {
-        $this->db->delete('fs_quiz_session', [
+        $criteria = [
             'quiz_id' => $quizId->value,
             'foodsaver_id' => $userId,
-            'is_test' => 1,
-        ]);
+        ];
+        if ($onlyTestSessions) {
+            $criteria['is_test'] = 1;
+        }
+        $this->db->delete('fs_quiz_session', $criteria);
     }
 
     /**

@@ -17,4 +17,12 @@ enum QuizID: int
     case FOODSHARER = 6;
     case SAVING_FOOD = 7;
     case REPORTS = 8;
+
+    /**
+     * @return QuizID[] all quizzes that are used for upgrading the user role
+     */
+    public static function quizzesForRoles(): array
+    {
+        return [QuizID::FOODSAVER, QuizID::FOODSAVER_FR, QuizID::STORE_MANAGER, QuizID::AMBASSADOR];
+    }
 }
