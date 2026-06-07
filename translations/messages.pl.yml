@@ -331,6 +331,7 @@ upload:
     zwykły obraz jpg
   invalid_image_files: '{count} wybrane/ych pliki/ów nie są/jest ważnymi obrazami:
     {fileNames}'
+  remove_image: Usuń obraz
 button:
   save: Zapisz
   next: Dalej
@@ -785,7 +786,7 @@ group:
   name: Imię
   userId: ID
   description: Opis
-  photo: Zdjęcie
+  photo: Zdjęcie grupowe
   last_activity: Ostatnia aktywność
   valid_until: Ważny do
   filter_by_last_activity: Nieaktywny/a w miesiącach
@@ -820,12 +821,19 @@ group:
     declined: Zgłoszenie odrzucone
     summary: '{name} chce dołączyć do zespołu {group}.'
     deny: 'Odrzuć'
+    application_hint: Zgłoś się teraz do współpracy w zespole "{group}". 
+      Odpowiedz na następujące pytania. Administratorzy/ki zespołu otrzymają 
+      twój tekst.
+    default_prompt: |
+      - Jaka jest twoja motywacja?
+      - Jakie umiejętności i doświadczenie wnosisz?
+      - W jakim zakresie chcesz się angażować w zespole?
   actions:
-    join: Dołącz do tej grupy
+    join: Dołącz
     save: Zapisz zmiany
-    contact: Skontaktuj się z grupą
+    contact: Kontakt
     go: Do strony grupy
-    apply: Zgłoś się do tej grupy
+    apply: Zgłoś się ...
   no_groups: Jeszcze nie ma żadnych grup
   quit_name_district: Opuść region {name}
   quit: Opuść
@@ -954,6 +962,12 @@ group:
   delete_group_sure: 'Czy na pewno usunąć zespół/rejon {groupName}?'
   subtitle: 'tu znajdziesz pomoc i wiele do zrobienia …'
   title: 'zespoły foodsharingu'
+  application_prompt: Wskazówki do zgłoszenia. Na jakie pytania mają 
+    odpowiedzieć zgłaszający się?
+  join_confirmation: Czy chcesz teraz dołączyć do zespołu {name}?
+  membership_status:
+    admin: Administrator/ka
+    member: Członek
 test:
   vars: Mam na imię {NAME} i mam {AGE} lat(a)
   plain: To jest tłumaczenie
@@ -3517,6 +3531,7 @@ categories:
   title:
     resource: 'Kategorie zasobów'
     store: 'Kategorie punktów'
+    group: Kategorie zespołów
   confirm_delete: 'Na pewno usunąć kategorię {name}?'
   types:
     0: 'Odbiór'
@@ -3559,7 +3574,31 @@ help:
       title: 'Protokół punktu'
     hygieneRequirement:
       title: ''
-      md: ''
+      md: 'Aby udzielać się w niektórych punktach, foodsavery/ki muszą być przeszkoleni/one
+        z zasad higieny żywności. Jeśli ta funkcja jest aktywowana w danym punkcie,
+        ma to następujące konsekwencje:
+
+        1. Foodsaverzy/ki bez ważnego szkolenia z zasad higieny nie mogą się zgłaszać
+        do teamu punktu.
+
+        2. Foodsaverzy/ki, którzy/e są już częścią teamu, mogą się zapisywać na sloty
+        tylko do czasu, kiedy ich szkolenie z zasad higieny jest ważne.
+
+
+        W obu przypadkach jest wyświetlane powiadomienie, które wyjaśnia, że do wykonania
+        tej akcji brakuje szkolenia z zasad higieny. Poza tym szkolenie z zasad higieny
+        jest bezpośrednio podlinkowane.
+
+
+        ---
+
+
+        Ważna uwaga:  Ta funkcja bazuje tylko na wewnętrznych stickerach higieny z
+        foodsharingu. Ani umieszczone na profilu certyfikaty higieny od zewnętrznych
+        dostawców (jak np. Metro), ani certyfikaty zdobyte w inny sposób nie są technicznie
+        brane pod uwagę.
+
+        '
     pickupOptions:
       title: 'Opcje zapisu'
       md: ''
