@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\RateLimiter\RateLimiterFactory;
+use Symfony\Component\RateLimiter\RateLimiterFactoryInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 
@@ -138,7 +138,7 @@ class MailboxRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid recipients')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Attachment not found')]
     public function sendMail(int $mailboxId, #[MapRequestPayload] EmailSendData $emailData, Request $request,
-        RateLimiterFactory $loginLimiter): Response
+        RateLimiterFactoryInterface $loginLimiter): Response
     {
         // TODO use correct rate limiter
         $this->checkRateLimit($request, $loginLimiter);

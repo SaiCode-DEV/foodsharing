@@ -98,7 +98,7 @@ class BlogController extends FoodsharingController
             return;
         }
         if ($request->query->get('sub') !== 'add') {
-            $blogId = $request->query->get('id');
+            $blogId = $request->query->getInt('id');
             $data = $this->blogGateway->getOne_blog_entry($blogId);
             if (!$data) {
                 $this->handleAccessDenied('blog.permissions.edit');

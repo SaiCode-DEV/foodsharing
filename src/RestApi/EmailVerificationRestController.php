@@ -11,7 +11,7 @@ use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
-use Symfony\Component\RateLimiter\RateLimiterFactory;
+use Symfony\Component\RateLimiter\RateLimiterFactoryInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[OA\Tag(name: 'verification')]
@@ -32,7 +32,7 @@ class EmailVerificationRestController extends AbstractFoodsharingRestController
     public function requestVerificationEmail(
         #[MapRequestPayload] VerificationEmailRequest $verificationRequest,
         Request $request,
-        RateLimiterFactory $requestPasswordResetLimiter
+        RateLimiterFactoryInterface $requestPasswordResetLimiter
     ): Response {
         $this->checkRateLimit($request, $requestPasswordResetLimiter);
 

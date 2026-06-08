@@ -149,7 +149,7 @@ class UserApiCest
         // delete user without password should fail
         $I->login($this->user[self::EMAIL]);
         $I->sendDELETE(self::API_USER . '/' . $this->user['id']);
-        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
+        $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         // delete user with wrong password should fail
         $I->login($this->user[self::EMAIL]);

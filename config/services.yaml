@@ -29,6 +29,8 @@ services:
             - '../src/Kernel.php'
             - '../src/Modules/{PushNotification/Notification,Foodsaver/Profile.php,Message/Message.php}'
             - '../src/RestApi/Models/'
+            - '../src/Modules/Foodsaver/UnitMember.php'
+            - '../src/Modules/Foodsaver/UnitMemberForAdmin.php'
             - '../src/Modules/OAuth/Grant/'
             - '../src/Modules/OAuth/Entity/'
             - '../src/Modules/OAuth/OIDCBearerTokenResponse.php'

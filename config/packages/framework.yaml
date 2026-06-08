@@ -24,6 +24,9 @@ framework:
         base_path: '/assets'
     error_controller: Foodsharing\Modules\Error\ErrorController
 
+    property_info:
+      with_constructor_extractor: true
+
 when@test:
     framework:
         test: true

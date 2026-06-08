@@ -39,7 +39,7 @@ use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
-use Symfony\Component\RateLimiter\RateLimiterFactory;
+use Symfony\Component\RateLimiter\RateLimiterFactoryInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[OA\Tag(name: 'user')]
@@ -101,7 +101,7 @@ class UserRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Invalid email or password')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: '2FA code required')]
     #[OA\Response(response: Response::HTTP_CONFLICT, description: 'The account was not activated yet')]
-    public function login(#[MapRequestPayload] LoginRequest $loginRequest, Request $request, RateLimiterFactory $loginLimiter): Response
+    public function login(#[MapRequestPayload] LoginRequest $loginRequest, Request $request, RateLimiterFactoryInterface $loginLimiter): Response
     {
         $this->checkRateLimit($request, $loginLimiter);
 
@@ -320,7 +320,7 @@ class UserRestController extends AbstractFoodsharingRestController
     #[Route('users/password-reset', methods: ['POST'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid email address')]
-    public function requestPasswordReset(#[MapRequestPayload] EmailAddress $email, Request $request, RateLimiterFactory $requestPasswordResetLimiter): Response
+    public function requestPasswordReset(#[MapRequestPayload] EmailAddress $email, Request $request, RateLimiterFactoryInterface $requestPasswordResetLimiter): Response
     {
         $this->checkRateLimit($request, $requestPasswordResetLimiter);
 

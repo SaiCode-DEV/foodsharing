@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\RateLimiter\RateLimiterFactory;
+use Symfony\Component\RateLimiter\RateLimiterFactoryInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 
@@ -67,7 +67,7 @@ class SearchRestController extends AbstractFoodsharingRestController
         #[MapQueryParameter('q', filter: \FILTER_VALIDATE_REGEXP, options: ['regexp' => '/^.+$/'])] string $query,
         #[MapQueryParameter] ?bool $global,
         Request $request,
-        RateLimiterFactory $searchLimiter
+        RateLimiterFactoryInterface $searchLimiter
     ): Response {
         $this->checkRateLimit($request, $searchLimiter);
 
@@ -102,7 +102,7 @@ class SearchRestController extends AbstractFoodsharingRestController
         #[MapQueryParameter('searchBody')] ?bool $searchBody,
         #[MapQueryParameter(options: ['min_range' => 0])] ?int $subforumId,
         Request $request,
-        RateLimiterFactory $searchLimiter
+        RateLimiterFactoryInterface $searchLimiter
     ): Response {
         $this->checkRateLimit($request, $searchLimiter);
 

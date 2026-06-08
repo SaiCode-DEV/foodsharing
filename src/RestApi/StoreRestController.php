@@ -48,7 +48,7 @@ use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
-use Symfony\Component\RateLimiter\RateLimiterFactory;
+use Symfony\Component\RateLimiter\RateLimiterFactoryInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 
@@ -64,7 +64,7 @@ class StoreRestController extends AbstractFoodsharingRestController
         private readonly StorePermissions $storePermissions,
         private readonly RegionGateway $regionGateway,
         private readonly ProfilePermissions $profilePermissions,
-        private readonly RateLimiterFactory $locationChangeLimiterFactory,
+        private readonly RateLimiterFactoryInterface $locationChangeLimiterFactory,
         private readonly Mem $mem,
     ) {
         parent::__construct($session);

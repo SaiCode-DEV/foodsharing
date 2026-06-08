@@ -169,7 +169,7 @@ class WorkingGroupApiCest
         // Test invalid message
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPost('api/groups/' . $this->globalWorkingGroup['id'] . '/mail', $invalidMessage);
-        $I->seeResponseCodeIs(HttpCode::UNPROCESSABLE_ENTITY);
+        $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
 
         // Send valid mail
         $I->haveHttpHeader('Content-Type', 'application/json');

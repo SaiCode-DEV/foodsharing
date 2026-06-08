@@ -22,7 +22,7 @@ use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\RateLimiter\RateLimiterFactory;
+use Symfony\Component\RateLimiter\RateLimiterFactoryInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 
@@ -128,7 +128,7 @@ class UploadsRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'MIME type not allowed')]
     #[Route('uploads', methods: ['POST'])]
-    public function uploadFile(#[MapRequestPayload] FileUpload $file, Request $request, RateLimiterFactory $loginLimiter): Response
+    public function uploadFile(#[MapRequestPayload] FileUpload $file, Request $request, RateLimiterFactoryInterface $loginLimiter): Response
     {
         $this->checkRateLimit($request, $loginLimiter);
 

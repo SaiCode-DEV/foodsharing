@@ -30,7 +30,7 @@ class VotingController extends FoodsharingController
             $sub = $request->query->get('sub');
             $bid = $request->query->get('bid');
 
-            if (isset($id) && ($poll = $this->votingTransactions->getPoll($id, true))) {
+            if (isset($id) && ($poll = $this->votingTransactions->getPoll((int)$id, true))) {
                 if (!$this->votingPermissions->maySeePoll($poll)) {
                     return $this->redirect('/region/denied/' . $poll->regionId);
                 }
@@ -68,7 +68,7 @@ class VotingController extends FoodsharingController
                         'mayEdit' => $mayEdit
                     ]));
                 }
-            } elseif (isset($sub) && $sub === 'new' && isset($bid) && ($region = $this->regionGateway->getRegion($bid))
+            } elseif (isset($sub) && $sub === 'new' && isset($bid) && ($region = $this->regionGateway->getRegion((int)$bid))
                 && $this->votingPermissions->mayCreatePoll($region['id'], $region['type'])) {
                 $this->pageHelper->addBread($region['name'], '/region?bid=' . $region['id']);
                 $this->pageHelper->addBread($this->translator->trans('terminology.polls'), '/region?bid=' . $region['id'] . '&sub=polls');

@@ -210,7 +210,7 @@ class StoreTeamApiCest
 
         $I->login($this->manager['email']);
         $I->sendDELETE(self::API_STORES . $this->store['id'] . '/members/' . $this->manager2['id']);
-        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
+        $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->seeInDatabase('fs_betrieb_team', [
             'betrieb_id' => $this->store['id'],
@@ -275,7 +275,7 @@ class StoreTeamApiCest
     {
         $I->login($this->manager['email']);
         $I->sendDELETE(self::API_STORES . $this->store['id'] . '/managers/' . $this->manager['id']);
-        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
+        $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->seeInDatabase('fs_betrieb_team', [
             'betrieb_id' => $this->store['id'],

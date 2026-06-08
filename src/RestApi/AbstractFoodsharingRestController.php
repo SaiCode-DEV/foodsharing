@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
-use Symfony\Component\RateLimiter\RateLimiterFactory;
+use Symfony\Component\RateLimiter\RateLimiterFactoryInterface;
 
 /**
  * General class that contains common functions for all REST controllers.
@@ -29,7 +29,7 @@ abstract class AbstractFoodsharingRestController extends AbstractFOSRestControll
      *
      * @throws TooManyRequestsHttpException if the limit is reached
      */
-    protected function checkRateLimit(Request $request, RateLimiterFactory $rateLimiter, mixed $specifier = ''): void
+    protected function checkRateLimit(Request $request, RateLimiterFactoryInterface $rateLimiter, mixed $specifier = ''): void
     {
         $key = $request->getClientIp() . $specifier;
         $limiter = $rateLimiter->create($key);
