@@ -857,6 +857,29 @@ group:
     none: 'Nie ma zespołów GOALS'
     stores_coordination: 'Punkty'
     arbitration: 'Rada arbitrażowa'
+    function_type_info:
+      1: Administratorzy/ki tego zespołu otrzymują powiadomienia o nowych 
+        członkach rejonu
+      2: Administratorzy/ki tego zespołu mogą tworzyć głosowania w rejonie
+      3: Administratorzy/ki tego zespołu mogą aktywować i edytować jadłodzielnie
+        w rejonie oraz usuwać wpisy na tablicy jadłodzielni
+      4: Administratorzy/ki tego zespołu mają wgląd w punkty w rejonie i mogą je
+        edytować
+      5: Administratorzy/ki tego zespołu mogą zobaczyć skargi dotyczące 
+        foodsaverów/ek w rejonie. Nie są pokazywane skargi, w których mają 
+        udział administratorzy/ki! Te otrzymuje rada arbitażowa.
+      6: Adres email tego zespołu jest wyświetlany na przycisku "zapytaj o 
+        mediację". Administratorzy/ki nie mają żadnych szczególnych uprawnień.
+      7: Administratorzy/ki tego zespołu otrzymują skargi z udziałem zespołu 
+        rozpatrującego skargi. Nie są wyświetlane skargi z udziałem 
+        administratorów/ek! Te otrzymuje zespół rozpatrujący skargi
+      10: Administratorzy/ki tego zespołu mogą aktywować wpisy w moderowanych 
+        forach. Jeśli ta opcja jest aktywowana w rejonie, mogą też ukrywać wpisy
+        na forum.
+      11: Administratorzy/ki tego zespołu są pokazywani na przeglądzie rejonów.
+      12: Administratorzy/ki tego zespołu są pokazywani na przeglądzie rejonów.
+      13: Administratorzy/ki tego zespołu otrzymują dzwonek przy nowych 
+        zasobach.
   application_requirements:
     requirements: Kto może dołączyć do tej grupy?
     nobody: Nikt (zamknięta grupa).
@@ -968,6 +991,37 @@ group:
   membership_status:
     admin: Administrator/ka
     member: Członek
+    can_apply: Zgłoszenie
+    applied: Wysłano zgłoszenie
+    open: Otwarty
+    closed: Zamknięty
+  badge:
+    inactive: nieaktywny
+    function_group: GOALS
+    special_permissions: Specjalne uprawnienia
+  subgroups: Podzespoły
+  sorting_scheme:
+    name: Nazwa
+    activity: Ostatnia aktywność
+    membership: Członkostwo
+    category: Typ zespołu
+  list_headers:
+    default: Zespoły w {region}
+    inactive: Nieaktywne zespoły
+    category:
+      default: Dalsze zespoły
+      archived: Zarchiwizowane zespoły
+      project: Zespół projektowy
+    membership:
+      admin: Zespoły, którymi administrujesz
+      member: Twoje zespoły
+      open: Otwarte zespoły
+      can_apply: Zespoły, do których możesz się zgłosić
+      applied: Zespoły, do których się zgłosiłeś/aś
+      closed: Zamknięte zespoły
+    search_results: Wyniki wyszukiwania
+  category:
+    default: Nie wybrano typu zespołu
 test:
   vars: Mam na imię {NAME} i mam {AGE} lat(a)
   plain: To jest tłumaczenie
@@ -2584,7 +2638,7 @@ reports:
   reported: 'Osoba, której dotyczy skarga'
   reporter: 'Osoba składająca skargę'
   no_reports_fallback: 'Jeszcze nie ma skarg'
-  store: ''
+  store: 'Przyporządkowany punkt'
   report_id: 'ID skargi'
 memberlist:
   header_for_workgroup: Foodsaverzy/ki w zespole {bezirk}
@@ -3755,6 +3809,8 @@ help:
     store_chain_info:
       md: ''
       title: 'Punkty sieciowe'
+    archived_groups:
+      title: Zarchiwizowane zespoły
   helpTitle: 'Pomoc: {title}'
   tooltip: 'Pokaż pomoc'
 email_template:
@@ -4347,7 +4403,7 @@ globals:
     regions_menu: 'Menu rejonu'
     mails: 'Maile'
     my_buddies: 'Moi znajomi'
-    my_stores: ''
+    my_stores: 'Moje punkty'
     my_regions: 'moje rejony'
     chats: 'Chaty'
     mailboxes: 'Skrzynki pocztowe'

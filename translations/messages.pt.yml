@@ -1651,7 +1651,7 @@ group:
     save: 'Guardar alterações'
     contact: 'Contacto este grupo'
     join: 'Participe neste grupo de trabalho'
-    apply: 'Aplicar para este grupo de trabalho'
+    apply: 'Aplicar...'
   member_count:
     zero: Sem membros
     one: Um membro em total
