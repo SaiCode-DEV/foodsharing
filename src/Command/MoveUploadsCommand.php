@@ -54,9 +54,9 @@ class MoveUploadsCommand extends Command
             $uuid = null;
             $source = null;
             if (str_starts_with($entry['photo'], '/images/photo') || str_starts_with($entry['photo'], '/images/workgroup')) {
-                $source = $entry['photo'];
+                $source = substr($entry['photo'], 1);
             } elseif (str_starts_with($entry['photo'], 'photo/') || str_starts_with($entry['photo'], 'workgroup/')) {
-                $source = '/images/' . $entry['photo'];
+                $source = 'images/' . $entry['photo'];
             } else {
                 $invalidEntries[] = $entry;
             }
