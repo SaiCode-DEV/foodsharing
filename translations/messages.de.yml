@@ -477,6 +477,7 @@ group:
     tooltip_function_region327: "Administrator:innen dieser Arbeitsgruppe können Blogeinträge bearbeiten"
     tooltip_function_region332: "Mitglieder dieser Arbeitsgruppe haben Zugriff auf die Kettenliste"
     tooltip_function_region2296: "Administrator:innen dieser Arbeitsgruppe können Ressourcen- und Betriebskategorien bearbeiten"
+    tooltip_function_region3097: "Administrator:innen dieser Arbeitsgruppe können die Inhalte der Seite „Bildung“ bearbeiten"
   show-all: "Alle anzeigen"
   member_list:
     remove_admin_title: "Als Admin austragen"

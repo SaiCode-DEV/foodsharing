@@ -489,6 +489,7 @@ class SeedCommand extends AbstractSeedCommand implements CustomCommandInterface
         $I->createWorkingGroup('Betriebsketten Schweiz', ['parent_id' => RegionIDs::SWITZERLAND, 'id' => RegionIDs::STORE_CHAIN_GROUP_SWITZERLAND, 'category_id' => GroupCategory::DEVELOPMENT->value, 'include_thread' => $userbot['id']]);
         $I->createWorkingGroup('Hygiene', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::HYGIENE_GROUP, 'category_id' => GroupCategory::DEVELOPMENT->value, 'include_thread' => $userbot['id']]);
         $I->createWorkingGroup('PolKa', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::POLITICAL_CAMPAIGNS, 'category_id' => GroupCategory::DEVELOPMENT->value, 'include_thread' => $userbot['id']]);
+        $I->createWorkingGroup('Akademie und Bildungsreferent:innen', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::FOODSHARING_ACADEMY, 'category_id' => GroupCategory::DEVELOPMENT->value, 'include_thread' => $userbot['id']]);
         $I->createWorkingGroup('Quiz FR', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::QUIZ_GROUP_FR, 'category_id' => GroupCategory::DEVELOPMENT->value, 'include_thread' => $userbot['id']]); // actually in france, but for the seed data it's here...
         $I->createWorkingGroup('Meldungen-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::REPORT_TEAM_ADMIN_GROUP, 'category_id' => GroupCategory::EXCHANGE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
         $I->createWorkingGroup('Mediation-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::MEDIATION_TEAM_ADMIN_GROUP, 'category_id' => GroupCategory::EXCHANGE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
@@ -543,6 +544,7 @@ class SeedCommand extends AbstractSeedCommand implements CustomCommandInterface
         $I->addRegionMember(RegionIDs::STORE_CHAIN_GROUP, $user2['id']);
         $I->addRegionMember(RegionIDs::HYGIENE_GROUP, $user2['id']);
         $I->addRegionMember(RegionIDs::POLITICAL_CAMPAIGNS, $user2['id']);
+        $I->addRegionMember(RegionIDs::FOODSHARING_ACADEMY, $user2['id']);
 
         $I->addRegionAdmin(RegionIDs::IT_SUPPORT_GROUP, $userStoreManager2['id']);
         $I->addRegionMember(RegionIDs::IT_SUPPORT_GROUP, $userStoreManager2['id']);
@@ -552,6 +554,7 @@ class SeedCommand extends AbstractSeedCommand implements CustomCommandInterface
         $I->addRegionAdmin(RegionIDs::STORE_CHAIN_GROUP, $userbot['id']);
         $I->addRegionAdmin(RegionIDs::HYGIENE_GROUP, $userbot['id']);
         $I->addRegionAdmin(RegionIDs::POLITICAL_CAMPAIGNS, $userbot['id']);
+        $I->addRegionAdmin(RegionIDs::FOODSHARING_ACADEMY, $userbot['id']);
         $I->addRegionAdmin(RegionIDs::PRODUCT_TEAM, $userbot['id']);
         $I->addRegionAdmin(RegionIDs::PRODUCT_TEAM, $userorga['id']);
 

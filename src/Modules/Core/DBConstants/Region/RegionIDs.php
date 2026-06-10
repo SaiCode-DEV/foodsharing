@@ -31,7 +31,7 @@ class RegionIDs
     final public const int HYGIENE_GROUP = 1686;
     final public const int POLITICAL_CAMPAIGNS = 1880;
     final public const int VUM_SUBGROUP_REPORTS_QUIZ = 6822;
-
+    final public const int FOODSHARING_ACADEMY = 3097;
     // region and ambassador groups
     final public const int EUROPE_BOT_GROUP = 881;
     final public const int AUSTRIA = 63;
@@ -73,7 +73,7 @@ class RegionIDs
             self::QUIZ_AND_REGISTRATION_WORK_GROUP,
             self::PR_PARTNER_AND_TEAM_WORK_GROUP, self::PR_START_PAGE,
             self::IT_SUPPORT_GROUP, self::EDITORIAL_GROUP, self::STORE_CHAIN_GROUP,
-            self::PRODUCT_TEAM
+            self::PRODUCT_TEAM, self::FOODSHARING_ACADEMY
         ]);
     }
 

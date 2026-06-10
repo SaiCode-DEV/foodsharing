@@ -74,7 +74,8 @@ final class ContentPermissions
             || $this->currentUserUnits->isAdminFor(RegionIDs::PR_PARTNER_AND_TEAM_WORK_GROUP)
             || $this->currentUserUnits->isAdminFor(RegionIDs::IT_SUPPORT_GROUP)
             || $this->currentUserUnits->isAdminFor(RegionIDs::PR_START_PAGE)
-            || $this->currentUserUnits->isAdminFor(RegionIDs::POLITICAL_CAMPAIGNS);
+            || $this->currentUserUnits->isAdminFor(RegionIDs::POLITICAL_CAMPAIGNS)
+            || $this->currentUserUnits->isAdminFor(RegionIDs::FOODSHARING_ACADEMY);
     }
 
     /**
@@ -96,6 +97,7 @@ final class ContentPermissions
             RegionIDs::IT_SUPPORT_GROUP => $this->IT_CONTENT_IDS,
             RegionIDs::PR_START_PAGE => $this->START_CONTENT_IDS,
             RegionIDs::POLITICAL_CAMPAIGNS => $this->POLITICAL_CAMPAIGNS_CONTENT_IDS,
+            RegionIDs::FOODSHARING_ACADEMY => [ContentId::EDUCATION],
         ];
 
         $ids = [];
@@ -121,6 +123,7 @@ final class ContentPermissions
             RegionIDs::PR_PARTNER_AND_TEAM_WORK_GROUP => $this->PR_PARTNER_CONTENT_IDS,
             RegionIDs::PR_START_PAGE => $this->START_CONTENT_IDS,
             RegionIDs::POLITICAL_CAMPAIGNS => $this->POLITICAL_CAMPAIGNS_CONTENT_IDS,
+            RegionIDs::FOODSHARING_ACADEMY => [ContentId::EDUCATION],
         ];
 
         foreach ($regionContentMap as $regionID => $contentIDs) {
