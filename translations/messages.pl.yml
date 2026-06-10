@@ -1012,6 +1012,7 @@ group:
       default: Dalsze zespoły
       archived: Zarchiwizowane zespoły
       project: Zespół projektowy
+      administrative: Zespoły zarządzające
     membership:
       admin: Zespoły, którymi administrujesz
       member: Twoje zespoły
@@ -1022,6 +1023,9 @@ group:
     search_results: Wyniki wyszukiwania
   category:
     default: Nie wybrano typu zespołu
+    administrative: Zespół zarządzający
+    project: Zespół projektowy
+    archived: Zespół zarchiwizowany
 test:
   vars: Mam na imię {NAME} i mam {AGE} lat(a)
   plain: To jest tłumaczenie
@@ -3020,7 +3024,7 @@ profile:
     bananas: Banany
     baskets: 'Jadłokoszyki'
     weight_unit: 'kg'
-    weight: ''
+    weight: 'uratowane'
     give_count: 'przekazane/ych darowizn/y'
     slots: 'sloty'
     engagement_count: 'zaangażowanie'
@@ -4363,21 +4367,21 @@ chain:
     EMPTY_CITY: 'Pole "miasto" nie może być puste'
     EMPTY_NAME: 'Pole "nazwa" jest puste'
     INVALID_STORECHAIN_ID: ''
-    WRONG_FORUM: ''
+    WRONG_FORUM: 'Wątek nie należy do forum zespołu sieci punktów'
     KEY_ACCOUNT_MANAGER_ID_NOT_EXISTS: 'Key-Account-Manager/ka nie istnieje'
     INVALID_STATUS: 'Pole "status" jest puste'
     EMPTY_ZIP: 'Pole "kod pocztowy" nie może być puste'
     THREAD_ID_NOT_EXISTS: 'Wątek w forum nie istnieje'
   detailsmodal:
-    nostores: ''
-    title: ''
-    stores: ''
+    nostores: 'Brak punktów'
+    title: 'Punkty sieci {chain}'
+    stores: 'Punkty:'
   tooltips:
     modificationDate: 'Ostatnio edytowano'
     options: 'Opcje'
   bread:
     list: 'Przegląd'
-    workinggroup: ''
+    workinggroup: 'Sieci punktów'
   pagetitle: 'Sieci punktów'
   allowpress: 'Zgoda na upublicznienie nazwy.'
   status:
@@ -4398,7 +4402,7 @@ globals:
     users: 'Osoby'
     buddies: 'Znajomi'
     regions: 'Rejony'
-    stores: ''
+    stores: 'Punkty'
     my_mailboxes: 'Moje skrzynki pocztowe'
     regions_menu: 'Menu rejonu'
     mails: 'Maile'

@@ -60,6 +60,24 @@ group:
       1: Administrators of this group will be notified about new members in the 
         region
       2: Administrators of this group can create polls in the region
+      3: Administrators of this group can approve and edit food-share-points in 
+        the region as well as delete wall posts on food-share-points
+      4: Administrators of this group can access and edit stores in the region
+      5: Administrators of this group can see reports about foodsavers in the 
+        region. Reports about the administrators themselves will not be visible!
+        Those are sent to the arbitration group.
+      6: The e-mail address of this group is shown on the "Request mediation" 
+        button. Administrators of this group have no special permissions.
+      7: Administrators of this group can see reports related to the members of 
+        the report group. Reports related to the administrators themselves will 
+        not be shown! Those are sent to the report group
+      9: Administrators of this group can edit the region's public description 
+        for the map.
+      10: Administrators of this group can approve posts in moderated forums. If
+        that option is enabled for the region, they can also hide posts in the 
+        forum.
+      11: Administrators of this group are shown on the region's overview page.
+      12: Administrators of this group are shown on the region's overview page.
   apply:
     sent: The application was sent.
     send: Send application
@@ -113,6 +131,8 @@ group:
       list
     tooltip_function_region2296: Administrators of this working group can edit 
       resource and store categories
+    tooltip_function_region3097: Administrators of this group can edit the 
+      content of the "Education" page
   member_list:
     remove_title: Remove member
     add_member: add to team
@@ -190,6 +210,10 @@ group:
   membership_status:
     member: Member
     closed: Closed
+    can_apply: Application
+    applied: Applied
+    open: Open
+    admin: Admin
   badge:
     inactive: inactive
     function_group: GOALS
@@ -209,8 +233,13 @@ group:
       applied: Groups for which you have applied
       closed: Closed groups
     search_results: Search results
+    default: Working groups in {region}
+    category:
+      default: More groups
+      archived: Archived groups
   category:
     default: No group type selected
+    archived: Archived group
 settings:
   header: Profile settings
   push:
@@ -4613,6 +4642,8 @@ help:
       title: Archived groups
     inactive_groups:
       title: Inactive groups
+      md: |
+        A group is marked as inactive, if there has been no new forum post in the group for more than 6 months.
   tooltip: Show help
   helpTitle: 'Help: {title}'
 team_page:
@@ -4856,6 +4887,7 @@ categories:
   title:
     store: Store categories
     resource: Resource categories
+    group: Group categories
   empty: No category has been entered yet
   edit: Edit category
   delete: Delete category
@@ -4869,6 +4901,8 @@ categories:
       no longer have a category afterward.'
     resource: There are still {count} resources assigned to this category. These
       resources will lose this category.
+    group: '{count} groups are assigned to this category. Those groups will have no
+      category afterwards.'
   new: Add new category
   types:
     0: 'pick-up'
