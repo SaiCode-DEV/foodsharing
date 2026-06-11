@@ -78,6 +78,8 @@ group:
         forum.
       11: Administrators of this group are shown on the region's overview page.
       12: Administrators of this group are shown on the region's overview page.
+      13: Administrators of this group receive bell notifications about new 
+        resources.
   apply:
     sent: The application was sent.
     send: Send application
@@ -92,6 +94,9 @@ group:
       - What is your motivation?
       - What skills and experience do you have?
       - How much would you like to contribute to the group?
+    application_hint: Apply now for participating in the group "{group}". To 
+      this end, please answer the following questions. Your text will be sent to
+      the administrators of the group.
   show-all: Show all
   really_quit_district: Do you really want to leave the region {name}?
   really_quit_workgroup: Do you really want to leave the working group {name}?
@@ -232,14 +237,21 @@ group:
       can_apply: Groups for which you can apply
       applied: Groups for which you have applied
       closed: Closed groups
+      admin: Groups which you manage
     search_results: Search results
     default: Working groups in {region}
     category:
       default: More groups
       archived: Archived groups
+      exchange: Exchange groups
+      administrative: Administration groups
+      project: Project groups
   category:
     default: No group type selected
     archived: Archived group
+    exchange: Exchange group
+    administrative: Administration group
+    project: Project group
 settings:
   header: Profile settings
   push:

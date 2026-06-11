@@ -1392,7 +1392,7 @@ required_messages:
   kick_from_store_team:
     footer: Pozdrawiam
     main: ''
-    really: ''
+    really: 'Czy na pewno chcesz usunąć {name} z teamu tego punktu?'
   move_to_standby_team:
     footer: Pozdrawiam
     main: ''
@@ -1404,7 +1404,7 @@ required_messages:
     footer: Pozdrawiam
   demote_store_manager:
     footer: Pozdrawiam
-    really: ''
+    really: 'Czy na pewno chcesz usunąć {name} z pozycji koordynatora/ki punktu?'
     main: ''
   placeholder: 'Opcjonalnie dodaj informacje tutaj…'
   verify:
@@ -1705,11 +1705,15 @@ store:
     air_line: 'Pokazywana jest odległość w linii prostej.'
     needsHomeRegion:
       link: 'Wybierz rejon macierzysty'
-      invited: ''
+      invited: 'Zostałeś/aś zaproszony/a do tego punktu. Zanim będziesz mógł/mogła
+        zaakceptować zaproszenie, musisz wybrać rejon macierzysty. Jak tylko wybierzesz
+        rejon macierzysty, możesz zaakceptować zaproszenie.'
       request: 'Chwilowo nie możesz się zgłosić, bo jeszcze nie wybrałeś/aś rejonu
         macierzystego. Kiedy wybierzesz rejon macierzysty, możesz spróbować zgłosić
         się ponownie.'
-    confirm-far: ''
+    confirm-far: 'Według twojego zapisanego adresu mieszkasz bardzo daleko od tego
+      punktu ({distance}). Jesteś pewny/a, że możesz wspierać ten team regularnie
+      i niezawodnie?'
     no-duplicate: 'Już jest jedno zapytanie.'
     to-jumper: 'Na listę rezerwowych'
     application-message: 'Wiadomość zgłoszeniowa'
@@ -1719,9 +1723,10 @@ store:
     confirm-no-location: 'Nie podałeś/aś ważnego adresu w swoim profilu. Podaj adres
       domowy, aby ułatwić koordynator(k)om punktu podjęcie decyzji o twoim zgłoszeniu.'
     hygieneRequired:
-      request: ''
+      request: 'Do tego punktu jest wymagane ważne szkolenie z zasad higieny.'
       link: 'Zdaj szkolenie z zasad higieny'
-      invited: ''
+      invited: 'Zostałeś/aś zaproszony/a do tego punktu. Zanim będziesz mógł/mogła
+        zaakceptować zaproszenie, musisz okazać ważne szkolenie z zasad higieny.'
   invitation:
     accept: Zaakceptuj zaproszenie
     decline: Odrzuć
@@ -2581,7 +2586,7 @@ bell:
   store_request_deny: 'Odrzucono twoje zapytanie.'
   chain_info_updated_title: 'Zaktualizowano sieć {chain}'
   chain_info_updated: '{store} jest częścią sieci.'
-  store_added_to_chain_title: ''
+  store_added_to_chain_title: '{chain}: dodano punkt'
   store_added_to_chain: 'Punkt „{store}“ jest teraz częścią sieci.'
 list:
   filter_for: Filtruj według …
@@ -2684,7 +2689,8 @@ regionOptions:
     heading: opcje do administrowania użytkowni(cz)kami
   pickuprule:
     heading: Opcje reguły rodzynkowej
-    info: ''
+    info: 'Może być zmienione przez administratorów/ki zespołu koordynacji punktów
+      (o ile istnieje) lub ambasadorów/ki rejonu'
   reporting:
     heading: Opcje systemu skarg
     info: Może być zmienione przez administratorów/ki lokalnego zespołu 
@@ -3598,9 +3604,12 @@ categories:
     "null": 'Nieprzyporządkowane'
   empty: 'Jeszcze nie wprowadzono żadnej kategorii'
   confirm_delete_hint:
-    store: ''
+    store: 'Jeszcze {count} punkty/ów są/jest przyporządkowane/ych do tej kategorii.
+      Te punkty nie będą potem miały żadnej kategorii.'
     resource: 'Jeszcze {count} zasoby/ów są/jest przyporządkowane/ych tej kategorii.
       Te zasoby utracą tę kategorię.'
+    group: Jeszcze {count} zespoły/ów są/jest przyporządkowane/ych do tej 
+      kategorii. Te zespoły nie będą potem miały żadnej kategorii.
   new: 'Wprowadź nową kategorię'
   delete: 'Usuń kategorię'
   edit: 'Edytuj kategorię'
@@ -3609,7 +3618,7 @@ categories:
     type: 'Typ'
     id: 'ID'
     usage_count: 'Liczba użyć'
-    number_of_stores: ''
+    number_of_stores: 'Punkty w kategorii'
   merge_hint: 'Wybierz inną kategorię, która ma być połączona z "{name}". Wszystkie
     wpisy, które są przyporządkowane kategorii "{name}", będą później przyporządkowane
     tej kategorii.'
@@ -3631,7 +3640,7 @@ help:
       md: ''
       title: 'Protokół punktu'
     hygieneRequirement:
-      title: ''
+      title: 'Wymagania dotyczące higieny dla punktów'
       md: 'Aby udzielać się w niektórych punktach, foodsavery/ki muszą być przeszkoleni/one
         z zasad higieny żywności. Jeśli ta funkcja jest aktywowana w danym punkcie,
         ma to następujące konsekwencje:
@@ -3815,6 +3824,12 @@ help:
       title: 'Punkty sieciowe'
     archived_groups:
       title: Zarchiwizowane zespoły
+    group_category:
+      title: Typy zespołów
+    inactive_groups:
+      title: Nieaktywne zespoły
+      md: |
+        Zespół jest oznaczony jako nieaktywny, jeśli nie było żadnego nowego postu na forum przez co najmniej 6 miesięcy.
   helpTitle: 'Pomoc: {title}'
   tooltip: 'Pokaż pomoc'
 email_template:
@@ -4366,7 +4381,7 @@ chain:
       szkolenia dla KAMów.'
     EMPTY_CITY: 'Pole "miasto" nie może być puste'
     EMPTY_NAME: 'Pole "nazwa" jest puste'
-    INVALID_STORECHAIN_ID: ''
+    INVALID_STORECHAIN_ID: 'ID sieci punktów jest nieważne'
     WRONG_FORUM: 'Wątek nie należy do forum zespołu sieci punktów'
     KEY_ACCOUNT_MANAGER_ID_NOT_EXISTS: 'Key-Account-Manager/ka nie istnieje'
     INVALID_STATUS: 'Pole "status" jest puste'
@@ -4564,7 +4579,8 @@ startpage:
   near_you:
     text2:
       part2: 'jadłokoszyki'
-      part3: ''
+      part3: '- w ten sposób możesz oferować swoje własne nadmiarowe produkty żywnościowe
+        i odbierać produkty żywnościowe od innych.'
       part1: 'Poza tym są'
     text3:
       part1: 'Społeczność jest zorganizowana w rejonach.'
@@ -4599,12 +4615,14 @@ startpage:
 
       '
   member:
-    text: ''
+    text: 'Dziel się swoją nadmiarową żywnością ze społecznością foodsharingu lub
+      ratuj produkty żywnościowe z punktów.'
     title: 'jako członek'
   welcome_text: 'Witamy na foodsharingu'
   store:
-    title: ''
-    text: ''
+    title: 'jako przedsiębiorstwo'
+    text: 'Pracujesz w supermarkecie, restauracji, stołówce, ...? Zarejestruj swoje
+      przedsiębiorstwo i ratuj żywność.'
   slogan_2: ''
   makeproposals: 'Składaj propozycje'
   followrules: ''
