@@ -73,4 +73,5 @@ class ContentId
     final public const int SECURITY_PAGE = 59;
     final public const int PETITION_BANNER = 92;
     final public const int EDUCATION = 95;
+    final public const int TDL_2026 = 98;
 }

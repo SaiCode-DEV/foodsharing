@@ -501,7 +501,7 @@ class SeedCommand extends AbstractSeedCommand implements CustomCommandInterface
         $I->createWorkingGroup('Oauth Client Administration', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::OAUTH_CLIENT_ADMINISTRATION_WORK_GROUP, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
         $I->createWorkingGroup('Anmeldevorgang und Quiz', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP, 'include_thread' => $userbot['id']]);
         $I->createWorkingGroup('Quizfragen', ['parent_id' => RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP, 'id' => RegionIDs::NEW_QUIZZES_WORK_GROUP, 'include_thread' => $userbot['id']]);
-        $I->createWorkingGroup('Tag der Lebensmittelrettung ' . date('Y'), ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'category_id' => GroupCategory::PROJECT->value, 'apply_type' => ApplyType::OPEN, 'include_thread' => $userbot['id']]);
+        $I->createWorkingGroup('Tag der Lebensmittelrettung', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::TDL_2026_GROUP, 'category_id' => GroupCategory::PROJECT->value, 'apply_type' => ApplyType::OPEN, 'include_thread' => $userbot['id']]);
         $I->createWorkingGroup('Tag der Lebensmittelrettung ' . (date('Y') - 1), ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'category_id' => GroupCategory::ARCHIVED->value, 'apply_type' => ApplyType::OPEN, 'include_thread' => $userbot['id']]);
         $regionOneWorkGroup = $I->createWorkingGroup('Schnippelparty Göttingen', ['parent_id' => $regionOne['id'], 'include_thread' => $userbot['id']]);
 

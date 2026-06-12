@@ -29,6 +29,7 @@ class ContentController extends FoodsharingController
         'fsstaedte' => ContentId::FOODSHARING_CITIES,
         'security' => ContentId::SECURITY_PAGE,
         'education' => ContentId::EDUCATION,
+        'tdl-2026' => ContentId::TDL_2026,
     ];
 
     private const array REDIRECT = [
@@ -50,7 +51,7 @@ class ContentController extends FoodsharingController
         parent::__construct();
     }
 
-    #[Route(path: '/content/{name}', name: 'content_show', requirements: ['name' => '[A-Za-z_]+'])]
+    #[Route(path: '/content/{name}', name: 'content_show', requirements: ['name' => '[A-Za-z0-9_-]+'])]
     public function show(Request $request, string $name): Response
     {
         return $this->viewContent($request, $name);
@@ -115,6 +116,14 @@ class ContentController extends FoodsharingController
         $this->pageHelper->addContent($this->prepareVueComponent('content-partner', 'Partner',
             ['contentId' => $contentId]
         ));
+
+        return $this->renderGlobal();
+    }
+
+    #[Route(path: '/tdl-2026', name: 'tdl_2026')]
+    public function tdl2026(): Response
+    {
+        $this->addContent(ContentId::TDL_2026);
 
         return $this->renderGlobal();
     }

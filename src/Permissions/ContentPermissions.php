@@ -61,6 +61,10 @@ final class ContentPermissions
         ContentId::PETITION_BANNER,
     ];
 
+    private array $TDL_2026_CONTENT_IDS = [
+        ContentId::TDL_2026,
+    ];
+
     public function __construct(Session $session, private readonly CurrentUserUnitsInterface $currentUserUnits)
     {
         $this->session = $session;
@@ -75,7 +79,8 @@ final class ContentPermissions
             || $this->currentUserUnits->isAdminFor(RegionIDs::IT_SUPPORT_GROUP)
             || $this->currentUserUnits->isAdminFor(RegionIDs::PR_START_PAGE)
             || $this->currentUserUnits->isAdminFor(RegionIDs::POLITICAL_CAMPAIGNS)
-            || $this->currentUserUnits->isAdminFor(RegionIDs::FOODSHARING_ACADEMY);
+            || $this->currentUserUnits->isAdminFor(RegionIDs::FOODSHARING_ACADEMY)
+            || $this->currentUserUnits->isAdminFor(RegionIDs::TDL_2026_GROUP);
     }
 
     /**
@@ -98,6 +103,7 @@ final class ContentPermissions
             RegionIDs::PR_START_PAGE => $this->START_CONTENT_IDS,
             RegionIDs::POLITICAL_CAMPAIGNS => $this->POLITICAL_CAMPAIGNS_CONTENT_IDS,
             RegionIDs::FOODSHARING_ACADEMY => [ContentId::EDUCATION],
+            RegionIDs::TDL_2026_GROUP => $this->TDL_2026_CONTENT_IDS,
         ];
 
         $ids = [];
@@ -124,6 +130,7 @@ final class ContentPermissions
             RegionIDs::PR_START_PAGE => $this->START_CONTENT_IDS,
             RegionIDs::POLITICAL_CAMPAIGNS => $this->POLITICAL_CAMPAIGNS_CONTENT_IDS,
             RegionIDs::FOODSHARING_ACADEMY => [ContentId::EDUCATION],
+            RegionIDs::TDL_2026_GROUP => $this->TDL_2026_CONTENT_IDS,
         ];
 
         foreach ($regionContentMap as $regionID => $contentIDs) {
