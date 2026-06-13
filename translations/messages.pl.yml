@@ -404,7 +404,7 @@ settings:
     history:
       "false": 'Nie, nie pokazuj minionych eventów w kalendarzu'
       "true": 'Tak, pokaż minione eventy'
-      label: ''
+      label: 'Czy mają być zawarte minione terminy z ostatnich dwóch tygodni?'
     pickup:
       "true": 'Tak, pokaż moje sloty w kalendarzu'
       "false": 'Nie, nie pokazuj slotów w kalendarzu'
@@ -720,7 +720,10 @@ settings:
       ambasadorów/ek.'
   photo:
     title: twoje zdjęcie
-    info: ''
+    info: "Twoja twarz musi być <a href=\"{link_photo}\"> rozpoznawalna</a> na zdjęciu
+      profilowym,\nponieważ będzie ono użyte do <a href=\"{link_id}\">legitymacji
+      foodsharingu</a>, kiedy \npóźniej zostaniesz <a href=\"{link_fs}\">foodsaverem/ką</a>
+      i będziesz ratować żywność w punktach.\n"
   push:
     title: Powiadomienia push
     not-supported: Twoja przeglądarka nie wspiera powiadomień push.
@@ -880,6 +883,8 @@ group:
       12: Administratorzy/ki tego zespołu są pokazywani na przeglądzie rejonów.
       13: Administratorzy/ki tego zespołu otrzymują dzwonek przy nowych 
         zasobach.
+      9: Administratorzy/ki tego zespołu mogą edytować opis grupy lokalnej na 
+        mapie.
   application_requirements:
     requirements: Kto może dołączyć do tej grupy?
     nobody: Nikt (zamknięta grupa).
@@ -978,6 +983,8 @@ group:
     tooltip_function_region432: 'Administratorzy/ki tego zespołu mogą przeglądać skargi'
     tooltip_function_region2296: 'Administratorzy/ki tego zespołu mogą edytować kategorie
       zasobów i punktów'
+    tooltip_function_region3097: Administratorzy/ki tego zespołu mogą edytować 
+      treści strony "edukacja"
   confirm_decline: 'Czy na pewno chcesz odrzucić to zgłoszenie?'
   quitting_home_district_warning: 'Czy na pewno chcesz opuścić swój rejon macierzysty
     {name}? Utracisz weryfikację i musisz później zgłosić się do teamu ambasadorów/ek
@@ -1013,6 +1020,8 @@ group:
       archived: Zarchiwizowane zespoły
       project: Zespół projektowy
       administrative: Zespoły zarządzające
+      development: Zespoły kreatywne
+      exchange: Zespoły dyskusyjne
     membership:
       admin: Zespoły, którymi administrujesz
       member: Twoje zespoły
@@ -1026,6 +1035,8 @@ group:
     administrative: Zespół zarządzający
     project: Zespół projektowy
     archived: Zespół zarchiwizowany
+    development: Zespół kreatywny
+    exchange: Zespół dyskusyjny
 test:
   vars: Mam na imię {NAME} i mam {AGE} lat(a)
   plain: To jest tłumaczenie
@@ -1391,7 +1402,8 @@ resource_mosaic:
 required_messages:
   kick_from_store_team:
     footer: Pozdrawiam
-    main: ''
+    main: 'usunięto cię z teamu punktu [{store}](/store/{storeId}). Tym samym nie
+      możesz już się zapisywać na sloty w tym punkcie.'
     really: 'Czy na pewno chcesz usunąć {name} z teamu tego punktu?'
   move_to_standby_team:
     footer: Pozdrawiam
@@ -1667,7 +1679,11 @@ store:
     application-placeholder: Chciał(a)bym pomagać w tym teamie, bo …
     completeProfileRequired:
       link: Edytuj profil
-      invited: ''
+      invited: 'Zostałeś/aś zaproszony/a do tego punktu. Zanim będziesz mógł/mogła
+        zaakceptować zaproszenie, musisz najpierw wprowadzić wszystkie wymagane dane
+        w swoim profilu. Musisz podać ważne dane przynajmniej w następujących polach:
+        imię, nazwisko, data urodzenia, aktualny adres, zdjęcie profilowe. Wprowadź
+        te dane w ustawieniach swojego profilu. Potem możesz zaakceptować zaproszenie.'
       request: 'Aktualnie nie możesz wysyłać zgłoszeń, bo nie podałeś/aś jeszcze wszystkich
         wymaganych danych w swoim profilu. Musisz podać ważne dane przynajmniej w
         następujących polach: imię, nazwisko, data urodzenia, aktualny adres, zdjęcie
@@ -1697,8 +1713,17 @@ store:
         Jak tylko dołączysz do rejonu {region}, możesz zaakceptować zaproszenie.'
     requireVerification:
       link: 'Otwórz forum rejonu macierzystego'
-      request: ''
-      invited: ''
+      request: 'Chwilowo nie możesz wysłać zgłoszenia, bo jeszcze nie jesteś zweryfikowany/a.
+        Ten punkt akceptuje aktualnie tylko zgłoszenia od zweryfikowanych foodsaverów/ek.
+        Najpierw ukończ odbiory próbne bądź skontaktuj się z ambasador(k)ami lub zespołem
+        powitalnym, aby dać się zweryfikować. Te osoby do kontaktu znajdziesz na forum
+        swojego rejonu po lewej stronie.'
+      invited: 'Zostałeś/aś zaproszony/a do tego punktu. Zanim będziesz mógł/mogła
+        zaakceptować zaproszenie, musisz zostać zweryfikowany/a. Ten punkt akceptuje
+        aktualnie tylko zgłoszenia od zweryfikowanych foodsaverów/ek. Najpierw ukończ
+        odbiory próbne bądź skontaktuj się z ambasador(k)ami lub zespołem powitalnym,
+        aby dać się zweryfikować. Te osoby do kontaktu znajdziesz na forum swojego
+        rejonu po lewej stronie.'
     withdrawn: 'Pomyślnie cofnięto zapytanie.'
     got-it: 'Osoby odpowiedzialne zostały poinformowane o twoim zapytaniu i skontaktują
       się z tobą.'
@@ -1819,7 +1844,8 @@ store:
   jumperSince: 'Rezerwowy/a od {date}'
   signInDateTime: 'Czas zapisu'
   jumping: 'Rezerwowy/a'
-  may_not_referred_to_in_public: ''
+  may_not_referred_to_in_public: 'Nigdy nie wymieniać publicznie nazwy tego punktu
+    (np. przy jadłokoszykach, w social mediach albo zapytaniach prasowych).'
   fetchCount: 'Wykonał/a tu {count}× odbiory/ów.'
   requests: 'Otwarte zapytania ({count})'
   error: 'Nie można było załadować punktu.'
@@ -1845,10 +1871,16 @@ store:
   willgetcontacted: 'Aktualnie jesteś na liście rezerwowych. Zostaniesz poinformowany/a,
     kiedy pomoc będzie potrzebna.'
   slot_state: 'status slotu'
-  delete_date_description: ''
+  delete_date_description: 'Jeśli chcesz używać w swoim punkcie regularnych slotów
+    (powtarzających się automatycznie co tydzień) i z góry zapobiec, że zostanie utworzony
+    jakiś określony termin (np. dzień wolny od pracy), możesz wykorzystać do tego
+    tę funkcję przez podanie daty i godziny. Jeśli chcesz usunąć już widoczne sloty,
+    jest to także możliwe bezpośrednio przez kliknięcie slotu, o ile nikt jeszcze
+    nie jest zapisany.'
   tooltip_orange: 'Wolne sloty w ciągu następnych trzech dni'
   attribution: 'Ujawnienie nazwy własnej'
-  useRegionPickupRules: ''
+  useRegionPickupRules: 'To jest punkt-rodzynka. Poza regułami punktu obowiązuje dodatkowo
+    następująca reguła sprawiedliwego podziału slotów na poziomie rejonu:'
   short_tooltip_red: 'Wolne sloty dziś lub jutro'
   regionPickupRulesInactive: 'Dodatkowe reguły dla slotów w tym rejonie nie są aktywne'
   delete:
@@ -1873,7 +1905,11 @@ store:
   bread: 'Wszystkie punkty'
   particularities_chain: 'Uwagi o sieci'
   appliedFor: 'Wysłano zgłoszenie'
-  regionPickupRuleLong: ''
+  regionPickupRuleLong: 'W przedziale {regionPickupRuleTimespan} dni przed i po wybranym
+    odbiorze można być zapisanym na łącznie nie więcej niż {regionPickupRuleLimit}
+    sloty/ów w punktach-rodzynkach. W ciągu dnia można co najwyżej wykonać łącznie
+    {regionPickupRuleLimitDay} odbiory/ów w punktach-rodzynkach. Na {regionPickupRuleInactive}
+    godzin/y przed odbiorem reguła przestaje być brana pod uwagę.'
   isJumper: 'Jest na liście rezerwowych.'
   nodeclaration: 'Brak danych'
   nochains: ''
@@ -1881,7 +1917,7 @@ store:
   tooltip_yellow: 'Wolne sloty w ciągu następnych pięciu dni'
   deactivatedRegion: 'Nie można aktualnie wyświetlić listy punktów dla państw i kontynentów.'
   peoplecame: 'Już się zdarzyło, że ludzie poszli do sklepu bez wcześniejszego  uzgodnienia.'
-  may_referred_to_in_public: ''
+  may_referred_to_in_public: 'Można publicznie wymieniać nazwę tego punktu.'
   noStores: 'Jeszcze nie wprowadzono żadnych punktów'
   short_tooltip_yellow: 'Wolne sloty w ciągu najbliższych 5 dni'
   not_verified: 'Nie jesteś zweryfikowany/a. Dlatego nie możesz zobaczyć slotów ani
@@ -2670,7 +2706,9 @@ regionOptions:
     czasu'
   regionReportReasonCategoryB: 'Rozszerzone powody skarg: zasady postępowania - B)
     zachowanie podczas odbiorów'
-  regionPickupRuleActiveStoreList: ''
+  regionPickupRuleActiveStoreList: 'Lista punków w rejonie, które są objęte regułą
+    rodzynkową. Wszystkie sloty w wymienionych punktach są sumowane i brane pod uwagę
+    przez tę regułę.'
   enableMediationButton: 'Aktywuj formularz skarg na stronie profilowej foodsaverów/ek
     z rejonu macierzystego'
   regionReportReasonOther: 'Pozwól na "inne" jako powód skargi'
@@ -2680,7 +2718,8 @@ regionOptions:
     dotyczy reguła rodzynkowa'
   noPickupRuleActiveStores: 'Aktualnie reguła rodzynkowa nie jest aktywowana w żadnym
     punkcie rejonu.'
-  regionPickupRuleActive: ''
+  regionPickupRuleActive: 'Aktywuj następującą regułę dla slotów w lubianych "punktach-rodzynkach"
+    na poziomie rejonu:'
   regionPickupLimitDayNumber: 'Maksymalna liczba rodzynkowych slotów na dzień'
   enableAddressChangeNotification: 'Powiadomienie dla ambasadorów/ek przy zmianie
     adresu foodsavera/ki z rejonu macierzystego'
@@ -2749,10 +2788,16 @@ foodsaver:
     konta pod "bezpieczeństwo konta" i służy to ochronie przed nieautoryzowanym usunięciem
     przy znajomości (lub zapisaniu) twojego hasła.'
   delete_own_account_failed_totp_hint: 'Nie można było usunąć twojego konta.'
-  delete_description_other: ''
+  delete_description_other: 'Usunięcie konta użytkownika/czki jest nieodwracalne.
+    Odtworzenie konta nie będzie już później możliwe. Jeśli dana osoba potem będzie
+    kiedyś chciała ponownie dołączyć do foodsharingu, będzie musiała utworzyć nowe
+    konto i ponownie zgłosić się do punktów, zespołów itp.'
   delete_own_account_failed: 'Twoje konto użytkownika nie mogło zostać usunięte. Wprowadzono
     nieprawidłowe hasło. W razie potrzeby spróbuj ponownie.'
-  delete_description_own: ''
+  delete_description_own: 'Usunięcie konta użytkownika/czki jest nieodwracalne. Odtworzenie
+    twojego konta nie będzie już później możliwe. Jeśli potem będziesz kiedyś chciał/a
+    ponownie dołączyć do foodsharingu, będziesz musiał/a utworzyć nowe konto i ponownie
+    zgłosić się do punktów, zespołów itp.'
 content:
   bread: Wszystkie strony
   public: Strony publiczne
@@ -3006,7 +3051,7 @@ profile:
     noData: Brak dostępnych danych.
     wasVerified: Zweryfikowany/a
     actionBy: przez
-    lostVerification: ''
+    lostVerification: 'Odweryfikowany/a'
   notes:
     bread: notatki
     title: Notatki o {name}
