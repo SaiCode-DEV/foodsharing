@@ -740,7 +740,11 @@ settings:
     success: Powiadomienia push aktywowane pomyślnie
     disable: Deaktywuj powiadomienia push
     disabled: Powiadomienia push deaktywowane pomyślnie
-    info-off: ''
+    info-off: "Na tym urządzeniu są włączone powiadomienia push od foodsharingu.\n\
+      Jeśli deaktywujesz powiadomienia push, wiadomości z czatu nie będą w przyszłości\
+      \ \nbezpośrednio dostarczane na twoje urządzenie.\nTwoje urządzenie nie będzie
+      wtedy już pokazywać powiadomień, kiedy nie jestes zalogowany/a\ni nie będzie
+      już reagować dźwiękiem lub wibracją.\n"
     error:
       permission_denied: Twoja przeglądarka zablokowała powiadomienia push. 
         Pozwól na powiadomienia od tej strony w ustawieniach twojej przeglądarki
@@ -1417,7 +1421,7 @@ required_messages:
   demote_store_manager:
     footer: Pozdrawiam
     really: 'Czy na pewno chcesz usunąć {name} z pozycji koordynatora/ki punktu?'
-    main: ''
+    main: 'Wypisałem/am cię jako koordynatora/kę punktu [{store}](/store/{storeId}).'
   placeholder: 'Opcjonalnie dodaj informacje tutaj…'
   verify:
     main: 'Zweryfikowaliśmy cię jako foodsavera/kę!'
@@ -1885,7 +1889,12 @@ store:
   regionPickupRulesInactive: 'Dodatkowe reguły dla slotów w tym rejonie nie są aktywne'
   delete:
     button: 'Usuń punkt'
-    sure: ''
+    sure: 'Czy na pewno chcesz usunąć ten punkt? Ten proces jest nieodwracalny! Wszyscy
+      członkowie zostaną usunięci z punktu i wszystkie informacje dotyczące punkcie
+      oprócz protokołu punku zostaną usunięte. Usuwaj tylko punkty, które istotnie
+      już nie istnieją lub zostały podwójnie wprowadzone. Punkty, które odmówiły współpracy,
+      powinny pozostać na liście. Można usuwać tylko punkty, w których nigdy nie było
+      slotów i w których przez co najmniej 3 miesiące nie używano czatu teamu.'
     conditions_not_met: 'Nie można usunąć punktu, bo wymagane warunki nie są spełnione.'
   short_tooltip_orange: 'Wolne sloty w ciągu najbliższych 3 dni'
   regionPickupRules: 'dodatkowa reguła rodzynkowa'
@@ -1913,7 +1922,9 @@ store:
   isJumper: 'Jest na liście rezerwowych.'
   nodeclaration: 'Brak danych'
   nochains: ''
-  enter_date_description: ''
+  enter_date_description: 'Po tym, jak wybrałeś/aś datę, godzinę i liczbę, możesz
+    utworzyć jednorazowy slot. Jeśli chcesz utworzyć regularne sloty (powtarzające
+    się automatycznie co tydzień), użyj menu "ustawienia punktu".'
   tooltip_yellow: 'Wolne sloty w ciągu następnych pięciu dni'
   deactivatedRegion: 'Nie można aktualnie wyświetlić listy punktów dla państw i kontynentów.'
   peoplecame: 'Już się zdarzyło, że ludzie poszli do sklepu bez wcześniejszego  uzgodnienia.'
@@ -2976,7 +2987,7 @@ profile:
     foodSaver_in_region: 'dołączył/a do rejonów'
   mail_bounce:
     warning_1: Twój osobisty adres email {email} jest zablokowany dla maili i 
-      komunikacji z foodsharingu. Przez
+      komunikacji z foodsharingu. Poprzez
     warning_2: zmianę adresu email
     warning_3: 'blokada będzie zniesiona. Dalsze informacje znajdziesz w '
     warning_4: tym artykule supportu.
@@ -3111,7 +3122,7 @@ profile:
     send: 'Wyślij skargę'
     report_b3_1: 'Nie wykonał/a odbioru bez kłótni lub dyskusji (B03-2)'
     report_b1_3: 'Bez pozwolenia wziął/ęła dzieci do punktu (B01-4)'
-    report_b6_0: ''
+    report_b6_0: 'Nie poszanowano klienteli i pracowników/czek punktu (B06-1)'
     report_b12: ''
     report_b7: 'Nie zachowano czasu oczekiwania punktu (B07)'
     report_b4_1: 'Nie rozdzielono żywności sprawiedliwie (B04-2)'
@@ -3869,6 +3880,8 @@ help:
       title: 'Punkty sieciowe'
     archived_groups:
       title: Zarchiwizowane zespoły
+      md: |
+        Zespoły, które już nie są aktywne, mogą być zarchiwizowane. W ten sposób lista zespołów pozostaje przejrzysta, bo zarchiwizowane zespoły są wydzielone i pokazywane na końcu. Dzięki temu nie można ich pomylić z aktywnymi zespołami, podczas gdy treści zespołu pozostają zachowane i dostępne.
     group_category:
       title: Typy zespołów
     inactive_groups:
@@ -4388,7 +4401,7 @@ chain:
         label: 'Wątek forum'
       kam:
         invalidfeedback: 'Podano błędne dane. Potrzebne jest jedno lub kilka ID użytkowników/czek.'
-        description: ''
+        description: 'ID Key-Account-Managera/ki, ewentualnie rozdzielone przecinkami.'
         label: 'KAM'
       headquarters:
         placeholder:
@@ -4399,7 +4412,7 @@ chain:
       notes:
         label: 'notatki'
         invalidfeedback: 'Notatki nie mogą być dłuższe niż 200 znaków.'
-        description: ''
+        description: 'Uwagi pokazywane w przeglądzie sieci.'
         default: 'Trwają negocjacje'
       estimatedStoreCount:
         description: 'Całkowita liczba filii sieci'
@@ -4407,7 +4420,7 @@ chain:
         invalidfeedback: 'Tylko liczby całkowite są dozwolone.'
       details:
         label: 'Info dla punktów'
-        description: ''
+        description: 'Uwagi pokazywane na stronach punktów, które należą do sieci.'
         default: ''
       status:
         label: 'status'
@@ -4702,7 +4715,10 @@ startpage:
       lokalnego teamu foodsharingu \nwładze miasta podpisały deklarację motywacyjną
       jako symbol partnerstwa między\nfoodsharingiem i sektorem publicznym.\n"
     title: 'miasta foodsharingu'
-  dependability: ''
+  dependability: 'W wielu miejscach są jadłodzielnie, gdzie można dzielić się żywnością.
+    Aby się dzielić, możecie się spotkać tam lub w innym neutralnym miejscu. Jeśli
+    chcecie oddać lub otrzymać żywność, bądźcie rzetelni i punktualni, nie zostawiajcie
+    nikogo na lodzie.'
   call_to_action_button: 'Dołącz teraz'
   forstores: ''
   honest: 'Bądź szczery/a'
