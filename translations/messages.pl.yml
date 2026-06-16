@@ -749,7 +749,9 @@ settings:
       permission_denied: Twoja przeglądarka zablokowała powiadomienia push. 
         Pozwól na powiadomienia od tej strony w ustawieniach twojej przeglądarki
         i odśwież stronę.
-      service_blocked: ''
+      service_blocked: 'Nie można było nawiązać połączenia z usługą push. Twoja przeglądarka
+        może blokować usługę push od Google. W Brave: Ustawienia → Prywatność → ''Użyj
+        usług Google do powiadomień push''.'
   notifications: Powiadomienia
   follow:
     none: Nie informuj mnie mailem o nowych postach.
@@ -2999,7 +3001,7 @@ profile:
     eventsParticipatedWeek: 'Dziękujemy za uczestnictwo w {count} eventach w tym tygodniu.
       Łączny czas: {hour}:{minute} '
     categorieName: Kategoria
-    pickupAmount: Ilość/Liczba
+    pickupAmount: Ilość
     week_1: Przyszły tydzień
     week_2: Obecny tydzień
     week_3: Ubiegły tydzień
@@ -3030,7 +3032,15 @@ profile:
       confirm_message: 'Czy na pewno chcesz usunąć tego banana?'
     sent: 'Wysłano banana!'
     undo: 'Nie można zmienić bananów zaufania.'
-    vouch: ''
+    vouch: 'Dlatego podaruj banana zaufania tylko osobom, które znasz osobiście,
+
+      które przestrzegają zasad postępowania i umowy prawnej
+
+      i o których rzetelności i zaangażowaniu jesteś przekonany/a.
+
+      Nigdy nie dawaj bananów zaufania lekkomyślnie!
+
+      '
     alreadyGiven: '{name} już otrzymał/a banana od ciebie.'
     messageTooShort: 'Podaj tekst o długości co najmniej 100 znaków do tego banana.'
     placeholder: 'minimum 100 znaków …'
@@ -3058,7 +3068,7 @@ profile:
     violations: 'Skargi'
     storelist: 'Punkty ({count})'
   history:
-    noActor: nieznany
+    noActor: nieznane
     noData: Brak dostępnych danych.
     wasVerified: Zweryfikowany/a
     actionBy: przez
@@ -3099,8 +3109,9 @@ profile:
     cta: 'Pełny profil {name} jest dostępny po rejestracji:'
     join: 'Zarejestruj się i dołącz'
     login: 'Do loginu'
-    textMay: ''
-    textMayNot: ''
+    textMay: 'i może tym samym przyjmować produkty żywnościowe w imieniu foodsharingu.'
+    textMayNot: 'i tym samym aktualnie nie ma uprawnień, aby przyjmować produkty żywnościowe
+      w imieniu foodsharingu.'
     may: 'aktywny/a'
   report:
     inthisblog: w tym poście na blogu
@@ -3123,7 +3134,8 @@ profile:
     report_b3_1: 'Nie wykonał/a odbioru bez kłótni lub dyskusji (B03-2)'
     report_b1_3: 'Bez pozwolenia wziął/ęła dzieci do punktu (B01-4)'
     report_b6_0: 'Nie poszanowano klienteli i pracowników/czek punktu (B06-1)'
-    report_b12: ''
+    report_b12: 'Nie pozwolono odbierającym samodzielnie zdecydować, komu przekażą
+      produkty żywnościowe (B12)'
     report_b7: 'Nie zachowano czasu oczekiwania punktu (B07)'
     report_b4_1: 'Nie rozdzielono żywności sprawiedliwie (B04-2)'
     report_b1_2: 'Bez pozwolenia wziął/ęła zwierzęta do punktu (B01-3)'
@@ -3288,7 +3300,7 @@ dashboard:
   deleted_user: 'usunięty/a użytkownik/czka'
   foodsaver_amount: 'Wykonałeś/aś <b>{pickups}  x</b> odbiory/ów żywności i uratowałeś/aś
     <b>{weight}  kg</b>.'
-  no_more_updates_event: ''
+  no_more_updates_event: 'Nie ma więcej eventów'
   settings_tooltip: 'Ustawienia przeglądu'
   no_more_updates_store: 'Nie ma więcej informacji z punktów'
   full_subline: 'Wykonałeś/aś **{pickups} x** odbiory/ów żywności i uratowałeś/aś
@@ -3301,7 +3313,7 @@ dashboard:
   source_friendWall_own: 'Twoja tablica'
   updates_title_some: 'Przegląd nowości ({0})'
   polls: 'Twoje aktualne głosowania'
-  source_event: ''
+  source_event: 'Event {0}'
 home:
   home: Home
 team:
@@ -3876,7 +3888,12 @@ help:
         '
       title: 'Stickery'
     store_chain_info:
-      md: ''
+      md: 'Ten punkt należy do [sieci](https://wiki.foodsharing.de/Betrieb#Betriebskette).
+        Wszystkie sieci mają swoich/je odpowiedzialnych/e [KAMs](https://wiki.foodsharing.de/Key_Account_Manager_(KAM)),
+        którzy/e mają możliwość zobaczyć team oraz obłożenie i liczbę slotów w tym
+        punkcie.
+
+        '
       title: 'Punkty sieciowe'
     archived_groups:
       title: Zarchiwizowane zespoły
@@ -3991,7 +4008,8 @@ notifications:
     title: 'Wiadomości chatu'
   pickupReminder:
     title: 'Przypomnienia o nieobsadzonych slotach'
-    description: ''
+    description: 'Otrzymuj maile, które cię ostrzegają, kiedy następnego dnia są jeszcze
+      wolne sloty w koordynowanych przez ciebie punktach.'
   safari_add_to_home_screen: 'Aby otrzymywać powiadomienia push na iPhone lub iPad,
     kliknij {icon}, a potem "Do ekranu startowego".
 
@@ -4065,7 +4083,8 @@ error:
 achievements:
   visibility_type_explanation:
     scope: 'Widoczny dla wszystkich użytkowników/czek z {scope}.'
-    store_managers: ''
+    store_managers: 'Jest wyświetlany tej osobie i wszystkim koordynator(k)om punktu
+      w {scope}'
     private: 'Jest wyświetlany tylko tej osobie i administrator(k)om lub ambasador(k)om
       {scope}'
     hidden: 'Nie jest wyświetlany nikomu'
@@ -4125,7 +4144,7 @@ search:
       home_region_tooltip: 'To twój rejon macierzysty'
       member_tooltip: 'Jesteś członkiem tego rejonu'
     mail:
-      from_to_many: ''
+      from_to_many: 'Od {from} do {to} i {other} inne/ych'
       attachment_tooltip: 'Wysłano załącznik do tego maila.'
       sent_tooltip: 'Wysłałeś/aś tego maila.'
       recieved_tooltip: 'Ten mail został wysłany do ciebie.'
@@ -4421,7 +4440,8 @@ chain:
       details:
         label: 'Info dla punktów'
         description: 'Uwagi pokazywane na stronach punktów, które należą do sieci.'
-        default: ''
+        default: 'Nie można kontaktować się z tym puntem, bo nie ma zgody dla tej
+          sieci.'
       status:
         label: 'status'
       name:
@@ -4594,7 +4614,7 @@ contact_page:
 base:
   whatfor: 'Na foodsharing.de możesz przekazywać instytucjom społecznym lub innym
     osobom swoją żywność przed zepsuciem'
-  slogan: ''
+  slogan: 'Dziel się żywnością, zamiast ją wyrzucać - foodsharing'
   jsrequired: 'Niestety, nic tu nie działa bez JavaScript.'
   keywords: ''
 blog:
@@ -4683,7 +4703,16 @@ startpage:
       przedsiębiorstwo i ratuj żywność.'
   slogan_2: ''
   makeproposals: 'Składaj propozycje'
-  followrules: ''
+  followrules: 'Wyraźnie zwracamy uwagę na to, że z powodów prawnych pozwalamy na
+    oferowanie i dzielenie się wybranymi produktami żywnościowymi i innymi towarami
+    tylko na określonych warunkach. Dotyczy to w szczególności łatwo psujących się
+    produktów żywnościowych jak surowe ryby, surowe mięso, surowe potrawy jajeczne
+    i przygotowane potrawy. Zasadniczo używamy wszystkich zmysłów, aby upewnić się,
+    że żywność jest jeszcze przydatna do spożycia. Wszystkie szczegółowe informacje
+    na ten temat znajdują się w [regułach higieny foodsharingu](https://wiki.foodsharing.de/Hygieneregeln).
+    Wskazówki znajdują się też w [poradniku](https://wiki.foodsharing.de/Hygiene-Ratgeber_für_Lebensmittel).
+
+    '
   respect: 'Ponieważ produkty żywnościowe są nam niezbędne do życia, chcemy również
     traktować je z szacunkiem. Aby wszystko u nas przebiegało optymalnie, zdefiniowaliśmy
     na przestrzeni lat kilka zasad postępowania. Przekazywanie żywności innym to bardzo
@@ -4720,7 +4749,7 @@ startpage:
     chcecie oddać lub otrzymać żywność, bądźcie rzetelni i punktualni, nie zostawiajcie
     nikogo na lodzie.'
   call_to_action_button: 'Dołącz teraz'
-  forstores: ''
+  forstores: 'Dla przedsiębiorstw i punktów'
   honest: 'Bądź szczery/a'
   vision:
     title: 'Wizja'
@@ -4728,7 +4757,8 @@ startpage:
   register: 'Na końcu tej strony możesz się zarejestrować jako foodsharer/ka.'
   private:
     title: 'prywatnie'
-    text: ''
+    text: 'Wypowiedz wojnę marnowaniu żywności w twoim gospodarstwie domowym. Na targach
+      i eventach informujemy, jak to zrobić.'
   proposals: 'Chcemy rozwijać się dalej, stawać się coraz lepszymi. Do tego potrzebujemy
     was z wieloma dobrymi pomysłami i radami. Wyślijcie nam je na adres [info@foodsharing.de](mailto:info@foodsharing.de)'
   together: 'Razem z foodsharingiem mogą Państwo działać na rzecz tego, że wycofana
@@ -5010,7 +5040,7 @@ sidenav:
 push_notifications:
   test_notification_body: 'Super, wygląda na to, że się udało :)'
   test_notification_title: 'powiadomienia push aktywowane'
-savewithus: ''
+savewithus: 'Ratuj z nami!'
 password:
   reset: 'Zapomniałeś/aś hasła?'
   insertmail: 'Podaj swój adres email, aby zresetować hasło.'
