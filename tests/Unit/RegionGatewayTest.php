@@ -60,4 +60,47 @@ class RegionGatewayTest extends Unit
         $regions = $this->gateway->listRegionsIncludingParents([$this->childRegion['id']]);
         $this->assertEquals([RegionIDs::ROOT, RegionIDs::EUROPE, $this->region['id'], $this->childRegion['id']], $regions);
     }
+
+    public function testLinkBezirkSetsAddedOnFirstInsert(): void
+    {
+        // The foodsaver is not yet a member of childRegion.
+        $this->gateway->linkBezirk($this->foodsaver['id'], $this->childRegion['id']);
+
+        $added = $this->tester->grabFromDatabase('fs_foodsaver_has_bezirk', 'added', [
+            'foodsaver_id' => $this->foodsaver['id'],
+            'bezirk_id' => $this->childRegion['id'],
+        ]);
+        $this->assertNotEmpty($added);
+        $this->tester->seeInDatabase('fs_foodsaver_has_bezirk', [
+            'foodsaver_id' => $this->foodsaver['id'],
+            'bezirk_id' => $this->childRegion['id'],
+            'active' => 1,
+        ]);
+    }
+
+    public function testLinkBezirkKeepsOriginalAddedDateOnRelink(): void
+    {
+        // The foodsaver is already a member of region (added in _before).
+        // Pin the join date to a known value in the past.
+        $originalDate = '2020-01-01 00:00:00';
+        $this->tester->updateInDatabase('fs_foodsaver_has_bezirk', ['added' => $originalDate], [
+            'foodsaver_id' => $this->foodsaver['id'],
+            'bezirk_id' => $this->region['id'],
+        ]);
+
+        // Re-link with a different status (e.g. application/standby).
+        $this->gateway->linkBezirk($this->foodsaver['id'], $this->region['id'], 0);
+
+        // The original join date must be preserved, only the status changes.
+        $added = $this->tester->grabFromDatabase('fs_foodsaver_has_bezirk', 'added', [
+            'foodsaver_id' => $this->foodsaver['id'],
+            'bezirk_id' => $this->region['id'],
+        ]);
+        $this->assertEquals($originalDate, $added);
+        $this->tester->seeInDatabase('fs_foodsaver_has_bezirk', [
+            'foodsaver_id' => $this->foodsaver['id'],
+            'bezirk_id' => $this->region['id'],
+            'active' => 0,
+        ]);
+    }
 }

@@ -318,10 +318,21 @@ class RegionGateway extends BaseGateway
 
     public function linkBezirk(int $foodsaverId, int $regionId, int $active = 1)
     {
+        // Keep the original join date if the membership already exists; only set it on first insert.
+        // Otherwise re-linking (e.g. on a status change) would overwrite the real join date.
+        try {
+            $added = $this->db->fetchValueByCriteria('fs_foodsaver_has_bezirk', 'added', [
+                'bezirk_id' => $regionId,
+                'foodsaver_id' => $foodsaverId,
+            ]);
+        } catch (DatabaseNoValueFoundException) {
+            $added = $this->db->now();
+        }
+
         $this->db->insertOrUpdate('fs_foodsaver_has_bezirk', [
             'bezirk_id' => $regionId,
             'foodsaver_id' => $foodsaverId,
-            'added' => $this->db->now(),
+            'added' => $added,
             'active' => $active
         ]);
     }
