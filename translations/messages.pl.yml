@@ -1413,7 +1413,9 @@ required_messages:
     really: 'Czy na pewno chcesz usunąć {name} z teamu tego punktu?'
   move_to_standby_team:
     footer: Pozdrawiam
-    main: ''
+    main: 'umieszczono cię na liście rezerwowych w punkcie [{store}](/store/{storeId}).
+      Tym samym nie możesz się aktualnie zapisywać na sloty w tym punkcie ani czytać
+      ogólnego czatu grupy.'
     really: 'Czy na pewno chcesz przenieść {name} z aktywnego teamu na listę rezerwowych?'
   decline_store_application:
     really: Czy na pewno chcesz odrzucić zgłoszenie {name}?
@@ -3184,7 +3186,8 @@ profile:
       z koordynator(k)ami punktu (B02)'
     sells: 'Sprzedaje uratowane produkty żywnościowe'
     report_b5: 'Nieuprawnione osoby weszły do punktu (B05)'
-    report_b9: ''
+    report_b9: 'Wygłoszono nieodpowiednie komentarze odnośnie do ilości, rodzaju i
+      wykorzystania uratowanej żywności (B09)'
     report_b1_4: 'Nie miał/a przy sobie legitymacji foodsharingu (B01-5)'
     reporterHasNoReportGroup: 'Nie możesz użyć wsparcia technicznego do systemu skarg,
       bo w twoim rejonie nie ma lokalnego zespołu rozpatrującego skargi.'
@@ -3288,7 +3291,7 @@ dashboard:
     go: Przejdź do quizu
     ack: 'Przeczytałem/am tę informację, nie pokazuj więcej'
   homeRegion: 'Twój rejon macierzysty to {region}.'
-  foodsharer: ''
+  foodsharer: 'Miłego ratowania!'
   source_store: 'Punkty {0}'
   foodsharer_amount: 'Uratowałeś/aś już {weight} kg żywności!'
   activity_filter_info: 'Tu możesz ustawić, jakie aktualizacje mają być wyświetlane
@@ -3705,7 +3708,46 @@ help:
 
         '
     storeLog:
-      md: ''
+      md: 'Protokół punktu daje możliwość **prześledzenia aktywności w punkcie**.
+        Może pomóc rozwiązać konflikty lub skorygować nieumyślne błędy.
+
+
+        ---
+
+
+        ###### Przykład
+
+
+        Załóżmy, że chcesz wiedzieć, kto i przez kogo został przyjęty do teamu w ciągu
+        ostatnich 3 tygodni. Wtedy możesz wybrać przedział czasu poprzez datę początkową
+        i datę końcową w dwóch polach daty. Następnie możesz wybrać wszystkie odpowiednie
+        typy akcji z rozwijanej listy. W tym przypadku na przykład "*wysłanie zapytania
+        o dołączenie*", "*zaakceptowanie zapytania o dołączenie*" i "*odrzucenie zapytania
+        o dołączenie*". Kiedy klikniesz przycisk "*pokaż wybrane akcje*", pokaże się
+        historia wybranych zdarzeń.
+
+
+        ---
+
+
+        ###### Dostęp
+
+
+        Dostęp do tego ma tylko ten, kto może administrować punkt. Dla normalnych
+        foodsaverów/ek i rezerwowych protokół nie jest widoczny.
+
+
+        ---
+
+
+        ###### Ograniczenia
+
+
+        Ładowanych jest maksymalnie 100 wpisów. Ewentualnie musisz ograniczyć przedział
+        czasu wyszukiwania lub wybrane typy akcji, jeśli nie są wyświetlane wszystkie
+        wyniki.
+
+        '
       title: 'Protokół punktu'
     hygieneRequirement:
       title: 'Wymagania dotyczące higieny dla punktów'
@@ -4616,7 +4658,9 @@ base:
     osobom swoją żywność przed zepsuciem'
   slogan: 'Dziel się żywnością, zamiast ją wyrzucać - foodsharing'
   jsrequired: 'Niestety, nic tu nie działa bez JavaScript.'
-  keywords: ''
+  keywords: 'foodsharing, jedzenie, produkty żywnościowe, data przydatności do spożycia,
+    marnowanie żywności, wyrzucać jedzenie, przekazywać darowiznę, wymienianie się
+    żywnością'
 blog:
   permissions:
     edit: 'Nie możesz edytować tego artykułu'
