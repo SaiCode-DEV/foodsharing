@@ -403,6 +403,7 @@ upload:
   image-problem: Dosyanızda bir sorun görünüyor. En doğrusu normal bir jpg resmi
     kullanman
   invalid_image_files: 'Seçilen {count} dosya geçerli resimler değil: {fileNames}'
+  remove_image: Resmi kaldır
 picture_upload_widget:
   picture_upload: Fotoğraf yükleme
   choose_picture: Bilgisayarınızdan bir fotoğraf seçin.
@@ -424,6 +425,12 @@ group:
     declined: Başvuru reddedildi
     link_description: 'Bu bağlantı sizi doğrudan uygulamaya yönlendirecektir:'
     deny: Reddet
+    application_hint: '"{group}" grubuna katılmak için şimdi başvurun. Lütfen aşağıdaki
+      soruları yanıtlayın. Başvurunuz grup yöneticilerine gönderilecektir.'
+    default_prompt: |
+      - Motivasyonunuz nedir?
+      - Hangi beceri ve deneyimlere sahipsiniz?
+      - Ve gruba ne ölçüde katkıda bulunmak istersiniz?
   application_requirements:
     everybody: Herkes başvurabilir.
     nobody: Kimse (kapalı grup).
@@ -449,6 +456,23 @@ group:
     stores_coordination: İşletmeler
     none: GOALS-AG yok
     resources: Kaynak Mozaiği
+    function_type_info:
+      1: Bu çalışma grubunun yöneticileri, bölgedeki yeni üyeler hakkında 
+        bilgilendirilecektir
+      2: Bu çalışma grubunun yöneticileri, bölge için anketler oluşturabilirler
+      3: Bu çalışma grubunun yöneticileri, bölgedeki gıda paylaşım noktalarını 
+        etkinleştirebilir, düzenleyebilir ve gıda paylaşım ilanlarını 
+        kaldırabilirler
+      4: Bu çalışma grubunun yöneticileri, bölgedeki işletmeleri 
+        görüntüleyebilir ve düzenleyebilir
+      5: Bu çalışma grubunun yöneticileri, bölgedeki foodsaverlarla ilgili 
+        raporları inceleyebilirler. Yöneticilerin bizzat dahil olduğu raporlar 
+        görüntülenmeyecek; bunlar tahkim kuruluna iletilecektir.
+      6: '"Arabuluculuk talebi gönder" düğmesine tıkladığınızda bu çalışma grubunun
+        e-posta adresi görüntülenir. Yöneticilerin özel yetkileri yoktur.'
+      7: Bu çalışma grubunun yöneticileri, raporlama ekibini ilgilendiren 
+        raporları göreceklerdir. Yöneticilerin kendilerini ilgilendiren raporlar
+        görüntülenmeyecek; bunlar raporlama ekibine gönderilecektir
   mail_link_title:
     region: Bölge Posta Kutusu
     workgroup: Çalışma grubunun posta kutusu
@@ -584,6 +608,9 @@ group:
   filter_placeholder: Grupları isimlerine göre filtrele
   valid_until: Şu tarihe kadar geçerlidir_
   confirm_decline: Bu başvuruyu gerçekten reddetmek mi istiyorsunuz?
+  application_prompt: Başvuru kılavuzu. Başvuru sahipleri hangi soruları 
+    yanıtlamalıdır?
+  join_confirmation: Şimdi {name} grubuna katılmak ister misiniz?
 ansprechpartner: İşletmeden sorumlu Yektili (Şube Müdürü vs.)
 text: Metin
 fp: Hata puanları

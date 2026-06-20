@@ -3918,7 +3918,20 @@ help:
         '
     change_verified_data:
       title: 'Zażądaj zmiany zweryfikowanych danych'
-      md: ''
+      md: 'Abyś mógł/mogła zostać aktywnym/ą foodsaverem/ką jest istotne, żeby dane
+        w twoim profilu były poprawne. Zanim będziesz mógł/mogła ratować produkty
+        żywnościowe w punktach, ambasadorz/ki muszą porównać dane z twoim dowodem
+        osobistym. Dlatego nie możesz tak po prostu zmienić swojego imienia i nazwiska
+        oraz daty urodzenia.
+
+        ---
+
+        Jeśli zdarzy się, że jedno z tych pól musi zostać zmienione, możesz w tym
+        celu zwrócić się do ambasadora/ki z twojego rejonu macierzystego. Mogą oni
+        wykonać dla ciebie odpowiednie zmiany. Kto jest ambasadorem/ką w twoim rejonie
+        macierzystym widzisz na [forum rejonu]({link}) po lewej stronie.
+
+        '
     achievementVisibility:
       title: 'Widzialność stickerów'
       md: ''
@@ -4718,7 +4731,13 @@ startpage:
     image_alt: 'Uratowana żywność, np. chleb, owoce i warzywa leżą na plandece na
       świeżym powietrzu. W tle widać ludzi i rowery.'
     title: 'Żądania'
-    text: ''
+    text: "Aby skutecznie ograniczyć marnowanie żywności potrzeba więcej niż tylko
+      samo ratowanie nadmiarowych \nproduktów w punktach i uświadamianie konsumentów/ek.
+      Zamiast tego musi się coś ruszyć w polityce:\nPotrzebujemy wiążących celów w
+      redukowaniu marnowania żywności w ciągu całego łańcucha tworzenia wartości.\n\
+      Poza tym obecnie istniejące normy handlowe muszą zostać przemyślane i poluzowane,
+      a organizacje, które\nratują żywność lub oferują kształcenie na temat żywności,
+      muszą zostać wzmocnione.\n"
   call_to_action:
     title: 'Dołącz'
     text: 'Powstaliśmy w 2012 roku, obecnie jesteśmy międzynarodowym ruchem z ponad
@@ -4797,7 +4816,12 @@ startpage:
   honest: 'Bądź szczery/a'
   vision:
     title: 'Wizja'
-    text: ''
+    text: 'Postrzegamy siebie jako ruch na rzecz ochrony środowiska i edukacji, który
+      angażuje się przeciwko lekkomyślnemu gospodarowaniu zasobami i na rzecz systemu
+      żywnościowego uwzględniającego zasady zrównoważonego rozwoju. Nasz długoterminowy
+      cel to zakończyć marnowanie przydatnej do spożycia żywności. Dlatego jesteśmy
+      aktywni na miejscu: ratujemy produkty żywnościowe z gospodarstw domowych i przedsiębiorstw,
+      prowadzimy dialog z politykami i niesiemy naszą wizję w świat.'
   register: 'Na końcu tej strony możesz się zarejestrować jako foodsharer/ka.'
   private:
     title: 'prywatnie'
