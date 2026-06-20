@@ -3,12 +3,13 @@
 namespace Foodsharing\Dev;
 
 use Carbon\Carbon;
-use Codeception\Command\Shared\ConfigTrait;
 use Codeception\CustomCommandInterface;
-use Codeception\Lib\Di;
-use Codeception\Lib\ModuleContainer;
+use DateInterval;
+use Foodsharing\Modules\Core\DBConstants\Achievement\AchievementIDs;
+use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Configuration\ConfigurationCategory;
 use Foodsharing\Modules\Core\DBConstants\Configuration\ConfigurationKey;
+use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\ApplyType;
 use Foodsharing\Modules\Core\DBConstants\Region\GroupCategory;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
@@ -19,24 +20,13 @@ use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DBConstants\Voting\VotingScope;
 use Foodsharing\Modules\Core\DBConstants\Voting\VotingType;
 use Foodsharing\Modules\Development\FeatureToggles\Enums\FeatureToggleDefinitions;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 use Tests\Support\Helper\Foodsharing;
 
 // this is Codeception specific, so we can't use the regular AsCommand attribute
 class SeedCommand extends AbstractSeedCommand implements CustomCommandInterface
 {
-    use ConfigTrait;
-    protected static $defaultDescription = 'Seed the dev db.';
-
-    protected Foodsharing $helper;
-
-    protected OutputInterface $output;
-
-    protected $foodsavers = [];
-    protected $reportAdmins = [];
-    protected $arbitrationAdmins = [];
+    protected static string $defaultDescription = 'Seed the dev db.';
+    private const string USER_PASSWORD = 'user';
 
     public static function getCommandName(): string
     {
@@ -48,28 +38,421 @@ class SeedCommand extends AbstractSeedCommand implements CustomCommandInterface
         $this->setHelp('This commands adds seed data to the database. The general rule is that before running this command, you have a working instance of foodsharing without customized data (e.g. missing regions, quizzes, ...) but already including all the data that is directly used in the code (so you will not get any internal server errors). The future goal is, to make the code as much independent of data as possible and move all data you may want to playing around into the seed.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): int
+    protected function seed(): void
     {
-        $this->output = $output;
+        $I = $this->helper;
 
-        $config = $this->getGlobalConfig();
-        $di = new Di();
-        $module = new ModuleContainer($di, $config);
-        $this->helper = $module->create(Foodsharing::class);
-        $this->helper->_initialize();
+        // Create group categories:
+        $this->createGroupCategories();
 
-        // Clear existing data to prevent collisions
-        $this->output->writeln('Clearing existing ' . FS_ENV . ' seed data');
-        $this->helper->clear();
+        // Create base regions
+        $this->output->writeln('Create base regions');
+        $I->createRootRegion();
+        $I->createRegion('Foodsharing auf Festivals', ['id' => RegionIDs::FOODSHARING_ON_FESTIVALS, 'parent_id' => RegionIDs::ROOT, 'type' => UnitType::CITY, 'has_children' => 0]);
+        $I->createRegion('Arbeitsgruppen Überregional', ['id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'parent_id' => RegionIDs::ROOT, 'type' => UnitType::BIG_CITY, 'master' => 392, 'mailbox_id' => 32678, 'email' => 'arbeitsgruppen.ueberregional', 'email_name' => 'Foodsharing Arbeitsgruppen Überregional', 'stat_last_update' => '2020-05-24 02:17:57', 'stat_fetchweight' => '5176.00', 'stat_fetchcount' => '208', 'stat_postcount' => '53969', 'stat_betriebcount' => '1', 'stat_korpcount' => '0', 'stat_botcount' => '1', 'stat_fscount' => '3360']);
+        $I->createWorkingGroup('Vereinsvorstand', ['id' => RegionIDs::TEAM_BOARD_MEMBER, 'parent_id' => RegionIDs::ROOT, 'teaser' => '.', 'master' => RegionIDs::TEAM_BOARD_MEMBER, 'mailbox_id' => 26644, 'email' => 'vereinsvorstand', 'name' => 'Vereinsvorstand', 'email_name' => 'Foodsharing Vereinsvorstand', 'apply_type' => ApplyType::NOBODY, 'moderated' => true]);
+        $I->createWorkingGroup('Orgateam Archiv', ['id' => RegionIDs::ORGA_TEAM_ARCHIVE, 'parent_id' => RegionIDs::ROOT, 'teaser' => 'Das Forum des alten Orgateams', 'mailbox_id' => 528, 'email' => 'orgateam.archiv', 'email_name' => 'Foodsharing Orgateam', 'apply_type' => ApplyType::NOBODY, 'moderated' => true]);
+        $I->createWorkingGroup('Aktive (Überregional)', ['id' => RegionIDs::TEAM_ADMINISTRATION_MEMBER, 'parent_id' => RegionIDs::ORGA_TEAM_ARCHIVE, 'teaser' => 'Wer hier in der Gruppe aufgelistet wird, erscheint auch auf der Teamseite. Ist bisher eine stille Gruppe.', 'mailbox_id' => 30176, 'email' => 'aktive', 'email_name' => 'Foodsharing Aktive']);
+        $I->createWorkingGroup('Ehemalige (Vorstand und Orgateam)', ['id' => RegionIDs::TEAM_ALUMNI_MEMBER, 'parent_id' => RegionIDs::ORGA_TEAM_ARCHIVE, 'teaser' => 'x', 'mailbox_id' => 30177, 'email' => 'ehemalige', 'email_name' => 'Foodsharing Ehemalige', 'apply_type' => ApplyType::NOBODY]);
 
-        $this->output->writeln('Seeding ' . FS_ENV . ' database');
+        $regionEurope = $I->createRegion('Europa', ['id' => RegionIDs::EUROPE, 'parent_id' => RegionIDs::ROOT, 'type' => UnitType::COUNTRY, 'has_children' => 1, 'mailbox_id' => 25467, 'email' => 'europa', 'email_name' => 'Foodsharing Europa', 'stat_last_update' => '2020-05-24 02:18:15', 'stat_fetchweight' => '33829400.50', 'stat_fetchcount' => '2116647', 'stat_postcount' => '1733615', 'stat_betriebcount' => '23002', 'stat_korpcount' => '7031', 'stat_botcount' => '1004', 'stat_fscount' => '74600', 'stat_fairteilercount' => '891'], fillMailbox: true);
+        $regionGermany = $I->createRegion('Deutschland', ['id' => RegionIDs::GERMANY, 'parent_id' => $regionEurope['id'], 'type' => UnitType::COUNTRY, 'has_children' => 1], fillMailbox: true);
+        $I->createRegion('Schweiz', ['id' => RegionIDs::SWITZERLAND, 'parent_id' => $regionEurope['id'], 'type' => UnitType::COUNTRY, 'has_children' => 1]);
+        $regionLowerSaxony = $I->createRegion('Niedersachsen', ['parent_id' => $regionGermany['id'], 'type' => UnitType::FEDERAL_STATE, 'has_children' => 1], fillMailbox: true);
+        $regionOne = $I->createRegion('Göttingen', ['parent_id' => $regionLowerSaxony['id'], 'type' => UnitType::CITY, 'has_children' => 1, 'email' => 'goettingen'], fillMailbox: true);
+        $region1 = $regionOne['id'];
+        $I->createRegion('Stadtteil von Göttingen', ['type' => UnitType::PART_OF_TOWN, 'parent_id' => $region1], fillMailbox: true);
+        $regionTwo = $I->createRegion('Entenhausen', ['parent_id' => $regionLowerSaxony['id'], 'type' => UnitType::CITY, 'has_children' => 1], fillMailbox: true);
+        $region2 = $regionTwo['id'];
 
-        // Print how long database seeding took
-        $start = microtime(true);
-        $this->seed();
-        $this->output->writeln('Database seeding took ' . round(microtime(true) - $start, 2) . ' seconds');
+        $this->output->writeln('Create store categories');
+        $I->createStoreCategories();
+        // Create users
+        $this->output->writeln('Create basic users:');
+        $user1 = $this->createUser($I, Role::FOODSHARER, 'foodsharer', ['email' => 'user1@example.com', 'name' => 'One']);
 
-        return Command::SUCCESS;
+        $userData = $this->loadJsonFromFile('userData.json');
+
+        $user2 = $this->createUser($I, Role::FOODSAVER, 'foodsaver', [
+            'email' => 'user2@example.com',
+            'name' => 'Two',
+            'bezirk_id' => $region1,
+            'about_me_public' => $userData['user2']['about_me_public'],
+            'position' => $userData['user2']['position'],
+            'image' => true
+        ]);
+        $userStoreManager = $this->createUser($I, Role::STORE_MANAGER, 'store coordinator', [
+            'email' => 'storemanager1@example.com',
+            'name' => 'Three',
+            'bezirk_id' => $region1,
+            'about_me_public' => $userData['userStoreManager']['about_me_public'],
+            'position' => $userData['userStoreManager']['position'],
+            'image' => true
+        ]);
+        $userStoreManager2 = $this->createUser($I, Role::STORE_MANAGER, 'store coordinator2', [
+            'email' => 'storemanager2@example.com',
+            'name' => 'Four',
+            'bezirk_id' => $region1,
+            'about_me_public' => $userData['userStoreManager2']['about_me_public'],
+            'position' => $userData['userStoreManager2']['position'],
+            'image' => true
+        ]);
+        $userbot = $this->createUser($I, Role::AMBASSADOR, 'ambassador', [
+            'email' => 'userbot@example.com',
+            'name' => 'Bot',
+            'bezirk_id' => $region1,
+            'about_me_intern' => 'hello!',
+            'about_me_public' => $userData['userbot']['about_me_public'],
+            'position' => $userData['userbot']['position'],
+            'image' => true
+        ]);
+        $userbot2 = $this->createUser($I, Role::AMBASSADOR, 'ambassador', [
+            'email' => 'userbot2@example.com',
+            'name' => 'Bot2',
+            'bezirk_id' => $region1,
+            'about_me_intern' => 'hello!',
+            'about_me_public' => $userData['userbot2']['about_me_public'],
+            'position' => $userData['userbot2']['position'],
+            'image' => true
+        ]);
+        // Create an ambassador whose profile is already deleted and cannot be used but who will show up in verification histories
+        $userbotDeleted = $this->createUser($I, Role::AMBASSADOR, 'deleted ambassador', [
+            'email' => 'userbotdeleted@example.com',
+            'name' => 'Bot3',
+            'bezirk_id' => $region2,
+            'about_me_intern' => 'hello!',
+            'deleted_at' => Carbon::now()->subYear()
+        ]);
+        $userbotregion2 = $this->createUser($I, Role::AMBASSADOR, 'ambassador', [
+            'email' => 'userbotreg2@example.com',
+            'name' => 'Bot Entenhausen',
+            'bezirk_id' => $region2,
+            'about_me_intern' => 'hello!',
+            'image' => true
+        ]);
+        $userorga = $this->createUser($I, Role::ORGA, 'orga', [
+            'email' => 'userorga@example.com',
+            'name' => 'Orga',
+            'bezirk_id' => $region1,
+            'about_me_intern' => 'hello!',
+            'about_me_public' => $userData['userorga']['about_me_public'],
+            'position' => $userData['userorga']['position'],
+            'image' => true
+        ]);
+        $userorgaWG = $this->createUser($I, Role::ORGA, 'orga', ['email' => 'userorgaWG@example.com', 'name' => 'OrgaWG', 'bezirk_id' => $region1, 'id' => RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP, 'image' => true]);
+        $userAuth = $this->createUser($I, Role::STORE_MANAGER, 'store coordinator - OAUTH User', ['email' => 'userauth@example.com', 'name' => 'OAuth', 'bezirk_id' => $region1, 'image' => true]);
+
+        $foodsavers = array_column([$user2, $userbot, $userorga, $userbot2, $userStoreManager, $userStoreManager2], 'id');
+
+        $this->output->writeln('Adding buddies to userbot');
+        $this->addBuddies($I, $userbot, $userorga);
+        $this->addBuddies($I, $userbot, $userorgaWG, false);
+        $this->addBuddies($I, $userbotregion2, $userbot, false);
+
+        $this->output->writeln('Create global working groups');
+        $this->createGlobalWorkingGroups($I, $userbot['id']);
+        $this->output->writeln('');
+
+        $this->output->writeln('Create local working groups');
+        $I->createWorkingGroup('Betriebsketten Schweiz', ['parent_id' => RegionIDs::SWITZERLAND, 'id' => RegionIDs::STORE_CHAIN_GROUP_SWITZERLAND, 'category_id' => GroupCategory::DEVELOPMENT->value, 'include_thread' => $userbot['id']]);
+        $regionOneWorkGroup = $I->createWorkingGroup('Schnippelparty Göttingen', ['parent_id' => $regionOne['id'], 'include_thread' => $userbot['id']]);
+
+        $this->output->writeln('Create achievements');
+        $this->createAchievements($I);
+
+        // Add users to region
+        $this->output->writeln('Add users to region');
+        $this->addRegionMembers($I, $region1, [], [$userbot['id'], $userbot2['id']]);
+        $this->addRegionMembers($I, $region2, [$userbot['id']], []);
+        $this->addRegionMembers($I, RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP, [], [$userbot['id']]);
+        $this->addRegionMembers($I, RegionIDs::NEW_QUIZZES_WORK_GROUP, [$userStoreManager['id']], [$userbot['id']]);
+        $this->addRegionMembers($I, RegionIDs::QUIZ_GROUP_FR, [], [$userbot['id']]);
+        $this->addRegionMembers($I, RegionIDs::PR_START_PAGE, [], [$userbot['id'], $userStoreManager['id']]);
+        $this->addRegionMembers($I, RegionIDs::PR_PARTNER_AND_TEAM_WORK_GROUP, [], [$userbot['id'], $userStoreManager2['id']]);
+        $this->addRegionMembers($I, RegionIDs::TEAM_BOARD_MEMBER, [
+            $user2['id'], $userbot['id'], $userStoreManager['id'], $userStoreManager2['id'], $userorga['id']
+        ], []);
+        $this->addRegionMembers($I, RegionIDs::TEAM_ADMINISTRATION_MEMBER, [
+            $userbot['id'], $userStoreManager['id'], $userStoreManager2['id'], $userorga['id']
+        ], []);
+        $this->addRegionMembers($I, RegionIDs::TEAM_ALUMNI_MEMBER, [
+            $user2['id'], $userStoreManager['id'], $userStoreManager2['id'], $userorga['id']
+        ], []);
+        $this->addRegionMembers($I, RegionIDs::STORE_CHAIN_GROUP, [$user2['id']], [$userbot['id']]);
+        $this->addRegionMembers($I, RegionIDs::HYGIENE_GROUP, [$user2['id']], [$userbot['id']]);
+        $this->addRegionMembers($I, RegionIDs::POLITICAL_CAMPAIGNS, [$user2['id']], [$userbot['id']]);
+        $this->addRegionMembers($I, RegionIDs::FOODSHARING_ACADEMY, [$user2['id']], [$userbot['id']]);
+        $this->addRegionMembers($I, RegionIDs::EDITORIAL_GROUP, [], [$userStoreManager2['id'], $userorga['id']]);
+        $this->addRegionMembers($I, RegionIDs::EDITORIAL_GROUP, [], [$userbot['id']]);
+        $this->addRegionMembers($I, RegionIDs::POLITICAL_CAMPAIGNS, [], [$userbot['id'], $userorga['id']]);
+
+        $this->addRegionMembers($I, RegionIDs::OAUTH_CLIENT_ADMINISTRATION_WORK_GROUP, [], [$userAuth['id']]);
+        $this->addRegionMembers($I, RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP, [], [$userorgaWG['id']]);
+
+        // Make ambassador responsible for all work groups in the region
+        $this->output->writeln('Make ambassador responsible for all work groups');
+        $workGroupsIds = $I->grabColumnFromDatabase('fs_bezirk', 'id', ['parent_id' => $region1, 'type' => UnitType::WORKING_GROUP]);
+        foreach ($workGroupsIds as $id) {
+            $this->addRegionMembers($I, $id, [], [$userbot['id']]);
+        }
+        // create event
+        $this->output->writeln('Create events');
+        $events = $this->createEvents($I, 3, $region1, $foodsavers);
+        $this->output->writeln('');
+
+        $this->output->writeln('Create engagement statistik user');
+        $this->createEngagementsStat($region1, $events[0]['id']);
+
+        // create Community Pin
+        $this->output->writeln('Create community pin');
+        $I->createCommunityPin($region1, [
+            'lat' => 51.5333,
+            'lon' => 9.9354,
+            'desc' => 'Willkommen auf der öffentlichen Bezirksseite von **foodsharing Göttingen**! Hier findest du alles, was du über unsere Initiative, Aktivitäten und Möglichkeiten zum Mitmachen wissen musst. Gemeinsam setzen wir uns für mehr Nachhaltigkeit und weniger Lebensmittelverschwendung ein.
+---
+### 🌟 Unsere Mission: Gemeinsam Lebensmittel retten!
+Wir engagieren uns dafür, überschüssige Lebensmittel zu retten und sie vor der Tonne zu bewahren. In Göttingen arbeiten wir mit verschiedenen Betrieben, Initiativen und Ehrenamtlichen zusammen, um ein Umdenken in der Gesellschaft anzustoßen.
+---
+### 📆 Öffentliche Veranstaltungen
+**Komm vorbei und mach mit!**
+- **Lebensmittelretter-Treff**: Jeden 1. Mittwoch im Monat um 18:00 Uhr im Umweltzentrum Göttingen
+- **Koch-Workshop**: "Rest(e)los genießen" am 15. Januar 2025
+- **Infostand auf dem Wochenmarkt**: Jeden Samstag
+Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwelt!',
+        ]);
+
+        // Create stores
+        $this->output->writeln('Create store and add team members');
+        $regions = [
+            $region1 => [
+                // array structure: [managers, members, waiting]
+                CooperationStatus::COOPERATION_ESTABLISHED->value => [[$userStoreManager['id'], $userbot['id']], [$user2['id']], []],
+                CooperationStatus::PERMANENTLY_CLOSED->value => [[$userbot['id']], [], []],
+                CooperationStatus::GIVES_TO_OTHER_CHARITY->value => [[$userbot['id']], [], []],
+                CooperationStatus::UNCLEAR->value => [[$userbot['id']], [], []],
+            ],
+            $region2 => [
+                CooperationStatus::COOPERATION_ESTABLISHED->value => [[], [$userbot['id']], []],
+                CooperationStatus::PERMANENTLY_CLOSED->value => [[$userbot['id']], [], []],
+                CooperationStatus::GIVES_TO_OTHER_CHARITY->value => [[$userbot['id']], [], []],
+                CooperationStatus::UNCLEAR->value => [[$userbot['id']], [], []],
+            ],
+        ];
+        foreach ($regions as $regionId => $statuses) {
+            foreach ($statuses as $status => $userLists) {
+                $addRecurringPickup = $status === CooperationStatus::COOPERATION_ESTABLISHED->value;
+                $store = $this->createStoreAndAddToTeam($I, $regionId, $status, $userLists[0], $userLists[1], $userLists[2], addRecurringPickup: $addRecurringPickup);
+
+                $additionalStoreCount = 2;
+                for ($i = 0; $i < $additionalStoreCount; ++$i) {
+                    $store = $this->createStoreAndAddToTeam($I, $regionId, $status, $userLists[0], $userLists[1], $userLists[2]);
+                }
+            }
+        }
+
+        $this->output->writeln('Create store chains');
+        $chain_ids = [];
+        foreach ($this->progressBar->iterate(range(1, 50)) as $_) {
+            $chain = $I->addStoreChain();
+            $chain_ids[] = $chain['id'];
+        }
+        $I->addKamToStoreChain($chain_ids[0], $userbot['id']);
+        $this->output->writeln('');
+
+        $this->output->writeln('Create food types');
+        foreach ($this->progressBar->iterate(range(1, 10)) as $_) {
+            $I->addStoreFoodType();
+        }
+        $this->output->writeln('');
+
+        // Forum theads and posts
+        $this->output->writeln('Create forum threads and posts');
+        $thread = $I->addForumThread($region1, $userbot['id']);
+        $I->addForumThreadPost($thread['id'], $user2['id']);
+        $thread = $I->addForumThread($region1, $user2['id']);
+        $I->addForumThreadPost($thread['id'], $user1['id']);
+        $thread = $I->addForumThread($region1, $user1['id']);
+        $I->addForumThreadPost($thread['id'], $userorga['id']);
+
+        $this->output->writeln('Follow a food share point');
+        $foodSharePoint = $I->createFoodSharePoint($userbot['id'], $region1);
+        $I->addFoodSharePointFollower($user2['id'], $foodSharePoint['id']);
+        $I->addFoodSharePointPost($userbot['id'], $foodSharePoint['id']);
+
+        // create users and collect their ids in a list
+        $this->output->writeln('Create some more users');
+        foreach ($foodsavers as $user) {
+            $this->addVerificationAndPassHistory($I, $user, $userbotDeleted['id'], 13);
+            $this->addVerificationAndPassHistory($I, $user, $userbot['id']);
+        }
+        foreach ($this->progressBar->iterate(range(1, 50)) as $_) {
+            $user = $I->createFoodsaver(self::USER_PASSWORD, ['bezirk_id' => $region1, 'image' => true]);
+            $foodsavers[] = $user['id'];
+            $I->addStoreTeam($store['id'], $user['id']);
+            $I->addCollector($user['id'], $store['id']);
+            $I->addStoreNotiz($user['id'], $store['id']);
+            $I->addForumThreadPost($thread['id'], $user['id']);
+            $this->addVerificationAndPassHistory($I, $user['id'], $userbotDeleted['id'], 13);
+            $this->addVerificationAndPassHistory($I, $user['id'], $userbot['id']);
+            $I->addEventInvitation($events[0]['id'], $user['id']);
+        }
+        $this->output->writeln('');
+
+        $this->output->writeln('Create old users');
+        foreach ($this->progressBar->iterate(range(1, 20)) as $_) {
+            $I->createFoodsaver(self::USER_PASSWORD, ['bezirk_id' => $region1, 'last_login' => Carbon::now()->subyears(6)]);
+        }
+        $this->output->writeln('');
+
+        $this->output->writeln('Create old users with no_automatic_delete flag');
+        foreach ($this->progressBar->iterate(range(1, 20)) as $_) {
+            $I->createFoodsaver(self::USER_PASSWORD, ['bezirk_id' => $region1, 'last_login' => Carbon::now()->subyears(6), 'no_automatic_delete' => 1]);
+        }
+        $this->output->writeln('');
+
+        $this->output->writeln('Creating resources');
+        $this->createResources($foodsavers);
+
+        // give some trust bananas
+        $this->output->writeln('Give some trust bananas');
+        foreach ($this->progressBar->iterate($foodsavers) as $recipient) {
+            foreach ($this->getRandomIDOfArray($foodsavers, 2) as $sender) {
+                $I->giveBanana($sender, $recipient);
+            }
+        }
+        $this->output->writeln('');
+
+        // create conversations between users
+        $this->output->writeln('Create conversations between users');
+        $this->createConversations($I, $foodsavers);
+        $this->output->writeln('');
+
+        // Create more Forum Threads
+        $this->output->writeln('Create more forum Threads');
+        $randomFsList = $this->getRandomIDOfArray($foodsavers, 20);
+        foreach ($this->progressBar->iterate($randomFsList) as $random_user) {
+            foreach (range(1, 5) as $_) {
+                $I->addForumThread($region1, $random_user);
+            }
+        }
+        $this->output->writeln('');
+
+        // add some users to a workgroup
+        $this->output->writeln('Add users to workgroup');
+        // but only the ones we generated above
+        $this->addRegionMembers($I, $regionOneWorkGroup['id'], $randomFsList, []);
+
+        $this->output->writeln('Creating special working groups');
+        $this->createFunctionWorkgroups($region1, $userbot);
+        $this->output->writeln('');
+
+        // create more stores and collect their ids in a list
+        $this->output->writeln('Create some stores');
+        $stores = $this->createStores($I, 60, $region1, $chain_ids, $userbot['id']);
+        $stores[] = $store['id'];
+        $this->output->writeln('');
+
+        // Create a special store for screenshots for onboarding
+        $this->output->writeln('Create a special store for screenshots for onboarding');
+        $store = $this->createSpecialOnboardingStore($I, $foodsavers, [$userStoreManager['id'], $userbot['id']], $region1, $chain_ids[0]);
+        $stores[] = $store['id'];
+        $this->output->writeln('- created with id ' . $store['id']);
+
+        // create pickups
+        $this->output->writeln('Create more pickups');
+        $this->createMorePickups($stores, $foodsavers);
+        $this->output->writeln('');
+
+        // create foodbaskets
+        $this->output->writeln('Create food baskets');
+        $this->progressBar->start(100);
+        $this->createFoodBaskets($I, 50, $foodsavers);
+        $this->createFoodBaskets($I, 50, $foodsavers, [$userbot['lat'], $userbot['lon']]);
+        $this->progressBar->finish();
+        $this->output->writeln('');
+
+        // create food share point
+        $this->output->writeln('Create food share points');
+        $this->createFoodSharePoints($I, 50, $region1, $foodsavers);
+        $this->output->writeln('');
+
+        $this->output->writeln('Create blog posts');
+        foreach ($this->progressBar->iterate(range(1, 20)) as $_) {
+            $I->addBlogPost($userbot['id'], $region1);
+        }
+        $this->output->writeln('');
+
+        $this->output->writeln('Create reports');
+        $this->createReports($I, $region1, $foodsavers);
+        $this->output->writeln('');
+
+        $this->output->writeln('Create polls');
+        $pollTypes = [
+            VotingType::SELECT_ONE_CHOICE, VotingType::SELECT_MULTIPLE, VotingType::THUMB_VOTING,
+            VotingType::SCORE_VOTING
+        ];
+        foreach ($this->progressBar->iterate($pollTypes) as $type) {
+            $this->createPoll(
+                $region1,
+                $userbot['id'],
+                $type,
+                [$user2['id'], $userStoreManager['id'], $userStoreManager2['id'], $userbot['id'], $userorga['id']]
+            );
+        }
+        $this->output->writeln('');
+
+        $this->output->writeln('Create more one choice polls');
+        foreach ($this->progressBar->iterate(range(1, 30)) as $_) {
+            $startDate = Carbon::now()->subDays(random_int(7, 3 * 365));
+            $type = random_int(VotingType::SELECT_ONE_CHOICE, VotingType::SCORE_VOTING);
+            $this->createPoll($region1, $userbot['id'], $type,
+                [$user2['id'], $userStoreManager['id'], $userStoreManager2['id'], $userbot['id'], $userorga['id']],
+                $startDate, $startDate->addDays(6)
+            );
+        }
+        $this->output->writeln('');
+
+        $this->output->writeln('Create blacklisted emails');
+        $I->createBlacklistedEmailAddress();
+
+        $this->output->writeln('Enable feature toggles');
+        $this->activeFeatureToggles();
+
+        $this->output->writeln('Inserting fetch weight values');
+        $this->insertFetchWeightValues($I);
+
+        $this->output->writeln('Adding content');
+        $this->createContent($I);
+
+        $this->output->writeln('Inserting configuration values');
+        $this->insertConfigurationValues($I);
+
+        $this->output->writeln('Create bell notifications');
+        $I->addBells([$userbot, $userbot2], [
+            'name' => 'new_foodsaver_title',
+            'body' => 'new_foodsaver_verified',
+            'vars' => serialize(['name' => $user2['name'] . ' ' . $user2['nachname'], 'bezirk' => $regionOne['name']]),
+            'attr' => serialize(['href' => '/profile/' . $user2['id']]),
+            'icon' => '',
+            'identifier' => BellType::createIdentifier(BellType::NEW_FOODSAVER_IN_REGION, $user2),
+            'time' => Carbon::now()->subDays(random_int(1, 5))->format('Y-m-d H:i:s'),
+            'closeable' => 1
+        ]);
+        $blogPost = $I->grabEntryFromDatabase('fs_blog_entry');
+        $I->addBells([$user2, $userbot, $userorga, $userbot2, $userStoreManager, $userStoreManager2], [
+            'name' => 'blog_new_check_title',
+            'body' => 'blog_new_check',
+            'vars' => serialize([
+                'user' => $userbot['name'],
+                'teaser' => $blogPost['teaser'],
+                'title' => $blogPost['name'],
+            ]),
+            'attr' => serialize(['href' => '/blog?sub=edit&id=' . $blogPost['id']]),
+            'icon' => 'fas fa-bullhorn',
+            'identifier' => BellType::createIdentifier(BellType::NEW_BLOG_POST, $blogPost['id']),
+            'time' => $blogPost['time'],
+            'closeable' => 1
+        ]);
     }
 
     /**
@@ -80,7 +463,7 @@ class SeedCommand extends AbstractSeedCommand implements CustomCommandInterface
      * @return mixed returns a single random element if $number is 1,
      *               an associative array of random elements if $number > 1
      */
-    protected function getRandomIDOfArray(array $value, $number = 1)
+    private function getRandomIDOfArray(array $value, int $number = 1): mixed
     {
         if ($number === 1) {
             return $value[array_rand($value)];
@@ -98,7 +481,7 @@ class SeedCommand extends AbstractSeedCommand implements CustomCommandInterface
      *
      * @return array an associative array containing the randomly selected keys and their values
      */
-    protected function getRandomIDOfArrayAndDelete(array &$value, $number = 1)
+    private function getRandomIDOfArrayAndDelete(array &$value, int $number = 1): array
     {
         $values = $this->getRandomIDOfArray($value, $number);
 
@@ -109,11 +492,10 @@ class SeedCommand extends AbstractSeedCommand implements CustomCommandInterface
         return $values;
     }
 
-    protected function createEngagementsStat(int $region1, $eventid = 0)
+    private function createEngagementsStat(int $region1, int $eventid = 0): void
     {
         $I = $this->helper;
-        $password = 'user';
-        $user = $I->createStoreCoordinator($password, ['email' => 'userengagement@example.com', 'bezirk_id' => $region1, 'image' => true]);
+        $user = $I->createStoreCoordinator(self::USER_PASSWORD, ['email' => 'userengagement@example.com', 'bezirk_id' => $region1, 'image' => true]);
         $I->addRegionMember($region1, $user['id']);
 
         $I->createEvents($region1, $user['id']);
@@ -182,10 +564,9 @@ class SeedCommand extends AbstractSeedCommand implements CustomCommandInterface
         }
     }
 
-    protected function createFunctionWorkgroups(int $region1, array $adminOfAll)
+    private function createFunctionWorkgroups(int $region, array $adminOfAll): void
     {
         $I = $this->helper;
-        $password = 'user';
 
         $workgroups = [
             ['name' => 'Begrüßung', 'function' => WorkgroupFunction::WELCOME, 'key' => 'welcome', 'category' => GroupCategory::ADMINISTRATIVE->value],
@@ -203,9 +584,9 @@ class SeedCommand extends AbstractSeedCommand implements CustomCommandInterface
             ['name' => 'Ressourcen', 'function' => WorkgroupFunction::RESOURCES, 'key' => 'resources', 'category' => GroupCategory::DEVELOPMENT->value, 'apply_type' => ApplyType::OPEN],
         ];
 
-        foreach ($workgroups as $idx => $wg) {
+        foreach ($this->progressBar->iterate($workgroups) as $wg) {
             $group = $I->createWorkingGroup($wg['name'] . ' Göttingen', [
-                'parent_id' => $region1,
+                'parent_id' => $region,
                 'email' => preg_replace(['/ä/', '/ö/', '/ü/', '/ß/'], ['ae', 'oe', 'ue', 'ss'], strtolower($wg['name'])) . '.goettingen',
                 'teaser' => 'Hier ist die AG ' . $wg['name'] . ' für unseren Bezirk',
                 'category_id' => $wg['category'],
@@ -215,19 +596,15 @@ class SeedCommand extends AbstractSeedCommand implements CustomCommandInterface
             $I->haveInDatabase('fs_region_function', [
                 'region_id' => $group['id'],
                 'function_id' => $wg['function'],
-                'target_id' => $region1,
+                'target_id' => $region,
             ]);
             for ($i = 1; $i <= 3; ++$i) {
-                $user = $I->createStoreCoordinator(
-                    $password,
-                    [
-                        'email' => "user{$wg['key']}{$i}@example.com",
-                        'bezirk_id' => $region1,
-                        'image' => true,
-                    ]
-                );
-                $I->addRegionMember($group['id'], $user['id']);
-                $I->addRegionAdmin($group['id'], $user['id']);
+                $user = $I->createStoreCoordinator(self::USER_PASSWORD, [
+                    'email' => "user{$wg['key']}$i@example.com",
+                    'bezirk_id' => $region,
+                    'image' => true,
+                ]);
+                $this->addRegionMembers($I, $group['id'], [], [$user['id']]);
 
                 if (!empty($wg['addAdminsToRegion'])) {
                     $I->addRegionMember($wg['addAdminsToRegion'], $user['id']);
@@ -236,30 +613,37 @@ class SeedCommand extends AbstractSeedCommand implements CustomCommandInterface
                     $this->{$wg['key'] . 'Admins'}[] = $user['id'];
                 }
             }
-            $I->addRegionMember($group['id'], $adminOfAll['id']);
-            $I->addRegionAdmin($group['id'], $adminOfAll['id']);
-            $this->progressBar($idx + 1, count($workgroups));
+            $this->addRegionMembers($I, $group['id'], [], [$adminOfAll['id']]);
         }
     }
 
-    protected function CreateMorePickups(array $stores)
+    private function createMorePickups(array $stores, array $userIds): void
     {
+        $this->progressBar->start(121);
         for ($m = 0; $m <= 10; ++$m) {
             $store_id = $this->getRandomIDOfArray($stores);
             for ($i = 0; $i <= 10; ++$i) {
                 $pickupDate = Carbon::create(2022, 4, random_int(1, 30), random_int(1, 24), random_int(1, 59));
-                $maxFoodsavers = count($this->foodsavers) > 2 ? 2 : count($this->foodsavers);
+                $maxFoodsavers = count($userIds) > 2 ? 2 : count($userIds);
                 for ($k = 0; $k <= $maxFoodsavers; ++$k) {
-                    $foodSaver_id = $this->getRandomIDOfArray($this->foodsavers);
+                    $foodSaver_id = $this->getRandomIDOfArray($userIds);
                     $this->helper->addCollector($foodSaver_id, $store_id, ['date' => $pickupDate->toDateTimeString()]);
                 }
-                $this->progressBar(11 * $m + $i + 1, 121);
+                $this->progressBar->advance();
             }
         }
+        $this->progressBar->finish();
     }
 
-    private function writeUser(Foodsharing $I, $user, $password, $name = 'user')
+    private function createUser(Foodsharing $I, Role $role, string $name, array $params): array
     {
+        $user = match ($role) {
+            Role::FOODSAVER => $I->createFoodsaver(self::USER_PASSWORD, $params),
+            Role::STORE_MANAGER => $I->createStoreCoordinator(self::USER_PASSWORD, $params),
+            Role::AMBASSADOR => $I->createAmbassador(self::USER_PASSWORD, $params),
+            Role::ORGA => $I->createOrga(self::USER_PASSWORD, $params),
+            default => $I->createFoodsharer(self::USER_PASSWORD, $params)
+        };
         // Make sure that the user is a member of all parent regions of the home region
         if (!empty($user['bezirk_id'])) {
             $regionId = $I->grabFromDatabase('fs_bezirk', 'parent_id', ['id' => $user['bezirk_id']]);
@@ -269,7 +653,9 @@ class SeedCommand extends AbstractSeedCommand implements CustomCommandInterface
             }
         }
 
-        $this->output->writeln('- created ' . $name . ' ' . $user['email'] . ' with password "' . $password . '"');
+        $this->output->writeln('- created ' . $name . ' ' . $user['email'] . ' with password "' . self::USER_PASSWORD . '"');
+
+        return $user;
     }
 
     private function createStoreAndAddToTeam(
@@ -313,648 +699,6 @@ class SeedCommand extends AbstractSeedCommand implements CustomCommandInterface
         return $store;
     }
 
-    protected function seed()
-    {
-        $I = $this->helper;
-        $I->_getDbh()->beginTransaction();
-        $I->_getDriver()->executeQuery('SET FOREIGN_KEY_CHECKS=1;', []);
-
-        // Create group categories:
-        $this->createGroupCategories();
-
-        // Create base regions
-        $this->output->writeln('Create base regions');
-        $I->createRootRegion();
-        $I->createRegion('Foodsharing auf Festivals', ['id' => RegionIDs::FOODSHARING_ON_FESTIVALS, 'parent_id' => RegionIDs::ROOT, 'type' => UnitType::CITY, 'has_children' => 0]);
-        $I->createRegion('Arbeitsgruppen Überregional', ['id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'parent_id' => RegionIDs::ROOT, 'type' => UnitType::BIG_CITY, 'master' => 392, 'mailbox_id' => 32678, 'email' => 'arbeitsgruppen.ueberregional', 'email_name' => 'Foodsharing Arbeitsgruppen Überregional', 'stat_last_update' => '2020-05-24 02:17:57', 'stat_fetchweight' => '5176.00', 'stat_fetchcount' => '208', 'stat_postcount' => '53969', 'stat_betriebcount' => '1', 'stat_korpcount' => '0', 'stat_botcount' => '1', 'stat_fscount' => '3360']);
-        $I->createWorkingGroup('Vereinsvorstand', ['id' => RegionIDs::TEAM_BOARD_MEMBER, 'parent_id' => RegionIDs::ROOT, 'teaser' => '.', 'master' => RegionIDs::TEAM_BOARD_MEMBER, 'mailbox_id' => 26644, 'email' => 'vereinsvorstand', 'name' => 'Vereinsvorstand', 'email_name' => 'Foodsharing Vereinsvorstand', 'apply_type' => ApplyType::NOBODY, 'moderated' => true]);
-        $I->createWorkingGroup('Orgateam Archiv', ['id' => RegionIDs::ORGA_TEAM_ARCHIVE, 'parent_id' => RegionIDs::ROOT, 'teaser' => 'Das Forum des alten Orgateams', 'mailbox_id' => 528, 'email' => 'orgateam.archiv', 'email_name' => 'Foodsharing Orgateam', 'apply_type' => ApplyType::NOBODY, 'moderated' => true]);
-        $I->createWorkingGroup('Aktive (Überregional)', ['id' => RegionIDs::TEAM_ADMINISTRATION_MEMBER, 'parent_id' => RegionIDs::ORGA_TEAM_ARCHIVE, 'teaser' => 'Wer hier in der Gruppe aufgelistet wird, erscheint auch auf der Teamseite. Ist bisher eine stille Gruppe.', 'mailbox_id' => 30176, 'email' => 'aktive', 'email_name' => 'Foodsharing Aktive']);
-        $I->createWorkingGroup('Ehemalige (Vorstand und Orgateam)', ['id' => RegionIDs::TEAM_ALUMNI_MEMBER, 'parent_id' => RegionIDs::ORGA_TEAM_ARCHIVE, 'teaser' => 'x', 'mailbox_id' => 30177, 'email' => 'ehemalige', 'email_name' => 'Foodsharing Ehemalige', 'apply_type' => ApplyType::NOBODY]);
-
-        $regionEurope = $I->createRegion('Europa', ['id' => RegionIDs::EUROPE, 'parent_id' => RegionIDs::ROOT, 'type' => UnitType::COUNTRY, 'has_children' => 1, 'mailbox_id' => 25467, 'email' => 'europa', 'email_name' => 'Foodsharing Europa', 'stat_last_update' => '2020-05-24 02:18:15', 'stat_fetchweight' => '33829400.50', 'stat_fetchcount' => '2116647', 'stat_postcount' => '1733615', 'stat_betriebcount' => '23002', 'stat_korpcount' => '7031', 'stat_botcount' => '1004', 'stat_fscount' => '74600', 'stat_fairteilercount' => '891'], fillMailbox: true);
-        $regionGermany = $I->createRegion('Deutschland', ['id' => RegionIDs::GERMANY, 'parent_id' => $regionEurope['id'], 'type' => UnitType::COUNTRY, 'has_children' => 1], fillMailbox: true);
-        $I->createRegion('Schweiz', ['id' => RegionIDs::SWITZERLAND, 'parent_id' => $regionEurope['id'], 'type' => UnitType::COUNTRY, 'has_children' => 1]);
-        $regionLowerSaxony = $I->createRegion('Niedersachsen', ['parent_id' => $regionGermany['id'], 'type' => UnitType::FEDERAL_STATE, 'has_children' => 1], fillMailbox: true);
-        $regionOne = $I->createRegion('Göttingen', [
-            'parent_id' => $regionLowerSaxony['id'],
-            'type' => UnitType::CITY,
-            'has_children' => 1,
-            'email' => 'goettingen',
-        ], fillMailbox: true);
-        $region1 = $regionOne['id'];
-        $regionTwo = $I->createRegion('Entenhausen', ['parent_id' => $regionLowerSaxony['id'], 'type' => UnitType::CITY, 'has_children' => 1], fillMailbox: true);
-        $region2 = $regionTwo['id'];
-        $region_vorstand = RegionIDs::TEAM_BOARD_MEMBER;
-        $ag_aktive = RegionIDs::TEAM_ADMINISTRATION_MEMBER;
-        $ag_testimonials = RegionIDs::TEAM_BOARD_MEMBER;
-        $team_alumni = RegionIDs::TEAM_ALUMNI_MEMBER;
-        $ag_quiz = RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP;
-        $ag_new_quizzes = RegionIDs::NEW_QUIZZES_WORK_GROUP;
-        $ag_quiz_fr = RegionIDs::QUIZ_GROUP_FR;
-        $ag_startpage = RegionIDs::PR_START_PAGE;
-        $ag_partnerandteam = RegionIDs::PR_PARTNER_AND_TEAM_WORK_GROUP;
-
-        $this->output->writeln('Create working groups');
-        $password = 'user';
-        $I->createRegion('Stadtteil von Göttingen', ['type' => UnitType::PART_OF_TOWN, 'parent_id' => $region1], fillMailbox: true);
-
-        $this->output->writeln('Create store categories:');
-        $I->createStoreCategories();
-        // Create users
-        $this->output->writeln('Create basic users:');
-        $user1 = $I->createFoodsharer($password, ['email' => 'user1@example.com', 'name' => 'One']);
-        $this->writeUser($I, $user1, $password, 'foodsharer');
-
-        $userData = $this->loadJsonFromFile('userData.json');
-
-        $user2 = $I->createFoodsaver($password,
-            [
-                'email' => 'user2@example.com',
-                'name' => 'Two',
-                'bezirk_id' => $region1,
-                'about_me_public' => $userData['user2']['about_me_public'],
-                'position' => $userData['user2']['position'],
-                'image' => true
-            ]);
-        $this->writeUser($I, $user2, $password, 'foodsaver');
-
-        $userStoreManager = $I->createStoreCoordinator($password, [
-            'email' => 'storemanager1@example.com',
-            'name' => 'Three',
-            'bezirk_id' => $region1,
-            'about_me_public' => $userData['userStoreManager']['about_me_public'],
-            'position' => $userData['userStoreManager']['position'],
-            'image' => true]
-        );
-        $this->writeUser($I, $userStoreManager, $password, 'store coordinator');
-
-        $userStoreManager2 = $I->createStoreCoordinator($password, [
-            'email' => 'storemanager2@example.com',
-            'name' => 'Four',
-            'bezirk_id' => $region1,
-            'about_me_public' => $userData['userStoreManager2']['about_me_public'],
-            'position' => $userData['userStoreManager2']['position'],
-            'image' => true]
-        );
-        $this->writeUser($I, $userStoreManager2, $password, 'store coordinator2');
-
-        $userbot = $I->createAmbassador($password, [
-            'email' => 'userbot@example.com',
-            'name' => 'Bot',
-            'bezirk_id' => $region1,
-            'about_me_intern' => 'hello!',
-            'about_me_public' => $userData['userbot']['about_me_public'],
-            'position' => $userData['userbot']['position'],
-            'image' => true
-        ]);
-        $this->writeUser($I, $userbot, $password, 'ambassador');
-        $I->addRegionMember($region2, $userbot['id']);
-
-        $userbot2 = $I->createAmbassador($password, [
-            'email' => 'userbot2@example.com',
-            'name' => 'Bot2',
-            'bezirk_id' => $region1,
-            'about_me_intern' => 'hello!',
-            'about_me_public' => $userData['userbot2']['about_me_public'],
-            'position' => $userData['userbot2']['position'],
-            'image' => true
-        ]);
-        $this->writeUser($I, $userbot2, $password, 'ambassador');
-
-        // Create an ambassador whose profile is already deleted and cannot be used but who will show up in verification histories
-        $userbotDeleted = $I->createAmbassador($password, [
-            'email' => 'userbotdeleted@example.com',
-            'name' => 'Bot3',
-            'bezirk_id' => $region2,
-            'about_me_intern' => 'hello!',
-            'deleted_at' => Carbon::now()->subYear()
-        ]);
-        $this->writeUser($I, $userbotDeleted, $password, 'deleted ambassador');
-
-        $userbotregion2 = $I->createAmbassador($password, [
-            'email' => 'userbotreg2@example.com',
-            'name' => 'Bot Entenhausen',
-            'bezirk_id' => $region2,
-            'about_me_intern' => 'hello!',
-            'image' => true
-        ]);
-        $I->addRegionAdmin($region2, $userbotregion2['id']);
-        $I->addRegionMember($region1, $userbotregion2['id']);
-
-        $this->writeUser($I, $userbotregion2, $password, 'ambassador');
-
-        $userorga = $I->createOrga($password, false, [
-            'email' => 'userorga@example.com',
-            'name' => 'Orga',
-            'bezirk_id' => $region1,
-            'about_me_intern' => 'hello!',
-            'about_me_public' => $userData['userorga']['about_me_public'],
-            'position' => $userData['userorga']['position'],
-            'image' => true
-        ]);
-        $this->writeUser($I, $userorga, $password, 'orga');
-
-        $userorgaWG = $I->createOrga($password, false, ['email' => 'userorgaWG@example.com', 'name' => 'OrgaWG', 'bezirk_id' => $region1, 'id' => RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP, 'image' => true]);
-        $this->writeUser($I, $userorgaWG, $password, 'orga');
-
-        $userAuth = $I->createStoreCoordinator($password, ['email' => 'userauth@example.com', 'name' => 'OAuth', 'bezirk_id' => $region1, 'image' => true]);
-        $this->writeUser($I, $userAuth, $password, 'store coordinator - OAUTH User');
-
-        $this->output->writeln('- done');
-
-        $this->output->writeln('Create some user interaction:');
-        $this->output->writeln('- adding buddies to userbot');
-        // Create confirmed buddy userbot <-> userorga
-        $I->addBuddy($userbot['id'], $userorga['id']);
-        // Create buddy request from userbot to userorgaWG
-        $I->addBuddy($userbot['id'], $userorgaWG['id'], false);
-        // Create buddy request from userbotregion2 to userbot
-        $I->addBuddy($userbotregion2['id'], $userbot['id'], false);
-
-        $this->output->writeln('Create global working groups:');
-        $I->createWorkingGroup('AG Anlegen', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP, 'category_id' => GroupCategory::ADMINISTRATIVE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
-        $I->createWorkingGroup('Support', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::IT_SUPPORT_GROUP, 'category_id' => GroupCategory::ADMINISTRATIVE->value, 'include_thread' => $userbot['id']]);
-        $I->createWorkingGroup('Öffentlichkeitsarbeit - Partner + Teamseite', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::PR_PARTNER_AND_TEAM_WORK_GROUP, 'category_id' => GroupCategory::ADMINISTRATIVE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
-        $I->createWorkingGroup('Öffentlichkeitsarbeit - Startseite', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::PR_START_PAGE, 'category_id' => GroupCategory::ADMINISTRATIVE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
-        $I->createWorkingGroup('Orgarechte-Koordination', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::ORGA_COORDINATION_GROUP, 'category_id' => GroupCategory::ADMINISTRATIVE->value, 'include_thread' => $userbot['id']]);
-        $I->createWorkingGroup('Redaktion', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::EDITORIAL_GROUP, 'category_id' => GroupCategory::ADMINISTRATIVE->value, 'include_thread' => $userbot['id']]);
-        $I->createWorkingGroup('foodsharing Vereins-Vorstände', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::BOARD_ADMIN_GROUP, 'category_id' => GroupCategory::ADMINISTRATIVE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
-        $I->createWorkingGroup('Begrüßungsteam Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::WELCOME_TEAM_ADMIN_GROUP, 'category_id' => GroupCategory::EXCHANGE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
-        $I->createWorkingGroup('Abstimmungs-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::VOTING_ADMIN_GROUP, 'category_id' => GroupCategory::EXCHANGE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
-        $I->createWorkingGroup('Wahlen-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::ELECTION_ADMIN_GROUP, 'category_id' => GroupCategory::EXCHANGE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
-        $I->createWorkingGroup('Fairteiler-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::FSP_TEAM_ADMIN_GROUP, 'category_id' => GroupCategory::EXCHANGE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
-        $I->createWorkingGroup('Betriebskoordination-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::STORE_COORDINATION_TEAM_ADMIN_GROUP, 'category_id' => GroupCategory::EXCHANGE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
-        $I->createWorkingGroup('AG Betriebsketten', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::STORE_CHAIN_GROUP, 'category_id' => GroupCategory::DEVELOPMENT->value, 'include_thread' => $userbot['id']]);
-        $I->createWorkingGroup('Betriebsketten Schweiz', ['parent_id' => RegionIDs::SWITZERLAND, 'id' => RegionIDs::STORE_CHAIN_GROUP_SWITZERLAND, 'category_id' => GroupCategory::DEVELOPMENT->value, 'include_thread' => $userbot['id']]);
-        $I->createWorkingGroup('Hygiene', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::HYGIENE_GROUP, 'category_id' => GroupCategory::DEVELOPMENT->value, 'include_thread' => $userbot['id']]);
-        $I->createWorkingGroup('PolKa', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::POLITICAL_CAMPAIGNS, 'category_id' => GroupCategory::DEVELOPMENT->value, 'include_thread' => $userbot['id']]);
-        $I->createWorkingGroup('Akademie und Bildungsreferent:innen', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::FOODSHARING_ACADEMY, 'category_id' => GroupCategory::DEVELOPMENT->value, 'include_thread' => $userbot['id']]);
-        $I->createWorkingGroup('Quiz FR', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::QUIZ_GROUP_FR, 'category_id' => GroupCategory::DEVELOPMENT->value, 'include_thread' => $userbot['id']]); // actually in france, but for the seed data it's here...
-        $I->createWorkingGroup('Meldungen-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::REPORT_TEAM_ADMIN_GROUP, 'category_id' => GroupCategory::EXCHANGE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
-        $I->createWorkingGroup('Mediation-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::MEDIATION_TEAM_ADMIN_GROUP, 'category_id' => GroupCategory::EXCHANGE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
-        $I->createWorkingGroup('Schiedsstelle-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::ARBITRATION_TEAM_ADMIN_GROUP, 'category_id' => GroupCategory::EXCHANGE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
-        $I->createWorkingGroup('Verwaltung-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::FSMANAGEMENT_TEAM_ADMIN_GROUP, 'category_id' => GroupCategory::EXCHANGE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
-        $I->createWorkingGroup('Öffentlichkeitsarbeit-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::PR_TEAM_ADMIN_GROUP, 'category_id' => GroupCategory::EXCHANGE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
-        $I->createWorkingGroup('Moderation-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::MODERATION_TEAM_ADMIN_GROUP, 'category_id' => GroupCategory::EXCHANGE->value, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
-        $I->createWorkingGroup('Produktteam', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::PRODUCT_TEAM, 'apply_type' => ApplyType::OPEN, 'include_thread' => $userbot['id']]);
-        $I->createWorkingGroup('Oauth Client Administration', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::OAUTH_CLIENT_ADMINISTRATION_WORK_GROUP, 'apply_type' => ApplyType::NOBODY, 'include_thread' => $userbot['id']]);
-        $I->createWorkingGroup('Anmeldevorgang und Quiz', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP, 'include_thread' => $userbot['id']]);
-        $I->createWorkingGroup('Quizfragen', ['parent_id' => RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP, 'id' => RegionIDs::NEW_QUIZZES_WORK_GROUP, 'include_thread' => $userbot['id']]);
-        $I->createWorkingGroup('Tag der Lebensmittelrettung', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::TDL_2026_GROUP, 'category_id' => GroupCategory::PROJECT->value, 'apply_type' => ApplyType::OPEN, 'include_thread' => $userbot['id']]);
-        $I->createWorkingGroup('Tag der Lebensmittelrettung ' . (date('Y') - 1), ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'category_id' => GroupCategory::ARCHIVED->value, 'apply_type' => ApplyType::OPEN, 'include_thread' => $userbot['id']]);
-        $regionOneWorkGroup = $I->createWorkingGroup('Schnippelparty Göttingen', ['parent_id' => $regionOne['id'], 'include_thread' => $userbot['id']]);
-
-        $this->output->writeln('Create achievements');
-        $this->createAchievements($I);
-
-        // Add users to region
-        $this->output->writeln('- add users to region');
-        $I->addRegionAdmin($region1, $userbot['id']);
-        $I->addRegionAdmin($region1, $userbot2['id']);
-        $I->addRegionMember($ag_quiz, $userbot['id']);
-        $I->addRegionAdmin($ag_quiz, $userbot['id']);
-        $I->addRegionMember($ag_new_quizzes, $userbot['id']);
-        $I->addRegionMember($ag_new_quizzes, $userStoreManager['id']);
-        $I->addRegionAdmin($ag_new_quizzes, $userbot['id']);
-        $I->addRegionMember($ag_quiz_fr, $userbot['id']);
-        $I->addRegionAdmin($ag_quiz_fr, $userbot['id']);
-        $I->addRegionMember($ag_startpage, $userStoreManager['id']);
-        $I->addRegionAdmin($ag_startpage, $userStoreManager['id']);
-        $I->addRegionMember($ag_startpage, $userbot['id']);
-        $I->addRegionAdmin($ag_startpage, $userbot['id']);
-        $I->addRegionMember($ag_partnerandteam, $userStoreManager2['id']);
-        $I->addRegionAdmin($ag_partnerandteam, $userStoreManager2['id']);
-        $I->addRegionMember($ag_partnerandteam, $userbot['id']);
-        $I->addRegionAdmin($ag_partnerandteam, $userbot['id']);
-        $I->addRegionMember($region_vorstand, $userbot['id']);
-        $I->addRegionMember($region_vorstand, $userorga['id']);
-        $I->addRegionMember($region_vorstand, $userStoreManager['id']);
-        $I->addRegionMember($region_vorstand, $userStoreManager2['id']);
-        $I->addRegionMember($ag_aktive, $userbot['id']);
-        $I->addRegionMember($ag_aktive, $userorga['id']);
-        $I->addRegionMember($ag_aktive, $userStoreManager['id']);
-        $I->addRegionMember($ag_aktive, $userStoreManager2['id']);
-        $I->addRegionMember($team_alumni, $userbot2['id']);
-        $I->addRegionMember($team_alumni, $userorga['id']);
-        $I->addRegionMember($team_alumni, $userStoreManager['id']);
-        $I->addRegionMember($team_alumni, $userStoreManager2['id']);
-
-        $I->addRegionMember($ag_testimonials, $user2['id']);
-        $I->addRegionMember(RegionIDs::STORE_CHAIN_GROUP, $user2['id']);
-        $I->addRegionMember(RegionIDs::HYGIENE_GROUP, $user2['id']);
-        $I->addRegionMember(RegionIDs::POLITICAL_CAMPAIGNS, $user2['id']);
-        $I->addRegionMember(RegionIDs::FOODSHARING_ACADEMY, $user2['id']);
-
-        $I->addRegionAdmin(RegionIDs::IT_SUPPORT_GROUP, $userStoreManager2['id']);
-        $I->addRegionMember(RegionIDs::IT_SUPPORT_GROUP, $userStoreManager2['id']);
-        $I->addRegionAdmin(RegionIDs::IT_SUPPORT_GROUP, $userorga['id']);
-        $I->addRegionMember(RegionIDs::IT_SUPPORT_GROUP, $userorga['id']);
-        $I->addRegionAdmin(RegionIDs::EDITORIAL_GROUP, $userbot['id']);
-        $I->addRegionAdmin(RegionIDs::STORE_CHAIN_GROUP, $userbot['id']);
-        $I->addRegionAdmin(RegionIDs::HYGIENE_GROUP, $userbot['id']);
-        $I->addRegionAdmin(RegionIDs::POLITICAL_CAMPAIGNS, $userbot['id']);
-        $I->addRegionAdmin(RegionIDs::FOODSHARING_ACADEMY, $userbot['id']);
-        $I->addRegionAdmin(RegionIDs::PRODUCT_TEAM, $userbot['id']);
-        $I->addRegionAdmin(RegionIDs::PRODUCT_TEAM, $userorga['id']);
-
-        $I->addRegionAdmin(RegionIDs::OAUTH_CLIENT_ADMINISTRATION_WORK_GROUP, $userAuth['id']);
-        $I->addRegionMember(RegionIDs::OAUTH_CLIENT_ADMINISTRATION_WORK_GROUP, $userAuth['id']);
-        $I->addRegionAdmin(RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP, $userorgaWG['id']);
-        $I->addRegionMember(RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP, $userorgaWG['id']);
-
-        // Make ambassador responsible for all work groups in the region
-        $this->output->writeln('- make ambassador responsible for all work groups');
-        $workGroupsIds = $I->grabColumnFromDatabase('fs_bezirk', 'id', ['parent_id' => $region1, 'type' => UnitType::WORKING_GROUP]);
-        foreach ($workGroupsIds as $id) {
-            $I->addRegionMember($id, $userbot['id']);
-            $I->addRegionAdmin($id, $userbot['id']);
-        }
-        // create event
-        $this->output->writeln('- create event');
-        $event = $I->createEvents($region1, $userbot['id']);
-
-        $this->output->writeln('- create engagement statistik user');
-        $this->createEngagementsStat($region1, $event['id']);
-
-        // create Community Pin
-        $this->output->writeln('- create community pin');
-        $I->createCommunityPin($region1, [
-            'lat' => 51.5333,
-            'lon' => 9.9354,
-            'desc' => 'Willkommen auf der öffentlichen Bezirksseite von **foodsharing Göttingen**! Hier findest du alles, was du über unsere Initiative, Aktivitäten und Möglichkeiten zum Mitmachen wissen musst. Gemeinsam setzen wir uns für mehr Nachhaltigkeit und weniger Lebensmittelverschwendung ein.
----
-### 🌟 Unsere Mission: Gemeinsam Lebensmittel retten!
-Wir engagieren uns dafür, überschüssige Lebensmittel zu retten und sie vor der Tonne zu bewahren. In Göttingen arbeiten wir mit verschiedenen Betrieben, Initiativen und Ehrenamtlichen zusammen, um ein Umdenken in der Gesellschaft anzustoßen.
----
-### 📆 Öffentliche Veranstaltungen
-**Komm vorbei und mach mit!**
-- **Lebensmittelretter-Treff**: Jeden 1. Mittwoch im Monat um 18:00 Uhr im Umweltzentrum Göttingen
-- **Koch-Workshop**: "Rest(e)los genießen" am 15. Januar 2025
-- **Infostand auf dem Wochenmarkt**: Jeden Samstag
-Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwelt!',
-        ]);
-
-        // Create stores
-        $this->output->writeln('- create store and add team members');
-
-        $regions = [
-            $region1 => [
-                // array structure: [managers, members, waiting, applicants]
-                CooperationStatus::COOPERATION_ESTABLISHED->value => [[$userStoreManager['id'], $userbot['id']], [$user2['id']], []],
-                CooperationStatus::PERMANENTLY_CLOSED->value => [[$userbot['id']], [], []],
-                CooperationStatus::GIVES_TO_OTHER_CHARITY->value => [[$userbot['id']], [], []],
-                CooperationStatus::UNCLEAR->value => [[$userbot['id']], [], []],
-            ],
-            $region2 => [
-                CooperationStatus::COOPERATION_ESTABLISHED->value => [[], [$userbot['id']], []],
-                CooperationStatus::PERMANENTLY_CLOSED->value => [[$userbot['id']], [], []],
-                CooperationStatus::GIVES_TO_OTHER_CHARITY->value => [[$userbot['id']], [], []],
-                CooperationStatus::UNCLEAR->value => [[$userbot['id']], [], []],
-            ],
-        ];
-
-        $possibleMemberStates = [
-            ['isWaiting' => true, 'isConfirmed' => false],
-            ['isWaiting' => false, 'isConfirmed' => true]
-        ];
-        foreach ($regions as $regionId => $statuses) {
-            foreach ($statuses as $status => $userLists) {
-                $addRecurringPickup = $status === CooperationStatus::COOPERATION_ESTABLISHED->value;
-                $store = $this->createStoreAndAddToTeam($I, $regionId, $status, $userLists[0], $userLists[1], $userLists[2], addRecurringPickup: $addRecurringPickup);
-
-                $additionalStoreCount = 2;
-                for ($i = 0; $i < $additionalStoreCount; ++$i) {
-                    $memberState = $possibleMemberStates[random_int(0, 1)];
-                    $store = $this->createStoreAndAddToTeam($I, $regionId, $status, $userLists[0], $userLists[1], $userLists[2]);
-                }
-            }
-        }
-
-        $this->output->writeln('- create store chains');
-        $chain_ids = [];
-        foreach (range(1, 50) as $_) {
-            $chain = $I->addStoreChain();
-            $chain_ids[] = $chain['id'];
-            $this->progressBar($_, 50);
-        }
-        $I->addKamToStoreChain($chain_ids[0], $userbot['id']);
-        $this->output->writeln('');
-
-        $this->output->writeln('- create food types');
-        foreach (range(1, 10) as $_) {
-            $I->addStoreFoodType();
-            $this->progressBar($_, 10);
-        }
-        $this->output->writeln('');
-
-        // Forum theads and posts
-        $this->output->writeln('- create forum threads and posts');
-        $thread = $I->addForumThread($region1, $userbot['id']);
-        $I->addForumThreadPost($thread['id'], $user2['id']);
-        $thread = $I->addForumThread($region1, $user2['id']);
-        $I->addForumThreadPost($thread['id'], $user1['id']);
-        $thread = $I->addForumThread($region1, $user1['id']);
-        $I->addForumThreadPost($thread['id'], $userorga['id']);
-
-        $this->output->writeln('- follow a food share point');
-        $foodSharePoint = $I->createFoodSharePoint($userbot['id'], $region1);
-        $I->addFoodSharePointFollower($user2['id'], $foodSharePoint['id']);
-        $I->addFoodSharePointPost($userbot['id'], $foodSharePoint['id']);
-
-        // create users and collect their ids in a list
-        $this->output->writeln('Create some more users');
-        $this->foodsavers = array_column([$user2, $userbot, $userorga, $userbot2, $userStoreManager, $userStoreManager2], 'id');
-        foreach ($this->foodsavers as $user) {
-            $this->addVerificationAndPassHistory($I, $user, $userbotDeleted['id'], 13);
-            $this->addVerificationAndPassHistory($I, $user, $userbot['id']);
-        }
-        foreach (range(1, 50) as $_) {
-            $user = $I->createFoodsaver($password, ['bezirk_id' => $region1, 'image' => true]);
-            $this->foodsavers[] = $user['id'];
-            $I->addStoreTeam($store['id'], $user['id']);
-            $I->addCollector($user['id'], $store['id']);
-            $I->addStoreNotiz($user['id'], $store['id']);
-            $I->addForumThreadPost($thread['id'], $user['id']);
-            $this->addVerificationAndPassHistory($I, $user['id'], $userbotDeleted['id'], 13);
-            $this->addVerificationAndPassHistory($I, $user['id'], $userbot['id']);
-            $I->addEventInvitation($event['id'], $user['id']);
-            $this->progressBar($_, 50);
-        }
-        $this->output->writeln('');
-        $this->output->writeln('- Create old users');
-        foreach (range(1, 20) as $_) {
-            $I->createFoodsaver($password, ['bezirk_id' => $region1, 'last_login' => Carbon::now()->subyears(6)]);
-            $this->progressBar($_, 20);
-        }
-        $this->output->writeln('');
-        $this->output->writeln('Create old users with no_automatic_delete flag');
-        foreach (range(1, 20) as $_) {
-            $I->createFoodsaver($password, ['bezirk_id' => $region1, 'last_login' => Carbon::now()->subyears(6), 'no_automatic_delete' => 1]);
-            $this->progressBar($_, 20);
-        }
-        $this->output->writeln('');
-
-        $this->output->writeln('Creating resources');
-        $this->createResources();
-        $this->output->writeln('done');
-
-        // give some trust bananas
-        $this->output->writeln('Give some trust bananas');
-        foreach ($this->foodsavers as $i => $recipient) {
-            foreach ($this->getRandomIDOfArray($this->foodsavers, 2) as $sender) {
-                $I->giveBanana($sender, $recipient);
-            }
-            $this->progressBar($i + 1, count($this->foodsavers));
-        }
-        $this->output->writeln('');
-
-        // create conversations between users
-        $this->output->writeln('Create conversations between users');
-        foreach ($this->foodsavers as $j => $user) {
-            foreach ($this->getRandomIDOfArray($this->foodsavers, 10) as $chatpartner) {
-                if ($user !== $chatpartner) {
-                    $conv = $I->createConversation([$user, $chatpartner]);
-                    for ($i = 1; $i <= random_int(1, 10); ++$i) {
-                        $userId = $user;
-                        if (random_int(0, 1)) {
-                            $userId = $chatpartner;
-                        }
-                        $I->addConversationMessage($userId, $conv['id']);
-                    }
-                }
-            }
-            $this->progressBar($j + 1, count($this->foodsavers));
-        }
-        $this->output->writeln('');
-
-        // Create more Forum Threads
-        $count = 20;
-        $this->output->writeln('- Create more forum Threads');
-        $randomFsList = $this->getRandomIDOfArray($this->foodsavers, $count);
-        $i = 0;
-        foreach ($randomFsList as $random_user) {
-            foreach (range(1, 5) as $_) {
-                $I->addForumThread($region1, $random_user);
-            }
-            $this->progressBar(++$i, $count);
-        }
-        $this->output->writeln('');
-
-        // add some users to a workgroup
-        $this->output->writeln('Add users to workgroup');
-        // but only the ones we generated above
-        $i = 0;
-        foreach ($randomFsList as $random_user) {
-            $I->addRegionMember($regionOneWorkGroup['id'], $random_user);
-            $this->progressBar(++$i, $count);
-        }
-        $this->output->writeln('');
-
-        $this->output->writeln('- creating special working groups');
-        $this->createFunctionWorkgroups($region1, $userbot2);
-        $this->output->writeln('');
-
-        // create more stores and collect their ids in a list
-        $this->output->writeln('Create some stores');
-        $stores = [$store['id']];
-        foreach (range(1, 60) as $_) {
-            // TODO conversations are missing the other store members
-            $extra_params = [];
-            if (random_int(0, 1) == 1) {
-                $extra_params['kette_id'] = $chain_ids[random_int(0, 10)];
-            }
-
-            $store = $I->createStore($region1, null, null, $extra_params);
-
-            // Add userbot randomly to stores as team member (50%), coordinator
-            // (10%) or jumper (10%), not added (30%)
-            $random = random_int(0, 10);
-            $isJumper = $random == 1;
-            $isCordinator = $random == 2;
-            if ($random <= 6) {
-                $I->addStoreTeam($store['id'], $userbot['id'], $isCordinator, $isJumper, true);
-            }
-
-            foreach (range(0, 5) as $__) {
-                $I->addRecurringPickup($store['id']);
-            }
-            $stores[] = $store['id'];
-            $this->progressBar($_, 40);
-        }
-        $this->output->writeln('');
-
-        // Create a special store for screenshots for onboarding
-        $this->output->writeln('Create a special store for screenshots for onboarding');
-
-        $foodsavers = $this->foodsavers;
-        $managers = [$userStoreManager['id'], $userbot['id']];
-        unset($foodsavers[array_search($userStoreManager['id'], $foodsavers)]);
-        unset($foodsavers[array_search($userbot['id'], $foodsavers)]);
-
-        $members = $this->getRandomIDOfArrayAndDelete($foodsavers, 20);
-        $jumpers = $this->getRandomIDOfArrayAndDelete($foodsavers, 2);
-        $applied = $this->getRandomIDOfArrayAndDelete($foodsavers, 2);
-
-        $I->awardAchievement($this->getRandomIDOfArray($members, 15), 4, null);
-
-        $extra_params = [];
-        $extra_params['kette_id'] = $chain_ids[0];
-        $extra_params['name'] = 'Schulungsbetrieb Onboarding';
-
-        $store = $this->createStoreAndAddToTeam($I, $region1, CooperationStatus::COOPERATION_ESTABLISHED->value, $managers, $members, $jumpers, $applied, false, $extra_params);
-
-        $appliedDate = Carbon::now()->addDays(-3);
-        foreach ($applied as $applicant) {
-            $I->addStoreLog($store['id'], $applicant, $applicant, StoreLogAction::REQUEST_TO_JOIN, ['content' => $I->faker->realText(100), 'date_reference' => $appliedDate, 'date_activity' => $appliedDate]);
-        }
-
-        // add regular pickups in fs_abholzeiten
-        $extra_params = [];
-        $extra_params['betrieb_id'] = $store['id'];
-        $extra_params['time'] = sprintf('%02d:%ss:00', 20, 0);
-        $extra_params['fetcher'] = 2;
-
-        foreach (range(0, 6) as $__) {
-            $extra_params['dow'] = $__;
-            $I->addRecurringPickup($store['id'], $extra_params);
-        }
-
-        // add confirmed pickups
-        $pickup = Carbon::now()->settime(20, 0);
-        $pickup = $pickup->addDay(-6);
-        foreach (range(0, 8) as $__) {
-            $pickup = $pickup->addDay(+1);
-            $this->helper->addCollector($this->getRandomIDOfArray($this->foodsavers), $store['id'], ['date' => $pickup->toDayDateTimeString(), 'confirmed' => 1]);
-            $this->helper->addCollector($this->getRandomIDOfArray($this->foodsavers), $store['id'], ['date' => $pickup->toDayDateTimeString(), 'confirmed' => 1]);
-        }
-        // add some unconfirmed pickups
-        $pickup = $pickup->addDay(+1);
-        $this->helper->addCollector($this->getRandomIDOfArray($this->foodsavers), $store['id'], ['date' => $pickup->toDayDateTimeString(), 'confirmed' => 0]);
-        $this->helper->addCollector($this->getRandomIDOfArray($this->foodsavers), $store['id'], ['date' => $pickup->toDayDateTimeString(), 'confirmed' => 0]);
-        $pickup = $pickup->addDay(+1);
-        $this->helper->addCollector($this->getRandomIDOfArray($this->foodsavers), $store['id'], ['date' => $pickup->toDayDateTimeString(), 'confirmed' => 0]);
-
-        $stores[] = $store['id'];
-        $this->output->writeln('created Schulungsbetrieb Onboarding with id ' . $store['id']);
-
-        // create pickups
-        $this->output->writeln('Create more pickups');
-        $this->CreateMorePickups($stores);
-        $this->output->writeln('');
-
-        // create foodbaskets
-        $this->output->writeln('Create foodbaskets');
-        $count = 50;
-        foreach (range(1, $count) as $_) {
-            $user = $this->getRandomIDOfArray($this->foodsavers);
-            $I->createFoodbasket($user);
-            $this->progressBar($_, 2 * $count);
-        }
-
-        // Create food baskets around userbot
-        foreach (range(1, $count) as $_) {
-            // Calculate a random location with exact distance but random
-            // direction from userbot
-            [$lat, $lon] = $I->getPointAtDistance($userbot['lat'], $userbot['lon'], $_ + 1, -1);
-
-            $user = $this->getRandomIDOfArray($this->foodsavers);
-            $I->createFoodbasket($user, ['lat' => $lat, 'lon' => $lon]);
-            $this->progressBar($count + $_, 2 * $count);
-        }
-        $this->output->writeln('');
-
-        // create food share point
-        $i = 0;
-        $count = 50;
-        $this->output->writeln('Create food share points');
-        foreach ($this->getRandomIDOfArray($this->foodsavers, $count) as $user) {
-            $foodSharePoint = $I->createFoodSharePoint($user, $region1);
-            foreach ($this->getRandomIDOfArray($this->foodsavers, 10) as $follower) {
-                if ($user !== $follower) {
-                    $I->addFoodSharePointFollower($follower, $foodSharePoint['id']);
-                }
-                $I->addFoodSharePointPost($follower, $foodSharePoint['id']);
-            }
-            $this->progressBar(++$i, $count);
-        }
-        $this->output->writeln('');
-
-        $this->output->writeln('Create blog posts');
-        foreach (range(1, 20) as $_) {
-            $I->addBlogPost($userbot['id'], $region1);
-            $this->progressBar($_, 20);
-        }
-        $this->output->writeln('');
-
-        $this->output->writeln('Create reports');
-        $I->addReport($this->getRandomIDOfArray($this->reportAdmins), $this->getRandomIDOfArray($this->foodsavers), 0, 0);
-        $this->progressBar(1, 7);
-        $I->addReport($this->getRandomIDOfArray($this->foodsavers), $this->getRandomIDOfArray($this->reportAdmins), 0, 0);
-        $this->progressBar(2, 7);
-        $I->addReport($this->getRandomIDOfArray($this->arbitrationAdmins), $this->getRandomIDOfArray($this->foodsavers), 0, 0);
-        $this->progressBar(3, 7);
-        $I->addReport($this->getRandomIDOfArray($this->foodsavers), $this->getRandomIDOfArray($this->arbitrationAdmins), 0, 0);
-        $this->progressBar(4, 7);
-        $I->addReport($this->getRandomIDOfArray($this->reportAdmins), $this->getRandomIDOfArray($this->arbitrationAdmins), 0, 0);
-        $this->progressBar(5, 7);
-        $I->addReport($this->getRandomIDOfArray($this->arbitrationAdmins), $this->getRandomIDOfArray($this->reportAdmins), 0, 0);
-        $this->progressBar(6, 7);
-        $I->addReport($this->getRandomIDOfArray($this->foodsavers), $this->getRandomIDOfArray($this->foodsavers), 0, 0);
-        $this->progressBar(7, 7);
-        $this->output->writeln('');
-
-        $this->output->writeln('Create polls');
-        $pollTypes = [
-            VotingType::SELECT_ONE_CHOICE, VotingType::SELECT_MULTIPLE, VotingType::THUMB_VOTING,
-            VotingType::SCORE_VOTING
-        ];
-        foreach ($pollTypes as $i => $type) {
-            $this->createPoll(
-                $region1,
-                $userbot['id'],
-                $type,
-                [$user2['id'], $userStoreManager['id'], $userStoreManager2['id'], $userbot['id'], $userorga['id']]
-            );
-            $this->progressBar($i + 1, count($pollTypes));
-        }
-        $this->output->writeln('');
-
-        $this->output->writeln('Create more one choice polls');
-        foreach (range(1, 30) as $_) {
-            $startDate = Carbon::now()->subDays(random_int(7, 3 * 365));
-            $type = random_int(VotingType::SELECT_ONE_CHOICE, VotingType::SCORE_VOTING);
-            $this->createPoll($region1, $userbot['id'], $type,
-                [$user2['id'], $userStoreManager['id'], $userStoreManager2['id'], $userbot['id'], $userorga['id']],
-                $startDate, $startDate->addDays(6)
-            );
-            $this->progressBar($_, 30);
-        }
-        $this->output->writeln('');
-
-        $this->output->write('Create blacklisted emails');
-        $I->createBlacklistedEmailAddress();
-        $this->output->writeln(' - done');
-
-        $this->output->writeln('Enable feature toggles');
-        $this->activeFeatureToggles();
-        $this->output->writeln('done');
-
-        $this->output->writeln('Inserting fetch weight values');
-        $this->insertFetchWeightValues($I);
-        $this->output->writeln('');
-
-        $this->output->writeln('Adding content');
-        $this->createContent($I);
-        $this->output->writeln('');
-
-        $this->output->writeln('Inserting configuration values');
-        $this->insertConfigurationValues($I);
-        $this->output->writeln('done');
-
-        $I->_getDbh()->commit();
-    }
-
     /**
      * Activates a predefined list of feature toggles.
      */
@@ -980,7 +724,7 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
     }
 
     private function createPoll(int $regionId, int $authorId, int $type, array $voterIds,
-        ?Carbon $startDate = null, ?Carbon $endDate = null)
+        ?Carbon $startDate = null, ?Carbon $endDate = null): void
     {
         $possibleValues = [];
         switch ($type) {
@@ -1020,7 +764,7 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
      * @param int $verifierId the ambassador who verified the user
      * @param int $monthsInPast number of months by which the verification entries will be shifted into the past
      */
-    private function addVerificationAndPassHistory(Foodsharing $I, int $userId, int $verifierId, int $monthsInPast = 0)
+    private function addVerificationAndPassHistory(Foodsharing $I, int $userId, int $verifierId, int $monthsInPast = 0): void
     {
         $offset = Carbon::today()->subMonths($monthsInPast);
         $I->addVerificationHistory($userId, $verifierId, true, $offset->sub('1 year'));
@@ -1032,24 +776,6 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
         }
     }
 
-    /**
-     * Writes a progress bar with a percentage text to the output.
-     */
-    private function progressBar(int $steps, int $total): void
-    {
-        static $lastUpdate = 0;
-        $currentTime = microtime(true);
-
-        // Update progress bar only every 0.1 seconds to reduce I/O overhead
-        if ($currentTime - $lastUpdate >= 0.1 || $steps === $total) {
-            $percentage = floor(($steps / $total) * 100);
-            $left = 100 - $percentage;
-            $write = sprintf("\033[0G\033[2K[%'={$percentage}s>%-{$left}s] {$steps} / {$total} ($percentage%%)", '', '');
-            $this->output->write($write);
-            $lastUpdate = $currentTime;
-        }
-    }
-
     private function createGroupCategories(): void
     {
         $categoriesData = $this->loadJsonFromFile('groupCategories.json');
@@ -1058,11 +784,12 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
         }
     }
 
-    private function createResources(): void
+    private function createResources(array $userIds): void
     {
         $resourcesData = $this->loadJsonFromFile('resources.json');
         $resourceCategoriesData = $this->loadJsonFromFile('resourceCategories.json');
 
+        $offset = 0;
         foreach ($resourceCategoriesData as $id => $name) {
             $categoryId = $this->helper->addResourceCategory($name);
             if ($id === 0) {
@@ -1070,11 +797,9 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
             }
         }
 
-        $this->output->writeln('Offset: ' . $offset);
-
         shuffle($resourcesData);
         while (count($resourcesData) > 0) {
-            $userId = $this->getRandomIDOfArray($this->foodsavers);
+            $userId = $this->getRandomIDOfArray($userIds);
             $numToAssign = min(rand(1, 3), count($resourcesData));
             $resourcesToAssign = array_splice($resourcesData, 0, $numToAssign);
             foreach ($resourcesToAssign as $resource) {
@@ -1111,7 +836,346 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
             $I->haveInDatabase('configuration', ['key' => $key, 'value' => $value, 'category' => ConfigurationCategory::DONATION->value]);
         }
 
-        // Last calculation of the user statistics: 1 o'clock last night
-        $I->haveInDatabase('configuration', ['key' => ConfigurationKey::STATISTICS_FOODSAVER_LAST_UPDATE->value, 'value' => Carbon::today()->addHour()]);
+        // Last calculation of the user statistics: this needs to be far in the past to force full recalculation of the profile statistics after seeding
+        $I->haveInDatabase('configuration', ['key' => ConfigurationKey::STATISTICS_FOODSAVER_LAST_UPDATE->value, 'value' => Carbon::createFromFormat('Y-m-d', '1970-01-01')->toISOString()]);
+    }
+
+    /**
+     * Creates conversations between 11 random users from the array.
+     */
+    private function createConversations(Foodsharing $I, array $users): void
+    {
+        foreach ($this->progressBar->iterate($users) as $user) {
+            foreach ($this->getRandomIDOfArray($users, 10) as $chatpartner) {
+                if ($user !== $chatpartner) {
+                    $conv = $I->createConversation([$user, $chatpartner]);
+                    for ($i = 1; $i <= random_int(1, 10); ++$i) {
+                        $userId = $user;
+                        if (random_int(0, 1)) {
+                            $userId = $chatpartner;
+                        }
+                        $I->addConversationMessage($userId, $conv['id']);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Creates all groups in "Arbeitsgruppen überregional" and their sub-groups.
+     */
+    private function createGlobalWorkingGroups(Foodsharing $I, int $threadAuthorId): void
+    {
+        // parameters: name, group category, apply type
+        $globalGroups = [
+            RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP => ['AG Anlegen', GroupCategory::ADMINISTRATIVE, ApplyType::NOBODY],
+            RegionIDs::IT_SUPPORT_GROUP => ['Support', GroupCategory::ADMINISTRATIVE],
+            RegionIDs::PR_PARTNER_AND_TEAM_WORK_GROUP => ['Öffentlichkeitsarbeit - Partner + Teamseite', GroupCategory::ADMINISTRATIVE, ApplyType::NOBODY],
+            RegionIDs::PR_START_PAGE => ['Öffentlichkeitsarbeit - Startseite', GroupCategory::ADMINISTRATIVE, ApplyType::NOBODY],
+            RegionIDs::ORGA_COORDINATION_GROUP => ['Orgarechte-Koordination', GroupCategory::ADMINISTRATIVE],
+            RegionIDs::EDITORIAL_GROUP => ['Redaktion', GroupCategory::ADMINISTRATIVE],
+            RegionIDs::BOARD_ADMIN_GROUP => ['foodsharing Vereins-Vorstände', GroupCategory::ADMINISTRATIVE, ApplyType::NOBODY],
+            RegionIDs::WELCOME_TEAM_ADMIN_GROUP => ['Begrüßungsteam Praxisaustausch', GroupCategory::EXCHANGE, ApplyType::NOBODY],
+            RegionIDs::VOTING_ADMIN_GROUP => ['Abstimmungs-AG Praxisaustausch', GroupCategory::EXCHANGE, ApplyType::NOBODY],
+            RegionIDs::ELECTION_ADMIN_GROUP => ['Wahlen-AG Praxisaustausch', GroupCategory::EXCHANGE, ApplyType::NOBODY],
+            RegionIDs::FSP_TEAM_ADMIN_GROUP => ['Fairteiler-AG Praxisaustausch', GroupCategory::EXCHANGE, ApplyType::NOBODY],
+            RegionIDs::STORE_COORDINATION_TEAM_ADMIN_GROUP => ['Betriebskoordination-AG Praxisaustausch', GroupCategory::EXCHANGE, ApplyType::NOBODY],
+            RegionIDs::STORE_CHAIN_GROUP => ['AG Betriebsketten', GroupCategory::DEVELOPMENT],
+            RegionIDs::HYGIENE_GROUP => ['Hygiene', GroupCategory::DEVELOPMENT],
+            RegionIDs::POLITICAL_CAMPAIGNS => ['PolKa', GroupCategory::DEVELOPMENT],
+            RegionIDs::FOODSHARING_ACADEMY => ['Akademie und Bildungsreferent:innen', GroupCategory::DEVELOPMENT],
+            RegionIDs::QUIZ_GROUP_FR => ['Quiz FR', GroupCategory::DEVELOPMENT], // actually in france, but for the seed data it's here...
+            RegionIDs::REPORT_TEAM_ADMIN_GROUP => ['Meldungen-AG Praxisaustausch', GroupCategory::EXCHANGE, ApplyType::NOBODY],
+            RegionIDs::MEDIATION_TEAM_ADMIN_GROUP => ['Mediation-AG Praxisaustausch', GroupCategory::EXCHANGE, ApplyType::NOBODY],
+            RegionIDs::ARBITRATION_TEAM_ADMIN_GROUP => ['Schiedsstelle-AG Praxisaustausch', GroupCategory::EXCHANGE, ApplyType::NOBODY],
+            RegionIDs::FSMANAGEMENT_TEAM_ADMIN_GROUP => ['Verwaltung-AG Praxisaustausch', GroupCategory::EXCHANGE, ApplyType::NOBODY],
+            RegionIDs::PR_TEAM_ADMIN_GROUP => ['Öffentlichkeitsarbeit-AG Praxisaustausch', GroupCategory::EXCHANGE, ApplyType::NOBODY],
+            RegionIDs::MODERATION_TEAM_ADMIN_GROUP => ['Moderation-AG Praxisaustausch', GroupCategory::EXCHANGE, ApplyType::NOBODY],
+            RegionIDs::PRODUCT_TEAM => ['Produktteam', null, ApplyType::OPEN],
+            RegionIDs::OAUTH_CLIENT_ADMINISTRATION_WORK_GROUP => ['Oauth Client Administration', null, ApplyType::NOBODY],
+            RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP => ['Anmeldevorgang & Quiz', null, ApplyType::NOBODY],
+            RegionIDs::TDL_2026_GROUP => ['Tag der Lebensmittelrettung 2026', GroupCategory::PROJECT, ApplyType::OPEN],
+            //TODO: 6825 is something else on production. TDL2025 does not exist there.
+            6825 => ['Tag der Lebensmittelrettung 2025', GroupCategory::ARCHIVED, ApplyType::OPEN],
+        ];
+        foreach ($this->progressBar->iterate($globalGroups) as $id => $params) {
+            $I->createWorkingGroup($params[0], [
+                'parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS,
+                'id' => $id,
+                'category_id' => !is_null($params[1]) ? $params[1]->value : null,
+                'apply_type' => $params[2] ?? ApplyType::NOBODY,
+                'include_thread' => $threadAuthorId
+            ]);
+        }
+
+        $I->createWorkingGroup('Quizfragen', ['parent_id' => RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP, 'id' => RegionIDs::NEW_QUIZZES_WORK_GROUP, 'apply_type' => ApplyType::EVERYBODY]);
+    }
+
+    /**
+     * Creates several stores. Each store will be added to the region and to a random store chain from the list. Also
+     * assigns the store manager to the store.
+     *
+     * @param int $amount the number of stores to create
+     * @param int $regionId the region to which the stores will be added
+     * @param int[] $chainIds a list of the possible chains. Set to null to use no chains.
+     * @param int $storeManagerId ID of the user who will be the manager of all stores
+     * @return int[] IDs of all created stores
+     */
+    private function createStores(Foodsharing $I, int $amount, int $regionId, ?array $chainIds, int $storeManagerId): array
+    {
+        $stores = [];
+        foreach ($this->progressBar->iterate(range(1, $amount)) as $_) {
+            $extra_params = [];
+            if (!empty($chainIds) || random_int(0, 1) == 1) {
+                $extra_params['kette_id'] = $chainIds[random_int(0, 10)];
+            }
+
+            $store = $I->createStore($regionId, null, null, $extra_params);
+
+            // Add userbot randomly to stores as team member (50%), coordinator
+            // (10%) or jumper (10%), not added (30%)
+            $random = random_int(0, 10);
+            $isJumper = $random == 1;
+            $isCordinator = $random == 2;
+            if ($random <= 6) {
+                $I->addStoreTeam($store['id'], $storeManagerId, $isCordinator, $isJumper, true);
+            }
+
+            foreach (range(0, 5) as $__) {
+                $I->addRecurringPickup($store['id']);
+            }
+            $stores[] = $store['id'];
+        }
+
+        return $stores;
+    }
+
+    /**
+     * Creates several food baskets.
+     *
+     * @param int $amount how many baskets to create
+     * @param array $authors a list of users from which the basket owners will be randomly picked
+     * @param ?array $centerPoint optional coordinates around which the baskets will be centered
+     */
+    private function createFoodBaskets(Foodsharing $I, int $amount, array $authors, array $centerPoint = null): void
+    {
+        foreach (range(1, $amount) as $_) {
+            $extraParams = [];
+            if (!empty($centerPoint)) {
+                [$lat, $lon] = $I->getPointAtDistance($centerPoint[0], $centerPoint[1], $_ + 1, -1);
+                $extraParams['lat'] = $lat;
+                $extraParams['lon'] = $lon;
+            }
+            $user = $this->getRandomIDOfArray($authors);
+            $I->createFoodbasket($user, $extraParams);
+            $this->progressBar->advance();
+        }
+    }
+
+    /**
+     * Creates a special store that can be used for creating screenshots for onboarding.
+     *
+     * @param int[] $foodsavers IDs of the store members
+     * @param int[] $managers IDs of the store managers
+     * @param int $regionId to which region the store will be added
+     * @param int $chainId to which chain the store will be added
+     * @return array the store
+     */
+    private function createSpecialOnboardingStore(Foodsharing $I, array $foodsavers, array $managers, int $regionId, int $chainId): array
+    {
+        // Make sure that the managers are not part of the list of foodsaver
+        foreach ($managers as $manager) {
+            unset($foodsavers[array_search($manager, $foodsavers)]);
+        }
+
+        $members = $this->getRandomIDOfArrayAndDelete($foodsavers, 20);
+        $jumpers = $this->getRandomIDOfArrayAndDelete($foodsavers, 2);
+        $applied = $this->getRandomIDOfArrayAndDelete($foodsavers, 2);
+
+        $I->awardAchievement($this->getRandomIDOfArray($members, 15), AchievementIDs::HYGIENE_CERTIFICATE, null);
+
+        $store = $this->createStoreAndAddToTeam($I, $regionId, CooperationStatus::COOPERATION_ESTABLISHED->value, $managers, $members, $jumpers, $applied, false, [
+            'kette_id' => $chainId,
+            'name' => 'Schulungsbetrieb Onboarding',
+        ]);
+
+        $appliedDate = Carbon::now()->addDays(-3);
+        foreach ($applied as $applicant) {
+            $I->addStoreLog($store['id'], $applicant, $applicant, StoreLogAction::REQUEST_TO_JOIN, ['content' => $I->faker->realText(100), 'date_reference' => $appliedDate, 'date_activity' => $appliedDate]);
+        }
+
+        // add regular pickups in fs_abholzeiten
+        $extra_params = [
+            'betrieb_id' => $store['id'],
+            'time' => sprintf('%02d:%ss:00', 20, 0),
+            'fetcher' => 2,
+        ];
+        foreach (range(0, 6) as $__) {
+            $extra_params['dow'] = $__;
+            $I->addRecurringPickup($store['id'], $extra_params);
+        }
+
+        // add confirmed pickups
+        $pickup = Carbon::now()->settime(20, 0);
+        $pickup = $pickup->addDays(-6);
+        foreach (range(0, 8) as $__) {
+            $pickup = $pickup->addDay();
+            $this->helper->addCollector($this->getRandomIDOfArray($foodsavers), $store['id'], ['date' => $pickup->toDayDateTimeString(), 'confirmed' => 1]);
+            $this->helper->addCollector($this->getRandomIDOfArray($foodsavers), $store['id'], ['date' => $pickup->toDayDateTimeString(), 'confirmed' => 1]);
+        }
+
+        // add some unconfirmed pickups
+        $pickup = $pickup->addDay();
+        $this->helper->addCollector($this->getRandomIDOfArray($foodsavers), $store['id'], ['date' => $pickup->toDayDateTimeString(), 'confirmed' => 0]);
+        $this->helper->addCollector($this->getRandomIDOfArray($foodsavers), $store['id'], ['date' => $pickup->toDayDateTimeString(), 'confirmed' => 0]);
+        $pickup = $pickup->addDay();
+        $this->helper->addCollector($this->getRandomIDOfArray($foodsavers), $store['id'], ['date' => $pickup->toDayDateTimeString(), 'confirmed' => 0]);
+
+        return $store;
+    }
+
+    /**
+     * Adds a list of users to a region, either as admin or member. Admins will also be added as members.
+     *
+     * @param int[] $members
+     * @param int[] $admins
+     */
+    private function addRegionMembers(Foodsharing $I, int $regionId, array $members, array $admins): void
+    {
+        // Make sure that the admins are not part of the list of members
+        foreach ($admins as $admin) {
+            unset($members[array_search($admin, $members)]);
+        }
+
+        foreach ($admins as $admin) {
+            $I->addRegionMember($regionId, $admin);
+            $I->addRegionAdmin($regionId, $admin);
+        }
+        foreach ($members as $member) {
+            $I->addRegionMember($regionId, $member);
+        }
+    }
+
+    /**
+     * Creates several events of each type (ongoing, past, and future) in a region.
+     *
+     * @param int $amount how many events to create of each type
+     * @param int $regionId the parent region
+     * @param int[] $authors IDs of creators of the events will be randomly drawn from this list
+     * @return array the created events
+     */
+    private function createEvents(Foodsharing $I, int $amount, int $regionId, array $authors): array
+    {
+        $this->progressBar->start(3 * $amount);
+
+        // Ongoing
+        foreach (range(1, $amount) as $_) {
+            $events[] = $I->createEvents($regionId, $this->getRandomIDOfArray($authors));
+            $this->progressBar->advance();
+        }
+
+        // Past
+        foreach (range(1, $amount) as $_) {
+            $start = $I->faker->dateTimeBetween('-1 year', '-1 month');
+            $events[] = $I->createEvents($regionId, $this->getRandomIDOfArray($authors), [
+                'start' => $start->format('Y-m-d H:i:s'),
+                'end' => $start->add(new DateInterval('PT4H'))->format('Y-m-d H:i:s'),
+            ]);
+            $this->progressBar->advance();
+        }
+
+        // Future
+        foreach (range(1, $amount) as $_) {
+            $start = $I->faker->dateTimeBetween('+1 month', '+1 year');
+            $events[] = $I->createEvents($regionId, $this->getRandomIDOfArray($authors), [
+                'start' => $start->format('Y-m-d H:i:s'),
+                'end' => $start->add(new DateInterval('PT4H'))->format('Y-m-d H:i:s'),
+            ]);
+            $this->progressBar->advance();
+        }
+        $this->progressBar->finish();
+
+        return $events;
+    }
+
+    /**
+     * Creates several food share points in the region. Adds 10 random users as followers to each FSP.
+     *
+     * @param int $amount how many to create
+     * @param int $regionId which region to add them to
+     * @param int[] $users IDs of the users who will be randomly picked as authors of the FSPs
+     */
+    private function createFoodSharePoints(Foodsharing $I, int $amount, int $regionId, array $users): void
+    {
+        $authors = $this->getRandomIDOfArray($users, $amount);
+        foreach ($this->progressBar->iterate($authors) as $user) {
+            $foodSharePoint = $I->createFoodSharePoint($user, $regionId);
+            foreach ($this->getRandomIDOfArray($users, 10) as $follower) {
+                if ($user !== $follower) {
+                    $I->addFoodSharePointFollower($follower, $foodSharePoint['id']);
+                }
+                $I->addFoodSharePointPost($follower, $foodSharePoint['id']);
+            }
+        }
+    }
+
+    /**
+     * Creates reports in the region between random members of the users array and the admins of the  region's
+     * arbitration and reports groups.
+     *
+     * @param int[] $users a list of user IDs that should be used as reporters and reportees
+     */
+    private function createReports(Foodsharing $I, int $regionId, array $users): void
+    {
+        // Find all admins of the reports and arbitration groups
+        $arbitrationGroupId = $I->grabFromDatabase('fs_region_function', 'region_id', [
+            'function_id' => WorkgroupFunction::ARBITRATION,
+            'target_id' => $regionId
+        ]);
+        $arbitrationAdmins = $I->grabColumnFromDatabase('fs_botschafter', 'foodsaver_id', ['bezirk_id' => $arbitrationGroupId]);
+        $reportGroupId = $I->grabFromDatabase('fs_region_function', 'region_id', [
+            'function_id' => WorkgroupFunction::REPORT,
+            'target_id' => $regionId
+        ]);
+        $reportAdmins = $I->grabColumnFromDatabase('fs_botschafter', 'foodsaver_id', ['bezirk_id' => $reportGroupId]);
+
+        $reportUserGroups = [
+            [$reportAdmins, $users],
+            [$users, $reportAdmins],
+            [$arbitrationAdmins, $users],
+            [$users, $arbitrationAdmins],
+            [$reportAdmins, $arbitrationAdmins],
+            [$arbitrationAdmins, $reportAdmins],
+            [$users, $users],
+        ];
+        foreach ($this->progressBar->iterate($reportUserGroups) as $reportUserGroup) {
+            $I->addReport($this->getRandomIDOfArray($reportUserGroup[0]), $this->getRandomIDOfArray($reportUserGroup[1]));
+        }
+    }
+
+    /**
+     * Adds a buddy request from user1 to user2. If the request is not confirmed yet, this creates a bell notification
+     * for user2.
+     *
+     * @param array $user1 sender of the request
+     * @param array $user2 receiver of the request
+     * @param bool $isConfirmed if the users already are buddies or if the request still needs to be confirmed by user2
+     */
+    private function addBuddies(Foodsharing $I, array $user1, array $user2, bool $isConfirmed = true): void
+    {
+        $I->addBuddy($user1['id'], $user2['id'], false);
+
+        if (!$isConfirmed) {
+            $I->addBells([$user2], [
+                'name' => 'buddy_request_title',
+                'body' => 'buddy_request',
+                'vars' => serialize(['name' => $user1['name']]),
+                'attr' => serialize(['href' => '/profile/' . $user1['id']]),
+                'icon' => '',
+                'identifier' => BellType::createIdentifier(BellType::BUDDY_REQUEST, $user1['id'], $user2['id']),
+                'time' => Carbon::now()->subDays(random_int(1, 5)),
+                'closeable' => 1
+            ]);
+        }
     }
 }

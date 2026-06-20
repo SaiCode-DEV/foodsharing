@@ -1,67 +1,68 @@
 # Seed data
 
-Now go and visit [localhost:18080](http://localhost:18080) in your browser.
-You should see a foodsharing instance running on your local machine :)
-
 For generating a bit of initial data to play with, execute the seeding script:
 
 ```
 ./scripts/seed
 ```
 
-It will give you some users that you can log in with:
+It creates the two regions "Göttingen" and "Entenhausen". It former is a region with GOALS groups (working groups
+with special permissions), which means that the ambassadors have restricted permissions unless they are also admins of
+the GOALS groups. "Entenhausen" does not have GOALS groups, hence the ambassador can do almost anything.
 
-| Email                       | Password | Role          |
-|-----------------------------|----------|---------------|
-| `user1@example.com`         | `user`   | Foodsharer    |
-| `user2@example.com`         | `user`   | Foodsaver     |
-| `storemanager1@example.com` | `user`   | Store manager |
-| `storemanager2@example.com` | `user`   | Store manager |
-| `userbot@example.com`       | `user`   | Ambassador    |
-| `userbot2@example.com`      | `user`   | Ambassador    |
-| `userbotreg2@example.com`   | `user`   | Ambassador    |
-| `userorga@example.com`      | `user`   | Orgateam      |
-| `userauth@example.com`      | `user`   | OAuth manager |
+By default, most users are members of "Göttingen". The password for all of them is `user`.
 
-Users with workgroup functionality in the region
+| Email                       | Role                                              |
+|-----------------------------|---------------------------------------------------|
+| `user1@example.com`         | Foodsharer                                        | 
+| `user2@example.com`         | Foodsaver                                         |
+| `storemanager1@example.com` | Store manager                                     |
+| `storemanager2@example.com` | Store manager                                     |
+| `userbot@example.com`       | Ambassador in Göttingen and admin of GOALS groups |
+| `userbot2@example.com`      | Ambassador in Göttingen                           |
+| `userbotreg2@example.com`   | Ambassador in Entenhausen                         |
+| `userorga@example.com`      | Orgateam                                          |
+| `userauth@example.com`      | OAuth manager                                     |
 
-| Email                                  | Password | workgroup function |
-|----------------------------------------|----------|--------------------|
-| `userwelcome1@example.com`             | `user`   | Welcome            |
-| `userwelcome2@example.com`             | `user`   | Welcome            |
-| `userwelcome3@example.com`             | `user`   | Welcome            |
-| `uservoting1@example.com`              | `user`   | Voting             |
-| `uservoting2@example.com`              | `user`   | Voting             |
-| `uservoting3@example.com`              | `user`   | Voting             |
-| `userfsp1@example.com`                 | `user`   | foodshare point    |
-| `userfsp2@example.com`                 | `user`   | foodshare point    |
-| `userstores1@example.com`              | `user`   | Store coordination |
-| `userstores2@example.com`              | `user`   | Store coordination |
-| `userstores3@example.com`              | `user`   | Store coordination |
-| `userreport1@example.com`              | `user`   | Report             |
-| `userreport2@example.com`              | `user`   | Report             |
-| `userreport3@example.com`              | `user`   | Report             |
-| `usermediation1@example.com`           | `user`   | Mediation          |
-| `usermediation2@example.com`           | `user`   | Mediation          |
-| `usermediation3@example.com`           | `user`   | Mediation          |
-| `userarbitration1@example.com`         | `user`   | Arbitration        |
-| `userarbitration2@example.com`         | `user`   | Arbitration        |
-| `userarbitration3@example.com`         | `user`   | Arbitration        |
-| `userfsmanagement1@example.com`        | `user`   | FSManagement       |
-| `userfsmanagement2@example.com`        | `user`   | FSManagement       |
-| `userfsmanagement3@example.com`        | `user`   | FSManagement       |
-| `userpr1@example.com`                  | `user`   | PR                 |
-| `userpr2@example.com`                  | `user`   | PR                 |
-| `userpr3@example.com`                  | `user`   | PR                 |
-| `usermoderation1@example.com`          | `user`   | Moderation         |
-| `usermoderation2@example.com`          | `user`   | Moderation         |
-| `usermoderation3@example.com`          | `user`   | Moderation         |
+Users with workgroup functionality in "Göttingen":
+
+| Email                                  | workgroup function |
+|----------------------------------------|--------------------|
+| `userwelcome1@example.com`             | Welcome            |
+| `userwelcome2@example.com`             | Welcome            |
+| `userwelcome3@example.com`             | Welcome            |
+| `uservoting1@example.com`              | Voting             |
+| `uservoting2@example.com`              | Voting             |
+| `uservoting3@example.com`              | Voting             |
+| `userfsp1@example.com`                 | foodshare point    |
+| `userfsp2@example.com`                 | foodshare point    |
+| `userstores1@example.com`              | Store coordination |
+| `userstores2@example.com`              | Store coordination |
+| `userstores3@example.com`              | Store coordination |
+| `userreport1@example.com`              | Report             |
+| `userreport2@example.com`              | Report             |
+| `userreport3@example.com`              | Report             |
+| `usermediation1@example.com`           | Mediation          |
+| `usermediation2@example.com`           | Mediation          |
+| `usermediation3@example.com`           | Mediation          |
+| `userarbitration1@example.com`         | Arbitration        |
+| `userarbitration2@example.com`         | Arbitration        |
+| `userarbitration3@example.com`         | Arbitration        |
+| `userfsmanagement1@example.com`        | FSManagement       |
+| `userfsmanagement2@example.com`        | FSManagement       |
+| `userfsmanagement3@example.com`        | FSManagement       |
+| `userpr1@example.com`                  | PR                 |
+| `userpr2@example.com`                  | PR                 |
+| `userpr3@example.com`                  | PR                 |
+| `usermoderation1@example.com`          | Moderation         |
+| `usermoderation2@example.com`          | Moderation         |
+| `usermoderation3@example.com`          | Moderation         |
 
 Some users have additional permissions by being admins of global working groups:
 
-| Email                                  | Password | workgroup function |
-|----------------------------------------|----------|--------------------|
-| `storemanager2@example.com`            | `user`   | Support            |
+| Email                                  | workgroup function |
+|----------------------------------------|--------------------|
+| `storemanager2@example.com`            | Support            |
 
 Please refer to the [User Roles and Permissions](../../../glossary/roles-and-permissions) section for details on the different roles.  
 *Tip: You can use private browser windows to log in with multiple users at the same time!*

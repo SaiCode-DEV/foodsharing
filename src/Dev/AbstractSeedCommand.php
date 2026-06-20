@@ -2,15 +2,61 @@
 
 namespace Foodsharing\Dev;
 
+use Codeception\Command\Shared\ConfigTrait;
+use Codeception\Lib\Di;
+use Codeception\Lib\ModuleContainer;
 use RuntimeException;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Formatter\OutputFormatter;
+use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 use Tests\Support\Helper\Foodsharing;
 
 /**
- * Base class for both seed script (SeedCommand and TestSeedCommand) which contains common functions.
+ * Base class for both seed script (SeedCommand and TestSeedCommand) which contains common functions. Child classes
+ * should implement the `seed` function.
  */
 abstract class AbstractSeedCommand extends Command
 {
+    use ConfigTrait;
+    protected Foodsharing $helper;
+    protected OutputInterface $output;
+    protected ?ProgressBar $progressBar = null;
+
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
+        $this->output = $output;
+        $this->output->setFormatter(new OutputFormatter(true));
+        $this->progressBar = new ProgressBar($this->output);
+        $this->progressBar->setOverwrite(true);
+        $this->progressBar->setBarCharacter('<fg=green>=</>');
+        $this->progressBar->setEmptyBarCharacter('<fg=red>-</>');
+        $this->progressBar->setProgressCharacter('<fg=green>➤</>');
+        $this->progressBar->setBarWidth(50);
+
+        $config = $this->getGlobalConfig();
+        $di = new Di();
+        $module = new ModuleContainer($di, $config);
+        $this->helper = $module->create(Foodsharing::class);
+        $this->helper->_initialize();
+
+        $this->output->writeln('Clearing existing ' . FS_ENV . ' seed data');
+        $this->helper->clear();
+
+        $this->output->writeln('Seeding ' . FS_ENV . ' database');
+        $start = microtime(true);
+        $this->helper->_getDbh()->beginTransaction();
+        $this->helper->_getDriver()->executeQuery('SET FOREIGN_KEY_CHECKS=1;', []);
+        $this->seed();
+        $this->helper->_getDbh()->commit();
+        $this->output->writeln('Database seeding took ' . round(microtime(true) - $start, 2) . ' seconds');
+
+        return Command::SUCCESS;
+    }
+
+    abstract protected function seed(): void;
+
     protected function createContent(Foodsharing $I): void
     {
         $contentData = $this->loadJsonFromFile('content.json');

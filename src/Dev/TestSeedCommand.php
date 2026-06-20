@@ -2,55 +2,22 @@
 
 namespace Foodsharing\Dev;
 
-use Codeception\Command\Shared\ConfigTrait;
 use Codeception\CustomCommandInterface;
-use Codeception\Lib\Di;
-use Codeception\Lib\ModuleContainer;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Tests\Support\Helper\Foodsharing;
 
 class TestSeedCommand extends AbstractSeedCommand implements CustomCommandInterface
 {
-    use ConfigTrait;
     protected static $defaultDescription = 'Seed the test db.';
-
-    protected Foodsharing $helper;
-
-    protected OutputInterface $output;
 
     public static function getCommandName(): string
     {
         return 'foodsharing:test-seed';
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): int
-    {
-        $this->output = $output;
-
-        $config = $this->getGlobalConfig();
-        $di = new Di();
-        $module = new ModuleContainer($di, $config);
-        $this->helper = $module->create(Foodsharing::class);
-        $this->helper->_initialize();
-
-        $this->output->writeln('Clearing existing ' . FS_ENV . ' seed data');
-        $this->helper->clear();
-
-        $this->output->writeln('Seeding ' . FS_ENV . ' database');
-        $this->seed();
-
-        return Command::SUCCESS;
-    }
-
-    protected function seed()
+    protected function seed(): void
     {
         $I = $this->helper;
-        $I->_getDbh()->beginTransaction();
-        $I->_getDriver()->executeQuery('SET FOREIGN_KEY_CHECKS=1;', []);
 
         // Create base regions
         $I->createRootRegion();
@@ -64,7 +31,5 @@ class TestSeedCommand extends AbstractSeedCommand implements CustomCommandInterf
         $this->output->writeln('Adding content');
         $this->createContent($I);
         $this->output->writeln('');
-
-        $I->_getDbh()->commit();
     }
 }

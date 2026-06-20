@@ -83,5 +83,7 @@ You need an ssh key on your system to clone the repository with SSH ([set up gui
 
 :::
 
+Now go and visit [localhost:18080](http://localhost:18080) in your browser. You should see a foodsharing instance running on your local machine :)
+
 Continue on [Seed Overview](backend/database/seed-overview).
 
