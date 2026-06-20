@@ -18,7 +18,7 @@
       <span class="blog-teaser d-inline-block mx-1 text-muted" v-text="blogTeaser" />
     </div>
     <span class="flex-grow-1" />
-    <Time :time="when" class="mr-2" />
+    <TimeDisplay :time="when" class="mr-2" />
     <b-link
       v-if="mayEdit"
       v-b-tooltip="$t('blog.edit')"
@@ -44,12 +44,12 @@
 <script>
 import { publishBlogpost, deleteBlogpost } from '@/api/blog'
 import Avatar from '@/components/Avatar/Avatar.vue'
-import Time from '@/components/Time.vue'
+import TimeDisplay from '@/components/TimeDisplay.vue'
 import i18n from '@/helper/i18n'
 import { showLoader, hideLoader, pulseSuccess, pulseError } from '@/script'
 
 export default {
-  components: { Avatar, Time },
+  components: { Avatar, TimeDisplay },
   props: {
     blogId: { type: Number, required: true },
     blogTitle: { type: String, default: '' },

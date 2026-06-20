@@ -29,10 +29,10 @@
               })"
             />
             ({{ $t('forum.post.hiddenReason', post.hidden) }}
-            <Time :time="post.hidden.time" />)
+            <TimeDisplay :time="post.hidden.time" />)
           </template>
         </span>
-        <Time
+        <TimeDisplay
           :time="post.createdAt"
           :tooltip_template="$t('forum.post.createdAtTooltip')"
           class="text-right"
@@ -107,7 +107,7 @@
         </li>
         <li v-text="$t('forum.restore.reason', { reason: post.hidden.reason })" />
         <li>
-          <Time
+          <TimeDisplay
             :time="post.hidden.time"
             normal-size
             :muted="false"
@@ -126,12 +126,12 @@ import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import CopyToClipboardMixin from '@/mixins/CopyToClipboardMixin'
 import Markdown from '@/components/Markdown/Markdown.vue'
 import OverflowMenu from '@/components/OverflowMenu.vue'
-import Time from '@/components/Time.vue'
+import TimeDisplay from '@/components/TimeDisplay.vue'
 import dateFormatter from '@/helper/date-formatter'
 import { pulseSuccess } from '@/script'
 
 export default {
-  components: { Avatar, ThreadPostActions, Markdown, OverflowMenu, Time },
+  components: { Avatar, ThreadPostActions, Markdown, OverflowMenu, TimeDisplay },
   mixins: [MediaQueryMixin, CopyToClipboardMixin],
   props: {
     post: { type: Object, required: true },

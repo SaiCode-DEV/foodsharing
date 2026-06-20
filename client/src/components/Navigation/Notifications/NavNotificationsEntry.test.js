@@ -1,7 +1,7 @@
 import { mount, createLocalVue } from '@vue/test-utils'
 import NavNotificationsEntry from './NavNotificationsEntry.vue'
 import Avatar from '@/components/Avatar/Avatar.vue'
-import Time from '@/components/Time.vue'
+import TimeDisplay from '@/components/TimeDisplay.vue'
 import i18n from '@/helper/i18n'
 import { BButton } from 'bootstrap-vue'
 import assert from 'assert'
@@ -93,7 +93,7 @@ describe('NavNotificationsEntry', () => {
         bell,
       },
     })
-    const time = wrapper.findComponent(Time)
+    const time = wrapper.findComponent(TimeDisplay)
     assert(time.exists())
   })
 

@@ -31,7 +31,7 @@
               :class="{'fa-user-check': request.verified, 'fa-user-slash': !request.verified}"
             />
             <a :href="$url('profile', request.user.id)" v-text="request.user.name" />
-            <Time :time="request.date" class="ml-2" />
+            <TimeDisplay :time="request.date" class="ml-2" />
             <p class="my-0" v-text="formatDistance(request.distanceInKm)" />
           </div>
           <b-button-group class="request-actions my-1" size="sm">
@@ -91,14 +91,14 @@
 <script>
 import { acceptStoreRequest, declineStoreRequest } from '@/api/stores'
 import Avatar from '@/components/Avatar/Avatar.vue'
-import Time from '@/components/Time.vue'
+import TimeDisplay from '@/components/TimeDisplay.vue'
 import { hideLoader, showLoader, pulseError } from '@/script'
 import StoreData from '@/stores/stores'
 import conversationStore from '@/stores/conversations'
 import RequiredMessageModal from '../RequiredMessageModal.vue'
 
 export default {
-  components: { Avatar, Time, RequiredMessageModal },
+  components: { Avatar, TimeDisplay, RequiredMessageModal },
   props: {
     storeId: { type: Number, required: true },
     storeTitle: { type: String, default: '' },

@@ -24,7 +24,7 @@
             v-html="basket.description"
           />
           <!-- eslint-enable -->
-          <Time :time="new Date(basket.createdAt)" />
+          <TimeDisplay :time="new Date(basket.createdAt)" />
         </span>
         <small
           v-if="!basket.requests.length"
@@ -70,11 +70,11 @@
 <script>
 // Others
 import Avatar from '@/components/Avatar/Avatar.vue'
-import Time from '@/components/Time.vue'
+import TimeDisplay from '@/components/TimeDisplay.vue'
 import conversationStore from '@/stores/conversations'
 
 export default {
-  components: { Avatar, Time },
+  components: { Avatar, TimeDisplay },
   props: {
     basket: { type: Object, default: () => ({}) },
   },

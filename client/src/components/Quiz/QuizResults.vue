@@ -3,7 +3,7 @@
     <h5>
       {{ $t(`quiz.results.title.${results.status}`) }}
 
-      <Time
+      <TimeDisplay
         :time="results.endTime"
         class="float-right"
       />
@@ -61,12 +61,12 @@
 <script>
 import QuestionCommentField from './QuestionCommentField'
 import Wikilink from './Wikilink'
-import Time from '@/components/Time.vue'
+import TimeDisplay from '@/components/TimeDisplay.vue'
 import Answers from './Answers.vue'
 import QuestionDetails from './QuestionDetails.vue'
 
 export default {
-  components: { QuestionCommentField, Wikilink, Time, Answers, QuestionDetails },
+  components: { QuestionCommentField, Wikilink, TimeDisplay, Answers, QuestionDetails },
   props: {
     results: { type: Object, default: () => {} },
   },

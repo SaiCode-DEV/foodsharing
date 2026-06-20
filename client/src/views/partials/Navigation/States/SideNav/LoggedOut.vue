@@ -5,7 +5,7 @@
       <li class="nav-item">
         <ThemeSwitcher />
       </li>
-      <Link
+      <NavLink
         :href="$url('joininfo')"
         :title="$t('register.topbar')"
       />
@@ -18,7 +18,7 @@
 // Store
 import MetaNavData from '../../Data/MetaNavData.json'
 //
-import Link from '@/components/Navigation/_NavItems/NavLink'
+import NavLink from '@/components/Navigation/_NavItems/NavLink'
 import NavLogin from '@/components/Navigation/Login/NavLogin.vue'
 // State
 import MetaNavLoggedOut from '../MetaNav/LoggedOut.vue'
@@ -28,7 +28,7 @@ import ThemeSwitcher from '@/components/ThemeSwitcher.vue'
 
 export default {
   components: {
-    Link,
+    NavLink,
     NavLogin,
     MetaNavLoggedOut,
     ThemeSwitcher,

@@ -10,7 +10,7 @@
       <div v-if="user.phoneNumber">
         <span class="small">{{ user.phoneNumber }}</span><br>
       </div>
-      <Time
+      <TimeDisplay
         v-if="!sortingFunction || sortingFunction.displayInfo === 'times'"
         :tooltip="timeTooltip(user)"
         :time="user.lastPickup ?? user.joinDate"
@@ -48,13 +48,13 @@
 <script>
 import StoreTeamAvatar from '@/components/Stores/StoreTeam/StoreTeamAvatar.vue'
 import PhoneButton from '@/components/PhoneButton.vue'
-import Time from '@/components/Time.vue'
+import TimeDisplay from '@/components/TimeDisplay.vue'
 import OverflowMenu from '@/components/OverflowMenu.vue'
 import { chat } from '@/script'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 
 export default {
-  components: { StoreTeamAvatar, PhoneButton, Time, OverflowMenu },
+  components: { StoreTeamAvatar, PhoneButton, TimeDisplay, OverflowMenu },
   mixins: [MediaQueryMixin],
   props: {
     user: { type: Object, required: true },

@@ -50,7 +50,7 @@
         >
           <i class="icon-subnav fas fa-refresh" />
           {{ $t('menu.entry.refresh') }}
-          <Time :time="fetchedTime" class="float-right" />
+          <TimeDisplay :time="fetchedTime" class="float-right" />
         </button>
       </template>
     </Dropdown>
@@ -67,11 +67,11 @@ import BasketsEntry from './NavBasketsEntry'
 // Others
 import AddBasketModal from '@/views/partials/Modals/AddBasketModal.vue'
 import RemoveBasketRequestModal from '@/views/partials/Modals/RemoveBasketRequestModal.vue'
-import Time from '@/components/Time.vue'
+import TimeDisplay from '@/components/TimeDisplay.vue'
 const REFRESH_WAIT_TIME = 20_000
 
 export default {
-  components: { BasketsEntry, Dropdown, AddBasketModal, RemoveBasketRequestModal, Time },
+  components: { BasketsEntry, Dropdown, AddBasketModal, RemoveBasketRequestModal, TimeDisplay },
   setup () {
     return {
       basketStore: useBasketStore(),

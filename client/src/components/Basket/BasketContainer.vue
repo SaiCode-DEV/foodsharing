@@ -19,7 +19,7 @@
     <div class="list-group-item times-section">
       <span v-for="key in timeKeys" :key="key">
         {{ $t(`basket.${key}`) }}
-        <Time
+        <TimeDisplay
           :time="basket[key]"
           plain
           :tooltip="null"
@@ -33,10 +33,10 @@
 import Container from '@/components/Container/Container.vue'
 import Gallery from '@/components/Images/Gallery.vue'
 import Markdown from '@/components/Markdown/Markdown.vue'
-import Time from '@/components/Time.vue'
+import TimeDisplay from '@/components/TimeDisplay.vue'
 
 export default {
-  components: { Container, Gallery, Markdown, Time },
+  components: { Container, Gallery, Markdown, TimeDisplay },
   props: {
     basket: { type: Object, required: true },
   },

@@ -31,7 +31,7 @@
       </div>
       <div v-if="fetchedTime" class="list-group-item py-1">
         <small v-text="$t('globals.updated')" />
-        <Time :time="fetchedTime" class="float-right" />
+        <TimeDisplay :time="fetchedTime" class="float-right" />
       </div>
     </PaginatedContent>
     <template #options>
@@ -63,7 +63,7 @@ import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { usePickupStore } from '@/stores/pickups'
 import Container from '../Container.vue'
 import PickupField from './PickupField.vue'
-import Time from '@/components/Time.vue'
+import TimeDisplay from '@/components/TimeDisplay.vue'
 import PickupFieldSkeleton from '@/components/Skeleton/PickupField.vue'
 import OverflowMenu from '@/components/OverflowMenu.vue'
 import DataStores from '@/stores/stores'

@@ -9,7 +9,7 @@
       <div class="d-flex" style="gap: 0.5em">
         <a :href="$url('profile', post.author.id)" v-text="post.author.name" />
         <span class="flex-grow-1" />
-        <Time :time="post.time" />
+        <TimeDisplay :time="post.time" />
         <i
           v-if="canDelete"
           v-b-tooltip="$t('wall.delete')"
@@ -41,11 +41,11 @@ import { useUserStore } from '@/stores/user'
 import Avatar from '@/components/Avatar/Avatar.vue'
 import Markdown from '@/components/Markdown/Markdown'
 import Gallery from '@/components/Images/Gallery'
-import Time from '../Time.vue'
+import TimeDisplay from '../TimeDisplay.vue'
 import ReactionsBar from './ReactionsBar.vue'
 
 export default {
-  components: { Avatar, Markdown, Gallery, Time, ReactionsBar },
+  components: { Avatar, Markdown, Gallery, TimeDisplay, ReactionsBar },
   props: {
     post: { type: Object, required: true },
     mayDeleteEverything: { type: Boolean, default: false },

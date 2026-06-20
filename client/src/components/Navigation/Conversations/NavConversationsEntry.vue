@@ -13,7 +13,7 @@
           class="mb-1 text-truncate"
           v-text="title"
         />
-        <Time
+        <TimeDisplay
           class="font-weight-normal"
           :time="conversation.lastMessage.sentAt"
         />
@@ -44,10 +44,10 @@ import profileStore from '@/stores/profiles'
 import conversationStore from '@/stores/conversations'
 
 import ConversationAvatar from '@/components/Avatar/ConversationAvatar'
-import Time from '@/components/Time.vue'
+import TimeDisplay from '@/components/TimeDisplay.vue'
 
 export default {
-  components: { ConversationAvatar, Time },
+  components: { ConversationAvatar, TimeDisplay },
   props: {
     conversation: { type: Object, default: () => ({}) },
   },

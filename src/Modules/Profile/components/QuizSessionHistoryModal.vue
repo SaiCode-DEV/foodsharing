@@ -29,7 +29,7 @@
               class="fas fa-trash-alt float-right ml-2 delete-icon"
               @click="deleteSession(session.id)"
             />
-            <Time
+            <TimeDisplay
               :time="session.endTime"
               class="float-right"
             />
@@ -46,10 +46,10 @@
 <script>
 import { pulseError } from '@/script'
 import { getQuizSessionHistory, deleteQuizSession } from '@/api/quiz'
-import Time from '@/components/Time.vue'
+import TimeDisplay from '@/components/TimeDisplay.vue'
 
 export default {
-  components: { Time },
+  components: { TimeDisplay },
   props: {
     foodsaverId: { type: Number, required: true },
   },

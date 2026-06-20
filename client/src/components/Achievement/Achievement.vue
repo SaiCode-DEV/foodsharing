@@ -25,7 +25,7 @@
         <li v-for="(awardedAchievement, i) of awardedGroup" :key="i">
           <span>
             {{ $t('achievements.awarded') }}
-            <Time
+            <TimeDisplay
               :time="awardedAchievement.createdAt.date"
               plain
               :tooltip="null"
@@ -33,7 +33,7 @@
           </span>
           <span v-if="awardedAchievement.validUntil?.date">
             {{ $t('achievements.validUntil') }}
-            <Time
+            <TimeDisplay
               :time="awardedAchievement.validUntil.date"
               plain
               :tooltip="null"
@@ -49,11 +49,11 @@
   </span>
 </template>
 <script>
-import Time from '@/components/Time.vue'
+import TimeDisplay from '@/components/TimeDisplay.vue'
 import AchievementInfo from './AchievementInfo.vue'
 
 export default {
-  components: { Time, AchievementInfo },
+  components: { TimeDisplay, AchievementInfo },
   props: {
     achievement: { type: Object, required: true },
     noModal: { type: Boolean, default: false },

@@ -4,7 +4,7 @@
       <MetaNavLoggedIn v-if="viewIsMobile" />
       <NavRegions v-if="isFoodsaver && viewIsMobile" />
       <NavGroups v-if="isFoodsaver && viewIsMobile" />
-      <Link
+      <NavLink
         v-if="isFoodsaver"
         icon="fa-search"
         :title="$t('search.title')"
@@ -21,7 +21,7 @@
 // Store
 import { useUserStore } from '@/stores/user'
 //
-import Link from '@/components/Navigation/_NavItems/NavLink'
+import NavLink from '@/components/Navigation/_NavItems/NavLink'
 import NavConversations from '@/components/Navigation/Conversations/NavConversations'
 import NavNotifications from '@/components/Navigation/Notifications/NavNotifications'
 import NavUser from '@/components/Navigation/User/NavUser'
@@ -35,7 +35,7 @@ import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 
 export default {
   components: {
-    Link,
+    NavLink,
     NavConversations,
     NavNotifications,
     NavUser,

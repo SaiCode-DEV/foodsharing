@@ -76,7 +76,7 @@
           sort-null-last
         >
           <template #cell(createdAt)="row">
-            <Time :time="row.item.createdAt" :show-icon="false" />
+            <TimeDisplay :time="row.item.createdAt" :show-icon="false" />
           </template>
           <template #cell(user)="row">
             <Avatar :user="row.item.user" />
@@ -90,7 +90,7 @@
             <span v-else v-text="$t('achievements.awardedNoReviewer')" />
           </template>
           <template #cell(validUntil)="row">
-            <Time
+            <TimeDisplay
               :time="row.item.validUntil"
               :show-icon="false"
               :fallback="$t('achievements.validity.indefiniteShort')"
@@ -149,7 +149,7 @@ import Achievements from '@/components/Achievement/Achievements.vue'
 import * as api from '@/api/achievements.js'
 import UserSearchInput from '@/components/UserSearchInput.vue'
 import Avatar from '@/components/Avatar/Avatar.vue'
-import Time from '@/components/Time.vue'
+import TimeDisplay from '@/components/TimeDisplay.vue'
 import OverflowMenu from '@/components/OverflowMenu.vue'
 import DatePicker from '@/components/DateTime/DatePicker.vue'
 import { useUserStore } from '@/stores/user'
@@ -160,7 +160,7 @@ import AchievementInfo from '@/components/Achievement/AchievementInfo.vue'
 const userStore = useUserStore()
 
 export default {
-  components: { Container, Achievements, UserSearchInput, Avatar, Time, OverflowMenu, DatePicker, AchievementInfo },
+  components: { Container, Achievements, UserSearchInput, Avatar, TimeDisplay, OverflowMenu, DatePicker, AchievementInfo },
   props: {
     groupName: { type: String, required: true },
     groupId: { type: Number, required: true },

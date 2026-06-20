@@ -26,7 +26,7 @@
       <br>
       <small class="separate">
         <span v-text="fromTo" />
-        <Time
+        <TimeDisplay
           :time="mail.sentAt"
           plain
           :tooltip="null"
@@ -36,10 +36,10 @@
   </a>
 </template>
 <script>
-import Time from '@/components/Time.vue'
+import TimeDisplay from '@/components/TimeDisplay.vue'
 
 export default {
-  components: { Time },
+  components: { TimeDisplay },
   props: {
     mail: {
       type: Object,

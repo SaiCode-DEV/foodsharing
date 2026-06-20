@@ -1,7 +1,7 @@
 <template>
   <ul class="mainnav">
     <Logo v-if="viewIsMobile" />
-    <Link
+    <NavLink
       v-if="!isFoodsaver"
       :title="$t('foodsaver.upgrade.FOODSAVER')"
       icon="fa-hands-helping"
@@ -40,7 +40,7 @@
 // Store
 import { useUserStore } from '@/stores/user'
 //
-import Link from '@/components/Navigation/_NavItems/NavLink'
+import NavLink from '@/components/Navigation/_NavItems/NavLink'
 import Logo from '@/components/Navigation/Logo'
 //
 import NavNotifications from '@/components/Navigation/Notifications/NavNotifications'
@@ -55,7 +55,7 @@ import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 export default {
   components: {
     Logo,
-    Link,
+    NavLink,
     NavNotifications,
     NavConversations,
     NavBaskets,

@@ -21,7 +21,7 @@
             class="mb-1 text-truncate"
             v-text="isTranslationFailed ? $t('bell.translation_failed.title') : $t(`bell.${bell.title}`, bell.payload)"
           />
-          <Time
+          <TimeDisplay
             class="font-weight-normal"
             :time="bell.createdAt"
           />
@@ -59,13 +59,13 @@
 <script>
 import Avatar from '@/components/Avatar/Avatar.vue'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
-import Time from '@/components/Time.vue'
+import TimeDisplay from '@/components/TimeDisplay.vue'
 import DataBell from '@/stores/bells'
 import { pulseError } from '@/script'
 import TranslationFailedModal from './TranslationFailedModal.vue'
 
 export default {
-  components: { Avatar, Time, TranslationFailedModal },
+  components: { Avatar, TimeDisplay, TranslationFailedModal },
   mixins: [MediaQueryMixin],
   props: {
     bell: { type: Object, default: () => ({}) },

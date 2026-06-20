@@ -1,5 +1,5 @@
 <template>
-  <Link
+  <NavLink
     v-if="!isDropdown"
     :title="$t(entry.title)"
     :icon="entry.icon"
@@ -49,7 +49,7 @@
 <script>
 // Components
 import Dropdown from './NavDropdown.vue'
-import Link from './NavLink.vue'
+import NavLink from './NavLink.vue'
 // Mixins
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import RouteAndDeviceCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
@@ -57,7 +57,7 @@ import RouteAndDeviceCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
 export default {
   components: {
     Dropdown,
-    Link,
+    NavLink,
   },
   mixins: [MediaQueryMixin, RouteAndDeviceCheckMixin],
   props: {

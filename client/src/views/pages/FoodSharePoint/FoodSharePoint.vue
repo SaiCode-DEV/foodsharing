@@ -94,7 +94,7 @@
       <div class="list-group-item fsp-meta-data">
         <span>
           <span v-text="$t('fsp.createdAt')" />
-          <Time
+          <TimeDisplay
             :time="fsp.createdAt"
             :muted="false"
             normal-size
@@ -137,7 +137,7 @@ import Markdown from '@/components/Markdown/Markdown.vue'
 import LeafletLocationPicker from '@/components/map/LeafletLocationPicker'
 import Wall from '@/components/Wall/Wall.vue'
 import ContainerButton from '@/components/Container/ContainerButton.vue'
-import Time from '@/components/Time.vue'
+import TimeDisplay from '@/components/TimeDisplay.vue'
 import { useUserStore } from '@/stores/user'
 import L from 'leaflet'
 import NavigateWithSelector from '@/components/UI/NavigateWithSelector.vue'
@@ -152,7 +152,7 @@ export default {
     LeafletLocationPicker,
     Wall,
     ContainerButton,
-    Time,
+    TimeDisplay,
     NavigateWithSelector,
   },
   props: {

@@ -15,7 +15,7 @@
         @row-clicked="toggleDetails"
       >
         <template #cell(time)="row">
-          <Time :time="row.item.reportedAt" :muted="false" />
+          <TimeDisplay :time="row.item.reportedAt" :muted="false" />
         </template>
         <template #cell(reported)="row">
           <Avatar :user="row.item.reported" />
@@ -79,7 +79,7 @@
 </template>
 <script>
 import Avatar from '@/components/Avatar/Avatar.vue'
-import Time from '@/components/Time.vue'
+import TimeDisplay from '@/components/TimeDisplay.vue'
 import CopyToClipboardMixin from '@/mixins/CopyToClipboardMixin.js'
 import OverflowMenu from '@/components/OverflowMenu.vue'
 import { useUserStore } from '@/stores/user'
@@ -88,7 +88,7 @@ import dateFormatter from '@/helper/date-formatter'
 const userStore = useUserStore()
 
 export default {
-  components: { Avatar, Time, OverflowMenu },
+  components: { Avatar, TimeDisplay, OverflowMenu },
   mixins: [CopyToClipboardMixin],
   props: {
     reports: { type: Array, default: null },

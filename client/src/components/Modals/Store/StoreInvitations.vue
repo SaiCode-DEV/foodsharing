@@ -32,7 +32,7 @@
               :href="$url('profile', invitation.user.id)"
               v-text="invitation.user.name"
             />
-            <Time :time="invitation.date" class="ml-2" />
+            <TimeDisplay :time="invitation.date" class="ml-2" />
             <br>
             {{ $t('store.invitation.invited_by') }}
             <a :href="$url('profile', invitation.inviter.id)" v-text="invitation.inviter.name" />
@@ -54,10 +54,10 @@
 <script>
 import { withdrawStoreTeamInvitation } from '@/api/stores'
 import Avatar from '@/components/Avatar/Avatar.vue'
-import Time from '@/components/Time.vue'
+import TimeDisplay from '@/components/TimeDisplay.vue'
 
 export default {
-  components: { Avatar, Time },
+  components: { Avatar, TimeDisplay },
   props: {
     storeId: { type: Number, required: true },
     storeTitle: { type: String, default: '' },

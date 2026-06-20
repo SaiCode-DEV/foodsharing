@@ -1,5 +1,5 @@
 <template>
-  <Link
+  <NavLink
     aria-label="foodsharing"
     class="foodsharing"
     :href="userStore.isLoggedIn ? $url('dashboard') : $url('home')"
@@ -15,12 +15,12 @@
         &nbsp;{{ isBeta ? 'Beta' : 'Dev' }}
       </span>
     </template>
-  </Link>
+  </NavLink>
 </template>
 
 <script>
 // Components
-import Link from '@/components/Navigation/_NavItems/NavLink'
+import NavLink from '@/components/Navigation/_NavItems/NavLink'
 // Mixins
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import RouteAndDeviceCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
@@ -29,7 +29,7 @@ import { useUserStore } from '@/stores/user'
 
 export default {
   components: {
-    Link,
+    NavLink,
   },
   mixins: [MediaQueryMixin, RouteAndDeviceCheckMixin],
   props: {
