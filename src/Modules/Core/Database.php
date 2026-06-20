@@ -537,11 +537,6 @@ class Database
         return implode(', ', array_fill(0, $length, '?'));
     }
 
-    public function quote($string): string
-    {
-        return $this->dbalConnection->quote($string);
-    }
-
     /**
      * Use this where you would normally use NOW() in an SQL query.
      *

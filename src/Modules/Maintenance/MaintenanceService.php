@@ -97,93 +97,55 @@ class MaintenanceService
 
     /**
      * Adds some store managers and ambassadors to specific groups.
-     *
-     * TODO: this could use cleaner code and should not contain hard-coded user IDs
      */
     public function updateSpecialGroupMemberships(): void
     {
-        ConsoleHelper::info('updating HH bieb austausch');
-        $hh_biebs = $this->storeGateway->getStoreManagersOf(31);
-        $hh_biebs[] = 3166;   // Gerard Roscoe
-        $counts = $this->foodsaverGateway->updateGroupMembers(826, $hh_biebs, true);
-        ConsoleHelper::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
+        // name, source group, destination group
+        $storeManagerGroups = [
+            ['Hamburg bieb austausch', 31, 826],
+            ['Berlin bieb austausch', 47, 1057],
+            ['Zürich BIEB group', 108, 1313],
+            ['Wien BIEB group', 13, 707],
+            ['Graz BIEB group', 149, 1655],
+            ['Dresden BIEB group', 91, 1348],
+        ];
+        foreach ($storeManagerGroups as $group) {
+            ConsoleHelper::info('updating ' . $group[0]);
+            $managers = $this->storeGateway->getStoreManagersOf($group[1]);
+            $counts = $this->foodsaverGateway->updateGroupMembers($group[2], $managers, true);
+            ConsoleHelper::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
+        }
 
-        ConsoleHelper::info('updating Europe Bot group');
-        $bots = $this->foodsaverGateway->getRegionAmbassadorIds(RegionIDs::EUROPE);
-        $counts = $this->foodsaverGateway->updateGroupMembers(RegionIDs::EUROPE_BOT_GROUP, $bots, true);
-        ConsoleHelper::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
+        $ambassadorGroups = [
+            ['Europe Bot group', RegionIDs::EUROPE, RegionIDs::EUROPE_BOT_GROUP],
+            ['Switzerland BOT group', RegionIDs::SWITZERLAND, RegionIDs::SWITZERLAND_BOT_GROUP],
+            ['Austria BOT group', RegionIDs::AUSTRIA, RegionIDs::AUSTRIA_BOT_GROUP],
+        ];
+        foreach ($ambassadorGroups as $group) {
+            ConsoleHelper::info('updating ' . $group[0]);
+            $ambassadors = $this->foodsaverGateway->getRegionAmbassadorIds($group[1]);
+            $counts = $this->foodsaverGateway->updateGroupMembers($group[2], $ambassadors, true);
+            ConsoleHelper::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
+        }
 
-        ConsoleHelper::info('updating berlin bieb austausch');
-        $berlin_biebs = $this->storeGateway->getStoreManagersOf(47);
-        $counts = $this->foodsaverGateway->updateGroupMembers(1057, $berlin_biebs, true);
-        ConsoleHelper::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
-
-        ConsoleHelper::info('updating Switzerland BOT group');
-        $chBots = $this->foodsaverGateway->getRegionAmbassadorIds(RegionIDs::SWITZERLAND);
-        $counts = $this->foodsaverGateway->updateGroupMembers(RegionIDs::SWITZERLAND_BOT_GROUP, $chBots, true);
-        ConsoleHelper::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
-
-        ConsoleHelper::info('updating Austria BOT group');
-        $aBots = $this->foodsaverGateway->getRegionAmbassadorIds(RegionIDs::AUSTRIA);
-        $counts = $this->foodsaverGateway->updateGroupMembers(RegionIDs::AUSTRIA_BOT_GROUP, $aBots, true);
-        ConsoleHelper::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
-
-        ConsoleHelper::info('updating Zürich BIEB group');
-        $zuerich_biebs = $this->storeGateway->getStoreManagersOf(108);
-        $counts = $this->foodsaverGateway->updateGroupMembers(1313, $zuerich_biebs, true);
-        ConsoleHelper::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
-
-        ConsoleHelper::info('updating Wien BIEB group');
-        $wien_biebs = $this->storeGateway->getStoreManagersOf(13);
-        $counts = $this->foodsaverGateway->updateGroupMembers(707, $wien_biebs, true);
-        ConsoleHelper::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
-
-        ConsoleHelper::info('updating Graz BIEB group');
-        $graz_biebs = $this->storeGateway->getStoreManagersOf(149);
-        $counts = $this->foodsaverGateway->updateGroupMembers(1655, $graz_biebs, true);
-        ConsoleHelper::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
-
-        ConsoleHelper::info('updating Dresden BIEB group');
-        $dresden_biebs = $this->storeGateway->getStoreManagersOf(91);
-        $counts = $this->foodsaverGateway->updateGroupMembers(1348, $dresden_biebs, true);
-        ConsoleHelper::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
-
-        /*
-                self::info('updating Welcome Team Admin group');
-                $this->goalsAdminCommunicationGroups(WorkgroupFunction::WELCOME, RegionIDs::WELCOME_TEAM_ADMIN_GROUP);
-        */
-        ConsoleHelper::info('updating Voting Admin group');
-        $this->goalsAdminCommunicationGroups(WorkgroupFunction::VOTING, RegionIDs::VOTING_ADMIN_GROUP);
-
-        ConsoleHelper::info('updating Election Admin group');
-        $this->goalsAdminCommunicationGroups(WorkgroupFunction::ELECTION, RegionIDs::ELECTION_ADMIN_GROUP);
-
-        /*		self::info('updating Foodsharepoint Team Admin group');
-                $this->goalsAdminCommunicationGroups(WorkgroupFunction::FSP, RegionIDs::FSP_TEAM_ADMIN_GROUP);
-
-                self::info('updating Store Coordination Team Admin group');
-                $this->goalsAdminCommunicationGroups(WorkgroupFunction::STORES_COORDINATION, RegionIDs::STORE_COORDINATION_TEAM_ADMIN_GROUP);
-
-                self::info('updating Report Team Admin group');
-                $this->goalsAdminCommunicationGroups(WorkgroupFunction::REPORT, RegionIDs::REPORT_TEAM_ADMIN_GROUP);
-
-                self::info('updating Mediation Team Admin group');
-                $this->goalsAdminCommunicationGroups(WorkgroupFunction::MEDIATION, RegionIDs::MEDIATION_TEAM_ADMIN_GROUP);
-
-                self::info('updating Arbitration Team Admin group');
-                $this->goalsAdminCommunicationGroups(WorkgroupFunction::ARBITRATION, RegionIDs::ARBITRATION_TEAM_ADMIN_GROUP);
-
-                self::info('updating FSManagement Team Admin group');
-                $this->goalsAdminCommunicationGroups(WorkgroupFunction::FSMANAGEMENT, RegionIDs::FSMANAGEMENT_TEAM_ADMIN_GROUP);
-
-                self::info('updating PR Team Admin group');
-                $this->goalsAdminCommunicationGroups(WorkgroupFunction::PR, RegionIDs::PR_TEAM_ADMIN_GROUP);
-
-                self::info('updating Moderation Team Admin group');
-                $this->goalsAdminCommunicationGroups(WorkgroupFunction::MODERATION, RegionIDs::MODERATION_TEAM_ADMIN_GROUP);
-        */
-        ConsoleHelper::info('updating Board Admin group');
-        $this->goalsAdminCommunicationGroups(WorkgroupFunction::BOARD, RegionIDs::BOARD_ADMIN_GROUP);
+        $specialGroups = [
+            // ['Welcome Team Admin group', WorkgroupFunction::WELCOME, RegionIDs::WELCOME_TEAM_ADMIN_GROUP],
+            ['Voting Admin group', WorkgroupFunction::VOTING, RegionIDs::VOTING_ADMIN_GROUP],
+            ['Election Admin group', WorkgroupFunction::ELECTION, RegionIDs::ELECTION_ADMIN_GROUP],
+            // ['Foodsharepoint Team Admin group', WorkgroupFunction::FSP, RegionIDs::FSP_TEAM_ADMIN_GROUP],
+            // ['Store Coordination Team Admin group', WorkgroupFunction::STORES_COORDINATION, RegionIDs::STORE_COORDINATION_TEAM_ADMIN_GROUP],
+            // ['Report Team Admin group', WorkgroupFunction::REPORT, RegionIDs::REPORT_TEAM_ADMIN_GROUP],
+            // ['Mediation Team Admin group', WorkgroupFunction::MEDIATION, RegionIDs::MEDIATION_TEAM_ADMIN_GROUP],
+            // ['Arbitration Team Admin group', WorkgroupFunction::ARBITRATION, RegionIDs::ARBITRATION_TEAM_ADMIN_GROUP],
+            // ['FSManagement Team Admin group', WorkgroupFunction::FSMANAGEMENT, RegionIDs::FSMANAGEMENT_TEAM_ADMIN_GROUP],
+            // ['PR Team Admin group', WorkgroupFunction::PR, RegionIDs::PR_TEAM_ADMIN_GROUP],
+            // ['Moderation Team Admin group', WorkgroupFunction::MODERATION, RegionIDs::MODERATION_TEAM_ADMIN_GROUP],
+            ['Board Admin group', WorkgroupFunction::BOARD, RegionIDs::BOARD_ADMIN_GROUP],
+        ];
+        foreach ($specialGroups as $group) {
+            ConsoleHelper::info('updating ' . $group[0]);
+            $this->goalsAdminCommunicationGroups($group[1], $group[2]);
+        }
 
         ConsoleHelper::info('updating orga Admin group');
         $orga = $this->foodsaverGateway->getOrgaTeamId();

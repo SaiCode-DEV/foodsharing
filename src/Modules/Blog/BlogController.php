@@ -26,10 +26,10 @@ class BlogController extends FoodsharingController
         $this->common($request);
 
         if (!$request->query->has('sub')) {
-            $this->listNews($request);
+            $this->listNews();
         } else {
             match ($request->query->get('sub')) {
-                'listNews' => $this->listNews($request),
+                'listNews' => $this->listNews(),
                 'read' => $this->read((int)$request->get('id')),
                 'manage' => $this->manage(),
                 'add', 'edit' => $this->addOrEdit($request),
@@ -49,7 +49,7 @@ class BlogController extends FoodsharingController
         return $this->renderGlobal();
     }
 
-    private function listNews(Request $request): void
+    private function listNews(): void
     {
         $this->pageHelper->addContent($this->prepareVueComponent('blog-post-list', 'BlogPostList'));
     }

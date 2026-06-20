@@ -3,7 +3,6 @@
 namespace Foodsharing\Modules\Region;
 
 use Carbon\Carbon;
-use Exception;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
@@ -112,17 +111,6 @@ class ForumGateway extends BaseGateway
     {
         $this->db->delete('fs_theme_post', ['theme_id' => $thread_id]);
         $this->db->delete('fs_theme', ['id' => $thread_id]);
-    }
-
-    public function getBotThreadStatus($thread_id)
-    {
-        return $this->db->fetch('
-			SELECT  ht.bot_theme,
-					ht.bezirk_id
-			FROM
-					fs_bezirk_has_theme ht
-			WHERE   ht.theme_id = :theme_id
-		', ['theme_id' => $thread_id]);
     }
 
     public function setStickiness(int $thread_id, int $stickiness)
@@ -349,20 +337,6 @@ class ForumGateway extends BaseGateway
     public function isPostHidden(int $postId): bool
     {
         return !$this->db->exists('fs_theme_post', ['id' => $postId, 'hidden_by' => null]);
-    }
-
-    public function getRegionForPost($post_id)
-    {
-        return $this->db->fetchValue('
-			SELECT 	bt.bezirk_id
-
-			FROM 	fs_bezirk_has_theme bt,
-					fs_theme_post tp,
-					fs_theme t
-			WHERE 	t.id = tp.theme_id
-			AND 	t.id = bt.theme_id
-			AND 	tp.id = :id
-		', ['id' => $post_id]);
     }
 
     public function getForumsForThread($threadId)

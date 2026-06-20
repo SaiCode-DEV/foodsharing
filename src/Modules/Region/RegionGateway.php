@@ -378,11 +378,6 @@ class RegionGateway extends BaseGateway
         return $this->db->fetchValueByCriteria('fs_bezirk', 'master', ['id' => $regionId]);
     }
 
-    public function getParentId(int $regionId): int
-    {
-        return $this->db->fetchValueByCriteria('fs_bezirk', 'parent_id', ['id' => $regionId]);
-    }
-
     public function listRegionsForBotschafter(int $foodsaverId): array
     {
         return $this->db->fetchAll(
@@ -585,7 +580,6 @@ class RegionGateway extends BaseGateway
 
     public function getRegionsForCommunitiesContacts(): array
     {
-        $host = PLATFORM_MAILBOX_HOST;
         $data = $this->db->fetchAll("SELECT
                 region.name,
                 region.id,

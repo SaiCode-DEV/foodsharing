@@ -42,20 +42,6 @@ class UploadsGateway extends BaseGateway
     }
 
     /**
-     * Returns the user who uploaded the file with the specific UUID.
-     *
-     * @param string $uuid UUID of a previously uploaded file
-     *
-     * @return int the foodsaver ID
-     *
-     * @throws Exception if the file does not exist
-     */
-    public function getUser(string $uuid): int
-    {
-        return $this->db->fetchValueByCriteria('uploads', 'user_id', ['uuid' => $uuid]);
-    }
-
-    /**
      * Returns meta data of an uploaded file. This function should not be used directly, because it does not properly
      * set the filename in the returned object. Use {@see UploadsTransactions::getUploadedFile()} instead.
      *

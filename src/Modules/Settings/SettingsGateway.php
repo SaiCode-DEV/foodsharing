@@ -109,15 +109,6 @@ class SettingsGateway extends BaseGateway
         );
     }
 
-    public function getMailChange(int $fsId): string
-    {
-        return $this->db->fetchValueByCriteria(
-            'fs_mailchange',
-            'newmail',
-            ['foodsaver_id' => $fsId]
-        );
-    }
-
     public function getNewMail(int $fsId, string $token): ?string
     {
         return $this->db->fetchValueByCriteria(

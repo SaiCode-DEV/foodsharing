@@ -5,7 +5,6 @@ namespace Foodsharing\Modules\StoreUser;
 use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Permissions\StorePermissions;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
@@ -23,7 +22,6 @@ class StoreUserController extends FoodsharingController
         int $storeId,
         StoreGateway $storeGateway,
         StorePermissions $storePermissions,
-        Request $request,
     ): Response {
         if (!$this->session->mayRole()) {
             $this->routeHelper->goLoginAndExit();

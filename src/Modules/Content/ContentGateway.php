@@ -74,11 +74,6 @@ class ContentGateway extends BaseGateway
         }, $list);
     }
 
-    public function getDetail($id): array
-    {
-        return $this->db->fetchByCriteria('fs_content', ['id', 'name', 'title', 'body', 'last_mod'], ['id' => $id]);
-    }
-
     /**
      * Adds a new content entry and returns the id.
      */

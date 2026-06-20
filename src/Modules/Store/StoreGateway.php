@@ -564,22 +564,6 @@ class StoreGateway extends BaseGateway
         ]);
     }
 
-    public function isStoreTeamMemberOfStoreChainStore(int $fsId): bool
-    {
-        return $this->db->fetch('
-				SELECT COUNT(*) as count
-				FROM `fs_betrieb_team` t
-				INNER JOIN `fs_betrieb` b
-				     	ON b.id = t.betrieb_id
-				WHERE	t.foodsaver_id = :fsId
-				AND 	t.active = :membershipStatus
-                AND     b.kette_id IS NOT NULL
-		', [
-            ':fsId' => $fsId,
-            ':membershipStatus' => MembershipStatus::MEMBER
-        ])['count'] != 0;
-    }
-
     public function getBiebsForStore($storeId)
     {
         return $this->db->fetchAll('
@@ -615,28 +599,6 @@ class StoreGateway extends BaseGateway
 		', [
             ':storeId' => $storeId,
         ]);
-    }
-
-    public function getAllStoreManagers(): array
-    {
-        $verant = $this->db->fetchAll('
-			SELECT 	fs.`id`,
-					fs.`email`
-
-			FROM 	`fs_foodsaver` fs
-					INNER JOIN `fs_betrieb_team` bt
-			        ON bt.foodsaver_id = fs.id
-
-			WHERE 	bt.verantwortlich = 1
-			AND		fs.deleted_at IS NULL
-		');
-
-        $result = [];
-        foreach ($verant as $v) {
-            $result[$v['id']] = $v;
-        }
-
-        return $result;
     }
 
     public function getUseRegionPickupRule(int $storeId)
@@ -786,11 +748,6 @@ class StoreGateway extends BaseGateway
     public function listStoreIds($fsId)
     {
         return $this->db->fetchAllValuesByCriteria('fs_betrieb_team', 'betrieb_id', ['foodsaver_id' => $fsId]);
-    }
-
-    public function listStoreIdsWhereResponsible($fsId)
-    {
-        return $this->db->fetchAllByCriteria('fs_betrieb_team', ['betrieb_id'], ['foodsaver_id' => $fsId, 'verantwortlich' => 1]);
     }
 
     public function updateStoreRegion(int $storeId, int $regionId): int

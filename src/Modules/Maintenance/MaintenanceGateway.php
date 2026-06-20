@@ -7,7 +7,6 @@ use DateTime;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\DBConstants\Basket\Status;
 use Foodsharing\Modules\Core\DBConstants\Quiz\SessionStatus;
-use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Region\ForumTransactions;
 
 class MaintenanceGateway extends BaseGateway
@@ -20,105 +19,6 @@ class MaintenanceGateway extends BaseGateway
         return $this->db->fetchAllValuesByCriteria('fs_basket', 'id', [
             'status' => Status::REQUESTED_MESSAGE_READ, 'until <' => $this->db->now()
         ]);
-    }
-
-    /**
-     * Returns the managers for all stores that have pickup free slots in the next two days.
-     */
-    public function getStoreManagersWhichWillBeAlerted(): array
-    {
-        $dow = (int)date('w');
-        $dowTomorrow = ($dow + 1) % 7;
-
-        // find all stores with pickup slots today or tomorrow
-        $storesInRange = $this->db->fetchAll('
-			SELECT
-				DISTINCT z.betrieb_id
-			FROM
-				fs_abholzeiten z
-			LEFT JOIN
-				fs_betrieb b
-			ON
-				z.betrieb_id = b.id
-			WHERE
-				b.betrieb_status_id = :established
-			AND
-			(
-				(
-					z.dow = :dow
-					AND
-					z.time >= :time
-				)
-				OR
-					z.dow = :dowTomorrow
-			)
-		', [
-            ':dow' => $dow,
-            ':time' => date('H:i:s'),
-            ':dowTomorrow' => $dowTomorrow,
-            ':established' => CooperationStatus::COOPERATION_ESTABLISHED->value,
-        ]);
-
-        if (!empty($storesInRange)) {
-            $storeIds = [];
-            foreach ($storesInRange as $store) {
-                $storeIds[(int)$store['betrieb_id']] = (int)$store['betrieb_id'];
-            }
-
-            // remove all stores from the list that have someone who will pickup
-            $storeWithFetcher = $this->db->fetchAll('
-				SELECT
-					DISTINCT a.betrieb_id AS id
-				FROM
-					fs_abholer a
-				WHERE
-					a.confirmed = 1
-				AND
-					a.betrieb_id IN(' . implode(',', $storeIds) . ')
-				AND
-					a.date >= NOW()
-				AND
-					a.date <= CURRENT_DATE() + INTERVAL 2 DAY
-			');
-
-            foreach ($storeWithFetcher as $s) {
-                unset($storeIds[$s['id']]);
-            }
-
-            // return the managers for all remaining stores in the list
-            if (!empty($storeIds)) {
-                return $this->db->fetchAll('
-					SELECT
-						fs.id AS fs_id,
-						fs.email AS fs_email,
-						fs.geschlecht,
-						fs.name AS fs_name,
-						b.id AS betrieb_id,
-						b.name AS betrieb_name
-
-					FROM
-						fs_betrieb b,
-						fs_betrieb_team bt,
-						fs_foodsaver fs
-
-					WHERE
-						b.id = bt.betrieb_id
-
-					AND
-						bt.foodsaver_id = fs.id
-
-					AND
-						bt.active = 1
-
-					AND
-						bt.verantwortlich = 1
-
-					AND
-						b.id IN(' . implode(',', $storeIds) . ')');
-            }
-        }
-
-        return [];
     }
 
     /**

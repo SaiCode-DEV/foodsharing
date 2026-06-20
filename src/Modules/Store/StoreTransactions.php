@@ -1132,8 +1132,6 @@ class StoreTransactions
      */
     public function checkPickupRule(int $storeId, Carbon $pickupDate, int $fsId): bool
     {
-        $response['result'] = true; //default response, rule is passed
-
         // Does this store have a pickupRule ?
         if ($this->storeGateway->getUseRegionPickupRule($storeId)) {
             $regionId = $this->storeGateway->getStoreRegionId($storeId);

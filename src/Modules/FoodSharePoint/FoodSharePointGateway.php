@@ -216,17 +216,6 @@ class FoodSharePointGateway extends BaseGateway
         );
     }
 
-    public function unfollowFoodSharePoints(int $fsId, array $foodSharePointIds): int
-    {
-        return $this->db->delete(
-            'fs_fairteiler_follower',
-            [
-                'foodsaver_id' => $fsId,
-                'fairteiler_id' => $foodSharePointIds
-            ]
-        );
-    }
-
     /**
      * @param NotificationSettingPatch[] $changes
      */

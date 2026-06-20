@@ -682,30 +682,6 @@ class FoodsaverGateway extends BaseGateway
         }
     }
 
-    public function getFsAutocomplete(array $regions): array
-    {
-        if (is_array(end($regions))) {
-            $tmp = [];
-            foreach ($regions as $r) {
-                $tmp[] = $r['id'];
-            }
-            $regions = $tmp;
-        }
-
-        return $this->db->fetchAll('
-			SELECT DISTINCT
-						fs.id,
-						CONCAT(fs.`name`, " ", fs.`nachname`, " (",fs.`id`,")") AS value
-
-			FROM 	`fs_foodsaver` fs
-					INNER JOIN fs_foodsaver_has_bezirk fb
-					ON fs.id = fb.foodsaver_id
-
-			WHERE 	fs.deleted_at IS NULL
-			AND		fb.`bezirk_id` IN(' . $this->dataHelper->commaSeparatedIds($regions) . ')'
-        );
-    }
-
     /**
      * @deprecated
      */
@@ -1041,19 +1017,6 @@ class FoodsaverGateway extends BaseGateway
         $existing = $this->db->fetchAllValuesByCriteria('fs_foodsaver', 'id', ['id' => $foodsaverIds, 'deleted_at' => null]);
 
         return count($foodsaverIds) === count($existing);
-    }
-
-    public function getUserFromEmail(string $email): array
-    {
-        return $this->db->fetchByCriteria(
-            'fs_foodsaver',
-            [
-                'id',
-                'name',
-                'email',
-            ],
-            ['email' => $email]
-        );
     }
 
     public function changeUserVerification(int $userId, int $actorId, bool $newStatus): void

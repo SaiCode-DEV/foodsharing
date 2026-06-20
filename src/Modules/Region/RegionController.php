@@ -256,10 +256,13 @@ final class RegionController extends FoodsharingController
     #[Route(path: '/region/denied/{deniedRegionId}', name: 'regionDenied', requirements: ['deniedRegionId' => Requirement::POSITIVE_INT])]
     public function missingMembershipRedirect(int $deniedRegionId): Response
     {
-        $deniedRegionType = $this->regionGateway->getType($deniedRegionId);
+        if ($deniedRegionId === RegionIDs::ROOT) {
+            return $this->redirectToRoute('dashboard');
+        }
+        $deniedRegion = $this->regionGateway->getRegion($deniedRegionId);
 
         // For denied regions, always redirect to their public region page.
-        if (UnitType::isRegion($deniedRegionType)) {
+        if (UnitType::isRegion($deniedRegion['type'])) {
             return $this->redirect('/region/' . $deniedRegionId . '?denied=' . $deniedRegionId);
         }
 
@@ -268,7 +271,7 @@ final class RegionController extends FoodsharingController
         // (can only happen for groups that don't have a region parent until root)
         if (empty($redirects)) {
             $this->flashMessageHelper->error($this->translator->trans('region.denied.some_group', [
-                'name' => $this->regionGateway->getRegionName($deniedRegionId),
+                'name' => $deniedRegion['name'],
             ]));
 
             return $this->redirectToRoute('dashboard');
@@ -277,8 +280,8 @@ final class RegionController extends FoodsharingController
         $redirect = end($redirects);
 
         // If User is member of the direct parent region/group of the denied group, show it's groups page.
-        if ((UnitType::isGroup($deniedRegionType) && $redirect->isMember) &&
-            $redirect->id === $this->regionGateway->getParentId($deniedRegionId)
+        if ((UnitType::isGroup($deniedRegion['type']) && $redirect->isMember) &&
+            $redirect->id === $deniedRegion['parent_id']
         ) {
             return $this->redirect('/groups?p=' . $redirect->id . '&denied=' . $deniedRegionId);
         }
