@@ -1024,7 +1024,7 @@ group:
     category:
       default: Dalsze zespoły
       archived: Zarchiwizowane zespoły
-      project: Zespół projektowy
+      project: Zespoły projektowe
       administrative: Zespoły zarządzające
       development: Zespoły kreatywne
       exchange: Zespoły dyskusyjne
@@ -3844,7 +3844,37 @@ help:
         '
     moderatorForumHide:
       title: 'Ukrywanie na forum przez moderatorów/ki'
-      md: ''
+      md: '###### Kim jest moderator/ka?
+
+        Moderatorzy/ki zespołu lub rejonu to zwykle administratorzy/ki lub ambasadorzy/ki.
+        Jeśli w rejonie istnieje zespół GOALS *Moderacja*, administratorzy/ki tego
+        zespołu przejmują rolę moderatorów/ek.
+
+        ---
+
+        ###### Ukrywanie na forach
+
+        Jeśli ta opcja jest aktywna, moderatorzy/ki mogą ukrywać wszystkie posty na
+        forum, nie tylko swoje własne. Muszą przy tym podać uzasadnienie, dlaczego
+        ukryli/ły post lub cały wątek. Po tym post pozostaje przez trzy kolejne miesiące
+        dostępny dla moderatorów/ek i może też w tym czasie zostać odtworzony. Inni/e
+        użytkowcy/czki (bez uprawnień organizacyjnych) nie mają więcej do niego dostępu.
+        Po tych trzech miesiącach nie będzie można już odtworzyć ukrytego postu i
+        zostanie on ostatecznie usunięty z bazy danych.
+
+        ---
+
+        ###### Gdzie można użyć tej opcji?
+
+        W lokalnych zespołach rozpatrujących skargi i radach arbitrażowych (zespoły
+        GOALS) ta funkcja jest konieczna z powodów ochrony danych.
+
+        Inne zespoły mogą się opowiedzieć za uprawnieniami administratorów/ek do ukrywania
+        postów poprzez wewnętrzne głosowanie i wysłać link do pomyślnie przeprowadzonego
+        głosowania na adres ags.bezirke@foodsharing.network. Dla lokalnych rejonów
+        ta opcja nie jest przewidziana.
+
+        '
     my_resources:
       title: 'Własne zasoby'
       md: 'W tym obszarze możesz zarządzać swoimi własnymi zasobami; wprowadzić nowy
@@ -3956,6 +3986,19 @@ help:
         Zespoły, które już nie są aktywne, mogą być zarchiwizowane. W ten sposób lista zespołów pozostaje przejrzysta, bo zarchiwizowane zespoły są wydzielone i pokazywane na końcu. Dzięki temu nie można ich pomylić z aktywnymi zespołami, podczas gdy treści zespołu pozostają zachowane i dostępne.
     group_category:
       title: Typy zespołów
+      md: |
+        Administratorzy/ki mogą przyporządkowywać swoje zespoły jednemu z 5 typów. Te typy różnią się istotnie w sposobie działania i celach:
+
+        ###### Zespoły kreatywne
+        Zespoły kreatywne aktywnie pracują nad jakimś konkretnym tematem. Są aktywne długoterminowo i samodzielnie podejmują decyzje w swoim obszarze działalności.
+        ###### Zespoły dyskusyjne
+        W centrum uwagi w tych zespołach stoją rundy dyskusyjne na jakiś określony temat. Tutaj nie podejmuje się więc żadnych decyzji. Adres email zespołu służy też osobom niebędącym członkami jako punkt kontaktowy w razie pytań na ten określony temat. 
+        ###### Zespoły zarządzające
+        Zespoły zarządzające zostały utworzone do zadań stałych (np. moderacja forum) i nie opracowują przy tym żadnych nowych treści. Często administratorzy/ki lub członkowie mają szczególne uprawnienia, które są związane z członkostwem w zespole, aby móc przejmować te zadania.
+        ###### Zespoły projektowe
+        Zespoły projektowe pracują nad jakimś ograniczonym w czasie projektem, który tematycznie nie pasuje do żadnego zespołu kreatywnego albo łączy wiele zespołów. Po zakończeniu projektu zespoły projektowe są z reguły archiwizowane. 
+        ###### Zespoły zarchiwizowane
+        Zespoły, które już nie są aktywne, mogą być zarchiwizowane. W ten sposób lista zespołów pozostaje przejrzysta, bo zarchiwizowane zespoły są wydzielone i pokazywane na końcu. Dzięki temu nie można ich pomylić z aktywnymi zespołami, podczas gdy treści zespołu pozostają zachowane i dostępne.
     inactive_groups:
       title: Nieaktywne zespoły
       md: |
