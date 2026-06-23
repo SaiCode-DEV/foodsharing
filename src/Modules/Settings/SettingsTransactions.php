@@ -206,11 +206,12 @@ class SettingsTransactions
 
     public function abortEMailChange(string $token)
     {
-        $userId = $this->session->id();
-        $newEmail = $this->settingsGateway->getNewMail($userId, $token);
+        $mailChange = $this->settingsGateway->getMailChangeByToken($token);
+        $userId = $mailChange['foodsaver_id'];
+        $newEmail = $mailChange['newmail'];
         $currentEmail = $this->foodsaverGateway->getEmailAddress($userId);
 
-        $this->settingsGateway->abortChangemail($userId);
+        $this->settingsGateway->deleteMailChangeByToken($token);
         $this->settingsGateway->logChangedSetting(
             $userId,
             ['emailAbort' => $currentEmail],
@@ -227,12 +228,13 @@ class SettingsTransactions
      */
     public function verifyAndCompleteEMailChange(string $token)
     {
-        $userId = $this->session->id();
+        $mailChange = $this->settingsGateway->getMailChangeByToken($token);
+        $userId = $mailChange['foodsaver_id'];
+        $newEmail = $mailChange['newmail'];
 
-        $newEmail = $this->settingsGateway->getNewMail($userId, $token);
         $inUse = $this->foodsaverGateway->emailExists($newEmail);
         if ($inUse) {
-            $this->settingsGateway->abortChangemail($userId);
+            $this->settingsGateway->deleteMailChangeByToken($token);
             throw new \ValueError('Email address is already in use.');
         }
         $currentEmail = $this->foodsaverGateway->getEmailAddress($userId);

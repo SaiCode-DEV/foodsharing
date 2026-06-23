@@ -22,10 +22,6 @@ class EMailVerifyController extends FoodsharingController
     #[Route('/user/current/settings/email/verify', name: 'new_user_email_verify')]
     public function emailVerify(Request $request): Response
     {
-        if (!$this->session->id()) {
-            $this->routeHelper->goLoginAndExit();
-        }
-
         $token = $request->query->get('token', '');
 
         try {
@@ -41,10 +37,6 @@ class EMailVerifyController extends FoodsharingController
     #[Route('/user/current/settings/email/verifyAbort', name: 'abort_email_verify')]
     public function emailCancelVerify(Request $request): Response
     {
-        if (!$this->session->id()) {
-            $this->routeHelper->goLoginAndExit();
-        }
-
         $token = $request->query->get('token', '');
 
         try {

@@ -96,11 +96,6 @@ class SettingsGateway extends BaseGateway
         );
     }
 
-    public function abortChangemail(int $fsId): int
-    {
-        return $this->deleteMailChanges($fsId);
-    }
-
     private function deleteMailChanges(int $fsId): int
     {
         return $this->db->delete(
@@ -109,15 +104,27 @@ class SettingsGateway extends BaseGateway
         );
     }
 
-    public function getNewMail(int $fsId, string $token): ?string
+    /**
+     * Looks up a pending email change by token only (without requiring a user ID).
+     *
+     * @return array{foodsaver_id: int, newmail: string}
+     *
+     * @throws \Foodsharing\Modules\Core\DatabaseNoValueFoundException if the token is invalid
+     */
+    public function getMailChangeByToken(string $token): array
     {
-        return $this->db->fetchValueByCriteria(
+        return $this->db->fetchByCriteria(
             'fs_mailchange',
-            'newmail',
-            [
-                'token' => strip_tags($token),
-                'foodsaver_id' => $fsId
-            ]
+            ['foodsaver_id', 'newmail'],
+            ['token' => strip_tags($token)]
+        );
+    }
+
+    public function deleteMailChangeByToken(string $token): int
+    {
+        return $this->db->delete(
+            'fs_mailchange',
+            ['token' => strip_tags($token)]
         );
     }
 
