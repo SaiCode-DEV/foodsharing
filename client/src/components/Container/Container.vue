@@ -112,6 +112,11 @@ export default {
     }
   },
   methods: {
+    // Opens the container without persisting the override, e.g. when a deep link
+    // (notification) targets content inside it. The stored collapse state is kept.
+    expand () {
+      this.isExpanded = true
+    },
     toggleExpanded () {
       this.setExpanded(!this.isExpanded)
       this.$emit(this.isExpanded ? 'expand' : 'reduce')

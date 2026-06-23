@@ -72,7 +72,7 @@ class WallPostTransactions
             }
         }
 
-        $bellData = $this->getWallPostBellData($wallPost, $target, $targetId);
+        $bellData = $this->getWallPostBellData($wallPost, $target, $targetId, $postId);
         if ($bellData) {
             $this->bellTransactions->addGroupedBellEvent($bellData['recipients'], $bellData['bell'], $postId);
         }
@@ -115,7 +115,7 @@ class WallPostTransactions
         $this->wallPostGateway->deletePost($postId, $target);
     }
 
-    private function getWallPostBellData(?WallPost $wallPost, WallType $target, int $targetId): ?array
+    private function getWallPostBellData(?WallPost $wallPost, WallType $target, int $targetId, ?int $postId = null): ?array
     {
         switch ($target) {
             case WallType::QUIZ_QUESTION:
@@ -153,11 +153,18 @@ class WallPostTransactions
                 break;
             case WallType::STORE:
                 $recipients = array_column($this->storeGateway->getStoreTeam($targetId), 'id');
+                // Deep-link to the new post so the wall is opened and scrolled into view on click.
+                // Query param (not a fragment) and prefixed with the wall type, so the link
+                // stays unambiguous when a page hosts several walls of different types.
+                $href = '/store/' . $targetId;
+                if ($postId !== null) {
+                    $href .= '?showPost=store-' . $postId;
+                }
                 $bell = Bell::create(
                     'store_wall_post_title',
                     'store_wall_post',
                     'fas fa-thumbtack',
-                    ['href' => '/store/' . $targetId],
+                    ['href' => $href],
                     ['name' => $this->storeGateway->getStoreName($targetId)],
                     BellType::createIdentifier(BellType::STORE_WALL_POST, $targetId)
                 );

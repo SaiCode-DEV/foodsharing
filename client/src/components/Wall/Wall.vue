@@ -2,6 +2,7 @@
   <!-- TODO create a way to restrict access to image sending to certain group -->
   <Container
     v-if="(posts.length || mayPost) && loaded"
+    ref="wallContainer"
     :title="title ?? $t('wall.name')"
     :tag="`wall-${target}`"
     :hide-header="hideHeader"
@@ -102,6 +103,8 @@ export default {
       newPostText: '',
       hasImages: false,
       showLoadMore: true,
+      // Post id from a deep link (e.g. `?showPost=store-123` in a notification URL), or null.
+      linkedPostId: null,
       loading: {
         morePosts: true,
         sendPost: false,
@@ -113,10 +116,33 @@ export default {
       return this.newPostText.trim().length > 0 || this.hasImages
     },
   },
-  created () {
-    this.loadMorePosts()
+  async created () {
+    this.parseDeepLink()
+    await this.loadMorePosts()
+    await this.openLinkedPost()
   },
   methods: {
+    parseDeepLink () {
+      // Notification deep link: `?showPost=<wallType>-<postId>` (e.g. `?showPost=store-123`).
+      // The wall type prefix keeps it unambiguous when several walls share a page —
+      // only react when the type matches this wall's target.
+      const showPost = new URLSearchParams(window.location.search).get('showPost')
+      const match = showPost?.match(/^([a-z_]+)-(\d+)$/)
+      if (match && match[1] === this.target) {
+        this.linkedPostId = parseInt(match[2], 10)
+      }
+    },
+    // When opened via a deep link (e.g. from a notification), make sure the wall is
+    // expanded and scroll the linked post into view — even if it was collapsed before.
+    async openLinkedPost () {
+      if (this.linkedPostId === null) return
+      if (!this.posts.some(post => post.id === this.linkedPostId)) return
+      await this.$nextTick()
+      this.$refs.wallContainer?.expand()
+      await this.$nextTick()
+      const el = document.getElementById(`wallpost-${this.linkedPostId}`)
+      el?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    },
     async loadMorePosts () {
       this.loading.morePosts = true
       this.page++
