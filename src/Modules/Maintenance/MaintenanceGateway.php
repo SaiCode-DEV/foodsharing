@@ -22,16 +22,6 @@ class MaintenanceGateway extends BaseGateway
     }
 
     /**
-     * Deletes all outdated entries from the blocked IPs.
-     *
-     * @return int the number of deleted entries
-     */
-    public function deleteOldIpBlocks(): int
-    {
-        return $this->db->execute('DELETE FROM `fs_ipblock` WHERE UNIX_TIMESTAMP(NOW()) > UNIX_TIMESTAMP(start)+duration ')->rowCount();
-    }
-
-    /**
      * Makes sure that all foodsavers in regions that have master regions are also members of the master region.
      */
     public function masterRegionUpdate(): void

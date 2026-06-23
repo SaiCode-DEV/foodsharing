@@ -28,7 +28,6 @@ class MaintenanceCleanupLowPriorityCommand extends Command
         $this->maintenanceControl->deleteImages();
         $this->maintenanceControl->deleteUnusedImages();
         $this->maintenanceControl->deleteOldPassRequests();
-        $this->maintenanceControl->deleteOldIpBlocks();
         $this->maintenanceControl->cleanOldQuizSessionData();
         $this->maintenanceControl->deleteTestQuizSessions();
         $this->maintenanceControl->deleteHiddenForumPosts();

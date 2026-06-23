@@ -205,24 +205,6 @@ class BasketGateway extends BaseGateway
         );
     }
 
-    public function addTypes(int $basket_id, array $types): void
-    {
-        if (!empty($types)) {
-            foreach ($types as $type) {
-                $this->db->insert('fs_basket_has_types', ['basket_id' => $basket_id, 'types_id' => $type]);
-            }
-        }
-    }
-
-    public function addKind(int $basket_id, array $kinds): void
-    {
-        if (!empty($kinds)) {
-            foreach ($kinds as $kind) {
-                $this->db->insert('fs_basket_has_art', ['basket_id' => $basket_id, 'art_id' => $kind]);
-            }
-        }
-    }
-
     public function removeBasket(int $basketId): int
     {
         return $this->db->update(

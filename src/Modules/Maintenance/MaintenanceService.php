@@ -270,13 +270,6 @@ class MaintenanceService
         }
     }
 
-    public function deleteOldIpBlocks(): void
-    {
-        ConsoleHelper::info('deleting old blocked IPs...');
-        $count = $this->maintenanceGateway->deleteOldIpBlocks();
-        ConsoleHelper::success($count . ' entries deleted');
-    }
-
     /**
      * Removes questions and results from finished quiz sessions older than 2 weeks.
      */
