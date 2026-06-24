@@ -3828,7 +3828,30 @@ help:
         wszyscy mogą przyjść.\n"
     reportReasons:
       title: 'Formularz skarg'
-      md: ''
+      md: 'Poprzez formularz skarg foodsaverzy/ki mogą bezpośrednio zgłaszać naruszenie
+        zasad. Przy aktywacji osoby odpowiedzialne za skargi szybko i prosto otrzymują
+        powiadomienia o w ten sposób złożonych skargach.
+
+        ---
+
+        Zespół rozpatrujący skargi w danym rejonie może ustalić, jakie skargi są wyświetlane
+        w formularzu skarg.
+
+        Można przy tym wybrać między uproszczonymi i rozszerzonymi powodami skarg.
+        Przy rozszerzonych powodach skarg zawarte są wszystkie reguły wymienione [tutaj
+        w wiki pod B](https://wiki.foodsharing.de/Verhaltensregeln#B.29_Verhalten_bei_Abholungen).
+
+        Poza tym można wybrać, czy opcja "inne" ma być wymieniona jako dodatkowy powód
+        skargi.
+
+        ---
+
+        Można przekazywać lokalnemu zespołowi rozpatrującemu skargi zalecenia co do
+        ustawień. Decyzja oraz odpowiedzialność za te ustawienia należy jednak tylko
+        do administratorów/ek lokalnego zespołu rozpatrującego skargi, którzy nie
+        *muszą* stosować się do tych zaleceń.
+
+        '
     achievementIcon:
       title: 'Ikony do stickerów'
       md: 'Każdy sticker ma ikonę, czyli małą grafikę, która na pierwszy rzut oka
@@ -3929,7 +3952,24 @@ help:
         '
     achievementDuplicateMode:
       title: 'Wielokrotne przyznawanie stickerów'
-      md: ''
+      md: 'Stickery mogą służyć jako oznaczenie w bardzo różnych sytuacjach. Dlatego
+        można ustawić, czy sticker może być jednocześnie przyznany wielokrotnie tej
+        samej osobie.
+
+
+        -**Nadpisanie:** Nie można jednocześnie wielokrotnie otrzymać stickera. Jeśli
+        sticker zostanie przyznany ponownie, aktualne przyznanie zastępuje lub przedłuża
+        poprzednie. Tego używa się np. dla szkolenia z zasad higieny. Kto uaktualnia
+        szkolenie, tego sticker jest po prostu automatycznie przedłużany. Wybierz
+        *Nadpisanie*, jeśli sticker ma oznaczać aktualny, jednoznaczny stan.
+
+        -**Przyznanie wielokrotne:** Możliwe jest jednoczesne wielokrotne przyznanie.
+        Wielokrotnie przyznane stickery są zgrupowane na profilu, wszystkie istotne
+        informacje są jednak dostępne. Tak mogą być np. dokumentowane odbiory próbne,
+        które trzeba wykonać kilka razy. Wybierz *Przyznanie wielokrotne*, jeśli każde
+        przyznanie jest ważne i musi być możliwe do prześledzenia.
+
+        '
     masterRegion:
       title: 'Master-rejon'
       md: 'Jeśli rejony mają master-rejon, wszyscy członkowie tego rejonu są też automatycznie
@@ -3966,7 +4006,32 @@ help:
         '
     achievementVisibility:
       title: 'Widzialność stickerów'
-      md: ''
+      md: 'Widoczność stickera określa, kto może zobaczyć, czy przyznano komuś sticker.
+        Dostępne są następujące opcje:
+
+
+        -**Ukryty:** Sticker jest widoczny tylko dla użytkowników/czek z uprawnieniami
+        organizacyjnymi.
+
+        hidden: "Nie jest wyświetlany nikomu"
+
+        -**Prywatny:** Tylko dana osoba oraz administratorzy/ki i ambasadorzy/ki podanego
+        obszaru ważności widzą sticker.
+
+        -**Tylko koordynatorzy/ki punktu:** Sticker jest widoczny dla danej osoby
+        i wszystkich koordynatorów/ek punktu w wybranym obszarze.
+
+        - **W obszarze ważności:** Sticker jest widoczny dla wszystkich użytkowników/czek,
+        którzy/e są członkami podanego rejonu.
+
+        - **Globalny:** Sticker jest widoczny dla wszystkich zarejestrowanych użytkowników/czek.
+
+
+        Zastanów się zawsze, jak daleko sticker można ograniczyć widoczność stickera,
+        aby nie ujawniać niepotrzebnie wiadomości o danej osobie. Stopień widoczności
+        można później dostosować.
+
+        '
     achievements:
       md: 'System stickerów można używać, aby oznaczać specyficzne dla użytkownika/czki
         właściwości, jak na przykład uczestnictwo w określonych szkoleniach. Stickery
@@ -4835,7 +4900,7 @@ startpage:
     text: "Próbujemy znaleźć sponsorów na wszelkie wydatki. W niektórych przypadkach
       jednak nie udaje nam się to, bądź nie w całości, \nnp. przy nakładach na finansowanie
       eventów, poradnictwo prawne lub ubezpieczenia.\nCieszy nas każde wsparcie.\n"
-  slogan_1: ''
+  slogan_1: 'Razem na rzecz większego szacunku dla żywności'
   registernow: 'Zarejestruj się teraz'
   this_is_how_it_works: 'Tak to działa'
   beresponsible: 'Bądź odpowiedzialny/a'
