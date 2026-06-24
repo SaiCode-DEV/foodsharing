@@ -41,7 +41,7 @@ import { useUserStore } from '@/stores/user'
 import Avatar from '@/components/Avatar/Avatar.vue'
 import Markdown from '@/components/Markdown/Markdown'
 import Gallery from '@/components/Images/Gallery'
-import TimeDisplay from '../TimeDisplay.vue'
+import TimeDisplay from '@/components/TimeDisplay.vue'
 import ReactionsBar from './ReactionsBar.vue'
 
 export default {
