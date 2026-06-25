@@ -4,7 +4,7 @@
     v-if="(posts.length || mayPost) && loaded"
     ref="wallContainer"
     :title="title ?? $t('wall.name')"
-    :tag="`wall-${target}`"
+    :tag="`wall-${target}-${targetId}`"
     :hide-header="hideHeader"
   >
     <div v-if="mayPost" class="list-group-item">
