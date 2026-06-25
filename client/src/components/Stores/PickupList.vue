@@ -193,9 +193,9 @@ export default {
     },
     async tryLoadPickups (silent = false) {
       if (!silent) this.isLoading = true
-      // skip loading when tab is not visible
-      if (document.hidden) {
-        if (!silent) this.isLoading = false
+      // skip periodic background updates when the tab is hidden,
+      // but always run the initial/explicit load
+      if (silent && document.hidden) {
         return
       }
       try {
