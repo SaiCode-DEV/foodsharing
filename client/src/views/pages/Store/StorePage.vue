@@ -106,7 +106,6 @@
             />
             <PickupList
               v-if="permissions.maySeePickup"
-              :key="'pickupList' + componentKey"
               :may-see-pickup="permissions.maySeePickup"
               :store-id="storeId"
               :store-title="storeInformation.name"
