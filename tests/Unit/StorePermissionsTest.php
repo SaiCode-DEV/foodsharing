@@ -16,6 +16,7 @@ use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\PassportGenerator\PassportGeneratorTransaction;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\StoreGateway;
+use Foodsharing\Modules\Store\TeamStatus;
 use Foodsharing\Modules\StoreChain\StoreChainGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\ProfilePermissions;
@@ -131,11 +132,88 @@ final class StorePermissionsTest extends Unit
         $this->assertTrue($this->storePermissions->mayCreateStore(1));
     }
 
+    public function testMayBecomeStoreManagerForRegularMember(): void
+    {
+        $storePermissions = $this->buildStorePermissionsForManagerCheck(TeamStatus::Member);
+        $this->assertTrue($storePermissions->mayBecomeStoreManager(1, 99, Role::STORE_MANAGER));
+    }
+
+    public function testMayBecomeStoreManagerForJumper(): void
+    {
+        $storePermissions = $this->buildStorePermissionsForManagerCheck(TeamStatus::WaitingList);
+        $this->assertTrue($storePermissions->mayBecomeStoreManager(1, 99, Role::STORE_MANAGER));
+    }
+
+    public function testCannotBecomeStoreManagerWhenNotInTeam(): void
+    {
+        $storePermissions = $this->buildStorePermissionsForManagerCheck(TeamStatus::NoMember);
+        $this->assertFalse($storePermissions->mayBecomeStoreManager(1, 99, Role::STORE_MANAGER));
+    }
+
+    public function testCannotBecomeStoreManagerWhenOnlyApplied(): void
+    {
+        $storePermissions = $this->buildStorePermissionsForManagerCheck(TeamStatus::Applied);
+        $this->assertFalse($storePermissions->mayBecomeStoreManager(1, 99, Role::STORE_MANAGER));
+    }
+
+    public function testCannotBecomeStoreManagerWhenOnlyInvited(): void
+    {
+        $storePermissions = $this->buildStorePermissionsForManagerCheck(TeamStatus::Invited);
+        $this->assertFalse($storePermissions->mayBecomeStoreManager(1, 99, Role::STORE_MANAGER));
+    }
+
+    public function testCannotBecomeStoreManagerWithInsufficientRole(): void
+    {
+        $storePermissions = $this->buildStorePermissionsForManagerCheck(TeamStatus::Member);
+        $this->assertFalse($storePermissions->mayBecomeStoreManager(1, 99, Role::FOODSAVER));
+    }
+
+    public function testCannotBecomeStoreManagerWhenAlreadyManager(): void
+    {
+        $storePermissions = $this->buildStorePermissionsForManagerCheck(TeamStatus::Coordinator, [99]);
+        $this->assertFalse($storePermissions->mayBecomeStoreManager(1, 99, Role::STORE_MANAGER));
+    }
+
     private function configureSessionMock(array $roleToMay): void
     {
         $matcher = $this->exactly(count($roleToMay));
 
         $this->sessionMock->expects($matcher)->method('mayRole')
             ->willReturnCallback(fn ($role) => $roleToMay[$role->value]);
+    }
+
+    /**
+     * Builds a StorePermissions instance with a mocked StoreGateway so that the team status of the
+     * user under test and the list of current managers can be controlled. The remaining dependencies
+     * used by the store manager count restriction are stubbed so that the restriction does not apply.
+     */
+    private function buildStorePermissionsForManagerCheck(int $teamStatus, array $currentManagers = []): StorePermissions
+    {
+        $storeGatewayMock = $this->createMock(StoreGateway::class);
+        $storeGatewayMock->method('getStoreManagers')->willReturn($currentManagers);
+        $storeGatewayMock->method('getUserTeamStatus')->willReturn($teamStatus);
+        $storeGatewayMock->method('getStoreRegionId')->willReturn(1);
+
+        $sessionMock = $this->createMock(Session::class);
+        $sessionMock->method('mayRole')->willReturn(false);
+
+        $groupFunctionGatewayMock = $this->createMock(GroupFunctionGateway::class);
+        $groupFunctionGatewayMock->method('getRegionFunctionGroupId')->willReturn(0);
+
+        $currentUserUnitsMock = $this->createMock(CurrentUserUnitsInterface::class);
+        $currentUserUnitsMock->method('isAdminFor')->willReturn(false);
+
+        return new StorePermissions(
+            $storeGatewayMock,
+            $sessionMock,
+            $groupFunctionGatewayMock,
+            $this->tester->get(ProfilePermissions::class),
+            $this->regionGatewayMock,
+            $currentUserUnitsMock,
+            $this->tester->get(AchievementGateway::class),
+            $this->tester->get(FoodsaverGateway::class),
+            $this->tester->get(PassportGeneratorTransaction::class),
+            $this->tester->get(StoreChainGateway::class),
+        );
     }
 }

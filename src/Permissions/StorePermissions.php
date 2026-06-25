@@ -449,6 +449,14 @@ class StorePermissions
             return false;
         }
 
+        // A user has to be an active team member before becoming a manager. Promoting a
+        // non-member (or someone who only applied or was invited) would leave the team
+        // entry in an inconsistent state, e.g. without a join date.
+        $teamStatus = $this->storeGateway->getUserTeamStatus($userId, $storeId);
+        if (!in_array($teamStatus, [UserTeamStatus::Member, UserTeamStatus::WaitingList], true)) {
+            return false;
+        }
+
         return $userRole->isAtLeast(Role::STORE_MANAGER);
     }
 
