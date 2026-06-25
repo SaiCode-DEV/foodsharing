@@ -196,7 +196,9 @@
       </div>
     </div>
 
-    <div class="row">
+    <!-- The auto-delete setting may only be changed by the account owner (see #2697),
+         so hide the control for ORGA/BOT viewing someone else's profile. -->
+    <div v-if="isMe" class="row">
       <div class="col-md-6">
         <b-form-group :label="$t('no_automatic_delete')">
           <b-form-select v-model="settings.noAutoDelete" :options="noAutoDeleteOptions" />
@@ -292,7 +294,7 @@ const settings = ref({
   aboutMeInternal: '',
   position: '',
   region: { id: null, name: '' },
-  noAutoDelete: false,
+  noAutoDelete: null,
 })
 
 const birthdayFormatted = computed({

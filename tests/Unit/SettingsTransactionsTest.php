@@ -9,6 +9,7 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\Modules\BusinessCard\BusinessCardGateway;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\UserOptionType;
+use Foodsharing\Modules\Foodsaver\DTO\EditableProfileDTO;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\FoodsaverTransactions;
 use Foodsharing\Modules\Login\LoginGateway;
@@ -16,6 +17,7 @@ use Foodsharing\Modules\Mails\MailsGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Modules\Settings\SettingsTransactions;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Modules\Unit\UnitGateway;
 use Foodsharing\Permissions\SettingsPermissions;
 use Foodsharing\RestApi\Models\Settings\EmailChangeRequest;
@@ -42,6 +44,13 @@ class SettingsTransactionsTest extends Unit
     public function _before(): void
     {
         $this->session = $this->createMock(Session::class);
+        // The permission class must share the *same* mocked session as the transaction,
+        // otherwise permission checks would run against a different (real) session.
+        $settingsPermissions = new SettingsPermissions(
+            $this->session,
+            $this->tester->get(RegionGateway::class),
+            $this->tester->get(CurrentUserUnitsInterface::class),
+        );
         $this->transaction = new SettingsTransactions(
             $this->tester->get(FoodsaverGateway::class),
             $this->tester->get(LoginGateway::class),
@@ -50,7 +59,7 @@ class SettingsTransactionsTest extends Unit
             $this->tester->get(EmailHelper::class),
             $this->tester->get(TranslatorInterface::class),
             $this->session,
-            $this->tester->get(SettingsPermissions::class),
+            $settingsPermissions,
             $this->tester->get(FoodsaverTransactions::class),
             $this->tester->get(UnitGateway::class),
             $this->tester->get(RegionGateway::class),
@@ -291,6 +300,42 @@ class SettingsTransactionsTest extends Unit
         $this->expectException(BadRequestHttpException::class);
         $this->transaction->requestPasswordChange($request);
         $this->tester->seeInDatabase('fs_foodsaver', ['id' => $foodsaver['id'], 'password' => $foodsaver['password']]);
+    }
+
+    public function testPatchProfileAllowsUserToChangeAutoDeleteSettingForThemselves(): void
+    {
+        $foodsaver = $this->tester->createFoodsaver(null, ['no_automatic_delete' => 0]);
+        $this->session->expects($this->any())->method('id')->willReturn($foodsaver['id']);
+        // Acting as the user themselves, no elevated role required
+        $this->session->expects($this->any())->method('mayRole')->willReturn(false);
+
+        $dto = new EditableProfileDTO();
+        $dto->id = $foodsaver['id'];
+        $dto->noAutoDelete = true;
+
+        $this->transaction->patchProfile($foodsaver['id'], $dto);
+
+        // The user is allowed to change their own auto-delete setting
+        $this->tester->seeInDatabase('fs_foodsaver', ['id' => $foodsaver['id'], 'no_automatic_delete' => 1]);
+    }
+
+    public function testPatchProfilePreventsOrgaFromChangingAutoDeleteSettingOfOtherUser(): void
+    {
+        $foodsaver = $this->tester->createFoodsaver(null, ['no_automatic_delete' => 0]);
+        $orga = $this->tester->createOrga();
+
+        // Acting as an ORGA editing a *different* user's profile
+        $this->session->expects($this->any())->method('id')->willReturn($orga['id']);
+        $this->session->expects($this->any())->method('mayRole')->willReturn(true);
+
+        $dto = new EditableProfileDTO();
+        $dto->id = $foodsaver['id'];
+        $dto->noAutoDelete = true;
+
+        $this->transaction->patchProfile($foodsaver['id'], $dto);
+
+        // Even an ORGA must not be able to change the auto-delete setting of another account (#2697)
+        $this->tester->seeInDatabase('fs_foodsaver', ['id' => $foodsaver['id'], 'no_automatic_delete' => 0]);
     }
 
     public function testRequestPasswordChangeValid(): void

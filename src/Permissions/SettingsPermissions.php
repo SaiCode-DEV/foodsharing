@@ -47,6 +47,16 @@ class SettingsPermissions
     }
 
     /**
+     * Determines if the current user is allowed to change the "no automatic delete after 5 years of inactivity"
+     * setting of the profile with the given id. This setting may only ever be changed by the user themselves,
+     * not by ORGA, BOT or ambassadors.
+     */
+    public function mayChangeAutoDeleteSetting(int $userId): bool
+    {
+        return $this->session->id() === $userId;
+    }
+
+    /**
      * Determines if the current user is allowed to change verified data (name, birthdate) of the profile with
      * the given id.
      */

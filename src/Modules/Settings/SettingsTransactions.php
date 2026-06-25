@@ -346,6 +346,7 @@ class SettingsTransactions
     {
         $mayChangeVerifiedData = $this->settingsPermissions->mayChangeVerifiedData($userId);
         $mayEditProfileSettings = $this->settingsPermissions->mayEditProfileSettings($userId);
+        $mayChangeAutoDeleteSetting = $this->settingsPermissions->mayChangeAutoDeleteSetting($userId);
         $mayEditTeamSettings = $this->settingsPermissions->mayChangeTeamPageData($userId);
         $isOnTeamPage = $this->unitGateway->isUserOnTeamPage($userId);
         $mayChangeRole = $this->settingsPermissions->mayChangeRole();
@@ -374,6 +375,11 @@ class SettingsTransactions
             $editableProfileDTO->phone = $currentUserProfile['phone'];
             $editableProfileDTO->location = Address::createFromArray($currentUserProfile);
             $editableProfileDTO->coordinate = GeoLocation::createFromArray($currentUserProfile);
+        }
+
+        // The "no automatic delete after 5 years of inactivity" setting may only be changed by the user
+        // themselves, never by ORGA, BOT or ambassadors (see #2697).
+        if (!$mayChangeAutoDeleteSetting) {
             $editableProfileDTO->noAutoDelete = $currentUserProfile['no_automatic_delete'];
         }
 
