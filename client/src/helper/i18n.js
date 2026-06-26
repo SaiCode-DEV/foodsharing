@@ -30,9 +30,30 @@ function bestLocale (requested) {
   return DEFAULT_LOCALE
 }
 
+// vue-i18n (v9 message compiler, via the bridge) treats '@' as the linked-message
+// delimiter, so a literal '@' that is not valid linked syntax (e.g. the gender-neutral
+// Spanish "segur@" or an email address) throws "Invalid linked format" at translation
+// time (see #2718). Our translations never use linked messages, so escape every '@' to
+// the v9 literal "{'@'}" when messages are loaded. Doing this at the load layer keeps the
+// Weblate-managed source files untouched.
+export function escapeLinkedTokens (value) {
+  if (typeof value === 'string') {
+    return value.includes('@') ? value.replace(/@/g, "{'@'}") : value
+  }
+  if (Array.isArray(value)) {
+    return value.map(escapeLinkedTokens)
+  }
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(
+      Object.keys(value).map(key => [key, escapeLinkedTokens(value[key])]),
+    )
+  }
+  return value
+}
+
 function loadMessages (lang) {
   try {
-    return ctx(`./messages.${lang}.yml`)
+    return escapeLinkedTokens(ctx(`./messages.${lang}.yml`))
   } catch (e) {
     return null
   }
