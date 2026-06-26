@@ -2,6 +2,7 @@
   <Container
     :title="$t('statistics.lastMonth')"
     tag="publicRegionStatistics"
+    info-key="publicRegionStatistics"
   >
     <div
       v-for="(value, key) of displayableFields"

@@ -325,8 +325,8 @@ class StatsGateway extends BaseGateway
             LEFT OUTER JOIN (
                 SELECT
                     c.ancestor_id AS region_id,
-					COUNT(*) AS count,
-					SUM(w.weight) AS weight
+										COUNT(*) AS count,
+										SUM(w.weight) AS weight
                 FROM fs_bezirk_closure c
                 JOIN fs_bezirk r ON r.id = c.bezirk_id
                 JOIN fs_betrieb s ON s.bezirk_id = r.id

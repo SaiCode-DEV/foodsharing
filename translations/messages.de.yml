@@ -4322,6 +4322,16 @@ help:
       title: "Inaktive Gruppen"
       md: |
         Eine Gruppe wird als inaktiv markiert, sobald es länger als 6 Monate keinen neuen Post in ihrem Forum gab.
+    publicRegionStatistics:
+      title: Bezirksstatistiken der letzten 30 Tage
+      md: |
+        Diese Statistiken werden täglich neu berechnet. Hier findest du eine Erklärung, was die Zahlen genau bedeuten:
+        - **Aktive Foodsaver:innen** sind die verifizierten Foodsaver:innen, deren Stammbezirk dieser Bezirk oder ein Unterbezirk ist, und die in den letzten 30 Tagen mindestens einmal die Plattform genutzt haben.
+        - **Aktive Betriebskooperationen** sind die Betriebe des Bezirks (oder eines Unterbezirks), die von den Betriebsverantwortlichen als aktive Kooperation gekennzeichnet sind.
+        - Als **Lebensmittelrettungen** werden die von Foodsaver:innen gefüllten Abholslots in Betrieben des Bezirks (oder eines Unterbezirks) gezählt.
+        - **Lebensmittel gerettet**: Zu jedem Betrieb gibt es eine von den Betriebsverantwortlichen geschätzte durchschnittliche Abholmenge. Die angegebene Menge geretteter Lebensmittel entspricht demnach dem geschätzten Gesamtgewicht der durchgeführten Abholungen der letzten 30 Tage in allen Betrieben des Bezirks (oder eines Unterbezirks).
+        - **Aktive Fairteiler** sind die zum aktuellen Zeitpunkt als aktiv markierten Fairteiler des Bezirks (oder eines Unterbezirks).
+        - **Verteilte Essenskörbe** gibt an, wie oft in den letzten 30 Tagen über die Plattform-Funktion *"Essenskorb"* Lebensmittel von Foodsaver:innen des Bezirks (oder eines Unterbezirks) weitergegeben wurden. Oft wird ein sehr großer Teil der Lebensmittel ohne diese technische Unterstützung weiterverteilt. Ein niedriger Wert bedeutet hier daher nicht, dass wenig Lebensmittel weiterverteilt werden.
 
 team_page:
   board_member:
