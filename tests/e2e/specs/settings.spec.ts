@@ -93,7 +93,8 @@ test.describe("Settings", () => {
     await page.goto(`/user/${member.id}/settings`);
     await acceptanceHelper.waitForActiveAPICalls();
 
-    await page.getByRole("button", { name: "Profileinstellungen" }).click();
+    // A single tab (ambassador on another user's profile) is shown directly, with no
+    // tab-list step to click through on mobile (#2710).
 
     // Check last name field
     await expect(page.locator("#input-lastname")).toHaveValue(member.nachname);
@@ -220,7 +221,7 @@ test.describe("Settings", () => {
       { id: foodSaver.id },
     );
 
-    await page.getByRole("button", { name: "Profileinstellungen" }).click();
+    // The single profile tab is shown directly on mobile too — no tab-list step (#2710).
 
     // Assert that the settings form displays the expected data in specific fields
     await expect(page.locator("#input-firstname")).toHaveValue(expectedName);

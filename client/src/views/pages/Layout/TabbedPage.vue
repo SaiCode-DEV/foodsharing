@@ -30,6 +30,7 @@
         <template #title>
           <div class="mobile-page-header">
             <b-button
+              v-if="tabs.length > 1"
               variant="link"
               @click="activeTabIndex = null"
             >
@@ -164,8 +165,9 @@ const currentTabTitle = computed(() => {
 
 const checkMobile = () => {
   isMobile.value = window.innerWidth <= props.mobileBreakpoint
-  if (!isMobile.value && activeTabIndex.value === null) {
-    // If switching to desktop view, default to first tab if no tab is active
+  // Show the content directly (no list) on desktop, and on mobile when there is only a
+  // single tab — selecting it would be a pointless extra click (#2710).
+  if (activeTabIndex.value === null && (!isMobile.value || tabs.value.length === 1)) {
     activeTabIndex.value = 0
   }
 }
@@ -199,8 +201,9 @@ onMounted(() => {
     if (initialActiveIndex >= 0) {
       activeTabIndex.value = initialActiveIndex
     } else {
-      // Default to first tab on desktop, null (list view) on mobile
-      activeTabIndex.value = isMobile.value ? null : 0
+      // Default to first tab on desktop. On mobile, start with the tab list — unless there
+      // is only a single tab, which is shown directly (no list, no back button) (#2710).
+      activeTabIndex.value = (isMobile.value && tabs.value.length > 1) ? null : 0
     }
   }
 })
