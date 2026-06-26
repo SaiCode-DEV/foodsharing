@@ -160,7 +160,16 @@ export default {
     const root = document.querySelector(':root')
     const cssColorRules = Array.from(document.styleSheets)
       .filter(sheet => sheet.href === null || sheet.href.startsWith(window.location.origin))
-      .reduce((acc, sheet) => (acc = [...acc, ...Array.from(sheet.cssRules)]), [])
+      .reduce((acc, sheet) => {
+        // Reading cssRules throws a SecurityError for cross-origin stylesheets, which the
+        // same-origin filter above misses for injected/extension sheets that have href === null
+        // (#1636). Skip any sheet that can't be read instead of crashing the component.
+        try {
+          return [...acc, ...Array.from(sheet.cssRules)]
+        } catch {
+          return acc
+        }
+      }, [])
       .filter(rule => rule.selectorText === ':root')
       .reduce((acc, sheet) => (acc = [...acc, ...Array.from(sheet.style)]), [])
       .filter(name => name.startsWith('--') && name.includes('color'))
