@@ -41,7 +41,14 @@ test.describe("Store", () => {
       null,
       extraParams,
     );
-    storeManager = await foodsharing.createStoreCoordinator(null, extraParams);
+    storeManager = await foodsharing.createStoreCoordinator(null, {
+      ...extraParams,
+      // Use a fixed, already E.164-normalised number so it round-trips through
+      // callableNumber() (libphonenumber-js) unchanged. faker's random international
+      // numbers sometimes get reformatted on display (e.g. trunk "0" stripped), which
+      // made the verbatim getByText(storeManager.handy) assertion below flaky.
+      handy: "+4915123456789",
+    });
     foodsaverWithStoreManagerQuiz = await foodsharing.createStoreCoordinator(
       null,
       extraParams,
