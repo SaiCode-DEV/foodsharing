@@ -6,6 +6,7 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
+use Foodsharing\Modules\Core\DBConstants\Foodsaver\ChangeHistoryKey;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
@@ -97,7 +98,7 @@ class RegionRestController extends AbstractFoodsharingRestController
         $this->foodsaverGateway->revokeOAuthRefreshTokens($sessionId);
 
         if (!$this->currentUserUnits->getCurrentRegionId()) {
-            $this->settingsGateway->logChangedSetting($sessionId, ['bezirk_id' => 0], ['bezirk_id' => $regionId], ['bezirk_id']);
+            $this->settingsGateway->logSingleChangedSetting($sessionId, ChangeHistoryKey::JOINED_REGION, 0, $regionId);
             $this->foodsaverGateway->updateProfile($sessionId, ['bezirk_id' => $regionId]);
         }
 

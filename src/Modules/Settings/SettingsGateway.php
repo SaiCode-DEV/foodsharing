@@ -3,11 +3,11 @@
 namespace Foodsharing\Modules\Settings;
 
 use Carbon\Carbon;
-use DateTime;
 use DateTimeInterface;
 use DateTimeZone;
 use Exception;
 use Foodsharing\Modules\Core\BaseGateway;
+use Foodsharing\Modules\Core\DBConstants\Foodsaver\ChangeHistoryKey;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\UserOptionType;
 use Foodsharing\Modules\Core\DTO\Address;
@@ -16,26 +16,46 @@ use Foodsharing\Modules\Foodsaver\DTO\ReadableProfileSettings;
 
 class SettingsGateway extends BaseGateway
 {
-    public function logChangedSetting(int $fsId, array $old, array $new, array $logChangedKeys, int $changerId = null): void
+    /**
+     * Convenience method for storing a single entry in the foodsaver change history.
+     */
+    public function logSingleChangedSetting(int $fsId, ChangeHistoryKey $key, mixed $oldValue, mixed $newValue, ?int $changerId = null): void
+    {
+        $this->logChangedSetting($fsId, [$key->value => $oldValue], [$key->value => $newValue], $changerId);
+    }
+
+    /**
+     * Stores a list of entries in the foodsaver change history. This only logs entries if the keys exist in both the
+     * old and the new array and if the corresponding values are different.
+     *
+     * @param int $fsId the user who is affected by the changes
+     * @param array $old keys mapped to the old values
+     * @param array $new keys mapped to the new values
+     * @param int|null $changerId the user who caused the change, or null if it was caused by the user themselves
+     */
+    public function logChangedSetting(int $fsId, array $old, array $new, ?int $changerId = null): void
     {
         if (!$changerId) {
             $changerId = $fsId;
         }
         /* the logic is not exactly matching the update mechanism but should be close enough to get all changes... */
-        foreach ($logChangedKeys as $k) {
-            if (array_key_exists($k, $new) && $new[$k] != $old[$k]) {
-                $this->db->insert(
-                    'fs_foodsaver_change_history',
-                    [
-                        'date' => date(DateTime::ISO8601),
-                        'fs_id' => $fsId,
-                        'changer_id' => $changerId,
-                        'object_name' => $k,
-                        'old_value' => $old[$k],
-                        'new_value' => $new[$k]
-                    ]
-                );
+        $data = [];
+        foreach ($old as $k => $v) {
+            if (array_key_exists($k, $new) && $new[$k] != $v) {
+                $data[] = [
+                    'date' => date(DateTimeInterface::ATOM),
+                    'fs_id' => $fsId,
+                    'changer_id' => $changerId,
+                    'object_name' => $k,
+                    'old_value' => $v,
+                    'new_value' => $new[$k]
+                ];
             }
+        }
+
+        $parts = array_chunk($data, 10);
+        foreach ($parts as $part) {
+            $this->db->insertMultiple('fs_foodsaver_change_history', $part);
         }
     }
 

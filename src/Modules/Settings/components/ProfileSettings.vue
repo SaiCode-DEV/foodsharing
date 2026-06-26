@@ -425,6 +425,8 @@ function handleValidValue (data) {
 async function handleSubmit () {
   const nullableLocation = (!settings.value.location?.street && !settings.value.location?.postalCode && !settings.value.location?.city) ? null : settings.value.location
   const nullableCoordinates = (!settings.value.coordinate?.lat && !settings.value.coordinate?.lon) ? null : settings.value.coordinate
+  const birthday = new Date(settings.value.birthday)
+  birthday.setUTCHours(0, 0, 0, 0)
   const formData = {
     id: settings.value.id,
     firstName: settings.value.firstName,
@@ -432,7 +434,7 @@ async function handleSubmit () {
     lastName: settings.value.lastName,
     photo: settings.value.photo,
     gender: settings.value.gender,
-    birthday: settings.value.birthday,
+    birthday,
     mobile: settings.value.mobile.value,
     phone: settings.value.phone.value,
     location: nullableLocation,

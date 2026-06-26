@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\Settings;
 
 use Carbon\Carbon;
+use DateTimeZone;
 use Exception;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Bell\BellGateway;
@@ -174,12 +175,8 @@ class SettingsTransactions
 
         // log this change request
         $currentEmail = $this->foodsaverGateway->getEmailAddress($userId);
-        $this->settingsGateway->logChangedSetting(
-            $userId,
-            [ChangeHistoryKey::CHANGE_EMAIL_REQUEST => $currentEmail],
-            [ChangeHistoryKey::CHANGE_EMAIL_REQUEST => $request->email],
-            [ChangeHistoryKey::CHANGE_EMAIL_REQUEST],
-            $this->session->id()
+        $this->settingsGateway->logSingleChangedSetting($userId, ChangeHistoryKey::CHANGE_EMAIL_REQUEST,
+            $currentEmail, $request->email, $this->session->id()
         );
 
         // send a notification about the change to the old address
@@ -212,12 +209,7 @@ class SettingsTransactions
         $currentEmail = $this->foodsaverGateway->getEmailAddress($userId);
 
         $this->settingsGateway->deleteMailChangeByToken($token);
-        $this->settingsGateway->logChangedSetting(
-            $userId,
-            ['emailAbort' => $currentEmail],
-            ['emailAbort' => $newEmail],
-            ['emailAbort']
-        );
+        $this->settingsGateway->logSingleChangedSetting($userId, ChangeHistoryKey::CHANGE_EMAIL_REQUEST_ABORTED, $currentEmail, $newEmail);
     }
 
     /**
@@ -240,12 +232,7 @@ class SettingsTransactions
         $currentEmail = $this->foodsaverGateway->getEmailAddress($userId);
 
         $this->settingsGateway->changeMail($userId, $newEmail);
-        $this->settingsGateway->logChangedSetting(
-            $userId,
-            ['email' => $currentEmail],
-            ['email' => $newEmail],
-            ['email']
-        );
+        $this->settingsGateway->logSingleChangedSetting($userId, ChangeHistoryKey::CHANGE_EMAIL_REQUEST_COMPLETED, $currentEmail, $newEmail);
     }
 
     public function readProfile(int $userId): ReadableProfileSettings
@@ -404,6 +391,9 @@ class SettingsTransactions
      */
     private function logProfileSettings(int $userId, array $oldData, EditableProfileDTO $editableProfileDTO): void
     {
+        $oldData['geb_datum'] = Carbon::parse($oldData['geb_datum'])->format('Y-m-d');
+        $newBirthday = Carbon::make($editableProfileDTO->birthday, new DateTimeZone('Europe/Berlin'))?->format('Y-m-d');
+
         // Map the DTO fields to the database column names
         $trimIfNotNull = fn ($value) => is_null($value) ? null : strip_tags(trim((string)$value));
         $newDataAsArray = array_filter([
@@ -415,7 +405,7 @@ class SettingsTransactions
             'telefon' => $trimIfNotNull($editableProfileDTO->phone),
             'handy' => $trimIfNotNull($editableProfileDTO->mobile),
             'geschlecht' => $editableProfileDTO->gender,
-            'geb_datum' => $trimIfNotNull($editableProfileDTO->birthday),
+            'geb_datum' => $newBirthday,
             'rolle' => $editableProfileDTO->role,
             'bezirk_id' => $editableProfileDTO->regionId,
             'no_automatic_delete' => $editableProfileDTO->noAutoDelete,
@@ -426,7 +416,6 @@ class SettingsTransactions
             $userId,
             $oldData,
             $newDataAsArray,
-            array_keys($newDataAsArray),
             $currentUser
         );
     }
