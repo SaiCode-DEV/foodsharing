@@ -22,7 +22,10 @@
       >
         <i class="icon-subnav fas fa-envelope" />
         {{ $t('menu.entry.mailbox') }}
-        <div class="badge badge-danger badge-inline">{{ userStore.getMailUnreadCount }}</div>
+        <div
+          class="badge badge-danger badge-inline"
+          :class="{ 'overNinetyNine': String(userStore.getMailUnreadCount).length > 2 }"
+        >{{ userStore.getMailUnreadCount }}</div>
       </a>
       <div v-if="hasMailBox" class="dropdown-divider" />
       <a

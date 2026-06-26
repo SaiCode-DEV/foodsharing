@@ -210,13 +210,15 @@ body.nav-open{
     }
 
     &.overNinetyNine {
-      right: -4px;
+      right: 0;
+      font-size: 0.6rem;
     }
   }
 }
 
 .navigation .navbar-toggler {
   position: relative;
+  overflow: hidden;
 
   &.not-collapsed .badge {
     display: none;
@@ -235,7 +237,8 @@ body.nav-open{
     }
 
     &.overNinetyNine {
-      right: -4px;
+      right: 0;
+      font-size: 0.6rem;
     }
   }
 }
@@ -282,6 +285,11 @@ body.nav-open{
         left: 24px;
         font-size: 1em;
         top: 3px;
+
+        &.overNinetyNine {
+          font-size: 0.6em;
+          top: 5px;
+        }
       }
     }
   }
