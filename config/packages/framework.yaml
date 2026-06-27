@@ -27,6 +27,13 @@ framework:
     property_info:
       with_constructor_extractor: true
 
+when@dev:
+    framework:
+        # Use Symfony's default error controller in dev so the detailed exception page
+        # (with stack trace) is shown instead of our custom "errorbox" page (#2291).
+        # The custom ErrorController above stays active in all other environments.
+        error_controller: error_controller
+
 when@test:
     framework:
         test: true
