@@ -2,6 +2,7 @@
 # so variables specified there can override defaults specified in the template
 include:
   - template: Dependency-Scanning.gitlab-ci.yml
+  - template: Security/Secret-Detection.gitlab-ci.yml
 
 variables:
   PHPCS_VERSION: "8.3"
@@ -199,6 +200,16 @@ stages:
 gemnasium-dependency_scanning:
   rules:
     *rule-gemnasium-dependency-scanning
+
+secret_detection:
+  rules:
+    - *rule-skip-on-production-skip-ci
+    - *rule-skip-on-schedule
+    - *rule-main-branches
+    - *rule-mr-app-changes
+    - *rule-mr-backend-changes
+    - *rule-mr-frontend-changes
+
 
 outdated:
   extends:
