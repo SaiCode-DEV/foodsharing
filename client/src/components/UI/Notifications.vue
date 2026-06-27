@@ -11,7 +11,8 @@
               {{ props.item.title }}
             </div>
             <div class="notification-content">
-              <span v-text="props.item.text" />
+              <!-- eslint-disable-next-line vue/no-v-html -->
+              <span v-html="sanitizeHtml(props.item.text)" />
               <small v-if="props.item.data?.details" class="notification-small">
                 {{ props.item.data.details }}
                 <pre v-if="props.item.data?.pre">
@@ -34,6 +35,18 @@
     </notifications>
   </div>
 </template>
+
+<script setup>
+import DOMPurify from 'dompurify'
+
+// Pulse/notification messages may legitimately contain HTML (the `html` argument of
+// pulseSuccess/pulseError/etc.). Render it, but sanitize first so that messages built from
+// dynamic text (e.g. error or API messages) cannot inject scripts or event handlers (#2700).
+// Mirrors the sanitize-then-v-html pattern already used for e-mail bodies.
+function sanitizeHtml (html) {
+  return DOMPurify.sanitize(html ?? '')
+}
+</script>
 
 <style lang="scss" scoped>
 .fs-notification {
