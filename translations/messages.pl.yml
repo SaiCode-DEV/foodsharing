@@ -3701,7 +3701,26 @@ help:
   key:
     commons_resources:
       title: 'Wspólne zasoby'
-      md: ''
+      md: 'Niektóre zasoby nie należą do jednej osoby, ale do społeczności.
+
+
+        ##### Jakie są przykłady zasobów społeczności?
+
+        Przy zasobach społeczności chodzi o **przedmioty**, **informacje** lub **kontakty**.
+        To może być foodsharingowy banner danego rejonu, archiwum zdjęć w chmurze
+        lub kontakt z zewnętrznymi osobami. Ponieważ za zasoby społeczności nie jest
+        odpowiedzialna jedna osoba, powinno się podać możliwość kontaktu w opisie
+        zasobu.
+
+
+        ##### Kto zarządza zasobami społeczności?
+
+        W zespołach wszyscy/tkie administratorzy/ki mogą tworzyć, edytować i usuwać
+        zasoby społeczności. W rejonach te uprawnienia mają wpierw ambasadorzy/ki.
+        Jeśli istnieje zespół zasobów, uprawnienia przechodzą na administratorów/ki
+        tego zespołu.
+
+        '
     basket:
       title: 'Jadłokoszyki'
       md: 'Użytkownicy/czki, którzy/e chcą **bezpłatnie** oddać (często uratowaną)
@@ -3783,7 +3802,58 @@ help:
       md: ''
     resource_mosaic:
       title: 'Mozaika zasobów'
-      md: ''
+      md: '##### Idea
+
+        Przy ratowaniu żywności bardzo efektywnie dzielimy się wszyscy naszym czasem,
+        możliwościami transportu i doświadczeniem. Jednak aby dawać nowy impuls dla
+        systemu żywności opartego na zasadach zrównoważonego rozwoju i długoterminowo
+        wzmacniać ruch foodsharingu, potrzeba więcej niż tylko ratowania. Każdy/a
+        z nas wnosi różne zasoby, czyli *umiejętności*, *przedmioty* lub *kontakty*,
+        które pojedynczo często pozostają ukryte i niewykorzystane. Wspólnie, te zasoby
+        mogą jednak być widoczne i użyteczne - jak pojedyncze elementy mozaiki, które
+        razem tworzą większy obraz. Mozaika zasobów może uwidocznić tę różnorodność.
+        Tak tworzy się przestrzeń dla nowych pomysłów na projekty, współpracę i wzajemne
+        wsparcie wykraczające poza ratowanie.
+
+
+        #####  Przegląd zasobów
+
+        Sercem mozaiki zasobów jest przegląd wszystkich zasobów rejonu lub zespołu.
+        Możesz albo po prostu dać się zainspirować różnorodnością twojego zespołu,
+        albo szukać konkretnych zasobów. Możesz kliknąć każdy zasób, aby otrzymać
+        więcej informacji o nim. Możesz też zapisywać zasoby jako ulubione, aby później
+        łatwiej je znaleźć.
+
+
+        Po kolorze zasobu możesz rozpoznać, jak chętnie dana osoba się nim dzieli:
+        zasoby, które są dzielone z dużą radością, pojawiają się w silnych, świetlistych
+        barwach, podczas gdy zasoby, którymi mniej chętnie się dzieli, są wyświetlone
+        bardziej w szarości.
+
+
+        ##### Szukanie, filtrowanie & sortowanie
+
+        Aby szybciej znaleźć pasujący zasób, masz dostępne różne opcje filtrowania.
+
+        - Możesz filtrować konkretnie według **kategorii** lub szukać bezpośrednio
+        według określonych **pojęć**.
+
+        - **Tylko aktywni/e użytkownicy/czki** ukrywa zasoby od użytkowników/czek,
+        którzy/e w ciągu ostatnich 30 dni nie byli/ły zalogowani/e lub są aktualnie
+        w trybie uśpienia.
+
+        - W mozaice zasobów są wyświetlane zasoby wszystkich foodsaverów/ek w zespole.
+        W rejonach możesz też ograniczyć widok do użytkowników/czek z **rejonem macierzystym**
+        w danym rejonie.
+
+        - Kiedy oznaczysz zasób jako **ulubiony**, możesz konkretnie wyświetlać tylko
+        te zasoby.
+
+
+        Dodatkowo możesz **sortować** wyniki, np. według "radości dzielenia“, aktualności
+        wpisów lub po prostu przypadkowo.
+
+        '
     threadPriority:
       md: "Tematy są umieszczone na liście według priorytetu wyświetlania. Tematy
         z tym samym priorytetem są sortowane według czasu ostatniej aktywności. \n\
@@ -5176,7 +5246,14 @@ team_page:
       '
   board_member:
     title: 'Zarząd'
-    text: ''
+    text: 'Zarząd foodsharingu e. V. koordynuje działania, łączy Niemcy, Austrię i
+      Szwajcarię jako użytkowników/czki platformy foodsharing.de i jest odpowiedzialny
+      za sprawy międzyregionalne. Zarząd współpracuje jako team, w dużym stopniu w
+      ścisłym porozumieniu i głównie online, aby troszczyć się o wszystkie sprawy
+      dużej społeczności foodsharingu i przychodzące z zewnątrz. Poza tym zarząd zajmuje
+      się obszernie rozwojem organizacji i wymiarem politycznym marnowania żywności.
+
+      '
   it_member:
     title: 'Team IT'
     text: 'foodsharing działa tylko dzięki zaangażowaniu tysięcy wolontariuszy/ek!
