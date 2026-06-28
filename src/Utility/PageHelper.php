@@ -36,7 +36,6 @@ final class PageHelper
     private string $content_top = '';
     private string $content_overtop = '';
     private string $head = '';
-    private string $hidden = '';
     private string $js_func = '';
     private string $js = '';
     private array $bread = [];
@@ -118,7 +117,6 @@ final class PageHelper
             'menu' => $this->getMenu(),
             'route' => $page,
             'dev' => getenv('FS_ENV') === 'dev',
-            'hidden' => $this->hidden,
             'footer' => $this->getFooter(),
             'notificationsWrapper' => $this->getNotificationsWrapper(),
             'content' => [
@@ -404,11 +402,6 @@ final class PageHelper
     public function addTitle(string $name): void
     {
         $this->title[] = $name;
-    }
-
-    public function addHidden(string $html): void
-    {
-        $this->hidden .= $html;
     }
 
     public function setContentWidth(int $left, int $right): void
