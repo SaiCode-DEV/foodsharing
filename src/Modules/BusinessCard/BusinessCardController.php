@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -36,6 +37,12 @@ class BusinessCardController extends FoodsharingController
 
     private function makeCard(Request $request): Response
     {
+        // The card identifies the holder as a Foodsaver, so only verified Foodsavers
+        // (and above) may generate one — not unverified foodsharers (#2749).
+        if (!$this->session->mayRole(Role::FOODSAVER)) {
+            throw new AccessDeniedHttpException();
+        }
+
         $data = $this->gateway->getMyData($this->session->id(), $this->session->mayRole(Role::STORE_MANAGER));
         $opt = $request->query->get('opt');
         if (!$data || !$opt) {
