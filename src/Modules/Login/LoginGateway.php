@@ -17,14 +17,17 @@ class LoginGateway extends BaseGateway
 {
     private readonly EmailHelper $emailHelper;
     private readonly TranslatorInterface $translator;
+    private readonly EmailBlocklistTransactions $emailBlocklistTransactions;
 
     public function __construct(
         Database $db,
         EmailHelper $emailHelper,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        EmailBlocklistTransactions $emailBlocklistTransactions
     ) {
         $this->emailHelper = $emailHelper;
         $this->translator = $translator;
+        $this->emailBlocklistTransactions = $emailBlocklistTransactions;
 
         parent::__construct($db);
     }
@@ -36,7 +39,7 @@ class LoginGateway extends BaseGateway
     public function canLogin(string $email, string $pass, string $code): ?int
     {
         $email = trim($email);
-        if ($this->db->exists('fs_email_blacklist', ['email' => $email])) {
+        if ($this->emailBlocklistTransactions->isEmailBlocked($email)) {
             return null;
         }
 

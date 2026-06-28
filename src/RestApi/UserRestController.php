@@ -11,6 +11,7 @@ use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\FoodsaverTransactions;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Login\DTO\LoginRequest;
+use Foodsharing\Modules\Login\EmailBlocklistTransactions;
 use Foodsharing\Modules\Login\LoginGateway;
 use Foodsharing\Modules\Logout\LogoutTransactions;
 use Foodsharing\Modules\Profile\DTO\DeleteProfileRequest;
@@ -51,6 +52,7 @@ class UserRestController extends AbstractFoodsharingRestController
     public function __construct(
         protected Session $session,
         private readonly LoginGateway $loginGateway,
+        private readonly EmailBlocklistTransactions $emailBlocklistTransactions,
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly EmailHelper $emailHelper,
         private readonly RegisterTransactions $registerTransactions,
@@ -145,10 +147,10 @@ class UserRestController extends AbstractFoodsharingRestController
     {
         if (
             !$this->emailHelper->validEmail($email->email)
-            || $this->foodsaverGateway->emailDomainIsBlacklisted($email->email)
             || $this->emailHelper->isFoodsharingEmailAddress($email->email)
+            || $this->emailBlocklistTransactions->isEmailBlocked($email->email)
         ) {
-            throw new BadRequestHttpException('email is malformed or from a blacklisted domain');
+            throw new BadRequestHttpException('email is malformed or blocked');
         }
 
         $this->registerTransactions->addRegistrationAttempt($email->email);
@@ -222,6 +224,20 @@ class UserRestController extends AbstractFoodsharingRestController
             $canLogin = $this->loginGateway->canLogin($email, $password, '');
             if (!$canLogin) {
                 throw new UnauthorizedHttpException('', 'Password is incorrect or 2FA is enabled');
+            }
+        }
+
+        $blockmail = (bool)$deleteRequest->blockmail;
+
+        // Get user's email before deletion and block it if requested
+        if ($blockmail && $userId !== $this->session->id()) {
+            $userEmail = $this->foodsaverGateway->getEmailAddress($userId);
+            if ($userEmail) {
+                $this->emailBlocklistTransactions->createEntryFromAccountDeletion(
+                    $userEmail,
+                    $deleteRequest->reason,
+                    $this->session->id()
+                );
             }
         }
 

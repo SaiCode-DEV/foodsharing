@@ -1355,17 +1355,75 @@ class Foodsharing {
 
   /**
    * Adds a email domain to the blacklist
-   * @param email The email domain to blacklist
+   * @param email The email pattern to blacklist (supports wildcards like *@domain.com)
+   * @param reason Optional reason for blocking (defaults to generic message)
    * @returns The ID of the created blacklist entry
    */
   async createBlacklistedEmailAddress(
-    email: string = "bad.com",
+    email: string = "*@bad.com",
+    reason: string = "Disposable email addresses should not be used for registration.",
   ): Promise<number> {
-    return await Database.addToDatabase("fs_email_blacklist", {
+    // Explicitly check if entry already exists
+    const exists = await Database.seeInDatabase("fs_email_blacklist", {
       email,
-      since: "2010-10-14 12:00:00",
-      reason: "Disposable email addresses should not be used for registration.",
     });
+    if (exists) {
+      const id = await Database.grabFromDatabase("fs_email_blacklist", "id", {
+        email,
+      });
+      await this.clearCache("email_blocklist_patterns");
+      return Number(id);
+    }
+
+    // Entry doesn't exist, try to create it
+    try {
+      const id = await Database.addToDatabase("fs_email_blacklist", {
+        email,
+        reason,
+        active: 1,
+        created_by: null,
+      });
+      await this.clearCache("email_blocklist_patterns");
+      return id;
+    } catch (error: any) {
+      // Handle race condition: another parallel test inserted the same email concurrently
+      if (error.code === "ER_DUP_ENTRY") {
+        const id = await Database.grabFromDatabase("fs_email_blacklist", "id", {
+          email,
+        });
+        await this.clearCache("email_blocklist_patterns");
+        return Number(id);
+      }
+      // Re-throw other DB/SQL errors instead of hiding them
+      throw error;
+    }
+  }
+
+  /**
+   * Clear a specific cache key via test API endpoint.
+   * @param cacheKey The cache key to clear
+   */
+  async clearCache(cacheKey: string): Promise<void> {
+    const baseURL = process.env.CI_ENVIRONMENT_URL || "http://nginx:8080/";
+    try {
+      const response = await fetch(
+        `${baseURL}api/test/clearcache/${cacheKey}`,
+        {
+          method: "DELETE",
+        },
+      );
+      if (!response.ok) {
+        throw new Error(
+          `Failed to clear cache: ${response.status} ${response.statusText}`,
+        );
+      }
+    } catch (error) {
+      console.error(
+        `Error clearing cache for ${cacheKey} at ${baseURL}:`,
+        error,
+      );
+      throw error; // Throw instead of swallowing
+    }
   }
 
   async addConversationMessage(

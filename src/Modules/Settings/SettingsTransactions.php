@@ -23,6 +23,7 @@ use Foodsharing\Modules\Foodsaver\DTO\EditableProfileDTO;
 use Foodsharing\Modules\Foodsaver\DTO\ReadableProfileSettings;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\FoodsaverTransactions;
+use Foodsharing\Modules\Login\EmailBlocklistTransactions;
 use Foodsharing\Modules\Login\LoginGateway;
 use Foodsharing\Modules\Mails\MailsGateway;
 use Foodsharing\Modules\Region\RegionGateway;
@@ -57,6 +58,7 @@ class SettingsTransactions
         private readonly Session $session,
         private readonly SettingsPermissions $settingsPermissions,
         private readonly FoodsaverTransactions $foodsaverTransactions,
+        private readonly EmailBlocklistTransactions $emailBlocklistTransactions,
         private readonly UnitGateway $unitGateway,
         private readonly RegionGateway $regionGateway,
         private readonly BellGateway $bellGateway,
@@ -198,7 +200,7 @@ class SettingsTransactions
         return $this->emailHelper->validEmail($address)
             && !$this->emailHelper->isFoodsharingEmailAddress($address)
             && !$this->foodsaverGateway->emailExists($address)
-            && !$this->foodsaverGateway->emailDomainIsBlacklisted($address);
+            && !$this->emailBlocklistTransactions->isEmailBlocked($address);
     }
 
     public function abortEMailChange(string $token)

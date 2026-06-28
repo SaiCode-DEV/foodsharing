@@ -2028,6 +2028,8 @@ foodsaver:
   delete_description_own: "Das Löschen deines Benutzerkontos ist unwiderruflich. Eine Wiederherstellung deines Kontos ist danach nicht mehr möglich. Wenn du später wieder bei foodsharing mitmachen möchtest, musst du dir ein neues Konto erstellen und dich erneut für Betriebe, Arbeitsgruppen, etc. bewerben."
   delete_description_other: "Das Löschen von Benutzerkonten ist unwiderruflich. Eine Wiederherstellung des Accounts ist danach nicht mehr möglich. Wenn die Person später wieder bei foodsharing mitmachen möchte, muss sie sich ein neues Konto erstellen und sich erneut für Betriebe, Arbeitsgruppen, etc. bewerben."
   delete_account_reason: "Grund der Konto-Löschung"
+  delete_account_blockmail: "E-Mail-Adresse auf die Blockliste setzen"
+  delete_account_blockmail_help: "Verhindert, dass sich der Benutzer mit derselben E-Mail-Adresse erneut registrieren kann"
   delete_account_password_verify: "Bitte gib zur Bestätigung deines Löschwunsches hier dein aktuelles Passwort ein."
   delete_account_sure: "Soll dein Benutzerkonto wirklich gelöscht werden?"
   delete_account_sure_reason: "Soll das Benutzerkonto wirklich gelöscht werden? Grund: {reason}"
@@ -4634,6 +4636,28 @@ oauth:
     invalid_client: "Client Verifizierung fehlgeschlagen."
     invalid_scope: "Ungültige Berechtigungen angefordert."
     unknown_error: "Ein unbekannter Fehler ist aufgetreten. Bitte versuche es später erneut."
+
+email_blocklist:
+  admin:
+    title: "E-Mail-Blockliste-Verwaltung"
+    create_entry: "Neuen Eintrag erstellen"
+    edit_entry: "Eintrag bearbeiten"
+    confirm_delete: "Eintrag löschen?"
+    delete_warning: "Möchtest du das Muster '{pattern}' wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden."
+    email_pattern: "E-Mail-Muster"
+    pattern_placeholder: "z.B. spam@example.com oder *@spam.com"
+    pattern_help: "Verwende * als Platzhalter. Beispiele: example.com (Domain), *@spam.com (beliebiger Name bei dieser Domain), spam@* (E-Mail überall)"
+    description: "Beschreibung"
+    description_placeholder: "Grund für die Sperrung (optional)"
+    active: "Aktiv"
+    created_at: "Erstellt am"
+    actions: "Aktionen"
+    load_error: "Fehler beim Laden der Einträge"
+    save_error: "Fehler beim Speichern"
+    create_success: "Eintrag erfolgreich erstellt"
+    update_success: "Eintrag erfolgreich aktualisiert"
+    delete_success: "Eintrag erfolgreich gelöscht"
+    delete_error: "Fehler beim Löschen"
 
 network_errors:
   csrf_token_invalid:

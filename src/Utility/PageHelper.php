@@ -14,6 +14,7 @@ use Foodsharing\Permissions\AchievementPermissions;
 use Foodsharing\Permissions\BlogPermissions;
 use Foodsharing\Permissions\CategoriesPermissions;
 use Foodsharing\Permissions\ContentPermissions;
+use Foodsharing\Permissions\EmailBlocklistPermissions;
 use Foodsharing\Permissions\MailboxPermissions;
 use Foodsharing\Permissions\OAuthPermissions;
 use Foodsharing\Permissions\ProfilePermissions;
@@ -68,6 +69,7 @@ final class PageHelper
         private readonly SettingsTransactions $settingsTransactions,
         private readonly ResourcePermissions $resourcePermissions,
         private readonly OAuthPermissions $oauthPermissions,
+        private readonly EmailBlocklistPermissions $emailBlocklistPermissions,
         private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
     }
@@ -202,6 +204,7 @@ final class PageHelper
             'mayEditUserProfile' => $this->profilePermissions->mayEditUserProfile($this->session->id()),
             'mayAdministrateUserProfile' => $this->profilePermissions->mayAdministrateUserProfile($this->session->id(), $this->currentUserUnits->getCurrentRegionId()),
             'mayAdministrateOAuthClients' => $this->oauthPermissions->mayAdministrateOAuthClients(),
+            'mayAdministrateEmailBlocklist' => $this->emailBlocklistPermissions->mayAdministrateEmailBlocklist(),
             'administrateBlog' => $this->blogPermissions->mayAdministrateBlog(),
             'editQuiz' => $this->quizPermissions->maySeeEditQuizPage(),
             'handleReports' => $this->reportPermissions->mayHandleReports(),

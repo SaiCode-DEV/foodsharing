@@ -98,6 +98,19 @@
         :rows="3"
       />
     </b-form-group>
+
+    <b-form-group v-if="!isMe">
+      <b-form-checkbox
+        id="blockmail"
+        v-model="blockmail"
+      >
+        {{ $t('foodsaver.delete_account_blockmail') }}
+      </b-form-checkbox>
+      <b-form-text>
+        {{ $t('foodsaver.delete_account_blockmail_help') }}
+      </b-form-text>
+    </b-form-group>
+
     <b-form-group
       label-for="unsubscribeNewsletter"
     >
@@ -135,6 +148,7 @@ export default {
   data () {
     return {
       reason: null,
+      blockmail: false,
       showPasswordModal: false,
       password: '',
       countdownValue: 0,
@@ -171,7 +185,7 @@ export default {
 
       // perform deletion; keep modal open on failure
       try {
-        await deleteUser(this.userId, this.reason, this.unsubscribeNewsletter, this.password)
+        await deleteUser(this.userId, this.reason, this.unsubscribeNewsletter, this.password, this.blockmail)
         pulseSuccess(i18n('success'))
         // close modal and navigate on success
         this.showPasswordModal = false

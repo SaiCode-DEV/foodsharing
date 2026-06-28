@@ -59,6 +59,7 @@ export const useUserStore = defineStore('user', {
       // Whitelist of permissions that show the admin menu
       return permissions.some(([key, value]) => [
         'mayAdministrateOAuthClients',
+        'mayAdministrateEmailBlocklist',
         'administrateBlog',
         'editQuiz',
         'handleReports',

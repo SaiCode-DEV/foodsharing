@@ -2465,11 +2465,13 @@ foodsaver:
   edit_failure: Nothing was changed or changes were not saved
   delete_account_sure_reason: "Do you really want to delete the account? Reason: {reason}"
   delete_account_reason: Reason for account deletion
+  delete_account_blockmail: Block email address from re-registration
+  delete_account_blockmail_help: Prevents the user from registering again with the same email address
   delete_account_password_verify: 'Please enter your current password here to confirm
     your deletion request.'
   delete_account_totp_hint: 'Please note that you can only delete your account if
     two-factor authentication is disabled. This can be done in your account settings
-    under “Account Security” and serves to protect against unauthorized deletion if
+    under "Account Security" and serves to protect against unauthorized deletion if
     your password is known (or stored).'
   delete_own_account_failed_totp_hint: 'Your user account could not be deleted.'
   delete_description_other: 'Deleting user accounts is irreversible. It is not possible
@@ -5101,6 +5103,29 @@ oauth:
     invalid_client: "Client verification failed."
     invalid_scope: "Invalid permissions requested."
     unknown_error: "An unknown error occurred. Please try again later."
+
+email_blocklist:
+  admin:
+    title: "Email Blocklist Management"
+    create_entry: "Create New Entry"
+    edit_entry: "Edit Entry"
+    confirm_delete: "Delete Entry?"
+    delete_warning: "Do you really want to delete the pattern '{pattern}'? This action cannot be undone."
+    email_pattern: "Email Pattern"
+    pattern_placeholder: "e.g. spam@example.com or *@spam.com"
+    pattern_help: "Use * as wildcard. Examples: example.com (domain), *@spam.com (any name at this domain), spam@* (email everywhere)"
+    description: "Description"
+    description_placeholder: "Reason for blocking (optional)"
+    active: "Active"
+    created_at: "Created At"
+    actions: "Actions"
+    load_error: "Error loading entries"
+    save_error: "Error saving"
+    create_success: "Entry created successfully"
+    update_success: "Entry updated successfully"
+    delete_success: "Entry deleted successfully"
+    delete_error: "Error deleting"
+
 network_errors:
   csrf_token_invalid:
     title: "Session expired"

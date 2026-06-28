@@ -108,7 +108,7 @@ class UserApiCest
         $I->sendPOST(self::API_USER . '/registration', ['email' => $example[0]]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
         $I->seeResponseIsJson();
-        $I->canSeeResponseContains('blacklisted domain');
+        $I->canSeeResponseContains('malformed or blocked');
     }
 
     public function canReRequestRegistrationForExistingEmail(ApiTester $I): void

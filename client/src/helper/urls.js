@@ -89,6 +89,7 @@ const urls = {
   press: () => '/content?sub=presse',
   regionAdmin: () => '/regions/edit',
   oauthClientsAdmin: () => '/admin/oauthclients',
+  emailBlocklistAdmin: () => '/admin/emailblocklist',
   publicRegion: (regionId) => `/region/${regionId}`,
   violations: (fsId) => `/report/user/${fsId}`,
   security: () => '/content?sub=security',

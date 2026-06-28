@@ -16,4 +16,7 @@ class DeleteProfileRequest
 
     #[OA\Property]
     public bool $unsubscribeNewsletter = false;
+
+    #[OA\Property]
+    public ?bool $blockmail = false;
 }

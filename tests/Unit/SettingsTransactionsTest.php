@@ -12,6 +12,7 @@ use Foodsharing\Modules\Core\DBConstants\Foodsaver\UserOptionType;
 use Foodsharing\Modules\Foodsaver\DTO\EditableProfileDTO;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\FoodsaverTransactions;
+use Foodsharing\Modules\Login\EmailBlocklistTransactions;
 use Foodsharing\Modules\Login\LoginGateway;
 use Foodsharing\Modules\Mails\MailsGateway;
 use Foodsharing\Modules\Region\RegionGateway;
@@ -61,6 +62,7 @@ class SettingsTransactionsTest extends Unit
             $this->session,
             $settingsPermissions,
             $this->tester->get(FoodsaverTransactions::class),
+            $this->tester->get(EmailBlocklistTransactions::class),
             $this->tester->get(UnitGateway::class),
             $this->tester->get(RegionGateway::class),
             $this->tester->get(BellGateway::class),

@@ -40,6 +40,14 @@
         <i class="icon-subnav fas fa-key" /> {{ $t('oauth.admin.title') }}
       </a>
       <a
+        v-if="permissions.mayAdministrateEmailBlocklist"
+        :href="$url('emailBlocklistAdmin')"
+        role="menuitem"
+        class="dropdown-item dropdown-action"
+      >
+        <i class="icon-subnav fas fa-ban" /> {{ $t('email_blocklist.admin.title') }}
+      </a>
+      <a
         v-if="permissions.editContent"
         :href="$url('contentEdit')"
         role="menuitem"

@@ -20,11 +20,12 @@ export function getDetails () {
   return get('/users/current/details')
 }
 
-export function deleteUser (id, reason, unsubscribeNewsletter, password = null) {
+export function deleteUser (id, reason, unsubscribeNewsletter, password = null, blockmail = false) {
   return remove(`/users/${id}`, {
     reason,
     password,
     unsubscribeNewsletter,
+    blockmail,
   }, { skipErrorNotificationFor: [401] })
 }
 
