@@ -299,7 +299,7 @@ about_me_public: Krótki opis publiczny
 teaser: Kłopotliwe pytanie
 fspmanagers: Foodsavers, którzy są osobami kontaktowymi dla sprawiedliwego 
   dzielenia się
-kette_id: Łańcuch operacji
+kette_id: Sieć punktów
 ansprechpartner: Osoby kontaktowe w firmie (kierownicy oddziałów itp.)
 ueberzeugungsarbeit: Czy łatwo było przekonać osoby odpowiedzialne do współpracy
   w ramach foodsharingu?
@@ -583,7 +583,9 @@ settings:
     danger: 'Ważne: jeśli zgubisz telefon lub zostanie on skradziony i nie będziesz
       mieć dostępu do kodów back-up, nie będziesz mógł/mogła się zalogować. Wtedy
       musisz skontaktować się z supportem, aby odzyskać dostęp do swojego konta.'
-    explanation: ''
+    explanation: 'Uwierzytelnianie dwuskładnikowe jest opcjonalne, ale jest w miarę
+      możliwości zalecane przez czołowych ekspertów bezpieczeństwa oraz niemiecki
+      Federalny Urząd ds. Bezpieczeństwa Informacji (BSI).'
     secret_label: 'Alternatywnie możesz podać ten kod ręcznie:'
     failed: 'Nie można było aktywować uwierzytelniania dwuskładnikowego, podano błędny
       kod lub hasło.'
@@ -3013,7 +3015,8 @@ profile:
     week_0: 'Jeszcze następny tydzień'
     week_4: 'Jeszcze poprzedni tydzień'
     respActStores: 'Dziękujemy za koordynację {count} aktywnych '
-    securePickupWeek: ''
+    securePickupWeek: 'Dziękujemy za {count} krótkoterminowe/ych zgłoszenia/nie/ń
+      i zabezpieczenie/nia/ń odbiorów!'
     basketsSharedWeek: 'Podzielono się jadłokoszykami z {count} osobami. '
     weekDesc: 'Tydzień {week} w roku, od {weekStart} do {weekEnd}'
     eventsCreatedWeek: 'Dzięki za utworzenie eventów {count} raz/y w tym tygodniu.'
@@ -3799,7 +3802,27 @@ help:
         '
     pickupOptions:
       title: 'Opcje zapisu'
-      md: ''
+      md: 'Obszar *możliwości zapisu* pokazuje ci zestawienie wszystkich nadchodzących
+        slotów w twoich punktach, do których jeszcze są poszukiwani/e foodsaverzy/ki.
+        Poprzez menu opcji możesz dopasować widok do swoich potrzeb:
+
+
+        **Zapisane sloty:** Abyś lepiej mógł/mogła planować swoje sloty, możesz wyświetlić
+        też sloty, na które sam/a już się zapisałeś/aś. Te sloty są wyświetlane w
+        trochę bardziej wyblakłym kolorze, abyś mógł/mogła je rozpoznać na pierwszy
+        rzut oka.
+
+
+        **Widok koordynatorów/ek punktu:** Koordynatorzy/ki punktu dbają o to, że
+        wszystkie sloty w ich punktach są regularnie zajmowane. Jeśli jesteś koordynatorem/ką
+        punktu, możesz ograniczyć widok do punktów, za które jesteś odpowiedzialny/a.
+        W ten sposób łatwiej ci zachować rozeznanie.
+
+        **Zgrupowane według dni:** W tym widoku możliwości zapisu są zgrupowane według
+        dni i wyświetlone bardziej kompaktowo. Zwłaszcza jeśli masz do dyspozycji
+        wiele możliwości zapisu na dany dzień, ta opcja ułatwia ci rozeznanie.
+
+        '
     resource_mosaic:
       title: 'Mozaika zasobów'
       md: '##### Idea
@@ -4140,6 +4163,16 @@ help:
       title: Nieaktywne zespoły
       md: |
         Zespół jest oznaczony jako nieaktywny, jeśli nie było żadnego nowego postu na forum przez co najmniej 6 miesięcy.
+    publicRegionStatistics:
+      title: Statystyki rejonu z ostatnich 30 dni
+      md: |
+        Te statystyki są codziennie obliczane na nowo. Tutaj znajdziesz wyjaśnienie, co dokładnie oznaczają te liczby:
+        - **Aktywni/e foodsaverzy/ki** są to zweryfikowani/e foodsaverzy/ki, których rejonem macierzystym jest ten rejon albo jeden z rejonów podrzędnych, i którzy/e przynajmniej raz w ciągu ostatnich 30 dni użyli/ły platformy.
+        - **Aktywne kooperacje z punktami** są to punkty w rejonie (albo w jednym z rejonów podrzędnych), które są oznaczone jako aktywne przez koordynatorów/ki punktu.
+        - Jako **akcje ratowania żywności** są liczone sloty zajęte przez foodsaverów/ki w punktach w rejonie (albo w jednym z rejonów podrzędnych).
+        - **Uratowana żywność**: W każdym punkcie podana jest oszacowana przez koordynatorów/ki punktu przeciętna odbierana ilość żywności. Podana ilość uratowanej żywności odpowiada oszacowanej całkowitej masie z wykonanych odbiorów w ciągu ostatnich 30 dni we wszystkich punktach w rejonie (albo w jednym z rejonów podrzędnych).
+        - **Aktywne jadłodzielnie** są to jadłodzielnie w danym momencie oznaczone jako aktywne w rejonie (albo w jednym z rejonów podrzędnych).
+        - **Rozdane jadłokoszyki** podaje, jak często w ciągu ostatnich 30 dni foodsaverzy/ki w rejonie (albo w jednym z rejonów podrzędnych) przekazywali/ły żywność poprzez funkcję *"jadłokoszyk"* na platformie. Często przekazuje się dalej bardzo dużą część żywności bez tego wsparcia technicznego. Niska wartość nie oznacza tutaj, że rozdaje się mało produktów żywnościowych.
   helpTitle: 'Pomoc: {title}'
   tooltip: 'Pokaż pomoc'
 email_template:
@@ -4944,7 +4977,7 @@ startpage:
     title: 'jako przedsiębiorstwo'
     text: 'Pracujesz w supermarkecie, restauracji, stołówce, ...? Zarejestruj swoje
       przedsiębiorstwo i ratuj żywność.'
-  slogan_2: ''
+  slogan_2: 'wspólnie, w myśl zrównoważonego rozwoju i z szacunkiem'
   makeproposals: 'Składaj propozycje'
   followrules: 'Wyraźnie zwracamy uwagę na to, że z powodów prawnych pozwalamy na
     oferowanie i dzielenie się wybranymi produktami żywnościowymi i innymi towarami
