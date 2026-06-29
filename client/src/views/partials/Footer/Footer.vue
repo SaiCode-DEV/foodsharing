@@ -105,7 +105,6 @@
             </a>
           </b-row>
           <b-row
-            v-if="!isDotAt"
             class="col"
           >
             <a
