@@ -105,7 +105,10 @@ export default {
           result.push({
             key: 'sum',
             sortable: true,
-            sortByFormatted: 'true',
+            // Sort by the numeric sum, not the signed string from the formatter
+            // (which sorted lexicographically, e.g. putting "0" in the wrong
+            // place) — #2563.
+            sortByFormatted: (value, key, item) => this.sumVotes(item),
             class: 'text-center',
             formatter: (value, key, item) => this.withSign(this.sumVotes(item)),
           })
