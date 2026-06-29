@@ -1,9 +1,33 @@
 import serverData from './server-data'
 import RelativeTimeFormat from 'relative-time-format'
+
+// relative-time-format localises only the locales explicitly registered (unlike Intl's
+// toLocaleString, which localises itself). Register every language we ship translations
+// for, so relative times ("vor 10 Sekunden", "Heute") localise instead of falling back
+// to English (#2675). Keep this list in sync with the locales in /translations.
+import ar from 'relative-time-format/locale/ar'
+import cs from 'relative-time-format/locale/cs'
+import da from 'relative-time-format/locale/da'
 import de from 'relative-time-format/locale/de'
+import el from 'relative-time-format/locale/el'
 import en from 'relative-time-format/locale/en'
-RelativeTimeFormat.addLocale(de)
-RelativeTimeFormat.addLocale(en)
+import es from 'relative-time-format/locale/es'
+import fr from 'relative-time-format/locale/fr'
+import it from 'relative-time-format/locale/it'
+import lb from 'relative-time-format/locale/lb'
+import lt from 'relative-time-format/locale/lt'
+import nb from 'relative-time-format/locale/nb'
+import nl from 'relative-time-format/locale/nl'
+import pl from 'relative-time-format/locale/pl'
+import pt from 'relative-time-format/locale/pt'
+import ru from 'relative-time-format/locale/ru'
+import ta from 'relative-time-format/locale/ta'
+import tr from 'relative-time-format/locale/tr'
+import uk from 'relative-time-format/locale/uk'
+import zh from 'relative-time-format/locale/zh'
+
+const SUPPORTED_RTF_LOCALES = [ar, cs, da, de, el, en, es, fr, it, lb, lt, nb, nl, pl, pt, ru, ta, tr, uk, zh]
+SUPPORTED_RTF_LOCALES.forEach((l) => RelativeTimeFormat.addLocale(l))
 
 const locale = serverData.locale
 
