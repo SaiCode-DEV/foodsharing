@@ -55,7 +55,6 @@ import { pulseError } from '@/script'
 import { useRegionStore } from '@/stores/regions'
 import OverflowMenu from '@/components/OverflowMenu.vue'
 
-const regionStore = useRegionStore()
 export default {
   components: { Container, Markdown, MarkdownInput, ContainerButton, OverflowMenu },
   props: {
@@ -64,8 +63,9 @@ export default {
     mayEdit: { type: Boolean, default: false },
   },
   setup () {
+    const regionStore = useRegionStore()
     const { confirmationDialogue } = useConfirmationDialogue()
-    return { confirmationDialogue }
+    return { confirmationDialogue, regionStore }
   },
   data: () => ({
     editDescription: '',
@@ -106,7 +106,7 @@ export default {
         this.loading = true
         try {
           await setPublicRegionData(this.regionId, { description: this.editDescription })
-          await regionStore.fetchPublicRegionData(this.regionId, true)
+          await this.regionStore.fetchPublicRegionData(this.regionId, true)
           this.$emit('update:description', this.editDescription)
           this.editMode = false
         } catch (e) {

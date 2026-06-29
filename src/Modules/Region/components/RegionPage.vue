@@ -156,8 +156,6 @@ import { SUB_PAGE, useRegionStore } from '@/stores/regions'
 import { GET } from '@/browser'
 import LeaveRegionContainer from '@/views/pages/Region/LeaveRegionContainer.vue'
 
-const regionStore = useRegionStore()
-
 export default {
   components: {
     Achievements,
@@ -236,6 +234,7 @@ export default {
     },
   },
   async mounted () {
+    const regionStore = useRegionStore()
     if (this.isWorkGroup && this.mayAccessApplications) {
       this.applications = await getApplications(this.regionId)
     }

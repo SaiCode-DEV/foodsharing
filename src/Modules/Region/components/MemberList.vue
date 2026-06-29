@@ -400,9 +400,6 @@ import RequiredMessageModal from '@/components/Modals/RequiredMessageModal.vue'
 import { PASSPORT_FILTER_OPTIONS, VERIFIED_FILTER_OPTIONS, useUserStore } from '@/stores/user'
 import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 
-const regionStore = useRegionStore()
-const userStore = useUserStore()
-
 export default {
   components: { UserSearchInput, Container, Avatar, RequiredMessageModal },
   mixins: [MediaQueryMixin],
@@ -472,7 +469,7 @@ export default {
   },
   computed: {
     userId () {
-      return userStore.getUserId
+      return this.userStore.getUserId
     },
     getAdminButton () {
       return (item) => {
@@ -501,7 +498,7 @@ export default {
       return `${this.isWorkGroup ? this.$t('memberlist.header_for_workgroup', { bezirk: this.regionName }) : this.$t('memberlist.header_for_district', { bezirk: this.regionName })} ${this.memberCount}`
     },
     memberCount () {
-      return this.$t('filterlist.some_in_all', { some: this.membersFiltered.length, all: regionStore.memberList.length })
+      return this.$t('filterlist.some_in_all', { some: this.membersFiltered.length, all: this.regionStore.memberList.length })
     },
     dateBeforeMonths () {
       const dateInPast = new Date()
@@ -511,7 +508,7 @@ export default {
     membersFiltered () {
       const filterText = this.filterText ? this.filterText.toLowerCase() : null
 
-      return regionStore.memberList.filter((member) => {
+      return this.regionStore.memberList.filter((member) => {
         if (this.activeTab === this.ACTIVE_TAB_PASSPORT && !member.isHomeRegion) {
           return false
         }
@@ -698,7 +695,7 @@ export default {
   },
   async mounted () {
     if (!this.isDeactivatedRegion) {
-      regionStore.fetchMemberList(this.groupId)
+      this.regionStore.fetchMemberList(this.groupId)
     }
     try {
       const permissions = await getRegionMemberPermissions(this.groupId)
@@ -777,9 +774,9 @@ export default {
       }
       const success = await this.updateVerificationStatusFromUser(isVerified, memberId, message)
       if (!success) return
-      const index = regionStore.memberList.findIndex(member => member.id === memberId)
+      const index = this.regionStore.memberList.findIndex(member => member.id === memberId)
       if (index >= 0) {
-        regionStore.memberList[index].isVerified = isVerified
+        this.regionStore.memberList[index].isVerified = isVerified
       }
     },
     clearFilter () {
@@ -806,9 +803,9 @@ export default {
       this.isBusy = true
       try {
         await removeAdminOrAmbassador(this.groupId, member.id)
-        const index = regionStore.memberList.findIndex(m => m.id === member.id)
+        const index = this.regionStore.memberList.findIndex(m => m.id === member.id)
         if (index >= 0) {
-          regionStore.memberList[index].isAdminOrAmbassadorOfRegion = false
+          this.regionStore.memberList[index].isAdminOrAmbassadorOfRegion = false
         }
       } catch (e) {
         pulseError(i18n('error_unexpected'))
@@ -828,9 +825,9 @@ export default {
       this.isBusy = true
       try {
         await setAdminOrAmbassador(this.groupId, member.id)
-        const index = regionStore.memberList.findIndex(m => m.id === member.id)
+        const index = this.regionStore.memberList.findIndex(m => m.id === member.id)
         if (index >= 0) {
-          regionStore.memberList[index].isAdminOrAmbassadorOfRegion = true
+          this.regionStore.memberList[index].isAdminOrAmbassadorOfRegion = true
         }
       } catch (e) {
         pulseError(i18n('error_unexpected'))
@@ -849,9 +846,9 @@ export default {
       this.isBusy = true
       try {
         await removeMember(this.groupId, member.id)
-        const index = regionStore.memberList.findIndex(m => m.id === member.id)
+        const index = this.regionStore.memberList.findIndex(m => m.id === member.id)
         if (index >= 0) {
-          regionStore.memberList.splice(index, 1)
+          this.regionStore.memberList.splice(index, 1)
         }
       } catch (err) {
         if (err.code && err.code === HTTP_RESPONSE.CONFLICT) {
@@ -865,7 +862,7 @@ export default {
       hideLoader()
     },
     containsMember (memberId) {
-      return regionStore.memberList.some(member => member.id === memberId)
+      return this.regionStore.memberList.some(member => member.id === memberId)
     },
     async addNewTeamMember (userId) {
       showLoader()
@@ -875,7 +872,7 @@ export default {
 
         // the backend doesn't care if the user was already in the group, so we have to check here
         if (!this.containsMember(userId)) {
-          await regionStore.fetchMemberList(this.groupId)
+          await this.regionStore.fetchMemberList(this.groupId)
         }
       } catch (e) {
         pulseError(i18n('error_unexpected'))
@@ -897,7 +894,7 @@ export default {
       } catch (e) {
         if (!doVerify && e.code && e.code === HTTP_RESPONSE.BAD_REQUEST) {
           pulseError(this.$t('group.member_list.passports.unverify_error_slots', {
-            name: regionStore.memberList.find(m => m.id === userId)?.name ?? userId,
+            name: this.regionStore.memberList.find(m => m.id === userId)?.name ?? userId,
             id: userId,
           }))
         } else {
@@ -914,7 +911,7 @@ export default {
     async verifySelectedMembers () {
       // get members to verifiy
       const unverifiedSelectedMembers = this.passportMember
-        .map(id => regionStore.memberList.find(entry => entry.id === id))
+        .map(id => this.regionStore.memberList.find(entry => entry.id === id))
         .filter(member => !member?.isVerified)
       if (!unverifiedSelectedMembers.length) {
         pulseSuccess(i18n('group.member_list.passports.already_verified'))

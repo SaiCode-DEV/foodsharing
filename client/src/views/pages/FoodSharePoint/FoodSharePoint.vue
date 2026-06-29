@@ -140,6 +140,7 @@ import ContainerButton from '@/components/Container/ContainerButton.vue'
 import TimeDisplay from '@/components/TimeDisplay.vue'
 import { useUserStore } from '@/stores/user'
 import L from 'leaflet'
+import 'leaflet.awesome-markers'
 import NavigateWithSelector from '@/components/UI/NavigateWithSelector.vue'
 L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa'
 

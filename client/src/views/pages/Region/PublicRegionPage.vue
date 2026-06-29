@@ -91,17 +91,16 @@ import LeaveRegionContainer from './LeaveRegionContainer.vue'
 import PublicRegionDescriptionContainer from './PublicRegionDescriptionContainer.vue'
 import PublicEventsContainer from './PublicEventsContainer.vue'
 
-const userStore = useUserStore()
-const regionStore = useRegionStore()
-
 export default {
   components: { BasePage, Breadcrumbs, RegionMap, SimpleRegionStatistics, RegionSideNav, RegionChildrenContainer, Wall, InaccessibleRegionRedirectWarning, PublicRegionTopBanner, PublicRegionContactContainer, JoinRegionContainer, LeaveRegionContainer, PublicRegionDescriptionContainer, PublicEventsContainer },
   props: {
     id: { type: Number, required: true },
   },
   setup () {
+    const userStore = useUserStore()
+    const regionStore = useRegionStore()
     const { confirmationDialogue } = useConfirmationDialogue()
-    return { confirmationDialogue }
+    return { confirmationDialogue, userStore, regionStore }
   },
   data: () => ({
     regionData: null,
@@ -118,13 +117,13 @@ export default {
       return breadcrumbs
     },
     isLoggedIn () {
-      return userStore.isLoggedIn
+      return this.userStore.isLoggedIn
     },
     isFoodsaver () {
-      return userStore.isFoodsaver
+      return this.userStore.isFoodsaver
     },
     isRegionMember () {
-      return regionStore.regions.some(region => region.id === this.id)
+      return this.regionStore.regions.some(region => region.id === this.id)
     },
     mayJoinRegion () {
       return this.isLoggedIn &&
@@ -133,14 +132,14 @@ export default {
         ACCESSIBLE_REGION_TYPES.includes(this.regionData.type)
     },
     mayEditData () {
-      return userStore.isOrga || (this.isRegionMember && this.regionMenu?.maySetRegionPin)
+      return this.userStore.isOrga || (this.isRegionMember && this.regionMenu?.maySetRegionPin)
     },
     mayAccessRegion () {
-      return this.isRegionMember || userStore.isOrga
+      return this.isRegionMember || this.userStore.isOrga
     },
   },
   async created () {
-    this.regionData = await regionStore.fetchPublicRegionData(this.id)
+    this.regionData = await this.regionStore.fetchPublicRegionData(this.id)
     if (!this.regionData) return
     document.title += ' | ' + this.regionData.name
     if (this.regionData.email) {
@@ -148,7 +147,7 @@ export default {
       history.replaceState(null, '', `/region/${this.regionData.email}`)
     }
     if (this.mayAccessRegion) {
-      this.regionMenu = await regionStore.fetchRegionMenu(this.id)
+      this.regionMenu = await this.regionStore.fetchRegionMenu(this.id)
     }
   },
 }

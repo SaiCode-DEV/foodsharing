@@ -249,8 +249,6 @@ import 'vue-slider-component/theme/antd.css'
 import Info from '@/components/Help/Info.vue'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 
-const userStore = useUserStore()
-
 export default {
   components: { ThreadForm, ThreadPost, OverflowMenu, JumpScrollButton, SubscribeButton, HiddenPostsAlert, VueSlider, Info, MarkdownInput },
   props: {
@@ -260,6 +258,7 @@ export default {
     },
   },
   setup () {
+    const userStore = useUserStore()
     return {
       userStore,
     }
@@ -301,10 +300,10 @@ export default {
   },
   computed: {
     userId () {
-      return userStore.getUserId
+      return this.userStore.getUserId
     },
     userFirstName () {
-      return userStore.getUserFirstName
+      return this.userStore.getUserFirstName
     },
     isOpen () {
       return this.status === ThreadStatus.THREAD_OPEN
@@ -512,8 +511,8 @@ export default {
           post.hidden = {
             reason,
             moderator: {
-              name: userStore.getUserFirstName,
-              id: userStore.getUserId,
+              name: this.userStore.getUserFirstName,
+              id: this.userStore.getUserId,
             },
             time: new Date(),
           }
@@ -546,8 +545,8 @@ export default {
         body,
         reactions: {},
         author: {
-          name: `${this.userFirstName} ${userStore.getUserLastName}`,
-          avatar: userStore.getAvatar,
+          name: `${this.userFirstName} ${this.userStore.getUserLastName}`,
+          avatar: this.userStore.getAvatar,
         },
       }
       this.loadingPosts.push(-1)

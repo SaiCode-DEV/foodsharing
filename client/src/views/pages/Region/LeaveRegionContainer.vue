@@ -26,7 +26,6 @@ import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 import ContainerButton from '@/components/Container/ContainerButton.vue'
 import { useUserStore } from '@/stores/user'
 
-const userStore = useUserStore()
 export default {
   components: { Container, ContainerButton },
   props: {
@@ -35,8 +34,9 @@ export default {
     isWorkGroup: { type: Boolean, default: false },
   },
   setup () {
+    const userStore = useUserStore()
     const { confirmationDialogue } = useConfirmationDialogue()
-    return { confirmationDialogue }
+    return { confirmationDialogue, userStore }
   },
   data () {
     return {
@@ -61,7 +61,7 @@ export default {
       }
     },
     isHomeRegion () {
-      return userStore.getHomeRegion === this.regionId
+      return this.userStore.getHomeRegion === this.regionId
     },
   },
   methods: {

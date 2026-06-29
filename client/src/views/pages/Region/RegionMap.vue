@@ -84,6 +84,7 @@ import LeafletMap from '@/components/map/LeafletMap.vue'
 import { LMarker, LTooltip } from 'vue2-leaflet'
 import FoodSharePointBubble from '@php/Modules/Map/components/FoodSharePointBubble.vue'
 import Leaflet from 'leaflet'
+import 'leaflet.awesome-markers'
 import { MAP_CONSTANTS, MARKER_TYPES } from '@/stores/map'
 import { objectMap } from '@/utils'
 import ContainerButton from '@/components/Container/ContainerButton.vue'
@@ -94,8 +95,6 @@ import { useRegionStore } from '@/stores/regions'
 import { pulseError } from '@/script'
 import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 Leaflet.AwesomeMarkers.Icon.prototype.options.prefix = 'fa'
-
-const regionStore = useRegionStore()
 
 function median (values) {
   values.sort((a, b) => a - b)
@@ -119,8 +118,9 @@ export default {
     mayEdit: { type: Boolean, default: false },
   },
   setup () {
+    const regionStore = useRegionStore()
     const { confirmationDialogue } = useConfirmationDialogue()
-    return { confirmationDialogue }
+    return { confirmationDialogue, regionStore }
   },
   data () {
     return {
@@ -181,7 +181,7 @@ export default {
         this.loading = true
         try {
           await setPublicRegionData(this.regionId, { showPin: true, location: this.editLocation })
-          await regionStore.fetchPublicRegionData(this.regionId, true)
+          await this.regionStore.fetchPublicRegionData(this.regionId, true)
           this.$emit('update:location', this.editLocation)
           this.center = Object.assign({}, this.editLocation)
           this.editMode = false
@@ -201,7 +201,7 @@ export default {
       this.loading = true
       try {
         await setPublicRegionData(this.regionId, { showPin: false })
-        await regionStore.fetchPublicRegionData(this.regionId, true)
+        await this.regionStore.fetchPublicRegionData(this.regionId, true)
         this.$emit('update:location', null)
       } catch (e) {
         pulseError(this.$t('error_unexpected'))

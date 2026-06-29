@@ -54,7 +54,7 @@
       </div>
 
       <Container
-        v-for="({ header, groups }, i) in groupsByHeader"
+        v-for="({ header, groups: headerGroups }, i) in groupsByHeader"
         :key="i"
         :hide-header="!header"
         :container-is-expanded="!header?.collapsed"
@@ -63,12 +63,12 @@
           <i class="fas mr-2" :class="header.icon" />
           <h5>
             {{ $t('group.list_headers.' + header.title, { region: currentRegion?.name }) }}
-            ({{ groups.length }})
+            ({{ headerGroups.length }})
           </h5>
           <span class="flex-grow-1" />
           <Info v-if="header?.infoKey" :info-key="header?.infoKey" />
         </template>
-        <template v-for="group in groups">
+        <template v-for="group in headerGroups">
           <div
             :key="group.id"
             class="list-group-item group-entry"

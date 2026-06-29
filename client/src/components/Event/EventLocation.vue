@@ -55,6 +55,7 @@ import ConferenceOpenerMixin from '@/mixins/ConferenceOpenerMixin'
 import { EVENT_TYPE } from '@/consts'
 
 import Leaflet from 'leaflet'
+import 'leaflet.awesome-markers'
 import NavigateWithSelector from '../UI/NavigateWithSelector.vue'
 Leaflet.AwesomeMarkers.Icon.prototype.options.prefix = 'fa'
 

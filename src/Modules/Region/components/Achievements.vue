@@ -157,8 +157,6 @@ import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 import { ACHIEVEMENT_DUPLICATE_MODE } from '@/consts'
 import AchievementInfo from '@/components/Achievement/AchievementInfo.vue'
 
-const userStore = useUserStore()
-
 export default {
   components: { Container, Achievements, UserSearchInput, Avatar, TimeDisplay, OverflowMenu, DatePicker, AchievementInfo },
   props: {
@@ -168,8 +166,9 @@ export default {
     mayAdministrateAchievements: { type: Boolean, default: false },
   },
   setup () {
+    const userStore = useUserStore()
     const { confirmationDialogue } = useConfirmationDialogue()
-    return { confirmationDialogue }
+    return { confirmationDialogue, userStore }
   },
   data: () => ({
     achievements: null,
@@ -198,7 +197,7 @@ export default {
       return fields
     },
     ownId () {
-      return userStore.getUserId
+      return this.userStore.getUserId
     },
   },
   async mounted () {
