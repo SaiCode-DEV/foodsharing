@@ -105,6 +105,36 @@ class ForumTransactionsTest extends Unit
         $this->transaction->createThread($this->user1['id'], $thread, $this->region, false, false);
     }
 
+    public function testActivatedThreadBellNamesAuthorNotApprover(): void
+    {
+        // #2750: in a moderated forum the new-thread bell is sent when a
+        // moderator activates the thread. The bell must name the thread author,
+        // not the moderator who approved it.
+        $captured = [];
+        $this->bellGateway->method('addBellForUsers')->willReturnCallback(
+            function ($recipients, $bell) use (&$captured) {
+                $captured[] = $bell;
+            }
+        );
+
+        // Author (user1) creates an inactive (moderated) thread.
+        $thread = new CreateThreadData();
+        $thread->title = 'Moderated thread';
+        $thread->body = 'Body';
+        $threadId = $this->transaction->createThread($this->user1['id'], $thread, $this->region, false, false);
+
+        // A different user (the moderator) approves/activates it.
+        $this->setSessionUserId($this->user2['id']);
+        $this->transaction->activateThread($threadId);
+
+        $authorName = $this->foodsaverGateway->getFoodsaverName($this->user1['id']);
+        $approverName = $this->foodsaverGateway->getFoodsaverName($this->user2['id']);
+        $newThreadBells = array_values(array_filter($captured, fn ($b) => $b->body === 'new_forum_thread'));
+        $this->assertNotEmpty($newThreadBells, 'activation should create a new_forum_thread bell');
+        $this->assertEquals($authorName, $newThreadBells[0]->vars['author']);
+        $this->assertNotEquals($approverName, $newThreadBells[0]->vars['author']);
+    }
+
     public function testEditPostByAuthorWithinWindowUpdatesPost(): void
     {
         $thread = $this->tester->addForumThread($this->region['id'], $this->user['id'], false, ['time' => (new \DateTime())->format('Y-m-d H:i:s')]);

@@ -299,11 +299,19 @@ class ForumTransactions
 
     private function notifyActiveFollowersOfForumAboutNewThreadViaBell(array $region, int $threadId, bool $isAmbassadorForum, string $title): void
     {
+        // Derive the author from the thread itself rather than the current session
+        // user: in a moderated forum this runs when a moderator activates the thread,
+        // so the session user would be the approver instead of the author (#2750).
+        $authorId = $this->forumGateway->getThread($threadId)->creatorId;
+        $authorName = $this->foodsaverGateway->getFoodsaverName($authorId);
+
         $recipients = $this->forumFollowerGateway->getAdminIdsToNotifyForNewThread($region['id']);
         if (!$isAmbassadorForum) {
             $recipients = array_unique(array_merge($recipients, $this->forumFollowerGateway->getUserIdsToNotifyForNewThread($region['id'])));
         }
-        $recipients = array_diff($recipients, [$this->session->id()]); // exclude author
+        // Exclude both the thread author and the user triggering this (e.g. the
+        // moderator activating a moderated thread) — neither needs a bell about it.
+        $recipients = array_diff($recipients, [$authorId, $this->session->id()]);
 
         $bell = Bell::create(
             'new_forum_thread_title',
@@ -313,7 +321,7 @@ class ForumTransactions
             [
                 'forum' => $region['name'],
                 'title' => $title,
-                'author' => $this->session->user('name'),
+                'author' => $authorName,
             ],
             BellType::createIdentifier(BellType::NEW_FORUM_THREAD, $threadId)
         );
