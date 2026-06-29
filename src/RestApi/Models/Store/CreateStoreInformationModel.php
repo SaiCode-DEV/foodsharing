@@ -37,7 +37,7 @@ class CreateStoreInformationModel
      * Zip code.
      */
     #[Assert\NotNull]
-    #[Assert\Length(max: 5)]
+    #[Assert\Length(max: 10)]
     public ?string $zipCode = null;
 
     /**

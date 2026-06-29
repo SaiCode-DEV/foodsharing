@@ -683,6 +683,32 @@ class StoreApiCest
             'public_info' => $storeInfo['publicInfo']]);
     }
 
+    public function createStoreWithNonNumericLongZipCodeSucceeds(ApiTester $I): void
+    {
+        // Regression for #2514: non-German postal codes (e.g. Dutch "3466 LB",
+        // 7 chars incl. a space and letters) were rejected by the 5-char cap.
+        $I->login($this->manager['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+
+        $storeInfo = [
+            'name' => 'Store Name',
+            'location' => ['lat' => 12.01, 'lon' => 4.190000],
+            'street' => 'Mühlbachweg 122',
+            'zipCode' => '3466 LB',
+            'city' => 'Roermond',
+            'publicInfo' => 'Wetten des es geht'
+        ];
+        $I->sendPOST(self::API_REGIONS . '/' . $this->region['id'] . '/stores', [
+            'store' => $storeInfo, 'firstPost' => null]);
+        $I->seeResponseCodeIs(Http::OK);
+        $storeIds = $I->grabDataFromResponseByJsonPath('$.id');
+        $I->assertEquals(1, count($storeIds));
+
+        $I->seeInDatabase('fs_betrieb', [
+            'id' => $storeIds[0],
+            'plz' => $storeInfo['zipCode']]);
+    }
+
     public function createStoreAsStoreManagerOfRegionSuccessfulWithFirstPost(ApiTester $I): void
     {
         $I->login($this->manager['email']);
