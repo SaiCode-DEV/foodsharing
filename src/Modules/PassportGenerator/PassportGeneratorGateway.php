@@ -23,7 +23,11 @@ final class PassportGeneratorGateway extends BaseGateway
             'bot_id' => $generatedUserId,
         ], $userIds);
 
-        return $this->db->insertMultiple('fs_pass_gen', $data);
+        // The primary key is (foodsaver_id, date) with second precision, so
+        // generating a passport for the same foodsaver twice within the same
+        // second would otherwise raise a duplicate-key error (#1704). The pass
+        // is already logged for that second, so silently ignore the duplicate.
+        return $this->db->insertMultiple('fs_pass_gen', $data, ['ignore' => true]);
     }
 
     public function updateFoodsaverLastPassDate(array $userIds): int
