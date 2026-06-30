@@ -6,4 +6,6 @@ import { vueApply, vueRegister } from '@/vue'
 vueRegister({
   LegalPage,
 })
-vueApply('#legal-page')
+document.addEventListener('DOMContentLoaded', () => {
+  vueApply('#legal-page')
+})

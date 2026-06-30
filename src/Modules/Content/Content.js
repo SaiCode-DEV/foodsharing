@@ -14,34 +14,33 @@ import ContentEntry from '@/components/Content/ContentEntry.vue'
 import ContactPage from './components/ContactPage.vue'
 import Partner from './components/Partner.vue'
 
-if (GET('sub') === 'releaseNotes') {
-  vueRegister({
-    ReleaseNotes,
-  })
-  vueApply('#vue-release-notes')
-} else if (GET('sub') === 'communities') {
-  vueRegister({ Communities })
-  vueApply('#vue-communities')
-} else if (GET('sub') === 'joininfo') {
-  vueRegister({ JoinInfo })
-  vueApply('#vue-join-info')
-} else if (GET('sub') === 'contact') {
-  vueRegister({ ContactPage })
-  vueApply('#vue-contact-page')
-} else if (document.getElementById('vue-content')) {
-  vueRegister({
-    ContentEntry,
-  })
-  vueApply('#vue-content')
-} else if (document.getElementById('content-partner')) {
-  vueRegister({ Partner })
-  vueApply('#content-partner')
-} else if (GET('sub') === undefined && GET('a') === undefined) {
-  vueRegister({
-    ContentList,
-  })
-  vueApply('#content-list', true)
-} else if (GET('a') === 'edit' || GET('a') === 'new') {
-  vueRegister({ ContentEdit })
-  vueApply('#content-edit')
-}
+vueRegister({
+  ReleaseNotes,
+  Communities,
+  JoinInfo,
+  ContactPage,
+  ContentEntry,
+  Partner,
+  ContentList,
+  ContentEdit,
+})
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (GET('sub') === 'releaseNotes') {
+    vueApply('#vue-release-notes')
+  } else if (GET('sub') === 'communities') {
+    vueApply('#vue-communities')
+  } else if (GET('sub') === 'joininfo') {
+    vueApply('#vue-join-info')
+  } else if (GET('sub') === 'contact') {
+    vueApply('#vue-contact-page')
+  } else if (document.getElementById('vue-content')) {
+    vueApply('#vue-content')
+  } else if (document.getElementById('content-partner')) {
+    vueApply('#content-partner')
+  } else if (GET('sub') === undefined && GET('a') === undefined) {
+    vueApply('#content-list')
+  } else if (GET('a') === 'edit' || GET('a') === 'new') {
+    vueApply('#content-edit')
+  }
+})

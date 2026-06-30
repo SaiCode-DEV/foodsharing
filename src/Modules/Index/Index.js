@@ -9,4 +9,6 @@ import Index from '@/views/pages/Index/Index.vue'
 vueRegister({
   Index,
 })
-vueApply('#index')
+document.addEventListener('DOMContentLoaded', () => {
+  vueApply('#index')
+})

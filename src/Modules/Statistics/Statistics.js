@@ -6,4 +6,6 @@ import Statistics from '@/views/pages/Statistics/Statistics.vue'
 vueRegister({
   Statistics,
 })
-vueApply('#statistics')
+document.addEventListener('DOMContentLoaded', () => {
+  vueApply('#statistics')
+})

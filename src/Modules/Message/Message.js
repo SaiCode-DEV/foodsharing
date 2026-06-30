@@ -10,4 +10,6 @@ import MessagePage from '@/views/pages/Message/MessagePage.vue'
 vueRegister({
   MessagePage,
 })
-vueApply('#message')
+document.addEventListener('DOMContentLoaded', () => {
+  vueApply('#message')
+})

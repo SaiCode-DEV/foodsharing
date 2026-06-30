@@ -7,4 +7,6 @@ import MapPage from '@/views/pages/Map/MapPage.vue'
 vueRegister({
   MapPage,
 })
-vueApply('#map-page')
+document.addEventListener('DOMContentLoaded', () => {
+  vueApply('#map-page')
+})

@@ -8,19 +8,10 @@ import BasketPage from '@/views/pages/Basket/BasketPage.vue'
 import BasketFind from '@/views/pages/Basket/BasketFind.vue'
 import BasketErrorPage from '@/views/pages/Basket/BasketErrorPage.vue'
 
+vueRegister({ BasketFind, BasketPage, BasketErrorPage })
+
 document.addEventListener('DOMContentLoaded', () => {
-  if (document.getElementById('BasketFind')) {
-    vueRegister({ BasketFind })
-    vueApply('#BasketFind')
-  }
-
-  if (document.getElementById('vue-basket-page')) {
-    vueRegister({ BasketPage })
-    vueApply('#vue-basket-page')
-  }
-
-  if (document.getElementById('BasketErrorPage')) {
-    vueRegister({ BasketErrorPage })
-    vueApply('#BasketErrorPage')
-  }
+  vueApply('#BasketFind')
+  vueApply('#vue-basket-page')
+  vueApply('#BasketErrorPage')
 })

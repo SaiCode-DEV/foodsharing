@@ -7,4 +7,6 @@ import FeatureToggles from '@/views/pages/FeatureToggles/FeatureToggles.vue'
 vueRegister({
   FeatureToggles,
 })
-vueApply('#vue-feature-toggles')
+document.addEventListener('DOMContentLoaded', () => {
+  vueApply('#vue-feature-toggles')
+})

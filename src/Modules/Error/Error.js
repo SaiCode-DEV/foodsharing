@@ -8,4 +8,6 @@ import Error from '@/views/pages/Error.vue'
 vueRegister({
   Error,
 })
-vueApply('#errorbox')
+document.addEventListener('DOMContentLoaded', () => {
+  vueApply('#errorbox')
+})

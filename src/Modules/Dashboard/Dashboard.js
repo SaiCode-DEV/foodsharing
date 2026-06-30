@@ -10,4 +10,6 @@ import Dashboard from '@/views/pages/Dashboard/Dashboard.vue'
 vueRegister({
   Dashboard,
 })
-vueApply('#dashboard')
+document.addEventListener('DOMContentLoaded', () => {
+  vueApply('#dashboard')
+})

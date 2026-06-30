@@ -6,4 +6,6 @@ import Mailbox from '@/components/Mailbox/Mailbox.vue'
 vueRegister({
   Mailbox,
 })
-vueApply('#vue-mailbox', true) // Mailbox
+document.addEventListener('DOMContentLoaded', () => {
+  vueApply('#vue-mailbox') // Mailbox
+})

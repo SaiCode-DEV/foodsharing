@@ -6,4 +6,6 @@ import { vueApply, vueRegister } from '@/vue'
 vueRegister({
   TeamPage,
 })
-vueApply('#vue-team-page')
+document.addEventListener('DOMContentLoaded', () => {
+  vueApply('#vue-team-page')
+})

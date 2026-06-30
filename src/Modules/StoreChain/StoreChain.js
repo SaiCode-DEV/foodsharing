@@ -7,9 +7,11 @@ import {
   GET,
 } from '@/script'
 
-if (GET('a') === undefined) {
-  vueRegister({
-    ChainList,
-  })
-  vueApply('#vue-chainlist', true)
-}
+vueRegister({
+  ChainList,
+})
+document.addEventListener('DOMContentLoaded', () => {
+  if (GET('a') === undefined) {
+    vueApply('#vue-chainlist')
+  }
+})

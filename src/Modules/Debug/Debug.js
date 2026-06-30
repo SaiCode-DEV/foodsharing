@@ -9,4 +9,6 @@ import Debug from '@/views/pages/Debug/Debug.vue'
 vueRegister({
   Debug,
 })
-vueApply('#debug')
+document.addEventListener('DOMContentLoaded', () => {
+  vueApply('#debug')
+})

@@ -8,5 +8,6 @@ import './StoreUser.css'
 vueRegister({
   StorePage,
 })
-
-vueApply('#vue-store-page', true)
+document.addEventListener('DOMContentLoaded', () => {
+  vueApply('#vue-store-page')
+})

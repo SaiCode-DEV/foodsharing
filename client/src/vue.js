@@ -37,7 +37,7 @@ export function vueRegister (components) {
   }
 }
 
-export function vueApply (selector, disableElNotFoundException = false) {
+export function vueApply (selector, disableElNotFoundException = true) {
   let elements = document.querySelectorAll(selector)
 
   // querySelectorAll().forEach() is broken in iOS 9

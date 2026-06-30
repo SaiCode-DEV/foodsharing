@@ -7,4 +7,6 @@ import SupportPage from './components/SupportPage.vue'
 vueRegister({
   SupportPage,
 })
-vueApply('#support-page')
+document.addEventListener('DOMContentLoaded', () => {
+  vueApply('#support-page')
+})

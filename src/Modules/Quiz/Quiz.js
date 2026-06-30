@@ -4,4 +4,6 @@ import QuizEditor from '@/views/pages/Quiz/QuizEditor'
 import { vueApply, vueRegister } from '@/vue'
 
 vueRegister({ QuizEditor })
-vueApply('#vue-quiz-editor')
+document.addEventListener('DOMContentLoaded', () => {
+  vueApply('#vue-quiz-editor')
+})
