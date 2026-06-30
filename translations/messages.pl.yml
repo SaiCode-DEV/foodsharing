@@ -254,8 +254,8 @@ quiz:
         questionCountUntimed: 'Liczba pytań bez limitu czasu:'
       htmlWarning: '**Uwaga:** Zmieniono formatowanie opisu. To, co widzisz w polu
         wprowadzania tekstu, jest w formacie HTML. Dostosuj opis i zamiast tego użyj
-        markdown. Użyj funkcji podglądu pola wprowadzania tekstu, aby upewnić się,
-        że poprawnie dostosowano formatowanie.'
+        markdown. Aby się upewnić, że poprawnie dostosowano formatowanie, użyj funkcji
+        podglądu pola wprowadzania tekstu.'
     question:
       title: Edytuj pytanie
       input:
@@ -296,7 +296,7 @@ right: Wartość
 groups:
   empty: Nie jesteś jeszcze w żadnej grupie roboczej
 about_me_public: Krótki opis publiczny
-teaser: Kłopotliwe pytanie
+teaser: Zwiastun
 fspmanagers: Foodsavers, którzy są osobami kontaktowymi dla sprawiedliwego 
   dzielenia się
 kette_id: Sieć punktów
@@ -329,8 +329,7 @@ upload:
   crop_dialog_title: Przytnij obraz
   image-problem: Twój plik wydaje się nie być w porządku, najlepiej wybierz 
     zwykły obraz jpg
-  invalid_image_files: '{count} wybrane/ych pliki/ów nie są/jest ważnymi obrazami:
-    {fileNames}'
+  invalid_image_files: '{count} wybrane pliki nie są obrazami: {fileNames}'
   remove_image: Usuń obraz
 button:
   save: Zapisz
@@ -347,7 +346,7 @@ button:
   yes_i_am_sure: tak, jestem pewny/a
   apply: zastosuj
   cancel: Anuluj
-  prev: Powrót
+  prev: powrót
   send: Wyślij
   answer: Odpowiedz
   create: Stwórz
@@ -458,7 +457,14 @@ settings:
     range: 'Podaj, jak długo będziesz niedostępny/a:'
     saved: Zapisano ustawienia
     tooltip: '{name} aktualnie ma przerwę i jest w trybie uśpienia'
-    info: 'tryb uśpienia
+    info: 'Przez funkcję trybu uśpienia informujesz społeczność, że aktualnie jesteś
+      w podróży
+
+      albo z innych powodów nie masz teraz czasu ratować żywności.
+
+      Jest pomocne, żeby wiedzieć, czy możesz reagować na wiadomości
+
+      albo nawet czy czasem przejmujesz sloty.
 
       '
     missing-date: 'Podaj datę początkową i końcową.'
@@ -865,7 +871,7 @@ group:
     pr: 'Public relations'
     report: 'Skargi'
     invalid: 'Nie można przyporządkować funkcji zespołu do rejonu.'
-    none: 'Nie ma zespołów GOALS'
+    none: 'Nie jest zespołem GOALS'
     stores_coordination: 'Punkty'
     arbitration: 'Rada arbitrażowa'
     function_type_info:
@@ -1125,9 +1131,9 @@ login:
       zostanie wysłany nowy email.
   or: albo
   error_not_activated: 'Niestety, twój adres email jeszcze nie jest aktywowany.'
-  error_no_auth: 'Niestety, nie możemy znaleźć tego adresu email lub hasła, proszę
-    spróbować ponownie. Ewentualnie drugi składnik uwierzytelniający może być błędny,
-    jeśli tego używasz.'
+  error_no_auth: 'Niestety, nie możemy odnaleźć tego adresu e-mail lub hasła. Proszę
+    spróbować ponownie. O ile używasz uwierzytelniania dwuskładnikowego, mógł wystąpić
+    błąd w drugim kroku uwierzytelniania.'
   2fa: 'Uwierzytelnianie dwuskładnikowe (2FA)'
   passkey_btn: 'Zaloguj się przez klucz dostępu'
   passkey_cancelled: 'Rejestracja przez passkey została przerwana.'
@@ -1671,7 +1677,7 @@ store:
       intro: 'Kiedy wyślesz swoje zgłoszenie, koordynatorzy/ki punktu widzą następujące
         dane:'
     alerts:
-      one_more: Pokaż kolejną wskazówkę
+      one_more: Pokaż kolejny wpis
       many_more: Pokaż {count} kolejne wpisy
       one_less: Ukryj wpis
       many_less: Ukryj {count} wpisy/ów
@@ -1832,7 +1838,7 @@ store:
       12: 'Wypisanie się ze slotu'
       9: 'Wprowadzenie koordynatora/ki punktu'
       5: 'Dodanie foodsaverów/ek na listę rezerwowych'
-      13: 'Zostanie wypisanym ze slotu'
+      13: 'Zostać wypisanym/ą ze slotu'
       11: 'Zapisanie się na slot'
       15: 'Usunięcie wpisu na tablicy'
     log_types_placeholder: 'Wybierz typy akcji do wyświetlenia'
@@ -2356,11 +2362,11 @@ chat:
   incorrect_address: Ten adres email nie jest poprawny
   empty_message: Najpierw musisz napisać wiadomość.
   conversations: Konwersacje
-  confirm_draft_discard: 'Przechodzisz do nowej konwersacji. Tekst w polu odpowiedzi
-    zostanie przy tym odrzucony.
+  confirm_draft_discard: 'Przechodzisz do nowej konwersacji. Tekst w tym polu odpowiedzi
+    będzie przy tym usunięty.
 
 
-    Jeśli przerwiesz ten dialog, twoja wersja robocza zostanie przeniesiona do nowej
+    Jeśli przerwiesz ten dialog, twoja wersja robocza będzie przeniesiona do nowej
     konwersacji.
 
     '
@@ -2404,7 +2410,7 @@ events:
     online: jako telekonferencja lub spotkanie online
     other: inne
     locationOther: Gdzie odbędzie się ten event?
-    fillCompletely: Proszę wypełnić do końca formularz.
+    fillCompletely: Wypełnij do końca formularz.
     locationDetails: 'Szczegóły adresu (numer pomieszczenia itd.)'
     regions: 'Twoje rejony'
     who: 'Dla jakiego rejonu albo zespołu ma być utworzony ten event?'
@@ -2817,6 +2823,9 @@ foodsaver:
     twojego konta nie będzie już później możliwe. Jeśli potem będziesz kiedyś chciał/a
     ponownie dołączyć do foodsharingu, będziesz musiał/a utworzyć nowe konto i ponownie
     zgłosić się do punktów, zespołów itp.'
+  delete_account_blockmail: Umieść adres email na liście zablokowanych
+  delete_account_blockmail_help: Nie pozwala, aby użytkownik/czka 
+    zarejestrował/a się ponownie z tym samym adresem email
 content:
   bread: Wszystkie strony
   public: Strony publiczne
@@ -3462,7 +3471,7 @@ menu:
     load_more: 'Załaduj więcej'
     academy: 'Akademia'
     close_all_chats: 'Zamknij wszystkie chaty'
-    transparency: 'przejrzystość'
+    transparency: 'Przejrzystość'
     wall: 'Tablica'
     chainList: 'Lista sieci'
     helpwanted: 'Team jest otwarty'
@@ -5333,3 +5342,26 @@ password:
   reset: 'Zapomniałeś/aś hasła?'
   insertmail: 'Podaj swój adres email, aby zresetować hasło.'
 parent_id: 'Rejon nadrzędny'
+email_blocklist:
+  admin:
+    title: Zarządzenie listą zablokowanych adresów email
+    create_entry: Utwórz nowy wpis
+    edit_entry: Edytuj wpis
+    confirm_delete: Usunąć wpis?
+    delete_warning: Czy na pewno chcesz usunąć wzór '{pattern}'? Ta akcja jest 
+      nieodwracalna.
+    email_pattern: Wzór maila
+    pattern_placeholder: np. spam@example.com lub *@spam.com
+    description: Opis
+    description_placeholder: Powód blokady (opcjonalnie)
+    active: Aktywne
+    created_at: Utworzone dnia
+    actions: Akcje
+    load_error: błąd przy ładowaniu wpisów
+    save_error: błąd przy zapisywaniu
+    create_success: Pomyślnie utworzono wpis
+    update_success: Pomyślnie zaktualizowano wpis
+    delete_success: Pomyślnie usunięto wpis
+    delete_error: Błąd przy usuwaniu
+    pattern_help: 'Użyj * jako symbolu zastępczego. Przykłady: example.com (domena),
+      *@spam.com (dowolna nazwa na tej domenie), spam@* (email wszędzie)'

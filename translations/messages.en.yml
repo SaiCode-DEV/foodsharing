@@ -2466,7 +2466,8 @@ foodsaver:
   delete_account_sure_reason: "Do you really want to delete the account? Reason: {reason}"
   delete_account_reason: Reason for account deletion
   delete_account_blockmail: Block email address from re-registration
-  delete_account_blockmail_help: Prevents the user from registering again with the same email address
+  delete_account_blockmail_help: Prevents the user from registering again with 
+    the same email address
   delete_account_password_verify: 'Please enter your current password here to confirm
     your deletion request.'
   delete_account_totp_hint: 'Please note that you can only delete your account if
@@ -4658,6 +4659,12 @@ help:
       title: Inactive groups
       md: |
         A group is marked as inactive, if there has been no new forum post in the group for more than 6 months.
+    publicRegionStatistics:
+      title: Region statistics of the last 30 days
+      md: |
+        These statistics are being recalculated on a daily basis. Here you find an explanation of what these numbers mean:
+        - **Active foodsavers** are all verified foodsavers whose home region is either this region or one of its sub-regions and who have used the platform at least once within the last 30 days.
+        - **Active cooperations** are all stores in the region (or a sub-region) who were marked as active by the store managers.
   tooltip: Show help
   helpTitle: 'Help: {title}'
 team_page:
@@ -5110,10 +5117,12 @@ email_blocklist:
     create_entry: "Create New Entry"
     edit_entry: "Edit Entry"
     confirm_delete: "Delete Entry?"
-    delete_warning: "Do you really want to delete the pattern '{pattern}'? This action cannot be undone."
+    delete_warning: "Do you really want to delete the pattern '{pattern}'? This action
+      cannot be undone."
     email_pattern: "Email Pattern"
     pattern_placeholder: "e.g. spam@example.com or *@spam.com"
-    pattern_help: "Use * as wildcard. Examples: example.com (domain), *@spam.com (any name at this domain), spam@* (email everywhere)"
+    pattern_help: "Use * as wildcard. Examples: example.com (domain), *@spam.com (any
+      name at this domain), spam@* (email everywhere)"
     description: "Description"
     description_placeholder: "Reason for blocking (optional)"
     active: "Active"
