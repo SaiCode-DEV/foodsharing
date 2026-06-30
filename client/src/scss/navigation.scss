@@ -210,8 +210,12 @@ body.nav-open{
     }
 
     &.overNinetyNine {
+      // Keep the badge at the readable base font size; the wider "99+" fits by tightening
+      // its horizontal padding (instead of shrinking the text, which was hard to read) and
+      // hugging the right edge, so the bubble no longer gets clipped at the navbar edge (#2628).
       right: 0;
-      font-size: 0.6rem;
+      padding-left: 0.3em;
+      padding-right: 0.3em;
     }
   }
 }
@@ -237,8 +241,11 @@ body.nav-open{
     }
 
     &.overNinetyNine {
+      // Same readable-font + tight-padding approach as the nav-link badge above, so the
+      // mobile toggler's "99+" stays legible and still fits the cramped button (#2628).
       right: 0;
-      font-size: 0.6rem;
+      padding-left: 0.3em;
+      padding-right: 0.3em;
     }
   }
 }
@@ -282,14 +289,15 @@ body.nav-open{
 
       & .badge-inline {
         position: absolute;
-        left: 24px;
+        // Right-align the count badge (for every count) and keep it at the
+        // readable base size. Previously it sat over the icon and the "99+"
+        // case was shrunk to 0.6em to fit there, which was hard to read and
+        // looked inconsistent with the navbar badge (#2628). Right-aligning
+        // gives the wider "99+" room without overlapping the menu label.
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
         font-size: 1em;
-        top: 3px;
-
-        &.overNinetyNine {
-          font-size: 0.6em;
-          top: 5px;
-        }
       }
     }
   }
