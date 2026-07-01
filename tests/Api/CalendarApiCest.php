@@ -140,6 +140,50 @@ class CalendarApiCest
         $I->cantSeeResponseContains('BEGIN:VALARM');
     }
 
+    public function pickupEventContainsStoreSpecialInformation(ApiTester $I): void
+    {
+        // #1798: the store's "Besonderheiten" should be included in the
+        // synchronized pickup event so users see the special instructions.
+        $special = 'StoreBesonderheitMarkerABC';
+        $store = $I->createStore($this->region['id'], null, null, ['besonderheiten' => $special]);
+        // Sign the user up for a future pickup at this store.
+        $I->addCollector($this->user['id'], $store['id'], ['date' => new \DateTime('+2 days')]);
+
+        $I->haveInDatabase('fs_apitoken', [
+            'foodsaver_id' => $this->user['id'],
+            'token' => self::TEST_TOKEN
+        ]);
+        $I->login($this->user['email']);
+        $I->sendGet('api/calendar/' . self::TEST_TOKEN);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Unfold ICS continuation lines (CRLF + space every 75 octets) before
+        // asserting, so the marker is matched regardless of where it wraps.
+        $unfolded = str_replace(["\r\n ", "\n "], '', $I->grabResponse());
+        $I->assertStringContainsString($special, $unfolded);
+    }
+
+    public function pickupEventStoreInformationIsRenderedAsMarkdown(ApiTester $I): void
+    {
+        // #1798 review: the store's "Besonderheiten" is markdown (edited with the
+        // markdown editor), so in the html formatting it must be converted to html
+        // like the meeting description, not emitted raw.
+        $store = $I->createStore($this->region['id'], null, null, ['besonderheiten' => '**StoreBoldMarkerXYZ**']);
+        $I->addCollector($this->user['id'], $store['id'], ['date' => new \DateTime('+2 days')]);
+
+        $I->haveInDatabase('fs_apitoken', [
+            'foodsaver_id' => $this->user['id'],
+            'token' => self::TEST_TOKEN
+        ]);
+        $I->login($this->user['email']);
+        $I->sendGet('api/calendar/' . self::TEST_TOKEN . '?formatting=html');
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        $unfolded = str_replace(["\r\n ", "\n "], '', $I->grabResponse());
+        $I->assertStringContainsString('<strong>StoreBoldMarkerXYZ</strong>', $unfolded);
+        $I->assertStringNotContainsString('**StoreBoldMarkerXYZ**', $unfolded);
+    }
+
     public function canSetReminders(ApiTester $I): void
     {
         $I->login($this->user['email']);

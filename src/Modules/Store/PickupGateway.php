@@ -574,6 +574,7 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
 				GROUP_CONCAT(a2.confirmed) AS slot_confimations,
 				d.fetchercount AS max_fetchers,
 				d.`description` AS `description`,
+				s.besonderheiten AS store_description,
 				k.type AS ktype
 			FROM `fs_abholer` a
 			LEFT OUTER JOIN `fs_abholer` a2 ON

@@ -129,6 +129,17 @@ class CalendarTransactions
             $description .= '<br><br>' . $pickup['description'];
         }
 
+        if (!empty($pickup['store_description'])) {
+            $storeInfo = (string)$pickup['store_description'];
+            if ($formatting === FormattingType::HTML) {
+                $storeInfo = $this->sanitizer->markdownToHtml($storeInfo);
+            } else {
+                $storeInfo = str_replace(["\r\n", "\n", "\r"], '<br>', $storeInfo);
+            }
+            $description .= '<br><br>' . $this->translator->trans('calendar.export.pickup.storeInfo')
+                . '<br>' . $storeInfo;
+        }
+
         $this->setEventDescription($event, $description, $formatting);
         $event->setUrl($store_url);
         $event->setStatus($status);

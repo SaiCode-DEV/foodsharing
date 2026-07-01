@@ -1271,6 +1271,7 @@ calendar:
       description: 'Foodsharing slot at <a href="{url}">{store}</a>'
       freeSlots: '{count} slots are still free'
       foodsavers: 'Registered Foodsavers: '
+      storeInfo: 'Store information:'
       name:
         giving: '{store} Delivery'
         orga: '{store} Slot'

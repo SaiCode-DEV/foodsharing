@@ -1486,6 +1486,7 @@ calendar:
       description: 'foodsharing-Slot bei <a href="{url}">{store}</a>'
       foodsavers: "Eingetragene Foodsaver:innen: "
       freeSlots: "{count} Slots sind noch frei"
+      storeInfo: "Besonderheiten des Betriebs:"
     updated: "(Zuletzt aktualisiert: {date})"
     event:
       statusUnspecified: Du hast noch nicht angegeben, ob du an diesem Termin teilnimmst. Das kannst du auf der verlinkten Seite tun.
