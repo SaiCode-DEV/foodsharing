@@ -141,7 +141,7 @@ quiz:
       timed: Czas odpowiadania na pytania jest ograniczony. Nie stresuj się tym.
         Czas jest tak dostosowany do poszczególnych pytań, aby był wystarczający
         do odpowiedzenia w spokoju na dane pytanie. Jeśli mimo to kiedyś 
-        zabraknie ci czasu, poinformuj administratorów/ki quizu  poprzez 
+        zabraknie ci czasu, poinformuj administratorów/ki quizu poprzez 
         komentarz.
       pause: Możesz zastopować quiz po każdym pytaniu i kontynuować później.
       feedback: Na koniec quizu otrzymasz bezpośrednio ocenę, czy zdałeś/aś i 
@@ -240,7 +240,7 @@ quiz:
   mandatory_question: To pytanie jest obowiązkowe i zawarte w każdej próbie 
     quizu.
   fp_description: Łącznie {failurePoints}, czyli {perMistake} za błędną 
-    odpowiedź.
+    odpowiedź
   editModal:
     quiz:
       title: Edytuj quiz
@@ -285,9 +285,9 @@ quiz:
   test: Testuj quiz
   sessionStatus:
     2: Niezdane z {failurePoints} z maksymalnie {maxFailurePointsToSucceed} 
-      punktów ujemnych.
+      punktów ujemnych
     1: 'Zdane z {failurePoints} z maksymalnie {maxFailurePointsToSucceed} punktów
-      ujemnych.'
+      ujemnych'
     0: 'aktualnie uruchomiony'
 request_time: 'Czas zapytania:'
 pass1: Twoje żądane nowe hasło
@@ -472,11 +472,9 @@ settings:
     header: 'Funkcja uśpienia'
     title: 'Tryb uśpienia'
     full: 'Na razie znikam na nieokreślony czas'
-    show: 'Używając tej funkcji, wyrażasz zgodę na to, że twój status, czas nieobecności
-      i twoja wiadomość będą wyświetlane na twojej stronie profilowej i na twoim zdjęciu
-      profilowym pojawi się symbol czapki nocnej.
-
-      '
+    show: "Używając tej funkcji, wyrażasz zgodę na to, że twój status, \nczas nieobecności
+      i twoja wiadomość będą wyświetlane na twojej stronie profilowej \ni na twoim
+      zdjęciu profilowym pojawi się symbol czapki nocnej.\n"
     start_date_invalid: Data początkowa nie może być w przeszłości.
     end_date_invalid: Data końcowa nie może być przed datą początkową.
     start_date_same_or_future: 'Data początkowa nie może być w przeszłości, chyba
@@ -737,7 +735,9 @@ settings:
     not-supported: Twoja przeglądarka nie wspiera powiadomień push.
     denied: |
       Odrzuciłe/aś otrzymywanie powiadomień push od strony foodsharing w twojej przeglądarce. 
-      Jeśli chcesz otrzymywać powiadomienia push, zmień ustawienia przeglądarki dla strony foodsharing  i odśwież stronę.
+
+      Jeśli chcesz otrzymywać powiadomienia push, zmień ustawienia przeglądarki dla strony foodsharing
+      i odśwież stronę.
     info-on: |
       Jeśli aktywujesz powiadomienia push dla tego urządzenia, 
       wiadomości z chatu będą w przyszłości dostarczane bezpośrednio do twojego urządzenia, 
@@ -1184,7 +1184,7 @@ register:
   error_email_invalid: Ten adres email nie może być użyty
   account-exists: Już jesteś zarejestrowany/a. Wyloguj się, jeśli chcesz się 
     zarejestrować ponownie.
-  activation_success: <strong> Aktywacja przebiegła pomyślnie </strong> Teraz 
+  activation_success: <strong>Aktywacja przebiegła pomyślnie.</strong> Teraz 
     zaloguj się przy pomocy swojego adresu email i wybranego hasła.
   activation_failed: <strong>Aktywacja nie przebiegła pomyślnie.</strong> Czy 
     podany link jest poprawny?
@@ -1941,7 +1941,7 @@ store:
     się automatycznie co tydzień), użyj menu "ustawienia punktu".'
   tooltip_yellow: 'Wolne sloty w ciągu następnych pięciu dni'
   deactivatedRegion: 'Nie można aktualnie wyświetlić listy punktów dla państw i kontynentów.'
-  peoplecame: 'Już się zdarzyło, że ludzie poszli do sklepu bez wcześniejszego  uzgodnienia.'
+  peoplecame: 'Już się zdarzyło, że ludzie poszli do sklepu bez wcześniejszego uzgodnienia.'
   may_referred_to_in_public: 'Można publicznie wymieniać nazwę tego punktu.'
   noStores: 'Jeszcze nie wprowadzono żadnych punktów'
   short_tooltip_yellow: 'Wolne sloty w ciągu najbliższych 5 dni'
@@ -2069,7 +2069,7 @@ pickup:
       slots: 'Sloty'
       store: 'Punkt'
     status:
-      pending: NIepotwierdzony
+      pending: Niepotwierdzony
       confirmed: Potwierdzony
       option: 'Dostępny slot'
     tab:
@@ -2212,6 +2212,7 @@ calendar:
         giving: '{store} darowizna'
         orga: '{store} Slot'
         pickup: '{store} odbiór'
+      storeInfo: 'Informacje o punkcie:'
     updated: '(ostatnia aktualizacja: {date})'
     event:
       linkTitle: Event foodsharingu
@@ -2348,7 +2349,7 @@ chat:
   show_participants: Pokaż uczestników/czki
   participants: Uczestnicy/czki
   mark_as:
-    read: Oznacz wszystkie jako przeczytane
+    read: Oznacz jako przeczytane
     unread: Oznacz jako nieprzeczytane
   reply: Odpowiedz
   error:
@@ -2453,7 +2454,8 @@ events:
     join: Dołącz
   attendees: Uczestnicy/czki
   online_info: |
-    Telekonferencje i spotkania online przebiegają najlepiej na naszym własnym serwerze [BigBlueButton](https://bigbluebutton.org). Na 10 minut przed rozpoczęciem eventu uczestnicy/czki mogą ze strony eventu łatwo dołączyć  do konferencji przez kliknięcie. Nie potrzeba do tego żadnych innych programów, tylko w miarę aktualna przeglądarka internetowa. Poza tym jest możliwość dołączenia przez telefon.
+    Telekonferencje i spotkania online przebiegają najlepiej na naszym własnym serwerze [BigBlueButton](https://bigbluebutton.org). Na 10 minut przed rozpoczęciem eventu uczestnicy/czki mogą ze strony eventu łatwo dołączyć do konferencji przez kliknięcie. Nie potrzeba do tego żadnych innych programów, tylko w miarę aktualna przeglądarka internetowa. Poza tym jest możliwość dołączenia przez telefon.
+
     Jeśli mimo to chcesz użyć innej platformy do telekonferencji lub spotkań online, wybierz opcję "inne".
   public_info: Ten event jest publiczny i otwarty dla wszystkich. Komentarze i 
     lista uczestniczących są widoczne tylko dla zarejestrowanych 
@@ -2524,7 +2526,7 @@ bell:
     md_support: Jeśli myślisz, że wystąpił błąd, zgłoś ten fakt do 
       [Support](/support)
     md: "Dzwonek zawiera nieznany tekst. Prawdopodobnie dlatego, że ten dzwonek pochodzi
-      z wersji beta.\n\n\n\n Tytuł: `{bellTitle}`\n\n\n\n Klucz: `{bellKey}`"
+      z wersji beta.\n\n Tytuł: `{bellTitle}`\n\n Klucz: `{bellKey}`"
     title: 'Nieznany dzwonek'
     key: 'Dzwonki z beta nie mogą być wyświetlane'
   forum_answer_title: '{forum}'
@@ -3400,7 +3402,7 @@ basket:
   request-fs: 'Zapytaj o jadłokoszyk na naszej stronie głównej foodsharingu'
   new: 'Nowy jadłokoszyk'
   publish_error: 'Wystąpił błąd. Nie można było opublikować jadłokoszyka.'
-  mapsearch: 'Szukaj adresu  …'
+  mapsearch: 'Szukaj adresu …'
   no_requests: 'Jeszcze brak zapytań'
   contact:
     call: 'Przez telefon'
@@ -3803,7 +3805,7 @@ help:
         ---
 
 
-        Ważna uwaga:  Ta funkcja bazuje tylko na wewnętrznych stickerach higieny z
+        Ważna uwaga: Ta funkcja bazuje tylko na wewnętrznych stickerach higieny z
         foodsharingu. Ani umieszczone na profilu certyfikaty higieny od zewnętrznych
         dostawców (jak np. Metro), ani certyfikaty zdobyte w inny sposób nie są technicznie
         brane pod uwagę.
@@ -3848,7 +3850,7 @@ help:
         wsparcie wykraczające poza ratowanie.
 
 
-        #####  Przegląd zasobów
+        ##### Przegląd zasobów
 
         Sercem mozaiki zasobów jest przegląd wszystkich zasobów rejonu lub zespołu.
         Możesz albo po prostu dać się zainspirować różnorodnością twojego zespołu,
@@ -4005,7 +4007,7 @@ help:
     my_resources:
       title: 'Własne zasoby'
       md: 'W tym obszarze możesz zarządzać swoimi własnymi zasobami; wprowadzić nowy
-        zasób,  edytować, usuwać lub po prostu zobaczyć, czym aktualnie się dzielisz.
+        zasób, edytować, usuwać lub po prostu zobaczyć, czym aktualnie się dzielisz.
 
 
         ##### Czym jest zasób?
@@ -4048,7 +4050,7 @@ help:
 
         ---
 
-        Wskazówki do rozpatrywania skargi możecie przeczytać tutaj:  [Rozpatrywanie
+        Wskazówki do rozpatrywania skargi możecie przeczytać tutaj: [Rozpatrywanie
         skargi](https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)
 
         '
@@ -4225,11 +4227,11 @@ email_template:
   unknown_email: 'Nieznany adres email'
   impress:
     title: 'stopka redakcyjna'
-    address: "foodsharing e. V. \n\n Neven-DuMont-Str. 14 \n\n 50667 Köln \n\n\n\n\
-      \ Reprezentowany przez:\n\n Anja Westermann \n\n Kontakt:\n\n E-Mail: info@foodsharing.de\
-      \ \n\n\n\n Wpis w rejestrze:\n\n Wpis w rejestrze stowarzyszeń\n\n Sąd rejestrowy:
-      Sąd lokalny Köln\n\n Numer rejestru: VR 17439\n\n\n\n Odpowiedzialność za treść
-      według § 18 MStV:\n\n Anja Westermann"
+    address: "foodsharing e. V. \n Neven-DuMont-Str. 14 \n 50667 Köln \n\n Reprezentowany
+      przez:\n Anja Westermann \n Kontakt:\n E-Mail: info@foodsharing.de \n\n Wpis
+      w rejestrze:\n Wpis w rejestrze stowarzyszeń\n Sąd rejestrowy: Sąd lokalny Köln\n\
+      \ Numer rejestru: VR 17439\n\n Odpowiedzialność za treść według § 18 MStV:\n\
+      \ Anja Westermann"
     general_information_requirements: 'Dane według § 5 Telemediengesetz'
   unknown_email2: 'Adres email %ADDRESS% jest nieznany.
 
@@ -4262,6 +4264,7 @@ notifications:
     title: 'Otrzymuj powiadomienia push?'
     content: 'Aby szybciej dowiadywać się, że inni/e foodsaverzy/ki wysłali/ły ci
       wiadomość możesz aktywować powiadomienia push na tym urządzeniu.
+
 
       W swoich [ustawieniach powiadomień](/?page=settings&sub=info) możesz w dowolnym
       czasie znowu wyłączyć te powiadomienia.
@@ -5081,7 +5084,6 @@ markdown_input:
     sformatowany, jak będzie też później wyświetlany.
 
     ---
-
 
     *Jeszcze nie podałeś/aś żadnego tekstu, który można tu wyświetlić.*'
 feedback:
