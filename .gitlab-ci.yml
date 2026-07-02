@@ -376,6 +376,12 @@ test:php-compatibility-check:
   image: registry.gitlab.com/foodsharing-dev/images/php:latest
   <<: *vars-backend-test
   <<: *services-backend-test
+  before_script:
+    # Wait for the maildev service container to become reachable before running tests.
+    # Its DNS alias can lag behind the job start, which otherwise makes mail-dependent
+    # tests error with "cURL error 6: Could not resolve host: maildev". Bounded wait
+    # (~60s); the Maildev test helper additionally retries.
+    - php -r 'for ($i = 0; $i < 30; $i++) { if (@fsockopen("maildev", 1080)) { echo "maildev ready\n"; exit; } echo "waiting for maildev...\n"; sleep(2); }'
   needs:
     - build:frontend
     - build:backend-dev

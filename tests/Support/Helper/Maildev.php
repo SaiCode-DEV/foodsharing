@@ -7,7 +7,9 @@ namespace Tests\Support\Helper;
 use Codeception\Module;
 use Codeception\TestInterface;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\GuzzleException;
+use Psr\Http\Message\ResponseInterface;
 
 class Maildev extends Module
 {
@@ -17,7 +19,11 @@ class Maildev extends Module
     public function __construct($moduleContainer, $config = null)
     {
         parent::__construct($moduleContainer, $config);
-        $this->client = new Client(['base_uri' => $this->config['url'], 'headers' => ['Accept' => 'application/json']]);
+        $this->client = new Client([
+            'base_uri' => $this->config['url'],
+            'headers' => ['Accept' => 'application/json'],
+            'timeout' => 5,
+        ]);
     }
 
     /**
@@ -26,7 +32,7 @@ class Maildev extends Module
      */
     final public function getMails()
     {
-        $responseBody = $this->client->get('/email')->getBody()->getContents();
+        $responseBody = $this->request('GET', '/email')->getBody()->getContents();
 
         return json_decode($responseBody, false, 512, JSON_THROW_ON_ERROR);
     }
@@ -38,7 +44,7 @@ class Maildev extends Module
 
     public function deleteAllMails(): void
     {
-        $this->client->delete('/email/all');
+        $this->request('DELETE', '/email/all');
     }
 
     public function expectNumMails($num, $timeout = 5): void
@@ -53,5 +59,27 @@ class Maildev extends Module
             } while ($timeout > 0);
         }
         $this->assertCount($num, $this->getMails());
+    }
+
+    /**
+     * Sends a request to the maildev service, retrying while the service is not yet
+     * reachable. maildev runs as a CI service container whose DNS alias may not be
+     * resolvable the instant the test job starts; without this, every mail-dependent
+     * test errors in _before() with "cURL error 6: Could not resolve host: maildev".
+     *
+     * @throws GuzzleException
+     */
+    private function request(string $method, string $uri, int $retries = 15): ResponseInterface
+    {
+        for ($attempt = 1; $attempt < $retries; ++$attempt) {
+            try {
+                return $this->client->request($method, $uri);
+            } catch (ConnectException) {
+                sleep(1);
+            }
+        }
+
+        // Final attempt: let a ConnectException propagate so the test fails with a clear error.
+        return $this->client->request($method, $uri);
     }
 }
