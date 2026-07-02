@@ -106,20 +106,13 @@ const activeTabIndex = ref(null)
 
 function collectTabVnodes () {
   const defaultSlot = slots.default?.() || []
-  const tabVnodes = defaultSlot.filter(vnode => {
+
+  return defaultSlot.filter(vnode => {
     // Vue 2 uses tag property with format "vue-component-{id}-{ComponentName}"
     const tag = vnode.tag || ''
 
     return tag.includes('ResponsiveTab') || tag.includes('BTab')
   })
-
-  // Ensure titles are unique to avoid issues with dynamic content and reactivity
-  const seenTitles = new Set(tabVnodes.map(v => getPropsFromVNode(v).title))
-  if (seenTitles.size !== tabVnodes.length) {
-    throw new Error('Duplicate tab title detected. Tab titles must be unique!')
-  }
-
-  return tabVnodes
 }
 
 function getPropsFromVNode (vnode) {
@@ -128,7 +121,7 @@ function getPropsFromVNode (vnode) {
 
 const tabs = computed(() => {
   return collectTabVnodes()
-    .map(vnode => {
+    .map((vnode, index) => {
       // In Vue 2, props are in componentOptions.propsData
       // In Vue 3, props are in data.attrs
       const tabProps = getPropsFromVNode(vnode)
@@ -137,10 +130,10 @@ const tabs = computed(() => {
       const tabContentRenderFn = (h) => {
         // Resolve the current tab children each time the tab is rendered.
         // Otherwise, slot changes (components or props) won't be reflected in the tab content.
-        const currentTabVnode = collectTabVnodes().find(v => {
-          const props = getPropsFromVNode(v)
-          return props.title === tabProps.title
-        })
+        // Identify the tab by its position, not its title: titles are not guaranteed
+        // to be unique (e.g. an untranslated tab title is an empty string in some
+        // locales), and a collision must not break the page.
+        const currentTabVnode = collectTabVnodes()[index]
 
         const tabChildren = currentTabVnode?.componentOptions?.children || []
 
