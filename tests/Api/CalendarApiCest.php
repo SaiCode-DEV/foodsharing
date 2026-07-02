@@ -184,6 +184,31 @@ class CalendarApiCest
         $I->assertStringNotContainsString('**StoreBoldMarkerXYZ**', $unfolded);
     }
 
+    public function farFutureEventDoesNotBreakCalendar(ApiTester $I): void
+    {
+        // Regression #2705: an event with a date beyond the 2038 UNIX_TIMESTAMP range
+        // (NULL start_ts on MariaDB < 11.5) must not crash the whole calendar feed.
+        $farFutureEvent = $I->createEvents($this->region['id'], $this->user2['id'], [
+            'name' => 'FarFutureEventXYZ',
+            'start' => '2066-06-06 12:00:00',
+            'end' => '2066-06-06 13:00:00',
+        ]);
+        $I->addEventInvitation($farFutureEvent['id'], $this->user['id'], [
+            'status' => InvitationStatus::ACCEPTED->value
+        ]);
+
+        $I->haveInDatabase('fs_apitoken', [
+            'foodsaver_id' => $this->user['id'],
+            'token' => self::TEST_TOKEN
+        ]);
+
+        $I->login($this->user['email']);
+        $I->sendGet('api/calendar/' . self::TEST_TOKEN);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseContains('FarFutureEventXYZ');
+        $I->seeResponseContains('20660606');
+    }
+
     public function canSetReminders(ApiTester $I): void
     {
         $I->login($this->user['email']);

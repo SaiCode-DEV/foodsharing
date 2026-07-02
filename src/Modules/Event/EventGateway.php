@@ -131,8 +131,6 @@ class EventGateway extends BaseGateway
 			e.end,
 			e.bezirk_id AS region_id,
 			r.name AS regionName,
-			UNIX_TIMESTAMP(e.start) AS start_ts,
-			UNIX_TIMESTAMP(e.end) AS end_ts,
 			CAST(IFNULL(fhe.status, :status_invited) AS INTEGER) AS status,
 			l.street,
 			l.zip,

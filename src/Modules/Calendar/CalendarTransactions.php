@@ -172,10 +172,11 @@ class CalendarTransactions
             . '<br><b>' . $this->translator->trans('calendar.export.event.description') . '</b>: '
             . $descriptionContent;
 
+        $berlin = new DateTimeZone('Europe/Berlin');
         $event = new CalendarEvent();
-        $event->setStart(Carbon::createFromTimestamp($meeting['start_ts'], new DateTimeZone('Europe/Berlin')));
+        $event->setStart(Carbon::createFromFormat('Y-m-d H:i:s', (string)$meeting['start'], $berlin));
         try {
-            $event->setEnd(Carbon::createFromTimestamp($meeting['end_ts'], new DateTimeZone('Europe/Berlin')));
+            $event->setEnd(Carbon::createFromFormat('Y-m-d H:i:s', (string)$meeting['end'], $berlin));
         } catch (CalendarEventException) {
             /* In some events the end date is before the start date because the event form accidentally allows this.
             This workaround prevents errors and can be removed after the event form was updated. */
