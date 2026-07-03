@@ -226,5 +226,12 @@ class EventGatewayTest extends Unit
 
         // Just to make sure: Duplicates should never be returned.
         $this->assertEquals(count($eventIds), count(array_unique($eventIds)));
+
+        // The dashboard frontend (EventField.vue) builds its dates from the start
+        // and end datetime strings, so they are part of the contract of this query.
+        foreach ($events as $event) {
+            $this->assertMatchesRegularExpression('/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/', $event['start']);
+            $this->assertMatchesRegularExpression('/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/', $event['end']);
+        }
     }
 }

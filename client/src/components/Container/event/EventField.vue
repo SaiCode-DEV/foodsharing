@@ -106,8 +106,10 @@ export default {
   data () {
     return {
       EventInvitationResponse,
-      startDate: new Date(this.entry.start_ts * 1000),
-      endDate: new Date(this.entry.end_ts * 1000),
+      // start/end are naive datetime strings ('Y-m-d H:i:s'); the space must become
+      // a 'T' so every browser parses them the same way (Safari rejects the space, #322).
+      startDate: new Date(this.entry.start.replace(' ', 'T')),
+      endDate: new Date(this.entry.end.replace(' ', 'T')),
       status: this.entry.status,
     }
   },
