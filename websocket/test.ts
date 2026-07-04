@@ -88,9 +88,9 @@ test('multiple registrations for one session', t => {
     const socket1 = connect(t, sessionId);
     const socket2 = connect(t, sessionId);
     const socket3 = connect(t, sessionId);
-    register(socket1, () => {
-        register(socket2, () => {
-            register(socket3, () => {
+    waitForConnect(socket1, () => {
+        waitForConnect(socket2, () => {
+            waitForConnect(socket3, () => {
                 assertStats(t, 3, 3, 1, (err: any) => {
                     t.error(err, 'does not error');
                 });
@@ -105,29 +105,12 @@ test('multiple registrations with unique sessions', t => {
     const socket1 = connect(t, 'myownsession1');
     const socket2 = connect(t, 'myownsession2');
     const socket3 = connect(t, 'myownsession3');
-    register(socket1, () => {
-        register(socket2, () => {
-            register(socket3, () => {
+    waitForConnect(socket1, () => {
+        waitForConnect(socket2, () => {
+            waitForConnect(socket3, () => {
                 assertStats(t, 3, 3, 3, (err: any) => {
                     t.error(err, 'does not error');
                 });
-            });
-        });
-    });
-});
-
-test('3 connections, 2 registrations, 1 session', t => {
-    t.timeoutAfter(10000);
-    t.plan(4);
-    const sessionId = 'sharedsessionid2';
-    const socket1 = connect(t, sessionId);
-    const socket2 = connect(t, sessionId);
-    connect(t, sessionId);
-    register(socket1, () => {
-        register(socket2, () => {
-            // NOT registering the third socket connection
-            assertStats(t, 3, 2, 1, (err: any) => {
-                t.error(err, 'does not error');
             });
         });
     });
@@ -171,7 +154,7 @@ test('can send to users', t => {
             t.equal(data.m, 'some-method', 'passed m param');
             t.deepEqual(data.o, { someKey: 'some-payload' }, 'passed o param');
         });
-        register(socket, () => {
+        waitForConnect(socket, () => {
             sendMessage([userId], 'some-app', 'some-method', { someKey: 'some-payload' }, (err: any) => {
                 t.error(err, 'does not error');
             });
@@ -194,8 +177,8 @@ test('works with two connections per user', t => {
     client1.on('some-app', checkEvent);
     client2.on('some-app', checkEvent);
 
-    register(client1, () => {
-        register(client2, () => {
+    waitForConnect(client1, () => {
+        waitForConnect(client2, () => {
             sendMessage([1], 'some-app', 'some-method', { someKey: 'some-payload' },
                 (error, res) => {
                     if (error) {
@@ -221,8 +204,8 @@ test('does not send to other users', t => {
     user1.on('some-event', () => t.pass('user 1 has received `some-event`'));
     user2.on('some-event', () => t.fail('user 2 has received `some-event`'));
 
-    register(user1, () => {
-        register(user2, () => {
+    waitForConnect(user1, () => {
+        waitForConnect(user2, () => {
             sendMessage([1], 'some-event', 'some-method', { foo: 'bar' },
                 (error, res) => {
                     if (error) {
@@ -254,7 +237,7 @@ test('online status is true initially after user connected', t => {
     t.plan(2);
     addPHPSessionToRedis(1, 'test-4-user-1', () => {});
     const socket = connect(t, 'test-4-user-1');
-    register(socket, () => {
+    waitForConnect(socket, () => {
         superagent.get(HTTP_URL + '/users/1/is-online').end((err, response) => {
             if (err) {
                 t.error(err);
@@ -269,7 +252,7 @@ test('online status is false after user window moved into the background', t => 
     t.plan(2);
     addPHPSessionToRedis(1, 'test-5-user-1', () => {});
     const socket = connect(t, 'test-5-user-1');
-    register(socket, () => {
+    waitForConnect(socket, () => {
         socket.emit('visibilitychange', true); // hidden = true
         setTimeout(() => { // give the server some time to process the event
             superagent.get(HTTP_URL + '/users/1/is-online').end((err, response) => {
@@ -288,7 +271,7 @@ test('online status is true after window came into the foreground again', t => {
     t.plan(2);
     addPHPSessionToRedis(1, 'test-6-user-1', () => {});
     const socket = connect(t, 'test-6-user-1');
-    register(socket, () => {
+    waitForConnect(socket, () => {
         socket.emit('visibilitychange', true);
         setTimeout(() => { // give the server some time to process the event
             socket.emit('visibilitychange', false);
@@ -311,8 +294,8 @@ test('online status is false if user has two windows and both are in the backgro
     addPHPSessionToRedis(1, 'test-6-user-1', () => {});
     const socket1 = connect(t, 'test-7-user-1');
     const socket2 = connect(t, 'test-7-user-1');
-    register(socket1, () => {
-        register(socket2, () => {
+    waitForConnect(socket1, () => {
+        waitForConnect(socket2, () => {
             socket1.emit('visibilitychange', true);
             setTimeout(() => { // give the server some time to process the event
                 socket2.emit('visibilitychange', true);
@@ -336,8 +319,8 @@ test('online status is true if user has two windows and only one is in the backg
     addPHPSessionToRedis(1, 'test-8-user-1', () => {});
     const socket1 = connect(t, 'test-8-user-1');
     const socket2 = connect(t, 'test-8-user-1'); // second browser window
-    register(socket1, () => {
-        register(socket2, () => {
+    waitForConnect(socket1, () => {
+        waitForConnect(socket2, () => {
             socket1.emit('visibilitychange', false);
             setTimeout(() => { // give the server some time to process the event
                 socket2.emit('visibilitychange', false);
@@ -362,8 +345,8 @@ test('online status is false if user has two windows in different browsers and b
     addPHPSessionToRedis(1, 'test-9-user-1-browser-2', () => {});
     const socket1 = connect(t, 'test-9-user-1-browser-1');
     const socket2 = connect(t, 'test-9-user-1-browser-2');
-    register(socket1, () => {
-        register(socket2, () => {
+    waitForConnect(socket1, () => {
+        waitForConnect(socket2, () => {
             socket1.emit('visibilitychange', true);
             setTimeout(() => { // give the server some time to process the event
                 socket2.emit('visibilitychange', true);
@@ -388,8 +371,8 @@ test('online status is true if user has two windows in different browsers and on
     addPHPSessionToRedis(1, 'test-10-user-1-browser-2', () => {});
     const socket1 = connect(t, 'test-10-user-1-browser-1');
     const socket2 = connect(t, 'test-10-user-1-browser-2');
-    register(socket1, () => {
-        register(socket2, () => {
+    waitForConnect(socket1, () => {
+        waitForConnect(socket2, () => {
             socket1.emit('visibilitychange', true);
             setTimeout(() => { // give the server some time to process the event
                 socket2.emit('visibilitychange', false);
@@ -419,15 +402,11 @@ function connect (t: Test, sessionId: string, cookieName = 'FS_SESSID'): Socket 
     return socket;
 }
 
-function register (socket: Socket, callback: () => any): void {
+function waitForConnect (socket: Socket, callback: () => any): void {
     if (socket.connected) {
-        setTimeout(handler, 0);
+        setTimeout(callback, 0);
     } else {
-        socket.on('connect', handler);
-    }
-    function handler (): void {
-        socket.emit('register');
-        callback();
+        socket.on('connect', callback);
     }
 }
 

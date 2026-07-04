@@ -14,10 +14,7 @@ export class SocketController {
     @OnSocketConnection()
     onConnect (socket: Socket): void {
         this.connectionRegistry.numConnections++;
-    }
 
-    @OnSocketEvent('register')
-    onRegister (socket: Socket): void {
         const sessionId = this.readSessionId(socket);
         this.connectionRegistry.register(sessionId, new Connection(socket));
     }

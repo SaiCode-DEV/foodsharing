@@ -135,10 +135,6 @@ export function shuffle (o) {
   return o
 }
 
-export function session_id () {
-  return /SESS\w*ID=([^;]+)/i.test(document.cookie) ? RegExp.$1 : false
-}
-
 Element.prototype.disableSelection = function () {
   this.onselectstart = function () { return false }
   this.unselectable = 'on'
