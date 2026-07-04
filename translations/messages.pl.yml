@@ -726,7 +726,7 @@ settings:
       ambasadorów/ek.'
   photo:
     title: twoje zdjęcie
-    info: "Twoja twarz musi być <a href=\"{link_photo}\"> rozpoznawalna</a> na zdjęciu
+    info: "Twoja twarz musi być <a href=\"{link_photo}\">rozpoznawalna</a> na zdjęciu
       profilowym,\nponieważ będzie ono użyte do <a href=\"{link_id}\">legitymacji
       foodsharingu</a>, kiedy \npóźniej zostaniesz <a href=\"{link_fs}\">foodsaverem/ką</a>
       i będziesz ratować żywność w punktach.\n"
@@ -734,8 +734,7 @@ settings:
     title: Powiadomienia push
     not-supported: Twoja przeglądarka nie wspiera powiadomień push.
     denied: |
-      Odrzuciłe/aś otrzymywanie powiadomień push od strony foodsharing w twojej przeglądarce. 
-
+      Odrzuciłe/aś otrzymywanie powiadomień push od strony foodsharing w twojej przeglądarce.
       Jeśli chcesz otrzymywać powiadomienia push, zmień ustawienia przeglądarki dla strony foodsharing
       i odśwież stronę.
     info-on: |
@@ -1553,7 +1552,7 @@ fsp:
     descModal: 'Jak chcesz być informowany/a o nowościach (np. dostawy żywności)?'
     bell: 'tylko powiadomienia wewnętrzne (dzwonek)'
   createdAt: 'Otwarte:'
-  summary: 'Jest/są {count} jadłodzielni/e w rejonach, w których jesteś aktywny/a'
+  summary: 'Jest/są {count} jadłodzielni/a/e w rejonach, w których jesteś aktywny/a'
   summaryRegion: 'Jest/są {count} jadłodzielni/e w {region} i wszystkich podrejonach'
   publicwall: 'Pamiętaj, że posty na tablicy jadłodzielni są publicznie widoczne.'
   suggestSuccess: 'Jadłodzielnia została zaproponowana i jest sprawdzana przez odpowiedzialne
@@ -3746,12 +3745,9 @@ help:
       md: 'Protokół punktu daje możliwość **prześledzenia aktywności w punkcie**.
         Może pomóc rozwiązać konflikty lub skorygować nieumyślne błędy.
 
-
         ---
 
-
         ###### Przykład
-
 
         Załóżmy, że chcesz wiedzieć, kto i przez kogo został przyjęty do teamu w ciągu
         ostatnich 3 tygodni. Wtedy możesz wybrać przedział czasu poprzez datę początkową
@@ -3761,22 +3757,16 @@ help:
         o dołączenie*". Kiedy klikniesz przycisk "*pokaż wybrane akcje*", pokaże się
         historia wybranych zdarzeń.
 
-
         ---
 
-
         ###### Dostęp
-
 
         Dostęp do tego ma tylko ten, kto może administrować punkt. Dla normalnych
         foodsaverów/ek i rezerwowych protokół nie jest widoczny.
 
-
         ---
 
-
         ###### Ograniczenia
-
 
         Ładowanych jest maksymalnie 100 wpisów. Ewentualnie musisz ograniczyć przedział
         czasu wyszukiwania lub wybrane typy akcji, jeśli nie są wyświetlane wszystkie
@@ -4012,7 +4002,6 @@ help:
 
         ##### Czym jest zasób?
 
-
         Zasobem może być wszystko, co możesz wnieść do społeczności foodsharingu.
         Mogą to być **umiejętności**, np. gotowanie lub programowanie, **przedmioty,**
         które jesteś gotowy/a pożyczyć, np. rower towarowy lub kuchenka mobilna, bądź
@@ -4021,7 +4010,6 @@ help:
 
         ##### Nic nie musisz, wszystko możesz
 
-
         Nikt nie jest zmuszony do wprowadzania zasobów, i tylko dlatego, że wprowadziłeś/aś
         jakiś konkretny zasób, nie oznacza, że *musisz* go udostępnić do konkretnych
         aktywności. Dużo bardziej chodzi o to, aby dzielić się tym, co *chętnie chciał(a)być
@@ -4029,7 +4017,6 @@ help:
 
 
         ##### Kto widzi moje zasoby?
-
 
         Zasoby są widoczne w obrębie twoich rejonów i zespołów. Wyłączone z tego są
         jednak bardzo duże rejony typu państwo lub województwo, w których mozaika
