@@ -40,16 +40,11 @@ class IndexController extends FoodsharingController
     {
         $this->pageHelper->addTitle($this->translator->trans('savewithus'));
 
-        $host = (string)$request->server->get('HTTP_HOST', BASE_URL);
-        if (str_contains($host, 'foodsharing.at')) {
-            $contentIds = [ContentId::STARTPAGE_BLOCK1_AT, ContentId::STARTPAGE_BLOCK2_AT, ContentId::STARTPAGE_BLOCK3_AT];
-        } elseif (str_contains($host, 'foodsharingschweiz.ch')) {
-            $contentIds = [ContentId::STARTPAGE_BLOCK1_CH, ContentId::STARTPAGE_BLOCK2_CH, ContentId::STARTPAGE_BLOCK3_CH];
-        } elseif (str_contains($host, 'beta.foodsharing.de')) {
-            $contentIds = [ContentId::STARTPAGE_BLOCK1_BETA, ContentId::STARTPAGE_BLOCK2_BETA, ContentId::STARTPAGE_BLOCK3_BETA];
-        } else {
-            $contentIds = [ContentId::STARTPAGE_BLOCK1_DE, ContentId::STARTPAGE_BLOCK2_DE, ContentId::STARTPAGE_BLOCK3_DE];
-        }
+        // Use the proxy-aware host (resolves X-Forwarded-Host when trusted
+        // proxies are configured) instead of the raw HTTP_HOST, which behind the
+        // production reverse proxy is the internal upstream host rather than the
+        // public domain — so the per-country selection always fell back to DE (#1592).
+        $contentIds = self::startpageContentIdsForHost($request->getHost());
 
         $page_content_blocks = $this->contentGateway->getMultiple($contentIds);
         $this->pageHelper->addContent($this->prepareVueComponent('index', 'Index', [
@@ -59,6 +54,28 @@ class IndexController extends FoodsharingController
         ]));
 
         return $this->renderGlobal();
+    }
+
+    /**
+     * Selects the per-country start-page content blocks from the request host.
+     *
+     * @return ContentId::STARTPAGE_BLOCK*[] the three content block IDs to render
+     */
+    public static function startpageContentIdsForHost(string $host): array
+    {
+        if (str_contains($host, 'foodsharing.at')) {
+            return [ContentId::STARTPAGE_BLOCK1_AT, ContentId::STARTPAGE_BLOCK2_AT, ContentId::STARTPAGE_BLOCK3_AT];
+        }
+        // The Swiss site is served on foodsharing.network; foodsharingschweiz.ch
+        // only redirects there, so match both (#1592).
+        if (str_contains($host, 'foodsharing.network') || str_contains($host, 'foodsharingschweiz.ch')) {
+            return [ContentId::STARTPAGE_BLOCK1_CH, ContentId::STARTPAGE_BLOCK2_CH, ContentId::STARTPAGE_BLOCK3_CH];
+        }
+        if (str_contains($host, 'beta.foodsharing.de')) {
+            return [ContentId::STARTPAGE_BLOCK1_BETA, ContentId::STARTPAGE_BLOCK2_BETA, ContentId::STARTPAGE_BLOCK3_BETA];
+        }
+
+        return [ContentId::STARTPAGE_BLOCK1_DE, ContentId::STARTPAGE_BLOCK2_DE, ContentId::STARTPAGE_BLOCK3_DE];
     }
 
     // because the highest level routing parameter is always 'page',
