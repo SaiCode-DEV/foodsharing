@@ -6,7 +6,7 @@ edit: edytować
 desc: Opis
 description: Opis
 plz: Kod pocztowy
-email: adres email
+email: Adres email
 anschrift: Ulica i numer domu
 geschlecht: Płeć
 options: Opcje
@@ -23,19 +23,19 @@ photo: Zdjęcie
 no_automatic_delete: 'Jeśli minęło 5 lat od ostatniego zalogowania:'
 automatic_delete: '- profil powinien zostać usunięty.'
 ort: Miasto/gmina
-regions: Regiony
+regions: Rejony
 name: Imię
 about_me_intern: Krótki opis
 weight: 'Szacunkowa masa:'
-bezirk_id: Dla którego regionu jest ten artykuł ważny?
+bezirk_id: Dla którego rejonu ten artykuł ma znaczenie?
 opt: Opcje
-fsp_bezirk_id: W którym regionie znajduje się jadłodzielnia?
+fsp_bezirk_id: W którym rejonie znajduje się jadłodzielnia?
 rolle: Rola użytkownika/użytkowniczki
 title: Tytuł
-automatic_not_delete: Profil powinien zostać zachowany.
+automatic_not_delete: '- profil powinien zostać zachowany.'
 copied_to_clipboard: '"{tekst}" został skopiowany do schowka.'
 fetchstate: Czy wszystko poszło dobrze?
-lifetime: Jak długo ma być ważny twój koszyk żywności?
+lifetime: Jak długo ma być ważny twój jadłokoszyk?
 position: Pozycja w foodsharingu (publiczne)
 pass2: Potwierdź hasło
 betrieb_kategorie_id: Kategoria
@@ -113,14 +113,14 @@ quiz:
     waitAfter: 'Jeśli nie zdasz przy następnej próbie, musisz zrobić przerwę na naukę
       przez {waitTimeAfterFailure} dzień/dni. Koniecznie przeanalizuj odpowiednie
       artykuły informacyjne, abyś mógł/mogła zdać quiz.'
-  regstart: Rozpocznij quiz bez limitu czasu i {count} pytań
+  regstart: 'Rozpocznij quiz bez limitu czasu i liczbą pytań: {count}'
   button:
     pause: Kontynuuj później
     finish: Zakończ quiz
   title:
     start: '{name} - Przystąp teraz do quizu!'
     continue: '{name} - Kontynuuj quiz!'
-    disqualified: '{name} - Niestety, zdyskwalifikowany.'
+    disqualified: '{name} - Niestety, dyskwalifikacja.'
     finished: '{name} - zdałeś/aś!'
     pause: Przerwa na naukę ({name})
   startmodal:
@@ -200,7 +200,7 @@ quiz:
     quizu?
   confirmDashboardText: Zaliczyłeś/aś quiz, którego jeszcze nie 
     potwierdziłeś/aś. [Kliknij tutaj]({url}), aby zakończyć proces!
-  timedstart: Rozpocznij quiz z limitem czasu i {count} pytaniami
+  timedstart: 'Rozpocznij quiz z limitem czasu i liczbą pytań: {count}'
   results:
     title:
       1: Gratulacje!
@@ -294,13 +294,12 @@ pass1: Twoje żądane nowe hasło
 public_time: Szacunkowy czas slotu
 right: Wartość
 groups:
-  empty: Nie jesteś jeszcze w żadnej grupie roboczej
+  empty: Nie jesteś jeszcze w żadnym zespole
 about_me_public: Krótki opis publiczny
 teaser: Zwiastun
-fspmanagers: Foodsavers, którzy są osobami kontaktowymi dla sprawiedliwego 
-  dzielenia się
+fspmanagers: Foodsaverzy/ki, którzy/e są osobami kontaktowymi tej jadłodzielni
 kette_id: Sieć punktów
-ansprechpartner: Osoby kontaktowe w firmie (kierownicy oddziałów itp.)
+ansprechpartner: Osoby kontaktowe w punkcie (kierownicy oddziałów itp.)
 ueberzeugungsarbeit: Czy łatwo było przekonać osoby odpowiedzialne do współpracy
   w ramach foodsharingu?
 presse: Czy firma/sklep/stowarzyszenie wyraża zgodę na publikację w prasie i na 
@@ -310,7 +309,7 @@ sticker: Czy firma/sklep/klub itp. jest skłonna umieścić naklejkę przy wejś
 use_region_pickup_rule: Czy w tym punkcie ma obowiązywać reguła rodzynkowa dla 
   danego rejonu?
 expand_all: rozłóż wszystko
-collapse_all: wszystko zwinąć
+collapse_all: Zwiń wszystko
 image: Obraz
 picture_upload_widget:
   picture_upload: Zamieść zdjęcie
