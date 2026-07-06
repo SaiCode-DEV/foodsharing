@@ -94,22 +94,22 @@ quiz:
     disqualified: Niestety, zostałeś/aś zdyskwalifikowany/a z tego quizu, 
       ponieważ zbyt często go nie zdałeś/aś.
     passedBefore: Już zdałeś/aś ten quiz wcześniej.
-    willExpire: Ważność twojego quizu kończy się po {expirationTime} dniach. 
-      Dlatego możesz już teraz odświeżyć swoją wiedzę w tym zakresie i ponownie 
-      wziąć udział w tym quizie.
+    willExpire: Ważność twojego quizu kończy się po {expirationTime} 
+      dniu/dniach. Dlatego możesz już teraz odświeżyć swoją wiedzę w tym 
+      zakresie i ponownie wziąć udział w tym quizie.
     disqualifiedAfter: Masz już tylko jedną ostatnią szansę, żeby zdać ten quiz!
       Jeśli teraz nie zdasz, będziesz trwale zdyskwalifikowany/a z tego quizu. 
       Bierz udział tylko pod warunkiem, że dokładnie przestudiowałeś/aś treści 
       zawarte w wiki.
-    expired: Jednakże twoja ostatnia próba tego quizu już jest nieważna.
+    expired: Twoja ostatnia próba tego quizu jest jednak już nieważna.
     pauseElapsed: Twoja przerwa na naukę się skończyła. Dlatego możesz ponownie 
-      przystąpić do quizu. Miejmy nadzieję, że wykorzystałeś/aś czas to lepiej 
-      zaznajomić się z treściami.
-    pause: 'Kilka razy nie zdałeś/aś tego quizu. Niezawodność, pewne opanowanie reguł
+      przystąpić do quizu. Miejmy nadzieję, że wykorzystałeś/aś czas na to, by 
+      lepiej zaznajomić się z treściami.
+    pause: 'Kilka razy nie zdałeś/aś tego quizu. Rzetelność, pewne opanowanie reguł
       i profesjonalna postawa są niezbędne na foodsharingu. Na bazie twoich odpowiedzi
       chwilowo niestety nie sprawiasz takiego wrażenia. Dlatego otrzymujesz przerwę
       na naukę, zanim będziesz mógł/mogła ponownie spróbować zdać quiz. Twoja przerwa
-      na naukę kończy się za {count} dni.'
+      na naukę kończy się za {count} dzień/dni.'
     waitAfter: 'Jeśli nie zdasz przy następnej próbie, musisz zrobić przerwę na naukę
       przez {waitTimeAfterFailure} dzień/dni. Koniecznie przeanalizuj odpowiednie
       artykuły informacyjne, abyś mógł/mogła zdać quiz.'
@@ -177,7 +177,7 @@ quiz:
     wallTitle: 'Komentarze do pytania #{id}'
     label: Skomentuj pytanie
     info: 'Prześlij nam swój feedback do tego pytania. Było za łatwe, za trudne, niezrozumiałe?
-      Albo są poszczególne odpowiedzi bądź wyjaśnienia niepoprawne?'
+      Albo czy poszczególne odpowiedzi bądź wyjaśnienia są nieprawidłowe?'
   question_options:
     add: Dodaj pytanie
     edit: Edytuj pytanie
@@ -188,9 +188,9 @@ quiz:
     edit: Edytuj odpowiedź
     delete: Usuń odpowiedź
   fp_options:
-    default: '{failurePoints} punkty ujemne'
-    joke: '{failurePoints} punkty ujemne (bez oceny)'
-    ko: '{failurePoints} punkty/ów ujemne/ych (dyskwalifikacja)'
+    default: 'Liczba punktów ujemnych: {failurePoints}'
+    joke: 'Liczba punktów ujemnych: {failurePoints} (bez oceny)'
+    ko: 'Liczba punktów ujemnych: {failurePoints} (dyskwalifikacja)'
   confirmDelete:
     session: Czy na pewno chcesz usunąć tę sesję quizu?
     question: Czy na pewno chcesz usunąć to pytanie?
@@ -206,15 +206,16 @@ quiz:
       1: Gratulacje!
       2: Niestety, nie zdałeś/aś.
     points:
-      1: Zdałeś/aś z {failurePoints} z maksmalnie {maxFailurePointsToSucceed} 
-        punktami ujemnymi!
-      2: Miałeś/aś {failurePoints} punktów ujemnych, a mógłbyś/mogłabyś zdać z 
-        maksymalnie {maxFailurePointsToSucceed} punktami ujemnymi.
-    deleted: Dokładna ocena będzie zachowana przez dwa tygodnie po quizie i 
-      później nie będzie dostępna.
+      1: Zdałeś/aś, twoja liczba punktów ujemnych to {failurePoints} z 
+        maksymalnie {maxFailurePointsToSucceed}!
+      2: Twoja liczba punktów ujemnych to {failurePoints}, a maksymalna liczba 
+        punktów ujemnych pozwalająca na zdanie quizu to 
+        {maxFailurePointsToSucceed}.
+    deleted: Dokładna ocena będzie zachowana przez dwa tygodnie po quizie i nie 
+      będzie później dostępna.
   fp_badge:
     right: Odpowiedź poprawna
-    wrong: '{userFailurePoints} błędy/ów'
+    wrong: 'Liczba błędów to {userFailurePoints}'
   timed_out: Nie odpowiedziałeś/aś na pytanie w wyznaczonym czasie.
   timed_out_last: Niestety, nie odpowiedziałeś/aś na ostatnie pytanie w 
     wyznaczonym czasie.
@@ -224,11 +225,11 @@ quiz:
   wikilink: Więcej informacji
   key_facts:
     to_pass: 'Aby zdać:'
-    untimed: Maksymalnie {maxFailurePointsToSucceed} punkty ujemne przy 
-      {questionCountTimed} pytaniach z limitem czasu lub {questionCountUntimed} 
-      pytań bez limitu czasu
-    timed: Maksymalnie {maxFailurePointsToSucceed} punkty ujemne przy 
-      {questionCountTimed} pytaniach z limitem czasu
+    untimed: 'Maksymalna liczba punktów ujemnych: {maxFailurePointsToSucceed} przy
+      liczbie pytań z limitem czasu: {questionCountTimed} lub przy liczbie pytań bez
+      limitu czasu: {questionCountUntimed}'
+    timed: 'Maksymalna liczba punktów ujemnych: {maxFailurePointsToSucceed} przy liczbie
+      pytań z limitem czasu: {questionCountTimed}'
   general:
     title: Ogólne informacje
     edit: Edytuj quiz
@@ -284,10 +285,8 @@ quiz:
         answerRating: 'Ocena:'
   test: Testuj quiz
   sessionStatus:
-    2: Niezdane z {failurePoints} z maksymalnie {maxFailurePointsToSucceed} 
-      punktów ujemnych
-    1: 'Zdane z {failurePoints} z maksymalnie {maxFailurePointsToSucceed} punktów
-      ujemnych'
+    2: 'Niezdane z liczbą punktów ujemnych: {failurePoints} z maksymalnie {maxFailurePointsToSucceed}'
+    1: 'Zdane z liczbą punktów ujemnych: {failurePoints} z maksymalnie {maxFailurePointsToSucceed}'
     0: 'aktualnie uruchomiony'
 request_time: 'Czas zapytania:'
 pass1: Twoje żądane nowe hasło
@@ -326,8 +325,8 @@ upload:
   choose_file: Wyślij plik
   new_file: Wyślij nowy plik
   crop_dialog_title: Przytnij obraz
-  image-problem: Twój plik wydaje się nie być w porządku, najlepiej wybierz 
-    zwykły obraz jpg
+  image-problem: Coś się nie zgadza z twoim plikiem, najlepiej wybierz zwykły 
+    obraz jpg
   invalid_image_files: '{count} wybrane pliki nie są obrazami: {fileNames}'
   remove_image: Usuń obraz
 button:
@@ -343,7 +342,7 @@ button:
   ok: ok
   permadelete: usuń trwale
   yes_i_am_sure: tak, jestem pewny/a
-  apply: zastosuj
+  apply: Zastosuj
   cancel: Anuluj
   prev: powrót
   send: Wyślij
@@ -787,12 +786,12 @@ bcard:
   title: Generator wizytówek
   card: Twoja foodsharing-wizytówka
   for: '{rola} w/dla {region}'
-  desc: Wybierz, dla którego okręgu i której roli chcesz wygenerować wizytówkę.
+  desc: Wybierz, dla którego rejonu i której roli chcesz wygenerować wizytówkę.
   error:
     length: Twój adres jest za długi! Adres, kod pocztowy i miasto mogą mieć 
       łącznie maksymalnie 49 znaków.
     phone: Musisz podać ważny numer telefonu, aby wygenerować wizytówkę.
-    verified: Musisz być zweryfikowany, aby móc wygenerować wizytówkę.
+    verified: Musisz być zweryfikowany/a, aby móc wygenerować wizytówkę.
   generate: Stwórz wizytówkę
   role: Rola
   region: Region
@@ -817,15 +816,15 @@ group:
     description_placeholder: Opis zespołu
   mail_link_title:
     workgroup: Skrzynka pocztowa
-    region: Skrzynka pocztowa okręgu
+    region: Skrzynka pocztowa rejonu
   contact:
-    title: Skontaktuj się z {group}
+    title: Skontaktuj się z zespołem {group}
     empty: Najpierw coś napisz ;)
     send: Wyślij wiadomość
     sent: Wiadomość wysłana pomyślnie.
-    admins: '{count} Osoby do kontaktu:'
+    admins: 'Liczba osób do kontaktu: {count}'
     disclaimer: |
-      Przy wysyłaniu wiadomości do tego zespołu, wszyscy/tkie administratorzy/ki będą widzieć twój adres email, który podałeś w twoim profilu foodsharingu. Kopia wiadomości zostanie ci przesłana mailem.
+      Przy wysyłaniu wiadomości do tego zespołu, wszyscy/tkie administratorzy/ki będą widzieć twój adres email, który podałeś/aś w twoim profilu foodsharingu. Kopia wiadomości zostanie ci przesłana mailem.
   apply:
     title: Zgłoszenie do {group}
     send: Wyślij zgłoszenie
@@ -847,15 +846,15 @@ group:
     join: Dołącz
     save: Zapisz zmiany
     contact: Kontakt
-    go: Do strony grupy
+    go: Do strony zespołu
     apply: Zgłoś się ...
-  no_groups: Jeszcze nie ma żadnych grup
-  quit_name_district: Opuść region {name}
+  no_groups: Jeszcze nie ma żadnych zespołów
+  quit_name_district: Opuść rejon {name}
   quit: Opuść
-  really_quit_district: Czy na pewno chcesz opuścić okręg {name}?
+  really_quit_district: Czy na pewno chcesz opuścić rejon {name}?
   function:
     welcome: Powitanie
-    voting: Ankiety
+    voting: Głosowanie
     fsp: Jadłodzielnia
     mediation: Mediacja
     moderation: Moderacja
@@ -898,12 +897,12 @@ group:
       9: Administratorzy/ki tego zespołu mogą edytować opis grupy lokalnej na 
         mapie.
   application_requirements:
-    requirements: Kto może dołączyć do tej grupy?
-    nobody: Nikt (zamknięta grupa).
+    requirements: Kto może dołączyć do tego zespołu?
+    nobody: Nikt (zamknięty zespół).
     everybody: Każdy może się zgłosić.
     open: Każdy/a może dołączyć bezpośrednio.
   members: Członkowie
-  administrators: Administratorzy/ki grupy
+  administrators: Administratorzy/ki zespołu
   member_count:
     zero: Brak członków
     other: Łącznie {count} członków
@@ -911,18 +910,18 @@ group:
   admin_count:
     zero: Brak administratorów/rek
     one: jeden/na administrator/ka
-    other: '{count} Administratorów/ek'
-  already_applied: Już się zgłosiłeś/aś do tej grupy.
-  filter_placeholder: Filtruj grupy według nazwy
+    other: 'Liczba administratorów/ek: {count}'
+  already_applied: Już się zgłosiłeś/aś do tego zespołu.
+  filter_placeholder: Filtruj zespoły według nazwy
   quit_name_workgroup: Opuść team {name}
   member_list:
-    is_verified: zweryfikowany
+    is_verified: zweryfikowany/a
     default:
       title: Domyślne
       lastname: Nazwisko
     passports:
       button:
-        verify: weryfikować
+        verify: Weryfikuj
         unverify: 'Cofnij weryfikację'
       title: Legitymacje i weryfikacja
       created_at: Legitymacja utworzona
@@ -971,7 +970,7 @@ group:
     add_member: Dodaj do teamu
     admin_mode_on: Włącz widok administratora/ki
     admin_mode_off: Powrót do widoku standardowego
-    not_verified: niezweryfikowany
+    not_verified: niezweryfikowany/a
     all_roles: wszystkie role
     remove_text_group: 'Czy na pewno chcesz usunąć {name} ({id}) z tego zespołu?'
     is_home_region: 'Rejon macierzysty'
@@ -1083,7 +1082,7 @@ salutation:
   "0": Drogi/a
   "1": Drogi
   "2": Droga
-  "3": Drogi:a
+  "3": Drogi/a
 login:
   submit_btn: zaloguj
   topbar: zaloguj
@@ -1104,7 +1103,7 @@ login:
       zalogować.
     mailSent: Świetnie, link do zmiany hasła został do ciebie wysłany mailem. 
       Link jest ważny 7 dni. Potem musisz zażądać nowego linku.
-    tooShort: Niestety, twoje wybrane hasło jest za krótkie.
+    tooShort: Niestety, wybrane przez ciebie hasło jest za krótkie.
     expired: Link jest nieważny. Prawdopodobnie czekałeś/aś trochę zbyt długo. 
       Proszę, zażądaj nowego hasła.
     error: Niestety, jest problem z twoimi danymi.
@@ -1112,16 +1111,16 @@ login:
     request_new: Zażądaj nowego hasła
     invalidCode: 'Podany kod jest nieważny. Proszę spróbować ponownie. Możesz tutaj
       też użyć kodów backup.'
-    token_invalid: 'Podany kod uwierzytelnienia dwuskładnikowego jest nieważny. Proszę,
-      spróbuj ponownie.'
+    token_invalid: 'Podany kod uwierzytelnienia dwuskładnikowego jest nieważny. Proszę
+      spróbować ponownie.'
   steady_login: Pozostań stale zalogowany/a
   resend_verification:
     email_invalid: Podaj adres email
     title: Potwierdzenie adresu email
-    hint1: Twój adres email musi być potwierdzony, aby móc się zalogować. Jeśli 
-      zostałeś/aś przekierowany/a do tej strony ze strony logowania, twój adres 
-      email jeszcze nie jest potwierdzony. Możesz użyć tego formularza, aby 
-      poprosić o nowy email zawierający link aktywacyjny.
+    hint1: Twój adres email musi być potwierdzony, abyś mógł/mogła się 
+      zalogować. Jeśli zostałeś/aś przekierowany/a do tej strony ze strony 
+      logowania, twój adres email jeszcze nie jest potwierdzony. Możesz użyć 
+      tego formularza, aby poprosić o nowy email zawierający link aktywacyjny.
     hint2: Jeśli nie otrzymasz maila, skontaktuj się z naszym 
       [supportem](/support).
     submit: Wyślij
@@ -1172,14 +1171,14 @@ register:
   landline_example: Przykład +49 30 123456789
   phone_not_valid: Podany numer telefonu jest nieważny
   forgotten_password: Zapomniałeś/aś hasła?
-  have_read_the_legal_stuff1: Mam
-  have_read_the_legal_stuff2: przyjęte do wiadomości
+  have_read_the_legal_stuff1: Przyjąłem/am
+  have_read_the_legal_stuff2: do wiadomości
   finish: Wyślij zgłoszenie
   join_success: Twoja rejestracja przebiegła pomyślnie.
   join_error: Twoja rejestracja nie przebiegła pomyślnie.
   check_mail: Sprawdź swoją skrzynkę mailową, aby ukończyć rejestrację!
   error: Wystąpił błąd
-  error_email_invalid: Ten adres email nie może być użyty
+  error_email_invalid: Nie można użyć tego adresu email
   account-exists: Już jesteś zarejestrowany/a. Wyloguj się, jeśli chcesz się 
     zarejestrować ponownie.
   activation_success: <strong>Aktywacja przebiegła pomyślnie.</strong> Teraz 
@@ -1227,22 +1226,22 @@ terminology:
   foodsharer:
     m: Foodsharer
     f: Foodsharerka
-    d: Foodsharer:ka
+    d: Foodsharer/ka
   foodsaver:
     m: Foodsaver
     f: Foodsaverka
-    d: Foodsaver:ka
+    d: Foodsaver/ka
   ambassador:
     m: Ambasador
     f: Ambasadorka
-    d: Ambasador:ka
+    d: Ambasador/ka
   role:
-    "0": Foodsharer:ka
-    "1": Foodsaver:ka
-    "3": Ambasador:ka
+    "0": Foodsharer/ka
+    "1": Foodsaver/ka
+    "3": Ambasador/ka
     "4": 'Orga-człowiek'
     "2": 'Koordynator/ka punktu'
-  ambassadors: Ambasadorowie/ki
+  ambassadors: Ambasadorzy/ki
   ambassador_forum: Forum ambasadorów/ek
   admins: Administratorzy/ki
   electionAdmins: Wybory
@@ -1251,8 +1250,8 @@ terminology:
   fsps: Jadłodzielnie
   settings: Ustawienia
   mailboxes: Skrzynki mailowe
-  n_foodsaver: '{count} Foodsaverzy/ki/ów/ek'
-  n_ambassadors: '{count} Ambasadorowie/ki'
+  n_foodsaver: 'Liczba foodsaverów/ek: {count}'
+  n_ambassadors: 'Liczba ambasadorów/ek: {count}'
   profile_picture: Zdjęcie profilowe
   region: Rejon
   regions: Rejony
@@ -1281,14 +1280,14 @@ terminology:
   baskets: 'Jadłokoszyki'
   homeRegion: 'rejon macierzysty'
   prAdmins: 'Team public relations'
-  n_sleeping: '{count} uśpionych'
+  n_sleeping: 'Liczba uśpionych: {count}'
   votingAdmins: 'Team głosowań'
   previous_pickups: 'Sloty tutaj'
   orga:
     d: 'Orga-człowiek'
     f: 'Orga-człowiek'
     m: 'Orga-człowiek'
-  n_cooperating_stores: '{count} działające/ych kooperacje/i'
+  n_cooperating_stores: 'Liczba działających kooperacji: {count}'
   resourcesAdmins: 'Team mozaiki zasobów'
   stores: 'Punkty'
   wall: 'Tablica'
@@ -1300,14 +1299,14 @@ terminology:
   boardAdmins: 'Zarząd'
   pickup: 'Odbiór'
   fspAdmins: 'Team jadłodzielni'
-  welcomeAdmins: 'Zespół powitalny'
+  welcomeAdmins: 'Team powitalny'
   groups: 'Zespoły'
   moderationAdmins: 'Team moderacji'
   community: 'Grupa lokalna {name}'
   n_home_regions: '{count} z rejonem macierzystym'
   arbitrationAdmins: 'rada arbitrażowa'
   storesAdmins: 'Team koordynacji punktów'
-  n_stores: '{count} punkty/ów'
+  n_stores: 'Liczba punktów: {count}'
   store: 'Punkt'
   basket: 'Jadłokoszyk'
   attention: Uwaga
@@ -1503,23 +1502,23 @@ fsp:
   description: Opis
   new: Nowa jadłodzielnia
   add: Dodaj jadłodzielnię
-  addError: Jadłodzielnia nie mogła zostać dodana. Czy poprawnie wszystko 
+  addError: Nie można było dodać jadłodzielni. Czy poprawnie wszystko 
     wypełniłeś/aś?
-  addSuccess: Jadłodzielnia została pomyślnie dodana
+  addSuccess: Pomyślnie dodano jadłodzielnię
   suggest: Zaproponuj jadłodzielnię
   accept: Zaakceptuj jadłodzielnię
   acceptSuccess: Jadłodzielnia jest teraz aktywna
   reject: Odrzuć jadłodzielnię
   edit: Edytuj jadłodzielnię
   editName: Edytuj jadłodzielnię „{name}“
-  editSuccess: Jadłodzielnia została pomyślnie zmieniona
+  editSuccess: Pomyślnie zmieniono jadłodzielnię
   address: Adres
   street: Ulica
   location: Kod pocztowy / miejscowość
   show_on_large_map: Pokaż na mapie
   pic: Zdjęcie
-  addedOn: Dodany
-  addedBy: Dodany przez
+  addedOn: Dodano
+  addedBy: Dodano przez
   descLabel: Wpisz tutaj podstawowe informacje o jadłodzielni, w szczególności 
     kiedy jest dostępna/otwarta.
   noManager: Co najmniej jedna osoba musi być odpowiedzialna za tę 
@@ -1532,10 +1531,10 @@ fsp:
     min_length: '{name} musi zawierać co najmniej {length} znaków.'
     invalid: 'Podano błędne dane. Proszę sprawdzić wprowadzone dane.'
   twig:
-    n_in_region: '{count} jadłodzielni w {name}'
+    n_in_region: 'liczba jadłodzielni w {name}: {count}'
   followerCount: 'Zainteresowani/e użytkownicy/czki: {followerCount}'
-  onlySuggested: Ta jadłodzielnia została zaproponowana, ale jeszcze nie jest 
-    dopuszczona. W tym stanie nie będzie wyświetlana u innych użytkowników/czek.
+  onlySuggested: Zaproponowano tę jadłodzielnię, ale jeszcze jej nie 
+    dopuszczono. W tym stanie nie będzie wyświetlana u innych użytkowników/czek.
   acceptName: akceptuj {name}
   rejectConfirm: Uwaga, jeśli usuniesz tę jadłodzielnię, nie możesz tego cofnąć.
     Czy na pewno kontynuować?
@@ -1551,10 +1550,11 @@ fsp:
     descModal: 'Jak chcesz być informowany/a o nowościach (np. dostawy żywności)?'
     bell: 'tylko powiadomienia wewnętrzne (dzwonek)'
   createdAt: 'Otwarte:'
-  summary: 'Jest/są {count} jadłodzielni/a/e w rejonach, w których jesteś aktywny/a'
+  summary: 'Liczba jadłodzielni we wszystkich rejonach, w których jesteś aktywny/a,
+    to {count}'
   summaryRegion: 'Jest/są {count} jadłodzielni/e w {region} i wszystkich podrejonach'
   publicwall: 'Pamiętaj, że posty na tablicy jadłodzielni są publicznie widoczne.'
-  suggestSuccess: 'Jadłodzielnia została zaproponowana i jest sprawdzana przez odpowiedzialne
+  suggestSuccess: 'Zaproponowano jadłodzielnię i jest ona sprawdzana przez odpowiedzialne
     osoby.'
 storeview:
   common: Ogólne informacje
@@ -1575,7 +1575,7 @@ storeview:
     no_tag_preset: Brak dostępnych kategorii produktów żywnościowych
   calendar_interval:
     single: 1 tydzień
-    multiply: '{weeks} Tygodni(e)'
+    multiply: 'liczba tygodni: {weeks}'
     not_set: 'Nie wybrano przedziału czasu'
   choose_chain: Wybierz sieć
   info: Informacje
@@ -1584,7 +1584,7 @@ storeview:
   cooperation_start: Współpraca od
   cooperation_status: Status współpracy
   public_info:
-    error_message: Tekst jest za długi (max. {count} znaki/ów)
+    error_message: Tekst jest za długi (max. liczba znaków to {count})
     available_count: Dostępna liczba znaków
     label: 'Publiczne informacje o punkcie'
   visible_for_public: Ten tekst jest widoczny dla wszystkich foodsaverów/ek, np.
@@ -1599,7 +1599,7 @@ storeview:
   source_data: 'Dane źródłowe'
   public_and_statistics: 'Statystyka & public relations'
   team: 'Team punktu'
-  invalid_field: 'Nieważna treść pola. Zmiany nie mogą zostać zapisane.'
+  invalid_field: 'Nieważna treść pola. Nie można zapisać zmian.'
   team_info_jumper: 'Rezerwowi:'
   store: 'Punkt'
   show_settings: 'Ustawienia punktu'
@@ -1616,11 +1616,11 @@ storeview:
 store:
   team_container: Team
   member: Członek
-  active: aktywna
-  one_active: aktywny
+  active: aktywni/e
+  one_active: aktywny/a
   of_that: z tego
   unverified_member: niezweryfikowany
-  unverified_members: niezweryfikowana
+  unverified_members: niezweryfikowani/e
   go: Do teamu
   teamName: team {storeTitle}
   joinDate: W teamie od {date}
@@ -1629,7 +1629,7 @@ store:
   invited: zaproszony/a
   isNotVerified: Nie jest zweryfikowany/a.
   particularities: Przebieg & wskazówki
-  may_referred_to_in_public_unclear: jeszcze nie wyjaśniony
+  may_referred_to_in_public_unclear: jeszcze nie wyjaśniono
   address: Adres
   days: dni
   days_before: przed
@@ -1640,8 +1640,8 @@ store:
       distance: Sortowanie według odległości
       pickup: 'Sortuj według ostatniego slotu'
     filterAll: Członkowie
-    filterActive: Aktywni
-    filterUnverified: Niezweryfikowani
+    filterActive: Aktywni/e
+    filterUnverified: Niezweryfikowani/e
     filterNoHygiene: Bez szkolenia higieny
     removeFromTeam: Usuń z teamu
     makeRegularTeamMember: Dodaj do teamu
@@ -1660,7 +1660,7 @@ store:
       już trzech/trzy koordynatorów/ki albo osoba nie zdała jeszcze quizu koordynatorów/ek
       punktu.'
     filterSleeping: 'uśpiony/a'
-    filterJumper: 'Rezerwowy/a'
+    filterJumper: 'Rezerwowi/e'
     filterQuizSM: 'Zdany quiz dla koordynatorów/ek punktu'
     reallyRemove: 'Czy na pewno chcesz usunąć {name} z teamu tego punktu?'
     makeJumper: 'Na listę rezerwowych'
@@ -1676,9 +1676,9 @@ store:
         dane:'
     alerts:
       one_more: Pokaż kolejny wpis
-      many_more: Pokaż {count} kolejne wpisy
+      many_more: Pokaż kolejne wpisy ({count])
       one_less: Ukryj wpis
-      many_less: Ukryj {count} wpisy/ów
+      many_less: Ukryj wpisy ({count})
     unverified: Użytkownik/czka nie jest zweryfikowany/a
     to-team: dodaj do teamu
     to-nowhere: odrzuć
@@ -1710,13 +1710,13 @@ store:
         punkt akceptuje chwilowo tylko zgłoszenia od foodsaverów/ek z co najmniej
         jednym podanym numerem telefonu. Podaj numer telefonu w swoim profilu, aby
         móc zaakceptować zaproszenie.'
-      request: 'Aktualnie nie możesz wysyłać zapytań, bo jeszcze nie podałeś/aś numeru
+      request: 'Aktualnie nie możesz wysyłać zgłoszeń, bo jeszcze nie podałeś/aś numeru
         telefonu w swoim profilu. Ten punkt akceptuje chwilowo tylko zgłoszenia od
         foodsaverów/ek z co najmniej jednym podanym numerem telefonu. Podaj numer
         telefonu w swoim profilu, aby móc wysłać zgłoszenie.'
     request: Zgłoś się do tego teamu
     verified: Użytkownik/czka jest zweryfikowany/a
-    title: 'Zapytania do {storeTitle}'
+    title: 'Zgłoszenia do {storeTitle}'
     needsStoreRegion:
       link: 'Dołącz do rejonu'
       request: 'Aktualnie nie możesz wysłać zgłoszenia, bo nie jesteś jeszcze członkiem
@@ -1738,8 +1738,8 @@ store:
         odbiory próbne bądź skontaktuj się z ambasador(k)ami lub zespołem powitalnym,
         aby dać się zweryfikować. Te osoby do kontaktu znajdziesz na forum swojego
         rejonu po lewej stronie.'
-    withdrawn: 'Pomyślnie cofnięto zapytanie.'
-    got-it: 'Osoby odpowiedzialne zostały poinformowane o twoim zapytaniu i skontaktują
+    withdrawn: 'Pomyślnie cofnięto zgłoszenie.'
+    got-it: 'Osoby odpowiedzialne zostały poinformowane o twoim zgłoszeniu i skontaktują
       się z tobą.'
     air_line: 'Pokazywana jest odległość w linii prostej.'
     needsHomeRegion:
@@ -1752,11 +1752,11 @@ store:
         się ponownie.'
     confirm-far: 'Według twojego zapisanego adresu mieszkasz bardzo daleko od tego
       punktu ({distance}). Jesteś pewny/a, że możesz wspierać ten team regularnie
-      i niezawodnie?'
-    no-duplicate: 'Już jest jedno zapytanie.'
+      i rzetelnie?'
+    no-duplicate: 'Już jest jedno zgłoszenie.'
     to-jumper: 'Na listę rezerwowych'
     application-message: 'Wiadomość zgłoszeniowa'
-    withdraw: 'Cofnij zapytanie'
+    withdraw: 'Cofnij zgłoszenie'
     applicationMessageTooShort: 'Twoja wiadomość aplikacyjna jest za krótka.'
     confirm-no-location-ok: 'Zgłoś się mimo to'
     confirm-no-location: 'Nie podałeś/aś ważnego adresu w swoim profilu. Podaj adres
@@ -1860,8 +1860,8 @@ store:
   jumping: 'Rezerwowy/a'
   may_not_referred_to_in_public: 'Nigdy nie wymieniać publicznie nazwy tego punktu
     (np. przy jadłokoszykach, w social mediach albo zapytaniach prasowych).'
-  fetchCount: 'Wykonał/a tu {count}× odbiory/ów.'
-  requests: 'Otwarte zapytania ({count})'
+  fetchCount: 'Liczba wykonanych odbiorów: {count}.'
+  requests: 'Otwarte zgłoszenia ({count})'
   error: 'Nie można było załadować punktu.'
   leaveinfo: 'Tu możesz podać trochę informacji dla foodsaverów/ek, którzy chcą się
     zgłosić do teamu.'
@@ -1872,7 +1872,7 @@ store:
     final: 'Najpierw nie wyglądało to dobrze, ale potem jednak się odezwali.'
   mayAmb: 'Zdał/a quiz na ambasadora/kę.'
   my_last_slot: 'Mój ostatni slot'
-  isAppliedForTeam: 'Zapytanie'
+  isAppliedForTeam: 'Zgłoszenie'
   locked: 'Nie możesz edytować tego punktu.'
   lastPickup: 'Ostatnia aktywność {date}'
   managing: 'Odpowiedzialność za punkt'
@@ -1886,9 +1886,9 @@ store:
     kiedy pomoc będzie potrzebna.'
   slot_state: 'status slotu'
   delete_date_description: 'Jeśli chcesz używać w swoim punkcie regularnych slotów
-    (powtarzających się automatycznie co tydzień) i z góry zapobiec, że zostanie utworzony
-    jakiś określony termin (np. dzień wolny od pracy), możesz wykorzystać do tego
-    tę funkcję przez podanie daty i godziny. Jeśli chcesz usunąć już widoczne sloty,
+    (powtarzających się automatycznie co tydzień) i z góry zapobiec temu, aby został
+    utworzony jakiś określony termin (np. dzień wolny od pracy), możesz wykorzystać
+    do tego tę funkcję, podając datę i godzinę. Jeśli chcesz usunąć już widoczne sloty,
     jest to także możliwe bezpośrednio przez kliknięcie slotu, o ile nikt jeszcze
     nie jest zapisany.'
   tooltip_orange: 'Wolne sloty w ciągu następnych trzech dni'
@@ -1900,8 +1900,8 @@ store:
   delete:
     button: 'Usuń punkt'
     sure: 'Czy na pewno chcesz usunąć ten punkt? Ten proces jest nieodwracalny! Wszyscy
-      członkowie zostaną usunięci z punktu i wszystkie informacje dotyczące punkcie
-      oprócz protokołu punku zostaną usunięte. Usuwaj tylko punkty, które istotnie
+      członkowie zostaną usunięci z punktu i wszystkie informacje dotyczące punktu
+      oprócz protokołu punktu zostaną usunięte. Usuwaj tylko punkty, które istotnie
       już nie istnieją lub zostały podwójnie wprowadzone. Punkty, które odmówiły współpracy,
       powinny pozostać na liście. Można usuwać tylko punkty, w których nigdy nie było
       slotów i w których przez co najmniej 3 miesiące nie używano czatu teamu.'
@@ -1918,17 +1918,18 @@ store:
   ownStores: 'Moje punkty'
   lastPickupTitle: 'Ostatnia aktywność tutaj'
   mayManage: 'Zdał/a quiz dla koordynatorów/ek punktu.'
-  passport_expires_soon: 'Twoja legitymacja jest ważna jeszcze tylko {days} dni! Skontaktuj
-    się ze swoimi ambasador(k)ami, aby ją przedłużyć. Po upływnie terminu ważności
-    nie będziesz mógł/mogła się tutaj zapisywać.'
+  passport_expires_soon: 'Twoja legitymacja jest ważna jeszcze tylko {days} dzień/dni!
+    Skontaktuj się ze swoimi ambasador(k)ami, aby ją przedłużyć. Po upływnie terminu
+    ważności nie będziesz mógł/mogła się tutaj zapisywać.'
   bread: 'Wszystkie punkty'
   particularities_chain: 'Uwagi o sieci'
   appliedFor: 'Wysłano zgłoszenie'
   regionPickupRuleLong: 'W przedziale {regionPickupRuleTimespan} dni przed i po wybranym
-    odbiorze można być zapisanym na łącznie nie więcej niż {regionPickupRuleLimit}
-    sloty/ów w punktach-rodzynkach. W ciągu dnia można co najwyżej wykonać łącznie
-    {regionPickupRuleLimitDay} odbiory/ów w punktach-rodzynkach. Na {regionPickupRuleInactive}
-    godzin/y przed odbiorem reguła przestaje być brana pod uwagę.'
+    odbiorze, maksymalna liczba slotów w punktach-rodzynkach, na które można być łącznie
+    zapisanym, wynosi: {regionPickupRuleLimit}. Maksymalna łączna liczba odbiorów
+    w punktach-rodzynkach, które można wykonać w ciągu dnia, wynosi {regionPickupRuleLimitDay}.
+    Na {regionPickupRuleInactive} godzin/y przed odbiorem reguła przestaje być brana
+    pod uwagę.'
   isJumper: 'Jest na liście rezerwowych.'
   nodeclaration: 'Brak danych'
   nochains: 'Nawiązuj kontakt tylko z punktami prowadzonymi przez właściciela z co
@@ -1944,7 +1945,7 @@ store:
   noStores: 'Jeszcze nie wprowadzono żadnych punktów'
   short_tooltip_yellow: 'Wolne sloty w ciągu najbliższych 5 dni'
   not_verified: 'Nie jesteś zweryfikowany/a. Dlatego nie możesz zobaczyć slotów ani
-    numerów telefonów członków teamu.'
+    numerów telefonu członków teamu.'
   all_of_my_stores: 'Wszystkie moje punkty'
   delete_date: 'Usuń pojedynczy slot'
   slotsCurrentlyOccupied: 'Obecnie zajęte sloty'
@@ -1955,7 +1956,7 @@ store:
   part_of_chain: 'Należy do sieci:'
   chain_has_kams: 'Odpowiedzialny/a za sieć:'
   members_not_in_target_region: 'Istnieją członkowie teamu, którzy nie są częścią
-    regionu docelowego: {names}'
+    rejonu docelowego: {names}'
   joinDateUnknown: 'W teamie od: nieznane'
 navi:
   google_maps: Google maps
@@ -1978,12 +1979,12 @@ delete: Usuń
 statistics:
   lastMonth: Statystyki z ostatnich 30 dni
   region_public:
-    activeHomeRegionFoodsavers: aktywni/e foodsaverzy/ki
-    activeFoodSharePoints: aktywne jadłodzielnie
-    foodBasketsLastMonth: 'rozdane/ych jadłokoszyki/ów'
+    activeHomeRegionFoodsavers: liczba aktywnych foodsaverów/ek
+    activeFoodSharePoints: liczba aktywnych jadłodzielni
+    foodBasketsLastMonth: 'liczba rozdanych jadłokoszyków'
     savedFoodKgLastMonth: 'Uratowanej żywności'
-    activeCoorporations: 'aktywne/ych kooperacje/i'
-    pickupsLastMonth: 'Odbiory/ów uratowanej żywności'
+    activeCoorporations: 'liczba aktywnych kooperacji'
+    pickupsLastMonth: 'Liczba odbiorów uratowanej żywności'
   food_saved: 'uratowanej żywności'
   num_fetches: 'w {count} akcjach'
   kg_food_saved: 'uratowano {count} kg żywności'
@@ -2693,7 +2694,7 @@ pickuplist:
     body: 'Na pewno chcesz usunąć ostatni slot? Ten termin będzie wtedy zupełnie usunięty.'
     title: 'Usunąć ostatni slot?'
 error_ajax: |
-  Niestety, to nie wyszło.
+  Niestety, coś nie wyszło.
   Być może twoje połączenie internetowe w tej chwili nie działa.
   Odśwież stronę i spróbuj ponownie.
 reports:
