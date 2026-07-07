@@ -8,6 +8,12 @@
     >
       {{ title }}
     </component>
+    <!-- Named chats show the participant count already at two people, unnamed
+         private chats only above that. Own element so title truncation keeps it visible. -->
+    <span
+      v-if="participantCount > 2 || (participantCount === 2 && hasOwnTitle)"
+      class="participant-count text-muted mr-2"
+    >({{ $t('chat.participant_count', { count: participantCount }) }})</span>
     <div class="images">
       <Avatar
         v-for="(member, i) in members"
@@ -47,6 +53,8 @@ export default {
       title: '',
       storeId: null,
       members: [],
+      participantCount: 0,
+      hasOwnTitle: false,
     }
   },
   computed: {
@@ -65,10 +73,16 @@ export default {
         this.title = ''
         this.storeId = null
         this.members = []
+        this.participantCount = 0
+        this.hasOwnTitle = false
         return
       }
 
       const conversation = await conversationStore.getConversation(this.conversationId)
+      // Full participant count (including the current user), independent of the
+      // avatar list which excludes the current user and is capped for display.
+      this.participantCount = conversation.members.length
+      this.hasOwnTitle = !!conversation.title
       const otherMembers = conversation.members
         .filter(m => m !== this.currentUserId)
         .slice(0, LIMIT_DISPLAYED_USERS)
@@ -111,6 +125,11 @@ export default {
   -webkit-line-clamp: 2;
   line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+.participant-count {
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .images {

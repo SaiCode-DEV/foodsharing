@@ -1612,6 +1612,7 @@ chat:
   unknown_username: "unbekannter Name"
   show_participants: "Teilnehmer:innen anzeigen"
   participants: "Teilnehmer:innen"
+  participant_count: "{count} Teilnehmer:innen"
   mark_as:
     read: "Als gelesen markieren"
     unread: "Als ungelesen markieren"

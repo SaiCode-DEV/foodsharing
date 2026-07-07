@@ -3319,6 +3319,7 @@ chat:
   unknown_username: unknown name
   show_participants: Show participants
   participants: Participants
+  participant_count: "{count} participants"
   mark_as:
     read: Mark as read
     unread: Mark as unread
