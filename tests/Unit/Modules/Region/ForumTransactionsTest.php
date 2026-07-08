@@ -18,6 +18,7 @@ use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\ForumPermissions;
+use Foodsharing\Permissions\ReportPermissions;
 use Foodsharing\RestApi\Models\Forum\CreateThreadData;
 use Foodsharing\Utility\EmailHelper;
 use Foodsharing\Utility\FlashMessageHelper;
@@ -50,6 +51,7 @@ class ForumTransactionsTest extends Unit
     private ?ReactionTransactions $reactionTransactions = null;
     private ?CurrentUserUnitsInterface $currentUserUnits = null;
     private ?ForumPermissions $forumPermissions = null;
+    private ?ReportPermissions $reportPermissions = null;
     private ?ForumTransactions $transaction = null;
     private $user;
     private $user1;
@@ -75,10 +77,11 @@ class ForumTransactionsTest extends Unit
         $this->translator = $this->tester->get(TranslatorInterface::class);
         $this->currentUserUnits = $this->createMock(CurrentUserUnitsInterface::class);
         $this->forumPermissions = $this->tester->get(ForumPermissions::class);
+        $this->reportPermissions = $this->createMock(ReportPermissions::class);
 
         $this->transaction = new ForumTransactions($this->foodsaverGateway, $this->forumGateway, $this->forumFollowerGateway,
             $this->session, $this->regionGateway, $this->sanitizerService, $this->emailHelper, $this->flashMessageHelper, $this->translator, $this->groupFunctionGateway, $this->bellTransaction,
-            $this->bellGateway, $this->settingsGateway, $this->reactionTransactions, $this->currentUserUnits, $this->forumPermissions);
+            $this->bellGateway, $this->settingsGateway, $this->reactionTransactions, $this->currentUserUnits, $this->forumPermissions, $this->reportPermissions);
 
         // Prepare database content
         $this->user = $this->tester->createFoodsaver();

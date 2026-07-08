@@ -21,7 +21,7 @@ export function getThread (threadId) {
   return get(`/forum/threads/${threadId}`)
 }
 
-export function createThread (regionId, subforumId, title, body, sendMail) {
+export function createThread (regionId, subforumId, title, body, sendMail = false) {
   return post(`/regions/${regionId}/forum/threads?subforumId=${subforumId}`, {
     title,
     body,

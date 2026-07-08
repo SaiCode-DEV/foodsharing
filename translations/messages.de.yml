@@ -1756,6 +1756,7 @@ month:
     "12": "Dez."
 
 reports:
+  invalid_forum_thread_region: "Der Forenbeitrag gehört nicht zu dem Bezirk, der für diesen Fall zuständig ist."
   reports_region: "Meldungen aus {regionName}"
   reports_user: "Alle Meldungen über {userName} ({userId})"
   message: "Beschreibung"
@@ -1767,7 +1768,50 @@ reports:
   no_reports_fallback: "Es sind noch keine Meldungen vorhanden"
   store: "Zugeordneter Betrieb"
   report_id: "Meldungs-ID"
-
+  search: "Suche"
+  search_by_name_or_id: "Suche nach Name, ID oder Grund"
+  searching: "Suche läuft"
+  filter_status: "Filtern nach Status"
+  no_status: "Kein Status"
+  no_consequence: "Keine Konsequenz"
+  status: Status
+  enter_status: "Status eingeben"
+  enter_consequence: "Konsequenz eingeben"
+  noresults: "Kein Forumsthread gefunden. Bitte versuche es mit einem anderen Suchbegriff oder lege einen neuen Thread an."
+  consequence: Konsequenz
+  forum_thread: "Forumsthread"
+  no_thread: "Kein Forumsthread verlinkt"
+  view_thread: Thread ansehen
+  reported_at: "Gemeldet am"
+  edit_report: "Report bearbeiten"
+  enter_forum_thread_id: "Forumsthread-ID eingeben"
+  view: "Ansehen"
+  remove: "Entfernen"
+  forum_thread_linked: "Forumsthread wurde zu diesem Report verlinkt"
+  update_error: "Fehler beim Aktualisieren des Reports"
+  statuses:
+    to_do: "Offen"
+    handed_over: "Abgegeben"
+    completed: "Abgeschlossen"
+    mediation_gruppe: "Mediationsgruppe"
+    in_progress: "In Bearbeitung"
+    follow_up_user: "Rückfrage an User"
+    deleted: "Gelöscht"
+  consequences:
+    reminder: "Erinnerung"
+    warning: "Verwarnung"
+    yellow_card: "Gelbe Karte"
+    red_card: "Rote Karte"
+    no_rule_violation: "Kein Regelverstoß"
+    no_further_action: "keine weitere Verfolgung"
+  forum_thread_search: "Forum-Threads durchsuchen"
+  select_thread: "Thread auswählen"
+  create_thread: "Thread erstellen"
+  error_missing_region: "Bezirk-ID wird für die Forensuche benötigt"
+  search_error: "Fehler bei der Suche nach Forum-Threads"
+  reminder: "Erinnerung"
+  reminder_at: "Erinnerung am"
+  set_reminder: "Erinnerung setzen"
 
   #|
   #  Es ist wichtig alle Fälle, die gegen die Verhaltensregeln verstoßen, zu melden,
@@ -1807,6 +1851,8 @@ bell:
   forum_new_thread: "von {user} im Forum {forum}"
   blog_new_check_title: "Neuer Blogartikel"
   blog_new_check: "{title}"
+  report_reminder_title: "Erinnerung: Meldung #{reportId}"
+  report_reminder: "Die Erinnerung zur Meldung ist fällig"
   ft_update_title: "{name}" # Message can be improved using {user} after release Nektarine
   ft_update:
     one: "{teaser}" # Message can be improved using {user} after release Nektarine

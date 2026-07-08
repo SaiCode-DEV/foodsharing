@@ -141,9 +141,9 @@ class ForumRestController extends AbstractFoodsharingRestController
         $regionDetails = $this->regionTransactions->getRegionDetails($regionId);
         $postActiveWithoutModeration = ($this->session->isVerified() && !$regionDetails['moderated']) || $this->currentUserUnits->isAmbassadorForRegion([$regionId]);
 
-        $this->forumTransactions->createThread($this->session->id(), $thread, $regionDetails, $subforumId === 1, $postActiveWithoutModeration);
+        $threadId = $this->forumTransactions->createThread($this->session->id(), $thread, $regionDetails, $subforumId === 1, $postActiveWithoutModeration);
 
-        return $this->respondOK();
+        return $this->respondOK(['id' => $threadId]);
     }
 
     #[OA\Patch(summary: 'Change attributes for a thread: Stickiness, activate thread, status.')]

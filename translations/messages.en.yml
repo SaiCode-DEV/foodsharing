@@ -1690,6 +1690,8 @@ bell:
   store_wallpost_title: '{name}'
   poll_new: '{title}'
   poll_new_title: New poll
+  report_reminder_title: "Reminder: Report #{reportId}"
+  report_reminder: "The reminder for the report is due"
   poll_started: 'The poll "{title}" has started and is now open for voting.'
   poll_started_title: Poll started
   poll_ending_soon: 'The poll “{title}” is ending soon. You have not voted yet.'
@@ -1810,6 +1812,7 @@ bell:
   chain_info_updated_title: Chain {chain} was updated
   chain_info_updated: '{store} is part of the chain.'
 reports:
+  invalid_forum_thread_region: The forum thread does not belong to the region responsible for this report.
   time: Time
   reason: Reason
   message: Description
@@ -1823,6 +1826,49 @@ reports:
   reports_user: All complaints about {userName} ({userId})
   id: ID
   reporter: Reporting person
+  search: Search
+  search_by_name_or_id: Search by name, ID, or reason
+  searching: Searching
+  filter_status: Filter by status
+  no_status: No status
+  no_consequence: No consequence
+  status: Status
+  consequence: Consequence
+  statuses:
+    to_do: Open
+    handed_over: Handed over
+    completed: Closed
+    mediation_gruppe: Mediation group
+    in_progress: In progress
+    follow_up_user: Follow-up with user
+    deleted: Deleted
+  consequences:
+    reminder: Reminder
+    warning: Warning
+    yellow_card: Yellow card
+    red_card: Red card
+    no_rule_violation: No rule violation
+    no_further_action: No further action
+  forum_thread: Forum thread
+  view_thread: View thread
+  no_thread: No thread linked
+  reported_at: Reported at
+  edit: Edit
+  delete: Delete
+  edit_report: Edit report
+  enter_forum_thread_id: Enter forum thread ID
+  view: View
+  remove: Remove
+  forum_thread_linked: Forum thread has been linked to this report
+  update_error: Error updating report
+  forum_thread_search: Search forum threads
+  select_thread: Select thread
+  create_thread: Create thread
+  error_missing_region: Region ID required for forum search
+  search_error: Error searching forum threads
+  reminder: Reminder
+  reminder_at: Reminder at
+  set_reminder: Set reminder
 poll:
   time_period: Time period
   results:

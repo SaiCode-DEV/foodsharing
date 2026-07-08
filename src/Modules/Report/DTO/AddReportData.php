@@ -13,4 +13,8 @@ class AddReportData
     public string $message;
 
     public ?int $storeId = null;
+    // Optional fields for linking and admin handling
+    public ?int $forumThreadId = null;
+    public ?string $status = null;
+    public ?string $consequence = null;
 }

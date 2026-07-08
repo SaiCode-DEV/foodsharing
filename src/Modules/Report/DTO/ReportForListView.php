@@ -14,4 +14,9 @@ class ReportForListView
     public ?MinimalStoreIdentifier $store;
     public ProfileWithMail $reporter;
     public ProfileWithMail $reported;
+    public ?int $forumThreadId = null;
+    public ?string $status = null;
+    public ?string $consequence = null;
+    public ?string $reminderAt = null;
+    public ?int $reportedRegionId = null;
 }

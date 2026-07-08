@@ -46,12 +46,10 @@ class ReportTransactions
             true
         );
 
-        $regionReportGroupId = $this->groupFunctionGateway->getRegionFunctionGroupId($reportedFs['bezirk_id'], WorkgroupFunction::REPORT);
-        if ($regionReportGroupId) {
-            $reportBellRecipients = $this->groupFunctionGateway->getFsAdminIdsFromGroup($regionReportGroupId);
+        $reportBellRecipients = $this->groupFunctionGateway->getFunctionGroupAdminsForRegion($reportedFs['bezirk_id'], WorkgroupFunction::REPORT);
+        if (!empty($reportBellRecipients)) {
             if (in_array($reportedId, $reportBellRecipients) || in_array($reporterId, $reportBellRecipients)) {
-                $regionArbitrationGroupId = $this->groupFunctionGateway->getRegionFunctionGroupId($reportedFs['bezirk_id'], WorkgroupFunction::ARBITRATION);
-                $reportBellRecipients = $this->groupFunctionGateway->getFsAdminIdsFromGroup($regionArbitrationGroupId);
+                $reportBellRecipients = $this->groupFunctionGateway->getFunctionGroupAdminsForRegion($reportedFs['bezirk_id'], WorkgroupFunction::ARBITRATION);
             }
             $this->bellGateway->addBellForUsers($reportBellRecipients, $bellData);
         }
@@ -77,5 +75,30 @@ class ReportTransactions
         }
 
         return $this->reportGateway->getReportsByReporteeRegions($regionId, $excludedIds, $includedIds);
+    }
+
+    public function getResponsibleRegionIdForReport(int $reportId): int
+    {
+        $affiliation = $this->reportGateway->getReportAffiliation($reportId);
+        $baseRegionId = (int)$affiliation['regionId'];
+        $reportedId = (int)$affiliation['userId'];
+        $reporterId = (int)$affiliation['reporterId'];
+
+        $reportGroupId = $this->groupFunctionGateway->getRegionFunctionGroupId($baseRegionId, WorkgroupFunction::REPORT);
+        if ($reportGroupId !== null) {
+            $reportAdmins = $this->groupFunctionGateway->getFsAdminIdsFromGroup($reportGroupId);
+            if (in_array($reportedId, $reportAdmins, true) || in_array($reporterId, $reportAdmins, true)) {
+                $arbitrationGroupId = $this->groupFunctionGateway->getRegionFunctionGroupId($baseRegionId, WorkgroupFunction::ARBITRATION);
+                if ($arbitrationGroupId !== null) {
+                    return $arbitrationGroupId;
+                }
+
+                return $baseRegionId;
+            }
+
+            return $reportGroupId;
+        }
+
+        return $baseRegionId;
     }
 }

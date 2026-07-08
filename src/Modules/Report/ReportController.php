@@ -4,7 +4,9 @@ namespace Foodsharing\Modules\Report;
 
 use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
+use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
+use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Permissions\ReportPermissions;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,6 +20,7 @@ final class ReportController extends FoodsharingController
         private readonly ReportPermissions $reportPermissions,
         private readonly RegionGateway $regionGateway,
         private readonly FoodsaverGateway $foodsaverGateway,
+        private readonly GroupFunctionGateway $groupFunctionGateway,
     ) {
         parent::__construct();
     }
@@ -38,9 +41,12 @@ final class ReportController extends FoodsharingController
         $this->pageHelper->addBread($regionName, '/region?bid=' . $regionId);
         $this->pageHelper->addBread($this->translator->trans('reports.reports_region', ['{regionName}' => $regionName]), '/?page=fsbetrieb');
 
+        $regionReportGroupId = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::REPORT);
+
         $this->pageHelper->addContent($this->prepareVueComponent('report-page', 'RegionReportPage', [
             'regionId' => $regionId,
             'regionName' => $regionName,
+            'regionReportGroupId' => $regionReportGroupId,
         ]));
 
         return $this->renderGlobal();

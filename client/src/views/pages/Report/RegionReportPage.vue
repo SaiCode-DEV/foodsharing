@@ -3,6 +3,8 @@
     <ReportContainer
       :title="$t('reports.reports_region', { regionName })"
       :report-fetcher="reportFetcher"
+      :region-id="regionId"
+      :region-report-group-id="regionReportGroupId"
     />
   </BasePage>
 </template>
@@ -17,6 +19,7 @@ export default {
   props: {
     regionId: { type: Number, required: true },
     regionName: { type: String, required: true },
+    regionReportGroupId: { type: Number, required: false, default: null },
   },
   methods: {
     async reportFetcher () {

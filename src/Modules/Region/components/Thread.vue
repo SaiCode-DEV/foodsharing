@@ -76,6 +76,45 @@
       <i class="fas fa-info-circle" />
       {{ $t('forum.thread.all_hidden') }}
     </b-alert>
+    <b-alert
+      v-if="linkedReport && !isLoading"
+      variant="info"
+      class="d-flex justify-content-between align-items-center"
+      show
+    >
+      <div>
+        {{ $t('reports.report_id') }}: {{ linkedReport.id }}
+      </div>
+
+      <div>
+        {{ $t('reports.status') }}:
+        <b-badge
+          v-if="linkedReport.status"
+          :variant="getStatusVariant(linkedReport.status)"
+        >
+          {{ isTranslatableStatus(linkedReport.status) ? $t(linkedReport.status) : linkedReport.status }}
+        </b-badge>
+        <span v-else class="text-muted">{{ $t('reports.no_status') }}</span>
+      </div>
+
+      <b-button
+        variant="outline-primary"
+        size="sm"
+        @click="openLinkedReportEditModal"
+      >
+        <i class="fas fa-edit mr-1" /> {{ $t('button.edit') }}
+      </b-button>
+    </b-alert>
+
+    <ReportEditModal
+      v-if="linkedReport"
+      :report="linkedReport"
+      :show="showLinkedReportEditModal"
+      :region-id="regionId"
+      :may-delete="false"
+      @update="updateLinkedReport"
+      @close="closeLinkedReportEditModal"
+    />
     <div id="posts-wrapper">
       <div v-for="post in shownPosts" :key="post.id">
         <ThreadPost
@@ -239,6 +278,7 @@ import OverflowMenu from '@/components/OverflowMenu.vue'
 import { pulseError, pulseWarning, pulseSuccess } from '@/script'
 import { useUserStore } from '@/stores/user'
 import JumpScrollButton from '@/components/JumpScrollButton.vue'
+import ReportEditModal from '@/components/Report/ReportEditModal.vue'
 import SubscribeButton from './SubscribeButton.vue'
 import ThreadForm from './ThreadForm'
 import ThreadPost from './ThreadPost'
@@ -250,7 +290,7 @@ import Info from '@/components/Help/Info.vue'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 
 export default {
-  components: { ThreadForm, ThreadPost, OverflowMenu, JumpScrollButton, SubscribeButton, HiddenPostsAlert, VueSlider, Info, MarkdownInput },
+  components: { ThreadForm, ThreadPost, OverflowMenu, JumpScrollButton, SubscribeButton, HiddenPostsAlert, VueSlider, Info, MarkdownInput, ReportEditModal },
   props: {
     id: {
       type: Number,
@@ -293,6 +333,8 @@ export default {
       newTitle: '',
       newPriority: 0,
       linkedPost: null,
+      linkedReport: null,
+      showLinkedReportEditModal: false,
       showHiddenPosts: false,
 
       status: ThreadStatus.THREAD_OPEN,
@@ -402,6 +444,7 @@ export default {
           isFollowingBell: res.subscriptionsStatus.isBellSubscribed,
           status: +res.isLocked,
           creatorId: res.creatorId,
+          linkedReport: res.linkedReport || null,
         })
         this.computeEditRemaining()
         this.isLoading = false
@@ -621,6 +664,30 @@ export default {
       this.newPriority = this.stickiness
       this.$refs.priorityEditModal.show()
     },
+    openLinkedReportEditModal () {
+      this.showLinkedReportEditModal = true
+    },
+    closeLinkedReportEditModal () {
+      this.showLinkedReportEditModal = false
+    },
+    updateLinkedReport (updateData) {
+      if (!this.linkedReport) return
+
+      const nextForumThreadId = Object.prototype.hasOwnProperty.call(updateData, 'forumThreadId')
+        ? updateData.forumThreadId
+        : this.linkedReport.forumThreadId
+
+      if (nextForumThreadId !== this.id) {
+        this.linkedReport = null
+        return
+      }
+
+      this.linkedReport = {
+        ...this.linkedReport,
+        ...updateData,
+      }
+      this.showLinkedReportEditModal = false
+    },
     async restorePost (postId) {
       try {
         await api.restorePost(postId)
@@ -629,6 +696,28 @@ export default {
       } catch (err) {
         pulseError(this.$t('error_unexpected'))
       }
+    },
+    isTranslatableStatus (status) {
+      return status && (status.startsWith('reports.statuses.') || status.startsWith('reports.consequences.'))
+    },
+    getStatusVariant (status) {
+      const variants = {
+        'reports.statuses.to_do': 'danger',
+        Offen: 'danger',
+        'reports.statuses.handed_over': 'info',
+        Abgegeben: 'info',
+        'reports.statuses.completed': 'success',
+        Abgeschlossen: 'success',
+        'reports.statuses.mediation_gruppe': 'info',
+        Mediationsgruppe: 'info',
+        'reports.statuses.in_progress': 'warning',
+        'In Bearbeitung': 'warning',
+        'reports.statuses.follow_up_user': 'info',
+        'Rückfrage an User': 'info',
+        'reports.statuses.deleted': 'dark',
+        Gelöscht: 'dark',
+      }
+      return variants[status] || 'secondary'
     },
   },
 }

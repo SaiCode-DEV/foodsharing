@@ -15,6 +15,9 @@ use Foodsharing\Modules\Region\DTO\ForumPostSummary;
 use Foodsharing\Modules\Region\DTO\ForumThread;
 use Foodsharing\Modules\Region\DTO\ForumThreadForListView;
 use Foodsharing\Modules\Region\Exceptions\NoVisiblePostException;
+use Foodsharing\Modules\Report\DTO\ProfileWithMail;
+use Foodsharing\Modules\Report\DTO\ReportForListView;
+use Foodsharing\Modules\Store\DTO\MinimalStoreIdentifier;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -350,6 +353,65 @@ class ForumGateway extends BaseGateway
 
 		WHERE bt.theme_id = :threadId
 		', ['threadId' => $threadId]);
+    }
+
+    /**
+     * Get the report linked to a thread, if any.
+     * @return ReportForListView|null Report data with nested reported/reporter user info, or null if not linked
+     */
+    public function getReportLinkedToThread(int $threadId): ?ReportForListView
+    {
+        $report = $this->db->fetch('
+            SELECT
+                r.id, r.msg AS message, r.time AS reportedAt,
+                r.tvalue AS reason, r.reminder_at AS reminderAt,
+                r.betrieb_id AS betrieb_id, s.name AS betrieb_name,
+                r.forum_thread_id AS forumThreadId, r.status, r.consequence,
+                reported.id AS fs_id, reported.name AS fs_name, reported.photo AS fs_photo,
+                reported.is_sleeping AS fs_is_sleeping, reported.email AS fs_email, reported.nachname AS fs_last_name,
+                reported.bezirk_id AS reportedRegionId,
+                reporter.id AS rp_id, reporter.name AS rp_name, reporter.photo AS rp_photo,
+                reporter.is_sleeping AS rp_is_sleeping, reporter.email AS rp_email, reporter.nachname AS rp_last_name
+            FROM fs_report r
+            LEFT JOIN fs_foodsaver reported ON reported.id = r.foodsaver_id
+            LEFT JOIN fs_foodsaver reporter ON reporter.id = r.reporter_id
+            LEFT JOIN fs_betrieb s ON s.id = r.betrieb_id
+            WHERE r.forum_thread_id = :threadId
+        ', ['threadId' => $threadId]);
+
+        if (!$report) {
+            return null;
+        }
+
+        $reportForListView = new ReportForListView();
+        $reportForListView->id = $report['id'];
+        $reportForListView->message = $report['message'] ?? '';
+        $reportForListView->reason = $report['reason'] ?? '';
+        $reportForListView->reportedAt = Carbon::parse($report['reportedAt']);
+        $reportForListView->store = $report['betrieb_id'] ? MinimalStoreIdentifier::createFromArray($report, 'betrieb_') : null;
+        $reportForListView->reporter = new ProfileWithMail(
+            (int)($report['rp_id'] ?? 0),
+            $report['rp_name'] ?? '',
+            $report['rp_photo'] ?? null,
+            isset($report['rp_is_sleeping']) ? (bool)$report['rp_is_sleeping'] : null,
+            $report['rp_email'] ?? null,
+            $report['rp_last_name'] ?? null
+        );
+        $reportForListView->reported = new ProfileWithMail(
+            (int)($report['fs_id'] ?? 0),
+            $report['fs_name'] ?? '',
+            $report['fs_photo'] ?? null,
+            isset($report['fs_is_sleeping']) ? (bool)$report['fs_is_sleeping'] : null,
+            $report['fs_email'] ?? null,
+            $report['fs_last_name'] ?? null
+        );
+        $reportForListView->forumThreadId = $report['forumThreadId'] ?? null;
+        $reportForListView->status = $report['status'] ?? null;
+        $reportForListView->consequence = $report['consequence'] ?? null;
+        $reportForListView->reminderAt = $report['reminderAt'] ?? null;
+        $reportForListView->reportedRegionId = $report['reportedRegionId'] ?? null;
+
+        return $reportForListView;
     }
 
     public function getThreadForPost(int $postId): ?int

@@ -88,4 +88,11 @@ class ReportPermissions
 
         return $this->session->mayRole(Role::ORGA);
     }
+
+    public function mayAccessReport(int $reportId): bool
+    {
+        $report = $this->reportGateway->getReportAffiliation($reportId);
+
+        return $this->mayAccessReportsForRegion($report['regionId']);
+    }
 }

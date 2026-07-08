@@ -124,6 +124,11 @@ class BellType
     final public const string NEW_REPORT = 'new-report-%d';
 
     /**
+     * A reminder about a report that needs follow-up. Argument: ID of the report.
+     */
+    final public const string REPORT_REMINDER = 'report-reminder-%d';
+
+    /**
      * A new report for a user was created.
      */
     final public const string NEW_QUESTION_COMMENT = 'question-comment-%d';

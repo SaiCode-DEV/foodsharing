@@ -1715,7 +1715,6 @@ class Foodsharing {
       time: this.toDateTime(faker.date.recent()),
       msg: message ?? faker.lorem.paragraphs(2),
       tvalue: reason ?? faker.lorem.sentence(),
-      committed: confirmed,
       id: null, // will be set after insertion
     };
     params.id = await Database.addToDatabase("fs_report", params);

@@ -22,6 +22,7 @@ use Foodsharing\Modules\Region\Exceptions\NoVisiblePostException;
 use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\ForumPermissions;
+use Foodsharing\Permissions\ReportPermissions;
 use Foodsharing\RestApi\DTO\Notifications\NotificationSettingsPatch;
 use Foodsharing\RestApi\Models\Forum\CreateThreadData;
 use Foodsharing\RestApi\Models\Notifications\Thread;
@@ -55,6 +56,7 @@ class ForumTransactions
         private readonly ReactionTransactions $reactionTransactions,
         private readonly CurrentUserUnitsInterface $currentUserUnits,
         private readonly ForumPermissions $forumPermissions,
+        private readonly ReportPermissions $reportPermissions,
     ) {
     }
 
@@ -527,6 +529,12 @@ class ForumTransactions
         $thread->permissions->mayDelete = $this->forumPermissions->mayDeletePosts($threadId);
         $thread->subscriptionsStatus = $this->forumFollowerGateway->getThreadSubscriptionsStatus($threadId, $this->session->id());
         $thread->posts = $this->listPostsWithReactions($threadId);
+
+        $linkedReport = $this->forumGateway->getReportLinkedToThread($threadId);
+        // Check if there's a linked report and user has permission to view it
+        if ($linkedReport && $this->reportPermissions->mayAccessReport($linkedReport->id)) {
+            $thread->linkedReport = $linkedReport;
+        }
 
         if (!$thread->permissions->mayModerate) {
             foreach ($thread->posts as &$post) {

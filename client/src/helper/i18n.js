@@ -86,6 +86,9 @@ const datetimeFormats = {
       hour: 'numeric',
       minute: 'numeric',
     },
+    shortDateTime: {
+      year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric',
+    },
   },
   de: {
     short: {
@@ -98,6 +101,9 @@ const datetimeFormats = {
       weekday: 'short',
       hour: 'numeric',
       minute: 'numeric',
+    },
+    shortDateTime: {
+      year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric',
     },
   },
 }

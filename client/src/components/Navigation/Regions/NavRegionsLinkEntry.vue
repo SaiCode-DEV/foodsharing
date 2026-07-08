@@ -53,7 +53,7 @@ export default {
           href: 'publicRegion', icon: 'fa-door-open', text: 'menu.entry.public',
         },
         {
-          href: 'forum', icon: 'fa-comments', text: 'menu.entry.forum', subPage: SUB_PAGE.FORUM,
+          href: 'forum', icon: 'fa-comment-alt', text: 'menu.entry.forum', subPage: SUB_PAGE.FORUM,
         },
         {
           href: 'stores', icon: 'fa-cart-plus', text: 'menu.entry.stores',

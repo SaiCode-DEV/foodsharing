@@ -4,8 +4,10 @@ namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
+use Foodsharing\Modules\Region\ForumGateway;
 use Foodsharing\Modules\Report\DTO\AddReportData;
 use Foodsharing\Modules\Report\DTO\ReportForListView;
+use Foodsharing\Modules\Report\DTO\UpdateReportData;
 use Foodsharing\Modules\Report\ReportGateway;
 use Foodsharing\Modules\Report\ReportTransactions;
 use Foodsharing\Permissions\ReportPermissions;
@@ -14,6 +16,7 @@ use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
@@ -28,6 +31,7 @@ class ReportRestController extends AbstractFoodsharingRestController
         private readonly ReportPermissions $reportPermissions,
         private readonly ReportTransactions $reportTransactions,
         private readonly FoodsaverGateway $foodsaverGateway,
+        private readonly ForumGateway $forumGateway,
     ) {
         parent::__construct($this->session);
     }
@@ -96,6 +100,31 @@ class ReportRestController extends AbstractFoodsharingRestController
             throw new AccessDeniedHttpException('Not permitted');
         }
         $this->reportGateway->deleteReport($reportId);
+
+        return $this->respondOK();
+    }
+
+    #[OA\Patch(summary: 'Update a report status, consequence, or forum thread link')]
+    #[Route('reports/{reportId}', methods: ['PATCH'], requirements: ['reportId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
+    public function updateReport(int $reportId, #[MapRequestPayload] UpdateReportData $updateData): Response
+    {
+        $this->assertLoggedIn();
+        if (!$this->reportPermissions->mayAccessReport($reportId)) {
+            throw new AccessDeniedHttpException('Not permitted');
+        }
+
+        if ($updateData->forumThreadId !== null) {
+            $threadInfo = $this->forumGateway->getThreadInfo($updateData->forumThreadId);
+
+            $validRegionId = $this->reportTransactions->getResponsibleRegionIdForReport($reportId);
+            if (!$threadInfo || !isset($threadInfo['region_id']) || (int)$threadInfo['region_id'] !== $validRegionId) {
+                throw new BadRequestHttpException('reports.invalid_forum_thread_region');
+            }
+        }
+
+        $this->reportGateway->updateReport($reportId, $updateData);
 
         return $this->respondOK();
     }

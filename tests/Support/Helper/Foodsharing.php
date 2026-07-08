@@ -1368,7 +1368,6 @@ class Foodsharing extends Db
             'time' => $this->toDateTime($this->faker->dateTimeBetween('first day of january this year', $max = 'now')),
             'msg' => $msg ?? $this->faker->text(500),
             'tvalue' => $reason ?? $this->faker->text(50),
-            'committed' => $confirmed
         ];
         $params['id'] = $this->haveInDatabase('fs_report', $params);
 

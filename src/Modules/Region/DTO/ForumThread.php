@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Foodsharing\Modules\Region\DTO;
 
+use Foodsharing\Modules\Report\DTO\ReportForListView;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
 
@@ -39,4 +40,7 @@ class ForumThread
     /** @var ?ForumPost[] */
     #[OA\Property(type: 'array', items: new OA\Items(ref: new Model(type: ForumPost::class)))]
     public ?array $posts = null;
+
+    #[OA\Property(description: 'Report linked to this thread, if any and user has permission to view')]
+    public ?ReportForListView $linkedReport = null;
 }
