@@ -42,15 +42,20 @@ class MaintenanceGateway extends BaseGateway
 				AND 	hb.active = 1
 		');
 
+        $data = [];
         foreach ($foodsaver as $fs) {
             if ((int)$fs['master'] > 0) {
-                $this->db->insertIgnore('fs_foodsaver_has_bezirk', [
+                $data[] = [
                     'foodsaver_id' => $fs['foodsaver_id'],
                     'bezirk_id' => $fs['master'],
                     'active' => 1,
                     'added' => $this->db->now()
-                ]);
+                ];
             }
+        }
+        $parts = array_chunk($data, 100);
+        foreach ($parts as $part) {
+            $this->db->insertMultiple('fs_foodsaver_has_bezirk', $part, ['ignore' => true]);
         }
     }
 

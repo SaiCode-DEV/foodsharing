@@ -526,17 +526,17 @@ class FoodsaverGateway extends BaseGateway
     private function insertGroupMembers(int $regionId, array $fsIds): int
     {
         $before = $this->db->count('fs_foodsaver_has_bezirk', ['bezirk_id' => $regionId]);
-        foreach ($fsIds as $fsId) {
-            $this->db->insertIgnore(
-                'fs_foodsaver_has_bezirk',
-                [
-                    'foodsaver_id' => $fsId,
-                    'bezirk_id' => $regionId,
-                    'active' => 1,
-                    'added' => $this->db->now()
-                ]
-            );
+        $data = array_map(fn ($fsId) => [
+            'foodsaver_id' => $fsId,
+            'bezirk_id' => $regionId,
+            'active' => 1,
+            'added' => $this->db->now()
+        ], $fsIds);
+        $parts = array_chunk($data, 100);
+        foreach ($parts as $part) {
+            $this->db->insertMultiple('fs_foodsaver_has_bezirk', $part, ['ignore' => true]);
         }
+
         $current = $this->db->count('fs_foodsaver_has_bezirk', ['bezirk_id' => $regionId]);
 
         return $current - $before;
@@ -1017,9 +1017,9 @@ class FoodsaverGateway extends BaseGateway
     public function foodsaversExist(array $foodsaverIds): bool
     {
         $foodsaverIds = array_unique($foodsaverIds);
-        $existing = $this->db->fetchAllValuesByCriteria('fs_foodsaver', 'id', ['id' => $foodsaverIds, 'deleted_at' => null]);
+        $existing = $this->db->count('fs_foodsaver', ['id' => $foodsaverIds, 'deleted_at' => null]);
 
-        return count($foodsaverIds) === count($existing);
+        return count($foodsaverIds) === $existing;
     }
 
     public function changeUserVerification(int $userId, int $actorId, bool $newStatus): void

@@ -226,7 +226,7 @@ class StoreTransactions
     {
         $stores = $this->storeGateway->listStoresInRegion($regionId, true);
 
-        return $this->arrayMapStoreListInformation($stores);
+        return array_map(StoreListInformation::loadFrom(...), $stores);
     }
 
     /**
@@ -242,19 +242,7 @@ class StoreTransactions
     {
         $stores = $this->storeGateway->listStoresInFromUser($userId);
 
-        return $this->arrayMapStoreListInformation($stores);
-    }
-
-    private function arrayMapStoreListInformation(array $stores): array
-    {
-        return array_map(function (Store $store) {
-            $storeListEntry = StoreListInformation::loadFrom($store);
-            if (is_null($store->region->name)) {
-                $storeListEntry->region->name = $this->regionGateway->getRegionName($store->region->id);
-            }
-
-            return $storeListEntry;
-        }, $stores);
+        return array_map(StoreListInformation::loadFrom(...), $stores);
     }
 
     /**

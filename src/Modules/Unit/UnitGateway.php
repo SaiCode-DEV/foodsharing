@@ -67,16 +67,10 @@ class UnitGateway extends BaseGateway
      */
     public function isUserOnTeamPage(int $userId): bool
     {
-        $dbQuery = $this->db->fetchAllByCriteria('fs_foodsaver_has_bezirk', '*', [
+        return $this->db->exists('fs_foodsaver_has_bezirk', [
             'foodsaver_id' => $userId,
             'active' => 1,
             'bezirk_id' => self::REGION_IDs_FOR_TEAM_PAGE,
         ]);
-
-        if (count($dbQuery) > 0) {
-            return true;
-        }
-
-        return false;
     }
 }

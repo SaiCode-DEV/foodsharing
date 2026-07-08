@@ -268,7 +268,7 @@ class RegionTransactions
     public function getMenu(int $regionId, ?array $region = null): ?array
     {
         if (empty($region)) {
-            $region = $this->regionGateway->getRegionDetails($regionId);
+            $region = $this->regionGateway->getRegion($regionId);
         }
         if (empty($region)) {
             return null;

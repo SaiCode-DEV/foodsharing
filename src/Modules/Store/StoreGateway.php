@@ -949,8 +949,10 @@ class StoreGateway extends BaseGateway
             $regionIds = array_merge($regionIds, $this->regionGateway->listIdsForDescendantsAndSelf($regionId));
         }
 
-        $results = $this->db->fetchAll($this->sqlSelectStoreColumns() . '
+        $results = $this->db->fetchAll($this->sqlSelectStoreColumns() . ',
+                r.name AS regionName
             FROM fs_betrieb
+            JOIN fs_bezirk r ON fs_betrieb.bezirk_id = r.id
             LEFT JOIN fs_betrieb_kategorie k ON
                 fs_betrieb.betrieb_kategorie_id = k.id
             WHERE fs_betrieb.bezirk_id IN(' . $this->db->generatePlaceholders(count($regionIds)) . ')
@@ -1006,7 +1008,7 @@ class StoreGateway extends BaseGateway
                 AND date_activity <= ?
                 AND (log.fs_id_p IS NULL OR target.id IS NOT NULL)
                 AND action IN (' . $this->db->generatePlaceholders(count($storeActions)) . ')
-            ORDER BY performed_at DESC
+            ORDER BY log.date_activity DESC
             LIMIT ?, ?
 		    ',
             [$storeId, $fromDate, $toDate, ...$storeActions, $pagination->offset, $pagination->limit]);

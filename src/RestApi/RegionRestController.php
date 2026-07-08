@@ -383,7 +383,7 @@ class RegionRestController extends AbstractFoodsharingRestController
     {
         $this->assertLoggedIn();
 
-        $region = $this->regionGateway->getRegionDetails($regionId);
+        $region = $this->regionGateway->getRegion($regionId);
         if (empty($region)) {
             throw new NotFoundHttpException('Region does not exist');
         }

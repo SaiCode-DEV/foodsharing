@@ -471,7 +471,7 @@ class ForumTransactions
         if ($this->forumGateway->activateThread($threadId)) {
             // Thread was activated now, send notifications to followers
             $info = $this->forumGateway->getThreadInfo($threadId);
-            $region = $this->regionGateway->getRegionDetails($info['region_id']);
+            $region = $this->regionGateway->getRegion($info['region_id']);
             $this->notifyActiveFollowersOfForumAboutNewThreadViaBell(
                 $region,
                 $threadId,

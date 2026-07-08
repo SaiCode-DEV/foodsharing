@@ -50,33 +50,39 @@ class VotingGateway extends BaseGateway
      * @param int $pollId a valid id of a poll
      * @param bool $includeResults whether the counted votes should be included
      *
-     * @return array associative array that maps the option indices to {@link PollOption} objects
+     * @return array<int, PollOption> associative array that maps the option indices to {@link PollOption} objects
      */
     public function getOptions(int $pollId, bool $includeResults): array
     {
         // meta-data of option
         try {
-            $data = $this->db->fetchAllByCriteria('fs_poll_has_options', ['option', 'option_text'], ['poll_id' => $pollId]);
+            $options = $this->db->fetchAllByCriteria('fs_poll_has_options', ['option', 'option_text'], ['poll_id' => $pollId]);
+            // Map options into key-value pairs for easier sorting
+            $options = array_combine(array_column($options, 'option'), array_column($options, 'option_text'));
         } catch (\Exception) {
-            $data = [];
+            return [];
         }
 
-        // values and counted votes
+        // Fetch values and counted votes for all options
         $result = [];
-        foreach ($data as $d) {
-            if ($includeResults) {
-                $values = $this->db->fetchAllByCriteria('fs_poll_option_has_value', ['value', 'votes'], [
-                    'poll_id' => $pollId, 'option' => $d['option']]);
-                $mappedValues = [];
-                foreach ($values as $v) {
-                    $mappedValues[$v['value']] = $v['votes'];
-                }
-            } else {
-                $values = $this->db->fetchAllValuesByCriteria('fs_poll_option_has_value', 'value', [
-                    'poll_id' => $pollId, 'option' => $d['option']]);
-                $mappedValues = array_combine($values, array_fill(0, sizeof($values), -1));
-            }
-            $result[$d['option']] = PollOption::create($pollId, $d['option'], $d['option_text'], $mappedValues);
+        $optionsWithValues = $this->db->fetchAll('
+                SELECT o.option, v.value' . ($includeResults ? ', v.votes' : '') . '
+                FROM fs_poll_has_options o
+                LEFT JOIN fs_poll_option_has_value v
+                ON o.poll_id=v.poll_id AND o.option=v.option
+                WHERE o.poll_id=:pollId', [
+            ':pollId' => $pollId
+        ]);
+
+        // Sort the rows based on their option index into arrays that map option value to number of votes
+        $mappedValues = array_combine(array_keys($options), array_fill(0, sizeof($options), []));
+        foreach ($optionsWithValues as $entry) {
+            $optionIndex = (int)$entry['option'];
+            $mappedValues[$optionIndex][$entry['value']] = $includeResults ? $entry['votes'] : -1;
+        }
+
+        foreach ($options as $id => $name) {
+            $result[$id] = PollOption::create($pollId, $id, $name, $mappedValues[$id]);
         }
 
         return $result;
@@ -118,7 +124,7 @@ class VotingGateway extends BaseGateway
     public function listCurrentPolls(int $fsId): array
     {
         $data = $this->db->fetchAll('SELECT
-				p.`id`, p.`name`, p.`start`, p.`end`, p.`region_id`, 
+				p.`id`, p.`name`, p.`start`, p.`end`, p.`region_id`,
 				r.`name` as region_name, p.`scope`,
 				p.`start` > NOW() as in_future
 			FROM
@@ -403,13 +409,18 @@ class VotingGateway extends BaseGateway
             ]);
 
             // insert all values for this option
+            $data = [];
             foreach (array_keys($option->values) as $value) {
-                $this->db->insert('fs_poll_option_has_value', [
+                $data[] = [
                     'poll_id' => $pollId,
                     'option' => $option->optionIndex,
                     'value' => $value,
                     'votes' => 0
-                ]);
+                ];
+            }
+            $parts = array_chunk($data, 100);
+            foreach ($parts as $part) {
+                $this->db->insertMultiple('fs_poll_option_has_value', $part);
             }
         }
     }
@@ -423,7 +434,7 @@ class VotingGateway extends BaseGateway
     {
         $data = $this->db->fetchAll('
             SELECT id, name, description, region_id, scope, type, start, end, author, votes, eligible_votes_count, creation_timestamp, shuffle_options
-            FROM fs_poll 
+            FROM fs_poll
             WHERE start <= NOW()
             AND end > NOW()
             AND notifications_sent = :notificationStatus
@@ -467,7 +478,7 @@ class VotingGateway extends BaseGateway
 
         $data = $this->db->fetchAll('
             SELECT id, name, description, region_id, scope, type, start, end, author, votes, eligible_votes_count, creation_timestamp, shuffle_options
-            FROM fs_poll 
+            FROM fs_poll
             WHERE end <= :until
             AND end > NOW()
             AND notifications_sent = :notificationStatus
