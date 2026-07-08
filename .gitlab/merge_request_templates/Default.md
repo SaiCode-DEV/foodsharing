@@ -35,5 +35,5 @@ Closes #____ (e.g. #230)
 - [ ] set a "for:" label to indicate who will be affected by this change
 - [ ] If a change in the database is necessary: set on of the "for MR: sql migration" labels
 - [ ] added to the next milestone (see https://gitlab.com/foodsharing-dev/foodsharing/-/milestones)
-- [ ] added a short text in the release notes to /release-notes/YYYY-MM.md
+- [ ] added a release-note file `/release-notes/release-*/<MR-number>.md` for the current release (see the existing files in that folder for the format)
 - [ ] After merging: the topic was reported back to the Produktteam for testing
