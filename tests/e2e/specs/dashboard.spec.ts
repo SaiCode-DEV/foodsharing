@@ -3,9 +3,12 @@ import { foodsharing } from "../helpers/foodsharing";
 
 // Berlin wall-clock date string for a day far enough in the future, at noon.
 function germanNoonInDays(days: number): string {
-  const day = new Date(Date.now() + days * 86400000).toLocaleDateString("en-CA", {
-    timeZone: "Europe/Berlin",
-  });
+  const day = new Date(Date.now() + days * 86400000).toLocaleDateString(
+    "en-CA",
+    {
+      timeZone: "Europe/Berlin",
+    },
+  );
   return `${day} 12:00:00`;
 }
 

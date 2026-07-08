@@ -86,7 +86,7 @@ const urls = {
   passwordReset: () => '/password-reset',
   poll: (pollId) => `/poll?id=${pollId}`,
   pollEdit: (pollId) => `/poll?id=${pollId}&sub=edit`,
-  press: () => '/content?sub=presse',
+  press: () => '/presse',
   regionAdmin: () => '/regions/edit',
   oauthClientsAdmin: () => '/admin/oauthclients',
   emailBlocklistAdmin: () => '/admin/emailblocklist',

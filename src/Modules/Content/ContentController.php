@@ -18,7 +18,6 @@ use Symfony\Component\Routing\Attribute\Route;
 class ContentController extends FoodsharingController
 {
     private const array SUB_TO_ID = [
-        'presse' => ContentId::PRESS,
         'forderungen' => ContentId::DEMANDS,
         'transparency' => ContentId::TRANSPARENCY,
         'leeretonne' => ContentId::PAST_CAMPAIGNS,
@@ -37,6 +36,10 @@ class ContentController extends FoodsharingController
         'communitiesAustria' => 'communities',
         'communitiesSwitzerland' => 'communities',
         'international' => 'communities',
+    ];
+
+    private const array PATH_REDIRECT = [
+        'presse' => '/presse',
     ];
 
     public function __construct(
@@ -124,6 +127,14 @@ class ContentController extends FoodsharingController
     public function tdl2026(): Response
     {
         $this->addContent(ContentId::TDL_2026);
+
+        return $this->renderGlobal();
+    }
+
+    #[Route(path: '/presse', name: 'presse')]
+    public function presse(): Response
+    {
+        $this->addContent(ContentId::PRESS);
 
         return $this->renderGlobal();
     }
@@ -246,6 +257,9 @@ class ContentController extends FoodsharingController
 
     private function viewContent(Request $request, string $name): Response
     {
+        if (key_exists($name, self::PATH_REDIRECT)) {
+            return $this->redirect(self::PATH_REDIRECT[$name]);
+        }
         if (key_exists($name, self::SUB_TO_ID)) {
             $this->addContent(self::SUB_TO_ID[$name]);
 
