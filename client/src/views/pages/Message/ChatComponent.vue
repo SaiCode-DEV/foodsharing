@@ -106,6 +106,7 @@ import OverflowMenu from '@/components/OverflowMenu.vue'
 import ChatUnreadIndicator from '@/components/Chat/ChatUnreadIndicator.vue'
 import RenameDialog from '@/components/Chat/RenameDialog.vue'
 import ParticipantsDialog from '@/components/Chat/ParticipantsDialog.vue'
+import MediaQueryMixin from '@/mixins/MediaQueryMixin.js'
 
 register()
 
@@ -135,6 +136,7 @@ export default {
     ParticipantsDialog,
     PushNotificationModal,
   },
+  mixins: [MediaQueryMixin],
   props: {
     chatId: {
       type: Number,
@@ -578,7 +580,7 @@ export default {
         // This timeout is required so that the chat component works correctly.
         this.roomChanging = false
 
-        if (this.popupMode ? this.popupOpenedExplicitly : (options?.reset && !isNewConversation)) {
+        if (!this.isTouch && (this.popupMode ? this.popupOpenedExplicitly : (options?.reset && !isNewConversation))) {
           this.focusInput()
         }
       }, 100)
