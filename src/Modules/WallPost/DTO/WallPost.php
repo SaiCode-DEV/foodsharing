@@ -57,7 +57,7 @@ class WallPost
                 $result->pictures = $attach['images'];
             }
         }
-        $result->author = new Profile($data, 'foodsaver_');
+        $result->author = new Profile($data['foodsaver_id'], $data['foodsaver_name'], $data['foodsaver_photo'], (bool)$data['foodsaver_is_sleeping']);
 
         return $result;
     }

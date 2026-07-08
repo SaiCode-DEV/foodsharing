@@ -404,7 +404,7 @@ class ForumGateway extends BaseGateway
             $thread->isLocked = ($threadData['status'] === ThreadStatus::CLOSED);
             $thread->latestPost = new ForumPostSummary();
             $thread->latestPost->createdAt = new Carbon($threadData['lastPostTime']);
-            $thread->latestPost->author = new Profile($threadData, 'fs_');
+            $thread->latestPost->author = new Profile($threadData['fs_id'], $threadData['fs_name'], $threadData['fs_photo'], (bool)$threadData['fs_is_sleeping']);
 
             return $thread;
         }, $threadsData);

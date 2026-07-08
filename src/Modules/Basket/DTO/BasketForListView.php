@@ -26,7 +26,7 @@ class BasketForListView
         $basket->picture = is_array($picture) ? ($picture[0] ?? null) : $data['picture'];
         $basket->until = new Carbon($data['until']);
         $basket->distanceInKm = $data['distance_in_km'];
-        $basket->creator = new Profile($data, 'fs_');
+        $basket->creator = new Profile($data['fs_id'], $data['fs_name'], $data['fs_photo'], (bool)$data['fs_is_sleeping']);
 
         return $basket;
     }

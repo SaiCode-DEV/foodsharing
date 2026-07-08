@@ -17,7 +17,7 @@ class ReactionTransactions
             $postIdMap[$post->id] = $post;
         }
         foreach ($reactions as $reaction) { // map reactions to posts
-            $user = new Profile($reaction, 'foodsaver_');
+            $user = new Profile($reaction['foodsaver_id'], $reaction['foodsaver_name']);
             $postIdMap[$reaction['post_id']]->reactions[$reaction['key']][] = $user;
         }
     }

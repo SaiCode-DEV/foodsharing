@@ -158,7 +158,9 @@ class StoreChainGateway extends BaseGateway
             ['chainId' => $chainId]
         );
 
-        return array_map(fn ($kam) => new Profile($kam, 'foodsaver_'), $kams);
+        return array_map(fn ($kam) => new Profile(
+            $kam['foodsaver_id'], $kam['foodsaver_name'], $kam['foodsaver_photo'], (bool)$kam['foodsaver_is_sleeping']
+        ), $kams);
     }
 
     /**

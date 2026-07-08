@@ -118,7 +118,7 @@ class MessageTransactions
                     $conversationName = $this->getProperConversationNameForFoodsaver($m['id'], $notificationTemplateData['chatName'], $members);
                     $pushNotification = new MessagePushNotification(
                         $message,
-                        new Profile($author),
+                        new Profile($author['id'], $author['name'], $author['photo'], isset($author['is_sleeping']) ? (bool)$author['is_sleeping'] : null),
                         $conversationId,
                         count($members) > 2 ? $conversationName : null
                     );

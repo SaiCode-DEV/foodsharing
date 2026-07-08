@@ -38,7 +38,9 @@ class BananaGateway extends BaseGateway
             [':recipientId' => $recipientId, ':senderId' => $senderId]
         );
 
-        return empty($data) ? null : Banana::create($data['msg'], new Profile($data), new DateTime($data['time']));
+        return empty($data) ? null : Banana::create($data['msg'], new Profile(
+            $data['id'], $data['name'], $data['photo'], (bool)$data['is_sleeping'],
+        ), new DateTime($data['time']));
     }
 
     public function hasGivenBanana(int $recipientId, int $senderId): bool
@@ -71,7 +73,9 @@ class BananaGateway extends BaseGateway
             [':recipientId' => $recipientId]
         );
 
-        return array_map(fn ($d) => Banana::create($d['msg'], new Profile($d), new DateTime($d['time'])), $data);
+        return array_map(fn ($d) => Banana::create($d['msg'], new Profile(
+            $d['id'], $d['name'], $d['photo'], (bool)$d['is_sleeping']
+        ), new DateTime($d['time'])), $data);
     }
 
     /**
@@ -89,6 +93,8 @@ class BananaGateway extends BaseGateway
             [':senderId' => $senderId]
         );
 
-        return array_map(fn ($d) => Banana::create($d['msg'], new Profile($d), new DateTime($d['time'])), $data);
+        return array_map(fn ($d) => Banana::create($d['msg'], new Profile(
+            $d['id'], $d['name'], $d['photo'], (bool)$d['is_sleeping']
+        ), new DateTime($d['time'])), $data);
     }
 }

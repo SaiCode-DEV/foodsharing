@@ -91,7 +91,7 @@ class Basket
         }
         $basket->contactTypes = array_map('intval', explode(':', (string)$data['contact_type']));
         $basket->location = GeoLocation::createFromArray($data);
-        $basket->creator = new Profile($data, 'fs_');
+        $basket->creator = new Profile($data['fs_id'], $data['fs_name'], $data['fs_photo'], (bool)$data['fs_is_sleeping']);
         if (in_array(2, $basket->contactTypes, true)) {
             $basket->telephone = $data['tel'];
             $basket->mobile = $data['handy'];

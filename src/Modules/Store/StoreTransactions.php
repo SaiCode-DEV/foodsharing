@@ -857,7 +857,7 @@ class StoreTransactions
 
         $invitation = new StoreInvitation();
         $user = $this->foodsaverGateway->getFoodsaverDetails($userId);
-        $invitation->user = new Profile($user);
+        $invitation->user = new Profile($user['id'], $user['name'], $user['photo'], (bool)$user['is_sleeping']);
         $invitation->inviter = $this->foodsaverGateway->getProfile($this->session->id());
         $invitation->date = Carbon::now();
         $invitation->verified = boolval($user['verified']);
@@ -1204,11 +1204,11 @@ class StoreTransactions
     private function getStoreMemberDTO(array $data, bool $includeUserDetails, bool $includeDistance): StoreStandbyTeamMember
     {
         if (!$includeUserDetails) {
-            $member = new StoreStandbyTeamMember($data);
+            $member = new StoreStandbyTeamMember($data['id'], $data['name'], $data['photo'], $data['is_sleeping']);
         } elseif (!$includeDistance) {
-            $member = new StoreTeamMember($data);
+            $member = new StoreTeamMember($data['id'], $data['name'], $data['photo'], $data['is_sleeping']);
         } else {
-            $member = new StoreTeamMemberWithDistance($data);
+            $member = new StoreTeamMemberWithDistance($data['id'], $data['name'], $data['photo'], $data['is_sleeping']);
         }
         $member->firstName = $data['firstName'];
         $member->role = Role::from($data['rolle']);

@@ -43,12 +43,12 @@ class SearchResult
                 continue;
             }
 
-            $profiles[] = new Profile([
-                'id' => (int)$id,
-                'name' => $lists['name'][$i] ?? null,
-                'photo' => $lists['photo'][$i] ?? '',
-                'is_sleeping' => $lists['is_sleeping'][$i] ?? 0,
-            ]);
+            $profiles[] = new Profile(
+                (int)$id,
+                $lists['name'][$i] ?? null,
+                $lists['photo'][$i] ?? '',
+                (bool)$lists['is_sleeping'][$i],
+            );
         }
 
         return $profiles;

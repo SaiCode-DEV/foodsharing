@@ -308,7 +308,9 @@ class BasketGateway extends BaseGateway
         ]);
 
         return array_map(function ($request) {
-            return new BasketRequest($request['id'], new Profile($request, 'fs_'), Carbon::parse($request['time']));
+            return new BasketRequest($request['id'], new Profile(
+                $request['fs_id'], $request['fs_name'], $request['fs_photo'], (bool)$request['fs_is_sleeping']
+            ), Carbon::parse($request['time']));
         }, $requests);
     }
 

@@ -137,7 +137,7 @@ class PickupTransactions
                 continue; // fetcher found for a pickup that isn't in the db. This should never happen.
             }
             $pickupOption = $pickupOptions[$identifier];
-            $profile = new Profile($fetcher);
+            $profile = new Profile($fetcher['id'], $fetcher['name'], $fetcher['photo'], null);
             $pickupOption->occupiedSlots[] = $profile;
             if ($profile->id === $userId) {
                 $pickupOption->isConfirmed = boolval($fetcher['confirmed']);
@@ -277,11 +277,7 @@ class PickupTransactions
         $pickup->isConfirmed = boolval($pickupData['confirmed']);
         $pickup->slots = isset($pickupData['max_fetchers']) ? (int)$pickupData['max_fetchers'] : null;
         $pickup->occupiedSlots = array_map(
-            fn ($id, $name, $avatar) => new Profile([
-                'id' => (int)$id,
-                'name' => $name,
-                'photo' => $avatar == '' ? null : $avatar,
-            ]),
+            fn ($id, $name, $avatar) => new Profile((int)$id, $name, $avatar == '' ? null : $avatar),
             str_getcsv((string)$pickupData['fs_ids']),
             str_getcsv((string)$pickupData['fs_names'], ',', '\''),
             str_getcsv((string)$pickupData['fs_avatars'])

@@ -25,8 +25,12 @@ class StoreApplication
     {
         $application = new self();
         $application->firstName = $data['name'];
-        $data['name'] = $data['name'] . ' ' . $data['nachname'];
-        $application->user = new Profile($data);
+        $application->user = new Profile(
+            $data['id'],
+            $data['name'] . ' ' . $data['nachname'],
+            $data['photo'],
+            (bool)$data['is_sleeping'],
+        );
         $application->verified = (bool)$data['verified'];
         if (!is_null($data['distance'])) {
             $application->distanceInKm = $data['distance'] < 1 ? 0 : round($data['distance']);

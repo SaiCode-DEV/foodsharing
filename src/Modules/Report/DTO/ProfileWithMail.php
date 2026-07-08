@@ -9,10 +9,10 @@ class ProfileWithMail extends Profile
     public ?string $mail;
     public ?string $lastName;
 
-    public function __construct(array $data, string $prefix = '')
+    public function __construct(int $id, string $name, ?string $avatar, ?bool $isSleeping, ?string $mail, ?string $lastName)
     {
-        parent::__construct($data, $prefix);
-        $this->mail = $data[$prefix . 'email'] ?? null;
-        $this->lastName = $data[$prefix . 'last_name'] ?? null;
+        parent::__construct($id, $name, $avatar, $isSleeping);
+        $this->mail = $mail;
+        $this->lastName = $lastName;
     }
 }

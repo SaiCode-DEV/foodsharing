@@ -36,7 +36,7 @@ class ResourceGateway extends BaseGateway
                 fs.last_login,
                 fr.resource_id IS NOT NULL AS is_favorite
             FROM `fs_resource` r
-            JOIN `fs_foodsaver` fs ON fs.id = r.foodsaver_id  
+            JOIN `fs_foodsaver` fs ON fs.id = r.foodsaver_id
             JOIN `fs_foodsaver_has_bezirk` fhr ON fhr.foodsaver_id = r.foodsaver_id
             LEFT OUTER JOIN `fs_resource_has_category` rhc ON rhc.resource_id = r.id
             LEFT OUTER JOIN `fs_foodsaver_has_favorite_resource` fr ON fr.resource_id = r.id AND fr.foodsaver_id = :foodsaverId1
@@ -81,7 +81,7 @@ class ResourceGateway extends BaseGateway
                 GROUP_CONCAT(rhc.category_id) AS categories,
                 fr.resource_id IS NOT NULL AS is_favorite
             FROM `fs_resource` r
-            JOIN `fs_bezirk_closure` rc ON rc.ancestor_id = r.region_id	
+            JOIN `fs_bezirk_closure` rc ON rc.ancestor_id = r.region_id
             LEFT OUTER JOIN `fs_resource_has_category` rhc ON rhc.resource_id = r.id
             LEFT OUTER JOIN `fs_foodsaver_has_favorite_resource` fr ON fr.resource_id = r.id AND fr.foodsaver_id = :foodsaverId
             WHERE :regionId = rc.bezirk_id
@@ -134,7 +134,7 @@ class ResourceGateway extends BaseGateway
                 fs.last_login,
                 fr.resource_id IS NOT NULL AS is_favorite
             FROM `fs_resource` r
-            LEFT OUTER JOIN `fs_foodsaver` fs ON fs.id = r.foodsaver_id  
+            LEFT OUTER JOIN `fs_foodsaver` fs ON fs.id = r.foodsaver_id
             LEFT OUTER JOIN `fs_resource_has_category` rhc ON rhc.resource_id = r.id
             LEFT OUTER JOIN `fs_foodsaver_has_favorite_resource` fr ON fr.resource_id = r.id
             WHERE r.id = :resourceId', [
@@ -154,7 +154,7 @@ class ResourceGateway extends BaseGateway
         $resource->regionId = $data['region_id'];
         if (!is_null($data['foodsaver_id'])) {
             // User resources
-            $resource->user = new Profile($data, 'foodsaver_');
+            $resource->user = new Profile($data['foodsaver_id'], $data['foodsaver_name'], $data['foodsaver_photo'], (bool)$data['foodsaver_is_sleeping']);
             $resource->isHomeRegion = $data['home_region_id'] == $regionId;
             $resource->isUserActive = (new DateTime())->diff(new DateTime($data['last_login']))->days <= 30 && !$resource->user->isSleeping;
         } else {

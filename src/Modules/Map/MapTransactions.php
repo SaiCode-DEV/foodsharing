@@ -70,12 +70,7 @@ class MapTransactions
 
         foreach ($store['foodsaver'] as $fs) {
             if ($fs['verantwortlich'] == 1) {
-                $mapData->managers[] = new Profile([
-                    'id' => $fs['id'],
-                    'name' => $fs['firstName'],
-                    'photo' => $fs['photo'],
-                    'is_sleeping' => $fs['is_sleeping']
-                ]);
+                $mapData->managers[] = new Profile($fs['id'], $fs['firstName'], $fs['photo'], (bool)$fs['is_sleeping']);
             }
         }
 

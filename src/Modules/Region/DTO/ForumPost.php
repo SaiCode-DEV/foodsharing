@@ -27,7 +27,7 @@ class ForumPost
         $result->id = $data['id'];
         $result->body = $data['body'];
         $result->createdAt = new DateTime($data['time']);
-        $result->author = new Profile($data, 'author_');
+        $result->author = new Profile($data['author_id'], $data['author_name'], $data['author_photo'], (bool)$data['author_is_sleeping']);
         $result->hidden = HiddenPostInfo::tryCreateFromArray($data);
         $result->lastEditedAt = empty($data['last_edited_at']) ? null : new DateTime($data['last_edited_at']);
 

@@ -1014,8 +1014,8 @@ class StoreGateway extends BaseGateway
         $logEntries = array_map(fn ($data) => new StoreLogEntry(
             Carbon::parse($data['performed_at']),
             $data['action'],
-            new Profile($data, 'actor_'),
-            Profile::tryFrom($data, 'target_'),
+            new Profile($data['actor_id'], $data['actor_name'], $data['actor_photo'], null),
+            isset($data['target_id']) ? new Profile($data['target_id'], $data['target_name'], $data['target_photo']) : null,
             is_null($data['date_reference']) ? null : Carbon::parse($data['date_reference']),
             $data['content'] ?: null,
             $data['reason'] ?: null

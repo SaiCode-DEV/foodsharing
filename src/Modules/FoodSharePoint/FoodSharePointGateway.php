@@ -327,7 +327,7 @@ class FoodSharePointGateway extends BaseGateway
             Address::createFromArray($foodSharePoint),
             GeoLocation::createFromArray($foodSharePoint),
             DateTime::createFromFormat('Y-m-d', $foodSharePoint['add_date']),
-            new Profile($foodSharePoint, 'fs_')
+            new Profile($foodSharePoint['fs_id'], $foodSharePoint['fs_name'], $foodSharePoint['fs_avatar'], (bool)$foodSharePoint['fs_is_sleeping'])
         );
     }
 
@@ -360,7 +360,9 @@ class FoodSharePointGateway extends BaseGateway
             ':managerType' => FollowerType::FOOD_SHARE_POINT_MANAGER,
         ]);
 
-        return array_map(fn ($manager) => new Profile($manager), $managers);
+        return array_map(fn ($manager) => new Profile(
+            $manager['id'], $manager['name'], $manager['photo'], (bool)$manager['is_sleeping']
+        ), $managers);
     }
 
     public function addFoodSharePoint(int $foodsaverId, FoodSharePointForCreation $data, bool $isProposal): int

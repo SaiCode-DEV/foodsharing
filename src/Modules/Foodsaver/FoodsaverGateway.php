@@ -4,6 +4,7 @@ namespace Foodsharing\Modules\Foodsaver;
 
 use Carbon\Carbon;
 use DateInterval;
+use DateTime;
 use Exception;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
@@ -68,7 +69,7 @@ class FoodsaverGateway extends BaseGateway
             ':regionId' => $regionId
         ]);
 
-        return array_map(fn ($item) => new Profile($item), $result);
+        return array_map(fn ($item) => new Profile($item['id'], $item['name'], $item['photo'], (bool)$item['is_sleeping']), $result);
     }
 
     /**
@@ -104,9 +105,21 @@ class FoodsaverGateway extends BaseGateway
 			ORDER BY fs.`name`
 		', [$regionId, $regionId]);
 
-        $resultClass = $includeAdminFields ? UnitMemberForAdmin::class : UnitMember::class;
+        return array_map(function ($user) use ($includeAdminFields) {
+            $params = [$user['id'], $user['name'], $user['photo'], $user['is_sleeping'], $user['isAdminOrAmbassadorOfRegion']];
+            if ($includeAdminFields) {
+                $params = array_merge($params, [
+                    $user['lastname'],
+                    Role::from($user['role']),
+                    $user['last_pass'],
+                    ($user['last_activity'] === '0000-00-00 00:00:00') ? new DateTime($user['registration_date']) : new DateTime($user['last_activity']),
+                    $user['verified'],
+                    $user['is_home_region']
+                ]);
+            }
 
-        return array_map(fn ($user) => $resultClass::createFromArray($user), $users);
+            return $includeAdminFields ? new UnitMemberForAdmin(...$params) : new UnitMember(...$params);
+        }, $users);
     }
 
     public function listActiveWithFullNameByRegion(int $regionId): array
@@ -952,7 +965,7 @@ class FoodsaverGateway extends BaseGateway
             ['id', 'name', 'photo', 'is_sleeping'],
             ['id' => $userId]);
 
-        return empty($data) ? null : new Profile($data);
+        return empty($data) ? null : new Profile($data['id'], $data['name'], $data['photo'], (bool)$data['is_sleeping']);
     }
 
     /**
@@ -985,7 +998,7 @@ class FoodsaverGateway extends BaseGateway
             ['id', 'name', 'photo', 'is_sleeping'],
             ['id' => $fsIds]);
 
-        return array_map(fn ($user) => new Profile($user), $users);
+        return array_map(fn ($user) => new Profile($user['id'], $user['name'], $user['photo'], (bool)$user['is_sleeping']), $users);
     }
 
     /**

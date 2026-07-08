@@ -16,10 +16,10 @@ class StoreInvitation
     public static function createFromArray(array $data): StoreInvitation
     {
         $invitation = new self();
-        $invitation->user = new Profile($data);
+        $invitation->user = new Profile($data['id'], $data['name'], $data['photo'], (bool)$data['is_sleeping']);
         $invitation->verified = (bool)$data['verified'];
         $invitation->date = is_null($data['date_activity']) ? null : new Carbon($data['date_activity']);
-        $invitation->inviter = Profile::tryFrom($data, 'inviter_');
+        $invitation->inviter = isset($data['inviter_id']) ? new Profile($data['inviter_id'], $data['inviter_name']) : null;
 
         return $invitation;
     }

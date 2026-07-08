@@ -270,8 +270,13 @@ class AchievementGateway extends BaseGateway
     private function convertDataToAwardedAchievementWithUserDetails(array $awardedAchievement): AwardedAchievementWithUserDetails
     {
         $achievementId = $awardedAchievement['achievement_id'];
-        $user = new Profile($awardedAchievement, 'user_');
-        $reviewer = $awardedAchievement['reviewer_id'] ? new Profile($awardedAchievement, 'reviewer_') : null;
+        $user = new Profile($awardedAchievement['user_id'], $awardedAchievement['user_name'], $awardedAchievement['user_photo'], (bool)$awardedAchievement['user_is_sleeping']);
+        $reviewer = $awardedAchievement['reviewer_id'] ? new Profile(
+            $awardedAchievement['reviewer_id'],
+            $awardedAchievement['reviewer_name'],
+            $awardedAchievement['reviewer_photo'],
+            (bool)$awardedAchievement['reviewer_is_sleeping']
+        ) : null;
         $notice = $awardedAchievement['notice'];
         $validUntil = isset($awardedAchievement['valid_until']) ? new DateTime($awardedAchievement['valid_until']) : null;
         $createdAt = new DateTime($awardedAchievement['created_at']);
@@ -304,8 +309,13 @@ class AchievementGateway extends BaseGateway
 
         return AwardedAchievementWithUserDetails::create(
             $awardedAchievement['id'],
-            new Profile($awardedAchievement, 'user_'),
-            $awardedAchievement['reviewer_id'] ? new Profile($awardedAchievement, 'reviewer_') : null,
+            new Profile($awardedAchievement['user_id'], $awardedAchievement['user_name'], $awardedAchievement['user_photo'], (bool)$awardedAchievement['user_is_sleeping']),
+            $awardedAchievement['reviewer_id'] ? new Profile(
+                $awardedAchievement['reviewer_id'],
+                $awardedAchievement['reviewer_name'],
+                $awardedAchievement['reviewer_photo'],
+                (bool)$awardedAchievement['reviewer_is_sleeping']
+            ) : null,
             $awardedAchievement['achievement_id'],
             $awardedAchievement['notice'],
             isset($awardedAchievement['valid_until']) ? new DateTime($awardedAchievement['valid_until']) : null,

@@ -129,8 +129,8 @@ class ReportGateway extends BaseGateway
         $reportForListView->reason = $report['tvalue'];
         $reportForListView->reportedAt = Carbon::parse($report['time']);
         $reportForListView->store = $report['betrieb_id'] ? MinimalStoreIdentifier::createFromArray($report, 'betrieb_') : null;
-        $reportForListView->reporter = new ProfileWithMail($report, 'rp_');
-        $reportForListView->reported = new ProfileWithMail($report, 'fs_');
+        $reportForListView->reporter = new ProfileWithMail($report['rp_id'], $report['rp_name'], $report['rp_photo'], null, $report['rp_email'], $report['rp_last_name']);
+        $reportForListView->reported = new ProfileWithMail($report['fs_id'], $report['fs_name'], $report['fs_photo'], null, $report['fs_email'], $report['fs_last_name']);
 
         return $reportForListView;
     }

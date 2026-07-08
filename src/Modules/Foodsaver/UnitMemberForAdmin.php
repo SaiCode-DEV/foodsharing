@@ -14,21 +14,25 @@ class UnitMemberForAdmin extends UnitMember
     public bool $isVerified;
     public bool $isHomeRegion;
 
-    protected function __construct(array $data)
-    {
-        parent::__construct($data);
-        $this->isAdminOrAmbassadorOfRegion = $data['isAdminOrAmbassadorOfRegion'];
-        $this->role = Role::from($data['role']);
-        $this->lastPassDate = $data['last_pass'];
-        $this->lastName = $data['lastname'];
-        $this->lastActivity = ($data['last_activity'] === '0000-00-00 00:00:00') ? new DateTime($data['registration_date']) : new DateTime($data['last_activity']);
-        $this->isVerified = $data['verified'];
-        $this->isHomeRegion = (bool)$data['is_home_region'];
-    }
-
-    #[\Override]
-    public static function createFromArray(array $data): UnitMemberForAdmin
-    {
-        return new self($data);
+    public function __construct(
+        int $id,
+        string $name,
+        ?string $avatar,
+        ?bool $isSleeping,
+        bool $isAdminOrAmbassadorOfRegion,
+        string $lastName,
+        Role $role,
+        ?string $lastPassDate,
+        DateTime $lastActivity,
+        bool $isVerified,
+        bool $isHomeRegion
+    ) {
+        parent::__construct($id, $name, $avatar, $isSleeping, $isAdminOrAmbassadorOfRegion);
+        $this->lastName = $lastName;
+        $this->role = $role;
+        $this->lastPassDate = $lastPassDate;
+        $this->lastActivity = $lastActivity;
+        $this->isVerified = $isVerified;
+        $this->isHomeRegion = $isHomeRegion;
     }
 }

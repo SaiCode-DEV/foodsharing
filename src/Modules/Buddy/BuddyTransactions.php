@@ -91,7 +91,7 @@ class BuddyTransactions
         $buddies = $this->buddyGateway->listBuddies($fsId);
         $buddyList = new BuddyList();
         foreach ($buddies as $buddy) {
-            $profile = new Profile($buddy);
+            $profile = new Profile($buddy['id'], $buddy['name'], $buddy['photo'], (bool)$buddy['is_sleeping']);
             if ($buddy['confirmed'] === BuddyId::BUDDY) {
                 $buddyList->buddies[$profile->id] = $profile;
             } elseif ($buddy['fsId'] === $fsId) {

@@ -250,7 +250,10 @@ class MapRestController extends AbstractFoodsharingRestController
         if (empty($user)) {
             throw new NotFoundHttpException('The user does not exist');
         }
-        $user = UserMapBubbleData::create(new Profile($user), $user['about_me_intern'] ?? null);
+        $user = UserMapBubbleData::create(
+            new Profile($user['id'], $user['name'], $user['photo'], (bool)$user['is_sleeping']),
+            $user['about_me_intern'] ?? null
+        );
 
         return $this->respondOK($user);
     }

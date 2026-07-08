@@ -159,7 +159,7 @@ class WorkGroupTransactions
             $group->email = $data['email'];
             $group->image = empty($data['photo']) ? null : $data['photo'];
             $group->latestActivity = is_null($data['latest_activity']) ? null : Carbon::parse($data['latest_activity']);
-            $group->admins = array_map(fn ($admin) => new Profile($admin), $data['admins']);
+            $group->admins = array_map(fn ($admin) => new Profile($admin['id'], $admin['name'], $admin['photo'], (bool)$admin['is_sleeping']), $data['admins']);
             $group->subGroups = array_map(function ($subGroupData) {
                 $subGroup = new SubGroupEntry();
                 $subGroup->id = $subGroupData['id'];

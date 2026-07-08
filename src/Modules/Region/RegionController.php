@@ -54,7 +54,9 @@ final class RegionController extends FoodsharingController
         $admins = $this->foodsaverGateway->getAdminsOrAmbassadors($regionId);
         shuffle($admins);
         $mergedAdmins = [
-            'botschafter' => array_map(fn ($fs) => new Profile($fs), $admins)
+            'botschafter' => array_map(fn ($fs) => new Profile(
+                $fs['id'], $fs['name'], $fs['photo'], (bool)$fs['is_sleeping']
+            ), $admins)
         ];
 
         if (!$isWorkgroup) {
@@ -80,7 +82,9 @@ final class RegionController extends FoodsharingController
                     $admins = $this->foodsaverGateway->getAdminsOrAmbassadors($groupId);
                     shuffle($admins);
                     $admins = array_slice($admins, 0, self::DisplayAvatarListEntries);
-                    $mergedAdmins[$adminKey] = array_map(fn ($fs) => new Profile($fs), $admins);
+                    $mergedAdmins[$adminKey] = array_map(fn ($fs) => new Profile(
+                        $fs['id'], $fs['name'], $fs['photo'], (bool)$fs['is_sleeping']
+                    ), $admins);
                 }
             }
         }

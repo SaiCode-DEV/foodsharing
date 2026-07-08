@@ -398,7 +398,7 @@ final class ProfileGateway extends BaseGateway
         return array_map(fn ($entry) => PassHistoryEntry::create(
             $entry['foodsaver_id'],
             Carbon::createFromTimestamp($entry['date_ts'], new DateTimeZone('Europe/Berlin')),
-            Profile::tryFrom($entry, 'bot_'),
+            isset($entry['bot_id']) ? new Profile($entry['bot_id'], $entry['bot_name'], $entry['bot_photo'], (bool)$entry['bot_is_sleeping']) : null,
         ), $passHistory);
     }
 
@@ -434,12 +434,12 @@ final class ProfileGateway extends BaseGateway
 
         return array_map(function ($entry) {
             $actor = $entry['bot_id'] && $entry['deleted_at'] == null ?
-                new Profile([
-                    'id' => $entry['bot_id'],
-                    'name' => $entry['name'] . ' ' . $entry['nachname'],
-                    'photo' => $entry['photo'],
-                    'is_sleeping' => $entry['is_sleeping'] ?? 0,
-                ])
+                new Profile(
+                    $entry['bot_id'],
+                    $entry['name'] . ' ' . $entry['nachname'],
+                    $entry['photo'],
+                    isset($entry['is_sleeping']) ? (bool)$entry['is_sleeping'] : null,
+                )
                 : null;
 
             return VerificationHistoryEntry::create($entry['fs_id'], Carbon::createFromTimestamp($entry['date_ts'], new DateTimeZone('Europe/Berlin')),

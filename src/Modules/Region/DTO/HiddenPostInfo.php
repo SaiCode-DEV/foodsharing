@@ -22,7 +22,7 @@ class HiddenPostInfo
 
         $result = new self();
         $result->reason = $data['hidden_reason'];
-        $result->moderator = new Profile($data, 'moderator_');
+        $result->moderator = new Profile($data['moderator_id'], $data['moderator_name']);
         $result->time = new DateTime($data['hidden_time']);
 
         return $result;

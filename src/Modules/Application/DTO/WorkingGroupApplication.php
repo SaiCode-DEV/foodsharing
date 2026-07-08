@@ -25,7 +25,7 @@ class WorkingGroupApplication
     {
         $application = new self();
         $application->groupId = $groupId;
-        $application->applicant = new Profile($data);
+        $application->applicant = new Profile($data['id'], $data['name'], $data['photo'], (bool)$data['is_sleeping']);
         $application->applicationText = $data['application'];
 
         return $application;
