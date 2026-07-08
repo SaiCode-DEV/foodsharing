@@ -434,16 +434,9 @@ email_template:
   reply: ''
   warning: ''
   to: ''
-  newsletter:
-    linktext: ''
-    unsubscribe: ''
   confirm_topic: ''
   information: ''
   foodbasket_request: ''
-  impress:
-    general_information_requirements: ''
-    address: ''
-    title: ''
   unknown_email: ''
   from: ''
   in: ''
@@ -3327,9 +3320,6 @@ wall:
 contentmanagement: ''
 filter_by: ''
 image: 'beeld'
-picture_upload_widget:
-  picture_upload: ''
-  choose_picture: ''
 duration: ''
 day: ''
 statistics:
@@ -3399,12 +3389,9 @@ upload:
 button:
   save: 'Opslaan'
   answer: ''
-  upload: 'Uploaden'
   new: 'Nieuw'
   clear_filter: ''
   next: ''
-  rotate_right: ''
-  change_picture: ''
   attach_image: ''
   cancel: ''
   create: ''

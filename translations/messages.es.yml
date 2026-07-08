@@ -1159,16 +1159,13 @@ register:
   email_in_progress: ''
   join_newsletter_failed: ''
 button:
-  rotate_right: 'rotar las agujas del reloj'
   save: 'ahorrar'
   send: 'Enviar'
   new: 'Nuevo'
   yes_i_am_sure: 'Sí, estoy seguro'
-  upload: 'subir'
   next: 'Continuar'
   apply: 'aplicar'
   edit: 'Editar'
-  change_picture: 'Cambiar imagen'
   delete: 'Borrar'
   answer: 'Respuesta'
   create: 'Crear'
@@ -3622,9 +3619,6 @@ footer:
   dataprivacy: 'Protección de Datos'
   team: 'Equipo'
   wiki: 'Wiki'
-picture_upload_widget:
-  choose_picture: 'Elige una imagen de tu computadora.'
-  picture_upload: 'Subir foto'
 storestatus:
   "5": 'coopera con nosotros'
   "0": 'Estado poco claro'
@@ -3670,17 +3664,6 @@ email_template:
     no_notification_link: '¿Ya no quieres recibir este tipo de notificaciones?'
     noreply: 'Por favor no responda a este correo electrónico. Fue enviado desde una
       dirección que no corresponde a un buzón.'
-  newsletter:
-    unsubscribe: '¿Ya no quieres recibir nuestra newsletter?'
-    linktext: 'Click aqui para desafiliarse.'
-  impress:
-    general_information_requirements: 'Información según el artículo 5 de la Telemediengesetz'
-    address: "foodsharing e. V. \n Neven-DuMont-Str. 14 \n 50667 Köln \n\n Representado
-      por:\n Anja Westermann \n Contacto:\n Correo electrónico: info@foodsharing.de\n\
-      \ \n Entrada de registro:\n Inscripción en el registro de la asociación\n Tribunal
-      de registro: Tribunal de Distrito de Colonia\n Número de registro: VR 17439\n\
-      \ \n Responsable del contenido según § 18 MStV:\n Anja Westermann"
-    title: 'Aviso legal'
   login: 'Inicia sesión para responder'
   foodsharepoint: '-- Distribuidor'
   unknown_email: 'Direccion de email desconocida'

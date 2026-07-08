@@ -1661,11 +1661,8 @@ button:
   delete: Delete
   new: 'New'
   edit: Edit
-  upload: Upload
   ok: OK
-  rotate_right: rotate clockwise
   attach_image: Attach picture (png or jpg-format)
-  change_picture: Change picture
   next: Next
   save: Save
   answer: Answer
@@ -1812,7 +1809,8 @@ bell:
   chain_info_updated_title: Chain {chain} was updated
   chain_info_updated: '{store} is part of the chain.'
 reports:
-  invalid_forum_thread_region: The forum thread does not belong to the region responsible for this report.
+  invalid_forum_thread_region: The forum thread does not belong to the region 
+    responsible for this report.
   time: Time
   reason: Reason
   message: Description
@@ -1853,8 +1851,6 @@ reports:
   view_thread: View thread
   no_thread: No thread linked
   reported_at: Reported at
-  edit: Edit
-  delete: Delete
   edit_report: Edit report
   enter_forum_thread_id: Enter forum thread ID
   view: View
@@ -2004,18 +2000,6 @@ email_template:
   confirm_BOT: . Since you are an ambassador / moderator for %BEZIRK%, you have 
     to confirm it in order that it is published.
   confirm_link: would like to publish the topic
-  impress:
-    general_information_requirements: Information according to § 5 
-      Telemediengesetz
-    title: Legal notice
-    address: "foodsharing e. V.\nNeven-DuMont-Str. 14 \n50667 Cologne \nGermany\n\n\
-      \ Represented by:\nAnja Westermann\nContact Details:\nE-Mail: info@foodsharing.de\n\
-      \ \nRegister Entry:\nRegistration Court: District Court Cologne\nRegistration
-      Number: VR 17439\n\nResponsible for the content according to § 18 MStV:\n Anja
-      Westermann"
-  newsletter:
-    linktext: Click here to unsubscribe.
-    unsubscribe: Do you want to unsubscribe from our newsletter?
   from: '-- from '
   confirm_for_moderated_forum: This topic needs to be confirmed because it is a 
     moderated forum.
@@ -3184,9 +3168,6 @@ bcard:
   claim: Generate, print and cut easily here …
   role: "Role"
   region: Region
-picture_upload_widget:
-  picture_upload: Upload image
-  choose_picture: Choose a picture from your computer.
 image: Image
 wikilink: Link with further information
 fax: Fax

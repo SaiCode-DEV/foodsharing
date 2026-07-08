@@ -3058,10 +3058,6 @@ email_template:
     nomail: 'настроить, какие письма вы получаете.'
     you_can: 'Вы можете в разделе'
   from: '-- От '
-  impress:
-    general_information_requirements: 'Сведения в соответствии с § 5 Telemediengesetz'
-    title: 'Юридическая информация'
-    address: ''
   confirm_topic: 'Тему нужно подтвердить:'
   confirm_link: 'хочет отправить тему'
   request_from: 'Запрос от'
@@ -3069,9 +3065,6 @@ email_template:
     её перед публикацией.'
   to: 'кому'
   login: 'Войдите, чтобы ответить'
-  newsletter:
-    unsubscribe: 'Не хотите больше получать рассылку?'
-    linktext: 'Нажмите здесь, чтобы отписаться.'
   reply: 'Ответить'
   unknown_email2: "Адрес электронной почты %ADDRESS% неизвестен. \nПожалуйста, обратите
     внимание, что Bcc-письма на домен @foodsharing.network не доставляются."
@@ -3620,12 +3613,9 @@ sidenav:
 button:
   send: 'Отправить'
   next: 'Далее'
-  rotate_right: 'повернуть по часовой стрелке'
   clear_filter: 'Сбросить фильтр'
   new: 'Создать'
   cancel: 'Отмена'
-  change_picture: 'Изменить изображение'
-  upload: 'Загрузить'
   permadelete: 'Удалить безвозвратно'
   answer: 'Ответить'
   yes_i_am_sure: 'Да, я уверен/-а'
@@ -3729,9 +3719,6 @@ fetchstate: 'Всё прошло успешно?'
 fp: 'Штрафные очки'
 photo: 'Фото'
 betrieb_kategorie_id: 'Категория'
-picture_upload_widget:
-  choose_picture: 'Выберите изображение со своего компьютера.'
-  picture_upload: 'Загрузка фотографии'
 filterlist:
   filter_for_name_id: 'Имя или ID'
   some_in_all: '({some} из {all})'

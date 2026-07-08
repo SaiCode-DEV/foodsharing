@@ -530,9 +530,6 @@ email_template:
   reply: 'Responder'
   foodbasket_request: 'O teu camaz alimentar foi solicitada por %SENDER%'
   in: 'em'
-  newsletter:
-    unsubscribe: 'Não queres receber mais a newsletter?'
-    linktext: 'Clique aqui para cancelar a subscrição.'
   request_from: 'Pedido de'
   foodsharepoint: '-- Cantinho da partilha'
   to: 'a'
@@ -546,15 +543,6 @@ email_template:
     no_notification_link: 'Não quer mais receber este tipo de notificações?'
   from: '-- De '
   unknown_email: 'Endereço de e-mail desconhecida'
-  impress:
-    title: 'Aviso legal'
-    address: "foodsharing e. V. \n Neven-DuMont-Str. 14 \n 50667 Köln \n\n Representado
-      por:\n Anja Westermann \n Contacto:\nE-Mail: info@foodsharing.de\n \n Entrada
-      de registro:\nInscrição no registo de associações\n Tribunal de registro: Tribunal
-      de Distrito de Colonia\n Número de registro: VR 17439\n \nResponsável pelo conteúdo
-      de acordo com o § 18 MStV (Tratado sobre o Estado de Media):\n Anja Westermann"
-    general_information_requirements: 'Informações de acordo com o § 5 da lei alemã
-      «Telemediengesetz» (Lei dos meios de comunicação telemáticos)'
   unknown_email2: "O endereço de e-mail %ADDRESS% não é conhecido. \nTenha em atenção
     que os e-mails com cópia oculta para o domínio @foodsharing.network não podem
     ser entregues."
@@ -3956,17 +3944,14 @@ button:
   save: 'Guardar'
   permadelete: 'Eliminar permanentemente'
   create: 'Criar'
-  change_picture: 'Alterar imagem'
   edit: 'Editar'
   clear_filter: 'Vaziar filtros'
   new: 'Novo'
   attach_image: 'Carregar imagem (formato png ou jpg)'
-  rotate_right: 'Rodar no sentido horário'
   next: 'Para a frente'
   send: 'Mandar'
   yes_i_am_sure: 'Sim, estou seguro'
   apply: 'Assumir'
-  upload: 'Carregar'
   cancel: 'Cancelar'
   delete: 'Eliminar'
   answer: 'Respostar'
@@ -4221,9 +4206,6 @@ buddy:
   none: 'Ainda sem conhecidos'
 right: 'Avaliação'
 begin: 'Início da cooperação'
-picture_upload_widget:
-  choose_picture: 'Escolher uma imagem do computador.'
-  picture_upload: 'Carregar fotografia'
 team:
   current: 'Equipa'
 language_chooser:

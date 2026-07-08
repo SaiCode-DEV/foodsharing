@@ -217,10 +217,7 @@ button:
   delete: Supprimer
   edit: Modifier
   new: Nouveau
-  upload: Téléverser
-  rotate_right: Pivoter dans le sens horaire
   attach_image: Joindre une image (png ou jpg)
-  change_picture: Modifier l’image
   next: Suivant
   save: Enregistrer
   reset_default: Restaurer par défaut
@@ -250,9 +247,6 @@ upload:
     d’utiliser une image jpg normale
   invalid_image_files: '{count} fichiers sélectionnés ne sont pas des images valides :
     {fileNames}'
-picture_upload_widget:
-  choose_picture: Sélectionne une image depuis ton ordinateur.
-  picture_upload: Téléversement d’une photo
 image: Image
 wikilink: Lien avec des informations complémentaires
 questcount: Combien de questions doivent être posées pendant l’examen ?
@@ -664,9 +658,6 @@ settings:
   profile: ''
   edit_other: ''
 email_template:
-  newsletter:
-    unsubscribe: Tu ne veux plus recevoir de lettres d’information ?
-    linktext: Clique ici pour te désabonner.
   unknown_email2: "L’adresse courriel %ADDRESS% n’est pas connue.\nVeuillez noter
     que les e-mails BCC ne peuvent pas être envoyés au domaine @foodsharing.network."
   unknown_email: Adresse courriel inconnue
@@ -685,15 +676,6 @@ email_template:
     notification: Notifications
   to: à
   from: '-- De '
-  impress:
-    title: Mentions légales
-    address: "foodsharing e.V. \n Neven-DuMont-Str. 14 \n 50667 Köln \n Allemagne\n\
-      \ \n Représenté par :\n Anja Westermann \n Contact :\n Courriel : info@foodsharing.de\n\
-      \ \n Inscription au registre :\n Tribunal d’enregistrement : tribunal de Cologne\n\
-      \ Numéro d’enregistrement : VR 17439\n\n Responsable du contenu d’après § 18
-      MStV :\n Anja Westermann"
-    general_information_requirements: Mentions suivant l’article 5 de la loi sur
-      les télémédias (Telemediengesetz)
   foodbasket_request: Ton panier solidaire vient de faire l’objet d’une requête 
     de la part de %SENDER%
   foodsharepoint: -- frigo solidaire

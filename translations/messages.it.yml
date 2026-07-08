@@ -208,10 +208,7 @@ button:
   delete: Cancella
   edit: Modifica
   new: Nuovo
-  upload: Carica
-  rotate_right: Ruota in senso orario
   attach_image: Carica immagine (formato png o jpg)
-  change_picture: Cambia immagine
   next: Avanti
   save: Salva
   reset_default: Ripristina l’impostazione predefinita
@@ -239,9 +236,6 @@ upload:
   image-problem: Il vostro file non sembra essere in ordine, è meglio usare una 
     normale immagine jpg
   invalid_image_files: '{count} file selezionati non sono immagini valide: {fileNames}'
-picture_upload_widget:
-  choose_picture: Scegli un'immagine dal tuo computer.
-  picture_upload: Caricamento foto
 image: Foto
 wikilink: Link con ulteriori informazioni
 questcount: Quante domande dovrebbero essere poste durante l'esame?
@@ -1500,18 +1494,6 @@ email_template:
   unknown_email2: "L’indirizzo e-mail %ADDRESS% non è noto.\nTieni presente che le
     e-mail BCC non possono essere consegnate al dominio @foodsharing.network."
   unknown_email: Indirizzo e-mail sconosciuto
-  impress:
-    address: "foodsharing e. V. \n Neven-DuMont-Str. 14 \n 50667 Köln \n\n Rappresentato
-      da:\n Anja Westermann \n Contatto:\n E-Mail: info@foodsharing.de\n \n Iscrizione
-      al registro:\n Iscrizione nel registro delle associazioni\n Tribunale del registro:
-      Tribunale locale di Colonia\n Numero di registro: VR 17439\n\n Responsabile
-      del contenuto secondo il § 18 MStV:\n Anja Westermann"
-    general_information_requirements: Informazioni secondo § 5 legge telemedia 
-      germania
-    title: Impronta
-  newsletter:
-    linktext: Clicca qui per annullare l'iscrizione.
-    unsubscribe: Non vuoi più ricevere la nostra newsletter?
   dont_respond:
     nomail: impostare quali e-mail ricevi.
     notification: Notifiche

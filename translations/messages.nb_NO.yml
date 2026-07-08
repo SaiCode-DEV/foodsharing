@@ -256,17 +256,7 @@ email_template:
   foodsharepoint: -- Matdelingsskapet
   confirm_BOT: sende. Siden du er ambassadør / moderator for %BEZIRK%, må du 
     bekrefte det før det publiseres.
-  impress:
-    title: Impressum
-    general_information_requirements: Informasjon etter § 5 Telemediengesetz
-    address: "foodsharing e. V. \n Neven-DuMont-Str. 14 \n 50667 Köln \n\n Representert
-      av:\n Anja Westermann \n Kontakt:\n E-post: info@foodsharing.de\n\n Registerutdrag:\n\
-      \ Innføring i foreningsregisteret\n Registerretten: Amtsgericht Köln\n Registernummer:
-      VR 17439\n\n Ansvarlig for innholdet etter § 18 MStV:\n Anja Westermann"
   from: '-- fra '
-  newsletter:
-    linktext: Klikk her for å avslutte abonnementet.
-    unsubscribe: Ønsker du ikke lenger å motta vårt nyhetsbrev?
   unknown_email2: "E-postadressen %ADDRESS% er ukjent.\nVær oppmerksom på at BCC-e-poster
     ikke kan leveres til domenet @foodsharing.network."
   confirm_link: vil gjerne publisere temaet
@@ -2162,14 +2152,11 @@ button:
   delete: Slette
   edit: Redigere
   new: Ny
-  upload: Laste opp
   clear_filter: Tøm filter
   apply: Bruk
   yes_i_am_sure: Ja, jeg er sikker
   permadelete: Slett for godt
-  rotate_right: roter med klokken
   attach_image: Legg ved bilde (png eller jpg-format)
-  change_picture: Endre bilde
   next: Neste
   save: Lagre
   reset_default: Nullstill standard
@@ -2197,9 +2184,6 @@ upload:
     vanlig jpg-bilde
   invalid_image_files: '{count} valgte filer er ikke gyldige bilder: {fileNames}'
   images: Last opp bilder
-picture_upload_widget:
-  picture_upload: Opplasting av bilder
-  choose_picture: Velg et bilde fra datamaskinen din.
 image: Bilde
 explanation: Forklaring
 fp: Feilpoeng

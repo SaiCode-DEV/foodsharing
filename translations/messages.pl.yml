@@ -310,9 +310,6 @@ use_region_pickup_rule: Czy w tym punkcie ma obowiązywać reguła rodzynkowa dl
 expand_all: rozłóż wszystko
 collapse_all: Zwiń wszystko
 image: Obraz
-picture_upload_widget:
-  picture_upload: Zamieść zdjęcie
-  choose_picture: Wybierz obraz z twojego komputera.
 upload:
   no_image: Wysłany plik nie jest zdjęciem. Wybierz inny plik.
   no_image_yet: Jeszcze nie wysłano żadnego obrazu
@@ -332,10 +329,7 @@ upload:
 button:
   save: Zapisz
   next: Dalej
-  change_picture: Zmień obraz
   attach_image: Dodaj obraz (format png lub jpg)
-  rotate_right: obróć zgodnie z ruchem wskazówek zegara
-  upload: wyślij
   new: nowy
   edit: edytuj
   delete: usuń
@@ -2062,7 +2056,7 @@ pickup:
       registeredSwitch: 'Zapisane sloty'
       managedOnlySwitch: 'Widok koordynatorów/ek punktu'
       signOff: 'Wypisz'
-    freeSlots: '{slots} wolne/ych'
+    freeSlots: 'Liczba wolnych slotów: {slots}'
     cols:
       time: Czas
       slots: 'Sloty'
@@ -2091,13 +2085,13 @@ pickup:
         empty: 'Jeszcze nikt się nie zapisał na żaden slot.'
     modals:
       signOffAll:
-        title: 'Wypisz ze wszystkich slotów?'
+        title: 'Wypisać ze wszystkich slotów?'
         message: 'Czy na pewno chcesz wypisać tego/tę użytkownika/czkę ze wszystkich
           przyszłych slotów?'
       signOff:
-        title: 'Wypisz ze slotu?'
+        title: 'Wypisać ze slotu?'
         message: 'Czy na pewno chcesz wypisać tego/tę użytkownika/czkę z tego slotu?'
-    allLoaded: 'Wszystkie wpisy są już wyświetlone.'
+    allLoaded: 'Już wyświetlono wszystkie wpisy.'
     header: 'Sloty'
   leave_pickup_ok: Już mam zastępstwo
   leave_pickup_message_team: Powiadom team
@@ -2192,20 +2186,20 @@ pickup:
   chat_preface: '{date} w [{store}]({storeUrl}):'
 calendar:
   locale: pl
-  labelNextYear: Przyszły rok
+  labelNextYear: przyszły rok
   labelToday: Dzisiaj
   labelSelected: Wybrana data
   labelNoDateSelected: Wybierz datę
   labelCalendar: Kalendarz
   labelNav: Nawigacja kalendarza
-  labelHelp: Nawigacja jest możliwa także z klawiszami strzałek
+  labelHelp: Można też nawigować klawiszami strzałek
   placeholder: Wybierz datę
-  copiedUrl: URL kalendarza został skopiowany!
+  copiedUrl: Skopiowano URL kalendarza!
   export:
     pickup:
       unconfirmed: niepotwierdzony
       foodsavers: 'Zapisani/e foodsaverzy/ki: '
-      freeSlots: '{count} sloty/ów są/jest jeszcze wolne/ych'
+      freeSlots: 'Liczba wolnych slotów: {count}'
       description: 'foodsharing-Slot w <a href="{url}">{store}</a>'
       name:
         giving: '{store} darowizna'
@@ -2250,10 +2244,10 @@ forum:
     hide: ukryj post
     giveHideReason: Podaj, dlaczego chcesz ukryć ten post.
     hideReasonPlaceholder: Podaj powód tutaj …
-    hideInfo: Ukryte posty nie będą więcej wyświetlane. Mogą zostać odtworzone 
-      przez moderatorów/ki w ciągu trzech miesięcy, zanim nie zostaną 
-      ostatecznie usunięte. W tym czasie użytkownicy/czki forum mogą zobaczyć, 
-      dlaczego post został ukryty, a moderatorzy/ki - także przez kogo.
+    hideInfo: Ukryte posty nie będą więcej wyświetlane. Moderatorzy/ki mogą je 
+      odtworzyć w ciągu trzech miesięcy, zanim nie zostaną one ostatecznie 
+      usunięte. W tym czasie użytkownicy/czki forum mogą zobaczyć, dlaczego post
+      został ukryty, a moderatorzy/ki - także przez kogo.
     sureHide: Czy na pewno chcesz ukryć ten post?
     hiddenPost: Post ukryty przez [{moderatorName}]({moderatorUrl})
     hiddenReason: 'Uzasadnienie: {reason}'
@@ -2264,9 +2258,9 @@ forum:
     edit_success: Pomyślnie edytowano post.
     edit_time_remaining: Możesz edytować ten post jeszcze przez {time} bądź 
       dopóki nie pojawi się nowy post w tym wątku.
-    createdAtTooltip: Utworzony {date}
+    createdAtTooltip: utworzono {date}
     edited: edytowano
-    editedAtTooltip: Ostatnio edytowano {date}
+    editedAtTooltip: ostatnio edytowano {date}
     edit_expired: Już nie możesz edytować tego postu, bo czas edycji upłynął.
     edit_thread_not_found: Już nie możesz edytować tego postu, bo 
       przyporządkowany mu temat (już) nie istnieje.
@@ -2301,7 +2295,7 @@ forum:
     all_hidden: 'Wszystkie posty w tym wątku są ukryte.'
     subscriptions:
       subscribed: 'subskrybowany'
-      subscribe: 'Subskrybuj'
+      subscribe: 'subskrybuj'
     with_mail: 'Temat otwarty i wszyscy zostali powiadomieni o tym mailem'
     bottom: 'ograniczona widoczność'
   mail_confirmation:
@@ -2331,7 +2325,7 @@ forum:
     sześciu miesięcy o utworzeniu tego nowego tematu przez email, możliwe tylko w
     niemoderowanych forach'
 chat:
-  empty: Nie ma jeszcze żadnych rozmów
+  empty: Nie ma jeszcze żadnych konwersacji
   placeholder: Napisz coś.
   notification_unnamed_conversation: '{foodsaver} wysłał/a ci wiadomość.'
   notification_named_conversation: '{foodsaver} napisał/a ci w {conversation}.'
@@ -2373,12 +2367,13 @@ chat:
   open_multi_chat: 'Napisz wiadomość do koordynatorów/ek punktu'
   open_full_view: Otwórz pełny widok
   unread_messages: 'Nieprzeczytane wiadomości'
+  participant_count: 'Liczba uczestników/czek: {count}'
 wall:
-  see-more: Pokaż wszystkie posty
-  delete: Usuń post
+  see-more: Pokaż wszystkie wpisy
+  delete: Usuń wpis
   info-logging: Miej na uwadze, że aby uniknąć konfliktów, zostanie 
     zarejestrowana treść i osoba wykonująca tę akcję.
-  error-delete: Nie możesz usunąć tego postu.
+  error-delete: Nie możesz usunąć tego wpisu.
   delete_confirmation:
     title: 'Usunąć wpis na tablicy?'
     text: 'Czy na pewno chcesz usunąć ten wpis od {author}?'
@@ -2394,9 +2389,9 @@ events:
   past: Minione eventy
   add_new_event: Dodaj nowy event
   add_event: Nowy event
-  created: Event został utworzony pomyślnie.
+  created: Pomyślnie utworzono event.
   edit: Edytuj event
-  edited: Event został zmieniony pomyślnie.
+  edited: Pomyślnie zmieniono event.
   create:
     title: Utwórz nowy event
     name: Nazwa eventu
@@ -2407,8 +2402,8 @@ events:
     type: Jak odbędzie się ten event?
     public: Czy event jest publiczny?
     isPublic: Event jest publiczny
-    online: jako telekonferencja lub spotkanie online
-    other: inne
+    online: Jako telekonferencja lub spotkanie online
+    other: Inne
     locationOther: Gdzie odbędzie się ten event?
     fillCompletely: Wypełnij do końca formularz.
     locationDetails: 'Szczegóły adresu (numer pomieszczenia itd.)'
@@ -2425,8 +2420,8 @@ events:
     text: Przeprowadzamy telekonferencje z <em>Mumble</em>.
   goto: Do eventu
   notFound: Ten event nie istnieje albo nie masz do niego dostępu.
-  acceptedCount: '{count} uczestniczy'
-  maybeCount: '{count} być może przyjdzie'
+  acceptedCount: 'Liczba uczestniczących: {count}'
+  maybeCount: 'Liczba osób, które być może przyjdą: {count}'
   invitedCount: 'odpowiedziano na {answers} z {total} zaproszeń'
   morePeople: … i jeszcze {count}
   noneAccepted: Jak dotąd nikt nie odpowiedział na to zaproszenie
@@ -2436,11 +2431,11 @@ events:
     maybe: Może
     no: Nie mogę
   menu:
-    yes: Przyjmij zaproszenie
-    maybe: być może mogę
-    no: nie mogę
+    yes: Zaakceptuj zaproszenie
+    maybe: Być może mogę
+    no: Nie mogę
   rsvp:
-    yes: Dziękujemy, przyjąłeś/ęłaś zaproszenie.
+    yes: Dziękujemy, zaakceptowałeś/aś zaproszenie.
     maybe: Miło, że być może będziesz!
     no: 'Zmieniono status zaproszenia: teraz nie uczestniczysz.'
   location: Miejsce
@@ -2453,14 +2448,14 @@ events:
     join: Dołącz
   attendees: Uczestnicy/czki
   online_info: |
-    Telekonferencje i spotkania online przebiegają najlepiej na naszym własnym serwerze [BigBlueButton](https://bigbluebutton.org). Na 10 minut przed rozpoczęciem eventu uczestnicy/czki mogą ze strony eventu łatwo dołączyć do konferencji przez kliknięcie. Nie potrzeba do tego żadnych innych programów, tylko w miarę aktualna przeglądarka internetowa. Poza tym jest możliwość dołączenia przez telefon.
+    Telekonferencje i spotkania online najlepiej przeprowadzać na naszym własnym serwerze [BigBlueButton](https://bigbluebutton.org). Na 10 minut przed rozpoczęciem eventu uczestnicy/czki mogą dołączyć do konferencji po prostu przez kliknięcie ze strony eventu. Nie potrzeba do tego żadnych innych programów, tylko w miarę aktualnej przeglądarki internetowej. Poza tym jest możliwość dołączenia przez telefon.
 
     Jeśli mimo to chcesz użyć innej platformy do telekonferencji lub spotkań online, wybierz opcję "inne".
   public_info: Ten event jest publiczny i otwarty dla wszystkich. Komentarze i 
     lista uczestniczących są widoczne tylko dla zarejestrowanych 
     użytkowników/czek.
   description: Opis
-  declinedCount: '{count} odmówiło'
+  declinedCount: 'Liczba rezygnacji: {count}'
 addresspicker:
   different_location: Popraw opis adresu
   label: Szukaj adresu/lokalizacji
@@ -2468,12 +2463,12 @@ addresspicker:
   infobox: Podaj adres w wyszukiwarce lub przesuń pinezkę na właściwą pozycję na
     mapie.
   different_location_warning: Upewnij się, że pinezka na mapie jest na właściwej
-    pozycji. Zmień dane w polach wypełnionych automatycznie (ulica i numer domu,
-    kod pocztowy i miasto/gmina) tylko wtedy, jeśli wartości wprowadzone 
+    pozycji. Zmieniaj dane w polach wypełnionych automatycznie (ulica i numer 
+    domu, kod pocztowy i miasto/gmina) tylko wtedy, jeśli wartości wprowadzone 
     automatycznie nie są poprawne. Może się to zdarzyć np. przy zmianie nazwy 
     ulicy.
   infobox_profile: '[Foodsharerzy/ki](https://wiki.foodsharing.de/Foodsharer) potrzebują
-    adresu, uaby oferować jadłokoszyki na stronie internetowej. Adres jest niezbędny,
+    adresu, aby oferować jadłokoszyki na stronie internetowej. Adres jest niezbędny,
     aby móc uczestniczyć w odbiorach uratowanej żywności jako [Foodsaver/ka](https://wiki.foodsharing.de/Foodsaver).'
 date:
   time: godzina {time}
@@ -2494,16 +2489,16 @@ date:
   wednesday: środa
   thursday: czwartek
 month:
-  "3": Marzec
-  "4": Kwiecień
-  "5": Maj
-  "6": Czerwiec
-  "7": Lipiec
-  "8": Sierpień
-  "9": Wrzesień
-  "10": Październik
-  "11": Listopad
-  "12": Grudzień
+  "3": marzec
+  "4": kwiecień
+  "5": maj
+  "6": czerwiec
+  "7": lipiec
+  "8": sierpień
+  "9": wrzesień
+  "10": październik
+  "11": listopad
+  "12": grudzień
   "1": styczeń
   "2": luty
   short:
@@ -4195,9 +4190,6 @@ email_template:
     forum.'
   foodbasket_request: '%SENDER% zapytał/a o twój jadłokoszyk'
   in: 'w'
-  newsletter:
-    unsubscribe: 'Czy już nie chcesz otrzymywać newslettera?'
-    linktext: 'Kliknij tutaj, aby zakończyć subskrypcję.'
   request_from: 'Zapytanie od'
   foodsharepoint: '-- jadłodzielnia'
   to: 'dla'
@@ -4212,14 +4204,6 @@ email_template:
     no_notification_link: 'Nie chcesz już otrzymywać tego typu powiadomień?'
   from: '-- od '
   unknown_email: 'Nieznany adres email'
-  impress:
-    title: 'stopka redakcyjna'
-    address: "foodsharing e. V. \n Neven-DuMont-Str. 14 \n 50667 Köln \n\n Reprezentowany
-      przez:\n Anja Westermann \n Kontakt:\n E-Mail: info@foodsharing.de \n\n Wpis
-      w rejestrze:\n Wpis w rejestrze stowarzyszeń\n Sąd rejestrowy: Sąd lokalny Köln\n\
-      \ Numer rejestru: VR 17439\n\n Odpowiedzialność za treść według § 18 MStV:\n\
-      \ Anja Westermann"
-    general_information_requirements: 'Dane według § 5 Telemediengesetz'
   unknown_email2: 'Adres email %ADDRESS% jest nieznany.
 
     Weź pod uwagę, że nie można dostarczać maili bcc na domenę @foodsharing.network.'

@@ -315,13 +315,10 @@ sticker: Ar įmonė/parduotuvė/organizacija ir pan. yra pasiryžusi užklijuoti
 text: Tekstas
 button:
   next: Toliau
-  upload: Įkelti
   new: Naujas
   save: Išsaugoti
-  change_picture: Pakeisti paveikslėlį
   prev: Atgal
   attach_image: Įkelti paveikslėlį (PNG arba JPG formatas)
-  rotate_right: Pasukti pagal laikrodžio rodyklę
   edit: Redaguoti
   delete: Ištrinti
   ok: Gerai
@@ -341,9 +338,6 @@ button:
   close: Uždaryti
   browse: Naršyti / Ieškoti
   yes_save: ''
-picture_upload_widget:
-  choose_picture: Pasirink paveikslėlį iš savo kompiuterio.
-  picture_upload: Nuotraukos įkėlimas
 upload:
   file: Įkelti bylą
   no_image: Įkelta byla nėra nuotrauka. Pasirink kitą bylą.
@@ -1935,9 +1929,6 @@ email_template:
   confirm_for_moderated_forum: ''
   foodbasket_request: ''
   in: ''
-  newsletter:
-    unsubscribe: ''
-    linktext: ''
   request_from: ''
   foodsharepoint: ''
   to: ''
@@ -1950,10 +1941,6 @@ email_template:
     no_notification_link: ''
   from: ''
   unknown_email: ''
-  impress:
-    title: ''
-    address: ''
-    general_information_requirements: ''
   unknown_email2: ''
   confirm_topic: ''
   warning: ''

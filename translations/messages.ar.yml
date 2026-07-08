@@ -3087,9 +3087,6 @@ stats:
     by_weight: ''
 email_template:
   confirm_BOT: ''
-  newsletter:
-    linktext: ''
-    unsubscribe: ''
   from: ''
   dont_respond:
     no_notification_link: ''
@@ -3105,10 +3102,6 @@ email_template:
   foodbasket_request: ''
   information: ''
   unknown_email2: ''
-  impress:
-    title: ''
-    general_information_requirements: ''
-    address: ''
   unknown_email: ''
   request_from: ''
   reply: ''
@@ -3364,12 +3357,9 @@ button:
   save: ''
   answer: ''
   delete: ''
-  change_picture: ''
   attach_image: ''
-  rotate_right: ''
   new: ''
   edit: ''
-  upload: ''
   cancel: ''
   create: ''
   send: ''
@@ -3412,9 +3402,6 @@ join_region:
   description: ''
 filter_by: ''
 image: ''
-picture_upload_widget:
-  picture_upload: ''
-  choose_picture: ''
 groups:
   empty: 'أنت لا تنتمي إلى الآن لأي من مجموعات العمل.'
 savewithus: ''

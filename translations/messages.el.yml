@@ -624,9 +624,6 @@ quiz:
     edit: ''
     delete: ''
   timed_out_error: ''
-picture_upload_widget:
-  picture_upload: ''
-  choose_picture: ''
 upload:
   new_image: ''
   file: ''
@@ -1859,7 +1856,6 @@ settings:
     verified: ''
     general: ''
 button:
-  rotate_right: ''
   cancel: ''
   next: ''
   delete: ''
@@ -1871,8 +1867,6 @@ button:
   new: ''
   edit: ''
   yes_i_am_sure: ''
-  change_picture: ''
-  upload: ''
   attach_image: ''
   clear_filter: ''
   save: ''
@@ -2623,9 +2617,6 @@ storelist:
   filter_placeholder: ''
 email_template:
   from: ''
-  newsletter:
-    linktext: ''
-    unsubscribe: ''
   confirm_link: ''
   in: ''
   dont_respond:
@@ -2641,10 +2632,6 @@ email_template:
   unknown_email2: ''
   information: ''
   reply: ''
-  impress:
-    title: ''
-    general_information_requirements: ''
-    address: ''
   confirm_topic: ''
   foodsharepoint: ''
   request_from: ''

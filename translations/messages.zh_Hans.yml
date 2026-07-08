@@ -657,9 +657,6 @@ quiz:
     edit: ''
     delete: ''
   timed_out_error: ''
-picture_upload_widget:
-  choose_picture: ''
-  picture_upload: ''
 group:
   actions:
     save: ''
@@ -3051,13 +3048,6 @@ email_template:
     you_can: ''
     no_notification_link: ''
   to: ''
-  newsletter:
-    unsubscribe: ''
-    linktext: ''
-  impress:
-    title: ''
-    general_information_requirements: ''
-    address: ''
   unknown_email2: ''
   foodbasket_request: ''
   information: ''
@@ -3394,12 +3384,9 @@ fsp_bezirk_id: ''
 fspmanagers: ''
 explanation: ''
 button:
-  change_picture: ''
   attach_image: ''
   create: ''
   next: ''
-  rotate_right: ''
-  upload: ''
   delete: ''
   apply: ''
   yes_i_am_sure: ''

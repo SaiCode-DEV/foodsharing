@@ -361,14 +361,12 @@ maxfp: Geçilmesi gerekilen maksimum hata puanları
 questcount: Sınavda kaç soru sorulmalıdır?
 wikilink: Daha fazla bilgi içeren bağlantı
 button:
-  upload: Yükleme
   new: Yeni
   edit: Düzenle
   delete: Sil
   apply: Devral
   next: Devam et
   yes_i_am_sure: Evet eminim
-  change_picture: Fotoğrafı değiştir
   send: Gönder
   cancel: İptal et
   answer: Cevaplayınız
@@ -376,7 +374,6 @@ button:
   clear_filter: Filtreleri temizle
   save: Kaydet
   attach_image: Resim yükleyin (png- veya jpg- formatında)
-  rotate_right: saat yönünde döndür
   permadelete: Geri getirilemez bir şekilde silin
   reset_default: Standardı geri yükle
   prev: Geri
@@ -404,9 +401,6 @@ upload:
     kullanman
   invalid_image_files: 'Seçilen {count} dosya geçerli resimler değil: {fileNames}'
   remove_image: Resmi kaldır
-picture_upload_widget:
-  picture_upload: Fotoğraf yükleme
-  choose_picture: Bilgisayarınızdan bir fotoğraf seçin.
 group:
   actions:
     go: Gruba git
@@ -2239,16 +2233,6 @@ email_template:
   reply: Cevaplayınız
   warning: Uyarı
   unknown_email: Bilinmeyen e-posta adresi
-  newsletter:
-    unsubscribe: Artık bir haber bülteni almak istemiyor musunuz?
-    linktext: Üyelikten çıkmak için buraya tıklayın.
-  impress:
-    address: "foodsharing e. V.\nNeven-DuMont-Str. 14\n50667 Köln\nAlmanya\n\nİle
-      temsil edilen:\nAnja Westermann\nTemas etmek:\nE-posta: info@foodsharing.de\n\
-      \ \nKayıt girişi: Derneklerin siciline giriş\nKayıt mahkemesi: Köln Bölge Mahkemesi\n\
-      \ Kayıt numarası: VR 17439\n\n§ 18 MStV'ye göre içerikten sorumlu:\nAnja Westermann"
-    general_information_requirements: § 5 Telemedya Yasasına göre bilgiler
-    title: Künye
   information: Bilgi
   from: '-- den '
   dont_respond:
