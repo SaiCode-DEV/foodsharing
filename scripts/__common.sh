@@ -8,7 +8,11 @@ set -o pipefail
 export FS_ENV=${FS_ENV:-dev}
 
 # user identification number of the current user
-CURRENT_USER=$(id -u):$(id -g)
+if [[ "${DOCKER_HOST:-}" == *"podman"* ]] || command -v podman-compose >/dev/null 2>&1 || podman compose version >/dev/null 2>&1; then
+    CURRENT_USER="0:0"
+else
+    CURRENT_USER=$(id -u):$(id -g)
+fi
 export CURRENT_USER
 
 MYSQL_USERNAME=${MYSQL_USERNAME:-root}

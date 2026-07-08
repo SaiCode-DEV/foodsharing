@@ -15,6 +15,7 @@ exec-in-container app 'composer install'
 
 log-header "Create folder structure ..."
 exec-in-container app bin/console foodsharing:setup
+exec-in-container app chmod 777 -R data/uploads cache
 
 log-header "Reset (clear) cache ..."
 exec-in-container app "bin/console cache:clear"

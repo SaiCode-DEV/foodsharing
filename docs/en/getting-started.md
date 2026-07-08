@@ -9,7 +9,7 @@ Foodsharing is mostly written in [PHP](https://www.php.net/docs.php) and [vue.js
 ### Requirements
 - **UNIX** (or [WSL](https://ubuntu.com/tutorials/install-ubuntu-on-wsl2-on-windows-10#1-overview))
 - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-- [Docker](https://docs.docker.com/)
+- [Docker](https://docs.docker.com/) — or [Podman](https://podman.io/) with [`podman-compose`](https://github.com/containers/podman-compose) as a rootless alternative; the `./scripts/*` wrappers auto-detect either provider.
 
 
 ## Project structure
