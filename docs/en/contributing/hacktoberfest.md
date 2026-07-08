@@ -40,6 +40,6 @@ Do not assign the label yourself, it will not count anyway.
 We who are actively working on foodsharing know that the project is very branched and it can be difficult to get started. If you have questions, you can browse the [devdocs.foodsharing.network](https://devdocs.foodsharing.network) (en). You might find an answer there.
 
 If not, post comments under your issue / merge request or join on Slack and get in touch with us there. :)
-Slack: https://yunity.slack.com/ and join the `#foodsharing-dev` and `#fs-dev-hacktoberfest-2022` channels and feel free to get in touch with us. We write in German and English.
+Slack ([how to join](./contributing.md#joining-the-slack)): join the `#foodsharing-dev` and `#fs-dev-hacktoberfest-2022` channels and feel free to get in touch with us. We write in German and English.
 
 ## Thank you for contributing!

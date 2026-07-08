@@ -10,7 +10,7 @@ Let's suppose that you want to report a simple issue:
  - **IMPORTANT:** promise now that you will read through the template and then really read through the template :)
  - fill out the template and submit your issue
 
-If you are not sure if the issue is worth reporting or if you have questions [join our slack channel](https://yunity.slack.com/) (#foodsharing-dev).
+If you are not sure if the issue is worth reporting or if you have questions [join our Slack](../contributing/contributing.md#joining-the-slack) (`#foodsharing-dev`).
 
 # How to fix an issue
 
@@ -25,7 +25,7 @@ previous issues and found [issue
 changes, e.g. doc fixes and typos.
 
  - check the comments (if there are any). Perhaps someone is already working on this issue or added some useful info
- - (only once:) At this point, you *have* to [join our slack channel](https://yunity.slack.com/) (#foodsharing-dev), so that we can grant you access to the foodsharing source code.
+ - (only once:) At this point, you *have* to [join our Slack](../contributing/contributing.md#joining-the-slack) (`#foodsharing-dev`), so that we can grant you access to the foodsharing source code.
  - (only once:) the git repository and follow the instructions for a local installation
  - Best practice is to create a new designated branch and reference the issue for your changes.
     - In our case, you create the branch for the ticket number 89 with the Git command ``git checkout -b 89-create-emails-for-invitations``.
@@ -33,8 +33,8 @@ changes, e.g. doc fixes and typos.
  - make the edits *only* in your new branch. Preferably commit in smaller intervals so that we can keep track of the progress and see what's happening.
  - Ensure the tests pass locally.
     See the backend and frontend testing guides for more details:
-    - Backend: [docs/backend/testing.md](../../backend/testing.md)
-    - Frontend: [docs/frontend/testing.md](../../frontend/testing.md)
+    - Backend: [docs/backend/testing.md](../backend/testing.md)
+    - Frontend: [docs/frontend/testing.md](../frontend/testing.md)
  - [create a MR](https://docs.gitlab.com/ee/gitlab-basics/add-merge-request.html). If your change requires multiple commits or is bigger, add the ``Draft:`` prefix to the name of the MR
  - Wait. Somebody will ask you some questions, and if everything goes well, will approve your merge request.
 

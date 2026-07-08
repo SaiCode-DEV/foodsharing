@@ -11,9 +11,11 @@ Visit our [DevDocs](https://devdocs.foodsharing.network) to get started with dev
 
 ## 💒 Community
 
-Our developers hang out in the
-[yunity slack](https://slackin.yunity.org) group in the
-**#foodsharing-dev** and **#foodsharing-beta** channels. Come and say hi!
+Our developers hang out in the yunity Slack in the
+**#foodsharing-dev** and **#foodsharing-beta** channels -
+[join via this invitation link](https://join.slack.com/t/yunity/shared_invite/zt-41oesuatx-j9YPn_mPlyBGFTa1jSbtVw)
+(fallback if expired: see the [contributor docs](https://devdocs.foodsharing.network/contributing/contributing.html#joining-the-slack)).
+Come and say hi!
 
 ## 🔣 Translations
 
