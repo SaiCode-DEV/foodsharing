@@ -288,9 +288,6 @@ quiz:
   test: "Quiz testen"
 
 image: "Bild"
-picture_upload_widget:
-  picture_upload: "Foto-Upload"
-  choose_picture: "Wähle ein Bild von deinem Rechner."
 
 upload:
   no_image: "Die hochgeladene Datei ist kein Foto. Bitte wähle eine andere Datei."
@@ -312,10 +309,7 @@ button:
   save: "Speichern"
   prev: "Zurück"
   next: "Weiter"
-  change_picture: "Bild ändern"
   attach_image: "Bild hochladen (png- oder jpg-Format)"
-  rotate_right: "im Uhrzeigersinn drehen"
-  upload: "Hochladen"
   new: "Neu"
   edit: "Bearbeiten"
   delete: "Löschen"
@@ -3345,13 +3339,6 @@ email_template:
     you_can: "Du kannst unter"
     notification: "Benachrichtigungen"
     nomail: "einstellen, welche E-Mails du erhältst."
-  newsletter:
-    unsubscribe: "Möchtest du keinen Newsletter mehr erhalten?"
-    linktext: "Klicke hier zum Abbestellen."
-  impress:
-    title: "Impressum"
-    general_information_requirements: "Angaben gemäß § 5 Telemediengesetz"
-    address: "foodsharing e. V. \n Neven-DuMont-Str. 14 \n 50667 Köln \n\n Vertreten durch:\n Anja Westermann \n Kontakt:\n E-Mail: info@foodsharing.de \n\n Registereintrag:\n Eintragung im Vereinsregister\n Registergericht: Amtsgericht Köln\n Registernummer: VR 17439\n\n Verantwortlich für den Inhalt nach § 18 MStV:\n Anja Westermann"
   unknown_email: "Unbekannte E-Mail-Adresse"
   unknown_email2: "Die E-Mail-Adresse %ADDRESS% ist nicht bekannt. \nBitte beachte, dass Bcc-E-Mails an die Domain @foodsharing.network nicht zugestellt werden können."
   in: "in"

@@ -29,7 +29,6 @@ class MailboxController extends FoodsharingController
             return $this->dlattach($request);
         }
 
-        $this->pageHelper->setContentWidth(8, 16);
         $this->pageHelper->addBread($this->translator->trans('mailbox.title'));
 
         $mailboxes = $this->mailboxGateway->getBoxes(

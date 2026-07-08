@@ -1,5 +1,4 @@
 <!-- This component can be used as a wrapper providing a responsic base layout using up to 3 columns (depending on screen width and content).
- This should be used as a replacement for addContent from PageHelper.php
 -->
 <template>
   <div class="mx-2 mx-sm-0">

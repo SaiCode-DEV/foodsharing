@@ -62,6 +62,6 @@ class MapController extends FoodsharingController
 
         $this->pageHelper->addContent($this->prepareVueComponent('map-page', 'MapPage', $params));
 
-        return $this->renderGlobal('layouts/map.twig');
+        return $this->renderGlobal('layouts/no-footer.twig');
     }
 }

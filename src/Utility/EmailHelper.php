@@ -22,11 +22,9 @@ final class EmailHelper
         $this->twig = $twig;
     }
 
-    private function emailBodyTpl(string $message, $email = false, $token = false, bool $renderUnsubscribe = true): string
+    private function emailBodyTpl(string $message, bool $renderUnsubscribe = true): string
     {
-        if ($renderUnsubscribe && $email !== false && $token !== false) {
-            $unsubscribe = $this->twig->render('emailTemplates/general/unsubscribe_newsletter.html.twig', ['TOKEN' => $token, 'EMAIL' => $email]);
-        } elseif ($renderUnsubscribe) {
+        if ($renderUnsubscribe) {
             $unsubscribe = $this->twig->render('emailTemplates/general/unsubscribe.html.twig', []);
         } else {
             $unsubscribe = '';
@@ -72,7 +70,7 @@ final class EmailHelper
             'body' => $this->twig->render($tpl_prefix . '.body.html.twig', $var)
         ];
 
-        $htmlBody = $this->emailBodyTpl($message['body'], false, false, $renderUnsubscribe);
+        $htmlBody = $this->emailBodyTpl($message['body'], $renderUnsubscribe);
         $mail->setHTMLBody($htmlBody);
 
         // playintext body
@@ -117,8 +115,7 @@ final class EmailHelper
         return in_array($domain, MAILBOX_OWN_DOMAINS, true);
     }
 
-    public function libmail($bezirk, $email, $subject, $message, $attach = false, $token = false,
-        bool $highPriority = false): bool
+    public function libmail($bezirk, $email, $subject, $message, $attach = false, bool $highPriority = false): bool
     {
         if ($bezirk === false) {
             $bezirk = [
@@ -150,7 +147,7 @@ final class EmailHelper
             $subject = 'foodsharing-Mail';
         }
         $mail->setSubject($subject);
-        $htmlBody = $this->emailBodyTpl($message, $email, $token);
+        $htmlBody = $this->emailBodyTpl($message);
         $mail->setHTMLBody($htmlBody);
 
         $plainBody = $this->sanitizerService->htmlToPlain($htmlBody);

@@ -1,8 +1,4 @@
-{% set _left = block('left') %}
-{% set _top = block('top') %}
 {% set _main = block('main') %}
-{% set _right = block('right') %}
-{% set _bottom = block('bottom') %}
 <!DOCTYPE html>
 <html lang="de">
 
@@ -48,8 +44,6 @@
             window.serverData = {{ serverDataJSON | raw }};
         </script>
 
-        {{ head.extra | raw }}
-
         {% block head %}{% endblock %}
 
         <meta name="description" content="{{ 'base.whatfor'|trans }}" />
@@ -62,7 +56,7 @@
 
         <meta property="og:title" content="{{ 'base.slogan'|trans }}" />
         <meta property="og:description" content="{{ 'base.whatfor'|trans }}" />
-        <meta property="og:image" content="https://foodsharing.de/img/foodsharinglogo_200px.png" />
+        <meta property="og:image" content="https://foodsharing.de/img/logo/FS_Schriftzug_gb_klein.png" />
         <meta property="og:url" content="https://foodsharing.de" />
 
         <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon.png">
@@ -77,14 +71,9 @@
         {% if route == 'index' %}
         <link rel="preload" as="image" href="/img/startpage/header.png" fetchpriority="high">
         {% endif %}
-
-        <style type="text/css">{{ head.css | raw }}</style>
     </head>
     <body class="{{ bodyClasses|join(' ') }}">
         {{ menu | raw }}
-        {% block overtop %}
-            {{ content.overtop.html | raw }}
-        {% endblock %}
 
         {{ notificationsWrapper | raw }}
 
@@ -100,48 +89,16 @@
             {% else %}
                 <main id="main" class="container p-0">
                     {% include 'partials/breadcrumbs.twig' with { items: bread } %}
-                    {% if _top is not empty %}
-                        <div class="pure-g">
-                            <div id="content_top" class="pure-u-1">
-                                <div class="inside">
-                                    {{ _top|raw }}
-                                </div>
-                            </div>
-                        </div>
-                    {% endif %}
 
                     <div class="pure-g">
-                        {% if _left is not empty %}
-                            <div class="pure-u-1 pure-u-md-{{ content.left.width }}-24" id="left">
-                                <div class="inside">
-                                    {{ _left|raw }}
-                                </div>
-                            </div>
-                        {% endif %}
                         {% if _main is not empty %}
-                            <div class="pure-u-1 pure-u-md-{{ contentMainWidth(_left is not empty, _right is not empty, content.left.width, content.right.width, 24) }}-24">
+                            <div class="pure-u-1 pure-u-md-24-24">
                                 <div class="inside">
                                     {{ _main|raw }}
                                 </div>
                             </div>
                         {% endif %}
-                        {% if _right is not empty %}
-                            <div class="pure-u-1 pure-u-md-{{ content.right.width }}-24" id="right">
-                                <div class="inside">
-                                    {{ _right|raw }}
-                                </div>
-                            </div>
-                        {% endif %}
                     </div>
-                    {% if _bottom is not empty %}
-                        <div class="pure-g">
-                            <div id="content_bottom" class="pure-u-1">
-                                <div class="inside">
-                                    {{ _bottom|raw }}
-                                </div>
-                            </div>
-                        </div>
-                    {% endif %}
                 </main>
             {% endif %}
         {% endblock full %}
@@ -161,7 +118,6 @@
 
 
         <script type="text/javascript">
-            {{ head.jsFunc | raw }}
             document.addEventListener("DOMContentLoaded", function() {
                 {{ head.js | raw }}
             });

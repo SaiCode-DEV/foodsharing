@@ -28,25 +28,12 @@ use Twig\Environment;
 
 final class PageHelper
 {
-    private string $add_css = '';
     private string $content_main = '';
-    private string $content_right = '';
-    private string $content_left = '';
-    private string $content_bottom = '';
-    private string $content_top = '';
-    private string $content_overtop = '';
-    private string $head = '';
-    private string $js_func = '';
     private string $js = '';
     private array $bread = [];
     private array $title = ['foodsharing'];
     private array $webpackScripts = [];
     private array $webpackStylesheets = [];
-
-    private int $content_left_width = 6;
-    private int $content_right_width = 6;
-
-    private array $extraJsServerData = [];
 
     public function __construct(
         private readonly Session $session,
@@ -84,17 +71,6 @@ final class PageHelper
         $this->addMessages();
         $mainWidth = 24;
 
-        $contentLeft = $this->getContent(CNT_LEFT);
-        $contentRight = $this->getContent(CNT_RIGHT);
-
-        if (!empty($contentLeft)) {
-            $mainWidth -= $this->content_left_width;
-        }
-
-        if (!empty($contentRight)) {
-            $mainWidth -= $this->content_right_width;
-        }
-
         $bodyClasses = [];
 
         if ($this->session->mayRole()) {
@@ -121,30 +97,9 @@ final class PageHelper
             'notificationsWrapper' => $this->getNotificationsWrapper(),
             'content' => [
                 'main' => [
-                    'html' => $this->getContent(CNT_MAIN),
+                    'html' => $this->content_main,
                     'width' => $mainWidth
                 ],
-                'left' => [
-                    'html' => $contentLeft,
-                    'width' => $this->content_left_width,
-                    'id' => 'left'
-                ],
-                'right' => [
-                    'html' => $contentRight,
-                    'width' => $this->content_right_width,
-                    'id' => 'right'
-                ],
-                'top' => [
-                    'html' => $this->getContent(CNT_TOP),
-                    'id' => 'content_top'
-                ],
-                'bottom' => [
-                    'html' => $this->getContent(CNT_BOTTOM),
-                    'id' => 'content_bottom'
-                ],
-                'overtop' => [
-                    'html' => $this->getContent(CNT_OVERTOP)
-                ]
             ]
         ];
     }
@@ -181,7 +136,7 @@ final class PageHelper
 
         $geoapifyApiKey = defined('GEOAPIFY_API_KEY') ? GEOAPIFY_API_KEY : null;
 
-        return array_merge($this->extraJsServerData, [
+        return [
             'user' => $userData,
             'permissions' => $permissions,
             'page' => $this->routeHelper->getPage(),
@@ -193,7 +148,7 @@ final class PageHelper
             'isTest' => getenv('FS_ENV') === 'test',
             'locale' => $this->settingsTransactions->getLocale(),
             'geoapifyApiKey' => $geoapifyApiKey
-        ]);
+        ];
     }
 
     private function getPermissions(): array
@@ -301,9 +256,6 @@ final class PageHelper
     {
         return [
             'title' => implode(' | ', $this->title),
-            'extra' => $this->head,
-            'css' => str_replace(["\r", "\n"], '', $this->add_css),
-            'jsFunc' => $this->js_func,
             'js' => $this->js,
             'stylesheets' => $this->webpackStylesheets,
             'scripts' => $this->webpackScripts
@@ -335,43 +287,9 @@ final class PageHelper
         $_SESSION['msg']['error'] = [];
     }
 
-    private function getContent(int $positionCode): string
+    public function addContent(string $newContent): void
     {
-        return match ($positionCode) {
-            CNT_MAIN => $this->content_main,
-            CNT_RIGHT => $this->content_right,
-            CNT_TOP => $this->content_top,
-            CNT_BOTTOM => $this->content_bottom,
-            CNT_LEFT => $this->content_left,
-            CNT_OVERTOP => $this->content_overtop,
-            default => '',
-        };
-    }
-
-    public function addContent(string $newContent, int $positionCode = CNT_MAIN): void
-    {
-        switch ($positionCode) {
-            case CNT_MAIN:
-                $this->content_main .= $newContent;
-                break;
-            case CNT_RIGHT:
-                $this->content_right .= $newContent;
-                break;
-            case CNT_TOP:
-                $this->content_top .= $newContent;
-                break;
-            case CNT_BOTTOM:
-                $this->content_bottom .= $newContent;
-                break;
-            case CNT_LEFT:
-                $this->content_left .= $newContent;
-                break;
-            case CNT_OVERTOP:
-                $this->content_overtop .= $newContent;
-                break;
-            default:
-                break;
-        }
+        $this->content_main .= $newContent;
     }
 
     public function addBread(string $name, string $href = ''): void
@@ -394,19 +312,8 @@ final class PageHelper
         $this->js .= $njs;
     }
 
-    public function addJsFunc(string $nfunc): void
-    {
-        $this->js_func .= $nfunc;
-    }
-
     public function addTitle(string $name): void
     {
         $this->title[] = $name;
-    }
-
-    public function setContentWidth(int $left, int $right): void
-    {
-        $this->content_left_width = $left;
-        $this->content_right_width = $right;
     }
 }

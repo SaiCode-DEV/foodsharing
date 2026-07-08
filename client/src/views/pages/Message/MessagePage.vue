@@ -1,8 +1,16 @@
 <template>
-  <ChatComponent
-    :chat-id="chatId"
-    :ask-for-push-notifications="true"
-  />
+  <main id="main">
+    <div class="container">
+      <div class="row">
+        <div class="col px-0">
+          <ChatComponent
+            :chat-id="chatId"
+            :ask-for-push-notifications="true"
+          />
+        </div>
+      </div>
+    </div>
+  </main>
 </template>
 
 <script setup>

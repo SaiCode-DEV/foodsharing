@@ -1,7 +1,5 @@
 twig:
   file_name_pattern: '*.twig'
-  form_themes:
-    - partials/fields.html.twig
   strict_variables: true
 
 when@test:
