@@ -187,8 +187,8 @@ class ReportGateway extends BaseGateway
         $reportForListView->reason = $report['tvalue'] ?? '';
         $reportForListView->reportedAt = Carbon::parse($report['time']);
         $reportForListView->store = $report['betrieb_id'] ? MinimalStoreIdentifier::createFromArray($report, 'betrieb_') : null;
-        $reportForListView->reporter = new ProfileWithMail($report['rp_id'], $report['rp_name'], $report['rp_photo'], null, $report['rp_email'], $report['rp_last_name']);
-        $reportForListView->reported = new ProfileWithMail($report['fs_id'], $report['fs_name'], $report['fs_photo'], null, $report['fs_email'], $report['fs_last_name']);
+        $reportForListView->reporter = new ProfileWithMail((int)$report['rp_id'], $report['rp_name'], $report['rp_photo'], null, $report['rp_email'], $report['rp_last_name']);
+        $reportForListView->reported = new ProfileWithMail((int)$report['fs_id'], $report['fs_name'], $report['fs_photo'], null, $report['fs_email'], $report['fs_last_name']);
         $reportForListView->forumThreadId = $report['forum_thread_id'] ?? null;
         $reportForListView->status = $report['status'] ?? null;
         $reportForListView->consequence = $report['consequence'] ?? null;
