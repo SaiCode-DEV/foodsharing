@@ -1355,11 +1355,13 @@ class Foodsharing {
 
   /**
    * Adds a email domain to the blacklist
+   * @param creatorId ID of the user who created the entry
    * @param email The email pattern to blacklist (supports wildcards like *@domain.com)
    * @param reason Optional reason for blocking (defaults to generic message)
    * @returns The ID of the created blacklist entry
    */
   async createBlacklistedEmailAddress(
+    creatorId: number,
     email: string = "*@bad.com",
     reason: string = "Disposable email addresses should not be used for registration.",
   ): Promise<number> {
@@ -1381,7 +1383,7 @@ class Foodsharing {
         email,
         reason,
         active: 1,
-        created_by: null,
+        created_by: creatorId,
       });
       await this.clearCache("email_blocklist_patterns");
       return id;

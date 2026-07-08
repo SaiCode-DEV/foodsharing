@@ -40,7 +40,7 @@ final class AddEmailBlocklistTable extends AbstractMigration
             ])
             ->addColumn('created_by', 'integer', [
                 'signed' => false,
-                'null' => true,
+                'null' => false,
                 'comment' => 'ID of the admin who created this entry',
             ])
             ->addColumn('updated_at', 'datetime', [
@@ -54,7 +54,7 @@ final class AddEmailBlocklistTable extends AbstractMigration
             ])
             ->addIndex(['active'])
             ->addForeignKey('created_by', 'fs_foodsaver', 'id', [
-                'delete' => 'SET_NULL',
+                'delete' => 'RESTRICT',
                 'update' => 'CASCADE',
             ])
             ->addForeignKey('updated_by', 'fs_foodsaver', 'id', [

@@ -413,7 +413,7 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
         $this->output->writeln('');
 
         $this->output->writeln('Create blacklisted emails');
-        $I->createBlacklistedEmailAddress();
+        $I->createBlacklistedEmailAddress($userorga['id']);
 
         $this->output->writeln('Enable feature toggles');
         $this->activeFeatureToggles();

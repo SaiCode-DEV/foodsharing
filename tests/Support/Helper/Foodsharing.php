@@ -737,13 +737,13 @@ class Foodsharing extends Db
         return $region;
     }
 
-    public function createBlacklistedEmailAddress(): void
+    public function createBlacklistedEmailAddress(int $creatorId): void
     {
         $this->haveInDatabase('fs_email_blacklist', [
             'email' => '*@bad.com',
             'reason' => 'Disposable email addresses should not be used for registration.',
             'active' => 1,
-            'created_by' => 1,
+            'created_by' => $creatorId,
         ]);
     }
 
