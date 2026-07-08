@@ -1803,34 +1803,34 @@ store:
       8: '{actor} opuścił/a team.'
       19: '{actor} zaakceptował/a zaproszenie do teamu.'
       6: '{actor} dodał/a {target} do aktywnego teamu.'
-      1: '{actor} wysłał/a zapytanie o członkostwo.'
+      1: '{actor} wysłał/a zgłoszenie o członkostwo.'
       18: '{actor} cofnął/ęła zaproszenie do teamu dla {target}.'
       14: '{actor} potwierdził/a slot {target} {date}.'
-      3: '{actor} zaakceptował/a prośbę o członkostwo od {target}.'
-      4: '{actor} dodał/a {target} ręcznie.'
+      3: '{actor} zaakceptował/a zgłoszenie o członkostwo od {target}.'
+      4: '{actor} dodał/a {target} ręcznie do teamu.'
       11: '{actor} zapisał/a się na slot {date}.'
       13: '{actor} wypisał/a {target} ze slotu {date}.'
       13_with_reason: '{actor} wypisał/a {target} ze slotu {date} z następującą wiadomością'
-      16: '{actor} cofnął/ęła zapytanie o członkostwo.'
+      16: '{actor} cofnął/ęła zgłoszenie o członkostwo.'
       10: '{actor} usunął/ęła {target} jako koordynatora/kę punktu.'
       12: '{actor} wypisał/a się ze slotu {date}.'
-      2: '{actor} odrzucił/a prośbę o członkostwo od {target}.'
+      2: '{actor} odrzucił/a zgłoszenie o członkostwo od {target}.'
       5: '{actor} umieścił/a {target} na liście rezerwowych.'
       9: '{actor} wprowadził/a {target} jako koordynatora/kę punktu.'
       15: '{actor} usunął/ęła wpis na tablicy od {target} z dnia {date}.'
     type:
       8: Opuszczenie teamu
-      17: zaproszenie Foodsaverów/ek do teamu
-      19: akceptowanie zaproszeń do teamu
-      20: odrzucenie zaproszeń do teamu
-      3: 'Zaakceptowanie zapytania o członkostwo'
-      2: 'Odrzucenie zapytania o członkostwo'
-      18: 'cofnięcie zaproszenia do teamu'
-      7: 'usunięcie foodsaverów/ek z teamu'
+      17: Zaproszenie foodsaverów/ek do teamu
+      19: Zaakceptowanie zaproszeń do teamu
+      20: Odrzucenie zaproszeń do teamu
+      3: 'Zaakceptowanie zgłoszenia o członkostwo'
+      2: 'Odrzucenie zgłoszenia o członkostwo'
+      18: 'Cofnięcie zaproszenia do teamu'
+      7: 'Usunięcie foodsaverów/ek z teamu'
       14: 'Potwierdzenie slotu'
-      1: 'Wysłanie zapytania o członkostwo'
-      16: 'Cofnięcie zapytania o członkostwo'
-      4: 'Przyjęcie foodsaverów/ek do teamu bez zapytania'
+      1: 'Wysłanie zgłoszenia o członkostwo'
+      16: 'Cofnięcie zgłoszenia o członkostwo'
+      4: 'Przyjęcie foodsaverów/ek do teamu bez zgłoszenia'
       10: 'Usunięcie koordynatora/ki punktu'
       6: 'Przyjęcie foodsaverów/ek do aktywnego teamu'
       12: 'Wypisanie się ze slotu'
@@ -1841,7 +1841,7 @@ store:
       15: 'Usunięcie wpisu na tablicy'
     log_types_placeholder: 'Wybierz typy akcji do wyświetlenia'
     message_saved_info: 'Twoja wiadomość zostanie zapisana w protokole punktu.'
-    selected_log_types: 'wybrano {amount} typów akcji'
+    selected_log_types: 'wybrano następująca liczbę typów akcji: {amount}'
     title: 'Protokół punktu'
   to_map: Pokaż na mapie
   chat:
@@ -1968,7 +1968,7 @@ navi:
   no_native_app: Geo linki nie są wspierane przez to urządzenie.
   native: native app
   gdpr_warning: 'Jeśli nawigujesz z {provider}, adres będzie udostępniony tej usłudze
-    i zostaniesz przekierowany/a na ich stronę. Zgadzasz się?'
+    i zostaniesz przekierowany/a na stronę usługi. Zgadzasz się?'
 really_delete: Na pewno usunąć?
 yes: Tak
 no: Nie
@@ -2097,12 +2097,12 @@ pickup:
       signOff:
         title: 'Wypisz ze slotu?'
         message: 'Czy na pewno chcesz wypisać tego/tę użytkownika/czkę z tego slotu?'
-    allLoaded: 'Już pokazano wszystkie wpisy.'
+    allLoaded: 'Wszystkie wpisy są już wyświetlone.'
     header: 'Sloty'
   leave_pickup_ok: Już mam zastępstwo
   leave_pickup_message_team: Powiadom team
   leave_team_message_title: Wiadomość do teamu
-  team_message_success: Wiadomość do teamu została wysłana pomyślnie
+  team_message_success: Pomyślnie wysłano wiadomość do teamu
   join_title: Na pewno?
   same_day_entry: '[{when}] {name}'
   hygieneCertificateMissing:
@@ -2163,7 +2163,7 @@ pickup:
 
     '
   leave: 'Opuść'
-  kick_message: 'wypisaliśmy/łyśmy cię z odbioru w {storeName} dnia {date}.'
+  kick_message: 'wypisaliśmy/łyśmy cię z odbioru w punkcie {storeName} dnia {date}.'
   really_leave_date_title: 'Wypisz się {date}?'
   slot_add: 'Dodaj slot'
   slots: 'Sloty'
