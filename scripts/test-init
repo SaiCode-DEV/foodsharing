@@ -13,6 +13,8 @@ if ! is-environment-ready; then
     
     log-header "Create folder structure ..."
     exec-in-container app bin/console foodsharing:setup
+    exec-in-container app mkdir -p tests/_output
+    exec-in-container app chmod 777 -R tests/_output cache
     
     log-header "Reset (clear) cache ..."
     exec-in-container app "bin/console cache:clear"
