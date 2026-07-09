@@ -1,5 +1,9 @@
 <template>
-  <!-- the markdown renderer is save -->
+  <!-- htmlContent is DOMPurify-sanitized in render() as defense-in-depth.
+       The markdown renderer uses markdown-it with `html: true`; raw HTML is
+       currently neutralized because the 'zero' preset does not enable the
+       html_block/html_inline rules (it escapes raw HTML). Sanitizing keeps
+       v-html safe even if that renderer config ever changes. -->
   <!-- eslint-disable vue/no-v-html -->
   <div
     class="markdown"
@@ -9,6 +13,7 @@
 </template>
 <script>
 import markdown from './markdownRenderer'
+import { sanitizeHtml } from '@/helper/sanitize-html'
 import { getUserNames } from '@/api/user'
 export default {
   props: {
@@ -45,10 +50,10 @@ export default {
       sessionStorage.setItem(data.storageKey, JSON.stringify(data.userNames))
     },
     async render () {
-      this.htmlContent = markdown.render(this.source)
+      this.htmlContent = sanitizeHtml(markdown.render(this.source))
       if (markdown.linkify.data.missingUserNames.size) {
         await this.fetchMissingUserNames()
-        this.htmlContent = markdown.render(this.source)
+        this.htmlContent = sanitizeHtml(markdown.render(this.source))
       }
     },
   },

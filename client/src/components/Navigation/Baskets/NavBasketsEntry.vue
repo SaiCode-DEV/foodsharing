@@ -18,10 +18,12 @@
       <span class="w-100 d-flex flex-column text-truncate">
         <span class="d-flex justify-content-between align-items-center text-truncate">
           <!-- eslint-disable vue/no-v-html -->
-          <!-- Sanitized in Modules/Basket/BasketGateway.php getBasket() -->
+          <!-- basket.description is user-provided and NOT sanitized server-side
+               (no sanitization in BasketGateway add/getBasket). Sanitized
+               client-side via the shared hardened sanitizer. -->
           <span
             class="mb-1 text-truncate"
-            v-html="basket.description"
+            v-html="sanitizedDescription"
           />
           <!-- eslint-enable -->
           <TimeDisplay :time="new Date(basket.createdAt)" />
@@ -72,11 +74,17 @@
 import Avatar from '@/components/Avatar/Avatar.vue'
 import TimeDisplay from '@/components/TimeDisplay.vue'
 import conversationStore from '@/stores/conversations'
+import { sanitizeHtml } from '@/helper/sanitize-html'
 
 export default {
   components: { Avatar, TimeDisplay },
   props: {
     basket: { type: Object, default: () => ({}) },
+  },
+  computed: {
+    sanitizedDescription () {
+      return sanitizeHtml(this.basket.description)
+    },
   },
   methods: {
     openChat (userId) {

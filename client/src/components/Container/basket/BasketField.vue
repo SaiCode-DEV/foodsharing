@@ -15,12 +15,15 @@
     </div>
     <div class="field-container field-container--stack">
       <!-- eslint-disable vue/no-v-html -->
-      <!-- Sanitized in Modules/Basket/BasketGateway.php getBasket() -->
+      <!-- entry.description is user-provided and NOT sanitized server-side
+           (no sanitization in BasketGateway add/getBasket). Sanitized client-
+           side via the shared hardened sanitizer. The v-b-tooltip binding is
+           safe because bootstrap-vue escapes the title unless `.html`. -->
       <div class="field-container">
         <h6
           v-b-tooltip="entry.description.length > 30 ? entry.description : ''"
           class="field-headline"
-          v-html="entry.description"
+          v-html="sanitizedDescription"
         />
       </div>
       <!-- eslint-enable -->
@@ -41,9 +44,16 @@
 </template>
 
 <script>
+import { sanitizeHtml } from '@/helper/sanitize-html'
+
 export default {
   props: {
     entry: { type: Object, default: () => {} },
+  },
+  computed: {
+    sanitizedDescription () {
+      return sanitizeHtml(this.entry.description)
+    },
   },
   methods: {
     distanceString (distanceInKm) {

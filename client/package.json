@@ -28,7 +28,7 @@
     "axios": "~1.13.2",
     "bootstrap-vue": "~2.22.0",
     "copy-webpack-plugin": "~6.4.1",
-    "dompurify": "~3.2.7",
+    "dompurify": "~3.4.4",
     "emoji-picker-element-data": "~1.7.2",
     "eventemitter3": "~5.0.1",
     "leaflet": "~1.9.4",

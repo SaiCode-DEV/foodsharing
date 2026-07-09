@@ -105,7 +105,7 @@
 </template>
 
 <script>
-import DOMPurify from 'dompurify'
+import { sanitizeHtml } from '@/helper/sanitize-html'
 import Container from '@/components/Container/Container.vue'
 import MailboxFooterNav from './MailboxFooterNav.vue'
 import MailboxMainNav from './MailboxMainNav.vue'
@@ -169,9 +169,7 @@ export default {
     },
     emailBody () {
       if (this.hasHtmlBody && this.showHtmlBody) {
-        return DOMPurify.sanitize(this.email.bodyHtml, {
-          USE_PROFILES: { html: true },
-        })
+        return sanitizeHtml(this.email.bodyHtml)
       } else {
         return this.addLineBreaks(this.addLinks(this.email.body))
       }

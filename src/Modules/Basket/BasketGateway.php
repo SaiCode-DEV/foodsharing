@@ -32,6 +32,15 @@ class BasketGateway extends BaseGateway
                 'foodsaver_id' => $userId,
                 'status' => BasketStatus::REQUESTED_MESSAGE_READ,
                 'time' => date('Y-m-d H:i:s'),
+                // SECURITY: description is user-provided rich text (rendered as
+                // markdown via Markdown.vue, which allows raw HTML) and is
+                // stored unsanitized here. It is currently only sanitized
+                // client-side (client/src/helper/sanitize-html.js). The proper
+                // fix is to purify the markdown source on write, analogous to
+                // ContentGateway::purifyHtml(), so the stored value is safe
+                // regardless of the rendering path. Until then the client
+                // sanitizer is the only XSS barrier -- do not add new server
+                // render paths for this field without server-side purifying.
                 'description' => $basket->description,
                 'picture' => json_encode($basket->pictures),
                 'tel' => strip_tags((string)($basket->telephone ?? null)),
@@ -227,6 +236,8 @@ class BasketGateway extends BaseGateway
             'fs_basket',
             [
                 'update' => date('Y-m-d H:i:s'),
+                // SECURITY: see addBasket() -- description is stored unsanitized
+                // and is only sanitized client-side for now.
                 'description' => $basket->description,
                 'picture' => json_encode($basket->pictures),
                 'lat' => $basket->lat,
