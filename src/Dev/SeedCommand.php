@@ -641,7 +641,7 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
             Role::FOODSAVER => $I->createFoodsaver(self::USER_PASSWORD, $params),
             Role::STORE_MANAGER => $I->createStoreCoordinator(self::USER_PASSWORD, $params),
             Role::AMBASSADOR => $I->createAmbassador(self::USER_PASSWORD, $params),
-            Role::ORGA => $I->createOrga(self::USER_PASSWORD, $params),
+            Role::ORGA => $I->createOrga(self::USER_PASSWORD, false, $params),
             default => $I->createFoodsharer(self::USER_PASSWORD, $params)
         };
         // Make sure that the user is a member of all parent regions of the home region
