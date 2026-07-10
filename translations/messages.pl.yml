@@ -2522,17 +2522,17 @@ bell:
     md: "Dzwonek zawiera nieznany tekst. Prawdopodobnie dlatego, że ten dzwonek pochodzi
       z wersji beta.\n\n Tytuł: `{bellTitle}`\n\n Klucz: `{bellKey}`"
     title: 'Nieznany dzwonek'
-    key: 'Dzwonki z beta nie mogą być wyświetlane'
+    key: 'Nie można wyświetlać dzwonków z beta'
   forum_answer_title: '{forum}'
   forum_answer: '{user} odpowiedział/a na twój post'
   forum_post_title: '{title}'
   forum_post:
     one: Nowy post od {user} w forum {forum}
-    many: '{count} nowy posty w {forum}'
+    many: 'Liczba nowych postów w {forum}: {count}'
   event_post_title: Event {event} w {region}
   event_post:
     one: 'Nowy komentarz od {user} '
-    many: '{count} nowe komentarze do eventu {event}'
+    many: 'Liczba nowych komentarzy do eventu {event}: {count}'
   forum_announcement_title: 'Ważna wiadomość: {title}'
   forum_announcement: od {user} w forum {forum}
   forum_new_thread: od {user} w forum {forum}
@@ -2543,7 +2543,7 @@ bell:
     one: '{teaser}'
     many: '{teaser}'
   new_store_request:
-    one: dla {name} od {user}
+    one: do {name} od {user}
     many: do {name} od {count} użytkowników/czek
   store_request_accept_title: '{name}'
   store_request_accept_wait_title: '{name}'
@@ -2611,9 +2611,9 @@ bell:
   new_quiz_comment_title: 'Komentarz do pytania #{questionId}'
   new_quiz_comment:
     one: '{user}: {comment}'
-    many: '{count} nowe/ych komentarze/y'
+    many: 'Liczba nowych komentarzy: {count}'
   delete_store_title: 'Usunięto punkt'
-  store_new_request_title: 'Nowe zapytanie do teamu'
+  store_new_request_title: 'Nowe zgłoszenie do teamu'
   store_new_title: 'Nowy punkt'
   store_cr_times: 'Dostosowano sloty'
   store_change_regular_pickup_times:
@@ -2621,17 +2621,17 @@ bell:
     one: 'Dostosowano slot'
   foodsaver_verified: 'Wyświetl swoją legitymację pod …'
   store_new: 'Wprowadzono {name}'
-  betrieb_fetch: '{count} niepotwierdzone/ych terminy/ów odbioru'
+  betrieb_fetch: 'Liczba niepotwierdzonych terminów odbioru: {count}'
   store_wallpost: 'Nowy wpis na tablicy.'
   new_foodsaver: 'Potrzebuje wprowadzenia do odbiorów'
   store_wall_post:
-    many: '{count} nowe/ych wpisy/ów na tablicy'
+    many: 'Liczba nowych wpisów na tablicy: {count}'
     one: 'Wpis na tablicy od {user}'
   new_foodsaver_needs_introduction: 'Potrzebuje wprowadzenia do odbiorów'
   poll_ending_soon: 'Głosowanie "{title}" niedługo się kończy, a ty jeszcze nie zagłosowałeś/aś.'
   fs_sleepmode_title: 'Nowa osoba w trybie uśpienia'
   poll_ending_soon_title: 'Głosowanie niedługo się kończy'
-  store_new_request: 'Zapytanie do {name}'
+  store_new_request: 'Zgłoszenie do {name}'
   sharepoint_activate: 'wprowadzono {name}'
   store_wall_post_title: 'Punkt {name}'
   fs_sleepmode: '{name} {nachname} jest teraz nieaktywny/a'
@@ -2640,11 +2640,12 @@ bell:
   poll_started: 'Głosowanie "{title}" się rozpoczęło.'
   store_request_imposed: 'Dodano cię do teamu.'
   store_request_accept_wait: 'Jesteś teraz na liście rezerwowych.'
-  store_request_deny: 'Odrzucono twoje zapytanie.'
+  store_request_deny: 'Odrzucono twoje zgłoszenie.'
   chain_info_updated_title: 'Zaktualizowano sieć {chain}'
   chain_info_updated: '{store} jest częścią sieci.'
   store_added_to_chain_title: '{chain}: dodano punkt'
   store_added_to_chain: 'Punkt „{store}“ jest teraz częścią sieci.'
+  report_reminder_title: 'Przypomnienie: skarga #{reportId}'
 list:
   filter_for: Filtruj według …
 filterlist:
@@ -2706,6 +2707,39 @@ reports:
   no_reports_fallback: 'Jeszcze nie ma skarg'
   store: 'Przyporządkowany punkt'
   report_id: 'ID skargi'
+  forum_thread: Wątek na forum
+  no_thread: Nie podlinkowano żadnego wątku na forum
+  view_thread: Zobacz wątek
+  reported_at: Skarga zgłoszona
+  edit_report: Edytuj skargę
+  enter_forum_thread_id: Podaj ID wątku na forum
+  view: Wyświetl
+  remove: Usuń
+  forum_thread_linked: Do tej skargi podlinkowano wątek na forum
+  update_error: Błąd przy aktualizacji skargi
+  statuses:
+    to_do: Otwarte
+    handed_over: Oddane
+    completed: Zakończone
+    mediation_gruppe: Zespół mediacji
+    in_progress: W trakcie
+    follow_up_user: Informacja zwrotna dla użytkownika/czki
+    deleted: Usunięte
+  consequences:
+    reminder: Przypomnienie
+    warning: Ostrzeżenie
+    yellow_card: Żółta kartka
+    red_card: Czerwona kartka
+    no_rule_violation: Nie naruszono zasad
+    no_further_action: Brak dalszych akcji
+  forum_thread_search: Szukaj w wątkach na forum
+  select_thread: Wybierz wątek
+  create_thread: Utwórz wątek
+  error_missing_region: Do szukania na forum potrzebne jest ID rejonu
+  search_error: Błąd przy szukaniu wątków na forum
+  reminder: Przypomnienie
+  reminder_at: Przypomnienie dnia
+  set_reminder: Ustaw przypomnienie
 memberlist:
   header_for_workgroup: Foodsaverzy/ki w zespole {bezirk}
   header_for_district: 'Foodsaverzy/ki w rejonie {bezirk}'
