@@ -24,8 +24,6 @@ import {
   reload,
   showLoader,
   hideLoader,
-  wantToHelpStore,
-  withdrawStoreRequest,
 } from '@/script'
 
 expose({
@@ -40,7 +38,5 @@ expose({
   reload,
   showLoader,
   hideLoader,
-  wantToHelpStore,
-  withdrawStoreRequest,
   sock: socket,
 })

@@ -1,9 +1,7 @@
 /* eslint-disable eqeqeq,camelcase */
 import { GET, goTo } from '@/browser'
 import conversationStore from '@/stores/conversations'
-import { requestStoreTeamMembership, declineStoreRequest } from '@/api/stores'
 import i18n from '@/helper/i18n'
-import { HTTP_RESPONSE } from './consts'
 import Vue from 'vue'
 
 export { goTo, GET }
@@ -53,15 +51,6 @@ export function closeNotification (id) {
   Vue.notify.close(id)
 }
 
-export function checkEmail (email) {
-  const filter = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/
-
-  if (!filter.test(email)) {
-    return false
-  } else {
-    return true
-  }
-}
 export function img (photo, size) {
   if (photo) {
     if (photo.startsWith('/api/uploads/')) {
@@ -96,48 +85,7 @@ export function hideLoader () {
   window.hideLoading()
 }
 
-export async function wantToHelpStore (storeId, userId) {
-  showLoader()
-
-  try {
-    await requestStoreTeamMembership(storeId, userId)
-    pulseSuccess(i18n('store.request.got-it'))
-  } catch (e) {
-    if (e.code === HTTP_RESPONSE.UNPROCESSABLE_ENTITY) {
-      pulseInfo(i18n('store.request.no-duplicate'))
-    }
-  }
-
-  hideLoader()
-}
-
-export async function withdrawStoreRequest (storeId, userId) {
-  showLoader()
-
-  try {
-    await declineStoreRequest(storeId, userId)
-    pulseSuccess(i18n('store.request.withdrawn'))
-  } catch (e) {
-
-  }
-
-  hideLoader()
-}
-
-export function checkAllCb (sel) {
-  document.querySelectorAll("input[type='checkbox']").forEach(cb => {
-    cb.checked = sel
-  })
-}
-
 export function shuffle (o) {
   for (let j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
   return o
-}
-
-Element.prototype.disableSelection = function () {
-  this.onselectstart = function () { return false }
-  this.unselectable = 'on'
-  this.style.userSelect = 'none'
-  return this
 }
