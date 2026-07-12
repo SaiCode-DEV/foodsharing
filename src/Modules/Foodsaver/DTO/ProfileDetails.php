@@ -8,6 +8,7 @@ use DateTime;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\RestApi\Models\Group\UserGroupModel;
 use Foodsharing\RestApi\Models\Region\UserRegionModel;
+use Nelmio\ApiDocBundle\Attribute\Model;
 use OpenApi\Attributes as OA;
 
 class ProfileDetails
@@ -76,10 +77,10 @@ class ProfileDetails
     public ?string $aboutMeIntern = null;
     public ?int $role = null;
 
-    #[OA\Property(type: 'array', items: new OA\Items(ref: UserRegionModel::class))]
+    #[OA\Property(type: 'array', items: new OA\Items(ref: new Model(type: UserRegionModel::class)))]
     public ?array $regions = null;
 
-    #[OA\Property(type: 'array', items: new OA\Items(ref: UserGroupModel::class))]
+    #[OA\Property(type: 'array', items: new OA\Items(ref: new Model(type: UserGroupModel::class)))]
     public ?array $groups = null;
 
     public ?string $position = null;
