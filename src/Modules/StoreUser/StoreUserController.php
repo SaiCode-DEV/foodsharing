@@ -32,8 +32,6 @@ class StoreUserController extends FoodsharingController
         }
 
         if (!$storePermissions->mayAccessStore($storeId)) {
-            $this->flashMessageHelper->info($this->translator->trans('store.not-in-team'));
-
             return $this->redirect('/karte?bid=' . $storeId);
         }
 
