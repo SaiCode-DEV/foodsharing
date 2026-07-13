@@ -22,6 +22,7 @@ const md = markdownIt('zero', {
     'fence',
     'code',
     'escape',
+    'table',
   ])
 
 const storageKey = 'linkifyUserNames'

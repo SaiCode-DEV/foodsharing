@@ -126,5 +126,20 @@ export default {
     border: 1px solid var(--fs-border-default);
     border-radius: var(--border-radius);
   }
+  table {
+    display: block;
+    width: max-content;
+    max-width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+  }
+  th, td {
+    border: 1px solid var(--fs-border-default);
+    padding: 0.25rem 0.5rem;
+  }
+  th {
+    background-color: rgba(0,0,0,.03);
+  }
 }
 </style>
