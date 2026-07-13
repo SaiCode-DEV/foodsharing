@@ -284,6 +284,6 @@ final class BasketRestController extends AbstractFoodsharingRestController
             $lon = $loc->lon;
         }
 
-        return GeoLocation::createFromArray(['lat' => $lat, 'lon' => $lon]);
+        return new GeoLocation($lat, $lon);
     }
 }

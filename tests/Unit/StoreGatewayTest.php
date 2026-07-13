@@ -14,6 +14,7 @@ use Faker\Generator;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
+use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Message\MessageGateway;
 use Foodsharing\Modules\Region\DTO\MinimalRegionIdentifier;
 use Foodsharing\Modules\Store\DTO\Store;
@@ -71,11 +72,11 @@ class StoreGatewayTest extends Unit
 
     public function testAddNewStore(): void
     {
-        $storeDTO = new Store();
+        $storeDTO = new Store(
+            new GeoLocation(51.5367827, 9.9258967)
+        );
         $storeDTO->name = 'StoreGatewayTestbetrieb';
         $storeDTO->region = new MinimalRegionIdentifier($this->region['id']);
-        $storeDTO->location->lat = 51.5367827;
-        $storeDTO->location->lon = 9.9258967;
         $storeDTO->address->street = 'Bahnhofsplatz 1';
         $storeDTO->address->postalCode = '37073';
         $storeDTO->address->city = 'Göttingen';
@@ -258,23 +259,6 @@ class StoreGatewayTest extends Unit
         $this->assertEquals(1, count($listOfStores));
 
         $this->assertEquals($listOfStores[0]->category, null);
-    }
-
-    /**
-     * Productive database contains "string" values in geo location "lon" or "lat"
-     * The newer create and update function do not allow this but it is still present.
-     * The read should be robust to read it and forward it correct.
-     */
-    public function testEmptyGeoPosition(): void
-    {
-        $region = $this->tester->createRegion();
-        $this->tester->createStore($region['id'], null, null, ['lat' => null, 'lon' => null]);
-
-        $listOfStores = $this->gateway->listStoresInRegion($region['id'], true);
-        $this->assertEquals(1, count($listOfStores));
-
-        $this->assertEquals($listOfStores[0]->location->lon, 0.0);
-        $this->assertEquals($listOfStores[0]->location->lat, 0.0);
     }
 
     public function testlistStoresInRegionWithSubRegions(): void

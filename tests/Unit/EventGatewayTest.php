@@ -43,10 +43,10 @@ class EventGatewayTest extends Unit
     public function testAddLocation(): void
     {
         $event = new Event();
-        $event->location = GeoLocation::createFromArray([
-            'lat' => $this->faker->latitude(),
-            'lon' => $this->faker->longitude(),
-        ]);
+        $event->location = new GeoLocation(
+            $this->faker->latitude(),
+            $this->faker->longitude()
+        );
         $event->address = Address::createFromArray([
             'street' => $this->faker->streetAddress(),
             'city' => $this->faker->city(),

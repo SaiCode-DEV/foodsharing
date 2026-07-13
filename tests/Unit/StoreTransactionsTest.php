@@ -17,6 +17,7 @@ use Foodsharing\Modules\Core\DBConstants\Store\PublicTimes;
 use Foodsharing\Modules\Core\DBConstants\Store\StickerStatus;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
+use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Store\DTO\CreateStoreData;
 use Foodsharing\Modules\Store\DTO\StoreListInformation;
 use Foodsharing\Modules\Store\PickupGateway;
@@ -85,11 +86,9 @@ class StoreTransactionsTest extends Unit
         $storeCreator = $this->tester->createAmbassador();
         $region = $this->tester->createRegion('ttest');
 
-        $store = new CreateStoreData();
+        $store = new CreateStoreData(new GeoLocation(42.900, 5.200));
         $store->name = 'A store';
         $store->regionId = $region['id'];
-        $store->location->lat = 42.900;
-        $store->location->lon = 5.200;
         $store->street = ' Langstr. 10';
         $store->zipCode = '69132';
         $store->city = 'Mühlhausen';
@@ -146,11 +145,9 @@ class StoreTransactionsTest extends Unit
         $storeCreator = $this->tester->createAmbassador();
         $region = $this->tester->createRegion('ttest');
 
-        $store = new CreateStoreData();
+        $store = new CreateStoreData(new GeoLocation(42.900, 5.200));
         $store->name = 'A store';
         $store->regionId = $region['id'];
-        $store->location->lat = 42.900;
-        $store->location->lon = 5.200;
         $store->street = ' Langstr. 11';
         $store->zipCode = '69132';
         $store->city = 'Mühlhausen';

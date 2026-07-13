@@ -296,9 +296,7 @@ class SettingsGateway extends BaseGateway
 
         $coordinate = null;
         if (!empty($data['lat']) && !empty($data['lon'])) {
-            $coordinate = new GeoLocation();
-            $coordinate->lat = $data['lat'];
-            $coordinate->lon = $data['lon'];
+            $coordinate = new GeoLocation($data['lat'], $data['lon']);
         }
 
         return new ReadableProfileSettings(

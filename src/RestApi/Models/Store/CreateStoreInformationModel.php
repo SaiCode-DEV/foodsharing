@@ -59,9 +59,8 @@ class CreateStoreInformationModel
 
     public function toCreateStore(): CreateStoreData
     {
-        $store = new CreateStoreData();
+        $store = new CreateStoreData($this->location);
         $store->name = $this->name;
-        $store->location = $this->location;
         $store->street = $this->street;
         $store->zipCode = $this->zipCode;
         $store->city = $this->city;

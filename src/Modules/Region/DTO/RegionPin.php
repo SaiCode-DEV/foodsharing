@@ -17,11 +17,9 @@ class RegionPin extends GeoLocation
         if (!isset($data['desc'], $data['lat'], $data['lon'], $data['status'])) {
             return null;
         }
-        $pin = new RegionPin();
+        $pin = new RegionPin(floatval($data['lat']), floatval($data['lon']));
         $pin->description = $data['desc'];
         $pin->status = $data['status'];
-        $pin->lat = floatval($data['lat']);
-        $pin->lon = floatval($data['lon']);
 
         return $pin;
     }

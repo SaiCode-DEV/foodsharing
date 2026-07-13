@@ -242,7 +242,7 @@ class FoodsaverTransactions
         ];
 
         if ($details->permissions['mayEditUserProfile']) {
-            $details->coordinates = empty($data['lat']) || empty($data['lon']) ? null : GeoLocation::createFromArray($data);
+            $details->coordinates = empty($data['lat']) || empty($data['lon']) ? null : new GeoLocation(floatval($data['lat']), floatval($data['lon']));
             $details->address = $data['anschrift'];
             $details->city = $data['stadt'];
             $details->postcode = $data['plz'];

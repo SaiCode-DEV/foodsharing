@@ -90,7 +90,7 @@ class Basket
             $basket->pictures = [$data['picture']];
         }
         $basket->contactTypes = array_map('intval', explode(':', (string)$data['contact_type']));
-        $basket->location = GeoLocation::createFromArray($data);
+        $basket->location = new GeoLocation($data['lat'], $data['lon']);
         $basket->creator = new Profile($data['fs_id'], $data['fs_name'], $data['fs_photo'], (bool)$data['fs_is_sleeping']);
         if (in_array(2, $basket->contactTypes, true)) {
             $basket->telephone = $data['tel'];

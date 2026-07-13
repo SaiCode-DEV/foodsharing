@@ -51,7 +51,7 @@ class MapTransactions
         $mapData->regionName = $this->regionGateway->getRegionName($store['bezirk_id']);
         $mapData->teamMemberCount = count($store['foodsaver']);
         $mapData->standbyCount = count($store['springer']);
-        $mapData->location = GeoLocation::createFromArray($store, false);
+        $mapData->location = new GeoLocation(floatval($store['lat']), floatval($store['lon']));
         $mapData->isHygieneRequired = boolval($store['hygiene_requirement']);
         $mapData->hasHygieneCertificate = $this->achievementGateway->hasAchievement($this->session->id(), AchievementIDs::HYGIENE_CERTIFICATE);
 

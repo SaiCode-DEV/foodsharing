@@ -34,6 +34,7 @@ use Foodsharing\RestApi\Models\Settings\EmailChangeRequest;
 use Foodsharing\RestApi\Models\Settings\PasswordChangeRequest;
 use Foodsharing\RestApi\Models\Settings\SleepStatusRequest;
 use Foodsharing\Utility\EmailHelper;
+use InvalidArgumentException;
 use RobThree\Auth\Providers\Qr\BaconQrCodeProvider;
 use RobThree\Auth\TwoFactorAuth;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -363,7 +364,10 @@ class SettingsTransactions
             $editableProfileDTO->mobile = $currentUserProfile['mobile'];
             $editableProfileDTO->phone = $currentUserProfile['phone'];
             $editableProfileDTO->location = Address::createFromArray($currentUserProfile);
-            $editableProfileDTO->coordinate = GeoLocation::createFromArray($currentUserProfile);
+            if (!is_numeric($currentUserProfile['lat']) || !is_numeric($currentUserProfile['lon'])) {
+                throw new InvalidArgumentException('Longitude/Latitude is invalid.');
+            }
+            $editableProfileDTO->coordinate = new GeoLocation($currentUserProfile['lat'], $currentUserProfile['lon']);
         }
 
         // The "no automatic delete after 5 years of inactivity" setting may only be changed by the user

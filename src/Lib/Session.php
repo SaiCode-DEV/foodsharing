@@ -141,7 +141,7 @@ class Session
             $loc = $this->user('location');
             if (!$loc) {
                 $loc = $this->foodsaverGateway->getFoodsaverAddress($this->id());
-                $loc = GeoLocation::createFromArray($loc, false);
+                $loc = !is_null($loc['lat']) && !is_null($loc['lon']) ? new GeoLocation($loc['lat'], $loc['lon']) : null;
                 $user = $this->get('user');
                 $user['location'] = $loc;
                 $this->set('user', $user);
@@ -438,7 +438,7 @@ class Session
             'name' => $fs['name'],
             'nachname' => $fs['nachname'],
             'role' => $fs['rolle'],
-            'location' => GeoLocation::createFromArray($fs, false),
+            'location' => !is_null($fs['lat']) && !is_null($fs['lon']) ? new GeoLocation($fs['lat'], $fs['lon']) : null,
             'photo' => $fs['photo'],
             'gender' => $fs['geschlecht'],
             'verified' => (int)$fs['verified'],

@@ -95,7 +95,7 @@ class BasketGatewayTest extends Unit
             3,
             $this->gateway->listNearbyBasketsByDistance(
                 $this->otherFoodsaver['id'],
-                GeoLocation::createFromArray(['lat' => 52.520007, 'lon' => 13.404954]), // Berlin
+                new GeoLocation(52.520007, 13.404954), // Berlin
                 50
             )
         );

@@ -9,6 +9,7 @@ use DateTime;
 use Foodsharing\Modules\Core\DBConstants\Event\EventType;
 use Foodsharing\Modules\Core\DTO\Address;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
+use InvalidArgumentException;
 use OpenApi\Attributes as OA;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -91,7 +92,13 @@ class Event
                 $result->type = EventType::OTHER;
             } else {
                 $result->address = Address::createFromArray($data);
-                $result->location = GeoLocation::createFromArray($data);
+                if (is_null($data['lat']) || is_null($data['lon'])) {
+                    /* This case should never happen because offline events should always have a valid location.
+                     * However, since the database column must be nullable to support online events, it is technically
+                     * possible. */
+                    throw new InvalidArgumentException('Latitude or longitude of the event location are null');
+                }
+                $result->location = new GeoLocation($data['lat'], $data['lon']);
             }
         }
         if ($result->type === EventType::OFFLINE || $result->type === EventType::OTHER) {

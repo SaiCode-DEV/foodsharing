@@ -43,6 +43,6 @@ class EditableProfileDTO
     public function __construct()
     {
         $this->location = new Address();
-        $this->coordinate = new GeoLocation();
+        $this->coordinate = null;
     }
 }

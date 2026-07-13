@@ -14,7 +14,6 @@ use Foodsharing\Modules\Core\DTO\Address;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Core\DTO\MinimalIdentifier;
 use Foodsharing\Modules\Region\DTO\MinimalRegionIdentifier;
-use InvalidArgumentException;
 use JMS\Serializer\Annotation\Type;
 use OpenApi\Attributes as OA;
 
@@ -217,9 +216,9 @@ class Store
      */
     public StoreCategoryType $categoryType;
 
-    public function __construct()
+    public function __construct(GeoLocation $location)
     {
-        $this->location = new GeoLocation();
+        $this->location = $location;
         $this->address = new Address();
         $this->options = new StoreOptionModel();
         $this->contact = new ContactData();
@@ -229,16 +228,13 @@ class Store
 
     public static function createFromArray($queryResult): Store
     {
-        $obj = new Store();
+        $obj = new Store(
+            new GeoLocation($queryResult['lat'], $queryResult['lon'])
+        );
         $obj->id = $queryResult['id'];
         $obj->name = $queryResult['name'];
         $obj->region = new MinimalRegionIdentifier($queryResult['regionId'], $queryResult['regionName'] ?? null);
 
-        try {
-            $obj->location = GeoLocation::createFromArray($queryResult);
-        } catch (InvalidArgumentException) {
-            $obj->location = new GeoLocation();
-        }
         $obj->address->street = $queryResult['street'] ?? '';
         $obj->address->postalCode = $queryResult['zipCode'] ?? '';
         $obj->address->city = $queryResult['city'] ?? '';

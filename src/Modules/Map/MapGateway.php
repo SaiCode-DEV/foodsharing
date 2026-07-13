@@ -24,14 +24,14 @@ class MapGateway extends BaseGateway
     {
         $location = $this->db->fetchByCriteria('fs_betrieb', ['lat', 'lon'], ['id' => $storeId]);
 
-        return GeoLocation::createFromArray($location, false);
+        return new GeoLocation(floatval($location['lat']), floatval($location['lon']));
     }
 
     public function getFoodSharePointLocation(int $foodSharePointId): ?GeoLocation
     {
         $location = $this->db->fetchByCriteria('fs_fairteiler', ['lat', 'lon'], ['id' => $foodSharePointId]);
 
-        return GeoLocation::createFromArray($location, false);
+        return new GeoLocation(floatval($location['lat']), floatval($location['lon']));
     }
 
     /**

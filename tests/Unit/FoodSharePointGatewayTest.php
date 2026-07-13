@@ -48,9 +48,7 @@ class FoodSharePointGatewayTest extends Unit
         $data->address = $this->foodSharePoint['anschrift'];
         $data->postalCode = $this->foodSharePoint['plz'];
         $data->city = $this->foodSharePoint['ort'];
-        $data->location = new GeoLocation();
-        $data->location->lat = $this->foodSharePoint['lat'];
-        $data->location->lon = $this->foodSharePoint['lon'];
+        $data->location = new GeoLocation($this->foodSharePoint['lat'], $this->foodSharePoint['lon']);
         $data->picture = 'picture/cat.jpg';
         $id = $this->gateway->addFoodSharePoint(
             $this->foodsaver['id'],
@@ -72,9 +70,7 @@ class FoodSharePointGatewayTest extends Unit
         $data->address = $this->foodSharePoint['anschrift'];
         $data->postalCode = $this->foodSharePoint['plz'];
         $data->city = $this->foodSharePoint['ort'];
-        $data->location = new GeoLocation();
-        $data->location->lat = $this->foodSharePoint['lat'];
-        $data->location->lon = $this->foodSharePoint['lon'];
+        $data->location = new GeoLocation($this->foodSharePoint['lat'], $this->foodSharePoint['lon']);
         $data->picture = '';
         $id = $this->gateway->addFoodSharePoint(
             $this->foodsaver['id'],
@@ -100,9 +96,7 @@ class FoodSharePointGatewayTest extends Unit
         $data->address = $this->foodSharePoint['anschrift'];
         $data->postalCode = $this->foodSharePoint['plz'];
         $data->city = $this->foodSharePoint['ort'];
-        $data->location = new GeoLocation();
-        $data->location->lat = $this->foodSharePoint['lat'];
-        $data->location->lon = $this->foodSharePoint['lon'];
+        $data->location = new GeoLocation($this->foodSharePoint['lat'], $this->foodSharePoint['lon']);
         $data->picture = '';
         $id = $this->gateway->addFoodSharePoint(
             $this->foodsaver['id'],
@@ -198,9 +192,7 @@ class FoodSharePointGatewayTest extends Unit
         $data->address = $this->foodSharePoint['anschrift'];
         $data->postalCode = $this->foodSharePoint['plz'];
         $data->city = $this->foodSharePoint['ort'];
-        $data->location = new GeoLocation();
-        $data->location->lat = $this->foodSharePoint['lat'];
-        $data->location->lon = $this->foodSharePoint['lon'];
+        $data->location = new GeoLocation($this->foodSharePoint['lat'], $this->foodSharePoint['lon']);
         $data->picture = 'picture/cat.jpg';
         $id = $this->gateway->addFoodSharePoint(
             $this->foodsaver['id'],

@@ -47,31 +47,16 @@ class CreateStoreData
     #[MarkdownOrPlainText]
     public string $publicInfo;
 
-    public function __construct()
+    public function __construct(GeoLocation $location)
     {
-        $this->location = new GeoLocation();
-    }
-
-    public static function createFromArray(array $data): CreateStoreData
-    {
-        $store = new CreateStoreData();
-        $store->name = $data['name'];
-        $store->regionId = $data['bezirk_id'];
-        $store->location = GeoLocation::createFromArray($data);
-        $store->street = $data['str'];
-        $store->zipCode = $data['plz'];
-        $store->city = $data['stadt'];
-        $store->publicInfo = $data['public_info'];
-
-        return $store;
+        $this->location = $location;
     }
 
     public function toStore(): Store
     {
-        $store = new Store();
+        $store = new Store($this->location);
         $store->name = $this->name;
         $store->region = new MinimalRegionIdentifier($this->regionId);
-        $store->location = $this->location;
         $store->address->street = $this->street;
         $store->address->postalCode = $this->zipCode;
         $store->address->city = $this->city;

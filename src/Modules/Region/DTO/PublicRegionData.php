@@ -48,9 +48,8 @@ class PublicRegionData
         $region->name = $data['name'];
         $region->type = $data['type'];
         $region->description = $data['desc'] ?? '';
-        if ($data['status'] === RegionPinStatus::ACTIVE) {
-            $region->location = GeoLocation::createFromArray($data, false);
-        }
+        $region->location = $data['status'] === RegionPinStatus::ACTIVE && !is_null($data['lat']) && !is_null($data['lon'])
+            ? new GeoLocation($data['lat'], $data['lon']) : null;
         $region->email = $data['email'];
         $region->hasAmbassador = $data['hasAmbassador'];
 
