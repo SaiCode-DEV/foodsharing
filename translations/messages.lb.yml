@@ -112,7 +112,6 @@ store:
   may_not_referred_to_in_public: ''
   address: ''
   days: ''
-  not-in-team: ''
   pickup_slot_unavailable: ''
   all_of_my_stores: ''
   tooltip_yellow: ''

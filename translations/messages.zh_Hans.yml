@@ -2059,7 +2059,6 @@ store:
   particularities: ''
   address: ''
   average_collection_quantity: ''
-  not-in-team: ''
   pickup_slot_unavailable: ''
   tooltip_red: ''
   short_tooltip_yellow: ''

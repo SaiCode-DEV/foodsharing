@@ -1007,7 +1007,6 @@ store:
   tooltip_orange: Slot disponibili nei prossimi tre giorni
   tooltip_yellow: Slot disponibili nei prossimi cinque giorni
   all_of_my_stores: Tutte le mie agenzie
-  not-in-team: Non sei ancora nel team di questa azienda.
   chat:
     team: Messaggio al team
     jumper: messaggio ai intervenisti

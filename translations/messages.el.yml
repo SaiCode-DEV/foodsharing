@@ -1182,7 +1182,6 @@ store:
   error: ''
   lastPickup: ''
   tooltip_red: ''
-  not-in-team: ''
   short_tooltip_yellow: ''
   appliedFor: ''
   locked: ''

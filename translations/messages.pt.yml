@@ -248,7 +248,6 @@ store:
   tooltip_red: 'Vagas disponíveis hoje ou amanhã'
   active: 'Activo'
   one_active: 'Activo'
-  not-in-team: 'Ainda não estás na equipa deste local.'
   unverified_members: 'não verificados'
   allStoresOfRegion: 'Todos os locais do distrito'
   willgetcontacted: 'Atualmente, está na lista de suplentes. Entraremos em contacto

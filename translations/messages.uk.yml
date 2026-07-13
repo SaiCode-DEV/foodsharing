@@ -1613,7 +1613,6 @@ store:
   tooltip_red: ''
   active: ''
   one_active: ''
-  not-in-team: ''
   unverified_members: ''
   allStoresOfRegion: ''
   willgetcontacted: ''

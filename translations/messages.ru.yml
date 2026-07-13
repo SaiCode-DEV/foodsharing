@@ -2078,7 +2078,6 @@ store:
     jumper: 'Сообщение резерву'
     managers: ''
     managers_preface: ''
-  not-in-team: 'Вы ещё не в команде этого заведения.'
   isManager: 'Ответственный за это заведение.'
   regionPickupRulesInactive: 'Дополнительные районные правила для заборов не активны'
   useRegionPickupRules: 'Это Rosinen-заведение. В дополнение к правилам заведения

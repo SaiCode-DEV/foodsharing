@@ -2677,7 +2677,6 @@ store:
   lastPickup: 'Last activity {date}'
   jumperSince: 'Standby since {date}'
   tooltip_managing: You are responsible for this store
-  not-in-team: You are not a member of this store’s team yet.
   tooltip_yellow: Open slots in the next five days
   tooltip_orange: Open slots in the next three days
   tooltip_red: Open slots today or tomorrow

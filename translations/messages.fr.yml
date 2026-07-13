@@ -1254,7 +1254,6 @@ fspmanagers: Collecteur·rice·s responsables des frigos solidaires
 fsp_bezirk_id: Dans quel district se trouve le frigo solidaire ?
 teaser: Extrait
 store:
-  not-in-team: Tu n’es pas encore dans l’équipe de cette coopération.
   chat:
     team: Message à l’équipe
     jumper: Message aux remplaçant·e·s

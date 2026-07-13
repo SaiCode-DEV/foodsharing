@@ -1874,7 +1874,6 @@ store:
   isManager: 'Odpowiedzialny/a za ten punkt.'
   noPickup: 'Jeszcze nie wykonał/a tu żadnego odbioru.'
   tooltip_red: 'Wolne sloty dzisiaj lub jutro'
-  not-in-team: 'Jeszcze nie jesteś w teamie tego punktu.'
   allStoresOfRegion: 'Wszystkie punkty z rejonu'
   willgetcontacted: 'Aktualnie jesteś na liście rezerwowych. Zostaniesz poinformowany/a,
     kiedy pomoc będzie potrzebna.'

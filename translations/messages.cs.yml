@@ -1146,7 +1146,6 @@ store:
   nodetails: ''
   regionPickupRules: ''
   tooltip_yellow: ''
-  not-in-team: ''
   log:
     message:
       6: ''

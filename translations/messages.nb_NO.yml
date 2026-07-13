@@ -2848,7 +2848,6 @@ store:
     jumper: Melding til hopperne
     managers: Melding til teamledere
     managers_preface: ''
-  not-in-team: Du er ennå ikke i teamet til dette selskapet.
   noPickup: Har aldri tatt opp her.
   fetchCount: Hentet her {count} ganger.
   particularities: Prosedyre og instruksjoner

@@ -1431,7 +1431,6 @@ store:
     con usted tan pronto como se necesite ayuda.'
   days: 'días'
   prefetchthree: '3 semanas'
-  not-in-team: 'Aún no estás en el equipo de esta empresa.'
   regionPickupRuleLong: 'En el plazo de {regionPickupRuleTimespan} días antes y después
     de la fecha de recogida deseada, no podrán haberse registrado ya más de {regionPickupRuleLimit}
     cobros en empresas populares. Se podrán realizar un máximo de {regionPickupRuleLimitDay}

@@ -1292,7 +1292,6 @@ store:
   smneeded: Bir işletme kurmak için işletme yöneticisi olmanız gerekir.
   locked: Bu işletmeyi düzenleyemezsiniz.
   bread: Tüm işletmeler
-  not-in-team: Henüz bu işletme ekibinin bir parçası değilsiniz.
   pickup_slot_unavailable: Bu Slot, işletme yöneticisinin planladığından daha 
     ileride. Bu yüzden lütfen daha sonra tekrar deneyin.
   fetchCount: '{count}× buradan aldı.'
