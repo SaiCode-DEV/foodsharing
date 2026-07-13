@@ -15,7 +15,6 @@ exec-in-container app 'composer install'
 
 log-header "Create folder structure ..."
 exec-in-container app bin/console foodsharing:setup
-exec-in-container app chmod 777 -R data/uploads cache
 
 log-header "Reset (clear) cache ..."
 exec-in-container app "bin/console cache:clear"
@@ -34,6 +33,8 @@ if [ "${ZAMMAD:-false}" = "true" ]; then
 log-header "Setup zammad ticket system ..."
     "$dir"/db-zammad-seed
 fi
+
+exec-in-container app chmod 777 -R data/uploads cache
 
 log-header "All done"
 
