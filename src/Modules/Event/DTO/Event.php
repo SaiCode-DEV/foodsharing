@@ -98,7 +98,7 @@ class Event
                      * possible. */
                     throw new InvalidArgumentException('Latitude or longitude of the event location are null');
                 }
-                $result->location = new GeoLocation($data['lat'], $data['lon']);
+                $result->location = new GeoLocation((float)$data['lat'], (float)$data['lon']);
             }
         }
         if ($result->type === EventType::OFFLINE || $result->type === EventType::OTHER) {
