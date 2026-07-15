@@ -1704,7 +1704,6 @@ class Foodsharing {
     reporterId: number,
     reporteeId: number,
     storeId: number = 0,
-    confirmed: number = 0,
     reason: string = null,
     message: string = null,
   ): Promise<any> {

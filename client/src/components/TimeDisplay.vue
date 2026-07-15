@@ -27,7 +27,7 @@ const props = defineProps({
   normalSize: { type: Boolean, default: function () { return this.plain } },
   muted: { type: Boolean, default: function () { return !this.plain } },
   dateOnly: { type: Boolean, default: false },
-  tooltip_template: { type: String, default: '{date}' },
+  tooltipTemplate: { type: String, default: '{date}' },
   tooltip: { type: [Object, String, Boolean], default: function () { return this.plain ? false : null } },
   options: { type: Object, default: () => {} },
   fallback: { type: String, default: '' },
@@ -39,7 +39,7 @@ const tooltipTime = computed(() => {
   if (!date.value) return ''
   const method = props.dateOnly ? 'date' : 'dateTime'
   const formatted = dateFormatter[method](date.value, props.options)
-  return props.tooltip_template.replace('{date}', formatted)
+  return props.tooltipTemplate.replace('{date}', formatted)
 })
 
 const pickupTimeFormatter = computed(() => {

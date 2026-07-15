@@ -1,4 +1,4 @@
-/* eslint-disable eqeqeq,camelcase */
+/* eslint-disable eqeqeq */
 import { GET, goTo } from '@/browser'
 import conversationStore from '@/stores/conversations'
 import i18n from '@/helper/i18n'

@@ -97,7 +97,9 @@ test.describe("Chat", () => {
     ).toBeTruthy();
   });
 
-  test("chat input is focused on non-mobile devices when opening a chat", async ({ acceptanceHelper }) => {
+  test("chat input is focused on non-mobile devices when opening a chat", async ({
+    acceptanceHelper,
+  }) => {
     await chatHelper.openChatFromProfilePage(foodsaver2.id);
     if (await acceptanceHelper.isMobile()) {
       await expect(chatHelper.textbox).not.toBeFocused();

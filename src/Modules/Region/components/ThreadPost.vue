@@ -34,7 +34,7 @@
         </span>
         <TimeDisplay
           :time="post.createdAt"
-          :tooltip_template="$t('forum.post.createdAtTooltip')"
+          :tooltip-template="$t('forum.post.createdAtTooltip')"
           class="text-right"
         />
         <span

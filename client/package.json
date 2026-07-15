@@ -8,7 +8,7 @@
     "es-define-property": "1.0.1"
   },
   "scripts": {
-    "lint": "cd .. && client/bin/eslint --config eslint.config.mjs src client tests/e2e",
+    "lint": "cd .. && client/bin/eslint --config eslint.config.mjs src client tests/e2e --max-warnings=0",
     "lint:markdown": "yarn run lint-markdown",
     "lint-markdown": "markdownlint --config ../.markdownlint.json",
     "prettier:e2e": "cd .. && prettier 'tests/e2e/**/*.ts' --check",

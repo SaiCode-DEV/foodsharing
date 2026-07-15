@@ -21,6 +21,11 @@ const compat = new FlatCompat({
 
 export default [
   {
+    linterOptions: {
+      reportUnusedDisableDirectives: 'error'
+    }
+  },
+  {
     ignores: [
       '**/node_modules/*',
       '**/test/_compiled.js',

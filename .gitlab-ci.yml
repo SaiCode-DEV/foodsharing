@@ -286,7 +286,7 @@ build:frontend:
     - *rule-mr-websocket-changes
   image: registry.gitlab.com/foodsharing-dev/images/node:latest
   script:
-    - (cd client && yarn && yarn lint && yarn build)
+    - (cd client && yarn && yarn lint && yarn prettier:e2e && yarn build)
   <<: *cache-frontend-build
   artifacts:
     <<: *build-artifacts

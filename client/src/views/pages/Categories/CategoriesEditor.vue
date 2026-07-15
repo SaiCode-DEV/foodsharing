@@ -91,7 +91,7 @@ import { STORE_CATEGORY_PICKUP, STORE_CATEGORY_GIVING, STORE_CATEGORY_ORGA } fro
 export default {
   components: { Container, OverflowMenu, ContainerButton },
   props: {
-    categoryType: { subType: Number, required: true },
+    categoryType: { type: Number, required: true },
   },
   data () {
     return {

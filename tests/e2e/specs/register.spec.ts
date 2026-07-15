@@ -114,7 +114,7 @@ test.describe("Registration", () => {
   const blacklistedDomain = "bad.com";
 
   test.beforeAll(async () => {
-    const orga = await foodsharing.createOrga()
+    const orga = await foodsharing.createOrga();
     await foodsharing.createBlacklistedEmailAddress(orga.id, blacklistedDomain);
   });
 
