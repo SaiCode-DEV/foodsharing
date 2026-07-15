@@ -13,80 +13,14 @@
         :key="box.id"
         class="chat-dock__box"
       >
-        <div class="chatboxhead" @click="toggle(box)">
-          <div class="chatboxtitle">
-            <!-- If conversation has a title, show it -->
-            <a
-              v-if="box.title && box.storeId"
-              :href="url('store', box.storeId)"
-              @click.stop
-            >
-              <i class="mdi mdi-chat mdi-flip-h" />
-              {{ box.title }}
-            </a>
-            <span v-else-if="box.title">
-              <i class="mdi mdi-chat mdi-flip-h" />
-              {{ box.title }}
-            </span>
-            <!-- Otherwise show participants: < 4 => name + avatars; >=4 => avatars and menu shows overlay -->
-            <template v-else-if="box.participants && box.participants.length">
-              <template v-if="box.participants.length < 4">
-                <a
-                  v-for="p in box.participants"
-                  :key="p.id"
-                  class="participants-item"
-                  :href="$url('profile', p.id)"
-                  @click.stop
-                >
-                  <b-avatar
-                    :src="p.avatar"
-                    :size="18"
-                    :variant="p.avatar ? 'light' : 'secondary'"
-                    class="mr-1"
-                  />
-                  <span>{{ p.name ?? $t('chat.unknown_username') }}</span>
-                </a>
-              </template>
-              <template v-else>
-                <b-avatar
-                  v-for="p in box.participants.slice(0, 20)"
-                  :key="p.id"
-                  v-b-tooltip.hover
-                  :title="p.name ?? $t('chat.unknown_username')"
-                  :src="p.avatar"
-                  :size="18"
-                  :variant="p.avatar ? 'light' : 'secondary'"
-                  class="mr-1"
-                  :href="$url('profile', p.id)"
-                  @click.stop
-                />
-              </template>
-            </template>
-            <i v-else class="fas fa-fw fa-spinner fa-spin" />
-          </div>
-          <div class="chatboxoptions">
-            <ChatUnreadIndicator :unread="unreadCount(box.id)" />
-            <OverflowMenu
-              icon="ellipsis-v"
-              variant="link"
-              :title="$t('options')"
-              :float-right="false"
-              :options="getMenuOptions(box)"
-              :callback-args="[box]"
-              :direction="box.minimized ? 'up' : 'down'"
-            />
-            <b-button
-              v-b-tooltip.hover.noninteractive
-              :title="$t('button.close')"
-              href="#"
-              variant="link"
-              size="sm"
-              @click.prevent="closeBox(box.id)"
-            >
-              <i class="fas fa-fw fa-times" />
-            </b-button>
-          </div>
-        </div>
+        <ChatDockBoxHead
+          :box="box"
+          :unread="unreadCount(box.id)"
+          :menu-options="getMenuOptions(box)"
+          @toggle="toggle(box)"
+          @close="closeBox(box.id)"
+          @show-participants="getComponentForConversation(box.id)?.showParticipantsDialog()"
+        />
         <div class="chatboxcontent" :class="{ 'minimized': box.minimized }">
           <ChatComponent
             ref="chatComponent"
@@ -111,8 +45,7 @@ import { useUserStore } from '@/stores/user'
 import { pulseError } from '@/script'
 import i18n from '@/helper/i18n'
 import { url } from '@/helper/urls'
-import OverflowMenu from '@/components/OverflowMenu.vue'
-import ChatUnreadIndicator from '@/components/Chat/ChatUnreadIndicator.vue'
+import ChatDockBoxHead from '@/components/Chat/ChatDockBoxHead.vue'
 
 const userStore = useUserStore()
 const storage = new Storage('conversations')
@@ -210,7 +143,9 @@ async function ensureTitle (id, markAsRead) {
 
     if (conv.storeId) {
       box.storeId = conv.storeId
-    } else if (Array.isArray(conv.members)) {
+    }
+
+    if (Array.isArray(conv.members)) {
       const currentId = userStore.getUserId
       const participantIds = conv.members.filter(m => m !== currentId)
       const participants = participantIds
@@ -347,83 +282,6 @@ watch(boxes, persist, { deep: true })
    animations can be calculated correctly. */
 .chatbox-leave-active {
   position: absolute;
-}
-
-.chatboxhead {
-  background-color: var(--fs-color-primary-300);
-  border-radius: 6px 6px 0 0;
-  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.15);
-  z-index: 1;
-  padding: 0;
-  color: var(--fs-color-primary-900);
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  cursor: pointer;
-  outline: 0;
-  height: 32px;
-  position: relative;
-}
-
-.chatboxoptions {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  flex-shrink: 0;
-  align-self: self-end;
-  padding-left: 20px;
-  padding-right: 5px;
-  z-index: 1;
-  overflow: visible;
-  background: linear-gradient(to right, #0000 0%, var(--fs-color-primary-300) 8%);
-  border-radius: 0 6px 0 0;
-  display: flex;
-  align-items: center;
-  gap: 2px;
-
-  ::v-deep > .btn {
-    padding: 0.25em;
-    padding-left: 0.1em;
-  }
-
-  ::v-deep .overflow-menu {
-    padding: 0.2em 0;
-
-    .btn {
-      color: var(--fs-color-primary-900);
-      padding: 0.25em 0.5em;
-    }
-  }
-}
-
-.chatboxtitle {
-  padding: 6.5px;
-  display: flex;
-  flex-direction: row;
-  float: left;
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: bold;
-  outline: 0;
-  white-space: nowrap;
-  position: absolute;
-  width: 100%;
-  overflow: hidden;
-  span {
-    width: 10px;
-    vertical-align: middle;
-  }
-  a {
-    color: currentColor !important;
-  }
-  a:hover {
-    text-decoration: none;
-    color: currentColor !important;
-  }
-  i {
-    margin-right: 5px;
-    color: currentColor !important;
-  }
 }
 
 .chatboxcontent {
