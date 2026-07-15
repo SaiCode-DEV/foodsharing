@@ -97,3 +97,5 @@ define('OAUTH_PUBLIC_KEY_PATH', __DIR__ . '/keys/oauth-public.key');
 define('OAUTH_ENCRYPTION_KEY_PATH', __DIR__ . '/keys/oauth-encryption.key');
 
 define('REGISTRATION_ATTEMPT_VALIDITY_HOURS', 3);
+
+define('WEBLATE_API_URL', 'https://hosted.weblate.org/api/projects/foodsharing/languages/?format=json');

@@ -3527,6 +3527,7 @@ language_chooser:
   choose_button: "Aktualisieren"
   translation_help: "Du sprichst noch andere Sprachen? Wir bei foodsharing suchen immer Helfer:innen beim Übersetzen"
   translation_help_info_text: "Dieser Link führt zum Übersetzungsportal, dort anmelden und auf den Stift klicken um loszulegen"
+  untranslated_hint: "Achtung: Diese Sprache ist bisher nur zu {percentage}% übersetzt. Die nicht übersetzten Texte werden stattdessen auf Deutsch angezeigt."
 
 theme_switcher:
   title: "Design wählen"

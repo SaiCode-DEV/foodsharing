@@ -94,3 +94,5 @@ define('APPLE_WALLET_TEAM_ID', 'H97D45LYHL');
 define('APPLE_WALLET_PASS_TYPE_ID', 'pass.de.foodsharing.passport');
 
 define('REGISTRATION_ATTEMPT_VALIDITY_HOURS', 3);
+
+define('WEBLATE_API_URL', 'http://nginx:8080/mock/weblate/languages');

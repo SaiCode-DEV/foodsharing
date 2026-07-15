@@ -15,7 +15,7 @@ const AVAILABLE = ctx.keys().map(k => {
   return m ? m[1] : null
 }).filter(Boolean)
 
-function hasLocale (lang) {
+export function hasLocale (lang) {
   return AVAILABLE.includes(lang)
 }
 

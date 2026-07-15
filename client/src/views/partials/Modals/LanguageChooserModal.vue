@@ -19,9 +19,18 @@
     <b-form-select
       v-else
       v-model="language"
-      :options="languages"
+      :options="languageOptions"
       text="Dropdown Button"
+      @change="updatePercentage"
     />
+    <b-alert
+      v-if="percentageTranslated !== null && percentageTranslated < 100"
+      class="mt-2"
+      variant="warning"
+      show
+    >
+      {{ $t('language_chooser.untranslated_hint', { percentage: percentageTranslated }) }}
+    </b-alert>
 
     <p class="mt-2">
       <a
@@ -38,24 +47,17 @@
 
 <script>
 import { pulseError } from '@/script'
-import { getLocale, setLocale } from '@/api/locale'
+import { getLocale, getLocales, setLocale } from '@/api/locale'
+import { hasLocale } from '@/helper/i18n'
 
 export default {
   name: 'LanguageChooserModal',
   data () {
     return {
       language: null,
-      languages: [
-        { value: 'de', text: 'Deutsch' },
-        { value: 'en', text: 'English' },
-        { value: 'es', text: 'Español' },
-        { value: 'fr', text: 'Français' },
-        { value: 'it', text: 'Italiano' },
-        { value: 'nb_NO', text: 'Norsk (Bokmål)' },
-        { value: 'pt', text: 'Português' },
-        { value: 'ta', text: 'தமிழ் (Tamil)' },
-        { value: 'tr', text: 'Türkçe' },
-      ],
+      languages: [],
+      languageOptions: [],
+      percentageTranslated: null,
       loading: true,
     }
   },
@@ -63,7 +65,23 @@ export default {
     async fetchLanguages () {
       this.loading = true
       try {
+        this.languages = await getLocales()
+
+        // To prevent errors, filter out languages that do not exist as a file on client-side
+        this.languages = this.languages.filter(
+          language => hasLocale(language.languageCode),
+        )
+
+        // languageOptions contains the languages as a list of objects required by the form-select
+        this.languageOptions = this.languages.map(lang => {
+          return {
+            value: lang.languageCode,
+            text: `${lang.name} / ${lang.englishName}` + (lang.percentageTranslated !== null ? ` (${lang.percentageTranslated}%)` : ''),
+          }
+        }).sort((a, b) => a.text.localeCompare(b.text))
+
         this.language = await getLocale()
+        this.updatePercentage()
       } catch (e) {
         pulseError(this.$t('error_unexpected'))
       }
@@ -78,6 +96,14 @@ export default {
         }, 250)
       } catch (e) {
         pulseError(this.$t('error_unexpected'))
+      }
+    },
+    updatePercentage () {
+      if (this.language !== null) {
+        const entry = this.languages.find(lang => lang.languageCode === this.language)
+        this.percentageTranslated = entry?.percentageTranslated
+      } else {
+        this.percentageTranslated = null
       }
     },
   },

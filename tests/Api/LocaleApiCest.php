@@ -73,4 +73,13 @@ class LocaleApiCest
         ]);
         $I->assertEquals('de', $locale);
     }
+
+    public function canFetchLocales(ApiTester $I): void
+    {
+        $I->sendGET('api/locales');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->canSeeResponseContainsJson([
+            'languageCode' => 'de',
+        ]);
+    }
 }
