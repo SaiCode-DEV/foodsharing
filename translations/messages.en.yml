@@ -1865,6 +1865,10 @@ reports:
   reminder: Reminder
   reminder_at: Reminder at
   set_reminder: Set reminder
+  enter_status: Enter the status
+  enter_consequence: Enter the consequence
+  noresults: No forum thread found. Please try another search term or create a 
+    new thread.
 poll:
   time_period: Time period
   results:
