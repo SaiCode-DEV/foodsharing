@@ -77,30 +77,32 @@ class RegionRestController extends AbstractFoodsharingRestController
         $this->assertLoggedIn();
         $region = $this->assertRegionExists($regionId);
 
-        $sessionId = $this->session->id();
-
-        // If the user is already in the region, there is nothing to do
-        if (in_array($regionId, $this->currentUserUnits->listRegionIDs())) {
-            return $this->respondOK();
-        }
-
-        $region = $this->regionGateway->getRegion($regionId);
-        if (!$region) {
-            throw new NotFoundHttpException('Region not found');
-        }
         if (!$this->regionPermissions->mayJoinRegion($regionId)) {
             throw new AccessDeniedHttpException('Not permitted');
+        }
+
+        $sessionId = $this->session->id();
+
+        // Assign the region as home region when the user has none yet. This also
+        // covers the "Wechsler" who is already a member but lost their home region
+        // (#2771); the permission check above already ruled out non-joinable regions.
+        if (!$this->currentUserUnits->getCurrentRegionId()) {
+            $this->settingsGateway->logSingleChangedSetting($sessionId, ChangeHistoryKey::JOINED_REGION, 0, $regionId);
+            $this->foodsaverGateway->updateProfile($sessionId, ['bezirk_id' => $regionId]);
+        }
+
+        // If the user is already in the region, only the home-region assignment above
+        // was needed.
+        if (in_array($regionId, $this->currentUserUnits->listRegionIDs())) {
+            $this->currentUserUnits->clearUnitsInformation();
+
+            return $this->respondOK();
         }
 
         $this->regionGateway->linkBezirk($sessionId, $regionId);
 
         // Revoke OAuth refresh tokens to force fresh region claims on next refresh
         $this->foodsaverGateway->revokeOAuthRefreshTokens($sessionId);
-
-        if (!$this->currentUserUnits->getCurrentRegionId()) {
-            $this->settingsGateway->logSingleChangedSetting($sessionId, ChangeHistoryKey::JOINED_REGION, 0, $regionId);
-            $this->foodsaverGateway->updateProfile($sessionId, ['bezirk_id' => $regionId]);
-        }
 
         // Clear cached units information in session so the user's
         // regions/home-region are reloaded on next access

@@ -42,6 +42,49 @@ class RegionApiCest
         ]);
     }
 
+    public function joiningAnAlreadyJoinedRegionSetsTheMissingHomeRegion(ApiTester $I): void
+    {
+        // "Wechsler" state (#2771): still a member of the region, but no home region
+        $wechsler = $I->createFoodsaver(null, ['bezirk_id' => 0]);
+        $I->addRegionMember($this->region['id'], $wechsler['id']);
+
+        $I->login($wechsler['email']);
+        $I->sendPut('api/regions/' . $this->region['id'] . '/users/current');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeInDatabase('fs_foodsaver', [
+            'id' => $wechsler['id'],
+            'bezirk_id' => $this->region['id'],
+        ]);
+    }
+
+    public function joiningANewRegionSetsTheMissingHomeRegion(ApiTester $I): void
+    {
+        $user = $I->createFoodsaver(null, ['bezirk_id' => 0]);
+
+        $I->login($user['email']);
+        $I->sendPut('api/regions/' . $this->region['id'] . '/users/current');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeInDatabase('fs_foodsaver', [
+            'id' => $user['id'],
+            'bezirk_id' => $this->region['id'],
+        ]);
+    }
+
+    public function joiningDoesNotOverwriteAnExistingHomeRegion(ApiTester $I): void
+    {
+        $homeRegion = $I->createRegion();
+        $user = $I->createFoodsaver(null, ['bezirk_id' => $homeRegion['id']]);
+        $I->addRegionMember($this->region['id'], $user['id']);
+
+        $I->login($user['email']);
+        $I->sendPut('api/regions/' . $this->region['id'] . '/users/current');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeInDatabase('fs_foodsaver', [
+            'id' => $user['id'],
+            'bezirk_id' => $homeRegion['id'],
+        ]);
+    }
+
     public function joinNotExistingRegionIs404(ApiTester $I): void
     {
         $I->login($this->user['email']);
