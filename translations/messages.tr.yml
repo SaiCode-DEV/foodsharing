@@ -2024,7 +2024,6 @@ basket:
 menu:
   entry:
     joinregion: Bir bölgeye katılın
-    donations: Bağışlar
     infos: Bilgiler
     transparency: Transparan
     politics: Politika
@@ -2040,7 +2039,6 @@ menu:
     team: Ekip
     conference: Online konferans
     selfservice: Self servis
-    friendcircle: Arkadaş Çevresi
     language: Lisan seçiniz
     your_groups: Sizin Ekipleriniz
     your_account: Hesabınız
@@ -4155,10 +4153,6 @@ save_state_description: Uygulanan filtreleri ve sıralamayı kaydedin ve
 configure_columns: Sütunları yapılandır
 expand_all: Tümünü kapat
 collapse_all: Tümünü aç
-donation_banner:
-  info_button: Bağışım nereye gidiyor?
-  action_button: Buraya bağış yapın!
-  amount: Mevcut bağış durumu
 help:
   key:
     storeLog:

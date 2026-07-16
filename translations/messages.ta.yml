@@ -2274,9 +2274,7 @@ menu:
     ids: ஐடி
     conference: நிகழ்நிலை மாநாடு
     fundraising: பொருள் திரட்டல்
-    friendcircle: நண்பர்களின் வட்டம்
     language: மொழியைத் தேர்வுசெய்க
-    donations: நன்கொடை
     options: விருப்பங்கள்
     selfservice: தன்வய பணி
     applications: பயன்பாடுகள் ({count})
@@ -4672,10 +4670,6 @@ bootstrap-datepicker:
   labelCalendar: காலண்டர்
   labelNav: காலண்டர் வழிசெலுத்தல்
   labelHelp: காலெண்டர் வழியாக அம்பு விசைகளுடன் செல்லவும்
-donation_banner:
-  info_button: எனது நன்கொடை எங்கே போகிறது?
-  action_button: இங்கே நன்கொடை!
-  amount: நன்கொடை
 markdown_input:
   tooltip:
     bold: ஃபெட்

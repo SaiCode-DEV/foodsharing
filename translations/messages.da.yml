@@ -404,7 +404,6 @@ menu:
     administration: ''
     demands: ''
     delete_read: ''
-    friendcircle: ''
     joinregion: ''
     baskets: ''
     workingGroupEdit: ''
@@ -417,7 +416,6 @@ menu:
     pastcampaigns: ''
     press: ''
     fundraising: ''
-    donations: ''
     all_messages: ''
     activities: ''
     events: ''
@@ -3919,10 +3917,6 @@ net_errors:
 filterlist:
   filter_for_name_id: ''
   some_in_all: ''
-donation_banner:
-  action_button: ''
-  amount: ''
-  info_button: ''
 betrieb_kategorie_id: ''
 success: ''
 right: ''

@@ -2308,8 +2308,6 @@ menu:
     events: 'Eventos'
     partners: 'Socios'
     fundraising: 'Recaudación de fondos'
-    donations: 'Donaciones'
-    friendcircle: 'Circulo de amigos'
     options: 'Opciones'
     all_messages: 'Todos los mensajes'
     activities: 'Acciones'
@@ -4235,10 +4233,6 @@ save_state_description: Guarde los filtros usados y clasifique para futuras
   llamadas
 expand_all: Expandir todo
 collapse_all: Contraer todo
-donation_banner:
-  info_button: ¿A dónde va mi donación?
-  action_button: ¡Dona aquí!
-  amount: Nivel de donación
 help:
   helpTitle: 'Ayuda: {title}'
   tooltip: Mostrar la ayuda

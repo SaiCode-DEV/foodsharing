@@ -3490,7 +3490,6 @@ menu:
     ids: Legitymacje
     conference: Konferencja online
     fundraising: Fundraising
-    donations: Darowizny
     language: Wybierz język
     options: Opcje
     imprint: 'stopka redakcyjna'
@@ -3512,7 +3511,6 @@ menu:
     fsfestival: 'festiwal foodsharingu'
     administration: 'Administracja'
     demands: 'Żądania'
-    friendcircle: 'Krąg przyjaciół'
     joinregion: 'Dołącz do rejonu'
     baskets: 'Jadłokoszyki'
     workingGroupEdit: 'Zarządzaj grupą'
@@ -5311,10 +5309,6 @@ team_page:
       '
 error_base64_image: 'Dodawanie obrazów przez przeciągnięcie i upuszczenie nie jest
   dozwolone.'
-donation_banner:
-  action_button: 'Przekaż darowiznę tutaj!'
-  amount: 'Stan darowizn'
-  info_button: 'Dokąd idzie moja darowizna?'
 totp_code: 'Podaj albo wygenerowany kod uwierzytelniania dwuskładnikowego, albo jeden
   z kodów backup.'
 language_chooser:

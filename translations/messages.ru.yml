@@ -1286,7 +1286,6 @@ menu:
     stores: 'Заведения'
     other_stores: 'Другие заведения'
     fs: 'Фудсейверы'
-    donations: 'Пожертвования'
     selfservice: ''
     language: 'Выбрать язык'
     options: 'Параметры'
@@ -1300,7 +1299,6 @@ menu:
     statistics: 'Статистика'
     helpwanted: 'Нужны помощники'
     ids: 'Документы'
-    friendcircle: 'Круг друзей'
     talksandworkshops: 'Лекции и мастер-классы'
     forum: 'Форум'
     contact: 'Контакт'
@@ -4347,10 +4345,6 @@ net_errors:
   NOT_FOUND: ''
   ERR_BAD_RESPONSE: ''
   TOO_MANY_REQUESTS: ''
-donation_banner:
-  action_button: ''
-  amount: ''
-  info_button: ''
 totp_code: ''
 debug:
   title: ''

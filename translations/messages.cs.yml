@@ -2150,7 +2150,6 @@ menu:
     fundamentals: ''
     partners: ''
     fundraising: ''
-    donations: ''
     pastcampaigns: ''
     joinregion: ''
     release-notes: ''
@@ -2169,7 +2168,6 @@ menu:
     groups: ''
     events: ''
     helpneeded: ''
-    friendcircle: ''
     background: ''
     notifications: ''
     transparency: ''
@@ -4045,10 +4043,6 @@ team_page:
     title: ''
     text: ''
 error_base64_image: ''
-donation_banner:
-  action_button: ''
-  amount: ''
-  info_button: ''
 totp_code: ''
 debug:
   title: ''

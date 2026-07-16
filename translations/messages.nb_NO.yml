@@ -462,7 +462,6 @@ region:
   conflict_store_member_or_manager_self: ''
 menu:
   entry:
-    donations: Donasjoner
     fundraising: Pengeinnsamling
     conference: Nettkonferanse
     fs: Matredder
@@ -499,7 +498,6 @@ menu:
     infos: Informasjon
     options: Innstillinger
     language: Velg språk
-    friendcircle: Vennesirkel
     selfservice: Selvbetjening
     regionalgroups: Lokale grupper
     activities: Handlinger
@@ -4070,10 +4068,6 @@ save_state: Vedlikeholde filtre og sortering
 save_state_description: Lagre brukte filtre og sortering for fremtidige samtaler
 expand_all: Utvid alle
 collapse_all: Skjul alle
-donation_banner:
-  amount: Donasjonsstatus
-  info_button: Hvor går donasjonen min?
-  action_button: Doner her!
 help:
   key:
     storeLog:

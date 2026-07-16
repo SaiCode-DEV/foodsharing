@@ -726,9 +726,7 @@ menu:
 
     conference: Online conference
     release-notes: What’s new?
-    donations: Donations
     options: Options
-    friendcircle: Circle of friends
     selfservice: Self service
     fundraising: Fundraising
     helpwanted: Team is open
@@ -4443,10 +4441,6 @@ save_state_description: Save used filters and sorting for future calls
 expand_all: Expand all
 collapse_all: Collapse all
 partner_foodsharing: Partners of foodsharing
-donation_banner:
-  info_button: Where does my donation go?
-  action_button: Donate here!
-  amount: Current donation status
 help:
   key:
     storeLog:

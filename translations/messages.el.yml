@@ -2550,9 +2550,7 @@ menu:
     release-notes: ''
     fs: ''
     conference: ''
-    friendcircle: ''
     helpneeded: ''
-    donations: ''
     talksandworkshops: ''
     press: ''
     forum: ''
@@ -4039,10 +4037,6 @@ net_errors:
   NOT_FOUND: ''
   ERR_BAD_RESPONSE: ''
   TOO_MANY_REQUESTS: ''
-donation_banner:
-  action_button: ''
-  amount: ''
-  info_button: ''
 totp_code: ''
 automatic_not_delete: ''
 debug:

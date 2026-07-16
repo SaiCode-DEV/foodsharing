@@ -1666,9 +1666,7 @@ menu:
     events: Évènements
     options: Options
     language: Choisir la langue
-    friendcircle: Groupe d’amis
     selfservice: self-service
-    donations: Dons
     fundraising: Collecte de fonds
     conference: Conférence en ligne
     joinregion: rejoindre un secteur géographique
@@ -4227,10 +4225,6 @@ save_state_description: Enregistrez les filtres utilisés et le tri pour les
   appels futurs
 expand_all: Développer tout
 collapse_all: Réduire tout
-donation_banner:
-  info_button: Où va mon don ?
-  amount: Montant actuel des dons
-  action_button: Faites un don !
 help:
   tooltip: Afficher l’aide
   helpTitle: 'Aide : {title}'

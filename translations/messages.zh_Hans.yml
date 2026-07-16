@@ -361,7 +361,6 @@ menu:
     background: ''
     support: ''
     helpwanted: ''
-    donations: ''
     talksandworkshops: ''
     activities: ''
     messages: ''
@@ -387,7 +386,6 @@ menu:
     your_account: ''
     conference: ''
     selfservice: ''
-    friendcircle: ''
     options: ''
     press: ''
     fscities: ''
@@ -4036,10 +4034,6 @@ net_errors:
   NOT_FOUND: ''
   ERR_BAD_RESPONSE: ''
   TOO_MANY_REQUESTS: ''
-donation_banner:
-  action_button: ''
-  amount: ''
-  info_button: ''
 totp_code: ''
 automatic_not_delete: ''
 debug:

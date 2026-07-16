@@ -896,7 +896,6 @@ menu:
     ids: ''
     joinregion: ''
     selfservice: ''
-    friendcircle: ''
     statistics: ''
     conference: ''
     transparency: ''
@@ -916,7 +915,6 @@ menu:
     guide: ''
     stores: ''
     helpwanted: ''
-    donations: ''
     language: ''
     options: ''
     chainList: ''
@@ -4037,10 +4035,6 @@ net_errors:
   NOT_FOUND: ''
   ERR_BAD_RESPONSE: ''
   TOO_MANY_REQUESTS: ''
-donation_banner:
-  action_button: ''
-  amount: ''
-  info_button: ''
 totp_code: ''
 automatic_not_delete: ''
 debug:

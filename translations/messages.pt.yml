@@ -1009,7 +1009,6 @@ menu:
     administration: 'Administração'
     demands: 'Cobranças'
     delete_read: 'Apagar todos os lidos'
-    friendcircle: 'Círculo de conhecidos'
     joinregion: 'Juntar-te a um distrito'
     baskets: 'Cabazes alimentares'
     workingGroupEdit: 'Gerir grupo'
@@ -1022,7 +1021,6 @@ menu:
     pastcampaigns: 'Campanhas anteriores'
     press: 'Imprensa'
     fundraising: 'Angariação de fundos'
-    donations: 'Fazer doações'
     all_messages: 'Todos mensagens'
     activities: 'Ações'
     events: 'Eventos'
@@ -5203,10 +5201,6 @@ team_page:
       desenvolvem o site ou assumem outras tarefas importantes para todo o foodsharing:
 
       '
-donation_banner:
-  action_button: 'Doe aqui!'
-  amount: 'Total de doações'
-  info_button: 'Para onde vai a minha doação?'
 debug:
   title: 'Página de Debug'
   info: 'Esta é uma página de depuração para fins de teste. Se não sabes o que faz

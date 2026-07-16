@@ -2146,9 +2146,7 @@ menu:
     mark_as_read: Segna tutti come letti
     options: Opzioni
     language: Seleziona lingua
-    friendcircle: Cerchia di amici
     selfservice: Self service
-    donations: Donazioni
     conference: Conferenza online
     fs: Foodsaver
     stores: Agenzie
@@ -4100,10 +4098,6 @@ save_state_description: Salva i filtri applicati e l’ordinamento per le chiama
 configure_columns: Configura colonne
 expand_all: Espandi tutto
 collapse_all: Comprimi tutto
-donation_banner:
-  info_button: Dove va la mia donazione?
-  action_button: Donate qui!
-  amount: Stato della donazione
 help:
   helpTitle: 'Aiuto: {title}'
   tooltip: Mostra aiuto
