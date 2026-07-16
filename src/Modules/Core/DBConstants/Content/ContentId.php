@@ -12,6 +12,9 @@ namespace Foodsharing\Modules\Core\DBConstants\Content;
 
 class ContentId
 {
+    final public const int DONATION_MODAL = 1;
+    final public const int DONATION_CAMPAIGN_PART1 = 2;
+    final public const int DONATION_CAMPAIGN_PART2 = 3;
     final public const int PARTNER_PAGE_93 = 93;
     final public const int PARTNER_PAGE_AT_94 = 94;
     final public const int QUIZ_DESCRIPTION_PAGE_12 = 12;

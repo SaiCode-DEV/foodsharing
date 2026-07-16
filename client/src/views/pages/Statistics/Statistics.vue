@@ -143,18 +143,15 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import { getOverallStatistics } from '@/api/statistics'
 import i18n, { locale } from '@/helper/i18n'
 import Container from '@/components/Container/Container.vue'
 import WeightFancyCounter from './WeightFancyCounter.vue'
 import { hideLoader, showLoader } from '@/script'
+import { useStatisticsStore } from '@/stores/statistics'
 
-const regionsActivity = ref({
-  pickupOverAllTime: [],
-})
-const foodsaverActivity = ref({
-  pickupOverAllTime: [],
-})
+const statisticsStore = useStatisticsStore()
+
+const regionsActivity = computed(() => statisticsStore.overallStatistics?.regionsActivity || { pickupOverAllTime: [] })
 
 const formatNumber = (number, unit) => {
   if (number === undefined || number === null || isNaN(number)) {
@@ -253,7 +250,7 @@ const mapStatistics = (data) => {
   ]
 }
 
-const stats = ref(mapStatistics({}))
+const stats = computed(() => mapStatistics(statisticsStore.overallStatistics || {}))
 
 const sortBy = ref('count')
 
@@ -269,10 +266,7 @@ const sortedRegions = computed(() => {
 
 const initializeData = async () => {
   showLoader()
-  const data = await getOverallStatistics()
-  stats.value = mapStatistics(data)
-  regionsActivity.value = data.regionsActivity
-  foodsaverActivity.value = data.foodsaverActivity
+  await statisticsStore.fetchOverallStatistics()
   hideLoader()
 }
 

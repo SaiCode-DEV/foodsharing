@@ -59,12 +59,34 @@ const customToolbar = [
 ]
 
 const Block = Quill.import('blots/block')
+const BlockEmbed = Quill.import('blots/block/embed')
+
 class Div extends Block {}
 Div.tagName = 'div'
-Div.blotName = 'div'
+Div.blotName = 'customDiv'
 Div.allowedChildren = Block.allowedChildren
 Div.allowedChildren.push(Block)
 Quill.register(Div)
+
+// Treat <details>/<summary> as an atomic block embed so Quill preserves it.
+// The entire <details> element (including its <summary>) is stored as a single
+// opaque blob that the editor does not try to parse internally.
+class DetailsBlot extends BlockEmbed {
+  static create (value) {
+    const node = super.create()
+    if (typeof value === 'string') {
+      node.innerHTML = value
+    }
+    return node
+  }
+
+  static value (node) {
+    return node.innerHTML
+  }
+}
+DetailsBlot.blotName = 'details'
+DetailsBlot.tagName = 'details'
+Quill.register(DetailsBlot)
 
 async function handleImageAdded (file, Editor, cursorLocation, resetUploader) {
   if (!file) return

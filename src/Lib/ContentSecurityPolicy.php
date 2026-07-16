@@ -19,6 +19,7 @@ class ContentSecurityPolicy
                 $self,
                 $unsafeInline,
                 $unsafeEval, // lots of `$.globalEval` still ... 😢
+                'https://spenden.twingle.de'
             ],
             'connect-src' => [
                 $self,
@@ -55,7 +56,8 @@ class ContentSecurityPolicy
                 'data:'
             ],
             'frame-src' => [
-                $self
+                $self,
+                'https://spenden.twingle.de'
             ],
             'frame-ancestors' => [
                 $none

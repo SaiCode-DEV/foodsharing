@@ -408,7 +408,7 @@
                 </b-row>
                 <b-card-text>
                   {{ $t('startpage.donate.text') }}
-                  <a class="link" href="unterstuetzung">
+                  <a class="link" :href="$url('donations')">
                     {{ $t('startpage.donate.link') }}
                   </a>
                 </b-card-text>

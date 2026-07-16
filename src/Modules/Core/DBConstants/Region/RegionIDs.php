@@ -22,7 +22,6 @@ class RegionIDs
     final public const int IT_AND_SOFTWARE_DEVELOPMENT_GROUP = 329;
     final public const int PRODUCT_TEAM = 2296;
     final public const int OAUTH_CLIENT_ADMINISTRATION_WORK_GROUP = 6704;
-
     final public const int EDITORIAL_GROUP = 327;
     final public const int BOT_WELCOME_TEAM = 328;
     final public const int STORE_CHAIN_GROUP = 332;
@@ -33,6 +32,8 @@ class RegionIDs
     final public const int TDL_2026_GROUP = 6824;
     final public const int VUM_SUBGROUP_REPORTS_QUIZ = 6822;
     final public const int FOODSHARING_ACADEMY = 3097;
+    final public const int FUNDRAISING_AND_FINANCIAL_PLANNING_GROUP = 336;
+
     // region and ambassador groups
     final public const int EUROPE_BOT_GROUP = 881;
     final public const int AUSTRIA = 63;

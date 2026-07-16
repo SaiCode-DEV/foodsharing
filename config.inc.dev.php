@@ -69,6 +69,7 @@ define('FCM_KEY', '');
 define('TWINGLE_ORGANIZATION_ID', 178);
 define('TWINGLE_ACCESS_CODE', 'placeholder');
 define('TWINGLE_PROJECT_STATUS_API', 'http://nginx:8080/mock/twingle/{projectId}/projectstatus');
+define('TWINGLE_PROJECT_LIST_API', 'http://nginx:8080/mock/twingle/by-organisation/{organisationId}?options=0');
 
 define('MAX_DELETE_OLD_ACCOUNTS_PER_DAY', 100);
 

@@ -94,15 +94,11 @@
     ]
   },
   {
-    "title": "menu.entry.fundraising",
+    "title": "menu.entry.donation_menu",
     "items": [
       {
         "url": "donations",
-        "title": "menu.entry.donations"
-      },
-      {
-        "url": "circle_of_friends",
-        "title": "menu.entry.friendcircle"
+        "title": "menu.entry.donation_page"
       },
       {
         "url": "selfservice",

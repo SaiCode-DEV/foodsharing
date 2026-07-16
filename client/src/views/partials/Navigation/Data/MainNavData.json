@@ -5,16 +5,13 @@
        "icon":"fa-graduation-cap"
     },
     "fundraising":{
-        "title":"menu.entry.fundraising",
-        "icon":"fa-link",
+        "title":"menu.entry.donation_menu",
+        "icon":"fa-hand-holding-heart",
+        "isFixedSize": true,
         "items":[
            {
               "url":"donations",
-              "title":"menu.entry.donations"
-           },
-           {
-              "url":"circle_of_friends",
-              "title":"menu.entry.friendcircle"
+              "title":"menu.entry.donation_page"
            },
            {
               "url":"selfservice",
@@ -29,6 +26,7 @@
     "aboutUs":{
        "title":"menu.entry.aboutUs",
        "icon":"fa-users",
+       "isFixedSize": true,
        "items":[
           {
              "url":"vision",
@@ -55,6 +53,7 @@
     "politics":{
       "title":"menu.entry.politics",
       "icon":"fa-landmark",
+      "isFixedSize": true,
       "items":[
          {
             "url":"fsstaedte",

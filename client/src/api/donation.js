@@ -1,5 +1,13 @@
-import { get } from './base'
+import { get, patch } from './base'
 
-export async function getDonation () {
-  return await get('/donation-goal')
+export async function getDonationData () {
+  return await get('/donation-data')
+}
+
+export async function updateDonationData (data) {
+  return await patch('/donation-data', data)
+}
+
+export async function getDonationProjects () {
+  return await get('/donation-projects')
 }

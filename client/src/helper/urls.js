@@ -24,7 +24,6 @@ const urls = {
   createBusinessCard: (data) => `/bcard?sub=makeCard&opt=${data.role}:${data.regionGroupId}`,
   dashboard: () => '/dashboard',
   dataprivacy: () => '/legal',
-  donate: () => '/unterstuetzung',
   education: () => '/content?sub=education',
   email: () => '/?page=email',
   event: (eventId) => `/event/${eventId}`,
@@ -117,10 +116,11 @@ const urls = {
   workingGroup: (groupId) => `/region?bid=${groupId}`,
   workshops: () => '/content?sub=workshops',
   urlencode: (url) => encodeURIComponent(`${url}`),
-  donations: () => 'https://spenden.foodsharing.de',
+  donations: () => '/donation',
   donation_form: () => 'https://spenden.twingle.de/foodsharing-e-v/spendenkampagne-ueberregionale-arbeit/tw65a581c764fa1/page',
+  donationAdminPage: () => '/donation/admin',
   circle_of_friends: () => 'https://spenden.foodsharing.de/freundeskreis',
-  selfservice: () => 'https://spenden.foodsharing.de/selfservice',
+  selfservice: () => '/donation/selfservice',
   resendActivationMail: () => '/login?sub=resendActivationMail',
 
   // javascript

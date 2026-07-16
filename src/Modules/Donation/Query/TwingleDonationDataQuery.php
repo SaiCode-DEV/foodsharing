@@ -47,4 +47,28 @@ class TwingleDonationDataQuery
             throw new ServiceUnavailableHttpException('', 'Twingle access code or project ID are not defined');
         }
     }
+
+    public function getProjects(): array
+    {
+        // @phpstan-ignore-next-line
+        if (empty(TWINGLE_ACCESS_CODE)) {
+            throw new ServiceUnavailableHttpException('Twingle access code or project ID are not defined');
+        }
+
+        // @phpstan-ignore-next-line
+        if (empty(TWINGLE_ORGANIZATION_ID)) {
+            throw new ServiceUnavailableHttpException('TWINGLE_ORGANIZATION_ID is not defined');
+        }
+
+        $headers = [
+            'accept' => 'application/json',
+            'x-access-code' => TWINGLE_ACCESS_CODE,
+        ];
+
+        return $this->httpClient->request(
+            'GET',
+            str_replace('{organisationId}', (string)TWINGLE_ORGANIZATION_ID, TWINGLE_PROJECT_LIST_API),
+            ['headers' => $headers]
+        )->toArray();
+    }
 }

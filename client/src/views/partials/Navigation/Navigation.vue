@@ -15,6 +15,7 @@
     <div class="metanav-container container">
       <MetaNavLoggedIn v-if="!mobile && isLoggedIn" />
       <MetaNavLoggedOut v-else-if="!mobile" />
+      <DonationButton v-if="!mobile" :button-link="$url('donations')" />
     </div>
     <div class="container nav-container">
       <MainNavLoggedIn v-if="isLoggedIn" />
@@ -40,6 +41,7 @@
 import { ref, computed, watch, defineProps, onMounted, onBeforeMount } from 'vue'
 import { useUserStore } from '@/stores/user.js'
 import { useRegionStore } from '@/stores/regions.js'
+import { useDonationStore } from '@/stores/donation'
 import DataBells from '@/stores/bells.js'
 import DataStores from '@/stores/stores.js'
 import DataConversations from '@/stores/conversations.js'
@@ -62,6 +64,7 @@ import ConfirmationDialogue from '@/components/UI/ConfirmationDialogue.vue'
 import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 import { useMediaQuery } from '@/composables/useMediaQuery'
 import ChatDock from '@/components/Chat/ChatDock.vue'
+import DonationButton from '@/components/DonationButton.vue'
 
 const props = defineProps({
   regions: {
@@ -76,6 +79,7 @@ const props = defineProps({
 
 const userStore = useUserStore()
 const regionStore = useRegionStore()
+const donationStore = useDonationStore()
 
 const { mobile } = useMediaQuery()
 const navbar = ref(null)
@@ -116,6 +120,8 @@ onMounted(() => {
   emitter.addListener('show-confirmation', (options) => {
     confirmDialog.value?.show(options)
   })
+
+  donationStore.fetchDonationData()
 })
 
 function resizeHandler () {
@@ -123,3 +129,9 @@ function resizeHandler () {
   document.documentElement.style.setProperty('--navbar-height', height)
 }
 </script>
+
+<style lang="scss" scoped>
+.navigation.navbar .metanav {
+  padding: 0.5rem 0.5rem;
+}
+</style>

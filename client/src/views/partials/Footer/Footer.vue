@@ -38,15 +38,10 @@
         <b-col
           sm="6"
           cols="12"
+          class="d-flex flex-column align-items-sm-end justify-content-center"
         >
           <h2>{{ $t('footer.donate.call_to') }}</h2>
-          <a
-            class="alert alert-secondary d-flex align-items-center mt-3"
-            :href="$url('donations')"
-          >
-            <i class="icon icon--big fas fa-hands-helping mr-3" />
-            {{ $t('footer.donate.cta') }}
-          </a>
+          <DonationButton :button-link="$url('donations')" />
         </b-col>
       </b-row>
       <div class="line my-5" />
@@ -164,8 +159,12 @@ import RouteCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
 import serverData from '@/helper/server-data'
 // Theme
 import { useThemeStore } from '@/stores/theme'
+import DonationButton from '@/components/DonationButton.vue'
 
 export default {
+  components: {
+    DonationButton,
+  },
   mixins: [RouteCheckMixin],
   setup () {
     const themeStore = useThemeStore()
@@ -283,5 +282,25 @@ footer {
         color: var(--fs-color-secondary-100);
       }
   }
+
+.donation-alert {
+  background-color: var(--fs-color-secondary-500);
+  color: var(--fs-color-white);
+}
+
+.donation-button-text {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.donation-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2em;
+  height: 2.2em;
+  background: var(--fs-color-danger-200);
+  border-radius: 50%;
+}
 }
 </style>

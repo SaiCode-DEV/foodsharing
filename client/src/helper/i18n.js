@@ -107,10 +107,30 @@ const datetimeFormats = {
     },
   },
 }
+
+const numberFormats = {
+  de: {
+    currency: {
+      style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 2,
+    },
+    percent: {
+      style: 'percent', minimumFractionDigits: 0, maximumFractionDigits: 1,
+    },
+    decimal: {
+      style: 'decimal', minimumSignificantDigits: 3, maximumSignificantDigits: 5,
+    },
+    text: {
+      style: 'decimal', notation: 'compact', compactDisplay: 'short', maximumFractionDigits: 1,
+    },
+  },
+}
 // fallback datetime formats for other languages
 AVAILABLE.forEach((lang) => {
   if (!datetimeFormats[lang]) {
     datetimeFormats[lang] = datetimeFormats[DEFAULT_LOCALE]
+  }
+  if (!numberFormats[lang]) {
+    numberFormats[lang] = numberFormats[DEFAULT_LOCALE]
   }
 })
 
@@ -121,6 +141,7 @@ export const i18nInstance = createI18n({
   fallbackLocale: DEFAULT_LOCALE,
   messages: baseMessages,
   datetimeFormats,
+  numberFormats,
   // We intentionally store some HTML in translations; keep legacy behavior
   warnHtmlMessage: false,
   escapeParameterHtml: false,

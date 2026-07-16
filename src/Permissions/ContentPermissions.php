@@ -65,6 +65,12 @@ final class ContentPermissions
         ContentId::TDL_2026,
     ];
 
+    private array $DONATION_CAMPAIGN_CONTENT_IDS = [
+        ContentId::DONATION_MODAL,
+        ContentId::DONATION_CAMPAIGN_PART1,
+        ContentId::DONATION_CAMPAIGN_PART2,
+    ];
+
     public function __construct(Session $session, private readonly CurrentUserUnitsInterface $currentUserUnits)
     {
         $this->session = $session;
@@ -80,7 +86,8 @@ final class ContentPermissions
             || $this->currentUserUnits->isAdminFor(RegionIDs::PR_START_PAGE)
             || $this->currentUserUnits->isAdminFor(RegionIDs::POLITICAL_CAMPAIGNS)
             || $this->currentUserUnits->isAdminFor(RegionIDs::FOODSHARING_ACADEMY)
-            || $this->currentUserUnits->isAdminFor(RegionIDs::TDL_2026_GROUP);
+            || $this->currentUserUnits->isAdminFor(RegionIDs::TDL_2026_GROUP)
+            || $this->currentUserUnits->isAdminFor(RegionIDs::FUNDRAISING_AND_FINANCIAL_PLANNING_GROUP);
     }
 
     /**
@@ -131,6 +138,7 @@ final class ContentPermissions
             RegionIDs::POLITICAL_CAMPAIGNS => $this->POLITICAL_CAMPAIGNS_CONTENT_IDS,
             RegionIDs::FOODSHARING_ACADEMY => [ContentId::EDUCATION],
             RegionIDs::TDL_2026_GROUP => $this->TDL_2026_CONTENT_IDS,
+            RegionIDs::FUNDRAISING_AND_FINANCIAL_PLANNING_GROUP => $this->DONATION_CAMPAIGN_CONTENT_IDS,
         ];
 
         foreach ($regionContentMap as $regionID => $contentIDs) {

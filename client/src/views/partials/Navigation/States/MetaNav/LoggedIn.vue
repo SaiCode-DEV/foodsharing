@@ -10,6 +10,11 @@
   </ul>
   <div v-else class="w-100">
     <NavItem
+      v-for="entry of mobileMainNav"
+      :key="entry.title"
+      :entry="entry"
+    />
+    <NavItem
       v-for="entry of mobileTopNav"
       :key="entry.title"
       :entry="entry"
@@ -21,6 +26,7 @@
 
 <script>
 // Data
+import MainNavData from '../../Data/MainNavData.json'
 import MetaNavData from '../../Data/MetaNavData.json'
 //
 import Logo from '@/components/Navigation/Logo'
@@ -51,6 +57,9 @@ export default {
   computed: {
     metaNav () {
       return MetaNavData
+    },
+    mobileMainNav () {
+      return MainNavData
     },
     mobileTopNav () {
       return MetaNavData

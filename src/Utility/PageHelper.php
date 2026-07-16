@@ -14,6 +14,7 @@ use Foodsharing\Permissions\AchievementPermissions;
 use Foodsharing\Permissions\BlogPermissions;
 use Foodsharing\Permissions\CategoriesPermissions;
 use Foodsharing\Permissions\ContentPermissions;
+use Foodsharing\Permissions\DonationPermissions;
 use Foodsharing\Permissions\EmailBlocklistPermissions;
 use Foodsharing\Permissions\MailboxPermissions;
 use Foodsharing\Permissions\OAuthPermissions;
@@ -57,6 +58,7 @@ final class PageHelper
         private readonly OAuthPermissions $oauthPermissions,
         private readonly EmailBlocklistPermissions $emailBlocklistPermissions,
         private readonly CurrentUserUnitsInterface $currentUserUnits,
+        private readonly DonationPermissions $donationPermissions,
     ) {
     }
 
@@ -167,6 +169,7 @@ final class PageHelper
             'editStoreCategories' => $this->categoriesPermissions->mayEditCategories(CategoryType::STORE),
             'editResourceCategories' => $this->categoriesPermissions->mayEditCategories(CategoryType::RESOURCE),
             'editAchievements' => $this->achievementPermissions->mayEditAchievements(),
+            'editDonationPage' => $this->donationPermissions->mayEditDonationPage(),
         ];
     }
 

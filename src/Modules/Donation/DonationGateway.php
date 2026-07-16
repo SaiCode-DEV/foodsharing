@@ -5,6 +5,7 @@ namespace Foodsharing\Modules\Donation;
 use Foodsharing\Modules\Configuration\ConfigurationGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DBConstants\Configuration\ConfigurationCategory;
+use Foodsharing\RestApi\Models\Donation\DonationDataResponse;
 use ReflectionClass;
 use ReflectionNamedType;
 
@@ -18,14 +19,14 @@ class DonationGateway extends ConfigurationGateway
     /**
      * Reads the current admin data from the database.
      */
-    public function getDonationData(): DonationData
+    public function getDonationData(): DonationDataResponse
     {
         $rows = $this->getEntries(ConfigurationCategory::DONATION->value);
 
         if (empty($rows)) {
-            return new DonationData();
+            return new DonationDataResponse();
         }
-        $mappedKeyValue = new DonationData();
+        $mappedKeyValue = new DonationDataResponse();
         foreach ($rows as $key => $value) {
             $reflection = new ReflectionClass(DonationData::class);
             if ($reflection->hasProperty($key) && ($type = $reflection->getProperty($key)->getType())) {
@@ -40,5 +41,13 @@ class DonationGateway extends ConfigurationGateway
         }
 
         return $mappedKeyValue;
+    }
+
+    /**
+     * Writes the admin data to the database (insert or update).
+     */
+    public function saveDonation(DonationData $donationData): void
+    {
+        $this->addOrUpdateEntries((array)$donationData, ConfigurationCategory::DONATION->value);
     }
 }

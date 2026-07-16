@@ -1,5 +1,5 @@
 <template>
-  <ul class="mainnav">
+  <ul v-if="mainNav?.length > 0" class="mainnav">
     <Logo v-if="mobile" />
     <span v-for="(category, idx) in mainNav" :key="idx">
       <!-- If the category has a 'url', it is rendered as a link without dropdown -->
@@ -17,9 +17,20 @@
       </b-nav-item>
       <Dropdown
         v-else
+        :key="'dropdown-'+idx"
         :title="$t(category.title)"
         :icon="category.icon"
+        is-fixed-size
       >
+        <template #icon>
+          <img
+            v-if="category.title === 'menu.entry.donation_menu'"
+            src="/img/icon/donation-strawberry.svg"
+            class="pr-1"
+            width="40"
+            height="25"
+          >
+        </template>
         <template #content>
           <a
             v-for="(entry, key) in category.items"
@@ -56,6 +67,16 @@ import Dropdown from '@/components/Navigation/_NavItems/NavDropdown'
 import Logo from '@/components/Navigation/Logo'
 import { useMediaQuery } from '@/composables/useMediaQuery'
 
+import { computed } from 'vue'
+
 const { mobile } = useMediaQuery()
-const mainNav = MainNavData
+
+const mainNav = computed(() => {
+  const all = Object.keys(MainNavData).map(key => MainNavData[key])
+  if (mobile && mobile.value) {
+    const fundraising = MainNavData.fundraising
+    return fundraising ? [fundraising] : []
+  }
+  return all
+})
 </script>

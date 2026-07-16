@@ -7,6 +7,7 @@ use DateTimeZone;
 use Foodsharing\Modules\Content\DTO\Content;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
+use Foodsharing\Modules\Core\DBConstants\Content\ContentId;
 use Foodsharing\RestApi\Models\Content\ContentEntry;
 use Foodsharing\Utility\Sanitizer;
 
@@ -39,9 +40,24 @@ class ContentGateway extends BaseGateway
             : null;
 
         $config = Sanitizer::getPurifierConfig();
+        if (in_array($id, [ContentId::DONATION_MODAL, ContentId::DONATION_CAMPAIGN_PART1, ContentId::DONATION_CAMPAIGN_PART2])) {
+            $this->adjustConfigForDonation($config);
+        }
         $content['body'] = $this->sanitizer->purifyHtml($content['body'] ?? '', $config);
 
         return Content::create($id, $content['name'], $content['title'], $content['body'], $lastModified);
+    }
+
+    private function adjustConfigForDonation(\HTMLPurifier_Config $config): void
+    {
+        $config->set('HTML.DefinitionID', 'foodsharing');
+        $config->set('HTML.DefinitionRev', 1);
+
+        $def = $config->maybeGetRawHTMLDefinition();
+        if ($def) {
+            $def->addElement('details', 'Block', 'Optional: (summary, Flow) | Flow', 'Common');
+            $def->addElement('summary', 'Inline', 'Inline', 'Common');
+        }
     }
 
     /**

@@ -90,4 +90,8 @@ $colorlist: (
     .text-muted {
         color: #929292 !important;
     }
+
+    .text-body {
+        color: var(--fs-color-text) !important;
+    }
 }

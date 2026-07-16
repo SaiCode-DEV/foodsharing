@@ -4,8 +4,10 @@ namespace Foodsharing\Modules\Donation;
 
 use Carbon\Carbon;
 use Foodsharing\Modules\Donation\Query\TwingleDonationDataQuery;
+use Foodsharing\RestApi\Models\Donation\DonationDataResponse;
 use Foodsharing\RestApi\Models\Donation\DonationInformation;
 use Foodsharing\RestApi\Models\Donation\DonationProjectStatus;
+use Foodsharing\RestApi\Models\Donation\ProjectData;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 
@@ -21,18 +23,17 @@ class DonationTransactions
     }
 
     /**
-     * Returns the status of each of the Twingle projects. This either fetches the information from Twingle or uses
-     * the cached data.
+     * Returns the donation configuration and the status of each Twingle project.
      *
-     * @return DonationInformation[]
+     * Twingle responses are cached, configuration values are read directly from DB.
      */
-    public function getDonationInformation(): array
+    public function getDonationInformation(): DonationDataResponse
     {
         // the configuration from the database contains the necessary URLs
         $donationData = $this->donationGateway->getDonationData();
 
         // fetch the information from Twingle and cache it
-        return $this->cache->get('foodsharingDonationProjectStatus', function (ItemInterface $cacheItem) use ($donationData) {
+        $donationData->donationInformation = $this->cache->get('foodsharingDonationProjectStatus', function (ItemInterface $cacheItem) use ($donationData) {
             $cacheItem->expiresAfter(self::TWINGLE_CACHE_INTERVAL);
 
             $donationProjectIds = [
@@ -51,6 +52,8 @@ class DonationTransactions
 
             return $allDonationInformations;
         });
+
+        return $donationData;
     }
 
     private function convertTwingleDonationData(array $twingleDonationDataAsArray): DonationProjectStatus
@@ -63,5 +66,27 @@ class DonationTransactions
             receivedDonationsInEuros: $twingleDonationDataAsArray['amount'],
             updatedAt: Carbon::now(),
         );
+    }
+
+    /**
+     * Returns the donation configuration and the status of each Twingle project.
+     *
+     * Twingle responses are cached, configuration values are read directly from DB.
+     *
+     * @return ProjectData[]
+     */
+    public function getProjects(): array
+    {
+        // fetch the information from Twingle and cache it
+        return $this->cache->get('foodsharingDonationProjects', function (ItemInterface $cacheItem) {
+            $cacheItem->expiresAfter(self::TWINGLE_CACHE_INTERVAL);
+
+            $twingleProjectData = $this->twingleDonationDataQuery->getProjects();
+
+            return array_map(fn ($project) => new ProjectData(
+                id: $project['id'],
+                name: $project['name'],
+            ), $twingleProjectData);
+        });
     }
 }

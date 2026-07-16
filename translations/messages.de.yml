@@ -28,7 +28,7 @@ body: "Nachricht"
 status: "Aktueller Status"
 info: "Informationen"
 photo: "Foto"
-no_automatic_delete: "Wenn die letzte Anmeldung mehr als 5 Jahre zurückliegt:"
+no_automatic_delete: "Wenn die letzte Anmeldung mehr als 5 Jahre zurückliegt:"
 automatic_delete : "- soll das Profil gelöscht werden."
 automatic_not_delete : "- soll das Profil erhalten bleiben."
 ort: "Stadt/Gemeinde"
@@ -334,7 +334,7 @@ button:
 bcard:
   title: "Visitenkarten-Generator"
   card: "Deine foodsharing-Visitenkarte"
-  claim: "Hier einfach generieren, ausdrucken und ausschneiden …"
+  claim: "Hier einfach generieren, ausdrucken und ausschneiden …"
   for: "{role} für {region}"
   desc: "Wähle hier, für welchen Bezirk beziehungsweise für welche Rolle du deine Visitenkarte erstellen möchtest."
   error:
@@ -404,7 +404,7 @@ group:
   members: "Mitglieder"
   administrators: "Gruppen-Admins"
   title: "foodsharing-Arbeitsgruppen"
-  subtitle: "hier findest du Hilfe und viel zu tun …"
+  subtitle: "hier findest du Hilfe und viel zu tun …"
   member_count:
     zero: "Keine Mitglieder"
     one:  "Ein Mitglied insgesamt"
@@ -687,7 +687,7 @@ register:
   join_newsletter_failed: "Bei der Anmeldung zum Newsletter ist leider ein Fehler aufgetreten. Du kannst dich jederzeit in deinem Profil für den Newsletter anmelden."
   join_error: "Deine Registrierung war nicht erfolgreich."
   check_mail: "Schau jetzt in dein E-Mail-Postfach, um die Anmeldung abzuschließen!"
-  select_your_gender: "Für die Anrede …"
+  select_your_gender: "Für die Anrede …"
   woman: "weiblich"
   man: "männlich"
   other: "divers"
@@ -828,7 +828,7 @@ back: "Zurück"
 success: "Erfolgreich abgeschlossen"
 error_permissions: "Du hast leider nicht die notwendigen Berechtigungen für diesen Vorgang."
 error_unexpected: "Es ist ein Fehler aufgetreten"
-error_base64_image: "Bilder einfügen ist nicht per Drag & Drop erlaubt."
+error_base64_image: "Bilder einfügen ist nicht per Drag & Drop erlaubt."
 error_ajax: |
   Das hat leider nicht geklappt.
   Vielleicht funktioniert deine Internetverbindung gerade nicht.
@@ -1178,7 +1178,7 @@ store:
     search_input: "Suche nach Name / Telefonnummer"
     search_reset: "Suche zurücksetzen"
     no_record: "Es wurde kein Eintrag gefunden."
-  filter: "Filtern nach …"
+  filter: "Filtern nach …"
   enter_date: "Einzelnen Slot eintragen"
   enter_date_description: "Nachdem du Datum, Uhrzeit und Anzahl ausgewählt hast, kannst du einen einmaligen Slot anlegen. Solltest du regelmäßige (wöchentlich automatisch wiederkehrende) Slots erstellen wollen, nutze bitte das Menü „Betriebseinstellungen“."
   delete_date: "Einzelnen Slot löschen"
@@ -1335,7 +1335,7 @@ pickup:
     Möchtest du {name} wirklich aus der Abholung am {date} austragen?
     {name} wird die folgende Nachricht dazu erhalten:
   kick_message: "wir haben dich aus der {storeName}-Abholung am {date} ausgetragen."
-  kick_message_placeholder: "Optional hier Informationen ergänzen …"
+  kick_message_placeholder: "Optional hier Informationen ergänzen …"
   kick_message_footer: "Liebe Grüße, deine Betriebsverantwortlichen"
   really_leave: "Du bist für diese Abholung verantwortlich. Bitte kümmere dich eigenständig um Ersatz."
   leave_pickup_ok: "Ich habe bereits Ersatz"
@@ -1626,7 +1626,7 @@ wall:
   error-delete: "Diesen Eintrag kannst du nicht entfernen."
   created: "Klasse, dein Pinnwandeintrag wurde gespeichert."
   error-create: "Dein Pinnwandeintrag konnte nicht gespeichert werden."
-  placeholder: "Neuen Pinnwandeintrag schreiben …"
+  placeholder: "Neuen Pinnwandeintrag schreiben …"
   delete_confirmation:
     text: Willst du wirklich diesen Eintrag von {author} löschen?
     title: Pinnwandeintrag löschen?
@@ -1696,14 +1696,14 @@ events:
     join: "Beitreten"
   attendees: "Teilnehmer:innen"
   online_info: |
-    Telefon- und Onlinekonferenzen von foodsharing laufen am besten über unseren eigenen [BigBlueButton](https://bigbluebutton.org)-Server. Ab 10 Minuten vor Beginn des Termins können Nutzer:innen ganz leicht mit einem Klick von der Terminseite der Konferenz beitreten. Dafür sind keine weiteren Programme notwendig, sondern nur ein halbwegs moderner Internet-Browser. Außerdem ist es auch möglich, per Telefon beizutreten.
+    Telefon- und Onlinekonferenzen von foodsharing laufen am besten über unseren eigenen [BigBlueButton](https://bigbluebutton.org)-Server. Ab 10 Minuten vor Beginn des Termins können Nutzer:innen ganz leicht mit einem Klick von der Terminseite der Konferenz beitreten. Dafür sind keine weiteren Programme notwendig, sondern nur ein halbwegs moderner Internet-Browser. Außerdem ist es auch möglich, per Telefon beizutreten.
 
     Solltest du trotzdem eine andere Plattform für eine Telefon- oder Onlinekonferenz nutzen wollen, wähle bitte die Option *„Sonstiges“* aus.
   public_info: "Diese Veranstaltung ist öffentlich, alle können darauf zugreifen. Kommentare und die Teilnehmer:innenliste sind nur für angemeldete Nutzer:innen sichtbar."
 
 addresspicker:
   label: "Adress-/Standort-Suche"
-  placeholder: "Adresse suchen …"
+  placeholder: "Adresse suchen …"
   infobox: "Gib die Adresse in der Suchleiste ein oder schiebe den Pin in der Karte an die richtige Position."
   infobox_profile: "[Foodsharer](https://wiki.foodsharing.de/Foodsharer) benötigen die Adresse, um Essenskörbe über die Webseite anbieten zu können. Um als [Foodsaver](https://wiki.foodsharing.de/Foodsaver) an Lebensmittelrettungen teilnehmen zu können, ist sie notwendig."
   different_location: Adressbeschreibung korrigieren
@@ -1976,7 +1976,7 @@ bell:
     unread: "Als ungelesen markieren"
 
 list:
-  filter_for: "Filtern nach …"
+  filter_for: "Filtern nach …"
 
 memberlist:
   header_for_district: "Foodsaver:innen im Bezirk {bezirk}"
@@ -2232,7 +2232,7 @@ mailbox:
   okay: "E-Mail wurde erfolgreich versendet."
   failed: "Die E-Mail konnte nicht gesendet werden."
   recipients: "Zu viele Empfänger:innen"
-  ratelimit: "Du kannst maximal eine E-Mail alle 15 Sekunden versenden, bitte warte einen Augenblick …"
+  ratelimit: "Du kannst maximal eine E-Mail alle 15 Sekunden versenden, bitte warte einen Augenblick …"
   filetype: "Dieser Dateityp ist nicht erlaubt"
   filesize: "Sorry, die Datei ist zu groß."
   mark_as_unread: "E-Mail ungelesen markieren"
@@ -2699,7 +2699,7 @@ profile:
       welche die Verhaltensregeln und die Rechtsvereinbarung einhalten
       und für deren Zuverlässigkeit und Engagement du einstehen kannst.
       Vergib Vertrauensbananen niemals leichtfertig!
-    placeholder: "mindestens 100 Zeichen …"
+    placeholder: "mindestens 100 Zeichen …"
     sent: "Banane wurde gesendet!"
     messageTooShort: "Bitte gib einen mindestens 100 Zeichen langen Text zu dieser Banane ein."
     alreadyGiven: "{name} hat bereits eine Banane von dir erhalten."
@@ -3098,9 +3098,10 @@ menu:
     joinregion: "Einem Bezirk beitreten"
     conference: "Onlinekonferenz"
     fundraising: "Fundraising"
-    donations: "Spenden"
-    selfservice: "Selfservice"
-    friendcircle: "Freundeskreis"
+    donation_menu: Jetzt Spenden
+    donation_page: Zur Spendenseite
+    donation_button: Jetzt spenden
+    selfservice: Selfservice
     language: "Sprache wählen"
     options: "Optionen"
     applications: "Bewerbungen ({count})"
@@ -3585,7 +3586,7 @@ startpage:
     text: "Sag der Lebensmittelverschwendung in deinem Haushalt den Kampf an. Wir informieren auf Messen und bei Veranstaltungen wie."
   store:
     title: "als Betrieb"
-    text: "Du arbeitest in einem Supermarkt, Restaurant, Kantine, …? Registriere deinen Betrieb und rette Lebensmittel."
+    text: "Du arbeitest in einem Supermarkt, Restaurant, Kantine, …? Registriere deinen Betrieb und rette Lebensmittel."
   how_we_work:
     title: "So läuft’s"
     text: |
@@ -3798,6 +3799,7 @@ system_administration:
   content: "Inhalte bearbeiten"
   store_categories: "Betriebskategorien bearbeiten"
   resource_categories: "Ressourcenkategorien bearbeiten"
+  donation_page_edit: Spendenseite bearbeiten
 
 navigation:
   map: Karte
@@ -3837,7 +3839,7 @@ globals:
   save: Speichern
   save_changes: Änderungen speichern
   close: Schließen
-  select: Bitte auswählen …
+  select: Bitte auswählen …
   show_more: Mehr anzeigen
   show_less: Weniger anzeigen
   type:
@@ -3870,11 +3872,11 @@ globals:
 
 search:
   title: Suche
-  placeholder: Jetzt Suche starten …
+  placeholder: Jetzt Suche starten …
   informations: Du kannst nach Personen, Gruppen, Betrieben, Bezirken, Chats, Forenbeiträgen und Fairteilern suchen.
   too_short: Bitte gib einen längeren Suchbegriff ein.
   forum:
-    placeholder: In diesem Forum suchen …
+    placeholder: In diesem Forum suchen …
     found:
       title: "Treffer im Titel"
       body: "Treffer im Inhalt"
@@ -3951,7 +3953,7 @@ sort:
 activitypost:
   Response: Antworten
   response: antworten
-  write: Schreibe eine Antwort …
+  write: Schreibe eine Antwort …
   quickreply_info: <code class="key">Umschalttaste + Eingabetaste</code> zum Hinzufügen einer neuen Zeile.
   quickreply_button: Jetzt senden<br>oder <code class="key">Eingabetaste</code> drücken.
 
@@ -4059,10 +4061,224 @@ thread:
     cannotSee: "Den Inhalt ausgeblendeter Posts kannst du zwar nicht einsehen, aber du kannst einsehen, warum und durch wen Posts ausgeblendet wurden."
     toggle: "Ausgeblendete Beiträge anzeigen"
 
-donation_banner:
-  info_button: "Wohin geht meine Spende?"
-  action_button: "Hier spenden!"
-  amount: "Spendenstand"
+donation_modal:
+  info_button: Wohin geht meine Spende?
+  action_button: Hier spenden!
+  amount: Spendenstand
+
+donation_admin_page:
+  title: Spendenverwaltung
+  total_donations: Gesamtspenden
+  total_donators: Anzahl Spender:innen
+  donation_options:
+    one_time: Einmalspenden
+    friendship_circle: Freundeskreis
+    campaign: Kampagnen
+  delete_url: URL löschen
+  campaign_project: Kampagnen Projekt-ID
+  friendship_circle_project: Freundeskreis Projekt-ID
+  donation_modal_project: Spenden-Banner Projekt-ID
+  one_time_donation_project: Einmalspenden Projekt-ID
+  iframe_friendship_circle_url: Iframe Freundeskreis-URL
+  iframe_campaign_url: Iframe Kampagnen-URL
+  iframe_one_time_url: Iframe Einmalspenden-URL
+  iframe_selfservice_url: Iframe Selfservice-URL
+  donation_modal_info_url: Spenden-Banner Info-URL
+  donation_modal_popup_url: Spenden-Banner Popup-URL
+  select_project: Projekt wählen
+  show_donation_modal_in_hours_for_logged_in_users: 'Spenden-Banner in Stunden für eingeloggte Nutzer anzeigen:'
+  show_donation_modal_in_hours_for_logged_out_users: 'Spenden-Banner in Stunden für ausgeloggte Nutzer anzeigen:'
+  edit_url: URL bearbeiten
+  error_loading_projects: 'Fehler beim Laden der Spenden-Projekte:'
+  show_campaign_card: Kampagne anzeigen
+  show_donation_modal: Spendenbanner anzeigen
+  show_donation_campaign_part_1: Kampagnen-Teil 1 anzeigen
+  show_donation_campaign_part_2: Kampagnen-Teil 2 anzeigen
+  show_donation_campaign_gallery: Kampagnen-Gallerie anzeigen
+  save_success: 'Spenden-Daten erfolgreich gespeichert!'
+  save_error: 'Fehler beim Speichern der Spenden-Daten'
+  
+donation_page:
+  title: Deine Spende für
+  subtitle: 'Dein Einsatz für mehr Lebensmittelwertschätzung - so kannst du helfen:'
+  show_more: Mehr anzeigen
+  show_less: Weniger anzeigen
+  campaign:
+    count: Aktueller Spendenstand
+    claim: Gemeinsam für mehr Lebensmittelwertschätzung.
+    goal: Spendenziel {goal}
+  donation_options:
+    one_time:
+      title: Einmalspende
+      text: >
+        Jeder Beitrag hilft uns dabei, Lebensmittelverschwendung zu reduzieren.
+        **Hier kannst Du schon ab 5 Euro einen Beitrag leisten.**
+      button: Einmal spenden
+    friendship_circle:
+      title: Freundeskreis
+      text: >-
+        Dauerspenden ermöglichen uns langfristige Planung und nachhaltige
+        Entwicklung. Unterstütze uns regelmäßig
+      button: Freund:in werden
+    campaign:
+      title: Kampagne
+      text: >-
+        Jeder Beitrag hilft uns dabei, Lebensmittelverschwendung zu reduzieren.
+        **Hier kannst Du schon ab 5 Euro einen Beitrag leisten.**
+      button: Ich spende!
+  stats:
+    all_donators: Foodsharer:innen
+    friendship_circle_donators: Freund:innen
+    one_time_donators: Einmal-Spender:innen
+  faq:
+    title: Häufig gestellte Fragen
+    teaser: >-
+      Hier findest du Antworten auf die wichtigsten Fragen rund um Spenden an
+      foodsharing.
+    question_1: Was passiert mit meiner Spende?
+    answer_1: >
+      **Alle Spenden und Beiträge**, die über Spendenkampagnen, Einzelspenden
+      oder den foodsharing-Freundeskreis eingehen, fließen an den *foodsharing
+      e.V.*
+
+
+      Dieser gemeinnützige Verein betreibt die Webseiten **foodsharing.de**,
+      **foodsharing.at** und **foodsharing.network** und bildet damit die
+      Grundlage für die foodsharing-Aktivitäten in Deutschland, Österreich, der
+      Schweiz und darüber hinaus.
+
+
+      Zu diesen Aktivitäten gehört unter anderem das **Retten von Lebensmitteln
+      vor Ort**, das über die Internet-Plattformen organisiert wird. Darüber
+      hinaus werden überregionale Projekte und Aktionen in den entsprechenden
+      Arbeitsgruppen koordiniert.
+    question_2: Wofür braucht foodsharing denn eigentlich Geld?
+    answer_2: >
+      **Das Wichtigste zuerst:** foodsharing ist kostenlos, nicht kommerziell
+      und werbefrei – und das wird auch so bleiben. Für die Rettung und faire
+      Verteilung von Lebensmitteln werden niemals Spenden verlangt und niemals
+      dafür verwendet.
+
+
+      Durch deine Spende kann foodsharing bezahlte Stellen für die interne
+      Koordination schaffen und die bezirksübergreifende Verwaltung
+      professionalisieren. Außerdem fördern wir überregionale Arbeitsgruppen –
+      und nicht zuletzt macht deine Unterstützung überhaupt erst unsere
+      Bildungsarbeit
+      ([foodsharing-Akademie](https://www.foodsharing-akademie.org)) zu den
+      Themen Lebensmittelverschwendung, Lebensmittelwertschätzung und
+      nachhaltige Ernährung möglich.
+
+
+      Für Vereinsverwaltung, überregionale Projekte und Arbeitsgruppen sowie
+      Öffentlichkeits- und Bildungsarbeit braucht es eine solide finanzielle
+      Basis. Grundsätzlich gilt: **so viel Geld wie nötig, so wenig wie
+      möglich.**
+
+
+      Weitere Informationen dazu findest du auf unserer [Transparenzseite](content?sub=transparency).
+    question_3: 'Wie läuft das mit der Spendenquittung für’s Finanzamt? '
+    answer_3: >
+      Der **foodsharing e.V.** ist in Deutschland als gemeinnütziger Verein
+      eingetragen und gehört damit zu den steuerbegünstigten Organisationen.
+      Alle Spenden an den foodsharing e.V. sind gemäß §10b EStG in Deutschland
+      steuerlich absetzbar.
+
+
+      - **Bis 300 €:** Das Finanzamt akzeptiert eine Kopie des
+      Überweisungsträgers oder deinen Kontoauszug als Spendenbeleg. So erhältst
+      du automatisch einen Sonderausgabenabzug in Höhe deiner Spende.
+
+      - **Über 300 €:** Für größere Spenden kannst du bei uns eine offizielle
+      Spendenbescheinigung per Mail an
+      [fundraising.freundeskreis@foodsharing.network](mailto:fundraising.freundeskreis@foodsharing.network)
+      anfordern.
+
+
+      **Wichtig:** Spenden aus der Schweiz, Österreich oder anderen Ländern
+      können leider nicht steuerlich geltend gemacht werden.
+    question_4: Wie kann ich spenden?
+    answer_4: >
+      **Mach mit und spende jetzt!** Ob einmalig über unser [Spendenformular](donation)
+       oder regelmäßig im [foodsharing-Freundeskreis](donation/friendship_circle) – jede
+      Unterstützung hilft, Lebensmittel zu retten. Du kannst bequem per
+      Lastschrift, Kreditkarte, PayPal oder Überweisung spenden.
+
+
+      Wenn du lieber direkt überweisen möchtest, findest du hier unsere
+      Bankverbindung für Spenden:
+
+
+      **foodsharing e.V.**  
+
+      IBAN: DE66 4306 0967 4063 8156 00  
+
+      GLS Gemeinschaftsbank
+    question_5: Kann ich auch aus der Schweiz, Österreich oder anderswo spenden?
+    answer_5: >
+      **Klar!** Deine Spende fließt in überregionale Projekte – egal aus welchem
+      Land sie kommt. Damit unterstützt du auch foodsharing-Aktivitäten in
+      Österreich, der Schweiz und anderen Ländern.
+
+
+      Mit deiner Spende trägst du also immer zum „großen Ganzen“ der
+      foodsharing-Bewegung bei!
+
+
+      **Wichtig:** Spenden aus der Schweiz, Österreich oder anderen Ländern sind
+      leider nicht steuerlich absetzbar.
+    question_6: Können auch Organisationen und Unternehmen spenden?
+    answer_6: >
+      **Auf jeden Fall!** Für Kooperationen, die über eine normale Spende
+      hinausgehen, freuen wir uns über deine Kontaktaufnahme per Mail an
+      [fundraising@foodsharing.network](mailto:fundraising@foodsharing.network).
+
+
+      Wenn dein Unternehmen Lebensmittel spenden möchte, wende dich bitte an
+      [unternehmen@foodsharing.network](mailto:unternehmen@foodsharing.network).
+    question_7: Kann ich meine Spende direkt an eine lokale foodsharing-Gruppe schicken?
+    answer_7: >
+      Nicht direkt – aber es gibt eine Lösung! Die Beiträge aus Einzelspenden,
+      Spendenkampagnen und dem foodsharing-Freundeskreis fließen in
+      überregionale Projekte und können nicht direkt einzelnen Bezirken oder
+      Ortsgruppen zugewiesen werden.
+
+
+      Wenn du willst, dass deine Spende direkt vor Ort wirkt, nimm am besten
+      Kontakt zur jeweiligen Bezirksgruppe auf. Eine Übersicht aller
+      foodsharing-Bezirke findest du
+      [hier!](content?sub=communities)
+    question_8: Kann ich auch Sach- oder Dienstleistungen spenden?
+    answer_8: >
+      Auch das ist möglich! Sachspenden (wie beispielsweise Lastenräder oder
+      Fairteiler-Ausstattung) werden direkt über die Bezirke organisiert.
+      Aktuell erhalten wir Sachspenden in Form von Drucksachen, aber wir nehmen
+      auch gerne Unterstützung in Bereichen wie Rechtsberatung, IT oder
+      Grafikdesign entgegen.
+
+
+      Bitte wende dich dafür an
+      [fundraising@foodsharing.network](mailto:fundraising@foodsharing.network).
+    question_9: Wie kann ich foodsharing langfristig finanziell fördern?
+    answer_9: >
+      Total gerne! Für deine regelmäßige Spende gibt es den
+      **foodsharing-Freundeskreis** – hier kannst du deine Dauerspende
+      einrichten. Mit deiner Unterstützung hilfst du uns, foodsharing planbar zu
+      machen und unsere Organisation am Laufen zu halten.
+
+
+      Für Mitglieder des foodsharing-Freundeskreises basteln wir außerdem gerade
+      an ein paar spannenden Sachen! Hier geht es zum [foodsharing-Freundeskreis](donation/friendship_circle).
+    question_10: >-
+      Kann ich meine Dauerspende beim foodsharing-Freundeskreis jederzeit
+      kündigen oder ändern?
+    answer_10: >
+      Du kannst deine Spendenhöhe jederzeit anpassen oder deine Dauerspende
+      beenden –  ganz unkompliziert über unseren Self-Service. Einfach
+      [hier](/donation/selfservice) anmelden! Wenn du Fragen hast oder Hilfe
+      brauchst,  melde dich gerne bei uns:
+      [fundraising.freundeskreis@foodsharing.network](mailto:fundraising.freundeskreis@foodsharing.network).
+      Wir freuen uns, von dir zu hören!
 
 markdown_input:
   tooltip:
@@ -4512,7 +4728,7 @@ petition:
     25000: Wir haben bereits zwei Drittel der benötigten Unterschriften! Gemeinsam schaffen wir das!
     30000: Fast am Ziel – nur noch ein kleines Stück! Werde jetzt noch Teil der Petition!
     Infinity: Ziel erreicht! Unsere Petition wird im Bundestag besprochen. Jetzt geht’s darum, unser Anliegen noch weiter zu stärken!
-  daysLeft: "{daysLeft} Tage verbleiben" #using non-bereaking spaces
+  daysLeft: "{daysLeft} Tage verbleiben" #using non-bereaking spaces
   link: "Zur Petition"
 
 resource_mosaic:

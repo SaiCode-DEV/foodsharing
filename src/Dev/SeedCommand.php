@@ -188,6 +188,7 @@ class SeedCommand extends AbstractSeedCommand implements CustomCommandInterface
 
         $this->addRegionMembers($I, RegionIDs::OAUTH_CLIENT_ADMINISTRATION_WORK_GROUP, [], [$userAuth['id']]);
         $this->addRegionMembers($I, RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP, [], [$userorgaWG['id']]);
+        $this->addRegionMembers($I, RegionIDs::FUNDRAISING_AND_FINANCIAL_PLANNING_GROUP, [], [$userbot['id']]);
 
         // Make ambassador responsible for all work groups in the region
         $this->output->writeln('Make ambassador responsible for all work groups');
@@ -824,9 +825,13 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
             ConfigurationKey::DONATION_ONE_TIME_DONATION_ID->value => '384',
             ConfigurationKey::DONATION_SHOW_CAMPAIGN_CARD->value => '1',
             ConfigurationKey::DONATION_SHOW_DONATION_MODAL->value => '0',
+            ConfigurationKey::DONATION_SHOW_DONATION_MODAL_IN_HOURS_FOR_LOGGED_IN_USERS->value => '24',
+            ConfigurationKey::DONATION_SHOW_DONATION_MODAL_IN_HOURS_FOR_LOGGED_OUT_USERS->value => '1',
             ConfigurationKey::DONATION_SHOW_CAMPAIGN_PART_1->value => '1',
             ConfigurationKey::DONATION_SHOW_CAMPAIGN_PART_2->value => '1',
             ConfigurationKey::DONATION_SHOW_CAMPAIGN_GALLERY->value => '1',
+            ConfigurationKey::DONATION_MODAL_INFO_URL->value => 'donation/campaign',
+            ConfigurationKey::DONATION_MODAL_POPUP_URL->value => 'https://spenden.twingle.de/foodsharing-e-v/spendenkampagne-ueberregionale-arbeit/tw65a581c764fa1/page',
             ConfigurationKey::DONATION_IFRAME_CAMPAIGN_URL->value => 'https://spenden.twingle.de/embed/foodsharing-e-v/spendenkampagne-ueberregionale-arbeit/tw65a581c764fa1/widget',
             ConfigurationKey::DONATION_IFRAME_FRIENDSHIP_CIRCLE_URL->value => 'https://spenden.twingle.de/embed/foodsharing-e-v/freundeskreis/tw5ba5f44dcb36f/widget',
             ConfigurationKey::DONATION_IFRAME_ONE_TIME_URL->value => 'https://spenden.twingle.de/embed/foodsharing-e-v/einmal-spenden/tw5ba1eb3588eb2/widget',
@@ -897,6 +902,7 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
             RegionIDs::TDL_2026_GROUP => ['Tag der Lebensmittelrettung 2026', GroupCategory::PROJECT, ApplyType::OPEN],
             //TODO: 6825 is something else on production. TDL2025 does not exist there.
             6825 => ['Tag der Lebensmittelrettung 2025', GroupCategory::ARCHIVED, ApplyType::OPEN],
+            RegionIDs::FUNDRAISING_AND_FINANCIAL_PLANNING_GROUP => ['Fundraising und Finanzplanung', GroupCategory::ADMINISTRATIVE, ApplyType::NOBODY],
         ];
         foreach ($this->progressBar->iterate($globalGroups) as $id => $params) {
             $I->createWorkingGroup($params[0], [

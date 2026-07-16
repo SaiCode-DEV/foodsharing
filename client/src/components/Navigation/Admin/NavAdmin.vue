@@ -79,6 +79,14 @@
       >
         <i class="icon-subnav fas fa-tags" /> {{ $t('achievements.editTitle') }}
       </a>
+      <a
+        v-if="permissions.editDonationPage"
+        :href="$url('donationAdminPage')"
+        role="menuitem"
+        class="dropdown-item dropdown-action"
+      >
+        <i class="icon-subnav fas fa-hand-holding-heart" /> {{ $t('system_administration.donation_page_edit') }}
+      </a>
     </template>
   </Dropdown>
 </template>
