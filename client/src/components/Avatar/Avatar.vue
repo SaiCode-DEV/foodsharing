@@ -72,9 +72,6 @@ export default {
       if (image?.startsWith('/api/uploads/')) {
         return image + `?w=${Math.ceil(this.size)}&h=${Math.ceil(this.size)}` // path for pictures uploaded with the new API
       }
-      if (image && !image?.endsWith('avatar.png')) {
-        return '/images/' + prefix + image // backward compatible path for old pictures
-      }
       return '/img/' + prefix + 'avatar.png'
     },
     computedHref () {

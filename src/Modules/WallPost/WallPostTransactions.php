@@ -87,17 +87,8 @@ class WallPostTransactions
         $post = $this->wallPostGateway->getPost($postId);
         if (!empty($post->pictures)) {
             foreach ($post->pictures as $picture) {
-                if (str_starts_with($picture, '/api/uploads/')) {
-                    $oldUUID = substr($picture, 13);
-                    $this->uploadsTransactions->deleteUploadedFile($oldUUID);
-                } elseif (!empty($picture)) {
-                    /* Delete all resized files of the old picture. The DTO contains the file as '{id}.jpg'. The real
-                    path is './images/wallpost/{format}_{id}.jpg'. Use a placeholder because there might be several
-                    resized formats of the original file. */
-                    foreach (glob('./images/wallpost/*' . $picture) as $file) {
-                        unlink($file);
-                    }
-                }
+                $oldUUID = substr($picture, 13);
+                $this->uploadsTransactions->deleteUploadedFile($oldUUID);
             }
         }
 

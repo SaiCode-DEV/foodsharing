@@ -7,7 +7,7 @@ test.describe("ID Cards", () => {
     const foodSaver = await foodsharing.createFoodsaver(null, {
       name: "fs1",
       nachname: "saver1",
-      photo: "does-not-exist.jpg",
+      image: true,
       bezirk_id: region.id,
     });
     const ambassador = await foodsharing.createAmbassador(null, {

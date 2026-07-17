@@ -172,57 +172,6 @@ class MaintenanceService
         ConsoleHelper::info(count($basketIds) . ' old foodbaskets deactivated');
     }
 
-    public function deleteImages(): void
-    {
-        @unlink('images/.jpg');
-        @unlink('images/.png');
-
-        /* foodsaver photos */
-        if ($foodsaver = $this->maintenanceGateway->listUsersWithPhoto()) {
-            $update = [];
-            foreach ($foodsaver as $fs) {
-                if (!str_starts_with((string)$fs['photo'], '/api/uploads')) {
-                    if (!file_exists('images/' . $fs['photo'])) {
-                        $update[] = $fs['id'];
-                    }
-                }
-            }
-            if (!empty($update)) {
-                $this->maintenanceGateway->unsetUserPhotos($update);
-            }
-        }
-        $check = [];
-        if ($foodsaver = $this->maintenanceGateway->listUsersWithPhoto()) {
-            foreach ($foodsaver as $fs) {
-                if (!str_starts_with('/api/uploads', (string)$fs['photo'])) {
-                    $check[$fs['photo']] = $fs['id'];
-                }
-            }
-            $dir = opendir('./images');
-            $count = 0;
-            while (($file = readdir($dir)) !== false) {
-                if (strlen($file) > 3 && !is_dir('./images/' . $file)) {
-                    $cfile = $file;
-                    if (str_contains($file, '_')) {
-                        $cfile = explode('_', $file);
-                        $cfile = end($cfile);
-                    }
-                    if (!isset($check[$cfile])) {
-                        ++$count;
-                        @unlink('./images/' . $file);
-                        @unlink('./images/130_q_' . $file);
-                        @unlink('./images/50_q_' . $file);
-                        @unlink('./images/med_q_' . $file);
-                        @unlink('./images/mini_q_' . $file);
-                        @unlink('./images/thumb_' . $file);
-                        @unlink('./images/thumb_crop_' . $file);
-                        @unlink('./images/q_' . $file);
-                    }
-                }
-            }
-        }
-    }
-
     /**
      * Deletes all files that were uploaded after release "Laugenbrezel" (when usage types were introduced) and up
      * to two days ago, which do not have a usage type yet. If a file was uploaded but a usage type was not set, it

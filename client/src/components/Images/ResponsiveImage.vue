@@ -16,7 +16,7 @@
     >
       <img
         ref="img"
-        :src="getUrl('image')"
+        :src="image"
         class="limited-size-image"
         tabindex="-1"
         @keydown.left="swapToModal(0)"
@@ -90,12 +90,11 @@ export default {
     },
     imageType () {
       if (this.image.startsWith('blob:')) return 'blob'
-      if (this.image.startsWith('/api/uploads')) return 'api'
-      return 'legacy'
+      return 'api'
     },
     displayUrl () {
       if (!this.imageLoaded) return 'none'
-      let url = this.getUrl('medium')
+      let url = this.image
       if (this.imageType === 'api') {
         url += `?w=${this.widthInPx}&h=${this.heightInPx}`
       }
@@ -121,19 +120,12 @@ export default {
     observer.observe(this.$refs.image)
   },
   methods: {
-    getUrl (key) {
-      if (this.imageType === 'legacy') {
-        const keyMap = { image: '', medium: 'medium_', thumb: 'thumb_' }
-        return `/images/wallpost/${keyMap[key]}${this.image}`
-      }
-      return this.image
-    },
     async updateAspectRatio () {
       this.imageLoaded = false
       if (this.imageType !== 'api') {
         const imageObj = new Image()
         const loaded = new Promise(resolve => imageObj.addEventListener('load', resolve))
-        imageObj.src = this.getUrl('medium')
+        imageObj.src = this.image
         await loaded
         this.imageWidthInPx = imageObj.width
         this.imageHeightInPx = imageObj.height

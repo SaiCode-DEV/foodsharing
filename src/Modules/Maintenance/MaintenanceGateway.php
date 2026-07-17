@@ -60,26 +60,6 @@ class MaintenanceGateway extends BaseGateway
     }
 
     /**
-     * Lists all users that have a profile photo.
-     *
-     * @return array foodsaver Id and photo file name for each user
-     */
-    public function listUsersWithPhoto(): array
-    {
-        return $this->db->fetchAllByCriteria('fs_foodsaver', ['id', 'photo'], ['photo !=' => '']);
-    }
-
-    /**
-     * Removes the profile photo file name for all users in the list.
-     *
-     * @param array $foodsaverIds a list of foodsaver IDs
-     */
-    public function unsetUserPhotos(array $foodsaverIds): void
-    {
-        $this->db->update('fs_foodsaver', ['photo' => ''], ['id' => $foodsaverIds]);
-    }
-
-    /**
      * Updates all quiz sessions that were finished or aborted more than two weeks ago by setting
      * questions and answers to null. After this the quiz results can not be seen anymore.
      *

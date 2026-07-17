@@ -153,16 +153,8 @@ class FoodsaverTransactions
     {
         $photo = $this->foodsaverGateway->getPhotoFileName($foodsaverId);
         if (!empty($photo)) {
-            if (str_starts_with($photo, '/api/uploads/')) {
-                $oldUUID = substr($photo, 13);
-                $this->uploadsTransactions->deleteUploadedFile($oldUUID);
-            } else {
-                // Delete all resized files of the old picture
-                $oldFormats = ['', '130_q_', '50_q_', 'med_q_', 'mini_q_', 'thumb_', 'thumb_crop_', 'q_'];
-                foreach ($oldFormats as $format) {
-                    @unlink('./images/' . $format . $photo);
-                }
-            }
+            $oldUUID = substr($photo, 13);
+            $this->uploadsTransactions->deleteUploadedFile($oldUUID);
         }
     }
 

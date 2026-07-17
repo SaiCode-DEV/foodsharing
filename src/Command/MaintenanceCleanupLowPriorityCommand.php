@@ -25,7 +25,6 @@ class MaintenanceCleanupLowPriorityCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->maintenanceControl->deleteInactiveUsers();
-        $this->maintenanceControl->deleteImages();
         $this->maintenanceControl->deleteUnusedImages();
         $this->maintenanceControl->deleteOldPassRequests();
         $this->maintenanceControl->cleanOldQuizSessionData();

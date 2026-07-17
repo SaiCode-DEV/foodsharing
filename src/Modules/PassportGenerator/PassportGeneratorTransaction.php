@@ -105,39 +105,20 @@ class PassportGeneratorTransaction
             return;
         }
 
-        $imagePath = null;
-        $imageWidth = null;
+        $uuid = substr($photo, strlen('/api/uploads/'));
+        $filename = $this->uploadsTransactions->generateFilePath($uuid, 200, 257);
 
-        if (str_starts_with($photo, '/api/uploads')) {
-            $uuid = substr($photo, strlen('/api/uploads/'));
-            $filename = $this->uploadsTransactions->generateFilePath($uuid, 200, 257);
-
-            if (!file_exists($filename)) {
-                $originalFilename = $this->uploadsTransactions->generateFilePath($uuid);
-                $this->uploadsTransactions->resizeImage($originalFilename, $filename, 200, 257, null);
-            }
-
-            $imagePath = $filename;
-            $imageWidth = 24;
-        } else {
-            $croppedImagePath = 'images/crop_' . $photo;
-            $originalImagePath = 'images/' . $photo;
-
-            if (file_exists($croppedImagePath)) {
-                $imagePath = $croppedImagePath;
-                $imageWidth = 24;
-            } elseif (file_exists($originalImagePath)) {
-                $imagePath = $originalImagePath;
-                $imageWidth = 22;
-            }
+        if (!file_exists($filename)) {
+            $originalFilename = $this->uploadsTransactions->generateFilePath($uuid);
+            $this->uploadsTransactions->resizeImage($originalFilename, $filename, 200, 257, null);
         }
 
-        if ($imagePath) {
+        if ($filename) {
             $pdf->Image(
-                $imagePath,
+                $filename,
                 $margins['photoMarginX'] + $x,
                 $margins['photoMarginY'] + $y,
-                $imageWidth
+                24
             );
         }
     }

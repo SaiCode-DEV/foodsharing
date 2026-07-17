@@ -1,4 +1,3 @@
-/* eslint-disable eqeqeq */
 import { GET, goTo } from '@/browser'
 import conversationStore from '@/stores/conversations'
 import i18n from '@/helper/i18n'
@@ -49,29 +48,6 @@ export const pulseError = definePulse('error', 20000, 'notifications.error', 'fa
 
 export function closeNotification (id) {
   Vue.notify.close(id)
-}
-
-export function img (photo, size) {
-  if (photo) {
-    if (photo.startsWith('/api/uploads/')) {
-      // path for pictures uploaded with the new API
-      if (size == undefined) {
-        size = 75
-      } else if (size === 'mini') {
-        size = 35
-      }
-
-      return photo + `?w=${size}&h=${size}`
-    } else if (photo.length > 3) {
-      // backward compatible path for old pictures
-      if (size == undefined) {
-        size = 'med'
-      }
-
-      return `/images/${size}_q_${photo}`
-    }
-  }
-  return `/img/${size}_q_avatar.png`
 }
 
 export function reload () {

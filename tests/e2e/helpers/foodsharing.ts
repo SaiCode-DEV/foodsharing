@@ -77,11 +77,14 @@ class Foodsharing {
         : Math.floor(Math.random() * 2) + 2;
 
     // Handle profile picture upload if specified
+    /* extraParams.image is a flag that is not written to the database. If it is set, this function uploads a file
+       from /img/seed-data/profile as the user's profile photo. The effect thereby supersedes that of extraParams.photo. */
     if (extraParams.image && (gender === 0 || gender === 1)) {
       const genderDir = ["men", "women"][gender];
       const imgNum = Math.floor(Math.random() * 100);
       const imgPath = path.join(
-        "./img/seed-data/profile/",
+        process.env.ROOT_DIR || "../../",
+        "img/seed-data/profile/",
         genderDir,
         `${imgNum}.jpg`,
       );
@@ -100,6 +103,7 @@ class Foodsharing {
       const uuid = await this.uploadFile(profilePicture);
       pictureUrl = `/api/uploads/${uuid}`;
     }
+    delete extraParams.image;
 
     const firstName = faker.person.firstName();
     const lastName = faker.person.lastName();
@@ -1893,7 +1897,7 @@ class Foodsharing {
     });
 
     const pathForPersistentFile = path.join(
-      process.env.ROOT_DIR || ".",
+      process.env.ROOT_DIR || "../../",
       "data/uploads",
       uuid[0],
       uuid.substring(1, 3),

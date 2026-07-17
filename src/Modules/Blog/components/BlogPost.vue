@@ -36,15 +36,7 @@ export default {
   },
   computed: {
     pictureUrl () {
-      if (this.blogPost === null || this.blogPost.picture.length === 0) {
-        return null
-      }
-
-      if (this.blogPost.picture.startsWith('/api/uploads/')) {
-        return this.blogPost.picture // path for pictures uploaded with the new API
-      } else {
-        return '/images/' + this.blogPost.picture.replace('/', '/crop_0_528_') // backward compatible path for old pictures
-      }
+      return (this.blogPost === null || this.blogPost.picture.length === 0) ? null : this.blogPost.picture
     },
     formattedDate () {
       return this.$dateFormatter.format(this.blogPost.publishedAt, {
