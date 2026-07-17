@@ -40,7 +40,7 @@ class TwingleDonationDataQuery
 
             return $this->httpClient->request(
                 'GET',
-                str_replace('{projectId}', (string)TWINGLE_ORGANIZATION_ID, TWINGLE_PROJECT_STATUS_API),
+                str_replace('{projectId}', (string)$projectId, TWINGLE_PROJECT_STATUS_API),
                 ['headers' => $headers]
             )->toArray();
         } else {
