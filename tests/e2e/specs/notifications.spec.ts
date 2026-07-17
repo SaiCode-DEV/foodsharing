@@ -2,186 +2,88 @@ import { test, expect } from "../helpers/acceptance";
 import { foodsharing } from "../helpers/foodsharing";
 import { Database } from "../helpers/database";
 
-test.describe("Notifications", () => {
-  test.fixme("can view and interact with notifications", async ({
+// Bell entry behaviour, converted from the NavNotificationsEntry mocha test (#2767).
+test.describe("Notification bell entries", () => {
+  let user: Awaited<ReturnType<typeof foodsharing.createFoodsaver>>;
+  let bellId: number;
+
+  test.beforeEach(async ({ page, acceptanceHelper, isMobile }) => {
+    // the bell dropdown only exists in the desktop side navigation
+    test.skip(isMobile, "the notification dropdown only exists on desktop");
+    const region = await foodsharing.createRegion();
+    user = await foodsharing.createFoodsaver(null, { bezirk_id: region.id });
+    bellId = await foodsharing.addBells([user], {
+      name: "store_new_request_title",
+      body: "store_new_request",
+      vars: { name: "Teststore" },
+      attr: { href: "/?page=dashboard" },
+      icon: "fas fa-bell",
+      closeable: 1,
+    });
+    await acceptanceHelper.login(user.email);
+    await page.goto("/dashboard");
+    await page.getByRole("button", { name: "Benachrichtigungen" }).click();
+  });
+
+  test.afterEach(async ({ acceptanceHelper }) => {
+    await acceptanceHelper.logMeOut();
+  });
+
+  test("renders a bell entry with text, avatar, time and mark-read button", async ({
+    page,
+  }) => {
+    const entry = page.locator("a.dropdown-item", {
+      hasText: "Neue Teamanfrage",
+    });
+    await expect(entry).toBeVisible();
+    await expect(entry).toContainText("Anfrage für Teststore");
+    await expect(entry.locator(".avatar-light")).toBeVisible();
+    await expect(entry.locator(".time")).toBeVisible();
+    // the mark-read button only shows while hovering the entry
+    await entry.hover();
+    await expect(entry.locator(".mark-read-button")).toBeVisible();
+  });
+
+  test("marks the bell as read when the entry is clicked", async ({
     page,
     acceptanceHelper,
   }) => {
-    const region = await foodsharing.createRegion();
-    const foodsaver = await foodsharing.createFoodsaver(null, {
-      bezirk_id: region.id,
+    const entry = page.locator("a.dropdown-item", {
+      hasText: "Neue Teamanfrage",
     });
-
-    // Create some test notifications for the user
-    await foodsharing.addBells([foodsaver], {
-      name: "store_new_request",
-      body: "Test notification body",
-      vars: { test: "data" },
-      attr: { href: "/test" },
-      icon: "fa-bell",
-      closeable: 1,
-    });
-
-    await foodsharing.addBells([foodsaver], {
-      name: "banana_given",
-      body: "You received a banana!",
-      vars: { name: "TestUser" },
-      attr: { href: "/profile/1" },
-      icon: "fa-gift",
-      closeable: 1,
-    });
-
-    // Login and navigate to home
-    await acceptanceHelper.login(foodsaver.email);
-    await page.goto("/");
-
-    // Wait for page to load
-    await acceptanceHelper.waitForPageBody();
-
-    // Check that notification bell button exists with badge count
-    const notificationButton = page.getByRole("button", {
-      name: "Benachrichtigungen",
-    });
-    await expect(notificationButton).toBeVisible();
-
-    // Should show badge with "2" notifications
-    await expect(notificationButton).toContainText("2");
-
-    // Click on the notification button to open dropdown
-    await notificationButton.click();
-
-    // Wait for notifications dropdown menu to be visible
-    const notificationsList = page.locator(
-      'ul.dropdown-menu.dropdown-menu-right.show[aria-labelledby*="BV_toggle_"]',
-    );
-    await notificationsList.waitFor({ state: "visible" });
-
-    // Verify notifications are displayed
-    await expect(notificationsList).toContainText("Test notification body");
-    await expect(notificationsList).toContainText("You received a banana!");
-
-    // Click on a notification link to mark it as read
-    const firstNotification = notificationsList.getByRole("link", {
-      name: /Test notification body/,
-    });
-    await firstNotification.click();
-
-    // Wait for the action to complete
+    await entry.hover();
+    await entry.locator(".mark-read-button").click();
+    // the eye icon flips once the read state is stored
+    await expect(entry.locator(".fa-eye-slash")).toBeVisible();
     await acceptanceHelper.waitForActiveAPICalls();
-
-    // Verify in database that notification was marked as seen
-    const bellId = await Database.grabFromDatabase("fs_bell", "id", {
-      name: "store_new_request",
-    });
 
     await expect(
       Database.seeInDatabase("fs_foodsaver_has_bell", {
-        foodsaver_id: foodsaver.id,
+        foodsaver_id: user.id,
         bell_id: bellId,
         seen: 1,
       }),
     ).resolves.toBeTruthy();
   });
 
-  test.fixme("can delete notifications", async ({ page, acceptanceHelper }) => {
-    const region = await foodsharing.createRegion();
-    const foodsaver = await foodsharing.createFoodsaver(null, {
-      bezirk_id: region.id,
-    });
-
-    // Create a closeable notification
-    const bellId = await foodsharing.addBells([foodsaver], {
-      name: "test_notification",
-      body: "This notification can be deleted",
-      vars: {},
-      attr: { href: "/" },
-      icon: "fa-info",
-      closeable: 1,
-    });
-
-    await acceptanceHelper.login(foodsaver.email);
-    await page.goto("/");
-    await acceptanceHelper.waitForPageBody();
-
-    // Open notifications dropdown
-    const notificationButton = page.getByRole("button", {
-      name: "Benachrichtigungen",
-    });
-    await notificationButton.click();
-    const notificationsList = page.locator(
-      'ul.dropdown-menu.dropdown-menu-right.show[aria-labelledby*="BV_toggle_"]',
-    );
-    await notificationsList.waitFor({ state: "visible" });
-
-    // Verify notification exists
-    await expect(notificationsList).toContainText(
-      "This notification can be deleted",
-    );
-
-    // Click on the close/delete button (look for close link with # href)
-    const deleteButton = notificationsList
-      .getByRole("link")
-      .filter({ hasText: "" })
-      .first();
-
-    await deleteButton.click();
-    await acceptanceHelper.waitForActiveAPICalls();
-
-    // Verify notification was deleted from database
-    await expect(
-      Database.seeInDatabase("fs_foodsaver_has_bell", {
-        foodsaver_id: foodsaver.id,
-        bell_id: bellId,
-      }),
-    ).resolves.toBeFalsy();
-  });
-
-  test.fixme("notifications show correct time", async ({
+  test("closes the bell via the avatar click", async ({
     page,
     acceptanceHelper,
   }) => {
-    const region = await foodsharing.createRegion();
-    const foodsaver = await foodsharing.createFoodsaver(null, {
-      bezirk_id: region.id,
+    const entry = page.locator("a.dropdown-item", {
+      hasText: "Neue Teamanfrage",
     });
+    await entry.locator(".avatar-light").click();
+    await acceptanceHelper.waitForActiveAPICalls();
 
-    // Create a notification with specific time
-    await foodsharing.addBells([foodsaver], {
-      name: "test_notification_title",
-      body: "test_notification_body",
-      vars: {},
-      attr: { href: "/" },
-      icon: "fa-clock",
-      time: new Date(Date.now() - 3600000)
-        .toISOString()
-        .slice(0, 19)
-        .replace("T", " "), // 1 hour ago
-    });
-
-    await acceptanceHelper.login(foodsaver.email);
-    await page.goto("/");
-    await acceptanceHelper.waitForPageBody();
-
-    // Open notifications
-    const notificationButton = page.getByRole("button", {
-      name: "Benachrichtigungen",
-    });
-    await notificationButton.click();
-    await page.waitForTimeout(50);
-
-    // Get the notifications dropdown menu specifically
-    const notificationsList = page.locator(
-      'ul.dropdown-menu.dropdown-menu-right.show[aria-labelledby*="BV_toggle_"]',
-    );
-    await notificationsList.waitFor({ state: "visible" });
-
-    // Verify time is displayed (should show something like "vor X")
-    const notificationWithTime = notificationsList.getByRole("link", {
-      name: /seems to have worked/,
-    });
-    await expect(notificationWithTime).toContainText("vor");
+    await expect(entry).toHaveCount(0);
+    await expect(
+      page.getByText("Du hast derzeit keine Benachrichtigungen."),
+    ).toBeVisible();
   });
+});
 
+test.describe("Notifications", () => {
   test("unread notifications badge shows correct count", async ({
     page,
     acceptanceHelper,
@@ -222,64 +124,7 @@ test.describe("Notifications", () => {
     await expect(notificationButton).toContainText("3");
   });
 
-  test.fixme("can refresh and load more notifications", async ({
-    page,
-    acceptanceHelper,
-  }) => {
-    const region = await foodsharing.createRegion();
-    const foodsaver = await foodsharing.createFoodsaver(null, {
-      bezirk_id: region.id,
-    });
-
-    // Create several notifications
-    for (let i = 1; i <= 5; i++) {
-      await foodsharing.addBells([foodsaver], {
-        name: `notification_${i}`,
-        body: `Notification number ${i}`,
-        vars: {},
-        attr: { href: "/" },
-      });
-    }
-
-    await acceptanceHelper.login(foodsaver.email);
-    await page.goto("/");
-    await acceptanceHelper.waitForPageBody();
-
-    // Open notifications dropdown
-    const notificationButton = page.getByRole("button", {
-      name: "Benachrichtigungen",
-    });
-    await notificationButton.click();
-    const notificationsList = page.locator(
-      'ul.dropdown-menu.dropdown-menu-right.show[aria-labelledby*="BV_toggle_"]',
-    );
-    await notificationsList.waitFor({ state: "visible" });
-
-    // Count initial notifications
-    const notifications = notificationsList.getByRole("listitem");
-    const initialCount = await notifications.count();
-    expect(initialCount).toBeGreaterThanOrEqual(5);
-
-    // Check for "Aktualisieren" (Refresh) menu item
-    const refreshButton = page.getByRole("menuitem", {
-      name: /Aktualisieren/,
-    });
-    await expect(refreshButton).toBeVisible();
-
-    // Generate more notifications to test refresh
-    for (let i = 6; i <= 10; i++) {
-      await foodsharing.addBells([foodsaver], {
-        name: `notification_${i}`,
-        body: `Notification number ${i}`,
-      });
-    }
-
-    // Click refresh button
-    await refreshButton.click();
-    await acceptanceHelper.waitForActiveAPICalls();
-
-    // Verify new notifications are loaded
-    const newCount = await notifications.count();
-    expect(newCount).toBeGreaterThan(initialCount);
-  });
+  // reminders for behaviour still without coverage (kept from the old mocha fixmes)
+  test.fixme("shows the relative time on a bell entry", async () => {});
+  test.fixme("loads more bells on demand", async () => {});
 });

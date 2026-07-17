@@ -12,6 +12,16 @@ fixtures, network stubbing and selectors), follow Playwright's official best pra
 If you need an internal quick reference, keep tests small and deterministic, use `page.locator()` + `expect` matchers,
 prefer API setup over UI setup, and wait for network or specific selectors rather than using fixed timeouts.
 
+### Unit-style tests
+
+Frontend logic is tested with Playwright as well - there is no separate mocha/jsdom runner anymore.
+
+- Pure client functions (helpers without DOM or webpack-only imports) can be exercised directly in a spec:
+  import `tests/e2e/helpers/client-module-shim` first, then import the client module and assert synchronously.
+  Example: `specs/i18n-escape.spec.ts`.
+- Component behaviour is asserted through the rendered UI in a normal e2e spec,
+  see `specs/tabbed-page.spec.ts` for a converted component test.
+
 ### Quick Start
 
 **Prerequisites:** Docker and Docker Compose installed

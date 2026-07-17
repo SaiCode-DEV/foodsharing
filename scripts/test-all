@@ -11,8 +11,8 @@ if [[ -z "${1:-}" ]]; then
     "$dir"/test-e2e test
     run_codeception
     if [ $# -eq 0 ]; then
-        log-header "Running Client tests"
-        run-in-container client "yarn && yarn lint && yarn test"
+        log-header "Linting client js (tests moved to Playwright, see test-e2e)"
+        run-in-container client "yarn && yarn lint"
         log-header "Running websocket tests"
         run-in-container websocket "yarn && yarn lint && yarn test"
     fi

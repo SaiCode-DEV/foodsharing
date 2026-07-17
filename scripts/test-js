@@ -7,5 +7,6 @@ dir=$(dirname "$0")
 # shellcheck source=./__common.sh
 source "$dir"/__common.sh
 
-log-header "Running client js tests"
-run-in-container client 'yarn && yarn lint && yarn test'
+# Client unit tests moved to Playwright (see ./scripts/test-e2e); this now lints only.
+log-header "Linting client js"
+run-in-container client 'yarn && yarn lint'

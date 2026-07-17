@@ -53,8 +53,6 @@ stages:
     - build:frontend
     - build:backend
     - build:websocket
-    - job: test:frontend
-      artifacts: false
     - job: test:backend-unit
       artifacts: false
     - job: test:backend-api
@@ -404,26 +402,6 @@ test:backend-unit:
   script:
     - touch $CI_PROJECT_DIR/code_updated
     - ./scripts/ci-backend-test Unit
-
-test:frontend:
-  extends:
-    - .defaults
-  stage: test
-  interruptible: true
-  rules:
-    - *rule-skip-on-production-skip-ci
-    - *rule-skip-on-schedule
-    - *rule-main-branches
-    - *rule-mr-app-changes
-    - *rule-mr-frontend-changes
-  image: registry.gitlab.com/foodsharing-dev/images/node:latest
-  variables:
-    REDIS_HOST: redis
-  script:
-    - (cd client && yarn && yarn test)
-  needs:
-    - build:frontend
-  <<: *cache-frontend-build
 
 test:playwright:
   extends:
