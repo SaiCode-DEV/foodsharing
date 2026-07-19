@@ -42,6 +42,7 @@ class SearchTransactions
         $maySearchGlobal = $this->searchPermissions->maySearchGlobal();
         $searchGlobal = $global && $maySearchGlobal;
         $searchAllWorkingGroups = $this->searchPermissions->maySearchAllWorkingGroups();
+        $searchAllFoodSharePoints = $searchGlobal || $this->searchPermissions->maySearchAllFoodSharePoints();
         $includeInactiveStores = $this->session->mayRole(Role::STORE_MANAGER);
         $result->timings['permissions'] = microtime(true) - $start;
 
@@ -55,7 +56,7 @@ class SearchTransactions
         $result->stores = $this->searchGateway->searchStores($query, $foodsaverId, $includeInactiveStores, $searchGlobal);
         $result->timings['stores'] = microtime(true) - $start;
         $start = microtime(true);
-        $result->foodSharePoints = $this->searchGateway->searchFoodSharePoints($query, $foodsaverId, $searchGlobal);
+        $result->foodSharePoints = $this->searchGateway->searchFoodSharePoints($query, $foodsaverId, $searchAllFoodSharePoints);
         $result->timings['fsp'] = microtime(true) - $start;
         $start = microtime(true);
         $result->chats = $this->searchGateway->searchChats($query, $foodsaverId);

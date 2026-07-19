@@ -136,8 +136,10 @@ group:
       list
     tooltip_function_region2296: Administrators of this working group can edit 
       resource and store categories
-    tooltip_function_region3097: Administrators of this group can edit the 
+    tooltip_function_region3097: Administrators of this group can edit the
       content of the "Education" page
+    tooltip_function_region4647: Administrators of this work group can find all
+      food share points in the search
   member_list:
     remove_title: Remove member
     add_member: add to team

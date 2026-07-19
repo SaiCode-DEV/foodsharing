@@ -53,4 +53,16 @@ class SearchPermissions
     {
         return $this->session->mayRole(Role::ORGA) || $this->currentUserUnits->isAdminFor(RegionIDs::IT_SUPPORT_GROUP);
     }
+
+    /**
+     * Admins of the single überregional food-share-point working group (the Fairteiler-AG) may
+     * search and view all food share points platform-wide, not just those in their own regions
+     * (#2170). This keys off that one specific group rather than the FSP function, mirroring how
+     * maySearchGlobal() keys off the IT support group.
+     */
+    public function maySearchAllFoodSharePoints(): bool
+    {
+        return $this->session->mayRole(Role::ORGA) ||
+            $this->currentUserUnits->isAdminFor(RegionIDs::FSP_TEAM_ADMIN_GROUP);
+    }
 }
