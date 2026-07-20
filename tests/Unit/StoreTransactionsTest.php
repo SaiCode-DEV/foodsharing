@@ -589,7 +589,7 @@ class StoreTransactionsTest extends Unit
         $regionChild2 = $this->tester->createRegion(null, ['parent_id' => $regionTop['id'], 'type' => UnitType::PART_OF_TOWN]);
         $store2 = $this->tester->createStore($regionChild2['id']);
 
-        $listOfStores = $this->transactions->listOverviewInformationsOfStoresInRegion($regionTop['id'], true);
+        $listOfStores = $this->transactions->listOverviewInformationsOfStoresInRegion($regionTop['id']);
         $this->assertIsArray($listOfStores);
         $this->assertEquals(2, count($listOfStores));
         $this->assertContainsOnlyInstancesOf(StoreListInformation::class, $listOfStores);

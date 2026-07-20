@@ -6,6 +6,7 @@ namespace Tests\Api;
 
 use Codeception\Example;
 use Codeception\Util\HttpCode as Http;
+use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Tests\Support\ApiTester;
 
@@ -341,6 +342,34 @@ class StoreApiCest
         foreach ($names as $name) {
             $I->assertNotEmpty($name, 'Store name should not be empty');
         }
+    }
+
+    public function noPaginationParamsReturnTheFullStoreList(ApiTester $I): void
+    {
+        $region = $I->createRegion();
+        $I->addRegionMember($region['id'], $this->user['id'], true);
+        for ($i = 0; $i < 105; ++$i) {
+            $I->createStore($region['id']);
+        }
+
+        $I->login($this->user[self::EMAIL]);
+        // more stores than the default page size: without params everything is returned
+        $I->sendGET(self::API_REGIONS . '/' . $region['id'] . '/stores');
+        $I->seeResponseCodeIs(Http::OK);
+        $I->assertCount(105, $I->grabDataFromResponseByJsonPath('$.*.id'));
+
+        $I->sendGET(self::API_REGIONS . '/' . $region['id'] . '/stores', ['offset' => 100, 'limit' => 50]);
+        $I->seeResponseCodeIs(Http::OK);
+        $I->assertCount(5, $I->grabDataFromResponseByJsonPath('$.*.id'));
+    }
+
+    public function countryLevelRegionStaysForbiddenEvenWithPagination(ApiTester $I): void
+    {
+        // country/Europe lists stay blocked until the frontend filters server-side (#2768);
+        // pagination params must not open them up
+        $I->login($this->user[self::EMAIL]);
+        $I->sendGET(self::API_REGIONS . '/' . RegionIDs::GERMANY . '/stores', ['offset' => 0, 'limit' => 100]);
+        $I->seeResponseCodeIs(Http::FORBIDDEN);
     }
 
     public function testContentofGetListOfStoresInRegionExpanded(ApiTester $I): void

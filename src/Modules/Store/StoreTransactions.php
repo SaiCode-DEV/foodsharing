@@ -26,6 +26,7 @@ use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Core\DBConstants\WallType;
 use Foodsharing\Modules\Core\DTO\MinimalIdentifier;
 use Foodsharing\Modules\Core\DTO\PatchGeoLocation;
+use Foodsharing\Modules\Core\Pagination;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
@@ -217,14 +218,15 @@ class StoreTransactions
      * This list of stores contains all stores from sub regions.
      *
      * @param int $regionId Region identifier
+     * @param Pagination|null $pagination Optional pagination (limit/offset). Returns all stores if null.
      *
      * @return array<StoreListInformation> List of information
      *
      * @throws Exception
      */
-    public function listOverviewInformationsOfStoresInRegion(int $regionId): array
+    public function listOverviewInformationsOfStoresInRegion(int $regionId, ?Pagination $pagination = null): array
     {
-        $stores = $this->storeGateway->listStoresInRegion($regionId, true);
+        $stores = $this->storeGateway->listStoresInRegion($regionId, true, $pagination);
 
         return array_map(StoreListInformation::loadFrom(...), $stores);
     }

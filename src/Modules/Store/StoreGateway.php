@@ -938,16 +938,26 @@ class StoreGateway extends BaseGateway
     /**
      * Returns a list of stores which belong to regions.
      *
+     * @param Pagination|null $pagination Optional pagination (limit/offset). Returns all stores if null.
+     *
      * @return array<Store>
      *
      * @throws Exception
      */
-    public function listStoresInRegion(int $regionId, bool $includeSubregions = false): array
+    public function listStoresInRegion(int $regionId, bool $includeSubregions = false, ?Pagination $pagination = null): array
     {
         $regionIds = [$regionId];
         if ($includeSubregions) {
             $regionIds = array_merge($regionIds, $this->regionGateway->listIdsForDescendantsAndSelf($regionId));
         }
+
+        // named placeholders throughout, so the pagination helpers can add :limit/:offset
+        $params = [];
+        foreach (array_values($regionIds) as $i => $id) {
+            $params['regionId' . $i] = $id;
+        }
+        $regionPlaceholders = ':' . implode(', :', array_keys($params));
+        $params = $this->addPaginationSqlLimitParameters($pagination, $params);
 
         $results = $this->db->fetchAll($this->sqlSelectStoreColumns() . ',
                 r.name AS regionName
@@ -955,9 +965,9 @@ class StoreGateway extends BaseGateway
             JOIN fs_bezirk r ON fs_betrieb.bezirk_id = r.id
             LEFT JOIN fs_betrieb_kategorie k ON
                 fs_betrieb.betrieb_kategorie_id = k.id
-            WHERE fs_betrieb.bezirk_id IN(' . $this->db->generatePlaceholders(count($regionIds)) . ')
-
-		', $regionIds);
+            WHERE fs_betrieb.bezirk_id IN(' . $regionPlaceholders . ')
+            ORDER BY fs_betrieb.id' . $this->buildPaginationSqlLimit($pagination) . '
+		', $params);
 
         return array_map(fn ($store) => Store::createFromArray($store), $results);
     }

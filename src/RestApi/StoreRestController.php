@@ -56,6 +56,9 @@ use Symfony\Component\Routing\Requirement\Requirement;
 #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
 class StoreRestController extends AbstractFoodsharingRestController
 {
+    private const int STORES_PER_REGION_DEFAULT_LIMIT = 100;
+    private const int STORES_PER_REGION_MAX_LIMIT = 1000;
+
     public function __construct(
         protected Session $session,
         private readonly FoodsaverGateway $foodsaverGateway,
@@ -124,12 +127,17 @@ class StoreRestController extends AbstractFoodsharingRestController
 
     #[OA\Get(summary: 'Get the stores of a region')]
     #[Route('regions/{regionId}/stores', requirements: ['regionId' => Requirement::POSITIVE_INT], methods: ['GET'])]
+    #[OA\QueryParameter(name: 'offset', description: 'Index of the first store to return (for pagination).', required: false, schema: new OA\Schema(type: 'integer', default: 0, minimum: 0))]
+    #[OA\QueryParameter(name: 'limit', description: 'Maximum number of stores to return (for pagination). Capped at ' . self::STORES_PER_REGION_MAX_LIMIT . '.', required: false, schema: new OA\Schema(type: 'integer', default: self::STORES_PER_REGION_DEFAULT_LIMIT, maximum: self::STORES_PER_REGION_MAX_LIMIT, minimum: 1))]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
         type: 'array', items: new OA\Items(ref: new Model(type: StoreListInformation::class))
     ))]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'No permission to see store list')]
-    public function getStoresOfRegion(int $regionId): Response
-    {
+    public function getStoresOfRegion(
+        int $regionId,
+        #[MapQueryParameter('offset')] ?int $offset,
+        #[MapQueryParameter('limit')] ?int $limit,
+    ): Response {
         $this->assertLoggedIn();
 
         if (!$this->storePermissions->mayListStores()) {
@@ -147,7 +155,15 @@ class StoreRestController extends AbstractFoodsharingRestController
             throw new AccessDeniedHttpException('Currently not permitted to see the store list in this region.');
         }
 
-        $stores = $this->storeTransactions->listOverviewInformationsOfStoresInRegion($regionId);
+        // without any pagination parameter the endpoint keeps returning the full list,
+        // which the frontend store list still relies on for client-side filtering
+        $pagination = null;
+        if (!is_null($offset) || !is_null($limit)) {
+            $limit = min($limit ?? self::STORES_PER_REGION_DEFAULT_LIMIT, self::STORES_PER_REGION_MAX_LIMIT);
+            $pagination = Pagination::create($limit, $offset, self::STORES_PER_REGION_DEFAULT_LIMIT);
+        }
+
+        $stores = $this->storeTransactions->listOverviewInformationsOfStoresInRegion($regionId, $pagination);
 
         return $this->respondOK($stores);
     }

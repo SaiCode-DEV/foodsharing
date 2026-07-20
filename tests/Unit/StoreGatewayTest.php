@@ -15,6 +15,7 @@ use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
+use Foodsharing\Modules\Core\Pagination;
 use Foodsharing\Modules\Message\MessageGateway;
 use Foodsharing\Modules\Region\DTO\MinimalRegionIdentifier;
 use Foodsharing\Modules\Store\DTO\Store;
@@ -307,6 +308,40 @@ class StoreGatewayTest extends Unit
         $this->assertContainsEquals($store2['id'], $storeIds);
         $this->assertNotContainsEquals($store3['id'], $storeIds);
         $this->assertNotContainsEquals($store4['id'], $storeIds);
+    }
+
+    public function testlistStoresInRegionWithPagination(): void
+    {
+        $region = $this->tester->createRegion(null, ['type' => UnitType::CITY]);
+        $store1 = $this->tester->createStore($region['id']);
+        $store2 = $this->tester->createStore($region['id']);
+        $store3 = $this->tester->createStore($region['id']);
+        $store4 = $this->tester->createStore($region['id']);
+        $store5 = $this->tester->createStore($region['id']);
+
+        // results are ordered by store id ascending
+        $allIds = [$store1['id'], $store2['id'], $store3['id'], $store4['id'], $store5['id']];
+        sort($allIds);
+
+        // first page: limit 2, offset 0
+        $firstPage = $this->gateway->listStoresInRegion($region['id'], true, Pagination::create(2, 0));
+        $this->assertEquals(2, count($firstPage));
+        $this->assertContainsOnlyInstancesOf(Store::class, $firstPage);
+        $this->assertEquals(array_slice($allIds, 0, 2), array_map(fn ($store) => $store->id, $firstPage));
+
+        // second page: limit 2, offset 2
+        $secondPage = $this->gateway->listStoresInRegion($region['id'], true, Pagination::create(2, 2));
+        $this->assertEquals(2, count($secondPage));
+        $this->assertEquals(array_slice($allIds, 2, 2), array_map(fn ($store) => $store->id, $secondPage));
+
+        // offset beyond the last page yields the remaining single store
+        $thirdPage = $this->gateway->listStoresInRegion($region['id'], true, Pagination::create(2, 4));
+        $this->assertEquals(1, count($thirdPage));
+        $this->assertEquals(array_slice($allIds, 4, 1), array_map(fn ($store) => $store->id, $thirdPage));
+
+        // no pagination returns all stores
+        $all = $this->gateway->listStoresInRegion($region['id'], true);
+        $this->assertEquals(5, count($all));
     }
 
     public function testUpdateStoreRegion(): void
