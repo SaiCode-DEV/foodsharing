@@ -789,7 +789,7 @@ bcard:
   generate: Stwórz wizytówkę
   role: Rola
   region: Region
-  claim: 'Łatwo wygeneruj, wydrukuj i wytnij tutaj…'
+  claim: 'Łatwo wygeneruj, wydrukuj i wytnij tutaj …'
 group:
   name: Imię
   userId: ID
@@ -990,6 +990,8 @@ group:
       zasobów i punktów'
     tooltip_function_region3097: Administratorzy/ki tego zespołu mogą edytować 
       treści strony "edukacja"
+    tooltip_function_region4647: Administratorzy/ki tego zespołu znajdują w 
+      wyszukiwarce wszystkie jadłodzielnie
   confirm_decline: 'Czy na pewno chcesz odrzucić to zgłoszenie?'
   quitting_home_district_warning: 'Czy na pewno chcesz opuścić swój rejon macierzysty
     {name}? Utracisz weryfikację i musisz później zgłosić się do teamu ambasadorów/ek
@@ -2447,7 +2449,7 @@ events:
     join: Dołącz
   attendees: Uczestnicy/czki
   online_info: |
-    Telekonferencje i spotkania online najlepiej przeprowadzać na naszym własnym serwerze [BigBlueButton](https://bigbluebutton.org). Na 10 minut przed rozpoczęciem eventu uczestnicy/czki mogą dołączyć do konferencji po prostu przez kliknięcie ze strony eventu. Nie potrzeba do tego żadnych innych programów, tylko w miarę aktualnej przeglądarki internetowej. Poza tym jest możliwość dołączenia przez telefon.
+    Telekonferencje i spotkania online najlepiej przeprowadzać na naszym własnym serwerze [BigBlueButton](https://bigbluebutton.org). Na 10 minut przed rozpoczęciem eventu uczestnicy/czki mogą dołączyć do konferencji po prostu przez kliknięcie ze strony eventu. Nie potrzeba do tego żadnych innych programów, tylko w miarę aktualnej przeglądarki internetowej. Poza tym istnieje możliwość dołączenia przez telefon.
 
     Jeśli mimo to chcesz użyć innej platformy do telekonferencji lub spotkań online, wybierz opcję "inne".
   public_info: Ten event jest publiczny i otwarty dla wszystkich. Komentarze i 
@@ -2739,6 +2741,20 @@ reports:
   reminder: Przypomnienie
   reminder_at: Przypomnienie dnia
   set_reminder: Ustaw przypomnienie
+  search: Szukaj
+  search_by_name_or_id: Szukaj według imienia, ID lub powodu
+  searching: Trwa wyszukiwanie
+  filter_status: Filtruj według statusu
+  no_status: Brak statusu
+  no_consequence: Brak konsekwencji
+  status: Status
+  enter_status: Podaj status
+  enter_consequence: Podaj konsekwencję
+  consequence: Konsekwencja
+  invalid_forum_thread_region: Wątek na forum nie należy do rejonu, który jest 
+    odpowiedzialny za ten przypadek.
+  noresults: Nie znaleziono wątku na forum. Spróbuj wyszukać według innego 
+    pojęcia lub utwórz nowy wątek.
 memberlist:
   header_for_workgroup: Foodsaverzy/ki w zespole {bezirk}
   header_for_district: 'Foodsaverzy/ki w rejonie {bezirk}'
@@ -3539,6 +3555,9 @@ menu:
     regionalgroups: 'Grupy lokalne'
     messages: 'Wiadomości'
     aboutUs: 'O nas'
+    donation_menu: Przekaż darowiznę teraz
+    donation_page: Do strony darowizn
+    donation_button: Przekaż darowiznę teraz
   bell:
     delete_read_confirmation:
       title: Usunąć powiadomienia?
@@ -4473,7 +4492,7 @@ search:
     from: 'z'
   title: 'Szukaj'
   too_short: 'Podaj dłuższe wyrażenie do wyszukiwania.'
-  placeholder: 'Szukaj teraz …'
+  placeholder: 'Zacznij szukać teraz …'
   forum:
     placeholder: 'Szukaj w tym forum …'
     found:
@@ -5124,6 +5143,7 @@ system_administration:
   blog: 'Edytuj posty na blogu'
   reports: 'Pokaż skargi'
   content: 'Edytuj treści'
+  donation_page_edit: Edytuj stronę darowizn
 sort:
   sort_by: 'Sortuj według '
   options:
@@ -5365,3 +5385,30 @@ email_blocklist:
     delete_error: Błąd przy usuwaniu
     pattern_help: 'Użyj * jako symbolu zastępczego. Przykłady: example.com (domena),
       *@spam.com (dowolna nazwa na tej domenie), spam@* (email wszędzie)'
+donation_modal:
+  info_button: Dokąd trafi moja darowizna?
+  action_button: Przekaż darowiznę tutaj!
+  amount: Stan darowizn
+donation_admin_page:
+  title: Zarządzanie darowiznami
+  total_donators: Liczba darczyńców
+  donation_options:
+    one_time: Jednorazowe darowizny
+    friendship_circle: Krąg przyjaźni
+    campaign: Kampanie
+  delete_url: usuń URL
+  select_project: Wybierz projekt
+  edit_url: edytuj URL
+donation_page:
+  faq:
+    question_6: Czy organizacje i przedsiębiorstwa też mogą przekazywać 
+      darowizny?
+  donation_options:
+    one_time:
+      title: Jednorazowa darowizna
+      button: Przekaż jednorazową darowiznę
+    friendship_circle:
+      title: Krąg przyjaźni
+      button: Zostań przyjacielem/przyjaciółką
+    campaign:
+      title: Kampania

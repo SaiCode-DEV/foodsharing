@@ -136,9 +136,9 @@ group:
       list
     tooltip_function_region2296: Administrators of this working group can edit 
       resource and store categories
-    tooltip_function_region3097: Administrators of this group can edit the
+    tooltip_function_region3097: Administrators of this group can edit the 
       content of the "Education" page
-    tooltip_function_region4647: Administrators of this work group can find all
+    tooltip_function_region4647: Administrators of this work group can find all 
       food share points in the search
   member_list:
     remove_title: Remove member
@@ -742,6 +742,9 @@ menu:
     delete_read: Delete all read
     applications: Applications ({count})
     public: Public district page
+    donation_menu: Donate now
+    donation_page: To the donation page
+    donation_button: Donate now
   bell:
     delete_read_confirmation:
       text: Do you really want to delete {count} read bells?
@@ -758,7 +761,7 @@ profile:
       to the rules of conduct and the legal agreement\nand you can vouch for their
       reliability and commitment.\nNever give away trust bananas lightly!\n"
     alreadyGiven: '{name} has already received a banana from you.'
-    placeholder: at least 100 characters …
+    placeholder: at least 100 characters …
     undo: Trust bananas cannot be changed.
     details: "Here you can describe in at least 100 characters why you would like
       to give {name} a trust banana.\n"
@@ -1022,8 +1025,8 @@ mailbox:
   new: New mailbox
   filesize: Sorry, this file is too big.
   filetype: This file type is not allowed
-  ratelimit: You can only send one email every 15 seconds, please wait a 
-    moment …
+  ratelimit: You can only send one email every 15 seconds, please wait a moment 
+    …
   failed: The email could not be sent.
   okay: Email was successfully sent.
   not-allowed: You don’t have the necessary authorization to do that.
@@ -2953,7 +2956,7 @@ search:
     local: User-specific search
     global: Global search
 
-  placeholder: Search now …
+  placeholder: Search now …
   thread-body-only: Only the text of posts is searched, not the titles.
 sort:
   sort_by: "Sort by "
@@ -3191,6 +3194,8 @@ language_chooser:
   translation_help_info_text: "The link takes you to the translation portal. Register
     and click on the pen to get started"
 
+  untranslated_hint: 'Caution: This language has been translated to {percentage}%.
+    Untranslated texts will be shown in German.'
 theme_switcher:
   title: "Choose design"
   content: "Please choose a design"
@@ -3473,7 +3478,7 @@ anschrift: Street and house number
 body: message
 addresspicker:
   label: Search for address/location
-  placeholder: Search address …
+  placeholder: Search address …
   infobox_profile: "[Foodsharers](https://wiki.foodsharing.de/Foodsharer) need the
     address in order to be able to offer food baskets on the website. In order to
     be able to participate in food rescues as a [Foodsaver](https://wiki.foodsharing.de/Foodsaver),
@@ -3701,7 +3706,7 @@ regionOptions:
     info: May be edited by administrators of the Local Working Group for 
       Reporting (if applicable) or by district ambassadors
 list:
-  filter_for: filter for …
+  filter_for: filter for …
 startpage:
   donate:
     title: Donate
@@ -4064,7 +4069,7 @@ contentmanagement: Content management
 activitypost:
   Response: "Answer"
   response: "answer"
-  write: Write an answer …
+  write: Write an answer …
   quickreply_info: <code class="key">Shift + Return</code> to add a new line.
   quickreply_button: Send now<br>or press<code class="key">Return</code>.
 chain:
@@ -4244,7 +4249,7 @@ globals:
     mails: E-mails
   save: Save
   close: Close
-  select: Please select …
+  select: Please select …
   show_more: Show more
   show_less: Show less
   telephone_number: Telephone number
@@ -4275,6 +4280,7 @@ system_administration:
   reports: Show reports
   store_categories: Edit store categories
   resource_categories: Edit resource categories
+  donation_page_edit: Edit donation page
 join_region:
   error:
     is_country_1: This is a country.
@@ -4840,7 +4846,7 @@ petition:
     25000: We already have two thirds of the signatures needed! Together we can 
       do it!
   link: To the petition
-  daysLeft: '{daysLeft} days remaining'
+  daysLeft: '{daysLeft} days remaining'
 required_messages:
   message_info_multiple: 'Each person would receive the following message:'
   name_placeholder: <Name>
@@ -5167,3 +5173,50 @@ network_errors:
   csrf_token_invalid:
     title: "Session expired"
     text: "Your session has expired. Please reload the page and try again."
+donation_modal:
+  action_button: Donate here!
+donation_admin_page:
+  title: Donation administration
+  total_donations: Total donations
+  total_donators: Number of donors
+  donation_options:
+    one_time: One-time donation
+    campaign: Campaigns
+  delete_url: Delete URL
+  campaign_project: Campaign project ID
+  donation_modal_project: Donation modal project ID
+  one_time_donation_project: One-time donations project ID
+  iframe_campaign_url: Iframe campaigns URL
+  iframe_one_time_url: Iframe one-time donations URL
+  iframe_selfservice_url: Iframe self-service URL
+  donation_modal_info_url: Donation modal info URL
+  donation_modal_popup_url: Donation modal popup URL
+  select_project: Select project
+  show_donation_modal_in_hours_for_logged_in_users: 'Show the donation modal for logged
+    in users in hours:'
+  show_donation_modal_in_hours_for_logged_out_users: 'Show the donation modal for
+    logged out users in hours:'
+  edit_url: Edit URL
+  error_loading_projects: 'Error while loading donation projects:'
+  show_campaign_card: Show campaign
+  show_donation_modal: Show donation modal
+  show_donation_campaign_part_1: Show campaign part 1
+  show_donation_campaign_part_2: Show campaign part 2
+  show_donation_campaign_gallery: Show campaign gallery
+  save_success: Donation data saved successfully!
+  save_error: Error while saving the donation data
+donation_page:
+  title: Your donation for
+  show_more: Show more
+  show_less: Show less
+  donation_options:
+    one_time:
+      title: One-time donation
+      button: Donate once
+    campaign:
+      title: Campaign
+  faq:
+    title: Frequently asked questions
+    question_2: What does foodsharing need money for?
+    question_4: How can I donate?
+    question_5: Can I donate from Austria, Switzerland, or somewhere else?
