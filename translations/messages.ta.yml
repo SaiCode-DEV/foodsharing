@@ -612,6 +612,7 @@ calendar:
         giving: '{store} வரி'
         orga: '{store} ச்லாட்'
         pickup: '{store} பிக்அப்'
+      storeInfo: ''
     updated: '(கடைசியாக புதுப்பிக்கப்பட்டது: {date})'
     event:
       statusUnspecified: இந்த தேதியில் நீங்கள் பங்கேற்கிறீர்களா என்பதை நீங்கள் 
@@ -769,6 +770,7 @@ chat:
   rename: 'உரையாடலை மறுபெயரிடவும்'
   open_full_view: 'முழு காட்சியைத் திறக்கவும்'
   unread_messages: 'படிக்காத செய்திகள்'
+  participant_count: ''
 wall:
   name: பின்போர்டு
   see-more: எல்லா இடுகைகளையும் காட்டு
@@ -933,6 +935,51 @@ reports:
   reportmessage: உங்களிடம் ஏதேனும் கேள்விகள் இருக்கும்போது உங்களை எவ்வாறு அடைய 
     முடியும் என்பதை சுருக்கமாகக் கூறுங்கள்.
   reports_region: '{பிராந்திய பெயர் இருந்து இன் செய்திகள்'
+  no_thread: ''
+  searching: ''
+  select_thread: ''
+  statuses:
+    completed: ''
+    deleted: ''
+    in_progress: ''
+    to_do: ''
+    follow_up_user: ''
+    handed_over: ''
+    mediation_gruppe: ''
+  view_thread: ''
+  consequences:
+    red_card: ''
+    warning: ''
+    no_rule_violation: ''
+    reminder: ''
+    no_further_action: ''
+    yellow_card: ''
+  reported_at: ''
+  consequence: ''
+  no_consequence: ''
+  reminder: ''
+  noresults: ''
+  enter_consequence: ''
+  update_error: ''
+  no_status: ''
+  reminder_at: ''
+  search: ''
+  create_thread: ''
+  enter_forum_thread_id: ''
+  view: ''
+  enter_status: ''
+  forum_thread: ''
+  error_missing_region: ''
+  invalid_forum_thread_region: ''
+  filter_status: ''
+  search_by_name_or_id: ''
+  forum_thread_search: ''
+  status: ''
+  forum_thread_linked: ''
+  edit_report: ''
+  set_reminder: ''
+  search_error: ''
+  remove: ''
 bell:
   forum_post_title: '{title}'
   forum_new_thread_title: 'புதிய பங்களிப்பு: {title}'
@@ -1067,6 +1114,8 @@ bell:
   chain_info_updated: '{store} என்பது சங்கிலியின் ஒரு பகுதியாகும்.'
   store_added_to_chain_title: '{chain}: செயல்பாடு சேர்க்கப்பட்டது'
   store_added_to_chain: '“{store}” வசதி இப்போது சங்கிலியின் ஒரு பகுதியாகும்.'
+  report_reminder: ''
+  report_reminder_title: ''
 list:
   filter_for: பின்னர் வடிகட்டி …
 memberlist:
@@ -1212,6 +1261,8 @@ foodsaver:
     பிறகு உங்கள் கணக்கை மீட்டெடுக்க முடியாது. நீங்கள் மீண்டும் உணவுப் பகிர்வில் சேர
     விரும்பினால், நீங்கள் ஒரு புதிய கணக்கை உருவாக்கி, நிறுவனங்கள், பணிக்குழுக்கள்
     போன்றவற்றுக்கு மீண்டும் விண்ணப்பிக்க வேண்டும்.'
+  delete_account_blockmail_help: ''
+  delete_account_blockmail: ''
 content:
   empty: இதுவரை எந்த பக்கமும் உள்ளிடப்படவில்லை.
   communities:
@@ -2280,6 +2331,9 @@ menu:
     applications: பயன்பாடுகள் ({count})
     public: பொது மாவட்ட பக்கம்
     close_all_chats: 'எல்லா அரட்டைகளையும் மூடு'
+    donation_button: ''
+    donation_menu: ''
+    donation_page: ''
   bell:
     delete_read_confirmation:
       text: நீங்கள் உண்மையில் {count} வாசிப்பு மணிகளை நீக்க விரும்புகிறீர்களா?
@@ -3532,6 +3586,18 @@ help:
 
         '
       title: 'சங்கிலி நிறுவனங்கள்'
+    archived_groups:
+      md: ''
+      title: ''
+    publicRegionStatistics:
+      md: ''
+      title: ''
+    group_category:
+      md: ''
+      title: ''
+    inactive_groups:
+      title: ''
+      md: ''
 team_page:
   board_member:
     title: பலகை
@@ -3867,6 +3933,7 @@ upload:
     நல்லது
   invalid_image_files: '{count} தேர்ந்தெடுக்கப்பட்ட கோப்புகள் சரியான படங்கள் அல்ல:
     {fileNames}'
+  remove_image: ''
 button:
   save: சேமிக்கவும்
   prev: பின்
@@ -3910,6 +3977,8 @@ group:
     accept: அனுமானிக்கவும்
     accepted: விண்ணப்பம் ஏற்றுக்கொள்ளப்பட்டது
     deny: 'மறுக்கவும்'
+    default_prompt: ''
+    application_hint: ''
   member_count:
     one: 'ஒட்டுமொத்த உறுப்பினர்'
     zero: உறுப்பினர்கள் இல்லை
@@ -3938,6 +4007,19 @@ group:
       "ஏசி உருவாக்கு" மூலம் மட்டுமே செயலாக்க முடியும்
     none: இலக்குகள் இல்லை
     resources: 'வள மொசைக்'
+    function_type_info:
+      12: ''
+      10: ''
+      6: ''
+      5: ''
+      9: ''
+      4: ''
+      13: ''
+      3: ''
+      11: ''
+      2: ''
+      1: ''
+      7: ''
   show-all: அனைத்தையும் காட்டு
   member_list:
     remove_admin_title: ஒரு நிர்வாகியாக
@@ -4067,7 +4149,53 @@ group:
       பட்டியலை அணுகலாம்
     tooltip_function_region2296: 'இந்தப் பணிக்குழுவின் நிர்வாகிகள் வளம் மற்றும் செயல்பாட்டு
       வகைகளைத் திருத்தலாம்'
+    tooltip_function_region4647: ''
+    tooltip_function_region3097: ''
   confirm_decline: 'இந்த விண்ணப்பத்தை நிராகரிக்க விரும்புகிறீர்களா?'
+  badge:
+    function_group: ''
+    special_permissions: ''
+    inactive: ''
+  membership_status:
+    member: ''
+    closed: ''
+    can_apply: ''
+    applied: ''
+    open: ''
+    admin: ''
+  list_headers:
+    default: ''
+    membership:
+      open: ''
+      applied: ''
+      admin: ''
+      can_apply: ''
+      member: ''
+      closed: ''
+    search_results: ''
+    category:
+      development: ''
+      default: ''
+      archived: ''
+      exchange: ''
+      project: ''
+      administrative: ''
+    inactive: ''
+  category:
+    development: ''
+    administrative: ''
+    default: ''
+    archived: ''
+    project: ''
+    exchange: ''
+  application_prompt: ''
+  sorting_scheme:
+    category: ''
+    name: ''
+    activity: ''
+    membership: ''
+  join_confirmation: ''
+  subgroups: ''
 legal:
   legal_agreement: சட்ட ஒப்பந்தம்
   if_delete:
@@ -4612,6 +4740,7 @@ language_chooser:
     எப்போதும் உதவியாளர்களைத் தேடுகிறோம்: மொழிபெயர்க்கும் போது உள்ளே'
   translation_help_info_text: இந்த இணைப்பு மொழிபெயர்ப்பு போர்ட்டலுக்கு 
     வழிவகுக்கிறது, அங்கு பதிவுசெய்து தொடங்குவதற்கு பேனாவைக் சொடுக்கு செய்க
+  untranslated_hint: ''
 savewithus: என்னுடையதை சரிசெய்யவும்!
 addreaction: ஒரு எதிர்வினை சேர்க்கவும்
 contentmanagement: உள்ளடக்க மேலாண்மை
@@ -4633,6 +4762,7 @@ system_administration:
   content: உள்ளடக்கத்தைத் திருத்தவும்
   store_categories: இயக்க வகைகளைத் திருத்து
   resource_categories: 'வள வகைகளைத் திருத்தவும்'
+  donation_page_edit: ''
 information:
   push:
     title: நீங்கள் இப்போது உணவு பகிர்விலிருந்து புச் அறிவிப்புகளைப் பெறலாம்.
@@ -4819,6 +4949,7 @@ categories:
   title:
     resource: 'வள வகைகள்'
     store: 'செயல்பாட்டு வகைகள்'
+    group: ''
   confirm_delete: '{name} வகையை உண்மையில் நீக்கவா?'
   types:
     0: 'பிக்கப்'
@@ -4831,6 +4962,7 @@ categories:
       இனி ஒரு வகை இருக்காது.'
     resource: 'இந்த வகைக்கு இன்னும் {count} ஆதாரங்கள் ஒதுக்கப்பட்டுள்ளன. இந்த வளங்கள்
       இந்த வகையை இழக்கும்.'
+    group: ''
   new: 'புதிய வகையை உள்ளிடவும்'
   delete: 'வகையை நீக்கு'
   edit: 'வகையைத் திருத்தவும்'
@@ -5039,3 +5171,108 @@ debug:
 test:
   vars: 'எனது பெயர் {NAME} மற்றும் எனக்கு {AGE} அகவை'
   plain: 'இது ஒரு மொழிபெயர்ப்பு'
+donation_admin_page:
+  iframe_one_time_url: ''
+  donation_modal_info_url: ''
+  donation_options:
+    one_time: ''
+    friendship_circle: ''
+    campaign: ''
+  one_time_donation_project: ''
+  select_project: ''
+  save_success: ''
+  friendship_circle_project: ''
+  delete_url: ''
+  error_loading_projects: ''
+  show_donation_modal: ''
+  donation_modal_project: ''
+  iframe_selfservice_url: ''
+  show_donation_campaign_part_2: ''
+  show_donation_modal_in_hours_for_logged_in_users: ''
+  show_campaign_card: ''
+  show_donation_campaign_gallery: ''
+  total_donations: ''
+  save_error: ''
+  title: ''
+  iframe_friendship_circle_url: ''
+  edit_url: ''
+  show_donation_modal_in_hours_for_logged_out_users: ''
+  show_donation_campaign_part_1: ''
+  campaign_project: ''
+  total_donators: ''
+  iframe_campaign_url: ''
+  donation_modal_popup_url: ''
+email_blocklist:
+  admin:
+    update_success: ''
+    description: ''
+    load_error: ''
+    delete_error: ''
+    delete_success: ''
+    title: ''
+    delete_warning: ''
+    email_pattern: ''
+    created_at: ''
+    active: ''
+    description_placeholder: ''
+    confirm_delete: ''
+    edit_entry: ''
+    actions: ''
+    pattern_help: ''
+    create_entry: ''
+    create_success: ''
+    save_error: ''
+    pattern_placeholder: ''
+donation_page:
+  faq:
+    answer_3: ''
+    answer_2: ''
+    question_7: ''
+    question_1: ''
+    question_8: ''
+    answer_4: ''
+    question_5: ''
+    answer_8: ''
+    title: ''
+    answer_6: ''
+    answer_9: ''
+    answer_5: ''
+    answer_1: ''
+    question_9: ''
+    question_10: ''
+    answer_7: ''
+    answer_10: ''
+    question_4: ''
+    question_2: ''
+    question_6: ''
+    question_3: ''
+    teaser: ''
+  show_less: ''
+  campaign:
+    goal: ''
+    claim: ''
+    count: ''
+  stats:
+    all_donators: ''
+    friendship_circle_donators: ''
+    one_time_donators: ''
+  donation_options:
+    one_time:
+      text: ''
+      button: ''
+      title: ''
+    campaign:
+      button: ''
+      title: ''
+      text: ''
+    friendship_circle:
+      title: ''
+      text: ''
+      button: ''
+  title: ''
+  show_more: ''
+  subtitle: ''
+donation_modal:
+  action_button: ''
+  amount: ''
+  info_button: ''

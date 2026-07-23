@@ -524,6 +524,8 @@ bell:
   store_added_to_chain: O local «{store}» agora faz parte da cadeia.
   chain_info_updated_title: Cadeia {chain} atualizada
   chain_info_updated: '{store} faz parte da cadeia.'
+  report_reminder: ''
+  report_reminder_title: ''
 email_template:
   login: 'Iniciar sessão para responder'
   reply: 'Responder'
@@ -750,6 +752,7 @@ calendar:
         pickup: '{store} recolha'
         giving: '{store} entrega'
         orga: '{store} vaga'
+      storeInfo: ''
     event:
       description: 'Descrição'
       statusUnspecified: 'Ainda não indicou se irá participar neste evento. Pode fazer
@@ -1050,6 +1053,9 @@ menu:
     close_all_chats: Fechar todos os chats
     applications: Aplicações ({count})
     public: Página pública do distrito
+    donation_button: ''
+    donation_menu: ''
+    donation_page: ''
   bell:
     delete_read_confirmation:
       text: 'Queres mesmo apagar {count} notificações lidos?'
@@ -1508,6 +1514,19 @@ group:
     election: Eleições
     none: Não é um grupo de trabalho GOALS
     resources: Mosaico de recursos
+    function_type_info:
+      12: ''
+      10: ''
+      6: ''
+      5: ''
+      9: ''
+      4: ''
+      13: ''
+      3: ''
+      11: ''
+      2: ''
+      1: ''
+      7: ''
   application_from: 'de'
   apply:
     accept: 'Aceitar'
@@ -1519,6 +1538,8 @@ group:
     accepted: 'Aplicação aceite'
     link_description: 'Este link leva-o diretamente para a aplicação:'
     deny: Recursar
+    default_prompt: ''
+    application_hint: ''
   member_list:
     set_admin_title: 'Atribuir como administrador'
     remove_ambassador_text: 'Tens a certeza de que pretende remover {name} ({id})
@@ -1597,6 +1618,8 @@ group:
       ver as denúncias'
     tooltip_function_region2296: Os administradores deste grupo de trabalho 
       podem editar categorias de recursos e operações
+    tooltip_function_region4647: ''
+    tooltip_function_region3097: ''
   last_activity: 'Última atividade'
   edit:
     title: 'Editar {group}'
@@ -1662,6 +1685,50 @@ group:
   valid_until: Válido até
   filter_placeholder: Filtrar grupos por nomes
   confirm_decline: Queres mesmo recusar esta aplicação?
+  badge:
+    function_group: ''
+    special_permissions: ''
+    inactive: ''
+  membership_status:
+    member: ''
+    closed: ''
+    can_apply: ''
+    applied: ''
+    open: ''
+    admin: ''
+  list_headers:
+    default: ''
+    membership:
+      open: ''
+      applied: ''
+      admin: ''
+      can_apply: ''
+      member: ''
+      closed: ''
+    search_results: ''
+    category:
+      development: ''
+      default: ''
+      archived: ''
+      exchange: ''
+      project: ''
+      administrative: ''
+    inactive: ''
+  category:
+    development: ''
+    administrative: ''
+    default: ''
+    archived: ''
+    project: ''
+    exchange: ''
+  application_prompt: ''
+  sorting_scheme:
+    category: ''
+    name: ''
+    activity: ''
+    membership: ''
+  join_confirmation: ''
+  subgroups: ''
 foodsaver:
   delete_account_sure: 'Tens a certeza de que deseja eliminar a tua conta de utilizador?'
   list:
@@ -1727,6 +1794,8 @@ foodsaver:
   delete_own_account_failed_totp_hint: 'Não foi possível eliminar a tua conta de utilizador.'
   delete_own_account_failed: 'Não foi possível eliminar a tua conta de utilizador.
     A palavra-passe introduzida está incorreta. Tenta novamente, se necessário.'
+  delete_account_blockmail_help: ''
+  delete_account_blockmail: ''
 pickup:
   no_slots_available: 'Não há vagas disponíveis'
   history:
@@ -2330,6 +2399,7 @@ chat:
     renaming_conversation: A renomeação da conversa falhou.
   open_full_view: Abrir visualização completa
   unread_messages: Mensagens não lidas
+  participant_count: ''
 error_permissions: 'Infelizmente, nao tens as permissões necessárias para este processo.'
 storeedit:
   team:
@@ -3584,6 +3654,7 @@ upload:
     {fileNames}'
   image-problem: O teu ficheiro não está em ordem, é melhor utilizar uma imagem 
     jpg normal
+  remove_image: ''
 content:
   new_success: 'A página foi criada'
   public: 'Páginas públicas'
@@ -3634,6 +3705,7 @@ system_administration:
   content: 'Editar conteúdos'
   resource_categories: 'Editar categorias de recursos'
   store_categories: 'Editar categorías de locais'
+  donation_page_edit: ''
 maxfp: 'Número máximo de pontos de erro para passar o testo'
 bootstrap-datepicker:
   labelCalendar: 'Calendário'
@@ -3874,6 +3946,51 @@ reports:
   id: ID
   reporter: Informante
   reported: Pessoa denúnciada
+  no_thread: ''
+  searching: ''
+  select_thread: ''
+  statuses:
+    completed: ''
+    deleted: ''
+    in_progress: ''
+    to_do: ''
+    follow_up_user: ''
+    handed_over: ''
+    mediation_gruppe: ''
+  view_thread: ''
+  consequences:
+    red_card: ''
+    warning: ''
+    no_rule_violation: ''
+    reminder: ''
+    no_further_action: ''
+    yellow_card: ''
+  reported_at: ''
+  consequence: ''
+  no_consequence: ''
+  reminder: ''
+  noresults: ''
+  enter_consequence: ''
+  update_error: ''
+  no_status: ''
+  reminder_at: ''
+  search: ''
+  create_thread: ''
+  enter_forum_thread_id: ''
+  view: ''
+  enter_status: ''
+  forum_thread: ''
+  error_missing_region: ''
+  invalid_forum_thread_region: ''
+  filter_status: ''
+  search_by_name_or_id: ''
+  forum_thread_search: ''
+  status: ''
+  forum_thread_linked: ''
+  edit_report: ''
+  set_reminder: ''
+  search_error: ''
+  remove: ''
 notifications:
   newsletter:
     description: 'Receba aproximadamente uma vez por mês informações atualizadas sobre
@@ -4213,6 +4330,7 @@ language_chooser:
     e clique no ícone do lápis para começar'
   choose_button: 'Atualizar'
   content: 'Por favor, escolhe uma idioma'
+  untranslated_hint: ''
 prefetchtime: 'Com quantas semanas de antecedência podem os Foodsavers registar-se
   nas vagas geradas automaticamente?'
 ueberzeugungsarbeit: 'Foi fácil convencer os responsáveis a cooperar com o foodsharing?'
@@ -4802,6 +4920,18 @@ help:
       md: |
         Esta loja faz parte de uma [cadeia comercial](https://wiki.foodsharing.de/Betrieb#Betriebskette). Todas as cadeias comerciais têm [KAMs](https://wiki.foodsharing.de/Key_Account_Manager_(KAM)) responsáveis, que podem consultar a equipa, a carga de trabalho e o número de vagas disponíveis para recolha nesta loja.
       title: 'Filials de cadeias'
+    archived_groups:
+      md: ''
+      title: ''
+    publicRegionStatistics:
+      md: ''
+      title: ''
+    group_category:
+      md: ''
+      title: ''
+    inactive_groups:
+      title: ''
+      md: ''
   helpTitle: 'Ajuda: {title}'
   tooltip: 'Mostrar a ajuda'
 test:
@@ -4954,6 +5084,7 @@ categories:
   title:
     resource: 'Categorias de recursos'
     store: 'Categorias de locais'
+    group: ''
   confirm_delete: 'Deseja mesmo eliminar a categoria {name}?'
   types:
     0: 'Recolha'
@@ -4966,6 +5097,7 @@ categories:
       estes locais deixarão de ter categoria.'
     resource: 'Ainda existem {count} recursos atribuídos a esta categoria. Ao continuar,
       estes recursos deixarão de ter categoria.'
+    group: ''
   new: 'Inscrever nova categoria'
   delete: 'Eliminar categoria'
   edit: 'Editar categoria'
@@ -5205,3 +5337,108 @@ debug:
   title: 'Página de Debug'
   info: 'Esta é uma página de depuração para fins de teste. Se não sabes o que faz
     um botão, simplesmente não cliques 😉'
+donation_admin_page:
+  iframe_one_time_url: ''
+  donation_modal_info_url: ''
+  donation_options:
+    one_time: ''
+    friendship_circle: ''
+    campaign: ''
+  one_time_donation_project: ''
+  select_project: ''
+  save_success: ''
+  friendship_circle_project: ''
+  delete_url: ''
+  error_loading_projects: ''
+  show_donation_modal: ''
+  donation_modal_project: ''
+  iframe_selfservice_url: ''
+  show_donation_campaign_part_2: ''
+  show_donation_modal_in_hours_for_logged_in_users: ''
+  show_campaign_card: ''
+  show_donation_campaign_gallery: ''
+  total_donations: ''
+  save_error: ''
+  title: ''
+  iframe_friendship_circle_url: ''
+  edit_url: ''
+  show_donation_modal_in_hours_for_logged_out_users: ''
+  show_donation_campaign_part_1: ''
+  campaign_project: ''
+  total_donators: ''
+  iframe_campaign_url: ''
+  donation_modal_popup_url: ''
+email_blocklist:
+  admin:
+    update_success: ''
+    description: ''
+    load_error: ''
+    delete_error: ''
+    delete_success: ''
+    title: ''
+    delete_warning: ''
+    email_pattern: ''
+    created_at: ''
+    active: ''
+    description_placeholder: ''
+    confirm_delete: ''
+    edit_entry: ''
+    actions: ''
+    pattern_help: ''
+    create_entry: ''
+    create_success: ''
+    save_error: ''
+    pattern_placeholder: ''
+donation_page:
+  faq:
+    answer_3: ''
+    answer_2: ''
+    question_7: ''
+    question_1: ''
+    question_8: ''
+    answer_4: ''
+    question_5: ''
+    answer_8: ''
+    title: ''
+    answer_6: ''
+    answer_9: ''
+    answer_5: ''
+    answer_1: ''
+    question_9: ''
+    question_10: ''
+    answer_7: ''
+    answer_10: ''
+    question_4: ''
+    question_2: ''
+    question_6: ''
+    question_3: ''
+    teaser: ''
+  show_less: ''
+  campaign:
+    goal: ''
+    claim: ''
+    count: ''
+  stats:
+    all_donators: ''
+    friendship_circle_donators: ''
+    one_time_donators: ''
+  donation_options:
+    one_time:
+      text: ''
+      button: ''
+      title: ''
+    campaign:
+      button: ''
+      title: ''
+      text: ''
+    friendship_circle:
+      title: ''
+      text: ''
+      button: ''
+  title: ''
+  show_more: ''
+  subtitle: ''
+donation_modal:
+  action_button: ''
+  amount: ''
+  info_button: ''

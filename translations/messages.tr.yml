@@ -467,6 +467,11 @@ group:
       7: Bu çalışma grubunun yöneticileri, raporlama ekibini ilgilendiren 
         raporları göreceklerdir. Yöneticilerin kendilerini ilgilendiren raporlar
         görüntülenmeyecek; bunlar raporlama ekibine gönderilecektir
+      12: ''
+      10: ''
+      9: ''
+      13: ''
+      11: ''
   mail_link_title:
     region: Bölge Posta Kutusu
     workgroup: Çalışma grubunun posta kutusu
@@ -534,6 +539,8 @@ group:
       dönen listesinden girişleri kaldırabilir
     tooltip_function_region2296: Bu çalışma grubunun yöneticileri kaynak ve 
       operasyonel kategorileri düzenleyebilir
+    tooltip_function_region4647: ''
+    tooltip_function_region3097: ''
   member_list:
     remove_admin_title: Yönetici olarak oturumu kapat
     is_verified: Onaylandı
@@ -605,6 +612,48 @@ group:
   application_prompt: Başvuru kılavuzu. Başvuru sahipleri hangi soruları 
     yanıtlamalıdır?
   join_confirmation: Şimdi {name} grubuna katılmak ister misiniz?
+  badge:
+    function_group: ''
+    special_permissions: ''
+    inactive: ''
+  membership_status:
+    member: ''
+    closed: ''
+    can_apply: ''
+    applied: ''
+    open: ''
+    admin: ''
+  list_headers:
+    default: ''
+    membership:
+      open: ''
+      applied: ''
+      admin: ''
+      can_apply: ''
+      member: ''
+      closed: ''
+    search_results: ''
+    category:
+      development: ''
+      default: ''
+      archived: ''
+      exchange: ''
+      project: ''
+      administrative: ''
+    inactive: ''
+  category:
+    development: ''
+    administrative: ''
+    default: ''
+    archived: ''
+    project: ''
+    exchange: ''
+  sorting_scheme:
+    category: ''
+    name: ''
+    activity: ''
+    membership: ''
+  subgroups: ''
 ansprechpartner: İşletmeden sorumlu Yektili (Şube Müdürü vs.)
 text: Metin
 fp: Hata puanları
@@ -738,6 +787,8 @@ bell:
   chain_info_updated: ''
   store_added_to_chain_title: ''
   store_added_to_chain: ''
+  report_reminder: ''
+  report_reminder_title: ''
 error:
   mail_bounce:
     link_2: 'Yardıma ihtiyacım var'
@@ -1157,6 +1208,51 @@ reports:
   reporter: Rapor eden kişi
   reported: Rapor edilen kişi
   id: ID
+  no_thread: ''
+  searching: ''
+  select_thread: ''
+  statuses:
+    completed: ''
+    deleted: ''
+    in_progress: ''
+    to_do: ''
+    follow_up_user: ''
+    handed_over: ''
+    mediation_gruppe: ''
+  view_thread: ''
+  consequences:
+    red_card: ''
+    warning: ''
+    no_rule_violation: ''
+    reminder: ''
+    no_further_action: ''
+    yellow_card: ''
+  reported_at: ''
+  consequence: ''
+  no_consequence: ''
+  reminder: ''
+  noresults: ''
+  enter_consequence: ''
+  update_error: ''
+  no_status: ''
+  reminder_at: ''
+  search: ''
+  create_thread: ''
+  enter_forum_thread_id: ''
+  view: ''
+  enter_status: ''
+  forum_thread: ''
+  error_missing_region: ''
+  invalid_forum_thread_region: ''
+  filter_status: ''
+  search_by_name_or_id: ''
+  forum_thread_search: ''
+  status: ''
+  forum_thread_linked: ''
+  edit_report: ''
+  set_reminder: ''
+  search_error: ''
+  remove: ''
 success: Başarıyla tamamlandı
 error_ajax: "Bu ne yazık ki işe yaramadı.\nBelki internet bağlantınız şu anda çalışmıyordur.\n\
   \ Sayfayı yeniden yükleyin ve tekrar deneyin.\n"
@@ -1820,6 +1916,8 @@ foodsaver:
   delete_description_other: ''
   delete_own_account_failed: ''
   delete_description_own: ''
+  delete_account_blockmail_help: ''
+  delete_account_blockmail: ''
 content:
   empty: Şu ana kadar herhangi bir sayfa girilmedi.
   delete: "{name}'i gerçekten silmek istiyor musunuz?"
@@ -2090,6 +2188,9 @@ menu:
     applications: Başvurular ({count})
     public: Kamusal Bölge sayfası
     close_all_chats: ''
+    donation_button: ''
+    donation_menu: ''
+    donation_page: ''
   bell:
     delete_read_confirmation:
       text: '{count} okuma çanlarını silmek istediğinizden emin misiniz?'
@@ -2753,6 +2854,7 @@ chat:
   rename: ''
   open_full_view: ''
   unread_messages: ''
+  participant_count: ''
 push_notifications:
   test_notification_title: Push bildirimleri etkinleştirildi
   test_notification_body: Harika, bu işe yaramış gibi görünüyor :)
@@ -3706,6 +3808,7 @@ calendar:
         giving: ''
         orga: ''
         pickup: '{store} Gıda Alımı'
+      storeInfo: ''
     event:
       linkTitle: Foodsharing etkinliği
       statusUnspecified: Bu randevuya katılıp katılmayacağınızı henüz 
@@ -3980,6 +4083,7 @@ language_chooser:
   content: 'Lütfen bir dil seçin'
   translation_help: 'Başka lisanları konuşuyormusun? foodsharing her zaman tercümanlık
     konusunda yardımcı arıyor'
+  untranslated_hint: ''
 numbers:
   billion_abbreviation: ' Milyar.'
   decimal_separator: ','
@@ -4013,6 +4117,7 @@ system_administration:
   content: 'İçeriği düzenle'
   store_categories: İşletme kategorilerini düzenleyin
   resource_categories: Kaynak kategorilerini düzenle
+  donation_page_edit: ''
 join_region:
   headline: 'Faaliyet göstermek istediğiniz bölgeyi seçiniz.'
   error:
@@ -4372,6 +4477,18 @@ help:
     store_chain_info:
       md: ''
       title: ''
+    archived_groups:
+      md: ''
+      title: ''
+    publicRegionStatistics:
+      md: ''
+      title: ''
+    group_category:
+      md: ''
+      title: ''
+    inactive_groups:
+      title: ''
+      md: ''
   helpTitle: 'Yardım: {title}'
   tooltip: Yardımı göster
 team_page:
@@ -4644,6 +4761,7 @@ categories:
   title:
     store: İşletme kategorileri
     resource: Kaynak kategorileri
+    group: ''
   empty: Henüz kategori girilmedi
   edit: Kategorinin adını değiştir
   delete: Kategoriyi sil
@@ -4655,6 +4773,7 @@ categories:
     store: Bu kategoriye hâlâ {count} işletme atanmış durumda. Bu işletmelerin 
       artık bir kategorisi olmayacak.
     resource: ''
+    group: ''
   types:
     0: ''
     2: ''
@@ -4826,3 +4945,108 @@ debug:
 test:
   vars: ''
   plain: ''
+donation_admin_page:
+  iframe_one_time_url: ''
+  donation_modal_info_url: ''
+  donation_options:
+    one_time: ''
+    friendship_circle: ''
+    campaign: ''
+  one_time_donation_project: ''
+  select_project: ''
+  save_success: ''
+  friendship_circle_project: ''
+  delete_url: ''
+  error_loading_projects: ''
+  show_donation_modal: ''
+  donation_modal_project: ''
+  iframe_selfservice_url: ''
+  show_donation_campaign_part_2: ''
+  show_donation_modal_in_hours_for_logged_in_users: ''
+  show_campaign_card: ''
+  show_donation_campaign_gallery: ''
+  total_donations: ''
+  save_error: ''
+  title: ''
+  iframe_friendship_circle_url: ''
+  edit_url: ''
+  show_donation_modal_in_hours_for_logged_out_users: ''
+  show_donation_campaign_part_1: ''
+  campaign_project: ''
+  total_donators: ''
+  iframe_campaign_url: ''
+  donation_modal_popup_url: ''
+email_blocklist:
+  admin:
+    update_success: ''
+    description: ''
+    load_error: ''
+    delete_error: ''
+    delete_success: ''
+    title: ''
+    delete_warning: ''
+    email_pattern: ''
+    created_at: ''
+    active: ''
+    description_placeholder: ''
+    confirm_delete: ''
+    edit_entry: ''
+    actions: ''
+    pattern_help: ''
+    create_entry: ''
+    create_success: ''
+    save_error: ''
+    pattern_placeholder: ''
+donation_page:
+  faq:
+    answer_3: ''
+    answer_2: ''
+    question_7: ''
+    question_1: ''
+    question_8: ''
+    answer_4: ''
+    question_5: ''
+    answer_8: ''
+    title: ''
+    answer_6: ''
+    answer_9: ''
+    answer_5: ''
+    answer_1: ''
+    question_9: ''
+    question_10: ''
+    answer_7: ''
+    answer_10: ''
+    question_4: ''
+    question_2: ''
+    question_6: ''
+    question_3: ''
+    teaser: ''
+  show_less: ''
+  campaign:
+    goal: ''
+    claim: ''
+    count: ''
+  stats:
+    all_donators: ''
+    friendship_circle_donators: ''
+    one_time_donators: ''
+  donation_options:
+    one_time:
+      text: ''
+      button: ''
+      title: ''
+    campaign:
+      button: ''
+      title: ''
+      text: ''
+    friendship_circle:
+      title: ''
+      text: ''
+      button: ''
+  title: ''
+  show_more: ''
+  subtitle: ''
+donation_modal:
+  action_button: ''
+  amount: ''
+  info_button: ''

@@ -248,12 +248,14 @@ group:
       exchange: Exchange groups
       administrative: Administration groups
       project: Project groups
+      development: ''
   category:
     default: No group type selected
     archived: Archived group
     exchange: Exchange group
     administrative: Administration group
     project: Project group
+    development: ''
 settings:
   header: Profile settings
   push:
@@ -4687,8 +4689,10 @@ help:
       title: 'chain store'
     group_category:
       title: Types of groups
+      md: ''
     archived_groups:
       title: Archived groups
+      md: ''
     inactive_groups:
       title: Inactive groups
       md: |
@@ -5175,6 +5179,8 @@ network_errors:
     text: "Your session has expired. Please reload the page and try again."
 donation_modal:
   action_button: Donate here!
+  amount: ''
+  info_button: ''
 donation_admin_page:
   title: Donation administration
   total_donations: Total donations
@@ -5182,6 +5188,7 @@ donation_admin_page:
   donation_options:
     one_time: One-time donation
     campaign: Campaigns
+    friendship_circle: ''
   delete_url: Delete URL
   campaign_project: Campaign project ID
   donation_modal_project: Donation modal project ID
@@ -5205,6 +5212,8 @@ donation_admin_page:
   show_donation_campaign_gallery: Show campaign gallery
   save_success: Donation data saved successfully!
   save_error: Error while saving the donation data
+  friendship_circle_project: ''
+  iframe_friendship_circle_url: ''
 donation_page:
   title: Your donation for
   show_more: Show more
@@ -5213,10 +5222,44 @@ donation_page:
     one_time:
       title: One-time donation
       button: Donate once
+      text: ''
     campaign:
       title: Campaign
+      button: ''
+      text: ''
+    friendship_circle:
+      title: ''
+      text: ''
+      button: ''
   faq:
     title: Frequently asked questions
     question_2: What does foodsharing need money for?
     question_4: How can I donate?
     question_5: Can I donate from Austria, Switzerland, or somewhere else?
+    answer_3: ''
+    answer_2: ''
+    question_7: ''
+    question_1: ''
+    question_8: ''
+    answer_4: ''
+    answer_8: ''
+    answer_6: ''
+    answer_9: ''
+    answer_5: ''
+    answer_1: ''
+    question_9: ''
+    question_10: ''
+    answer_7: ''
+    answer_10: ''
+    question_6: ''
+    question_3: ''
+    teaser: ''
+  campaign:
+    goal: ''
+    claim: ''
+    count: ''
+  stats:
+    all_donators: ''
+    friendship_circle_donators: ''
+    one_time_donators: ''
+  subtitle: ''

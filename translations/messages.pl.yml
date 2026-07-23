@@ -2647,6 +2647,7 @@ bell:
   store_added_to_chain_title: '{chain}: dodano punkt'
   store_added_to_chain: 'Punkt „{store}“ jest teraz częścią sieci.'
   report_reminder_title: 'Przypomnienie: skarga #{reportId}'
+  report_reminder: ''
 list:
   filter_for: Filtruj według …
 filterlist:
@@ -5339,6 +5340,7 @@ language_chooser:
     się tam i kliknij na długopis, aby rozpocząć'
   choose_button: 'Aktualizuj'
   content: 'Proszę wybrać język'
+  untranslated_hint: ''
 debug:
   title: 'Strona debug'
   info: 'To jest strona debug do debuggingu. Jeśli nie wiesz, jak działa jakiś przycisk,
@@ -5399,16 +5401,74 @@ donation_admin_page:
   delete_url: usuń URL
   select_project: Wybierz projekt
   edit_url: edytuj URL
+  iframe_one_time_url: ''
+  donation_modal_info_url: ''
+  one_time_donation_project: ''
+  save_success: ''
+  friendship_circle_project: ''
+  error_loading_projects: ''
+  show_donation_modal: ''
+  donation_modal_project: ''
+  iframe_selfservice_url: ''
+  show_donation_campaign_part_2: ''
+  show_donation_modal_in_hours_for_logged_in_users: ''
+  show_campaign_card: ''
+  show_donation_campaign_gallery: ''
+  total_donations: ''
+  save_error: ''
+  iframe_friendship_circle_url: ''
+  show_donation_modal_in_hours_for_logged_out_users: ''
+  show_donation_campaign_part_1: ''
+  campaign_project: ''
+  iframe_campaign_url: ''
+  donation_modal_popup_url: ''
 donation_page:
   faq:
     question_6: Czy organizacje i przedsiębiorstwa też mogą przekazywać 
       darowizny?
+    answer_3: ''
+    answer_2: ''
+    question_7: ''
+    question_1: ''
+    question_8: ''
+    answer_4: ''
+    question_5: ''
+    answer_8: ''
+    title: ''
+    answer_6: ''
+    answer_9: ''
+    answer_5: ''
+    answer_1: ''
+    question_9: ''
+    question_10: ''
+    answer_7: ''
+    answer_10: ''
+    question_4: ''
+    question_2: ''
+    question_3: ''
+    teaser: ''
   donation_options:
     one_time:
       title: Jednorazowa darowizna
       button: Przekaż jednorazową darowiznę
+      text: ''
     friendship_circle:
       title: Krąg przyjaźni
       button: Zostań przyjacielem/przyjaciółką
+      text: ''
     campaign:
       title: Kampania
+      button: ''
+      text: ''
+  show_less: ''
+  campaign:
+    goal: ''
+    claim: ''
+    count: ''
+  stats:
+    all_donators: ''
+    friendship_circle_donators: ''
+    one_time_donators: ''
+  title: ''
+  show_more: ''
+  subtitle: ''

@@ -28,6 +28,8 @@ group:
     accept: Accepter
     link_description: 'Ce lien te permet d’accéder directement à l’application :'
     deny: ''
+    default_prompt: ''
+    application_hint: ''
   contact:
     sent: Le message a bien été envoyé.
     send: Envoyer le message
@@ -66,6 +68,8 @@ group:
       des chaînes
     tooltip_function_region2296: Les admins de ce groupe de travail peuvent 
       modifier les catégories de ressources et de coopérations
+    tooltip_function_region4647: ''
+    tooltip_function_region3097: ''
   function:
     fsp: "Frigo solidaire"
     restricted_workgroup_function: Cette fonction de groupe ne peut être 
@@ -87,6 +91,19 @@ group:
     stores_coordination: Établissements
     none: Aucun groupe de travail GOALS
     resources: Mosaïque de ressources
+    function_type_info:
+      12: ''
+      10: ''
+      6: ''
+      5: ''
+      9: ''
+      4: ''
+      13: ''
+      3: ''
+      11: ''
+      2: ''
+      1: ''
+      7: ''
   delete_group_sure: Le groupe de travail/le district {groupName} doit-il 
     réellement être supprimé ?
   quitting_home_district_warning: Souhaites-tu vraiment quitter ton district 
@@ -187,6 +204,50 @@ group:
   filter_placeholder: filtrer les groupes par nom
   valid_until: valable jusqu’au
   confirm_decline: ''
+  badge:
+    function_group: ''
+    special_permissions: ''
+    inactive: ''
+  membership_status:
+    member: ''
+    closed: ''
+    can_apply: ''
+    applied: ''
+    open: ''
+    admin: ''
+  list_headers:
+    default: ''
+    membership:
+      open: ''
+      applied: ''
+      admin: ''
+      can_apply: ''
+      member: ''
+      closed: ''
+    search_results: ''
+    category:
+      development: ''
+      default: ''
+      archived: ''
+      exchange: ''
+      project: ''
+      administrative: ''
+    inactive: ''
+  category:
+    development: ''
+    administrative: ''
+    default: ''
+    archived: ''
+    project: ''
+    exchange: ''
+  application_prompt: ''
+  sorting_scheme:
+    category: ''
+    name: ''
+    activity: ''
+    membership: ''
+  join_confirmation: ''
+  subgroups: ''
 bcard:
   generate: Créer une carte de visite
   error:
@@ -247,6 +308,7 @@ upload:
     d’utiliser une image jpg normale
   invalid_image_files: '{count} fichiers sélectionnés ne sont pas des images valides :
     {fileNames}'
+  remove_image: ''
 image: Image
 wikilink: Lien avec des informations complémentaires
 questcount: Combien de questions doivent être posées pendant l’examen ?
@@ -833,6 +895,8 @@ foodsaver:
   delete_description_other: ''
   delete_own_account_failed: ''
   delete_description_own: ''
+  delete_account_blockmail_help: ''
+  delete_account_blockmail: ''
 forum:
   inform_per_email: Informer tous les membres du forum actifs au cours des six 
     derniers mois de la création de ce nouveau sujet par courriel, uniquement 
@@ -1730,6 +1794,9 @@ menu:
     applications: Applications ({count})
     public: Page publique du district
     close_all_chats: ''
+    donation_button: ''
+    donation_menu: ''
+    donation_page: ''
   bell:
     delete_read_confirmation:
       text: Tu veux vraiment supprimer {count} cloches lues ?
@@ -2375,6 +2442,7 @@ chat:
   rename: ''
   open_full_view: ''
   unread_messages: ''
+  participant_count: ''
 timepicker:
   labelNowButton: Maintenant
   labelCloseButton: Fermer
@@ -2416,6 +2484,7 @@ calendar:
         giving: ''
         orga: ''
         pickup: ''
+      storeInfo: ''
     updated: '(Dernière mise à jour : {date})'
   placeholder: Choisis une date
   copiedUrl: L’URL du calendrier a été copiée !
@@ -2968,6 +3037,8 @@ bell:
   chain_info_updated: ''
   store_added_to_chain_title: ''
   store_added_to_chain: ''
+  report_reminder: ''
+  report_reminder_title: ''
 personal_data:
   landline: Numéro de fixe
   mobile: Numéro de portable
@@ -2990,6 +3061,51 @@ reports:
   reports_user: Toutes les plaintes concernant {userName} ({userId})
   reported: Personne signalée
   reporter: Personne déclarante
+  no_thread: ''
+  searching: ''
+  select_thread: ''
+  statuses:
+    completed: ''
+    deleted: ''
+    in_progress: ''
+    to_do: ''
+    follow_up_user: ''
+    handed_over: ''
+    mediation_gruppe: ''
+  view_thread: ''
+  consequences:
+    red_card: ''
+    warning: ''
+    no_rule_violation: ''
+    reminder: ''
+    no_further_action: ''
+    yellow_card: ''
+  reported_at: ''
+  consequence: ''
+  no_consequence: ''
+  reminder: ''
+  noresults: ''
+  enter_consequence: ''
+  update_error: ''
+  no_status: ''
+  reminder_at: ''
+  search: ''
+  create_thread: ''
+  enter_forum_thread_id: ''
+  view: ''
+  enter_status: ''
+  forum_thread: ''
+  error_missing_region: ''
+  invalid_forum_thread_region: ''
+  filter_status: ''
+  search_by_name_or_id: ''
+  forum_thread_search: ''
+  status: ''
+  forum_thread_linked: ''
+  edit_report: ''
+  set_reminder: ''
+  search_error: ''
+  remove: ''
 month:
   short:
     "12": Déc.
@@ -3250,6 +3366,7 @@ language_chooser:
     le crayon pour commencer
   translation_help: Tu parles d’autres langues ? Chez foodsharing, nous 
     recherchons toujours des bénévoles pour traduire
+  untranslated_hint: ''
 poll:
   cancel:
     question: Souhaites-tu vraiment annuler ce vote ? Tu ne pourras pas revenir 
@@ -3867,6 +3984,7 @@ system_administration:
   email: Envoyer la newsletter
   store_categories: Modifier les catégories d’établissements
   resource_categories: Modifier les catégories de ressources
+  donation_page_edit: ''
 globals:
   type:
     my_persons: Mes personnes
@@ -4424,6 +4542,18 @@ help:
     store_chain_info:
       md: ''
       title: ''
+    archived_groups:
+      md: ''
+      title: ''
+    publicRegionStatistics:
+      md: ''
+      title: ''
+    group_category:
+      md: ''
+      title: ''
+    inactive_groups:
+      title: ''
+      md: ''
 automatic_delete: '- le profil doit être supprimé.'
 automatic_not_delete: '- le profil doit être conservé.'
 no_automatic_delete: 'Si la dernière connexion remonte à plus de cinq ans :'
@@ -4781,6 +4911,7 @@ categories:
   title:
     resource: ''
     store: ''
+    group: ''
   confirm_delete: ''
   types:
     0: ''
@@ -4791,6 +4922,7 @@ categories:
   confirm_delete_hint:
     store: ''
     resource: ''
+    group: ''
   new: ''
   delete: ''
   edit: ''
@@ -4881,3 +5013,108 @@ network_errors:
     title: ''
     text: ''
 totp_code: ''
+donation_admin_page:
+  iframe_one_time_url: ''
+  donation_modal_info_url: ''
+  donation_options:
+    one_time: ''
+    friendship_circle: ''
+    campaign: ''
+  one_time_donation_project: ''
+  select_project: ''
+  save_success: ''
+  friendship_circle_project: ''
+  delete_url: ''
+  error_loading_projects: ''
+  show_donation_modal: ''
+  donation_modal_project: ''
+  iframe_selfservice_url: ''
+  show_donation_campaign_part_2: ''
+  show_donation_modal_in_hours_for_logged_in_users: ''
+  show_campaign_card: ''
+  show_donation_campaign_gallery: ''
+  total_donations: ''
+  save_error: ''
+  title: ''
+  iframe_friendship_circle_url: ''
+  edit_url: ''
+  show_donation_modal_in_hours_for_logged_out_users: ''
+  show_donation_campaign_part_1: ''
+  campaign_project: ''
+  total_donators: ''
+  iframe_campaign_url: ''
+  donation_modal_popup_url: ''
+email_blocklist:
+  admin:
+    update_success: ''
+    description: ''
+    load_error: ''
+    delete_error: ''
+    delete_success: ''
+    title: ''
+    delete_warning: ''
+    email_pattern: ''
+    created_at: ''
+    active: ''
+    description_placeholder: ''
+    confirm_delete: ''
+    edit_entry: ''
+    actions: ''
+    pattern_help: ''
+    create_entry: ''
+    create_success: ''
+    save_error: ''
+    pattern_placeholder: ''
+donation_page:
+  faq:
+    answer_3: ''
+    answer_2: ''
+    question_7: ''
+    question_1: ''
+    question_8: ''
+    answer_4: ''
+    question_5: ''
+    answer_8: ''
+    title: ''
+    answer_6: ''
+    answer_9: ''
+    answer_5: ''
+    answer_1: ''
+    question_9: ''
+    question_10: ''
+    answer_7: ''
+    answer_10: ''
+    question_4: ''
+    question_2: ''
+    question_6: ''
+    question_3: ''
+    teaser: ''
+  show_less: ''
+  campaign:
+    goal: ''
+    claim: ''
+    count: ''
+  stats:
+    all_donators: ''
+    friendship_circle_donators: ''
+    one_time_donators: ''
+  donation_options:
+    one_time:
+      text: ''
+      button: ''
+      title: ''
+    campaign:
+      button: ''
+      title: ''
+      text: ''
+    friendship_circle:
+      title: ''
+      text: ''
+      button: ''
+  title: ''
+  show_more: ''
+  subtitle: ''
+donation_modal:
+  action_button: ''
+  amount: ''
+  info_button: ''
