@@ -1442,7 +1442,7 @@ required_messages:
   save_message: 'Zapisz moją wiadomość na następny raz'
   message_info_multiple: 'Każda osoba otrzyma następującą wiadomość:'
 petition:
-  daysLeft: Zostały/o {daysLeft} dni
+  daysLeft: 'Pozostało dni: {daysLeft}'
   link: Do petycji
   progressText:
     2000: 'Petycja się rozkręca! Z twoim wsparciem nabierzemy rozpędu!'
@@ -2647,7 +2647,7 @@ bell:
   store_added_to_chain_title: '{chain}: dodano punkt'
   store_added_to_chain: 'Punkt „{store}“ jest teraz częścią sieci.'
   report_reminder_title: 'Przypomnienie: skarga #{reportId}'
-  report_reminder: ''
+  report_reminder: 'Pora na przypomnienie odnośnie do skargi'
 list:
   filter_for: Filtruj według …
 filterlist:
@@ -5340,7 +5340,8 @@ language_chooser:
     się tam i kliknij na długopis, aby rozpocząć'
   choose_button: 'Aktualizuj'
   content: 'Proszę wybrać język'
-  untranslated_hint: ''
+  untranslated_hint: 'Uwaga: Dotychczas przetłumaczono ten język tylko w {percentage}%.
+    Nieprzetłumaczone teksy są wyświetlane po niemiecku.'
 debug:
   title: 'Strona debug'
   info: 'To jest strona debug do debuggingu. Jeśli nie wiesz, jak działa jakiś przycisk,
@@ -5401,27 +5402,29 @@ donation_admin_page:
   delete_url: usuń URL
   select_project: Wybierz projekt
   edit_url: edytuj URL
-  iframe_one_time_url: ''
-  donation_modal_info_url: ''
-  one_time_donation_project: ''
-  save_success: ''
-  friendship_circle_project: ''
-  error_loading_projects: ''
-  show_donation_modal: ''
-  donation_modal_project: ''
-  iframe_selfservice_url: ''
-  show_donation_campaign_part_2: ''
-  show_donation_modal_in_hours_for_logged_in_users: ''
-  show_campaign_card: ''
-  show_donation_campaign_gallery: ''
-  total_donations: ''
-  save_error: ''
-  iframe_friendship_circle_url: ''
-  show_donation_modal_in_hours_for_logged_out_users: ''
-  show_donation_campaign_part_1: ''
-  campaign_project: ''
-  iframe_campaign_url: ''
-  donation_modal_popup_url: ''
+  iframe_one_time_url: 'Iframe URL darowizny jednorazowe'
+  donation_modal_info_url: 'Iframe URL okienko darowizn'
+  one_time_donation_project: 'ID projektu darowizn jednorazowych'
+  save_success: 'Pomyślnie zapisano dane darowizny!'
+  friendship_circle_project: 'ID projektu kręgu przyjaźni'
+  error_loading_projects: 'Błąd przy ładowaniu projektów darowizn:'
+  show_donation_modal: 'Pokaż okienko darowizn'
+  donation_modal_project: 'ID projektu okienka darowizn'
+  iframe_selfservice_url: 'Iframe URL self-service'
+  show_donation_campaign_part_2: 'Pokaż część 2 kampanii'
+  show_donation_modal_in_hours_for_logged_in_users: 'Pokaż okienko darowizn dla zalogowanych
+    użytkowników/czek co godzinę:'
+  show_campaign_card: 'Pokaż kampanię'
+  show_donation_campaign_gallery: 'Pokaż galerię kampanii'
+  total_donations: 'suma darowizn'
+  save_error: 'Błąd przy zapisywaniu danych darowizny'
+  iframe_friendship_circle_url: 'Iframe URL krąg przyjaźni'
+  show_donation_modal_in_hours_for_logged_out_users: 'Pokaż okienko darowizn dla niezalogowanych
+    użytkowników/czek co godzinę:'
+  show_donation_campaign_part_1: 'Pokaż część 1 kampanii'
+  campaign_project: 'ID projektu kampanii'
+  iframe_campaign_url: 'Iframe URL kampanie'
+  donation_modal_popup_url: 'Popup URL okienko darowizn'
 donation_page:
   faq:
     question_6: Czy organizacje i przedsiębiorstwa też mogą przekazywać 
@@ -5429,24 +5432,26 @@ donation_page:
     answer_3: ''
     answer_2: ''
     question_7: ''
-    question_1: ''
+    question_1: 'Co się dzieje z moją darowizną?'
     question_8: ''
     answer_4: ''
-    question_5: ''
+    question_5: 'Czy mogę też przekazać darowiznę ze Szwajcarii, Austrii albo z innego
+      kraju?'
     answer_8: ''
-    title: ''
+    title: 'Często zadawane pytania'
     answer_6: ''
     answer_9: ''
     answer_5: ''
     answer_1: ''
-    question_9: ''
+    question_9: 'Jak mogę długoterminowo wspierać foodsharing finansowo?'
     question_10: ''
     answer_7: ''
     answer_10: ''
-    question_4: ''
-    question_2: ''
+    question_4: 'Jak mogę przekazać darowiznę?'
+    question_2: 'Do czego foodsharing właściwie potrzebuje pieniędzy?'
     question_3: ''
-    teaser: ''
+    teaser: 'Tu znajdziesz odpowiedzi na najważniejsze pytania dotyczące darowizn
+      na rzecz foodsharingu.'
   donation_options:
     one_time:
       title: Jednorazowa darowizna
@@ -5458,17 +5463,17 @@ donation_page:
       text: ''
     campaign:
       title: Kampania
-      button: ''
+      button: 'Przekazuję darowiznę!'
       text: ''
-  show_less: ''
+  show_less: 'Pokaż mniej'
   campaign:
-    goal: ''
+    goal: 'Cel darowizn {goal}'
     claim: ''
-    count: ''
+    count: 'Aktualny stan darowizn'
   stats:
-    all_donators: ''
-    friendship_circle_donators: ''
-    one_time_donators: ''
-  title: ''
-  show_more: ''
+    all_donators: 'Foodsharerzy/ki'
+    friendship_circle_donators: 'Przyjaciele/przyjaciółki'
+    one_time_donators: 'Darczyńcy jednorazowi'
+  title: 'Twoja darowizna dla'
+  show_more: 'Pokaż więcej'
   subtitle: ''
