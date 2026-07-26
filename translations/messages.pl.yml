@@ -5431,22 +5431,75 @@ donation_page:
       darowizny?
     answer_3: ''
     answer_2: ''
-    question_7: ''
+    question_7: 'Czy mogę wysłać swoją darowiznę bezpośrednio do lokalnej grupy foodsharingu?'
     question_1: 'Co się dzieje z moją darowizną?'
-    question_8: ''
-    answer_4: ''
+    question_8: 'Czy mogę też przekazywać przedmioty lub usługi w ramach darowizny?'
+    answer_4: "**Dołącz i przekaż darowiznę teraz!** Albo jednorazowo przez nasz [formularz
+      darowizn](donation)\n albo regularnie w [kręgu przyjaźni foodsharingu](donation/friendship_circle)
+      –każde wsparcie\npomaga w ratowaniu żywności. Możesz wygodnie przekazać darowiznę
+      poprzez zlecenie stałe, kartę kredytową, PayPal lub przelew.\n\nJeśli wolisz
+      wykonać przelew bezpośrednio, tu znajdziesz nasz numer konta dla darowizn:\n\
+      \n**foodsharing e.V.**  \nIBAN: DE66 4306 0967 4063 8156 00  \nGLS Gemeinschaftsbank\n"
     question_5: 'Czy mogę też przekazać darowiznę ze Szwajcarii, Austrii albo z innego
       kraju?'
-    answer_8: ''
+    answer_8: 'To też jest możliwe! Darowizny rzeczowe (jak na przykład rower towarowy
+      albo wyposażenie jadłodzielni) organizuje się bezpośrednio w rejonach. Aktualnie
+      otrzymujemy darowizny rzeczowe w formie materiałów drukowanych, ale chętnie
+      przyjmujemy też wsparcie w dziedzinach poradnictwa prawnego, IT lub projektowania
+      grafiki.
+
+
+      W tym celu skontaktuj się z [fundraising@foodsharing.network](mailto:fundraising@foodsharing.network).
+
+      '
     title: 'Często zadawane pytania'
-    answer_6: ''
+    answer_6: '**Oczywiście!** W przypadku kooperacji, które wykraczają poza normalną
+      darowiznę, będzie nam miło jeśli skontaktujesz się z nami mailowo na adres [fundraising@foodsharing.network](mailto:fundraising@foodsharing.network).
+
+
+      Jeśli twoje przedsiębiorstwo chce przekazywać produkty żywnościowe, zwróć się
+      do [unternehmen@foodsharing.network](mailto:unternehmen@foodsharing.network).
+
+      '
     answer_9: ''
-    answer_5: ''
-    answer_1: ''
+    answer_5: '**Jasne!** Twoja darowizna zasila projekty międzyregionalne – niezależnie
+      od tego, z jakiego kraju pochodzi. W ten sposób wspierasz też działania foodsharingu
+      w Austrii, Szwajcarii i innych krajach.
+
+
+      Przez swoją darowiznę wnosisz zawsze swój wkład do „całokształtu“ ruchu foodsharingu!
+
+
+      **Ważne:** Niestety, nie można odliczyć od podatku darowizn ze Szwajcarii, Austrii
+      i innych krajów.
+
+      '
+    answer_1: '**Wszystkie darowizny i wpłaty**, które wpływają przez kampanie darowizn,
+      darowizny jednorazowe i krąg przyjaźni foodsharingu, przekazywane są do związku
+      *foodsharing e.V.*
+
+
+      To stowarzyszenie użyteczności publicznej utrzymuje strony internetowe **foodsharing.de**,
+      **foodsharing.at** i **foodsharing.network** i tym samym tworzy podstawy dla
+      działalności foodsharingu w Niemczech, Austrii, Szwajcarii i innych krajach.
+
+
+      Do tych działań należy między innymi **ratowanie produktów żywnościowych na
+      miejscu**, które jest organizowane przez platformę internetową. Poza tym we
+      właściwych do tego zespołach koordynowane są projekty i aktywności międzyregionalne.
+
+      '
     question_9: 'Jak mogę długoterminowo wspierać foodsharing finansowo?'
-    question_10: ''
+    question_10: 'Czy mogę zakończyć lub zmienić moją darowiznę długoterminową w kręgu
+      przyjaźni foodsharingu w dowolnym momencie?'
     answer_7: ''
-    answer_10: ''
+    answer_10: 'Możesz w dowolnym momencie zmienić wysokość darowizny lub zakończyć
+      darowiznę długoterminową - całkiem bezproblemowo przez nasz Self-Service. Po
+      prostu zaloguj się [tutaj](/donation/selfservice)! Jeśli masz pytania albo potrzebujesz
+      pomocy,  zgłoś się do nas: [fundraising.freundeskreis@foodsharing.network](mailto:fundraising.freundeskreis@foodsharing.network).
+      Czekamy na wiadomość od ciebie!
+
+      '
     question_4: 'Jak mogę przekazać darowiznę?'
     question_2: 'Do czego foodsharing właściwie potrzebuje pieniędzy?'
     question_3: ''
@@ -5456,19 +5509,24 @@ donation_page:
     one_time:
       title: Jednorazowa darowizna
       button: Przekaż jednorazową darowiznę
-      text: ''
+      text: 'Każda wpłata pomaga nam przeciwdziałać marnowaniu żywności. **Tu możesz
+        wnieść swój wkład już od 5 euro.**
+
+        '
     friendship_circle:
       title: Krąg przyjaźni
       button: Zostań przyjacielem/przyjaciółką
-      text: ''
+      text: 'Darowizny stałe umożliwiają nam planowanie długoterminowe i długofalowy
+        rozwój. Wspieraj nas regularnie'
     campaign:
       title: Kampania
       button: 'Przekazuję darowiznę!'
-      text: ''
+      text: 'Każda wpłata pomaga nam przeciwdziałać marnowaniu żywności. **Tu możesz
+        wnieść swój wkład już od 5 euro.**'
   show_less: 'Pokaż mniej'
   campaign:
     goal: 'Cel darowizn {goal}'
-    claim: ''
+    claim: 'Razem na rzecz większego szacunku dla żywności.'
     count: 'Aktualny stan darowizn'
   stats:
     all_donators: 'Foodsharerzy/ki'
@@ -5476,4 +5534,4 @@ donation_page:
     one_time_donators: 'Darczyńcy jednorazowi'
   title: 'Twoja darowizna dla'
   show_more: 'Pokaż więcej'
-  subtitle: ''
+  subtitle: 'Twój wkład na rzecz większego szacunku dla żywności - tak możesz pomóc:'
