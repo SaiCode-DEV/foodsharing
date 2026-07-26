@@ -41,7 +41,7 @@ class ApplicationTransactions
         $this->deleteGroupApplicationBell($group['id'], $userId);
 
         $bellData = Bell::create('workgroup_request_decline_title', 'workgroup_request_decline', 'fas fa-user-times', [
-            'href' => '/groups&p=' . $group['parent_id']
+            'href' => '/groups?p=' . $group['parent_id']
         ], [
             'name' => $group['name']
         ], BellType::createIdentifier(BellType::WORK_GROUP_REQUEST_DENIED, $userId));
