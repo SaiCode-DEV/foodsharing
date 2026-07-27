@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         {% if route in 'msg'|split(',') %}
         {# Android Firefox zooms in message textarea input field, so prevent this by the following settings #}
-        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no, interactive-widget=resizes-content">
         {% else %}
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {% endif %}
