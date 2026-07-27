@@ -62,8 +62,13 @@ stages:
     - job: test:playwright
       artifacts: false
 
-# Consolidated rule definitions (to most degree reused across jobs)
+# rule definitions
+.rule-skip-on-draft: &rule-skip-on-draft
+  if: $CI_MERGE_REQUEST_DRAFT == 'true' && $CI_PIPELINE_SOURCE != 'web'
+  when: never
+
 .rule-gemnasium-dependency-scanning: &rule-gemnasium-dependency-scanning
+  - *rule-skip-on-draft
   - if: $CI_COMMIT_BRANCH == 'production' && $SKIP_CI_TESTS == 'true'
     when: never
   - if: $CI_COMMIT_BRANCH == 'master' || $CI_COMMIT_BRANCH == 'production'
@@ -75,72 +80,73 @@ stages:
       - websocket/yarn.lock
       - docs/yarn.lock
       - tests/e2e/yarn.lock
+
 .rule-skip-on-production-skip-ci: &rule-skip-on-production-skip-ci
-  - if: $CI_COMMIT_BRANCH == 'production' && $SKIP_CI_TESTS == 'true'
-    when: never
+  if: $CI_COMMIT_BRANCH == 'production' && $SKIP_CI_TESTS == 'true'
+  when: never
 
 .rule-skip-on-schedule: &rule-skip-on-schedule
-  - if: $CI_PIPELINE_SOURCE == "schedule"
-    when: never
+  if: $CI_PIPELINE_SOURCE == "schedule"
+  when: never
 
 .rule-main-branches: &rule-main-branches
-  - if: $CI_COMMIT_BRANCH == 'master' || $CI_COMMIT_BRANCH == 'production'
+  if: $CI_COMMIT_BRANCH == 'master' || $CI_COMMIT_BRANCH == 'production'
 
 .rule-mr-app-changes: &rule-mr-app-changes
-  - if: $CI_MERGE_REQUEST_ID
-    changes:
-      - css/**/*
-      - docker/**/*
-      - img/**/*
-      - lib/**/*
-      - migrations/**/*
-      - public/**/*
-      - scripts/**/*
-      - templates/**/*
-      - tests/**/*
-      - translations/**/*
-      - .gitlab-ci.yml
-      - .php-cs-fixer.php
-      - codeception.dist.yml
-      - composer.json
-      - composer.lock
-      - config.inc.*
-      - deploy.php
-      - jsconfig.json
-      - phinx.php
-      - phpstan.neon
-      - run.php
+  if: $CI_MERGE_REQUEST_ID
+  changes:
+    - css/**/*
+    - docker/**/*
+    - img/**/*
+    - lib/**/*
+    - migrations/**/*
+    - public/**/*
+    - scripts/**/*
+    - templates/**/*
+    - tests/**/*
+    - translations/**/*
+    - .gitlab-ci.yml
+    - .php-cs-fixer.php
+    - codeception.dist.yml
+    - composer.json
+    - composer.lock
+    - config.inc.*
+    - deploy.php
+    - jsconfig.json
+    - phinx.php
+    - phpstan.neon
+    - run.php
 
 .rule-mr-backend-changes: &rule-mr-backend-changes
-  - if: $CI_MERGE_REQUEST_ID
-    changes:
-      - src/**/*
-      - config/**/*
+  if: $CI_MERGE_REQUEST_ID
+  changes:
+    - src/**/*
+    - config/**/*
 
 .rule-mr-frontend-changes: &rule-mr-frontend-changes
-  - if: $CI_MERGE_REQUEST_ID
-    changes:
-      - client/**/*
+  if: $CI_MERGE_REQUEST_ID
+  changes:
+    - client/**/*
 
 .rule-mr-websocket-changes: &rule-mr-websocket-changes
-  - if: $CI_MERGE_REQUEST_ID
-    changes:
-      - websocket/**/*
+  if: $CI_MERGE_REQUEST_ID
+  changes:
+    - websocket/**/*
 
 .rule-mr-docs-changes: &rule-mr-docs-changes
-  - if: $CI_MERGE_REQUEST_ID
-    changes:
-      - docs/**/*
-      - scripts/**/*
-      - src/RestApi/**/*
+  if: $CI_MERGE_REQUEST_ID
+  changes:
+    - docs/**/*
+    - scripts/**/*
+    - src/RestApi/**/*
 
 .rule-mr-playwright-changes: &rule-mr-playwright-changes
-  - if: $CI_MERGE_REQUEST_ID
-    changes:
-      - tests/e2e/package.json
-      - tests/e2e/yarn.lock
-      - tests/e2e/playwright.config.ts
-      - tests/e2e/specs/**/*
+  if: $CI_MERGE_REQUEST_ID
+  changes:
+    - tests/e2e/package.json
+    - tests/e2e/yarn.lock
+    - tests/e2e/playwright.config.ts
+    - tests/e2e/specs/**/*
 
 # Shared artifact definitions
 .build-artifacts: &build-artifacts
@@ -196,8 +202,7 @@ stages:
     FS_ENV: test
 
 gemnasium-dependency_scanning:
-  rules:
-    *rule-gemnasium-dependency-scanning
+  rules: *rule-gemnasium-dependency-scanning
 
 secret_detection:
   rules:
@@ -229,6 +234,7 @@ build:backend-dev:
   stage: build
   interruptible: true
   rules:
+    - *rule-skip-on-draft
     - *rule-skip-on-production-skip-ci
     - *rule-skip-on-schedule
     - *rule-main-branches
@@ -256,6 +262,7 @@ build:websocket:
   stage: build
   interruptible: true
   rules:
+    - *rule-skip-on-draft
     - *rule-skip-on-schedule
     - *rule-main-branches
     - *rule-mr-app-changes
@@ -276,6 +283,7 @@ build:frontend:
   stage: build
   interruptible: true
   rules:
+    - *rule-skip-on-draft
     - *rule-skip-on-schedule
     - *rule-main-branches
     - *rule-mr-app-changes
@@ -298,6 +306,7 @@ build:backend:
   stage: build
   interruptible: true
   rules:
+    - *rule-skip-on-draft
     - *rule-skip-on-schedule
     - *rule-main-branches
     - *rule-mr-app-changes
@@ -320,6 +329,7 @@ build:docs:
   stage: build
   interruptible: true
   rules:
+    - *rule-skip-on-draft
     - *rule-skip-on-schedule
     - if: $CI_COMMIT_BRANCH == 'master'
     - *rule-mr-docs-changes
@@ -348,6 +358,7 @@ test:php-compatibility-check:
   needs:
     - build:backend-dev
   rules:
+    - *rule-skip-on-draft
     - *rule-skip-on-schedule
     - *rule-mr-app-changes
   script:
@@ -366,6 +377,7 @@ test:php-compatibility-check:
   stage: test
   interruptible: true
   rules:
+    - *rule-skip-on-draft
     - *rule-skip-on-production-skip-ci
     - *rule-skip-on-schedule
     - *rule-main-branches
@@ -415,6 +427,7 @@ test:playwright:
     url: http://nginx:8080/
   interruptible: true
   rules:
+    - *rule-skip-on-draft
     - *rule-skip-on-schedule
     - *rule-main-branches
     - *rule-mr-app-changes
@@ -461,6 +474,7 @@ test:websocket:
   stage: test
   interruptible: true
   rules:
+    - *rule-skip-on-draft
     - *rule-skip-on-production-skip-ci
     - *rule-skip-on-schedule
     - *rule-main-branches
