@@ -17,11 +17,11 @@ lon: długość geograficzna
 bezirk: Rejon
 active: aktywowany
 body: Wiadomość
-status: aktualny status
+status: Aktualny status
 info: Informacje
 photo: Zdjęcie
 no_automatic_delete: 'Jeśli minęło 5 lat od ostatniego zalogowania:'
-automatic_delete: '- profil powinien zostać usunięty.'
+automatic_delete: '- usuń profil.'
 ort: Miasto/gmina
 regions: Rejony
 name: Imię
@@ -32,7 +32,7 @@ opt: Opcje
 fsp_bezirk_id: W którym rejonie znajduje się jadłodzielnia?
 rolle: Rola użytkownika/użytkowniczki
 title: Tytuł
-automatic_not_delete: '- profil powinien zostać zachowany.'
+automatic_not_delete: '- zachowaj profil.'
 copied_to_clipboard: '"{tekst}" został skopiowany do schowka.'
 fetchstate: Czy wszystko poszło dobrze?
 lifetime: Jak długo ma być ważny twój jadłokoszyk?
@@ -47,16 +47,16 @@ besonderheiten: Przebieg & Wskazówki
 first_post: Pierwszy post na tablicy
 abholmenge: Ile mniej więcej kg przypada na jedną osoba przy odbiorze lub 
   darowiźnie?
-text: tekst
+text: Tekst
 fp: Punkty karne
-nofp: bez punktów karnych (żart)
+nofp: Bez punktów karnych (żart)
 explanation: Objaśnienie
 duration: Czas na odpowiedź
 answers: Które odpowiedzi są poprawne?
 maxfp: Maksymalna liczba punktów karnych, aby zdać
 questcount: Ile pytań ma zawierać egzamin?
 wikilink: Link z dodatkowymi informacjami
-filter_by: filtruj według
+filter_by: Filtruj według
 save_state: Zachowaj filtry i sortowanie
 save_state_description: Zachowaj użyte filtry i sortowanie na przyszłe 
   odwiedziny
@@ -307,7 +307,7 @@ sticker: Czy firma/sklep/klub itp. jest skłonna umieścić naklejkę przy wejś
   lub w innym miejscu?
 use_region_pickup_rule: Czy w tym punkcie ma obowiązywać reguła rodzynkowa dla 
   danego rejonu?
-expand_all: rozłóż wszystko
+expand_all: Rozwiń wszystko
 collapse_all: Zwiń wszystko
 image: Obraz
 upload:
@@ -5429,8 +5429,45 @@ donation_page:
   faq:
     question_6: Czy organizacje i przedsiębiorstwa też mogą przekazywać 
       darowizny?
-    answer_3: ''
-    answer_2: ''
+    answer_3: '**foodsharing e.V.** jest zarejestrowanym w Niemczech stowarzyszeniem
+      użyteczności publicznej i należy do organizacji pożytku publicznego. Wszystkie
+      darowizny na rzecz foodsharing e.V. mogą być odliczane od podatku w Niemczech
+      na mocy §10b EStG.
+
+
+      - **Do 300 €:** Urząd podatkowy akceptuje kopię polecenia przelewu albo wyciąg
+      z konta jako dowód przekazania darowizny. Tak otrzymasz automatycznie odliczenie
+      wydatków specjalnych w wysokości twojej darowizny.
+
+      - **Powyżej 300 €:** W przypadku większych darowizn możesz zawnioskować u nas
+      o oficjalne pokwitowanie darowizny poprzez maila na adres [fundraising.freundeskreis@foodsharing.network](mailto:fundraising.freundeskreis@foodsharing.network).
+
+
+      **Ważne:** Nie można odliczyć od podatku darowizn ze Szwajcarii, Austrii albo
+      innych krajów.
+
+      '
+    answer_2: '**Najpierw najważniejsze:**foodsharing jest bezpłatny, niekomercyjny
+      i bez reklam - i tak też zostanie. Nie wymaga się i nigdy nie używa się darowizn
+      do ratowania i sprawiedliwego rozdzielania żywności.
+
+
+      Dzięki twojej darowiźnie foodsharing może tworzyć opłacane stanowiska do wewnętrznej
+      koordynacji i usprawniać zarządzanie między rejonami. Poza tym wspieramy zespoły
+      międzyregionalne - i wreszcie, twoja darowizna umożliwia nam w ogóle prowadzenie
+      działalności edukacyjnej ([akademia foodsharingu](https://www.foodsharing-akademie.org))
+      na temat marnowania żywności, szacunku do żywności i odżywiania w duchu zrównoważonego
+      rozwoju.
+
+
+      Do zarządzania stowarzyszeniem, projektów międzyregionalnych oraz działalności
+      public relations i edukacji potrzebna jest solidna baza finansowa. Zasadniczo
+      obowiązuje: **tak dużo pieniędzy, ile potrzeba, tak mało, ile jest możliwe.**
+
+
+      Więcej informacji znajdziesz na naszej [stronie przejrzystości](content?sub=transparency).
+
+      '
     question_7: 'Czy mogę wysłać swoją darowiznę bezpośrednio do lokalnej grupy foodsharingu?'
     question_1: 'Co się dzieje z moją darowizną?'
     question_8: 'Czy mogę też przekazywać przedmioty lub usługi w ramach darowizny?'
@@ -5461,7 +5498,15 @@ donation_page:
       do [unternehmen@foodsharing.network](mailto:unternehmen@foodsharing.network).
 
       '
-    answer_9: ''
+    answer_9: 'Bardzo chętnie! Do regularnych darowizn przeznaczony jest **krąg przyjaźni
+      foodsharingu** - tu możesz ustawić sobie darowiznę długoterminową. Twoje wsparcie
+      pomaga nam zaplanować i podtrzymywać działania i organizację foodsharingu.
+
+
+      Poza tym, dla członków kręgu przyjaźni foodsharingu tworzymy też aktualnie kilka
+      ciekawych rzeczy! Tutaj przejdziesz do [kręgu przyjaźni foodsharingu](donation/friendship_circle).
+
+      '
     answer_5: '**Jasne!** Twoja darowizna zasila projekty międzyregionalne – niezależnie
       od tego, z jakiego kraju pochodzi. W ten sposób wspierasz też działania foodsharingu
       w Austrii, Szwajcarii i innych krajach.
@@ -5492,7 +5537,17 @@ donation_page:
     question_9: 'Jak mogę długoterminowo wspierać foodsharing finansowo?'
     question_10: 'Czy mogę zakończyć lub zmienić moją darowiznę długoterminową w kręgu
       przyjaźni foodsharingu w dowolnym momencie?'
-    answer_7: ''
+    answer_7: 'Nie bezpośrednio - ale jest rozwiązanie! Wpłaty z darowizn jednorazowych,
+      kampanii darowizn i kręgu przyjaźni foodsharingu zasilają projekty międzyregionalne
+      i nie mogą być przyporządkowane bezpośrednio do konkretnych rejonów lub grup
+      lokalnych.
+
+
+      Jeśli chcesz, aby darowizna działała bezpośrednio na miejscu, najlepiej skontaktuj
+      się z daną grupą rejonu. Przegląd wszystkich rejonów foodsharingu znajdziesz
+      [tutaj!](content?sub=communities)
+
+      '
     answer_10: 'Możesz w dowolnym momencie zmienić wysokość darowizny lub zakończyć
       darowiznę długoterminową - całkiem bezproblemowo przez nasz Self-Service. Po
       prostu zaloguj się [tutaj](/donation/selfservice)! Jeśli masz pytania albo potrzebujesz
@@ -5502,7 +5557,8 @@ donation_page:
       '
     question_4: 'Jak mogę przekazać darowiznę?'
     question_2: 'Do czego foodsharing właściwie potrzebuje pieniędzy?'
-    question_3: ''
+    question_3: 'Jak to działa z zaświadczeniem o przekazaniu darowizny do urzędu
+      podatkowego? '
     teaser: 'Tu znajdziesz odpowiedzi na najważniejsze pytania dotyczące darowizn
       na rzecz foodsharingu.'
   donation_options:
