@@ -899,7 +899,8 @@ class Foodsharing extends Db
             'teaser' => 'Root',
             'desc' => 'Root',
             'mailbox_id' => 0,
-            'email_name' => ''
+            'email_name' => '',
+            'timezone' => 'Europe/Berlin'
         ];
         $rootId = $this->haveInDatabase('fs_bezirk', $data);
         $this->updateInDatabase('fs_bezirk', ['id' => RegionIDs::ROOT], ['id' => $rootId]);
