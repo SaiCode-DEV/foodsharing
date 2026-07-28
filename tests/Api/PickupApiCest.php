@@ -241,7 +241,7 @@ class PickupApiCest
         $I->sendGET('api/stores/' . $this->store['id'] . '/pickups');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson([[
-            'date' => $pickupBaseDate->toIso8601String(),
+            'date' => $I->utcDateTime($pickupBaseDate),
             'totalSlots' => 2,
             'occupiedSlots' => [],
             'isAvailable' => true
@@ -285,22 +285,22 @@ class PickupApiCest
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson([
             [
-                'date' => $pickupBaseDate->toIso8601String(),
+                'date' => $I->utcDateTime($pickupBaseDate),
                 'totalSlots' => 2,
                 'occupiedSlots' => [],
                 'isAvailable' => true
             ], [
-                'date' => $manualPickup3HoursBeforeDate->toIso8601String(),
+                'date' => $I->utcDateTime($manualPickup3HoursBeforeDate),
                 'totalSlots' => 1,
                 'occupiedSlots' => [['isConfirmed' => true, 'profile' => ['id' => $this->user['id']]]],
                 'isAvailable' => false
             ], [
-                'date' => $regularPickup1HoursBeforeDate->toIso8601String(),
+                'date' => $I->utcDateTime($regularPickup1HoursBeforeDate),
                 'totalSlots' => 3,
                 'occupiedSlots' => [['isConfirmed' => true, 'profile' => ['id' => $this->user['id']]]],
                 'isAvailable' => false
             ], [
-                'date' => $regularPickup5HoursBeforeDate->toIso8601String(),
+                'date' => $I->utcDateTime($regularPickup5HoursBeforeDate),
                 'totalSlots' => 4,
                 'occupiedSlots' => [['isConfirmed' => true, 'profile' => ['id' => $this->user['id']]]],
                 'isAvailable' => false
@@ -323,7 +323,7 @@ class PickupApiCest
             'profile' => [
                 'id' => $this->storeCoordinator['id']
             ],
-            'date' => $refDate->toIso8601String(),
+            'date' => $I->utcDateTime($refDate),
             'date_ts' => $refDate->timestamp,
             'confirmed' => 0
         ]]);
@@ -374,6 +374,72 @@ class PickupApiCest
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendDELETE('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toISOString() . '/users/' . $this->user['id'], ['sendKickMessage' => true, 'message' => 'Hallo']);
         $I->seeResponseCodeIs(HttpCode::OK);
+    }
+
+    public function leaveAllPickupsFromProfileLogsGermanTime(ApiTester $I): void
+    {
+        // #2760 (part of #2158): removing a user's pickups from their profile logged the
+        // pickup time shifted by the UTC offset, because the timestamp was parsed without a
+        // timezone. The store log must reference the pickup's German time.
+        $orga = $I->createOrga();
+        $I->addRegionMember($this->region['id'], $orga['id']);
+
+        $pickupDate = Carbon::now()->add('2 days');
+        $pickupDate->hours(14)->minutes(45)->seconds(0)->microseconds(0);
+        $I->addPickup($this->store['id'], ['time' => $pickupDate, 'fetchercount' => 2]);
+        $I->addPicker($this->store['id'], $this->user['id'], ['date' => $pickupDate]);
+
+        $I->login($orga['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendDELETE('api/users/' . $this->user['id'] . '/pickups', ['sendKickMessage' => false]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        $I->seeInDatabase('fs_store_log', [
+            'store_id' => $this->store['id'],
+            'fs_id_p' => $this->user['id'],
+            'date_reference' => $pickupDate->format('Y-m-d H:i:s'),
+        ]);
+    }
+
+    public function pickupTimesStayConsistentAcrossDstChanges(ApiTester $I): void
+    {
+        // #2158/#2760: a slot in the other DST period must reference the same instant
+        // everywhere. A fixed mid-January date crosses the DST switch whenever the suite
+        // runs between April and October and has a stable +01:00 Berlin offset.
+        $winter = Carbon::create(Carbon::now()->year + 1, 1, 15, 12, 0, 0, 'Europe/Berlin');
+        $I->addPickup($this->store['id'], ['time' => $winter->format('Y-m-d H:i:s'), 'fetchercount' => 2]);
+
+        $I->login($this->user['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPOST('api/stores/' . $this->store['id'] . '/pickups/' . $winter->toISOString() . '/users/current');
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // The list returns the slot as the same instant, in the canonical format.
+        $I->sendGET('api/stores/' . $this->store['id'] . '/pickups');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $date = $I->grabDataFromResponseByJsonPath('$[0].date')[0];
+        $I->assertUtcDateTimeFormat($date);
+        $I->assertSame($I->utcDateTime($winter), $date);
+
+        // The signup was logged against the pickup's German wall time, so the
+        // signUpDate join (l.date_reference = a.date) resolves (#2158 symptom).
+        $signUpDate = $I->grabDataFromResponseByJsonPath('$[0].occupiedSlots[0].signUpDate')[0];
+        $I->assertNotNull($signUpDate, 'signUpDate must resolve for a DST-crossing slot (#2158)');
+        $I->assertUtcDateTimeFormat($signUpDate);
+
+        // Cancelling from the profile must also log the German wall time for a
+        // winter slot (red without the #2760 slice-1 fix: it logged UTC wall time).
+        $orga = $I->createOrga();
+        $I->addRegionMember($this->region['id'], $orga['id']);
+        $I->login($orga['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendDELETE('api/users/' . $this->user['id'] . '/pickups', ['sendKickMessage' => false]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeInDatabase('fs_store_log', [
+            'store_id' => $this->store['id'],
+            'fs_id_p' => $this->user['id'],
+            'date_reference' => $winter->format('Y-m-d H:i:s'),
+        ]);
     }
 
     public function checkDistrictRules(ApiTester $I): void
@@ -604,13 +670,13 @@ class PickupApiCest
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson([
-            ['type' => 'event', 'id' => $multi_event['id'], 'name' => $multi_eventParams['name'], 'status' => 'invited', 'date' => $multi_eventParams['start'], 'end' => $multi_eventParams['end']],
-            ['type' => 'store', 'id' => $this->store['id'], 'name' => $this->store['name'], 'isConfirmed' => true, 'date' => $past_pickupDate->toIso8601String()],
-            ['type' => 'store', 'id' => $this->store['id'], 'name' => $this->store['name'], 'isConfirmed' => true, 'date' => $pickupDate->toIso8601String()],
-            ['type' => 'event', 'id' => $event['id'], 'name' => $eventParams['name'], 'status' => 'accepted', 'date' => $eventParams['start'], 'end' => $eventParams['end']],
+            ['type' => 'event', 'id' => $multi_event['id'], 'name' => $multi_eventParams['name'], 'status' => 'invited', 'date' => $I->utcDateTime(Carbon::parse($multi_eventParams['start'])), 'end' => $I->utcDateTime(Carbon::parse($multi_eventParams['end']))],
+            ['type' => 'store', 'id' => $this->store['id'], 'name' => $this->store['name'], 'isConfirmed' => true, 'date' => $I->utcDateTime($past_pickupDate)],
+            ['type' => 'store', 'id' => $this->store['id'], 'name' => $this->store['name'], 'isConfirmed' => true, 'date' => $I->utcDateTime($pickupDate)],
+            ['type' => 'event', 'id' => $event['id'], 'name' => $eventParams['name'], 'status' => 'accepted', 'date' => $I->utcDateTime(Carbon::parse($eventParams['start'])), 'end' => $I->utcDateTime(Carbon::parse($eventParams['end']))],
         ]);
 
-        $I->dontSeeResponseContainsJson(['type' => 'event', 'id' => $past_event['id'], 'name' => $past_eventParams['name'], 'status' => 'maybe', 'date' => $past_eventParams['start']]);
-        $I->dontSeeResponseContainsJson(['type' => 'event', 'id' => $future_event['id'], 'name' => $future_eventParams['name'], 'status' => 'accepted', 'date' => $future_eventParams['start']]);
+        $I->dontSeeResponseContainsJson(['type' => 'event', 'id' => $past_event['id'], 'name' => $past_eventParams['name'], 'status' => 'maybe', 'date' => $I->utcDateTime(Carbon::parse($past_eventParams['start']))]);
+        $I->dontSeeResponseContainsJson(['type' => 'event', 'id' => $future_event['id'], 'name' => $future_eventParams['name'], 'status' => 'accepted', 'date' => $I->utcDateTime(Carbon::parse($future_eventParams['start']))]);
     }
 }

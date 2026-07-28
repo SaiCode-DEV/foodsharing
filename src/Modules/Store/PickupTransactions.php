@@ -216,18 +216,11 @@ class PickupTransactions
         usort($pickups, fn ($a, $b) => $a['date']->lt($b['date']) ? -1 : 1);
 
         $pickups = array_map(function ($pickup) {
-            // Check required for history (does not contain dates)
-            if (!empty($pickup['date'])) {
-                // List of last and future and only future have a date on highest level
-                $pickup['date'] = $pickup['date']->toIso8601String();
-            }
-
             foreach ($pickup['occupiedSlots'] as &$slot) {
                 // Check required for list of last and future pickups
                 if (!empty($slot['date'])) {
-                    // Time convertation needed for history
-                    $slot['date'] = Carbon::createFromTimestamp($slot['date_ts'], new DateTimeZone('Europe/Berlin'))
-                        ->toIso8601String();
+                    // The serializer turns Carbon objects into UTC ISO8601 strings.
+                    $slot['date'] = Carbon::createFromTimestamp($slot['date_ts'], new DateTimeZone('Europe/Berlin'));
                 }
             }
 

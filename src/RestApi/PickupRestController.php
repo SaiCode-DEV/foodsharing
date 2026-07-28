@@ -107,7 +107,7 @@ final class PickupRestController extends AbstractFoodsharingRestController
         $sendKickMessage = $leaveInformation->sendKickMessage;
 
         foreach ($pickups as $pickup) {
-            $this->pickupTransactions->doLeavePickup($pickup['store_id'], Carbon::createFromTimestamp($pickup['timestamp']), $userId, $leaveInformation->message, $sendKickMessage);
+            $this->pickupTransactions->doLeavePickup($pickup['store_id'], Carbon::createFromTimestamp($pickup['timestamp'], new \DateTimeZone('Europe/Berlin')), $userId, $leaveInformation->message, $sendKickMessage);
         }
 
         return $this->respondOK();
