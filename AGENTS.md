@@ -280,6 +280,11 @@ Use Vue I18n in templates:
 - Run `./scripts/fix` and `./scripts/lint` before committing. CI expects lint + tests to pass
 - PHPStan for static analysis: `phpstan.neon`
 
+## AI assistance
+Marking AI-assisted work is voluntary (dev call 2026-07-13):
+- Merge requests and issues: add the `AI-assisted` label.
+- Commits: add an `Assisted-by: AI` trailer line to the commit message.
+
 ## Testing Checklist
 1. Run `./scripts/lint` to check code style
 2. Run `./scripts/test-all` for all tests (backend, frontend, E2E, websocket) or `./scripts/test-backend <TestName>` for specific backend tests
