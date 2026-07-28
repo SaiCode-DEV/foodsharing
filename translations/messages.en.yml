@@ -357,7 +357,7 @@ settings:
       all: All appointments
     pickup:
       label: Do you want to have slot-dates (e.g. pick-ups) included?
-      "true": Yes, show my slots in the calender
+      "true": Yes, show my slots in the calendar
       "false": No, don’t show my slots in the calendar
     history:
       "false": No, do not show past events in the calendar
@@ -677,7 +677,7 @@ settings:
 menu:
   entry:
     activities: Activities
-    infos: Informations
+    infos: Information
     mark_as_read: Mark all as read
     all_messages: All messages
     close_all_chats: Close all chats
@@ -1069,7 +1069,7 @@ mailbox:
   unknown_sender: Unknown sender
   search_name_email: Search by name or email address
   global_addressbook: Global address book
-  addressbook: Adress book
+  addressbook: Address book
   reply_all: Reply all
   show_html_body: Show HTML code
   mark_none: Select none
@@ -1216,7 +1216,7 @@ forum:
     edit_post_not_found: You are unable to edit this post because it no longer 
       exists.
   from: From {name}
-  sending_error: An error occured during sending
+  sending_error: An error occurred during sending
   no_threads: No threads yet
   no_posts: No posts yet
   hold_back_for_moderation: The thread was saved and will be published as soon 
@@ -1461,7 +1461,7 @@ storeview:
     no_match: No suitable food category found
     no_tag_preset: No food category available
   calendar_interval:
-    not_set: No pickup calender interval defined
+    not_set: No pickup calendar interval defined
     single: 1 week
     multiply: "{weeks} Weeks"
   public_time_at_night: at night
@@ -2929,7 +2929,7 @@ search:
       member_tooltip: You are a member of this store team
     from: from
     mail:
-      recieved_tooltip: This e-mail was set to you.
+      recieved_tooltip: This e-mail was sent to you.
       sent_tooltip: You sent this e-mail.
       attachment_tooltip: This e-mail contained an attachment.
       from_to: From {from} to {to}
@@ -4497,7 +4497,7 @@ help:
     reportReasons:
       title: Report form
       md: "Using the report form, foodsavers can directly report rule violations.
-        If it is activated, people who are responsible for reports will recieve notifications
+        If it is activated, people who are responsible for reports will receive notifications
         about reports.\n---\nThe local report group of the region can adjust which
         reasons are selectable in the report form.\nThis can either be the simple
         or extended versions of the reasons. In the extended version, all rules that

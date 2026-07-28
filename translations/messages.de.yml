@@ -4023,7 +4023,7 @@ notifications:
     content: |
       Damit du schneller mitbekommst, wenn andere Foodsaver:innen dir Nachrichten schicken, kannst du auf diesem Gerät Push-Benachrichtigungen aktivieren!
 
-      In deinen [Benachichtigungseinstellungen](/?page=settings&sub=info) kannst du diese Benachrichtigungen jederzeit wieder abschalten.
+      In deinen [Benachrichtigungseinstellungen](/?page=settings&sub=info) kannst du diese Benachrichtigungen jederzeit wieder abschalten.
     dontAskAgain: "Nicht wieder fragen"
 
 thread:
@@ -4095,7 +4095,7 @@ donation_admin_page:
   show_donation_modal: Spendenbanner anzeigen
   show_donation_campaign_part_1: Kampagnen-Teil 1 anzeigen
   show_donation_campaign_part_2: Kampagnen-Teil 2 anzeigen
-  show_donation_campaign_gallery: Kampagnen-Gallerie anzeigen
+  show_donation_campaign_gallery: Kampagnen-Galerie anzeigen
   save_success: 'Spenden-Daten erfolgreich gespeichert!'
   save_error: 'Fehler beim Speichern der Spenden-Daten'
   
