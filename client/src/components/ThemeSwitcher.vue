@@ -2,7 +2,7 @@
   <b-button
     variant="blank"
     class="nav-link"
-    :title="i18n('theme_switcher.title')"
+    :title="i18n('theme_switcher.title_button')"
     @click="themeStore.updateTheme()"
   >
     <slot name="icon">

@@ -3533,6 +3533,7 @@ language_chooser:
 
 theme_switcher:
   title: "Design wählen"
+  title_button: "Design wechseln"
   content: "Bitte wähle ein Design aus"
   choose_button: "OK"
   theme:
