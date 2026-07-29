@@ -324,7 +324,7 @@ upload:
   crop_dialog_title: Przytnij obraz
   image-problem: Coś się nie zgadza z twoim plikiem, najlepiej wybierz zwykły 
     obraz jpg
-  invalid_image_files: '{count} wybrane pliki nie są obrazami: {fileNames}'
+  invalid_image_files: 'Niektóre wybrane pliki ({count}) nie są obrazami: {fileNames}'
   remove_image: Usuń obraz
 button:
   save: Zapisz
@@ -338,7 +338,7 @@ button:
   yes_i_am_sure: tak, jestem pewny/a
   apply: Zastosuj
   cancel: Anuluj
-  prev: powrót
+  prev: Powrót
   send: Wyślij
   answer: Odpowiedz
   create: Stwórz
@@ -350,7 +350,7 @@ button:
   browse: Przeglądaj
   yes_save: Tak, zapisz
   reset_default: Zresetuj standard
-  countdown_clickable: 'Można kliknąć za {countdown} sekund'
+  countdown_clickable: 'Można kliknąć za kilka sekund ({countdown})'
 settings:
   calendar:
     program:
@@ -801,7 +801,7 @@ group:
   role_name: Rola
   applications: Zgłoszenia
   applications_for: Zgłoszenia do {name}
-  application_region: Zgłoszenia do {group}
+  application_region: Zgłoszenie do {group}
   motivation: Tekst motywacyjny
   edit:
     title: Edytuj {group}
@@ -849,7 +849,7 @@ group:
   function:
     welcome: Powitanie
     voting: Głosowanie
-    fsp: Jadłodzielnia
+    fsp: Jadłodzielnie
     mediation: Mediacja
     moderation: Moderacja
     election: Wybory
@@ -874,8 +874,8 @@ group:
       4: Administratorzy/ki tego zespołu mają wgląd w punkty w rejonie i mogą je
         edytować
       5: Administratorzy/ki tego zespołu mogą zobaczyć skargi dotyczące 
-        foodsaverów/ek w rejonie. Nie są pokazywane skargi, w których mają 
-        udział administratorzy/ki! Te otrzymuje rada arbitażowa.
+        foodsaverów/ek w rejonie. Nie są wyświetlane skargi z udziałem 
+        administratorów/ek! Te otrzymuje rada arbitażowa.
       6: Adres email tego zespołu jest wyświetlany na przycisku "zapytaj o 
         mediację". Administratorzy/ki nie mają żadnych szczególnych uprawnień.
       7: Administratorzy/ki tego zespołu otrzymują skargi z udziałem zespołu 
@@ -899,7 +899,7 @@ group:
   administrators: Administratorzy/ki zespołu
   member_count:
     zero: Brak członków
-    other: Łącznie {count} członków
+    other: 'Liczba członków: {count}'
     one: Łącznie jeden członek
   admin_count:
     zero: Brak administratorów/rek
@@ -907,7 +907,7 @@ group:
     other: 'Liczba administratorów/ek: {count}'
   already_applied: Już się zgłosiłeś/aś do tego zespołu.
   filter_placeholder: Filtruj zespoły według nazwy
-  quit_name_workgroup: Opuść team {name}
+  quit_name_workgroup: Opuść zespół {name}
   member_list:
     is_verified: zweryfikowany/a
     default:
@@ -921,7 +921,8 @@ group:
       created_at: Legitymacja utworzona
       generate_button: Stwórz legitymację/e dla wybranej/ych osoby/osób
       verify_selected: Weryfikuj zaznaczone
-      already_verified: Wszyscy wybrani użytkownicy byli już zweryfikowani
+      already_verified: Wszyscy/tkie wybrani/e użytkownicy/czki byli już 
+        zweryfikowani/e
       automatic_paper_size: użyj papieru A4
       inform_user: z powiadomieniem
       create_pdf: stwórz PDF
@@ -1000,7 +1001,7 @@ group:
   subtitle: 'tu znajdziesz pomoc i wiele do zrobienia …'
   title: 'zespoły foodsharingu'
   application_prompt: Wskazówki do zgłoszenia. Na jakie pytania mają 
-    odpowiedzieć zgłaszający się?
+    odpowiedzieć zgłaszające się osoby?
   join_confirmation: Czy chcesz teraz dołączyć do zespołu {name}?
   membership_status:
     admin: Administrator/ka
@@ -5260,6 +5261,7 @@ theme_switcher:
   choose_button: 'OK'
   content: 'Proszę wybrać design'
   title: 'Wybierz design'
+  title_button: Zmień design
 activitypost:
   quickreply_button: 'Wyślij teraz<br>lub naciśnij<code class="key">Enter</code>.'
   write: 'Napisz odpowiedź …'
