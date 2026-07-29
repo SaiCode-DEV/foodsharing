@@ -944,17 +944,19 @@ class Foodsharing extends Db
         }
     }
 
-    public function addRegionMember($region_id, $fs_id, $is_active = true): void
+    public function addRegionMember($region_id, $fs_id, $is_active = true, $new_thread_notification = false, $email_for_new_thread = false): void
     {
         if (is_array($fs_id)) {
-            array_map(function ($x) use ($region_id, $is_active) {
-                $this->addRegionMember($region_id, $x, $is_active);
+            array_map(function ($x) use ($region_id, $is_active, $new_thread_notification, $email_for_new_thread) {
+                $this->addRegionMember($region_id, $x, $is_active, $new_thread_notification, $email_for_new_thread);
             }, $fs_id);
         } else {
             $v = [
                 'bezirk_id' => $region_id,
                 'foodsaver_id' => $fs_id,
                 'active' => $is_active ? 1 : 0,
+                'notify_on_all_new_threads' => $new_thread_notification ? 1 : 0,
+                'notify_by_email_about_new_threads' => $email_for_new_thread ? 1 : 0,
             ];
             $result = $this->countInDatabase('fs_foodsaver_has_bezirk', $v);
             if ($result <= 0) {
