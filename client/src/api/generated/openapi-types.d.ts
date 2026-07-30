@@ -5312,6 +5312,11 @@ export interface components {
              * @example true
              */
             showDonationCampaignGallery: boolean;
+            /**
+             * @description Campaign ID
+             * @example 12345
+             */
+            donationInformation?: components["schemas"]["DonationInformation"][];
         };
         EventForListView: {
             id?: number;
@@ -6780,6 +6785,14 @@ export interface components {
             /** Format: date-time */
             requestedAt?: string;
         };
+        DonationInformation: {
+            /**
+             * @description Project ID
+             * @example 1
+             */
+            projectId?: number;
+            donationProjectStatus?: components["schemas"]["DonationProjectStatus"];
+        };
         /** @enum {integer} */
         ActivationStatus: 0 | 1;
         ForumThreadForListView: {
@@ -7469,6 +7482,40 @@ export interface components {
              * @default false
              */
             isResponsible: boolean;
+        };
+        DonationProjectStatus: {
+            /**
+             * @description amount of donators
+             * @example 42
+             */
+            donators?: number;
+            /**
+             * Format: float
+             * @description amount of recevied donations in euros
+             * @example 1337
+             */
+            receivedDonationsInEuros?: number;
+            /**
+             * @description amount of donation-goal in euros
+             * @example 2000
+             */
+            goalInEuros?: number;
+            /**
+             * Format: float
+             * @description procentual amount of donation-goal reached
+             * @example 66.85
+             */
+            percentOfGoalReached?: number;
+            /**
+             * @description is donation-goal reached
+             * @example false
+             */
+            isGoalReached?: boolean;
+            /**
+             * Format: date-time
+             * @description when was the status of this project last fetched from Twingle
+             */
+            updatedAt?: string;
         };
         ForumPostSummary: {
             /** Format: date-time */
