@@ -8,14 +8,25 @@
     >
       <span v-text="`+${overflowingSlotsCount}`" />
       <b-tooltip
-        v-if="showOverflowTooltip && $refs.hidden"
-        :target="$refs.hidden"
+        v-if="showOverflowTooltip && hidden"
+        :target="hidden"
         triggers="hover"
         boundary="viewport"
       >
-        <span v-for="(user, index) in hiddenUsers" :key="user.id">
-          <span v-if="index != 0">, </span>
-          <a :href="$url('profile', user.id)" class="tooltip-link">{{ user.name }}</a>
+        <span
+          v-for="(user, index) in hiddenUsers"
+          :key="user.id"
+          class="d-inline-flex pr-1"
+        >
+          <a :href="$url('profile', user.id)" class="tooltip-link font-weight-normal">
+            <Avatar
+              :user="user"
+              :size="16"
+              tooltip=""
+            />
+            {{ user.name }}
+          </a>
+          <span v-if="index != hiddenUsers.length - 1">,</span>
         </span>
         <br v-if="hiddenUsers.length && freeSlotsCount > shownSlotCounts.free">
         <span v-if="freeSlotsCount > shownSlotCounts.free" v-text="$t('pickup.overview.freeSlots', { slots: freeSlotsCount - shownSlotCounts.free })" />
@@ -37,7 +48,7 @@
   </div>
 </template>
 <script setup>
-import { computed, defineProps } from 'vue'
+import { computed, defineProps, ref } from 'vue'
 import Avatar from '@/components/Avatar/Avatar.vue'
 
 const props = defineProps({
@@ -50,6 +61,8 @@ const props = defineProps({
   joinedTooltip: { type: Boolean, default: false },
   variant: { type: String, default: 'default' },
 })
+
+const hidden = ref(null)
 
 const overlapInPx = computed(() =>
   Math.round(props.size * props.overlap),

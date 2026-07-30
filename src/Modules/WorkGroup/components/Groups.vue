@@ -279,7 +279,7 @@ import {
   watch,
 } from 'vue'
 import { addMember, listGroups, sendMail, sendRequest } from '@/api/groups'
-import { pulseError, pulseSuccess } from '@/script'
+import { pulseError, pulseSuccess, shuffle } from '@/script'
 import i18n from '@/helper/i18n'
 import { useUserStore } from '@/stores/user'
 import { useRegionStore } from '@/stores/regions'
@@ -324,6 +324,7 @@ const isMessageOkDisabled = computed(() => contactMessage.value.trim().length ==
 // Lifecycle
 onMounted(async () => {
   groups.value = await listGroups(props.regionId)
+  groups.value.forEach(group => shuffle(group.admins))
   currentScheme.value = localStorage.getItem('group_list_scheme') || 'name'
   applyGroupingAndSortingScheme(currentScheme.value)
 
