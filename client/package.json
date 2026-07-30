@@ -14,6 +14,7 @@
     "prettier:e2e": "cd .. && prettier 'tests/e2e/**/*.ts' --check",
     "prettier:e2e:fix": "cd .. && prettier 'tests/e2e/**/*.ts' --write --list-different",
     "clean-assets": "shx rm -rf ../assets/*",
+    "generate-openapi-types": "openapi-typescript ../docs/data/api_dump.json --type --output src/api/generated/openapi-types.d.ts",
     "build": "yarn clean-assets && NODE_ENV=production webpack --progress --no-watch",
     "dev": "yarn clean-assets && webpack serve --config serve.config.js --progress"
   },
@@ -93,6 +94,7 @@
     "mkdirp": "^2.1.6",
     "node-localstorage": "^2.2.1",
     "null-loader": "^4.0.1",
+    "openapi-typescript": "~7.13.0",
     "prettier": "^3.7.4",
     "process": "^0.11.10",
     "sass": "^1.93.2",

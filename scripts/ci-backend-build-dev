@@ -32,3 +32,8 @@ bin/console foodsharing:setup
 
 log-header "Installing assets ..."
 bin/console assets:install
+
+
+log-header "Load API Dump"
+mkdir -p docs/data
+bin/console nelmio:apidoc:dump --format=json > docs/data/api_dump.json

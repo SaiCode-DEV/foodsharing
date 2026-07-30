@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+dir=$(dirname "$0")
+
+# shellcheck source=./__common.sh
+source "$dir"/__common.sh
+
+log-header "Load API Dump"
+exec-in-container app 'bin/console nelmio:apidoc:dump --format=json > docs/data/api_dump.json'
+
+log-header "Generate types"
+exec-in-container client 'yarn generate-openapi-types'

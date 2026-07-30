@@ -61,6 +61,23 @@ class ProfileDetails
     #[OA\Property(description: 'Days until pass validity ends')]
     public ?int $lastPassUntilValidInDays = null;
 
+    #[OA\Property(
+        description: 'Statistics for the current user.',
+        type: 'object',
+        properties: [
+            new OA\Property(
+                property: 'weight',
+                type: 'number',
+                format: 'float',
+                description: 'The user weight statistic.'
+            ),
+            new OA\Property(
+                property: 'count',
+                type: 'integer',
+                description: 'The user count statistic.'
+            ),
+        ]
+    )]
     public array $stats = [];
 
     public array $permissions = [];

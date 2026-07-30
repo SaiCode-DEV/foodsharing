@@ -253,6 +253,7 @@ build:backend-dev:
     paths:
       - assets
       - vendor
+      - docs/data/api_dump.json
     reports:
       codequality: gitlab-ci-cs-report.json
 
@@ -490,6 +491,40 @@ test:websocket:
     - build:websocket
   script:
     - (cd websocket && yarn test)
+
+test:openapi-types:
+  extends:
+    - .defaults
+  stage: test
+  interruptible: true
+  rules:
+    - *rule-skip-on-production-skip-ci
+    - *rule-skip-on-schedule
+    - *rule-main-branches
+    - *rule-mr-app-changes
+    - *rule-mr-backend-changes
+    - *rule-mr-frontend-changes
+  image: registry.gitlab.com/foodsharing-dev/images/node:latest
+  needs:
+    - build:backend-dev
+  script:
+    - cd client
+    - yarn
+    - cp src/api/generated/openapi-types.d.ts src/api/generated/openapi-types.d.ts.bak
+    - yarn generate-openapi-types
+    - |
+      if ! diff -u src/api/generated/openapi-types.d.ts.bak src/api/generated/openapi-types.d.ts; then
+        echo "============================================================"
+        echo "Error: openapi-types.d.ts is outdated."
+        echo "Please run 'scripts/openapi-type-generation' locally and commit the changes."
+        echo ""
+        echo "NOTE: If running the script locally produces no changes, your branch might be out of date."
+        echo "GitLab CI tests the result of merging your branch into master."
+        echo "Please merge or rebase master into your branch, then run the script again."
+        echo "============================================================"
+        exit 1
+      fi
+  <<: *cache-frontend-build
 
 deploy:beta:
   extends:
