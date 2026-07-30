@@ -60,7 +60,7 @@
 import GoogleWalletButton from './GoogleWalletButton.vue'
 import AppleWalletButton from './AppleWalletButton.vue'
 import CreatePDFButton from './CreatePDFButton.vue'
-import { useUserStore } from '@/stores/user.js'
+import { useUserStore } from '@/stores/user'
 import { onMounted, computed } from 'vue'
 import Markdown from '@/components/Markdown/Markdown.vue'
 import i18n from '@/helper/i18n'

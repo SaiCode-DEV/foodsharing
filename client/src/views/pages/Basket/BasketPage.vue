@@ -66,7 +66,7 @@
 </template>
 <script setup>
 import { computed, defineProps } from 'vue'
-import { useUserStore } from '@/stores/user.js'
+import { useUserStore } from '@/stores/user'
 import conversationStore from '@/stores/conversations'
 import { MAP_CONSTANTS } from '@/stores/map'
 import { BASKET_CONTACT_TYPE } from '@/stores/baskets'

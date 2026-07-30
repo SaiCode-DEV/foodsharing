@@ -31,7 +31,7 @@
 
 <script setup>
 import { onMounted, ref, defineExpose, nextTick } from 'vue'
-import { useUserStore } from '@/stores/user.js'
+import { useUserStore } from '@/stores/user'
 import { MAP_CONSTANTS } from '@/stores/map'
 import L from 'leaflet'
 import { LMarker } from 'vue2-leaflet'

@@ -25,7 +25,7 @@
 import { defineProps, ref } from 'vue'
 import { pulseError } from '@/script'
 import { getPassportAsUser } from '@/api/verification'
-import { useUserStore } from '@/stores/user.js'
+import { useUserStore } from '@/stores/user'
 import i18n from '@/helper/i18n'
 
 const userStore = useUserStore()

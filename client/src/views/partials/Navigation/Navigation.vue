@@ -39,13 +39,13 @@
 
 <script setup>
 import { ref, computed, watch, defineProps, onMounted, onBeforeMount } from 'vue'
-import { useUserStore } from '@/stores/user.js'
-import { useRegionStore } from '@/stores/regions.js'
+import { useUserStore } from '@/stores/user'
+import { useRegionStore } from '@/stores/regions'
 import { useDonationStore } from '@/stores/donation'
-import DataBells from '@/stores/bells.js'
-import DataStores from '@/stores/stores.js'
-import DataConversations from '@/stores/conversations.js'
-import DataGroups from '@/stores/groups.js'
+import DataBells from '@/stores/bells'
+import DataStores from '@/stores/stores'
+import DataConversations from '@/stores/conversations'
+import DataGroups from '@/stores/groups'
 // States
 import MetaNavLoggedIn from './States/MetaNav/LoggedIn.vue'
 import MetaNavLoggedOut from './States/MetaNav/LoggedOut.vue'

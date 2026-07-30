@@ -146,7 +146,7 @@
 <script>
 import Container from '@/components/Container/Container.vue'
 import Achievements from '@/components/Achievement/Achievements.vue'
-import * as api from '@/api/achievements.js'
+import * as api from '@/api/achievements'
 import UserSearchInput from '@/components/UserSearchInput.vue'
 import Avatar from '@/components/Avatar/Avatar.vue'
 import TimeDisplay from '@/components/TimeDisplay.vue'

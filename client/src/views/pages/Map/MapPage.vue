@@ -50,7 +50,7 @@ import EventBubble from '@php/Modules/Map/components/EventBubble.vue'
 import UserBubble from '@php/Modules/Map/components/UserBubble.vue'
 
 import Storage from '@/storage'
-import { useUserStore } from '@/stores/user.js'
+import { useUserStore } from '@/stores/user'
 import AddressSearchField from '@/components/map/AddressSearchField.vue'
 
 L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa'

@@ -111,12 +111,12 @@
 
 <script>
 // Stores
-import DataStores from '@/stores/stores.js'
+import DataStores from '@/stores/stores'
 import { usePickupStore } from '@/stores/pickups'
 import { useBasketStore } from '@/stores/baskets'
 import { useUserStore } from '@/stores/user'
-import DataEvents from '@/stores/events.js'
-import DataBroadcast from '@/stores/broadcast.js'
+import DataEvents from '@/stores/events'
+import DataBroadcast from '@/stores/broadcast'
 // Components
 import Broadcast from '@/components/Banners/Broadcast/BroadcastField.vue'
 import Intro from '@/components/Banners/Intro/IntroField.vue'

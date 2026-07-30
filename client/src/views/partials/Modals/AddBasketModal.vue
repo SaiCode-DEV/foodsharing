@@ -124,7 +124,7 @@
 
 <script>
 import LeafletLocationSearch from '@/components/map/LeafletLocationSearch.vue'
-import { useUserStore } from '@/stores/user.js'
+import { useUserStore } from '@/stores/user'
 import { addBasket, editBasket } from '@/api/baskets'
 import { useBasketStore } from '@/stores/baskets'
 import { pulseInfo } from '@/script'

@@ -43,7 +43,7 @@
 
 <script setup>
 import { computed, ref, onMounted, defineEmits } from 'vue'
-import { useUserStore } from '@/stores/user.js'
+import { useUserStore } from '@/stores/user'
 import { useBasketStore } from '@/stores/baskets'
 import BasketBubble from '@php/Modules/Map/components/BasketBubble.vue'
 import Container from '@/components/Container/Container.vue'

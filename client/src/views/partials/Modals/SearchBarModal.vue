@@ -58,7 +58,7 @@
 import SearchResults from '@/components/SearchBar/SearchResults'
 import { search, getSearchIndex } from '@/api/search'
 import { getCache, getCacheInterval, setCache } from '@/helper/cache'
-import { useUserStore } from '@/stores/user.js'
+import { useUserStore } from '@/stores/user'
 import SearchBar from '@/components/SearchBar/ResultEntry/SearchBar.vue'
 
 const cacheRequestName = 'searchIndex'

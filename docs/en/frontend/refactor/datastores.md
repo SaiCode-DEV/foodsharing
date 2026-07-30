@@ -55,7 +55,7 @@ export default { store, getters, mutations }
 ## Usage
 ```js
 // example.vue
-import DataStore from '@/stores/example.js'
+import DataStore from '@/stores/example'
 
 console.log('get', DataStore.getters.getState())
 DataStore.mutations.toggle()

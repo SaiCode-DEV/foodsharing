@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import { useUserStore } from '@/stores/user.js'
+import { useUserStore } from '@/stores/user'
 import BasePage from '@/views/pages/Layout/BasePage.vue'
 import BasketsLocationMap from '@/components/Basket/BasketsLocationMap.vue'
 import Container from '@/components/Container/Container.vue'
