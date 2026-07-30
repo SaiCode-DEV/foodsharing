@@ -3207,6 +3207,7 @@ theme_switcher:
     light: "Light"
     dark: "Dark"
 
+  title_button: Switch design
 plz: Post code
 fsp:
   twig:
@@ -4692,7 +4693,12 @@ help:
       md: ''
     archived_groups:
       title: Archived groups
-      md: ''
+      md: 'Groups that are no longer active can be archived. This keeps the group
+        list organized, since archived groups are displayed separately at the bottom.
+        This way, they cannot be confused with active groups, while the group''s content
+        is preserved and remains accessible.
+
+        '
     inactive_groups:
       title: Inactive groups
       md: |
@@ -4700,9 +4706,13 @@ help:
     publicRegionStatistics:
       title: Region statistics of the last 30 days
       md: |
-        These statistics are being recalculated on a daily basis. Here you find an explanation of what these numbers mean:
-        - **Active foodsavers** are all verified foodsavers whose home region is either this region or one of its sub-regions and who have used the platform at least once within the last 30 days.
-        - **Active cooperations** are all stores in the region (or a sub-region) who were marked as active by the store managers.
+        These statistics are recalculated daily. Here you find an explanation of what exactly these numbers mean:
+        - **Active foodsavers** are verified foodsavers whose home region is either this region or one of its subregions and who have used the platform at least once within the last 30 days.
+        - **Active cooperations** are all stores in the region (or a subregion) that have been designated as active by the store managers.
+        - **Food rescues** are defined as pickup slots filled by foodsavers at stores in the region (or subregions).
+        - **Food saved**: For each store, there is an estimated average pickup quantity provided by the store managers. The amount of food saved therefore corresponds to the estimated total weight of pickups made over the past 30 days at all stores in the region (or subregions).
+        - **Active food share points** are the food share points in the region (or a subregion) that are currently marked as active.
+        - **Food baskets distributed** denotes how often, over the last 30 days, food has been passed on via the platform’s *“food basket”* feature by foodsavers in the region (or a sub-region). Often, a very large proportion of the food is redistributed without this technical support. A low figure here therefore does not mean that little food is being redistributed.
   tooltip: Show help
   helpTitle: 'Help: {title}'
 team_page:
@@ -5179,7 +5189,7 @@ network_errors:
     text: "Your session has expired. Please reload the page and try again."
 donation_modal:
   action_button: Donate here!
-  amount: ''
+  amount: 'Total donations'
   info_button: ''
 donation_admin_page:
   title: Donation administration
@@ -5222,44 +5232,115 @@ donation_page:
     one_time:
       title: One-time donation
       button: Donate once
-      text: ''
+      text: 'Every donation helps us to reduce food waste. **You can make a donation
+        here from as little as 5 euros.**
+
+        '
     campaign:
       title: Campaign
       button: ''
-      text: ''
+      text: 'Every donation helps us to reduce food waste. **You can make a donation
+        here from as little as 5 euros.**'
     friendship_circle:
       title: ''
-      text: ''
+      text: 'Regular donations enable us to plan for the long term and ensure sustainable
+        development. Please support us on a regular basis.'
       button: ''
   faq:
     title: Frequently asked questions
     question_2: What does foodsharing need money for?
     question_4: How can I donate?
     question_5: Can I donate from Austria, Switzerland, or somewhere else?
-    answer_3: ''
-    answer_2: ''
-    question_7: ''
-    question_1: ''
-    question_8: ''
+    answer_3: '**foodsharing e.V.** is registered in Germany as a non-profit association
+      and is therefore a tax-privileged organisation. All donations to foodsharing
+      e.V. are tax-deductible in Germany in accordance with §10b of the German income
+      tax law (EStG).
+
+
+      - **Up to €300:** The tax office accepts a copy of the bank transfer form or
+      your bank statement as proof of your donation. This automatically entitles you
+      to a tax deduction for special expenses equal to the amount of your donation.
+
+      - **Over €300:** For larger donations, you can request an official donation
+      receipt from us by emailing [fundraising.freundeskreis@foodsharing.network](mailto:fundraising.freundeskreis@foodsharing.network).
+
+
+      **Important:** Unfortunately, donations made from Switzerland, Austria or other
+      countries are not tax-deductible.
+
+      '
+    answer_2: '**First things first:** foodsharing is free, non-commercial and ad-free
+      – and it will stay that way. We never ask for donations to save and fairly distribute
+      food, nor do we ever use them for that purpose.
+
+
+      Your donation enables foodsharing to create paid positions for internal coordination
+      and to professionalise its cross-region administration. We also support cross-regional
+      working groups – and, last but not least, your support is what makes our educational
+      work ([foodsharing Academy](https://www.foodsharing-akademie.org)) on the topics
+      of food waste, valuing food and sustainable eating possible in the first place.
+
+
+      National projects and working groups, public relations and educational work
+      require a solid financial foundation. As a general rule: **as much money as
+      necessary, as little as possible.**
+
+
+      You can find more information on our [transparency page](content?sub=transparency).
+
+      '
+    question_7: 'Can I send my donation directly to a local foodsharing group?'
+    question_1: 'What happens to my donation?'
+    question_8: 'Can I also donate goods or services?'
     answer_4: ''
-    answer_8: ''
-    answer_6: ''
+    answer_8: 'That’s possible too! Donations in kind (such as cargo bikes or equipment
+      for food share points) are organised directly through the local groups. We are
+      currently receiving donations in the form of printed materials, but we are also
+      happy to accept support in areas such as legal advice, IT or graphic design.
+
+
+      Please contact [fundraising@foodsharing.network](mailto:fundraising@foodsharing.network)
+      for this.
+
+      '
+    answer_6: '**Absolutely!** For partnerships that go beyond a standard donation,
+      we would be delighted if you could get in touch by emailing [fundraising@foodsharing.network](mailto:fundraising@foodsharing.network).
+
+
+      If your company would like to donate food, please contact [unternehmen@foodsharing.network](mailto:unternehmen@foodsharing.network).
+
+      '
     answer_9: ''
-    answer_5: ''
+    answer_5: '**Of course!** Your donation goes towards cross-regional projects –
+      regardless of which country it comes from. In this way, you’re also supporting
+      foodsharing activities in Austria, Switzerland and other countries.
+
+
+      So, with your donation, you are always contributing to the ‘big picture’ of
+      the foodsharing movement!
+
+
+      **Important:** Unfortunately, donations from Switzerland, Austria or other countries
+      are not tax-deductible.
+
+      '
     answer_1: ''
-    question_9: ''
+    question_9: 'How can I provide long-term financial support for foodsharing?'
     question_10: ''
     answer_7: ''
     answer_10: ''
-    question_6: ''
-    question_3: ''
-    teaser: ''
+    question_6: 'Can organisations and companies make donations too?'
+    question_3: 'How does the process work for getting a donation receipt for the
+      tax office? '
+    teaser: 'Here you will find answers to the most important questions about donating
+      to foodsharing.'
   campaign:
-    goal: ''
-    claim: ''
-    count: ''
+    goal: 'Fundraising goal {goal}'
+    claim: 'Working together to promote greater appreciation of food.'
+    count: 'Current total donations'
   stats:
     all_donators: ''
     friendship_circle_donators: ''
     one_time_donators: ''
-  subtitle: ''
+  subtitle: 'Your commitment to promoting greater appreciation of food – here is how
+    you can help:'

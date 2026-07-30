@@ -1098,8 +1098,8 @@ login:
       ponownie.
     success: Świetnie, twoje hasło zostało pomyślnie zmienione. Teraz możesz się
       zalogować.
-    mailSent: Świetnie, link do zmiany hasła został do ciebie wysłany mailem. 
-      Link jest ważny 7 dni. Potem musisz zażądać nowego linku.
+    mailSent: Świetnie, wysłano do ciebie link do zmiany hasła mailem. Link jest
+      ważny 7 dni. Potem musisz zażądać nowego linku.
     tooShort: Niestety, wybrane przez ciebie hasło jest za krótkie.
     expired: Link jest nieważny. Prawdopodobnie czekałeś/aś trochę zbyt długo. 
       Proszę, zażądaj nowego hasła.
