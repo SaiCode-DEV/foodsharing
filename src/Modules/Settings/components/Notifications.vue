@@ -46,7 +46,6 @@
             variant="info"
             class="mx-3 mt-2"
           >
-            <!-- eslint-disable-next-line vue/no-v-html -->
             <Markdown :source="$t('notifications.safari_add_to_home_screen', {icon: safariShareIcon})" />
           </b-alert>
         </b-row>

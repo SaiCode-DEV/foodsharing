@@ -28,8 +28,9 @@
     </p>
 
     <div>
-      <!-- eslint-disable-next-line vue/no-v-html -->
+      <!-- eslint-disable vue/no-v-html -->
       <div class="d-flex gap-4 flex-wrap petition-info" v-html="petitionInfo.body" />
+      <!-- eslint-enable vue/no-v-html -->
       <b-button
         :href="petitionUrl"
         variant="success"

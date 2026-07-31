@@ -100,7 +100,7 @@
         </div>
       </div>
       <MailboxFooterNav />
-    </container>
+    </Container>
   </div>
 </template>
 

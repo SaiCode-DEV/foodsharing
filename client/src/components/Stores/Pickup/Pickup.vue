@@ -63,7 +63,7 @@
           {{ $t('pickup.passport_expired.short') }}
         </div>
       </div>
-      <p class="pickup-text">
+      <div class="pickup-text">
         <ul class="slots">
           <TakenSlot
             v-for="slot in occupiedSlots"
@@ -102,7 +102,7 @@
             </button>
           </div>
         </ul>
-      </p>
+      </div>
     </div>
 
     <b-modal

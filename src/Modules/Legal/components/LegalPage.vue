@@ -30,8 +30,9 @@
       :wrap-content="true"
     >
       <!-- Sanitized in Modules/Content/ContentGateway.php get() -->
-      <!-- eslint-disable-next-line vue/no-v-html -->
+      <!-- eslint-disable vue/no-v-html -->
       <div v-html="privacyNoticeContent?.body" />
+      <!-- eslint-enable vue/no-v-html -->
     </Container>
   </div>
 </template>

@@ -11,8 +11,9 @@
               {{ props.item.title }}
             </div>
             <div class="notification-content">
-              <!-- eslint-disable-next-line vue/no-v-html -->
+              <!-- eslint-disable vue/no-v-html -->
               <span v-html="sanitizeHtml(props.item.text)" />
+              <!-- eslint-enable vue/no-v-html -->
               <small v-if="props.item.data?.details" class="notification-small">
                 {{ props.item.data.details }}
                 <pre v-if="props.item.data?.pre">
