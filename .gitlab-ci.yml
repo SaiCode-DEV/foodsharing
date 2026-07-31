@@ -377,6 +377,15 @@ test:php-compatibility-check:
 .test-backend:
   stage: test
   interruptible: true
+  # The maildev service container sometimes never comes up, which makes every
+  # mail-dependent test error with "Could not resolve host: maildev" (0 assertions).
+  # Fail fast in before_script when that happens and let GitLab retry the job with
+  # fresh service containers instead of masking a real regression.
+  retry:
+    max: 1
+    when:
+      - runner_system_failure
+      - script_failure
   rules:
     - *rule-skip-on-draft
     - *rule-skip-on-production-skip-ci
@@ -390,9 +399,10 @@ test:php-compatibility-check:
   before_script:
     # Wait for the maildev service container to become reachable before running tests.
     # Its DNS alias can lag behind the job start, which otherwise makes mail-dependent
-    # tests error with "cURL error 6: Could not resolve host: maildev". Bounded wait
-    # (~60s); the Maildev test helper additionally retries.
-    - php -r 'for ($i = 0; $i < 30; $i++) { if (@fsockopen("maildev", 1080)) { echo "maildev ready\n"; exit; } echo "waiting for maildev...\n"; sleep(2); }'
+    # tests error with "cURL error 6: Could not resolve host: maildev". If it never
+    # comes up within ~60s, fail the job here (cheap) so the retry above re-runs it
+    # with fresh containers instead of running the whole suite for ~30 min first.
+    - php -r 'for ($i = 0; $i < 30; $i++) { if (@fsockopen("maildev", 1080)) { echo "maildev ready\n"; exit(0); } echo "waiting for maildev...\n"; sleep(2); } fwrite(STDERR, "maildev never became reachable\n"); exit(1);'
   needs:
     - build:frontend
     - build:backend-dev

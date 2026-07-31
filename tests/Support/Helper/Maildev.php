@@ -15,6 +15,7 @@ class Maildev extends Module
 {
     protected array $requiredFields = ['url'];
     private readonly Client $client;
+    private bool $maildevReachable = true;
 
     public function __construct($moduleContainer, $config = null)
     {
@@ -39,7 +40,22 @@ class Maildev extends Module
 
     public function _before(TestInterface $test)
     {
-        $this->deleteAllMails();
+        // Once maildev is found unreachable, skip the retrying cleanup for the rest
+        // of the run so we don't wait the retry budget before every remaining test.
+        if (!$this->maildevReachable) {
+            return;
+        }
+
+        try {
+            $this->deleteAllMails();
+        } catch (ConnectException $e) {
+            // maildev is a flaky CI service container that occasionally never comes
+            // up. Don't let the pre-test mailbox cleanup error every test in the
+            // suite over it - skip the cleanup. Tests that actually assert on mail
+            // still fail clearly on their own maildev calls.
+            $this->maildevReachable = false;
+            $this->debug('maildev unreachable, skipping mailbox cleanup for the rest of the run: ' . $e->getMessage());
+        }
     }
 
     public function deleteAllMails(): void
