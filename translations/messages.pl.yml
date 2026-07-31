@@ -1060,7 +1060,7 @@ legal:
     this_doesnt_get_deleted_address: Twój adres
     this_gets_deleted_main: 'Poniższe informacje będą przez ciebie ostatecznie usunięte:'
     this_gets_deleted_verify: Twoja weryfikacja będzie usunięta.
-    this_gets_deleted_trustbananas: Banany, które dostałeś/aś od innych, będą 
+    this_gets_deleted_trustbananas: Banany, które dostałeś/aś od innych, zostaną
       usunięte.
     this_doesnt_get_deleted_history: Historia twojej weryfikacji
     legal_2: 'Dodatkowe informacje o okresach przechowywania (strona po niemiecku)'
@@ -1254,7 +1254,7 @@ terminology:
   regions: Rejony
   threads: Tematy
   message: Wiadomość
-  polls: Ankiety
+  polls: Głosowania
   buddies: Znajomi
   options: Opcje
   achievement: Sticker
@@ -1264,9 +1264,9 @@ terminology:
   mobile_phone: Numer komórkowy
   received: otrzymane
   sent: wysłane
-  subgroups: Podgrupy
-  hygiene_training: Szkolenie higieny
-  group: zespół
+  subgroups: Podzespoły
+  hygiene_training: Szkolenie z zasad higieny
+  group: Zespół
   reportAdmins: 'Team rozpatrujący skargi'
   storemanager:
     m: 'Koordynator punktu'
@@ -1275,7 +1275,7 @@ terminology:
   mediationAdmins: 'Team mediacji'
   giving: 'Darowizna'
   baskets: 'Jadłokoszyki'
-  homeRegion: 'rejon macierzysty'
+  homeRegion: 'Rejon macierzysty'
   prAdmins: 'Team public relations'
   n_sleeping: 'Liczba uśpionych: {count}'
   votingAdmins: 'Team głosowań'
@@ -1292,7 +1292,7 @@ terminology:
     report: 'Widok skarg (team rozpatrujący skargi)'
     orga: 'Widok skarg (orga)'
     arbitration: 'Widok skarg (rada arbitrażowa)'
-  fsManagementAdmins: 'administracja'
+  fsManagementAdmins: 'Administracja'
   boardAdmins: 'Zarząd'
   pickup: 'Odbiór'
   fspAdmins: 'Team jadłodzielni'
@@ -1301,7 +1301,7 @@ terminology:
   moderationAdmins: 'Team moderacji'
   community: 'Grupa lokalna {name}'
   n_home_regions: '{count} z rejonem macierzystym'
-  arbitrationAdmins: 'rada arbitrażowa'
+  arbitrationAdmins: 'Rada arbitrażowa'
   storesAdmins: 'Team koordynacji punktów'
   n_stores: 'Liczba punktów: {count}'
   store: 'Punkt'
@@ -1469,7 +1469,7 @@ net_errors:
   code: 'Kod błędu: '
   message: 'Komunikat błędu: '
   FORBIDDEN: Nie jesteś upoważniony/a do wykonania tej akcji.
-  NOT_FOUND: Żądana strona nie została odnaleziona.
+  NOT_FOUND: Nie odnaleziono żądanej strony.
   ERR_NETWORK: Wystąpił problem z siecią. Sprawdź swoje połączenie internetowe i
     spróbuj ponownie.
   ERR_NETWORK_CHANGED: Twoje połączenie internetowe jest niestabilne. Proszę 
@@ -1478,8 +1478,8 @@ net_errors:
   ETIMEDOUT: 'Żądanie trwało za długo. Sprawdź swoje połączenie internetowe i spróbuj
     ponownie.'
   action_response: 'Żądanie i odpowiedź serwera:'
-  SERVER_ERROR: 'Wystąpił wewnętrzny błąd serwera. Twoje żądanie niestety nie może
-    być obecnie rozpatrzone.'
+  SERVER_ERROR: 'Wystąpił wewnętrzny błąd serwera. Niestety, nie można obecnie rozpatrzeć
+    twojego żądania.'
   ERR_CANCELED: 'Żądanie zostało anulowane. Spróbuj ponownie w razie potrzeby.'
   BAD_REQUEST: 'Nieprawidłowe żądanie. Sprawdź, czy wprowadzone dane są kompletne
     i wiarygodne.'
@@ -1490,12 +1490,12 @@ formatting:
   md: Do formatowania możesz użyć <a href="https://markdown.de/">Markdown</a>.
 fsp:
   yours: Jadłodzielnie w twoich okręgach
-  inRegion: Wszystkie jadłodzielnie w {region}
+  inRegion: Wszystkie jadłodzielnie w rejonie {region}
   follow: Śledź tę jadłodzielnię
   followName: Śledź jadłodzielnię {name}
   unfollow: Przestań śledzić jadłodzielnię
   managers: Osoby do kontaktu
-  followers: Zainteresowani/e Foodsharerzy/ki
+  followers: Zainteresowani/e foodsharerzy/ki
   description: Opis
   new: Nowa jadłodzielnia
   add: Dodaj jadłodzielnię
@@ -1522,23 +1522,23 @@ fsp:
     jadłodzielnię.
   delete: Usuń jadłodzielnię
   deleteConfirm: Czy na pewno chcesz usunąć tę jadłodzielnię?
-  deleteSuccess: Jadłodzielnia została usunięta
+  deleteSuccess: Usunięto jadłodzielnię
   form_validation:
     required: '{name} jest wymagane.'
     min_length: '{name} musi zawierać co najmniej {length} znaków.'
     invalid: 'Podano błędne dane. Proszę sprawdzić wprowadzone dane.'
   twig:
-    n_in_region: 'liczba jadłodzielni w {name}: {count}'
+    n_in_region: 'Liczba jadłodzielni w {name}: {count}'
   followerCount: 'Zainteresowani/e użytkownicy/czki: {followerCount}'
   onlySuggested: Zaproponowano tę jadłodzielnię, ale jeszcze jej nie 
     dopuszczono. W tym stanie nie będzie wyświetlana u innych użytkowników/czek.
-  acceptName: akceptuj {name}
+  acceptName: Akceptuj {name}
   rejectConfirm: Uwaga, jeśli usuniesz tę jadłodzielnię, nie możesz tego cofnąć.
     Czy na pewno kontynuować?
   none: Jeszcze nie dodano żadnych jadłodzielni
   info:
     from: Update'y od jadłodzielni „{name}“
-    none: wcale
+    none: Wcale
     descSettings: Śledzisz wszystkie informacje z jadłodzielni ‘{name}’. W jaki 
       sposób chcesz otrzymywać te powiadomienia?
     manager: Jesteś odpowiedzialny/a za tę jadłodzielnię i z tego względu 
@@ -1549,7 +1549,7 @@ fsp:
   createdAt: 'Otwarte:'
   summary: 'Liczba jadłodzielni we wszystkich rejonach, w których jesteś aktywny/a,
     to {count}'
-  summaryRegion: 'Jest/są {count} jadłodzielni/e w {region} i wszystkich podrejonach'
+  summaryRegion: 'Liczba jadłodzielni w w {region} i wszystkich podrejonach: {count}'
   publicwall: 'Pamiętaj, że posty na tablicy jadłodzielni są publicznie widoczne.'
   suggestSuccess: 'Zaproponowano jadłodzielnię i jest ona sprawdzana przez odpowiedzialne
     osoby.'
@@ -1609,7 +1609,7 @@ storeview:
   activityCount:
     0: 'Odbiory'
     1: 'Darowizny'
-    2: 'Odbiory'
+    2: 'Terminy'
 store:
   team_container: Team
   member: Członek
@@ -1623,7 +1623,7 @@ store:
   joinDate: W teamie od {date}
   lastPickupShort: ostatnio {date}
   unknownDate: nieznany
-  invited: zaproszony/a
+  invited: Zaproszony/a
   isNotVerified: Nie jest zweryfikowany/a.
   particularities: Przebieg & wskazówki
   may_referred_to_in_public_unclear: jeszcze nie wyjaśniono
@@ -1651,12 +1651,12 @@ store:
     demoteAsManager: 'Odbierz odpowiedzialność'
     filterManage: 'Z quizem dla koordynatorów/ek punktu'
     promoteToManager: 'Uczyń odpowiedzialnym'
-    userHasPickupsWarning: '{name} jest zapisany/a jeszcze na {occupiedSlots} slot/y/ów
-      w tym punkcie. Te sloty będą wtedy wolne. Chcesz mimo to kontynuować?'
+    userHasPickupsWarning: '{name} jest zapisany/a jeszcze na następującą liczbę slotów
+      w tym punkcie: {occupiedSlots}. Te sloty będą wtedy wolne. Chcesz mimo to kontynuować?'
     promoteToManagerNotPossible: 'Nie można uczynić tej osoby odpowiedzialną, bo jest/są
       już trzech/trzy koordynatorów/ki albo osoba nie zdała jeszcze quizu koordynatorów/ek
       punktu.'
-    filterSleeping: 'uśpiony/a'
+    filterSleeping: 'Uśpiony/a'
     filterJumper: 'Rezerwowi/e'
     filterQuizSM: 'Zdany quiz dla koordynatorów/ek punktu'
     reallyRemove: 'Czy na pewno chcesz usunąć {name} z teamu tego punktu?'
@@ -1677,14 +1677,14 @@ store:
       one_less: Ukryj wpis
       many_less: Ukryj wpisy ({count})
     unverified: Użytkownik/czka nie jest zweryfikowany/a
-    to-team: dodaj do teamu
-    to-nowhere: odrzuć
+    to-team: Dodaj do teamu
+    to-nowhere: Odrzuć
     distance:
-      unknown: nie podano ważnego miejsca zamieszkania
+      unknown: Nie podano ważnego miejsca zamieszkania
       normal: Mieszka w odległości ok. {distance} km
       close: Mieszka bliżej niż w odległości 500 m
     distance_short:
-      unknown: brak ważnego adresu
+      unknown: Brak ważnego adresu
       close: Mniej niż 500 m
       normal: Około {distance} km
     application-placeholder: Chciał(a)bym pomagać w tym teamie, bo …
@@ -1848,8 +1848,8 @@ store:
     managers_preface: 'Zapytanie do koordynatorów/ek punktu [{store}]({storeUrl}):'
   no_chain_choosen: nie wybrano sieci
   passport_expired: Twoja legitymacja już jest nieważna. Dlatego nie możesz się 
-    chwilowo tutaj zarejestrować. Skontaktuj się z twoimi ambasador(k)ami, aby 
-    odnowić swoją legitymację.
+    chwilowo tutaj zapisać. Skontaktuj się z twoimi ambasador(k)ami, aby odnowić
+    swoją legitymację.
   important: 'Ważne:'
   invitations: Otwarte zaproszenia ({count})
   jumperSince: 'Rezerwowy/a od {date}'
@@ -1975,14 +1975,14 @@ delete: Usuń
 statistics:
   lastMonth: Statystyki z ostatnich 30 dni
   region_public:
-    activeHomeRegionFoodsavers: liczba aktywnych foodsaverów/ek
-    activeFoodSharePoints: liczba aktywnych jadłodzielni
-    foodBasketsLastMonth: 'liczba rozdanych jadłokoszyków'
+    activeHomeRegionFoodsavers: Liczba aktywnych foodsaverów/ek
+    activeFoodSharePoints: Liczba aktywnych jadłodzielni
+    foodBasketsLastMonth: 'Liczba rozdanych jadłokoszyków'
     savedFoodKgLastMonth: 'Uratowanej żywności'
-    activeCoorporations: 'liczba aktywnych kooperacji'
+    activeCoorporations: 'Liczba aktywnych kooperacji'
     pickupsLastMonth: 'Liczba odbiorów uratowanej żywności'
   food_saved: 'uratowanej żywności'
-  num_fetches: 'w {count} akcjach'
+  num_fetches: 'w następującej liczbie akcji: {count}'
   kg_food_saved: 'uratowano {count} kg żywności'
 are_you_sure: Jesteś pewny/a?
 storeedit:
