@@ -29,7 +29,7 @@
         :checked="isFollowingBell"
         @change="updateFollowBell"
       >
-        <a :class="{ 'text-strike': !isFollowingBell }">{{ $t('forum.follow.bell') }}</a>
+        {{ $t('forum.follow.bell') }}
       </b-form-checkbox>
       <b-form-checkbox
         switch
@@ -37,7 +37,7 @@
         :checked="isFollowingEmail"
         @change="updateFollowEmail"
       >
-        <a :class="{ 'text-strike': !isFollowingEmail }">{{ $t('forum.follow.email') }}</a>
+        {{ $t('forum.follow.email') }}
       </b-form-checkbox>
     </b-dropdown-form>
   </b-dropdown>

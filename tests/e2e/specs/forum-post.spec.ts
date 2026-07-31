@@ -286,7 +286,7 @@ test.describe("Forum Post without Mail", () => {
     await expect(
       page.locator(emailSwitch + isNotChecked).first(),
     ).toBeVisible();
-    await page.click(bellSwitch + " a");
+    await page.click(bellSwitch + " label");
     await acceptanceHelper.waitForActiveAPICalls();
     expect(
       await Database.seeInDatabase("fs_theme_follower", {
@@ -297,7 +297,7 @@ test.describe("Forum Post without Mail", () => {
       }),
     ).toBeTruthy();
     await expect(page.locator(bellSwitch + isNotChecked).first()).toBeVisible();
-    await page.click(bellSwitch + " a");
+    await page.click(bellSwitch + " label");
     await acceptanceHelper.waitForActiveAPICalls();
     expect(
       await Database.seeInDatabase("fs_theme_follower", {
@@ -312,7 +312,7 @@ test.describe("Forum Post without Mail", () => {
       page.locator(emailSwitch + isNotChecked).first(),
     ).toBeVisible();
 
-    await page.click(emailSwitch + " a");
+    await page.click(emailSwitch + " label");
     await acceptanceHelper.waitForActiveAPICalls();
     expect(
       await Database.seeInDatabase("fs_theme_follower", {
@@ -323,7 +323,7 @@ test.describe("Forum Post without Mail", () => {
       }),
     ).toBeTruthy();
     await expect(page.locator(emailSwitch + isChecked).first()).toBeVisible();
-    await page.click(emailSwitch + " a");
+    await page.click(emailSwitch + " label");
     await acceptanceHelper.waitForActiveAPICalls();
     expect(
       await Database.seeInDatabase("fs_theme_follower", {
