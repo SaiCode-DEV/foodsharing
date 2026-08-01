@@ -810,7 +810,7 @@ terminology:
 
 statistics:
   lastMonth: "Statistiken der letzten 30 Tage"
-  kg_food_saved: "{count} kg Lebensmittel gerettet"
+  food_weight_saved: "{weight} Lebensmittel gerettet"
   num_fetches: "bei {count} Rettungseinsätzen"
   region_public:
     pickupsLastMonth: Lebensmittelrettungen

@@ -27,7 +27,7 @@
           <div v-if="event.regionName" class="flex-md-shrink-0">
             <a :href="$url('events', event.regionId)">{{ event.regionName }}</a>
             <span v-if="inviteCount">
-              ({{ $t('events.invitedCount', { total: inviteCount, answers: answerCount }) }})
+              ({{ $t('events.invitedCount', { total: $n(inviteCount, 'text'), answers: $n(answerCount, 'text') }) }})
             </span>
           </div>
           <div

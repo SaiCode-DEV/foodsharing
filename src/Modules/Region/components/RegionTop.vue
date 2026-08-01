@@ -2,21 +2,21 @@
   <b-alert show>
     <a :href="$url('publicRegion', regionId)"><h4>{{ name }}</h4></a>
     <div class="regionTopClass">
-      {{ $t('terminology.n_foodsaver', {count: foodSaverCount}) }},
-      <span v-if="!isWorkGroup">{{ $t('terminology.n_home_regions', {count: foodSaverHomeDistrictCount}) }},</span>
-      {{ $t('terminology.n_sleeping', {count: foodSaverHasSleepingHatCount}) }}
+      {{ $t('terminology.n_foodsaver', {count: $n(foodSaverCount, 'text')}) }},
+      <span v-if="!isWorkGroup">{{ $t('terminology.n_home_regions', {count: $n(foodSaverHomeDistrictCount, 'text')}) }},</span>
+      {{ $t('terminology.n_sleeping', {count: $n(foodSaverHasSleepingHatCount, 'text')}) }}
 
-      <span v-if="!isWorkGroup">, {{ $t('terminology.n_ambassadors', {count: ambassadorCount}) }},
-        {{ $t('terminology.n_stores', {count: storesCount}) }},
-        {{ $t('terminology.n_cooperating_stores', {count: storesCooperationCount}) }},
-        {{ $t('statistics.kg_food_saved', {count: storesFetchedWeight}) }},
-        {{ $t('statistics.num_fetches', {count: storesPickupsCount}) }}</span>
+      <span v-if="!isWorkGroup">, {{ $t('terminology.n_ambassadors', {count: $n(ambassadorCount, 'text')}) }},
+        {{ $t('terminology.n_stores', {count: $n(storesCount, 'text')}) }},
+        {{ $t('terminology.n_cooperating_stores', {count: $n(storesCooperationCount, 'text')}) }},
+        {{ $t('statistics.food_weight_saved', {weight: formatWeight(storesFetchedWeight)}) }},
+        {{ $t('statistics.num_fetches', {count: $n(storesPickupsCount, 'text')}) }}</span>
     </div>
   </b-alert>
 </template>
 
 <script>
-
+import { formatWeight } from '@/utils'
 export default {
   props: {
     regionId: { type: Number, required: true },
@@ -30,6 +30,9 @@ export default {
     storesPickupsCount: { type: Number, required: true },
     storesFetchedWeight: { type: Number, required: true },
     isWorkGroup: { type: Boolean, required: true },
+  },
+  methods: {
+    formatWeight,
   },
 }
 </script>

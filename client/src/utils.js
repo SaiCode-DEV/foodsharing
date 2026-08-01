@@ -8,6 +8,8 @@
  *
  * @param data object of things to expose globally
  */
+import { i18nInstance } from '@/helper/i18n'
+
 export function expose (data) {
   Object.assign(window, data)
 }
@@ -74,6 +76,13 @@ export function plainToHtmlAttribute (string) {
     return entityMap[s]
   },
   )
+}
+
+export function formatWeight (weightInKg) {
+  if (weightInKg >= 90000) {
+    return i18nInstance.global.n(weightInKg / 1000, 'weight_t') + '\u{202F}t'
+  }
+  return i18nInstance.global.n(weightInKg, 'weight_kg')
 }
 
 export function isWebGLSupported () {

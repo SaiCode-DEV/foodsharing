@@ -104,6 +104,12 @@ const numberFormats = {
     text: {
       style: 'decimal', notation: 'compact', compactDisplay: 'short', maximumFractionDigits: 1,
     },
+    weight_kg: {
+      style: 'unit', unit: 'kilogram', maximumFractionDigits: 2,
+    },
+    weight_t: {
+      style: 'decimal', maximumFractionDigits: 0,
+    },
   },
 }
 // fallback datetime formats for other languages
