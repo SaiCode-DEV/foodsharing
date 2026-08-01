@@ -178,8 +178,12 @@ class SettingsTransactions
 
         // log this change request
         $currentEmail = $this->foodsaverGateway->getEmailAddress($userId);
-        $this->settingsGateway->logSingleChangedSetting($userId, ChangeHistoryKey::CHANGE_EMAIL_REQUEST,
-            $currentEmail, $request->email, $this->session->id()
+        $this->settingsGateway->logSingleChangedSetting(
+            $userId,
+            ChangeHistoryKey::CHANGE_EMAIL_REQUEST,
+            $currentEmail,
+            $request->email,
+            $this->session->id()
         );
 
         // send a notification about the change to the old address
@@ -224,6 +228,9 @@ class SettingsTransactions
     public function verifyAndCompleteEMailChange(string $token)
     {
         $mailChange = $this->settingsGateway->getMailChangeByToken($token);
+        if (empty($mailChange)) {
+            throw new DatabaseNoValueFoundException('Mail change token not found');
+        }
         $userId = $mailChange['foodsaver_id'];
         $newEmail = $mailChange['newmail'];
 

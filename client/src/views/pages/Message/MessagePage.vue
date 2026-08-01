@@ -1,16 +1,8 @@
 <template>
-  <main id="main">
-    <div class="container">
-      <div class="row">
-        <div class="col px-0">
-          <ChatComponent
-            :chat-id="chatId"
-            :ask-for-push-notifications="true"
-          />
-        </div>
-      </div>
-    </div>
-  </main>
+  <ChatComponent
+    :chat-id="chatId"
+    :ask-for-push-notifications="true"
+  />
 </template>
 
 <script setup>
@@ -34,7 +26,3 @@ onUnmounted(() => {
   conversationStore.messagePageOpenChatListener = null // turn off opening chats in this component
 })
 </script>
-
-<style lang="scss" scoped>
-
-</style>

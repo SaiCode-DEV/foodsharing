@@ -138,6 +138,10 @@ final class PageHelper
 
         $geoapifyApiKey = defined('GEOAPIFY_API_KEY') ? GEOAPIFY_API_KEY : null;
 
+        $userGroupsAndRegions = $this->getUserGroupsAndRegions();
+        $groups = $userGroupsAndRegions['groups'];
+        $regions = $userGroupsAndRegions['regions'];
+
         return [
             'user' => $userData,
             'permissions' => $permissions,
@@ -149,7 +153,55 @@ final class PageHelper
             'isDev' => getenv('FS_ENV') === 'dev',
             'isTest' => getenv('FS_ENV') === 'test',
             'locale' => $this->settingsTransactions->getLocale(),
-            'geoapifyApiKey' => $geoapifyApiKey
+            'geoapifyApiKey' => $geoapifyApiKey,
+            'groups' => $groups,
+            'regions' => $regions,
+        ];
+    }
+
+    public function getUserGroupsAndRegions(): array
+    {
+        $groups = [];
+        $regions = [];
+
+        if ($this->session->mayRole()) {
+            $userGroups = $this->currentUserUnits->getRegions();
+
+            foreach ($userGroups as $group) {
+                $groupId = $group['id'];
+                $groupType = $group['type'];
+                $group = array_merge($group, [
+                    'mayHandleFoodsaverRegionMenu' => $this->regionPermissions->mayHandleFoodsaverRegionMenu($groupId),
+                    'hasConference' => $this->regionPermissions->hasConference($groupType),
+                    'hasResources' => $this->resourcePermissions->maySeeResources($group['id'], $group['type']),
+                ]);
+                if (UnitType::isRegion($groupType)) {
+                    $group['isAdmin'] = $this->currentUserUnits->isAdminFor($groupId);
+                    $group['mayAccessReports'] = $this->reportPermissions->mayAccessReportsForRegion($groupId);
+                    $group['isReportAdmin'] = $this->reportPermissions->isReportAdmin($groupId);
+                    $group['isArbitrationAdmin'] = $this->reportPermissions->isArbitrationAdmin($groupId);
+                    $group['maySetRegionPin'] = $this->regionPermissions->maySetRegionPin($groupId);
+                } else {
+                    $group['isAdmin'] = $this->workGroupPermissions->mayEdit($group);
+                    $group['hasSubgroups'] = $this->regionGateway->hasSubgroups($groupId);
+                    if (RegionIDs::isChainsGroup($group['id'])) {
+                        $group['isChainGroup'] = true;
+                    }
+                }
+                if ($group['isAdmin']) {
+                    $group['mailboxId'] = $this->regionGateway->getMailboxId($groupId);
+                }
+                if (UnitType::isRegion($groupType)) {
+                    $regions[] = $group;
+                } else {
+                    $groups[] = $group;
+                }
+            }
+        }
+
+        return [
+            'groups' => $groups,
+            'regions' => $regions,
         ];
     }
 
@@ -175,41 +227,9 @@ final class PageHelper
 
     private function getMenu(): string
     {
-        $groups = $this->currentUserUnits->getRegions();
-
-        $regions = [];
-        $workingGroups = [];
-
-        foreach ($groups as $group) {
-            $groupId = $group['id'];
-            $groupType = $group['type'];
-            $group = array_merge($group, [
-                'mayHandleFoodsaverRegionMenu' => $this->regionPermissions->mayHandleFoodsaverRegionMenu($groupId),
-                'hasConference' => $this->regionPermissions->hasConference($groupType),
-                'hasResources' => $this->resourcePermissions->maySeeResources($group['id'], $group['type']),
-            ]);
-            if (UnitType::isRegion($groupType)) {
-                $group['isAdmin'] = $this->currentUserUnits->isAdminFor($groupId);
-                $group['mayAccessReports'] = $this->reportPermissions->mayAccessReportsForRegion($groupId);
-                $group['isReportAdmin'] = $this->reportPermissions->isReportAdmin($groupId);
-                $group['isArbitrationAdmin'] = $this->reportPermissions->isArbitrationAdmin($groupId);
-                $group['maySetRegionPin'] = $this->regionPermissions->maySetRegionPin($groupId);
-            } else {
-                $group['isAdmin'] = $this->workGroupPermissions->mayEdit($group);
-                $group['hasSubgroups'] = $this->regionGateway->hasSubgroups($groupId);
-                if (RegionIDs::isChainsGroup($group['id'])) {
-                    $group['isChainGroup'] = true;
-                }
-            }
-            if ($group['isAdmin']) {
-                $group['mailboxId'] = $this->regionGateway->getMailboxId($groupId);
-            }
-            if (UnitType::isRegion($groupType)) {
-                $regions[] = $group;
-            } else {
-                $workingGroups[] = $group;
-            }
-        }
+        $userGroupsAndRegions = $this->getUserGroupsAndRegions();
+        $regions = $userGroupsAndRegions['regions'];
+        $workingGroups = $userGroupsAndRegions['groups'];
 
         $props = [
             'regions' => $regions,

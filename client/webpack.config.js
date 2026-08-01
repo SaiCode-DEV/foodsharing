@@ -157,7 +157,8 @@ module.exports = merge(webpackBase, {
     // Avoid a single shared runtime chunk in development —
     // it can cause HMR runtime mismatches when multiple updates
     // are written/read from disk. Use a shared runtime in production.
-    runtimeChunk: dev ? false : 'single',
+    // UPDATE: We MUST use 'single' so Catchall dynamically loaded entrypoints share the Vue instance!
+    runtimeChunk: 'single',
     splitChunks: {
       chunks: 'all',
       maxInitialRequests: 10,

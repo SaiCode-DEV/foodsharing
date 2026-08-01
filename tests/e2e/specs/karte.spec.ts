@@ -8,7 +8,9 @@ test.describe("karte", () => {
   test("is visible", async ({ page }) => {
     await expect(page.getByText("Essenskörbe")).toBeVisible();
     await expect(page.getByText("Fairteiler", { exact: true })).toBeVisible();
-    await expect(page.getByText("Ortsgruppen")).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: "Ortsgruppen" }),
+    ).toBeVisible();
     await expect(page.locator("#map-control")).toBeVisible();
   });
 });

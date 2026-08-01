@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="favicon" href="/favicon.ico" type="image/x-icon" />
+
+        <title>{{ head.title }}</title>
+
+        {% for stylesheet in head.stylesheets %}
+            <link rel="stylesheet" type="text/css" href="{{ stylesheet }}" />
+        {% endfor %}
+
+        {% if dev %}
+            {# to avoid a flash of unstyled content we hide the body initially, then reveal it at the end #}
+            <style type="text/css">body { display: none; }</style>
+        {% endif %}
+
+        <script type="text/javascript">
+            window.serverData = {{ serverDataJSON | raw }};
+        </script>
+
+        <meta name="description" content="{{ 'base.whatfor'|trans }}" />
+        <meta name="keywords" content="{{ 'base.keywords'|trans }}" />
+        <meta name="author" content="foodsharing" />
+        <meta name="robots" content="all" />
+        <meta name="allow-search" content="yes" />
+        <meta name="revisit-after" content="1 days" />
+        <meta name="google-site-verification" content="pZxwmxz2YMVLCW0aGaS5gFsCJRh-fivMv1afrDYFrks" />
+
+        <meta property="og:title" content="{{ 'base.slogan'|trans }}" />
+        <meta property="og:description" content="{{ 'base.whatfor'|trans }}" />
+        <meta property="og:image" content="https://foodsharing.de/img/logo/FS_Schriftzug_gb_klein.png" />
+        <meta property="og:url" content="https://foodsharing.de" />
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <link rel="mask-icon" href="/img/favicon/safari-pinned-tab.svg" color="#563a1e">
+        <meta name="msapplication-TileColor" content="#563a1e">
+        <meta name="theme-color" content="#563a1e">
+
+        {# Preload LCP image to reduce resource load delay #}
+        {% if route == 'index' %}
+        <link rel="preload" as="image" href="/img/startpage/header.png" fetchpriority="high">
+        {% endif %}
+    </head>
+    <body class="{{ bodyClasses|join(' ') }}">
+        {# Vue Router will mount here #}
+        <div id="app"></div>
+
+        <template id="initial-content">
+            {% include 'layouts/content-only.twig' %}
+        </template>
+
+        <noscript>
+            <div id="nojs">
+                <div class="alert alert-danger">{{ 'base.jsrequired'|trans }}</div>
+            </div>
+        </noscript>
+
+        {% for script in head.scripts %}
+            <script type="text/javascript" src="{{ script }}"></script>
+        {% endfor %}
+
+
+        {% if dev %}
+            <style type="text/css">body { display: block; }</style>
+        {% endif %}
+    </body>
+</html>

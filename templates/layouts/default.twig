@@ -1,3 +1,3 @@
-{% extends 'layouts/base.twig' %}
+{% extends layout_base|default('layouts/base.twig') %}
 
 {% block main %}{{ content.main.html | raw }}{% endblock %}

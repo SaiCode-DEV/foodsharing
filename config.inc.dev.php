@@ -21,6 +21,8 @@ define('BASE_URL', $protocol . '://' . $host);
 
 define('VERSION', '0.8.3');
 
+define('ROUTES_CACHE_DURATION', 10);
+
 define('DEFAULT_EMAIL', 'no-reply@foodsharing.network');
 define('SUPPORT_EMAIL', 'support@foodsharing.network');
 define('DEFAULT_EMAIL_NAME', 'Foodsharing');

@@ -1,6 +1,7 @@
 import { GET, goTo } from '@/browser'
 import conversationStore from '@/stores/conversations'
 import i18n from '@/helper/i18n'
+import { initVueRouter } from '@/vue'
 import Vue from 'vue'
 
 export { goTo, GET }
@@ -64,4 +65,9 @@ export function hideLoader () {
 export function shuffle (o) {
   for (let j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
   return o
+}
+
+// Initialize Vue Router (replaces the old page loading)
+if (document.querySelector('#app')) {
+  initVueRouter('#app')
 }

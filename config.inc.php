@@ -56,6 +56,10 @@ if (!defined('CSP_REPORT_ONLY')) {
     define('CSP_REPORT_ONLY', false);
 }
 
+if (!defined('ROUTES_CACHE_DURATION')) {
+    define('ROUTES_CACHE_DURATION', 24 * 60 * 60); // 24 hours
+}
+
 define('FPDF_FONTPATH', __DIR__ . '/lib/font/');
 
 /* global definitions for Foodsharing\\Helpers\\PageHelper*/

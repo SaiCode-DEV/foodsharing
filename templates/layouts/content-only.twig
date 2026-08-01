@@ -1,0 +1,41 @@
+{% set _main = content.main.html | raw %}
+<div>
+	{# Only render menu and footer for full page requests #}
+	{% block full %}
+		{% if route in 'dashboard,index,content,msg,featuretoggles,mailbox,fsbetrieb,bezirk,karte'|split(',') %}
+			{# /*
+			* to keep the old page stable,
+			* cause of the different types of grid systems
+			*/ #}
+			<main id="main">
+				{{ _main|raw }}
+			</main>
+		{% else %}
+			<main id="main" class="container p-0">
+				{% include 'partials/breadcrumbs.twig' with { items: bread } %}
+
+				<div class="pure-g">
+					{% if _main is not empty %}
+						<div class="pure-u-1 pure-u-md-24-24">
+							<div class="inside">
+								{{ _main|raw }}
+							</div>
+						</div>
+					{% endif %}
+				</div>
+			</main>
+		{% endif %}
+	{% endblock full %}
+
+    {% for stylesheet in head.stylesheets %}
+        <link rel="stylesheet" type="text/css" href="{{ stylesheet }}" class="content-stylesheet" />
+    {% endfor %}
+
+    {% for script in head.scripts %}
+        <script type="text/javascript" src="{{ script }}" class="content-script"></script>
+    {% endfor %}
+
+    <script type="text/javascript" class="content-inline-script">
+        {{ head.js | raw }}
+    </script>
+</div>

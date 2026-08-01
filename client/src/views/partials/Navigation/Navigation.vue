@@ -53,6 +53,7 @@ import MainNavLoggedIn from './States/MainNav/LoggedIn.vue'
 import MainNavLoggedOut from './States/MainNav/LoggedOut.vue'
 import SideNavLoggedIn from './States/SideNav/LoggedIn.vue'
 import SideNavLoggedOut from './States/SideNav/LoggedOut.vue'
+import DonationButton from '@/components/DonationButton.vue'
 // ModalLoader
 import ModalLoader from '@/views/partials/Modals/ModalLoader.vue'
 import DonationModal from '@/components/Modals/Donation/DonationModal.vue'
@@ -64,9 +65,10 @@ import ConfirmationDialogue from '@/components/UI/ConfirmationDialogue.vue'
 import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 import { useMediaQuery } from '@/composables/useMediaQuery'
 import ChatDock from '@/components/Chat/ChatDock.vue'
-import DonationButton from '@/components/DonationButton.vue'
+import serverData from '@/helper/server-data'
+import { get } from '@/api/base'
 
-const props = defineProps({
+defineProps({
   regions: {
     type: Array,
     default: () => [],
@@ -103,8 +105,14 @@ watch(isFoodsaver, async (newValue) => {
 
 onBeforeMount(async () => {
   if (isLoggedIn.value) {
-    DataGroups.mutations.set(props.groups)
-    regionStore.regions = props.regions
+    try {
+      const data = await get('/server/data')
+      DataGroups.mutations.set(data.groups || [])
+      regionStore.regions = data.regions || []
+    } catch (err) {
+      DataGroups.mutations.set(serverData.groups || [])
+      regionStore.regions = serverData.regions || []
+    }
     await DataBells.mutations.fetch()
     await DataConversations.initConversations()
   }

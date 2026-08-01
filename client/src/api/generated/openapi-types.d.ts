@@ -2737,6 +2737,53 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/server/data": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Returns server configuration data and user context for the frontend. This includes user data, permissions, environment settings, and API keys. */
+        get: operations["get_foodsharing_restapi_serverrest_getserverdata"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/server/routes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Returns all registered routes in the application.
+         * @description This can be used by the frontend to dynamically generate URLs using vue-router or to synchronize
+         *                           client-side routing with server-side routes.
+         *
+         *                           Routes are separated into:
+         *                           - api: API routes (paths starting with /api/)
+         *                           - routes: Regular page/controller routes (all other routes)
+         *
+         *                           Note: The route collection is cached since getRouteCollection() is slow.
+         *                           - Production: 24 hours cache (routes don't change at runtime)
+         *                           - Development: 10 seconds cache (for faster testing)
+         *                           - Cache is automatically invalidated when version changes (deployment)
+         */
+        get: operations["get_foodsharing_restapi_serverrest_getroutes"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/users/current/sleep-mode": {
         parameters: {
             query?: never;
@@ -6062,6 +6109,27 @@ export interface components {
              */
             relevance?: number;
         };
+        ServerDataModel: {
+            user?: components["schemas"]["ServerUserModel"];
+            permissions?: Record<string, never>;
+            page?: string;
+            subPage?: string;
+            locations?: Record<string, never>;
+            ravenConfig?: string;
+            version?: string;
+            isDev?: boolean;
+            isTest?: boolean;
+            locale?: string;
+            geoapifyApiKey?: string;
+            groups?: components["schemas"]["ServerGroupModel"][];
+            regions?: components["schemas"]["ServerRegionModel"][];
+        };
+        ServerRoutesModel: {
+            /** @description Application version/revision */
+            version?: string;
+            api?: components["schemas"]["ServerRouteModel"][];
+            routes?: components["schemas"]["ServerRouteModel"][];
+        };
         TOTPProposal: {
             /**
              * @description How often the same setup proposal has been reused from the session
@@ -7278,6 +7346,57 @@ export interface components {
              * @example true
              */
             hasVoted?: boolean;
+        };
+        ServerUserModel: {
+            id?: number;
+            firstname?: string;
+            lastname?: string;
+            may?: boolean;
+            homeRegionId?: number;
+            hasMailbox?: boolean;
+            isFoodsaver?: boolean;
+            verified?: boolean;
+            avatar?: string;
+        };
+        ServerGroupModel: {
+            id?: number;
+            name?: string;
+            type?: number;
+            parent_id?: number | null;
+            hasAchievements?: boolean;
+            mayHandleFoodsaverRegionMenu?: boolean;
+            hasConference?: boolean;
+            hasResources?: boolean;
+            isAdmin?: boolean;
+            hasSubgroups?: boolean;
+            isChainGroup?: boolean;
+            mailboxId?: number;
+        };
+        ServerRegionModel: {
+            id?: number;
+            name?: string;
+            type?: number;
+            parent_id?: number | null;
+            hasAchievements?: boolean;
+            mayHandleFoodsaverRegionMenu?: boolean;
+            hasConference?: boolean;
+            hasResources?: boolean;
+            isAdmin?: boolean;
+            mayAccessReports?: boolean;
+            isReportAdmin?: boolean;
+            isArbitrationAdmin?: boolean;
+            maySetRegionPin?: boolean;
+            mailboxId?: number;
+        };
+        ServerRouteModel: {
+            /** @description Route name */
+            name?: string;
+            /** @description Route path pattern */
+            path?: string;
+            /** @description HTTP methods */
+            methods?: string[];
+            /** @description Required parameters */
+            parameters?: string[];
         };
         /** @enum {integer} */
         Role: 0 | 1 | 2 | 3 | 4 | 5;
@@ -16127,6 +16246,46 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+        };
+    };
+    get_foodsharing_restapi_serverrest_getserverdata: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ServerDataModel"];
+                };
+            };
+        };
+    };
+    get_foodsharing_restapi_serverrest_getroutes: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success - Returns all routes separated into API and regular routes */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ServerRoutesModel"];
+                };
             };
         };
     };

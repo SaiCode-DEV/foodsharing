@@ -1,27 +1,41 @@
-html, body {
+html.page-msg,
+body.page-msg {
   height: 100%;
   max-height: 100%;
 }
 
-body {
+body.page-msg {
   display: flex !important;
   flex-direction: column;
 }
 
-#main {
-  flex: auto;
+/* Propagate the flex layout down through the SPA wrappers */
+body.page-msg>#message,
+body.page-msg>div[path^="/msg"],
+body.page-msg>div[path^="/msg"]>#app-content,
+body.page-msg>div[path^="/msg"]>#app-content>div {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+body.page-msg #main {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
   overflow: hidden; // required that the chat window will not expand out off screen
   margin-top: 1.25rem;
 
-  .container, .row, .col {
-    height: 100%;
-    max-height: 100%;
+  vue-advanced-chat {
+    display: block;
+    flex: 1 1 auto;
+    min-height: 0;
   }
 }
 
-@media (min-width: 576px) and (min-height: 576px)
-{
-  #main  {
+@media (min-width: 576px) and (min-height: 576px) {
+  body.page-msg #main {
     // This actually looks symmetrical due to spacing/shadows
     margin-top: 1.5rem;
     margin-bottom: 1.25rem;

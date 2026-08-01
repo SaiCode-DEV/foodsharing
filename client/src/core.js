@@ -11,8 +11,6 @@ import { scheduleSWRegistration } from '@/registerServiceWorker'
 */
 import './scss/index.scss'
 
-import '@/views/views'
-
 import serverData from '@/helper/server-data'
 
 import socket from '@/socket'

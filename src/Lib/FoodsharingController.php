@@ -91,6 +91,15 @@ abstract class FoodsharingController extends AbstractController
      */
     protected function renderGlobal(string $template = 'layouts/default.twig', array $data = []): Response
     {
+        $request = $this->container->get('request_stack')->getCurrentRequest();
+        $isContentOnly = $request && ($request->headers->get('X-Content-Only') === '1' || $request->headers->get('x-content-only') === '1');
+
+        if ($isContentOnly) {
+            $data['layout_base'] = 'layouts/content-only.twig';
+        } else {
+            $template = 'layouts/index.twig';
+        }
+
         $this->webpackHelper->finalizeWebpackAssets();
         $globalData = $this->pageHelper->generateAndGetGlobalViewData();
         $viewData = array_merge($globalData, $data);

@@ -10,7 +10,7 @@
         {% else %}
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {% endif %}
-        <link rel="favicon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
 
         <title>{{ head.title }}</title>
 
@@ -78,7 +78,7 @@
         {{ notificationsWrapper | raw }}
 
         {% block full %}
-            {% if route in 'dashboard,index,content,msg,featuretoggles,mailbox,fsbetrieb,bezirk'|split(',') %}
+            {% if route in 'dashboard,index,content,msg,featuretoggles,mailbox,fsbetrieb,bezirk,karte'|split(',') %}
                 {# /*
                 * to keep the old page stable,
                 * cause of the different types of grid systems
