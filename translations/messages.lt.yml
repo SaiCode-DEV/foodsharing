@@ -3782,7 +3782,6 @@ content:
   error: ''
   delete_tooltip: ''
   delete_success: ''
-  changelog: ''
   edit_success: ''
   bread: ''
 markdown_input:
@@ -4195,7 +4194,6 @@ statistics:
   food_saved: ''
   num_fetches: ''
   lastMonth: ''
-  kg_food_saved: ''
 team:
   current: ''
 language_chooser:

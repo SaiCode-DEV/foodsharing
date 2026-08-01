@@ -2997,7 +2997,6 @@ sidenav:
   yourgroups: ''
   yourregions: ''
 statistics:
-  kg_food_saved: ''
   num_fetches: ''
   region_public:
     foodBasketsLastMonth: ''
@@ -3060,7 +3059,6 @@ timepicker:
 content:
   content: ''
   empty: ''
-  changelog: ''
   delete_success: ''
   actions: ''
   new: ''

@@ -3023,7 +3023,6 @@ content:
   new_success: ''
   delete_success: ''
   actions: ''
-  changelog: ''
   bread: ''
   new: ''
   public: ''
@@ -3478,7 +3477,6 @@ activitypost:
   write: ''
   response: ''
 statistics:
-  kg_food_saved: ''
   num_fetches: ''
   region_public:
     foodBasketsLastMonth: ''

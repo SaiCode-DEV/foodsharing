@@ -3583,7 +3583,6 @@ content:
   error: ''
   delete_tooltip: ''
   delete_success: ''
-  changelog: ''
   edit_success: ''
   bread: ''
 upload:
@@ -4063,7 +4062,6 @@ statistics:
   food_saved: ''
   num_fetches: ''
   lastMonth: ''
-  kg_food_saved: ''
 begin: ''
 team:
   current: ''

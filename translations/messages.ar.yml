@@ -2343,7 +2343,6 @@ content:
   delete: ''
   bread: ''
   new: ''
-  changelog: ''
   name: ''
   delete_success: ''
   new_success: ''
@@ -2435,7 +2434,6 @@ mailbox:
   forward: ''
   mark_none: ''
 statistics:
-  kg_food_saved: ''
   num_fetches: ''
   region_public:
     foodBasketsLastMonth: ''

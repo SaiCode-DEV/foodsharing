@@ -1509,7 +1509,6 @@ content:
   bread: alle sider
   actions: Handlinger
   empty: Ingen side er lagt inn ennå.
-  changelog: Siste endringslogg
   edit_success: Siden ble lagret.
   delete: Er du sikker på at du vil slette {name}?
   new: Legg til en ny side
@@ -3290,7 +3289,6 @@ yes: Ja
 really_delete: Vil du virkelig slette?
 are_you_sure: Er du sikker?
 statistics:
-  kg_food_saved: '{count} kg mat lagret'
   num_fetches: med {count} pickuper
   food_saved: mat spart
   region_public:

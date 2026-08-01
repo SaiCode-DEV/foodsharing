@@ -3185,7 +3185,6 @@ forum:
 content:
   delete: ''
   content: ''
-  changelog: ''
   name: ''
   bread: ''
   edit: ''
@@ -3435,7 +3434,6 @@ image: 'beeld'
 duration: ''
 day: ''
 statistics:
-  kg_food_saved: ''
   num_fetches: ''
   region_public:
     foodBasketsLastMonth: ''

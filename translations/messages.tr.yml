@@ -1927,7 +1927,6 @@ content:
   name: Açık İsim
   actions: Faaliyetler
   public: Herkese Açık Sayfalar
-  changelog: Güncel Changelog
   bread: Tüm sayfalar
   new: Yeni sayfa oluştur
   new_success: Sayfa oluşturuldu
@@ -3620,7 +3619,6 @@ fsp:
   onlySuggested: Bu Gıda dağıtım Noktası önerildi ancak henüz yayınlanmadı. Bu 
     durumda diğer kullanıcılara gösterilmeyecektir.
 statistics:
-  kg_food_saved: '{count} kg gıda kurtarıldı'
   num_fetches: '{count} Kurtarma görevinde'
   food_saved: Gıda kurtarıldı
   region_public:

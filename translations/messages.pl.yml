@@ -1833,12 +1833,12 @@ store:
       12: 'Wypisanie się ze slotu'
       9: 'Wprowadzenie koordynatora/ki punktu'
       5: 'Dodanie foodsaverów/ek na listę rezerwowych'
-      13: 'Zostać wypisanym/ą ze slotu'
+      13: 'Zostanie wypisanym/ą ze slotu'
       11: 'Zapisanie się na slot'
       15: 'Usunięcie wpisu na tablicy'
     log_types_placeholder: 'Wybierz typy akcji do wyświetlenia'
     message_saved_info: 'Twoja wiadomość zostanie zapisana w protokole punktu.'
-    selected_log_types: 'wybrano następująca liczbę typów akcji: {amount}'
+    selected_log_types: 'Wybrano następująca liczbę typów akcji: {amount}'
     title: 'Protokół punktu'
   to_map: Pokaż na mapie
   chat:
@@ -1864,7 +1864,7 @@ store:
     zgłosić do teamu.'
   convince:
     much: 'Trudne negocjacje, ale w końcu się zgodzili.'
-    some: 'Po działaniach perswazyjnych zgodzili się na uczestnictwo.'
+    some: 'Po działaniach perswazyjnych zgodzili się uczestniczyć.'
     none: 'Żaden problem, od razu byli zachwyceni!'
     final: 'Najpierw nie wyglądało to dobrze, ale potem jednak się odezwali.'
   mayAmb: 'Zdał/a quiz na ambasadora/kę.'
@@ -1983,7 +1983,6 @@ statistics:
     pickupsLastMonth: 'Liczba odbiorów uratowanej żywności'
   food_saved: 'uratowanej żywności'
   num_fetches: 'w następującej liczbie akcji: {count}'
-  kg_food_saved: 'uratowano {count} kg żywności'
 are_you_sure: Jesteś pewny/a?
 storeedit:
   name_error: Nazwa musi zawierać co najmniej trzy znaki.
@@ -2078,13 +2077,13 @@ pickup:
           other: 'Przyszłe zapisane sloty'
           own: 'Przyszłe sloty, na które możesz się zapisać'
         name: 'Wprowadzone sloty'
-        empty: 'Chwilowo nie wprowadzono żadnych slotów.'
+        empty: 'Chwilowo nie zapisano się na żadne sloty.'
       history:
         tooltip:
           own: 'Ubiegłe sloty, w których uczestniczyłeś/aś'
           other: 'Sloty w minionym miesiącu, w których wzięto udział'
         name: 'Historia slotów'
-        empty: 'Jeszcze nikt się nie zapisał na żaden slot.'
+        empty: 'Osoba nie zapisała się jeszcze na żaden slot.'
     modals:
       signOffAll:
         title: 'Wypisać ze wszystkich slotów?'
@@ -2128,12 +2127,12 @@ pickup:
       tyle osób odbierających, ile jest potrzebnych</strong> w tym punkcie.\nZbyt
       wiele osób odbierających spowodowało już często zakończenie współpracy.\n<br>\n\
       Uzgodnij z punktem maksymalną możliwą liczbę osób odbierających.\nDodatkowo
-      potrzebni/e pomocnicy/czki mogą czekać z przyczepkami rowerowymi lub czymś podobnym\n\
-      z dala od oczu i uszu obsługi punktu.\n"
+      potrzebni/e pomocnicy/czki mogą czekać z przyczepkami rowerowymi itp.\nz dala
+      od oczu i uszu obsługi punktu.\n"
     slot_titel: 'Sloty'
     slotcount: '1 osoba odbierająca'
     added: 'Wprowadzono slot.'
-    slotscount: '{count} osoby/osób odbierające/ych'
+    slotscount: 'Liczba osób odbierających: {count}'
   passport_expired:
     short: Legitymacja nieważna
     long: Twoja legitymacja wtedy nie będzie już ważna
@@ -2141,7 +2140,7 @@ pickup:
   description: Opis
   signout_confirm: Jesteś pewny/a?
   open_profile: Profil
-  copyNumber: kopiuj numer telefonu
+  copyNumber: Kopiuj numer telefonu
   signout_sure: Czy na pewno chcesz opuścić ten team?
   kick_message_placeholder: Opcjonalnie dodaj informacje tutaj …
   description_modal_text: 'Podaj nowy opis:'
@@ -2160,10 +2159,10 @@ pickup:
     '
   leave: 'Opuść'
   kick_message: 'wypisaliśmy/łyśmy cię z odbioru w punkcie {storeName} dnia {date}.'
-  really_leave_date_title: 'Wypisz się {date}?'
+  really_leave_date_title: 'Wypisz się dnia {date}?'
   slot_add: 'Dodaj slot'
   slots: 'Sloty'
-  delete_not_empty: 'Aktualnie są jeszcze zapisani/e odbierający/e. Możesz usunąć
+  delete_not_empty: 'Aktualnie są jeszcze zapisane osoby odbierające. Możesz usunąć
     ten slot, dopiero gdy wszyscy będą wypisani.'
   same_day_hint: 'Następujące wydarzenia odbędą się tego samego dnia:'
   team_message_send_and_leave: 'Wyślij i wypisz'
@@ -2177,7 +2176,7 @@ pickup:
   call: 'Zadzwoń'
   really_leave: 'Jesteś odpowiedzialny/a za ten odbiór. Zorganizuj samodzielnie zastępstwo.'
   to_be_confirmed: 'Koordynator/ka tego punktu musi jeszcze potwierdzić ten slot.'
-  delete_title: 'usuń te sloty'
+  delete_title: 'Usuń te sloty'
   signout_info: 'Twoje nadchodzące odbiory zostaną usunięte.'
   leave_team_message_template: 'wypisałem/am się z odbioru {date}. …'
   membershipMissing: 'Nie jesteś członkiem tego teamu. Dlatego nie powinieneś/powinnaś
@@ -2904,7 +2903,6 @@ content:
   last_modified: 'Ostatnio edytowany'
   edit_raw: 'Edytuj dane pierwotne'
   delete_tooltip: 'Usuń stronę'
-  changelog: 'Aktualny changelog'
 map:
   filters:
     stores:

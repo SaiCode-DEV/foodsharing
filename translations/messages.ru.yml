@@ -3089,7 +3089,6 @@ ageBandList:
   district_tab: 'Район'
 content:
   empty: 'Пока что нет ни одной страницы.'
-  changelog: 'Текущий список изменений'
   bread: 'Все страницы'
   actions: 'Действия'
   new: 'Создать новую страницу'
@@ -3818,7 +3817,6 @@ really_delete: 'Действительно удалить?'
 request_time: 'Время запроса:'
 regions: 'Районы'
 statistics:
-  kg_food_saved: '{count} кг спасённой еды'
   num_fetches: 'за {count} выездов по спасению'
   region_public:
     foodBasketsLastMonth: ''

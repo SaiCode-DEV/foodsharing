@@ -3669,7 +3669,6 @@ content:
   empty: 'Aún no se ha ingresado a ninguna página.'
   edit: 'Editar página'
   edit_success: 'La página fue guardada.'
-  changelog: 'Registro de cambios actual'
   new: 'Crear nueva página'
   bread: 'Todas las páginas'
   delete_success: 'La página ha sido eliminada'
@@ -3813,7 +3812,6 @@ email_template:
       posible.
 contentmanagement: 'Gestión de contenido'
 statistics:
-  kg_food_saved: '{count} kg de comida ahorrados'
   num_fetches: 'en {count} operaciones de rescate'
   food_saved: Comida ahorrada
   region_public:

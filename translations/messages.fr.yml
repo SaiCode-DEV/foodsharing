@@ -1715,7 +1715,6 @@ really_delete: Supprimer définitivement ?
 are_you_sure: Es-tu sûr·e ?
 statistics:
   num_fetches: après {count} interventions
-  kg_food_saved: '{count} kg de denrées alimentaires sauvées'
   food_saved: de nourriture sauvés
   region_public:
     pickupsLastMonth: sauvetages alimentaires
@@ -2810,7 +2809,6 @@ map:
   region:
     go: ''
 content:
-  changelog: Changelog actuel
   empty: Aucune page existante.
   content: Contenu
   name: Nom explicite

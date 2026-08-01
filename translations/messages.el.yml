@@ -2603,7 +2603,6 @@ content:
   public: ''
   empty: ''
   delete_success: ''
-  changelog: ''
   id: ''
   title: ''
   last_modified: ''
@@ -3540,7 +3539,6 @@ memberlist:
   header_for_workgroup: ''
   header_for_district: ''
 statistics:
-  kg_food_saved: ''
   num_fetches: ''
   region_public:
     foodBasketsLastMonth: ''

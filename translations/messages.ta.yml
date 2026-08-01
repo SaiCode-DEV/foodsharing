@@ -1291,7 +1291,6 @@ content:
   error: பக்கத்தை சேமிக்க முடியவில்லை
   name: தெளிவான பெயர்
   content: உள்ளடக்கங்கள்
-  changelog: தற்போதைய சேஞ்ச்லாக்
   id: ஐடி
   title: தலைப்பு
   last_modified: கடைசியாக திருத்தப்பட்டது
@@ -4460,7 +4459,6 @@ terminology:
 statistics:
   num_fetches: '{count} மீட்பு நடவடிக்கைகளில்'
   food_saved: உணவு காப்பாற்றப்பட்டது
-  kg_food_saved: '{count} கிலோ சேமித்த உணவு'
   lastMonth: கடந்த 30 நாட்களின் புள்ளிவிவரங்கள்
   region_public:
     pickupsLastMonth: உணவு மீட்கப்படுகிறது

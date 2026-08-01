@@ -386,7 +386,6 @@ really_delete: Eliminare?
 are_you_sure: Sei sicuro?
 statistics:
   num_fetches: durante {count} missioni di salvataggio
-  kg_food_saved: '{count} kg di cibo risparmiato'
   region_public:
     savedFoodKgLastMonth: di cibo risparmiati
     pickupsLastMonth: ritiri di cibo
@@ -2139,7 +2138,6 @@ content:
   new: Crea una nuova pagina
   actions: Azioni
   bread: Tutte le pagine
-  changelog: Ultime modifiche
   empty: Nessuna pagina è stata ancora inserita.
   content: Contenuto
   name: Nome univoco

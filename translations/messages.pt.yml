@@ -3670,7 +3670,6 @@ content:
   edit: 'Editar página'
   delete_tooltip: 'Eliminar página'
   delete_success: 'Página foi eliminada'
-  changelog: 'Registo de alterações atual'
   edit_success: 'A página foi guardada.'
   bread: 'Todas as páginas'
   edit_raw: Editar dados originais
@@ -4367,7 +4366,6 @@ usersearch:
 contentmanagement: 'Gestão de conteúdos'
 statistics:
   num_fetches: 'em {count} operações de resgate'
-  kg_food_saved: '{count} kg salvos'
   region_public:
     activeFoodSharePoints: cantinhos da partilha ativos
     foodBasketsLastMonth: cabazes alimentares distribuídas

@@ -3630,7 +3630,6 @@ error_permissions: Unfortunately, you do not have the necessary permissions for
   this process.
 success: Completed successfully
 statistics:
-  kg_food_saved: '{count} kg food saved'
   num_fetches: in {count} pick-ups
   food_saved: 'food saved'
   region_public:

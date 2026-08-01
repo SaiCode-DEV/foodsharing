@@ -96,7 +96,6 @@ terminology:
   newsletter: ''
 statistics:
   num_fetches: ''
-  kg_food_saved: ''
   region_public:
     foodBasketsLastMonth: ''
     activeHomeRegionFoodsavers: ''
@@ -2533,7 +2532,6 @@ content:
   name: ''
   content: ''
   empty: ''
-  changelog: ''
   new: ''
   new_success: ''
   edit_success: ''
