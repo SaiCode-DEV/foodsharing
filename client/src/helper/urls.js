@@ -163,8 +163,7 @@ const urls = {
   editAchievements: () => '/achievements',
   chains: () => '/chain',
 
-  // whats new & changelog
-  changelog: () => '/content?sub=changelog',
+  // whats new
   release_notes: () => '/content?sub=releaseNotes',
 
   // phone

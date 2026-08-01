@@ -2441,7 +2441,6 @@ content:
   edit_raw: Edit raw content
   edit_success: The page was saved.
   new_success: The page was created
-  changelog: Latest changelog
   empty: No page has been entered yet.
   delete: Are you sure you want to delete {name}?
   id: ID

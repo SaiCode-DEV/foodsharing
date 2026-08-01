@@ -6,15 +6,6 @@
           <i class="fas fa-fw fa-magic" />
           {{ $t('menu.entry.release-notes') }}
         </h3>
-        <b-button
-          size="sm"
-          variant="secondary"
-          target="_blank"
-          :href="$url('changelog')"
-        >
-          <i class="fas fa-fw fa-file-alt" />
-          {{ $t('content.changelog') }}
-        </b-button>
       </div>
 
       <div
