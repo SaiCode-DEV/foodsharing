@@ -2823,12 +2823,10 @@ blog:
   last-editor: ''
   failure:
     new: ''
-    delete: ''
     edit: ''
   permissions:
     new: ''
     edit: ''
-    delete: ''
   status:
     "0": ''
     "1": ''
@@ -2844,7 +2842,6 @@ blog:
   success:
     new: ''
     edit: ''
-    delete: ''
   content: ''
   bread: ''
   confirmDelete: ''

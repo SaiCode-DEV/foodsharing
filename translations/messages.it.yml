@@ -3538,15 +3538,12 @@ stats:
     by_count: per numero
 blog:
   permissions:
-    delete: Non puoi cancellare questo articolo
     edit: Non puoi modificare questo articolo
     new: Non ti è permesso creare articoli
   failure:
-    delete: L'articolo non può essere cancellato
     edit: L'articolo non può essere salvato
     new: L'articolo non può essere creato
   success:
-    delete: Articolo cancellato
     edit: L'articolo è stato salvato
     new: L'articolo è stato creato
   confirmDelete: Vuoi davvero che {name} sia irrevocabilmente cancellato?

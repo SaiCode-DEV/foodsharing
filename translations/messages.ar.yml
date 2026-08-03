@@ -2838,13 +2838,11 @@ blog:
   success:
     edit: ''
     new: ''
-    delete: ''
   go: ''
   manage: ''
   permissions:
     edit: ''
     new: ''
-    delete: ''
   status:
     "1": ''
     "0": ''
@@ -2857,7 +2855,6 @@ blog:
   all: ''
   empty: ''
   failure:
-    delete: ''
     new: ''
     edit: ''
   edit: ''

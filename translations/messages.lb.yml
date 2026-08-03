@@ -3109,11 +3109,9 @@ blog:
   success:
     edit: ''
     new: ''
-    delete: ''
   permissions:
     new: ''
     edit: ''
-    delete: ''
   bread: ''
   manage: ''
   all: ''
@@ -3135,7 +3133,6 @@ blog:
   failure:
     new: ''
     edit: ''
-    delete: ''
   teaser: ''
 stats:
   total:

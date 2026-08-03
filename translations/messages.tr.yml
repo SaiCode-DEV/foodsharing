@@ -2294,15 +2294,12 @@ blog:
   success:
     new: Yazı oluşturuldu
     edit: Yazı kaydedildi
-    delete: Yazı silindi
   bread: Blog
   permissions:
-    delete: Bu yazıyı silemezsiniz
     new: Yazı oluşturmanıza izin verilmiyor
     edit: Bu yazıyı düzenleyemezsiniz
   failure:
     edit: Yazı kaydedilemedi
-    delete: Yazı silinemedi
     new: Yazı oluşturulamadı
   go: Bloga git
   manage: Blog girişlerini yönet

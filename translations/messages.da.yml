@@ -3385,16 +3385,13 @@ blog:
   permissions:
     edit: ''
     new: ''
-    delete: ''
   new: ''
   failure:
     new: ''
     edit: ''
-    delete: ''
   author: ''
   success:
     edit: ''
-    delete: ''
     new: ''
   edit: ''
   manage: ''

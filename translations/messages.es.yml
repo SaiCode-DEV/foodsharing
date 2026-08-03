@@ -618,13 +618,11 @@ blog:
   success:
     edit: 'El artículo fue guardado'
     new: 'El artículo ha sido creado'
-    delete: 'Artículo eliminado'
   go: 'Al blog'
   header: 'Noticias del mundo foodsharing'
   edit: 'Editar entrada de blog'
   failure:
     new: 'No se pudo crear el artículo'
-    delete: 'El artículo no se pudo eliminar'
     edit: 'No se pudo guardar el artículo'
   newTitle: 'Nuevo artículo para {region}'
   publish-info: 'El estado de publicación del artículo se puede ajustar en la página
@@ -633,7 +631,6 @@ blog:
   last-editor: 'Última edición por'
   permissions:
     edit: 'No puedes editar este artículo'
-    delete: 'No puedes eliminar este artículo'
     new: 'No tienes permiso para crear artículos'
   actions: 'Acciones'
   delete: 'Eliminar artículo'

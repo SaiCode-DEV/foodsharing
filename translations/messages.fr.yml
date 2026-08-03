@@ -3669,15 +3669,12 @@ conference:
     ton avatar saisis sur foodsharing.
 blog:
   permissions:
-    delete: Tu ne peux pas supprimer cet article
     edit: Tu ne peux pas modifier l’article
     new: Tu ne peux pas créer d’article
   failure:
-    delete: L’article n’a pas pu être supprimé
     edit: L’article n’a pas pu être enregistré
     new: L’article n’a pas pu être créé
   success:
-    delete: Article supprimé
     edit: L’article a été enregistré
     new: L’article a été créé
   confirmDelete: Supprimer irrévocablement {name} ?

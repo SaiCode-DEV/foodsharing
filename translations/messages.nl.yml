@@ -1546,12 +1546,10 @@ blog:
   all: ''
   failure:
     new: ''
-    delete: ''
     edit: ''
   permissions:
     new: ''
     edit: ''
-    delete: ''
   go: ''
   new: ''
   last-editor: ''
@@ -1560,7 +1558,6 @@ blog:
     "0": ''
   delete: ''
   success:
-    delete: ''
     edit: ''
     new: ''
   bread: ''

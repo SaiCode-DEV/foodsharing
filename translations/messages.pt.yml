@@ -1161,15 +1161,15 @@ profile:
       do teu distrito.'
     noshow: 'A pessoa não veio'
     doesNotAffectStore: 'Não diz respeito a este ou a outro local'
-    arbAdminAgainstRepAdmin: 'É administrador do órgão de arbitragem e pretende comunicar
-      um administrador para o processamento de notificações. De momento, isso não
-      é tecnicamente possível. Pode, a qualquer momento, enviar uma notificação por
-      e-mail para os responsáveis locais por este caso.'
+    arbAdminAgainstRepAdmin: 'É administrador do Comissão de Arbitragem e pretende
+      comunicar um administrador para o processamento de notificações. De momento,
+      isso não é tecnicamente possível. Pode, a qualquer momento, enviar uma notificação
+      por e-mail para os responsáveis locais por este caso.'
     oldReportButton: 'Denunciar violação das regras'
     send: 'Mandar denúncia'
     late: 'A pessoa chegou tarde'
     repAdminAgainstArbAdmin: 'É administrador da equipa de processamento de notificações
-      e pretende notificar um/a administrador/a do órgão de arbitragem. No momento,
+      e pretende notificar um/a administrador/a do Comissão de Arbitragem. No momento,
       isso não é tecnicamente possível. Pode enviar uma notificação por e-mail a qualquer
       momento para os responsáveis locais por este caso.'
     sent: 'A denúncia foi enviada'
@@ -1199,7 +1199,7 @@ profile:
     oldReportButtonTextPart1: 'Atualmente, as violações das regras não são comunicadas
       neste local.'
     reportedAdminNoArbitration: 'Não pode denunciar {name}, pois ele/ela é administrador/a
-      do grupo de denúncias local do distrito e não existe um órgão de arbitragem
+      do grupo de denúncias local do distrito e não existe um Comissão de Arbitragem
       nesse grupo.'
     sells: 'Vende comida salvada'
     reporterHasNoReportGroup: 'Não pode utilizar o suporte técnico do sistema de denúncias,
@@ -1211,8 +1211,8 @@ profile:
     mail:
       reportGroup: 'Esta denúncia será enviada ao grupo de denúncias local. Também
         pode contactar este grupo através do seguinte endereço de e-mail:'
-      arbitrationGroup: 'Esta denúncia será enviada ao órgão de arbitragem, uma vez
-        que uma das pessoas envolvidas é membro do grupo local de denúncias. Também
+      arbitrationGroup: 'Esta denúncia será enviada ao Comissão de Arbitragem, uma
+        vez que uma das pessoas envolvidas é membro do grupo local de denúncias. Também
         podes contactar o órgão de arbitragem através do seguinte endereço de e-mail:'
     confirmDelete: Deseja mesmo apagar esta denúncia?
     report_b1_0: Chegou tarde para a recolha (B01-1)
@@ -1503,30 +1503,44 @@ group:
     pr: 'Relações públicas'
     fsmanagement: 'Administração'
     title: 'Missão do grupo de trabalho'
-    fsp: 'Cantinho da partilha'
+    fsp: 'Cantinho da Partilha'
     report: 'Denúncias'
     invalid: 'Um distrito não pode ser afetado a uma função de grupo de trabalho.'
     welcome: 'Saudação'
     board: 'Junta'
     mediation: 'Mediação'
-    arbitration: 'Comissão de arbitragem'
+    arbitration: 'Comissão de Arbitragem'
     stores_coordination: Locais
     election: Eleições
     none: Não é um grupo de trabalho GOALS
     resources: Mosaico de recursos
     function_type_info:
-      12: ''
-      10: ''
-      6: ''
-      5: ''
-      9: ''
-      4: ''
-      13: ''
-      3: ''
-      11: ''
-      2: ''
-      1: ''
-      7: ''
+      12: 'Os administradores deste grupo de trabalho são apresentados na visão geral
+        do distrito.'
+      10: 'Os administradores deste grupo de trabalho podem aprovar publicações em
+        fóruns moderados. Se essa opção estiver ativada para o distrito, também podem
+        ocultar publicações no fórum.'
+      6: 'O endereço de e-mail deste grupo de trabalho é apresentado no botão «Pedir
+        mediação». Os administradores não têm permissões especiais.'
+      5: 'Os administradores deste grupo de trabalho podem ver as denúncias sobre
+        foodsavers do distrito. Não são mostradas as denúncias em que estejam envolvidos.
+        Essas são encaminhadas para a Comissão de Arbitragem.'
+      9: 'Os administradores deste grupo de trabalho podem editar a descrição do grupo
+        local no mapa.'
+      4: 'Os administradores deste grupo de trabalho podem ver e editar os estabelecimentos
+        do distrito'
+      13: 'Os administradores deste grupo de trabalho recebem notificações sobre novos
+        recursos.'
+      3: 'Os administradores deste grupo de trabalho podem aprovar e editar os cantinhos
+        da partilha do distrito, bem como remover publicações dos Cantinhos da Partilha'
+      11: 'Os administradores deste grupo de trabalho são apresentados na visão geral
+        da região.'
+      2: 'Os administradores deste grupo de trabalho podem criar votações para o distrito'
+      1: 'Os administradores deste grupo de trabalho recebem uma notificação quando
+        há novos membros no distrito'
+      7: 'Os administradores deste grupo de trabalho podem ver as denúncias que envolvam
+        a equipa de denúncias. Não são mostradas as denúncias em que os administradores
+        estejam envolvidos. Essas são tratadas pela equipa de denúncias'
   application_from: 'de'
   apply:
     accept: 'Aceitar'
@@ -1538,8 +1552,16 @@ group:
     accepted: 'Aplicação aceite'
     link_description: 'Este link leva-o diretamente para a aplicação:'
     deny: Recursar
-    default_prompt: ''
-    application_hint: ''
+    default_prompt: '- Qual é a tua motivação?
+
+      - Que competências e experiência trazes?
+
+      - E de que forma gostarias de contribuir para o grupo?
+
+      '
+    application_hint: 'Candidata-te agora para colaborar no grupo "{group}". Responde
+      às seguintes perguntas. As tuas respostas serão enviadas à administração do
+      grupo.'
   member_list:
     set_admin_title: 'Atribuir como administrador'
     remove_ambassador_text: 'Tens a certeza de que pretende remover {name} ({id})
@@ -1618,8 +1640,10 @@ group:
       ver as denúncias'
     tooltip_function_region2296: Os administradores deste grupo de trabalho 
       podem editar categorias de recursos e operações
-    tooltip_function_region4647: ''
-    tooltip_function_region3097: ''
+    tooltip_function_region4647: 'As administradoras e os administradores deste grupo
+      de trabalho encontram todos os Cantinhos da Partilha na pesquisa'
+    tooltip_function_region3097: 'Os administradores deste grupo de trabalho podem
+      editar os conteúdos da página „Educação"'
   last_activity: 'Última atividade'
   edit:
     title: 'Editar {group}'
@@ -1721,13 +1745,14 @@ group:
     archived: ''
     project: ''
     exchange: ''
-  application_prompt: ''
+  application_prompt: 'Instruções para a candidatura. Que perguntas devem os candidatos
+    responder?'
   sorting_scheme:
     category: ''
     name: ''
     activity: ''
     membership: ''
-  join_confirmation: ''
+  join_confirmation: 'Queres juntar-te agora ao grupo {name}?'
   subgroups: ''
 foodsaver:
   delete_account_sure: 'Tens a certeza de que deseja eliminar a tua conta de utilizador?'
@@ -2021,17 +2046,17 @@ fsp:
   editSuccess: 'Cantinho da partilha foi editado com sucesso'
   summary: 'Há {count} cantinhos da partilha em todos os distritos onde está ativo'
   acceptName: 'desbloquear {name}'
-  follow: 'Siga este cantinho da partilha'
+  follow: 'Siga este Cantinho da Partilha'
   none: 'Ainda não há cantinhos da partilha inscritos'
-  yours: 'Cantinhos da partilha nos vossos distritos'
+  yours: 'Cantinhos da Partilha nos vossos distritos'
   acceptSuccess: 'O cantinho da partilha esta ativo agora'
   new: 'Novo cantinho da partilha'
   addSuccess: 'O cantinho da partilha foi inscrito com sucesso'
   edit: 'Editar cantinho da partilha'
-  inRegion: 'Tudos os cantinhos da partilha no {region}'
+  inRegion: 'Tudos os Cantinhos da Partilha no {region}'
   delete: 'Eliminar cantinho da partilha'
   addedBy: 'Adicionado por'
-  summaryRegion: 'Há {count} cantinhos da partilha em {region} e todos subdistritos'
+  summaryRegion: 'Há {count} Cantinhos da Partilha em {region} e todos subdistritos'
   twig:
     n_in_region: '{count} cantinhos da partilha em {name}'
   publicwall: 'Tenha em atenção que as tuas publicações no mural do cantinho da partilha
@@ -2039,7 +2064,7 @@ fsp:
   suggestSuccess: 'O cantinho da partilha foi proposto e está agora a ser revisto
     pelo o pessoa responsável.'
   unfollow: 'Deixar de seguir este cantinho da partilha'
-  followName: 'Siga o cantinho da partilha {name}'
+  followName: 'Siga o Cantinho da Partilha {name}'
   editName: 'Editar cantinho da partilha „{name}“'
   deleteConfirm: 'Queres mesmo eliminar este cantinho da partilha?'
   deleteSuccess: 'Cantinho da partilha foi excluido'
@@ -3058,13 +3083,13 @@ terminology:
   stores: 'Cooperações'
   buddies: 'conhecidos'
   wall: 'Mural'
-  fsps: 'Cantinhos da partilha'
-  fsp: 'Cantinhos da partilha'
+  fsps: 'Cantinhos da Partilha'
+  fsp: 'Cantinhos da Partilha'
   fsManagementAdmins: 'Equipa de administração'
   forum: 'Fórum'
   message: 'Mensagem'
   boardAdmins: 'conselho administrativo'
-  fspAdmins: 'Equipa de cantinhos da partilha'
+  fspAdmins: 'Equipa de Cantinhos da Partilha'
   events: 'Eventos'
   group: 'Grupo de trabalho'
   welcomeAdmins: 'Equipa de boas-vindas'
@@ -3078,7 +3103,7 @@ terminology:
   community: 'Grupo local de {name}'
   n_home_regions: '{count} com distrito principal'
   homepage: 'Página inicial'
-  arbitrationAdmins: 'Comissão de arbitragem'
+  arbitrationAdmins: 'Comissão de Arbitragem'
   storesAdmins: 'Equipa de coordenação de locais'
   n_ambassadors: '{count} embaixadores'
   n_stores: '{count} cooperações'
@@ -3284,16 +3309,13 @@ blog:
   permissions:
     edit: 'Não podes editar este artigo'
     new: 'Não é permitido criar artigos'
-    delete: 'Não podes eliminar este artigo'
   new: 'Escrever um novo artigo'
   failure:
     new: 'Não foi possível criar o artigo'
     edit: 'Não foi possível guardar o artigo'
-    delete: 'Não foi possível eliminar o artigo'
   author: 'Escrito por'
   success:
     edit: 'O artigo foi guartado'
-    delete: 'Artigo excluido'
     new: 'O artigo foi criado'
   edit: 'Editar um publicação do blogue'
   manage: 'Gerir publicações de blogue'
@@ -3654,7 +3676,7 @@ upload:
     {fileNames}'
   image-problem: O teu ficheiro não está em ordem, é melhor utilizar uma imagem 
     jpg normal
-  remove_image: ''
+  remove_image: 'Remover imagem'
 content:
   new_success: 'A página foi criada'
   public: 'Páginas públicas'
@@ -3888,7 +3910,7 @@ forum:
   follow:
     header: 'Notificação em novas casa de respostas:'
     email: 'por e-Mail'
-    bell: 'Na plataforma'
+    bell: 'através das notificações'
   from: 'de {name}'
   quickreply:
     error: 'A tua contribuição não pode ser guardada.'
@@ -4144,7 +4166,7 @@ numbers:
   thousands_separator: ','
   billion_abbreviation: ' mil milhões'
 fp: 'Pontos de erro'
-fspmanagers: 'Pessoas de contacto para o cantinho da partilha'
+fspmanagers: 'Pessoas de contacto para o Cantinho da Partilha'
 storelist:
   status: 'Estado'
   emptyfilters: 'Vaziar o filtro'
@@ -4353,7 +4375,7 @@ sticker: 'A empresa/loja/clube, etc. está disponível para afixar um autocolant
 error_unexpected: 'Houve um erro'
 back: 'Para trás'
 first_post: 'Primeira publicação'
-fsp_bezirk_id: 'Em qual distrito está localizado o cantinho da partilha?'
+fsp_bezirk_id: 'Em qual distrito está localizado o Cantinho da Partilha?'
 about_me_public: 'Descrição rápida publica'
 delete: 'Eliminar'
 betrieb_status_id: 'Estado'
@@ -4367,7 +4389,7 @@ contentmanagement: 'Gestão de conteúdos'
 statistics:
   num_fetches: 'em {count} operações de resgate'
   region_public:
-    activeFoodSharePoints: cantinhos da partilha ativos
+    activeFoodSharePoints: Cantinhos da Partilha ativos
     foodBasketsLastMonth: cabazes alimentares distribuídas
     pickupsLastMonth: vezes comida salva
     savedFoodKgLastMonth: salvos
@@ -4592,7 +4614,7 @@ help:
       md: "Aqui são mostradas notificações relativas a pessoas deste distrito principal.
         No entanto, nem todas as mensagens são exibidas:\n- Basicamente, não são exibidas
         mensagens nas quais tu ou os teus coadministradores do grupo local de denúncias
-        ou da comissão de arbitragem estejam envolvidos.\n- Como administrador(a)
+        ou da Comissão de Arbitragem estejam envolvidos.\n- Como administrador(a)
         da comissão de arbitragem, só tens acesso às mensagens nas quais os administradores
         do grupo local de denúncias estão envolvidos.\n---\nPodes ler aqui as instruções
         para editar uma mensagem: [Editar uma mensagem](https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)\n\
@@ -4834,7 +4856,7 @@ help:
 
         ###### Onde esta opção pode ser usada?
 
-        Em grupos de denúncias locais e instâncias de arbitragem (GOALS AGs), esta
+        Em grupos de denúncias locais e Comissões de Arbitragem (GOALS AGs), esta
         função é necessária por motivos de proteção de dados.
 
         Outros grupos de trabalho podem votar internamente a favor da autorização

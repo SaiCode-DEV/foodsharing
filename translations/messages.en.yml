@@ -2061,15 +2061,12 @@ blog:
   edit: Edit blog article
   newTitle: New article for {region}
   permissions:
-    delete: You can not delete this article
     edit: You can not edit this article
     new: You do not have permission to create articles
   failure:
-    delete: Article could not be deleted
     edit: Article could not be saved
     new: Article could not be created
   success:
-    delete: Article deleted
     edit: Article was saved
     new: Article was created
   confirmDelete: Do you really want to delete {name} irrevocably?

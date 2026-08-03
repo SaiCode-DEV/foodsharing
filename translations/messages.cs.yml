@@ -636,14 +636,11 @@ blog:
   success:
     new: ''
     edit: ''
-    delete: ''
   failure:
-    delete: ''
     new: ''
     edit: ''
   permissions:
     new: ''
-    delete: ''
     edit: ''
   content: ''
   actions: ''

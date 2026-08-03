@@ -3341,7 +3341,6 @@ map:
 blog:
   go: ''
   permissions:
-    delete: ''
     edit: ''
     new: ''
   status:
@@ -3350,10 +3349,8 @@ blog:
   success:
     edit: ''
     new: ''
-    delete: ''
   bread: ''
   failure:
-    delete: ''
     edit: ''
     new: ''
   edit: ''

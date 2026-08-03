@@ -1983,6 +1983,7 @@ statistics:
     pickupsLastMonth: 'Liczba odbiorów uratowanej żywności'
   food_saved: 'uratowanej żywności'
   num_fetches: 'w następującej liczbie akcji: {count}'
+  food_weight_saved: '{weight} uratowanej żywności'
 are_you_sure: Jesteś pewny/a?
 storeedit:
   name_error: Nazwa musi zawierać co najmniej trzy znaki.
@@ -2203,7 +2204,7 @@ calendar:
       freeSlots: 'Liczba wolnych slotów: {count}'
       description: 'foodsharing-Slot w <a href="{url}">{store}</a>'
       name:
-        giving: '{store} darowizna'
+        giving: '{store} Darowizna'
         orga: '{store} Slot'
         pickup: '{store} odbiór'
       storeInfo: 'Informacje o punkcie:'
@@ -2234,7 +2235,7 @@ timepicker:
 forum:
   deleted_user: usunięty/a użytkownik/czka
   from: od {name}
-  threads: tematy
+  threads: Tematy
   new_thread: Rozpocznij nowy temat
   follow:
     header: 'Powiadomienie przy nowych odpowiedziach:'
@@ -2315,7 +2316,7 @@ forum:
   no_threads: Jeszcze nie ma żadnych tematów
   sending_error: Przy wysyłaniu wystąpił błąd
   quickreply:
-    success: Świetnie, twoja odpowiedź została zapisana.
+    success: Świetnie, zapisano twoją odpowiedź.
     error: Nie można było zapisać postu.
   not_found: Ten wątek nie istnieje.
   options:
@@ -2505,11 +2506,11 @@ month:
   short:
     "1": sty.
     "2": lut.
-    "3": marzec
+    "3": mar.
     "4": kwi.
     "5": maj
-    "6": czerwiec
-    "7": lipiec
+    "6": czer.
+    "7": lip.
     "8": sier.
     "9": wrz.
     "10": paź.
@@ -2528,15 +2529,15 @@ bell:
   forum_answer: '{user} odpowiedział/a na twój post'
   forum_post_title: '{title}'
   forum_post:
-    one: Nowy post od {user} w forum {forum}
-    many: 'Liczba nowych postów w {forum}: {count}'
+    one: Nowy post od {user} na forum {forum}
+    many: 'Liczba nowych postów na {forum}: {count}'
   event_post_title: Event {event} w {region}
   event_post:
     one: 'Nowy komentarz od {user} '
     many: 'Liczba nowych komentarzy do eventu {event}: {count}'
   forum_announcement_title: 'Ważna wiadomość: {title}'
-  forum_announcement: od {user} w forum {forum}
-  forum_new_thread: od {user} w forum {forum}
+  forum_announcement: od {user} na forum {forum}
+  forum_new_thread: od {user} na forum {forum}
   blog_new_check_title: Nowy artykuł na blogu
   blog_new_check: '{title}'
   ft_update_title: '{name}'
@@ -2545,7 +2546,7 @@ bell:
     many: '{teaser}'
   new_store_request:
     one: do {name} od {user}
-    many: do {name} od {count} użytkowników/czek
+    many: 'do {name} od liczby użytkowników/czek: {count}'
   store_request_accept_title: '{name}'
   store_request_accept_wait_title: '{name}'
   store_request_deny_title: '{name}'
@@ -2605,7 +2606,7 @@ bell:
   workinggroup_new_request: Nowe zgłoszenie do zespołu
   new_foodsaver_title: '{name} jest nowy/a w {bezirk}'
   forum_reply_title: '{forum}: {title}'
-  forum_mention: w temacie „{title}“ z forum {forum}
+  forum_mention: w temacie „{title}“ na forum {forum}
   store_request_accept: Zostałeś/aś przyjęty/a do teamu.
   store_wallpost_title: '{name}'
   store_cr_times_title: '{name}'
@@ -2706,7 +2707,7 @@ reports:
   reports_user: 'Wszystkie skargi dotyczące {userName} ({userId})'
   reported: 'Osoba, której dotyczy skarga'
   reporter: 'Osoba składająca skargę'
-  no_reports_fallback: 'Jeszcze nie ma skarg'
+  no_reports_fallback: 'Jeszcze nie ma żadnych skarg'
   store: 'Przyporządkowany punkt'
   report_id: 'ID skargi'
   forum_thread: Wątek na forum
@@ -4924,16 +4925,13 @@ blog:
   permissions:
     edit: 'Nie możesz edytować tego artykułu'
     new: 'Nie masz uprawnień do tworzenia artykułów'
-    delete: 'Nie możesz usunąć tego artykułu'
   new: 'Napisz nowy artykuł'
   failure:
     new: 'Nie można było utworzyć artykułu'
     edit: 'Nie można było zapisać artykułu'
-    delete: 'Nie można było usunąć artykułu'
   author: 'Napisany przez'
   success:
     edit: 'Zapisano artykuł'
-    delete: 'Artykuł usunięty'
     new: 'Utworzono artykuł'
   edit: 'Edytuj artykuł na blogu'
   manage: 'Zarządzaj postami na blogu'

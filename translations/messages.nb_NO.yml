@@ -325,15 +325,12 @@ blog:
   success:
     edit: Artikkelen ble skrevet
     new: Artikkelen ble angitt
-    delete: Artikkel slettet
   failure:
     new: Artikkelen kunne ikke opprettes
-    delete: Artikkelen kunne ikke slettes
     edit: Artikkelen kunne ikke lagres
   permissions:
     new: Du har ikke tillatelse til å lage artikler
     edit: Du kan ikke redigere denne artikkelen
-    delete: Du kan ikke slette denne artikkelen
   go: Gå til bloggen
   publish-info: Artikkelens publiseringsstatus kan justeres på oversiktssiden.
   manage: Administrer blogginnlegg
