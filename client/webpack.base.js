@@ -20,7 +20,7 @@ if (production) {
 
 module.exports = {
   resolve: {
-    extensions: ['.js', '.vue'],
+    extensions: ['.js', '.ts', '.vue'],
     modules: [
       resolve('node_modules'),
     ],
@@ -63,6 +63,22 @@ module.exports = {
                 ],
               ],
               cacheDirectory: true,
+            },
+          },
+        ],
+      },
+      {
+        test: /\.ts$/,
+        exclude: /(node_modules)/,
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
+              appendTsSuffixTo: [/\.vue$/],
+              compilerOptions: {
+                module: 'esnext',
+              },
             },
           },
         ],
