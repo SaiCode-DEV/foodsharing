@@ -2,9 +2,35 @@ import Vue from 'vue'
 import * as Sentry from '@sentry/vue'
 import serverData from '@/helper/server-data'
 import { useEnvironmentCheck } from '@/composables/useEnvironmentCheck'
-import { pulseError } from '@/script'
 
 const { isBeta } = useEnvironmentCheck()
+
+const SENSITIVE_FIELDS = [
+  'msg', 'email', 'b', 'nachname', 'db_pass', 'google_api_key',
+  'bounce_imap_pass', 'password', 'passwd', 'pass', 'pw',
+]
+
+function scrubData (data) {
+  if (!data || typeof data !== 'object') return data
+
+  if (Array.isArray(data)) {
+    return data.map(scrubData)
+  }
+
+  const scrubbed = {}
+  for (const [key, value] of Object.entries(data)) {
+    const lowerKey = key.toLowerCase()
+
+    if (SENSITIVE_FIELDS.includes(lowerKey)) {
+      // If it's in the sensitive list, mask it completely
+      scrubbed[key] = '[Filtered]'
+    } else {
+      // Otherwise, pass it through and check nested objects
+      scrubbed[key] = scrubData(value)
+    }
+  }
+  return scrubbed
+}
 
 if (serverData.ravenConfig) {
   // Initialize Sentry
@@ -12,6 +38,7 @@ if (serverData.ravenConfig) {
     Vue,
     attachProps: true,
     logErrors: true,
+    sendDefaultPii: false,
     release: serverData.version || 'unknown',
     dsn: serverData.ravenConfig,
     transport: Sentry.makeBrowserOfflineTransport(Sentry.makeFetchTransport),
@@ -25,6 +52,21 @@ if (serverData.ravenConfig) {
     tracesSampleRate: isBeta ? 1.0 : 0.01,
     replaysSessionSampleRate: isBeta ? 1 : 0,
     replaysOnErrorSampleRate: 1.0,
+    beforeSend (event) {
+      if (event.request) {
+        event.request = scrubData(event.request)
+      }
+      if (event.extra) {
+        event.extra = scrubData(event.extra)
+      }
+      if (event.contexts) {
+        event.contexts = scrubData(event.contexts)
+      }
+      if (event.breadcrumbs) {
+        event.breadcrumbs = scrubData(event.breadcrumbs)
+      }
+      return event
+    },
   })
 
   // Set user context
@@ -43,20 +85,6 @@ export function captureError (error) {
   console.error(error)
   Sentry.captureException(error)
   return error
-}
-
-export async function captureFeedback (feedback, attachments) {
-  try {
-    const response = await Sentry.sendFeedback(feedback, {
-      attachments,
-    })
-    console.log('Feedback ', response)
-    return true
-  } catch (error) {
-    pulseError(error)
-    // console.error('Feedback Error', error)
-    return false
-  }
 }
 
 export function captureRequestError (error, { path, options, attempt }) {
