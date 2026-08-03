@@ -15,18 +15,17 @@ class StoreChainController extends FoodsharingController
         private readonly StoreChainPermissions $permissions
     ) {
         parent::__construct();
-
-        if (!$this->session->mayRole()) {
-            $this->routeHelper->goLoginAndExit();
-        }
     }
 
     #[Route('/chain', name: 'chain_index')]
     public function chainIndex(): Response
     {
+        $this->requireLogin();
+
         if (!$this->permissions->maySeeChainList()) {
             $this->flashMessageHelper->info($this->translator->trans('chain.error.notfs'));
-            $this->routeHelper->goAndExit('settings?sub=rise_role&role=' . Role::FOODSAVER->value);
+
+            return $this->redirectToRoute('current_user_settings', ['sub' => 'rise_role', 'role' => Role::FOODSAVER->value]);
         }
 
         $this->pageHelper->addBread($this->translator->trans('chain.bread.workinggroup'), '/region?bid=' . RegionIDs::STORE_CHAIN_GROUP);

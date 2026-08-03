@@ -20,10 +20,12 @@ final class FeatureTogglesController extends FoodsharingController
         FeatureToggleService $featureToggleService,
         HasPermissionToManageFeatureTogglesQuery $hasPermissionToManageFeatureTogglesQuery,
     ): Response {
+        $this->requireLogin();
+
         $this->pageHelper->addTitle('FeatureToggle Management');
 
         if (!$hasPermissionToManageFeatureTogglesQuery->execute($this->session, $this->currentUserUnits)) {
-            $this->routeHelper->goLoginAndExit();
+            return $this->redirectToRoute('dashboard');
         }
 
         $featureToggleService->updateFeatureToggles();

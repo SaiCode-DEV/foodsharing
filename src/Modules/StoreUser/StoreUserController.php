@@ -23,9 +23,7 @@ class StoreUserController extends FoodsharingController
         StoreGateway $storeGateway,
         StorePermissions $storePermissions,
     ): Response {
-        if (!$this->session->mayRole()) {
-            $this->routeHelper->goLoginAndExit();
-        }
+        $this->requireLogin();
 
         if (!$storeGateway->storeExists($storeId)) {
             return $this->redirectToRoute('dashboard');

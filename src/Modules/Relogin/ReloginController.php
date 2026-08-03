@@ -18,7 +18,7 @@ class ReloginController extends FoodsharingController
             if ($request->query->has('url') && !empty($request->query->get('url'))) {
                 $url = urldecode((string)$request->query->get('url'));
                 if (!str_starts_with($url, 'http')) {
-                    $this->routeHelper->goAndExit($url);
+                    return $this->redirect($url);
                 }
             }
 

@@ -11,19 +11,11 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class SettingsController extends FoodsharingController
 {
-    public function __construct(
-    ) {
-        parent::__construct();
-
-        $sessionUserId = $this->session->id();
-        if (!$sessionUserId) {
-            $this->routeHelper->goLoginAndExit();
-        }
-    }
-
     #[Route('/user/current/settings', name: 'current_user_settings')]
     public function currentUserSettings(Request $request): RedirectResponse
     {
+        $this->requireLogin();
+
         $queryParameters = $request->query->all();
         $queryParameters['userId'] = $this->session->id();
 
@@ -37,6 +29,8 @@ class SettingsController extends FoodsharingController
     #[Route('/user/current/deleteaccount', name: 'delete_account')]
     public function deleteAccount(): Response
     {
+        $this->requireLogin();
+
         $this->pageHelper->addContent($this->prepareVueComponent('delete-account-page', 'DeleteAccountPage', [
             'userId' => $this->session->id()
         ]));
@@ -59,6 +53,8 @@ class SettingsController extends FoodsharingController
     #[Route('/user/{userId}/settings', name: 'user_settings')]
     public function userSettings(int $userId, Request $request): Response
     {
+        $this->requireLogin();
+
         $this->pageHelper->addBread($this->translator->trans('foodsaver.profileBack'), '/user/' . $userId . '/profile');
         $this->pageHelper->addBread($this->translator->trans('settings.title'));
 

@@ -4,6 +4,7 @@ namespace Foodsharing\Lib;
 
 use Foodsharing\Lib\Db\Mem;
 use Foodsharing\Lib\View\Utils;
+use Foodsharing\Modules\Core\RedirectRequiredException;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Utility\EmailHelper;
 use Foodsharing\Utility\FlashMessageHelper;
@@ -146,10 +147,15 @@ abstract class FoodsharingController extends AbstractController
         ]);
     }
 
+    /**
+     * Checks if the user is logged in and throws an exception if not.
+     *
+     * @throws RedirectRequiredException
+     */
     protected function requireLogin(): void
     {
         if (!$this->session->id()) {
-            $this->routeHelper->goLoginAndExit();
+            throw new RedirectRequiredException($this->generateUrl('login', ['ref' => $this->routeHelper->request()->getRequestUri()]));
         }
     }
 }

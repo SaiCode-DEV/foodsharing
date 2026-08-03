@@ -130,9 +130,7 @@ final class RegionController extends FoodsharingController
         #[MapQueryParameter] ?int $tid = null,
         #[MapQueryParameter] ?bool $newthread = null,
     ): Response {
-        if (!$this->session->mayRole()) {
-            $this->routeHelper->goLoginAndExit();
-        }
+        $this->requireLogin();
 
         $region_id = $bid ?? $this->currentUserUnits->getCurrentRegionId() ?? 0;
 

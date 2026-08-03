@@ -36,9 +36,7 @@ class CategoriesController extends FoodsharingController
 
     public function index(CategoryType $type): Response
     {
-        if (!$this->session->mayRole()) {
-            $this->routeHelper->goLoginAndExit();
-        }
+        $this->requireLogin();
         if (!$this->categoriesPermissions->mayEditCategories($type)) {
             return $this->redirectToRoute('dashboard');
         }

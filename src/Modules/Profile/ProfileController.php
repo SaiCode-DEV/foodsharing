@@ -21,6 +21,7 @@ use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\ReportPermissions;
 use Foodsharing\Permissions\StoreChainPermissions;
 use Foodsharing\Permissions\StorePermissions;
+use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
@@ -74,10 +75,16 @@ final class ProfileController extends FoodsharingController
         if (!$this->session->mayRole()) {
             return $this->redirectToRoute('user_profile_public', ['userId' => $userId]);
         }
+        try {
+            $userArray = $this->createUserArray($userId);
+        } catch (InvalidArgumentException $e) {
+            $this->flashMessageHelper->error($this->translator->trans('profile.notFound'));
+
+            return $this->redirectToRoute('dashboard');
+        }
 
         $maySeeStores = $this->profilePermissions->maySeeStores($userId);
         $userStores = $this->profileGateway->listStoresOfFoodsaver($userId);
-        $userArray = $this->createUserArray($userId);
         $this->pageHelper->addTitle($userArray['name']);
         $params = $this->convertDataToObject($userStores, $userArray, $maySeeStores);
 
@@ -90,7 +97,13 @@ final class ProfileController extends FoodsharingController
     #[Route('/user/{userId}/profile/public', name: 'user_profile_public', requirements: ['userId' => Requirement::DIGITS])]
     public function profilePublic(int $userId): Response
     {
-        $userArray = $this->createUserArray($userId);
+        try {
+            $userArray = $this->createUserArray($userId);
+        } catch (InvalidArgumentException $e) {
+            $this->flashMessageHelper->error($this->translator->trans('profile.notFound'));
+
+            return $this->redirectToRoute('dashboard');
+        }
 
         $isVerified = $userArray['verified'] ?? 0;
         $initials = mb_substr($userArray['name'] ?? '?', 0, 1) . '.';
@@ -108,15 +121,16 @@ final class ProfileController extends FoodsharingController
         return $this->renderGlobal();
     }
 
+    /**
+     * @throws InvalidArgumentException if the user profile does not exist or was deleted
+     */
     private function createUserArray(int $userId): array
     {
         $viewerId = $this->session->id();
         $userArray = $this->profileGateway->getProfileDetails($userId);
 
-        $isRemoved = (!$userArray) || isset($userArray['deleted_at']);
-        if ($isRemoved) {
-            $this->flashMessageHelper->error($this->translator->trans('profile.notFound'));
-            $this->routeHelper->goPageAndExit('dashboard');
+        if (!$userArray || isset($userArray['deleted_at'])) {
+            throw new InvalidArgumentException();
         }
 
         if ($this->reportPermissions->mayHandleReports()) {

@@ -4,43 +4,12 @@ namespace Foodsharing\Utility;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final readonly class RouteHelper
 {
     public function __construct(
         private RequestStack $requestStack,
-        private UrlGeneratorInterface $router,
     ) {
-    }
-
-    // For Symfony controllers: Use $this->redirect(toRoute) instead.
-    public function goAndExit(string $url): never
-    {
-        header('Location: ' . $url);
-        exit;
-    }
-
-    public function goLoginAndExit(): never
-    {
-        $this->goPageAndExit('login', ['ref' => $_SERVER['REQUEST_URI']]);
-    }
-
-    public function goPageAndExit(string $page = '', array $params = [], bool $pageIsSymfonyRoute = false): never
-    {
-        if (empty($page)) {
-            if ($this->request()->query->has('bid')) {
-                $params['bid'] = (int)$this->request()->query->get('bid');
-            }
-            $url = $this->router->generate($this->getSymfonyRoute(), $params);
-        } else {
-            if (!$pageIsSymfonyRoute) {
-                $url = $this->router->generate('index', ['page' => $page, ...$params]);
-            } else {
-                $url = $this->router->generate($page, $params);
-            }
-        }
-        $this->goAndExit($url);
     }
 
     public function getSymfonyRoute(): string
@@ -77,7 +46,7 @@ final readonly class RouteHelper
         return preg_replace('`href=\"www`', 'href="http://www', $str) ?: '';
     }
 
-    private function request(): Request
+    public function request(): Request
     {
         return $this->requestStack->getCurrentRequest();
     }

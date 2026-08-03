@@ -46,7 +46,7 @@ class StoreController extends FoodsharingController
     public function regionStores(int $regionId): Response
     {
         if (!$this->session->mayRole() || !$this->storePermissions->mayListStores()) {
-            $this->routeHelper->goAndExit('/');
+            return $this->redirectToRoute('/');
         }
 
         if ($regionId > 0) {
@@ -57,7 +57,8 @@ class StoreController extends FoodsharingController
 
         if (empty($region) || $regionId <= 0) {
             $this->flashMessageHelper->info($this->translator->trans('store.error'));
-            $this->routeHelper->goAndExit('/');
+
+            return $this->redirectToRoute('/');
         } else {
             $this->pageHelper->addBread($region['name'], '/region?bid=' . $regionId);
             $this->pageHelper->addBread($this->translator->trans('store.bread'), '/?page=fsbetrieb');
@@ -106,7 +107,8 @@ class StoreController extends FoodsharingController
             return $this->renderGlobal();
         } else {
             $this->flashMessageHelper->info($this->translator->trans('store.smneeded'));
-            $this->routeHelper->goAndExit('/user/current/settings?sub=up_bip');
+
+            return $this->redirectToRoute('current_user_settings', ['sub' => 'up_bip']);
         }
     }
 }

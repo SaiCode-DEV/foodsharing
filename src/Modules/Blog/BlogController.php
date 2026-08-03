@@ -3,8 +3,8 @@
 namespace Foodsharing\Modules\Blog;
 
 use Foodsharing\Lib\FoodsharingController;
+use Foodsharing\Modules\Core\RedirectRequiredException;
 use Foodsharing\Permissions\BlogPermissions;
-use Foodsharing\Utility\IdentificationHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -14,7 +14,6 @@ class BlogController extends FoodsharingController
     public function __construct(
         private readonly BlogGateway $blogGateway,
         private readonly BlogPermissions $blogPermissions,
-        private readonly IdentificationHelper $identificationHelper,
     ) {
         parent::__construct();
     }
@@ -23,7 +22,7 @@ class BlogController extends FoodsharingController
     #[Route(path: '/news', name: 'news')]
     public function index(Request $request): Response
     {
-        $this->common($request);
+        $this->common();
 
         if (!$request->query->has('sub')) {
             $this->listNews();
@@ -41,9 +40,9 @@ class BlogController extends FoodsharingController
     }
 
     #[Route(path: '/blog/{id}', name: 'blog_id', requirements: ['id' => '\d+'])]
-    public function blogById(Request $request, int $id): Response
+    public function blogById(int $id): Response
     {
-        $this->common($request);
+        $this->common();
         $this->read($id);
 
         return $this->renderGlobal();
@@ -69,41 +68,33 @@ class BlogController extends FoodsharingController
     {
         if (!$this->blogPermissions->mayAdministrateBlog()) {
             $this->handleAccessDenied('blog.permissions.new');
-
-            return;
         }
 
         $this->pageHelper->addBread($this->translator->trans('blog.manage'));
         $data = $this->blogGateway->getBlogpostList();
         if (!$data) {
             $this->flashMessageHelper->info($this->translator->trans('blog.empty'));
-
-            return;
+        } else {
+            $this->pageHelper->addContent(
+                $this->prepareVueComponent('vue-blog-overview', 'BlogOverview', [
+                    'mayAdministrateBlog' => $this->blogPermissions->mayAdministrateBlog(),
+                    'managedRegions' => $this->currentUserUnits->getMyAmbassadorRegionIds(),
+                    'blogList' => $data,
+                ])
+            );
         }
-
-        $this->pageHelper->addContent(
-            $this->prepareVueComponent('vue-blog-overview', 'BlogOverview', [
-                'mayAdministrateBlog' => $this->blogPermissions->mayAdministrateBlog(),
-                'managedRegions' => $this->currentUserUnits->getMyAmbassadorRegionIds(),
-                'blogList' => $data,
-            ])
-        );
     }
 
     private function addOrEdit(Request $request): void
     {
         if (!($this->blogPermissions->mayAdministrateBlog() && $this->blogPermissions->mayAdd())) {
             $this->handleAccessDenied('blog.permissions.new');
-
-            return;
         }
         if ($request->query->get('sub') !== 'add') {
             $blogId = $request->query->getInt('id');
             $data = $this->blogGateway->getOne_blog_entry($blogId);
             if (!$data) {
                 $this->handleAccessDenied('blog.permissions.edit');
-
-                return;
             }
 
             $componentParams = [
@@ -122,31 +113,21 @@ class BlogController extends FoodsharingController
         }
 
         $this->pageHelper->addContent($blogEditForm);
-
-        return;
     }
 
-    private function common(Request $request): void
+    private function common(): void
     {
-        if ($id = $this->identificationHelper->getActionId($request, 'delete')) {
-            if ($this->blogPermissions->mayEdit($id)) {
-                if ($this->blogGateway->del_blog_entry($id)) {
-                    $this->flashMessageHelper->success($this->translator->trans('blog.success.delete'));
-                } else {
-                    $this->flashMessageHelper->error($this->translator->trans('blog.failure.delete'));
-                }
-            } else {
-                $this->flashMessageHelper->info($this->translator->trans('blog.permissions.delete'));
-            }
-            $this->routeHelper->goPageAndExit();
-        }
         $this->pageHelper->addBread($this->translator->trans('blog.bread'), '/blog');
         $this->pageHelper->addTitle($this->translator->trans('blog.bread'));
     }
 
+    /**
+     * @throws RedirectRequiredException
+     */
     private function handleAccessDenied(string $messageKey): void
     {
         $this->flashMessageHelper->info($this->translator->trans($messageKey));
-        $this->routeHelper->goPageAndExit();
+
+        throw new RedirectRequiredException($this->redirectToRoute($this->routeHelper->getSymfonyRoute()));
     }
 }

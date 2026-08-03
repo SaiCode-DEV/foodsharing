@@ -79,7 +79,8 @@ class ContentController extends FoodsharingController
         } elseif ($id = $this->identificationHelper->getActionId($request, 'delete')) {
             if ($this->contentGateway->delete($id)) {
                 $this->flashMessageHelper->success($this->translator->trans('content.delete_success'));
-                $this->routeHelper->goPageAndExit();
+
+                return $this->redirectToRoute($this->routeHelper->getSymfonyRoute());
             }
         } elseif ($id = $this->identificationHelper->getActionId($request, 'edit')) {
             if (!$this->contentPermissions->mayEditContentId((int)$request->query->get('id'))) {

@@ -91,9 +91,7 @@ class MailboxController extends FoodsharingController
 
     private function commonChecks(): void
     {
-        if (!$this->session->mayRole()) {
-            $this->routeHelper->goLoginAndExit();
-        }
+        $this->requireLogin();
 
         if (!$this->mailboxPermissions->mayHaveMailbox()) {
             $this->pageHelper->addContent($this->v_utils->v_info($this->translator->trans('mailbox.not-available', [

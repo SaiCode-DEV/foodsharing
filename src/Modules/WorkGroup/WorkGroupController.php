@@ -20,9 +20,7 @@ class WorkGroupController extends FoodsharingController
     #[Route('/groups', name: 'groups')]
     public function index(Request $request): Response
     {
-        if (!$this->session->mayRole()) {
-            $this->routeHelper->goLoginAndExit();
-        }
+        $this->requireLogin();
 
         $region_id = $request->query->getInt('p');
         if ($region_id) {

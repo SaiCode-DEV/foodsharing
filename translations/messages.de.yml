@@ -3325,15 +3325,12 @@ blog:
   success:
     new: "Artikel wurde angelegt"
     edit: "Artikel wurde gespeichert"
-    delete: "Artikel gelöscht"
   failure:
     new: "Artikel konnte nicht angelegt werden"
     edit: "Artikel konnte nicht gespeichert werden"
-    delete: "Artikel konnte nicht gelöscht werden"
   permissions:
     new: "Du darfst keine Artikel erstellen"
     edit: "Diesen Artikel kannst du nicht bearbeiten"
-    delete: "Diesen Artikel kannst du nicht löschen"
 
 stats:
   title: "Gesamtstatistik"

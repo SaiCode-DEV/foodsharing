@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Foodsharing\EventSubscriber;
 
+use Foodsharing\Modules\Core\RedirectRequiredException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -28,7 +30,9 @@ class ExceptionEventSubscriber implements EventSubscriberInterface
     {
         $uri = $event->getRequest()->getRequestUri();
         $exception = $event->getThrowable();
-        if (str_starts_with($uri, '/api')) {
+        if ($exception instanceof RedirectRequiredException) {
+            $event->setResponse(new RedirectResponse($exception->getTargetUrl()));
+        } elseif (str_starts_with($uri, '/api')) {
             $statusCode = $exception instanceof HttpException ? $exception->getStatusCode() : 500;
             $message = $exception->getMessage();
             $response = new JsonResponse([

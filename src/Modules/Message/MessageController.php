@@ -11,9 +11,7 @@ final class MessageController extends FoodsharingController
     #[Route('/msg', name: 'msg')]
     public function index(): Response
     {
-        if (!$this->session->mayRole()) {
-            $this->routeHelper->goLoginAndExit();
-        }
+        $this->requireLogin();
 
         $this->pageHelper->addContent($this->prepareVueComponent('message', 'MessagePage'));
 
