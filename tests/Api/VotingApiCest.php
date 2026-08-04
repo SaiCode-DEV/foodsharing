@@ -447,6 +447,27 @@ class VotingApiCest
     /**
      * Creates an array containing a random poll for sending to the API.
      */
+    public function deletedAccountsAreNotEligibleVoters(ApiTester $I): void
+    {
+        // A half-deleted account: marked deleted but still carrying its membership
+        // row in fs_foodsaver_has_bezirk (#2571)
+        $halfDeleted = $I->createFoodsaver(null, [
+            'bezirk_id' => $this->region['id'],
+            'deleted_at' => date('Y-m-d H:i:s'),
+        ]);
+        $I->addRegionMember($this->region['id'], $halfDeleted['id']);
+        $I->addRegionMember($this->region['id'], $this->userFoodsaver['id']);
+
+        $I->login($this->userFoodsaver['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPOST(self::POLLS_API, $this->createRandomPollData());
+        $I->seeResponseCodeIs(Http::OK);
+        $pollId = $I->grabDataFromResponseByJsonPath('id')[0];
+
+        $I->seeInDatabase('fs_foodsaver_has_poll', ['poll_id' => $pollId, 'foodsaver_id' => $this->userFoodsaver['id']]);
+        $I->dontSeeInDatabase('fs_foodsaver_has_poll', ['poll_id' => $pollId, 'foodsaver_id' => $halfDeleted['id']]);
+    }
+
     private function createRandomPollData(): array
     {
         $data = [

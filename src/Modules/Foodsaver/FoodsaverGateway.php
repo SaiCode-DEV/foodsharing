@@ -625,6 +625,11 @@ class FoodsaverGateway extends BaseGateway
      */
     public function deleteFoodsaver(int $fsId, ?int $deletingUser, ?string $reason): void
     {
+        // One transaction for the whole deletion: an abort in between (e.g. while
+        // archiving) must not leave a half-deleted account that is marked deleted
+        // but keeps its rows in the related tables (#2571)
+        $this->db->beginTransaction();
+
         $this->db->update('fs_foodsaver', [
             'password' => null,
             'deleted_at' => $this->db->now(),
@@ -681,6 +686,8 @@ class FoodsaverGateway extends BaseGateway
             ], [
             'id' => $fsId
         ]);
+
+        $this->db->commit();
     }
 
     private function archiveFoodsaver(int $fsId): void

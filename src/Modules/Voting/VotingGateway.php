@@ -335,6 +335,7 @@ class VotingGateway extends BaseGateway
 			SELECT DISTINCT id
 			FROM fs_foodsaver fs
 			WHERE fs.bezirk_id IN ( ' . implode(',', $regionIds) . ')
+			AND fs.deleted_at IS NULL
 			AND fs.rolle >= :role
 			' . $verifiedCondition, [
                 ':role' => $minRole->value
@@ -349,6 +350,7 @@ class VotingGateway extends BaseGateway
 				ON fs.id = hb.foodsaver_id
 				WHERE hb.bezirk_id = :regionId
 				AND hb.active = 1
+				AND fs.deleted_at IS NULL
 				AND fs.rolle >= :role
 				' . $verifiedCondition, [
                 ':regionId' => $regionId,
