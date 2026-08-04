@@ -293,9 +293,7 @@ build:frontend:
     - *rule-mr-websocket-changes
   image: registry.gitlab.com/foodsharing-dev/images/node:latest
   script:
-    # webpack's persistent cache (restored via node_modules) can leave stale CSS
-    # contenthashes in the runtime chunk, so lazily loaded chunks 404 and pages stay blank
-    - (cd client && yarn && yarn lint && yarn prettier:e2e && rm -rf node_modules/.cache && yarn build)
+    - (cd client && yarn && yarn lint && yarn prettier:e2e && yarn build)
   <<: *cache-frontend-build
   artifacts:
     <<: *build-artifacts
