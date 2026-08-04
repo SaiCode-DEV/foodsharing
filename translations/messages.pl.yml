@@ -2567,13 +2567,13 @@ bell:
   store_invitation_accepted_title: Zaproszenie zaakceptowane ({store})
   store_invitation_accepted:
     one: '{user} dołączył/a do teamu {store}'
-    many: '{count} użytkowników/czek dołączyło do teamu {store}'
+    many: 'Użytkownicy/czki ({count}) dołączyli/ły do teamu {store}'
   store_invitation_declined_title: Zaproszenie odrzucone ({store})
-  new_forum_thread_title: Nowy temat w {forum}
+  new_forum_thread_title: Nowy temat na {forum}
   new_forum_thread: '{author}: {title}'
   new_resource:
     one: 'Od {user}: „{title}“'
-    many: '{count} nowe/ych zasoby/ów'
+    many: 'Liczba nowych zasobów: {count}'
   mark_as:
     read: Oznacz jako przeczytane
     unread: Oznacz jako nieprzeczytane
@@ -2588,15 +2588,15 @@ bell:
   banana_given: '{name} podarował/a ci banana zaufania.'
   report_reason: '{reason}'
   internal_email_changed_title: '{address}'
-  internal_email_changed: Twój osobisty adres email został zmieniony.
+  internal_email_changed: Zmieniono twój osobisty adres email.
   forum_not_activated_thread: '{forum}'
   forum_not_activated_thread_title: Temat w moderowanym forum
   post_hidden_title: Post ukryty przez {user}
-  post_hidden: Twój post do {title} w forum {forum} został ukryty
+  post_hidden: Twój post do {title} na forum {forum} został ukryty
   delete_store: usunięto {name}
   store_invitation_declined:
     one: '{user} nie chce dołączyć do {store}'
-    many: '{count} użytkowników/czek nie chce dołączyć do {store}'
+    many: 'Użytkownicy/czki ({count}) nie chcą dołączyć do {store}'
   new_resource_title: '{region}: nowe zasoby'
   new_foodsaver_needs_verification: musi zostać zweryfikowany/a
   new_foodsaver_verified_title: '{name} nowy/a w {bezirk}'
@@ -2659,22 +2659,22 @@ genderlist:
   gender_not_selected: nie wybrano
   gender_male: męska
   gender_female: żeńska
-  number_table_header: liczba/ilość
-  header_for_district: Podział płci w {bezirk}
+  number_table_header: Liczba
+  header_for_district: Rozkład według płci w {bezirk}
   gender_divers: inne
   district_tab: 'Rejon'
   gender_home_district_table_caption: 'Rozkład foodsaverów/ek z rejonu macierzystego
     według płci'
   gender_district_table_caption: 'Rozkład wszystkich foodsaverów/ek w rejonie według
     płci'
-  home_district_tab: 'rejon macierzysty'
+  home_district_tab: 'Rejon macierzysty'
 pickuplist:
   day_tab: Dzień
   week_tab: Tydzień
   month_tab: Miesiąc
   year_tab: Rok
-  time_table_header: Okres czasu
-  NumberOfFoodSavers_table_header: Liczba Foodsaverów/ek
+  time_table_header: Przedział czasu
+  NumberOfFoodSavers_table_header: Liczba foodsaverów/ek
   tryagain: Spróbuj ponownie po odświeżeniu strony.
   error_leave: 'Opuszczenie nie powiodło się: '
   error_kick: 'Usunięcie nie powiodło się: '
@@ -2685,10 +2685,10 @@ pickuplist:
   error_loadingPickup: 'Ładowanie slotów nie powiodło się: '
   NumberOfSlots_table_header: 'Liczba slotów'
   error_changeSlotCount: 'Zmiana liczby slotów nie powiodła się: '
-  header_for_district: 'Podział slotów w {bezirk} '
+  header_for_district: 'Rozkład slotów w {bezirk} '
   tooslow: 'Zapisanie niestety się nie powiodło. Prawdopodobnie dlatego, że ktoś inny
     był szybszy.'
-  NumberOfAppointments_table_header: 'Liczba terminów odbiorów'
+  NumberOfAppointments_table_header: 'Liczba terminów odbioru'
   really_delete_last_slot:
     body: 'Na pewno chcesz usunąć ostatni slot? Ten termin będzie wtedy zupełnie usunięty.'
     title: 'Usunąć ostatni slot?'
@@ -2763,8 +2763,8 @@ memberlist:
 ageBandList:
   header_for_district: 'Grupy wiekowe w {bezirk} '
   ageBand: Grupa wiekowa
-  NumberOfAgeband: Ilość/liczba
-  home_district_tab: 'rejon macierzysty'
+  NumberOfAgeband: Liczba
+  home_district_tab: 'Rejon macierzysty'
   district_tab: 'Rejon'
 regionOptions:
   header_page: Opcje dla {bezirk}
@@ -2792,12 +2792,12 @@ regionOptions:
     punkcie rejonu.'
   regionPickupRuleActive: 'Aktywuj następującą regułę dla slotów w lubianych "punktach-rodzynkach"
     na poziomie rejonu:'
-  regionPickupLimitDayNumber: 'Maksymalna liczba rodzynkowych slotów na dzień'
+  regionPickupLimitDayNumber: 'Maksymalna liczba slotów-rodzynek na dzień'
   enableAddressChangeNotification: 'Powiadomienie dla ambasadorów/ek przy zmianie
     adresu foodsavera/ki z rejonu macierzystego'
   userRelated:
     info: Może być zmienione przez ambasadorów/ki rejonu
-    heading: opcje do administrowania użytkowni(cz)kami
+    heading: Opcje do administrowania użytkowni(cz)kami
   pickuprule:
     heading: Opcje reguły rodzynkowej
     info: 'Może być zmienione przez administratorów/ki zespołu koordynacji punktów
@@ -2807,11 +2807,11 @@ regionOptions:
     info: Może być zmienione przez administratorów/ki lokalnego zespołu 
       rozpatrującego skargi (jeśli istnieje) lub ambasadorów/ki rejonu
 foodsaver:
-  bread: Wszyscy foodsaverzy/ki
+  bread: Wszyscy/tkie foodsaverzy/ki
   title: Foodsaver
   actions: Aktywności
   edit: Edytuj foodsaverów/ki
-  editName: edytuj {name}
+  editName: Edytuj {name}
   edit_failure: Nic się nie zmieniło albo zmiany nie zostały zapisane
   profileBack: Powrót do profilu
   delete_account: Usuń konto
@@ -2829,7 +2829,7 @@ foodsaver:
     last-activity: Ostatnia aktywność
     actions: Opcje
     orga: 'jest w globalnym orga-teamie'
-    remove: 'Usuń z okręgu'
+    remove: 'Usuń z rejonu'
   upgrade:
     ad_fs: Chcę przystąpić teraz do quizu dla foodsaverów/ek i zostać 
       foodsaverem/ką!
@@ -2841,7 +2841,7 @@ foodsaver:
     AMBASSADOR: 'Zostań ambasadorem/ką'
   kicked: Usunięto foodsavera/kę
   list:
-    summary: '{count} foodsaverów/ek w {region}'
+    summary: 'Liczba foodsaverów/ek w {region}: {count}'
     inactive: ', którzy/e nie byli aktywni/e w ciągu ostatnich 6 miesięcy:'
   restricted: 'Niestety, nie masz uprawnień, żeby zobaczyć te dane.'
   about_me_intern: 'jest wyświetlane na twojej stronie profilowej i jest tam widoczne
@@ -2857,17 +2857,17 @@ foodsaver:
     podaj tutaj swoje aktualne hasło.'
   delete_account_totp_hint: 'Miej na uwadze, że możesz usunąć swoje konto tylko wtedy,
     kiedy uwierzytelnianie dwuskładnikowe jest deaktywowane. Można to zrobić w ustawieniach
-    konta pod "bezpieczeństwo konta" i służy to ochronie przed nieautoryzowanym usunięciem
-    przy znajomości (lub zapisaniu) twojego hasła.'
+    konta w punkcie "bezpieczeństwo konta" i służy to ochronie przed nieautoryzowanym
+    usunięciem przy znajomości (lub zapisaniu) twojego hasła.'
   delete_own_account_failed_totp_hint: 'Nie można było usunąć twojego konta.'
   delete_description_other: 'Usunięcie konta użytkownika/czki jest nieodwracalne.
-    Odtworzenie konta nie będzie już później możliwe. Jeśli dana osoba potem będzie
-    kiedyś chciała ponownie dołączyć do foodsharingu, będzie musiała utworzyć nowe
-    konto i ponownie zgłosić się do punktów, zespołów itp.'
-  delete_own_account_failed: 'Twoje konto użytkownika nie mogło zostać usunięte. Wprowadzono
-    nieprawidłowe hasło. W razie potrzeby spróbuj ponownie.'
-  delete_description_own: 'Usunięcie konta użytkownika/czki jest nieodwracalne. Odtworzenie
-    twojego konta nie będzie już później możliwe. Jeśli potem będziesz kiedyś chciał/a
+    Nie będzie można później odtworzyć konta. Jeśli dana osoba potem będzie kiedyś
+    chciała ponownie dołączyć do foodsharingu, będzie musiała utworzyć nowe konto
+    i ponownie zgłosić się do punktów, zespołów itp.'
+  delete_own_account_failed: 'Nie można było usunąć twojego konta użytkownika/czki.
+    Wprowadzono nieprawidłowe hasło. W razie potrzeby spróbuj ponownie.'
+  delete_description_own: 'Usunięcie konta użytkownika/czki jest nieodwracalne. Nie
+    będzie można później odtworzyć twojego konta. Jeśli potem będziesz kiedyś chciał/a
     ponownie dołączyć do foodsharingu, będziesz musiał/a utworzyć nowe konto i ponownie
     zgłosić się do punktów, zespołów itp.'
   delete_account_blockmail: Umieść adres email na liście zablokowanych
@@ -2901,7 +2901,7 @@ content:
   error_loading: 'Nie można było załadować treści'
   name: 'Jednoznaczna nazwa'
   empty: 'Jeszcze nie wprowadzono żadnej strony.'
-  last_modified: 'Ostatnio edytowany'
+  last_modified: 'Ostatnio edytowano'
   edit_raw: 'Edytuj dane pierwotne'
   delete_tooltip: 'Usuń stronę'
 map:
@@ -2920,13 +2920,13 @@ map:
       scope:
         label: Przynależność
         all: wszystkie
-        region: 'Tylko moje okręgi'
+        region: 'Tylko moje rejony'
         member: 'Tylko moje punkty'
       type:
         label: Typ
         2: 'Punkt organizacyjny'
         "null": 'wszystkie'
-        1: 'Punkt dostaw'
+        1: 'Punkt darowizn'
         0: 'Punkt odbioru'
     users:
       role:
@@ -2938,7 +2938,7 @@ map:
         label: ostatni login
         week: poprzedni tydzień
         month: poprzedni miesiąc
-        3months: Ostatnie 3 miesiące
+        3months: ostatnie 3 miesiące
         6months: ostatnie 6 miesięcy
         all: 'obojętnie'
       member:

@@ -410,7 +410,7 @@ bell:
   store_new_request_title: 'Pedido novo à equipa'
   forum_new_thread: 'de {user} no fórum {forum}'
   store_new_title: 'Novo local'
-  sharepoint_activate_title: 'Novo cantinho da partilha em {bezirk}'
+  sharepoint_activate_title: 'Novo Cantinho da Partilha em {bezirk}'
   store_cr_times: 'As vagas foram coregadas'
   new_foodsaver_verified: 'yá verificado - pode dar início'
   buddy_request: '{name} conhece-te.'
@@ -532,7 +532,7 @@ email_template:
   foodbasket_request: 'O teu camaz alimentar foi solicitada por %SENDER%'
   in: 'em'
   request_from: 'Pedido de'
-  foodsharepoint: '-- Cantinho da partilha'
+  foodsharepoint: '-- Cantinho da Partilha'
   to: 'a'
   dont_respond:
     notification: 'notificaçães'
@@ -620,7 +620,7 @@ dashboard:
     ack: 'Li o aviso, não mostrar mais'
   empty_section: 'Ainda não tens {type}'
   homeRegion: 'O teu distrito principal é {region}.'
-  source_foodsharepoint: 'Cantinhos da partilha {0}'
+  source_foodsharepoint: 'Cantinhos da Partilha {0}'
   foodsharer: 'Divirta-se a salvar!'
   my:
     regions: 'Distritos onde pertences'
@@ -663,7 +663,7 @@ dashboard:
   no_more_updates_store: 'Sem mais novidades sobre os locais'
   full_subline: "Já recolheste comida **{pickups} vezes** e, com isso, salvaste **{weight}
     kg** que teriam ido para o lixo.\nO teu distrito principal é **{region}**."
-  no_more_updates_foodsharepoint: 'Não há mais publicações do cantinho da partilha'
+  no_more_updates_foodsharepoint: 'Não há mais publicações do Cantinho da Partilha'
   activation_mail_sent: 'Link de ativação enviado – verifique os teus e-mails'
   no_more_updates_all: 'foi isso!'
   greeting: 'Olá, {name}! Que bom ter-te aqui.'
@@ -2019,56 +2019,56 @@ fsp:
     manager: 'És responsável por este Fairteiler e, por isso, obrigado a receber as
       novidades.'
     none: 'não mais'
-    descSettings: 'Segues os todos informações do cantinho da partilha “{nome}”. Como
+    descSettings: 'Segues os todos informações do Cantinho da Partilha “{nome}”. Como
       gostaria de receber estas notificações?'
     descModal: 'Como gostaria de ser informado sobre novidades (por exemplo, entregas
       de comida)?'
     bell: 'só notificações internas'
-    from: 'Novidade para o cantinho da partilha „{name}“'
+    from: 'Novidade para o Cantinho da Partilha „{name}“'
   pic: 'Foto'
   description: 'Descrição'
   addedOn: 'Adicionado em'
-  suggest: 'Sugerir novo cantinho'
+  suggest: 'Sugerir novo Cantinho da Partilha'
   location: 'código postal / local'
   followers: 'Foodsharers interessados'
-  addError: 'Não foi possível registar o cantinho da partilha. Preencheu tudo corretamente?'
-  rejectConfirm: 'Atenção, se eliminar o cantinho da partilha, já não pode anular
+  addError: 'Não foi possível registar o Cantinho da Partilha. Preencheu tudo corretamente?'
+  rejectConfirm: 'Atenção, se eliminar o Cantinho da Partilha, já não pode anular
     esta ação. Queres mesmo continuar?'
-  reject: 'Recusar o cantinho da partilha'
-  add: 'Registar o cantinho da partilha'
+  reject: 'Recusar o Cantinho da Partilha'
+  add: 'Registar o Cantinho da Partilha'
   managers: 'Pessoas de contacto'
-  accept: 'Liberar o cantinho da partilha'
-  descLabel: 'Escreva aqui algumas informações básicas sobre o cantinho da partilha,
+  accept: 'Liberar o Cantinho da Partilha'
+  descLabel: 'Escreva aqui algumas informações básicas sobre o Cantinho da Partilha,
     especialmente quando está acessível/aberto.'
   address: 'Morada'
-  noManager: 'Deve haver pelo menos uma pessoa responsável por este cantinho da partilha.'
+  noManager: 'Deve haver pelo menos uma pessoa responsável por este Cantinho da Partilha.'
   street: 'Morada'
-  editSuccess: 'Cantinho da partilha foi editado com sucesso'
+  editSuccess: 'Cantinho da Partilha foi editado com sucesso'
   summary: 'Há {count} cantinhos da partilha em todos os distritos onde está ativo'
   acceptName: 'desbloquear {name}'
   follow: 'Siga este Cantinho da Partilha'
-  none: 'Ainda não há cantinhos da partilha inscritos'
+  none: 'Ainda não há Cantinhos da Partilha inscritos'
   yours: 'Cantinhos da Partilha nos vossos distritos'
-  acceptSuccess: 'O cantinho da partilha esta ativo agora'
-  new: 'Novo cantinho da partilha'
-  addSuccess: 'O cantinho da partilha foi inscrito com sucesso'
-  edit: 'Editar cantinho da partilha'
+  acceptSuccess: 'O Cantinho da Partilha esta ativo agora'
+  new: 'Novo Cantinho da Partilha'
+  addSuccess: 'O Cantinho da Partilha foi inscrito com sucesso'
+  edit: 'Editar Cantinho da Partilha'
   inRegion: 'Tudos os Cantinhos da Partilha no {region}'
-  delete: 'Eliminar cantinho da partilha'
+  delete: 'Eliminar Cantinho da Partilha'
   addedBy: 'Adicionado por'
   summaryRegion: 'Há {count} Cantinhos da Partilha em {region} e todos subdistritos'
   twig:
-    n_in_region: '{count} cantinhos da partilha em {name}'
-  publicwall: 'Tenha em atenção que as tuas publicações no mural do cantinho da partilha
+    n_in_region: '{count} Cantinhos da Partilha em {name}'
+  publicwall: 'Tenha em atenção que as tuas publicações no mural do Cantinho da Partilha
     são visíveis publicamente.'
-  suggestSuccess: 'O cantinho da partilha foi proposto e está agora a ser revisto
+  suggestSuccess: 'O Cantinho da Partilha foi proposto e está agora a ser revisto
     pelo o pessoa responsável.'
-  unfollow: 'Deixar de seguir este cantinho da partilha'
+  unfollow: 'Deixar de seguir este Cantinho da Partilha'
   followName: 'Siga o Cantinho da Partilha {name}'
-  editName: 'Editar cantinho da partilha „{name}“'
-  deleteConfirm: 'Queres mesmo eliminar este cantinho da partilha?'
-  deleteSuccess: 'Cantinho da partilha foi excluido'
-  onlySuggested: Este cantinho da partilha foi sugerido mas ainda não foi 
+  editName: 'Editar Cantinho da Partilha „{name}“'
+  deleteConfirm: 'Queres mesmo eliminar este Cantinho da Partilha?'
+  deleteSuccess: 'Cantinho da Partilha foi excluido'
+  onlySuggested: Este Cantinho da Partilha foi sugerido mas ainda não foi 
     lançado. Neste estado, não é apresentado assim aos outros utilizadores.
   form_validation:
     invalid: A entrada é inválida. Por favor, verifica as tuas entradas.
@@ -2135,7 +2135,7 @@ search:
   user_search:
     placeholder: 'Nome ou DNI'
   informations: 'Podes procuro por pessoas, grupos, locais, distritos, chats, mensagens
-    do fórum e cantinhos da partilha.'
+    do fórum e Cantinhos da Partilha.'
   noresults: 'Nenhum resultado encontrado para a tua pesquisa'
   too_short: 'Por favor, insira um termo de pesquisa mais longo.'
   forum:
@@ -3350,10 +3350,10 @@ globals:
     my_regions: 'Meus distritos'
     chats: 'Chats'
     mailboxes: 'Caixas de correio'
-    my_foodshare_points: 'Os meus cantinhos da partilha'
+    my_foodshare_points: 'Os meus Cantinhos da Partilha'
     my_persons: 'As minhas pessoas'
     my_groups: 'Os meus grupos'
-    foodSharePoints: Cantinhos da partilha
+    foodSharePoints: Cantinhos da Partilha
     users: 'Pessoas'
     regions_menu: 'Menu do distrito'
     mails: 'E-Mails'
@@ -3418,7 +3418,7 @@ startpage:
       part3: 'encontras'
       part5: ', são estantes ou frigoríficos onde podes recolher ou entregar comida
         gratuitamente.'
-      part4: 'Cantinhos da partilha'
+      part4: 'Cantinhos da Partilha'
     title: 'Perto de ti'
   call_to_action:
     title: 'Participe'
@@ -3498,7 +3498,7 @@ startpage:
       também uma declaração de motivação assinada pela administração municipal como
       símbolo da parceria entre \no foodsharing e as autoridades públicas.\n"
     title: 'Ciudades de foodsharing'
-  dependability: 'Em muitos locais existem “cantinhos da partilha” onde a alimentos
+  dependability: 'Em muitos locais existem Cantinhos da Partilha onde a alimentos
     são partilhados. Podem encontrar-se aí ou noutros locais neutros para partilhar.
     Se quiser dar ou receber comida, por favor seja fiável e pontual, não abandonar
     ninguém.'
@@ -3566,7 +3566,7 @@ region:
   edit: 'Editar distrito'
   cancel: 'Não, afinal não'
   still_contains_elements: 'O distrito não pode ser excluido porque ainda contém sub-regiões,
-    locais ou cantinhos da partilha.'
+    locais ou Cantinhos da Partilha.'
   edit_success: 'O distrito foi guardado.'
   restricted: 'Infelizmente, não tens autorização para visualizar esses dados.'
   save: 'Sim, salvar'
@@ -3584,7 +3584,7 @@ region:
   public:
     map:
       missing: Este distrito não é atualmente exibido no mapa e não tem 
-        cantinhos da partilha que podem ser exibidos aqui. Tens autorização para
+        Cantinhos da Partilha que podem ser exibidos aqui. Tens autorização para
         colocar um pin de distrito agora.
       set_pin: Marcar o pin do distrito no mapa
       hide_pin: Remover o pin do distrito
@@ -4025,8 +4025,8 @@ notifications:
       momento. Por favor, tenta novamente mais tarde.
   foodSharePoints:
     title: 'Cantinhos da partilha'
-    description: 'Receber notificações sobre novas mensagens nos murais dos cantinhos
-      da partilha que segues.'
+    description: 'Receber notificações sobre novas mensagens nos murais dos Cantinhos
+      da Partilha que segues.'
   groups:
     title: 'Grupos de trabalho'
   checkbox_push: 'Push'
@@ -4143,7 +4143,7 @@ stats:
   total:
     pickups: 'missões que os nossos Foodsavers já completaram.'
     weight: 'comida salva com sucesso do lixo.'
-    fsp: 'Os cantinhos da partilha são utilizados para trocar comidas.'
+    fsp: 'Os Cantinhos da Partilha são utilizados para trocar comidas.'
     foodsharer: 'Foodsharers estão registados em "foodsharing" e interessados no nosso
       trabalho.'
     foodsaver: 'Foodsavers trabalham voluntariamente por um mundo sem desperdício
@@ -4404,7 +4404,7 @@ map:
   title: 'Mapa'
   donates: 'A loja faz doações'
   foodsharepoint:
-    go: Para o cantinho da partilha
+    go: Para o Cantinho da Partilha
   filters:
     stores:
       status:
