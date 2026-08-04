@@ -21,6 +21,12 @@ class SentryScrubber
         'pw'
     ];
 
+    // sentry's before_send option takes a service reference to an invokable
+    public function __invoke(Event $event, ?EventHint $hint): ?Event
+    {
+        return self::scrub($event, $hint);
+    }
+
     public static function scrub(Event $event, ?EventHint $hint): ?Event
     {
         $request = $event->getRequest();
