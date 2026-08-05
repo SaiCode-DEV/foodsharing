@@ -91,7 +91,7 @@ class Event
                 $result->address = null;
                 $result->type = EventType::OTHER;
             } else {
-                $result->address = Address::createFromArray($data);
+                $result->address = new Address($data['street'], $data['postalCode'], $data['city']);
                 if (is_null($data['lat']) || is_null($data['lon'])) {
                     /* This case should never happen because offline events should always have a valid location.
                      * However, since the database column must be nullable to support online events, it is technically

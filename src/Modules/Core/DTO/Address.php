@@ -7,31 +7,19 @@ namespace Foodsharing\Modules\Core\DTO;
  */
 class Address
 {
-    /**
-     * Street and street number.
-     */
-    public string $street = '';
-
-    /**
-     * zip code.
-     */
-    public ?string $postalCode = null;
-
-    /**
-     * Name of city.
-     */
-    public string $city = '';
-
-    /**
-     * Generates from an array like a DB result.
-     */
-    public static function createFromArray(array $query_result): Address
-    {
-        $obj = new Address();
-        $obj->street = $query_result['street'] ?? '';
-        $obj->postalCode = $query_result['postalCode'] ?? '';
-        $obj->city = $query_result['city'] ?? '';
-
-        return $obj;
+    public function __construct(
+        /**
+         * Street and street number.
+         */
+        public string $street = '',
+        /**
+         * Postal code.
+         */
+        public ?string $postalCode = null,
+        /**
+         * Name of the city.
+         */
+        public string $city = '',
+    ) {
     }
 }

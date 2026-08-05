@@ -370,7 +370,11 @@ class SettingsTransactions
             $editableProfileDTO->birthday = $currentUserProfile['geb_datum'];
             $editableProfileDTO->mobile = $currentUserProfile['mobile'];
             $editableProfileDTO->phone = $currentUserProfile['phone'];
-            $editableProfileDTO->location = Address::createFromArray($currentUserProfile);
+            $editableProfileDTO->location = new Address(
+                $currentUserProfile['street'],
+                $currentUserProfile['postalCode'],
+                $currentUserProfile['city'],
+            );
             if (!is_numeric($currentUserProfile['lat']) || !is_numeric($currentUserProfile['lon'])) {
                 throw new InvalidArgumentException('Longitude/Latitude is invalid.');
             }

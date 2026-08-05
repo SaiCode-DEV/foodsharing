@@ -431,7 +431,7 @@ class StoreTransactions
                 if (!$storeCategoryExists) {
                     throw new StoreTransactionException(StoreTransactionException::STORE_CATEGORY_NOT_EXISTS);
                 }
-                $store->category = MinimalIdentifier::createFromId($storeChange->categoryId);
+                $store->category = new MinimalIdentifier($storeChange->categoryId);
             } else {
                 $store->category = null;
             }

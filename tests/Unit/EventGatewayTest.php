@@ -47,11 +47,11 @@ class EventGatewayTest extends Unit
             $this->faker->latitude(),
             $this->faker->longitude()
         );
-        $event->address = Address::createFromArray([
-            'street' => $this->faker->streetAddress(),
-            'city' => $this->faker->city(),
-            'postalCode' => $this->faker->postcode(),
-        ]);
+        $event->address = new Address(
+            $this->faker->streetAddress(),
+            $this->faker->postcode(),
+            $this->faker->city(),
+        );
         $event->locationDetails = $this->faker->company();
         $id = $this->gateway->addLocation($event);
         $this->assertGreaterThan(0, $id);

@@ -243,7 +243,7 @@ class Store
         $obj->publicTime = PublicTimes::tryFrom($queryResult['public_time']);
 
         $obj->categoryType = StoreCategoryType::tryFrom($queryResult['categoryType']) ?? StoreCategoryType::PICKUP;
-        $obj->category = MinimalIdentifier::createFromId($queryResult['categoryId']);
+        $obj->category = $queryResult['categoryId'] ? new MinimalIdentifier($queryResult['categoryId']) : null;
         $obj->chain = StoreChainInformation::createFromId($queryResult['chainId']);
 
         $obj->cooperationStatus = CooperationStatus::tryFrom($queryResult['cooperationStatus']);

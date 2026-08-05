@@ -324,7 +324,7 @@ class FoodSharePointGateway extends BaseGateway
             $foodSharePoint['picture'],
             ActivationStatus::tryFrom($foodSharePoint['status']),
             $foodSharePoint['desc'],
-            Address::createFromArray($foodSharePoint),
+            new Address($foodSharePoint['street'], $foodSharePoint['postalCode'], $foodSharePoint['city']),
             new GeoLocation(floatval($foodSharePoint['lat']), floatval($foodSharePoint['lon'])),
             DateTime::createFromFormat('Y-m-d', $foodSharePoint['add_date']),
             new Profile($foodSharePoint['fs_id'], $foodSharePoint['fs_name'], $foodSharePoint['fs_avatar'], (bool)$foodSharePoint['fs_is_sleeping'])

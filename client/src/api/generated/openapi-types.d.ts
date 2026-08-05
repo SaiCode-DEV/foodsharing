@@ -6747,10 +6747,13 @@ export interface components {
              * @default
              */
             street: string;
-            /** zip code. */
-            postalCode?: string;
             /**
-             * Name of city.
+             * Postal code.
+             * @default null
+             */
+            postalCode: string | null;
+            /**
+             * Name of the city.
              * @default
              */
             city: string;
