@@ -321,7 +321,7 @@ class SettingsTransactions
                 $this->notifyAmbassadorsAboutAddressChange($userId, $currentUserProfile, $editableProfileDTO);
             }
             // If role changed, invalidate sessions to pick up the new role
-            if ($editableProfileDTO->role !== null) {
+            if ($editableProfileDTO->role !== null && $editableProfileDTO->role !== (int)$currentUserProfile['rolle']) {
                 $this->session->invalidateAllSessionsForUser($userId);
             }
         }

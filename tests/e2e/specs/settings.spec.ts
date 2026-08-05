@@ -7,7 +7,7 @@ import Role from "../helpers/constants/Foodsaver/Role";
 import { faker } from "@faker-js/faker/locale/de";
 
 test.describe("Settings", () => {
-  test.fixme("can edit internal self description. Deactivated, see https://gitlab.com/foodsharing-dev/foodsharing/-/work_items/2738", async ({
+  test("can edit internal self description", async ({
     page,
     acceptanceHelper,
   }) => {
