@@ -143,6 +143,14 @@ test('can send a message', t => {
     });
 });
 
+test('can send a message with large url params', t => {
+    t.timeoutAfter(10000);
+    t.plan(1);
+    sendMessage(Array.from({length: 1000}, (_, idx) => idx), 'foo', 'bar', {}, (err: any) => {
+        t.error(err, 'does not error');
+    });
+});
+
 test('can send to users', t => {
     t.timeoutAfter(10000);
     t.plan(3);
