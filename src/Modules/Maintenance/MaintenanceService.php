@@ -279,4 +279,11 @@ class MaintenanceService
         $count = $this->maintenanceGateway->deleteExpiredOAuthTokens();
         ConsoleHelper::success($count . ' OAuth entries deleted');
     }
+
+    public function deleteExpiredMailChanges(): void
+    {
+        ConsoleHelper::info('cleaning up expired email-change requests...');
+        $count = $this->maintenanceGateway->deleteExpiredMailChanges();
+        ConsoleHelper::success($count . ' email-change requests deleted');
+    }
 }

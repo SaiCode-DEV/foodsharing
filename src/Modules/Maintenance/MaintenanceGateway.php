@@ -8,6 +8,7 @@ use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\DBConstants\Basket\Status;
 use Foodsharing\Modules\Core\DBConstants\Quiz\SessionStatus;
 use Foodsharing\Modules\Region\ForumTransactions;
+use Foodsharing\Modules\Settings\SettingsGateway;
 
 class MaintenanceGateway extends BaseGateway
 {
@@ -230,5 +231,15 @@ class MaintenanceGateway extends BaseGateway
         $deletedCount += $this->db->execute('DELETE FROM oauth_user_consents WHERE revoked_at IS NOT NULL')->rowCount();
 
         return $deletedCount;
+    }
+
+    /**
+     * Deletes pending email-change requests that are past their lifetime.
+     */
+    public function deleteExpiredMailChanges(): int
+    {
+        return $this->db->delete('fs_mailchange', [
+            'time <' => Carbon::now()->subDays(SettingsGateway::MAIL_CHANGE_LIFETIME_DAYS)->format('Y-m-d H:i:s'),
+        ]);
     }
 }

@@ -31,6 +31,7 @@ class MaintenanceCleanupLowPriorityCommand extends Command
         $this->maintenanceControl->deleteTestQuizSessions();
         $this->maintenanceControl->deleteHiddenForumPosts();
         $this->maintenanceControl->deleteExpiredOAuthTokens();
+        $this->maintenanceControl->deleteExpiredMailChanges();
 
         return Command::SUCCESS;
     }

@@ -84,4 +84,28 @@ class MaintenanceCest
         $I->seeInShellOutput('send 1 warnings...');
         $I->seeInShellOutput('updating Wien BIEB group');
     }
+
+    final public function clearExpiredMailChangeRequests(CliTester $I): void
+    {
+        $expiredUser = $I->createFoodsaver();
+        $freshUser = $I->createFoodsaver();
+        $I->haveInDatabase('fs_mailchange', [
+            'foodsaver_id' => $expiredUser['id'],
+            'newmail' => 'expired@example.com',
+            'time' => date('Y-m-d H:i:s', strtotime('-8 days')),
+            'token' => 'expiredtoken1234',
+        ]);
+        $I->haveInDatabase('fs_mailchange', [
+            'foodsaver_id' => $freshUser['id'],
+            'newmail' => 'fresh@example.com',
+            'time' => date('Y-m-d H:i:s', strtotime('-1 day')),
+            'token' => 'freshtoken12345',
+        ]);
+
+        $I->amInPath('');
+        $I->runShellCommand('bin/console foodsharing:maintenance:cleanup2');
+
+        $I->dontSeeInDatabase('fs_mailchange', ['token' => 'expiredtoken1234']);
+        $I->seeInDatabase('fs_mailchange', ['token' => 'freshtoken12345']);
+    }
 }

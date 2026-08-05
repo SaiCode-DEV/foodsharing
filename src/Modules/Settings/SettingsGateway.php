@@ -16,6 +16,9 @@ use Foodsharing\Modules\Foodsaver\DTO\ReadableProfileSettings;
 
 class SettingsGateway extends BaseGateway
 {
+    // pending email changes expire; the confirmation mail names the same window
+    final public const int MAIL_CHANGE_LIFETIME_DAYS = 7;
+
     /**
      * Convenience method for storing a single entry in the foodsaver change history.
      */
@@ -136,7 +139,10 @@ class SettingsGateway extends BaseGateway
         return $this->db->fetchByCriteria(
             'fs_mailchange',
             ['foodsaver_id', 'newmail'],
-            ['token' => strip_tags($token)]
+            [
+                'token' => strip_tags($token),
+                'time >' => Carbon::now()->subDays(self::MAIL_CHANGE_LIFETIME_DAYS)->format('Y-m-d H:i:s'),
+            ]
         );
     }
 
