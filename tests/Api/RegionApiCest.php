@@ -214,6 +214,28 @@ class RegionApiCest
         $I->seeResponseCodeIs(HttpCode::CONFLICT);
     }
 
+    public function settingRegionAdminsCreatesMembershipImmediately(ApiTester $I): void
+    {
+        // Admins set via the region administration form used to become members
+        // only on their next login or with the nightly run (#2635)
+        $userOrga = $I->createOrga();
+        $newAdmin = $I->createFoodsaver();
+
+        $I->login($userOrga['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/regions/' . $this->region['id'], [
+            'name' => $this->region['name'],
+            'type' => $this->region['type'],
+            'adminIds' => [$newAdmin['id']],
+            'parentId' => $this->region['parent_id'],
+            'masterId' => 0,
+            'mailbox' => 'region-' . $this->region['id'],
+        ]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeInDatabase('fs_botschafter', ['bezirk_id' => $this->region['id'], 'foodsaver_id' => $newAdmin['id']]);
+        $I->seeInDatabase('fs_foodsaver_has_bezirk', ['bezirk_id' => $this->region['id'], 'foodsaver_id' => $newAdmin['id'], 'active' => 1]);
+    }
+
     public function canOnlyListRegionMembersAsMember(ApiTester $I): void
     {
         // test before being a member

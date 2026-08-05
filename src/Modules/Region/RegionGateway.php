@@ -675,6 +675,7 @@ class RegionGateway extends BaseGateway
         $this->db->delete('fs_botschafter', ['bezirk_id' => $regionId]);
         foreach ($adminIds as $adminId) {
             $this->setRegionAdmin($regionId, $adminId);
+            $this->addOrUpdateMember($adminId, $regionId);
         }
     }
 
