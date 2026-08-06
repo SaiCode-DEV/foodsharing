@@ -379,10 +379,10 @@ settings:
       maybe: 'Eventy, przy których podałem/am, że (być może) będę uczestniczyć'
       accepted: 'Eventy, przy których podałem/am, że będę uczestniczyć'
     reminders:
-      3_hours: 3 godziny przed
-      6_hours: 6 godzin przed
-      12_hours: 12 godzin przed
-      1_day: 1 dzień przed
+      3_hours: 3 godziny wcześniej
+      6_hours: 6 godzin wcześniej
+      12_hours: 12 godzin wcześniej
+      1_day: 1 dzień wcześniej
       30_minutes: '30 minut wcześniej'
       label: 'Ustawić przypomnienia do twoich terminów?'
       1_hour: '1 godzinę wcześniej'
@@ -454,9 +454,9 @@ settings:
 
       albo z innych powodów nie masz teraz czasu ratować żywności.
 
-      Jest pomocne, żeby wiedzieć, czy możesz reagować na wiadomości
+      To pomaga, żeby wiedzieć, czy możesz reagować na wiadomości
 
-      albo nawet czy czasem przejmujesz sloty.
+      albo czy nawet czasem przejmujesz sloty.
 
       '
     missing-date: 'Podaj datę początkową i końcową.'
@@ -477,8 +477,8 @@ settings:
     email_password_section: Email i hasło
     change_password: Zmień hasło
     change_email: Zmień adres email
-    last_used: Ostatnio użyty
-    never_used: Jeszcze nie użyty
+    last_used: Ostatnio użyto
+    never_used: Jeszcze nie użyto
     delete: Usuń
     rename: Zmień nazwę
     register_modal:
@@ -525,7 +525,7 @@ settings:
       bez hasła.'
     security_keys: 'Klucze bezpieczeństwa (Passkeys)'
     other_domain_info: 'Ten klucz bezpieczeństwa został zarejestrowany na {domain}
-      i nie może być użyty na aktualnej domenie.'
+      i nie można go użyć na aktualnej domenie.'
     authenticator_app_description: 'Użyj aplikacji uwierzytelniającej dla dodatkowego
       bezpieczeństwa przy logowaniu.'
     no_passkeys: 'Jeszcze nie zarejestrowano żadnego klucza bezpieczeństwa.'
@@ -553,7 +553,7 @@ settings:
     intro: 'Tu możesz zmienić ustawienia uwierzytelnienia dwuskładnikowego.'
     num_backup_codes: 'Liczba pozostałych kodów backup'
     title: 'uwierzytelnienie dwuskładnikowe'
-    enable_button: 'aktywuj uwierzytelnienie dwuskładnikowe'
+    enable_button: 'Aktywuj 2FA'
   two_fa_enable:
     tabs:
       qr_code: Skanuj kod QR
@@ -651,7 +651,7 @@ settings:
     not_changed: 'Twój adres email nie został zmieniony.'
     sent_other_user: 'Wysłano maila z linkiem potwierdzającym na nowy adres.'
     dashboard_link: 'Dalej do panelu głównego'
-    explanation: 'Tu możesz zmienić adres email, z którym się zarejestrowałeś/aś.
+    explanation: 'Tu możesz zmienić adres email, przy pomocy którego się zarejestrowałeś/aś.
       Po wysłaniu otrzymasz maila na nowy adres, w którym jest link do potwierdzenia
       nowego adresu.'
     explanation_other_user: 'Tu możesz zmienić adres email, przy pomocy którego zarejestrowano
@@ -665,7 +665,7 @@ settings:
     occupied: 'Nie można było zmienić adresu email, bo jest już używany.'
     confirm_email_required: 'Adresy email nie zgadzają się'
     insufficient_permission: 'Nie masz uprawnień, aby zmienić adres email w tym profilu.'
-    question_other_user: 'Czy na pewno zmienić twój adres email na ten:'
+    question_other_user: 'Czy na pewno zmienić adres email na ten:'
   password_change:
     new_password_placeholder: Minimum 8 znaków
     new_password_required: Hasło musi zawierać minimum 8 znaków
@@ -691,15 +691,15 @@ settings:
     confirm_password_invalid: 'Hasła się nie zgadzają'
     new_password_must_be_different: Nowe hasło musi być inne od poprzedniego
   passport:
-    menu: legitymacja członkowska
+    menu: Legitymacja członkowska
     renew: Odnów legitymację
     non_verified_text: Nie jesteś zweryfikowany/a. Tylko zweryfikowani/e 
       foodsaverzy/ki mogą pobrać swoją legitymację.
-    passport_not_activated: Twoja legitymacja jeszcze nie została aktywowana.
+    passport_not_activated: Jeszcze nie aktywowano twojej legitymacji.
     ask_your_ambassadors: Skontaktuj się w tej sprawie ze swoimi 
       ambasador(k)ami.
-    passport_is_valid_until: Twoja legitymacja jest ważna jeszcze **{days}** 
-      dni, do **{date}**.
+    passport_is_valid_until: 'Twoja legitymacja jest ważna do **{date}** (pozostało
+      dni: **{days}**).'
     passport_is_invalid: Twoja legitymacja jest już nieważna.
     button: Pobierz legitymację
     add_to_wallet:
@@ -717,7 +717,7 @@ settings:
       z innego powodu potrzebujesz jeszcze tradycyjnej legitymacji, zwróć się do lokalnych
       ambasadorów/ek.'
   photo:
-    title: twoje zdjęcie
+    title: Twoje zdjęcie
     info: "Twoja twarz musi być <a href=\"{link_photo}\">rozpoznawalna</a> na zdjęciu
       profilowym,\nponieważ będzie ono użyte do <a href=\"{link_id}\">legitymacji
       foodsharingu</a>, kiedy \npóźniej zostaniesz <a href=\"{link_fs}\">foodsaverem/ką</a>
@@ -726,7 +726,7 @@ settings:
     title: Powiadomienia push
     not-supported: Twoja przeglądarka nie wspiera powiadomień push.
     denied: |
-      Odrzuciłe/aś otrzymywanie powiadomień push od strony foodsharing w twojej przeglądarce.
+      Odrzuciłeś/aś otrzymywanie powiadomień push od strony foodsharing w twojej przeglądarce.
       Jeśli chcesz otrzymywać powiadomienia push, zmień ustawienia przeglądarki dla strony foodsharing
       i odśwież stronę.
     info-on: |
@@ -2981,7 +2981,7 @@ mailbox:
   show_html_body: Pokaż jako HTML
   new: Nowa skrzynka pocztowa
   hostinfo: Podaj tylko nazwę skrzynki, bez @{host}
-  add_success: Skrzynka pocztowa została utworzona pomyślnie.
+  add_success: Pomyślnie utworzono skrzynkę pocztową.
   already_exists: Już istnieje skrzynka pocztowa o tej nazwie
   okay: Email został wysłany pomyślnie.
   failed: Nie można było wysłać maila.
@@ -2994,12 +2994,12 @@ mailbox:
   create: Stwórz nową skrzynkę pocztową
   attachment:
     not_found: nie znaleziono
-    too_many: Wybrano za dużo plików. Do maila można dołączyć maksymalnie 
-      {count} pliki/ów.
+    too_many: 'Wybrano za dużo plików. Do maila można dołączyć maksymalną liczbę plików:
+      {count}.'
     not_found_explanation: 'Nie można znaleźć załącznika na serwerze'
-    too_large_to_send: 'Niektóre pliki były za duże i nie mogły zostać dołączone.'
+    too_large_to_send: 'Niektóre pliki były za duże i nie można było ich dołączyć.'
     attachments: Załączniki
-    limits: maksymalnie {count} pliki/ów i {size} na plik
+    limits: 'Maksymalna liczba plików: {count} i {size} na plik'
   conformation_modal:
     title: Potwierdzenie
     message: Jesteś pewny/a, że chcesz usunąć ten mail?
@@ -3028,7 +3028,7 @@ mailbox:
   forward_attachment_warning: 'Aktualnie nie można przekazywać dalej załączników.
     Jeśli chcesz przekazać dalej maila z załącznikami, możesz pobrać załączniki i
     dołączyć je do nowego maila.'
-  global_addressbook: 'globalna książka adresowa'
+  global_addressbook: 'Globalna książka adresowa'
   sm-quiz: 'Quiz dla koordynatorów/ek punktu'
   manage: 'Manager skrzynki pocztowej'
   not-available: 'Musisz być {role}, aby mieć dostęp do skrzynek pocztowych.
@@ -3040,10 +3040,10 @@ mailbox:
 profile:
   sections:
     ambassador_for: dla
-    workgroups_admin: jest osobą do kontaktu w następujących grupach
-    workgroups_member: razem z tobą w następujących grupach
-    no_common_workgroups: 'żadnych wspólnych zespołów'
-    home_region_from: 'rejon macierzysty'
+    workgroups_admin: jest osobą do kontaktu w następujących zespołach
+    workgroups_member: razem z tobą w następujących zespołach
+    no_common_workgroups: 'Brak wspólnych zespołów'
+    home_region_from: 'Rejon macierzysty'
     kam_for: 'Odpowiedzialny/a za koordynację następujących sieci punktów:'
     orga_rights: '##### ma jako orga-człowiek [rozszerzone uprawnienia]({wikiurl})
       na platformie.'
@@ -3059,8 +3059,8 @@ profile:
     remove_button: 'Usuń z listy odrzuconych adresów e-mail'
   commitments_stat:
     title: Statystyka zaangażowania
-    eventsParticipatedWeek: 'Dziękujemy za uczestnictwo w {count} eventach w tym tygodniu.
-      Łączny czas: {hour}:{minute} '
+    eventsParticipatedWeek: 'Dziękujemy za uczestnictwo w następującej liczbie eventów:
+      {count} w tym tygodniu. Łączny czas: {hour}:{minute} '
     categorieName: Kategoria
     pickupAmount: Ilość
     week_1: Przyszły tydzień
@@ -3069,18 +3069,19 @@ profile:
     pickupCount: 'Częstotliwość'
     week_0: 'Jeszcze następny tydzień'
     week_4: 'Jeszcze poprzedni tydzień'
-    respActStores: 'Dziękujemy za koordynację {count} aktywnych '
-    securePickupWeek: 'Dziękujemy za {count} krótkoterminowe/ych zgłoszenia/nie/ń
-      i zabezpieczenie/nia/ń odbiorów!'
-    basketsSharedWeek: 'Podzielono się jadłokoszykami z {count} osobami. '
+    respActStores: 'Dziękujemy za koordynację następującej liczby aktywnych: {count} '
+    securePickupWeek: 'Dziękujemy za następującą liczbę krótkoterminowych zgłoszeń
+      i zagwarantowanie odbiorów: {count}!'
+    basketsSharedWeek: 'Podzielono się jadłokoszykami z liczbą osób: {count}. '
     weekDesc: 'Tydzień {week} w roku, od {weekStart} do {weekEnd}'
-    eventsCreatedWeek: 'Dzięki za utworzenie eventów {count} raz/y w tym tygodniu.'
-    districtName: 'rejon'
+    eventsCreatedWeek: 'Dzięki za utworzenie eventów następującą liczbę razy: {count}
+      w tym tygodniu.'
+    districtName: 'Rejon'
     calenderWeek: 'Tydzień'
-    basketsOfferedWeek: 'Dziękujemy za oferowanie jadłokoszyków {count} raz/y. Łącznie
-      podzielono się {weight} kg.'
+    basketsOfferedWeek: 'Dziękujemy za oferowanie jadłokoszyków następującą liczbę
+      razy: {count}. Łącznie podzielono się {weight} kg.'
   banana:
-    title: '{count} banan/y/ów zaufania'
+    title: 'Liczba bananów zaufania: {count}'
     recieved_none:
       other: '{name} jeszcze nie otrzymał/a bananów zaufania.'
       you: Jeszcze nie otrzymałeś/aś bananów zaufania.
@@ -3112,10 +3113,10 @@ profile:
       '
   stores:
     memberState:
-      filterAll: wszystkie
+      filterAll: Wszystkie
       filterInvitations: Zaproszony/a
       filterActive: Członek
-      filterRequested: 'Wysłano zapytanie'
+      filterRequested: 'Wysłano zgłoszenie'
       filterManage: 'Odpowiedzialny/a'
       filterJumper: 'Rezerwowy/a'
     store_table: 'Tabela punktów'
@@ -3284,7 +3285,7 @@ profile:
   homeDistrictHistory:
     previous: 'wcześniej'
     changed: 'wprowadzony'
-    by: 'od'
+    by: 'przez'
   pinboard: 'Aktualizacje statusu od {name}'
   choosereasonnostore: 'Nie dotyczy żadnego punktu'
   title: 'Profil'

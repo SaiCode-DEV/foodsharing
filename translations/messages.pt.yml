@@ -524,8 +524,8 @@ bell:
   store_added_to_chain: O local «{store}» agora faz parte da cadeia.
   chain_info_updated_title: Cadeia {chain} atualizada
   chain_info_updated: '{store} faz parte da cadeia.'
-  report_reminder: ''
-  report_reminder_title: ''
+  report_reminder: 'Está na hora do lembrete da denúncia'
+  report_reminder_title: 'Lembrete: denúncia # {reportId}'
 email_template:
   login: 'Iniciar sessão para responder'
   reply: 'Responder'
@@ -752,7 +752,7 @@ calendar:
         pickup: '{store} recolha'
         giving: '{store} entrega'
         orga: '{store} vaga'
-      storeInfo: ''
+      storeInfo: 'Particularidades do local:'
     event:
       description: 'Descrição'
       statusUnspecified: 'Ainda não indicou se irá participar neste evento. Pode fazer
@@ -1053,9 +1053,9 @@ menu:
     close_all_chats: Fechar todos os chats
     applications: Aplicações ({count})
     public: Página pública do distrito
-    donation_button: ''
-    donation_menu: ''
-    donation_page: ''
+    donation_button: 'Doar agora'
+    donation_menu: 'Doar agora'
+    donation_page: 'Ir para a página de donativos'
   bell:
     delete_read_confirmation:
       text: 'Queres mesmo apagar {count} notificações lidos?'
@@ -1710,50 +1710,50 @@ group:
   filter_placeholder: Filtrar grupos por nomes
   confirm_decline: Queres mesmo recusar esta aplicação?
   badge:
-    function_group: ''
-    special_permissions: ''
-    inactive: ''
+    function_group: 'GOALS'
+    special_permissions: 'Permissões especiais'
+    inactive: 'Inativa'
   membership_status:
-    member: ''
-    closed: ''
-    can_apply: ''
-    applied: ''
-    open: ''
-    admin: ''
+    member: 'Membro'
+    closed: 'Fechada'
+    can_apply: 'Candidatura'
+    applied: 'Candidatura enviada'
+    open: 'Aberta'
+    admin: 'Admin'
   list_headers:
-    default: ''
+    default: 'Grupos de trabalho em {region}'
     membership:
-      open: ''
-      applied: ''
-      admin: ''
-      can_apply: ''
-      member: ''
-      closed: ''
-    search_results: ''
+      open: 'Grupos abertos'
+      applied: 'Grupos aos quais te candidataste'
+      admin: 'Grupos que administras'
+      can_apply: 'Grupos disponíveis para candidatura'
+      member: 'Os teus grupos'
+      closed: 'Grupos fechados'
+    search_results: 'Resultados da pesquisa'
     category:
-      development: ''
-      default: ''
-      archived: ''
-      exchange: ''
-      project: ''
-      administrative: ''
-    inactive: ''
+      development: 'Grupos de desenvolvimento'
+      default: 'Mais grupos'
+      archived: 'Grupos archivados'
+      exchange: 'Grupos de partilha'
+      project: 'Grupos de projeto'
+      administrative: 'Grupos de administração'
+    inactive: 'Grupos inativos'
   category:
-    development: ''
-    administrative: ''
-    default: ''
-    archived: ''
-    project: ''
-    exchange: ''
+    development: 'Grupo de desenvolvimento'
+    administrative: 'Grupo de administração'
+    default: 'Nenhum tipo de grupo selecionado'
+    archived: 'Grupo arquivado'
+    project: 'Grupo de projeto'
+    exchange: 'Grupo de partilha'
   application_prompt: 'Instruções para a candidatura. Que perguntas devem os candidatos
     responder?'
   sorting_scheme:
-    category: ''
-    name: ''
-    activity: ''
-    membership: ''
+    category: 'Tipo de grupo'
+    name: 'Nome'
+    activity: 'Última atividade'
+    membership: 'Adesão'
   join_confirmation: 'Queres juntar-te agora ao grupo {name}?'
-  subgroups: ''
+  subgroups: 'Subgrupos'
 foodsaver:
   delete_account_sure: 'Tens a certeza de que deseja eliminar a tua conta de utilizador?'
   list:
@@ -1819,8 +1819,9 @@ foodsaver:
   delete_own_account_failed_totp_hint: 'Não foi possível eliminar a tua conta de utilizador.'
   delete_own_account_failed: 'Não foi possível eliminar a tua conta de utilizador.
     A palavra-passe introduzida está incorreta. Tenta novamente, se necessário.'
-  delete_account_blockmail_help: ''
-  delete_account_blockmail: ''
+  delete_account_blockmail_help: 'Impede que o utilizador volte a registar-se com
+    o mesmo endereço de e-mail'
+  delete_account_blockmail: 'Bloquear endereço de e-mail'
 pickup:
   no_slots_available: 'Não há vagas disponíveis'
   history:
@@ -2424,7 +2425,7 @@ chat:
     renaming_conversation: A renomeação da conversa falhou.
   open_full_view: Abrir visualização completa
   unread_messages: Mensagens não lidas
-  participant_count: ''
+  participant_count: '{count} participantes'
 error_permissions: 'Infelizmente, nao tens as permissões necessárias para este processo.'
 storeedit:
   team:
@@ -3726,7 +3727,7 @@ system_administration:
   content: 'Editar conteúdos'
   resource_categories: 'Editar categorias de recursos'
   store_categories: 'Editar categorías de locais'
-  donation_page_edit: ''
+  donation_page_edit: 'Editar página de donativos'
 maxfp: 'Número máximo de pontos de erro para passar o testo'
 bootstrap-datepicker:
   labelCalendar: 'Calendário'
@@ -3967,51 +3968,53 @@ reports:
   id: ID
   reporter: Informante
   reported: Pessoa denúnciada
-  no_thread: ''
-  searching: ''
-  select_thread: ''
+  no_thread: 'Nenhum tópico do fórum associado'
+  searching: 'A pesquisar…'
+  select_thread: 'Selecionar tópico'
   statuses:
-    completed: ''
-    deleted: ''
-    in_progress: ''
-    to_do: ''
-    follow_up_user: ''
-    handed_over: ''
-    mediation_gruppe: ''
-  view_thread: ''
+    completed: 'Encerrada'
+    deleted: 'Eliminado'
+    in_progress: 'Em tratamento'
+    to_do: 'Aberta'
+    follow_up_user: 'Aguarda resposta do utilizador'
+    handed_over: 'Atribuída'
+    mediation_gruppe: 'Grupo de mediação'
+  view_thread: 'Ver tópico'
   consequences:
-    red_card: ''
-    warning: ''
-    no_rule_violation: ''
-    reminder: ''
-    no_further_action: ''
-    yellow_card: ''
-  reported_at: ''
-  consequence: ''
-  no_consequence: ''
-  reminder: ''
-  noresults: ''
-  enter_consequence: ''
-  update_error: ''
-  no_status: ''
-  reminder_at: ''
-  search: ''
-  create_thread: ''
-  enter_forum_thread_id: ''
-  view: ''
-  enter_status: ''
-  forum_thread: ''
-  error_missing_region: ''
-  invalid_forum_thread_region: ''
-  filter_status: ''
-  search_by_name_or_id: ''
-  forum_thread_search: ''
-  status: ''
-  forum_thread_linked: ''
-  edit_report: ''
-  set_reminder: ''
-  search_error: ''
-  remove: ''
+    red_card: 'Cartão vermelho'
+    warning: 'Advertência'
+    no_rule_violation: 'Sem infração às regras'
+    reminder: 'Lembrete'
+    no_further_action: 'Sem seguimento'
+    yellow_card: 'Cartão amarelo'
+  reported_at: 'Reportado em'
+  consequence: 'Consequência'
+  no_consequence: 'Sem consequência'
+  reminder: 'Lembrete'
+  noresults: 'Não foi encontrado nenhum tópico do fórum. Tenta outro termo de pesquisa
+    ou cria um novo tópico.'
+  enter_consequence: 'Introduzir consequência'
+  update_error: 'Erro ao atualizar a denúncia'
+  no_status: 'Sem estado'
+  reminder_at: 'Lembrete em'
+  search: 'Pesquisa'
+  create_thread: 'Criar tópico'
+  enter_forum_thread_id: 'Introduz o ID do tópico do fórum'
+  view: 'Ver'
+  enter_status: 'Introduzir estado'
+  forum_thread: 'Tópico do fórum'
+  error_missing_region: 'É necessário o ID do distrito para pesquisar no fórum'
+  invalid_forum_thread_region: 'Esta publicação no fórum não pertence ao distrito
+    responsável por este caso.'
+  filter_status: 'Filtrar por estado'
+  search_by_name_or_id: 'Pesquisar por nome, ID ou motivo'
+  forum_thread_search: 'Pesquisar tópicos do fórum'
+  status: 'Estado'
+  forum_thread_linked: 'O tópico do fórum foi associado a esta denúncia'
+  edit_report: 'Editar denúncia'
+  set_reminder: 'Definir lembrete'
+  search_error: 'Erro ao pesquisar tópicos do fórum'
+  remove: 'Remover'
 notifications:
   newsletter:
     description: 'Receba aproximadamente uma vez por mês informações atualizadas sobre
@@ -4351,7 +4354,8 @@ language_chooser:
     e clique no ícone do lápis para começar'
   choose_button: 'Atualizar'
   content: 'Por favor, escolhe uma idioma'
-  untranslated_hint: ''
+  untranslated_hint: 'Atenção: Este idioma está atualmente traduzido apenas em {percentage}%.
+    Os textos que ainda não foram traduzidos serão apresentados em alemão.'
 prefetchtime: 'Com quantas semanas de antecedência podem os Foodsavers registar-se
   nas vagas geradas automaticamente?'
 ueberzeugungsarbeit: 'Foi fácil convencer os responsáveis a cooperar com o foodsharing?'
@@ -4397,6 +4401,7 @@ statistics:
     activeCoorporations: cooperações com locais ativos
   lastMonth: Estatísticas dos últimos 30 dias
   food_saved: comida salva
+  food_weight_saved: '{weight} de alimentos salvos'
 body: 'Mensagem'
 photo: 'Fotografia'
 really_delete: 'Remover a sério?'
@@ -5323,6 +5328,7 @@ theme_switcher:
   choose_button: 'OK'
   content: 'Por favor escolhe um design'
   title: 'Escolher design'
+  title_button: Mudar o tema
 network_errors:
   csrf_token_invalid:
     title: 'Sessão expirada'
@@ -5358,36 +5364,38 @@ debug:
   info: 'Esta é uma página de depuração para fins de teste. Se não sabes o que faz
     um botão, simplesmente não cliques 😉'
 donation_admin_page:
-  iframe_one_time_url: ''
-  donation_modal_info_url: ''
+  iframe_one_time_url: 'URL do iframe de donativos únicos'
+  donation_modal_info_url: 'URL de informação do banner de donativos'
   donation_options:
-    one_time: ''
-    friendship_circle: ''
-    campaign: ''
-  one_time_donation_project: ''
-  select_project: ''
-  save_success: ''
-  friendship_circle_project: ''
-  delete_url: ''
-  error_loading_projects: ''
-  show_donation_modal: ''
-  donation_modal_project: ''
-  iframe_selfservice_url: ''
-  show_donation_campaign_part_2: ''
-  show_donation_modal_in_hours_for_logged_in_users: ''
-  show_campaign_card: ''
-  show_donation_campaign_gallery: ''
-  total_donations: ''
-  save_error: ''
-  title: ''
-  iframe_friendship_circle_url: ''
-  edit_url: ''
-  show_donation_modal_in_hours_for_logged_out_users: ''
-  show_donation_campaign_part_1: ''
-  campaign_project: ''
-  total_donators: ''
-  iframe_campaign_url: ''
-  donation_modal_popup_url: ''
+    one_time: 'Donativos únicos'
+    friendship_circle: 'Círculo de apoiantes'
+    campaign: 'Campanhas'
+  one_time_donation_project: 'ID do projeto dos donativos únicos'
+  select_project: 'Escolher projeto'
+  save_success: 'Os dados dos donativos foram guardados com sucesso!'
+  friendship_circle_project: 'ID do projeto do círculo de apoiantes'
+  delete_url: 'Remover URL'
+  error_loading_projects: 'Erro ao carregar os projetos de donativos:'
+  show_donation_modal: 'Mostrar banner de donativos'
+  donation_modal_project: 'ID do projeto do banner de donativos'
+  iframe_selfservice_url: 'URL do iframe do autosserviço'
+  show_donation_campaign_part_2: 'Mostrar a parte 2 da campanha'
+  show_donation_modal_in_hours_for_logged_in_users: 'Mostrar o banner de donativos
+    aos utilizadores com sessão iniciada após (em horas):'
+  show_campaign_card: 'Mostrar campanha'
+  show_donation_campaign_gallery: 'Mostrar a galeria da campanha'
+  total_donations: 'Total de donativos'
+  save_error: 'Erro ao guardar os dados dos donativos'
+  title: 'Gestão de donativos'
+  iframe_friendship_circle_url: 'URL do iframe do círculo de apoiantes'
+  edit_url: 'Editar URL'
+  show_donation_modal_in_hours_for_logged_out_users: 'Mostrar o banner de donativos
+    aos utilizadores sem sessão iniciada após (em horas):'
+  show_donation_campaign_part_1: 'Mostrar a parte 1 da campanha'
+  campaign_project: 'ID do projeto da campanha'
+  total_donators: 'Número de doadores'
+  iframe_campaign_url: 'URL do iframe das campanhas'
+  donation_modal_popup_url: 'URL do pop-up do banner de donativos'
 email_blocklist:
   admin:
     update_success: ''
@@ -5411,54 +5419,127 @@ email_blocklist:
     pattern_placeholder: ''
 donation_page:
   faq:
-    answer_3: ''
+    answer_3: 'O **foodsharing e.V.** é uma associação sem fins lucrativos oficialmente
+      reconhecida na Alemanha e beneficia de um regime fiscal favorável. Todos os
+      donativos feitos ao foodsharing e.V. podem ser deduzidos nos impostos na Alemanha,
+      nos termos do §10b da Lei Alemã do Imposto sobre o Rendimento (EStG).
+
+
+      * **Até 300 €:** A autoridade tributária alemã aceita uma cópia do comprovativo
+      da transferência bancária ou do extrato bancário como comprovativo do donativo.
+      Assim, beneficias automaticamente da dedução fiscal correspondente ao valor
+      do teu donativo.
+
+      * **Mais de 300 €:** Para donativos de valor superior, podes solicitar um comprovativo
+      oficial de donativo por e-mail para **[fundraising.freundeskreis@foodsharing.network](mailto:fundraising.freundeskreis@foodsharing.network)**.
+
+
+      **Importante:** Infelizmente, os donativos efetuados a partir da Suíça, da Áustria
+      ou de outros países não podem ser deduzidos para efeitos fiscais.
+
+      '
     answer_2: ''
     question_7: ''
     question_1: ''
     question_8: ''
-    answer_4: ''
+    answer_4: "**Participa e faz já o teu donativo!** Seja através do nosso [formulário
+      de donativos](donation), com um donativo único, \nou regularmente através do
+      [círculo de apoiantes do foodsharing](donation/friendship_circle) – cada contribuição
+      ajuda \na salvar alimentos. Podes doar comodamente por débito direto, cartão
+      de crédito, PayPal ou transferência bancária.\n\nSe preferires fazer uma transferência
+      bancária, utiliza os seguintes dados:\n\n**foodsharing e.V.**\nIBAN: DE66 4306
+      0967 4063 8156 00\nGLS Gemeinschaftsbank\n"
     question_5: ''
     answer_8: ''
     title: ''
     answer_6: ''
-    answer_9: ''
+    answer_9: '**Com todo o gosto!** Se quiseres fazer um donativo regular, junta-te
+      ao **círculo de apoiantes do foodsharing**, onde podes configurar um donativo
+      periódico. Com o teu apoio, ajudas-nos a tornar o foodsharing mais sustentável
+      e previsível, garantindo o funcionamento da nossa organização.
+
+
+      Além disso, estamos a preparar algumas novidades interessantes para os membros
+      do **círculo de amigos do foodsharing**! Encontra mais informações no [Círculo
+      de Amigos do foodsharing](donation/friendship_circle).
+
+      '
     answer_5: ''
-    answer_1: ''
+    answer_1: '**Todos os donativos e contribuições** recebidos através de campanhas
+      de donativos, donativos únicos ou do círculo de apoiantes do foodsharing revertem
+      a favor da *foodsharing e.V.*
+
+
+      Esta associação sem fins lucrativos gere os sites **foodsharing.de**, **foodsharing.at**
+      e **foodsharing.network**, constituindo a base das atividades do foodsharing
+      na Alemanha, na Áustria, na Suíça e noutros países.
+
+
+      Entre essas atividades está, por exemplo, **salvar alimentos a nível local**,
+      uma ação organizada através das plataformas online. Para além disso, projetos
+      e ações de âmbito suprarregional são coordenados pelos respetivos grupos de
+      trabalho.
+
+      '
     question_9: ''
-    question_10: ''
-    answer_7: ''
-    answer_10: ''
+    question_10: 'Posso cancelar ou alterar o meu donativo regular para o círculo
+      de apoiantes do foodsharing a qualquer momento?'
+    answer_7: '**Não diretamente – mas há uma solução!** Os donativos individuais,
+      as campanhas de angariação de fundos e as contribuições para o círculo de apoiantes
+      do foodsharing destinam-se a projetos suprarregionais e, por isso, não podem
+      ser atribuídos diretamente a um distrito ou grupo local específico.
+
+
+      Se pretendes que o teu donativo tenha um impacto direto na tua região, o melhor
+      é entrares em contacto com o grupo distrital correspondente. Podes encontrar
+      uma lista de todos os distritos do foodsharing [aqui!](content?sub=communities)
+
+      '
+    answer_10: 'Podes alterar o valor do teu donativo ou cancelar o teu donativo regular
+      a qualquer momento, de forma simples, através da nossa área de autoatendimento.
+      Basta iniciares sessão [aqui](/donation/selfservice)!
+
+      Se tiveres alguma dúvida ou precisares de ajuda, entra em contacto connosco
+      através de [fundraising.freundeskreis@foodsharing.network](mailto:fundraising.freundeskreis@foodsharing.network).
+      Teremos todo o gosto em ajudar!
+
+      '
     question_4: ''
     question_2: ''
     question_6: ''
     question_3: ''
     teaser: ''
-  show_less: ''
+  show_less: 'Mostrar menos'
   campaign:
-    goal: ''
-    claim: ''
-    count: ''
+    goal: 'Meta de donativos: {goal}'
+    claim: 'Juntos por uma maior valorização dos alimentos.'
+    count: 'Total de donativos atual'
   stats:
-    all_donators: ''
-    friendship_circle_donators: ''
+    all_donators: 'Foodsharers'
+    friendship_circle_donators: 'Apoiantes'
     one_time_donators: ''
   donation_options:
     one_time:
-      text: ''
-      button: ''
-      title: ''
+      text: 'Cada donativo ajuda-nos a reduzir o desperdício alimentar. **Aqui podes
+        contribuir a partir de 5 euros.**
+
+        '
+      button: 'Doar uma vez'
+      title: 'Donativo único'
     campaign:
-      button: ''
-      title: ''
-      text: ''
+      button: 'Quero doar!'
+      title: 'Campanha'
+      text: 'Cada contributo ajuda-nos a reduzir o desperdício alimentar. **Aqui podes
+        contribuir a partir de apenas 5 euros.**'
     friendship_circle:
-      title: ''
-      text: ''
-      button: ''
-  title: ''
-  show_more: ''
-  subtitle: ''
+      title: 'Círculo de apoiantes'
+      text: 'As doações regulares permitem-nos planear a longo prazo e desenvolver
+        o foodsharing de forma sustentável. Apoia-nos com um donativo regular'
+      button: 'Juntar-me ao círculo de amigos'
+  title: 'O teu donativo para'
+  show_more: 'Mostrar mais'
+  subtitle: 'O teu contributo para dar mais valor aos alimentos – eis como podes ajudar:'
 donation_modal:
-  action_button: ''
-  amount: ''
-  info_button: ''
+  action_button: 'Doar aqui!'
+  amount: 'Estado dos donativos'
+  info_button: 'Para onde vai o meu donativo?'
