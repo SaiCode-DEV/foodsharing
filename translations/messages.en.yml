@@ -248,14 +248,14 @@ group:
       exchange: Exchange groups
       administrative: Administration groups
       project: Project groups
-      development: ''
+      development: 'Design Groups'
   category:
     default: No group type selected
     archived: Archived group
     exchange: Exchange group
     administrative: Administration group
     project: Project group
-    development: ''
+    development: 'Design Group'
 settings:
   header: Profile settings
   push:
@@ -3637,6 +3637,7 @@ statistics:
     foodBasketsLastMonth: food baskets distributed
     activeHomeRegionFoodsavers: active foodsavers
   lastMonth: Statistics of the past 30 days
+  food_weight_saved: '{weight} of food saved'
 storestatus:
   "0": Status unclear
   "7": Store no longer exists
@@ -5185,7 +5186,7 @@ network_errors:
 donation_modal:
   action_button: Donate here!
   amount: 'Total donations'
-  info_button: ''
+  info_button: 'Where does my donation go?'
 donation_admin_page:
   title: Donation administration
   total_donations: Total donations
@@ -5336,6 +5337,6 @@ donation_page:
   stats:
     all_donators: ''
     friendship_circle_donators: ''
-    one_time_donators: ''
+    one_time_donators: 'One-time donors'
   subtitle: 'Your commitment to promoting greater appreciation of food – here is how
     you can help:'

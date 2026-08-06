@@ -1670,7 +1670,7 @@ group:
     requirements: 'Quem pode inscrever-se neste grupo?'
     open: 'Todos pessoas podem participar sem se candidatarem.'
     everybody: 'Todos podem candidatar-se.'
-  photo: 'Fotografía'
+  photo: 'Imagem do grupo'
   mail_link_title:
     region: 'Caixa postal do distrito'
     workgroup: 'Caixa postal do grupo de trabalho'
@@ -1681,8 +1681,8 @@ group:
   actions:
     go: 'Ao grupo'
     save: 'Guardar alterações'
-    contact: 'Contacto este grupo'
-    join: 'Participe neste grupo de trabalho'
+    contact: 'Contactar'
+    join: 'Aderir'
     apply: 'Aplicar...'
   member_count:
     zero: Sem membros
@@ -4946,17 +4946,92 @@ help:
         Esta loja faz parte de uma [cadeia comercial](https://wiki.foodsharing.de/Betrieb#Betriebskette). Todas as cadeias comerciais têm [KAMs](https://wiki.foodsharing.de/Key_Account_Manager_(KAM)) responsáveis, que podem consultar a equipa, a carga de trabalho e o número de vagas disponíveis para recolha nesta loja.
       title: 'Filials de cadeias'
     archived_groups:
-      md: ''
-      title: ''
+      md: 'Os grupos que já não estão ativos podem ser arquivados. Desta forma, a
+        lista de grupos mantém-se organizada, uma vez que os grupos arquivados são
+        apresentados separadamente no final. Assim, evitam-se confusões com grupos
+        ativos, enquanto os conteúdos do grupo permanecem preservados e acessíveis.
+
+        '
+      title: 'Grupos arquivados'
     publicRegionStatistics:
-      md: ''
-      title: ''
+      md: 'Estas estatísticas são atualizadas diariamente. Aqui encontras uma explicação
+        do significado de cada valor:
+
+        * **Foodsavers ativos** são os foodsavers verificados cujo distrito principal
+        é este distrito (ou um dos seus subdistritos) e que utilizaram a plataforma
+        pelo menos uma vez nos últimos 30 dias.
+
+        * **Parcerias ativas com locais** são os locais deste distrito (ou de um dos
+        seus subdistritos) que os respetivos responsáveis assinalaram como cooperações
+        ativas.
+
+        * **Recolhas de alimentos** corresponde ao número de recolhas efetuadas por
+        foodsavers em locais deste distrito (ou de um dos seus subdistritos).
+
+        * **Alimentos salvos**: Cada local tem uma quantidade média estimada de alimentos
+        recolhidos, definida pelos respetivos responsáveis. O valor apresentado corresponde
+        ao peso total estimado dos alimentos recolhidos nos últimos 30 dias em todos
+        os locais do distrito (ou dos seus subdistritos).
+
+        * **Cantinhos da Partilha ativos** são os Cantinhos da Partilha deste distrito
+        (ou de um dos seus subdistritos) que estão atualmente assinalados como ativos.
+
+        * **Cabazes alimentares distribuídos** indica quantas vezes, nos últimos 30
+        dias, foram partilhados alimentos através da funcionalidade *"Cabaz alimentar"*
+        por foodsavers deste distrito (ou de um dos seus subdistritos). Muitas vezes,
+        uma grande parte dos alimentos é distribuída sem recorrer a esta funcionalidade
+        da plataforma. Por isso, um valor baixo não significa necessariamente que
+        tenham sido distribuídos poucos alimentos.
+
+        '
+      title: 'Estatísticas do distrito dos últimos 30 dias'
     group_category:
-      md: ''
-      title: ''
+      md: 'Os grupos podem ser classificados pelas pessoas administradoras num de
+        cinco tipos. Estes distinguem-se significativamente na sua forma de funcionamento
+        e nos seus objetivos.
+
+
+        ###### Grupos de desenvolvimento
+
+        Os grupos de desenvolvimento trabalham ativamente num tema específico. Têm
+        uma atividade contínua e tomam decisões de forma autónoma dentro da sua área
+        de responsabilidade.
+
+        ###### Grupos de troca
+
+        Nestes grupos, o foco está exclusivamente na troca de ideias e experiências
+        sobre um determinado tema. Não são tomadas decisões. O endereço de e-mail
+        do grupo também serve como ponto de contacto para pessoas que não são membros
+        e que tenham dúvidas sobre esse tema.
+
+        ###### Grupos de gestão
+
+        Os grupos de gestão foram criados para assumir tarefas permanentes (por exemplo,
+        a moderação de um fórum) e não desenvolvem novos conteúdos. Frequentemente,
+        as pessoas administradoras ou membros possuem permissões especiais associadas
+        à pertença ao grupo, que lhes permitem desempenhar essas funções.
+
+        ###### Grupos de projeto
+
+        Os grupos de projeto trabalham num projeto com duração limitada, que não se
+        enquadra em nenhum dos grupos de desenvolvimento ou que envolve várias AGs.
+        Após a conclusão do projeto, estes grupos são normalmente arquivados.
+
+        ###### Grupos arquivados
+
+        Os grupos que já não estão ativos devem ser arquivados. Desta forma, a lista
+        de grupos mantém-se organizada, uma vez que os grupos arquivados são apresentados
+        separadamente no final. Assim, evitam-se confusões com grupos ativos, enquanto
+        os conteúdos do grupo permanecem preservados e acessíveis.
+
+        '
+      title: 'Tipos de grupos'
     inactive_groups:
-      title: ''
-      md: ''
+      title: 'Grupos inativos'
+      md: 'Um grupo é marcado como inativo quando não existe nenhuma publicação nova
+        no seu fórum há mais de 6 meses.
+
+        '
   helpTitle: 'Ajuda: {title}'
   tooltip: 'Mostrar a ajuda'
 test:
@@ -5109,7 +5184,7 @@ categories:
   title:
     resource: 'Categorias de recursos'
     store: 'Categorias de locais'
-    group: ''
+    group: 'Categorias de grupos'
   confirm_delete: 'Deseja mesmo eliminar a categoria {name}?'
   types:
     0: 'Recolha'
@@ -5122,7 +5197,8 @@ categories:
       estes locais deixarão de ter categoria.'
     resource: 'Ainda existem {count} recursos atribuídos a esta categoria. Ao continuar,
       estes recursos deixarão de ter categoria.'
-    group: ''
+    group: 'Estão atribuídos {count} grupos a esta categoria. Estes grupos deixarão
+      de ter uma categoria.'
   new: 'Inscrever nova categoria'
   delete: 'Eliminar categoria'
   edit: 'Editar categoria'
@@ -5398,25 +5474,28 @@ donation_admin_page:
   donation_modal_popup_url: 'URL do pop-up do banner de donativos'
 email_blocklist:
   admin:
-    update_success: ''
-    description: ''
-    load_error: ''
-    delete_error: ''
-    delete_success: ''
-    title: ''
-    delete_warning: ''
-    email_pattern: ''
-    created_at: ''
-    active: ''
-    description_placeholder: ''
-    confirm_delete: ''
-    edit_entry: ''
-    actions: ''
-    pattern_help: ''
-    create_entry: ''
-    create_success: ''
-    save_error: ''
-    pattern_placeholder: ''
+    update_success: 'Entrada atualizada com sucesso'
+    description: 'Descrição'
+    load_error: 'Erro ao carregar as entradas'
+    delete_error: 'Erro ao eliminar'
+    delete_success: 'Entrada eliminada com sucesso'
+    title: 'Gestão da lista de bloqueio de e-mails'
+    delete_warning: 'Tens a certeza de que pretendes eliminar o padrão ''{pattern}''?
+      Esta ação não pode ser anulada.'
+    email_pattern: 'Padrão de e-mail'
+    created_at: 'Criado em'
+    active: 'Ativo'
+    description_placeholder: 'Motivo do bloqueio (opcional)'
+    confirm_delete: 'Eliminar entrada?'
+    edit_entry: 'Editar entrada'
+    actions: 'Ações'
+    pattern_help: 'Utiliza * como caráter universal. Exemplos: example.com (domínio),
+      *@spam.com (qualquer endereço neste domínio), spam@* (este endereço em qualquer
+      domínio)'
+    create_entry: 'Criar novo entrada'
+    create_success: 'Entrada criada com sucesso'
+    save_error: 'Erro ao guardar'
+    pattern_placeholder: 'Ex.: spam@example.com ou *@spam.com'
 donation_page:
   faq:
     answer_3: 'O **foodsharing e.V.** é uma associação sem fins lucrativos oficialmente
@@ -5438,10 +5517,33 @@ donation_page:
       ou de outros países não podem ser deduzidos para efeitos fiscais.
 
       '
-    answer_2: ''
-    question_7: ''
-    question_1: ''
-    question_8: ''
+    answer_2: '**O mais importante primeiro:** o foodsharing é gratuito, sem fins
+      lucrativos e livre de publicidade – e assim continuará. Nunca são pedidos donativos
+      para salvar e distribuir alimentos de forma justa, nem os donativos são utilizados
+      para esse fim.
+
+
+      Com o teu donativo, o foodsharing pode criar postos de trabalho remunerados
+      para a coordenação interna e profissionalizar a gestão entre grupos locais.
+      Além disso, apoiamos grupos de trabalho suprarregionais e, não menos importante,
+      o teu apoio torna possível o nosso trabalho de sensibilização e educação através
+      da [Academia do foodsharing](https://www.foodsharing-akademie.org), sobre os
+      temas do desperdício alimentar, da valorização dos alimentos e da alimentação
+      sustentável.
+
+
+      A gestão da associação, os projetos suprarregionais, os grupos de trabalho e
+      as atividades de comunicação e educação precisam de uma base financeira sólida.
+      O nosso princípio é simples: **tanto dinheiro quanto necessário, tão pouco quanto
+      possível.**
+
+
+      Podes encontrar mais informações na nossa [página de transparência](content?sub=transparency).
+
+      '
+    question_7: 'Posso enviar o meu donativo diretamente para um grupo local do foodsharing?'
+    question_1: 'O que acontece ao meu donativo?'
+    question_8: 'Também posso fazer donativos em bens ou serviços?'
     answer_4: "**Participa e faz já o teu donativo!** Seja através do nosso [formulário
       de donativos](donation), com um donativo único, \nou regularmente através do
       [círculo de apoiantes do foodsharing](donation/friendship_circle) – cada contribuição
@@ -5449,10 +5551,26 @@ donation_page:
       de crédito, PayPal ou transferência bancária.\n\nSe preferires fazer uma transferência
       bancária, utiliza os seguintes dados:\n\n**foodsharing e.V.**\nIBAN: DE66 4306
       0967 4063 8156 00\nGLS Gemeinschaftsbank\n"
-    question_5: ''
-    answer_8: ''
-    title: ''
-    answer_6: ''
+    question_5: 'Posso também fazer um donativo a partir da Suíça, da Áustria ou de
+      outros países?'
+    answer_8: '**Também é possível!** Os donativos em bens (como bicicletas de carga
+      ou equipamento para Fairteiler) são organizados diretamente pelos grupos locais.
+      Atualmente, recebemos sobretudo donativos de materiais impressos, mas também
+      agradecemos apoio em áreas como aconselhamento jurídico, informática ou design
+      gráfico.
+
+
+      Para isso, entra em contacto connosco através de [fundraising@foodsharing.network](mailto:fundraising@foodsharing.network).
+
+      '
+    title: 'Perguntas frequentes'
+    answer_6: '**Claro que sim!** Se estiveres interessado numa colaboração que vá
+      além de um simples donativo, entra em contacto connosco através do e-mail [fundraising@foodsharing.network](mailto:fundraising@foodsharing.network).
+
+
+      Se a tua empresa pretender doar alimentos, entra em contacto através de [unternehmen@foodsharing.network](mailto:unternehmen@foodsharing.network).
+
+      '
     answer_9: '**Com todo o gosto!** Se quiseres fazer um donativo regular, junta-te
       ao **círculo de apoiantes do foodsharing**, onde podes configurar um donativo
       periódico. Com o teu apoio, ajudas-nos a tornar o foodsharing mais sustentável
@@ -5464,7 +5582,18 @@ donation_page:
       de Amigos do foodsharing](donation/friendship_circle).
 
       '
-    answer_5: ''
+    answer_5: '**Claro!** O teu donativo é aplicado em projetos suprarregionais, independentemente
+      do país de onde venha. Dessa forma, também apoias as atividades do foodsharing
+      na Áustria, na Suíça e noutros países.
+
+
+      Assim, com o teu donativo contribuis sempre para o bem comum do movimento foodsharing!
+
+
+      **Importante:** Infelizmente, os donativos feitos a partir da Suíça, da Áustria
+      ou de outros países não são dedutíveis para efeitos fiscais.
+
+      '
     answer_1: '**Todos os donativos e contribuições** recebidos através de campanhas
       de donativos, donativos únicos ou do círculo de apoiantes do foodsharing revertem
       a favor da *foodsharing e.V.*
@@ -5481,7 +5610,7 @@ donation_page:
       trabalho.
 
       '
-    question_9: ''
+    question_9: 'Como posso apoiar financeiramente o foodsharing a longo prazo?'
     question_10: 'Posso cancelar ou alterar o meu donativo regular para o círculo
       de apoiantes do foodsharing a qualquer momento?'
     answer_7: '**Não diretamente – mas há uma solução!** Os donativos individuais,
@@ -5504,11 +5633,12 @@ donation_page:
       Teremos todo o gosto em ajudar!
 
       '
-    question_4: ''
-    question_2: ''
-    question_6: ''
-    question_3: ''
-    teaser: ''
+    question_4: 'Como posso fazer um donativo?'
+    question_2: 'Para que é que o foodsharing precisa de dinheiro?'
+    question_6: 'As organizações e as empresas também podem fazer donativos?'
+    question_3: 'Como funciona o comprovativo de donativo para efeitos fiscais? '
+    teaser: 'Aqui encontras respostas às perguntas mais importantes sobre os donativos
+      ao foodsharing.'
   show_less: 'Mostrar menos'
   campaign:
     goal: 'Meta de donativos: {goal}'
@@ -5517,7 +5647,7 @@ donation_page:
   stats:
     all_donators: 'Foodsharers'
     friendship_circle_donators: 'Apoiantes'
-    one_time_donators: ''
+    one_time_donators: 'Doadores pontuais'
   donation_options:
     one_time:
       text: 'Cada donativo ajuda-nos a reduzir o desperdício alimentar. **Aqui podes

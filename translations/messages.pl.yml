@@ -3137,9 +3137,9 @@ profile:
     actionBy: przez
     lostVerification: 'Odweryfikowany/a'
   notes:
-    bread: notatki
+    bread: Notatki
     title: Notatki o {name}
-    info: 'Używaj tej funkcji rozważnie. Ma ona pomóc, aby procesy były dla nas widoczne
+    info: 'Używaj tej funkcji rozważnie. Ma ona pomóc w tym, aby procesy były widoczne
       i oszczędzać nam pracy. Nie ma tutaj miejsca na sprawy osobiste lub wartościowanie
       osoby. Trzymaj się faktów.'
   online: '{name} jest online.'
@@ -3147,24 +3147,24 @@ profile:
     title: Informacje
     fsMail: 'Wewnętrzna skrzynka pocztowa'
     registrationDate: 'Data rejestracji'
-    buddies: 'znajomi'
+    buddies: 'Znajomi'
     never: 'Jeszcze nigdy'
     lastActivity: 'Ostatnia aktywność'
     fetchrate: 'Wskaźnik zrealizowanych odbiorów'
-    buddycount_known: '{name} zna {count} foodsaverów/ki/ek'
+    buddycount_known: 'Liczba foodsaverów/ek, których/e zna {name}: {count}'
     foodsaverId: 'ID'
-    buddycount_followed: '{name} jest znany/a przez {count} foodsaverów/ek'
+    buddycount_followed: 'Liczba foodsaverów/ek, którzy/e znają {name}: {count}'
     privateMail: 'Prywatny adres email'
   stats:
-    bananas: Banany
-    baskets: 'Jadłokoszyki'
+    bananas: liczba bananów
+    baskets: 'liczba jadłokoszyków'
     weight_unit: 'kg'
-    weight: 'uratowane'
-    give_count: 'przekazane/ych darowizn/y'
-    slots: 'sloty'
-    engagement_count: 'zaangażowanie'
-    fetch_count: 'wykonane/ych odbiory/ów'
-    posts: 'posty/ów'
+    weight: 'uratowanej żywności'
+    give_count: 'liczba przekazanych darowizn'
+    slots: 'liczba slotów'
+    engagement_count: 'liczba akcji zaangażowania'
+    fetch_count: 'liczba wykonanych odbiorów'
+    posts: 'liczba postów'
   about_me_intern: O mnie
   public:
     who: '{name} z {from}'
@@ -3190,26 +3190,26 @@ profile:
     arbAdminAgainstRepAdmin: 'Jesteś administratorem/ką rady arbitrażowej i chcesz
       zgłosić skargę przeciwko administratorowi/ce zespołu rozpatrującego skargi.
       Na ten moment nie jest to technicznie wspierane. Możesz zawsze wysłać skargę
-      mailem do lokalnie odpowiedzialnych za was osób w tym przypadku.'
+      mailem do osób lokalnie odpowiedzialnych za ten przypadek.'
     confirmDelete: 'Czy na pewno usunąć tę skargę?'
     oldReportButton: 'Zgłoś skargę'
     send: 'Wyślij skargę'
     report_b3_1: 'Nie wykonał/a odbioru bez kłótni lub dyskusji (B03-2)'
-    report_b1_3: 'Bez pozwolenia wziął/ęła dzieci do punktu (B01-4)'
+    report_b1_3: 'Bez pozwolenia przyprowadził/a dzieci do punktu (B01-4)'
     report_b6_0: 'Nie poszanowano klienteli i pracowników/czek punktu (B06-1)'
     report_b12: 'Nie pozwolono odbierającym samodzielnie zdecydować, komu przekażą
       produkty żywnościowe (B12)'
     report_b7: 'Nie zachowano czasu oczekiwania punktu (B07)'
     report_b4_1: 'Nie rozdzielono żywności sprawiedliwie (B04-2)'
-    report_b1_2: 'Bez pozwolenia wziął/ęła zwierzęta do punktu (B01-3)'
+    report_b1_2: 'Bez pozwolenia przyprowadził/a zwierzęta do punktu (B01-3)'
     repAdminAgainstArbAdmin: 'Jesteś administratorem/ką zespołu rozpatrującego skargi
       i chcesz zgłosić skargę przeciwko administratorowi/ce rady arbitrażowej. Na
       ten moment nie ma technicznego wsparcia dla tej opcji. Możesz zawsze wysłać
-      skargę mailem do osób w tym przypadku lokalnie odpowiedzialnych za was.'
+      skargę mailem do osób lokalnie odpowiedzialnych za ten przypadek.'
     sent: 'Wysłano skargę'
     report_b4_0: 'Nie wzięto całej przydatnej do spożycia żywności (B04-1)'
     oldReportButtonTextPart3: 'Więcej informacji o systemie skarg znajdziecie'
-    info: 'Abyśmy mogli jak najlepiej rozpatrzyć twoją skargę, powinna ona zawierać
+    info: 'Abyśmy mogli/mogły jak najlepiej rozpatrzyć twoją skargę, powinna ona zawierać
       następujące informacje:
 
       - data, godzina i miejsce zdarzenia,
@@ -3259,7 +3259,7 @@ profile:
     cancellation: 'Częste krótkoterminowe odwoływanie odbiorów bez szukania zastępstwa'
     report_b13: 'Nie postarano się, aby wykorzystać / rozdać uratowane produkty żywnościowe
       (B13)'
-  alldatesdeleted: Wszystkie daty zostały usunięte
+  alldatesdeleted: Usunięto wszystkie daty
   cantdeleteall: Nie możesz usunąć wszystkich dat!
   mediation:
     title: 'Zapytanie o mediację dla {name}'
@@ -3268,13 +3268,13 @@ profile:
       i pomóc, aby wasze rozmowy były prowadzone na równi i ze wzajemnym szacunkiem.
       Możesz skontaktować się z lokalnym zespołem mediacji pod następującym adresem
       email:'
-    no_group: 'Niestety, w rejonie macierzystym tego/j foodsavera/ki nie ma jeszcze
+    no_group: 'Niestety, w rejonie macierzystym tego/tej foodsavera/ki nie ma jeszcze
       lokalnego zespołu mediacji. Możesz zaproponować na spotkaniu grupowym albo na
       forum, aby wybrać lokalny zespół mediacji.'
   notFound: 'Tego profilu użytkownika/czki (już) nie ma'
   choosestore: 'Wybierz punkt, którego to dotyczy'
   deletesuccess: 'Usunięto pojedynczy slot odbioru'
-  sleeping_info_from_until: 'jest uśpiony/a od {from} do {until}'
+  sleeping_info_from_until: 'jest w trybie uśpienia od {from} do {until}'
   warning: 'Uwaga'
   tab_navigation:
     pickups: 'Sloty'
@@ -3310,7 +3310,7 @@ dashboard:
   empty_section: Jeszcze nie masz {type}
   save_selection: Zapisz ustawienia
   source_foodsharepoint: Jadłodzielnie {0}
-  source_friendWall: Pinnwand {0}
+  source_friendWall: Tablica od {0}
   source_forum: Forum {0}
   source_mailbox: '{0}'
   activation_mail_failure: Nie można było wysłać nowego linku aktywującego
@@ -3322,14 +3322,14 @@ dashboard:
     buddies: Osoby, które znasz
     regions: 'Twoje rejony'
     polls: 'Głosowania'
-    pending: 'Wysłano zapytanie do'
+    pending: 'Wysłano zgłoszenie do'
     no-stores: 'Nie jesteś teraz w żadnym teamie punktu.'
     pickups: 'Zarejestrowane sloty'
     pickupOptions: 'Możliwości zapisu'
     stores: 'Twoje punkty'
     baskets: 'Jadłokoszyki'
     jumping_stores: 'Punkty, w których jesteś na liście rezerwowych'
-    managing_stores: 'Twoje koordynacje punktów'
+    managing_stores: 'Punkty, które koordynujesz'
   source_forum_bot: Forum ambasadorów/ek {0}
   release:
     for_support: Poza tym możesz się z nami skontaktować pod
@@ -3362,16 +3362,15 @@ dashboard:
   no_more_updates_forum: 'Nie ma więcej wpisów na forum'
   chooseHomeRegion: 'Wybierz rejon macierzysty.'
   deleted_user: 'usunięty/a użytkownik/czka'
-  foodsaver_amount: 'Wykonałeś/aś <b>{pickups}  x</b> odbiory/ów żywności i uratowałeś/aś
-    <b>{weight}  kg</b>.'
+  foodsaver_amount: 'Liczba wykonanych przez ciebie odbiorów żywności to: <b>{pickups}
+     x</b> i w sumie uratowałeś/aś <b>{weight}  kg</b>.'
   no_more_updates_event: 'Nie ma więcej eventów'
   settings_tooltip: 'Ustawienia przeglądu'
   no_more_updates_store: 'Nie ma więcej informacji z punktów'
-  full_subline: 'Wykonałeś/aś **{pickups} x** odbiory/ów żywności i uratowałeś/aś
-    **{weight} kg**. Twój rejon macierzysty to **{region}**.'
+  full_subline: 'Liczba wykonanych przez ciebie odbiorów żywności to: **{pickups} x**
+    i w sumie uratowałeś/aś **{weight} kg**. Twój rejon macierzysty to **{region}**.'
   no_more_updates_foodsharepoint: 'Nie ma więcej postów z jadłodzielni'
-  activation_mail_sent: 'Link do aktywacji został wysłany - proszę, sprawdź swoje
-    maile'
+  activation_mail_sent: 'Wysłano link do aktywacji - proszę, sprawdź swoje maile'
   greeting: 'Cześć {name}! Miło cię widzieć.'
   no_more_updates_friendWall: 'Nie ma więcej aktualizacji statusu'
   source_friendWall_own: 'Twoja tablica'
