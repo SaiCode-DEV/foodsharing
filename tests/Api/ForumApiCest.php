@@ -1449,4 +1449,20 @@ class ForumApiCest
 
         return $title;
     }
+
+    public function membershipGrantedFromOutsideIsSeenWithoutRelogin(ApiTester $I): void
+    {
+        $I->login($this->userWithoutMembershipInRegion['email']);
+
+        // Prime the session cache with "not a member"
+        $I->sendGET('api/regions/' . $this->region['id'] . '/forum/threads?subforumId=0');
+        $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
+
+        // Someone else grants the membership: only the database changes, the session
+        // cache still says "no member" (#2774 - e.g. an accepted group application)
+        $I->addRegionMember($this->region['id'], $this->userWithoutMembershipInRegion['id']);
+
+        $I->sendGET('api/regions/' . $this->region['id'] . '/forum/threads?subforumId=0');
+        $I->seeResponseCodeIs(HttpCode::OK);
+    }
 }

@@ -178,12 +178,13 @@ class CurrentUserUnitsSessionTransactions implements CurrentUserUnitsInterface
         if ($this->session->role()->isAtLeast(Role::ORGA)) {
             return true;
         }
-        // use database check if the session includes the region to unsure previleges are lost after removal from a region
+        // the cached session can be stale in both directions: a membership removed elsewhere,
+        // or granted from outside this session (e.g. an accepted group application)
         $isMember = $this->isMemberFor($regionId);
-        if ($isMember && !$this->regionGateway->hasMember($this->session->id(), $regionId)) {
-            // Reload session content to ensure valid membership
+        $isMemberInDatabase = $this->regionGateway->hasMember($this->session->id(), $regionId);
+        if ($isMember !== $isMemberInDatabase) {
             $this->getOrFetchUserUnitsInformation(true);
-            $isMember = false;
+            $isMember = $isMemberInDatabase;
         }
 
         return $isMember;
