@@ -54,11 +54,34 @@ class WallPostGateway extends BaseGateway
             INNER JOIN fs_foodsaver foodsaver ON post.foodsaver_id = foodsaver.id
             INNER JOIN {$this->getLinkTableName($target)} has_post ON post.id = has_post.wallpost_id
 			WHERE has_post.`{$this->getLinkTableForeignIdColumnName($target)}` = :targetId
-			ORDER BY post.time DESC
+			ORDER BY post.time DESC, post.id DESC
         " . $this->buildPaginationSqlLimit($pagination),
             $this->addPaginationSqlLimitParameters($pagination, ['targetId' => $targetId]));
 
         return array_map(WallPost::createFromArray(...), $posts);
+    }
+
+    /**
+     * @return int the index of the post in the list of posts for the given target (starting from 1), or 0 if the post does not exist or is not linked to the target
+     */
+    public function getPostIndex(WallType $target, int $targetId, int $postId): int
+    {
+        return $this->db->fetchValue("SELECT
+                COUNT(*)
+            FROM fs_wallpost post
+            INNER JOIN {$this->getLinkTableName($target)} has_post
+                ON post.id = has_post.wallpost_id
+            INNER JOIN fs_wallpost anchor
+                ON anchor.id = :postId
+            INNER JOIN {$this->getLinkTableName($target)} anchor_has_post
+                ON anchor.id = anchor_has_post.wallpost_id
+            WHERE has_post.`{$this->getLinkTableForeignIdColumnName($target)}` = :targetId
+                AND anchor_has_post.`{$this->getLinkTableForeignIdColumnName($target)}` = :targetId
+                AND (post.time, post.id) >= (anchor.time, anchor.id)
+        ", [
+            'targetId' => $targetId,
+            'postId' => $postId,
+        ]);
     }
 
     /**

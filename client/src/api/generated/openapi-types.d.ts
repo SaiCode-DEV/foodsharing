@@ -19205,6 +19205,8 @@ export interface operations {
     get_foodsharing_restapi_wallrest_getposts: {
         parameters: {
             query?: {
+                /** @description The ID of the post to anchor the results to. If provided, the results limit will be expanded to include that post. Ignored if the post is not linked to the wall or is behind the given offset. */
+                anchorPostId?: number | null;
                 limit?: number | null;
                 offset?: number | null;
             };

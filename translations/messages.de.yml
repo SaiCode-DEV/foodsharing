@@ -1631,6 +1631,7 @@ wall:
   delete_confirmation:
     text: Willst du wirklich diesen Eintrag von {author} löschen?
     title: Pinnwandeintrag löschen?
+  post_not_found: "Der verlinkte Beitrag wurde nicht gefunden, möglicherweise wurde er gelöscht."
 
 events:
   bread: "Termine"

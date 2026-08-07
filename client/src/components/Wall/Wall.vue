@@ -46,6 +46,7 @@
       v-for="p in posts"
       :key="p.id"
       :post="p"
+      :target="target"
       :may-delete-everything="mayDeleteEverything"
       :may-react="mayReact"
       :gallery-height-in-px="galleryHeightInPx"
@@ -69,7 +70,7 @@
 
 <script>
 import WallPost from './WallPost'
-import { showLoader, hideLoader, pulseError } from '@/script'
+import { showLoader, hideLoader, pulseError, pulseWarning } from '@/script'
 import Container from '@/components/Container/Container.vue'
 import MarkdownInput from '../Markdown/MarkdownInput.vue'
 import { getWallPosts, addPost, deletePost, addReaction, removeReaction } from '@/api/wall'
@@ -136,12 +137,26 @@ export default {
     // expanded and scroll the linked post into view — even if it was collapsed before.
     async openLinkedPost () {
       if (this.linkedPostId === null) return
-      if (!this.posts.some(post => post.id === this.linkedPostId)) return
+      if (!this.posts.some(post => post.id === this.linkedPostId)) {
+        pulseWarning(this.$t('wall.post_not_found'))
+        return
+      }
       await this.$nextTick()
       this.$refs.wallContainer?.expand()
       await this.$nextTick()
       const el = document.getElementById(`wallpost-${this.linkedPostId}`)
-      el?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      if (!el) return
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      await new Promise(resolve => window.setTimeout(resolve, 500))
+      el.animate({
+        backgroundColor: ['transparent', 'var(--fs-color-warning-alpha-60)', 'transparent'],
+        offset: [0, 0.05, 1],
+        easing: ['ease-out', 'ease-in'],
+      }, {
+        direction: 'alternate',
+        duration: 4000,
+        iterations: 1,
+      })
     },
     async loadMorePosts () {
       this.loading.morePosts = true
@@ -149,7 +164,7 @@ export default {
       const limit = (!this.page && this.firstPageSize) ? this.firstPageSize : this.pageSize
       let data
       try {
-        data = await getWallPosts(this.target, this.targetId, limit, this.posts.length)
+        data = await getWallPosts(this.target, this.targetId, limit, this.posts.length, this.linkedPostId)
       } catch {
         return
       }

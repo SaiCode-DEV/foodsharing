@@ -10,11 +10,9 @@
         <a :href="$url('profile', post.author.id)" v-text="post.author.name" />
         <span class="flex-grow-1" />
         <TimeDisplay :time="post.time" />
-        <i
-          v-if="canDelete"
-          v-b-tooltip="$t('wall.delete')"
-          class="fas fa-trash-alt text-muted delete-post"
-          @click="$emit('delete', post.id)"
+        <OverflowMenu
+          :options="menuOptions"
+          style="margin: -0.6em -0.5em -0.3em -0.5em"
         />
       </div>
       <Markdown :source="post.body" />
@@ -43,14 +41,18 @@ import Markdown from '@/components/Markdown/Markdown'
 import Gallery from '@/components/Images/Gallery'
 import TimeDisplay from '@/components/TimeDisplay.vue'
 import ReactionsBar from './ReactionsBar.vue'
+import OverflowMenu from '@/components/OverflowMenu.vue'
+import CopyToClipboardMixin from '@/mixins/CopyToClipboardMixin'
 
 export default {
-  components: { Avatar, Markdown, Gallery, TimeDisplay, ReactionsBar },
+  components: { Avatar, Markdown, Gallery, TimeDisplay, ReactionsBar, OverflowMenu },
+  mixins: [CopyToClipboardMixin],
   props: {
     post: { type: Object, required: true },
     mayDeleteEverything: { type: Boolean, default: false },
     mayReact: { type: Boolean, default: false },
     galleryHeightInPx: { type: Number, default: undefined },
+    target: { type: String, default: null },
   },
   setup () {
     const userStore = useUserStore()
@@ -61,6 +63,21 @@ export default {
   computed: {
     canDelete () {
       return this.mayDeleteEverything || this.post.author.id === this.userStore.getUserId
+    },
+    menuOptions () {
+      return [
+        { hide: !navigator.clipboard, icon: 'copy', textKey: 'thread.post.options.copy_source', callback: this.copySourceCodeToClipboard },
+        { icon: 'chain', textKey: 'thread.post.options.copy_direct_link', callback: this.copyDirectLink },
+        { hide: !this.canDelete, textKey: 'wall.delete', icon: 'trash-alt', callback: () => this.$emit('delete', this.post.id) },
+      ]
+    },
+  },
+  methods: {
+    async copySourceCodeToClipboard () {
+      this.copyToClipboard(this.post.body, 'thread.post.copy_source_success')
+    },
+    async copyDirectLink () {
+      this.copyToClipboard(location.protocol + '//' + location.host + location.pathname + `?showPost=${this.target}-${this.post.id}`, 'thread.post.copy_direct_link_success')
     },
   },
 }

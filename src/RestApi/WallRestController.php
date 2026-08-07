@@ -48,13 +48,20 @@ class WallRestController extends AbstractFoodsharingRestController
         new OA\Property(property: 'mayReact', type: 'boolean', description: 'whether the user is permitted to react to posts on this wall'),
     ]))]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted to read this wall')]
-    public function getPosts(string $target, int $targetId, #[MapQueryParameter] ?int $limit, #[MapQueryParameter] ?int $offset): Response
+    #[OA\QueryParameter(name: 'anchorPostId', description: 'The ID of the post to anchor the results to. If provided, the results limit will be expanded to include that post. Ignored if the post is not linked to the wall or is behind the given offset.')]
+    public function getPosts(string $target, int $targetId, #[MapQueryParameter] ?int $limit, #[MapQueryParameter] ?int $offset, #[MapQueryParameter] ?int $anchorPostId): Response
     {
         $wallType = $this->parseWallType($target, $targetId);
         if (!$this->wallPostPermissions->mayReadWall($wallType, $targetId)) {
             throw new AccessDeniedHttpException('Not permitted ');
         }
         $pagination = Pagination::create($limit, $offset);
+        if ($anchorPostId) {
+            $postIndex = $this->wallPostGateway->getPostIndex($wallType, $targetId, $anchorPostId);
+            if ($postIndex && $pagination->offset + $pagination->limit <= $postIndex) {
+                $pagination->limit = $postIndex - $pagination->offset;
+            }
+        }
 
         $posts = $this->wallPostGateway->getPosts($wallType, $targetId, $pagination);
 

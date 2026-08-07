@@ -134,7 +134,7 @@ class WallPostTransactions
                     'event_post_title',
                     'event_post',
                     'fas fa-calendar',
-                    ['href' => '/event/' . $targetId],
+                    ['href' => '/event/' . $targetId . '?showPost=event-' . $postId],
                     [
                         'event' => $event->name,
                         'region' => $region,
@@ -166,7 +166,7 @@ class WallPostTransactions
                     'ft_update_title',
                     'ft_update',
                     'fas fa-recycle',
-                    ['href' => '/fairteiler/' . $targetId],
+                    ['href' => '/fairteiler/' . $targetId . '?showPost=food-share-point-' . $postId],
                     [
                         'name' => $this->foodSharePointGateway->getFoodSharePoint($targetId)->name,
                         'teaser' => substr($wallPost->body ?? '', 0, 100)

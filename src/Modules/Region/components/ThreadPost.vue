@@ -128,7 +128,6 @@ import Markdown from '@/components/Markdown/Markdown.vue'
 import OverflowMenu from '@/components/OverflowMenu.vue'
 import TimeDisplay from '@/components/TimeDisplay.vue'
 import dateFormatter from '@/helper/date-formatter'
-import { pulseSuccess } from '@/script'
 
 export default {
   components: { Avatar, ThreadPostActions, Markdown, OverflowMenu, TimeDisplay },
@@ -171,8 +170,7 @@ export default {
       conversationStore.openChatWithUser(this.post.author.id)
     },
     async copySourceCodeToClipboard () {
-      await navigator.clipboard.writeText(this.post.body)
-      pulseSuccess(this.$t('thread.post.copy_source_success'))
+      this.copyToClipboard(this.post.body, 'thread.post.copy_source_success')
     },
     async copyDirectLink () {
       this.copyToClipboard(location.protocol + '//' + location.host + this.deepLink, 'thread.post.copy_direct_link_success')
