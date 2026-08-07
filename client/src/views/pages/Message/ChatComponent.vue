@@ -372,6 +372,13 @@ export default {
       overscroll-behavior: contain;
     }
 
+    .vac-reply-box {
+      /* replying to a long message must not fill the popup with the preview (#2786);
+         em, not px, so the cap scales with browser zoom and font settings */
+      max-height: 8em;
+      overflow-y: auto;
+    }
+
     .vac-message-wrapper .vac-format-message-wrapper {
       font-size: 12px;
     }
@@ -389,6 +396,9 @@ export default {
       border-left: 2px solid var(--fs-color-info-500);
       background-color: var(--fs-color-info-100);
       line-height: 1;
+      /* long quotes scroll within instead of dominating the history (#2786) */
+      max-height: 8em;
+      overflow-y: auto;
     }
     .markdown code {
       white-space: normal;
