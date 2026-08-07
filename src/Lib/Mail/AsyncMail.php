@@ -39,6 +39,11 @@ class AsyncMail
         $this->data['from'] = [$email, $name];
     }
 
+    public function setReplyTo($email, $name = null)
+    {
+        $this->data['replyTo'] = [$email, $name];
+    }
+
     public function setBody($body)
     {
         $this->data['body'] = $body;

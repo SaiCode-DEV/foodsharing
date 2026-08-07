@@ -99,6 +99,58 @@ class ReportApiCest
         $I->seeResponseContainsJson(['reported' => ['id' => $this->reportGroupAdmin['id']], 'reporter' => ['id' => $this->foodsharer['id']]]);
     }
 
+    public function reportWithConfirmationFlagSendsMailToReporter(ApiTester $I): void
+    {
+        // Confirmation mail for the reporter, sent by default (#2667)
+        $I->deleteAllMails();
+        $reported = $I->createFoodsaver(null, ['bezirk_id' => $this->region['id']]);
+
+        $I->login($this->foodsaver['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPost('api/users/' . $reported['id'] . '/reports', [
+            'reason' => 1,
+            'message' => 'ThisIsATestReportMessage',
+        ]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        $I->expectNumMails(1, 10);
+        $mail = $I->getMails()[0];
+        $I->assertStringContainsString('Bestätigung deiner Meldung', $mail->subject);
+        $I->assertContainsEquals($this->foodsaver['email'], array_map(fn ($value): string => $value->address, $mail->to));
+        $I->assertStringContainsString('ThisIsATestReportMessage', $mail->html);
+        $I->assertStringContainsString('Meldegruppe', $mail->html);
+        // replies go to the group that handles the report, not to the no-reply sender
+        $I->assertContainsEquals(
+            'region-' . $this->reportGroup['id'] . '@' . PLATFORM_MAILBOX_HOST,
+            array_map(fn ($value): string => $value->address, $mail->replyTo)
+        );
+
+        // The bell for the report group admins is unchanged
+        $I->seeInDatabase('fs_foodsaver_has_bell', ['foodsaver_id' => $this->reportGroupAdmin['id']]);
+    }
+
+    public function reportWithConfirmationDisabledSendsNoMail(ApiTester $I): void
+    {
+        $I->deleteAllMails();
+        $reported = $I->createFoodsaver(null, ['bezirk_id' => $this->region['id']]);
+
+        $I->login($this->foodsaver['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPost('api/users/' . $reported['id'] . '/reports', [
+            'reason' => 1,
+            'message' => 'ThisIsATestReportMessage',
+            'sendConfirmationMail' => false,
+        ]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        // Give the async mail queue time to deliver a mail that must not arrive
+        sleep(5);
+        $I->expectNumMails(0, 0);
+
+        // The bell for the report group admins is unchanged
+        $I->seeInDatabase('fs_foodsaver_has_bell', ['foodsaver_id' => $this->reportGroupAdmin['id']]);
+    }
+
     public function foodsaverCannotAccessReports(ApiTester $I): void
     {
         $I->login($this->foodsaver['email']);

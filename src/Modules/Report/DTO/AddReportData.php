@@ -17,4 +17,9 @@ class AddReportData
     public ?int $forumThreadId = null;
     public ?string $status = null;
     public ?string $consequence = null;
+
+    /**
+     * Whether the reporter wants a confirmation email with a summary of the report.
+     */
+    public bool $sendConfirmationMail = true;
 }

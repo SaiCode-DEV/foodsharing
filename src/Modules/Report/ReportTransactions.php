@@ -10,8 +10,10 @@ use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
+use Foodsharing\Modules\Group\GroupGateway;
 use Foodsharing\Modules\Report\DTO\AddReportData;
 use Foodsharing\Modules\Report\DTO\ReportForListView;
+use Foodsharing\Utility\EmailHelper;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ReportTransactions
@@ -22,7 +24,9 @@ class ReportTransactions
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly BellGateway $bellGateway,
         private readonly GroupFunctionGateway $groupFunctionGateway,
+        private readonly GroupGateway $groupGateway,
         private readonly Session $session,
+        private readonly EmailHelper $emailHelper,
     ) {
     }
 
@@ -46,13 +50,56 @@ class ReportTransactions
             true
         );
 
+        $isForArbitration = false;
         $reportBellRecipients = $this->groupFunctionGateway->getFunctionGroupAdminsForRegion($reportedFs['bezirk_id'], WorkgroupFunction::REPORT);
         if (!empty($reportBellRecipients)) {
             if (in_array($reportedId, $reportBellRecipients) || in_array($reporterId, $reportBellRecipients)) {
                 $reportBellRecipients = $this->groupFunctionGateway->getFunctionGroupAdminsForRegion($reportedFs['bezirk_id'], WorkgroupFunction::ARBITRATION);
+                $isForArbitration = true;
             }
             $this->bellGateway->addBellForUsers($reportBellRecipients, $bellData);
         }
+
+        if ($reportData->sendConfirmationMail) {
+            $this->sendReportConfirmationMail($reporterId, $reportedFs, $reasonName, $reportData->message, $isForArbitration);
+        }
+    }
+
+    /**
+     * Sends a summary of the report to the reporter's private email address.
+     */
+    private function sendReportConfirmationMail(int $reporterId, array $reportedFs, string $reasonName, string $message, bool $isForArbitration): void
+    {
+        $reporter = $this->foodsaverGateway->getFoodsaverBasics($reporterId);
+        $groupName = $this->translator->trans(
+            $isForArbitration ? 'email_template.report_confirmation.group_arbitration' : 'email_template.report_confirmation.group_report'
+        );
+        $this->emailHelper->tplMail('report/confirmation', $this->foodsaverGateway->getEmailAddress($reporterId), [
+            'name' => $reporter['name'],
+            'reported_name' => $reportedFs['name'] . ' ' . $reportedFs['nachname'],
+            'group' => $groupName,
+            'reason' => $reasonName,
+            'message' => $message,
+        ], replyToEmail: $this->getResponsibleGroupMail($reportedFs['bezirk_id'], $isForArbitration));
+    }
+
+    /**
+     * Mailbox address of the group that handles the report, so a reply reaches
+     * the people who can answer it instead of the no-reply sender.
+     */
+    private function getResponsibleGroupMail(int $regionId, bool $isForArbitration): ?string
+    {
+        $groupId = $this->groupFunctionGateway->getRegionFunctionGroupId(
+            $regionId,
+            $isForArbitration ? WorkgroupFunction::ARBITRATION : WorkgroupFunction::REPORT
+        );
+        if ($groupId === null) {
+            return null;
+        }
+
+        $mailboxName = $this->groupGateway->getGroupMailName($groupId);
+
+        return $mailboxName ? $mailboxName . '@' . PLATFORM_MAILBOX_HOST : null;
     }
 
     /** @return ReportForListView[] */

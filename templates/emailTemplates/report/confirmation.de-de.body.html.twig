@@ -1,0 +1,8 @@
+<p>{{ 'email_template.report_confirmation.greeting'|trans({'%NAME%': NAME}) }}</p>
+<p>{{ 'email_template.report_confirmation.received'|trans({'%REPORTED_NAME%': REPORTED_NAME, '%GROUP%': GROUP}) }}</p>
+<p>
+  {{ 'email_template.report_confirmation.reminder'|trans }}<br>
+  {{ 'email_template.report_confirmation.reason'|trans({'%REASON%': REASON}) }}<br>
+  {{ 'email_template.report_confirmation.message'|trans({'%MESSAGE%': MESSAGE}) }}
+</p>
+<p>{{ 'email_template.report_confirmation.patience'|trans }}</p>

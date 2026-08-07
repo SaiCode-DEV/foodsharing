@@ -108,6 +108,11 @@ class OutgoingMailsService
             $email->replyTo(new Address($data['from'][0], $data['from'][1] ?? ''));
         }
 
+        // an explicit reply address wins over the sender-derived one above
+        if (!empty($data['replyTo'][0])) {
+            $email->replyTo(new Address($data['replyTo'][0], $data['replyTo'][1] ?? ''));
+        }
+
         $subject = preg_replace('/\s+/', ' ', trim((string)$data['subject']));
         if (!$subject) {
             $subject = '[Leerer Betreff]';

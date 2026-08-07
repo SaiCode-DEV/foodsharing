@@ -2795,6 +2795,7 @@ profile:
 
       Hier findest du die [Verhaltensregeln im Wiki](https://wiki.foodsharing.de/Verhaltensregeln).
     doesNotAffectStore: "Betrifft keinen oder einen anderen Betrieb"
+    sendConfirmationMail: "Schicke mir eine Bestätigung mit dem Inhalt der Meldung per E-Mail"
     send: "Meldung abschicken"
     sent: "Meldung wurde versendet"
     mail:
@@ -3405,6 +3406,16 @@ email_template:
       multiple: "Offene Abholtermine bei %COUNT% Betrieben!"
     disable_warning: "Diese Warnung abschalten?"
     settings_link: "Zu den Benachrichtigungseinstellungen"
+  report_confirmation:
+    subject: "Bestätigung deiner Meldung"
+    greeting: "Hallo %NAME%,"
+    received: "deine Meldung zu %REPORTED_NAME% ist eingegangen und liegt jetzt bei der %GROUP% deines Bezirks."
+    reminder: "Zur Erinnerung, das hast du gemeldet:"
+    reason: "Grund: %REASON%"
+    message: "Deine Nachricht: %MESSAGE%"
+    patience: "Bitte habe etwas Geduld: Die Gruppe arbeitet ehrenamtlich und meldet sich bei dir, falls es Rückfragen gibt."
+    group_report: "Meldegruppe"
+    group_arbitration: "Schiedsstelle"
 buddy:
   send:
     confirm_title: "Kennst du {name}?"

@@ -4562,6 +4562,11 @@ export interface components {
             forumThreadId?: number;
             status?: string;
             consequence?: string;
+            /**
+             * Whether the reporter wants a confirmation email with a summary of the report.
+             * @default true
+             */
+            sendConfirmationMail: boolean;
         };
         UpdateReportData: {
             forumThreadId?: number;

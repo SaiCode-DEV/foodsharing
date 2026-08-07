@@ -104,6 +104,12 @@
           max-rows="8"
           size="sm"
         />
+        <b-form-checkbox
+          v-model="sendConfirmationMail"
+          class="mb-2"
+        >
+          {{ $t('profile.report.sendConfirmationMail') }}
+        </b-form-checkbox>
         <b-alert variant="info" show>
           <div>{{ $t(`profile.report.mail.${isReportForArbitration ? 'arbitrationGroup' : 'reportGroup'}`) }}</div>
           <a :href="$url('mailto_mail_foodsharing_network', responsibleGroupMail)">
@@ -203,6 +209,7 @@ export default {
       storeList: null,
       reportReasonOptions: reportReasonOptionsValues,
       reportReason: null,
+      sendConfirmationMail: true,
     }
   },
   computed: {
@@ -233,11 +240,12 @@ export default {
         this.storeList = null
       }
       try {
-        await addReport(this.reportedId, this.reportReason, message, this.storeList)
+        await addReport(this.reportedId, this.reportReason, message, this.storeList, this.sendConfirmationMail)
         pulseInfo(i18n('profile.report.sent'))
         this.reportReason = null
         this.storeList = null
         this.reportText = ''
+        this.sendConfirmationMail = true
       } catch (err) {
         pulseError(i18n('error_unexpected'))
       }

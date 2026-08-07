@@ -19,10 +19,11 @@ export async function updateReport (reportId, updateData) {
   })
 }
 
-export function addReport (userId, reason, message, storeId) {
+export function addReport (userId, reason, message, storeId, sendConfirmationMail = true) {
   return post(`/users/${userId}/reports`, {
     reason,
     message,
     storeId,
+    sendConfirmationMail,
   })
 }
