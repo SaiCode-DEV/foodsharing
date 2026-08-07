@@ -293,7 +293,10 @@ build:frontend:
     - *rule-mr-websocket-changes
   image: registry.gitlab.com/foodsharing-dev/images/node:latest
   script:
-    - (cd client && yarn && yarn lint && yarn prettier:e2e && yarn build)
+    # webpack's filesystem cache travels in the CI cache (client/node_modules) and can
+    # leave stale CSS contenthashes in the runtime chunk - lazily loaded chunks then 404
+    # and every page stays blank (second occurrence 2026-08-05, chunk 9099 again)
+    - (cd client && yarn && yarn lint && yarn prettier:e2e && rm -rf node_modules/.cache && yarn build)
   <<: *cache-frontend-build
   artifacts:
     <<: *build-artifacts
