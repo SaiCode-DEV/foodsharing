@@ -269,7 +269,7 @@ class ForumTransactions
     private function notifyMembersOfForumAboutNewThreadViaMail(array $regionData, int $threadId, bool $isAmbassadorForum): void
     {
         $regionType = $this->regionGateway->getType($regionData['id']);
-        if (!$isAmbassadorForum && in_array($regionType, [UnitType::COUNTRY, UnitType::FEDERAL_STATE])) {
+        if (!$isAmbassadorForum && in_array($regionType, [UnitType::CONTINENT, UnitType::COUNTRY, UnitType::FEDERAL_STATE])) {
             $this->flashMessageHelper->info($this->translator->trans('forum.thread.too_big_to_mail'));
 
             return;

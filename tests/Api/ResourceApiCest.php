@@ -25,6 +25,7 @@ class ResourceApiCest
     {
         [$user, $region] = $this->setupUserAndRegion($I);
         $expectedResponses = [
+            UnitType::CONTINENT => Http::FORBIDDEN,
             UnitType::COUNTRY => Http::FORBIDDEN,
             UnitType::FEDERAL_STATE => Http::FORBIDDEN,
             UnitType::CITY => Http::OK,

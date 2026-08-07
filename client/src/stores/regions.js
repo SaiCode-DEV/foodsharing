@@ -17,6 +17,7 @@ export const REGION_UNIT_TYPE = Object.freeze({
   WORKING_GROUP: 7,
   BIG_CITY: 8,
   PART_OF_TOWN: 9,
+  CONTINENT: 10,
 })
 
 export const SELECTABLE_REGION_TYPES = Object.freeze([

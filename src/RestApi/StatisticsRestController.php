@@ -112,7 +112,7 @@ class StatisticsRestController extends AbstractFoodsharingRestController
         if (empty($region)) {
             throw new NotFoundHttpException("Region with id {$regionId} not found");
         }
-        if ($region['type'] === UnitType::COUNTRY && !$this->regionPermissions->mayAccessStatisticCountry()) {
+        if (in_array($region['type'], [UnitType::COUNTRY, UnitType::CONTINENT]) && !$this->regionPermissions->mayAccessStatisticCountry()) {
             throw new AccessDeniedHttpException();
         }
 

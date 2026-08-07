@@ -150,6 +150,7 @@ final class ProfileGateway extends BaseGateway
 			AND 	b.foodsaver_id = :fs_id
 			AND		bz.type != :type
 			ORDER BY CASE
+			    WHEN bz.type = ' . UnitType::CONTINENT . ' THEN 0
                 WHEN bz.type = ' . UnitType::COUNTRY . ' THEN 1
                 WHEN bz.type = ' . UnitType::FEDERAL_STATE . ' THEN 2
                 ELSE 3

@@ -43,7 +43,7 @@ export default {
     showStatisticsAndMembers () {
       /* Statistics and members page are temporarily disabled because they are too inefficient for Europe and large
        countries. Region type "Country" is also used for Europe. */
-      return this.entry.type !== REGION_UNIT_TYPE.COUNTRY
+      return ![REGION_UNIT_TYPE.COUNTRY, REGION_UNIT_TYPE.CONTINENT].include(this.entry.type)
     },
     menuEntries () {
       /* An entry that has a subPage property emits a "change-page" event if this is a dropdown menu. This makes the

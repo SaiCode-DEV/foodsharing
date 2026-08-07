@@ -145,7 +145,7 @@ final class RegionController extends FoodsharingController
             return $this->missingMembershipRedirect($region_id);
         }
 
-        $big = [UnitType::BIG_CITY, UnitType::FEDERAL_STATE, UnitType::COUNTRY];
+        $big = [UnitType::CONTINENT, UnitType::BIG_CITY, UnitType::FEDERAL_STATE, UnitType::COUNTRY];
         $region['moderated'] = $region['moderated'] || in_array($region['type'], $big);
         $this->region = $region;
 

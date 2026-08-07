@@ -92,7 +92,7 @@ class RegionTransactions
     {
         $region = $this->regionGateway->getRegionDetails($regionId);
         if ($region) {
-            $big = [UnitType::BIG_CITY, UnitType::FEDERAL_STATE, UnitType::COUNTRY];
+            $big = [UnitType::BIG_CITY, UnitType::FEDERAL_STATE, UnitType::COUNTRY, UnitType::CONTINENT];
             $region['moderated'] = $region['moderated'] || in_array($region['type'], $big);
         }
 

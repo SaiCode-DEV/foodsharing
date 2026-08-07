@@ -26,8 +26,7 @@ class SearchGatewayTest extends Unit
     {
         $this->gateway = $this->tester->get(SearchGateway::class);
 
-        $regionEurope = $this->tester->createRegion('Europa', ['parent_id' => RegionIDs::ROOT, 'type' => UnitType::COUNTRY, 'has_children' => 1]);
-        $regionCountry = $this->tester->createRegion('Deutschland', ['parent_id' => $regionEurope['id'], 'type' => UnitType::COUNTRY, 'has_children' => 1]);
+        $regionCountry = $this->tester->createRegion('Deutschland', ['parent_id' => RegionIDs::EUROPE, 'type' => UnitType::COUNTRY, 'has_children' => 1]);
         $regionState1 = $this->tester->createRegion('Sachsen', ['parent_id' => $regionCountry['id'], 'type' => UnitType::FEDERAL_STATE, 'has_children' => 1]);
         $regionState2 = $this->tester->createRegion('Sachsen-Anhalt', ['parent_id' => $regionCountry['id'], 'type' => UnitType::FEDERAL_STATE, 'has_children' => 1]);
         $regionCity1 = $this->tester->createRegion('Dresden', ['parent_id' => $regionState1['id'], 'type' => UnitType::CITY, 'has_children' => 1, 'email' => 'dreeesden']);
@@ -36,7 +35,7 @@ class SearchGatewayTest extends Unit
         $regionCity4 = $this->tester->createRegion('Bad Dürrenberg', ['parent_id' => $regionState2['id'], 'type' => UnitType::CITY, 'has_children' => 1]);
 
         $this->regions = [
-            'europe' => $regionEurope,
+            'europe' => ['id' => RegionIDs::EUROPE],
             'country' => $regionCountry,
             'state1' => $regionState1,
             'state2' => $regionState2,

@@ -1050,6 +1050,7 @@ class ForumApiCest
     #[Examples(UnitType::FEDERAL_STATE)]
     #[Examples(UnitType::COUNTRY)]
     #[Examples(UnitType::BIG_CITY)]
+    #[Examples(UnitType::CONTINENT)]
     final public function checkNoNotificationForNotModeratedRegionThreadCreationForceSendOfNotificationLocatedInBigRegion(ApiTester $I, Example $example): void
     {
         $region = $I->createRegion('Big region', ['moderated' => false, 'type' => $example[0]]);
@@ -1116,6 +1117,7 @@ class ForumApiCest
     #[Examples(UnitType::WORKING_GROUP)]
     #[Examples(UnitType::FEDERAL_STATE)]
     #[Examples(UnitType::COUNTRY)]
+    #[Examples(UnitType::CONTINENT)]
     final public function createEMailNotificationForAdminWhenNewAdminForumThreadIsCreatedForAllAdminsNoFiltering(ApiTester $I, Example $example): void
     {
         $ambassador1 = $I->createAmbassador();

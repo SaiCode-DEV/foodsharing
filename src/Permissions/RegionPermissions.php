@@ -120,7 +120,7 @@ class RegionPermissions
 
     public function hasConference(int $regionType): bool
     {
-        return in_array($regionType, [UnitType::COUNTRY, UnitType::FEDERAL_STATE, UnitType::CITY, UnitType::WORKING_GROUP, UnitType::PART_OF_TOWN, UnitType::DISTRICT, UnitType::REGION, UnitType::BIG_CITY]);
+        return in_array($regionType, [UnitType::CONTINENT, UnitType::COUNTRY, UnitType::FEDERAL_STATE, UnitType::CITY, UnitType::WORKING_GROUP, UnitType::PART_OF_TOWN, UnitType::DISTRICT, UnitType::REGION, UnitType::BIG_CITY]);
     }
 
     public function mayDeleteFoodsaverFromRegion(int $regionId): bool

@@ -46,6 +46,8 @@ class UnitType
     final public const int BIG_CITY = 8;
     /* fifth layer or lower */
     final public const int PART_OF_TOWN = 9;
+    /** First layer: no application (direct member access) possible. */
+    final public const int CONTINENT = 10;
 
     public static function isGroup(int $type): bool
     {
@@ -69,7 +71,7 @@ class UnitType
 
     public static function getRegionTypes(): array
     {
-        return [self::PART_OF_TOWN, self::CITY, self::REGION, self::DISTRICT, self::FEDERAL_STATE, self::COUNTRY, self::BIG_CITY];
+        return [self::PART_OF_TOWN, self::CITY, self::REGION, self::DISTRICT, self::FEDERAL_STATE, self::COUNTRY, self::BIG_CITY, self::CONTINENT];
     }
 
     public static function getGroupTypes(): array
@@ -80,6 +82,7 @@ class UnitType
     public static function isValid(int $value): bool
     {
         return match ($value) {
+            self::CONTINENT,
             self::PART_OF_TOWN,
             self::BIG_CITY,
             self::WORKING_GROUP,
