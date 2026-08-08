@@ -369,7 +369,7 @@ settings:
       \n**Always keep your calendar links secret.** They contain a *token*, which
       allows to access your appointments without a password. You can always delete
       your current token, which renders all your previous calendar links invalid.\n\
-      \nYour calendar software needs to **synchronise** the data regulary, so that
+      \nYour calendar software needs to **synchronise** the data regularly, so that
       new appointments show up and canceled events disappear. If you download the
       calendar file instead, you will only see your current appointments and will
       not receive automatic updates.\nYou can find more information about this [in
@@ -1449,7 +1449,7 @@ storeview:
   select_related_region: "Select related region"
   store: Store
   want_to_fetch: I would like to help in this team.
-  public_and_statistics: "Public activites and statistical information"
+  public_and_statistics: "Public activities and statistical information"
   no_permission_to_view: "Only visible to store managers."
   publicity_and_sticker_options:
     not_yet_clarified: "not yet clarified"
@@ -1771,7 +1771,7 @@ bell:
   store_wall_post_title: Store {name}
   store_change_regular_pickup_times:
     one: Slot has been changed
-    many: Slots slots have changed
+    many: Slots have been changed
   store_wall_post:
     one: Wall post from {user}
     many: '{count} new wall posts'
@@ -2006,7 +2006,7 @@ email_template:
   information: Information
   unknown_email2: "The e-mail address %ADDRESS% is not known.\nPlease note that delivering
     BCC mails to the domain @foodsharing.network is not possible."
-  unknown_email: Unkown e-mail address
+  unknown_email: Unknown e-mail address
   confirm_BOT: . Since you are an ambassador / moderator for %BEZIRK%, you have 
     to confirm it in order that it is published.
   confirm_link: would like to publish the topic
@@ -2123,8 +2123,8 @@ region:
   edit_success: Region was saved.
   cancel: No, not really
   confirm:
-    edit: Are you sure you want to save the changes to the district {name} ?
-    create: Are you sure you want to create the disctrict {name}?
+    edit: Are you sure you want to save the changes to the district {name}?
+    create: Are you sure you want to create the district {name}?
     delete: 'Are you sure you want to delete district {name}? This will permanently
       delete all district data: forum, events, polls, wall posts, stickers, and district
       resources.'
@@ -2148,7 +2148,7 @@ region:
     children: Districts in {name} ({count})
     description: About this district
     join_name: Join {name}
-    join: Join the disctrict
+    join: Join the district
     no_more_info: No further information is publicly available about this 
       district.
     wall: Updates from the district
@@ -2231,7 +2231,7 @@ storelist:
   entered: 'Created on:'
   memberState: Membership status
   actions: Actions
-  filter_placeholder: 'name/adress'
+  filter_placeholder: 'name/address'
 releases:
   "2020-08": "Release „Pear\" (August 2020)"
   "2020-10": "Release „Cranberry\" (October 2020)"
@@ -2245,7 +2245,7 @@ releases:
   "2023-09": "Release „Jackfruit\" 🍈 (September 2023)"
   "2024-01": "Release „Kiwi\" 🍈 (January 2024)"
 
-  "2024-04": Release„Laugenbrezel” 🥨 (April 2024)
+  "2024-04": Release „Laugenbrezel” 🥨 (April 2024)
   "2024-08": Release „Mandarin” 🍊 (August 2024)
   "2024-12": Release „Nectarine” 🍑 (December 2024)
   "2025-08": Release „Olive” 🫒 (August 2025)
@@ -3014,7 +3014,7 @@ date:
   monday: Monday
   yesterday: yesterday
   -- Yesterday: Yesterday
-  tomorrow: tmrw.
+  tomorrow: tomorrow
   -- Tomorrow: Tomorrow
   today: today
   Today: Today
@@ -3164,7 +3164,7 @@ legal:
     unsubscribe_newsletter: 'Please also unsubscribe the Foodsharing newsletter if
       you have a subscription. You can also do this later via the link in the newsletter
       email.'
-    legal_more_info: Further informations
+    legal_more_info: Further information
   latest_change: Last modified on {date}
   show_changes: Show changes
 answers: Which answers are correct?
@@ -3645,7 +3645,7 @@ statistics:
   region_public:
     savedFoodKgLastMonth: food saved
     pickupsLastMonth: pick-ups
-    activeCoorporations: active cooporations
+    activeCoorporations: active cooperations
     activeFoodSharePoints: active food share points
     foodBasketsLastMonth: food baskets distributed
     activeHomeRegionFoodsavers: active foodsavers
@@ -3738,7 +3738,7 @@ startpage:
       tarp outdoors. People and bicycles are visible in the background.
   near_you:
     text3:
-      part2: Find disctricts close to you
+      part2: Find districts close to you
       part1: The community is organised in districts.
     text1:
       part3: you can find
@@ -4142,7 +4142,7 @@ chain:
         label: Forum thread
         invalidfeedback: Thread ID or link required.
         description: Search for forum thread name by entering at least 3 
-          charaters.
+          characters.
         placeholder: Search forum thread name
       kam:
         label: KAM
@@ -4299,7 +4299,7 @@ join_region:
     is_country_2: Please choose a city, a region or a district!
     is_state_1: This is a federal state. Please select a city, a region or a 
       district!
-    is_state_2: Please choose a city, a region or a disctrict!
+    is_state_2: Please choose a city, a region or a district!
     not_allowed: You cannot join this district.
     is_big_city_1: This is a large city.
     is_big_city_2: Please choose a city, a region or a district!
@@ -4645,12 +4645,12 @@ help:
     my_resources:
       title: Own resources
       md: "In this section you can manage your own resources; create, edit, and delete
-        resource, and see which ones you currently share.\n\n##### What is a resource?\n\
+        resources, and see which ones you currently share.\n\n##### What is a resource?\n\
         A resource can be anything that you want to contribute to the foodsharing
         community. This can include **abilities** like cooking or computer programming,
         **tools** which you would be able to lend like a cargo bike or a mobile cooking
         station, and even **contacts** with other NGOs, authorities, the media etc.\n\
-        \n##### Nothing is a must\nNoone has to enter any resources. Also, entering
+        \n##### Nothing is a must\nNo one has to enter any resources. Also, entering
         a resource does not mean that you *have* to supply that resource for anything.
         This is mostly about things that you *would like to share*.\n\n##### Who can
         see my resources?\nResources are visible in your regions and working groups.

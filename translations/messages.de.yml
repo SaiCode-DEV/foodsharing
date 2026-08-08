@@ -142,7 +142,7 @@ quiz:
       limited_tries: Du kannst das Quiz nicht beliebig oft wiederholen. Nach drei Versuchen musst du eine 30-tägige Lernpause einlegen, danach hast du nur noch zwei weitere Versuche. Die Fragen, die dir in jedem Versuch gestellt werden, unterscheiden sich.
       unlimited_tries: Du kannst dieses Quiz beliebig oft wiederholen und wirst durch Fehlversuche nie disqualifiziert. Allerdings musst du zwischen Versuchen teilweise eine Lernpause einlegen.
       alone: Das Quiz ist von dir selbst und ohne fremde inhaltliche Hilfe zu bestehen. Bei sprachlichen Schwierigkeiten oder wenn du auf eine Assistenz angewiesen bist, kann dir eine andere Person natürlich helfen, die Fragen zu verstehen; beantworten können musst du sie allerdings alleine. Suche dir deswegen einen ruhigen Ort, an dem du ungestört das Quiz durchführen kannst.
-      read_carefully: Lies dir alle Fragen und Antworten sorfältig durch.
+      read_carefully: Lies dir alle Fragen und Antworten sorgfältig durch.
       multiple_choice: Es können mehrere Antworten pro Frage richtig sein – oder auch keine. Entscheide daher für jede Antwort einzeln, ob sie richtig oder falsch ist.
       timed: Die Zeit zur Beantwortung der Fragen ist begrenzt. Lass dich davon nicht stressen. Die Zeit ist für jede Frage einzeln so eingestellt, dass du genug Zeit hast, die Frage in Ruhe zu beantworten. Solltest du doch mal in Zeitnot kommen, lass die Quiz-Admins das mit einem Kommentar wissen.
       comment: Nach dem Beantworten jeder Frage siehst du eine Zwischenauswertung mit Erklärungen zu jeder der Antwortmöglichkeiten. Das hilft zu verstehen, welche Antwort warum richtig oder falsch ist. Bei jedem Fehler solltest du dir die Erklärungen sorgfältig durchlesen. Wenn dir etwas unlogisch erscheint, nicht verständlich oder gar falsch ist, hinterlasse bitte einen Kommentar. Deine Kommentare können dir zugeordnet werden, um dir individuelle Rückmeldung zu geben.
@@ -189,7 +189,7 @@ quiz:
     disqualifiedAfter: Du hast nur noch einen letzten Versuch, dieses Quiz zu bestehen! Wenn du jetzt durchfällst, wirst du dauerhaft für dieses Quiz disqualifiziert. Bitte nimm nur teil, wenn du dich ausführlich mit den Inhalten aus dem Wiki beschäftigt hast.
     disqualified: Leider bist du für dieses Quiz disqualifiziert, da du zu oft nicht bestanden hast.
     passedBefore: Dieses Quiz hast du schon mal bestanden.
-    willExpire: Allerdings endet die Gültigkeit deines bestandenen Quizversuchs in {expirationTime} Tagen. Du kannst daher schon jetzt dein Wissen in diesem Themenfeld auffrischen und erneut an diesem Quiz teinehmen.
+    willExpire: Allerdings endet die Gültigkeit deines bestandenen Quizversuchs in {expirationTime} Tagen. Du kannst daher schon jetzt dein Wissen in diesem Themenfeld auffrischen und erneut an diesem Quiz teilnehmen.
     expired: Allerdings ist dein letzter Quizversuch nicht mehr gültig.
   results:
     title:
@@ -385,7 +385,7 @@ group:
     title: "Bewerbung für {group}"
     summary: "{name} möchte gerne in der Arbeitsgruppe {group} mitmachen."
     link_description: "Über diesen Link kommst du direkt zur Bewerbung:"
-    application_hint: "Bewirb dich jetzt auf die Mitarbeit in der Gruppe \"{group}\". Beantworte dazu bitte die folgenden Fragen. Deinen Text erhalen die Administrator:innen der AG."
+    application_hint: "Bewirb dich jetzt auf die Mitarbeit in der Gruppe \"{group}\". Beantworte dazu bitte die folgenden Fragen. Deinen Text erhalten die Administrator:innen der AG."
     default_prompt: |
       - Was ist deine Motivation?
       - Welche Fähigkeiten und Erfahrungen bringst du mit?
@@ -640,7 +640,7 @@ login:
     hint1: "Zum Einloggen muss deine E-Mail-Adresse bestätigt sein. Falls du vom Login auf diese Seite weitergeleitet wurdest, ist deine E-Mail-Adresse bisher nicht bestätigt. Mit diesem Formular kannst du dir eine neue E-Mail zusenden lassen, welche einen Aktivierungslink enthält."
     hint2: "Falls du keine E-Mail bekommst, wende dich bitte an den [Support](/support)."
     submit: "Absenden"
-    success: "Falls diese E-Mail-Adresse existiert und noch nicht verifiziert ist, wird eine neue Email zugesendet."
+    success: "Falls diese E-Mail-Adresse existiert und noch nicht verifiziert ist, wird eine neue E-Mail zugesendet."
 
 register:
   topbar: "Mitmachen"
@@ -1106,7 +1106,7 @@ store:
       normal: "Etwa {distance} km"
     air_line: Die angezeigte Entfernung entspricht der Luftlinie.
     confirm-far: "Laut deiner gespeicherten Adresse wohnst du sehr weit von diesem Betrieb entfernt ({distance}). Bist du dir sicher, dass du hier regelmäßig und zuverlässig das Team unterstützen kannst?"
-    confirm-no-location: "Du hast keine gültige Adresse in deinen Profil hinterlegt. Bitte trag eine Heimatadresse ein, um es den Betriebsverantwortlichen leichter zu machen, über deine Bewerbung zu entscheiden."
+    confirm-no-location: "Du hast keine gültige Adresse in deinem Profil hinterlegt. Bitte trag eine Heimatadresse ein, um es den Betriebsverantwortlichen leichter zu machen, über deine Bewerbung zu entscheiden."
     confirm-no-location-ok: "Trotzdem bewerben"
     application-message: "Bewerbungsnachricht"
     application-placeholder: "Ich möchte gerne in diesem Team helfen, weil …"
@@ -1515,7 +1515,7 @@ forum:
     hide: "Beitrag ausblenden"
     giveHideReason: "Bitte gib an, warum du diesen Beitrag ausblenden möchtest."
     hideReasonPlaceholder: "Hier Begründung eingeben …"
-    hideInfo: "Ausgeblendete Beiträge werden nicht mehr angezeigt. Sie können innerhalb von drei Monaten von Moderator:innen wiederhergestellt werden, bevor sie endgültig gelöscht werden. In dieser Zeit können Nutzer:innen des Forums einsehen, warum der Beitrag ausgeblendet wurde, Morderator:innen auch von wem."
+    hideInfo: "Ausgeblendete Beiträge werden nicht mehr angezeigt. Sie können innerhalb von drei Monaten von Moderator:innen wiederhergestellt werden, bevor sie endgültig gelöscht werden. In dieser Zeit können Nutzer:innen des Forums einsehen, warum der Beitrag ausgeblendet wurde, Moderator:innen auch von wem."
     sureHide: "Möchtest du diesen Beitrag wirklich ausblenden?"
     hiddenPost: "Beitrag ausgeblendet durch [{moderatorName}]({moderatorUrl})"
     hiddenReason: "Begründung: {reason}"
@@ -1709,7 +1709,7 @@ addresspicker:
   infobox: "Gib die Adresse in der Suchleiste ein oder schiebe den Pin in der Karte an die richtige Position."
   infobox_profile: "[Foodsharer](https://wiki.foodsharing.de/Foodsharer) benötigen die Adresse, um Essenskörbe über die Webseite anbieten zu können. Um als [Foodsaver](https://wiki.foodsharing.de/Foodsaver) an Lebensmittelrettungen teilnehmen zu können, ist sie notwendig."
   different_location: Adressbeschreibung korrigieren
-  different_location_warning: "Bitte stelle sicher, dass der Pin in der Karte oben an der richtigen Stelle liegt. Bitte ändere die automatisch ausgefüllen Felder (Straße und Hausnummer, Postleitzahl und Stadt/Gemeinde) nur, wenn der automatisch eingetragene Wert nicht korrekt ist. Das kann beispielsweise nach der Namensänderung einer Straße vorkommen."
+  different_location_warning: "Bitte stelle sicher, dass der Pin in der Karte oben an der richtigen Stelle liegt. Bitte ändere die automatisch ausgefüllten Felder (Straße und Hausnummer, Postleitzahl und Stadt/Gemeinde) nur, wenn der automatisch eingetragene Wert nicht korrekt ist. Das kann beispielsweise nach der Namensänderung einer Straße vorkommen."
 date:
   time: "{time} Uhr"
   clock: "Uhr"
@@ -1831,8 +1831,8 @@ bell:
   translation_failed:
     title: "Unbekannte Glocke"
     key: "Glocken der Beta können nicht angezeigt werden"
-    md: "Die Glocke enthält einen unbekannten Text. Vermutich liegt das daran, dass die Glocke aus der Beta-Version der Website kommt.\n\n Titel: `{bellTitle}`\n\n Schlüssel: `{bellKey}`"
-    md_support: "Wenn du denkst es handelt sich hierbei um einen fehler, melde dies gerne im [Support](/support)"
+    md: "Die Glocke enthält einen unbekannten Text. Vermutlich liegt das daran, dass die Glocke aus der Beta-Version der Website kommt.\n\n Titel: `{bellTitle}`\n\n Schlüssel: `{bellKey}`"
+    md_support: "Wenn du denkst es handelt sich hierbei um einen Fehler, melde dies gerne im [Support](/support)"
   forum_answer_title: "{forum}" # this old key is kept for compatibility with bells generated before #869
   forum_reply_title: "{forum}: {title}" # this old key is kept for compatibility with bells generated before !TODO
   forum_answer: "{user} hat dir geantwortet" # this old key is kept for compatibility with bells generated before !TODO
@@ -2743,7 +2743,7 @@ profile:
   notes:
     bread: "Notizen"
     title: "Notizen über {name}"
-    info: Bitte gehe gewissenhaft mit dieser Funktion um. Sie soll helfen, Vorgänge sichbar zu machen, um uns Arbeit zu ersparen. Persönliches oder Wertendes zu einer Person hat hier nichts verloren. Bleib sachlich.
+    info: Bitte gehe gewissenhaft mit dieser Funktion um. Sie soll helfen, Vorgänge sichtbar zu machen, um uns Arbeit zu ersparen. Persönliches oder Wertendes zu einer Person hat hier nichts verloren. Bleib sachlich.
   online: "{name} ist online."
   infos:
     title: "Infos"
@@ -3245,7 +3245,7 @@ region:
     sender: "Absendername"
   confirm:
     edit: "Sicher, dass du die Änderungen am Bezirk {name} speichern möchtest?"
-    create: "Sicher, dass du den Bezik {name} neu anlegen möchtest?"
+    create: "Sicher, dass du den Bezirk {name} neu anlegen möchtest?"
     delete: "Sicher, dass du Bezirk {name} löschen möchtest? Hierdurch werden alle Daten des Bezirks endgültig gelöscht: Forum, Termine, Abstimmungen, Pinnwandeinträge, Sticker & Bezirks-Ressourcen."
   save: "Ja, speichern"
   cancel: "Nein, doch nicht"
@@ -4284,7 +4284,7 @@ donation_page:
       kündigen oder ändern?
     answer_10: >
       Du kannst deine Spendenhöhe jederzeit anpassen oder deine Dauerspende
-      beenden –  ganz unkompliziert über unseren Self-Service. Einfach
+      beenden – ganz unkompliziert über unseren Self-Service. Einfach
       [hier](/donation/selfservice) anmelden! Wenn du Fragen hast oder Hilfe
       brauchst,  melde dich gerne bei uns:
       [fundraising.freundeskreis@foodsharing.network](mailto:fundraising.freundeskreis@foodsharing.network).
@@ -4412,11 +4412,11 @@ help:
         Die Moderator:innen einer Gruppe bzw. eines Bezirks sind üblicherweise die Administrator:innen bzw. BOTs. Sollte es in einem Bezirk eine GOALS-AG *Moderation* geben, kommt den Administrator:innen dieser Gruppe die Rolle der Moderator:innen zu.
         ---
         ###### Ausblenden in Foren
-        Wenn diese Option aktiviert ist, können die Moderator:innen alle Posts im Forum ausblenden, nicht nur ihre eigenen. Dazu müssen sie eine Begründung angeben, warum sie einen Post bzw. ganzen Thread ausblenden möchten. Danach bleibt ein Post für drei weitere Monate für die Moderator:innen zugänglich und kann in dieser Zeit auch wiederhergestellt werden. Andere Nutzer:innen (ohne Orgarechte) haben keinen Zuriff mehr darauf. Nach diesen drei Monaten kann ein ausgeblendeter Post nicht mehr wiederhergestellt werden und wird endgültig aus der Datenbank gelöscht.
+        Wenn diese Option aktiviert ist, können die Moderator:innen alle Posts im Forum ausblenden, nicht nur ihre eigenen. Dazu müssen sie eine Begründung angeben, warum sie einen Post bzw. ganzen Thread ausblenden möchten. Danach bleibt ein Post für drei weitere Monate für die Moderator:innen zugänglich und kann in dieser Zeit auch wiederhergestellt werden. Andere Nutzer:innen (ohne Orgarechte) haben keinen Zugriff mehr darauf. Nach diesen drei Monaten kann ein ausgeblendeter Post nicht mehr wiederhergestellt werden und wird endgültig aus der Datenbank gelöscht.
         ---
         ###### Wo kann diese Option genutzt werden?
         In lokalen Meldegruppen und Schiedsstellen (GOALS AGs) ist diese Funktion aus Datenschutzgründen notwendig.
-        Andere Arbeitsgruppen können sich mit einer internen Abstimmung für die Berechtigung der Admins ausspechen, Posts ausblenden zu können, und einen Link zur erfolgreichen Abstimmung an ags.bezirke@foodsharing.network senden. Für lokale Bezirke ist diese Option nicht vorgesehen.
+        Andere Arbeitsgruppen können sich mit einer internen Abstimmung für die Berechtigung der Admins aussprechen, Posts ausblenden zu können, und einen Link zur erfolgreichen Abstimmung an ags.bezirke@foodsharing.network senden. Für lokale Bezirke ist diese Option nicht vorgesehen.
     reportReasons:
       title: Meldungsformular
       md: |
@@ -4465,7 +4465,7 @@ help:
       md: |
         Sticker können als Markierung in sehr unterschiedlichen Sachverhalten dienen. Daher kann eingestellt werden, ob der Sticker mehrfach gleichzeitig an die selbe Person vergeben werden kann.
         
-        - **Überschreiben:** Man kann den Sticker nicht mehrfach gleichzeitig erhalten. Wenn der Sticker erneut vergeben wird, ersetzt bzw. verlängert die aktuelle Vergabe die vorherige. Dies wird bspw. für die Hygieneschulung genutzt. Wer die Schlung erneuert, deren Sticker wird einfach nur verlängert. Wähle *Überschreiben*, wenn der Sticker einen aktuellen, eindeutigen Zustand markieren soll.
+        - **Überschreiben:** Man kann den Sticker nicht mehrfach gleichzeitig erhalten. Wenn der Sticker erneut vergeben wird, ersetzt bzw. verlängert die aktuelle Vergabe die vorherige. Dies wird bspw. für die Hygieneschulung genutzt. Wer die Schulung erneuert, deren Sticker wird einfach nur verlängert. Wähle *Überschreiben*, wenn der Sticker einen aktuellen, eindeutigen Zustand markieren soll.
         - **Mehrfach vergeben:** Mehrere Vergaben sind gleichzeitig möglich. Mehrfach vergebene Sticker werden im Profil gruppiert angezeigt, alle entsprechenden Infos sind aber zugänglich. Hiermit könnten bspw. Probeabholungen dokumentiert werden, von denen mehrere nötig sind. Wähle *Mehrfach vergeben*, wenn jede einzelne Vergabe wichtig ist und nachvollziehbar bleiben muss.
 
     polls:
@@ -4519,7 +4519,7 @@ help:
         Beim Retten von Lebensmitteln teilen wir alle sehr effektiv unsere Zeit, Transportkapazitäten und Erfahrung. Doch um neue Impulse für ein nachhaltiges Ernährungssystem zu setzen und die foodsharing-Bewegung langfristig zu stärken, braucht es mehr als nur das Retten. Jede:r von uns bringt unterschiedliche Ressourcen, also *Fähigkeiten*, *Gegenstände* oder *Kontakte* mit, die allein oft verborgen und ungenutzt bleiben. Gemeinsam aber können diese Ressourcen sichtbar und nutzbar werden – wie einzelne Teile eines Mosaiks, die zusammen ein großes Bild ergeben. Das Ressourcen-Mosaik kann diese Vielfalt sichtbar machen. Damit schafft es Raum für neue Projektideen, Zusammenarbeit und gegenseitige Unterstützung über das Retten hinaus.
 
         ##### Die Ressourcenübersicht
-        Das Herzstück des Ressourcen-Mosaiks ist die Übersicht über alle Ressourcen des Bezirks bzw. der Arbeitsgruppe. Du kannst dich entweder einfach von der Vielfalt deiner Gruppe inspirieren lassen, oder nach bestimmten Ressourcen suchen. Du kannst jede Ressource anklicken, um weitere Infos darüber zu erhalten. Du kannst Ressourcen auch als Favorit zu speichern, um sie später leicher wiederzufinden.
+        Das Herzstück des Ressourcen-Mosaiks ist die Übersicht über alle Ressourcen des Bezirks bzw. der Arbeitsgruppe. Du kannst dich entweder einfach von der Vielfalt deiner Gruppe inspirieren lassen, oder nach bestimmten Ressourcen suchen. Du kannst jede Ressource anklicken, um weitere Infos darüber zu erhalten. Du kannst Ressourcen auch als Favorit speichern, um sie später leichter wiederzufinden.
 
         An der Farbe einer Ressource kannst du erkennen, wie gerne die Person sie teilt: Ressourcen, die mit viel Freude angeboten werden, erscheinen in kräftigen, leuchtenden Farben, während weniger gern geteilte Ressourcen eher grau dargestellt sind.
 
@@ -4780,13 +4780,13 @@ resource_mosaic:
       title: "Beschreibung prüfen"
       short: "Die Beschreibung dieser Ressource ist recht kurz. Bist du sicher, dass andere Nutzer:innen verstehen können, worum es bei deiner Ressource geht, damit sie dich gezielt danach fragen können?"
       none: "Du hast keine Beschreibung für deine Ressource angegeben. Bist du sicher, dass andere Nutzer:innen verstehen können, worum es bei deiner Ressource geht, damit sie dich gezielt danach fragen können?"
-  is_private_hint: "Diese Resource wird nur Bekannten angezeigt."
+  is_private_hint: "Diese Ressource wird nur Bekannten angezeigt."
   is_commons: "Diese Ressource gehört nicht einer einzelnen Person, sondern ist ein Gemeingut"
   restricted_to: "Eingeschränkt auf:"
-  confirm_delete: "Möchtest du diese Resource wirklich löschen?"
+  confirm_delete: "Möchtest du diese Ressource wirklich löschen?"
   no_own_resources: "Du hast noch keine Ressourcen angegeben. Du kannst jetzt bestimmte Fähigkeiten, Gegenstände oder Beziehungen eintragen, um sie in der Community sichtbar zu machen."
 
-  no_commons_resources: "In {groupName} sind noch keine Gemeinschaftsressourcen eigetragen. Du hast die nötige Berechtigung, um das zu ändern!"
+  no_commons_resources: "In {groupName} sind noch keine Gemeinschaftsressourcen eingetragen. Du hast die nötige Berechtigung, um das zu ändern!"
   max_resources: "Um das Ressourcen-Mosaik übersichtlich zu halten, kann jede:r maximal {max} Ressourcen eintragen."
   has_resources_elsewhere: "Von deinen Ressourcen sind {count} auf andere Bezirke oder AGs beschränkt und nicht in {groupName} sichtbar."
   message: "Nachricht schreiben"
@@ -4816,10 +4816,10 @@ resource_mosaic:
     level_3: "Für gute Zwecke"
     level_4: "Eher offen"
     level_5: "Immer gerne"
-  resource_not_found_warning: "Die verlinkte Ressource wurde nicht gefunden. Sie wurde entweder gelöscht, ihr Besitzer ist nicht mehr teil diesers Bezirks bzw. der Gruppe oder dein Link war inkorrekt."
+  resource_not_found_warning: "Die verlinkte Ressource wurde nicht gefunden. Sie wurde entweder gelöscht, ihr Besitzer ist nicht mehr Teil dieses Bezirks bzw. der Gruppe oder dein Link war inkorrekt."
   privacy_notice:
     title: "Datenschutz-Hinweis"
-    text: "Wenn du Resourcen einträgst, werden diese auf dem Server gespeichert und für andere Nutzer:innen in deinen Arbeitsgruppen und Bezirken (ausgenommen Bundesländer, Länder und Europa) sichtbar. Du kannst deine Ressourcen jederzeit bearbeiten und löschen. Außerdem kannst du die Sichtbarkeit deiner Resourcen einschränken, wodurch nur deine Bekannten darauf Zugriff haben."
+    text: "Wenn du Ressourcen einträgst, werden diese auf dem Server gespeichert und für andere Nutzer:innen in deinen Arbeitsgruppen und Bezirken (ausgenommen Bundesländer, Länder und Europa) sichtbar. Du kannst deine Ressourcen jederzeit bearbeiten und löschen. Außerdem kannst du die Sichtbarkeit deiner Ressourcen einschränken, wodurch nur deine Bekannten darauf Zugriff haben."
     ok: "Ich bin einverstanden"
 
 
