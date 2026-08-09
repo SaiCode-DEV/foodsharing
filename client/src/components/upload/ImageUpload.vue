@@ -93,6 +93,7 @@ export default {
       }
       if (invalidFiles.length) {
         pulseError(this.$t('upload.invalid_image_files', {
+          // still passed: nine other translations keep the {count} placeholder
           count: invalidFiles.length,
           fileNames: invalidFiles.map(file => file.name).join(', '),
         }))
@@ -138,7 +139,21 @@ export default {
         return await uploadFile(image.file.name, base64Data)
       } catch (err) {
         console.error(err)
+        // Without this the caller only shows a generic "could not be created" and
+        // nobody can tell a too large file from a rejected type (#2804).
+        pulseError(this.$t(this.uploadErrorKey(err), { fileName: image.file.name }))
       }
+    },
+    uploadErrorKey (err) {
+      // the endpoint answers 400 for oversized files, broken images and bad
+      // base64 alike, so only a real 413 from the web server means "too large"
+      if (err?.code === 413) {
+        return 'upload.too_large'
+      }
+      if (err?.code === 403 || err?.code === 415) {
+        return 'upload.type_rejected'
+      }
+      return 'upload.failed'
     },
     async compressImage (objectUrl, type = 'image/jpeg', quality = 0.9, maxPxls = 1e6) {
       const img = new Image()

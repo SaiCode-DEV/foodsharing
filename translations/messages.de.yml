@@ -302,7 +302,10 @@ upload:
   new_file: "Neue Datei hochladen"
   crop_dialog_title: "Bild ausschneiden"
   image-problem: "Deine Datei scheint nicht in Ordnung zu sein, nimm am besten ein normales jpg-Bild"
-  invalid_image_files: "{count} ausgewählte Dateien sind keine gültigen Bilder: {fileNames}"
+  invalid_image_files: "Dein Browser kann diese Dateien nicht anzeigen und daher nicht hochladen: {fileNames}. Fotos von iPhones sind oft im Format HEIC. Speichere sie als JPEG, dann klappt es."
+  too_large: "{fileName} ist zu groß zum Hochladen. Verkleinere das Bild und versuch es noch einmal."
+  type_rejected: "{fileName} hat ein Dateiformat, das wir nicht annehmen."
+  failed: "{fileName} konnte nicht hochgeladen werden. Versuch es bitte noch einmal."
   remove_image: "Bild entfernen"
 
 button:

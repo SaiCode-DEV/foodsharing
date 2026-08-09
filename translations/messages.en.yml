@@ -3054,7 +3054,10 @@ upload:
   images: Upload images
   image-problem: Your file doesn’t seem to be OK, it’s best to use a normal jpg 
     image
-  invalid_image_files: '{count} selected files are not valid images: {fileNames}'
+  invalid_image_files: 'Your browser cannot display these files and therefore cannot upload them: {fileNames}. Photos from iPhones are often in HEIC format. Save them as JPEG and it will work.'
+  too_large: '{fileName} is too large to upload. Please scale the picture down and try again.'
+  type_rejected: '{fileName} has a file type we do not accept.'
+  failed: '{fileName} could not be uploaded. Please try again.'
   remove_image: Remove image
 photo: Photo
 status: Current status
