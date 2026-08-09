@@ -5370,6 +5370,48 @@ export interface components {
              */
             donationInformation?: components["schemas"]["DonationInformation"][];
         };
+        EmailBlocklistEntry: {
+            /**
+             * @description Unique ID of the blacklist entry
+             * @example 123
+             */
+            id?: number;
+            /**
+             * @description Blacklisted email address
+             * @example blocked@example.com
+             */
+            email?: string;
+            /**
+             * @description Reason why the email address was blacklisted
+             * @example Spam
+             */
+            reason?: string | null;
+            /**
+             * @description Whether the blacklist entry is currently active
+             * @example true
+             */
+            isActive?: boolean;
+            /**
+             * @description Creation date of the blacklist entry
+             * @example 2026-08-09 07:30:00
+             */
+            createdAt?: string;
+            /**
+             * @description ID of the user who created the entry
+             * @example 42
+             */
+            createdBy?: number | null;
+            /**
+             * @description Last update date of the blacklist entry
+             * @example 2026-08-09 08:00:00
+             */
+            updatedAt?: string | null;
+            /**
+             * @description ID of the user who last updated the entry
+             * @example 42
+             */
+            updatedBy?: number | null;
+        };
         EventForListView: {
             id?: number;
             name?: string;
@@ -9918,7 +9960,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["EmailBlocklistEntry"][];
+                };
             };
             /** @description Not logged in */
             401: {
@@ -10002,7 +10046,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["EmailBlocklistEntry"];
+                };
             };
             /** @description Not logged in */
             401: {
@@ -10088,7 +10134,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["EmailBlocklistEntry"];
+                };
             };
             /** @description Invalid request data or email pattern already exists */
             400: {

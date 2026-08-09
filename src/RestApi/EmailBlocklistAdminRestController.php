@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Login\DTO\EmailBlocklistEntry;
 use Foodsharing\Modules\Login\EmailBlocklistGateway;
 use Foodsharing\Modules\Login\EmailBlocklistTransactions;
 use Foodsharing\Permissions\EmailBlocklistPermissions;
@@ -32,7 +33,10 @@ final class EmailBlocklistAdminRestController extends AbstractFoodsharingRestCon
     }
 
     #[OA\Get(summary: 'List all email blocklist entries')]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
+        type: 'array',
+        items: new OA\Items(ref: new Model(type: EmailBlocklistEntry::class)),
+    ))]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
     #[Route(path: '/admin/emailblocklist', methods: ['GET'])]
@@ -50,7 +54,7 @@ final class EmailBlocklistAdminRestController extends AbstractFoodsharingRestCon
     }
 
     #[OA\Get(summary: 'Get a single email blocklist entry')]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(ref: new Model(type: EmailBlocklistEntry::class)))]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Blocklist entry not found')]
@@ -106,7 +110,7 @@ final class EmailBlocklistAdminRestController extends AbstractFoodsharingRestCon
 
     #[OA\Patch(summary: 'Update an existing email blocklist entry')]
     #[OA\RequestBody(content: new Model(type: EmailBlocklistEntryPatchModel::class))]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Entry updated successfully')]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Entry updated successfully', content: new OA\JsonContent(ref: new Model(type: EmailBlocklistEntry::class)))]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid request data or email pattern already exists')]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
@@ -136,7 +140,7 @@ final class EmailBlocklistAdminRestController extends AbstractFoodsharingRestCon
                 throw new BadRequestHttpException('email cannot be empty');
             }
             // Check if pattern exists (excluding current entry)
-            if ($model->email !== $entry['email'] && $this->gateway->patternExists($model->email)) {
+            if ($model->email !== $entry->email && $this->gateway->patternExists($model->email)) {
                 throw new BadRequestHttpException('This email pattern already exists in the blocklist');
             }
             $data['email'] = $model->email;

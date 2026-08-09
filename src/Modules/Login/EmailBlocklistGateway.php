@@ -6,11 +6,13 @@ namespace Foodsharing\Modules\Login;
 
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
+use Foodsharing\Modules\Login\DTO\EmailBlocklistEntry;
 
 class EmailBlocklistGateway extends BaseGateway
 {
     /**
      * Get all blocklist entries.
+     * @return array<EmailBlocklistEntry>
      */
     public function getAllEntries(): array
     {
@@ -34,7 +36,7 @@ class EmailBlocklistGateway extends BaseGateway
     /**
      * Get a single blocklist entry by ID.
      */
-    public function getEntry(int $id): ?array
+    public function getEntry(int $id): ?EmailBlocklistEntry
     {
         $entry = $this->db->fetchByCriteria(
             'fs_email_blacklist',
@@ -129,17 +131,17 @@ class EmailBlocklistGateway extends BaseGateway
     /**
      * Normalize entry from database format (snake_case) to API format (camelCase).
      */
-    private function normalizeEntry(array $entry): array
+    private function normalizeEntry(array $entry): EmailBlocklistEntry
     {
-        return [
-            'id' => (int)$entry['id'],
-            'email' => $entry['email'],
-            'reason' => $entry['reason'] ?? null,
-            'isActive' => (bool)$entry['active'],
-            'createdAt' => $entry['created_at'],
-            'createdBy' => isset($entry['created_by']) ? (int)$entry['created_by'] : null,
-            'updatedAt' => isset($entry['updated_at']) ? $entry['updated_at'] : null,
-            'updatedBy' => isset($entry['updated_by']) ? (int)$entry['updated_by'] : null,
-        ];
+        return new EmailBlocklistEntry(
+            id: (int)$entry['id'],
+            email: $entry['email'],
+            reason: $entry['reason'] ?? null,
+            isActive: (bool)$entry['active'],
+            createdAt: $entry['created_at'],
+            createdBy: isset($entry['created_by']) ? (int)$entry['created_by'] : null,
+            updatedAt: $entry['updated_at'] ?? null,
+            updatedBy: isset($entry['updated_by']) ? (int)$entry['updated_by'] : null,
+        );
     }
 }
