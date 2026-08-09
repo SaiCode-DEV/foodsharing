@@ -83,6 +83,7 @@
         v-b-tooltip.hover
         :title="$t('chat.show_participants')"
         class="participant-overflow"
+        :style="{ minWidth: overflowWidth }"
         @click.stop="$emit('show-participants')"
       >+{{ overflowCount }}</span>
       <ChatUnreadIndicator :unread="unread" />
@@ -133,6 +134,16 @@ const overflowCount = computed(() => {
   // For unnamed chats with < 4 people, no overflow is shown
   if (!props.box.title && total < 4) return 0
   return Math.max(0, total - visibleAvatars.value)
+})
+
+// Width for the widest number this chip can ever show. Sizing it by the current
+// value would feed back into the measurement below: a narrower number leaves
+// room for one more avatar, which lowers the number again. The extra 1.15ch
+// covers the plus sign (~1.09ch) plus the digits that are wider than the 0 that
+// defines the ch unit.
+const overflowWidth = computed(() => {
+  const digits = String(props.box.participants?.length ?? 0).length
+  return `${digits + 1.15}ch`
 })
 
 function updateVisibleCount () {
@@ -214,9 +225,11 @@ onUnmounted(() => {
   gap: 2px;
 
   .participant-overflow {
-    width: auto;
     flex: 0 0 auto;
     cursor: pointer;
+    // equal digit widths, so the chip keeps its size while the number changes
+    font-variant-numeric: tabular-nums;
+    text-align: center;
   }
 
   ::v-deep > .btn {

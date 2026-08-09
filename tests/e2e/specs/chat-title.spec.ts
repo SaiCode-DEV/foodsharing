@@ -119,6 +119,56 @@ test.describe("Chat title participant count", () => {
     await expect(dialog.locator(".participant-card")).toHaveCount(20);
   });
 
+  test("keeps the overflow chip at the same width for different numbers", async ({
+    page,
+    isMobile,
+  }) => {
+    // mobile has no chat dock: openChat navigates to the message page instead
+    test.skip(isMobile, "the chat dock only exists on desktop viewports");
+    // The dock derives how many avatars fit from the space left of the options
+    // block, and the chip sits in it. A chip that grows with its value feeds
+    // back into that measurement and the count starts flipping.
+    const extra = [];
+    for (let i = 0; i < 17; i++) {
+      extra.push(
+        await foodsharing.createFoodsaver(null, { bezirk_id: region.id }),
+      );
+    }
+    const conversation = await foodsharing.createConversation(
+      [
+        me.id,
+        others[0].id,
+        others[1].id,
+        others[2].id,
+        ...extra.map((u) => u.id),
+      ],
+      { name: "Team Width" },
+    );
+    await foodsharing.addConversationMessage(others[0].id, conversation.id);
+    await page.goto("/dashboard");
+    await chatHelper.navConversations.open();
+    await chatHelper.navConversations.getEntry(0).click();
+
+    const overflow = page.locator(
+      ".chat-dock .chatboxhead .participant-overflow",
+    );
+    await expect(overflow).toContainText("+");
+
+    const widths = await overflow.evaluate((el: HTMLElement) => {
+      const original = el.textContent;
+      const measured: Record<string, number> = {};
+      for (const value of ["+9", "+19", "+99"]) {
+        el.textContent = value;
+        measured[value] = el.getBoundingClientRect().width;
+      }
+      el.textContent = original;
+      return measured;
+    });
+
+    expect(widths["+19"]).toBeCloseTo(widths["+9"], 1);
+    expect(widths["+99"]).toBeCloseTo(widths["+9"], 1);
+  });
+
   test("shows the single avatar without a chip in the dock for a small named chat", async ({
     page,
     isMobile,
