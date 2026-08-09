@@ -7,6 +7,7 @@
     <b-form>
       <b-form-group :label="$t('events.create.who')">
         <b-form-select
+          :key="unitOptionCount"
           v-model="event.regionId"
           :options="regionSelectOptions"
           @change="updateEventPublicState"
@@ -157,6 +158,7 @@ export default {
       return {
         multipleDays: false,
         submitting: false,
+        preselectApplied: false,
         event: {
           regionId: this.regionId,
           startDay: null,
@@ -175,6 +177,7 @@ export default {
     return {
       multipleDays: start.toDateString() !== end.toDateString(),
       submitting: false,
+      preselectApplied: true,
       event: {
         regionId: this.edit.regionId,
         name: this.edit.name,
@@ -203,6 +206,9 @@ export default {
       const region = this.regions.find(region => region.id === this.event.regionId)
       if (region) return region?.maySetRegionPin
       return this.groups.find(groups => groups.id === this.event.regionId)?.isAdmin
+    },
+    unitOptionCount () {
+      return this.groups.length + this.regions.length
     },
     regionSelectOptions () {
       return [
@@ -252,6 +258,26 @@ export default {
           break
       }
       return true
+    },
+  },
+  watch: {
+    // The group and region lists arrive asynchronously (Navigation.vue fetches
+    // /server/data), so the select renders empty and would keep its first entry
+    // once the options appear: the model is right the whole time, only the DOM
+    // is not, because Vue syncs a select on value changes, not on new options.
+    // The key on the select rerenders it when the lists arrive, which picks the
+    // model value up again.
+    regionSelectOptions: {
+      immediate: true,
+      handler () {
+        if (this.edit || this.preselectApplied || !this.regionId) return
+        const match = this.regionSelectOptions
+          .flatMap(group => group.options)
+          .find(option => Number(option.value) === Number(this.regionId))
+        if (!match) return
+        this.preselectApplied = true
+        this.event.regionId = match.value
+      },
     },
   },
   methods: {
@@ -316,6 +342,8 @@ export default {
       return event
     },
     updateEventPublicState () {
+      // whatever the select says from here on is the user's choice
+      this.preselectApplied = true
       if (!this.mayChangeEventPublicState) {
         this.event.isPublic = false
       }
