@@ -123,7 +123,7 @@ class PassportGeneratorTransaction
         }
     }
 
-    private function generatePdf(array $userIds, bool $ambassadorGeneration, bool $usePaperSizeDinA4, DateTime $validFrom, DateTime $validUntil): stdClass
+    private function generatePdf(array $userIds, bool $ambassadorGeneration, bool $usePaperSizeDinA4, ?DateTime $validFrom, ?DateTime $validUntil): stdClass
     {
         $cutMarkers = $ambassadorGeneration;
 
@@ -149,6 +149,9 @@ class PassportGeneratorTransaction
 
         foreach ($userIds as $userId) {
             if ($user = $this->foodsaverGateway->getFoodsaverDetails($userId)) {
+                // without given dates (reprint) each pass keeps the user's original validity
+                $userValidFrom = $validFrom ?? $this->passportGeneratorGateway->getFoodsaverLastPassDate($userId) ?? Carbon::today();
+                $userValidUntil = $validUntil ?? $this->getPassportValidityEnd($userValidFrom);
                 $pdf->SetTextColor(0, 0, 0);
 
                 ++$card;
@@ -192,8 +195,8 @@ class PassportGeneratorTransaction
                 }
 
                 $pdf->SetFont($fontFamily, $fontStyle, 10);
-                $pdf->Text($margins['validDownMarginX'] + $x, $margins['validDownMarginY'] + $y, $validFrom->format('d.m.Y'));
-                $pdf->Text($margins['validTillMarginX'] + $x, $margins['validTillMarginY'] + $y, $validUntil->format('d.m.Y'));
+                $pdf->Text($margins['validDownMarginX'] + $x, $margins['validDownMarginY'] + $y, $userValidFrom->format('d.m.Y'));
+                $pdf->Text($margins['validTillMarginX'] + $x, $margins['validTillMarginY'] + $y, $userValidUntil->format('d.m.Y'));
 
                 $pdf->SetFont($fontFamily, $fontStyle, 6);
                 // ToDo: Add translation keys
@@ -298,8 +301,14 @@ class PassportGeneratorTransaction
         $generatedUserId = $this->session->id();
 
         if ($regionPassportModel->createPdf) {
-            $validFrom = Carbon::today();
-            $validUntil = $this->getPassportValidityEnd($validFrom);
+            if ($regionPassportModel->renew) {
+                $validFrom = Carbon::today();
+                $validUntil = $this->getPassportValidityEnd($validFrom);
+            } else {
+                // a reprint keeps each user's original validity, derived per user in generatePdf
+                $validFrom = null;
+                $validUntil = null;
+            }
             $result = $this->generatePdf($regionPassportModel->userIds, true, $regionPassportModel->usePaperSizeDinA4, $validFrom, $validUntil);
         }
 
