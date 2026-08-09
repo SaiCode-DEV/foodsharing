@@ -10,12 +10,6 @@ fuer-unternehmen:
   defaults:
     name: fuer_unternehmen
 
-leeretonne:
-  path: /leeretonne
-  controller: Foodsharing\Modules\Content\ContentController::show
-  defaults:
-    name: leeretonne
-
 fairteilerrettung:
   path: /fairteilerrettung
   controller: Foodsharing\Modules\Content\ContentController::show

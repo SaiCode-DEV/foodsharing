@@ -20,7 +20,6 @@ class ContentController extends FoodsharingController
     private const array SUB_TO_ID = [
         'forderungen' => ContentId::DEMANDS,
         'transparency' => ContentId::TRANSPARENCY,
-        'leeretonne' => ContentId::PAST_CAMPAIGNS,
         'foodSharePointRescue' => ContentId::RESCUE_FOOD_SHARE_POINT,
         'impressum' => ContentId::IMPRINT,
         'about' => ContentId::ABOUT,

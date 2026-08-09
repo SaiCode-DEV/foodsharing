@@ -66,7 +66,6 @@ class ContentId
     final public const int DEMANDS = 60;
     final public const int INTERNATIONAL = 74;
     final public const int TRANSPARENCY = 68;
-    final public const int PAST_CAMPAIGNS = 46;
     final public const int RESCUE_FOOD_SHARE_POINT = 49;
     final public const int IMPRINT = 8;
     final public const int ABOUT = 9;

@@ -38,7 +38,6 @@ const urls = {
   infos: () => '/content?sub=infohub',
   infosCompany: () => '/fuer-unternehmen',
   joininfo: () => '/content?sub=joininfo',
-  leeretonne: () => '/content?sub=leeretonne',
   login: (ref = null) => '/login' +
     ((ref !== null && ref.length > 0) ? '?ref=' + encodeURIComponent(`${ref}`) : ''),
   logout: () => {

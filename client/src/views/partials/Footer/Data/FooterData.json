@@ -120,10 +120,6 @@
       {
         "url": "claims",
         "title": "menu.entry.demands"
-      },
-      {
-        "url": "leeretonne",
-        "title": "menu.entry.pastcampaigns"
       }
     ]
   }
