@@ -1,7 +1,6 @@
 import { Tedis } from 'tedis';
 import { spawn } from 'child_process';
 import test from 'tape';
-import * as randomString from 'randomstring';
 import { Test } from 'tape';
 import { io, Socket } from 'socket.io-client';
 import { serialize } from 'cookie';
@@ -154,7 +153,7 @@ test('can send a message with large url params', t => {
 test('can send to users', t => {
     t.timeoutAfter(10000);
     t.plan(3);
-    const sessionId = randomString.generate();
+    const sessionId = crypto.randomUUID();
     const userId = 1;
     addPHPSessionToRedis(userId, sessionId, () => {
         const socket = connect(t, sessionId);

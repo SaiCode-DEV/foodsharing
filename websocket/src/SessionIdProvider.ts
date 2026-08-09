@@ -17,7 +17,7 @@ export class SessionIdProvider {
      * Once uploaded to Redis, the script is identified by an SHA hash. This can be used to tell Redis to execute the
      * script.
      */
-    private sessionIdsScriptSHA: string;
+    private sessionIdsScriptSHA = "";
 
     async fetchSessionIdsForUser (userId: number): Promise<string[]> {
         const sha = await this.getSessionIdsScriptSHA();
@@ -25,7 +25,7 @@ export class SessionIdProvider {
         try {
             return await redisClient.command('EVALSHA', sha, 0, userId);
         } catch (err) {
-            if (err.code !== 'NOSCRIPT') {
+            if (typeof err === "object" && err !== null && 'code' in err && err.code !== 'NOSCRIPT') {
                 throw err;
             }
             await this.uploadSessionIdsScriptToRedis();

@@ -1,17 +1,20 @@
-import { OnSocketConnection, OnSocketEvent } from './Framework/WebSocket/socket-decorators';
-import { Socket } from 'socket.io';
-import { Connection } from './Connection';
-import { ConnectionRegistry } from './ConnectionRegistry';
+import { Server, Socket } from 'socket.io';
+import { Connection } from '../Connection';
+import { ConnectionRegistry } from '../ConnectionRegistry';
 import { parse as parseCookie } from 'cookie';
 
 export class SocketController {
     private readonly connectionRegistry: ConnectionRegistry;
 
-    constructor (connectionRegistry: ConnectionRegistry) {
+    constructor (connectionRegistry: ConnectionRegistry, socket: Server) {
         this.connectionRegistry = connectionRegistry;
+        socket.on('connection', (socket) => {
+            this.onConnect(socket);
+            socket.on("disconnect", () => this.onDisconnect(socket));
+            socket.on("visibilitychange", (hidden: boolean) => this.onClientVisibilityChange(socket, hidden));
+        });
     }
 
-    @OnSocketConnection()
     onConnect (socket: Socket): void {
         this.connectionRegistry.numConnections++;
 
@@ -19,7 +22,6 @@ export class SocketController {
         this.connectionRegistry.register(sessionId, new Connection(socket));
     }
 
-    @OnSocketEvent('disconnect')
     onDisconnect (socket: Socket): void {
         this.connectionRegistry.numConnections--;
         try {
@@ -30,7 +32,6 @@ export class SocketController {
         }
     }
 
-    @OnSocketEvent('visibilitychange')
     onClientVisibilityChange (socket: Socket, hidden: boolean): void {
         const sessionId = this.readSessionId(socket);
         const connection = this.connectionRegistry.getConnection(sessionId, socket.id);

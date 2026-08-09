@@ -1,17 +1,19 @@
-import { FastifyRequest, FastifyReply } from 'fastify';
-import { Get, Post } from './Framework/Rest/rest-decorators';
-import { ConnectionRegistry } from './ConnectionRegistry';
-import { SessionIdProvider } from './SessionIdProvider';
+import { FastifyRequest, FastifyReply, FastifyInstance } from 'fastify';
+import { ConnectionRegistry } from '../ConnectionRegistry';
+import { SessionIdProvider } from '../SessionIdProvider';
 
 export class RestController {
     private readonly sessionIdProvider = new SessionIdProvider();
     private readonly connectionRegistry: ConnectionRegistry;
 
-    constructor (connectionRegistry: ConnectionRegistry) {
+    constructor (connectionRegistry: ConnectionRegistry, instance: FastifyInstance) {
         this.connectionRegistry = connectionRegistry;
+        instance.get("/stats", this.stats.bind(this));
+        instance.get("/users/:id/is-online", this.userIsConnected.bind(this));
+        // :ids: You can post to multiple user ids separating them with commas (,).
+        instance.post("/users/:ids/:channel/:method", this.send.bind(this));
     }
 
-    @Get('/stats')
     async stats (request: FastifyRequest, reply: FastifyReply): Promise<any> {
         return reply.send({
             connections: this.connectionRegistry.numConnections,
@@ -20,7 +22,6 @@ export class RestController {
         });
     }
 
-    @Get('/users/:id/is-online')
     async userIsConnected (request: FastifyRequest, reply: FastifyReply): Promise<any> {
         const params = request.params as { id: string };
         const userId = Number(params.id);
@@ -37,10 +38,7 @@ export class RestController {
         return reply.send(false);
     }
 
-    /**
-     * :ids: You can post to multiple user ids separating them with commas (,).
-     */
-    @Post('/users/:ids/:channel/:method')
+
     async send (request: FastifyRequest, reply: FastifyReply): Promise<any> {
         const params = request.params as { ids: string; channel: string; method: string };
         const userIds: number[] = params.ids.split(',').map(Number);
