@@ -10,9 +10,6 @@ export class FastifyServerFacade {
         this.registry = registry;
         this.server = Fastify({
             bodyLimit: 50000,
-             // Length for URL parameters, e.g. for long query strings due to lots of foodsaver-IDs. Without this, the limmit is 100 characters
-             // and longer query strings will result in 404 errors, because no route matched
-            maxParamLength: 50000,
         });
          
         new RestController(this.registry, this.server);

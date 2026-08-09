@@ -417,8 +417,8 @@ function waitForConnect (socket: Socket, callback: () => any): void {
     }
 }
 
-function sendMessage (userIds: number[], channel: string, method: string, options: object, callback: (error: any, res: Response) => any): void {
-    superagent.post(HTTP_URL + `/users/${userIds.join(',')}/${channel}/${method}`).send(options).end(callback);
+function sendMessage (userIds: number[], channel: string, method: string, data: object, callback: (error: any, res: Response) => any): void {
+    superagent.post(HTTP_URL + `/users/${channel}/${method}`).send({ fsIds: userIds, content: data }).end(callback);
 }
 
 function fetchStats (callback: (error: any, stats?: {connections: number, registrations: number, sessions: number}) => any): void {

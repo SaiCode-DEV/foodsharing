@@ -10,8 +10,7 @@ export class RestController {
         this.connectionRegistry = connectionRegistry;
         instance.get("/stats", this.stats.bind(this));
         instance.get("/users/:id/is-online", this.userIsConnected.bind(this));
-        // :ids: You can post to multiple user ids separating them with commas (,).
-        instance.post("/users/:ids/:channel/:method", this.send.bind(this));
+        instance.post("/users/:channel/:method", this.send.bind(this));
     }
 
     async stats (request: FastifyRequest, reply: FastifyReply): Promise<any> {
@@ -40,13 +39,15 @@ export class RestController {
 
 
     async send (request: FastifyRequest, reply: FastifyReply): Promise<any> {
-        const params = request.params as { ids: string; channel: string; method: string };
-        const userIds: number[] = params.ids.split(',').map(Number);
-        const sessionIds = await this.sessionIdProvider.fetchSessionIdsForUsers(userIds);
+        const params = request.params as { channel: string; method: string };
+        const { fsIds, content } = request.body as { fsIds: number[]; content: unknown };
+        if (!fsIds || !Array.isArray(fsIds) || fsIds.length === 0) {
+            return reply.status(400).send({ error: "Missing or invalid user IDs" });
+        }
+        const sessionIds = await this.sessionIdProvider.fetchSessionIdsForUsers(fsIds);
         const connections = this.connectionRegistry.getConnectionsForSessions(sessionIds);
-
         for (const connection of connections) {
-            connection.send(params.channel, { m: params.method, o: request.body });
+            connection.send(params.channel, { m: params.method, o: content });
         }
 
         return reply.send();

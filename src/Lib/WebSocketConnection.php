@@ -47,16 +47,16 @@ class WebSocketConnection
         }
     }
 
-    public function sendSock(int $fsid, string $app, string $method, array $options): void
+    public function sendSock(int $fsid, string $app, string $method, array $content): void
     {
         $url = SOCK_URL . 'users/' . $fsid . '/' . $app . '/' . $method;
-        $this->post($url, [RequestOptions::JSON => $options, RequestOptions::TIMEOUT => self::DEFAULT_TIMEOUT]);
+        $this->post($url, [RequestOptions::JSON => ['fsIds' => [$fsid], 'content' => $content], RequestOptions::TIMEOUT => self::DEFAULT_TIMEOUT]);
     }
 
-    public function sendSockMulti(array $fsids, string $app, string $method, array $options): void
+    public function sendSockMulti(array $fsids, string $app, string $method, array $content): void
     {
-        $url = SOCK_URL . 'users/' . join(',', $fsids) . '/' . $app . '/' . $method;
-        $this->post($url, [RequestOptions::JSON => $options, RequestOptions::TIMEOUT => self::DEFAULT_TIMEOUT]);
+        $url = SOCK_URL . 'users/' . $app . '/' . $method;
+        $this->post($url, [RequestOptions::JSON => ['fsIds' => $fsids, 'content' => $content], RequestOptions::TIMEOUT => self::DEFAULT_TIMEOUT]);
     }
 
     public function isUserOnline(int $fsid): bool
