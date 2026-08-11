@@ -1,16 +1,22 @@
 <template>
   <div class="rounded-bottom border pb-2">
-    <a
+    <router-link
       v-for="(menu,key) in menuEntries"
       :key="key"
-      :href="formatLink(menu)"
-      role="menuitem"
-      class="dropdown-item dropdown-action pointer-always"
-      @click="onClick(menu, $event)"
+      v-slot="{ navigate }"
+      :to="formatLink(menu) || '/'"
+      custom
     >
-      <i class="icon-subnav fas" :class="menu.icon" />
-      {{ $t(menu.text) }}
-    </a>
+      <a
+        :href="formatLink(menu)"
+        role="menuitem"
+        class="dropdown-item dropdown-action pointer-always"
+        @click="(e) => { onClick(menu, e); if (formatLink(menu)) navigate(e); }"
+      >
+        <i class="icon-subnav fas" :class="menu.icon" />
+        {{ $t(menu.text) }}
+      </a>
+    </router-link>
   </div>
 </template>
 

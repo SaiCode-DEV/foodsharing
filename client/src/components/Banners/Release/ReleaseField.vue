@@ -14,11 +14,12 @@
       </div>
       <div>
         {{ $t('dashboard.release.for_release_notes') }}
-        <a
+        <router-link
           class="release-link"
-          :href="$url('release_notes')"
-          v-text="$t('menu.entry.release-notes')"
-        />
+          :to="$url('release_notes')"
+        >
+          {{ $t('menu.entry.release-notes') }}
+        </router-link>
         <br>
 
         {{ $t('dashboard.release.for_news_from_it') }}
@@ -31,11 +32,12 @@
         <br>
 
         {{ $t('dashboard.release.for_support') }}
-        <a
+        <router-link
           class="release-link"
-          :href="$url('contact')"
-          v-text="$t('navigation.contact')"
-        />
+          :to="$url('contact')"
+        >
+          {{ $t('navigation.contact') }}
+        </router-link>
       </div>
     </div>
     <i

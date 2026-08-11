@@ -3,7 +3,7 @@
     class="d-flex dropdown-item search-result"
     href="#"
     tabindex="1"
-    @click="openChat"
+    @click.prevent="openChat"
   >
     <div class="text-truncate flex-grow-1">
       <h6 class="m-0 text-truncate d-inline">

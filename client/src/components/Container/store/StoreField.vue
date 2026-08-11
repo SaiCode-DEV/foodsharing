@@ -1,7 +1,7 @@
 <template>
-  <a
+  <FsLink
+    :to="$url('store', entry.id)"
     class="list-group-item list-group-item-action field field--stack"
-    :href="$url('store', entry.id)"
   >
     <div class="field-container">
       <h6
@@ -35,13 +35,15 @@
         v-text="$t('store.short_tooltip_'+['yellow', 'orange', 'red'][entry.pickupStatus - 1])"
       />
     </div>
-  </a>
+  </FsLink>
 </template>
 
 <script>
 import storeEntryMixin from '@/mixins/storeEntryMixin'
+import FsLink from '@/components/UI/FsLink.vue'
 
 export default {
+  components: { FsLink },
   mixins: [storeEntryMixin],
   props: {
     entry: { type: Object, default: () => {} },

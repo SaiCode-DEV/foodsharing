@@ -57,14 +57,15 @@
           <ul>
             <li
               v-for="(item) in data.items"
-              :key="item.infosCompany"
+              :key="item.url"
               class="nav-item"
             >
-              <a
-                :href="$url(item.url)"
+              <FsLink
+                :to="$url(item.url)"
                 :aria-label="$t(item.title)"
-                v-text="$t(item.title)"
-              />
+              >
+                {{ $t(item.title) }}
+              </FsLink>
             </li>
           </ul>
         </b-col>
@@ -78,26 +79,27 @@
           <b-row
             class="col"
           >
-            <a
-              :href="$url('imprint')"
+            <router-link
+              :to="$url('imprint')"
               :aria-label="$t('footer.imprint')"
               class="mr-3"
             >
-              {{ $t('footer.imprint') }}</a>
-            <a
-              :href="$url('dataprivacy')"
+              {{ $t('footer.imprint') }}
+            </router-link>
+            <router-link
+              :to="$url('dataprivacy')"
               :aria-label="$t('footer.dataprivacy')"
               class="mr-3"
             >
               {{ $t('footer.dataprivacy') }}
-            </a>
-            <a
-              :href="$url('contact')"
+            </router-link>
+            <router-link
+              :to="$url('contact')"
               :aria-label="$t('menu.entry.contact')"
               class="mr-3"
             >
               {{ $t('menu.entry.contact') }}
-            </a>
+            </router-link>
           </b-row>
           <b-row
             class="col"
@@ -128,10 +130,11 @@
           cols="12"
           class="d-flex flex-column align-items-md-end"
         >
-          <a
-            :href="$url('release_notes')"
-            v-text="$t('releases.2026-04')"
-          />
+          <router-link
+            :to="$url('release_notes')"
+          >
+            {{ $t('releases.2026-04') }}
+          </router-link>
           <span> {{ $t('footer.meta.made_with') }}
             <i class="made-with-love-icon fas fa-heart" />
             <a :href="$url('devdocs')" v-text="$t('footer.meta.it_devdocs')" />
@@ -160,10 +163,12 @@ import serverData from '@/helper/server-data'
 // Theme
 import { useThemeStore } from '@/stores/theme'
 import DonationButton from '@/components/DonationButton.vue'
+import FsLink from '@/components/UI/FsLink.vue'
 
 export default {
   components: {
     DonationButton,
+    FsLink,
   },
   mixins: [RouteCheckMixin],
   setup () {

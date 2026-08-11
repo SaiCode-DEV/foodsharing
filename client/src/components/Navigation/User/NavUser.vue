@@ -13,10 +13,10 @@
       />
     </template>
     <template #content>
-      <a
+      <FsLink
         v-if="hasMailBox"
+        :to="$url('mailbox')"
         :title="$t('menu.entry.mailbox')"
-        :href="$url('mailbox')"
         role="menuitem"
         class="dropdown-item dropdown-action position-relative"
       >
@@ -25,23 +25,25 @@
         <div
           class="badge badge-danger badge-inline"
           :class="{ 'overNinetyNine': String(userStore.getMailUnreadCount).length > 2 }"
-        >{{ userStore.getMailUnreadCount }}</div>
-      </a>
+        >
+          {{ userStore.getMailUnreadCount }}
+        </div>
+      </FsLink>
       <div v-if="hasMailBox" class="dropdown-divider" />
-      <a
-        :href="$url('profile', getUserId)"
+      <FsLink
+        :to="$url('profile', getUserId)"
         role="menuitem"
         class="dropdown-item dropdown-action"
       >
         <i class="icon-subnav fas fa-address-card" /> {{ $t('profile.title') }}
-      </a>
-      <a
-        :href="$url('settings')"
+      </FsLink>
+      <FsLink
+        :to="$url('settings')"
         role="menuitem"
         class="dropdown-item dropdown-action"
       >
         <i class="icon-subnav fas fa-cog" /> {{ $t('settings.header') }}
-      </a>
+      </FsLink>
       <div class="dropdown-divider" />
       <button
         role="menuitem"
@@ -79,6 +81,7 @@ import { useThemeStore } from '@/stores/theme'
 // Components
 import Avatar from '@/components/Avatar/Avatar.vue'
 import Dropdown from '../_NavItems/NavDropdown'
+import FsLink from '@/components/UI/FsLink.vue'
 
 // Mixins
 import RouteCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
@@ -91,6 +94,7 @@ export default {
   components: {
     Avatar,
     Dropdown,
+    FsLink,
   },
   mixins: [RouteCheckMixin],
   setup () {

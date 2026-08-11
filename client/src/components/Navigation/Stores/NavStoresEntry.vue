@@ -1,6 +1,6 @@
 <template>
-  <a
-    :href="$url('store', entry.id)"
+  <FsLink
+    :to="$url('store', entry.id)"
     role="menuitem"
     class="dropdown-item"
   >
@@ -15,13 +15,15 @@
       style="cursor: help;"
     />
     {{ entry.name }}
-  </a>
+  </FsLink>
 </template>
 
 <script>
 import storeEntryMixin from '@/mixins/storeEntryMixin'
+import FsLink from '@/components/UI/FsLink.vue'
 
 export default {
+  components: { FsLink },
   mixins: [storeEntryMixin],
   props: {
     entry: {

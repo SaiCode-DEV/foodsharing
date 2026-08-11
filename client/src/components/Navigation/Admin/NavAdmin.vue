@@ -7,86 +7,86 @@
     is-scrollable
   >
     <template #content>
-      <a
+      <FsLink
         v-if="permissions.administrateBlog"
-        :href="$url('blogList')"
+        :to="$url('blogList')"
         role="menuitem"
         class="dropdown-item dropdown-action"
       >
         <i class="icon-subnav fas fa-newspaper" /> {{ $t('system_administration.blog') }}
-      </a>
-      <a
+      </FsLink>
+      <FsLink
         v-if="permissions.editQuiz"
-        :href="$url('quiz_admin_edit')"
+        :to="$url('quiz_admin_edit')"
         role="menuitem"
         class="dropdown-item dropdown-action"
       >
         <i class="icon-subnav fas fa-question-circle" /> {{ $t('system_administration.quiz') }}
-      </a>
-      <a
+      </FsLink>
+      <FsLink
         v-if="permissions.administrateRegions"
-        :href="$url('regionAdmin')"
+        :to="$url('regionAdmin')"
         role="menuitem"
         class="dropdown-item dropdown-action"
       >
         <i class="icon-subnav fas fa-map" /> {{ $t('system_administration.regions') }}
-      </a>
-      <a
+      </FsLink>
+      <FsLink
         v-if="permissions.mayAdministrateOAuthClients"
-        :href="$url('oauthClientsAdmin')"
+        :to="$url('oauthClientsAdmin')"
         role="menuitem"
         class="dropdown-item dropdown-action"
       >
         <i class="icon-subnav fas fa-key" /> {{ $t('oauth.admin.title') }}
-      </a>
-      <a
+      </FsLink>
+      <FsLink
         v-if="permissions.mayAdministrateEmailBlocklist"
-        :href="$url('emailBlocklistAdmin')"
+        :to="$url('emailBlocklistAdmin')"
         role="menuitem"
         class="dropdown-item dropdown-action"
       >
         <i class="icon-subnav fas fa-ban" /> {{ $t('email_blocklist.admin.title') }}
-      </a>
-      <a
+      </FsLink>
+      <FsLink
         v-if="permissions.editContent"
-        :href="$url('contentEdit')"
+        :to="$url('contentEdit')"
         role="menuitem"
         class="dropdown-item dropdown-action"
       >
         <i class="icon-subnav fas fa-file-alt" /> {{ $t('system_administration.content') }}
-      </a>
-      <a
+      </FsLink>
+      <FsLink
         v-if="permissions.editStoreCategories"
-        :href="$url('editCategories', 'store')"
+        :to="$url('editCategories', 'store')"
         role="menuitem"
         class="dropdown-item dropdown-action"
       >
         <i class="icon-subnav fas fa-store" /> {{ $t('system_administration.store_categories') }}
-      </a>
-      <a
+      </FsLink>
+      <FsLink
         v-if="permissions.editResourceCategories"
-        :href="$url('editCategories', 'resource')"
+        :to="$url('editCategories', 'resource')"
         role="menuitem"
         class="dropdown-item dropdown-action"
       >
         <i class="icon-subnav fas fa-shapes" /> {{ $t('system_administration.resource_categories') }}
-      </a>
-      <a
+      </FsLink>
+      <FsLink
         v-if="permissions.editAchievements"
-        :href="$url('editAchievements')"
+        :to="$url('editAchievements')"
         role="menuitem"
         class="dropdown-item dropdown-action"
       >
         <i class="icon-subnav fas fa-tags" /> {{ $t('achievements.editTitle') }}
-      </a>
-      <a
+      </FsLink>
+      <FsLink
         v-if="permissions.editDonationPage"
-        :href="$url('donationAdminPage')"
+        :to="$url('donationAdminPage')"
         role="menuitem"
         class="dropdown-item dropdown-action"
       >
         <i class="icon-subnav fas fa-hand-holding-heart" /> {{ $t('system_administration.donation_page_edit') }}
-      </a>
+      </FsLink>
     </template>
   </Dropdown>
 </template>
@@ -95,12 +95,14 @@
 import { useUserStore } from '@/stores/user'
 // Components
 import Dropdown from '../_NavItems/NavDropdown'
+import FsLink from '@/components/UI/FsLink.vue'
 // Mixins
 import RouteCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
 
 export default {
   components: {
     Dropdown,
+    FsLink,
   },
   mixins: [RouteCheckMixin],
   setup () {

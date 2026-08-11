@@ -22,14 +22,14 @@
       />
     </template>
     <template #actions>
-      <a
-        :href="$url('workingGroups')"
+      <FsLink
+        :to="$url('workingGroups')"
         role="menuitem"
         class="dropdown-item dropdown-action"
       >
         <i class="icon-subnav fas fa-users" />
         {{ $t('menu.entry.group_overview') }}
-      </a>
+      </FsLink>
     </template>
   </Dropdown>
 </template>
@@ -39,10 +39,11 @@ import DataGroups from '@/stores/groups'
 // Components
 import Dropdown from '../_NavItems/NavDropdown'
 import GroupsEntry from './NavGroupsEntry'
+import FsLink from '@/components/UI/FsLink.vue'
 
 export default {
   name: 'MenuGroups',
-  components: { Dropdown, GroupsEntry },
+  components: { Dropdown, GroupsEntry, FsLink },
   computed: {
     groups () {
       return DataGroups.getters.get()

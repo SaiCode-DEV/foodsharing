@@ -5,7 +5,7 @@
       <!-- If the category has a 'url', it is rendered as a link without dropdown -->
       <b-nav-item
         v-if="'url' in category"
-        :href="$url(category.url)"
+        :to="$url(category.url)"
         class="nav-item"
       >
         <i
@@ -32,14 +32,18 @@
           >
         </template>
         <template #content>
-          <a
+          <span
             v-for="(entry, key) in category.items"
             :key="key"
-            :href="$url(entry.url)"
-            role="menuitem"
-            class="dropdown-item dropdown-action"
-            v-text="$t(entry.title)"
-          />
+          >
+            <FsLink
+              :to="$url(entry.url)"
+              role="menuitem"
+              class="dropdown-item dropdown-action"
+            >
+              {{ $t(entry.title) }}
+            </FsLink>
+          </span>
         </template>
       </Dropdown>
     </span>
@@ -65,6 +69,7 @@
 import MainNavData from '../../Data/MainNavData.json'
 import Dropdown from '@/components/Navigation/_NavItems/NavDropdown'
 import Logo from '@/components/Navigation/Logo'
+import FsLink from '@/components/UI/FsLink.vue'
 import { useMediaQuery } from '@/composables/useMediaQuery'
 
 import { computed } from 'vue'

@@ -55,11 +55,12 @@
               :size="75"
             />
             <h6 class="d-inline ml-1">
-              <a
+              <router-link
                 ref="userNameMobile"
-                :href="$url('profile', props.selectedResource.user.id)"
-                v-text="props.selectedResource.user?.name"
-              />:
+                :to="$url('profile', props.selectedResource.user.id)"
+              >
+                {{ props.selectedResource.user?.name }}
+              </router-link>:
             </h6>
           </div>
           <Markdown
@@ -97,7 +98,9 @@
           <p v-if="props.selectedResource.regionId">
             <i class="fas fa-location-pin-lock" />
             <b>{{ $t('resource_mosaic.restricted_to') }} </b>
-            <a :href="url('resources', region.id)">{{ region.name }}</a>
+            <router-link :to="url('resources', region.id)">
+              {{ region.name }}
+            </router-link>
           </p>
           <Gallery :images="props.selectedResource.images" :height-in-px="100" />
         </div>

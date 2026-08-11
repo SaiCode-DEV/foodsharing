@@ -18,7 +18,7 @@
       <b-button
         variant="primary"
         class="mt-3"
-        :href="url('baskets')"
+        :to="url('baskets')"
       >
         {{ $t('basket.all_map') }}
       </b-button>
@@ -26,7 +26,7 @@
         v-if="!userStore.isLoggedIn"
         variant="primary"
         class="mt-3"
-        :href="url('joininfo')"
+        :to="url('joininfo')"
       >
         {{ $t('register.topbar') }}
       </b-button>

@@ -16,7 +16,7 @@
           <b-button
             v-b-tooltip="$t('profile.go')"
             variant="outline-primary"
-            :href="$url('profile', profile.id)"
+            :to="$url('profile', profile.id)"
             size="sm"
           >
             <i class="fas fa-fw fa-user" :aria-label="$t('profile.go')" />
@@ -129,9 +129,9 @@
     <Avatar
       :user="profile"
       :size="50"
-      style="margin: 2px 2px 2px 1px;"
-      href="#"
-      role="button taken-slot-dialog-button"
+      style="margin: 2px 2px 2px 1px; cursor: pointer;"
+      href=""
+      class="taken-slot-dialog-button"
       badge-size="100%"
       :badge-variant="confirmed ? 'success' : 'danger'"
       :options="{ badgeOffset: '-5px' }"

@@ -246,4 +246,9 @@ const url = (key, ...params) => {
 
 const isNotFoodsharingDomain = (value) => value.match(/(.)+@foodsharing.network$/g) === null
 
-export { url, urls, isNotFoodsharingDomain }
+const isExternalUrl = (url) => {
+  if (!url || typeof url === 'object') return false
+  return /^(https?|mailto|tel):/i.test(String(url))
+}
+
+export { url, urls, isNotFoodsharingDomain, isExternalUrl }

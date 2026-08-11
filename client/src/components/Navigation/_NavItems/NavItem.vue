@@ -3,7 +3,8 @@
     v-if="!isDropdown"
     :title="$t(entry.title)"
     :icon="entry.icon"
-    :href="$url(entry.url)"
+    :to="isExternalUrl($url(entry.url)) ? null : $url(entry.url)"
+    :href="isExternalUrl($url(entry.url)) ? $url(entry.url) : null"
     :class="{
       'text-success font-weight-bold': entry.isHighlighted,
     }"
@@ -30,7 +31,8 @@
         />
         <b-dropdown-item
           v-else
-          :href="item.url ? $url(item.url) : null"
+          :to="isExternalUrl($url(item.url)) ? null : $url(item.url)"
+          :href="isExternalUrl($url(item.url)) ? $url(item.url) : null"
           :target="item.isInternal ? '_self' : '_blank'"
           @click="item.modal ? $bvModal.show(item.modal) : null"
         >
@@ -53,6 +55,8 @@ import NavLink from './NavLink.vue'
 // Mixins
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import RouteAndDeviceCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
+// Helpers
+import { isExternalUrl } from '@/helper/urls'
 
 export default {
   components: {
@@ -92,6 +96,9 @@ export default {
         return true
       })
     },
+  },
+  methods: {
+    isExternalUrl,
   },
 }
 </script>

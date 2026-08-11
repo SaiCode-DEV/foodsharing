@@ -1,7 +1,7 @@
 <template>
-  <a
+  <FsLink
+    :to="$url('poll', entry.id)"
     class="list-group-item list-group-item-action"
-    :href="$url('poll', entry.id)"
   >
     <div class="d-flex">
       <div
@@ -64,12 +64,16 @@
         </div>
       </div>
     </div>
-  </a>
+  </FsLink>
 </template>
 
 <script>
+import FsLink from '@/components/UI/FsLink.vue'
 
 export default {
+  components: {
+    FsLink,
+  },
   props: {
     entry: { type: Object, default: () => {} },
   },

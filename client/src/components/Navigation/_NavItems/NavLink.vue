@@ -20,6 +20,7 @@
 
 <script setup>
 import { computed } from 'vue'
+import { isExternalUrl } from '@/helper/urls'
 
 const props = defineProps({
   title: {
@@ -46,10 +47,7 @@ const props = defineProps({
 
 const url = computed(() => props.to || props.href)
 
-const isExternal = computed(() => {
-  if (!url.value || typeof url.value === 'object') return false
-  return /^(https?|mailto|tel):/i.test(String(url.value))
-})
+const isExternal = computed(() => isExternalUrl(url.value))
 
 const computedHref = computed(() => {
   if (!url.value) return null

@@ -52,23 +52,23 @@
       />
     </template>
     <template #actions>
-      <a
+      <FsLink
         v-if="permissions.addStore"
-        :href="$url('storeAdd', homeRegionId)"
+        :to="$url('storeAdd', homeRegionId)"
         role="menuitem"
         class="dropdown-item dropdown-action"
       >
         <i class="icon-subnav fas fa-plus" />
         {{ $t('storeedit.add-new') }}
-      </a>
-      <a
-        :href="$url('storeUserList', userId)"
+      </FsLink>
+      <FsLink
+        :to="$url('storeUserList', userId)"
         role="menuitem"
         class="dropdown-item dropdown-action"
       >
         <i class="icon-subnav fas fa-list" />
         {{ $t('store.all_of_my_stores') }}
-      </a>
+      </FsLink>
     </template>
   </Dropdown>
 </template>
@@ -79,10 +79,11 @@ import DataStores from '@/stores/stores'
 // Components
 import Dropdown from '../_NavItems/NavDropdown'
 import StoresEntry from './NavStoresEntry'
+import FsLink from '@/components/UI/FsLink.vue'
 
 export default {
   name: 'MenuStores',
-  components: { Dropdown, StoresEntry },
+  components: { Dropdown, StoresEntry, FsLink },
   setup () {
     const userStore = useUserStore()
     return {

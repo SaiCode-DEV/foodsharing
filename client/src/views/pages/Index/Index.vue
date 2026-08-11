@@ -33,7 +33,7 @@
                 <b-button
                   variant="primary"
                   class="pl-5 pr-5"
-                  :href="$url('joininfo')"
+                  :to="$url('joininfo')"
                 >
                   {{ $t('startpage.call_to_action_button') }}
                 </b-button>
@@ -270,7 +270,7 @@
                     <b-card-text>
                       {{ $t('startpage.near_you.text1.part1') }} <b-link
                         class="link"
-                        :href="$url('map')"
+                        :to="$url('map')"
                       >
                         {{ $t('startpage.near_you.text1.part2') }}
                       </b-link>
@@ -292,7 +292,7 @@
                 <b-card-text class="pt-4">
                   {{ $t('startpage.near_you.text3.part1') }} <b-link
                     class="link"
-                    :href="$url('communities')"
+                    :to="$url('communities')"
                   >
                     {{ $t('startpage.near_you.text3.part2') }}
                   </b-link>

@@ -34,14 +34,14 @@
         <i class="icon-subnav fas fa-check-double" />
         {{ $t('menu.entry.mark_as_read') }}
       </button>
-      <a
-        :href="$url('conversations')"
+      <FsLink
+        :to="$url('conversations')"
         role="menuitem"
         class="dropdown-item dropdown-action"
       >
         <i class="icon-subnav fas fa-comments" />
         {{ $t('menu.entry.all_messages') }}
-      </a>
+      </FsLink>
       <div
         v-if="mayUsePushNotifications"
         class="dropdown-item dropdown-switch-item"
@@ -66,11 +66,12 @@ import conversationStore from '@/stores/conversations'
 // Components
 import Dropdown from '../_NavItems/NavDropdown'
 import ConversationsEntry from './NavConversationsEntry'
+import FsLink from '@/components/UI/FsLink.vue'
 // Mixins
 import PushNotificationMixin from '@/mixins/PushNotificationMixin.js'
 
 export default {
-  components: { ConversationsEntry, Dropdown },
+  components: { ConversationsEntry, Dropdown, FsLink },
   mixins: [PushNotificationMixin],
   computed: {
     conversations () {

@@ -4,11 +4,12 @@
       {{ $t('login.form_title') }}
     </div>
     <LoginForm />
-    <a
-      :href="$url('passwordReset')"
+    <router-link
+      :to="$url('passwordReset')"
       class="pl-2 m-2 pb-2"
-      v-text="$t('login.forgotten_password_label')"
-    />
+    >
+      {{ $t('login.forgotten_password_label') }}
+    </router-link>
   </div>
 </template>
 

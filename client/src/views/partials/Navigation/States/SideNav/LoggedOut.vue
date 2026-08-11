@@ -6,7 +6,7 @@
         <ThemeSwitcher />
       </li>
       <NavLink
-        :href="$url('joininfo')"
+        :to="$url('joininfo')"
         :title="$t('register.topbar')"
       />
       <NavLogin />

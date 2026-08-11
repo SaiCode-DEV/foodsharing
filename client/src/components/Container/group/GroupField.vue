@@ -1,14 +1,17 @@
 <template>
-  <a
+  <FsLink
+    :to="$url('forum', entry.id)"
     class="list-group-item list-group-item-action field"
-    :href="$url('forum', entry.id)"
   >
     <h6 class="field-headline" v-text="entry.name" />
-  </a>
+  </FsLink>
 </template>
 
 <script>
+import FsLink from '@/components/UI/FsLink.vue'
+
 export default {
+  components: { FsLink },
   props: {
     entry: { type: Object, default: () => {} },
   },

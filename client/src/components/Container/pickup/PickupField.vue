@@ -1,10 +1,10 @@
 <template>
-  <a
+  <FsLink
+    :to="$url('store', entry.store.id)"
     class="pickup-field list-group-item list-group-item-action field field--stack"
     :class="{
       'muted': muteSignUps && entry.isConfirmed !== null,
     }"
-    :href="$url('store', entry.store.id)"
   >
     <div class="d-flex justify-content-between align-items-center">
       <h6 class="field-headline field-headline--big" :class="{ 'text-danger': isSoon }">
@@ -50,11 +50,12 @@
         />
       </b-badge>
     </span>
-  </a>
+  </FsLink>
 </template>
 <script setup>
 import { computed, defineProps } from 'vue'
 import PickupTeam from './PickupTeam.vue'
+import FsLink from '@/components/UI/FsLink.vue'
 import i18n from '@/helper/i18n'
 import dateFormatter from '@/helper/date-formatter'
 

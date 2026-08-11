@@ -3,7 +3,8 @@
     v-b-tooltip.ds300.noninteractive="computedTooltip"
     :src="imageSrc"
     :size="size"
-    :href="computedHref"
+    :to="computedHref || undefined"
+    :button="isButton"
     :variant="computedVariant"
     :badge-variant="badgeVariant"
     badge-bottom
@@ -44,7 +45,6 @@ export default {
     user: { type: Object, default: null },
 
     // Uses the given string as href. If undefined is provided, a link to the given user profile is used.
-    // Disabling the profile link is possible by passing ''
     href: { type: [String, undefined], default: undefined },
 
     // Further options provided to b-avatar (TODO remove if unused)
@@ -75,13 +75,19 @@ export default {
       return '/img/' + prefix + 'avatar.png'
     },
     computedHref () {
+      if (this.href === '') {
+        return null
+      }
       if (typeof this.href === 'string') {
         return this.href
       }
       if (this.user?.id) {
         return this.$url('profile', this.user.id)
       }
-      return ''
+      return null
+    },
+    isButton () {
+      return !this.computedHref && !!this.$listeners.click
     },
     computedTooltip () {
       if (typeof this.tooltip === 'string') {

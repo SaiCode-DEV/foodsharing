@@ -35,14 +35,14 @@
           <i class="icon-subnav fas fa-plus" />
           {{ $t('basket.add') }}
         </button>
-        <a
-          :href="$url('baskets')"
+        <FsLink
+          :to="$url('baskets')"
           role="menuitem"
           class="dropdown-item dropdown-action"
         >
           <i class="icon-subnav fas fa-list" />
           {{ $t('basket.all') }}
-        </a>
+        </FsLink>
         <button
           class="dropdown-item dropdown-action"
           :disabled="!mayRefresh"
@@ -68,10 +68,11 @@ import BasketsEntry from './NavBasketsEntry'
 import AddBasketModal from '@/views/partials/Modals/AddBasketModal.vue'
 import RemoveBasketRequestModal from '@/views/partials/Modals/RemoveBasketRequestModal.vue'
 import TimeDisplay from '@/components/TimeDisplay.vue'
+import FsLink from '@/components/UI/FsLink.vue'
 const REFRESH_WAIT_TIME = 20_000
 
 export default {
-  components: { BasketsEntry, Dropdown, AddBasketModal, RemoveBasketRequestModal, TimeDisplay },
+  components: { BasketsEntry, Dropdown, AddBasketModal, RemoveBasketRequestModal, TimeDisplay, FsLink },
   setup () {
     return {
       basketStore: useBasketStore(),

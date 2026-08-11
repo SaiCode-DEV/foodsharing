@@ -6,17 +6,17 @@
     is-scrollable
   >
     <template #content>
-      <a
+      <FsLink
         v-for="(item, idx) in filteredHelpItems"
         :key="idx"
-        :href="item.url ? $url(item.url) : undefined"
+        :to="item.url ? $url(item.url) : '/'"
         role="menuitem"
         class="dropdown-item dropdown-action"
-        @click="item.modal && $emit('show-modal', item.modal)"
+        @click="(e) => { if (item.modal) $emit('show-modal', item.modal); else if (!item.url) e.preventDefault(); }"
       >
         <i v-if="item.icon" :class="['icon-subnav', item.icon]" />
         {{ $t(item.title) }}
-      </a>
+      </FsLink>
     </template>
   </Dropdown>
 </template>
@@ -24,6 +24,7 @@
 <script setup>
 import { computed } from 'vue'
 import Dropdown from '../_NavItems/NavDropdown'
+import FsLink from '@/components/UI/FsLink.vue'
 import MetaNavData from '@/views/partials/Navigation/Data/MetaNavData.json'
 import { useEnvironmentCheck } from '@/composables/useEnvironmentCheck'
 

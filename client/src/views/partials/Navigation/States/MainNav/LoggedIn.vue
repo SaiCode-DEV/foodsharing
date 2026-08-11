@@ -5,7 +5,7 @@
       v-if="!isFoodsaver"
       :title="$t('foodsaver.upgrade.FOODSAVER')"
       icon="fa-hands-helping"
-      :href="$url('quiz_foodsaver')"
+      :to="$url('quiz_foodsaver')"
     />
     <NavRegions v-if="isFoodsaver && !viewIsMobile" />
     <NavGroups v-if="isFoodsaver && !viewIsMobile" />

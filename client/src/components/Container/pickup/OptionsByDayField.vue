@@ -5,10 +5,10 @@
       :class="{ 'is-soon': isSoon(options[0]) }"
       v-text="$dateFormatter.date(options[0].date, {type: 'full'})"
     />
-    <a
+    <FsLink
       v-for="option in options"
       :key="option.date + '-' + option.store.id"
-      :href="$url('store', option.store.id)"
+      :to="$url('store', option.store.id)"
       class="d-flex align-items-center pickup-entry"
       :class="{ 'muted': variant(option) !== 'info' }"
     >
@@ -22,12 +22,13 @@
       <b-badge pill :variant="variant(option)">
         <PickupTeam :pickup="option" />
       </b-badge>
-    </a>
+    </FsLink>
   </div>
 </template>
 <script setup>
 import dateFormatter from '@/helper/date-formatter'
 import PickupTeam from './PickupTeam.vue'
+import FsLink from '@/components/UI/FsLink.vue'
 import { defineProps } from 'vue'
 
 defineProps({

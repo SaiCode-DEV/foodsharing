@@ -4,7 +4,7 @@
     <component
       :is="storeId ? 'a' : 'span'"
       class="mr-2"
-      :href="storeId ? $url('store', storeId) : ''"
+      :to="storeId ? $url('store', storeId) : ''"
     >
       {{ title }}
     </component>

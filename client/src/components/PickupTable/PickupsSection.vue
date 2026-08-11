@@ -6,7 +6,7 @@
         v-b-tooltip="$t('settings.calendar.export_tooltip')"
         variant="primary"
         size="sm"
-        :href="$url('settingsCalendar')"
+        :to="$url('settingsCalendar')"
       >
         {{ $t('settings.calendar.export') }}
       </b-button>

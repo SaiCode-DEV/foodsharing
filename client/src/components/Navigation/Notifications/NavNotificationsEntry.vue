@@ -12,8 +12,8 @@
         :image="bell.image"
         :icon="getIcon"
         variant="light"
-        href="#"
-        @click.stop="closeBell"
+        href=""
+        @click.stop.prevent="closeBell"
       />
       <span class="flex-grow-1 d-flex flex-column text-truncate">
         <span class="d-flex justify-content-between align-items-center text-truncate">
@@ -130,7 +130,13 @@ export default {
         this.$root.$emit('bv::show::modal', this.translationFailedModalId)
       } else {
         if (this.bell.href) {
-          location.href = this.bell.href
+          if (this.bell.href.startsWith('/')) {
+            this.$router.push(this.bell.href).catch(err => {
+              if (err.name !== 'NavigationDuplicated') console.error(err)
+            })
+          } else {
+            location.href = this.bell.href
+          }
         }
       }
     },

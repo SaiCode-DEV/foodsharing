@@ -4,6 +4,7 @@
     :button="!href"
     class="text-center"
     :href="href"
+    :to="to"
     @click="$emit('click')"
   >
     <slot>
@@ -23,6 +24,7 @@ export default {
     textKey: { type: String, default: '' },
     icon: { type: String, default: '' },
     href: { type: String, default: null },
+    to: { type: String, default: null },
   },
 }
 </script>

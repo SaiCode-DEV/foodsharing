@@ -1,7 +1,7 @@
 <template>
-  <a
+  <FsLink
+    :to="$url('basket', entry.id)"
     class="list-group-item list-group-item-action field"
-    :href="$url('basket', entry.id)"
   >
     <div class="img-thumbnail mr-2">
       <img
@@ -40,13 +40,15 @@
         </span>
       </div>
     </div>
-  </a>
+  </FsLink>
 </template>
 
 <script>
 import { sanitizeHtml } from '@/helper/sanitize-html'
+import FsLink from '@/components/UI/FsLink.vue'
 
 export default {
+  components: { FsLink },
   props: {
     entry: { type: Object, default: () => {} },
   },

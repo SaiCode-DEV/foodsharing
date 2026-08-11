@@ -7,7 +7,9 @@
     <Avatar :user="post.author" :size="50" />
     <div class="flex-grow-1 position-relative flex-shrink-fix">
       <div class="d-flex" style="gap: 0.5em">
-        <a :href="$url('profile', post.author.id)" v-text="post.author.name" />
+        <router-link :to="$url('profile', post.author.id)">
+          {{ post.author.name }}
+        </router-link>
         <span class="flex-grow-1" />
         <TimeDisplay :time="post.time" />
         <OverflowMenu

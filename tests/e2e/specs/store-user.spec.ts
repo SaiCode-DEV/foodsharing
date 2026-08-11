@@ -122,11 +122,10 @@ test.describe("Store user", () => {
       await acceptanceHelper.waitForActiveAPICalls();
 
       // open taken slot dialog for first slot and toggle details
+      await page.locator(".taken-slot-dialog-button").first().click();
       await page
-        .locator("xpath=(//*[contains(@role,'taken-slot-dialog-button')])")
-        .first()
+        .locator('.modal.show [role~="occupied-slot-details-button"]')
         .click();
-      await page.click("[role~='occupied-slot-details-button']");
 
       await expect(
         page
@@ -205,11 +204,10 @@ test.describe("Store user", () => {
       await acceptanceHelper.waitForActiveAPICalls();
 
       // open taken slot dialog for third slot (occupied by foodsaver2)
+      await page.locator(".taken-slot-dialog-button").nth(2).click();
       await page
-        .locator("xpath=(//*[contains(@role,'taken-slot-dialog-button')])")
-        .nth(2)
+        .locator('.modal.show [role~="occupied-slot-details-button"]')
         .click();
-      await page.click("[role~='occupied-slot-details-button']");
 
       await expect(
         page.locator("[role~='user-occupied-slots-listitem']"),

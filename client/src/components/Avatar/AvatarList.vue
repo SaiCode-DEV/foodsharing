@@ -8,8 +8,8 @@
         v-for="profile in profiles"
         :key="profile.id"
       >
-        <a
-          :href="$url('profile', profile.id)"
+        <router-link
+          :to="$url('profile', profile.id)"
           class="row justify-content-start"
         >
           <Avatar
@@ -18,7 +18,7 @@
             class="mr-2"
           />
           <span class="d-inline avatar-title">{{ profile.name }}</span>
-        </a>
+        </router-link>
       </li>
     </ul>
   </div>

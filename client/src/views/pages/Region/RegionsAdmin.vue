@@ -104,7 +104,7 @@
           <b-button
             v-if="!isNewRegion"
             variant="outline-primary"
-            :href="$url('forum', region.id)"
+            :to="$url('forum', region.id)"
             target="_blank"
           >
             {{ $t('forum.go') }}

@@ -1,10 +1,10 @@
 <template>
-  <a
+  <FsLink
+    :to="$url('basket', basket.id)"
     class="dropdown-header dropdown-item"
     :class="{
       'list-group-item-warning': basket.requests.length > 0,
     }"
-    :href="$url('basket', basket.id)"
   >
     <span
       class="d-flex justify-content-between align-items-center text-truncate"
@@ -19,8 +19,8 @@
         <span class="d-flex justify-content-between align-items-center text-truncate">
           <!-- eslint-disable vue/no-v-html -->
           <!-- basket.description is user-provided and NOT sanitized server-side
-               (no sanitization in BasketGateway add/getBasket). Sanitized
-               client-side via the shared hardened sanitizer. -->
+             (no sanitization in BasketGateway add/getBasket). Sanitized
+             client-side via the shared hardened sanitizer. -->
           <span
             class="mb-1 text-truncate"
             v-html="sanitizedDescription"
@@ -66,7 +66,7 @@
         <i class="fas fa-check" />
       </button>
     </button>
-  </a>
+  </FsLink>
 </template>
 
 <script>
@@ -75,9 +75,10 @@ import Avatar from '@/components/Avatar/Avatar.vue'
 import TimeDisplay from '@/components/TimeDisplay.vue'
 import conversationStore from '@/stores/conversations'
 import { sanitizeHtml } from '@/helper/sanitize-html'
+import FsLink from '@/components/UI/FsLink.vue'
 
 export default {
-  components: { Avatar, TimeDisplay },
+  components: { Avatar, TimeDisplay, FsLink },
   props: {
     basket: { type: Object, default: () => ({}) },
   },

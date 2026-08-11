@@ -140,7 +140,7 @@
           <b-list-group-item
             v-for="item in sameDayAgenda"
             :key="`${item.type}-${item.id}-${item.date}`"
-            :href="item.id > 0 ? $url(item.type, item.id) : undefined"
+            :to="item.id > 0 ? $url(item.type, item.id) : undefined"
             target="_blank"
             class="font-weight-bolder"
             :class="{ 'list-group-item-warning': item.type === 'proposal' }"

@@ -42,7 +42,7 @@
         <h3>{{ $t('basket.requests', { count: requests.length }) }}</h3>
         <ul class="linklist request-list">
           <li v-for="request in requests" :key="request.fs_id">
-            <a href="#" @click="openChat(request.fs_id)">
+            <a href="#" @click.prevent="openChat(request.fs_id)">
               <span class="name">{{ request.fs_name }}</span>
               <Avatar :image="request.fs_photo" :size="50" />
               <span class="time"> {{ $dateFormatter.dateTime(new Date(request.requestedAt)) }}</span>

@@ -1,7 +1,7 @@
 <template>
-  <a
+  <FsLink
+    :to="$url('event', entry.id)"
     class="list-group-item list-group-item-action"
-    :href="$url('event', entry.id)"
   >
     <div class="d-flex">
       <div
@@ -50,15 +50,16 @@
               v-text="$t('events.span', { from: displayedStart, until: displayedEnd })"
             />
           </div>
-          <a
+          <FsLink
             v-if="!options"
+            :to="$url('event', entry.id)"
             class="d-none d-sm-block small"
-            :href="$url('event', entry.id)"
+            @click.native.stop
           >
             <span>
               {{ $t('events.button.change') }} ({{ $t('events.button.' + ['yes', 'maybe', 'no'][status - 1]) }})
             </span>
-          </a>
+          </FsLink>
         </div>
       </div>
     </div>
@@ -91,14 +92,16 @@
         {{ $t('events.button.no') }}
       </button>
     </div>
-  </a>
+  </FsLink>
 </template>
 
 <script>
 import { EventInvitationResponse, mutations } from '@/stores/events'
 import { showLoader, hideLoader, pulseSuccess, pulseError } from '@/script'
+import FsLink from '@/components/UI/FsLink.vue'
 
 export default {
+  components: { FsLink },
   props: {
     entry: { type: Object, default: () => {} },
     options: { type: Boolean, default: false },
