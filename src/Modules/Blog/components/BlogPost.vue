@@ -1,6 +1,10 @@
 <template>
-  <div class="blogpost ui-widget ui-widget-content">
-    <div v-if="blogPost">
+  <Container
+    :title="$t('blog.header')"
+    :collapsible="false"
+    wrap-content
+  >
+    <div v-if="blogPost" class="blogpost">
       <h2>{{ blogPost.title }}</h2>
       <p class="subtitle">
         <span v-if="blogPost.authorName">{{ $t('blog.author') }} {{ blogPost.authorName }}, </span>
@@ -18,14 +22,16 @@
     >
       <i class="fas fa-spinner fa-spin" />
     </div>
-  </div>
+  </Container>
 </template>
 
 <script>
 import { pulseError } from '@/script'
 import { getBlogpost } from '@/api/blog'
+import Container from '@/components/Container/Container.vue'
 
 export default {
+  components: { Container },
   props: {
     id: { type: Number, required: true },
   },
@@ -62,11 +68,6 @@ export default {
 
 <style scoped lang="scss">
 .blogpost {
-  border-radius: 6px;
-  margin-bottom: 14px;
-  padding: 20px;
-  border-bottom: 1px solid var(--fs-border-default);
-
   img {
     border-radius: 6px;
     float: right;
