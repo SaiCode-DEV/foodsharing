@@ -22,6 +22,10 @@ import { ref, watch, computed, defineProps, defineEmits } from 'vue'
 
 const MIN_SWIPE_DISTANCE = 60 // distance in px
 const SCROLL_DISTANCE_THRESHOLD = 100_000 // picked by feel
+const MIN_WHEEL_DISTANCE = 10 // px of sideways movement before paging starts
+const HORIZONTAL_DOMINANCE = 2 // deltaX has to beat deltaY by this factor
+const MAX_IDLE_TIME = 2_000 // ms, keeps the threshold meaningful after a pause
+const GESTURE_GAP = 300 // ms without events, after that a new gesture starts
 
 const props = defineProps({
   items: { type: Array, default: () => [] },
@@ -60,6 +64,7 @@ watch(totalPages, (totalPages) => {
 // Wheel and touch support to change pages:
 const horizontalWheelDistance = ref(0)
 const lastPageChangeTime = ref(0)
+const lastWheelTime = ref(0)
 const touchStart = ref({ x: 0, y: 0 })
 
 function changePage (delta) {
@@ -70,18 +75,33 @@ function changePage (delta) {
 }
 
 function onWheel (event) {
-  if (Math.abs(event.deltaX) < Math.abs(event.deltaY)) return
-
-  event.preventDefault()
-  horizontalWheelDistance.value += event.deltaX
   const now = Date.now()
+  // A gesture arrives as a stream of events. Once they stop coming the next one
+  // starts a new gesture, otherwise sideways jitter during vertical scrolling
+  // would add up over time until it pages.
+  if (now - lastWheelTime.value > GESTURE_GAP) {
+    horizontalWheelDistance.value = 0
+  }
+  lastWheelTime.value = now
 
-  // The following line might be unintuitive, but yields a nice result:
-  // After a while of not scrolling, the threshold is small so that you change
-  // page immediately after you start scrolling. Depending on how fast you scroll,
-  // you can still go through many pages quickly, but a short scroll, even if
-  // quite fast, will not result in scrolling through multiple pages.
-  const threshold = SCROLL_DISTANCE_THRESHOLD / (now - lastPageChangeTime.value + 1)
+  // A downward gesture on a trackpad carries a small sideways component, so
+  // "more horizontal than vertical" is not enough to tell paging from scrolling.
+  if (Math.abs(event.deltaX) < HORIZONTAL_DOMINANCE * Math.abs(event.deltaY)) return
+
+  // A trackpad delivers a swipe as many small deltas, so the minimum distance
+  // has to look at the accumulated movement, not at a single event.
+  horizontalWheelDistance.value += event.deltaX
+  if (Math.abs(horizontalWheelDistance.value) < MIN_WHEEL_DISTANCE) return
+
+  // From here this is a deliberate sideways gesture. Swallow it, otherwise the
+  // browser turns it into a back or forward navigation.
+  event.preventDefault()
+
+  // Paging again needs a longer stroke each time, so one swipe does not race
+  // through several pages. The idle time is capped, otherwise the threshold
+  // would fall to zero after a pause and a single event would page.
+  const sinceLastChange = Math.min(now - lastPageChangeTime.value, MAX_IDLE_TIME)
+  const threshold = SCROLL_DISTANCE_THRESHOLD / (sinceLastChange + 1)
   if (Math.abs(horizontalWheelDistance.value) < threshold) return
 
   horizontalWheelDistance.value = 0
