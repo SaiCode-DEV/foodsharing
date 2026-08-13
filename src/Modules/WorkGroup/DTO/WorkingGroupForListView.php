@@ -29,6 +29,9 @@ class WorkingGroupForListView
     #[OA\Property(description: 'Whether the current user has access to the working group')]
     public bool $mayAccess;
 
+    #[OA\Property(description: 'Whether the current user is a member of the working group. Access is wider than membership: orga members may access every group.')]
+    public bool $isMember;
+
     #[OA\Property(description: 'Whether the current user can apply to the working group')]
     public bool $mayApply;
 

@@ -155,6 +155,7 @@ class WorkGroupTransactions
             $group->categoryId = $data['category_id'];
             $group->memberCount = $data['memberCount'];
             $group->hasAppliedFor = $data['active'] === 0; // 0 meaning the user applied
+            $group->isMember = $data['active'] === 1;
             $group->groupFunctionType = $data['function_id'];
             $group->email = $data['email'];
             $group->image = empty($data['photo']) ? null : $data['photo'];

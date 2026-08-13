@@ -366,9 +366,9 @@ function membershipStatus (group) {
     return { icon: 'fa-clipboard-list', text: i18n('group.membership_status.can_apply'), value: 4 }
   } else if (group.mayJoin) {
     return { icon: 'fa-lock-open', text: i18n('group.membership_status.open'), value: 2 }
-  } else if (group.mayAccess && group.admins.find(x => x.id === userId.value)) {
+  } else if (group.isMember && group.admins.find(x => x.id === userId.value)) {
     return { icon: 'fa-user-cog', text: i18n('group.membership_status.admin'), value: 0 }
-  } else if (group.mayAccess) {
+  } else if (group.isMember) {
     return { icon: 'fa-user-check', text: i18n('group.membership_status.member'), value: 1 }
   } else {
     return { icon: 'fa-lock', text: i18n('group.membership_status.closed'), value: 5 }

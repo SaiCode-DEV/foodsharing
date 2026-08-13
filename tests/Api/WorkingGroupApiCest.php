@@ -266,6 +266,30 @@ class WorkingGroupApiCest
     /**
      * Maps group data from the database to the format of the API.
      */
+    public function groupListSeparatesMembershipFromAccess(ApiTester $I): void
+    {
+        // #2810: orga may access every group, which used to be shown as membership
+        $closedGroup = $I->createWorkingGroup('closed group', [
+            'parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS,
+            'apply_type' => ApplyType::NOBODY,
+        ]);
+        $I->addRegionMember($closedGroup['id'], $this->userAdmin['id']);
+
+        $I->login($this->userOrga['email']);
+        $I->sendGET('api/regions/' . RegionIDs::GLOBAL_WORKING_GROUPS . '/groups');
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        $groups = $I->grabDataFromResponseByJsonPath('$[?(@.id == ' . $closedGroup['id'] . ')]')[0];
+        $I->assertTrue($groups['mayAccess'], 'orga may access every group');
+        $I->assertFalse($groups['isMember'], 'but is not a member of it');
+
+        // a group the orga really belongs to
+        $I->addRegionMember($closedGroup['id'], $this->userOrga['id']);
+        $I->sendGET('api/regions/' . RegionIDs::GLOBAL_WORKING_GROUPS . '/groups');
+        $joined = $I->grabDataFromResponseByJsonPath('$[?(@.id == ' . $closedGroup['id'] . ')]')[0];
+        $I->assertTrue($joined['isMember']);
+    }
+
     private function mapApiFormatToDatabase(array $group): array
     {
         return [

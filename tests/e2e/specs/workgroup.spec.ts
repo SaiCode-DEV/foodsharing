@@ -143,6 +143,30 @@ test.describe("WorkGroup", () => {
       await page.goto(Urls.groupListUrl());
       await expect(page.locator("body")).toContainText(globalTestGroup.name);
     });
+
+    test("orga is not shown as a member of a group they did not join (#2810)", async ({
+      page,
+      acceptanceHelper,
+    }) => {
+      const closedGroup = await foodsharing.createWorkingGroup(
+        `closed-group-${faker.lorem.word()}`,
+        {
+          apply_type: ApplyType.NOBODY,
+          parent_id: RegionIDs.GLOBAL_WORKING_GROUPS,
+        },
+      );
+
+      const orga = await foodsharing.createOrga();
+      await acceptanceHelper.login(orga.email);
+      await page.goto(Urls.groupListUrl());
+
+      // orga may access every group, which is not the same as being in it
+      const row = page
+        .locator(".list-group-item", { hasText: closedGroup.name })
+        .first();
+      await expect(row).toContainText("Geschlossen");
+      await expect(row).not.toContainText("Mitglied");
+    });
   });
 
   test("RegionMember can join global group", async ({
