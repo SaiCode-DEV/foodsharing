@@ -310,6 +310,7 @@
             <MarkdownInput
               input-name="description"
               :rows="5"
+              :conceal-toolbar="true"
               :value="store.description"
               :disabled="!editMode"
               :region-id="store.region.id"

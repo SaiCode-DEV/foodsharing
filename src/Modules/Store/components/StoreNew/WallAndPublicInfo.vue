@@ -2,7 +2,6 @@
   <div class="list-group-item">
     <MarkdownInput
       ref="md-input"
-      variant="outline-primary"
       :placeholder="$t('wall.placeholder')"
       :rows="2"
       :conceal-toolbar="true"

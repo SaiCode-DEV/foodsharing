@@ -7,7 +7,6 @@
   >
     <MarkdownInput
       input-name="publicInfo"
-      variant="outline-primary"
       :rows="2"
       :conceal-toolbar="true"
       :value="publicInfoData"
