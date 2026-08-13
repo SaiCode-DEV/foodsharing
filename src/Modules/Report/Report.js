@@ -7,13 +7,11 @@ import Wall from '@/components/Wall/Wall'
 import RegionReportPage from '@/views/pages/Report/RegionReportPage.vue'
 import UserReportPage from '@/views/pages/Report/UserReportPage.vue'
 
-vueRegister({ Wall })
+vueRegister({ Wall, RegionReportPage, UserReportPage })
 document.addEventListener('DOMContentLoaded', () => {
   if (GET('sub') === 'foodsaver') {
     vueApply('#vue-wall')
   }
 
-  // TODO
-  vueRegister({ RegionReportPage, UserReportPage })
   vueApply('#report-page')
 })

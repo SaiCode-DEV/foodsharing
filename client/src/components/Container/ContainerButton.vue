@@ -1,7 +1,7 @@
 <template>
   <b-list-group-item
     :variant="variant"
-    :button="!href"
+    :button="!href && !to"
     class="text-center"
     :href="href"
     :to="to"

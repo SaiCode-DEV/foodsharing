@@ -4,27 +4,36 @@ export function goTo (url) {
   }
 }
 
-const HTTP_GET_VARS = {}
-const strGET = document.location.search.substr(1, document.location.search.length)
+function httpGetVars () {
+  const vars = {}
+  const strGET = document.location.search.substr(1, document.location.search.length)
 
-if (strGET !== '') {
-  const gArr = strGET.split('&')
-  for (let i = 0; i < gArr.length; ++i) {
-    const vArr = gArr[i].split('=')
-    const v = vArr[1] ?? true
-    HTTP_GET_VARS[unescape(vArr[0])] = unescape(v)
+  if (strGET !== '') {
+    const gArr = strGET.split('&')
+    for (let i = 0; i < gArr.length; ++i) {
+      const vArr = gArr[i].split('=')
+      const v = vArr[1] ?? true
+      vars[unescape(vArr[0])] = unescape(v)
+    }
   }
+
+  return vars
 }
 
+/**
+ * Client side navigation changes the url without loading a document, so the parameters have to be
+ * read from the current location on every call instead of once when this module is loaded.
+ */
 export function GET (v) {
-  if (!HTTP_GET_VARS[v]) { return undefined }
-  return HTTP_GET_VARS[v]
+  const value = httpGetVars()[v]
+  if (!value) { return undefined }
+  return value
 }
 
-const URL_PARTS = document.location.pathname.substring(1).split('/')
 export function URL_PART (index) {
-  if (!URL_PARTS[index]) { return undefined }
-  return URL_PARTS[index]
+  const parts = document.location.pathname.substring(1).split('/')
+  if (!parts[index]) { return undefined }
+  return parts[index]
 }
 
 export function setUrlParam (key, value) {

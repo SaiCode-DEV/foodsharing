@@ -288,6 +288,7 @@ import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/antd.css'
 import Info from '@/components/Help/Info.vue'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
+import { sameRouteNavigationEvent } from '@/helper/router'
 
 export default {
   components: { ThreadForm, ThreadPost, OverflowMenu, JumpScrollButton, SubscribeButton, HiddenPostsAlert, VueSlider, Info, MarkdownInput, ReportEditModal },
@@ -371,21 +372,49 @@ export default {
       return this.showHiddenPosts ? this.posts : this.posts.filter(post => !post.hidden)
     },
   },
+  watch: {
+    // Client-side navigation can leave this component mounted while only the `pid` query
+    // parameter changes (e.g. clicking another "new post" bell notification for a thread
+    // that is already open), so the linked post also has to be re-evaluated reactively
+    // instead of only once in created().
+    '$route.query.pid' () {
+      this.showLinkedPost()
+    },
+  },
   async created () {
     this.isLoading = true
+    // Clicking the link to the post that is already linked in the url does not
+    // change the route, so the watcher above cannot pick it up.
+    window.addEventListener(sameRouteNavigationEvent, this.onSameRouteNavigation)
     await this.reload()
     await new Promise(resolve => window.setTimeout(resolve, 200))
-    const pid = parseInt(GET('pid'), 10)
-    if (!Number.isNaN(pid)) {
-      this.linkedPost = pid
-      this.scrollToPost(this.posts.find(post => post.id >= this.linkedPost), this.linkedPost)
-    }
+    this.showLinkedPost()
   },
   beforeDestroy () {
+    window.removeEventListener(sameRouteNavigationEvent, this.onSameRouteNavigation)
     clearTimeout(this.editTimeout)
     clearInterval(this.editCountdown)
   },
   methods: {
+    onSameRouteNavigation () {
+      // The url did not change, but the thread content may still have changed since it
+      // was loaded, so a repeated click on the same link has to refetch it.
+      this.showLinkedPost(true)
+    },
+    // A deep link that arrives (or is clicked again) while the thread is already open.
+    async showLinkedPost (forceReload = false) {
+      const pid = parseInt(GET('pid'), 10)
+      if (Number.isNaN(pid)) return
+      this.linkedPost = pid
+      // The linked post is usually missing because it was written after the thread was
+      // loaded (e.g. a bell for a new post in the thread that is already open), so
+      // refetch the posts before deciding that it cannot be found.
+      if (forceReload || !this.posts.some(post => post.id === pid)) {
+        await this.reload()
+        await this.$nextTick()
+      }
+      this.scrollToPost(this.posts.find(post => post.id >= pid), pid)
+    },
     getPostLink (postId) {
       return this.$url('forum', this.regionId, this.regionSubId, this.id, postId)
     },

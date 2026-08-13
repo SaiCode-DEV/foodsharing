@@ -84,7 +84,14 @@ const initializeContent = async () => {
     // Mark content as ready first
     flushVueApplyQueue()
 
-    // Now manually apply Vue to each wrapper
+    // Manually trigger DOMContentLoaded so legacy scripts can initialize. This has to happen
+    // before the wrappers are mounted, because a script may register its components in there.
+    window.document.dispatchEvent(new Event('DOMContentLoaded', {
+      bubbles: true,
+      cancelable: true,
+    }))
+
+    // Apply Vue to the wrappers that the page's script did not mount itself
     vueWrappers.forEach((wrapper) => {
       const selector = '#' + wrapper.id
       try {
@@ -93,12 +100,6 @@ const initializeContent = async () => {
         console.error('[Catchall] Failed to initialize Vue component:', selector, error)
       }
     })
-
-    // Manually trigger DOMContentLoaded so legacy scripts can initialize
-    window.document.dispatchEvent(new Event('DOMContentLoaded', {
-      bubbles: true,
-      cancelable: true,
-    }))
   } else {
     console.warn('[Catchall] appContent element not found!')
   }

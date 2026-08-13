@@ -77,6 +77,7 @@ import { getWallPosts, addPost, deletePost, addReaction, removeReaction } from '
 import { HTTP_RESPONSE } from '@/consts'
 import ContainerButton from '@/components/Container/ContainerButton.vue'
 import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
+import { sameRouteNavigationEvent } from '@/helper/router'
 
 export default {
   components: { WallPost, Container, MarkdownInput, ContainerButton },
@@ -117,10 +118,25 @@ export default {
       return this.newPostText.trim().length > 0 || this.hasImages
     },
   },
+  watch: {
+    // Client side navigation can leave this component mounted while only the `showPost`
+    // query parameter changes (e.g. clicking a link to a post of a wall that is already
+    // open), so the deep link also has to be re-evaluated reactively instead of only
+    // once in created().
+    '$route.query.showPost' () {
+      this.showLinkedPost()
+    },
+  },
   async created () {
+    // Clicking the link to the post that is already linked in the url does not change
+    // the route, so the watcher above cannot pick it up.
+    window.addEventListener(sameRouteNavigationEvent, this.onSameRouteNavigation)
     this.parseDeepLink()
     await this.loadMorePosts()
     await this.openLinkedPost()
+  },
+  beforeDestroy () {
+    window.removeEventListener(sameRouteNavigationEvent, this.onSameRouteNavigation)
   },
   methods: {
     parseDeepLink () {
@@ -129,9 +145,32 @@ export default {
       // only react when the type matches this wall's target.
       const showPost = new URLSearchParams(window.location.search).get('showPost')
       const match = showPost?.match(/^([a-z_]+)-(\d+)$/)
-      if (match && match[1] === this.target) {
-        this.linkedPostId = parseInt(match[2], 10)
+      this.linkedPostId = (match && match[1] === this.target) ? parseInt(match[2], 10) : null
+    },
+    onSameRouteNavigation () {
+      // The url did not change, but the wall may have grown since it was loaded, so a
+      // repeated click on the same link has to refetch it.
+      this.showLinkedPost(true)
+    },
+    // A deep link that arrives (or is clicked again) while the wall is already loaded.
+    async showLinkedPost (forceReload = false) {
+      this.parseDeepLink()
+      if (this.linkedPostId === null) return
+      if (forceReload || !this.posts.some(post => post.id === this.linkedPostId)) {
+        // The linked post can be newer than everything loaded so far, i.e. it was written
+        // after the wall was loaded (e.g. a bell for a new post on the page that is
+        // already open). Then the loaded posts are stale and have to be fetched again.
+        if (forceReload || !this.posts.length || this.linkedPostId > this.posts[0].id) {
+          this.posts = []
+          this.showLoadMore = true
+        }
+        // Otherwise it is older than the loaded posts and the wall only has to be
+        // extended down to it (the api expands the limit to include the anchor).
+        if (this.showLoadMore) {
+          await this.loadMorePosts()
+        }
       }
+      await this.openLinkedPost()
     },
     // When opened via a deep link (e.g. from a notification), make sure the wall is
     // expanded and scroll the linked post into view — even if it was collapsed before.

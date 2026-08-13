@@ -7,6 +7,7 @@
   <!-- eslint-disable vue/no-v-html -->
   <div
     class="markdown"
+    @click="onLinkClick"
     v-html="htmlContent"
   />
   <!-- eslint-enable -->
@@ -14,6 +15,7 @@
 <script>
 import markdown from './markdownRenderer'
 import { sanitizeHtml } from '@/helper/sanitize-html'
+import { navigate } from '@/helper/router'
 import { getUserNames } from '@/api/user'
 export default {
   props: {
@@ -29,6 +31,38 @@ export default {
     this.render()
   },
   methods: {
+    /**
+     * The rendered markdown is injected via v-html, so its links are plain
+     * anchors and cannot be <router-link>s. Delegate their clicks to the router
+     * instead, so internal links navigate client-side like FsLink does.
+     */
+    onLinkClick (event) {
+      // Let the browser handle modified clicks (new tab/window, save as, ...)
+      if (event.defaultPrevented || event.button !== 0) return
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+
+      const anchor = event.target.closest?.('a[href]')
+      if (!anchor || !this.$el.contains(anchor) || !this.$router) return
+
+      // Leave everything the router cannot handle to the browser: new-tab
+      // links, downloads and in-page anchors.
+      const target = anchor.getAttribute('target')
+      if ((target && target !== '_self') || anchor.hasAttribute('download')) return
+      if (anchor.getAttribute('href').startsWith('#')) return
+
+      let url
+      try {
+        // anchor.href is already resolved against the document.
+        url = new URL(anchor.href)
+      } catch (e) {
+        return
+      }
+      // Other origins, mailto:, tel:, javascript: -> not a router target.
+      if (url.origin !== window.location.origin) return
+
+      event.preventDefault()
+      navigate(url.pathname + url.search + url.hash)
+    },
     async fetchMissingUserNames () {
       const data = markdown.linkify.data
       await this.$nextTick()

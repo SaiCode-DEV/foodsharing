@@ -3,8 +3,8 @@
     v-if="!isDropdown"
     :title="$t(entry.title)"
     :icon="entry.icon"
-    :to="isExternalUrl($url(entry.url)) ? null : $url(entry.url)"
-    :href="isExternalUrl($url(entry.url)) ? $url(entry.url) : null"
+    :to="routerTarget(entry.url)"
+    :href="externalHref(entry.url)"
     :class="{
       'text-success font-weight-bold': entry.isHighlighted,
     }"
@@ -31,8 +31,8 @@
         />
         <b-dropdown-item
           v-else
-          :to="isExternalUrl($url(item.url)) ? null : $url(item.url)"
-          :href="isExternalUrl($url(item.url)) ? $url(item.url) : null"
+          :to="routerTarget(item.url)"
+          :href="externalHref(item.url)"
           :target="item.isInternal ? '_self' : '_blank'"
           @click="item.modal ? $bvModal.show(item.modal) : null"
         >
@@ -98,7 +98,21 @@ export default {
     },
   },
   methods: {
-    isExternalUrl,
+    /**
+     * Entries that only open a modal have no url, so the url key has to be checked before
+     * resolving it. Internal targets are handed to the router, external ones stay plain links.
+     */
+    entryUrl (urlKey) {
+      return urlKey ? this.$url(urlKey) : null
+    },
+    routerTarget (urlKey) {
+      const url = this.entryUrl(urlKey)
+      return url && !isExternalUrl(url) ? url : null
+    },
+    externalHref (urlKey) {
+      const url = this.entryUrl(urlKey)
+      return url && isExternalUrl(url) ? url : null
+    },
   },
 }
 </script>

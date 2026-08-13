@@ -24,17 +24,78 @@ const routes = [
   },
 ]
 
+/**
+ * Query parameters that only address a position inside an already rendered page
+ * instead of selecting different content, i.e. the legacy equivalent of a `#hash`:
+ * `pid` links to a post of the open forum thread (Thread.vue), `showPost` to a post
+ * of a wall on the open page (Wall.vue). Both components react to them at runtime.
+ */
+const anchorQueryParams = ['pid', 'showPost']
+
+/**
+ * Window event dispatched when a link to the url that is already open was
+ * clicked. The router drops such a navigation as a duplicate, so a page that
+ * scrolls to a deep link (see Thread.vue) would not notice the repeated click.
+ */
+export const sameRouteNavigationEvent = 'fs:same-route-navigation'
+
+/**
+ * True if `to` and `from` are the same page and differ only in the anchor
+ * parameters above. Such a navigation must not refetch and replace the content:
+ * that would remount the page and throw away its scroll position, while the page
+ * itself already reacts to the changed parameter (see Thread.vue).
+ */
+function isSamePageAnchor (to, from) {
+  if (!from?.matched.length || to.path !== from.path) return false
+
+  const withoutAnchors = (query) => Object.fromEntries(
+    Object.entries(query).filter(([key]) => !anchorQueryParams.includes(key)),
+  )
+  const toQuery = withoutAnchors(to.query)
+  const fromQuery = withoutAnchors(from.query)
+
+  return Object.keys(toQuery).length === Object.keys(fromQuery).length &&
+    Object.keys(toQuery).every(key => String(toQuery[key]) === String(fromQuery[key]))
+}
+
 const router = new VueRouter({
   mode: 'history', // Use HTML5 History API
   routes,
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition
+    } else if (isSamePageAnchor(to, from)) {
+      // Keep the current position, the page scrolls to the linked element itself.
+      return false
     } else {
       return { x: 0, y: 0 }
     }
   },
 })
+
+/**
+ * Navigate to an internal url. The router drops a navigation to the url that is already
+ * open, so in that case the open page is notified directly (see `sameRouteNavigationEvent`)
+ * instead: clicking a link or a bell notification that points at the current url should
+ * still re-evaluate the deep link and refresh the content of the open page.
+ */
+export function navigate (to) {
+  const notifySameRoute = () => window.dispatchEvent(
+    new CustomEvent(sameRouteNavigationEvent, { detail: { fullPath: to } }),
+  )
+
+  if (to === router.currentRoute.fullPath) {
+    notifySameRoute()
+    return Promise.resolve()
+  }
+
+  return router.push(to).catch(error => {
+    // The url is written differently (e.g. another order of the query parameters) but
+    // resolves to the route that is already open, so the router rejects the navigation.
+    if (error?.name !== 'NavigationDuplicated') throw error
+    notifySameRoute()
+  })
+}
 
 // Flag to track the initial page load to prevent reload loops
 let isFirstNavigation = true
@@ -58,6 +119,14 @@ router.beforeEach(async (to, from, next) => {
   // Dynamically set route meta for elements that should be hidden
   const pathPrefix = to.path.split('/')[1]
   to.meta.hideFooter = ['msg', 'karte'].includes(pathPrefix)
+
+  // Deep link into the page that is already open: keep the rendered content as
+  // it is, only the url changes so the page can scroll to the linked element.
+  if (isSamePageAnchor(to, from)) {
+    to.meta.content = from.meta.content
+    next()
+    return
+  }
 
   // Use pre-rendered content for the initial page load
   const initialContentTemplate = document.getElementById('initial-content')

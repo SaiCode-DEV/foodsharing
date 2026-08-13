@@ -62,6 +62,7 @@ import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import TimeDisplay from '@/components/TimeDisplay.vue'
 import DataBell from '@/stores/bells'
 import { pulseError } from '@/script'
+import { navigate } from '@/helper/router'
 import TranslationFailedModal from './TranslationFailedModal.vue'
 
 export default {
@@ -131,9 +132,9 @@ export default {
       } else {
         if (this.bell.href) {
           if (this.bell.href.startsWith('/')) {
-            this.$router.push(this.bell.href).catch(err => {
-              if (err.name !== 'NavigationDuplicated') console.error(err)
-            })
+            // `navigate` also notifies the page when the bell points at the url that is
+            // already open, so that it refetches its content instead of doing nothing.
+            navigate(this.bell.href).catch(err => console.error(err))
           } else {
             location.href = this.bell.href
           }
