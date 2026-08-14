@@ -7,6 +7,7 @@
   <!-- eslint-disable vue/no-v-html -->
   <div
     class="markdown"
+    :class="{ inline }"
     @click="onLinkClick"
     v-html="htmlContent"
   />
@@ -20,6 +21,7 @@ import { getUserNames } from '@/api/user'
 export default {
   props: {
     source: { type: String, required: true },
+    inline: { type: Boolean, default: false },
   },
   data: () => ({ htmlContent: '' }),
   watch: {
@@ -83,11 +85,14 @@ export default {
       Object.assign(data.userNames, Object.fromEntries(stillMissing.map(id => [id, null])))
       sessionStorage.setItem(data.storageKey, JSON.stringify(data.userNames))
     },
+    renderSource () {
+      return this.inline ? markdown.renderInline(this.source) : markdown.render(this.source)
+    },
     async render () {
-      this.htmlContent = sanitizeHtml(markdown.render(this.source))
+      this.htmlContent = sanitizeHtml(this.renderSource())
       if (markdown.linkify.data.missingUserNames.size) {
         await this.fetchMissingUserNames()
-        this.htmlContent = sanitizeHtml(markdown.render(this.source))
+        this.htmlContent = sanitizeHtml(this.renderSource())
       }
     },
   },
@@ -174,6 +179,10 @@ export default {
   }
   th {
     background-color: rgba(0,0,0,.03);
+  }
+
+  &.inline {
+    display: inline;
   }
 }
 </style>

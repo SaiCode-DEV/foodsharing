@@ -3,10 +3,14 @@
     <p v-if="question.isMandatory">
       <b v-text="$t('quiz.mandatory_question')" />
     </p>
-    <p>
-      <b>{{ $t(`quiz.question`) }}:</b>
-      {{ question.text }}
-    </p>
+    <div>
+      <b>
+        {{ $t(`quiz.question`) }}:
+      </b>
+      <blockquote>
+        <Markdown :source="question.text" />
+      </blockquote>
+    </div>
     <p v-if="showTime">
       <b>{{ $t(`quiz.timelimit`) }}:</b>
       {{ question.durationInSeconds + 's' }}
@@ -19,8 +23,10 @@
 </template>
 <script>
 import { ANSWER_RATING } from '@/consts'
+import Markdown from '@/components/Markdown/Markdown.vue'
 
 export default {
+  components: { Markdown },
   props: {
     question: { type: Object, required: true },
     showTime: { type: Boolean, default: true },

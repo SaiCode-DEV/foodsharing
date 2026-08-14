@@ -5,7 +5,7 @@
       class="explanation"
     >
       <b>{{ $t('explanation') }}:</b>
-      {{ text }}
+      <Markdown :source="text" inline />
 
     </span>
     <a
@@ -18,7 +18,10 @@
 </template>
 
 <script>
+import Markdown from '@/components/Markdown/Markdown.vue'
+
 export default {
+  components: { Markdown },
   props: {
     text: { type: String, required: true },
   },

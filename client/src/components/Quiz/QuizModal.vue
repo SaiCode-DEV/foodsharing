@@ -18,8 +18,10 @@
     <div v-else>
       <b-form-group
         class="question"
-        :label="question?.text"
       >
+        <template #label>
+          <Markdown v-if="question?.text" :source="question.text" />
+        </template>
         <p v-if="!isQuestionActive && !answeredInTime">
           <i class="fas fa-exclamation-triangle mr-1" />
           <b>{{ $t('quiz.timed_out') }}</b>
@@ -35,7 +37,7 @@
             :disabled="!isQuestionActive"
             @change="(newValue) => selectedAnswers['none'] &= !newValue"
           >
-            {{ answer.text }}
+            <Markdown :source="answer.text" />
           </b-form-checkbox>
 
           <div
@@ -136,10 +138,11 @@ import { pulseError } from '@/script'
 import QuestionCommentField from './QuestionCommentField'
 import ExpandableExplanation from './ExpandableExplanation'
 import Wikilink from './Wikilink'
+import Markdown from '@/components/Markdown/Markdown.vue'
 import { ANSWER_RATING, HTTP_RESPONSE } from '@/consts'
 
 export default {
-  components: { QuestionCommentField, ExpandableExplanation, Wikilink },
+  components: { QuestionCommentField, ExpandableExplanation, Wikilink, Markdown },
   props: {
     quiz: { type: Object, required: true },
     status: { type: Object, required: true },

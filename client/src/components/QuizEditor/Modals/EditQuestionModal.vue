@@ -13,12 +13,13 @@
   >
     <b-form>
       <b-form-group :label="$t('quiz.editModal.question.input.text.label')">
-        <b-form-textarea
-          v-model="form.text"
+        <MarkdownInput
+          :value.sync="form.text"
+          conceal-toolbar
+          variant="outline-primary"
+          :rows="3"
           :placeholder="$t('quiz.editModal.question.input.text.placeholder')"
           :state="validities.text"
-          trim.lazy
-          rows="3"
         />
       </b-form-group>
 
@@ -60,8 +61,10 @@
 <script>
 import { addQuestion, editQuestion } from '@/api/quiz'
 import EditModalMixin from './EditModalMixin'
+import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 
 export default {
+  components: { MarkdownInput },
   mixins: [EditModalMixin],
   props: {
     question: { type: Object, required: true },

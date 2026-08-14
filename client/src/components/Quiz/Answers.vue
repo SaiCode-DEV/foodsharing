@@ -11,8 +11,8 @@
           :options="menuOptions"
           :callback-args="[answer.id]"
         />
-        <b>{{ $t(answerText(answer)) }}</b><br>
-        {{ answer.text }}
+        <b>{{ $t(answerText(answer)) }}</b>
+        <Markdown :source="answer.text" />
         <ExpandableExplanation :text="answer.explanation" />
       </span>
     </span>
@@ -21,9 +21,10 @@
 <script>
 import OverflowMenu from '@/components/OverflowMenu.vue'
 import ExpandableExplanation from './ExpandableExplanation.vue'
+import Markdown from '@/components/Markdown/Markdown.vue'
 
 export default {
-  components: { ExpandableExplanation, OverflowMenu },
+  components: { ExpandableExplanation, OverflowMenu, Markdown },
   props: {
     answers: { type: Array, default: () => [] },
     menuOptions: { type: Array, default: () => [] },
