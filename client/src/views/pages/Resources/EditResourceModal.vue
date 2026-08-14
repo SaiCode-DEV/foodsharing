@@ -84,6 +84,7 @@
       <b-form-group v-if="!isCommonsResource">
         <b-form-checkbox v-model="isRestrictedToRegion" switch>
           {{ $t('resource_mosaic.editModal.is_restricted_to_region') }}
+          <Info info-key="restrict_resource_to_region" />
         </b-form-checkbox>
         <b-collapse
           :visible="isRestrictedToRegion"
@@ -113,6 +114,7 @@ import { useRegionStore } from '@/stores/regions'
 import { REGION_TYPES_WITH_RESOURCES } from '../../../stores/regions'
 import DataGroups from '@/stores/groups'
 import { url } from '@/helper/urls'
+import Info from '@/components/Help/Info.vue'
 
 const resourceStore = useResourceStore()
 const userStore = useUserStore()

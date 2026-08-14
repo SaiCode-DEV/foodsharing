@@ -4546,7 +4546,7 @@ help:
         Niemand muss Ressourcen eintragen, und nur weil du eine bestimmte Ressource eingetragen hast, heißt das nicht, dass du diese für bestimmte Aktionen zur Verfügung stellen *musst*. Viel mehr geht es darum, das zu teilen, womit du *gerne beitragen möchtest*.
 
         ##### Wer sieht meine Ressourcen?
-        Ressourcen werden innerhalb deiner Bezirke und Arbeitsgruppen sichtbar. Ausgenommen sind davon aber die sehr großen Bezirke vom Typ Land oder Bundesland, in denen kein Ressourcen-Mosaik verfügbar ist. Du kannst die Sichtbarkeit jeder einzelnen Ressource aber auch auf die Foodsaver:innen beschränken, die du kennst.
+        Ressourcen werden innerhalb deiner Bezirke und Arbeitsgruppen sichtbar. Ausgenommen sind davon aber die sehr großen Bezirke vom Typ Land oder Bundesland, in denen kein Ressourcen-Mosaik verfügbar ist. Du kannst die Sichtbarkeit jeder einzelnen Ressource aber auch beschränken: auf die Foodsaver:innen die du kennst, oder auf einzelne Bezirke / Arbeitsgruppen.
     commons_resources:
       title: "Gemeinschaftsressourcen"
       md: |
@@ -4557,6 +4557,12 @@ help:
 
         ##### Wer verwaltet Gemeinschaftsressourcen?
         In Arbeitsgruppen können alle Admins Gemeinschaftsressourcen anlegen, bearbeiten und löschen. In Bezirken haben erstmal die Botschafter:innen diese Berechtigung. Falls es eine Ressourcen-AG gibt, liegt die Berechtigung stattdessen bei den Admins dieser AG.
+
+        ##### Wo erscheinen Gemeinschaftsressourcen?
+        Wie auch andere Ressourcen, werden Gemeinschaftsressourcen nach unten weitergegeben, erscheinen also auch in allen Unterbezirken/-gruppen. Eine Ressource muss daher nicht in jeder Gruppe einzeln eingetragen werden.
+    restrict_resource_to_region:
+      title: "Ressourcen lokal einschränken"
+      md: "Ressourcen können auf einen Bezirk oder eine Arbeitsgruppe eingeschränkt werden. In diesem Fall werden sie nur im Ressourcen-Mosaik dieser Einheit sowie ihren Unterbezirken und -gruppen angezeigt."
     similar_resources:
       title: "Ähnliche Ressourcen"
       md: "Als ähnliche Ressourcen werden dir bis zu 10 weitere Ressourcen angezeigt, für welche die **gleichen Kategorien** eingetragen sind."

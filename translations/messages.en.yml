@@ -4674,7 +4674,9 @@ help:
         resources?\nIn a working group, all admins can create, edit, and delete common
         resources. In a region, only the ambassadors have those permissions. If there
         is a resource group in the region, the permissions reside in that group's
-        admins.\n"
+        admins.\n\n##### Where do common resources show up?\nCommon resources are
+        passed down: anything created in a parent unit also shows up in all of its
+        subgroups, so a resource does not have to be entered in every group separately.\n"
     achievementVisibility:
       title: Sticker visibility
       md: |
