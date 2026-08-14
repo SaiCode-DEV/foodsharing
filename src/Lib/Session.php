@@ -399,7 +399,11 @@ class Session
 
         $fs = $this->foodsaverGateway->getFoodsaverDetails($fs_id);
         if (!$fs) {
-            throw new Exception('Foodsaver details not found in database: ' . $fs_id);
+            // the account was deleted while this session survived (e.g. inactivity cron):
+            // end the session instead of failing on every further request
+            $this->logout();
+
+            return;
         }
 
         // Store CSRF tokens before clearing session

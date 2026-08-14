@@ -244,7 +244,11 @@ class UserRestController extends AbstractFoodsharingRestController
         // needs the session ID, so we can't log out just yet
         $this->foodsaverTransactions->deleteFoodsaver($userId, $this->session->id(), $deleteRequest->reason, $deleteRequest->unsubscribeNewsletter);
 
-        $this->session->invalidateAllSessionsForUser($userId);
+        if ($userId === $this->session->id()) {
+            // destroy the own session and expire the cookies too - the session write-back
+            // at request shutdown would resurrect the invalidated session otherwise
+            $this->logoutTransactions->logout();
+        }
 
         return $this->respondOK();
     }

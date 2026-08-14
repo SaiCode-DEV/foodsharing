@@ -125,6 +125,10 @@ class FoodsaverTransactions
 
         // delete the user
         $this->foodsaverGateway->deleteFoodsaver($foodsaverId, $deletingUserId, $reason);
+
+        // covers callers without an own session (inactivity cron); on self-deletion the
+        // current session is spared - destroying it twice fails, the caller logs out
+        $this->session->invalidateAllSessionsForUser($foodsaverId, $foodsaverId === $this->session->id());
     }
 
     /**

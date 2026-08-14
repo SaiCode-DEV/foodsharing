@@ -206,4 +206,19 @@ class UserApiCest
             ['id' => $this->user['id'], 'name' => $this->user['name']]
         ]);
     }
+
+    public function deletingTheOwnAccountEndsTheSession(ApiTester $I): void
+    {
+        $user = $I->createFoodsaver();
+        $I->login($user['email']);
+
+        $I->sendDELETE('api/users/' . $user['id'], ['password' => 'password', 'reason' => 'goodbye']);
+        $I->seeResponseCodeIs(Http::OK);
+
+        // The old session must be dead now. Before #2461 the request's session
+        // write-back at shutdown resurrected it, and every later session refresh
+        // failed with "Foodsaver details not found".
+        $I->sendGET('api/users/current/details');
+        $I->seeResponseCodeIs(Http::UNAUTHORIZED);
+    }
 }
