@@ -12,7 +12,9 @@
 			</main>
 		{% else %}
 			<main id="main" class="container p-0">
-				{% include 'partials/breadcrumbs.twig' with { items: bread } %}
+				{% if bread|length > 0 %}
+					{% include 'partials/vue-wrapper.twig' with { id: 'breadcrumbs', component: 'Breadcrumbs', props: { items: bread } } only %}
+				{% endif %}
 
 				<div class="pure-g">
 					{% if _main is not empty %}

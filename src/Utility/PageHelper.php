@@ -89,7 +89,7 @@ final class PageHelper
 
         return [
             'head' => $this->getHeadData(),
-            'bread' => $this->bread,
+            'bread' => $this->getBreadcrumbs(),
             'bodyClasses' => $bodyClasses,
             'serverDataJSON' => json_encode($this->getServerData()),
             'menu' => $this->getMenu(),
@@ -318,6 +318,26 @@ final class PageHelper
     public function addBread(string $name, string $href = ''): void
     {
         $this->bread[] = ['name' => $name, 'href' => $href];
+    }
+
+    /**
+     * Returns the breadcrumbs in the shape the Breadcrumbs component expects. The entry for the
+     * page the user is on is not a link, so its target is dropped.
+     *
+     * @return array<array{text: string, href: string}>
+     */
+    private function getBreadcrumbs(): array
+    {
+        $breadcrumbs = array_map(
+            fn (array $crumb) => ['text' => $crumb['name'], 'href' => $crumb['href']],
+            $this->bread
+        );
+
+        if (!empty($breadcrumbs)) {
+            $breadcrumbs[array_key_last($breadcrumbs)]['href'] = '';
+        }
+
+        return $breadcrumbs;
     }
 
     public function addWebpackScript(string $src): void

@@ -9,6 +9,7 @@ import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import { useEnvironmentCheck } from '@/composables/useEnvironmentCheck'
 import Notifications from 'vue-notification'
 import router from '@/helper/router'
+import Breadcrumbs from '@/views/partials/Navigation/Breadcrumbs.vue'
 
 Vue.use(BootstrapVue)
 Vue.use(PiniaVuePlugin)
@@ -41,6 +42,9 @@ export function destroyActiveVueInstances () {
   activeVueInstances.forEach(vm => vm.$destroy())
   activeVueInstances = []
 }
+
+// rendered by the page layout, so it cannot be registered by a single module
+Vue.component('Breadcrumbs', Breadcrumbs)
 
 export function vueRegister (components) {
   console.log('Registering Vue components:', Object.keys(components))

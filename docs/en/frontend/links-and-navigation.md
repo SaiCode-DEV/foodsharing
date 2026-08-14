@@ -116,9 +116,7 @@ watch: {
 ```
 
 **Markdown and server rendered html.** Links inside `Markdown` content or inside markup that
-comes from PHP (the breadcrumbs in `partials/breadcrumbs.twig`, for example) are plain `<a>`
-elements and always reload the page. That is a known gap, not something to work around in the
-component.
+comes from PHP are plain `<a>` elements and always reload the page. That is a known gap, not something to work around in the component.
 
 **Never call `history.pushState` yourself.** Changing the url behind the router's back leaves
 `$router.currentRoute` pointing at the previously loaded url. A later navigation to *that* url
