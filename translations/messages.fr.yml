@@ -309,6 +309,9 @@ upload:
   invalid_image_files: '{count} fichiers sélectionnés ne sont pas des images valides :
     {fileNames}'
   remove_image: ''
+  type_rejected: ''
+  too_large: ''
+  failed: ''
 image: Image
 wikilink: Lien avec des informations complémentaires
 questcount: Combien de questions doivent être posées pendant l’examen ?
@@ -766,6 +769,16 @@ email_template:
       se déroulent comme prévu. Malheureusement, tous tes établissements n’ont pas
       encore inscrit suffisamment de personnes pour effectuer les ramassages dans
       les deux jours à venir :'
+  report_confirmation:
+    greeting: ''
+    reminder: ''
+    subject: ''
+    reason: ''
+    group_report: ''
+    received: ''
+    patience: ''
+    group_arbitration: ''
+    message: ''
 mailbox:
   mark_as_unread: Marquer comme non lu
   filesize: Désolé. Le fichier est trop gros.
@@ -1724,6 +1737,7 @@ statistics:
     activeHomeRegionFoodsavers: sauveteurs alimentaires actifs
     savedFoodKgLastMonth: de nourriture sauvés
   lastMonth: statistiques des 30 derniers jours
+  food_weight_saved: ''
 menu:
   entry:
     events: Évènements
@@ -1963,6 +1977,7 @@ profile:
     report_b5: Des personnes non autorisées ont pénétré dans l’entreprise (B05)
     report_b11: Des moyens de transport non écologiques ont été utilisés pour la
       collecte (B11)
+    sendConfirmationMail: ''
   mediation:
     no_group: Il n’existe malheureusement pas encore de groupe local de 
       médiation pour le secteur géographique choisi. Tu peux aborder ce thème 
@@ -2402,6 +2417,7 @@ wall:
   delete_confirmation:
     text: Veux-tu vraiment supprimer cette entrée de {author} ?
     title: Supprimer cette entrée du mur ?
+  post_not_found: ''
 chat:
   confirm_draft_discard: "En changeant de conversation, le texte écrit jusqu’ici sera
     automatiquement supprimé.\n\nEn interrompant cet échange, ton brouillon sera automatiquement
@@ -4548,6 +4564,9 @@ help:
     inactive_groups:
       title: ''
       md: ''
+    restrict_resource_to_region:
+      title: ''
+      md: ''
 automatic_delete: '- le profil doit être supprimé.'
 automatic_not_delete: '- le profil doit être conservé.'
 no_automatic_delete: 'Si la dernière connexion remonte à plus de cinq ans :'
@@ -4641,6 +4660,7 @@ theme_switcher:
     light: Clair
     system: Système
   choose_button: OK
+  title_button: ''
 support_page:
   new_request: Nouvelle demande
   success: Ton message a été transmis avec succès.

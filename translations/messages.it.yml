@@ -298,6 +298,9 @@ upload:
     normale immagine jpg
   invalid_image_files: '{count} file selezionati non sono immagini valide: {fileNames}'
   remove_image: ''
+  type_rejected: ''
+  too_large: ''
+  failed: ''
 image: Foto
 wikilink: Link con ulteriori informazioni
 questcount: Quante domande dovrebbero essere poste durante l'esame?
@@ -395,6 +398,7 @@ statistics:
     activeFoodSharePoints: 'distributori attivi'
   food_saved: di cibo risparmiati
   lastMonth: Statistiche degli ultimi 30 giorni
+  food_weight_saved: ''
 terminology:
   options: Opzioni
   buddies: Conoscente
@@ -1577,6 +1581,16 @@ email_template:
     part1: ''
   confirm_for_moderated_forum: ''
   confirm_for_unverified: ''
+  report_confirmation:
+    greeting: ''
+    reminder: ''
+    subject: ''
+    reason: ''
+    group_report: ''
+    received: ''
+    patience: ''
+    group_arbitration: ''
+    message: ''
 foodsaver:
   list:
     inactive: "che non sono stati attivi negli ultimi 6 mesi:"
@@ -1916,6 +1930,7 @@ wall:
   delete_confirmation:
     text: Vuoi davvero eliminare questa voce da {author}?
     title: Eliminare il post dalla bacheca?
+  post_not_found: ''
 chat:
   confirm_draft_discard: "Passi a una nuova conversazione. Il testo nel campo della
     risposta viene scartato.\n\nSe annulli questa finestra di dialogo, la bozza verrà
@@ -2648,6 +2663,7 @@ profile:
     report_b1_0: ''
     report_b6_1: ''
     report_b13: ''
+    sendConfirmationMail: ''
   banana:
     give: Dai a {name} una banana
     title: '{count} Banane di fiducia'
@@ -4314,6 +4330,9 @@ help:
     inactive_groups:
       title: ''
       md: ''
+    restrict_resource_to_region:
+      title: ''
+      md: ''
 no_automatic_delete: 'Se l’ultimo accesso è avvenuto cinque anni fa:'
 automatic_delete: '- il profilo deve essere cancellato.'
 automatic_not_delete: '- il profilo deve essere mantenuto.'
@@ -4332,6 +4351,7 @@ theme_switcher:
   choose_button: Va bene
   title: Scegli il design
   content: ''
+  title_button: ''
 team_page:
   it_member:
     title: Squadra informatica

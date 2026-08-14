@@ -788,6 +788,7 @@ wall:
   delete_confirmation:
     text: இந்த உள்ளீட்டை {எழுத்தாளர் இருந்து இலிருந்து நீக்க விரும்புகிறீர்களா?
     title: முள் சுவர் நுழைவை நீக்கவா?
+  post_not_found: ''
 events:
   past: கடந்த தேதிகள்
   add_new_event: இப்போது புதிய நியமனத்தை உள்ளிடவும்
@@ -1942,6 +1943,7 @@ profile:
     sells: மீட்கப்பட்ட உணவு விற்கப்பட்டது
     notes: குறிப்புகள் மற்றும் முடிவுகள்
     confirmDelete: இந்த செய்தி உண்மையில் நீக்கப்பட வேண்டுமா?
+    sendConfirmationMail: ''
   title: சுயவிவரம்
   go: சுயவிவரத்தை அழைக்கவும்
   notFound: இந்த பயனர் சுயவிவரம் இல்லை அல்லது இனி இல்லை
@@ -2598,6 +2600,16 @@ email_template:
       multiple: '% எண்ணிக்கை % இல் திறந்த தேர்வு சந்திப்புகள்!'
     disable_warning: இந்த எச்சரிக்கையை அணைக்கவா?
     settings_link: அறிவிப்பு அமைப்புகளுக்கு
+  report_confirmation:
+    greeting: ''
+    reminder: ''
+    subject: ''
+    reason: ''
+    group_report: ''
+    received: ''
+    patience: ''
+    group_arbitration: ''
+    message: ''
 buddy:
   send:
     confirm_title: உங்களுக்கு {name} தெரியுமா?
@@ -2743,6 +2755,7 @@ theme_switcher:
     dark: இருண்ட
   title: வடிவமைப்பைத் தேர்வுசெய்க
   content: தயவுசெய்து ஒரு வடிவமைப்பைத் தேர்வுசெய்க
+  title_button: ''
 startpage:
   slogan_2: சமூகம், நிலையான மற்றும் பாராட்டு
   join: பங்கேற்கவும்
@@ -3593,6 +3606,9 @@ help:
     inactive_groups:
       title: ''
       md: ''
+    restrict_resource_to_region:
+      title: ''
+      md: ''
 team_page:
   board_member:
     title: பலகை
@@ -3929,6 +3945,9 @@ upload:
   invalid_image_files: '{count} தேர்ந்தெடுக்கப்பட்ட கோப்புகள் சரியான படங்கள் அல்ல:
     {fileNames}'
   remove_image: ''
+  type_rejected: ''
+  too_large: ''
+  failed: ''
 button:
   save: சேமிக்கவும்
   prev: பின்
@@ -4463,6 +4482,7 @@ statistics:
     activeCoorporations: செயலில் இயக்க கூட்டுறவு
     activeFoodSharePoints: செயலில் நியாயமான வகுப்பி
     foodBasketsLastMonth: விநியோகிக்கப்பட்ட உணவு கூடை
+  food_weight_saved: ''
 really_delete: உண்மையில் நீக்கவா?
 no: இல்லை
 back: பின்

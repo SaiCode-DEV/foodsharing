@@ -284,6 +284,16 @@ email_template:
     part1: 'Driftsleders ansvar er å sørge for at henting gjennomføres som planlagt.
       Dessverre har ikke nok matsparere registrert seg for henting i alle virksomhetene
       dine i løpet av de neste to dagene:'
+  report_confirmation:
+    greeting: ''
+    reminder: ''
+    subject: ''
+    reason: ''
+    group_report: ''
+    received: ''
+    patience: ''
+    group_arbitration: ''
+    message: ''
 base:
   jsrequired: Denne siden vil ikke fungere skikkelig uten JavaScript.
   slogan: Del mat i stedet for å kaste den – foodsharing
@@ -959,6 +969,7 @@ profile:
     report_b13: Det ble ikke gjort tilstrekkelige anstrengelser for å 
       konsumere/distribuere den reddete maten (B13)
     report_b6_0: Det ble ikke tatt hensyn til kunder og ansatte (B06-1)
+    sendConfirmationMail: ''
   notFound: Denne brukerprofilen eksisterer ikke eller eksisterer ikke lenger
   go: Gå til profilsiden
   sleeping: 'er inaktiv på ubestemt tid'
@@ -2292,6 +2303,9 @@ upload:
   invalid_image_files: '{count} valgte filer er ikke gyldige bilder: {fileNames}'
   images: Last opp bilder
   remove_image: ''
+  type_rejected: ''
+  too_large: ''
+  failed: ''
 image: Bilde
 explanation: Forklaring
 fp: Feilpoeng
@@ -3295,6 +3309,7 @@ statistics:
     foodBasketsLastMonth: matkurver delt
     activeCoorporations: aktive bedriftssamarbeid
   lastMonth: Statistikk for de 30 dagene
+  food_weight_saved: ''
 terminology:
   options: Alternativer
   buddies: Venner
@@ -3435,6 +3450,7 @@ wall:
   delete_confirmation:
     text: Er du sikker på at du vil slette denne oppføringen fra {author}?
     title: Vil du slette veggoppføringen?
+  post_not_found: ''
 sidenav:
   yourgroups: Dine grupper
   countryspecific: Landsspesifikke grupper
@@ -4367,6 +4383,9 @@ help:
     inactive_groups:
       title: ''
       md: ''
+    restrict_resource_to_region:
+      title: ''
+      md: ''
   helpTitle: 'Hjelp: {title}'
   tooltip: Vis hjelp
 team_page:
@@ -4404,6 +4423,7 @@ theme_switcher:
   title: Velg design
   content: Velg et design
   choose_button: OK
+  title_button: ''
 achievements:
   validity:
     days: Gyldig i {validityInDaysAfterAssignment} dager etter tildeling.

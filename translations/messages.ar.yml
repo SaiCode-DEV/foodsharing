@@ -1907,6 +1907,7 @@ profile:
     report_b1_0: ''
     report_b6_1: ''
     report_b13: ''
+    sendConfirmationMail: ''
   banana:
     alreadyGiven: ''
     undo: ''
@@ -2443,6 +2444,7 @@ statistics:
     pickupsLastMonth: ''
   food_saved: ''
   lastMonth: ''
+  food_weight_saved: ''
 fsp:
   inRegion: ''
   unfollow: ''
@@ -3226,6 +3228,16 @@ email_template:
     part1: ''
   confirm_for_moderated_forum: ''
   confirm_for_unverified: ''
+  report_confirmation:
+    greeting: ''
+    reminder: ''
+    subject: ''
+    reason: ''
+    group_report: ''
+    received: ''
+    patience: ''
+    group_arbitration: ''
+    message: ''
 poll:
   new_poll:
     option: ''
@@ -3316,6 +3328,7 @@ wall:
   delete_confirmation:
     title: ''
     text: ''
+  post_not_found: ''
 error:
   missing_user_avatar:
     description: ''
@@ -3462,6 +3475,9 @@ upload:
   invalid_image_files: ''
   image-problem: ''
   remove_image: ''
+  type_rejected: ''
+  too_large: ''
+  failed: ''
 button:
   save: ''
   answer: ''
@@ -3816,6 +3832,9 @@ help:
     inactive_groups:
       title: ''
       md: ''
+    restrict_resource_to_region:
+      title: ''
+      md: ''
   helpTitle: ''
   tooltip: ''
 petition:
@@ -4129,6 +4148,7 @@ theme_switcher:
   choose_button: ''
   content: ''
   title: ''
+  title_button: ''
 network_errors:
   csrf_token_invalid:
     title: ''

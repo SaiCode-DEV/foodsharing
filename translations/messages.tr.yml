@@ -401,6 +401,9 @@ upload:
     kullanman
   invalid_image_files: 'Seçilen {count} dosya geçerli resimler değil: {fileNames}'
   remove_image: Resmi kaldır
+  type_rejected: ''
+  too_large: ''
+  failed: ''
 group:
   actions:
     go: Gruba git
@@ -2365,6 +2368,16 @@ email_template:
       multiple: '%COUNT% işletmede açık kurtarma tarihleri!'
       single: '%COMPANY% işletmesinden kurtarma tarihleri açık!'
     settings_link: Bildirim ayarlarına
+  report_confirmation:
+    greeting: ''
+    reminder: ''
+    subject: ''
+    reason: ''
+    group_report: ''
+    received: ''
+    patience: ''
+    group_arbitration: ''
+    message: ''
 wall:
   delete: Kaydı sil
   name: Pano
@@ -2381,6 +2394,7 @@ wall:
   delete_confirmation:
     title: Pano kayıdı silinsin mi?
     text: Bu girişi {author}'dan silmek istediğinizden emin misiniz?
+  post_not_found: ''
 settings:
   notifications: Bildirimler
   sleep:
@@ -2976,6 +2990,7 @@ profile:
       gösterilmedi (B13)
     notes: Notlar ve kararlar
     confirmDelete: Bu mesajın gerçekten silinmesi gerekiyor mu?
+    sendConfirmationMail: ''
   choosestore: Lütfen ilgili işletmeyi seçiniz
   cantdeleteall: Tüm randevuları silemezsiniz!
   deletesuccess: Tek randevu silindi
@@ -3625,6 +3640,7 @@ statistics:
     activeCoorporations: aktif işletme işbirlikleri
     activeHomeRegionFoodsavers: aktif foodsaverlar
   lastMonth: Son 30 günün İstatistikleri
+  food_weight_saved: ''
 are_you_sure: Emin misin?
 day: Gün
 formatting:
@@ -4483,6 +4499,9 @@ help:
     inactive_groups:
       title: ''
       md: ''
+    restrict_resource_to_region:
+      title: ''
+      md: ''
   helpTitle: 'Yardım: {title}'
   tooltip: Yardımı göster
 team_page:
@@ -4576,6 +4595,7 @@ theme_switcher:
     dark: Karanlık
   choose_button: Okey
   content: Lütfen bir tasarım seçin
+  title_button: ''
 error_base64_image: Drag & Drop yöntemiyle resim eklenmesine izin verilmez.
 support_page:
   title: Destek formu

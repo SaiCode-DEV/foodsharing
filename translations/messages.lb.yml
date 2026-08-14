@@ -105,6 +105,7 @@ statistics:
     pickupsLastMonth: ''
   food_saved: ''
   lastMonth: ''
+  food_weight_saved: ''
 are_you_sure: ''
 store:
   may_referred_to_in_public: ''
@@ -554,6 +555,7 @@ profile:
     report_b1_0: ''
     report_b6_1: ''
     report_b13: ''
+    sendConfirmationMail: ''
   title: ''
   go: ''
   commitments_stat:
@@ -1454,6 +1456,9 @@ upload:
   invalid_image_files: ''
   image-problem: ''
   remove_image: ''
+  type_rejected: ''
+  too_large: ''
+  failed: ''
 button:
   attach_image: ''
   delete: ''
@@ -2170,6 +2175,7 @@ wall:
   delete_confirmation:
     title: ''
     text: ''
+  post_not_found: ''
 events:
   created: ''
   edit: ''
@@ -3190,6 +3196,16 @@ email_template:
     part1: ''
   confirm_for_moderated_forum: ''
   confirm_for_unverified: ''
+  report_confirmation:
+    greeting: ''
+    reminder: ''
+    subject: ''
+    reason: ''
+    group_report: ''
+    received: ''
+    patience: ''
+    group_arbitration: ''
+    message: ''
 polls:
   hint: ''
   hint_2: ''
@@ -3802,6 +3818,9 @@ help:
     inactive_groups:
       title: ''
       md: ''
+    restrict_resource_to_region:
+      title: ''
+      md: ''
   helpTitle: ''
   tooltip: ''
 petition:
@@ -4126,6 +4145,7 @@ theme_switcher:
   choose_button: ''
   content: ''
   title: ''
+  title_button: ''
 network_errors:
   csrf_token_invalid:
     title: ''

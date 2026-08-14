@@ -1181,6 +1181,7 @@ profile:
     report_b1_0: ''
     report_b6_1: ''
     report_b13: ''
+    sendConfirmationMail: ''
   alldatesdeleted: 'Все даты удалены'
   online: '{name} в сети.'
   public:
@@ -2576,6 +2577,7 @@ wall:
   delete_confirmation:
     title: ''
     text: ''
+  post_not_found: ''
 events:
   create:
     offline: 'Офлайн/вживую'
@@ -3147,6 +3149,16 @@ email_template:
     part1: ''
   confirm_for_moderated_forum: ''
   confirm_for_unverified: ''
+  report_confirmation:
+    greeting: ''
+    reminder: ''
+    subject: ''
+    reason: ''
+    group_report: ''
+    received: ''
+    patience: ''
+    group_arbitration: ''
+    message: ''
 polls:
   ended: 'Прошедшие голосования'
   new_poll: 'Создать новое голосование'
@@ -3776,6 +3788,9 @@ upload:
   invalid_image_files: ''
   image-problem: ''
   remove_image: ''
+  type_rejected: ''
+  too_large: ''
+  failed: ''
 begin: 'Начало сотрудничества'
 explanation: 'Пояснение'
 ui: {}
@@ -3823,6 +3838,7 @@ statistics:
     pickupsLastMonth: ''
   food_saved: ''
   lastMonth: ''
+  food_weight_saved: ''
 betrieb_status_id: 'Статус'
 fetchstate: 'Всё прошло успешно?'
 fp: 'Штрафные очки'
@@ -4125,6 +4141,9 @@ help:
       md: ''
       title: ''
     inactive_groups:
+      title: ''
+      md: ''
+    restrict_resource_to_region:
       title: ''
       md: ''
   helpTitle: ''
@@ -4436,6 +4455,7 @@ theme_switcher:
   choose_button: ''
   content: ''
   title: ''
+  title_button: ''
 network_errors:
   csrf_token_invalid:
     title: ''

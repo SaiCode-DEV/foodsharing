@@ -4224,6 +4224,9 @@ help:
         - **Uratowana żywność**: W każdym punkcie podana jest oszacowana przez koordynatorów/ki punktu przeciętna odbierana ilość żywności. Podana ilość uratowanej żywności odpowiada oszacowanej całkowitej masie z wykonanych odbiorów w ciągu ostatnich 30 dni we wszystkich punktach w rejonie (albo w jednym z rejonów podrzędnych).
         - **Aktywne jadłodzielnie** są to jadłodzielnie w danym momencie oznaczone jako aktywne w rejonie (albo w jednym z rejonów podrzędnych).
         - **Rozdane jadłokoszyki** podaje, jak często w ciągu ostatnich 30 dni foodsaverzy/ki w rejonie (albo w jednym z rejonów podrzędnych) przekazywali/ły żywność poprzez funkcję *"jadłokoszyk"* na platformie. Często przekazuje się dalej bardzo dużą część żywności bez tego wsparcia technicznego. Niska wartość nie oznacza tutaj, że rozdaje się mało produktów żywnościowych.
+    restrict_resource_to_region:
+      title: ''
+      md: ''
   helpTitle: 'Pomoc: {title}'
   tooltip: 'Pokaż pomoc'
 email_template:

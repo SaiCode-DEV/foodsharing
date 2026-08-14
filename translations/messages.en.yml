@@ -3039,6 +3039,7 @@ wall:
   delete_confirmation:
     text: Are you sure you want to delete this entry from {author}?
     title: Delete wall entry?
+  post_not_found: ''
 ui: {}
 upload:
   file: Upload file
@@ -4730,6 +4731,9 @@ help:
         - **Food saved**: For each store, there is an estimated average pickup quantity provided by the store managers. The amount of food saved therefore corresponds to the estimated total weight of pickups made over the past 30 days at all stores in the region (or subregions).
         - **Active food share points** are the food share points in the region (or a subregion) that are currently marked as active.
         - **Food baskets distributed** denotes how often, over the last 30 days, food has been passed on via the platform’s *“food basket”* feature by foodsavers in the region (or a sub-region). Often, a very large proportion of the food is redistributed without this technical support. A low figure here therefore does not mean that little food is being redistributed.
+    restrict_resource_to_region:
+      title: ''
+      md: ''
   tooltip: Show help
   helpTitle: 'Help: {title}'
 team_page:

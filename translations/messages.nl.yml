@@ -515,6 +515,16 @@ email_template:
     part1: ''
   confirm_for_moderated_forum: ''
   confirm_for_unverified: ''
+  report_confirmation:
+    greeting: ''
+    reminder: ''
+    subject: ''
+    reason: ''
+    group_report: ''
+    received: ''
+    patience: ''
+    group_arbitration: ''
+    message: ''
 polls:
   until: ''
   title: ''
@@ -1134,6 +1144,7 @@ profile:
     report_b1_0: ''
     report_b6_1: ''
     report_b13: ''
+    sendConfirmationMail: ''
   commitments_stat:
     title: ''
     respActStores: ''
@@ -3424,6 +3435,7 @@ wall:
   delete_confirmation:
     title: ''
     text: ''
+  post_not_found: ''
 contentmanagement: ''
 filter_by: ''
 image: 'beeld'
@@ -3440,6 +3452,7 @@ statistics:
     pickupsLastMonth: ''
   food_saved: ''
   lastMonth: ''
+  food_weight_saved: ''
 calendar:
   labelNav: ''
   labelCurrentMonth: ''
@@ -3494,6 +3507,9 @@ upload:
   invalid_image_files: ''
   image-problem: ''
   remove_image: ''
+  type_rejected: ''
+  too_large: ''
+  failed: ''
 button:
   save: 'Opslaan'
   answer: ''
@@ -3817,6 +3833,9 @@ help:
     inactive_groups:
       title: ''
       md: ''
+    restrict_resource_to_region:
+      title: ''
+      md: ''
   helpTitle: ''
   tooltip: ''
 petition:
@@ -4130,6 +4149,7 @@ theme_switcher:
   choose_button: ''
   content: ''
   title: ''
+  title_button: ''
 network_errors:
   csrf_token_invalid:
     title: ''

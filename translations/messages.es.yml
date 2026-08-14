@@ -2165,6 +2165,7 @@ profile:
       alimentos rescatados (B13)
     report_b11: Se utilizaron medios de transporte no ecológicos para la 
       recogida (B11)
+    sendConfirmationMail: ''
   history:
     noData: 'Datos no disponibles.'
     noActor: 'desconocid@'
@@ -2839,6 +2840,7 @@ wall:
   delete_confirmation:
     text: ¿Seguro que desea eliminar esta entrada de {author}?
     title: ¿Borrar una entrada del tablón?
+  post_not_found: ''
 events:
   bread: 'Eventos'
   add_new_event: 'Agregar un nuevo evento'
@@ -3806,6 +3808,16 @@ email_template:
       movilizar a nadie, le agradeceríamos que se hiciera cargo de las recogidas
       abiertas. Si esto no es posible, cancele las citas con el negocio lo antes
       posible.
+  report_confirmation:
+    greeting: ''
+    reminder: ''
+    subject: ''
+    reason: ''
+    group_report: ''
+    received: ''
+    patience: ''
+    group_arbitration: ''
+    message: ''
 contentmanagement: 'Gestión de contenido'
 statistics:
   num_fetches: 'en {count} operaciones de rescate'
@@ -3818,6 +3830,7 @@ statistics:
     savedFoodKgLastMonth: de comida ahorrados
     pickupsLastMonth: rescates alimentarios
   lastMonth: Estadísticas de los últimos 30 días
+  food_weight_saved: ''
 back: 'Atrás'
 chat:
   search: 'Buscar'
@@ -4190,6 +4203,9 @@ upload:
   image-problem: Su archivo no parece estar bien, es mejor utilizar una imagen 
     jpg normal
   remove_image: ''
+  type_rejected: ''
+  too_large: ''
+  failed: ''
 public_time: 'Tiempo aproximado de recogida'
 answers: '¿Qué respuestas son correctas?'
 abholmenge: '¿Aproximadamente cuántos kilogramos se toman por recogida?'
@@ -4545,6 +4561,9 @@ help:
     inactive_groups:
       title: ''
       md: ''
+    restrict_resource_to_region:
+      title: ''
+      md: ''
 team_page:
   board_member:
     text: "La junta directiva de foodsharing e.V. mantiene unidos los hilos, conecta
@@ -4639,6 +4658,7 @@ theme_switcher:
     system: Sistema
     light: Claro
     dark: Oscuro
+  title_button: ''
 error_base64_image: No está permitido insertar imágenes mediante arrastrar y 
   soltar.
 support_page:

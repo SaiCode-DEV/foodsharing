@@ -354,6 +354,9 @@ upload:
     JPG paveikslėlį
   invalid_image_files: '{count} pasirinktos bylos paveikslėliai netinkami : {fileNames}'
   remove_image: ''
+  type_rejected: ''
+  too_large: ''
+  failed: ''
 image: Paveikslėlis / Vaizdas
 bcard:
   title: Vizitinių kortelių generatorius
@@ -1402,6 +1405,7 @@ profile:
     report_b6_1: ''
     cancellation: ''
     report_b13: ''
+    sendConfirmationMail: ''
   mediation:
     title: ''
     info: ''
@@ -1720,6 +1724,9 @@ help:
     inactive_groups:
       title: ''
       md: ''
+    restrict_resource_to_region:
+      title: ''
+      md: ''
   helpTitle: ''
   tooltip: ''
 store:
@@ -2023,6 +2030,16 @@ email_template:
   confirm_BOT: ''
   information: ''
   confirm_link: ''
+  report_confirmation:
+    greeting: ''
+    reminder: ''
+    subject: ''
+    reason: ''
+    group_report: ''
+    received: ''
+    patience: ''
+    group_arbitration: ''
+    message: ''
 notifications:
   save_success: ''
   newsletter:
@@ -3533,6 +3550,7 @@ wall:
   info-somebody-else: ''
   confirm-deletion: ''
   delete: ''
+  post_not_found: ''
 support_page:
   subject: ''
   attachment:
@@ -4086,6 +4104,7 @@ theme_switcher:
   choose_button: ''
   content: ''
   title: ''
+  title_button: ''
 activitypost:
   quickreply_button: ''
   write: ''
@@ -4190,6 +4209,7 @@ statistics:
   food_saved: ''
   num_fetches: ''
   lastMonth: ''
+  food_weight_saved: ''
 team:
   current: ''
 language_chooser:
