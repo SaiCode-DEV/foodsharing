@@ -324,8 +324,8 @@ class SettingsTransactions
             if ($editableProfileDTO->role !== null && $editableProfileDTO->role !== (int)$currentUserProfile['rolle']) {
                 $this->session->invalidateAllSessionsForUser($userId);
             }
+            $this->downgradeProfile($userId, $currentUserProfile['rolle'], $editableProfileDTO);
         }
-        $this->downgradeProfile($userId, $currentUserProfile['rolle'], $editableProfileDTO);
 
         return $isUpdated;
     }
@@ -448,7 +448,7 @@ class SettingsTransactions
     private function downgradeProfile(int $userId, int $currentRole, EditableProfileDTO $editableProfileDTO): void
     {
         if (isset($editableProfileDTO->role) && $editableProfileDTO->role === Role::FOODSHARER->value && $editableProfileDTO->role < $currentRole) {
-            $this->foodsaverTransactions->downgradeAndBlockForQuizPermanently($userId);
+            $this->foodsaverTransactions->downgradeAndBlockForQuizPermanently($userId, $this->session->id());
         }
     }
 

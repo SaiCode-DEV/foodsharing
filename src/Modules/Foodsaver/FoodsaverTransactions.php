@@ -8,6 +8,7 @@ use Foodsharing\Lib\ListmonkClient;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Basket\BasketGateway;
 use Foodsharing\Modules\Core\DBConstants\CategoryType;
+use Foodsharing\Modules\Core\DBConstants\Foodsaver\ChangeHistoryKey;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\SleepStatus;
 use Foodsharing\Modules\Core\DBConstants\Quiz\QuizID;
@@ -76,7 +77,7 @@ class FoodsaverTransactions
     ) {
     }
 
-    public function downgradeAndBlockForQuizPermanently(int $fsId): int
+    public function downgradeAndBlockForQuizPermanently(int $fsId, ?int $actorId = null): int
     {
         foreach (QuizID::quizzesForRoles() as $quizId) {
             $this->quizSessionGateway->deleteUserSessions($quizId, $fsId, false);
@@ -85,7 +86,7 @@ class FoodsaverTransactions
 
         $this->storeTransactions->leaveAllStoreTeams($fsId);
 
-        return $this->downgradePermanently($fsId);
+        return $this->downgradePermanently($fsId, $actorId);
     }
 
     public function changeUserVerification(int $userId, int $actorId, bool $newStatus): void
@@ -94,10 +95,19 @@ class FoodsaverTransactions
         $this->session->invalidateAllSessionsForUser($userId);
     }
 
-    public function downgradePermanently(int $fsId): int
+    public function downgradePermanently(int $fsId, ?int $actorId = null): int
     {
+        $oldHomeRegionId = $this->foodsaverGateway->getHomeRegionOfFoodsaver($fsId);
+        $wasVerified = $this->profileGateway->isUserVerified($fsId);
+        if ($wasVerified) {
+            // Record the verification withdrawal before the downgrade resets the verified flag
+            $this->foodsaverGateway->changeUserVerification($fsId, $actorId ?? $fsId, false);
+        }
         $rows = $this->foodsaverGateway->downgradePermanently($fsId);
-        if ($rows > 0) {
+        if ($rows > 0 && $oldHomeRegionId) {
+            $this->settingsGateway->logSingleChangedSetting($fsId, ChangeHistoryKey::JOINED_REGION, $oldHomeRegionId, 0, $actorId);
+        }
+        if ($rows > 0 || $wasVerified) {
             $this->session->invalidateAllSessionsForUser($fsId);
         }
 

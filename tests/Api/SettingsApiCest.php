@@ -9,6 +9,7 @@ use Codeception\Example;
 use Codeception\Util\HttpCode;
 use Faker\Factory;
 use Faker\Generator;
+use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\SleepStatus;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
@@ -435,6 +436,59 @@ class SettingsApiCest
             // make sure that the values did not change
             $I->seeInDatabase('fs_foodsaver', ['bezirk_id' => $oldRegionId, 'id' => $this->user['id']]);
         }
+    }
+
+    public function orgaDowngradeIsRecordedInVerificationAndHomeRegionHistory(ApiTester $I): void
+    {
+        // Downgrading a user to foodsharer used to reset the verified flag and the
+        // home region without any history entry (#2747)
+        $testUser = $I->createFoodsaver(null, ['bezirk_id' => $this->region1['id'], 'verified' => 1]);
+        $I->addRegionMember($this->region1['id'], $testUser['id']);
+
+        $I->login($this->userOrga['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/users/' . $testUser['id'] . '/profile', [
+            'role' => Role::FOODSHARER->value,
+        ]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        $I->seeInDatabase('fs_foodsaver', [
+            'id' => $testUser['id'],
+            'rolle' => Role::FOODSHARER->value,
+            'bezirk_id' => 0,
+            'verified' => 0,
+        ]);
+        // The verification withdrawal is recorded with the acting orga
+        $I->seeInDatabase('fs_verify_history', [
+            'fs_id' => $testUser['id'],
+            'bot_id' => $this->userOrga['id'],
+            'change_status' => 0,
+        ]);
+        // The home region removal is logged as its own event, so the profile no longer
+        // shows a misattributed "home region entered by orga" line afterwards
+        $I->seeInDatabase('fs_foodsaver_change_history', [
+            'fs_id' => $testUser['id'],
+            'changer_id' => $this->userOrga['id'],
+            'object_name' => 'bezirk_id',
+            'old_value' => (string)$this->region1['id'],
+            'new_value' => '0',
+        ]);
+    }
+
+    public function downgradeOfUnverifiedUserWritesNoVerificationHistory(ApiTester $I): void
+    {
+        $testUser = $I->createFoodsaver(null, ['bezirk_id' => $this->region1['id'], 'verified' => 0]);
+        $I->addRegionMember($this->region1['id'], $testUser['id']);
+
+        $I->login($this->userOrga['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/users/' . $testUser['id'] . '/profile', [
+            'role' => Role::FOODSHARER->value,
+        ]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        $I->seeInDatabase('fs_foodsaver', ['id' => $testUser['id'], 'rolle' => Role::FOODSHARER->value]);
+        $I->dontSeeInDatabase('fs_verify_history', ['fs_id' => $testUser['id']]);
     }
 
     public function canNotChangePasswordWithoutLogin(ApiTester $I): void
