@@ -719,6 +719,7 @@ class SearchGateway extends BaseGateway
                 AND have_region.active = 1
                 AND has_region.active = 1
                 AND region.type IN (' . UnitType::CITY . ',' . UnitType::PART_OF_TOWN . ',' . UnitType::WORKING_GROUP . ')
+                AND foodsaver.deleted_at IS NULL
                 GROUP BY foodsaver.id
                 UNION ALL
 
@@ -737,6 +738,7 @@ class SearchGateway extends BaseGateway
                 JOIN fs_foodsaver AS foodsaver ON foodsaver.id = buddy.foodsaver_id
                 WHERE buddy.confirmed = 1
                 AND buddy.buddy_id = ?
+                AND foodsaver.deleted_at IS NULL
                 UNION ALL
 
                 -- By store team:
@@ -756,6 +758,7 @@ class SearchGateway extends BaseGateway
                 JOIN fs_foodsaver AS foodsaver ON foodsaver.id = store_team.foodsaver_id
                 WHERE my_store_team.foodsaver_id = ?
                 AND my_store_team.active != 0
+                AND foodsaver.deleted_at IS NULL
                 GROUP BY foodsaver.id
                 UNION ALL
 
@@ -773,6 +776,7 @@ class SearchGateway extends BaseGateway
                 JOIN fs_foodsaver_has_conversation AS has_conversation ON have_conversation.conversation_id = has_conversation.conversation_id
                 JOIN fs_foodsaver AS foodsaver ON foodsaver.id = has_conversation.foodsaver_id
                 WHERE have_conversation.foodsaver_id = ?
+                AND foodsaver.deleted_at IS NULL
                 GROUP BY foodsaver.id
                 UNION ALL
 
@@ -839,6 +843,7 @@ class SearchGateway extends BaseGateway
                 JOIN fs_foodsaver AS foodsaver ON foodsaver.id = buddy.foodsaver_id
                 WHERE buddy.confirmed = 1
                 AND buddy.buddy_id = ?
+                AND foodsaver.deleted_at IS NULL
             ) foodsaver
             JOIN fs_bezirk AS region ON region.id = foodsaver.home_region
             ORDER BY foodsaver.name",

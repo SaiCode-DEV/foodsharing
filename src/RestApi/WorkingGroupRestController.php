@@ -43,7 +43,7 @@ class WorkingGroupRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
-    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Group not found')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Group or user not found')]
     #[Route('groups/{groupId}/members/{memberId}', requirements: ['groupId' => Requirement::POSITIVE_INT, 'memberId' => Requirement::POSITIVE_INT], methods: ['POST'])]
     public function addMember(int $groupId, int $memberId): Response
     {
@@ -52,6 +52,10 @@ class WorkingGroupRestController extends AbstractFoodsharingRestController
         $group = $this->workGroupGateway->getGroup($groupId);
         if (empty($group) || !UnitType::isGroup($group['type'])) {
             throw new NotFoundHttpException('Group does not exist');
+        }
+
+        if (!$this->foodsaverGateway->foodsaverExists($memberId)) {
+            throw new NotFoundHttpException('User does not exist');
         }
 
         if (!$this->workGroupPermissions->mayEdit($group)

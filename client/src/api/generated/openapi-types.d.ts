@@ -19512,7 +19512,7 @@ export interface operations {
                 };
                 content?: never;
             };
-            /** @description Group not found */
+            /** @description Group or user not found */
             404: {
                 headers: {
                     [name: string]: unknown;

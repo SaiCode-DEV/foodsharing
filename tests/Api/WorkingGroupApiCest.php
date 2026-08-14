@@ -88,6 +88,19 @@ class WorkingGroupApiCest
         $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
     }
 
+    public function canNotAddDeletedUsersToWorkingGroups(ApiTester $I): void
+    {
+        // A soft-deleted account that still carries leftover rows (#2728)
+        $deletedUser = $I->createFoodsaver(null, [
+            'deleted_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $I->login($this->userAdmin['email']);
+        $I->sendPOST('api/groups/' . $this->globalWorkingGroup['id'] . '/members/' . $deletedUser['id']);
+        $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
+        $I->dontSeeInDatabase('fs_foodsaver_has_bezirk', ['bezirk_id' => $this->globalWorkingGroup['id'], 'foodsaver_id' => $deletedUser['id']]);
+    }
+
     public function canOnlyJoinOpenWorkingGroup(ApiTester $I): void
     {
         $I->login($this->user['email']);

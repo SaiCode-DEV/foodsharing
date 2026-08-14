@@ -173,6 +173,49 @@ class SearchApiCest
         $I->cantSeeResponseContainsJson(['id' => $this->user2['id']]);
     }
 
+    public function canNotFindHalfDeletedUsers(ApiTester $I): void
+    {
+        // A half-deleted account: marked deleted but still carrying its membership
+        // row in fs_foodsaver_has_bezirk (#2728)
+        $halfDeleted = $I->createFoodsaver(null, [
+            'bezirk_id' => $this->region1['id'],
+            'deleted_at' => date('Y-m-d H:i:s'),
+        ]);
+        $I->addRegionMember($this->region1['id'], $halfDeleted['id']);
+
+        $I->login($this->user1['email']);
+        $I->sendGET("api/search/users?q={$halfDeleted['id']}");
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $I->cantSeeResponseContainsJson(['id' => $halfDeleted['id']]);
+
+        $I->sendGET("api/search/users?q={$halfDeleted['name']}");
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $I->cantSeeResponseContainsJson(['id' => $halfDeleted['id']]);
+    }
+
+    public function searchIndexOmitsDeletedBuddies(ApiTester $I): void
+    {
+        // The index feeds the client-side search, and a deleted account keeps its
+        // fs_buddy rows, so it has to be filtered out there too (#2728)
+        $buddy = $I->createFoodsaver(null, ['bezirk_id' => $this->region1['id']]);
+        $deletedBuddy = $I->createFoodsaver(null, [
+            'bezirk_id' => $this->region1['id'],
+            'deleted_at' => date('Y-m-d H:i:s'),
+        ]);
+        $I->addBuddy($buddy['id'], $this->user1['id']);
+        $I->addBuddy($deletedBuddy['id'], $this->user1['id']);
+
+        $I->login($this->user1['email']);
+        $I->sendGET('api/search/index');
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        $userIds = array_map('intval', $I->grabDataFromResponseByJsonPath('$.users[*].id'));
+        $I->assertContains($buddy['id'], $userIds);
+        $I->assertNotContains($deletedBuddy['id'], $userIds);
+    }
+
     // ========================= general search endpoint ================================
     public function canOnlyUseGeneralSearchWhenLoggedIn(ApiTester $I)
     {
