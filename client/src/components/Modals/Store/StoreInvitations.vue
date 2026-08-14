@@ -27,15 +27,18 @@
               class="fas fa-fw mr-1"
               :class="{'fa-user-check': invitation.verified, 'fa-user-slash': !invitation.verified}"
             />
-            <a
+            <router-link
               class="invitee"
-              :href="$url('profile', invitation.user.id)"
-              v-text="invitation.user.name"
-            />
+              :to="$url('profile', invitation.user.id)"
+            >
+              {{ invitation.user.name }}
+            </router-link>
             <TimeDisplay :time="invitation.date" class="ml-2" />
             <br>
             {{ $t('store.invitation.invited_by') }}
-            <a :href="$url('profile', invitation.inviter.id)" v-text="invitation.inviter.name" />
+            <router-link :to="$url('profile', invitation.inviter.id)">
+              {{ invitation.inviter.name }}
+            </router-link>
           </div>
           <b-button
             variant="outline-danger"

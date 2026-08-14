@@ -30,7 +30,9 @@
               class="fas fa-fw mr-1"
               :class="{'fa-user-check': request.verified, 'fa-user-slash': !request.verified}"
             />
-            <a :href="$url('profile', request.user.id)" v-text="request.user.name" />
+            <router-link :to="$url('profile', request.user.id)">
+              {{ request.user.name }}
+            </router-link>
             <TimeDisplay :time="request.date" class="ml-2" />
             <p class="my-0" v-text="formatDistance(request.distanceInKm)" />
           </div>

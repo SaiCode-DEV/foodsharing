@@ -24,13 +24,14 @@
         v-if="links.length > 0"
         class="d-flex align-items-center my-2"
       >
-        <a
+        <FsLink
           v-for="(link, key) in links"
           :key="key"
           class="btn btn-sm btn-info font-weight-bold align-self-start mr-2"
-          :href="link.urlShortHand ? $url(link.urlShortHand) : link.href"
-          v-text="$t(link.text)"
-        />
+          :to="link.urlShortHand ? $url(link.urlShortHand) : link.href"
+        >
+          {{ $t(link.text) }}
+        </FsLink>
       </div>
     </div>
     <i
@@ -47,8 +48,11 @@ import { mutations } from '@/stores/calendar'
 // Mixin
 import RouteAndDeviceCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
 import { HTTP_RESPONSE } from '@/consts'
+// Components
+import FsLink from '@/components/UI/FsLink.vue'
 
 export default {
+  components: { FsLink },
   mixins: [RouteAndDeviceCheckMixin],
   props: {
     type: { type: String, default: 'info' },

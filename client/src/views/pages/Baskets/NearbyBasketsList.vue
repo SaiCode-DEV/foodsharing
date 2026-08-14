@@ -35,7 +35,9 @@
       {{ $t('basket.nearby_requires_location') }}
     </b-alert>
     <div id="go-to-map-button">
-      <a class="button" :href="$url('map', { markers: 'baskets' })">{{ $t('basket.all_map') }}</a>
+      <router-link class="button" :to="$url('map', { markers: 'baskets' })">
+        {{ $t('basket.all_map') }}
+      </router-link>
     </div>
     <basket-bubble ref="basketBubbleRef" />
   </Container>

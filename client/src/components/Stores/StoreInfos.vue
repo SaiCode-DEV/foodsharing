@@ -32,10 +32,10 @@
           <div>
             {{ street }} <br>
             {{ postcode }} {{ city }} <br>
-            <a :href="$url('map', { storeId: storeId })">
+            <router-link :to="$url('map', { storeId: storeId })">
               <i class="fas fa-map-marker-alt" />
               {{ $t('store.to_map') }}
-            </a>
+            </router-link>
           </div>
           <NavigateWithSelector
             :latitude="latitude"

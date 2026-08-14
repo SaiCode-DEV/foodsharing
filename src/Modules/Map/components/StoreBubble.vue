@@ -107,11 +107,12 @@
           >
             <i :class="alert.icon" />
             {{ $t(alert.textKey, alert.textParams || {}) }}<br>
-            <a
+            <FsLink
               v-if="alert.linkUrl"
-              :href="alert.linkUrl"
-              v-text="$t(alert.linkTextKey)"
-            />
+              :to="alert.linkUrl"
+            >
+              {{ $t(alert.linkTextKey) }}
+            </FsLink>
           </b-alert>
         </div>
 
@@ -208,7 +209,7 @@
         v-for="button in additionalButtons"
         :key="button.text"
         :variant="button.variant"
-        :href="button.href"
+        :to="button.href"
         :disabled="button.disabled"
         @click="button.onclick?.($event)"
       >
@@ -223,6 +224,7 @@ import conversationStore from '@/stores/conversations'
 import { getStoreBubbleContent } from '@/api/map'
 import { pulseError, pulseSuccess } from '@/script'
 import StoreStatusIcon from '../../Store/components/StoreStatusIcon'
+import FsLink from '@/components/UI/FsLink.vue'
 import Avatar from '@/components/Avatar/Avatar.vue'
 import { acceptInvitation, declineInvitation, declineStoreRequest, requestStoreTeamMembership } from '@/api/stores'
 import { COOPERATION_STATUS } from '@/stores/stores'
@@ -240,7 +242,7 @@ const minApplicationMessageLength = 25
 const userStore = useUserStore()
 
 export default {
-  components: { MapPopup, Markdown, StoreStatusIcon, Avatar },
+  components: { MapPopup, Markdown, StoreStatusIcon, Avatar, FsLink },
   mixins: [MapBubbleMixin],
   setup () {
     const { confirmationDialogue } = useConfirmationDialogue()

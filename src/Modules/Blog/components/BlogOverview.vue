@@ -24,7 +24,7 @@
             class="write-new"
             variant="secondary"
             size="sm"
-            :href="$url('blogAdd')"
+            :to="$url('blogAdd')"
           >
             <i class="fas faw fa-plus" />
           </b-button>

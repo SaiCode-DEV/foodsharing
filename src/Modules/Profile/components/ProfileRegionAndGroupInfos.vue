@@ -45,15 +45,21 @@
       </h5>
       <div class="d-inline d-flex flex-wrap flex-row">
         <div class="sectionClass">
-          <a :href="$url('publicRegion', homeRegionId)" v-text="homeRegionName" />
+          <router-link :to="$url('publicRegion', homeRegionId)">
+            {{ homeRegionName }}
+          </router-link>
           <span v-if="homeDistrictHistory.changerFullName">
             ({{ $t('profile.homeDistrictHistory.changed') }}
             {{ $dateFormatter.date(homeDistrictHistory.date, {type: 'full'}) }}
             {{ $t('profile.homeDistrictHistory.by') }}
-            <a :href="$url('profile', homeDistrictHistory.changerId)" v-text="homeDistrictHistory.changerFullName" /><!--
+            <router-link :to="$url('profile', homeDistrictHistory.changerId)">
+              {{ homeDistrictHistory.changerFullName }}
+            </router-link><!--
          --><span v-if="homeDistrictHistory.previousRegionId">,
               {{ $t('profile.homeDistrictHistory.previous') }}
-              <a :href="$url('publicRegion', homeDistrictHistory.previousRegionId)" v-text="homeDistrictHistory.previousRegionName" />
+              <router-link :to="$url('publicRegion', homeDistrictHistory.previousRegionId)">
+                {{ homeDistrictHistory.previousRegionName }}
+              </router-link>
             </span>)
           </span>
         </div>
@@ -66,14 +72,14 @@
           {{ section.title }}
         </h5>
         <div class="d-inline d-flex flex-wrap flex-row" style="gap: 5px">
-          <a
+          <router-link
             v-for="(item, index) in section.value"
             :key="item.id"
-            :href="$url(section.isWorkingGroups ? 'wall' : 'publicRegion', item.id)"
+            :to="$url(section.isWorkingGroups ? 'wall' : 'publicRegion', item.id)"
             class="sectionClass"
           >
             {{ item.name }}<span v-if="index !== section.value.length - 1">,</span>
-          </a>
+          </router-link>
         </div>
       </div>
     </div>

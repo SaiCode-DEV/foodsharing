@@ -1,6 +1,6 @@
 <template>
-  <a
-    :href="$url('event', event.id)"
+  <router-link
+    :to="$url('event', event.id)"
     class="d-flex dropdown-item search-result"
     tabindex="1"
   >
@@ -16,15 +16,15 @@
       <small class="separate">
         <span v-if="event.regionId">
           {{ $t('search.results.in') }}
-          <a :href="$url('events', event.regionId)">
+          <router-link :to="$url('events', event.regionId)">
             {{ event.regionName }}
-          </a>
+          </router-link>
         </span>
         <span v-text="locationText" />
         <span v-text="timeText" />
       </small>
     </div>
-  </a>
+  </router-link>
 </template>
 <script>
 import { EVENT_TYPE } from '@/consts'

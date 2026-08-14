@@ -41,7 +41,7 @@
       </div>
       <div class="text-center mt-4">
         <b-button
-          :href="$url('register')"
+          :to="$url('register')"
           variant="primary"
         >
           {{ $t('startpage.registernow') }}

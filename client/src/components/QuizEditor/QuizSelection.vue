@@ -2,12 +2,12 @@
   <Container
     :title="$t('quiz.plural')"
   >
-    <a
+    <router-link
       v-for="quiz in readableQuizzes"
       :key="quiz.id"
       class="list-group-item list-group-item-action"
       :class="{ disabled: quiz.id === selected }"
-      :href="$url('quiz_admin_edit', quiz.id)"
+      :to="$url('quiz_admin_edit', quiz.id)"
     >
       <i
         v-b-tooltip="$t('quiz.editable_tooltip')"
@@ -15,7 +15,7 @@
         :class="quiz.edit ? '' : 'invisible'"
       />
       {{ quiz.name }}
-    </a>
+    </router-link>
   </Container>
 </template>
 

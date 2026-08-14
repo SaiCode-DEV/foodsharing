@@ -11,9 +11,9 @@
       </h6>
       <br>
       <small>
-        <a :href="$url('profile', chat.lastFoodsaverId)">
+        <router-link :to="$url('profile', chat.lastFoodsaverId)">
           {{ chat.lastFoodsaverName }}
-        </a>
+        </router-link>
         {{ $dateFormatter.relativeTime(new Date(chat.lastMessageSentAt)) }}:
         {{ chat.lastMessage }}
       </small>

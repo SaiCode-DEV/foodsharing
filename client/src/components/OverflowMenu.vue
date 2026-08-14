@@ -18,7 +18,8 @@
     <b-dropdown-item
       v-for="(option, i) in activeOptions"
       :key="i"
-      :href="option.href"
+      :href="isRouterTarget(option.href) ? null : option.href"
+      :to="isRouterTarget(option.href) ? option.href : null"
       @click.stop="() => option.callback?.(...callbackArgs) ?? null"
     >
       <i v-if="option.icon" :class="`fas fa-${option.icon} dropdown-icon mr-1`" />
@@ -29,6 +30,8 @@
 </template>
 
 <script>
+import { isExternalUrl } from '@/helper/urls'
+
 export default {
   props: {
     options: { type: Array, default: () => [] },
@@ -46,6 +49,11 @@ export default {
     showOverflowMenu () {
       return this.activeOptions.length ||
         'added-content' in this.$slots // true if the 'added-content' slot is used
+    },
+  },
+  methods: {
+    isRouterTarget (href) {
+      return !!href && !isExternalUrl(href) && !href.startsWith('#')
     },
   },
 }

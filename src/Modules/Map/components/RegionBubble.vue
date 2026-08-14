@@ -9,13 +9,14 @@
     </div>
 
     <template #popup-footer>
-      <a
+      <router-link
         v-if="!loading"
         class="btn btn-primary"
         type="button"
-        :href="$url('publicRegion', id)"
-        v-text="$t('map.region.go')"
-      />
+        :to="$url('publicRegion', id)"
+      >
+        {{ $t('map.region.go') }}
+      </router-link>
     </template>
   </map-popup>
 </template>

@@ -15,7 +15,7 @@
           class="write-new mb-2"
           variant="primary"
           size="sm"
-          :href="$url('contentNew')"
+          :to="$url('contentNew')"
           :disabled="isLoading"
         >
           <i class="fas faw fa-plus" /> {{ $t('content.new') }}
@@ -31,13 +31,13 @@
           :busy="isLoading"
         >
           <template #cell(name)="entry">
-            <a
+            <router-link
               v-if="mayEditContent"
               v-b-tooltip="$t('content.edit')"
-              :href="$url('contentEditEntry', entry.item.id)"
+              :to="$url('contentEditEntry', entry.item.id)"
             >
               {{ entry.item.name }}
-            </a>
+            </router-link>
             <div v-else>
               {{ entry.item.name }}
             </div>

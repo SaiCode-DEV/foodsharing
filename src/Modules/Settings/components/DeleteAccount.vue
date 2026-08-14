@@ -81,7 +81,11 @@
 
     <h5>{{ $t('legal.if_delete.legal_more_info') }}</h5>
     <ul>
-      <li><a href="/?page=legal">{{ $t('legal.if_delete.legal_1') }}</a></li>
+      <li>
+        <router-link to="/?page=legal">
+          {{ $t('legal.if_delete.legal_1') }}
+        </router-link>
+      </li>
       <li><a href="https://www.dsgvo.tools/aufbewahrungsfristen">{{ $t('legal.if_delete.legal_2') }}</a></li>
     </ul>
 

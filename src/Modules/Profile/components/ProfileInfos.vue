@@ -9,11 +9,19 @@
       </li>
       <li v-if="profileInfos.privateMail" class="mb-2">
         <b>{{ $t('profile.infos.privateMail') }}:</b>
-        <p><a :href="getMailboxUrl(profileInfos.privateMail)">{{ splitMail(profileInfos.privateMail)[0] }}@<wbr>{{ splitMail(profileInfos.privateMail)[1] }}</a></p>
+        <p>
+          <router-link :to="getMailboxUrl(profileInfos.privateMail)">
+            {{ splitMail(profileInfos.privateMail)[0] }}@<wbr>{{ splitMail(profileInfos.privateMail)[1] }}
+          </router-link>
+        </p>
       </li>
       <li v-if="profileInfos.fsMail" class="mb-2">
         <b>{{ $t('profile.infos.fsMail') }}:</b>
-        <p><a :href="getMailboxUrl(profileInfos.fsMail)">{{ splitMail(profileInfos.fsMail)[0] }}@<wbr>{{ splitMail(profileInfos.fsMail)[1] }}</a></p>
+        <p>
+          <router-link :to="getMailboxUrl(profileInfos.fsMail)">
+            {{ splitMail(profileInfos.fsMail)[0] }}@<wbr>{{ splitMail(profileInfos.fsMail)[1] }}
+          </router-link>
+        </p>
       </li>
       <li>
         <b>{{ getFsIdTranslation }}:</b> {{ profileInfos.fsId }}

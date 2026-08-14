@@ -7,7 +7,9 @@
       {{ cancel ? $t('settings.email_change.not_changed') : (verified ? $t('settings.email_change.done') : $t('settings.email_change.invalid')) }}
     </div>
 
-    <a class="mx-3 mb-3" :href="$url('dashboard')">{{ $t('settings.email_change.dashboard_link') }}</a>
+    <router-link class="mx-3 mb-3" :to="$url('dashboard')">
+      {{ $t('settings.email_change.dashboard_link') }}
+    </router-link>
   </Container>
 </template>
 

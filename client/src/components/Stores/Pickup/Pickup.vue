@@ -127,7 +127,9 @@
         <i class="fas fa-hands-wash" />
         <span v-if="hygieneCertificateUntil" v-text="$t('pickup.hygieneCertificateMissing.timeout')" />
         <span v-else v-text="$t('pickup.hygieneCertificateMissing.none')" />
-        <a :href="$url('settingsHygiene')" v-text="$t('pickup.hygieneCertificateMissing.link')" />
+        <router-link :to="$url('settingsHygiene')">
+          {{ $t('pickup.hygieneCertificateMissing.link') }}
+        </router-link>
       </b-alert>
 
       <p>{{ $t('pickup.really_join_date', slotInfo) }}</p>

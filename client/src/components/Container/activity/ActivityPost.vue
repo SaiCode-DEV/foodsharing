@@ -6,35 +6,37 @@
     <div
       class="d-flex align-items-center mb-2 font-weight-bold"
     >
-      <a
+      <router-link
         v-if="fs_id && fs_name"
-        :href="$url('profile', fs_id)"
+        :to="$url('profile', fs_id)"
         class="d-flex align-items-center"
       >
         <span>{{ fs_name }}</span>
-      </a>
+      </router-link>
       <span v-else-if="fs_id">
         {{ $t('dashboard.deleted_user') }}
       </span>
-      <a
+      <FsLink
         v-else-if="sender_email"
         v-b-tooltip="sender_email.length > 25 ? sender_email : null"
-        :href="dashboardContentLink"
+        :to="dashboardContentLink"
         class="d-inline-block text-truncate"
         style="max-width: 125px;"
-        v-text="sender_email"
-      />
+      >
+        {{ sender_email }}
+      </FsLink>
       <i
         v-if="type !== 'friendWall'"
         class="text-muted fas fa-angle-right mr-1 ml-1"
       />
-      <a
+      <FsLink
         v-if="type !== 'friendWall'"
         v-b-tooltip="title.length > 100 ? title : null"
-        :href="dashboardContentLink"
+        :to="dashboardContentLink"
         class="d-inline-block text-truncate"
-        v-text="title"
-      />
+      >
+        {{ title }}
+      </FsLink>
     </div>
 
     <div class="d-flex mb-2 text-break">
@@ -161,9 +163,10 @@ import { sendEmail } from '@/api/mailbox'
 import Markdown from '@/components/Markdown/Markdown'
 import Gallery from '@/components/Images/Gallery'
 import Avatar from '@/components/Avatar/Avatar.vue'
+import FsLink from '@/components/UI/FsLink.vue'
 
 export default {
-  components: { Markdown, Gallery, Avatar },
+  components: { Markdown, Gallery, Avatar, FsLink },
   mixins: [StateTogglerMixin, MediaQueryMixin, AutoResizeTextareaMixin],
   /* eslint-disable vue/prop-name-casing */
   props: {

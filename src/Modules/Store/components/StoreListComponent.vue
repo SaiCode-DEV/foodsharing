@@ -82,26 +82,26 @@
             </template>
             <template #cell(name)="row">
               <CategoryIcon :entry="row.item" />
-              <a
-                :href="$url('store', row.item.id)"
+              <router-link
+                :to="$url('store', row.item.id)"
                 class="ui-corner-all"
               >
                 {{ row.value }}
-              </a>
+              </router-link>
             </template>
             <template #cell(region)="row">
               {{ row.value.name }}
             </template>
             <template #cell(actions)="row">
               <div class="d-flex">
-                <b-btn
-                  :href="mapLink(row.item)"
+                <b-button
+                  :to="mapLink(row.item)"
                   class="mr-2"
                   :title="$t('storelist.map')"
                   size="sm"
                 >
                   <i class="fas fa-map-marker-alt" />
-                </b-btn>
+                </b-button>
                 <NavigateWithSelector
                   :latitude="row.item.location.lat"
                   :longitude="row.item.location.lon"

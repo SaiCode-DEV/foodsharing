@@ -21,13 +21,14 @@
         @click="openChat"
         v-text="$t('chat.open_chat')"
       />
-      <a
+      <router-link
         v-if="!loading"
         class="btn btn-primary"
         type="button"
-        :href="$url('profile', id)"
-        v-text="$t('map.users.go')"
-      />
+        :to="$url('profile', id)"
+      >
+        {{ $t('map.users.go') }}
+      </router-link>
     </template>
   </map-popup>
 </template>

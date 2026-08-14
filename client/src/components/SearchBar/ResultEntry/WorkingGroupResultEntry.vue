@@ -1,6 +1,6 @@
 <template>
-  <a
-    :href="url"
+  <router-link
+    :to="url"
     class="d-flex dropdown-item search-result"
     tabindex="1"
   >
@@ -22,19 +22,20 @@
       <small class="separate">
         <span v-if="workingGroup.parentId">
           {{ $t('search.results.in') }}
-          <a :href="$url('workingGroups', workingGroup.parentId)">
+          <router-link :to="$url('workingGroups', workingGroup.parentId)">
             {{ workingGroup.parentName }}
-          </a>
+          </router-link>
         </span>
         <a
           v-if="workingGroup.email"
           :href="`mailto:${workingGroup.email}`"
+          @click.stop
           v-text="workingGroup.email"
         />
       </small>
     </div>
     <AvatarStack :users="workingGroup.admins" />
-  </a>
+  </router-link>
 </template>
 <script>
 import AvatarStack from '@/components/Avatar/AvatarStack.vue'

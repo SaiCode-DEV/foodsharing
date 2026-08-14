@@ -51,7 +51,9 @@
         </template>
         <template #cell(reported)="row">
           <Avatar :user="row.item.reported" />
-          <a v-if="row.item.reported.name" :href="$url('profile', row.item.reported.id)">{{ row.item.reported.name }}</a>
+          <router-link v-if="row.item.reported.name" :to="$url('profile', row.item.reported.id)">
+            {{ row.item.reported.name }}
+          </router-link>
           <span v-else v-text="$t('forum.deleted_user')" />
           <i
             v-if="row.item.reported.mail"
@@ -62,7 +64,9 @@
         </template>
         <template #cell(reporter)="row">
           <Avatar :user="row.item.reporter" />
-          <a :href="$url('profile', row.item.reporter.id)">{{ row.item.reporter.name }}</a>
+          <router-link :to="$url('profile', row.item.reporter.id)">
+            {{ row.item.reporter.name }}
+          </router-link>
           <i
             v-b-tooltip="row.item.reporter.mail"
             class="fas fa-envelope ml-1 cursor-pointer"
@@ -116,8 +120,9 @@
             <p><strong>{{ $t('reports.report_id') }}</strong>: {{ row.item.id }}</p>
             <p><strong>{{ $t('reports.time') }}</strong>: {{ $d(new Date(row.item.reportedAt), 'long') }}</p>
             <p v-if="row.item.store">
-              <strong>{{ $t('reports.store') }}</strong>: <a :href="$url('store', row.item.store.id)">
-                {{ row.item.store.name }}</a> ({{ row.item.store.id }})
+              <strong>{{ $t('reports.store') }}</strong>: <router-link :to="$url('store', row.item.store.id)">
+                {{ row.item.store.name }}
+              </router-link> ({{ row.item.store.id }})
             </p>
             <p v-else>
               <strong>{{ $t('reports.store') }}</strong>: -

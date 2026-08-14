@@ -10,22 +10,24 @@
         </b-media-aside>
 
         <b-media-body class="ml-1 w-100">
-          <a :href="$url('event', event.id)" class="event-link">
+          <router-link :to="$url('event', event.id)" class="event-link">
             <h6 class="my-0 mr-1">
               {{ event.name }}
               <b-button
                 v-if="mayEdit"
                 v-b-tooltip="$t('events.edit')"
-                :href="$url('eventEdit', event.id)"
+                :to="$url('eventEdit', event.id)"
                 size="sm"
                 variant="outline-secondary ml-2"
               >
                 <i class="fas fa-fw fa-pencil-alt" />
               </b-button>
             </h6>
-          </a>
+          </router-link>
           <div v-if="event.regionName" class="flex-md-shrink-0">
-            <a :href="$url('events', event.regionId)">{{ event.regionName }}</a>
+            <router-link :to="$url('events', event.regionId)">
+              {{ event.regionName }}
+            </router-link>
             <span v-if="inviteCount">
               ({{ $t('events.invitedCount', { total: $n(inviteCount, 'text'), answers: $n(answerCount, 'text') }) }})
             </span>

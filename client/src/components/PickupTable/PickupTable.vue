@@ -30,9 +30,9 @@
     </template>
 
     <template #cell(store)="entry">
-      <a :href="$url('store', entry.item.store.id)" class="store-name">
+      <router-link :to="$url('store', entry.item.store.id)" class="store-name">
         {{ entry.item.store.name }}
-      </a>
+      </router-link>
     </template>
 
     <template #cell(slots)="entry">

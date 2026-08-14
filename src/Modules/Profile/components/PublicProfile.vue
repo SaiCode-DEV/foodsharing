@@ -38,11 +38,11 @@
       </p>
 
       <b-button-group vertical size="lg">
-        <b-button variant="primary" :href="$url('login', `/profile/${fsId}`)">
+        <b-button variant="primary" :to="$url('login', `/profile/${fsId}`)">
           <i class="fas fa-fw fa-sign-in-alt" />
           {{ $t('profile.public.login') }}
         </b-button>
-        <b-button variant="secondary" :href="$url('joininfo')">
+        <b-button variant="secondary" :to="$url('joininfo')">
           <i class="fas fa-fw fa-hands-helping" />
           {{ $t('profile.public.join') }}
         </b-button>

@@ -8,12 +8,12 @@
     scrollable
   >
     <div class="participants-grid">
-      <a
+      <router-link
         v-for="p in participants"
         :key="p.id"
-        :href="$url('profile', p.id)"
+        :to="$url('profile', p.id)"
         class="participant-card btn d-flex flex-row justify-content-between align-items-center py-0"
-        @click.stop
+        @click.native.stop="close"
       >
         <div
           v-b-tooltip.noninteractive="$t('profile.go')"
@@ -35,7 +35,7 @@
         >
           <i class="fas fa-message" />
         </b-button>
-      </a>
+      </router-link>
     </div>
   </b-modal>
 </template>
@@ -68,6 +68,11 @@ function open (conversationId) {
     return
   }
   visible.value = true
+}
+
+function close () {
+  // the profile link navigates client side, so the dialog has to be closed explicitly
+  visible.value = false
 }
 
 function openChatWithUser (userId) {

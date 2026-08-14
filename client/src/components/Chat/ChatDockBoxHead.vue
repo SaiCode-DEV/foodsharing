@@ -3,15 +3,15 @@
     <div class="chatboxtitle">
       <!-- Titled chat: show the title, plus avatars and an overflow count -->
       <template v-if="box.title">
-        <a
+        <router-link
           v-if="box.storeId"
           class="box-title"
-          :href="url('store', box.storeId)"
-          @click.stop
+          :to="url('store', box.storeId)"
+          @click.native.stop
         >
           <i class="mdi mdi-chat mdi-flip-h" />
           {{ box.title }}
-        </a>
+        </router-link>
         <span
           v-else
           class="box-title"
@@ -32,7 +32,7 @@
               :src="p.avatar"
               :size="18"
               :variant="p.avatar ? 'light' : 'secondary'"
-              :href="$url('profile', p.id)"
+              :to="$url('profile', p.id)"
               @click.stop
             />
           </span>
@@ -41,12 +41,12 @@
       <!-- Unnamed chat: < 4 => name + avatars; >=4 => avatars only -->
       <template v-else-if="box.participants && box.participants.length">
         <template v-if="box.participants.length < 4">
-          <a
+          <router-link
             v-for="p in box.participants"
             :key="p.id"
             class="participants-item"
-            :href="$url('profile', p.id)"
-            @click.stop
+            :to="$url('profile', p.id)"
+            @click.native.stop
           >
             <b-avatar
               :src="p.avatar"
@@ -55,7 +55,7 @@
               class="mr-1"
             />
             <span>{{ p.name ?? $t('chat.unknown_username') }}</span>
-          </a>
+          </router-link>
         </template>
         <template v-else>
           <span class="participant-stack">
@@ -68,7 +68,7 @@
                 :src="p.avatar"
                 :size="18"
                 :variant="p.avatar ? 'light' : 'secondary'"
-                :href="$url('profile', p.id)"
+                :to="$url('profile', p.id)"
                 @click.stop
               />
             </span>

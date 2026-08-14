@@ -1,6 +1,6 @@
 <template>
-  <a
-    :href="$url('mailbox', null, mail.id)"
+  <router-link
+    :to="$url('mailbox', null, mail.id)"
     class="d-flex dropdown-item search-result"
     tabindex="1"
   >
@@ -33,7 +33,7 @@
         />
       </small>
     </div>
-  </a>
+  </router-link>
 </template>
 <script>
 import TimeDisplay from '@/components/TimeDisplay.vue'

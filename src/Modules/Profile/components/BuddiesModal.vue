@@ -27,9 +27,9 @@
               tooltip=""
               class="mr-2"
             />
-            <a :href="$url('profile', buddy.id)" class="d-flex align-items-center">
+            <router-link :to="$url('profile', buddy.id)" class="d-flex align-items-center">
               {{ buddy.name }}
-            </a>
+            </router-link>
           </li>
         </ul>
       </div>

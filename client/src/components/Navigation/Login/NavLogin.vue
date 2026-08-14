@@ -9,18 +9,20 @@
       <LoginForm />
     </template>
     <template #actions>
-      <a
-        :href="$url('passwordReset')"
+      <router-link
+        :to="$url('passwordReset')"
         role="menuitem"
         class="testing-login-click-password-reset dropdown-item dropdown-action"
-        v-text="$t('login.forgotten_password_label')"
-      />
-      <a
-        :href="$url('joininfo')"
+      >
+        {{ $t('login.forgotten_password_label') }}
+      </router-link>
+      <router-link
+        :to="$url('joininfo')"
         role="menuitem"
         class="dropdown-item dropdown-action"
-        v-text="$t('register.topbar')"
-      />
+      >
+        {{ $t('register.topbar') }}
+      </router-link>
     </template>
   </Dropdown>
 </template>

@@ -1,6 +1,6 @@
 <template>
-  <a
-    :href="$url('poll', poll.id)"
+  <router-link
+    :to="$url('poll', poll.id)"
     class="d-flex dropdown-item search-result"
     tabindex="1"
   >
@@ -12,15 +12,15 @@
       <small class="separate">
         <span v-if="poll.regionId">
           {{ $t('search.results.in') }}
-          <a :href="$url('polls', poll.regionId)">
+          <router-link :to="$url('polls', poll.regionId)">
             {{ poll.regionName }}
-          </a>
+          </router-link>
         </span>
         <span v-text="timeText" />
         <span v-if="voteText" v-text="voteText" />
       </small>
     </div>
-  </a>
+  </router-link>
 </template>
 <script>
 export default {

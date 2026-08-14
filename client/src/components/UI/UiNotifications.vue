@@ -23,13 +23,13 @@
             </div>
           </div>
           <div class="notification-close">
-            <b-btn
+            <b-button
               variant="link"
               size="sm"
               @click="props.close"
             >
               <i class="fas fa-times" />
-            </b-btn>
+            </b-button>
           </div>
         </div>
       </template>

@@ -7,7 +7,9 @@
       </div>
       <div v-else>
         {{ $t('profile.mail_bounce.warning_1', { email: bounceWarning.emailAddress }) }}
-        <a :href="$url('settings')"> {{ $t('profile.mail_bounce.warning_2') }} </a>
+        <router-link :to="$url('settings')">
+          {{ $t('profile.mail_bounce.warning_2') }}
+        </router-link>
         {{ $t('profile.mail_bounce.warning_3') }}
         <a :href="$url('helpdesk_locked_email')"> {{ $t('profile.mail_bounce.warning_4') }}</a>
       </div>

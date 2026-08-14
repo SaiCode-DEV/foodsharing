@@ -1,6 +1,8 @@
 <template>
   <span>
-    <a :href="$url('publicRegion', region.id)" v-text="region.name" />
+    <router-link :to="$url('publicRegion', region.id)">
+      {{ region.name }}
+    </router-link>
     <a v-if="region.hasAmbassador" :href="$url('mailto_mail_foodsharing_network', region.emailAddress)">
       <i class="fas fa-envelope" />
     </a>

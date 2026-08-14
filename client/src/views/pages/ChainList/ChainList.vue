@@ -122,13 +122,13 @@
             </template>
 
             <template #cell(name)="row">
-              <a
+              <router-link
                 v-if="row.item.chain.forumThread"
                 class="thread-link"
-                :href="$url('forumThread', row.item.chain.regionId, row.item.chain.forumThread)"
+                :to="$url('forumThread', row.item.chain.regionId, row.item.chain.forumThread)"
               >
                 {{ row.item.chain.name }}
-              </a>
+              </router-link>
               <span v-else>
                 {{ row.item.chain.name }}
               </span>

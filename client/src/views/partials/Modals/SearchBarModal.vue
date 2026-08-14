@@ -138,6 +138,10 @@ export default {
     },
   },
   watch: {
+    $route () {
+      // Search results navigate client side, so the modal has to be closed explicitly
+      this.$refs.searchBarModal.hide()
+    },
     globalSearch () {
       this.refreshSearch()
     },

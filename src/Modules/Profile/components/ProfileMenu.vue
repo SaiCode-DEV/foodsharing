@@ -32,7 +32,7 @@
         v-if="profileMenu.mayAdmin || profileMenu.fsId === profileMenu.fsIdSession"
         type="button"
         class="list-group-item list-group-item-action"
-        :href="$url('settings', profileMenu.fsId)"
+        :to="$url('settings', profileMenu.fsId)"
       >
         <i class="fas fa-pencil-alt fa-fw" /> {{ $t('settings.header') }}
       </b-list-group-item>
@@ -133,7 +133,7 @@
         v-if="profileMenu.fsId === profileMenu.fsIdSession"
         type="button"
         class="list-group-item list-group-item-action"
-        :href="$url('settingsHygiene')"
+        :to="$url('settingsHygiene')"
       >
         <i class="fas fa-hand-sparkles fa-fw" />
         {{ $t('terminology.hygiene_training') }}

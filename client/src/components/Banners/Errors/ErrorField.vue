@@ -18,21 +18,25 @@
         v-if="entry.links.length > 0"
         class="errorfield__links"
       >
-        <a
+        <FsLink
           v-for="(link, key) in entry.links"
           :key="key"
           class="errorfield__link"
-          :href="link.urlShorthand ? $url(link.urlShorthand) : link.href"
+          :to="link.urlShorthand ? $url(link.urlShorthand) : link.href"
           @click="link.modal ? $bvModal.show(link.modal) : null"
-          v-text="$t(link.text)"
-        />
+        >
+          {{ $t(link.text) }}
+        </FsLink>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import FsLink from '@/components/UI/FsLink.vue'
+
 export default {
+  components: { FsLink },
   props: {
     entry: {
       type: Object,

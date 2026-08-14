@@ -2,7 +2,9 @@
 <template>
   <div class="news-post">
     <h2>
-      <a :href="$url('blogPost', blogPost.id)">{{ blogPost.title }}</a>
+      <router-link :to="$url('blogPost', blogPost.id)">
+        {{ blogPost.title }}
+      </router-link>
     </h2>
     <p class="small">
       <span>{{ $t('blog.author') }} {{ blogPost.authorName }}</span>,
@@ -11,7 +13,9 @@
     <img v-if="pictureUrl" :src="pictureUrl">
     <div v-text="blogPost.teaser" />
     <p>
-      <a class="button" :href="$url('blogPost', blogPost.id)">{{ $t('blog.read') }}</a>
+      <router-link class="button" :to="$url('blogPost', blogPost.id)">
+        {{ $t('blog.read') }}
+      </router-link>
     </p>
     <div class="clear" />
   </div>

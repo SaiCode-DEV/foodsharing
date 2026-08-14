@@ -42,7 +42,7 @@
           variant="warning"
           text-key="fsp.edit"
           icon="fas fa-pen"
-          :href="$url('foodsharepointEdit', id)"
+          :to="$url('foodsharepointEdit', id)"
         />
         <ContainerButton
           v-if="permissions.mayDelete"
@@ -65,11 +65,13 @@
           <div>
             {{ fsp.address.street }} <br>
             {{ fsp.address.postalCode }} {{ fsp.address.city }} <br><br>
-            <b>{{ $t('bezirk') }}:</b> <a :href="$url('publicRegion', fsp.regionId)" v-text="fsp.regionName" /><br><br>
-            <a :href="$url('map', { foodSharePointId: id })">
+            <b>{{ $t('bezirk') }}:</b> <router-link :to="$url('publicRegion', fsp.regionId)">
+              {{ fsp.regionName }}
+            </router-link><br><br>
+            <router-link :to="$url('map', { foodSharePointId: id })">
               <i class="fas fa-map-marker-alt" />
               {{ $t('fsp.show_on_large_map') }}
-            </a>
+            </router-link>
           </div>
           <NavigateWithSelector
             :latitude="fsp.location.lat"

@@ -1,8 +1,9 @@
 <template>
   <b-button
     pill
-    :variant="!customDonationStyle && buttonLink ? variant : (customDonationStyle ? undefined : variant)"
-    :href="!customDonationStyle && buttonLink ? buttonLink : undefined"
+    :variant="customDonationStyle ? undefined : variant"
+    :to="isExternalLink ? undefined : linkTarget"
+    :href="isExternalLink ? linkTarget : undefined"
     :class="{'donationpage-btn': customDonationStyle}"
     :style="customDonationStyle ? {'--donation-border-color': borderColor} : undefined"
     @click="customDonationStyle || !buttonLink ? emit('click', $event) : undefined"
@@ -26,11 +27,12 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, ref } from 'vue'
+import { computed, defineProps, defineEmits, ref } from 'vue'
 import i18n from '@/helper/i18n'
+import { isExternalUrl } from '@/helper/urls'
 
 const emit = defineEmits(['click'])
-defineProps({
+const props = defineProps({
   text: {
     type: String,
     default: i18n('menu.entry.donation_button'),
@@ -64,6 +66,10 @@ defineProps({
     default: 30,
   },
 })
+
+// with the donation page style the button only reports clicks, it never links anywhere
+const linkTarget = computed(() => (props.customDonationStyle ? null : props.buttonLink))
+const isExternalLink = computed(() => isExternalUrl(linkTarget.value))
 
 const strawberry = ref(null)
 

@@ -26,13 +26,14 @@
         v-text="$t(`information.${entry.field}.description`)"
       />
       <div class="d-flex flex-wrap gap-2">
-        <a
+        <FsLink
           v-for="(link, key) in entry.links"
           :key="key"
           class="information-link"
-          :href="link.urlShortHand ? $url(link.urlShortHand) : link.href"
-          v-text="$t(link.text)"
-        />
+          :to="link.urlShortHand ? $url(link.urlShortHand) : link.href"
+        >
+          {{ $t(link.text) }}
+        </FsLink>
         <div
           v-if="entryCount > 1"
           class="d-flex flex-row align-items-baseline ml-auto align-self-end"
@@ -68,7 +69,10 @@
 </template>
 
 <script>
+import FsLink from '@/components/UI/FsLink.vue'
+
 export default {
+  components: { FsLink },
   props: {
     entry: {
       type: Object,

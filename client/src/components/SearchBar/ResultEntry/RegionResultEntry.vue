@@ -1,6 +1,6 @@
 <template>
-  <a
-    :href="$url('publicRegion', region.id)"
+  <router-link
+    :to="$url('publicRegion', region.id)"
     class="d-flex dropdown-item search-result"
     tabindex="1"
   >
@@ -27,19 +27,20 @@
       <small class="separate">
         <span v-if="region.parentId">
           {{ $t('search.results.in') }}
-          <a :href="$url('publicRegion', region.parentId)">
+          <router-link :to="$url('publicRegion', region.parentId)">
             {{ region.parentName }}
-          </a>
+          </router-link>
         </span>
         <a
           v-if="region.email"
           :href="`mailto:${region.email}`"
+          @click.stop
           v-text="region.email"
         />
       </small>
     </div>
     <AvatarStack :users="region.ambassadors" />
-  </a>
+  </router-link>
 </template>
 <script>
 import AvatarStack from '@/components/Avatar/AvatarStack.vue'

@@ -1,6 +1,6 @@
 <template>
-  <a
-    :href="$url('foodsharepoint', foodSharePoint.id)"
+  <router-link
+    :to="$url('foodsharepoint', foodSharePoint.id)"
     class="d-flex dropdown-item search-result"
     tabindex="1"
   >
@@ -12,9 +12,9 @@
       <small class="separate">
         <span v-if="foodSharePoint.regionId">
           in
-          <a :href="$url('foodsharepoints', foodSharePoint.regionId)">
+          <router-link :to="$url('foodsharepoints', foodSharePoint.regionId)">
             {{ foodSharePoint.regionName }}
-          </a>
+          </router-link>
         </span>
         <span v-if="foodSharePoint.city">
           <span v-if="foodSharePoint.street">{{ foodSharePoint.street }},</span>
@@ -23,7 +23,7 @@
         </span>
       </small>
     </div>
-  </a>
+  </router-link>
 </template>
 <script>
 

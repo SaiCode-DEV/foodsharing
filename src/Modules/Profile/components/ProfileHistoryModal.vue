@@ -20,12 +20,12 @@
         :key="entry.date"
       >
         {{ $dateFormatter.dateTime(entry.date) }} {{ $t('profile.history.actionBy') }}
-        <a
+        <router-link
           v-if="entry.actor !== null"
-          :href="$url('profile', entry.actor.id)"
+          :to="$url('profile', entry.actor.id)"
         >
           {{ entry.actor.name }}
-        </a>
+        </router-link>
         <span v-else>
           {{ $t('profile.history.noActor') }}
         </span>

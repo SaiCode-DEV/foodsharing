@@ -1,6 +1,6 @@
 <template>
-  <a
-    :href="$url('profile', user.id)"
+  <router-link
+    :to="$url('profile', user.id)"
     class="d-flex dropdown-item search-result"
     tabindex="1"
   >
@@ -38,7 +38,7 @@
         </span>
         <i v-else>{{ $t('search.results.user.no_home_region') }}</i>
         <span v-if="user.email">
-          <a :href="`mailto:${user.email}`">
+          <a :href="`mailto:${user.email}`" @click.stop>
             {{ user.email }}
           </a>
         </span>
@@ -47,6 +47,7 @@
     <PhoneButton
       v-if="user.mobile"
       :phone-number="user.mobile"
+      @click.native.stop
     />
     <b-button
       v-b-tooltip.noninteractive="$t('chat.open_chat')"
@@ -56,7 +57,7 @@
     >
       <i class="fas fa-comment" />
     </b-button>
-  </a>
+  </router-link>
 </template>
 <script>
 import Avatar from '@/components/Avatar/Avatar.vue'

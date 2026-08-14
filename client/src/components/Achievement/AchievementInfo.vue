@@ -10,7 +10,9 @@
       <div v-if="achievement.scope">
         <i class="fas fa-users mr-1" />
         <span v-text="$t('achievements.scope')" />:
-        <a :href="url('achievements', achievement.scope.id)" v-text="achievement.scope.name" />
+        <router-link :to="url('achievements', achievement.scope.id)">
+          {{ achievement.scope.name }}
+        </router-link>
       </div>
       <div>
         <i class="fas fa-eye mr-1" />

@@ -1,6 +1,6 @@
 <template>
-  <a
-    :href="$url('store', store.id)"
+  <router-link
+    :to="$url('store', store.id)"
     class="d-flex dropdown-item search-result"
     tabindex="1"
   >
@@ -27,9 +27,9 @@
       <small class="separate">
         <span v-if="store.regionId">
           {{ $t('search.results.in') }}
-          <a :href="$url('stores', store.regionId)">
+          <router-link :to="$url('stores', store.regionId)">
             {{ store.regionName }}
-          </a>
+          </router-link>
         </span>
         <span>
           {{ $t(`storestatus.${store.cooperationStatus}`) }}
@@ -41,7 +41,7 @@
         </span>
       </small>
     </div>
-  </a>
+  </router-link>
 </template>
 <script>
 import { STORE_TEAM_STATE } from '@/stores/stores'

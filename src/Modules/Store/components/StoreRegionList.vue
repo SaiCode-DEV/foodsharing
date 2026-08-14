@@ -15,22 +15,22 @@
           :regionId="regionId"
           class="col one-line-button"
         >
-          <a
-            :href="$url('storeAdd', regionId)"
+          <router-link
+            :to="$url('storeAdd', regionId)"
             class="btn btn-mb btn-primary btn-block"
           >
             {{ $t('store.addNewStoresButton') }}
-          </a>
+          </router-link>
         </div>
       </template>
       <template #no-stores-footer-actions>
         <div :regionId="regionId" class="col">
-          <a
-            :href="$url('storeAdd', regionId)"
+          <router-link
+            :to="$url('storeAdd', regionId)"
             class="btn btn-sm btn-primary btn-block"
           >
             {{ $t('store.addNewStoresButton') }}
-          </a>
+          </router-link>
         </div>
       </template>
     </StoreListComponent>

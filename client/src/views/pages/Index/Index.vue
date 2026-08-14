@@ -408,9 +408,9 @@
                 </b-row>
                 <b-card-text>
                   {{ $t('startpage.donate.text') }}
-                  <a class="link" :href="$url('donations')">
+                  <router-link class="link" :to="$url('donations')">
                     {{ $t('startpage.donate.link') }}
-                  </a>
+                  </router-link>
                 </b-card-text>
               </b-card>
             </b-card-group>

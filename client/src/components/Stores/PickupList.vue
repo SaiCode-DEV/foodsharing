@@ -14,12 +14,12 @@
         <i class="fas fa-id-card mr-2" />
         {{ $t('store.passport_expired') }}
         <br>
-        <a
-          :href="$url('settingsPassport')"
+        <router-link
+          :to="$url('settingsPassport')"
           class="alert-link mt-1"
         >
           {{ $t('error.passport_is_invalid.link') }}
-        </a>
+        </router-link>
       </div>
       <div
         v-else-if="userStore.isPassportInvalidSoon"
@@ -30,12 +30,12 @@
         <i class="fas fa-id-card mr-2" />
         {{ $t('store.passport_expires_soon', { days: userStore.details.lastPassUntilValidInDays }) }}
         <br>
-        <a
-          :href="$url('settingsPassport')"
+        <router-link
+          :to="$url('settingsPassport')"
           class="alert-link mt-1"
         >
           {{ $t('error.passport_is_invalid_soon.link') }}
-        </a>
+        </router-link>
       </div>
       <div class="text-right mt-2 pr-2">
         <button

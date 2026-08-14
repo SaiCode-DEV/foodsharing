@@ -36,9 +36,9 @@
         @click="filterToState(store.cooperationStatus)"
       ><StoreStatusIcon :cooperation-status="store.cooperationStatus" /></a>
       <CategoryIcon :entry="store" />
-      <a :href="$url('store', store.id)">
+      <router-link :to="$url('store', store.id)">
         {{ store.name }}
-      </a>
+      </router-link>
       <div class="pl-3 pb-1">
         <i
           v-b-tooltip.hover="getIconAndTooltip(store).tooltipText"
@@ -62,7 +62,7 @@
       />
     </div>
     <div class="pt-4">
-      <b-button variant="outline-secondary" :href="$url('storeUserList', userId)">
+      <b-button variant="outline-secondary" :to="$url('storeUserList', userId)">
         {{ $t('profile.stores.store_table') }}
       </b-button>
     </div>

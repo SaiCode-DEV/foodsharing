@@ -7,9 +7,9 @@
     />
     <div>
       <div class="time p-1">
-        <a :href="$url('profile', user.id)">
+        <router-link :to="$url('profile', user.id)">
           {{ user.name }}
-        </a>
+        </router-link>
         <i class="fas fa-fw fa-angle-right" />
         {{ $dateFormatter.date(when) }}
         <a

@@ -49,12 +49,13 @@
       </h3>
     </template>
     <template #popup-footer>
-      <a
+      <router-link
         class="btn btn-primary"
         type="button"
-        :href="$url('basket', basketId)"
-        v-text="$t('basket.go')"
-      />
+        :to="$url('basket', basketId)"
+      >
+        {{ $t('basket.go') }}
+      </router-link>
     </template>
   </map-popup>
 </template>

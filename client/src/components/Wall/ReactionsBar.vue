@@ -43,7 +43,9 @@
           :key="user.id"
           class="reacting-user"
         >
-          <a :href="$url('profile', user.id)" v-text="tooltipName(user)" />
+          <router-link :to="$url('profile', user.id)">
+            {{ tooltipName(user) }}
+          </router-link>
         </span>
       </b-tooltip>
     </b-button-group>

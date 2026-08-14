@@ -1,6 +1,6 @@
 <template>
-  <a
-    :href="$url('forumThread', thread.regionId, thread.id)"
+  <router-link
+    :to="$url('forumThread', thread.regionId, thread.id)"
     class="d-flex dropdown-item search-result"
     tabindex="1"
   >
@@ -28,10 +28,10 @@
       <small class="separate">
         <span v-if="thread.regionId && !hideRegion">
           {{ $t('search.results.in') }}
-          <a :href="$url('forum', thread.regionId)">
+          <router-link :to="$url('forum', thread.regionId)">
             {{ $t(`search.results.thread.${thread.isInsideAmbassadorForum ? 'ambassador_' : ''}forum`) }}
             {{ thread.regionName }}
-          </a>
+          </router-link>
         </span>
         <span>
           {{ $t('search.results.thread.last_post') }}
@@ -39,7 +39,7 @@
         </span>
       </small>
     </div>
-  </a>
+  </router-link>
 </template>
 <script>
 import { useUserStore } from '@/stores/user'

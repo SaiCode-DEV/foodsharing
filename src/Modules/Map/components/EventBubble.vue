@@ -12,13 +12,14 @@
     <Markdown :source="description" />
 
     <template #popup-footer>
-      <a
+      <router-link
         v-if="!loading"
         class="btn btn-primary"
         type="button"
-        :href="$url('event', id)"
-        v-text="$t('map.events.go')"
-      />
+        :to="$url('event', id)"
+      >
+        {{ $t('map.events.go') }}
+      </router-link>
     </template>
   </map-popup>
 </template>

@@ -24,7 +24,7 @@
           :key="store.id"
         >
           <span v-if="index">, </span>
-          <a :href="$url('store', store.id)">{{ store.name }}</a>
+          <router-link :to="$url('store', store.id)">{{ store.name }}</router-link>
         </span>
       </dd>
     </div>

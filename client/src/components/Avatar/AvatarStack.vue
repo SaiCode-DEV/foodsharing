@@ -18,14 +18,14 @@
           :key="user.id"
           class="d-inline-flex pr-1"
         >
-          <a :href="$url('profile', user.id)" class="tooltip-link font-weight-normal">
+          <router-link :to="$url('profile', user.id)" class="tooltip-link font-weight-normal">
             <Avatar
               :user="user"
               :size="16"
               tooltip=""
             />
             {{ user.name }}
-          </a>
+          </router-link>
           <span v-if="index != hiddenUsers.length - 1">,</span>
         </span>
         <br v-if="hiddenUsers.length && freeSlotsCount > shownSlotCounts.free">

@@ -6,13 +6,14 @@
       </h3>
     </template>
     <template #popup-footer>
-      <a
+      <router-link
         v-if="!loading"
         class="btn btn-primary"
         type="button"
-        :href="$url('foodsharepoint', id)"
-        v-text="$t('map.foodsharepoint.go')"
-      />
+        :to="$url('foodsharepoint', id)"
+      >
+        {{ $t('map.foodsharepoint.go') }}
+      </router-link>
     </template>
 
     <div v-if="picture" class="mb-3">

@@ -23,7 +23,7 @@
       v-if="mayEdit"
       v-b-tooltip="$t('blog.edit')"
       class="ml-auto mx-1"
-      :href="$url('blogEdit', blogId)"
+      :to="$url('blogEdit', blogId)"
     >
       <i class="fas fa-fw fa-pencil-alt" />
     </b-link>
