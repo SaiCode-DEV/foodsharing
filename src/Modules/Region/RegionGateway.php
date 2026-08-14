@@ -615,7 +615,7 @@ class RegionGateway extends BaseGateway
     public function getRegionForEditing(int $regionId): array
     {
         $region = $this->db->fetchById('fs_bezirk',
-            ['id', 'name', 'parent_id', 'master', 'type', 'mailbox_id', 'email_name'],
+            ['id', 'name', 'parent_id', 'master', 'type', 'mailbox_id', 'email_name', 'timezone'],
             $regionId
         );
         $region['adminIds'] = $this->db->fetchAllValuesByCriteria('fs_botschafter', 'foodsaver_id', ['bezirk_id' => $regionId]);
@@ -632,7 +632,8 @@ class RegionGateway extends BaseGateway
             'email_name' => $region->emailName,
             'parent_id' => $region->parentId,
             'master' => $region->masterId,
-            'type' => $region->type
+            'type' => $region->type,
+            'timezone' => $region->timezone,
         ], ['id' => $region->id]);
         $this->removeRegionFromClosure($region->id);
         $this->addRegionToClosure($region->id, $region->parentId);
@@ -654,6 +655,7 @@ class RegionGateway extends BaseGateway
             'parent_id' => $region->parentId,
             'type' => $region->type,
             'apply_type' => ApplyType::NOBODY,
+            'timezone' => $region->timezone,
         ], ['id' => $region->id]);
         $this->addRegionToClosure($region->id, $region->parentId);
         $this->db->update('fs_bezirk', ['has_children' => true], ['id' => $region->parentId]);

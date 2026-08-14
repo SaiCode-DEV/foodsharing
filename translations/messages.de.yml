@@ -810,6 +810,7 @@ terminology:
   sent: "Gesendete"
   attention: "Achtung"
   newsletter: "Newsletter"
+  timezone: "Zeitzone"
 
 statistics:
   lastMonth: "Statistiken der letzten 30 Tage"
@@ -3235,6 +3236,7 @@ region:
     working_group: "Arbeitsgruppe"
     big_city: "Großstadt (ohne Anmeldemöglichkeit)"
     part_of_town: "Stadtteil"
+    continent: "Kontinent"
   hull:
     parent: "Master-Bezirk"
     parent-info: "Alle Foodsaver:innen sind automatisch mit im Master-Bezirk, sofern einer angegeben wurde"
@@ -3258,6 +3260,7 @@ region:
   master: "Masterbezirk"
   mailbox: "Mailbox-Name"
   allow_hiding_in_forum: "Moderator:innen die Löschung von Forenbeiträgen erlauben"
+  inherit_timezone: "Übernimmt die Zeitzone vom Elternbezirk"
   public:
     children: "Bezirke in {name} ({count})"
     join: "Bezirk beitreten"
@@ -4603,6 +4606,12 @@ help:
         - **Lebensmittel gerettet**: Zu jedem Betrieb gibt es eine von den Betriebsverantwortlichen geschätzte durchschnittliche Abholmenge. Die angegebene Menge geretteter Lebensmittel entspricht demnach dem geschätzten Gesamtgewicht der durchgeführten Abholungen der letzten 30 Tage in allen Betrieben des Bezirks (oder eines Unterbezirks).
         - **Aktive Fairteiler** sind die zum aktuellen Zeitpunkt als aktiv markierten Fairteiler des Bezirks (oder eines Unterbezirks).
         - **Verteilte Essenskörbe** gibt an, wie oft in den letzten 30 Tagen über die Plattform-Funktion *"Essenskorb"* Lebensmittel von Foodsaver:innen des Bezirks (oder eines Unterbezirks) weitergegeben wurden. Oft wird ein sehr großer Teil der Lebensmittel ohne diese technische Unterstützung weiterverteilt. Ein niedriger Wert bedeutet hier daher nicht, dass wenig Lebensmittel weiterverteilt werden.
+    regionAdminTimezone:
+      title: "Zeitzone von Bezirken"
+      md: |
+        Jedem Bezirk kann seine Zeitzone zugeordnet werden. Hat ein Bezirk keine Zeitzone, übernimmt er diese vom Elternbezirk. Haben auch die Elternbezirke keine, wird die Standard-Zeitzone "Europa/Berlin" verwendet.
+
+        Hier sollte nur dann eine Zeitzone explizit ausgewählt werden, wenn sie sich vom Standard unterscheidet.
 
 team_page:
   board_member:

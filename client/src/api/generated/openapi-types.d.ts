@@ -4554,6 +4554,11 @@ export interface components {
              * @example false
              */
             allowHidingInForum: boolean;
+            /**
+             * @description IANA timezone, or null to inherit from the parent region
+             * @example Europe/Berlin
+             */
+            timezone?: string;
         };
         AddReportData: {
             reason: components["schemas"]["ReportReason"];

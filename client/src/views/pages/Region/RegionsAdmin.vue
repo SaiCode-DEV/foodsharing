@@ -100,6 +100,17 @@
           />
         </b-form-group>
 
+        <b-form-group>
+          <slot label>
+            {{ $t('terminology.timezone') }}
+            <Info info-key="regionAdminTimezone" />
+          </slot>
+          <b-form-select
+            v-model="region.timezone"
+            :options="timezoneOptions"
+          />
+        </b-form-group>
+
         <div class="float-right">
           <b-button
             v-if="!isNewRegion"
@@ -138,6 +149,7 @@ import { deleteGroup } from '@/api/groups'
 import { pulseError } from '@/script'
 import Info from '@/components/Help/Info.vue'
 import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
+import { locale } from '@/helper/i18n'
 
 // TODO preselect no WG function
 
@@ -179,6 +191,22 @@ export default {
     mailboxState () {
       if (!this.region.mailbox) return false
       return /^[\w.\-_]+$/.test(this.region.mailbox) ? null : false
+    },
+    timezoneOptions () {
+      const timezones = Intl.supportedValuesOf('timeZone')
+        .filter(tz => !tz.startsWith('Etc'))
+        // for displaying, add the "(UTC+?)" offset as string to the timezone's name
+        .map(tz => {
+          const offsetString = Intl.DateTimeFormat(locale, {
+            timeZoneName: 'short',
+            timeZone: tz,
+          }).formatToParts().find(i => i.type === 'timeZoneName').value
+          return { value: tz, text: `${tz} (${offsetString})` }
+        })
+      return [
+        { value: null, text: this.$t('region.inherit_timezone') },
+        ...timezones,
+      ]
     },
   },
   methods: {
@@ -234,6 +262,7 @@ export default {
         workgroupFunction: 0,
         id: null,
         allowHidingInForum: false,
+        timezone: null,
       }
       this.$refs.tree.unselect()
     },

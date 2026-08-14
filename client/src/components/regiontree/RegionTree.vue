@@ -114,7 +114,8 @@ export default {
       this.$emit('update')
     },
     addRegionNode (regionNode, parent, regionName) {
-      const nextSibling = parent.children.find(child => child.text > regionName)
+      // the children property of the root is called $children instead of children, so we need to check for both
+      const nextSibling = (parent.children ?? parent.$children).find(child => child.text > regionName)
       if (nextSibling) {
         nextSibling.before(regionNode)
       } else {

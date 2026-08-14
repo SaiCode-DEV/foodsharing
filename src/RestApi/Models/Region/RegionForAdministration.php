@@ -44,6 +44,10 @@ class RegionForAdministration
     #[OA\Property(example: false, description: 'Whether moderators of the region are allowed to delete forum posts')]
     public bool $allowHidingInForum = false;
 
+    #[OA\Property(example: 'Europe/Berlin', description: 'IANA timezone, or null to inherit from the parent region')]
+    #[Assert\Timezone]
+    public ?string $timezone = null;
+
     public static function createFromArray(array $data)
     {
         $region = new RegionForAdministration();
@@ -54,6 +58,7 @@ class RegionForAdministration
         $region->masterId = $data['master'];
         $region->emailName = $data['email_name'];
         $region->adminIds = $data['adminIds'];
+        $region->timezone = $data['timezone'];
 
         return $region;
     }
