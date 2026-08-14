@@ -324,8 +324,14 @@ upload:
   crop_dialog_title: Przytnij obraz
   image-problem: Coś się nie zgadza z twoim plikiem, najlepiej wybierz zwykły 
     obraz jpg
-  invalid_image_files: 'Niektóre wybrane pliki ({count}) nie są obrazami: {fileNames}'
+  invalid_image_files: 'Twoja przeglądarka nie może wyświetlić i przez to także załadować
+    tych plików: {fileNames}. Zdjęcia z iPhone''ów często są w formacie HEIC. Zapisz
+    je jako JPEG, wtedy się uda.'
   remove_image: Usuń obraz
+  too_large: '{fileName} jest za duży, aby go załadować. Zmniejsz obraz i spróbuj
+    ponownie.'
+  type_rejected: '{fileName} ma format pliku, którego nie akceptujemy.'
+  failed: Nie można było załadować {fileName}. Spróbuj ponownie.
 button:
   save: Zapisz
   next: Dalej
@@ -1366,7 +1372,7 @@ resource_mosaic:
   message_modal:
     intro: 'Wyślij {owner} wiadomość do tego zasobu:'
     request_for: 'Zapytanie do twojego zasobu'
-    request_sent: 'Twoje zapytanie zostało wysłane.'
+    request_sent: 'Wysłano twoje zapytanie.'
     placeholder: 'Interesuję się twoim zasobem, ponieważ ...'
     polite_info: 'Pamiętaj: nikt nie jest zmuszony, aby dzielić się z tobą zasobem.
       Formułuj swoje zapytania w taki sposób, że druga osoba zawsze może powiedzieć
@@ -1377,27 +1383,27 @@ resource_mosaic:
     Masz potrzebne uprawnienia, aby to zmienić!'
   openness:
     level_3: 'Dla dobrych celów'
-    level_4: 'raczej otwarty'
+    level_4: 'Raczej otwarcie'
     title: 'Radość z zapytań'
-    level_5: 'zawsze chętnie'
+    level_5: 'Zawsze chętnie'
     level_1: 'Tylko jeśli ważne'
     level_2: 'Raczej zachowawczo'
   is_commons: 'Ten zasób nie należy do jednej osoby, tylko jest dobrem wspólnym'
   order:
     sort_age: 'Kolejność: od najnowszych'
-    sort_openness: 'Sortowanie: według radości z zapytań'
+    sort_openness: 'Kolejność: według radości z zapytań'
     shuffle: 'Kolejność: losowo'
   my_resources_in: 'Moje zasoby w {groupName}'
   list_status:
     none_in_region: 'Jeszcze nie wprowadzono żadnych zasobów. Wprowadź swoje własne
       zasoby lub zaproś do tego innych!'
-    filter: 'Do twojego wyszukiwania pasują/e {count} zasoby/ów:'
+    filter: 'Liczba zasobów pasujących do twojego wyszukiwania: {count}'
     none_in_filter: 'Niestety, żadne zasoby nie pasują do twojego wyszukiwania.'
-    total: 'W {region} są/jest wprowadzone/ych łącznie {count} zasoby/ów:'
+    total: 'Liczba zasobów łącznie wprowadzonych w {region}:'
   add_commons: 'Wprowadź nowy wspólny zasób'
   confirm_delete: 'Czy na pewno chcesz usunąć ten zasób?'
-  has_resources_elsewhere: 'Z twoich zasobów {count} są/jest ograniczone/ych do innych
-    rejonów lub zespołów i niewidoczne/ych w {groupName}.'
+  has_resources_elsewhere: 'Liczba twoich zasobów ograniczonych do innych rejonów
+    lub zespołów i niewidocznych w {groupName} to {count}.'
   request_header: 'Zapytanie do twojego zasobu'
   favorite_tooltip: 'Dodałeś/aś ten zasób do ulubionych'
   max_resources: 'Aby zachować przejrzystość mozaiki zasobów, każdy może wprowadzić
@@ -1409,34 +1415,34 @@ resource_mosaic:
   restricted_to: 'Ograniczone do:'
 required_messages:
   kick_from_store_team:
-    footer: Pozdrawiam
+    footer: Pozdrowienia
     main: 'usunięto cię z teamu punktu [{store}](/store/{storeId}). Tym samym nie
       możesz już się zapisywać na sloty w tym punkcie.'
     really: 'Czy na pewno chcesz usunąć {name} z teamu tego punktu?'
   move_to_standby_team:
-    footer: Pozdrawiam
+    footer: Pozdrowienia
     main: 'umieszczono cię na liście rezerwowych w punkcie [{store}](/store/{storeId}).
       Tym samym nie możesz się aktualnie zapisywać na sloty w tym punkcie ani czytać
       ogólnego czatu grupy.'
     really: 'Czy na pewno chcesz przenieść {name} z aktywnego teamu na listę rezerwowych?'
   decline_store_application:
     really: Czy na pewno chcesz odrzucić zgłoszenie {name}?
-    main: Twoje zgłoszenie do Teamu [{store}](/store/{storeId}) zostało 
+    main: Twoje zgłoszenie do teamu [{store}](/store/{storeId}) zostało 
       odrzucone.
-    footer: Pozdrawiam
+    footer: Pozdrowienia
   demote_store_manager:
-    footer: Pozdrawiam
+    footer: Pozdrowienia
     really: 'Czy na pewno chcesz usunąć {name} z pozycji koordynatora/ki punktu?'
-    main: 'Wypisałem/am cię jako koordynatora/kę punktu [{store}](/store/{storeId}).'
+    main: 'Usunąłem/ęłam cię jako koordynatora/kę punktu [{store}](/store/{storeId}).'
   placeholder: 'Opcjonalnie dodaj informacje tutaj…'
   verify:
     main: 'Zweryfikowaliśmy cię jako foodsavera/kę!'
-    really_multiple: 'Na pewno chcesz zweryfikować {count} użytkowników/czek? Upewnij
-      się, że wszystkie/ich {count} osoby/osób spełnia/ją wszystkie [warunki dla zweryfikowanych
+    really_multiple: 'Na pewno chcesz zweryfikować tych użytkowników/czki ({count})?
+      Upewnij się, że wszystkie te osoby spełniają wszystkie [warunki dla zweryfikowanych
       foodsaverów] (https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver).'
     really: 'Na pewno chcesz zweryfikować {name}? Upewnij się, że {name} spełnia wszystkie
       [warunki dla zweryfikowanych foodsaverów] (https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver).'
-    footer: 'Pozdrawiamy, twoi ambasadorzy/ki'
+    footer: 'Pozdrawiamy, twoi/je ambasadorzy/ki'
   sure_title: 'Jesteś pewny/a?'
   message_info: '{name} otrzyma następującą wiadomość:'
   name_placeholder: '<Name>'
@@ -2386,6 +2392,7 @@ wall:
   info-somebody-else: 'Ponieważ masz uprawnienia do administrowania tego punktu, możesz
     w razie potrzeby usunąć ten wpis.'
   confirm-deletion: 'Czy na pewno chcesz usunąć następujący wpis na tablicy od {name}?'
+  post_not_found: Nie znaleziono podlinkowanego postu, być może został usunięty.
 events:
   bread: Eventy
   past: Minione eventy
@@ -3259,6 +3266,7 @@ profile:
     cancellation: 'Częste krótkoterminowe odwoływanie odbiorów bez szukania zastępstwa'
     report_b13: 'Nie postarano się, aby wykorzystać / rozdać uratowane produkty żywnościowe
       (B13)'
+    sendConfirmationMail: Wyślij mi potwierdzenie z treścią skargi na maila
   alldatesdeleted: Usunięto wszystkie daty
   cantdeleteall: Nie możesz usunąć wszystkich dat!
   mediation:
@@ -3386,10 +3394,10 @@ basket:
     dairy: nabiał
     frozen: mrożonki
     pet: karma dla zwierząt
-    bread: 'Pieczywo'
+    bread: 'pieczywo'
     greens: 'owoce i warzywa'
-    prepared: 'Przygotowane potrawy'
-    dry: 'Produkty sypkie'
+    prepared: 'przygotowane potrawy'
+    dry: 'produkty sypkie'
   is:
     veggie: są wegetariańskie
     vegan: są wegańskie
@@ -3414,7 +3422,7 @@ basket:
   error:
     map: 'Na naszej mapie możesz znaleźć więcej jadłokoszyków w twojej okolicy.'
     register: "Jeszcze nie jesteś zarejestrowany/a jako foodsharer/ka? \nTo kliknij
-      na [**Dołącz**](/content?sub=joininfo), aby zacząć albo utwórz sam/a jadłokoszyk.\n"
+      na [**Dołącz**](/content?sub=joininfo), aby zacząć albo sam/a utwórz jadłokoszyk.\n"
     taken: '**Ten jadłokoszyk już nie jest dostępny.**
 
 
@@ -3469,9 +3477,9 @@ basket:
   sent_request: 'Wysłano zapytanie'
   send_request: 'Wyślij zapytanie'
   created: 'Opublikowany:'
-  requested_by: 'zapytanie od {name}'
+  requested_by: 'Zapytanie od {name}'
   provider: 'Osoba oferująca'
-  published: 'Dziękujemy, jadłokoszyk został opublikowany.'
+  published: 'Dziękujemy, opublikowano jadłokoszyk.'
   edit: 'Edytuj jadłokoszyk'
   where: 'Gdzie?'
   image: 'Dodaj zdjęcie do jadłokoszyka.'
@@ -3486,7 +3494,7 @@ basket:
 personal_data:
   label: Kontakt
   mobile: Numer telefonu komórkowego
-  landline: Telefon stacjonarny
+  landline: Numer telefonu stacjonarnego
 menu:
   entry:
     activities: Akcje
@@ -3509,7 +3517,7 @@ menu:
     fundraising: Fundraising
     language: Wybierz język
     options: Opcje
-    imprint: 'stopka redakcyjna'
+    imprint: 'Impressum'
     notifications: 'Powiadomienia'
     applications: 'Zgłoszenia ({count})'
     members: 'Członkowie'
@@ -3525,19 +3533,18 @@ menu:
     dataprivacy: 'Ochrona danych'
     guide: 'Poradnik higieny'
     groups: 'Zespoły'
-    fsfestival: 'festiwal foodsharingu'
+    fsfestival: 'Festiwal foodsharingu'
     administration: 'Administracja'
     demands: 'Żądania'
     joinregion: 'Dołącz do rejonu'
     baskets: 'Jadłokoszyki'
-    workingGroupEdit: 'Zarządzaj grupą'
+    workingGroupEdit: 'Zarządzaj zespołem'
     background: 'Tło'
     stores: 'Punkty'
-    mailbox: 'skrzynka pocztowa'
+    mailbox: 'Skrzynka pocztowa'
     talksandworkshops: 'Wykłady i warsztaty'
     politics: 'Polityka'
-    pastcampaigns: 'Minione kampanie'
-    press: 'prasa'
+    press: 'Prasa'
     all_messages: 'Wszystkie wiadomości'
     events: 'Eventy'
     BOTforum: 'Forum ambasadorów/ek'
@@ -3548,10 +3555,10 @@ menu:
     other_stores: 'Inne punkty'
     your_stores: 'Twoje punkty'
     helpneeded: 'Pilnie poszukiwane wsparcie'
-    forcompanies: 'dla przedsiębiorstw'
+    forcompanies: 'Dla przedsiębiorstw'
     your_baskets: 'Twoje jadłokoszyki'
     your_account: 'Twoje konto'
-    fscities: 'miasta foodsharing'
+    fscities: 'Miasta foodsharing'
     education: 'Edukacja'
     regionalgroups: 'Grupy lokalne'
     messages: 'Wiadomości'
@@ -3562,7 +3569,7 @@ menu:
   bell:
     delete_read_confirmation:
       title: Usunąć powiadomienia?
-      text: 'Czy na pewno chcesz usunąć {count} przeczytane/ych dzwonki/ów?'
+      text: 'Czy na pewno chcesz usunąć przeczytane dzwonki: {count}?'
 footer:
   about_us: O nas
   team: Team
@@ -3643,7 +3650,7 @@ poll:
   in_past: 'zakończone'
   results:
     average: 'średnia'
-    sum: 'Suma'
+    sum: 'suma'
     percentage_of_votes: 'Frekwencja'
     sumShort: '∑'
     standardDeviationShort: 'σ'
@@ -3704,7 +3711,7 @@ poll:
     już zmienić swojego wyboru.'
   untraceable: 'Informacja, na którą opcję zagłosowałeś/aś, nie daje się wyśledzić
     wstecz i dlatego nie można jej tutaj wyświetlić.'
-  scope_description_1: 'Wszyscy zweryfikowani foodsaverzy z rejonu / zespołu'
+  scope_description_1: 'Wszyscy zweryfikowani/e foodsaverzy/ki z rejonu / zespołu'
   type_2:
     tooltip_positive: 'Zgoda'
     tooltip_neutral: 'Wstrzymanie się'
@@ -3736,12 +3743,12 @@ categories:
     "null": 'Nieprzyporządkowane'
   empty: 'Jeszcze nie wprowadzono żadnej kategorii'
   confirm_delete_hint:
-    store: 'Jeszcze {count} punkty/ów są/jest przyporządkowane/ych do tej kategorii.
-      Te punkty nie będą potem miały żadnej kategorii.'
-    resource: 'Jeszcze {count} zasoby/ów są/jest przyporządkowane/ych tej kategorii.
-      Te zasoby utracą tę kategorię.'
-    group: Jeszcze {count} zespoły/ów są/jest przyporządkowane/ych do tej 
-      kategorii. Te zespoły nie będą potem miały żadnej kategorii.
+    store: 'Są jeszcze punkty ({count}) przyporządkowane do tej kategorii. Te punkty
+      nie będą potem miały żadnej kategorii.'
+    resource: 'Są jeszcze zasoby ({count}) przyporządkowane tej kategorii. Te zasoby
+      utracą tę kategorię.'
+    group: Są jeszcze zespoły ({count}) przyporządkowane tej kategorii. Te 
+      zespoły nie będą potem miały żadnej kategorii.
   new: 'Wprowadź nową kategorię'
   delete: 'Usuń kategorię'
   edit: 'Edytuj kategorię'
@@ -3807,7 +3814,7 @@ help:
 
         ###### Dostęp
 
-        Dostęp do tego ma tylko ten, kto może administrować punkt. Dla normalnych
+        Dostęp do protokołu ma tylko ten, kto może administrować punkt. Dla normalnych
         foodsaverów/ek i rezerwowych protokół nie jest widoczny.
 
         ---
@@ -3848,7 +3855,7 @@ help:
 
         '
     pickupOptions:
-      title: 'Opcje zapisu'
+      title: 'Możliwości zapisu'
       md: 'Obszar *możliwości zapisu* pokazuje ci zestawienie wszystkich nadchodzących
         slotów w twoich punktach, do których jeszcze są poszukiwani/e foodsaverzy/ki.
         Poprzez menu opcji możesz dopasować widok do swoich potrzeb:
@@ -3874,7 +3881,7 @@ help:
       title: 'Mozaika zasobów'
       md: '##### Idea
 
-        Przy ratowaniu żywności bardzo efektywnie dzielimy się wszyscy naszym czasem,
+        Przy ratowaniu żywności bardzo efektywnie wszyscy dzielimy się naszym czasem,
         możliwościami transportu i doświadczeniem. Jednak aby dawać nowy impuls dla
         systemu żywności opartego na zasadach zrównoważonego rozwoju i długoterminowo
         wzmacniać ruch foodsharingu, potrzeba więcej niż tylko ratowania. Każdy/a
@@ -3939,22 +3946,22 @@ help:
         dla których wprowadzono te same kategorie.'
     profileCommitmentsStat:
       title: 'Statystyka zaangażowania'
-      md: 'jest widoczny od roli koordynatora/ki punktu. Widoczność jest ograniczona
+      md: 'jest widoczna od roli koordynatora/ki punktu. Widoczność jest ograniczona
         do wspólnego rejonu macierzystego lub wspólnych punktów.'
     pollScopes:
       md: "Przy tworzeniu głosowania możesz wybrać różne grupy osób, które są uprawnione
         do głosowania. \nPrzy wszystkich możliwościach wyboru obowiązuje:\n- Mogą
         głosować nie tylko wszyscy/tkie foodsaverzy/ki z rejonu/zespołu, ale także
-        rejony podrzędne.\n- Liczba uprawnionych do głosowania foodsaverów/ek jest
-        w nawiasie za możliwością wyboru\n- Jak tylko utworzone zostanie głosowanie,
+        z rejonów podrzędnych.\n- Liczba uprawnionych do głosowania foodsaverów/ek
+        jest w nawiasie za możliwością wyboru\n- Jak tylko utworzone zostanie głosowanie,
         następuje ustalenie uprawnionych do głosowania. Uprawniony/a do głosowania
         jest ten/ta, kto należy do danej grupy osób w momencie utworzenia głosowania.\n"
       title: 'Prawo do głosowania'
     polls:
       title: 'Głosowania'
-      md: 'Przy pomocy modułu głosowań można przeprowadzać wybory, ankiety i inne
-        głosowania anonimowo i po prostu bezpośrednio na platformie foodsharingu.
-        Szczegółowe instrukcje znajdziesz pod adresem https://wiki.foodsharing.de/Abstimmungs-Modul
+      md: 'Przy pomocy modułu głosowań można łatwo przeprowadzać wybory, ankiety i
+        inne głosowania anonimowo i bezpośrednio na platformie foodsharingu. Szczegółowe
+        instrukcje znajdziesz pod adresem https://wiki.foodsharing.de/Abstimmungs-Modul
 
         '
     publicEvent:
@@ -4193,8 +4200,8 @@ help:
       md: |
         Administratorzy/ki mogą przyporządkowywać swoje zespoły jednemu z 5 typów. Te typy różnią się istotnie w sposobie działania i celach:
 
-        ###### Zespoły kreatywne
-        Zespoły kreatywne aktywnie pracują nad jakimś konkretnym tematem. Są aktywne długoterminowo i samodzielnie podejmują decyzje w swoim obszarze działalności.
+        ###### Zespoły tworzące
+        Zespoły tworzące aktywnie pracują nad jakimś konkretnym tematem. Są aktywne długoterminowo i samodzielnie podejmują decyzje w swoim obszarze działalności.
         ###### Zespoły dyskusyjne
         W centrum uwagi w tych zespołach stoją rundy dyskusyjne na jakiś określony temat. Tutaj nie podejmuje się więc żadnych decyzji. Adres email zespołu służy też osobom niebędącym członkami jako punkt kontaktowy w razie pytań na ten określony temat. 
         ###### Zespoły zarządzające
@@ -4224,14 +4231,14 @@ email_template:
   fetch_warning:
     disable_warning: 'Wyłączyć te ostrzeżenia?'
     subject:
-      multiple: 'Otwarte terminy odbioru w %COUNT% punktach!'
+      multiple: 'Wolne terminy odbioru w %COUNT% punktach!'
       single: 'Wolne terminy odbioru w %BETRIEB%!'
     settings_link: 'Przejdź do ustawień powiadomień'
-    empty_slots: '%COUNT% nieobsadzone/ych sloty/ów odbioru'
+    empty_slots: 'liczba wolnych slotów odbioru: %COUNT%'
     part2: 'Postaraj się tak szybko jak to możliwe znaleźć foodsaverów/ki, aby wszystkie
       odbiory mogły się odbyć. Jeśli nie będziesz mógł/mogła nikogo zmobilizować,
-      byłoby dobrze, abyś przejął/ęła otwarte odbiory. Jeśli nie jest to dla ciebie
-      możliwe, odwołaj zawczasu te terminy w punkcie.'
+      byłoby dobrze, abyś sam/a przejął/ęła wolne terminy odbioru. Jeśli nie masz
+      takiej możliwości, odwołaj zawczasu te terminy w punkcie.'
     part1: 'Zadaniem koordynatorów/ek punktu jest zapewnienie, że odbiory odbywają
       się zgodnie z planem. Niestety, jeszcze nie we wszystkich twoich punktach zapisało
       się wystarczająco dużo foodsaverów/ek na odbiory w ciągu najbliższych dwóch
@@ -4247,10 +4254,10 @@ email_template:
   confirm_for_unverified: 'Temat musi zostać potwierdzony, gdyż utworzyła go niezweryfikowana
     osoba.'
   dont_respond:
-    notification: 'powiadomienia'
+    notification: '"powiadomienia"'
     noreply: 'Proszę nie odpowiadać na ten email. Ta wiadomość została wysłana z adresu,
       który nie jest przyporządkowany żadnej skrzynce pocztowej.'
-    you_can: 'Możesz pod'
+    you_can: 'Możesz w punkcie'
     nomail: 'ustawić, jakie maile otrzymujesz.'
     no_notification_link: 'Nie chcesz już otrzymywać tego typu powiadomień?'
   from: '-- od '
@@ -4264,6 +4271,18 @@ email_template:
     go potwierdzić, zanim zostanie opublikowany.'
   information: 'Informacja'
   confirm_link: 'chciał(a)by opublikować temat'
+  report_confirmation:
+    subject: Potwierdzenie twojej skargi
+    greeting: Cześć %NAME%,
+    received: dostarczono twoją skargę odnośnie do %REPORTED_NAME% i jest ona 
+      teraz u %GROUP% twojego rejonu.
+    reminder: 'Dla przypomnienia, złożyłeś/aś następującą skargę:'
+    reason: 'Powód: %REASON%'
+    message: 'Twoja wiadomość: %MESSAGE%'
+    patience: 'Prosimy o cierpliwość: zespół pracuje w ramach wolontariatu i zgłosi
+      się do ciebie w razie dalszych pytań.'
+    group_report: Zespół rozpatrujący skargi
+    group_arbitration: Rada arbitrażowa
 notifications:
   save_success: 'Pomyślnie zapisano'
   newsletter:
@@ -4359,13 +4378,13 @@ error:
     link: 'Załaduj zdjęcie profilowe teraz'
     description: 'Pokaż członkom foodsharingu, kim jesteś!'
   passport_is_invalid_soon:
-    description: 'Twoja legitymacja jest ważna jeszcze {days} dni. Zwróć się do swoich
-      ambasadorów/ek, aby ją przedłużyć.'
+    description: 'Twoja legitymacja jest ważna jeszcze {days} dzień/dni. Zwróć się
+      do swoich ambasadorów/ek, aby ją przedłużyć.'
     link: 'Ustawienia profilu'
     title: 'Ważność twojej legitymacji niedługo się kończy!'
   invalid_landline_phonenumber:
     title: 'Wystąpił błąd z twoim numerem stacjonarnym.'
-    link: 'Popraw numer stacjonarny teraz'
+    link: 'Popraw numer telefonu stacjonarnego teraz'
     description: 'Twój numer telefonu stacjonarnego jest w formacie, na który nie
       można zadzwonić.'
   invalid_mobile_phonenumber:
@@ -4400,7 +4419,7 @@ achievements:
     store_managers: 'Tylko koordynatorzy/ki punktu'
     hidden: 'Ukryty'
   validity:
-    days: 'Ważny przez {validityInDaysAfterAssignment} dni od przyznania.'
+    days: 'Ważny przez {validityInDaysAfterAssignment} dzień/dni od przyznania.'
     indefiniteShort: 'nieograniczenie'
     indefinite: 'Nieograniczona ważność od przyznania.'
   duplicate_mode:
@@ -4474,8 +4493,8 @@ search:
     event:
       invitation_tooltip:
         3: 'Nie uczestniczysz w tym evencie.'
-        1: 'Nie uczestniczysz w tym evencie.'
-        0: 'Nie podałeś/aśm czy będziesz uczestniczyć w tym evencie.'
+        1: 'Uczestniczysz w tym evencie.'
+        0: 'Nie podałeś/aś czy będziesz uczestniczyć w tym evencie.'
         2: 'Być może uczestniczysz w tym evencie.'
       location_online: 'Online'
     in: 'w'
@@ -4525,7 +4544,7 @@ oauth:
     deny: 'Zabroń dostępu'
     authorize: 'Udziel dostępu'
   admin:
-    public: 'publiczny'
+    public: 'Publiczny'
     active: 'Aktywny'
     type: 'Typ'
     update_success: 'Pomyślnie zaktualizowano klienta'
@@ -4575,7 +4594,7 @@ oauth:
     openid:
       title: 'Potwierdź swoją tożsamość'
     regions:
-      title: 'Uzyskać dostęp do twojego członkostwa'
+      title: 'Dostęp do twojego członkostwa'
       md: 'Dostęp do listy rejonów i zespołów, których członkiem jesteś.'
     email:
       title: 'Dostęp do twojego adresu email'
@@ -4588,11 +4607,11 @@ region:
   denied:
     group_in_this_group: '„{name}“ jest podzespołem tego zespołu.'
     subgroup_in: '„{name}“ jest podzespołem zespołu „{parent}“.'
-    this_region: 'Próbowałeś/aś uzyskać dostęp do treści tego rejonu. Jednakże, tylko
-      członkowie rejonu mają dostęp do tego.'
+    this_region: 'Próbowałeś/aś uzyskać dostęp do treści tego rejonu. Jednakże tylko
+      członkowie rejonu mają dostęp do tych treści.'
     group_in_this_region: '„{name}“ jest zespołem w tym rejonie.'
-    some_group: 'Próbowałeś/aś uzyskać dostęp do treści zespołu „{name}“. Jednakże,
-      tylko członkowie zespołu mają dostęp do tego.'
+    some_group: 'Próbowałeś/aś uzyskać dostęp do treści zespołu „{name}“. Jednakże
+      tylko członkowie zespołu mają dostęp do tych treści.'
   public:
     description: 'O rejonie'
     desc:
@@ -4622,7 +4641,7 @@ region:
     leave_group: 'Opuść zespół'
     show_on_large_map: 'Pokaż na dużej mapie'
     join_name: 'Dołącz do {name}'
-    leave_name: 'opuść {name}'
+    leave_name: 'Opuść {name}'
     leave_text_region: 'Już nie jesteś aktywny/a w {name} i chcesz opuścić ten rejon?'
     leave: 'Opuść rejon'
     join_text: 'Chcesz być aktywny/a w {name}? To możesz dołączyć do tego rejonu!'
@@ -4631,8 +4650,8 @@ region:
       no_future_events: 'Aktualnie nie ma wprowadzonych żadnych publicznych eventów
         w tym rejonie. Następujące eventy wydarzyły się w przeszłości:'
       load_past: 'Pokaż minione eventy'
-    confirm_entering: 'Chcesz dołączyć do rejonu {name}? Ambasadorzy/ki będą mieli/miały
-      wtedy dostęp do twojego profilu.'
+    confirm_entering: 'Chcesz dołączyć do rejonu {name}? Ambasadorzy/ki uzyskają wtedy
+      dostęp do twojego profilu.'
     confirm_leaving: 'Na pewno chcesz dołączyć do rejonu {name}? Ambasadorzy/ki uzyskają
       wtedy dostęp do twojego profilu.'
     wall: 'Nowości z rejonu'
@@ -4642,13 +4661,13 @@ region:
   not-existant: 'Ten rejon lub zespół już nie istnieje.'
   noParent: 'Bez rejonu nadrzędnego'
   type:
-    working_group: 'zespół'
+    working_group: 'Zespół'
     title: 'Typ rejonu'
     city: 'Miasto'
-    region: 'Rejon'
+    region: 'Region'
     big_city: 'Duże miasto (bez możliwości zameldowania)'
     district: 'Rejon'
-    country: 'państwo'
+    country: 'Państwo'
     federal_state: 'Województwo'
     part_of_town: 'Dzielnica'
   forum-redirect: 'Nie ma tablicy dla rejonów. Zostałeś/aś przekierowany/a do forum.'
@@ -4661,7 +4680,7 @@ region:
     create: 'Jesteś pewny/a, że chcesz utworzyć nowy rejon {rejon}?'
   hull:
     closure: 'Ustaw {region} jako master dla wszystkich rejonów podrzędnych'
-    parent-info: 'Wszyscy/tkie foodsaverzy/ki są automatycznie w Master-rejonie, o
+    parent-info: 'Wszyscy/tkie foodsaverzy/ki są automatycznie w master-rejonie, o
       ile jakiś podano'
     parent: 'Master-rejon'
     start: 'Zacznij master-aktualizację'
@@ -4682,7 +4701,7 @@ region:
   mail:
     name-info: 'Uwaga, nie zmieniać dowolnie! Uważaj też na to, że ten adres jeszcze
       nie widnieje w zarządzaniu skrzynkami pocztowymi.'
-    sender: 'Imię nadawcy'
+    sender: 'Nazwa nadawcy'
   none: 'Jeszcze nie wybrano rejonu'
   new: 'Nowy rejon'
   root: 'Żaden (root)'
@@ -4722,7 +4741,7 @@ chain:
         label: 'Wątek forum'
       kam:
         invalidfeedback: 'Podano błędne dane. Potrzebne jest jedno lub kilka ID użytkowników/czek.'
-        description: 'ID Key-Account-Managera/ki, ewentualnie rozdzielone przecinkami.'
+        description: 'ID Key-Account-Managerów/ek, ewentualnie rozdzielone przecinkami.'
         label: 'KAM'
       headquarters:
         placeholder:
@@ -4737,7 +4756,7 @@ chain:
         default: 'Trwają negocjacje'
       estimatedStoreCount:
         description: 'Całkowita liczba filii sieci'
-        label: 'filie'
+        label: 'Filie'
         invalidfeedback: 'Tylko liczby całkowite są dozwolone.'
       details:
         label: 'Info dla punktów'
@@ -4749,7 +4768,7 @@ chain:
       name:
         invalidfeedback: 'Pole "nazwa" nie może być puste'
         label: 'Nazwa'
-        placeholder: 'nazwa sieci'
+        placeholder: 'Nazwa sieci'
     title:
       edit: 'Edytuj sieć'
       new: 'Utwórz sieć'
@@ -4760,11 +4779,11 @@ chain:
     KEY_ACCOUNT_MANAGER_MISSING_ACHIEVEMENT: 'Key-Account-Manager/ka nie zaliczyła
       szkolenia dla KAMów.'
     EMPTY_CITY: 'Pole "miasto" nie może być puste'
-    EMPTY_NAME: 'Pole "nazwa" jest puste'
+    EMPTY_NAME: 'Pole "nazwa" jest nie może być puste'
     INVALID_STORECHAIN_ID: 'ID sieci punktów jest nieważne'
     WRONG_FORUM: 'Wątek nie należy do forum zespołu sieci punktów'
     KEY_ACCOUNT_MANAGER_ID_NOT_EXISTS: 'Key-Account-Manager/ka nie istnieje'
-    INVALID_STATUS: 'Pole "status" jest puste'
+    INVALID_STATUS: 'W polu "status" musi być dozwolona wartość statusu'
     EMPTY_ZIP: 'Pole "kod pocztowy" nie może być puste'
     THREAD_ID_NOT_EXISTS: 'Wątek w forum nie istnieje'
   detailsmodal:
@@ -4782,8 +4801,8 @@ chain:
   status:
     filterplaceholder: 'Status'
     notcooperating: 'Nie współpracuje'
-    cooperating: 'współpracuje'
-    negotiating: 'w trakcie negocjacji'
+    cooperating: 'Współpracuje'
+    negotiating: 'W trakcie negocjacji'
   options:
     showstores: 'Pokaż punkty'
     edit: 'Edytuj'
@@ -4803,7 +4822,7 @@ globals:
     mails: 'Maile'
     my_buddies: 'Moi znajomi'
     my_stores: 'Moje punkty'
-    my_regions: 'moje rejony'
+    my_regions: 'Moje rejony'
     chats: 'Chaty'
     mailboxes: 'Skrzynki pocztowe'
     events: 'Eventy'
@@ -4826,7 +4845,7 @@ globals:
 polls:
   score:
     disapproval: 'Odrzucenie'
-    approval: 'Akceptacja'
+    approval: 'Zgoda'
     neutral: 'Neutralne'
   ended: 'Minione głosowania'
   ongoing: 'Aktualne głosowania'
@@ -4857,12 +4876,12 @@ join_region:
     kroku, zaczynając od kontynentu aż do twojego rejonu. Jeśli nie znajdziesz żadnego
     pasującego do ciebie rejonu, wybierz jeden poziom wyżej albo dołącz do najbliżej
     położonego rejonu. Jeśli nie masz możliwości, aby kształcić się na foodsavera/kę
-    w swojej okolicy, możesz się zastanowić nad założeniem własnego rejonu. W tym
-    przypadku przeczytaj dokładnie Wiki, a w szczególności [artykuł o tworzeniu lub
-    reaktywacji rejonów]({href}). Jeśli chcesz zlecić wprowadzenie rejonu albo masz
-    konkretne pytania, na które nie ma odpowiedzi w Wiki, napisz do nas [maila]({mail}).
-    Nie jesteśmy centralną instancją dla ogólnych pytań, ale chętnie możemy ci pomóc
-    w kwestiach dotyczących rejonów.'
+    w swojej okolicy, możesz rozważyć założenie własnego rejonu. W tym przypadku przeczytaj
+    dokładnie Wiki, a w szczególności [artykuł o tworzeniu lub reaktywacji rejonów]({href}).
+    Jeśli chcesz zlecić wprowadzenie rejonu albo masz konkretne pytania, na które
+    nie ma odpowiedzi w Wiki, napisz do nas [maila]({mail}). Nie jesteśmy centralną
+    instancją dla ogólnych pytań, ale chętnie możemy ci pomóc w kwestiach dotyczących
+    rejonów.'
 support_page:
   subject: 'Temat'
   attachment:
@@ -4950,7 +4969,7 @@ blog:
     "1": 'opublikowany'
     "0": 'nieaktywny/a'
   last-editor: 'Ostatnio edytowany przez'
-  confirmDelete: 'Czy na pewno {name} ma być usunięty/a nieodwołalnie?'
+  confirmDelete: 'Czy na pewno usunąć nieodwracalnie {name}?'
   title: 'Posty na blogu'
   bread: 'Blog'
 startpage:
@@ -4976,12 +4995,12 @@ startpage:
       świeżym powietrzu. W tle widać ludzi i rowery.'
     title: 'Żądania'
     text: "Aby skutecznie ograniczyć marnowanie żywności potrzeba więcej niż tylko
-      samo ratowanie nadmiarowych \nproduktów w punktach i uświadamianie konsumentów/ek.
-      Zamiast tego musi się coś ruszyć w polityce:\nPotrzebujemy wiążących celów w
+      samego ratowania nadmiarowych \nproduktów w punktach i uświadamiania konsumentów/ek.
+      Oprócz tego musi się coś ruszyć w polityce:\nPotrzebujemy wiążących celów w
       redukowaniu marnowania żywności w ciągu całego łańcucha tworzenia wartości.\n\
-      Poza tym obecnie istniejące normy handlowe muszą zostać przemyślane i poluzowane,
-      a organizacje, które\nratują żywność lub oferują kształcenie na temat żywności,
-      muszą zostać wzmocnione.\n"
+      Poza tym trzeba przemyśleć i poluzować obecnie istniejące normy handlowe, a
+      wzmocnić organizacje, które\nratują żywność lub oferują kształcenie na temat
+      żywności.\n"
   call_to_action:
     title: 'Dołącz'
     text: 'Powstaliśmy w 2012 roku, obecnie jesteśmy międzynarodowym ruchem z ponad
@@ -5044,7 +5063,7 @@ startpage:
     wnosisz na platformie, np. jadłokoszyki, posty na forum.'
   more_infos: 'Dowiedz się więcej'
   slogan_3: 'foodsharing jest i zostanie bezpłatny.'
-  bedependable: 'Bądź niezawodny/a'
+  bedependable: 'Bądź rzetelny/a'
   towns:
     text: "Uczestniczące miasta różnią się tym, czy są jeszcze w drodze albo czy już\
       \ \nzostały wyróżnione jako miasta foodsharingu. To drugie zachodzi, gdy oprócz
@@ -5076,11 +5095,11 @@ startpage:
   together: 'Razem z foodsharingiem mogą Państwo działać na rzecz tego, że wycofana
     i niesprzedana żywność znajdzie pożyteczne zastosowanie, zamiast zostać wyrzucona.
     Więcej informacji znajdą Państwo [tutaj](/fuer-unternehmen).'
-  responsibility: 'Jedna trzecia produkowanej żywności ląduje w śmieciach. Z tym musi
-    być koniec. Nie chcemy nic więcej wyrzucać! Chcemy traktować żywność odpowiedzialnie
+  responsibility: 'Jedna trzecia produkowanej żywności ląduje w śmieciach. To musi
+    się skończyć. Nie chcemy nic więcej wyrzucać! Chcemy traktować żywność odpowiedzialnie
     i cieszymy się, że do nas dołączysz.'
   notallowed: 'Przekazywanie dalej lekarstw (także środków homeopatycznych) jest wyłączone
-    z foodsharingu. Nie można także poprzez foodsharing wymieniać się lub dzielić
+    z foodsharingu. Poprzez foodsharing nie można także wymieniać się lub dzielić
     się odzieżą, kosmetykami, chemią gospodarczą, zabawkami i innymi produktami niespożywczymi.
     Platforma foodsharing zastrzega sobie prawo do usuwania takich ofert.'
   join_rules: 'Dołącz - nasze reguły'
@@ -5192,31 +5211,32 @@ storestatus:
   "7": 'Punkt już nie istnieje'
   "6": 'Przekazuje darowizny do banku żywności itp. i niczego nie wyrzuca'
   "5a": 'Punkt już przekazuje darowizny'
-  "5": 'współpracuje z nami'
+  "5": 'Współpracuje z nami'
   "0": 'Status niewyjaśniony'
   "4": 'Nie chce współpracować'
   "2": 'Trwają negocjacje'
   placeholder: 'status'
 stats:
   total:
-    pickups: 'akcje/i ratowania żywności wykonali/ły nasi/sze foodsaverzy/ki.'
+    pickups: 'liczba akcji ratowania żywności wykonanych przez naszych/e foodsaverów/ki.'
     weight: 'żywności pomyślnie uratowanej przed śmietnikiem.'
-    fsp: 'Jadłodzielnie używane do dzielenia się żywnością.'
-    foodsharer: 'Foodsharerzy/ów/ki/ek są/jest obecnie zarejesterowani/e/ych na foodsharingu
-      i interesują/e się naszą pracą.'
-    foodsaver: 'Foodsaverzy/ki/ów/ek angażuje się w ramach wolontariatu na rzecz świata
-      bez marnowania żywności.'
-    baskets: 'jadłokoszyki łącznie opublikowane online.'
-    cooperations: 'punkty/ów nieprzerwanie i z zadowoleniem współpracują/e z nami.'
+    fsp: 'liczba jadłodzielni używanych do dzielenia się żywnością.'
+    foodsharer: 'liczba foodsharerów/ek obecnie zarejestrowanych na foodsharingu i
+      zainteresowanych naszą pracą.'
+    foodsaver: 'liczba foodsaverów/ek angażujących się w ramach wolontariatu na rzecz
+      świata bez marnowania żywności.'
+    baskets: 'łączna liczba jadłokoszyków opublikowanych online.'
+    cooperations: 'liczba punktów nieprzerwanie i z zadowoleniem współpracujących
+      z nami.'
   leader:
     regions: 'Najbardziej aktywne rejony'
     users: 'Najbardziej aktywni/e foodsaverzy/ki'
   sort:
-    by_count: 'według liczby'
+    by_count: 'Według liczby'
     by_weight: 'Według wagi'
   avg:
-    baskets: 'jadłokoszyki/ów są/jest średnio wstawiane/ych online w ciągu tygodnia.'
-    pickups: 'aktualnie wykonywane/ych akcje/i ratowania żywności średnio na dzień.'
+    baskets: 'liczba jadłokoszyków średnio wstawianych online w ciągu tygodnia.'
+    pickups: 'liczba aktualnie wykonywanych akcji ratowania żywności średnio na dzień.'
   title: 'Całkowita statystyka'
 numbers:
   decimal_separator: ','
@@ -5230,7 +5250,7 @@ storelist:
   inprogress: 'trwają negocjacje'
   nocontact: 'Jeszcze brak kontaktu'
   managing: 'Punkty, za które jesteś odpowiedzialny/a'
-  region: 'rejon'
+  region: 'Rejon'
   memberState: 'Status członkowstwa'
   nowaste: 'niczego nie wyrzuca'
   name: 'Nazwa'
@@ -5271,11 +5291,11 @@ network_errors:
     text: 'Twoja sesja wygasła. Odśwież stronę i spróbuj ponownie.'
 releases:
   "2023-09": 'Release „Jackfruit“ 🍈 (Wrzesień 2023)'
-  "2022-12": 'Release „Icecream“ 🍨 (Grudzień 2022)'
+  "2022-12": 'Release „Lody“ 🍨 (Grudzień 2022)'
   "2021-03": 'Release "Truskawka" 🍓 (Marzec 2021)'
   "2020-08": 'Release "Gruszka" (Sierpień 2020)'
   "2024-08": 'Release „Mandarynka“ 🍊 (Sierpień 2024)'
-  "2024-04": 'Release „Laugenbrezel“ 🥨 (Kwiecień 2024)'
+  "2024-04": 'Release „Precel“ 🥨 (Kwiecień 2024)'
   "2021-09": 'Release "Figa" 🥧 (Wrzesień 2021)'
   "2024-12": 'Release „Nektarynka“ 🍑 (Grudzień 2024)'
   "2020-12": 'Release "Dragonfruit" (Grudzień 2020)'
@@ -5285,7 +5305,7 @@ releases:
   "2024-01": 'Release „Kiwi“ 🥝 (Styczeń 2024)'
   "2025-08": 'Release „Oliwka“ 🫒 (Sierpień 2025)'
   "2020-05": 'Release "Pomarańcza" (Maj 2020)'
-  "2026-04": 'Release "Papryka" 🫑 (kwiecień 2026)'
+  "2026-04": 'Release "Papryka" 🫑 (Kwiecień 2026)'
 information:
   push:
     link: 'Do ustawień'
@@ -5305,7 +5325,7 @@ team_page:
     title: 'Dawni członkowie'
     text: 'Wspólnie spoglądamy wstecz na pełną sukcesów historię powstania foodsharingu.
       Chcemy w tym miejscu podziękować wszystkim osobom, które w tym uczestniczyły
-      poprzez aktywność na rzecz teamu organizacyjnego lub zarządu po części w ramach
+      poprzez aktywność na rzecz teamu organizacyjnego lub zarządu, po części w ramach
       wolontariatu w pełnym wymiarze godzin albo w bardzo dużym stopniu!
 
       '
@@ -5313,10 +5333,10 @@ team_page:
     title: 'Zarząd'
     text: 'Zarząd foodsharingu e. V. koordynuje działania, łączy Niemcy, Austrię i
       Szwajcarię jako użytkowników/czki platformy foodsharing.de i jest odpowiedzialny
-      za sprawy międzyregionalne. Zarząd współpracuje jako team, w dużym stopniu w
-      ścisłym porozumieniu i głównie online, aby troszczyć się o wszystkie sprawy
-      dużej społeczności foodsharingu i przychodzące z zewnątrz. Poza tym zarząd zajmuje
-      się obszernie rozwojem organizacji i wymiarem politycznym marnowania żywności.
+      za sprawy międzyregionalne. Zarząd współpracuje jako team, w ścisłym porozumieniu
+      i głównie online, aby troszczyć się o wszystkie sprawy dużej społeczności foodsharingu
+      i przychodzące z zewnątrz. Poza tym zarząd zajmuje się obszernie rozwojem organizacji
+      i wymiarem politycznym marnowania żywności.
 
       '
   it_member:
@@ -5347,9 +5367,9 @@ debug:
 prefetchtime: 'Na ile tygodni wcześniej foodsaverzy/ki mogą się zapisywać przez automatyczne
   sloty?'
 usersearch:
-  search_tag: 'wybierz użytkowników'
+  search_tag: 'Wybierz użytkowników/czki'
   no_tag_preset: 'Nie znaleziono użytkownika/czki'
-  select_tag: 'Szukaj użytkowników według imienia'
+  select_tag: 'Szukaj użytkowników/czki według imienia'
 contentmanagement: 'Zarządzanie treściami'
 sidenav:
   yourregions: 'Twoje rejony'
@@ -5510,7 +5530,7 @@ donation_page:
       w Austrii, Szwajcarii i innych krajach.
 
 
-      Przez swoją darowiznę wnosisz zawsze swój wkład do „całokształtu“ ruchu foodsharingu!
+      Przez swoją darowiznę zawsze wnosisz swój wkład do „całokształtu“ ruchu foodsharingu!
 
 
       **Ważne:** Niestety, nie można odliczyć od podatku darowizn ze Szwajcarii, Austrii

@@ -571,6 +571,18 @@ email_template:
     um fórum moderado.'
   confirm_for_unverified: 'O tópico precisa ser confirmado, pois foi criado por uma
     pessoa não verificada.'
+  report_confirmation:
+    subject: Confirmação da tua denúncia
+    greeting: Olá %NAME%,
+    received: A tua denúncia sobre %REPORTED_NAME% foi recebida e está agora a 
+      ser analisada pela %GROUP% do teu distrito.
+    reminder: 'Para te lembrares, foi isto que denunciaste:'
+    reason: 'Motivo: %REASON%'
+    message: 'A tua mensagem: %MESSAGE%'
+    patience: 'Tem alguma paciência: o grupo trabalha de forma voluntária e entrará
+      em contacto contigo se tiver alguma questão.'
+    group_report: Grupo de denúncias
+    group_arbitration: Comissão de Arbitragem
 footer:
   meta:
     version: 'Versão: {version}'
@@ -1021,7 +1033,6 @@ menu:
     fs: 'Foodsavers'
     talksandworkshops: 'Palestras e workshops'
     politics: 'Política'
-    pastcampaigns: 'Campanhas anteriores'
     press: 'Imprensa'
     fundraising: 'Angariação de fundos'
     all_messages: 'Todos mensagens'
@@ -1243,6 +1254,8 @@ profile:
       alimentos salvados (B13)
     report_other: Outros
     notes: Notas e decisões
+    sendConfirmationMail: Envia-me uma confirmação por e-mail com o conteúdo da 
+      denúncia
   mail_bounce:
     remove_button: 'Remover da lista de rejeições'
     warning_1: 'O teu endereço de e-mail pessoal {email} está bloqueado para comunicações
@@ -1342,7 +1355,7 @@ profile:
     buddy: 'Conheço {name}'
     notes: 'notas'
     history: 'Histórico dos cartões de membro'
-    violations: 'denúncias'
+    violations: 'Denúncias'
     storelist: 'locais ({count})'
     remove_buddy: Não me lembro mais de {name}
     quizSessionHistory: Tentativas de quiz
@@ -3673,11 +3686,16 @@ upload:
   crop_dialog_title: 'Recortar a imagem'
   new_file: 'Carregar novo ficheiro'
   images: Carregar imagems
-  invalid_image_files: '{count} os ficheiros selecionados não são imagens válidas:
-    {fileNames}'
+  invalid_image_files: 'O teu navegador não consegue apresentar estes ficheiros e,
+    por isso, não os consegue carregar: {fileNames}. As fotos de iPhone estão muitas
+    vezes no formato HEIC. Guarda-as como JPEG e já vai funcionar.'
   image-problem: O teu ficheiro não está em ordem, é melhor utilizar uma imagem 
     jpg normal
   remove_image: 'Remover imagem'
+  too_large: '{fileName} é demasiado grande para carregar. Reduz o tamanho e tenta
+    novamente.'
+  type_rejected: '{fileName} tem um formato de ficheiro que não é aceite.'
+  failed: Não foi possível carregar {fileName}. Tenta novamente.
 content:
   new_success: 'A página foi criada'
   public: 'Páginas públicas'
@@ -4321,6 +4339,8 @@ wall:
   delete_confirmation:
     text: Quer mesmo eliminar esta entrada de {author}?
     title: Eliminar uma publicação do mural?
+  post_not_found: A publicação associada não foi encontrada. É possível que 
+    tenha sido eliminada.
 betrieb_kategorie_id: 'Categoria'
 success: 'Completado com sucesso'
 buddy:
@@ -4677,6 +4697,13 @@ help:
         autorização. Se existir um grupo de trabalho de recursos, a autorização pertence
         aos administradores desse grupo de trabalho.
 
+
+        ##### Onde aparecem os recursos comunitários?
+
+        Tal como os outros recursos, os recursos comunitários são disponibilizados
+        também nos níveis inferiores e aparecem em todos os subdistritos/grupos. Por
+        isso, não é necessário adicionar um recurso individualmente a cada grupo.
+
         '
     basket:
       title: 'Cabazes alimentares'
@@ -4894,10 +4921,11 @@ help:
 
         ##### Quem vê os meus recursos?
 
-        Os recursos ficam visíveis dentro dos teus distritos e grupos de trabalho.
-        Mas isso não vale para distritos muito grandes, como estados ou províncias,
-        onde não tem um mosaico de recursos disponível. Também podes limitar a visibilidade
-        de cada recurso aos Foodsavers que conheces.
+        Os recursos ficam visíveis nos teus distritos e grupos de trabalho. A exceção
+        são os distritos muito grandes, do tipo país ou estado federado, onde não
+        existe um mosaico de recursos. No entanto, também podes limitar a visibilidade
+        de cada recurso individualmente: às pessoas que conheces ou a determinados
+        distritos/grupos de trabalho.
 
         '
     masterRegion:
@@ -5032,6 +5060,11 @@ help:
         no seu fórum há mais de 6 meses.
 
         '
+    restrict_resource_to_region:
+      title: Limitar recursos localmente
+      md: Os recursos podem ser limitados a um distrito ou grupo de trabalho. 
+        Nesse caso, só serão apresentados no mosaico de recursos dessa unidade e
+        dos respetivos distritos e grupos subordinados.
   helpTitle: 'Ajuda: {title}'
   tooltip: 'Mostrar a ajuda'
 test:

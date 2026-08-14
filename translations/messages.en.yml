@@ -854,7 +854,8 @@ profile:
     cancellation: Frequent late cancellation of appointments without finding a 
       replacement
     doesNotAffectStore: Affects a different company or no company at all
-    sendConfirmationMail: Send me a confirmation email with the content of the report
+    sendConfirmationMail: Send me a confirmation email with the content of the 
+      report
     notes: Notes and decisions
     report_b1_0: Came too late to a pickup (B01-1)
     confirmDelete: Do you really want to delete this report?
@@ -2032,13 +2033,13 @@ email_template:
   report_confirmation:
     subject: Confirmation of your report
     greeting: Hello %NAME%,
-    received: your report about %REPORTED_NAME% has been received and is now
+    received: your report about %REPORTED_NAME% has been received and is now 
       with the %GROUP% of your district.
     reminder: 'As a reminder, this is what you reported:'
     reason: 'Reason: %REASON%'
     message: 'Your message: %MESSAGE%'
-    patience: 'Please be patient: the group works on a voluntary basis and will
-      get back to you if there are any questions.'
+    patience: 'Please be patient: the group works on a voluntary basis and will get
+      back to you if there are any questions.'
     group_report: report group
     group_arbitration: arbitration group
 sidenav:
@@ -3053,8 +3054,11 @@ upload:
   images: Upload images
   image-problem: Your file doesn’t seem to be OK, it’s best to use a normal jpg 
     image
-  invalid_image_files: 'Your browser cannot display these files and therefore cannot upload them: {fileNames}. Photos from iPhones are often in HEIC format. Save them as JPEG and it will work.'
-  too_large: '{fileName} is too large to upload. Please scale the picture down and try again.'
+  invalid_image_files: 'Your browser cannot display these files and therefore cannot
+    upload them: {fileNames}. Photos from iPhones are often in HEIC format. Save them
+    as JPEG and it will work.'
+  too_large: '{fileName} is too large to upload. Please scale the picture down and
+    try again.'
   type_rejected: '{fileName} has a file type we do not accept.'
   failed: '{fileName} could not be uploaded. Please try again.'
   remove_image: Remove image
