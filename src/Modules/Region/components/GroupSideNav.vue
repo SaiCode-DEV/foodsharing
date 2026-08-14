@@ -6,8 +6,6 @@
     <NavGroupsLinkEntry
       :entry="groupMenu"
       :application-count="applicationCount"
-      :is-linking-subpages="false"
-      @change-page="$emit('change-page', $event.valueOf())"
     />
   </container>
 </template>

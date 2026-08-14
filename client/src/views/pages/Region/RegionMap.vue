@@ -49,7 +49,7 @@
         variant="success"
         text-key="region.public.show_on_large_map"
         icon="fas fa-map-marker-alt"
-        :href="largeMapLink"
+        :to="largeMapLink"
       />
     </template>
     <template v-else>

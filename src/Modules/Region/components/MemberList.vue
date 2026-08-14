@@ -278,27 +278,27 @@
           />
         </template>
         <template #cell(id)="row">
-          <a
-            :href="$url('profile', row.item.id)"
+          <router-link
+            :to="$url('profile', row.item.id)"
           >
             {{ row.item.id }}
-          </a>
+          </router-link>
         </template>
         <template #cell(name)="row">
-          <a
-            :href="$url('profile', row.item.id)"
+          <router-link
+            :to="$url('profile', row.item.id)"
             :title="row.item.id"
           >
             {{ row.item.name }}
-          </a>
+          </router-link>
         </template>
         <template #cell(lastName)="row">
-          <a
-            :href="$url('profile', row.item.id)"
+          <router-link
+            :to="$url('profile', row.item.id)"
             :title="row.item.id"
           >
             {{ row.item.lastName }}
-          </a>
+          </router-link>
         </template>
         <template #cell(lastPassDate)="row">
           {{

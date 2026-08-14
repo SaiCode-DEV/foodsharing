@@ -109,6 +109,7 @@ class ForumRestController extends AbstractFoodsharingRestController
     #[OA\Get(summary: 'Returns a forum thread including all posts')]
     #[Route('forum/threads/{threadId}', methods: ['GET'], requirements: ['threadId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: ForumThread::class))]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Thread does not exist')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted to access this thread')]
     public function getThread(int $threadId): Response
     {
@@ -118,7 +119,11 @@ class ForumRestController extends AbstractFoodsharingRestController
             throw new AccessDeniedHttpException('Not permitted to access this thread');
         }
 
-        $thread = $this->forumTransactions->getFullThread($threadId);
+        try {
+            $thread = $this->forumTransactions->getFullThread($threadId);
+        } catch (DatabaseNoValueFoundException) {
+            throw new NotFoundHttpException('Thread not found');
+        }
 
         return $this->respondOK($thread);
     }

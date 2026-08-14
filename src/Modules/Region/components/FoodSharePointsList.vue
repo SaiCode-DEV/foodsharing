@@ -5,7 +5,7 @@
       <b-button
         variant="primary"
         class="float-right"
-        :href="$url('foodsharepointAdd', regionId)"
+        :to="$url('foodsharepointAdd', regionId)"
       >
         {{ foodSharePointPermission ? $t('fsp.add') : $t('fsp.suggest') }}
       </b-button>
@@ -15,15 +15,15 @@
             v-for="foodSharePoint in foodSharePoints"
             :key="foodSharePoint.id"
           >
-            <a
-              :href="$url('foodsharepoint', foodSharePoint.id)"
+            <router-link
+              :to="$url('foodsharepoint', foodSharePoint.id)"
             >
               <img
                 :src="pictureUrl(foodSharePoint)"
                 :alt="$t('picture')"
               >
               <span class="d-inline fsp-name">{{ foodSharePoint.name }}</span>
-            </a>
+            </router-link>
           </li>
         </ul>
       </div>

@@ -1,29 +1,35 @@
 <template>
   <div class="rounded-bottom border pb-2">
-    <router-link
-      v-for="(menu,key) in menuEntries"
-      :key="key"
-      v-slot="{ navigate }"
-      :to="formatLink(menu) || '/'"
-      custom
-    >
+    <template v-for="(menu, key) in menuEntries">
+      <router-link
+        v-if="menu.href"
+        :key="`link-${key}`"
+        :to="formatLink(menu)"
+        role="menuitem"
+        class="dropdown-item dropdown-action"
+      >
+        <i class="icon-subnav fas" :class="menu.icon" />
+        {{ $t(menu.text) }}
+      </router-link>
+      <!-- entries without a target only run a function, e.g. opening the conference popup -->
       <a
-        :href="formatLink(menu)"
+        v-else
+        :key="`action-${key}`"
         role="menuitem"
         class="dropdown-item dropdown-action pointer-always"
-        @click="(e) => { onClick(menu, e); if (formatLink(menu)) navigate(e); }"
+        @click="menu.func()"
       >
         <i class="icon-subnav fas" :class="menu.icon" />
         {{ $t(menu.text) }}
       </a>
-    </router-link>
+    </template>
   </div>
 </template>
 
 <script>
 import ConferenceOpener from '@/mixins/ConferenceOpenerMixin'
 import { useUserStore } from '@/stores/user'
-import { REGION_UNIT_TYPE, SUB_PAGE } from '@/stores/regions'
+import { REGION_UNIT_TYPE } from '@/stores/regions'
 
 export default {
   name: 'NavRegionsLinkEntry',
@@ -33,11 +39,6 @@ export default {
       type: Object,
       default: () => {},
     },
-    /**
-     * If true, links to sub-pages will be actual links that reload the page. If false, links will make this component
-     * emit a 'change-page' event.
-     */
-    isLinkingSubpages: { type: Boolean, required: true },
   },
   setup () {
     const userStore = useUserStore()
@@ -52,14 +53,13 @@ export default {
       return ![REGION_UNIT_TYPE.COUNTRY, REGION_UNIT_TYPE.CONTINENT].includes(this.entry.type)
     },
     menuEntries () {
-      /* An entry that has a subPage property emits a "change-page" event if this is a dropdown menu. This makes the
-      region page change the Vue component without a reload. Otherwise the entry is a link to the href property. */
+      /* Every entry links to its href, except for the ones that only have a func to call. */
       const menu = [
         {
           href: 'publicRegion', icon: 'fa-door-open', text: 'menu.entry.public',
         },
         {
-          href: 'forum', icon: 'fa-comment-alt', text: 'menu.entry.forum', subPage: SUB_PAGE.FORUM,
+          href: 'forum', icon: 'fa-comment-alt', text: 'menu.entry.forum',
         },
         {
           href: 'stores', icon: 'fa-cart-plus', text: 'menu.entry.stores',
@@ -68,41 +68,41 @@ export default {
           href: 'workingGroups', icon: 'fa-users', text: 'terminology.groups',
         },
         {
-          href: 'events', icon: 'fa-calendar-alt', text: 'menu.entry.events', subPage: SUB_PAGE.EVENTS,
+          href: 'events', icon: 'fa-calendar-alt', text: 'menu.entry.events',
         },
         {
-          href: 'foodsharepoints', icon: 'fa-recycle', text: 'terminology.fsp', subPage: SUB_PAGE.FOODSHARINGPOINT,
+          href: 'foodsharepoints', icon: 'fa-recycle', text: 'terminology.fsp',
         },
         {
-          href: 'polls', icon: 'fa-poll-h', text: 'terminology.polls', subPage: SUB_PAGE.POLLS,
+          href: 'polls', icon: 'fa-poll-h', text: 'terminology.polls',
         },
       ]
 
       if (this.showStatisticsAndMembers) {
         menu.push({
-          href: 'members', icon: 'fa-user', text: 'menu.entry.members', subPage: SUB_PAGE.MEMBERS,
+          href: 'members', icon: 'fa-user', text: 'menu.entry.members',
         })
       }
 
       if (this.entry.hasResources) {
         menu.push({
-          href: 'resources', icon: 'fa-shapes', text: 'resource_mosaic.title', subPage: SUB_PAGE.RESOURCES,
+          href: 'resources', icon: 'fa-shapes', text: 'resource_mosaic.title',
         })
       }
 
       menu.push({
-        href: 'options', icon: 'fa-tools', text: 'menu.entry.options', subPage: SUB_PAGE.OPTIONS,
+        href: 'options', icon: 'fa-tools', text: 'menu.entry.options',
       })
 
       if (this.entry.hasAchievements) {
         menu.push({
-          href: 'achievements', icon: 'fa-tags', text: 'terminology.achievements', subPage: SUB_PAGE.ACHIEVEMENTS,
+          href: 'achievements', icon: 'fa-tags', text: 'terminology.achievements',
         })
       }
 
       if (this.showStatisticsAndMembers) {
         menu.push({
-          href: 'statistic', icon: 'fa-chart-bar', text: 'terminology.statistic', subPage: SUB_PAGE.STATISTIC,
+          href: 'statistic', icon: 'fa-chart-bar', text: 'terminology.statistic',
         })
       }
 
@@ -127,7 +127,7 @@ export default {
 
       if (this.entry.isAdmin || this.userStore.isOrga) {
         menu.push({
-          href: 'forum', special: 1, icon: 'fa-comment-dots', text: 'menu.entry.BOTforum', subPage: SUB_PAGE.AMBASSADOR_FORUM,
+          href: 'forum', special: 1, icon: 'fa-comment-dots', text: 'menu.entry.BOTforum',
         })
       }
 
@@ -137,18 +137,7 @@ export default {
   methods: {
     formatLink (menu) {
       const id = menu.linkId ?? this.entry.id
-      // If the entry has no href, we do not want any default link behavior
-      return menu.href ? this.$url(menu.href, id, menu.special) : undefined
-    },
-    onClick (menu, event) {
-      if (menu.func) {
-        menu.func()
-      } else if (menu.subPage && !this.isLinkingSubpages) {
-        // If isLinkingSubpages is false, handle via Vue and prevent the default link behavior
-        this.$emit('change-page', menu.subPage)
-        event.preventDefault()
-      }
-      // Else: If isLinkingSubpages is true, the link has an href attribute and the page will reload
+      return this.$url(menu.href, id, menu.special)
     },
   },
 }

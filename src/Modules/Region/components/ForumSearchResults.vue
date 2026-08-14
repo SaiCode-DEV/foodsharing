@@ -29,11 +29,11 @@
         <i class="fas fa-heading" /> {{ $t('search.forum.found.title') }}
       </h3>
 
-      <a
+      <router-link
         v-for="thread in props.titleThreads"
         :key="'title-group-' + thread.id"
         class="thread-group title-result d-block dropdown-item"
-        :href="$url('forumThread', thread.regionId, thread.id)"
+        :to="$url('forumThread', thread.regionId, thread.id)"
       >
         <div class="thread-header">
           <h6 class="m-0 text-truncate d-inline">
@@ -62,7 +62,7 @@
             </span>
           </small>
         </div>
-      </a>
+      </router-link>
     </div>
 
     <!-- Body results section -->

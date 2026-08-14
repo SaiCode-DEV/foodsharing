@@ -1,6 +1,8 @@
 <template>
   <b-alert show>
-    <a :href="$url('publicRegion', regionId)"><h4>{{ name }}</h4></a>
+    <router-link :to="$url('publicRegion', regionId)">
+      <h4>{{ name }}</h4>
+    </router-link>
     <div class="regionTopClass">
       {{ $t('terminology.n_foodsaver', {count: $n(foodSaverCount, 'text')}) }},
       <span v-if="!isWorkGroup">{{ $t('terminology.n_home_regions', {count: $n(foodSaverHomeDistrictCount, 'text')}) }},</span>

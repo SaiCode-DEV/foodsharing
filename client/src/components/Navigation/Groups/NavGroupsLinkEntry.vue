@@ -1,28 +1,33 @@
 <template>
   <div>
-    <router-link
-      v-for="(menu,key) in menuEntries"
-      :key="key"
-      v-slot="{ navigate }"
-      :to="formatLink(menu) || '/'"
-      custom
-    >
+    <template v-for="(menu, key) in menuEntries">
+      <router-link
+        v-if="menu.href"
+        :key="`link-${key}`"
+        :to="formatLink(menu)"
+        role="menuitem"
+        class="dropdown-item dropdown-action"
+      >
+        <i class="icon-subnav fas" :class="menu.icon" />
+        {{ menu.text }}
+      </router-link>
+      <!-- entries without a target only run a function, e.g. opening the conference popup -->
       <a
-        :href="formatLink(menu)"
+        v-else
+        :key="`action-${key}`"
         role="menuitem"
         class="dropdown-item dropdown-action pointer-always"
-        @click="(e) => { onClick(menu, e); if (formatLink(menu)) navigate(e); }"
+        @click="menu.func()"
       >
         <i class="icon-subnav fas" :class="menu.icon" />
         {{ menu.text }}
       </a>
-    </router-link>
+    </template>
   </div>
 </template>
 
 <script>
 import ConferenceOpener from '@/mixins/ConferenceOpenerMixin'
-import { SUB_PAGE } from '@/stores/regions'
 
 export default {
   name: 'NavGroupsLinkEntry',
@@ -33,37 +38,31 @@ export default {
       default: () => {},
     },
     applicationCount: { type: Number, default: 0 },
-    /**
-     * If true, links to sub-pages will be actual links that reload the page. If false, links will make this component
-     * emit a 'change-page' event.
-     */
-    isLinkingSubpages: { type: Boolean, required: true },
   },
   computed: {
     menuEntries () {
-      /* An entry that has a subPage property emits a "change-page" event if this is a dropdown menu. This makes the
-      region page change the Vue component without a reload. Otherwise the entry is a link to the href property. */
+      /* Every entry links to its href, except for the ones that only have a func to call. */
       const menu = [
         {
-          href: 'wall', icon: 'fa-bullhorn', text: this.$t('menu.entry.wall'), subPage: SUB_PAGE.WALL,
+          href: 'wall', icon: 'fa-bullhorn', text: this.$t('menu.entry.wall'),
         },
         {
-          href: 'forum', icon: 'fa-comment-alt', text: this.$t('menu.entry.forum'), subPage: SUB_PAGE.FORUM,
+          href: 'forum', icon: 'fa-comment-alt', text: this.$t('menu.entry.forum'),
         },
         {
-          href: 'events', icon: 'fa-calendar-alt', text: this.$t('menu.entry.events'), subPage: SUB_PAGE.EVENTS,
+          href: 'events', icon: 'fa-calendar-alt', text: this.$t('menu.entry.events'),
         },
         {
-          href: 'polls', icon: 'fa-poll-h', text: this.$t('terminology.polls'), subPage: SUB_PAGE.POLLS,
+          href: 'polls', icon: 'fa-poll-h', text: this.$t('terminology.polls'),
         },
         {
-          href: 'members', icon: 'fa-user', text: this.$t('menu.entry.members'), subPage: SUB_PAGE.MEMBERS,
+          href: 'members', icon: 'fa-user', text: this.$t('menu.entry.members'),
         },
       ]
 
       if (this.entry.hasResources) {
         menu.push({
-          href: 'resources', icon: 'fa-shapes', text: this.$t('resource_mosaic.title'), subPage: SUB_PAGE.RESOURCES,
+          href: 'resources', icon: 'fa-shapes', text: this.$t('resource_mosaic.title'),
         })
       }
 
@@ -81,19 +80,19 @@ export default {
 
       if (this.entry.isAdmin) {
         menu.push({
-          href: 'workingGroupEdit', icon: 'fa-cog', text: this.$t('menu.entry.workingGroupEdit'), subPage: SUB_PAGE.SETTINGS,
+          href: 'workingGroupEdit', icon: 'fa-cog', text: this.$t('menu.entry.workingGroupEdit'),
         })
       }
 
       if (this.entry.hasAchievements) {
         menu.push({
-          href: 'achievements', icon: 'fa-tags', text: this.$t('terminology.achievements'), subPage: SUB_PAGE.ACHIEVEMENTS,
+          href: 'achievements', icon: 'fa-tags', text: this.$t('terminology.achievements'),
         })
       }
 
       if (this.applicationCount > 0) {
         menu.push({
-          href: 'applications', icon: 'fa-cog', text: this.$t('menu.entry.applications', { count: this.applicationCount }), subPage: SUB_PAGE.APPLICATIONS,
+          href: 'applications', icon: 'fa-cog', text: this.$t('menu.entry.applications', { count: this.applicationCount }),
         })
       }
 
@@ -115,18 +114,7 @@ export default {
   methods: {
     formatLink (menu) {
       const id = menu.linkId ?? this.entry.id
-      // If the entry has no href, we do not want any default link behavior
-      return menu.href ? this.$url(menu.href, id, menu.special) : undefined
-    },
-    onClick (menu, event) {
-      if (menu.func) {
-        menu.func()
-      } else if (menu.subPage && !this.isLinkingSubpages) {
-        // If isLinkingSubpages is false, handle via Vue and prevent the default link behavior
-        this.$emit('change-page', menu.subPage)
-        event.preventDefault()
-      }
-      // Else: If isLinkingSubpages is true, the link has an href attribute and the page will reload
+      return this.$url(menu.href, id, menu.special)
     },
   },
 }

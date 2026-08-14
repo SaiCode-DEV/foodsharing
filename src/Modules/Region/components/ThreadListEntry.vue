@@ -1,6 +1,6 @@
 <template>
   <li :id="`thread-${thread.id}`" class="thread">
-    <a class="ui-corner-all d-flex" :href="threadUrl">
+    <router-link class="ui-corner-all d-flex" :to="threadUrl">
       <Avatar
         class="mr-2"
         :user="thread.latestPost.author"
@@ -33,7 +33,7 @@
           </span>
         </div>
       </div>
-    </a>
+    </router-link>
   </li>
 </template>
 

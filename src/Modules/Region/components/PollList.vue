@@ -16,7 +16,7 @@
           v-if="mayCreatePoll"
           variant="success"
           text-key="polls.new_poll"
-          :href="$url('pollNew', regionId)"
+          :to="$url('pollNew', regionId)"
         />
       </template>
     </Container>

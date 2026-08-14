@@ -21,7 +21,7 @@
       class="dropdown-submenu"
       accordion="groups"
     >
-      <NavGroupsLinkEntry :entry="entry" :is-linking-subpages="true" />
+      <NavGroupsLinkEntry :entry="entry" />
     </b-collapse>
   </div>
 </template>

@@ -80,12 +80,16 @@
           </template>
           <template #cell(user)="row">
             <Avatar :user="row.item.user" />
-            <a :href="$url('profile', row.item.user.id)">{{ row.item.user.name }}</a>
+            <router-link :to="$url('profile', row.item.user.id)">
+              {{ row.item.user.name }}
+            </router-link>
           </template>
           <template #cell(reviewer)="row">
             <div v-if="row.item.reviewer">
               <Avatar :user="row.item.reviewer" />
-              <a :href="$url('profile', row.item.reviewer.id)">{{ row.item.reviewer.name }}</a>
+              <router-link :to="$url('profile', row.item.reviewer.id)">
+                {{ row.item.reviewer.name }}
+              </router-link>
             </div>
             <span v-else v-text="$t('achievements.awardedNoReviewer')" />
           </template>

@@ -1,6 +1,6 @@
 <template>
   <b-list-group-item
-    :href="$url('poll', poll.id)"
+    :to="$url('poll', poll.id)"
     class="d-flex"
   >
     <CalendarDate :date-object="new Date(poll.endDate)" />

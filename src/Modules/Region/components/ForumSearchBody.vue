@@ -1,6 +1,6 @@
 <template>
-  <a
-    :href="$url('forumThread', thread.regionId, thread.id, thread.postId)"
+  <router-link
+    :to="$url('forumThread', thread.regionId, thread.id, thread.postId)"
     class="d-flex dropdown-item search-result px-0"
     tabindex="1"
   >
@@ -13,7 +13,7 @@
       />
       <!-- eslint-enable vue/no-v-html -->
     </div>
-  </a>
+  </router-link>
 </template>
 <script setup>
 import { defineProps, computed } from 'vue'

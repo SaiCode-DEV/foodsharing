@@ -116,7 +116,7 @@ final class RegionController extends FoodsharingController
             'storesFetchedWeight' => round($this->region['stat_fetchweight']),
             'parent_id' => $this->region['parent_id'],
             'allAdmins' => $this->mergeAdmins($region['id'], UnitType::isGroup($region['type'])),
-            'initialActiveSubpage' => $activeSubpage,
+            'activeSubpage' => $activeSubpage,
             'pageData' => $pageData ?? [],
             'menu' => $menu,
             'mayAccessApplications' => $this->mayAccessApplications($region)
@@ -428,21 +428,13 @@ final class RegionController extends FoodsharingController
         $this->pageHelper->addBread($translation, '/groups?sub=edit&id=' . (int)$group['id']);
         $this->pageHelper->addTitle($translation);
 
-        return $this->renderRegionPage($region, $sub);
+        $group['photo'] = $this->fixPhotoPath($group['photo']);
+
+        return $this->renderRegionPage($region, $sub, ['group' => $group]);
     }
 
-    private function renderRegionPage(array $region, string $sub): Response
+    private function renderRegionPage(array $region, string $sub, array $extraParams = []): Response
     {
-        $extraParams = [];
-
-        // The user can switch between subpages in Vue,
-        // so must send need all props data we might need for this region.
-        $group = $this->workGroupGateway->getGroup($region['id']);
-        if ($group && $group['type'] === UnitType::WORKING_GROUP && $this->workGroupPermissions->mayEdit($group)) {
-            $extraParams['group'] = $group;
-            $extraParams['group']['photo'] = $this->fixPhotoPath($group['photo']);
-        }
-
         $params = $this->convertDataToObject($region, $sub, $extraParams);
         $this->pageHelper->addContent($this->prepareVueComponent('region-page', 'RegionPage', $params));
 

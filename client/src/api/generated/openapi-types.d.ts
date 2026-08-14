@@ -11003,6 +11003,13 @@ export interface operations {
                 };
                 content?: never;
             };
+            /** @description Thread does not exist */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
         };
     };
     delete_foodsharing_restapi_forumrest_deletethread: {

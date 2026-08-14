@@ -3,8 +3,9 @@ import { foodsharing } from "../helpers/foodsharing";
 
 // The router fetches each page with X-Content-Only and injects the response instead of
 // loading a document. If that fetch fails it has to fall back to a full page load,
-// otherwise the user is left looking at the previous page with a new URL. Only the logo
-// uses :to so far, so it is the one link that goes through the router.
+// otherwise the user is left looking at the previous page with a new URL. Links that
+// were migrated to <router-link>/<FsLink>/:to go through the router, everything still
+// using a plain href (external targets, mailto:, tel:) keeps loading a document.
 test.describe("Client side navigation", () => {
   const markPage = (page) =>
     page.evaluate(() => {
@@ -25,6 +26,29 @@ test.describe("Client side navigation", () => {
     await page.locator(".foodsharing a").click();
 
     await expect(page).toHaveURL(/\/dashboard/);
+    expect(await stillSameDocument(page)).toBe(true);
+  });
+
+  test("opens a forum thread without reloading the document", async ({
+    page,
+    acceptanceHelper,
+  }) => {
+    const region = await foodsharing.createRegion();
+    const user = await foodsharing.createFoodsaver(null, {
+      bezirk_id: region.id,
+    });
+    await foodsharing.addRegionMember(region.id, user.id);
+    const thread = await foodsharing.seedForumThread(region.id, user.id);
+    await acceptanceHelper.login(user.email);
+    await page.goto(`/region?bid=${region.id}&sub=forum`);
+    await acceptanceHelper.waitForPageBody();
+    await markPage(page);
+
+    await page.locator(".forum_threads a").first().click();
+
+    await expect(page).toHaveURL(
+      new RegExp(`/region\\?bid=${region.id}&sub=forum&tid=${thread.id}`),
+    );
     expect(await stillSameDocument(page)).toBe(true);
   });
 

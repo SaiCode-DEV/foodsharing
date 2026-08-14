@@ -38,7 +38,9 @@
           </b-badge>
         </li>
         <li class="poll-region">
-          <b>{{ $t(isWorkGroup ? 'terminology.group' : 'terminology.region') }}:</b> <a :href="$url('polls', regionId)">{{ regionName }}</a>
+          <b>{{ $t(isWorkGroup ? 'terminology.group' : 'terminology.region') }}:</b> <router-link :to="$url('polls', regionId)">
+            {{ regionName }}
+          </router-link>
         </li>
         <li class="poll-scope">
           <b>{{ $t('poll.allowed_voters') }}:</b> {{ $t('poll.scope_description_'+poll.scope) }}
@@ -58,7 +60,7 @@
       </ul>
       <div v-if="mayEdit">
         <b-link
-          :href="$url('pollEdit', poll.id)"
+          :to="$url('pollEdit', poll.id)"
           class="btn btn-sm btn-primary mb-3"
         >
           {{ $t('poll.edit.title') }}

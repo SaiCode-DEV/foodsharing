@@ -478,7 +478,10 @@ export default {
         this.computeEditRemaining()
         this.isLoading = false
       } catch (err) {
-        if (!isDeleteAction) {
+        if (err.code === HTTP_RESPONSE.NOT_FOUND || err.code === HTTP_RESPONSE.FORBIDDEN) {
+          // The thread does not exist or deleted -> reload so PHP route can redirect to the forum overview
+          window.location.reload()
+        } else if (!isDeleteAction) {
           this.isLoading = false
           this.errorMessage = err.message
         } else {

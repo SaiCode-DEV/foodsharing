@@ -18,7 +18,7 @@ export function listThreads (regionId, subforumId, offset = 0) {
 }
 
 export function getThread (threadId) {
-  return get(`/forum/threads/${threadId}`)
+  return get(`/forum/threads/${threadId}`, { skipErrorNotificationFor: [HTTP_RESPONSE.NOT_FOUND, HTTP_RESPONSE.FORBIDDEN] })
 }
 
 export function createThread (regionId, subforumId, title, body, sendMail = false) {

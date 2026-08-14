@@ -17,9 +17,9 @@
             v-b-tooltip="$t('thread.post.linked_post')"
             class="fas fa-link mr-1"
           />
-          <a :href="$url('profile', post.author.id)">
+          <router-link :to="$url('profile', post.author.id)">
             <strong class="author">{{ post.author.name }}</strong>
-          </a><!--
+          </router-link><!--
        --><template v-if="post.hidden">:
             <Markdown
               class="d-inline-block"
@@ -103,7 +103,9 @@
       <ul>
         <li>
           {{ $t('forum.restore.hidden_by') }}
-          <a :href="$url('profile', post.hidden.moderator.id)" v-text="post.hidden.moderator.name" />
+          <router-link :to="$url('profile', post.hidden.moderator.id)">
+            {{ post.hidden.moderator.name }}
+          </router-link>
         </li>
         <li v-text="$t('forum.restore.reason', { reason: post.hidden.reason })" />
         <li>

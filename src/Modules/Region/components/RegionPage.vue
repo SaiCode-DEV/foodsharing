@@ -23,14 +23,11 @@
           v-if="!isWorkGroup"
           :is-work-group="isWorkGroup"
           :region-menu="menu"
-          :is-linking-subpages="false"
-          @change-page="changeSubPage"
         />
         <GroupSideNav
           v-else
           :applications="applications"
           :group-menu="menu"
-          @change-page="changeSubPage"
         />
         <div
           v-for="(allAdminData, index) in allAdminsData"
@@ -84,10 +81,6 @@
           :group-id="regionId"
           :region-name="name"
           :region-id="regionId"
-          :user-id="pageData.userId"
-          :may-set-admin-or-ambassador="pageData.maySetAdminOrAmbassador"
-          :may-remove-admin-or-ambassador="pageData.mayRemoveAdminOrAmbassador"
-          :may-edit-members="pageData.mayEditMembers"
           :is-work-group="isWorkGroup"
         />
         <Options
@@ -192,7 +185,7 @@ export default {
     storesCooperationCount: { type: Number, required: true },
     storesPickupsCount: { type: Number, required: true },
     storesFetchedWeight: { type: Number, required: true },
-    initialActiveSubpage: { type: String, required: true },
+    activeSubpage: { type: String, required: true },
     allAdmins: { type: Object, required: true },
     pageData: { type: [Array, Object], default: () => {} },
     menu: { type: Object, required: true },
@@ -220,7 +213,6 @@ export default {
       loading: true,
       applications: [],
       regionMenu: null,
-      activeSubpage: this.initialActiveSubpage,
       forumThreadId: Number(GET('tid')) ?? null,
       showNewThreadForm: Number(GET('newthread')) === 1,
     }
@@ -239,25 +231,6 @@ export default {
       this.applications = await getApplications(this.regionId)
     }
     this.regionMenu = await regionStore.fetchRegionMenu(this.regionId)
-  },
-  methods: {
-    changeSubPage (subPage) {
-      if (subPage) {
-        this.activeSubpage = subPage
-
-        // Adjust the page's URL
-        const url = new URL(location)
-        url.searchParams.set('sub', subPage)
-
-        // Reset parameters of the forum so that going back to the forum will show the thread list
-        url.searchParams.delete('tid')
-        this.forumThreadId = null
-        url.searchParams.delete('newthread')
-        this.showNewThreadForm = false
-
-        history.pushState({}, '', url)
-      }
-    },
   },
 }
 </script>

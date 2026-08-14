@@ -7,14 +7,14 @@
     @show-full-list="showFullList"
     @reduce-list="reduceList"
   >
-    <a
+    <router-link
       v-for="child in filteredList"
       :key="child.id"
       class="list-group-item dropdown-item dropdown-action"
-      :href="$url('publicRegion', child.id)"
+      :to="$url('publicRegion', child.id)"
     >
-      <a :href="$url('publicRegion', child.id)" v-text="child.name" />
-    </a>
+      {{ child.name }}
+    </router-link>
   </Container>
 </template>
 <script>

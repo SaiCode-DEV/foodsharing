@@ -37,7 +37,7 @@
             block
             variant="primary"
             class="btn-sm"
-            :href="$url('forum', groupId, subforumId, null, null, true)"
+            :to="$url('forum', groupId, subforumId, null, null, true)"
           >
             {{ $t('forum.new_thread') }}
           </b-button>

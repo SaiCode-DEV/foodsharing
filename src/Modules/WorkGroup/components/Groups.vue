@@ -78,12 +78,13 @@
             <div class="align-items-center d-flex">
               <div class="flex-grow-1" :class="{ archived: group.categoryId === GROUP_CATEGORY.ARCHIVED.id}">
                 <i class="fas mr-1" :class="groupIcon(group.categoryId)" />
-                <a
+                <router-link
                   v-if="group.mayAccess"
-                  :href="$url('workingGroup', group.id)"
-                  @click.stop
-                  v-text="group.name"
-                />
+                  :to="$url('workingGroup', group.id)"
+                  @click.native.stop
+                >
+                  {{ group.name }}
+                </router-link>
                 <b v-else v-text="group.name" />
                 <br>
                 <small class="text-muted group-meta-data">
@@ -174,7 +175,14 @@
             </div>
 
             <div v-if="group.subGroups.length" class="mt-2">
-              <h5><a :href="subgroupLink(group)" v-text="$t('group.subgroups')" /></h5>
+              <h5>
+                <router-link v-if="group.mayAccess" :to="subgroupLink(group)">
+                  {{ $t('group.subgroups') }}
+                </router-link>
+                <template v-else>
+                  {{ $t('group.subgroups') }}
+                </template>
+              </h5>
               <ul>
                 <li v-for="subGroup in group.subGroups" :key="subGroup.id">
                   <b v-text="subGroup.name" />
@@ -219,7 +227,7 @@
               <b-button
                 v-if="group.mayAccess"
                 variant="primary"
-                :href="$url('workingGroup', group.id)"
+                :to="$url('workingGroup', group.id)"
               >
                 <i class="fas fa-arrow-right-to-bracket mr-1" />
                 {{ $t('group.actions.go') }}

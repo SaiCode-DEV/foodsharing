@@ -105,12 +105,12 @@
           caption-top
         >
           <template #cell(storeName)="row">
-            <a
-              :href="$url('store', row.item.id)"
+            <router-link
+              :to="$url('store', row.item.id)"
               class="ui-corner-all"
             >
               {{ row.item.name }}
-            </a>
+            </router-link>
           </template>
         </b-table>
         <span v-else v-text="$t('regionOptions.noPickupRuleActiveStores')" />
