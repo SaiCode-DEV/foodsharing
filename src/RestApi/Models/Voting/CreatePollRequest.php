@@ -16,10 +16,10 @@ class CreatePollRequest
     #[Assert\NotBlank]
     public string $description;
 
-    #[OA\Property(description: 'Date and time at which voting starts', type: 'datetime', example: '2105-01-01 01:23:45')]
+    #[OA\Property(description: 'Date and time at which voting starts', example: '2105-01-01 01:23:45')]
     public DateTime $startDate;
 
-    #[OA\Property(description: 'Date and time at which voting ends', type: 'datetime', example: '2152-01-01 12:34:56')]
+    #[OA\Property(description: 'Date and time at which voting ends', example: '2152-01-01 12:34:56')]
     public DateTime $endDate;
 
     #[OA\Property(description: 'Region to which the poll belongs', type: 'integer', example: 1)]
@@ -34,7 +34,11 @@ class CreatePollRequest
     #[Assert\Range(min: 0, max: 3)]
     public int $type;
 
-    #[OA\Property(description: 'All options that can be voted for', type: 'array<string>')]
+    #[OA\Property(
+        description: 'All options that can be voted for',
+        type: 'array',
+        items: new OA\Items(type: 'string')
+    )]
     #[Assert\All(new Assert\NotBlank())]
     public array $options;
 

@@ -25,7 +25,8 @@ class EditPollRequest
 
     #[OA\Property(
         description: 'A new list of options for the poll, or null if the options should not be changed',
-        type: 'array<string>'
+        type: 'array',
+        items: new OA\Items(type: 'string')
     )]
     #[Assert\Count(min: 1)]
     #[Assert\All(new Assert\NotBlank())]

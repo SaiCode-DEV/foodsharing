@@ -100,8 +100,8 @@ class StatisticsRestController extends AbstractFoodsharingRestController
     #[OA\Response(
         response: Response::HTTP_OK,
         description: 'Successful',
-        content: new OA\JsonContent(type: RegionPickupStatistics::class)
-    )]
+        content: new Model(type: RegionPickupStatistics::class))
+    ]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Region does not exist')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Pick-up statistics are currently not available for countries')]
     public function listRegionPickupsStatistics(int $regionId): Response

@@ -4289,7 +4289,7 @@ export interface components {
             city?: string;
             location?: components["schemas"]["GeoLocation"];
             /** @description IDs of all users who are responsible for the food share point */
-            managerIds?: Record<string, never>[];
+            managerIds?: number[];
         };
         /** @description Data for creating a new forum thread */
         CreateThreadData: {
@@ -4517,7 +4517,7 @@ export interface components {
              * @description User identifiers of the regions admins / ambassadors
              * @default []
              */
-            adminIds: Record<string, never>[];
+            adminIds: number[];
             /**
              * @description Region identifier of the parent region
              * @default 0
@@ -4927,15 +4927,17 @@ export interface components {
              */
             description: string;
             /**
+             * Format: date-time
              * @description Date and time at which voting starts
              * @example 2105-01-01 01:23:45
              */
-            startDate?: Record<string, never>;
+            startDate?: string;
             /**
+             * Format: date-time
              * @description Date and time at which voting ends
              * @example 2152-01-01 12:34:56
              */
-            endDate?: Record<string, never>;
+            endDate?: string;
             /**
              * @description Region to which the poll belongs
              * @example 1
@@ -4952,7 +4954,7 @@ export interface components {
              */
             type?: number;
             /** @description All options that can be voted for */
-            options?: Record<string, never>;
+            options?: string[];
             /** @description If all users who are eligible to vote shall be noticed by email */
             notifyVoters?: boolean;
             /**
@@ -4973,7 +4975,7 @@ export interface components {
              */
             description?: string;
             /** @description A new list of options for the poll, or null if the options should not be changed */
-            options?: Record<string, never>;
+            options?: string[];
             /**
              * @description Whether the options should be shuffled for voters.
              * @default false
@@ -6280,6 +6282,29 @@ export interface components {
             /** @description number of persons in the age group */
             numberOfAgeBand?: number;
         };
+        /** @description Include the pickup statistics list of a region for all possible date formats */
+        RegionPickupStatistics: {
+            /**
+             * @description Pickup statistics per day
+             * @default []
+             */
+            daily: components["schemas"]["RegionPickupsPerDate"][];
+            /**
+             * @description Pickup statistics per week
+             * @default []
+             */
+            weekly: components["schemas"]["RegionPickupsPerDate"][];
+            /**
+             * @description Pickup statistics per month
+             * @default []
+             */
+            monthly: components["schemas"]["RegionPickupsPerDate"][];
+            /**
+             * @description Pickup statistics per year
+             * @default []
+             */
+            yearly: components["schemas"]["RegionPickupsPerDate"][];
+        };
         /** @description Includes general statistical information and activity ladder of regions and foodsavers */
         StatisticModel: {
             generalStatistic?: components["schemas"]["GeneralStatistic"];
@@ -7455,6 +7480,19 @@ export interface components {
         };
         /** @enum {integer} */
         Role: 0 | 1 | 2 | 3 | 4 | 5;
+        /** @description Represents one entry in the pickup statistics list of a region */
+        RegionPickupsPerDate: {
+            /** @description The date range */
+            date?: string;
+            /** @description Number of stores in which was picked up */
+            numberOfStores?: number;
+            /** @description Number of times anything was picked up in any of the stores */
+            numberOfPickups?: number;
+            /** @description Number of slots in all the pickups combined */
+            numberOfSlots?: number;
+            /** @description Number of users who were involved in the pickups */
+            numberOfFoodsavers?: number;
+        };
         /** @description Represents the overall statistics */
         GeneralStatistic: {
             /**
@@ -16675,7 +16713,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": Record<string, never>;
+                    "application/json": components["schemas"]["RegionPickupStatistics"];
                 };
             };
             /** @description Pick-up statistics are currently not available for countries */

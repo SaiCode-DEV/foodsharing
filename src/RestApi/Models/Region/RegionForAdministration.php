@@ -20,7 +20,7 @@ class RegionForAdministration
     public int $type = 0;
 
     #[OA\Property(type: 'array', description: 'User identifiers of the regions admins / ambassadors',
-        items: new OA\Items(type: 'int', example: 1))]
+        items: new OA\Items(type: 'integer', example: 1))]
     #[Type('array<int>')]
     public array $adminIds = [];
 

@@ -14,7 +14,7 @@ class FoodSharePointEditData extends FoodSharePointForCreation
     #[OA\Property(
         description: 'IDs of all users who are responsible for the food share point',
         type: 'array',
-        items: new OA\Items(type: 'int', example: 1))
+        items: new OA\Items(type: 'integer', example: 1))
     ]
     #[Assert\Count(min: 1)]
     #[Assert\All(new Assert\Positive())]
