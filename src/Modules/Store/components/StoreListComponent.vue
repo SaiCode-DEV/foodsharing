@@ -337,8 +337,3 @@ export default {
   },
 }
 </script>
-<style>
-  .one-line-button {
-    min-width: fit-content;
-  }
-</style>

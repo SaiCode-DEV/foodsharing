@@ -95,11 +95,7 @@ defineExpose({
 })
 </script>
 
-<style>
-.basketpicture {
-  width: 100%;
-  overflow: hidden;
-}
+<style scoped>
 .section-label {
   color: var(--fs-color-primary-500);
   font-weight: 500;

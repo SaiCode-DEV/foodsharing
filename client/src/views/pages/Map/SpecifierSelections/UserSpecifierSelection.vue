@@ -44,3 +44,20 @@ const props = defineProps({
 })
 
 </script>
+<style lang="scss" scoped>
+.map-legend-font-size {
+  font-size: 0.7rem;
+}
+
+.map-legend-selection {
+  padding: 0.5rem 0.25rem 0 0.25rem;
+
+  ::v-deep .form-row {
+    margin-bottom: 0.25rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+</style>

@@ -84,3 +84,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.one-line-button {
+  min-width: fit-content;
+}
+</style>

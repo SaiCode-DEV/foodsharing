@@ -220,21 +220,3 @@ export default {
   }
 }
 </style>
-
-<style lang="scss">
-.map-legend-font-size {
-  font-size: 0.7rem;
-}
-
-.map-legend-selection {
-  padding: 0.5rem 0.25rem 0 0.25rem;
-
-  .form-row {
-    margin-bottom: 0.25rem;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-}
-</style>

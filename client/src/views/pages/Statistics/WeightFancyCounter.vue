@@ -150,7 +150,7 @@ watch(() => props.number, () => {
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 #saved-container {
   position: relative;
   display: flex;

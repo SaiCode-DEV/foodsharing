@@ -461,7 +461,7 @@ async function handleSubmit () {
 }
 </script>
 
-<style>
+<style scoped>
 .invalid-feedback {
   display: block;
   margin-top: 0.25rem;

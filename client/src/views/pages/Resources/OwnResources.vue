@@ -74,7 +74,7 @@ const resources = computed(() => resourceStore.resources)
 const hasMaxResources = computed(() => resources?.value?.length >= MAX_OWN_RESOURCES.value)
 
 </script>
-<style>
+<style scoped>
 .add-resource-btn {
   height: 1.8em;
   border-radius: 1em;
