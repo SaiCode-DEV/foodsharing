@@ -4180,7 +4180,7 @@ net_errors:
   NOT_FOUND: ''
   ERR_BAD_RESPONSE: ''
   TOO_MANY_REQUESTS: ''
-totp_code: ''
+totp_code: '请输入生成的双因素验证码或备份验证码。'
 automatic_not_delete: ''
 debug:
   title: ''

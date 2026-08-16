@@ -3143,6 +3143,7 @@ terminology:
   giving: Entrega
   attention: Atenção
   newsletter: newsletter
+  timezone: Fuso horário
 timepicker:
   labelCloseButton: 'Fechar'
   labelMinutes: 'minutos'
@@ -3577,6 +3578,7 @@ region:
     working_group: Grupo de trabajo
     big_city: Grande cidade (sem possibilidade de inscrição)
     part_of_town: Bairro
+    continent: Continente
   edit: 'Editar distrito'
   cancel: 'Não, afinal não'
   still_contains_elements: 'O distrito não pode ser excluido porque ainda contém sub-regiões,
@@ -3673,6 +3675,7 @@ region:
     és membro de pelo menos um local nesse distrito.
   conflict_store_member_or_manager_other: Não é possível remover essa pessoa do 
     distrito, pois ela ainda é membro de pelo menos um local.
+  inherit_timezone: Assume o fuso horário do distrito-pai
 upload:
   new_image: 'Carregar novo imagem'
   no_image: 'O ficheiro carregado não é uma fotografia. Por favor, selecionar outro
@@ -5065,6 +5068,12 @@ help:
       md: Os recursos podem ser limitados a um distrito ou grupo de trabalho. 
         Nesse caso, só serão apresentados no mosaico de recursos dessa unidade e
         dos respetivos distritos e grupos subordinados.
+    regionAdminTimezone:
+      title: Fuso horário dos distritos
+      md: |
+        A cada distrito pode ser atribuída uma zona horária. Se um distrito não tiver uma zona horária, assume a do distrito-pai. Se os distritos-pai também não tiverem nenhuma, é utilizada a zona horária predefinida «Europa/Berlim».
+
+        Aqui, só deves selecionar explicitamente uma zona horária se esta for diferente da predefinida.
   helpTitle: 'Ajuda: {title}'
   tooltip: 'Mostrar a ajuda'
 test:

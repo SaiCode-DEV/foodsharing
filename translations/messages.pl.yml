@@ -1314,6 +1314,7 @@ terminology:
   basket: 'Jadłokoszyk'
   attention: Uwaga
   newsletter: Newsletter
+  timezone: Strefa czasowa
 resource_mosaic:
   privacy_notice:
     ok: Zgadzam się
@@ -4225,8 +4226,15 @@ help:
         - **Aktywne jadłodzielnie** są to jadłodzielnie w danym momencie oznaczone jako aktywne w rejonie (albo w jednym z rejonów podrzędnych).
         - **Rozdane jadłokoszyki** podaje, jak często w ciągu ostatnich 30 dni foodsaverzy/ki w rejonie (albo w jednym z rejonów podrzędnych) przekazywali/ły żywność poprzez funkcję *"jadłokoszyk"* na platformie. Często przekazuje się dalej bardzo dużą część żywności bez tego wsparcia technicznego. Niska wartość nie oznacza tutaj, że rozdaje się mało produktów żywnościowych.
     restrict_resource_to_region:
-      title: ''
-      md: ''
+      title: 'Ogranicz zasoby lokalnie'
+      md: 'Można ograniczać zasoby do rejonu lub zespołu. W takim przypadku będą one
+        wyświetlane tylko w mozaice zasobów tej jednostki oraz jej podrejonach i podzespołach.'
+    regionAdminTimezone:
+      title: Strefa czasowa rejonów
+      md: |
+        Każdemu rejonowi można przyporządkować strefę czasową. Jeśli rejon nie ma strefy czasowej, przejmuje ją od rejonu nadrzędnego. Jeśli także rejony nadrzędne nie mają strefy czasowej, używana jest standardowa strefa czasowa "Europa/Berlin".
+
+        Tutaj powinno się wybierać strefę czasową tylko wtedy, jeśli różni się ona od standardu.
   helpTitle: 'Pomoc: {title}'
   tooltip: 'Pokaż pomoc'
 email_template:
@@ -4673,6 +4681,7 @@ region:
     country: 'Państwo'
     federal_state: 'Województwo'
     part_of_town: 'Dzielnica'
+    continent: Kontynent
   forum-redirect: 'Nie ma tablicy dla rejonów. Zostałeś/aś przekierowany/a do forum.'
   name: 'Nazwa'
   confirm:
@@ -4717,6 +4726,7 @@ region:
     jest ona tam jeszcze członkiem przynajmniej jednego punktu.'
   conflict_store_member_or_manager_self: 'Nie możesz opuścić tego rejonu, bo jesteś
     tam jeszcze członkiem przynajmniej jednego punktu.'
+  inherit_timezone: Przejmuje strefę czasową rejonu nadrzędnego
 chain:
   new: 'Utwórz nową sieć'
   error:
