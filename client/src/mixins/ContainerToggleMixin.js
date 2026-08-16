@@ -40,7 +40,11 @@ export default {
     },
     setList (list) {
       this.list = list
-      this.isReduced ? this.reduceList() : this.showFullList()
+      if (this.isReduced) {
+        this.reduceList()
+      } else {
+        this.showFullList()
+      }
     },
   },
 }

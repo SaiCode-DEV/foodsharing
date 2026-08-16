@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const mkdirp = require('mkdirp')
 const { merge } = require('webpack-merge')
 const webpackBase = require('./webpack.base')

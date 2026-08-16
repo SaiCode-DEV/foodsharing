@@ -127,7 +127,6 @@ export default {
       this.$emit('read', this.bell)
 
       if (this.isTranslationFailed) {
-        // eslint-disable-next-line vue/custom-event-name-casing
         this.$root.$emit('bv::show::modal', this.translationFailedModalId)
       } else {
         if (this.bell.href) {

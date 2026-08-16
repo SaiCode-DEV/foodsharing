@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const path = require('path')
 const clientRoot = path.resolve(__dirname)
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')

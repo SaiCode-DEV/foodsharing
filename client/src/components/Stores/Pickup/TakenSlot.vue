@@ -275,7 +275,11 @@ export default {
       this.$refs.takenSlotModal.hide()
     },
     removeFromSlot () {
-      this.isMe ? this.leaveFromSlot() : this.kickFromSlot()
+      if (this.isMe) {
+        this.leaveFromSlot()
+      } else {
+        this.kickFromSlot()
+      }
     },
     kickFromSlot () {
       if (this.allowKick) {

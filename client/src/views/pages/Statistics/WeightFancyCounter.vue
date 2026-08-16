@@ -124,7 +124,7 @@ const resetAnimation = () => {
       track.style.transition = 'none'
       updateTrackStyles(track, getTrackHeight(index), 0)
 
-      track.offsetHeight // eslint-disable-line no-unused-expressions
+      track.offsetHeight // eslint-disable-line @typescript-eslint/no-unused-expressions
 
       requestAnimationFrame(() => {
         track.style.transition = 'transform 5000ms cubic-bezier(.1,.67,0,1)'

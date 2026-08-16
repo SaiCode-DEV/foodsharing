@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 import { mkdirp } from "mkdirp";
 import { serialize } from "php-serialize";
 import { isValidPhoneNumber } from "libphonenumber-js";
+import crypto from "node:crypto";
 
 // Import enums from separate files
 import Role from "./constants/Foodsaver/Role";
@@ -1912,7 +1913,6 @@ class Foodsharing {
   }
 
   private async hashFile(algorithm: string, filePath: string): Promise<string> {
-    const crypto = require("crypto");
     const fileBuffer = await fs.promises.readFile(filePath);
     const hashSum = crypto.createHash(algorithm);
     hashSum.update(fileBuffer);

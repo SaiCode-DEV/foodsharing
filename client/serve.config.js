@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const webpackConfig = require('./webpack.config')
 
 const host = process.env.HOST || 'localhost'

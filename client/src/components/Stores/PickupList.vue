@@ -119,6 +119,7 @@ import { sendMessage } from '@/api/conversations'
 import { useUserStore } from '@/stores/user'
 import { pulseError, pulseSuccess } from '@/script'
 import { usePickupStore } from '@/stores/pickups'
+import { STORE_CATEGORY_PICKUP } from '@/constants/storeCategoryTypes'
 
 export default {
   components: { Pickup, AddPickupModal, DeletePickupModal, Container },
@@ -150,7 +151,7 @@ export default {
     },
     categoryType: {
       type: Number,
-      default: () => require('@/constants/storeCategoryTypes').STORE_CATEGORY_PICKUP,
+      default: () => STORE_CATEGORY_PICKUP,
     },
   },
   setup () {
