@@ -1089,6 +1089,8 @@ date:
   Today: 'hoje'
   sunday: 'Domingo'
   -- Yesterday: 'Ontem'
+  local_time: Hora local
+  your_time: ({time} na tua hora local)
 login:
   pwreset:
     error: 'Desculpe, há um problema com os teus dados.'

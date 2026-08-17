@@ -3787,6 +3787,13 @@ help:
         Jeśli istnieje zespół zasobów, uprawnienia przechodzą na administratorów/ki
         tego zespołu.
 
+
+        ##### Gdzie pojawiają się zasoby społeczności?
+
+        Tak jak inne zasoby, zasoby społeczności są przekazywane w dół, czyli pojawiają
+        się też we wszystkich podrejonach/podzespołach. Nie trzeba więc wprowadzać
+        zasobu oddzielnie w każdym zespole.
+
         '
     basket:
       title: 'Jadłokoszyki'
