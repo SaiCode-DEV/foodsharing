@@ -10,7 +10,16 @@
           :class="{'today': isToday, 'past': isInPast, 'soon': isSoon, 'empty': emptySlots > 0, 'coord': (isCoordinator || mayEditStore)}"
         >
           <span
-            v-text="$dateFormatter.dateTime(date)"
+            v-text="$dateFormatter.dateTime(date, { timeZone: timezone })"
+          />
+          <span
+            v-if="viewerTimeHint"
+            v-text="$t('date.local_time')"
+          />
+          <span
+            v-if="viewerTimeHint"
+            class="viewer-time-hint text-muted small"
+            v-text="viewerTimeHint"
           />
 
           <b-dropdown
@@ -177,7 +186,7 @@
 
     <b-modal
       ref="modal_leave"
-      :title="$t('pickup.really_leave_date_title', { date: $dateFormatter.dateTime(date) })"
+      :title="$t('pickup.really_leave_date_title', { date: $dateFormatter.dateTime(date, { timeZone: timezone }) })"
       :cancel-title="$t('pickup.leave_pickup_message_team')"
       :ok-title="$t('pickup.leave_pickup_ok')"
       :hide-header-close="true"
@@ -288,6 +297,7 @@ import { useStoreStore } from '@/stores/store'
 
 import TakenSlot from '@/components/Stores/Pickup/TakenSlot.vue'
 import EmptySlot from '@/components/Stores/Pickup/EmptySlot.vue'
+import { DEFAULT_TIME_ZONE } from '@/helper/date-formatter'
 
 export default {
   components: { EmptySlot, TakenSlot, BFormTextarea, BModal },
@@ -295,6 +305,7 @@ export default {
   props: {
     storeId: { type: Number, required: true },
     storeTitle: { type: String, default: '' },
+    timezone: { type: String, default: DEFAULT_TIME_ZONE },
     date: { type: Date, required: true },
     showRelativeDate: { type: Boolean, default: false },
     isAvailable: { type: Boolean, default: false },
@@ -326,7 +337,7 @@ export default {
       loadedPickupRule: false,
       okVariant: 'success',
       // cannot use slotDate here since it's computed and needs to avoid circular data references:
-      teamMessage: this.$t('pickup.leave_team_message_template', { date: this.$dateFormatter.dateTime(this.date) }),
+      teamMessage: this.$t('pickup.leave_team_message_template', { date: this.$dateFormatter.dateTime(this.date, { timeZone: this.timezone }) }),
       kickMessage: '',
       newDescription: this.description,
     }
@@ -334,12 +345,12 @@ export default {
   computed: {
     slotDate () {
       return {
-        date: this.$dateFormatter.dateTime(this.date),
+        date: this.$dateFormatter.dateTime(this.date, { timeZone: this.timezone }),
       }
     },
     slotInfo () {
       return {
-        date: this.$dateFormatter.dateTime(this.date),
+        date: this.$dateFormatter.dateTime(this.date, { timeZone: this.timezone }),
         storeName: this.storeTitle,
         name: this.activeSlot.profile.name,
       }
@@ -362,7 +373,12 @@ export default {
       return this.$dateFormatter.getDifferenceToNowInDays(this.date) <= 3
     },
     isToday () {
-      return this.$dateFormatter.isToday(this.date)
+      return this.$dateFormatter.isToday(this.date, { timeZone: this.timezone })
+    },
+    viewerTimeHint () {
+      // shown only for viewers whose own timezone reads a different time (#2762)
+      const viewerTime = this.$dateFormatter.viewerTime(this.date, { timeZone: this.timezone })
+      return viewerTime ? this.$t('date.your_time', { time: viewerTime }) : null
     },
     emptySlots () {
       return Math.max(this.totalSlots - this.occupiedSlots.length, 0)
@@ -493,6 +509,11 @@ export default {
   &.coord.past::after {
     content: "" !important;
   }
+}
+
+// own line, otherwise the hint runs under the absolutely positioned options menu
+.viewer-time-hint {
+  display: block;
 }
 
 .pickup-block:not(:last-of-type) {

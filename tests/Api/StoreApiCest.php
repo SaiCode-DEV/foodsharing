@@ -228,6 +228,25 @@ class StoreApiCest
         $I->seeResponseMatchesJsonType($storeType);
     }
 
+    public function storeDetailsCarryTheRegionTimezone(ApiTester $I): void
+    {
+        // #2762: clients render pickup times in the timezone of the store's region,
+        // resolved through the region tree with Europe/Berlin as the default.
+        $orga = $I->createOrga();
+        $I->login($orga[self::EMAIL]);
+
+        $I->sendGET(self::API_STORES . '/' . $this->store['id'] . '/details');
+        $I->seeResponseCodeIs(Http::OK);
+        $I->seeResponseContainsJson(['timezone' => 'Europe/Berlin']);
+
+        $latvia = $I->createRegion(null, ['timezone' => 'Europe/Riga']);
+        $riga = $I->createRegion(null, ['parent_id' => $latvia['id']]);
+        $rigaStore = $I->createStore($riga['id']);
+        $I->sendGET(self::API_STORES . '/' . $rigaStore['id'] . '/details');
+        $I->seeResponseCodeIs(Http::OK);
+        $I->seeResponseContainsJson(['timezone' => 'Europe/Riga']);
+    }
+
     public function canNotGetAccessToCommonStoreMetadataAsUnknownUser(ApiTester $I): void
     {
         $I->sendGET(self::API_STORES . '/meta-data');

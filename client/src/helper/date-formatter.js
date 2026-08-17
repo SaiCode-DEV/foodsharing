@@ -31,6 +31,56 @@ SUPPORTED_RTF_LOCALES.forEach((l) => RelativeTimeFormat.addLocale(l))
 
 const locale = serverData.locale
 
+// Event-bound times (pickups, events) belong to the place they happen at: those call
+// sites pass the region's timezone via the `timeZone` option (#2762, e.g. from the store
+// API response). History timestamps (chats, forums, bells) render in the viewer's own
+// timezone, like any messaging product, so display functions default to the browser
+// timezone. German time is the platform default for event-bound surfaces without an own
+// region timezone.
+export const DEFAULT_TIME_ZONE = 'Europe/Berlin'
+
+// Y-M-D of a date as seen in the given timezone, for same-day / same-year checks that
+// don't flip near midnight depending on the browser's timezone. en-CA is picked because
+// it formats as Y-M-D; the result is a comparison key and never shown to anyone.
+function datePartsIn (date, timeZone = undefined) {
+  return new Date(date).toLocaleDateString('en-CA', timeZone ? { timeZone } : undefined)
+}
+
+// The wall clock an instant shows in the given timezone, encoded as a UTC timestamp so
+// two wall clocks can be compared by subtraction.
+function wallClockOf (date, timeZone) {
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false,
+  }).formatToParts(date)
+  const get = (type) => Number(parts.find(p => p.type === type).value)
+  return Date.UTC(get('year'), get('month') - 1, get('day'), get('hour') % 24, get('minute'), get('second'))
+}
+
+/**
+ * Parses a naive datetime string ('Y-m-d H:i:s', no offset) that is known to be wall-clock
+ * time in the given timezone, and returns the instant it refers to. Server datetime strings
+ * are German wall-clock time (see docs/en/backend/timezones.md), so parsing them with the
+ * browser timezone would shift them for anyone abroad.
+ *
+ * @param {String} dateString naive datetime string
+ * @param {String} timeZone IANA timezone the string is wall-clock time of
+ * @returns {Date} the instant
+ */
+export function parseWallClock (dateString, timeZone = DEFAULT_TIME_ZONE) {
+  const target = Date.parse(String(dateString).replace(' ', 'T') + 'Z')
+  // Anything unparsable stays an Invalid Date: passing NaN on would make Intl throw.
+  if (Number.isNaN(target)) return new Date(NaN)
+  // Start from the string read as UTC, then shift until it renders the intended wall
+  // clock in the target timezone. Two passes settle DST edge cases.
+  let result = target
+  for (let i = 0; i < 2; i++) {
+    const diff = target - wallClockOf(result, timeZone)
+    if (diff === 0) break
+    result += diff
+  }
+  return new Date(result)
+}
+
 /**
  * Returns the difference between two date, in specific unit
  * @param {Date} dateA
@@ -156,8 +206,8 @@ export default {
    * @param {Date} date
    * @returns {Boolean} true if date is year
    */
-  isSameYear (date = new Date()) {
-    return new Date().getFullYear() === new Date(date).getFullYear()
+  isSameYear (date = new Date(), { timeZone = undefined } = {}) {
+    return datePartsIn(new Date(), timeZone).slice(0, 4) === datePartsIn(date, timeZone).slice(0, 4)
   },
 
   /**
@@ -175,8 +225,8 @@ export default {
    * @param {Date} otherDate
    * @returns {Boolean} true if date is the same
    */
-  isSame (date = new Date(), otherDate = new Date()) {
-    return new Date(otherDate).toLocaleDateString() === new Date(date).toLocaleDateString()
+  isSame (date = new Date(), otherDate = new Date(), { timeZone = undefined } = {}) {
+    return datePartsIn(otherDate, timeZone) === datePartsIn(date, timeZone)
   },
 
   /**
@@ -184,8 +234,8 @@ export default {
    * @param {Date} date
    * @returns {Boolean} true if date is today
    */
-  isToday (date = new Date()) {
-    return new Date().toLocaleDateString() === new Date(date).toLocaleDateString()
+  isToday (date = new Date(), { timeZone = undefined } = {}) {
+    return datePartsIn(new Date(), timeZone) === datePartsIn(date, timeZone)
   },
 
   /**
@@ -193,10 +243,10 @@ export default {
    * @param {Date} date
    * @returns {Boolean} true if date is tomorrow
    */
-  isTomorrow (date = new Date()) {
+  isTomorrow (date = new Date(), { timeZone = undefined } = {}) {
     const tomorrow = new Date()
     tomorrow.setDate(tomorrow.getDate() + 1)
-    return tomorrow.toLocaleDateString() === new Date(date).toLocaleDateString()
+    return datePartsIn(tomorrow, timeZone) === datePartsIn(date, timeZone)
   },
 
   /**
@@ -307,17 +357,18 @@ export default {
    * @param {Boolean} options.weekday whether to include the weekday in the result
    * @returns {string} the formated date with time
    */
-  dateTime (date = new Date(), { weekday = true } = {}) {
+  dateTime (date = new Date(), { weekday = true, timeZone = undefined } = {}) {
     const d = new Date(date)
     const options = {
-      weekday: weekday && !this.isToday(d) ? 'long' : undefined,
-      year: !this.isSameYear(d) ? 'numeric' : undefined,
+      timeZone,
+      weekday: weekday && !this.isToday(d, { timeZone }) ? 'long' : undefined,
+      year: !this.isSameYear(d, { timeZone }) ? 'numeric' : undefined,
       month: 'short',
       day: 'numeric',
       hour: '2-digit',
       minute: '2-digit',
     }
-    if (this.isToday(d) && weekday) {
+    if (this.isToday(d, { timeZone }) && weekday) {
       const rtf = new RelativeTimeFormat(locale, { numeric: 'auto' })
       return `${toCapitalize(rtf.format(0, 'day'))}, ${d.toLocaleString(locale, options)}`
     }
@@ -338,16 +389,16 @@ export default {
    * @param {Boolean} options.weekday whether to include the weekday in the result
    * @returns {string} the relative time
    */
-  base (date = new Date(), { isRelativeTime = this.isToday(date), short = false, weekday = true } = {}) {
+  base (date = new Date(), { isRelativeTime = this.isToday(date), short = false, weekday = true, timeZone = undefined } = {}) {
     const d = new Date(date)
-    if (this.isSameYear(d)) {
+    if (this.isSameYear(d, { timeZone })) {
       if (isRelativeTime) {
         return this.relativeTime(d, { short })
       } else {
-        return this.dateTime(d, { weekday })
+        return this.dateTime(d, { weekday, timeZone })
       }
     } else {
-      return this.relativeTime(d) + ` (${this.dateTime(d)})`
+      return this.relativeTime(d) + ` (${this.dateTime(d, { timeZone })})`
     }
   },
 
@@ -377,7 +428,7 @@ export default {
    * @param {full|no-weekday|normal} options.type a trigger to remove the weekday
    * @returns {string} the date or totay
    */
-  date (date = new Date(), { short = false, type = 'default' } = {}) {
+  date (date = new Date(), { short = false, type = 'default', timeZone = undefined } = {}) {
     const d = new Date(date)
     let options
 
@@ -388,8 +439,8 @@ export default {
     switch (type) {
       case 'full': {
         options = {
-          weekday: !this.isToday(d) ? 'long' : undefined,
-          year: !this.isSameYear(d) ? 'numeric' : undefined,
+          weekday: !this.isToday(d, { timeZone }) ? 'long' : undefined,
+          year: !this.isSameYear(d, { timeZone }) ? 'numeric' : undefined,
           month: 'long',
           day: 'numeric',
         }
@@ -398,7 +449,7 @@ export default {
       case 'no-weekday': {
         options = {
           weekday: undefined,
-          year: !this.isSameYear(d) ? 'numeric' : undefined,
+          year: !this.isSameYear(d, { timeZone }) ? 'numeric' : undefined,
           month: 'long',
           day: 'numeric',
         }
@@ -406,8 +457,8 @@ export default {
       }
       default: {
         options = {
-          weekday: !this.isToday(d) ? 'long' : undefined,
-          year: !this.isSameYear(d) ? 'numeric' : undefined,
+          weekday: !this.isToday(d, { timeZone }) ? 'long' : undefined,
+          year: !this.isSameYear(d, { timeZone }) ? 'numeric' : undefined,
           month: 'numeric',
           day: 'numeric',
         }
@@ -415,12 +466,32 @@ export default {
       }
     }
 
-    if (this.isToday(d)) {
+    options.timeZone = timeZone
+
+    if (this.isToday(d, { timeZone })) {
       const rtf = new RelativeTimeFormat(locale, { numeric: 'auto' })
       return `${toCapitalize(rtf.format(0, 'day'))}, ${d.toLocaleDateString(locale, options)}`
     }
 
     return d.toLocaleString(locale, options)
+  },
+
+  /**
+   * The viewer's own wall-clock time for an instant, when it differs from what the
+   * given timezone shows - null when both read the same. Used to add a "your time"
+   * hint next to event-bound times only for people in a different timezone (#2762).
+   *
+   * @param {Date} date the instant
+   * @param {String} options.timeZone the timezone the time is displayed in
+   * @returns {string|null} the viewer's local time, or null when it matches
+   */
+  viewerTime (date = new Date(), { timeZone = DEFAULT_TIME_ZONE } = {}) {
+    const viewerZone = Intl.DateTimeFormat().resolvedOptions().timeZone
+    if (!viewerZone || wallClockOf(new Date(date), viewerZone) === wallClockOf(new Date(date), timeZone)) {
+      return null
+    }
+
+    return this.time(date, { timeZone: viewerZone })
   },
 
   /**
@@ -433,8 +504,9 @@ export default {
    * @param {Boolean} options.showSeconds whether to include seconds in the result
    * @returns {string|null} the date time or null if the date is null
    */
-  time (date = new Date(), { showSeconds = false } = {}) {
+  time (date = new Date(), { showSeconds = false, timeZone = undefined } = {}) {
     const options = {
+      timeZone,
       hour: '2-digit',
       minute: '2-digit',
       second: showSeconds ? '2-digit' : undefined,
@@ -449,8 +521,9 @@ export default {
    * @param {Date} date a date to format
    * @returns {string|null} the date time or null if the date is null
    */
-  dateBasic (date = new Date()) {
+  dateBasic (date = new Date(), { timeZone = undefined } = {}) {
     const options = {
+      timeZone,
       year: 'numeric',
       month: '2-digit',
       day: '2-digit',

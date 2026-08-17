@@ -6381,6 +6381,12 @@ export interface components {
             name?: string;
             /** Region which is manages and is responsible for this store. */
             region?: components["schemas"]["MinimalRegionIdentifier"];
+            /**
+             * IANA timezone the store's times belong to, resolved through the region tree (#2762).
+             * @description Clients should render pickup times in this timezone.
+             * @default Europe/Berlin
+             */
+            timezone: string;
             /** Location of the store. */
             location?: components["schemas"]["GeoLocation"];
             /** Street name with street number. */

@@ -14,6 +14,7 @@ use Foodsharing\Modules\Core\DTO\Address;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Core\DTO\MinimalIdentifier;
 use Foodsharing\Modules\Region\DTO\MinimalRegionIdentifier;
+use Foodsharing\Modules\Region\RegionTimezoneResolver;
 use JMS\Serializer\Annotation\Type;
 use OpenApi\Attributes as OA;
 
@@ -36,6 +37,12 @@ class Store
      * Region which is manages and is responsible for this store.
      */
     public MinimalRegionIdentifier $region;
+
+    /**
+     * IANA timezone the store's times belong to, resolved through the region tree (#2762).
+     * Clients should render pickup times in this timezone.
+     */
+    public string $timezone = RegionTimezoneResolver::DEFAULT_TIMEZONE;
 
     /**
      * Location of the store.

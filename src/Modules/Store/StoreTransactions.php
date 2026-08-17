@@ -34,6 +34,7 @@ use Foodsharing\Modules\Message\MessageGateway;
 use Foodsharing\Modules\Message\MessageTransactions;
 use Foodsharing\Modules\Region\DTO\MinimalRegionIdentifier;
 use Foodsharing\Modules\Region\RegionGateway;
+use Foodsharing\Modules\Region\RegionTimezoneResolver;
 use Foodsharing\Modules\Store\DTO\CategoryWithType;
 use Foodsharing\Modules\Store\DTO\CommonLabel;
 use Foodsharing\Modules\Store\DTO\CommonStoreMetadata;
@@ -103,6 +104,7 @@ class StoreTransactions
         private readonly Session $session,
         private readonly Mem $mem,
         private readonly CacheInterface $cache,
+        private readonly RegionTimezoneResolver $regionTimezoneResolver,
     ) {
     }
 
@@ -260,6 +262,7 @@ class StoreTransactions
         $suppressLoadingGroceries = !$showSensitiveDetails;
         $dbResult = $this->storeGateway->getStore($storeId, $suppressLoadingGroceries);
         $dbResult->region->name = $this->regionGateway->getRegionName($dbResult->region->id);
+        $dbResult->timezone = $this->regionTimezoneResolver->timezoneNameFor($dbResult->region->id);
 
         if ($dbResult->chain) {
             $chainDetails = $this->storeChainGateway->getChainInformationForStore($dbResult->chain->id);
@@ -827,9 +830,12 @@ class StoreTransactions
         $storeName = $this->storeGateway->getStoreName($storeId);
 
         $salutation = $this->translator->trans('salutation.' . $fs['geschlecht']) . ' ' . $fs['name'];
+        // Show the pickup time in the timezone of the store's region, not the server default.
+        $localPickupDate = \DateTimeImmutable::createFromInterface($pickupDate)
+            ->setTimezone($this->regionTimezoneResolver->timezoneFor($this->storeGateway->getStoreRegionId($storeId)));
         $mandatoryMessage = $this->translator->trans('pickup.kick_message', [
             '{storeName}' => $storeName,
-            '{date}' => date('d.m.Y H:i', $pickupDate->getTimestamp())
+            '{date}' => $localPickupDate->format('d.m.Y H:i')
         ]);
         $optionalMessage = empty($message) ? '' : ("\n\n" . $message);
         $footer = $this->translator->trans('pickup.kick_message_footer');

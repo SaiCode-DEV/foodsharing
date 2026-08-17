@@ -49,6 +49,15 @@
             <span
               v-text="$t('events.span', { from: displayedStart, until: displayedEnd })"
             />
+            <span
+              v-if="viewerTimeHint"
+              v-text="$t('date.local_time')"
+            />
+            <span
+              v-if="viewerTimeHint"
+              class="viewer-time-hint small"
+              v-text="viewerTimeHint"
+            />
           </div>
           <FsLink
             v-if="!options"
@@ -97,6 +106,7 @@
 
 <script>
 import { EventInvitationResponse, mutations } from '@/stores/events'
+import { parseWallClock, DEFAULT_TIME_ZONE } from '@/helper/date-formatter'
 import { showLoader, hideLoader, pulseSuccess, pulseError } from '@/script'
 import FsLink from '@/components/UI/FsLink.vue'
 
@@ -109,51 +119,81 @@ export default {
   data () {
     return {
       EventInvitationResponse,
-      // start/end are naive datetime strings ('Y-m-d H:i:s'); the space must become
-      // a 'T' so every browser parses them the same way (Safari rejects the space, #322).
-      startDate: new Date(this.entry.start.replace(' ', 'T')),
-      endDate: new Date(this.entry.end.replace(' ', 'T')),
+      // start/end are naive German wall-clock strings; parse them as such so the
+      // instant (and with it relative times) stays correct in every browser timezone.
+      startDate: parseWallClock(this.entry.start),
+      endDate: parseWallClock(this.entry.end),
       status: this.entry.status,
     }
   },
   computed: {
+    // Events are bound to a place, so their times render in the platform timezone
+    // (the event's own region timezone can replace this later, #2758). History
+    // timestamps elsewhere stay in the viewer's timezone.
+    timeZone () {
+      return DEFAULT_TIME_ZONE
+    },
     displayedDay () {
       return this.$dateFormatter.format(this.startDate, {
         weekday: 'short',
+        timeZone: this.timeZone,
       })
     },
     displayedBothDay () {
       return this.$dateFormatter.format(this.startDate, {
         day: 'numeric',
         weekday: 'short',
+        timeZone: this.timeZone,
       })
     },
     displayedMonth () {
       return this.$dateFormatter.format(this.startDate, {
         month: 'long',
+        timeZone: this.timeZone,
       })
     },
     isEventToday () {
-      return this.$dateFormatter.isToday(this.startDate)
+      return this.$dateFormatter.isToday(this.startDate, { timeZone: this.timeZone })
     },
     isEventTomorrow () {
-      return this.$dateFormatter.isTomorrow(this.startDate)
+      return this.$dateFormatter.isTomorrow(this.startDate, { timeZone: this.timeZone })
     },
     dateTooltip () {
-      return `${this.$dateFormatter.dateTime(this.startDate)} (${this.$dateFormatter.relativeTime(this.startDate)})`
+      return `${this.$dateFormatter.dateTime(this.startDate, { timeZone: this.timeZone })} (${this.$dateFormatter.relativeTime(this.startDate)})`
+    },
+    viewerTimeHint () {
+      // shown only for viewers whose own timezone reads a different time (#2762)
+      const viewerStart = this.$dateFormatter.viewerTime(this.startDate, { timeZone: this.timeZone })
+      if (!viewerStart) {
+        return null
+      }
+      if (!this.entry.end) {
+        return this.$t('date.your_time', { time: viewerStart })
+      }
+      // mirror the displayed span: time only on the same viewer-local day, date + time otherwise
+      const viewerEnd = this.$dateFormatter.isSame(this.endDate, this.startDate, {})
+        ? this.$dateFormatter.time(this.endDate)
+        : this.$dateFormatter.format(this.endDate, {
+          day: 'numeric',
+          month: 'numeric',
+          hour: 'numeric',
+          minute: 'numeric',
+        })
+      return this.$t('date.your_time', { time: this.$t('events.span', { from: viewerStart, until: viewerEnd }) })
     },
     displayedStart () {
-      return this.$dateFormatter.time(this.startDate)
+      return this.$dateFormatter.time(this.startDate, { timeZone: this.timeZone })
     },
     displayedEnd () {
-      if (this.$dateFormatter.isSame(this.endDate, this.startDate)) {
-        return this.$dateFormatter.time(this.endDate)
+      if (this.$dateFormatter.isSame(this.endDate, this.startDate, { timeZone: this.timeZone })) {
+        return this.$dateFormatter.time(this.endDate, { timeZone: this.timeZone })
       } else {
         return this.$dateFormatter.format(this.endDate, {
           day: 'numeric',
           month: 'numeric',
           hour: 'numeric',
           minute: 'numeric',
+          timeZone: this.timeZone,
         })
       }
     },
@@ -250,6 +290,10 @@ export default {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.viewer-time-hint {
+  display: block;
 }
 
 </style>

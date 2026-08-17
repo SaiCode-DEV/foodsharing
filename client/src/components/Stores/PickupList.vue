@@ -71,6 +71,7 @@
             v-bind="pickup"
             :store-id="storeId"
             :store-title="storeTitle"
+            :timezone="timezone"
             :may-edit-store="mayEditStore"
             :is-coordinator="isCoordinator"
             :user="user"
@@ -119,6 +120,7 @@ import { sendMessage } from '@/api/conversations'
 import { useUserStore } from '@/stores/user'
 import { pulseError, pulseSuccess } from '@/script'
 import { usePickupStore } from '@/stores/pickups'
+import { DEFAULT_TIME_ZONE } from '@/helper/date-formatter'
 import { STORE_CATEGORY_PICKUP } from '@/constants/storeCategoryTypes'
 
 export default {
@@ -132,6 +134,10 @@ export default {
     storeTitle: {
       type: String,
       default: '',
+    },
+    timezone: {
+      type: String,
+      default: DEFAULT_TIME_ZONE,
     },
     isCoordinator: {
       type: Boolean,

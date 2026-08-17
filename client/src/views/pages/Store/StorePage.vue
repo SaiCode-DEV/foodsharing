@@ -109,6 +109,7 @@
               :may-see-pickup="permissions.maySeePickup"
               :store-id="storeId"
               :store-title="storeInformation.name"
+              :timezone="storeInformation.timezone"
               :is-coordinator="permissions.isCoordinator"
               :may-edit-store="permissions.mayEditStore"
               :category-type="storeInformation.categoryType"

@@ -632,4 +632,22 @@ class StoreTransactionsTest extends Unit
         $this->assertEquals($result[1]->membershipStatus, 1);
         $this->assertEquals($result[1]->pickupStatus, 0);
     }
+
+    public function testKickMessageShowsThePickupTimeInTheStoreRegionsTimezone()
+    {
+        // #2762: stored pickup times are Berlin wall clock; the message shown to the
+        // user renders them in the timezone of the store's region.
+        $foodsaver = $this->tester->createFoodsaver();
+        $pickupDate = new \DateTime('2027-01-15 12:00:00', new \DateTimeZone('Europe/Berlin'));
+
+        $berlinStore = $this->tester->createStore($this->regionId);
+        $message = $this->transactions->createKickMessage($foodsaver['id'], $berlinStore['id'], $pickupDate);
+        $this->assertStringContainsString('15.01.2027 12:00', $message);
+
+        // 12:00 Berlin in winter is 13:00 in Riga (EET, +2).
+        $latvia = $this->tester->createRegion(null, ['timezone' => 'Europe/Riga']);
+        $rigaStore = $this->tester->createStore($latvia['id']);
+        $message = $this->transactions->createKickMessage($foodsaver['id'], $rigaStore['id'], $pickupDate);
+        $this->assertStringContainsString('15.01.2027 13:00', $message);
+    }
 }

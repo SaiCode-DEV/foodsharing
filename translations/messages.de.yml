@@ -1716,6 +1716,8 @@ addresspicker:
   different_location_warning: "Bitte stelle sicher, dass der Pin in der Karte oben an der richtigen Stelle liegt. Bitte ändere die automatisch ausgefüllten Felder (Straße und Hausnummer, Postleitzahl und Stadt/Gemeinde) nur, wenn der automatisch eingetragene Wert nicht korrekt ist. Das kann beispielsweise nach der Namensänderung einer Straße vorkommen."
 date:
   time: "{time} Uhr"
+  local_time: "Ortszeit"
+  your_time: "({time} in deiner Zeitzone)"
   clock: "Uhr"
   from: "von"
   to: "bis"

@@ -3006,6 +3006,8 @@ month:
   "7": July
 date:
   sunday: Sunday
+  local_time: "local time"
+  your_time: "({time} in your time zone)"
   saturday: Saturday
   friday: Friday
   thursday: Thursday
