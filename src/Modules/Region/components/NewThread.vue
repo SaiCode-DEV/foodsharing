@@ -47,7 +47,8 @@
 <script>
 import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 import { createThread } from '@/api/forum'
-import { pulseError } from '@/script'
+import { pulseError, pulseInfo } from '@/script'
+import { navigate } from '@/helper/router'
 import i18n from '@/helper/i18n'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 
@@ -84,10 +85,15 @@ export default {
       }
       this.isLoading = true
       try {
-        await createThread(this.groupId, this.subforumId, this.title, this.body, this.sendMail)
+        const thread = await createThread(this.groupId, this.subforumId, this.title, this.body, this.sendMail)
         this.body = ''
-        // redirect to forum overview
-        window.location = this.$url('forum', this.groupId, this.subforumId)
+        this.title = null
+        if (thread?.isActive === false) {
+          // the thread stays invisible to its author until moderation activates it
+          pulseInfo(this.$t('forum.thread_awaits_moderation'))
+        }
+        // client-side navigation, so the notice survives the redirect to the overview
+        await navigate(this.$url('forum', this.groupId, this.subforumId))
       } catch (err) {
         this.isLoading = false
         pulseError(i18n('error_unexpected'))

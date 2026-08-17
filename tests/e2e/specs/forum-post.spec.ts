@@ -80,6 +80,38 @@ test.describe("Forum Post with Mails", () => {
     expect(mail).not.toBeNull();
   });
 
+  // #2792: the moderation notice is a toast, so the redirect to the overview has to stay
+  // client side - a full page load would wipe it before anyone gets to read it.
+  test("Moderation notice survives the redirect to the forum overview", async ({
+    page,
+    acceptanceHelper,
+  }) => {
+    await acceptanceHelper.login(testData.unverifiedFoodsaver.email);
+    await page.goto(
+      `/region?bid=${testData.moderatedTestBezirk.id}&sub=forum&newthread=1`,
+    );
+    await acceptanceHelper.waitForPageBody();
+
+    let fullPageLoads = 0;
+    page.on("load", () => fullPageLoads++);
+
+    await page.fill("#forum-create-thread-form-title", faker.word.words(5));
+    await page.fill("#thread-content", "TestThreadPost");
+    await page.getByRole("button", { name: "Anlegen", exact: true }).click();
+
+    // let the redirect settle before looking at the notice, a full load would need
+    // that time to wipe it
+    await expect(page).toHaveURL(
+      new RegExp(`/region\\?bid=${testData.moderatedTestBezirk.id}&sub=forum$`),
+    );
+    await page.waitForLoadState("networkidle");
+
+    await expect(page.locator(".fs-notification.info")).toContainText(
+      "freigeschaltet",
+    );
+    expect(fullPageLoads).toBe(0);
+  });
+
   test("New thread will not send email", async ({ page, acceptanceHelper }) => {
     await acceptanceHelper.login(testData.foodsaver.email);
     const title = faker.word.words(5);

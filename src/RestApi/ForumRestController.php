@@ -148,7 +148,7 @@ class ForumRestController extends AbstractFoodsharingRestController
 
         $threadId = $this->forumTransactions->createThread($this->session->id(), $thread, $regionDetails, $subforumId === 1, $postActiveWithoutModeration);
 
-        return $this->respondOK(['id' => $threadId]);
+        return $this->respondOK(['id' => $threadId, 'isActive' => $postActiveWithoutModeration]);
     }
 
     #[OA\Patch(summary: 'Change attributes for a thread: Stickiness, activate thread, status.')]

@@ -1452,6 +1452,23 @@ class ForumApiCest
         return $title;
     }
 
+    public function createThreadTellsWhetherItAwaitsModeration(ApiTester $I): void
+    {
+        // #2792: the author needs to know that the thread starts inactive
+        $moderated = $I->createRegion(null, ['moderated' => 1]);
+        $I->addRegionMember($moderated['id'], $this->user['id']);
+        $I->login($this->user['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+
+        $I->sendPOST('api/regions/' . $moderated['id'] . '/forum/threads', ['title' => 'pending', 'body' => 'waits for moderation', 'sendMail' => false]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseContainsJson(['isActive' => false]);
+
+        $I->sendPOST('api/regions/' . $this->region['id'] . '/forum/threads', ['title' => 'live', 'body' => 'goes live directly', 'sendMail' => false]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseContainsJson(['isActive' => true]);
+    }
+
     public function membershipGrantedFromOutsideIsSeenWithoutRelogin(ApiTester $I): void
     {
         $I->login($this->userWithoutMembershipInRegion['email']);

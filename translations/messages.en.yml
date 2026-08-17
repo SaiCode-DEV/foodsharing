@@ -1153,6 +1153,7 @@ events:
     participant list are visible only to registered users.
   declinedCount: '{count} people canceled'
 forum:
+  thread_awaits_moderation: "Your thread has been saved. It still needs to be activated by the moderation team and is not visible until then."
   threads: Threads
   quickreply:
     error: Post could not be saved.

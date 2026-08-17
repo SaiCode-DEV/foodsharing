@@ -1507,6 +1507,7 @@ timepicker:
 
 forum:
   deleted_user: "gelöschte:r Benutzer:in"
+  thread_awaits_moderation: "Dein Thema wurde gespeichert. Es muss noch von der Moderation freigeschaltet werden und ist bis dahin nicht sichtbar."
   from: "Von {name}"
   threads: "Themen"
   new_thread: "Neues Thema verfassen"
