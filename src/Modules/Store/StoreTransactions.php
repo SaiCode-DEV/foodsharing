@@ -346,6 +346,7 @@ class StoreTransactions
     public function updateStore(int $storeId, PatchStore $storeChange): bool
     {
         $store = $this->storeGateway->getStore($storeId);
+        $currentlyUsingRegionPickupRule = $store->options->useRegionPickupRule;
 
         $changeInformation = $this->checkAndPatchStore($storeChange, $store);
 
@@ -355,6 +356,11 @@ class StoreTransactions
 
             if ($changeInformation->nameChanged) {
                 $this->setStoreNameInConversations($storeId, $store->name);
+            }
+
+            if ($storeChange->options !== null && $currentlyUsingRegionPickupRule !== $store->options->useRegionPickupRule) {
+                $actionType = $store->options->useRegionPickupRule ? StoreLogAction::REGION_PICKUP_RULE_ENABLED : StoreLogAction::REGION_PICKUP_RULE_DISABLED;
+                $this->storeGateway->addStoreLog($storeId, $this->session->id(), $this->session->id(), null, $actionType);
             }
         }
 
@@ -485,8 +491,10 @@ class StoreTransactions
             $store->teamStatus = TeamSearchStatus::from($storeChange->teamStatus);
         }
 
-        if (!is_null($storeChange->calendarInterval)) {
+        if (!is_null($storeChange->calendarInterval) && $storeChange->calendarInterval !== $store->calendarInterval) {
             $changeInformation->informationChanged = true;
+            $secondsPerWeek = 60 * 60 * 24 * 7;
+            $this->storeGateway->addStoreLog($store->id, $this->session->id(), null, null, StoreLogAction::UPDATE_REGULAR_PICKUP_INTERVAL, json_encode(['previousInterval' => $store->calendarInterval / $secondsPerWeek, 'newInterval' => $storeChange->calendarInterval / $secondsPerWeek]));
             $store->calendarInterval = $storeChange->calendarInterval;
         }
 
@@ -615,14 +623,28 @@ class StoreTransactions
             throw new PickupValidationException(PickupValidationException::INVALID_STORE);
         }
 
-        $filledOnetimeSlots = $this->pickupGateway->getOnetimePickups($storeId, $pickup->date);
-        if ($filledOnetimeSlots) {
+        $currentPickup = $this->pickupGateway->getOnetimePickup($storeId, $pickup->date);
+        if ($currentPickup) {
+            $currentSlotCount = $currentPickup->slots ?? 0;
+            if ($currentSlotCount !== $pickup->slots) {
+                $this->storeGateway->addStoreLog($storeId, $this->session->id(), null, $pickup->date, StoreLogAction::UPDATE_SLOT_COUNT, json_encode(['previousCount' => $currentSlotCount, 'newCount' => $pickup->slots]));
+            }
+            if ($currentPickup->description !== $pickup->description) {
+                $this->storeGateway->addStoreLog($storeId, $this->session->id(), null, $pickup->date, StoreLogAction::UPDATE_SLOT_DESCRIPTION, $pickup->description);
+            }
+
             $this->pickupGateway->updateOnetimePickupTotalSlots($storeId, $pickup);
 
             return false;
         }
 
+        $pickupDate = Carbon::instance($pickup->date);
+        $currentSlotCount = $this->pickupGateway->getPickupSlots($storeId, $pickupDate, $pickupDate, $pickupDate)[0]['totalSlots'] ?? 0;
         $this->pickupGateway->addOnetimePickup($storeId, $pickup);
+        $this->storeGateway->addStoreLog($storeId, $this->session->id(), null, $pickup->date, StoreLogAction::UPDATE_SLOT_COUNT, json_encode(['previousCount' => $currentSlotCount, 'newCount' => $pickup->slots]));
+        if ($pickup->description) {
+            $this->storeGateway->addStoreLog($storeId, $this->session->id(), null, $pickup->date, StoreLogAction::UPDATE_SLOT_DESCRIPTION, $pickup->description);
+        }
 
         return true;
     }

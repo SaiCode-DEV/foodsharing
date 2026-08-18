@@ -1234,6 +1234,12 @@ store:
       18: Team-Einladungen zurückziehen
       19: Team-Einladungen annehmen
       20: Team-Einladungen ablehnen
+      22: Slotanzahl ändern
+      23: Slotbeschreibung ändern
+      24: Rosinen-Regel aktivieren
+      25: Rosinen-Regel deaktivieren
+      26: Regelmäßige Slots ändern
+      27: Interval automatischer Slots ändern
     message:
       1: "{actor} hat eine Beitrittsanfrage gestellt."
       2: "{actor} hat die Beitrittsanfrage von {target} abgelehnt."
@@ -1256,6 +1262,12 @@ store:
       18: "{actor} hat die Team-Einladung für {target} zurückgezogen."
       19: "{actor} hat die Team-Einladung angenommen."
       20: "{actor} hat die Team-Einladung abgelehnt."
+      22: "{actor} hat die Anzahl der Abholungen am {date} von {previousCount} auf {newCount} geändert."
+      23: "{actor} hat die Beschreibung der Slots am {date} geändert:"
+      24: "{actor} hat die Rosinen-Regel aktiviert"
+      25: "{actor} hat die Rosinen-Regel deaktiviert"
+      26: "{actor} hat die Einstellungen der regelmäßigen Abholungen angepasst"
+      27: "{actor} hat den Zeitraum, wie lange im voraus Slots automatisch angelegt werden, von {previousInterval} auf {newInterval} Wochen geändert."
     message_saved_info: "Deine Nachricht wird im Betriebsprotokoll gespeichert."
   to_map: "Auf der Karte anzeigen"
 

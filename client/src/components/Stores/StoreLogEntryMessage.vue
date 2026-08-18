@@ -6,7 +6,7 @@
 </template>
 
 <script>
-const ACTION_TYPES_WITH_OPTIONAL_REASON = [13]
+import { ACTION_TYPES_WITH_OPTIONAL_REASON, ACTION_TYPES_WITH_JSON_CONTENT } from './StoreLogActions'
 
 export default {
   props: {
@@ -18,6 +18,9 @@ export default {
         actor: this.userLinkHtml(action.actor),
         target: this.userLinkHtml(action.target),
         date: this.$dateFormatter.format(action.dateReference),
+      }
+      if (ACTION_TYPES_WITH_JSON_CONTENT.includes(action.actionType)) {
+        Object.assign(params, JSON.parse(action.content))
       }
       const reason = (action.reason && ACTION_TYPES_WITH_OPTIONAL_REASON.includes(action.actionType)) ? '_with_reason' : ''
       return this.$t(`store.log.message.${action.actionType}${reason}`, params)

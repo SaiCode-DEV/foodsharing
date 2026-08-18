@@ -335,16 +335,16 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
     }
 
     /**
-     * Returns a list of created one time pickups (no regular pickups) of the day.
+     * Returns the one time pickup of the time and day.
      *
      * @param int $storeId Identifier of the store to check
      * @param DateTime $date Datetime for search
      *
-     * @return OneTimePickup[] List of pickups
+     * @return ?OneTimePickup Pickup or null if no pickup exists for the date
      */
-    public function getOnetimePickups(int $storeId, DateTime $date)
+    public function getOnetimePickup(int $storeId, DateTime $date): ?OneTimePickup
     {
-        return $this->getOnetimePickupsForRange($storeId, $date, $date);
+        return $this->getOnetimePickupsForRange($storeId, $date, $date)[0] ?? null;
     }
 
     /**

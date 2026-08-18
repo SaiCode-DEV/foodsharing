@@ -37,6 +37,7 @@ class PickupTransactionsTest extends TestCase
         $this->messageTransactions = $this->createMock(MessageTransactions::class);
         $this->foodsaverGateway = $this->createMock(FoodsaverGateway::class);
         $this->session = $this->createMock(Session::class);
+        $this->session->method('id')->willReturn(1);
         $this->pickupTransactions = new PickupTransactions($this->storeTransactions, $this->regularPickupGateway, $this->oneTimePickupGateway, $this->storeGateway, $this->messageTransactions, $this->foodsaverGateway, $this->session);
     }
 

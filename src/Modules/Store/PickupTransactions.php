@@ -69,6 +69,7 @@ class PickupTransactions
         foreach ($regularPickups as $regularPickup) {
             $this->regularPickupGateway->insertOrUpdateRegularPickup($storeId, $regularPickup);
         }
+        $this->storeGateway->addStoreLog($storeId, $this->session->id(), null, null, StoreLogAction::UPDATE_REGULAR_PICKUP_SETTINGS);
         $this->storeTransactions->triggerBellForRegularPickupChanged($storeId);
 
         return $this->getRegularPickup($storeId);

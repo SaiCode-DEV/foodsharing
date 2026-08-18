@@ -91,12 +91,11 @@ class PickupGatewayTest extends Unit
         $internalDate = Carbon::createFromFormat(DATE_ATOM, $expectedIsoDate);
         $date = $internalDate->copy()->setTimezone('Europe/Berlin')->format('Y-m-d H:i:s');
         $this->tester->addPickup($this->store['id'], ['time' => $date, 'fetchercount' => $fetcher]);
-        $irregularSlots = $this->gateway->getOnetimePickups($this->store['id'], $internalDate);
+        $irregularSlot = $this->gateway->getOnetimePickup($this->store['id'], $internalDate);
 
-        $this->assertEquals(1, count($irregularSlots));
-
-        $this->assertEquals($fetcher, $irregularSlots[0]->slots);
-        $this->assertEquals($internalDate->copy()->setTimezone('Europe/Berlin'), $irregularSlots[0]->date);
+        $this->assertNotNull($irregularSlot);
+        $this->assertEquals($fetcher, $irregularSlot->slots);
+        $this->assertEquals($internalDate->copy()->setTimezone('Europe/Berlin'), $irregularSlot->date);
     }
 
     public function testUpdateExpiredBellsRemovesBellIfNoUnconfirmedFetchesAreInTheFuture(): void

@@ -9,6 +9,11 @@ use Carbon\CarbonInterval;
 use Codeception\Test\Unit;
 use Faker\Factory;
 use Faker\Generator;
+use Foodsharing\Lib\Db\Mem;
+use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Bell\BellGateway;
+use Foodsharing\Modules\Bell\BellTransactions;
+use Foodsharing\Modules\Categories\StoreCategoriesGateway;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Store\ConvinceStatus;
@@ -18,12 +23,24 @@ use Foodsharing\Modules\Core\DBConstants\Store\StickerStatus;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
+use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
+use Foodsharing\Modules\Group\GroupFunctionGateway;
+use Foodsharing\Modules\Message\MessageGateway;
+use Foodsharing\Modules\Message\MessageTransactions;
+use Foodsharing\Modules\Region\RegionGateway;
+use Foodsharing\Modules\Region\RegionTimezoneResolver;
 use Foodsharing\Modules\Store\DTO\CreateStoreData;
 use Foodsharing\Modules\Store\DTO\StoreListInformation;
 use Foodsharing\Modules\Store\PickupGateway;
 use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Modules\Store\StoreTransactionException;
 use Foodsharing\Modules\Store\StoreTransactions;
+use Foodsharing\Modules\StoreChain\StoreChainGateway;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
+use Foodsharing\Modules\WallPost\WallPostGateway;
+use Foodsharing\Permissions\StorePermissions;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Tests\Support\UnitTester;
 
 class StoreTransactionsTest extends Unit
@@ -34,14 +51,37 @@ class StoreTransactionsTest extends Unit
     private PickupGateway $gateway;
     private Generator $faker;
 
-    private $regionId;
-    private $foodsaver;
+    private int $regionId;
+    private array $foodsaver;
 
     public function _before()
     {
         $this->store = $this->tester->get(StoreGateway::class);
-        $this->transactions = $this->tester->get(StoreTransactions::class);
         $this->gateway = $this->tester->get(PickupGateway::class);
+        $session = $this->createMock(Session::class);
+        $session->method('id')->willReturn(1);
+        $this->transactions = new StoreTransactions(
+            $this->tester->get(MessageGateway::class),
+            $this->gateway,
+            $this->tester->get(StoreGateway::class),
+            $this->tester->get(TranslatorInterface::class),
+            $this->tester->get(BellGateway::class),
+            $this->tester->get(BellTransactions::class),
+            $this->tester->get(FoodsaverGateway::class),
+            $this->tester->get(RegionGateway::class),
+            $this->tester->get(StoreCategoriesGateway::class),
+            $this->tester->get(StoreChainGateway::class),
+            $this->tester->get(WallPostGateway::class),
+            $this->tester->get(MessageTransactions::class),
+            $this->tester->get(StorePermissions::class),
+            $this->tester->get(GroupFunctionGateway::class),
+            $this->tester->get(CurrentUserUnitsInterface::class),
+            $session,
+            $this->tester->get(Mem::class),
+            $this->tester->get(CacheInterface::class),
+            $this->tester->get(RegionTimezoneResolver::class),
+        );
+
         $this->faker = Factory::create('de_DE');
         $this->foodsaver = $this->tester->createFoodsaver();
         $this->regionId = $this->tester->createRegion()['id'];

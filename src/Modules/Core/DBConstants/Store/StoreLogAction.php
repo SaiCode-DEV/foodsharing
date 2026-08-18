@@ -27,4 +27,10 @@ class StoreLogAction
     final public const int INVITATION_ACCEPTED = 19;
     final public const int INVITATION_DECLINED = 20;
     final public const int DELETE_STORE = 21;
+    final public const int UPDATE_SLOT_COUNT = 22;
+    final public const int UPDATE_SLOT_DESCRIPTION = 23;
+    final public const int REGION_PICKUP_RULE_ENABLED = 24;
+    final public const int REGION_PICKUP_RULE_DISABLED = 25;
+    final public const int UPDATE_REGULAR_PICKUP_SETTINGS = 26;
+    final public const int UPDATE_REGULAR_PICKUP_INTERVAL = 27;
 }

@@ -67,7 +67,7 @@
             <StoreLogEntryMessage :action="action" />
             <small class="text-muted text-nowrap">({{ $dateFormatter.dateTime(action.performedAt, { weekday: false }) }})</small>
             <blockquote v-if="action.reason" v-text="action.reason" />
-            <blockquote v-if="action.content">
+            <blockquote v-if="action.content && !ACTION_TYPES_WITH_JSON_CONTENT.includes(action.actionType)">
               <Markdown :source="action.content" />
             </blockquote>
           </span>
@@ -93,9 +93,8 @@ import { getStoreLog } from '@/api/stores'
 import Markdown from '@/components/Markdown/Markdown.vue'
 import { pulseError } from '@/script'
 import StoreLogEntryMessage from './StoreLogEntryMessage.vue'
+import { ACTION_TYPES_WITH_JSON_CONTENT, NUMBER_OF_ACTION_TYPES, ACTION_TYPES_WITHOUT_DISPLAY } from './StoreLogActions.js'
 import AvatarStack from '../Avatar/AvatarStack.vue'
-
-const NUMBER_OF_ACTION_TYPES = 20
 
 export default {
   components: { Container, DateRangePicker, Multiselect, AvatarStack, Markdown, StoreLogEntryMessage },
@@ -105,7 +104,9 @@ export default {
     cooperationStart: { type: String, default: null },
   },
   data () {
-    const actionTypeIds = [...Array(NUMBER_OF_ACTION_TYPES).keys()].map((id) => id + 1) // action type IDs start at 1
+    const actionTypeIds = [...Array(NUMBER_OF_ACTION_TYPES).keys()]
+      .map((id) => id + 1) // action type IDs start at 1
+      .filter(id => !ACTION_TYPES_WITHOUT_DISPLAY.includes(id))
     const actionTypeOptions = actionTypeIds.map((id) => ({ id, name: this.$t(`store.log.type.${id}`) }))
 
     const now = new Date()
@@ -127,6 +128,7 @@ export default {
       minFromDate,
       pagesLoaded: 0,
       pageSize: 100,
+      ACTION_TYPES_WITH_JSON_CONTENT,
     }
   },
   computed: {
