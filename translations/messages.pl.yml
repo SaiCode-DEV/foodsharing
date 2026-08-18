@@ -2333,6 +2333,8 @@ forum:
   inform_per_email: 'Powiadom wszystkich członków forum aktywnych w czasie ostatnich
     sześciu miesięcy o utworzeniu tego nowego tematu przez email, możliwe tylko w
     niemoderowanych forach'
+  thread_awaits_moderation: Zapisano temat. Moderacja musi go jeszcze aktywować 
+    i do tego czasu nie jest on widoczny.
 chat:
   empty: Nie ma jeszcze żadnych konwersacji
   placeholder: Napisz coś.
@@ -2498,6 +2500,8 @@ date:
   tuesday: wtorek
   wednesday: środa
   thursday: czwartek
+  local_time: Czas lokalny
+  your_time: ({time} w twojej strefie czasowej)
 month:
   "3": marzec
   "4": kwiecień

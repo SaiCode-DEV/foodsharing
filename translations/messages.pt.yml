@@ -3961,6 +3961,8 @@ forum:
     title: Restaurar a publicação
   options:
     bells_for_new_posts: Notificações na plataforma de novos tópicos
+  thread_awaits_moderation: O teu tema foi guardado. Ainda precisa de ser 
+    aprovado pela moderação e, até lá, não estará visível.
 title: 'Titulo'
 genderlist:
   gender_female: 'femenino'
