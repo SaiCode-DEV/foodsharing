@@ -12,24 +12,25 @@ const WS_URL = 'http://127.0.0.1:1337';
 
 const redisClient = new Tedis({
     host: process.env.REDIS_HOST ?? '127.0.0.1',
-    port: Number(process.env.REDIS_PORT) || 6379
+    port: Number(process.env.REDIS_PORT) || 6379,
 });
+const processTimeout = 100;
 
 // Start the server in a child process ...
-const server = spawn(
-  process.execPath,
-  ['node_modules/.bin/tsx', 'src/index.ts'],
-  { stdio: 'inherit' }
-);
-
+const server = spawn(process.execPath, ['node_modules/.bin/tsx', 'src/index.ts'], { stdio: 'inherit' });
 
 // ... kill it after the tests are done
 test.onFinish(() => {
-    redisClient.command('FLUSHDB').then(() => redisClient.close()).catch(error => { console.log(error); });
+    redisClient
+        .command('FLUSHDB')
+        .then(() => redisClient.close())
+        .catch((error) => {
+            console.log(error);
+        });
     server.kill();
 });
 
-test('simple connection', t => {
+test('simple connection', (t) => {
     t.timeoutAfter(10000);
     t.plan(1);
     const socket = connect(t, 'somesessionid');
@@ -38,7 +39,7 @@ test('simple connection', t => {
     });
 });
 
-test('multiple connections', t => {
+test('multiple connections', (t) => {
     t.timeoutAfter(10000);
     t.plan(3);
     const socket1 = connect(t, 'somesessionid1');
@@ -55,7 +56,7 @@ test('multiple connections', t => {
     });
 });
 
-test('requesting stats', t => {
+test('requesting stats', (t) => {
     t.timeoutAfter(10000);
     t.plan(2);
     fetchStats((err: any, stats: any) => {
@@ -63,12 +64,12 @@ test('requesting stats', t => {
         t.deepEqual(
             Object.keys(stats).sort((a, b) => a.localeCompare(b)),
             ['connections', 'registrations', 'sessions'],
-            'has all the expected keys'
+            'has all the expected keys',
         );
     });
 });
 
-test('registering', t => {
+test('registering', (t) => {
     t.timeoutAfter(10000);
     t.plan(4);
     const socket = connect(t, 'somesessionid');
@@ -80,7 +81,7 @@ test('registering', t => {
     });
 });
 
-test('multiple registrations for one session', t => {
+test('multiple registrations for one session', (t) => {
     t.timeoutAfter(10000);
     t.plan(4);
     const sessionId = 'sharedsessionid';
@@ -98,7 +99,7 @@ test('multiple registrations for one session', t => {
     });
 });
 
-test('multiple registrations with unique sessions', t => {
+test('multiple registrations with unique sessions', (t) => {
     t.timeoutAfter(10000);
     t.plan(4);
     const socket1 = connect(t, 'myownsession1');
@@ -115,7 +116,7 @@ test('multiple registrations with unique sessions', t => {
     });
 });
 
-test('unregistering', t => {
+test('unregistering', (t) => {
     t.timeoutAfter(10000);
     t.plan(5);
     const socket = connect(t, 'somesessionid');
@@ -134,7 +135,7 @@ test('unregistering', t => {
     });
 });
 
-test('can send a message', t => {
+test('can send a message', (t) => {
     t.timeoutAfter(10000);
     t.plan(1);
     sendMessage([1, 2, 3], 'foo', 'bar', {}, (err: any) => {
@@ -142,15 +143,21 @@ test('can send a message', t => {
     });
 });
 
-test('can send a message with large url params', t => {
+test('can send a message with large url params', (t) => {
     t.timeoutAfter(10000);
     t.plan(1);
-    sendMessage(Array.from({length: 1000}, (_, idx) => idx), 'foo', 'bar', {}, (err: any) => {
-        t.error(err, 'does not error');
-    });
+    sendMessage(
+        Array.from({ length: 1000 }, (_, idx) => idx),
+        'foo',
+        'bar',
+        {},
+        (err: any) => {
+            t.error(err, 'does not error');
+        },
+    );
 });
 
-test('can send to users', t => {
+test('can send to users', (t) => {
     t.timeoutAfter(10000);
     t.plan(3);
     const sessionId = crypto.randomUUID();
@@ -169,7 +176,7 @@ test('can send to users', t => {
     });
 });
 
-test('works with two connections per user', t => {
+test('works with two connections per user', (t) => {
     t.timeoutAfter(20000);
 
     const client1 = connect(t, 'test-1-user-1');
@@ -186,18 +193,17 @@ test('works with two connections per user', t => {
 
     waitForConnect(client1, () => {
         waitForConnect(client2, () => {
-            sendMessage([1], 'some-app', 'some-method', { someKey: 'some-payload' },
-                (error, res) => {
-                    if (error) {
-                        t.error(error);
-                    }
-                    t.equal(res.status, 200);
-                });
+            sendMessage([1], 'some-app', 'some-method', { someKey: 'some-payload' }, (error, res) => {
+                if (error) {
+                    t.error(error);
+                }
+                t.equal(res.status, 200);
+            });
         });
     });
 });
 
-test('does not send to other users', t => {
+test('does not send to other users', (t) => {
     t.timeoutAfter(10000);
 
     // two users
@@ -213,20 +219,18 @@ test('does not send to other users', t => {
 
     waitForConnect(user1, () => {
         waitForConnect(user2, () => {
-            sendMessage([1], 'some-event', 'some-method', { foo: 'bar' },
-                (error, res) => {
-                    if (error) {
-                        t.error(error);
-                    }
-                    t.equal(res.status, 200);
-                    setTimeout(() => t.end(), 100); // 100ms window to see if user2 receives event...
+            sendMessage([1], 'some-event', 'some-method', { foo: 'bar' }, (error, res) => {
+                if (error) {
+                    t.error(error);
                 }
-            );
+                t.equal(res.status, 200);
+                setTimeout(() => t.end(), processTimeout); // 100ms window to see if user2 receives event...
+            });
         });
     });
 });
 
-test('online status is false for non-connected user', t => {
+test('online status is false for non-connected user', (t) => {
     t.timeoutAfter(10000);
     t.plan(2);
     addPHPSessionToRedis(1, 'test-3-user-1', () => {});
@@ -239,7 +243,7 @@ test('online status is false for non-connected user', t => {
     });
 });
 
-test('online status is true initially after user connected', t => {
+test('online status is true initially after user connected', (t) => {
     t.timeoutAfter(10000);
     t.plan(2);
     addPHPSessionToRedis(1, 'test-4-user-1', () => {});
@@ -255,13 +259,13 @@ test('online status is true initially after user connected', t => {
     });
 });
 
-test('online status is false after user window moved into the background', t => {
+test('online status is false after user window moved into the background', (t) => {
     t.plan(2);
     addPHPSessionToRedis(1, 'test-5-user-1', () => {});
     const socket = connect(t, 'test-5-user-1');
     waitForConnect(socket, () => {
         socket.emit('visibilitychange', true); // hidden = true
-        setTimeout(() => { // give the server some time to process the event
+        setTimeout(() => {
             superagent.get(HTTP_URL + '/users/1/is-online').end((err, response) => {
                 if (err) {
                     t.error(err);
@@ -269,18 +273,18 @@ test('online status is false after user window moved into the background', t => 
                 t.equal(response.type, 'application/json', 'content type is JSON');
                 t.equal(response.body, false, 'response body is "false"');
             });
-        }, 100);
+        }, processTimeout);
     });
 });
 
-test('online status is true after window came into the foreground again', t => {
+test('online status is true after window came into the foreground again', (t) => {
     t.timeoutAfter(10000);
     t.plan(2);
     addPHPSessionToRedis(1, 'test-6-user-1', () => {});
     const socket = connect(t, 'test-6-user-1');
     waitForConnect(socket, () => {
         socket.emit('visibilitychange', true);
-        setTimeout(() => { // give the server some time to process the event
+        setTimeout(() => {
             socket.emit('visibilitychange', false);
             setTimeout(() => {
                 superagent.get(HTTP_URL + '/users/1/is-online').end((err, response) => {
@@ -290,12 +294,12 @@ test('online status is true after window came into the foreground again', t => {
                     t.equal(response.type, 'application/json', 'content type is JSON');
                     t.equal(response.body, true, 'response body is "true"');
                 });
-            }, 100);
-        }, 100);
+            }, processTimeout);
+        }, processTimeout);
     });
 });
 
-test('online status is false if user has two windows and both are in the background', t => {
+test('online status is false if user has two windows and both are in the background', (t) => {
     t.timeoutAfter(10000);
     t.plan(2);
     addPHPSessionToRedis(1, 'test-6-user-1', () => {});
@@ -304,7 +308,7 @@ test('online status is false if user has two windows and both are in the backgro
     waitForConnect(socket1, () => {
         waitForConnect(socket2, () => {
             socket1.emit('visibilitychange', true);
-            setTimeout(() => { // give the server some time to process the event
+            setTimeout(() => {
                 socket2.emit('visibilitychange', true);
                 setTimeout(() => {
                     superagent.get(HTTP_URL + '/users/1/is-online').end((err, response) => {
@@ -314,13 +318,13 @@ test('online status is false if user has two windows and both are in the backgro
                         t.equal(response.type, 'application/json', 'content type is JSON');
                         t.equal(response.body, false, 'response body is "false"');
                     });
-                }, 100);
-            }, 100);
+                }, processTimeout);
+            }, processTimeout);
         });
     });
 });
 
-test('online status is true if user has two windows and only one is in the background', t => {
+test('online status is true if user has two windows and only one is in the background', (t) => {
     t.timeoutAfter(10000);
     t.plan(2);
     addPHPSessionToRedis(1, 'test-8-user-1', () => {});
@@ -329,7 +333,7 @@ test('online status is true if user has two windows and only one is in the backg
     waitForConnect(socket1, () => {
         waitForConnect(socket2, () => {
             socket1.emit('visibilitychange', false);
-            setTimeout(() => { // give the server some time to process the event
+            setTimeout(() => {
                 socket2.emit('visibilitychange', false);
                 setTimeout(() => {
                     superagent.get(HTTP_URL + '/users/1/is-online').end((err, response) => {
@@ -339,13 +343,13 @@ test('online status is true if user has two windows and only one is in the backg
                         t.equal(response.type, 'application/json', 'content type is JSON');
                         t.equal(response.body, true, 'response body is "true"');
                     });
-                }, 100);
-            }, 100);
+                }, processTimeout);
+            }, processTimeout);
         });
     });
 });
 
-test('online status is false if user has two windows in different browsers and both are in the background', t => {
+test('online status is false if user has two windows in different browsers and both are in the background', (t) => {
     t.timeoutAfter(10000);
     t.plan(2);
     addPHPSessionToRedis(1, 'test-9-user-1-browser-1', () => {});
@@ -355,7 +359,7 @@ test('online status is false if user has two windows in different browsers and b
     waitForConnect(socket1, () => {
         waitForConnect(socket2, () => {
             socket1.emit('visibilitychange', true);
-            setTimeout(() => { // give the server some time to process the event
+            setTimeout(() => {
                 socket2.emit('visibilitychange', true);
                 setTimeout(() => {
                     superagent.get(HTTP_URL + '/users/1/is-online').end((err, response) => {
@@ -365,13 +369,13 @@ test('online status is false if user has two windows in different browsers and b
                         t.equal(response.type, 'application/json', 'content type is JSON');
                         t.equal(response.body, false, 'response body is "false"');
                     });
-                }, 100);
-            }, 100);
+                }, processTimeout);
+            }, processTimeout);
         });
     });
 });
 
-test('online status is true if user has two windows in different browsers and only one is in the background', t => {
+test('online status is true if user has two windows in different browsers and only one is in the background', (t) => {
     t.timeoutAfter(10000);
     t.plan(2);
     addPHPSessionToRedis(1, 'test-10-user-1-browser-1', () => {});
@@ -381,7 +385,7 @@ test('online status is true if user has two windows in different browsers and on
     waitForConnect(socket1, () => {
         waitForConnect(socket2, () => {
             socket1.emit('visibilitychange', true);
-            setTimeout(() => { // give the server some time to process the event
+            setTimeout(() => {
                 socket2.emit('visibilitychange', false);
                 setTimeout(() => {
                     superagent.get(HTTP_URL + '/users/1/is-online').end((err, response) => {
@@ -391,25 +395,25 @@ test('online status is true if user has two windows in different browsers and on
                         t.equal(response.type, 'application/json', 'content type is JSON');
                         t.equal(response.body, true, 'response body is "true"');
                     });
-                }, 100);
-            }, 100);
+                }, processTimeout);
+            }, processTimeout);
         });
     });
 });
 
-function connect (t: Test, sessionId: string, cookieName = 'FS_SESSID'): Socket {
+function connect(t: Test, sessionId: string, cookieName = 'FS_SESSID'): Socket {
     const socket = io(WS_URL, {
         transports: ['websocket'],
         extraHeaders: {
-            cookie: serialize(cookieName, sessionId)
-        }
+            cookie: serialize(cookieName, sessionId),
+        },
     });
     // @ts-expect-error - until https://github.com/DefinitelyTyped/DefinitelyTyped/pull/44442 is merged
     t.on('end', () => socket.disconnect());
     return socket;
 }
 
-function waitForConnect (socket: Socket, callback: () => any): void {
+function waitForConnect(socket: Socket, callback: () => any): void {
     if (socket.connected) {
         setTimeout(callback, 0);
     } else {
@@ -417,11 +421,14 @@ function waitForConnect (socket: Socket, callback: () => any): void {
     }
 }
 
-function sendMessage (userIds: number[], channel: string, method: string, data: object, callback: (error: any, res: Response) => any): void {
-    superagent.post(HTTP_URL + `/users/${channel}/${method}`).send({ fsIds: userIds, content: data }).end(callback);
+function sendMessage(userIds: number[], channel: string, method: string, data: object, callback: (error: any, res: Response) => any): void {
+    superagent
+        .post(HTTP_URL + `/users/${channel}/${method}`)
+        .send({ fsIds: userIds, content: data })
+        .end(callback);
 }
 
-function fetchStats (callback: (error: any, stats?: {connections: number, registrations: number, sessions: number}) => any): void {
+function fetchStats(callback: (error: any, stats?: { connections: number; registrations: number; sessions: number }) => any): void {
     superagent.get(HTTP_URL + '/stats').end((error, response) => {
         if (error) {
             callback(error);
@@ -434,15 +441,15 @@ function fetchStats (callback: (error: any, stats?: {connections: number, regist
     });
 }
 
-function addPHPSessionToRedis (userId: number, sessionId: string, callback: (error: any) => any): void {
-    redisClient.set(`fs_sess:${sessionId}`, 'foo')
-        .then(async () =>
-            await redisClient.sadd(`php:user:${userId}:sessions`, sessionId)
-        ).then(callback)
-        .catch(error => callback(error));
+function addPHPSessionToRedis(userId: number, sessionId: string, callback: (error: any) => any): void {
+    redisClient
+        .set(`fs_sess:${sessionId}`, 'foo')
+        .then(async () => await redisClient.sadd(`php:user:${userId}:sessions`, sessionId))
+        .then(callback)
+        .catch((error) => callback(error));
 }
 
-function assertStats (t: Test, connections: number, registrations: number, sessions: number, callback: (error?: any) => any): void {
+function assertStats(t: Test, connections: number, registrations: number, sessions: number, callback: (error?: any) => any): void {
     fetchStats((err, stats) => {
         if (err) return callback(err);
         t.equal(stats?.connections, connections, 'correct connection count');

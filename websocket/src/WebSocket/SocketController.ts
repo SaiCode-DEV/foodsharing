@@ -6,23 +6,23 @@ import { parse as parseCookie } from 'cookie';
 export class SocketController {
     private readonly connectionRegistry: ConnectionRegistry;
 
-    constructor (connectionRegistry: ConnectionRegistry, socket: Server) {
+    constructor(connectionRegistry: ConnectionRegistry, socket: Server) {
         this.connectionRegistry = connectionRegistry;
         socket.on('connection', (socket) => {
             this.onConnect(socket);
-            socket.on("disconnect", () => this.onDisconnect(socket));
-            socket.on("visibilitychange", (hidden: boolean) => this.onClientVisibilityChange(socket, hidden));
+            socket.on('disconnect', () => this.onDisconnect(socket));
+            socket.on('visibilitychange', (hidden: boolean) => this.onClientVisibilityChange(socket, hidden));
         });
     }
 
-    onConnect (socket: Socket): void {
+    onConnect(socket: Socket): void {
         this.connectionRegistry.numConnections++;
 
         const sessionId = this.readSessionId(socket);
         this.connectionRegistry.register(sessionId, new Connection(socket));
     }
 
-    onDisconnect (socket: Socket): void {
+    onDisconnect(socket: Socket): void {
         this.connectionRegistry.numConnections--;
         try {
             const sessionId = this.readSessionId(socket);
@@ -32,7 +32,7 @@ export class SocketController {
         }
     }
 
-    onClientVisibilityChange (socket: Socket, hidden: boolean): void {
+    onClientVisibilityChange(socket: Socket, hidden: boolean): void {
         const sessionId = this.readSessionId(socket);
         const connection = this.connectionRegistry.getConnection(sessionId, socket.id);
         if (!connection) {
@@ -41,7 +41,7 @@ export class SocketController {
         connection.clientIsHidden = hidden;
     }
 
-    private readSessionId (socket: Socket): string {
+    private readSessionId(socket: Socket): string {
         const cookieVal = socket.request.headers.cookie;
         if (!cookieVal) {
             throw new Error('not authorized');

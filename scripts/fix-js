@@ -8,6 +8,7 @@ run-in-container client yarn prettier:e2e:fix
 run-in-container client yarn lint --fix
 
 log-header "Fixing js websocket code"
+run-in-container websocket yarn prettier:fix
 run-in-container websocket yarn lint --fix
 
 # tests/e2e is linted & auto-fixed by the client lint above (its eslint covers tests/e2e/**/*.ts)

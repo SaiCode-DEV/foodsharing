@@ -1,11 +1,9 @@
 import { Socket } from 'socket.io';
 
 export class Connection {
-    constructor (
-        private readonly socket: Socket
-    ) {}
+    constructor(private readonly socket: Socket) {}
 
-    get id (): string {
+    get id(): string {
         return this.socket.id;
     }
 
@@ -15,7 +13,7 @@ export class Connection {
      */
     clientIsHidden = false;
 
-    send (channel: string, payload: any): void {
+    send(channel: string, payload: any): void {
         this.socket.emit(channel, payload);
     }
 }

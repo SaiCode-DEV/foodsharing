@@ -12,7 +12,7 @@ export class ConnectionRegistry {
      */
     numConnections = 0;
 
-    register (sessionId: string, connection: Connection): void {
+    register(sessionId: string, connection: Connection): void {
         let connectionsForSessionId = this.registeredConnections.get(sessionId);
         if (!connectionsForSessionId) {
             connectionsForSessionId = [];
@@ -22,7 +22,7 @@ export class ConnectionRegistry {
         this._numRegistrations++;
     }
 
-    removeRegistration (sessionId: string, connectionId: string): void {
+    removeRegistration(sessionId: string, connectionId: string): void {
         const connectionsForSession = this.registeredConnections.get(sessionId);
         if (!connectionsForSession) {
             return;
@@ -41,7 +41,7 @@ export class ConnectionRegistry {
         }
     }
 
-    getConnection (sessionId: string, connectionId: string): Connection | undefined {
+    getConnection(sessionId: string, connectionId: string): Connection | undefined {
         const connectionsForSession = this.registeredConnections.get(sessionId);
         if (!connectionsForSession) {
             return undefined;
@@ -49,7 +49,7 @@ export class ConnectionRegistry {
         return connectionsForSession.find((connection) => connection.id === connectionId);
     }
 
-    getConnectionsForSessions (sessionIds: string[]): Connection[] {
+    getConnectionsForSessions(sessionIds: string[]): Connection[] {
         const connections: Connection[] = [];
         for (const sessionId of sessionIds) {
             const connectionsForSession = this.registeredConnections.get(sessionId);
@@ -61,15 +61,15 @@ export class ConnectionRegistry {
         return connections;
     }
 
-    get numRegistrations (): number {
+    get numRegistrations(): number {
         return this._numRegistrations;
     }
 
-    get numRegisteredSessions (): number {
+    get numRegisteredSessions(): number {
         return this.registeredConnections.size;
     }
 
-    get numConnectionsOnline (): number {
+    get numConnectionsOnline(): number {
         let numConnectionsOnline = 0;
         for (const connections of this.registeredConnections.values()) {
             for (const connection of connections) {

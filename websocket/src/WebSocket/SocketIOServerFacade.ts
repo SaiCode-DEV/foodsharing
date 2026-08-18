@@ -8,12 +8,12 @@ export class SocketIOServerFacade {
     private readonly socketIo = new Server(this.server);
     private readonly registry: ConnectionRegistry;
 
-    constructor (registry: ConnectionRegistry) {
+    constructor(registry: ConnectionRegistry) {
         this.registry = registry;
         new SocketController(this.registry, this.socketIo);
     }
 
-    listen (port: number): void {
+    listen(port: number): void {
         this.server.listen(port);
     }
 }

@@ -1,17 +1,14 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "target": "ES2019",
-    "removeComments": true,
-    "preserveConstEnums": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "outDir": "dist"
-  },
-   "include": [
-    "src/**/*.ts",
-    "test.ts"
-  ]
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "ES2019",
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "outDir": "dist"
+    },
+    "include": ["src/**/*.ts", "test.ts"]
 }

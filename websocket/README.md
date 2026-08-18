@@ -5,19 +5,28 @@ connections are used in order to push updates (e. g. new chat messages or bell n
 browsers or the Android app).
 
 ## Setup
+
 ### How to run yarn?
+
 `./scripts/websocket/yarn`
+
 ### How to fix the code style?
+
 `./scripts/websocket/yarn fix`
+
 ### How to run the tests?
+
 `./scripts/websocket/yarn test`
+
 ### How to get my changes running?
+
 You don't need to. In development, we use the neat tool `ts-node-dev`, which keeps track of your TypeScript files and
 updates the server on changes. No manual TypeScript build and no server restart is required.
 
 ## NABPUQ - Never asked, but probably upcoming questions:
 
 ## Why node?
+
 Node servers work very differently from most server implementations in PHP or other languages. Normally, a server
 creates one process per request. Even if the requests are executed simultaneously (e. g. using `PHP-FPM`), they have
 a separate place in the memory and can not e. g. use object instances created by the other requests. If these processes
@@ -48,6 +57,7 @@ that if a third client starts a request while our first two are still ongoing, o
 something to the first ones, as the application knows about all of them. This is exactly what we need for WebSockets.
 
 ## Why does a user id have many sessions?
+
 If you look into our code, you'll find that SessionIdProvider will always provide you with an array of session ids, even
 if you want to know the session of one user id.
 
@@ -55,9 +65,11 @@ This is because the same user can be logged in across different browsers and dif
 have their own cookies, and therefore have their own session id.
 
 ## Why does a session have many connections/sockets?
+
 A session is always tied to a browser. If you log in to a site, you are still logged in on other tabs or windows,
 unless it's a private one. Sockets are tied to instances of the client. Every tab or window executes an own instance
 of the client. Because one browser can have many windows or tabs, one session can have many sockets.
 
 ## Why is this thing called "chat"? It also handles bell notifications and online status.
+
 Historical reasons.
