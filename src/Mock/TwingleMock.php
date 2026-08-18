@@ -20,9 +20,15 @@ class TwingleMock extends AbstractController
     #[Route(path: '/twingle/{projectId}/projectstatus')]
     public function projectStatus(int $projectId): JsonResponse
     {
+        $donators = match ($projectId) {
+            384 => 1123,
+            398 => 742,
+            default => 899,
+        };
+
         return new JsonResponse([
             'amount' => 29810,
-            'donators' => 899,
+            'donators' => $donators,
             'percentage' => 29.81,
             'target' => 100000,
             'allow_more' => false,

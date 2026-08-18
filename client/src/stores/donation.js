@@ -38,11 +38,9 @@ export const useDonationStore = defineStore('donation', {
       }
     },
     getDonationInfoByProjectId: (state) => (projectId) => {
-      return (
-        state.donationData?.donationInformations?.find(
-          (info) => info.projectId === projectId,
-        ) || null
-      )
+      const donationInfos = state.donationData?.donationInformation || []
+
+      return donationInfos.find((info) => Number(info?.projectId) === Number(projectId)) || null
     },
     campaignDonationInfo () {
       return this.getDonationInfoByProjectId(this.donationData?.campaignId)

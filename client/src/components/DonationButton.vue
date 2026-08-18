@@ -5,7 +5,6 @@
     :to="isExternalLink ? undefined : linkTarget"
     :href="isExternalLink ? linkTarget : undefined"
     :class="{'donationpage-btn': customDonationStyle}"
-    :style="customDonationStyle ? {'--donation-border-color': borderColor} : undefined"
     @click="customDonationStyle || !buttonLink ? emit('click', $event) : undefined"
     @mouseover="switchImage('-highlight')"
     @mouseout="switchImage('')"
@@ -89,18 +88,20 @@ function switchImage (type) {
   font-weight: 600;
   font-size: v-bind(customDonationTextSize);
 }
-.donationpage-btn {
-  border: 2px solid var(--donation-border-color);
-  background: var(--fs-color-white) !important;
+
+.btn.donationpage-btn {
+  border: 2px solid v-bind(borderColor);
+  background: var(--fs-color-white);
   color: var(--fs-color-warning-500);
   font-weight: bold;
   box-shadow: none;
   font-size: 1.5rem;
 }
-.donationpage-btn:hover, .donationpage-btn:focus {
-  background: var(--fs-color-warning-100) !important;
-  color: var(--fs-color-warning-900) !important;
-  border-color: var(--donation-border-color);
+
+.btn.donationpage-btn:hover, .btn.donationpage-btn:focus {
+  background: var(--fs-color-warning-100);
+  color: var(--fs-color-warning-900);
+  border-color: v-bind(borderColor);
 }
 
 .donation-icon {
@@ -112,4 +113,5 @@ function switchImage (type) {
   background: var(--fs-color-danger-200);
   border-radius: 50%;
 }
+
 </style>
