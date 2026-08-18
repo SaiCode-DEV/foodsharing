@@ -52,6 +52,33 @@ test.describe("Client side navigation", () => {
     expect(await stillSameDocument(page)).toBe(true);
   });
 
+  // Module scripts run once per session, because Catchall caches them in
+  // window.__loadedScripts. A script that only registers the components of the path
+  // that was open when it first loaded leaves the next page empty.
+  test("keeps rendering donation pages when navigating between them", async ({
+    page,
+    acceptanceHelper,
+  }) => {
+    const orga = await foodsharing.createOrga();
+    await acceptanceHelper.login(orga.email);
+
+    await page.goto("/donation");
+    await expect(page.locator("#app-content")).toContainText("Deine Spende");
+    await markPage(page);
+
+    // the entry in the admin menu goes through the router
+    await acceptanceHelper.openMobileMenuIfNeeded();
+    await page.getByText("Systemadministration").first().click();
+    await page.getByText("Spendenseite bearbeiten").first().click();
+
+    await expect(page).toHaveURL(/\/donation\/admin/);
+    expect(await stillSameDocument(page)).toBe(true);
+    // Donation.js registers DonationPage only, so the admin wrapper would stay empty
+    await expect(page.locator("#app-content")).toContainText(
+      "Spendenverwaltung",
+    );
+  });
+
   test("falls back to a full load when the content fetch fails", async ({
     page,
     acceptanceHelper,
