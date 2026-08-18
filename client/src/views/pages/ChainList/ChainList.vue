@@ -302,6 +302,14 @@ export default {
           description: this.$t('chain.status.notcooperating'),
           color: 'var(--fs-color-chain-not-cooperating)',
         },
+        {
+          description: this.$t('chain.status.insufficientbranches'),
+          color: 'var(--fs-color-chain-insufficientbranches)',
+        },
+        {
+          description: this.$t('chain.status.closed'),
+          color: 'var(--fs-color-chain-closed)',
+        },
       ],
       availableFields: [],
       fieldSelection: [],

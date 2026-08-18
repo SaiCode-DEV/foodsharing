@@ -4624,6 +4624,8 @@ export interface components {
              * @description - '0' - Not Cooperating
              *     - '1' - Waiting, i.e. in negotiation
              *     - '2' - Cooperating.
+             *     - '3' - Insufficient Branches
+             *     - '4' - Closed.
              */
             status: number;
             /** ZIP code of the chains headquater. */
@@ -7555,6 +7557,8 @@ export interface components {
              * @description - '0' - Not Cooperating
              *     - '1' - Waiting, i.e. in negotiation
              *     - '2' - Cooperating.
+             *     - '3' - Insufficient Branches
+             *     - '4' - Closed.
              */
             status?: components["schemas"]["StoreChainStatus"];
             /** ZIP code of the chains headquater. */
@@ -7766,7 +7770,7 @@ export interface components {
             fetchCount?: number;
         };
         /** @enum {integer} */
-        StoreChainStatus: 0 | 1 | 2;
+        StoreChainStatus: 0 | 1 | 2 | 3 | 4;
     };
     responses: never;
     parameters: never;

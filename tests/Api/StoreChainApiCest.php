@@ -155,7 +155,7 @@ class StoreChainApiCest
 
         return [
             'name' => 'chain_' . $this->faker->company(),
-            'status' => random_int(0, 2),
+            'status' => random_int(0, 4),
             'headquartersZip' => $this->faker->postcode(),
             'headquartersCity' => $this->faker->city(),
             'headquartersCountry' => $this->faker->country(),

@@ -48,10 +48,12 @@ class StoreChain
      * - '0' - Not Cooperating
      * - '1' - Waiting, i.e. in negotiation
      * - '2' - Cooperating.
+     * - '3' - Insufficient Branches
+     * - '4' - Closed.
      *
-     * @OA\Property(enum={0, 1, 2}, example=2)
+     * @OA\Property(enum={0, 1, 2, 3, 4}, example=2)
      */
-    #[Assert\Range(min: 0, max: 2)]
+    #[Assert\Range(min: 0, max: 4)]
     public StoreChainStatus $status;
 
     /**

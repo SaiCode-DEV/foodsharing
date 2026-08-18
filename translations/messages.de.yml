@@ -3749,6 +3749,8 @@ chain:
     cooperating: Kooperiert
     negotiating: In Verhandlung
     notcooperating: Kooperiert nicht
+    insufficientbranches: Zu wenige Filialen
+    closed: Existiert nicht mehr
     filterplaceholder: Status
   error:
     create: Kette konnte nicht erstellt werden ({error}).
