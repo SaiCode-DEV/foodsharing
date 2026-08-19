@@ -24,7 +24,7 @@ class ReportGateway extends BaseGateway
                 'reporter_id' => $reporterId,
                 'reporttype' => ReportType::LOCAL->value,
                 'report_reason_id' => $reportData->reason->value,
-                'betrieb_id' => $reportData->storeId ?? 0,
+                'betrieb_id' => $reportData->storeId ?? null,
                 'time' => date('Y-m-d H:i:s'),
                 'forum_thread_id' => $reportData->forumThreadId ?? null,
                 'status' => $reportData->status ?? null,
@@ -179,6 +179,14 @@ class ReportGateway extends BaseGateway
         $this->db->update('fs_report', ['reminder_sent' => true], ['id' => $reportId]);
     }
 
+    /**
+     * Unlinks all reports from the specified store by setting their store ID to 0.
+     */
+    public function removeStoreFromReports(int $storeId): void
+    {
+        $this->db->update('fs_report', ['betrieb_id' => 0], ['betrieb_id' => $storeId]);
+    }
+
     private function createReportForListView(array $report): ReportForListView
     {
         $reportForListView = new ReportForListView();
@@ -186,7 +194,13 @@ class ReportGateway extends BaseGateway
         $reportForListView->message = $report['msg'] ?? '';
         $reportForListView->reason = $report['tvalue'] ?? '';
         $reportForListView->reportedAt = Carbon::parse($report['time']);
-        $reportForListView->store = $report['betrieb_id'] ? MinimalStoreIdentifier::createFromArray($report, 'betrieb_') : null;
+        $reportForListView->store = null;
+        // store=null means no store was connected, store=0 means the store was deleted
+        if (!is_null($report['betrieb_id'])) {
+            $reportForListView->store = $report['betrieb_id'] > 0
+                ? new MinimalStoreIdentifier($report['betrieb_id'], $report['betrieb_name'])
+                : new MinimalStoreIdentifier(0, '');
+        }
         $reportForListView->reporter = new ProfileWithMail((int)$report['rp_id'], $report['rp_name'], $report['rp_photo'], null, $report['rp_email'], $report['rp_last_name']);
         $reportForListView->reported = new ProfileWithMail((int)$report['fs_id'], $report['fs_name'], $report['fs_photo'], null, $report['fs_email'], $report['fs_last_name']);
         $reportForListView->forumThreadId = $report['forum_thread_id'] ?? null;

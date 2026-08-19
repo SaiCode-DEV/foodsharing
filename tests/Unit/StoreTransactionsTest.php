@@ -29,6 +29,7 @@ use Foodsharing\Modules\Message\MessageGateway;
 use Foodsharing\Modules\Message\MessageTransactions;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Region\RegionTimezoneResolver;
+use Foodsharing\Modules\Report\ReportGateway;
 use Foodsharing\Modules\Store\DTO\CreateStoreData;
 use Foodsharing\Modules\Store\DTO\StoreListInformation;
 use Foodsharing\Modules\Store\PickupGateway;
@@ -75,6 +76,7 @@ class StoreTransactionsTest extends Unit
             $this->tester->get(MessageTransactions::class),
             $this->tester->get(StorePermissions::class),
             $this->tester->get(GroupFunctionGateway::class),
+            $this->tester->get(ReportGateway::class),
             $this->tester->get(CurrentUserUnitsInterface::class),
             $session,
             $this->tester->get(Mem::class),

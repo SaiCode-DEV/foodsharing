@@ -4561,14 +4561,20 @@ export interface components {
             timezone?: string;
         };
         AddReportData: {
+            /** @description Report reason selected by the reporter */
             reason: components["schemas"]["ReportReason"];
+            /** @description User generated message by the reporter */
             message: string;
+            /** @description ID of the store to which the report is related, or null if it is not related to a store */
             storeId?: number;
+            /** @description ID of a forum thread which is linked to the report */
             forumThreadId?: number;
+            /** @description Current status of the processing */
             status?: string;
+            /** @description Consequence of the processed report for the reportee */
             consequence?: string;
             /**
-             * Whether the reporter wants a confirmation email with a summary of the report.
+             * @description Whether the reporter wants a confirmation email with a summary of the report.
              * @default true
              */
             sendConfirmationMail: boolean;

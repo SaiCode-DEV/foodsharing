@@ -109,7 +109,7 @@ class PickupTransactions
             while ($nextOccurrence->lessThanOrEqualTo($end)) {
                 $pickupOption = new PickupOption();
                 $pickupOption->date = $nextOccurrence->copy();
-                $pickupOption->store = MinimalStoreIdentifier::createFromArray($store);
+                $pickupOption->store = new MinimalStoreIdentifier($store['id'], $store['name']);
                 $pickupOption->slots = $regularPickupTime['fetcher'];
                 $pickupOption->description = $regularPickupTime['description'];
                 $pickupOptions[$getIdentifierFromPickupOption($pickupOption)] = $pickupOption;
@@ -124,7 +124,7 @@ class PickupTransactions
             $store = $storesMap[$oneTimePickup['betrieb_id']];
             $pickupOption = new PickupOption();
             $pickupOption->date = new Carbon($oneTimePickup['time']);
-            $pickupOption->store = MinimalStoreIdentifier::createFromArray($store);
+            $pickupOption->store = new MinimalStoreIdentifier($store['id'], $store['name']);
             $pickupOption->slots = $oneTimePickup['fetchercount'];
             $pickupOption->description = $oneTimePickup['description'];
             $pickupOptions[$getIdentifierFromPickupOption($pickupOption)] = $pickupOption;

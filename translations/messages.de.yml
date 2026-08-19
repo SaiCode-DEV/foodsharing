@@ -1787,6 +1787,7 @@ reports:
   time: "Zeitpunkt"
   no_reports_fallback: "Es sind noch keine Meldungen vorhanden"
   store: "Zugeordneter Betrieb"
+  deleted_store: "gelöschter Betrieb"
   report_id: "Meldungs-ID"
   search: "Suche"
   search_by_name_or_id: "Suche nach Name, ID oder Grund"

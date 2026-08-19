@@ -119,10 +119,13 @@
           <div class="report">
             <p><strong>{{ $t('reports.report_id') }}</strong>: {{ row.item.id }}</p>
             <p><strong>{{ $t('reports.time') }}</strong>: {{ $d(new Date(row.item.reportedAt), 'long') }}</p>
-            <p v-if="row.item.store">
+            <p v-if="row.item.store?.id > 0">
               <strong>{{ $t('reports.store') }}</strong>: <router-link :to="$url('store', row.item.store.id)">
                 {{ row.item.store.name }}
               </router-link> ({{ row.item.store.id }})
+            </p>
+            <p v-else-if="row.item.store?.id === 0">
+              <strong>{{ $t('reports.store') }}</strong>: {{ $t('reports.deleted_store') }}
             </p>
             <p v-else>
               <strong>{{ $t('reports.store') }}</strong>: -

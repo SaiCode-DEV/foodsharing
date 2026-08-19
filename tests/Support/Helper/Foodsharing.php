@@ -1360,7 +1360,7 @@ class Foodsharing extends Db
         return $params;
     }
 
-    public function addReport($reporterId, $reporteeId, $storeId = 0, $confirmed = 0, $reason = null, $msg = null): array
+    public function addReport($reporterId, $reporteeId, $storeId = null, $confirmed = 0, $reason = null, $msg = null): array
     {
         $params = [
             'reporter_id' => $reporterId,

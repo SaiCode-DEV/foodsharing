@@ -388,7 +388,13 @@ class ForumGateway extends BaseGateway
         $reportForListView->message = $report['message'] ?? '';
         $reportForListView->reason = $report['reason'] ?? '';
         $reportForListView->reportedAt = Carbon::parse($report['reportedAt']);
-        $reportForListView->store = $report['betrieb_id'] ? MinimalStoreIdentifier::createFromArray($report, 'betrieb_') : null;
+        // store=null means no store was connected, store=0 means the store was deleted
+        $reportForListView->store = null;
+        if (!is_null($report['betrieb_id'])) {
+            $reportForListView->store = $report['betrieb_id'] > 0
+                ? new MinimalStoreIdentifier($report['betrieb_id'], $report['betrieb_name'])
+                : new MinimalStoreIdentifier(0, '');
+        }
         $reportForListView->reporter = new ProfileWithMail(
             (int)($report['rp_id'] ?? 0),
             $report['rp_name'] ?? '',

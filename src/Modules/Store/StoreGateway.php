@@ -81,7 +81,7 @@ class StoreGateway extends BaseGateway
             $this->buildPaginationSqlLimit($pagination),
             $this->addPaginationSqlLimitParameters($pagination, ['chainId' => $chainId]));
 
-        return array_map(fn (array $item) => MinimalStoreIdentifier::createFromArray($item), $results);
+        return array_map(fn (array $item) => new MinimalStoreIdentifier($item['id'], $item['name']), $results);
     }
 
     /**

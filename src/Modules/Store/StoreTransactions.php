@@ -35,6 +35,7 @@ use Foodsharing\Modules\Message\MessageTransactions;
 use Foodsharing\Modules\Region\DTO\MinimalRegionIdentifier;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Region\RegionTimezoneResolver;
+use Foodsharing\Modules\Report\ReportGateway;
 use Foodsharing\Modules\Store\DTO\CategoryWithType;
 use Foodsharing\Modules\Store\DTO\CommonLabel;
 use Foodsharing\Modules\Store\DTO\CommonStoreMetadata;
@@ -100,6 +101,7 @@ class StoreTransactions
         private readonly MessageTransactions $messageTransactions,
         private readonly StorePermissions $storePermissions,
         private readonly GroupFunctionGateway $groupFunctionGateway,
+        private readonly ReportGateway $reportGateway,
         private readonly CurrentUserUnitsInterface $currentUserUnits,
         private readonly Session $session,
         private readonly Mem $mem,
@@ -1199,6 +1201,9 @@ class StoreTransactions
             BellType::createIdentifier(BellType::DELETE_STORE, $storeId),
         );
         $this->bellGateway->addBellForUsers($teamIds, $bellData);
+
+        // Update all reports that are connected to the store
+        $this->reportGateway->removeStoreFromReports($storeId);
 
         // Delete the store before the chats due to foreign keys
         $teamConversationId = $this->storeGateway->getBetriebConversation($storeId, false);
