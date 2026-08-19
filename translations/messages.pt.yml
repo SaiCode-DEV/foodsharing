@@ -154,6 +154,14 @@ store:
       18: '{actor} retirou o convite à equipa para {target}.'
       19: '{ator} aceitou o convite da equipa.'
       20: '{ator} recusou o convite da equipa.'
+      22: '{actor} alterou o número de atividades de {previousCount} para {newCount}
+        no dia {date}.'
+      23: '{actor} alterou a descrição das vagas em {date}:'
+      24: '{actor} ativou a regra Sultanas'
+      25: '{actor} desativou a regra Sultanas'
+      26: '{actor} ajustou as opções das atividades regulares'
+      27: '{actor} alterou o período de antecedência para a criação automática de
+        vagas de {previousInterval} para {newInterval} semanas.'
     type:
       3: 'Aceitar solicitações de adesão'
       2: 'Recursar solicitações de adesão'
@@ -175,6 +183,12 @@ store:
       18: Retirar convites de equipa
       19: Aceptar convites de equipa
       20: Recusar convites de equipa
+      22: Alterar o número de vagas
+      23: Alterar a descrição da vaga
+      24: Ativar a regra Sultanas
+      25: Deativar a regra Sultanas
+      26: Alterar as vagas regulares
+      27: Alterar o intervalo das vagas automáticas
     log_types_placeholder: 'Seleciona as ações a mostrar'
     search: 'Mostrar ações selecionadas'
     selected_log_types: '{amount} tipos de ação selecionados'
@@ -2593,6 +2607,8 @@ chain:
     notcooperating: 'Não coopera'
     cooperating: 'cooperando'
     negotiating: 'Em negociação'
+    insufficientbranches: Poucas filiais
+    closed: Já não existe
   options:
     showstores: 'Mostrar locais'
     edit: 'Editar'
@@ -4241,9 +4257,9 @@ regionOptions:
   enableReportButton: 'Ativar formulário de denúncia nas páginas de perfil dos Foodsavers
     habitual do distrito'
   regionPickupTimespan: 'Período de tempo (dias antes e depois da data da vaga desejada)
-    ao qual a regra das sultanas se aplica'
+    ao qual a regra Sultanas se aplica'
   regionPickupRuleActive: 'Ative a seguinte regra distrital para as vagas de locais
-    populares (SULTANAS):'
+    populares (regra Sultanas):'
   save: 'Guardar opções'
   regionPickupLimitDayNumber: 'Número máximo das vagas permitidas de locais populares
     numa dia'
@@ -4259,7 +4275,7 @@ regionOptions:
     heading: Gestão de utilizadores
     info: Os embaixadores do distrito podem alterar
   pickuprule:
-    heading: Gerir regra de sultanas
+    heading: Opções da regra Sultanas
     info: Administradores da AG de Coordenação de locais (se houver) ou 
       embaixadores do distrito podem editar
   reporting:
@@ -4522,7 +4538,7 @@ besonderheiten: 'Indicações'
 rolle: 'Função do utilizador'
 regions: 'Distritos'
 text: 'texto'
-use_region_pickup_rule: 'Aplicar a regra distrital para locais populares (regra SULTANAS)
+use_region_pickup_rule: 'Aplicar a regra distrital para locais populares (regra Sultanas)
   às vagas deste local?'
 teaser: 'Teaser'
 presse: 'A empresa/loja/clube está disponível para ser mencionada na imprensa e em

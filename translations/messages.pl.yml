@@ -1822,6 +1822,13 @@ store:
       5: '{actor} umieścił/a {target} na liście rezerwowych.'
       9: '{actor} wprowadził/a {target} jako koordynatora/kę punktu.'
       15: '{actor} usunął/ęła wpis na tablicy od {target} z dnia {date}.'
+      22: '{actor} zmienił/a liczbę odbiorów dnia {date} z {previousCount} na {newCount}.'
+      23: '{actor} zmienił/a opis slotów dnia {date}:'
+      24: '{actor} aktywował/a regułę rodzynkową'
+      25: '{actor} deaktywował/a regułę rodzynkową'
+      26: '{actor} dostosował/a ustawienia regularnych odbiorów'
+      27: '{actor} zmienił/a przedział czasu, na ile tygodni wcześniej sloty są tworzone
+        automatycznie z {previousInterval} na {newInterval}.'
     type:
       8: Opuszczenie teamu
       17: Zaproszenie foodsaverów/ek do teamu
@@ -1843,6 +1850,12 @@ store:
       13: 'Zostanie wypisanym/ą ze slotu'
       11: 'Zapisanie się na slot'
       15: 'Usunięcie wpisu na tablicy'
+      25: Deaktywowanie reguły rodzynkowej
+      26: Zmiana regularnych slotów
+      27: Zmiana przedziału automatycznych slotów
+      22: Zmiana liczby slotów
+      23: Zmiana opisu slotów
+      24: Aktywowanie reguły rodzynkowej
     log_types_placeholder: 'Wybierz typy akcji do wyświetlenia'
     message_saved_info: 'Twoja wiadomość zostanie zapisana w protokole punktu.'
     selected_log_types: 'Wybrano następująca liczbę typów akcji: {amount}'
@@ -2769,6 +2782,7 @@ reports:
     odpowiedzialny za ten przypadek.
   noresults: Nie znaleziono wątku na forum. Spróbuj wyszukać według innego 
     pojęcia lub utwórz nowy wątek.
+  deleted_store: usunięty punkt
 memberlist:
   header_for_workgroup: Foodsaverzy/ki w zespole {bezirk}
   header_for_district: 'Foodsaverzy/ki w rejonie {bezirk}'
@@ -4827,6 +4841,8 @@ chain:
     notcooperating: 'Nie współpracuje'
     cooperating: 'Współpracuje'
     negotiating: 'W trakcie negocjacji'
+    insufficientbranches: za mało filii
+    closed: już nie istnieje
   options:
     showstores: 'Pokaż punkty'
     edit: 'Edytuj'

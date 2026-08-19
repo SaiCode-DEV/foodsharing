@@ -1153,7 +1153,8 @@ events:
     participant list are visible only to registered users.
   declinedCount: '{count} people canceled'
 forum:
-  thread_awaits_moderation: "Your thread has been saved. It still needs to be activated by the moderation team and is not visible until then."
+  thread_awaits_moderation: "Your thread has been saved. It still needs to be activated
+    by the moderation team and is not visible until then."
   threads: Threads
   quickreply:
     error: Post could not be saved.
@@ -1598,6 +1599,7 @@ terminology:
   giving: Donation
   attention: 'Attention'
   newsletter: Newsletter
+  timezone: Time zone
 login:
   pwreset:
     bread: Reset password
@@ -1728,8 +1730,8 @@ bell:
   translation_failed:
     title: Error translating bell
     key: Bells from the Beta can not be displayed
-    md: "The bell probably comes from the Beta and cannot be displayed here. Please
-      try to open the link on the Beta.\n\n Title: `{bellTitle}`\n\n Key: `{bellKey}`"
+    md: "The bell probably comes from the Beta website and cannot be displayed here.
+      Please try to open the link on the Beta.\n\n Title: `{bellTitle}`\n\n Key: `{bellKey}`"
     md_support: If you think this is an error, please report it to 
       [support](/support)
   passgen_failed_title: Your foodsharing-card could not be created
@@ -1876,6 +1878,7 @@ reports:
   enter_consequence: Enter the consequence
   noresults: No forum thread found. Please try another search term or create a 
     new thread.
+  deleted_store: deleted store
 poll:
   time_period: Time period
   results:
@@ -2102,6 +2105,7 @@ region:
     working_group: Working group
     big_city: Large city (without registration)
     part_of_town: Quarter
+    continent: Continent
   delete: Delete region
   edit: Edit region
   save: Yes, save
@@ -2210,6 +2214,7 @@ region:
   conflict_store_member_or_manager_other: You are unable to remove this person 
     from the district because he/she is still a member of at least one 
     store-team there.
+  inherit_timezone: Inherits the parent region's time zone
 storelist:
   others: More stores in {region}
   region: Region
@@ -2808,6 +2813,9 @@ store:
       17: '{actor} has invited {target} to the team.'
       20: '{actor} declined the team invitation.'
       19: '{actor} has accepted the team invitation.'
+      23: '{actor} has change the description of the slots at {date}:'
+      24: '{actor} has activated the CHERRY rule'
+      25: '{actor} has deactivated the CHERRY rule'
     type:
       3: membership requests accepted
       2: membership requests rejected
@@ -2829,6 +2837,12 @@ store:
       17: invitations to the team
       19: accepted team invitations
       20: declined team invitations
+      22: Change number of slots
+      23: Change slot description
+      24: Activate CHERRY rule
+      25: Deactivate CHERRY rule
+      26: Change regular slots
+      27: Change the interval of automatic slots
     log_types_placeholder: Select action types to display
     search: List selected actions
     selected_log_types: '{amount} action types selected'
@@ -3042,7 +3056,7 @@ wall:
   delete_confirmation:
     text: Are you sure you want to delete this entry from {author}?
     title: Delete wall entry?
-  post_not_found: ''
+  post_not_found: 'The linked post could not be found. Maybe it was deleted.'
 ui: {}
 upload:
   file: Upload file
@@ -4183,6 +4197,8 @@ chain:
     negotiating: In negotiation
     notcooperating: Not cooperating
     filterplaceholder: Status
+    insufficientbranches: Too few branches
+    closed: Does not exist anymore
   error:
     create: Chain could not be created ({error}).
     edit: Chain could not be edited ({error}).
