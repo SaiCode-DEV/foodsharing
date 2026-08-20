@@ -48,6 +48,7 @@ All development is dockerized via `scripts/` directory:
 - Frontend tests use Playwright for E2E: `./scripts/test-e2e`
 - Always suggest to run `./scripts/test-backend` after backend changes
 - If adding tests, decide if a new suite should be added (new feature) to CI or whether an existing should be amended (test for this feature already exists). Try hard to keep tests deterministic (avoid flaky network/time-sensitive assertions).
+- A regression test only counts once it has failed without the fix: stash the src change, run the test (red), restore, run again (green). A test that passes either way proves nothing.
 
 ## Backend Conventions
 
@@ -268,6 +269,13 @@ Use Vue I18n in templates:
 <template>{{ $t('store.name') }}</template>
 ```
 
+### Changing an existing key
+Translations live in about 20 files, not just `de` and `en`. Before changing a text or its
+placeholders, run `grep -ln "<key>" translations/*.yml`. Dropping a placeholder from the
+call while other languages still contain it shows the raw `{count}` to those users. Adding
+the parameter back is usually cheaper than editing every file, which also collides with
+Weblate.
+
 ## Database
 - For schema changes, add a Phinx migration in `migrations/` and reference it in your PR. Always include a small note in the migration message about the intent.
 - Run: `./scripts/db-migrate`
@@ -279,11 +287,26 @@ Use Vue I18n in templates:
 - JS: ESLint config in `eslint.config.mjs`
 - Run `./scripts/fix` and `./scripts/lint` before committing. CI expects lint + tests to pass
 - PHPStan for static analysis: `phpstan.neon`
+- Commit messages: `#<issue> | Area | summary` (imperative), e.g. `#2786 | Chat | cap the reply preview`
+- Code comments explain constraints the code cannot show. Do not reference issue numbers in
+  src code comments and do not add comments that merely justify a fix - they turn into noise
+  once merged. Issue references in tests are fine (regression provenance).
+
+## Release notes
+User-facing changes get one file per MR: `release-notes/release-*/<MR-number>.md` with
+frontmatter keys `text` (German, one sentence of user benefit), `mr: [<number>]` and `tag`
+(e.g. `Fehlerbehebung`, `Verbesserung`). See the existing files in that folder.
 
 ## AI assistance
 Marking AI-assisted work is voluntary (dev call 2026-07-13):
 - Merge requests and issues: add the `AI-assisted` label.
 - Commits: add an `Assisted-by: AI` trailer line to the commit message.
+
+### Input streams in tests
+`wheel`, `touchmove` and scrolling arrive as a chain of many small deltas. Guards and
+thresholds therefore belong on the accumulated movement, not on a single event, otherwise
+the feature dies on trackpads. Drive such tests as a chain via `dispatchEvent` in the page;
+`page.mouse.wheel` in a loop is too slow and falls out of the gesture window.
 
 ## Testing Checklist
 1. Run `./scripts/lint` to check code style
@@ -307,6 +330,12 @@ Full developer documentation at `docs/en/` - refer developers to:
 - ❌ Using Vue 2 Options API for new code → ✅ Use `<script setup>` and Composition API
 - ❌ Direct database queries in controllers → ✅ Use Gateway classes
 - ❌ Skipping permission checks in API endpoints → ✅ Always check via `*Permissions` classes
+- ❌ Removing or renaming SQL result fields without checking consumers → ✅ Gateway rows often reach the frontend verbatim; grep `src/` **and** `client/` for the field name first
+- ❌ Altering `fs_foodsaver` columns without the archive table → ✅ Mirror schema changes in `fs_foodsaver_archive` - it is a superset with NOT NULL columns and no defaults, drift breaks account deletion
+- ❌ `'column !=' => null` in `Database` criteria → ✅ It never produces `IS NOT NULL` (the null branch wins before operator parsing); use raw SQL. `'column' => null` for `IS NULL` works.
+- ❌ Codeception `seeInDatabase` with a `null` value → ✅ It never matches; use `grabFromDatabase` + `assertNull`
+- ❌ Waiting for CI on a draft MR → ✅ Drafts skip the pipeline (a push creates a zero-job pipeline that shows as failed); trigger a fresh MR pipeline after removing the draft state
+- ❌ Changing anything API-visible (routes, DTOs, OpenAPI attributes) without regenerating the types → ✅ Run `./scripts/openapi-type-generation` and commit `client/src/api/generated/openapi-types.d.ts`, otherwise `test:openapi-types` fails the pipeline
 
 ## Response Style
 - Keep responses concise and to the point
