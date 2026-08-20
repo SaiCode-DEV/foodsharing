@@ -27,7 +27,7 @@ class WallApiCest
             $I->createUpload($this->foodsaver['id'], null, null),
             $I->createUpload($this->foodsaver['id'], null, null)
         ];
-        $this->picturePaths = array_map(fn ($picture) => '/api/uploads/' . $picture['uuid'], $this->pictures);
+        $this->picturePaths = array_column($this->pictures, 'uuid');
         $this->posts = [[
                 'foodsaver_id' => $this->foodsaver['id'],
                 'body' => '1',
@@ -74,7 +74,7 @@ class WallApiCest
             $I->createUpload($this->foodsaver['id'], null, null),
             $I->createUpload($this->foodsaver['id'], null, null)
         ];
-        $newPicturePaths = array_map(fn ($picture) => '/api/uploads/' . $picture['uuid'], $newPictures);
+        $newPicturePaths = array_column($newPictures, 'uuid');
         foreach ($newPictures as $p) {
             codecept_debug($p);
         }

@@ -14,6 +14,7 @@ use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Group\GroupGateway;
 use Foodsharing\Modules\Region\ForumFollowerGateway;
 use Foodsharing\Modules\Uploads\UploadsGateway;
+use Foodsharing\Modules\Uploads\UploadsTransactions;
 use Foodsharing\Modules\WorkGroup\DTO\SubGroupEntry;
 use Foodsharing\Modules\WorkGroup\DTO\WorkingGroupForListView;
 use Foodsharing\Permissions\WorkGroupPermissions;
@@ -32,6 +33,7 @@ class WorkGroupTransactions
         private readonly BellGateway $bellGateway,
         private readonly GroupGateway $groupGateway,
         private readonly FoodsaverGateway $foodsaverGateway,
+        private readonly UploadsTransactions $uploadsTransactions,
         private readonly WorkGroupPermissions $workGroupPermissions,
         private readonly EmailHelper $emailHelper,
         private readonly TranslatorInterface $translator,
@@ -115,14 +117,15 @@ class WorkGroupTransactions
         // Delete the old photo if it was replaced or removed
         $group = $this->workGroupGateway->getGroup($groupId);
         if (!empty($group['photo']) && $group['photo'] !== $groupData->photo) {
-            $oldPhoto = substr($group['photo'], 13);
+            $oldPhoto = $this->uploadsTransactions->getUUID($group['photo']);
             $this->uploadsGateway->deleteUpload($oldPhoto);
         }
 
+        $groupData->photo = $this->uploadsTransactions->fixUUIDForWriting($groupData->photo);
         $this->workGroupGateway->updateGroup($groupId, $groupData);
 
         if (!empty($groupData->photo)) {
-            $uuid = substr($groupData->photo, 13);
+            $uuid = $this->uploadsTransactions->getUUID($groupData->photo);
             $this->uploadsGateway->setUsage([$uuid], UploadUsage::WORKING_GROUP_TITLE, $groupId);
         }
     }

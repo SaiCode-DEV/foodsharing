@@ -147,7 +147,6 @@ class UploadsRestController extends AbstractFoodsharingRestController
         $uuid = $this->uploadsTransactions->uploadFile($temporaryFile);
 
         return $this->respondOK([
-            'url' => '/api/uploads/' . $uuid,
             'uuid' => $uuid,
             'filename' => $file->filename,
             'mimeType' => $temporaryFile->mimeType,

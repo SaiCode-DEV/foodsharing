@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Tests\Unit;
 
 use Codeception\Test\Unit;
+use Faker\Factory;
+use Faker\Generator;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Tests\Support\UnitTester;
 
@@ -17,9 +19,11 @@ class FoodsaverGatewayTest extends Unit
     private $region;
     private $regionMember;
     private $regionAdmin;
+    private Generator $faker;
 
     final public function _before(): void
     {
+        $this->faker = Factory::create('de_DE');
         $this->gateway = $this->tester->get(FoodsaverGateway::class);
 
         $this->foodsharer = $this->tester->createFoodsharer(null);
@@ -50,10 +54,11 @@ class FoodsaverGatewayTest extends Unit
 
     final public function testGetPhoto(): void
     {
-        $this->gateway->updatePhoto($this->foodsaver['id'], 'mypicture.png');
+        $uuid = $this->faker->uuid();
+        $this->gateway->updatePhoto($this->foodsaver['id'], $uuid);
         $this->tester->assertEquals(
             $this->gateway->getPhotoFileName($this->foodsaver['id']),
-            'mypicture.png'
+            $uuid
         );
     }
 

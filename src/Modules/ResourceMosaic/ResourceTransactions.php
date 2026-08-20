@@ -33,6 +33,7 @@ class ResourceTransactions
      */
     public function addResource(?int $userId, Resource $resource): ResourceForDisplay
     {
+        $resource->images = array_map(fn ($picture) => $this->uploadsTransactions->fixUUIDForWriting($picture), $resource->images);
         $resourceId = $this->resourceGateway->insertResource($userId, $resource);
         $this->resourceGateway->setResourceCategories($resourceId, $resource->categories);
         $this->tagImages($resourceId, $resource->images);
@@ -61,6 +62,7 @@ class ResourceTransactions
 
         $this->tagImages($resourceId, $resource->images);
 
+        $resource->images = array_map(fn ($picture) => $this->uploadsTransactions->fixUUIDForWriting($picture), $resource->images);
         $this->resourceGateway->editResource($resourceId, $resource);
         $this->resourceGateway->setResourceCategories($resourceId, $resource->categories);
     }

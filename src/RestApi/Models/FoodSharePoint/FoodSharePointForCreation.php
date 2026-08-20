@@ -18,7 +18,7 @@ class FoodSharePointForCreation
     #[OA\Property(example: 'Test-Beschreibung')]
     public string $description;
 
-    #[OA\Property(example: '/api/uploads/12345678')]
+    #[OA\Property(example: '12345678')]
     public ?string $picture = null;
 
     #[OA\Property(example: 'Beispielstraße 1')]

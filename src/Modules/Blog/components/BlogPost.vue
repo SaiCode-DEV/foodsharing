@@ -42,7 +42,7 @@ export default {
   },
   computed: {
     pictureUrl () {
-      return (this.blogPost === null || this.blogPost.picture.length === 0) ? null : this.blogPost.picture
+      return (this.blogPost === null || this.blogPost.picture.length === 0) ? null : this.$url('upload', this.blogPost.picture)
     },
     formattedDate () {
       return this.$dateFormatter.format(this.blogPost.publishedAt, {

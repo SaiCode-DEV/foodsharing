@@ -32,7 +32,7 @@ export default {
     pictureUrl () {
       return (this.blogPost === null || this.blogPost.picture.length === 0)
         ? null
-        : `${this.blogPost.picture}?w=${BLOG_POST_OPTIONS.IMAGE.WIDTH}&h=${BLOG_POST_OPTIONS.IMAGE.HEIGHT}`
+        : this.$url('upload', this.blogPost.picture, BLOG_POST_OPTIONS.IMAGE.WIDTH, BLOG_POST_OPTIONS.IMAGE.HEIGHT)
     },
   },
 }

@@ -25,13 +25,18 @@ class WallPost
     #[Assert\Blank]
     public ?DateTime $time = null;
 
+    /* TODO: the second Regex is needed for baskets that still contain pictures with prefix. Can be removed when the
+       prefix was removed in the database. */
     #[OA\Property(type: 'array', title: 'Pictures associated with the post',
-        items: new OA\Items(type: 'string', example: '/api/uploads/bcb57ea1-ed73-4fde-849b-c88b11393690'),
+        items: new OA\Items(type: 'string', example: 'bcb57ea1-ed73-4fde-849b-c88b11393690'),
         description: 'Image urls. Legacy images get returned as file identifier from which urls to differently sized images can be generated', )]
     #[Type('array<string>')]
     #[Assert\All([
         new Assert\NotBlank(),
-        new Assert\Regex('/^\/api\/uploads\/[0-9a-f\-]+$/'),
+        new Assert\AtLeastOneOf([
+            new Assert\Regex('/^[0-9a-f\-]+$/'),
+            new Assert\Regex('/^\/api\/uploads\/[0-9a-f\-]+$/'),
+        ]),
     ])]
     public ?array $pictures = null;
 

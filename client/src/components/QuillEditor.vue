@@ -18,6 +18,7 @@ import { VueEditor, Quill } from 'vue2-editor'
 import { uploadFile } from '@/api/uploads'
 import { showLoader, hideLoader, pulseError } from '@/script'
 import i18n from '@/helper/i18n'
+import { url } from '@/helper/urls'
 
 const base64ImageRegex = /<img[^>]+src=["']data:image\/(png|jpg|jpeg|gif);base64,([^"']+)["'][^>]*>/i
 
@@ -95,7 +96,7 @@ async function handleImageAdded (file, Editor, cursorLocation, resetUploader) {
     const base64 = await fileToBase64(file)
 
     const res = await uploadFile(file.name, base64)
-    Editor.insertEmbed(cursorLocation, 'image', res.url)
+    Editor.insertEmbed(cursorLocation, 'image', url('upload', res.uuid))
     resetUploader()
   } catch (err) {
     if (err.jsonContent?.message) {

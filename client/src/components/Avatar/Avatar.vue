@@ -69,10 +69,7 @@ export default {
         return '/img/' + prefix + 'avatar.png'
       }
 
-      if (image?.startsWith('/api/uploads/')) {
-        return image + `?w=${Math.ceil(this.size)}&h=${Math.ceil(this.size)}` // path for pictures uploaded with the new API
-      }
-      return '/img/' + prefix + 'avatar.png'
+      return this.$url('upload', image)
     },
     computedHref () {
       if (this.href === '') {

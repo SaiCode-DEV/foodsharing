@@ -32,8 +32,14 @@ class BasketTransactions
     public function addBasket(Basket $basket): int
     {
         $this->checkUploadedImagePermission($basket->pictures);
+        if (!is_null($basket->pictures)) {
+            $basket->pictures = array_map(fn ($uuid) => $this->uploadsTransactions->fixUUIDForWriting($uuid), $basket->pictures);
+        }
         $basket->id = $this->basketGateway->addBasket($basket, $this->currentUserUnits->getCurrentRegionId() ?? 0, $this->session->id());
-        $this->tagUploadedImages($basket->id, $basket->pictures);
+
+        if (!is_null($basket->pictures)) {
+            $this->tagUploadedImages($basket->id, $basket->pictures);
+        }
 
         return $basket->id;
     }
@@ -55,12 +61,13 @@ class BasketTransactions
         $this->checkUploadedImagePermission($addedPictures);
 
         // Remove all old pictures that are not in the edited basket anymore
-        $removedUuids = array_map(fn ($picture) => substr((string)$picture, 13), $removedPictures);
+        $removedUuids = array_map(fn ($picture) => $this->uploadsTransactions->getUUID((string)$picture), $removedPictures);
         foreach ($removedUuids as $uuid) {
             $this->uploadsTransactions->deleteUploadedFile($uuid);
         }
 
         // Save the basket
+        $basket->pictures = array_map(fn ($uuid) => $this->uploadsTransactions->fixUUIDForWriting($uuid), $basket->pictures);
         $this->basketGateway->editBasket($basketId, $basket, $this->session->id());
         $basket->id = $basketId;
 
@@ -77,7 +84,7 @@ class BasketTransactions
     private function checkUploadedImagePermission(array $pictures): void
     {
         if (!empty($pictures)) {
-            $uuids = array_map(fn ($picture) => substr((string)$picture, 13), $pictures);
+            $uuids = array_map(fn ($picture) => $this->uploadsTransactions->getUUID((string)$picture), $pictures);
             foreach ($uuids as $uuid) {
                 if (!$this->uploadsPermissions->maySetUploadUsage($uuid)) {
                     throw new AccessDeniedHttpException('Invalid upload UUID');
@@ -93,7 +100,7 @@ class BasketTransactions
     private function tagUploadedImages(int $basketId, array $pictures): void
     {
         if ($basketId && !empty($pictures)) {
-            $uuids = array_map(fn ($picture) => substr((string)$picture, 13), $pictures);
+            $uuids = array_map(fn ($picture) => $this->uploadsTransactions->getUUID($picture), $pictures);
             $this->uploadsGateway->setUsage($uuids, UploadUsage::BASKET, $basketId);
         }
     }
@@ -125,7 +132,7 @@ class BasketTransactions
         // Delete all pictures
         if (!empty($basket->pictures)) {
             foreach ($basket->pictures as $picture) {
-                $uuid = substr((string)$picture, 13);
+                $uuid = $this->uploadsTransactions->getUUID((string)$picture);
                 $this->uploadsTransactions->deleteUploadedFile($uuid);
             }
         }

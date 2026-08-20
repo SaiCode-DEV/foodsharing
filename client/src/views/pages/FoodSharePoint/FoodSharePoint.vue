@@ -89,7 +89,7 @@
       </Container>
     </template>
     <Container :title="fsp.name">
-      <img class="fsp-head" :style="{ backgroundImage: `url(${fsp.picture || '/img/foodSharePointHead.jpg'})`}">
+      <img class="fsp-head" :style="{ backgroundImage: `url(${titlePicture || '/img/foodSharePointHead.jpg'})`}">
       <div class="list-group-item">
         <Markdown :source="fsp.description" />
       </div>
@@ -177,6 +177,9 @@ export default {
   },
   computed: {
     isOpen () { return this.fsp.status === 1 },
+    titlePicture () {
+      return this.fsp.picture ? this.$url('upload', this.fsp.picture) : null
+    },
   },
   async mounted () {
     await Promise.all([

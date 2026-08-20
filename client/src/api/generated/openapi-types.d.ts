@@ -4262,7 +4262,7 @@ export interface components {
             name: string;
             /** @example Test-Beschreibung */
             description?: string;
-            /** @example /api/uploads/12345678 */
+            /** @example 12345678 */
             picture?: string;
             /** @example Beispielstraße 1 */
             address?: string;
@@ -4279,7 +4279,7 @@ export interface components {
             name: string;
             /** @example Test-Beschreibung */
             description?: string;
-            /** @example /api/uploads/12345678 */
+            /** @example 12345678 */
             picture?: string;
             /** @example Beispielstraße 1 */
             address?: string;
@@ -5138,7 +5138,7 @@ export interface components {
             name?: string;
             /**
              * @default null
-             * @example /api/uploads/99d1fb45-9748-3510-ac02-87b46c40048c
+             * @example 99d1fb45-9748-3510-ac02-87b46c40048c
              */
             avatar: string | null;
             /** @description Whether the user is currently using the sleeping hat function */
@@ -6061,7 +6061,7 @@ export interface components {
             name?: string;
             /**
              * @default null
-             * @example /api/uploads/99d1fb45-9748-3510-ac02-87b46c40048c
+             * @example 99d1fb45-9748-3510-ac02-87b46c40048c
              */
             avatar: string | null;
             /** @description Whether the user is currently using the sleeping hat function */
@@ -6534,7 +6534,7 @@ export interface components {
             name?: string;
             /**
              * @default null
-             * @example /api/uploads/99d1fb45-9748-3510-ac02-87b46c40048c
+             * @example 99d1fb45-9748-3510-ac02-87b46c40048c
              */
             avatar: string | null;
             /** @description Whether the user is currently using the sleeping hat function */
@@ -7038,7 +7038,7 @@ export interface components {
             name?: string;
             /**
              * @default null
-             * @example /api/uploads/99d1fb45-9748-3510-ac02-87b46c40048c
+             * @example 99d1fb45-9748-3510-ac02-87b46c40048c
              */
             avatar: string | null;
             /** @description Whether the user is currently using the sleeping hat function */

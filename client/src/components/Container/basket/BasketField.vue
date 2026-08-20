@@ -66,7 +66,7 @@ export default {
       }
     },
     getImageUrl (picture) {
-      return picture ? `${picture}?w=35&h=35` : '/img/basket.png'
+      return picture ? this.$url('upload', picture, 35, 35) : '/img/basket.png'
     },
   },
 }

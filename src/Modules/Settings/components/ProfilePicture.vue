@@ -48,7 +48,7 @@ export default {
   methods: {
     onFileChange (file) {
       // console.log(file)
-      this.value = file.url
+      this.value = file.uuid
 
       showLoader()
       try {

@@ -139,8 +139,7 @@ class Foodsharing extends Db
         if (isset($extra_params['image']) && ($gender == 0 || $gender == 1)) {
             $path = './img/seed-data/profile/' . ['men', 'women'][$gender] . '/' . random_int(0, 99) . '.jpg';
             $profilePicture = new UploadedFile($path, filesize($path), hash_file('sha256', $path), 'image/jpg', 1, null, null);
-            $uuid = $this->uploadFile($profilePicture);
-            $pictureUrl = '/api/uploads/' . $uuid;
+            $pictureUrl = $this->uploadFile($profilePicture);
         }
 
         // Ensure the quizes actually exist. This avoids spurious 404 errors

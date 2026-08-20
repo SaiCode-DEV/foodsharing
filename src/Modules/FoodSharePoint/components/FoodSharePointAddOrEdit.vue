@@ -48,7 +48,7 @@
             :img-height="169"
             :img-width="525"
             :filename="formData.picture"
-            @change="value => formData.picture = value.url"
+            @change="value => formData.picture = value.uuid"
           />
           <span v-if="errors.picture" class="error-message">{{ errors.picture }}</span>
         </b-form-group>

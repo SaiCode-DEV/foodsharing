@@ -135,7 +135,7 @@ function backToOverview () {
 }
 
 function onFileChange (file) {
-  formData.value.picture = file.url
+  formData.value.picture = file.uuid
 }
 
 onMounted(async () => {

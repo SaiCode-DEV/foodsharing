@@ -16,7 +16,7 @@
     >
       <img
         ref="img"
-        :src="image"
+        :src="$url('upload', image)"
         class="limited-size-image"
         tabindex="-1"
         @keydown.left="swapToModal(0)"
@@ -96,7 +96,7 @@ export default {
       if (!this.imageLoaded) return 'none'
       let url = this.image
       if (this.imageType === 'api') {
-        url += `?w=${this.widthInPx}&h=${this.heightInPx}`
+        url = this.$url('upload', url, this.widthInPx, this.heightInPx)
       }
       return `url(${url})`
     },

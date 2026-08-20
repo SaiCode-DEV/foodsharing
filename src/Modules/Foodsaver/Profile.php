@@ -12,7 +12,7 @@ class Profile
     #[OA\Property(description: 'Null for a deleted user', example: 'Franzi')]
     public ?string $name;
 
-    #[OA\Property(example: '/api/uploads/99d1fb45-9748-3510-ac02-87b46c40048c')]
+    #[OA\Property(example: '99d1fb45-9748-3510-ac02-87b46c40048c')]
     public ?string $avatar = null;
 
     #[OA\Property(description: 'Whether the user is currently using the sleeping hat function')]

@@ -19,10 +19,15 @@ class Basket
     #[Assert\Type('string')]
     public string $description;
 
+    /* TODO: the second Regex is needed for baskets that still contain pictures with prefix. Can be removed when the
+       prefix was removed in the database. */
     #[Type('array<string>')]
     #[Assert\All([
         new Assert\NotBlank(),
-        new Assert\Regex('/^\/api\/uploads\/[0-9a-f\-]+$/'),
+        new Assert\AtLeastOneOf([
+            new Assert\Regex('/^[0-9a-f\-]+$/'),
+            new Assert\Regex('/^\/api\/uploads\/[0-9a-f\-]+$/'),
+        ]),
     ])]
     #[Assert\NotNull]
     public ?array $pictures = null;

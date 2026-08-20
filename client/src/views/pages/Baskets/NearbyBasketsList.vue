@@ -49,6 +49,7 @@ import { useUserStore } from '@/stores/user'
 import { useBasketStore } from '@/stores/baskets'
 import BasketBubble from '@php/Modules/Map/components/BasketBubble.vue'
 import Container from '@/components/Container/Container.vue'
+import { url } from '@/helper/urls'
 
 const userStore = useUserStore()
 const basketStore = useBasketStore()
@@ -58,7 +59,7 @@ const baskets = ref([])
 const basketBubbleRef = ref(null)
 
 function picturePath (basket) {
-  return basket.picture ? basket.picture + '?w=35&h=35' : '/img/basket.png'
+  return basket.picture ? url('upload', basket.picture, 35, 35) : '/img/basket.png'
 }
 
 function openBubble (basket) {

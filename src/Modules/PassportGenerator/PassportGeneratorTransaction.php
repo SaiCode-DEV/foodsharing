@@ -105,7 +105,7 @@ class PassportGeneratorTransaction
             return;
         }
 
-        $uuid = substr($photo, strlen('/api/uploads/'));
+        $uuid = $this->uploadsTransactions->getUUID($photo);
         $filename = $this->uploadsTransactions->generateFilePath($uuid, 200, 257);
 
         if (!file_exists($filename)) {
@@ -394,7 +394,7 @@ class PassportGeneratorTransaction
         }
         switch ($walletType) {
             case 'apple':
-                $photo_uuid = substr((string)$photo, strlen('/api/uploads/'));
+                $photo_uuid = $this->uploadsTransactions->getUUID((string)$photo);
                 $photoFileName = $this->uploadsTransactions->generateFilePath($photo_uuid);
                 $result = $this->appleWalletPass->createNewPass($userId, $name, $profileURL, $photoFileName, $passDate);
                 break;

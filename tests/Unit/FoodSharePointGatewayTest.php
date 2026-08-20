@@ -35,7 +35,7 @@ class FoodSharePointGatewayTest extends Unit
         $this->foodSharePoint = $this->tester->createFoodSharePoint(
             $this->foodsaver['id'],
             $this->region['id'],
-            ['picture' => '/api/uploads/' . $faker->uuid()]
+            ['picture' => $faker->uuid()]
         );
     }
 

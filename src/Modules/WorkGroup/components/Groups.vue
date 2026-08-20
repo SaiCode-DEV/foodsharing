@@ -170,7 +170,7 @@
                 </b-alert>
               </div>
               <div v-if="group.image">
-                <img :src="group.image" class="group-image">
+                <img :src="$url('upload', group.image)" class="group-image">
               </div>
             </div>
 

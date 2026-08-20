@@ -254,4 +254,37 @@ class UploadsTransactions
 
         return $uuid;
     }
+
+    /**
+     * Cuts the '/api/uploads/' prefix from before a UUID, if it exists.
+     *
+     * TODO: this function can be removed when the prefix was removed from all database tables
+     */
+    public function getUUID(?string $uuid = null): ?string
+    {
+        if (is_null($uuid)) {
+            return null;
+        }
+
+        return str_starts_with($uuid, '/api/uploads/') ? substr($uuid, 13) : $uuid;
+    }
+
+    /**
+     * Makes sure that UUIDs are stored with prefix on beta and without prefix on production.
+     *
+     * TODO: This can be removed and replaced with getUUID after release Q.
+     */
+    public function fixUUIDForWriting(?string $uuid): ?string
+    {
+        if (is_null($uuid)) {
+            return null;
+        }
+
+        // @phpstan-ignore-next-line
+        if (SITE_ENVIRONMENT === 'beta' && !str_starts_with($uuid, '/api/uploads/')) {
+            return '/api/uploads/' . $uuid;
+        } else {
+            return $this->getUUID($uuid);
+        }
+    }
 }

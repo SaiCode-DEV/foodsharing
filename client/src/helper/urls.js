@@ -109,7 +109,14 @@ const urls = {
 
   team: () => '/team',
   transparency: () => '/content?sub=transparency',
-  upload: (uuid) => `/api/uploads/${uuid}`,
+  upload: (uuid, width = null, height = null) => {
+    // TODO: this line can be removed when the prefix was removed from all database tables
+    let path = uuid.startsWith('/api/uploads/') ? uuid : `/api/uploads/${uuid}`
+    if (width !== null && height !== null && width > 0 && height > 0) {
+      path += `?w=${Math.ceil(width)}&h=${Math.ceil(height)}`
+    }
+    return path
+  },
 
   workingGroupEdit: (groupId) => `/region?sub=edit&bid=${groupId}`,
   workingGroup: (groupId) => `/region?bid=${groupId}`,

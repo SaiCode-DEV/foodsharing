@@ -33,11 +33,12 @@ class BlogTransactions
      */
     public function addBlogPost(BlogPostData $post): int
     {
+        $post->picture = $this->uploadsTransactions->fixUUIDForWriting($post->picture);
         $postId = $this->blogGateway->addBlogPost($this->session->id(), $post);
 
         if (!empty($post->picture)) {
             // cut the `/api/uploads/` in front of the UUID
-            $uuid = substr($post->picture, 13);
+            $uuid = $this->uploadsTransactions->getUUID($post->picture);
             $this->uploadsGateway->setUsage([$uuid], UploadUsage::BLOG_POST, $postId);
         }
 
@@ -63,11 +64,12 @@ class BlogTransactions
 
     public function editBlogPost(int $authorId, BlogPostData $post): void
     {
+        $post->picture = $this->uploadsTransactions->fixUUIDForWriting($post->picture);
         $this->blogGateway->update_blog_entry($authorId, $post);
 
         if (!empty($post->picture)) {
             // cut the `/api/uploads/` in front of the UUID
-            $uuid = substr($post->picture, 13);
+            $uuid = $this->uploadsTransactions->getUUID($post->picture);
             $this->uploadsGateway->setUsage([$uuid], UploadUsage::BLOG_POST, $post->id);
         }
     }
@@ -80,7 +82,7 @@ class BlogTransactions
         $this->blogGateway->del_blog_entry($post->id);
 
         if (!empty($post->picture)) {
-            $oldUUID = substr($post->picture, 13);
+            $oldUUID = $this->uploadsTransactions->getUUID($post->picture);
             $this->uploadsTransactions->deleteUploadedFile($oldUUID);
         }
     }

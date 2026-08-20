@@ -56,7 +56,7 @@ class WorkingGroupForListView
     #[OA\Property(description: 'The email address of the working group, without the @foodsharing.network ending', example: 'ketten')]
     public string $email;
 
-    #[OA\Property(description: 'The URL of the working group\'s image', example: '/api/uploads/99d1fb45-9748-3510-ac02-87b46c40048c')]
+    #[OA\Property(description: 'The URL of the working group\'s image', example: '99d1fb45-9748-3510-ac02-87b46c40048c')]
     public ?string $image;
 
     /**

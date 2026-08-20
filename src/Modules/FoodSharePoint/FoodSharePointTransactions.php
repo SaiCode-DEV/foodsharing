@@ -96,11 +96,12 @@ class FoodSharePointTransactions
     public function addFoodSharePoint(FoodSharePointForCreation $data): AddFoodSharePointResponse
     {
         $isProposal = !$this->foodSharePointPermissions->mayAdd($data->regionId);
+        $data->picture = $this->uploadsTransactions->fixUUIDForWriting($data->picture);
         $id = $this->foodSharePointGateway->addFoodSharePoint($this->session->id(), $data, $isProposal);
 
         // If a picture was uploaded for this food share point, its usage type needs to be set
         if (!empty($data->picture)) {
-            $uuid = substr($data->picture, 13);
+            $uuid = $this->uploadsTransactions->getUUID($data->picture);
             $this->uploadsGateway->setUsage([$uuid], UploadUsage::FOOD_SHARE_POINT_TITLE, $id);
         }
 
@@ -109,6 +110,7 @@ class FoodSharePointTransactions
 
     public function editFoodSharePoint(int $foodSharePointId, DTO\FoodSharePoint $currentData, FoodSharePointEditData $newData): void
     {
+        $newData->picture = $this->uploadsTransactions->fixUUIDForWriting($newData->picture);
         $this->foodSharePointGateway->updateFoodSharePoint($foodSharePointId, $newData);
 
         /* If the picture of this food share point was changed, the usage type of the new one (if any) needs to be set
@@ -116,12 +118,12 @@ class FoodSharePointTransactions
         $newPicture = $newData->picture ?? '';
         if ($newPicture !== $currentData->picture) {
             if (!empty($currentData->picture)) {
-                $oldUUID = substr($currentData->picture, 13);
+                $oldUUID = $this->uploadsTransactions->getUUID($currentData->picture);
                 $this->uploadsTransactions->deleteUploadedFile($oldUUID);
             }
 
             if (!empty($newPicture)) {
-                $uuid = substr($newPicture, 13);
+                $uuid = $this->uploadsTransactions->getUUID($newPicture);
                 $this->uploadsGateway->setUsage([$uuid], UploadUsage::FOOD_SHARE_POINT_TITLE, $foodSharePointId);
             }
         }
@@ -134,7 +136,7 @@ class FoodSharePointTransactions
         // Delete the food share point's title picture
         $foodSharePoint = $this->foodSharePointGateway->getFoodSharePoint($foodSharePointId);
         if (!empty($foodSharePoint->picture)) {
-            $uuid = substr($foodSharePoint->picture, 13);
+            $uuid = $this->uploadsTransactions->getUUID($foodSharePoint->picture);
             $this->uploadsTransactions->deleteUploadedFile($uuid);
         }
 

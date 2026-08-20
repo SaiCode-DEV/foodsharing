@@ -55,11 +55,13 @@ class WallPostTransactions
         // Check if the user is allowed to use the uploaded files
         if (!empty($wallPost->pictures)) {
             foreach ($wallPost->pictures as $picture) {
-                $uuid = substr((string)$picture, 13);
+                $uuid = $this->uploadsTransactions->getUUID($picture);
                 if (!$this->uploadsPermissions->maySetUploadUsage($uuid)) {
                     throw new AccessDeniedHttpException('Invalid upload UUID');
                 }
             }
+
+            $wallPost->pictures = array_map(fn ($picture) => $this->uploadsTransactions->fixUUIDForWriting($picture), $wallPost->pictures);
         }
 
         $postId = $this->wallPostGateway->addPost($wallPost, $this->session->id(), $target, $targetId);
@@ -67,7 +69,7 @@ class WallPostTransactions
 
         if (!empty($post->pictures)) {
             foreach ($post->pictures as $picture) {
-                $uuid = substr((string)$picture, 13);
+                $uuid = $this->uploadsTransactions->getUUID($picture);
                 $this->uploadsGateway->setUsage([$uuid], UploadUsage::WALL_POST, $postId);
             }
         }
@@ -87,7 +89,7 @@ class WallPostTransactions
         $post = $this->wallPostGateway->getPost($postId);
         if (!empty($post->pictures)) {
             foreach ($post->pictures as $picture) {
-                $oldUUID = substr($picture, 13);
+                $oldUUID = $this->uploadsTransactions->getUUID($picture);
                 $this->uploadsTransactions->deleteUploadedFile($oldUUID);
             }
         }

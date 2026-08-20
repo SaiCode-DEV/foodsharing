@@ -15,7 +15,7 @@
       <div v-if="filename" class="mr-auto">
         <div>
           <b-img
-            :src="filename"
+            :src="$url('upload', filename)"
             fluid
             :alt="previewAlt"
           />

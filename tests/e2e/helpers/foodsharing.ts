@@ -101,8 +101,7 @@ class Foodsharing {
         1,
       );
 
-      const uuid = await this.uploadFile(profilePicture);
-      pictureUrl = `/api/uploads/${uuid}`;
+      pictureUrl = await this.uploadFile(profilePicture);
     }
     delete extraParams.image;
 

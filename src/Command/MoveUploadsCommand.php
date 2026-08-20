@@ -66,7 +66,7 @@ class MoveUploadsCommand extends Command
                     $output->writeln('moving ' . $entry['id'] . ', ' . $source);
                     if (!$isDryRun) {
                         $uuid = $this->copyFileToNewAPI($source, $entry['id']);
-                        $this->db->update('fs_bezirk', ['photo' => '/api/uploads/' . $uuid], ['id' => $entry['id']]);
+                        $this->db->update('fs_bezirk', ['photo' => $uuid], ['id' => $entry['id']]);
                     }
                     ++$movedFiles;
                 } catch (Throwable $t) {

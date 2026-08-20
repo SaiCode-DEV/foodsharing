@@ -161,7 +161,7 @@ export default {
   },
   methods: {
     onPhotoChange (file) {
-      this.photo = file?.url
+      this.photo = file?.uuid
     },
     async submit () {
       showLoader()
