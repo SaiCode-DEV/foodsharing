@@ -52,7 +52,7 @@ export default {
   methods: {
     async sendCommentHandler () {
       if (!await this.confirmationDialogue('quiz.confirmComment', {
-        okTitle: this.$t('yes'),
+        okTitle: this.$t('terminology.yes'),
         okVariant: undefined,
       })) return
       try {

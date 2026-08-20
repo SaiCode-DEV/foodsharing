@@ -55,7 +55,7 @@
       :invalid-feedback="$t('basket.modal_error.no_phone')"
       :state="!!phoneNumber"
     >
-      <label for="phone-number-input">{{ $t('globals.telephone_number') }}</label>
+      <label for="phone-number-input">{{ $t('terminology.phone') }}</label>
       <b-form-input
         id="phone-number-input"
         v-model="phoneNumber"
@@ -90,7 +90,7 @@
     </b-form-group>
 
     <b-form-group
-      :label="$t('address') + ':'"
+      :label="$t('terminology.address') + ':'"
       label-for="use-home-address"
     >
       <b-form-checkbox

@@ -206,7 +206,7 @@ export default {
       let message = ''
       if (user.id === this.fsId) {
         if (!await this.confirmationDialogue('store.sm.demoteAsManagerConfirm', {
-          okTitle: this.$t('yes'),
+          okTitle: this.$t('terminology.yes'),
         })) return
       } else {
         this.messageModalKey = 'demote_store_manager'

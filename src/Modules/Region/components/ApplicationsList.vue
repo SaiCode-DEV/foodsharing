@@ -72,7 +72,7 @@ function removeApplicationFromList (application) {
 
 async function declineApplication (application) {
   if (!await confirmationDialogue('group.confirm_decline', {
-    okTitle: i18n('yes'),
+    okTitle: i18n('terminology.yes'),
   })) return
   try {
     await api.declineApplication(props.groupId, application.applicant.id)

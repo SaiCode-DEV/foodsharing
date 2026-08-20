@@ -795,7 +795,7 @@ export default {
     async degradeAdmin (member) {
       const dialogueOptions = {
         title: i18n(`group.member_list.remove_${this.adminName}_title`),
-        okTitle: i18n('yes'),
+        okTitle: i18n('terminology.yes'),
         params: member,
       }
       if (!await this.confirmationDialogue(`group.member_list.remove_${this.adminName}_text`, dialogueOptions)) return
@@ -816,7 +816,7 @@ export default {
     async makeAdmin (member) {
       const dialogueOptions = {
         title: i18n(`group.member_list.set_${this.adminName}_title`),
-        okTitle: i18n('yes'),
+        okTitle: i18n('terminology.yes'),
         okVariant: undefined,
         params: member,
       }
@@ -838,7 +838,7 @@ export default {
     async removeMember (member) {
       const dialogueOptions = {
         title: i18n('group.member_list.remove_title'),
-        okTitle: i18n('yes'),
+        okTitle: i18n('terminology.yes'),
         params: member,
       }
       if (!await this.confirmationDialogue(`group.member_list.remove_text_${this.isWorkGroup ? 'group' : 'region'}`, dialogueOptions)) return

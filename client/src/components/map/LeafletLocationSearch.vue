@@ -43,7 +43,7 @@
       <b-row>
         <b-col class="col-3 pr-0">
           <b-form-group
-            :label="$t('plz')"
+            :label="$t('terminology.postalCode')"
             label-for="input-postal"
             class="my-2"
           >

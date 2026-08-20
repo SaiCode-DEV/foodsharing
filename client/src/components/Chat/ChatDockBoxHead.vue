@@ -90,7 +90,7 @@
       <OverflowMenu
         icon="ellipsis-v"
         variant="link"
-        :title="$t('options')"
+        :title="$t('terminology.options')"
         :float-right="false"
         :options="menuOptions"
         :callback-args="[box]"

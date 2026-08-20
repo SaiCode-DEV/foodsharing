@@ -118,7 +118,7 @@
             </b-input-group>
           </b-form-group>
           <b-form-group
-            :label="$t('address')"
+            :label="$t('terminology.address')"
             label-for="location"
           >
             <LeafletLocationSearch
@@ -141,7 +141,7 @@
       >
         <b-card-text>
           <b-form-group
-            :label="$t('bezirk')"
+            :label="$t('terminology.bezirk')"
             label-for="region"
           >
             <b-input-group>

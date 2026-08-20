@@ -214,7 +214,7 @@ export default {
         },
         {
           key: 'zipCode',
-          label: this.$t('storelist.zipcode'),
+          label: this.$t('terminology.postalCode'),
           sortable: true,
         },
         {

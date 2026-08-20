@@ -561,7 +561,7 @@ async function trySendRequest (groupId) {
 
 async function joinGroup (groupId) {
   if (!await confirmationDialogue('group.join_confirmation', {
-    okTitle: i18n('yes'),
+    okTitle: i18n('terminology.yes'),
     okVariant: 'primary',
     params: { name: currentGroup.value?.name },
   })) return

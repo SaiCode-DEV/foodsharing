@@ -12,7 +12,7 @@
       </b-alert>
     </template>
     <template #left>
-      <Container v-if="permissions.isLoggedIn" :title="$t('options')">
+      <Container v-if="permissions.isLoggedIn" :title="$t('terminology.options')">
         <ContainerButton
           v-if="!permissions.isFollower && isOpen"
           variant="success"
@@ -60,12 +60,12 @@
       >
         <AvatarList :profiles="fsp.managers" :max-visible-avatars="10" />
       </Container>
-      <Container :title="$t('fsp.address')">
+      <Container :title="$t('terminology.address')">
         <div class="list-group-item d-flex justify-content-between">
           <div>
             {{ fsp.address.street }} <br>
             {{ fsp.address.postalCode }} {{ fsp.address.city }} <br><br>
-            <b>{{ $t('bezirk') }}:</b> <router-link :to="$url('publicRegion', fsp.regionId)">
+            <b>{{ $t('terminology.region') }}:</b> <router-link :to="$url('publicRegion', fsp.regionId)">
               {{ fsp.regionName }}
             </router-link><br><br>
             <router-link :to="$url('map', { foodSharePointId: id })">

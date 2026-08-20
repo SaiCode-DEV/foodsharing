@@ -2,7 +2,7 @@
   <BasePage>
     <template #left>
       <Container
-        :title="$t('bezirk')"
+        :title="$t('terminology.bezirk')"
         wrap-content="p-0"
       >
         <RegionTree

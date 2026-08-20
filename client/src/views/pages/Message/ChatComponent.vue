@@ -42,7 +42,7 @@
             icon="ellipsis-v"
             variant="link"
             class="room-options-menu"
-            :title="$t('options')"
+            :title="$t('terminology.options')"
             :float-right="false"
             :options="menuOptions"
           />

@@ -228,7 +228,7 @@ export default {
     async sendBuddyRequest (userId) {
       const dialogueOptions = {
         title: this.$t('buddy.send.confirm_title', { name: this.profileMenu.foodSaverName }),
-        okTitle: this.$t('yes'),
+        okTitle: this.$t('terminology.yes'),
         okVariant: undefined,
       }
       if (!await this.confirmationDialogue('buddy.send.confirm_text', dialogueOptions)) return
@@ -251,7 +251,7 @@ export default {
     async removeBuddy (userId) {
       const dialogueOptions = {
         title: this.$t('buddy.remove.confirm_title', { name: this.profileMenu.foodSaverName }),
-        okTitle: this.$t('yes'),
+        okTitle: this.$t('terminology.yes'),
       }
       if (!await this.confirmationDialogue('buddy.remove.confirm_text', dialogueOptions)) return
       this.loading = true
