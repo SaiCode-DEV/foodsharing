@@ -1236,7 +1236,16 @@ class StoreTransactions
         $member->firstName = $data['firstName'];
         $member->role = Role::from($data['rolle']);
         $member->isVerified = boolval($data['verified']);
-        $member->hygieneCertificateUntil = $data['hygiene_certificate_until'] ? Carbon::parse($data['hygiene_certificate_until']) : null;
+        if ($data['hygiene_certificate_until'] === 'infinite') {
+            // Hygiene certificates should not by infinite, but since they can technically be set to infinite, we treat them as valid for one year from now. That way the frontend doesn't have to handle them separately.
+            $member->hygieneCertificateUntil = Carbon::now()->addYear();
+        } else {
+            try {
+                $member->hygieneCertificateUntil = Carbon::make($data['hygiene_certificate_until']);
+            } catch (Exception) {
+                $member->hygieneCertificateUntil = null;
+            }
+        }
         $member->isResponsible = boolval($data['verantwortlich']);
         $member->membershipStatus = $data['team_active'];
         $member->fetchCount = $data['stat_fetchcount'];

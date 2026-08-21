@@ -515,14 +515,20 @@ class StoreGateway extends BaseGateway
                     Point(NULLIF(fs.lon, ""), NULLIF(fs.lat, "")),
                     Point(?, ?)
                 ) / 1000), -1) AS distance,' : '') . "
-                IF(a.achievement_id IS NULL, NULL, IFNULL(a.`valid_until`, 'infinite')) AS hygiene_certificate_until
+                IF(a.id IS NULL, NULL, IFNULL(a.`valid_until`, 'infinite')) AS hygiene_certificate_until
             FROM `fs_betrieb_team` t
             INNER JOIN `fs_foodsaver` fs
                 ON fs.id = t.foodsaver_id
-            LEFT OUTER JOIN `fs_foodsaver_has_achievement` a
-                ON a.foodsaver_id = fs.id
-                AND (a.valid_until IS NULL OR a.valid_until >= NOW())
-                AND a.achievement_id = ?
+            LEFT OUTER JOIN (
+                SELECT
+                    foodsaver_id,
+                    MAX(id) AS id,
+                    MAX(valid_until) AS valid_until
+                FROM fs_foodsaver_has_achievement
+                WHERE achievement_id = ?
+                    AND (valid_until IS NULL OR valid_until >= NOW())
+                GROUP BY foodsaver_id
+            ) a ON a.foodsaver_id = fs.id
             WHERE `betrieb_id` = ?
                 AND t.active IN ({$this->db->generatePlaceholders(count($membershipStatuses))})
                 AND fs.deleted_at IS NULL
