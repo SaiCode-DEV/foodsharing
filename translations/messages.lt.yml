@@ -2,17 +2,13 @@ name: Pavadinimas
 add: pridėti
 nachname: Pavardė
 message: pranešimas
-address: Adresas
 edit: redaguoti
 desc: Aprašymas
 description: Aprašymas
-plz: Pašto kodas
 email: El. pašto adresas
 anschrift: Gatvės pavadinimas ir namo numeris
 geschlecht: Lytis
-options: Parinktys
 picture: Paveikslėlis
-bezirk: Rajonas
 parent_id: Rajonas
 active: Aktyvuota
 rolle: Naudotojas:rolė
@@ -22,7 +18,6 @@ status: Dabartinis statusas
 lat: Platuma
 lon: Ilguma
 fs_id: Foodsharing (maisto dalintojo ) - ID
-info: Informacija
 photo: Nuotrauka
 no_automatic_delete: 'Jei paskutinė registracija buvo prieš 5 metus:'
 automatic_delete: '- profilis turi būti ištrintas.'
@@ -38,7 +33,6 @@ weight: 'Apytikslis svoris:'
 lifetime: Kiek laiko turėtų būti galiojantis tavo maisto krepšelis?
 request_time: 'Užklausos laikas:'
 teaser: Anonsas
-opt: Pasirinkimai
 fsp_bezirk_id: Kuriame rajone yra Fairteiler?
 fspmanagers: Foodsaverių kontaktiniai asmenys Fairteiler'iuose
 pass1: Suveskite naują slaptažodį
@@ -318,11 +312,9 @@ button:
   new: Naujas
   save: Išsaugoti
   prev: Atgal
-  attach_image: Įkelti paveikslėlį (PNG arba JPG formatas)
   edit: Redaguoti
   delete: Ištrinti
   ok: Gerai
-  permadelete: Ištrinti visam laikui
   yes_i_am_sure: Taip, esu tikras
   countdown_clickable: Galima spustelėti po {countdown} sekundžių
   apply: Pritaikyti
@@ -336,11 +328,9 @@ button:
   start: Pradėkime!
   confirm: Patvirtinti
   close: Uždaryti
-  browse: Naršyti / Ieškoti
   yes_save: ''
 upload:
   file: Įkelti bylą
-  no_image: Įkelta byla nėra nuotrauka. Pasirink kitą bylą.
   no_image_yet: Dar neįkelta jokio paveikslėlio
   no_image_chosen: Dar nepasirinkta jokia byla
   preview_image: Peržiūra
@@ -350,8 +340,6 @@ upload:
   choose_file: Pasirinkti bylą
   new_file: Įkelti naują bylą
   crop_dialog_title: Apkirpti paveikslėlį
-  image-problem: Tavo byla, atrodo, yra netinkama – geriausia naudoti įprastą 
-    JPG paveikslėlį
   invalid_image_files: '{count} pasirinktos bylos paveikslėliai netinkami : {fileNames}'
   remove_image: ''
   type_rejected: ''
@@ -699,25 +687,12 @@ basket:
     register: ''
     taken: ''
   request_denied: ''
-  is:
-    vegan: ''
-    gf: ''
-    veggie: ''
-    organic: ''
   by: ''
   nearby-short: ''
   title: ''
   use_home_address: ''
   not_withdrawn: ''
   updated: ''
-  has:
-    pet: ''
-    bread: ''
-    dairy: ''
-    greens: ''
-    frozen: ''
-    prepared: ''
-    dry: ''
   modal_error:
     no_contact: ''
     no_phone: ''
@@ -730,7 +705,6 @@ basket:
     gone: ''
     deny: ''
     nope: ''
-    finished: ''
   delete_confirmation:
     text: ''
     title: ''
@@ -770,7 +744,6 @@ basket:
   description: ''
   withdrawn_request: ''
   all: ''
-  on: ''
   go: ''
   nearby_requires_location: ''
 storeview:
@@ -1312,7 +1285,6 @@ settings:
       service_blocked: ''
       permission_denied: ''
   general:
-    phone: ''
     no_address: ''
     current_address: ''
   address:
@@ -1531,7 +1503,6 @@ profile:
   notes:
     info: ''
     bread: ''
-    title: ''
   title: ''
   mediationRequest: ''
   go: ''
@@ -1591,7 +1562,6 @@ mailbox:
   new: ''
   write: ''
   date: ''
-  refresh: ''
   sent: ''
   title: ''
   sender: ''
@@ -2136,7 +2106,6 @@ foodsaver:
   edit: ''
   delete_account_sure_reason: ''
   url_error: ''
-  kicked: ''
   about_me_public: ''
   bread: ''
   delete_account_password_verify: ''
@@ -2151,16 +2120,11 @@ storeedit:
   name_error: ''
   team:
     leave_myself: ''
-    cannot-leave: ''
     orga: ''
-    unmanaged: ''
     bread: ''
     leave: ''
-    need-sm: ''
     note: ''
-    empty: ''
     foodsaver: ''
-    max-sm: ''
     amb: ''
     coordinator: ''
     kam: ''
@@ -2179,14 +2143,8 @@ storeedit:
     teamStatus: ''
   store_name_placeholder: ''
   unsuccess: ''
-  milestone:
-    accepted: ''
-    dropped: ''
-    statuschanged: ''
-    created: ''
   bread: ''
   add-new: ''
-  not-in-region: ''
   add_success: ''
   actions: ''
 petition:
@@ -2520,7 +2478,6 @@ fsp:
   accept: ''
   followerCount: ''
   descLabel: ''
-  address: ''
   noManager: ''
   street: ''
   editSuccess: ''
@@ -2528,7 +2485,6 @@ fsp:
   acceptName: ''
   follow: ''
   none: ''
-  yours: ''
   acceptSuccess: ''
   new: ''
   onlySuggested: ''
@@ -2742,7 +2698,6 @@ chat:
     unread: ''
   reply: ''
   no_conversation: ''
-  confirm_draft_discard: ''
   notification_named_conversation: ''
   new_messages: ''
   placeholder: ''
@@ -2895,7 +2850,6 @@ region:
     no_more_info: ''
   bread: ''
   not-existant: ''
-  noParent: ''
   type:
     working_group: ''
     title: ''
@@ -2912,13 +2866,6 @@ region:
     edit: ''
     delete: ''
     create: ''
-  hull:
-    closure: ''
-    parent-info: ''
-    parent: ''
-    start: ''
-    title: ''
-    confirm: ''
   allow_hiding_in_forum: ''
   edit: ''
   cancel: ''
@@ -2927,17 +2874,13 @@ region:
   select: ''
   createNew: ''
   parent: ''
-  restricted: ''
   master: ''
   save: ''
   mail:
-    name-info: ''
     sender: ''
   none: ''
   new: ''
   root: ''
-  no-huge: ''
-  change: ''
   created: ''
   delete: ''
   mailbox: ''
@@ -3065,7 +3008,6 @@ globals:
   close: ''
   show_less: ''
   you: ''
-  telephone_number: ''
   updated: ''
   select: ''
   loading: ''
@@ -3422,7 +3364,6 @@ reports:
   time: ''
   store: ''
   report_id: ''
-  reportmessage: ''
   reason: ''
   message: ''
   no_thread: ''
@@ -3842,56 +3783,19 @@ required_messages:
   name_placeholder: ''
   save_message: ''
   message_info_multiple: ''
-feedback:
-  error:
-    screenshot: ''
-    invalid_file: ''
-    message_short: ''
-    no_sentry: ''
-  button: ''
-  privacy: ''
-  success: ''
-  title: ''
-  name_sent: ''
-  no_support: ''
-  capture_screenshot: ''
-  screenshot_not_supported: ''
 conference:
   join_title: ''
   confirm_info: ''
   join: ''
 system_administration:
   regions: ''
-  email: ''
   quiz: ''
   resource_categories: ''
   store_categories: ''
   blog: ''
-  reports: ''
   content: ''
   donation_page_edit: ''
-sort:
-  sort_by: ''
-  options:
-    updated_at: ''
-    name: ''
-    date: ''
-    relevance: ''
-    created_at: ''
-bootstrap-datepicker:
-  labelCalendar: ''
-  labelCurrentMonth: ''
-  labelPrevYear: ''
-  labelHelp: ''
-  labelNav: ''
-  labelNextMonth: ''
-  labelPrevMonth: ''
-  labelNoDateSelected: ''
-  labelNextYear: ''
-  labelToday: ''
-  labelNextDecade: ''
-  labelSelected: ''
-  labelPrevDecade: ''
+sort: {}
 navigation:
   toggle: ''
   conversations: ''
@@ -4066,11 +3970,6 @@ stats:
     baskets: ''
     pickups: ''
   title: ''
-numbers:
-  decimal_separator: ''
-  million_abbreviation: ''
-  thousands_separator: ''
-  billion_abbreviation: ''
 storelist:
   status: ''
   emptyfilters: ''
@@ -4083,7 +3982,6 @@ storelist:
   nowaste: ''
   name: ''
   address: ''
-  zipcode: ''
   entered: ''
   cooperating: ''
   city: ''
@@ -4111,7 +4009,6 @@ activitypost:
   quickreply_info: ''
   response: ''
   Response: ''
-addreaction: ''
 network_errors:
   csrf_token_invalid:
     title: ''
@@ -4164,14 +4061,12 @@ team_page:
   it_member:
     title: ''
     text: ''
-no: ''
 error_base64_image: ''
 addresspicker:
   infobox: ''
   different_location_warning: ''
   label: ''
   placeholder: ''
-  infobox_profile: ''
   different_location: ''
 net_errors:
   title:
@@ -4228,7 +4123,6 @@ ageBandList:
   header_for_district: ''
   home_district_tab: ''
   district_tab: ''
-yes: ''
 home:
   home: ''
 validate:
@@ -4246,10 +4140,6 @@ test:
   vars: ''
   plain: ''
 really_delete: ''
-sidenav:
-  yourregions: ''
-  yourgroups: ''
-  countryspecific: ''
 list:
   filter_for: ''
 push_notifications:

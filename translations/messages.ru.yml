@@ -78,35 +78,13 @@ lat: Широта
 lon: Долгота
 desc: Описание
 description: Описание
-plz: Почтовый индекс
 email: Электронная почта
 geschlecht: Пол
 name: Имя
 add: добавить
 nachname: Фамилия
-address: Адрес
 edit: редактировать
-bootstrap-datepicker:
-  labelToday: Сегодня
-  labelNextYear: 'Следующий год'
-  labelNextDecade: 'Следующее десятилетие'
-  labelPrevDecade: 'Предыдущее десятилетие'
-  labelPrevYear: 'Предыдущий год'
-  labelPrevMonth: 'Предыдущий месяц'
-  labelSelected: 'Выбранная дата'
-  labelCurrentMonth: 'Текущий месяц'
-  labelHelp: 'Навигация по календарю с помощью стрелок'
-  labelNextMonth: 'Следующий месяц'
-  labelNoDateSelected: 'Дата не выбрана'
-  labelCalendar: 'Календарь'
-  labelNav: 'Навигация по календарю'
-numbers:
-  decimal_separator: ','
-  thousands_separator: '.'
-  million_abbreviation: ' млн.'
-  billion_abbreviation: ' млрд.'
 basket:
-  on: ''
   requests: 'Запросы ({count})'
   not_found: 'Корзина больше не существует.'
   not_active: 'Корзина больше не активна.'
@@ -121,14 +99,6 @@ basket:
     "2": 'Два дня'
     "7": 'Одна неделя'
     "5": ''
-  has:
-    prepared: 'Приготовленные блюда'
-    dairy: 'Молочные продукты'
-    dry: 'Сухие продукты'
-    frozen: 'Мороженое'
-    greens: 'Фрукты и овощи'
-    bread: 'Выпечка'
-    pet: 'Корм для животных'
   publish: 'Опубликовать корзину'
   edit: 'Редактировать корзину'
   my_list_empty: 'У вас нет добавленных корзин'
@@ -141,17 +111,11 @@ basket:
   request_denied: 'Ваш запрос отклонён владельцем.'
   mapsearch: 'Поиск адреса…'
   request-fs: 'Запросить корзину на нашем сайте фудшеринга'
-  is:
-    organic: 'органические (bio)'
-    vegan: 'веганские'
-    gf: 'безглютеновые'
-    veggie: 'вегетарианские'
   state:
     deny: 'Я хочу отклонить этот запрос.'
     nope: 'Нет, корзина не была забрана как договорено.'
     okay: 'Да, корзина забрана.'
     gone: 'Продукты забрал кто-то другой.'
-    finished: 'Спасибо, процесс завершён.'
   updated: 'Обновлено:'
   no_requests: 'Пока нет запросов'
   contact:
@@ -213,7 +177,6 @@ storelist:
   region: 'Район'
   nocontact: 'Пока нет контакта'
   emptyfilters: 'Очистить фильтры'
-  zipcode: 'Почтовый индекс'
   addressdata: 'Адрес'
   name: 'Название'
   inprogress: 'Переговоры идут'
@@ -240,20 +203,6 @@ region:
     предприятия или фэйртейлеры.'
   mail:
     sender: 'Имя отправителя'
-    name-info: 'Внимание, не менять произвольно! Также убедитесь, что этот адрес ещё
-      не существует в разделе управления почтовыми ящиками.'
-  hull:
-    closure: 'Записать {region} как мастер для всех дочерних районов'
-    parent-info: 'Все Foodsaver автоматически добавляются в мастер-район, если он
-      указан'
-    parent: 'Мастер-район'
-    title: 'Обновление мастера'
-    start: 'Запустить обновление мастера'
-    confirm: 'Действительно запустить обновление мастера?'
-  noParent: 'Без родительского района'
-  change: 'Изменить район'
-  restricted: 'К сожалению, у вас нет прав для просмотра этих данных.'
-  no-huge: 'Извините, вы не можете выбрать страну или федеративную землю как район.'
   save: 'Да, сохранить'
   cancel: 'Нет, не сохранять'
   new: 'Новый район'
@@ -602,7 +551,6 @@ foodsaver:
   list:
     summary: '{count} фудсейверов в {region}'
     inactive: ', неактивных за последние 6 месяцев:'
-  kicked: 'Фудсейвер удалён'
   edit: 'Редактировать фудсейверов'
   editName: 'Редактировать {name}'
   delete_account_now: 'Удалить аккаунт сейчас'
@@ -640,7 +588,6 @@ mailbox:
   reply:
     full: 'Ответить на e-mail'
     short: 'Ответить'
-  refresh: 'Обновить'
   add_success: 'Почтовый ящик успешно создан.'
   name: 'Отображаемое имя'
   failed: 'Не удалось отправить письмо.'
@@ -856,7 +803,6 @@ settings:
   businesscard: 'Визитная карточка'
   account: 'Настройки аккаунта'
   general:
-    phone: Ваш стационарный (домашний) номер
     no_address: ''
     current_address: ''
   account_security:
@@ -1201,7 +1147,6 @@ profile:
     lostVerification: 'Деверифицирован'
   notes:
     bread: 'Заметки'
-    title: 'Заметки о {name}'
     info: 'Пожалуйста, используйте эту функцию аккуратно. Она помогает делать процессы
       прозрачными и экономить время. Личные или оценочные замечания недопустимы. Оставайтесь
       объективными.'
@@ -1797,7 +1742,6 @@ globals:
   show_less: 'Показать меньше'
   saved: ''
   save_changes: ''
-  telephone_number: ''
   updated: ''
   loading: ''
 activitypost:
@@ -2519,13 +2463,6 @@ forum:
   options:
     bells_for_new_posts: ''
 chat:
-  confirm_draft_discard: 'Вы переходите к новому разговору. Текущий черновик будет
-    отброшен.
-
-
-    Если вы отмените этот диалог, черновик будет перенесён в новый разговор.
-
-    '
   notification_unnamed_conversation: '{foodsaver} написал(а) вам.'
   empty_message: 'Сначала введите сообщение.'
   select_recipients: 'Выбрать получателей'
@@ -3180,12 +3117,10 @@ polls:
     already_voted: ''
     not_eligible: ''
 system_administration:
-  reports: 'Просмотр жалоб'
   content: 'Редактирование контента'
   regions: 'Управление районами'
   blog: 'Редактировать записи блога'
   quiz: 'Управление викторинами'
-  email: 'Отправка рассылок'
   resource_categories: ''
   store_categories: ''
   donation_page_edit: ''
@@ -3282,7 +3217,6 @@ fsp:
     Продолжить?'
   editName: 'Редактировать Fairteiler «{name}»'
   editSuccess: 'Fairteiler успешно отредактирован'
-  address: 'Адрес'
   street: 'Адрес'
   location: 'Почтовый индекс / Город'
   noManager: 'Должно быть как минимум одно ответственное лицо для этого Fairteiler.'
@@ -3303,7 +3237,6 @@ fsp:
   inRegion: 'Все Fairteiler в {region}'
   none: 'Пока нет добавленных Fairteiler'
   accept: 'Одобрить Fairteiler'
-  yours: 'Fairteiler в ваших районах'
   addSuccess: 'Fairteiler успешно добавлен'
   deleteSuccess: 'Fairteiler удалён'
   new: 'Новый Fairteiler'
@@ -3432,7 +3365,6 @@ login:
   passkey_not_found: ''
 reports:
   message: 'Описание'
-  reportmessage: 'Кратко укажите, как с вами связаться при уточнениях.'
   store: 'Связанное заведение'
   time: 'Время'
   no_reports_fallback: 'Ещё нет жалоб'
@@ -3512,22 +3444,12 @@ storeedit:
     foodsaver: 'Foodsaver'
     leave: 'Удалить из заведения'
     note: 'Примечание:'
-    max-sm: 'Пожалуйста, выберите не более трёх ответственных'
-    empty: 'Команда не должна быть пустой'
-    unmanaged: 'В этом заведении сейчас нет ответственных.
-
-      Пожалуйста, добавьте до трёх ответственных, которые будут управлять этим заведением
-      в будущем.
-
-      '
     amb: 'Вы не являетесь ответственным за это заведение.
 
       Однако у вас широкие права как у посла.
 
       '
     leave_myself: 'Себя'
-    cannot-leave: 'Вы ещё ответственный за это заведение и потому не можете его покинуть.'
-    need-sm: 'Должно быть как минимум одно ответственное лицо за заведение.'
     orga: 'Вы не являетесь ответственным за это заведение.
 
       Однако у вас широкие права как участника глобальной оргакоманды.
@@ -3539,16 +3461,9 @@ storeedit:
 
       '
     kam: ''
-  milestone:
-    dropped: '{user} больше не в команде'
-    statuschanged: 'Изменение статуса {date}'
-    created: '{user} добавил(а) заведение {date}'
-    accepted: '{user} теперь в команде'
   actions: 'Параметры'
   bread: 'Редактировать заведение'
   add-new: 'Создать новое заведение'
-  not-in-region: 'Вы можете создавать заведения только в регионах, в которых вы являетесь
-    участником.'
   store:
     status: 'Статус'
   fetch:
@@ -3648,7 +3563,6 @@ gender:
   d: 'Оба или другое'
 time: 'Время'
 day: 'День'
-addreaction: 'Добавить реакцию'
 search:
   title: 'Поиск'
   placeholder: 'Начать поиск …'
@@ -3727,28 +3641,21 @@ conference:
   join_title: 'Присоединиться к конференции'
   join: 'Присоединиться к конференции'
   confirm_info: ''
-sidenav:
-  countryspecific: 'Национальные группы'
-  yourgroups: 'Ваши группы'
-  yourregions: ''
 button:
   send: 'Отправить'
   next: 'Далее'
   clear_filter: 'Сбросить фильтр'
   new: 'Создать'
   cancel: 'Отмена'
-  permadelete: 'Удалить безвозвратно'
   answer: 'Ответить'
   yes_i_am_sure: 'Да, я уверен/-а'
   save: 'Сохранить'
-  attach_image: 'Загрузить изображение (png или jpg)'
   apply: 'Применить'
   edit: 'Редактировать'
   create: 'Создать'
   delete: 'Удалить'
   ok: ''
   close: ''
-  browse: ''
   start: ''
   reset_default: ''
   prev: ''
@@ -3756,7 +3663,6 @@ button:
   filter_options: ''
   yes_save: ''
   confirm: ''
-opt: 'Параметры'
 message: 'Сообщение'
 ueberzeugungsarbeit: 'Насколько просто было убедить ответственное лицо предприятия
   сотрудничать с фудшерингом?'
@@ -3766,9 +3672,6 @@ addresspicker:
   infobox: 'Введите адрес в поисковой строке или передвиньте маркер на карте в нужное
     место.'
   different_location: 'Исправить описание адреса'
-  infobox_profile: '[Фудшарер](https://wiki.foodsharing.de/Foodsharer) нуждается в
-    адресе, чтобы предлагать Essenskörbe через сайт. Чтобы участвовать в спасении
-    еды как [Фудсейвер](https://wiki.foodsharing.de/Foodsaver), адрес обязателен.'
   different_location_warning: ''
 list:
   filter_for: 'Фильтр по…'
@@ -3780,13 +3683,10 @@ upload:
   no_image_yet: 'Ещё нет загруженного изображения'
   no_image_chosen: 'Файл не выбран'
   new_image: 'Загрузить новое изображение'
-  no_image: 'Загруженный файл не является изображением. Пожалуйста, выберите другой
-    файл.'
   choose_file: 'Загрузить файл'
   image: 'Загрузить изображение'
   images: ''
   invalid_image_files: ''
-  image-problem: ''
   remove_image: ''
   type_rejected: ''
   too_large: ''
@@ -3813,12 +3713,10 @@ join_region:
     Если вы хотите, чтобы район был создан, или у вас есть конкретные вопросы, которых
     нет в вики, напишите нам [по электронной почте]({mail}). Мы не являемся центральной
     службой для общих вопросов, но можем помочь с вопросами по районам.'
-yes: ''
 team:
   current: 'Команда'
 validate:
   required: '{it} не может быть пустым'
-options: 'Опции'
 text: 'Текст'
 are_you_sure: 'Вы уверены?'
 active: 'Активирован'
@@ -3883,13 +3781,10 @@ rolle: 'Роль пользователя'
 nofp: 'нет штрафных очков (шуточный вопрос)'
 maxfp: 'Максимальное число штрафных очков для прохождения теста'
 bezirk_id: 'Для какого региона важна эта статья?'
-info: 'Информация'
 back: 'Назад'
 title: 'Заголовок'
 weight: 'Примерный вес:'
 parent_id: 'Родительский район'
-no: ''
-bezirk: 'Округ'
 wikilink: 'Ссылка на дополнительную информацию'
 error_ajax: 'К сожалению, это не удалось. Возможно, у вас проблемы с интернет-соединением.
   Перезагрузите страницу и попробуйте ещё раз.
@@ -4425,28 +4320,7 @@ required_messages:
   name_placeholder: ''
   save_message: ''
   message_info_multiple: ''
-feedback:
-  error:
-    screenshot: ''
-    invalid_file: ''
-    message_short: ''
-    no_sentry: ''
-  button: ''
-  privacy: ''
-  success: ''
-  title: ''
-  name_sent: ''
-  no_support: ''
-  capture_screenshot: ''
-  screenshot_not_supported: ''
-sort:
-  sort_by: ''
-  options:
-    updated_at: ''
-    name: ''
-    date: ''
-    relevance: ''
-    created_at: ''
+sort: {}
 theme_switcher:
   theme:
     system: ''

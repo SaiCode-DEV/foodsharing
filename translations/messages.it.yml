@@ -265,11 +265,9 @@ button:
   cancel: Annulla
   apply: Applica
   yes_i_am_sure: Sì, sono sicuro
-  permadelete: Elimina definitivamente
   delete: Cancella
   edit: Modifica
   new: Nuovo
-  attach_image: Carica immagine (formato png o jpg)
   next: Avanti
   save: Salva
   reset_default: Ripristina l’impostazione predefinita
@@ -280,7 +278,6 @@ button:
   ok: OK
   confirm: Conferma
   start: Iniziamo!
-  browse: Sfogliare
   yes_save: 'Sì, salva'
 upload:
   crop_dialog_title: Ritaglia l'immagine
@@ -292,10 +289,7 @@ upload:
   preview_image: Anteprima
   no_image_chosen: Nessun file ancora selezionato
   no_image_yet: Nessuna immagine ancora caricata
-  no_image: Il file caricato non è una foto. Scegli un altro file.
   images: Carica immagini
-  image-problem: Il vostro file non sembra essere in ordine, è meglio usare una 
-    normale immagine jpg
   invalid_image_files: '{count} file selezionati non sono immagini valide: {fileNames}'
   remove_image: ''
   type_rejected: ''
@@ -336,7 +330,6 @@ fspmanagers: Foodsaver, ovvero la/le persona/e di riferimento per il punto di
   condivisione
 fsp_bezirk_id: In quale quartiere si trova il distributore di cibo?
 position: Posizione nella condivisione di cibo (pubblico)
-opt: Opzioni
 bezirk_id: Per quale regione è rilevante l'articolo?
 teaser: Estratto
 lifetime: Per quanto tempo vuoi che rimanga valido il tuo cestino?
@@ -347,27 +340,22 @@ about_me_public: Breve descrizione pubblica
 regions: Zone
 ort: Città / comune
 photo: Foto
-info: Informazioni
 status: Stato attuale
 body: Messaggio
 title: Titolo
 rolle: Ruolo utente
 active: Attivato
-bezirk: Zona
 lon: Longitudine
 lat: Latitudine
 fs_id: foodsharing-ID
 parent_id: Distretto genitore
 picture: Immagine
-options: Opzioni
 geschlecht: Genere
 anschrift: Via e numero civico
 email: Indirizzo e-mail
-plz: Codice postale
 description: Descrizione
 desc: Descrizione
 edit: modifica
-address: Indirizzo
 message: Messaggio
 nachname: Cognome
 add: aggiungi
@@ -383,8 +371,6 @@ error_permissions: Purtroppo non disponi delle autorizzazioni necessarie per
   questo processo.
 success: Completato con successo
 back: Indietro
-no: No
-yes: Sì
 really_delete: Eliminare?
 are_you_sure: Sei sicuro?
 statistics:
@@ -673,7 +659,6 @@ fsp:
     sottodistretti
   summary: Ci sono {count} divisori in tutti i distretti in cui sei attivo
   inRegion: tutti divisori in {region}
-  yours: Divisori nei tuoi distretti
   twig:
     n_in_region: '{count} divisore in {name}'
   info:
@@ -699,7 +684,6 @@ fsp:
   pic: foto
   location: CAP/ località
   street: Indirizzo
-  address: Indirizzo
   acceptSuccess: Punto di condivisione è ora attivo
   acceptName: Attivare {name}
   suggest: Proponi divisori
@@ -879,11 +863,6 @@ pickup:
     long: 'Il tuo tesserino non è più valido'
   chat_preface: ''
 storeedit:
-  milestone:
-    statuschanged: Cambio di stato il {date}
-    dropped: '{user} non fa più parte del team'
-    accepted: '{user} ora fa parte del team'
-    created: "{user} ha inserito l'attività il {date}"
   fetch:
     teamStatus2: Si cerca urgentemente aiuto
     teamStatus1: Il team è aperto alle candidature dei Foodsavers
@@ -899,10 +878,6 @@ storeedit:
   store:
     status: stato
   team:
-    need-sm: Ci deve essere presente almeno un responsabile dell'attività.
-    empty: Il team non può essere vuota
-    cannot-leave: Sei ancora responsabile di questa azienda e quindi non puoi 
-      lasciarla.
     foodsaver: Foodsaver
     orga: "Non sei responsabile di questa agenzia.\nTuttavia, disponi di ampi diritti
       come parte del team organizzativo globale.\n"
@@ -911,9 +886,6 @@ storeedit:
     coordinator: "Non sei responsabile di questa agenzia.\nTuttavia, disponi di ampi
       diritti come parte del team di coordinamento dell´agenzia.\n"
     note: 'Suggerimento:'
-    unmanaged: "Attualmente non ci sono persone responsabili in questa attività.\n\
-      \ Si prega di aggiungere fino a tre responsabili, che in futuro gestiranno l'attività.\n"
-    max-sm: Si prega di scegliere un massimo di tre responsabili dell'attività
     leave: Annulla l'iscrizione del agenzia
     bread: modificare il team
     leave_myself: 'Te stesso'
@@ -921,7 +893,6 @@ storeedit:
   actions: Opzioni
   bread: Modifica l’agenzia
   add_success: L´agenzia di cooperazione è stata registrata
-  not-in-region: Puoi creare agenzie solo nelle regioni di cui sei membro.
   add-new: Crea una nuova agenzia
   unsuccess: 'Impossibile applicare le modifiche. {error}'
   name_error: Il nome deve essere composto da almeno tre caratteri.
@@ -1595,7 +1566,6 @@ foodsaver:
   list:
     inactive: "che non sono stati attivi negli ultimi 6 mesi:"
     summary: '{count} Foodsaver in {region}'
-  kicked: Il Foodsaver è stato eliminato
   upgrade:
     ad_fs: Voglio fare subito il quiz e diventare foodsaver!
     rv: Sì, ho letto e accetto l'accordo legale.
@@ -1646,8 +1616,6 @@ foodsaver:
 reports:
   reason: Motivo
   message: Descrizione
-  reportmessage: Indica brevemente come puoi essere contattato in caso di 
-    domande.
   no_reports_fallback: Non ci sono ancora segnalazioni
   time: Tempo
   report_id: ID rapporto
@@ -1748,9 +1716,6 @@ date:
   clock: ' '
 addresspicker:
   label: Ricerca per indirizzo/località
-  infobox_profile: "I [Foodsharer](https://wiki.foodsharing.de/Foodsharer) necessitano
-    dell'indirizzo per poter offrire cesti alimentari tramite il sito web. È necessario
-    per poter partecipare ai salvataggi alimentari come [Foodsaver](https://wiki.foodsharing.de/Foodsaver)."
   infobox: Inserite l’indirizzo nella barra di ricerca o spostate il pin nella 
     posizione corretta sulla mappa.
   placeholder: Cerca l’indirizzo …
@@ -1932,9 +1897,6 @@ wall:
     title: Eliminare il post dalla bacheca?
   post_not_found: ''
 chat:
-  confirm_draft_discard: "Passi a una nuova conversazione. Il testo nel campo della
-    risposta viene scartato.\n\nSe annulli questa finestra di dialogo, la bozza verrà
-    invece trasferita nella nuova conversazione.\n"
   empty_recipients: Devi ancora selezionare i destinatari.
   empty_message: Devi prima inserire un messaggio.
   notification_named_conversation: '{foodsaver} ha scritto in {conversation}.'
@@ -2350,14 +2312,6 @@ basket:
   request_denied: La tua richiesta per il cesto di cibo è stata rifiutata dal 
     fornitore.
   not_found: Il cesto di cibo non esiste più.
-  has:
-    dry: Merce secca
-    greens: Frutta & Verdura
-    bread: Prodotti Panetteria
-    prepared: Cibi preparati
-    pet: Cibo per animali
-    frozen: Prodotti surgelati
-    dairy: Latticini
   valid:
     "21": tre settimane
     "14": due settimane
@@ -2372,7 +2326,6 @@ basket:
   image: Aggiungi una foto al cesto di cibo.
   request_empty: Il testo della richiesta non deve essere vuoto.
   state:
-    finished: Grazie, il processo è finito.
     deny: Vorrei rifiutare questa richiesta.
     gone: Gli alimentari sono stati ritirati da qualcun altro.
     nope: No, il cestino alimentare non è stato ritirato come concordato.
@@ -2402,7 +2355,6 @@ basket:
   edit: Modifica cestino di cibo
   publish: Pubblicare il cesto di cibo
   add: Mettere su un cesto di cibo
-  on: Cestino di cibo da {platform}
   by: Cesto alimentare da {name}
   go: al cesto di cibo
   mapsearch: Ricerca indirizzo …
@@ -2417,11 +2369,6 @@ basket:
   public-info: Descrizione, foto, luogo di scambio e periodo sono visibili 
     pubblicamente.
   go-to-settings: Vai alle impostazioni
-  is:
-    gf: sono senza glutine
-    vegan: sono vegani
-    veggie: sono vegetariani
-    organic: sono Bio
   no_nearby: 'Non ci sono cesti alimentari nel raggio di {radius} chilometri'
   not_withdrawn: 'Impossibile ritirare la richiesta del cestino alimentare: '
   use_home_address: Usa l'indirizzo di casa
@@ -2756,7 +2703,6 @@ profile:
     info: "Si prega di utilizzare questa funzione in modo coscienzioso. Dovrebbe aiutare
       a rendere visibili i processi per risparmiarci del lavoro. Qui non c'è spazio
       per commenti personali o di giudizio su una persona. Rimani obiettivo."
-    title: Notizie su {name}
     bread: Notizie
   history:
     lostVerification: Deverificato
@@ -2992,7 +2938,6 @@ settings:
     profilo.
   delete_profile: Cancellare questo profilo
   general:
-    phone: Il vostro numero di telefono fisso
     current_address: Indirizzo attuale
     no_address: Nessun indirizzo ancora inserito
   address:
@@ -3200,7 +3145,6 @@ mailbox:
   signature: Messaggio da {data}
   claim: foodsharing.network – usare invece di sprecare
   write: Nuova email
-  refresh: Aggiornare
   actions: Opzioni
   subject: Ogetto
   date: Data
@@ -3329,7 +3273,6 @@ storelist:
   managing: Aziende di cui è responsabile
   emptyfilters: Filtro vuoto
   nocontact: Nessun contatto ancora
-  zipcode: Codice postale
   addressdata: Indirizzo
   memberState: Stato di membro
   actions: Azioni
@@ -3384,14 +3327,6 @@ personal_data:
   mobile: Numero di cellulare
   label: Contatto
 region:
-  hull:
-    closure: Inserisci {region} come master per tutti i distretti affiliati
-    confirm: Iniziare davvero l'aggiornamento master?
-    start: Avviare l'aggiornamento master
-    title: Aggiornamento Master
-    parent: Distritto principale
-    parent-info: Tutti i Foodsaver sono automaticamente inclusi nel distretto 
-      principale, se ne è stato specificato uno
   type:
     country: Paese
     region: Regione
@@ -3402,7 +3337,6 @@ region:
     big_city: ''
     federal_state: ''
     part_of_town: ''
-  noParent: Senza distretto di affiliazione
   still_contains_elements: Il distretto non può essere cancellato perché 
     contiene ancora sottoregioni, siti o divisori.
   edit_success: Il distretto è stato salvato.
@@ -3410,8 +3344,6 @@ region:
   save: Sì, salvare
   mail:
     sender: Nome del mittente
-    name-info: Attenzione, non cambiare arbitrariamente! Assicurati anche che 
-      questo indirizzo non esista ancora in Manage Mailboxes.
   none: Nessun distretto eletto ancora
   delete: Cancellare il distretto
   edit: Modifica distretto
@@ -3420,9 +3352,6 @@ region:
   bread: Gestire i distretti
   forum-redirect: Non c'è una bacheca per le regioni. Sei stato reindirizzato al
     forum.
-  restricted: Non hai il permesso di visualizzare questi dati.
-  no-huge: Spiacente, non puoi selezionare un paese o uno stato come regione.
-  change: Cambiare distretto
   name: Nome
   public:
     events:
@@ -3608,10 +3537,6 @@ base:
     cibo, donare, scambio di cibo
   whatfor: Su foodsharing.network puoi dare il tuo cibo alle istituzioni sociali
     o ad altre persone prima che vada sprecato
-sidenav:
-  yourgroups: Tuoi gruppi
-  countryspecific: Gruppi specifici per paese
-  yourregions: Le tue aree
 password:
   insertmail: Inserisci il tuo indirizzo e-mail per reimpostare la tua password.
   reset: Password dimenticata?
@@ -3855,11 +3780,6 @@ filter_by: Filtrare per
 groups:
   empty: Non sei ancora in nessun gruppo di lavoro
 nofp: nessun punto di errore (domanda scherzosa)
-numbers:
-  million_abbreviation: ' Mio.'
-  thousands_separator: '.'
-  decimal_separator: ','
-  billion_abbreviation: ' Mrd.'
 error:
   invalid_mobile_phonenumber:
     description: 'Sfortunatamente, il tuo numero di cellulare ha un formato che non
@@ -3927,7 +3847,6 @@ globals:
   show_less: 'Mostra meno'
   save: 'Salva'
   show_more: 'Mostra di più'
-  telephone_number: Numero di telefono
   updated: 'Aggiornato:'
   saved: Le modifiche sono state salvate
   save_changes: ''
@@ -3939,20 +3858,6 @@ activitypost:
   write: 'Scrivi una risposta …'
   quickreply_button: 'Invia ora<br>o <code class="key">premi Invio</code>.'
   Response: 'Risposta'
-bootstrap-datepicker:
-  labelPrevYear: 'Anno precedente'
-  labelNextYear: 'L''anno prossimo'
-  labelCalendar: 'Calendario'
-  labelToday: 'Oggi'
-  labelPrevDecade: 'Decennio precedente'
-  labelNextDecade: 'Il prossimo decennio'
-  labelHelp: 'Naviga nel calendario utilizzando i tasti freccia'
-  labelPrevMonth: 'Mese precedente'
-  labelCurrentMonth: 'Mese corrente'
-  labelNextMonth: 'Il prossimo mese'
-  labelSelected: 'Data selezionata'
-  labelNoDateSelected: 'Nessuna data scelta'
-  labelNav: 'Navigazione del calendario'
 navigation:
   styleguide: 'Guida allo stile'
   stores: 'Attività'
@@ -3975,10 +3880,8 @@ navigation:
   system_administration: 'Amministrazione di sistema'
   toggle: ''
 system_administration:
-  email: 'Invia newsletter'
   quiz: 'Gestisci quiz'
   blog: 'Modifica i post del blog'
-  reports: 'Visualizza i report'
   content: 'Modifica contenuto'
   regions: 'Gestisci i distretti'
   resource_categories: ''
@@ -4115,7 +4018,6 @@ use_region_pickup_rule: 'La regola RASMR distrettuale dovrebbe applicarsi a ques
   attività?'
 contentmanagement: 'Gestione dei contenuti'
 savewithus: 'Risparmia con noi!'
-addreaction: 'Aggiungi una reazione'
 notifications:
   newsletter:
     description: Ricevi via e-mail le ultime informazioni sul foodsharing circa 
@@ -4419,20 +4321,6 @@ net_errors:
     connessione Internet e riprova.
   FORBIDDEN: Non sei autorizzato a eseguire questa azione.
   action_response: 'Richiesta e risposta del server:'
-feedback:
-  button: Invia feedback
-  title: Feedback
-  capture_screenshot: Fai uno screenshot
-  error:
-    screenshot: ''
-    invalid_file: ''
-    message_short: ''
-    no_sentry: ''
-  privacy: ''
-  success: ''
-  name_sent: ''
-  no_support: ''
-  screenshot_not_supported: ''
 required_messages:
   decline_store_application:
     footer: Distinti saluti
@@ -4721,14 +4609,7 @@ oauth:
       title: ''
       md: ''
   title: ''
-sort:
-  sort_by: ''
-  options:
-    updated_at: ''
-    name: ''
-    date: ''
-    relevance: ''
-    created_at: ''
+sort: {}
 network_errors:
   csrf_token_invalid:
     title: ''

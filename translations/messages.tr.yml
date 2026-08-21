@@ -83,21 +83,16 @@ email: .E-Posta Adresi
 name: İsim
 nachname: Soyad
 anschrift: Sokak ve ev numarası
-address: Adres
-options: Opsiyonlar
 picture: Resim
 geschlecht: Cinsiyet
 teaser: Tanıtım
 bezirk_id: Bu ürün hangi bölge için geçerlidir?
-opt: Opsiyonlar
 pass2: Şifreyi onayla
-bezirk: Bölge
 rolle: Kullanıcı Rolü
 title: Ana Başlık
 body: Mesaj
 active: Aktif Durumda
 photo: Fotoğraf
-info: Bilgiler_
 ort: Şehir/Belde
 about_me_public: Herkese Açık Kısa Tanımlama
 about_me_intern: Özet
@@ -107,7 +102,6 @@ parent_id: Ana -Bölge
 fs_id: foodsharing-ID
 pass1: İstediğiniz yeni şifreniz
 description: Açıklama
-plz: Posta Kodu_
 edit: düzenle
 desc: Açıklama
 message: Mesaj
@@ -373,8 +367,6 @@ button:
   create: Oluştur
   clear_filter: Filtreleri temizle
   save: Kaydet
-  attach_image: Resim yükleyin (png- veya jpg- formatında)
-  permadelete: Geri getirilemez bir şekilde silin
   reset_default: Standardı geri yükle
   prev: Geri
   close: Kapamak
@@ -383,12 +375,10 @@ button:
   countdown_clickable: '{geri sayım} saniye içinde tıklanabilir'
   ok: OK
   filter_options: Filtreleme Opsiyonları
-  browse: Arama_
   yes_save: Evet, kaydet
 upload:
   new_image: Yeni fotoğraf yükle
   file: Dosya yükle
-  no_image: Yüklenen dosya bir fotoğraf değil. Lütfen başka bir dosya seçin.
   no_image_yet: Henüz bir fotoğraf yüklenmedi
   no_image_chosen: Henüz bir dosya seçilmedi
   image: Fotoğraf yükle
@@ -397,8 +387,6 @@ upload:
   crop_dialog_title: Fotoğrafı kes
   preview_image: Ön izleme
   images: Resimleri yükle
-  image-problem: Dosyanızda bir sorun görünüyor. En doğrusu normal bir jpg resmi
-    kullanman
   invalid_image_files: 'Seçilen {count} dosya geçerli resimler değil: {fileNames}'
   remove_image: Resmi kaldır
   type_rejected: ''
@@ -836,20 +824,6 @@ activitypost:
   write: Cevap yaz …
   Response: 'Cevaplayınız'
   response: 'cevaplayınız'
-bootstrap-datepicker:
-  labelPrevMonth: Geçen ay
-  labelCurrentMonth: Güncel ay
-  labelNextMonth: Gelecek ay
-  labelNextYear: Gelecek yıl
-  labelNav: Takvim Navigasyonu
-  labelHelp: Ok tuşlarını kullanarak Takvimde gezinin
-  labelNextDecade: Önümüzdeki on yıl
-  labelSelected: Seçilen Tarih
-  labelNoDateSelected: Tarih seçilmedi
-  labelPrevDecade: Önceki on yıl
-  labelCalendar: Takvim
-  labelPrevYear: Geçen sene
-  labelToday: Bugün-
 pickuplist:
   error_leave: 'Çıkış başarısız oldu: '
   tryagain: Yeniden yükledikten sonra tekrar deneyiniz.
@@ -1073,24 +1047,16 @@ month:
   "3": Mart
   "7": Temmuz
 really_delete: Gerçekten silinsin mi?
-no: Hayır
 notice: Bir uyarı!
 back: Geri dön
 error_permissions: Maalesef bu işlem için gerekli izinlere sahip değilsiniz.
 error_unexpected: Bir hata oldu
 storeedit:
   team:
-    empty: Ekip boş kalamaz
     coordinator: "Bu işletmeden siz sorumlu değilsiniz.\nAncak, işletme koordinasyon
       ekibinin bir parçası olarak geniş kapsamlı haklara sahipsiniz.\n"
-    unmanaged: "Şu anda bu işletmeden sorumlu kişi bulunmamaktadır.\nLütfen gelecekte
-      bu işletmeden sorumlu olacak en fazla üç yönetici ekleyin.\n"
     leave_myself: Kendinizi
-    need-sm: Bu İşletme için en az bir kişi sorumlu olmalıdır.
     note: 'Uyarı:'
-    cannot-leave: Bu işletmeden hala siz sorumlusunuz ve bu nedenle 
-      ayrılamazsınız.
-    max-sm: Lütfen işletmeden sorumlu, en fazla üç yönetici seç
     bread: Ekibi düzenle
     foodsaver: Foodsaver
     leave: İşletmeden çık
@@ -1106,7 +1072,6 @@ storeedit:
       '
   actions: Opsiyonlar
   bread: İşletmeyi düzenle
-  not-in-region: Sadece üye olduğunuz bölgelerde işletme açabilirsiniz.
   add-new: Yeni bir işletme oluştur
   fetch:
     teamStatus: Ekip Statüsü
@@ -1125,11 +1090,6 @@ storeedit:
   unsuccess: Değişiklikler kaydedilemedi. {error}
   store:
     status: Statü
-  milestone:
-    statuschanged: '{date} tarihinde durum değişikliği'
-    accepted: '{user} artık ekipte'
-    created: '{user}, işletmeyi {date} tarihinde girdi'
-    dropped: '{user} artık ekipte değil'
   store_name_placeholder: İşletmenin adı
   name_error: İsim en az üç karakterden oluşmalıdır.
 date:
@@ -1198,8 +1158,6 @@ validate:
   required: '{it} boş kalamaz'
 select: Lütfen seçiniz
 reports:
-  reportmessage: Herhangi bir soru olması durumunda size nasıl ulaşılabileceğini
-    kısaca belirtiniz.
   report_id: Rapor-ID
   time: Zaman noktası
   reason: Nedeni
@@ -1260,7 +1218,6 @@ success: Başarıyla tamamlandı
 error_ajax: "Bu ne yazık ki işe yaramadı.\nBelki internet bağlantınız şu anda çalışmıyordur.\n\
   \ Sayfayı yeniden yükleyin ve tekrar deneyin.\n"
 delete: Sil
-yes: Evet
 store:
   sm:
     filterUnverified: Onaylanmamış
@@ -1683,7 +1640,6 @@ poll:
     sırası sabittir ve tüm seçmenler için aynıdır.
   title: 'Oy: {name}'
 region:
-  change: İlçe değiştir
   edit: Bölgeyi düzenle
   type:
     country: Ülke
@@ -1695,24 +1651,13 @@ region:
     federal_state: Federal Eyalet
     working_group: Çalışma grubu
     part_of_town: Semt
-  hull:
-    confirm: Ana güncelleme gerçekten başlatılsın mı?
-    start: Ana güncellemeyi başlat
-    parent: Ana Bölge
-    parent-info: Tüm Foodsaverlar, eğer belirtilmişse, otomatikmen bir ana 
-      bölgeye dahil edilir
-    title: Ana güncelleme
-    closure: Tüm alt bölgeler için ana bölge olarak {region} girin
   mail:
     sender: Gönderen Adı
-    name-info: Dikkat, keyfi olarak değiştirmeyin! Ayrıca, bu adresin Posta 
-      Kutularını Yönet altında henüz bulunmadığından emin olun.
   cancel: Hayır, aslında değil
   confirm:
     edit: Değişiklikleri {name} bölgesine kaydetmek istediğinizden emin misiniz?
     create: '{name} bölgesini yeniden oluşturmak istediğinizden emin misiniz?'
     delete: '{name} bölgesini silmek istediğinizden emin misiniz?'
-  restricted: Ne yazık ki, bu verileri görüntüleme yetkiniz yok.
   forum-redirect: Bölgeler için panel yoktur. Foruma yönlendirildiniz.
   delete: Bölgeyi/İlçeyi sil
   none: Henüz bir Bölge seçilmedi
@@ -1721,10 +1666,8 @@ region:
   still_contains_elements: Hala alt bölgeler, alt bölgeler/semtler, işletmeler 
     veya gıda dağıtım noktaları içerdiğinden bölge silinemez.
   new: Yeni Bölge
-  noParent: Ana Bölge olmadan
   save: Evet kaydet
   bread: Bölgeleri yönet
-  no-huge: Üzgünüz, bölge olarak ülke veya eyalet seçemezsiniz.
   select: Düzenlenecek ilçeyi seçin
   createNew: Yeni bir bölge oluştur
   root: (Root) yok
@@ -1910,7 +1853,6 @@ foodsaver:
     Lütfen tekrar deneyin.
   about_me_public: "[Ekip ve eski Ekip Sayfası](/team)'nda listelenen herkese gösterilecek
     ve web sitesindeki herkes tarafından görüntülenebilecek.\n"
-  kicked: Foodsaver kaldırıldı
   bread: Tüm Foodsaverlar
   delete_account_reason: Hesabın silinme nedeni
   delete_account_password_verify: ''
@@ -1986,7 +1928,6 @@ mailbox:
   delete: Çöp kutusuna
   subject: Konu
   new: Yeni posta kutusu
-  refresh: Güncelle
   write: Yeni E-Posta
   claim: İsraf etmek yerine foodsharing.network kullanın
   recipients: Çok fazla alıcı var
@@ -2033,7 +1974,6 @@ basket:
     nope: Hayır, yemek sepeti kararlaştırıldığı gibi alınmadı.
     gone: Yiyecekler başkası tarafından alındı.
     okay: Evet, yemek sepeti alındı.
-    finished: Teşekkürler, işlem tamamlandı.
     deny: Bu talebi reddetmek istiyorum.
   valid:
     "7": bir hafta
@@ -2047,14 +1987,6 @@ basket:
   request_close: Yemek sepeti talebini sonuçlandırın
   send_request: Başvuruyu gönderin
   withdrawn_request: Başvuru geri çekildi
-  has:
-    frozen: Dondurulmuş ürünler
-    greens: Meyve & Sebze
-    dairy: Süt Ürünleri
-    dry: Kuru Mallar
-    prepared: Pişmiş Gıda
-    bread: Fırın Mamülleri
-    pet: Hayvan Yemi
   request_denied: Talebiniz yemek sepeti sahibi tarafından reddedildi.
   contact:
     write: Mesaj yoluyla
@@ -2070,11 +2002,6 @@ basket:
   requested_by: '{name} tarafından başvuruldu'
   request: Yemek sepeti için başvurun
   withdraw_request: Başvuruyu geri çekin
-  is:
-    organic: Organik
-    veggie: Vejeteryan
-    vegan: vegan
-    gf: glütensiz
   not-allowed: Bu yemek sepetini düzenleme izniniz yok.
   publish_error: Bir hata oldu. Yemek sepeti yayınlanamadı.
   request_empty: İstek metniniz boş bırakılamaz.
@@ -2094,7 +2021,6 @@ basket:
   publish: Yemek sepeti yayınla
   edit: Yemek sepetini düzenle
   nearby: Yakınınızdaki yemek sepetleri
-  on: '{platform} tarafından yemek sepeti'
   all: Tüm yemek sepetleri
   all_map: Haritadaki tüm sepetler
   add: Yemek sepeti oluştur
@@ -2275,7 +2201,6 @@ storelist:
   others: '{region} bölgesindeki diğer işletmeler'
   status: Statü
   address: Sokak
-  zipcode: Posta Kodu|
   entered: 'Kayıtlı:'
   memberState: Üyelik durumu
   actions: Eylemler
@@ -2319,10 +2244,6 @@ conference:
     Online konferans BigBlueButton'u yeni bir pencerede açar. Not: Online konferanslar
     living utopia Kollektivs konferans sunucusu aracılığıyla gerçekleştirilir. Foodsharing'e
     girdiğiniz adınız, kimliğiniz ve avatarınızla otomatik olarak oturum açacaksınız."
-sidenav:
-  yourgroups: Gruplarınız
-  countryspecific: Ülkeye Özgü Gruplar
-  yourregions: Senin Bölgelerin
 email_template:
   request_from: -den İstek
   in: içinde
@@ -2553,7 +2474,6 @@ settings:
       \ daha sonra <a href=\"{link_fs}\">foodsaver</a> olunca işletmelerden gıda alımı
       yapıcaksınız.\n"
   general:
-    phone: Sabit hat numaranız
     current_address: Güncel Adresiniz
     no_address: Henüz adres girilmedi
   no_rights: Profil ayarlarını değiştirme hakkınız yok.
@@ -2843,9 +2763,6 @@ chat:
   empty: Henüz yazışma yok
   placeholder: Bir şeyler yaz.
   empty_recipients: Önce alıcıları seçmeniz gerekiyor.
-  confirm_draft_discard: "Yeni bir sohbete geçersiniz. Cevap alanındaki metin atılır.\n\
-    \ \nBu iletişim kutusunu iptal ederseniz taslağınız bunun yerine yeni görüşmeye
-    taşınacaktır.\n"
   unknown_username: bilinmeyen isim
   mark_as:
     read: Okundu olarak işaretle
@@ -2882,10 +2799,6 @@ addresspicker:
   infobox: Lütfen adresi bu mesaj ile kart arasındaki metin alanına girin ve 
     gerekirse kartın içine taşıyarak düzeltin.
   label: Adres/Yer arama
-  infobox_profile: "[Foodsharerların](https://wiki.foodsharing.de/Foodsharer) web
-    sitesi aracılığıyla yiyecek sepetleri sunabilmeleri için adrese ihtiyaçları vardır.
-    [Foodsaver](https://wiki.foodsharing.de/Foodsaver) olarak yiyecek kurtarma çalışmalarına
-    katılabilmek için gereklidir."
   different_location: Adres tarifini düzelt
   different_location_warning: Lütfen pinin yukarıdaki haritada doğru yerde 
     olduğundan emin olun. Lütfen otomatik olarak doldurulan alanları (sokak ve 
@@ -3026,7 +2939,6 @@ profile:
     noActor: bilinmeyen
     actionBy: dolayı
   notes:
-    title: '{name} hakkında notlar'
     info: Lütfen bu işlevi dikkatli kullanın. Bu, süreçleri görünür kılmak ve 
       işleri azaltmaya yardımcı olması içindir. Bir kişi hakkında kişisel veya 
       yargılayıcı hiçbir şeyin burada yeri yoktur. Gerçekçi kalın.
@@ -3609,8 +3521,6 @@ fsp:
   followName: '{name} gıda dağıtım noktasını takip edin'
   follow: Bu gıda dağıtım noktasını takip edin
   acceptSuccess: Gıda dağıtım noktası artık aktif
-  yours: Bölgedeki Gıda Dağıtım Noktaları
-  address: Adres
   inRegion: '{region} bölgesindeki tüm gıda dağıtım noktaları'
   new: Yeni gıda dağıtım noktası
   deleteConfirm: Bu gıda dağıtım noktasını gerçekten silmek istiyor musunuz?
@@ -4008,7 +3918,6 @@ globals:
   show_more: 'Daha fazla göster'
   you: 'Sen'
   show_less: 'Daha az göster'
-  telephone_number: Telefon numarası
   save_changes: Değişiklikleri kaydet
   saved: Değişiklikler kaydedildi
   updated: 'Güncellendi:'
@@ -4094,11 +4003,6 @@ language_chooser:
   translation_help: 'Başka lisanları konuşuyormusun? foodsharing her zaman tercümanlık
     konusunda yardımcı arıyor'
   untranslated_hint: ''
-numbers:
-  billion_abbreviation: ' Milyar.'
-  decimal_separator: ','
-  thousands_separator: '.'
-  million_abbreviation: ' Milyon.'
 information:
   push:
     title: 'Artık foodsharing''den push bildirimleri alabilirsiniz.'
@@ -4119,10 +4023,8 @@ team:
 home:
   home: 'Ana Sayfa'
 system_administration:
-  email: 'Haber bülteni gönder'
   blog: 'Blog yazılarını düzenle'
   quiz: 'Testi yönet'
-  reports: 'Raporları görüntüle'
   regions: 'Bölgeleri yönet'
   content: 'İçeriği düzenle'
   store_categories: İşletme kategorilerini düzenleyin
@@ -4147,7 +4049,6 @@ join_region:
     belirli sorularınız varsa, bize [bir e-posta]({mail}) yazın. Genel sorularınız
     için merkezi irtibat noktası değiliz ancak ilçelerle ilgili sorularınız için size
     yardımcı olabiliriz.'
-addreaction: 'Herhangi bir tepki ekleyin'
 contentmanagement: 'İçerik yönetimi'
 savewithus: 'Sende kurtar!'
 usersearch:
@@ -4744,27 +4645,6 @@ contact_page:
     link: Genel bakışa dön
     text: Bir bölgeyle ilgili sorularınız varsa lütfen doğrudan bölge irtibat 
       kişisiyle iletişime geçin.
-feedback:
-  capture_screenshot: Ekran görüntüsü al
-  title: Beta Geri bildirim formu
-  button: Beta Geri bildirim
-  name_sent: Adınız ve kimliğiniz tarafınıza gönderilecektir.
-  error:
-    no_sentry: Sentry'de bir hata oluştu. Lütfen daha sonra tekrar deneyin.
-    screenshot: Otomatik ekran görüntüsü alma başarısız oldu. Ancak geri 
-      bildiriminize manuel olarak bir resim ekleyebilirsiniz.
-    invalid_file: Geçersiz dosya. Lütfen sadece resim yükleyin.
-    message_short: Mesajınız çok kısa. Lütfen daha fazla bilgi verin.
-  no_support: Bu form yalnızca **geri bildirim** amaçlıdır. Yardıma ihtiyacınız 
-    varsa veya herhangi bir sorunuz varsa lütfen [destek formunu](/support) 
-    kullanın.
-  privacy: Mesajınız foodsharing platformunun gönüllü geliştiricilerine 
-    iletilecektir. Formdaki tüm girdiler ve ekli görseller artık sizin 
-    tarafınızdan görülebilecektir. Lütfen ekran görüntülerinin, paylaşma 
-    yetkiniz olmayan diğer kullanıcılara ait kişisel bilgileri içermediğinden 
-    emin olun.
-  success: Geri bildiriminiz başarıyla iletildi.
-  screenshot_not_supported: ''
 categories:
   columns:
     id: ID
@@ -4941,14 +4821,7 @@ oauth:
       title: ''
       md: ''
   title: ''
-sort:
-  sort_by: ''
-  options:
-    updated_at: ''
-    name: ''
-    date: ''
-    relevance: ''
-    created_at: ''
+sort: {}
 network_errors:
   csrf_token_invalid:
     title: ''

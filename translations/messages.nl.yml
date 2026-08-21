@@ -1,5 +1,4 @@
 nachname: Achternaam
-address: Adres
 email: E-mailadres
 lat: breedtegraad
 lon: lengtegraad
@@ -392,12 +391,9 @@ add: voeg toe
 message: Bericht
 desc: Beschrijving
 geschlecht: Geslacht
-options: Opties
-bezirk: Wijk
 active: geactiveerd
 rolle: Gebruikersrol
 status: huidige status
-info: Informatie
 picture: Afbeelding
 anschrift: Straat en huisnummer
 fs_id: foodsharing-ID
@@ -405,8 +401,6 @@ regions: Districten
 photo: Foto
 groups:
   empty: Je bent nog in geen werkgroep
-yes: Ja
-no: Nee
 menu:
   entry:
     fsfestival: ''
@@ -758,7 +752,6 @@ globals:
   close: ''
   saved: ''
   save_changes: ''
-  telephone_number: ''
   updated: ''
   loading: ''
 store:
@@ -1252,7 +1245,6 @@ profile:
   notes:
     info: ''
     bread: ''
-    title: ''
   go: ''
   reportRequest: ''
   choosestore: ''
@@ -1300,16 +1292,7 @@ basket:
     gone: ''
     deny: ''
     nope: ''
-    finished: ''
     okay: ''
-  has:
-    bread: ''
-    frozen: ''
-    greens: ''
-    dry: ''
-    prepared: ''
-    pet: ''
-    dairy: ''
   go-to-settings: ''
   public-info: ''
   withdraw_request: ''
@@ -1317,11 +1300,6 @@ basket:
   edit: ''
   delete: ''
   date: ''
-  is:
-    veggie: ''
-    organic: ''
-    vegan: ''
-    gf: ''
   requests: ''
   all: ''
   created: ''
@@ -1342,7 +1320,6 @@ basket:
   n_requests: ''
   new: ''
   provider: ''
-  on: ''
   add: ''
   where: ''
   login: ''
@@ -1451,7 +1428,6 @@ storelist:
   city: ''
   others: ''
   inprogress: ''
-  zipcode: ''
   memberState: ''
   actions: ''
   filter_placeholder: ''
@@ -1460,15 +1436,7 @@ push_notifications:
   test_notification_body: ''
 region:
   bread: ''
-  hull:
-    start: ''
-    confirm: ''
-    parent-info: ''
-    closure: ''
-    title: ''
-    parent: ''
   mail:
-    name-info: ''
     sender: ''
   save: ''
   still_contains_elements: ''
@@ -1485,12 +1453,8 @@ region:
   new: ''
   none: ''
   created: ''
-  noParent: ''
-  change: ''
   edit_success: ''
-  no-huge: ''
   delete: ''
-  restricted: ''
   edit: ''
   forum-redirect: ''
   cancel: ''
@@ -1678,8 +1642,6 @@ system_administration:
   regions: ''
   quiz: ''
   blog: ''
-  email: ''
-  reports: ''
   content: ''
   resource_categories: ''
   store_categories: ''
@@ -1690,20 +1652,6 @@ activitypost:
   Response: ''
   write: ''
   quickreply_button: ''
-bootstrap-datepicker:
-  labelPrevDecade: ''
-  labelToday: ''
-  labelCurrentMonth: ''
-  labelNoDateSelected: ''
-  labelPrevYear: ''
-  labelPrevMonth: ''
-  labelHelp: ''
-  labelNextMonth: ''
-  labelCalendar: ''
-  labelNav: ''
-  labelSelected: ''
-  labelNextDecade: ''
-  labelNextYear: ''
 storeview:
   invalid_field: ''
   contact:
@@ -1906,7 +1854,6 @@ chat:
   start_of_conversation: ''
   empty_message: ''
   notification_unnamed_conversation: ''
-  confirm_draft_discard: ''
   search: ''
   placeholder: ''
   conversations: ''
@@ -2007,7 +1954,6 @@ foodsaver:
     AMBASSADOR: ''
     FOODSAVER: ''
   title: ''
-  kicked: ''
   profileBack: ''
   delete_account: ''
   delete_account_sure: ''
@@ -2071,7 +2017,6 @@ mailbox:
   mail: 'E-Mail'
   title: 'E-mail postvak'
   new: ''
-  refresh: ''
   subject: ''
   failed: ''
   ratelimit: ''
@@ -2378,7 +2323,6 @@ fsp:
   rejectConfirm: ''
   pic: ''
   deleteSuccess: ''
-  yours: ''
   inRegion: ''
   summary: ''
   add: ''
@@ -2404,7 +2348,6 @@ fsp:
   location: ''
   editSuccess: ''
   addedBy: ''
-  address: ''
   suggestSuccess: ''
   addedOn: ''
   none: ''
@@ -2432,28 +2375,17 @@ storeedit:
     hygieneRequired: ''
     applyTextRequired: ''
     verifiedRequired: ''
-  milestone:
-    created: ''
-    accepted: ''
-    statuschanged: ''
-    dropped: ''
   team:
     note: ''
-    empty: ''
     coordinator: ''
-    max-sm: ''
-    unmanaged: ''
     orga: ''
-    cannot-leave: ''
     foodsaver: ''
     leave: ''
     bread: ''
     amb: ''
     leave_myself: ''
-    need-sm: ''
     kam: ''
   add-new: ''
-  not-in-region: ''
   actions: ''
   bread: ''
   unsuccess: ''
@@ -2749,7 +2681,6 @@ settings:
     title: ''
     success: ''
   general:
-    phone: ''
     no_address: ''
     current_address: ''
   address:
@@ -2788,7 +2719,6 @@ date:
   tuesday: ''
 reports:
   report_id: ''
-  reportmessage: ''
   message: ''
   no_reports_fallback: ''
   store: ''
@@ -3098,20 +3028,11 @@ conference:
   join: ''
   join_title: ''
   confirm_info: ''
-sidenav:
-  yourgroups: ''
-  countryspecific: ''
-  yourregions: ''
 base:
   whatfor: ''
   keywords: ''
   jsrequired: ''
   slogan: ''
-numbers:
-  thousands_separator: ''
-  decimal_separator: ''
-  million_abbreviation: ''
-  billion_abbreviation: ''
 gender:
   d: ''
   f: ''
@@ -3486,7 +3407,6 @@ calendar:
   labelResetButton: ''
   placeholder: ''
 addresspicker:
-  infobox_profile: ''
   label: ''
   placeholder: 'Zoek adres …'
   infobox: ''
@@ -3494,7 +3414,6 @@ addresspicker:
   different_location_warning: ''
 upload:
   no_image_chosen: ''
-  no_image: ''
   no_image_yet: ''
   preview_image: ''
   image: ''
@@ -3505,7 +3424,6 @@ upload:
   crop_dialog_title: ''
   images: ''
   invalid_image_files: ''
-  image-problem: ''
   remove_image: ''
   type_rejected: ''
   too_large: ''
@@ -3516,18 +3434,15 @@ button:
   new: 'Nieuw'
   clear_filter: ''
   next: ''
-  attach_image: ''
   cancel: ''
   create: ''
   apply: ''
   edit: 'Bewerken'
   delete: ''
   yes_i_am_sure: 'Ja, ik ben er zeker van'
-  permadelete: ''
   send: ''
   ok: OK
   close: ''
-  browse: ''
   start: ''
   reset_default: ''
   prev: ''
@@ -3589,7 +3504,6 @@ wikilink: ''
 validate:
   required: ''
 ansprechpartner: 'Contact personen in de operatie'
-opt: 'Opties'
 select: ''
 success: ''
 teaser: 'Teaser'
@@ -3606,8 +3520,6 @@ ueberzeugungsarbeit: 'Was het makkelijk om de verantwoordelijken te overtuigen o
   mee te werken met foodsharing?'
 sticker: ''
 lebensmittel: 'Welk levensmiddel wordt opgehaald?'
-plz: 'Postcode'
-addreaction: ''
 thread:
   options:
     rename: ''
@@ -4116,28 +4028,7 @@ required_messages:
   name_placeholder: ''
   save_message: ''
   message_info_multiple: ''
-feedback:
-  error:
-    screenshot: ''
-    invalid_file: ''
-    message_short: ''
-    no_sentry: ''
-  button: ''
-  privacy: ''
-  success: ''
-  title: ''
-  name_sent: ''
-  no_support: ''
-  capture_screenshot: ''
-  screenshot_not_supported: ''
-sort:
-  sort_by: ''
-  options:
-    updated_at: ''
-    name: ''
-    date: ''
-    relevance: ''
-    created_at: ''
+sort: {}
 automatic_delete: ''
 validation:
   phone_number_invalid: ''

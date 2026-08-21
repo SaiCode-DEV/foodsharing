@@ -1,24 +1,19 @@
 add: dodać
 nachname: Nazwisko
 message: Wiadomość
-address: Adres
 edit: edytować
 desc: Opis
 description: Opis
-plz: Kod pocztowy
 email: Adres email
 anschrift: Ulica i numer domu
 geschlecht: Płeć
-options: Opcje
 picture: Zdjęcie
 fs_id: foodsharing-ID
 lat: szerokość geograficzna
 lon: długość geograficzna
-bezirk: Rejon
 active: aktywowany
 body: Wiadomość
 status: Aktualny status
-info: Informacje
 photo: Zdjęcie
 no_automatic_delete: 'Jeśli minęło 5 lat od ostatniego zalogowania:'
 automatic_delete: '- usuń profil.'
@@ -28,7 +23,6 @@ name: Imię
 about_me_intern: Krótki opis
 weight: 'Szacunkowa masa:'
 bezirk_id: Dla którego rejonu ten artykuł ma znaczenie?
-opt: Opcje
 fsp_bezirk_id: W którym rejonie znajduje się jadłodzielnia?
 rolle: Rola użytkownika/użytkowniczki
 title: Tytuł
@@ -311,7 +305,6 @@ expand_all: Rozwiń wszystko
 collapse_all: Zwiń wszystko
 image: Obraz
 upload:
-  no_image: Wysłany plik nie jest zdjęciem. Wybierz inny plik.
   no_image_yet: Jeszcze nie wysłano żadnego obrazu
   no_image_chosen: Jeszcze nie wybrano żadnego pliku
   preview_image: Podgląd
@@ -322,8 +315,6 @@ upload:
   choose_file: Wyślij plik
   new_file: Wyślij nowy plik
   crop_dialog_title: Przytnij obraz
-  image-problem: Coś się nie zgadza z twoim plikiem, najlepiej wybierz zwykły 
-    obraz jpg
   invalid_image_files: 'Twoja przeglądarka nie może wyświetlić i przez to także załadować
     tych plików: {fileNames}. Zdjęcia z iPhone''ów często są w formacie HEIC. Zapisz
     je jako JPEG, wtedy się uda.'
@@ -335,12 +326,10 @@ upload:
 button:
   save: Zapisz
   next: Dalej
-  attach_image: Dodaj obraz (format png lub jpg)
   new: nowy
   edit: edytuj
   delete: usuń
   ok: ok
-  permadelete: usuń trwale
   yes_i_am_sure: tak, jestem pewny/a
   apply: Zastosuj
   cancel: Anuluj
@@ -353,7 +342,6 @@ button:
   start: Zaczynamy!
   confirm: Potwierdź
   close: Zamknij
-  browse: Przeglądaj
   yes_save: Tak, zapisz
   reset_default: Zresetuj standard
   countdown_clickable: 'Można kliknąć za kilka sekund ({countdown})'
@@ -765,7 +753,6 @@ settings:
   businesscard: Osobista wizytówka
   account: Opcje konta
   general:
-    phone: 'Twój numer telefonu stacjonarnego'
     no_address: 'Jeszcze nie podano adresu'
     current_address: 'Aktualny adres'
   chatmail: "Jeśli otrzymasz wewnętrzną wiadomość na stronie głównej foodsharingu,\
@@ -1496,7 +1483,6 @@ net_errors:
 formatting:
   md: Do formatowania możesz użyć <a href="https://markdown.de/">Markdown</a>.
 fsp:
-  yours: Jadłodzielnie w twoich okręgach
   inRegion: Wszystkie jadłodzielnie w rejonie {region}
   follow: Śledź tę jadłodzielnię
   followName: Śledź jadłodzielnię {name}
@@ -1516,7 +1502,6 @@ fsp:
   edit: Edytuj jadłodzielnię
   editName: Edytuj jadłodzielnię „{name}“
   editSuccess: Pomyślnie zmieniono jadłodzielnię
-  address: Adres
   street: Ulica
   location: Kod pocztowy / miejscowość
   show_on_large_map: Pokaż na mapie
@@ -1986,8 +1971,6 @@ navi:
   gdpr_warning: 'Jeśli nawigujesz z {provider}, adres będzie udostępniony tej usłudze
     i zostaniesz przekierowany/a na stronę usługi. Zgadzasz się?'
 really_delete: Na pewno usunąć?
-yes: Tak
-no: Nie
 back: Powrót
 success: Ukończone pomyślnie
 error_unexpected: Wystąpił błąd
@@ -2013,22 +1996,12 @@ storeedit:
     foodsaver: Foodsaver
     leave_myself: Ciebie samego/samą
     note: 'Uwaga:'
-    cannot-leave: 'Jesteś odpowiedzialny/a za ten punkt i dlatego nie możesz go opuścić.'
     orga: 'Nie jesteś odpowiedzialny/a za ten punkt.
 
       Masz jednak rozszerzone uprawnienia jako część globalnego teamu organizacyjnego.
 
       '
-    unmanaged: 'W tym punkcie nie ma aktualnie żadnych koordynatorów/ek.
-
-      Dodaj maksymalnie trzech/trzy koordynatorów/ki, którzy/e będą się w przyszłości
-      opiekować tym punktem.
-
-      '
     leave: 'Opuść punkt'
-    need-sm: 'Potrzebna jest co najmniej jedna osoba odpowiedzialna za punkt.'
-    empty: 'Team nie może być pusty'
-    max-sm: 'Wybierz maksymalnie trzech/trzy koordynatorów/ki'
     amb: 'Nie jesteś odpowiedzialny/a za ten punkt.
 
       Masz jednak rozszerzone uprawnienia jako ambasador/ka.
@@ -2057,16 +2030,10 @@ storeedit:
     applicationRequirements: 'Wymagania zgłoszeniowe'
     hygieneRequired: 'Pozwól na zapisanie tylko z ważnym szkoleniem z zasad higieny'
     applyTextRequired: 'Wymagane podanie tekstu do zgłoszenia'
-  milestone:
-    statuschanged: Status zmieniony {date}
-    accepted: '{user} jest teraz w teamie'
-    dropped: '{user} już nie jest w teamie'
-    created: '{user} wprowadził/a punkt dnia {date}'
   store_name_placeholder: 'Nazwa punktu'
   unsuccess: 'Nie można było zapisać zmian. {error}'
   bread: 'Edytuj punkt'
   add-new: 'Dodaj nowy punkt'
-  not-in-region: 'Możesz dodawać punkty tylko w rejonach, których jesteś członkiem.'
   add_success: 'Wprowadzono współpracujący punkt'
 pickup:
   overview:
@@ -2380,14 +2347,6 @@ chat:
   incorrect_address: Ten adres email nie jest poprawny
   empty_message: Najpierw musisz napisać wiadomość.
   conversations: Konwersacje
-  confirm_draft_discard: 'Przechodzisz do nowej konwersacji. Tekst w tym polu odpowiedzi
-    będzie przy tym usunięty.
-
-
-    Jeśli przerwiesz ten dialog, twoja wersja robocza będzie przeniesiona do nowej
-    konwersacji.
-
-    '
   open_multi_chat: 'Napisz wiadomość do koordynatorów/ek punktu'
   open_full_view: Otwórz pełny widok
   unread_messages: 'Nieprzeczytane wiadomości'
@@ -2492,9 +2451,6 @@ addresspicker:
     domu, kod pocztowy i miasto/gmina) tylko wtedy, jeśli wartości wprowadzone 
     automatycznie nie są poprawne. Może się to zdarzyć np. przy zmianie nazwy 
     ulicy.
-  infobox_profile: '[Foodsharerzy/ki](https://wiki.foodsharing.de/Foodsharer) potrzebują
-    adresu, aby oferować jadłokoszyki na stronie internetowej. Adres jest niezbędny,
-    aby móc uczestniczyć w odbiorach uratowanej żywności jako [Foodsaver/ka](https://wiki.foodsharing.de/Foodsaver).'
 date:
   time: godzina {time}
   clock: godzina
@@ -2726,8 +2682,6 @@ reports:
   reason: powód
   id: ID
   time: czas
-  reportmessage: Podaj, jak można się z tobą skontaktować w razie dalszych 
-    pytań.
   reports_region: 'Skargi z {regionName}'
   reports_user: 'Wszystkie skargi dotyczące {userName} ({userId})'
   reported: 'Osoba, której dotyczy skarga'
@@ -2865,7 +2819,6 @@ foodsaver:
     STORE_MANAGER: 'Zostań koordynatorem/ką punktu'
     rv: 'Tak, przeczytałem/am umowę prawną i akceptuję ją.'
     AMBASSADOR: 'Zostań ambasadorem/ką'
-  kicked: Usunięto foodsavera/kę
   list:
     summary: 'Liczba foodsaverów/ek w {region}: {count}'
     inactive: ', którzy/e nie byli aktywni/e w ciągu ostatnich 6 miesięcy:'
@@ -3001,7 +2954,6 @@ mailbox:
   date: Data
   subject: Temat
   actions: Opcje
-  refresh: Odśwież
   addressbook: Książka adresowa
   search_name_email: Szukaj według nazwy lub adresu email
   show_html_body: Pokaż jako HTML
@@ -3164,7 +3116,6 @@ profile:
     lostVerification: 'Odweryfikowany/a'
   notes:
     bread: Notatki
-    title: Notatki o {name}
     info: 'Używaj tej funkcji rozważnie. Ma ona pomóc w tym, aby procesy były widoczne
       i oszczędzać nam pracy. Nie ma tutaj miejsca na sprawy osobiste lub wartościowanie
       osoby. Trzymaj się faktów.'
@@ -3409,19 +3360,6 @@ home:
 team:
   current: Team
 basket:
-  has:
-    dairy: nabiał
-    frozen: mrożonki
-    pet: karma dla zwierząt
-    bread: 'pieczywo'
-    greens: 'owoce i warzywa'
-    prepared: 'przygotowane potrawy'
-    dry: 'produkty sypkie'
-  is:
-    veggie: są wegetariańskie
-    vegan: są wegańskie
-    gf: są bez glutenu
-    organic: 'są bio'
   public-info: Opis, obrazek, miejsce przekazania i czas ważności są publicznie 
     widoczne.
   no-desc: Podaj opis.
@@ -3466,7 +3404,6 @@ basket:
     gone: 'Ktoś inny odebrał produkty żywnościowe.'
     deny: 'Chcę odrzucić to zapytanie.'
     nope: 'Nie, nie odebrano jadłokoszyka zgodnie z umową.'
-    finished: 'Dziękujemy, proces jest zakończony.'
   delete_confirmation:
     text: 'Czy na pewno chcesz usunąć ten jadłokoszyk?'
     title: 'Usunąć jadłokoszyk?'
@@ -3506,7 +3443,6 @@ basket:
   description: 'Opis'
   withdrawn_request: 'Cofnięto zapytanie'
   all: 'Wszystkie jadłokoszyki'
-  on: 'Jadłokoszyk od {platform}'
   go: 'do jadłokoszyka'
   nearby_requires_location: Musisz podać lokalizację w swoim profilu, aby 
     widzieć jadłokoszyki w pobliżu.
@@ -4695,7 +4631,6 @@ region:
     no_more_info: 'Nie ma żadnych publicznie dostępnych informacji o tym rejonie.'
   bread: 'Edytuj rejony'
   not-existant: 'Ten rejon lub zespół już nie istnieje.'
-  noParent: 'Bez rejonu nadrzędnego'
   type:
     working_group: 'Zespół'
     title: 'Typ rejonu'
@@ -4715,14 +4650,6 @@ region:
       usunięte wszystkie dane rejonu: forum, eventy, głosowania, wpisy na tablicy,
       stickery & zasoby w rejonie.'
     create: 'Jesteś pewny/a, że chcesz utworzyć nowy rejon {rejon}?'
-  hull:
-    closure: 'Ustaw {region} jako master dla wszystkich rejonów podrzędnych'
-    parent-info: 'Wszyscy/tkie foodsaverzy/ki są automatycznie w master-rejonie, o
-      ile jakiś podano'
-    parent: 'Master-rejon'
-    start: 'Zacznij master-aktualizację'
-    title: 'Master-aktualizacja'
-    confirm: 'Na pewno rozpocząć master-aktualizację?'
   allow_hiding_in_forum: 'Pozwól moderator(k)om usuwać posty na forum'
   edit: 'Edytuj rejon'
   cancel: 'Nie, jednak nie'
@@ -4732,18 +4659,13 @@ region:
   select: 'Wybierz rejon do edycji'
   createNew: 'Utwórz nowy rejon'
   parent: 'Rejon nadrzędny'
-  restricted: 'Niestety nie masz uprawnień, aby mieć wgląd w te dane.'
   master: 'Master-rejon'
   save: 'Tak, zapisz'
   mail:
-    name-info: 'Uwaga, nie zmieniać dowolnie! Uważaj też na to, że ten adres jeszcze
-      nie widnieje w zarządzaniu skrzynkami pocztowymi.'
     sender: 'Nazwa nadawcy'
   none: 'Jeszcze nie wybrano rejonu'
   new: 'Nowy rejon'
   root: 'Żaden (root)'
-  no-huge: 'Sorry, nie możesz wybrać kraju lub województwa jako rejon.'
-  change: 'Zmień rejon'
   created: 'utworzono {region}'
   delete: 'Usuń rejon'
   mailbox: 'Nazwa skrzynki pocztowej'
@@ -4878,7 +4800,6 @@ globals:
   close: 'Zamknij'
   show_less: 'Pokaż mniej'
   you: 'Ty'
-  telephone_number: 'Numer telefonu'
   updated: 'Zaktualizowano:'
   select: 'Proszę wybrać …'
   loading: 'Ładowanie...'
@@ -5164,26 +5085,6 @@ markdown_input:
     ---
 
     *Jeszcze nie podałeś/aś żadnego tekstu, który można tu wyświetlić.*'
-feedback:
-  error:
-    screenshot: 'Automatyczne wykonanie zrzutu ekranu nie powiodło się. Możesz jednak
-      ręcznie dodać obraz do twojego feedbacku.'
-    invalid_file: 'Nieprawidłowy format pliku, załaduj tylko obrazy.'
-    message_short: 'Twoja wiadomość jest za krótka. Podaj więcej informacji.'
-    no_sentry: 'Wystąpił błąd przy wysyłaniu feedbacku. Spróbuj ponownie później.'
-  button: 'Beta feedback'
-  privacy: 'Twoja wiadomość zostanie przekazana wolontariusz(k)om-developer(k)om platformy
-    foodsharingu. Wszystkie dane z formularza oraz załączone obrazy, będą wtedy dla
-    nich widoczne. Upewnij się, że na zrzutach ekranu nie ma żadnych danych osobowych
-    innych użytkowników/czek, których nie masz prawa przekazywać dalej.'
-  success: 'Pomyślnie przekazano twój feedback.'
-  title: 'Beta formularz feedback'
-  name_sent: 'Twoje imię i ID będą wysłane razem z feedbackiem.'
-  no_support: 'Ten formularz jest przeznaczony tylko do **feedbacku**. Jeśli potrzebujesz
-    pomocy albo masz pytania, użyj [formularza supportu](/support).'
-  capture_screenshot: 'Zrób screenshot'
-  screenshot_not_supported: 'Twoja przeglądarka nie wspiera automatycznych zrzutów
-    ekranu. Możesz ręcznie dodać obraz do twojego feedbacku.'
 conference:
   join_title: 'Dołącz do konferencji online'
   confirm_info: 'Tu możesz dołączyć do konferencji online dla wybranego zespołu. Konferencja
@@ -5193,36 +5094,13 @@ conference:
   join: 'Dołącz do konferencji online'
 system_administration:
   regions: 'Zarządzaj rejonami'
-  email: 'Wyślij newsletter'
   quiz: 'Zarządzaj quizem'
   resource_categories: 'Edytuj kategorie zasobów'
   store_categories: 'Edytuj kategorie punktów'
   blog: 'Edytuj posty na blogu'
-  reports: 'Pokaż skargi'
   content: 'Edytuj treści'
   donation_page_edit: Edytuj stronę darowizn
-sort:
-  sort_by: 'Sortuj według '
-  options:
-    updated_at: 'Data aktualizacji'
-    name: 'Nazwa'
-    date: 'Data'
-    relevance: 'Znaczenie'
-    created_at: 'Data utworzenia'
-bootstrap-datepicker:
-  labelCalendar: 'Kalendarz'
-  labelCurrentMonth: 'Bieżący miesiąc'
-  labelPrevYear: 'Poprzedni rok'
-  labelHelp: 'Nawiguj w kalendarzu klawiszami strzałek'
-  labelNav: 'Nawigacja kalendarza'
-  labelNextMonth: 'Przyszły miesiąc'
-  labelPrevMonth: 'Poprzedni miesiąc'
-  labelNoDateSelected: 'Nie wybrano daty'
-  labelNextYear: 'Przyszły rok'
-  labelToday: 'Dzisiaj'
-  labelNextDecade: 'Przyszła dekada'
-  labelSelected: 'Wybrana data'
-  labelPrevDecade: 'Poprzednia dekada'
+sort: {}
 navigation:
   toggle: 'Pokaż/ukryj nawigację'
   conversations: 'Wiadomości'
@@ -5278,11 +5156,6 @@ stats:
     baskets: 'liczba jadłokoszyków średnio wstawianych online w ciągu tygodnia.'
     pickups: 'liczba aktualnie wykonywanych akcji ratowania żywności średnio na dzień.'
   title: 'Całkowita statystyka'
-numbers:
-  decimal_separator: ','
-  million_abbreviation: ' mln'
-  thousands_separator: ','
-  billion_abbreviation: ' mrd'
 storelist:
   status: 'Status'
   emptyfilters: 'wyczyść filtry'
@@ -5295,7 +5168,6 @@ storelist:
   nowaste: 'niczego nie wyrzuca'
   name: 'Nazwa'
   address: 'Ulica'
-  zipcode: 'Kod pocztowy'
   entered: 'Utworzony:'
   cooperating: 'współpracuje'
   city: 'Miejscowość'
@@ -5324,7 +5196,6 @@ activitypost:
   quickreply_info: '<code class="key">Shift + Enter</code> aby dodać nowy wiersz.'
   response: 'odpowiedz'
   Response: 'Odpowiedz'
-addreaction: 'Dodaj reakcję'
 network_errors:
   csrf_token_invalid:
     title: 'Sesja wygasła'
@@ -5411,10 +5282,6 @@ usersearch:
   no_tag_preset: 'Nie znaleziono użytkownika/czki'
   select_tag: 'Szukaj użytkowników/czki według imienia'
 contentmanagement: 'Zarządzanie treściami'
-sidenav:
-  yourregions: 'Twoje rejony'
-  yourgroups: 'Twoje zespoły'
-  countryspecific: 'Zespoły krajowe'
 push_notifications:
   test_notification_body: 'Super, wygląda na to, że się udało :)'
   test_notification_title: 'powiadomienia push aktywowane'

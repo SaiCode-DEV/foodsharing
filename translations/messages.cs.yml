@@ -2,21 +2,17 @@ name: Jméno
 add: přidat
 nachname: Příjmení
 message: Zpráva
-address: Adresa
 edit: upravit
 desc: popis
 description: popis
-plz: PSČ
 email: Emailová adresa
 anschrift: Ulice a číslo domu
 geschlecht: Pohlaví
-options: Možnosti
 picture: Obrázek
 parent_id: Nadřazená organizace
 fs_id: foodsharing-ID
 lat: Zeměpisná šířka
 lon: Zeměpisná délka
-bezirk: Okres
 active: Aktivuje
 rolle: Uživatelská role
 title: Nadpis
@@ -143,7 +139,6 @@ settings:
   no_rights: Nejste oprávněni měnit nastavení profilu.
   delete_profile: Smazání profilu
   general:
-    phone: Vaše číslo pevné linky
     no_address: ''
     current_address: ''
   account_security:
@@ -1257,15 +1252,10 @@ storeedit:
   team:
     bread: ''
     foodsaver: ''
-    max-sm: ''
     amb: ''
     note: ''
-    need-sm: ''
     coordinator: ''
-    empty: ''
-    unmanaged: ''
     leave_myself: ''
-    cannot-leave: ''
     leave: ''
     orga: ''
     kam: ''
@@ -1281,13 +1271,7 @@ storeedit:
     hygieneRequired: ''
     applyTextRequired: ''
     verifiedRequired: ''
-  not-in-region: ''
   bread: ''
-  milestone:
-    statuschanged: ''
-    accepted: ''
-    dropped: ''
-    created: ''
   add-new: ''
   store:
     status: ''
@@ -1374,7 +1358,6 @@ chat:
   no_messages: ''
   empty: ''
   notification_unnamed_conversation: ''
-  confirm_draft_discard: ''
   receivermissing: ''
   no_conversation: ''
   start_of_conversation: ''
@@ -1511,7 +1494,6 @@ reports:
   store: ''
   time: ''
   no_reports_fallback: ''
-  reportmessage: ''
   reports_region: ''
   reports_user: ''
   reported: ''
@@ -1773,7 +1755,6 @@ mailbox:
   mark_as_unread: ''
   subject: ''
   date: ''
-  refresh: ''
   already_exists: ''
   search: ''
   conformation_modal:
@@ -1935,7 +1916,6 @@ profile:
   notFound: ''
   notes:
     bread: ''
-    title: ''
     info: ''
   sleeping: ''
   title: ''
@@ -2079,27 +2059,13 @@ dashboard:
 basket:
   nearby: ''
   sent_request: ''
-  is:
-    vegan: 'veganské'
-    organic: 'Biopotraviny'
-    veggie: 'vegetariánský'
-    gf: 'bezlepkový'
   description: ''
-  has:
-    prepared: ''
-    dry: 'Suché zboží'
-    frozen: 'Mražené zboží'
-    bread: 'Pekařské produkty'
-    greens: 'Ovoce a zelenina'
-    dairy: 'Mléčné výrobky'
-    pet: 'Krmivo pro zvířata'
   not_withdrawn: ''
   contact:
     write: ''
     call: ''
   delete: ''
   state:
-    finished: ''
     gone: ''
     okay: ''
     nope: ''
@@ -2107,7 +2073,6 @@ basket:
   go-to-settings: ''
   my_list_empty: ''
   no_nearby: ''
-  on: ''
   updated: ''
   provider: ''
   withdrawn_request: ''
@@ -2275,7 +2240,6 @@ footer:
   contact: ''
   statistics: ''
 region:
-  no-huge: ''
   type:
     title: ''
     district: ''
@@ -2286,27 +2250,16 @@ region:
     big_city: ''
     federal_state: ''
     part_of_town: ''
-  hull:
-    parent-info: ''
-    confirm: ''
-    closure: ''
-    start: ''
-    parent: ''
-    title: ''
   mail:
     sender: ''
-    name-info: ''
   forum-redirect: ''
   edit_success: ''
-  change: ''
   bread: ''
-  noParent: ''
   created: ''
   cancel: ''
   save: ''
   still_contains_elements: ''
   delete: ''
-  restricted: ''
   edit: ''
   none: ''
   new: ''
@@ -2673,7 +2626,6 @@ fsp:
   delete: ''
   editName: ''
   descLabel: ''
-  yours: ''
   inRegion: ''
   summary: ''
   unfollow: ''
@@ -2691,7 +2643,6 @@ fsp:
   twig:
     n_in_region: ''
   editSuccess: ''
-  address: 'Adresa'
   suggest: ''
   followName: ''
   follow: ''
@@ -2726,9 +2677,7 @@ fsp:
   onlySuggested: ''
   createdAt: ''
 system_administration:
-  email: ''
   quiz: ''
-  reports: ''
   blog: ''
   content: ''
   regions: ''
@@ -2766,7 +2715,6 @@ globals:
   show_more: ''
   saved: ''
   save_changes: ''
-  telephone_number: ''
   updated: ''
   loading: ''
 activitypost:
@@ -2915,7 +2863,6 @@ foodsaver:
     photo: ''
     last-activity: ''
     orga: ''
-  kicked: ''
   profileBack: ''
   list:
     inactive: ''
@@ -2977,7 +2924,6 @@ storelist:
   status: ''
   nowaste: ''
   addressdata: ''
-  zipcode: ''
   memberState: ''
   actions: ''
   filter_placeholder: ''
@@ -3000,10 +2946,6 @@ stats:
   sort:
     by_count: ''
     by_weight: ''
-sidenav:
-  countryspecific: ''
-  yourgroups: ''
-  yourregions: ''
 statistics:
   num_fetches: ''
   region_public:
@@ -3017,8 +2959,6 @@ statistics:
   lastMonth: ''
   food_weight_saved: ''
 really_delete: 'Opravdu smazat?'
-yes: 'Ano'
-no: 'Žádný'
 back: ''
 success: ''
 error_permissions: ''
@@ -3106,7 +3046,6 @@ addresspicker:
   placeholder: ''
   infobox: ''
   different_location: ''
-  infobox_profile: ''
   different_location_warning: ''
 map:
   title: ''
@@ -3190,11 +3129,6 @@ releases:
   "2024-01": ''
   "2025-08": ''
   "2026-04": ''
-numbers:
-  thousands_separator: ''
-  million_abbreviation: ''
-  decimal_separator: ''
-  billion_abbreviation: ''
 information:
   push:
     link: ''
@@ -3208,20 +3142,6 @@ information:
   next: ''
   current_index: ''
   hide: ''
-bootstrap-datepicker:
-  labelSelected: ''
-  labelNextMonth: ''
-  labelNav: ''
-  labelNextYear: ''
-  labelHelp: ''
-  labelToday: ''
-  labelNextDecade: ''
-  labelPrevMonth: ''
-  labelPrevDecade: ''
-  labelCalendar: ''
-  labelPrevYear: ''
-  labelNoDateSelected: ''
-  labelCurrentMonth: ''
 quiz:
   continuenow: ''
   wikilink: ''
@@ -3465,7 +3385,6 @@ upload:
   file: 'Nahrajte soubor'
   choose_file: 'Nahrajte soubor'
   image: 'Nahrajte obrázek'
-  no_image: ''
   no_image_yet: ''
   no_image_chosen: ''
   new_file: 'Nahrajte nový soubor'
@@ -3473,7 +3392,6 @@ upload:
   crop_dialog_title: 'Vystřihněte obrázek'
   images: Nahrajte obrázky
   invalid_image_files: ''
-  image-problem: ''
   remove_image: ''
   type_rejected: ''
   too_large: ''
@@ -3488,14 +3406,12 @@ button:
   save: 'Uložit'
   edit: 'Upravit'
   delete: ''
-  permadelete: 'Nenávratně smazat'
   clear_filter: ''
   create: ''
   next: 'dopředu'
   answer: ''
   send: ''
   new: 'Nový'
-  attach_image: 'Nahrajte obrázek (formát png nebo jpg)'
   apply: ''
   cancel: 'Zrušit'
   yes_i_am_sure: 'Ano, jsem si jistý'
@@ -3504,7 +3420,6 @@ button:
   confirm: Potvrdit
   prev: dozadu
   ok: OK
-  browse: Prohlížet
   close: ''
   countdown_clickable: ''
   filter_options: ''
@@ -3568,8 +3483,6 @@ memberlist:
   header_for_district: ''
   header_for_workgroup: ''
 public_time: 'přibližná doba vyzvednutí'
-info: 'informace'
-opt: 'možnosti'
 explanation: ''
 image: 'Obrázek'
 salutation:
@@ -3590,7 +3503,6 @@ maxfp: ''
 prefetchtime: 'Kolik týdnů předem se mohou šetřící osoby registrovat pomocí automatických
   slotů?'
 filter_by: ''
-addreaction: ''
 pass1: 'Vaše požadované nové heslo'
 first_post: 'první příspěvek na zdi'
 day: 'Den'
@@ -4143,28 +4055,7 @@ required_messages:
   name_placeholder: ''
   save_message: ''
   message_info_multiple: ''
-feedback:
-  error:
-    screenshot: ''
-    invalid_file: ''
-    message_short: ''
-    no_sentry: ''
-  button: ''
-  privacy: ''
-  success: ''
-  title: ''
-  name_sent: ''
-  no_support: ''
-  capture_screenshot: ''
-  screenshot_not_supported: ''
-sort:
-  sort_by: ''
-  options:
-    updated_at: ''
-    name: ''
-    date: ''
-    relevance: ''
-    created_at: ''
+sort: {}
 theme_switcher:
   theme:
     system: ''

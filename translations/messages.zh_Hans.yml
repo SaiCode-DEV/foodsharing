@@ -1,20 +1,15 @@
 email: 邮件地址
-plz: 邮政编码
-address: 地址
 name: 名字
 description: 描述
 desc: 描述
 edit: 改写
 nachname: 姓名
-options: 选项
 picture: 照片
-bezirk: 地区
 fax: 传真
 ansprechpartner: 店铺联系人（店铺经理等）
 kette_id: 连锁店
 pass2: 密码重复
 pass1: 您请求的新密码
-opt: 选项
 bezirk_id: 这篇文章是关于哪个地区的？
 fetchstate: 一切都好吗？
 lifetime: 这个篮子的有效期是多久？
@@ -23,7 +18,6 @@ about_me_intern: 简短说明
 regions: 地区
 ort: 城市/直辖市
 photo: 照片
-info: 资料
 status: 当前状态
 body: 信息
 title: 职位
@@ -438,7 +432,6 @@ storelist:
   name: ''
   nowaste: ''
   fetching: ''
-  zipcode: ''
   region: ''
   city: ''
   emptyfilters: ''
@@ -485,7 +478,6 @@ globals:
   close: ''
   saved: ''
   save_changes: ''
-  telephone_number: ''
   updated: ''
   loading: ''
 betrieb_kategorie_id: ''
@@ -878,7 +870,6 @@ reports:
   report_id: ''
   message: ''
   time: ''
-  reportmessage: ''
   no_reports_fallback: ''
   reason: ''
   reports_region: ''
@@ -1034,7 +1025,6 @@ terminology:
   received: ''
   attention: ''
   newsletter: ''
-yes: ''
 delete: ''
 select: ''
 fsp:
@@ -1071,7 +1061,6 @@ fsp:
   addedOn: ''
   addSuccess: ''
   acceptSuccess: ''
-  address: ''
   summary: ''
   summaryRegion: ''
   inRegion: ''
@@ -1081,7 +1070,6 @@ fsp:
   suggest: ''
   twig:
     n_in_region: ''
-  yours: ''
   noManager: ''
   add: ''
   editName: ''
@@ -1287,7 +1275,6 @@ foodsaver:
   delete_account_now: ''
   actions: ''
   bread: ''
-  kicked: ''
   title: ''
   edit_failure: ''
   restricted: ''
@@ -1302,7 +1289,6 @@ foodsaver:
   delete_account_blockmail: ''
 mailbox:
   sent: ''
-  refresh: ''
   add_success: ''
   name: ''
   recipients: ''
@@ -1659,7 +1645,6 @@ settings:
     title: ''
     success: ''
   general:
-    phone: ''
     no_address: ''
     current_address: ''
   address:
@@ -1829,7 +1814,6 @@ profile:
   notes:
     info: ''
     bread: ''
-    title: ''
   cantdeleteall: ''
   history:
     noActor: ''
@@ -2048,20 +2032,6 @@ chain:
     INVALID_STATUS: ''
     EMPTY_ZIP: ''
     THREAD_ID_NOT_EXISTS: ''
-bootstrap-datepicker:
-  labelHelp: ''
-  labelNextMonth: ''
-  labelNextYear: ''
-  labelNav: ''
-  labelSelected: ''
-  labelToday: ''
-  labelNextDecade: ''
-  labelNoDateSelected: ''
-  labelCalendar: ''
-  labelCurrentMonth: ''
-  labelPrevDecade: ''
-  labelPrevYear: ''
-  labelPrevMonth: ''
 store:
   days: ''
   peoplecame: ''
@@ -2339,19 +2309,8 @@ storeedit:
     coordinator: ''
     amb: ''
     leave_myself: ''
-    cannot-leave: ''
-    empty: ''
-    need-sm: ''
-    max-sm: ''
     note: ''
-    unmanaged: ''
     kam: ''
-  milestone:
-    dropped: ''
-    accepted: ''
-    statuschanged: ''
-    created: ''
-  not-in-region: ''
   actions: ''
   fetch:
     teamStatus0: ''
@@ -2480,7 +2439,6 @@ forum:
 addresspicker:
   label: ''
   placeholder: ''
-  infobox_profile: ''
   different_location: ''
   infobox: ''
   different_location_warning: ''
@@ -2634,18 +2592,12 @@ bell:
   report_reminder: ''
   report_reminder_title: ''
 basket:
-  is:
-    vegan: ''
-    gf: ''
-    organic: ''
-    veggie: ''
   not_withdrawn: ''
   request_denied: ''
   not_active: ''
   publish_error: ''
   description: ''
   title: ''
-  on: ''
   publish: ''
   delete: ''
   provider: ''
@@ -2655,7 +2607,6 @@ basket:
     okay: ''
     nope: ''
     deny: ''
-    finished: ''
     gone: ''
   valid:
     "21": ''
@@ -2665,14 +2616,6 @@ basket:
     "7": ''
     "14": ''
     "5": ''
-  has:
-    bread: ''
-    greens: ''
-    frozen: ''
-    dry: ''
-    dairy: ''
-    pet: ''
-    prepared: ''
   requested_by: ''
   go-to-settings: ''
   not-allowed: ''
@@ -2736,18 +2679,8 @@ region:
     big_city: ''
     federal_state: ''
     part_of_town: ''
-  change: ''
-  restricted: ''
-  hull:
-    confirm: ''
-    start: ''
-    title: ''
-    parent: ''
-    parent-info: ''
-    closure: ''
   mail:
     sender: ''
-    name-info: ''
   cancel: ''
   edit_success: ''
   delete: ''
@@ -2757,10 +2690,8 @@ region:
   forum-redirect: ''
   none: ''
   created: ''
-  no-huge: ''
   new: ''
   edit: ''
-  noParent: ''
   denied:
     group_in_this_group: ''
     subgroup_in: ''
@@ -3100,7 +3031,6 @@ gender:
   f: ''
   d: ''
   m: ''
-no: ''
 team:
   current: ''
 salutation:
@@ -3218,7 +3148,6 @@ chat:
   empty: ''
   new_messages: ''
   receivermissing: ''
-  confirm_draft_discard: ''
   select_recipients: ''
   incorrect_address: ''
   unknown_username: ''
@@ -3455,20 +3384,14 @@ storestatus:
 push_notifications:
   test_notification_body: ''
   test_notification_title: ''
-sidenav:
-  countryspecific: ''
-  yourgroups: ''
-  yourregions: ''
 base:
   slogan: ''
   whatfor: ''
   keywords: ''
   jsrequired: ''
 system_administration:
-  email: ''
   content: ''
   regions: ''
-  reports: ''
   blog: ''
   quiz: ''
   resource_categories: ''
@@ -3496,23 +3419,16 @@ statistics:
   food_saved: ''
   lastMonth: ''
   food_weight_saved: ''
-numbers:
-  decimal_separator: ''
-  thousands_separator: ''
-  million_abbreviation: ''
-  billion_abbreviation: ''
 fsp_bezirk_id: ''
 fspmanagers: ''
 explanation: ''
 button:
-  attach_image: ''
   create: ''
   next: ''
   delete: ''
   apply: ''
   yes_i_am_sure: ''
   clear_filter: ''
-  permadelete: ''
   cancel: ''
   save: ''
   new: ''
@@ -3521,7 +3437,6 @@ button:
   edit: ''
   ok: ''
   close: ''
-  browse: ''
   start: ''
   reset_default: ''
   prev: ''
@@ -3534,7 +3449,6 @@ are_you_sure: ''
 ui: {}
 upload:
   new_file: ''
-  no_image: ''
   choose_file: ''
   preview_image: ''
   new_image: ''
@@ -3545,7 +3459,6 @@ upload:
   crop_dialog_title: ''
   images: ''
   invalid_image_files: ''
-  image-problem: ''
   remove_image: ''
   type_rejected: ''
   too_large: ''
@@ -3555,7 +3468,6 @@ validate:
   required: ''
 error_unexpected: ''
 teaser: ''
-addreaction: ''
 begin: ''
 filter_by: ''
 image: ''
@@ -4110,28 +4022,7 @@ required_messages:
   name_placeholder: ''
   save_message: ''
   message_info_multiple: ''
-feedback:
-  error:
-    screenshot: ''
-    invalid_file: ''
-    message_short: ''
-    no_sentry: ''
-  button: ''
-  privacy: ''
-  success: ''
-  title: ''
-  name_sent: ''
-  no_support: ''
-  capture_screenshot: ''
-  screenshot_not_supported: ''
-sort:
-  sort_by: ''
-  options:
-    updated_at: ''
-    name: ''
-    date: ''
-    relevance: ''
-    created_at: ''
+sort: {}
 automatic_delete: ''
 copied_to_clipboard: ''
 validation:

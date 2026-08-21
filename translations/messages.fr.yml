@@ -6,9 +6,6 @@ picture: Image
 geschlecht: Genre
 description: Description
 desc: Description
-address: adresse
-no: Non
-yes: Oui
 group:
   title: Groupes de travail de foodsharing
   administrators: Administrateur·rice·s du groupe
@@ -274,11 +271,9 @@ button:
   cancel: Annuler
   apply: Appliquer
   yes_i_am_sure: Oui, je suis sûr·e
-  permadelete: Supprimer définitivement
   delete: Supprimer
   edit: Modifier
   new: Nouveau
-  attach_image: Joindre une image (png ou jpg)
   next: Suivant
   save: Enregistrer
   reset_default: Restaurer par défaut
@@ -289,7 +284,6 @@ button:
   countdown_clickable: Cliquable en {countdown} secondes
   ok: D’accord
   filter_options: Options de filtre
-  browse: Parcourir
   yes_save: Oui, sauvegarder
 upload:
   crop_dialog_title: Rogner l’image
@@ -301,11 +295,7 @@ upload:
   preview_image: Aperçu
   no_image_chosen: Aucun fichier n’a été sélectionné
   no_image_yet: Aucune image n’a été téléversée
-  no_image: Le fichier téléversé n’est pas une photo. Sélectionne un autre 
-    fichier.
   images: Télécharger des photos
-  image-problem: Votre fichier ne semble pas correct, il est préférable 
-    d’utiliser une image jpg normale
   invalid_image_files: '{count} fichiers sélectionnés ne sont pas des images valides :
     {fileNames}'
   remove_image: ''
@@ -355,17 +345,12 @@ status: Statut actuel
 rolle: Rôle de l’utilisateur·rice
 fs_id: foodsharing-ID
 parent_id: District parent
-opt: Options
 regions: Districts
-info: Informations
 body: Message
 title: Titre
 active: Activé
-bezirk: District
-options: Options
 anschrift: Rue et numéro de rue
 email: Adresse courriel
-plz: Code postal
 edit: modifier
 message: Message
 nachname: Nom de famille
@@ -537,7 +522,6 @@ settings:
   no_rights: Tu n’as pas le droit de modifier les paramètres du profil.
   delete_profile: Supprimer ce profil
   general:
-    phone: Ton numéro de téléphone fixe
     no_address: Pas encore d’adresse saisie
     current_address: Adresse actuelle
   address:
@@ -803,7 +787,6 @@ mailbox:
   signature: Message du {date}
   claim: foodsharing.network – utiliser au lieu de gaspiller
   write: Nouveau courriel
-  refresh: Actualiser
   member: Utilisateurs de la messagerie
   actions: Options
   subject: Objet
@@ -860,7 +843,6 @@ mailbox:
 foodsaver:
   mailchange_error: L’activation de votre nouvelle adresse électronique a 
     échoué. Veuillez réessayer.
-  kicked: Collecteur·ice a été retiré·e
   list:
     inactive: ', inactifs durant les 6 derniers mois :'
     summary: '{count} collecteur·ice·s à {region}'
@@ -1028,7 +1010,6 @@ fsp:
   pic: Photo
   location: Code postal / Lieu
   street: Rue
-  address: adresse
   editSuccess: Le frigo solidaire a été modifié avec succès
   editName: Modifier le frigo solidaire « {name} »
   edit: Modifier le frigo solidaire
@@ -1055,7 +1036,6 @@ fsp:
   summary: Il y a {count} frigo·s solidaire·s dans tous les districts dans 
     lesquels tu es actif·ve
   inRegion: Tous les frigos solidaires dans {region}
-  yours: Frigos solidaires dans ton district
   summaryRegion: Il y a {count} frigo·s solidaire·s à {region} et dans les 
     secteurs géographiques associés
   show_on_large_map: Afficher sur la carte
@@ -2030,7 +2010,6 @@ profile:
     info: "Utilise cette fonction consciencieusement. Elle est là rendre le processus
       plus clair, de le simplifier pour la communauté. Reste objectif·ve et raconte
       les faits, sans jugement et clairement s’il-te-plaît."
-    title: Notes sur {name}
     bread: Notes
   history:
     lostVerification: non-certifié·e
@@ -2419,9 +2398,6 @@ wall:
     title: Supprimer cette entrée du mur ?
   post_not_found: ''
 chat:
-  confirm_draft_discard: "En changeant de conversation, le texte écrit jusqu’ici sera
-    automatiquement supprimé.\n\nEn interrompant cet échange, ton brouillon sera automatiquement
-    utilisé dans la nouvelle conversation.\n"
   empty_recipients: Tu dois d’abord choisir un·e destinataire.
   empty_message: Tu dois d’abord écrire un message.
   notification_named_conversation: '{foodsaver} a écrit dans {conversation}.'
@@ -2504,11 +2480,6 @@ calendar:
   copiedUrl: L’URL du calendrier a été copiée !
   labelResetButton: Désélectionner
 storeedit:
-  milestone:
-    dropped: "{user} ne fait désormais plus partie de l’équipe"
-    accepted: "{user} fait désormais partie de l’équipe"
-    created: '{user} a ajouté la coopération le {date}'
-    statuschanged: Changement de statut le {date}
   add_success: Nouvelle coopération ajoutée
   fetch:
     teamStatus2: Besoin de renforts urgent
@@ -2533,21 +2504,12 @@ storeedit:
     amb: "Tu n’es pas responsable de ce magasin.\nTu possèdes néanmoins des droits
       étendus en tant qu’ambassadeur·rice.\n"
     note: 'Conseils :'
-    unmanaged: "Il n’y a actuellement aucun·e responsable pour cette coopération.\n\
-      \ Ajoute jusqu’à trois responsables pour gérer cette coopération.\n"
-    max-sm: Choisis au maximum 3 responsables coopération
-    need-sm: Il doit y avoir au minimum un·e responsable pour cette coopération.
-    empty: L’équipe ne peut pas être vide
-    cannot-leave: Tu es encore responsable pour cette coopération et ne peut 
-      donc pas le quitter.
     leave: Quitter l’équipe de la coopération
     bread: Modifier l’équipe
     foodsaver: Collecteurs
     leave_myself: Toi-même
     kam: ''
   actions: Options
-  not-in-region: Tu peux ajouter des coopérations uniquement dans la région dont
-    tu fais partie.
   add-new: Ajouter une nouvelle coopération
   bread: Modifier la fiche coopération
   unsuccess: Les modifications n’ont pas pu être appliquées. {error}
@@ -2564,7 +2526,6 @@ basket:
   image: Ajoute une photo à ton panier solidaire.
   state:
     okay: Oui, le panier alimentaire a été récupéré.
-    finished: Merci ! Le processus est terminé.
     deny: Je refuse cette demande.
     gone: Les denrées ont été récupérées par quelqu’un d’autre.
     nope: Non, le panier alimentaire n’a pas été récupéré comme convenu.
@@ -2588,26 +2549,12 @@ basket:
   edit: Modifier le panier solidaire
   publish: Publier le panier solidaire
   add: Poster un panier solidaire
-  on: Panier solidaire de {platform}
   by: Panier solidaire de {name}
   go: Aller au panier solidaire
   no-desc: Ajoute une description, s.t.p.
   public-info: La description, l’image, le lieu d’échange et l’horaire sont 
     visibles publiquement.
   go-to-settings: 'Aller à : mes paramètres'
-  is:
-    gf: sans gluten
-    vegan: vegan/végétalien
-    veggie: végétarien
-    organic: Produits bios
-  has:
-    pet: Nourriture pour animaux
-    prepared: Plats préparés
-    frozen: Produits surgelés
-    dry: Produits secs
-    dairy: Produits laitiers
-    greens: Fruits et légumes
-    bread: Pâtisseries et gâteaux
   valid:
     "21": trois semaines
     "14": deux semaines
@@ -3061,8 +3008,6 @@ team:
 home:
   home: Accueil
 reports:
-  reportmessage: Dis-nous par quel moyen tu es joignable pour d’éventuelles 
-    questions.
   store: Coopération associée
   no_reports_fallback: Il n’y a pas encore de plaintes
   time: Horaire
@@ -3164,10 +3109,6 @@ date:
   time: '{time} heures'
   clock: heure
 addresspicker:
-  infobox_profile: '[Les Foodsharer](https://wiki.foodsharing.de/Foodsharer) ont besoin
-    d’entrer une adresse pour pouvoir proposer des paniers solidaires sur le site.
-    L’adresse est nécessaire aux [Foodsaver](https://wiki.foodsharing.de/Foodsaver)
-    pour pouvoir participer aux collectes.'
   infobox: Saisis l’adresse dans la barre de recherche ou fais glisser le pins 
     sur la carte jusqu’à la bonne position.
   placeholder: Cherche l’adresse …
@@ -3184,7 +3125,6 @@ storelist:
   region: Secteur géographique
   added: inscrit
   city: Lieu
-  zipcode: Code postal
   addressdata: Domicile
   address: Rue
   name: Nom
@@ -3505,15 +3445,6 @@ region:
     delete: Tu es sûr de vouloir supprimer le district {name} ?
     edit: Tu es sûr de vouloir sauvegarder les modifications apportées à la 
       circonscription de {name} ?
-  hull:
-    start: Commencer la mise à jour du secteur géographique principal
-    closure: Inscrire {region} en tant que secteur géographique principal pour 
-      toutes les secteurs affiliés
-    title: Mise à jour secteur géographique principal
-    parent-info: Tous les collecteur·ice·s sont automatiquement dans le secteur 
-      géographique principal dès qu’il est créé
-    parent: Secteur géographique principal
-    confirm: Commencer la mise à jour maintenant ?
   type:
     district: Secteur géographique
     title: Type de secteur géographique
@@ -3526,23 +3457,16 @@ region:
     big_city: Grande ville (sans possibilité de s’inscrire)
   none: Aucun secteur géographique sélectionné
   delete: supprimer le secteur géographique
-  noParent: Secteur géographique sans affiliation
   edit: modifier le secteur géographique
   new: nouveau secteur géographique
   bread: gérer le secteur géographique
-  no-huge: Tu ne peux pas choisir un pays ou un département comme secteur 
-    géographique, désolé.
-  change: changer de secteur géographique
   cancel: Non, annuler
   save: Oui, confirmer
   mail:
     sender: Envoyeur
-    name-info: Attention ! Ne pas modifier n’importe comment ! Vérifier que 
-      cette adresse ne se trouve pas déjà dans la liste des adresses courriel.
   created: '{region} a été ajouté·e'
   forum-redirect: Il n’y a pas de mur pour les régions. Tu as été redirigé·e 
     vers le forum.
-  restricted: Tu n’as pas les droits pour accéder à ces informations.
   name: Nom
   createNew: Créer un nouveau district
   mailbox: Nom de la boîte aux lettres
@@ -3666,10 +3590,6 @@ base:
     redistribuer, échange de nourriture
   whatfor: Sur foodsharing.network tu peux aider à sauver des denrées avant leur
     destruction pour les redistribuer à des organisations locales ou à un tiers
-sidenav:
-  yourgroups: Tes groupes
-  countryspecific: Groupes nationaux
-  yourregions: Tes districts
 password:
   insertmail: Entre l’adresse courriel avec laquelle tu t’es enregistré·e sur le
     site de foodsharing.
@@ -3718,11 +3638,6 @@ blog:
 push_notifications:
   test_notification_body: Super, ça a fonctionné :)
   test_notification_title: activer les notifications push
-numbers:
-  thousands_separator: .
-  decimal_separator: ','
-  million_abbreviation: ' Mio'
-  billion_abbreviation: ' Mrd'
 request_time: 'Heure de la demande :'
 activitypost:
   write: Écris une réponse …
@@ -3733,7 +3648,6 @@ activitypost:
   response: répondre
   Response: Réponses
 contentmanagement: Gestion du contenu
-addreaction: Ajouter une réaction
 savewithus: Aidez-nous !
 nofp: pas de point d’erreur (question blague)
 quiz:
@@ -3970,28 +3884,12 @@ quiz:
     expired: Cependant, ta dernière tentative de quiz n’est plus valable.
   mandatory_question: Cette question est obligatoire et figure dans chaque essai
     de quiz.
-bootstrap-datepicker:
-  labelCurrentMonth: Mois actuel
-  labelHelp: Naviguer dans le calendrier à l’aide des touches fléchées
-  labelPrevMonth: Mois précédent
-  labelToday: Aujourd’hui
-  labelNextMonth: Mois suivant
-  labelNextDecade: Décennie suivante
-  labelPrevYear: Année précédente
-  labelSelected: Date sélectionnée
-  labelNextYear: Année suivante
-  labelPrevDecade: Décennie précédente
-  labelCalendar: Calendrier
-  labelNav: Navigation dans le calendrier
-  labelNoDateSelected: Pas de date sélectionnée
 filter_by: Filtrer par
 system_administration:
   quiz: Gérer le quiz
-  reports: Afficher les plaintes
   regions: Gérer les secteurs géographiques
   content: Modifier le contenu
   blog: Modifier les articles du blog
-  email: Envoyer la newsletter
   store_categories: Modifier les catégories d’établissements
   resource_categories: Modifier les catégories de ressources
   donation_page_edit: ''
@@ -4024,7 +3922,6 @@ globals:
   select: Sélectionner svp …
   save: Enregistrer
   you: Toi
-  telephone_number: Numéro de téléphone
   save_changes: Enregistrer les modifications
   saved: Les modifications ont été enregistrées
   updated: 'Mis à jour :'
@@ -4785,28 +4682,6 @@ contact_page:
     link: vers l’aperçu
     text: Si tu as des questions sur un district, n’hésite pas à t’adresser 
       directement aux personnes de contact de ce district.
-feedback:
-  button: Beta feedback
-  name_sent: Ton nom et ton identifiant seront également envoyés.
-  error:
-    no_sentry: Une erreur est survenue avec Sentry. Réessaye plus tard.
-    screenshot: La capture d’écran automatique a échoué. Tu peux toutefois 
-      ajouter manuellement une image à ton feedback.
-    invalid_file: Fichier non valide. Merci de ne télécharger que des images.
-    message_short: Ton message est trop court. Donne plus d’informations s’il te
-      plaît.
-  capture_screenshot: Prendre une capture d’écran
-  success: Ton commentaire a été transmis avec succès.
-  no_support: Ce formulaire est uniquement destiné aux **commentaires**. Si tu 
-    as besoin d’aide ou si tu as des questions, utilise le [formulaire de 
-    support](/support).
-  privacy: Ton message sera transmis aux développeurs bénévoles de la plateforme
-    foodsharing. Toutes les données saisies dans le formulaire, ainsi que les 
-    images jointes, seront alors visibles pour eux. Assure-toi que les captures 
-    d’écran ne contiennent pas de données personnelles d’autres utilisateurs que
-    tu n’es pas autorisé(e) à partager.
-  title: Beta Feedback
-  screenshot_not_supported: ''
 net_errors:
   code: 'Code d’erreur : '
   message: 'Message d’erreur : '
@@ -5014,14 +4889,7 @@ oauth:
       title: ''
       md: ''
   title: ''
-sort:
-  sort_by: ''
-  options:
-    updated_at: ''
-    name: ''
-    date: ''
-    relevance: ''
-    created_at: ''
+sort: {}
 network_errors:
   csrf_token_invalid:
     title: ''

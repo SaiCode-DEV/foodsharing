@@ -1,12 +1,9 @@
-address: Διεύθυνση
 message: Μήνυμα
 nachname: Επώνυμο
 add: προσθέστε
 name: Όνομα
-bezirk: Περιφέρεια
 fs_id: ταυτότητα ανταλλαγής τροφίμων
 picture: Εικόνα
-options: Επιλογές
 startpage:
   near_you:
     text1:
@@ -80,7 +77,6 @@ startpage:
   followrules: ''
   followrules_title: ''
 email: Διεύθυνση ηλεκτρονικού ταχυδρομείου
-plz: Ταχυδρομικός κώδικας
 description: Περιγραφή
 desc: Περιγραφή
 edit: επεξεργασία
@@ -95,11 +91,9 @@ about_me_intern: Σύντομη περιγραφή
 about_me_public: Δημόσια περίληψη
 regions: Επαρχίες
 photo: Φωτογραφία
-info: Πληροφορίες
 status: Τρέχουσα κατάσταση
 weight: 'Εκτιμώμενο βάρος:'
 ort: Πόλη/Δήμος
-opt: Επιλογές
 teaser: τρέιλερ
 polls:
   title: Τίτλος
@@ -209,14 +203,6 @@ basket:
     "5": ''
   not_active: ''
   public-info: ''
-  has:
-    frozen: ''
-    prepared: ''
-    pet: ''
-    dry: ''
-    dairy: ''
-    greens: ''
-    bread: ''
   requests: ''
   no_requests: ''
   published: ''
@@ -224,7 +210,6 @@ basket:
   request_close: ''
   withdraw_request: ''
   state:
-    finished: ''
     okay: ''
     nope: ''
     gone: ''
@@ -247,7 +232,6 @@ basket:
   request_denied: ''
   all_map: ''
   n_requests: ''
-  on: ''
   nearby: ''
   nearby-short: ''
   login: ''
@@ -255,11 +239,6 @@ basket:
   go-to-settings: ''
   all: ''
   request-fs: ''
-  is:
-    vegan: ''
-    veggie: ''
-    gf: ''
-    organic: ''
   no_nearby: ''
   my_list_empty: ''
   requested_by: ''
@@ -287,7 +266,6 @@ basket:
     title: ''
   nearby_requires_location: ''
 region:
-  no-huge: ''
   new: ''
   type:
     country: ''
@@ -299,13 +277,6 @@ region:
     big_city: ''
     federal_state: ''
     part_of_town: ''
-  hull:
-    parent: ''
-    parent-info: ''
-    closure: ''
-    start: ''
-    title: ''
-    confirm: ''
   delete: ''
   edit: ''
   edit_success: ''
@@ -313,15 +284,11 @@ region:
   bread: ''
   mail:
     sender: ''
-    name-info: ''
-  change: ''
-  noParent: ''
   created: ''
   none: ''
   save: ''
   cancel: ''
   forum-redirect: ''
-  restricted: ''
   denied:
     group_in_this_group: ''
     subgroup_in: ''
@@ -630,14 +597,12 @@ upload:
   image: ''
   no_image_yet: ''
   preview_image: ''
-  no_image: ''
   choose_file: ''
   new_file: ''
   crop_dialog_title: ''
   no_image_chosen: ''
   images: ''
   invalid_image_files: ''
-  image-problem: ''
   remove_image: ''
   type_rejected: ''
   too_large: ''
@@ -1031,7 +996,6 @@ terminology:
   attention: ''
   newsletter: ''
 fsp:
-  yours: ''
   noManager: ''
   deleteSuccess: ''
   none: ''
@@ -1048,7 +1012,6 @@ fsp:
   managers: ''
   followers: ''
   addError: ''
-  address: ''
   addedBy: ''
   editName: ''
   delete: ''
@@ -1575,7 +1538,6 @@ mailbox:
   write: ''
   trash: ''
   empty: ''
-  refresh: ''
   create: ''
   add_success: ''
   sm-quiz: ''
@@ -1902,7 +1864,6 @@ settings:
     title: ''
     success: ''
   general:
-    phone: ''
     no_address: ''
     current_address: ''
   address:
@@ -1923,7 +1884,6 @@ button:
   cancel: ''
   next: ''
   delete: ''
-  permadelete: ''
   send: ''
   apply: ''
   answer: ''
@@ -1931,12 +1891,10 @@ button:
   new: ''
   edit: ''
   yes_i_am_sure: ''
-  attach_image: ''
   clear_filter: ''
   save: ''
   ok: ''
   close: ''
-  browse: ''
   start: ''
   reset_default: ''
   prev: ''
@@ -2085,7 +2043,6 @@ profile:
   cantdeleteall: ''
   deletesuccess: ''
   notes:
-    title: ''
     info: ''
     bread: ''
   go: ''
@@ -2199,29 +2156,18 @@ storeview:
     1: ''
     2: ''
 storeedit:
-  not-in-region: ''
   team:
     bread: ''
     foodsaver: ''
     amb: ''
-    need-sm: ''
-    max-sm: ''
     note: ''
     leave_myself: ''
     coordinator: ''
-    cannot-leave: ''
-    empty: ''
     leave: ''
     orga: ''
-    unmanaged: ''
     kam: ''
   add-new: ''
   actions: ''
-  milestone:
-    dropped: ''
-    statuschanged: ''
-    accepted: ''
-    created: ''
   fetch:
     teamStatus: ''
     teamStatus1: ''
@@ -2255,7 +2201,6 @@ chat:
   search: ''
   select_recipients: ''
   no_conversation: ''
-  confirm_draft_discard: ''
   start_of_conversation: ''
   placeholder: ''
   empty_recipients: ''
@@ -2325,7 +2270,6 @@ reports:
   no_reports_fallback: ''
   reason: ''
   report_id: ''
-  reportmessage: ''
   reports_region: ''
   reports_user: ''
   reported: ''
@@ -2584,7 +2528,6 @@ foodsaver:
   delete_own_account: ''
   delete_account_sure_reason: ''
   about_me_public: ''
-  kicked: ''
   restricted: ''
   delete_account_reason: ''
   delete_account_password_verify: ''
@@ -2721,7 +2664,6 @@ storelist:
   emptyfilters: ''
   nowaste: ''
   city: ''
-  zipcode: ''
   name: ''
   cooperating: ''
   notcooperating: ''
@@ -2896,7 +2838,6 @@ globals:
   you: ''
   saved: ''
   save_changes: ''
-  telephone_number: ''
   updated: ''
   loading: ''
 search:
@@ -2975,20 +2916,6 @@ activitypost:
   quickreply_button: ''
   write: ''
   quickreply_info: ''
-bootstrap-datepicker:
-  labelNextYear: ''
-  labelCurrentMonth: ''
-  labelToday: ''
-  labelNextMonth: ''
-  labelSelected: ''
-  labelNoDateSelected: ''
-  labelNav: ''
-  labelHelp: ''
-  labelPrevYear: ''
-  labelPrevMonth: ''
-  labelPrevDecade: ''
-  labelNextDecade: ''
-  labelCalendar: ''
 forum:
   inform_per_email: ''
   thread:
@@ -3292,7 +3219,6 @@ login:
   passkey_btn: ''
   passkey_cancelled: ''
   passkey_not_found: ''
-yes: ''
 notice: ''
 validate:
   required: ''
@@ -3385,12 +3311,10 @@ blog:
   author: ''
   teaser: ''
 system_administration:
-  reports: ''
   regions: ''
   blog: ''
   content: ''
   quiz: ''
-  email: ''
   resource_categories: ''
   store_categories: ''
   donation_page_edit: ''
@@ -3443,10 +3367,6 @@ navigation:
   notifications: ''
   toggle: ''
 fax: ''
-sidenav:
-  countryspecific: ''
-  yourgroups: ''
-  yourregions: ''
 language_chooser:
   translation_help_info_text: ''
   choose_button: ''
@@ -3504,11 +3424,6 @@ personal_data:
   landline: ''
   mobile: ''
   label: ''
-numbers:
-  million_abbreviation: ''
-  billion_abbreviation: ''
-  thousands_separator: ''
-  decimal_separator: ''
 salutation:
   "0": ''
   "2": ''
@@ -3524,7 +3439,6 @@ addresspicker:
   infobox: ''
   label: ''
   placeholder: ''
-  infobox_profile: ''
   different_location: ''
   different_location_warning: ''
 join_region:
@@ -3538,8 +3452,6 @@ join_region:
     is_state_2: ''
     is_big_city_1: ''
     is_state_1: ''
-addreaction: ''
-no: ''
 pass2: ''
 abholmenge: ''
 explanation: ''
@@ -4113,28 +4025,7 @@ required_messages:
   name_placeholder: ''
   save_message: ''
   message_info_multiple: ''
-feedback:
-  error:
-    screenshot: ''
-    invalid_file: ''
-    message_short: ''
-    no_sentry: ''
-  button: ''
-  privacy: ''
-  success: ''
-  title: ''
-  name_sent: ''
-  no_support: ''
-  capture_screenshot: ''
-  screenshot_not_supported: ''
-sort:
-  sort_by: ''
-  options:
-    updated_at: ''
-    name: ''
-    date: ''
-    relevance: ''
-    created_at: ''
+sort: {}
 automatic_delete: ''
 copied_to_clipboard: ''
 validation:

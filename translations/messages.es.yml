@@ -2,31 +2,25 @@ about_me_intern: Descripción breve
 regions: Distritos
 ort: Ciudad/Municipio
 photo: Foto
-info: Informaciones
 status: Situación actual
 body: Mensaje
 title: Título
 rolle: Función del usuario
 active: Activado
-bezirk: Distrito
 lon: Longitud
 lat: Latitud
 picture: Foto
-options: Opciones
 geschlecht: Sexo
 anschrift: Calle y numero de casa
 email: Correo electrónico
-plz: Código postal
 desc: Descripción
 description: Descripción
 edit: editar
-address: Dirección
 message: Mensaje
 nachname: Apellido
 add: añadir
 name: Nombre
 pass1: Tu nueva contraseña deseada
-opt: Opciones
 dashboard:
   save_selection: Guardar los ajustes
   title: el cuadro de mando
@@ -186,7 +180,6 @@ reports:
   store: 'Compañía asociada'
   report_id: 'ID de queja'
   time: 'Tiempo'
-  reportmessage: 'Indique cómo podemos comunicarnos con usted si tenemos más preguntas.'
   reports_region: Mensajes de {regionName}
   reports_user: Todos los informes sobre {userName} ({userId})
   id: ID
@@ -930,26 +923,10 @@ system_administration:
   regions: 'Administrar distritos'
   blog: 'Editar publicaciones de blog'
   quiz: 'Administrar cuestionarios'
-  reports: 'Mostrar quejas'
-  email: 'Enviar boletín'
   content: 'Contenido editado'
   store_categories: Editar categorías de negocios
   resource_categories: ''
   donation_page_edit: ''
-bootstrap-datepicker:
-  labelPrevMonth: 'mes pasado'
-  labelNextYear: 'próximo año'
-  labelNav: 'Navegación en el calendario'
-  labelPrevYear: 'año anterior'
-  labelNoDateSelected: 'Ninguna fecha seleccionada'
-  labelToday: 'hoy'
-  labelCalendar: 'Calendario'
-  labelSelected: 'Fecha seleccionada'
-  labelHelp: 'Navegar por el calendario usando las teclas de flecha'
-  labelNextDecade: 'próxima década'
-  labelCurrentMonth: 'mes actual'
-  labelNextMonth: 'próximo mes'
-  labelPrevDecade: 'década anterior'
 right: 'clasificación'
 group:
   apply:
@@ -1273,10 +1250,8 @@ button:
   delete: 'Borrar'
   answer: 'Respuesta'
   create: 'Crear'
-  attach_image: 'Subir imagen (formato png o jpg)'
   clear_filter: 'Borrar filtros'
   cancel: 'Cancelar'
-  permadelete: 'borrar permanentemente'
   reset_default: Restablecer valor predeterminado
   prev: Volver
   close: Cerrar
@@ -1285,7 +1260,6 @@ button:
   countdown_clickable: Clicable en {countdown} segundos
   ok: De acuerdo
   filter_options: Opciones del filtro
-  browse: Navegar
   yes_save: ''
 bcard:
   role: 'Rol'
@@ -2001,7 +1975,6 @@ foodsaver:
     remove: 'Quitar del distrito'
     actions: 'Opciones'
     orga: 'es parte del equipo de administración global'
-  kicked: 'rescatista eliminado'
   mailchange_error: 'La activación de su nueva dirección de correo electrónico ha
     fallado. Inténtalo de nuevo.'
   delete_account_now: 'Eliminar cuenta ahora'
@@ -2176,7 +2149,6 @@ profile:
   sleeping: 'se toma un descanso por tiempo indefinido'
   title: 'Perfil'
   notes:
-    title: 'Notas sobre {name}'
     bread: 'Notas'
     info: 'Utilice esta función con cuidado. Su objetivo es ayudar a visibilizar los
       procesos para ahorrarnos trabajo. Nada personal o crítico sobre una persona
@@ -2308,14 +2280,6 @@ basket:
     "2": 'dos días'
     "21": 'tres semanas'
     "5": cinco días
-  has:
-    bread: 'Productos de panadería'
-    frozen: 'productos congelados'
-    prepared: 'comidas preparadas'
-    dairy: 'productos lácteos'
-    dry: 'comida seca'
-    pet: 'alimentación animal'
-    greens: 'frutas y vegetales'
   updated: 'Actualizado:'
   no-desc: 'Por favor ingrese una descripción.'
   title: 'Cestas de comida'
@@ -2325,7 +2289,6 @@ basket:
     okay: 'Sí, recogió la canasta de alimentos.'
     deny: 'Quiero rechazar esta solicitud.'
     nope: 'No, lamentablemente no se presentó según lo acordado.'
-    finished: 'Gracias, el proceso está completo.'
   contact:
     call: 'a través de llamada telefónica'
     write: 'por mensaje'
@@ -2339,17 +2302,11 @@ basket:
   date: 'Fecha de creación'
   where: '¿Dónde?'
   request_close: 'Cerrar solicitud'
-  is:
-    organic: 'productos orgánicos'
-    veggie: 'vegetarianos'
-    vegan: 'veganos'
-    gf: 'sin gluten'
   not_active: 'La canasta de alimentos ya no está activa.'
   provider: 'Proveedor(a)'
   not_withdrawn: 'La solicitud de canasta de alimentos no pudo ser cancelada: '
   n_requests: 'Consultas previas:'
   all: 'Todas las cestas de comida'
-  on: 'Cesta de comida de {platform}'
   request_denied: 'Su solicitud fue rechazada por el/la proveedor(a) de la canasta
     de alimentos.'
   nearby: 'Cestas de comida cerca de ti'
@@ -2705,7 +2662,6 @@ fsp:
   rejectConfirm: 'Tenga en cuenta que si elimina el distribuidor, ya no podrá deshacerlo.
     ¿Continuar?'
   managers: 'persona de contacto'
-  address: 'Dirección'
   description: 'Descripción'
   none: 'Aún no hay distribuidores registrados'
   followName: 'Siga al distribuidor {name}'
@@ -2742,7 +2698,6 @@ fsp:
   pic: 'Foto'
   editSuccess: 'Distribuidor procesado exitosamente'
   add: 'Entrar distribuidor'
-  yours: 'Distribuidores en sus distritos'
   street: 'Calle'
   publicwall: 'Tenga en cuenta que sus publicaciones en el muro del distribuidor son
     visibles públicamente.'
@@ -2768,12 +2723,6 @@ storeedit:
   team:
     leave: 'Dejar esta empresa'
     note: 'Una noticia:'
-    max-sm: 'Elegir un máximo de tres personas responsables de la empresa'
-    unmanaged: 'Actualmente no existe ningún responsable en esta empresa.
-
-      Por favor agregue hasta tres personas responsables de esta empresa en el futuro.
-
-      '
     bread: 'Editar equipo'
     leave_myself: 'Tú mismo'
     orga: 'Usted no es responsable de esta empresa.
@@ -2792,10 +2741,7 @@ storeedit:
       Sin embargo, tienes amplios derechos como embajador(a).
 
       '
-    empty: 'El equipo no debe estar vacío'
-    cannot-leave: 'Eres responsable de esta empresa, por lo que no puedes dejarla.'
     foodsaver: 'Rescatistas'
-    need-sm: 'Debe haber al menos una persona responsable de esta empresa.'
     kam: ''
   fetch:
     teamStatus1: 'Se necesitan ayudantes'
@@ -2809,17 +2755,11 @@ storeedit:
     applyTextRequired: ''
     verifiedRequired: ''
   add_success: 'Se registró la empresa colaboradora'
-  milestone:
-    created: '{user} registró la empresa el {date}'
-    statuschanged: 'Estado cambiado el {date}'
-    accepted: '{user} ahora es parte del equipo'
-    dropped: '{user} ya no esta en el equipo'
   actions: 'Opciones'
   store:
     status: 'Estado'
   bread: 'Editar tienda'
   unsuccess: 'Los cambios no se pudieron aplicar. {error}'
-  not-in-region: 'Sólo puedes crear empresas en los distritos de los que seas miembro.'
   add-new: 'Agregar nueva tienda'
   store_name_placeholder: Nombre de empresa
   name_error: El nombre debe tener al menos tres caracteres.
@@ -2959,7 +2899,6 @@ mailbox:
   mark_as_unread: 'Marcar correo como no leído'
   date: 'Fecha'
   member: 'Usuario del buzón'
-  refresh: 'Actualizar'
   claim: 'foodsharing.network – apreciar la comida'
   fromto: 'De/A'
   actions: 'Opciones'
@@ -3241,7 +3180,6 @@ settings:
     title: Seleccionar dirección
     choose: Adoptar dirección
   general:
-    phone: Su número de teléfono fijo
     current_address: Direccion actual
     no_address: Aún no se ha introducido ninguna dirección
   quiz:
@@ -3437,25 +3375,13 @@ region:
     part_of_town: Barrio
   forum-redirect: 'No hay tablero de anuncios para las regiones. Has sido redirigido
     al foro.'
-  hull:
-    parent: 'Distrito maestro'
-    title: 'Actualización maestra'
-    confirm: '¿Realmente iniciar la actualización maestra?'
-    start: 'Iniciar actualización maestra'
-    parent-info: 'Tod@s l@s rescatistas se incluyen automáticamente en el distrito
-      maestro si se ha especificado uno'
-    closure: 'Ingrese {region} como maestro para todos los distritos secundarios'
   edit: 'Editar distrito'
   confirm:
     edit: ¿Está seguro de que desea guardar los cambios en el distrito {name}?
     create: ¿Está seguro de que desea crear el distrito {name}?
     delete: ¿Está seguro de que desea eliminar el distrito {name}?
-  change: 'Cambiar distrito'
-  noParent: 'Sin distrito principal'
   new: 'Nuevo distrito'
   mail:
-    name-info: '¡Cuidado, no lo cambies arbitrariamente! Asegúrese también de que
-      esta dirección aún no exista en “Administrar buzones de correo”.'
     sender: 'Nombre del remitente'
   edit_success: 'El distrito se ha salvado.'
   still_contains_elements: 'El distrito no se puede eliminar porque todavía contiene
@@ -3465,9 +3391,7 @@ region:
   delete: 'Eliminar distrito'
   cancel: 'No, en absoluto'
   bread: 'Administrar distritos'
-  no-huge: 'No puede seleccionar un país o estado como distrito.'
   created: 'Se creó {region}'
-  restricted: 'Lamentablemente, no tienes permiso para ver estos datos.'
   createNew: crear un nuevo distrito
   master: Distrito principal
   mailbox: Nombre del buzón
@@ -3591,7 +3515,6 @@ globals:
   close: 'Cierra'
   select: 'Por favor seleccione …'
   save: 'Ahorrar'
-  telephone_number: Número de teléfono
   save_changes: Guardar los cambios
   saved: Los cambios se han guardado
   updated: 'Actualizado:'
@@ -3756,7 +3679,6 @@ storelist:
   managing: 'Empresas de las que eres responsable'
   others: 'Otras empresas de {region}'
   entered: 'Registrado:'
-  zipcode: 'Código Postal'
   region: 'Distrito'
   addressdata: 'Dirección'
   memberState: Estado de miembro
@@ -3844,13 +3766,6 @@ chat:
   new_message: 'Nuevo mensaje'
   notification_unnamed_conversation: '{foodsaver} te escribió.'
   empty: 'Aún no hay conversaciones'
-  confirm_draft_discard: 'Cambias a una nueva conversación. El texto del campo de
-    respuesta se descarta.
-
-
-    Si cancelas este diálogo, tu borrador se transferirá a la nueva conversación.
-
-    '
   select_recipients: 'Seleccionar destinatari@s'
   empty_message: 'Primero debe ingresar un mensaje.'
   new_messages: 'Nuevos mensajes'
@@ -3888,10 +3803,6 @@ timepicker:
   from: de
   to: a
   placeholder: Introduzca la hora
-sidenav:
-  countryspecific: 'Grupos específicos de países'
-  yourgroups: 'Tus grupos'
-  yourregions: Tus distritos
 information:
   push:
     title: 'Ahora puede recibir notificaciones automáticas de foodsharing.'
@@ -3992,9 +3903,6 @@ calendar:
   copiedUrl: ¡URL del calendario copiada!
   labelResetButton: Eliminar selección
 addresspicker:
-  infobox_profile: 'Los compateros necesitan la dirección para poder ofrecer cestas
-    de alimentos a través del sitio web. Es necesario para poder participar en recogidas
-    como rescatista.'
   label: 'Búsqueda de dirección/ubicación'
   placeholder: 'Encuentra la dirección …'
   infobox: 'Introduzca la dirección en la barra de búsqueda o mueva la chincheta a
@@ -4172,12 +4080,6 @@ map:
     go: Ver perfil
   region:
     go: ''
-addreaction: 'Añadir una reacción'
-numbers:
-  decimal_separator: '.'
-  thousands_separator: ','
-  million_abbreviation: ' Mio.'
-  billion_abbreviation: ' Mil millones.'
 notice: '¡Una noticia!'
 error_permissions: 'Lamentablemente, no tienes los permisos necesarios para este proceso.'
 push_notifications:
@@ -4189,7 +4091,6 @@ filterlist:
 upload:
   crop_dialog_title: 'recortar imagen'
   new_file: 'subir nuevo archivo'
-  no_image: 'El fichero subido no es una foto. Por favor elija un otro fichero.'
   image: 'Cargar imagen'
   new_image: 'subir nueva foto'
   file: 'subir archivo'
@@ -4200,8 +4101,6 @@ upload:
   images: Subir imágenes
   invalid_image_files: '{count} los archivos seleccionados no son imágenes válidas:
     {fileNames}'
-  image-problem: Su archivo no parece estar bien, es mejor utilizar una imagen 
-    jpg normal
   remove_image: ''
   type_rejected: ''
   too_large: ''
@@ -4211,7 +4110,6 @@ answers: '¿Qué respuestas son correctas?'
 abholmenge: '¿Aproximadamente cuántos kilogramos se toman por recogida?'
 duration: 'Tiempo para responder'
 ui: {}
-no: 'No'
 maxfp: 'máximo número de errores puntuales para aprobar'
 wikilink: 'Enlace con más información'
 formatting:
@@ -4223,7 +4121,6 @@ ansprechpartner: 'Persona/s de contacto en la empresa (gerente de tienda etc.)'
 explanation: 'Explicación'
 error_unexpected: 'Se ha producido un error'
 fp: 'puntos de error'
-yes: 'Sí'
 teaser: 'teaser'
 questcount: '¿Cuántas preguntas se deben formular en el examen?'
 use_region_pickup_rule: '¿Deberían aplicarse a esta empresa los límites del distrito
@@ -4781,28 +4678,6 @@ contact_page:
   description: 'Póngase en contacto con nosotros utilizando una de las siguientes
     opciones de contacto:'
   title: Contacto y soporte
-feedback:
-  button: Enviar comentarios
-  capture_screenshot: Tomar una captura de pantalla
-  error:
-    invalid_file: Archivo inválido. Por favor, sube solo imágenes.
-    message_short: Tu mensaje es demasiado corto. Proporcione más información, 
-      por favor.
-    screenshot: La captura de pantalla automática ha fallado. Sin embargo, 
-      puedes añadir una imagen a tu comentario manualmente.
-    no_sentry: Se produjo un error con Sentry. Por favor, inténtelo de nuevo más
-      tarde.
-  title: Comentario
-  privacy: Tu mensaje se enviará a los desarrolladores voluntarios de la 
-    plataforma foodsharing. Todas las entradas del formulario, así como las 
-    imágenes adjuntas, serán entonces visibles para ellos. Asegúrate de que las 
-    capturas de pantalla no contengan datos personales de otros usuarios que no 
-    estés autorizado a transmitir.
-  name_sent: También se enviarán tu nombre y tu ID de usuario.
-  success: Tu comentario se ha enviado correctamente.
-  no_support: Este formulario es sólo para **comentarios**. Si necesita ayuda o 
-    tiene alguna pregunta, utilice el [formulario de soporte](/support).
-  screenshot_not_supported: ''
 net_errors:
   SERVER_ERROR: Se ha producido un error interno del servidor. No se puede 
     procesar su solicitud en este momento.
@@ -5009,14 +4884,7 @@ oauth:
       title: ''
       md: ''
   title: ''
-sort:
-  sort_by: ''
-  options:
-    updated_at: ''
-    name: ''
-    date: ''
-    relevance: ''
-    created_at: ''
+sort: {}
 network_errors:
   csrf_token_invalid:
     title: ''

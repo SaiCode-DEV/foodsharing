@@ -2,21 +2,17 @@ name: Nome
 add: adicionar
 nachname: Sobrenome
 message: Mensagem
-address: Morada
 edit: editar
 desc: Descrição
 description: Descrição
-plz: Código postal
 email: E-mail
 anschrift: Rua e número da casa
 geschlecht: Sexo
-options: Opções
 picture: Foto
 parent_id: Distrito dos pais
 fs_id: ID-Foodsharing
 lat: Latitude
 lon: Longitude
-bezirk: Distrito
 active: Activado
 store:
   request:
@@ -922,24 +918,11 @@ basket:
   all_map: 'Todos os cabazes no mapa'
   request_denied: 'O teu pedido não foi aceite pela pessoa responsável pelo cabaz
     alimentar.'
-  is:
-    vegan: 'produtos são veganos'
-    gf: 'produtos são sem gluten'
-    veggie: 'produtos são vegetarianos'
-    organic: 'produtos são orgánicos'
   by: 'Cabaz alimentar de {name}'
   nearby-short: 'perto de ti'
   title: 'Cabazes alimentares'
   not_withdrawn: 'O pedido do cabaz alimentar não pôde ser cancelado. '
   updated: 'Atualizado:'
-  has:
-    pet: 'ração animal'
-    bread: 'Producos de panadería'
-    dairy: 'produtos lácteos'
-    greens: 'frutas e vegetales'
-    frozen: 'produtos congelados'
-    prepared: 'comidas preparadas'
-    dry: 'comida seca'
   date: 'Data de criação'
   nearby: 'Cabazes alimentares perto de ti'
   publish: 'Publicar a cabaz alimentar'
@@ -948,7 +931,6 @@ basket:
     gone: 'A comida foi recolhida por outra pessoa.'
     deny: 'Quero recusar este pedido.'
     nope: 'Não, o cabaz alimentar não foi recolhido como combinado.'
-    finished: 'Obrigado, o processo está finalizado.'
   request-fs: 'Solicitar um cabaz alimentar através da nossa página web do Foodsharing'
   new: 'Novo cabaz alimentar'
   publish_error: 'Ocorreu um erro. Não foi possível publicar o cabaz alimentar.'
@@ -988,7 +970,6 @@ basket:
   description: 'Descrição'
   withdrawn_request: 'O pedido foi cancelado'
   all: 'Todos os cabazes alimentares'
-  on: 'Cabaz alimentar de {platform}'
   go: 'para a cabaz alimentar'
   use_home_address: Usar morada de residência
   contact_types: Formas de contacto
@@ -1380,7 +1361,6 @@ profile:
       processos visíveis, para nos poupar trabalho. Informações pessoais ou julgamentos
       sobre uma pessoa não têm lugar aqui. Mantenha-se objetivo.'
     bread: 'notas'
-    title: 'Notas sobre {name}'
   title: 'Perfil'
   mediationRequest: 'Solicitar mediação'
   go: 'Abrir perfil'
@@ -1464,7 +1444,6 @@ mailbox:
   new: 'Nova caixa de correio'
   write: 'Novo e-Mail'
   date: 'Data'
-  refresh: 'Atualizar'
   sent: 'Enviado'
   title: 'Caixas de correio eletrónico'
   attachment:
@@ -1823,7 +1802,6 @@ foodsaver:
   delete_account_sure_reason: 'Tens a certeza de que deseja eliminar a tua conta de
     utilizador? Motivo: {reason}'
   url_error: 'Parece haver algo de errado com o URL da tua página inicial'
-  kicked: 'Foodsaver foi excluido'
   about_me_public: 'Se exibido/a a todas as pessoas listadas em [página da equipa
     e ex-funcionários](/team) e pode ser visto/a por todos no website.
 
@@ -2070,7 +2048,6 @@ fsp:
   accept: 'Liberar o Cantinho da Partilha'
   descLabel: 'Escreva aqui algumas informações básicas sobre o Cantinho da Partilha,
     especialmente quando está acessível/aberto.'
-  address: 'Morada'
   noManager: 'Deve haver pelo menos uma pessoa responsável por este Cantinho da Partilha.'
   street: 'Morada'
   editSuccess: 'Cantinho da Partilha foi editado com sucesso'
@@ -2078,7 +2055,6 @@ fsp:
   acceptName: 'desbloquear {name}'
   follow: 'Siga este Cantinho da Partilha'
   none: 'Ainda não há Cantinhos da Partilha inscritos'
-  yours: 'Cantinhos da Partilha nos vossos distritos'
   acceptSuccess: 'O Cantinho da Partilha esta ativo agora'
   new: 'Novo Cantinho da Partilha'
   addSuccess: 'O Cantinho da Partilha foi inscrito com sucesso'
@@ -2420,14 +2396,6 @@ chat:
   conversations: 'Conversas'
   open_chat: 'Escrever uma mensagem'
   no_conversation: 'Nenhuma conversa selecionada'
-  confirm_draft_discard: 'Mudas para uma nova conversa. O texto no campo de resposta
-    será descartado.
-
-
-    Te cancelar esta caixa de diálogo, o teu rascunho será transferido para a nova
-    conversa.
-
-    '
   notification_named_conversation: '{foodsaver} escreveu em {conversation}.'
   new_messages: 'Novos mensagens'
   placeholder: 'Escreva algo.'
@@ -2459,24 +2427,15 @@ error_permissions: 'Infelizmente, nao tens as permissões necessárias para este
 storeedit:
   team:
     leave_myself: 'a si próprio'
-    cannot-leave: 'Ainda és responsável por este cooperação, por isso não podes deixá-la.'
     orga: 'És não responsável por esta cooperação.
 
       Mas tens amplos direitos como o parte da equipa de organizadora global.
 
       '
-    unmanaged: 'Não há nenhum responsável nesta cooperação.
-
-      Por favor, adicione até três responsáveis por esta cooperação futuramente.
-
-      '
     bread: 'Editar equipa'
     leave: 'Sair desta equipa'
-    need-sm: 'Deve haver pelo menos uma pessoa responsável por este cooperação.'
     note: 'Nota:'
-    empty: 'O equipa não deve estar vazio'
     foodsaver: 'Foodsavers'
-    max-sm: 'Por favor, escolhe no máximo três pessoas como responsáveis da cooperação'
     amb: 'És não responsável por esta cooperação.
 
       Mas tens amplos direitos como o embaixador(a).
@@ -2504,14 +2463,8 @@ storeedit:
     verifiedRequired: Permitir apenas Foodsavers verificados
     phoneRequirement: Permitir apenas Foodsavers com número de telefone inscrito
   unsuccess: 'As alterações não puderam ser aplicadas. {error}'
-  milestone:
-    accepted: '{user} agora faz parte da equipa'
-    dropped: '{user} não mais faz parte da equipa'
-    statuschanged: 'Estado alterado em {date}'
-    created: '{user} registou o local em {date}'
   bread: 'Editar cooperação'
   add-new: 'Criar local'
-  not-in-region: 'Só podes criar locais em distritos onde estás membro.'
   add_success: 'O local de cooperação foi inscrito'
   actions: 'Opções'
   store_name_placeholder: Nome do local
@@ -3062,7 +3015,6 @@ settings:
     verified: Não podes editar o teu nome e data de nascimento. Mas podes pedir 
       a um embaixador para alterar esses dados por ti.
   general:
-    phone: O teu número de telefone fixo
     current_address: Morada atual
     no_address: Ainda não foi inserida nenhum morada
 terminology:
@@ -3402,7 +3354,6 @@ globals:
   select: 'Por favor, selecione …'
   saved: 'As alterações foram salvas'
   save_changes: 'Guardar as alterações'
-  telephone_number: 'Número de telefóno'
   updated: 'Atualizado:'
   loading: A carregar…
 legal:
@@ -3576,16 +3527,7 @@ startpage:
   followrules_title: 'Respeite as regras e o guia para a partilha de comida'
 region:
   bread: 'Administrar distritos'
-  noParent: 'Sem distrito principal'
   forum-redirect: 'Não existe mural para regiões. Será redirecionado para o fórum.'
-  hull:
-    closure: 'Ingrese {region} como maestro para todos os distritos secundários'
-    parent-info: 'Todos os Foodsavers são automaticamente incluídos no distrito principal,
-      desde que tenha sido indicado um'
-    parent: 'Distrito maestro'
-    start: 'Iniciar atualização do mestre'
-    title: 'Atualização mestre'
-    confirm: 'Realmente iniciar a atualização mestra?'
   type:
     title: 'Tipo do distrito'
     city: 'Cidade'
@@ -3602,17 +3544,11 @@ region:
   still_contains_elements: 'O distrito não pode ser excluido porque ainda contém sub-regiões,
     locais ou Cantinhos da Partilha.'
   edit_success: 'O distrito foi guardado.'
-  restricted: 'Infelizmente, não tens autorização para visualizar esses dados.'
   save: 'Sim, salvar'
   mail:
-    name-info: 'Atenção, não alteres arbitrariamente! Certifica-te também de que este
-      endereço ainda não existe em «Administrar e-mails».'
     sender: 'Nome do remetente'
   none: 'Ainda não selecionou nenhum distrito'
   new: 'Novo distrito'
-  no-huge: 'Desculpe, não é possível selecionar um país ou um estado federal como
-    o distrito.'
-  change: 'Alterar distrito'
   created: '{region} foi criado'
   delete: 'Eliminar distrito'
   public:
@@ -3696,8 +3632,6 @@ region:
   inherit_timezone: Assume o fuso horário do distrito-pai
 upload:
   new_image: 'Carregar novo imagem'
-  no_image: 'O ficheiro carregado não é uma fotografia. Por favor, selecionar outro
-    ficheiro.'
   image: 'Carregar imagem'
   choose_file: 'Carregar ficheiro'
   no_image_yet: 'Ainda não foi carregada nenhuma imagem'
@@ -3710,8 +3644,6 @@ upload:
   invalid_image_files: 'O teu navegador não consegue apresentar estes ficheiros e,
     por isso, não os consegue carregar: {fileNames}. As fotos de iPhone estão muitas
     vezes no formato HEIC. Guarda-as como JPEG e já vai funcionar.'
-  image-problem: O teu ficheiro não está em ordem, é melhor utilizar uma imagem 
-    jpg normal
   remove_image: 'Remover imagem'
   too_large: '{fileName} é demasiado grande para carregar. Reduz o tamanho e tenta
     novamente.'
@@ -3759,29 +3691,13 @@ conference:
     de membro e avatar inseridos no foodsharing.'
 system_administration:
   regions: 'Administrar distritos'
-  email: 'Enviar boletim informativo'
   quiz: 'Administrar o teste'
   blog: 'Editar publicações do blogue'
-  reports: 'Mostrar denúncias'
   content: 'Editar conteúdos'
   resource_categories: 'Editar categorias de recursos'
   store_categories: 'Editar categorías de locais'
   donation_page_edit: 'Editar página de donativos'
 maxfp: 'Número máximo de pontos de erro para passar o testo'
-bootstrap-datepicker:
-  labelCalendar: 'Calendário'
-  labelCurrentMonth: 'mês atual'
-  labelPrevYear: 'ano anterior'
-  labelHelp: 'Navegar pelo calendário usando as teclas de seta'
-  labelNav: 'Navegação do calendário'
-  labelNextMonth: 'próximo mês'
-  labelPrevMonth: 'mês anterior'
-  labelNoDateSelected: 'Nenhuma data selecionada'
-  labelNextYear: 'próximo ano'
-  labelToday: 'hoje'
-  labelNextDecade: 'próximo década'
-  labelSelected: 'Data selecionada'
-  labelPrevDecade: 'década anterior'
 events:
   create:
     multiday: 'O evento dura vários dias'
@@ -4000,8 +3916,6 @@ reports:
   time: 'Tempo'
   store: 'Local associado'
   report_id: 'ID de dunúncia'
-  reportmessage: 'Indique como podemos entrar em contacto consigo caso tenhamos mais
-    perguntas.'
   reason: 'motivo'
   message: 'Descrição'
   reports_region: Denúncias de {regionName}
@@ -4121,12 +4035,10 @@ notifications:
 are_you_sure: 'Estás a certeza?'
 button:
   save: 'Guardar'
-  permadelete: 'Eliminar permanentemente'
   create: 'Criar'
   edit: 'Editar'
   clear_filter: 'Vaziar filtros'
   new: 'Novo'
-  attach_image: 'Carregar imagem (formato png ou jpg)'
   next: 'Para a frente'
   send: 'Mandar'
   yes_i_am_sure: 'Sim, estou seguro'
@@ -4141,7 +4053,6 @@ button:
   start: Vamos!
   prev: Para trás
   confirm: Confirmar
-  browse: Pesquisar
   filter_options: Opções do filtro
   yes_save: Sim, guardar
 about_me_intern: 'Descrição rápida'
@@ -4204,11 +4115,6 @@ stats:
   sort:
     by_weight: por peso
     by_count: por número
-numbers:
-  decimal_separator: '.'
-  million_abbreviation: ' Mio.'
-  thousands_separator: ','
-  billion_abbreviation: ' mil milhões'
 fp: 'Pontos de erro'
 fspmanagers: 'Pessoas de contacto para o Cantinho da Partilha'
 storelist:
@@ -4223,7 +4129,6 @@ storelist:
   nowaste: 'Não deite nada fora'
   name: 'Nome'
   address: 'Rua'
-  zipcode: 'Código postal'
   entered: 'Inscrito:'
   cooperating: 'Em cooperação'
   city: 'Localidade'
@@ -4242,7 +4147,6 @@ activitypost:
     uma nova linea.'
   response: 'responder'
   Response: 'Respostas'
-addreaction: 'Adicionar uma reação'
 regionOptions:
   success: 'Opções guardadas com sucesso'
   regionPickupInactiveHours: 'Quantas horas antes da recolha a regra deixa de ser
@@ -4327,16 +4231,11 @@ gender:
   m: 'Homem'
   f: 'Mulher'
 kette_id: 'Cadeia comercial'
-no: 'Não'
-info: 'Informações'
 addresspicker:
   infobox: 'Introduz a morada na barra de pesquisa ou move o marcador para a posição
     correta no mapa.'
   label: 'Pesquisa por morada/localização'
   placeholder: 'Pesquisar a morada…'
-  infobox_profile: 'Caso pretendas oferecer cabazes alimentares através desta plataforma
-    como Foodsharer, é necessário indicar a tua morada. Para poderes participar na
-    recolha de comida como Foodsaver, é legalmente obrigatório.'
   different_location: 'Corrigir a descrição da morada'
   different_location_warning: Por favor, verifique se o Pin está corretamente 
     posicionado na parte superior do cartão. Altere os campos preenchidos 
@@ -4410,7 +4309,6 @@ ageBandList:
   district_tab: 'Distrito'
 fax: 'Fax'
 questcount: 'Quantas perguntas devem ser dada no teste?'
-yes: 'Sim'
 home:
   home: 'Inicio'
 image: 'Imagem'
@@ -4506,17 +4404,12 @@ map:
 list:
   filter_for: 'Filtrar por …'
 public_time: 'Hora do dia aproximada da vaga'
-opt: 'Opções'
 filter_by: 'Filtrar por'
 push_notifications:
   test_notification_body: 'Ótimo, parece que funcionou :)'
   test_notification_title: 'Notificações push ativadas'
 savewithus: 'Ajude a salvar!'
 bezirk_id: 'Para qual região o artigo é relevante?'
-sidenav:
-  yourgroups: 'Teus grupos'
-  countryspecific: 'Grupos em todo o país'
-  yourregions: 'Teus distritos'
 explanation: 'Explicação'
 status: 'Estado atual'
 nofp: 'Nemhum pontos de erro (pergunta de brincadeira)'
@@ -5101,14 +4994,6 @@ test:
   plain: 'Esta é uma tradução'
 totp_code: Introduza o código de dois fatores gerado ou um dos códigos de 
   backup.
-sort:
-  options:
-    name: Nome
-    updated_at: 'Data de atualização'
-    date: 'Data'
-    relevance: 'Relevância'
-    created_at: 'Data de criação'
-  sort_by: 'Ordenar por '
 required_messages:
   kick_from_store_team:
     main: Foste removido da equipa da loja [{store}](/store/{storeId}). Assim, 
@@ -5438,26 +5323,6 @@ contact_page:
       ou atuais. Se não encontrar o que pesquisa, pode criar um ticket de suporte
       (link no canto superior direito).'
   bread: 'Contacto e suporte'
-feedback:
-  error:
-    screenshot: 'Falha na captura de ecrã automática. Mas podes adicionar uma imagem
-      manualmente ao teu feedback.'
-    invalid_file: 'Ficheiro inválido. Por favor, carregue apenas imagens.'
-    message_short: 'A tua mensagem é muito curta. Por favor, dá mais informações.'
-    no_sentry: 'Ocorreu um erro com o Sentry. Por favor, tenta mais tarde.'
-  button: 'Feedback beta'
-  privacy: 'A tua mensagem vai ser enviada para os programadores voluntários da plataforma
-    foodsharing. Todas as informações do formulário, assim como as imagens anexadas,
-    vão ficar visíveis para eles. Por favor, certifica-te de que as capturas de ecrã
-    não têm dados pessoais de outros utilizadores que não possas partilhar.'
-  success: 'Obrigado! A tua mensagem de feedback foi enviada.'
-  title: 'Formulário de feedback beta'
-  name_sent: 'O teu nome e a tua ID de foodsharing serão enviados junto.'
-  no_support: 'Este formulário é só para **feedback**. Caso precises de ajuda ou tenhas
-    alguma dúvida, usa o [formulário de suporte](/support).'
-  capture_screenshot: 'Capturar ecrã'
-  screenshot_not_supported: O teu navegador não suporta a captura de ecrã 
-    automática. Podes anexar uma imagem manualmente ao feedback.
 theme_switcher:
   theme:
     system: 'Sistema'

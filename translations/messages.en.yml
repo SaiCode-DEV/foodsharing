@@ -639,7 +639,6 @@ settings:
     title: Select address
     choose: Accept address
   general:
-    phone: Your landline number
     current_address: Current address
     no_address: No address entered yet
   # Change Password
@@ -906,7 +905,6 @@ profile:
     info: "Please use this function carefully. It should help to make processes visible
       in order to save us work. Personal or judgmental statements about a person have
       no place here. Be factual."
-    title: Notes about {name}
   warning: Warning
   title: Profile
   pinboard: Status updates from {name}
@@ -1005,7 +1003,6 @@ profile:
 mailbox:
   recipients: Too many recipients
   mark_as_unread: Mark email as unread
-  refresh: Refresh
   subject: Subject
   date: Date
   recipient: Recipient
@@ -1498,8 +1495,6 @@ time: Time
 select: Please select
 validate:
   required: '{it} cannot be blank'
-no: No
-yes: Yes
 are_you_sure: Are you sure?
 filter_by: filter by
 terminology:
@@ -1666,12 +1661,10 @@ button:
   apply: Apply
   yes_i_am_sure: Yes, I am sure
   countdown_clickable: "Clickable in {seconds} seconds"
-  permadelete: Delete permanently
   delete: Delete
   new: 'New'
   edit: Edit
   ok: OK
-  attach_image: Attach picture (png or jpg-format)
   next: Next
   save: Save
   answer: Answer
@@ -1682,7 +1675,6 @@ button:
   start: Let’s go!
   confirm: confirm
   filter_options: Filter options
-  browse: Browse
   yes_save: Yes, save
 bell:
   ft_update_title: '{name}'
@@ -1826,8 +1818,6 @@ reports:
   no_reports_fallback: There are no reports yet
   report_id: Report ID
   store: Assigned store
-  reportmessage: Please indicate how you can be reached if we have further 
-    questions.
   reported: Reported person
   reports_region: Complaints in {regionName}
   reports_user: All complaints about {userName} ({userId})
@@ -2046,10 +2036,6 @@ email_template:
       back to you if there are any questions.'
     group_report: report group
     group_arbitration: arbitration group
-sidenav:
-  yourgroups: Your groups
-  countryspecific: Country-specific groups
-  yourregions: Your regions
 password:
   reset: Forgot your password?
   insertmail: Enter your e-mail address here to reset your password.
@@ -2111,17 +2097,6 @@ region:
   save: Yes, save
   mail:
     sender: Sender name
-    name-info: Attention! Do not change arbitrarily! Also make sure that this 
-      address does not yet exist under Manage Mailboxes.
-  hull:
-    parent: Master region
-    confirm: Really start master update?
-    start: Start master update
-    closure: Assign {region} as master for all child districts
-    title: Master update
-    parent-info: All foodsavers are automatically included in the master 
-      district, if one has been specified
-  noParent: Without parent region
   created: '{region} was created'
   still_contains_elements: The region can not be removed because it still 
     contains subregions, stores, or food share points.
@@ -2138,9 +2113,6 @@ region:
   bread: Manage districts
   forum-redirect: For regions, there is no pinboard. You have been redirected to
     the forum.
-  restricted: Unfortunately, you are not authorised to view this data.
-  no-huge: Sorry, you cannot select a country or state as a region.
-  change: Change district
   root: None (root)
   select: Select district to edit
   createNew: Create new district
@@ -2219,7 +2191,6 @@ storelist:
   others: More stores in {region}
   region: Region
   city: City
-  zipcode: Post code
   address: Street
   map: Map
   fetching: Stores from which you fetch groceries
@@ -2289,19 +2260,6 @@ footer:
     lebensministerium: Austrian Federal Ministry of Agriculture and Forestry, 
       Climate and Environmental Protection, Regions and Water Management
 basket:
-  is:
-    gf: are gluten-free
-    vegan: are vegan
-    veggie: are vegetarian
-    organic: are organic
-  has:
-    pet: pet food
-    dairy: dairy products
-    bread: pastries
-    frozen: Frozen food
-    dry: Dry food
-    prepared: prepared meals
-    greens: fruit and vegetables
   valid:
     "21": three weeks
     "14": two weeks
@@ -2349,7 +2307,6 @@ basket:
   image: Add a photo to the food basket.
   request_empty: Your request text cannot be empty.
   state:
-    finished: Thank you! The process is finished.
     deny: I want to decline this request.
     gone: The groceries were picked up by someone else.
     nope: No, the food basket was not picked up as agreed.
@@ -2374,7 +2331,6 @@ basket:
   edit: Edit food basket
   publish: Publish food basket
   add: Add food basket
-  on: food basket from {platform}
   go: to the food basket
   my_list_empty: You have not entered any food baskets
   not_withdrawn: 'The request for the food basket could not be withdrawn: '
@@ -2478,7 +2434,6 @@ content:
   error: Page could not be saved
   error_loading: Content could not be loaded
 foodsaver:
-  kicked: Foodsaver removed
   list:
     summary: '{count} foodsavers in {region}'
     inactive: 'who haven’t been active in the last 6 months:'
@@ -2984,15 +2939,7 @@ search:
 
   placeholder: Search now …
   thread-body-only: Only the text of posts is searched, not the titles.
-sort:
-  sort_by: "Sort by "
-  options:
-    relevance: Relevance
-    date: Date
-    created_at: Creation date
-    updated_at: Last updated
-    name: Name
-
+sort: {}
 month:
   short:
     "12": Dec.
@@ -3068,10 +3015,7 @@ upload:
   choose_file: Upload data
   no_image_chosen: No file selected yet
   no_image_yet: No picture uploaded yet
-  no_image: The uploaded file is not a photo. Please choose another file.
   images: Upload images
-  image-problem: Your file doesn’t seem to be OK, it’s best to use a normal jpg 
-    image
   invalid_image_files: 'Your browser cannot display these files and therefore cannot
     upload them: {fileNames}. Photos from iPhones are often in HEIC format. Save them
     as JPEG and it will work.'
@@ -3083,7 +3027,6 @@ upload:
 photo: Photo
 status: Current status
 title: Title
-bezirk: Region
 lon: Longitude
 lat: Latitude
 parent_id: Parent region
@@ -3091,7 +3034,6 @@ picture: Picture
 description: Description
 desc: Description
 edit: edit
-address: Address
 message: Message
 add: add
 polls:
@@ -3121,14 +3063,8 @@ storeedit:
       you have extensive rights.\n"
     note: 'Note:'
     foodsaver: Foodsaver
-    empty: The team must not be empty
     leave: Leave store
     bread: Edit team
-    max-sm: Please choose maximum three Store Coordinators
-    cannot-leave: You are responsible for this store, so you can’t leave it.
-    need-sm: There must be at least one responsible person per team.
-    unmanaged: "This store doesn’t have any responsible person at the moment.\nPlease
-      add up to three Store Coordinators that will manage the store in the future.\n"
     amb: "You are not responsible for this store.\nHowever, as an ambassador you have
       extensive rights.\n"
     coordinator: "You are not responsible for this store.\nHowever, as part of the
@@ -3138,11 +3074,6 @@ storeedit:
       You are not responsible for this store.
       You have, however, restricted access due to being KAM of the store chain.
   add-new: Add new store
-  milestone:
-    dropped: '{user} is not part of the team anymore'
-    accepted: '{user} is now part of the team'
-    created: '{user} added the store on {date}'
-    statuschanged: Status changed on {date}
   unsuccess: "Unable to store change. {error}"
   fetch:
     teamStatus: team status
@@ -3160,7 +3091,6 @@ storeedit:
     status: status
   actions: Options
   add_success: Cooperating store was added
-  not-in-region: You can only add stores to regions, in which you are a member.
   name_error: The name must consist of at least three characters.
   store_name_placeholder: Store name
 legal:
@@ -3212,7 +3142,6 @@ bcard:
 image: Image
 wikilink: Link with further information
 fax: Fax
-info: Information
 rolle: User role
 active: Activated
 email: Email address
@@ -3241,7 +3170,6 @@ theme_switcher:
     dark: "Dark"
 
   title_button: Switch design
-plz: Post code
 fsp:
   twig:
     n_in_region: '{count} food share points in {name}'
@@ -3250,14 +3178,12 @@ fsp:
   delete: Remove food share point
   addedBy: Added by
   street: Street
-  address: Address
   editName: Edit food share point ‘{name}’
   edit: Edit food share point
   new: New food share point
   description: Description
   followName: Follow food share point {name}
   follow: Follow this food share point
-  yours: Food share point in your districts
   suggest: Suggest food share point
   followers: Followers
   unfollow: Stop following food share point
@@ -3374,9 +3300,6 @@ chat:
   select_recipients: Select recipients
   empty_message: You need to enter a message first.
   notification_named_conversation: '{foodsaver} wrote in {conversation}.'
-  confirm_draft_discard: "You switch to a new conversation. The text in the answer
-    field is discarded.\n\nIf you cancel this dialogue, your draft will be carried
-    over into the new conversation instead.\n"
   incorrect_address: This email address is not valid
   receivermissing: Please enter a recipient
   search: Search
@@ -3498,7 +3421,6 @@ totp_code: Please enter either the generated two-factor authentication code or
   one of the backup codes.
 pass1: Your new requested password
 position: Position in foodsharing (public)
-opt: Options
 teaser: Teaser
 weight: 'Estimated weight:'
 about_me_intern: Short description
@@ -3508,17 +3430,12 @@ groups:
   empty: You’re not in any working groups yet
 ort: City/municipality
 fs_id: foodsharing-ID
-options: Options
 geschlecht: gender
 anschrift: Street and house number
 body: message
 addresspicker:
   label: Search for address/location
   placeholder: Search address …
-  infobox_profile: "[Foodsharers](https://wiki.foodsharing.de/Foodsharer) need the
-    address in order to be able to offer food baskets on the website. In order to
-    be able to participate in food rescues as a [Foodsaver](https://wiki.foodsharing.de/Foodsaver),
-    it is even mandatory."
   infobox: Enter the address in the search bar or move the pin to the correct 
     position on the map.
   different_location: Correct address description
@@ -3867,11 +3784,6 @@ startpage:
     rules](https://wiki.foodsharing.de/Hygieneregeln). Information can also be found
     in the [guide](https://wiki.foodsharing.de/Hygiene-Ratgeber_für_Lebensmittel).\n"
   followrules_title: Follow the rules and guidelines for sharing food
-numbers:
-  decimal_separator: "."
-  thousands_separator: ","
-  million_abbreviation: " mio."
-  billion_abbreviation: " bn."
 quiz:
   question: Question
   continuenow: Continue the quiz now!
@@ -4100,7 +4012,6 @@ quiz:
     attempt.
 nofp: no error points (not a serious question)
 request_time: 'Time of request:'
-addreaction: Add a reaction
 contentmanagement: Content management
 activitypost:
   Response: "Answer"
@@ -4290,32 +4201,15 @@ globals:
   select: Please select …
   show_more: Show more
   show_less: Show less
-  telephone_number: Telephone number
   saved: Changes were saved
   save_changes: Save changes
   updated: 'Updated:'
   loading: 'Loading...'
-bootstrap-datepicker:
-  labelPrevDecade: Previous decade
-  labelPrevYear: Previous year
-  labelNextYear: Next year
-  labelCalendar: Calendar
-  labelCurrentMonth: Current month
-  labelNoDateSelected: No date selected
-  labelNextDecade: Next decade
-  labelPrevMonth: Previous month
-  labelNextMonth: Next month
-  labelToday: Today
-  labelSelected: Selected date
-  labelNav: Calendar navigation
-  labelHelp: Navigate the calendar using arrow keys
 system_administration:
   regions: Manage districts
-  email: Send newsletter
   blog: Edit blog posts
   quiz: Manage quiz
   content: Edit content
-  reports: Show reports
   store_categories: Edit store categories
   resource_categories: Edit resource categories
   donation_page_edit: Edit donation page
@@ -4865,28 +4759,7 @@ support_page:
     max_size: Attachments (maximum 10 with 5 MB each)
     browse: Browse
     drop_placeholder: Drop file here
-feedback:
-  title: "Beta Feedback Form"
-  button: "Beta feedback"
-  capture_screenshot: "Capture screenshot"
-  screenshot_not_supported: "Your browser does not support automatic screenshots.
-    You can manually add an image to your feedback."
-  name_sent: "Your Name and ID will be sent with the feedback."
-  success: "Your feedback has been successfully submitted."
-  no_support: "This form is for **feedback** only. If you need help or have questions,
-    please use the [support form](/support)."
-  privacy: "Your message will be sent to the volunteer developers of the foodsharing
-    platform. All entries from the form, as well as attached images, will then be
-    visible to them. Please make sure that screenshots do not contain any personal
-    data of other users that you are not allowed to pass on."
-  error:
-    no_sentry: "An error occurred while sending the feedback. Please try again later."
-    screenshot: Automatic screenshot failed. However, you can manually add an 
-      image to your feedback.
-    invalid_file: "The file is not a valid image file."
-    message_short: "The message is too short. Please enter more information."
-
-
+feedback: {}
 petition:
   progressText:
     2000: The petition is gaining momentum! With your support, we can rock it!
