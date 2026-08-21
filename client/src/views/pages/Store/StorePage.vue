@@ -225,6 +225,11 @@ export default {
       return this.pickupStore.getRegularPickup
     },
   },
+  created () {
+    // has to run in created, not mounted: mounted runs bottom up, so the children would
+    // already have acted on the previous store's permissions
+    StoreData.mutations.resetStoreBoundState()
+  },
   async mounted () {
     // fetch all the required data in parallel
 

@@ -128,6 +128,21 @@ export const getters = {
 
 export const mutations = {
   /**
+   * Drops everything that belongs to one particular store. Navigating between stores
+   * happens client side, so without this the next store page starts out with the
+   * permissions and members of the previous one. `stores` and `metadata` are the user's
+   * own store list and stay.
+   */
+  resetStoreBoundState () {
+    store.storeMember = null
+    store.storeInformation = null
+    store.permissions = {}
+    store.regionOptions = {}
+    store.applications = []
+    store.invitations = []
+    store.log = []
+  },
+  /**
    *  TODO: refactor this store further
    * @deprecated use stores/store.js instead
    */
