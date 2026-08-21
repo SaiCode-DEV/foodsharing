@@ -269,24 +269,33 @@ class AchievementGateway extends BaseGateway
      */
     private function convertDataToAwardedAchievementWithUserDetails(array $awardedAchievement): AwardedAchievementWithUserDetails
     {
-        $achievementId = $awardedAchievement['achievement_id'];
-        $user = new Profile($awardedAchievement['user_id'], $awardedAchievement['user_name'], $awardedAchievement['user_photo'], (bool)$awardedAchievement['user_is_sleeping']);
-        $reviewer = $awardedAchievement['reviewer_id'] ? new Profile(
-            $awardedAchievement['reviewer_id'],
-            $awardedAchievement['reviewer_name'],
-            $awardedAchievement['reviewer_photo'],
-            (bool)$awardedAchievement['reviewer_is_sleeping']
-        ) : null;
-        $notice = $awardedAchievement['notice'];
-        $validUntil = isset($awardedAchievement['valid_until']) ? new DateTime($awardedAchievement['valid_until']) : null;
-        $createdAt = new DateTime($awardedAchievement['created_at']);
-
-        return AwardedAchievementWithUserDetails::create($achievementId, $user, $reviewer, $achievementId, $notice, $validUntil, $createdAt);
+        return AwardedAchievementWithUserDetails::create(
+            id: $awardedAchievement['id'],
+            user: new Profile(
+                $awardedAchievement['user_id'],
+                $awardedAchievement['user_name'],
+                $awardedAchievement['user_photo'],
+                (bool)$awardedAchievement['user_is_sleeping']
+            ),
+            reviewer: $awardedAchievement['reviewer_id'] ? new Profile(
+                $awardedAchievement['reviewer_id'],
+                $awardedAchievement['reviewer_name'],
+                $awardedAchievement['reviewer_photo'],
+                (bool)$awardedAchievement['reviewer_is_sleeping']
+            ) : null,
+            achievementId: $awardedAchievement['achievement_id'],
+            notice: $awardedAchievement['notice'],
+            validUntil: isset($awardedAchievement['valid_until']) ? new DateTime($awardedAchievement['valid_until']) : null,
+            createdAt: new DateTime($awardedAchievement['created_at']),
+        );
     }
 
-    public function getAwardedAchievementById(int $awardedAchievementId): AwardedAchievement
+    public function getAwardedAchievementById(int $awardedAchievementId): ?AwardedAchievement
     {
-        $awardedAchievement = $this->db->fetchByCriteria('fs_foodsaver_has_achievement', '*', ['id' => $awardedAchievementId]);
+        $awardedAchievement = $this->db->fetchById('fs_foodsaver_has_achievement', '*', $awardedAchievementId);
+        if (empty($awardedAchievement)) {
+            return null;
+        }
 
         return AwardedAchievement::create(
             $awardedAchievement['id'],

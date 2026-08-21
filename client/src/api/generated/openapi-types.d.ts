@@ -8086,6 +8086,13 @@ export interface operations {
                 };
                 content?: never;
             };
+            /** @description Awarded achievement does not exist */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
         };
     };
     patch_foodsharing_restapi_achievementrest_editawardedachievement: {
@@ -8128,6 +8135,13 @@ export interface operations {
             };
             /** @description Not permitted */
             403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Awarded achievement does not exist */
+            404: {
                 headers: {
                     [name: string]: unknown;
                 };

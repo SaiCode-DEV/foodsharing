@@ -141,7 +141,7 @@
       >
         <b-card-text>
           <b-form-group
-            :label="$t('terminology.bezirk')"
+            :label="$t('terminology.region')"
             label-for="region"
           >
             <b-input-group>

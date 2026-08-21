@@ -154,11 +154,15 @@ class AchievementRestController extends AbstractFoodsharingRestController
     #[Route('achievements/awarded/{awardedAchievementId}', methods: ['PATCH'], requirements: ['awardedAchievementId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: AwardedAchievementWithUserDetails::class))]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid data')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Awarded achievement does not exist')]
     public function editAwardedAchievement(int $awardedAchievementId, #[MapRequestPayload] AwardedAchievementDetails $awardedAchievementDetails): Response
     {
         $this->assertLoggedIn();
 
         $awardedAchievement = $this->achievementGateway->getAwardedAchievementById($awardedAchievementId);
+        if (!$awardedAchievement) {
+            throw new NotFoundHttpException('Awarded achievement does not exist');
+        }
         if (!$this->achievementPermissions->mayAwardAchievement($awardedAchievement->achievementId, $awardedAchievement->foodsaverId)) {
             throw new AccessDeniedHttpException('Not permitted');
         }
@@ -175,10 +179,14 @@ class AchievementRestController extends AbstractFoodsharingRestController
     #[OA\Delete(summary: 'Revoke an achievement from a user')]
     #[Route('achievements/awarded/{awardedAchievementId}', methods: ['DELETE'], requirements: ['awardedAchievementId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Awarded achievement does not exist')]
     public function revokeAchievement(int $awardedAchievementId): Response
     {
         $this->assertLoggedIn();
         $awardedAchievement = $this->achievementGateway->getAwardedAchievementById($awardedAchievementId);
+        if (!$awardedAchievement) {
+            throw new NotFoundHttpException('Awarded achievement does not exist');
+        }
         if (!$this->achievementPermissions->mayAwardAchievement($awardedAchievement->achievementId, $awardedAchievement->foodsaverId)) {
             throw new AccessDeniedHttpException('Not permitted');
         }
