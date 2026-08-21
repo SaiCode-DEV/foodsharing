@@ -111,6 +111,7 @@ export class AcceptanceHelper {
   async waitForActiveAPICalls(timeout: number = 60000) {
     await this.page.waitForFunction(
       () => !(window as any).hasActiveRequests(),
+      null,
       { timeout },
     );
     await this.page.waitForTimeout(1000);

@@ -18,7 +18,16 @@ test.describe("ID Cards", () => {
 
     await acceptanceHelper.login(ambassador.email);
 
+    // The passport tab and the checkbox column are both gated on mayEditMembers, which
+    // MemberList only has once its permissions request returns. That request runs next
+    // to the member list and independently of it, so waiting for the list or for a
+    // rendered element is not enough (#2795).
+    const permissionsLoaded = page.waitForResponse(
+      (response) => /\/regions\/\d+\/users\/permissions/.test(response.url()),
+      { timeout: 60000 },
+    );
     await page.goto(`/region?bid=${region.id}&sub=members`);
+    await permissionsLoaded;
     await page.waitForSelector("text=Foodsaver:innen im Bezirk");
 
     await page.click("text=Ausweise");
@@ -33,6 +42,7 @@ test.describe("ID Cards", () => {
     await expect(row).toBeVisible();
 
     const checkbox = row.locator('input[type="checkbox"]');
+    await expect(checkbox).toBeAttached();
     await checkbox.dispatchEvent("click");
 
     const downloadPromise = page.waitForEvent("download");
