@@ -589,6 +589,14 @@ class Database
         $this->dbalConnection->commit();
     }
 
+    /**
+     * Rolls the current database transaction back.
+     */
+    public function rollBack(): void
+    {
+        $this->dbalConnection->rollBack();
+    }
+
     // === private methods ===
 
     /**

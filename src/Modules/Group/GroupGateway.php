@@ -38,45 +38,92 @@ class GroupGateway extends BaseGateway
             'parent_id',
             ['id' => $groupId]
         );
-
-        $this->db->update(
-            'fs_foodsaver',
-            ['bezirk_id' => null],
-            ['bezirk_id' => $groupId]
-        );
-        $this->db->update(
+        $mailboxId = $this->db->fetchValueByCriteria(
             'fs_bezirk',
-            ['parent_id' => 0],
-            ['parent_id' => $groupId]
+            'mailbox_id',
+            ['id' => $groupId]
         );
-        $this->db->execute('
-            DELETE t FROM fs_theme t
-            JOIN fs_bezirk_has_theme ht
-			ON ht.theme_id = t.id
-            WHERE ht.bezirk_id = :regionId
-		', [
-            ':regionId' => $groupId,
-        ]);
-        $this->db->execute('
-            DELETE p FROM fs_wallpost p
-            JOIN fs_bezirk_has_wallpost hp
-			ON hp.wallpost_id = p.id
-            WHERE hp.bezirk_id = :regionId
-		', [
-            ':regionId' => $groupId,
-        ]);
 
-        $this->db->delete('fs_bezirk', ['id' => $groupId]);
-
-        $count = $this->db->count('fs_bezirk', ['parent_id' => $parent_id]);
-
-        if ($count == 0) {
+        // one transaction: an abort must not leave a half-deleted region
+        $this->db->beginTransaction();
+        try {
+            $this->db->update(
+                'fs_foodsaver',
+                ['bezirk_id' => null],
+                ['bezirk_id' => $groupId]
+            );
             $this->db->update(
                 'fs_bezirk',
-                ['has_children' => 0],
-                ['id' => $parent_id]
+                ['parent_id' => 0],
+                ['parent_id' => $groupId]
             );
+            $this->db->execute('
+                DELETE t FROM fs_theme t
+                JOIN fs_bezirk_has_theme ht
+    			ON ht.theme_id = t.id
+                WHERE ht.bezirk_id = :regionId
+    		', [
+                ':regionId' => $groupId,
+            ]);
+            $this->db->execute('
+                DELETE p FROM fs_wallpost p
+                JOIN fs_bezirk_has_wallpost hp
+    			ON hp.wallpost_id = p.id
+                WHERE hp.bezirk_id = :regionId
+    		', [
+                ':regionId' => $groupId,
+            ]);
+
+            // the fs_event foreign key only nulls bezirk_id; the wall posts go first
+            // because only their link rows cascade with the events
+            $this->db->execute('
+                DELETE p FROM fs_wallpost p
+                JOIN fs_event_has_wallpost hp
+    			ON hp.wallpost_id = p.id
+                JOIN fs_event e
+    			ON e.id = hp.event_id
+                WHERE e.bezirk_id = :regionId
+    		', [
+                ':regionId' => $groupId,
+            ]);
+            $this->db->delete('fs_event', ['bezirk_id' => $groupId]);
+
+            $this->db->delete('fs_bezirk', ['id' => $groupId]);
+
+            // the mailbox is only referenced from fs_bezirk and has to go separately;
+            // its messages cascade with it
+            if ($mailboxId) {
+                $this->db->delete('fs_mailbox', ['id' => $mailboxId]);
+            }
+
+            $count = $this->db->count('fs_bezirk', ['parent_id' => $parent_id]);
+
+            if ($count == 0) {
+                $this->db->update(
+                    'fs_bezirk',
+                    ['has_children' => 0],
+                    ['id' => $parent_id]
+                );
+            }
+
+            $this->db->commit();
+        } catch (\Throwable $e) {
+            $this->db->rollBack();
+            throw $e;
         }
+    }
+
+    /**
+     * Returns whether the group's mailbox still contains emails.
+     */
+    public function hasMailboxEmails(int $groupId): bool
+    {
+        $mailboxId = $this->db->fetchValueByCriteria('fs_bezirk', 'mailbox_id', ['id' => $groupId]);
+        if (!$mailboxId) {
+            return false;
+        }
+
+        return $this->db->exists('fs_mailbox_message', ['mailbox_id' => $mailboxId]);
     }
 
     /**

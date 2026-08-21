@@ -56,6 +56,11 @@ class GroupRestController extends AbstractFoodsharingRestController
             throw new ConflictHttpException('Unit contains subelements preventing the deletion');
         }
 
+        // own message so the admin tool can show the actual reason
+        if ($this->groupGateway->hasMailboxEmails($regionId)) {
+            throw new ConflictHttpException('The region\'s mailbox still contains emails preventing the deletion');
+        }
+
         $this->groupGateway->deleteGroup($regionId);
 
         return $this->respondOK();

@@ -56,6 +56,14 @@ class GroupApiCest
 
         $wallPost = $I->addGroupWallPost($this->ambassador['id'], $this->region['id']);
 
+        // The fs_event foreign key would only null bezirk_id, so events and their
+        // wall posts need explicit deletion (#2018)
+        $event = $I->createEvents($this->region['id'], $this->ambassador['id']);
+        $eventWallPost = $I->createWallpost($this->ambassador['id']);
+        $I->haveInDatabase('fs_event_has_wallpost', ['event_id' => $event['id'], 'wallpost_id' => $eventWallPost['id']]);
+
+        $mailboxId = $I->grabFromDatabase('fs_bezirk', 'mailbox_id', ['id' => $this->region['id']]);
+
         // Delete the region
         $I->login($this->orga['email']);
         $I->sendDELETE("api/regions/{$this->region['id']}");
@@ -76,5 +84,21 @@ class GroupApiCest
 
         $I->dontSeeInDatabase('fs_wallpost', ['id' => $wallPost['id']]);
         $I->dontSeeInDatabase('fs_bezirk_has_wallpost', ['wallpost_id' => $wallPost['id']]);
+
+        $I->dontSeeInDatabase('fs_event', ['id' => $event['id']]);
+        $I->dontSeeInDatabase('fs_wallpost', ['id' => $eventWallPost['id']]);
+        $I->dontSeeInDatabase('fs_mailbox', ['id' => $mailboxId]);
+    }
+
+    public function emailsInTheMailboxBlockTheDeletion(ApiTester $I): void
+    {
+        $region = $I->createRegion(null, [], fillMailbox: true);
+
+        $I->login($this->orga['email']);
+        $I->sendDELETE("api/regions/{$region['id']}");
+        $I->seeResponseCodeIs(HttpCode::CONFLICT);
+        // own message so the admin tool shows the actual block reason
+        $I->canSeeResponseContains('mailbox');
+        $I->seeInDatabase('fs_bezirk', ['id' => $region['id']]);
     }
 }
