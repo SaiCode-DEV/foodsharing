@@ -115,6 +115,18 @@ watch: {
 },
 ```
 
+**Page state outlives the page.** You need to clear what belongs to a single page before loading it, and
+do it in `created()`, not in `mounted()`. The reason is, that client side navigations don't tear down the stores, so they  might start out holding the previous page's data. `mounted`
+runs bottom up, so by the time the parent would reset the state, its children would have already
+acted on the outdated state.
+
+```js
+created () {
+  // Pinia option stores have $reset(), plain observables need their own mutation
+  StoreData.mutations.resetStoreBoundState()
+},
+```
+
 **Markdown and server rendered html.** Links inside `Markdown` content or inside markup that
 comes from PHP are plain `<a>` elements and always reload the page. That is a known gap, not something to work around in the component.
 
