@@ -95,6 +95,14 @@ export const useRegionStore = defineStore('region', {
     },
   },
   actions: {
+    /**
+     * Drops what belongs to one particular region. The cached region lists and menus are
+     * not bound to the open page and stay.
+     */
+    resetRegionBoundState () {
+      this.selectedRegionChildren = []
+      this.memberList = []
+    },
     async fetchSelectedRegionChildren (regionId) {
       this.selectedRegionChildren = await listRegionChildren(regionId)
       return this.selectedRegionChildren

@@ -17,6 +17,14 @@ export const usePickupStore = defineStore('pickup', {
     getPickups: (state) => state.pickups,
   },
   actions: {
+    /**
+     * Drops what belongs to one particular store. `registered` and `options` are the
+     * user's own data and are not bound to a store, so they stay.
+     */
+    resetStoreBoundState () {
+      this.regularPickup = []
+      this.pickups = []
+    },
     async fetchRegistered (id) {
       try {
         this.registered = await listRegisteredPickups(id)

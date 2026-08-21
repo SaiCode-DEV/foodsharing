@@ -17,6 +17,14 @@ export const useResourceStore = defineStore('resource', {
     categoriesMap: (state) => Object.fromEntries(state.categories.map(category => [category.id, category.name])),
   },
   actions: {
+    /**
+     * Drops what belongs to one particular region. `categories` are global and stay.
+     */
+    resetRegionBoundState () {
+      this.resources = null
+      this.otherOwnResourceCount = null
+      this.permissions = null
+    },
     async fetchResourceCategories () {
       this.categories = await getResourceCategories()
     },

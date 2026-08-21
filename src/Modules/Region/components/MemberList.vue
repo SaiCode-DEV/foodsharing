@@ -693,6 +693,10 @@ export default {
         .indexOf(this.regionId) >= 0
     },
   },
+  created () {
+    // the member list of the region opened before must not show up while this one loads
+    this.regionStore.resetRegionBoundState()
+  },
   async mounted () {
     if (!this.isDeactivatedRegion) {
       this.regionStore.fetchMemberList(this.groupId)

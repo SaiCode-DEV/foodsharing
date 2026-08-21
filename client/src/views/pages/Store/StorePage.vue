@@ -227,8 +227,9 @@ export default {
   },
   created () {
     // has to run in created, not mounted: mounted runs bottom up, so the children would
-    // already have acted on the previous store's permissions
+    // already have acted on the state of the store opened before
     StoreData.mutations.resetStoreBoundState()
+    this.pickupStore.resetStoreBoundState()
   },
   async mounted () {
     // fetch all the required data in parallel

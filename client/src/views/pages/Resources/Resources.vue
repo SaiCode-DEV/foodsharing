@@ -228,6 +228,10 @@ function nextSorting () {
   sortings[sorting.value].callback()
 }
 
+// runs during setup, before the first render, so the resources of the region opened
+// before never reach the template
+resourceStore.resetRegionBoundState()
+
 onMounted(async () => {
   await Promise.all([
     resourceStore.fetchResourceCategories(),
