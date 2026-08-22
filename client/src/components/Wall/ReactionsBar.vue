@@ -38,15 +38,13 @@
         :target="`reactionButton-${emoji}-${uuid}`"
         triggers="hover"
       >
+        <!-- No whitespace inside the span: it would end up in front of the
+             separator that ::after appends, as "Name , Name". -->
         <span
           v-for="user in users"
           :key="user.id"
           class="reacting-user"
-        >
-          <router-link :to="$url('profile', user.id)">
-            {{ tooltipName(user) }}
-          </router-link>
-        </span>
+        ><router-link :to="$url('profile', user.id)">{{ tooltipName(user) }}</router-link></span>
       </b-tooltip>
     </b-button-group>
   </b-button-toolbar>
