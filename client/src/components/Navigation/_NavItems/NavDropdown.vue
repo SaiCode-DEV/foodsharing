@@ -89,6 +89,13 @@ export default {
       return this.$slots.actions
     },
   },
+  watch: {
+    // The entries are router links, so the page changes underneath the open
+    // dropdown without anything tearing it down.
+    $route () {
+      this.hide()
+    },
+  },
   methods: {
     hide () {
       this.$refs.dropdown.hide()
