@@ -6,6 +6,7 @@
       :use-custom-image-handler="true"
       class="ui-widget-content"
       :editor-toolbar="customToolbar"
+      :editor-options="editorOptions"
       @input="updateText"
       @image-added="handleImageAdded"
     />
@@ -34,6 +35,11 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['input'])
+
+// Quill clamps the link popup against `bounds`, which defaults to document.body.
+// Without this the popup escapes the editor whenever the cursor sits near its
+// left edge. The id lands on the element quill turns into its container.
+const editorOptions = { bounds: `#${props.id}` }
 
 function updateText (value) {
   if (base64ImageRegex.test(value)) {
