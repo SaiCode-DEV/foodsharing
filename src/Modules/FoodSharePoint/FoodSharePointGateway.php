@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\FoodSharePoint;
 
 use DateTime;
+use DateTimeZone;
 use Exception;
 use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\Modules\Bell\DTO\Bell;
@@ -326,7 +327,7 @@ class FoodSharePointGateway extends BaseGateway
             $foodSharePoint['desc'],
             new Address($foodSharePoint['street'], $foodSharePoint['postalCode'], $foodSharePoint['city']),
             new GeoLocation(floatval($foodSharePoint['lat']), floatval($foodSharePoint['lon'])),
-            DateTime::createFromFormat('Y-m-d', $foodSharePoint['add_date']),
+            DateTime::createFromFormat('!Y-m-d', $foodSharePoint['add_date'], new DateTimeZone('UTC')),
             new Profile($foodSharePoint['fs_id'], $foodSharePoint['fs_name'], $foodSharePoint['fs_avatar'], (bool)$foodSharePoint['fs_is_sleeping'])
         );
     }

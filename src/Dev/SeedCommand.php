@@ -5,6 +5,7 @@ namespace Foodsharing\Dev;
 use Carbon\Carbon;
 use Codeception\CustomCommandInterface;
 use DateInterval;
+use DateTimeZone;
 use Foodsharing\Modules\Core\DBConstants\Achievement\AchievementIDs;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Configuration\ConfigurationCategory;
@@ -842,7 +843,7 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
         }
 
         // Last calculation of the user statistics: this needs to be far in the past to force full recalculation of the profile statistics after seeding
-        $I->haveInDatabase('configuration', ['key' => ConfigurationKey::STATISTICS_FOODSAVER_LAST_UPDATE->value, 'value' => Carbon::createFromFormat('Y-m-d', '1970-01-01')->toISOString()]);
+        $I->haveInDatabase('configuration', ['key' => ConfigurationKey::STATISTICS_FOODSAVER_LAST_UPDATE->value, 'value' => Carbon::createFromFormat('!Y-m-d', '1970-01-01', new DateTimeZone('UTC'))->toISOString()]);
     }
 
     /**

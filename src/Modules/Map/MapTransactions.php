@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\Map;
 
 use Carbon\Carbon;
+use DateTimeZone;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Achievement\AchievementGateway;
 use Foodsharing\Modules\Categories\StoreCategoryType;
@@ -74,8 +75,8 @@ class MapTransactions
             }
         }
 
-        $mapData->cooperationStart = $store['begin'] ? Carbon::createFromFormat('Y-m-d', $store['begin']) : null;
-        $mapData->statusDate = $store['status_date'] ? Carbon::createFromFormat('Y-m-d', $store['status_date']) : null;
+        $mapData->cooperationStart = $store['begin'] ? Carbon::createFromFormat('!Y-m-d', $store['begin'], new DateTimeZone('UTC')) : null;
+        $mapData->statusDate = $store['status_date'] ? Carbon::createFromFormat('!Y-m-d', $store['status_date'], new DateTimeZone('UTC')) : null;
         $mapData->publicInformation = $store['public_info'];
         $mapData->publicPickupTime = PublicTimes::tryFrom(intval($store['public_time'])) ?? PublicTimes::NOT_SET;
         $mapData->teamSearchStatus = TeamSearchStatus::tryFrom($store['team_status']) ?? TeamSearchStatus::CLOSED;

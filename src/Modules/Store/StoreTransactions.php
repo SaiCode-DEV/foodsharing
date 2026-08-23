@@ -4,6 +4,7 @@ namespace Foodsharing\Modules\Store;
 
 use Carbon\Carbon;
 use DateTime;
+use DateTimeZone;
 use Exception;
 use Foodsharing\Lib\Db\Mem;
 use Foodsharing\Lib\Session;
@@ -477,7 +478,7 @@ class StoreTransactions
         }
 
         if (!empty($storeChange->cooperationStart)) {
-            $cooperationStart = DateTime::createFromFormat('Y-m-d', $storeChange->cooperationStart);
+            $cooperationStart = DateTime::createFromFormat('!Y-m-d', $storeChange->cooperationStart, new DateTimeZone('UTC'));
             if (!$cooperationStart) {
                 throw new StoreTransactionException(StoreTransactionException::INVALID_STORE_COOPERATION_START);
             }

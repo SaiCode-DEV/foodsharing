@@ -7,7 +7,6 @@ namespace Tests\Unit;
 use Carbon\Carbon;
 use Codeception\Test\Unit;
 use DateTime;
-use DateTimeInterface;
 use Exception;
 use Faker\Factory;
 use Faker\Generator;
@@ -211,13 +210,15 @@ class StoreGatewayTest extends Unit
     public function testStoreUpdateAtNullShouldBeReplacedByCreatedAt(): void
     {
         $region = $this->tester->createRegion();
-        $expectedCreationDateTime = new DateTime((new DateTime())->format(DateTimeInterface::ATOM));
-        $this->tester->createStore($region['id'], null, null, ['added' => $expectedCreationDateTime, 'status_date' => null]);
+        // `added` is a date column, so only the day is stored and read back
+        $creationDay = new DateTime();
+        $this->tester->createStore($region['id'], null, null, ['added' => $creationDay, 'status_date' => null]);
 
         $listOfStores = $this->gateway->listStoresInRegion($region['id'], true);
         $this->assertEquals(1, count($listOfStores));
 
-        $this->assertEquals($listOfStores[0]->updatedAt, $expectedCreationDateTime);
+        $this->assertEquals($creationDay->format('Y-m-d'), $listOfStores[0]->updatedAt->format('Y-m-d'));
+        $this->assertEquals($listOfStores[0]->createdAt, $listOfStores[0]->updatedAt);
     }
 
     public function testBeginSetToNullForCompatibility()

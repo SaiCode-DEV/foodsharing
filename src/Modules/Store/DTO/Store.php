@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\Store\DTO;
 
 use DateTime;
+use DateTimeZone;
 use Foodsharing\Modules\Categories\StoreCategoryType;
 use Foodsharing\Modules\Core\DBConstants\Store\ConvinceStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
@@ -255,7 +256,7 @@ class Store
 
         $obj->cooperationStatus = CooperationStatus::tryFrom($queryResult['cooperationStatus']);
         if ($queryResult['cooperationStart'] && $queryResult['cooperationStart'] != '0000-00-00') {
-            $cooperationStart = DateTime::createFromFormat('Y-m-d', $queryResult['cooperationStart']);
+            $cooperationStart = DateTime::createFromFormat('!Y-m-d', $queryResult['cooperationStart'], new DateTimeZone('UTC'));
             if ($cooperationStart) {
                 $obj->cooperationStart = $cooperationStart;
             }
@@ -282,13 +283,13 @@ class Store
         $obj->isPhoneRequired = boolval($queryResult['phone_requirement']);
         $obj->isApplyTextRequired = boolval($queryResult['apply_text_requirement']);
 
-        $createdAt = DateTime::createFromFormat('Y-m-d', $queryResult['createdAt']);
+        $createdAt = DateTime::createFromFormat('!Y-m-d', $queryResult['createdAt'], new DateTimeZone('UTC'));
         if ($createdAt) {
             $obj->createdAt = $createdAt;
         }
 
         if ($queryResult['updatedAt']) {
-            $obj->updatedAt = DateTime::createFromFormat('Y-m-d', $queryResult['updatedAt']);
+            $obj->updatedAt = DateTime::createFromFormat('!Y-m-d', $queryResult['updatedAt'], new DateTimeZone('UTC'));
         } else {
             $obj->updatedAt = $obj->createdAt;
         }
