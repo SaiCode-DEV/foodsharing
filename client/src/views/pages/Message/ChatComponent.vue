@@ -657,7 +657,13 @@ export default {
       this.$refs.participantsDialog?.open(this.conversation.id)
     },
     convertRooms (conversations) {
+      // A conversation without any message is in the store because it was opened
+      // directly, e.g. through "message the standby team" of a store. It has nothing
+      // to show in the list and would sit there as an empty entry until the next full
+      // page load. The placeholder for a new conversation is appended below and is
+      // not affected by this.
       const convs = Object.values(conversations)
+        .filter(conv => conv.lastMessage || String(conv.id) === String(this.roomId))
 
       const rooms = []
       for (const conv of convs) {
