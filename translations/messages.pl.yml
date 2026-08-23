@@ -1302,6 +1302,8 @@ terminology:
   attention: Uwaga
   newsletter: Newsletter
   timezone: Strefa czasowa
+  address: adres
+  postalCode: kod pocztowy
 resource_mosaic:
   privacy_notice:
     ok: Zgadzam się
@@ -5397,11 +5399,11 @@ donation_page:
     question_1: 'Co się dzieje z moją darowizną?'
     question_8: 'Czy mogę też przekazywać przedmioty lub usługi w ramach darowizny?'
     answer_4: "**Dołącz i przekaż darowiznę teraz!** Albo jednorazowo przez nasz [formularz
-      darowizn](donation)\n albo regularnie w [kręgu przyjaźni foodsharingu](donation/friendship_circle)
+      darowizn](donation), \nalbo regularnie w [kręgu przyjaźni foodsharingu](donation/friendship_circle)
       –każde wsparcie\npomaga w ratowaniu żywności. Możesz wygodnie przekazać darowiznę
       poprzez zlecenie stałe, kartę kredytową, PayPal lub przelew.\n\nJeśli wolisz
       wykonać przelew bezpośrednio, tu znajdziesz nasz numer konta dla darowizn:\n\
-      \n**foodsharing e.V.**  \nIBAN: DE66 4306 0967 4063 8156 00  \nGLS Gemeinschaftsbank\n"
+      \n**foodsharing e.V.**\nIBAN: DE66 4306 0967 4063 8156 00\nGLS Gemeinschaftsbank\n"
     question_5: 'Czy mogę też przekazać darowiznę ze Szwajcarii, Austrii albo z innego
       kraju?'
     answer_8: 'To też jest możliwe! Darowizny rzeczowe (jak na przykład rower towarowy
