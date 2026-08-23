@@ -178,7 +178,9 @@ class MailboxGateway extends BaseGateway
             [':message_id' => $emailId]
         );
 
-        $data['body'] = $this->sanitizer->purifyHtml($data['body'] ?? '');
+        // Only body_html is HTML. The body is plain text and gets escaped when it is
+        // rendered, so purifying it here would only drop text between angle brackets.
+        $data['body'] = $data['body'] ?? '';
         $data['body_html'] = $this->sanitizer->purifyHtml($data['body_html'] ?? '');
 
         return $this->parseEmail($data);
@@ -240,7 +242,7 @@ class MailboxGateway extends BaseGateway
                 'sender' => $from,
                 'to' => $to,
                 'subject' => strip_tags($email->subject),
-                'body' => strip_tags((string)$email->body),
+                'body' => (string)$email->body,
                 'body_html' => '',
                 'time' => $email->time->format('Y-m-d H:i:s'),
                 'attach' => json_encode($attachments),

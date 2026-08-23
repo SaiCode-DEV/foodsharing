@@ -357,13 +357,9 @@ export default {
             name: mailFromAndAddress,
             date: this.displayedMailDate,
           })
-          // decode HTML entities in the mail body (e.g. &gt; to >)
-          // The backend re-encodes the mail body to prevent XSS
-          const decoder = document.createElement('textarea')
-          decoder.innerHTML = this.email.body
-          const decodedContent = decoder.value
-
-          let replacedContent = decodedContent.replace(/\r\n/g, '\n').replace(/\r/g, '\n')
+          // The body is plain text, so it goes into the quote as it is. Decoding it as
+          // HTML would drop everything between angle brackets, mail addresses included.
+          let replacedContent = (this.email.body || '').replace(/\r\n/g, '\n').replace(/\r/g, '\n')
           replacedContent = replacedContent.split('\n').map(line => '> ' + line).join('\n')
 
           this.mailBody = '\n\n ---\n\n' + mailFromAndDate + ': \n\n' + replacedContent

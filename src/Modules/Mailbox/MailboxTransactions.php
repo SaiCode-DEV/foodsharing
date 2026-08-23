@@ -153,9 +153,11 @@ class MailboxTransactions
         $mail->setSubject($email->subject);
 
         $message = str_replace(['<br>', '<br/>', '<br />', '<p>', '</p>', '</p>'], "\r\n", $email->body);
-        $message = strip_tags($message);
 
-        $html = nl2br($message);
+        // The body is plain text from a textarea. Escaping instead of stripping keeps
+        // characters like <, > and & in the mail that the recipient's client would
+        // otherwise swallow as markup.
+        $html = nl2br(htmlspecialchars($message, ENT_QUOTES, 'UTF-8'));
         $mail->setHTMLBody($html);
 
         $plainBody = $this->sanitizer->htmlToPlain($html);

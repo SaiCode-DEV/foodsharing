@@ -73,6 +73,34 @@ class MailboxApiCest
         $I->expectNumMails(1, 10);
     }
 
+    /**
+     * Regression test for #2469: the body is plain text, so angle brackets have to
+     * survive both the mail that is sent out and the copy in the sent folder.
+     */
+    public function keepsAngleBracketsInTheBody(ApiTester $I): void
+    {
+        $I->deleteAllMails();
+        $body = 'Schreib an <foo@bar.de> und dann geht es hier weiter';
+        $email = $this->createRandomEmail(0, false, false);
+        $email['body'] = $body;
+
+        $I->login($this->ambassador['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPost("api/mailboxes/{$this->ambassadorMailboxId}/mails", $email);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->expectNumMails(1, 10);
+
+        $sentMail = $I->getMails()[0];
+        $I->assertStringContainsString('&lt;foo@bar.de&gt;', $sentMail->html);
+        $I->assertStringContainsString('<foo@bar.de>', $sentMail->text);
+
+        $I->seeInDatabase('fs_mailbox_message', [
+            'mailbox_id' => $this->ambassadorMailboxId,
+            'folder' => MailboxFolder::FOLDER_SENT,
+            'body' => $body,
+        ]);
+    }
+
     public function canNotSendEmailWithNonExistentAttachment(ApiTester $I): void
     {
         // use one random UUID that was not uploaded before

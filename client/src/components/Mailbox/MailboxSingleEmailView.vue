@@ -171,7 +171,7 @@ export default {
       if (this.hasHtmlBody && this.showHtmlBody) {
         return sanitizeHtml(this.email.bodyHtml)
       } else {
-        return this.addLineBreaks(this.addLinks(this.email.body))
+        return this.addLineBreaks(this.addLinks(this.escapeHtml(this.email.body)))
       }
     },
   },
@@ -223,6 +223,14 @@ export default {
     },
     formatFileSize (bytes) {
       return formatFileSize(bytes)
+    },
+    // The body is plain text and goes into v-html, so everything that looks like
+    // markup has to be escaped before the links and line breaks are added.
+    escapeHtml (text) {
+      if (!text) return ''
+      const el = document.createElement('div')
+      el.textContent = text
+      return el.innerHTML
     },
     addLineBreaks (text) {
       return text ? text.replace(/\\n|\n/g, '<br>') : ''
