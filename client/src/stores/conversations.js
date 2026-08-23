@@ -15,6 +15,13 @@ export default new Vue({
   data: {
     hasMoreConversations: true, // if all conversations have been loaded
     conversations: {},
+    // How many conversations of the list have been fetched so far. Counted here
+    // instead of from `conversations`, which also holds conversations that were
+    // opened by id and are not part of the list yet.
+    loadedFromList: 0,
+    // The messages page and the header both ask for the list. Without this they
+    // fetch the same page twice and the offset moves on by twice as much.
+    conversationRequest: null,
     // pending preface texts for conversations opened programmatically
     pendingPreface: {},
     failureMessageId: -1, // unique message id for failed message sending. Always negative
@@ -34,10 +41,22 @@ export default new Vue({
      * When there are already conversations loaded, don't fetch them again.
      */
     async initConversations (limit = REQUEST_LIMIT_CONVERSATIONS) {
-      const conversationCount = Object.values(this.conversations).length
-      if (conversationCount === 0) {
-        await this.loadConversations(limit)
+      if (this.loadedFromList === 0) {
+        await this.loadNextConversations(limit)
       }
+    },
+
+    /**
+     * Load the next page, unless one is already on its way. Callers that arrive
+     * while a request is running wait for it instead of starting a second one.
+     */
+    async loadNextConversations (limit = REQUEST_LIMIT_CONVERSATIONS) {
+      if (!this.conversationRequest) {
+        this.conversationRequest = this.loadConversations(limit)
+          .finally(() => { this.conversationRequest = null })
+      }
+
+      return this.conversationRequest
     },
 
     /**
@@ -47,9 +66,9 @@ export default new Vue({
      * @param {int} limit Limit the amount of conversations per call
      */
     async loadConversations (limit = REQUEST_LIMIT_CONVERSATIONS) {
-      const offset = Object.values(this.conversations).length
-      const response = await api.getConversationList(limit, offset)
+      const response = await api.getConversationList(limit, this.loadedFromList)
       ProfileStore.updateFrom(response.profiles)
+      this.loadedFromList += response.conversations.length
       this.hasMoreConversations = response.conversations.length === limit
       for (const conversation of response.conversations) {
         this.assignConversationToStore(conversation)

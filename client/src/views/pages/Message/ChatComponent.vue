@@ -711,7 +711,7 @@ export default {
       return rooms
     },
     fetchMoreRooms () {
-      conversationStore.loadConversations()
+      conversationStore.loadNextConversations()
     },
     /**
      * Trigger the vue-advanced-chat reply/quote UI for the given preface.
