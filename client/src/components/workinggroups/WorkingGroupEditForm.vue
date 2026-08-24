@@ -25,7 +25,6 @@
       >
         <MarkdownInput
           ref="md-input"
-          variant="outline-primary"
           :placeholder="$t('group.edit.description_placeholder')"
           :rows="2"
           :conceal-toolbar="true"
@@ -88,7 +87,6 @@
         <MarkdownInput
           id="input-application-prompt"
           :value.sync="applicationPrompt"
-          variant="outline-primary"
           :rows="3"
           :conceal-toolbar="true"
           :region-id="group.id"
