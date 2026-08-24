@@ -2,7 +2,7 @@
   <div id="header">
     <span v-if="conversationId===null">{{ $t('chat.new_message') }}</span>
     <component
-      :is="storeId ? 'a' : 'span'"
+      :is="storeId ? 'router-link' : 'span'"
       class="mr-2"
       :to="storeId ? $url('store', storeId) : ''"
     >
