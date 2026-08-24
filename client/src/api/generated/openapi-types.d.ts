@@ -12,7 +12,7 @@ export interface paths {
             cookie?: never;
         };
         /** Get all achievements that belong to a region */
-        get: operations["get_foodsharing_restapi_achievementrest_getachievementsfromregion"];
+        get: operations["getAchievementsFromRegion"];
         put?: never;
         post?: never;
         delete?: never;
@@ -31,7 +31,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Add a new achievement */
-        post: operations["post_foodsharing_restapi_achievementrest_addachievement"];
+        post: operations["addAchievement"];
         delete?: never;
         options?: never;
         head?: never;
@@ -49,11 +49,11 @@ export interface paths {
         put?: never;
         post?: never;
         /** Delete an existing achievement */
-        delete: operations["delete_foodsharing_restapi_achievementrest_deleteachievement"];
+        delete: operations["deleteAchievement"];
         options?: never;
         head?: never;
         /** Edit an existing achievement */
-        patch: operations["patch_foodsharing_restapi_achievementrest_updateachievement"];
+        patch: operations["updateAchievement"];
         trace?: never;
     };
     "/api/achievements/{achievementId}/users": {
@@ -64,7 +64,7 @@ export interface paths {
             cookie?: never;
         };
         /** Get details about all users that have a specific achievement */
-        get: operations["get_foodsharing_restapi_achievementrest_getawardedusersforachievement"];
+        get: operations["getAwardedUsersForAchievement"];
         put?: never;
         post?: never;
         delete?: never;
@@ -83,7 +83,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Award an achievement to a user */
-        post: operations["post_foodsharing_restapi_achievementrest_awardachievement"];
+        post: operations["awardAchievement"];
         delete?: never;
         options?: never;
         head?: never;
@@ -101,11 +101,11 @@ export interface paths {
         put?: never;
         post?: never;
         /** Revoke an achievement from a user */
-        delete: operations["delete_foodsharing_restapi_achievementrest_revokeachievement"];
+        delete: operations["revokeAchievement"];
         options?: never;
         head?: never;
         /** Edit an awarded achievement of a user */
-        patch: operations["patch_foodsharing_restapi_achievementrest_editawardedachievement"];
+        patch: operations["editAwardedAchievement"];
         trace?: never;
     };
     "/api/activities/filters": {
@@ -116,14 +116,14 @@ export interface paths {
             cookie?: never;
         };
         /** Returns the filters for all dashboard activities for the current user */
-        get: operations["get_foodsharing_restapi_activityrest_getactivityfilters"];
+        get: operations["getActivityFilters"];
         put?: never;
         post?: never;
         delete?: never;
         options?: never;
         head?: never;
         /** Sets which dashboard activities should be deactivated for the current user. */
-        patch: operations["patch_foodsharing_restapi_activityrest_setactivityfilters"];
+        patch: operations["setActivityFilters"];
         trace?: never;
     };
     "/api/activities/updates": {
@@ -134,7 +134,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns the updates to display on the dashboard */
-        get: operations["get_foodsharing_restapi_activityrest_getactivityupdates"];
+        get: operations["getActivityUpdates"];
         put?: never;
         post?: never;
         delete?: never;
@@ -154,11 +154,11 @@ export interface paths {
         put?: never;
         post?: never;
         /** Declines an application for a work group */
-        delete: operations["delete_foodsharing_restapi_applicationrest_declineapplication"];
+        delete: operations["declineApplication"];
         options?: never;
         head?: never;
         /** Accepts an application for a work group */
-        patch: operations["patch_foodsharing_restapi_applicationrest_acceptapplication"];
+        patch: operations["acceptApplication"];
         trace?: never;
     };
     "/api/groups/{groupId}/applications": {
@@ -169,10 +169,10 @@ export interface paths {
             cookie?: never;
         };
         /** Returns all pending applications for a working group */
-        get: operations["get_foodsharing_restapi_applicationrest_listapplications"];
+        get: operations["listApplications"];
         put?: never;
         /** Requests to join a group. */
-        post: operations["post_foodsharing_restapi_workinggrouprest_sendgrouprequest"];
+        post: operations["sendGroupRequest"];
         delete?: never;
         options?: never;
         head?: never;
@@ -189,7 +189,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Gives a banana to a user */
-        post: operations["post_foodsharing_restapi_bananarest_addbanana"];
+        post: operations["addBanana"];
         delete?: never;
         options?: never;
         head?: never;
@@ -206,7 +206,7 @@ export interface paths {
         get?: never;
         put?: never;
         post?: never;
-        delete: operations["delete_foodsharing_restapi_bananarest_deletebanana"];
+        delete: operations["deleteBanana"];
         options?: never;
         head?: never;
         patch?: never;
@@ -220,7 +220,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns basic metadata about the bananas of a user */
-        get: operations["get_foodsharing_restapi_bananarest_getbananametadata"];
+        get: operations["getBananaMetadata"];
         put?: never;
         post?: never;
         delete?: never;
@@ -237,7 +237,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns the bananas given to a user */
-        get: operations["get_foodsharing_restapi_bananarest_getreceivedbananas"];
+        get: operations["getReceivedBananas"];
         put?: never;
         post?: never;
         delete?: never;
@@ -254,7 +254,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns the bananas given by a user */
-        get: operations["get_foodsharing_restapi_bananarest_getsentbananas"];
+        get: operations["getSentBananas"];
         put?: never;
         post?: never;
         delete?: never;
@@ -271,7 +271,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns all current baskets of the user */
-        get: operations["get_foodsharing_restapi_basketrest_listbaskets"];
+        get: operations["listBaskets"];
         put?: never;
         post?: never;
         delete?: never;
@@ -291,7 +291,7 @@ export interface paths {
          * Returns a list of baskets close to a given location.
          * @description If no valid location is given, the user's home location is used. If the user has no home location, lat and lon paramters are required.<br>Baskets created by the current user are excluded.
          */
-        get: operations["get_foodsharing_restapi_basketrest_listnearbybaskets"];
+        get: operations["listNearbyBaskets"];
         put?: never;
         post?: never;
         delete?: never;
@@ -308,15 +308,15 @@ export interface paths {
             cookie?: never;
         };
         /** Returns details of a basket */
-        get: operations["get_foodsharing_restapi_basketrest_getbasket"];
+        get: operations["getBasket"];
         put?: never;
         post?: never;
         /** Removes a new basket */
-        delete: operations["delete_foodsharing_restapi_basketrest_removebasket"];
+        delete: operations["removeBasket"];
         options?: never;
         head?: never;
         /** Updates an existing basket */
-        patch: operations["patch_foodsharing_restapi_basketrest_editbasket"];
+        patch: operations["editBasket"];
         trace?: never;
     };
     "/api/baskets": {
@@ -329,7 +329,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Adds a new basket */
-        post: operations["post_foodsharing_restapi_basketrest_addbasket"];
+        post: operations["addBasket"];
         delete?: never;
         options?: never;
         head?: never;
@@ -346,9 +346,9 @@ export interface paths {
         get?: never;
         put?: never;
         /** Requests a basket */
-        post: operations["post_foodsharing_restapi_basketrest_requestbasket"];
+        post: operations["requestBasket"];
         /** Withdraws a basket requests */
-        delete: operations["delete_foodsharing_restapi_basketrest_withdrawbasketrequest"];
+        delete: operations["withdrawBasketRequest"];
         options?: never;
         head?: never;
         patch?: never;
@@ -371,7 +371,7 @@ export interface paths {
          * Updates the status of a basket request
          * @description The creator of a basket can set the request status for their basket (e.g. mark as picked up, not picked up, denied etc.).
          */
-        patch: operations["patch_foodsharing_restapi_basketrest_updaterequeststatus"];
+        patch: operations["updateRequestStatus"];
         trace?: never;
     };
     "/api/bells": {
@@ -382,11 +382,11 @@ export interface paths {
             cookie?: never;
         };
         /** Returns all bells for the current user */
-        get: operations["get_foodsharing_restapi_bellrest_listbells"];
+        get: operations["listBells"];
         put?: never;
         post?: never;
         /** Deletes bells for the current user */
-        delete: operations["delete_foodsharing_restapi_bellrest_deletebells"];
+        delete: operations["deleteBells"];
         options?: never;
         head?: never;
         patch?: never;
@@ -406,7 +406,7 @@ export interface paths {
         options?: never;
         head?: never;
         /** Sets the read status of one or more bells as unread/read */
-        patch: operations["patch_foodsharing_restapi_bellrest_setbellreadstatus"];
+        patch: operations["setBellReadStatus"];
         trace?: never;
     };
     "/api/blog": {
@@ -417,13 +417,13 @@ export interface paths {
             cookie?: never;
         };
         /** Returns blog posts. */
-        get: operations["get_foodsharing_restapi_blogpostrest_getblogposts"];
+        get: operations["getBlogposts"];
         put?: never;
         /**
          * Adds a new blog post
          * @description The post will be publicly visible immediately.
          */
-        post: operations["post_foodsharing_restapi_blogpostrest_addblogpost"];
+        post: operations["addBlogpost"];
         delete?: never;
         options?: never;
         head?: never;
@@ -438,7 +438,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns a specific blog post. */
-        get: operations["get_foodsharing_restapi_blogpostrest_getblogpost"];
+        get: operations["getBlogpost"];
         put?: never;
         post?: never;
         delete?: never;
@@ -458,11 +458,11 @@ export interface paths {
         put?: never;
         post?: never;
         /** Removes a blogpost. */
-        delete: operations["delete_foodsharing_restapi_blogpostrest_removeblogpost"];
+        delete: operations["removeBlogpost"];
         options?: never;
         head?: never;
         /** Edit a specific blog post. */
-        patch: operations["patch_foodsharing_restapi_blogpostrest_editblogpost"];
+        patch: operations["editBlogPost"];
         trace?: never;
     };
     "/api/blog/{blogId}/published": {
@@ -474,7 +474,7 @@ export interface paths {
         };
         get?: never;
         /** Sets a specific blog posts published status. */
-        put: operations["put_foodsharing_restapi_blogpostrest_setblogpostpublished"];
+        put: operations["setBlogpostPublished"];
         post?: never;
         delete?: never;
         options?: never;
@@ -492,9 +492,9 @@ export interface paths {
         get?: never;
         put?: never;
         /** Sends a buddy request to a user. */
-        post: operations["post_foodsharing_restapi_buddyrest_sendrequest"];
+        post: operations["sendRequest"];
         /** Removes a buddy request to a user. */
-        delete: operations["delete_foodsharing_restapi_buddyrest_removerequest"];
+        delete: operations["removeRequest"];
         options?: never;
         head?: never;
         patch?: never;
@@ -508,7 +508,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns a list of all buddies with id, name, and photo. */
-        get: operations["get_foodsharing_restapi_buddyrest_listbuddies"];
+        get: operations["listBuddies"];
         put?: never;
         post?: never;
         delete?: never;
@@ -525,12 +525,12 @@ export interface paths {
             cookie?: never;
         };
         /** Returns the user's current access token */
-        get: operations["get_foodsharing_restapi_calendarrest_gettoken"];
+        get: operations["getToken"];
         /** Creates a new random access token for the user, replacing the old one */
-        put: operations["put_foodsharing_restapi_calendarrest_createtoken"];
+        put: operations["createToken"];
         post?: never;
         /** Removes the user's access token */
-        delete: operations["delete_foodsharing_restapi_calendarrest_deletetoken"];
+        delete: operations["deleteToken"];
         options?: never;
         head?: never;
         patch?: never;
@@ -544,7 +544,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns the user's foodsharing calendar as iCal */
-        get: operations["get_foodsharing_restapi_calendarrest_listappointments"];
+        get: operations["listAppointments"];
         put?: never;
         post?: never;
         delete?: never;
@@ -561,10 +561,10 @@ export interface paths {
             cookie?: never;
         };
         /** Returns all existing categories of the given type */
-        get: operations["get_foodsharing_restapi_categoriesrest_getcategories"];
+        get: operations["getCategories"];
         put?: never;
         /** Adds a category */
-        post: operations["post_foodsharing_restapi_categoriesrest_addcategory"];
+        post: operations["addCategory"];
         delete?: never;
         options?: never;
         head?: never;
@@ -582,11 +582,11 @@ export interface paths {
         put?: never;
         post?: never;
         /** Deletes a category */
-        delete: operations["delete_foodsharing_restapi_categoriesrest_deletecategory"];
+        delete: operations["deleteCategory"];
         options?: never;
         head?: never;
         /** Changes a category */
-        patch: operations["patch_foodsharing_restapi_categoriesrest_updatecategory"];
+        patch: operations["updateCategory"];
         trace?: never;
     };
     "/api/categories/{type}/{sourceId}/merges/{targetId}": {
@@ -599,7 +599,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Merge two categories */
-        post: operations["post_foodsharing_restapi_categoriesrest_mergecategories"];
+        post: operations["mergeCategories"];
         delete?: never;
         options?: never;
         head?: never;
@@ -614,10 +614,10 @@ export interface paths {
             cookie?: never;
         };
         /** Returns a list of all content entries. */
-        get: operations["get_foodsharing_restapi_contentrest_getcontentlist"];
+        get: operations["getContentList"];
         put?: never;
         /** Adds a new content entry */
-        post: operations["post_foodsharing_restapi_contentrest_addcontent"];
+        post: operations["addContent"];
         delete?: never;
         options?: never;
         head?: never;
@@ -632,14 +632,14 @@ export interface paths {
             cookie?: never;
         };
         /** Returns the content entry for a specific id. */
-        get: operations["get_foodsharing_restapi_contentrest_getcontent"];
+        get: operations["getContent"];
         put?: never;
         post?: never;
-        delete: operations["delete_foodsharing_restapi_contentrest_deletecontent"];
+        delete: operations["deleteContent"];
         options?: never;
         head?: never;
         /** Updates the content entry with the specific id. */
-        patch: operations["patch_foodsharing_restapi_contentrest_editcontent"];
+        patch: operations["editContent"];
         trace?: never;
     };
     "/api/donation-data": {
@@ -650,14 +650,14 @@ export interface paths {
             cookie?: never;
         };
         /** Returns cached information of foodsharing donation-goal via third service provider twingle. */
-        get: operations["get_foodsharing_restapi_donationrest_getinformation"];
+        get: operations["getInformation"];
         put?: never;
         post?: never;
         delete?: never;
         options?: never;
         head?: never;
         /** Updates cached information of foodsharing donation-goal via third service provider twingle. */
-        patch: operations["patch_foodsharing_restapi_donationrest_patchinformation"];
+        patch: operations["patchInformation"];
         trace?: never;
     };
     "/api/donation-projects": {
@@ -668,7 +668,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns information about donation-projects via third service provider twingle. */
-        get: operations["get_foodsharing_restapi_donationrest_getprojects"];
+        get: operations["getProjects"];
         put?: never;
         post?: never;
         delete?: never;
@@ -685,10 +685,10 @@ export interface paths {
             cookie?: never;
         };
         /** List all email blocklist entries */
-        get: operations["get_foodsharing_restapi_emailblocklistadminrest_listblocklistentries"];
+        get: operations["listBlocklistEntries"];
         put?: never;
         /** Create a new email blocklist entry */
-        post: operations["post_foodsharing_restapi_emailblocklistadminrest_createblocklistentry"];
+        post: operations["createBlocklistEntry"];
         delete?: never;
         options?: never;
         head?: never;
@@ -703,15 +703,15 @@ export interface paths {
             cookie?: never;
         };
         /** Get a single email blocklist entry */
-        get: operations["get_foodsharing_restapi_emailblocklistadminrest_getblocklistentry"];
+        get: operations["getBlocklistEntry"];
         put?: never;
         post?: never;
         /** Delete an email blocklist entry */
-        delete: operations["delete_foodsharing_restapi_emailblocklistadminrest_deleteblocklistentry"];
+        delete: operations["deleteBlocklistEntry"];
         options?: never;
         head?: never;
         /** Update an existing email blocklist entry */
-        patch: operations["patch_foodsharing_restapi_emailblocklistadminrest_updateblocklistentry"];
+        patch: operations["updateBlocklistEntry"];
         trace?: never;
     };
     "/api/email-verification": {
@@ -723,7 +723,7 @@ export interface paths {
         };
         get?: never;
         /** Sends a new verification email to a specified address if an account with that address exists and is not yet verified */
-        put: operations["put_foodsharing_restapi_emailverificationrest_requestverificationemail"];
+        put: operations["requestVerificationEmail"];
         post?: never;
         delete?: never;
         options?: never;
@@ -740,7 +740,7 @@ export interface paths {
         };
         get?: never;
         /** Updates the user's response to an invitation. */
-        put: operations["put_foodsharing_restapi_eventrest_setresponse"];
+        put: operations["setResponse"];
         post?: never;
         delete?: never;
         options?: never;
@@ -756,7 +756,7 @@ export interface paths {
             cookie?: never;
         };
         /** List events for region and groups. */
-        get: operations["get_foodsharing_restapi_eventrest_listevents"];
+        get: operations["listEvents"];
         put?: never;
         post?: never;
         delete?: never;
@@ -775,7 +775,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Add a new event. */
-        post: operations["post_foodsharing_restapi_eventrest_addevents"];
+        post: operations["addEvents"];
         delete?: never;
         options?: never;
         head?: never;
@@ -796,7 +796,7 @@ export interface paths {
         options?: never;
         head?: never;
         /** Edit an event. */
-        patch: operations["patch_foodsharing_restapi_eventrest_editevents"];
+        patch: operations["editEvents"];
         trace?: never;
     };
     "/api/feature-toggles": {
@@ -807,7 +807,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns all feature toggles */
-        get: operations["get_foodsharing_restapi_featuretogglerest_getallfeaturetoggles"];
+        get: operations["getAllFeatureToggles"];
         put?: never;
         post?: never;
         delete?: never;
@@ -824,14 +824,14 @@ export interface paths {
             cookie?: never;
         };
         /** Checks if a feature toggle is active or not */
-        get: operations["get_foodsharing_restapi_featuretogglerest_isfeaturetoggleactive"];
+        get: operations["isFeatureToggleActive"];
         put?: never;
         post?: never;
         delete?: never;
         options?: never;
         head?: never;
         /** Changes a feature toggle state */
-        patch: operations["patch_foodsharing_restapi_featuretogglerest_togglefeaturetoggle"];
+        patch: operations["toggleFeatureToggle"];
         trace?: never;
     };
     "/api/food-share-points/{foodSharePointId}": {
@@ -842,15 +842,15 @@ export interface paths {
             cookie?: never;
         };
         /** Returns details of the food share point with the given ID. */
-        get: operations["get_foodsharing_restapi_foodsharepointrest_getfoodsharepoint"];
+        get: operations["getFoodSharePointDetails"];
         put?: never;
         post?: never;
         /** Delete an existing food share point. */
-        delete: operations["delete_foodsharing_restapi_foodsharepointrest_removefoodsharepoint"];
+        delete: operations["removeFoodSharePoint"];
         options?: never;
         head?: never;
         /** Edit an existing food share point. */
-        patch: operations["patch_foodsharing_restapi_foodsharepointrest_editfoodsharepoint"];
+        patch: operations["editFoodSharePoint"];
         trace?: never;
     };
     "/api/regions/{regionId}/food-share-points": {
@@ -861,10 +861,10 @@ export interface paths {
             cookie?: never;
         };
         /** Returns a list of all food share points in a region and all its subregions. */
-        get: operations["get_foodsharing_restapi_foodsharepointrest_listfoodsharepoints"];
+        get: operations["listFoodSharePoints"];
         put?: never;
         /** Adds or suggests a new food share point. */
-        post: operations["post_foodsharing_restapi_foodsharepointrest_addfoodsharepoint"];
+        post: operations["addFoodSharePoint"];
         delete?: never;
         options?: never;
         head?: never;
@@ -879,7 +879,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns the permissions the logged in user has for the given food share point */
-        get: operations["get_foodsharing_restapi_foodsharepointrest_foodsharepointpermissions"];
+        get: operations["foodSharePointPermissions"];
         put?: never;
         post?: never;
         delete?: never;
@@ -898,9 +898,9 @@ export interface paths {
         get?: never;
         put?: never;
         /** Follow a food share point */
-        post: operations["post_foodsharing_restapi_foodsharepointrest_followfoodsharepoint"];
+        post: operations["followFoodSharePoint"];
         /** Unfollow a food share point */
-        delete: operations["delete_foodsharing_restapi_foodsharepointrest_unfollowfoodsharepoint"];
+        delete: operations["unfollowFoodSharePoint"];
         options?: never;
         head?: never;
         patch?: never;
@@ -920,7 +920,7 @@ export interface paths {
         options?: never;
         head?: never;
         /** Accept a suggested food share point */
-        patch: operations["patch_foodsharing_restapi_foodsharepointrest_acceptfoodsharepoint"];
+        patch: operations["acceptFoodSharePoint"];
         trace?: never;
     };
     "/api/users/{foodsaverId}/agenda/{date}": {
@@ -931,7 +931,7 @@ export interface paths {
             cookie?: never;
         };
         /** Lists a users agenda on a specific day, including pickups and events */
-        get: operations["get_foodsharing_restapi_foodsaverrest_listsamedayagenda"];
+        get: operations["listSameDayAgenda"];
         put?: never;
         post?: never;
         delete?: never;
@@ -948,9 +948,9 @@ export interface paths {
             cookie?: never;
         };
         /** Get forum following status. */
-        get: operations["get_foodsharing_restapi_forumrest_getisfollowingforum"];
+        get: operations["getIsFollowingForum"];
         /** Set forum following status. */
-        put: operations["put_foodsharing_restapi_forumrest_setfollowingforum"];
+        put: operations["setFollowingForum"];
         post?: never;
         delete?: never;
         options?: never;
@@ -966,10 +966,10 @@ export interface paths {
             cookie?: never;
         };
         /** List threads of a forum */
-        get: operations["get_foodsharing_restapi_forumrest_listthreads"];
+        get: operations["listThreads"];
         put?: never;
         /** Create a thread inside a forum. */
-        post: operations["post_foodsharing_restapi_forumrest_createthread"];
+        post: operations["createThread"];
         delete?: never;
         options?: never;
         head?: never;
@@ -984,15 +984,15 @@ export interface paths {
             cookie?: never;
         };
         /** Returns a forum thread including all posts */
-        get: operations["get_foodsharing_restapi_forumrest_getthread"];
+        get: operations["getThread"];
         put?: never;
         post?: never;
         /** Deletes a non-activated forum thread */
-        delete: operations["delete_foodsharing_restapi_forumrest_deletethread"];
+        delete: operations["deleteThread"];
         options?: never;
         head?: never;
         /** Change attributes for a thread: Stickiness, activate thread, status. */
-        patch: operations["patch_foodsharing_restapi_forumrest_patchthread"];
+        patch: operations["patchThread"];
         trace?: never;
     };
     "/api/forum/threads/{threadId}/follow/email": {
@@ -1005,9 +1005,9 @@ export interface paths {
         get?: never;
         put?: never;
         /** Request email notifications for activities in at thread. */
-        post: operations["post_foodsharing_restapi_forumrest_followthreadbyemail"];
+        post: operations["followThreadByEmail"];
         /** Removes email notifications for activities in a thread. */
-        delete: operations["delete_foodsharing_restapi_forumrest_unfollowthreadbyemail"];
+        delete: operations["unfollowThreadByEmail"];
         options?: never;
         head?: never;
         patch?: never;
@@ -1023,9 +1023,9 @@ export interface paths {
         get?: never;
         put?: never;
         /** Request bell notifications for activities in a thread. */
-        post: operations["post_foodsharing_restapi_forumrest_followthreadbybell"];
+        post: operations["followThreadByBell"];
         /** Removes bell notifications for activities in a thread. */
-        delete: operations["delete_foodsharing_restapi_forumrest_unfollowthreadbybell"];
+        delete: operations["unfollowThreadByBell"];
         options?: never;
         head?: never;
         patch?: never;
@@ -1041,7 +1041,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Creates a post inside a thread. */
-        post: operations["post_foodsharing_restapi_forumrest_createpost"];
+        post: operations["createPost"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1059,11 +1059,11 @@ export interface paths {
         put?: never;
         post?: never;
         /** Deletes a forum post. */
-        delete: operations["delete_foodsharing_restapi_forumrest_deletepost"];
+        delete: operations["deletePost"];
         options?: never;
         head?: never;
         /** Edit a forum post (author only, within allowed time) */
-        patch: operations["patch_foodsharing_restapi_forumrest_editpost"];
+        patch: operations["editPost"];
         trace?: never;
     };
     "/api/forum/posts/{postId}/hidden": {
@@ -1077,11 +1077,11 @@ export interface paths {
         put?: never;
         post?: never;
         /** Restore a hidden forum post */
-        delete: operations["delete_foodsharing_restapi_forumrest_restorepost"];
+        delete: operations["restorePost"];
         options?: never;
         head?: never;
         /** Hide a forum post. */
-        patch: operations["patch_foodsharing_restapi_forumrest_hidepost"];
+        patch: operations["hidePost"];
         trace?: never;
     };
     "/api/forum/posts/{postId}/reactions/{emoji}": {
@@ -1094,9 +1094,9 @@ export interface paths {
         get?: never;
         put?: never;
         /** Adds an emoji reaction to a post. An emoji is an arbitrary string but needs to be supported by the frontend. */
-        post: operations["post_foodsharing_restapi_forumrest_addreaction"];
+        post: operations["addReaction"];
         /** Remove an emoji reaction the logged in user has given from a post. */
-        delete: operations["delete_foodsharing_restapi_forumrest_deletereaction"];
+        delete: operations["deleteReaction"];
         options?: never;
         head?: never;
         patch?: never;
@@ -1110,15 +1110,15 @@ export interface paths {
             cookie?: never;
         };
         /** Returns the properties of a specific region. */
-        get: operations["get_foodsharing_restapi_regionrest_getregion"];
+        get: operations["getRegion"];
         put?: never;
         post?: never;
         /** Delete a region or a working group. */
-        delete: operations["delete_foodsharing_restapi_grouprest_deletegroup"];
+        delete: operations["deleteGroup"];
         options?: never;
         head?: never;
         /** Edits the region using the given data. */
-        patch: operations["patch_foodsharing_restapi_regionrest_editregion"];
+        patch: operations["editRegion"];
         trace?: never;
     };
     "/api/regions/{regionId}/conference": {
@@ -1129,7 +1129,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns the join URL of a given groups conference. */
-        get: operations["get_foodsharing_restapi_grouprest_joinconference"];
+        get: operations["joinConference"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1146,9 +1146,9 @@ export interface paths {
             cookie?: never;
         };
         /** Returns the locale setting for the current session. */
-        get: operations["get_foodsharing_restapi_localerest_getlocale"];
+        get: operations["getLocale"];
         /** Sets the locale for the current session. */
-        put: operations["put_foodsharing_restapi_localerest_setlocale"];
+        put: operations["setLocale"];
         post?: never;
         delete?: never;
         options?: never;
@@ -1164,7 +1164,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns all available languages */
-        get: operations["get_foodsharing_restapi_localerest_getlocales"];
+        get: operations["getLocales"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1181,15 +1181,15 @@ export interface paths {
             cookie?: never;
         };
         /** Return a mail from mailbox. */
-        get: operations["get_foodsharing_restapi_mailboxrest_getmail"];
+        get: operations["getMail"];
         put?: never;
         post?: never;
         /** Moves an email to the trash folder or deletes it, if it is already in the trash. */
-        delete: operations["delete_foodsharing_restapi_mailboxrest_deleteemail"];
+        delete: operations["deleteEmail"];
         options?: never;
         head?: never;
         /** Changes properties of an email. */
-        patch: operations["patch_foodsharing_restapi_mailboxrest_setemailproperties"];
+        patch: operations["setEmailProperties"];
         trace?: never;
     };
     "/api/mailboxes/unread-count": {
@@ -1200,7 +1200,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns the number of unread mails for the sending user. */
-        get: operations["get_foodsharing_restapi_mailboxrest_getunreadmailcount"];
+        get: operations["getUnreadMailCount"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1217,7 +1217,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns mails from a mailbox. */
-        get: operations["get_foodsharing_restapi_mailboxrest_getallmailsfrommailbox"];
+        get: operations["getAllMailsFromMailbox"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1236,7 +1236,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Sends an email from a mailbox. */
-        post: operations["post_foodsharing_restapi_mailboxrest_sendmail"];
+        post: operations["sendMail"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1251,7 +1251,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns all regions and their email addresses. */
-        get: operations["get_foodsharing_restapi_mailboxrest_listregions"];
+        get: operations["listRegions"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1268,7 +1268,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns all basket markers. */
-        get: operations["get_foodsharing_restapi_maprest_getbasketmarkers"];
+        get: operations["getBasketMarkers"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1285,7 +1285,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns all food share point markers. */
-        get: operations["get_foodsharing_restapi_maprest_getfoodsharepointmarkers"];
+        get: operations["getFoodSharePointMarkers"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1302,7 +1302,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns all region markers. */
-        get: operations["get_foodsharing_restapi_maprest_getregionmarkers"];
+        get: operations["getRegionMarkers"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1319,7 +1319,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns all store markers. */
-        get: operations["get_foodsharing_restapi_maprest_getstoremarkers"];
+        get: operations["getStoreMarkers"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1336,7 +1336,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns all user markers. */
-        get: operations["get_foodsharing_restapi_maprest_getusermarkers"];
+        get: operations["getUserMarkers"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1353,7 +1353,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns of all event markers. */
-        get: operations["get_foodsharing_restapi_maprest_geteventmarkers"];
+        get: operations["getEventMarkers"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1370,7 +1370,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns details on a region marker */
-        get: operations["get_foodsharing_restapi_maprest_getregionbubble"];
+        get: operations["getRegionBubble"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1387,7 +1387,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns details on a food share point marker */
-        get: operations["get_foodsharing_restapi_maprest_getfoodsharepoint"];
+        get: operations["getFoodSharePointOnMap"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1404,7 +1404,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns details on a basket marker */
-        get: operations["get_foodsharing_restapi_maprest_getbasketbubble"];
+        get: operations["getBasketBubble"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1421,7 +1421,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns details on a store marker */
-        get: operations["get_foodsharing_restapi_maprest_getstorebubble"];
+        get: operations["getStoreBubble"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1438,7 +1438,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns details on a event marker */
-        get: operations["get_foodsharing_restapi_maprest_geteventbubble"];
+        get: operations["getEventBubble"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1455,7 +1455,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns details on a user marker */
-        get: operations["get_foodsharing_restapi_maprest_getuserbubble"];
+        get: operations["getUserBubble"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1473,7 +1473,7 @@ export interface paths {
         };
         get?: never;
         /** Mark conversation as read/unread */
-        put: operations["put_foodsharing_restapi_messagerest_markconversationread"];
+        put: operations["markConversationRead"];
         post?: never;
         delete?: never;
         options?: never;
@@ -1489,10 +1489,10 @@ export interface paths {
             cookie?: never;
         };
         /** Get messages from a conversation */
-        get: operations["get_foodsharing_restapi_messagerest_getconversationmessages"];
+        get: operations["getConversationMessages"];
         put?: never;
         /** Send a message in a conversation */
-        post: operations["post_foodsharing_restapi_messagerest_sendmessage"];
+        post: operations["sendMessage"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1507,14 +1507,14 @@ export interface paths {
             cookie?: never;
         };
         /** Get a conversation including some messages */
-        get: operations["get_foodsharing_restapi_messagerest_getconversation"];
+        get: operations["getConversation"];
         put?: never;
         post?: never;
         delete?: never;
         options?: never;
         head?: never;
         /** Rename a conversation */
-        patch: operations["patch_foodsharing_restapi_messagerest_patchconversation"];
+        patch: operations["patchConversation"];
         trace?: never;
     };
     "/api/conversations/lookup": {
@@ -1527,7 +1527,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Returns the conversation ID for a conversation between the current user and given others. The conversion is created if it does not exist yet. */
-        post: operations["post_foodsharing_restapi_messagerest_getconversationid"];
+        post: operations["getConversationId"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1542,7 +1542,7 @@ export interface paths {
             cookie?: never;
         };
         /** Get the list of conversations for the current user */
-        get: operations["get_foodsharing_restapi_messagerest_getconversations"];
+        get: operations["getConversations"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1559,14 +1559,14 @@ export interface paths {
             cookie?: never;
         };
         /** Get the general notification settings */
-        get: operations["get_foodsharing_restapi_notificationsrest_getgeneralnotificationsettings"];
+        get: operations["getGeneralNotificationSettings"];
         put?: never;
         post?: never;
         delete?: never;
         options?: never;
         head?: never;
         /** Update the general notification settings */
-        patch: operations["patch_foodsharing_restapi_notificationsrest_patchgeneralnotificationsettings"];
+        patch: operations["patchGeneralNotificationSettings"];
         trace?: never;
     };
     "/api/notifications/threads": {
@@ -1577,14 +1577,14 @@ export interface paths {
             cookie?: never;
         };
         /** Get the threads notification settings */
-        get: operations["get_foodsharing_restapi_notificationsrest_getthreadsnotificationsettings"];
+        get: operations["getThreadsNotificationSettings"];
         put?: never;
         post?: never;
         delete?: never;
         options?: never;
         head?: never;
         /** Update the threads notification settings */
-        patch: operations["patch_foodsharing_restapi_notificationsrest_patchthreadsnotificationsettings"];
+        patch: operations["patchThreadsNotificationSettings"];
         trace?: never;
     };
     "/api/notifications/food-share-points": {
@@ -1595,14 +1595,14 @@ export interface paths {
             cookie?: never;
         };
         /** Get the food share points notification settings */
-        get: operations["get_foodsharing_restapi_notificationsrest_getfoodsharepointsnotificationsettings"];
+        get: operations["getFoodSharePointsNotificationSettings"];
         put?: never;
         post?: never;
         delete?: never;
         options?: never;
         head?: never;
         /** Update the food share points notification settings */
-        patch: operations["patch_foodsharing_restapi_notificationsrest_patchfoodsharepointsnotificationsettings"];
+        patch: operations["patchFoodSharePointsNotificationSettings"];
         trace?: never;
     };
     "/api/notifications/regions": {
@@ -1613,14 +1613,14 @@ export interface paths {
             cookie?: never;
         };
         /** Get the region notification settings */
-        get: operations["get_foodsharing_restapi_notificationsrest_getregionsnotificationsettings"];
+        get: operations["getRegionsNotificationSettings"];
         put?: never;
         post?: never;
         delete?: never;
         options?: never;
         head?: never;
         /** Update the regions notification settings */
-        patch: operations["patch_foodsharing_restapi_notificationsrest_patchregionsnotificationsettings"];
+        patch: operations["patchRegionsNotificationSettings"];
         trace?: never;
     };
     "/api/notifications/newsletter": {
@@ -1631,14 +1631,14 @@ export interface paths {
             cookie?: never;
         };
         /** Get the newsletter notification settings */
-        get: operations["get_foodsharing_restapi_notificationsrest_getnewsletternotificationsettings"];
+        get: operations["getNewsletterNotificationSettings"];
         put?: never;
         post?: never;
         delete?: never;
         options?: never;
         head?: never;
         /** Update the newsletter notification settings */
-        patch: operations["patch_foodsharing_restapi_notificationsrest_patchnewsletternotificationsettings"];
+        patch: operations["patchNewsletterNotificationSettings"];
         trace?: never;
     };
     "/api/admin/oauthclients": {
@@ -1648,9 +1648,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["get_foodsharing_restapi_oauthadminrest_listclients"];
+        get: operations["listClientsAction"];
         put?: never;
-        post: operations["post_foodsharing_restapi_oauthadminrest_createclient"];
+        post: operations["createClientAction"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1664,13 +1664,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["get_foodsharing_restapi_oauthadminrest_getclient"];
+        get: operations["getClientAction"];
         put?: never;
         post?: never;
-        delete: operations["delete_foodsharing_restapi_oauthadminrest_deleteclient"];
+        delete: operations["deleteClientAction"];
         options?: never;
         head?: never;
-        patch: operations["patch_foodsharing_restapi_oauthadminrest_updateclient"];
+        patch: operations["updateClientAction"];
         trace?: never;
     };
     "/api/passkey/registration/options": {
@@ -1683,7 +1683,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Generate registration options for creating a new passkey */
-        post: operations["post_foodsharing_restapi_passkeyrest_registrationoptions"];
+        post: operations["registrationOptions"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1700,7 +1700,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Verify and save a new passkey credential */
-        post: operations["post_foodsharing_restapi_passkeyrest_verifyregistration"];
+        post: operations["verifyRegistration"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1717,7 +1717,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Generate authentication options for passkey login */
-        post: operations["post_foodsharing_restapi_passkeyrest_authenticationoptions"];
+        post: operations["authenticationOptions"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1734,7 +1734,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Verify passkey authentication and log in the user */
-        post: operations["post_foodsharing_restapi_passkeyrest_verifyauthentication"];
+        post: operations["verifyAuthentication"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1749,7 +1749,7 @@ export interface paths {
             cookie?: never;
         };
         /** List all passkeys for the current user */
-        get: operations["get_foodsharing_restapi_passkeyrest_listpasskeys"];
+        get: operations["listPasskeys"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1769,11 +1769,11 @@ export interface paths {
         put?: never;
         post?: never;
         /** Delete a passkey */
-        delete: operations["delete_foodsharing_restapi_passkeyrest_deletepasskey"];
+        delete: operations["deletePasskey"];
         options?: never;
         head?: never;
         /** Rename a passkey */
-        patch: operations["patch_foodsharing_restapi_passkeyrest_renamepasskey"];
+        patch: operations["renamePasskey"];
         trace?: never;
     };
     "/api/petition": {
@@ -1784,7 +1784,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns possibly cached information of foodsharing petition at bundestag. */
-        get: operations["get_foodsharing_restapi_petitionrest_getsignaturescount"];
+        get: operations["getSignaturesCount"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1803,7 +1803,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Join a pickup slot */
-        post: operations["post_foodsharing_restapi_pickuprest_joinpickup"];
+        post: operations["joinPickup"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1821,11 +1821,11 @@ export interface paths {
         put?: never;
         post?: never;
         /** Remove a user from a pickup */
-        delete: operations["delete_foodsharing_restapi_pickuprest_leavepickup"];
+        delete: operations["leavePickup"];
         options?: never;
         head?: never;
         /** Confirm a pickup slot */
-        patch: operations["patch_foodsharing_restapi_pickuprest_editpickupslot"];
+        patch: operations["confirmPickupSlot"];
         trace?: never;
     };
     "/api/users/{userId}/pickups": {
@@ -1839,7 +1839,7 @@ export interface paths {
         put?: never;
         post?: never;
         /** Remove a user from all his pickups */
-        delete: operations["delete_foodsharing_restapi_pickuprest_leaveallpickups"];
+        delete: operations["leaveAllPickups"];
         options?: never;
         head?: never;
         patch?: never;
@@ -1853,9 +1853,9 @@ export interface paths {
             cookie?: never;
         };
         /** Get the regular pickups for a store */
-        get: operations["get_foodsharing_restapi_pickuprest_getregularpickup"];
+        get: operations["getRegularPickup"];
         /** Set the regular pickups for a store */
-        put: operations["put_foodsharing_restapi_pickuprest_editregularpickup"];
+        put: operations["editRegularPickup"];
         post?: never;
         delete?: never;
         options?: never;
@@ -1872,7 +1872,7 @@ export interface paths {
         };
         get?: never;
         /** Create or modify a manual pick up for a store */
-        put: operations["put_foodsharing_restapi_pickuprest_editpickup"];
+        put: operations["editPickupSlots"];
         post?: never;
         delete?: never;
         options?: never;
@@ -1888,7 +1888,7 @@ export interface paths {
             cookie?: never;
         };
         /** List pickups for a store */
-        get: operations["get_foodsharing_restapi_pickuprest_listpickups"];
+        get: operations["listPickups"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1905,7 +1905,7 @@ export interface paths {
             cookie?: never;
         };
         /** List pickup history for a store */
-        get: operations["get_foodsharing_restapi_pickuprest_listpickuphistory"];
+        get: operations["listPickupHistory"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1925,7 +1925,7 @@ export interface paths {
          * Get past pickups for a user
          * @description Can be restricted (to the last month or one entry at least) depending on the requesting users permissions.
          */
-        get: operations["get_foodsharing_restapi_pickuprest_listpastpickups"];
+        get: operations["listPastPickups"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1942,7 +1942,7 @@ export interface paths {
             cookie?: never;
         };
         /** Get future registered pickups for a user */
-        get: operations["get_foodsharing_restapi_pickuprest_listregisteredpickups"];
+        get: operations["listRegisteredPickups"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1959,7 +1959,7 @@ export interface paths {
             cookie?: never;
         };
         /** Get all pickup options a user has, including already registered slots */
-        get: operations["get_foodsharing_restapi_pickuprest_listpickupoptions"];
+        get: operations["listPickupOptions"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1976,7 +1976,7 @@ export interface paths {
             cookie?: never;
         };
         /** Check if a user may enter a specific pickup based on pickup rules */
-        get: operations["get_foodsharing_restapi_pickuprest_passespickuprule"];
+        get: operations["passesPickupRule"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1993,7 +1993,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns information necessary for registering subscribing to push notifications with this handler */
-        get: operations["get_foodsharing_restapi_pushnotificationsubscriptionrest_getserverinformation"];
+        get: operations["getServerInformation"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2012,7 +2012,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Subscribes to push notifications with the specified handler */
-        post: operations["post_foodsharing_restapi_pushnotificationsubscriptionrest_subscribe"];
+        post: operations["subscribe"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2030,7 +2030,7 @@ export interface paths {
         put?: never;
         post?: never;
         /** Unsubscribes from push notifications with the specified handler */
-        delete: operations["delete_foodsharing_restapi_pushnotificationsubscriptionrest_unsubscribe"];
+        delete: operations["unsubscribe"];
         options?: never;
         head?: never;
         patch?: never;
@@ -2046,7 +2046,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Starts a new quiz session */
-        post: operations["post_foodsharing_restapi_quizrest_startquizsession"];
+        post: operations["startQuizSession"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2061,7 +2061,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns the status of the users current quiz progress */
-        get: operations["get_foodsharing_restapi_quizrest_getquizstatus"];
+        get: operations["getQuizStatus"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2078,7 +2078,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns the next question of the quiz for the currently answering user. */
-        get: operations["get_foodsharing_restapi_quizrest_getnextquestion"];
+        get: operations["getNextQuestion"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2097,7 +2097,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Answer the current quiz question */
-        post: operations["post_foodsharing_restapi_quizrest_answernextquestion"];
+        post: operations["answerNextQuestion"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2112,7 +2112,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns the results of the last time the current user finished the quiz */
-        get: operations["get_foodsharing_restapi_quizrest_getquizresults"];
+        get: operations["getQuizResults"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2131,7 +2131,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Confirm the finalization of a passed quiz */
-        post: operations["post_foodsharing_restapi_quizrest_confirmquiz"];
+        post: operations["confirmQuiz"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2146,7 +2146,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns a users quiz sessions */
-        get: operations["get_foodsharing_restapi_quizrest_getquizsessions"];
+        get: operations["getQuizSessions"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2166,7 +2166,7 @@ export interface paths {
         put?: never;
         post?: never;
         /** Deletes a quiz session */
-        delete: operations["delete_foodsharing_restapi_quizrest_deletequizsession"];
+        delete: operations["deleteQuizSession"];
         options?: never;
         head?: never;
         patch?: never;
@@ -2180,14 +2180,14 @@ export interface paths {
             cookie?: never;
         };
         /** Returns the details of a quiz */
-        get: operations["get_foodsharing_restapi_quizrest_getquizdetails"];
+        get: operations["getQuizDetails"];
         put?: never;
         post?: never;
         delete?: never;
         options?: never;
         head?: never;
         /** Changes the properties of a quiz */
-        patch: operations["patch_foodsharing_restapi_quizrest_updatequiz"];
+        patch: operations["updateQuiz"];
         trace?: never;
     };
     "/api/quizzes/{quizId}/questions": {
@@ -2198,10 +2198,10 @@ export interface paths {
             cookie?: never;
         };
         /** Returns all questions of a quiz including answers */
-        get: operations["get_foodsharing_restapi_quizrest_getquestions"];
+        get: operations["getQuestions"];
         put?: never;
         /** Adds a new question to a quiz */
-        post: operations["post_foodsharing_restapi_quizrest_addquestion"];
+        post: operations["addQuestion"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2219,11 +2219,11 @@ export interface paths {
         put?: never;
         post?: never;
         /** Removes a quiz question */
-        delete: operations["delete_foodsharing_restapi_quizrest_deletequestions"];
+        delete: operations["deleteQuestions"];
         options?: never;
         head?: never;
         /** Updates a quiz question */
-        patch: operations["patch_foodsharing_restapi_quizrest_updatequestion"];
+        patch: operations["updateQuestion"];
         trace?: never;
     };
     "/api/quizzes/{quizId}/questions/{questionId}/answers": {
@@ -2236,7 +2236,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Adds a new answer to a question */
-        post: operations["post_foodsharing_restapi_quizrest_addanswer"];
+        post: operations["addAnswer"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2254,11 +2254,11 @@ export interface paths {
         put?: never;
         post?: never;
         /** Removes an answer */
-        delete: operations["delete_foodsharing_restapi_quizrest_deleteanswer"];
+        delete: operations["deleteAnswer"];
         options?: never;
         head?: never;
         /** Updates an answer */
-        patch: operations["patch_foodsharing_restapi_quizrest_updateanswer"];
+        patch: operations["updateAnswer"];
         trace?: never;
     };
     "/api/regions/{regionId}/users/current": {
@@ -2270,10 +2270,10 @@ export interface paths {
         };
         get?: never;
         /** Join a region. */
-        put: operations["put_foodsharing_restapi_regionrest_joinregion"];
+        put: operations["joinRegion"];
         post?: never;
         /** Removes the current user from a region. */
-        delete: operations["delete_foodsharing_restapi_regionrest_leaveregion"];
+        delete: operations["leaveRegion"];
         options?: never;
         head?: never;
         patch?: never;
@@ -2287,14 +2287,14 @@ export interface paths {
             cookie?: never;
         };
         /** Returns the region options for a specific region. */
-        get: operations["get_foodsharing_restapi_regionrest_getregionoptions"];
+        get: operations["getRegionOptions"];
         put?: never;
         post?: never;
         delete?: never;
         options?: never;
         head?: never;
         /** Sets the options for region. */
-        patch: operations["patch_foodsharing_restapi_regionrest_setregionoptions"];
+        patch: operations["setRegionOptions"];
         trace?: never;
     };
     "/api/regions/{regionId}/options/permissions": {
@@ -2305,7 +2305,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns the user's permissions for setting the region options. */
-        get: operations["get_foodsharing_restapi_regionrest_getregionoptionpermissions"];
+        get: operations["getRegionOptionPermissions"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2322,14 +2322,14 @@ export interface paths {
             cookie?: never;
         };
         /** Returns the public region data. */
-        get: operations["get_foodsharing_restapi_regionrest_getpublicregiondata"];
+        get: operations["getPublicRegionData"];
         put?: never;
         post?: never;
         delete?: never;
         options?: never;
         head?: never;
         /** Sets the public data for a region. */
-        patch: operations["patch_foodsharing_restapi_regionrest_setpublicregiondata"];
+        patch: operations["setPublicRegionData"];
         trace?: never;
     };
     "/api/regions/{regionId}/children": {
@@ -2343,7 +2343,7 @@ export interface paths {
          * Returns a list of all subregions including working groups of a region.
          * @description The result is empty if the region does not exist.
          */
-        get: operations["get_foodsharing_restapi_regionrest_listregionchildren"];
+        get: operations["listRegionChildren"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2360,7 +2360,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns a list of all members for a region. */
-        get: operations["get_foodsharing_restapi_regionrest_listmembers"];
+        get: operations["listMembers"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2383,7 +2383,7 @@ export interface paths {
          * Removes a member from a region or working group.
          * @description If the user was not a member of the region/group, nothing happens.
          */
-        delete: operations["delete_foodsharing_restapi_regionrest_removemember"];
+        delete: operations["removeMember"];
         options?: never;
         head?: never;
         patch?: never;
@@ -2398,10 +2398,10 @@ export interface paths {
         };
         get?: never;
         /** Sets an user as Admin / Ambassador of a region / workgroup. */
-        put: operations["put_foodsharing_restapi_regionrest_setadminorambassador"];
+        put: operations["setAdminOrAmbassador"];
         post?: never;
         /** Removes a user as Admin / Ambassador of a region / workgroup. */
-        delete: operations["delete_foodsharing_restapi_regionrest_removeadminorambassador"];
+        delete: operations["removeAdminOrAmbassador"];
         options?: never;
         head?: never;
         patch?: never;
@@ -2415,7 +2415,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns the permissions that this user has concerning administration of the members in the region. */
-        get: operations["get_foodsharing_restapi_regionrest_getregionmemberpermissions"];
+        get: operations["getRegionMemberPermissions"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2434,7 +2434,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Adds a region using the given data. */
-        post: operations["post_foodsharing_restapi_regionrest_addregion"];
+        post: operations["addRegion"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2449,7 +2449,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns the region menu data. */
-        get: operations["get_foodsharing_restapi_regionrest_getregionmenu"];
+        get: operations["getRegionMenu"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2466,7 +2466,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns all ancestors of a region until the first accessible one (region or group with membership) */
-        get: operations["get_foodsharing_restapi_regionrest_getinaccessibleregionredirects"];
+        get: operations["getInaccessibleRegionRedirects"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2483,7 +2483,7 @@ export interface paths {
             cookie?: never;
         };
         /** List reports for a region */
-        get: operations["get_foodsharing_restapi_reportrest_listreportsforregion"];
+        get: operations["listReportsForRegion"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2500,10 +2500,10 @@ export interface paths {
             cookie?: never;
         };
         /** List reports for a user */
-        get: operations["get_foodsharing_restapi_reportrest_listreportsforuser"];
+        get: operations["listReportsForUser"];
         put?: never;
         /** Add a new report */
-        post: operations["post_foodsharing_restapi_reportrest_addreport"];
+        post: operations["addReport"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2521,11 +2521,11 @@ export interface paths {
         put?: never;
         post?: never;
         /** Delete a report */
-        delete: operations["delete_foodsharing_restapi_reportrest_deletereport"];
+        delete: operations["deleteReport"];
         options?: never;
         head?: never;
         /** Update a report status, consequence, or forum thread link */
-        patch: operations["patch_foodsharing_restapi_reportrest_updatereport"];
+        patch: operations["updateReport"];
         trace?: never;
     };
     "/api/resources/categories": {
@@ -2536,7 +2536,7 @@ export interface paths {
             cookie?: never;
         };
         /** Get the list of resource categories. */
-        get: operations["get_foodsharing_restapi_resourcerest_getresourcecategories"];
+        get: operations["getResourceCategories"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2553,7 +2553,7 @@ export interface paths {
             cookie?: never;
         };
         /** Get the list of resources available in a given region. */
-        get: operations["get_foodsharing_restapi_resourcerest_getresourcesforregion"];
+        get: operations["getResourcesForRegion"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2570,7 +2570,7 @@ export interface paths {
             cookie?: never;
         };
         /** Get the list of resources of the logged in user */
-        get: operations["get_foodsharing_restapi_resourcerest_getownresources"];
+        get: operations["getOwnResources"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2589,7 +2589,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Add a new resource for the logged in user. */
-        post: operations["post_foodsharing_restapi_resourcerest_addownresource"];
+        post: operations["addOwnResource"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2606,7 +2606,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Add a new commons resource for the given region. */
-        post: operations["post_foodsharing_restapi_resourcerest_addcommonsresource"];
+        post: operations["addCommonsResource"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2624,11 +2624,11 @@ export interface paths {
         put?: never;
         post?: never;
         /** Delete a resource. */
-        delete: operations["delete_foodsharing_restapi_resourcerest_deleteresource"];
+        delete: operations["deleteResource"];
         options?: never;
         head?: never;
         /** Edit a resource. */
-        patch: operations["patch_foodsharing_restapi_resourcerest_editresource"];
+        patch: operations["editResource"];
         trace?: never;
     };
     "/api/resources/{resourceId}/favorite": {
@@ -2641,9 +2641,9 @@ export interface paths {
         get?: never;
         put?: never;
         /** Favorite a resource. */
-        post: operations["post_foodsharing_restapi_resourcerest_favoriteresource"];
+        post: operations["favoriteResource"];
         /** Unfavorite a resource. */
-        delete: operations["delete_foodsharing_restapi_resourcerest_unfavoriteresource"];
+        delete: operations["unfavoriteResource"];
         options?: never;
         head?: never;
         patch?: never;
@@ -2657,7 +2657,7 @@ export interface paths {
             cookie?: never;
         };
         /** Get the current users permissions related to resources in a given region. */
-        get: operations["get_foodsharing_restapi_resourcerest_getresourcepermissionsforregion"];
+        get: operations["getResourcePermissionsForRegion"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2674,7 +2674,7 @@ export interface paths {
             cookie?: never;
         };
         /** Search for users */
-        get: operations["get_foodsharing_restapi_searchrest_listuserresults"];
+        get: operations["listUserResults"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2694,7 +2694,7 @@ export interface paths {
          * General search endpoint
          * @description Returns all kinds of searchable entry types
          */
-        get: operations["get_foodsharing_restapi_searchrest_search"];
+        get: operations["search"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2711,7 +2711,7 @@ export interface paths {
             cookie?: never;
         };
         /** Search index for quick local search of likely searched entities */
-        get: operations["get_foodsharing_restapi_searchrest_searchindex"];
+        get: operations["searchIndex"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2728,7 +2728,7 @@ export interface paths {
             cookie?: never;
         };
         /** Search threads in a specific forum */
-        get: operations["get_foodsharing_restapi_searchrest_searchforumtitle"];
+        get: operations["searchForumTitle"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2745,7 +2745,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns server configuration data and user context for the frontend. This includes user data, permissions, environment settings, and API keys. */
-        get: operations["get_foodsharing_restapi_serverrest_getserverdata"];
+        get: operations["getServerData"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2775,7 +2775,7 @@ export interface paths {
          *                           - Development: 10 seconds cache (for faster testing)
          *                           - Cache is automatically invalidated when version changes (deployment)
          */
-        get: operations["get_foodsharing_restapi_serverrest_getroutes"];
+        get: operations["getRoutes"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2801,7 +2801,7 @@ export interface paths {
          * Sets the current users sleep mode.
          * @description For the temporary mode, both "from" and "to" need to be given in the format "Y-m-d". For other modes, the two fields will be ignored. Optionally, a message can be added.
          */
-        patch: operations["patch_foodsharing_restapi_settingsrest_setsleepstatus"];
+        patch: operations["setSleepStatus"];
         trace?: never;
     };
     "/api/users/{userId}/email": {
@@ -2823,7 +2823,7 @@ export interface paths {
          *             out the confirmation email. Every user can change their own email address.
          *             Changing someone elses address requires certain permissions.
          */
-        patch: operations["patch_foodsharing_restapi_settingsrest_requestemailchange"];
+        patch: operations["requestEmailChange"];
         trace?: never;
     };
     "/api/users/current/password": {
@@ -2840,7 +2840,7 @@ export interface paths {
         options?: never;
         head?: never;
         /** Changes the user's password. */
-        patch: operations["patch_foodsharing_restapi_settingsrest_requestpasswordchange"];
+        patch: operations["requestPasswordChange"];
         trace?: never;
     };
     "/api/users/current/2fa": {
@@ -2853,7 +2853,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Request 2FA secret, backup codes and QR code. */
-        post: operations["post_foodsharing_restapi_settingsrest_generatetwofa"];
+        post: operations["generateTwoFA"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2874,7 +2874,7 @@ export interface paths {
         options?: never;
         head?: never;
         /** Edit 2FA settings. */
-        patch: operations["patch_foodsharing_restapi_settingsrest_toggletwofa"];
+        patch: operations["toggleTwoFA"];
         trace?: never;
     };
     "/api/users/{userId}/profile-settings": {
@@ -2885,7 +2885,7 @@ export interface paths {
             cookie?: never;
         };
         /** Get the user profile information. */
-        get: operations["get_foodsharing_restapi_settingsrest_getuserprofilesettings"];
+        get: operations["getUserProfileSettings"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2905,7 +2905,7 @@ export interface paths {
          * Returns the gender distribution from a region
          * @description If home region is set only the home region of foodsavers from this regionId are considered.
          */
-        get: operations["get_foodsharing_restapi_statisticsrest_listregiongenderstatistic"];
+        get: operations["listRegionGenderStatistic"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2925,7 +2925,7 @@ export interface paths {
          * Returns the age band distribution from a region
          * @description If home region is set only the home region of foodsavers from this regionId are considered.
          */
-        get: operations["get_foodsharing_restapi_statisticsrest_listregionagebandstatistic"];
+        get: operations["listRegionAgeBandStatistic"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2942,7 +2942,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns the pickup statistics of a region */
-        get: operations["get_foodsharing_restapi_statisticsrest_listregionpickupsstatistics"];
+        get: operations["listRegionPickupsStatistics"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2959,7 +2959,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns general foosharing statistics */
-        get: operations["get_foodsharing_restapi_statisticsrest_listoverallstatistics"];
+        get: operations["listOverallStatistics"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2976,13 +2976,13 @@ export interface paths {
             cookie?: never;
         };
         /** Returns the list of store chains */
-        get: operations["get_foodsharing_restapi_storechainrest_getstorechains"];
+        get: operations["getStoreChains"];
         put?: never;
         /**
          * Creates a new store
          * @description The name must not be empty. All other parameters are optional. Returns the created store chain.
          */
-        post: operations["post_foodsharing_restapi_storechainrest_createchain"];
+        post: operations["createChain"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2997,14 +2997,14 @@ export interface paths {
             cookie?: never;
         };
         /** Returns a specific store chain */
-        get: operations["get_foodsharing_restapi_storechainrest_getstorechain"];
+        get: operations["getStoreChain"];
         put?: never;
         post?: never;
         delete?: never;
         options?: never;
         head?: never;
         /** Updates a store chain */
-        patch: operations["patch_foodsharing_restapi_storechainrest_updatechain"];
+        patch: operations["updateChain"];
         trace?: never;
     };
     "/api/chains/{chainId}/stores": {
@@ -3015,7 +3015,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns the list of stores that are part of a given chain */
-        get: operations["get_foodsharing_restapi_storechainrest_getchainstores"];
+        get: operations["getChainStores"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3032,7 +3032,7 @@ export interface paths {
             cookie?: never;
         };
         /** Get general store metadata */
-        get: operations["get_foodsharing_restapi_storerest_getcommonstoremetadata"];
+        get: operations["getCommonStoreMetadata"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3049,7 +3049,7 @@ export interface paths {
             cookie?: never;
         };
         /** Get the stores where a user is member of */
-        get: operations["get_foodsharing_restapi_storerest_getstoresofuser"];
+        get: operations["getStoresOfUser"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3066,7 +3066,7 @@ export interface paths {
             cookie?: never;
         };
         /** Get the stores of a region */
-        get: operations["get_foodsharing_restapi_storerest_getstoresofregion"];
+        get: operations["getStoresOfRegion"];
         put?: never;
         /**
          * Create a new store
@@ -3074,7 +3074,7 @@ export interface paths {
          *             be created alongside the store. The calling user will be added as the only member and be made store manager.
          *             All members of the region are notified via bell about the new store.
          */
-        post: operations["post_foodsharing_restapi_storerest_addstore"];
+        post: operations["addStore"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3089,14 +3089,14 @@ export interface paths {
             cookie?: never;
         };
         /** Get detailed information about a store */
-        get: operations["get_foodsharing_restapi_storerest_getstoreinformation"];
+        get: operations["getStoreInformation"];
         put?: never;
         post?: never;
         delete?: never;
         options?: never;
         head?: never;
         /** Edit store details */
-        patch: operations["patch_foodsharing_restapi_storerest_editstore"];
+        patch: operations["editStore"];
         trace?: never;
     };
     "/api/stores/{storeId}/members": {
@@ -3107,7 +3107,7 @@ export interface paths {
             cookie?: never;
         };
         /** Get the members of a store team */
-        get: operations["get_foodsharing_restapi_storerest_getstoremembers"];
+        get: operations["getStoreMembers"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3124,7 +3124,7 @@ export interface paths {
             cookie?: never;
         };
         /** Get the permissions of the logged in user for a store */
-        get: operations["get_foodsharing_restapi_storerest_getstorepermissions"];
+        get: operations["getStorePermissions"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3141,10 +3141,10 @@ export interface paths {
             cookie?: never;
         };
         /** Get the requests to a store team */
-        get: operations["get_foodsharing_restapi_storerest_liststoreteammembershiprequests"];
+        get: operations["listStoreTeamMembershipRequests"];
         put?: never;
         /** Request to join a store team */
-        post: operations["post_foodsharing_restapi_storerest_requeststoreteammembership"];
+        post: operations["requestStoreTeamMembership"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3162,11 +3162,11 @@ export interface paths {
         put?: never;
         post?: never;
         /** Decline a request to join a store team */
-        delete: operations["delete_foodsharing_restapi_storerest_declinestorerequest"];
+        delete: operations["declineStoreRequest"];
         options?: never;
         head?: never;
         /** Accept a request to join a store team */
-        patch: operations["patch_foodsharing_restapi_storerest_acceptstorerequest"];
+        patch: operations["acceptStoreRequest"];
         trace?: never;
     };
     "/api/stores/{storeId}/invitations": {
@@ -3177,7 +3177,7 @@ export interface paths {
             cookie?: never;
         };
         /** Get the invitations to a store team */
-        get: operations["get_foodsharing_restapi_storerest_liststoreteaminvitations"];
+        get: operations["listStoreTeamInvitations"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3196,9 +3196,9 @@ export interface paths {
         get?: never;
         put?: never;
         /** Invite a user to a store team */
-        post: operations["post_foodsharing_restapi_storerest_invitestoremember"];
+        post: operations["inviteStoreMember"];
         /** Withdraw an invitation to a store team */
-        delete: operations["delete_foodsharing_restapi_storerest_withdrawstoreteaminvitation"];
+        delete: operations["withdrawStoreTeamInvitation"];
         options?: never;
         head?: never;
         patch?: never;
@@ -3214,11 +3214,11 @@ export interface paths {
         get?: never;
         put?: never;
         post?: never;
-        delete: operations["delete_foodsharing_restapi_storerest_declinestoreteaminvitation"];
+        delete: operations["declineStoreTeamInvitation"];
         options?: never;
         head?: never;
         /** Accept an invitation to a store team */
-        patch: operations["patch_foodsharing_restapi_storerest_acceptstoreteaminvitation"];
+        patch: operations["acceptStoreTeamInvitation"];
         trace?: never;
     };
     "/api/stores/{storeId}/members/{userId}": {
@@ -3232,7 +3232,7 @@ export interface paths {
         put?: never;
         post?: never;
         /** Remove a user from a store team */
-        delete: operations["delete_foodsharing_restapi_storerest_removestoremember"];
+        delete: operations["removeStoreMember"];
         options?: never;
         head?: never;
         patch?: never;
@@ -3248,9 +3248,9 @@ export interface paths {
         get?: never;
         put?: never;
         /** Make a user a store manager */
-        post: operations["post_foodsharing_restapi_storerest_addstoremanager"];
+        post: operations["addStoreManager"];
         /** Demote a user from store manager to regular store team member */
-        delete: operations["delete_foodsharing_restapi_storerest_removestoremanager"];
+        delete: operations["removeStoreManager"];
         options?: never;
         head?: never;
         patch?: never;
@@ -3267,11 +3267,11 @@ export interface paths {
         put?: never;
         post?: never;
         /** Move a store team member to the regular team */
-        delete: operations["delete_foodsharing_restapi_storerest_moveusertoregularteam"];
+        delete: operations["moveUserToRegularTeam"];
         options?: never;
         head?: never;
         /** Move a store team member to the standby team */
-        patch: operations["patch_foodsharing_restapi_storerest_movemembertostandbyteam"];
+        patch: operations["moveMemberToStandbyTeam"];
         trace?: never;
     };
     "/api/stores/{storeId}/log/{fromDate}/{toDate}/actions/{storeLogActionIds}": {
@@ -3282,7 +3282,7 @@ export interface paths {
             cookie?: never;
         };
         /** Get store log entries for the given time range and action types */
-        get: operations["get_foodsharing_restapi_storerest_showstoreloghistory"];
+        get: operations["showStoreLogHistory"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3305,7 +3305,7 @@ export interface paths {
          * Delete a store
          * @description Only allowed for stores that never had any pickup.
          */
-        delete: operations["delete_foodsharing_restapi_storerest_deletestore"];
+        delete: operations["deleteStore"];
         options?: never;
         head?: never;
         patch?: never;
@@ -3321,7 +3321,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Creates a new support ticket */
-        post: operations["post_foodsharing_restapi_supportpagerest_createticket"];
+        post: operations["createTicket"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3342,7 +3342,7 @@ export interface paths {
          * Clear a specific cache key.
          * @description Only works in test/dev environments to prevent accidental use in production.
          */
-        delete: operations["delete_foodsharing_restapi_testrest_clearcache"];
+        delete: operations["clearCache"];
         options?: never;
         head?: never;
         patch?: never;
@@ -3356,7 +3356,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns the image with the requested UUID. Width and height must both be given or can be set both to 0 to indicate no resizing. */
-        get: operations["get_foodsharing_restapi_uploadsrest_getimage"];
+        get: operations["getImage"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3372,7 +3372,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["get_foodsharing_restapi_uploadsrest_getimagemetadata"];
+        get: operations["getImageMetadata"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3390,7 +3390,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["post_foodsharing_restapi_uploadsrest_uploadfile"];
+        post: operations["uploadFile"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3405,11 +3405,11 @@ export interface paths {
             cookie?: never;
         };
         /** Lists basic information for a user */
-        get: operations["get_foodsharing_restapi_userrest_user"];
+        get: operations["user"];
         put?: never;
         post?: never;
         /** Deletes a user account */
-        delete: operations["delete_foodsharing_restapi_userrest_deleteuser"];
+        delete: operations["deleteUser"];
         options?: never;
         head?: never;
         patch?: never;
@@ -3423,7 +3423,7 @@ export interface paths {
             cookie?: never;
         };
         /** Lists detailed information for the current user */
-        get: operations["get_foodsharing_restapi_userrest_currentuserdetails"];
+        get: operations["currentUserDetails"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3442,7 +3442,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Logs in a user with email and password */
-        post: operations["post_foodsharing_restapi_userrest_login"];
+        post: operations["login"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3459,7 +3459,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Logs out the current user */
-        post: operations["post_foodsharing_restapi_userrest_logout"];
+        post: operations["logout"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3476,7 +3476,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Initialises the registration of a new user. */
-        post: operations["post_foodsharing_restapi_userrest_initialiseregistration"];
+        post: operations["initialiseRegistration"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3493,7 +3493,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Registers a new user */
-        post: operations["post_foodsharing_restapi_userrest_registeruser"];
+        post: operations["registerUser"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3509,7 +3509,7 @@ export interface paths {
         };
         get?: never;
         /** Sets a previously uploaded picture as the user's profile photo */
-        put: operations["put_foodsharing_restapi_userrest_setprofilepicture"];
+        put: operations["setProfilePicture"];
         post?: never;
         delete?: never;
         options?: never;
@@ -3528,7 +3528,7 @@ export interface paths {
         put?: never;
         post?: never;
         /** Removes the user from the email bounce list */
-        delete: operations["delete_foodsharing_restapi_userrest_removefrombouncelist"];
+        delete: operations["removeFromBounceList"];
         options?: never;
         head?: never;
         patch?: never;
@@ -3542,7 +3542,7 @@ export interface paths {
             cookie?: never;
         };
         /** Gets the names of multiple users by their IDs */
-        get: operations["get_foodsharing_restapi_userrest_getusernames"];
+        get: operations["getUserNames"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3565,7 +3565,7 @@ export interface paths {
         options?: never;
         head?: never;
         /** Updates the user profile information. */
-        patch: operations["patch_foodsharing_restapi_userrest_patchuserprofile"];
+        patch: operations["patchUserProfile"];
         trace?: never;
     };
     "/api/users/password-reset": {
@@ -3578,7 +3578,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Request a password reset by email */
-        post: operations["post_foodsharing_restapi_userrest_requestpasswordreset"];
+        post: operations["requestPasswordReset"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3595,7 +3595,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Reset password using a reset token. */
-        post: operations["post_foodsharing_restapi_userrest_resetpassword"];
+        post: operations["resetPassword"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3610,7 +3610,7 @@ export interface paths {
             cookie?: never;
         };
         /** Validate a password reset token. */
-        get: operations["get_foodsharing_restapi_userrest_validateresettoken"];
+        get: operations["validateResetToken"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3627,12 +3627,12 @@ export interface paths {
             cookie?: never;
         };
         /** Returns a users (de-)verification history */
-        get: operations["get_foodsharing_restapi_verificationrest_getverificationhistory"];
+        get: operations["getVerificationHistory"];
         put?: never;
         /** Changes verification status of one user to verified */
-        post: operations["post_foodsharing_restapi_verificationrest_verifyuser"];
+        post: operations["verifyUser"];
         /** Changes verification status of one user to deverified */
-        delete: operations["delete_foodsharing_restapi_verificationrest_deverifyuser"];
+        delete: operations["deverifyUser"];
         options?: never;
         head?: never;
         patch?: never;
@@ -3646,7 +3646,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns a users pass history */
-        get: operations["get_foodsharing_restapi_verificationrest_getpasshistory"];
+        get: operations["getPassHistory"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3663,7 +3663,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns the current users foodsaver passport */
-        get: operations["get_foodsharing_restapi_verificationrest_createasuser"];
+        get: operations["createAsUser"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3682,7 +3682,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Create foodsaver passports for given users in region */
-        post: operations["post_foodsharing_restapi_verificationrest_createasambassador"];
+        post: operations["createAsAmbassador"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3697,7 +3697,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns the wallet URL for the current user */
-        get: operations["get_foodsharing_restapi_verificationrest_getwallet"];
+        get: operations["getWallet"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3714,18 +3714,18 @@ export interface paths {
             cookie?: never;
         };
         /** Returns the details of a poll. */
-        get: operations["get_foodsharing_restapi_votingrest_getpoll"];
+        get: operations["getPoll"];
         put?: never;
         post?: never;
         /** Deletes a poll. */
-        delete: operations["delete_foodsharing_restapi_votingrest_deletepoll"];
+        delete: operations["deletePoll"];
         options?: never;
         head?: never;
         /**
          * Updates an existing poll.
          * @description This can change a poll's title, description, and options. Updating is only possible before the voting phase starts
          */
-        patch: operations["patch_foodsharing_restapi_votingrest_editpoll"];
+        patch: operations["editPoll"];
         trace?: never;
     };
     "/api/groups/{groupId}/polls": {
@@ -3736,7 +3736,7 @@ export interface paths {
             cookie?: never;
         };
         /** Lists all polls in a region or working group. */
-        get: operations["get_foodsharing_restapi_votingrest_listpolls"];
+        get: operations["listPolls"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3753,7 +3753,7 @@ export interface paths {
             cookie?: never;
         };
         /** Lists all polls the user is invited to. */
-        get: operations["get_foodsharing_restapi_votingrest_listcurrentpolls"];
+        get: operations["listCurrentPolls"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3775,7 +3775,7 @@ export interface paths {
          * Vote in a poll.
          * @description The request body needs to be a list mapping option indices to the vote values. Depending on the voting type, not all options might need to be included.
          */
-        post: operations["post_foodsharing_restapi_votingrest_vote"];
+        post: operations["vote"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3795,7 +3795,7 @@ export interface paths {
          * Creates a new poll.
          * @description The poll and all its options will be assigned valid IDs and option indices by the server. Options must be passed as an array of strings for the options' texts. The order of the options will be kept.
          */
-        post: operations["post_foodsharing_restapi_votingrest_createpoll"];
+        post: operations["createPoll"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3810,10 +3810,10 @@ export interface paths {
             cookie?: never;
         };
         /** Get posts of a wall. */
-        get: operations["get_foodsharing_restapi_wallrest_getposts"];
+        get: operations["getWallPosts"];
         put?: never;
         /** Add a post to a wall. */
-        post: operations["post_foodsharing_restapi_wallrest_addpost"];
+        post: operations["addWallPost"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3831,7 +3831,7 @@ export interface paths {
         put?: never;
         post?: never;
         /** Delete a post from a wall. */
-        delete: operations["delete_foodsharing_restapi_wallrest_deletepost"];
+        delete: operations["deleteWallPost"];
         options?: never;
         head?: never;
         patch?: never;
@@ -3850,7 +3850,7 @@ export interface paths {
          * Adds a reactions to a post.
          * @description The reaction type key can be any emoji name supported by the frontend.
          */
-        post: operations["post_foodsharing_restapi_wallrest_addreaction"];
+        post: operations["addWallReaction"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3871,7 +3871,7 @@ export interface paths {
          * Removes one of your a reactions from a post.
          * @description The reaction type key can be any emoji name supported by the frontend.
          */
-        delete: operations["delete_foodsharing_restapi_wallrest_deletereaction"];
+        delete: operations["deleteWallReaction"];
         options?: never;
         head?: never;
         patch?: never;
@@ -3892,7 +3892,7 @@ export interface paths {
          *             This endpoint can be used for adding someone else to a working group if you
          *             are allowed to edit that group or for joining a group if you are allowed to do so.
          */
-        post: operations["post_foodsharing_restapi_workinggrouprest_addmember"];
+        post: operations["addMember"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3912,7 +3912,7 @@ export interface paths {
         delete?: never;
         options?: never;
         head?: never;
-        patch: operations["patch_foodsharing_restapi_workinggrouprest_editworkinggroup"];
+        patch: operations["editWorkingGroup"];
         trace?: never;
     };
     "/api/groups/{groupId}/mail": {
@@ -3925,7 +3925,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Sends a message to a group via email, including a custom message from the contact form. */
-        post: operations["post_foodsharing_restapi_workinggrouprest_sendmailfromcontactform"];
+        post: operations["sendMailFromContactForm"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3940,7 +3940,7 @@ export interface paths {
             cookie?: never;
         };
         /** Returns the list of working groups in a group or region. */
-        get: operations["get_foodsharing_restapi_workinggrouprest_listgroupsinregion"];
+        get: operations["listGroupsInRegion"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3957,7 +3957,7 @@ export interface paths {
             cookie?: never;
         };
         /** Simple debug API returning server time and HTTPS flag. */
-        get: operations["get_api_debug_server"];
+        get: operations["debugServer"];
         put?: never;
         post?: never;
         delete?: never;
@@ -7786,7 +7786,7 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
-    get_foodsharing_restapi_achievementrest_getachievementsfromregion: {
+    getAchievementsFromRegion: {
         parameters: {
             query?: never;
             header?: never;
@@ -7822,7 +7822,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_achievementrest_addachievement: {
+    addAchievement: {
         parameters: {
             query?: never;
             header?: never;
@@ -7870,7 +7870,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_achievementrest_deleteachievement: {
+    deleteAchievement: {
         parameters: {
             query?: never;
             header?: never;
@@ -7918,7 +7918,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_achievementrest_updateachievement: {
+    updateAchievement: {
         parameters: {
             query?: never;
             header?: never;
@@ -7970,7 +7970,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_achievementrest_getawardedusersforachievement: {
+    getAwardedUsersForAchievement: {
         parameters: {
             query?: never;
             header?: never;
@@ -8006,7 +8006,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_achievementrest_awardachievement: {
+    awardAchievement: {
         parameters: {
             query?: never;
             header?: never;
@@ -8054,7 +8054,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_achievementrest_revokeachievement: {
+    revokeAchievement: {
         parameters: {
             query?: never;
             header?: never;
@@ -8095,7 +8095,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_achievementrest_editawardedachievement: {
+    editAwardedAchievement: {
         parameters: {
             query?: never;
             header?: never;
@@ -8149,7 +8149,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_activityrest_getactivityfilters: {
+    getActivityFilters: {
         parameters: {
             query?: never;
             header?: never;
@@ -8176,7 +8176,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_activityrest_setactivityfilters: {
+    setActivityFilters: {
         parameters: {
             query?: never;
             header?: never;
@@ -8212,7 +8212,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_activityrest_getactivityupdates: {
+    getActivityUpdates: {
         parameters: {
             query?: {
                 page?: number;
@@ -8241,7 +8241,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_applicationrest_declineapplication: {
+    declineApplication: {
         parameters: {
             query?: never;
             header?: never;
@@ -8283,7 +8283,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_applicationrest_acceptapplication: {
+    acceptApplication: {
         parameters: {
             query?: never;
             header?: never;
@@ -8325,7 +8325,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_applicationrest_listapplications: {
+    listApplications: {
         parameters: {
             query?: never;
             header?: never;
@@ -8368,7 +8368,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_workinggrouprest_sendgrouprequest: {
+    sendGroupRequest: {
         parameters: {
             query?: never;
             header?: never;
@@ -8413,7 +8413,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_bananarest_addbanana: {
+    addBanana: {
         parameters: {
             query?: never;
             header?: never;
@@ -8467,7 +8467,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_bananarest_deletebanana: {
+    deleteBanana: {
         parameters: {
             query?: never;
             header?: never;
@@ -8488,7 +8488,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_bananarest_getbananametadata: {
+    getBananaMetadata: {
         parameters: {
             query?: never;
             header?: never;
@@ -8524,7 +8524,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_bananarest_getreceivedbananas: {
+    getReceivedBananas: {
         parameters: {
             query?: never;
             header?: never;
@@ -8560,7 +8560,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_bananarest_getsentbananas: {
+    getSentBananas: {
         parameters: {
             query?: never;
             header?: never;
@@ -8596,7 +8596,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_basketrest_listbaskets: {
+    listBaskets: {
         parameters: {
             query?: never;
             header?: never;
@@ -8623,7 +8623,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_basketrest_listnearbybaskets: {
+    listNearbyBaskets: {
         parameters: {
             query?: {
                 lat?: number | null;
@@ -8662,7 +8662,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_basketrest_getbasket: {
+    getBasket: {
         parameters: {
             query?: never;
             header?: never;
@@ -8698,7 +8698,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_basketrest_removebasket: {
+    removeBasket: {
         parameters: {
             query?: never;
             header?: never;
@@ -8739,7 +8739,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_basketrest_editbasket: {
+    editBasket: {
         parameters: {
             query?: never;
             header?: never;
@@ -8786,7 +8786,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_basketrest_addbasket: {
+    addBasket: {
         parameters: {
             query?: never;
             header?: never;
@@ -8824,7 +8824,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_basketrest_requestbasket: {
+    requestBasket: {
         parameters: {
             query?: never;
             header?: never;
@@ -8871,7 +8871,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_basketrest_withdrawbasketrequest: {
+    withdrawBasketRequest: {
         parameters: {
             query?: never;
             header?: never;
@@ -8907,7 +8907,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_basketrest_updaterequeststatus: {
+    updateRequestStatus: {
         parameters: {
             query: {
                 status: number;
@@ -8951,7 +8951,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_bellrest_listbells: {
+    listBells: {
         parameters: {
             query?: {
                 limit?: number | null;
@@ -8981,7 +8981,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_bellrest_deletebells: {
+    deleteBells: {
         parameters: {
             query?: never;
             header?: never;
@@ -9017,7 +9017,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_bellrest_setbellreadstatus: {
+    setBellReadStatus: {
         parameters: {
             query: {
                 isRead: number;
@@ -9055,7 +9055,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_blogpostrest_getblogposts: {
+    getBlogposts: {
         parameters: {
             query?: {
                 limit?: number | null;
@@ -9078,7 +9078,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_blogpostrest_addblogpost: {
+    addBlogpost: {
         parameters: {
             query?: never;
             header?: never;
@@ -9116,7 +9116,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_blogpostrest_getblogpost: {
+    getBlogpost: {
         parameters: {
             query?: never;
             header?: never;
@@ -9145,7 +9145,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_blogpostrest_removeblogpost: {
+    removeBlogpost: {
         parameters: {
             query?: never;
             header?: never;
@@ -9186,7 +9186,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_blogpostrest_editblogpost: {
+    editBlogPost: {
         parameters: {
             query?: never;
             header?: never;
@@ -9231,7 +9231,7 @@ export interface operations {
             };
         };
     };
-    put_foodsharing_restapi_blogpostrest_setblogpostpublished: {
+    setBlogpostPublished: {
         parameters: {
             query: {
                 isPublished: boolean;
@@ -9274,7 +9274,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_buddyrest_sendrequest: {
+    sendRequest: {
         parameters: {
             query?: never;
             header?: never;
@@ -9313,7 +9313,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_buddyrest_removerequest: {
+    removeRequest: {
         parameters: {
             query?: never;
             header?: never;
@@ -9347,7 +9347,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_buddyrest_listbuddies: {
+    listBuddies: {
         parameters: {
             query?: never;
             header?: never;
@@ -9374,7 +9374,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_calendarrest_gettoken: {
+    getToken: {
         parameters: {
             query?: never;
             header?: never;
@@ -9411,7 +9411,7 @@ export interface operations {
             };
         };
     };
-    put_foodsharing_restapi_calendarrest_createtoken: {
+    createToken: {
         parameters: {
             query?: never;
             header?: never;
@@ -9444,7 +9444,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_calendarrest_deletetoken: {
+    deleteToken: {
         parameters: {
             query?: never;
             header?: never;
@@ -9469,7 +9469,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_calendarrest_listappointments: {
+    listAppointments: {
         parameters: {
             query?: {
                 /** @description How to format description texts.<br>One of `alt` (default), `html` or `text` */
@@ -9517,7 +9517,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_categoriesrest_getcategories: {
+    getCategories: {
         parameters: {
             query?: never;
             header?: never;
@@ -9553,7 +9553,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_categoriesrest_addcategory: {
+    addCategory: {
         parameters: {
             query?: never;
             header?: never;
@@ -9600,7 +9600,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_categoriesrest_deletecategory: {
+    deleteCategory: {
         parameters: {
             query?: never;
             header?: never;
@@ -9649,7 +9649,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_categoriesrest_updatecategory: {
+    updateCategory: {
         parameters: {
             query?: never;
             header?: never;
@@ -9702,7 +9702,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_categoriesrest_mergecategories: {
+    mergeCategories: {
         parameters: {
             query?: never;
             header?: never;
@@ -9754,7 +9754,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_contentrest_getcontentlist: {
+    getContentList: {
         parameters: {
             query?: never;
             header?: never;
@@ -9788,7 +9788,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_contentrest_addcontent: {
+    addContent: {
         parameters: {
             query?: never;
             header?: never;
@@ -9836,7 +9836,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_contentrest_getcontent: {
+    getContent: {
         parameters: {
             query?: never;
             header?: never;
@@ -9865,7 +9865,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_contentrest_deletecontent: {
+    deleteContent: {
         parameters: {
             query?: never;
             header?: never;
@@ -9884,7 +9884,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_contentrest_editcontent: {
+    editContent: {
         parameters: {
             query?: never;
             header?: never;
@@ -9929,7 +9929,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_donationrest_getinformation: {
+    getInformation: {
         parameters: {
             query?: never;
             header?: never;
@@ -9956,7 +9956,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_donationrest_patchinformation: {
+    patchInformation: {
         parameters: {
             query?: never;
             header?: never;
@@ -9987,7 +9987,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_donationrest_getprojects: {
+    getProjects: {
         parameters: {
             query?: never;
             header?: never;
@@ -10019,7 +10019,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_emailblocklistadminrest_listblocklistentries: {
+    listBlocklistEntries: {
         parameters: {
             query?: never;
             header?: never;
@@ -10053,7 +10053,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_emailblocklistadminrest_createblocklistentry: {
+    createBlocklistEntry: {
         parameters: {
             query?: never;
             header?: never;
@@ -10103,7 +10103,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_emailblocklistadminrest_getblocklistentry: {
+    getBlocklistEntry: {
         parameters: {
             query?: never;
             header?: never;
@@ -10146,7 +10146,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_emailblocklistadminrest_deleteblocklistentry: {
+    deleteBlocklistEntry: {
         parameters: {
             query?: never;
             header?: never;
@@ -10187,7 +10187,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_emailblocklistadminrest_updateblocklistentry: {
+    updateBlocklistEntry: {
         parameters: {
             query?: never;
             header?: never;
@@ -10248,7 +10248,7 @@ export interface operations {
             };
         };
     };
-    put_foodsharing_restapi_emailverificationrest_requestverificationemail: {
+    requestVerificationEmail: {
         parameters: {
             query?: never;
             header?: never;
@@ -10270,7 +10270,7 @@ export interface operations {
             };
         };
     };
-    put_foodsharing_restapi_eventrest_setresponse: {
+    setResponse: {
         parameters: {
             query: {
                 status: unknown;
@@ -10313,7 +10313,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_eventrest_listevents: {
+    listEvents: {
         parameters: {
             query?: never;
             header?: never;
@@ -10349,7 +10349,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_eventrest_addevents: {
+    addEvents: {
         parameters: {
             query?: never;
             header?: never;
@@ -10390,7 +10390,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_eventrest_editevents: {
+    editEvents: {
         parameters: {
             query?: never;
             header?: never;
@@ -10435,7 +10435,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_featuretogglerest_getallfeaturetoggles: {
+    getAllFeatureToggles: {
         parameters: {
             query?: never;
             header?: never;
@@ -10455,7 +10455,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_featuretogglerest_isfeaturetoggleactive: {
+    isFeatureToggleActive: {
         parameters: {
             query?: never;
             header?: never;
@@ -10484,7 +10484,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_featuretogglerest_togglefeaturetoggle: {
+    toggleFeatureToggle: {
         parameters: {
             query?: {
                 newState?: boolean | null;
@@ -10520,7 +10520,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_foodsharepointrest_getfoodsharepoint: {
+    getFoodSharePointDetails: {
         parameters: {
             query?: never;
             header?: never;
@@ -10549,7 +10549,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_foodsharepointrest_removefoodsharepoint: {
+    removeFoodSharePoint: {
         parameters: {
             query?: never;
             header?: never;
@@ -10583,7 +10583,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_foodsharepointrest_editfoodsharepoint: {
+    editFoodSharePoint: {
         parameters: {
             query?: never;
             header?: never;
@@ -10635,7 +10635,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_foodsharepointrest_listfoodsharepoints: {
+    listFoodSharePoints: {
         parameters: {
             query?: never;
             header?: never;
@@ -10671,7 +10671,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_foodsharepointrest_addfoodsharepoint: {
+    addFoodSharePoint: {
         parameters: {
             query?: never;
             header?: never;
@@ -10718,7 +10718,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_foodsharepointrest_foodsharepointpermissions: {
+    foodSharePointPermissions: {
         parameters: {
             query?: never;
             header?: never;
@@ -10747,7 +10747,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_foodsharepointrest_followfoodsharepoint: {
+    followFoodSharePoint: {
         parameters: {
             query?: {
                 sendMails?: boolean;
@@ -10783,7 +10783,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_foodsharepointrest_unfollowfoodsharepoint: {
+    unfollowFoodSharePoint: {
         parameters: {
             query?: never;
             header?: never;
@@ -10817,7 +10817,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_foodsharepointrest_acceptfoodsharepoint: {
+    acceptFoodSharePoint: {
         parameters: {
             query?: never;
             header?: never;
@@ -10858,7 +10858,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_foodsaverrest_listsamedayagenda: {
+    listSameDayAgenda: {
         parameters: {
             query?: never;
             header?: never;
@@ -10895,7 +10895,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_forumrest_getisfollowingforum: {
+    getIsFollowingForum: {
         parameters: {
             query?: never;
             header?: never;
@@ -10926,7 +10926,7 @@ export interface operations {
             };
         };
     };
-    put_foodsharing_restapi_forumrest_setfollowingforum: {
+    setFollowingForum: {
         parameters: {
             query: {
                 isFollowing: boolean;
@@ -10962,7 +10962,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_forumrest_listthreads: {
+    listThreads: {
         parameters: {
             query?: {
                 subforumId?: number | null;
@@ -11002,7 +11002,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_forumrest_createthread: {
+    createThread: {
         parameters: {
             query?: {
                 subforumId?: number | null;
@@ -11042,7 +11042,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_forumrest_getthread: {
+    getThread: {
         parameters: {
             query?: never;
             header?: never;
@@ -11085,7 +11085,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_forumrest_deletethread: {
+    deleteThread: {
         parameters: {
             query?: never;
             header?: never;
@@ -11126,7 +11126,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_forumrest_patchthread: {
+    patchThread: {
         parameters: {
             query?: never;
             header?: never;
@@ -11164,7 +11164,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_forumrest_followthreadbyemail: {
+    followThreadByEmail: {
         parameters: {
             query?: never;
             header?: never;
@@ -11198,7 +11198,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_forumrest_unfollowthreadbyemail: {
+    unfollowThreadByEmail: {
         parameters: {
             query?: never;
             header?: never;
@@ -11232,7 +11232,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_forumrest_followthreadbybell: {
+    followThreadByBell: {
         parameters: {
             query?: never;
             header?: never;
@@ -11266,7 +11266,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_forumrest_unfollowthreadbybell: {
+    unfollowThreadByBell: {
         parameters: {
             query?: never;
             header?: never;
@@ -11300,7 +11300,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_forumrest_createpost: {
+    createPost: {
         parameters: {
             query?: never;
             header?: never;
@@ -11338,7 +11338,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_forumrest_deletepost: {
+    deletePost: {
         parameters: {
             query?: never;
             header?: never;
@@ -11379,7 +11379,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_forumrest_editpost: {
+    editPost: {
         parameters: {
             query?: never;
             header?: never;
@@ -11438,7 +11438,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_forumrest_restorepost: {
+    restorePost: {
         parameters: {
             query?: never;
             header?: never;
@@ -11486,7 +11486,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_forumrest_hidepost: {
+    hidePost: {
         parameters: {
             query?: never;
             header?: never;
@@ -11538,7 +11538,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_forumrest_addreaction: {
+    addReaction: {
         parameters: {
             query?: never;
             header?: never;
@@ -11580,7 +11580,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_forumrest_deletereaction: {
+    deleteReaction: {
         parameters: {
             query?: never;
             header?: never;
@@ -11622,7 +11622,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_regionrest_getregion: {
+    getRegion: {
         parameters: {
             query?: never;
             header?: never;
@@ -11665,7 +11665,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_grouprest_deletegroup: {
+    deleteGroup: {
         parameters: {
             query?: never;
             header?: never;
@@ -11706,7 +11706,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_regionrest_editregion: {
+    editRegion: {
         parameters: {
             query?: never;
             header?: never;
@@ -11751,7 +11751,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_grouprest_joinconference: {
+    joinConference: {
         parameters: {
             query?: {
                 redirect?: boolean | null;
@@ -11810,7 +11810,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_localerest_getlocale: {
+    getLocale: {
         parameters: {
             query?: never;
             header?: never;
@@ -11840,7 +11840,7 @@ export interface operations {
             };
         };
     };
-    put_foodsharing_restapi_localerest_setlocale: {
+    setLocale: {
         parameters: {
             query?: {
                 locale?: string | null;
@@ -11875,7 +11875,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_localerest_getlocales: {
+    getLocales: {
         parameters: {
             query?: never;
             header?: never;
@@ -11902,7 +11902,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_mailboxrest_getmail: {
+    getMail: {
         parameters: {
             query?: never;
             header?: never;
@@ -11938,7 +11938,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_mailboxrest_deleteemail: {
+    deleteEmail: {
         parameters: {
             query?: never;
             header?: never;
@@ -11972,7 +11972,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_mailboxrest_setemailproperties: {
+    setEmailProperties: {
         parameters: {
             query?: never;
             header?: never;
@@ -12010,7 +12010,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_mailboxrest_getunreadmailcount: {
+    getUnreadMailCount: {
         parameters: {
             query?: never;
             header?: never;
@@ -12040,7 +12040,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_mailboxrest_getallmailsfrommailbox: {
+    getAllMailsFromMailbox: {
         parameters: {
             query?: {
                 limit?: number | null;
@@ -12080,7 +12080,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_mailboxrest_sendmail: {
+    sendMail: {
         parameters: {
             query?: never;
             header?: never;
@@ -12141,7 +12141,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_mailboxrest_listregions: {
+    listRegions: {
         parameters: {
             query?: never;
             header?: never;
@@ -12168,7 +12168,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_maprest_getbasketmarkers: {
+    getBasketMarkers: {
         parameters: {
             query?: never;
             header?: never;
@@ -12188,7 +12188,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_maprest_getfoodsharepointmarkers: {
+    getFoodSharePointMarkers: {
         parameters: {
             query?: never;
             header?: never;
@@ -12208,7 +12208,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_maprest_getregionmarkers: {
+    getRegionMarkers: {
         parameters: {
             query?: never;
             header?: never;
@@ -12228,7 +12228,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_maprest_getstoremarkers: {
+    getStoreMarkers: {
         parameters: {
             query?: {
                 status?: unknown;
@@ -12253,7 +12253,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_maprest_getusermarkers: {
+    getUserMarkers: {
         parameters: {
             query: {
                 regionId: number;
@@ -12278,7 +12278,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_maprest_geteventmarkers: {
+    getEventMarkers: {
         parameters: {
             query?: never;
             header?: never;
@@ -12298,7 +12298,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_maprest_getregionbubble: {
+    getRegionBubble: {
         parameters: {
             query?: never;
             header?: never;
@@ -12327,7 +12327,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_maprest_getfoodsharepoint: {
+    getFoodSharePointOnMap: {
         parameters: {
             query?: never;
             header?: never;
@@ -12356,7 +12356,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_maprest_getbasketbubble: {
+    getBasketBubble: {
         parameters: {
             query?: never;
             header?: never;
@@ -12385,7 +12385,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_maprest_getstorebubble: {
+    getStoreBubble: {
         parameters: {
             query?: never;
             header?: never;
@@ -12414,7 +12414,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_maprest_geteventbubble: {
+    getEventBubble: {
         parameters: {
             query?: never;
             header?: never;
@@ -12450,7 +12450,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_maprest_getuserbubble: {
+    getUserBubble: {
         parameters: {
             query?: never;
             header?: never;
@@ -12479,7 +12479,7 @@ export interface operations {
             };
         };
     };
-    put_foodsharing_restapi_messagerest_markconversationread: {
+    markConversationRead: {
         parameters: {
             query: {
                 isRead: boolean;
@@ -12515,7 +12515,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_messagerest_getconversationmessages: {
+    getConversationMessages: {
         parameters: {
             query?: {
                 olderThanId?: number | null;
@@ -12554,7 +12554,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_messagerest_sendmessage: {
+    sendMessage: {
         parameters: {
             query?: never;
             header?: never;
@@ -12601,7 +12601,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_messagerest_getconversation: {
+    getConversation: {
         parameters: {
             query?: {
                 limit?: number | null;
@@ -12643,7 +12643,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_messagerest_patchconversation: {
+    patchConversation: {
         parameters: {
             query?: never;
             header?: never;
@@ -12688,7 +12688,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_messagerest_getconversationid: {
+    getConversationId: {
         parameters: {
             query?: never;
             header?: never;
@@ -12729,7 +12729,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_messagerest_getconversations: {
+    getConversations: {
         parameters: {
             query?: {
                 limit?: number | null;
@@ -12762,7 +12762,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_notificationsrest_getgeneralnotificationsettings: {
+    getGeneralNotificationSettings: {
         parameters: {
             query?: never;
             header?: never;
@@ -12789,7 +12789,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_notificationsrest_patchgeneralnotificationsettings: {
+    patchGeneralNotificationSettings: {
         parameters: {
             query?: never;
             header?: never;
@@ -12818,7 +12818,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_notificationsrest_getthreadsnotificationsettings: {
+    getThreadsNotificationSettings: {
         parameters: {
             query?: never;
             header?: never;
@@ -12845,7 +12845,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_notificationsrest_patchthreadsnotificationsettings: {
+    patchThreadsNotificationSettings: {
         parameters: {
             query?: never;
             header?: never;
@@ -12881,7 +12881,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_notificationsrest_getfoodsharepointsnotificationsettings: {
+    getFoodSharePointsNotificationSettings: {
         parameters: {
             query?: never;
             header?: never;
@@ -12908,7 +12908,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_notificationsrest_patchfoodsharepointsnotificationsettings: {
+    patchFoodSharePointsNotificationSettings: {
         parameters: {
             query?: never;
             header?: never;
@@ -12944,7 +12944,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_notificationsrest_getregionsnotificationsettings: {
+    getRegionsNotificationSettings: {
         parameters: {
             query?: {
                 groups?: boolean | null;
@@ -12973,7 +12973,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_notificationsrest_patchregionsnotificationsettings: {
+    patchRegionsNotificationSettings: {
         parameters: {
             query?: never;
             header?: never;
@@ -13009,7 +13009,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_notificationsrest_getnewsletternotificationsettings: {
+    getNewsletterNotificationSettings: {
         parameters: {
             query?: never;
             header?: never;
@@ -13043,7 +13043,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_notificationsrest_patchnewsletternotificationsettings: {
+    patchNewsletterNotificationSettings: {
         parameters: {
             query?: never;
             header?: never;
@@ -13086,7 +13086,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_oauthadminrest_listclients: {
+    listClientsAction: {
         parameters: {
             query?: never;
             header?: never;
@@ -13103,7 +13103,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_oauthadminrest_createclient: {
+    createClientAction: {
         parameters: {
             query?: never;
             header?: never;
@@ -13120,7 +13120,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_oauthadminrest_getclient: {
+    getClientAction: {
         parameters: {
             query?: never;
             header?: never;
@@ -13139,7 +13139,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_oauthadminrest_deleteclient: {
+    deleteClientAction: {
         parameters: {
             query?: never;
             header?: never;
@@ -13158,7 +13158,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_oauthadminrest_updateclient: {
+    updateClientAction: {
         parameters: {
             query?: never;
             header?: never;
@@ -13177,7 +13177,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_passkeyrest_registrationoptions: {
+    registrationOptions: {
         parameters: {
             query?: never;
             header?: never;
@@ -13202,7 +13202,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_passkeyrest_verifyregistration: {
+    verifyRegistration: {
         parameters: {
             query?: never;
             header?: never;
@@ -13238,7 +13238,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_passkeyrest_authenticationoptions: {
+    authenticationOptions: {
         parameters: {
             query?: never;
             header?: never;
@@ -13256,7 +13256,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_passkeyrest_verifyauthentication: {
+    verifyAuthentication: {
         parameters: {
             query?: never;
             header?: never;
@@ -13285,7 +13285,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_passkeyrest_listpasskeys: {
+    listPasskeys: {
         parameters: {
             query?: never;
             header?: never;
@@ -13310,7 +13310,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_passkeyrest_deletepasskey: {
+    deletePasskey: {
         parameters: {
             query?: never;
             header?: never;
@@ -13344,7 +13344,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_passkeyrest_renamepasskey: {
+    renamePasskey: {
         parameters: {
             query?: never;
             header?: never;
@@ -13382,7 +13382,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_petitionrest_getsignaturescount: {
+    getSignaturesCount: {
         parameters: {
             query?: never;
             header?: never;
@@ -13416,7 +13416,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_pickuprest_joinpickup: {
+    joinPickup: {
         parameters: {
             query?: never;
             header?: never;
@@ -13455,7 +13455,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_pickuprest_leavepickup: {
+    leavePickup: {
         parameters: {
             query?: never;
             header?: never;
@@ -13495,7 +13495,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_pickuprest_editpickupslot: {
+    confirmPickupSlot: {
         parameters: {
             query?: never;
             header?: never;
@@ -13538,7 +13538,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_pickuprest_leaveallpickups: {
+    leaveAllPickups: {
         parameters: {
             query?: never;
             header?: never;
@@ -13576,7 +13576,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_pickuprest_getregularpickup: {
+    getRegularPickup: {
         parameters: {
             query?: never;
             header?: never;
@@ -13619,7 +13619,7 @@ export interface operations {
             };
         };
     };
-    put_foodsharing_restapi_pickuprest_editregularpickup: {
+    editRegularPickup: {
         parameters: {
             query?: never;
             header?: never;
@@ -13664,7 +13664,7 @@ export interface operations {
             };
         };
     };
-    put_foodsharing_restapi_pickuprest_editpickup: {
+    editPickupSlots: {
         parameters: {
             query?: never;
             header?: never;
@@ -13722,7 +13722,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_pickuprest_listpickups: {
+    listPickups: {
         parameters: {
             query?: never;
             header?: never;
@@ -13777,7 +13777,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_pickuprest_listpickuphistory: {
+    listPickupHistory: {
         parameters: {
             query?: never;
             header?: never;
@@ -13830,7 +13830,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_pickuprest_listpastpickups: {
+    listPastPickups: {
         parameters: {
             query?: {
                 limit?: number | null;
@@ -13869,7 +13869,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_pickuprest_listregisteredpickups: {
+    listRegisteredPickups: {
         parameters: {
             query?: never;
             header?: never;
@@ -13905,7 +13905,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_pickuprest_listpickupoptions: {
+    listPickupOptions: {
         parameters: {
             query?: never;
             header?: never;
@@ -13939,7 +13939,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_pickuprest_passespickuprule: {
+    passesPickupRule: {
         parameters: {
             query?: never;
             header?: never;
@@ -13971,7 +13971,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_pushnotificationsubscriptionrest_getserverinformation: {
+    getServerInformation: {
         parameters: {
             query?: never;
             header?: never;
@@ -14010,7 +14010,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_pushnotificationsubscriptionrest_subscribe: {
+    subscribe: {
         parameters: {
             query?: never;
             header?: never;
@@ -14049,7 +14049,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_pushnotificationsubscriptionrest_unsubscribe: {
+    unsubscribe: {
         parameters: {
             query?: never;
             header?: never;
@@ -14084,7 +14084,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_quizrest_startquizsession: {
+    startQuizSession: {
         parameters: {
             query?: {
                 isTimed?: boolean;
@@ -14135,7 +14135,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_quizrest_getquizstatus: {
+    getQuizStatus: {
         parameters: {
             query?: {
                 isTest?: boolean;
@@ -14187,7 +14187,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_quizrest_getnextquestion: {
+    getNextQuestion: {
         parameters: {
             query?: {
                 isTest?: boolean;
@@ -14239,7 +14239,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_quizrest_answernextquestion: {
+    answerNextQuestion: {
         parameters: {
             query?: {
                 isTest?: boolean;
@@ -14299,7 +14299,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_quizrest_getquizresults: {
+    getQuizResults: {
         parameters: {
             query?: {
                 isTest?: boolean;
@@ -14351,7 +14351,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_quizrest_confirmquiz: {
+    confirmQuiz: {
         parameters: {
             query?: never;
             header?: never;
@@ -14399,7 +14399,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_quizrest_getquizsessions: {
+    getQuizSessions: {
         parameters: {
             query?: never;
             header?: never;
@@ -14452,7 +14452,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_quizrest_deletequizsession: {
+    deleteQuizSession: {
         parameters: {
             query?: never;
             header?: never;
@@ -14500,7 +14500,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_quizrest_getquizdetails: {
+    getQuizDetails: {
         parameters: {
             query?: never;
             header?: never;
@@ -14550,7 +14550,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_quizrest_updatequiz: {
+    updateQuiz: {
         parameters: {
             query?: never;
             header?: never;
@@ -14602,7 +14602,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_quizrest_getquestions: {
+    getQuestions: {
         parameters: {
             query?: never;
             header?: never;
@@ -14652,7 +14652,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_quizrest_addquestion: {
+    addQuestion: {
         parameters: {
             query?: never;
             header?: never;
@@ -14709,7 +14709,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_quizrest_deletequestions: {
+    deleteQuestions: {
         parameters: {
             query?: never;
             header?: never;
@@ -14758,7 +14758,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_quizrest_updatequestion: {
+    updateQuestion: {
         parameters: {
             query?: never;
             header?: never;
@@ -14811,7 +14811,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_quizrest_addanswer: {
+    addAnswer: {
         parameters: {
             query?: never;
             header?: never;
@@ -14869,7 +14869,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_quizrest_deleteanswer: {
+    deleteAnswer: {
         parameters: {
             query?: never;
             header?: never;
@@ -14919,7 +14919,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_quizrest_updateanswer: {
+    updateAnswer: {
         parameters: {
             query?: never;
             header?: never;
@@ -14973,7 +14973,7 @@ export interface operations {
             };
         };
     };
-    put_foodsharing_restapi_regionrest_joinregion: {
+    joinRegion: {
         parameters: {
             query?: never;
             header?: never;
@@ -15014,7 +15014,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_regionrest_leaveregion: {
+    leaveRegion: {
         parameters: {
             query?: never;
             header?: never;
@@ -15062,7 +15062,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_regionrest_getregionoptions: {
+    getRegionOptions: {
         parameters: {
             query?: never;
             header?: never;
@@ -15105,7 +15105,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_regionrest_setregionoptions: {
+    setRegionOptions: {
         parameters: {
             query?: never;
             header?: never;
@@ -15150,7 +15150,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_regionrest_getregionoptionpermissions: {
+    getRegionOptionPermissions: {
         parameters: {
             query?: never;
             header?: never;
@@ -15198,7 +15198,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_regionrest_getpublicregiondata: {
+    getPublicRegionData: {
         parameters: {
             query?: never;
             header?: never;
@@ -15248,7 +15248,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_regionrest_setpublicregiondata: {
+    setPublicRegionData: {
         parameters: {
             query?: never;
             header?: never;
@@ -15293,7 +15293,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_regionrest_listregionchildren: {
+    listRegionChildren: {
         parameters: {
             query?: {
                 includeWorkingGroups?: boolean | null;
@@ -15338,7 +15338,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_regionrest_listmembers: {
+    listMembers: {
         parameters: {
             query?: never;
             header?: never;
@@ -15381,7 +15381,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_regionrest_removemember: {
+    removeMember: {
         parameters: {
             query?: never;
             header?: never;
@@ -15430,7 +15430,7 @@ export interface operations {
             };
         };
     };
-    put_foodsharing_restapi_regionrest_setadminorambassador: {
+    setAdminOrAmbassador: {
         parameters: {
             query?: never;
             header?: never;
@@ -15472,7 +15472,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_regionrest_removeadminorambassador: {
+    removeAdminOrAmbassador: {
         parameters: {
             query?: never;
             header?: never;
@@ -15514,7 +15514,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_regionrest_getregionmemberpermissions: {
+    getRegionMemberPermissions: {
         parameters: {
             query?: never;
             header?: never;
@@ -15561,7 +15561,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_regionrest_addregion: {
+    addRegion: {
         parameters: {
             query?: never;
             header?: never;
@@ -15616,7 +15616,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_regionrest_getregionmenu: {
+    getRegionMenu: {
         parameters: {
             query?: never;
             header?: never;
@@ -15659,7 +15659,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_regionrest_getinaccessibleregionredirects: {
+    getInaccessibleRegionRedirects: {
         parameters: {
             query?: never;
             header?: never;
@@ -15702,7 +15702,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_reportrest_listreportsforregion: {
+    listReportsForRegion: {
         parameters: {
             query?: never;
             header?: never;
@@ -15738,7 +15738,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_reportrest_listreportsforuser: {
+    listReportsForUser: {
         parameters: {
             query?: never;
             header?: never;
@@ -15774,7 +15774,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_reportrest_addreport: {
+    addReport: {
         parameters: {
             query?: never;
             header?: never;
@@ -15805,7 +15805,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_reportrest_deletereport: {
+    deleteReport: {
         parameters: {
             query?: never;
             header?: never;
@@ -15839,7 +15839,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_reportrest_updatereport: {
+    updateReport: {
         parameters: {
             query?: never;
             header?: never;
@@ -15877,7 +15877,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_resourcerest_getresourcecategories: {
+    getResourceCategories: {
         parameters: {
             query?: never;
             header?: never;
@@ -15911,7 +15911,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_resourcerest_getresourcesforregion: {
+    getResourcesForRegion: {
         parameters: {
             query?: never;
             header?: never;
@@ -15947,7 +15947,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_resourcerest_getownresources: {
+    getOwnResources: {
         parameters: {
             query?: never;
             header?: never;
@@ -15981,7 +15981,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_resourcerest_addownresource: {
+    addOwnResource: {
         parameters: {
             query?: never;
             header?: never;
@@ -16019,7 +16019,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_resourcerest_addcommonsresource: {
+    addCommonsResource: {
         parameters: {
             query?: never;
             header?: never;
@@ -16057,7 +16057,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_resourcerest_deleteresource: {
+    deleteResource: {
         parameters: {
             query?: never;
             header?: never;
@@ -16098,7 +16098,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_resourcerest_editresource: {
+    editResource: {
         parameters: {
             query?: never;
             header?: never;
@@ -16145,7 +16145,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_resourcerest_favoriteresource: {
+    favoriteResource: {
         parameters: {
             query?: never;
             header?: never;
@@ -16179,7 +16179,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_resourcerest_unfavoriteresource: {
+    unfavoriteResource: {
         parameters: {
             query?: never;
             header?: never;
@@ -16213,7 +16213,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_resourcerest_getresourcepermissionsforregion: {
+    getResourcePermissionsForRegion: {
         parameters: {
             query?: never;
             header?: never;
@@ -16251,7 +16251,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_searchrest_listuserresults: {
+    listUserResults: {
         parameters: {
             query: {
                 q: string;
@@ -16288,7 +16288,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_searchrest_search: {
+    search: {
         parameters: {
             query: {
                 q: string;
@@ -16318,7 +16318,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_searchrest_searchindex: {
+    searchIndex: {
         parameters: {
             query?: never;
             header?: never;
@@ -16345,7 +16345,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_searchrest_searchforumtitle: {
+    searchForumTitle: {
         parameters: {
             query: {
                 q: string;
@@ -16385,7 +16385,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_serverrest_getserverdata: {
+    getServerData: {
         parameters: {
             query?: never;
             header?: never;
@@ -16405,7 +16405,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_serverrest_getroutes: {
+    getRoutes: {
         parameters: {
             query?: never;
             header?: never;
@@ -16425,7 +16425,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_settingsrest_setsleepstatus: {
+    setSleepStatus: {
         parameters: {
             query?: never;
             header?: never;
@@ -16461,7 +16461,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_settingsrest_requestemailchange: {
+    requestEmailChange: {
         parameters: {
             query?: never;
             header?: never;
@@ -16506,7 +16506,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_settingsrest_requestpasswordchange: {
+    requestPasswordChange: {
         parameters: {
             query?: never;
             header?: never;
@@ -16549,7 +16549,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_settingsrest_generatetwofa: {
+    generateTwoFA: {
         parameters: {
             query?: never;
             header?: never;
@@ -16576,7 +16576,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_settingsrest_toggletwofa: {
+    toggleTwoFA: {
         parameters: {
             query?: never;
             header?: never;
@@ -16621,7 +16621,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_settingsrest_getuserprofilesettings: {
+    getUserProfileSettings: {
         parameters: {
             query?: never;
             header?: never;
@@ -16664,7 +16664,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_statisticsrest_listregiongenderstatistic: {
+    listRegionGenderStatistic: {
         parameters: {
             query?: {
                 onlyHomeRegion?: boolean;
@@ -16695,7 +16695,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_statisticsrest_listregionagebandstatistic: {
+    listRegionAgeBandStatistic: {
         parameters: {
             query?: {
                 onlyHomeRegion?: boolean;
@@ -16726,7 +16726,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_statisticsrest_listregionpickupsstatistics: {
+    listRegionPickupsStatistics: {
         parameters: {
             query?: never;
             header?: never;
@@ -16762,7 +16762,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_statisticsrest_listoverallstatistics: {
+    listOverallStatistics: {
         parameters: {
             query?: never;
             header?: never;
@@ -16782,7 +16782,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_storechainrest_getstorechains: {
+    getStoreChains: {
         parameters: {
             query?: {
                 limit?: number | null;
@@ -16819,7 +16819,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_storechainrest_createchain: {
+    createChain: {
         parameters: {
             query?: never;
             header?: never;
@@ -16855,7 +16855,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_storechainrest_getstorechain: {
+    getStoreChain: {
         parameters: {
             query?: never;
             header?: never;
@@ -16898,7 +16898,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_storechainrest_updatechain: {
+    updateChain: {
         parameters: {
             query?: never;
             header?: never;
@@ -16943,7 +16943,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_storechainrest_getchainstores: {
+    getChainStores: {
         parameters: {
             query?: {
                 limit?: number | null;
@@ -16982,7 +16982,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_storerest_getcommonstoremetadata: {
+    getCommonStoreMetadata: {
         parameters: {
             query?: {
                 version?: number | null;
@@ -17019,7 +17019,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_storerest_getstoresofuser: {
+    getStoresOfUser: {
         parameters: {
             query?: {
                 format?: unknown;
@@ -17072,7 +17072,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_storerest_getstoresofregion: {
+    getStoresOfRegion: {
         parameters: {
             query?: {
                 /** @description Index of the first store to return (for pagination). */
@@ -17113,7 +17113,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_storerest_addstore: {
+    addStore: {
         parameters: {
             query?: never;
             header?: never;
@@ -17170,7 +17170,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_storerest_getstoreinformation: {
+    getStoreInformation: {
         parameters: {
             query?: never;
             header?: never;
@@ -17213,7 +17213,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_storerest_editstore: {
+    editStore: {
         parameters: {
             query?: never;
             header?: never;
@@ -17265,7 +17265,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_storerest_getstoremembers: {
+    getStoreMembers: {
         parameters: {
             query?: never;
             header?: never;
@@ -17308,7 +17308,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_storerest_getstorepermissions: {
+    getStorePermissions: {
         parameters: {
             query?: never;
             header?: never;
@@ -17351,7 +17351,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_storerest_liststoreteammembershiprequests: {
+    listStoreTeamMembershipRequests: {
         parameters: {
             query?: never;
             header?: never;
@@ -17394,7 +17394,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_storerest_requeststoreteammembership: {
+    requestStoreTeamMembership: {
         parameters: {
             query?: never;
             header?: never;
@@ -17446,7 +17446,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_storerest_declinestorerequest: {
+    declineStoreRequest: {
         parameters: {
             query?: never;
             header?: never;
@@ -17492,7 +17492,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_storerest_acceptstorerequest: {
+    acceptStoreRequest: {
         parameters: {
             query?: {
                 moveToStandby?: boolean | null;
@@ -17536,7 +17536,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_storerest_liststoreteaminvitations: {
+    listStoreTeamInvitations: {
         parameters: {
             query?: never;
             header?: never;
@@ -17579,7 +17579,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_storerest_invitestoremember: {
+    inviteStoreMember: {
         parameters: {
             query?: never;
             header?: never;
@@ -17630,7 +17630,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_storerest_withdrawstoreteaminvitation: {
+    withdrawStoreTeamInvitation: {
         parameters: {
             query?: never;
             header?: never;
@@ -17672,7 +17672,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_storerest_declinestoreteaminvitation: {
+    declineStoreTeamInvitation: {
         parameters: {
             query?: never;
             header?: never;
@@ -17692,7 +17692,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_storerest_acceptstoreteaminvitation: {
+    acceptStoreTeamInvitation: {
         parameters: {
             query?: never;
             header?: never;
@@ -17733,7 +17733,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_storerest_removestoremember: {
+    removeStoreMember: {
         parameters: {
             query?: never;
             header?: never;
@@ -17786,7 +17786,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_storerest_addstoremanager: {
+    addStoreManager: {
         parameters: {
             query?: never;
             header?: never;
@@ -17835,7 +17835,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_storerest_removestoremanager: {
+    removeStoreManager: {
         parameters: {
             query?: never;
             header?: never;
@@ -17888,7 +17888,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_storerest_moveusertoregularteam: {
+    moveUserToRegularTeam: {
         parameters: {
             query?: never;
             header?: never;
@@ -17930,7 +17930,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_storerest_movemembertostandbyteam: {
+    moveMemberToStandbyTeam: {
         parameters: {
             query?: never;
             header?: never;
@@ -17976,7 +17976,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_storerest_showstoreloghistory: {
+    showStoreLogHistory: {
         parameters: {
             query?: {
                 limit?: number | null;
@@ -18025,7 +18025,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_storerest_deletestore: {
+    deleteStore: {
         parameters: {
             query?: never;
             header?: never;
@@ -18073,7 +18073,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_supportpagerest_createticket: {
+    createTicket: {
         parameters: {
             query?: never;
             header?: never;
@@ -18102,7 +18102,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_testrest_clearcache: {
+    clearCache: {
         parameters: {
             query?: never;
             header?: never;
@@ -18129,7 +18129,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_uploadsrest_getimage: {
+    getImage: {
         parameters: {
             query?: {
                 /** @description Max image width */
@@ -18177,7 +18177,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_uploadsrest_getimagemetadata: {
+    getImageMetadata: {
         parameters: {
             query?: never;
             header?: never;
@@ -18211,7 +18211,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_uploadsrest_uploadfile: {
+    uploadFile: {
         parameters: {
             query?: never;
             header?: never;
@@ -18254,7 +18254,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_userrest_user: {
+    user: {
         parameters: {
             query?: never;
             header?: never;
@@ -18290,7 +18290,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_userrest_deleteuser: {
+    deleteUser: {
         parameters: {
             query?: never;
             header?: never;
@@ -18335,7 +18335,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_userrest_currentuserdetails: {
+    currentUserDetails: {
         parameters: {
             query?: never;
             header?: never;
@@ -18362,7 +18362,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_userrest_login: {
+    login: {
         parameters: {
             query?: never;
             header?: never;
@@ -18405,7 +18405,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_userrest_logout: {
+    logout: {
         parameters: {
             query?: never;
             header?: never;
@@ -18430,7 +18430,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_userrest_initialiseregistration: {
+    initialiseRegistration: {
         parameters: {
             query?: never;
             header?: never;
@@ -18466,7 +18466,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_userrest_registeruser: {
+    registerUser: {
         parameters: {
             query?: never;
             header?: never;
@@ -18497,7 +18497,7 @@ export interface operations {
             };
         };
     };
-    put_foodsharing_restapi_userrest_setprofilepicture: {
+    setProfilePicture: {
         parameters: {
             query?: never;
             header?: never;
@@ -18540,7 +18540,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_userrest_removefrombouncelist: {
+    removeFromBounceList: {
         parameters: {
             query?: never;
             header?: never;
@@ -18574,7 +18574,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_userrest_getusernames: {
+    getUserNames: {
         parameters: {
             query?: never;
             header?: never;
@@ -18596,7 +18596,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_userrest_patchuserprofile: {
+    patchUserProfile: {
         parameters: {
             query?: never;
             header?: never;
@@ -18643,7 +18643,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_userrest_requestpasswordreset: {
+    requestPasswordReset: {
         parameters: {
             query?: never;
             header?: never;
@@ -18672,7 +18672,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_userrest_resetpassword: {
+    resetPassword: {
         parameters: {
             query?: never;
             header?: never;
@@ -18701,7 +18701,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_userrest_validateresettoken: {
+    validateResetToken: {
         parameters: {
             query: {
                 token: string;
@@ -18726,7 +18726,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_verificationrest_getverificationhistory: {
+    getVerificationHistory: {
         parameters: {
             query?: never;
             header?: never;
@@ -18762,7 +18762,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_verificationrest_verifyuser: {
+    verifyUser: {
         parameters: {
             query?: never;
             header?: never;
@@ -18814,7 +18814,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_verificationrest_deverifyuser: {
+    deverifyUser: {
         parameters: {
             query?: never;
             header?: never;
@@ -18869,7 +18869,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_verificationrest_getpasshistory: {
+    getPassHistory: {
         parameters: {
             query?: never;
             header?: never;
@@ -18905,7 +18905,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_verificationrest_createasuser: {
+    createAsUser: {
         parameters: {
             query?: never;
             header?: never;
@@ -18939,7 +18939,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_verificationrest_createasambassador: {
+    createAsAmbassador: {
         parameters: {
             query?: never;
             header?: never;
@@ -18993,7 +18993,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_verificationrest_getwallet: {
+    getWallet: {
         parameters: {
             query?: never;
             header?: never;
@@ -19032,7 +19032,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_votingrest_getpoll: {
+    getPoll: {
         parameters: {
             query?: never;
             header?: never;
@@ -19075,7 +19075,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_votingrest_deletepoll: {
+    deletePoll: {
         parameters: {
             query?: never;
             header?: never;
@@ -19116,7 +19116,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_votingrest_editpoll: {
+    editPoll: {
         parameters: {
             query?: never;
             header?: never;
@@ -19170,7 +19170,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_votingrest_listpolls: {
+    listPolls: {
         parameters: {
             query?: never;
             header?: never;
@@ -19206,7 +19206,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_votingrest_listcurrentpolls: {
+    listCurrentPolls: {
         parameters: {
             query?: never;
             header?: never;
@@ -19233,7 +19233,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_votingrest_vote: {
+    vote: {
         parameters: {
             query?: never;
             header?: never;
@@ -19285,7 +19285,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_votingrest_createpoll: {
+    createPoll: {
         parameters: {
             query?: never;
             header?: never;
@@ -19330,7 +19330,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_wallrest_getposts: {
+    getWallPosts: {
         parameters: {
             query?: {
                 /** @description The ID of the post to anchor the results to. If provided, the results limit will be expanded to include that post. Ignored if the post is not linked to the wall or is behind the given offset. */
@@ -19380,7 +19380,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_wallrest_addpost: {
+    addWallPost: {
         parameters: {
             query?: never;
             header?: never;
@@ -19428,7 +19428,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_wallrest_deletepost: {
+    deleteWallPost: {
         parameters: {
             query?: never;
             header?: never;
@@ -19471,7 +19471,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_wallrest_addreaction: {
+    addWallReaction: {
         parameters: {
             query?: never;
             header?: never;
@@ -19515,7 +19515,7 @@ export interface operations {
             };
         };
     };
-    delete_foodsharing_restapi_wallrest_deletereaction: {
+    deleteWallReaction: {
         parameters: {
             query?: never;
             header?: never;
@@ -19552,7 +19552,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_workinggrouprest_addmember: {
+    addMember: {
         parameters: {
             query?: never;
             header?: never;
@@ -19594,7 +19594,7 @@ export interface operations {
             };
         };
     };
-    patch_foodsharing_restapi_workinggrouprest_editworkinggroup: {
+    editWorkingGroup: {
         parameters: {
             query?: never;
             header?: never;
@@ -19617,7 +19617,7 @@ export interface operations {
             };
         };
     };
-    post_foodsharing_restapi_workinggrouprest_sendmailfromcontactform: {
+    sendMailFromContactForm: {
         parameters: {
             query?: never;
             header?: never;
@@ -19655,7 +19655,7 @@ export interface operations {
             };
         };
     };
-    get_foodsharing_restapi_workinggrouprest_listgroupsinregion: {
+    listGroupsInRegion: {
         parameters: {
             query?: never;
             header?: never;
@@ -19675,7 +19675,7 @@ export interface operations {
             };
         };
     };
-    get_api_debug_server: {
+    debugServer: {
         parameters: {
             query?: never;
             header?: never;

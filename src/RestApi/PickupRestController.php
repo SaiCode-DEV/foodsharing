@@ -118,7 +118,7 @@ final class PickupRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid request')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
-    public function editPickupSlot(int $storeId, DateTime $pickupDate, int $userId): Response
+    public function confirmPickupSlot(int $storeId, DateTime $pickupDate, int $userId): Response
     {
         $this->assertLoggedIn();
         $pickupDate = $this->normalizeDateToServerTimezone($pickupDate);
@@ -194,7 +194,7 @@ final class PickupRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'No permission to change pickup')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Store not found')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid request body')]
-    public function editPickup(int $storeId, DateTime $pickupDate, #[MapRequestPayload] EditPickupData $editPickupData): Response
+    public function editPickupSlots(int $storeId, DateTime $pickupDate, #[MapRequestPayload] EditPickupData $editPickupData): Response
     {
         $this->assertLoggedIn();
         $pickupDate = $this->normalizeDateToServerTimezone($pickupDate);

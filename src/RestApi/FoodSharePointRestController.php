@@ -47,7 +47,7 @@ class FoodSharePointRestController extends AbstractFoodsharingRestController
     #[Route('food-share-points/{foodSharePointId}', methods: ['GET'], requirements: ['foodSharePointId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: FoodSharePointDetails::class))]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Food share point not found')]
-    public function getFoodSharePoint(int $foodSharePointId): Response
+    public function getFoodSharePointDetails(int $foodSharePointId): Response
     {
         $this->assertFoodSharePointExists($foodSharePointId);
         $foodSharePoint = $this->foodSharePointTransactions->getFoodSharePointDetails($foodSharePointId);

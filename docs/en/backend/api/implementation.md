@@ -98,7 +98,8 @@ Documenting the API is done via OpenApi Attributes.
 - `OA\Tag` is used to group endpoints into categories in the API docs. Since all endpoints handled in one controller should be part of the same category, this attribute is added to the class instead of each single function.
 - `OA\Get`, `OA\Post`, `OA\Patch` and the like are used to document the API endpoints.
     - `summary` property for a concise description of the endpoint.
-    - `description` property can be used for additional information that gets displayed in the details view of a API endpoint in the docs. 
+    - `description` property can be used for additional information that gets displayed in the details view of a API endpoint in the docs.
+    - The `operationId` is automatically extracted from the controller method name. It should contain the operation name (like get/list/edit/remove) and the entity it applies to (store/basket/user). Resulting in names like `listStores` or `removeBasket`. The `operationId` and thus method name must be unique amongst all controllers.
 - `OA\Response` is used to document different [response types](/backend/api/conventions#http-response-status-codes). These can either be added to the class (applying them to every endpoint), or to single functions.
     - `response` property for the [HTTP response code](/backend/api/conventions#http-response-status-codes). Please don't use magic numbers but the constants from `HttpFoundation\Response`.
     - `description` property to describe, when this response occurs.

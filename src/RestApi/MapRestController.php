@@ -181,7 +181,7 @@ class MapRestController extends AbstractFoodsharingRestController
     #[Route('map/markers/food-share-points/{foodSharePointId}', methods: ['GET'], requirements: ['foodSharePointId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: FoodSharePointMapBubbleData::class))]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'The food share point does not exist')]
-    public function getFoodSharePoint(int $foodSharePointId): Response
+    public function getFoodSharePointOnMap(int $foodSharePointId): Response
     {
         $foodSharePoint = $this->foodSharePointGateway->getFoodSharePoint($foodSharePointId);
 

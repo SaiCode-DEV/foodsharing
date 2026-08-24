@@ -49,7 +49,7 @@ class WallRestController extends AbstractFoodsharingRestController
     ]))]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted to read this wall')]
     #[OA\QueryParameter(name: 'anchorPostId', description: 'The ID of the post to anchor the results to. If provided, the results limit will be expanded to include that post. Ignored if the post is not linked to the wall or is behind the given offset.')]
-    public function getPosts(string $target, int $targetId, #[MapQueryParameter] ?int $limit, #[MapQueryParameter] ?int $offset, #[MapQueryParameter] ?int $anchorPostId): Response
+    public function getWallPosts(string $target, int $targetId, #[MapQueryParameter] ?int $limit, #[MapQueryParameter] ?int $offset, #[MapQueryParameter] ?int $anchorPostId): Response
     {
         $wallType = $this->parseWallType($target, $targetId);
         if (!$this->wallPostPermissions->mayReadWall($wallType, $targetId)) {
@@ -84,7 +84,7 @@ class WallRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: WallPost::class))]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted to post to this wall or to use the upload UUIDs')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid post data')]
-    public function addPost(string $target, int $targetId, #[MapRequestPayload] WallPost $wallPost): Response
+    public function addWallPost(string $target, int $targetId, #[MapRequestPayload] WallPost $wallPost): Response
     {
         $this->assertLoggedIn();
         $wallType = $this->parseWallType($target, $targetId);
@@ -105,7 +105,7 @@ class WallRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted to delete this post')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'The post does not exist')]
-    public function deletePost(string $target, int $targetId, int $postId): Response
+    public function deleteWallPost(string $target, int $targetId, int $postId): Response
     {
         $this->assertLoggedIn();
         $wallType = $this->parseWallType($target, $targetId);
@@ -126,7 +126,7 @@ class WallRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted to react on this post')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'The post does not exist')]
-    public function addReaction(string $target, int $targetId, int $postId, string $key): Response
+    public function addWallReaction(string $target, int $targetId, int $postId, string $key): Response
     {
         $this->assertLoggedIn();
         EmojiList::assertIsValidEmoji($key);
@@ -147,7 +147,7 @@ class WallRestController extends AbstractFoodsharingRestController
     #[Route('walls/{target}/{targetId}/posts/{postId}/reactions/{reactionKey}', requirements: ['target' => '\w+', 'targetId' => Requirement::POSITIVE_INT, 'postId' => Requirement::POSITIVE_INT, 'reactionKey' => '\w+'], methods: ['DELETE'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'The post does not exist')]
-    public function deleteReaction(string $target, int $targetId, int $postId, string $reactionKey): Response
+    public function deleteWallReaction(string $target, int $targetId, int $postId, string $reactionKey): Response
     {
         $this->assertLoggedIn();
         EmojiList::assertIsValidEmoji($reactionKey);

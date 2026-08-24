@@ -107,3 +107,9 @@ services:
 
     Psr\Http\Message\ResponseFactoryInterface:
         class: Laminas\Diactoros\ResponseFactory
+
+    Foodsharing\Dev\OperationIdDescriber:
+        arguments:
+            $router: '@router'
+        tags:
+            - { name: 'nelmio_api_doc.describer', priority: -2000 }
