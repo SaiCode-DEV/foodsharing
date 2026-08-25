@@ -1585,7 +1585,8 @@ storeview:
   public_time_in_the_morning: rano
   management: Zarządzanie
   team_info_distance: 'Odległość od punktu w linii prostej:'
-  public_time: 'Odbiór około {freq}. Nigdy nie idź do sklepu bez uprzedniego ustalenia!'
+  public_time: 'Orientacyjna pora odbioru: {freq}. Nigdy nie idź do sklepu bez uprzedniego
+    ustalenia!'
   specials: 'Instrukcje i procedura'
   source_data: 'Dane źródłowe'
   public_and_statistics: 'Statystyka & public relations'
@@ -1601,9 +1602,9 @@ storeview:
   pickupWeight: 'uratowane kg'
   managers: 'Koordynatorzy/ki punktu'
   activityCount:
-    0: 'Odbiory'
-    1: 'Darowizny'
-    2: 'Terminy'
+    0: '- liczba odbiorów'
+    1: '- liczba darowizn'
+    2: '- liczba terminów'
 store:
   team_container: Team
   member: Członek
@@ -1953,7 +1954,7 @@ store:
   delete_date: 'Usuń pojedynczy slot'
   slotsCurrentlyOccupied: 'Obecnie zajęte sloty'
   average_collection_quantity: 'Ilość na osobę'
-  pickup_slot_unavailable: 'Ten slot jest w dalszej przyszłości niż przewidzieli/ały
+  pickup_slot_unavailable: 'Ten slot jest w dalszej przyszłości, niż przewidzieli/ały
     to koordynatorzy/ki punktu. Spróbuj ponownie później.'
   smneeded: 'Aby utworzyć punkt, musisz być koordynatorem/ką punktu.'
   part_of_chain: 'Należy do sieci:'
@@ -3323,8 +3324,8 @@ dashboard:
     grid_toggle:
       2_columns: Przejdź do widoku dwóch kolumn
       3_columns: 'Przejdź do widoku trzech kolumn'
-  invitation: Zostałeś zaproszony/a
-  invitationCount: Zostałeś zaproszony/a ({count})
+  invitation: Zostałeś/aś zaproszony/a
+  invitationCount: Zostałeś/aś zaproszony/a ({count})
   event: Następny event
   eventCount: Następne eventy ({count})
   quiz:

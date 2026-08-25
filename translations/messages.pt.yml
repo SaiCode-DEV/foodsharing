@@ -3114,6 +3114,8 @@ terminology:
   attention: Atenção
   newsletter: newsletter
   timezone: Fuso horário
+  address: Morada
+  postalCode: Código postal
 timepicker:
   labelCloseButton: 'Fechar'
   labelMinutes: 'minutos'
@@ -3970,6 +3972,7 @@ reports:
   set_reminder: 'Definir lembrete'
   search_error: 'Erro ao pesquisar tópicos do fórum'
   remove: 'Remover'
+  deleted_store: Local eliminado
 notifications:
   newsletter:
     description: 'Receba aproximadamente uma vez por mês informações atualizadas sobre
