@@ -115,6 +115,7 @@ import i18n from '@/helper/i18n'
 import { MAILBOX_PAGE, store } from '@/stores/mailbox'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import { formatFileSize } from '@/helper/number-formatting'
+import { linkifyUrls } from '@/helper/link-detection'
 
 export default {
   components: { Container, MailboxMainNav, MailboxFooterNav },
@@ -242,10 +243,7 @@ export default {
       const step1 = lines.map(line => line.replace(/^\[/g, '').trim())
       const step2 = step1.map(line => line.replace(/]$/g, '').trim())
 
-      const urlRegex = /(https?:\/\/\S+)/g
-      return step2.map(line =>
-        line.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>'),
-      ).join('\n')
+      return step2.map(linkifyUrls).join('\n')
     },
     attachmentDownloadLink (hashedFileName, emailId, attachmentIndex) {
       return hashedFileName.startsWith('old:')

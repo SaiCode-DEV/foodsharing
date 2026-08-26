@@ -62,4 +62,36 @@ test.describe("Mailbox body rendering", () => {
     await expect(page.locator("#app-content")).toContainText(body);
     expect(await page.evaluate(() => (window as any).__xss)).toBeUndefined();
   });
+
+  // #2835: the url detection took everything up to the next space, so sentence
+  // punctuation ended up inside the link and the link ran into a 404.
+  test("keeps trailing punctuation out of a link", async ({
+    page,
+    acceptanceHelper,
+  }) => {
+    const { coordinator, mailbox } = await emptyMailbox();
+    const profileUrl = "https://foodsharing.de/profile/1";
+    const wikiUrl = "https://de.wikipedia.org/wiki/Berlin_(Stadt)";
+    await foodsharing.createEmail(mailbox, MailboxFolder.INBOX, {
+      subject: "Link test",
+      body: `Schau [${profileUrl}] an, dann ${wikiUrl} lesen.`,
+      body_html: "",
+      read: 0,
+    });
+
+    await acceptanceHelper.login(coordinator.email);
+    await page.goto(`/mailbox?mailbox=${mailbox.id}`);
+    await page.getByText("Link test").first().click();
+
+    // wait for the mail to be open before reading the rendered links
+    await expect(page.locator("#app-content")).toContainText("dann");
+
+    const hrefs = await page
+      .locator("#app-content a[href^='https://']")
+      .evaluateAll((links) => links.map((a) => a.getAttribute("href")));
+
+    // the bracket belongs to the text, the one inside the wikipedia path does not
+    expect(hrefs).toContain(profileUrl);
+    expect(hrefs).toContain(wikiUrl);
+  });
 });
