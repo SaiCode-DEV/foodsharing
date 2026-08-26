@@ -95,7 +95,7 @@ quiz:
       Jeśli teraz nie zdasz, będziesz trwale zdyskwalifikowany/a z tego quizu. 
       Bierz udział tylko pod warunkiem, że dokładnie przestudiowałeś/aś treści 
       zawarte w wiki.
-    expired: Twoja ostatnia próba tego quizu jest jednak już nieważna.
+    expired: Twoja ostatnia próba tego quizu jest już nieważna.
     pauseElapsed: Twoja przerwa na naukę się skończyła. Dlatego możesz ponownie 
       przystąpić do quizu. Miejmy nadzieję, że wykorzystałeś/aś czas na to, by 
       lepiej zaznajomić się z treściami.
@@ -877,8 +877,8 @@ group:
       10: Administratorzy/ki tego zespołu mogą aktywować wpisy w moderowanych 
         forach. Jeśli ta opcja jest aktywowana w rejonie, mogą też ukrywać wpisy
         na forum.
-      11: Administratorzy/ki tego zespołu są pokazywani na przeglądzie rejonów.
-      12: Administratorzy/ki tego zespołu są pokazywani na przeglądzie rejonów.
+      11: Na przeglądzie rejonów widać administratorów/ki tego zespołu.
+      12: Na przeglądzie rejonów widać administratorów/ki tego zespołu.
       13: Administratorzy/ki tego zespołu otrzymują dzwonek przy nowych 
         zasobach.
       9: Administratorzy/ki tego zespołu mogą edytować opis grupy lokalnej na 
@@ -959,7 +959,7 @@ group:
     admin_mode_on: Włącz widok administratora/ki
     admin_mode_off: Powrót do widoku standardowego
     not_verified: niezweryfikowany/a
-    all_roles: wszystkie role
+    all_roles: Wszystkie role
     remove_text_group: 'Czy na pewno chcesz usunąć {name} ({id}) z tego zespołu?'
     is_home_region: 'Rejon macierzysty'
     remove_text_region: 'Czy na pewno chcesz usunąć {name} ({id}) z rejonu?'
@@ -983,7 +983,7 @@ group:
     tooltip_function_region2296: 'Administratorzy/ki tego zespołu mogą edytować kategorie
       zasobów i punktów'
     tooltip_function_region3097: Administratorzy/ki tego zespołu mogą edytować 
-      treści strony "edukacja"
+      treści strony "Edukacja"
     tooltip_function_region4647: Administratorzy/ki tego zespołu znajdują w 
       wyszukiwarce wszystkie jadłodzielnie
   confirm_decline: 'Czy na pewno chcesz odrzucić to zgłoszenie?'
@@ -1018,7 +1018,7 @@ group:
     inactive: Nieaktywne zespoły
     category:
       default: Dalsze zespoły
-      archived: Zarchiwizowane zespoły
+      archived: Zespoły zarchiwizowane
       project: Zespoły projektowe
       administrative: Zespoły zarządzające
       development: Zespoły kreatywne
@@ -1302,7 +1302,7 @@ terminology:
   attention: Uwaga
   newsletter: Newsletter
   timezone: Strefa czasowa
-  address: adres
+  address: Adres
   postalCode: kod pocztowy
 resource_mosaic:
   privacy_notice:
@@ -1552,7 +1552,7 @@ storeview:
   public_time_at_noon_or_afternoon: w południe/po południu
   public_time_in_the_evening: wieczorem
   public_time_at_night: w nocy
-  status: aktualny status
+  status: Aktualny status
   want_to_fetch: Chciał(a)bym pomagać w tym teamie.
   publicity_and_sticker_options:
     not_yet_clarified: Jeszcze nie wyjaśnione
@@ -2206,7 +2206,7 @@ calendar:
         Możesz to zrobić na stronie, do której prowadzi podany link.'
   labelPrevYear: poprzedni rok
   labelPrevMonth: poprzedni miesiąc
-  labelCurrentMonth: obecny miesiąc
+  labelCurrentMonth: bieżący miesiąc
   labelNextMonth: przyszły miesiąc
   labelResetButton: 'Odznacz'
 timepicker:
@@ -2792,7 +2792,7 @@ regionOptions:
 foodsaver:
   bread: Wszyscy/tkie foodsaverzy/ki
   title: Foodsaver
-  actions: Aktywności
+  actions: Akcje
   edit: Edytuj foodsaverów/ki
   editName: Edytuj {name}
   edit_failure: Nic się nie zmieniło albo zmiany nie zostały zapisane
@@ -2858,7 +2858,7 @@ foodsaver:
 content:
   bread: Wszystkie strony
   public: Strony publiczne
-  actions: Aktywności
+  actions: Akcje
   new: Dodaj nową stronę
   new_success: Utworzono stronę
   edit: Edytuj stronę
@@ -3045,7 +3045,7 @@ profile:
     categorieName: Kategoria
     pickupAmount: Ilość
     week_1: Przyszły tydzień
-    week_2: Obecny tydzień
+    week_2: bieżący tydzień
     week_3: Ubiegły tydzień
     pickupCount: 'Częstotliwość'
     week_0: 'Jeszcze następny tydzień'
@@ -3394,7 +3394,7 @@ basket:
   nearby-short: 'W pobliżu'
   title: 'Jadłokoszyki'
   not_withdrawn: 'Nie można było cofnąć zapytania o jadłokoszyk: '
-  updated: 'Aktualizowany:'
+  updated: 'Zaktualizowano:'
   modal_error:
     no_contact: 'Wybierz możliwość, jak można zapytać o jadłokoszyk.'
     no_phone: 'Podaj numer telefonu.'
@@ -3565,7 +3565,7 @@ thread:
     higher: 'całkiem na górze'
     text: 'Priorytet wyświetlania tego tematu:'
     lower: 'całkiem na dole'
-    title: 'Dopasuj priorytet wyświetlania'
+    title: 'Dostosuj priorytet wyświetlania'
     normal: 'normalnie'
   options:
     rename: 'Edytuj tytuł'
@@ -3612,7 +3612,7 @@ poll:
     percentage_of_votes: 'Frekwencja'
     sumShort: '∑'
     standardDeviationShort: 'σ'
-    number_of_votes: 'Oddane głosy'
+    number_of_votes: 'Liczba oddanych głosów'
     standardDeviation: 'odchylenie standardowe'
     option_text: 'Opcja'
     votes: 'Głosy'
@@ -4157,7 +4157,7 @@ help:
         '
       title: 'Punkty sieciowe'
     archived_groups:
-      title: Zarchiwizowane zespoły
+      title: Zespoły zarchiwizowane
       md: |
         Zespoły, które już nie są aktywne, mogą być zarchiwizowane. W ten sposób lista zespołów pozostaje przejrzysta, bo zarchiwizowane zespoły są wydzielone i pokazywane na końcu. Dzięki temu nie można ich pomylić z aktywnymi zespołami, podczas gdy treści zespołu pozostają zachowane i dostępne.
     group_category:
@@ -4415,7 +4415,7 @@ achievements:
   reviewer: 'od'
   duplicate_mode_explanation:
     multiple: 'Możliwe przyznawanie wielokrotne'
-  awardedTo: 'do'
+  awardedTo: 'dla'
   new: 'Nowy sticker'
   inThis:
     region: 'Następujące stickery mogą być przyznawane w tym rejonie:'
@@ -4922,7 +4922,7 @@ blog:
   teaser: 'Podgląd tekstu'
   all: 'Wszystkie posty na blogu'
   actions: 'Akcje'
-  delete: 'usuń post'
+  delete: 'Usuń artykuł'
   header: 'Nowinki ze świata foodsharingu'
   read: 'czytaj dalej'
   empty: 'Jeszcze nie ma żadnych wpisów.'
