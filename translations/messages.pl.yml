@@ -327,7 +327,7 @@ button:
   save: Zapisz
   next: Dalej
   new: nowy
-  edit: edytuj
+  edit: Edytuj
   delete: usuń
   ok: ok
   yes_i_am_sure: tak, jestem pewny/a
@@ -509,7 +509,7 @@ settings:
     security_keys_description: 'Klucze bezpieczeństwa umożliwiają bezpieczne logowanie
       bez hasła na twoim urządzeniu.'
     mfa_enabled: 'Uwierzytelnianie wieloskładnikowe aktywowane'
-    authenticator_app: 'aplikacja uwierzytelniająca'
+    authenticator_app: 'Aplikacja uwierzytelniająca'
     passkeys_section: 'Klucze bezpieczeństwa'
     passkey_deleted: 'Pomyślnie usunięto klucz bezpieczeństwa'
     mfa_section: 'Uwierzytelnianie wieloskładnikowe'
@@ -919,7 +919,7 @@ group:
       automatic_paper_size: użyj papieru A4
       inform_user: z powiadomieniem
       create_pdf: stwórz PDF
-      active_or_renew_passport: aktywuj/przedłuż legitymację
+      active_or_renew_passport: Aktywuj/przedłuż legitymację
       never_before: jeszcze nigdy
       verify:
         do: Czy na pewno chcesz aktywować {name} ({id}) (porównanie danych 
@@ -1264,7 +1264,7 @@ terminology:
   storemanager:
     m: 'Koordynator punktu'
     d: 'Koordynator/ka punktu'
-    f: 'Koordynatorzy/ki punktu'
+    f: 'Koordynatorka punktu'
   mediationAdmins: 'Team mediacji'
   giving: 'Darowizna'
   baskets: 'Jadłokoszyki'
@@ -2232,8 +2232,8 @@ forum:
     email: przez email
     bell: 'przez dzwonek'
   post:
-    delete: usuń post
-    hide: ukryj post
+    delete: Usuń post
+    hide: Ukryj post
     giveHideReason: Podaj, dlaczego chcesz ukryć ten post.
     hideReasonPlaceholder: Podaj powód tutaj …
     hideInfo: Ukryte posty nie będą więcej wyświetlane. Moderatorzy/ki mogą je 
@@ -2681,7 +2681,7 @@ error_ajax: |
   Być może twoje połączenie internetowe w tej chwili nie działa.
   Odśwież stronę i spróbuj ponownie.
 reports:
-  message: opis
+  message: Opis
   reason: powód
   id: ID
   time: czas
@@ -3098,7 +3098,7 @@ profile:
       filterInvitations: Zaproszony/a
       filterActive: Członek
       filterRequested: 'Wysłano zgłoszenie'
-      filterManage: 'Odpowiedzialny/a'
+      filterManage: 'Koordynatorzy/ki punktu'
       filterJumper: 'Rezerwowy/a'
     store_table: 'Tabela punktów'
     search_placeholder: 'Szukaj według nazwy'
@@ -3605,7 +3605,7 @@ poll:
     submit: 'Zapisz głosowanie'
     submit_question: 'Na pewno chcesz zapisać zmiany w głosowaniu?'
   in_future: 'jeszcze nie rozpoczęte'
-  in_past: 'zakończone'
+  in_past: 'Zakończone'
   results:
     average: 'średnia'
     sum: 'suma'
@@ -4772,7 +4772,7 @@ chain:
     showstores: 'Pokaż punkty'
     edit: 'Edytuj'
   filterplaceholder: 'Nazwa / adres / KAM ID'
-  listheader: 'Sieci'
+  listheader: 'Sieci punktów'
 globals:
   saved: 'Zapisano zmiany'
   type:
