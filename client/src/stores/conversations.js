@@ -95,8 +95,8 @@ export default new Vue({
         hasMoreMessages: storedConversation.hasMoreMessages,
       })
     },
-    async loadConversation (conversationId, markAsRead) {
-      const response = await api.getConversation(conversationId, markAsRead)
+    async loadConversation (conversationId, markAsRead, config = {}) {
+      const response = await api.getConversation(conversationId, markAsRead, config)
       ProfileStore.updateFrom(response.profiles)
       this.assignConversationToStore(response.conversation)
     },

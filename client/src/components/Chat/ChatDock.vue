@@ -43,6 +43,7 @@ import Storage from '@/storage'
 import ProfileStore from '@/stores/profiles'
 import { useUserStore } from '@/stores/user'
 import { pulseError } from '@/script'
+import { HTTP_RESPONSE } from '@/consts'
 import i18n from '@/helper/i18n'
 import { url } from '@/helper/urls'
 import ChatDockBoxHead from '@/components/Chat/ChatDockBoxHead.vue'
@@ -134,7 +135,9 @@ async function ensureTitle (id, markAsRead) {
       return
     }
 
-    await conversationStore.loadConversation(id, markAsRead)
+    await conversationStore.loadConversation(id, markAsRead, {
+      skipErrorNotificationFor: [HTTP_RESPONSE.FORBIDDEN, HTTP_RESPONSE.NOT_FOUND],
+    })
     const conv = conversationStore.conversations[id]
 
     if (conv.title) {
@@ -157,6 +160,16 @@ async function ensureTitle (id, markAsRead) {
       box.participants = participants
     }
   } catch (e) {
+    // A window restored from an earlier session whose conversation is not
+    // reachable anymore, e.g. after leaving a store team. Nothing the user did.
+    // the api layer rejects with the status in `code`, axios keeps it in `response`
+    const status = e.response?.status ?? e.code
+    if (status === HTTP_RESPONSE.FORBIDDEN || status === HTTP_RESPONSE.NOT_FOUND) {
+      closeBox(id)
+
+      return
+    }
+
     console.error('Failed to load conversation for chat dock:', e)
     pulseError(i18n('chat.error.loading_conversation'))
   }
