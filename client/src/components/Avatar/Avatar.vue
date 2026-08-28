@@ -69,7 +69,7 @@ export default {
         return '/img/' + prefix + 'avatar.png'
       }
 
-      return this.$url('upload', image)
+      return this.$url('upload', image, this.size, this.size)
     },
     computedHref () {
       if (this.href === '') {

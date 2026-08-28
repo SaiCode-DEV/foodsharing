@@ -29,7 +29,7 @@
               :key="p.id"
               v-b-tooltip.hover
               :title="p.name ?? $t('chat.unknown_username')"
-              :src="p.avatar"
+              :src="userPicture(p)"
               :size="18"
               :variant="p.avatar ? 'light' : 'secondary'"
               :to="$url('profile', p.id)"
@@ -49,7 +49,7 @@
             @click.native.stop
           >
             <b-avatar
-              :src="p.avatar"
+              :src="userPicture(p)"
               :size="18"
               :variant="p.avatar ? 'light' : 'secondary'"
               class="mr-1"
@@ -65,7 +65,7 @@
                 :key="p.id"
                 v-b-tooltip.hover
                 :title="p.name ?? $t('chat.unknown_username')"
-                :src="p.avatar"
+                :src="userPicture(p)"
                 :size="18"
                 :variant="p.avatar ? 'light' : 'secondary'"
                 :to="$url('profile', p.id)"
@@ -171,6 +171,11 @@ function observeTargets () {
   const options = avatarsRef.value.closest('.chatboxhead')?.querySelector('.chatboxoptions')
   if (options) observer.observe(options)
   updateVisibleCount()
+}
+
+// TODO: use the Avatar component instead
+function userPicture (user) {
+  return user.avatar ? url('upload', user.avatar, 18, 18) : '/img/mini_q_avatar.png'
 }
 
 onMounted(() => {

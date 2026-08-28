@@ -63,7 +63,7 @@ export default {
   methods: {
     pictureUrl (fsp) {
       if (!fsp.picture) return 'img/foodSharePointThumb.png'
-      return this.$url('upload', fsp.picture)
+      return this.$url('upload', fsp.picture, 55, 55)
     },
   },
 }

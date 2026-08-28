@@ -19,10 +19,11 @@
           v-b-tooltip.noninteractive="$t('profile.go')"
           class="d-flex align-items-center flex-grow-1"
         >
-          <b-avatar
-            :src="p.avatar"
-            size="24"
+          <Avatar
+            :user="p"
+            :size="24"
             class="mr-2"
+            shape="round"
           />
           {{ p.name }}
         </div>
@@ -45,6 +46,7 @@ import { computed, ref } from 'vue'
 import { useUserStore } from '@/stores/user'
 import conversationStore from '@/stores/conversations'
 import ProfileStore from '@/stores/profiles'
+import Avatar from '@/components/Avatar/Avatar.vue'
 
 const visible = ref(false)
 const conversation = ref(null)
