@@ -380,7 +380,7 @@ group:
     declined: "Bewerbung abgelehnt"
   application_requirements:
     requirements: "Wer kann sich für diese Gruppe eintragen?"
-    nobody: "Niemand (geschlossene Gruppe)."
+    nobody: "Niemand kann sich bewerben."
     everybody: "Jede:r darf sich bewerben."
     open: "Jede:r kann sich ohne Bewerbung einklinken."
   members: "Mitglieder"
@@ -4478,11 +4478,11 @@ help:
         ###### Projekt-Gruppen
         Projekt-Gruppen arbeiten an einem zeitlich begrenzten Projekt, das thematisch in keine der Gestaltungs-Gruppen passt oder AG-übergreifend ist. Nach Abschluss des Projekts werden Projekt-Gruppen in der Regel archiviert.
         ###### Archivierte Gruppen
-        Gruppen, die nicht mehr aktiv sind, sollten archiviert werden. Auf diese Weise bleibt die Gruppenliste übersichtlich, da archivierte Gruppen gesondert am Ende dargestellt werden. So können sie nicht mit aktiven Gruppen verwechselt werden, währen die Inhalte der Gruppe erhalten und zugänglich bleiben.
+        Gruppen, die nicht mehr aktiv sind, sollten archiviert werden. Auf diese Weise bleibt die Gruppenliste übersichtlich, da archivierte Gruppen gesondert am Ende dargestellt werden. So können sie nicht mit aktiven Gruppen verwechselt werden, während die Inhalte der Gruppe erhalten und zugänglich bleiben.
     archived_groups:
       title: "Archivierte Gruppen"
       md: |
-        Gruppen, die nicht mehr aktiv sind, können archiviert werden. Auf diese Weise bleibt die Gruppenliste übersichtlich, da archivierte Gruppen gesondert am Ende dargestellt werden. So können sie nicht mit aktiven Gruppen verwechselt werden, währen die Inhalte der Gruppe erhalten und zugänglich bleiben.
+        Gruppen, die nicht mehr aktiv sind, können archiviert werden. Auf diese Weise bleibt die Gruppenliste übersichtlich, da archivierte Gruppen gesondert am Ende dargestellt werden. So können sie nicht mit aktiven Gruppen verwechselt werden, während die Inhalte der Gruppe erhalten und zugänglich bleiben.
     inactive_groups:
       title: "Inaktive Gruppen"
       md: |
