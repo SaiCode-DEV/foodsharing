@@ -413,7 +413,13 @@ export default {
         await this.reload()
         await this.$nextTick()
       }
-      this.scrollToPost(this.posts.find(post => post.id >= pid), pid)
+      // The posts are ordered by time, so the next best post after a deleted one
+      // has to be picked by id instead of by list position.
+      const linkedPost = this.posts.find(post => post.id === pid)
+      const nextPost = this.posts
+        .filter(post => post.id > pid)
+        .reduce((closest, post) => (!closest || post.id < closest.id ? post : closest), null)
+      this.scrollToPost(linkedPost ?? nextPost, pid)
     },
     getPostLink (postId) {
       return this.$url('forum', this.regionId, this.regionSubId, this.id, postId)
