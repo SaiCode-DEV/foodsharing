@@ -58,6 +58,10 @@ function isSamePageAnchor (to, from) {
     Object.keys(toQuery).every(key => String(toQuery[key]) === String(fromQuery[key]))
 }
 
+function notifySameRouteNavigation (fullPath) {
+  window.dispatchEvent(new CustomEvent(sameRouteNavigationEvent, { detail: { fullPath } }))
+}
+
 const router = new VueRouter({
   mode: 'history', // Use HTML5 History API
   routes,
@@ -80,9 +84,7 @@ const router = new VueRouter({
  * still re-evaluate the deep link and refresh the content of the open page.
  */
 export function navigate (to) {
-  const notifySameRoute = () => window.dispatchEvent(
-    new CustomEvent(sameRouteNavigationEvent, { detail: { fullPath: to } }),
-  )
+  const notifySameRoute = () => notifySameRouteNavigation(to)
 
   if (to === router.currentRoute.fullPath) {
     notifySameRoute()
@@ -201,5 +203,29 @@ router.afterEach((to, from) => {
   document.documentElement.classList.add(newClass)
   document.body.classList.add(newClass)
 })
+
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function (location, onResolve, onReject) {
+  // A link to the url that is already open is dropped by the router. Without this,
+  // nothing at all happens on such a click, not even for the page that is open
+  // (see `sameRouteNavigationEvent`). router-link passes callbacks, navigate() and
+  // own calls do not, so both ways have to be covered.
+  const handleDuplicate = (error) => {
+    const isDuplicate = error?.name === 'NavigationDuplicated'
+    if (isDuplicate) notifySameRouteNavigation(this.currentRoute.fullPath)
+    return isDuplicate
+  }
+
+  if (onResolve || onReject) {
+    return originalPush.call(this, location, onResolve, (error) => {
+      handleDuplicate(error)
+      if (onReject) onReject(error)
+    })
+  }
+
+  return originalPush.call(this, location).catch(error => {
+    if (!handleDuplicate(error)) throw error
+  })
+}
 
 export default router
