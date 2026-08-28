@@ -29,7 +29,7 @@ final class ReportController extends FoodsharingController
     public function regionReports(int $regionId): Response
     {
         if (!$this->session->mayRole() || !$this->reportPermissions->mayAccessReportsForRegion($regionId)) {
-            return $this->redirectToRoute('/');
+            return $this->redirect('/');
         }
         try {
             $regionName = $this->regionGateway->getRegionName($regionId);
@@ -56,7 +56,7 @@ final class ReportController extends FoodsharingController
     public function userReports(int $userId): Response
     {
         if (!$this->session->mayRole() || !$this->reportPermissions->mayAccessReportsForUser($userId)) {
-            return $this->redirectToRoute('/');
+            return $this->redirect('/');
         }
         $userName = $this->foodsaverGateway->getFoodsaverName($userId);
 

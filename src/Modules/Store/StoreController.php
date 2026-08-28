@@ -46,7 +46,7 @@ class StoreController extends FoodsharingController
     public function regionStores(int $regionId): Response
     {
         if (!$this->session->mayRole() || !$this->storePermissions->mayListStores()) {
-            return $this->redirectToRoute('/');
+            return $this->redirect('/');
         }
 
         if ($regionId > 0) {
@@ -58,7 +58,7 @@ class StoreController extends FoodsharingController
         if (empty($region) || $regionId <= 0) {
             $this->flashMessageHelper->info($this->translator->trans('store.error'));
 
-            return $this->redirectToRoute('/');
+            return $this->redirect('/');
         } else {
             $this->pageHelper->addBread($region['name'], '/region?bid=' . $regionId);
             $this->pageHelper->addBread($this->translator->trans('store.bread'), '/?page=fsbetrieb');
