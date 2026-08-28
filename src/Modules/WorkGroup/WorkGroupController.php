@@ -4,6 +4,7 @@ namespace Foodsharing\Modules\WorkGroup;
 
 use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
+use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Region\RegionGateway;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,7 +49,11 @@ class WorkGroupController extends FoodsharingController
 
         $parent = $request->query->getInt('p', RegionIDs::GLOBAL_WORKING_GROUPS);
 
-        $this->pageHelper->addContent($this->prepareVueComponent('vue-groups', 'Groups', ['regionId' => $parent]));
+        $this->pageHelper->addContent($this->prepareVueComponent('vue-groups', 'Groups', [
+            'regionId' => $parent,
+            'regionName' => $this->regionGateway->getRegionName($parent),
+            'regionIsGroup' => UnitType::isGroup($this->regionGateway->getType($parent)),
+        ]));
 
         return $this->renderGlobal();
     }

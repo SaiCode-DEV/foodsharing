@@ -62,7 +62,7 @@
         <template #title>
           <i class="fas mr-2" :class="header.icon" />
           <h5>
-            {{ $t('group.list_headers.' + header.title, { region: currentRegion?.name }) }}
+            {{ $t(headerKey(header.title), { region: currentRegionName }) }}
             ({{ headerGroups.length }})
           </h5>
           <span class="flex-grow-1" />
@@ -303,6 +303,8 @@ import Info from '@/components/Help/Info.vue'
 
 const props = defineProps({
   regionId: { type: Number, required: true },
+  regionName: { type: String, default: '' },
+  regionIsGroup: { type: Boolean, default: false },
 })
 
 const { proxy } = getCurrentInstance()
@@ -325,6 +327,7 @@ const groupApplicationForm = ref(null)
 // Derived data
 const userId = computed(() => userStore.getUserId)
 const currentRegion = computed(() => regionStore.findRegion(props.regionId))
+const currentRegionName = computed(() => currentRegion.value?.name || props.regionName)
 const currentGroup = computed(() => groups.value?.find(x => x.id === expanded.value) || null)
 const isApplicationOkDisabled = computed(() => application.value.trim().length === 0 || isLoading.value)
 const isMessageOkDisabled = computed(() => contactMessage.value.trim().length === 0 || isLoading.value)
@@ -361,6 +364,14 @@ function groupIcon (categoryId) {
 function isInactive (group) {
   // half year of inactivity is somewhat arbitrary but seems reasonable to me, especially since currently only forum activity is considered
   return group.latestActivity === null || new Date(group.latestActivity) < new Date(Date.now() - (365 / 2) * 24 * 60 * 60 * 1000)
+}
+
+// The list of a working group holds its subgroups, the one of a region its groups.
+function headerKey (title) {
+  if (title === 'default' && props.regionIsGroup) {
+    return 'group.list_headers.subgroups'
+  }
+  return 'group.list_headers.' + title
 }
 
 function subgroupLink (group) {

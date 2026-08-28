@@ -528,6 +528,7 @@ group:
     category: "Gruppentyp"
   list_headers:
     default: "Arbeitsgruppen in {region}"
+    subgroups: "Untergruppen in {region}"
     inactive: "Inaktive Gruppen"
     category:
       default: "Weitere Gruppen"
