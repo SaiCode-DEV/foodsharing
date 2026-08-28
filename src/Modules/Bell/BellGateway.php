@@ -220,7 +220,7 @@ class BellGateway extends BaseGateway
         $this->updateMultipleFoodsaverClients($foodsaverIds);
     }
 
-    public function deleteBellsForFoodsaversByIdentifier(array $foodsaverIds, string $identifier, bool $seenOnly = false): void
+    public function deleteBellsForFoodsaversByIdentifier(array $foodsaverIds, string $identifier, bool $seenOnly = false, bool $updateClients = true): void
     {
         // add the bell for all foodsavers (100 per query)
         $parts = array_chunk($foodsaverIds, 100);
@@ -233,6 +233,10 @@ class BellGateway extends BaseGateway
                 {$seenClause}
                 AND bell.identifier LIKE ?",
                 [...$part, $identifier]);
+        }
+
+        if ($updateClients) {
+            $this->updateMultipleFoodsaverClients($foodsaverIds);
         }
     }
 

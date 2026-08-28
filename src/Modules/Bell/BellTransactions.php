@@ -23,7 +23,8 @@ class BellTransactions
     public function addGroupedBellEvent(array $foodsaverIds, ?Bell $baseBell = null, int $entityId = 0, ?string $pluralIcon = null): void
     {
         $groups = $this->bellGateway->groupFoodsaversByUnreadBell($foodsaverIds, $baseBell->identifier, true);
-        $this->bellGateway->deleteBellsForFoodsaversByIdentifier($foodsaverIds, $baseBell->identifier, true);
+        // the grouped bell that follows notifies the same users
+        $this->bellGateway->deleteBellsForFoodsaversByIdentifier($foodsaverIds, $baseBell->identifier, true, false);
         foreach ($groups as &$group) {
             $count = 1;
             $href = null;
