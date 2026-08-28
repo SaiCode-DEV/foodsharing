@@ -23,6 +23,7 @@
         <i class="icon-subnav fas fa-envelope" />
         {{ $t('menu.entry.mailbox') }}
         <div
+          v-if="userStore.getMailUnreadCount"
           class="badge badge-danger badge-inline"
           :class="{ 'overNinetyNine': String(userStore.getMailUnreadCount).length > 2 }"
         >

@@ -626,7 +626,7 @@ export default {
         body,
         reactions: {},
         author: {
-          name: `${this.userFirstName} ${this.userStore.getUserLastName}`,
+          name: this.userFirstName,
           avatar: this.userStore.getAvatar,
         },
       }
