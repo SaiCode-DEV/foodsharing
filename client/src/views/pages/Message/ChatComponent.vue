@@ -93,6 +93,7 @@ import ConversationAvatar from '@/components/Avatar/ConversationAvatar'
 import { pulseError } from '@/script'
 import i18n from '@/helper/i18n'
 import Storage from '@/storage'
+import { setUrlParam } from '@/browser'
 
 // Stores
 import conversationStore from '@/stores/conversations'
@@ -260,6 +261,12 @@ export default {
     async chatId (newChatId, oldChatId) {
       await conversationStore.getConversation(newChatId)
       this.roomId = newChatId
+    },
+    roomId (newRoomId) {
+      // The page reads cid on load, so a reload would otherwise fall back to
+      // the conversation list.
+      if (this.popupMode || !newRoomId || newRoomId === NEW_CONVERSATION_ID) { return }
+      setUrlParam('cid', newRoomId)
     },
   },
   async created () {
