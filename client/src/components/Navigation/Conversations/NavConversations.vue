@@ -1,5 +1,6 @@
 <template>
   <Dropdown
+    ref="dropdown"
     :title="$t('navigation.conversations')"
     icon="fa-comments"
     :badge="unread"
@@ -11,10 +12,13 @@
       v-if="conversations.length > 0"
       #content
     >
+      <!-- Opening a chat does not change the route, so the dropdown's own
+           route watcher never closes it here. -->
       <ConversationsEntry
         v-for="conversation in conversations"
         :key="conversation.id"
         :conversation="conversation"
+        @click.native="$refs.dropdown.hide()"
       />
     </template>
     <template v-else #content>
