@@ -15,3 +15,13 @@ export function escapeLinkedTokens (value) {
   }
   return value
 }
+
+// The escape above is vue-i18n v9 literal syntax, but the app renders through the v8
+// formatter of the legacy bridge, which has no literal interpolation and passes
+// "{'@'}" straight into the output (#2887). This turns it back once the message has
+// been rendered, so a mail address stays a mail address in the text and in a link.
+export function unescapeLinkedTokens (value) {
+  return typeof value === 'string' && value.includes("{'@'}")
+    ? value.replace(/\{'@'\}/g, '@')
+    : value
+}

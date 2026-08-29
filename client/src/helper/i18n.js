@@ -3,7 +3,7 @@ import serverData, { isDev, isTest } from '@/helper/server-data'
 import { captureError } from '@/sentry'
 import VueI18n from 'vue-i18n'
 import { createI18n } from 'vue-i18n-bridge'
-import { escapeLinkedTokens } from '@/helper/i18n-escape'
+import { escapeLinkedTokens, unescapeLinkedTokens } from '@/helper/i18n-escape'
 
 export const { locale } = serverData
 
@@ -31,7 +31,7 @@ function bestLocale (requested) {
   return DEFAULT_LOCALE
 }
 
-export { escapeLinkedTokens }
+export { escapeLinkedTokens, unescapeLinkedTokens }
 
 function loadMessages (lang) {
   try {
@@ -130,6 +130,8 @@ export const i18nInstance = createI18n({
   messages: baseMessages,
   datetimeFormats,
   numberFormats,
+  // Undo the '@' escape after rendering, see i18n-escape.js (#2887)
+  postTranslation: unescapeLinkedTokens,
   // We intentionally store some HTML in translations; keep legacy behavior
   warnHtmlMessage: false,
   escapeParameterHtml: false,
