@@ -1,8 +1,8 @@
 name: Nome
-add: adicionar
+add: Adicionar
 nachname: Sobrenome
 message: Mensagem
-edit: editar
+edit: Editar
 desc: Descrição
 description: Descrição
 email: E-mail
@@ -21,7 +21,7 @@ store:
       close: O local de residência fica a menos de 500 m de distância
       normal: Mora a cerca de {distance} km
     title: 'Solicitações sobre {storeTitle}'
-    to-team: 'adicionar à equipa'
+    to-team: 'Adicionar à equipa'
     withdrawn: 'O pedido foi retirada com sucesso.'
     to-nowhere: 'recusar'
     got-it: 'Os responsáveis foram informados do teu pedido e entrarão em contacto
@@ -5013,7 +5013,7 @@ required_messages:
     really: 'Queres mesmo remover {name} da responsabilidade desta cooperação?'
     footer: 'Muitas saudações'
     main: 'Eu removi-te como responsável da cooperação de [{store}](/store/{storeId}).'
-  placeholder: 'Opcional: adicionar informações aqui…'
+  placeholder: 'Opcional: Adicionar informações aqui…'
   decline_store_application:
     footer: 'Muitas saudações'
     main: 'A tua aplicação à local {store} foi rejeitada.'

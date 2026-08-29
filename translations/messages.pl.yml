@@ -885,7 +885,7 @@ group:
         mapie.
   application_requirements:
     requirements: Kto może dołączyć do tego zespołu?
-    nobody: Nikt (zamknięty zespół).
+    nobody: Nikt nie może się zgłosić.
     everybody: Każdy może się zgłosić.
     open: Każdy/a może dołączyć bezpośrednio.
   members: Członkowie
@@ -1031,6 +1031,7 @@ group:
       applied: Zespoły, do których się zgłosiłeś/aś
       closed: Zamknięte zespoły
     search_results: Wyniki wyszukiwania
+    subgroups: Podzespoły w {rejon}
   category:
     default: Nie wybrano typu zespołu
     administrative: Zespół zarządzający
@@ -1532,12 +1533,12 @@ fsp:
   none: Jeszcze nie dodano żadnych jadłodzielni
   info:
     from: Update'y od jadłodzielni „{name}“
-    none: Wcale
+    none: wcale
     descSettings: Śledzisz wszystkie informacje z jadłodzielni ‘{name}’. W jaki 
       sposób chcesz otrzymywać te powiadomienia?
     manager: Jesteś odpowiedzialny/a za tę jadłodzielnię i z tego względu 
       zobowiązany/a akceptować update'y.
-    mail: 'Dzwonek i powiadomienie mailem'
+    mail: 'dzwonek i powiadomienie mailem'
     descModal: 'Jak chcesz być informowany/a o nowościach (np. dostawy żywności)?'
     bell: 'tylko powiadomienia wewnętrzne (dzwonek)'
   createdAt: 'Otwarte:'
@@ -1623,14 +1624,14 @@ store:
   particularities: Przebieg & wskazówki
   may_referred_to_in_public_unclear: jeszcze nie wyjaśniono
   address: Adres
-  days: dni
+  days: dniami
   days_before: przed
   team_conversation_name: Team {name}
   sm:
     sorting:
       default: Sortowanie standardowe
       distance: Sortowanie według odległości
-      pickup: 'Sortuj według ostatniego slotu'
+      pickup: 'Sortowanie według ostatniego slotu'
     filterAll: Członkowie
     filterActive: Aktywni/e
     filterUnverified: Niezweryfikowani/e
@@ -1651,7 +1652,7 @@ store:
     promoteToManagerNotPossible: 'Nie można uczynić tej osoby odpowiedzialną, bo jest/są
       już trzech/trzy koordynatorów/ki albo osoba nie zdała jeszcze quizu koordynatorów/ek
       punktu.'
-    filterSleeping: 'Uśpiony/a'
+    filterSleeping: 'Uśpieni/uśpione'
     filterJumper: 'Rezerwowi/e'
     filterQuizSM: 'Zdany quiz dla koordynatorów/ek punktu'
     reallyRemove: 'Czy na pewno chcesz usunąć {name} z teamu tego punktu?'
@@ -1663,7 +1664,7 @@ store:
       fullName: Twoje pełne imię i nazwisko ({first_name} {last_name})
       distance: 'Odległość twojego miejsca zamieszkania od punktu ({distance})'
       storeList: 'Listę twoich punktów'
-      text: 'Twoja wiadomość aplikacyjna'
+      text: 'Twoją wiadomość aplikacyjną'
       intro: 'Kiedy wyślesz swoje zgłoszenie, koordynatorzy/ki punktu widzą następujące
         dane:'
     alerts:
@@ -1953,7 +1954,7 @@ store:
   all_of_my_stores: 'Wszystkie moje punkty'
   delete_date: 'Usuń pojedynczy slot'
   slotsCurrentlyOccupied: 'Obecnie zajęte sloty'
-  average_collection_quantity: 'Ilość na osobę'
+  average_collection_quantity: 'Ilość przypadająca na osobę'
   pickup_slot_unavailable: 'Ten slot jest w dalszej przyszłości, niż przewidzieli/ały
     to koordynatorzy/ki punktu. Spróbuj ponownie później.'
   smneeded: 'Aby utworzyć punkt, musisz być koordynatorem/ką punktu.'
