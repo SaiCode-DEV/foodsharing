@@ -51,6 +51,9 @@ export function closeNotification (id) {
   Vue.notify.close(id)
 }
 
+/**
+ * @deprecated Dont use reload - reload the data instead
+ */
 export function reload () {
   window.location.reload()
 }

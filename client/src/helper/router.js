@@ -33,9 +33,9 @@ const routes = [
 const anchorQueryParams = ['pid', 'showPost']
 
 /**
- * Window event dispatched when a link to the url that is already open was
- * clicked. The router drops such a navigation as a duplicate, so a page that
- * scrolls to a deep link (see Thread.vue) would not notice the repeated click.
+ * Window event dispatched after content for the url that is already open has
+ * been fetched again. Components that handle deep links (see Thread.vue) can
+ * also use it to re-evaluate the repeated link.
  */
 export const sameRouteNavigationEvent = 'fs:same-route-navigation'
 
@@ -58,10 +58,6 @@ function isSamePageAnchor (to, from) {
     Object.keys(toQuery).every(key => String(toQuery[key]) === String(fromQuery[key]))
 }
 
-function notifySameRouteNavigation (fullPath) {
-  window.dispatchEvent(new CustomEvent(sameRouteNavigationEvent, { detail: { fullPath } }))
-}
-
 const router = new VueRouter({
   mode: 'history', // Use HTML5 History API
   routes,
@@ -77,26 +73,95 @@ const router = new VueRouter({
   },
 })
 
-/**
- * Navigate to an internal url. The router drops a navigation to the url that is already
- * open, so in that case the open page is notified directly (see `sameRouteNavigationEvent`)
- * instead: clicking a link or a bell notification that points at the current url should
- * still re-evaluate the deep link and refresh the content of the open page.
- */
-export function navigate (to) {
-  const notifySameRoute = () => notifySameRouteNavigation(to)
+let routeRefreshPromise = null
 
-  if (to === router.currentRoute.fullPath) {
-    notifySameRoute()
-    return Promise.resolve()
+function notifySameRouteNavigation (fullPath, content) {
+  window.dispatchEvent(new CustomEvent(sameRouteNavigationEvent, {
+    detail: { fullPath, content },
+  }))
+}
+
+function redirectPath (response, requestedPath) {
+  const finalUrl = response.request?.responseURL
+  const currentOrigin = window.location.origin
+
+  if (!finalUrl?.startsWith(currentOrigin)) return null
+
+  const finalPath = finalUrl.substring(currentOrigin.length) || '/'
+  return finalPath.split('?')[0] === requestedPath.split('?')[0] ? null : finalPath
+}
+
+async function fetchRouteContent (fullPath) {
+  const response = await axios.get(fullPath, {
+    headers: {
+      'X-Content-Only': '1',
+      'X-Requested-With': 'XMLHttpRequest',
+    },
+  })
+
+  return {
+    content: response.data,
+    redirectedTo: redirectPath(response, fullPath),
+  }
+}
+
+/**
+ * Fetch and remount the current page when its link is clicked again. This lives
+ * in the router so every page gets the same refresh behaviour without having to
+ * implement it in its own root component.
+ */
+function refreshCurrentRoute (fullPath) {
+  if (routeRefreshPromise) return routeRefreshPromise
+
+  window.showLoading?.()
+  routeRefreshPromise = fetchRouteContent(fullPath).then(({ content, redirectedTo }) => {
+    if (redirectedTo) return router.push(redirectedTo)
+
+    notifySameRouteNavigation(fullPath, content)
+  }).catch(error => {
+    console.error('Failed to refresh route content:', error)
+    window.location.href = fullPath
+  }).finally(() => {
+    window.hideLoading?.()
+    routeRefreshPromise = null
+  })
+
+  return routeRefreshPromise
+}
+
+const originalPush = router.push.bind(router)
+router.push = function (location, onResolve, onReject) {
+  const handleDuplicate = (error) => {
+    if (error?.name !== 'NavigationDuplicated') return false
+
+    refreshCurrentRoute(this.currentRoute.fullPath)
+    return true
   }
 
-  return router.push(to).catch(error => {
-    // The url is written differently (e.g. another order of the query parameters) but
-    // resolves to the route that is already open, so the router rejects the navigation.
-    if (error?.name !== 'NavigationDuplicated') throw error
-    notifySameRoute()
+  // RouterLink uses callbacks, while direct calls return a promise.
+  if (onResolve || onReject) {
+    return originalPush(location, onResolve, error => {
+      if (!handleDuplicate(error)) onReject?.(error)
+    })
+  }
+
+  return originalPush(location).catch(error => {
+    if (!handleDuplicate(error)) throw error
+    return routeRefreshPromise
   })
+}
+
+/**
+ * Navigate to an internal url. The router drops a navigation to the url that is already
+ * open, so in that case fetch and remount its content instead. This also emits
+ * `sameRouteNavigationEvent` so deep-link components can re-evaluate the link.
+ */
+export function navigate (to) {
+  if (to === router.currentRoute.fullPath) {
+    return refreshCurrentRoute(to)
+  }
+
+  return router.push(to)
 }
 
 // Flag to track the initial page load to prevent reload loops
@@ -141,31 +206,16 @@ router.beforeEach(async (to, from, next) => {
 
   try {
     // Fetch the content-only version of the page
-    const response = await axios.get(to.fullPath, {
-      headers: {
-        'X-Content-Only': '1', // Request content-only layout
-        'X-Requested-With': 'XMLHttpRequest', // Mark as AJAX request
-      },
-    })
+    const { content, redirectedTo } = await fetchRouteContent(to.fullPath)
 
     // Check if the response URL indicates a redirect occurred
-    const finalUrl = response.request?.responseURL
-    if (finalUrl) {
-      const currentOrigin = window.location.origin
-      if (finalUrl.startsWith(currentOrigin)) {
-        const finalPath = finalUrl.substring(currentOrigin.length) || '/'
-        const cleanFinalPath = finalPath.split('?')[0]
-        const cleanToPath = to.path
-
-        if (cleanFinalPath !== cleanToPath) {
-          next(finalPath)
-          return
-        }
-      }
+    if (redirectedTo) {
+      next(redirectedTo)
+      return
     }
 
     // Store the HTML content in the route's meta
-    to.meta.content = response.data
+    to.meta.content = content
 
     next()
   } catch (error) {
@@ -203,29 +253,5 @@ router.afterEach((to, from) => {
   document.documentElement.classList.add(newClass)
   document.body.classList.add(newClass)
 })
-
-const originalPush = VueRouter.prototype.push
-VueRouter.prototype.push = function (location, onResolve, onReject) {
-  // A link to the url that is already open is dropped by the router. Without this,
-  // nothing at all happens on such a click, not even for the page that is open
-  // (see `sameRouteNavigationEvent`). router-link passes callbacks, navigate() and
-  // own calls do not, so both ways have to be covered.
-  const handleDuplicate = (error) => {
-    const isDuplicate = error?.name === 'NavigationDuplicated'
-    if (isDuplicate) notifySameRouteNavigation(this.currentRoute.fullPath)
-    return isDuplicate
-  }
-
-  if (onResolve || onReject) {
-    return originalPush.call(this, location, onResolve, (error) => {
-      handleDuplicate(error)
-      if (onReject) onReject(error)
-    })
-  }
-
-  return originalPush.call(this, location).catch(error => {
-    if (!handleDuplicate(error)) throw error
-  })
-}
 
 export default router

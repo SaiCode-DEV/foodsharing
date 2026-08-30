@@ -29,6 +29,38 @@ test.describe("Client side navigation", () => {
     expect(await stillSameDocument(page)).toBe(true);
   });
 
+  test("refreshes the dashboard content when its logo link is clicked", async ({
+    page,
+    acceptanceHelper,
+  }) => {
+    const region = await foodsharing.createRegion();
+    const user = await foodsharing.createFoodsaver(null, {
+      bezirk_id: region.id,
+    });
+    await foodsharing.addRegionMember(region.id, user.id);
+    await acceptanceHelper.login(user.email);
+    await acceptanceHelper.waitForPageBody();
+    await markPage(page);
+
+    const greeting = page.locator(".testing-intro-field");
+    await greeting.evaluate((element) => {
+      element.textContent = "Stale dashboard";
+    });
+    await expect(greeting).toHaveText("Stale dashboard");
+
+    const contentRequest = page.waitForRequest(
+      (request) =>
+        new URL(request.url()).pathname === "/dashboard" &&
+        Boolean(request.headers()["x-content-only"]),
+    );
+    await page.locator(".foodsharing a").first().click();
+    await contentRequest;
+
+    await expect(greeting).toContainText("Hallo");
+    await expect(page).toHaveURL(/\/dashboard/);
+    expect(await stillSameDocument(page)).toBe(true);
+  });
+
   test("opens a forum thread without reloading the document", async ({
     page,
     acceptanceHelper,

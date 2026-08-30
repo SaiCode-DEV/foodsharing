@@ -1,14 +1,21 @@
 <template>
-  <!-- eslint-disable-next-line vue/no-v-html -->
-  <div id="app-content" v-html="htmlContent" />
+  <!-- eslint-disable vue/no-v-html -->
+  <div
+    id="app-content"
+    :key="contentVersion"
+    v-html="htmlContent"
+  />
+  <!-- eslint-enable vue/no-v-html -->
 </template>
 
 <script setup>
-import { computed, watch, getCurrentInstance, nextTick } from 'vue'
+import { computed, watch, getCurrentInstance, nextTick, ref, onMounted, onBeforeUnmount } from 'vue'
 import { resetVueApplyQueue, flushVueApplyQueue, vueApply, destroyActiveVueInstances } from '@/vue'
+import { sameRouteNavigationEvent } from '@/helper/router'
 
 const instance = getCurrentInstance()
 const route = computed(() => instance.proxy.$route)
+const contentVersion = ref(0)
 
 const htmlContent = computed(() => {
   // Get the HTML content from the route meta
@@ -105,7 +112,7 @@ const initializeContent = async () => {
   }
 }
 
-watch(htmlContent, async (newContent) => {
+watch([htmlContent, contentVersion], async ([newContent]) => {
   destroyActiveVueInstances()
   if (newContent) {
     // Reset queue before loading new content
@@ -113,6 +120,16 @@ watch(htmlContent, async (newContent) => {
     await initializeContent()
   }
 }, { immediate: true })
+
+const refreshContent = (event) => {
+  if (typeof event.detail?.content !== 'string') return
+
+  route.value.meta.content = event.detail.content
+  contentVersion.value++
+}
+
+onMounted(() => window.addEventListener(sameRouteNavigationEvent, refreshContent))
+onBeforeUnmount(() => window.removeEventListener(sameRouteNavigationEvent, refreshContent))
 
 </script>
 

@@ -117,7 +117,6 @@ import { useBasketStore } from '@/stores/baskets'
 import { useUserStore } from '@/stores/user'
 import DataEvents from '@/stores/events'
 import DataBroadcast from '@/stores/broadcast'
-import { sameRouteNavigationEvent } from '@/helper/router'
 // Components
 import Broadcast from '@/components/Banners/Broadcast/BroadcastField.vue'
 import Intro from '@/components/Banners/Intro/IntroField.vue'
@@ -233,20 +232,10 @@ export default {
     },
   },
   async mounted () {
-    window.addEventListener(sameRouteNavigationEvent, this.reloadPage)
     await DataBroadcast.mutations.fetch()
     await this.userStore.fetchDetails()
   },
-  beforeDestroy () {
-    window.removeEventListener(sameRouteNavigationEvent, this.reloadPage)
-  },
   methods: {
-    // Clicking a link to the page that is already open is dropped by the router,
-    // so the dashboard would keep showing what it showed before. Its content comes
-    // from a dozen containers that each fetch on mount, hence the full reload.
-    reloadPage () {
-      window.location.reload()
-    },
     resetHiding () {
       this.visible = { ...defaultVisibility }
     },
