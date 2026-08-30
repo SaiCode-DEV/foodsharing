@@ -66,6 +66,7 @@
 
 <script setup>
 import { ref, nextTick, onMounted, onUnmounted, watch } from 'vue'
+import { useRoute } from 'vue-router/composables'
 import { useDonationStore } from '@/stores/donation'
 import DonationOptions from '@/components/DonationOptions.vue'
 import DonationCampaign from '@/components/DonationCampaign.vue'
@@ -187,6 +188,11 @@ function onPopState () {
     resetSelectionWithoutPush()
   }
 }
+
+// Both donation routes render the same markup, so the router swaps the content
+// without recreating this component, and it does not fire popstate either.
+const route = useRoute()
+watch(() => route.path, onPopState)
 
 function resetSelectionWithoutPush () {
   selectedDonationType.value = null
