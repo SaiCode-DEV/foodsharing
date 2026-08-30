@@ -13,11 +13,17 @@
       @click="openChat(jumperConversationId)"
     />
     <ContainerButton
-      text-key="store.chat.managers"
       data-test="store-chat-managers"
-      icon="fas fa-comments"
       @click="$emit('multi-chat', fsId)"
-    />
+    >
+      <i class="fas fa-comments mr-2" />
+      <span class="small font-weight-bold">{{ $t('store.chat.managers') }}</span>
+      <!-- Only from two managers on. With a single one it is obvious who reads it. -->
+      <span
+        v-if="managerChatSize > 2"
+        class="small text-muted ml-1"
+      >({{ $t('chat.participant_count', { count: managerChatSize }) }})</span>
+    </ContainerButton>
     <ContainerButton
       v-if="mayLeaveStoreTeam && isUserInStore || isJumper"
       variant="danger"
@@ -75,6 +81,7 @@ export default {
     isJumper: { type: Boolean, default: false },
     isVerified: { type: Boolean, default: false },
     mayDeleteStore: { type: Boolean, default: false },
+    managerChatSize: { type: Number, required: true },
   },
   setup () {
     const userStore = useUserStore()

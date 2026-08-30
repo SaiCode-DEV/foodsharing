@@ -29,6 +29,7 @@
               :is-verified="isVerified"
               :category-type="storeInformation.categoryType"
               :may-delete-store="permissions.mayDeleteStore"
+              :manager-chat-size="managerChatSize"
               @multi-chat="multiChat"
             />
             <Wall
@@ -206,6 +207,13 @@ export default {
     regionId () {
       return this.storeInformation.region.id
     },
+    storeManagerIds () {
+      return this.storeMember.filter(item => item.isResponsible).map(item => item.id)
+    },
+    managerChatSize () {
+      // Same set multiChat() opens, so the number matches what is actually sent to.
+      return new Set([...this.storeManagerIds, this.userId]).size
+    },
     storeMember () {
       return StoreData.getters.getStoreMember()
     },
@@ -285,13 +293,12 @@ export default {
     },
     multiChat (userId) {
       if (!userId) return
-      const storeManagers = this.storeMember.filter(item => item.isResponsible).map(item => item.id)
       const storeUrl = this.$url('store', this.storeId)
       const preface = {
         content: this.$t('store.chat.managers_preface', { store: this.storeInformation.name, storeUrl }),
         username: this.storeInformation.name,
       }
-      conversationStore.openMultiChat(storeManagers.concat(userId), preface)
+      conversationStore.openMultiChat(this.storeManagerIds.concat(userId), preface)
     },
   },
 }
