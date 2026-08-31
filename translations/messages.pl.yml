@@ -66,7 +66,7 @@ quiz:
     true_true: Dobrze! Ta odpowiedź jest poprawna.
     timedOut:
       0: Ta odpowiedź nie powinna być poprawna.
-      1: Ta odpowiedź powinna być poprawna.
+      1: Ta odpowiedź byłaby prawidłowa.
       2: Ta odpowiedź byłaby neutralna.
     short:
       0: źle
@@ -1798,7 +1798,7 @@ store:
       6: '{actor} dodał/a {target} do aktywnego teamu.'
       1: '{actor} wysłał/a zgłoszenie o członkostwo.'
       18: '{actor} cofnął/ęła zaproszenie do teamu dla {target}.'
-      14: '{actor} potwierdził/a slot {target} {date}.'
+      14: '{actor} potwierdził/a slot {target} dnia {date}.'
       3: '{actor} zaakceptował/a zgłoszenie o członkostwo od {target}.'
       4: '{actor} dodał/a {target} ręcznie do teamu.'
       11: '{actor} zapisał/a się na slot {date}.'
@@ -2067,7 +2067,7 @@ pickup:
       registered:
         tooltip:
           other: 'Przyszłe zapisane sloty'
-          own: 'Przyszłe sloty, na które możesz się zapisać'
+          own: 'Przyszłe sloty, na które się zapisałeś/aś'
         name: 'Wprowadzone sloty'
         empty: 'Chwilowo nie zapisano się na żadne sloty.'
       history:
@@ -2366,7 +2366,7 @@ wall:
     text: 'Czy na pewno chcesz usunąć ten wpis od {author}?'
   name: 'Tablica'
   placeholder: 'Napisz nowy wpis na tablicy …'
-  error-create: 'Twój wpis na tablicy nie mógł zostać zapisany.'
+  error-create: 'Nie można było zapisać twojego wpisu na tablicy.'
   created: 'Świetnie, twój wpis na tablicy został zapisany.'
   info-somebody-else: 'Ponieważ masz uprawnienia do administrowania tego punktu, możesz
     w razie potrzeby usunąć ten wpis.'
@@ -3170,8 +3170,8 @@ profile:
     doesNotAffectStore: 'Dotyczy innego lub żadnego punktu'
     arbAdminAgainstRepAdmin: 'Jesteś administratorem/ką rady arbitrażowej i chcesz
       zgłosić skargę przeciwko administratorowi/ce zespołu rozpatrującego skargi.
-      Na ten moment nie jest to technicznie wspierane. Możesz zawsze wysłać skargę
-      mailem do osób lokalnie odpowiedzialnych za ten przypadek.'
+      Na ten moment nie ma technicznego wsparcia dla tej opcji. Możesz zawsze wysłać
+      skargę mailem do osób lokalnie odpowiedzialnych za ten przypadek.'
     confirmDelete: 'Czy na pewno usunąć tę skargę?'
     oldReportButton: 'Zgłoś skargę'
     send: 'Wyślij skargę'
