@@ -1674,7 +1674,7 @@ group:
     sent: 'A mensagem foi enviada com sucesso.'
     send: 'Mandar mensagem'
   application_requirements:
-    nobody: 'Ninguém (grupo fechado).'
+    nobody: 'Ninguém se pode candidatar..'
     requirements: 'Quem pode inscrever-se neste grupo?'
     open: 'Todos pessoas podem participar sem se candidatarem.'
     everybody: 'Todos podem candidatar-se.'
@@ -1746,6 +1746,7 @@ group:
       project: 'Grupos de projeto'
       administrative: 'Grupos de administração'
     inactive: 'Grupos inativos'
+    subgroups: Subgrupos em {region}
   category:
     development: 'Grupo de desenvolvimento'
     administrative: 'Grupo de administração'

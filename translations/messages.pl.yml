@@ -811,7 +811,7 @@ group:
     sent: Wiadomość wysłana pomyślnie.
     admins: 'Liczba osób do kontaktu: {count}'
     disclaimer: |
-      Przy wysyłaniu wiadomości do tego zespołu, wszyscy/tkie administratorzy/ki będą widzieć twój adres email, który podałeś/aś w twoim profilu foodsharingu. Kopia wiadomości zostanie ci przesłana mailem.
+      Przy wysyłaniu wiadomości do tego zespołu, wszyscy/tkie administratorzy/ki będą widzieć twój adres email, który podałeś/aś w twoim profilu na foodsharingu. Kopia wiadomości zostanie ci przesłana mailem.
   apply:
     title: Zgłoszenie do {group}
     send: Wyślij zgłoszenie
@@ -1077,7 +1077,7 @@ salutation:
 login:
   submit_btn: zaloguj
   topbar: zaloguj
-  email_address: adres email
+  email_address: Adres email
   password: hasło
   login_button_label: zaloguj
   logout: wyloguj
@@ -1698,7 +1698,7 @@ store:
         zgłoszenie.'
     requirePhone:
       link: Edytuj profil
-      invited: 'Otrzymałeś/aś zaproszenie do tego punktu. Zanim będziesz mógł/mogła
+      invited: 'Zostałeś/aś zaproszony/a do tego punktu. Zanim będziesz mógł/mogła
         zaakceptować zaproszenie, musisz podać numeru telefonu w swoim profilu. Ten
         punkt akceptuje chwilowo tylko zgłoszenia od foodsaverów/ek z co najmniej
         jednym podanym numerem telefonu. Podaj numer telefonu w swoim profilu, aby
@@ -1769,8 +1769,8 @@ store:
       osobowych nie zostaną oni/e bezpośrednio dodani/e do teamu punktu. Otrzymują
       zapytanie, czy chcą dołączyć do tego teamu, które muszą zaakceptować, zanim
       zostaną częścią teamu. Możesz w dowolnym momencie cofnąć te zaproszenia.'
-    invited_info: 'Zostałeś/aś zaproszony/a do tego teamu. Możesz dołączyć przez zaakceptowanie
-      zaproszenia.'
+    invited_info: 'Zostałeś/aś zaproszony/a do tego punktu. Możesz dołączyć przez
+      zaakceptowanie zaproszenia.'
   info_container: Informacje
   chain_search_picker:
     modal_title: Wybierz sieć
@@ -2046,7 +2046,7 @@ pickup:
       signOffAll: Usuń wszędzie
       useCondensedDesign: Zgrupowane według dni
       loadMore: Załaduj więcej
-      registeredSwitch: 'Zapisane sloty'
+      registeredSwitch: 'Wprowadzone sloty'
       managedOnlySwitch: 'Widok koordynatorów/ek punktu'
       signOff: 'Wypisz'
     freeSlots: 'Liczba wolnych slotów: {slots}'
@@ -2066,7 +2066,7 @@ pickup:
           own: 'Przyszłe sloty, na które mógłbyś/mogłabyś się jeszcze zapisać'
       registered:
         tooltip:
-          other: 'Przyszłe zapisane sloty'
+          other: 'Nadchodzące sloty'
           own: 'Przyszłe sloty, na które się zapisałeś/aś'
         name: 'Wprowadzone sloty'
         empty: 'Chwilowo nie zapisano się na żadne sloty.'
@@ -3255,7 +3255,7 @@ profile:
       forum, aby wybrać lokalny zespół mediacji.'
   notFound: 'Tego profilu użytkownika/czki (już) nie ma'
   choosestore: 'Wybierz punkt, którego to dotyczy'
-  deletesuccess: 'Usunięto pojedynczy slot odbioru'
+  deletesuccess: 'Usunięto pojedynczy slot'
   sleeping_info_from_until: 'jest w trybie uśpienia od {from} do {until}'
   warning: 'Uwaga'
   tab_navigation:
@@ -3644,7 +3644,7 @@ poll:
     shuffle_options: 'Pokaż opcje w przypadkowej kolejności podczas głosowania'
     submit: 'Zapisz głosowanie'
   time_period: 'Przedział czasu'
-  may_not_vote: 'Nie możesz zagłosować w tym głosowaniu. Z momencie, kiedy utworzono
+  may_not_vote: 'Nie możesz zagłosować w tym głosowaniu. W momencie, kiedy utworzono
     to głosowanie, nie należałeś/aś do grupy uprawnionej do głosowania. Nawet jeśli
     w czasie trwania głosowania spełniasz kryteria uprawniające cię do głosowania,
     nie jest możliwe otrzymanie prawa głosu z mocą wsteczną.'
@@ -4498,8 +4498,8 @@ search:
     placeholder: 'Imię lub ID'
   maxresults: 'Liczba wyświetlanych wyników wyszukiwania jest ograniczona. Ewentualnie
     użyj bardziej specyficznego pojęcia do wyszukiwania.'
-  informations: 'Możesz szukać osób, grup, punktów, rejonów, czatów, wpisów na forum
-    i jadłodzielni.'
+  informations: 'Możesz szukać osób, zespołów, punktów, rejonów, czatów, wpisów na
+    forum i jadłodzielni.'
   noresults: 'Nie znaleziono wyników'
   scope:
     global: 'Szukanie globalne'
