@@ -74,6 +74,48 @@ class SanitizerTest extends Unit
         );
     }
 
+    /* #2870: html2text writes "text [url]" and mail clients include the bracket - and the
+       punctuation behind it - in the link they detect. */
+    final public function testHtmlToPlainSeparatesLinkFromUrlByWhitespace(): void
+    {
+        $in = '<p>Von <a href="https://foodsharing.de/profile/1">Andrea</a>:</p>';
+        $out = $this->sanitizer->htmlToPlain($in);
+        $this->assertEquals(
+            'Von Andrea https://foodsharing.de/profile/1:',
+            trim($out)
+        );
+    }
+
+    final public function testHtmlToPlainWritesLinkWithoutMarkupCharacters(): void
+    {
+        $in = '<a href="https://foodsharing.de/store/7">Betrieb</a>';
+        $out = trim($this->sanitizer->htmlToPlain($in));
+        /* Angle brackets would be swallowed by the strip_tags() inside the library. */
+        $this->assertStringNotContainsString('[', $out);
+        $this->assertStringNotContainsString('<', $out);
+        $this->assertStringNotContainsString('>', $out);
+    }
+
+    final public function testHtmlToPlainPrintsSelfLabelledLinkOnlyOnce(): void
+    {
+        $in = '<a href="https://foodsharing.de/reset">https://foodsharing.de/reset </a>';
+        $out = $this->sanitizer->htmlToPlain($in);
+        $this->assertEquals(
+            'https://foodsharing.de/reset',
+            trim($out)
+        );
+    }
+
+    final public function testHtmlToPlainKeepsMailtoLabel(): void
+    {
+        $in = '<a href="mailto:info@foodsharing.de">Support</a>';
+        $out = $this->sanitizer->htmlToPlain($in);
+        $this->assertEquals(
+            'Support',
+            trim($out)
+        );
+    }
+
     final public function testMarkdownRendersSimpleList(): void
     {
         $in = "* Hi\n* there";

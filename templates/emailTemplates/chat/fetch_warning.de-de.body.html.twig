@@ -4,7 +4,8 @@
 <ul>
 {% for STORE in STORES %}
   <li>
-    <a href="{{ STORE.link }}" target="_blank">{{ STORE.name }}</a>: 
+    {# the colon belongs inside the anchor: the plain text part appends the url behind it #}
+    <a href="{{ STORE.link }}" target="_blank">{{ STORE.name }}:</a>
     {{ 'email_template.fetch_warning.empty_slots'|trans({'%COUNT%': STORE.count}) }}
   </li>
 {% endfor %}  

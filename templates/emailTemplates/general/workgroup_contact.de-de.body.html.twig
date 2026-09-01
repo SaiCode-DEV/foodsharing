@@ -1,4 +1,5 @@
 <div class="border">
 <p>{{ MESSAGE|raw }}</p>
-    <p> {{ 'email_template.from'|trans }}<a href="{{ USERPROFILE }}">{{ USERNAME }}</a>:</p>
+    {# the colon belongs inside the anchor: the plain text part appends the url behind it #}
+    <p> {{ 'email_template.from'|trans }}<a href="{{ USERPROFILE }}">{{ USERNAME }}:</a></p>
 </div>

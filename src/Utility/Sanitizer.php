@@ -2,7 +2,6 @@
 
 namespace Foodsharing\Utility;
 
-use Html2Text\Html2Text;
 use HTMLPurifier;
 use HTMLPurifier_Config;
 use Parsedown;
@@ -37,9 +36,9 @@ class Sanitizer
 
     public function htmlToPlain(string $html): string
     {
-        $html = new Html2Text($html);
+        $converter = new PlainTextConverter($html);
 
-        return $html->getText();
+        return $converter->getText();
     }
 
     public function tagSelectIds(array $v): array

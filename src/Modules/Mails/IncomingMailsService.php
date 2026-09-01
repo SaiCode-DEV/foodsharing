@@ -10,7 +10,6 @@ use Foodsharing\Utility\ConsoleHelper;
 use Foodsharing\Utility\EmailHelper;
 use Foodsharing\Utility\RouteHelper;
 use Foodsharing\Utility\Sanitizer;
-use Html2Text\Html2Text;
 
 use function Sentry\captureException;
 
@@ -103,8 +102,7 @@ class IncomingMailsService
         }
 
         if ($html) {
-            $h2t = new Html2Text($html);
-            $body = $h2t->getText();
+            $body = $this->sanitizer->htmlToPlain($html);
             $html = $this->sanitizer->purifyHtml($html);
         } else {
             try {
