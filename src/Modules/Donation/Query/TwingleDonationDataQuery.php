@@ -31,44 +31,56 @@ class TwingleDonationDataQuery
      */
     public function getProjectStatus(int $projectId): array
     {
-        // @phpstan-ignore-next-line
-        if (!empty(TWINGLE_ACCESS_CODE) && !empty($projectId) && $projectId > 0) {
-            $headers = [
-                'accept' => 'application/json',
-                'x-access-code' => TWINGLE_ACCESS_CODE,
-            ];
-
-            return $this->httpClient->request(
-                'GET',
-                str_replace('{projectId}', (string)$projectId, TWINGLE_PROJECT_STATUS_API),
-                ['headers' => $headers]
-            )->toArray();
-        } else {
+        $accessCode = self::config('TWINGLE_ACCESS_CODE');
+        $statusApi = self::config('TWINGLE_PROJECT_STATUS_API');
+        if ($accessCode === '' || $statusApi === '' || $projectId <= 0) {
             throw new ServiceUnavailableHttpException('', 'Twingle access code or project ID are not defined');
         }
+
+        return $this->httpClient->request(
+            'GET',
+            str_replace('{projectId}', (string)$projectId, $statusApi),
+            ['headers' => [
+                'accept' => 'application/json',
+                'x-access-code' => $accessCode,
+            ]]
+        )->toArray();
     }
 
     public function getProjects(): array
     {
-        // @phpstan-ignore-next-line
-        if (empty(TWINGLE_ACCESS_CODE)) {
+        $accessCode = self::config('TWINGLE_ACCESS_CODE');
+        if ($accessCode === '') {
             throw new ServiceUnavailableHttpException('Twingle access code or project ID are not defined');
         }
 
-        // @phpstan-ignore-next-line
-        if (empty(TWINGLE_ORGANIZATION_ID)) {
+        $organizationId = self::config('TWINGLE_ORGANIZATION_ID');
+        if ($organizationId === '') {
             throw new ServiceUnavailableHttpException('TWINGLE_ORGANIZATION_ID is not defined');
         }
 
-        $headers = [
-            'accept' => 'application/json',
-            'x-access-code' => TWINGLE_ACCESS_CODE,
-        ];
+        $listApi = self::config('TWINGLE_PROJECT_LIST_API');
+        if ($listApi === '') {
+            throw new ServiceUnavailableHttpException('TWINGLE_PROJECT_LIST_API is not defined');
+        }
 
         return $this->httpClient->request(
             'GET',
-            str_replace('{organisationId}', (string)TWINGLE_ORGANIZATION_ID, TWINGLE_PROJECT_LIST_API),
-            ['headers' => $headers]
+            str_replace('{organisationId}', $organizationId, $listApi),
+            ['headers' => [
+                'accept' => 'application/json',
+                'x-access-code' => $accessCode,
+            ]]
         )->toArray();
+    }
+
+    /**
+     * Reads a configuration constant that a deployment may not have set at all.
+     * Without this a missing one raises an Error instead of the unavailable
+     * response the callers already handle.
+     */
+    private static function config(string $name): string
+    {
+        return defined($name) ? (string)constant($name) : '';
     }
 }

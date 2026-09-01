@@ -46,4 +46,17 @@ class DonationTwingleDataQueryTest extends Unit
         $this->expectException(ServiceUnavailableHttpException::class);
         $this->twingleDonationDataQuery->getProjectStatus(0);
     }
+
+    /**
+     * A deployment that never set the Twingle constants used to raise an Error here,
+     * which reached the client as a 500 instead of the documented 503 (#2875).
+     */
+    public function testMissingConstantIsTreatedAsUnset()
+    {
+        $config = new \ReflectionMethod(TwingleDonationDataQuery::class, 'config');
+        $config->setAccessible(true);
+
+        $this->assertSame('', $config->invoke(null, 'TWINGLE_CONSTANT_THAT_IS_NOT_DEFINED'));
+        $this->assertSame((string)TWINGLE_ACCESS_CODE, $config->invoke(null, 'TWINGLE_ACCESS_CODE'));
+    }
 }
