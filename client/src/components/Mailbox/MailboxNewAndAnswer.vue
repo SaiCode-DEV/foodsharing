@@ -408,6 +408,7 @@ export default {
       try {
         await setEmailProperties(this.email.id, state)
         this.setIsReadState(state)
+        await store.fetchMailboxes()
       } catch (e) {
         pulseError(i18n('error_unexpected'))
       }

@@ -188,6 +188,7 @@ export default {
         await Promise.all(this.selected.map(email => deleteEmail(email.id)))
         this.removeEmailsFromList(this.selected)
         this.selected = []
+        await store.fetchMailboxes()
       } catch (e) {
         pulseError(i18n('error_unexpected'))
       }
@@ -201,6 +202,7 @@ export default {
         await Promise.all(this.selected.map(email => setEmailProperties(email.id, null, folder)))
         this.removeEmailsFromList(this.selected)
         this.selected = []
+        await store.fetchMailboxes()
       } catch (e) {
         pulseError(i18n('error_unexpected'))
       }
@@ -245,6 +247,7 @@ export default {
 
       try {
         await Promise.all(this.selected.map(email => setEmailProperties(email.id, areAnyUnread, this.selectedMailbox[2])))
+        await store.fetchMailboxes()
       } catch (e) {
         pulseError(i18n('error_unexpected'))
       }

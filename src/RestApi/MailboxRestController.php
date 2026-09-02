@@ -9,6 +9,7 @@ use Foodsharing\Modules\Mailbox\DTO\Region;
 use Foodsharing\Modules\Mailbox\Email;
 use Foodsharing\Modules\Mailbox\MailboxGateway;
 use Foodsharing\Modules\Mailbox\MailboxTransactions;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\MailboxPermissions;
 use Foodsharing\RestApi\Models\Mailbox\EmailSendData;
 use Foodsharing\RestApi\Models\Mailbox\PatchEmailModel;
@@ -32,6 +33,7 @@ class MailboxRestController extends AbstractFoodsharingRestController
         private readonly MailboxGateway $mailboxGateway,
         private readonly MailboxPermissions $mailboxPermissions,
         private readonly MailboxTransactions $mailboxTransactions,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
         parent::__construct($session);
     }
@@ -90,6 +92,28 @@ class MailboxRestController extends AbstractFoodsharingRestController
         $unread = $this->mailboxGateway->getUnreadMailCount($this->session->id());
 
         return $this->respondOK(['unreadCount' => $unread]);
+    }
+
+    #[OA\Get(summary: 'Returns the mailboxes of the current user, including their unread mail counts.')]
+    #[Route('mailboxes', methods: ['GET'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new OA\JsonContent(type: 'array',
+        items: new OA\Items(type: 'object', properties: [
+            new OA\Property(property: 'id', type: 'integer'),
+            new OA\Property(property: 'name', type: 'string'),
+            new OA\Property(property: 'count', type: 'integer', description: 'Number of unread mails in this mailbox'),
+        ])
+    ))]
+    public function getMailboxes(): Response
+    {
+        $this->assertLoggedIn();
+
+        $mailboxes = $this->mailboxGateway->getBoxes(
+            $this->currentUserUnits->isAmbassador(),
+            $this->session->id(),
+        );
+        $mailboxIds = array_map(fn ($mailbox) => $mailbox->id, $mailboxes);
+
+        return $this->respondOK($this->mailboxGateway->getMailboxesWithUnreadCount($mailboxIds));
     }
 
     #[OA\Get(summary: 'Returns mails from a mailbox.')]

@@ -172,6 +172,13 @@ export default {
       return folders
     },
   },
+  watch: {
+    selectedEmail (selectedEmail) {
+      if (Array.isArray(selectedEmail) && selectedEmail.length === 0) {
+        this.isSelected = false
+      }
+    },
+  },
   created () {
     this.MAILBOX_PAGE = MAILBOX_PAGE
     this.MAIL_COMPOSITION_MODE = MAIL_COMPOSITION_MODE

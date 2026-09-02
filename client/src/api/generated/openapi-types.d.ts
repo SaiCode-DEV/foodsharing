@@ -1209,6 +1209,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/mailboxes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Returns the mailboxes of the current user, including their unread mail counts. */
+        get: operations["getMailboxes"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/mailboxes/{mailboxId}/folders/{folderId}/mails": {
         parameters: {
             query?: never;
@@ -12029,6 +12046,38 @@ export interface operations {
                         /** @description Number of unread mails */
                         unreadCount?: number;
                     };
+                };
+            };
+            /** @description Not logged in */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    getMailboxes: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        id?: number;
+                        name?: string;
+                        /** @description Number of unread mails in this mailbox */
+                        count?: number;
+                    }[];
                 };
             };
             /** @description Not logged in */

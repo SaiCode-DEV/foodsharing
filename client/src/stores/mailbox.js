@@ -1,5 +1,7 @@
 import { reactive } from 'vue'
 import { REGION_UNIT_TYPE } from '@/stores/regions'
+import { getMailboxes } from '@/api/mailbox'
+import { useUserStore } from '@/stores/user'
 
 export const MAILBOX_PAGE = Object.freeze({
   EMAIL_LIST: 1,
@@ -41,6 +43,7 @@ export const store = {
     page: null,
     compositionMode: MAIL_COMPOSITION_MODE.NONE,
     selectedMailbox: [],
+    mailboxes: [],
   }),
   setPage (value) {
     this.state.page = value
@@ -50,5 +53,13 @@ export const store = {
   },
   setMailbox (mailboxId, mailboxName, folderId) {
     this.state.selectedMailbox = [mailboxId, mailboxName, folderId]
+  },
+  setMailboxes (mailboxes) {
+    this.state.mailboxes = mailboxes
+  },
+  async fetchMailboxes () {
+    const mailboxes = await getMailboxes()
+    this.state.mailboxes = mailboxes
+    await useUserStore().updateMailUnreadCount(mailboxes.reduce((total, mailbox) => total + mailbox.count, 0))
   },
 }

@@ -4,6 +4,10 @@ export async function getMailUnreadCount () {
   return (await get('/mailboxes/unread-count')).unreadCount
 }
 
+export async function getMailboxes () {
+  return get('/mailboxes')
+}
+
 export async function setEmailProperties (mailId, isRead = null, folder = null) {
   return patch(`/mailboxes/mails/${mailId}`, {
     isRead: isRead !== null ? isRead : undefined,

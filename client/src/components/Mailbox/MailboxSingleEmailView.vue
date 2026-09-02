@@ -185,6 +185,7 @@ export default {
       this.isBusy = true
       try {
         await setEmailProperties(this.email.id, null, folder)
+        await store.fetchMailboxes()
       } catch (e) {
         pulseError(i18n('error_unexpected'))
       }
@@ -201,6 +202,7 @@ export default {
       this.isBusy = true
       try {
         await setEmailProperties(this.email.id, state, null)
+        await store.fetchMailboxes()
       } catch (e) {
         pulseError(i18n('error_unexpected'))
       }

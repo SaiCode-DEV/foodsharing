@@ -136,6 +136,26 @@ class MailboxApiCest
         ]);
     }
 
+    public function canGetOwnMailboxesWithUnreadCounts(ApiTester $I): void
+    {
+        $I->sendGet('api/mailboxes');
+        $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
+
+        $I->login($this->ambassador['email']);
+        $I->sendGet('api/mailboxes');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $mailboxes = json_decode($I->grabResponse(), true, flags: JSON_THROW_ON_ERROR);
+        $ownMailboxes = array_values(array_filter(
+            $mailboxes,
+            fn (array $mailbox): bool => $mailbox['id'] === $this->ambassadorMailboxId,
+        ));
+
+        $I->assertCount(1, $ownMailboxes);
+        $I->assertIsString($ownMailboxes[0]['name']);
+        $I->assertIsInt($ownMailboxes[0]['count']);
+    }
+
     private function createRandomEmail(int $numAttachments = 0, bool $withCc = true, bool $withBcc = true): array
     {
         if ($numAttachments < 1) {

@@ -4,6 +4,7 @@ import { getMailUnreadCount } from '@/api/mailbox'
 import { getDetails, getUserProfileSettings } from '@/api/user'
 import serverData from '@/helper/server-data'
 import { ROLE } from '@/consts'
+import { BROADCAST_TYPE, channel } from '@/broadcastChannel'
 
 const mailUnreadCountRateLimitInterval = 300000 // 5 minutes in milliseconds
 const userDetailsRateLimitInterval = 60000 // 1 minute in milliseconds
@@ -121,19 +122,27 @@ export const useUserStore = defineStore('user', {
       resolver()
       return this.settings
     },
-    async fetchMailUnreadCount () {
+    async fetchMailUnreadCount (force = false) {
       if (this.clearingForLogout) return
       const cacheRequestName = 'mailUnreadCount'
       try {
-        if (await getCacheInterval(cacheRequestName, mailUnreadCountRateLimitInterval)) {
-          this.mailUnreadCount = await getMailUnreadCount()
-          await setCache(cacheRequestName, this.mailUnreadCount)
+        if (force || await getCacheInterval(cacheRequestName, mailUnreadCountRateLimitInterval)) {
+          await this.updateMailUnreadCount(await getMailUnreadCount())
         } else {
           this.mailUnreadCount = await getCache(cacheRequestName)
         }
       } catch (e) {
         console.error('Error fetching mail unread count:', e)
       }
+    },
+    async updateMailUnreadCount (unreadCount) {
+      if (this.clearingForLogout) return
+      this.mailUnreadCount = unreadCount
+      await setCache('mailUnreadCount', unreadCount)
+      channel.postMessage({
+        type: BROADCAST_TYPE.UPDATE_MAIL_UNREAD_COUNT,
+        unreadCount,
+      })
     },
     clearForLogout () {
       // Prevent refetching data while logging out

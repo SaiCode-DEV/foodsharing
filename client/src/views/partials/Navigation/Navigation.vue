@@ -38,7 +38,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, defineProps, onMounted, onBeforeMount } from 'vue'
+import { ref, computed, watch, defineProps, onMounted, onBeforeMount, onBeforeUnmount } from 'vue'
 import { useUserStore } from '@/stores/user'
 import { useRegionStore } from '@/stores/regions'
 import { useDonationStore } from '@/stores/donation'
@@ -67,6 +67,7 @@ import { useMediaQuery } from '@/composables/useMediaQuery'
 import ChatDock from '@/components/Chat/ChatDock.vue'
 import serverData from '@/helper/server-data'
 import { get } from '@/api/base'
+import { BROADCAST_TYPE, channel } from '@/broadcastChannel'
 
 defineProps({
   regions: {
@@ -121,8 +122,9 @@ onBeforeMount(async () => {
 onMounted(() => {
   window.addEventListener('resize', resizeHandler)
   window.addEventListener('load', resizeHandler)
+  channel.addEventListener?.('message', updateMailUnreadCount)
   if (userStore.hasMailBox) {
-    userStore.fetchMailUnreadCount()
+    userStore.fetchMailUnreadCount(true)
   }
 
   emitter.addListener('show-confirmation', (options) => {
@@ -131,6 +133,16 @@ onMounted(() => {
 
   donationStore.fetchDonationData()
 })
+
+onBeforeUnmount(() => {
+  channel.removeEventListener?.('message', updateMailUnreadCount)
+})
+
+function updateMailUnreadCount (event) {
+  if (event.data.type === BROADCAST_TYPE.UPDATE_MAIL_UNREAD_COUNT) {
+    userStore.mailUnreadCount = event.data.unreadCount
+  }
+}
 
 function resizeHandler () {
   const height = navbar.value.$el.getBoundingClientRect().height + 'px'

@@ -81,7 +81,7 @@ export default {
       return store.state.page
     },
     sortedMailboxes () {
-      return [...this.mailboxes].sort((a, b) => a.name.localeCompare(b.name))
+      return [...store.state.mailboxes].sort((a, b) => a.name.localeCompare(b.name))
     },
   },
   watch: {
@@ -92,6 +92,7 @@ export default {
   },
   created () {
     this.MAILBOX_PAGE = MAILBOX_PAGE
+    store.setMailboxes(this.mailboxes)
     if (this.selectedEmailId) {
       // If an email was specified (e.g. by clicking a link on the dashboard), that email is shown.
       this.loadSelectedEmail()
@@ -125,6 +126,8 @@ export default {
         this.isBusy = true
         try {
           this.email = await getEmail(this.selectedEmailId)
+          // opening an email marks it as read on the server, so refresh the unread counts
+          await store.fetchMailboxes()
         } catch (e) {
           pulseError(i18n('error_unexpected'))
         }

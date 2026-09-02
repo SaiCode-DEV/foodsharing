@@ -9,6 +9,7 @@ export const BROADCAST_TYPE = Object.freeze({
   LOGIN: 1,
   UPDATE_CONVERSATIONS: 2,
   UPDATE_BELLS: 3,
+  UPDATE_MAIL_UNREAD_COUNT: 4,
 })
 
 const channelListeners = [
