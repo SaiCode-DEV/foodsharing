@@ -26,7 +26,7 @@ extensions:
     commands: [Foodsharing\Dev\SeedCommand, Foodsharing\Dev\TestSeedCommand]
 modules:
     enabled:
-        - Db:
+        - Tests\Support\Helper\FastDatabaseReset:
             dsn: mysql:host=db;dbname=foodsharing;charset=utf8mb4
             user: root
             password: root

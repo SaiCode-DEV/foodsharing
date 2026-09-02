@@ -7,7 +7,7 @@ modules:
         - Tests\Support\Helper\FoodsharingUrl
         - Sequence
         - Tests\Support\Helper\Maildev
-        - Db
+        - Tests\Support\Helper\FastDatabaseReset
         - REST:
             url: http://nginx:8080/
             depends: PhpBrowser
