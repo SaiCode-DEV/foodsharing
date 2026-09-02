@@ -202,9 +202,11 @@ stages:
     FS_ENV: test
 
 gemnasium-dependency_scanning:
+  interruptible: true
   rules: *rule-gemnasium-dependency-scanning
 
 secret_detection:
+  interruptible: true
   rules:
     - *rule-skip-on-production-skip-ci
     - *rule-skip-on-schedule
