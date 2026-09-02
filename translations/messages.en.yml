@@ -1835,17 +1835,13 @@ reports:
     to_do: Open
     handed_over: Handed over
     completed: Closed
-    mediation_gruppe: Mediation group
     in_progress: In progress
     follow_up_user: Follow-up with user
     deleted: Deleted
   consequences:
-    reminder: Reminder
     warning: Warning
     yellow_card: Yellow card
     red_card: Red card
-    no_rule_violation: No rule violation
-    no_further_action: No further action
   forum_thread: Forum thread
   view_thread: View thread
   no_thread: No thread linked

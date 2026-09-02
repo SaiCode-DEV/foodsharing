@@ -2434,7 +2434,7 @@ events:
       dołączyć przez poniższy przycisk.
     not_started: Ten event jeszcze się nie rozpoczął
     join: Dołącz
-  attendees: Uczestnicy/czki
+  attendees: Uczestniczący
   online_info: |
     Telekonferencje i spotkania online najlepiej przeprowadzać na naszym własnym serwerze [BigBlueButton](https://bigbluebutton.org). Na 10 minut przed rozpoczęciem eventu uczestnicy/czki mogą dołączyć do konferencji po prostu przez kliknięcie ze strony eventu. Nie potrzeba do tego żadnych innych programów, tylko w miarę aktualnej przeglądarki internetowej. Poza tym istnieje możliwość dołączenia przez telefon.
 
@@ -2567,8 +2567,8 @@ bell:
   passport_created_or_renewed_title: Twoja legitymacja …
   passport_created_or_renewed: została aktywowana lub przedłużona!
   passgen_failed: Prześlij zdjęcie, wtedy się uda.
-  workgroup_request_accept: Zostałeś/aś przyjęty/a do zespołu.
-  workgroup_request_decline: Nie zostałeś/aś przyjęty/a do zespołu.
+  workgroup_request_accept: Przyjęto cię do zespołu.
+  workgroup_request_decline: Nie przyjęto cię do zespołu.
   banana_given_title: Nowy banan zaufania
   banana_given: '{name} podarował/a ci banana zaufania.'
   report_reason: '{reason}'
@@ -2592,7 +2592,7 @@ bell:
   new_foodsaver_title: '{name} jest nowy/a w {bezirk}'
   forum_reply_title: '{forum}: {title}'
   forum_mention: w temacie „{title}“ na forum {forum}
-  store_request_accept: Zostałeś/aś przyjęty/a do teamu.
+  store_request_accept: Przyjęto cię do teamu.
   store_wallpost_title: '{name}'
   store_cr_times_title: '{name}'
   new_quiz_comment_title: 'Komentarz do pytania #{questionId}'
@@ -2683,9 +2683,9 @@ error_ajax: |
   Odśwież stronę i spróbuj ponownie.
 reports:
   message: Opis
-  reason: powód
+  reason: Powód
   id: ID
-  time: czas
+  time: Czas
   reports_region: 'Skargi z {regionName}'
   reports_user: 'Wszystkie skargi dotyczące {userName} ({userId})'
   reported: 'Osoba, której dotyczy skarga'
@@ -2707,17 +2707,13 @@ reports:
     to_do: Otwarte
     handed_over: Oddane
     completed: Zakończone
-    mediation_gruppe: Zespół mediacji
     in_progress: W trakcie
     follow_up_user: Informacja zwrotna dla użytkownika/czki
     deleted: Usunięte
   consequences:
-    reminder: Przypomnienie
     warning: Ostrzeżenie
     yellow_card: Żółta kartka
     red_card: Czerwona kartka
-    no_rule_violation: Nie naruszono zasad
-    no_further_action: Brak dalszych akcji
   forum_thread_search: Szukaj w wątkach na forum
   select_thread: Wybierz wątek
   create_thread: Utwórz wątek
@@ -2903,26 +2899,26 @@ map:
       scope:
         label: Przynależność
         all: wszystkie
-        region: 'Tylko moje rejony'
-        member: 'Tylko moje punkty'
+        region: 'tylko moje rejony'
+        member: 'tylko moje punkty'
       type:
         label: Typ
-        2: 'Punkt organizacyjny'
+        2: 'punkt organizacyjny'
         "null": 'wszystkie'
-        1: 'Punkt darowizn'
-        0: 'Punkt odbioru'
+        1: 'punkt darowizn'
+        0: 'punkt odbioru'
     users:
       role:
         label: rola
         all: wszystkie
         foodsaver: zweryfikowani/e foodsaverzy/ki
-        store-manager: 'Koordynatorzy/ki punktu'
+        store-manager: 'koordynatorzy/ki punktu'
       activity:
         label: ostatni login
-        week: poprzedni tydzień
-        month: poprzedni miesiąc
-        3months: ostatnie 3 miesiące
-        6months: ostatnie 6 miesięcy
+        week: ubiegły tydzień
+        month: ubiegły miesiąc
+        3months: ubiegłe 3 miesiące
+        6months: ubiegłe 6 miesięcy
         all: 'obojętnie'
       member:
         label: Członkostwo
