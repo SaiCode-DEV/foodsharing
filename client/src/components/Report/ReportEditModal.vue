@@ -153,20 +153,21 @@ const statusOptions = [
   { value: 'reports.statuses.to_do', text: proxy.$t('reports.statuses.to_do') },
   { value: 'reports.statuses.handed_over', text: proxy.$t('reports.statuses.handed_over') },
   { value: 'reports.statuses.completed', text: proxy.$t('reports.statuses.completed') },
-  { value: 'reports.statuses.mediation_gruppe', text: proxy.$t('reports.statuses.mediation_gruppe') },
+  { value: 'reports.statuses.mediation', text: proxy.$t('reports.statuses.mediation') },
   { value: 'reports.statuses.in_progress', text: proxy.$t('reports.statuses.in_progress') },
   { value: 'reports.statuses.follow_up_user', text: proxy.$t('reports.statuses.follow_up_user') },
+  { value: 'reports.statuses.reminder', text: proxy.$t('reports.statuses.reminder') },
   { value: 'reports.statuses.deleted', text: proxy.$t('reports.statuses.deleted') },
 ]
 
+// Only the consequences of the rule book belong here. Anything else is recorded
+// as "no consequence".
 const consequenceOptions = [
   { value: null, text: proxy.$t('reports.no_consequence') },
-  { value: 'reports.consequences.reminder', text: proxy.$t('reports.consequences.reminder') },
   { value: 'reports.consequences.warning', text: proxy.$t('reports.consequences.warning') },
   { value: 'reports.consequences.yellow_card', text: proxy.$t('reports.consequences.yellow_card') },
+  { value: 'reports.consequences.yellow_red_card', text: proxy.$t('reports.consequences.yellow_red_card') },
   { value: 'reports.consequences.red_card', text: proxy.$t('reports.consequences.red_card') },
-  { value: 'reports.consequences.no_rule_violation', text: proxy.$t('reports.consequences.no_rule_violation') },
-  { value: 'reports.consequences.no_further_action', text: proxy.$t('reports.consequences.no_further_action') },
 ]
 
 // build suggestion lists (value => stored value, text => displayed label)

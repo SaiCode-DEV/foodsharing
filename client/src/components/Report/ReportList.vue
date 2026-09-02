@@ -286,9 +286,10 @@ const statusOptions = computed(() => [
   { value: 'reports.statuses.to_do', text: proxy.$t('reports.statuses.to_do') },
   { value: 'reports.statuses.handed_over', text: proxy.$t('reports.statuses.handed_over') },
   { value: 'reports.statuses.completed', text: proxy.$t('reports.statuses.completed') },
-  { value: 'reports.statuses.mediation_gruppe', text: proxy.$t('reports.statuses.mediation_gruppe') },
+  { value: 'reports.statuses.mediation', text: proxy.$t('reports.statuses.mediation') },
   { value: 'reports.statuses.in_progress', text: proxy.$t('reports.statuses.in_progress') },
   { value: 'reports.statuses.follow_up_user', text: proxy.$t('reports.statuses.follow_up_user') },
+  { value: 'reports.statuses.reminder', text: proxy.$t('reports.statuses.reminder') },
   { value: 'reports.statuses.deleted', text: proxy.$t('reports.statuses.deleted') },
 ])
 
@@ -353,9 +354,10 @@ function getStatusVariant (status) {
     'reports.statuses.to_do': 'danger',
     'reports.statuses.handed_over': 'info',
     'reports.statuses.completed': 'success',
-    'reports.statuses.mediation_gruppe': 'info',
+    'reports.statuses.mediation': 'info',
     'reports.statuses.in_progress': 'warning',
     'reports.statuses.follow_up_user': 'info',
+    'reports.statuses.reminder': 'info',
     'reports.statuses.deleted': 'dark',
   }
 
