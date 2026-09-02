@@ -215,14 +215,19 @@ test.describe("WorkGroup", () => {
       acceptanceHelper,
       browser,
     }) => {
-      test.setTimeout(120_000);
+      // Three logins across two browser contexts make this the longest spec in the
+      // suite. Its waits need more room than the global 15s when the runners are
+      // busy, and the test timeout has to stay above their sum so a failure is
+      // reported at the wait that hung, not as a plain test timeout (#2871).
+      const wait = { timeout: 30_000 };
+      test.setTimeout(180_000);
 
       await acceptanceHelper.login(regionMember.email);
       await page.goto(Urls.groupListUrl());
       await page.click(`.list-group-item:has-text("${testGroupApply.name}")`);
-      await page.waitForSelector("text=Bewerben...");
+      await page.waitForSelector("text=Bewerben...", wait);
       await page.click("text=Bewerben...");
-      await page.waitForSelector("#input-application");
+      await page.waitForSelector("#input-application", wait);
       await page.fill("#input-application", "My Application");
       await page.getByRole("button", { name: "Senden" }).click();
       await acceptanceHelper.waitForActiveAPICalls();
@@ -242,9 +247,9 @@ test.describe("WorkGroup", () => {
 
       await adminHelper.login(groupApplyAdmin.email);
       await adminPage.goto(Urls.forumUrl(testGroupApply.id));
-      await adminPage.waitForSelector("text=Bewerbungen (1)");
+      await adminPage.waitForSelector("text=Bewerbungen (1)", wait);
       await adminPage.click("text=Bewerbungen");
-      await adminPage.waitForSelector(`text=${regionMember.name}`);
+      await adminPage.waitForSelector(`text=${regionMember.name}`, wait);
       await adminPage.click(`text=${regionMember.name}`);
       await adminPage.getByRole("button", { name: "Annehmen" }).click();
       await adminHelper.waitForActiveAPICalls();
