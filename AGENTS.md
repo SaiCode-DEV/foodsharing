@@ -276,6 +276,10 @@ call while other languages still contain it shows the raw `{count}` to those use
 the parameter back is usually cheaper than editing every file, which also collides with
 Weblate.
 
+### Adding a new key
+Add it to `messages.de.yml` only. Weblate distributes it to the other languages, so a hand
+written translation there is overwritten anyway.
+
 ## Database
 - For schema changes, add a Phinx migration in `migrations/` and reference it in your PR. Always include a small note in the migration message about the intent.
 - Run: `./scripts/db-migrate`
@@ -292,15 +296,46 @@ Weblate.
   src code comments and do not add comments that merely justify a fix - they turn into noise
   once merged. Issue references in tests are fine (regression provenance).
 
+## Merge requests
+- A merge needs **all discussions resolved**. A green pipeline is not enforced by the
+  project settings, so check it yourself before merging.
+- One approval is required.
+- Before touching someone else's branch, or answering on an MR you have not looked at
+  today, read its discussions first. Decisions taken there are easy to overwrite
+  unknowingly.
+- A fix for something that only ever existed on beta gets **no release note**: it would
+  announce a repair for a problem users never saw. Leave the checklist item unticked and
+  say why.
+- Changes to shared frontend infrastructure - the router, `Catchall.vue`, anything the
+  client side navigation runs through - need the person who built it as a reviewer.
+  `git log` on the file says who that is. Asking costs one click; not asking cost us a
+  merged MR that had to be redone (!5354, !5399).
+
 ## Release notes
 User-facing changes get one file per MR: `release-notes/release-*/<MR-number>.md` with
 frontmatter keys `text` (German, one sentence of user benefit), `mr: [<number>]` and `tag`
 (e.g. `Fehlerbehebung`, `Verbesserung`). See the existing files in that folder.
 
+`release-*/release-*.md` is generated from those files by `scripts/release-notes-merge`.
+Run it again after notes were merged, otherwise the published text misses them. The script
+reads `text` with a single `grep`, so keep it on one line.
+
 ## AI assistance
 Marking AI-assisted work is voluntary (dev call 2026-07-13):
 - Merge requests and issues: add the `AI-assisted` label.
 - Commits: add an `Assisted-by: AI` trailer line to the commit message.
+
+### Working with the GitLab API
+`glab api` silently drops nested parameters passed with `-f`: `-f "position[new_line]=12"`
+reports success and the comment lands on MR level instead of the code line. Nested fields
+(`position`, `reviewer_ids`, `milestone_id`) need a JSON body:
+
+    glab api -X POST "/projects/<ns%2Frepo>/merge_requests/<iid>/discussions" \
+      -H "Content-Type: application/json" --input body.json
+
+File uploads are a third form: `--form "file=@shot.png"` against `/projects/<id>/uploads`
+returns the `markdown` to paste into a description. Do not combine `--form` with `--input`.
+After any write, read the object back and check that the field you set is really there.
 
 ### Input streams in tests
 `wheel`, `touchmove` and scrolling arrive as a chain of many small deltas. Guards and
