@@ -7,9 +7,11 @@ use DateTimeZone;
 use Foodsharing\Modules\Configuration\ConfigurationGateway;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
+use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Configuration\ConfigurationKey;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
+use Foodsharing\Utility\ConsoleHelper;
 
 /**
  * Statistics update operations for foodsaver, store team and region stats.
@@ -131,15 +133,18 @@ class StatsGateway extends BaseGateway
         ];
 
         $columns = ['fetchcount', 'fetchweight', 'givecount', 'engagecount'];
-        if ($recalculateFully) {
-            $timeCondition = '';
-            $columns = array_map(fn ($col) => "fs.stat_$col = IFNULL(fetches.$col, 0)", $columns);
-        } else {
-            $timeCondition = 'AND date > :from';
-            $intervalStart = $this->configurationGateway->getEntry(ConfigurationKey::STATISTICS_FOODSAVER_LAST_UPDATE->value);
-            $intervalStart = Carbon::parse($intervalStart, new DateTimeZone('Europe/Berlin'));
-            $params[':from'] = $intervalStart->format('Y-m-d H:i:s');
-            $columns = array_map(fn ($col) => "fs.stat_$col = fs.stat_$col + IFNULL(fetches.$col, 0)", $columns);
+        $timeCondition = '';
+        $mappedColumns = array_map(fn ($col) => "fs.stat_$col = IFNULL(fetches.$col, 0)", $columns);
+        if (!$recalculateFully) {
+            try {
+                $intervalStart = $this->configurationGateway->getEntry(ConfigurationKey::STATISTICS_FOODSAVER_LAST_UPDATE->value);
+                $intervalStart = Carbon::parse($intervalStart, new DateTimeZone('Europe/Berlin'));
+                $params[':from'] = $intervalStart->format('Y-m-d H:i:s');
+                $timeCondition = 'AND date > :from';
+                $mappedColumns = array_map(fn ($col) => "fs.stat_$col = fs.stat_$col + IFNULL(fetches.$col, 0)", $columns);
+            } catch (DatabaseNoValueFoundException) {
+                ConsoleHelper::success('Configuration key of last update not found. Falling back to full recalculation.');
+            }
         }
 
         $this->db->beginTransaction();
@@ -165,7 +170,7 @@ class StatsGateway extends BaseGateway
 				LEFT OUTER JOIN fs_betrieb_kategorie k ON k.id = b.betrieb_kategorie_id
 				GROUP BY store_fetches.foodsaver_id
 			) AS fetches ON fetches.id = fs.id
-			SET ' . join(', ', $columns),
+			SET ' . join(', ', $mappedColumns),
             $params);
         $this->configurationGateway->addOrUpdateEntry(ConfigurationKey::STATISTICS_FOODSAVER_LAST_UPDATE->value, $intervalEnd->toISOString());
         $this->db->commit();
