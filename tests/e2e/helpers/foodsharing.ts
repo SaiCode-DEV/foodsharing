@@ -72,15 +72,13 @@ class Foodsharing {
     }
 
     let pictureUrl = null;
-    const gender =
-      Math.random() > 0.1
-        ? Math.floor(Math.random() * 2)
-        : Math.floor(Math.random() * 2) + 2;
+    // Only the two genders that have seed pictures in /img/seed-data/profile (#2846)
+    const gender = Math.floor(Math.random() * 2);
 
     // Handle profile picture upload if specified
     /* extraParams.image is a flag that is not written to the database. If it is set, this function uploads a file
        from /img/seed-data/profile as the user's profile photo. The effect thereby supersedes that of extraParams.photo. */
-    if (extraParams.image && (gender === 0 || gender === 1)) {
+    if (extraParams.image) {
       const genderDir = ["men", "women"][gender];
       const imgNum = Math.floor(Math.random() * 100);
       const imgPath = path.join(
