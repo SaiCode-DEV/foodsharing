@@ -73,7 +73,7 @@ do
   SECONDS=0
   # create separate report files for each re-run so we don't overwrite the previous reports
 
-  if vendor/bin/codecept run $GROUP_PARAMS --xml=report-"$SUITE"-$failed.xml --html=report-"$SUITE"-$failed.html -g failed;
+  if vendor/bin/codecept run "$SUITE" $GROUP_PARAMS --xml=report-"$SUITE"-$failed.xml --html=report-"$SUITE"-$failed.html -g failed;
   then
     log-header "Done!"
     exit 0
