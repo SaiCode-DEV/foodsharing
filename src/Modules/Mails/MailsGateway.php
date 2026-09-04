@@ -25,8 +25,10 @@ class MailsGateway extends BaseGateway
             'folder' => $folder,
             'sender' => strip_tags((string)$from),
             'to' => strip_tags((string)$to),
-            'subject' => strip_tags((string)$subject),
-            'body' => strip_tags((string)$body),
+            // Subject and body are plain text and get escaped when they are rendered,
+            // so stripping them here would only drop text between angle brackets.
+            'subject' => (string)$subject,
+            'body' => (string)$body,
             'body_html' => $html,
             'time' => $time,
             'attach' => $attach,

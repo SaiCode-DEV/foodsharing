@@ -241,7 +241,9 @@ class MailboxGateway extends BaseGateway
                 'folder' => $email->mailboxFolder,
                 'sender' => $from,
                 'to' => $to,
-                'subject' => strip_tags($email->subject),
+                // Subject and body are plain text and get escaped when they are rendered,
+                // so stripping them here would only drop text between angle brackets.
+                'subject' => $email->subject,
                 'body' => (string)$email->body,
                 'body_html' => '',
                 'time' => $email->time->format('Y-m-d H:i:s'),
