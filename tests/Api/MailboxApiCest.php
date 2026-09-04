@@ -60,6 +60,7 @@ class MailboxApiCest
     {
         $I->deleteAllMails();
         $email = $this->createRandomEmail(0, $example['withCc'], $example['withBcc']);
+        $I->expectMailTo(...$email['to'], ...($email['cc'] ?? []), ...($email['bcc'] ?? []));
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPost("api/mailboxes/{$this->ambassadorMailboxId}/mails", $email);
@@ -82,6 +83,7 @@ class MailboxApiCest
         $I->deleteAllMails();
         $body = 'Schreib an <foo@bar.de> und dann geht es hier weiter';
         $email = $this->createRandomEmail(0, false, false);
+        $I->expectMailTo(...$email['to'], ...($email['cc'] ?? []), ...($email['bcc'] ?? []));
         $email['body'] = $body;
 
         $I->login($this->ambassador['email']);
@@ -105,6 +107,7 @@ class MailboxApiCest
     {
         // use one random UUID that was not uploaded before
         $email = $this->createRandomEmail(1);
+        $I->expectMailTo(...$email['to'], ...($email['cc'] ?? []), ...($email['bcc'] ?? []));
 
         $I->login($this->ambassador['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
@@ -115,6 +118,7 @@ class MailboxApiCest
     public function canNotSendEmailWithTooManyAttachments(ApiTester $I): void
     {
         $email = $this->createRandomEmail(11);
+        $I->expectMailTo(...$email['to'], ...($email['cc'] ?? []), ...($email['bcc'] ?? []));
 
         $I->login($this->ambassador['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');

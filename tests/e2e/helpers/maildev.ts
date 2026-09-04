@@ -1,5 +1,23 @@
 import { expect } from "@playwright/test";
 
+function describeMails(mails: any[]): string {
+  if (mails.length === 0) {
+    return "mailbox is empty";
+  }
+
+  return (
+    "mailbox holds:\n" +
+    mails
+      .map((mail) => {
+        const to = (mail.to ?? [])
+          .map((recipient: any) => recipient.address ?? "?")
+          .join(", ");
+        return `- "${mail.subject ?? "(no subject)"}" to ${to || "?"}`;
+      })
+      .join("\n")
+  );
+}
+
 class MailResult {
   constructor(
     private mail: any,
@@ -101,7 +119,9 @@ export class Maildev {
       }
     }
     const mails = await this.getMails();
-    expect(mails).toHaveLength(num);
+    // Name what is in the box, otherwise an unexpected mail is just a number and the
+    // test that sent it stays unknown (#2857).
+    expect(mails, describeMails(mails)).toHaveLength(num);
   }
 
   /**

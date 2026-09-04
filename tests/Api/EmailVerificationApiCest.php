@@ -44,7 +44,9 @@ class EmailVerificationApiCest
 
     public function doNotReceiveEmailIfAddressIsNotRegistered(ApiTester $I): void
     {
-        $I->sendPut('api/email-verification', ['address' => $this->faker->email()]);
+        $address = $this->faker->email();
+        $I->expectMailTo($address);
+        $I->sendPut('api/email-verification', ['address' => $address]);
         $I->seeResponseCodeIs(Response::HTTP_OK);
         $I->expectNumMails(0, 5);
     }

@@ -186,6 +186,7 @@ class Foodsharing extends Db
             $this->addRegionMember($params['bezirk_id'], $id);
         }
         $params['id'] = $id;
+        $this->registerMailAddress($params['email']);
 
         if (isset($extra_params['image']) && isset($uuid)) {
             $this->updateInDatabase('uploads', [
@@ -195,6 +196,26 @@ class Foodsharing extends Db
         }
 
         return $params;
+    }
+
+    /**
+     * Lets the Maildev module know which recipients belong to the running test, so
+     * late deliveries from a previous test do not get counted (#2857).
+     */
+    private function registerMailAddress(?string $address): void
+    {
+        // Deleted accounts are created with a null address, there is nothing to register.
+        if ($address === null || $address === '') {
+            return;
+        }
+
+        if (!$this->hasModule(Maildev::class)) {
+            return;
+        }
+        $maildev = $this->getModule(Maildev::class);
+        if ($maildev instanceof Maildev) {
+            $maildev->expectMailTo($address);
+        }
     }
 
     public function createStoreCategories(): void

@@ -46,6 +46,7 @@ class RegisterTransactionsTest extends Unit
     public function testNewRegistration(): void
     {
         $email = $this->faker->email();
+        $this->tester->expectMailTo($email);
         $this->registerTransactions->addRegistrationAttempt($email);
         $this->assertTrue($this->registerGateway->doesRegistrationAttemptExist($email));
         $this->tester->expectNumMails(1);
@@ -56,6 +57,7 @@ class RegisterTransactionsTest extends Unit
     public function testOngoingRegistration(): void
     {
         $email = $this->faker->email();
+        $this->tester->expectMailTo($email);
         $this->registerGateway->addRegistrationAttempt($email, null);
         $this->assertTrue($this->registerGateway->doesRegistrationAttemptExist($email));
         $this->expectException(AccessDeniedHttpException::class);
@@ -66,6 +68,7 @@ class RegisterTransactionsTest extends Unit
     public function testRegistrationWithExistingEmail(): void
     {
         $email = $this->faker->email();
+        $this->tester->expectMailTo($email);
 
         $this->tester->haveInDatabase('fs_foodsaver', [
             'rolle' => 0,

@@ -139,6 +139,7 @@ class SettingsTransactionsTest extends Unit
 
         $changeRequest = new EmailChangeRequest();
         $changeRequest->email = 'Next@example.de';
+        $this->tester->expectMailTo($changeRequest->email);
         $changeRequest->password = 'NeedThePassword';
 
         // Action change of E-Mail
@@ -170,6 +171,7 @@ class SettingsTransactionsTest extends Unit
 
         $changeRequest = new EmailChangeRequest();
         $changeRequest->email = 'Next1@example.de';
+        $this->tester->expectMailTo($changeRequest->email);
         $changeRequest->password = 'NeedThePassword';
 
         // Action change of E-Mail
@@ -201,6 +203,7 @@ class SettingsTransactionsTest extends Unit
 
         $changeRequest = new EmailChangeRequest();
         $changeRequest->email = 'Next2@example.de';
+        $this->tester->expectMailTo($changeRequest->email);
         $changeRequest->password = 'NeedThePassword';
 
         // Action change of E-Mail
@@ -233,6 +236,7 @@ class SettingsTransactionsTest extends Unit
 
         $changeRequest = new EmailChangeRequest();
         $changeRequest->email = 'Next2@example.de';
+        $this->tester->expectMailTo($changeRequest->email);
         $changeRequest->password = 'NeedThePassword';
 
         // Action change of E-Mail
