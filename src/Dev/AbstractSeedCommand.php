@@ -5,6 +5,8 @@ namespace Foodsharing\Dev;
 use Codeception\Command\Shared\ConfigTrait;
 use Codeception\Lib\Di;
 use Codeception\Lib\ModuleContainer;
+use Foodsharing\Modules\Core\DBConstants\Configuration\ConfigurationCategory;
+use Foodsharing\Modules\Core\DBConstants\Configuration\ConfigurationKey;
 use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Formatter\OutputFormatter;
@@ -56,6 +58,32 @@ abstract class AbstractSeedCommand extends Command
     }
 
     abstract protected function seed(): void;
+
+    /**
+     * The Twingle project ids and the switches of the donation page. The addresses of the embedded
+     * forms are not part of it: the test instance must not load anything from twingle.de, so only
+     * the dev seed passes them in.
+     */
+    protected function insertDonationConfiguration(Foodsharing $I, array $additionalEntries = []): void
+    {
+        $donation = [
+            ConfigurationKey::DONATION_CAMPAIGN_ID->value => '12573',
+            ConfigurationKey::DONATION_FRIENDSHIP_CIRCLE_ID->value => '398',
+            ConfigurationKey::DONATION_MODAL_ID->value => '12573',
+            ConfigurationKey::DONATION_ONE_TIME_DONATION_ID->value => '384',
+            ConfigurationKey::DONATION_SHOW_CAMPAIGN_CARD->value => '1',
+            ConfigurationKey::DONATION_SHOW_DONATION_MODAL->value => '0',
+            ConfigurationKey::DONATION_SHOW_DONATION_MODAL_IN_HOURS_FOR_LOGGED_IN_USERS->value => '24',
+            ConfigurationKey::DONATION_SHOW_DONATION_MODAL_IN_HOURS_FOR_LOGGED_OUT_USERS->value => '1',
+            ConfigurationKey::DONATION_SHOW_CAMPAIGN_PART_1->value => '1',
+            ConfigurationKey::DONATION_SHOW_CAMPAIGN_PART_2->value => '1',
+            ConfigurationKey::DONATION_SHOW_CAMPAIGN_GALLERY->value => '1',
+            ConfigurationKey::DONATION_MODAL_INFO_URL->value => 'donation/campaign',
+        ] + $additionalEntries;
+        foreach ($donation as $key => $value) {
+            $I->haveInDatabase('configuration', ['key' => $key, 'value' => $value, 'category' => ConfigurationCategory::DONATION->value]);
+        }
+    }
 
     protected function createContent(Foodsharing $I): void
     {

@@ -28,6 +28,10 @@ class TestSeedCommand extends AbstractSeedCommand implements CustomCommandInterf
         $this->insertFetchWeightValues($I);
         $this->output->writeln('');
 
+        $this->output->writeln('Inserting donation configuration');
+        $this->insertDonationConfiguration($I);
+        $this->output->writeln('');
+
         $this->output->writeln('Adding content');
         $this->createContent($I);
         $this->output->writeln('');

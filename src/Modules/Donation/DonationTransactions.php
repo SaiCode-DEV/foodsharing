@@ -36,11 +36,13 @@ class DonationTransactions
         $donationData->donationInformation = $this->cache->get('foodsharingDonationProjectStatus', function (ItemInterface $cacheItem) use ($donationData) {
             $cacheItem->expiresAfter(self::TWINGLE_CACHE_INTERVAL);
 
-            $donationProjectIds = [
+            // A project that is not configured has the id 0. Twingle cannot answer for it, and one
+            // failing project would take the status of all the others down with it.
+            $donationProjectIds = array_filter([
                 $donationData->friendshipCircleId,
                 $donationData->campaignId,
                 $donationData->oneTimeDonationId,
-            ];
+            ], fn (int $projectId): bool => $projectId > 0);
             $allDonationInformations = [];
             foreach ($donationProjectIds as $projectId) {
                 $twingleDonationData = $this->twingleDonationDataQuery->getProjectStatus($projectId);

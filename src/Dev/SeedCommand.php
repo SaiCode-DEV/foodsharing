@@ -8,7 +8,6 @@ use DateInterval;
 use DateTimeZone;
 use Foodsharing\Modules\Core\DBConstants\Achievement\AchievementIDs;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
-use Foodsharing\Modules\Core\DBConstants\Configuration\ConfigurationCategory;
 use Foodsharing\Modules\Core\DBConstants\Configuration\ConfigurationKey;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\ApplyType;
@@ -819,28 +818,13 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
 
     private function insertConfigurationValues(Foodsharing $I): void
     {
-        $donation = [
-            ConfigurationKey::DONATION_CAMPAIGN_ID->value => '12573',
-            ConfigurationKey::DONATION_FRIENDSHIP_CIRCLE_ID->value => '398',
-            ConfigurationKey::DONATION_MODAL_ID->value => '12573',
-            ConfigurationKey::DONATION_ONE_TIME_DONATION_ID->value => '384',
-            ConfigurationKey::DONATION_SHOW_CAMPAIGN_CARD->value => '1',
-            ConfigurationKey::DONATION_SHOW_DONATION_MODAL->value => '0',
-            ConfigurationKey::DONATION_SHOW_DONATION_MODAL_IN_HOURS_FOR_LOGGED_IN_USERS->value => '24',
-            ConfigurationKey::DONATION_SHOW_DONATION_MODAL_IN_HOURS_FOR_LOGGED_OUT_USERS->value => '1',
-            ConfigurationKey::DONATION_SHOW_CAMPAIGN_PART_1->value => '1',
-            ConfigurationKey::DONATION_SHOW_CAMPAIGN_PART_2->value => '1',
-            ConfigurationKey::DONATION_SHOW_CAMPAIGN_GALLERY->value => '1',
-            ConfigurationKey::DONATION_MODAL_INFO_URL->value => 'donation/campaign',
+        $this->insertDonationConfiguration($I, [
             ConfigurationKey::DONATION_MODAL_POPUP_URL->value => 'https://spenden.twingle.de/foodsharing-e-v/spendenkampagne-ueberregionale-arbeit/tw65a581c764fa1/page',
             ConfigurationKey::DONATION_IFRAME_CAMPAIGN_URL->value => 'https://spenden.twingle.de/embed/foodsharing-e-v/spendenkampagne-ueberregionale-arbeit/tw65a581c764fa1/widget',
             ConfigurationKey::DONATION_IFRAME_FRIENDSHIP_CIRCLE_URL->value => 'https://spenden.twingle.de/embed/foodsharing-e-v/freundeskreis/tw5ba5f44dcb36f/widget',
             ConfigurationKey::DONATION_IFRAME_ONE_TIME_URL->value => 'https://spenden.twingle.de/embed/foodsharing-e-v/einmal-spenden/tw5ba1eb3588eb2/widget',
-            ConfigurationKey::DONATION_IFRAME_SELF_SERVICE_URL->value => 'https://spenden.twingle.de/selfservice/dEUvRHVpeG5VVEtNOWRPdTFuS0F2QT09'
-        ];
-        foreach ($donation as $key => $value) {
-            $I->haveInDatabase('configuration', ['key' => $key, 'value' => $value, 'category' => ConfigurationCategory::DONATION->value]);
-        }
+            ConfigurationKey::DONATION_IFRAME_SELF_SERVICE_URL->value => 'https://spenden.twingle.de/selfservice/dEUvRHVpeG5VVEtNOWRPdTFuS0F2QT09',
+        ]);
 
         // Last calculation of the user statistics: this needs to be far in the past to force full recalculation of the profile statistics after seeding
         $I->haveInDatabase('configuration', ['key' => ConfigurationKey::STATISTICS_FOODSAVER_LAST_UPDATE->value, 'value' => Carbon::createFromFormat('!Y-m-d', '1970-01-01', new DateTimeZone('UTC'))->toISOString()]);
