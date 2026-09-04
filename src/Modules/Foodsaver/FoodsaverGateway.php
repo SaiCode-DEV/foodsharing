@@ -8,6 +8,7 @@ use DateTime;
 use Exception;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
+use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
@@ -645,20 +646,30 @@ class FoodsaverGateway extends BaseGateway
         $this->db->delete('fs_buddy', ['foodsaver_id' => $fsId]);
         $this->db->delete('fs_buddy', ['buddy_id' => $fsId]);
         $this->db->delete('fs_fairteiler_follower', ['foodsaver_id' => $fsId]);
+        $this->db->delete('fs_foodsaver_has_achievement', ['foodsaver_id' => $fsId]);
         $this->db->delete('fs_foodsaver_has_bell', ['foodsaver_id' => $fsId]);
         $this->db->delete('fs_foodsaver_has_bezirk', ['foodsaver_id' => $fsId]);
         $this->db->delete('fs_foodsaver_has_contact', ['foodsaver_id' => $fsId]);
         $this->db->delete('fs_foodsaver_has_event', ['foodsaver_id' => $fsId]);
+        $this->db->delete('fs_foodsaver_has_favorite_resource', ['foodsaver_id' => $fsId]);
+        $this->db->delete('fs_foodsaver_has_options', ['foodsaver_id' => $fsId]);
+        $this->db->delete('fs_foodsaver_has_poll', ['foodsaver_id' => $fsId]);
         $this->db->delete('fs_foodsaver_has_wallpost', ['foodsaver_id' => $fsId]);
-        $this->db->delete('fs_mailbox_member', ['foodsaver_id' => $fsId]);
+        $this->db->delete('fs_key_account_manager', ['foodsaver_id' => $fsId]);
         $this->db->delete('fs_mailchange', ['foodsaver_id' => $fsId]);
         $this->db->delete('fs_pass_gen', ['foodsaver_id' => $fsId]);
         $this->db->delete('fs_pass_gen', ['bot_id' => $fsId]);
         $this->db->delete('fs_pass_request', ['foodsaver_id' => $fsId]);
+        $this->db->delete('fs_push_notification_subscription', ['foodsaver_id' => $fsId]);
         $this->db->delete('fs_quiz_session', ['foodsaver_id' => $fsId]);
         $this->db->delete('fs_rating', ['foodsaver_id' => $fsId]);
-        $this->db->delete('fs_theme_follower', ['foodsaver_id' => $fsId]);
         $this->db->delete('fs_resource', ['foodsaver_id' => $fsId]);
+        $this->db->delete('fs_theme_follower', ['foodsaver_id' => $fsId]);
+        $this->db->delete('fs_verify_history', ['fs_id' => $fsId]);
+        $this->db->delete('fs_webauthn_credentials', ['user_handle' => $fsId]);
+        $this->db->delete('oauth_auth_codes', ['user_identifier' => $fsId]);
+        $this->db->delete('oauth_user_consents', ['user_id' => $fsId]);
+        $this->db->delete('oauth_access_tokens', ['user_identifier' => $fsId]);
 
         $this->db->update(
             'fs_foodsaver',
@@ -1133,6 +1144,18 @@ class FoodsaverGateway extends BaseGateway
         $markers = $this->db->fetchAll($query, $params);
 
         return array_map(fn ($marker) => MapMarker::create($marker['id'], $marker['name'], $marker['lat'], $marker['lon']), $markers);
+    }
+
+    /**
+     * Returns the user's personal mailbox or null if the user does not have any.
+     */
+    public function getPersonalMailboxId(int $userId): ?int
+    {
+        try {
+            return $this->db->fetchValueById('fs_foodsaver', 'mailbox_id', $userId);
+        } catch (DatabaseNoValueFoundException) {
+            return null;
+        }
     }
 
     public function setPersonalMailboxId(int $userId, int $mailboxId): void

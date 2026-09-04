@@ -7,6 +7,7 @@ use DateTime;
 use Foodsharing\Lib\ListmonkClient;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Basket\BasketGateway;
+use Foodsharing\Modules\Basket\BasketTransactions;
 use Foodsharing\Modules\Core\DBConstants\CategoryType;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\ChangeHistoryKey;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
@@ -20,11 +21,14 @@ use Foodsharing\Modules\Event\InvitationStatus;
 use Foodsharing\Modules\Foodsaver\DTO\AgendaEntry;
 use Foodsharing\Modules\Foodsaver\DTO\EventAgendaEntry;
 use Foodsharing\Modules\Foodsaver\DTO\ProfileDetails;
+use Foodsharing\Modules\Mailbox\MailboxGateway;
 use Foodsharing\Modules\PassportGenerator\PassportGeneratorTransaction;
 use Foodsharing\Modules\Profile\ProfileGateway;
 use Foodsharing\Modules\Quiz\QuizSessionGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Region\RegionTransactions;
+use Foodsharing\Modules\ResourceMosaic\ResourceGateway;
+use Foodsharing\Modules\ResourceMosaic\ResourceTransactions;
 use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Modules\Store\PickupGateway;
 use Foodsharing\Modules\Store\StoreTransactions;
@@ -51,6 +55,7 @@ class FoodsaverTransactions
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly QuizSessionGateway $quizSessionGateway,
         private readonly BasketGateway $basketGateway,
+        private readonly BasketTransactions $basketTransactions,
         private readonly UploadsGateway $uploadsGateway,
         private readonly UploadsTransactions $uploadsTransactions,
         private readonly StoreTransactions $storeTransactions,
@@ -63,6 +68,9 @@ class FoodsaverTransactions
         private readonly RegionTransactions $regionTransactions,
         private readonly UnitGateway $unitGateway,
         private readonly PassportGeneratorTransaction $passportGeneratorTransaction,
+        private readonly ResourceTransactions $resourceTransactions,
+        private readonly ResourceGateway $resourceGateway,
+        private readonly MailboxGateway $mailboxGateway,
         private readonly TimeHelper $timeHelper,
         private readonly BlogPermissions $blogPermissions,
         private readonly QuizPermissions $quizPermissions,
@@ -116,8 +124,24 @@ class FoodsaverTransactions
 
     public function deleteFoodsaver(int $foodsaverId, ?int $deletingUserId, ?string $reason, bool $unsubscribeNewsletter = false): void
     {
-        // set all active baskets of the user to deleted
-        $this->basketGateway->removeActiveUserBaskets($foodsaverId);
+        // Remove all of the user's baskets including their pictures
+        $baskets = $this->basketGateway->listMyBaskets($foodsaverId);
+        foreach ($baskets as $b) {
+            $basket = $this->basketGateway->getBasket($b->id);
+            $this->basketTransactions->removeBasket($basket);
+        }
+
+        // Delete all of the user's resources including their images
+        $resources = $this->resourceGateway->getResourcesByUserId($foodsaverId);
+        foreach ($resources as $r) {
+            $this->resourceTransactions->deleteResource($r->id);
+        }
+
+        // Delete the user's personal mailbox
+        $mailboxId = $this->foodsaverGateway->getPersonalMailboxId($foodsaverId);
+        if ($mailboxId) {
+            $this->mailboxGateway->deleteMailbox($mailboxId);
+        }
 
         $this->storeTransactions->leaveAllStoreTeams($foodsaverId);
 

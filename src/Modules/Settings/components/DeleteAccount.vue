@@ -70,6 +70,10 @@
       <li>{{ $t('legal.if_delete.this_gets_deleted_verify') }}</li>
       <li>{{ $t('legal.if_delete.this_gets_deleted_friendlist') }}</li>
       <li>{{ $t('legal.if_delete.this_gets_deleted_trustbananas') }}</li>
+      <li v-if="hasMailbox">
+        {{ $t('legal.if_delete.this_gets_deleted_mailbox') }}
+      </li>
+      <li>{{ $t('legal.if_delete.this_gets_deleted_images') }}</li>
     </ul>
 
     <h5>{{ $t('legal.if_delete.this_doesnt_get_deleted') }}</h5>
@@ -77,6 +81,11 @@
       <li>{{ $t('legal.if_delete.this_doesnt_get_deleted_name') }}</li>
       <li>{{ $t('legal.if_delete.this_doesnt_get_deleted_address') }}</li>
       <li>{{ $t('legal.if_delete.this_doesnt_get_deleted_history') }}</li>
+    </ul>
+
+    <h5>{{ $t('legal.if_delete.this_doesnt_get_deleted_at_all') }}</h5>
+    <ul>
+      <li>{{ $t('legal.if_delete.this_doesnt_get_deleted_images') }}</li>
     </ul>
 
     <h5>{{ $t('legal.if_delete.legal_more_info') }}</h5>
@@ -169,6 +178,9 @@ export default {
       // allow only when 2FA is not enabled
       // For other account deletion, perform directly without password
       return (this.isMe && !this.profileData?.twoFactorEnabled) || (!this.isMe && this.reason && this.reason.length >= 5)
+    },
+    hasMailbox () {
+      return this.userStore.isStoreManager
     },
   },
   beforeDestroy () {

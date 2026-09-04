@@ -561,4 +561,12 @@ class MailboxGateway extends BaseGateway
     {
         return $this->db->count('fs_mailbox', ['name' => $mailboxName]) > 0;
     }
+
+    /**
+     * Deletes a mailbox if it exists. Included emails are also deleted by foreign key.
+     */
+    public function deleteMailbox(int $mailboxId): void
+    {
+        $this->db->delete('fs_mailbox', ['id' => $mailboxId]);
+    }
 }
