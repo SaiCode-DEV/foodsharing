@@ -29,6 +29,25 @@ test.describe("Client side navigation", () => {
     expect(await stillSameDocument(page)).toBe(true);
   });
 
+  // The document is not rebuilt, so the title has to be taken from the fetched content.
+  // A stale title is what printing and "save as PDF" use as the file name.
+  test("updates the document title without reloading the document", async ({
+    page,
+    acceptanceHelper,
+  }) => {
+    const user = await foodsharing.createFoodsaver();
+    await acceptanceHelper.login(user.email);
+    await page.goto("/karte");
+    await expect(page).toHaveTitle("foodsharing | Karte");
+    await markPage(page);
+
+    await page.locator(".foodsharing a").click();
+
+    await expect(page).toHaveURL(/\/dashboard/);
+    await expect(page).toHaveTitle("foodsharing");
+    expect(await stillSameDocument(page)).toBe(true);
+  });
+
   test("refreshes the dashboard content when its logo link is clicked", async ({
     page,
     acceptanceHelper,

@@ -33,6 +33,18 @@ const initializeContent = async () => {
     // Look for vue-wrapper elements and manually initialize them
     const vueWrappers = appContent.querySelectorAll('.vue-wrapper')
 
+    // Apply the title of the loaded page. Without this the document keeps the title of
+    // the page that was loaded last, which is what printing and "save as PDF" pick up.
+    // Has to run before the components mount, some of them append to the title.
+    const titleMeta = appContent.querySelector('meta.content-title')
+    if (titleMeta) {
+      const title = titleMeta.getAttribute('content')
+      titleMeta.remove()
+      if (title) {
+        document.title = title
+      }
+    }
+
     // Load external stylesheets
     const stylesheets = Array.from(appContent.querySelectorAll('.content-stylesheet'))
     stylesheets.forEach((link) => {

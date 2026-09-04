@@ -29,6 +29,10 @@
 		{% endif %}
 	{% endblock full %}
 
+    {# The document keeps the title of the previous page on a client side navigation,
+       so the title travels with the content and is applied by Catchall.vue #}
+    <meta name="page-title" content="{{ head.title }}" class="content-title" />
+
     {% for stylesheet in head.stylesheets %}
         <link rel="stylesheet" type="text/css" href="{{ stylesheet }}" class="content-stylesheet" />
     {% endfor %}
