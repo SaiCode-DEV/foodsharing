@@ -387,8 +387,8 @@ settings:
       text: 'tylko tekst'
       alt: 'Tekst w HTML jako alternatywa'
     history:
-      "false": 'Nie, nie pokazuj minionych eventów w kalendarzu'
-      "true": 'Tak, pokaż minione eventy'
+      "false": 'Nie, nie pokazuj minionych terminów w kalendarzu'
+      "true": 'Tak, pokaż minione terminy'
       label: 'Czy mają być zawarte minione terminy z ostatnich dwóch tygodni?'
     pickup:
       "true": 'Tak, pokaż moje sloty w kalendarzu'
@@ -546,7 +546,7 @@ settings:
     cancel: Anuluj
     intro: 'Tu możesz zmienić ustawienia uwierzytelnienia dwuskładnikowego.'
     num_backup_codes: 'Liczba pozostałych kodów backup'
-    title: 'uwierzytelnienie dwuskładnikowe'
+    title: 'Uwierzytelnienie dwuskładnikowe'
     enable_button: 'Aktywuj 2FA'
   two_fa_enable:
     tabs:
@@ -680,8 +680,8 @@ settings:
     wrong_password: 'Błędne aktualne hasło'
     explanation: 'Tu możesz zmienić swoje aktualne hasło. Miej na uwadze, że przy
       pomyślnej zmianie hasła z powodów bezpieczeństwa zostaniesz wylogowany/a też
-      ze wszystkich innych aktywnych sesji (np.na innych urządzeniach) i będziesz
-      musiał/a się ponownie zalogować przez nowe hasło.'
+      ze wszystkich innych aktywnych sesji (np. na innych urządzeniach) i będziesz
+      musiał/a się ponownie zalogować z nowym hasłem.'
     confirm_password_invalid: 'Hasła się nie zgadzają'
     new_password_must_be_different: Nowe hasło musi być inne od poprzedniego
   passport:
@@ -700,7 +700,7 @@ settings:
       google: Dodaj do Google Wallet
       apple: Dodaj do Apple Wallet
     wallet:
-      name: Imię
+      name: Imię i nazwisko
       role: Rola
       valid_start: Ważny od
       valid_end: Ważny do
@@ -2710,10 +2710,13 @@ reports:
     in_progress: W trakcie
     follow_up_user: Informacja zwrotna dla użytkownika/czki
     deleted: Usunięte
+    mediation: Pośrednictwo
+    reminder: Przypomnienie
   consequences:
     warning: Ostrzeżenie
     yellow_card: Żółta kartka
     red_card: Czerwona kartka
+    yellow_red_card: Czerwono-żółta kartka
   forum_thread_search: Szukaj w wątkach na forum
   select_thread: Wybierz wątek
   create_thread: Utwórz wątek
@@ -2921,14 +2924,14 @@ map:
         6months: ubiegłe 6 miesięcy
         all: 'obojętnie'
       member:
-        label: Członkostwo
+        label: członkostwo
         all: wszystkie
-        other: 'Rejon drugorzędny'
-        homeregion: 'Rejon macierzysty'
+        other: 'rejon drugorzędny'
+        homeregion: 'rejon macierzysty'
       region:
-        label: 'Rejon'
+        label: 'rejon'
   foodsharepoint:
-    go: do jadłodzielni
+    go: Do jadłodzielni
   events:
     title: Eventy
     go: 'Do eventu'
@@ -2961,7 +2964,7 @@ mailbox:
   hostinfo: Podaj tylko nazwę skrzynki, bez @{host}
   add_success: Pomyślnie utworzono skrzynkę pocztową.
   already_exists: Już istnieje skrzynka pocztowa o tej nazwie
-  okay: Email został wysłany pomyślnie.
+  okay: Mail został wysłany pomyślnie.
   failed: Nie można było wysłać maila.
   reply:
     short: Odpowiedz
@@ -3025,7 +3028,7 @@ profile:
     kam_for: 'Odpowiedzialny/a za koordynację następujących sieci punktów:'
     orga_rights: '##### ma jako orga-człowiek [rozszerzone uprawnienia]({wikiurl})
       na platformie.'
-    foodSaver_in_region: 'dołączył/a do rejonów'
+    foodSaver_in_region: 'członek rejonów'
   mail_bounce:
     warning_1: Twój osobisty adres email {email} jest zablokowany dla maili i 
       komunikacji z foodsharingu. Poprzez
@@ -3037,27 +3040,27 @@ profile:
     remove_button: 'Usuń z listy odrzuconych adresów e-mail'
   commitments_stat:
     title: Statystyka zaangażowania
-    eventsParticipatedWeek: 'Dziękujemy za uczestnictwo w następującej liczbie eventów:
-      {count} w tym tygodniu. Łączny czas: {hour}:{minute} '
+    eventsParticipatedWeek: 'Dziękujemy za uczestnictwo w eventach (liczba: {count})
+      w tym tygodniu. Łączny czas: {hour}:{minute} '
     categorieName: Kategoria
     pickupAmount: Ilość
-    week_1: Przyszły tydzień
-    week_2: bieżący tydzień
-    week_3: Ubiegły tydzień
+    week_1: Następny tydzień
+    week_2: Bieżący tydzień
+    week_3: Poprzedni tydzień
     pickupCount: 'Częstotliwość'
     week_0: 'Jeszcze następny tydzień'
     week_4: 'Jeszcze poprzedni tydzień'
-    respActStores: 'Dziękujemy za koordynację następującej liczby aktywnych: {count} '
-    securePickupWeek: 'Dziękujemy za następującą liczbę krótkoterminowych zgłoszeń
-      i zagwarantowanie odbiorów: {count}!'
+    respActStores: 'Dziękujemy za koordynację następującej liczby aktywnych punktów:
+      {count} '
+    securePickupWeek: 'Dziękujemy za krótkoterminowe zgłoszenia i zagwarantowanie
+      odbiorów (liczba: {count})!'
     basketsSharedWeek: 'Podzielono się jadłokoszykami z liczbą osób: {count}. '
     weekDesc: 'Tydzień {week} w roku, od {weekStart} do {weekEnd}'
-    eventsCreatedWeek: 'Dzięki za utworzenie eventów następującą liczbę razy: {count}
-      w tym tygodniu.'
+    eventsCreatedWeek: 'Dzięki za utworzenie eventów (liczba: {count}) w tym tygodniu.'
     districtName: 'Rejon'
     calenderWeek: 'Tydzień'
-    basketsOfferedWeek: 'Dziękujemy za oferowanie jadłokoszyków następującą liczbę
-      razy: {count}. Łącznie podzielono się {weight} kg.'
+    basketsOfferedWeek: 'Dziękujemy za oferowanie jadłokoszyków (liczba: {count}).
+      Łącznie podzielono się {weight} kg.'
   banana:
     title: 'Liczba bananów zaufania: {count}'
     recieved_none:
@@ -3095,7 +3098,7 @@ profile:
       filterInvitations: Zaproszony/a
       filterActive: Członek
       filterRequested: 'Wysłano zgłoszenie'
-      filterManage: 'Koordynatorzy/ki punktu'
+      filterManage: 'Koordynator/ka punktu'
       filterJumper: 'Rezerwowy/a'
     store_table: 'Tabela punktów'
     search_placeholder: 'Szukaj według nazwy'

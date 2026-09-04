@@ -3936,11 +3936,14 @@ reports:
     to_do: 'Aberta'
     follow_up_user: 'Aguarda resposta do utilizador'
     handed_over: 'Atribuída'
+    mediation: Mediação
+    reminder: Lembrete
   view_thread: 'Ver tópico'
   consequences:
     red_card: 'Cartão vermelho'
     warning: 'Advertência'
     yellow_card: 'Cartão amarelo'
+    yellow_red_card: Segundo cartão amarelo
   reported_at: 'Reportado em'
   consequence: 'Consequência'
   no_consequence: 'Sem consequência'
