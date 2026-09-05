@@ -57,7 +57,14 @@ cd tests/e2e
 # Install dependencies
 npm install -g yarn@1.22.22 --force
 yarn install --frozen-lockfile
-npx playwright install
+# The CI image ships the browsers under $PLAYWRIGHT_BROWSERS_PATH. Installing
+# only the engine this project needs keeps the step a no-op there and a small
+# download anywhere else; WebKit is never run.
+case "${PROJECT}" in
+  *Firefox*) browser=firefox ;;
+  *) browser=chromium ;;
+esac
+npx playwright install "${browser}"
 
 PLAYWRIGHT_JUNIT_OUTPUT_NAME=../../tests/_output/report-playwright.xml \
     npx playwright test --project="${PROJECT}"

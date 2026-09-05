@@ -84,12 +84,6 @@ export default [
     }
   },
   {
-    files: ['client/**/*.test.js'],
-    languageOptions: {
-      globals: globals.mocha,
-    }
-  },
-  {
     files: ['tests/e2e/**/*.ts'],
     ...playwright.configs['flat/recommended'],
     ...eslintConfigPrettier,
