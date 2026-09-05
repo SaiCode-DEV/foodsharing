@@ -180,7 +180,7 @@ class SeedCommand extends AbstractSeedCommand implements CustomCommandInterface
         ], []);
         $this->addRegionMembers($I, RegionIDs::STORE_CHAIN_GROUP, [$user2['id']], [$userbot['id']]);
         $this->addRegionMembers($I, RegionIDs::HYGIENE_GROUP, [$user2['id']], [$userbot['id']]);
-        $this->addRegionMembers($I, RegionIDs::POLITICAL_CAMPAIGNS, [$user2['id']], [$userbot['id']]);
+        $this->addRegionMembers($I, RegionIDs::POLITICAL_CAMPAIGNS, [$user2['id']], [$userbot2['id']]);
         $this->addRegionMembers($I, RegionIDs::FOODSHARING_ACADEMY, [$user2['id']], [$userbot['id']]);
         $this->addRegionMembers($I, RegionIDs::EDITORIAL_GROUP, [], [$userStoreManager2['id'], $userorga['id']]);
         $this->addRegionMembers($I, RegionIDs::EDITORIAL_GROUP, [], [$userbot['id']]);
@@ -188,7 +188,7 @@ class SeedCommand extends AbstractSeedCommand implements CustomCommandInterface
 
         $this->addRegionMembers($I, RegionIDs::OAUTH_CLIENT_ADMINISTRATION_WORK_GROUP, [], [$userAuth['id']]);
         $this->addRegionMembers($I, RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP, [], [$userorgaWG['id']]);
-        $this->addRegionMembers($I, RegionIDs::FUNDRAISING_AND_FINANCIAL_PLANNING_GROUP, [], [$userbot['id']]);
+        $this->addRegionMembers($I, RegionIDs::FUNDRAISING_AND_FINANCIAL_PLANNING_GROUP, [], [$userbot2['id']]);
 
         // Make ambassador responsible for all work groups in the region
         $this->output->writeln('Make ambassador responsible for all work groups');

@@ -7,6 +7,7 @@ use Foodsharing\Modules\Content\ContentGateway;
 use Foodsharing\Modules\Content\DTO\Content;
 use Foodsharing\Permissions\ContentPermissions;
 use Foodsharing\RestApi\Models\Content\ContentEntry;
+use Foodsharing\Utility\Requirement as FsRequirement;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,9 +30,13 @@ class ContentRestController extends AbstractFoodsharingRestController
 
     #[OA\Get(summary: 'Returns a list of all content entries.')]
     #[Route('contents', methods: ['GET'])]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
-        type: 'array',
-        items: new OA\Items(ref: new Model(type: Content::class)))
+    #[OA\Response(
+        response: Response::HTTP_OK,
+        description: 'Success',
+        content: new OA\JsonContent(
+            type: 'array',
+            items: new OA\Items(ref: new Model(type: Content::class))
+        )
     )]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
@@ -49,18 +54,24 @@ class ContentRestController extends AbstractFoodsharingRestController
         return $this->respondOK($list);
     }
 
-    #[OA\Get(summary: 'Returns the content entry for a specific id.')]
-    #[Route('contents/{contentId}', methods: ['GET'], requirements: ['contentId' => Requirement::POSITIVE_INT])]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: Content::class))]
-    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Content doesn\'t exist')]
-    public function getContent(int $contentId): Response
+    #[OA\Get(summary: 'Returns the content entries for one of more comma-separated ids.')]
+    #[Route('contents/{contentIds}', methods: ['GET'], requirements: ['contentIds' => FsRequirement::ID_LIST])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new OA\JsonContent(oneOf: [
+         new OA\Schema(ref: new Model(type: Content::class)),
+         new OA\Schema(type: 'array', items: new OA\Items(ref: new Model(type: Content::class))),
+     ]))]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'At least one of the contents does not exist')]
+    public function getContent(string $contentIds): Response
     {
-        $content = $this->contentGateway->getContent($contentId);
-        if ($content == null) {
-            throw new NotFoundHttpException('Content with the given id does not exist');
+        $ids = array_map(fn ($s) => (int)$s, explode(',', $contentIds));
+
+        $content = $this->contentGateway->getMultiple($ids);
+        if (count($content) !== count($ids)) {
+            $missingIds = array_diff($ids, array_map(fn ($c) => $c->id, $content));
+            throw new NotFoundHttpException('Content with the given ids does not exist: ' . implode(', ', $missingIds));
         }
 
-        return $this->respondOK($content);
+        return $this->respondOK(count($content) === 1 ? current($content) : $content);
     }
 
     #[OA\Get(summary: 'Deletes the content entry with the specific id.')]

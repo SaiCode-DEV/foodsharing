@@ -69,6 +69,9 @@ final class ContentPermissions
         ContentId::DONATION_MODAL,
         ContentId::DONATION_CAMPAIGN_PART1,
         ContentId::DONATION_CAMPAIGN_PART2,
+        ContentId::DONATION_CAMPAIGN_BLOCK,
+        ContentId::DONATION_FRIENDSHIP_CIRCLE_BLOCK,
+        ContentId::DONATION_ONE_TIME_BLOCK
     ];
 
     public function __construct(Session $session, private readonly CurrentUserUnitsInterface $currentUserUnits)
@@ -111,6 +114,7 @@ final class ContentPermissions
             RegionIDs::POLITICAL_CAMPAIGNS => $this->POLITICAL_CAMPAIGNS_CONTENT_IDS,
             RegionIDs::FOODSHARING_ACADEMY => [ContentId::EDUCATION],
             RegionIDs::TDL_2026_GROUP => $this->TDL_2026_CONTENT_IDS,
+            RegionIDs::FUNDRAISING_AND_FINANCIAL_PLANNING_GROUP => $this->DONATION_CAMPAIGN_CONTENT_IDS,
         ];
 
         $ids = [];

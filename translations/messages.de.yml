@@ -4019,22 +4019,10 @@ donation_page:
     goal: Spendenziel {goal}
   donation_options:
     one_time:
-      title: Einmalspende
-      text: >
-        Jeder Beitrag hilft uns dabei, Lebensmittelverschwendung zu reduzieren.
-        **Hier kannst Du schon ab 5 Euro einen Beitrag leisten.**
       button: Einmal spenden
     friendship_circle:
-      title: Freundeskreis
-      text: >-
-        Dauerspenden ermöglichen uns langfristige Planung und nachhaltige
-        Entwicklung. Unterstütze uns regelmäßig
       button: Freund:in werden
     campaign:
-      title: Kampagne
-      text: >-
-        Jeder Beitrag hilft uns dabei, Lebensmittelverschwendung zu reduzieren.
-        **Hier kannst Du schon ab 5 Euro einen Beitrag leisten.**
       button: Ich spende!
   stats:
     all_donators: Foodsharer:innen
@@ -4086,7 +4074,7 @@ donation_page:
       möglich.**
 
 
-      Weitere Informationen dazu findest du auf unserer [Transparenzseite](content?sub=transparency).
+      Weitere Informationen dazu findest du auf unserer [Transparenzseite](/content?sub=transparency).
     question_3: 'Wie läuft das mit der Spendenquittung für’s Finanzamt? '
     answer_3: >
       Der **foodsharing e.V.** ist in Deutschland als gemeinnütziger Verein
@@ -4109,8 +4097,8 @@ donation_page:
       können leider nicht steuerlich geltend gemacht werden.
     question_4: Wie kann ich spenden?
     answer_4: >
-      **Mach mit und spende jetzt!** Ob einmalig über unser [Spendenformular](donation)
-       oder regelmäßig im [foodsharing-Freundeskreis](donation/friendship_circle) – jede
+      **Mach mit und spende jetzt!** Ob einmalig über unser [Spendenformular](/donation)
+       oder regelmäßig im [foodsharing-Freundeskreis](/donation/friendship_circle) – jede
       Unterstützung hilft, Lebensmittel zu retten. Du kannst bequem per
       Lastschrift, Kreditkarte, PayPal oder Überweisung spenden.
 
@@ -4157,7 +4145,7 @@ donation_page:
       Wenn du willst, dass deine Spende direkt vor Ort wirkt, nimm am besten
       Kontakt zur jeweiligen Bezirksgruppe auf. Eine Übersicht aller
       foodsharing-Bezirke findest du
-      [hier!](content?sub=communities)
+      [hier!](/content?sub=communities)
     question_8: Kann ich auch Sach- oder Dienstleistungen spenden?
     answer_8: >
       Auch das ist möglich! Sachspenden (wie beispielsweise Lastenräder oder
@@ -4178,15 +4166,14 @@ donation_page:
 
 
       Für Mitglieder des foodsharing-Freundeskreises basteln wir außerdem gerade
-      an ein paar spannenden Sachen! Hier geht es zum [foodsharing-Freundeskreis](donation/friendship_circle).
+      an ein paar spannenden Sachen! Hier geht es zum [foodsharing-Freundeskreis](/donation/friendship_circle).
     question_10: >-
       Kann ich meine Dauerspende beim foodsharing-Freundeskreis jederzeit
       kündigen oder ändern?
     answer_10: >
       Du kannst deine Spendenhöhe jederzeit anpassen oder deine Dauerspende
-      beenden – ganz unkompliziert über unseren Self-Service. Einfach
-      [hier](/donation/selfservice) anmelden! Wenn du Fragen hast oder Hilfe
-      brauchst,  melde dich gerne bei uns:
+      beenden – ganz unkompliziert über unseren [Self-Service](/donation/selfservice). 
+      Wenn du Fragen hast oder Hilfe brauchst,  melde dich gerne bei uns:
       [fundraising.freundeskreis@foodsharing.network](mailto:fundraising.freundeskreis@foodsharing.network).
       Wir freuen uns, von dir zu hören!
 

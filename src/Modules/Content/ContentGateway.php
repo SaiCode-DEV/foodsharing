@@ -28,24 +28,13 @@ class ContentGateway extends BaseGateway
      */
     public function getContent(int $id): ?Content
     {
-        $content = $this->db->fetchByCriteria('fs_content', ['name', 'title', 'body', 'last_mod'], ['id' => $id]);
+        $content = $this->db->fetchByCriteria('fs_content', ['id', 'name', 'title', 'body', 'last_mod'], ['id' => $id]);
 
         if ($content == null) {
             return null;
         }
 
-        $lastModified = $content['last_mod'] != null
-            ? Carbon::createFromFormat('Y-m-d H:i:s', $content['last_mod'], new DateTimeZone('Europe/Berlin'))
-                ->shiftTimezone(new DateTimeZone('UTC'))
-            : null;
-
-        $config = Sanitizer::getPurifierConfig();
-        if (in_array($id, [ContentId::DONATION_MODAL, ContentId::DONATION_CAMPAIGN_PART1, ContentId::DONATION_CAMPAIGN_PART2])) {
-            $this->adjustConfigForDonation($config);
-        }
-        $content['body'] = $this->sanitizer->purifyHtml($content['body'] ?? '', $config);
-
-        return Content::create($id, $content['name'], $content['title'], $content['body'], $lastModified);
+        return $this->parseContent($content);
     }
 
     private function adjustConfigForDonation(\HTMLPurifier_Config $config): void
@@ -62,15 +51,30 @@ class ContentGateway extends BaseGateway
 
     /**
      * Returns the contents for the given ids.
+     *
+     * @return Content[]
      */
     public function getMultiple(array $ids): array
     {
-        $contents = $this->db->fetchAllByCriteria('fs_content', ['id', 'title', 'body'], ['id' => $ids]);
-        foreach ($contents as $content) {
-            $content['body'] = $this->sanitizer->purifyHtml($content['body']);
-        }
+        $contents = $this->db->fetchAllByCriteria('fs_content', ['id', 'name', 'title', 'body', 'last_mod'], ['id' => $ids]);
 
-        return $contents;
+        return array_map($this->parseContent(...), $contents);
+    }
+
+    private function parseContent(array $content): Content
+    {
+        $lastModified = $content['last_mod'] != null
+            ? Carbon::createFromFormat('Y-m-d H:i:s', $content['last_mod'], new DateTimeZone('Europe/Berlin'))
+                ->shiftTimezone(new DateTimeZone('UTC'))
+            : null;
+
+        $config = Sanitizer::getPurifierConfig();
+        if (in_array($content['id'], [ContentId::DONATION_MODAL, ContentId::DONATION_CAMPAIGN_PART1, ContentId::DONATION_CAMPAIGN_PART2])) {
+            $this->adjustConfigForDonation($config);
+        }
+        $content['body'] = $this->sanitizer->purifyHtml($content['body'] ?? '', $config);
+
+        return Content::create($content['id'], $content['name'], $content['title'], $content['body'], $lastModified);
     }
 
     /**

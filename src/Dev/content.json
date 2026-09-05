@@ -1,6 +1,6 @@
 [
   {
-    "id": "1",
+    "id": "5",
     "name": "DonationModal",
     "title": "Spenden für foodsharing - wir brauchen Eure Unterstützung!",
     "body": "<p><strong>Gemeinsam Lebensmittel retten! </strong>Mit deiner Spende unterstützt du foodsharing dabei, noch mehr genießbare Lebensmittel vor der Tonne zu bewahren. Hilf mit, Ressourcen zu schonen, Menschen zu vernetzen und unsere Umwelt zu schützen. Jeder Beitrag zählt!</p>",
@@ -17,6 +17,24 @@
     "name": "DonationCampaign2",
     "title": "Projektsteckbriefe",
     "body": "<details><summary>Einrichtung einer festen bundesweiten Koordinierungsstelle</summary>\n<p>Wer hält bei foodsharing eigentlich die Fäden in der Hand und ist zentrale Ansprechperson? Dafür wurde seit dem 01. Juli 2024, erst einmal auf 12 Monate befristet, eine Koordinierungsstelle eingerichtet. Sie arbeitet eng mit dem Vorstand des überregionalen foodsharing e.V. zusammen und bearbeitet z.B. Mails, erledigt verschiedene Formalien und behält den Überblick über Aufgabenverteilungen. Außerdem soll es eine feste Sprechstunde für die gesamte Community geben, die von der Koordinierungsstelle angeboten wird.</p><p><strong>Finanzbedarf: 20.000 €</strong></p>\n</details><p>\n</p><p><br></p><p>\n</p><details><summary>Finanztopf für die überregionalen Strukturen von foodsharing</summary>\n<p>Die überregionalen Arbeitsgruppen von foodsharing halten die Bewegung zusammen: Sie kümmern sich z.B. um die Social Media Kanäle, um Bildungsformate zu mehr Lebensmittelwertschätzung und um die politischen Positionen von foodsharing. Um z.B. Materialkosten, Reisekosten für Präsenztreffen oder externe Expertise decken zu können, bekommen sie künftig ein Budget zur Verfügung gestellt. Insbesondere die IT (Entwicklung und Support), die die foodsharing Plattform komplett ehrenamtlich unterstützt, erhält künftig mehr finanzielle Unterstützung. Um diese und vor allem Projektgelder für Projekte der foodsharing Akademie zu verwalten, soll zudem eine mit dem Finanzmanagement beauftragte Stelle eingerichtet werden.\n\nFinanzbedarf: 10.000 Euro für überregionale Arbeitsgruppen, 10.000 Euro für die IT, 24.000 Euro für die Finanzverwaltung der Akademie </p>\n</details><p>\n</p><p><br></p><p>\n</p><details><summary>Förderung der Arbeit in den foodsharing Bezirken</summary>\n<p>Durch Projekte, die über Förderanträge mitfinanziert werden, setzen wir Bildungsangebote auf lokaler Ebene um. Ab September 2024 startet beispielsweise ein zweijähriges Projekt, in dem 45 Multiplikator:innen aus 15 noch auszuwählenden foodsharing-Bezirken zum Thema Lebensmittelwertschätzung weitergebildet werden und anschließend Workshops dazu anbieten sollen. Für solche Projekte braucht es oft eine Teilfinanzierung durch Eigenmittel. \n\nUm die lokalen Strukturen weiter zu stärken, soll es zudem Unterstützung für die Gründung weiterer foodsharing-Lokalvereine und eine Förderung der foodsharing-Städte geben. \n\nFinanzbedarf: 31.800 Euro Eigenmittel </p>\n</details>"
+  },
+  {
+    "id":  100,
+    "name": "DonationCampaignB",
+    "title": "Kampagne",
+    "body": "<p>Jeder Beitrag hilft uns dabei, Lebensmittelverschwendung zu reduzieren. <strong>Hier kannst Du schon ab 5 Euro einen Beitrag leisten.</strong></p>"
+  },
+  {
+    "id":  101,
+    "name": "DonationFriendshipB",
+    "title": "Freundeskreis",
+    "body": "<p>Dauerspenden ermöglichen uns langfristige Planung und nachhaltige Entwicklung. Unterstütze uns regelmäßig</p>"
+  },
+  {
+    "id":  102,
+    "name": "DonationOneTimeB",
+    "title": "Einmalspende",
+    "body": "<p>Jeder Beitrag hilft uns dabei, Lebensmittelverschwendung zu reduzieren. <strong>Hier kannst Du schon ab 5 Euro einen Beitrag leisten.</strong></p>"
   },
   {
     "id": "4",

@@ -1,6 +1,6 @@
 <template>
   <div class="donation-options">
-    <b-row v-if="showCampaignCard" class="mb-5 justify-content-center">
+    <b-row v-if="showCampaignCard && donationCampaignBlock" class="mb-5 justify-content-center">
       <b-col
         cols="12"
         lg="5"
@@ -12,10 +12,12 @@
           body-class="d-flex flex-column justify-content-between pl-3 pr-3"
         >
           <h3 class="card-title">
-            <i class="fas fa-bullhorn fa-lg mr-2" /> {{ $t('donation_page.donation_options.campaign.title') }}
+            <i class="fas fa-bullhorn fa-lg mr-2" /> {{ donationCampaignBlock.title }}
           </h3>
           <div class="card-text">
-            <Markdown class="card-text" :source="$t('donation_page.donation_options.campaign.text')" />
+            <!-- eslint-disable vue/no-v-html -->
+            <div class="card-text" v-html="donationCampaignBlock.body" />
+            <!-- eslint-enable -->
           </div>
           <div class="text-center">
             <DonationButton
@@ -37,6 +39,7 @@
     <b-row class="mb-5 justify-content-center mt-4 mt-lg-5">
       <!-- One-time donation -->
       <b-col
+        v-if="donationOneTimeBlock"
         cols="12"
         md="6"
         lg="5"
@@ -47,10 +50,12 @@
           body-class="d-flex flex-column justify-content-between mb-4 pl-3 pr-3"
         >
           <h3 class="card-title">
-            <i class="fas fa-hand-holding-heart fa-lg mr-2" /> {{ $t('donation_page.donation_options.one_time.title') }}
+            <i class="fas fa-hand-holding-heart fa-lg mr-2" /> {{ donationOneTimeBlock.title }}
           </h3>
           <div class="card-text">
-            <Markdown class="card-text" :source="$t('donation_page.donation_options.one_time.text')" />
+            <!-- eslint-disable vue/no-v-html -->
+            <div class="card-text" v-html="donationOneTimeBlock.body" />
+            <!-- eslint-enable -->
           </div>
           <div class="text-center">
             <DonationButton
@@ -69,6 +74,7 @@
 
       <!-- Friendship circle -->
       <b-col
+        v-if="donationFriendshipCircleBlock"
         cols="12"
         md="6"
         lg="5"
@@ -79,10 +85,12 @@
           body-class="d-flex flex-column justify-content-between mb-4 pl-3 pr-3"
         >
           <h3 class="card-title">
-            <i class="fas fa-users fa-lg mr-2" /> {{ $t('donation_page.donation_options.friendship_circle.title') }}
+            <i class="fas fa-users fa-lg mr-2" /> {{ donationFriendshipCircleBlock.title }}
           </h3>
           <div class="card-text">
-            <Markdown class="card-text" :source="$t('donation_page.donation_options.friendship_circle.text')" />
+            <!-- eslint-disable vue/no-v-html -->
+            <div class="card-text" v-html="donationFriendshipCircleBlock.body" />
+            <!-- eslint-enable -->
           </div>
           <div class="text-center">
             <DonationButton
@@ -103,7 +111,8 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue'
+import { CONTENT_IDS, getContent } from '@/api/content'
+import { defineProps, defineEmits, onMounted,ref } from 'vue'
 import Markdown from '@/components/Markdown/Markdown.vue'
 import DonationButton from '@/components/DonationButton.vue'
 
@@ -115,4 +124,29 @@ const emit = defineEmits(['select'])
 function onClick (type) {
   emit('select', type)
 }
+
+const donationCampaignBlock = ref(null)
+const donationFriendshipCircleBlock = ref(null)
+const donationOneTimeBlock = ref(null)
+
+const requiredIds = [
+  CONTENT_IDS.DONATION_CAMPAIGN_BLOCK,
+  CONTENT_IDS.DONATION_FRIENDSHIP_CIRCLE_BLOCK,
+  CONTENT_IDS.DONATION_ONE_TIME_BLOCK,
+]
+
+async function getDonationContent () {
+  try {
+    [donationCampaignBlock.value, donationFriendshipCircleBlock.value, donationOneTimeBlock.value] = await getContent(requiredIds)
+      .then(response => {
+        requiredIds.map((id, index) => {
+          return response.find((x) => x.id === id) ?? null
+        })
+      })
+  } catch (e) {
+    console.error('Failed to catch content from the server:', e)
+  }
+}
+
+onMounted(getDonationContent)
 </script>

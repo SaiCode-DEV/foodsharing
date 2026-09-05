@@ -1,7 +1,10 @@
 import { get, patch, post, remove } from './base'
 
 export const CONTENT_IDS = Object.freeze({
-  DONATION: 1,
+  DONATION: 5,
+  DONATION_CAMPAIGN_BLOCK: 100,
+  DONATION_FRIENDSHIP_CIRCLE_BLOCK: 101,
+  DONATION_ONE_TIME_BLOCK: 102,
   CONFIRM_FOODSAVER_QUIZ: 14,
   CONFIRM_STORE_MANAGER_QUIZ: 15,
   LEGAL_FOODSAVER_QUIZ: 30,
@@ -11,8 +14,9 @@ export const CONTENT_IDS = Object.freeze({
   PRIVACY_POLICY_CHANGES: 96,
 })
 
-export async function getContent (contentId) {
-  return await get(`/contents/${contentId}`)
+export async function getContent (contentIds) {
+  const param = Array.isArray(contentIds) ? contentIds : [contentIds]
+  return await get(`/contents/${param}`)
 }
 
 export async function listContent () {

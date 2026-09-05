@@ -278,7 +278,7 @@ onUnmounted(() => {
   color: var(--fs-color-gray-800);
 }
 
-.card-text > .markdown > p {
+.card-text > p {
   color: var(--fs-color-black);
   font-size:1.4em;
 }
