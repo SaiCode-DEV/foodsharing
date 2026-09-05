@@ -4815,16 +4815,10 @@ donation_page:
     one_time_donators: ''
   donation_options:
     one_time:
-      text: ''
       button: ''
-      title: ''
     campaign:
       button: ''
-      title: ''
-      text: ''
     friendship_circle:
-      title: ''
-      text: ''
       button: ''
   title: ''
   show_more: ''

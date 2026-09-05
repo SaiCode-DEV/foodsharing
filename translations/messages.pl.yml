@@ -1065,6 +1065,17 @@ legal:
     legal_more_info: Dalsze informacje
     unsubscribe_newsletter: 'Wypisz się także z newslettera foodsharingu, o ile masz
       subskrybcję. Możesz to też zrobić później przez link w mailu z newsletterem.'
+    this_gets_deleted_mailbox: Twoja osobista skrzynka pocztowa i wszystkie tam 
+      zawarte maile
+    this_gets_deleted_images: 'Następujące załadowane przez ciebie pliki zostaną usunięte:
+      twoje zdjęcie profilowe, zdjęcia twoich jadłokoszyków i zdjęcia utworzonych
+      przez ciebie zasobów.'
+    this_doesnt_get_deleted_at_all: 'Następujące informacje nie zostaną usunięte i
+      będą dostępne w aktywnym systemie:'
+    this_doesnt_get_deleted_images: 'Załadowane przez ciebie pliki: obrazy profilowe
+      jadłodzielni, obrazy profilowe zespołów, obrazy w utworzonych przez ciebie postach
+      na blogu, obrazy w utworzonych przez ciebie postach na tablicy, załączniki do
+      maili w skrzynkach pocztowych rejonów'
   latest_change: 'Ostatnio zmieniony {date}'
   show_changes: 'Pokaż zmiany'
   legal_agreement: 'Umowa prawna'
@@ -3400,7 +3411,7 @@ basket:
     no_phone: 'Podaj numer telefonu.'
   contact_types: 'Możliwości kontaktu'
   date: 'Data utworzenia'
-  nearby: 'Jadłokoszyki w pobliżu ciebie'
+  nearby: 'Jadłokoszyki w twojej okolicy'
   publish: 'Opublikuj jadłokoszyk'
   state:
     okay: 'Tak, jadłokoszyk został odebrany.'
@@ -5491,22 +5502,11 @@ donation_page:
       na rzecz foodsharingu.'
   donation_options:
     one_time:
-      title: Jednorazowa darowizna
       button: Przekaż jednorazową darowiznę
-      text: 'Każda wpłata pomaga nam przeciwdziałać marnowaniu żywności. **Tu możesz
-        wnieść swój wkład już od 5 euro.**
-
-        '
     friendship_circle:
-      title: Krąg przyjaźni
       button: Zostań przyjacielem/przyjaciółką
-      text: 'Darowizny stałe umożliwiają nam planowanie długoterminowe i długofalowy
-        rozwój. Wspieraj nas regularnie'
     campaign:
-      title: Kampania
       button: 'Przekazuję darowiznę!'
-      text: 'Każda wpłata pomaga nam przeciwdziałać marnowaniu żywności. **Tu możesz
-        wnieść swój wkład już od 5 euro.**'
   show_less: 'Pokaż mniej'
   campaign:
     goal: 'Cel darowizn {goal}'

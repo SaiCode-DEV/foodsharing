@@ -5580,21 +5580,10 @@ donation_page:
     one_time_donators: 'Doadores pontuais'
   donation_options:
     one_time:
-      text: 'Cada donativo ajuda-nos a reduzir o desperdício alimentar. **Aqui podes
-        contribuir a partir de 5 euros.**
-
-        '
       button: 'Doar uma vez'
-      title: 'Donativo único'
     campaign:
       button: 'Quero doar!'
-      title: 'Campanha'
-      text: 'Cada contributo ajuda-nos a reduzir o desperdício alimentar. **Aqui podes
-        contribuir a partir de apenas 5 euros.**'
     friendship_circle:
-      title: 'Círculo de apoiantes'
-      text: 'As doações regulares permitem-nos planear a longo prazo e desenvolver
-        o foodsharing de forma sustentável. Apoia-nos com um donativo regular'
       button: 'Juntar-me ao círculo de amigos'
   title: 'O teu donativo para'
   show_more: 'Mostrar mais'

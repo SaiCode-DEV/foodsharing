@@ -5139,21 +5139,10 @@ donation_page:
   show_less: Show less
   donation_options:
     one_time:
-      title: One-time donation
       button: Donate once
-      text: 'Every donation helps us to reduce food waste. **You can make a donation
-        here from as little as 5 euros.**
-
-        '
     campaign:
-      title: Campaign
       button: ''
-      text: 'Every donation helps us to reduce food waste. **You can make a donation
-        here from as little as 5 euros.**'
     friendship_circle:
-      title: ''
-      text: 'Regular donations enable us to plan for the long term and ensure sustainable
-        development. Please support us on a regular basis.'
       button: ''
   faq:
     title: Frequently asked questions
