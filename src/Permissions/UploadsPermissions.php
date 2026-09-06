@@ -29,9 +29,16 @@ final readonly class UploadsPermissions
      */
     public function mayAccessUpload(UploadedFile $file): bool
     {
+        $isLoggedIn = $this->session->mayRole();
+
         return match ($file->usedIn) {
-            UploadUsage::EMAIL_ATTACHMENT => $this->session->mayRole() && $this->mailboxPermissions->mayMessage($file->usageId),
-            default => true,
+            UploadUsage::BASKET, UploadUsage::BLOG_POST, UploadUsage::FOOD_SHARE_POINT_TITLE => true,
+            /* TODO: pictures of wall posts and profile photos only need to be visible on the public wall of a food
+            share point, but this is difficult to find out here. Should be restricted further. */
+            UploadUsage::PROFILE_PHOTO, UploadUsage::WALL_POST => true,
+            UploadUsage::EMAIL_ATTACHMENT => $isLoggedIn && $this->mailboxPermissions->mayMessage($file->usageId),
+            // default: RESOURCE, WORKING_GROUP_TITLE
+            default => $isLoggedIn,
         };
     }
 

@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Api;
 
+use Codeception\Attribute\Examples;
 use Codeception\Example;
 use Codeception\Util\HttpCode;
 use Faker\Factory;
+use Faker\Generator;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Tests\Support\ApiTester;
 
@@ -15,7 +17,7 @@ use Tests\Support\ApiTester;
  */
 class UploadsApiCest
 {
-    private $faker;
+    private Generator $faker;
     private $user;
     private $ambassador;
 
@@ -25,6 +27,26 @@ class UploadsApiCest
 
         $this->user = $I->createFoodsharer();
         $this->ambassador = $I->createAmbassador();
+    }
+
+    #[Examples(UploadUsage::PROFILE_PHOTO, true)]
+    #[Examples(UploadUsage::FOOD_SHARE_POINT_TITLE, true)]
+    #[Examples(UploadUsage::BLOG_POST, true)]
+    #[Examples(UploadUsage::WORKING_GROUP_TITLE, false)]
+    #[Examples(UploadUsage::BASKET, true)]
+    #[Examples(UploadUsage::WALL_POST, true)]
+    #[Examples(UploadUsage::EMAIL_ATTACHMENT, false)]
+    #[Examples(UploadUsage::RESOURCE, false)]
+    public function canNotAccessFilesWithoutLogin(ApiTester $I, Example $example): void
+    {
+        $upload = $I->createUpload(
+            $this->user['id'],
+            $this->faker->randomNumber(),
+            $example[0]->value,
+            './img/seed-data/profile/women/0.jpg', // example file
+        );
+        $I->sendGet('api/uploads/' . $upload['uuid']);
+        $I->seeResponseCodeIs($example[1] ? HttpCode::OK : HttpCode::FORBIDDEN);
     }
 
     public function canUploadFiles(ApiTester $I): void

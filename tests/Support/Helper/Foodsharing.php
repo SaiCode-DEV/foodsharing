@@ -30,7 +30,6 @@ use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Foodsharing\Modules\Core\DBConstants\Voting\VotingNotificationType;
 use Foodsharing\Modules\Core\DBConstants\Voting\VotingScope;
 use Foodsharing\Modules\Core\DBConstants\Voting\VotingType;
-use Foodsharing\Modules\Uploads\DTO\UploadedFile;
 use PDO;
 
 class Foodsharing extends Db
@@ -78,33 +77,6 @@ class Foodsharing extends Db
         $this->_getDriver()->deleteQueryByCriteria($table, []);
     }
 
-    /**
-     * Simplified and adjusted version of what happens in UploadTransactions::uploadFile.
-     *
-     * Can be used to "upload" profile pictures for generated users.
-     */
-    private function uploadFile(UploadedFile $file)
-    {
-        $uuid = $this->faker->uuid();
-        $this->haveInDatabase('uploads', [
-            'uuid' => $uuid,
-            'user_id' => $file->uploaderId,
-            'sha256hash' => $file->hashedBody,
-            'mimetype' => $file->mimeType,
-            'uploaded_at' => new Carbon(),
-            'filesize' => $file->fileSize,
-        ]);
-
-        $pathForPersistentFile = implode('/', [ROOT_DIR, 'data/uploads', $uuid[0], $uuid[1] . $uuid[2], $uuid]);
-        $dir = dirname($pathForPersistentFile);
-        if (!file_exists($dir)) {
-            mkdir($dir, 0775, true);
-        }
-        copy($file->filePath, $pathForPersistentFile);
-
-        return $uuid;
-    }
-
     public function activateFeatureToggle(string $featureToggle): void
     {
         $params = [
@@ -136,11 +108,9 @@ class Foodsharing extends Db
             $gender = random_int(0, 1);
         }
 
-        if (isset($extra_params['image']) && ($gender == 0 || $gender == 1)) {
-            $path = './img/seed-data/profile/' . ['men', 'women'][$gender] . '/' . random_int(0, 99) . '.jpg';
-            $profilePicture = new UploadedFile($path, filesize($path), hash_file('sha256', $path), 'image/jpg', 1, null, null);
-            $pictureUrl = $this->uploadFile($profilePicture);
-        }
+        $profilePicture = (isset($extra_params['image']) && ($gender == 0 || $gender == 1))
+            ? './img/seed-data/profile/' . ['men', 'women'][$gender] . '/' . random_int(0, 99) . '.jpg'
+            : null;
 
         // Ensure the quizes actually exist. This avoids spurious 404 errors
         // during API tests
@@ -171,7 +141,7 @@ class Foodsharing extends Db
             'handy' => $this->faker->e164PhoneNumber(),
             'active' => 1,
             'token' => uniqid('', true),
-            'photo' => $pictureUrl,
+            'photo' => null,
             'geschlecht' => $gender,
         ], $extra_params);
         unset($params['image']);
@@ -188,11 +158,9 @@ class Foodsharing extends Db
         $params['id'] = $id;
         $this->registerMailAddress($params['email']);
 
-        if (isset($extra_params['image']) && isset($uuid)) {
-            $this->updateInDatabase('uploads', [
-                'used_in' => UploadUsage::PROFILE_PHOTO->value,
-                'usage_id' => $id,
-            ], ['uuid' => $uuid]);
+        if ($profilePicture) {
+            $uuid = $this->createUpload($id, $id, UploadUsage::PROFILE_PHOTO->value, $profilePicture)['uuid'];
+            $this->updateInDatabase('fs_foodsaver', ['photo' => $uuid], ['id' => $id]);
         }
 
         return $params;
@@ -1524,17 +1492,40 @@ class Foodsharing extends Db
         return $content;
     }
 
-    public function createUpload(int $userId, int $usageId = null, int $usageType = null, array $extraParams = []): array
+    /**
+     * If a filePath given, that file is copied to the upload directory. Else, the database entry does not point to an
+     * existing file, which might cause errors.
+     */
+    public function createUpload(int $userId, ?int $usageId = null, ?int $usageType = null, ?string $filePath = null, array $extraParams = []): array
     {
+        $uuid = $this->uploadUUID();
+
+        if (!empty($filePath)) {
+            /*
+             * Simplified and adjusted version of what happens in UploadTransactions::uploadFile. Can be used to
+             * "upload" pictures.
+             */
+            $extraParams['sha256hash'] = hash_file('sha256', $filePath);
+            $extraParams['filesize'] = filesize($filePath);
+            $extraParams['mimetype'] = mime_content_type($filePath);
+
+            $pathForPersistentFile = implode('/', [ROOT_DIR, 'data/uploads', $uuid[0], $uuid[1] . $uuid[2], $uuid]);
+            $dir = dirname($pathForPersistentFile);
+            if (!file_exists($dir)) {
+                mkdir($dir, 0775, true);
+            }
+            copy($filePath, $pathForPersistentFile);
+        }
+
         $params = array_merge([
-            'uuid' => $this->uploadUUID(),
+            'uuid' => $uuid,
             'user_id' => $userId,
             'sha256hash' => $this->faker->sha256(),
             'mimetype' => $this->faker->mimeType(),
             'uploaded_at' => $this->faker->dateTimeBetween('-5 years', '-1 week')->format('Y-m-d H:i:s'),
             'filesize' => $this->faker->numberBetween(0, 1_500_000),
-            'used_in' => $usageId,
-            'usage_id' => $usageType,
+            'used_in' => $usageType,
+            'usage_id' => $usageId,
         ], $extraParams);
 
         $this->haveInDatabase('uploads', $params);
