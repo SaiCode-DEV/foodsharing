@@ -5404,14 +5404,14 @@ donation_page:
       obowiązuje: **tak dużo pieniędzy, ile potrzeba, tak mało, ile jest możliwe.**
 
 
-      Więcej informacji znajdziesz na naszej [stronie przejrzystości](content?sub=transparency).
+      Więcej informacji znajdziesz na naszej [stronie przejrzystości](/content?sub=transparency).
 
       '
     question_7: 'Czy mogę wysłać swoją darowiznę bezpośrednio do lokalnej grupy foodsharingu?'
     question_1: 'Co się dzieje z moją darowizną?'
     question_8: 'Czy mogę też przekazywać przedmioty lub usługi w ramach darowizny?'
     answer_4: "**Dołącz i przekaż darowiznę teraz!** Albo jednorazowo przez nasz [formularz
-      darowizn](donation), \nalbo regularnie w [kręgu przyjaźni foodsharingu](donation/friendship_circle)
+      darowizn](/donation), \nalbo regularnie w [kręgu przyjaźni foodsharingu](/donation/friendship_circle)
       –każde wsparcie\npomaga w ratowaniu żywności. Możesz wygodnie przekazać darowiznę
       poprzez zlecenie stałe, kartę kredytową, PayPal lub przelew.\n\nJeśli wolisz
       wykonać przelew bezpośrednio, tu znajdziesz nasz numer konta dla darowizn:\n\
@@ -5443,7 +5443,7 @@ donation_page:
 
 
       Poza tym, dla członków kręgu przyjaźni foodsharingu tworzymy też aktualnie kilka
-      ciekawych rzeczy! Tutaj przejdziesz do [kręgu przyjaźni foodsharingu](donation/friendship_circle).
+      ciekawych rzeczy! Tutaj przejdziesz do [kręgu przyjaźni foodsharingu](/donation/friendship_circle).
 
       '
     answer_5: '**Jasne!** Twoja darowizna zasila projekty międzyregionalne – niezależnie
@@ -5484,13 +5484,12 @@ donation_page:
 
       Jeśli chcesz, aby darowizna działała bezpośrednio na miejscu, najlepiej skontaktuj
       się z daną grupą rejonu. Przegląd wszystkich rejonów foodsharingu znajdziesz
-      [tutaj!](content?sub=communities)
+      [tutaj!](/content?sub=communities)
 
       '
     answer_10: 'Możesz w dowolnym momencie zmienić wysokość darowizny lub zakończyć
-      darowiznę długoterminową - całkiem bezproblemowo przez nasz Self-Service. Po
-      prostu zaloguj się [tutaj](/donation/selfservice)! Jeśli masz pytania albo potrzebujesz
-      pomocy,  zgłoś się do nas: [fundraising.freundeskreis@foodsharing.network](mailto:fundraising.freundeskreis@foodsharing.network).
+      darowiznę długoterminową - całkiem bezproblemowo przez nasz [Self-Service](/donation/selfservice).   Jeśli
+      masz pytania albo potrzebujesz pomocy,  zgłoś się do nas: [fundraising.freundeskreis@foodsharing.network](mailto:fundraising.freundeskreis@foodsharing.network).
       Czekamy na wiadomość od ciebie!
 
       '
