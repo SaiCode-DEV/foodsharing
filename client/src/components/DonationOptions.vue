@@ -1,6 +1,6 @@
 <template>
   <div class="donation-options">
-    <b-row v-if="showCampaignCard && donationCampaignBlock" class="mb-5 justify-content-center">
+    <b-row v-if="showCampaignCard && contentBlocks.campaign" class="mb-5 justify-content-center">
       <b-col
         cols="12"
         lg="5"
@@ -12,11 +12,11 @@
           body-class="d-flex flex-column justify-content-between pl-3 pr-3"
         >
           <h3 class="card-title">
-            <i class="fas fa-bullhorn fa-lg mr-2" /> {{ donationCampaignBlock.title }}
+            <i class="fas fa-bullhorn fa-lg mr-2" /> {{ contentBlocks.campaign.title }}
           </h3>
           <div class="card-text">
             <!-- eslint-disable vue/no-v-html -->
-            <div class="card-text" v-html="donationCampaignBlock.body" />
+            <div class="card-text" v-html="contentBlocks.campaign.body" />
             <!-- eslint-enable -->
           </div>
           <div class="text-center">
@@ -39,7 +39,7 @@
     <b-row class="mb-5 justify-content-center mt-4 mt-lg-5">
       <!-- One-time donation -->
       <b-col
-        v-if="donationOneTimeBlock"
+        v-if="contentBlocks.oneTime"
         cols="12"
         md="6"
         lg="5"
@@ -50,11 +50,11 @@
           body-class="d-flex flex-column justify-content-between mb-4 pl-3 pr-3"
         >
           <h3 class="card-title">
-            <i class="fas fa-hand-holding-heart fa-lg mr-2" /> {{ donationOneTimeBlock.title }}
+            <i class="fas fa-hand-holding-heart fa-lg mr-2" /> {{ contentBlocks.oneTime.title }}
           </h3>
           <div class="card-text">
             <!-- eslint-disable vue/no-v-html -->
-            <div class="card-text" v-html="donationOneTimeBlock.body" />
+            <div class="card-text" v-html="contentBlocks.oneTime.body" />
             <!-- eslint-enable -->
           </div>
           <div class="text-center">
@@ -74,7 +74,7 @@
 
       <!-- Friendship circle -->
       <b-col
-        v-if="donationFriendshipCircleBlock"
+        v-if="contentBlocks.friendshipCircle"
         cols="12"
         md="6"
         lg="5"
@@ -85,11 +85,11 @@
           body-class="d-flex flex-column justify-content-between mb-4 pl-3 pr-3"
         >
           <h3 class="card-title">
-            <i class="fas fa-users fa-lg mr-2" /> {{ donationFriendshipCircleBlock.title }}
+            <i class="fas fa-users fa-lg mr-2" /> {{ contentBlocks.friendshipCircle.title }}
           </h3>
           <div class="card-text">
             <!-- eslint-disable vue/no-v-html -->
-            <div class="card-text" v-html="donationFriendshipCircleBlock.body" />
+            <div class="card-text" v-html="contentBlocks.friendshipCircle.body" />
             <!-- eslint-enable -->
           </div>
           <div class="text-center">
@@ -125,9 +125,11 @@ function onClick (type) {
   emit('select', type)
 }
 
-const donationCampaignBlock = ref(null)
-const donationFriendshipCircleBlock = ref(null)
-const donationOneTimeBlock = ref(null)
+const contentBlocks = ref({
+  campaign: null,
+  friendshipCircle: null,
+  oneTime: null,
+})
 
 const requiredIds = [
   CONTENT_IDS.DONATION_CAMPAIGN_BLOCK,
@@ -135,16 +137,17 @@ const requiredIds = [
   CONTENT_IDS.DONATION_ONE_TIME_BLOCK,
 ]
 
-async function getDonationContent () {
+async function getDonationContent() {
   try {
-    [donationCampaignBlock.value, donationFriendshipCircleBlock.value, donationOneTimeBlock.value] = await getContent(requiredIds)
-      .then(response => {
-        requiredIds.map((id, index) => {
-          return response.find((x) => x.id === id) ?? null
-        })
-      })
+    const response = await getContent(requiredIds)
+    
+    contentBlocks.value = {
+      campaign: response.find((x) => x.id === CONTENT_IDS.DONATION_CAMPAIGN_BLOCK) ?? null,
+      friendshipCircle: response.find((x) => x.id === CONTENT_IDS.DONATION_FRIENDSHIP_CIRCLE_BLOCK) ?? null,
+      oneTime: response.find((x) => x.id === CONTENT_IDS.DONATION_ONE_TIME_BLOCK) ?? null,
+    }
   } catch (e) {
-    console.error('Failed to catch content from the server:', e)
+    console.error('Failed to fetch content from server:', e)
   }
 }
 
