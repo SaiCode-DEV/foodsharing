@@ -57,7 +57,7 @@ class ResourceTransactions
         $existingImages = $this->resourceGateway->getResource($resourceId)->images;
         $uuidsToDelete = array_diff($existingImages, $resource->images);
         foreach ($uuidsToDelete as $uuid) {
-            $this->uploadsTransactions->deleteUploadedFile(substr($uuid, 13));
+            $this->uploadsTransactions->deleteUploadedFile($this->uploadsTransactions->getUUID($uuid));
         }
 
         $this->tagImages($resourceId, $resource->images);
@@ -81,7 +81,7 @@ class ResourceTransactions
         // remove images
         $existingImages = $this->resourceGateway->getResource($resourceId)->images;
         foreach ($existingImages as $uuid) {
-            $this->uploadsTransactions->deleteUploadedFile(substr($uuid, 13));
+            $this->uploadsTransactions->deleteUploadedFile($this->uploadsTransactions->getUUID($uuid));
         }
 
         // delete resource
@@ -90,7 +90,7 @@ class ResourceTransactions
 
     private function tagImages(int $resourceId, array $images): void
     {
-        $uuids = array_map(fn ($image) => substr($image, 13), $images);
+        $uuids = array_map(fn ($image) => $this->uploadsTransactions->getUUID($image), $images);
         $this->uploadsGateway->setUsage($uuids, UploadUsage::RESOURCE, $resourceId);
     }
 
