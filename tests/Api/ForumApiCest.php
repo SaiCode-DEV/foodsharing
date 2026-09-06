@@ -1233,13 +1233,19 @@ class ForumApiCest
     // Test user do not get E-Mail if last login is older then 6 months
     public function checkNoNotificationEMailForUsersWhichDidntLoginMoreThen6Month(ApiTester $I): void
     {
+        // The recipient query compares last_login with CURDATE() - INTERVAL 6 MONTH, i.e. with
+        // midnight of that day, so the user has to be a full day outside the window to count
+        // as inactive. "-6 months -1 minute" still lies on the cut-off day and gets the mail.
         $lastLoginDate = new DateTime();
-        $lastLoginDate->modify('-6 months -1minutes');
+        $lastLoginDate->modify('-6 months -1 day');
         $lastLoginDateString = $lastLoginDate->format('Y-m-d H:i:s');
         $userWithLongInactiveTime = $I->createFoodsaver(null, ['last_login' => $lastLoginDateString]);
         $region = $I->createRegion('Small region', ['moderated' => false, 'type' => UnitType::CITY]);
         $I->addRegionMember($region['id'], $this->user['id'], true, false, false);
         $I->addRegionMember($region['id'], $userWithLongInactiveTime['id'], true, false, true);
+        // An active member with the mail flag proves that the notification ran at all. Without
+        // it expectNumMails(0) returns before the asynchronous mail worker has delivered anything.
+        $I->addRegionMember($region['id'], $this->user1['id'], true, false, true);
         $I->addRegionMember($region['id'], $this->ambassador['id'], true, false, false);
         $I->addRegionAdmin($region['id'], $this->ambassador['id']);
 
@@ -1247,7 +1253,14 @@ class ForumApiCest
         $title = $this->createThread($I, $region['id'], 0, true);
         $I->seeResponseCodeIs(HttpCode::OK);
 
-        $I->expectNumMails(0, 30);
+        $I->expectNumMails(1, 30);
+        $mails = $I->getMails();
+        $I->assertStringContainsString($this->user1['email'], $mails[0]->to[0]->address);
+        $I->assertStringContainsString($title, $mails[0]->subject);
+        // Both mails would be queued in the same request, so give the worker a moment to
+        // make sure no second mail for the inactive user follows.
+        sleep(2);
+        $I->expectNumMails(1, 0);
     }
 
     public function testModerationWorkgroupCanGetInformedToActivateAndCanActivateThread(ApiTester $I): void
