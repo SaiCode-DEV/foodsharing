@@ -20,18 +20,24 @@ class MapGateway extends BaseGateway
         parent::__construct($db);
     }
 
+    /**
+     * Returns the location of a store, or null if the ID does not exist.
+     */
     public function getStoreLocation(int $storeId): ?GeoLocation
     {
         $location = $this->db->fetchByCriteria('fs_betrieb', ['lat', 'lon'], ['id' => $storeId]);
 
-        return new GeoLocation(floatval($location['lat']), floatval($location['lon']));
+        return empty($location) ? null : new GeoLocation(floatval($location['lat']), floatval($location['lon']));
     }
 
+    /**
+     * Returns the location of a food share point, or null if the ID does not exist.
+     */
     public function getFoodSharePointLocation(int $foodSharePointId): ?GeoLocation
     {
         $location = $this->db->fetchByCriteria('fs_fairteiler', ['lat', 'lon'], ['id' => $foodSharePointId]);
 
-        return new GeoLocation(floatval($location['lat']), floatval($location['lon']));
+        return empty($location) ? null : new GeoLocation(floatval($location['lat']), floatval($location['lon']));
     }
 
     /**

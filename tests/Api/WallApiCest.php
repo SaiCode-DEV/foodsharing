@@ -12,12 +12,12 @@ use Tests\Support\ApiTester;
  */
 class WallApiCest
 {
-    private $foodsaver;
-    private $orga;
-    private $postText = 'This is my post.';
-    private $pictures;
-    private $picturePaths;
-    private $posts;
+    private array $foodsaver;
+    private array $orga;
+    private string $postText = 'This is my post.';
+    private array $pictures;
+    private array $picturePaths;
+    private array $posts;
 
     public function _before(ApiTester $I): void
     {
@@ -39,8 +39,8 @@ class WallApiCest
                 'attach' => json_encode(['images' => $this->picturePaths]),
                 'time' => date('Y-m-d H:i:s', time() - 5),
         ]];
-        $this->havePostInDatabase($I, $this->posts[0], 'fs_foodsaver_has_wallpost', 'foodsaver_id', $this->foodsaver['id']);
-        $this->havePostInDatabase($I, $this->posts[1], 'fs_foodsaver_has_wallpost', 'foodsaver_id', $this->foodsaver['id']);
+        $this->posts[0]['id'] = $this->havePostInDatabase($I, $this->posts[0], 'fs_foodsaver_has_wallpost', 'foodsaver_id', $this->foodsaver['id']);
+        $this->posts[1]['id'] = $this->havePostInDatabase($I, $this->posts[1], 'fs_foodsaver_has_wallpost', 'foodsaver_id', $this->foodsaver['id']);
     }
 
     // Post
@@ -118,10 +118,10 @@ class WallApiCest
 
     public function cantPostEmptyPost(ApiTester $I): void
     {
-        $I->login($this->orga['email']);
+        $I->login($this->foodsaver['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/walls/foodsaver/' . $this->foodsaver['id'], ['body' => $this->postText]);
-        $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
+        $I->sendPost('api/walls/foodsaver/' . $this->foodsaver['id'], ['body' => '']);
+        $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
     }
 
     // Get
@@ -133,10 +133,12 @@ class WallApiCest
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson([
             'posts' => [
-                ['pictures' => $this->picturePaths, 'body' => '2', 'author' => [
+                ['pictures' => $this->picturePaths, 'body' => $this->posts[1]['body'], 'author' => [
                     'id' => $this->foodsaver['id'],
-                    'name' => $this->foodsaver['name']]],
-                ['pictures' => null, 'body' => '1']],
+                    'name' => $this->foodsaver['name']]
+                ],
+                ['pictures' => null, 'body' => $this->posts[0]['body']]
+            ],
             'mayPost' => true,
             'mayDelete' => false,
         ]);
@@ -177,20 +179,27 @@ class WallApiCest
     public function canDeleteOwnWallPost(ApiTester $I): void
     {
         $I->login($this->foodsaver['email']);
-        $I->sendDelete('api/walls/foodsaver/' . $this->foodsaver['id'] . '/posts/' . 1);
+        $I->sendDelete('api/walls/foodsaver/' . $this->foodsaver['id'] . '/posts/' . $this->posts[0]['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
     }
 
     public function canDeleteWallPostAsOrga(ApiTester $I): void
     {
         $I->login($this->orga['email']);
-        $I->sendDelete('api/walls/foodsaver/' . $this->foodsaver['id'] . '/posts/' . 1);
+        $I->sendDelete('api/walls/foodsaver/' . $this->foodsaver['id'] . '/posts/' . $this->posts[0]['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
+    }
+
+    public function cantDeleteNonExistentPost(ApiTester $I): void
+    {
+        $I->login($this->orga['email']);
+        $I->sendDelete('api/walls/foodsaver/123/posts/123456');
+        $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
     }
 
     public function cantDeleteWallPostLoggedOut(ApiTester $I): void
     {
-        $I->sendDelete('api/walls/foodsaver/' . $this->foodsaver['id'] . '/posts/' . 1);
+        $I->sendDelete('api/walls/foodsaver/' . $this->foodsaver['id'] . '/posts/' . $this->posts[0]['id']);
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
     }
 
@@ -203,14 +212,14 @@ class WallApiCest
         $id = $this->havePostInDatabase($I, $post, 'fs_foodsaver_has_wallpost', 'foodsaver_id', $this->orga['id']);
 
         $I->login($this->foodsaver['email']);
-        $I->sendDelete('api/walls/foodsaver/' . $this->foodsaver['id'] . '/posts/' . $id);
+        $I->sendDelete('api/walls/foodsaver/' . $this->orga['id'] . '/posts/' . $id);
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
     }
 
     public function cantDeleteWallPostFromWrongWall(ApiTester $I): void
     {
         $I->login($this->foodsaver['email']);
-        $I->sendDelete('api/walls/foodsaver/' . $this->orga['id'] . '/posts/1');
+        $I->sendDelete('api/walls/foodsaver/' . $this->orga['id'] . '/posts/' . $this->posts[0]['id']);
         $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
     }
 

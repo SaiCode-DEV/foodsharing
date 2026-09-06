@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\WallPost;
 
 use Foodsharing\Modules\Core\BaseGateway;
+use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\WallType;
 use Foodsharing\Modules\Core\Pagination;
 use Foodsharing\Modules\WallPost\DTO\WallPost;
@@ -120,9 +121,16 @@ class WallPostGateway extends BaseGateway
         ]);
     }
 
+    /**
+     * Returns the author of the post, or null if the post does not exist.
+     */
     public function getAuthorId(int $postId): ?int
     {
-        return $this->db->fetchValueByCriteria('fs_wallpost', 'foodsaver_id', ['id' => $postId]);
+        try {
+            return $this->db->fetchValueByCriteria('fs_wallpost', 'foodsaver_id', ['id' => $postId]);
+        } catch (DatabaseNoValueFoundException) {
+            return null;
+        }
     }
 
     public function isLinkedToTarget(int $postId, WallType $target, int $targetId): bool

@@ -43,6 +43,6 @@ class LogoutController extends FoodsharingController
 
         $this->logoutTransactions->logout();
 
-        return $this->redirect($refURI);
+        return $this->redirect(!empty($refURI) ? $refURI : '/');
     }
 }

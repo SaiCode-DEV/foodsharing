@@ -109,11 +109,11 @@ class WallRestController extends AbstractFoodsharingRestController
     {
         $this->assertLoggedIn();
         $wallType = $this->parseWallType($target, $targetId);
-        if (!$this->wallPostPermissions->mayDeleteWallPost($wallType, $targetId, $postId)) {
-            throw new AccessDeniedHttpException('Not permitted to delete this post');
-        }
         if (!$this->wallPostGateway->isLinkedToTarget($postId, $wallType, $targetId)) {
             throw new NotFoundHttpException('The post does not exist');
+        }
+        if (!$this->wallPostPermissions->mayDeleteWallPost($wallType, $targetId, $postId)) {
+            throw new AccessDeniedHttpException('Not permitted to delete this post');
         }
 
         $this->wallPostTransactions->deletePost($postId, $wallType, $targetId);

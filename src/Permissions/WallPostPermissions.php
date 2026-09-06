@@ -119,7 +119,9 @@ class WallPostPermissions
 
     public function mayDeleteWallPost(WallType $target, int $targetId, int $postId): bool
     {
-        return $this->mayDeleteWall($target, $targetId) || $this->wallPostGateway->getAuthorId($postId) === $this->session->id();
+        $authorId = $this->wallPostGateway->getAuthorId($postId);
+
+        return $this->mayDeleteWall($target, $targetId) || (!is_null($authorId) && $authorId === $this->session->id());
     }
 
     public function mayReactToPostsOnWall(WallType $target, int $targetId): bool
