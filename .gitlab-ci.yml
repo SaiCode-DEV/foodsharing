@@ -399,8 +399,7 @@ test:php-compatibility-check:
     - *rule-mr-app-changes
     - *rule-mr-backend-changes
   image: registry.gitlab.com/foodsharing-dev/images/php:latest
-  <<: *vars-backend-test
-  <<: *services-backend-test
+  <<: [*vars-backend-test, *services-backend-test, *cache-backend-build]
   before_script:
     # Wait for the maildev service container to become reachable before running tests.
     # Its DNS alias can lag behind the job start, which otherwise makes mail-dependent
@@ -411,7 +410,6 @@ test:php-compatibility-check:
   needs:
     - build:frontend
     - build:backend-dev
-  <<: *cache-backend-build
   artifacts: *test-artifacts
 
 test:backend-api:
@@ -513,6 +511,7 @@ test:openapi-types:
   stage: test
   interruptible: true
   rules:
+    - *rule-skip-on-draft
     - *rule-skip-on-production-skip-ci
     - *rule-skip-on-schedule
     - *rule-main-branches
