@@ -59,10 +59,12 @@ npm install -g yarn@1.22.22 --force
 yarn install --frozen-lockfile
 # The CI image ships the browsers under $PLAYWRIGHT_BROWSERS_PATH. Installing
 # only the engine this project needs keeps the step a no-op there and a small
-# download anywhere else; WebKit is never run.
+# download anywhere else. The Safari projects are not in the CI matrix today,
+# but they are defined in playwright.config.ts, so keep their engine mapped.
 case "${PROJECT}" in
   *Firefox*) browser=firefox ;;
-  *) browser=chromium ;;
+  *Safari*)  browser=webkit ;;
+  *)         browser=chromium ;;
 esac
 npx playwright install "${browser}"
 
