@@ -14,3 +14,4 @@ sentry:
     ignore_exceptions: #exclude validation errors
       - Symfony\Component\Security\Core\Exception\AccessDeniedException
       - Symfony\Component\HttpKernel\Exception\HttpException
+      - Foodsharing\Modules\Core\RedirectRequiredException
