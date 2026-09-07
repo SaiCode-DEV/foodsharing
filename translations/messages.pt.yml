@@ -3379,6 +3379,17 @@ legal:
     unsubscribe_newsletter: 'Cancela também a newsletter do Foodsharing, se estiveres
       subscrito. Podes fazer isso mais tarde através do link no e-mail do newsletter.'
     legal_more_info: Mais informações
+    this_gets_deleted_mailbox: A tua caixa de correio pessoal e todos os e-mails
+      que contém
+    this_gets_deleted_images: 'Os seguintes ficheiros que carregaste serão eliminados:
+      a tua foto de perfil, as fotos dos teus cabazes de comida e as fotos dos recursos
+      que criaste.'
+    this_doesnt_get_deleted_at_all: 'Estas informações não serão eliminadas e continuarão
+      disponíveis no sistema:'
+    this_doesnt_get_deleted_images: 'Ficheiros carregados por ti: imagens de capa
+      de pontos de partilha, imagens de capa de grupos de trabalho, imagens em publicações
+      de blogues criadas por ti, imagens em publicações no mural criadas por ti, anexos
+      de e-mail nas caixas de correio dos distritos'
   legal_agreement: 'acordo legal'
   privacy_notice: 'Instruções sobre proteção de dados para os responsáveis por cooperações
     e os embaixadores'
@@ -5468,15 +5479,15 @@ donation_page:
       possível.**
 
 
-      Podes encontrar mais informações na nossa [página de transparência](content?sub=transparency).
+      Podes encontrar mais informações na nossa [página de transparência](/content?sub=transparency).
 
       '
     question_7: 'Posso enviar o meu donativo diretamente para um grupo local do foodsharing?'
     question_1: 'O que acontece ao meu donativo?'
     question_8: 'Também posso fazer donativos em bens ou serviços?'
     answer_4: "**Participa e faz já o teu donativo!** Seja através do nosso [formulário
-      de donativos](donation), com um donativo único, \nou regularmente através do
-      [círculo de apoiantes do foodsharing](donation/friendship_circle) – cada contribuição
+      de donativos](/donation), com um donativo único, \nou regularmente através do
+      [círculo de apoiantes do foodsharing](/donation/friendship_circle) – cada contribuição
       ajuda \na salvar alimentos. Podes doar comodamente por débito direto, cartão
       de crédito, PayPal ou transferência bancária.\n\nSe preferires fazer uma transferência
       bancária, utiliza os seguintes dados:\n\n**foodsharing e.V.**\nIBAN: DE66 4306
@@ -5509,7 +5520,7 @@ donation_page:
 
       Além disso, estamos a preparar algumas novidades interessantes para os membros
       do **círculo de amigos do foodsharing**! Encontra mais informações no [Círculo
-      de Amigos do foodsharing](donation/friendship_circle).
+      de Amigos do foodsharing](/donation/friendship_circle).
 
       '
     answer_5: '**Claro!** O teu donativo é aplicado em projetos suprarregionais, independentemente
@@ -5551,16 +5562,14 @@ donation_page:
 
       Se pretendes que o teu donativo tenha um impacto direto na tua região, o melhor
       é entrares em contacto com o grupo distrital correspondente. Podes encontrar
-      uma lista de todos os distritos do foodsharing [aqui!](content?sub=communities)
+      uma lista de todos os distritos do foodsharing [aqui!](/content?sub=communities)
 
       '
-    answer_10: 'Podes alterar o valor do teu donativo ou cancelar o teu donativo regular
-      a qualquer momento, de forma simples, através da nossa área de autoatendimento.
-      Basta iniciares sessão [aqui](/donation/selfservice)!
-
-      Se tiveres alguma dúvida ou precisares de ajuda, entra em contacto connosco
-      através de [fundraising.freundeskreis@foodsharing.network](mailto:fundraising.freundeskreis@foodsharing.network).
-      Teremos todo o gosto em ajudar!
+    answer_10: 'Podes ajustar o valor do teu donativo a qualquer momento ou cancelar
+      o teu donativo regular — de forma simples através do nosso [Self-Service](/donation/selfservice).
+      Se tiveres alguma dúvida ou precisares de ajuda, entra em contacto connosco:
+      [fundraising.freundeskreis@foodsharing.network](mailto:fundraising.freundeskreis@foodsharing.network).
+      Teremos todo o gosto em falar contigo!
 
       '
     question_4: 'Como posso fazer um donativo?'
