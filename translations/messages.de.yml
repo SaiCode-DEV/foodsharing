@@ -2107,7 +2107,6 @@ content:
 
 map:
   title: "Karte"
-  donates: "Betrieb spendet"
   filters:
     stores:
       status:
@@ -3118,11 +3117,9 @@ storestatus:
   "1": "Es besteht noch kein Kontakt"
   "2": "Verhandlungen laufen"
   "3": "Betrieb ist bereit zu kooperieren"
-  "3a": "Betrieb ist bereit zu spenden. :-)"
   "4": "Will nicht kooperieren"
   "5": "kooperiert mit uns"
-  "5a": "Betrieb spendet bereits"
-  "6": "Spendet an Tafel etc. und wirft nichts weg"
+  "6": "Gibt an die Tafel ab etc. und wirft nichts weg"
   "7": "Betrieb existiert nicht mehr"
 
 storelist:
@@ -4172,7 +4169,7 @@ donation_page:
       kündigen oder ändern?
     answer_10: >
       Du kannst deine Spendenhöhe jederzeit anpassen oder deine Dauerspende
-      beenden – ganz unkompliziert über unseren [Self-Service](/donation/selfservice). 
+      beenden – ganz unkompliziert über unseren [Self-Service](/donation/selfservice).
       Wenn du Fragen hast oder Hilfe brauchst,  melde dich gerne bei uns:
       [fundraising.freundeskreis@foodsharing.network](mailto:fundraising.freundeskreis@foodsharing.network).
       Wir freuen uns, von dir zu hören!
