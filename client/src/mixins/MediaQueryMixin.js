@@ -31,11 +31,14 @@ export default {
       wXL: false,
     }
   },
+  created () {
+    // Read the real width before the first render. Starting at 0 would make every
+    // breakpoint report the smallest one, so mobile-only markup gets mounted once
+    // even on a wide screen.
+    this.getWindowWidth()
+  },
   mounted () {
     window.addEventListener('resize', this.getWindowWidth)
-    this.$nextTick(function () {
-      this.getWindowWidth()
-    })
   },
   // https://getbootstrap.com/docs/5.0/layout/breakpoints/
   computed: {
