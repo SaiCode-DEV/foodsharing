@@ -57,7 +57,7 @@
           <ul>
             <li
               v-for="(item) in data.items"
-              :key="item.url"
+              :key="item.title"
               class="nav-item"
             >
               <FsLink
@@ -153,14 +153,16 @@
 </template>
 
 <script>
+import { computed } from 'vue'
 // Data
 import SocialData from './Data/SocialData.json'
 import FooterData from './Data/FooterData.json'
 import PartnerData from './Data/PartnerData.json'
-// Mixins
+// Mixins, Helpers, Composables
 import RouteCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
 import serverData from '@/helper/server-data'
-// Theme
+import { useNavFilter } from '@/composables/useNavFilter'
+// Layout
 import { useThemeStore } from '@/stores/theme'
 import DonationButton from '@/components/DonationButton.vue'
 import FsLink from '@/components/UI/FsLink.vue'
@@ -173,17 +175,25 @@ export default {
   mixins: [RouteCheckMixin],
   setup () {
     const themeStore = useThemeStore()
-    return { themeStore }
+    const { withVisibleItems, filterNavData } = useNavFilter()
+
+    return { 
+      themeStore,
+      withVisibleItems,
+      filterNavData,
+    }
   },
   data () {
     return {
       externalLink: 'nofollow noreferrer noopener',
       socialData: SocialData,
-      footerData: FooterData,
       version: serverData.version,
     }
   },
   computed: {
+    footerData () {
+      return this.filterNavData(FooterData)
+    },
     partnerData () {
       return this.isDotAt ? PartnerData.at : PartnerData.de
     },

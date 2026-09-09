@@ -71,17 +71,17 @@ import Dropdown from '@/components/Navigation/_NavItems/NavDropdown'
 import Logo from '@/components/Navigation/Logo'
 import FsLink from '@/components/UI/FsLink.vue'
 import { useMediaQuery } from '@/composables/useMediaQuery'
-
+import { useNavFilter } from '@/composables/useNavFilter'
 import { computed } from 'vue'
 
 const { mobile } = useMediaQuery()
+const { withVisibleItems } = useNavFilter()
 
 const mainNav = computed(() => {
-  const all = Object.keys(MainNavData).map(key => MainNavData[key])
   if (mobile && mobile.value) {
     const fundraising = MainNavData.fundraising
-    return fundraising ? [fundraising] : []
+    return fundraising ? [withVisibleItems(fundraising)] : []
   }
-  return all
+  return Object.keys(MainNavData).map(key => withVisibleItems(MainNavData[key]))
 })
 </script>

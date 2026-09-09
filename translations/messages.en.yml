@@ -744,6 +744,7 @@ menu:
     public: Public district page
     donation_menu: Donate now
     donation_page: To the donation page
+    donation_campaign: To the campaign
     donation_button: Donate now
   bell:
     delete_read_confirmation:

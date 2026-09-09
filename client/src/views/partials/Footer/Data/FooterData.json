@@ -98,6 +98,11 @@
     "items": [
       {
         "url": "donations",
+        "title": "menu.entry.donation_campaign",
+        "requiresCampaign": true
+      },
+      {
+        "url": "donations",
         "title": "menu.entry.donation_page"
       },
       {
