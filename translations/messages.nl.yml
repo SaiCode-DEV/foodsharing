@@ -1402,9 +1402,7 @@ storestatus:
   "6": ''
   "7": ''
   "0": ''
-  "3a": ''
   "3": ''
-  "5a": ''
   "5": ''
   "1": ''
   "2": ''
@@ -3265,7 +3263,6 @@ salutation:
 error_ajax: ''
 map:
   title: 'Kaart'
-  donates: ''
   users:
     go: ''
   filters:

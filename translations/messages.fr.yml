@@ -2717,7 +2717,6 @@ search:
   thread-body-only: ''
 map:
   title: Carte
-  donates: Établissement fait des donations ailleurs
   filters:
     stores:
       status:
@@ -3147,8 +3146,6 @@ storestatus:
   "2": Négociations en cours
   "1": Aucun contact pour le moment
   "0": Statut ambigu
-  "3a": L’établissement est prêt à faire des dons. :-)
-  "5a": L’établissement fait déjà des dons
   placeholder: ''
 releases:
   "2020-05": Version « Orange » (mai 2020)

@@ -2344,7 +2344,6 @@ basket:
     location to your profile.
 map:
   title: Map
-  donates: company donates
   filters:
     stores:
       status:
@@ -3597,8 +3596,6 @@ storestatus:
   "3": Store is ready to cooperate
   "2": Negotiations are ongoing
   "1": There is no contact yet
-  "3a": Store is ready to donate. :-)
-  "5a": Store donates already
   placeholder: 'status'
 formatting:
   md: You can use <a 

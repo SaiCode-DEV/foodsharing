@@ -3911,7 +3911,6 @@ map:
   foodsharepoint:
     go: ''
   title: ''
-  donates: ''
   events:
     go: ''
     title: ''
@@ -3931,12 +3930,10 @@ genderlist:
   gender_divers: ''
 are_you_sure: ''
 storestatus:
-  "3a": ''
   "3": ''
   "1": ''
   "7": ''
   "6": ''
-  "5a": ''
   "5": ''
   "0": ''
   "4": ''

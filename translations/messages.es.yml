@@ -3649,12 +3649,10 @@ footer:
 storestatus:
   "5": 'coopera con nosotros'
   "0": 'Estado poco claro'
-  "5a": 'La empresa ya está donando'
   "7": 'La empresa ya no existe'
   "2": 'Las negociaciones están en curso'
   "4": 'No quiere cooperar'
   "6": 'Donar al banco de alimentos, etc. o no tirar nada'
-  "3a": 'La empresa está dispuesta a cooperar. :-)'
   "1": 'Aún no hay contacto'
   "3": 'La empresa está dispuesta a cooperar'
   placeholder: ''
@@ -4022,7 +4020,6 @@ memberlist:
   header_for_workgroup: 'Rescatistas en el grupo de trabajo {bezirk}'
   header_for_district: 'Rescatistas en el distrito {bezirk}'
 map:
-  donates: 'La empresa dona'
   title: 'Mapa'
   filters:
     stores:

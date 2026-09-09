@@ -1426,7 +1426,6 @@ mailbox:
   forward: Framover
 map:
   title: Kart
-  donates: Selskapet donerer
   filters:
     stores:
       help:
@@ -3499,8 +3498,6 @@ storestatus:
   "5": samarbeider med oss
   "7": Selskapet eksisterer ikke lenger
   "6": Gi til matbank etc. eller ikke kast noe
-  "5a": Selskapet donerer allerede
-  "3a": Selskapet er villig til å donere. :-)
   placeholder: ''
 ansprechpartner: Kontaktperson i bedriften
 password:

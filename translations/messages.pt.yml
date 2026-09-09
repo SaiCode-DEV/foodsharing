@@ -4071,12 +4071,10 @@ button:
   yes_save: Sim, guardar
 about_me_intern: 'Descrição rápida'
 storestatus:
-  "3a": 'A loja está disposto para fazer doações. :-)'
   "3": 'A loja está disposta a cooperar'
   "1": 'Ainda não há contacto'
   "7": 'O local já não existe'
   "6": 'A loja já faz doações para o banco alimentar, etc., e não deita nada fora'
-  "5a": 'A loja já faz doações'
   "5": 'colabora connosco'
   "0": 'Estado incerto'
   "4": 'Não quer cooperar'
@@ -4362,7 +4360,6 @@ photo: 'Fotografia'
 really_delete: 'Remover a sério?'
 map:
   title: 'Mapa'
-  donates: 'A loja faz doações'
   foodsharepoint:
     go: Para o Cantinho da Partilha
   filters:

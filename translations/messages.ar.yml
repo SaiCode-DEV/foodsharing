@@ -2701,7 +2701,6 @@ group:
   subgroups: ''
 map:
   title: ''
-  donates: ''
   users:
     go: ''
   filters:
@@ -3092,11 +3091,9 @@ storestatus:
   "5": ''
   "7": ''
   "1": ''
-  "3a": ''
   "2": ''
   "3": ''
   "4": ''
-  "5a": ''
   placeholder: ''
 stats:
   total:

@@ -2949,7 +2949,6 @@ map:
   users:
     go: Do profilu
   title: 'Mapa'
-  donates: 'Punkt przekazuje darowizny'
   region:
     go: 'Do strony rejonu'
 mailbox:
@@ -4369,12 +4368,12 @@ error:
     link: 'Ustawienia profilu'
     title: 'Ważność twojej legitymacji niedługo się kończy!'
   invalid_landline_phonenumber:
-    title: 'Wystąpił błąd z twoim numerem stacjonarnym.'
+    title: 'Jest problem z numerem twojego telefonu stacjonarnego.'
     link: 'Popraw numer telefonu stacjonarnego teraz'
     description: 'Twój numer telefonu stacjonarnego jest w formacie, na który nie
       można zadzwonić.'
   invalid_mobile_phonenumber:
-    title: 'Jest problem z twoim numerem telefonu komórkowego.'
+    title: 'Jest problem z numerem twojego telefonu komórkowego.'
     description: 'Twój numer telefonu komórkowego jest w formacie, na który nie można
       zadzwonić.'
     link: 'Popraw numer telefonu komórkowego teraz'
@@ -4451,7 +4450,7 @@ search:
       home_region_tooltip: 'To twój rejon macierzysty'
       member_tooltip: 'Jesteś członkiem tego rejonu'
     mail:
-      from_to_many: 'Od {from} do {to} i {other} inne/ych'
+      from_to_many: 'Od {from} do {to} i {other} innych'
       attachment_tooltip: 'Wysłano załącznik do tego maila.'
       sent_tooltip: 'Wysłałeś/aś tego maila.'
       recieved_tooltip: 'Ten mail został wysłany do ciebie.'
@@ -4486,7 +4485,7 @@ search:
     in: 'w'
     chat:
       chat_with: 'Chat z {names}'
-      chat_with_others: 'inni/ych'
+      chat_with_others: 'innych'
     user:
       copied_id: 'Skopiowano Foodsaver-ID {name} ({text})'
       no_home_region: 'bez rejonu macierzystego'
@@ -5137,12 +5136,10 @@ navigation:
   basket: 'Jadłokoszyki'
   help_needed: 'Potrzebna pomoc?'
 storestatus:
-  "3a": 'Punkt jest gotowy do przekazywania darowizn :-)'
   "3": 'Punkt jest gotowy do współpracy'
   "1": 'Jeszcze nie nawiązano kontaktu'
   "7": 'Punkt już nie istnieje'
   "6": 'Przekazuje darowizny do banku żywności itp. i niczego nie wyrzuca'
-  "5a": 'Punkt już przekazuje darowizny'
   "5": 'Współpracuje z nami'
   "0": 'Status niewyjaśniony'
   "4": 'Nie chce współpracować'

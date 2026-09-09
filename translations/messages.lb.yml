@@ -971,13 +971,11 @@ releases:
   "2026-04": ''
 storestatus:
   "3": ''
-  "3a": ''
   "4": ''
   "6": ''
   "0": ''
   "1": ''
   "7": ''
-  "5a": ''
   "2": ''
   "5": ''
   placeholder: ''
@@ -2510,7 +2508,6 @@ content:
   error: ''
 map:
   title: ''
-  donates: ''
   users:
     go: ''
   filters:

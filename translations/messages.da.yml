@@ -3742,7 +3742,6 @@ map:
   foodsharepoint:
     go: ''
   title: ''
-  donates: ''
   events:
     go: ''
     title: ''
@@ -3765,13 +3764,11 @@ are_you_sure: ''
 copied_to_clipboard: ''
 about_me_intern: ''
 storestatus:
-  "3a": ''
   placeholder: ''
   "3": ''
   "1": ''
   "7": ''
   "6": ''
-  "5a": ''
   "5": ''
   "0": ''
   "4": ''

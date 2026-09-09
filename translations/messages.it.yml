@@ -3195,7 +3195,6 @@ mailbox:
   forward: Inoltra
 map:
   title: Carta
-  donates: 'L''azienda dona'
   filters:
     users:
       member:
@@ -3282,8 +3281,6 @@ storestatus:
   "1": Non c'è ancora alcun contatto
   "0": Stato non chiaro
   "6": Dona a Tafel ecc. e non butta via niente
-  "5a": 'L''azienda sta già donando'
-  "3a": 'L''azienda è disposta a donare. :-)'
   placeholder: ''
 footer:
   statistics: Statistiche

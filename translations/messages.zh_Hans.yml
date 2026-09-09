@@ -2969,7 +2969,6 @@ content:
   edit_raw: ''
   error: ''
 map:
-  donates: ''
   title: ''
   users:
     go: ''
@@ -3369,13 +3368,11 @@ storestatus:
   "1": ''
   "2": ''
   "3": ''
-  "5a": ''
   "5": ''
   "6": ''
   "0": ''
   "4": ''
   "7": ''
-  "3a": ''
   placeholder: ''
 push_notifications:
   test_notification_body: ''

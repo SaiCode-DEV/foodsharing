@@ -2174,8 +2174,6 @@ storestatus:
   "1": Henüz iletişim bulunmuyor
   "7": İşletme artık yok
   "4": İşbirliği yapmak istemiyor
-  "5a": İşletme zaten bağış yapıyor
-  "3a": İşletme bağış yapmaya hazır. :-)
   "3": İşletme işbirliği yapmaya hazır
   "0": Durum Belirsiz
   placeholder: ''
@@ -3080,7 +3078,6 @@ stats:
     by_count: Adetine göre
 map:
   title: Harita
-  donates: İşletme bağışlıyor
   filters:
     stores:
       status:
