@@ -105,15 +105,9 @@ watch(isFoodsaver, async (newValue) => {
 }, { immediate: true, deep: true })
 
 onBeforeMount(async () => {
+  DataGroups.mutations.set(serverData.groups || [])
+  regionStore.regions = serverData.regions || []
   if (isLoggedIn.value) {
-    try {
-      const data = await get('/server/data')
-      DataGroups.mutations.set(data.groups || [])
-      regionStore.regions = data.regions || []
-    } catch (err) {
-      DataGroups.mutations.set(serverData.groups || [])
-      regionStore.regions = serverData.regions || []
-    }
     await DataBells.mutations.fetch()
     await DataConversations.initConversations()
   }

@@ -88,7 +88,7 @@ import FsLink from '@/components/UI/FsLink.vue'
 import RouteCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
 import { clearCaches } from '@/helper/cache'
 import { BROADCAST_TYPE, channel } from '@/broadcastChannel'
-import serverData from '@/helper/server-data'
+import serverData, { clearServerDataCache } from '@/helper/server-data'
 import Storage from '@/storage'
 
 export default {
@@ -128,6 +128,7 @@ export default {
         storage.del('msg-chats')
       } catch {}
       this.userStore.clearForLogout()
+      clearServerDataCache()
       await clearCaches()
       channel.postMessage({ type: BROADCAST_TYPE.LOGOUT })
       window.location.href = this.$url('logout')

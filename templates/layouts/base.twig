@@ -40,10 +40,6 @@
             <style type="text/css">body { display: none; }</style>
         {% endif %}
 
-        <script type="text/javascript">
-            window.serverData = {{ serverDataJSON | raw }};
-        </script>
-
         {% block head %}{% endblock %}
 
         <meta name="description" content="{{ 'base.whatfor'|trans }}" />

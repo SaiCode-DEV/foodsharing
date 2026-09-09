@@ -104,7 +104,7 @@
 </template>
 
 <script>
-import { isDev } from '@/helper/server-data'
+import { isDev, fetchServerData } from '@/helper/server-data'
 import { login } from '@/api/user'
 import { getAuthenticationOptions, verifyAuthentication } from '@/api/passkey'
 import { useVuelidate } from '@vuelidate/core'
@@ -170,14 +170,8 @@ export default {
       }
       this.isLoading = true
       try {
-        sessionStorage.clear()
         await login(this.email, this.password, this.totp, this.rememberMe)
-        channel.postMessage({ type: BROADCAST_TYPE.LOGIN })
-        // Wait a moment to ensure session is written into redis
-        await new Promise(resolve => setTimeout(resolve, 250))
-        let ref = new URL(location.href).searchParams.get('ref')
-        if (!ref?.startsWith('/')) ref = null
-        location.replace(ref ?? this.$url('dashboard'))
+        await this.afterLogin()
       } catch (err) {
         this.isLoading = false
         if (err.code && err.code === HTTP_RESPONSE.UNAUTHORIZED) {
@@ -215,11 +209,7 @@ export default {
           localStorage.setItem('login-rememberme', 'true')
         }
 
-        sessionStorage.clear()
-        channel.postMessage({ type: BROADCAST_TYPE.LOGIN })
-        let ref = new URL(location.href).searchParams.get('ref')
-        if (!ref?.startsWith('/')) ref = null
-        location.replace(ref ?? this.$url('dashboard'))
+        await this.afterLogin()
       } catch (err) {
         this.isLoading = false
         if (err.name === 'NotAllowedError') {
@@ -246,6 +236,16 @@ export default {
           ;(ref.$el || ref).focus()
         })
       })
+    },
+    async afterLogin () {
+      sessionStorage.clear()
+      channel.postMessage({ type: BROADCAST_TYPE.LOGIN })
+      // Wait a moment to ensure session is written into redis
+      await new Promise(resolve => setTimeout(resolve, 250))
+      await fetchServerData(true).catch(error => console.error('Failed to cache server data after login:', error))
+      let ref = new URL(location.href).searchParams.get('ref')
+      if (!ref?.startsWith('/')) ref = null
+      location.replace(ref ?? this.$url('dashboard'))
     },
   },
 }

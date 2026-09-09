@@ -7,6 +7,9 @@
 
         <title>{{ head.title }}</title>
 
+        {# Preload server data API call to speed up initial Vue boot #}
+        <link rel="preload" as="fetch" href="/api/server/data" crossorigin="anonymous">
+
         {% for stylesheet in head.stylesheets %}
             <link rel="stylesheet" type="text/css" href="{{ stylesheet }}" />
         {% endfor %}
@@ -16,9 +19,27 @@
             <style type="text/css">body { display: none; }</style>
         {% endif %}
 
-        <script type="text/javascript">
-            window.serverData = {{ serverDataJSON | raw }};
-        </script>
+        <style>
+            #fs-initial-loader {
+                position: fixed;
+                top: 0; left: 0; right: 0; bottom: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 1rem;
+                z-index: 999999;
+            }
+            .fs-spinner {
+                border: 4px solid rgba(0, 0, 0, 0.1);
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                border-left-color: #563a1e;
+                animation: spin 1s linear infinite;
+            }
+            @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        </style>
+
 
         <meta name="description" content="{{ 'base.whatfor'|trans }}" />
         <meta name="keywords" content="{{ 'base.keywords'|trans }}" />
@@ -48,7 +69,9 @@
     </head>
     <body class="{{ bodyClasses|join(' ') }}">
         {# Vue Router will mount here #}
-        <div id="app"></div>
+        <div id="app">
+            <div id="fs-initial-loader"><div class="fs-spinner"></div></div>
+        </div>
 
         <template id="initial-content">
             {% include 'layouts/content-only.twig' %}

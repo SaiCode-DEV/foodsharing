@@ -91,7 +91,6 @@ final class PageHelper
             'head' => $this->getHeadData(),
             'bread' => $this->getBreadcrumbs(),
             'bodyClasses' => $bodyClasses,
-            'serverDataJSON' => json_encode($this->getServerData()),
             'menu' => $this->getMenu(),
             'route' => $page,
             'dev' => getenv('FS_ENV') === 'dev',
@@ -107,7 +106,7 @@ final class PageHelper
     }
 
     /**
-     * This is used to set window.serverData on in the frontend.
+     * This supplies the frontend through ServerRestController::getServerData().
      */
     public function getServerData(): array
     {

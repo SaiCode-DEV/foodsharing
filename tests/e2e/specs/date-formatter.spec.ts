@@ -14,6 +14,7 @@ import "../helpers/client-module-shim";
 import dateFormatter, {
   parseWallClock,
   DEFAULT_TIME_ZONE,
+  setLang,
 } from "../../../client/src/helper/date-formatter";
 
 const hourIn = (date: Date, timeZone?: string) =>
@@ -25,6 +26,20 @@ const hourIn = (date: Date, timeZone?: string) =>
   );
 
 test.describe("date-formatter timezones", () => {
+  test("uses the configured language", () => {
+    const date = new Date("2026-01-01T10:00:00Z");
+
+    setLang("de");
+    expect(dateFormatter.format(date, { month: "long", timeZone: "UTC" })).toBe(
+      "Januar",
+    );
+
+    setLang("en");
+    expect(dateFormatter.format(date, { month: "long", timeZone: "UTC" })).toBe(
+      "January",
+    );
+  });
+
   test("renders history timestamps in the viewer timezone by default", () => {
     // the worker is UTC, so 10:00 UTC stays 10:00 without an explicit timezone
     expect(hourIn(new Date("2026-07-01T10:00:00Z"))).toBe("10");
@@ -32,6 +47,7 @@ test.describe("date-formatter timezones", () => {
   });
 
   test("renders event times in the given timezone, DST-aware", () => {
+    setLang("en");
     // 10:00 UTC is 12:00 in Berlin in summer (CEST) and 11:00 in winter (CET).
     expect(hourIn(new Date("2026-07-01T10:00:00Z"), "Europe/Berlin")).toBe(
       "12",
@@ -42,9 +58,10 @@ test.describe("date-formatter timezones", () => {
   });
 
   test("renders in the given region timezone instead of the default", () => {
+    setLang("de");
     // 10:00 UTC in summer is 13:00 in Riga (EEST, +3).
     const d = new Date("2026-07-01T10:00:00Z");
-    expect(hourIn(d, "Europe/Riga")).toBe("13");
+    expect(hourIn(d, "Europe/Riga")).toBe("13 Uhr");
     // and the user-facing functions plumb the option through
     expect(dateFormatter.dateTime(d, { timeZone: "Europe/Riga" })).not.toBe(
       dateFormatter.dateTime(d, { timeZone: "Europe/Berlin" }),

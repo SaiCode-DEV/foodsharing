@@ -11,7 +11,7 @@ import { scheduleSWRegistration } from '@/registerServiceWorker'
 */
 import './scss/index.scss'
 
-import serverData from '@/helper/server-data'
+import serverData, { startServerDataPolling } from '@/helper/server-data'
 
 import socket from '@/socket'
 
@@ -22,3 +22,5 @@ if (!serverData.isDev) {
 if (serverData.user.may) {
   socket.connect()
 }
+
+startServerDataPolling()

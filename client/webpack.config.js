@@ -78,6 +78,7 @@ if (!dev) {
 module.exports = merge(webpackBase, {
   entry: moduleEntries(),
   mode: dev ? 'development' : 'production',
+  target: ['web', 'es2022'],
   devtool: dev ? 'eval-cheap-module-source-map' : 'source-map',
   stats: 'minimal',
   watchOptions: {

@@ -1,4 +1,3 @@
-import serverData from './server-data'
 import RelativeTimeFormat from 'relative-time-format'
 
 // relative-time-format localises only the locales explicitly registered (unlike Intl's
@@ -29,7 +28,12 @@ import zh from 'relative-time-format/locale/zh'
 const SUPPORTED_RTF_LOCALES = [ar, cs, da, de, el, en, es, fr, it, lb, lt, nb, nl, pl, pt, ru, ta, tr, uk, zh]
 SUPPORTED_RTF_LOCALES.forEach((l) => RelativeTimeFormat.addLocale(l))
 
-const locale = serverData.locale
+// not imported from i18n to prefent importing serverdata (breaking tests)
+let locale = 'de'
+
+export function setLang (lang) {
+  locale = lang
+}
 
 // Event-bound times (pickups, events) belong to the place they happen at: those call
 // sites pass the region's timezone via the `timeZone` option (#2762, e.g. from the store

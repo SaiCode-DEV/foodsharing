@@ -26,7 +26,7 @@ export const useUserStore = defineStore('user', {
     isSleeping: (state) => state.details?.isSleeping,
     isVerified: (state) => state.details?.isVerified,
     isFoodsaver: (state) => state.user?.isFoodsaver,
-    isLoggedIn: (state) => state.user?.id !== null,
+    isLoggedIn: (state) => state.user?.id != null,
     isOrga: (state) => state.details?.role >= ROLE.ORGA,
     isStoreManager: (state) => state.details?.role >= ROLE.STORE_MANAGER,
     isAmbassador: (state) => state.details?.role >= ROLE.AMBASSADOR,
@@ -56,7 +56,7 @@ export const useUserStore = defineStore('user', {
     getLocations: (state) => state.locations || { lat: 0, lon: 0 },
     getPermissions: (state) => state.permissions || {},
     hasAdminPermissions: (state) => {
-      const permissions = Object.entries(state.permissions)
+      const permissions = Object.entries(state.permissions || {})
       // Whitelist of permissions that show the admin menu
       return permissions.some(([key, value]) => [
         'mayAdministrateOAuthClients',
