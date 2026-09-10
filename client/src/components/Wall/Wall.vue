@@ -143,7 +143,7 @@ export default {
       // Notification deep link: `?showPost=<wallType>-<postId>` (e.g. `?showPost=store-123`).
       // The wall type prefix keeps it unambiguous when several walls share a page —
       // only react when the type matches this wall's target.
-      const showPost = new URLSearchParams(window.location.search).get('showPost')
+      const showPost = this.$route.query.showPost
       const match = showPost?.match(/^([a-z_]+)-(\d+)$/)
       this.linkedPostId = (match && match[1] === this.target) ? parseInt(match[2], 10) : null
     },

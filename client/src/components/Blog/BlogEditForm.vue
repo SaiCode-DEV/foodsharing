@@ -74,6 +74,7 @@ import FileUpload from '@/components/upload/FileUpload'
 import { addBlogpost, editBlogpost, getBlogpost } from '@/api/blog'
 import QuillEditor from '@/components/QuillEditor.vue'
 import { url } from '@/helper/urls'
+import { navigate } from '@/helper/router'
 import { useRegionStore } from '@/stores/regions'
 import Container from '@/components/Container/Container.vue'
 import { BLOG_POST_OPTIONS } from '@/consts'
@@ -131,7 +132,7 @@ async function saveBlogPost () {
 }
 
 function backToOverview () {
-  window.location.href = url('blogList')
+  navigate(url('blogList'))
 }
 
 function onFileChange (file) {

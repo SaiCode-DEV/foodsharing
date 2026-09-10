@@ -195,6 +195,7 @@ import ReportThreadModal from './ReportThreadModal.vue'
 import { useUserStore } from '@/stores/user'
 import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 import { urls } from '@/helper/urls'
+import { navigate } from '@/helper/router'
 import dateFormatter from '@/helper/date-formatter'
 import { pulseSuccess, pulseError } from '@/script'
 import { deleteReport as apiDeleteReport, updateReport as apiUpdateReport } from '@/api/report'
@@ -393,7 +394,7 @@ function openThread (report, event) {
     if (isMiddle) {
       window.open(url, '_blank')
     } else {
-      window.location.href = url
+      navigate(url)
     }
     return
   }
@@ -412,7 +413,7 @@ async function onThreadSelected (tid) {
   const success = await updateReportData({ reportId: threadModalReport.value.id, forumThreadId: tid })
   closeThreadModal()
   if (success) {
-    window.location.href = urls.forumThread(props.regionReportGroupId, tid)
+    navigate(urls.forumThread(props.regionReportGroupId, tid))
   }
 }
 

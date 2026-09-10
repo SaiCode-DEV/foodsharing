@@ -123,7 +123,9 @@ import { useDonationStore } from '@/stores/donation'
 import { useUserStore } from '@/stores/user'
 import { storeToRefs } from 'pinia'
 import { url } from '@/helper/urls'
+import { useRoute } from '@/composables/useRoute'
 
+const route = useRoute()
 const showModal = ref(false)
 const content = ref(null)
 const donationStore = useDonationStore()
@@ -172,7 +174,7 @@ function hideModal () {
 
 async function checkAndShowDonationModal () {
   // Don't show the banner on the donation page
-  if (window.location.pathname.startsWith(url('donations'))) {
+  if (route.path.startsWith(url('donations'))) {
     return
   }
 

@@ -126,6 +126,8 @@ import PasswordField from '@/components/Login/PasswordField.vue'
 import TOTPField from '@/components/Login/TOTPField.vue'
 import i18n from '@/helper/i18n'
 import { url } from '@/helper/urls'
+import { navigate } from '@/helper/router'
+import { useRoute } from '@/composables/useRoute'
 import { HTTP_RESPONSE } from '@/consts'
 
 const props = defineProps({
@@ -134,6 +136,8 @@ const props = defineProps({
     required: true,
   },
 })
+
+const route = useRoute()
 
 const password = ref('')
 const confirmPassword = ref('')
@@ -145,13 +149,8 @@ const confirmPasswordBlurred = ref(false)
 const totpBlurred = ref(false)
 
 const showTOTP = computed(() => {
-  try {
-    const params = new URLSearchParams(window.location.search)
-    const q = params.get('totp')
-    return q === 'true' || q === '1' || q === 'yes'
-  } catch (e) {
-    return false
-  }
+  const q = route.query.totp
+  return q === 'true' || q === '1' || q === 'yes'
 })
 
 const validations = computed(() => {
@@ -218,7 +217,7 @@ async function submit () {
 
     // Redirect to login after a short delay
     setTimeout(() => {
-      window.location.href = url('login')
+      navigate(url('login'))
     }, 2000)
   } catch (error) {
     console.error('Password reset failed:', error)

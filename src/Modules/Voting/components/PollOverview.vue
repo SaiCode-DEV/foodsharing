@@ -105,6 +105,7 @@ import ResultsTable from './ResultsTable'
 import Markdown from '@/components/Markdown/Markdown'
 import { deletePoll } from '@/api/voting'
 import { hideLoader, pulseError, showLoader } from '@/script'
+import { navigate } from '@/helper/router'
 import i18n from '@/helper/i18n'
 import Container from '@/components/Container/Container.vue'
 
@@ -180,7 +181,7 @@ export default {
       try {
         // cancel poll and redirect to poll list
         await deletePoll(this.poll.id)
-        window.location.href = this.$url('polls', this.poll.regionId)
+        navigate(this.$url('polls', this.poll.regionId))
       } catch (e) {
         pulseError(i18n('error_unexpected'))
       }

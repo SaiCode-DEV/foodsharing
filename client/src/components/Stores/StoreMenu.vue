@@ -44,6 +44,7 @@
 <script>
 import conversationStore from '@/stores/conversations'
 import { pulseError } from '@/script'
+import { navigate } from '@/helper/router'
 import { useUserStore } from '@/stores/user'
 import { deleteStore, removeStoreMember } from '@/api/stores'
 import Container from '@/components/Container/Container.vue'
@@ -105,7 +106,7 @@ export default {
       this.isBusy = true
       try {
         await removeStoreMember(this.storeId, this.userStore.getUserId)
-        window.location.href = this.$url('dashboard')
+        navigate(this.$url('dashboard'))
       } catch (e) {
         pulseError(this.$t('error_unexpected'))
         this.isBusy = false
@@ -118,7 +119,7 @@ export default {
 
       try {
         await deleteStore(this.storeId)
-        window.location.href = this.$url('dashboard')
+        navigate(this.$url('dashboard'))
       } catch (e) {
         if (e.code && e.code === HTTP_RESPONSE.CONFLICT) {
           pulseError(this.$t('store.delete.conditions_not_met'))

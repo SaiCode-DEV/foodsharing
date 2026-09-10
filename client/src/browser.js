@@ -1,9 +1,3 @@
-export function goTo (url) {
-  if (url !== '#') {
-    document.location.href = url
-  }
-}
-
 function httpGetVars () {
   const vars = {}
   const strGET = document.location.search.substr(1, document.location.search.length)

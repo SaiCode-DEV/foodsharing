@@ -1,7 +1,7 @@
 <template>
   <vue-advanced-chat
     :current-user-id="String(userStore.getUserId)"
-    :room-id="String(roomId)"
+    :room-id="String(roomId || '')"
     :rooms="JSON.stringify(getRooms)"
     :loading-rooms="loadingRooms"
     :rooms-loaded="roomsLoaded"
@@ -14,7 +14,7 @@
     show-files="false"
     user-tags-enabled="false"
     textarea-auto-focus="false"
-    :load-first-room="String(roomId !== null)"
+    load-first-room="false"
     :single-room="popupMode"
     :text-messages="JSON.stringify(textMessages)"
     :theme="themeStore.isDark ? 'dark' : 'light'"
@@ -93,7 +93,6 @@ import ConversationAvatar from '@/components/Avatar/ConversationAvatar'
 import { pulseError } from '@/script'
 import i18n from '@/helper/i18n'
 import Storage from '@/storage'
-import { setUrlParam } from '@/browser'
 
 // Stores
 import conversationStore from '@/stores/conversations'
@@ -168,7 +167,7 @@ export default {
       defaultAvatar: '/img/mini_q_avatar.png',
       loadingRooms: true, // can be used to show/hide a spinner icon while rooms are loading the first time. Fetch more rooms don't need this boolean afterwards.
 
-      roomId: this.chatId,
+      roomId: null,
       roomChanging: true, // This must be set to inform the chat component about changing messages.
       newConversation: false, // true if a new conversation is currently starting. This displayes the selection of users for this conversation.
       newConversationSelectedUsers: [], // an array of users with attributes id and value (name)
@@ -258,20 +257,36 @@ export default {
     },
   },
   watch: {
-    async chatId (newChatId, oldChatId) {
-      await conversationStore.getConversation(newChatId)
-      this.roomId = newChatId
+    chatId: {
+      immediate: true,
+      async handler (newChatId) {
+        await Promise.all([
+          this.loadRooms(),
+          newChatId && newChatId !== NEW_CONVERSATION_ID
+            ? conversationStore.getConversation(newChatId)
+            : Promise.resolve(),
+        ])
+        // VAC ignores room-id changes while loading rooms. Let its custom
+        // element process the room list and loading state before selecting.
+        await this.$nextTick()
+        setTimeout(() => {
+          if (!this._isDestroyed && this.chatId === newChatId) {
+            this.roomId = newChatId
+          }
+        }, 0)
+      },
     },
     roomId (newRoomId) {
       // The page reads cid on load, so a reload would otherwise fall back to
       // the conversation list.
       if (this.popupMode || !newRoomId || newRoomId === NEW_CONVERSATION_ID) { return }
-      setUrlParam('cid', newRoomId)
+      if (String(this.$route.query.cid) !== String(newRoomId)) {
+        this.$router.replace({ query: { ...this.$route.query, cid: newRoomId } }).catch(() => {})
+      }
     },
   },
-  async created () {
+  created () {
     this.storage = new Storage('chat-text-')
-    await this.loadRooms()
   },
   async mounted () {
     if (this.askForPushNotifications) {
@@ -670,7 +685,7 @@ export default {
       // page load. The placeholder for a new conversation is appended below and is
       // not affected by this.
       const convs = Object.values(conversations)
-        .filter(conv => conv.lastMessage || String(conv.id) === String(this.roomId))
+        .filter(conv => conv.lastMessage || String(conv.id) === String(this.roomId) || String(conv.id) === String(this.chatId))
 
       const rooms = []
       for (const conv of convs) {

@@ -30,7 +30,7 @@ const routes = [
  * `pid` links to a post of the open forum thread (Thread.vue), `showPost` to a post
  * of a wall on the open page (Wall.vue). Both components react to them at runtime.
  */
-const anchorQueryParams = ['pid', 'showPost']
+const anchorQueryParams = ['pid', 'showPost', 'cid']
 
 /**
  * Window event dispatched after content for the url that is already open has

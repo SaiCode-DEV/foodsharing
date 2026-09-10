@@ -2,7 +2,8 @@ import Vue from 'vue'
 import * as api from '@/api/conversations'
 import ProfileStore from '@/stores/profiles'
 import { useUserStore } from '@/stores/user'
-import { goTo, pulseError } from '@/script'
+import { navigate } from '@/helper/router'
+import { pulseError } from '@/script'
 import { urls } from '@/helper/urls'
 import i18n from '@/helper/i18n'
 import { BROADCAST_TYPE, storeSynchronizer } from '@/broadcastChannel'
@@ -241,7 +242,7 @@ export default new Vue({
       } else if (this.messagePopupOpenChatListener) {
         this.messagePopupOpenChatListener(conversationId)
       } else {
-        goTo(urls.conversations(conversationId))
+        navigate(urls.conversations(conversationId))
       }
     },
     async openChatWithUser (userId, preface = null) {

@@ -253,14 +253,14 @@
       <b-button
         variant="primary"
         size="lg"
-        @click="goTo(urls.home())"
+        @click="navigate(urls.home())"
       >
         {{ $t('error.page.back_home') }}
       </b-button>
       <b-button
         variant="primary"
         size="lg"
-        @click="goTo(urls.contact())"
+        @click="navigate(urls.contact())"
       >
         {{ $t('navigation.support') }}
       </b-button>
@@ -271,7 +271,7 @@
 <script setup>
 import i18n from '@/helper/i18n'
 import { defineProps } from 'vue'
-import { goTo } from '@/script'
+import { navigate } from '@/helper/router'
 import { urls } from '@/helper/urls'
 
 const props = defineProps({
