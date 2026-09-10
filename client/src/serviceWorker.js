@@ -49,11 +49,38 @@ registerRoute(
   }),
 )
 
+function markStateDirty() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open('fs_sync', 1)
+    request.onupgradeneeded = e => {
+      e.target.result.createObjectStore('flags')
+    }
+    request.onsuccess = e => {
+      const db = e.target.result
+      try {
+        const tx = db.transaction('flags', 'readwrite')
+        tx.objectStore('flags').put(Date.now(), 'lastDirty')
+        tx.oncomplete = () => resolve()
+        tx.onerror = () => reject(tx.error)
+      } catch (err) {
+        reject(err)
+      }
+    }
+    request.onerror = () => reject(request.error)
+  })
+}
+
 self.addEventListener('push', (event) => {
   // Ensure waitUntil is called synchronously – wrap all async work inside
   event.waitUntil((async () => {
     if (!self.Notification || self.Notification.permission !== 'granted') return
     if (!event.data) return
+
+    try {
+      await markStateDirty()
+    } catch (e) {
+      console.warn('Failed to mark state dirty via IndexedDB', e)
+    }
 
     // Lazy create roundCorners helper once per event
     const roundCorners = (() => {

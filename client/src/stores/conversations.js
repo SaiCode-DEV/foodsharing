@@ -69,6 +69,22 @@ export default new Vue({
       return this.conversationRequest
     },
 
+    async refreshConversations (limit = REQUEST_LIMIT_CONVERSATIONS) {
+      limit = Math.max(limit, this.loadedFromList)
+      if (limit === 0) {
+        return // no conversations loaded yet
+      }
+
+      const response = await api.getConversationList(limit, 0)
+      ProfileStore.updateFrom(response.profiles)
+      this.loadedFromList = response.conversations.length
+      this.hasMoreConversations = response.conversations.length === limit
+
+      for (const conversation of response.conversations) {
+        this.assignConversationToStore(conversation)
+      }
+    },
+
     /**
      * This function will read the next conversations by a limit.
      * This function can be called multiple times and if no more conversations are available,
