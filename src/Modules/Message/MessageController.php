@@ -15,6 +15,6 @@ final class MessageController extends FoodsharingController
 
         $this->pageHelper->addContent($this->prepareVueComponent('message', 'MessagePage'));
 
-        return $this->renderGlobal('layouts/no-footer.twig');
+        return $this->renderGlobal();
     }
 }

@@ -65,6 +65,9 @@ test.describe(
     test("keeps the conversation inside the window", async ({ page }) => {
       await openFullView();
 
+      // the message page carries no footer, whichever way it was reached
+      await expect(page.locator("footer")).toHaveCount(0);
+
       const chat = await chatHelper.messagePage.element.boundingBox();
       const viewport = page.viewportSize();
       expect(chat.y + chat.height).toBeLessThanOrEqual(viewport.height);
